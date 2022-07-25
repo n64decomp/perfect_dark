@@ -192,25 +192,25 @@ struct weapon invitem_nothing = {
 };
 
 struct guncmd invanim_punch_type3[] = {
-	gunscript_playanimation(ANIM_03E9, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_UNARMED_LEFTPUNCH, 0, 10000)
 	gunscript_waittime(7, 2)
 	gunscript_end
 };
 
 struct guncmd invanim_punch_type1[] = {
-	gunscript_playanimation(ANIM_03EA, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_UNARMED_RIGHTPUNCH, 0, 10000)
 	gunscript_waittime(8, 2)
 	gunscript_end
 };
 
 struct guncmd invanim_punch_type2[] = {
-	gunscript_playanimation(ANIM_041F, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_UNARMED_RIGHTPUSH, 0, 10000)
 	gunscript_waittime(7, 2)
 	gunscript_end
 };
 
 struct guncmd invanim_punch_type4[] = {
-	gunscript_playanimation(ANIM_0425, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_UNARMED_DOUBLEPUNCH, 0, 10000)
 	gunscript_waittime(8, 2)
 	gunscript_waittime(18, 3)
 	gunscript_end
@@ -357,8 +357,8 @@ struct inventory_typef invf_0001148c[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_falcon2_reload_0[] = {
-	gunscript_playanimation(ANIM_00ED, 0, 10000)
+struct guncmd invanim_falcon2_reload_singlewield[] = {
+	gunscript_playanimation(ANIM_GUN_FALCON2_RELOAD, 0, 10000)
 	gunscript_showpart(1, 53)
 	gunscript_showpart(1, 43)
 	gunscript_showpart(1, 42)
@@ -376,8 +376,8 @@ struct guncmd invanim_falcon2_reload_0[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_falcon2scope_reload_0[] = {
-	gunscript_playanimation(ANIM_0417, 0, 10000)
+struct guncmd invanim_falcon2scope_reload_singlewield[] = {
+	gunscript_playanimation(ANIM_GUN_FALCON2_RELOAD_SCOPE, 0, 10000)
 	gunscript_showpart(1, 53)
 	gunscript_showpart(1, 43)
 	gunscript_showpart(1, 42)
@@ -395,8 +395,8 @@ struct guncmd invanim_falcon2scope_reload_0[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_falcon2_reload_1[] = {
-	gunscript_playanimation(ANIM_03F1, 0, 10000)
+struct guncmd invanim_falcon2_reload_dualwield[] = {
+	gunscript_playanimation(ANIM_GUN_FALCON2_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_hidepart(1, 43)
 	gunscript_showpart(1, 42)
 	gunscript_playsound(6, SFX_01D8)
@@ -411,35 +411,35 @@ struct guncmd invanim_falcon2_reload_1[] = {
 };
 
 struct guncmd invanim_falcon2_reload[] = {
-	gunscript_include(1, invanim_falcon2_reload_1)
-	gunscript_include(0, invanim_falcon2_reload_0)
+	gunscript_include(1, invanim_falcon2_reload_dualwield)
+	gunscript_include(0, invanim_falcon2_reload_singlewield)
 	gunscript_end
 };
 
 struct guncmd invanim_falcon2scope_reload[] = {
-	gunscript_include(1, invanim_falcon2_reload_1)
-	gunscript_include(0, invanim_falcon2scope_reload_0)
+	gunscript_include(1, invanim_falcon2_reload_dualwield)
+	gunscript_include(0, invanim_falcon2scope_reload_singlewield)
 	gunscript_end
 };
 
 struct guncmd invanim_falcon2_pistolwhip[] = {
-	gunscript_playanimation(ANIM_03F2, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_FALCON2_WHIP, 0, 10000)
 	gunscript_waittime(23, 2)
 	gunscript_end
 };
 
 struct guncmd invanim_falcon2_equip[] = {
-	gunscript_playanimation(ANIM_00EA, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_FALCON2_EQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_falcon2_unequip[] = {
-	gunscript_playanimation(ANIM_00EB, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_FALCON2_UNEQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_falcon2_shoot[] = {
-	gunscript_playanimation(ANIM_00EC, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_FALCON2_SHOOT, 0, 10000)
 	gunscript_waittime(9, 5)
 	gunscript_end
 };
@@ -621,8 +621,8 @@ struct inventory_typef invf_00011840[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_magsec_reload_0[] = {
-	gunscript_playanimation(ANIM_0409, 0, 10000)
+struct guncmd invanim_magsec_reload_singlewield[] = {
+	gunscript_playanimation(ANIM_GUN_MAGSEC4_RELOAD, 0, 10000)
 	gunscript_showpart(1, 53)
 	gunscript_showpart(1, 41)
 	gunscript_setsoundspeed(3, 1300)
@@ -644,8 +644,8 @@ struct guncmd invanim_magsec_reload_0[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_magsec_reload_1[] = {
-	gunscript_playanimation(ANIM_040A, 0, 10000)
+struct guncmd invanim_magsec_reload_dualwield[] = {
+	gunscript_playanimation(ANIM_GUN_MAGSEC4_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_showpart(1, 41)
 	gunscript_setsoundspeed(5, 1300)
 	gunscript_playsound(5, SFX_01D8)
@@ -663,13 +663,13 @@ struct guncmd invanim_magsec_reload_1[] = {
 };
 
 struct guncmd invanim_magsec_reload[] = {
-	gunscript_include(1, invanim_magsec_reload_1)
-	gunscript_include(0, invanim_magsec_reload_0)
+	gunscript_include(1, invanim_magsec_reload_dualwield)
+	gunscript_include(0, invanim_magsec_reload_singlewield)
 	gunscript_end
 };
 
-struct guncmd invanim_magsec_equiporshoot[] = {
-	gunscript_playanimation(ANIM_040B, 0, 10000)
+struct guncmd invanim_magsec_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_MAGSEC4_SHOOT, 0, 10000)
 	gunscript_waittime(12, 5)
 	gunscript_end
 };
@@ -691,7 +691,7 @@ struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_0001100c,
-	invanim_magsec_equiporshoot, // fire animation
+	invanim_magsec_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	16,
@@ -713,7 +713,7 @@ struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_0001100c,
-	invanim_magsec_equiporshoot, // fire animation
+	invanim_magsec_shoot, // fire animation
 	FUNCFLAG_BURST3,
 	&invnoisesettings_00011098,
 	16,
@@ -740,7 +740,7 @@ struct inventory_ammo invammo_magsec = {
 struct weapon invitem_magsec = {
 	FILE_GLEEGUN1, // hi model
 	FILE_GMAGSECLOD, // lo model
-	invanim_magsec_equiporshoot, // equip animation
+	invanim_magsec_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -784,15 +784,15 @@ struct inventory_typef invf_00011a84[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_dy357_equiporshoot[] = {
-	gunscript_playanimation(ANIM_0406, 0, 10000)
+struct guncmd invanim_dy357_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_DY357_SHOOT, 0, 10000)
 	gunscript_waittime(12, 5)
 	gunscript_waittime(12, 2)
 	gunscript_end
 };
 
-struct guncmd invanim_dy357_reload_0[] = {
-	gunscript_playanimation(ANIM_0408, 0, 10000)
+struct guncmd invanim_dy357_reload_singlewield[] = {
+	gunscript_playanimation(ANIM_GUN_DY357_RELOAD, 0, 10000)
 	gunscript_playsound(50, SFX_05CF)
 	gunscript_setsoundspeed(80, 1830)
 	gunscript_playsound(80, SFX_01D8)
@@ -822,8 +822,8 @@ struct guncmd invanim_dy357_reload_0[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_dy357_reload_1[] = {
-	gunscript_playanimation(ANIM_0420, 0, 10000)
+struct guncmd invanim_dy357_reload_dualwield[] = {
+	gunscript_playanimation(ANIM_GUN_DY357_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_playsound(50, SFX_05CF)
 	gunscript_setsoundspeed(80, 1830)
 	gunscript_playsound(80, SFX_01D8)
@@ -841,13 +841,13 @@ struct guncmd invanim_dy357_reload_1[] = {
 };
 
 struct guncmd invanim_dy357_reload[] = {
-	gunscript_include(1, invanim_dy357_reload_1)
-	gunscript_include(0, invanim_dy357_reload_0)
+	gunscript_include(1, invanim_dy357_reload_dualwield)
+	gunscript_include(0, invanim_dy357_reload_singlewield)
 	gunscript_end
 };
 
 struct guncmd invanim_dy357_pistolwhip[] = {
-	gunscript_playanimation(ANIM_0407, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_DY357_WHIP, 0, 10000)
 	gunscript_waittime(23, 2)
 	gunscript_end
 };
@@ -858,7 +858,7 @@ struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011020,
-	invanim_dy357_equiporshoot, // fire animation
+	invanim_dy357_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	20,
@@ -880,7 +880,7 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011020,
-	invanim_dy357_equiporshoot, // fire animation
+	invanim_dy357_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	30,
@@ -931,7 +931,7 @@ struct inventory_ammo invammo_dy357 = {
 struct weapon invitem_dy357 = {
 	FILE_GDY357, // hi model
 	FILE_GDY357LOD, // lo model
-	invanim_dy357_equiporshoot, // equip animation
+	invanim_dy357_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -956,7 +956,7 @@ struct weapon invitem_dy357 = {
 struct weapon invitem_dy357lx = {
 	FILE_GDY357TRENT, // hi model
 	FILE_GDY357TRENTLOD, // lo model
-	invanim_dy357_equiporshoot, // equip animation
+	invanim_dy357_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -989,8 +989,8 @@ struct inventory_typef invf_00011e00[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_equiporreload_0[] = {
-	gunscript_playanimation(ANIM_0415, 0, 10000)
+struct guncmd invanim_phoenix_reload_singlewield[] = {
+	gunscript_playanimation(ANIM_GUN_PHOENIX_RELOAD, 0, 10000)
 	gunscript_showpart(1, 53)
 	gunscript_showpart(1, 40)
 	gunscript_setsoundspeed(44, 1510)
@@ -999,8 +999,8 @@ struct guncmd invanim_equiporreload_0[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_phoenix_equiporreload_1[] = {
-	gunscript_playanimation(ANIM_0423, 0, 10000)
+struct guncmd invanim_phoenix_reload_dualwield[] = {
+	gunscript_playanimation(ANIM_GUN_PHOENIX_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_showpart(1, 53)
 	gunscript_showpart(1, 40)
 	gunscript_setsoundspeed(44, 1510)
@@ -1010,13 +1010,13 @@ struct guncmd invanim_phoenix_equiporreload_1[] = {
 };
 
 struct guncmd invanim_phoenix_equiporreload[] = {
-	gunscript_include(1, invanim_phoenix_equiporreload_1)
-	gunscript_include(0, invanim_equiporreload_0)
+	gunscript_include(1, invanim_phoenix_reload_dualwield)
+	gunscript_include(0, invanim_phoenix_reload_singlewield)
 	gunscript_end
 };
 
 struct guncmd invanim_phoenix_shoot[] = {
-	gunscript_playanimation(ANIM_043E, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_PHOENIX_SHOOT, 0, 10000)
 	gunscript_waittime(9, 5)
 	gunscript_end
 };
@@ -1110,14 +1110,14 @@ struct inventory_typef invf_00011fac[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_mauler_equiporshoot[] = {
-	gunscript_playanimation(ANIM_03F3, 0, 10000)
+struct guncmd invanim_mauler_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_MAULER_SHOOT, 0, 10000)
 	gunscript_waittime(9, 5)
 	gunscript_end
 };
 
-struct guncmd invanim_mauler_reload_0[] = {
-	gunscript_playanimation(ANIM_03F4, 0, 10000)
+struct guncmd invanim_mauler_reload_singlewield[] = {
+	gunscript_playanimation(ANIM_GUN_MAULER_RELOAD, 0, 10000)
 	gunscript_showpart(0, 53)
 	gunscript_setsoundspeed(4, 1200)
 	gunscript_playsound(4, SFX_0053)
@@ -1136,8 +1136,8 @@ struct guncmd invanim_mauler_reload_0[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_mauler_reload_1[] = {
-	gunscript_playanimation(ANIM_03F5, 0, 10000)
+struct guncmd invanim_mauler_reload_dualwield[] = {
+	gunscript_playanimation(ANIM_GUN_MAULER_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_setsoundspeed(14, 1200)
 	gunscript_playsound(14, SFX_0053)
 	gunscript_setsoundspeed(40, 2500)
@@ -1151,8 +1151,8 @@ struct guncmd invanim_mauler_reload_1[] = {
 };
 
 struct guncmd invanim_mauler_reload[] = {
-	gunscript_include(1, invanim_mauler_reload_1)
-	gunscript_include(0, invanim_mauler_reload_0)
+	gunscript_include(1, invanim_mauler_reload_dualwield)
+	gunscript_include(0, invanim_mauler_reload_singlewield)
 	gunscript_end
 };
 
@@ -1167,7 +1167,7 @@ struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011020,
-	invanim_mauler_equiporshoot, // fire animation
+	invanim_mauler_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -1189,7 +1189,7 @@ struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011020,
-	invanim_mauler_equiporshoot, // fire animation
+	invanim_mauler_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -1216,7 +1216,7 @@ struct inventory_ammo invammo_mauler = {
 struct weapon invitem_mauler = {
 	FILE_GSKPISTOL, // hi model
 	FILE_GSKPISTOLLOD, // lo model
-	invanim_mauler_equiporshoot, // equip animation
+	invanim_mauler_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -1251,8 +1251,8 @@ struct inventory_typef invf_000121d8[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_cmp150_reload_0[] = {
-	gunscript_playanimation(ANIM_0115, 0, 10000)
+struct guncmd invanim_cmp150_reload_singlewield[] = {
+	gunscript_playanimation(ANIM_GUN_CMP150_RELOAD, 0, 10000)
 	gunscript_hidepart(23, 42)
 	gunscript_showpart(33, 53)
 	gunscript_showpart(33, 43)
@@ -1271,8 +1271,8 @@ struct guncmd invanim_cmp150_reload_0[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_cmp150_reload_1[] = {
-	gunscript_playanimation(ANIM_0422, 0, 10000)
+struct guncmd invanim_cmp150_reload_dualwield[] = {
+	gunscript_playanimation(ANIM_GUN_CMP150_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_hidepart(23, 42)
 	gunscript_showpart(33, 53)
 	gunscript_showpart(33, 43)
@@ -1292,13 +1292,13 @@ struct guncmd invanim_cmp150_reload_1[] = {
 };
 
 struct guncmd invanim_cmp150_reload[] = {
-	gunscript_include(1, invanim_cmp150_reload_1)
-	gunscript_include(0, invanim_cmp150_reload_0)
+	gunscript_include(1, invanim_cmp150_reload_dualwield)
+	gunscript_include(0, invanim_cmp150_reload_singlewield)
 	gunscript_end
 };
 
-struct guncmd invanim_cmp150_equiporshoot[] = {
-	gunscript_playanimation(ANIM_0116, 0, 10000)
+struct guncmd invanim_cmp150_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_CMP150_SHOOT, 0, 10000)
 	gunscript_waittime(14, 5)
 	gunscript_waitforzreleased(14)
 	gunscript_end
@@ -1321,7 +1321,7 @@ struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011020,
-	invanim_cmp150_equiporshoot, // fire animation
+	invanim_cmp150_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -1348,7 +1348,7 @@ struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011020,
-	invanim_cmp150_equiporshoot, // fire animation
+	invanim_cmp150_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -1380,7 +1380,7 @@ struct inventory_ammo invammo_cmp150 = {
 struct weapon invitem_cmp150 = {
 	FILE_GCMP150, // hi model
 	FILE_GCMP150LOD, // lo model
-	invanim_cmp150_equiporshoot, // equip animation
+	invanim_cmp150_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -1414,28 +1414,28 @@ struct inventory_typef invf_0001243c[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_cyclone_equiporreload_0[] = {
-	gunscript_playanimation(ANIM_040E, 0, 10000)
+struct guncmd invanim_cyclone_reload_singlewield[] = {
+	gunscript_playanimation(ANIM_GUN_CYCLONE_RELOAD, 0, 10000)
 	gunscript_showpart(1, 53)
 	gunscript_showpart(1, 40)
 	gunscript_playsound(60, SFX_05D3)
 	gunscript_end
 };
 
-struct guncmd invanim_cyclone_equiporreload_1[] = {
-	gunscript_playanimation(ANIM_0421, 0, 10000)
+struct guncmd invanim_cyclone_reload_dualwield[] = {
+	gunscript_playanimation(ANIM_GUN_CYCLONE_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_playsound(60, SFX_05D3)
 	gunscript_end
 };
 
 struct guncmd invanim_cyclone_equiporreload[] = {
-	gunscript_include(1, invanim_cyclone_equiporreload_1)
-	gunscript_include(0, invanim_cyclone_equiporreload_0)
+	gunscript_include(1, invanim_cyclone_reload_dualwield)
+	gunscript_include(0, invanim_cyclone_reload_singlewield)
 	gunscript_end
 };
 
 struct guncmd invanim_cyclone_shoot[] = {
-	gunscript_playanimation(ANIM_043D, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_CYCLONE_SHOOT, 0, 10000)
 	gunscript_waittime(5, 5)
 	gunscript_waitforzreleased(5)
 	gunscript_end
@@ -1529,7 +1529,7 @@ struct weapon invitem_cyclone = {
 };
 
 struct guncmd invanim_rcp120_reload[] = {
-	gunscript_playanimation(ANIM_041A, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_RCP120_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(18, 1100)
 	gunscript_playsound(18, SFX_0053)
 	gunscript_showpart(25, 40)
@@ -1541,8 +1541,8 @@ struct guncmd invanim_rcp120_reload[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_rcp120_equiporshoot[] = {
-	gunscript_playanimation(ANIM_0424, 0, 10000)
+struct guncmd invanim_rcp120_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_RCP120_SHOOT, 0, 10000)
 	gunscript_waittime(10, 5)
 	gunscript_waitforzreleased(10)
 	gunscript_end
@@ -1565,7 +1565,7 @@ struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_0001100c,
-	invanim_rcp120_equiporshoot, // fire animation
+	invanim_rcp120_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -1610,7 +1610,7 @@ struct inventory_ammo invammo_rcp120 = {
 struct weapon invitem_rcp120 = {
 	FILE_GRCP120, // hi model
 	FILE_GRCP120LOD, // lo model
-	invanim_rcp120_equiporshoot, // equip animation
+	invanim_rcp120_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -1632,8 +1632,8 @@ struct weapon invitem_rcp120 = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN,
 };
 
-struct guncmd invanim_callisto_equiporreload[] = {
-	gunscript_playanimation(ANIM_0418, 0, 10000)
+struct guncmd invanim_callisto_reload[] = {
+	gunscript_playanimation(ANIM_GUN_CALLISTO_RELOAD, 0, 10000)
 	gunscript_showpart(30, 40)
 	gunscript_setsoundspeed(58, 933)
 	gunscript_playsound(58, SFX_RELOAD_FARSIGHT)
@@ -1642,7 +1642,7 @@ struct guncmd invanim_callisto_equiporreload[] = {
 };
 
 struct guncmd invanim_callisto_shoot[] = {
-	gunscript_playanimation(ANIM_043C, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_CALLISTO_SHOOT, 0, 10000)
 	gunscript_waittime(8, 5)
 	gunscript_waitforzreleased(8)
 	gunscript_end
@@ -1716,14 +1716,14 @@ struct inventory_ammo invammo_callisto = {
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	32, // clip size
-	invanim_callisto_equiporreload, // reload animation
+	invanim_callisto_reload, // reload animation
 	0, // flags
 };
 
 struct weapon invitem_callisto = {
 	FILE_GMAIANSMG, // hi model
 	FILE_GMAYANSMGLOD, // lo model
-	invanim_callisto_equiporreload, // equip animation
+	invanim_callisto_reload, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -1756,13 +1756,13 @@ struct modelpartvisibility invpartvisibility_dragon[] = {
 	{ 255 },
 };
 
-struct guncmd invanim_dragon_equiporshoot[] = {
-	gunscript_playanimation(ANIM_03F9, 0, 10000)
+struct guncmd invanim_dragon_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_DRAGON_SHOOT, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_dragon_reload[] = {
-	gunscript_playanimation(ANIM_03FA, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_DRAGON_RELOAD, 0, 10000)
 	gunscript_playsound(8, SFX_0053)
 	gunscript_hidepart(17, 42)
 	gunscript_showpart(17, 40)
@@ -1779,7 +1779,7 @@ struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011034,
-	invanim_dragon_equiporshoot, // fire animation
+	invanim_dragon_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -1825,7 +1825,7 @@ struct inventory_ammo invammo_dragon = {
 struct weapon invitem_dragon = {
 	FILE_GDYDRAGON, // hi model
 	FILE_GDYDRAGONLOD, // lo model
-	invanim_dragon_equiporshoot, // equip animation
+	invanim_dragon_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -1861,7 +1861,7 @@ struct modelpartvisibility invpartvisibility_superdragon[] = {
 };
 
 struct guncmd invanim_superdragon_reload[] = {
-	gunscript_playanimation(ANIM_03FB, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_RELOAD_PRI, 0, 10000)
 	gunscript_playsound(8, SFX_0053)
 	gunscript_hidepart(16, 42)
 	gunscript_showpart(16, 40)
@@ -1873,7 +1873,7 @@ struct guncmd invanim_superdragon_reload[] = {
 };
 
 struct guncmd invanim_superdragon_grenadereload[] = {
-	gunscript_playanimation(ANIM_03FC, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_RELOAD_SEC, 0, 10000)
 	gunscript_setsoundspeed(6, 700)
 	gunscript_playsound(6, SFX_0053)
 	gunscript_showpart(30, 41)
@@ -1886,23 +1886,23 @@ struct guncmd invanim_superdragon_grenadereload[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_superdragon_equiporshoot[] = {
-	gunscript_playanimation(ANIM_03FE, 0, 10000)
+struct guncmd invanim_superdragon_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_SHOOT_PRI, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_superdragon_shootgrenade[] = {
-	gunscript_playanimation(ANIM_03FF, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_SHOOT_SEC, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_superdragon_pritosec[] = {
-	gunscript_playanimation(ANIM_03FD, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_CHANGEFUNC, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_superdragon_sectopri[] = {
-	gunscript_playanimation(ANIM_03FD, 65535, 55536)
+	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_CHANGEFUNC, 65535, 55536)
 	gunscript_end
 };
 
@@ -1912,7 +1912,7 @@ struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011034,
-	invanim_superdragon_equiporshoot, // fire animation
+	invanim_superdragon_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -1983,7 +1983,7 @@ struct inventory_ammo invammo_superdragon_grenades = {
 struct weapon invitem_superdragon = {
 	FILE_GDYSUPERDRAGON, // hi model
 	FILE_GDYSUPERDRAGONLOD, // lo model
-	invanim_superdragon_equiporshoot, // equip animation
+	invanim_superdragon_shoot, // equip animation
 	NULL, // unequip animation
 	invanim_superdragon_pritosec, // pritosec animation
 	invanim_superdragon_sectopri, // sectopri animation
@@ -2016,8 +2016,8 @@ struct modelpartvisibility invpartvisibility_ar34[] = {
 	{ 255 },
 };
 
-struct guncmd invanim_ar34_equiporreload[] = {
-	gunscript_playanimation(ANIM_0419, 0, 10000)
+struct guncmd invanim_ar34_reload[] = {
+	gunscript_playanimation(ANIM_GUN_AR34_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(16, 900)
 	gunscript_playsound(16, SFX_0053)
 	gunscript_hidepart(21, 41)
@@ -2101,14 +2101,14 @@ struct inventory_ammo invammo_ar34 = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
-	invanim_ar34_equiporreload, // reload animation
+	invanim_ar34_reload, // reload animation
 	0, // flags
 };
 
 struct weapon invitem_ar34 = {
 	FILE_GAR34, // hi model
 	FILE_GAR34LOD, // lo model
-	invanim_ar34_equiporreload, // equip animation
+	invanim_ar34_reload, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -2142,7 +2142,7 @@ struct modelpartvisibility invpartvisibility_k7avenger[] = {
 };
 
 struct guncmd invanim_k7avenger_reload[] = {
-	gunscript_playanimation(ANIM_00E9, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_K7AVENGER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(15, 1200)
 	gunscript_playsound(15, SFX_0053)
 	gunscript_hidepart(22, 41)
@@ -2157,12 +2157,12 @@ struct guncmd invanim_k7avenger_reload[] = {
 };
 
 struct guncmd invanim_k7avenger_equip[] = {
-	gunscript_playanimation(ANIM_00E6, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_K7AVENGER_EQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_k7avenger_unequip[] = {
-	gunscript_playanimation(ANIM_00E7, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_K7AVENGER_UNEQUIP, 0, 10000)
 	gunscript_end
 };
 
@@ -2288,7 +2288,7 @@ struct modelpartvisibility invpartvisibility_laptopgun[] = {
 };
 
 struct guncmd invanim_laptopgun_reload[] = {
-	gunscript_playanimation(ANIM_00E4, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_LAPTOP_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(4, 1630)
 	gunscript_playsound(4, SFX_RELOAD_04FB)
 	gunscript_setsoundspeed(15, 1436)
@@ -2309,14 +2309,14 @@ struct guncmd invanim_laptopgun_reload[] = {
 };
 
 struct guncmd invanim_laptopgun_shoot[] = {
-	gunscript_playanimation(ANIM_00E5, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_LAPTOP_SHOOT, 0, 10000)
 	gunscript_waittime(10, 5)
 	gunscript_waitforzreleased(10)
 	gunscript_end
 };
 
 struct guncmd invanim_laptopgun_equip[] = {
-	gunscript_playanimation(ANIM_00E2, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_LAPTOP_EQUIP, 0, 10000)
 	gunscript_setsoundspeed(15, 720)
 	gunscript_playsound(15, SFX_04F7)
 	gunscript_playsound(35, SFX_04F7)
@@ -2325,7 +2325,7 @@ struct guncmd invanim_laptopgun_equip[] = {
 };
 
 struct guncmd invanim_laptopgun_unequip[] = {
-	gunscript_playanimation(ANIM_00E3, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_LAPTOP_UNEQUIP, 0, 10000)
 	gunscript_playsound(1, SFX_04F7)
 	gunscript_setsoundspeed(25, 720)
 	gunscript_playsound(25, SFX_04F7)
@@ -2423,7 +2423,7 @@ struct modelpartvisibility invpartvisibility_shotgun[] = {
 };
 
 struct guncmd invanim_shotgun_reload[] = {
-	gunscript_playanimation(ANIM_03ED, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_SHOTGUN_RELOAD, 0, 10000)
 	gunscript_showpart(1, 43)
 	gunscript_playsound(67, SFX_01D8)
 	gunscript_waittime(74, 1)
@@ -2433,15 +2433,15 @@ struct guncmd invanim_shotgun_reload[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_shotgun_equiporsingleshot[] = {
-	gunscript_playanimation(ANIM_03EE, 0, 10000)
+struct guncmd invanim_shotgun_singleshot[] = {
+	gunscript_playanimation(ANIM_GUN_SHOTGUN_SHOOT_SINGLE, 0, 10000)
 	gunscript_waittime(9, 2)
 	gunscript_playsound(34, SFX_RELOAD_04FB)
 	gunscript_end
 };
 
 struct guncmd invanim_shotgun_doubleshot[] = {
-	gunscript_playanimation(ANIM_042C, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_SHOTGUN_SHOOT_DOUBLE, 0, 10000)
 	gunscript_waittime(9, 2)
 	gunscript_playsound(54, SFX_RELOAD_04FB)
 	gunscript_end
@@ -2453,7 +2453,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011048,
-	invanim_shotgun_equiporsingleshot, // fire animation
+	invanim_shotgun_singleshot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -2502,7 +2502,7 @@ struct inventory_ammo invammo_shotgun = {
 struct weapon invitem_shotgun = {
 	FILE_GSHOTGUN, // hi model
 	FILE_GSHOTGUNLOD, // lo model
-	invanim_shotgun_equiporsingleshot, // equip animation
+	invanim_shotgun_singleshot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -2545,13 +2545,13 @@ struct inventory_typef invf_000133c8[] = {
 };
 
 struct guncmd invanim_reaper_shoot[] = {
-	gunscript_playanimation(ANIM_0400, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_REAPER_SHOOT, 0, 10000)
 	gunscript_waittime(12, 5)
 	gunscript_end
 };
 
 struct guncmd invanim_reaper_reload[] = {
-	gunscript_playanimation(ANIM_0401, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_REAPER_RELOAD, 0, 10000)
 	gunscript_playsound(49, SFX_05C7)
 	gunscript_hidepart(70, 42)
 	gunscript_showpart(90, 43)
@@ -2563,12 +2563,12 @@ struct guncmd invanim_reaper_reload[] = {
 };
 
 struct guncmd invanim_reaper_equip[] = {
-	gunscript_playanimation(ANIM_0427, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_REAPER_EQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_reaper_unequip[] = {
-	gunscript_playanimation(ANIM_0428, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_REAPER_UNEQUIP, 0, 10000)
 	gunscript_end
 };
 
@@ -2667,7 +2667,7 @@ struct inventory_typef invf_00013564[] = {
 };
 
 struct guncmd invanim_rocketlauncher_reload[] = {
-	gunscript_playanimation(ANIM_03EF, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_ROCKETLAUNCHER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(16, 900)
 	gunscript_playsound(16, SFX_04F9)
 	gunscript_playsound(40, SFX_0053)
@@ -2682,8 +2682,8 @@ struct guncmd invanim_rocketlauncher_reload[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_rockerlauncher_equiporshoot[] = {
-	gunscript_playanimation(ANIM_03F0, 0, 10000)
+struct guncmd invanim_rockerlauncher_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_ROCKETLAUNCHER_SHOOT, 0, 10000)
 	gunscript_end
 };
 
@@ -2704,7 +2704,7 @@ struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011048,
-	invanim_rockerlauncher_equiporshoot, // fire animation
+	invanim_rockerlauncher_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED,
 	NULL,
 	0,
@@ -2735,7 +2735,7 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011048,
-	invanim_rockerlauncher_equiporshoot, // fire animation
+	invanim_rockerlauncher_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED | FUNCFLAG_HOMINGROCKET,
 	NULL,
 	0,
@@ -2771,7 +2771,7 @@ struct inventory_ammo invammo_rocketlauncher = {
 struct weapon invitem_rocketlauncher = {
 	FILE_GDYROCKET, // hi model
 	FILE_GROCKETLOD, // lo model
-	invanim_rockerlauncher_equiporshoot, // equip animation
+	invanim_rockerlauncher_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -2793,13 +2793,13 @@ struct weapon invitem_rocketlauncher = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_AIMTRACK,
 };
 
-struct guncmd invanim_slayer_equiporshoot[] = {
-	gunscript_playanimation(ANIM_042A, 0, 10000)
+struct guncmd invanim_slayer_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_SLAYER_SHOOT, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_slayer_reload[] = {
-	gunscript_playanimation(ANIM_0429, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_SLAYER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(52, 800)
 	gunscript_playsound(52, SFX_0053)
 	gunscript_playsound(79, SFX_EYESPYHIT)
@@ -2814,7 +2814,7 @@ struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011048,
-	invanim_slayer_equiporshoot, // fire animation
+	invanim_slayer_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED,
 	NULL,
 	0,
@@ -2881,7 +2881,7 @@ struct inventory_ammo invammo_slayer = {
 struct weapon invitem_slayer = {
 	FILE_GSKROCKET, // hi model
 	FILE_GSKROCKETLOD, // lo model
-	invanim_slayer_equiporshoot, // equip animation
+	invanim_slayer_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -2908,13 +2908,13 @@ struct inventory_typef invf_unused_8006d890[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_devastator_equiporshoot[] = {
-	gunscript_playanimation(ANIM_03F7, 0, 10000)
+struct guncmd invanim_devastator_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_DEVASTATOR_SHOOT, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_devastator_reload[] = {
-	gunscript_playanimation(ANIM_03F8, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_DEVASTATOR_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(15, 600)
 	gunscript_playsound(15, SFX_0053)
 	gunscript_hidepart(22, 42)
@@ -2934,7 +2934,7 @@ struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011048,
-	invanim_devastator_equiporshoot, // fire animation
+	invanim_devastator_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_10000000 | FUNCFLAG_20000000,
 	NULL,
 	0,
@@ -2965,7 +2965,7 @@ struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011048,
-	invanim_devastator_equiporshoot, // fire animation
+	invanim_devastator_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_STICKTOWALL | FUNCFLAG_10000000 | FUNCFLAG_20000000,
 	NULL,
 	0,
@@ -3006,7 +3006,7 @@ struct modelpartvisibility invpartvisibility_devastator[] = {
 struct weapon invitem_devastator = {
 	FILE_GDYDEVASTATOR, // hi model
 	FILE_GDEVASTATORLOD, // lo model
-	invanim_devastator_equiporshoot, // equip animation
+	invanim_devastator_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3038,18 +3038,18 @@ struct weaponfunc invfunc_mine_threatdetector = {
 	FUNCFLAG_THREATDETECTOR,
 };
 
-struct guncmd invanim_mine_equiporreload[] = {
-	gunscript_playanimation(ANIM_0430, 0, 10000)
+struct guncmd invanim_mine_equip[] = {
+	gunscript_playanimation(ANIM_GUN_MINE_EQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_mine_unequip[] = {
-	gunscript_playanimation(ANIM_0431, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_MINE_UNEQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_mine_throw[] = {
-	gunscript_playanimation(ANIM_0435, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_MINE_THROW, 0, 10000)
 	gunscript_waitforzreleased(10)
 	gunscript_waittime(13, 2)
 	gunscript_end
@@ -3073,14 +3073,14 @@ struct inventory_ammo invammo_timedmine = {
 	AMMOTYPE_TIMED_MINE,
 	CASING_NONE,
 	1, // clip size
-	invanim_mine_equiporreload, // reload animation
+	invanim_mine_equip, // reload animation
 	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
 struct weapon invitem_timedmine = {
 	FILE_GTIMEDMINE, // hi model
 	FILE_GTIMEDMINE, // lo model
-	invanim_mine_equiporreload, // equip animation
+	invanim_mine_equip, // equip animation
 	invanim_mine_unequip, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3114,18 +3114,18 @@ struct inventory_typef invf_00013b40[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_remotemine_equiporreload[] = {
-	gunscript_playanimation(ANIM_0432, 0, 10000)
+struct guncmd invanim_remotemine_equip[] = {
+	gunscript_playanimation(ANIM_GUN_REMOTEMINE_EQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_remotemine_unequip[] = {
-	gunscript_playanimation(ANIM_0433, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_REMOTEMINE_UNEQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_remotemine_throw[] = {
-	gunscript_playanimation(ANIM_0436, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_REMOTEMINE_THROW, 0, 10000)
 	gunscript_waitforzreleased(10)
 	gunscript_waittime(11, 2)
 	gunscript_end
@@ -3162,7 +3162,7 @@ struct inventory_ammo invammo_remotemine = {
 	AMMOTYPE_REMOTE_MINE,
 	CASING_NONE,
 	1, // clip size
-	invanim_remotemine_equiporreload, // reload animation
+	invanim_remotemine_equip, // reload animation
 	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
@@ -3174,7 +3174,7 @@ struct modelpartvisibility invpartvisibility_remotemine[] = {
 struct weapon invitem_remotemine = {
 	FILE_GREMOTEMINE, // hi model
 	FILE_GREMOTEMINE, // lo model
-	invanim_remotemine_equiporreload, // equip animation
+	invanim_remotemine_equip, // equip animation
 	invanim_remotemine_unequip, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3218,14 +3218,14 @@ struct inventory_ammo invammo_proximitymine = {
 	AMMOTYPE_PROXY_MINE,
 	CASING_NONE,
 	1, // clip size
-	invanim_mine_equiporreload, // reload animation
+	invanim_mine_equip, // reload animation
 	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
 struct weapon invitem_proximitymine = {
 	FILE_GPROXIMITYMINE, // hi model
 	FILE_GPROXIMITYMINE, // lo model
-	invanim_mine_equiporreload, // equip animation
+	invanim_mine_equip, // equip animation
 	invanim_mine_unequip, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3247,18 +3247,18 @@ struct weapon invitem_proximitymine = {
 	WEAPONFLAG_00000001 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS,
 };
 
-struct guncmd invanim_ecmmine_equiporreload[] = {
-	gunscript_playanimation(ANIM_0437, 0, 10000)
+struct guncmd invanim_ecmmine_equip[] = {
+	gunscript_playanimation(ANIM_GUN_ECMMINE_EQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_ecmmine_unequip[] = {
-	gunscript_playanimation(ANIM_0438, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_ECMMINE_UNEQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_ecmmine_throw[] = {
-	gunscript_playanimation(ANIM_0438, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_ECMMINE_UNEQUIP, 0, 10000)
 	gunscript_waittime(23, 2)
 	gunscript_end
 };
@@ -3281,14 +3281,14 @@ struct inventory_ammo invammo_ecmmine = {
 	AMMOTYPE_ECM_MINE,
 	CASING_NONE,
 	1, // clip size
-	invanim_ecmmine_equiporreload, // reload animation
+	invanim_ecmmine_equip, // reload animation
 	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
 struct weapon invitem_ecmmine = {
 	FILE_GECMMINE, // hi model
 	FILE_GECMMINE, // lo model
-	invanim_ecmmine_equiporreload, // equip animation
+	invanim_ecmmine_equip, // equip animation
 	invanim_ecmmine_unequip, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3347,7 +3347,7 @@ struct inventory_typef invf_00013df8[] = {
 };
 
 struct guncmd invanim_grenade_throw[] = {
-	gunscript_playanimation(ANIM_0426, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_GRENADE_THROW, 0, 10000)
 	gunscript_popoutsackofpills(0x0006)
 	gunscript_playsound(6, SFX_05C1)
 	gunscript_waitforzreleased(43)
@@ -3355,8 +3355,8 @@ struct guncmd invanim_grenade_throw[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_grenade_equiporreload[] = {
-	gunscript_playanimation(ANIM_042B, 0, 10000)
+struct guncmd invanim_grenade_equip[] = {
+	gunscript_playanimation(ANIM_GUN_GRENADE_EQUIP, 0, 10000)
 	gunscript_end
 };
 
@@ -3392,14 +3392,14 @@ struct inventory_ammo invammo_grenade = {
 	AMMOTYPE_GRENADE,
 	CASING_NONE,
 	1, // clip size
-	invanim_grenade_equiporreload, // reload animation
+	invanim_grenade_equip, // reload animation
 	AMMOFLAG_EQUIPPEDISRESERVE | AMMOFLAG_QTYAFFECTSPARTVIS, // flags
 };
 
 struct weapon invitem_grenade = {
 	FILE_GGRENADE, // hi model
 	FILE_GGRENADELOD, // lo model
-	invanim_grenade_equiporreload, // equip animation
+	invanim_grenade_equip, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3453,14 +3453,14 @@ struct inventory_ammo invammo_nbomb = {
 	AMMOTYPE_NBOMB,
 	CASING_NONE,
 	1, // clip size
-	invanim_grenade_equiporreload, // reload animation
+	invanim_grenade_equip, // reload animation
 	AMMOFLAG_EQUIPPEDISRESERVE | AMMOFLAG_QTYAFFECTSPARTVIS, // flags
 };
 
 struct weapon invitem_nbomb = {
 	FILE_GNBOMB, // hi model
 	FILE_GNBOMBLOD, // lo model
-	invanim_grenade_equiporreload, // equip animation
+	invanim_grenade_equip, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3488,7 +3488,7 @@ struct inventory_typef invf_00013fa4[] = {
 };
 
 struct guncmd invanim_farsight_reload[] = {
-	gunscript_playanimation(ANIM_03EB, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_FARSIGHT_RELOAD, 0, 10000)
 	gunscript_showpart(1, 40)
 	gunscript_playsound(72, SFX_RELOAD_FARSIGHT)
 	gunscript_waittime(76, 1)
@@ -3496,8 +3496,8 @@ struct guncmd invanim_farsight_reload[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_farsight_equiporshoot[] = {
-	gunscript_playanimation(ANIM_03EC, 0, 10000)
+struct guncmd invanim_farsight_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_FARSIGHT_SHOOT, 0, 10000)
 	gunscript_end
 };
 
@@ -3518,7 +3518,7 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011034,
-	invanim_farsight_equiporshoot, // fire animation
+	invanim_farsight_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -3540,7 +3540,7 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011034,
-	invanim_farsight_equiporshoot, // fire animation
+	invanim_farsight_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	0,
@@ -3572,7 +3572,7 @@ struct modelpartvisibility invpartvisibility_farsight[] = {
 struct weapon invitem_farsight = {
 	FILE_GZ2020, // hi model
 	FILE_GZ2020LOD, // lo model
-	invanim_farsight_equiporshoot, // equip animation
+	invanim_farsight_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3601,7 +3601,7 @@ struct inventory_typef invf_00014100[] = {
 };
 
 struct guncmd invanim_crossbow_reload[] = {
-	gunscript_playanimation(ANIM_00D4, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_CROSSBOW_RELOAD, 0, 10000)
 	gunscript_hidepart(1, 40)
 	gunscript_showpart(1, 41)
 	gunscript_showpart(1, 53)
@@ -3616,21 +3616,21 @@ struct guncmd invanim_crossbow_reload[] = {
 };
 
 struct guncmd invanim_crossbow_shoot[] = {
-	gunscript_playanimation(ANIM_00C2, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_CROSSBOW_SHOOT, 0, 10000)
 	gunscript_hidepart(20, 40)
 	gunscript_playsound(37, SFX_04F8)
 	gunscript_end
 };
 
 struct guncmd invanim_crossbow_unequip[] = {
-	gunscript_playanimation(ANIM_00D3, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_CROSSBOW_UNEQUIP, 0, 10000)
 	gunscript_hidepart(1, 40)
 	gunscript_playsound(37, SFX_04F8)
 	gunscript_end
 };
 
 struct guncmd invanim_crosbow_equip[] = {
-	gunscript_playanimation(ANIM_00C1, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_CROSSBOW_EQUIP, 0, 10000)
 	gunscript_playsound(32, SFX_04FC)
 	gunscript_playsound(75, SFX_04F8)
 	gunscript_end
@@ -3745,19 +3745,19 @@ struct inventory_typef invf_00014314[] = {
 };
 
 struct guncmd invanim_tranquilizer_lethalinject[] = {
-	gunscript_playanimation(ANIM_0411, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_TRANQUILIZER_INJECT, 0, 10000)
 	gunscript_waittime(18, 2)
 	gunscript_end
 };
 
-struct guncmd invanim_tranquilizer_equiporshoot[] = {
-	gunscript_playanimation(ANIM_042D, 0, 10000)
+struct guncmd invanim_tranquilizer_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_TRANQUILIZER_SHOOT, 0, 10000)
 	gunscript_waittime(7, 5)
 	gunscript_end
 };
 
 struct guncmd invanim_tranquilizer_reload[] = {
-	gunscript_playanimation(ANIM_0410, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_TRANQUILIZER_RELOAD, 0, 10000)
 	gunscript_showpart(1, 53)
 	gunscript_showpart(1, 40)
 	gunscript_showpart(1, 42)
@@ -3783,7 +3783,7 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00010fe4,
-	invanim_tranquilizer_equiporshoot, // fire animation
+	invanim_tranquilizer_shoot, // fire animation
 	FUNCFLAG_MAKEDIZZY,
 	&invnoisesettings_00011098,
 	16,
@@ -3841,7 +3841,7 @@ struct modelpartvisibility invpartvisibility_tranquilizer[] = {
 struct weapon invitem_tranquilizer = {
 	FILE_GDRUGGUN, // hi model
 	FILE_GDRUGGUNLOD, // lo model
-	invanim_tranquilizer_equiporshoot, // equip animation
+	invanim_tranquilizer_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3881,7 +3881,7 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00010fe4,
-	invanim_tranquilizer_equiporshoot, // fire animation
+	invanim_tranquilizer_shoot, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_PSYCHOSIS,
 	&invnoisesettings_00011098,
 	16,
@@ -3900,7 +3900,7 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 struct weapon invitem_psychosisgun = {
 	FILE_GDRUGGUN, // hi model
 	FILE_GDRUGGUNLOD, // lo model
-	invanim_tranquilizer_equiporshoot, // equip animation
+	invanim_tranquilizer_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -3928,12 +3928,12 @@ struct inventory_typef invf_00014590[] = {
 };
 
 struct guncmd invanim_sniperrifle_equip[] = {
-	gunscript_playanimation(ANIM_040C, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_SNIPER_EQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_sniperrifle_reload[] = {
-	gunscript_playanimation(ANIM_040F, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_SNIPER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(22, 850)
 	gunscript_playsound(22, SFX_01D8)
 	gunscript_showpart(42, 41)
@@ -4039,12 +4039,12 @@ struct weapon invitem_sniperrifle = {
 };
 
 struct guncmd invanim_laser_equip[] = {
-	gunscript_playanimation(ANIM_042E, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_LASER_EQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_laser_unequip[] = {
-	gunscript_playanimation(ANIM_042F, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_LASER_UNEQUIP, 0, 10000)
 	gunscript_end
 };
 
@@ -4132,8 +4132,8 @@ struct inventory_typef invf_000147fc[] = {
 	{ 0, 0x0000, 0, 0x0000, 0x0000 },
 };
 
-struct guncmd invanim_pp9i_equiporshoot[] = {
-	gunscript_playanimation(ANIM_0440, 0, 10000)
+struct guncmd invanim_pp9i_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_PP9I_SHOOT, 0, 10000)
 	gunscript_waittime(10, 5)
 	gunscript_end
 };
@@ -4144,7 +4144,7 @@ struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_0001100c,
-	invanim_pp9i_equiporshoot, // fire animation
+	invanim_pp9i_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	16,
@@ -4171,7 +4171,7 @@ struct inventory_ammo invammo_pp9i = {
 struct weapon invitem_pp9i = {
 	FILE_GWPPK, // hi model
 	FILE_GWPPK, // lo model
-	invanim_pp9i_equiporshoot, // equip animation
+	invanim_pp9i_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -4193,8 +4193,8 @@ struct weapon invitem_pp9i = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_GANGSTA,
 };
 
-struct guncmd invanim_cc13_equiporshoot[] = {
-	gunscript_playanimation(ANIM_043F, 0, 10000)
+struct guncmd invanim_cc13_shoot[] = {
+	gunscript_playanimation(ANIM_GUN_CC13_SHOOT, 0, 10000)
 	gunscript_waittime(10, 5)
 	gunscript_end
 };
@@ -4205,7 +4205,7 @@ struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_0001100c,
-	invanim_cc13_equiporshoot, // fire animation
+	invanim_cc13_shoot, // fire animation
 	0, // flags
 	&invnoisesettings_00011098,
 	16,
@@ -4232,7 +4232,7 @@ struct inventory_ammo invammo_cc13 = {
 struct weapon invitem_cc13 = {
 	FILE_GTT33, // hi model
 	FILE_GTT33, // lo model
-	invanim_cc13_equiporshoot, // equip animation
+	invanim_cc13_shoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
@@ -4780,13 +4780,13 @@ struct inventory_typef invf_00014fc0[] = {
 };
 
 struct guncmd invanim_combatknife_equip[] = {
-	gunscript_playanimation(ANIM_0403, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_KNIFE_EQUIP, 0, 10000)
 	gunscript_waittime(24, 2)
 	gunscript_end
 };
 
 struct guncmd invanim_combatknife_slash2[] = {
-	gunscript_playanimation(ANIM_0404, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_KNIFE_SLASH, 0, 10000)
 	gunscript_waittime(24, 2)
 	gunscript_end
 };
@@ -4798,21 +4798,21 @@ struct guncmd invanim_combatknife_slash[] = {
 };
 
 struct guncmd invanim_combatknife_pritosec[] = {
-	gunscript_playanimation(ANIM_0405, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_KNIFE_CHANGEFUNC, 0, 10000)
 	gunscript_playsound(30, SFX_80A7)
 	gunscript_playsound(40, SFX_80A6)
 	gunscript_end
 };
 
 struct guncmd invanim_combatknife_sectopri[] = {
-	gunscript_playanimation(ANIM_0405, 65535, 55536)
+	gunscript_playanimation(ANIM_GUN_KNIFE_CHANGEFUNC, 65535, 55536)
 	gunscript_playsound(10, SFX_80A8)
 	gunscript_playsound(20, SFX_80A6)
 	gunscript_end
 };
 
 struct guncmd invanim_combatknife_throw[] = {
-	gunscript_playanimation(ANIM_041B, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_KNIFE_THROW, 0, 10000)
 	gunscript_waitforzreleased(12)
 	gunscript_waittime(16, 2)
 	gunscript_end
@@ -5459,12 +5459,12 @@ struct weapon invitem_xrayscanner = {
 };
 
 struct guncmd invanim_datauplink_equip[] = {
-	gunscript_playanimation(ANIM_0439, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_UPLINK_EQUIP, 0, 10000)
 	gunscript_end
 };
 
 struct guncmd invanim_datauplink_unequip[] = {
-	gunscript_playanimation(ANIM_043A, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_UPLINK_UNEQUIP, 0, 10000)
 	gunscript_end
 };
 
@@ -6006,7 +6006,7 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invnoisesettings_00011048,
-	invanim_rockerlauncher_equiporshoot, // fire animation
+	invanim_rockerlauncher_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED,
 	NULL,
 	0,
@@ -6065,7 +6065,7 @@ struct weapon invitem_rocketlauncher_34 = {
 };
 
 struct guncmd invanim_tester_shoot[] = {
-	gunscript_playanimation(ANIM_0112, 0, 10000)
+	gunscript_playanimation(ANIM_GUN_TESTER_SHOOT, 0, 10000)
 	gunscript_end
 };
 

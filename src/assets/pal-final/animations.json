@@ -2316,7 +2316,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00C1",
+        "id": "ANIM_GUN_CROSSBOW_EQUIP",
         "file": "00c1.bin",
         "numframes": 78,
         "bytesperframe": 55,
@@ -2328,7 +2328,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00C2",
+        "id": "ANIM_GUN_CROSSBOW_SHOOT",
         "file": "00c2.bin",
         "numframes": 40,
         "bytesperframe": 25,
@@ -2340,7 +2340,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00C3",
+        "id": "ANIM_CUT_SHO_BETA_CAM",
         "file": "00c3.bin",
         "numframes": 0,
         "bytesperframe": 0,
@@ -2352,7 +2352,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00C4",
+        "id": "ANIM_CUT_SHO_BETA_NOCHR",
         "file": "00c4.bin",
         "numframes": 0,
         "bytesperframe": 0,
@@ -2364,7 +2364,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00C5",
+        "id": "ANIM_CUT_AME_INTRO_CAM_03",
         "file": "00c5.bin",
         "numframes": 440,
         "bytesperframe": 9,
@@ -2376,7 +2376,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00C6",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_03",
         "file": "00c6.bin",
         "numframes": 110,
         "bytesperframe": 12,
@@ -2388,7 +2388,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00C7",
+        "id": "ANIM_CUT_AME_INTRO_CAM_02",
         "file": "00c7.bin",
         "numframes": 544,
         "bytesperframe": 9,
@@ -2400,7 +2400,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_00C8",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_02",
         "file": "00c8.bin",
         "numframes": 137,
         "bytesperframe": 12,
@@ -2412,7 +2412,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00C9",
+        "id": "ANIM_CUT_AME_INTRO_CAM_01",
         "file": "00c9.bin",
         "numframes": 830,
         "bytesperframe": 8,
@@ -2424,7 +2424,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00CA",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_01",
         "file": "00ca.bin",
         "numframes": 208,
         "bytesperframe": 8,
@@ -2436,7 +2436,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00CB",
+        "id": "ANIM_CUT_AME_INTRO_CAM_04",
         "file": "00cb.bin",
         "numframes": 178,
         "bytesperframe": 6,
@@ -2448,7 +2448,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00CC",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_04",
         "file": "00cc.bin",
         "numframes": 45,
         "bytesperframe": 10,
@@ -2460,7 +2460,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00CD",
+        "id": "ANIM_CUT_AME_INTRO_CAM_05",
         "file": "00cd.bin",
         "numframes": 258,
         "bytesperframe": 9,
@@ -2472,7 +2472,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00CE",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_05",
         "file": "00ce.bin",
         "numframes": 258,
         "bytesperframe": 12,
@@ -2484,7 +2484,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00CF",
+        "id": "ANIM_CUT_PETE_INTRO_CAM_01",
         "file": "00cf.bin",
         "numframes": 421,
         "bytesperframe": 2,
@@ -2496,7 +2496,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D0",
+        "id": "ANIM_CUT_PETE_INTRO_CAM_02",
         "file": "00d0.bin",
         "numframes": 553,
         "bytesperframe": 7,
@@ -2508,7 +2508,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D1",
+        "id": "ANIM_CUT_PETE_INTRO_CAM_03",
         "file": "00d1.bin",
         "numframes": 349,
         "bytesperframe": 7,
@@ -2520,7 +2520,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D2",
+        "id": "ANIM_CUT_PETE_INTRO_CAM_05",
         "file": "00d2.bin",
         "numframes": 1249,
         "bytesperframe": 12,
@@ -2532,7 +2532,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D3",
+        "id": "ANIM_GUN_CROSSBOW_UNEQUIP",
         "file": "00d3.bin",
         "numframes": 60,
         "bytesperframe": 31,
@@ -2544,7 +2544,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D4",
+        "id": "ANIM_GUN_CROSSBOW_RELOAD",
         "file": "00d4.bin",
         "numframes": 90,
         "bytesperframe": 35,
@@ -2556,7 +2556,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D5",
+        "id": "ANIM_CUT_PETE_INTRO_VEHICLE_04",
         "file": "00d5.bin",
         "numframes": 106,
         "bytesperframe": 8,
@@ -2568,7 +2568,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D6",
+        "id": "ANIM_CUT_PETE_INTRO_VEHICLE_01",
         "file": "00d6.bin",
         "numframes": 106,
         "bytesperframe": 6,
@@ -2580,7 +2580,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D7",
+        "id": "ANIM_CUT_PETE_INTRO_VEHICLE_02",
         "file": "00d7.bin",
         "numframes": 106,
         "bytesperframe": 7,
@@ -2592,7 +2592,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D8",
+        "id": "ANIM_CUT_PETE_INTRO_VEHICLE_03",
         "file": "00d8.bin",
         "numframes": 106,
         "bytesperframe": 5,
@@ -2604,7 +2604,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00D9",
+        "id": "ANIM_CUT_PETE_INTRO_VEHICLE_07",
         "file": "00d9.bin",
         "numframes": 139,
         "bytesperframe": 7,
@@ -2628,7 +2628,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00DB",
+        "id": "ANIM_CUT_PETE_INTRO_VEHICLE_08",
         "file": "00db.bin",
         "numframes": 139,
         "bytesperframe": 1,
@@ -2640,7 +2640,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00DC",
+        "id": "ANIM_CUT_PETE_INTRO_VEHICLE_05",
         "file": "00dc.bin",
         "numframes": 139,
         "bytesperframe": 7,
@@ -2652,7 +2652,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00DD",
+        "id": "ANIM_CUT_PETE_INTRO_VEHICLE_06",
         "file": "00dd.bin",
         "numframes": 139,
         "bytesperframe": 3,
@@ -2664,7 +2664,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00DE",
+        "id": "ANIM_CUT_PETE_INTRO_VEHICLE_09",
         "file": "00de.bin",
         "numframes": 88,
         "bytesperframe": 9,
@@ -2676,7 +2676,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00DF",
+        "id": "ANIM_CUT_PETE_INTRO_JO_02",
         "file": "00df.bin",
         "numframes": 313,
         "bytesperframe": 64,
@@ -2688,7 +2688,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00E0",
+        "id": "ANIM_CUT_PETE_INTRO_CAM_04",
         "file": "00e0.bin",
         "numframes": 149,
         "bytesperframe": 0,
@@ -2700,7 +2700,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00E1",
+        "id": "ANIM_CUT_PETE_INTRO_JO_01",
         "file": "00e1.bin",
         "numframes": 38,
         "bytesperframe": 9,
@@ -2712,7 +2712,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00E2",
+        "id": "ANIM_GUN_LAPTOP_EQUIP",
         "file": "00e2.bin",
         "numframes": 60,
         "bytesperframe": 22,
@@ -2724,7 +2724,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00E3",
+        "id": "ANIM_GUN_LAPTOP_UNEQUIP",
         "file": "00e3.bin",
         "numframes": 80,
         "bytesperframe": 27,
@@ -2736,7 +2736,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00E4",
+        "id": "ANIM_GUN_LAPTOP_RELOAD",
         "file": "00e4.bin",
         "numframes": 124,
         "bytesperframe": 73,
@@ -2748,7 +2748,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00E5",
+        "id": "ANIM_GUN_LAPTOP_SHOOT",
         "file": "00e5.bin",
         "numframes": 24,
         "bytesperframe": 11,
@@ -2760,7 +2760,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00E6",
+        "id": "ANIM_GUN_K7AVENGER_EQUIP",
         "file": "00e6.bin",
         "numframes": 40,
         "bytesperframe": 21,
@@ -2772,7 +2772,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00E7",
+        "id": "ANIM_GUN_K7AVENGER_UNEQUIP",
         "file": "00e7.bin",
         "numframes": 38,
         "bytesperframe": 16,
@@ -2796,7 +2796,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00E9",
+        "id": "ANIM_GUN_K7AVENGER_RELOAD",
         "file": "00e9.bin",
         "numframes": 134,
         "bytesperframe": 70,
@@ -2808,7 +2808,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00EA",
+        "id": "ANIM_GUN_FALCON2_EQUIP",
         "file": "00ea.bin",
         "numframes": 30,
         "bytesperframe": 9,
@@ -2820,7 +2820,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00EB",
+        "id": "ANIM_GUN_FALCON2_UNEQUIP",
         "file": "00eb.bin",
         "numframes": 28,
         "bytesperframe": 8,
@@ -2832,7 +2832,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00EC",
+        "id": "ANIM_GUN_FALCON2_SHOOT",
         "file": "00ec.bin",
         "numframes": 18,
         "bytesperframe": 13,
@@ -2844,7 +2844,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00ED",
+        "id": "ANIM_GUN_FALCON2_RELOAD",
         "file": "00ed.bin",
         "numframes": 92,
         "bytesperframe": 66,
@@ -2856,7 +2856,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00EE",
+        "id": "ANIM_CUT_AME_INTRO_CAM_09",
         "file": "00ee.bin",
         "numframes": 61,
         "bytesperframe": 2,
@@ -2868,7 +2868,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00EF",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_06",
         "file": "00ef.bin",
         "numframes": 16,
         "bytesperframe": 5,
@@ -2880,7 +2880,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00F0",
+        "id": "ANIM_CUT_LUE_INTRO_CAM_04",
         "file": "00f0.bin",
         "numframes": 971,
         "bytesperframe": 8,
@@ -2892,7 +2892,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00F1",
+        "id": "ANIM_CUT_LUE_INTRO_JO",
         "file": "00f1.bin",
         "numframes": 243,
         "bytesperframe": 63,
@@ -2904,7 +2904,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00F2",
+        "id": "ANIM_CUT_AME_OUTRO_CAM",
         "file": "00f2.bin",
         "numframes": 420,
         "bytesperframe": 10,
@@ -2916,7 +2916,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_00F3",
+        "id": "ANIM_CUT_AME_OUTRO_JO",
         "file": "00f3.bin",
         "numframes": 105,
         "bytesperframe": 60,
@@ -2940,7 +2940,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00F5",
+        "id": "ANIM_CUT_EAR_INTRO_CAM",
         "file": "00f5.bin",
         "numframes": 1721,
         "bytesperframe": 10,
@@ -2952,7 +2952,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00F6",
+        "id": "ANIM_CUT_EAR_INTRO_JO",
         "file": "00f6.bin",
         "numframes": 431,
         "bytesperframe": 63,
@@ -2964,7 +2964,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00F7",
+        "id": "ANIM_CUT_EAR_INTRO_GUARD_01",
         "file": "00f7.bin",
         "numframes": 431,
         "bytesperframe": 54,
@@ -2988,7 +2988,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00F9",
+        "id": "ANIM_CUT_EAR_OUTRO_CAM_01",
         "file": "00f9.bin",
         "numframes": 239,
         "bytesperframe": 4,
@@ -3000,7 +3000,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00FA",
+        "id": "ANIM_CUT_EAR_OUTRO_JO_01",
         "file": "00fa.bin",
         "numframes": 120,
         "bytesperframe": 61,
@@ -3024,7 +3024,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00FC",
+        "id": "ANIM_CUT_AME_INTRO_CAM_07",
         "file": "00fc.bin",
         "numframes": 145,
         "bytesperframe": 3,
@@ -3036,7 +3036,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00FD",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_07",
         "file": "00fd.bin",
         "numframes": 37,
         "bytesperframe": 9,
@@ -3048,7 +3048,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00FE",
+        "id": "ANIM_CUT_AME_INTRO_SEC",
         "file": "00fe.bin",
         "numframes": 37,
         "bytesperframe": 43,
@@ -3060,7 +3060,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_00FF",
+        "id": "ANIM_CUT_AME_INTRO_CAM_08",
         "file": "00ff.bin",
         "numframes": 89,
         "bytesperframe": 6,
@@ -3072,7 +3072,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0100",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_08",
         "file": "0100.bin",
         "numframes": 23,
         "bytesperframe": 5,
@@ -3096,7 +3096,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0102",
+        "id": "ANIM_CUT_AME_INTRO_BANNER1_01",
         "file": "0102.bin",
         "numframes": 23,
         "bytesperframe": 1,
@@ -3108,7 +3108,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0103",
+        "id": "ANIM_CUT_AME_INTRO_CAM_06",
         "file": "0103.bin",
         "numframes": 200,
         "bytesperframe": 6,
@@ -3120,7 +3120,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0104",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_11",
         "file": "0104.bin",
         "numframes": 50,
         "bytesperframe": 12,
@@ -3132,7 +3132,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0105",
+        "id": "ANIM_CUT_AME_INTRO_CAM_11",
         "file": "0105.bin",
         "numframes": 65,
         "bytesperframe": 10,
@@ -3144,7 +3144,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0106",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_12",
         "file": "0106.bin",
         "numframes": 17,
         "bytesperframe": 8,
@@ -3156,7 +3156,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0107",
+        "id": "ANIM_CUT_AME_INTRO_CAM_13",
         "file": "0107.bin",
         "numframes": 89,
         "bytesperframe": 3,
@@ -3168,7 +3168,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0108",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_13",
         "file": "0108.bin",
         "numframes": 23,
         "bytesperframe": 10,
@@ -3180,7 +3180,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0109",
+        "id": "ANIM_CUT_AME_INTRO_JO_09",
         "file": "0109.bin",
         "numframes": 23,
         "bytesperframe": 59,
@@ -3192,7 +3192,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_010A",
+        "id": "ANIM_CUT_AME_INTRO_ROPE_02",
         "file": "010a.bin",
         "numframes": 23,
         "bytesperframe": 58,
@@ -3204,7 +3204,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_010B",
+        "id": "ANIM_CUT_AME_INTRO_CAM_14",
         "file": "010b.bin",
         "numframes": 129,
         "bytesperframe": 3,
@@ -3216,7 +3216,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_010C",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_14",
         "file": "010c.bin",
         "numframes": 33,
         "bytesperframe": 6,
@@ -3228,7 +3228,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_010D",
+        "id": "ANIM_CUT_AME_INTRO_JO_02",
         "file": "010d.bin",
         "numframes": 33,
         "bytesperframe": 12,
@@ -3240,7 +3240,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_010E",
+        "id": "ANIM_CUT_AME_INTRO_ROPE_03",
         "file": "010e.bin",
         "numframes": 33,
         "bytesperframe": 54,
@@ -3252,7 +3252,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_010F",
+        "id": "ANIM_CUT_AME_INTRO_BANNER1_04",
         "file": "010f.bin",
         "numframes": 33,
         "bytesperframe": 27,
@@ -3288,7 +3288,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0112",
+        "id": "ANIM_GUN_TESTER_SHOOT",
         "file": "0112.bin",
         "numframes": 26,
         "bytesperframe": 6,
@@ -3324,7 +3324,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0115",
+        "id": "ANIM_GUN_CMP150_RELOAD",
         "file": "0115.bin",
         "numframes": 128,
         "bytesperframe": 75,
@@ -3336,7 +3336,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0116",
+        "id": "ANIM_GUN_CMP150_SHOOT",
         "file": "0116.bin",
         "numframes": 28,
         "bytesperframe": 14,
@@ -3348,7 +3348,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0117",
+        "id": "ANIM_CUT_AME_INTRO_BANNER2_01",
         "file": "0117.bin",
         "numframes": 23,
         "bytesperframe": 1,
@@ -3360,7 +3360,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0118",
+        "id": "ANIM_CUT_AME_INTRO_BANNER2_04",
         "file": "0118.bin",
         "numframes": 33,
         "bytesperframe": 27,
@@ -3372,7 +3372,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0119",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_12",
         "file": "0119.bin",
         "numframes": 110,
         "bytesperframe": 9,
@@ -3384,7 +3384,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_011A",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_13",
         "file": "011a.bin",
         "numframes": 110,
         "bytesperframe": 5,
@@ -3396,7 +3396,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_011B",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_14",
         "file": "011b.bin",
         "numframes": 110,
         "bytesperframe": 5,
@@ -3408,7 +3408,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_011C",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_06",
         "file": "011c.bin",
         "numframes": 137,
         "bytesperframe": 2,
@@ -3420,7 +3420,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_011D",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_07",
         "file": "011d.bin",
         "numframes": 137,
         "bytesperframe": 6,
@@ -3432,7 +3432,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_011E",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_08",
         "file": "011e.bin",
         "numframes": 137,
         "bytesperframe": 2,
@@ -3444,7 +3444,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_011F",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_09",
         "file": "011f.bin",
         "numframes": 137,
         "bytesperframe": 6,
@@ -3456,7 +3456,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0120",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_10",
         "file": "0120.bin",
         "numframes": 137,
         "bytesperframe": 6,
@@ -3468,7 +3468,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0121",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_11",
         "file": "0121.bin",
         "numframes": 137,
         "bytesperframe": 6,
@@ -3480,7 +3480,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0122",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_01",
         "file": "0122.bin",
         "numframes": 208,
         "bytesperframe": 6,
@@ -3492,7 +3492,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0123",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_02",
         "file": "0123.bin",
         "numframes": 208,
         "bytesperframe": 5,
@@ -3504,7 +3504,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0124",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_03",
         "file": "0124.bin",
         "numframes": 208,
         "bytesperframe": 5,
@@ -3516,7 +3516,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0125",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_04",
         "file": "0125.bin",
         "numframes": 208,
         "bytesperframe": 5,
@@ -3528,7 +3528,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0126",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_05",
         "file": "0126.bin",
         "numframes": 208,
         "bytesperframe": 5,
@@ -3540,7 +3540,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0127",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_15",
         "file": "0127.bin",
         "numframes": 45,
         "bytesperframe": 7,
@@ -3552,7 +3552,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0128",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_16",
         "file": "0128.bin",
         "numframes": 45,
         "bytesperframe": 5,
@@ -3564,7 +3564,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0129",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_17",
         "file": "0129.bin",
         "numframes": 45,
         "bytesperframe": 5,
@@ -3576,7 +3576,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_012A",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_18",
         "file": "012a.bin",
         "numframes": 45,
         "bytesperframe": 2,
@@ -3588,7 +3588,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_012B",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_19",
         "file": "012b.bin",
         "numframes": 45,
         "bytesperframe": 5,
@@ -3600,7 +3600,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_012C",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_20",
         "file": "012c.bin",
         "numframes": 65,
         "bytesperframe": 2,
@@ -3612,7 +3612,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_012D",
+        "id": "ANIM_CUT_AME_INTRO_VEHICLE_21",
         "file": "012d.bin",
         "numframes": 65,
         "bytesperframe": 2,
@@ -3624,7 +3624,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_012E",
+        "id": "ANIM_CUT_AME_INTRO_CAM_10",
         "file": "012e.bin",
         "numframes": 93,
         "bytesperframe": 6,
@@ -3636,7 +3636,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_012F",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_09",
         "file": "012f.bin",
         "numframes": 24,
         "bytesperframe": 5,
@@ -3660,7 +3660,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0131",
+        "id": "ANIM_CUT_AME_INTRO_BANNER1_02",
         "file": "0131.bin",
         "numframes": 24,
         "bytesperframe": 11,
@@ -3672,7 +3672,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0132",
+        "id": "ANIM_CUT_AME_INTRO_BANNER2_02",
         "file": "0132.bin",
         "numframes": 24,
         "bytesperframe": 10,
@@ -3684,7 +3684,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0133",
+        "id": "ANIM_CUT_AME_INTRO_CAM_12",
         "file": "0133.bin",
         "numframes": 445,
         "bytesperframe": 6,
@@ -3696,7 +3696,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0134",
+        "id": "ANIM_CUT_AME_INTRO_DROPSHIP_10",
         "file": "0134.bin",
         "numframes": 112,
         "bytesperframe": 13,
@@ -3708,7 +3708,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0135",
+        "id": "ANIM_CUT_AME_INTRO_ROPE_01",
         "file": "0135.bin",
         "numframes": 112,
         "bytesperframe": 44,
@@ -3720,7 +3720,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0136",
+        "id": "ANIM_CUT_AME_INTRO_BANNER1_03",
         "file": "0136.bin",
         "numframes": 112,
         "bytesperframe": 32,
@@ -3732,7 +3732,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0137",
+        "id": "ANIM_CUT_AME_INTRO_BANNER2_03",
         "file": "0137.bin",
         "numframes": 112,
         "bytesperframe": 32,
@@ -3744,7 +3744,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0138",
+        "id": "ANIM_CUT_ARK_INTRO_CAM",
         "file": "0138.bin",
         "numframes": 1201,
         "bytesperframe": 12,
@@ -3756,7 +3756,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0139",
+        "id": "ANIM_CUT_ARK_INTRO_JO",
         "file": "0139.bin",
         "numframes": 301,
         "bytesperframe": 58,
@@ -3768,7 +3768,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_013A",
+        "id": "ANIM_CUT_ARK_INTRO_GUARD_01",
         "file": "013a.bin",
         "numframes": 301,
         "bytesperframe": 52,
@@ -3804,7 +3804,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_013D",
+        "id": "ANIM_CUT_ARK_INTRO_DRC",
         "file": "013d.bin",
         "numframes": 301,
         "bytesperframe": 9,
@@ -3840,7 +3840,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0140",
+        "id": "ANIM_CUT_EAR_OUTRO_CAM_02",
         "file": "0140.bin",
         "numframes": 293,
         "bytesperframe": 8,
@@ -3852,7 +3852,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0141",
+        "id": "ANIM_CUT_EAR_OUTRO_JO_02",
         "file": "0141.bin",
         "numframes": 147,
         "bytesperframe": 56,
@@ -3876,7 +3876,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0143",
+        "id": "ANIM_CUT_EAR_OUTRO_CAM_03",
         "file": "0143.bin",
         "numframes": 345,
         "bytesperframe": 3,
@@ -3888,7 +3888,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0144",
+        "id": "ANIM_CUT_EAR_OUTRO_JO_03",
         "file": "0144.bin",
         "numframes": 173,
         "bytesperframe": 53,
@@ -3912,7 +3912,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0146",
+        "id": "ANIM_CUT_EAR_OUTRO_CAM_04",
         "file": "0146.bin",
         "numframes": 373,
         "bytesperframe": 1,
@@ -3924,7 +3924,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0147",
+        "id": "ANIM_CUT_EAR_OUTRO_JO_04",
         "file": "0147.bin",
         "numframes": 187,
         "bytesperframe": 51,
@@ -3948,7 +3948,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0149",
+        "id": "ANIM_CUT_EAR_OUTRO_CAM_05",
         "file": "0149.bin",
         "numframes": 217,
         "bytesperframe": 6,
@@ -3960,7 +3960,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_014A",
+        "id": "ANIM_CUT_EAR_OUTRO_JO_05",
         "file": "014a.bin",
         "numframes": 109,
         "bytesperframe": 50,
@@ -3972,7 +3972,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_014B",
+        "id": "ANIM_CUT_EAR_OUTRO_DRC_01",
         "file": "014b.bin",
         "numframes": 109,
         "bytesperframe": 12,
@@ -3984,7 +3984,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_014C",
+        "id": "ANIM_CUT_EAR_OUTRO_CAM_06",
         "file": "014c.bin",
         "numframes": 111,
         "bytesperframe": 4,
@@ -3996,7 +3996,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_014D",
+        "id": "ANIM_CUT_EAR_OUTRO_JO_06",
         "file": "014d.bin",
         "numframes": 56,
         "bytesperframe": 41,
@@ -4008,7 +4008,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_014E",
+        "id": "ANIM_CUT_EAR_OUTRO_DRC_02",
         "file": "014e.bin",
         "numframes": 56,
         "bytesperframe": 9,
@@ -4020,7 +4020,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_014F",
+        "id": "ANIM_CUT_EAR_OUTRO_CAM_07",
         "file": "014f.bin",
         "numframes": 365,
         "bytesperframe": 3,
@@ -4032,7 +4032,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0150",
+        "id": "ANIM_CUT_EAR_OUTRO_JO_07",
         "file": "0150.bin",
         "numframes": 183,
         "bytesperframe": 37,
@@ -4044,7 +4044,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0151",
+        "id": "ANIM_CUT_EAR_OUTRO_DRC_03",
         "file": "0151.bin",
         "numframes": 183,
         "bytesperframe": 10,
@@ -4056,7 +4056,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0152",
+        "id": "ANIM_CUT_EAR_OUTRO_CAM_08",
         "file": "0152.bin",
         "numframes": 335,
         "bytesperframe": 3,
@@ -4068,7 +4068,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0153",
+        "id": "ANIM_CUT_EAR_OUTRO_JO_08",
         "file": "0153.bin",
         "numframes": 168,
         "bytesperframe": 51,
@@ -4080,7 +4080,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0154",
+        "id": "ANIM_CUT_EAR_OUTRO_DRC_04",
         "file": "0154.bin",
         "numframes": 168,
         "bytesperframe": 5,
@@ -4092,7 +4092,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0155",
+        "id": "ANIM_CUT_AME_INTRO_CAM_15",
         "file": "0155.bin",
         "numframes": 291,
         "bytesperframe": 7,
@@ -4104,7 +4104,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0156",
+        "id": "ANIM_CUT_AME_INTRO_JO_03",
         "file": "0156.bin",
         "numframes": 73,
         "bytesperframe": 52,
@@ -4116,7 +4116,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0157",
+        "id": "ANIM_CUT_ARK_OUTRO_CAM",
         "file": "0157.bin",
         "numframes": 2717,
         "bytesperframe": 10,
@@ -4128,7 +4128,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_0158",
+        "id": "ANIM_CUT_ARK_OUTRO_JO",
         "file": "0158.bin",
         "numframes": 680,
         "bytesperframe": 64,
@@ -4140,7 +4140,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0159",
+        "id": "ANIM_CUT_ARK_OUTRO_CASS",
         "file": "0159.bin",
         "numframes": 680,
         "bytesperframe": 55,
@@ -4152,7 +4152,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_015A",
+        "id": "ANIM_CUT_ARK_OUTRO_MRB",
         "file": "015a.bin",
         "numframes": 680,
         "bytesperframe": 49,
@@ -4164,7 +4164,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_015B",
+        "id": "ANIM_CUT_ARK_OUTRO_GUARD1",
         "file": "015b.bin",
         "numframes": 680,
         "bytesperframe": 51,
@@ -4176,7 +4176,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_015C",
+        "id": "ANIM_CUT_ARK_OUTRO_GUARD2",
         "file": "015c.bin",
         "numframes": 680,
         "bytesperframe": 49,
@@ -4188,7 +4188,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_015D",
+        "id": "ANIM_CUT_ARK_OUTRO_DRC",
         "file": "015d.bin",
         "numframes": 680,
         "bytesperframe": 17,
@@ -4200,7 +4200,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_015E",
+        "id": "ANIM_CUT_ARK_OUTRO_DROPSHIP",
         "file": "015e.bin",
         "numframes": 680,
         "bytesperframe": 28,
@@ -4236,7 +4236,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0161",
+        "id": "ANIM_CUT_AME_INTRO_BANNER1_05",
         "file": "0161.bin",
         "numframes": 238,
         "bytesperframe": 6,
@@ -4248,7 +4248,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0162",
+        "id": "ANIM_CUT_AME_INTRO_BANNER2_05",
         "file": "0162.bin",
         "numframes": 238,
         "bytesperframe": 5,
@@ -4284,7 +4284,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0165",
+        "id": "ANIM_CUT_DEPO_INTRO_CAM",
         "file": "0165.bin",
         "numframes": 1025,
         "bytesperframe": 10,
@@ -4296,7 +4296,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_0166",
+        "id": "ANIM_CUT_DEPO_INTRO_JO",
         "file": "0166.bin",
         "numframes": 257,
         "bytesperframe": 57,
@@ -4308,7 +4308,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0167",
+        "id": "ANIM_CUT_DEPO_INTRO_GUARD_01",
         "file": "0167.bin",
         "numframes": 257,
         "bytesperframe": 52,
@@ -4356,7 +4356,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_016B",
+        "id": "ANIM_CUT_CAVE_BETA_CAM",
         "file": "016b.bin",
         "numframes": 0,
         "bytesperframe": 0,
@@ -4368,7 +4368,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_016C",
+        "id": "ANIM_CUT_CAVE_BETA_GUARD1",
         "file": "016c.bin",
         "numframes": 0,
         "bytesperframe": 0,
@@ -4380,7 +4380,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_016D",
+        "id": "ANIM_CUT_CAVE_BETA_GUARD2",
         "file": "016d.bin",
         "numframes": 0,
         "bytesperframe": 0,
@@ -4392,7 +4392,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_016E",
+        "id": "ANIM_CUT_CAVE_BETA_GUARD3",
         "file": "016e.bin",
         "numframes": 0,
         "bytesperframe": 0,
@@ -4404,7 +4404,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_016F",
+        "id": "ANIM_CUT_CAVE_BETA_STEWARDESS",
         "file": "016f.bin",
         "numframes": 0,
         "bytesperframe": 0,
@@ -4416,7 +4416,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0170",
+        "id": "ANIM_CUT_CAVE_BETA_JO",
         "file": "0170.bin",
         "numframes": 0,
         "bytesperframe": 0,
@@ -4428,7 +4428,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0171",
+        "id": "ANIM_CUT_ELD_INTRO_CAM_01",
         "file": "0171.bin",
         "numframes": 1925,
         "bytesperframe": 13,
@@ -4440,7 +4440,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_0172",
+        "id": "ANIM_CUT_ELD_INTRO_NEG_01",
         "file": "0172.bin",
         "numframes": 482,
         "bytesperframe": 52,
@@ -4452,7 +4452,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0173",
+        "id": "ANIM_CUT_ELD_INTRO_TAKER1_01",
         "file": "0173.bin",
         "numframes": 482,
         "bytesperframe": 50,
@@ -4464,7 +4464,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0174",
+        "id": "ANIM_CUT_ELD_INTRO_TAKER2_01",
         "file": "0174.bin",
         "numframes": 482,
         "bytesperframe": 50,
@@ -4476,7 +4476,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0175",
+        "id": "ANIM_CUT_ELD_INTRO_DROPSHIP_01",
         "file": "0175.bin",
         "numframes": 482,
         "bytesperframe": 46,
@@ -4512,7 +4512,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0178",
+        "id": "ANIM_CUT_PETE_OUTRO_CAM",
         "file": "0178.bin",
         "numframes": 691,
         "bytesperframe": 7,
@@ -4524,7 +4524,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_0179",
+        "id": "ANIM_CUT_PETE_OUTRO_JO",
         "file": "0179.bin",
         "numframes": 173,
         "bytesperframe": 49,
@@ -4536,7 +4536,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_017A",
+        "id": "ANIM_CUT_ELD_OUTRO_CAM",
         "file": "017a.bin",
         "numframes": 3757,
         "bytesperframe": 10,
@@ -4548,7 +4548,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_017B",
+        "id": "ANIM_CUT_ELD_OUTRO_CARR",
         "file": "017b.bin",
         "numframes": 940,
         "bytesperframe": 46,
@@ -4560,7 +4560,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_017C",
+        "id": "ANIM_CUT_ELD_OUTRO_JO",
         "file": "017c.bin",
         "numframes": 940,
         "bytesperframe": 54,
@@ -4572,7 +4572,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_017D",
+        "id": "ANIM_CUT_LUE_OUTRO_CAM",
         "file": "017d.bin",
         "numframes": 1956,
         "bytesperframe": 9,
@@ -4584,7 +4584,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_017E",
+        "id": "ANIM_CUT_LUE_OUTRO_JON",
         "file": "017e.bin",
         "numframes": 489,
         "bytesperframe": 48,
@@ -4596,7 +4596,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_017F",
+        "id": "ANIM_CUT_LUE_OUTRO_JO",
         "file": "017f.bin",
         "numframes": 489,
         "bytesperframe": 51,
@@ -4608,7 +4608,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0180",
+        "id": "ANIM_CUT_LUE_OUTRO_GUARD",
         "file": "0180.bin",
         "numframes": 489,
         "bytesperframe": 49,
@@ -4620,7 +4620,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0181",
+        "id": "ANIM_CUT_LUE_INTRO_CAM_01",
         "file": "0181.bin",
         "numframes": 1901,
         "bytesperframe": 11,
@@ -4632,7 +4632,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0182",
+        "id": "ANIM_CUT_LUE_INTRO_GUARD",
         "file": "0182.bin",
         "numframes": 476,
         "bytesperframe": 45,
@@ -4644,7 +4644,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0183",
+        "id": "ANIM_CUT_LUE_INTRO_CAM_02",
         "file": "0183.bin",
         "numframes": 641,
         "bytesperframe": 10,
@@ -4656,7 +4656,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_0184",
+        "id": "ANIM_CUT_LUE_INTRO_LAB_01",
         "file": "0184.bin",
         "numframes": 161,
         "bytesperframe": 30,
@@ -4668,7 +4668,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0185",
+        "id": "ANIM_CUT_LUE_INTRO_BIO1_01",
         "file": "0185.bin",
         "numframes": 161,
         "bytesperframe": 43,
@@ -4680,7 +4680,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0186",
+        "id": "ANIM_CUT_LUE_INTRO_BIO2_01",
         "file": "0186.bin",
         "numframes": 161,
         "bytesperframe": 51,
@@ -4692,7 +4692,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0187",
+        "id": "ANIM_CUT_LUE_INTRO_BED_01",
         "file": "0187.bin",
         "numframes": 161,
         "bytesperframe": 7,
@@ -4704,7 +4704,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0188",
+        "id": "ANIM_CUT_LUE_INTRO_CAM_03",
         "file": "0188.bin",
         "numframes": 1001,
         "bytesperframe": 7,
@@ -4716,7 +4716,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0189",
+        "id": "ANIM_CUT_LUE_INTRO_BIO1_02",
         "file": "0189.bin",
         "numframes": 251,
         "bytesperframe": 48,
@@ -4728,7 +4728,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_018A",
+        "id": "ANIM_CUT_LUE_INTRO_BIO2_02",
         "file": "018a.bin",
         "numframes": 251,
         "bytesperframe": 44,
@@ -4740,7 +4740,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_018B",
+        "id": "ANIM_CUT_LUE_INTRO_BED_02",
         "file": "018b.bin",
         "numframes": 251,
         "bytesperframe": 1,
@@ -4752,7 +4752,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_018C",
+        "id": "ANIM_CUT_RIT_INTRO_CAM_01",
         "file": "018c.bin",
         "numframes": 3224,
         "bytesperframe": 8,
@@ -4764,7 +4764,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_018D",
+        "id": "ANIM_CUT_RIT_INTRO_TRENT",
         "file": "018d.bin",
         "numframes": 806,
         "bytesperframe": 52,
@@ -4776,7 +4776,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_018E",
+        "id": "ANIM_CUT_RIT_INTRO_PRES",
         "file": "018e.bin",
         "numframes": 806,
         "bytesperframe": 47,
@@ -4788,7 +4788,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_018F",
+        "id": "ANIM_CUT_RIT_INTRO_STR",
         "file": "018f.bin",
         "numframes": 806,
         "bytesperframe": 45,
@@ -4812,7 +4812,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0191",
+        "id": "ANIM_CUT_DEPO_MID_CAM",
         "file": "0191.bin",
         "numframes": 6105,
         "bytesperframe": 10,
@@ -4824,7 +4824,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_0192",
+        "id": "ANIM_CUT_DEPO_MID_MRB",
         "file": "0192.bin",
         "numframes": 1527,
         "bytesperframe": 53,
@@ -4836,7 +4836,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0193",
+        "id": "ANIM_CUT_DEPO_MID_CASS",
         "file": "0193.bin",
         "numframes": 1527,
         "bytesperframe": 50,
@@ -4848,7 +4848,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0194",
+        "id": "ANIM_CUT_DEPO_MID_TRENT",
         "file": "0194.bin",
         "numframes": 1527,
         "bytesperframe": 49,
@@ -4860,7 +4860,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0195",
+        "id": "ANIM_CUT_DEPO_MID_STR",
         "file": "0195.bin",
         "numframes": 1527,
         "bytesperframe": 46,
@@ -4872,7 +4872,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0196",
+        "id": "ANIM_CUT_DEPO_OUTRO_CAM",
         "file": "0196.bin",
         "numframes": 2907,
         "bytesperframe": 11,
@@ -4884,7 +4884,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_0197",
+        "id": "ANIM_CUT_DEPO_OUTRO_JO",
         "file": "0197.bin",
         "numframes": 727,
         "bytesperframe": 54,
@@ -4896,7 +4896,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0198",
+        "id": "ANIM_CUT_LIP_OUTRO_CAM",
         "file": "0198.bin",
         "numframes": 811,
         "bytesperframe": 7,
@@ -4908,7 +4908,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0199",
+        "id": "ANIM_CUT_LIP_OUTRO_JO",
         "file": "0199.bin",
         "numframes": 203,
         "bytesperframe": 48,
@@ -4920,7 +4920,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_019A",
+        "id": "ANIM_CUT_LIP_OUTRO_BIO1",
         "file": "019a.bin",
         "numframes": 203,
         "bytesperframe": 48,
@@ -4932,7 +4932,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_019B",
+        "id": "ANIM_CUT_LIP_OUTRO_BIO2",
         "file": "019b.bin",
         "numframes": 203,
         "bytesperframe": 50,
@@ -4944,7 +4944,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_019C",
+        "id": "ANIM_CUT_TRA_INTRO_CAM",
         "file": "019c.bin",
         "numframes": 4334,
         "bytesperframe": 10,
@@ -4956,7 +4956,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_019D",
+        "id": "ANIM_CUT_TRA_INTRO_JO",
         "file": "019d.bin",
         "numframes": 1084,
         "bytesperframe": 55,
@@ -4968,7 +4968,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_019E",
+        "id": "ANIM_CUT_TRA_INTRO_BIO1",
         "file": "019e.bin",
         "numframes": 1084,
         "bytesperframe": 52,
@@ -4980,7 +4980,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_019F",
+        "id": "ANIM_CUT_TRA_INTRO_BIO2",
         "file": "019f.bin",
         "numframes": 1084,
         "bytesperframe": 54,
@@ -4992,7 +4992,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01A0",
+        "id": "ANIM_CUT_TRA_INTRO_BED",
         "file": "01a0.bin",
         "numframes": 1084,
         "bytesperframe": 8,
@@ -5004,7 +5004,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01A1",
+        "id": "ANIM_CUT_LIP_OUTRO_BED",
         "file": "01a1.bin",
         "numframes": 203,
         "bytesperframe": 1,
@@ -5016,7 +5016,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01A2",
+        "id": "ANIM_CUT_IMP_OUTRO_CAM_01",
         "file": "01a2.bin",
         "numframes": 244,
         "bytesperframe": 9,
@@ -5028,7 +5028,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01A3",
+        "id": "ANIM_CUT_IMP_OUTRO_JO_01",
         "file": "01a3.bin",
         "numframes": 61,
         "bytesperframe": 45,
@@ -5040,7 +5040,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01A4",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE1_01",
         "file": "01a4.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -5052,7 +5052,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01A5",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE2_01",
         "file": "01a5.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -5064,7 +5064,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01A6",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE3_01",
         "file": "01a6.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -5076,7 +5076,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01A7",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE4_01",
         "file": "01a7.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -5088,7 +5088,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01A8",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE5_01",
         "file": "01a8.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -5100,7 +5100,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01A9",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE6_01",
         "file": "01a9.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -5112,7 +5112,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01AA",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE7_01",
         "file": "01aa.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -5136,7 +5136,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01AC",
+        "id": "ANIM_CUT_IMP_OUTRO_CAM_02",
         "file": "01ac.bin",
         "numframes": 109,
         "bytesperframe": 7,
@@ -5148,7 +5148,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01AD",
+        "id": "ANIM_CUT_IMP_OUTRO_SKEDAR1_01",
         "file": "01ad.bin",
         "numframes": 28,
         "bytesperframe": 52,
@@ -5160,7 +5160,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01AE",
+        "id": "ANIM_CUT_IMP_OUTRO_SKEDAR2",
         "file": "01ae.bin",
         "numframes": 28,
         "bytesperframe": 41,
@@ -5196,7 +5196,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01B1",
+        "id": "ANIM_CUT_IMP_OUTRO_LASER1",
         "file": "01b1.bin",
         "numframes": 359,
         "bytesperframe": 6,
@@ -5232,7 +5232,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01B4",
+        "id": "ANIM_CUT_IMP_OUTRO_DROPSHIP_01",
         "file": "01b4.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -5244,7 +5244,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01B5",
+        "id": "ANIM_CUT_AZT_INTRO_CAM",
         "file": "01b5.bin",
         "numframes": 2689,
         "bytesperframe": 8,
@@ -5256,7 +5256,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01B6",
+        "id": "ANIM_CUT_AZT_INTRO_JO",
         "file": "01b6.bin",
         "numframes": 673,
         "bytesperframe": 54,
@@ -5268,7 +5268,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01B7",
+        "id": "ANIM_CUT_ELD_INTRO_CAM_02",
         "file": "01b7.bin",
         "numframes": 728,
         "bytesperframe": 10,
@@ -5280,7 +5280,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01B8",
+        "id": "ANIM_CUT_ELD_INTRO_NEG_02",
         "file": "01b8.bin",
         "numframes": 182,
         "bytesperframe": 46,
@@ -5292,7 +5292,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01B9",
+        "id": "ANIM_CUT_ELD_INTRO_TAKER1_02",
         "file": "01b9.bin",
         "numframes": 182,
         "bytesperframe": 46,
@@ -5304,7 +5304,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01BA",
+        "id": "ANIM_CUT_ELD_INTRO_TAKER2_02",
         "file": "01ba.bin",
         "numframes": 182,
         "bytesperframe": 43,
@@ -5316,7 +5316,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01BB",
+        "id": "ANIM_CUT_ELD_INTRO_CAM_03",
         "file": "01bb.bin",
         "numframes": 584,
         "bytesperframe": 10,
@@ -5328,7 +5328,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01BC",
+        "id": "ANIM_CUT_ELD_INTRO_JO_01",
         "file": "01bc.bin",
         "numframes": 146,
         "bytesperframe": 61,
@@ -5340,7 +5340,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01BD",
+        "id": "ANIM_CUT_ELD_INTRO_DROPSHIP_02",
         "file": "01bd.bin",
         "numframes": 146,
         "bytesperframe": 20,
@@ -5352,7 +5352,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01BE",
+        "id": "ANIM_CUT_ELD_INTRO_CAM_04",
         "file": "01be.bin",
         "numframes": 359,
         "bytesperframe": 7,
@@ -5364,7 +5364,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01BF",
+        "id": "ANIM_CUT_ELD_INTRO_JO_02",
         "file": "01bf.bin",
         "numframes": 90,
         "bytesperframe": 43,
@@ -5376,7 +5376,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01C0",
+        "id": "ANIM_CUT_ELD_INTRO_TAKER1_03",
         "file": "01c0.bin",
         "numframes": 90,
         "bytesperframe": 0,
@@ -5388,7 +5388,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01C1",
+        "id": "ANIM_CUT_ELD_INTRO_TAKER2_03",
         "file": "01c1.bin",
         "numframes": 90,
         "bytesperframe": 25,
@@ -5400,7 +5400,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01C2",
+        "id": "ANIM_CUT_LEE_INTRO_CAM",
         "file": "01c2.bin",
         "numframes": 3601,
         "bytesperframe": 9,
@@ -5412,7 +5412,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01C3",
+        "id": "ANIM_CUT_LEE_INTRO_JO",
         "file": "01c3.bin",
         "numframes": 901,
         "bytesperframe": 54,
@@ -5424,7 +5424,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01C4",
+        "id": "ANIM_CUT_LEE_INTRO_CASS",
         "file": "01c4.bin",
         "numframes": 901,
         "bytesperframe": 52,
@@ -5436,7 +5436,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01C5",
+        "id": "ANIM_CUT_LEE_INTRO_SKEDAR",
         "file": "01c5.bin",
         "numframes": 901,
         "bytesperframe": 89,
@@ -5448,7 +5448,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01C6",
+        "id": "ANIM_CUT_LIP_INTRO_CAM",
         "file": "01c6.bin",
         "numframes": 3209,
         "bytesperframe": 9,
@@ -5460,7 +5460,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01C7",
+        "id": "ANIM_CUT_LIP_INTRO_JON",
         "file": "01c7.bin",
         "numframes": 803,
         "bytesperframe": 52,
@@ -5472,7 +5472,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01C8",
+        "id": "ANIM_CUT_LIP_INTRO_JO",
         "file": "01c8.bin",
         "numframes": 803,
         "bytesperframe": 50,
@@ -5484,7 +5484,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01C9",
+        "id": "ANIM_CUT_LIP_INTRO_GUARD",
         "file": "01c9.bin",
         "numframes": 4,
         "bytesperframe": 0,
@@ -5496,7 +5496,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01CA",
+        "id": "ANIM_CUT_LIP_INTRO_CRATE",
         "file": "01ca.bin",
         "numframes": 803,
         "bytesperframe": 4,
@@ -5508,7 +5508,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01CB",
+        "id": "ANIM_CUT_TRA_MID_CAM",
         "file": "01cb.bin",
         "numframes": 3581,
         "bytesperframe": 8,
@@ -5520,7 +5520,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01CC",
+        "id": "ANIM_CUT_TRA_MID_ELVIS",
         "file": "01cc.bin",
         "numframes": 896,
         "bytesperframe": 53,
@@ -5532,7 +5532,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01CD",
+        "id": "ANIM_CUT_TRA_MID_JON",
         "file": "01cd.bin",
         "numframes": 896,
         "bytesperframe": 47,
@@ -5544,7 +5544,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01CE",
+        "id": "ANIM_CUT_TRA_MID_JO",
         "file": "01ce.bin",
         "numframes": 896,
         "bytesperframe": 47,
@@ -5556,7 +5556,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01CF",
+        "id": "ANIM_CUT_TRA_MID_BED",
         "file": "01cf.bin",
         "numframes": 896,
         "bytesperframe": 5,
@@ -5568,7 +5568,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01D0",
+        "id": "ANIM_CUT_RIT_INTRO_CAM_02",
         "file": "01d0.bin",
         "numframes": 410,
         "bytesperframe": 7,
@@ -5580,7 +5580,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01D1",
+        "id": "ANIM_CUT_RIT_INTRO_JO_01",
         "file": "01d1.bin",
         "numframes": 103,
         "bytesperframe": 44,
@@ -5592,7 +5592,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01D2",
+        "id": "ANIM_CUT_RIT_INTRO_CAM_03",
         "file": "01d2.bin",
         "numframes": 410,
         "bytesperframe": 9,
@@ -5604,7 +5604,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01D3",
+        "id": "ANIM_CUT_RIT_INTRO_JO_02",
         "file": "01d3.bin",
         "numframes": 103,
         "bytesperframe": 45,
@@ -5616,7 +5616,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01D4",
+        "id": "ANIM_CUT_PAM_MID_CAM",
         "file": "01d4.bin",
         "numframes": 4501,
         "bytesperframe": 8,
@@ -5628,7 +5628,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01D5",
+        "id": "ANIM_CUT_PAM_MID_JO",
         "file": "01d5.bin",
         "numframes": 1126,
         "bytesperframe": 56,
@@ -5640,7 +5640,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01D6",
+        "id": "ANIM_CUT_PAM_MID_ELVIS",
         "file": "01d6.bin",
         "numframes": 1126,
         "bytesperframe": 52,
@@ -5652,7 +5652,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01D7",
+        "id": "ANIM_CUT_PAM_MID_DRC",
         "file": "01d7.bin",
         "numframes": 1125,
         "bytesperframe": 16,
@@ -5664,7 +5664,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01D8",
+        "id": "ANIM_CUT_PAM_MID_CARD",
         "file": "01d8.bin",
         "numframes": 1126,
         "bytesperframe": 8,
@@ -5676,7 +5676,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01D9",
+        "id": "ANIM_CUT_AZT_OUTRO_CAM",
         "file": "01d9.bin",
         "numframes": 4807,
         "bytesperframe": 11,
@@ -5688,7 +5688,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01DA",
+        "id": "ANIM_CUT_AZT_OUTRO_SKEDAR",
         "file": "01da.bin",
         "numframes": 1202,
         "bytesperframe": 108,
@@ -5700,7 +5700,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01DB",
+        "id": "ANIM_CUT_AZT_OUTRO_ELVIS",
         "file": "01db.bin",
         "numframes": 1202,
         "bytesperframe": 52,
@@ -5712,7 +5712,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01DC",
+        "id": "ANIM_CUT_AZT_OUTRO_TRENT",
         "file": "01dc.bin",
         "numframes": 1202,
         "bytesperframe": 50,
@@ -5724,7 +5724,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01DD",
+        "id": "ANIM_CUT_AZT_OUTRO_MRB",
         "file": "01dd.bin",
         "numframes": 1202,
         "bytesperframe": 45,
@@ -5736,7 +5736,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01DE",
+        "id": "ANIM_CUT_AZT_OUTRO_PRES",
         "file": "01de.bin",
         "numframes": 1202,
         "bytesperframe": 45,
@@ -5748,7 +5748,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01DF",
+        "id": "ANIM_CUT_AZT_OUTRO_JO",
         "file": "01df.bin",
         "numframes": 1202,
         "bytesperframe": 49,
@@ -5760,7 +5760,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01E0",
+        "id": "ANIM_CUT_AZT_OUTRO_CRATE",
         "file": "01e0.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -5772,7 +5772,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01E1",
+        "id": "ANIM_CUT_LEE_OUTRO_CAM",
         "file": "01e1.bin",
         "numframes": 2127,
         "bytesperframe": 10,
@@ -5784,7 +5784,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01E2",
+        "id": "ANIM_CUT_LEE_OUTRO_JO",
         "file": "01e2.bin",
         "numframes": 532,
         "bytesperframe": 52,
@@ -5796,7 +5796,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01E3",
+        "id": "ANIM_CUT_LEE_OUTRO_ELVIS",
         "file": "01e3.bin",
         "numframes": 532,
         "bytesperframe": 52,
@@ -5808,7 +5808,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01E4",
+        "id": "ANIM_CUT_LEE_OUTRO_SKSHUTTLE",
         "file": "01e4.bin",
         "numframes": 532,
         "bytesperframe": 24,
@@ -5820,7 +5820,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01E5",
+        "id": "ANIM_CUT_CAVE_INTRO_CAM",
         "file": "01e5.bin",
         "numframes": 4001,
         "bytesperframe": 11,
@@ -5832,7 +5832,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01E6",
+        "id": "ANIM_CUT_CAVE_INTRO_JO",
         "file": "01e6.bin",
         "numframes": 1001,
         "bytesperframe": 54,
@@ -5844,7 +5844,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01E7",
+        "id": "ANIM_CUT_CAVE_INTRO_TRENT",
         "file": "01e7.bin",
         "numframes": 1001,
         "bytesperframe": 46,
@@ -5856,7 +5856,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01E8",
+        "id": "ANIM_CUT_CAVE_INTRO_NSA1",
         "file": "01e8.bin",
         "numframes": 1001,
         "bytesperframe": 45,
@@ -5868,7 +5868,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01E9",
+        "id": "ANIM_CUT_CAVE_INTRO_NSA2",
         "file": "01e9.bin",
         "numframes": 1001,
         "bytesperframe": 46,
@@ -5880,7 +5880,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01EA",
+        "id": "ANIM_CUT_CAVE_INTRO_NSA3",
         "file": "01ea.bin",
         "numframes": 1001,
         "bytesperframe": 42,
@@ -5892,7 +5892,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01EB",
+        "id": "ANIM_CUT_CAVE_INTRO_GUARD1",
         "file": "01eb.bin",
         "numframes": 1001,
         "bytesperframe": 42,
@@ -5904,7 +5904,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01EC",
+        "id": "ANIM_CUT_CAVE_INTRO_GUARD2",
         "file": "01ec.bin",
         "numframes": 1001,
         "bytesperframe": 42,
@@ -5916,7 +5916,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01ED",
+        "id": "ANIM_CUT_CAVE_INTRO_CABLECAR",
         "file": "01ed.bin",
         "numframes": 1001,
         "bytesperframe": 11,
@@ -5928,7 +5928,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01EE",
+        "id": "ANIM_CUT_CAVE_INTRO_BINOCULARS",
         "file": "01ee.bin",
         "numframes": 1001,
         "bytesperframe": 9,
@@ -5940,7 +5940,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01EF",
+        "id": "ANIM_CUT_PAM_INTRO_CAM",
         "file": "01ef.bin",
         "numframes": 3336,
         "bytesperframe": 10,
@@ -5952,7 +5952,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_01F0",
+        "id": "ANIM_CUT_PAM_INTRO_JO",
         "file": "01f0.bin",
         "numframes": 834,
         "bytesperframe": 54,
@@ -5964,7 +5964,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01F1",
+        "id": "ANIM_CUT_PAM_INTRO_ELVIS",
         "file": "01f1.bin",
         "numframes": 834,
         "bytesperframe": 56,
@@ -5976,7 +5976,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_01F2",
+        "id": "ANIM_CUT_PAM_INTRO_LIFT",
         "file": "01f2.bin",
         "numframes": 834,
         "bytesperframe": 2,
@@ -6276,7 +6276,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_020B",
+        "id": "ANIM_CUT_EAR_INTRO_GUARD_02",
         "file": "020b.bin",
         "numframes": 2,
         "bytesperframe": 0,
@@ -6288,7 +6288,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_020C",
+        "id": "ANIM_CUT_ARK_INTRO_GUARD_02",
         "file": "020c.bin",
         "numframes": 8,
         "bytesperframe": 0,
@@ -6648,7 +6648,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_022A",
+        "id": "ANIM_CUT_DEPO_INTRO_GUARD_02",
         "file": "022a.bin",
         "numframes": 4,
         "bytesperframe": 0,
@@ -8400,7 +8400,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02BC",
+        "id": "ANIM_CUT_IMP_INTRO_CAM_01",
         "file": "02bc.bin",
         "numframes": 3651,
         "bytesperframe": 11,
@@ -8412,7 +8412,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_02BD",
+        "id": "ANIM_CUT_IMP_INTRO_JO_01",
         "file": "02bd.bin",
         "numframes": 913,
         "bytesperframe": 55,
@@ -8424,7 +8424,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02BE",
+        "id": "ANIM_CUT_IMP_INTRO_CARR",
         "file": "02be.bin",
         "numframes": 913,
         "bytesperframe": 52,
@@ -8436,7 +8436,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02BF",
+        "id": "ANIM_CUT_IMP_INTRO_SOLDIER1",
         "file": "02bf.bin",
         "numframes": 913,
         "bytesperframe": 47,
@@ -8448,7 +8448,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02C0",
+        "id": "ANIM_CUT_IMP_INTRO_SOLDIER2",
         "file": "02c0.bin",
         "numframes": 913,
         "bytesperframe": 49,
@@ -8460,7 +8460,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02C1",
+        "id": "ANIM_CUT_IMP_INTRO_DROPSHIP",
         "file": "02c1.bin",
         "numframes": 913,
         "bytesperframe": 22,
@@ -8472,7 +8472,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02C2",
+        "id": "ANIM_CUT_IMP_INTRO_CAM_02",
         "file": "02c2.bin",
         "numframes": 803,
         "bytesperframe": 8,
@@ -8484,7 +8484,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02C3",
+        "id": "ANIM_CUT_IMP_INTRO_SKEDAR",
         "file": "02c3.bin",
         "numframes": 201,
         "bytesperframe": 100,
@@ -8496,7 +8496,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02C4",
+        "id": "ANIM_CUT_IMP_INTRO_JO_02",
         "file": "02c4.bin",
         "numframes": 201,
         "bytesperframe": 50,
@@ -8508,7 +8508,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02C5",
+        "id": "ANIM_CUT_IMP_INTRO_DOOR1",
         "file": "02c5.bin",
         "numframes": 201,
         "bytesperframe": 9,
@@ -8520,7 +8520,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02C6",
+        "id": "ANIM_CUT_IMP_INTRO_DOOR2",
         "file": "02c6.bin",
         "numframes": 201,
         "bytesperframe": 8,
@@ -8532,7 +8532,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02C7",
+        "id": "ANIM_CUT_SHO_OUTRO_CAM_03",
         "file": "02c7.bin",
         "numframes": 4413,
         "bytesperframe": 12,
@@ -8544,7 +8544,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_02C8",
+        "id": "ANIM_CUT_SHO_OUTRO_JO_02",
         "file": "02c8.bin",
         "numframes": 1104,
         "bytesperframe": 54,
@@ -8556,7 +8556,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02C9",
+        "id": "ANIM_CUT_SHO_OUTRO_ELVIS_02",
         "file": "02c9.bin",
         "numframes": 1104,
         "bytesperframe": 53,
@@ -8568,7 +8568,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02CA",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE01",
         "file": "02ca.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -8580,7 +8580,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02CB",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE02",
         "file": "02cb.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -8592,7 +8592,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02CC",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE03",
         "file": "02cc.bin",
         "numframes": 1104,
         "bytesperframe": 0,
@@ -8604,7 +8604,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02CD",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE04",
         "file": "02cd.bin",
         "numframes": 1104,
         "bytesperframe": 0,
@@ -8616,7 +8616,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02CE",
+        "id": "ANIM_CUT_DAM_INTRO_CAM",
         "file": "02ce.bin",
         "numframes": 2663,
         "bytesperframe": 8,
@@ -8628,7 +8628,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_02CF",
+        "id": "ANIM_CUT_DAM_INTRO_JO",
         "file": "02cf.bin",
         "numframes": 666,
         "bytesperframe": 54,
@@ -8640,7 +8640,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02D0",
+        "id": "ANIM_CUT_DAM_INTRO_ELVIS",
         "file": "02d0.bin",
         "numframes": 666,
         "bytesperframe": 50,
@@ -8652,7 +8652,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02D1",
+        "id": "ANIM_CUT_DAM_INTRO_GUARD",
         "file": "02d1.bin",
         "numframes": 666,
         "bytesperframe": 45,
@@ -8664,7 +8664,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02D2",
+        "id": "ANIM_CUT_TRA_OUTRO_CAM_01",
         "file": "02d2.bin",
         "numframes": 325,
         "bytesperframe": 8,
@@ -8676,7 +8676,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02D3",
+        "id": "ANIM_CUT_TRA_OUTRO_UFO_01",
         "file": "02d3.bin",
         "numframes": 82,
         "bytesperframe": 12,
@@ -8688,7 +8688,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02D4",
+        "id": "ANIM_CUT_TRA_OUTRO_CAM_02",
         "file": "02d4.bin",
         "numframes": 307,
         "bytesperframe": 8,
@@ -8700,7 +8700,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02D5",
+        "id": "ANIM_CUT_TRA_OUTRO_UFO_02",
         "file": "02d5.bin",
         "numframes": 77,
         "bytesperframe": 13,
@@ -8724,7 +8724,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02D7",
+        "id": "ANIM_CUT_PAM_OUTRO_CAM",
         "file": "02d7.bin",
         "numframes": 1611,
         "bytesperframe": 12,
@@ -8736,7 +8736,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02D8",
+        "id": "ANIM_CUT_RIT_OUTRO_CAM",
         "file": "02d8.bin",
         "numframes": 2201,
         "bytesperframe": 13,
@@ -8748,7 +8748,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_02D9",
+        "id": "ANIM_CUT_RIT_OUTRO_ELVIS",
         "file": "02d9.bin",
         "numframes": 598,
         "bytesperframe": 55,
@@ -8760,7 +8760,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02DA",
+        "id": "ANIM_CUT_RIT_OUTRO_JO",
         "file": "02da.bin",
         "numframes": 598,
         "bytesperframe": 49,
@@ -8772,7 +8772,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02DB",
+        "id": "ANIM_CUT_RIT_OUTRO_SKSHUTTLE",
         "file": "02db.bin",
         "numframes": 551,
         "bytesperframe": 10,
@@ -8784,7 +8784,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02DC",
+        "id": "ANIM_CUT_RIT_OUTRO_UFOEXTERIOR",
         "file": "02dc.bin",
         "numframes": 598,
         "bytesperframe": 14,
@@ -8796,7 +8796,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02DD",
+        "id": "ANIM_CUT_RIT_OUTRO_UFOINTERIOR",
         "file": "02dd.bin",
         "numframes": 598,
         "bytesperframe": 0,
@@ -8808,7 +8808,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02DE",
+        "id": "ANIM_CUT_RIT_OUTRO_PLANE",
         "file": "02de.bin",
         "numframes": 598,
         "bytesperframe": 4,
@@ -8820,7 +8820,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02DF",
+        "id": "ANIM_CUT_RIT_MID_CAM",
         "file": "02df.bin",
         "numframes": 1279,
         "bytesperframe": 9,
@@ -8832,7 +8832,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02E0",
+        "id": "ANIM_CUT_RIT_MID_SKSHUTTLE",
         "file": "02e0.bin",
         "numframes": 320,
         "bytesperframe": 35,
@@ -8844,7 +8844,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02E1",
+        "id": "ANIM_CUT_RIT_MID_PLANE",
         "file": "02e1.bin",
         "numframes": 320,
         "bytesperframe": 3,
@@ -8856,7 +8856,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02E2",
+        "id": "ANIM_CUT_DAM_OUTRO_CAM",
         "file": "02e2.bin",
         "numframes": 1961,
         "bytesperframe": 12,
@@ -8868,7 +8868,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_02E3",
+        "id": "ANIM_CUT_DAM_OUTRO_JO",
         "file": "02e3.bin",
         "numframes": 491,
         "bytesperframe": 54,
@@ -8880,7 +8880,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02E4",
+        "id": "ANIM_CUT_DAM_OUTRO_ELVIS",
         "file": "02e4.bin",
         "numframes": 491,
         "bytesperframe": 55,
@@ -8892,7 +8892,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02E5",
+        "id": "ANIM_CUT_DAM_OUTRO_SUBMARINE",
         "file": "02e5.bin",
         "numframes": 491,
         "bytesperframe": 4,
@@ -8904,7 +8904,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02E6",
+        "id": "ANIM_CUT_DAM_OUTRO_GRATE",
         "file": "02e6.bin",
         "numframes": 491,
         "bytesperframe": 2,
@@ -8916,7 +8916,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02E7",
+        "id": "ANIM_CUT_DAM_OUTRO_CRATE1",
         "file": "02e7.bin",
         "numframes": 491,
         "bytesperframe": 9,
@@ -8928,7 +8928,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02E8",
+        "id": "ANIM_CUT_DAM_OUTRO_CRATE2",
         "file": "02e8.bin",
         "numframes": 491,
         "bytesperframe": 9,
@@ -8940,7 +8940,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02E9",
+        "id": "ANIM_CUT_SHO_INTRO_CAM_01",
         "file": "02e9.bin",
         "numframes": 601,
         "bytesperframe": 5,
@@ -8952,7 +8952,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02EA",
+        "id": "ANIM_CUT_SHO_INTRO_CAM_02",
         "file": "02ea.bin",
         "numframes": 409,
         "bytesperframe": 8,
@@ -8964,7 +8964,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02EB",
+        "id": "ANIM_CUT_SHO_INTRO_JO_01",
         "file": "02eb.bin",
         "numframes": 103,
         "bytesperframe": 34,
@@ -8976,7 +8976,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02EC",
+        "id": "ANIM_CUT_SHO_INTRO_ELVIS_01",
         "file": "02ec.bin",
         "numframes": 103,
         "bytesperframe": 39,
@@ -8988,7 +8988,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02ED",
+        "id": "ANIM_CUT_SHO_INTRO_CAM_03",
         "file": "02ed.bin",
         "numframes": 561,
         "bytesperframe": 4,
@@ -9000,7 +9000,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02EE",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR1_01",
         "file": "02ee.bin",
         "numframes": 141,
         "bytesperframe": 90,
@@ -9012,7 +9012,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02EF",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR2_01",
         "file": "02ef.bin",
         "numframes": 141,
         "bytesperframe": 91,
@@ -9024,7 +9024,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F0",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR3_01",
         "file": "02f0.bin",
         "numframes": 141,
         "bytesperframe": 91,
@@ -9036,7 +9036,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F1",
+        "id": "ANIM_CUT_SHO_INTRO_CAM_04",
         "file": "02f1.bin",
         "numframes": 455,
         "bytesperframe": 7,
@@ -9048,7 +9048,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F2",
+        "id": "ANIM_CUT_SHO_INTRO_JO_02",
         "file": "02f2.bin",
         "numframes": 114,
         "bytesperframe": 37,
@@ -9060,7 +9060,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F3",
+        "id": "ANIM_CUT_SHO_INTRO_ELVIS_02",
         "file": "02f3.bin",
         "numframes": 114,
         "bytesperframe": 39,
@@ -9072,7 +9072,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F4",
+        "id": "ANIM_CUT_SHO_INTRO_CAM_05",
         "file": "02f4.bin",
         "numframes": 359,
         "bytesperframe": 5,
@@ -9084,7 +9084,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F5",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR1_02",
         "file": "02f5.bin",
         "numframes": 90,
         "bytesperframe": 89,
@@ -9096,7 +9096,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F6",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR2_02",
         "file": "02f6.bin",
         "numframes": 90,
         "bytesperframe": 90,
@@ -9108,7 +9108,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F7",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR3_02",
         "file": "02f7.bin",
         "numframes": 90,
         "bytesperframe": 92,
@@ -9120,7 +9120,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F8",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR4_01",
         "file": "02f8.bin",
         "numframes": 90,
         "bytesperframe": 91,
@@ -9132,7 +9132,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02F9",
+        "id": "ANIM_CUT_SHO_INTRO_CAM_06",
         "file": "02f9.bin",
         "numframes": 751,
         "bytesperframe": 5,
@@ -9144,7 +9144,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02FA",
+        "id": "ANIM_CUT_SHO_INTRO_SKSHUTTLE_01",
         "file": "02fa.bin",
         "numframes": 751,
         "bytesperframe": 33,
@@ -9156,7 +9156,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02FB",
+        "id": "ANIM_CUT_SHO_INTRO_CAM_07",
         "file": "02fb.bin",
         "numframes": 1231,
         "bytesperframe": 9,
@@ -9168,7 +9168,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02FC",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR1_03",
         "file": "02fc.bin",
         "numframes": 308,
         "bytesperframe": 65,
@@ -9180,7 +9180,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02FD",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR2_03",
         "file": "02fd.bin",
         "numframes": 308,
         "bytesperframe": 69,
@@ -9192,7 +9192,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02FE",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR3_03",
         "file": "02fe.bin",
         "numframes": 308,
         "bytesperframe": 64,
@@ -9204,7 +9204,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_02FF",
+        "id": "ANIM_CUT_SHO_INTRO_SKEDAR4_02",
         "file": "02ff.bin",
         "numframes": 308,
         "bytesperframe": 62,
@@ -9216,7 +9216,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0300",
+        "id": "ANIM_CUT_SHO_INTRO_KING",
         "file": "0300.bin",
         "numframes": 308,
         "bytesperframe": 89,
@@ -9228,7 +9228,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0301",
+        "id": "ANIM_CUT_SHO_INTRO_CAM_08",
         "file": "0301.bin",
         "numframes": 546,
         "bytesperframe": 8,
@@ -9240,7 +9240,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0302",
+        "id": "ANIM_CUT_SHO_INTRO_SKSHUTTLE_02",
         "file": "0302.bin",
         "numframes": 137,
         "bytesperframe": 30,
@@ -9252,7 +9252,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0303",
+        "id": "ANIM_CUT_SHO_INTRO_JO_03",
         "file": "0303.bin",
         "numframes": 137,
         "bytesperframe": 51,
@@ -9264,7 +9264,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0304",
+        "id": "ANIM_CUT_TRA_OUTRO_GUARD",
         "file": "0304.bin",
         "numframes": 77,
         "bytesperframe": 40,
@@ -9276,7 +9276,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0305",
+        "id": "ANIM_CUT_IMP_OUTRO_CAM_03",
         "file": "0305.bin",
         "numframes": 718,
         "bytesperframe": 9,
@@ -9288,7 +9288,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_0306",
+        "id": "ANIM_CUT_IMP_OUTRO_JO_02",
         "file": "0306.bin",
         "numframes": 180,
         "bytesperframe": 54,
@@ -9300,7 +9300,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0307",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE1_02",
         "file": "0307.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9312,7 +9312,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0308",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE2_02",
         "file": "0308.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9324,7 +9324,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0309",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE3_02",
         "file": "0309.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9336,7 +9336,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_030A",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE4_02",
         "file": "030a.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9348,7 +9348,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_030B",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE5_02",
         "file": "030b.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9360,7 +9360,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_030C",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE6_02",
         "file": "030c.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9372,7 +9372,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_030D",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE7_02",
         "file": "030d.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9396,7 +9396,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_030F",
+        "id": "ANIM_CUT_IMP_OUTRO_DROPSHIP_02",
         "file": "030f.bin",
         "numframes": 180,
         "bytesperframe": 29,
@@ -9408,7 +9408,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0310",
+        "id": "ANIM_CUT_IMP_OUTRO_CAM_04",
         "file": "0310.bin",
         "numframes": 365,
         "bytesperframe": 8,
@@ -9420,7 +9420,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0311",
+        "id": "ANIM_CUT_IMP_OUTRO_JO_03",
         "file": "0311.bin",
         "numframes": 92,
         "bytesperframe": 49,
@@ -9432,7 +9432,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0312",
+        "id": "ANIM_CUT_IMP_OUTRO_SKEDAR1_02",
         "file": "0312.bin",
         "numframes": 92,
         "bytesperframe": 66,
@@ -9444,7 +9444,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0313",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE1_03",
         "file": "0313.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9456,7 +9456,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0314",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE2_03",
         "file": "0314.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9468,7 +9468,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0315",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE3_03",
         "file": "0315.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9480,7 +9480,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0316",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE4_03",
         "file": "0316.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9492,7 +9492,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0317",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE5_03",
         "file": "0317.bin",
         "numframes": 92,
         "bytesperframe": 8,
@@ -9504,7 +9504,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0318",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE6_03",
         "file": "0318.bin",
         "numframes": 3,
         "bytesperframe": 0,
@@ -9516,7 +9516,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0319",
+        "id": "ANIM_CUT_IMP_OUTRO_CRATE7_03",
         "file": "0319.bin",
         "numframes": 92,
         "bytesperframe": 8,
@@ -9528,7 +9528,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_031A",
+        "id": "ANIM_CUT_CAVE_OUTRO_CAM",
         "file": "031a.bin",
         "numframes": 1501,
         "bytesperframe": 13,
@@ -9540,7 +9540,7 @@
         "flag08": true
     },
     {
-        "id": "ANIM_031B",
+        "id": "ANIM_CUT_CAVE_OUTRO_GUARD",
         "file": "031b.bin",
         "numframes": 376,
         "bytesperframe": 42,
@@ -9552,7 +9552,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_031C",
+        "id": "ANIM_CUT_CAVE_OUTRO_PLANE",
         "file": "031c.bin",
         "numframes": 376,
         "bytesperframe": 10,
@@ -12012,7 +12012,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03E9",
+        "id": "ANIM_GUN_UNARMED_LEFTPUNCH",
         "file": "03e9.bin",
         "numframes": 36,
         "bytesperframe": 8,
@@ -12024,7 +12024,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03EA",
+        "id": "ANIM_GUN_UNARMED_RIGHTPUNCH",
         "file": "03ea.bin",
         "numframes": 30,
         "bytesperframe": 10,
@@ -12036,7 +12036,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03EB",
+        "id": "ANIM_GUN_FARSIGHT_RELOAD",
         "file": "03eb.bin",
         "numframes": 130,
         "bytesperframe": 60,
@@ -12048,7 +12048,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03EC",
+        "id": "ANIM_GUN_FARSIGHT_SHOOT",
         "file": "03ec.bin",
         "numframes": 34,
         "bytesperframe": 34,
@@ -12060,7 +12060,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03ED",
+        "id": "ANIM_GUN_SHOTGUN_RELOAD",
         "file": "03ed.bin",
         "numframes": 130,
         "bytesperframe": 53,
@@ -12072,7 +12072,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03EE",
+        "id": "ANIM_GUN_SHOTGUN_SHOOT_SINGLE",
         "file": "03ee.bin",
         "numframes": 75,
         "bytesperframe": 56,
@@ -12084,7 +12084,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03EF",
+        "id": "ANIM_GUN_ROCKETLAUNCHER_RELOAD",
         "file": "03ef.bin",
         "numframes": 140,
         "bytesperframe": 58,
@@ -12096,7 +12096,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03F0",
+        "id": "ANIM_GUN_ROCKETLAUNCHER_SHOOT",
         "file": "03f0.bin",
         "numframes": 38,
         "bytesperframe": 25,
@@ -12108,7 +12108,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03F1",
+        "id": "ANIM_GUN_FALCON2_RELOAD_DUALWIELD",
         "file": "03f1.bin",
         "numframes": 92,
         "bytesperframe": 18,
@@ -12120,7 +12120,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03F2",
+        "id": "ANIM_GUN_FALCON2_WHIP",
         "file": "03f2.bin",
         "numframes": 58,
         "bytesperframe": 12,
@@ -12132,7 +12132,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03F3",
+        "id": "ANIM_GUN_MAULER_SHOOT",
         "file": "03f3.bin",
         "numframes": 18,
         "bytesperframe": 16,
@@ -12144,7 +12144,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03F4",
+        "id": "ANIM_GUN_MAULER_RELOAD",
         "file": "03f4.bin",
         "numframes": 92,
         "bytesperframe": 62,
@@ -12156,7 +12156,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03F5",
+        "id": "ANIM_GUN_MAULER_RELOAD_DUALWIELD",
         "file": "03f5.bin",
         "numframes": 92,
         "bytesperframe": 19,
@@ -12180,7 +12180,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03F7",
+        "id": "ANIM_GUN_DEVASTATOR_SHOOT",
         "file": "03f7.bin",
         "numframes": 18,
         "bytesperframe": 21,
@@ -12192,7 +12192,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03F8",
+        "id": "ANIM_GUN_DEVASTATOR_RELOAD",
         "file": "03f8.bin",
         "numframes": 118,
         "bytesperframe": 65,
@@ -12204,7 +12204,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03F9",
+        "id": "ANIM_GUN_DRAGON_SHOOT",
         "file": "03f9.bin",
         "numframes": 38,
         "bytesperframe": 20,
@@ -12216,7 +12216,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03FA",
+        "id": "ANIM_GUN_DRAGON_RELOAD",
         "file": "03fa.bin",
         "numframes": 108,
         "bytesperframe": 75,
@@ -12228,7 +12228,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03FB",
+        "id": "ANIM_GUN_SUPERDRAGON_RELOAD_PRI",
         "file": "03fb.bin",
         "numframes": 108,
         "bytesperframe": 79,
@@ -12240,7 +12240,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03FC",
+        "id": "ANIM_GUN_SUPERDRAGON_RELOAD_SEC",
         "file": "03fc.bin",
         "numframes": 112,
         "bytesperframe": 64,
@@ -12252,7 +12252,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03FD",
+        "id": "ANIM_GUN_SUPERDRAGON_CHANGEFUNC",
         "file": "03fd.bin",
         "numframes": 26,
         "bytesperframe": 33,
@@ -12264,7 +12264,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03FE",
+        "id": "ANIM_GUN_SUPERDRAGON_SHOOT_PRI",
         "file": "03fe.bin",
         "numframes": 38,
         "bytesperframe": 17,
@@ -12276,7 +12276,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_03FF",
+        "id": "ANIM_GUN_SUPERDRAGON_SHOOT_SEC",
         "file": "03ff.bin",
         "numframes": 38,
         "bytesperframe": 9,
@@ -12288,7 +12288,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0400",
+        "id": "ANIM_GUN_REAPER_SHOOT",
         "file": "0400.bin",
         "numframes": 34,
         "bytesperframe": 9,
@@ -12300,7 +12300,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0401",
+        "id": "ANIM_GUN_REAPER_RELOAD",
         "file": "0401.bin",
         "numframes": 208,
         "bytesperframe": 55,
@@ -12324,7 +12324,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0403",
+        "id": "ANIM_GUN_KNIFE_EQUIP",
         "file": "0403.bin",
         "numframes": 56,
         "bytesperframe": 10,
@@ -12336,7 +12336,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0404",
+        "id": "ANIM_GUN_KNIFE_SLASH",
         "file": "0404.bin",
         "numframes": 58,
         "bytesperframe": 8,
@@ -12348,7 +12348,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0405",
+        "id": "ANIM_GUN_KNIFE_CHANGEFUNC",
         "file": "0405.bin",
         "numframes": 48,
         "bytesperframe": 48,
@@ -12360,7 +12360,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0406",
+        "id": "ANIM_GUN_DY357_SHOOT",
         "file": "0406.bin",
         "numframes": 26,
         "bytesperframe": 17,
@@ -12372,7 +12372,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0407",
+        "id": "ANIM_GUN_DY357_WHIP",
         "file": "0407.bin",
         "numframes": 58,
         "bytesperframe": 12,
@@ -12384,7 +12384,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0408",
+        "id": "ANIM_GUN_DY357_RELOAD",
         "file": "0408.bin",
         "numframes": 166,
         "bytesperframe": 47,
@@ -12396,7 +12396,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0409",
+        "id": "ANIM_GUN_MAGSEC4_RELOAD",
         "file": "0409.bin",
         "numframes": 92,
         "bytesperframe": 70,
@@ -12408,7 +12408,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_040A",
+        "id": "ANIM_GUN_MAGSEC4_RELOAD_DUALWIELD",
         "file": "040a.bin",
         "numframes": 92,
         "bytesperframe": 18,
@@ -12420,7 +12420,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_040B",
+        "id": "ANIM_GUN_MAGSEC4_SHOOT",
         "file": "040b.bin",
         "numframes": 26,
         "bytesperframe": 18,
@@ -12432,7 +12432,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_040C",
+        "id": "ANIM_GUN_SNIPER_EQUIP",
         "file": "040c.bin",
         "numframes": 18,
         "bytesperframe": 0,
@@ -12456,7 +12456,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_040E",
+        "id": "ANIM_GUN_CYCLONE_RELOAD",
         "file": "040e.bin",
         "numframes": 144,
         "bytesperframe": 47,
@@ -12468,7 +12468,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_040F",
+        "id": "ANIM_GUN_SNIPER_RELOAD",
         "file": "040f.bin",
         "numframes": 158,
         "bytesperframe": 69,
@@ -12480,7 +12480,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0410",
+        "id": "ANIM_GUN_TRANQUILIZER_RELOAD",
         "file": "0410.bin",
         "numframes": 98,
         "bytesperframe": 46,
@@ -12492,7 +12492,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0411",
+        "id": "ANIM_GUN_TRANQUILIZER_INJECT",
         "file": "0411.bin",
         "numframes": 58,
         "bytesperframe": 11,
@@ -12540,7 +12540,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0415",
+        "id": "ANIM_GUN_PHOENIX_RELOAD",
         "file": "0415.bin",
         "numframes": 128,
         "bytesperframe": 61,
@@ -12564,7 +12564,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0417",
+        "id": "ANIM_GUN_FALCON2_RELOAD_SCOPE",
         "file": "0417.bin",
         "numframes": 92,
         "bytesperframe": 66,
@@ -12576,7 +12576,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0418",
+        "id": "ANIM_GUN_CALLISTO_RELOAD",
         "file": "0418.bin",
         "numframes": 138,
         "bytesperframe": 80,
@@ -12588,7 +12588,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0419",
+        "id": "ANIM_GUN_AR34_RELOAD",
         "file": "0419.bin",
         "numframes": 134,
         "bytesperframe": 71,
@@ -12600,7 +12600,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_041A",
+        "id": "ANIM_GUN_RCP120_RELOAD",
         "file": "041a.bin",
         "numframes": 154,
         "bytesperframe": 75,
@@ -12612,7 +12612,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_041B",
+        "id": "ANIM_GUN_KNIFE_THROW",
         "file": "041b.bin",
         "numframes": 42,
         "bytesperframe": 35,
@@ -12660,7 +12660,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_041F",
+        "id": "ANIM_GUN_UNARMED_RIGHTPUSH",
         "file": "041f.bin",
         "numframes": 28,
         "bytesperframe": 17,
@@ -12672,7 +12672,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0420",
+        "id": "ANIM_GUN_DY357_RELOAD_DUALWIELD",
         "file": "0420.bin",
         "numframes": 166,
         "bytesperframe": 10,
@@ -12684,7 +12684,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0421",
+        "id": "ANIM_GUN_CYCLONE_RELOAD_DUALWIELD",
         "file": "0421.bin",
         "numframes": 144,
         "bytesperframe": 5,
@@ -12696,7 +12696,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0422",
+        "id": "ANIM_GUN_CMP150_RELOAD_DUALWIELD",
         "file": "0422.bin",
         "numframes": 128,
         "bytesperframe": 25,
@@ -12708,7 +12708,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0423",
+        "id": "ANIM_GUN_PHOENIX_RELOAD_DUALWIELD",
         "file": "0423.bin",
         "numframes": 128,
         "bytesperframe": 5,
@@ -12720,7 +12720,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0424",
+        "id": "ANIM_GUN_RCP120_SHOOT",
         "file": "0424.bin",
         "numframes": 18,
         "bytesperframe": 12,
@@ -12732,7 +12732,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0425",
+        "id": "ANIM_GUN_UNARMED_DOUBLEPUNCH",
         "file": "0425.bin",
         "numframes": 38,
         "bytesperframe": 17,
@@ -12744,7 +12744,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0426",
+        "id": "ANIM_GUN_GRENADE_THROW",
         "file": "0426.bin",
         "numframes": 66,
         "bytesperframe": 46,
@@ -12756,7 +12756,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0427",
+        "id": "ANIM_GUN_REAPER_EQUIP",
         "file": "0427.bin",
         "numframes": 54,
         "bytesperframe": 14,
@@ -12768,7 +12768,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0428",
+        "id": "ANIM_GUN_REAPER_UNEQUIP",
         "file": "0428.bin",
         "numframes": 34,
         "bytesperframe": 30,
@@ -12780,7 +12780,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0429",
+        "id": "ANIM_GUN_SLAYER_RELOAD",
         "file": "0429.bin",
         "numframes": 178,
         "bytesperframe": 65,
@@ -12792,7 +12792,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_042A",
+        "id": "ANIM_GUN_SLAYER_SHOOT",
         "file": "042a.bin",
         "numframes": 34,
         "bytesperframe": 23,
@@ -12804,7 +12804,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_042B",
+        "id": "ANIM_GUN_GRENADE_EQUIP",
         "file": "042b.bin",
         "numframes": 38,
         "bytesperframe": 7,
@@ -12816,7 +12816,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_042C",
+        "id": "ANIM_GUN_SHOTGUN_SHOOT_DOUBLE",
         "file": "042c.bin",
         "numframes": 105,
         "bytesperframe": 56,
@@ -12828,7 +12828,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_042D",
+        "id": "ANIM_GUN_TRANQUILIZER_SHOOT",
         "file": "042d.bin",
         "numframes": 18,
         "bytesperframe": 15,
@@ -12840,7 +12840,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_042E",
+        "id": "ANIM_GUN_LASER_EQUIP",
         "file": "042e.bin",
         "numframes": 28,
         "bytesperframe": 28,
@@ -12852,7 +12852,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_042F",
+        "id": "ANIM_GUN_LASER_UNEQUIP",
         "file": "042f.bin",
         "numframes": 28,
         "bytesperframe": 28,
@@ -12864,7 +12864,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0430",
+        "id": "ANIM_GUN_MINE_EQUIP",
         "file": "0430.bin",
         "numframes": 38,
         "bytesperframe": 7,
@@ -12876,7 +12876,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0431",
+        "id": "ANIM_GUN_MINE_UNEQUIP",
         "file": "0431.bin",
         "numframes": 28,
         "bytesperframe": 6,
@@ -12888,7 +12888,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0432",
+        "id": "ANIM_GUN_REMOTEMINE_EQUIP",
         "file": "0432.bin",
         "numframes": 62,
         "bytesperframe": 17,
@@ -12900,7 +12900,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0433",
+        "id": "ANIM_GUN_REMOTEMINE_UNEQUIP",
         "file": "0433.bin",
         "numframes": 28,
         "bytesperframe": 11,
@@ -12924,7 +12924,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0435",
+        "id": "ANIM_GUN_MINE_THROW",
         "file": "0435.bin",
         "numframes": 14,
         "bytesperframe": 6,
@@ -12936,7 +12936,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0436",
+        "id": "ANIM_GUN_REMOTEMINE_THROW",
         "file": "0436.bin",
         "numframes": 12,
         "bytesperframe": 6,
@@ -12948,7 +12948,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0437",
+        "id": "ANIM_GUN_ECMMINE_EQUIP",
         "file": "0437.bin",
         "numframes": 68,
         "bytesperframe": 11,
@@ -12960,7 +12960,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0438",
+        "id": "ANIM_GUN_ECMMINE_UNEQUIP",
         "file": "0438.bin",
         "numframes": 28,
         "bytesperframe": 12,
@@ -12972,7 +12972,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0439",
+        "id": "ANIM_GUN_UPLINK_EQUIP",
         "file": "0439.bin",
         "numframes": 28,
         "bytesperframe": 7,
@@ -12984,7 +12984,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_043A",
+        "id": "ANIM_GUN_UPLINK_UNEQUIP",
         "file": "043a.bin",
         "numframes": 28,
         "bytesperframe": 7,
@@ -13008,7 +13008,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_043C",
+        "id": "ANIM_GUN_CALLISTO_SHOOT",
         "file": "043c.bin",
         "numframes": 18,
         "bytesperframe": 12,
@@ -13020,7 +13020,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_043D",
+        "id": "ANIM_GUN_CYCLONE_SHOOT",
         "file": "043d.bin",
         "numframes": 18,
         "bytesperframe": 13,
@@ -13032,7 +13032,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_043E",
+        "id": "ANIM_GUN_PHOENIX_SHOOT",
         "file": "043e.bin",
         "numframes": 18,
         "bytesperframe": 16,
@@ -13044,7 +13044,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_043F",
+        "id": "ANIM_GUN_CC13_SHOOT",
         "file": "043f.bin",
         "numframes": 26,
         "bytesperframe": 13,
@@ -13056,7 +13056,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0440",
+        "id": "ANIM_GUN_PP9I_SHOOT",
         "file": "0440.bin",
         "numframes": 26,
         "bytesperframe": 13,
@@ -13200,7 +13200,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_044C",
+        "id": "ANIM_CUT_SHO_OUTRO_CAM_01",
         "file": "044c.bin",
         "numframes": 181,
         "bytesperframe": 9,
@@ -13212,7 +13212,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_044D",
+        "id": "ANIM_CUT_SHO_OUTRO_KING_01",
         "file": "044d.bin",
         "numframes": 46,
         "bytesperframe": 58,
@@ -13224,7 +13224,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_044E",
+        "id": "ANIM_CUT_SHO_OUTRO_SPIKE_01",
         "file": "044e.bin",
         "numframes": 46,
         "bytesperframe": 6,
@@ -13236,7 +13236,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_044F",
+        "id": "ANIM_CUT_SHO_OUTRO_CAM_02",
         "file": "044f.bin",
         "numframes": 731,
         "bytesperframe": 10,
@@ -13248,7 +13248,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0450",
+        "id": "ANIM_CUT_SHO_OUTRO_KING_02",
         "file": "0450.bin",
         "numframes": 183,
         "bytesperframe": 0,
@@ -13260,7 +13260,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0451",
+        "id": "ANIM_CUT_SHO_OUTRO_JO_01",
         "file": "0451.bin",
         "numframes": 183,
         "bytesperframe": 52,
@@ -13272,7 +13272,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0452",
+        "id": "ANIM_CUT_SHO_OUTRO_SPIKE_02",
         "file": "0452.bin",
         "numframes": 183,
         "bytesperframe": 0,
@@ -13284,7 +13284,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0453",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE05",
         "file": "0453.bin",
         "numframes": 183,
         "bytesperframe": 10,
@@ -13296,7 +13296,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0454",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE06",
         "file": "0454.bin",
         "numframes": 183,
         "bytesperframe": 9,
@@ -13308,7 +13308,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0455",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE07",
         "file": "0455.bin",
         "numframes": 183,
         "bytesperframe": 10,
@@ -13320,7 +13320,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0456",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE08",
         "file": "0456.bin",
         "numframes": 183,
         "bytesperframe": 10,
@@ -13332,7 +13332,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0457",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE09",
         "file": "0457.bin",
         "numframes": 183,
         "bytesperframe": 10,
@@ -13344,7 +13344,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0458",
+        "id": "ANIM_CUT_SHO_OUTRO_RUBBLE10",
         "file": "0458.bin",
         "numframes": 183,
         "bytesperframe": 7,
@@ -13404,7 +13404,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_045D",
+        "id": "ANIM_CUT_OLD_TITLE_CAM_01",
         "file": "045d.bin",
         "numframes": 701,
         "bytesperframe": 2,
@@ -13416,7 +13416,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_045E",
+        "id": "ANIM_CUT_OLD_TITLE_CRATE1_01",
         "file": "045e.bin",
         "numframes": 176,
         "bytesperframe": 0,
@@ -13452,7 +13452,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0461",
+        "id": "ANIM_CUT_OLD_TITLE_CAM_03",
         "file": "0461.bin",
         "numframes": 500,
         "bytesperframe": 1,
@@ -13464,7 +13464,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0462",
+        "id": "ANIM_CUT_OLD_TITLE_CRATE1_02",
         "file": "0462.bin",
         "numframes": 125,
         "bytesperframe": 2,
@@ -13476,7 +13476,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0463",
+        "id": "ANIM_CUT_OLD_TITLE_CRATE2_02",
         "file": "0463.bin",
         "numframes": 125,
         "bytesperframe": 3,
@@ -13488,7 +13488,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0464",
+        "id": "ANIM_CUT_OLD_TITLE_CAM_02",
         "file": "0464.bin",
         "numframes": 500,
         "bytesperframe": 5,
@@ -13500,7 +13500,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0465",
+        "id": "ANIM_CUT_OLD_TITLE_CRATE2_01",
         "file": "0465.bin",
         "numframes": 125,
         "bytesperframe": 3,
@@ -13584,7 +13584,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_046C",
+        "id": "ANIM_CUT_OLD_TITLE_CAM_04",
         "file": "046c.bin",
         "numframes": 501,
         "bytesperframe": 0,
@@ -13596,7 +13596,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_046D",
+        "id": "ANIM_CUT_OLD_TITLE_CRATE1_03",
         "file": "046d.bin",
         "numframes": 126,
         "bytesperframe": 1,
@@ -13608,7 +13608,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_046E",
+        "id": "ANIM_CUT_OLD_TITLE_CRATE2_03",
         "file": "046e.bin",
         "numframes": 126,
         "bytesperframe": 3,
@@ -13620,7 +13620,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_046F",
+        "id": "ANIM_CUT_OLD_TITLE_CRATE3",
         "file": "046f.bin",
         "numframes": 126,
         "bytesperframe": 7,
@@ -13632,7 +13632,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0470",
+        "id": "ANIM_CUT_PETE_INTRO_FENCE",
         "file": "0470.bin",
         "numframes": 1041,
         "bytesperframe": 2,
@@ -13644,7 +13644,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0471",
+        "id": "ANIM_CUT_PAM_INTRO_GUARD",
         "file": "0471.bin",
         "numframes": 834,
         "bytesperframe": 54,
@@ -13656,7 +13656,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0472",
+        "id": "ANIM_CUT_WAX_INTRO_CAM",
         "file": "0472.bin",
         "numframes": 337,
         "bytesperframe": 7,
@@ -13668,7 +13668,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0473",
+        "id": "ANIM_CUT_WAX_INTRO_MRB",
         "file": "0473.bin",
         "numframes": 85,
         "bytesperframe": 43,
@@ -13680,7 +13680,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0474",
+        "id": "ANIM_CUT_WAX_OUTRO_CAM",
         "file": "0474.bin",
         "numframes": 361,
         "bytesperframe": 8,
@@ -13692,7 +13692,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0475",
+        "id": "ANIM_CUT_WAX_OUTRO_SKSHUTTLE",
         "file": "0475.bin",
         "numframes": 91,
         "bytesperframe": 24,
@@ -13704,7 +13704,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0476",
+        "id": "ANIM_CUT_SEV_INTRO_CAM",
         "file": "0476.bin",
         "numframes": 561,
         "bytesperframe": 6,
@@ -13716,7 +13716,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0477",
+        "id": "ANIM_CUT_SEV_INTRO_ELVIS",
         "file": "0477.bin",
         "numframes": 141,
         "bytesperframe": 49,
@@ -13728,7 +13728,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0478",
+        "id": "ANIM_CUT_SEV_INTRO_BED",
         "file": "0478.bin",
         "numframes": 141,
         "bytesperframe": 5,
@@ -13740,7 +13740,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0479",
+        "id": "ANIM_CUT_SEV_OUTRO_CAM",
         "file": "0479.bin",
         "numframes": 411,
         "bytesperframe": 7,
@@ -13752,7 +13752,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_047A",
+        "id": "ANIM_CUT_SEV_OUTRO_ELVIS",
         "file": "047a.bin",
         "numframes": 103,
         "bytesperframe": 52,
@@ -13764,7 +13764,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_047B",
+        "id": "ANIM_CUT_SEV_OUTRO_GUARD",
         "file": "047b.bin",
         "numframes": 103,
         "bytesperframe": 50,
@@ -13776,7 +13776,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_047C",
+        "id": "ANIM_CUT_STAT_INTRO_CAM",
         "file": "047c.bin",
         "numframes": 441,
         "bytesperframe": 7,
@@ -13788,7 +13788,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_047D",
+        "id": "ANIM_CUT_STAT_INTRO_MAIAN1",
         "file": "047d.bin",
         "numframes": 111,
         "bytesperframe": 45,
@@ -13800,7 +13800,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_047E",
+        "id": "ANIM_CUT_STAT_INTRO_MAIAN2",
         "file": "047e.bin",
         "numframes": 111,
         "bytesperframe": 47,
@@ -13812,7 +13812,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_047F",
+        "id": "ANIM_CUT_STAT_INTRO_MAIAN3",
         "file": "047f.bin",
         "numframes": 111,
         "bytesperframe": 39,
@@ -13824,7 +13824,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0480",
+        "id": "ANIM_CUT_STAT_OUTRO_CAM",
         "file": "0480.bin",
         "numframes": 277,
         "bytesperframe": 8,
@@ -13836,7 +13836,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0481",
+        "id": "ANIM_CUT_STAT_OUTRO_MAIAN1",
         "file": "0481.bin",
         "numframes": 70,
         "bytesperframe": 40,
@@ -13848,7 +13848,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0482",
+        "id": "ANIM_CUT_STAT_OUTRO_MAIAN2",
         "file": "0482.bin",
         "numframes": 70,
         "bytesperframe": 41,
@@ -13860,7 +13860,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0483",
+        "id": "ANIM_CUT_STAT_OUTRO_MAIAN3",
         "file": "0483.bin",
         "numframes": 70,
         "bytesperframe": 41,
@@ -13872,7 +13872,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0484",
+        "id": "ANIM_CUT_DISH_INTRO_CAM",
         "file": "0484.bin",
         "numframes": 301,
         "bytesperframe": 7,
@@ -13884,7 +13884,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0485",
+        "id": "ANIM_CUT_DISH_INTRO_JO",
         "file": "0485.bin",
         "numframes": 76,
         "bytesperframe": 42,
@@ -13920,7 +13920,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_0488",
+        "id": "ANIM_CUT_ATE_INTRO_CAM",
         "file": "0488.bin",
         "numframes": 221,
         "bytesperframe": 0,

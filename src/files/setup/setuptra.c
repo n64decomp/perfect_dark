@@ -14,6 +14,7 @@
 #define OBJ_TERMINAL1      0x03
 #define OBJ_TERMINAL2      0x04
 #define OBJ_WALLMINE       0x02
+#define OBJ_HOVERBED_EMPTY 0x11
 #define OBJ_MEDPACK_SWITCH 0x14
 #define OBJ_UFO1           0x1f
 #define OBJ_UFO2           0x22
@@ -2541,28 +2542,28 @@ u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	play_cutscene_track(MUSIC_ESCAPE_INTRO)
-	camera_movement(ANIM_019C)
+	camera_movement(ANIM_CUT_TRA_INTRO_CAM)
 	cmd0175(60)
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_019D, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
+	chr_do_animation(ANIM_CUT_TRA_INTRO_JO, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 
 	set_chr_chrflag(0x23, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(0x23, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x23, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x23, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_019E, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x23, 4)
+	chr_do_animation(ANIM_CUT_TRA_INTRO_BIO1, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x23, 4)
 
 	set_chr_chrflag(0x24, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(0x24, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x24, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x24, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_019F, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x24, 4)
+	chr_do_animation(ANIM_CUT_TRA_INTRO_BIO2, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x24, 4)
 
-	set_object_flag2(0x00, OBJFLAG2_04000000)
-	set_object_flag3(0x00, OBJFLAG3_00000010)
-	object_do_animation(ANIM_01A0, 0x00, 0x04, 0xffff)
+	set_object_flag2(OBJ_HOVERBED, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_HOVERBED, OBJFLAG3_00000010)
+	object_do_animation(ANIM_CUT_TRA_INTRO_BED, OBJ_HOVERBED, 0x04, 0xffff)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 90)
@@ -2837,19 +2838,19 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_019D, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
+	chr_do_animation(ANIM_CUT_TRA_INTRO_JO, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 
 	unset_chr_chrflag(0x23, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(0x23, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_019E, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x23, 2)
+	chr_do_animation(ANIM_CUT_TRA_INTRO_BIO1, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x23, 2)
 
 	unset_chr_chrflag(0x24, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(0x24, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_019F, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x24, 2)
+	chr_do_animation(ANIM_CUT_TRA_INTRO_BIO2, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x24, 2)
 
 	unset_object_flag2(OBJ_HOVERBED, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_HOVERBED, OBJFLAG3_00000010)
-	object_do_animation(ANIM_01A0, OBJ_HOVERBED, 0x04, 0xfffe)
+	object_do_animation(ANIM_CUT_TRA_INTRO_BED, OBJ_HOVERBED, 0x04, 0xfffe)
 
 	drop_concealed_items(0x23)
 	drop_concealed_items(0x24)
@@ -2871,7 +2872,7 @@ u8 func0c01_midcutscene[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	play_cutscene_track(MUSIC_ESCAPE_MIDCUTSCENE)
-	camera_movement(ANIM_01CB)
+	camera_movement(ANIM_CUT_TRA_MID_CAM)
 	cmd0175(60)
 	disable_object(OBJ_HOVERBED)
 #if VERSION >= VERSION_NTSC_1_0
@@ -2902,21 +2903,21 @@ u8 func0c01_midcutscene[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 #endif
-	chr_do_animation(ANIM_01CE, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, VERSION >= VERSION_NTSC_1_0 ? CHR_TARGET : CHR_BOND, 4)
+	chr_do_animation(ANIM_CUT_TRA_MID_JO, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, VERSION >= VERSION_NTSC_1_0 ? CHR_TARGET : CHR_BOND, 4)
 
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_01CC, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 4)
+	chr_do_animation(ANIM_CUT_TRA_MID_ELVIS, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 4)
 
 	set_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_JONATHAN, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_01CD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_JONATHAN, 4)
+	chr_do_animation(ANIM_CUT_TRA_MID_JON, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_JONATHAN, 4)
 
-	set_object_flag2(0x11, OBJFLAG2_04000000)
-	set_object_flag3(0x11, OBJFLAG3_00000010)
-	object_do_animation(ANIM_01CF, 0x11, 0x04, 0xffff)
+	set_object_flag2(OBJ_HOVERBED_EMPTY, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_HOVERBED_EMPTY, OBJFLAG3_00000010)
+	object_do_animation(ANIM_CUT_TRA_MID_BED, OBJ_HOVERBED_EMPTY, 0x04, 0xffff)
 
 	show_nonessential_chrs(FALSE)
 	if_object_in_room(OBJ_HOVERBIKE, 0x00df, /*goto*/ 0x06)
@@ -3044,19 +3045,19 @@ u8 func0c01_midcutscene[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(VERSION >= VERSION_NTSC_1_0 ? CHR_TARGET : CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(VERSION >= VERSION_NTSC_1_0 ? CHR_TARGET : CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_01CE, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, VERSION >= VERSION_NTSC_1_0 ? CHR_TARGET : CHR_BOND, 2)
+	chr_do_animation(ANIM_CUT_TRA_MID_JO, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, VERSION >= VERSION_NTSC_1_0 ? CHR_TARGET : CHR_BOND, 2)
 
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_01CC, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 2)
+	chr_do_animation(ANIM_CUT_TRA_MID_ELVIS, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 2)
 
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_JONATHAN, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_01CD, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_JONATHAN, 2)
+	chr_do_animation(ANIM_CUT_TRA_MID_JON, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_JONATHAN, 2)
 
-	unset_object_flag2(0x11, OBJFLAG2_04000000)
-	set_object_flag3(0x11, OBJFLAG3_00000010)
-	object_do_animation(ANIM_01CF, 0x11, 0x04, 0xfffe)
+	unset_object_flag2(OBJ_HOVERBED_EMPTY, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_HOVERBED_EMPTY, OBJFLAG3_00000010)
+	object_do_animation(ANIM_CUT_TRA_MID_BED, OBJ_HOVERBED_EMPTY, 0x04, 0xfffe)
 
 	unset_object_flag2(0x0a, OBJFLAG2_AICANNOTUSE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE)
@@ -3094,14 +3095,14 @@ u8 func0c02_outro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	play_cutscene_track(MUSIC_ESCAPE_OUTRO_LONG)
-	camera_movement(ANIM_02D2)
+	camera_movement(ANIM_CUT_TRA_OUTRO_CAM_01)
 	label(0x32)
 	disable_object(OBJ_UFO2)
 
 	enable_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
-	object_do_animation(ANIM_02D3, OBJ_UFO1, 0x04, 0xffff)
+	object_do_animation(ANIM_CUT_TRA_OUTRO_UFO_01, OBJ_UFO1, 0x04, 0xffff)
 
 	set_stage_flag(STAGEFLAG_STARTED_OUTRO)
 	remove_chr(CHR_ELVIS)
@@ -3121,17 +3122,17 @@ u8 func0c02_outro[] = {
 
 	label(0x68)
 	label(0x32)
-	camera_movement(ANIM_02D4)
+	camera_movement(ANIM_CUT_TRA_OUTRO_CAM_02)
 
 	enable_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
-	object_do_animation(ANIM_02D5, OBJ_UFO1, 0x04, 0xffff)
+	object_do_animation(ANIM_CUT_TRA_OUTRO_UFO_02, OBJ_UFO1, 0x04, 0xffff)
 
 	set_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x2b, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_0304, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2b, 4)
+	chr_do_animation(ANIM_CUT_TRA_OUTRO_GUARD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2b, 4)
 
 	open_door(0x2c)
 	open_door(0x2e)
@@ -3184,7 +3185,7 @@ u8 func0415_ufo_exit[] = {
 	enable_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
-	object_do_animation(ANIM_02D3, OBJ_UFO1, 0x04, 0xffff)
+	object_do_animation(ANIM_CUT_TRA_OUTRO_UFO_01, OBJ_UFO1, 0x04, 0xffff)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE)
@@ -3239,20 +3240,20 @@ u8 func1021_jo_escaping[] = {
 	label(0x62)
 	set_savefile_flag(GAMEFILEFLAG_DEFENSE_JON)
 	play_cutscene_track(MUSIC_ESCAPE_OUTRO_LONG)
-	camera_movement(ANIM_02D4)
+	camera_movement(ANIM_CUT_TRA_OUTRO_CAM_02)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_P1P2_OPPOSITE, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
 
 	enable_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
-	object_do_animation(ANIM_02D5, OBJ_UFO1, 0x04, 0xffff)
+	object_do_animation(ANIM_CUT_TRA_OUTRO_UFO_02, OBJ_UFO1, 0x04, 0xffff)
 
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	chr_do_animation(ANIM_0304, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
+	chr_do_animation(ANIM_CUT_TRA_OUTRO_GUARD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 
 	beginloop(0x09)
 		if_camera_animating(/*goto*/ 0x32)

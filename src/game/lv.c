@@ -1337,7 +1337,7 @@ Gfx *lvRender(Gfx *gdl)
 								frac = 1.0f - (f32)g_CutsceneCurAnimFrame60 / 90.0f;
 							}
 
-							if (g_CutsceneAnimNum != ANIM_046C) {
+							if (g_CutsceneAnimNum != ANIM_CUT_OLD_TITLE_CAM_04) {
 								if (g_CutsceneCurAnimFrame60 > endframe - 90) {
 									frac = (g_CutsceneCurAnimFrame60 - endframe + 90) / 90.0f;
 								}

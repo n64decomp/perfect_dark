@@ -30532,7 +30532,7 @@ void objCheckDestroyed(struct defaultobj *obj, struct coord *pos, s32 playernum)
 		s16 rooms[8];
 
 		// If in Deep Sea outro
-		if (g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneAnimNum == ANIM_02D7) {
+		if (g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneAnimNum == ANIM_CUT_PAM_OUTRO_CAM) {
 			exptype = EXPLOSIONTYPE_24;
 		}
 

@@ -17733,21 +17733,21 @@ void bgun0f0a5550(s32 handnum)
 
 #if VERSION >= VERSION_PAL_BETA
 			switch (modelGetAnimNum(&hand->gunmodel)) {
-			case ANIM_00C1:
-			case ANIM_00E2:
-			case ANIM_00E3:
-			case ANIM_00E4:
-			case ANIM_00ED:
-			case ANIM_0115:
-			case ANIM_03EC:
-			case ANIM_03EE:
-			case ANIM_0400:
-			case ANIM_0409:
-			case ANIM_040E:
-			case ANIM_040F:
-			case ANIM_0415:
-			case ANIM_0417:
-			case ANIM_0432:
+			case ANIM_GUN_CROSSBOW_EQUIP:
+			case ANIM_GUN_LAPTOP_EQUIP:
+			case ANIM_GUN_LAPTOP_UNEQUIP:
+			case ANIM_GUN_LAPTOP_RELOAD:
+			case ANIM_GUN_FALCON2_RELOAD:
+			case ANIM_GUN_CMP150_RELOAD:
+			case ANIM_GUN_FARSIGHT_SHOOT:
+			case ANIM_GUN_SHOTGUN_SHOOT_SINGLE:
+			case ANIM_GUN_REAPER_SHOOT:
+			case ANIM_GUN_MAGSEC4_RELOAD:
+			case ANIM_GUN_CYCLONE_RELOAD:
+			case ANIM_GUN_SNIPER_RELOAD:
+			case ANIM_GUN_PHOENIX_RELOAD:
+			case ANIM_GUN_FALCON2_RELOAD_SCOPE:
+			case ANIM_GUN_REMOTEMINE_EQUIP:
 				a3 = 1;
 				break;
 			}
