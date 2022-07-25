@@ -25,13 +25,13 @@
 #include "types.h"
 
 s16 var8009cb00;
-u32 var8009cb04;
+s32 var8009cb04;
 struct nbomb g_Nbombs[6];
 u32 var8009cbf8;
 
 bool g_NbombsActive = false;
 f32 var80061644 = 100;
-u32 var80061648 = 0x00000000;
+s32 var80061648 = 0;
 u32 var8006164c = 0x00000000;
 u32 var80061650 = 0x00000000;
 u32 var80061654 = 0x3f800000;
@@ -50,24 +50,6 @@ u32 var80061684 = 0x00000000;
 u32 var80061688 = 0x00000000;
 u32 var8006168c = 0xbf800000;
 u32 var80061690 = 0x00000000;
-u32 var80061694 = 0x00000000;
-u32 var80061698 = 0x00000000;
-u32 var8006169c = 0x3f800000;
-u32 var800616a0 = 0x3f800000;
-u32 var800616a4 = 0x00000000;
-u32 var800616a8 = 0x00000000;
-u32 var800616ac = 0x00000000;
-u32 var800616b0 = 0x00000000;
-u32 var800616b4 = 0xbf800000;
-u32 var800616b8 = 0xbf800000;
-u32 var800616bc = 0x00000000;
-u32 var800616c0 = 0x00000000;
-u32 var800616c4 = 0x00000000;
-u32 var800616c8 = 0x3f800000;
-u32 var800616cc = 0x00000000;
-u32 var800616d0 = 0x00000000;
-u32 var800616d4 = 0xbf800000;
-u32 var800616d8 = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f006c80
@@ -1716,6 +1698,25 @@ glabel var7f1a7ee8
 /*  f008554:	27bd0150 */ 	addiu	$sp,$sp,0x150
 );
 
+u32 var80061694 = 0x00000000;
+u32 var80061698 = 0x00000000;
+u32 var8006169c = 0x3f800000;
+u32 var800616a0 = 0x3f800000;
+u32 var800616a4 = 0x00000000;
+u32 var800616a8 = 0x00000000;
+u32 var800616ac = 0x00000000;
+u32 var800616b0 = 0x00000000;
+u32 var800616b4 = 0xbf800000;
+u32 var800616b8 = 0xbf800000;
+u32 var800616bc = 0x00000000;
+u32 var800616c0 = 0x00000000;
+u32 var800616c4 = 0x00000000;
+u32 var800616c8 = 0x3f800000;
+u32 var800616cc = 0x00000000;
+u32 var800616d0 = 0x00000000;
+u32 var800616d4 = 0xbf800000;
+u32 var800616d8 = 0x00000000;
+
 GLOBAL_ASM(
 glabel func0f008558
 .late_rodata
@@ -2693,6 +2694,78 @@ glabel var7f1a7f18
 /*  f0093bc:	03e00008 */ 	jr	$ra
 /*  f0093c0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
+
+#define MAKEVERTEX(i) \
+	vertices[i].x = sp5c[i].x * var80061644; \
+	vertices[i].y = sp5c[i].y * var80061644; \
+	vertices[i].z = sp5c[i].z * var80061644; \
+	vertices[i].s = sp5c[i].y * 256.0f * 32.0f; \
+	vertices[i].t = atan2f(sp5c[i].x, sp5c[i].z) / M_BADTAU * 256.0f * 32.0f; \
+	vertices[i].colour = 0; \
+\
+	var80061648 = 1 - var80061648; \
+\
+	if (var8009cb04 && vertices[i].t == 0) { \
+		vertices[i].t = 256 * 32; \
+	} \
+\
+	vertices[i].t += var8009cb00;
+
+// Mismatch: swapped s1/s2 registers (var80061644 and var80061648)
+//Gfx *func0f008558(Gfx *gdl, s32 arg1)
+//{
+//	struct gfxvtx *vertices;
+//	struct coord sp5c[] = {
+//		{ 0,  0,  1  },
+//		{ 1,  0,  0  },
+//		{ 0,  0,  -1 },
+//		{ -1, 0,  0  },
+//		{ 0,  1,  0  },
+//		{ 0,  -1, 0  },
+//	};
+//
+//	var80061648 = 0;
+//
+//	// First half
+//	var8009cb04 = 0;
+//
+//	vertices = gfxAllocateVertices(6);
+//
+//	MAKEVERTEX(0);
+//	MAKEVERTEX(1);
+//	MAKEVERTEX(2);
+//	MAKEVERTEX(3);
+//	MAKEVERTEX(4);
+//	MAKEVERTEX(5);
+//
+//	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+//
+//	gdl = func0f006c80(gdl, &sp5c[0], &sp5c[4], &sp5c[1], 0, 4, 1, 6, arg1);
+//	gdl = func0f006c80(gdl, &sp5c[1], &sp5c[4], &sp5c[2], 1, 4, 2, 6, arg1);
+//	gdl = func0f006c80(gdl, &sp5c[1], &sp5c[5], &sp5c[0], 1, 5, 0, 6, arg1);
+//	gdl = func0f006c80(gdl, &sp5c[2], &sp5c[5], &sp5c[1], 2, 5, 1, 6, arg1);
+//
+//	// Second half
+//	var8009cb04 = 1;
+//
+//	vertices = gfxAllocateVertices(6);
+//
+//	MAKEVERTEX(0);
+//	MAKEVERTEX(1);
+//	MAKEVERTEX(2);
+//	MAKEVERTEX(3);
+//	MAKEVERTEX(4);
+//	MAKEVERTEX(5);
+//
+//	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+//
+//	gdl = func0f006c80(gdl, &sp5c[2], &sp5c[4], &sp5c[3], 2, 4, 3, 6, arg1);
+//	gdl = func0f006c80(gdl, &sp5c[3], &sp5c[4], &sp5c[0], 3, 4, 0, 6, arg1);
+//	gdl = func0f006c80(gdl, &sp5c[3], &sp5c[5], &sp5c[2], 3, 5, 2, 6, arg1);
+//	gdl = func0f006c80(gdl, &sp5c[0], &sp5c[5], &sp5c[3], 0, 5, 3, 6, arg1);
+//
+//	return gdl;
+//}
 
 void nbomb0f0093c4(f32 *arg0)
 {
