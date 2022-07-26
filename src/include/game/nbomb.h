@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-Gfx *func0f006c80(Gfx *gdl, struct coord *arg1, struct coord *arg2, struct coord *arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, s8 arg8);
+Gfx *func0f008558(Gfx *gdl, s32 depth);
 void nbombReset(struct nbomb *nbomb);
 s32 nbombCalculateAlpha(struct nbomb *nbomb);
 Gfx *nbombCreateGdl(void);
