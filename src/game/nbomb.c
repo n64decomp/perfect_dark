@@ -2076,8 +2076,7 @@ glabel nbombRenderOverlay
  * Checks if the player is inside an nbomb storm, and if so renders the black
  * storm texture directly over the screen.
  */
-// Mismatch: The below saves a and b to the stack then adds them together later,
-// while goal adds them immediately to save into sp5e.
+// Mismatch: Goal has an extra move in the calculation of sp5e
 //Gfx *nbombRenderOverlay(Gfx *gdl)
 //{
 //	u32 stack;
@@ -2090,10 +2089,9 @@ glabel nbombRenderOverlay
 //	s16 s2;
 //	u32 stack2[2];
 //	bool sp50 = false;
-//	u32 stack3;
+//	s32 b;
 //	u32 *colours; // 48
-//	s16 a;
-//	s16 b;
+//	s32 a;
 //	s16 viewleft; // 42
 //	s16 viewtop; // 40
 //	s16 viewright; // 3e
@@ -2133,17 +2131,19 @@ glabel nbombRenderOverlay
 //		viewright = (s16)(viGetViewLeft() + viGetViewWidth()) * 10;
 //		viewbottom = (s16)(viGetViewTop() + viGetViewHeight()) * 10;
 //
+//		sp50 = true;
+//
 //		s2 = (s32) (8.0f * var80061630 * 128.0f * 32.0f) % 2048;
-//		a = (s32)(campos.f[1] * 8.0f) % 2048;
-//		b = 2.0f * var80061630 * 128.0f * 32.0f;
-//		sp5e = a + b;
+//		sp5e = ((s32)(campos.f[1] * 8.0f) % 2048) + (s32)(2.0f * var80061630 * 128.0f * 32.0f);
 //
 //		if (1);
-//		sp50 = true;
+//		if (1);
 //
 //		gdl = func0f0d479c(gdl);
 //
-//		texSelect(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, 1, NULL);
+//		if (1);
+//
+//		texSelect(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, true, NULL);
 //
 //		gDPPipeSync(gdl++);
 //		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -2155,22 +2155,21 @@ glabel nbombRenderOverlay
 //		gDPSetRenderMode(gdl++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
 //		gDPSetTexturePersp(gdl++, G_TP_PERSP);
 //
-//		vertices[0].z = -10;
-//		vertices[1].z = -10;
-//		vertices[2].z = -10;
-//		vertices[3].z = -10;
-//
 //		vertices[0].x = viewleft;
 //		vertices[0].y = viewtop;
+//		vertices[0].z = -10;
 //
 //		vertices[1].x = viewright;
 //		vertices[1].y = viewtop;
+//		vertices[1].z = -10;
 //
 //		vertices[2].x = viewright;
 //		vertices[2].y = viewbottom;
+//		vertices[2].z = -10;
 //
 //		vertices[3].x = viewleft;
 //		vertices[3].y = viewbottom;
+//		vertices[3].z = -10;
 //
 //		vertices[0].s = s2;
 //		vertices[0].t = sp5e;
