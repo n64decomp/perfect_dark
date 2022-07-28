@@ -5642,7 +5642,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 					if (g_Textures[hitthing.texturenum].surfacetype == SURFACETYPE_DEEPWATER) {
 						struct coord spa4 = {0, 0, 0};
 						s0 = false;
-						sparksCreate(prop->rooms[0], prop, &hitthing.unk00, &spa4, &hitthing.unk0c, SPARKTYPE_1A);
+						sparksCreate(prop->rooms[0], prop, &hitthing.unk00, &spa4, &hitthing.unk0c, SPARKTYPE_DEEPWATER);
 						propsnd0f0939f8(0, prop, SFX_HIT_WATER, -1, -1, 1024, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 						obj->hidden |= OBJHFLAG_REAPABLE;
 					}
@@ -14595,7 +14595,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 										if (chrIsUsingPaintball(ownerprop ? ownerprop->chr : NULL)) {
 											sparksCreate(prop->rooms[0], prop, &sp5e8, &dir, &sp5f4, SPARKTYPE_PAINT);
 										} else {
-											sparksCreate(prop->rooms[0], prop, &sp5e8, &dir, &sp5f4, SPARKTYPE_10);
+											sparksCreate(prop->rooms[0], prop, &sp5e8, &dir, &sp5f4, SPARKTYPE_PROJECTILE);
 										}
 									}
 								}
@@ -19204,7 +19204,7 @@ void autogunTickShoot(struct prop *autogunprop)
 							if (chrIsUsingPaintball(ownerchr)) {
 								sparksCreate(hitprop->rooms[0], hitprop, &hitpos, 0, 0, SPARKTYPE_PAINT);
 							} else {
-								sparksCreate(hitprop->rooms[0], hitprop, &hitpos, 0, 0, SPARKTYPE_00);
+								sparksCreate(hitprop->rooms[0], hitprop, &hitpos, 0, 0, SPARKTYPE_DEFAULT);
 							}
 
 							bgunPlayPropHitSound(&gset, hitprop, TEXTURE_00F2);
@@ -19296,7 +19296,7 @@ void autogunTickShoot(struct prop *autogunprop)
 					if (chrIsUsingPaintball(ownerchr)) {
 						sparksCreate(hitrooms[0], NULL, &hitpos, 0, 0, SPARKTYPE_PAINT);
 					} else {
-						sparksCreate(hitrooms[0], NULL, &hitpos, 0, 0, autogun->base.modelnum == MODEL_CETROOFGUN ? SPARKTYPE_17 : SPARKTYPE_00);
+						sparksCreate(hitrooms[0], NULL, &hitpos, 0, 0, autogun->base.modelnum == MODEL_CETROOFGUN ? SPARKTYPE_BGHIT_GREEN : SPARKTYPE_DEFAULT);
 					}
 
 					bgunPlayBgHitSound(&gset, &hitpos, -1, hitrooms);
@@ -26236,7 +26236,7 @@ glabel var7f1aa6e0
 //						-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 //
 //				// Create sparks
-//				sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_00);
+//				sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_DEFAULT);
 //			}
 //		} else {
 //			// 3e8
@@ -31551,7 +31551,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 		if (chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
 			sparksCreate(prop->rooms[0], prop, &sp110, 0, 0, SPARKTYPE_PAINT);
 		} else {
-			sparksCreate(prop->rooms[0], prop, &sp110, 0, 0, SPARKTYPE_00);
+			sparksCreate(prop->rooms[0], prop, &sp110, 0, 0, SPARKTYPE_DEFAULT);
 		}
 	}
 
@@ -38617,14 +38617,14 @@ void doorCreateSparks(struct doorobj *door)
 	sp70.y = -pad.up.y;
 	sp70.z = -pad.up.z;
 
-	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_09);
+	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
 
-	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp7c, &sp70, &pad.up, SPARKTYPE_09);
+	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp7c, &sp70, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
 
 	if (random() % 2) {
-		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0C);
+		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_ENVIRONMENTAL4);
 	} else {
-		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0D);
+		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_ENVIRONMENTAL5);
 	}
 
 	propsnd0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
@@ -40186,7 +40186,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 						}
 
 						func0f065e74(pos, fromprop->rooms, &endpos, sp1c8);
-						sparksCreate(sp1c8[0], obstacle, &endpos, NULL, NULL, SPARKTYPE_00);
+						sparksCreate(sp1c8[0], obstacle, &endpos, NULL, NULL, SPARKTYPE_DEFAULT);
 						objTakeGunfire(obstacle->obj, gsetGetDamage(&gset), &endpos, weaponnum, -1);
 
 						if (obj->type == OBJTYPE_WEAPON) {
@@ -40204,7 +40204,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 						bgunPlayBgHitSound(&gset, &endpos, -1, sp1c8);
 					}
 
-					sparksCreate(sp1c8[0], NULL, &endpos, NULL, NULL, SPARKTYPE_00);
+					sparksCreate(sp1c8[0], NULL, &endpos, NULL, NULL, SPARKTYPE_DEFAULT);
 				}
 			}
 

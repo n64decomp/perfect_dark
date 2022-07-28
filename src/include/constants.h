@@ -3687,27 +3687,27 @@
 #define SOUNDMODE_HEADPHONE 2
 #define SOUNDMODE_SURROUND  3
 
-#define SPARKTYPE_00    0x00
-#define SPARKTYPE_01    0x01
-#define SPARKTYPE_02    0x02
-#define SPARKTYPE_03    0x03
-#define SPARKTYPE_04    0x04
-#define SPARKTYPE_09    0x09
-#define SPARKTYPE_0A    0x0a
-#define SPARKTYPE_0C    0x0c
-#define SPARKTYPE_0B    0x0b
-#define SPARKTYPE_0D    0x0d
-#define SPARKTYPE_0F    0x0f
-#define SPARKTYPE_10    0x10
-#define SPARKTYPE_11    0x11
-#define SPARKTYPE_12    0x12
-#define SPARKTYPE_13    0x13
-#define SPARKTYPE_14    0x14
-#define SPARKTYPE_16    0x16
-#define SPARKTYPE_17    0x17
-#define SPARKTYPE_18    0x18
-#define SPARKTYPE_PAINT 0x19
-#define SPARKTYPE_1A    0x1a
+#define SPARKTYPE_DEFAULT           0x00
+#define SPARKTYPE_ELECTRICAL        0x01
+#define SPARKTYPE_BLOOD             0x02
+#define SPARKTYPE_FLESH             0x03
+#define SPARKTYPE_FLESH_LARGE       0x04
+#define SPARKTYPE_ENVIRONMENTAL1    0x09
+#define SPARKTYPE_ENVIRONMENTAL2    0x0a
+#define SPARKTYPE_ENVIRONMENTAL3    0x0b
+#define SPARKTYPE_ENVIRONMENTAL4    0x0c
+#define SPARKTYPE_ENVIRONMENTAL5    0x0d
+#define SPARKTYPE_SHALLOWWATER      0x0f
+#define SPARKTYPE_PROJECTILE        0x10
+#define SPARKTYPE_LIGHT1            0x11
+#define SPARKTYPE_LIGHT2            0x12
+#define SPARKTYPE_LIGHT3            0x13
+#define SPARKTYPE_LIGHT4            0x14
+#define SPARKTYPE_BGHIT_ORANGE      0x16
+#define SPARKTYPE_BGHIT_GREEN       0x17
+#define SPARKTYPE_BGHIT_TRANQULIZER 0x18
+#define SPARKTYPE_PAINT             0x19
+#define SPARKTYPE_DEEPWATER         0x1a
 
 #define SPAWNFLAG_FORCESUNGLASSES     0x00000001 // 100% chance of wearing sunglasses if head model supports it
 #define SPAWNFLAG_MAYBESUNGLASSES     0x00000002 // 50% chance of wearing sunglasses if head model supports it

@@ -3016,7 +3016,7 @@ u32 var8007f0fc = 22000;
 //									spd4.f[1] = g_Rooms[spcb8[s0]].bbmin[1] / spc84;
 //									spd4.f[2] = particledata->unk3e80.f[2] + particledata->particles[p].pos.f[2];
 //
-//									sparksCreate(spcb8[s0], NULL, &spd4, &particledata->particles[p].inc, NULL, SPARKTYPE_0F);
+//									sparksCreate(spcb8[s0], NULL, &spd4, &particledata->particles[p].inc, NULL, SPARKTYPE_SHALLOWWATER);
 //
 //									spd80--;
 //								}

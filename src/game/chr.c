@@ -3693,7 +3693,7 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 	}
 
 	if (chrGetShield(chr) > 0.0f) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_00);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_DEFAULT);
 		return;
 	}
 
@@ -3702,14 +3702,14 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 			|| prop->type == PROPTYPE_DOOR
 			|| hitpart == HITPART_GUN
 			|| hitpart == HITPART_HAT) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_00);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_DEFAULT);
 		return;
 	}
 
 	race = CHRRACE(chr);
 
 	if (race == RACE_DRCAROLL || race == RACE_ROBOT || race == RACE_EYESPY) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_01);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_ELECTRICAL);
 		return;
 	}
 
@@ -3723,12 +3723,12 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 		coord3.y = coord2->y * 42.0f + coord->y;
 		coord3.z = coord2->z * 42.0f + coord->z;
 
-		sparksCreate(chrprop->rooms[0], chrprop, &coord3, coord2, 0, SPARKTYPE_04);
+		sparksCreate(chrprop->rooms[0], chrprop, &coord3, coord2, 0, SPARKTYPE_FLESH_LARGE);
 	}
 
 #if VERSION < VERSION_JPN_FINAL
-	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_02);
-	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_03);
+	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_BLOOD);
+	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_FLESH);
 #endif
 }
 

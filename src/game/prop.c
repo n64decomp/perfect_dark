@@ -867,33 +867,33 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 						if (sp694.unk00.x > -32000 && sp694.unk00.x < 32000
 								&& sp694.unk00.y > -32000 && sp694.unk00.y < 32000
 								&& sp694.unk00.z > -32000 && sp694.unk00.z < 32000) {
-							sparktype = SPARKTYPE_00;
+							sparktype = SPARKTYPE_DEFAULT;
 
 							if (chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
 								sparktype = SPARKTYPE_PAINT;
 							} else {
 								switch (shotdata.gset.weaponnum) {
 								case WEAPON_FARSIGHT:
-									sparktype = SPARKTYPE_16;
+									sparktype = SPARKTYPE_BGHIT_ORANGE;
 									break;
 								case WEAPON_CYCLONE:
-									sparktype = SPARKTYPE_01;
+									sparktype = SPARKTYPE_ELECTRICAL;
 									break;
 								case WEAPON_MAULER:
 								case WEAPON_PHOENIX:
 								case WEAPON_CALLISTO:
 								case WEAPON_REAPER:
-									sparktype = SPARKTYPE_17;
+									sparktype = SPARKTYPE_BGHIT_GREEN;
 									break;
 								case WEAPON_TRANQUILIZER:
-									sparktype = SPARKTYPE_18;
+									sparktype = SPARKTYPE_BGHIT_TRANQULIZER;
 									break;
 								}
 
 								uVar6 = g_Textures[sp694.texturenum].surfacetype;
 
 								if (uVar6 == SURFACETYPE_SHALLOWWATER || uVar6 == SURFACETYPE_DEEPWATER) {
-									sparktype = SPARKTYPE_0F;
+									sparktype = SPARKTYPE_SHALLOWWATER;
 								}
 							}
 
@@ -924,9 +924,9 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 			if (shotdata.gset.weaponnum != WEAPON_UNARMED && shotdata.gset.weaponnum != WEAPON_TRANQUILIZER) {
 				if (hitaprop) {
-					sparksCreate(shotdata.hits[hitindex].prop->rooms[0], NULL, &shotdata.hits[hitindex].pos, &shotdata.dir, &shotdata.hits[hitindex].dir, SPARKTYPE_00);
+					sparksCreate(shotdata.hits[hitindex].prop->rooms[0], NULL, &shotdata.hits[hitindex].pos, &shotdata.dir, &shotdata.hits[hitindex].dir, SPARKTYPE_DEFAULT);
 				} else {
-					sparksCreate(room, NULL, &sp694.unk00, &shotdata.dir, &sp694.unk0c, SPARKTYPE_00);
+					sparksCreate(room, NULL, &sp694.unk00, &shotdata.dir, &sp694.unk0c, SPARKTYPE_DEFAULT);
 				}
 			}
 		} else {
@@ -6161,19 +6161,19 @@ void propsTickPadEffects(void)
 					up.z = -pad.up.z;
 
 					if ((random() % 2048) <= 50) {
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_09);
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
 						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 
 					if ((random() % 2048) <= 15) {
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_09);
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_0A);
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL2);
 						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 
 					if ((random() % 2048) <= 5) {
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_09);
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_0B);
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL3);
 						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 					break;

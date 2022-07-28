@@ -181,17 +181,17 @@ void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *
 	struct coord grouppos;
 	s32 i;
 
-	if ((typenum == SPARKTYPE_02 || typenum == SPARKTYPE_03) && prop && prop->type == PROPTYPE_CHR) {
+	if ((typenum == SPARKTYPE_BLOOD || typenum == SPARKTYPE_FLESH) && prop && prop->type == PROPTYPE_CHR) {
 		struct chrdata *chr = prop->chr;
 		u32 colours[3];
 		u32 stack;
 
 		chrGetBloodColour(chr->bodynum, NULL, colours);
 
-		if (typenum == SPARKTYPE_02) {
+		if (typenum == SPARKTYPE_BLOOD) {
 			type->unk1c = colours[0];
 			type->unk20 = colours[1];
-		} else if (typenum == SPARKTYPE_03) {
+		} else if (typenum == SPARKTYPE_FLESH) {
 			type->unk20 = colours[2];
 		}
 	} else if (typenum == SPARKTYPE_PAINT) {
@@ -210,7 +210,7 @@ void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *
 
 	g_NextSparkGroupIndex = (g_NextSparkGroupIndex + 1) % 10;
 
-	if (typenum == SPARKTYPE_0F) {
+	if (typenum == SPARKTYPE_SHALLOWWATER) {
 		if (group->age != 0) {
 			s32 newindex = -1;
 
@@ -276,20 +276,20 @@ void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *
 	}
 
 	switch (typenum) {
-	case SPARKTYPE_00:
+	case SPARKTYPE_DEFAULT:
 		roomAdjustLighting(group->room, 24, 32);
 		break;
-	case SPARKTYPE_09:
+	case SPARKTYPE_ENVIRONMENTAL1:
 		if (g_Vars.stagenum != STAGE_CRASHSITE) {
 			roomAdjustLighting(group->room, 32, 128);
 		}
 		break;
-	case SPARKTYPE_0A:
+	case SPARKTYPE_ENVIRONMENTAL2:
 		if (g_Vars.stagenum != STAGE_CRASHSITE) {
 			roomAdjustLighting(group->room, 64, 128);
 		}
 		break;
-	case SPARKTYPE_0B:
+	case SPARKTYPE_ENVIRONMENTAL3:
 		if (g_Vars.stagenum != STAGE_CRASHSITE) {
 			roomAdjustLighting(group->room, 200, 255);
 		}

@@ -8399,7 +8399,7 @@ void chrTickDie(struct chrdata *chr)
 			var80068080 -= 5;
 			propsnd0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
 					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-			sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_01);
+			sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_ELECTRICAL);
 		}
 
 		return;
@@ -18293,7 +18293,7 @@ glabel var7f1a9184
 //								if (chrIsUsingPaintball(chr)) {
 //									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_PAINT);
 //								} else {
-//									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_00);
+//									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_DEFAULT);
 //								}
 //
 //								if (g_MissionConfig.iscoop && chr->team == TEAM_ALLY
@@ -18312,7 +18312,7 @@ glabel var7f1a9184
 //							if (chrIsUsingPaintball(chr)) {
 //								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_PAINT);
 //							} else {
-//								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_00);
+//								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_DEFAULT);
 //							}
 //						}
 //
@@ -26410,6 +26410,6 @@ void chrDrCarollEmitSparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
 		propsnd0f0939f8(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-		sparksCreate(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, SPARKTYPE_01);
+		sparksCreate(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, SPARKTYPE_ELECTRICAL);
 	}
 }

@@ -1665,16 +1665,16 @@ const char var7f1a7bc0[] = "dlights.c";
 //
 //			switch (random() % 4) {
 //			case 0:
-//				sparktype = SPARKTYPE_11;
+//				sparktype = SPARKTYPE_LIGHT1;
 //				break;
 //			case 1:
-//				sparktype = SPARKTYPE_12;
+//				sparktype = SPARKTYPE_LIGHT2;
 //				break;
 //			case 2:
-//				sparktype = SPARKTYPE_13;
+//				sparktype = SPARKTYPE_LIGHT3;
 //				break;
 //			case 3:
-//				sparktype = SPARKTYPE_14;
+//				sparktype = SPARKTYPE_LIGHT4;
 //				break;
 //			}
 //
