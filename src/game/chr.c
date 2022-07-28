@@ -4296,6 +4296,282 @@ glabel chr0f0260c4
 /*  f0268b8:	27bd0128 */ 	addiu	$sp,$sp,0x128
 );
 
+// Mismatch: The bottom two tmp calculations should multiply by s32 0xc using
+// shift operations, however doing this causes it to boot gdlptr out of s8 and
+// use s8 for s32 0xc. The below multiplies by 6 which is incorrect, but creates
+// a diff of only one instruction to show that this is the only issue.
+//void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3)
+//{
+//	struct modelnode *bestnode = NULL;
+//	s32 mindist = 0x7fffffff;
+//	s32 bestcoords[3];
+//	struct modelnode *curnode;
+//	Gfx *gdlptr;
+//	Gfx *gdlptr2;
+//	struct gfxvtx *vertices;
+//	struct modelnode *posnode = NULL;
+//	struct coord relpos;
+//	struct coord spd4;
+//	struct coord spc8;
+//	s32 spbc[3];
+//	s32 alpha = 20 + (random() % 50);
+//	struct modelrodata_dl *rodata;
+//	struct modelrwdata_dl *rwdata;
+//	s32 spac = 0;
+//	s32 op;
+//	s32 nodetype;
+//
+//	modelNodeGetModelRelativePosition(model, model0001a740(node), &relpos);
+//
+//	spc8.f[0] = arg3->x - relpos.x;
+//	spc8.f[1] = arg3->y - relpos.y;
+//	spc8.f[2] = arg3->z - relpos.z;
+//
+//	// This first pass over the node tree is deciding which modelnode to use.
+//	curnode = node;
+//
+//	while (curnode) {
+//		s32 nodetype = curnode->type & 0xff;
+//
+//		switch (nodetype) {
+//		case MODELNODETYPE_DL:
+//			rodata = &curnode->rodata->dl;
+//			rwdata = modelGetNodeRwData(model, curnode);
+//
+//			if (rwdata->gdl == NULL) {
+//				break;
+//			}
+//
+//			// By default, the model instance's displaylist points to the
+//			// one in the model definition. If it hasn't been changed we'll
+//			// use the space... after the model definition's colour table?
+//			// Let's hope that's not being used by other instances...
+//			if (rwdata->gdl == rodata->primary) {
+//				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->primary & 0xffffff));
+//			} else {
+//				gdlptr = rwdata->gdl;
+//			}
+//
+//			if (rodata->secondary) {
+//				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->secondary & 0xffffff));
+//			} else {
+//				gdlptr2 = NULL;
+//			}
+//
+//			// Iterate the primary DL, and once the end is reached
+//			// iterate the secondary DL if we have one.
+//			while (true) {
+//				op = *(s8 *)&gdlptr->words.w0;
+//
+//				if (op == G_ENDDL) {
+//					if (gdlptr2) {
+//						// Switch to second DL
+//						gdlptr = gdlptr2;
+//						gdlptr2 = NULL;
+//					} else {
+//						// We're done
+//						gdlptr = NULL;
+//						break;
+//					}
+//				} else {
+//					// Note: We should have found an MTX op before VTX.
+//					if (op == G_VTX) {
+//						u8 *ptr = (u8 *)&gdlptr->words.w0;
+//						u32 word = gdlptr->words.w1 & 0xffffff;
+//						s32 numverts;
+//						s32 i;
+//
+//						vertices = (struct gfxvtx *)((u32)rodata->vertices + word);
+//						numverts = (u32)ptr[1] / 16 + 1;
+//
+//						if (posnode) {
+//							for (i = 0; i < numverts; i++) {
+//								s32 x = spbc[0] - vertices[i].x;
+//								s32 y = spbc[1] - vertices[i].y;
+//								s32 z = spbc[2] - vertices[i].z;
+//								s32 dist = x * x + y * y + z * z;
+//
+//								if (dist < mindist) {
+//									mindist = dist;
+//									bestnode = curnode;
+//									bestcoords[0] = vertices[i].x + (s32)spd4.f[0];
+//									bestcoords[1] = vertices[i].y + (s32)spd4.f[1];
+//									bestcoords[2] = vertices[i].z + (s32)spd4.f[2];
+//								}
+//							}
+//						}
+//					} else if (op == G_MTX) {
+//						u32 addr = gdlptr->words.w1 & 0xffffff;
+//						posnode = model0001a634(model, addr / sizeof(Mtxf));
+//						modelNodeGetModelRelativePosition(model, posnode, &spd4);
+//
+//						spbc[0] = spd4.x + spc8.x;
+//						spbc[1] = spd4.y + spc8.y;
+//						spbc[2] = spd4.z + spc8.z;
+//					}
+//
+//					gdlptr++;
+//				}
+//			}
+//			break;
+//		case MODELNODETYPE_DISTANCE:
+//			model0001c784(model, curnode);
+//			break;
+//		case MODELNODETYPE_TOGGLE:
+//			model0001c7d0(model, curnode);
+//			break;
+//		case MODELNODETYPE_HEADSPOT:
+//			modelAttachHead(model, curnode);
+//			break;
+//		}
+//
+//		if (curnode->child && (curnode == node
+//					|| (nodetype != MODELNODETYPE_BBOX && nodetype != MODELNODETYPE_11))) {
+//			curnode = curnode->child;
+//		} else {
+//			while (curnode) {
+//				if (curnode == node) {
+//					curnode = NULL;
+//					break;
+//				}
+//
+//				if (curnode->next) {
+//					curnode = curnode->next;
+//					break;
+//				}
+//
+//				curnode = curnode->parent;
+//			}
+//		}
+//	}
+//
+//	if (bestnode == NULL) {
+//		return;
+//	}
+//
+//	// Do a pass over the entire model's tree, looking for vertices that share
+//	// the chosen vertex, and darken then.
+//	curnode = model->filedata->rootnode;
+//
+//	while (curnode) {
+//		nodetype = curnode->type & 0xff;
+//
+//		switch (nodetype) {
+//		case MODELNODETYPE_DL:
+//			rodata = &curnode->rodata->dl;
+//			rwdata = modelGetNodeRwData(model, curnode);
+//
+//			if (rwdata->gdl == NULL) {
+//				break;
+//			}
+//
+//			if (rwdata->gdl == rodata->primary) {
+//				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->primary & 0xffffff));
+//			} else {
+//				gdlptr = rwdata->gdl;
+//			}
+//
+//			if (rodata->secondary) {
+//				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->secondary & 0xffffff));
+//			} else {
+//				gdlptr2 = NULL;
+//			}
+//
+//			while (true) {
+//				s32 op = *(s8 *)&gdlptr->words.w0;
+//
+//				if (op == G_ENDDL) {
+//					if (gdlptr2) {
+//						// Switch to second DL
+//						gdlptr = gdlptr2;
+//						gdlptr2 = NULL;
+//					} else {
+//						// We're done
+//						gdlptr = NULL;
+//						break;
+//					}
+//				} else {
+//					// Note: We should have found an MTX op before VTX.
+//					if (op == G_VTX) {
+//						u8 *ptr = (u8 *)&gdlptr->words.w0;
+//						u32 word = gdlptr->words.w1 & 0xffffff;
+//						struct gfxvtx *vertices = (struct gfxvtx *)((u32)rodata->vertices + word);
+//						s32 numverts = (u32)ptr[1] / 16 + 1;
+//						s32 i;
+//
+//						if (posnode) {
+//							for (i = 0; i < numverts; i++) {
+//								s32 x = vertices[i].x + (s32)spd4.f[0];
+//								s32 y = vertices[i].y + (s32)spd4.f[1];
+//								s32 z = vertices[i].z + (s32)spd4.f[2];
+//
+//								if (x == bestcoords[0] && y == bestcoords[1] && z == bestcoords[2]) {
+//									u32 tmp = ALIGN8((u32)&rodata->vertices[(u32)rodata->numvertices]); // u32 0xc
+//
+//									if ((u32)rwdata->colours == tmp) {
+//										struct colour *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
+//										s32 j;
+//
+//										if (colours) {
+//											for (j = 0; j < rodata->numcolours; j++) {
+//												colours[j] = rwdata->colours[j];
+//											}
+//
+//											rwdata->colours = colours;
+//
+//											tmp = ALIGN8((s32)&rodata->vertices[rodata->numvertices]); // s32 0xc
+//										} else {
+//											tmp = ALIGN8((s32)rodata->vertices + rodata->numvertices * 6); // s32 0xc
+//										}
+//									}
+//
+//									if ((u32)rwdata->colours != tmp) {
+//										u32 offset = rwdata->vertices[word / 12u + i].colour >> 2; // u32 0xc (both divide and mult)
+//										struct colour *colours = (struct colour *) ((u32)rwdata->colours + spac);
+//
+//										colours[offset].a = alpha;
+//									}
+//								}
+//							}
+//						}
+//					} else if (op == G_MTX) {
+//						u32 addr = gdlptr->words.w1 & 0xffffff;
+//						posnode = model0001a634(model, addr / sizeof(Mtxf));
+//						modelNodeGetModelRelativePosition(model, posnode, &spd4);
+//					} else if (op == G_SETCOLOR) {
+//						spac = gdlptr->words.w1 & 0xffffff;
+//					}
+//
+//					gdlptr++;
+//				}
+//			}
+//			break;
+//		case MODELNODETYPE_DISTANCE:
+//			model0001c784(model, curnode);
+//			break;
+//		case MODELNODETYPE_TOGGLE:
+//			model0001c7d0(model, curnode);
+//			break;
+//		case MODELNODETYPE_HEADSPOT:
+//			modelAttachHead(model, curnode);
+//			break;
+//		}
+//
+//		if (curnode->child) {
+//			curnode = curnode->child;
+//		} else {
+//			while (curnode) {
+//				if (curnode && curnode->next) {
+//					curnode = curnode->next;
+//					break;
+//				}
+//
+//				curnode = curnode->parent;
+//			}
+//		}
+//	}
+//}
+
 /**
  * Bruise a chr by darkening their vertices.
  *
@@ -4338,84 +4614,82 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 
 		switch (nodetype) {
 		case MODELNODETYPE_DL:
-			{
-				rodata = &curnode->rodata->dl;
-				rwdata = modelGetNodeRwData(model, curnode);
+			rodata = &curnode->rodata->dl;
+			rwdata = modelGetNodeRwData(model, curnode);
 
-				if (rwdata->gdl == NULL) {
-					break;
-				}
+			if (rwdata->gdl == NULL) {
+				break;
+			}
 
-				// By default, the model instance's displaylist points to the
-				// one in the model definition. If it hasn't been changed we'll
-				// use the space... after the model definition's colour table?
-				// Let's hope that's not being used by other instances...
-				if (rwdata->gdl == rodata->primary) {
-					gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->primary & 0xffffff));
-				} else {
-					gdlptr = rwdata->gdl;
-				}
+			// By default, the model instance's displaylist points to the
+			// one in the model definition. If it hasn't been changed we'll
+			// use the space... after the model definition's colour table?
+			// Let's hope that's not being used by other instances...
+			if (rwdata->gdl == rodata->primary) {
+				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->primary & 0xffffff));
+			} else {
+				gdlptr = rwdata->gdl;
+			}
 
-				if (rodata->secondary) {
-					gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->secondary & 0xffffff));
-				} else {
-					gdlptr2 = NULL;
-				}
+			if (rodata->secondary) {
+				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->secondary & 0xffffff));
+			} else {
+				gdlptr2 = NULL;
+			}
 
-				// Iterate the primary DL, and once the end is reached
-				// iterate the secondary DL if we have one.
-				while (true) {
-					op = *(s8 *)&gdlptr->words.w0;
+			// Iterate the primary DL, and once the end is reached
+			// iterate the secondary DL if we have one.
+			while (true) {
+				op = *(s8 *)&gdlptr->words.w0;
 
-					if (op == G_ENDDL) {
-						if (gdlptr2) {
-							// Switch to second DL
-							gdlptr = gdlptr2;
-							gdlptr2 = NULL;
-						} else {
-							// We're done
-							gdlptr = NULL;
-							break;
-						}
+				if (op == G_ENDDL) {
+					if (gdlptr2) {
+						// Switch to second DL
+						gdlptr = gdlptr2;
+						gdlptr2 = NULL;
 					} else {
-						// Note: We should have found an MTX op before VTX.
-						if (op == G_VTX) {
-							u8 *ptr = (u8 *)&gdlptr->words.w0;
-							u32 word = gdlptr->words.w1 & 0xffffff;
-							s32 numverts;
-							s32 i;
+						// We're done
+						gdlptr = NULL;
+						break;
+					}
+				} else {
+					// Note: We should have found an MTX op before VTX.
+					if (op == G_VTX) {
+						u8 *ptr = (u8 *)&gdlptr->words.w0;
+						u32 word = gdlptr->words.w1 & 0xffffff;
+						s32 numverts;
+						s32 i;
 
-							vertices = (struct gfxvtx *)((u32)rodata->vertices + word);
-							numverts = (u32)ptr[1] / 16 + 1;
+						vertices = (struct gfxvtx *)((u32)rodata->vertices + word);
+						numverts = (u32)ptr[1] / 16 + 1;
 
-							if (posnode) {
-								for (i = 0; i < numverts; i++) {
-									s32 x = spbc[0] - vertices[i].x;
-									s32 y = spbc[1] - vertices[i].y;
-									s32 z = spbc[2] - vertices[i].z;
-									s32 dist = x * x + y * y + z * z;
+						if (posnode) {
+							for (i = 0; i < numverts; i++) {
+								s32 x = spbc[0] - vertices[i].x;
+								s32 y = spbc[1] - vertices[i].y;
+								s32 z = spbc[2] - vertices[i].z;
+								s32 dist = x * x + y * y + z * z;
 
-									if (dist < mindist) {
-										mindist = dist;
-										bestnode = curnode;
-										bestcoords[0] = vertices[i].x + (s32)spd4.f[0];
-										bestcoords[1] = vertices[i].y + (s32)spd4.f[1];
-										bestcoords[2] = vertices[i].z + (s32)spd4.f[2];
-									}
+								if (dist < mindist) {
+									mindist = dist;
+									bestnode = curnode;
+									bestcoords[0] = vertices[i].x + (s32)spd4.f[0];
+									bestcoords[1] = vertices[i].y + (s32)spd4.f[1];
+									bestcoords[2] = vertices[i].z + (s32)spd4.f[2];
 								}
 							}
-						} else if (op == G_MTX) {
-							u32 addr = gdlptr->words.w1 & 0xffffff;
-							posnode = model0001a634(model, addr / sizeof(Mtxf));
-							modelNodeGetModelRelativePosition(model, posnode, &spd4);
-
-							spbc[0] = spd4.x + spc8.x;
-							spbc[1] = spd4.y + spc8.y;
-							spbc[2] = spd4.z + spc8.z;
 						}
+					} else if (op == G_MTX) {
+						u32 addr = gdlptr->words.w1 & 0xffffff;
+						posnode = model0001a634(model, addr / sizeof(Mtxf));
+						modelNodeGetModelRelativePosition(model, posnode, &spd4);
 
-						gdlptr++;
+						spbc[0] = spd4.x + spc8.x;
+						spbc[1] = spd4.y + spc8.y;
+						spbc[2] = spd4.z + spc8.z;
 					}
+
+					gdlptr++;
 				}
 			}
 			break;
