@@ -2353,7 +2353,7 @@ struct player {
 	/*0x0018*/ struct coord eraserpos;
 	/*0x0024*/ f32 eraserpropdist;
 	/*0x0028*/ f32 eraserbgdist;
-	/*0x002c*/ u32 eraserdepth;
+	/*0x002c*/ f32 eraserdepth;
 	/*0x0030*/ bool isfalling;
 	/*0x0034*/ s32 fallstart; // lvframe60 when player started falling
 	/*0x0038*/ struct coord globaldrawworldoffset;
@@ -3064,8 +3064,8 @@ struct stagetableentry {
 	/*0x24*/ u32 unk24;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ s16 unk2c;
-	/*0x2e*/ u16 unk2e;
-	/*0x30*/ u16 unk30;
+	/*0x2e*/ s16 eraserpropdist;
+	/*0x30*/ s16 unk30;
 	/*0x34*/ f32 unk34;
 };
 

@@ -120,8 +120,8 @@ s32 g_CamRoom = 0x00000001;
 struct var800a4640_00 *var8007fc24 = &var800a4640.unk2d0;
 s32 var8007fc28 = 0;
 s32 var8007fc2c = 0;
-s32 var8007fc30 = 0x00000000;
-s32 var8007fc34 = 0x00000000;
+s32 var8007fc30 = 0;
+s32 var8007fc34 = 0;
 u32 g_BgNumRoomLoadCandidates = 0x00000000;
 u16 var8007fc3c = 0xfffe;
 s32 g_NumPortalThings = 0;
@@ -1016,8 +1016,6 @@ u32 var8007fc54 = 0;
 bool g_BgCmdStack[20] = {0};
 s32 g_BgCmdStackIndex = 0;
 u32 g_BgCmdResult = BGRESULT_TRUE;
-u32 var8007fcb0 = 400;
-f32 var8007fcb4 = 0;
 
 GLOBAL_ASM(
 glabel bg0f1598b4
@@ -8991,7 +8989,6 @@ const char var7f1b7560[] = "";
 const char var7f1b7564[] = " Failed 2 - Crossed portal %d";
 const char var7f1b7584[] = " Failed 1 - Crossed portal %d";
 const char var7f1b75a4[] = " Passed";
-const char var7f1b75ac[] = "edist";
 
 void bgUnloadRoom(s32 roomnum)
 {
@@ -12972,7 +12969,7 @@ struct bgcmd *bgExecuteCommands(struct bgcmd *cmd)
 }
 
 GLOBAL_ASM(
-glabel func0f162d9c
+glabel bgTickPortalsXray
 /*  f162d9c:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f162da0:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f162da4:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -13052,10 +13049,10 @@ glabel func0f162d9c
 /*  f162ec0:	27a50094 */ 	addiu	$a1,$sp,0x94
 /*  f162ec4:	c7a40094 */ 	lwc1	$f4,0x94($sp)
 /*  f162ec8:	3c047f1b */ 	lui	$a0,%hi(var7f1b75ac)
-/*  f162ecc:	3c058008 */ 	lui	$a1,%hi(var8007fcb0)
+/*  f162ecc:	3c058008 */ 	lui	$a1,%hi(edist)
 /*  f162ed0:	e6c40018 */ 	swc1	$f4,0x18($s6)
 /*  f162ed4:	c7a60098 */ 	lwc1	$f6,0x98($sp)
-/*  f162ed8:	24a5fcb0 */ 	addiu	$a1,$a1,%lo(var8007fcb0)
+/*  f162ed8:	24a5fcb0 */ 	addiu	$a1,$a1,%lo(edist)
 /*  f162edc:	248475ac */ 	addiu	$a0,$a0,%lo(var7f1b75ac)
 /*  f162ee0:	e6c6001c */ 	swc1	$f6,0x1c($s6)
 /*  f162ee4:	c7a8009c */ 	lwc1	$f8,0x9c($sp)
@@ -13320,6 +13317,143 @@ glabel func0f162d9c
 /*  f1632cc:	03e00008 */ 	jr	$ra
 /*  f1632d0:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
+
+const char var7f1b75ac[] = "edist";
+
+u32 edist = 400;
+
+// Mismatch: Regalloc and some reordered instructions. Related to var800a4640.
+//void bgTickPortalsXray(void)
+//{
+//	struct coord vismax; // ac
+//	struct coord vismin; // a0
+//	struct coord eraserpos; // 94
+//	struct coord vismid; // 88
+//	struct player *player = g_Vars.currentplayer;
+//	s16 ymax; // 82
+//	s16 xmax; // 80
+//	s16 ymin; // 7e
+//	s16 xmin; // 7c
+//	struct stagetableentry *stage;
+//	s32 i;
+//	u32 stack;
+//
+//	static u32 edist = 400;
+//
+//	currentPlayerCalculateScreenProperties();
+//
+//	if (var8007fc34 < var8007fc30) {
+//		var8007fc34 = var8007fc30;
+//	}
+//
+//	xmin = player->screenxminf;
+//	ymin = player->screenyminf;
+//	xmax = player->screenxmaxf;
+//	ymax = player->screenymaxf;
+//
+//	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT && player->gunsightoff == 0) {
+//		player->eraserdepth = -500.0f / camGetLodScaleZ();
+//	} else {
+//		player->eraserdepth = -500.0f;
+//	}
+//
+//	eraserpos.f[0] = 0.0f;
+//	eraserpos.f[1] = 0.0f;
+//	eraserpos.f[2] = player->eraserdepth;
+//
+//	mtx4TransformVecInPlace(camGetProjectionMtxF(), &eraserpos);
+//
+//	player->eraserpos.f[0] = eraserpos.f[0];
+//	player->eraserpos.f[1] = eraserpos.f[1];
+//	player->eraserpos.f[2] = eraserpos.f[2];
+//
+//	mainOverrideVariable("edist", &edist);
+//
+//	stage = stageGetCurrent();
+//
+//	player->eraserpropdist = stage->eraserpropdist;
+//	player->eraserbgdist = (f32) stage->eraserpropdist + stage->unk30;
+//
+//	vismax.f[0] = eraserpos.f[0] + player->eraserbgdist;
+//	vismax.f[1] = eraserpos.f[1] + player->eraserbgdist;
+//	vismax.f[2] = eraserpos.f[2] + player->eraserbgdist;
+//
+//	vismin.f[0] = eraserpos.f[0] - player->eraserbgdist;
+//	vismin.f[1] = eraserpos.f[1] - player->eraserbgdist;
+//	vismin.f[2] = eraserpos.f[2] - player->eraserbgdist;
+//
+//	vismid.f[0] = eraserpos.f[0];
+//	vismid.f[1] = eraserpos.f[1];
+//	vismid.f[2] = eraserpos.f[2];
+//
+//	var8007fc2c = 0;
+//	var8007fc30 = 0;
+//
+//	var800a4640.unk2d0.roomnum = -1;
+//	var800a4640.unk2d0.draworder = 255;
+//	var800a4640.unk2d0.box.xmin = xmin;
+//	var800a4640.unk2d0.box.ymin = ymin;
+//	var800a4640.unk2d0.box.xmax = xmax;
+//	var800a4640.unk2d0.box.ymax = ymax;
+//
+//	var800a4ce6 = 0;
+//	var800a4ce4 = 0x7fff;
+//
+//	for (i = 1; i < g_Vars.roomcount; i++) {
+//		if (!(vismax.f[0] < g_Rooms[i].bbmin[0]) && !(vismin.f[0] > g_Rooms[i].bbmax[0])
+//				&& !(vismax.f[2] < g_Rooms[i].bbmin[2]) && !(vismin.f[2] > g_Rooms[i].bbmax[2])
+//				&& !(vismax.f[1] < g_Rooms[i].bbmin[1]) && !(vismin.f[1] > g_Rooms[i].bbmax[1])) {
+//			s32 index = var8007fc2c;
+//
+//			if (1);
+//			if (1);
+//
+//			if (index < 60) {
+//				f32 x;
+//				f32 y;
+//				f32 z;
+//
+//				if (var800a4640.unk000[index].roomnum); \
+//				g_Rooms[i].flags |= ROOMFLAG_ONSCREEN;
+//
+//				var800a4640.unk000[index].roomnum = i;
+//
+//				roomUnpauseProps(i, false);
+//
+//				x = (g_Rooms[i].bbmin[0] + g_Rooms[i].bbmax[0]) / 2.0f - vismid.f[0];
+//				y = (g_Rooms[i].bbmin[1] + g_Rooms[i].bbmax[1]) / 2.0f - vismid.f[1];
+//				z = (g_Rooms[i].bbmin[2] + g_Rooms[i].bbmax[2]) / 2.0f - vismid.f[2];
+//
+//				var800a4640.unk000[index].draworder = sqrtf(x * x + y * y + z * z) / 100.0f;
+//
+//				if (var800a4640.unk000[index].draworder > var800a4ce6) {
+//					var800a4ce6 = var800a4640.unk000[index].draworder;
+//				}
+//
+//				if (var800a4640.unk000[index].draworder < var800a4ce4) {
+//					var800a4ce4 = var800a4640.unk000[index].draworder;
+//				}
+//
+//				var800a4640.unk000[index].box.xmin = xmin;
+//				var800a4640.unk000[index].box.ymin = ymin;
+//				var800a4640.unk000[index].box.xmax = xmax;
+//				var800a4640.unk000[index].box.ymax = ymax;
+//
+//				var8007fc2c++;
+//				var8007fc30++;
+//
+//				g_Rooms[player->cam_room].flags |= ROOMFLAG_ONSCREEN;
+//			} else {
+//				// empty
+//			}
+//		}
+//	}
+//
+//	bgChooseRoomsToLoad();
+//
+//	if (1);
+//	if (1);
+//}
 
 void func0f1632d4(s16 roomnum1, s16 roomnum2, s16 draworder, struct screenbox *box)
 {
@@ -13665,7 +13799,7 @@ void bgTickPortals(void)
 	}
 
 	if (player->visionmode == VISIONMODE_XRAY) {
-		func0f162d9c();
+		bgTickPortalsXray();
 	} else {
 		if (var8007fc34 < var8007fc30) {
 			var8007fc34 = var8007fc30;
@@ -14068,8 +14202,8 @@ void room0f164c64(s32 roomnum)
 
 			for (k = 0; k < pvertices->count; k++) {
 				tmp = thing.coord.f[0] * pvertices->vertices[k].f[0]
-						+ thing.coord.f[1] * pvertices->vertices[k].f[1]
-						+ thing.coord.f[2] * pvertices->vertices[k].f[2];
+					+ thing.coord.f[1] * pvertices->vertices[k].f[1]
+					+ thing.coord.f[2] * pvertices->vertices[k].f[2];
 
 				if (tmp < thing.unk0c) {
 					g_Rooms[roomnum].flags |= ROOMFLAG_0010;
@@ -14094,6 +14228,8 @@ void func0f164e80(s32 arg0, s32 arg1)
 {
 	// empty
 }
+
+f32 var8007fcb4 = 0;
 
 s32 bg0f164e8c(struct coord *arg0, struct coord *arg1)
 {

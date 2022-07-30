@@ -82,7 +82,7 @@ bool bgPopValue(void);
 bool bgGetNthValueFromEnd(s32 offset);
 struct bgcmd *bgExecuteCommandsBranch(struct bgcmd *cmd, bool s2);
 struct bgcmd *bgExecuteCommands(struct bgcmd *cmd);
-u32 func0f162d9c(void);
+void bgTickPortalsXray(void);
 void func0f1632d4(s16 roomnum1, s16 roomnum2, s16 draworder, struct screenbox *box);
 void func0f163528(struct var800a4d00 *arg0);
 bool func0f163904(void);
