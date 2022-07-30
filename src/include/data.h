@@ -143,7 +143,7 @@ extern s32 g_NextChrnum;
 extern struct chrdata *g_ChrSlots;
 extern s32 g_NumChrSlots;
 extern struct shieldhit *g_ShieldHits;
-extern s32 g_ShieldHitActive;
+extern bool g_ShieldHitActive;
 extern s32 g_NumBondBodies;
 extern s32 g_NumMaleGuardHeads;
 extern s32 g_NumFemaleGuardHeads;

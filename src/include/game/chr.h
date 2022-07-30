@@ -62,7 +62,7 @@ s32 chr0f0293ec(struct prop *prop, s32 arg1);
 s32 chr0f0294cc(struct prop *prop, s32 arg1);
 void chr0f0295f8(f32 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 f32 propGetShieldThing(struct prop **propptr);
-Gfx *chr0f02983c(Gfx *gdl, struct shieldhit *hit, struct prop *prop, struct model *model, struct modelnode *node, s32 side, s32 arg6, s32 arg7, s32 alpha);
+Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop, struct model *model, struct modelnode *node, s32 side, s32 arg6, s32 arg7, s32 alpha);
 Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha, bool arg4, s32 cmnum1, s32 cmnum2, s32 cmnum3, s32 cmnum4);
 Gfx *chrRenderCloak(Gfx *gdl, struct prop *chr1, struct prop *chr2);
 Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha);
