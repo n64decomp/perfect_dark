@@ -6366,8 +6366,8 @@ struct xraydata {
 	/*0x028*/ s16 vertices[16][3];
 	/*0x088*/ u32 colours[16];
 	/*0x0c8*/ s16 tris[64][3];
-	/*0x248*/ s16 unk248;
-	/*0x24a*/ s16 unk24a;
+	/*0x248*/ s16 numvertices;
+	/*0x24a*/ s16 numtris;
 };
 
 #endif
