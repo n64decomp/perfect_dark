@@ -439,10 +439,31 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialogdef *dialogdef, union 
 }
 
 struct menuitem g_CheatsWarningMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU_479, 0x00000000, NULL }, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU_480, 0x00000000, NULL }, // "OK"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU_481, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_MPMENU_479, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_480, // "OK"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_481, // "Cancel"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_CheatsWarningMenuDialog = {
@@ -837,17 +858,87 @@ char *cheatGetName(s32 cheat_id)
 #endif
 
 struct menuitem g_CheatsFunMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_DKMODE,          0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SMALLJO,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SMALLCHARACTERS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_TEAMHEADSONLY,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PLAYASELVIS,     0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SLOMO,           0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_MARQUEE,    0,                     0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
-	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                     0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
-	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,                   0x00000000, NULL                         },
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_DKMODE,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_SMALLJO,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_SMALLCHARACTERS,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_TEAMHEADSONLY,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_PLAYASELVIS,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_SLOMO,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MARQUEE,
+		0,
+		MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_MARQUEE_FADEBOTHSIDES,
+		(u32)&cheatGetMarquee,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_477, // "Done"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_CheatsFunMenuDialog = {
@@ -860,19 +951,103 @@ struct menudialogdef g_CheatsFunMenuDialog = {
 };
 
 struct menuitem g_CheatsGameplayMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_INVINCIBLE,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CLOAKINGDEVICE,  0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_MARQUIS,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_JOSHIELD,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SUPERSHIELD,     0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ENEMYSHIELDS,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ENEMYROCKETS,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PERFECTDARKNESS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_MARQUEE,    0,                     0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
-	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                     0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
-	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,                   0x00000000, NULL                         },
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_INVINCIBLE,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_CLOAKINGDEVICE,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_MARQUIS,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_JOSHIELD,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_SUPERSHIELD,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_ENEMYSHIELDS,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_ENEMYROCKETS,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_PERFECTDARKNESS,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MARQUEE,
+		0,
+		MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_MARQUEE_FADEBOTHSIDES,
+		(u32)&cheatGetMarquee,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_477, // "Done"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_CheatsGameplayMenuDialog = {
@@ -885,19 +1060,103 @@ struct menudialogdef g_CheatsGameplayMenuDialog = {
 };
 
 struct menuitem g_CheatsSoloWeaponsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ROCKETLAUNCHER, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SNIPERRIFLE,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SUPERDRAGON,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_LAPTOPGUN,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PHOENIX,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PSYCHOSISGUN,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_TRENTSMAGNUM,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_FARSIGHT,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_MARQUEE,    0,                    0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
-	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                   0x00000000, NULL                         },
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_ROCKETLAUNCHER,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_SNIPERRIFLE,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_SUPERDRAGON,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_LAPTOPGUN,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_PHOENIX,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_PSYCHOSISGUN,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_TRENTSMAGNUM,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_FARSIGHT,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MARQUEE,
+		0,
+		MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_MARQUEE_FADEBOTHSIDES,
+		(u32)&cheatGetMarquee,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_477, // "Done"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_CheatsSoloWeaponsMenuDialog = {
@@ -910,19 +1169,103 @@ struct menudialogdef g_CheatsSoloWeaponsMenuDialog = {
 };
 
 struct menuitem g_CheatsClassicWeaponsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PP9I,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CC13,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_KL01313,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_KF7SPECIAL, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ZZT,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_DMC,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_AR53,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_RCP45,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_SEPARATOR,  0,                0x00000000, 0x000000c8,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_MARQUEE,    0,                0x00000a00, L_MPWEAPONS_144,             0x00000000, NULL                         }, // "Win Golds on the firing range to enable classic guns."
-	{ MENUITEMTYPE_SEPARATOR,  0,                0x00000000, 0x000000c8,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
-	{ MENUITEMTYPE_END,        0,                0x00000000, 0x00000000,                   0x00000000, NULL                         },
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_PP9I,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_CC13,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_KL01313,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_KF7SPECIAL,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_ZZT,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_DMC,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_AR53,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_RCP45,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x000000c8,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MARQUEE,
+		0,
+		MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_MARQUEE_FADEBOTHSIDES,
+		L_MPWEAPONS_144, // "Win Golds on the firing range to enable classic guns."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x000000c8,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_477, // "Done"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_CheatsClassicWeaponsMenuDialog = {
@@ -935,19 +1278,103 @@ struct menudialogdef g_CheatsClassicWeaponsMenuDialog = {
 };
 
 struct menuitem g_CheatsWeaponsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CLASSICSIGHT,           0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMOLAPTOP,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_HURRICANEFISTS,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMO,          0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMONORELOADS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_XRAYSCANNER,            0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_RTRACKER,               0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ALLGUNS,                0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
-	{ MENUITEMTYPE_SEPARATOR,  0,                            0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_MARQUEE,    0,                            0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
-	{ MENUITEMTYPE_SEPARATOR,  0,                            0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                            0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
-	{ MENUITEMTYPE_END,        0,                            0x00000000, 0x00000000,                   0x00000000, NULL                         },
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_CLASSICSIGHT,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_UNLIMITEDAMMOLAPTOP,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_HURRICANEFISTS,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_UNLIMITEDAMMO,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_UNLIMITEDAMMONORELOADS,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_XRAYSCANNER,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_RTRACKER,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_ALLGUNS,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatCheckboxMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MARQUEE,
+		0,
+		MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_MARQUEE_FADEBOTHSIDES,
+		(u32)&cheatGetMarquee,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_477, // "Done"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_CheatsWeaponsMenuDialog = {
@@ -960,16 +1387,79 @@ struct menudialogdef g_CheatsWeaponsMenuDialog = {
 };
 
 struct menuitem g_CheatsBuddiesMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   0,               0x00000000, L_MPWEAPONS_117,             0x00000000, cheatMenuHandleBuddyCheckbox }, // "Velvet Dark"
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PUGILIST,  0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_HOTSHOT,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_HITANDRUN, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ALIEN,     0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
-	{ MENUITEMTYPE_SEPARATOR,  0,               0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_MARQUEE,    0,               0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
-	{ MENUITEMTYPE_SEPARATOR,  0,               0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,               0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
-	{ MENUITEMTYPE_END,        0,               0x00000000, 0x00000000,                   0x00000000, NULL                         },
+	{
+		MENUITEMTYPE_CHECKBOX,
+		0,
+		0,
+		L_MPWEAPONS_117, // "Velvet Dark"
+		0,
+		cheatMenuHandleBuddyCheckbox,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_PUGILIST,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatMenuHandleBuddyCheckbox,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_HOTSHOT,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatMenuHandleBuddyCheckbox,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_HITANDRUN,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatMenuHandleBuddyCheckbox,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		CHEAT_ALIEN,
+		0,
+		(u32)&cheatGetNameIfUnlocked,
+		0,
+		cheatMenuHandleBuddyCheckbox,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MARQUEE,
+		0,
+		MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_MARQUEE_FADEBOTHSIDES,
+		(u32)&cheatGetMarquee,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_477, // "Done"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_CheatsBuddiesMenuDialog = {
@@ -982,17 +1472,87 @@ struct menudialogdef g_CheatsBuddiesMenuDialog = {
 };
 
 struct menuitem g_CheatsMenuItems[] = {
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_118, 0x00000000, (void *)&g_CheatsFunMenuDialog            }, // "Fun"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_119, 0x00000000, (void *)&g_CheatsGameplayMenuDialog       }, // "Gameplay"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_122, 0x00000000, (void *)&g_CheatsSoloWeaponsMenuDialog    }, // "Weapons for Jo in Solo"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_123, 0x00000000, (void *)&g_CheatsClassicWeaponsMenuDialog }, // "Classic Weapons for Jo in Solo"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_120, 0x00000000, (void *)&g_CheatsWeaponsMenuDialog        }, // "Weapons"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_121, 0x00000000, (void *)&g_CheatsBuddiesMenuDialog        }, // "Buddies"
-	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000096,       0x00000000, NULL                              },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000000, L_MPWEAPONS_217, 0x00000000, cheatMenuHandleTurnOffAllCheats   }, // "Turn off all Cheats"
-	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000096,       0x00000000, NULL                              },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000028, L_MPMENU_477,    0x00000000, NULL                              }, // "Done"
-	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,       0x00000000, NULL                              },
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
+		L_MPWEAPONS_118, // "Fun"
+		0,
+		(void *)&g_CheatsFunMenuDialog,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
+		L_MPWEAPONS_119, // "Gameplay"
+		0,
+		(void *)&g_CheatsGameplayMenuDialog,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
+		L_MPWEAPONS_122, // "Weapons for Jo in Solo"
+		0,
+		(void *)&g_CheatsSoloWeaponsMenuDialog,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
+		L_MPWEAPONS_123, // "Classic Weapons for Jo in Solo"
+		0,
+		(void *)&g_CheatsClassicWeaponsMenuDialog,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
+		L_MPWEAPONS_120, // "Weapons"
+		0,
+		(void *)&g_CheatsWeaponsMenuDialog,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
+		L_MPWEAPONS_121, // "Buddies"
+		0,
+		(void *)&g_CheatsBuddiesMenuDialog,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_MPWEAPONS_217, // "Turn off all Cheats"
+		0,
+		cheatMenuHandleTurnOffAllCheats,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000096,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_477, // "Done"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_CheatsMenuDialog = {

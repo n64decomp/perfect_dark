@@ -200,11 +200,39 @@ char *menutextMatchTime(s32 arg0)
 }
 
 struct menuitem g_MpEndGameMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x02000020, L_MPMENU_291, 0x00000000, NULL }, // "Are you sure?"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU_292, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPMENU_293, 0x00000000, menuhandlerMpEndGame }, // "End Game"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
+		L_MPMENU_291, // "Are you sure?"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000082,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_292, // "Cancel"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_293, // "End Game"
+		0,
+		menuhandlerMpEndGame,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpEndGameMenuDialog = {
@@ -217,25 +245,97 @@ struct menudialogdef g_MpEndGameMenuDialog = {
 };
 
 struct menuitem g_MpPauseControlMenuItems[] = {
-#if VERSION == VERSION_JPN_FINAL
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextChallengeName, 0x00000000, menuhandler00178018 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_162, (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Time Limit:"
-	{ MENUITEMTYPE_LABEL,       1, 0x00000010, L_MPWEAPONS_163, (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Score Limit:"
-	{ MENUITEMTYPE_LABEL,       2, 0x00000010, L_MPWEAPONS_164, (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Team Score Limit:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPMENU_286, (u32)&menutextMatchTime, NULL }, // "Game Time:"
-#else
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextChallengeName, 0x00000000, menuhandler00178018 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextScenarioName, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_MPWEAPONS_162, (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Time Limit:"
-	{ MENUITEMTYPE_LABEL,       1, 0x00000200, L_MPWEAPONS_163, (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Score Limit:"
-	{ MENUITEMTYPE_LABEL,       2, 0x00000200, L_MPWEAPONS_164, (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Team Score Limit:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU_286, (u32)&menutextMatchTime, NULL }, // "Game Time:"
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&mpMenuTextChallengeName,
+		0,
+		menuhandler00178018,
+	},
+#if VERSION != VERSION_JPN_FINAL
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&mpMenuTextScenarioName,
+		0,
+		NULL,
+	},
 #endif
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, (u32)&menutextPauseOrUnpause, 0x00000000, menuhandlerMpPause },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000024, L_MPMENU_287, 0x00000000, (void *)&g_MpEndGameMenuDialog }, // "End Game"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+#if VERSION == VERSION_JPN_FINAL
+		MENUITEMFLAG_LESSLEFTPADDING,
+#else
+		MENUITEMFLAG_SMALLFONT,
+#endif
+		L_MPWEAPONS_162, // "Time Limit:"
+		(u32)&mpMenuTextInGameLimit,
+		menuhandlerMpInGameLimitLabel,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		1,
+#if VERSION == VERSION_JPN_FINAL
+		MENUITEMFLAG_LESSLEFTPADDING,
+#else
+		MENUITEMFLAG_SMALLFONT,
+#endif
+		L_MPWEAPONS_163, // "Score Limit:"
+		(u32)&mpMenuTextInGameLimit,
+		menuhandlerMpInGameLimitLabel,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		2,
+#if VERSION == VERSION_JPN_FINAL
+		MENUITEMFLAG_LESSLEFTPADDING,
+#else
+		MENUITEMFLAG_SMALLFONT,
+#endif
+		L_MPWEAPONS_164, // "Team Score Limit:"
+		(u32)&mpMenuTextInGameLimit,
+		menuhandlerMpInGameLimitLabel,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000082,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+#if VERSION == VERSION_JPN_FINAL
+		MENUITEMFLAG_LESSLEFTPADDING,
+#else
+		0,
+#endif
+		L_MPMENU_286, // "Game Time:"
+		(u32)&menutextMatchTime,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		1,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&menutextPauseOrUnpause,
+		0,
+		menuhandlerMpPause,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_287, // "End Game"
+		0,
+		(void *)&g_MpEndGameMenuDialog,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpPauseControlMenuDialog = {
@@ -367,9 +467,23 @@ char *mpMenuTextAward2(struct menuitem *item)
 }
 
 struct menuitem g_Mp2PMissionInventoryMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x00000078, 0x00000042, menuhandlerInventoryList },
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&mpMenuTextWeaponDescription, 0x00000000, NULL },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		0,
+		0x00000078,
+		0x00000042,
+		menuhandlerInventoryList,
+	},
+	{
+		MENUITEMTYPE_MARQUEE,
+		0,
+		MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_MARQUEE_FADEBOTHSIDES,
+		(u32)&mpMenuTextWeaponDescription,
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpPauseInventoryMenuDialog = {
@@ -400,8 +514,15 @@ struct menudialogdef g_2PMissionInventoryVMenuDialog = {
 };
 
 struct menuitem g_MpInGamePlayerStatsMenuItems[] = {
-	{ MENUITEMTYPE_PLAYERSTATS, 0, 0x00000000, 0x00000000, 0x00000000, mpStatsForPlayerDropdownHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_PLAYERSTATS,
+		0,
+		0,
+		0,
+		0,
+		mpStatsForPlayerDropdownHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpPausePlayerStatsMenuDialog = {
@@ -423,8 +544,15 @@ struct menudialogdef g_MpEndscreenPlayerStatsMenuDialog = {
 };
 
 struct menuitem g_MpPlayerRankingMenuItems[] = {
-	{ MENUITEMTYPE_RANKING,     0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_RANKING,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpPausePlayerRankingMenuDialog = {
@@ -446,8 +574,15 @@ struct menudialogdef g_MpEndscreenPlayerRankingMenuDialog = {
 };
 
 struct menuitem g_MpTeamRankingsMenuItems[] = {
-	{ MENUITEMTYPE_RANKING,     0, 0x00000000, 0x00000001, 0x00000000, NULL },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_RANKING,
+		0,
+		0,
+		0x00000001,
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpPauseTeamRankingsMenuDialog = {
@@ -705,28 +840,114 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 }
 
 struct menuitem g_MpGameOverMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&mpGetCurrentPlayerName, (u32)&mpMenuTextPlacementWithSuffix, mpPlacementMenuHandler },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
+		(u32)&mpGetCurrentPlayerName,
+		(u32)&mpMenuTextPlacementWithSuffix,
+		mpPlacementMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
 #if VERSION >= VERSION_JPN_FINAL
-	{ MENUITEMTYPE_LABEL,       0, 0x01000020, (u32)&mpMenuTextPlayerTitle, 0, mpPlayerTitleMenuHandler }, // "Title:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_MPMENU_262, 0x00000000, NULL }, // "Weapon of Choice:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&mpMenuTextWeaponOfChoiceName, 0x00000000, NULL },
-	{ MENUITEMTYPE_MODEL,       0, 0x00000002, 0x00000001, 0x00000003, NULL },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_MODEL,       0, 0x00200002, 0x00000001, 0x00000002, mpAwardsMenuHandler },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000100, (u32)&mpMenuTextAward1, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000100, (u32)&mpMenuTextAward2, 0x00000000, NULL },
+		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
+		(u32)&mpMenuTextPlayerTitle,
+		0,
 #else
-	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_MPMENU_261, (u32)&mpMenuTextPlayerTitle, mpPlayerTitleMenuHandler }, // "Title:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_MPMENU_262, 0x00000000, NULL }, // "Weapon of Choice:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&mpMenuTextWeaponOfChoiceName, 0x00000000, NULL },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00200210, L_MPMENU_263, 0x00000000, mpAwardsMenuHandler }, // "Awards:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&mpMenuTextAward1, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&mpMenuTextAward2, 0x00000000, NULL },
+		MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
+		L_MPMENU_261, // "Title:"
+		(u32)&mpMenuTextPlayerTitle,
 #endif
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+		mpPlayerTitleMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SMALLFONT,
+		L_MPMENU_262, // "Weapon of Choice:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_ALTCOLOUR,
+		(u32)&mpMenuTextWeaponOfChoiceName,
+		0,
+		NULL,
+	},
+#if VERSION >= VERSION_JPN_FINAL
+	{
+		MENUITEMTYPE_MODEL,
+		0,
+		MENUITEMFLAG_00000002,
+		0x00000001,
+		0x00000003,
+		NULL,
+	},
+#endif
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+#if VERSION >= VERSION_JPN_FINAL
+	{
+		MENUITEMTYPE_MODEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0x00000001,
+		0x00000002,
+		mpAwardsMenuHandler,
+	},
+#else
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_LIST_CUSTOMRENDER,
+		L_MPMENU_263, // "Awards:"
+		0,
+		mpAwardsMenuHandler,
+	},
+#endif
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+#if VERSION >= VERSION_JPN_FINAL
+		MENUITEMFLAG_LABEL_ALTCOLOUR,
+#else
+		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_ALTCOLOUR,
+#endif
+		(u32)&mpMenuTextAward1,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+#if VERSION >= VERSION_JPN_FINAL
+		MENUITEMFLAG_LABEL_ALTCOLOUR,
+#else
+		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_ALTCOLOUR,
+#endif
+		(u32)&mpMenuTextAward2,
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpEndscreenIndGameOverMenuDialog = {
@@ -776,9 +997,23 @@ struct menudialogdef g_MpEndscreenChallengeFailedMenuDialog = {
 
 #if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_MpEndscreenConfirmNameMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_250, 0x00000000, NULL }, // "Confirm player name:"
-	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, mpConfirmPlayerNameHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_250, // "Confirm player name:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_KEYBOARD,
+		0,
+		0,
+		0,
+		0,
+		mpConfirmPlayerNameHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpEndscreenConfirmNameMenuDialog = {
@@ -791,10 +1026,31 @@ struct menudialogdef g_MpEndscreenConfirmNameMenuDialog = {
 };
 
 struct menuitem g_MpEndscreenSavePlayerMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_247, 0x00000000, NULL }, // "Save new player and statistics?"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x0000002c, L_MPWEAPONS_248, 0x00000000, (void *)&g_MpEndscreenConfirmNameMenuDialog }, // "Save Now"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_249, 0x00000000, NULL }, // "No Thanks!"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_247, // "Save new player and statistics?"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_248, // "Save Now"
+		0,
+		(void *)&g_MpEndscreenConfirmNameMenuDialog,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_249, // "No Thanks!"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpEndscreenSavePlayerMenuDialog = {

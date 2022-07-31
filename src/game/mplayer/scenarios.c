@@ -938,8 +938,15 @@ void scenarioHighlightRoom(s16 room, s32 *arg1, s32 *arg2, s32 *arg3)
 }
 
 struct menuitem g_MpScenarioMenuItems[] = {
-	 { MENUITEMTYPE_LIST,        0, 0x00020040, 0x00000078, 0x0000004d, scenarioScenarioMenuHandler },
-	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_LIST_WIDE | MENUITEMFLAG_LOCKABLEMINOR,
+		0x00000078,
+		0x0000004d,
+		scenarioScenarioMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpScenarioMenuDialog = {
@@ -952,8 +959,15 @@ struct menudialogdef g_MpScenarioMenuDialog = {
 };
 
 struct menuitem g_MpQuickTeamScenarioMenuItems[] = {
-	 { MENUITEMTYPE_LIST,        1, 0x00020040, 0x00000078, 0x0000004d, scenarioScenarioMenuHandler },
-	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LIST,
+		1,
+		MENUITEMFLAG_LIST_WIDE | MENUITEMFLAG_LOCKABLEMINOR,
+		0x00000078,
+		0x0000004d,
+		scenarioScenarioMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MpQuickTeamScenarioMenuDialog = {

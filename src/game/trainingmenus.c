@@ -895,13 +895,55 @@ s32 menuhandlerFrFailedContinue(s32 operation, struct menuitem *item, union hand
 #endif
 
 struct menuitem g_FrDifficultyMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_MPMENU_444, L_MPMENU_445, NULL }, // "Select Difficulty:"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPMENU_439, L_OPTIONS_003, frDifficultyMenuHandler }, // "Bronze"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, L_MPMENU_440, L_OPTIONS_003, frDifficultyMenuHandler }, // "Silver"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000020, L_MPMENU_441, L_OPTIONS_003, frDifficultyMenuHandler }, // "Gold"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU_429, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPMENU_444, // "Select Difficulty:"
+		L_MPMENU_445, // ""
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_439, // "Bronze"
+		L_OPTIONS_003, // ""
+		frDifficultyMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		1,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_440, // "Silver"
+		L_OPTIONS_003, // ""
+		frDifficultyMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		2,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_441, // "Gold"
+		L_OPTIONS_003, // ""
+		frDifficultyMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_429, // "Cancel"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FrDifficultyMenuDialog = {
@@ -914,8 +956,15 @@ struct menudialogdef g_FrDifficultyMenuDialog = {
 };
 
 struct menuitem g_FrWeaponListMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00200008, 0x000000aa, 0x00000000, frWeaponListMenuHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0x000000aa,
+		0,
+		frWeaponListMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FrWeaponListMenuDialog = {
@@ -928,17 +977,87 @@ struct menudialogdef g_FrWeaponListMenuDialog = {
 };
 
 struct menuitem g_FrTrainingInfoInGameMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU_443,                             (u32)&frMenuTextDifficultyName,            NULL                   }, // "Difficulty"
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextGoalScoreLabel,            (u32)&frMenuTextGoalScoreValue,            NULL                   },
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextMinAccuracyOrTargetsLabel, (u32)&frMenuTextMinAccuracyOrTargetsValue, NULL                   },
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextTimeLimitLabel,            (u32)&frMenuTextTimeLimitValue,            NULL                   },
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextAmmoLimitLabel,            (u32)&frMenuTextAmmoLimitValue,            NULL                   },
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                PAL ? 0x69 : 0x5f,                                NULL                   },
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
-	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS_003,                              L_MPMENU_428,                             frDetailsOkMenuHandler }, // "", "Resume"
-	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS_003,                              L_MPMENU_430,                             frAbortMenuHandler    }, // "", "Abort"
-	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_443, // "Difficulty:"
+		(u32)&frMenuTextDifficultyName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		(u32)&frMenuTextGoalScoreLabel,
+		(u32)&frMenuTextGoalScoreValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		(u32)&frMenuTextMinAccuracyOrTargetsLabel,
+		(u32)&frMenuTextMinAccuracyOrTargetsValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		(u32)&frMenuTextTimeLimitLabel,
+		(u32)&frMenuTextTimeLimitValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		(u32)&frMenuTextAmmoLimitLabel,
+		(u32)&frMenuTextAmmoLimitValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_FRWEAPON,
+		MENUITEMFLAG_DARKERBG,
+		0x0000010e,
+		PAL ? 0x69 : 0x5f,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_003, // ""
+		L_MPMENU_428, // "Resume"
+		frDetailsOkMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_003, // ""
+		L_MPMENU_430, // "Abort"
+		frAbortMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FrTrainingInfoInGameMenuDialog = {
@@ -951,17 +1070,87 @@ struct menudialogdef g_FrTrainingInfoInGameMenuDialog = {
 };
 
 struct menuitem g_FrTrainingInfoPreGameMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU_443,                             (u32)&frMenuTextDifficultyName,            NULL                   }, // "Difficulty:"
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextGoalScoreLabel,            (u32)&frMenuTextGoalScoreValue,            NULL                   },
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextMinAccuracyOrTargetsLabel, (u32)&frMenuTextMinAccuracyOrTargetsValue, NULL                   },
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextTimeLimitLabel,            (u32)&frMenuTextTimeLimitValue,            NULL                   },
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextAmmoLimitLabel,            (u32)&frMenuTextAmmoLimitValue,            NULL                   },
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                PAL ? 0x69 : 0x5f,                                NULL                   },
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
-	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS_003,                              L_MPMENU_427,                             frDetailsOkMenuHandler }, // "", "Ok"
-	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS_003,                              L_MPMENU_429,                             frAbortMenuHandler    }, // "", "Cancel"
-	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_443, // "Difficulty:"
+		(u32)&frMenuTextDifficultyName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		(u32)&frMenuTextGoalScoreLabel,
+		(u32)&frMenuTextGoalScoreValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		(u32)&frMenuTextMinAccuracyOrTargetsLabel,
+		(u32)&frMenuTextMinAccuracyOrTargetsValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		(u32)&frMenuTextTimeLimitLabel,
+		(u32)&frMenuTextTimeLimitValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		(u32)&frMenuTextAmmoLimitLabel,
+		(u32)&frMenuTextAmmoLimitValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_FRWEAPON,
+		MENUITEMFLAG_DARKERBG,
+		0x0000010e,
+		PAL ? 0x69 : 0x5f,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_003, // ""
+		L_MPMENU_427, // "Ok"
+		frDetailsOkMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_003, // ""
+		L_MPMENU_429, // "Cancel"
+		frAbortMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FrTrainingInfoPreGameMenuDialog = {
@@ -974,24 +1163,115 @@ struct menudialogdef g_FrTrainingInfoPreGameMenuDialog = {
 };
 
 struct menuitem g_FrCompletedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU_449, 0x00000000, NULL }, // "Completed!"
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_449, // "Completed!"
+		0,
+		NULL,
+	},
 #if VERSION < VERSION_NTSC_1_0
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
 #endif
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_450, (u32)&frMenuTextScoreValue, NULL }, // "Score:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_451, (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_452, (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_453, (u32)&frMenuTextTimeTakenValue, NULL }, // "Time Taken:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_454, (u32)&frMenuTextWeaponName, NULL }, // "Weapon:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_455, (u32)&frMenuTextAccuracyValue, NULL }, // "Accuracy:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_MODEL,       0, 0x00200002, 0x000000d2, 0x00000050, frScoringMenuHandler },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_450, // "Score:"
+		(u32)&frMenuTextScoreValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_451, // "Targets Destroyed:"
+		(u32)&frMenuTextTargetsDestroyedValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_452, // "Difficulty:"
+		(u32)&frMenuTextDifficultyName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_453, // "Time Taken:"
+		(u32)&frMenuTextTimeTakenValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_454, // "Weapon:"
+		(u32)&frMenuTextWeaponName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_455, // "Accuracy:"
+		(u32)&frMenuTextAccuracyValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MODEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0x000000d2,
+		0x00000050,
+		frScoringMenuHandler,
+	},
 #if VERSION >= VERSION_NTSC_1_0
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_252, 0x00000000, menuhandlerFrFailedContinue }, // "Continue"
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_252, // "Continue"
+		0,
+		menuhandlerFrFailedContinue,
+	},
 #endif
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FrCompletedMenuDialog = {
@@ -1009,24 +1289,115 @@ struct menudialogdef g_FrCompletedMenuDialog = {
 };
 
 struct menuitem g_FrFailedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&frMenuTextFailReason, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&frMenuTextFailReason,
+		0,
+		NULL,
+	},
 #if VERSION < VERSION_NTSC_1_0
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
 #endif
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_450, (u32)&frMenuTextScoreValue, NULL }, // "Score:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_451, (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_452, (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_453, (u32)&frMenuTextTimeTakenValue, NULL }, // "Time Taken:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_454, (u32)&frMenuTextWeaponName, NULL }, // "Weapon:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_455, (u32)&frMenuTextAccuracyValue, NULL }, // "Accuracy:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_MODEL,       0, 0x00200002, 0x000000d2, 0x00000050, frScoringMenuHandler },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_450, // "Score:"
+		(u32)&frMenuTextScoreValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_451, // "Targets Destroyed:"
+		(u32)&frMenuTextTargetsDestroyedValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_452, // "Difficulty:"
+		(u32)&frMenuTextDifficultyName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_453, // "Time Taken:"
+		(u32)&frMenuTextTimeTakenValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_454, // "Weapon:"
+		(u32)&frMenuTextWeaponName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_455, // "Accuracy:"
+		(u32)&frMenuTextAccuracyValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MODEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0x000000d2,
+		0x00000050,
+		frScoringMenuHandler,
+	},
 #if VERSION >= VERSION_NTSC_1_0
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_252, 0x00000000, menuhandlerFrFailedContinue }, // "Continue"
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_252, // "Continue"
+		0,
+		menuhandlerFrFailedContinue,
+	},
 #endif
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FrFailedMenuDialog = {
@@ -1095,8 +1466,15 @@ s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union h
 }
 
 struct menuitem g_BioListMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000c8, 0x00000000, ciOfficeInformationMenuHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		0x000000c8,
+		0,
+		ciOfficeInformationMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_BioListMenuDialog = {
@@ -1109,10 +1487,31 @@ struct menudialogdef g_BioListMenuDialog = {
 };
 
 struct menuitem g_NowSafeMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU_437, 0x00000000, NULL }, // "It is now safe to turn off your computer"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU_438, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_437, // "It is now safe to turn off your computer."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		L_MPMENU_438, // "Cancel"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_NowSafeMenuDialog = {
@@ -1338,15 +1737,71 @@ s32 menuhandler001a6514(s32 operation, struct menuitem *item, union handlerdata 
 }
 
 struct menuitem g_BioProfileMenuItems[] = {
-	{ MENUITEMTYPE_MODEL,      0,                  0x00000002, 0x00000046,    0x00000096,              NULL },
-	{ MENUITEMTYPE_LABEL,      0,                  0x00000003, L_MPMENU_432, (u32)&ciMenuTextChrBioName, NULL }, // "Name:"
-	{ MENUITEMTYPE_LABEL,      0,                  0x00000002, L_MPMENU_433, (u32)&ciMenuTextChrBioAge,  NULL }, // "Age:"
-	{ MENUITEMTYPE_LABEL,      0,                  0x00000002, L_MPMENU_434, (u32)&ciMenuTextChrBioRace, NULL }, // "Race:"
-	{ MENUITEMTYPE_SEPARATOR,  0,                  0x00000002, 0x00000000,    0x00000000,              NULL },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_CHRBIO, 0x00000000, 0x000000b4,    0x00000064,              NULL },
-	{ MENUITEMTYPE_SEPARATOR,  0,                  0x00000002, 0x00000000,    0x00000000,              NULL },
-	{ MENUITEMTYPE_LABEL,      0,                  0x00000022, L_MPMENU_435, 0x00000000,              NULL }, // "Press the B Button to go back."
-	{ MENUITEMTYPE_END,        0,                  0x00000000, 0x00000000,    0x00000000,              NULL },
+	{
+		MENUITEMTYPE_MODEL,
+		0,
+		MENUITEMFLAG_00000002,
+		0x00000046,
+		0x00000096,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_NEWCOLUMN | MENUITEMFLAG_00000002,
+		L_MPMENU_432, // "Name:"
+		(u32)&ciMenuTextChrBioName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_433, // "Age:"
+		(u32)&ciMenuTextChrBioAge,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_434, // "Race:"
+		(u32)&ciMenuTextChrBioRace,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_CHRBIO,
+		0,
+		0x000000b4,
+		0x00000064,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_435, // "Press the B Button to go back."
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_BioProfileMenuDialog = {
@@ -1359,10 +1814,31 @@ struct menudialogdef g_BioProfileMenuDialog = {
 };
 
 struct menuitem g_BioTextMenuItems[] = {
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MISCBIO, 0x00000000, 0x000000c8,    0x00000096, NULL },
-	{ MENUITEMTYPE_SEPARATOR,  0,                   0x00000002, 0x00000000,    0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,      0,                   0x00000022, L_MPMENU_414, 0x00000000, NULL }, // "Press the B Button to go back."
-	{ MENUITEMTYPE_END,        0,                   0x00000000, 0x00000000,    0x00000000, NULL },
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_MISCBIO,
+		0,
+		0x000000c8,
+		0x00000096,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_414, // "Press the B Button to go back."
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_BioTextMenuDialog = {
@@ -1375,8 +1851,15 @@ struct menudialogdef g_BioTextMenuDialog = {
 };
 
 struct menuitem g_DtListMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000a0, 0x00000000, dtDeviceListMenuHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		0x000000a0,
+		0,
+		dtDeviceListMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_DtListMenuDialog = {
@@ -1659,12 +2142,47 @@ char *ciMenuTextHangarBioSubheading(struct menuitem *item)
 }
 
 struct menuitem g_DtDetailsMenuItems[] = {
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETRAINING, 0x00000000, 0x000000aa,                    PAL ? 0xd6 : 0xbe, NULL                    },
-	{ MENUITEMTYPE_MODEL,      0,                          0x00000003, 0x0000008c,                    PAL ? 0xb4 : 0x9c, NULL                    },
-	{ MENUITEMTYPE_SEPARATOR,  0,                          0x00000002, 0x00000000,                    0x00000000, NULL                    },
-	{ MENUITEMTYPE_SELECTABLE, 0,                          0x00000008, (u32)&dtMenuTextOkOrResume,    0x00000000, menuhandlerDtOkOrResume },
-	{ MENUITEMTYPE_SELECTABLE, 0,                          0x00000008, (u32)&dtMenuTextCancelOrAbort, 0x00000000, menuhandler001a6514     },
-	{ MENUITEMTYPE_END,        0,                          0x00000000, 0x00000000,                    0x00000000, NULL                    },
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_DEVICETRAINING,
+		0,
+		0x000000aa,
+		PAL ? 0xd6 : 0xbe,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MODEL,
+		0,
+		MENUITEMFLAG_NEWCOLUMN | MENUITEMFLAG_00000002,
+		0x0000008c,
+		PAL ? 0xb4 : 0x9c,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		(u32)&dtMenuTextOkOrResume,
+		0,
+		menuhandlerDtOkOrResume,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		(u32)&dtMenuTextCancelOrAbort,
+		0,
+		menuhandler001a6514,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_DtDetailsMenuDialog = {
@@ -1677,12 +2195,47 @@ struct menudialogdef g_DtDetailsMenuDialog = {
 };
 
 struct menuitem g_DtFailedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,      0,                      0x00000032, L_MPMENU_426, 0x00000000,                     NULL }, // "Failed!"
-	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_LABEL,      0,                      0x00000002, L_MPMENU_424, (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
-	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETIP1, 0x00000000, 0x00000082,    PAL ? 110 : 100,                     NULL },
-	{ MENUITEMTYPE_END,        0,                      0x00000000, 0x00000000,    0x00000000,                     NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_426, // "Failed!"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_424, // "Time Taken:"
+		(u32)&dtMenuTextTimeTakenValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_DEVICETIP1,
+		0,
+		0x00000082,
+		PAL ? 110 : 100,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_DtFailedMenuDialog = {
@@ -1695,12 +2248,47 @@ struct menudialogdef g_DtFailedMenuDialog = {
 };
 
 struct menuitem g_DtCompletedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,      0,                      0x00000032, L_MPMENU_425, 0x00000000,                     NULL }, // "Completed!"
-	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_LABEL,      0,                      0x00000002, L_MPMENU_424, (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
-	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETIP2, 0x00000000, 0x00000082,    PAL ? 110 : 100,                     NULL },
-	{ MENUITEMTYPE_END,        0,                      0x00000000, 0x00000000,    0x00000000,                     NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_425, // "Completed!"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_424, // "Time Taken:"
+		(u32)&dtMenuTextTimeTakenValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_DEVICETIP2,
+		0,
+		0x00000082,
+		PAL ? 110 : 100,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_DtCompletedMenuDialog = {
@@ -1713,8 +2301,15 @@ struct menudialogdef g_DtCompletedMenuDialog = {
 };
 
 struct menuitem g_HtListMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000a0, 0x00000000, htHoloListMenuHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		0x000000a0,
+		0,
+		htHoloListMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_HtListMenuDialog = {
@@ -1727,12 +2322,47 @@ struct menudialogdef g_HtListMenuDialog = {
 };
 
 struct menuitem g_HtDetailsMenuItems[] = {
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTRAINING, 0x00000000, 0x000000aa,                    0x000000be, NULL                },
-	{ MENUITEMTYPE_MODEL,      0,                        0x00000003, 0x0000008c,                    0x0000009c, NULL                },
-	{ MENUITEMTYPE_SEPARATOR,  0,                        0x00000002, 0x00000000,                    0x00000000, NULL                },
-	{ MENUITEMTYPE_SELECTABLE, 0,                        0x00000008, (u32)&htMenuTextOkOrResume,    0x00000000, menuhandler001a6a34 },
-	{ MENUITEMTYPE_SELECTABLE, 0,                        0x00000008, (u32)&htMenuTextCancelOrAbort, 0x00000000, menuhandler001a6a70 },
-	{ MENUITEMTYPE_END,        0,                        0x00000000, 0x00000000,                    0x00000000, NULL                },
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_HOLOTRAINING,
+		0,
+		0x000000aa,
+		0x000000be,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_MODEL,
+		0,
+		MENUITEMFLAG_NEWCOLUMN | MENUITEMFLAG_00000002,
+		0x0000008c,
+		0x0000009c,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		(u32)&htMenuTextOkOrResume,
+		0,
+		menuhandler001a6a34,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		(u32)&htMenuTextCancelOrAbort,
+		0,
+		menuhandler001a6a70,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_HtDetailsMenuDialog = {
@@ -1745,18 +2375,53 @@ struct menudialogdef g_HtDetailsMenuDialog = {
 };
 
 struct menuitem g_HtFailedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000032, L_MPMENU_426, 0x00000000,                     NULL }, // "Failed!"
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,   0x00000000,                     NULL },
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU_424, (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,   0x00000000,                     NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_426, // "Failed!"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_424, // "Time Taken:"
+		(u32)&htMenuTextTimeTakenValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_HOLOTIP1,
+		0,
+		0x00000082,
 #if VERSION >= VERSION_JPN_FINAL
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,   120,                     NULL },
+		120,
 #elif PAL
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,   110,                     NULL },
+		110,
 #else
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,   100,                     NULL },
+		100,
 #endif
-	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,   0x00000000,                     NULL },
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_HtFailedMenuDialog = {
@@ -1769,18 +2434,53 @@ struct menudialogdef g_HtFailedMenuDialog = {
 };
 
 struct menuitem g_HtCompletedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000032, L_MPMENU_425, 0x00000000,                     NULL }, // "Completed!"
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,   0x00000000,                     NULL },
-	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU_424, (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,   0x00000000,                     NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_425, // "Completed!"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002,
+		L_MPMENU_424, // "Time Taken:"
+		(u32)&htMenuTextTimeTakenValue,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_HOLOTIP2,
+		0,
+		0x00000082,
 #if VERSION >= VERSION_JPN_FINAL
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,   120,                     NULL },
+		120,
 #elif PAL
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,   110,                     NULL },
+		110,
 #else
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,   100,                     NULL },
+		100,
 #endif
-	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,   0x00000000,                     NULL },
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_HtCompletedMenuDialog = {
@@ -2537,19 +3237,75 @@ struct menudialogdef *ciGetFrWeaponListMenuDialog(void)
 }
 
 struct menuitem g_HangarDetailsMenuItems[] = {
-	{ MENUITEMTYPE_MODEL,      0,                     0x00200002, 0x00000104,   0x0000002c, ciHangarTitleMenuHandler },
-	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000002, 0x00000000,   0x00000000, NULL                     },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HANGARBIO, 0x00000000, 0x00000104,   0x0000005a, NULL                     },
-	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000002, 0x00000000,   0x00000000, NULL                     },
-	{ MENUITEMTYPE_LABEL,      0,                     0x00000022, L_MPMENU_414, 0x00000000, NULL                     }, // "Press the B Button to go back."
-	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,   0x00000000, NULL                     },
+	{
+		MENUITEMTYPE_MODEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0x00000104,
+		0x0000002c,
+		ciHangarTitleMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SCROLLABLE,
+		DESCRIPTION_HANGARBIO,
+		0,
+		0x00000104,
+		0x0000005a,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_414, // "Press the B Button to go back."
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menuitem g_HangarVehicleHolographMenuItems[] = {
-	{ MENUITEMTYPE_MODEL,       0, 0x00000002, 0x00000104, 0x0000006e, NULL },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000002, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000022, L_MPMENU_414, 0x00000000, NULL }, // "Press the B Button to go back."
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_MODEL,
+		0,
+		MENUITEMFLAG_00000002,
+		0x00000104,
+		0x0000006e,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		MENUITEMFLAG_00000002,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_00000002 | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPMENU_414, // "Press the B Button to go back."
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_HangarVehicleHolographMenuDialog = {
@@ -2580,8 +3336,15 @@ struct menudialogdef g_HangarLocationDetailsMenuDialog = {
 };
 
 struct menuitem g_HangarListMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000a0, 0x00000000, ciHangarInformationMenuHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		0x000000a0,
+		0,
+		ciHangarInformationMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_HangarListMenuDialog = {

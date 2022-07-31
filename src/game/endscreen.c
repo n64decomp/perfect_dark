@@ -137,10 +137,31 @@ s32 endscreenHandleReplayPreviousMission(s32 operation, struct menuitem *item, u
 }
 
 struct menuitem g_RetryMissionMenuItems[] = {
-	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS_298, 0x00000000, menuhandlerAcceptMission }, // "Accept"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS_299, 0x00000000, endscreenHandleDeclineMission }, // "Decline"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_OBJECTIVES,
+		1,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_OPTIONS_298, // "Accept"
+		0,
+		menuhandlerAcceptMission,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_OPTIONS_299, // "Decline"
+		0,
+		endscreenHandleDeclineMission,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_RetryMissionMenuDialog = {
@@ -153,12 +174,47 @@ struct menudialogdef g_RetryMissionMenuDialog = {
 };
 
 struct menuitem g_NextMissionMenuItems[] = {
-	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS_298, 0x00000000, menuhandlerAcceptMission }, // "Accept"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS_299, 0x00000000, endscreenHandleDeclineMission }, // "Decline"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MISC_470, 0x00000000, endscreenHandleReplayPreviousMission }, // "Replay Previous Mission"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_OBJECTIVES,
+		1,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_OPTIONS_298, // "Accept"
+		0,
+		menuhandlerAcceptMission,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_OPTIONS_299, // "Decline"
+		0,
+		endscreenHandleDeclineMission,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_MISC_470, // "Replay Previous Mission"
+		0,
+		endscreenHandleReplayPreviousMission,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_NextMissionMenuDialog = {
@@ -401,17 +457,59 @@ s32 endscreenHandleReplayLastLevel(s32 operation, struct menuitem *item, union h
 #endif
 
 struct menuitem g_2PMissionEndscreenObjectivesVMenuItems[] = {
-	{ MENUITEMTYPE_OBJECTIVES,  2, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_301, 0x00000000, NULL }, // "Press START"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_OBJECTIVES,
+		2,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_301, // "Press START"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menuitem g_SoloEndscreenObjectivesMenuItems[] = {
-	{ MENUITEMTYPE_OBJECTIVES,  0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_301, 0x00000000, NULL }, // "Press START"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_OBJECTIVES,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_301, // "Press START"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_SoloEndscreenObjectivesFailedMenuDialog = {
@@ -466,9 +564,23 @@ s32 endscreenHandleContinueMission(s32 operation, struct menuitem *item, union h
 
 #if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_MissionContinueOrReplyMenuItems[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_244, 0x00000000, endscreenHandleContinueMission }, // "Continue"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_245, 0x00000000, endscreenHandleReplayLastLevel }, // "Replay Last Level"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_244, // "Continue"
+		0,
+		endscreenHandleContinueMission,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_245, // "Replay Last Level"
+		0,
+		endscreenHandleReplayLastLevel,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_MissionContinueOrReplyMenuDialog = {
@@ -689,29 +801,183 @@ s32 endscreenHandle2PFailed(s32 operation, struct menudialogdef *dialogdef, unio
 }
 
 struct menuitem g_2PMissionEndscreenVMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS_278, 0x00000000, NULL }, // "Mission Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&endscreenMenuTextMissionStatus, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS_279, 0x00000000, NULL }, // "Agent Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&endscreenMenuTextAgentStatus, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS_280, 0x00000000, NULL }, // "Mission Time:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&endscreenMenuTextMissionTime, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_MPWEAPONS_129, 0x00000000, NULL }, // "Difficulty"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)soloMenuTextDifficulty, 0x00000000, NULL },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS_281, 0x00000000, NULL }, // "Weapon of Choice:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextWeaponOfChoiceName, 0x00000000, NULL },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_282, (u32)&endscreenMenuTextNumKills, NULL }, // "Kills:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_283, (u32)&endscreenMenuTextAccuracy, NULL }, // "Accuracy:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_284, (u32)&endscreenMenuTextNumShots, NULL }, // "Shot Total:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_OPTIONS_285, (u32)&endscreenMenuTextNumHeadShots, NULL }, // "Head Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_OPTIONS_286, (u32)&endscreenMenuTextNumBodyShots, NULL }, // "Body Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_OPTIONS_287, (u32)&endscreenMenuTextNumLimbShots, NULL }, // "Limb Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_OPTIONS_288, (u32)&endscreenMenuTextNumOtherShots, NULL }, // "Others:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_289, 0x00000000, NULL }, // "Press START"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SMALLFONT,
+		L_OPTIONS_278, // "Mission Status:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&endscreenMenuTextMissionStatus,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SMALLFONT,
+		L_OPTIONS_279, // "Agent Status:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&endscreenMenuTextAgentStatus,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SMALLFONT,
+		L_OPTIONS_280, // "Mission Time:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&endscreenMenuTextMissionTime,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SMALLFONT,
+		L_MPWEAPONS_129, // "Difficulty:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)soloMenuTextDifficulty,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SMALLFONT,
+		L_OPTIONS_281, // "Weapon of Choice:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&mpMenuTextWeaponOfChoiceName,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_282, // "Kills:"
+		(u32)&endscreenMenuTextNumKills,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_283, // "Accuracy:"
+		(u32)&endscreenMenuTextAccuracy,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_284, // "Shot Total:"
+		(u32)&endscreenMenuTextNumShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SMALLFONT,
+		L_OPTIONS_285, // "Head Shots:"
+		(u32)&endscreenMenuTextNumHeadShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SMALLFONT,
+		L_OPTIONS_286, // "Body Shots:"
+		(u32)&endscreenMenuTextNumBodyShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SMALLFONT,
+		L_OPTIONS_287, // "Limb Shots:"
+		(u32)&endscreenMenuTextNumLimbShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SMALLFONT,
+		L_OPTIONS_288, // "Others:"
+		(u32)&endscreenMenuTextNumOtherShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_289, // "Press START"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -793,44 +1059,275 @@ s32 endscreenHandleCheatInfo(s32 operation, struct menuitem *item, union handler
 #endif
 
 struct menuitem g_MissionEndscreenMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_278, (u32)&endscreenMenuTextMissionStatus, NULL }, // "Mission Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_279, (u32)&endscreenMenuTextAgentStatus, NULL }, // "Agent Status:"
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_278, // "Mission Status:"
+		(u32)&endscreenMenuTextMissionStatus,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_279, // "Agent Status:"
+		(u32)&endscreenMenuTextAgentStatus,
+		NULL,
+	},
 #if VERSION >= VERSION_NTSC_1_0
-	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_OPTIONS_280, (u32)&endscreenMenuTextMissionTime, endscreenHandleCheatInfo }, // "Mission Time:"
-	{ MENUITEMTYPE_LABEL,       1, 0x01000000, L_MPWEAPONS_242, (u32)&endscreenMenuTextTargetTime, endscreenHandleCheatInfo }, // "Target Time:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPWEAPONS_129, (u32)&soloMenuTextDifficulty, NULL }, // "Difficulty:"
-	{ MENUITEMTYPE_SEPARATOR,   2, 0x00000000, 0x00000000, 0x00000000, endscreenHandleCheatInfo },
-	{ MENUITEMTYPE_LABEL,       2, 0x00000000, L_MPWEAPONS_243, 0x00000000, endscreenHandleCheatInfo }, // "New Cheat Available!:"
-	{ MENUITEMTYPE_LABEL,       3, 0x01000020, (u32)&endscreenMenuTextTimedCheatName, 0x00000000, endscreenHandleCheatInfo },
-	{ MENUITEMTYPE_LABEL,       5, 0x01000020, (u32)&endscreenMenuTextCompletionCheatName, 0x00000000, endscreenHandleCheatInfo },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_281, (u32)&mpMenuTextWeaponOfChoiceName, NULL }, // "Weapon of Choice"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_282, (u32)&endscreenMenuTextNumKills, NULL }, // "Kills:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_283, (u32)&endscreenMenuTextAccuracy, NULL }, // "Accuracy:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_284, (u32)&endscreenMenuTextNumShots, NULL }, // "Shot Total:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_285, (u32)&endscreenMenuTextNumHeadShots, NULL }, // "Head Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_286, (u32)&endscreenMenuTextNumBodyShots, NULL }, // "Body Shots:"
-	{ MENUITEMTYPE_LABEL,       6, 0x00000000, L_OPTIONS_287, (u32)&endscreenMenuTextNumLimbShots, endscreenHandleCheatInfo }, // "Limb Shots:"
-	{ MENUITEMTYPE_LABEL,       4, 0x00000000, L_OPTIONS_288, (u32)&endscreenMenuTextNumOtherShots, endscreenHandleCheatInfo }, // "Others:"
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
+		L_OPTIONS_280, // "Mission Time:"
+		(u32)&endscreenMenuTextMissionTime,
+		endscreenHandleCheatInfo,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		1,
+		MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
+		L_MPWEAPONS_242, // "Target Time:"
+		(u32)&endscreenMenuTextTargetTime,
+		endscreenHandleCheatInfo,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_MPWEAPONS_129, // "Difficulty:"
+		(u32)&soloMenuTextDifficulty,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		2,
+		0,
+		0,
+		0,
+		endscreenHandleCheatInfo,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		2,
+		0,
+		L_MPWEAPONS_243, // "New Cheat Available!:"
+		0,
+		endscreenHandleCheatInfo,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		3,
+		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
+		(u32)&endscreenMenuTextTimedCheatName,
+		0,
+		endscreenHandleCheatInfo,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		5,
+		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
+		(u32)&endscreenMenuTextCompletionCheatName,
+		0,
+		endscreenHandleCheatInfo,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_281, // "Weapon of Choice:"
+		(u32)&mpMenuTextWeaponOfChoiceName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_282, // "Kills:"
+		(u32)&endscreenMenuTextNumKills,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_283, // "Accuracy:"
+		(u32)&endscreenMenuTextAccuracy,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_284, // "Shot Total:"
+		(u32)&endscreenMenuTextNumShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_285, // "Head Shots:"
+		(u32)&endscreenMenuTextNumHeadShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_286, // "Body Shots:"
+		(u32)&endscreenMenuTextNumBodyShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		6,
+		0,
+		L_OPTIONS_287, // "Limb Shots:"
+		(u32)&endscreenMenuTextNumLimbShots,
+		endscreenHandleCheatInfo,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		4,
+		0,
+		L_OPTIONS_288, // "Others:"
+		(u32)&endscreenMenuTextNumOtherShots,
+		endscreenHandleCheatInfo,
+	},
 #else
 	// NTSC beta's endscreen dialog lacks cheat information
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_280, (u32)&endscreenMenuTextMissionTime, NULL }, // "Mission Time:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPWEAPONS_129, (u32)&soloMenuTextDifficulty, NULL }, // "Difficulty:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_281, (u32)&mpMenuTextWeaponOfChoiceName, NULL }, // "Weapon of Choice"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_282, (u32)&endscreenMenuTextNumKills, NULL }, // "Kills:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_283, (u32)&endscreenMenuTextAccuracy, NULL }, // "Accuracy:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_284, (u32)&endscreenMenuTextNumShots, NULL }, // "Shot Total:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_285, (u32)&endscreenMenuTextNumHeadShots, NULL }, // "Head Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_286, (u32)&endscreenMenuTextNumBodyShots, NULL }, // "Body Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_287, (u32)&endscreenMenuTextNumLimbShots, NULL }, // "Limb Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS_288, (u32)&endscreenMenuTextNumOtherShots, NULL }, // "Others:"
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_280, // "Mission Time:"
+		(u32)&endscreenMenuTextMissionTime,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_MPWEAPONS_129, // "Difficulty:"
+		(u32)&soloMenuTextDifficulty,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_281, // "Weapon of Choice:"
+		(u32)&mpMenuTextWeaponOfChoiceName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_282, // "Kills:"
+		(u32)&endscreenMenuTextNumKills,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_283, // "Accuracy:"
+		(u32)&endscreenMenuTextAccuracy,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_284, // "Shot Total:"
+		(u32)&endscreenMenuTextNumShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_285, // "Head Shots:"
+		(u32)&endscreenMenuTextNumHeadShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_286, // "Body Shots:"
+		(u32)&endscreenMenuTextNumBodyShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_287, // "Limb Shots:"
+		(u32)&endscreenMenuTextNumLimbShots,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		0,
+		L_OPTIONS_288, // "Others:"
+		(u32)&endscreenMenuTextNumOtherShots,
+		NULL,
+	},
 #endif
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_289, 0x00000000, NULL }, // "Press START"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_289, // "Press START"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 #if VERSION >= VERSION_NTSC_1_0

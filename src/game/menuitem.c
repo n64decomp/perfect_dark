@@ -230,7 +230,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 	union handlerdata spd4;
 	char *title;
 
-	if (context->item->flags & MENUITEMFLAG_00200000) {
+	if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 		context->item->handler(MENUOP_GETOPTIONHEIGHT, context->item, &spd4);
 		g_LineHeight = spd4.list.value;
 	} else {
@@ -239,7 +239,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 
 	width = context->dialog->width;
 
-	if (context->item->flags & MENUITEMFLAG_00800000) {
+	if (context->item->flags & MENUITEMFLAG_LIST_AUTOWIDTH) {
 		width = context->width;
 	}
 
@@ -416,7 +416,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 				// Draw a group header. Note that optionindex is not incremented
 				// in this branch, but nextgroupstartindex is changed so next time the loop
 				// iterates it will enter the else branch.
-				if (context->item->flags & MENUITEMFLAG_00200000) {
+				if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 					gdl = menuApplyScissor(gdl);
 				}
 
@@ -472,7 +472,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 #endif
 					}
 
-					if (context->item->flags & MENUITEMFLAG_00200000) {
+					if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 						// The handler wants to override the default rendering
 						struct menuitemrenderdata renderdata;
 						s32 sp94left;
@@ -674,7 +674,7 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 		return true;
 	}
 
-	if (item->flags & MENUITEMFLAG_00200000) {
+	if (item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 		item->handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
 		g_LineHeight = handlerdata2.list.value;
 	} else {
@@ -805,7 +805,7 @@ void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
 
 	handler = item->handler;
 
-	if (item->flags & MENUITEMFLAG_00200000) {
+	if (item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 		handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
 		g_LineHeight = handlerdata2.dropdown.value;
 	} else {
@@ -894,7 +894,7 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 		x = context->x + context->width - 60;
 	}
 
-	if (context->item->flags & MENUITEMFLAG_00000080) {
+	if (context->item->flags & MENUITEMFLAG_DROPDOWN_BELOW) {
 		x = context->x + 30;
 	}
 
@@ -930,7 +930,7 @@ bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, stru
 			menuitemListTick(item, inputs, tickflags, data);
 
 			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
-				if ((item->flags & MENUITEMFLAG_00040000) || (dialog->definition->flags & MENUDIALOGFLAG_MPLOCKABLE)) {
+				if ((item->flags & MENUITEMFLAG_LOCKABLEMAJOR) || (dialog->definition->flags & MENUDIALOGFLAG_MPLOCKABLE)) {
 					dialog->dimmed = false;
 				}
 			}
@@ -988,7 +988,7 @@ Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menu
 	}
 #endif
 
-	if (item->flags & MENUITEMFLAG_00000080) {
+	if (item->flags & MENUITEMFLAG_DROPDOWN_BELOW) {
 		context.x = x + 30;
 	}
 
@@ -1002,7 +1002,7 @@ Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menu
 	if (dialog->dimmed && item->handler && dialog->focuseditem == item) {
 		union handlerdata handlerdata;
 
-		if (item->flags & MENUITEMFLAG_00200000) {
+		if (item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 			union handlerdata handlerdata2;
 			item->handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2); \
 			g_LineHeight = handlerdata2.dropdown.value; \
@@ -4395,7 +4395,7 @@ Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
 
 Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
 {
-	if (context->item->flags & MENUITEMFLAG_00200000) {
+	if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 		struct menuitemrenderdata renderdata;
 		union handlerdata data;
 
@@ -4443,7 +4443,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 10;
 	y = context->y + 2;
 
-	if (context->item->flags & MENUITEMFLAG_00000010) {
+	if (context->item->flags & MENUITEMFLAG_LESSLEFTPADDING) {
 		x -= 6;
 	}
 
@@ -4454,14 +4454,14 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 #if VERSION != VERSION_JPN_FINAL
-	if (context->item->flags & MENUITEMFLAG_00000200) {
+	if (context->item->flags & MENUITEMFLAG_SMALLFONT) {
 		font1 = g_CharsHandelGothicXs;
 		font2 = g_FontHandelGothicXs;
 		y -= 2;
 	}
 #endif
 
-	if (context->item->flags & MENUITEMFLAG_00000020) {
+	if (context->item->flags & MENUITEMFLAG_SELECTABLE_CENTRE) {
 		// Center
 		s32 textheight;
 		s32 textwidth;
@@ -4469,7 +4469,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		x = context->x + (context->width - textwidth) / 2;
 	}
 
-	if (context->item->flags & MENUITEMFLAG_00000100) {
+	if (context->item->flags & MENUITEMFLAG_LABEL_ALTCOLOUR) {
 		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColourPalettes[context->dialog->type].checkedunfocused;
 		} else {
@@ -4538,7 +4538,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 
 	colour2 = colour1;
 
-	if (context->item->flags & MENUITEMFLAG_01000000) {
+	if (context->item->flags & MENUITEMFLAG_LABEL_CUSTOMCOLOUR) {
 		union handlerdata data;
 		data.label.colour2 = colour2;
 		data.label.colour1 = colour1;
@@ -4558,7 +4558,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = textRenderProjected(gdl, &x, &y, text,
 			font1, font2, colour1, context->width, context->height, 0, 0);
 
-	if ((context->item->flags & MENUITEMFLAG_00008000) == 0) {
+	if ((context->item->flags & MENUITEMFLAG_LABEL_HASRIGHTTEXT) == 0) {
 		// Right side text
 		text = menuResolveText(context->item->param3, context->item);
 
@@ -4570,7 +4570,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 			y = context->y + 2;
 
 #if VERSION != VERSION_JPN_FINAL
-			if (context->item->flags & MENUITEMFLAG_00000200) {
+			if (context->item->flags & MENUITEMFLAG_SMALLFONT) {
 				y -= 2;
 			}
 #endif
@@ -4578,7 +4578,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 			textMeasure(&textheight, &textwidth, text, font1, font2, 0);
 			x = context->x + context->width - textwidth - 10;
 
-			if (context->item->flags & MENUITEMFLAG_00000010) {
+			if (context->item->flags & MENUITEMFLAG_LESSLEFTPADDING) {
 				x += 6;
 			}
 
@@ -4599,7 +4599,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		textRestoreDiagonalBlendSettings();
 	}
 
-	if (context->item->flags & MENUITEMFLAG_00200000) {
+	if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 		struct menuitemrenderdata renderdata;
 		union handlerdata data;
 
@@ -4688,11 +4688,11 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 	struct fontchar *font1 = g_CharsHandelGothicSm;
 	struct font *font2 = g_FontHandelGothicSm;
 
-	if (context->item->flags & MENUITEMFLAG_00000010) {
+	if (context->item->flags & MENUITEMFLAG_LESSLEFTPADDING) {
 		x -= 6;
 	}
 
-	if (context->item->flags & MENUITEMFLAG_00400000) {
+	if (context->item->flags & MENUITEMFLAG_BIGFONT) {
 		font1 = g_CharsHandelGothicMd;
 		font2 = g_FontHandelGothicMd;
 	}
@@ -4762,7 +4762,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 				g_MenuColourPalettes2[context->dialog->type].disabled);
 	}
 
-	if (context->item->flags & MENUITEMFLAG_00000020) {
+	if (context->item->flags & MENUITEMFLAG_SELECTABLE_CENTRE) {
 		// Center text
 		s32 textheight;
 		s32 textwidth;
@@ -4770,7 +4770,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 		x = context->x + (context->width - textwidth) / 2;
 	}
 
-	if (context->item->flags & MENUITEMFLAG_00400000) {
+	if (context->item->flags & MENUITEMFLAG_BIGFONT) {
 		x += 35;
 		y += 6;
 	}
@@ -4779,7 +4779,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2,
 			leftcolour, context->width, context->height, 0, 0);
 
-	if ((context->item->flags & (MENUITEMFLAG_00008000 | MENUITEMFLAG_00400000)) == 0) {
+	if ((context->item->flags & (MENUITEMFLAG_LABEL_HASRIGHTTEXT | MENUITEMFLAG_BIGFONT)) == 0) {
 		// Right side text
 		text = menuResolveText(context->item->param3, context->item);
 
@@ -4805,11 +4805,11 @@ bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u3
 	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && inputs->select) {
 		menuPlaySound(MENUSOUND_SELECT);
 
-		if (item->flags & MENUITEMFLAG_00000008) {
+		if (item->flags & MENUITEMFLAG_SELECTABLE_CLOSESDIALOG) {
 			menuPopDialog();
 		}
 
-		if (item->flags & MENUITEMFLAG_00000004) {
+		if (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) {
 			menuPushDialog((struct menudialogdef *)item->handler);
 		} else if (item->handler) {
 			union handlerdata data;
@@ -4847,14 +4847,14 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 		extray = 10;
 	}
 
-	if (context->item->flags & MENUITEMFLAG_00100000) {
+	if (context->item->flags & MENUITEMFLAG_SLIDER_ALTSIZE) {
 		extray = 10;
 	}
 
 	x = context->x + 10;
 	y = context->y + 2;
 
-	if (context->item->flags & MENUITEMFLAG_00000010) {
+	if (context->item->flags & MENUITEMFLAG_LESSLEFTPADDING) {
 		x -= 6;
 	}
 
@@ -4916,7 +4916,7 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = text0f153628(gdl);
 	gdl = textRenderProjected(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 
-	if ((context->item->flags & MENUITEMFLAG_00002000) == 0) {
+	if ((context->item->flags & MENUITEMFLAG_SLIDER_HIDEVALUE) == 0) {
 		strcpy(buffer, "");
 		sprintf(buffer, "%d\n", slidervalue);
 
@@ -4967,7 +4967,7 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 				index = 0;
 			}
 
-			if ((item->flags & MENUITEMFLAG_00000800) == 0
+			if ((item->flags & MENUITEMFLAG_SLIDER_FAST) == 0
 					&& g_Menus[g_MpPlayerNum].xrepeatmode == MENUREPEATMODE_SLOW) {
 				index = index + inputs->leftright;
 			} else {
@@ -4995,7 +4995,7 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 				f2 = f14;
 			}
 
-			if ((item->flags & MENUITEMFLAG_00000800) == 0 && f2 < 40) {
+			if ((item->flags & MENUITEMFLAG_SLIDER_FAST) == 0 && f2 < 40) {
 				if (g_Menus[g_MpPlayerNum].xrepeatmode != MENUREPEATMODE_SLOW) {
 					index = index + inputs->leftright;
 				}
@@ -5120,9 +5120,9 @@ bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	bool done;
 	u32 stack;
 
-	if (((tickflags & MENUTICKFLAG_ITEMISFOCUSED) || (item->flags & MENUITEMFLAG_04000000)) && item->handler) {
+	if (((tickflags & MENUTICKFLAG_ITEMISFOCUSED) || (item->flags & MENUITEMFLAG_CAROUSEL_04000000)) && item->handler) {
 		if (inputs->leftright != 0) {
-			if (mpIsPlayerLockedOut(g_MpPlayerNum) == 0 || (item->flags & MENUITEMFLAG_00020000) == 0) {
+			if (mpIsPlayerLockedOut(g_MpPlayerNum) == 0 || (item->flags & MENUITEMFLAG_LOCKABLEMINOR) == 0) {
 				done = false;
 
 				item->handler(MENUOP_GETOPTIONCOUNT, item, &data);
@@ -5180,7 +5180,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 	struct font *font2 = g_FontHandelGothicSm;
 	struct fontchar *font1 = g_CharsHandelGothicSm;
 
-	if (context->item->flags & MENUITEMFLAG_00000200) {
+	if (context->item->flags & MENUITEMFLAG_SMALLFONT) {
 		font2 = g_FontHandelGothicXs;
 		font1 = g_CharsHandelGothicXs;
 	}
@@ -6551,7 +6551,7 @@ u32 var800711ec = 0x20000000;
 //	struct font *font2 = g_FontHandelGothicSm; // 5c
 //	struct fontchar *font1 = g_CharsHandelGothicSm; // 58
 //
-//	if (context->item->flags & MENUITEMFLAG_00000200) {
+//	if (context->item->flags & MENUITEMFLAG_SMALLFONT) {
 //		font2 = g_FontHandelGothicXs;
 //		font1 = g_CharsHandelGothicXs;
 //	}
@@ -6649,7 +6649,7 @@ u32 var800711ec = 0x20000000;
 //
 //	textBackupAndResetBlends();
 //
-//	if (context->item->flags & MENUITEMFLAG_00000800) {
+//	if (context->item->flags & MENUITEMFLAG_MARQUEE_FADEBOTHSIDES) {
 //		textSetHorizontalBlend(context->x, context->x + context->width, 0xe);
 //	} else {
 //		textSetHorizontalBlend(context->x, context->x, 0xe);
@@ -6689,7 +6689,7 @@ bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 	font2 = g_FontHandelGothicSm;
 	font1 = g_CharsHandelGothicSm;
 
-	if (item->flags & MENUITEMFLAG_00000200) {
+	if (item->flags & MENUITEMFLAG_SMALLFONT) {
 		font2 = g_FontHandelGothicXs;
 		font1 = g_CharsHandelGothicXs;
 	}

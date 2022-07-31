@@ -2546,7 +2546,7 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 	s32 numobjectives;
 
 	// Check if item's handler handles MENUOP_CHECKHIDDEN
-	if (item->handler && (item->flags & MENUITEMFLAG_00000004) == 0) {
+	if (item->handler && (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0) {
 		if (item->handler(MENUOP_CHECKHIDDEN, item, &handlerdata)) {
 			*width = 0;
 			*height = 0;
@@ -2590,11 +2590,11 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 			*width = 80;
 
 #if VERSION >= VERSION_NTSC_1_0
-			if ((item->flags & MENUITEMFLAG_00000040) != 0) {
+			if ((item->flags & MENUITEMFLAG_LIST_WIDE) != 0) {
 				*width = 180;
 			}
 #else
-			if ((item->flags && MENUITEMFLAG_00000040) != 0) {
+			if ((item->flags && MENUITEMFLAG_LIST_WIDE) != 0) {
 				*width = 180;
 			}
 #endif
@@ -2631,7 +2631,7 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 				textMeasure(&textheight, &textwidth, text2, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 #if VERSION >= VERSION_PAL_FINAL
-				if ((item->flags & MENUITEMFLAG_00001000) == 0) {
+				if ((item->flags & MENUITEMFLAG_ADJUSTWIDTH) == 0) {
 					*width += textwidth + 10;
 				} else {
 					*width += textwidth + 3;
@@ -2656,13 +2656,13 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 		*width = 150;
 		*height = VERSION == VERSION_JPN_FINAL ? 14 : 12;
 
-		if (item->flags & MENUITEMFLAG_00100000) {
+		if (item->flags & MENUITEMFLAG_SLIDER_ALTSIZE) {
 			*height = 22;
 			*width = 120;
 		}
 		break;
 	case MENUITEMTYPE_CHECKBOX:
-		if (item->flags & MENUITEMFLAG_00000200) {
+		if (item->flags & MENUITEMFLAG_SMALLFONT) {
 			chars = g_CharsHandelGothicXs;
 			font = g_FontHandelGothicXs;
 		}
@@ -2696,7 +2696,7 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 #if VERSION == VERSION_JPN_FINAL
 		*height = LINEHEIGHT;
 #else
-		if (item->flags & MENUITEMFLAG_00000200) {
+		if (item->flags & MENUITEMFLAG_SMALLFONT) {
 			*height = LINEHEIGHT;
 		} else {
 			*height = LINEHEIGHT + 2;
@@ -2713,12 +2713,12 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 			return;
 		}
 
-		if (item->flags & MENUITEMFLAG_00000200) {
+		if (item->flags & MENUITEMFLAG_SMALLFONT) {
 			chars = g_CharsHandelGothicXs;
 			font = g_FontHandelGothicXs;
 		}
 
-		if (item->flags & MENUITEMFLAG_00400000) {
+		if (item->flags & MENUITEMFLAG_BIGFONT) {
 			chars = g_CharsHandelGothicMd;
 			font = g_FontHandelGothicMd;
 		}
@@ -2730,7 +2730,7 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 			textMeasure(&textheight, &textwidth, text, chars, font, 0);
 			*width = (s16)textwidth + 8;
 
-			if ((item->flags & (MENUITEMFLAG_00000010 | MENUITEMFLAG_00001000)) == 0) {
+			if ((item->flags & (MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_ADJUSTWIDTH)) == 0) {
 				*width += 20;
 			}
 
@@ -2739,12 +2739,12 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 #else
 			*height = textheight + 3;
 
-			if (item->flags & MENUITEMFLAG_00000200) {
+			if (item->flags & MENUITEMFLAG_SMALLFONT) {
 				*height -= 2;
 			}
 #endif
 
-			if ((item->flags & (MENUITEMFLAG_00008000 | MENUITEMFLAG_00400000)) == 0) {
+			if ((item->flags & (MENUITEMFLAG_LABEL_HASRIGHTTEXT | MENUITEMFLAG_BIGFONT)) == 0) {
 				text = menuResolveText(item->param3, item);
 
 				// @bug: This is not how you check for an empty string
@@ -2752,19 +2752,19 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 					textMeasure(&textheight, &textwidth, text, chars, font, 0);
 					*width += textwidth + 5;
 
-					if (item->flags & MENUITEMFLAG_00001000) {
+					if (item->flags & MENUITEMFLAG_ADJUSTWIDTH) {
 						*width -= 6;
 					}
 				}
 			}
 		}
 
-		if (item->flags & MENUITEMFLAG_00400000) {
+		if (item->flags & MENUITEMFLAG_BIGFONT) {
 			*height = 28;
 			*width += 36;
 		}
 
-		if (item->flags & MENUITEMFLAG_02000000) {
+		if (item->flags & MENUITEMFLAG_LESSHEIGHT) {
 			*height -= 1;
 		}
 		break;
@@ -3097,7 +3097,7 @@ glabel func0f0f1d6c
 //		bool append = true;
 //
 //		while (item->type != MENUITEMTYPE_END) {
-//			if (item->flags & MENUITEMFLAG_00000001) {
+//			if (item->flags & MENUITEMFLAG_NEWCOLUMN) {
 //				append = true;
 //			}
 //
@@ -3160,7 +3160,7 @@ void dialog0f0f1ef4(struct menudialog *dialog)
 
 						switch (item->type) {
 						case MENUITEMTYPE_LIST:
-							if (item->flags & MENUITEMFLAG_00200000) {
+							if (item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 								itemheight = remaining;
 
 								if (g_Menus[g_MpPlayerNum].rows[rowindex].height - itemheight < 30) {
@@ -3210,7 +3210,7 @@ void dialogCalculateContentSize(struct menudialogdef *dialogdef, struct menudial
 		s16 height;
 
 		while (item->type != MENUITEMTYPE_END) {
-			if (item->flags & MENUITEMFLAG_00000001) {
+			if (item->flags & MENUITEMFLAG_NEWCOLUMN) {
 				newcolumn = true;
 			}
 
@@ -3337,11 +3337,11 @@ bool menuIsItemDisabled(struct menuitem *item, struct menudialog *dialog)
 	s16 height;
 	u32 stack[2];
 
-	if (item->flags & MENUITEMFLAG_00000400) {
+	if (item->flags & MENUITEMFLAG_ALWAYSDISABLED) {
 		return true;
 	}
 
-	if (mpIsPlayerLockedOut(g_MpPlayerNum) && item->flags & MENUITEMFLAG_00040000) {
+	if (mpIsPlayerLockedOut(g_MpPlayerNum) && item->flags & MENUITEMFLAG_LOCKABLEMAJOR) {
 		return true;
 	}
 
@@ -3350,7 +3350,7 @@ bool menuIsItemDisabled(struct menuitem *item, struct menudialog *dialog)
 	}
 
 	if (item->handler
-			&& (item->flags & MENUITEMFLAG_00000004) == 0
+			&& (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0
 			&& item->handler(MENUOP_CHECKDISABLED, item, &sp30)) {
 		return true;
 	}
@@ -3563,7 +3563,7 @@ s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown)
 
 	if (dialog->focuseditem != 0) {
 		if (dialog->focuseditem->handler != NULL) {
-			if ((dialog->focuseditem->flags & MENUITEMFLAG_00000004) == 0) {
+			if ((dialog->focuseditem->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0) {
 				union handlerdata data;
 				dialog->focuseditem->handler(MENUOP_FOCUS, dialog->focuseditem, &data);
 			}
@@ -3616,7 +3616,7 @@ void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *dialog, 
 
 	while (item->type != MENUITEMTYPE_END) {
 		if (item->handler
-				&& (item->flags & MENUITEMFLAG_00000004) == 0
+				&& (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0
 				&& item->handler(MENUOP_CHECKPREFOCUSED, item, &data1)) {
 			dialog->focuseditem = item;
 		}
@@ -3627,7 +3627,7 @@ void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *dialog, 
 	// Run focus handler
 	if (dialog->focuseditem
 			&& dialog->focuseditem->handler
-			&& (dialog->focuseditem->flags & MENUITEMFLAG_00000004) == 0) {
+			&& (dialog->focuseditem->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0) {
 		dialog->focuseditem->handler(MENUOP_FOCUS, dialog->focuseditem, &data2);
 	}
 
@@ -13106,7 +13106,7 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 							prevwaslist = false;
 						}
 
-						if ((item->flags & MENUITEMFLAG_00004000) && !lightweight) {
+						if ((item->flags & MENUITEMFLAG_DARKERBG) && !lightweight) {
 							// Render a darker background behind the item
 							s32 x1 = context.x;
 							s32 y1 = context.y;
@@ -13159,7 +13159,7 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 								gdl = menugfxDrawTri2(gdl, x3 - 3, liney + 1, x3, liney + 2, sp120, 0xffffffff, 0);
 								gdl = menugfxDrawTri2(gdl, x3 - 2, liney, x4, liney + 1, colour, sp120 & 0xffffff00, 0);
 
-								if (item->flags & MENUITEMFLAG_00000020) {
+								if (item->flags & MENUITEMFLAG_SELECTABLE_CENTRE) {
 									// Right side
 									x1 = context.x + context.width;
 									x3 = context.x + context.width - 8;
@@ -14683,7 +14683,7 @@ void menuSwipe(s32 direction)
 
 		while (item->type != MENUITEMTYPE_END) {
 			if (item->handler
-					&& (item->flags & MENUITEMFLAG_00000004) == 0
+					&& (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0
 					&& item->handler(MENUOP_CHECKPREFOCUSED, item, &sp50)) {
 				g_Menus[g_MpPlayerNum].curdialog->focuseditem = item;
 			}
@@ -14693,7 +14693,7 @@ void menuSwipe(s32 direction)
 
 		if (g_Menus[g_MpPlayerNum].curdialog->focuseditem != 0
 				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem->handler
-				&& ((g_Menus[g_MpPlayerNum].curdialog->focuseditem->flags & MENUITEMFLAG_00000004) == 0)) {
+				&& ((g_Menus[g_MpPlayerNum].curdialog->focuseditem->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0)) {
 			g_Menus[g_MpPlayerNum].curdialog->focuseditem->handler(MENUOP_FOCUS, g_Menus[g_MpPlayerNum].curdialog->focuseditem, &sp40);
 		}
 
@@ -15104,9 +15104,9 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 				union menuitemdata *handlerdata = NULL;
 				struct menuinputs *inputsptr = inputs;
 
-				if (mpIsPlayerLockedOut(g_MpPlayerNum) && (item->flags & MENUITEMFLAG_00020000)) {
+				if (mpIsPlayerLockedOut(g_MpPlayerNum) && (item->flags & MENUITEMFLAG_LOCKABLEMINOR)) {
 					inputsptr = &spd8;
-				} else if ((item->flags & MENUITEMFLAG_00080000) && mpGetWeaponSet() != func0f189088()) {
+				} else if ((item->flags & MENUITEMFLAG_MPWEAPONSLOT) && mpGetWeaponSet() != func0f189088()) {
 					inputsptr = &spd8;
 				} else if (g_MenuData.root == MENUROOT_12) {
 					inputsptr = &spd8;
@@ -22660,14 +22660,38 @@ void func0f0fce8c(struct menudialogdef *dialogdef, s32 playernum, s32 arg2)
 }
 
 struct menuitem g_PakRemovedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_174, 0x00000000, NULL }, // "The Controller Pak has been removed."
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_174, // "The Controller Pak has been removed."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
 #if VERSION >= VERSION_NTSC_1_0
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_073, 0x00000000, menuhandler000fcc34 }, // "OK"
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_073, // "OK"
+		0,
+		menuhandler000fcc34,
 #else
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_073, 0x00000000, NULL }, // "OK"
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_073, // "OK"
+		0,
+		NULL,
 #endif
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakRemovedMenuDialog = {
@@ -22680,14 +22704,38 @@ struct menudialogdef g_PakRemovedMenuDialog = {
 };
 
 struct menuitem g_PakRepairSuccessMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_181, 0x00000000, NULL },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_181, // "The Controller Pak has been repaired."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
 #if VERSION >= VERSION_NTSC_1_0
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_073, 0x00000000, menuhandler000fcc34 },
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_073, // "OK"
+		0,
+		menuhandler000fcc34,
 #else
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_073, 0x00000000, NULL },
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_073, // "OK"
+		0,
+		NULL,
 #endif
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakRepairSuccessMenuDialog = {
@@ -22700,10 +22748,31 @@ struct menudialogdef g_PakRepairSuccessMenuDialog = {
 };
 
 struct menuitem g_PakRepairFailedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_183, 0x00000000, NULL }, // "The Controller Pak cannot be repaired. You will not be able to load from or save to this Controller Pak."
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_073, 0x00000000, NULL }, // "OK"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_183, // "The Controller Pak  cannot be repaired. You will not be able to load from or save to this Controller Pak."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_073, // "OK"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakRepairFailedMenuDialog = {
@@ -22716,12 +22785,47 @@ struct menudialogdef g_PakRepairFailedMenuDialog = {
 };
 
 struct menuitem g_PakAttemptRepairMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_176, 0x00000000, NULL }, // "Are you sure you want to attempt repair of this Controller Pak?"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_177, 0x00000000, NULL }, // "Data may be lost!"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_178, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_179, 0x00000000, menuhandlerRepairPak }, // "Repair"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_176, // "Are you sure you want to attempt repair of this Controller Pak?"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_177, // "Data may be lost!"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_178, // "Cancel"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_179, // "Repair"
+		0,
+		menuhandlerRepairPak,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakAttemptRepairMenuDialog = {
@@ -22925,14 +23029,63 @@ struct menudialog *menuIsDialogOpen(struct menudialogdef *dialogdef)
 }
 
 struct menuitem g_PakDamagedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_065, 0x00000000, NULL }, // "is damaged or"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_066, 0x00000000, NULL }, // "inserted incorrectly"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS_067, 0x00000000, menuhandlerWarnRepairPak }, // "Attempt Repair"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS_068, 0x00000000, menuhandlerRetrySavePak }, // "Retry"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS_069, 0x00000000, NULL }, // "Continue without using the Controller Pak"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&menuTextSaveDeviceName,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
+		L_MPWEAPONS_065, // "is damaged or"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
+		L_MPWEAPONS_066, // "inserted incorrectly."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000082,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_MPWEAPONS_067, // "Attempt Repair"
+		0,
+		menuhandlerWarnRepairPak,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_MPWEAPONS_068, // "Retry"
+		0,
+		menuhandlerRetrySavePak,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		L_MPWEAPONS_069, // "Continue without using the Controller Pak"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakDamagedMenuDialog = {
@@ -22949,15 +23102,57 @@ struct menudialogdef g_PakDamagedMenuDialog = {
 };
 
 struct menuitem g_PakFullMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS_071, 0x00000000, NULL }, // "is too full to save note - 1 note and 28 pages required to save"
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&menuTextSaveDeviceName,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_LESSHEIGHT,
+		L_MPWEAPONS_071, // "is too full to save note - 1 note and 28 pages required to save."
+		0,
+		NULL,
+	},
 #if VERSION != VERSION_JPN_FINAL
-	{ MENUITEMTYPE_LABEL,       0, 0x02000220, L_OPTIONS_003, 0x00000000, NULL }, // ""
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_LESSHEIGHT,
+		L_OPTIONS_003, // ""
+		0,
+		NULL,
+	},
 #endif
-	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS_072, 0x00000000, NULL }, // "Enter the Controller Pak Menu to free some space (hold START while powering up.)"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_073, 0x00000000, NULL }, // "OK"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_LESSHEIGHT,
+		L_MPWEAPONS_072, // "Enter the Controller Pak Menu to free some space (hold START while powering up.)"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_073, // "OK"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakFullMenuDialog = {
@@ -22975,10 +23170,31 @@ struct menudialogdef g_PakFullMenuDialog = {
 
 #if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_PakCannotReadGameBoyMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_254, 0x00000000, NULL }, // "Cannot read Game Boy Game Pak. Check connections and make sure correct Game Boy Game Pak is being used."
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS_255, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_254, // "Cannot read Game Boy Game Pak. Check connections and make sure correct Game Boy Game Pak is being used."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000082,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		L_MPWEAPONS_255, // "Cancel"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakCannotReadGameBoyMenuDialog = {
@@ -22991,13 +23207,55 @@ struct menudialogdef g_PakCannotReadGameBoyMenuDialog = {
 };
 
 struct menuitem g_PakDataLostMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_257, 0x00000000, NULL }, // "The saved data has"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_258, 0x00000000, NULL }, // "been erased due to"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_259, 0x00000000, NULL }, // "corruption or damage."
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS_260, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&menuTextSaveDeviceName,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
+		L_MPWEAPONS_257, // "The saved data has"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
+		L_MPWEAPONS_258, // "been erased due to"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
+		L_MPWEAPONS_259, // "corruption or damage."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x00000082,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		L_MPWEAPONS_260, // "Cancel"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakDataLostMenuDialog = {

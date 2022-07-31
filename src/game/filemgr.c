@@ -73,14 +73,63 @@ s32 filemgrHandleSetLanguage(s32 operation, struct menuitem *item, union handler
 }
 
 struct menuitem g_ChooseLanguageMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,      0,               0x00004010, L_MPWEAPONS_261, 0x00000000, 0x00000000     }, // "Choose your language:"
-	{ MENUITEMTYPE_SEPARATOR,  0,               0x00000000, 0x00000000, 0x00000000, 0x00000000     },
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_EN, 0x00000020, L_MPWEAPONS_262, 0x00000000, filemgrHandleSetLanguage }, // "English"
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_FR, 0x00000020, L_MPWEAPONS_263, 0x00000000, filemgrHandleSetLanguage }, // "French"
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_DE, 0x00000020, L_MPWEAPONS_264, 0x00000000, filemgrHandleSetLanguage }, // "German"
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_IT, 0x00000020, L_MPWEAPONS_265, 0x00000000, filemgrHandleSetLanguage }, // "Italian"
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_ES, 0x00000020, L_MPWEAPONS_266, 0x00000000, filemgrHandleSetLanguage }, // "Spanish"
-	{ MENUITEMTYPE_END,        0,               0x00000000, 0x00000000, 0x00000000, 0x00000000     },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_DARKERBG,
+		L_MPWEAPONS_261, // "Choose your language:"
+		0,
+		0,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		0,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		LANGUAGE_PAL_EN,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_262, // "English"
+		0,
+		filemgrHandleSetLanguage,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		LANGUAGE_PAL_FR,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_263, // "French"
+		0,
+		filemgrHandleSetLanguage,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		LANGUAGE_PAL_DE,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_264, // "German"
+		0,
+		filemgrHandleSetLanguage,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		LANGUAGE_PAL_IT,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_265, // "Italian"
+		0,
+		filemgrHandleSetLanguage,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		LANGUAGE_PAL_ES,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_266, // "Spanish"
+		0,
+		filemgrHandleSetLanguage,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_ChooseLanguageMenuDialog = {
@@ -321,10 +370,31 @@ void filemgrPushErrorDialog(u16 errno)
 }
 
 struct menuitem g_FilemgrErrorMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextDeviceNameForError, 0x00000000, filemgrDeviceNameForErrorMenuHandler },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextFailReason, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS_321, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		(u32)&filemgrMenuTextDeviceNameForError,
+		0,
+		filemgrDeviceNameForErrorMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		(u32)&filemgrMenuTextFailReason,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_321, // "Cancel"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrErrorMenuDialog = {
@@ -953,9 +1023,23 @@ void filemgrDeleteCurrentFile(void)
 }
 
 struct menuitem g_FilemgrFileSavedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_346, 0x00000000, NULL }, // "File Saved."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS_347, 0x00000000, NULL }, // "OK"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_346, // "File Saved."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_347, // "OK"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrFileSavedMenuDialog = {
@@ -968,12 +1052,47 @@ struct menudialogdef g_FilemgrFileSavedMenuDialog = {
 };
 
 struct menuitem g_FilemgrSaveErrorMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextDeviceName, 0x00000000, filemgrDeviceNameMenuHandler },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_348, 0x00000000, NULL }, // "An error occurred while trying to save"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_349, 0x00000000, filemgrRetrySaveMenuHandler }, // "Try Again"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_350, 0x00000000, filemgrSaveElsewhereYesMenuHandler }, // "Save Elsewhere"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_351, 0x00000000, filemgrCancelSave2MenuHandler }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		(u32)&filemgrMenuTextDeviceName,
+		0,
+		filemgrDeviceNameMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_348, // "An error occurred while trying to save."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_349, // "Try Again"
+		0,
+		filemgrRetrySaveMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_350, // "Save Elsewhere"
+		0,
+		filemgrSaveElsewhereYesMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_351, // "Cancel"
+		0,
+		filemgrCancelSave2MenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrSaveErrorMenuDialog = {
@@ -986,15 +1105,50 @@ struct menudialogdef g_FilemgrSaveErrorMenuDialog = {
 };
 
 struct menuitem g_FilemgrFileLostMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextDeviceName, 0x00000000, filemgrDeviceNameMenuHandler },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		(u32)&filemgrMenuTextDeviceName,
+		0,
+		filemgrDeviceNameMenuHandler,
+	},
 #if VERSION >= VERSION_NTSC_1_0
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_251, 0x00000000, NULL }, // "The saved file has been erased due to corruption or damage."
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_251, // "The saved file has been erased due to corruption or damage."
+		0,
+		NULL,
+	},
 #else
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_352, 0x00000000, NULL }, // "An error occurred while trying to load."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_353, 0x00000000, filemgr0f108d14 }, // "Try Again"
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_352, // "An error occurred while trying to load."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_353, // "Try Again"
+		0,
+		filemgr0f108d14,
+	},
 #endif
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_354, 0x00000000, filemgrAcknowledgeFileLostMenuHandler }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_354, // "Cancel"
+		0,
+		filemgrAcknowledgeFileLostMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrFileLostMenuDialog = {
@@ -1007,10 +1161,31 @@ struct menudialogdef g_FilemgrFileLostMenuDialog = {
 };
 
 struct menuitem g_FilemgrSaveElsewhereMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_360, 0x00000000, NULL }, // "Would you like to save your file elsewhere?"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_361, 0x00000000, filemgrSaveElsewhereYesMenuHandler }, // "Yes"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_362, 0x00000000, filemgrCancelSave2MenuHandler }, // "No"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_360, // "Would you like to save your file elsewhere?"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_361, // "Yes"
+		0,
+		filemgrSaveElsewhereYesMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_362, // "No"
+		0,
+		filemgrCancelSave2MenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrSaveElsewhereMenuDialog = {
@@ -1023,14 +1198,35 @@ struct menudialogdef g_FilemgrSaveElsewhereMenuDialog = {
 };
 
 struct menuitem g_PakNotOriginalMenuItems[] = {
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
 #if VERSION >= VERSION_NTSC_1_0
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextInsertOriginalPak, 0x00000000, NULL },
+		(u32)&filemgrMenuTextInsertOriginalPak,
 #else
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_363, 0x00000000, NULL },
+		L_OPTIONS_363, // "Please insert the Controller Pak containing your %s into any controller."
 #endif
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_365, 0x00000000, filemgrReinsertedOkMenuHandler }, // "OK"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_366, 0x00000000, filemgrReinsertedCancelMenuHandler }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_365, // "OK"
+		0,
+		filemgrReinsertedOkMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_366, // "Cancel"
+		0,
+		filemgrReinsertedCancelMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakNotOriginalMenuDialog = {
@@ -1382,9 +1578,23 @@ char *filemgrMenuTextDuplicateFileName(struct menuitem *item)
 
 #if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_FilemgrRenameMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_239, 0x00000000, NULL }, // "Enter new file name:"
-	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, filemgrConfirmRenameMenuHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_MPWEAPONS_239, // "Enter new file name:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_KEYBOARD,
+		0,
+		0,
+		0,
+		0,
+		filemgrConfirmRenameMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrRenameMenuDialog = {
@@ -1399,14 +1609,63 @@ struct menudialogdef g_FilemgrRenameMenuDialog = {
 
 #if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_FilemgrDuplicateMenuMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&filemgrMenuTextDeviceNameContainingDuplicateFile, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_233, 0x00000000, NULL }, // "already contains"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_234, 0x00000000, NULL }, // "a file named"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, (u32)&filemgrMenuTextDuplicateFileName, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS_235, 0x00000000, filemgrDuplicateRenameMenuHandler }, // "Rename File"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS_236, 0x00000000, NULL }, // "Change Location"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS_237, 0x00000000, filemgrDuplicateCancelMenuHandler }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&filemgrMenuTextDeviceNameContainingDuplicateFile,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
+		L_MPWEAPONS_233, // "already contains"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
+		L_MPWEAPONS_234, // "a file named"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
+		(u32)&filemgrMenuTextDuplicateFileName,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_MPWEAPONS_235, // "Rename File"
+		0,
+		filemgrDuplicateRenameMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
+		L_MPWEAPONS_236, // "Change Location"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_MPWEAPONS_237, // "Cancel"
+		0,
+		filemgrDuplicateCancelMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrDuplicateNameMenuDialog = {
@@ -2559,17 +2818,87 @@ void bootmenuReset(void)
 }
 
 struct menuitem g_FilemgrSelectLocationMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0,                         0x00000010, L_OPTIONS_368, L_OPTIONS_369, NULL }, // "Where", "Spaces"
-	{ MENUITEMTYPE_SEPARATOR,   0,                         0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_GAMEPAK,        0x00000000, (u32)&filemgrMenuTextLocationName2, (u32)&filemgrMenuTextSaveLocationSpaces, filemgrSelectLocationMenuHandler },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK1, 0x00000000, (u32)&filemgrMenuTextLocationName2, (u32)&filemgrMenuTextSaveLocationSpaces, filemgrSelectLocationMenuHandler },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK2, 0x00000000, (u32)&filemgrMenuTextLocationName2, (u32)&filemgrMenuTextSaveLocationSpaces, filemgrSelectLocationMenuHandler },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK3, 0x00000000, (u32)&filemgrMenuTextLocationName2, (u32)&filemgrMenuTextSaveLocationSpaces, filemgrSelectLocationMenuHandler },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK4, 0x00000000, (u32)&filemgrMenuTextLocationName2, (u32)&filemgrMenuTextSaveLocationSpaces, filemgrSelectLocationMenuHandler },
-	{ MENUITEMTYPE_SEPARATOR,   0,                         0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0,                         0x00000000, L_OPTIONS_370, 0x00000000, filemgrDeleteFilesForSaveMenuHandler }, // "Delete Files..."
-	{ MENUITEMTYPE_SELECTABLE,  0,                         0x00000000, L_OPTIONS_371, 0x00000000, filemgrCancelSaveMenuHandler }, // "Cancel"
-	{ MENUITEMTYPE_END,         0,                         0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_368, // "Where"
+		L_OPTIONS_369, // "Spaces"
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		SAVEDEVICE_GAMEPAK,
+		0,
+		(u32)&filemgrMenuTextLocationName2,
+		(u32)&filemgrMenuTextSaveLocationSpaces,
+		filemgrSelectLocationMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		SAVEDEVICE_CONTROLLERPAK1,
+		0,
+		(u32)&filemgrMenuTextLocationName2,
+		(u32)&filemgrMenuTextSaveLocationSpaces,
+		filemgrSelectLocationMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		SAVEDEVICE_CONTROLLERPAK2,
+		0,
+		(u32)&filemgrMenuTextLocationName2,
+		(u32)&filemgrMenuTextSaveLocationSpaces,
+		filemgrSelectLocationMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		SAVEDEVICE_CONTROLLERPAK3,
+		0,
+		(u32)&filemgrMenuTextLocationName2,
+		(u32)&filemgrMenuTextSaveLocationSpaces,
+		filemgrSelectLocationMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		SAVEDEVICE_CONTROLLERPAK4,
+		0,
+		(u32)&filemgrMenuTextLocationName2,
+		(u32)&filemgrMenuTextSaveLocationSpaces,
+		filemgrSelectLocationMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_OPTIONS_370, // "Delete Files..."
+		0,
+		filemgrDeleteFilesForSaveMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_OPTIONS_371, // "Cancel"
+		0,
+		filemgrCancelSaveMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrSelectLocationMenuDialog = {
@@ -2582,12 +2911,47 @@ struct menudialogdef g_FilemgrSelectLocationMenuDialog = {
 };
 
 struct menuitem g_FilemgrConfirmDeleteMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&filemgrMenuTextDeleteFileName, 0x00000000, filemgrFileNameMenuHandler },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&filemgrMenuTextDeviceName, 0x00000000, filemgrDeviceNameMenuHandler },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_380, 0x00000000, NULL }, // "Are you sure you want to delete this file?"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS_381, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_382, 0x00000000, filemgrConfirmDeleteMenuHandler }, // "OK"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&filemgrMenuTextDeleteFileName,
+		0,
+		filemgrFileNameMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_SMALLFONT,
+		(u32)&filemgrMenuTextDeviceName,
+		0,
+		filemgrDeviceNameMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_380, // "Are you sure you want to delete this file?"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_381, // "Cancel"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_382, // "OK"
+		0,
+		filemgrConfirmDeleteMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrConfirmDeleteMenuDialog = {
@@ -2600,15 +2964,43 @@ struct menudialogdef g_FilemgrConfirmDeleteMenuDialog = {
 };
 
 struct menuitem g_FilemgrFileInUseMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&filemgrMenuTextDeleteFileName, 0x00000000, filemgrFileNameMenuHandler },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&filemgrMenuTextDeviceName, 0x00000000, filemgrDeviceNameMenuHandler },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		(u32)&filemgrMenuTextDeleteFileName,
+		0,
+		filemgrFileNameMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_SMALLFONT,
+		(u32)&filemgrMenuTextDeviceName,
+		0,
+		filemgrDeviceNameMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
 #if VERSION >= VERSION_NTSC_1_0
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextFileInUseDescription, 0x00000000, NULL },
+		(u32)&filemgrMenuTextFileInUseDescription,
 #else
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x54a0, 0x00000000, NULL },
+		0x54a0,
 #endif
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_161, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_MPWEAPONS_161, // "Cancel"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrFileInUseMenuDialog = {
@@ -2621,10 +3013,31 @@ struct menudialogdef g_FilemgrFileInUseMenuDialog = {
 };
 
 struct menuitem g_FilemgrDeleteMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS_377, 0x00000000, NULL }, // "Select a file to delete:"
-	{ MENUITEMTYPE_LIST,        1, 0x00200000, 0x00000000, 0x00000000, filemgrFileToDeleteListMenuHandler },
-	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS_378, 0x00000000, NULL }, // "Press B Button to exit."
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_DARKERBG,
+		L_OPTIONS_377, // "Select a file to delete:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LIST,
+		1,
+		MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0,
+		0,
+		filemgrFileToDeleteListMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_DARKERBG,
+		L_OPTIONS_378, // "Press B Button to exit."
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrDeleteMenuDialog = {
@@ -2637,10 +3050,31 @@ struct menudialogdef g_FilemgrDeleteMenuDialog = {
 };
 
 struct menuitem g_FilemgrCopyMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS_374, 0x00000000, NULL }, // "Select a file to copy:"
-	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x00000000, 0x00000000, filemgrFileToCopyListMenuHandler },
-	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS_375, 0x00000000, NULL }, // "Press B Button to exit."
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_DARKERBG,
+		L_OPTIONS_374, // "Select a file to copy:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0,
+		0,
+		filemgrFileToCopyListMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_DARKERBG,
+		L_OPTIONS_375, // "Press B Button to exit."
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrCopyMenuDialog = {
@@ -2655,10 +3089,31 @@ struct menudialogdef g_FilemgrCopyMenuDialog = {
 struct pakdata *g_EditingPak = NULL;
 
 struct menuitem g_PakDeleteNoteMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_384, 0x00000000, NULL }, // "Are you sure you want to delete this game note?"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS_385, 0x00000000, NULL }, // "No"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_386, 0x00000000, pakDeleteGameNoteMenuHandler }, // "Yes"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_384, // "Are you sure you want to delete this game note?"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_385, // "No"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_386, // "Yes"
+		0,
+		pakDeleteGameNoteMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakDeleteNoteMenuDialog = {
@@ -2671,14 +3126,63 @@ struct menudialogdef g_PakDeleteNoteMenuDialog = {
 };
 
 struct menuitem g_PakGameNotesMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_388, (u32)&pakMenuTextEditingPakName, NULL }, // "Delete Game Notes:"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x0000010e, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_389, L_OPTIONS_390, NULL }, // "Note", "Pages"
-	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000c8, 0x0000006e, pakGameNoteListMenuHandler },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextPagesFree, (u32)&pakMenuTextPagesUsed, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextStatusMessage, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, L_OPTIONS_391, 0x00000000, NULL }, // "Press the B Button to exit."
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_388, // "Delete Game Notes:"
+		(u32)&pakMenuTextEditingPakName,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0x0000010e,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_389, // "Note"
+		L_OPTIONS_390, // "Pages"
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0x000000c8,
+		0x0000006e,
+		pakGameNoteListMenuHandler,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		(u32)&pakMenuTextPagesFree,
+		(u32)&pakMenuTextPagesUsed,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		(u32)&pakMenuTextStatusMessage,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_391, // "Press the B Button to exit."
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakGameNotesMenuDialog = {
@@ -2691,16 +3195,79 @@ struct menudialogdef g_PakGameNotesMenuDialog = {
 };
 
 struct menuitem g_PakChoosePakMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_108, 0x00000000, NULL }, // "Use this menu to delete game notes from your Controller Pak"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_109, 0x00000000, NULL }, // "Choose Controller Pak to Edit:"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS_112, 0x00000000, pakSelectionMenuHandler }, // "Controller Pak 1"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS_113, 0x00000000, pakSelectionMenuHandler }, // "Controller Pak 2"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_OPTIONS_114, 0x00000000, pakSelectionMenuHandler }, // "Controller Pak 3"
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, L_OPTIONS_115, 0x00000000, pakSelectionMenuHandler }, // "Controller Pak 4"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS_110, 0x00000000, NULL }, // "Exit"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_108, // "Use this menu to delete game notes from your Controller Paks."
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING,
+		L_OPTIONS_109, // "Choose Controller Pak to Edit:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		0,
+		L_OPTIONS_112, // "Controller Pak 1"
+		0,
+		pakSelectionMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		1,
+		0,
+		L_OPTIONS_113, // "Controller Pak 2"
+		0,
+		pakSelectionMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		2,
+		0,
+		L_OPTIONS_114, // "Controller Pak 3"
+		0,
+		pakSelectionMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		3,
+		0,
+		L_OPTIONS_115, // "Controller Pak 4"
+		0,
+		pakSelectionMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
+		L_OPTIONS_110, // "Exit"
+		0,
+		NULL,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakChoosePakMenuDialog = {
@@ -2713,18 +3280,95 @@ struct menudialogdef g_PakChoosePakMenuDialog = {
 };
 
 struct menuitem g_FilemgrOperationsMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0,                 0x00004010, L_OPTIONS_100, 0x00000000, NULL }, // "Copy:"
-	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_GAME,     0x00000000, L_OPTIONS_103, 0x00000000, filemgrOpenCopyFileMenuHandler }, // "Single Player Agent File"
-	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_MPSETUP , 0x00000000, L_OPTIONS_104, 0x00000000, filemgrOpenCopyFileMenuHandler }, // "Combat Simulator Settings File"
-	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_MPPLAYER, 0x00000000, L_OPTIONS_105, 0x00000000, filemgrOpenCopyFileMenuHandler }, // "Combat Simulator Player File"
-	{ MENUITEMTYPE_SEPARATOR,   0,                 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0,                 0x00004010, L_OPTIONS_101, 0x00000000, NULL }, // "Delete:"
-	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_GAME,     0x00000000, L_OPTIONS_103, 0x00000000, filemgrOpenDeleteFileMenuHandler }, // "Single Player Agent File"
-	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_MPSETUP,  0x00000000, L_OPTIONS_104, 0x00000000, filemgrOpenDeleteFileMenuHandler }, // "Combat Simulator Settings File"
-	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_MPPLAYER, 0x00000000, L_OPTIONS_105, 0x00000000, filemgrOpenDeleteFileMenuHandler }, // "Combat Simulator Player File"
-	{ MENUITEMTYPE_SEPARATOR,   0,                 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0,                 0x00000004, L_OPTIONS_102, 0x00000000, (void *)&g_PakChoosePakMenuDialog }, // "Delete Game Notes..."
-	{ MENUITEMTYPE_END,         0,                 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_DARKERBG,
+		L_OPTIONS_100, // "Copy:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		FILETYPE_GAME,
+		0,
+		L_OPTIONS_103, // "Single Player Agent File"
+		0,
+		filemgrOpenCopyFileMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		FILETYPE_MPSETUP,
+		0,
+		L_OPTIONS_104, // "Combat Simulator Settings File"
+		0,
+		filemgrOpenCopyFileMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		FILETYPE_MPPLAYER,
+		0,
+		L_OPTIONS_105, // "Combat Simulator Player File"
+		0,
+		filemgrOpenCopyFileMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_DARKERBG,
+		L_OPTIONS_101, // "Delete:"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		FILETYPE_GAME,
+		0,
+		L_OPTIONS_103, // "Single Player Agent File"
+		0,
+		filemgrOpenDeleteFileMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		FILETYPE_MPSETUP,
+		0,
+		L_OPTIONS_104, // "Combat Simulator Settings File"
+		0,
+		filemgrOpenDeleteFileMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		FILETYPE_MPPLAYER,
+		0,
+		L_OPTIONS_105, // "Combat Simulator Player File"
+		0,
+		filemgrOpenDeleteFileMenuHandler,
+	},
+	{
+		MENUITEMTYPE_SEPARATOR,
+		0,
+		0,
+		0,
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_SELECTABLE,
+		0,
+		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
+		L_OPTIONS_102, // "Delete Game Notes..."
+		0,
+		(void *)&g_PakChoosePakMenuDialog,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrOperationsMenuDialog = {
@@ -2737,8 +3381,15 @@ struct menudialogdef g_FilemgrOperationsMenuDialog = {
 };
 
 struct menuitem g_FilemgrEnterNameMenuItems[] = {
-	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000001, filemgrAgentNameKeyboardMenuHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_KEYBOARD,
+		0,
+		0,
+		0,
+		0x00000001,
+		filemgrAgentNameKeyboardMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrEnterNameMenuDialog = {
@@ -2751,9 +3402,23 @@ struct menudialogdef g_FilemgrEnterNameMenuDialog = {
 };
 
 struct menuitem g_FilemgrFileSelectMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS_096, 0x00000000, NULL }, // "Choose Your Reality"
-	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000f5, 0x00000000, filemgrChooseAgentListMenuHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{
+		MENUITEMTYPE_LABEL,
+		0,
+		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_DARKERBG,
+		L_OPTIONS_096, // "Choose Your Reality"
+		0,
+		NULL,
+	},
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0x000000f5,
+		0,
+		filemgrChooseAgentListMenuHandler,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrFileSelectMenuDialog = {

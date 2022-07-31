@@ -217,8 +217,15 @@ s32 amPickTargetMenuDialog(s32 operation, struct menudialogdef *dialogdef, union
 }
 
 struct menuitem g_AmPickTargetMenuItems[] = {
-	{ MENUITEMTYPE_LIST, 0, 0x00200000, 0x0000005a, 0x00000000, amPickTargetMenuList },
-	{ MENUITEMTYPE_END,  0, 0x00000000, 0x00000000, 0x00000000, NULL                 },
+	{
+		MENUITEMTYPE_LIST,
+		0,
+		MENUITEMFLAG_LIST_CUSTOMRENDER,
+		0x0000005a,
+		0,
+		amPickTargetMenuList,
+	},
+	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_AmPickTargetMenuDialog = {
