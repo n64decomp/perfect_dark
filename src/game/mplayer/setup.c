@@ -170,7 +170,7 @@ s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 
 		g_MpSetup.stagenum = g_MpArenas[i].stagenum;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
 			if (g_MpSetup.stagenum == g_MpArenas[i].stagenum) {
 				data->list.value = count;
@@ -240,7 +240,7 @@ s32 menuhandlerMpControlStyle(s32 operation, struct menuitem *item, union handle
 	case MENUOP_SET:
 		optionsSetControlMode(g_MpPlayerNum, data->dropdown.value);
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = optionsGetControlMode(g_MpPlayerNum);
 		break;
 	}
@@ -259,7 +259,7 @@ s32 menuhandlerMpWeaponSlot(s32 operation, struct menuitem *item, union handlerd
 	case MENUOP_SET:
 		mpSetWeaponSlot(item->param3, data->dropdown.value);
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = mpGetWeaponSlot(item->param3);
 	}
 
@@ -282,7 +282,7 @@ s32 menuhandlerMpWeaponSetDropdown(s32 operation, struct menuitem *item, union h
 	case MENUOP_SET:
 		mpSetWeaponSet(data->dropdown.value);
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = mpGetWeaponSet();
 		break;
 	}
@@ -348,7 +348,7 @@ s32 menuhandlerMpAimControl(s32 operation, struct menuitem *item, union handlerd
 	case MENUOP_SET:
 		optionsSetAimControl(g_MpPlayerNum, data->dropdown.value);
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = optionsGetAimControl(g_MpPlayerNum);
 		break;
 	}
@@ -567,7 +567,7 @@ s32 mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handl
 		g_Menus[g_MpPlayerNum].unk840.unk000 = 3;
 		break;
 #endif
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->carousel.value = mpheadnum;
 		break;
 	case MENUOP_SET:
@@ -1304,7 +1304,7 @@ s32 mpCharacterHeadMenuHandler(s32 operation, struct menuitem *item, union handl
 			return 1;
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->carousel.value = mpheadnum;
 		break;
 	case MENUOP_SET:
@@ -1435,7 +1435,7 @@ s32 mpLoadSettingsMenuHandler(s32 operation, struct menuitem *item, union handle
 			}
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = 0xfffff;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
@@ -1571,7 +1571,7 @@ s32 mpLoadPlayerMenuHandler(s32 operation, struct menuitem *item, union handlerd
 			filemgrPushErrorDialog(FILEERROR_ALREADYLOADED);
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = 0xfffff;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
@@ -1944,7 +1944,7 @@ s32 mpAddChangeSimulantMenuHandler(s32 operation, struct menuitem *item, union h
 
 		g_Menus[g_MpPlayerNum].mpsetup.unke24 = i;
 		// fall-through
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = g_Menus[g_MpPlayerNum].mpsetup.slotcount;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
@@ -2036,7 +2036,7 @@ s32 mpBotDifficultyMenuHandler(s32 operation, struct menuitem *item, union handl
 		mpSetBotDifficulty(g_Menus[g_MpPlayerNum].mpsetup.slotindex, data->dropdown.value);
 		mpGenerateBotNames();
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		if (g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].difficulty >= 0
 				&& g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].difficulty < BOTDIFF_DISABLED) {
 			data->dropdown.value = g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].difficulty;
@@ -2486,7 +2486,7 @@ s32 menuhandlerMpTeamSlot(s32 operation, struct menuitem *item, union handlerdat
 		mpchr = mpGetChrConfigBySlotNum(item->param);
 		mpchr->team = data->dropdown.value;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		mpchr = mpGetChrConfigBySlotNum(item->param);
 
 		if (!mpchr) {
@@ -2661,7 +2661,7 @@ s32 mpSelectTuneListHandler(s32 operation, struct menuitem *item, union handlerd
 			}
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		if (mpGetUsingMultipleTunes()) {
 			data->list.value = 0x000fffff;
 		} else {
@@ -3037,7 +3037,7 @@ s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union hand
 			menuPushDialog(&g_MpConfirmChallengeMenuDialog);
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = 0xfffff;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
@@ -3247,7 +3247,7 @@ s32 menuhandlerMpLock(s32 operation, struct menuitem *item, union handlerdata *d
 		}
 		g_Vars.modifiedfiles |= MODFILE_MPSETUP;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = mpGetLockType() == MPLOCKTYPE_CHALLENGE ? 0 : mpGetLockType();
 		break;
 	}
@@ -3504,7 +3504,7 @@ s32 menuhandlerPlayerTeam(s32 operation, struct menuitem *item, union handlerdat
 	case MENUOP_SET:
 		g_Vars.mpplayerteams[item->param] = data->dropdown.value;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 #if VERSION >= VERSION_JPN_FINAL
 		if (g_Vars.mpplayerteams[item->param] >= scenarioGetMaxTeams()) {
 			g_Vars.mpplayerteams[item->param] %= scenarioGetMaxTeams();
@@ -3534,7 +3534,7 @@ s32 menuhandlerMpNumberOfSimulants(s32 operation, struct menuitem *item, union h
 	case MENUOP_SET:
 		g_Vars.mpquickteamnumsims = data->dropdown.value + 1;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = g_Vars.mpquickteamnumsims - 1;
 		break;
 	case MENUOP_CHECKHIDDEN:
@@ -3560,7 +3560,7 @@ s32 menuhandlerMpSimulantsPerTeam(s32 operation, struct menuitem *item, union ha
 	case MENUOP_SET:
 		g_Vars.unk0004a0 = data->dropdown.value + 1;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = g_Vars.unk0004a0 - 1;
 		break;
 	case MENUOP_CHECKHIDDEN:
@@ -3602,7 +3602,7 @@ s32 mpQuickTeamSimulantDifficultyHandler(s32 operation, struct menuitem *item, u
 	case MENUOP_SET:
 		g_Vars.mpsimdifficulty = data->dropdown.value;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = g_Vars.mpsimdifficulty;
 		break;
 	case MENUOP_CHECKHIDDEN:

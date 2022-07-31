@@ -1770,7 +1770,7 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *ite
 	}
 
 	switch (operation) {
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = 0x0fffff;
 		break;
 	case MENUOP_GETOPTIONCOUNT:
@@ -1972,7 +1972,7 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 	}
 
 	switch (operation) {
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = 0x0fffff;
 		break;
 	case MENUOP_GETOPTIONCOUNT:
@@ -2297,7 +2297,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 	}
 
 	switch (operation) {
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = 0x0fffff;
 		break;
 	case MENUOP_25:

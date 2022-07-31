@@ -1599,7 +1599,7 @@
 #define MENUOP_GETOPTGROUPTEXT     4
 #define MENUOP_GETGROUPSTARTINDEX  5
 #define MENUOP_SET                 6
-#define MENUOP_GETOPTIONVALUE      7
+#define MENUOP_GETSELECTEDINDEX    7
 #define MENUOP_GET                 8
 #define MENUOP_GETSLIDER           9
 #define MENUOP_GETSLIDERLABEL      10

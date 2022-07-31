@@ -135,7 +135,7 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 			menuPushDialog(&g_FrTrainingInfoPreGameMenuDialog);
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = frGetSlot();
 		break;
 	case MENUOP_RENDER:
@@ -281,7 +281,7 @@ s32 frDifficultyDropdownMenuHandler(s32 operation, struct menuitem *item, union 
 		frSetDifficulty(data->dropdown.value);
 		menuPushDialog(&g_FrTrainingInfoPreGameMenuDialog);
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = frGetDifficulty();
 		break;
 	}
@@ -1078,7 +1078,7 @@ s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union h
 			menuPushDialog(&g_BioTextMenuDialog);
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = g_ChrBioSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
@@ -1293,7 +1293,7 @@ s32 dtDeviceListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 		g_DtSlot = data->list.value;
 		menuPushDialog(&g_DtDetailsMenuDialog);
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = g_DtSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
@@ -1526,7 +1526,7 @@ s32 htHoloListMenuHandler(s32 operation, struct menuitem *item, union handlerdat
 		var80088bb4 = data->list.value;
 		menuPushDialog(&g_HtDetailsMenuDialog);
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = var80088bb4;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
@@ -1821,7 +1821,7 @@ s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union h
 			menuPushDialog(&g_HangarVehicleDetailsMenuDialog);
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = g_HangarBioSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:

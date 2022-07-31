@@ -2625,7 +2625,7 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 
 			if (item->handler) {
 				handlerdata2.dropdown.value = 0;
-				item->handler(MENUOP_GETOPTIONVALUE, item, &handlerdata2);
+				item->handler(MENUOP_GETSELECTEDINDEX, item, &handlerdata2);
 				handlerdata2.dropdown.unk04 = 0;
 				text2 = (char *)item->handler(MENUOP_GETOPTIONTEXT, item, &handlerdata2);
 				textMeasure(&textheight, &textwidth, text2, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);

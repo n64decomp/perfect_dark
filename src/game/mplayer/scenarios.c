@@ -149,7 +149,7 @@ s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerd
 			g_MpSetup.options |= MPOPTION_SLOWMOTION_SMART;
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		if (g_MpSetup.options & MPOPTION_SLOWMOTION_SMART) {
 			data->dropdown.value = SLOWMOTION_SMART;
 		} else if (g_MpSetup.options & MPOPTION_SLOWMOTION_ON) {
@@ -359,7 +359,7 @@ s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union hand
 
 		scenarioInit();
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
 			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {

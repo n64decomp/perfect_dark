@@ -77,7 +77,7 @@ s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union 
 		}
 
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		v0 = 0;
 
 		for (v1 = 0; v1 < MAX_MPCHRS; v1++) {

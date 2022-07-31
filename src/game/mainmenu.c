@@ -100,7 +100,7 @@ s32 menuhandlerControlStyleImpl(s32 operation, struct menuitem *item, union hand
 		optionsSetControlMode(mpindex, data->list.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = optionsGetControlMode(mpindex);
 		g_Menus[g_MpPlayerNum].main.mpindex = mpindex;
 		break;
@@ -182,7 +182,7 @@ s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union handlerdat
 		optionsSetAimControl(playernum, data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = optionsGetAimControl(playernum);
 	}
 
@@ -208,7 +208,7 @@ s32 menuhandlerSoundMode(s32 operation, struct menuitem *item, union handlerdata
 		sndSetSoundMode(data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = g_SoundMode;
 	}
 
@@ -233,7 +233,7 @@ s32 menuhandlerScreenSize(s32 operation, struct menuitem *item, union handlerdat
 		optionsSetScreenSize(data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = optionsGetEffectiveScreenSize();
 	}
 
@@ -257,7 +257,7 @@ s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerda
 		optionsSetScreenRatio(data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = optionsGetScreenRatio();
 	}
 
@@ -286,7 +286,7 @@ s32 menuhandlerLanguage(s32 operation, struct menuitem *item, union handlerdata 
 		langSetEuropean(g_Vars.language);
 		g_Vars.modifiedfiles |= MODFILE_GAME | MODFILE_BOSS;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = g_Vars.language;
 
 		if (data->dropdown.value > LANGUAGE_PAL_ES) {
@@ -328,7 +328,7 @@ s32 menuhandlerScreenSplit(s32 operation, struct menuitem *item, union handlerda
 			}
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = optionsGetScreenSplit();
 		break;
 	}
@@ -1294,7 +1294,7 @@ s32 menuhandlerCoopBuddy(s32 operation, struct menuitem *item, union handlerdata
 			g_Vars.modifiedfiles |= MODFILE_GAME;
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		{
 			s32 extra = 1;
 
@@ -1360,7 +1360,7 @@ s32 menuhandlerAntiPlayer(s32 operation, struct menuitem *item, union handlerdat
 		g_Vars.pendingantiplayernum = data->dropdown.value;
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->dropdown.value = g_Vars.pendingantiplayernum;
 		break;
 	}
@@ -3579,7 +3579,7 @@ struct optiongroup missions[] = {
 //		}
 //
 //		break;
-//	case MENUOP_GETOPTIONVALUE:
+//	case MENUOP_GETSELECTEDINDEX:
 //		data->list.value = 0xfffff;
 //		break;
 //	case MENUOP_25:
@@ -3839,7 +3839,7 @@ char *func0f105664(struct menuitem *item)
 {
 	union handlerdata data;
 
-	menuhandler001024dc(MENUOP_GETOPTIONVALUE, item, &data);
+	menuhandler001024dc(MENUOP_GETSELECTEDINDEX, item, &data);
 
 	return (char *)menuhandler001024dc(MENUOP_GETOPTIONTEXT, item, &data);
 }
@@ -3848,7 +3848,7 @@ char *func0f1056a0(struct menuitem *item)
 {
 	union handlerdata data;
 
-	menuhandler001024fc(MENUOP_GETOPTIONVALUE, item, &data);
+	menuhandler001024fc(MENUOP_GETSELECTEDINDEX, item, &data);
 
 	return (char *)menuhandler001024fc(MENUOP_GETOPTIONTEXT, item, &data);
 }
@@ -4769,7 +4769,7 @@ s32 menuhandlerFrInventoryList(s32 operation, struct menuitem *item, union handl
 	case MENUOP_SET:
 		g_FrFocusedSlotIndex = data->list.value;
 		return 0;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = g_FrFocusedSlotIndex;
 		break;
 	case MENUOP_LISTITEMFOCUS:
@@ -4832,7 +4832,7 @@ s32 menuhandlerInventoryList(s32 operation, struct menuitem *item, union handler
 			var800711f0 = data->list.value;
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = invGetCurrentIndex();
 		break;
 	case MENUOP_GETLISTITEMCHECKBOX:
@@ -5176,7 +5176,7 @@ s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *d
 			menuStop();
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = 0xfffff;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:

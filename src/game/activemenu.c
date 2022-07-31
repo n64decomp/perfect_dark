@@ -147,7 +147,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 			menuPopDialog();
 		}
 		break;
-	case MENUOP_GETOPTIONVALUE:
+	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = 0xfffff;
 		break;
 	case MENUOP_RENDER:
