@@ -3351,128 +3351,25 @@ Gfx *func0f0e458c(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f0e46b0
-/*  f0e46b0:	3c0e800a */ 	lui	$t6,%hi(var8009de9c)
-/*  f0e46b4:	8dcede9c */ 	lw	$t6,%lo(var8009de9c)($t6)
-/*  f0e46b8:	44803000 */ 	mtc1	$zero,$f6
-/*  f0e46bc:	3c014370 */ 	lui	$at,0x4370
-/*  f0e46c0:	25cf0078 */ 	addiu	$t7,$t6,0x78
-/*  f0e46c4:	448f2000 */ 	mtc1	$t7,$f4
-/*  f0e46c8:	44856000 */ 	mtc1	$a1,$f12
-/*  f0e46cc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0e46d0:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f0e46d4:	44812000 */ 	mtc1	$at,$f4
-/*  f0e46d8:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0e46dc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0e46e0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0e46e4:	46003201 */ 	sub.s	$f8,$f6,$f0
-/*  f0e46e8:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f0e46ec:	46086282 */ 	mul.s	$f10,$f12,$f8
-/*  f0e46f0:	00000000 */ 	nop
-/*  f0e46f4:	46066202 */ 	mul.s	$f8,$f12,$f6
-/*  f0e46f8:	460a0400 */ 	add.s	$f16,$f0,$f10
-/*  f0e46fc:	46080280 */ 	add.s	$f10,$f0,$f8
-/*  f0e4700:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f0e4704:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f0e4708:	44069000 */ 	mfc1	$a2,$f18
-/*  f0e470c:	44108000 */ 	mfc1	$s0,$f16
-/*  f0e4710:	0fc3528f */ 	jal	func0f0d4a3c
-/*  f0e4714:	afa60034 */ 	sw	$a2,0x34($sp)
-/*  f0e4718:	3c08fffe */ 	lui	$t0,0xfffe
-/*  f0e471c:	35087960 */ 	ori	$t0,$t0,0x7960
-/*  f0e4720:	3c01800a */ 	lui	$at,%hi(var8009de90)
-/*  f0e4724:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f0e4728:	3c03ffff */ 	lui	$v1,0xffff
-/*  f0e472c:	ac28de90 */ 	sw	$t0,%lo(var8009de90)($at)
-/*  f0e4730:	3c090001 */ 	lui	$t1,0x1
-/*  f0e4734:	3463007f */ 	ori	$v1,$v1,0x7f
-/*  f0e4738:	352986a0 */ 	ori	$t1,$t1,0x86a0
-/*  f0e473c:	3c01800a */ 	lui	$at,%hi(var8009de94)
-/*  f0e4740:	240a0005 */ 	addiu	$t2,$zero,0x5
-/*  f0e4744:	ac29de94 */ 	sw	$t1,%lo(var8009de94)($at)
-/*  f0e4748:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f0e474c:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0e4750:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0e4754:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e4758:	2405fc18 */ 	addiu	$a1,$zero,-1000
-/*  f0e475c:	240707d0 */ 	addiu	$a3,$zero,0x7d0
-/*  f0e4760:	0fc35343 */ 	jal	func0f0d4d0c
-/*  f0e4764:	afa60010 */ 	sw	$a2,0x10($sp)
-/*  f0e4768:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f0e476c:	3c0300aa */ 	lui	$v1,0xaa
-/*  f0e4770:	3463007f */ 	ori	$v1,$v1,0x7f
-/*  f0e4774:	240b0006 */ 	addiu	$t3,$zero,0x6
-/*  f0e4778:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f0e477c:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0e4780:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0e4784:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e4788:	2405fc18 */ 	addiu	$a1,$zero,-1000
-/*  f0e478c:	240707d0 */ 	addiu	$a3,$zero,0x7d0
-/*  f0e4790:	0fc35343 */ 	jal	func0f0d4d0c
-/*  f0e4794:	afa60010 */ 	sw	$a2,0x10($sp)
-/*  f0e4798:	3c03ffff */ 	lui	$v1,0xffff
-/*  f0e479c:	3463007f */ 	ori	$v1,$v1,0x7f
-/*  f0e47a0:	240c0005 */ 	addiu	$t4,$zero,0x5
-/*  f0e47a4:	afac001c */ 	sw	$t4,0x1c($sp)
-/*  f0e47a8:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0e47ac:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0e47b0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e47b4:	2405fc18 */ 	addiu	$a1,$zero,-1000
-/*  f0e47b8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0e47bc:	240707d0 */ 	addiu	$a3,$zero,0x7d0
-/*  f0e47c0:	0fc35343 */ 	jal	func0f0d4d0c
-/*  f0e47c4:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f0e47c8:	3c0300aa */ 	lui	$v1,0xaa
-/*  f0e47cc:	3463007f */ 	ori	$v1,$v1,0x7f
-/*  f0e47d0:	240d0006 */ 	addiu	$t5,$zero,0x6
-/*  f0e47d4:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f0e47d8:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0e47dc:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0e47e0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e47e4:	2405fc18 */ 	addiu	$a1,$zero,-1000
-/*  f0e47e8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0e47ec:	240707d0 */ 	addiu	$a3,$zero,0x7d0
-/*  f0e47f0:	0fc35343 */ 	jal	func0f0d4d0c
-/*  f0e47f4:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f0e47f8:	0fc35320 */ 	jal	func0f0d4c80
-/*  f0e47fc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e4800:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0e4804:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0e4808:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0e480c:	03e00008 */ 	jr	$ra
-/*  f0e4810:	00000000 */ 	nop
-);
+Gfx *func0f0e46b0(Gfx *gdl, f32 arg1)
+{
+	s32 y1 = (var8009de9c + 120) + arg1 * (0.0f - (var8009de9c + 120));
+	s32 y2 = (var8009de9c + 120) + arg1 * (240.0f - (var8009de9c + 120));
 
-// Mismatch: Too much stack
-//Gfx *func0f0e46b0(Gfx *gdl, f32 arg1)
-//{
-//	s32 y1;
-//	s32 y2;
-//	f32 value;
-//
-//	value = var8009de9c + 120;
-//
-//	y1 = (f32)value + arg1 * (0 - value);
-//	y2 = (f32)value + arg1 * (240 - value);
-//
-//	if (y1);
-//	if (y2);
-//
-//	gdl = func0f0d4a3c(gdl, 0);
-//
-//	var8009de90 = -100000;
-//	var8009de94 = 100000;
-//
-//	gdl = func0f0d4d0c(gdl, -1000, y1, 2000, y1, 0xffff007f, 0xffff007f, 5);
-//	gdl = func0f0d4d0c(gdl, -1000, y1, 2000, y1, 0x00aa007f, 0x00aa007f, 6);
-//	gdl = func0f0d4d0c(gdl, -1000, y2, 2000, y2, 0xffff007f, 0xffff007f, 5);
-//	gdl = func0f0d4d0c(gdl, -1000, y2, 2000, y2, 0x00aa007f, 0x00aa007f, 6);
-//
-//	gdl = func0f0d4c80(gdl);
-//
-//	return gdl;
-//}
+	gdl = func0f0d4a3c(gdl, 0);
+
+	var8009de90 = -100000;
+	var8009de94 = 100000;
+
+	gdl = func0f0d4d0c(gdl, -1000, y1, 2000, y1, 0xffff007f, 0xffff007f, 5);
+	gdl = func0f0d4d0c(gdl, -1000, y1, 2000, y1, 0x00aa007f, 0x00aa007f, 6);
+	gdl = func0f0d4d0c(gdl, -1000, y2, 2000, y2, 0xffff007f, 0xffff007f, 5);
+	gdl = func0f0d4d0c(gdl, -1000, y2, 2000, y2, 0x00aa007f, 0x00aa007f, 6);
+
+	gdl = func0f0d4c80(gdl);
+
+	return gdl;
+}
 
 /**
  * This is an exact copy of menugfxRenderBgFailure.
@@ -3762,7 +3659,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 	}
 
 	{
-		struct coord spb8;
+		struct coord pos;
 		u32 stack[5];
 
 		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 20);
@@ -3773,41 +3670,41 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 			f32 sine = sinf(f0 * M_BADTAU + M_BADTAU * (i / 15.0f));
 			f32 cosine = cosf(f0 * M_BADTAU + M_BADTAU * (i / 15.0f));
 
-			spb8.x = g_MenuParticles[i].x;
-			spb8.y = g_MenuParticles[i].y;
-			spb8.z = g_MenuParticles[i].z;
+			pos.x = g_MenuParticles[i].x;
+			pos.y = g_MenuParticles[i].y;
+			pos.z = g_MenuParticles[i].z;
 
-			if (spb8.z < -6600.0f) {
-				s3 = -(spb8.f[2] + 6600.0f) / 1400.0f * 5.0f;
+			if (pos.z < -6600.0f) {
+				s3 = -(pos.f[2] + 6600.0f) / 1400.0f * 5.0f;
 			}
 
-			if (spb8.z);
+			if (pos.z);
 
-			if (spb8.z < 0.0f && s3 < 6) {
+			if (pos.z < 0.0f && s3 < 6) {
 				f32 invsine2 = -sine;
 				f32 invsine = -sine;
 				f32 invcosine = -cosine;
 				struct gfxvtx *vertices = gfxAllocateVertices(5);
 
-				vertices[0].x = spb8.f[0];
-				vertices[0].y = spb8.f[1];
-				vertices[0].z = spb8.f[2];
+				vertices[0].x = pos.f[0];
+				vertices[0].y = pos.f[1];
+				vertices[0].z = pos.f[2];
 
-				vertices[1].x = spb8.f[0] + 25.0f * (sine + cosine);
-				vertices[1].y = spb8.f[1] + 25.0f * (cosine + invsine);
-				vertices[1].z = spb8.f[2];
+				vertices[1].x = pos.f[0] + 25.0f * (sine + cosine);
+				vertices[1].y = pos.f[1] + 25.0f * (cosine + invsine);
+				vertices[1].z = pos.f[2];
 
-				vertices[2].x = spb8.f[0] + 25.0f * (sine - cosine);
-				vertices[2].y = spb8.f[1] + 25.0f * (cosine - invsine);
-				vertices[2].z = spb8.f[2];
+				vertices[2].x = pos.f[0] + 25.0f * (sine - cosine);
+				vertices[2].y = pos.f[1] + 25.0f * (cosine - invsine);
+				vertices[2].z = pos.f[2];
 
-				vertices[3].x = spb8.f[0] + 25.0f * (invsine - cosine);
-				vertices[3].y = spb8.f[1] + 25.0f * (invcosine - invsine);
-				vertices[3].z = spb8.f[2];
+				vertices[3].x = pos.f[0] + 25.0f * (invsine - cosine);
+				vertices[3].y = pos.f[1] + 25.0f * (invcosine - invsine);
+				vertices[3].z = pos.f[2];
 
-				vertices[4].x = spb8.f[0] + 25.0f * (invsine2 + cosine);
-				vertices[4].y = spb8.f[1] + 25.0f * (invcosine + invsine);
-				vertices[4].z = spb8.f[2];
+				vertices[4].x = pos.f[0] + 25.0f * (invsine2 + cosine);
+				vertices[4].y = pos.f[1] + 25.0f * (invcosine + invsine);
+				vertices[4].z = pos.f[2];
 
 				vertices[0].colour = (s3 * 4 + (i % 2) * 2) * 4;
 				vertices[1].colour = (s3 * 4 + (i % 2) * 2 + 1) * 4;
