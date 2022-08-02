@@ -32,8 +32,8 @@ Gfx *menugfxDrawCheckbox(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 border
 Gfx *menugfxRenderBgFailure(Gfx *gdl);
 Gfx *menugfxRenderBgCone(Gfx *gdl);
 Gfx *menugfxRenderBgFailureCopy(Gfx *gdl);
-void menugfx0f0e4fd4(void);
-u32 menugfx0f0e4fe0(void);
+void menugfxFreeParticles(void);
+u32 menugfxGetParticleArraySize(void);
 Gfx *menugfxRenderBgSuccess(Gfx *gdl);
 
 #endif

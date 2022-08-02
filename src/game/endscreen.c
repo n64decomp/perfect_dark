@@ -431,17 +431,17 @@ struct menudialogdef *endscreenAdvance(void)
 
 void endscreen0f10d770(void)
 {
-	func0f0f8bb4(&g_Menus[0].unk840, bgunCalculateGunMemCapacity() - menugfx0f0e4fe0(), 0);
-	g_Menus[0].unk840.unk004 = bgunGetGunMem() + menugfx0f0e4fe0();
+	func0f0f8bb4(&g_Menus[0].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
+	g_Menus[0].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
 
-	func0f0f8bb4(&g_Menus[1].unk840, bgunCalculateGunMemCapacity() - menugfx0f0e4fe0(), 0);
-	g_Menus[1].unk840.unk004 = bgunGetGunMem() + menugfx0f0e4fe0();
+	func0f0f8bb4(&g_Menus[1].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
+	g_Menus[1].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
 
-	func0f0f8bb4(&g_Menus[2].unk840, bgunCalculateGunMemCapacity() - menugfx0f0e4fe0(), 0);
-	g_Menus[2].unk840.unk004 = bgunGetGunMem() + menugfx0f0e4fe0();
+	func0f0f8bb4(&g_Menus[2].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
+	g_Menus[2].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
 
-	func0f0f8bb4(&g_Menus[3].unk840, bgunCalculateGunMemCapacity() - menugfx0f0e4fe0(), 0);
-	g_Menus[3].unk840.unk004 = bgunGetGunMem() + menugfx0f0e4fe0();
+	func0f0f8bb4(&g_Menus[3].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
+	g_Menus[3].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
 }
 
 #if VERSION >= VERSION_NTSC_1_0

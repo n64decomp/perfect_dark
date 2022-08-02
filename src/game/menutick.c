@@ -180,7 +180,7 @@ void menuTick(void)
 					}
 
 					if (g_MenuData.bg == MENUBG_6) {
-						menugfx0f0e4fd4();
+						menugfxFreeParticles();
 						g_MenuData.bg = MENUBG_BLUR;
 						g_MenuData.nextbg = MENUBG_8;
 					}
