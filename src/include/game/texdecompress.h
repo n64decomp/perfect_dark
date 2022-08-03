@@ -15,7 +15,7 @@ s32 func0f16f0f4(u8 *start, u8 *end, s32 width, s32 height, s32 format, u16 *pal
 s32 tex0f16fc8c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 s32 func0f16fd50(u16 *arg0, s32 arg1, s32 arg2, s32 arg3);
 s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texturething *arg4, s32 arg5);
-s32 func0f1706ec(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3, s32 format);
+s32 texShrinkNonPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format);
 void texInflateHuffman(u8 *dst, s32 numiterations, s32 chansize);
 void texInflateRle(u8 *arg0, s32 arg1);
 s32 texBuildLookup(u8 *arg0, s32 bpp);
