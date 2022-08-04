@@ -926,81 +926,28 @@ void savebufferReadString(struct savebuffer *buffer, char *dst, bool addlinebrea
 	dst[index] = '\0';
 }
 
-GLOBAL_ASM(
-glabel func0f0d55a4
-/*  f0d55a4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0d55a8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0d55ac:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0d55b0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0d55b4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0d55b8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0d55bc:	00809025 */ 	or	$s2,$a0,$zero
-/*  f0d55c0:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f0d55c4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0d55c8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0d55cc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0d55d0:	2413000a */ 	addiu	$s3,$zero,0xa
-.L0f0d55d4:
-/*  f0d55d4:	1600000d */ 	bnez	$s0,.L0f0d560c
-/*  f0d55d8:	02917021 */ 	addu	$t6,$s4,$s1
-/*  f0d55dc:	91c20000 */ 	lbu	$v0,0x0($t6)
-/*  f0d55e0:	14400003 */ 	bnez	$v0,.L0f0d55f0
-/*  f0d55e4:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0d55e8:	10000008 */ 	b	.L0f0d560c
-/*  f0d55ec:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f0d55f0:
-/*  f0d55f0:	16630003 */ 	bne	$s3,$v1,.L0f0d5600
-/*  f0d55f4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0d55f8:	10000004 */ 	b	.L0f0d560c
-/*  f0d55fc:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f0d5600:
-/*  f0d5600:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0d5604:	0fc354be */ 	jal	savebufferOr
-/*  f0d5608:	24060008 */ 	addiu	$a2,$zero,0x8
-.L0f0d560c:
-/*  f0d560c:	12000004 */ 	beqz	$s0,.L0f0d5620
-/*  f0d5610:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0d5614:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d5618:	0fc354be */ 	jal	savebufferOr
-/*  f0d561c:	24060008 */ 	addiu	$a2,$zero,0x8
-.L0f0d5620:
-/*  f0d5620:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0d5624:	1633ffeb */ 	bne	$s1,$s3,.L0f0d55d4
-/*  f0d5628:	00000000 */ 	nop
-/*  f0d562c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0d5630:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0d5634:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0d5638:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0d563c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0d5640:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0d5644:	03e00008 */ 	jr	$ra
-/*  f0d5648:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void func0f0d55a4(struct savebuffer *buffer, char *src)
+{
+	bool done = false;
+	s32 i;
 
-// Mismatch: Goal uses both v0 and v1 for src[i] and c, but in some weird way.
-//void func0f0d55a4(struct savebuffer *buffer, char *src)
-//{
-//	bool done = false;
-//	s32 i;
-//
-//	for (i = 0; i < 10; i++) {
-//		if (!done) {
-//			char c = src[i];
-//
-//			if (c == '\0') {
-//				done = true;
-//			} else if (src[i] == '\n') {
-//				done = true;
-//			} else {
-//				savebufferOr(buffer, c, 8);
-//			}
-//		}
-//
-//		if (done) {
-//			savebufferOr(buffer, 0, 8);
-//		}
-//	}
-//}
+	for (i = 0; i < 10; i++) {
+		if (!done) {
+			if (src[i] == '\0') {
+				done = true;
+			} else if (src[i] == '\n') {
+				done = true;
+			} else {
+				u32 c = src[i];
+				savebufferOr(buffer, c, 8);
+			}
+		}
+
+		if (done) {
+			savebufferOr(buffer, '\0', 8);
+		}
+	}
+}
 
 void func0f0d564c(u8 *data, char *dst, bool addlinebreak)
 {
