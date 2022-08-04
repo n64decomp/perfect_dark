@@ -3436,141 +3436,35 @@ const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished\n";
 const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished";
 #endif
 
+void pakInit(s8 device)
+{
+	g_Paks[device].unk274 = 3;
+	g_Paks[device].unk014 = 0;
+	g_Paks[device].type = PAKTYPE_NONE;
+	g_Paks[device].unk008 = 1;
+	g_Paks[device].rumblestate = RUMBLESTATE_1;
+	g_Paks[device].unk00c = 3;
+	g_Paks[device].unk010 = PAK010_00;
+	g_Paks[device].pdnoteindex = -1;
+	g_Paks[device].unk2b8_01 = 0;
+	g_Paks[device].unk2b8_05 = 0;
+	g_Paks[device].isgbcamera = 0;
+	g_Paks[device].unk2b8_02 = 0;
+	g_Paks[device].unk2bd = 128;
+	g_Paks[device].unk264 = 0;
+	g_Paks[device].unk2b8_06 = 0;
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pakInit
-/*  f11a434:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11a438:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f11a43c:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11a440:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a444:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a448:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a44c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a450:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11a454:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a458:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a45c:	3c19800a */ 	lui	$t9,%hi(g_Paks)
-/*  f11a460:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
-/*  f11a464:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a468:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f11a46c:	904902b8 */ 	lbu	$t1,0x2b8($v0)
-/*  f11a470:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f11a474:	ac48029c */ 	sw	$t0,0x29c($v0)
-/*  f11a478:	312bff7f */ 	andi	$t3,$t1,0xff7f
-/*  f11a47c:	316d00f7 */ 	andi	$t5,$t3,0xf7
-/*  f11a480:	a04b02b8 */ 	sb	$t3,0x2b8($v0)
-/*  f11a484:	31af00df */ 	andi	$t7,$t5,0xdf
-/*  f11a488:	a04d02b8 */ 	sb	$t5,0x2b8($v0)
-/*  f11a48c:	31e800bf */ 	andi	$t0,$t7,0xbf
-/*  f11a490:	a04f02b8 */ 	sb	$t7,0x2b8($v0)
-/*  f11a494:	310a00fb */ 	andi	$t2,$t0,0xfb
-/*  f11a498:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f11a49c:	44812000 */ 	mtc1	$at,$f4
-/*  f11a4a0:	a04802b8 */ 	sb	$t0,0x2b8($v0)
-/*  f11a4a4:	24030003 */ 	addiu	$v1,$zero,0x3
-/*  f11a4a8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f11a4ac:	24190080 */ 	addiu	$t9,$zero,0x80
-/*  f11a4b0:	a04a02b8 */ 	sb	$t2,0x2b8($v0)
-/*  f11a4b4:	314b00fd */ 	andi	$t3,$t2,0xfd
-/*  f11a4b8:	240c0008 */ 	addiu	$t4,$zero,0x8
-/*  f11a4bc:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f11a4c0:	ac430274 */ 	sw	$v1,0x274($v0)
-/*  f11a4c4:	a0400014 */ 	sb	$zero,0x14($v0)
-/*  f11a4c8:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f11a4cc:	ac450008 */ 	sw	$a1,0x8($v0)
-/*  f11a4d0:	ac450004 */ 	sw	$a1,0x4($v0)
-/*  f11a4d4:	ac43000c */ 	sw	$v1,0xc($v0)
-/*  f11a4d8:	ac400010 */ 	sw	$zero,0x10($v0)
-/*  f11a4dc:	a05902bd */ 	sb	$t9,0x2bd($v0)
-/*  f11a4e0:	ac400264 */ 	sw	$zero,0x264($v0)
-/*  f11a4e4:	a04b02b8 */ 	sb	$t3,0x2b8($v0)
-/*  f11a4e8:	ac4002c0 */ 	sw	$zero,0x2c0($v0)
-/*  f11a4ec:	ac4002c4 */ 	sw	$zero,0x2c4($v0)
-/*  f11a4f0:	ac4c025c */ 	sw	$t4,0x25c($v0)
-/*  f11a4f4:	ac400260 */ 	sw	$zero,0x260($v0)
-/*  f11a4f8:	ac4002c8 */ 	sw	$zero,0x2c8($v0)
-/*  f11a4fc:	03e00008 */ 	jr	$ra
-/*  f11a500:	e44402b4 */ 	swc1	$f4,0x2b4($v0)
-);
-#else
-GLOBAL_ASM(
-glabel pakInit
-/*  f1142ec:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1142f0:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1142f4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f1142f8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1142fc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f114300:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f114304:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f114308:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11430c:	3c19800a */ 	lui	$t9,0x800a
-/*  f114310:	27396870 */ 	addiu	$t9,$t9,0x6870
-/*  f114314:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f114318:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f11431c:	904902b8 */ 	lbu	$t1,0x2b8($v0)
-/*  f114320:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f114324:	ac48029c */ 	sw	$t0,0x29c($v0)
-/*  f114328:	312bff7f */ 	andi	$t3,$t1,0xff7f
-/*  f11432c:	316d00f7 */ 	andi	$t5,$t3,0xf7
-/*  f114330:	a04b02b8 */ 	sb	$t3,0x2b8($v0)
-/*  f114334:	31af00df */ 	andi	$t7,$t5,0xdf
-/*  f114338:	a04d02b8 */ 	sb	$t5,0x2b8($v0)
-/*  f11433c:	31e800bf */ 	andi	$t0,$t7,0xbf
-/*  f114340:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f114344:	44812000 */ 	mtc1	$at,$f4
-/*  f114348:	a04f02b8 */ 	sb	$t7,0x2b8($v0)
-/*  f11434c:	24030003 */ 	addiu	$v1,$zero,0x3
-/*  f114350:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f114354:	a04802b8 */ 	sb	$t0,0x2b8($v0)
-/*  f114358:	24190080 */ 	addiu	$t9,$zero,0x80
-/*  f11435c:	310900fb */ 	andi	$t1,$t0,0xfb
-/*  f114360:	240a0008 */ 	addiu	$t2,$zero,0x8
-/*  f114364:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f114368:	ac430274 */ 	sw	$v1,0x274($v0)
-/*  f11436c:	a0400014 */ 	sb	$zero,0x14($v0)
-/*  f114370:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f114374:	ac450008 */ 	sw	$a1,0x8($v0)
-/*  f114378:	ac450004 */ 	sw	$a1,0x4($v0)
-/*  f11437c:	ac43000c */ 	sw	$v1,0xc($v0)
-/*  f114380:	ac400010 */ 	sw	$zero,0x10($v0)
-/*  f114384:	a05902bd */ 	sb	$t9,0x2bd($v0)
-/*  f114388:	ac400264 */ 	sw	$zero,0x264($v0)
-/*  f11438c:	a04902b8 */ 	sb	$t1,0x2b8($v0)
-/*  f114390:	ac4002c0 */ 	sw	$zero,0x2c0($v0)
-/*  f114394:	ac4002c4 */ 	sw	$zero,0x2c4($v0)
-/*  f114398:	ac4a025c */ 	sw	$t2,0x25c($v0)
-/*  f11439c:	ac400260 */ 	sw	$zero,0x260($v0)
-/*  f1143a0:	03e00008 */ 	jr	$ra
-/*  f1143a4:	e44402b4 */ 	swc1	$f4,0x2b4($v0)
-);
+	g_Paks[device].unk2b8_07 = 0;
 #endif
-
-// Mismatch due to regalloc
-//void pakInit(s8 device)
-//{
-//	g_Paks[device].unk274 = 3;
-//	g_Paks[device].unk014 = 0;
-//	g_Paks[device].type = PAKTYPE_NONE;
-//	g_Paks[device].unk008 = 1;
-//	g_Paks[device].rumblestate = RUMBLESTATE_1;
-//	g_Paks[device].unk00c = 3;
-//	g_Paks[device].unk010 = PAK010_00;
-//	g_Paks[device].pdnoteindex = -1;
-//	g_Paks[device].unk2bd = 128;
-//	g_Paks[device].unk264 = 0;
-//	g_Paks[device].unk2b8_01 = 0;
-//	g_Paks[device].unk2b8_05 = 0;
-//	g_Paks[device].isgbcamera = 0;
-//	g_Paks[device].unk2b8_02 = 0;
-//	g_Paks[device].unk2b8_06 = 0;
-//	g_Paks[device].unk2b8_07 = 0;
-//	g_Paks[device].headercache = NULL;
-//	g_Paks[device].unk2c4 = NULL;
-//	g_Paks[device].maxfileid = 8;
-//	g_Paks[device].serial = 0;
-//	g_Paks[device].unk2c8 = 0;
-//	g_Paks[device].rumblettl = -1;
-//}
+	g_Paks[device].headercache = NULL;
+	g_Paks[device].unk2c4 = NULL;
+	g_Paks[device].maxfileid = 8;
+	g_Paks[device].serial = 0;
+	g_Paks[device].rumblettl = -1;
+#if VERSION >= VERSION_NTSC_1_0
+	g_Paks[device].unk2c8 = 0;
+#endif
+}
 
 PakErr1 pakReadWriteBlock(s8 device, OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer)
 {
