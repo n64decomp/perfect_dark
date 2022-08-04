@@ -2013,3 +2013,11 @@
 #define FILE_ASAUCEREXP1M            0x07dd
 #define FILE_PJPNLOGO                0x07de
 #define FILE_PJPNPD                  0x07df
+
+#if VERSION >= VERSION_JPN_FINAL
+#define NUM_FILES 2016
+#elif VERSION >= VERSION_NTSC_1_0
+#define NUM_FILES 2014
+#else
+#define NUM_FILES 2013
+#endif
