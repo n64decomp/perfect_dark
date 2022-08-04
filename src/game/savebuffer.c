@@ -958,95 +958,31 @@ void func0f0d564c(u8 *data, char *dst, bool addlinebreak)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0d5690
-/*  f0d5690:	27bdfed8 */ 	addiu	$sp,$sp,-296
-/*  f0d5694:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0d5698:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0d569c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0d56a0:	00809025 */ 	or	$s2,$a0,$zero
-/*  f0d56a4:	27b30048 */ 	addiu	$s3,$sp,0x48
-/*  f0d56a8:	00a0a825 */ 	or	$s5,$a1,$zero
-/*  f0d56ac:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0d56b0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0d56b4:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0d56b8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0d56bc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0d56c0:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0d56c4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0d56c8:	0fc35521 */ 	jal	func0f0d5484
-/*  f0d56cc:	2406000a */ 	addiu	$a2,$zero,0xa
-/*  f0d56d0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0d56d4:	2414000a */ 	addiu	$s4,$zero,0xa
-.L0f0d56d8:
-/*  f0d56d8:	1600000e */ 	bnez	$s0,.L0f0d5714
-/*  f0d56dc:	02b17021 */ 	addu	$t6,$s5,$s1
-/*  f0d56e0:	91c20000 */ 	lbu	$v0,0x0($t6)
-/*  f0d56e4:	14400003 */ 	bnez	$v0,.L0f0d56f4
-/*  f0d56e8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0d56ec:	10000009 */ 	b	.L0f0d5714
-/*  f0d56f0:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f0d56f4:
-/*  f0d56f4:	16830003 */ 	bne	$s4,$v1,.L0f0d5704
-/*  f0d56f8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0d56fc:	10000005 */ 	b	.L0f0d5714
-/*  f0d5700:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f0d5704:
-/*  f0d5704:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0d5708:	24060008 */ 	addiu	$a2,$zero,0x8
-/*  f0d570c:	0fc354d8 */ 	jal	savebufferWriteBits
-/*  f0d5710:	02403825 */ 	or	$a3,$s2,$zero
-.L0f0d5714:
-/*  f0d5714:	12000005 */ 	beqz	$s0,.L0f0d572c
-/*  f0d5718:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0d571c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d5720:	24060008 */ 	addiu	$a2,$zero,0x8
-/*  f0d5724:	0fc354d8 */ 	jal	savebufferWriteBits
-/*  f0d5728:	02403825 */ 	or	$a3,$s2,$zero
-.L0f0d572c:
-/*  f0d572c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0d5730:	1634ffe9 */ 	bne	$s1,$s4,.L0f0d56d8
-/*  f0d5734:	00000000 */ 	nop
-/*  f0d5738:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0d573c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0d5740:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0d5744:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0d5748:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0d574c:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0d5750:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0d5754:	03e00008 */ 	jr	$ra
-/*  f0d5758:	27bd0128 */ 	addiu	$sp,$sp,0x128
-);
+void func0f0d5690(u8 *dst, char *src)
+{
+	struct savebuffer buffer;
+	bool done = false;
+	s32 i;
 
-// Mismatch: Goal uses both v0 and v1 for src[i] and c, but in some weird way.
-//void func0f0d5690(u8 *dst, char *src)
-//{
-//	struct savebuffer buffer;
-//	bool done = false;
-//	s32 i;
-//	char c;
-//	s32 v1;
-//
-//	func0f0d5484(&buffer, arg0, 10);
-//
-//	for (i = 0; i < 10; i++) {
-//		if (!done) {
-//			c = src[i];
-//
-//			if (src[i] == '\0') {
-//				done = true;
-//			} else if (c == '\n') {
-//				done = true;
-//			} else {
-//				savebufferWriteBits(&buffer, c, 8, dst);
-//			}
-//		}
-//
-//		if (done) {
-//			savebufferWriteBits(&buffer, '\0', 8, dst);
-//		}
-//	}
-//}
+	func0f0d5484(&buffer, dst, 10);
+
+	for (i = 0; i < 10; i++) {
+		if (!done) {
+			if (src[i] == '\0') {
+				done = true;
+			} else if (src[i] == '\n') {
+				done = true;
+			} else {
+				u32 c = src[i];
+				savebufferWriteBits(&buffer, c, 8, dst);
+			}
+		}
+
+		if (done) {
+			savebufferWriteBits(&buffer, '\0', 8, dst);
+		}
+	}
+}
 #endif
 
 void savebufferWriteGuid(struct savebuffer *buffer, struct fileguid *guid)
