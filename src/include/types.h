@@ -3470,7 +3470,7 @@ struct bootbufferthingdeep {
 			u16 u16_2;
 		};
 	} unk0c;
-	u32 unk10;
+	struct light *light;
 };
 
 struct bootbufferthing2 {
@@ -3556,7 +3556,8 @@ struct roomgfxdata {
 	/*0x04*/ u32 *colours;
 	/*0x08*/ struct roomgfxdata18 *unk08; // opa
 	/*0x0c*/ struct roomgfxdata18 *unk0c; // xlu
-	/*0x10*/ s32 unk10;
+	/*0x10*/ s16 lightsindex;
+	/*0x12*/ s16 numlights;
 	/*0x14*/ s16 numvertices;
 	/*0x16*/ s16 numcolours;
 	/*0x18*/ struct roomgfxdata18 unk18[1];
@@ -4638,7 +4639,7 @@ struct smoke {
 	union {
 		// The thing generating smoke
 		struct prop *sourceprop;
-		struct padeffect *padeffect;
+		struct padeffectobj *padeffect;
 		void *source;
 	};
 };

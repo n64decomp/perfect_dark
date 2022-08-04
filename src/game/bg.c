@@ -1985,7 +1985,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		}
 
 		if (!g_Vars.mplayerisrunning) {
-			func0f13c780(thing->roomnum);
+			lightsCalculateGlareBrightness(thing->roomnum);
 
 			if (var8007fc14 < 100) {
 				var800a4bf8[var8007fc14++] = thing->roomnum;
@@ -2675,7 +2675,7 @@ glabel bgRenderScene
 /*  f1556f4:	8d8ce9d4 */ 	lw	$t4,-0x162c($t4)
 /*  f1556f8:	5580000f */ 	bnezl	$t4,.NB0f155738
 /*  f1556fc:	2673fffe */ 	addiu	$s3,$s3,-2
-/*  f155700:	0fc4dca0 */ 	jal	func0f13c780
+/*  f155700:	0fc4dca0 */ 	jal	lightsCalculateGlareBrightness
 /*  f155704:	86040000 */ 	lh	$a0,0x0($s0)
 /*  f155708:	3c028008 */ 	lui	$v0,0x8008
 /*  f15570c:	8c422478 */ 	lw	$v0,0x2478($v0)
