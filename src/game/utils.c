@@ -20,7 +20,7 @@ u32 var800ac0d8;
 u32 var800ac0dc;
 u32 var800ac0e0;
 u32 var800ac0e4;
-void *var800ac0e8[4];
+u8 *var800ac0e8[4];
 u32 var800ac0f8[4];
 
 f32 var800845d0 = 999999;
@@ -35,9 +35,9 @@ u32 var80084600 = 0x3f800000;
 u32 var80084604 = 0x00000000;
 u32 var80084608 = 0x00000000;
 u32 var8008460c = 0xffffffff;
-void *var80084610 = NULL;
-void *var80084614 = NULL;
-void *var80084618 = NULL;
+u8 *var80084610 = NULL;
+u8 *var80084614 = NULL;
+u8 *var80084618 = NULL;
 u32 var8008461c = 0x00000004;
 u32 var80084620 = 0x00000000;
 
@@ -78,99 +78,32 @@ u32 align32(u32 arg0)
 	return arg0;
 }
 
-GLOBAL_ASM(
-glabel utilsInit
-/*  f176ddc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f176de0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f176de4:	24042710 */ 	addiu	$a0,$zero,0x2710
-/*  f176de8:	0c0048f2 */ 	jal	mempAlloc
-/*  f176dec:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f176df0:	3c01800b */ 	lui	$at,%hi(var800ac0d0)
-/*  f176df4:	ac22c0d0 */ 	sw	$v0,%lo(var800ac0d0)($at)
-/*  f176df8:	0fc5db69 */ 	jal	align16
-/*  f176dfc:	24043900 */ 	addiu	$a0,$zero,0x3900
-/*  f176e00:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f176e04:	00402025 */ 	or	$a0,$v0,$zero
-/*  f176e08:	0c0048f2 */ 	jal	mempAlloc
-/*  f176e0c:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f176e10:	3c05800b */ 	lui	$a1,%hi(var800ac0e8)
-/*  f176e14:	24a5c0e8 */ 	addiu	$a1,$a1,%lo(var800ac0e8)
-/*  f176e18:	1040000e */ 	beqz	$v0,.L0f176e54
-/*  f176e1c:	aca20000 */ 	sw	$v0,0x0($a1)
-/*  f176e20:	3c02800b */ 	lui	$v0,%hi(var800ac0e8)
-/*  f176e24:	2442c0e8 */ 	addiu	$v0,$v0,%lo(var800ac0e8)
-/*  f176e28:	00001825 */ 	or	$v1,$zero,$zero
-/*  f176e2c:	24040190 */ 	addiu	$a0,$zero,0x190
-.L0f176e30:
-/*  f176e30:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*  f176e34:	0003c100 */ 	sll	$t8,$v1,0x4
-/*  f176e38:	24630064 */ 	addiu	$v1,$v1,0x64
-/*  f176e3c:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f176e40:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f176e44:	1464fffa */ 	bne	$v1,$a0,.L0f176e30
-/*  f176e48:	ac59fffc */ 	sw	$t9,-0x4($v0)
-/*  f176e4c:	10000009 */ 	b	.L0f176e74
-/*  f176e50:	8ca20000 */ 	lw	$v0,0x0($a1)
-.L0f176e54:
-/*  f176e54:	3c02800b */ 	lui	$v0,%hi(var800ac0e8)
-/*  f176e58:	3c03800b */ 	lui	$v1,%hi(var800ac0f8)
-/*  f176e5c:	2463c0f8 */ 	addiu	$v1,$v1,%lo(var800ac0f8)
-/*  f176e60:	2442c0e8 */ 	addiu	$v0,$v0,%lo(var800ac0e8)
-.L0f176e64:
-/*  f176e64:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f176e68:	1443fffe */ 	bne	$v0,$v1,.L0f176e64
-/*  f176e6c:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*  f176e70:	8ca20000 */ 	lw	$v0,0x0($a1)
-.L0f176e74:
-/*  f176e74:	8fa90018 */ 	lw	$t1,0x18($sp)
-/*  f176e78:	3c018008 */ 	lui	$at,%hi(var80084610)
-/*  f176e7c:	24481900 */ 	addiu	$t0,$v0,0x1900
-/*  f176e80:	ac284610 */ 	sw	$t0,%lo(var80084610)($at)
-/*  f176e84:	00495021 */ 	addu	$t2,$v0,$t1
-/*  f176e88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f176e8c:	254bffff */ 	addiu	$t3,$t2,-1
-/*  f176e90:	3c018008 */ 	lui	$at,%hi(var80084618)
-/*  f176e94:	3c0c8008 */ 	lui	$t4,%hi(var80084610)
-/*  f176e98:	8d8c4610 */ 	lw	$t4,%lo(var80084610)($t4)
-/*  f176e9c:	ac2b4618 */ 	sw	$t3,%lo(var80084618)($at)
-/*  f176ea0:	3c018008 */ 	lui	$at,%hi(var80084614)
-/*  f176ea4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f176ea8:	03e00008 */ 	jr	$ra
-/*  f176eac:	ac2c4614 */ 	sw	$t4,%lo(var80084614)($at)
-);
+void utilsInit(void)
+{
+	s32 i;
+	u32 stack;
+	u32 slotssize = 0x1900;
+	u32 allocsize;
 
-// Mismatch: Different codegen in last 3 statements
-//void utilsInit(void)
-//{
-//	u32 stack1;
-//	u32 stack2;
-//	s32 i;
-//	u32 size;
-//
-//	static void *var80084610 = NULL;
-//	static void *var80084614 = NULL;
-//	static void *var80084618 = NULL;
-//	static void *var800ac0e8[4];
-//
-//	var800ac0d0 = mempAlloc(10000, MEMPOOL_8);
-//
-//	size = align16(0x3900);
-//	var800ac0e8[0] = mempAlloc(size, MEMPOOL_8);
-//
-//	if (var800ac0e8[0] != NULL) {
-//		for (i = 0; i < 4; i++) {
-//			var800ac0e8[i] = (void *)((u32)var800ac0e8[0] + ((i * 100) << 4));
-//		}
-//	} else {
-//		for (i = 0; i < 4; i++) {
-//			var800ac0e8[i] = NULL;
-//		}
-//	}
-//
-//	var80084610 = (void *)((u32)var800ac0e8[0] + 0x1900);
-//	var80084614 = var80084610;
-//	var80084618 = (void *)((u32)var800ac0e8[0] + size - 1);
-//}
+	var800ac0d0 = mempAlloc(10000, MEMPOOL_8);
+
+	allocsize = align16(0x3900);
+	var800ac0e8[0] = mempAlloc(allocsize, MEMPOOL_8);
+
+	if (var800ac0e8[0] != NULL) {
+		for (i = 0; i < 4; i++) {
+			var800ac0e8[i] = var800ac0e8[0] + ((i * 100) << 4);
+		}
+	} else {
+		for (i = 0; i < 4; i++) {
+			var800ac0e8[i] = NULL;
+		}
+	}
+
+	var80084610 = var800ac0e8[0] + slotssize;
+	var80084618 = var800ac0e8[0] + allocsize - 1;
+	var80084614 = var80084610;
+}
 
 s32 func0f176eb0(s32 arg0, s32 arg1)
 {
