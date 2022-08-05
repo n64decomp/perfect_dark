@@ -87,7 +87,7 @@ s32 g_NumActiveRooms;
 u16 g_BgUnloadDelay240;
 u16 g_BgUnloadDelay240_2;
 u32 var800a4bf4;
-s16 var800a4bf8[100];
+s16 g_GlareRooms[100];
 u32 *g_BgPrimaryData2;
 struct bgroom *g_BgRooms;
 struct bgportal *g_BgPortals;
@@ -113,7 +113,7 @@ u32 var80082474nb = 0;
 
 s16 var8007fc0c = 0;
 s16 var8007fc10 = 0;
-s32 var8007fc14 = 0;
+s32 g_NumRoomsWithGlares = 0;
 u32 var8007fc18 = 0x01000100;
 u32 var8007fc1c = 0x00000000;
 s32 g_CamRoom = 0x00000001;
@@ -1758,7 +1758,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 	s16 roomorder[60];
 	s16 roomnums[60];
 
-	var8007fc14 = 0;
+	g_NumRoomsWithGlares = 0;
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 		gdl = bgRenderSceneInXray(gdl);
@@ -1985,10 +1985,10 @@ Gfx *bgRenderScene(Gfx *gdl)
 		}
 
 		if (!g_Vars.mplayerisrunning) {
-			lightsCalculateGlareBrightness(thing->roomnum);
+			artifactsCalculateGlaresForRoom(thing->roomnum);
 
-			if (var8007fc14 < 100) {
-				var800a4bf8[var8007fc14++] = thing->roomnum;
+			if (g_NumRoomsWithGlares < 100) {
+				g_GlareRooms[g_NumRoomsWithGlares++] = thing->roomnum;
 			}
 		}
 	}
@@ -2675,7 +2675,7 @@ glabel bgRenderScene
 /*  f1556f4:	8d8ce9d4 */ 	lw	$t4,-0x162c($t4)
 /*  f1556f8:	5580000f */ 	bnezl	$t4,.NB0f155738
 /*  f1556fc:	2673fffe */ 	addiu	$s3,$s3,-2
-/*  f155700:	0fc4dca0 */ 	jal	lightsCalculateGlareBrightness
+/*  f155700:	0fc4dca0 */ 	jal	artifactsCalculateGlaresForRoom
 /*  f155704:	86040000 */ 	lh	$a0,0x0($s0)
 /*  f155708:	3c028008 */ 	lui	$v0,0x8008
 /*  f15570c:	8c422478 */ 	lw	$v0,0x2478($v0)
@@ -2713,21 +2713,23 @@ glabel bgRenderScene
 );
 #endif
 
-Gfx *func0f15b114(Gfx *gdl)
+Gfx *bgRenderArtifacts(Gfx *gdl)
 {
 	s32 i;
 
-	if (g_Vars.mplayerisrunning == false && var8007fc14 > 0) {
+	if (g_Vars.mplayerisrunning == false && g_NumRoomsWithGlares > 0) {
 		gdl = func0f13d40c(gdl);
 
-		for (i = 0; i < var8007fc14; i++) {
-			gdl = func0f13d568(gdl, var800a4bf8[i]);
+		for (i = 0; i < g_NumRoomsWithGlares; i++) {
+			gdl = artifactsRenderGlaresForRoom(gdl, g_GlareRooms[i]);
 		}
 
 		gdl = func0f13d54c(gdl);
 	}
 
-	return sky0f12715c(gdl);
+	gdl = skyRenderArtifacts(gdl);
+
+	return gdl;
 }
 
 void bgLoadFile(void *memaddr, u32 offset, u32 len)

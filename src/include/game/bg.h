@@ -17,7 +17,7 @@ Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, boo
 Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum);
 Gfx *bgRenderSceneInXray(Gfx *gdl);
 Gfx *bgRenderScene(Gfx *gdl);
-Gfx *func0f15b114(Gfx *gdl);
+Gfx *bgRenderArtifacts(Gfx *gdl);
 void bgLoadFile(void *memaddr, u32 offset, u32 len);
 s32 stageGetIndex2(s32 stagenum);
 f32 portal0f15b274(s32 portal);

@@ -1311,7 +1311,7 @@ Gfx *lvRender(Gfx *gdl)
 					gdl = boltbeamsRender(gdl);
 
 					if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
-						gdl = func0f15b114(gdl);
+						gdl = bgRenderArtifacts(gdl);
 					}
 				}
 

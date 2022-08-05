@@ -5465,17 +5465,22 @@ struct lasersight {
 };
 
 struct vec3s16 {
-	s16 x;
-	s16 y;
-	s16 z;
+	union {
+		struct {
+			s16 x;
+			s16 y;
+			s16 z;
+		};
+		s16 s[3];
+	};
 };
 
 struct light {
 	/*0x00*/ u16 roomnum;
-	/*0x02*/ u16 unk02;
+	/*0x02*/ u16 colour; // 4/4/4/4
 	/*0x04*/ u8 unk04;
 	/*0x05*/ u8 unk05_00 : 1;
-	/*0x05*/ u8 healthy : 1; // just a guess based on context
+	/*0x05*/ u8 healthy : 1;
 	/*0x05*/ u8 on : 1;
 	/*0x05*/ u8 sparking : 1;
 	/*0x05*/ u8 vulnerable : 1;

@@ -4997,7 +4997,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->cameramode == CAMERAMODE_THIRDPERSON) {
 		gdl = boltbeamsRender(gdl);
-		gdl = func0f15b114(gdl);
+		gdl = bgRenderArtifacts(gdl);
 		gdl = hudmsgsRender(gdl);
 
 		if (g_Vars.currentplayer->isdead == false) {
@@ -5018,7 +5018,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 		gdl = lasersightRenderDot(gdl);
 
 		if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
-			gdl = func0f15b114(gdl);
+			gdl = bgRenderArtifacts(gdl);
 		}
 
 		if (g_NbombsActive) {
@@ -5298,7 +5298,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 
 		gdl = playerDrawStoredFade(gdl);
 	} else {
-		gdl = func0f15b114(gdl);
+		gdl = bgRenderArtifacts(gdl);
 
 		if (g_Vars.currentplayer->eyespy) {
 			if (g_Vars.currentplayer->eyespy->startuptimer60 < TICKS(50)) {

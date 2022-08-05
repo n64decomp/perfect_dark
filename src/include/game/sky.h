@@ -27,7 +27,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray);
 Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 orbsize, s32 arg5, f32 arg6);
 Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5);
 Gfx *sky0f126de8(Gfx *gdl);
-Gfx *sky0f12715c(Gfx *gdl);
+Gfx *skyRenderArtifacts(Gfx *gdl);
 void sky0f127334(s32 arg0, s32 arg1, s32 arg2);
 s32 sky0f127490(s32 arg0, s32 arg1);
 Gfx *sky0f1274d8(Gfx *gdl);

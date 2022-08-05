@@ -6550,7 +6550,7 @@ Gfx *sky0f126de8(Gfx *gdl)
 /**
  * Render teleport artifacts, and all suns and their artifacts.
  */
-Gfx *sky0f12715c(Gfx *gdl)
+Gfx *skyRenderArtifacts(Gfx *gdl)
 {
 	struct environment *env = envGetCurrent();
 	struct sun *sun;
