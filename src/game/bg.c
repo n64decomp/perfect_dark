@@ -2718,13 +2718,13 @@ Gfx *bgRenderArtifacts(Gfx *gdl)
 	s32 i;
 
 	if (g_Vars.mplayerisrunning == false && g_NumRoomsWithGlares > 0) {
-		gdl = func0f13d40c(gdl);
+		gdl = artifactsConfigureForGlares(gdl);
 
 		for (i = 0; i < g_NumRoomsWithGlares; i++) {
 			gdl = artifactsRenderGlaresForRoom(gdl, g_GlareRooms[i]);
 		}
 
-		gdl = func0f13d54c(gdl);
+		gdl = artifactsUnconfigureForGlares(gdl);
 	}
 
 	gdl = skyRenderArtifacts(gdl);

@@ -65,11 +65,11 @@ s32 var8008de10;
 u32 var8008de14;
 OSTimer g_SchedRspTimer;
 u32 g_SchedDpCounters[4];
-struct bootbufferthing g_BootBuffers[3];
-u8 g_BootBufferDirtyIndexes[3];
-s32 g_BootBufferIndex0;
-s32 g_BootBufferIndex1;
-s32 g_BootBufferIndex2;
+struct artifact g_ArtifactLists[3][120];
+u8 g_SchedSpecialArtifactIndexes[3];
+s32 g_SchedWriteArtifactsIndex;
+s32 g_SchedFrontArtifactsIndex;
+s32 g_SchedPendingArtifactsIndex;
 
 bool g_SchedCrashedUnexpectedly = false;
 bool g_SchedCrashEnable1 = false;
@@ -232,7 +232,7 @@ void __scMain(void *arg)
 	OSSched *sc = (OSSched *)arg;
 	int done = 0;
 
-	bbufResetBuffers();
+	schedInitArtifacts();
 
 	while (!done) {
 		osRecvMesg(&sc->interruptQ, (OSMesg *)&msg, OS_MESG_BLOCK);
@@ -439,87 +439,101 @@ u32 *schedGetDpCounters(void)
 	return g_SchedDpCounters;
 }
 
-void bbufResetBuffers(void)
+void schedInitArtifacts(void)
 {
 	s32 i;
 	s32 j;
 
 	for (i = 0; i < 3; i++) {
-		for (j = 0; j < 120; j++) {
-			g_BootBuffers[i].unk00[0].unk00[j].unk00 = 0;
+		for (j = 0; j < MAX_ARTIFACTS; j++) {
+			g_ArtifactLists[i][j].type = ARTIFACTTYPE_FREE;
 		}
 
-		g_BootBufferDirtyIndexes[i] = 0;
+		g_SchedSpecialArtifactIndexes[i] = 0;
 	}
 }
 
-struct bootbufferthing *bbufGetIndex0Buffer(void)
+/**
+ * The write list is an artifact list that is not currently being displayed on
+ * the screen. Update logic can write here to put artifacts on the next frame.
+ */
+struct artifact *schedGetWriteArtifacts(void)
 {
-	return &g_BootBuffers[g_BootBufferIndex0];
+	return g_ArtifactLists[g_SchedWriteArtifactsIndex];
 }
 
-struct bootbufferthing *bbufGetIndex1Buffer(void)
+/**
+ * The front list is the artifact list that is currently being displayed on the
+ * screen. Rendering logic reads this list. The list may be re-used for multiple
+ * frames in a row during lag.
+ */
+struct artifact *schedGetFrontArtifacts(void)
 {
-	return &g_BootBuffers[g_BootBufferIndex1];
+	return g_ArtifactLists[g_SchedFrontArtifactsIndex];
 }
 
-struct bootbufferthing *bbufGetIndex2Buffer(void)
+/**
+ * The pending list is possibly misnamed. I'm not sure how this list works.
+ *
+ * @TODO: Investigate.
+ */
+struct artifact *schedGetPendingArtifacts(void)
 {
-	return &g_BootBuffers[g_BootBufferIndex2];
+	return g_ArtifactLists[g_SchedPendingArtifactsIndex];
 }
 
-void bbufIncIndex0(void)
+void schedIncrementWriteArtifacts(void)
 {
-	g_BootBufferIndex0 = (g_BootBufferIndex0 + 1) % 3;
+	g_SchedWriteArtifactsIndex = (g_SchedWriteArtifactsIndex + 1) % 3;
 }
 
-void bbufIncIndex1(void)
+void schedIncrementFrontArtifacts(void)
 {
-	g_BootBufferIndex1 = (g_BootBufferIndex1 + 1) % 3;
+	g_SchedFrontArtifactsIndex = (g_SchedFrontArtifactsIndex + 1) % 3;
 }
 
-void bbufIncIndex2(void)
+void schedIncrementPendingArtifacts(void)
 {
-	g_BootBufferIndex2 = (g_BootBufferIndex2 + 1) % 3;
+	g_SchedPendingArtifactsIndex = (g_SchedPendingArtifactsIndex + 1) % 3;
 }
 
-void bbufResetIndexes(void)
+void schedResetArtifacts(void)
 {
-	g_BootBufferIndex0 = 0;
-	g_BootBufferIndex1 = 1;
-	g_BootBufferIndex2 = 0;
+	g_SchedWriteArtifactsIndex = 0;
+	g_SchedFrontArtifactsIndex = 1;
+	g_SchedPendingArtifactsIndex = 0;
 }
 
-void bbufUpdateIndex2Buffer(void)
+void schedUpdatePendingArtifacts(void)
 {
-	struct bootbufferthing *thing = bbufGetIndex2Buffer();
+	struct artifact *artifacts = schedGetPendingArtifacts();
 	s32 i;
 
-	for (i = 0; i < 120; i++) {
-		struct bootbufferthingdeep *deep = &thing->unk00[0].unk00[i];
+	for (i = 0; i < MAX_ARTIFACTS; i++) {
+		struct artifact *artifact = &artifacts[i];
 
-		if (deep->unk00) {
-			u16 *unk08 = deep->unk08;
+		if (artifact->type != ARTIFACTTYPE_FREE) {
+			u16 *unk08 = artifact->unk08;
 			u16 value08 = unk08[0];
 
-			if (g_BootBufferDirtyIndexes[g_BootBufferIndex2] == 1) {
-				u16 *unk0c = deep->unk0c.u16p;
+			if (g_SchedSpecialArtifactIndexes[g_SchedPendingArtifactsIndex] == 1) {
+				u16 *unk0c = artifact->unk0c.u16p;
 				u16 value0c = unk0c[0];
 
 				if (value0c > value08) {
-					deep->unk02 = value08;
+					artifact->unk02 = value08;
 				} else {
-					deep->unk02 = value0c;
+					artifact->unk02 = value0c;
 				}
 			} else {
-				deep->unk02 = value08;
+				artifact->unk02 = value08;
 			}
 		}
 	}
 
-	g_BootBufferDirtyIndexes[g_BootBufferIndex2] = 0;
+	g_SchedSpecialArtifactIndexes[g_SchedPendingArtifactsIndex] = 0;
 
-	bbufIncIndex2();
+	schedIncrementPendingArtifacts();
 }
 
 /**
@@ -531,7 +545,7 @@ void __scHandleRDP(OSSched *sc)
 	s32 state;
 
 	if (sc->curRDPTask != NULL) {
-		bbufUpdateIndex2Buffer();
+		schedUpdatePendingArtifacts();
 
 		if (var8005dd18 == 0) {
 			schedConsiderScreenshot();

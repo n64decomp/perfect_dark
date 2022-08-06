@@ -142,7 +142,7 @@ u16 *mblur0f176668(s32 arg0)
 
 Gfx *mblurRender(Gfx *gdl)
 {
-	struct bootbufferthing *thing = bbufGetIndex0Buffer();
+	struct artifact *artifacts = schedGetWriteArtifacts();
 	u32 stack;
 	u16 *sp4c = var800844f0;
 	u32 s4 = 0;
@@ -152,8 +152,8 @@ Gfx *mblurRender(Gfx *gdl)
 	s32 i;
 
 	viGetBackBuffer();
-	sp44 = mblur0f176668(g_BootBufferIndex0);
-	g_BootBufferDirtyIndexes[g_BootBufferIndex0] = 1;
+	sp44 = mblur0f176668(g_SchedWriteArtifactsIndex);
+	g_SchedSpecialArtifactIndexes[g_SchedWriteArtifactsIndex] = 1;
 
 	gDPPipeSync(gdl++);
 	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_PHYSICAL_TO_K0(sp44));
@@ -179,12 +179,12 @@ Gfx *mblurRender(Gfx *gdl)
 	gSPClearGeometryMode(gdl++, G_ZBUFFER);
 	gDPTileSync(gdl++);
 
-	for (i = 0; i < 120; i++) {
+	for (i = 0; i < MAX_ARTIFACTS; i++) {
 		if (1);
 
-		if (thing->unk00[0].unk00[i].unk00) {
+		if (artifacts[i].type != ARTIFACTTYPE_FREE) {
 			s2 = &sp44[s4];
-			image = &sp4c[thing->unk00[0].unk00[i].unk0c.u16_1 * viGetWidth()];
+			image = &sp4c[artifacts[i].unk0c.u16_1 * viGetWidth()];
 
 			gDPPipeSync(gdl++);
 			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
@@ -195,9 +195,9 @@ Gfx *mblurRender(Gfx *gdl)
 			gSPTextureRectangle(gdl++,
 					s4 << 2, 0,
 					(s4 + 3) << 2, 0,
-					G_TX_RENDERTILE, (thing->unk00[0].unk00[i].unk0c.u16_2 * 32) + 16, 0x0010, 0x1000, 0);
+					G_TX_RENDERTILE, (artifacts[i].unk0c.u16_2 * 32) + 16, 0x0010, 0x1000, 0);
 
-			thing->unk00[0].unk00[i].unk0c.u16p = s2;
+			artifacts[i].unk0c.u16p = s2;
 			s4++;
 
 			if (s2);

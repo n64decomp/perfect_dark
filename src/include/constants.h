@@ -244,6 +244,10 @@
 #define ANIMHEADERFLAG_40 0x40 // len 5
 #define ANIMHEADERFLAG_80 0x80 // len 0
 
+#define ARTIFACTTYPE_FREE   0
+#define ARTIFACTTYPE_CIRCLE 1 // from a sun lens flare or teleport
+#define ARTIFACTTYPE_GLARE  2 // from a light
+
 #define ATTACKFLAG_AIMATBOND      0x0001 // aim/shoot at Jo
 #define ATTACKFLAG_AIMFORWARD     0x0002 // aim/shoot in front of self
 #define ATTACKFLAG_AIMATCHR       0x0004 // aim/shoot at chr (ID should be given in entityid)
@@ -1467,6 +1471,7 @@
 #define MA_PUNCHING        54
 #define MA_END             55
 
+#define MAX_ARTIFACTS      120
 #define MAX_CHRWAYPOINTS   6
 #define MAX_DANGEROUSPROPS 12
 #define MAX_LIFTS          10

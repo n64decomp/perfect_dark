@@ -4312,10 +4312,7 @@ glabel var7f1b5104
 /*  f125944:	27bd04d0 */ 	addiu	$sp,$sp,0x4d0
 );
 
-/**
- * With this function stubbed, sun artifacts and glare do not render.
- */
-void sky0f125948(struct bootbufferthingdeep *arg0, s32 x, s32 y)
+void skyCreateArtifact(struct artifact *artifact, s32 x, s32 y)
 {
 	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
@@ -4323,20 +4320,20 @@ void sky0f125948(struct bootbufferthingdeep *arg0, s32 x, s32 y)
 	s32 viewheight = viGetViewHeight();
 
 	if (x >= viewleft && x < viewleft + viewwidth && y >= viewtop && y < viewtop + viewheight) {
-		arg0->unk08 = &var800844f0[(s32)camGetScreenWidth() * y + x];
-		arg0->unk0c.u16_2 = x;
-		arg0->unk0c.u16_1 = y;
-		arg0->unk00 = 1;
+		artifact->unk08 = &var800844f0[(s32)camGetScreenWidth() * y + x];
+		artifact->unk0c.u16_2 = x;
+		artifact->unk0c.u16_1 = y;
+		artifact->type = ARTIFACTTYPE_CIRCLE;
 	}
 }
 
-f32 sky0f125a1c(struct bootbufferthingdeep *arg0)
+f32 sky0f125a1c(struct artifact *artifacts)
 {
 	f32 sum = 0;
 	s32 i;
 
 	for (i = 0; i < 8; i++) {
-		if (arg0[i].unk00 == 1 && arg0[i].unk02 == 0xfffc) {
+		if (artifacts[i].type == ARTIFACTTYPE_CIRCLE && artifacts[i].unk02 == 0xfffc) {
 			sum += 0.125f;
 		}
 	}
@@ -4356,7 +4353,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 	f32 viewtopf;
 	f32 viewwidthf;
 	f32 viewheightf;
-	struct bootbufferthing *thing;
+	struct artifact *artifacts;
 	u8 colour[3];
 	struct environment *env;
 	struct sun *sun;
@@ -4427,7 +4424,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 						// Sun's centre point is on-screen
 						f32 distfromedge;
 						f32 mindistfromedge;
-						thing = bbufGetIndex0Buffer();
+						artifacts = schedGetWriteArtifacts();
 						onscreen = true;
 						mindistfromedge = 1000;
 
@@ -4477,14 +4474,14 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 							g_SunAlphaFracs[i] = 1.0f;
 						}
 
-						sky0f125948(&(i + thing->unk00)->unk00[0], (s32)g_SunScreenXPositions[i] - 7, (s32)g_SunScreenYPositions[i] + 1);
-						sky0f125948(&(i + thing->unk00)->unk00[1], (s32)g_SunScreenXPositions[i] - 5, (s32)g_SunScreenYPositions[i] - 3);
-						sky0f125948(&(i + thing->unk00)->unk00[2], (s32)g_SunScreenXPositions[i] - 3, (s32)g_SunScreenYPositions[i] + 5);
-						sky0f125948(&(i + thing->unk00)->unk00[3], (s32)g_SunScreenXPositions[i] - 1, (s32)g_SunScreenYPositions[i] - 7);
-						sky0f125948(&(i + thing->unk00)->unk00[4], (s32)g_SunScreenXPositions[i] + 1, (s32)g_SunScreenYPositions[i] + 7);
-						sky0f125948(&(i + thing->unk00)->unk00[5], (s32)g_SunScreenXPositions[i] + 3, (s32)g_SunScreenYPositions[i] - 5);
-						sky0f125948(&(i + thing->unk00)->unk00[6], (s32)g_SunScreenXPositions[i] + 5, (s32)g_SunScreenYPositions[i] + 3);
-						sky0f125948(&(i + thing->unk00)->unk00[7], (s32)g_SunScreenXPositions[i] + 7, (s32)g_SunScreenYPositions[i] - 1);
+						skyCreateArtifact(&artifacts[i * 8 + 0], (s32)g_SunScreenXPositions[i] - 7, (s32)g_SunScreenYPositions[i] + 1);
+						skyCreateArtifact(&artifacts[i * 8 + 1], (s32)g_SunScreenXPositions[i] - 5, (s32)g_SunScreenYPositions[i] - 3);
+						skyCreateArtifact(&artifacts[i * 8 + 2], (s32)g_SunScreenXPositions[i] - 3, (s32)g_SunScreenYPositions[i] + 5);
+						skyCreateArtifact(&artifacts[i * 8 + 3], (s32)g_SunScreenXPositions[i] - 1, (s32)g_SunScreenYPositions[i] - 7);
+						skyCreateArtifact(&artifacts[i * 8 + 4], (s32)g_SunScreenXPositions[i] + 1, (s32)g_SunScreenYPositions[i] + 7);
+						skyCreateArtifact(&artifacts[i * 8 + 5], (s32)g_SunScreenXPositions[i] + 3, (s32)g_SunScreenYPositions[i] - 5);
+						skyCreateArtifact(&artifacts[i * 8 + 6], (s32)g_SunScreenXPositions[i] + 5, (s32)g_SunScreenYPositions[i] + 3);
+						skyCreateArtifact(&artifacts[i * 8 + 7], (s32)g_SunScreenXPositions[i] + 7, (s32)g_SunScreenYPositions[i] - 1);
 					}
 
 					if (1);
@@ -4519,7 +4516,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 					gDPSetTexturePersp(gdl++, G_TP_PERSP);
 					gDPSetTextureLOD(gdl++, G_TL_LOD);
 
-					sp124 = sky0f125a1c(bbufGetIndex1Buffer()->unk00[i].unk00);
+					sp124 = sky0f125a1c(&schedGetFrontArtifacts()[i * 8]);
 				}
 
 				if (onscreen && sp124 > 0.0f) {
@@ -6569,8 +6566,8 @@ Gfx *skyRenderArtifacts(Gfx *gdl)
 
 	for (i = 0; i < env->numsuns; i++) {
 		if (sun->lens_flare && g_SunPositions[i].z > 1) {
-			struct bootbufferthing *thing = bbufGetIndex1Buffer();
-			f32 value = sky0f125a1c(thing->unk00[i].unk00);
+			struct artifact *artifact = schedGetFrontArtifacts() + i * 8;
+			f32 value = sky0f125a1c(artifact);
 
 			if (value > 0.0f) {
 				gdl = sky0f126384(gdl, g_SunScreenXPositions[i], g_SunScreenYPositions[i], value, sun->orb_size, g_SunFlareTimers240[i], g_SunAlphaFracs[i]);

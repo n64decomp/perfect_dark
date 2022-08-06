@@ -3457,8 +3457,8 @@ struct audioconfig {
 	u32 flags;
 };
 
-struct bootbufferthingdeep {
-	u16 unk00;
+struct artifact {
+	u16 type;
 	u16 unk02;
 	u16 unk04;
 	u16 unk06;
@@ -3471,14 +3471,6 @@ struct bootbufferthingdeep {
 		};
 	} unk0c;
 	struct light *light;
-};
-
-struct bootbufferthing2 {
-	struct bootbufferthingdeep unk00[8];
-};
-
-struct bootbufferthing {
-	struct bootbufferthing2 unk00[15];
 };
 
 struct credit {

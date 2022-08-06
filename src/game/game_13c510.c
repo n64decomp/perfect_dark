@@ -22,20 +22,20 @@ u32 var800a41a4;
 u32 var800a41a8;
 u32 var800a41ac;
 
-void func0f13c510(void)
+void artifactsClear(void)
 {
-	struct bootbufferthing *thing = bbufGetIndex0Buffer();
+	struct artifact *artifacts = schedGetWriteArtifacts();
 	s32 i;
 
-	for (i = 0; i < 120; i++) {
-		thing->unk00[0].unk00[i].unk00 = 0;
+	for (i = 0; i < MAX_ARTIFACTS; i++) {
+		artifacts[i].type = ARTIFACTTYPE_FREE;
 	}
 }
 
-void func0f13c54c(void)
+void artifactsTick(void)
 {
-	bbufIncIndex0();
-	bbufIncIndex1();
+	schedIncrementWriteArtifacts();
+	schedIncrementFrontArtifacts();
 }
 
 u16 func0f13c574(f32 arg0)
@@ -130,9 +130,9 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 	struct coord spc4;
 	struct light *roomlights;
 	s32 index;
-	struct bootbufferthing *spb8 = bbufGetIndex0Buffer();
+	struct artifact *artifacts = schedGetWriteArtifacts();
 	struct coord *campos = &g_Vars.currentplayer->cam_pos;
-	struct bootbufferthingdeep *ptr;
+	struct artifact *artifact;
 
 	if (g_Rooms[roomnum].gfxdata != NULL && g_Rooms[roomnum].loaded240) {
 		numlights = g_Rooms[roomnum].gfxdata->numlights;
@@ -313,20 +313,21 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 									&& f0 < 32576.0f) {
 								index = envGetCurrent()->numsuns;
 								index *= 8;
-								ptr = &spb8->unk00[0].unk00[index];
+								artifact = artifacts;
+								artifact += index;
 
-								while (ptr->unk00) {
+								while (artifact->type != ARTIFACTTYPE_FREE) {
 									index++;
-									ptr++;
+									artifact++;
 								}
 
-								if (index < 120) {
-									ptr->unk04 = func0f13c574(f0) >> 2;
-									ptr->unk08 = &var800844f0[viGetWidth() * yi + xi];
-									ptr->light = &roomlights[i];
-									ptr->unk00 = 2;
-									ptr->unk0c.u16_2 = xi;
-									ptr->unk0c.u16_1 = yi;
+								if (index < MAX_ARTIFACTS) {
+									artifact->unk04 = func0f13c574(f0) >> 2;
+									artifact->unk08 = &var800844f0[viGetWidth() * yi + xi];
+									artifact->light = &roomlights[i];
+									artifact->type = ARTIFACTTYPE_GLARE;
+									artifact->unk0c.u16_2 = xi;
+									artifact->unk0c.u16_1 = yi;
 								}
 							}
 						}
@@ -350,7 +351,7 @@ u8 func0f13d3c4(u8 arg0, u8 arg1)
 	return arg1;
 }
 
-Gfx *func0f13d40c(Gfx *gdl)
+Gfx *artifactsConfigureForGlares(Gfx *gdl)
 {
 	struct stagetableentry *stage = stageGetCurrent();
 
@@ -369,7 +370,7 @@ Gfx *func0f13d40c(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *func0f13d54c(Gfx *gdl)
+Gfx *artifactsUnconfigureForGlares(Gfx *gdl)
 {
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 
@@ -381,7 +382,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 	s32 i;
 	s32 j;
 	s32 lightindex;
-	struct bootbufferthingdeep *artifacts;
+	struct artifact *artifacts;
 	u16 min;
 	u16 max;
 	f32 f30;
@@ -411,18 +412,18 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 	bool extra;
 	f32 f26;
 
-	artifacts = (void *) bbufGetIndex1Buffer();
+	artifacts = schedGetFrontArtifacts();
 	f30 = roomGetUnk5c(roomnum);
 
 	if (g_Rooms[roomnum].gfxdata == NULL || g_Rooms[roomnum].loaded240 == 0) {
 		return gdl;
 	}
 
-	for (i = envGetCurrent()->numsuns * 8; i < 120; i++) {
+	for (i = envGetCurrent()->numsuns * 8; i < MAX_ARTIFACTS; i++) {
 		struct light *light2 = artifacts[i].light;
 		count = 0;
 
-		for (j = i; j < 120 && artifacts[j].unk00 == 2 && artifacts[j].light == light2; j++) {
+		for (j = i; j < MAX_ARTIFACTS && artifacts[j].type == ARTIFACTTYPE_GLARE && artifacts[j].light == light2; j++) {
 			count++;
 		}
 
@@ -467,7 +468,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 						t2++;
 					}
 
-					artifacts[k].unk00 = 0;
+					artifacts[k].type = ARTIFACTTYPE_FREE;
 				}
 
 				s3[0] = func0f13d3c4(s3[0], t2 * 2);

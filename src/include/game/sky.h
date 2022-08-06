@@ -21,8 +21,8 @@ void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3, f32 ar
 bool sky0f122ce8(struct skything38 *arg0, struct skything38 *arg1);
 Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, f32 arg4, bool arg5);
 Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, struct skything38 *arg4, f32 arg5);
-void sky0f125948(struct bootbufferthingdeep *arg0, s32 x, s32 y);
-f32 sky0f125a1c(struct bootbufferthingdeep *arg0);
+void skyCreateArtifact(struct artifact *artifact, s32 x, s32 y);
+f32 sky0f125a1c(struct artifact *artifacts);
 Gfx *skyRenderSuns(Gfx *gdl, bool xray);
 Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 orbsize, s32 arg5, f32 arg6);
 Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5);
