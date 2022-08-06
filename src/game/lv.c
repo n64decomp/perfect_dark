@@ -1369,15 +1369,15 @@ Gfx *lvRender(Gfx *gdl)
 
 						// Handle visual effects in cutscenes
 						switch (g_CutsceneAnimNum) {
-						case 0x1e5:
+						case ANIM_CUT_CAVE_INTRO_CAM:
 							// Horizon scanner in Air Base intro
 							if (g_CutsceneCurAnimFrame60 > 839 && g_CutsceneCurAnimFrame60 < 1411) {
 								gdl = bviewDrawHorizonScanner(gdl);
 							}
 							break;
-						case 0x181:
-						case 0x183:
-						case 0x188:
+						case ANIM_CUT_LUE_INTRO_CAM_01:
+						case ANIM_CUT_LUE_INTRO_CAM_02:
+						case ANIM_CUT_LUE_INTRO_CAM_03:
 							{
 								// Show static randomly in Infiltration intro
 								s32 cutscenestatic = 0;

@@ -220,7 +220,7 @@ extern struct var800a4ccc *var800a4ccc;
 extern u8 *g_BgLightsFileData;
 extern s16 *g_RoomPortals;
 extern struct var800a4cf0 var800a4cf0;
-extern struct coord var800a6470[16];
+extern f32 var800a6470[16 * 3];
 extern struct var800a6538 var800a6538[16];
 extern u32 g_BgRoomTestsDisabled;
 extern struct screenbox var800a65c0;

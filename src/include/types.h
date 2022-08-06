@@ -5982,10 +5982,10 @@ struct var8009ddec {
 struct hitthing {
 	struct coord unk00;
 	struct coord unk0c;
-	void *unk18;
-	void *unk1c;
-	void *unk20;
-	Gfx *unk24;
+	struct gfxvtx *unk18;
+	struct gfxvtx *unk1c;
+	struct gfxvtx *unk20;
+	Gfx *tricmd;
 	s16 unk28;
 	s16 texturenum;
 	s16 unk2c;

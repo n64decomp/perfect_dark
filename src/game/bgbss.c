@@ -3,7 +3,7 @@
 #include "data.h"
 #include "types.h"
 
-struct coord var800a6470[16];
+f32 var800a6470[16 * 3];
 
 u32 var800a6530;
 u32 var800a6534;

@@ -5313,7 +5313,7 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 			break;
 		}
 
-		if (s4 && func0f15ffdc(model, arg3, &sp74, arg4, s4, s6, vertices, &sp98, arg5)) {
+		if (s4 && bgTestHitOnChr(model, arg3, &sp74, arg4, s4, s6, vertices, &sp98, arg5)) {
 			ok = true;
 			sp88 = node;
 			*arg7 = sp84;
@@ -5630,7 +5630,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 			s0 = false;
 
 			if (roomIsLoaded(spcc[i])) {
-				if (bgCalculateHitInRoom(&prop->pos, &sp1c4, spcc[i], &hitthing)) {
+				if (bgTestHitInRoom(&prop->pos, &sp1c4, spcc[i], &hitthing)) {
 					hitthing.unk00.x *= scale;
 					hitthing.unk00.y *= scale;
 					hitthing.unk00.z *= scale;
@@ -30868,7 +30868,7 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 				spe0.z = spd4.z * 32767.0f + spec.z;
 			}
 
-			if (func0f15f560(&spec, &spe0, &spd4, s3, s5, vertices, hitthing)) {
+			if (bgTestHitOnObj(&spec, &spe0, &spd4, s3, s5, vertices, hitthing)) {
 				*dstmtxindex = mtxindex;
 				*dstnode = node;
 				done = true;
