@@ -298,7 +298,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x011d*/ aiIfChrHasHiddenFlag,
 	/*0x011e*/ aiIfHuman,
 	/*0x011f*/ aiIfSkedar,
-	/*0x0120*/ ai0120,
+	/*0x0120*/ aiIfSafety2LessThan,
 	/*0x0121*/ aiFindCover,
 	/*0x0122*/ aiFindCoverWithinDist,
 	/*0x0123*/ aiFindCoverOutsideDist,

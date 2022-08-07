@@ -289,7 +289,7 @@
 /*0x011d*/ bool aiIfChrHasHiddenFlag(void);
 /*0x011e*/ bool aiIfHuman(void);
 /*0x011f*/ bool aiIfSkedar(void);
-/*0x0120*/ bool ai0120(void);
+/*0x0120*/ bool aiIfSafety2LessThan(void);
 /*0x0121*/ bool aiFindCover(void);
 /*0x0122*/ bool aiFindCoverWithinDist(void);
 /*0x0123*/ bool aiFindCoverOutsideDist(void);
