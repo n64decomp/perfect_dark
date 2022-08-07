@@ -11004,6 +11004,292 @@ glabel bgTestHitOnChr
 /*  f160a34:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
 );
 
+// Mismatch: Some moderate reordering, likely related to variable reuse.
+// Note that the branch instruction at 16052c can appear and disappear due to
+// changing other things in the function.
+//bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2, struct coord *arg3,
+//		Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, f32 *sqdistptr, struct hitthing *hitthing)
+//{
+//	s16 triref; // ee
+//	s32 trisremaining; // e8
+//	bool intersectsbbox; // e4
+//	s32 spdc;
+//	s32 spd8;
+//	bool hit; // cc
+//	struct gfxvtx *vtx; // c0
+//	Mtxf *mtx; // a8
+//	struct coord min; // 9c
+//	struct coord max; // 90
+//	struct coord sp84;
+//	struct coord sp78;
+//	s32 points[3]; // 6c
+//	s32 v1;
+//	s32 numvertices;
+//	f32 *ptr;
+//	s32 i;
+//	struct coord *point1;
+//	struct coord *point2;
+//	struct coord *point3;
+//	Gfx *tri4gdl;
+//
+//	spdc = 16;
+//	spd8 = 0;
+//	hit = false;
+//
+//	while (true) {
+//		if (gdl->dma.cmd == G_ENDDL) {
+//			if (gdl2 != NULL) {
+//				gdl = gdl2;
+//				gdl2 = NULL;
+//				continue;
+//			}
+//			break;
+//		} else if (gdl->dma.cmd == G_MTX) {
+//			// 080
+//			s32 mtxindex = (gdl->words.w1 & 0xffffff) / sizeof(Mtxf);
+//			mtx = &model->matrices[mtxindex];
+//		} else if (gdl->dma.cmd == G_VTX) {
+//			// 0bc
+//			v1 = gdl->bytes[1] & 0xf;
+//			numvertices = ((u32)gdl->bytes[1] >> 4) + 1;
+//			vtx = (struct gfxvtx *)((u32)vertices + (gdl->words.w1 & 0xffffff));
+//
+//			if (v1 < spdc) {
+//				spdc = v1;
+//			}
+//
+//			if (numvertices + v1 > spd8) {
+//				spd8 = numvertices + v1;
+//			}
+//
+//			ptr = &var800a6470[v1 * 3];
+//
+//			while (numvertices > 0) {
+//				ptr[0] = vtx->x;
+//				ptr[1] = vtx->y;
+//				ptr[2] = vtx->z;
+//
+//				mtx4TransformVecInPlace(mtx, (struct coord *) ptr);
+//
+//				ptr += 3;
+//				vtx++;
+//
+//				numvertices--;
+//			}
+//
+//			ptr = &var800a6470[spdc];
+//
+//			min.x = ptr[0];
+//			max.x = ptr[0];
+//			min.y = ptr[1];
+//			max.y = ptr[1];
+//			min.z = ptr[2];
+//			max.z = ptr[2];
+//
+//			ptr += 3;
+//
+//			for (i = spdc; i < spd8; i++) {
+//				if (ptr[0] < min.x) {
+//					min.x = ptr[0];
+//				}
+//
+//				if (ptr[1] < min.y) {
+//					min.y = ptr[1];
+//				}
+//
+//				if (ptr[2] < min.z) {
+//					min.z = ptr[2];
+//				}
+//
+//				if (ptr[0] > max.x) {
+//					max.x = ptr[0];
+//				}
+//
+//				if (ptr[1] > max.y) {
+//					max.y = ptr[1];
+//				}
+//
+//				if (ptr[2] > max.z) {
+//					max.z = ptr[2];
+//				}
+//
+//				ptr += 3;
+//			}
+//
+//			if ((arg1->x < min.x && arg2->x < min.x)
+//					|| (arg1->x > max.x && arg2->x > max.x)
+//					|| (arg1->y < min.y && arg2->y < min.y)
+//					|| (arg1->y > max.y && arg2->y > max.y)
+//					|| (arg1->z < min.z && arg2->z < min.z)
+//					|| (arg1->z > max.z && arg2->z > max.z)) {
+//				intersectsbbox = false;
+//			} else {
+//				intersectsbbox = bg0f15f2b0(arg1, arg3, &min, &max);
+//			}
+//		} else {
+//			// 3d4
+//			if (!intersectsbbox) {
+//				gdl++;
+//				continue;
+//			}
+//
+//			if ((gdl->dma.cmd != G_TRI1 && gdl->dma.cmd != G_TRI4)) {
+//				gdl++;
+//				continue;
+//			}
+//
+//			if (gdl->dma.cmd == G_TRI1) {
+//				trisremaining = 0;
+//				triref = 0;
+//				points[0] = gdl->tri.tri.v[0] / 10;
+//				points[1] = gdl->tri.tri.v[1] / 10;
+//				points[2] = gdl->tri.tri.v[2] / 10;
+//			} else if (gdl->dma.cmd == G_TRI4) {
+//				tri4gdl = gdl;
+//				trisremaining = 3;
+//				triref = 1;
+//				points[0] = tri4gdl->tri4.x1;
+//				points[1] = tri4gdl->tri4.y1;
+//				points[2] = tri4gdl->tri4.z1;
+//			}
+//
+//			do {
+//				if (points[0] == 0 && points[1] == 0 && points[2] == 0) {
+//					break;
+//				}
+//
+//				point1 = (struct coord *) &var800a6470[points[0] * 3];
+//				point2 = (struct coord *) &var800a6470[points[1] * 3];
+//				point3 = (struct coord *) &var800a6470[points[2] * 3];
+//
+//				min.x = point1->x;
+//				max.x = point1->x;
+//
+//				if (point2->x < min.x) {
+//					min.x = point2->x;
+//				}
+//
+//				if (point2->x > max.x) {
+//					max.x = point2->x;
+//				}
+//
+//				if (point3->x < min.x) {
+//					min.x = point3->x;
+//				}
+//
+//				if (point3->x > max.x) {
+//					max.x = point3->x;
+//				}
+//
+//				if (!(arg1->x < min.x && arg2->x < min.x) && !(arg1->x > max.x && arg2->x > max.x)) {
+//					min.z = point1->z;
+//					max.z = point1->z;
+//
+//					if (point2->z < min.z) {
+//						min.z = point2->z;
+//					}
+//
+//					if (point2->z > max.z) {
+//						max.z = point2->z;
+//					}
+//
+//					if (point3->z < min.z) {
+//						min.z = point3->z;
+//					}
+//
+//					if (point3->z > max.z) {
+//						max.z = point3->z;
+//					}
+//
+//					if (!(arg1->z < min.z && arg2->z < min.z) && !(arg1->z > max.z && arg2->z > max.z)) {
+//						min.y = point1->y;
+//						max.y = point1->y;
+//
+//						if (point2->y < min.y) {
+//							min.y = point2->y;
+//						}
+//
+//						if (point2->y > max.y) {
+//							max.y = point2->y;
+//						}
+//
+//						if (point3->y < min.y) {
+//							min.y = point3->y;
+//						}
+//
+//						if (point3->y > max.y) {
+//							max.y = point3->y;
+//						}
+//
+//						if (!(arg1->y < min.y && arg2->y < min.y) && !(arg1->y > max.y && arg2->y > max.y)) {
+//							if (bg0f15f2b0(arg1, arg3, &min, &max)
+//									&& func0002f560(point1, point2, point3, 0, arg1, arg2, arg3, &sp84, &sp78)) {
+//								f32 tmp;
+//								f32 sqdist;
+//
+//								tmp = sp84.x - arg1->x;
+//								sqdist = tmp * tmp;
+//
+//								tmp = sp84.y - arg1->y;
+//								sqdist += tmp * tmp;
+//
+//								tmp = sp84.z - arg1->z;
+//								sqdist += tmp * tmp;
+//
+//								if (sqdist < *sqdistptr) {
+//									hit = true;
+//
+//									*sqdistptr = sqdist;
+//
+//									hitthing->unk00.x = sp84.x;
+//									hitthing->unk00.y = sp84.y;
+//									hitthing->unk00.z = sp84.z;
+//									hitthing->unk0c.x = sp78.x;
+//									hitthing->unk0c.y = sp78.y;
+//									hitthing->unk0c.z = sp78.z;
+//									hitthing->unk18 = &vtx[points[0]];
+//									hitthing->unk1c = &vtx[points[1]];
+//									hitthing->unk20 = &vtx[points[2]];
+//									hitthing->texturenum = -1;
+//									hitthing->unk28 = triref;
+//									hitthing->tricmd = gdl;
+//								}
+//							}
+//						}
+//					}
+//				}
+//
+//				trisremaining--;
+//
+//				if (1);
+//				if (1);
+//				if (1);
+//
+//				if (trisremaining == 2) {
+//					points[0] = tri4gdl->tri4.x2;
+//					points[1] = tri4gdl->tri4.y2;
+//					points[2] = tri4gdl->tri4.z2;
+//					triref = 2;
+//				} else if (trisremaining == 1) {
+//					points[0] = tri4gdl->tri4.x3;
+//					points[1] = tri4gdl->tri4.y3;
+//					points[2] = tri4gdl->tri4.z3;
+//					triref = 3;
+//				} else if (trisremaining == 0) {
+//					points[0] = tri4gdl->tri4.x4;
+//					points[1] = tri4gdl->tri4.y4;
+//					points[2] = tri4gdl->tri4.z4;
+//					triref = 1;
+//				}
+//			} while (trisremaining >= 0);
+//		}
+//
+//		gdl++;
+//	}
+//
+//	return hit;
+//}
+
 bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct vtxbatch *batch, s32 roomnum, struct hitthing *hitthing)
 {
 	s16 stack;
