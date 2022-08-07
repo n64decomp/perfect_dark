@@ -23830,159 +23830,63 @@ f32 chrGetAngleToTarget(struct chrdata *chr)
 	return chrGetAngleToPos(chr, &prop->pos);
 }
 
-GLOBAL_ASM(
-glabel chrGetAttackEntityPos
-/*  f048b78:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f048b7c:	30ae0004 */ 	andi	$t6,$a1,0x4
-/*  f048b80:	11c0001f */ 	beqz	$t6,.L0f048c00
-/*  f048b84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048b88:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f048b8c:	afa40080 */ 	sw	$a0,0x80($sp)
-/*  f048b90:	0fc126d1 */ 	jal	chrFindById
-/*  f048b94:	afa7008c */ 	sw	$a3,0x8c($sp)
-/*  f048b98:	8fa40080 */ 	lw	$a0,0x80($sp)
-/*  f048b9c:	8fa7008c */ 	lw	$a3,0x8c($sp)
-/*  f048ba0:	10400004 */ 	beqz	$v0,.L0f048bb4
-/*  f048ba4:	00401825 */ 	or	$v1,$v0,$zero
-/*  f048ba8:	8c4f001c */ 	lw	$t7,0x1c($v0)
-/*  f048bac:	55e00003 */ 	bnezl	$t7,.L0f048bbc
-/*  f048bb0:	8c78001c */ 	lw	$t8,0x1c($v1)
-.L0f048bb4:
-/*  f048bb4:	00801825 */ 	or	$v1,$a0,$zero
-/*  f048bb8:	8c78001c */ 	lw	$t8,0x1c($v1)
-.L0f048bbc:
-/*  f048bbc:	c7040008 */ 	lwc1	$f4,0x8($t8)
-/*  f048bc0:	e4e40000 */ 	swc1	$f4,0x0($a3)
-/*  f048bc4:	8c79001c */ 	lw	$t9,0x1c($v1)
-/*  f048bc8:	c726000c */ 	lwc1	$f6,0xc($t9)
-/*  f048bcc:	e4e60004 */ 	swc1	$f6,0x4($a3)
-/*  f048bd0:	8c68001c */ 	lw	$t0,0x1c($v1)
-/*  f048bd4:	c5080010 */ 	lwc1	$f8,0x10($t0)
-/*  f048bd8:	10600003 */ 	beqz	$v1,.L0f048be8
-/*  f048bdc:	e4e80008 */ 	swc1	$f8,0x8($a3)
-/*  f048be0:	10000002 */ 	b	.L0f048bec
-/*  f048be4:	8c64001c */ 	lw	$a0,0x1c($v1)
-.L0f048be8:
-/*  f048be8:	8c64001c */ 	lw	$a0,0x1c($v1)
-.L0f048bec:
-/*  f048bec:	8fa50090 */ 	lw	$a1,0x90($sp)
-/*  f048bf0:	0fc195e9 */ 	jal	roomsCopy
-/*  f048bf4:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f048bf8:	1000002e */ 	b	.L0f048cb4
-/*  f048bfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f048c00:
-/*  f048c00:	30a90008 */ 	andi	$t1,$a1,0x8
-/*  f048c04:	11200014 */ 	beqz	$t1,.L0f048c58
-/*  f048c08:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f048c0c:	0fc1258b */ 	jal	chrResolvePadId
-/*  f048c10:	afa7008c */ 	sw	$a3,0x8c($sp)
-/*  f048c14:	00402025 */ 	or	$a0,$v0,$zero
-/*  f048c18:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f048c1c:	0fc456ac */ 	jal	padUnpack
-/*  f048c20:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f048c24:	8fa7008c */ 	lw	$a3,0x8c($sp)
-/*  f048c28:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*  f048c2c:	8fa50090 */ 	lw	$a1,0x90($sp)
-/*  f048c30:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f048c34:	e4ea0000 */ 	swc1	$f10,0x0($a3)
-/*  f048c38:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*  f048c3c:	e4f00004 */ 	swc1	$f16,0x4($a3)
-/*  f048c40:	c7b2002c */ 	lwc1	$f18,0x2c($sp)
-/*  f048c44:	e4f20008 */ 	swc1	$f18,0x8($a3)
-/*  f048c48:	8faa006c */ 	lw	$t2,0x6c($sp)
-/*  f048c4c:	a4ab0002 */ 	sh	$t3,0x2($a1)
-/*  f048c50:	10000017 */ 	b	.L0f048cb0
-/*  f048c54:	a4aa0000 */ 	sh	$t2,0x0($a1)
-.L0f048c58:
-/*  f048c58:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f048c5c:	afa7008c */ 	sw	$a3,0x8c($sp)
-/*  f048c60:	8fa7008c */ 	lw	$a3,0x8c($sp)
-/*  f048c64:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f048c68:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f048c6c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f048c70:	e4e40000 */ 	swc1	$f4,0x0($a3)
-/*  f048c74:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*  f048c78:	e4e60004 */ 	swc1	$f6,0x4($a3)
-/*  f048c7c:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*  f048c80:	e4e80008 */ 	swc1	$f8,0x8($a3)
-/*  f048c84:	904c0000 */ 	lbu	$t4,0x0($v0)
-/*  f048c88:	8fa50090 */ 	lw	$a1,0x90($sp)
-/*  f048c8c:	15810006 */ 	bne	$t4,$at,.L0f048ca8
-/*  f048c90:	00000000 */ 	nop
-/*  f048c94:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f048c98:	10600003 */ 	beqz	$v1,.L0f048ca8
-/*  f048c9c:	00000000 */ 	nop
-/*  f048ca0:	10000001 */ 	b	.L0f048ca8
-/*  f048ca4:	00000000 */ 	nop
-.L0f048ca8:
-/*  f048ca8:	0fc195e9 */ 	jal	roomsCopy
-/*  f048cac:	24c40028 */ 	addiu	$a0,$a2,0x28
-.L0f048cb0:
-/*  f048cb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f048cb4:
-/*  f048cb4:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f048cb8:	03e00008 */ 	jr	$ra
-/*  f048cbc:	00000000 */ 	nop
-);
+void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, s16 *rooms)
+{
+	struct prop *targetprop;
+	struct chrdata *targetchr;
+	struct pad pad;
 
-// Mismatch: reallgoc for targetprop in first section
-//void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, s16 *rooms)
-//{
-//	struct prop *targetprop;
-//	struct chrdata *targetchr;
-//	struct pad pad;
-//
-//	if (attackflags & ATTACKFLAG_AIMATCHR) {
-//		// Aiming at a chr by chrnum
-//		targetchr = chrFindById(chr, entityid);
-//
-//		if (!targetchr || !targetchr->prop) {
-//			targetchr = chr;
-//		}
-//
-//		chr = targetchr;
-//
-//		pos->x = chr->prop->pos.x;
-//		pos->y = chr->prop->pos.y;
-//		pos->z = chr->prop->pos.z;
-//
-//		if (targetchr) {
-//			targetprop = targetchr->prop;
-//		} else {
-//			targetprop = chr->prop;
-//		}
-//
-//		roomsCopy(targetprop->rooms, rooms);
-//	} else if (attackflags & ATTACKFLAG_AIMATPAD) {
-//		// Aiming at a pad by padnum
-//		s32 padnum = chrResolvePadId(chr, entityid);
-//		padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
-//
-//		pos->x = pad.pos.x;
-//		pos->y = pad.pos.y;
-//		pos->z = pad.pos.z;
-//
-//		rooms[0] = pad.room;
-//		rooms[1] = -1;
-//	} else {
-//		// Aiming at the chr's preconfigured target
-//		targetprop = chrGetTargetProp(chr);
-//
-//		pos->x = targetprop->pos.x;
-//		pos->y = targetprop->pos.y;
-//		pos->z = targetprop->pos.z;
-//
-//		if (targetprop->type == PROPTYPE_CHR && targetprop->chr) {
-//			chr = targetprop->chr;
-//		} else {
-//			chr = NULL;
-//		}
-//
-//		if (chr);
-//
-//		roomsCopy(targetprop->rooms, rooms);
-//	}
-//}
+	if (attackflags & ATTACKFLAG_AIMATCHR) {
+		// Aiming at a chr by chrnum
+		targetchr = chrFindById(chr, entityid);
+
+		if (!targetchr || !targetchr->prop) {
+			targetchr = chr;
+		}
+
+		pos->x = targetchr->prop->pos.x;
+		pos->y = targetchr->prop->pos.y;
+		pos->z = targetchr->prop->pos.z;
+
+		if (targetchr) {
+			chr = targetprop->chr;
+		} else {
+			chr = NULL;
+		}
+
+		if (chr);
+
+		roomsCopy(targetchr->prop->rooms, rooms);
+	} else if (attackflags & ATTACKFLAG_AIMATPAD) {
+		// Aiming at a pad by padnum
+		s32 padnum = chrResolvePadId(chr, entityid);
+		padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+		pos->x = pad.pos.x;
+		pos->y = pad.pos.y;
+		pos->z = pad.pos.z;
+
+		rooms[0] = pad.room;
+		rooms[1] = -1;
+	} else {
+		// Aiming at the chr's preconfigured target
+		targetprop = chrGetTargetProp(chr);
+
+		pos->x = targetprop->pos.x;
+		pos->y = targetprop->pos.y;
+		pos->z = targetprop->pos.z;
+
+		if (targetprop->type == PROPTYPE_CHR && targetprop->chr) {
+			chr = targetprop->chr;
+		} else {
+			chr = NULL;
+		}
+
+		if (chr);
+
+		roomsCopy(targetprop->rooms, rooms);
+	}
+}
 
 f32 chrGetAngleFromTargetsFov(struct chrdata *chr)
 {
