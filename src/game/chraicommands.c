@@ -4417,165 +4417,43 @@ bool aiShowHudmsgTopMiddle(void)
 /**
  * @cmd 00cd
  */
-GLOBAL_ASM(
-glabel aiSpeak
-/*  f056040:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f056044:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f056048:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f05604c:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f056050:	8e2e0434 */ 	lw	$t6,0x434($s1)
-/*  f056054:	8e2f0438 */ 	lw	$t7,0x438($s1)
-/*  f056058:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f05605c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f056060:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f056064:	92050002 */ 	lbu	$a1,0x2($s0)
-/*  f056068:	0fc126d1 */ 	jal	chrFindById
-/*  f05606c:	8e240424 */ 	lw	$a0,0x424($s1)
-/*  f056070:	92180005 */ 	lbu	$t8,0x5($s0)
-/*  f056074:	92080006 */ 	lbu	$t0,0x6($s0)
-/*  f056078:	8e2e028c */ 	lw	$t6,0x28c($s1)
-/*  f05607c:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f056080:	03284825 */ 	or	$t1,$t9,$t0
-/*  f056084:	a7a9003e */ 	sh	$t1,0x3e($sp)
-/*  f056088:	920a0003 */ 	lbu	$t2,0x3($s0)
-/*  f05608c:	920c0004 */ 	lbu	$t4,0x4($s0)
-/*  f056090:	00402825 */ 	or	$a1,$v0,$zero
-/*  f056094:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f056098:	016c2025 */ 	or	$a0,$t3,$t4
-/*  f05609c:	00041c00 */ 	sll	$v1,$a0,0x10
-/*  f0560a0:	00036c03 */ 	sra	$t5,$v1,0x10
-/*  f0560a4:	afae0038 */ 	sw	$t6,0x38($sp)
-/*  f0560a8:	05a00008 */ 	bltz	$t5,.L0f0560cc
-/*  f0560ac:	01c03025 */ 	or	$a2,$t6,$zero
-/*  f0560b0:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f0560b4:	0fc5b9f1 */ 	jal	langGet
-/*  f0560b8:	afae0034 */ 	sw	$t6,0x34($sp)
-/*  f0560bc:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f0560c0:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f0560c4:	10000002 */ 	b	.L0f0560d0
-/*  f0560c8:	afa2002c */ 	sw	$v0,0x2c($sp)
-.L0f0560cc:
-/*  f0560cc:	afa0002c */ 	sw	$zero,0x2c($sp)
-.L0f0560d0:
-/*  f0560d0:	10a0000b */ 	beqz	$a1,.L0f056100
-/*  f0560d4:	00000000 */ 	nop
-/*  f0560d8:	8ca4001c */ 	lw	$a0,0x1c($a1)
-/*  f0560dc:	10800008 */ 	beqz	$a0,.L0f056100
-/*  f0560e0:	00000000 */ 	nop
-/*  f0560e4:	908f0000 */ 	lbu	$t7,0x0($a0)
-/*  f0560e8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0560ec:	15e10004 */ 	bne	$t7,$at,.L0f056100
-/*  f0560f0:	00000000 */ 	nop
-/*  f0560f4:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
-/*  f0560f8:	00000000 */ 	nop
-/*  f0560fc:	00403025 */ 	or	$a2,$v0,$zero
-.L0f056100:
-/*  f056100:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f056104:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f056108:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*  f05610c:	5300000b */ 	beqzl	$t8,.L0f05613c
-/*  f056110:	92090002 */ 	lbu	$t1,0x2($s0)
-/*  f056114:	92190002 */ 	lbu	$t9,0x2($s0)
-/*  f056118:	240100f2 */ 	addiu	$at,$zero,0xf2
-/*  f05611c:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f056120:	53210006 */ 	beql	$t9,$at,.L0f05613c
-/*  f056124:	92090002 */ 	lbu	$t1,0x2($s0)
-/*  f056128:	8e280424 */ 	lw	$t0,0x424($s1)
-/*  f05612c:	3406ffff */ 	dli	$a2,0xffff
-/*  f056130:	0fc249af */ 	jal	func0f0926bc
-/*  f056134:	8d04001c */ 	lw	$a0,0x1c($t0)
-/*  f056138:	92090002 */ 	lbu	$t1,0x2($s0)
-.L0f05613c:
-/*  f05613c:	240100f2 */ 	addiu	$at,$zero,0xf2
-/*  f056140:	87a5003e */ 	lh	$a1,0x3e($sp)
-/*  f056144:	1521000c */ 	bne	$t1,$at,.L0f056178
-/*  f056148:	00003025 */ 	or	$a2,$zero,$zero
-/*  f05614c:	8e2a0424 */ 	lw	$t2,0x424($s1)
-/*  f056150:	82040007 */ 	lb	$a0,0x7($s0)
-/*  f056154:	240b0200 */ 	addiu	$t3,$zero,0x200
-/*  f056158:	8d47001c */ 	lw	$a3,0x1c($t2)
-/*  f05615c:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f056160:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f056164:	87a5003e */ 	lh	$a1,0x3e($sp)
-/*  f056168:	0fc25010 */ 	jal	audioPlayFromProp
-/*  f05616c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f056170:	1000000a */ 	b	.L0f05619c
-/*  f056174:	00403825 */ 	or	$a3,$v0,$zero
-.L0f056178:
-/*  f056178:	8e2c0424 */ 	lw	$t4,0x424($s1)
-/*  f05617c:	82040007 */ 	lb	$a0,0x7($s0)
-/*  f056180:	240d0009 */ 	addiu	$t5,$zero,0x9
-/*  f056184:	240e0200 */ 	addiu	$t6,$zero,0x200
-/*  f056188:	8d87001c */ 	lw	$a3,0x1c($t4)
-/*  f05618c:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f056190:	0fc25010 */ 	jal	audioPlayFromProp
-/*  f056194:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f056198:	00403825 */ 	or	$a3,$v0,$zero
-.L0f05619c:
-/*  f05619c:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*  f0561a0:	87a4003e */ 	lh	$a0,0x3e($sp)
-/*  f0561a4:	11e00009 */ 	beqz	$t7,.L0f0561cc
-/*  f0561a8:	00000000 */ 	nop
-/*  f0561ac:	0c004103 */ 	jal	sndIsFiltered
-/*  f0561b0:	afa70030 */ 	sw	$a3,0x30($sp)
-/*  f0561b4:	14400005 */ 	bnez	$v0,.L0f0561cc
-/*  f0561b8:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f0561bc:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f0561c0:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f0561c4:	0fc37858 */ 	jal	hudmsgCreateAsSubtitle
-/*  f0561c8:	92060008 */ 	lbu	$a2,0x8($s0)
-.L0f0561cc:
-/*  f0561cc:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0561d0:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0561d4:	8e380438 */ 	lw	$t8,0x438($s1)
-/*  f0561d8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0561dc:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f0561e0:	27190009 */ 	addiu	$t9,$t8,0x9
-/*  f0561e4:	ae390438 */ 	sw	$t9,0x438($s1)
-/*  f0561e8:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f0561ec:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0561f0:	03e00008 */ 	jr	$ra
-/*  f0561f4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSpeak(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	s16 audio_id = cmd[6] | (cmd[5] << 8);
+	s16 text_id = cmd[4] | (cmd[3] << 8);
+	s32 prevplayernum = g_Vars.currentplayernum;
+	s32 playernum = prevplayernum;
+	u32 channelnum;
+	char *text = text_id >= 0 ? langGet(cmd[4] | (cmd[3] << 8)) : NULL;
 
-// Mismatch due to different registers
-//bool aiSpeak(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-//	s16 audio_id = cmd[6] | (cmd[5] << 8);
-//	s16 text_id = cmd[4] | (cmd[3] << 8);
-//	s32 prevplayernum = g_Vars.currentplayernum;
-//	s32 playernum = g_Vars.currentplayernum;
-//	u32 channelnum;
-//	char *text = text_id >= 0 ? langGet(text_id) : NULL;
-//
-//	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-//		playernum = playermgrGetPlayerNumByProp(chr->prop);
-//	}
-//
-//	setCurrentPlayerNum(playernum);
-//
-//	if (text && cmd[2] != CHR_P1P2) {
-//		func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
-//	}
-//
-//	if (cmd[2] == CHR_P1P2) {
-//		channelnum = audioPlayFromProp(cmd[7], audio_id, 0, g_Vars.chrdata->prop, 0, 512);
-//	} else {
-//		channelnum = audioPlayFromProp(cmd[7], audio_id, 0, g_Vars.chrdata->prop, 9, 512);
-//	}
-//
-//	if (text && !sndIsFiltered(audio_id)) {
-//		hudmsgCreateAsSubtitle(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[8], channelnum);
-//	}
-//
-//	setCurrentPlayerNum(prevplayernum);
-//
-//	g_Vars.aioffset += 9;
-//
-//	return false;
-//}
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		playernum = playermgrGetPlayerNumByProp(chr->prop);
+	}
+
+	setCurrentPlayerNum(playernum);
+
+	if (text && cmd[2] != CHR_P1P2) {
+		func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+	}
+
+	if (cmd[2] == CHR_P1P2) {
+		channelnum = audioPlayFromProp((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, 0, 512);
+	} else {
+		channelnum = audioPlayFromProp((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, 9, 512);
+	}
+
+	if (text && !sndIsFiltered(audio_id)) {
+		hudmsgCreateAsSubtitle(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[8], channelnum);
+	}
+
+	setCurrentPlayerNum(prevplayernum);
+
+	g_Vars.aioffset += 9;
+
+	return false;
+}
 
 /**
  * @cmd 00ce
