@@ -3779,7 +3779,7 @@ bool cd0002bd04(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, stru
 
 									if ((!(arg2->y < min.y) || !(arg3->y < min.y))
 											&& (!(arg2->y > max.y) || !(arg3->y > max.y))
-											&& bg0f15f2b0(arg2, arg4, &min, &max)
+											&& bgTestLineIntersectsBbox(arg2, arg4, &min, &max)
 											&& cd0002aac0(arg2, arg3, arg4, tile, &spc4, &spb8)) {
 										return false;
 									}
@@ -3816,7 +3816,7 @@ bool cd0002bd04(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, stru
 
 						if ((!(arg2->y < min.y) || !(arg3->y < min.y))
 								&& (!(arg2->y > max.y) || !(arg3->y > max.y))
-								&& bg0f15f2b0(arg2, arg4, &min, &max)
+								&& bgTestLineIntersectsBbox(arg2, arg4, &min, &max)
 								&& cd0002ab98(arg2, arg3, arg4, tile, &sp90, &sp84)) {
 							return false;
 						}
@@ -4010,7 +4010,7 @@ bool cd0002c714(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, stru
 
 									if ((!(arg2->y < min.y) || !(arg3->y < min.y))
 											&& (!(arg2->y > max.y) || !(arg3->y > max.y))
-											&& bg0f15f2b0(arg2, arg4, &min, &max)
+											&& bgTestLineIntersectsBbox(arg2, arg4, &min, &max)
 											&& cd0002aac0(arg2, arg3, arg4, tile, &sp12c, &sp120)) {
 										x = sp12c.x - arg2->x;
 										y = sp12c.y - arg2->y;
@@ -4089,7 +4089,7 @@ bool cd0002c714(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, stru
 
 						if ((!(arg2->y < min.y) || !(arg3->y < min.y))
 								&& (!(arg2->y > max.y) || !(arg3->y > max.y))
-								&& bg0f15f2b0(arg2, arg4, &min, &max)
+								&& bgTestLineIntersectsBbox(arg2, arg4, &min, &max)
 								&& cd0002ab98(arg2, arg3, arg4, tile, &spe0, &spd4)) {
 							x = spe0.x - arg2->x;
 							y = spe0.y - arg2->y;
