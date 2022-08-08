@@ -6368,4 +6368,15 @@ struct xraydata {
 	/*0x24a*/ s16 numtris;
 };
 
+struct widthxz {
+	f32 width;
+	f32 x;
+	f32 z;
+};
+
+struct xz {
+	f32 x;
+	f32 z;
+};
+
 #endif

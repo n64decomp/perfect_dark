@@ -170,27 +170,25 @@ void cd00025038(struct coord *arg0, struct coord *arg1, struct prop *prop, f32 a
 
 void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width)
 {
-	f32 sp38[2];
-	f32 sp34;
-	f32 sp2c[2];
-	f32 sp24[2];
-	f32 sp1c[2];
+	struct widthxz sp34;
+	struct xz sp2c;
+	struct xz sp24;
+	struct xz sp1c;
 
-	sp34 = width;
+	sp34.width = width;
+	sp34.x = arg0->x;
+	sp34.z = arg0->z;
 
-	sp38[0] = arg0->x;
-	sp38[1] = arg0->z;
+	sp1c.x = arg1->x;
+	sp1c.z = arg1->z;
 
-	sp1c[0] = arg1->x;
-	sp1c[1] = arg1->z;
+	sp2c.x = var8009a8b8.x;
+	sp2c.z = var8009a8b8.z;
 
-	sp2c[0] = var8009a8b8.x;
-	sp2c[1] = var8009a8b8.z;
+	sp24.x = var8009a8c8.x;
+	sp24.z = var8009a8c8.z;
 
-	sp24[0] = var8009a8c8.x;
-	sp24[1] = var8009a8c8.z;
-
-	var8009a8b0 = func0f1579cc(&sp34, sp2c, sp24, sp1c);
+	var8009a8b0 = func0f1579cc(&sp34, &sp2c, &sp24, &sp1c);
 	var8009a8ac = 1;
 }
 
@@ -1717,10 +1715,10 @@ void cd00028df0(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4, u
 void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisionthing *things)
 {
 	s32 i;
-	f32 spf8[3];
-	f32 spf0[2];
-	f32 spe8[2];
-	f32 spe0[2];
+	struct widthxz spf8;
+	struct xz spf0;
+	struct xz spe8;
+	struct xz spe0;
 	f32 bestvalue = 0.0f;
 	s32 bestindex = -1;
 	struct collisionthing *bestthing;
@@ -1735,21 +1733,24 @@ void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisi
 		if (1);
 		if (geo->type == GEOTYPE_TILE_I) {
 			struct geotilei *tile = (struct geotilei *) geo;
-			spf8[0] = width;
-			spf8[1] = pos->x;
-			spf8[2] = pos->z;
-			spe0[0] = dist->x;
-			spe0[1] = dist->z;
+
+			spf8.width = width;
+			spf8.x = pos->x;
+			spf8.z = pos->z;
+
+			spe0.x = dist->x;
+			spe0.z = dist->z;
 
 			curr = things[i].vertexindex;
 			next = (curr + 1) % tile->header.numvertices;
 
-			spf0[0] = tile->vertices[curr][0];
-			spf0[1] = tile->vertices[curr][2];
-			spe8[0] = tile->vertices[next][0];
-			spe8[1] = tile->vertices[next][2];
+			spf0.x = tile->vertices[curr][0];
+			spf0.z = tile->vertices[curr][2];
 
-			value = func0f1579cc(spf8, spf0, spe8, spe0);
+			spe8.x = tile->vertices[next][0];
+			spe8.z = tile->vertices[next][2];
+
+			value = func0f1579cc(&spf8, &spf0, &spe8, &spe0);
 
 			if (bestindex < 0 || value < bestvalue) {
 				bestvalue = value;
@@ -1758,21 +1759,23 @@ void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisi
 		} else if (geo->type == GEOTYPE_TILE_F) {
 			struct geotilef *tile = (struct geotilef *) geo;
 
-			spf8[0] = width;
-			spf8[1] = pos->x;
-			spf8[2] = pos->z;
-			spe0[0] = dist->x;
-			spe0[1] = dist->z;
+			spf8.width = width;
+			spf8.x = pos->x;
+			spf8.z = pos->z;
+
+			spe0.x = dist->x;
+			spe0.z = dist->z;
 
 			curr = things[i].vertexindex;
 			next = (curr + 1) % tile->header.numvertices;
 
-			spf0[0] = tile->vertices[curr].x;
-			spf0[1] = tile->vertices[curr].z;
-			spe8[0] = tile->vertices[next].x;
-			spe8[1] = tile->vertices[next].z;
+			spf0.x = tile->vertices[curr].x;
+			spf0.z = tile->vertices[curr].z;
 
-			value = func0f1579cc(spf8, spf0, spe8, spe0);
+			spe8.x = tile->vertices[next].x;
+			spe8.z = tile->vertices[next].z;
+
+			value = func0f1579cc(&spf8, &spf0, &spe8, &spe0);
 
 			if (bestindex < 0 || value < bestvalue) {
 				bestvalue = value;
@@ -1781,21 +1784,23 @@ void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisi
 		} else if (geo->type == GEOTYPE_BLOCK) {
 			struct geoblock *block = (struct geoblock *) geo;
 
-			spf8[0] = width;
-			spf8[1] = pos->x;
-			spf8[2] = pos->z;
-			spe0[0] = dist->x;
-			spe0[1] = dist->z;
+			spf8.width = width;
+			spf8.x = pos->x;
+			spf8.z = pos->z;
+
+			spe0.x = dist->x;
+			spe0.z = dist->z;
 
 			curr = things[i].vertexindex;
 			next = (curr + 1) % block->header.numvertices;
 
-			spf0[0] = block->vertices[curr][0];
-			spf0[1] = block->vertices[curr][1];
-			spe8[0] = block->vertices[next][0];
-			spe8[1] = block->vertices[next][1];
+			spf0.x = block->vertices[curr][0];
+			spf0.z = block->vertices[curr][1];
 
-			value = func0f1579cc(spf8, spf0, spe8, spe0);
+			spe8.x = block->vertices[next][0];
+			spe8.z = block->vertices[next][1];
+
+			value = func0f1579cc(&spf8, &spf0, &spe8, &spe0);
 
 			if (bestindex < 0 || value < bestvalue) {
 				bestvalue = value;
@@ -1804,17 +1809,20 @@ void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisi
 		} else if (geo->type == GEOTYPE_CYL) {
 			struct geocyl *cyl = (struct geocyl *) geo;
 
-			spf8[0] = cyl->radius + width;
-			spf8[1] = pos->x;
-			spf8[2] = pos->z;
-			spe0[0] = dist->x;
-			spe0[1] = dist->z;
-			spf0[0] = cyl->x;
-			spf0[1] = cyl->z;
-			spe8[0] = cyl->x;
-			spe8[1] = cyl->z;
+			spf8.width = cyl->radius + width;
+			spf8.x = pos->x;
+			spf8.z = pos->z;
 
-			value = func0f1579cc(spf8, spf0, spe8, spe0);
+			spe0.x = dist->x;
+			spe0.z = dist->z;
+
+			spf0.x = cyl->x;
+			spf0.z = cyl->z;
+
+			spe8.x = cyl->x;
+			spe8.z = cyl->z;
+
+			value = func0f1579cc(&spf8, &spf0, &spe8, &spe0);
 
 			if (bestindex < 0 || value < bestvalue) {
 				bestvalue = value;
