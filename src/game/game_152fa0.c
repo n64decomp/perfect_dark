@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 func0f152fa0(f32 arg0)
+u32 func0f152fa0(f32 arg0)
 {
 	u32 result;
 
