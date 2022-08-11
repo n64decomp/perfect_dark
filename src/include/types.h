@@ -4454,8 +4454,8 @@ struct portalthing {
 
 struct var800a4ccc { // related to portals
 	struct coord coord;
-	f32 unk0c;
-	f32 unk10;
+	f32 min;
+	f32 max;
 };
 
 struct trainingdata {

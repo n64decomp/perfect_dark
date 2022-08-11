@@ -95,11 +95,11 @@ s32 portal00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2)
 	value1 = arg1->f[0] * (var800a4ccc + portalnum)->coord.f[0] + arg1->f[1] * (var800a4ccc + portalnum)->coord.f[1] + arg1->f[2] * (var800a4ccc + portalnum)->coord.f[2];
 	value2 = arg2->f[0] * (var800a4ccc + portalnum)->coord.f[0] + arg2->f[1] * (var800a4ccc + portalnum)->coord.f[1] + arg2->f[2] * (var800a4ccc + portalnum)->coord.f[2];
 
-	if (value1 < (var800a4ccc + portalnum)->unk0c) {
-		if (value2 < (var800a4ccc + portalnum)->unk0c) {
+	if (value1 < (var800a4ccc + portalnum)->min) {
+		if (value2 < (var800a4ccc + portalnum)->min) {
 			return 0;
 		}
-	} else if ((var800a4ccc + portalnum)->unk10 < value1 && (var800a4ccc + portalnum)->unk10 < value2) {
+	} else if ((var800a4ccc + portalnum)->max < value1 && (var800a4ccc + portalnum)->max < value2) {
 		return 0;
 	}
 
@@ -107,7 +107,7 @@ s32 portal00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2)
 	sp60.f[1] = arg2->f[1] - arg1->f[1];
 	sp60.f[2] = arg2->f[2] - arg1->f[2];
 
-	var8007fcb4 = (value1 + value2) * 0.5f - (var800a4ccc + portalnum)->unk0c;
+	var8007fcb4 = (value1 + value2) * 0.5f - (var800a4ccc + portalnum)->min;
 
 	curr = &pvertices->vertices[0];
 	next = &pvertices->vertices[1];
@@ -152,7 +152,7 @@ s32 portal00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2)
 		next++;
 	}
 
-	return (value1 < (var800a4ccc + portalnum)->unk0c) ? 1 : 2;
+	return (value1 < (var800a4ccc + portalnum)->min) ? 1 : 2;
 }
 
 void portal00018148(struct coord *pos1, struct coord *pos2, s16 *rooms1, s16 *rooms2, s16 *rooms3, s32 arg5)
