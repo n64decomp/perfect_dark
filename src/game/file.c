@@ -4350,7 +4350,7 @@ glabel fileGetInflatedSize
 );
 #endif
 
-//u32 fileGetInflatedSize(u32 filenum)
+//u32 fileGetInflatedSize(s32 filenum)
 //{
 //	u8 buffer[0x50];
 //	u8 *alignedbuffer;
