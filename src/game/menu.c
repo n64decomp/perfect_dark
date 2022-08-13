@@ -2857,283 +2857,62 @@ const char var7f1b25a8[] = "IG:) style %d gbHead:%d\n";
 const char var7f1b25c4[] = "GRABBED GUN MEM!\n";
 const char var7f1b25d8[] = "Freeing challenge mem\n";
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0f1d6c
-/*  f0f1d6c:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f0f1d70:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f0f1d74:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0f1d78:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0f1d7c:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f0f1d80:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f0f1d84:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f0f1d88:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0f1d8c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0f1d90:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0f1d94:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0f1d98:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f0f1d9c:	8cc206d8 */ 	lw	$v0,0x6d8($a2)
-/*  f0f1da0:	8c910008 */ 	lw	$s1,0x8($a0)
-/*  f0f1da4:	84d7081e */ 	lh	$s7,0x81e($a2)
-/*  f0f1da8:	8cd6065c */ 	lw	$s6,0x65c($a2)
-/*  f0f1dac:	2442ffff */ 	addiu	$v0,$v0,-1
-/*  f0f1db0:	24580001 */ 	addiu	$t8,$v0,0x1
-/*  f0f1db4:	00a0f025 */ 	or	$s8,$a1,$zero
-/*  f0f1db8:	00009825 */ 	or	$s3,$zero,$zero
-/*  f0f1dbc:	a0a00005 */ 	sb	$zero,0x5($a1)
-/*  f0f1dc0:	a0b80004 */ 	sb	$t8,0x4($a1)
-/*  f0f1dc4:	1220003a */ 	beqz	$s1,.L0f0f1eb0
-/*  f0f1dc8:	a4b70006 */ 	sh	$s7,0x6($a1)
-/*  f0f1dcc:	92390000 */ 	lbu	$t9,0x0($s1)
-/*  f0f1dd0:	2401001a */ 	addiu	$at,$zero,0x1a
-/*  f0f1dd4:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f0f1dd8:	13210035 */ 	beq	$t9,$at,.L0f0f1eb0
-/*  f0f1ddc:	8fa80070 */ 	lw	$t0,0x70($sp)
-/*  f0f1de0:	00024880 */ 	sll	$t1,$v0,0x2
-/*  f0f1de4:	01224821 */ 	addu	$t1,$t1,$v0
-/*  f0f1de8:	00094840 */ 	sll	$t1,$t1,0x1
-/*  f0f1dec:	00165080 */ 	sll	$t2,$s6,0x2
-/*  f0f1df0:	010a9021 */ 	addu	$s2,$t0,$t2
-/*  f0f1df4:	01098021 */ 	addu	$s0,$t0,$t1
-/*  f0f1df8:	2415ffff */ 	addiu	$s5,$zero,-1
-.L0f0f1dfc:
-/*  f0f1dfc:	8e2b0004 */ 	lw	$t3,0x4($s1)
-/*  f0f1e00:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0f1e04:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f0f1e08:	316c0001 */ 	andi	$t4,$t3,0x1
-/*  f0f1e0c:	11800002 */ 	beqz	$t4,.L0f0f1e18
-/*  f0f1e10:	00000000 */ 	nop
-/*  f0f1e14:	24140001 */ 	addiu	$s4,$zero,0x1
-.L0f0f1e18:
-/*  f0f1e18:	5280000d */ 	beqzl	$s4,.L0f0f1e50
-/*  f0f1e1c:	afb50058 */ 	sw	$s5,0x58($sp)
-/*  f0f1e20:	93cd0005 */ 	lbu	$t5,0x5($s8)
-/*  f0f1e24:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0f1e28:	2610000a */ 	addiu	$s0,$s0,0xa
-/*  f0f1e2c:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*  f0f1e30:	a3ce0005 */ 	sb	$t6,0x5($s8)
-/*  f0f1e34:	a6000660 */ 	sh	$zero,0x660($s0)
-/*  f0f1e38:	a6000662 */ 	sh	$zero,0x662($s0)
-/*  f0f1e3c:	a2000664 */ 	sb	$zero,0x664($s0)
-/*  f0f1e40:	a2000668 */ 	sb	$zero,0x668($s0)
-/*  f0f1e44:	a6160666 */ 	sh	$s6,0x666($s0)
-/*  f0f1e48:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f0f1e4c:	afb50058 */ 	sw	$s5,0x58($sp)
-.L0f0f1e50:
-/*  f0f1e50:	0fc3c569 */ 	jal	func0f0f15a4
-/*  f0f1e54:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f0f1e58:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f0f1e5c:	8fa20064 */ 	lw	$v0,0x64($sp)
-/*  f0f1e60:	51f50008 */ 	beql	$t7,$s5,.L0f0f1e84
-/*  f0f1e64:	a25504ff */ 	sb	$s5,0x4ff($s2)
-/*  f0f1e68:	a25704ff */ 	sb	$s7,0x4ff($s2)
-/*  f0f1e6c:	87b8005a */ 	lh	$t8,0x5a($sp)
-/*  f0f1e70:	02f8b821 */ 	addu	$s7,$s7,$t8
-/*  f0f1e74:	0017cc00 */ 	sll	$t9,$s7,0x10
-/*  f0f1e78:	10000002 */ 	b	.L0f0f1e84
-/*  f0f1e7c:	0019bc03 */ 	sra	$s7,$t9,0x10
-/*  f0f1e80:	a25504ff */ 	sb	$s5,0x4ff($s2)
-.L0f0f1e84:
-/*  f0f1e84:	a25304fe */ 	sb	$s3,0x4fe($s2)
-/*  f0f1e88:	92080668 */ 	lbu	$t0,0x668($s0)
-/*  f0f1e8c:	2401001a */ 	addiu	$at,$zero,0x1a
-/*  f0f1e90:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*  f0f1e94:	250a0001 */ 	addiu	$t2,$t0,0x1
-/*  f0f1e98:	a20a0668 */ 	sb	$t2,0x668($s0)
-/*  f0f1e9c:	922b0014 */ 	lbu	$t3,0x14($s1)
-/*  f0f1ea0:	26520004 */ 	addiu	$s2,$s2,0x4
-/*  f0f1ea4:	26310014 */ 	addiu	$s1,$s1,0x14
-/*  f0f1ea8:	1561ffd4 */ 	bne	$t3,$at,.L0f0f1dfc
-/*  f0f1eac:	26730001 */ 	addiu	$s3,$s3,0x1
-.L0f0f1eb0:
-/*  f0f1eb0:	8fad0070 */ 	lw	$t5,0x70($sp)
-/*  f0f1eb4:	244c0001 */ 	addiu	$t4,$v0,0x1
-/*  f0f1eb8:	adac06d8 */ 	sw	$t4,0x6d8($t5)
-/*  f0f1ebc:	adb6065c */ 	sw	$s6,0x65c($t5)
-/*  f0f1ec0:	adb7081c */ 	sw	$s7,0x81c($t5)
-/*  f0f1ec4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0f1ec8:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f0f1ecc:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f0f1ed0:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f0f1ed4:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f0f1ed8:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0f1edc:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0f1ee0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0f1ee4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0f1ee8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0f1eec:	03e00008 */ 	jr	$ra
-/*  f0f1ef0:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
-#else
-GLOBAL_ASM(
-glabel func0f0f1d6c
-/*  f0ee988:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f0ee98c:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f0ee990:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0ee994:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0ee998:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f0ee99c:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f0ee9a0:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f0ee9a4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0ee9a8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0ee9ac:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0ee9b0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ee9b4:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f0ee9b8:	8cc20634 */ 	lw	$v0,0x634($a2)
-/*  f0ee9bc:	8c910008 */ 	lw	$s1,0x8($a0)
-/*  f0ee9c0:	84d7077a */ 	lh	$s7,0x77a($a2)
-/*  f0ee9c4:	8cd605cc */ 	lw	$s6,0x5cc($a2)
-/*  f0ee9c8:	2442ffff */ 	addiu	$v0,$v0,-1
-/*  f0ee9cc:	24580001 */ 	addiu	$t8,$v0,0x1
-/*  f0ee9d0:	00a0f025 */ 	or	$s8,$a1,$zero
-/*  f0ee9d4:	00009825 */ 	or	$s3,$zero,$zero
-/*  f0ee9d8:	a0a00005 */ 	sb	$zero,0x5($a1)
-/*  f0ee9dc:	a0b80004 */ 	sb	$t8,0x4($a1)
-/*  f0ee9e0:	1220003a */ 	beqz	$s1,.NB0f0eeacc
-/*  f0ee9e4:	a4b70006 */ 	sh	$s7,0x6($a1)
-/*  f0ee9e8:	92390000 */ 	lbu	$t9,0x0($s1)
-/*  f0ee9ec:	2401001a */ 	addiu	$at,$zero,0x1a
-/*  f0ee9f0:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f0ee9f4:	13210035 */ 	beq	$t9,$at,.NB0f0eeacc
-/*  f0ee9f8:	8fa80070 */ 	lw	$t0,0x70($sp)
-/*  f0ee9fc:	00024880 */ 	sll	$t1,$v0,0x2
-/*  f0eea00:	01224821 */ 	addu	$t1,$t1,$v0
-/*  f0eea04:	00094840 */ 	sll	$t1,$t1,0x1
-/*  f0eea08:	00165080 */ 	sll	$t2,$s6,0x2
-/*  f0eea0c:	010a9021 */ 	addu	$s2,$t0,$t2
-/*  f0eea10:	01098021 */ 	addu	$s0,$t0,$t1
-/*  f0eea14:	2415ffff */ 	addiu	$s5,$zero,-1
-.NB0f0eea18:
-/*  f0eea18:	8e2b0004 */ 	lw	$t3,0x4($s1)
-/*  f0eea1c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0eea20:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f0eea24:	316c0001 */ 	andi	$t4,$t3,0x1
-/*  f0eea28:	11800002 */ 	beqz	$t4,.NB0f0eea34
-/*  f0eea2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0eea30:	24140001 */ 	addiu	$s4,$zero,0x1
-.NB0f0eea34:
-/*  f0eea34:	5280000d */ 	beqzl	$s4,.NB0f0eea6c
-/*  f0eea38:	afb50058 */ 	sw	$s5,0x58($sp)
-/*  f0eea3c:	93cd0005 */ 	lbu	$t5,0x5($s8)
-/*  f0eea40:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0eea44:	2610000a */ 	addiu	$s0,$s0,0xa
-/*  f0eea48:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*  f0eea4c:	a3ce0005 */ 	sb	$t6,0x5($s8)
-/*  f0eea50:	a60005d0 */ 	sh	$zero,0x5d0($s0)
-/*  f0eea54:	a60005d2 */ 	sh	$zero,0x5d2($s0)
-/*  f0eea58:	a20005d4 */ 	sb	$zero,0x5d4($s0)
-/*  f0eea5c:	a20005d8 */ 	sb	$zero,0x5d8($s0)
-/*  f0eea60:	a61605d6 */ 	sh	$s6,0x5d6($s0)
-/*  f0eea64:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f0eea68:	afb50058 */ 	sw	$s5,0x58($sp)
-.NB0f0eea6c:
-/*  f0eea6c:	0fc3b86d */ 	jal	func0f0f15a4
-/*  f0eea70:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f0eea74:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f0eea78:	8fa20064 */ 	lw	$v0,0x64($sp)
-/*  f0eea7c:	51f50008 */ 	beql	$t7,$s5,.NB0f0eeaa0
-/*  f0eea80:	a255048f */ 	sb	$s5,0x48f($s2)
-/*  f0eea84:	a257048f */ 	sb	$s7,0x48f($s2)
-/*  f0eea88:	87b8005a */ 	lh	$t8,0x5a($sp)
-/*  f0eea8c:	02f8b821 */ 	addu	$s7,$s7,$t8
-/*  f0eea90:	0017cc00 */ 	sll	$t9,$s7,0x10
-/*  f0eea94:	10000002 */ 	beqz	$zero,.NB0f0eeaa0
-/*  f0eea98:	0019bc03 */ 	sra	$s7,$t9,0x10
-/*  f0eea9c:	a255048f */ 	sb	$s5,0x48f($s2)
-.NB0f0eeaa0:
-/*  f0eeaa0:	a253048e */ 	sb	$s3,0x48e($s2)
-/*  f0eeaa4:	920805d8 */ 	lbu	$t0,0x5d8($s0)
-/*  f0eeaa8:	2401001a */ 	addiu	$at,$zero,0x1a
-/*  f0eeaac:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*  f0eeab0:	250a0001 */ 	addiu	$t2,$t0,0x1
-/*  f0eeab4:	a20a05d8 */ 	sb	$t2,0x5d8($s0)
-/*  f0eeab8:	922b0014 */ 	lbu	$t3,0x14($s1)
-/*  f0eeabc:	26520004 */ 	addiu	$s2,$s2,0x4
-/*  f0eeac0:	26310014 */ 	addiu	$s1,$s1,0x14
-/*  f0eeac4:	1561ffd4 */ 	bne	$t3,$at,.NB0f0eea18
-/*  f0eeac8:	26730001 */ 	addiu	$s3,$s3,0x1
-.NB0f0eeacc:
-/*  f0eeacc:	8fad0070 */ 	lw	$t5,0x70($sp)
-/*  f0eead0:	244c0001 */ 	addiu	$t4,$v0,0x1
-/*  f0eead4:	adac0634 */ 	sw	$t4,0x634($t5)
-/*  f0eead8:	adb605cc */ 	sw	$s6,0x5cc($t5)
-/*  f0eeadc:	adb70778 */ 	sw	$s7,0x778($t5)
-/*  f0eeae0:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0eeae4:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f0eeae8:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f0eeaec:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f0eeaf0:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f0eeaf4:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0eeaf8:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0eeafc:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0eeb00:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0eeb04:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0eeb08:	03e00008 */ 	jr	$ra
-/*  f0eeb0c:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
-#endif
+void func0f0f1d6c(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu)
+{
+	s32 colindex = menu->colend - 1;
+	s32 rowindex = menu->rowend;
+	s32 itemindex = 0;
+	s32 numblocksthisitem;
+	struct menuitem *item = dialogdef->items;
+	s16 blockindex = menu->blockend;
 
-// Mismatch: Goal stores colindex in v0 while the below stores it in v0
-// initially but then all the increments in v1, resulting in one less
-// instruction. Removing the + 1 from the assign to dialog->colstart or
-// menu->colend causes the below to use v0 only, which is a closer
-// match but is functionally incorrect.
-//void func0f0f1d6c(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu)
-//{
-//	s32 colindex = menu->colend - 1; // 64
-//	s32 rowindex = menu->rowend;
-//	s32 itemindex = 0;
-//	s32 numblocksthisitem; // 58
-//	struct menuitem *item = dialogdef->items;
-//	s16 blockindex = menu->blockend;
-//
-//	dialog->numcols = 0;
-//	dialog->colstart = colindex + 1;
-//	dialog->blockstart = blockindex;
-//
-//	if (item) {
-//		bool append = true;
-//
-//		while (item->type != MENUITEMTYPE_END) {
-//			if (item->flags & MENUITEMFLAG_NEWCOLUMN) {
-//				append = true;
-//			}
-//
-//			if (append) {
-//				dialog->numcols++;
-//				colindex++;
-//
-//				menu->cols[colindex].width = 0;
-//				menu->cols[colindex].height = 0;
-//				menu->cols[colindex].unk04 = 0;
-//				menu->cols[colindex].numrows = 0;
-//				menu->cols[colindex].rowstart = rowindex;
-//
-//				append = false;
-//			}
-//
-//			numblocksthisitem = -1;
-//			func0f0f15a4(item, &numblocksthisitem);
-//
-//			if (numblocksthisitem != -1) {
-//				menu->rows[rowindex].blockindex = blockindex;
-//				blockindex += (s16)numblocksthisitem;
-//			} else {
-//				menu->rows[rowindex].blockindex = -1;
-//			}
-//
-//			menu->rows[rowindex].itemindex = itemindex;
-//			menu->cols[colindex].numrows++;
-//			rowindex++;
-//			item++;
-//			itemindex++;
-//		}
-//	}
-//
-//	menu->colend = colindex + 1;
-//	menu->rowend = rowindex;
-//	menu->blockend = blockindex;
-//}
+	dialog->numcols = 0;
+	dialog->colstart = (u16) colindex + 1;
+	dialog->blockstart = blockindex;
+
+	if (item) {
+		bool newcolumn = true;
+
+		while (item->type != MENUITEMTYPE_END) {
+			if (item->flags & MENUITEMFLAG_NEWCOLUMN) {
+				newcolumn = true;
+			}
+
+			if (newcolumn) {
+				dialog->numcols++;
+				colindex++;
+
+				menu->cols[colindex].width = 0;
+				menu->cols[colindex].height = 0;
+				menu->cols[colindex].unk04 = 0;
+				menu->cols[colindex].numrows = 0;
+				menu->cols[colindex].rowstart = rowindex;
+
+				newcolumn = false;
+			}
+
+			numblocksthisitem = -1;
+			func0f0f15a4(item, &numblocksthisitem);
+
+			if (numblocksthisitem != -1) {
+				menu->rows[rowindex].blockindex = blockindex;
+				blockindex += (s16)numblocksthisitem;
+			} else {
+				menu->rows[rowindex].blockindex = -1;
+			}
+
+			menu->rows[rowindex].itemindex = itemindex;
+			menu->cols[colindex].numrows++;
+			rowindex++;
+			item++;
+			itemindex++;
+		}
+	}
+
+	menu->colend = colindex + 1;
+	menu->rowend = rowindex;
+	menu->blockend = blockindex;
+}
 
 void dialog0f0f1ef4(struct menudialog *dialog)
 {
