@@ -2076,7 +2076,7 @@ void func0f0037ac(void)
 					if (g_Rooms[prop->rooms[i]].flags & ROOMFLAG_1000) {
 						if (2 == g_IsSwitchingGoggles) {
 							struct chrdata *chr = prop->chr;
-							func0f069144(chr->prop, chr->nextcol, chr->floorcol);
+							propCalculateShadeColour(chr->prop, chr->nextcol, chr->floorcol);
 						} else {
 							struct chrdata *chr = prop->chr;
 							chr->unk32c_18 = true;

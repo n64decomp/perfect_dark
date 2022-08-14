@@ -22647,11 +22647,11 @@ void bgunTickGameplay(bool triggeron)
 	bgunDecreaseNoiseRadius();
 
 	if (player->resetshadecol) {
-		func0f069144(g_Vars.currentplayer->prop, player->gunshadecol, player->floorcol);
+		propCalculateShadeColour(g_Vars.currentplayer->prop, player->gunshadecol, player->floorcol);
 		player->resetshadecol = 0;
 	} else {
 		u8 shadecol[4];
-		func0f069144(g_Vars.currentplayer->prop, shadecol, player->floorcol);
+		propCalculateShadeColour(g_Vars.currentplayer->prop, shadecol, player->floorcol);
 		colourTween(player->gunshadecol, shadecol);
 	}
 

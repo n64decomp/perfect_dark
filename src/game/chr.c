@@ -1061,7 +1061,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 #endif
 
 	chr0f0220ac(chr);
-	func0f069144(prop, chr->nextcol, chr->floorcol);
+	propCalculateShadeColour(prop, chr->nextcol, chr->floorcol);
 
 	return true;
 }
@@ -1389,7 +1389,7 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	chr->prevpos.y = prop->pos.y;
 	chr->prevpos.z = prop->pos.z;
 
-	func0f069144(prop, chr->nextcol, chr->floorcol);
+	propCalculateShadeColour(prop, chr->nextcol, chr->floorcol);
 
 	return prop;
 }
@@ -3468,7 +3468,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	sp104 = env0f1667f4(prop, sp108);
 
 	if (chr->unk32c_18) {
-		func0f069144(chr->prop, chr->nextcol, chr->floorcol);
+		propCalculateShadeColour(chr->prop, chr->nextcol, chr->floorcol);
 		chr->unk32c_18 = false;
 	}
 

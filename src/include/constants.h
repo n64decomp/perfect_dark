@@ -2988,9 +2988,9 @@
 #define OBJFLAG_00000080                   0x00000080 // Editor: "Z to Pad Bounds"
 #define OBJFLAG_00000100                   0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
 #define OBJFLAG_00000200                   0x00000200 // Editor: "Special Environment Mapping"
-#define OBJFLAG_ILLUMINATED                0x00000400
+#define OBJFLAG_IGNOREFLOORCOLOUR                0x00000400
 #define OBJFLAG_PATHBLOCKER                0x00000800 // Glass and explodable scenery which may be blocking a path segment
-#define OBJFLAG_00001000                   0x00001000 // Editor: "Absolute Position"
+#define OBJFLAG_IGNOREROOMCOLOUR                   0x00001000 // Editor: "Absolute Position"
 #define OBJFLAG_AIUNDROPPABLE              0x00002000 // AI cannot drop item
 #define OBJFLAG_ASSIGNEDTOCHR              0x00004000
 #define OBJFLAG_INSIDEANOTHEROBJ           0x00008000 // Eg. gun inside a crate or suitcase inside a dumpster
