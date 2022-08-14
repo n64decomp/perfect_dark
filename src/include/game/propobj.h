@@ -330,7 +330,7 @@ void doorCreateSparks(struct doorobj *door);
 bool doorCalcIntendedFrac(struct doorobj *door);
 void doorsCalcFrac(struct doorobj *door);
 f32 func0f08f538(f32 x, f32 y);
-void func0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool arg5);
+void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool arg5);
 bool func0f08f968(struct doorobj *door, bool arg1);
 bool doorTestForInteract(struct prop *prop);
 void doorsActivate(struct prop *prop, bool allowliftclose);

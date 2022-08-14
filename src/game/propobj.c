@@ -36875,351 +36875,112 @@ f32 func0f08f538(f32 x, f32 y)
 	return angle;
 }
 
-GLOBAL_ASM(
-glabel func0f08f604
-.late_rodata
-glabel var7f1ab180
-.word 0x3c8ef461
-glabel var7f1ab184
-.word 0x40c907a9
-.text
-/*  f08f604:	27bdff18 */ 	addiu	$sp,$sp,-232
-/*  f08f608:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f08f60c:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f08f610:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08f614:	afa400e8 */ 	sw	$a0,0xe8($sp)
-/*  f08f618:	afa500ec */ 	sw	$a1,0xec($sp)
-/*  f08f61c:	afa600f0 */ 	sw	$a2,0xf0($sp)
-/*  f08f620:	afa700f4 */ 	sw	$a3,0xf4($sp)
-/*  f08f624:	8d030480 */ 	lw	$v1,0x480($t0)
-/*  f08f628:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f08f62c:	2405002e */ 	addiu	$a1,$zero,0x2e
-/*  f08f630:	10600006 */ 	beqz	$v1,.L0f08f64c
-/*  f08f634:	8faf00e8 */ 	lw	$t7,0xe8($sp)
-/*  f08f638:	806e0037 */ 	lb	$t6,0x37($v1)
-/*  f08f63c:	51c00004 */ 	beqzl	$t6,.L0f08f650
-/*  f08f640:	8d0200bc */ 	lw	$v0,0xbc($t0)
-/*  f08f644:	10000002 */ 	b	.L0f08f650
-/*  f08f648:	8c620000 */ 	lw	$v0,0x0($v1)
-.L0f08f64c:
-/*  f08f64c:	8d0200bc */ 	lw	$v0,0xbc($t0)
-.L0f08f650:
-/*  f08f650:	85e40006 */ 	lh	$a0,0x6($t7)
-/*  f08f654:	0fc456ac */ 	jal	padUnpack
-/*  f08f658:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*  f08f65c:	8fa200b4 */ 	lw	$v0,0xb4($sp)
-/*  f08f660:	8fb800fc */ 	lw	$t8,0xfc($sp)
-/*  f08f664:	c7a00060 */ 	lwc1	$f0,0x60($sp)
-/*  f08f668:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f08f66c:	c7a20054 */ 	lwc1	$f2,0x54($sp)
-/*  f08f670:	c7aa007c */ 	lwc1	$f10,0x7c($sp)
-/*  f08f674:	e7a40098 */ 	swc1	$f4,0x98($sp)
-/*  f08f678:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*  f08f67c:	e7a6009c */ 	swc1	$f6,0x9c($sp)
-/*  f08f680:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*  f08f684:	13000012 */ 	beqz	$t8,.L0f08f6d0
-/*  f08f688:	e7a800a0 */ 	swc1	$f8,0xa0($sp)
-/*  f08f68c:	c7a40058 */ 	lwc1	$f4,0x58($sp)
-/*  f08f690:	c7aa0078 */ 	lwc1	$f10,0x78($sp)
-/*  f08f694:	c7a80064 */ 	lwc1	$f8,0x64($sp)
-/*  f08f698:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f08f69c:	e7aa00a4 */ 	swc1	$f10,0xa4($sp)
-/*  f08f6a0:	c7b00074 */ 	lwc1	$f16,0x74($sp)
-/*  f08f6a4:	46081282 */ 	mul.s	$f10,$f2,$f8
-/*  f08f6a8:	c7a8005c */ 	lwc1	$f8,0x5c($sp)
-/*  f08f6ac:	e7b000a8 */ 	swc1	$f16,0xa8($sp)
-/*  f08f6b0:	460a3101 */ 	sub.s	$f4,$f6,$f10
-/*  f08f6b4:	46024182 */ 	mul.s	$f6,$f8,$f2
-/*  f08f6b8:	c7aa0050 */ 	lwc1	$f10,0x50($sp)
-/*  f08f6bc:	e7a400b0 */ 	swc1	$f4,0xb0($sp)
-/*  f08f6c0:	46005102 */ 	mul.s	$f4,$f10,$f0
-/*  f08f6c4:	46043201 */ 	sub.s	$f8,$f6,$f4
-/*  f08f6c8:	10000008 */ 	b	.L0f08f6ec
-/*  f08f6cc:	e7a800ac */ 	swc1	$f8,0xac($sp)
-.L0f08f6d0:
-/*  f08f6d0:	c7a60080 */ 	lwc1	$f6,0x80($sp)
-/*  f08f6d4:	c7a4005c */ 	lwc1	$f4,0x5c($sp)
-/*  f08f6d8:	c7a80064 */ 	lwc1	$f8,0x64($sp)
-/*  f08f6dc:	e7aa00a8 */ 	swc1	$f10,0xa8($sp)
-/*  f08f6e0:	e7a600a4 */ 	swc1	$f6,0xa4($sp)
-/*  f08f6e4:	e7a400b0 */ 	swc1	$f4,0xb0($sp)
-/*  f08f6e8:	e7a800ac */ 	swc1	$f8,0xac($sp)
-.L0f08f6ec:
-/*  f08f6ec:	c7b000a8 */ 	lwc1	$f16,0xa8($sp)
-/*  f08f6f0:	c7aa00b0 */ 	lwc1	$f10,0xb0($sp)
-/*  f08f6f4:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f08f6f8:	c7a80098 */ 	lwc1	$f8,0x98($sp)
-/*  f08f6fc:	46105002 */ 	mul.s	$f0,$f10,$f16
-/*  f08f700:	c7aa00ac */ 	lwc1	$f10,0xac($sp)
-/*  f08f704:	46105082 */ 	mul.s	$f2,$f10,$f16
-/*  f08f708:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f08f70c:	46003100 */ 	add.s	$f4,$f6,$f0
-/*  f08f710:	c7a6004c */ 	lwc1	$f6,0x4c($sp)
-/*  f08f714:	e7a20028 */ 	swc1	$f2,0x28($sp)
-/*  f08f718:	46082301 */ 	sub.s	$f12,$f4,$f8
-/*  f08f71c:	c7a800a0 */ 	lwc1	$f8,0xa0($sp)
-/*  f08f720:	46023100 */ 	add.s	$f4,$f6,$f2
-/*  f08f724:	e7ac00d4 */ 	swc1	$f12,0xd4($sp)
-/*  f08f728:	46082381 */ 	sub.s	$f14,$f4,$f8
-/*  f08f72c:	0fc23d4e */ 	jal	func0f08f538
-/*  f08f730:	e7ae00d0 */ 	swc1	$f14,0xd0($sp)
-/*  f08f734:	c7a200a4 */ 	lwc1	$f2,0xa4($sp)
-/*  f08f738:	c7a600b0 */ 	lwc1	$f6,0xb0($sp)
-/*  f08f73c:	c7aa0044 */ 	lwc1	$f10,0x44($sp)
-/*  f08f740:	e7a000e4 */ 	swc1	$f0,0xe4($sp)
-/*  f08f744:	46023102 */ 	mul.s	$f4,$f6,$f2
-/*  f08f748:	c7a60098 */ 	lwc1	$f6,0x98($sp)
-/*  f08f74c:	46045200 */ 	add.s	$f8,$f10,$f4
-/*  f08f750:	c7a400ac */ 	lwc1	$f4,0xac($sp)
-/*  f08f754:	c7aa004c */ 	lwc1	$f10,0x4c($sp)
-/*  f08f758:	46064301 */ 	sub.s	$f12,$f8,$f6
-/*  f08f75c:	46022202 */ 	mul.s	$f8,$f4,$f2
-/*  f08f760:	c7a400a0 */ 	lwc1	$f4,0xa0($sp)
-/*  f08f764:	e7ac00cc */ 	swc1	$f12,0xcc($sp)
-/*  f08f768:	46085180 */ 	add.s	$f6,$f10,$f8
-/*  f08f76c:	46043381 */ 	sub.s	$f14,$f6,$f4
-/*  f08f770:	0fc23d4e */ 	jal	func0f08f538
-/*  f08f774:	e7ae00c8 */ 	swc1	$f14,0xc8($sp)
-/*  f08f778:	c7b000e4 */ 	lwc1	$f16,0xe4($sp)
-/*  f08f77c:	8fa300e8 */ 	lw	$v1,0xe8($sp)
-/*  f08f780:	8fb900ec */ 	lw	$t9,0xec($sp)
-/*  f08f784:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f08f788:	8faa00ec */ 	lw	$t2,0xec($sp)
-/*  f08f78c:	45020006 */ 	bc1fl	.L0f08f7a8
-/*  f08f790:	e5400000 */ 	swc1	$f0,0x0($t2)
-/*  f08f794:	e7300000 */ 	swc1	$f16,0x0($t9)
-/*  f08f798:	8fa900f0 */ 	lw	$t1,0xf0($sp)
-/*  f08f79c:	10000004 */ 	b	.L0f08f7b0
-/*  f08f7a0:	e5200000 */ 	swc1	$f0,0x0($t1)
-/*  f08f7a4:	e5400000 */ 	swc1	$f0,0x0($t2)
-.L0f08f7a8:
-/*  f08f7a8:	8fab00f0 */ 	lw	$t3,0xf0($sp)
-/*  f08f7ac:	e5700000 */ 	swc1	$f16,0x0($t3)
-.L0f08f7b0:
-/*  f08f7b0:	8fa500f4 */ 	lw	$a1,0xf4($sp)
-/*  f08f7b4:	8fa400f8 */ 	lw	$a0,0xf8($sp)
-/*  f08f7b8:	50a00068 */ 	beqzl	$a1,.L0f08f95c
-/*  f08f7bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08f7c0:	50800066 */ 	beqzl	$a0,.L0f08f95c
-/*  f08f7c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08f7c8:	94620072 */ 	lhu	$v0,0x72($v1)
-/*  f08f7cc:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f08f7d0:	14410035 */ 	bne	$v0,$at,.L0f08f8a8
-/*  f08f7d4:	3c017f1b */ 	lui	$at,%hi(var7f1ab180)
-/*  f08f7d8:	c428b180 */ 	lwc1	$f8,%lo(var7f1ab180)($at)
-/*  f08f7dc:	c46a007c */ 	lwc1	$f10,0x7c($v1)
-/*  f08f7e0:	8c6c0008 */ 	lw	$t4,0x8($v1)
-/*  f08f7e4:	46008486 */ 	mov.s	$f18,$f16
-/*  f08f7e8:	46085302 */ 	mul.s	$f12,$f10,$f8
-/*  f08f7ec:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f08f7f0:	05a10003 */ 	bgez	$t5,.L0f08f800
-/*  f08f7f4:	3c017f1b */ 	lui	$at,%hi(var7f1ab184)
-/*  f08f7f8:	c426b184 */ 	lwc1	$f6,%lo(var7f1ab184)($at)
-/*  f08f7fc:	460c3301 */ 	sub.s	$f12,$f6,$f12
-.L0f08f800:
-/*  f08f800:	e7ac0038 */ 	swc1	$f12,0x38($sp)
-/*  f08f804:	0c0068f4 */ 	jal	cosf
-/*  f08f808:	e7b200dc */ 	swc1	$f18,0xdc($sp)
-/*  f08f80c:	c7ac0038 */ 	lwc1	$f12,0x38($sp)
-/*  f08f810:	0c0068f7 */ 	jal	sinf
-/*  f08f814:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f08f818:	c7a400a4 */ 	lwc1	$f4,0xa4($sp)
-/*  f08f81c:	c7aa00a8 */ 	lwc1	$f10,0xa8($sp)
-/*  f08f820:	c7a80044 */ 	lwc1	$f8,0x44($sp)
-/*  f08f824:	c7a6002c */ 	lwc1	$f6,0x2c($sp)
-/*  f08f828:	460a2081 */ 	sub.s	$f2,$f4,$f10
-/*  f08f82c:	c7aa0098 */ 	lwc1	$f10,0x98($sp)
-/*  f08f830:	c7b00034 */ 	lwc1	$f16,0x34($sp)
-/*  f08f834:	46064100 */ 	add.s	$f4,$f8,$f6
-/*  f08f838:	c7a600b0 */ 	lwc1	$f6,0xb0($sp)
-/*  f08f83c:	460a2201 */ 	sub.s	$f8,$f4,$f10
-/*  f08f840:	46103102 */ 	mul.s	$f4,$f6,$f16
-/*  f08f844:	c7aa00ac */ 	lwc1	$f10,0xac($sp)
-/*  f08f848:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*  f08f84c:	46005202 */ 	mul.s	$f8,$f10,$f0
-/*  f08f850:	46082100 */ 	add.s	$f4,$f4,$f8
-/*  f08f854:	46041202 */ 	mul.s	$f8,$f2,$f4
-/*  f08f858:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*  f08f85c:	46082300 */ 	add.s	$f12,$f4,$f8
-/*  f08f860:	c7a80028 */ 	lwc1	$f8,0x28($sp)
-/*  f08f864:	c7a4004c */ 	lwc1	$f4,0x4c($sp)
-/*  f08f868:	46082100 */ 	add.s	$f4,$f4,$f8
-/*  f08f86c:	c7a800a0 */ 	lwc1	$f8,0xa0($sp)
-/*  f08f870:	46082101 */ 	sub.s	$f4,$f4,$f8
-/*  f08f874:	46003207 */ 	neg.s	$f8,$f6
-/*  f08f878:	46004182 */ 	mul.s	$f6,$f8,$f0
-/*  f08f87c:	00000000 */ 	nop
-/*  f08f880:	46105202 */ 	mul.s	$f8,$f10,$f16
-/*  f08f884:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f08f888:	460a1182 */ 	mul.s	$f6,$f2,$f10
-/*  f08f88c:	0fc23d4e */ 	jal	func0f08f538
-/*  f08f890:	46062380 */ 	add.s	$f14,$f4,$f6
-/*  f08f894:	c7b200dc */ 	lwc1	$f18,0xdc($sp)
-/*  f08f898:	46000086 */ 	mov.s	$f2,$f0
-/*  f08f89c:	8fa500f4 */ 	lw	$a1,0xf4($sp)
-/*  f08f8a0:	10000024 */ 	b	.L0f08f934
-/*  f08f8a4:	8fa400f8 */ 	lw	$a0,0xf8($sp)
-.L0f08f8a8:
-/*  f08f8a8:	10400007 */ 	beqz	$v0,.L0f08f8c8
-/*  f08f8ac:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f08f8b0:	10410005 */ 	beq	$v0,$at,.L0f08f8c8
-/*  f08f8b4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f08f8b8:	10410003 */ 	beq	$v0,$at,.L0f08f8c8
-/*  f08f8bc:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f08f8c0:	5441001b */ 	bnel	$v0,$at,.L0f08f930
-/*  f08f8c4:	46008486 */ 	mov.s	$f18,$f16
-.L0f08f8c8:
-/*  f08f8c8:	c460007c */ 	lwc1	$f0,0x7c($v1)
-/*  f08f8cc:	c4680098 */ 	lwc1	$f8,0x98($v1)
-/*  f08f8d0:	c46a00a0 */ 	lwc1	$f10,0xa0($v1)
-/*  f08f8d4:	c7a400d4 */ 	lwc1	$f4,0xd4($sp)
-/*  f08f8d8:	46004082 */ 	mul.s	$f2,$f8,$f0
-/*  f08f8dc:	c7a600d0 */ 	lwc1	$f6,0xd0($sp)
-/*  f08f8e0:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f08f8e4:	e7a20040 */ 	swc1	$f2,0x40($sp)
-/*  f08f8e8:	46022300 */ 	add.s	$f12,$f4,$f2
-/*  f08f8ec:	e7b0003c */ 	swc1	$f16,0x3c($sp)
-/*  f08f8f0:	0fc23d4e */ 	jal	func0f08f538
-/*  f08f8f4:	46103380 */ 	add.s	$f14,$f6,$f16
-/*  f08f8f8:	c7a20040 */ 	lwc1	$f2,0x40($sp)
-/*  f08f8fc:	c7b0003c */ 	lwc1	$f16,0x3c($sp)
-/*  f08f900:	c7a800cc */ 	lwc1	$f8,0xcc($sp)
-/*  f08f904:	c7aa00c8 */ 	lwc1	$f10,0xc8($sp)
-/*  f08f908:	e7a000dc */ 	swc1	$f0,0xdc($sp)
-/*  f08f90c:	46024300 */ 	add.s	$f12,$f8,$f2
-/*  f08f910:	0fc23d4e */ 	jal	func0f08f538
-/*  f08f914:	46105380 */ 	add.s	$f14,$f10,$f16
-/*  f08f918:	c7b200dc */ 	lwc1	$f18,0xdc($sp)
-/*  f08f91c:	46000086 */ 	mov.s	$f2,$f0
-/*  f08f920:	8fa500f4 */ 	lw	$a1,0xf4($sp)
-/*  f08f924:	10000003 */ 	b	.L0f08f934
-/*  f08f928:	8fa400f8 */ 	lw	$a0,0xf8($sp)
-/*  f08f92c:	46008486 */ 	mov.s	$f18,$f16
-.L0f08f930:
-/*  f08f930:	46000086 */ 	mov.s	$f2,$f0
-.L0f08f934:
-/*  f08f934:	4602903c */ 	c.lt.s	$f18,$f2
-/*  f08f938:	00000000 */ 	nop
-/*  f08f93c:	45020005 */ 	bc1fl	.L0f08f954
-/*  f08f940:	e4a20000 */ 	swc1	$f2,0x0($a1)
-/*  f08f944:	e4b20000 */ 	swc1	$f18,0x0($a1)
-/*  f08f948:	10000003 */ 	b	.L0f08f958
-/*  f08f94c:	e4820000 */ 	swc1	$f2,0x0($a0)
-/*  f08f950:	e4a20000 */ 	swc1	$f2,0x0($a1)
-.L0f08f954:
-/*  f08f954:	e4920000 */ 	swc1	$f18,0x0($a0)
-.L0f08f958:
-/*  f08f958:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f08f95c:
-/*  f08f95c:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
-/*  f08f960:	03e00008 */ 	jr	$ra
-/*  f08f964:	00000000 */ 	nop
-);
-
 /**
  * Get some coordinates/distances related to activating doors.
  */
-// Mismatch: Float instructions are in a different order
-//void func0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool arg5)
-//{
-//	f32 spe4;
-//	f32 spe0;
-//	f32 spdc;
-//	f32 tmp;
-//	f32 spd4;
-//	f32 spd0;
-//	f32 spcc;
-//	f32 spc8;
-//	u32 stack[4];
-//	struct prop *playerprop; // b4
-//	f32 spb0;
-//	f32 spac;
-//	f32 spa8;
-//	f32 spa4;
-//	volatile struct coord playerpos; // 98
-//	struct pad pad; // 44
-//	f32 sp40;
-//	f32 sp3c;
-//	f32 sp38;
-//	f32 sp34;
-//	f32 sp30;
-//	f32 sp2c;
-//	f32 sp28;
-//
-//	if (g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active) {
-//		playerprop = g_Vars.currentplayer->eyespy->prop;
-//	} else {
-//		playerprop = g_Vars.currentplayer->prop;
-//	}
-//
-//	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_BBOX, &pad);
-//
-//	playerpos.x = playerprop->pos.x;
-//	playerpos.y = playerprop->pos.y;
-//	playerpos.z = playerprop->pos.z;
-//
-//	if (arg5) {
-//		spa8 = pad.bbox.xmin;
-//		spa4 = pad.bbox.xmax;
-//		spb0 = pad.up.y * pad.look.z - pad.look.y * pad.up.z;
-//		spac = pad.up.x * pad.look.y - pad.look.x * pad.up.y;
-//	} else {
-//		spa8 = pad.bbox.ymin;
-//		spa4 = pad.bbox.ymax;
-//		spb0 = pad.up.x;
-//		spac = pad.up.z;
-//	}
-//
-//	spd4 = pad.pos.x + spb0 * spa8 - playerpos.x;
-//	spd0 = pad.pos.z + spac * spa8 - playerpos.z;
-//	spe4 = func0f08f538(spd4, spd0);
-//	spcc = pad.pos.x + spb0 * spa4 - playerpos.x;
-//	spc8 = pad.pos.z + spac * spa4 - playerpos.z;
-//	spe0 = func0f08f538(spcc, spc8);
-//
-//	if (spe4 < spe0) {
-//		*arg1 = spe4;
-//		*arg2 = spe0;
-//	} else {
-//		*arg1 = spe0;
-//		*arg2 = spe4;
-//	}
-//
-//	if (arg3 != NULL && arg4 != NULL) {
-//		if (door->doortype == DOORTYPE_SWINGING) {
-//			sp38 = door->frac * 0.017450513318181f;
-//
-//			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
-//				sp38 = M_BADTAU - sp38;
-//			}
-//
-//			spdc = spe4;
-//			sp34 = cosf(sp38);
-//			sp30 = sinf(sp38);
-//			tmp = func0f08f538(
-//					(pad.pos.x + spb0 * spa8 - playerpos.x) + (spa4 - spa8) * (spb0 * sp34 + spac * sp30),
-//					(pad.pos.z + spac * spa8 - playerpos.z) + (spa4 - spa8) * (-spb0 * sp30 + spac * sp34));
-//		} else if (door->doortype == DOORTYPE_SLIDING
-//				|| door->doortype == DOORTYPE_FLEXI1
-//				|| door->doortype == DOORTYPE_FLEXI2
-//				|| door->doortype == DOORTYPE_FLEXI3) {
-//			sp40 = door->unk98.x * door->frac;
-//			sp3c = door->unk98.z * door->frac;
-//			spdc = func0f08f538(spd4 + sp40, spd0 + sp3c);
-//			tmp = func0f08f538(spcc + sp40, spc8 + sp3c);
-//		} else {
-//			spdc = spe4;
-//		}
-//
-//		if (spdc < tmp) {
-//			*arg3 = spdc;
-//			*arg4 = tmp;
-//		} else {
-//			*arg3 = tmp;
-//			*arg4 = spdc;
-//		}
-//	}
-//}
+void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool arg5)
+{
+	f32 value1;
+	f32 value2;
+	f32 value3;
+	f32 value4;
+	f32 x1;
+	f32 y1;
+	f32 x2;
+	f32 y2;
+	u32 stack[4];
+	struct prop *playerprop;
+	f32 spb0;
+	f32 spac;
+	f32 spa8;
+	f32 spa4;
+	struct coord playerpos;
+	struct pad pad;
+	f32 xfrac;
+	f32 zfrac;
+	f32 angle;
+	f32 cosine;
+	f32 sine;
+
+	if (g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active) {
+		playerprop = g_Vars.currentplayer->eyespy->prop;
+	} else {
+		playerprop = g_Vars.currentplayer->prop;
+	}
+
+	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_BBOX, &pad);
+
+	playerpos.f[0] = playerprop->pos.x;
+	playerpos.f[1] = playerprop->pos.y;
+	playerpos.f[2] = playerprop->pos.z;
+
+	if (arg5) {
+		spa8 = pad.bbox.xmin;
+		spa4 = pad.bbox.xmax;
+		spb0 = pad.up.y * pad.look.z - pad.look.y * pad.up.z;
+		spac = pad.up.x * pad.look.y - pad.look.x * pad.up.y;
+	} else {
+		spa8 = pad.bbox.ymin;
+		spa4 = pad.bbox.ymax;
+		spb0 = pad.up.x;
+		spac = pad.up.z;
+	}
+
+	x1 = pad.pos.x + spb0 * spa8 - playerpos.f[0];
+	y1 = pad.pos.z + spac * spa8 - playerpos.f[2];
+	value1 = func0f08f538(x1, y1);
+
+	x2 = pad.pos.x + spb0 * spa4 - playerpos.f[0];
+	y2 = pad.pos.z + spac * spa4 - playerpos.f[2];
+	value2 = func0f08f538(x2, y2);
+
+	if (value1 < value2) {
+		*arg1 = value1;
+		*arg2 = value2;
+	} else {
+		*arg1 = value2;
+		*arg2 = value1;
+	}
+
+	if (arg3 != NULL && arg4 != NULL) {
+		if (door->doortype == DOORTYPE_SWINGING) {
+			angle = door->frac * 0.017450513318181f;
+			value3 = value1;
+
+			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
+				angle = M_BADTAU - angle;
+			}
+
+			cosine = cosf(angle);
+			sine = sinf(angle);
+
+			x1 = pad.pos.x + (spb0 * spa8) - playerpos.f[0] + (spa4 - spa8) * (spb0 * cosine + spac * sine);
+			y1 = pad.pos.z + (spac * spa8) - playerpos.f[2] + (spa4 - spa8) * (-spb0 * sine + spac * cosine);
+
+			value4 = func0f08f538(x1, y1);
+		} else if (door->doortype == DOORTYPE_SLIDING
+				|| door->doortype == DOORTYPE_FLEXI1
+				|| door->doortype == DOORTYPE_FLEXI2
+				|| door->doortype == DOORTYPE_FLEXI3) {
+			xfrac = door->unk98.x * door->frac;
+			zfrac = door->unk98.z * door->frac;
+
+			value3 = func0f08f538(x1 + xfrac, y1 + zfrac);
+			value4 = func0f08f538(x2 + xfrac, y2 + zfrac);
+		} else {
+			value3 = value1;
+			value4 = value2;
+		}
+
+		if (value3 < value4) {
+			*arg3 = value3;
+			*arg4 = value4;
+		} else {
+			*arg3 = value4;
+			*arg4 = value3;
+		}
+	}
+}
 
 bool func0f08f968(struct doorobj *door, bool arg1)
 {
@@ -37248,9 +37009,9 @@ bool func0f08f968(struct doorobj *door, bool arg1)
 		}
 
 		if (maybe) {
-			func0f08f604(door, &sp58, &sp54, &sp50, &sp4c, arg1);
+			door0f08f604(door, &sp58, &sp54, &sp50, &sp4c, arg1);
 		} else {
-			func0f08f604(door, &sp58, &sp54, NULL, NULL, arg1);
+			door0f08f604(door, &sp58, &sp54, NULL, NULL, arg1);
 		}
 
 		if (maybe && ((sp50 >= -limit && sp50 <= limit && sp4c >= -limit && sp4c <= limit)
@@ -37266,7 +37027,7 @@ bool func0f08f968(struct doorobj *door, bool arg1)
 			f32 sp34;
 
 			while (sibling != NULL && sibling != door && (sp58 >= 0.0f || sp54 < 0.0f)) {
-				func0f08f604(sibling, &sp38, &sp34, NULL, NULL, arg1);
+				door0f08f604(sibling, &sp38, &sp34, NULL, NULL, arg1);
 
 				if (sp58 >= 0.0f && sp38 < sp58) {
 					sp58 = sp38;
