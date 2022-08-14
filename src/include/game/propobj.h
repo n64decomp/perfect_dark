@@ -83,7 +83,7 @@ struct modelrodata_bbox *modelFindBboxRodata(struct model *model);
 struct modelnode *objFindBboxNode(struct defaultobj *obj);
 struct modelrodata_bbox *objFindBboxRodata(struct defaultobj *obj);
 s32 func0f068b14(s16 *rooms, s32 arg1);
-s32 func0f068c04(struct prop *prop, s32 *arg1, s32 *arg2);
+s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2);
 s32 func0f068fc8(struct prop *prop, bool arg1);
 void func0f069144(struct prop *prop, u8 *nextcol, u16 floorcol);
 void func0f069630(struct prop *prop, u8 *nextcol, u16 floorcol);
