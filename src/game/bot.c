@@ -2000,7 +2000,7 @@ bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
 
 		if (!arg1
 				&& (chr->aibot->config->difficulty == BOTDIFF_MEAT || chr->aibot->config->difficulty == BOTDIFF_EASY)
-				&& !func0f02e064(chr)) {
+				&& !chrGoPosIsWaiting(chr)) {
 			f32 tmp = func0f03e578(chr);
 			f32 angle = atan2f(target->pos.x - chr->prop->pos.x, target->pos.z - chr->prop->pos.z) - tmp;
 
@@ -2186,7 +2186,7 @@ s32 botTick(struct prop *prop)
 				aibot->unk06c = 0;
 				aibot->unk070 = 0;
 				aibot->unk1e4 = g_Vars.lvframe60;
-			} else if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_20) == 0) {
+			} else if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_WAITING) == 0) {
 				aibot->unk06c = 1;
 				aibot->unk070 = 0;
 			} else {
@@ -5365,7 +5365,7 @@ glabel var7f1b8fc8
 .PF0f19754c:
 /*  f19754c:	2645008c */ 	addiu	$a1,$s2,0x8c
 /*  f197550:	2646007a */ 	addiu	$a2,$s2,0x7a
-/*  f197554:	0fc0e170 */ 	jal	chrGoToPos
+/*  f197554:	0fc0e170 */ 	jal	chrGoToRoomPos
 /*  f197558:	24070002 */ 	li	$a3,0x2
 /*  f19755c:	1000004c */ 	b	.PF0f197690
 /*  f197560:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -5422,7 +5422,7 @@ glabel var7f1b8fc8
 /*  f19761c:	05e00005 */ 	bltz	$t7,.PF0f197634
 /*  f197620:	00000000 */ 	nop
 .PF0f197624:
-/*  f197624:	0fc0e170 */ 	jal	chrGoToPos
+/*  f197624:	0fc0e170 */ 	jal	chrGoToRoomPos
 /*  f197628:	a29502a0 */ 	sb	$s5,0x2a0($s4)
 /*  f19762c:	10000018 */ 	b	.PF0f197690
 /*  f197630:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -5695,7 +5695,7 @@ glabel var7f1b8fc8
 /*  f1979fc:	2645008c */ 	addiu	$a1,$s2,0x8c
 /*  f197a00:	1d80001e */ 	bgtz	$t4,.PF0f197a7c
 /*  f197a04:	2646007a */ 	addiu	$a2,$s2,0x7a
-/*  f197a08:	0fc0e170 */ 	jal	chrGoToPos
+/*  f197a08:	0fc0e170 */ 	jal	chrGoToRoomPos
 /*  f197a0c:	24070002 */ 	li	$a3,0x2
 /*  f197a10:	1000001b */ 	b	.PF0f197a80
 /*  f197a14:	8e4d00dc */ 	lw	$t5,0xdc($s2)
@@ -8379,7 +8379,7 @@ glabel var7f1b8fc8
 .PB0f19803c:
 /*  f19803c:	2645008c */ 	addiu	$a1,$s2,0x8c
 /*  f198040:	2646007a */ 	addiu	$a2,$s2,0x7a
-/*  f198044:	0fc0e153 */ 	jal	chrGoToPos
+/*  f198044:	0fc0e153 */ 	jal	chrGoToRoomPos
 /*  f198048:	24070002 */ 	li	$a3,0x2
 /*  f19804c:	1000004c */ 	b	.PB0f198180
 /*  f198050:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -8436,7 +8436,7 @@ glabel var7f1b8fc8
 /*  f19810c:	05e00005 */ 	bltz	$t7,.PB0f198124
 /*  f198110:	00000000 */ 	nop
 .PB0f198114:
-/*  f198114:	0fc0e153 */ 	jal	chrGoToPos
+/*  f198114:	0fc0e153 */ 	jal	chrGoToRoomPos
 /*  f198118:	a29502a0 */ 	sb	$s5,0x2a0($s4)
 /*  f19811c:	10000018 */ 	b	.PB0f198180
 /*  f198120:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -8709,7 +8709,7 @@ glabel var7f1b8fc8
 /*  f1984ec:	2645008c */ 	addiu	$a1,$s2,0x8c
 /*  f1984f0:	1d80001e */ 	bgtz	$t4,.PB0f19856c
 /*  f1984f4:	2646007a */ 	addiu	$a2,$s2,0x7a
-/*  f1984f8:	0fc0e153 */ 	jal	chrGoToPos
+/*  f1984f8:	0fc0e153 */ 	jal	chrGoToRoomPos
 /*  f1984fc:	24070002 */ 	li	$a3,0x2
 /*  f198500:	1000001b */ 	b	.PB0f198570
 /*  f198504:	8e4d00dc */ 	lw	$t5,0xdc($s2)
@@ -10283,7 +10283,7 @@ void botTickUnpaused(struct chrdata *chr)
 		if (newaction >= 0) {
 			if (newaction == MA_AIBOTGETITEM) {
 				if (aibot->gotoprop) {
-					chrGoToProp(chr, aibot->gotoprop, SPEED_RUN);
+					chrGoToProp(chr, aibot->gotoprop, GOPOSFLAG_RUN);
 					chr->myaction = newaction;
 				}
 			} else if (newaction == MA_AIBOTATTACK) {
@@ -10307,7 +10307,7 @@ void botTickUnpaused(struct chrdata *chr)
 					botSetTarget(chr, -1);
 				}
 
-				chrGoToPos(chr, &aibot->defendholdpos, aibot->defendholdrooms, SPEED_RUN);
+				chrGoToRoomPos(chr, &aibot->defendholdpos, aibot->defendholdrooms, GOPOSFLAG_RUN);
 			} else if (newaction == MA_AIBOTGOTOPOS) {
 				f32 xdist = chr->prop->pos.x - aibot->gotopos.x;
 				f32 ydist = chr->prop->pos.y - aibot->gotopos.y;
@@ -10327,14 +10327,14 @@ void botTickUnpaused(struct chrdata *chr)
 
 				if (xdist > 20 || zdist > 20 || (ydist > 200 && chr->inlift == 0)) {
 					chr->myaction = newaction;
-					chrGoToPos(chr, &aibot->gotopos, aibot->gotorooms, SPEED_RUN);
+					chrGoToRoomPos(chr, &aibot->gotopos, aibot->gotorooms, GOPOSFLAG_RUN);
 				} else {
 					chrStand(chr);
 				}
 			} else if (newaction == MA_AIBOTGOTOPROP) {
 				if (aibot->gotoprop) {
 					chr->myaction = newaction;
-					chrGoToProp(chr, aibot->gotoprop, SPEED_RUN);
+					chrGoToProp(chr, aibot->gotoprop, GOPOSFLAG_RUN);
 				}
 			} else if (newaction == MA_AIBOTDOWNLOAD) {
 				chr->myaction = newaction;
@@ -10428,7 +10428,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 				if (xdist > 40 || zdist > 40 || (ydist > 200 && !chr->inlift)) {
 					if (aibot->returntodefendtimer60 <= 0) {
-						chrGoToPos(chr, &aibot->defendholdpos, aibot->defendholdrooms, SPEED_RUN);
+						chrGoToRoomPos(chr, &aibot->defendholdpos, aibot->defendholdrooms, GOPOSFLAG_RUN);
 					}
 				} else if (aibot->canbreakdefend
 						&& chr->target != -1
@@ -10830,6 +10830,6 @@ void botCheckFetch(struct chrdata *chr)
 	}
 
 	if (!alreadyfetching) {
-		chrGoToPos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
+		chrGoToRoomPos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
 	}
 }

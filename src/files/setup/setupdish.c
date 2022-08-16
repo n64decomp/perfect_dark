@@ -4657,7 +4657,7 @@ u8 func0404_holo4_guard2[] = {
 
 	label(0x2f)
 	restart_timer
-	retreat(SPEED_RUN, 1)
+	retreat(GOPOSFLAG_RUN, 1)
 
 	beginloop(0x09)
 		if_timer_gt(60, /*goto*/ 0x06)
@@ -4929,7 +4929,7 @@ u8 func0407_holo5_guard1[] = {
 
 	label(0x2f)
 	restart_timer
-	retreat(SPEED_RUN, 1)
+	retreat(GOPOSFLAG_RUN, 1)
 
 	beginloop(0x09)
 		if_timer_gt(60, /*goto*/ 0x06)

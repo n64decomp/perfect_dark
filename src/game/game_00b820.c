@@ -29,7 +29,7 @@ void resetSomeStageThings(void)
 	g_PlayerDamageTxScale = 1;
 	g_AttackWalkDurationScale = 1;
 
-	var80062cbc = 0;
+	g_NumChrsSeenPlayerRecently2 = 0;
 }
 
 void stageAllocateBgChrs(void)

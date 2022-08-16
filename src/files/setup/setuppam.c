@@ -1152,7 +1152,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 	label(0x08)
 	restart_timer
 	say_quip(CHR_BOND, 0x29, 0xff, 0x14, 0xff, BANK_1, 0x00, 0x00)
-	retreat(SPEED_RUN, 1)
+	retreat(GOPOSFLAG_RUN, 1)
 
 	beginloop(0x09)
 		if_timer_gt(120, /*goto*/ 0x2e)
@@ -3492,7 +3492,7 @@ u8 func040f_miniskedar[] = {
 
 		label(0x2e)
 		label(0x2f)
-		retreat(SPEED_RUN, 1)
+		retreat(GOPOSFLAG_RUN, 1)
 
 		beginloop(0x0c)
 			if_timer_gt(120, /*goto*/ 0x06)

@@ -319,7 +319,7 @@
 /**
  * Makes the chr go to their pad preset. This may fail if pathfinding fails.
  *
- * Speed should be SPEED_WALK, SPEED_JOG or SPEED_RUN.
+ * Speed should be GOPOSFLAG_WALK, GOPOSFLAG_JOG or GOPOSFLAG_RUN.
  */
 #define go_to_target_pad(speed) \
 	mkshort(0x001e), \

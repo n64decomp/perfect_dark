@@ -988,7 +988,7 @@ bool aiTryRunFromTarget(void)
  */
 bool aiTryJogToTargetProp(void)
 {
-	if (chrGoToTarget(g_Vars.chrdata, SPEED_JOG)) {
+	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_JOG)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1003,7 +1003,7 @@ bool aiTryJogToTargetProp(void)
  */
 bool aiTryWalkToTargetProp(void)
 {
-	if (chrGoToTarget(g_Vars.chrdata, SPEED_WALK)) {
+	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_WALK)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1018,7 +1018,7 @@ bool aiTryWalkToTargetProp(void)
  */
 bool aiTryRunToTargetProp(void)
 {
-	if (chrGoToTarget(g_Vars.chrdata, SPEED_RUN)) {
+	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_RUN)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1050,7 +1050,7 @@ bool aiTryJogToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (chrGoToChr(g_Vars.chrdata, cmd[2], SPEED_JOG)) {
+	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_JOG)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1066,7 +1066,7 @@ bool aiTryWalkToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (chrGoToChr(g_Vars.chrdata, cmd[2], SPEED_WALK)) {
+	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_WALK)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1082,7 +1082,7 @@ bool aiTryRunToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (chrGoToChr(g_Vars.chrdata, cmd[2], SPEED_RUN)) {
+	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_RUN)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1144,7 +1144,7 @@ bool aiJogToPad(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
-	chrGoToPad(g_Vars.chrdata, pad, SPEED_JOG);
+	chrGoToPad(g_Vars.chrdata, pad, GOPOSFLAG_JOG);
 	g_Vars.aioffset += 4;
 
 	return false;
@@ -1159,13 +1159,13 @@ bool aiGoToPadPreset(void)
 
 	switch (cmd[2]) {
 	case 0:
-		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_WALK);
+		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, GOPOSFLAG_WALK);
 		break;
 	case 1:
-		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_JOG);
+		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, GOPOSFLAG_JOG);
 		break;
 	default:
-		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_RUN);
+		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, GOPOSFLAG_RUN);
 		break;
 	}
 
@@ -1182,7 +1182,7 @@ bool aiWalkToPad(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
-	chrGoToPad(g_Vars.chrdata, pad, SPEED_WALK);
+	chrGoToPad(g_Vars.chrdata, pad, GOPOSFLAG_WALK);
 	g_Vars.aioffset += 4;
 
 	return false;
@@ -1196,7 +1196,7 @@ bool aiRunToPad(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
-	chrGoToPad(g_Vars.chrdata, pad, SPEED_RUN);
+	chrGoToPad(g_Vars.chrdata, pad, GOPOSFLAG_RUN);
 	g_Vars.aioffset += 4;
 
 	return false;
@@ -10180,7 +10180,7 @@ bool aiIfDangerousObjectNearby(void)
 bool ai013e(void)
 {
 	if (func0f03aca0(g_Vars.chrdata, 400, true) == 0 && chrAssignCoverAwayFromDanger(g_Vars.chrdata, 1000, 12000) != -1) {
-		chrGoToCover(g_Vars.chrdata, SPEED_RUN);
+		chrGoToCover(g_Vars.chrdata, GOPOSFLAG_RUN);
 	}
 
 	g_Vars.aioffset += 2;
@@ -10744,7 +10744,7 @@ bool aiDoGunCommand(void)
 
 	if (cmd[2] == 0 || ((weapon->base.hidden & OBJHFLAG_PROJECTILE) == 0 && cmd[2] == 1)) {
 		if (cmd[2] == 0) {
-			chrGoToProp(g_Vars.chrdata, g_Vars.chrdata->gunprop, SPEED_JOG);
+			chrGoToProp(g_Vars.chrdata, g_Vars.chrdata->gunprop, GOPOSFLAG_JOG);
 		}
 
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);

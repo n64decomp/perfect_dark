@@ -361,10 +361,10 @@ u8 func0401_defend[] = {
 	label(0x03)
 		restart_timer
 		if_chr_distance_to_pad_gt(CHR_SELF, 500, PAD_PRESET, /*goto*/ 0x06)
-		go_to_target_pad(SPEED_JOG)
+		go_to_target_pad(GOPOSFLAG_JOG)
 
 		label(0x06)
-		go_to_target_pad(SPEED_RUN)
+		go_to_target_pad(GOPOSFLAG_RUN)
 
 		// Wait until at pad or 1 second has passed
 		beginloop(0x04)

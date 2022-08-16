@@ -165,16 +165,16 @@ void botcmdTickDistMode(struct chrdata *chr)
 			|| (newmode != BOTDISTMODE_OK && (chr->actiontype == ACT_STAND || aibot->distmodettl60 <= 0))) {
 		switch (newmode) {
 		case BOTDISTMODE_BACKUP:
-			chrRunFromPos(chr, SPEED_RUN, 10000, &targetprop->pos);
+			chrRunFromPos(chr, GOPOSFLAG_RUN, 10000, &targetprop->pos);
 			break;
 		case BOTDISTMODE_OK:
 			chrTryStop(chr);
 			break;
 		case BOTDISTMODE_ADVANCE:
-			chrGoToProp(chr, targetprop, SPEED_RUN);
+			chrGoToProp(chr, targetprop, GOPOSFLAG_RUN);
 			break;
 		case BOTDISTMODE_GOTO:
-			chrGoToProp(chr, targetprop, SPEED_RUN);
+			chrGoToProp(chr, targetprop, GOPOSFLAG_RUN);
 			break;
 		}
 

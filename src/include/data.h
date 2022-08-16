@@ -163,7 +163,7 @@ extern f32 g_EnemyAccuracyScale;
 extern f32 g_PlayerDamageRxScale;
 extern f32 g_PlayerDamageTxScale;
 extern f32 g_AttackWalkDurationScale;
-extern s32 var80062cbc;
+extern s32 g_NumChrsSeenPlayerRecently2;
 extern struct animtablerow g_DeathAnimsHumanGun[];
 extern struct animtablerow g_AnimTableHumanSlumped[];
 extern struct animtable *g_AnimTablesByRace[];

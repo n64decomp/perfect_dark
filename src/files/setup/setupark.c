@@ -2705,7 +2705,7 @@ u8 func0413_defend_pad[] = {
 	set_ailist(CHR_SELF, AILIST_GENERAL_COMBAT)
 
 	label(0x22)
-	go_to_target_pad(SPEED_RUN)
+	go_to_target_pad(GOPOSFLAG_RUN)
 
 	beginloop(0x23)
 		if_chr_stopped(/*goto*/ 0x00)

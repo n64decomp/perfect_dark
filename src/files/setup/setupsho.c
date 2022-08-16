@@ -837,7 +837,7 @@ u8 func0404_miniskedar[] = {
 
 	label(0x2d)
 	label(0x2e)
-	retreat(SPEED_RUN, 1)
+	retreat(GOPOSFLAG_RUN, 1)
 
 	beginloop(0x0d)
 		if_timer_gt(120, /*goto*/ 0x06)

@@ -469,7 +469,7 @@
 #define CHRFLAG0_00008000           0x00008000 // Something to do with breaking cover or grenades?
 #define CHRFLAG0_AIVSAI             0x00010000 // Allow chr to fight with other AI
 #define CHRFLAG0_CAN_TRAP           0x00020000
-#define CHRFLAG0_CAN_TRAVEL         0x00040000
+#define CHRFLAG0_ACTIVATEALARM      0x00040000 // Chr will run for alarm
 #define CHRFLAG0_SQUADALERTANYDIST  0x00080000
 #define CHRFLAG0_ALERT_ON_HEARSPAWN 0x00100000 // Become alert when hearing player and never on screen
 #define CHRFLAG0_CAN_FLEESURRENDER  0x00200000 // When unarmed, chr can run from player and surrender if caught up
@@ -479,7 +479,7 @@
 #define CHRFLAG0_SAID_AMBUSH_QUIP   0x02000000
 #define CHRFLAG0_HOLD_POSITION      0x04000000 // Chr can't track (follow) player
 #define CHRFLAG0_COVER_TYPE2        0x08000000
-#define CHRFLAG0_CAN_USE_COVER      0x10000000 // Flag is turned off permanently if player gets too close
+#define CHRFLAG0_CAMP               0x10000000 // Flag is turned off permanently if player gets too close
 #define CHRFLAG0_CAN_HEARSPAWN      0x20000000
 #define CHRFLAG0_NOHEAR             0x40000000
 #define CHRFLAG0_CANLOSEGUN         0x80000000
@@ -561,7 +561,7 @@
 #define CHRH2FLAG_TICKDURINGAUTOCUT 0x0010
 #define CHRH2FLAG_0020              0x0020
 #define CHRH2FLAG_0040              0x0040
-#define CHRH2FLAG_0080              0x0080
+#define CHRH2FLAG_SPAWNED           0x0080
 #define CHRH2FLAG_HEADSHOTTED       0x1000
 
 // chr->chrflags
@@ -1151,12 +1151,16 @@
 #define GEOTYPE_BLOCK  2 // Most objects - multiple x/z vertices, and a single ymin and ymax
 #define GEOTYPE_CYL    3 // Cylinder - used by chrs and the hoverbike
 
-#define GOPOSFLAG_SPEED        0x03 // bits 0x01 and 0x02 combined
+#define GOPOSFLAG_WALK         0x00
+#define GOPOSFLAG_JOG          0x01
+#define GOPOSFLAG_RUN          0x02
 #define GOPOSFLAG_INIT         0x04
 #define GOPOSFLAG_FORPATHSTART 0x08
-#define GOPOSFLAG_20           0x20
+#define GOPOSFLAG_WAITING      0x20 // for a door to open, or at/in lift
 #define GOPOSFLAG_DUCK         0x40
-#define GOPOSFLAG_WALKDIRECT   0x80
+#define GOPOSFLAG_WALKDIRECT   0x80 // walk directly to next pad even if next+1 is in sight
+
+#define GOPOSMASK_SPEED        (GOPOSFLAG_WALK | GOPOSFLAG_JOG | GOPOSFLAG_RUN)
 
 #define GUNCMD_END               0
 #define GUNCMD_SHOWPART          1
@@ -3744,10 +3748,6 @@
 #define SPECIALDIE_ROLL3       4
 #define SPECIALDIE_OVERRAILING 5
 #define SPECIALDIE_ONCHAIR     6
-
-#define SPEED_WALK 0
-#define SPEED_JOG  1
-#define SPEED_RUN  2
 
 #define SPSEGMENT_PHYSICAL   0
 #define SPSEGMENT_GETITLE    2

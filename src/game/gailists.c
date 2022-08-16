@@ -424,7 +424,7 @@ u8 func0006_unalerted[] = {
 	label(0x16)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x14)
 	if_chr_in_squadron_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
-	if_self_flag_bankx_eq(CHRFLAG0_CAN_TRAVEL, TRUE, BANK_0, /*goto*/ 0x9f)
+	if_self_flag_bankx_eq(CHRFLAG0_ACTIVATEALARM, TRUE, BANK_0, /*goto*/ 0x9f)
 
 	label(0x16)
 	say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
@@ -837,7 +837,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x77)
 	if_chr_in_squadron_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
-	if_self_flag_bankx_eq(CHRFLAG0_CAN_TRAVEL, TRUE, BANK_0, /*goto*/ 0x13)
+	if_self_flag_bankx_eq(CHRFLAG0_ACTIVATEALARM, TRUE, BANK_0, /*goto*/ 0x13)
 
 	label(0x16)
 	set_ailist(CHR_SELF, GAILIST_INIT_COMBAT)
@@ -1199,7 +1199,7 @@ u8 func0007_alerted[] = {
 	dprint 'B','4',' ','T','E','A','M',' ','C','H','E','C','K','\n',0,
 	if_alarm_active(/*goto*/ 0x16)
 	if_chr_in_squadron_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
-	if_self_flag_bankx_eq(CHRFLAG0_CAN_TRAVEL, TRUE, BANK_0, /*goto*/ LABEL_RUN_FOR_ALARM)
+	if_self_flag_bankx_eq(CHRFLAG0_ACTIVATEALARM, TRUE, BANK_0, /*goto*/ LABEL_RUN_FOR_ALARM)
 
 	// No need to warn
 	label(0x16)
@@ -1252,7 +1252,7 @@ u8 func0007_alerted[] = {
 	goto_next(0xa1)
 
 	label(0x16)
-	if_self_flag_bankx_eq(CHRFLAG0_CAN_USE_COVER, FALSE, BANK_0, /*goto*/ 0x16)
+	if_self_flag_bankx_eq(CHRFLAG0_CAMP, FALSE, BANK_0, /*goto*/ 0x16)
 
 	label(0x13)
 	dprint 'I','M',' ','G','O','I','N','G',' ','T','O',' ','P','O','P','\n',0,
@@ -1289,7 +1289,7 @@ u8 func0007_alerted[] = {
 
 	label(0x98)
 	dprint 'G','O','I','N','G',' ','T','O',' ','T','R','A','P',' ','P','A','D','\n',0,
-	go_to_target_pad(SPEED_JOG)
+	go_to_target_pad(GOPOSFLAG_JOG)
 
 	beginloop(0x99)
 		label(0x16)
@@ -1413,7 +1413,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_DODGED, BANK_1)
 
 	label(0x16)
-	go_to_cover(SPEED_RUN)
+	go_to_cover(GOPOSFLAG_RUN)
 
 	beginloop(0xa6)
 		if_chr_stopped(/*goto*/ 0xa7)
@@ -1451,7 +1451,7 @@ u8 func0007_alerted[] = {
 	beginloop(0xab)
 		set_target_chr(CHR_P1P2)
 		if_distance_to_target_gt(300, /*goto*/ 0x13)
-		unset_self_flag_bankx(CHRFLAG0_CAN_USE_COVER, BANK_0)
+		unset_self_flag_bankx(CHRFLAG0_CAMP, BANK_0)
 		goto_first(LABEL_MAINLOOP)
 
 		label(0x13)
@@ -1664,7 +1664,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	say_quip(CHR_BOND, QUIP_GOTOCOVER1, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	restart_timer
-	go_to_cover(SPEED_RUN)
+	go_to_cover(GOPOSFLAG_RUN)
 
 	beginloop(0x55)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
@@ -2891,7 +2891,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_FLANKED, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_DODGED, BANK_1)
 	say_quip(CHR_BOND, QUIP_GOFORALARM, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	go_to_target_pad(SPEED_JOG)
+	go_to_target_pad(GOPOSFLAG_JOG)
 
 	beginloop(0x9d)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
@@ -3731,7 +3731,7 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x53)
 	dprint 'G','O',' ','T','O',' ','C','O','V','E','R','\n',0,
 	say_quip(CHR_BOND, QUIP_GOTOCOVER1, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	go_to_cover(SPEED_RUN)
+	go_to_cover(GOPOSFLAG_RUN)
 	restart_timer
 
 	beginloop(0xc7)
@@ -3912,14 +3912,14 @@ u8 func000c_combat_with_target_chr[] = {
 	// End unreachable
 
 	label(0xc4)
-	if_self_flag_bankx_eq(CHRFLAG0_CAN_USE_COVER, FALSE, BANK_0, /*goto*/ 0x13)
+	if_self_flag_bankx_eq(CHRFLAG0_CAMP, FALSE, BANK_0, /*goto*/ 0x13)
 	return
 
 	label(0x13)
 	goto_first(0xb3)
 
 	label(0xcf)
-	if_self_flag_bankx_eq(CHRFLAG0_CAN_USE_COVER, FALSE, BANK_0, /*goto*/ 0x13)
+	if_self_flag_bankx_eq(CHRFLAG0_CAMP, FALSE, BANK_0, /*goto*/ 0x13)
 #if VERSION >= VERSION_NTSC_1_0
 	if_target_is_player(/*goto*/ 0x16)
 	goto_next(0x13)
@@ -4941,7 +4941,7 @@ u8 func001d_search_for_player[] = {
 	goto_next(0x04)
 
 	label(0x13)
-	go_to_target_pad(SPEED_WALK)
+	go_to_target_pad(GOPOSFLAG_WALK)
 
 	beginloop(0x04)
 		dprint 'W','A','L','K',' ','P','A','D','\n',0,

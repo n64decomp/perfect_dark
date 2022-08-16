@@ -3167,7 +3167,7 @@ u8 func0420_labtech_doors[] = {
 	speak(CHR_BOND, L_LIP_087, MP3_M0_IMPOSTER, CHANNEL_4, COLOR_08_RED) // "Imposter!"
 	label(LABEL_2D)
 	label(0x06)
-	go_to_target_pad(SPEED_JOG)
+	go_to_target_pad(GOPOSFLAG_JOG)
 
 	beginloop(0x0a)
 		if_chr_stopped(/*goto*/ 0x06)

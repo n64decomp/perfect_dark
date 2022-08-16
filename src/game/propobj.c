@@ -34380,10 +34380,10 @@ void doorsCalcFrac(struct doorobj *door)
 							if (isliftdoor) {
 								if (chr->actiontype == ACT_STAND
 										|| (chr->actiontype == ACT_ATTACK && (chr->act_attack.flags & ATTACKFLAG_DONTTURN))
-										|| (chr->actiontype == ACT_GOPOS && func0f02e064(chr))) {
+										|| (chr->actiontype == ACT_GOPOS && chrGoPosIsWaiting(chr))) {
 									struct prop *target = chrGetTargetProp(chr);
 
-									if (chrGoToPos(chr, &target->pos, target->rooms, 0)) {
+									if (chrGoToRoomPos(chr, &target->pos, target->rooms, 0)) {
 										chr->goposforce = TICKS(600);
 									}
 								} else if (chr->actiontype == ACT_GOPOS) {

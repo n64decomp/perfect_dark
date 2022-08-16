@@ -63,10 +63,8 @@ u32 var8006297c = 0;
 u32 var80062980 = 0;
 s32 g_NextChrnum = 5000;
 
-// 80062988
 struct chrdata *g_ChrSlots = NULL;
 
-// 8006298c
 s32 g_NumChrSlots = 0;
 
 void propsTick(void)
@@ -85,7 +83,7 @@ void propsTick(void)
 	}
 
 	shieldhitsTick();
-	func0f048398();
+	chraTickBg();
 
 	prop = g_Vars.activeprops;
 

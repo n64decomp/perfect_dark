@@ -836,7 +836,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x67)
-	set_self_flag_bankx(CHRFLAG0_CAN_USE_COVER, BANK_0)
+	set_self_flag_bankx(CHRFLAG0_CAMP, BANK_0)
 	set_self_chrflag(CHRCFLAG_RUNFASTER)
 
 	beginloop(0x04)

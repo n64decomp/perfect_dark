@@ -3867,7 +3867,7 @@ u8 func042f_surrendering_guard[] = {
 
 	label(0x58)
 	restart_timer
-	retreat(SPEED_RUN, 2)
+	retreat(GOPOSFLAG_RUN, 2)
 
 	beginloop(0x0a)
 		if_distance_to_target_gt(300, /*goto*/ 0x06)
