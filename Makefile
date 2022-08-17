@@ -232,7 +232,7 @@ ASSET_FILES := \
 	$(patsubst $(A_DIR)/files/chrs/%.bin,   $(B_DIR)/assets/files/C%Z,          $(shell find $(A_DIR) -path '*/files/chrs/*.bin')) \
 	$(patsubst $(A_DIR)/files/guns/%.bin,   $(B_DIR)/assets/files/G%Z,          $(shell find $(A_DIR) -path '*/files/guns/*.bin')) \
 	$(patsubst $(A_DIR)/files/props/%.bin,  $(B_DIR)/assets/files/P%Z,          $(shell find $(A_DIR) -path '*/files/props/*.bin')) \
-	$(patsubst src/files/setup/%.c,         $(B_DIR)/assets/files/U%Z,          $(shell find src/files/setup -name '*.c')) \
+	$(patsubst src/setups/%.c,              $(B_DIR)/assets/files/U%Z,          $(shell find src/setups -name '*.c')) \
 	$(patsubst $(A_DIR)/files/bgdata/%.seg, $(B_DIR)/assets/files/bgdata/%.seg, $(shell find $(A_DIR) -path '*/files/bgdata/*.seg')) \
 	$(B_DIR)/assets/files/ob/ob_mid.seg.o
 
@@ -531,7 +531,7 @@ $(B_DIR)/assets/files/P%Z: $(A_DIR)/files/props/%.bin
 # -> B_DIR/assets/files/setup/foo.bin (done here)
 # -> B_DIR/assets/files/UsetupfooZ (done here)
 # -> B_DIR/assets/files/UsetupfooZ.o (done elsewhere)
-$(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
+$(B_DIR)/assets/files/setup/%.o: src/setups/%.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
