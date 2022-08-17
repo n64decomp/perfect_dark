@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_0B28D0_H
-#define IN_GAME_GAME_0B28D0_H
+#ifndef IN_GAME_MODELMGR_H
+#define IN_GAME_MODELMGR_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

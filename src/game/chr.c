@@ -13,7 +13,7 @@
 #include "game/bondgun.h"
 #include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b28d0.h"
+#include "game/modelmgr.h"
 #include "game/tex.h"
 #include "game/camera.h"
 #include "game/player.h"
@@ -66,66 +66,6 @@ s32 g_NextChrnum = 5000;
 struct chrdata *g_ChrSlots = NULL;
 
 s32 g_NumChrSlots = 0;
-
-void propsTick(void)
-{
-	s32 i;
-	struct prop *prop;
-	struct prop *next;
-	struct prop *next2;
-	s32 done;
-	s32 tickop;
-
-	for (i = 0; i < PLAYERCOUNT(); i++) {
-		g_Vars.players[i]->bondextrapos.x = 0;
-		g_Vars.players[i]->bondextrapos.y = 0;
-		g_Vars.players[i]->bondextrapos.z = 0;
-	}
-
-	shieldhitsTick();
-	chraTickBg();
-
-	prop = g_Vars.activeprops;
-
-	do {
-		next = prop->next;
-		done = next == g_Vars.pausedprops;
-		tickop = TICKOP_NONE;
-
-		if (prop->type == PROPTYPE_CHR) {
-			tickop = chrTickBeams(prop);
-		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-			tickop = objTick(prop);
-		} else if (prop->type == PROPTYPE_EXPLOSION) {
-			tickop = explosionTick(prop);
-		} else if (prop->type == PROPTYPE_SMOKE) {
-			tickop = smokeTick(prop);
-		} else if (prop->type == PROPTYPE_PLAYER) {
-			tickop = playerTickBeams(prop);
-		}
-
-		if (tickop == TICKOP_5) {
-			next2 = next;
-		} else {
-			next2 = prop->next;
-			done = next2 == g_Vars.pausedprops;
-
-			if (tickop == TICKOP_RETICK) {
-				propDelist(prop);
-				propActivateThisFrame(prop);
-
-				if (done) {
-					next2 = prop;
-					done = false;
-				}
-			} else {
-				propExecuteTickOperation(prop, tickop);
-			}
-		}
-
-		prop = next2;
-	} while (!done);
-}
 
 s32 chrsGetNumSlots(void)
 {

@@ -33,6 +33,7 @@
 	build/ROMID/game/objectivesreset.o (section); \
 	build/ROMID/game/casingreset.o (section); \
 	build/ROMID/game/bondgunreset.o (section); \
+	build/ROMID/game/modelmgrreset.o (section); \
 	build/ROMID/game/playerreset.o (section); \
 	build/ROMID/game/invreset.o (section); \
 	build/ROMID/game/bondheadreset.o (section); \
@@ -82,6 +83,7 @@
 	build/ROMID/game/casingtick.o (section); \
 	build/ROMID/game/shardstick.o (section); \
 	build/ROMID/game/sparkstick.o (section); \
+	build/ROMID/game/proptick.o (section); \
 	build/ROMID/game/chr.o (section); \
 	build/ROMID/game/body.o (section); \
 	build/ROMID/game/chraction.o (section); \
@@ -110,7 +112,7 @@
 	build/ROMID/game/mpstats.o (section); \
 	build/ROMID/game/game_0b0fd0.o (section); \
 	build/ROMID/game/game_0b2150.o (section); \
-	build/ROMID/game/game_0b28d0.o (section); \
+	build/ROMID/game/modelmgr.o (section); \
 	build/ROMID/game/texselect.o (section); \
 	build/ROMID/game/camera.o (section); \
 	build/ROMID/game/portal.o (section); \

@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0b28d0.h"
+#include "game/modelmgr.h"
 #include "bss.h"
 #include "lib/memp.h"
 #include "lib/model.h"

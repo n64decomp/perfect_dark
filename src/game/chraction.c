@@ -17,7 +17,7 @@
 #include "game/bondgun.h"
 #include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b28d0.h"
+#include "game/modelmgr.h"
 #include "game/tex.h"
 #include "game/camera.h"
 #include "game/player.h"

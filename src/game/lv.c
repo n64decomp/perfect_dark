@@ -23,7 +23,7 @@
 #include "game/game_00b820.h"
 #include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b28d0.h"
+#include "game/modelmgr.h"
 #include "game/portal.h"
 #include "game/fmb.h"
 #include "game/sky.h"

@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/title.h"
 #include "game/bondgun.h"
-#include "game/game_0b28d0.h"
+#include "game/modelmgr.h"
 #include "game/tex.h"
 #include "game/inv.h"
 #include "game/playermgr.h"

@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/prop.h"
 #include "game/setuputils.h"
-#include "game/game_0b28d0.h"
+#include "game/modelmgr.h"
 #include "game/bg.h"
 #include "game/modeldef.h"
 #include "game/propobj.h"
