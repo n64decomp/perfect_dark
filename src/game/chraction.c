@@ -23265,7 +23265,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 					return prop;
 				}
 
-				modelFree(model);
+				modelmgrFreeModel(model);
 			}
 		}
 	}

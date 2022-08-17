@@ -4,14 +4,14 @@
 #include "data.h"
 #include "types.h"
 
-bool func0f0b28d0(struct model *model, struct modelfiledata *filedata);
-void func0f0b2904(void);
-struct model *modelInstantiate(struct modelfiledata *modelfiledata, bool arg1);
-struct model *modelInstantiateWithoutAnim(struct modelfiledata *modelfiledata);
-void modelFree(struct model *model);
-struct model *modelInstantiateWithAnim(struct modelfiledata *modelfiledata);
-void func0f0b32a0(struct model *model, struct modelnode *node, struct modelfiledata *headfiledata);
-struct anim *func0f0b32e4(void);
-void animTurnOff(struct anim *anim);
+bool modelmgrCanSlotFitRwdata(struct model *modelslot, struct modelfiledata *filedata);
+void modelmgrPrintCounts(void);
+struct model *modelmgrInstantiateModel(struct modelfiledata *modelfiledata, bool arg1);
+struct model *modelmgrInstantiateModelWithoutAnim(struct modelfiledata *modelfiledata);
+void modelmgrFreeModel(struct model *model);
+struct model *modelmgrInstantiateModelWithAnim(struct modelfiledata *modelfiledata);
+void modelmgr0f0b32a0(struct model *model, struct modelnode *node, struct modelfiledata *headfiledata);
+struct anim *modelmgrInstantiateAnim(void);
+void modelmgrFreeAnim(struct anim *anim);
 
 #endif

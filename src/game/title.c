@@ -560,7 +560,7 @@ void titleInitPdLogo(void)
 		remaining = 0x47800 - size;
 		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO].filedata);
 
-		g_TitleModel = modelInstantiateWithAnim(g_ModelStates[MODEL_NLOGO].filedata);
+		g_TitleModel = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 	}
@@ -573,7 +573,7 @@ void titleInitPdLogo(void)
 		remaining -= size;
 		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO2].filedata);
 
-		g_TitleModelNLogo2 = modelInstantiateWithAnim(g_ModelStates[MODEL_NLOGO2].filedata);
+		g_TitleModelNLogo2 = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO2].filedata);
 		modelSetScale(g_TitleModelNLogo2, 1);
 		modelSetRootPosition(g_TitleModelNLogo2, &coord);
 	}
@@ -586,7 +586,7 @@ void titleInitPdLogo(void)
 		remaining -= size;
 		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTWO].filedata);
 
-		g_TitleModelPdTwo = modelInstantiateWithoutAnim(g_ModelStates[MODEL_PDTWO].filedata);
+		g_TitleModelPdTwo = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTWO].filedata);
 		modelSetScale(g_TitleModelPdTwo, 1);
 		modelSetRootPosition(g_TitleModelPdTwo, &coord);
 	}
@@ -600,8 +600,8 @@ void titleInitPdLogo(void)
 		remaining -= size;
 		modelCalculateRwDataLen(g_ModelStates[MODEL_JPNLOGO].filedata);
 
-		g_TitleModelJpnLogo1 = modelInstantiateWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
-		g_TitleModelJpnLogo2 = modelInstantiateWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
+		g_TitleModelJpnLogo1 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
+		g_TitleModelJpnLogo2 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
 		modelSetScale(g_TitleModelJpnLogo1, 1);
 		modelSetScale(g_TitleModelJpnLogo2, 1);
 		modelSetRootPosition(g_TitleModelJpnLogo1, &coord);
@@ -613,7 +613,7 @@ void titleInitPdLogo(void)
 		remaining -= size;
 		modelCalculateRwDataLen(g_ModelStates[MODEL_JPNPD].filedata);
 
-		g_TitleModelJpnPd = modelInstantiateWithoutAnim(g_ModelStates[MODEL_JPNPD].filedata);
+		g_TitleModelJpnPd = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNPD].filedata);
 		modelSetScale(g_TitleModelJpnPd, 1);
 		modelSetRootPosition(g_TitleModelJpnPd, &coord);
 	}
@@ -627,7 +627,7 @@ void titleInitPdLogo(void)
 		remaining -= size;
 		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTHREE].filedata);
 
-		g_TitleModelPdThree = modelInstantiateWithoutAnim(g_ModelStates[MODEL_PDTHREE].filedata);
+		g_TitleModelPdThree = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTHREE].filedata);
 		modelSetScale(g_TitleModelPdThree, 1);
 		modelSetRootPosition(g_TitleModelPdThree, &coord);
 	}
@@ -669,15 +669,15 @@ void titleInitPdLogo(void)
 
 void titleExitPdLogo(void)
 {
-	modelFree(g_TitleModel);
-	modelFree(g_TitleModelNLogo2);
-	modelFree(g_TitleModelPdTwo);
-	modelFree(g_TitleModelPdThree);
+	modelmgrFreeModel(g_TitleModel);
+	modelmgrFreeModel(g_TitleModelNLogo2);
+	modelmgrFreeModel(g_TitleModelPdTwo);
+	modelmgrFreeModel(g_TitleModelPdThree);
 
 #if VERSION == VERSION_JPN_FINAL
-	modelFree(g_TitleModelJpnLogo1);
-	modelFree(g_TitleModelJpnLogo2);
-	modelFree(g_TitleModelJpnPd);
+	modelmgrFreeModel(g_TitleModelJpnLogo1);
+	modelmgrFreeModel(g_TitleModelJpnLogo2);
+	modelmgrFreeModel(g_TitleModelJpnPd);
 #endif
 
 	joy00014810(true);
@@ -8071,7 +8071,7 @@ void titleInitNintendoLogo(void)
 		g_ModelStates[MODEL_NINTENDOLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
 
 		modelCalculateRwDataLen(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
-		g_TitleModel = modelInstantiateWithoutAnim(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
+		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 		var800624f4 = 1;
@@ -8081,7 +8081,7 @@ void titleInitNintendoLogo(void)
 
 void titleExitNintendoLogo(void)
 {
-	modelFree(g_TitleModel);
+	modelmgrFreeModel(g_TitleModel);
 	joy00014810(true);
 }
 
@@ -8230,7 +8230,7 @@ void titleInitRareLogo(void)
 		g_ModelStates[MODEL_RARELOGO].filedata = modeldefLoad(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
 
 		modelCalculateRwDataLen(g_ModelStates[MODEL_RARELOGO].filedata);
-		g_TitleModel = modelInstantiateWithoutAnim(g_ModelStates[MODEL_RARELOGO].filedata);
+		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_RARELOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 
@@ -8247,7 +8247,7 @@ void titleInitRareLogo(void)
 
 void titleExitRareLogo(void)
 {
-	modelFree(g_TitleModel);
+	modelmgrFreeModel(g_TitleModel);
 	joy00014810(true);
 }
 

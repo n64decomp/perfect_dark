@@ -1831,7 +1831,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 					modelInit(&thing->bodymodel, thing->bodymodeldef, &thing->unk110, true);
 					animInit(&thing->bodyanim);
 
-					thing->bodymodel.unk02 = 256;
+					thing->bodymodel.rwdatalen = 256;
 					thing->bodymodel.anim = &thing->bodyanim;
 
 					body0f02ce8c(bodynum, headnum, thing->bodymodeldef, thing->headmodeldef, totalfilelen * 0, &thing->bodymodel, false, 1);
@@ -1850,7 +1850,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 					modelInit(&thing->bodymodel, thing->bodymodeldef, &thing->unk110, true);
 					animInit(&thing->bodyanim);
 
-					thing->bodymodel.unk02 = 256;
+					thing->bodymodel.rwdatalen = 256;
 					thing->bodymodel.anim = &thing->bodyanim;
 				}
 

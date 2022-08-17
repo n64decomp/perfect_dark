@@ -247,9 +247,9 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 	}
 
 	if (model) {
-		if (model->unk02 < bodyfiledata->rwdatalen);
+		if (model->rwdatalen < bodyfiledata->rwdatalen);
 	} else {
-		model = modelInstantiateWithAnim(bodyfiledata);
+		model = modelmgrInstantiateModelWithAnim(bodyfiledata);
 	}
 
 	if (model) {
@@ -259,7 +259,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 		if (headfiledata && !g_HeadsAndBodies[bodynum].unk00_01) {
 			bodyfiledata->rwdatalen -= headfiledata->rwdatalen;
 
-			func0f0b32a0(model, node, headfiledata);
+			modelmgr0f0b32a0(model, node, headfiledata);
 
 			if ((s16)*(s32 *)&headfiledata->skel == SKEL_HEAD) {
 				struct modelnode *node2;

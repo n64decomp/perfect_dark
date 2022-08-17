@@ -1412,7 +1412,7 @@ void playerTickChrBody(void)
 			modelInit(model, bodyfiledata, rwdatas, false);
 			animInit(model->anim);
 
-			model->unk02 = 256;
+			model->rwdatalen = 256;
 
 			func0f172f54(&sp100);
 

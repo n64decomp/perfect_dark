@@ -24,439 +24,139 @@
 #include "data.h"
 #include "types.h"
 
-#define NUMTHINGS1() (IS4MB() ? 0 : 35)
-#define NUMTHINGS2() (IS4MB() ? 24 : 25)
-#define NUMTHINGS3() (IS4MB() ? 0 : 20)
-#define NUMTHINGS4() (IS4MB() ? 40 : 60)
+#define NUMTYPE1() (IS4MB() ? 0 : 35)
+#define NUMTYPE2() (IS4MB() ? 24 : 25)
+#define NUMTYPE3() (IS4MB() ? 0 : 20)
+#define NUMSPARE() (IS4MB() ? 40 : 60)
 
-void func0f011110(void)
+void modelmgrReset(void)
 {
-	var800705a4 = 0;
-	var800705a0 = 0;
+	g_MaxAnims = 0;
+	g_MaxModels = 0;
 }
 
-void func0f011124(bool value)
+void modelmgrSetLvResetting(bool value)
 {
-	var800705a8 = value;
+	g_ModelIsLvResetting = value;
 }
 
-GLOBAL_ASM(
-glabel func0f011130
-/*  f011130:	3c01800a */ 	lui	$at,%hi(var8009dd08)
-/*  f011134:	ac24dd08 */ 	sw	$a0,%lo(var8009dd08)($at)
-/*  f011138:	3c0a8009 */ 	lui	$t2,%hi(g_Is4Mb)
-/*  f01113c:	3c01800a */ 	lui	$at,%hi(var8009dd0c)
-/*  f011140:	254a0af0 */ 	addiu	$t2,$t2,%lo(g_Is4Mb)
-/*  f011144:	ac25dd0c */ 	sw	$a1,%lo(var8009dd0c)($at)
-/*  f011148:	91480000 */ 	lbu	$t0,0x0($t2)
-/*  f01114c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f011150:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f011154:	15280003 */ 	bne	$t1,$t0,.L0f011164
-/*  f011158:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f01115c:	10000002 */ 	b	.L0f011168
-/*  f011160:	24020028 */ 	addiu	$v0,$zero,0x28
-.L0f011164:
-/*  f011164:	2402003c */ 	addiu	$v0,$zero,0x3c
-.L0f011168:
-/*  f011168:	00827021 */ 	addu	$t6,$a0,$v0
-/*  f01116c:	01c57821 */ 	addu	$t7,$t6,$a1
-/*  f011170:	25f80014 */ 	addiu	$t8,$t7,0x14
-/*  f011174:	3c018007 */ 	lui	$at,%hi(var800705a0)
-/*  f011178:	ac3805a0 */ 	sw	$t8,%lo(var800705a0)($at)
-/*  f01117c:	3c018007 */ 	lui	$at,%hi(var800705a4)
-/*  f011180:	24b90014 */ 	addiu	$t9,$a1,0x14
-/*  f011184:	15280003 */ 	bne	$t1,$t0,.L0f011194
-/*  f011188:	ac3905a4 */ 	sw	$t9,%lo(var800705a4)($at)
-/*  f01118c:	10000002 */ 	b	.L0f011198
-/*  f011190:	24030018 */ 	addiu	$v1,$zero,0x18
-.L0f011194:
-/*  f011194:	24030019 */ 	addiu	$v1,$zero,0x19
-.L0f011198:
-/*  f011198:	15280003 */ 	bne	$t1,$t0,.L0f0111a8
-/*  f01119c:	3c07800a */ 	lui	$a3,%hi(var8009dd10)
-/*  f0111a0:	10000002 */ 	b	.L0f0111ac
-/*  f0111a4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0111a8:
-/*  f0111a8:	24020023 */ 	addiu	$v0,$zero,0x23
-.L0f0111ac:
-/*  f0111ac:	15280003 */ 	bne	$t1,$t0,.L0f0111bc
-/*  f0111b0:	24e7dd10 */ 	addiu	$a3,$a3,%lo(var8009dd10)
-/*  f0111b4:	10000002 */ 	b	.L0f0111c0
-/*  f0111b8:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0111bc:
-/*  f0111bc:	24060014 */ 	addiu	$a2,$zero,0x14
-.L0f0111c0:
-/*  f0111c0:	00c27021 */ 	addu	$t6,$a2,$v0
-/*  f0111c4:	01c35821 */ 	addu	$t3,$t6,$v1
-/*  f0111c8:	000b78c0 */ 	sll	$t7,$t3,0x3
-/*  f0111cc:	15280003 */ 	bne	$t1,$t0,.L0f0111dc
-/*  f0111d0:	01e05825 */ 	or	$t3,$t7,$zero
-/*  f0111d4:	10000002 */ 	b	.L0f0111e0
-/*  f0111d8:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0111dc:
-/*  f0111dc:	24060023 */ 	addiu	$a2,$zero,0x23
-.L0f0111e0:
-/*  f0111e0:	15280003 */ 	bne	$t1,$t0,.L0f0111f0
-/*  f0111e4:	00061900 */ 	sll	$v1,$a2,0x4
-/*  f0111e8:	10000002 */ 	b	.L0f0111f4
-/*  f0111ec:	24060018 */ 	addiu	$a2,$zero,0x18
-.L0f0111f0:
-/*  f0111f0:	24060019 */ 	addiu	$a2,$zero,0x19
-.L0f0111f4:
-/*  f0111f4:	00061080 */ 	sll	$v0,$a2,0x2
-/*  f0111f8:	00461023 */ 	subu	$v0,$v0,$a2
-/*  f0111fc:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f011200:	00461021 */ 	addu	$v0,$v0,$a2
-/*  f011204:	15280003 */ 	bne	$t1,$t0,.L0f011214
-/*  f011208:	00021100 */ 	sll	$v0,$v0,0x4
-/*  f01120c:	10000001 */ 	b	.L0f011214
-/*  f011210:	00000000 */ 	nop
-.L0f011214:
-/*  f011214:	3c0d8007 */ 	lui	$t5,%hi(var800705a4)
-/*  f011218:	25ad05a4 */ 	addiu	$t5,$t5,%lo(var800705a4)
-/*  f01121c:	8da80000 */ 	lw	$t0,0x0($t5)
-/*  f011220:	3c0c8007 */ 	lui	$t4,%hi(var800705a0)
-/*  f011224:	258c05a0 */ 	addiu	$t4,$t4,%lo(var800705a0)
-/*  f011228:	8d9f0000 */ 	lw	$ra,0x0($t4)
-/*  f01122c:	000878c0 */ 	sll	$t7,$t0,0x3
-/*  f011230:	01e87821 */ 	addu	$t7,$t7,$t0
-/*  f011234:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f011238:	001fc0c0 */ 	sll	$t8,$ra,0x3
-/*  f01123c:	01e87823 */ 	subu	$t7,$t7,$t0
-/*  f011240:	031fc021 */ 	addu	$t8,$t8,$ra
-/*  f011244:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f011248:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f01124c:	271f000f */ 	addiu	$ra,$t8,0xf
-/*  f011250:	25e8000f */ 	addiu	$t0,$t7,0xf
-/*  f011254:	37f9000f */ 	ori	$t9,$ra,0xf
-/*  f011258:	3518000f */ 	ori	$t8,$t0,0xf
-/*  f01125c:	01637021 */ 	addu	$t6,$t3,$v1
-/*  f011260:	3b3f000f */ 	xori	$ra,$t9,0xf
-/*  f011264:	3b08000f */ 	xori	$t0,$t8,0xf
-/*  f011268:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f01126c:	01ffc021 */ 	addu	$t8,$t7,$ra
-/*  f011270:	03082021 */ 	addu	$a0,$t8,$t0
-/*  f011274:	2484000f */ 	addiu	$a0,$a0,0xf
-/*  f011278:	3499000f */ 	ori	$t9,$a0,0xf
-/*  f01127c:	afbf0020 */ 	sw	$ra,0x20($sp)
-/*  f011280:	ace00000 */ 	sw	$zero,0x0($a3)
-/*  f011284:	ace00004 */ 	sw	$zero,0x4($a3)
-/*  f011288:	ace00008 */ 	sw	$zero,0x8($a3)
-/*  f01128c:	3b24000f */ 	xori	$a0,$t9,0xf
-/*  f011290:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f011294:	0c0048f2 */ 	jal	mempAlloc
-/*  f011298:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f01129c:	3c0a8009 */ 	lui	$t2,%hi(g_Is4Mb)
-/*  f0112a0:	254a0af0 */ 	addiu	$t2,$t2,%lo(g_Is4Mb)
-/*  f0112a4:	91480000 */ 	lbu	$t0,0x0($t2)
-/*  f0112a8:	3c07800a */ 	lui	$a3,%hi(var8009dd10)
-/*  f0112ac:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0112b0:	3c0c8007 */ 	lui	$t4,%hi(var800705a0)
-/*  f0112b4:	3c0d8007 */ 	lui	$t5,%hi(var800705a4)
-/*  f0112b8:	25ad05a4 */ 	addiu	$t5,$t5,%lo(var800705a4)
-/*  f0112bc:	258c05a0 */ 	addiu	$t4,$t4,%lo(var800705a0)
-/*  f0112c0:	24e7dd10 */ 	addiu	$a3,$a3,%lo(var8009dd10)
-/*  f0112c4:	8fbf0020 */ 	lw	$ra,0x20($sp)
-/*  f0112c8:	15280003 */ 	bne	$t1,$t0,.L0f0112d8
-/*  f0112cc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0112d0:	10000002 */ 	b	.L0f0112dc
-/*  f0112d4:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0112d8:
-/*  f0112d8:	24060023 */ 	addiu	$a2,$zero,0x23
-.L0f0112dc:
-/*  f0112dc:	10c00009 */ 	beqz	$a2,.L0f011304
-/*  f0112e0:	3c05800a */ 	lui	$a1,%hi(var8009dd00)
-/*  f0112e4:	3c01800a */ 	lui	$at,%hi(var8009dd10)
-/*  f0112e8:	15280003 */ 	bne	$t1,$t0,.L0f0112f8
-/*  f0112ec:	ac22dd10 */ 	sw	$v0,%lo(var8009dd10)($at)
-/*  f0112f0:	10000002 */ 	b	.L0f0112fc
-/*  f0112f4:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0112f8:
-/*  f0112f8:	24060023 */ 	addiu	$a2,$zero,0x23
-.L0f0112fc:
-/*  f0112fc:	000678c0 */ 	sll	$t7,$a2,0x3
-/*  f011300:	004f2021 */ 	addu	$a0,$v0,$t7
-.L0f011304:
-/*  f011304:	15280003 */ 	bne	$t1,$t0,.L0f011314
-/*  f011308:	24a5dd00 */ 	addiu	$a1,$a1,%lo(var8009dd00)
-/*  f01130c:	10000002 */ 	b	.L0f011318
-/*  f011310:	24060018 */ 	addiu	$a2,$zero,0x18
-.L0f011314:
-/*  f011314:	24060019 */ 	addiu	$a2,$zero,0x19
-.L0f011318:
-/*  f011318:	10c00008 */ 	beqz	$a2,.L0f01133c
-/*  f01131c:	3c0b800a */ 	lui	$t3,%hi(var8009dd04)
-/*  f011320:	15280003 */ 	bne	$t1,$t0,.L0f011330
-/*  f011324:	ace40004 */ 	sw	$a0,0x4($a3)
-/*  f011328:	10000002 */ 	b	.L0f011334
-/*  f01132c:	24060018 */ 	addiu	$a2,$zero,0x18
-.L0f011330:
-/*  f011330:	24060019 */ 	addiu	$a2,$zero,0x19
-.L0f011334:
-/*  f011334:	0006c0c0 */ 	sll	$t8,$a2,0x3
-/*  f011338:	00982021 */ 	addu	$a0,$a0,$t8
-.L0f01133c:
-/*  f01133c:	15280003 */ 	bne	$t1,$t0,.L0f01134c
-/*  f011340:	256bdd04 */ 	addiu	$t3,$t3,%lo(var8009dd04)
-/*  f011344:	10000002 */ 	b	.L0f011350
-/*  f011348:	00003025 */ 	or	$a2,$zero,$zero
-.L0f01134c:
-/*  f01134c:	24060014 */ 	addiu	$a2,$zero,0x14
-.L0f011350:
-/*  f011350:	10c00008 */ 	beqz	$a2,.L0f011374
-/*  f011354:	00001825 */ 	or	$v1,$zero,$zero
-/*  f011358:	15280003 */ 	bne	$t1,$t0,.L0f011368
-/*  f01135c:	ace40008 */ 	sw	$a0,0x8($a3)
-/*  f011360:	10000002 */ 	b	.L0f01136c
-/*  f011364:	00003025 */ 	or	$a2,$zero,$zero
-.L0f011368:
-/*  f011368:	24060014 */ 	addiu	$a2,$zero,0x14
-.L0f01136c:
-/*  f01136c:	0006c8c0 */ 	sll	$t9,$a2,0x3
-/*  f011370:	00992021 */ 	addu	$a0,$a0,$t9
-.L0f011374:
-/*  f011374:	aca40000 */ 	sw	$a0,0x0($a1)
-/*  f011378:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f01137c:	009f2021 */ 	addu	$a0,$a0,$ra
-/*  f011380:	ad640000 */ 	sw	$a0,0x0($t3)
-/*  f011384:	15280003 */ 	bne	$t1,$t0,.L0f011394
-/*  f011388:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f01138c:	10000002 */ 	b	.L0f011398
-/*  f011390:	00003025 */ 	or	$a2,$zero,$zero
-.L0f011394:
-/*  f011394:	24060023 */ 	addiu	$a2,$zero,0x23
-.L0f011398:
-/*  f011398:	18c00014 */ 	blez	$a2,.L0f0113ec
-/*  f01139c:	000310c0 */ 	sll	$v0,$v1,0x3
-/*  f0113a0:	8cef0000 */ 	lw	$t7,0x0($a3)
-.L0f0113a4:
-/*  f0113a4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0113a8:	24060023 */ 	addiu	$a2,$zero,0x23
-/*  f0113ac:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*  f0113b0:	af040004 */ 	sw	$a0,0x4($t8)
-/*  f0113b4:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*  f0113b8:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  f0113bc:	03227021 */ 	addu	$t6,$t9,$v0
-/*  f0113c0:	adc00000 */ 	sw	$zero,0x0($t6)
-/*  f0113c4:	91480000 */ 	lbu	$t0,0x0($t2)
-/*  f0113c8:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f0113cc:	15280003 */ 	bne	$t1,$t0,.L0f0113dc
-/*  f0113d0:	00000000 */ 	nop
-/*  f0113d4:	10000001 */ 	b	.L0f0113dc
-/*  f0113d8:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0113dc:
-/*  f0113dc:	0066082a */ 	slt	$at,$v1,$a2
-/*  f0113e0:	5420fff0 */ 	bnezl	$at,.L0f0113a4
-/*  f0113e4:	8cef0000 */ 	lw	$t7,0x0($a3)
-/*  f0113e8:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0113ec:
-/*  f0113ec:	15280003 */ 	bne	$t1,$t0,.L0f0113fc
-/*  f0113f0:	24060019 */ 	addiu	$a2,$zero,0x19
-/*  f0113f4:	10000001 */ 	b	.L0f0113fc
-/*  f0113f8:	24060018 */ 	addiu	$a2,$zero,0x18
-.L0f0113fc:
-/*  f0113fc:	18c00014 */ 	blez	$a2,.L0f011450
-/*  f011400:	000310c0 */ 	sll	$v0,$v1,0x3
-/*  f011404:	8cef0004 */ 	lw	$t7,0x4($a3)
-.L0f011408:
-/*  f011408:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f01140c:	24060019 */ 	addiu	$a2,$zero,0x19
-/*  f011410:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*  f011414:	af040004 */ 	sw	$a0,0x4($t8)
-/*  f011418:	8cf90004 */ 	lw	$t9,0x4($a3)
-/*  f01141c:	248400d0 */ 	addiu	$a0,$a0,0xd0
-/*  f011420:	03227021 */ 	addu	$t6,$t9,$v0
-/*  f011424:	adc00000 */ 	sw	$zero,0x0($t6)
-/*  f011428:	91480000 */ 	lbu	$t0,0x0($t2)
-/*  f01142c:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f011430:	15280003 */ 	bne	$t1,$t0,.L0f011440
-/*  f011434:	00000000 */ 	nop
-/*  f011438:	10000001 */ 	b	.L0f011440
-/*  f01143c:	24060018 */ 	addiu	$a2,$zero,0x18
-.L0f011440:
-/*  f011440:	0066082a */ 	slt	$at,$v1,$a2
-/*  f011444:	5420fff0 */ 	bnezl	$at,.L0f011408
-/*  f011448:	8cef0004 */ 	lw	$t7,0x4($a3)
-/*  f01144c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f011450:
-/*  f011450:	15280003 */ 	bne	$t1,$t0,.L0f011460
-/*  f011454:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f011458:	10000001 */ 	b	.L0f011460
-/*  f01145c:	00003025 */ 	or	$a2,$zero,$zero
-.L0f011460:
-/*  f011460:	18c00013 */ 	blez	$a2,.L0f0114b0
-/*  f011464:	000310c0 */ 	sll	$v0,$v1,0x3
-/*  f011468:	8cef0008 */ 	lw	$t7,0x8($a3)
-.L0f01146c:
-/*  f01146c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f011470:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f011474:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*  f011478:	af000004 */ 	sw	$zero,0x4($t8)
-/*  f01147c:	8cf90008 */ 	lw	$t9,0x8($a3)
-/*  f011480:	03227021 */ 	addu	$t6,$t9,$v0
-/*  f011484:	adc00000 */ 	sw	$zero,0x0($t6)
-/*  f011488:	914f0000 */ 	lbu	$t7,0x0($t2)
-/*  f01148c:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f011490:	152f0003 */ 	bne	$t1,$t7,.L0f0114a0
-/*  f011494:	00000000 */ 	nop
-/*  f011498:	10000001 */ 	b	.L0f0114a0
-/*  f01149c:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0114a0:
-/*  f0114a0:	0066082a */ 	slt	$at,$v1,$a2
-/*  f0114a4:	5420fff1 */ 	bnezl	$at,.L0f01146c
-/*  f0114a8:	8cef0008 */ 	lw	$t7,0x8($a3)
-/*  f0114ac:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0114b0:
-/*  f0114b0:	8d980000 */ 	lw	$t8,0x0($t4)
-/*  f0114b4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0114b8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0114bc:	5b00000f */ 	blezl	$t8,.L0f0114fc
-/*  f0114c0:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*  f0114c4:	8cb90000 */ 	lw	$t9,0x0($a1)
-.L0f0114c8:
-/*  f0114c8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0114cc:	03227021 */ 	addu	$t6,$t9,$v0
-/*  f0114d0:	adc00008 */ 	sw	$zero,0x8($t6)
-/*  f0114d4:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*  f0114d8:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*  f0114dc:	af000010 */ 	sw	$zero,0x10($t8)
-/*  f0114e0:	8d990000 */ 	lw	$t9,0x0($t4)
-/*  f0114e4:	24420024 */ 	addiu	$v0,$v0,0x24
-/*  f0114e8:	0079082a */ 	slt	$at,$v1,$t9
-/*  f0114ec:	5420fff6 */ 	bnezl	$at,.L0f0114c8
-/*  f0114f0:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f0114f4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0114f8:	8dae0000 */ 	lw	$t6,0x0($t5)
-.L0f0114fc:
-/*  f0114fc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f011500:	19c0000a */ 	blez	$t6,.L0f01152c
-/*  f011504:	00000000 */ 	nop
-/*  f011508:	8d6f0000 */ 	lw	$t7,0x0($t3)
-.L0f01150c:
-/*  f01150c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f011510:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*  f011514:	a7040000 */ 	sh	$a0,0x0($t8)
-/*  f011518:	8db90000 */ 	lw	$t9,0x0($t5)
-/*  f01151c:	2442008c */ 	addiu	$v0,$v0,0x8c
-/*  f011520:	0079082a */ 	slt	$at,$v1,$t9
-/*  f011524:	5420fff9 */ 	bnezl	$at,.L0f01150c
-/*  f011528:	8d6f0000 */ 	lw	$t7,0x0($t3)
-.L0f01152c:
-/*  f01152c:	3c018007 */ 	lui	$at,%hi(var800705ac)
-/*  f011530:	ac2005ac */ 	sw	$zero,%lo(var800705ac)($at)
-/*  f011534:	3c018007 */ 	lui	$at,%hi(var800705b0)
-/*  f011538:	ac2005b0 */ 	sw	$zero,%lo(var800705b0)($at)
-/*  f01153c:	3c018007 */ 	lui	$at,%hi(var800705b4)
-/*  f011540:	ac2005b4 */ 	sw	$zero,%lo(var800705b4)($at)
-/*  f011544:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f011548:	3c018007 */ 	lui	$at,%hi(var800705b8)
-/*  f01154c:	ac2005b8 */ 	sw	$zero,%lo(var800705b8)($at)
-/*  f011550:	3c018007 */ 	lui	$at,%hi(var800705bc)
-/*  f011554:	ac2005bc */ 	sw	$zero,%lo(var800705bc)($at)
-/*  f011558:	03e00008 */ 	jr	$ra
-/*  f01155c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+/**
+ * Allocate slots for model instances and animations.
+ *
+ * Each model instance can require rwdata: a block of bytes where it can save
+ * information specific to its own instance.
+ *
+ * The rwdata slots are split into 3 types. Types 1 and 2 use different slot
+ * sizes, while type 3 has no allocated slots at all. When models are
+ * instantiated they require a certain amount of rwdata, and are bound to type 1
+ * if possible, otherwise type 2 if possible. If neither of those are possible
+ * then it allocates rwdata on the fly and puts it in type 3.
+ *
+ * The function allocates more than what is specified in the arguments.
+ * If the expansion pak is being used, 60 spare model slots are allocated
+ * (eg. for thrown weapons), and a further 20 model and 20 anim slots are
+ * allocated for animated objects.
+ */
+void modelmgrAllocateSlots(s32 numobjs, s32 numchrs)
+{
+	s32 rwdata2sizetotal;
+	s32 rwdata1sizetotal;
+	s32 rwdata3sizetotal;
+	s32 bindingssize;
+	u8 *ptr;
+	s32 i;
+	s32 totalsize;
+	s32 modelssize;
+	s32 animssize;
+	s32 rwdata1sizeeach = 0x10;
+	s32 rwdata2sizeeach = 0xd0;
+	s32 rwdata3sizeeach = 0;
+	s32 maxanimatedobjs = 20;
+	s32 numspare;
 
-extern s32 var800705a0_2;
-extern s32 var800705a4_2;
+	g_ModelNumObjs = numobjs;
+	g_ModelNumChrs = numchrs;
 
-// Mismatch: Regalloc, although the _2 trick is certainly fake (they're the same
-// variables as used earlier, but we need to force address recalculations)
-//void func0f011130(s32 arg0, s32 numchrs)
-//{
-//	s32 v1;
-//	s32 v0;
-//	s32 a2;
-//	s32 tmp;
-//	u8 *ptr;
-//	s32 i;
-//	s32 totalsize;
-//	s32 modelssize; // 20
-//	s32 animssize; // 1c
-//	s32 rwdatasize1 = 0x10;
-//	s32 rwdatasize2 = 0xd0;
-//	s32 rwdatasize3 = 0;
-//
-//	var8009dd08 = arg0;
-//	var8009dd0c = numchrs;
-//
-//	var800705a0 = arg0 + NUMTHINGS4() + numchrs + 20;
-//	var800705a4 = numchrs + 20;
-//
-//	a2 = (NUMTHINGS1() + NUMTHINGS2() + NUMTHINGS3()) * sizeof(struct var8009dd10);
-//	v0 = NUMTHINGS1() * rwdatasize1;
-//	v1 = NUMTHINGS2() * rwdatasize2;
-//	tmp = NUMTHINGS3() * rwdatasize3;
-//
-//	modelssize = ALIGN16(var800705a0_2 * sizeof(struct model));
-//	animssize = ALIGN16(var800705a4_2 * sizeof(struct anim));
-//
-//	totalsize = ALIGN16(a2 + v0 + v1 + tmp + modelssize + animssize);
-//
-//	var8009dd10[0] = NULL;
-//	var8009dd10[1] = NULL;
-//	var8009dd10[2] = NULL;
-//
-//	ptr = mempAlloc(totalsize, MEMPOOL_STAGE);
-//
-//	if (NUMTHINGS1()) {
-//		var8009dd10[0] = (struct var8009dd10 *)ptr;
-//		ptr += NUMTHINGS1() * 8;
-//	}
-//
-//	if (NUMTHINGS2()) {
-//		var8009dd10[1] = (struct var8009dd10 *)ptr;
-//		ptr += NUMTHINGS2() * 8;
-//	}
-//
-//	if (NUMTHINGS3()) {
-//		var8009dd10[2] = (struct var8009dd10 *)ptr;
-//		ptr += NUMTHINGS3() * 8;
-//	}
-//
-//	var8009dd00 = (struct model *)ptr;
-//	ptr += modelssize;
-//	var8009dd04 = (struct anim *)ptr;
-//	ptr += animssize;
-//
-//	for (i = 0; i < NUMTHINGS1(); i++) {
-//		var8009dd10[0][i].rwdata = ptr;
-//		var8009dd10[0][i].model = NULL;
-//
-//		ptr += rwdatasize1;
-//	}
-//
-//	for (i = 0; i < NUMTHINGS2(); i++) {
-//		var8009dd10[1][i].rwdata = ptr;
-//		var8009dd10[1][i].model = NULL;
-//
-//		ptr += rwdatasize2;
-//	}
-//
-//	for (i = 0; i < NUMTHINGS3(); i++) {
-//		var8009dd10[2][i].rwdata = NULL;
-//		var8009dd10[2][i].model = NULL;
-//
-//		ptr += rwdatasize3;
-//	}
-//
-//	for (i = 0; i < var800705a0_2; i++) {
-//		var8009dd00[i].filedata = NULL;
-//		var8009dd00[i].rwdatas = NULL;
-//	}
-//
-//	for (i = 0; i < var800705a4_2; i++) {
-//		var8009dd04[i].animnum = -1;
-//	}
-//
-//	var800705ac = 0;
-//	var800705b0 = 0;
-//	var800705b4 = 0;
-//	var800705b8 = 0;
-//	var800705bc = 0;
-//}
+	numspare = NUMSPARE();
+	g_MaxModels = numobjs + numspare + numchrs + maxanimatedobjs;
+	g_MaxAnims = numchrs + maxanimatedobjs;
 
-bool weaponLoadProjectileModels(s32 weaponnum)
+	i = NUMTYPE2();
+	bindingssize = (NUMTYPE1() + i + NUMTYPE3()) * sizeof(struct modelrwdatabinding);
+
+	rwdata1sizetotal = NUMTYPE1() * rwdata1sizeeach;
+	rwdata2sizetotal = NUMTYPE2() * rwdata2sizeeach;
+	rwdata3sizetotal = NUMTYPE3() * rwdata3sizeeach;
+
+	modelssize = ALIGN16(g_MaxModels * sizeof(struct model));
+	animssize = ALIGN16(g_MaxAnims * sizeof(struct anim));
+
+	totalsize = ALIGN16(bindingssize + rwdata1sizetotal + rwdata2sizetotal + rwdata3sizetotal + modelssize + animssize);
+
+	g_ModelRwdataBindings[0] = NULL;
+	g_ModelRwdataBindings[1] = NULL;
+	g_ModelRwdataBindings[2] = NULL;
+
+	ptr = mempAlloc(totalsize, MEMPOOL_STAGE);
+
+	if (NUMTYPE1()) {
+		g_ModelRwdataBindings[0] = (struct modelrwdatabinding *) ptr;
+		ptr += NUMTYPE1() * 8;
+	}
+
+	if (NUMTYPE2()) {
+		g_ModelRwdataBindings[1] = (struct modelrwdatabinding *) ptr;
+		ptr += NUMTYPE2() * 8;
+	}
+
+	if (NUMTYPE3()) {
+		g_ModelRwdataBindings[2] = (struct modelrwdatabinding *) ptr;
+		ptr += NUMTYPE3() * 8;
+	}
+
+	g_ModelSlots = (struct model *) ptr;
+	ptr += modelssize;
+	g_AnimSlots = (struct anim *) ptr;
+	ptr += animssize;
+
+	for (i = 0; i < NUMTYPE1(); i++) {
+		g_ModelRwdataBindings[0][i].rwdata = ptr;
+		g_ModelRwdataBindings[0][i].model = NULL;
+
+		ptr += rwdata1sizeeach;
+	}
+
+	for (i = 0; i < NUMTYPE2(); i++) {
+		g_ModelRwdataBindings[1][i].rwdata = ptr;
+		g_ModelRwdataBindings[1][i].model = NULL;
+
+		ptr += rwdata2sizeeach;
+	}
+
+	for (i = 0; i < NUMTYPE3(); i++) {
+		g_ModelRwdataBindings[2][i].rwdata = NULL;
+		g_ModelRwdataBindings[2][i].model = NULL;
+
+		ptr += rwdata3sizeeach;
+	}
+
+	for (i = 0; i < g_MaxModels; i++) {
+		g_ModelSlots[i].filedata = NULL;
+		g_ModelSlots[i].rwdatas = NULL;
+	}
+
+	for (i = 0; i < g_MaxAnims; i++) {
+		g_AnimSlots[i].animnum = -1;
+	}
+
+	g_ModelMostType1 = 0;
+	g_ModelMostType2 = 0;
+	g_ModelMostType3 = 0;
+	g_ModelMostModels = 0;
+	g_ModelMostAnims = 0;
+}
+
+bool modelmgrLoadProjectileModeldefs(s32 weaponnum)
 {
 	bool result = false;
 	struct weapon *weapon = g_Weapons[weaponnum];
@@ -642,10 +342,10 @@ void playerReset(void)
 				break;
 			case INTROCMD_WEAPON:
 				if (cmd->param3 == 0 && g_Vars.currentplayer != g_Vars.anti) {
-					weaponLoadProjectileModels(cmd->param1);
+					modelmgrLoadProjectileModeldefs(cmd->param1);
 
 					if (cmd->param2 >= 0) {
-						weaponLoadProjectileModels(cmd->param2);
+						modelmgrLoadProjectileModeldefs(cmd->param2);
 						invGiveDoubleWeapon(cmd->param1, cmd->param2);
 					} else {
 						invGiveSingleWeapon(cmd->param1);

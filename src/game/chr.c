@@ -566,7 +566,7 @@ bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3)
 	}
 #endif
 
-	return result == true;
+	return result == CDRESULT_NOCOLLISION;
 }
 
 bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f32 *mangroundptr)
@@ -1453,7 +1453,7 @@ void chrRemove(struct prop *prop, bool delete)
 		child = next;
 	}
 
-	modelFree(model);
+	modelmgrFreeModel(model);
 	chr->model = NULL;
 
 	if (delete) {

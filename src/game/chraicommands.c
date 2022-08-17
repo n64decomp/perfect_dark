@@ -4959,7 +4959,7 @@ bool aiObjectDoAnimation(void)
 		struct anim *anim = obj->model->anim;
 
 		if (obj->model->anim == NULL) {
-			obj->model->anim = func0f0b32e4();
+			obj->model->anim = modelmgrInstantiateAnim();
 		}
 
 		if (obj->model->anim) {

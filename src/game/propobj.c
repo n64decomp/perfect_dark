@@ -2017,7 +2017,7 @@ struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, str
 	}
 
 	if (model == NULL) {
-		model = modelInstantiateWithoutAnim(filedata);
+		model = modelmgrInstantiateModelWithoutAnim(filedata);
 	}
 
 	if (prop && model) {
@@ -2088,7 +2088,7 @@ struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, str
 		}
 	} else {
 		if (model) {
-			modelFree(model);
+			modelmgrFreeModel(model);
 		}
 
 		if (prop) {
@@ -2538,7 +2538,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 				modelFreeVertices(1, obj->model);
 			}
 
-			modelFree(obj->model);
+			modelmgrFreeModel(obj->model);
 
 			if (freeprop) {
 				propDelist(obj->prop);
@@ -22415,7 +22415,7 @@ s32 objTickPlayer(struct prop *prop)
 		if (g_Anims[model->anim->animnum].flags & 0x02) {
 			if (g_Vars.tickmode != TICKMODE_CUTSCENE
 					&& modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
-				animTurnOff(model->anim);
+				modelmgrFreeAnim(model->anim);
 				model->anim = NULL;
 			} else {
 				// In cutscene
@@ -22560,7 +22560,7 @@ s32 objTickPlayer(struct prop *prop)
 				}
 
 				if (modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
-					animTurnOff(model->anim);
+					modelmgrFreeAnim(model->anim);
 					model->anim = NULL;
 					mtx00015be4(camGetProjectionMtxF(), model->matrices, &sp248);
 					mtx4ToMtx3(&sp248, obj->realrot);
@@ -31975,7 +31975,7 @@ struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
 	setupLoadModeldef(modelnum);
 	filedata = g_ModelStates[modelnum].filedata;
 	prop = propAllocate();
-	model = modelInstantiateWithoutAnim(filedata);
+	model = modelmgrInstantiateModelWithoutAnim(filedata);
 	obj = hatCreate(prop == NULL, model == NULL, filedata);
 
 	if (prop == NULL) {
@@ -31983,7 +31983,7 @@ struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
 	}
 
 	if (model == NULL) {
-		model = modelInstantiateWithoutAnim(filedata);
+		model = modelmgrInstantiateModelWithoutAnim(filedata);
 	}
 
 	if (obj && prop && model) {
@@ -32021,7 +32021,7 @@ struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
 		prop = hatApplyToChr(obj, chr, filedata, prop, model);
 	} else {
 		if (model) {
-			modelFree(model);
+			modelmgrFreeModel(model);
 		}
 
 		if (prop) {
@@ -32077,7 +32077,7 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 		}
 
 		if (usable) {
-			if (!musthavemodel || func0f0b28d0(g_WeaponSlots[i].base.model, filedata)) {
+			if (!musthavemodel || modelmgrCanSlotFitRwdata(g_WeaponSlots[i].base.model, filedata)) {
 				if ((g_WeaponSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && sp40 < 0) {
 					sp40 = i;
 				}
@@ -32166,7 +32166,7 @@ struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modelfile
 			}
 		} else if ((g_HatSlots[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
 				&& g_HatSlots[i].base.prop->parent == NULL
-				&& (!musthavemodel || func0f0b28d0(g_HatSlots[i].base.model, filedata))) {
+				&& (!musthavemodel || modelmgrCanSlotFitRwdata(g_HatSlots[i].base.model, filedata))) {
 			if ((g_HatSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && sp40 < 0) {
 				sp40 = i;
 			}
@@ -32550,7 +32550,7 @@ struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct 
 			prop = NULL;
 			weapon->base.prop = NULL;
 
-			modelFree(weapon->base.model);
+			modelmgrFreeModel(weapon->base.model);
 			weapon->base.model = NULL;
 		}
 	} else {
@@ -32561,7 +32561,7 @@ struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct 
 		}
 
 		if (weapon->base.model) {
-			modelFree(weapon->base.model);
+			modelmgrFreeModel(weapon->base.model);
 			weapon->base.model = NULL;
 		}
 	}
@@ -32612,14 +32612,14 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 		}
 
 		prop = propAllocate();
-		model = modelInstantiateWithoutAnim(filedata);
+		model = modelmgrInstantiateModelWithoutAnim(filedata);
 
 		if (prop == NULL) {
 			prop = propAllocate();
 		}
 
 		if (model == NULL) {
-			model = modelInstantiateWithoutAnim(filedata);
+			model = modelmgrInstantiateModelWithoutAnim(filedata);
 		}
 
 		if (laptop && prop && model) {
@@ -32713,7 +32713,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 			laptop->base.flags3 |= OBJFLAG3_INTERACTABLE | OBJFLAG3_08000000;
 		} else {
 			if (model) {
-				modelFree(model);
+				modelmgrFreeModel(model);
 			}
 
 			if (prop) {
@@ -32738,7 +32738,7 @@ struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset
 
 	modeldef = g_ModelStates[modelnum].filedata;
 	prop = propAllocate();
-	model = modelInstantiateWithoutAnim(modeldef);
+	model = modelmgrInstantiateModelWithoutAnim(modeldef);
 
 	weapon = weaponCreate(prop == NULL, model == NULL, modeldef);
 
@@ -32747,7 +32747,7 @@ struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset
 	}
 
 	if (model == NULL) {
-		model = modelInstantiateWithoutAnim(modeldef);
+		model = modelmgrInstantiateModelWithoutAnim(modeldef);
 	}
 
 	if (weapon && prop && model) {
@@ -32831,7 +32831,7 @@ struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset
 		weapon = NULL;
 
 		if (model) {
-			modelFree(model);
+			modelmgrFreeModel(model);
 		}
 
 		if (prop) {
@@ -32869,7 +32869,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 	}
 
 	prop = propAllocate();
-	model = modelInstantiateWithoutAnim(filedata);
+	model = modelmgrInstantiateModelWithoutAnim(filedata);
 
 	if (obj == NULL) {
 		obj = weaponCreate(prop == NULL, model == NULL, filedata);
@@ -32880,7 +32880,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 	}
 
 	if (model == NULL) {
-		model = modelInstantiateWithoutAnim(filedata);
+		model = modelmgrInstantiateModelWithoutAnim(filedata);
 	}
 
 	if (obj && prop && model) {
@@ -32930,7 +32930,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 		prop = func0f08b108(obj, chr, filedata, prop, model);
 	} else {
 		if (model) {
-			modelFree(model);
+			modelmgrFreeModel(model);
 		}
 
 		if (prop) {

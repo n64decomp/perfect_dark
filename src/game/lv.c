@@ -288,7 +288,7 @@ void lvReset(s32 stagenum)
 	g_MiscAudioHandle = NULL;
 
 	musicReset();
-	func0f011124(true);
+	modelmgrSetLvResetting(true);
 	surfaceReset();
 	texReset();
 	textReset();
@@ -357,7 +357,7 @@ void lvReset(s32 stagenum)
 	animsReset();
 	objectivesReset();
 	vtxstoreReset();
-	func0f011110();
+	modelmgrReset();
 	propsndReset();
 	setupLoadFiles(stagenum);
 	scenarioReset();
@@ -451,7 +451,7 @@ void lvReset(s32 stagenum)
 		pheadReset();
 	}
 
-	func0f011124(false);
+	modelmgrSetLvResetting(false);
 	var80084018 = 1;
 	schedResetArtifacts();
 	lvSetPaused(0);
@@ -2304,7 +2304,7 @@ void lvTick(void)
 		sndTick();
 		pakExecuteDebugOperations();
 		lightingTick();
-		func0f0b2904();
+		modelmgrPrintCounts();
 		boltbeamsTick();
 		amTick();
 		menuTick();

@@ -158,7 +158,7 @@ void stageLoadAllAilistModels(void)
 				break;
 			case AICMD_EQUIPWEAPON:
 				setupLoadModeldef(cmd[3] | (cmd[2] << 8));
-				if (weaponLoadProjectileModels(cmd[4]));
+				if (modelmgrLoadProjectileModeldefs(cmd[4]));
 				break;
 			case AICMD_EQUIPHAT:
 				setupLoadModeldef(cmd[3] | (cmd[2] << 8));

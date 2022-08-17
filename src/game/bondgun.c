@@ -12482,7 +12482,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 					}
 
 					if (weapon->base.model) {
-						modelFree(weapon->base.model);
+						modelmgrFreeModel(weapon->base.model);
 					}
 
 					weapon->base.prop = NULL;

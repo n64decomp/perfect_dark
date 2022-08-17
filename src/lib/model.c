@@ -4105,7 +4105,7 @@ void modelInit(struct model *model, struct modelfiledata *filedata, union modelr
 	model->unk00 = 0;
 	model->filedata = filedata;
 	model->rwdatas = rwdatas;
-	model->unk02 = -1;
+	model->rwdatalen = -1;
 	model->scale = 1;
 	model->attachedtomodel = NULL;
 	model->attachedtonode = NULL;

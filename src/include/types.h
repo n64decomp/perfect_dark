@@ -584,7 +584,7 @@ struct modelfiledata {
 struct model {
 	/*0x00*/ u8 unk00;
 	/*0x01*/ u8 unk01;
-	/*0x02*/ s16 unk02;
+	/*0x02*/ s16 rwdatalen; // in words
 	/*0x04*/
 	union {
 		struct chrdata *chr;
@@ -6335,7 +6335,7 @@ struct hovtype {
 	/*0x30*/ f32 unk30;
 };
 
-struct var8009dd10 {
+struct modelrwdatabinding {
 	struct model *model;
 	void *rwdata;
 };

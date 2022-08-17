@@ -322,7 +322,7 @@ struct defaultobj *setupFindObjForReuse(s32 wanttype, struct defaultobj **offscr
 						&& (obj->flags & OBJFLAG_00800000) == 0
 #endif
 						&& obj->prop->parent == NULL
-						&& (!musthavemodel || func0f0b28d0(obj->model, filedata))) {
+						&& (!musthavemodel || modelmgrCanSlotFitRwdata(obj->model, filedata))) {
 					if (offscreenobj == NULL && (obj->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0) {
 						offscreenobj = obj;
 					}

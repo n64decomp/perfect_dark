@@ -627,18 +627,18 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 #if VERSION >= VERSION_NTSC_1_0
 				weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
 				weapon->base.flags |= OBJFLAG_WEAPON_AICANNOTUSE;
-				weaponLoadProjectileModels(weapon->weaponnum);
+				modelmgrLoadProjectileModeldefs(weapon->weaponnum);
 				func0f08b25c(weapon, chr);
 #else
 				if (g_Vars.stagenum == STAGE_INVESTIGATION
 						&& lvGetDifficulty() == DIFF_PA
 						&& weapon->weaponnum == WEAPON_K7AVENGER) {
-					weaponLoadProjectileModels(weapon->weaponnum);
+					modelmgrLoadProjectileModeldefs(weapon->weaponnum);
 					func0f08b25c(weapon, chr);
 				} else if (g_Vars.stagenum == STAGE_ATTACKSHIP) {
 					weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
 					weapon->base.flags |= OBJFLAG_WEAPON_AICANNOTUSE;
-					weaponLoadProjectileModels(weapon->weaponnum);
+					modelmgrLoadProjectileModeldefs(weapon->weaponnum);
 					func0f08b25c(weapon, chr);
 				} else {
 					weapon->weaponnum = WEAPON_NONE;
@@ -695,7 +695,7 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 					}
 				}
 
-				weaponLoadProjectileModels(weapon->weaponnum);
+				modelmgrLoadProjectileModeldefs(weapon->weaponnum);
 				func0f08b25c(weapon, chr);
 			}
 		}
@@ -750,7 +750,7 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 		}
 
 		if (weapon->weaponnum != WEAPON_NONE && giveweapon) {
-			weaponLoadProjectileModels(weapon->weaponnum);
+			modelmgrLoadProjectileModeldefs(weapon->weaponnum);
 			setupCreateObject(&weapon->base, cmdindex);
 		}
 	}
@@ -1292,7 +1292,7 @@ void setupLoadFiles(s32 stagenum)
 	s32 j;
 	struct ailist tmp;
 	s32 numchrs = 0;
-	s32 total = 0;
+	s32 numobjs = 0;
 	s32 extra;
 	struct stagesetup *setup;
 	u16 filenum;
@@ -1388,49 +1388,51 @@ void setupLoadFiles(s32 stagenum)
 			}
 		}
 
+		// Count the number of chrs and objects so enough model slots can be allocated
 		numchrs += setupCountCommandType(OBJTYPE_CHR);
 
 		if (!g_Vars.normmplayerisrunning && g_MissionConfig.iscoop && g_Vars.numaibuddies > 0) {
+			// @bug? The Hotshot buddy has two guns, but only one is counted here.
 			numchrs += g_Vars.numaibuddies;
-			total += g_Vars.numaibuddies;
+			numobjs += g_Vars.numaibuddies; // the buddy's weapon
 		}
 
-		total += setupCountCommandType(OBJTYPE_WEAPON);
-		total += setupCountCommandType(OBJTYPE_KEY);
-		total += setupCountCommandType(OBJTYPE_HAT);
-		total += setupCountCommandType(OBJTYPE_DOOR);
-		total += setupCountCommandType(OBJTYPE_CCTV);
-		total += setupCountCommandType(OBJTYPE_AUTOGUN);
-		total += setupCountCommandType(OBJTYPE_HANGINGMONITORS);
-		total += setupCountCommandType(OBJTYPE_SINGLEMONITOR);
-		total += setupCountCommandType(OBJTYPE_MULTIMONITOR);
-		total += setupCountCommandType(OBJTYPE_SHIELD);
-		total += setupCountCommandType(OBJTYPE_BASIC);
-		total += setupCountCommandType(OBJTYPE_DEBRIS);
-		total += setupCountCommandType(OBJTYPE_GLASS);
-		total += setupCountCommandType(OBJTYPE_TINTEDGLASS);
-		total += setupCountCommandType(OBJTYPE_SAFE);
-		total += setupCountCommandType(OBJTYPE_29);
-		total += setupCountCommandType(OBJTYPE_GASBOTTLE);
-		total += setupCountCommandType(OBJTYPE_ALARM);
-		total += setupCountCommandType(OBJTYPE_AMMOCRATE);
-		total += setupCountCommandType(OBJTYPE_MULTIAMMOCRATE);
-		total += setupCountCommandType(OBJTYPE_TRUCK);
-		total += setupCountCommandType(OBJTYPE_TANK);
-		total += setupCountCommandType(OBJTYPE_LIFT);
-		total += setupCountCommandType(OBJTYPE_HOVERBIKE);
-		total += setupCountCommandType(OBJTYPE_HOVERPROP);
-		total += setupCountCommandType(OBJTYPE_FAN);
-		total += setupCountCommandType(OBJTYPE_HOVERCAR);
-		total += setupCountCommandType(OBJTYPE_CHOPPER);
-		total += setupCountCommandType(OBJTYPE_HELI);
-		total += setupCountCommandType(OBJTYPE_ESCASTEP);
+		numobjs += setupCountCommandType(OBJTYPE_WEAPON);
+		numobjs += setupCountCommandType(OBJTYPE_KEY);
+		numobjs += setupCountCommandType(OBJTYPE_HAT);
+		numobjs += setupCountCommandType(OBJTYPE_DOOR);
+		numobjs += setupCountCommandType(OBJTYPE_CCTV);
+		numobjs += setupCountCommandType(OBJTYPE_AUTOGUN);
+		numobjs += setupCountCommandType(OBJTYPE_HANGINGMONITORS);
+		numobjs += setupCountCommandType(OBJTYPE_SINGLEMONITOR);
+		numobjs += setupCountCommandType(OBJTYPE_MULTIMONITOR);
+		numobjs += setupCountCommandType(OBJTYPE_SHIELD);
+		numobjs += setupCountCommandType(OBJTYPE_BASIC);
+		numobjs += setupCountCommandType(OBJTYPE_DEBRIS);
+		numobjs += setupCountCommandType(OBJTYPE_GLASS);
+		numobjs += setupCountCommandType(OBJTYPE_TINTEDGLASS);
+		numobjs += setupCountCommandType(OBJTYPE_SAFE);
+		numobjs += setupCountCommandType(OBJTYPE_29);
+		numobjs += setupCountCommandType(OBJTYPE_GASBOTTLE);
+		numobjs += setupCountCommandType(OBJTYPE_ALARM);
+		numobjs += setupCountCommandType(OBJTYPE_AMMOCRATE);
+		numobjs += setupCountCommandType(OBJTYPE_MULTIAMMOCRATE);
+		numobjs += setupCountCommandType(OBJTYPE_TRUCK);
+		numobjs += setupCountCommandType(OBJTYPE_TANK);
+		numobjs += setupCountCommandType(OBJTYPE_LIFT);
+		numobjs += setupCountCommandType(OBJTYPE_HOVERBIKE);
+		numobjs += setupCountCommandType(OBJTYPE_HOVERPROP);
+		numobjs += setupCountCommandType(OBJTYPE_FAN);
+		numobjs += setupCountCommandType(OBJTYPE_HOVERCAR);
+		numobjs += setupCountCommandType(OBJTYPE_CHOPPER);
+		numobjs += setupCountCommandType(OBJTYPE_HELI);
+		numobjs += setupCountCommandType(OBJTYPE_ESCASTEP);
 
 		if (g_Vars.normmplayerisrunning) {
-			total += scenarioNumProps();
+			numobjs += scenarioNumProps();
 		}
 
-		func0f011130(total, numchrs);
+		modelmgrAllocateSlots(numobjs, numchrs);
 	} else {
 		// cover isn't set to NULL here... I guess it's not important
 		g_StageSetup.waypoints = NULL;
@@ -1441,7 +1443,7 @@ void setupLoadFiles(s32 stagenum)
 		g_StageSetup.ailists = NULL;
 		g_StageSetup.padfiledata = NULL;
 
-		func0f011130(0, 0);
+		modelmgrAllocateSlots(0, 0);
 	}
 
 	if (IS4MB()) {
@@ -1452,7 +1454,7 @@ void setupLoadFiles(s32 stagenum)
 
 	if (IS4MB());
 
-	g_Vars.maxprops = total + numchrs + extra + 40;
+	g_Vars.maxprops = numobjs + numchrs + extra + 40;
 }
 
 void setupCreateProps(s32 stagenum)

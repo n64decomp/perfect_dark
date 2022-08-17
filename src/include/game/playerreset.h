@@ -4,10 +4,10 @@
 #include "data.h"
 #include "types.h"
 
-void func0f011110(void);
-void func0f011124(bool value);
-void func0f011130(s32 arg0, s32 numchrs);
-bool weaponLoadProjectileModels(s32 weaponnum);
+void modelmgrReset(void);
+void modelmgrSetLvResetting(bool value);
+void modelmgrAllocateSlots(s32 numobjs, s32 numchrs);
+bool modelmgrLoadProjectileModeldefs(s32 weaponnum);
 void playerInitEyespy(void);
 void playerReset(void);
 
