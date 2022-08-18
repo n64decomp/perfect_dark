@@ -22607,7 +22607,7 @@ s32 objTickPlayer(struct prop *prop)
 			sp592 = projectileTick(obj, &embedded);
 
 			if (embedded) {
-				result = TICKOP_5;
+				result = TICKOP_CHANGEDLIST;
 			}
 		}
 

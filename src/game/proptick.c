@@ -83,7 +83,7 @@ void propsTick(void)
 			tickop = playerTickBeams(prop);
 		}
 
-		if (tickop == TICKOP_5) {
+		if (tickop == TICKOP_CHANGEDLIST) {
 			next2 = next;
 		} else {
 			next2 = prop->next;

@@ -4024,7 +4024,7 @@
 #define TICKOP_DISABLE      2
 #define TICKOP_RETICK       3
 #define TICKOP_GIVETOPLAYER 4
-#define TICKOP_5            5
+#define TICKOP_CHANGEDLIST  5
 
 #define TIMEPRECISION_DAYS       0
 #define TIMEPRECISION_HOURS      1
