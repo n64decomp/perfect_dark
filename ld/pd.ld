@@ -160,6 +160,7 @@ SECTIONS
 	varbc000c02 = 0xbc000c02; /* for ntsc-beta */
 
 	getitle0f0155f0_hack = getitle0f0155f0;
+	viGetHeight_hack = viGetHeight;
 
 	/***************************************************************************
 	 * romheader

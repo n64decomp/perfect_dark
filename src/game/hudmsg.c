@@ -93,349 +93,99 @@ s32 hudmsgIsZoomRangeVisible(void)
 		&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON;
 }
 
-GLOBAL_ASM(
-glabel hudmsgRenderMissionTimer
-/*  f0dcef4:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f0dcef8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0dcefc:	afa40090 */ 	sw	$a0,0x90($sp)
-/*  f0dcf00:	0c002f40 */ 	jal	viGetViewLeft
-/*  f0dcf04:	afa50094 */ 	sw	$a1,0x94($sp)
-/*  f0dcf08:	3c0e8008 */ 	lui	$t6,%hi(g_ScaleX)
-/*  f0dcf0c:	8dcefac0 */ 	lw	$t6,%lo(g_ScaleX)($t6)
-/*  f0dcf10:	004e001a */ 	div	$zero,$v0,$t6
-/*  f0dcf14:	00007812 */ 	mflo	$t7
-/*  f0dcf18:	afaf0084 */ 	sw	$t7,0x84($sp)
-/*  f0dcf1c:	15c00002 */ 	bnez	$t6,.L0f0dcf28
-/*  f0dcf20:	00000000 */ 	nop
-/*  f0dcf24:	0007000d */ 	break	0x7
-.L0f0dcf28:
-/*  f0dcf28:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0dcf2c:	15c10004 */ 	bne	$t6,$at,.L0f0dcf40
-/*  f0dcf30:	3c018000 */ 	lui	$at,0x8000
-/*  f0dcf34:	14410002 */ 	bne	$v0,$at,.L0f0dcf40
-/*  f0dcf38:	00000000 */ 	nop
-/*  f0dcf3c:	0006000d */ 	break	0x6
-.L0f0dcf40:
-/*  f0dcf40:	0c002f44 */ 	jal	viGetViewTop
-/*  f0dcf44:	00000000 */ 	nop
-/*  f0dcf48:	0c002f26 */ 	jal	viGetViewHeight
-/*  f0dcf4c:	a7a20056 */ 	sh	$v0,0x56($sp)
-/*  f0dcf50:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0dcf54:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0dcf58:	8c98006c */ 	lw	$t8,0x6c($a0)
-/*  f0dcf5c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0dcf60:	53000004 */ 	beqzl	$t8,.L0f0dcf74
-/*  f0dcf64:	00005025 */ 	or	$t2,$zero,$zero
-/*  f0dcf68:	10000002 */ 	b	.L0f0dcf74
-/*  f0dcf6c:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0dcf70:	00005025 */ 	or	$t2,$zero,$zero
-.L0f0dcf74:
-/*  f0dcf74:	8c990068 */ 	lw	$t9,0x68($a0)
-/*  f0dcf78:	3c188007 */ 	lui	$t8,%hi(g_HudPaddingY)
-/*  f0dcf7c:	53200004 */ 	beqzl	$t9,.L0f0dcf90
-/*  f0dcf80:	00004025 */ 	or	$t0,$zero,$zero
-/*  f0dcf84:	10000002 */ 	b	.L0f0dcf90
-/*  f0dcf88:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0dcf8c:	00004025 */ 	or	$t0,$zero,$zero
-.L0f0dcf90:
-/*  f0dcf90:	8c8b0064 */ 	lw	$t3,0x64($a0)
-/*  f0dcf94:	3c198009 */ 	lui	$t9,%hi(g_Is4Mb)
-/*  f0dcf98:	51600004 */ 	beqzl	$t3,.L0f0dcfac
-/*  f0dcf9c:	00004825 */ 	or	$t1,$zero,$zero
-/*  f0dcfa0:	10000002 */ 	b	.L0f0dcfac
-/*  f0dcfa4:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0dcfa8:	00004825 */ 	or	$t1,$zero,$zero
-.L0f0dcfac:
-/*  f0dcfac:	8c8c0070 */ 	lw	$t4,0x70($a0)
-/*  f0dcfb0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0dcfb4:	11800003 */ 	beqz	$t4,.L0f0dcfc4
-/*  f0dcfb8:	00000000 */ 	nop
-/*  f0dcfbc:	10000001 */ 	b	.L0f0dcfc4
-/*  f0dcfc0:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0dcfc4:
-/*  f0dcfc4:	87ae0056 */ 	lh	$t6,0x56($sp)
-/*  f0dcfc8:	8f180fe0 */ 	lw	$t8,%lo(g_HudPaddingY)($t8)
-/*  f0dcfcc:	93390af0 */ 	lbu	$t9,%lo(g_Is4Mb)($t9)
-/*  f0dcfd0:	8c8d028c */ 	lw	$t5,0x28c($a0)
-/*  f0dcfd4:	004e7821 */ 	addu	$t7,$v0,$t6
-/*  f0dcfd8:	01f83823 */ 	subu	$a3,$t7,$t8
-/*  f0dcfdc:	24e7fff8 */ 	addiu	$a3,$a3,-8
-/*  f0dcfe0:	10b9000e */ 	beq	$a1,$t9,.L0f0dd01c
-/*  f0dcfe4:	afad0058 */ 	sw	$t5,0x58($sp)
-/*  f0dcfe8:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f0dcfec:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0dcff0:	afa80048 */ 	sw	$t0,0x48($sp)
-/*  f0dcff4:	afa9004c */ 	sw	$t1,0x4c($sp)
-/*  f0dcff8:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f0dcffc:	afaa0044 */ 	sw	$t2,0x44($sp)
-/*  f0dd000:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0dd004:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f0dd008:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0dd00c:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f0dd010:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f0dd014:	14a2000f */ 	bne	$a1,$v0,.L0f0dd054
-/*  f0dd018:	8faa0044 */ 	lw	$t2,0x44($sp)
-.L0f0dd01c:
-/*  f0dd01c:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f0dd020:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0dd024:	afa80048 */ 	sw	$t0,0x48($sp)
-/*  f0dd028:	afa9004c */ 	sw	$t1,0x4c($sp)
-/*  f0dd02c:	0fc24211 */ 	jal	countdownTimerIsVisible
-/*  f0dd030:	afaa0044 */ 	sw	$t2,0x44($sp)
-/*  f0dd034:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0dd038:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f0dd03c:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0dd040:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f0dd044:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f0dd048:	10400002 */ 	beqz	$v0,.L0f0dd054
-/*  f0dd04c:	8faa0044 */ 	lw	$t2,0x44($sp)
-/*  f0dd050:	24e7fff8 */ 	addiu	$a3,$a3,-8
-.L0f0dd054:
-/*  f0dd054:	3c0b8009 */ 	lui	$t3,%hi(g_Is4Mb)
-/*  f0dd058:	916b0af0 */ 	lbu	$t3,%lo(g_Is4Mb)($t3)
-/*  f0dd05c:	50ab0014 */ 	beql	$a1,$t3,.L0f0dd0b0
-/*  f0dd060:	00c97021 */ 	addu	$t6,$a2,$t1
-/*  f0dd064:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f0dd068:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0dd06c:	afa80048 */ 	sw	$t0,0x48($sp)
-/*  f0dd070:	afa9004c */ 	sw	$t1,0x4c($sp)
-/*  f0dd074:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f0dd078:	afaa0044 */ 	sw	$t2,0x44($sp)
-/*  f0dd07c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0dd080:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f0dd084:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0dd088:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f0dd08c:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f0dd090:	10a20006 */ 	beq	$a1,$v0,.L0f0dd0ac
-/*  f0dd094:	8faa0044 */ 	lw	$t2,0x44($sp)
-/*  f0dd098:	00c96021 */ 	addu	$t4,$a2,$t1
-/*  f0dd09c:	01886821 */ 	addu	$t5,$t4,$t0
-/*  f0dd0a0:	01aa1821 */ 	addu	$v1,$t5,$t2
-/*  f0dd0a4:	28610003 */ 	slti	$at,$v1,0x3
-/*  f0dd0a8:	1420000b */ 	bnez	$at,.L0f0dd0d8
-.L0f0dd0ac:
-/*  f0dd0ac:	00c97021 */ 	addu	$t6,$a2,$t1
-.L0f0dd0b0:
-/*  f0dd0b0:	01c87821 */ 	addu	$t7,$t6,$t0
-/*  f0dd0b4:	01ea1821 */ 	addu	$v1,$t7,$t2
-/*  f0dd0b8:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0dd0bc:	0fc3736f */ 	jal	hudmsgIsZoomRangeVisible
-/*  f0dd0c0:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0dd0c4:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f0dd0c8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0dd0cc:	10400002 */ 	beqz	$v0,.L0f0dd0d8
-/*  f0dd0d0:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0dd0d4:	24e7fff8 */ 	addiu	$a3,$a3,-8
-.L0f0dd0d8:
-/*  f0dd0d8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0dd0dc:	14610012 */ 	bne	$v1,$at,.L0f0dd128
-/*  f0dd0e0:	3c188009 */ 	lui	$t8,%hi(g_Is4Mb)
-/*  f0dd0e4:	93180af0 */ 	lbu	$t8,%lo(g_Is4Mb)($t8)
-/*  f0dd0e8:	10b8000b */ 	beq	$a1,$t8,.L0f0dd118
-/*  f0dd0ec:	00000000 */ 	nop
-/*  f0dd0f0:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0dd0f4:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f0dd0f8:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0dd0fc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0dd100:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f0dd104:	10a20006 */ 	beq	$a1,$v0,.L0f0dd120
-/*  f0dd108:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0dd10c:	8fb90058 */ 	lw	$t9,0x58($sp)
-/*  f0dd110:	17200003 */ 	bnez	$t9,.L0f0dd120
-/*  f0dd114:	00000000 */ 	nop
-.L0f0dd118:
-/*  f0dd118:	10000015 */ 	b	.L0f0dd170
-/*  f0dd11c:	24e7000a */ 	addiu	$a3,$a3,0xa
-.L0f0dd120:
-/*  f0dd120:	10000013 */ 	b	.L0f0dd170
-/*  f0dd124:	24e70002 */ 	addiu	$a3,$a3,0x2
-.L0f0dd128:
-/*  f0dd128:	28610003 */ 	slti	$at,$v1,0x3
-/*  f0dd12c:	14200008 */ 	bnez	$at,.L0f0dd150
-/*  f0dd130:	8fab0058 */ 	lw	$t3,0x58($sp)
-/*  f0dd134:	29610002 */ 	slti	$at,$t3,0x2
-/*  f0dd138:	10200003 */ 	beqz	$at,.L0f0dd148
-/*  f0dd13c:	00000000 */ 	nop
-/*  f0dd140:	1000000b */ 	b	.L0f0dd170
-/*  f0dd144:	24e7000a */ 	addiu	$a3,$a3,0xa
-.L0f0dd148:
-/*  f0dd148:	10000009 */ 	b	.L0f0dd170
-/*  f0dd14c:	24e70002 */ 	addiu	$a3,$a3,0x2
-.L0f0dd150:
-/*  f0dd150:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0dd154:	0fc54b60 */ 	jal	optionsGetEffectiveScreenSize
-/*  f0dd158:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0dd15c:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f0dd160:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0dd164:	10400002 */ 	beqz	$v0,.L0f0dd170
-/*  f0dd168:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0dd16c:	24e70008 */ 	addiu	$a3,$a3,0x8
-.L0f0dd170:
-/*  f0dd170:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0dd174:	54610013 */ 	bnel	$v1,$at,.L0f0dd1c4
-/*  f0dd178:	28610003 */ 	slti	$at,$v1,0x3
-/*  f0dd17c:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0dd180:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f0dd184:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0dd188:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0dd18c:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f0dd190:	10a20005 */ 	beq	$a1,$v0,.L0f0dd1a8
-/*  f0dd194:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0dd198:	3c0c8009 */ 	lui	$t4,%hi(g_Is4Mb)
-/*  f0dd19c:	918c0af0 */ 	lbu	$t4,%lo(g_Is4Mb)($t4)
-/*  f0dd1a0:	54ac0008 */ 	bnel	$a1,$t4,.L0f0dd1c4
-/*  f0dd1a4:	28610003 */ 	slti	$at,$v1,0x3
-.L0f0dd1a8:
-/*  f0dd1a8:	8fad0058 */ 	lw	$t5,0x58($sp)
-/*  f0dd1ac:	8fae0084 */ 	lw	$t6,0x84($sp)
-/*  f0dd1b0:	15a50003 */ 	bne	$t5,$a1,.L0f0dd1c0
-/*  f0dd1b4:	25cffff2 */ 	addiu	$t7,$t6,-14
-/*  f0dd1b8:	10000009 */ 	b	.L0f0dd1e0
-/*  f0dd1bc:	afaf0084 */ 	sw	$t7,0x84($sp)
-.L0f0dd1c0:
-/*  f0dd1c0:	28610003 */ 	slti	$at,$v1,0x3
-.L0f0dd1c4:
-/*  f0dd1c4:	14200006 */ 	bnez	$at,.L0f0dd1e0
-/*  f0dd1c8:	8fb80058 */ 	lw	$t8,0x58($sp)
-/*  f0dd1cc:	33190001 */ 	andi	$t9,$t8,0x1
-/*  f0dd1d0:	14b90003 */ 	bne	$a1,$t9,.L0f0dd1e0
-/*  f0dd1d4:	8fab0084 */ 	lw	$t3,0x84($sp)
-/*  f0dd1d8:	256cfff2 */ 	addiu	$t4,$t3,-14
-/*  f0dd1dc:	afac0084 */ 	sw	$t4,0x84($sp)
-.L0f0dd1e0:
-/*  f0dd1e0:	8fa30094 */ 	lw	$v1,0x94($sp)
-/*  f0dd1e4:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f0dd1e8:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0dd1ec:	00036880 */ 	sll	$t5,$v1,0x2
-/*  f0dd1f0:	01a36821 */ 	addu	$t5,$t5,$v1
-/*  f0dd1f4:	000d6940 */ 	sll	$t5,$t5,0x5
-/*  f0dd1f8:	01a1001b */ 	divu	$zero,$t5,$at
-/*  f0dd1fc:	00007012 */ 	mflo	$t6
-/*  f0dd200:	3c0100ff */ 	lui	$at,0xff
-/*  f0dd204:	01c17825 */ 	or	$t7,$t6,$at
-/*  f0dd208:	0fc3089f */ 	jal	playerGetMissionTime
-/*  f0dd20c:	afaf0064 */ 	sw	$t7,0x64($sp)
-/*  f0dd210:	27a40068 */ 	addiu	$a0,$sp,0x68
-/*  f0dd214:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0dd218:	0fc355f8 */ 	jal	formatTime
-/*  f0dd21c:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f0dd220:	3c198007 */ 	lui	$t9,%hi(g_HudPaddingX)
-/*  f0dd224:	8f390fe4 */ 	lw	$t9,%lo(g_HudPaddingX)($t9)
-/*  f0dd228:	8fb80084 */ 	lw	$t8,0x84($sp)
-/*  f0dd22c:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0dd230:	03195821 */ 	addu	$t3,$t8,$t9
-/*  f0dd234:	256c0003 */ 	addiu	$t4,$t3,0x3
-/*  f0dd238:	afac008c */ 	sw	$t4,0x8c($sp)
-/*  f0dd23c:	0c002f02 */ 	jal	viGetWidth
-/*  f0dd240:	afa70088 */ 	sw	$a3,0x88($sp)
-/*  f0dd244:	0c002f06 */ 	jal	viGetHeight
-/*  f0dd248:	a7a20042 */ 	sh	$v0,0x42($sp)
-/*  f0dd24c:	3c0d8008 */ 	lui	$t5,%hi(g_CharsNumeric)
-/*  f0dd250:	3c0e8008 */ 	lui	$t6,%hi(g_FontNumeric)
-/*  f0dd254:	8dcefafc */ 	lw	$t6,%lo(g_FontNumeric)($t6)
-/*  f0dd258:	8dadfb00 */ 	lw	$t5,%lo(g_CharsNumeric)($t5)
-/*  f0dd25c:	8faf0064 */ 	lw	$t7,0x64($sp)
-/*  f0dd260:	87b90042 */ 	lh	$t9,0x42($sp)
-/*  f0dd264:	241800a0 */ 	addiu	$t8,$zero,0xa0
-/*  f0dd268:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f0dd26c:	8fa40090 */ 	lw	$a0,0x90($sp)
-/*  f0dd270:	27a5008c */ 	addiu	$a1,$sp,0x8c
-/*  f0dd274:	27a60088 */ 	addiu	$a2,$sp,0x88
-/*  f0dd278:	27a70068 */ 	addiu	$a3,$sp,0x68
-/*  f0dd27c:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0dd280:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0dd284:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f0dd288:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f0dd28c:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0dd290:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f0dd294:	0fc55b92 */ 	jal	textRender
-/*  f0dd298:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f0dd29c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0dd2a0:	27bd0090 */ 	addiu	$sp,$sp,0x90
-/*  f0dd2a4:	03e00008 */ 	jr	$ra
-/*  f0dd2a8:	00000000 */ 	nop
-);
+/**
+ * hudmsgRenderMissionTimer calls viGetWidth (which returns an s16), then stores
+ * the width in sp42 while it calls viGetHeight. However, when we do this it
+ * stores the width to sp40 instead.
+ *
+ * Changing the definition of viGetHeight to return an s32 fixes this, but is
+ * surely wrong and creates mismatches elsewhere. So we declare a new function
+ * with the return type we need, and link it to the same address as viGetHeight
+ * via the linker config.
+ */
+extern s32 viGetHeight_hack(void);
 
-// Mismatch: Regalloc. Seems like something's optimised out before PLAYERCOUNT().
-//Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
-//{
-//	s32 x; // 8c
-//	s32 y; // 88
-//	s32 viewleft; // 84
-//	s32 timery; // 80
-//	char buffer[24]; // 68
-//	u32 textcolour; // 64
-//	s32 viewheight;
-//	s32 playercount;
-//	s32 playernum; // 58
-//	s16 viewtop; // 56
-//
-//	textcolour = alpha;
-//
-//	viewleft = viGetViewLeft() / g_ScaleX;
-//	viewtop = viGetViewTop();
-//	viewheight = viGetViewHeight();
-//	playercount = PLAYERCOUNT();
-//	playernum = g_Vars.currentplayernum;
-//
-//	timery = viewtop + viewheight - g_HudPaddingY - 8;
-//
-//	// fe0
-//	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) && countdownTimerIsVisible()) {
-//		timery -= 8;
-//	}
-//
-//	// 054
-//	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3) && hudmsgIsZoomRangeVisible()) {
-//		timery -= 8;
-//	}
-//
-//	// 0d8
-//	if (playercount == 2) {
-//		// 0e4
-//		if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0)) {
-//			// 118
-//			timery += 10;
-//		} else {
-//			// 120
-//			timery += 2;
-//		}
-//	} else /*128*/ if (playercount >= 3) {
-//		if (playernum < 2) {
-//			timery += 10;
-//		} else {
-//			timery += 2;
-//		}
-//	} else {
-//		// 150
-//		if (optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
-//			timery += 8;
-//		}
-//	}
-//
-//	// 170
-//	// If this is a second player with their viewport on the right side of the
-//	// screen, move the timer left a bit as the safe zone doesn't need to be
-//	// considered.
-//	if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 1) {
-//		viewleft -= 14;
-//	} else if (playercount >= 3 && (playernum & 1) == 1) {
-//		viewleft -= 14;
-//	}
-//
-//	// 1e0
-//	textcolour = (textcolour * 160 / 255) | 0x00ff0000;
-//
-//	// 208
-//	formatTime(buffer, playerGetMissionTime(), TIMEPRECISION_HUNDREDTHS);
-//
-//	x = viewleft + g_HudPaddingX + 3;
-//	y = timery;
-//
-//	gdl = textRender(gdl, &x, &y, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-//
-//	return gdl;
-//}
+Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
+{
+	s32 x;
+	s32 y;
+	s32 viewleft;
+	s32 timery;
+	char buffer[24];
+	u32 textcolour;
+	s32 is4mb;
+	s32 playercount;
+	s32 playernum;
+	s16 viewtop;
+	s16 viewheight;
+
+	textcolour = alpha;
+
+	viewleft = viGetViewLeft() / g_ScaleX;
+	viewtop = viGetViewTop();
+	viewheight = viGetViewHeight();
+	playercount = PLAYERCOUNT();
+	playernum = g_Vars.currentplayernum;
+
+	timery = viewheight;
+	timery += viewtop;
+	timery -= g_HudPaddingY;
+	timery -= 8;
+
+	is4mb = IS4MB();
+
+	// @bug: There is no check for playercount >= 2 in the next two statements.
+	// Because of this, in 1 player the timer is drawn out of place when the
+	// screen split option is vertical and either the countdown timer is visible
+	// or a zoomable weapon is in use.
+	if ((is4mb || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) && countdownTimerIsVisible()) {
+		timery -= 8;
+	}
+
+	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3) && hudmsgIsZoomRangeVisible()) {
+		timery -= 8;
+	}
+
+	if (playercount == 2) {
+		if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0)) {
+			timery += 10;
+		} else {
+			timery += 2;
+		}
+	} else if (playercount >= 3) {
+		if (playernum < 2) {
+			timery += 10;
+		} else {
+			timery += 2;
+		}
+	} else {
+		if (optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
+			timery += 8;
+		}
+	}
+
+	// If this is a second player with their viewport on the right side of the
+	// screen, move the timer left a bit as the safe zone doesn't need to be
+	// considered.
+	if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 1) {
+		viewleft -= 14;
+	} else if (playercount >= 3 && (playernum & 1) == 1) {
+		viewleft -= 14;
+	}
+
+	textcolour = textcolour * 160 / 255;
+	if (g_Is4Mb);
+	textcolour |= 0x00ff0000;
+
+	formatTime(buffer, playerGetMissionTime(), TIMEPRECISION_HUNDREDTHS);
+
+	x = viewleft + g_HudPaddingX + 3;
+	y = timery;
+
+	gdl = textRender(gdl, &x, &y, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, viGetWidth(), viGetHeight_hack(), 0, 0);
+
+	return gdl;
+}
 
 Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 {
