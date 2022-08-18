@@ -4219,14 +4219,14 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 	// Each surface is rendered a second time with the colours swapped.
 	// The order is top, right, bottom, left.
 	if (g_MenuData.root != MENUROOT_MPSETUP && (g_MenuData.root != MENUROOT_MPPAUSE || g_Vars.normmplayerisrunning)) {
-		var800a4634 = func0f0d4d0c(var800a4634, bgx1, bgy1, bgx2, bgy1, colour4, colour5, 0);
-		var800a4634 = func0f0d4d0c(var800a4634, bgx2, bgy1, bgx2, bgy2, colour5, colour4, 0);
-		var800a4634 = func0f0d4d0c(var800a4634, bgx2, bgy2, bgx1, bgy2, colour4, colour5, 0);
-		var800a4634 = func0f0d4d0c(var800a4634, bgx1, bgy2, bgx1, bgy1, colour5, colour4, 0);
-		var800a4634 = func0f0d4d0c(var800a4634, bgx1, bgy1, bgx2, bgy1, colour5, colour4, 1);
-		var800a4634 = func0f0d4d0c(var800a4634, bgx2, bgy1, bgx2, bgy2, colour4, colour5, 1);
-		var800a4634 = func0f0d4d0c(var800a4634, bgx2, bgy2, bgx1, bgy2, colour5, colour4, 1);
-		var800a4634 = func0f0d4d0c(var800a4634, bgx1, bgy2, bgx1, bgy1, colour4, colour5, 1);
+		var800a4634 = menugfxDrawPlane(var800a4634, bgx1, bgy1, bgx2, bgy1, colour4, colour5, MENUPLANE_00);
+		var800a4634 = menugfxDrawPlane(var800a4634, bgx2, bgy1, bgx2, bgy2, colour5, colour4, MENUPLANE_00);
+		var800a4634 = menugfxDrawPlane(var800a4634, bgx2, bgy2, bgx1, bgy2, colour4, colour5, MENUPLANE_00);
+		var800a4634 = menugfxDrawPlane(var800a4634, bgx1, bgy2, bgx1, bgy1, colour5, colour4, MENUPLANE_00);
+		var800a4634 = menugfxDrawPlane(var800a4634, bgx1, bgy1, bgx2, bgy1, colour5, colour4, MENUPLANE_01);
+		var800a4634 = menugfxDrawPlane(var800a4634, bgx2, bgy1, bgx2, bgy2, colour4, colour5, MENUPLANE_01);
+		var800a4634 = menugfxDrawPlane(var800a4634, bgx2, bgy2, bgx1, bgy2, colour5, colour4, MENUPLANE_01);
+		var800a4634 = menugfxDrawPlane(var800a4634, bgx1, bgy2, bgx1, bgy1, colour4, colour5, MENUPLANE_01);
 	}
 
 	// Render the title bar

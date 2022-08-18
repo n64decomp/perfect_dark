@@ -3411,25 +3411,25 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 								text0f153b6c(*y + arg10);
 
 								if (var8007fba0 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0) {
-									var800a4634 = func0f0d4d0c(var800a4634,
+									var800a4634 = menugfxDrawPlane(var800a4634,
 											var8007fba0,
 											curchar->baseline * var80080108jf + sp90,
 											var8007fba0,
 											curchar->baseline * var80080108jf + sp90 + curchar->height * var80080108jf,
 											g_Blend.colour04,
 											g_Blend.colour04,
-											0);
+											MENUPLANE_00);
 								}
 
 								if (var8007fba0 - 3 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0 - 3) {
-									var800a4634 = func0f0d4d0c(var800a4634,
+									var800a4634 = menugfxDrawPlane(var800a4634,
 											var8007fba0,
 											curchar->baseline * var80080108jf + sp90,
 											var8007fba0,
 											curchar->baseline * var80080108jf + sp90 + curchar->height * var80080108jf,
 											g_Blend.colour04,
 											g_Blend.colour04,
-											0);
+											MENUPLANE_00);
 								}
 							}
 						}
@@ -3526,25 +3526,25 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 								text0f153b6c(*y + arg10);
 
 								if (var8007fba0 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0) {
-									var800a4634 = func0f0d4d0c(var800a4634,
+									var800a4634 = menugfxDrawPlane(var800a4634,
 											var8007fba0,
 											curchar->baseline + sp90,
 											var8007fba0,
 											curchar->baseline + sp90 + curchar->height,
 											g_Blend.colour04,
 											g_Blend.colour04,
-											0);
+											MENUPLANE_00);
 								}
 
 								if (var8007fba0 - 3 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0 - 3) {
-									var800a4634 = func0f0d4d0c(var800a4634,
+									var800a4634 = menugfxDrawPlane(var800a4634,
 											var8007fba0,
 											curchar->baseline + sp90,
 											var8007fba0,
 											curchar->baseline + sp90 + curchar->height,
 											g_Blend.colour04,
 											g_Blend.colour04,
-											0);
+											MENUPLANE_00);
 								}
 							}
 						}

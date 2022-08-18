@@ -10,7 +10,7 @@ Gfx *func0f0d479c(Gfx *gdl);
 Gfx *func0f0d49c8(Gfx *gdl);
 Gfx *func0f0d4a3c(Gfx *gdl, s32 arg1);
 Gfx *func0f0d4c80(Gfx *gdl);
-Gfx *func0f0d4d0c(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, s32 type);
+Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, s32 type);
 void savebufferOr(struct savebuffer *buffer, u32 arg1, s32 arg2);
 void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *dst);
 u32 savebufferReadBits(struct savebuffer *buffer, s32 offset);

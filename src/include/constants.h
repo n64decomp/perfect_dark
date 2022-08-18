@@ -1632,6 +1632,19 @@
 #define MENUOP_CLOSE               101
 #define MENUOP_TICK                102
 
+#define MENUPLANE_00 0
+#define MENUPLANE_01 1
+#define MENUPLANE_02 2
+#define MENUPLANE_03 3
+#define MENUPLANE_04 4
+#define MENUPLANE_05 5
+#define MENUPLANE_06 6
+#define MENUPLANE_07 7
+#define MENUPLANE_08 8
+#define MENUPLANE_09 9
+#define MENUPLANE_10 10
+#define MENUPLANE_11 11
+
 #define MENUREPEATMODE_RELEASED -1
 #define MENUREPEATMODE_SLOW     0
 #define MENUREPEATMODE_FAST     1

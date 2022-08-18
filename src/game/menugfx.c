@@ -2895,8 +2895,8 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 	var8009de90 = -100000;
 	var8009de94 = 100000;
 
-	gdl = func0f0d4d0c(gdl, -10000, 0, 10000, 0, 0x7f7f, 0x7f7f, 4);
-	gdl = func0f0d4d0c(gdl, -10000, 300, 10000, 300, 0x7f7f, 0x7f7f, 4);
+	gdl = menugfxDrawPlane(gdl, -10000, 0, 10000, 0, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
+	gdl = menugfxDrawPlane(gdl, -10000, 300, 10000, 300, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
 
 	for (i = 0; i < 3; i++) {
 		angle = (2.0f * i * M_PI) / 3.0f + spb4;
@@ -2918,8 +2918,8 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		gdl = func0f0d4d0c(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, 2);
-		gdl = func0f0d4d0c(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, 3);
+		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, MENUPLANE_02);
+		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, MENUPLANE_03);
 
 		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f;
 		s6 = sinf(angle) * 600.0f;
@@ -2943,8 +2943,8 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		alpha1 = func0f006b54(4) * 127.0f;
 		alpha2 = func0f006b54(4) * 55.0f;
 
-		gdl = func0f0d4d0c(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, 2);
-		gdl = func0f0d4d0c(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, 3);
+		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
+		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
 
 		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f + M_PI;
 		s6 = sinf(angle) * 600.0f;
@@ -2968,8 +2968,8 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		alpha1 = (1.0f - func0f006b54(4)) * 99.0f;
 		alpha2 = (1.0f - func0f006b54(4)) * 33.0f;
 
-		gdl = func0f0d4d0c(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, 2);
-		gdl = func0f0d4d0c(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, 3);
+		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, MENUPLANE_02);
+		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, MENUPLANE_03);
 	}
 
 	gdl = func0f0d4c80(gdl);
@@ -3124,7 +3124,7 @@ glabel var7f1adf4c
 /*  f0e4390:	440c2000 */ 	mfc1	$t4,$f4
 /*  f0e4394:	00000000 */ 	nop
 /*  f0e4398:	258d0078 */ 	addiu	$t5,$t4,0x78
-/*  f0e439c:	0fc35343 */ 	jal	func0f0d4d0c
+/*  f0e439c:	0fc35343 */ 	jal	menugfxDrawPlane
 /*  f0e43a0:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0e43a4:	26730001 */ 	addiu	$s3,$s3,0x1
 /*  f0e43a8:	2a610008 */ 	slti	$at,$s3,0x8
@@ -3229,7 +3229,7 @@ glabel var7f1adf4c
 /*  f0e4524:	440b3000 */ 	mfc1	$t3,$f6
 /*  f0e4528:	00000000 */ 	nop
 /*  f0e452c:	256c0078 */ 	addiu	$t4,$t3,0x78
-/*  f0e4530:	0fc35343 */ 	jal	func0f0d4d0c
+/*  f0e4530:	0fc35343 */ 	jal	menugfxDrawPlane
 /*  f0e4534:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0e4538:	26730001 */ 	addiu	$s3,$s3,0x1
 /*  f0e453c:	1676ffd2 */ 	bne	$s3,$s6,.L0f0e4488
@@ -3293,7 +3293,7 @@ glabel var7f1adf4c
 //		y1 += 120;
 //		y2 += 120;
 //
-//		gdl = func0f0d4d0c(gdl, x1, y1, x2, y2, colour, colour, 8);
+//		gdl = menugfxDrawPlane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_08);
 //	}
 //
 //	s0 = (u32)(255.0f - func0f006b54(1) * 255.0f) << 16;
@@ -3317,7 +3317,7 @@ glabel var7f1adf4c
 //		y1 += 120;
 //		y2 += 120;
 //
-//		gdl = func0f0d4d0c(gdl, x1, y1, x2, y2, colour, colour, 9);
+//		gdl = menugfxDrawPlane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_09);
 //	}
 //
 //	gdl = func0f0d4c80(gdl);
@@ -3342,8 +3342,8 @@ Gfx *func0f0e458c(Gfx *gdl)
 	var8009de90 = -100000;
 	var8009de94 = 100000;
 
-	gdl = func0f0d4d0c(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x00ff00bf, 0x00ff00bf, 6);
-	gdl = func0f0d4d0c(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0xffff00af, 0xffff00af, 5);
+	gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x00ff00bf, 0x00ff00bf, MENUPLANE_06);
+	gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0xffff00af, 0xffff00af, MENUPLANE_05);
 	gdl = func0f0d4c80(gdl);
 
 	var8009de98 = var8009de9c = 0;
@@ -3361,10 +3361,10 @@ Gfx *func0f0e46b0(Gfx *gdl, f32 arg1)
 	var8009de90 = -100000;
 	var8009de94 = 100000;
 
-	gdl = func0f0d4d0c(gdl, -1000, y1, 2000, y1, 0xffff007f, 0xffff007f, 5);
-	gdl = func0f0d4d0c(gdl, -1000, y1, 2000, y1, 0x00aa007f, 0x00aa007f, 6);
-	gdl = func0f0d4d0c(gdl, -1000, y2, 2000, y2, 0xffff007f, 0xffff007f, 5);
-	gdl = func0f0d4d0c(gdl, -1000, y2, 2000, y2, 0x00aa007f, 0x00aa007f, 6);
+	gdl = menugfxDrawPlane(gdl, -1000, y1, 2000, y1, 0xffff007f, 0xffff007f, MENUPLANE_05);
+	gdl = menugfxDrawPlane(gdl, -1000, y1, 2000, y1, 0x00aa007f, 0x00aa007f, MENUPLANE_06);
+	gdl = menugfxDrawPlane(gdl, -1000, y2, 2000, y2, 0xffff007f, 0xffff007f, MENUPLANE_05);
+	gdl = menugfxDrawPlane(gdl, -1000, y2, 2000, y2, 0x00aa007f, 0x00aa007f, MENUPLANE_06);
 
 	gdl = func0f0d4c80(gdl);
 
@@ -3397,8 +3397,8 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 	var8009de90 = -100000;
 	var8009de94 = 100000;
 
-	gdl = func0f0d4d0c(gdl, -10000, 0, 10000, 0, 0x7f7f, 0x7f7f, 4);
-	gdl = func0f0d4d0c(gdl, -10000, 300, 10000, 300, 0x7f7f, 0x7f7f, 4);
+	gdl = menugfxDrawPlane(gdl, -10000, 0, 10000, 0, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
+	gdl = menugfxDrawPlane(gdl, -10000, 300, 10000, 300, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
 
 	for (i = 0; i < 3; i++) {
 		angle = (2.0f * i * M_PI) / 3.0f + spb4;
@@ -3420,8 +3420,8 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		gdl = func0f0d4d0c(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, 2);
-		gdl = func0f0d4d0c(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, 3);
+		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, MENUPLANE_02);
+		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, MENUPLANE_03);
 
 		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f;
 		s6 = sinf(angle) * 600.0f;
@@ -3445,8 +3445,8 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		alpha1 = func0f006b54(4) * 127.0f;
 		alpha2 = func0f006b54(4) * 55.0f;
 
-		gdl = func0f0d4d0c(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, 2);
-		gdl = func0f0d4d0c(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, 3);
+		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
+		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
 
 		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f + M_PI;
 		s6 = sinf(angle) * 600.0f;
@@ -3470,8 +3470,8 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		alpha1 = (1.0f - func0f006b54(4)) * 99.0f;
 		alpha2 = (1.0f - func0f006b54(4)) * 33.0f;
 
-		gdl = func0f0d4d0c(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, 2);
-		gdl = func0f0d4d0c(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, 3);
+		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, MENUPLANE_02);
+		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, MENUPLANE_03);
 	}
 
 	gdl = func0f0d4c80(gdl);
@@ -3574,11 +3574,11 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 	var8009de94 = 100000;
 
 	if (gray) {
-		gdl = func0f0d4d0c(gdl, -1000, -10, 2000, -10, 0x6060607f, 0x6060607f, 5);
-		gdl = func0f0d4d0c(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x9090907f, 0x9090907f, 5);
+		gdl = menugfxDrawPlane(gdl, -1000, -10, 2000, -10, 0x6060607f, 0x6060607f, MENUPLANE_05);
+		gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x9090907f, 0x9090907f, MENUPLANE_05);
 	} else {
-		gdl = func0f0d4d0c(gdl, -1000, -10, 2000, -10, 0x0000947f, 0x0000947f, 10);
-		gdl = func0f0d4d0c(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x6200947f, 0x6200947f, 6);
+		gdl = menugfxDrawPlane(gdl, -1000, -10, 2000, -10, 0x0000947f, 0x0000947f, MENUPLANE_10);
+		gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x6200947f, 0x6200947f, MENUPLANE_06);
 	}
 
 	// Prepare stuff for drawing the particles
