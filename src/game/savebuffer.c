@@ -997,233 +997,32 @@ void savebufferReadGuid(struct savebuffer *buffer, struct fileguid *guid)
 	guid->deviceserial = savebufferReadBits(buffer, 13);
 }
 
-GLOBAL_ASM(
-glabel formatTime
-/*  f0d57e0:	2402003c */ 	addiu	$v0,$zero,0x3c
-/*  f0d57e4:	00a2001a */ 	div	$zero,$a1,$v0
-/*  f0d57e8:	00007010 */ 	mfhi	$t6
-/*  f0d57ec:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0d57f0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0d57f4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0d57f8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0d57fc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0d5800:	01e2001a */ 	div	$zero,$t7,$v0
-/*  f0d5804:	0000c012 */ 	mflo	$t8
-/*  f0d5808:	240a0018 */ 	addiu	$t2,$zero,0x18
-/*  f0d580c:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f0d5810:	00a2001a */ 	div	$zero,$a1,$v0
-/*  f0d5814:	00001812 */ 	mflo	$v1
-/*  f0d5818:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f0d581c:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0d5820:	0062001a */ 	div	$zero,$v1,$v0
-/*  f0d5824:	00003812 */ 	mflo	$a3
-/*  f0d5828:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0d582c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0d5830:	00e2001a */ 	div	$zero,$a3,$v0
-/*  f0d5834:	00004012 */ 	mflo	$t0
-/*  f0d5838:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0d583c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0d5840:	010a001a */ 	div	$zero,$t0,$t2
-/*  f0d5844:	0000c812 */ 	mflo	$t9
-/*  f0d5848:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0d584c:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0d5850:	0062001a */ 	div	$zero,$v1,$v0
-/*  f0d5854:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0d5858:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f0d585c:	00009025 */ 	or	$s2,$zero,$zero
-/*  f0d5860:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0d5864:	14400002 */ 	bnez	$v0,.L0f0d5870
-/*  f0d5868:	00000000 */ 	nop
-/*  f0d586c:	0007000d */ 	break	0x7
-.L0f0d5870:
-/*  f0d5870:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d5874:	14410004 */ 	bne	$v0,$at,.L0f0d5888
-/*  f0d5878:	3c018000 */ 	lui	$at,0x8000
-/*  f0d587c:	14a10002 */ 	bne	$a1,$at,.L0f0d5888
-/*  f0d5880:	00000000 */ 	nop
-/*  f0d5884:	0006000d */ 	break	0x6
-.L0f0d5888:
-/*  f0d5888:	afb80064 */ 	sw	$t8,0x64($sp)
-/*  f0d588c:	14400002 */ 	bnez	$v0,.L0f0d5898
-/*  f0d5890:	00000000 */ 	nop
-/*  f0d5894:	0007000d */ 	break	0x7
-.L0f0d5898:
-/*  f0d5898:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d589c:	14410004 */ 	bne	$v0,$at,.L0f0d58b0
-/*  f0d58a0:	3c018000 */ 	lui	$at,0x8000
-/*  f0d58a4:	15e10002 */ 	bne	$t7,$at,.L0f0d58b0
-/*  f0d58a8:	00000000 */ 	nop
-/*  f0d58ac:	0006000d */ 	break	0x6
-.L0f0d58b0:
-/*  f0d58b0:	afb90054 */ 	sw	$t9,0x54($sp)
-/*  f0d58b4:	14400002 */ 	bnez	$v0,.L0f0d58c0
-/*  f0d58b8:	00000000 */ 	nop
-/*  f0d58bc:	0007000d */ 	break	0x7
-.L0f0d58c0:
-/*  f0d58c0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d58c4:	14410004 */ 	bne	$v0,$at,.L0f0d58d8
-/*  f0d58c8:	3c018000 */ 	lui	$at,0x8000
-/*  f0d58cc:	14a10002 */ 	bne	$a1,$at,.L0f0d58d8
-/*  f0d58d0:	00000000 */ 	nop
-/*  f0d58d4:	0006000d */ 	break	0x6
-.L0f0d58d8:
-/*  f0d58d8:	27b10054 */ 	addiu	$s1,$sp,0x54
-/*  f0d58dc:	14400002 */ 	bnez	$v0,.L0f0d58e8
-/*  f0d58e0:	00000000 */ 	nop
-/*  f0d58e4:	0007000d */ 	break	0x7
-.L0f0d58e8:
-/*  f0d58e8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d58ec:	14410004 */ 	bne	$v0,$at,.L0f0d5900
-/*  f0d58f0:	3c018000 */ 	lui	$at,0x8000
-/*  f0d58f4:	14610002 */ 	bne	$v1,$at,.L0f0d5900
-/*  f0d58f8:	00000000 */ 	nop
-/*  f0d58fc:	0006000d */ 	break	0x6
-.L0f0d5900:
-/*  f0d5900:	3c147f1b */ 	lui	$s4,%hi(var7f1adbbc)
-/*  f0d5904:	14400002 */ 	bnez	$v0,.L0f0d5910
-/*  f0d5908:	00000000 */ 	nop
-/*  f0d590c:	0007000d */ 	break	0x7
-.L0f0d5910:
-/*  f0d5910:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d5914:	14410004 */ 	bne	$v0,$at,.L0f0d5928
-/*  f0d5918:	3c018000 */ 	lui	$at,0x8000
-/*  f0d591c:	14e10002 */ 	bne	$a3,$at,.L0f0d5928
-/*  f0d5920:	00000000 */ 	nop
-/*  f0d5924:	0006000d */ 	break	0x6
-.L0f0d5928:
-/*  f0d5928:	27b5005c */ 	addiu	$s5,$sp,0x5c
-/*  f0d592c:	15400002 */ 	bnez	$t2,.L0f0d5938
-/*  f0d5930:	00000000 */ 	nop
-/*  f0d5934:	0007000d */ 	break	0x7
-.L0f0d5938:
-/*  f0d5938:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d593c:	15410004 */ 	bne	$t2,$at,.L0f0d5950
-/*  f0d5940:	3c018000 */ 	lui	$at,0x8000
-/*  f0d5944:	15010002 */ 	bne	$t0,$at,.L0f0d5950
-/*  f0d5948:	00000000 */ 	nop
-/*  f0d594c:	0006000d */ 	break	0x6
-.L0f0d5950:
-/*  f0d5950:	3c167f1b */ 	lui	$s6,%hi(var7f1adbc4)
-/*  f0d5954:	14400002 */ 	bnez	$v0,.L0f0d5960
-/*  f0d5958:	00000000 */ 	nop
-/*  f0d595c:	0007000d */ 	break	0x7
-.L0f0d5960:
-/*  f0d5960:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d5964:	14410004 */ 	bne	$v0,$at,.L0f0d5978
-/*  f0d5968:	3c018000 */ 	lui	$at,0x8000
-/*  f0d596c:	14610002 */ 	bne	$v1,$at,.L0f0d5978
-/*  f0d5970:	00000000 */ 	nop
-/*  f0d5974:	0006000d */ 	break	0x6
-.L0f0d5978:
-/*  f0d5978:	00001810 */ 	mfhi	$v1
-/*  f0d597c:	afa30060 */ 	sw	$v1,0x60($sp)
-/*  f0d5980:	27ad0054 */ 	addiu	$t5,$sp,0x54
-/*  f0d5984:	00e2001a */ 	div	$zero,$a3,$v0
-/*  f0d5988:	14400002 */ 	bnez	$v0,.L0f0d5994
-/*  f0d598c:	00000000 */ 	nop
-/*  f0d5990:	0007000d */ 	break	0x7
-.L0f0d5994:
-/*  f0d5994:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d5998:	14410004 */ 	bne	$v0,$at,.L0f0d59ac
-/*  f0d599c:	3c018000 */ 	lui	$at,0x8000
-/*  f0d59a0:	14e10002 */ 	bne	$a3,$at,.L0f0d59ac
-/*  f0d59a4:	00000000 */ 	nop
-/*  f0d59a8:	0006000d */ 	break	0x6
-.L0f0d59ac:
-/*  f0d59ac:	00003810 */ 	mfhi	$a3
-/*  f0d59b0:	afa7005c */ 	sw	$a3,0x5c($sp)
-/*  f0d59b4:	00004825 */ 	or	$t1,$zero,$zero
-/*  f0d59b8:	010a001a */ 	div	$zero,$t0,$t2
-/*  f0d59bc:	15400002 */ 	bnez	$t2,.L0f0d59c8
-/*  f0d59c0:	00000000 */ 	nop
-/*  f0d59c4:	0007000d */ 	break	0x7
-.L0f0d59c8:
-/*  f0d59c8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d59cc:	15410004 */ 	bne	$t2,$at,.L0f0d59e0
-/*  f0d59d0:	3c018000 */ 	lui	$at,0x8000
-/*  f0d59d4:	15010002 */ 	bne	$t0,$at,.L0f0d59e0
-/*  f0d59d8:	00000000 */ 	nop
-/*  f0d59dc:	0006000d */ 	break	0x6
-.L0f0d59e0:
-/*  f0d59e0:	00004010 */ 	mfhi	$t0
-/*  f0d59e4:	afa80058 */ 	sw	$t0,0x58($sp)
-/*  f0d59e8:	04c00019 */ 	bltz	$a2,.L0f0d5a50
-/*  f0d59ec:	00065880 */ 	sll	$t3,$a2,0x2
-/*  f0d59f0:	256c0004 */ 	addiu	$t4,$t3,0x4
-/*  f0d59f4:	018db821 */ 	addu	$s7,$t4,$t5
-/*  f0d59f8:	26d6dbc4 */ 	addiu	$s6,$s6,%lo(var7f1adbc4)
-/*  f0d59fc:	2694dbbc */ 	addiu	$s4,$s4,%lo(var7f1adbbc)
-.L0f0d5a00:
-/*  f0d5a00:	12400006 */ 	beqz	$s2,.L0f0d5a1c
-/*  f0d5a04:	02702021 */ 	addu	$a0,$s3,$s0
-/*  f0d5a08:	02802825 */ 	or	$a1,$s4,$zero
-/*  f0d5a0c:	0c004dad */ 	jal	sprintf
-/*  f0d5a10:	8e260000 */ 	lw	$a2,0x0($s1)
-/*  f0d5a14:	1000000b */ 	b	.L0f0d5a44
-/*  f0d5a18:	02028021 */ 	addu	$s0,$s0,$v0
-.L0f0d5a1c:
-/*  f0d5a1c:	8e260000 */ 	lw	$a2,0x0($s1)
-/*  f0d5a20:	0235082b */ 	sltu	$at,$s1,$s5
-/*  f0d5a24:	02702021 */ 	addu	$a0,$s3,$s0
-/*  f0d5a28:	14c00003 */ 	bnez	$a2,.L0f0d5a38
-/*  f0d5a2c:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f0d5a30:	54200005 */ 	bnezl	$at,.L0f0d5a48
-/*  f0d5a34:	26310004 */ 	addiu	$s1,$s1,0x4
-.L0f0d5a38:
-/*  f0d5a38:	0c004dad */ 	jal	sprintf
-/*  f0d5a3c:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f0d5a40:	02028021 */ 	addu	$s0,$s0,$v0
-.L0f0d5a44:
-/*  f0d5a44:	26310004 */ 	addiu	$s1,$s1,0x4
-.L0f0d5a48:
-/*  f0d5a48:	16f1ffed */ 	bne	$s7,$s1,.L0f0d5a00
-/*  f0d5a4c:	00000000 */ 	nop
-.L0f0d5a50:
-/*  f0d5a50:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0d5a54:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0d5a58:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0d5a5c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0d5a60:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0d5a64:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0d5a68:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0d5a6c:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f0d5a70:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f0d5a74:	03e00008 */ 	jr	$ra
-/*  f0d5a78:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+void formatTime(char *dst, s32 time60, s32 precision)
+{
+	s32 parts[5];
+	bool donefirst = false;
+	s32 len = 0;
+	s32 i;
 
-const char var7f1adbbc[] = ":%02d";
-const char var7f1adbc4[] = "%d";
+	parts[4] = time60 % 60 * 100 / 60; // hundredths
+	parts[3] = time60 / 60; // seconds
+	parts[2] = parts[3] / 60; // minutes
+	parts[1] = parts[2] / 60; // hours
+	parts[0] = parts[1] / 24; // days
 
-//void formatTime(char *dst, s32 time60, s32 precision)
-//{
-//	s32 sp54[5];
-//	bool donefirst;
-//	s32 len;
-//	s32 i;
-//
-//	donefirst = false;
-//	len = 0;
-//
-//	sp54[4] = time60 % 60 * 100 / 60; // hundredths
-//	sp54[0] = time60 / 60 / 60 / 60 / 24; // days
-//
-//	time60 /= 60;
-//	sp54[3] = time60 % 60; // seconds
-//	time60 /= 60;
-//	sp54[2] = time60 % 60; // minutes
-//	time60 /= 60;
-//	sp54[1] = time60 % 24; // hours
-//
-//	for (i = 0; i <= precision; i++) {
-//		if (donefirst) {
-//			len += sprintf(&dst[len], ":%02d", sp54[i]);
-//		} else if (sp54[i] != 0 || i >= TIMEPRECISION_MINUTES) {
-//			len += sprintf(&dst[len], "%d", sp54[i]);
-//			donefirst = true;
-//		}
-//	}
-//}
+	parts[3] %= 60; // seconds
+	parts[2] %= 60; // minutes
+	parts[1] %= 24; // hours
+
+	for (i = 0; i <= precision; i++) {
+		if (donefirst) {
+			len += sprintf(&dst[len], ":%02d", parts[i]);
+		} else if (parts[i] != 0 || i >= TIMEPRECISION_MINUTES) {
+			len += sprintf(&dst[len], "%d", parts[i]);
+			donefirst = true;
+		}
+	}
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void func0f0d5a7c(void)
