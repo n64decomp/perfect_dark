@@ -4843,7 +4843,7 @@ bool aiWarpJoToPad(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	playerPrepareWarpToPad(pad_id);
+	playerPrepareWarpType1(pad_id);
 
 	g_Vars.aioffset += 4;
 
@@ -5104,8 +5104,8 @@ bool ai00df(void)
 		s32 cmdindex = setupGetCmdIndexByTag(tag);
 
 		if (cmdindex >= 0) {
-			void *ptr = setupGetCmdByIndex(cmdindex + tag->cmdoffset);
-			playerPrepareWarpType2(ptr, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
+			struct warpparams *params = (struct warpparams *) setupGetCmdByIndex(cmdindex + tag->cmdoffset);
+			playerPrepareWarpType2(params, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
 		}
 	}
 
@@ -5517,14 +5517,14 @@ bool ai00f4(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	s32 a = cmd[3] | (cmd[2] << 8);
-	s16 b = cmd[5] | (cmd[4] << 8);
-	s16 c = cmd[7] | (cmd[6] << 8);
-	s32 d = cmd[9] | (cmd[8] << 8);
-	s16 e = cmd[11] | (cmd[10] << 8);
-	s32 f = cmd[13] | (cmd[12] << 8);
+	s32 range = cmd[3] | (cmd[2] << 8);
+	s16 height1 = cmd[5] | (cmd[4] << 8);
+	s16 rotangle = cmd[7] | (cmd[6] << 8);
+	s32 padnum = cmd[9] | (cmd[8] << 8);
+	s16 height2 = cmd[11] | (cmd[10] << 8);
+	s32 posangle = cmd[13] | (cmd[12] << 8);
 
-	playerPrepareWarpType3(f * M_BADTAU / 65536, c * M_BADTAU / 65536, a, b, e, d);
+	playerPrepareWarpType3(posangle * M_BADTAU / 65536, rotangle * M_BADTAU / 65536, range, height1, height2, padnum);
 
 	g_Vars.aioffset += 14;
 

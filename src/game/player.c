@@ -72,16 +72,16 @@ f32 g_MpSwirlRotateSpeed;
 f32 g_MpSwirlAngleDegrees;
 f32 g_MpSwirlForwardSpeed;
 f32 g_MpSwirlDistance;
-s16 g_WarpPadId;
-struct var8009ddec *var8009ddec;
-f32 var8009ddf0;
-f32 var8009ddf4;
-f32 var8009ddf8;
-f32 var8009ddfc;
-f32 var8009de00;
-u32 var8009de04;
-s32 var8009de08;
-u32 var8009de0c;
+s16 g_WarpType1Pad;
+struct warpparams *g_WarpType2Params;
+f32 g_WarpType3PosAngle;
+f32 g_WarpType3RotAngle;
+f32 g_WarpType3Range;
+f32 g_WarpType3Height;
+f32 g_WarpType3MoreHeight;
+u32 g_WarpType3Pad;
+s32 g_WarpType2HasDirection;
+u32 g_WarpType2Arg2;
 s32 g_CutsceneCurAnimFrame60;
 
 #if VERSION == VERSION_JPN_FINAL
@@ -1663,364 +1663,130 @@ void playerEndCutscene(void)
 	}
 }
 
-void playerPrepareWarpToPad(s16 pad)
+void playerPrepareWarpType1(s16 pad)
 {
 	playerSetTickMode(TICKMODE_WARP);
 	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
 	playersClearMemCamRoom();
-	g_WarpPadId = pad;
+
+	g_WarpType1Pad = pad;
 }
 
-void playerPrepareWarpType2(struct var8009ddec *cmd, s32 arg1, s32 arg2)
+void playerPrepareWarpType2(struct warpparams *cmd, bool hasdir, s32 arg2)
 {
 	playerSetTickMode(TICKMODE_WARP);
 	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
 	playersClearMemCamRoom();
-	g_WarpPadId = -1;
-	var8009ddec = cmd;
-	var8009de08 = arg1;
-	var8009de0c = arg2;
+
+	g_WarpType1Pad = -1;
+
+	g_WarpType2Params = cmd;
+	g_WarpType2HasDirection = hasdir;
+	g_WarpType2Arg2 = arg2;
 }
 
-void playerPrepareWarpType3(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
+void playerPrepareWarpType3(f32 posangle, f32 rotangle, f32 range, f32 height1, f32 height2, s32 padnum)
 {
 	playerSetTickMode(TICKMODE_WARP);
 	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
 	playersClearMemCamRoom();
-	g_WarpPadId = -1;
-	var8009ddec = NULL;
-	var8009ddf0 = arg0;
-	var8009ddf4 = arg1;
-	var8009ddf8 = arg2;
-	var8009ddfc = arg3;
-	var8009de00 = arg4;
-	var8009de04 = arg5;
+
+	g_WarpType1Pad = -1;
+
+	g_WarpType2Params = NULL;
+
+	g_WarpType3PosAngle = posangle;
+	g_WarpType3RotAngle = rotangle;
+	g_WarpType3Range = range;
+	g_WarpType3Height = height1;
+	g_WarpType3MoreHeight = height2;
+	g_WarpType3Pad = padnum;
 }
 
-u32 var80070818 = 0x00000000;
-u32 var8007081c = 0x00000000;
-u32 var80070820 = 0x00000000;
-u32 var80070824 = 0x00000000;
-u32 var80070828 = 0x00000000;
-u32 var8007082c = 0x3f800000;
-u32 var80070830 = 0x00000000;
-u32 var80070834 = 0x3f800000;
-u32 var80070838 = 0x00000000;
-u32 var8007083c = 0x00000000;
-u32 g_GlobalMenuRoot = 0;
+void playerExecutePreparedWarp(void)
+{
+	struct pad pad;
+	struct coord pos = {0, 0, 0};
+	struct coord look = {0, 0, 1};
+	struct coord up = {0, 1, 0};
+	s32 room;
+	struct coord memcampos;
 
-GLOBAL_ASM(
-glabel playerExecutePreparedWarp
-.late_rodata
-glabel var7f1ad5cc
-.word 0x40c907a9
-.text
-/*  f0b9cbc:	27bdff48 */ 	addiu	$sp,$sp,-184
-/*  f0b9cc0:	3c0f8007 */ 	lui	$t7,%hi(var80070818)
-/*  f0b9cc4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0b9cc8:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0b9ccc:	25ef0818 */ 	addiu	$t7,$t7,%lo(var80070818)
-/*  f0b9cd0:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f0b9cd4:	27ae0058 */ 	addiu	$t6,$sp,0x58
-/*  f0b9cd8:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f0b9cdc:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f0b9ce0:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f0b9ce4:	3c0a8007 */ 	lui	$t2,%hi(var80070824)
-/*  f0b9ce8:	254a0824 */ 	addiu	$t2,$t2,%lo(var80070824)
-/*  f0b9cec:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f0b9cf0:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f0b9cf4:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f0b9cf8:	27a9004c */ 	addiu	$t1,$sp,0x4c
-/*  f0b9cfc:	8d4d0004 */ 	lw	$t5,0x4($t2)
-/*  f0b9d00:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f0b9d04:	8d410008 */ 	lw	$at,0x8($t2)
-/*  f0b9d08:	3c188007 */ 	lui	$t8,%hi(var80070830)
-/*  f0b9d0c:	27180830 */ 	addiu	$t8,$t8,%lo(var80070830)
-/*  f0b9d10:	ad2d0004 */ 	sw	$t5,0x4($t1)
-/*  f0b9d14:	ad210008 */ 	sw	$at,0x8($t1)
-/*  f0b9d18:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f0b9d1c:	27b90040 */ 	addiu	$t9,$sp,0x40
-/*  f0b9d20:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f0b9d24:	af210000 */ 	sw	$at,0x0($t9)
-/*  f0b9d28:	8f010008 */ 	lw	$at,0x8($t8)
-/*  f0b9d2c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b9d30:	af280004 */ 	sw	$t0,0x4($t9)
-/*  f0b9d34:	0fc3060c */ 	jal	playerSetCameraMode
-/*  f0b9d38:	af210008 */ 	sw	$at,0x8($t9)
-/*  f0b9d3c:	3c04800a */ 	lui	$a0,%hi(g_WarpPadId)
-/*  f0b9d40:	8484dde8 */ 	lh	$a0,%lo(g_WarpPadId)($a0)
-/*  f0b9d44:	3c10800a */ 	lui	$s0,%hi(var8009ddec)
-/*  f0b9d48:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f0b9d4c:	0480000f */ 	bltz	$a0,.L0f0b9d8c
-/*  f0b9d50:	2610ddec */ 	addiu	$s0,$s0,%lo(var8009ddec)
-/*  f0b9d54:	0fc456ac */ 	jal	padUnpack
-/*  f0b9d58:	27a60064 */ 	addiu	$a2,$sp,0x64
-/*  f0b9d5c:	c7a20064 */ 	lwc1	$f2,0x64($sp)
-/*  f0b9d60:	c7ae0068 */ 	lwc1	$f14,0x68($sp)
-/*  f0b9d64:	c7b0006c */ 	lwc1	$f16,0x6c($sp)
-/*  f0b9d68:	8fac00ac */ 	lw	$t4,0xac($sp)
-/*  f0b9d6c:	e7a20058 */ 	swc1	$f2,0x58($sp)
-/*  f0b9d70:	e7a20030 */ 	swc1	$f2,0x30($sp)
-/*  f0b9d74:	e7ae005c */ 	swc1	$f14,0x5c($sp)
-/*  f0b9d78:	e7ae0034 */ 	swc1	$f14,0x34($sp)
-/*  f0b9d7c:	e7b00060 */ 	swc1	$f16,0x60($sp)
-/*  f0b9d80:	e7b00038 */ 	swc1	$f16,0x38($sp)
-/*  f0b9d84:	10000096 */ 	b	.L0f0b9fe0
-/*  f0b9d88:	afac003c */ 	sw	$t4,0x3c($sp)
-.L0f0b9d8c:
-/*  f0b9d8c:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f0b9d90:	3c04800a */ 	lui	$a0,%hi(var8009de04)
-/*  f0b9d94:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f0b9d98:	10400030 */ 	beqz	$v0,.L0f0b9e5c
-/*  f0b9d9c:	27a60064 */ 	addiu	$a2,$sp,0x64
-/*  f0b9da0:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f0b9da4:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f0b9da8:	27a60064 */ 	addiu	$a2,$sp,0x64
-/*  f0b9dac:	e7a40058 */ 	swc1	$f4,0x58($sp)
-/*  f0b9db0:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f0b9db4:	e7a6005c */ 	swc1	$f6,0x5c($sp)
-/*  f0b9db8:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*  f0b9dbc:	e7a80060 */ 	swc1	$f8,0x60($sp)
-/*  f0b9dc0:	0fc456ac */ 	jal	padUnpack
-/*  f0b9dc4:	8c440018 */ 	lw	$a0,0x18($v0)
-/*  f0b9dc8:	3c09800a */ 	lui	$t1,%hi(var8009de08)
-/*  f0b9dcc:	8d29de08 */ 	lw	$t1,%lo(var8009de08)($t1)
-/*  f0b9dd0:	8fab00ac */ 	lw	$t3,0xac($sp)
-/*  f0b9dd4:	c7a20064 */ 	lwc1	$f2,0x64($sp)
-/*  f0b9dd8:	c7ae0068 */ 	lwc1	$f14,0x68($sp)
-/*  f0b9ddc:	c7b0006c */ 	lwc1	$f16,0x6c($sp)
-/*  f0b9de0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0b9de4:	afab003c */ 	sw	$t3,0x3c($sp)
-/*  f0b9de8:	e7a20030 */ 	swc1	$f2,0x30($sp)
-/*  f0b9dec:	e7ae0034 */ 	swc1	$f14,0x34($sp)
-/*  f0b9df0:	1121007b */ 	beq	$t1,$at,.L0f0b9fe0
-/*  f0b9df4:	e7b00038 */ 	swc1	$f16,0x38($sp)
-/*  f0b9df8:	8e0a0000 */ 	lw	$t2,0x0($s0)
-/*  f0b9dfc:	0c0068f4 */ 	jal	cosf
-/*  f0b9e00:	c54c0014 */ 	lwc1	$f12,0x14($t2)
-/*  f0b9e04:	8e0d0000 */ 	lw	$t5,0x0($s0)
-/*  f0b9e08:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f0b9e0c:	0c0068f7 */ 	jal	sinf
-/*  f0b9e10:	c5ac0010 */ 	lwc1	$f12,0x10($t5)
-/*  f0b9e14:	c7aa002c */ 	lwc1	$f10,0x2c($sp)
-/*  f0b9e18:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*  f0b9e1c:	460a0482 */ 	mul.s	$f18,$f0,$f10
-/*  f0b9e20:	e7b2004c */ 	swc1	$f18,0x4c($sp)
-/*  f0b9e24:	0c0068f7 */ 	jal	sinf
-/*  f0b9e28:	c5ec0014 */ 	lwc1	$f12,0x14($t7)
-/*  f0b9e2c:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f0b9e30:	e7a00050 */ 	swc1	$f0,0x50($sp)
-/*  f0b9e34:	0c0068f4 */ 	jal	cosf
-/*  f0b9e38:	c5cc0014 */ 	lwc1	$f12,0x14($t6)
-/*  f0b9e3c:	8e190000 */ 	lw	$t9,0x0($s0)
-/*  f0b9e40:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f0b9e44:	0c0068f4 */ 	jal	cosf
-/*  f0b9e48:	c72c0010 */ 	lwc1	$f12,0x10($t9)
-/*  f0b9e4c:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f0b9e50:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f0b9e54:	10000062 */ 	b	.L0f0b9fe0
-/*  f0b9e58:	e7a60054 */ 	swc1	$f6,0x54($sp)
-.L0f0b9e5c:
-/*  f0b9e5c:	0fc456ac */ 	jal	padUnpack
-/*  f0b9e60:	8c84de04 */ 	lw	$a0,%lo(var8009de04)($a0)
-/*  f0b9e64:	8fb800ac */ 	lw	$t8,0xac($sp)
-/*  f0b9e68:	c7a20064 */ 	lwc1	$f2,0x64($sp)
-/*  f0b9e6c:	c7ae0068 */ 	lwc1	$f14,0x68($sp)
-/*  f0b9e70:	c7b0006c */ 	lwc1	$f16,0x6c($sp)
-/*  f0b9e74:	3c10800a */ 	lui	$s0,%hi(var8009ddf0)
-/*  f0b9e78:	2610ddf0 */ 	addiu	$s0,$s0,%lo(var8009ddf0)
-/*  f0b9e7c:	c60c0000 */ 	lwc1	$f12,0x0($s0)
-/*  f0b9e80:	afb8003c */ 	sw	$t8,0x3c($sp)
-/*  f0b9e84:	e7a20030 */ 	swc1	$f2,0x30($sp)
-/*  f0b9e88:	e7ae0034 */ 	swc1	$f14,0x34($sp)
-/*  f0b9e8c:	0c0068f7 */ 	jal	sinf
-/*  f0b9e90:	e7b00038 */ 	swc1	$f16,0x38($sp)
-/*  f0b9e94:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f0b9e98:	0c0068f4 */ 	jal	cosf
-/*  f0b9e9c:	c60c0000 */ 	lwc1	$f12,0x0($s0)
-/*  f0b9ea0:	3c01800a */ 	lui	$at,%hi(var8009ddf8)
-/*  f0b9ea4:	c42addf8 */ 	lwc1	$f10,%lo(var8009ddf8)($at)
-/*  f0b9ea8:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
-/*  f0b9eac:	3c01800a */ 	lui	$at,%hi(var8009de00)
-/*  f0b9eb0:	c7ae0034 */ 	lwc1	$f14,0x34($sp)
-/*  f0b9eb4:	460a4482 */ 	mul.s	$f18,$f8,$f10
-/*  f0b9eb8:	c426de00 */ 	lwc1	$f6,%lo(var8009de00)($at)
-/*  f0b9ebc:	c7a20030 */ 	lwc1	$f2,0x30($sp)
-/*  f0b9ec0:	3c01800a */ 	lui	$at,%hi(var8009ddfc)
-/*  f0b9ec4:	c42addfc */ 	lwc1	$f10,%lo(var8009ddfc)($at)
-/*  f0b9ec8:	46067200 */ 	add.s	$f8,$f14,$f6
-/*  f0b9ecc:	c60c0000 */ 	lwc1	$f12,0x0($s0)
-/*  f0b9ed0:	46121100 */ 	add.s	$f4,$f2,$f18
-/*  f0b9ed4:	460a4480 */ 	add.s	$f18,$f8,$f10
-/*  f0b9ed8:	e7a40058 */ 	swc1	$f4,0x58($sp)
-/*  f0b9edc:	0c0068f4 */ 	jal	cosf
-/*  f0b9ee0:	e7b2005c */ 	swc1	$f18,0x5c($sp)
-/*  f0b9ee4:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f0b9ee8:	0c0068f7 */ 	jal	sinf
-/*  f0b9eec:	c60c0000 */ 	lwc1	$f12,0x0($s0)
-/*  f0b9ef0:	3c01800a */ 	lui	$at,%hi(var8009ddf8)
-/*  f0b9ef4:	c426ddf8 */ 	lwc1	$f6,%lo(var8009ddf8)($at)
-/*  f0b9ef8:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f0b9efc:	c7b00038 */ 	lwc1	$f16,0x38($sp)
-/*  f0b9f00:	c60c0000 */ 	lwc1	$f12,0x0($s0)
-/*  f0b9f04:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0b9f08:	46088280 */ 	add.s	$f10,$f16,$f8
-/*  f0b9f0c:	0c0068f4 */ 	jal	cosf
-/*  f0b9f10:	e7aa0060 */ 	swc1	$f10,0x60($sp)
-/*  f0b9f14:	3c01800a */ 	lui	$at,%hi(var8009de00)
-/*  f0b9f18:	c7ae0034 */ 	lwc1	$f14,0x34($sp)
-/*  f0b9f1c:	c426de00 */ 	lwc1	$f6,%lo(var8009de00)($at)
-/*  f0b9f20:	c7a20030 */ 	lwc1	$f2,0x30($sp)
-/*  f0b9f24:	c7b20058 */ 	lwc1	$f18,0x58($sp)
-/*  f0b9f28:	46067200 */ 	add.s	$f8,$f14,$f6
-/*  f0b9f2c:	c7aa005c */ 	lwc1	$f10,0x5c($sp)
-/*  f0b9f30:	c60c0000 */ 	lwc1	$f12,0x0($s0)
-/*  f0b9f34:	46121101 */ 	sub.s	$f4,$f2,$f18
-/*  f0b9f38:	460a4481 */ 	sub.s	$f18,$f8,$f10
-/*  f0b9f3c:	e7a4004c */ 	swc1	$f4,0x4c($sp)
-/*  f0b9f40:	0c0068f7 */ 	jal	sinf
-/*  f0b9f44:	e7b20050 */ 	swc1	$f18,0x50($sp)
-/*  f0b9f48:	3c017f1b */ 	lui	$at,%hi(var7f1ad5cc)
-/*  f0b9f4c:	c42cd5cc */ 	lwc1	$f12,%lo(var7f1ad5cc)($at)
-/*  f0b9f50:	3c01800a */ 	lui	$at,%hi(var8009ddf4)
-/*  f0b9f54:	c428ddf4 */ 	lwc1	$f8,%lo(var8009ddf4)($at)
-/*  f0b9f58:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4c)
-/*  f0b9f5c:	c42aa00c */ 	lwc1	$f10,%lo(g_Vars+0x4c)($at)
-/*  f0b9f60:	c7b00038 */ 	lwc1	$f16,0x38($sp)
-/*  f0b9f64:	c7a40060 */ 	lwc1	$f4,0x60($sp)
-/*  f0b9f68:	460a4482 */ 	mul.s	$f18,$f8,$f10
-/*  f0b9f6c:	44800000 */ 	mtc1	$zero,$f0
-/*  f0b9f70:	46048181 */ 	sub.s	$f6,$f16,$f4
-/*  f0b9f74:	c6040000 */ 	lwc1	$f4,0x0($s0)
-/*  f0b9f78:	e7a60054 */ 	swc1	$f6,0x54($sp)
-/*  f0b9f7c:	46122180 */ 	add.s	$f6,$f4,$f18
-/*  f0b9f80:	e6060000 */ 	swc1	$f6,0x0($s0)
-/*  f0b9f84:	c6020000 */ 	lwc1	$f2,0x0($s0)
-/*  f0b9f88:	4602603e */ 	c.le.s	$f12,$f2
-/*  f0b9f8c:	00000000 */ 	nop
-/*  f0b9f90:	45020009 */ 	bc1fl	.L0f0b9fb8
-/*  f0b9f94:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0b9f98:	460c1201 */ 	sub.s	$f8,$f2,$f12
-.L0f0b9f9c:
-/*  f0b9f9c:	e6080000 */ 	swc1	$f8,0x0($s0)
-/*  f0b9fa0:	c6020000 */ 	lwc1	$f2,0x0($s0)
-/*  f0b9fa4:	4602603e */ 	c.le.s	$f12,$f2
-/*  f0b9fa8:	00000000 */ 	nop
-/*  f0b9fac:	4503fffb */ 	bc1tl	.L0f0b9f9c
-/*  f0b9fb0:	460c1201 */ 	sub.s	$f8,$f2,$f12
-/*  f0b9fb4:	4600103c */ 	c.lt.s	$f2,$f0
-.L0f0b9fb8:
-/*  f0b9fb8:	00000000 */ 	nop
-/*  f0b9fbc:	45020009 */ 	bc1fl	.L0f0b9fe4
-/*  f0b9fc0:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f0b9fc4:	460c1280 */ 	add.s	$f10,$f2,$f12
-.L0f0b9fc8:
-/*  f0b9fc8:	e60a0000 */ 	swc1	$f10,0x0($s0)
-/*  f0b9fcc:	c6020000 */ 	lwc1	$f2,0x0($s0)
-/*  f0b9fd0:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0b9fd4:	00000000 */ 	nop
-/*  f0b9fd8:	4503fffb */ 	bc1tl	.L0f0b9fc8
-/*  f0b9fdc:	460c1280 */ 	add.s	$f10,$f2,$f12
-.L0f0b9fe0:
-/*  f0b9fe0:	8fa8003c */ 	lw	$t0,0x3c($sp)
-.L0f0b9fe4:
-/*  f0b9fe4:	27a40058 */ 	addiu	$a0,$sp,0x58
-/*  f0b9fe8:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f0b9fec:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f0b9ff0:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f0b9ff4:	0fc306e9 */ 	jal	player0f0c1ba4
-/*  f0b9ff8:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0b9ffc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0ba000:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0ba004:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
-/*  f0ba008:	03e00008 */ 	jr	$ra
-/*  f0ba00c:	00000000 */ 	nop
-);
+	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
 
-// Mismatch: Can't match the last section's pos
-//void playerExecutePreparedWarp(void)
-//{
-//	struct pad pad; // 64
-//	struct coord pos = {0, 0, 0}; // 58
-//	struct coord look = {0, 0, 1}; // 4c
-//	struct coord up = {0, 1, 0}; // 40
-//	s32 room; // 3c
-//	struct coord memcampos; // 30
-//
-//	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
-//
-//	// d4c
-//	if (g_WarpPadId >= 0) {
-//		// Used by device and holo training to warp player back to room
-//		padUnpack(g_WarpPadId, PADFIELD_POS | PADFIELD_ROOM, &pad);
-//
-//		pos.x = pad.pos.x;
-//		pos.y = pad.pos.y;
-//		pos.z = pad.pos.z;
-//
-//		memcampos.x = pad.pos.x;
-//		memcampos.y = pad.pos.y;
-//		memcampos.z = pad.pos.z;
-//
-//		room = pad.room;
-//	} else /*d98*/ if (var8009ddec) {
-//		// Used by AI command 00df, but that command is not used
-//		pos.x = var8009ddec->pos.x;
-//		pos.y = var8009ddec->pos.y;
-//		pos.z = var8009ddec->pos.z;
-//
-//		padUnpack(var8009ddec->pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
-//
-//		room = pad.room;
-//
-//		memcampos.x = pad.pos.x;
-//		memcampos.y = pad.pos.y;
-//		memcampos.z = pad.pos.z;
-//
-//		if (var8009de08 != 1) {
-//			look.x = cosf(var8009ddec->look[1]) * sinf(var8009ddec->look[0]);
-//			look.y = sinf(var8009ddec->look[1]);
-//			look.z = cosf(var8009ddec->look[1]) * cosf(var8009ddec->look[0]);
-//		}
-//	} else {
-//		// e5c
-//		// Used by AI command 00f4, but that command is not used
-//		padUnpack(var8009de04, PADFIELD_POS | PADFIELD_ROOM, &pad);
-//
-//		room = pad.room;
-//
-//		memcampos.f[0] = pad.pos.f[0];
-//		memcampos.f[1] = pad.pos.f[1];
-//		memcampos.f[2] = pad.pos.f[2];
-//
-//		pos.f[0] = sinf(var8009ddf0); cosf(var8009ddf0);
-//		pos.f[0] = pos.f[0] * var8009ddf8 + memcampos.f[0];
-//		pos.f[1] = memcampos.f[1] + var8009de00 + var8009ddfc;
-//		pos.f[2] = cosf(var8009ddf0); sinf(var8009ddf0);
-//		pos.f[2] = pos.f[2] * var8009ddf8 + memcampos.f[2];
-//
-//		cosf(var8009ddf0);
-//		look.x = memcampos.f[0] - pos.f[0];
-//		look.y = memcampos.f[1] + var8009de00 - pos.f[1];
-//		sinf(var8009ddf0);
-//		look.z = memcampos.f[2] - pos.f[2];
-//
-//		var8009ddf0 += var8009ddf4 * g_Vars.lvupdate240freal;
-//
-//		while (var8009ddf0 >= M_BADTAU) {
-//			var8009ddf0 -= M_BADTAU;
-//		}
-//
-//		while (var8009ddf0 < 0) {
-//			var8009ddf0 += M_BADTAU;
-//		}
-//	}
-//
-//	player0f0c1ba4(&pos, &up, &look, &memcampos, room);
-//}
+	if (g_WarpType1Pad >= 0) {
+		// Warp to an exact position with a static direction of 0, 0, 1.
+		// Used by device and holo training to warp player back to room,
+		// and Deep Sea teleports
+		padUnpack(g_WarpType1Pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+		memcampos.x = pad.pos.x;
+		memcampos.y = pad.pos.y;
+		memcampos.z = pad.pos.z;
+
+		pos.x = memcampos.f[0];
+		pos.y = memcampos.f[1];
+		pos.z = memcampos.f[2];
+
+		room = pad.room;
+	} else if (g_WarpType2Params) {
+		// Warp to an exact position with an optional direction.
+		// Used by AI command 00df, but that command is not used.
+		pos.x = g_WarpType2Params->pos.x;
+		pos.y = g_WarpType2Params->pos.y;
+		pos.z = g_WarpType2Params->pos.z;
+
+		padUnpack(g_WarpType2Params->pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+		room = pad.room;
+
+		memcampos.x = pad.pos.x;
+		memcampos.y = pad.pos.y;
+		memcampos.z = pad.pos.z;
+
+		if (1);
+
+		if (g_WarpType2HasDirection != 1) {
+			look.x = cosf(g_WarpType2Params->look[1]) * sinf(g_WarpType2Params->look[0]);
+			look.y = sinf(g_WarpType2Params->look[1]);
+			look.z = cosf(g_WarpType2Params->look[1]) * cosf(g_WarpType2Params->look[0]);
+		}
+	} else {
+		// Warp to a location within a specified range and angle of the pad,
+		// with options for the direction and height offset from the pad.
+		// Used by AI command 00f4, but that command is not used.
+		padUnpack(g_WarpType3Pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+		room = pad.room;
+
+		memcampos.x = pad.pos.x;
+		memcampos.y = pad.pos.y;
+		memcampos.z = pad.pos.z;
+
+		pos.x = memcampos.x + sinf(g_WarpType3PosAngle) * g_WarpType3Range + cosf(g_WarpType3PosAngle) * 0.0f;
+		pos.y = memcampos.y + g_WarpType3MoreHeight + g_WarpType3Height;
+		pos.z = memcampos.z + cosf(g_WarpType3PosAngle) * g_WarpType3Range + sinf(g_WarpType3PosAngle) * 0.0f;
+
+		look.x = memcampos.x + cosf(g_WarpType3PosAngle) * 0.0f - pos.f[0];
+		look.y = memcampos.y + g_WarpType3MoreHeight - pos.f[1];
+		look.z = memcampos.z + sinf(g_WarpType3PosAngle) * 0.0f - pos.f[2];
+
+		g_WarpType3PosAngle += g_WarpType3RotAngle * g_Vars.lvupdate240freal;
+
+		while (g_WarpType3PosAngle >= M_BADTAU) {
+			g_WarpType3PosAngle -= M_BADTAU;
+		}
+
+		while (g_WarpType3PosAngle < 0) {
+			g_WarpType3PosAngle += M_BADTAU;
+		}
+	}
+
+	player0f0c1ba4(&pos, &up, &look, &memcampos, room);
+}
 
 void playerStartCutscene2(void)
 {
@@ -2381,6 +2147,9 @@ void playerStopAudioForPause(void)
 		}
 	}
 }
+
+u32 var8007083c = 0;
+u32 g_GlobalMenuRoot = 0;
 
 void playerTickPauseMenu(void)
 {
@@ -3908,7 +3677,7 @@ void playerTick(bool arg0)
 	} else if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_WHITE) {
 		// Deep Sea teleport
 		playerTickChrBody();
-		g_WarpPadId = g_Vars.currentplayer->teleportcamerapad;
+		g_WarpType1Pad = g_Vars.currentplayer->teleportcamerapad;
 		bmoveTick(0, 0, 0, 1);
 		playerExecutePreparedWarp();
 	} else if (g_Vars.currentplayer->visionmode == (u32)VISIONMODE_SLAYERROCKET) {
