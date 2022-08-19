@@ -2375,688 +2375,164 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel lasersightRenderBeam
-.late_rodata
-glabel var7f1acd90
-.word 0x3e4ccccd
-.text
-/*  f0afa4c:	27bdfe18 */ 	addiu	$sp,$sp,-488
-/*  f0afa50:	afb00058 */ 	sw	$s0,0x58($sp)
-/*  f0afa54:	afa401e8 */ 	sw	$a0,0x1e8($sp)
-/*  f0afa58:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
-/*  f0afa5c:	248f0008 */ 	addiu	$t7,$a0,0x8
-/*  f0afa60:	afbf007c */ 	sw	$ra,0x7c($sp)
-/*  f0afa64:	afbe0078 */ 	sw	$s8,0x78($sp)
-/*  f0afa68:	afb70074 */ 	sw	$s7,0x74($sp)
-/*  f0afa6c:	afb60070 */ 	sw	$s6,0x70($sp)
-/*  f0afa70:	afb5006c */ 	sw	$s5,0x6c($sp)
-/*  f0afa74:	afb40068 */ 	sw	$s4,0x68($sp)
-/*  f0afa78:	afb30064 */ 	sw	$s3,0x64($sp)
-/*  f0afa7c:	afb20060 */ 	sw	$s2,0x60($sp)
-/*  f0afa80:	afb1005c */ 	sw	$s1,0x5c($sp)
-/*  f0afa84:	f7be0050 */ 	sdc1	$f30,0x50($sp)
-/*  f0afa88:	f7bc0048 */ 	sdc1	$f28,0x48($sp)
-/*  f0afa8c:	f7ba0040 */ 	sdc1	$f26,0x40($sp)
-/*  f0afa90:	f7b80038 */ 	sdc1	$f24,0x38($sp)
-/*  f0afa94:	f7b60030 */ 	sdc1	$f22,0x30($sp)
-/*  f0afa98:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f0afa9c:	8e10a244 */ 	lw	$s0,%lo(g_Vars+0x284)($s0)
-/*  f0afaa0:	afaf01e8 */ 	sw	$t7,0x1e8($sp)
-/*  f0afaa4:	3c18ba00 */ 	lui	$t8,0xba00
-/*  f0afaa8:	37181402 */ 	ori	$t8,$t8,0x1402
-/*  f0afaac:	ac980000 */ 	sw	$t8,0x0($a0)
-/*  f0afab0:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f0afab4:	8fb901e8 */ 	lw	$t9,0x1e8($sp)
-/*  f0afab8:	3c09ba00 */ 	lui	$t1,0xba00
-/*  f0afabc:	35290c02 */ 	ori	$t1,$t1,0xc02
-/*  f0afac0:	27280008 */ 	addiu	$t0,$t9,0x8
-/*  f0afac4:	afa801e8 */ 	sw	$t0,0x1e8($sp)
-/*  f0afac8:	240a2000 */ 	addiu	$t2,$zero,0x2000
-/*  f0afacc:	af2a0004 */ 	sw	$t2,0x4($t9)
-/*  f0afad0:	af290000 */ 	sw	$t1,0x0($t9)
-/*  f0afad4:	8fab01e8 */ 	lw	$t3,0x1e8($sp)
-/*  f0afad8:	3c0dba00 */ 	lui	$t5,0xba00
-/*  f0afadc:	35ad1301 */ 	ori	$t5,$t5,0x1301
-/*  f0afae0:	256c0008 */ 	addiu	$t4,$t3,0x8
-/*  f0afae4:	afac01e8 */ 	sw	$t4,0x1e8($sp)
-/*  f0afae8:	3c0e0008 */ 	lui	$t6,0x8
-/*  f0afaec:	ad6e0004 */ 	sw	$t6,0x4($t3)
-/*  f0afaf0:	ad6d0000 */ 	sw	$t5,0x0($t3)
-/*  f0afaf4:	8faf01e8 */ 	lw	$t7,0x1e8($sp)
-/*  f0afaf8:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f0afafc:	37390602 */ 	ori	$t9,$t9,0x602
-/*  f0afb00:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f0afb04:	afb801e8 */ 	sw	$t8,0x1e8($sp)
-/*  f0afb08:	240800c0 */ 	addiu	$t0,$zero,0xc0
-/*  f0afb0c:	ade80004 */ 	sw	$t0,0x4($t7)
-/*  f0afb10:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f0afb14:	8fa901e8 */ 	lw	$t1,0x1e8($sp)
-/*  f0afb18:	3c0bb900 */ 	lui	$t3,0xb900
-/*  f0afb1c:	3c0c0050 */ 	lui	$t4,0x50
-/*  f0afb20:	252a0008 */ 	addiu	$t2,$t1,0x8
-/*  f0afb24:	afaa01e8 */ 	sw	$t2,0x1e8($sp)
-/*  f0afb28:	358c41c8 */ 	ori	$t4,$t4,0x41c8
-/*  f0afb2c:	356b031d */ 	ori	$t3,$t3,0x31d
-/*  f0afb30:	ad2b0000 */ 	sw	$t3,0x0($t1)
-/*  f0afb34:	ad2c0004 */ 	sw	$t4,0x4($t1)
-/*  f0afb38:	8fad01e8 */ 	lw	$t5,0x1e8($sp)
-/*  f0afb3c:	3c0fb900 */ 	lui	$t7,0xb900
-/*  f0afb40:	35ef0002 */ 	ori	$t7,$t7,0x2
-/*  f0afb44:	25ae0008 */ 	addiu	$t6,$t5,0x8
-/*  f0afb48:	afae01e8 */ 	sw	$t6,0x1e8($sp)
-/*  f0afb4c:	ada00004 */ 	sw	$zero,0x4($t5)
-/*  f0afb50:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0afb54:	8fb801e8 */ 	lw	$t8,0x1e8($sp)
-/*  f0afb58:	3c08ba00 */ 	lui	$t0,0xba00
-/*  f0afb5c:	35081001 */ 	ori	$t0,$t0,0x1001
-/*  f0afb60:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f0afb64:	afb901e8 */ 	sw	$t9,0x1e8($sp)
-/*  f0afb68:	af000004 */ 	sw	$zero,0x4($t8)
-/*  f0afb6c:	af080000 */ 	sw	$t0,0x0($t8)
-/*  f0afb70:	8fa901e8 */ 	lw	$t1,0x1e8($sp)
-/*  f0afb74:	3c0bba00 */ 	lui	$t3,0xba00
-/*  f0afb78:	356b0903 */ 	ori	$t3,$t3,0x903
-/*  f0afb7c:	252a0008 */ 	addiu	$t2,$t1,0x8
-/*  f0afb80:	afaa01e8 */ 	sw	$t2,0x1e8($sp)
-/*  f0afb84:	240c0c00 */ 	addiu	$t4,$zero,0xc00
-/*  f0afb88:	ad2c0004 */ 	sw	$t4,0x4($t1)
-/*  f0afb8c:	ad2b0000 */ 	sw	$t3,0x0($t1)
-/*  f0afb90:	8fad01e8 */ 	lw	$t5,0x1e8($sp)
-/*  f0afb94:	3c0fba00 */ 	lui	$t7,0xba00
-/*  f0afb98:	35ef0e02 */ 	ori	$t7,$t7,0xe02
-/*  f0afb9c:	25ae0008 */ 	addiu	$t6,$t5,0x8
-/*  f0afba0:	afae01e8 */ 	sw	$t6,0x1e8($sp)
-/*  f0afba4:	ada00004 */ 	sw	$zero,0x4($t5)
-/*  f0afba8:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0afbac:	8fb801e8 */ 	lw	$t8,0x1e8($sp)
-/*  f0afbb0:	3c094432 */ 	lui	$t1,0x4432
-/*  f0afbb4:	3c08fc50 */ 	lui	$t0,0xfc50
-/*  f0afbb8:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f0afbbc:	afb901e8 */ 	sw	$t9,0x1e8($sp)
-/*  f0afbc0:	350898a1 */ 	ori	$t0,$t0,0x98a1
-/*  f0afbc4:	35297f3f */ 	ori	$t1,$t1,0x7f3f
-/*  f0afbc8:	af090004 */ 	sw	$t1,0x4($t8)
-/*  f0afbcc:	af080000 */ 	sw	$t0,0x0($t8)
-/*  f0afbd0:	8faa01e8 */ 	lw	$t2,0x1e8($sp)
-/*  f0afbd4:	240d3000 */ 	addiu	$t5,$zero,0x3000
-/*  f0afbd8:	3c0cb600 */ 	lui	$t4,0xb600
-/*  f0afbdc:	254b0008 */ 	addiu	$t3,$t2,0x8
-/*  f0afbe0:	afab01e8 */ 	sw	$t3,0x1e8($sp)
-/*  f0afbe4:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
-/*  f0afbe8:	ad4d0004 */ 	sw	$t5,0x4($t2)
-/*  f0afbec:	ad4c0000 */ 	sw	$t4,0x0($t2)
-/*  f0afbf0:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
-/*  f0afbf4:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0afbf8:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f0afbfc:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0afc00:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0afc04:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0afc08:	27a401e8 */ 	addiu	$a0,$sp,0x1e8
-/*  f0afc0c:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f0afc10:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0afc14:	0fc2ce70 */ 	jal	texSelect
-/*  f0afc18:	24a50024 */ 	addiu	$a1,$a1,0x0024
-/*  f0afc1c:	0c00566c */ 	jal	mtx4LoadIdentity
-/*  f0afc20:	27a4014c */ 	addiu	$a0,$sp,0x14c
-/*  f0afc24:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
-/*  f0afc28:	00000000 */ 	nop
-/*  f0afc2c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0afc30:	0c0056f8 */ 	jal	mtx00015be0
-/*  f0afc34:	27a5014c */ 	addiu	$a1,$sp,0x14c
-/*  f0afc38:	0c00566c */ 	jal	mtx4LoadIdentity
-/*  f0afc3c:	27a4010c */ 	addiu	$a0,$sp,0x10c
-/*  f0afc40:	0fc2d5de */ 	jal	camGetProjectionMtxF
-/*  f0afc44:	00000000 */ 	nop
-/*  f0afc48:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0afc4c:	0c0056f8 */ 	jal	mtx00015be0
-/*  f0afc50:	27a5010c */ 	addiu	$a1,$sp,0x10c
-/*  f0afc54:	4480a000 */ 	mtc1	$zero,$f20
-/*  f0afc58:	27b10198 */ 	addiu	$s1,$sp,0x198
-/*  f0afc5c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0afc60:	e7b40140 */ 	swc1	$f20,0x140($sp)
-/*  f0afc64:	e7b4013c */ 	swc1	$f20,0x13c($sp)
-/*  f0afc68:	0c00566c */ 	jal	mtx4LoadIdentity
-/*  f0afc6c:	e7b40144 */ 	swc1	$f20,0x144($sp)
-/*  f0afc70:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
-/*  f0afc74:	00000000 */ 	nop
-/*  f0afc78:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0afc7c:	0c0056f8 */ 	jal	mtx00015be0
-/*  f0afc80:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0afc84:	c6041bb0 */ 	lwc1	$f4,0x1bb0($s0)
-/*  f0afc88:	3c017f1b */ 	lui	$at,%hi(var7f1acd90)
-/*  f0afc8c:	c42ccd90 */ 	lwc1	$f12,%lo(var7f1acd90)($at)
-/*  f0afc90:	e7a4018c */ 	swc1	$f4,0x18c($sp)
-/*  f0afc94:	c6061bb4 */ 	lwc1	$f6,0x1bb4($s0)
-/*  f0afc98:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0afc9c:	e7a60190 */ 	swc1	$f6,0x190($sp)
-/*  f0afca0:	c6081bb8 */ 	lwc1	$f8,0x1bb8($s0)
-/*  f0afca4:	e7b401c8 */ 	swc1	$f20,0x1c8($sp)
-/*  f0afca8:	e7b401cc */ 	swc1	$f20,0x1cc($sp)
-/*  f0afcac:	e7b401d0 */ 	swc1	$f20,0x1d0($sp)
-/*  f0afcb0:	0c0057e2 */ 	jal	mtx00015f88
-/*  f0afcb4:	e7a80194 */ 	swc1	$f8,0x194($sp)
-/*  f0afcb8:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f0afcbc:	00000000 */ 	nop
-/*  f0afcc0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0afcc4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0afcc8:	0c005815 */ 	jal	mtx00016054
-/*  f0afccc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0afcd0:	8fb101e8 */ 	lw	$s1,0x1e8($sp)
-/*  f0afcd4:	3c080102 */ 	lui	$t0,0x102
-/*  f0afcd8:	35080040 */ 	ori	$t0,$t0,0x40
-/*  f0afcdc:	26390008 */ 	addiu	$t9,$s1,0x8
-/*  f0afce0:	afb901e8 */ 	sw	$t9,0x1e8($sp)
-/*  f0afce4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0afce8:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f0afcec:	ae280000 */ 	sw	$t0,0x0($s1)
-/*  f0afcf0:	3c0143c8 */ 	lui	$at,0x43c8
-/*  f0afcf4:	4481d000 */ 	mtc1	$at,$f26
-/*  f0afcf8:	3c014348 */ 	lui	$at,0x4348
-/*  f0afcfc:	4481c000 */ 	mtc1	$at,$f24
-/*  f0afd00:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f0afd04:	4481b000 */ 	mtc1	$at,$f22
-/*  f0afd08:	3c014170 */ 	lui	$at,0x4170
-/*  f0afd0c:	3c10800a */ 	lui	$s0,%hi(g_LaserSights)
-/*  f0afd10:	4481a000 */ 	mtc1	$at,$f20
-/*  f0afd14:	ae220004 */ 	sw	$v0,0x4($s1)
-/*  f0afd18:	2610dbe0 */ 	addiu	$s0,$s0,%lo(g_LaserSights)
-/*  f0afd1c:	27be00ac */ 	addiu	$s8,$sp,0xac
-/*  f0afd20:	27b70098 */ 	addiu	$s7,$sp,0x98
-/*  f0afd24:	2416ffff */ 	addiu	$s6,$zero,-1
-/*  f0afd28:	24150020 */ 	addiu	$s5,$zero,0x20
-/*  f0afd2c:	24140004 */ 	addiu	$s4,$zero,0x4
-/*  f0afd30:	27b300a8 */ 	addiu	$s3,$sp,0xa8
-/*  f0afd34:	24120100 */ 	addiu	$s2,$zero,0x100
-/*  f0afd38:	8e090000 */ 	lw	$t1,0x0($s0)
-.L0f0afd3c:
-/*  f0afd3c:	27a4014c */ 	addiu	$a0,$sp,0x14c
-/*  f0afd40:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f0afd44:	12c90130 */ 	beq	$s6,$t1,.L0f0b0208
-/*  f0afd48:	00000000 */ 	nop
-/*  f0afd4c:	c60a0010 */ 	lwc1	$f10,0x10($s0)
-/*  f0afd50:	c6040014 */ 	lwc1	$f4,0x14($s0)
-/*  f0afd54:	c6060018 */ 	lwc1	$f6,0x18($s0)
-/*  f0afd58:	e7aa0098 */ 	swc1	$f10,0x98($sp)
-/*  f0afd5c:	e7a4009c */ 	swc1	$f4,0x9c($sp)
-/*  f0afd60:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
-/*  f0afd64:	e7a600a0 */ 	swc1	$f6,0xa0($sp)
-/*  f0afd68:	4480e000 */ 	mtc1	$zero,$f28
-/*  f0afd6c:	c7a80098 */ 	lwc1	$f8,0x98($sp)
-/*  f0afd70:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0afd74:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0afd78:	461c403c */ 	c.lt.s	$f8,$f28
-/*  f0afd7c:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f0afd80:	27a600b0 */ 	addiu	$a2,$sp,0xb0
-/*  f0afd84:	45020006 */ 	bc1fl	.L0f0afda0
-/*  f0afd88:	44812000 */ 	mtc1	$at,$f4
-/*  f0afd8c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0afd90:	44815000 */ 	mtc1	$at,$f10
-/*  f0afd94:	10000004 */ 	b	.L0f0afda8
-/*  f0afd98:	e7aa00a8 */ 	swc1	$f10,0xa8($sp)
-/*  f0afd9c:	44812000 */ 	mtc1	$at,$f4
-.L0f0afda0:
-/*  f0afda0:	00000000 */ 	nop
-/*  f0afda4:	e7a400a8 */ 	swc1	$f4,0xa8($sp)
-.L0f0afda8:
-/*  f0afda8:	3c014000 */ 	lui	$at,0x4000
-/*  f0afdac:	44813000 */ 	mtc1	$at,$f6
-/*  f0afdb0:	e7bc00b0 */ 	swc1	$f28,0xb0($sp)
-/*  f0afdb4:	0c0011e4 */ 	jal	guNormalize
-/*  f0afdb8:	e7a600ac */ 	swc1	$f6,0xac($sp)
-/*  f0afdbc:	27a4010c */ 	addiu	$a0,$sp,0x10c
-/*  f0afdc0:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
-/*  f0afdc4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0afdc8:	c7bc018c */ 	lwc1	$f28,0x18c($sp)
-/*  f0afdcc:	c6000010 */ 	lwc1	$f0,0x10($s0)
-/*  f0afdd0:	c7be0190 */ 	lwc1	$f30,0x190($sp)
-/*  f0afdd4:	c6020014 */ 	lwc1	$f2,0x14($s0)
-/*  f0afdd8:	461c0201 */ 	sub.s	$f8,$f0,$f28
-/*  f0afddc:	c60c0018 */ 	lwc1	$f12,0x18($s0)
-/*  f0afde0:	c7a40194 */ 	lwc1	$f4,0x194($sp)
-/*  f0afde4:	461e1281 */ 	sub.s	$f10,$f2,$f30
-/*  f0afde8:	46164002 */ 	mul.s	$f0,$f8,$f22
-/*  f0afdec:	c60e001c */ 	lwc1	$f14,0x1c($s0)
-/*  f0afdf0:	46046181 */ 	sub.s	$f6,$f12,$f4
-/*  f0afdf4:	46165082 */ 	mul.s	$f2,$f10,$f22
-/*  f0afdf8:	c6100020 */ 	lwc1	$f16,0x20($s0)
-/*  f0afdfc:	461c7201 */ 	sub.s	$f8,$f14,$f28
-/*  f0afe00:	46163302 */ 	mul.s	$f12,$f6,$f22
-/*  f0afe04:	c6120024 */ 	lwc1	$f18,0x24($s0)
-/*  f0afe08:	461e8281 */ 	sub.s	$f10,$f16,$f30
-/*  f0afe0c:	46164382 */ 	mul.s	$f14,$f8,$f22
-/*  f0afe10:	e7a200d0 */ 	swc1	$f2,0xd0($sp)
-/*  f0afe14:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f0afe18:	46165402 */ 	mul.s	$f16,$f10,$f22
-/*  f0afe1c:	e7ac00d4 */ 	swc1	$f12,0xd4($sp)
-/*  f0afe20:	e7a000cc */ 	swc1	$f0,0xcc($sp)
-/*  f0afe24:	46163482 */ 	mul.s	$f18,$f6,$f22
-/*  f0afe28:	e7ae00c0 */ 	swc1	$f14,0xc0($sp)
-/*  f0afe2c:	46007201 */ 	sub.s	$f8,$f14,$f0
-/*  f0afe30:	27a400b4 */ 	addiu	$a0,$sp,0xb4
-/*  f0afe34:	e7b000c4 */ 	swc1	$f16,0xc4($sp)
-/*  f0afe38:	46028281 */ 	sub.s	$f10,$f16,$f2
-/*  f0afe3c:	e7a800b4 */ 	swc1	$f8,0xb4($sp)
-/*  f0afe40:	e7b200c8 */ 	swc1	$f18,0xc8($sp)
-/*  f0afe44:	460c9101 */ 	sub.s	$f4,$f18,$f12
-/*  f0afe48:	e7aa00b8 */ 	swc1	$f10,0xb8($sp)
-/*  f0afe4c:	27a500b8 */ 	addiu	$a1,$sp,0xb8
-/*  f0afe50:	27a600bc */ 	addiu	$a2,$sp,0xbc
-/*  f0afe54:	0c0011e4 */ 	jal	guNormalize
-/*  f0afe58:	e7a400bc */ 	swc1	$f4,0xbc($sp)
-/*  f0afe5c:	0fc59e73 */ 	jal	gfxAllocateColours
-/*  f0afe60:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0afe64:	3c0aff00 */ 	lui	$t2,0xff00
-/*  f0afe68:	3c0bff00 */ 	lui	$t3,0xff00
-/*  f0afe6c:	354a005f */ 	ori	$t2,$t2,0x5f
-/*  f0afe70:	356b000f */ 	ori	$t3,$t3,0xf
-/*  f0afe74:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f0afe78:	ac4b0004 */ 	sw	$t3,0x4($v0)
-/*  f0afe7c:	8fb101e8 */ 	lw	$s1,0x1e8($sp)
-/*  f0afe80:	3c0e0704 */ 	lui	$t6,0x704
-/*  f0afe84:	35ce0008 */ 	ori	$t6,$t6,0x8
-/*  f0afe88:	262d0008 */ 	addiu	$t5,$s1,0x8
-/*  f0afe8c:	afad01e8 */ 	sw	$t5,0x1e8($sp)
-/*  f0afe90:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0afe94:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f0afe98:	ae2e0000 */ 	sw	$t6,0x0($s1)
-/*  f0afe9c:	ae220004 */ 	sw	$v0,0x4($s1)
-/*  f0afea0:	0fc59e59 */ 	jal	gfxAllocateVertices
-/*  f0afea4:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f0afea8:	a0400007 */ 	sb	$zero,0x7($v0)
-/*  f0afeac:	a0400013 */ 	sb	$zero,0x13($v0)
-/*  f0afeb0:	a040001f */ 	sb	$zero,0x1f($v0)
-/*  f0afeb4:	a040002b */ 	sb	$zero,0x2b($v0)
-/*  f0afeb8:	a0540037 */ 	sb	$s4,0x37($v0)
-/*  f0afebc:	a0540043 */ 	sb	$s4,0x43($v0)
-/*  f0afec0:	a4400008 */ 	sh	$zero,0x8($v0)
-/*  f0afec4:	a440000a */ 	sh	$zero,0xa($v0)
-/*  f0afec8:	a4400014 */ 	sh	$zero,0x14($v0)
-/*  f0afecc:	a4520016 */ 	sh	$s2,0x16($v0)
-/*  f0afed0:	a4550020 */ 	sh	$s5,0x20($v0)
-/*  f0afed4:	a4400022 */ 	sh	$zero,0x22($v0)
-/*  f0afed8:	a455002c */ 	sh	$s5,0x2c($v0)
-/*  f0afedc:	a452002e */ 	sh	$s2,0x2e($v0)
-/*  f0afee0:	a4400038 */ 	sh	$zero,0x38($v0)
-/*  f0afee4:	a440003a */ 	sh	$zero,0x3a($v0)
-/*  f0afee8:	a4400044 */ 	sh	$zero,0x44($v0)
-/*  f0afeec:	a4520046 */ 	sh	$s2,0x46($v0)
-/*  f0afef0:	c7a800a8 */ 	lwc1	$f8,0xa8($sp)
-/*  f0afef4:	c7a600cc */ 	lwc1	$f6,0xcc($sp)
-/*  f0afef8:	3c0d0450 */ 	lui	$t5,0x450
-/*  f0afefc:	46144282 */ 	mul.s	$f10,$f8,$f20
-/*  f0aff00:	35ad0048 */ 	ori	$t5,$t5,0x48
-/*  f0aff04:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0aff08:	460a3101 */ 	sub.s	$f4,$f6,$f10
-/*  f0aff0c:	4600220d */ 	trunc.w.s	$f8,$f4
-/*  f0aff10:	44184000 */ 	mfc1	$t8,$f8
-/*  f0aff14:	00000000 */ 	nop
-/*  f0aff18:	a4580000 */ 	sh	$t8,0x0($v0)
-/*  f0aff1c:	c7aa00ac */ 	lwc1	$f10,0xac($sp)
-/*  f0aff20:	c7a600d0 */ 	lwc1	$f6,0xd0($sp)
-/*  f0aff24:	46145102 */ 	mul.s	$f4,$f10,$f20
-/*  f0aff28:	46043201 */ 	sub.s	$f8,$f6,$f4
-/*  f0aff2c:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0aff30:	44085000 */ 	mfc1	$t0,$f10
-/*  f0aff34:	00000000 */ 	nop
-/*  f0aff38:	a4480002 */ 	sh	$t0,0x2($v0)
-/*  f0aff3c:	c7a400b0 */ 	lwc1	$f4,0xb0($sp)
-/*  f0aff40:	c7a600d4 */ 	lwc1	$f6,0xd4($sp)
-/*  f0aff44:	46142202 */ 	mul.s	$f8,$f4,$f20
-/*  f0aff48:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f0aff4c:	4600510d */ 	trunc.w.s	$f4,$f10
-/*  f0aff50:	440a2000 */ 	mfc1	$t2,$f4
-/*  f0aff54:	00000000 */ 	nop
-/*  f0aff58:	a44a0004 */ 	sh	$t2,0x4($v0)
-/*  f0aff5c:	c7a600a8 */ 	lwc1	$f6,0xa8($sp)
-/*  f0aff60:	c7aa00cc */ 	lwc1	$f10,0xcc($sp)
-/*  f0aff64:	46143202 */ 	mul.s	$f8,$f6,$f20
-/*  f0aff68:	460a4100 */ 	add.s	$f4,$f8,$f10
-/*  f0aff6c:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f0aff70:	440c3000 */ 	mfc1	$t4,$f6
-/*  f0aff74:	00000000 */ 	nop
-/*  f0aff78:	a44c000c */ 	sh	$t4,0xc($v0)
-/*  f0aff7c:	c7a800ac */ 	lwc1	$f8,0xac($sp)
-/*  f0aff80:	c7a400d0 */ 	lwc1	$f4,0xd0($sp)
-/*  f0aff84:	46144282 */ 	mul.s	$f10,$f8,$f20
-/*  f0aff88:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f0aff8c:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f0aff90:	440e4000 */ 	mfc1	$t6,$f8
-/*  f0aff94:	00000000 */ 	nop
-/*  f0aff98:	a44e000e */ 	sh	$t6,0xe($v0)
-/*  f0aff9c:	c7aa00b0 */ 	lwc1	$f10,0xb0($sp)
-/*  f0affa0:	c7a600d4 */ 	lwc1	$f6,0xd4($sp)
-/*  f0affa4:	46145102 */ 	mul.s	$f4,$f10,$f20
-/*  f0affa8:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0affac:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0affb0:	44185000 */ 	mfc1	$t8,$f10
-/*  f0affb4:	00000000 */ 	nop
-/*  f0affb8:	a4580010 */ 	sh	$t8,0x10($v0)
-/*  f0affbc:	c7a600b4 */ 	lwc1	$f6,0xb4($sp)
-/*  f0affc0:	c7a400cc */ 	lwc1	$f4,0xcc($sp)
-/*  f0affc4:	4606c202 */ 	mul.s	$f8,$f24,$f6
-/*  f0affc8:	c7a600a8 */ 	lwc1	$f6,0xa8($sp)
-/*  f0affcc:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f0affd0:	46143102 */ 	mul.s	$f4,$f6,$f20
-/*  f0affd4:	46045201 */ 	sub.s	$f8,$f10,$f4
-/*  f0affd8:	4600418d */ 	trunc.w.s	$f6,$f8
-/*  f0affdc:	44083000 */ 	mfc1	$t0,$f6
-/*  f0affe0:	00000000 */ 	nop
-/*  f0affe4:	a4480018 */ 	sh	$t0,0x18($v0)
-/*  f0affe8:	c7a400b8 */ 	lwc1	$f4,0xb8($sp)
-/*  f0affec:	c7aa00d0 */ 	lwc1	$f10,0xd0($sp)
-/*  f0afff0:	4604c202 */ 	mul.s	$f8,$f24,$f4
-/*  f0afff4:	c7a400ac */ 	lwc1	$f4,0xac($sp)
-/*  f0afff8:	46085180 */ 	add.s	$f6,$f10,$f8
-/*  f0afffc:	46142282 */ 	mul.s	$f10,$f4,$f20
-/*  f0b0000:	460a3201 */ 	sub.s	$f8,$f6,$f10
-/*  f0b0004:	4600410d */ 	trunc.w.s	$f4,$f8
-/*  f0b0008:	440a2000 */ 	mfc1	$t2,$f4
-/*  f0b000c:	00000000 */ 	nop
-/*  f0b0010:	a44a001a */ 	sh	$t2,0x1a($v0)
-/*  f0b0014:	c7aa00bc */ 	lwc1	$f10,0xbc($sp)
-/*  f0b0018:	c7a600d4 */ 	lwc1	$f6,0xd4($sp)
-/*  f0b001c:	460ac202 */ 	mul.s	$f8,$f24,$f10
-/*  f0b0020:	c7aa00b0 */ 	lwc1	$f10,0xb0($sp)
-/*  f0b0024:	46083100 */ 	add.s	$f4,$f6,$f8
-/*  f0b0028:	46145182 */ 	mul.s	$f6,$f10,$f20
-/*  f0b002c:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0b0030:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0b0034:	440c5000 */ 	mfc1	$t4,$f10
-/*  f0b0038:	00000000 */ 	nop
-/*  f0b003c:	a44c001c */ 	sh	$t4,0x1c($v0)
-/*  f0b0040:	c7a600b4 */ 	lwc1	$f6,0xb4($sp)
-/*  f0b0044:	c7a400cc */ 	lwc1	$f4,0xcc($sp)
-/*  f0b0048:	4606c202 */ 	mul.s	$f8,$f24,$f6
-/*  f0b004c:	c7a600a8 */ 	lwc1	$f6,0xa8($sp)
-/*  f0b0050:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f0b0054:	46143102 */ 	mul.s	$f4,$f6,$f20
-/*  f0b0058:	460a2200 */ 	add.s	$f8,$f4,$f10
-/*  f0b005c:	4600418d */ 	trunc.w.s	$f6,$f8
-/*  f0b0060:	440e3000 */ 	mfc1	$t6,$f6
-/*  f0b0064:	00000000 */ 	nop
-/*  f0b0068:	a44e0024 */ 	sh	$t6,0x24($v0)
-/*  f0b006c:	c7aa00b8 */ 	lwc1	$f10,0xb8($sp)
-/*  f0b0070:	c7a400d0 */ 	lwc1	$f4,0xd0($sp)
-/*  f0b0074:	460ac202 */ 	mul.s	$f8,$f24,$f10
-/*  f0b0078:	c7aa00ac */ 	lwc1	$f10,0xac($sp)
-/*  f0b007c:	46082180 */ 	add.s	$f6,$f4,$f8
-/*  f0b0080:	46145102 */ 	mul.s	$f4,$f10,$f20
-/*  f0b0084:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0b0088:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0b008c:	44185000 */ 	mfc1	$t8,$f10
-/*  f0b0090:	00000000 */ 	nop
-/*  f0b0094:	a4580026 */ 	sh	$t8,0x26($v0)
-/*  f0b0098:	c7a600bc */ 	lwc1	$f6,0xbc($sp)
-/*  f0b009c:	c7a400d4 */ 	lwc1	$f4,0xd4($sp)
-/*  f0b00a0:	4606c202 */ 	mul.s	$f8,$f24,$f6
-/*  f0b00a4:	c7a600b0 */ 	lwc1	$f6,0xb0($sp)
-/*  f0b00a8:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f0b00ac:	46143102 */ 	mul.s	$f4,$f6,$f20
-/*  f0b00b0:	460a2200 */ 	add.s	$f8,$f4,$f10
-/*  f0b00b4:	4600418d */ 	trunc.w.s	$f6,$f8
-/*  f0b00b8:	44083000 */ 	mfc1	$t0,$f6
-/*  f0b00bc:	00000000 */ 	nop
-/*  f0b00c0:	a4480028 */ 	sh	$t0,0x28($v0)
-/*  f0b00c4:	c7aa00b4 */ 	lwc1	$f10,0xb4($sp)
-/*  f0b00c8:	c7a400cc */ 	lwc1	$f4,0xcc($sp)
-/*  f0b00cc:	460ad202 */ 	mul.s	$f8,$f26,$f10
-/*  f0b00d0:	c7aa00a8 */ 	lwc1	$f10,0xa8($sp)
-/*  f0b00d4:	46082180 */ 	add.s	$f6,$f4,$f8
-/*  f0b00d8:	46145102 */ 	mul.s	$f4,$f10,$f20
-/*  f0b00dc:	46043201 */ 	sub.s	$f8,$f6,$f4
-/*  f0b00e0:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0b00e4:	440a5000 */ 	mfc1	$t2,$f10
-/*  f0b00e8:	00000000 */ 	nop
-/*  f0b00ec:	a44a0030 */ 	sh	$t2,0x30($v0)
-/*  f0b00f0:	c7a400b8 */ 	lwc1	$f4,0xb8($sp)
-/*  f0b00f4:	c7a600d0 */ 	lwc1	$f6,0xd0($sp)
-/*  f0b00f8:	4604d202 */ 	mul.s	$f8,$f26,$f4
-/*  f0b00fc:	c7a400ac */ 	lwc1	$f4,0xac($sp)
-/*  f0b0100:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f0b0104:	46142182 */ 	mul.s	$f6,$f4,$f20
-/*  f0b0108:	46065201 */ 	sub.s	$f8,$f10,$f6
-/*  f0b010c:	4600410d */ 	trunc.w.s	$f4,$f8
-/*  f0b0110:	440c2000 */ 	mfc1	$t4,$f4
-/*  f0b0114:	00000000 */ 	nop
-/*  f0b0118:	a44c0032 */ 	sh	$t4,0x32($v0)
-/*  f0b011c:	c7a600bc */ 	lwc1	$f6,0xbc($sp)
-/*  f0b0120:	c7aa00d4 */ 	lwc1	$f10,0xd4($sp)
-/*  f0b0124:	4606d202 */ 	mul.s	$f8,$f26,$f6
-/*  f0b0128:	c7a600b0 */ 	lwc1	$f6,0xb0($sp)
-/*  f0b012c:	46085100 */ 	add.s	$f4,$f10,$f8
-/*  f0b0130:	46143282 */ 	mul.s	$f10,$f6,$f20
-/*  f0b0134:	460a2201 */ 	sub.s	$f8,$f4,$f10
-/*  f0b0138:	4600418d */ 	trunc.w.s	$f6,$f8
-/*  f0b013c:	440e3000 */ 	mfc1	$t6,$f6
-/*  f0b0140:	00000000 */ 	nop
-/*  f0b0144:	a44e0034 */ 	sh	$t6,0x34($v0)
-/*  f0b0148:	c7aa00b4 */ 	lwc1	$f10,0xb4($sp)
-/*  f0b014c:	c7a400cc */ 	lwc1	$f4,0xcc($sp)
-/*  f0b0150:	460ad202 */ 	mul.s	$f8,$f26,$f10
-/*  f0b0154:	c7aa00a8 */ 	lwc1	$f10,0xa8($sp)
-/*  f0b0158:	46082180 */ 	add.s	$f6,$f4,$f8
-/*  f0b015c:	46145102 */ 	mul.s	$f4,$f10,$f20
-/*  f0b0160:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0b0164:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0b0168:	44185000 */ 	mfc1	$t8,$f10
-/*  f0b016c:	00000000 */ 	nop
-/*  f0b0170:	a458003c */ 	sh	$t8,0x3c($v0)
-/*  f0b0174:	c7a600b8 */ 	lwc1	$f6,0xb8($sp)
-/*  f0b0178:	c7a400d0 */ 	lwc1	$f4,0xd0($sp)
-/*  f0b017c:	4606d202 */ 	mul.s	$f8,$f26,$f6
-/*  f0b0180:	c7a600ac */ 	lwc1	$f6,0xac($sp)
-/*  f0b0184:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f0b0188:	46143102 */ 	mul.s	$f4,$f6,$f20
-/*  f0b018c:	460a2200 */ 	add.s	$f8,$f4,$f10
-/*  f0b0190:	4600418d */ 	trunc.w.s	$f6,$f8
-/*  f0b0194:	44083000 */ 	mfc1	$t0,$f6
-/*  f0b0198:	00000000 */ 	nop
-/*  f0b019c:	a448003e */ 	sh	$t0,0x3e($v0)
-/*  f0b01a0:	c7aa00bc */ 	lwc1	$f10,0xbc($sp)
-/*  f0b01a4:	c7a400d4 */ 	lwc1	$f4,0xd4($sp)
-/*  f0b01a8:	460ad202 */ 	mul.s	$f8,$f26,$f10
-/*  f0b01ac:	c7aa00b0 */ 	lwc1	$f10,0xb0($sp)
-/*  f0b01b0:	46082180 */ 	add.s	$f6,$f4,$f8
-/*  f0b01b4:	46145102 */ 	mul.s	$f4,$f10,$f20
-/*  f0b01b8:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0b01bc:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0b01c0:	440a5000 */ 	mfc1	$t2,$f10
-/*  f0b01c4:	00000000 */ 	nop
-/*  f0b01c8:	a44a0040 */ 	sh	$t2,0x40($v0)
-/*  f0b01cc:	8fb101e8 */ 	lw	$s1,0x1e8($sp)
-/*  f0b01d0:	262c0008 */ 	addiu	$t4,$s1,0x8
-/*  f0b01d4:	afac01e8 */ 	sw	$t4,0x1e8($sp)
-/*  f0b01d8:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f0b01dc:	ae2d0000 */ 	sw	$t5,0x0($s1)
-/*  f0b01e0:	ae220004 */ 	sw	$v0,0x4($s1)
-/*  f0b01e4:	8fae01e8 */ 	lw	$t6,0x1e8($sp)
-/*  f0b01e8:	3c18b100 */ 	lui	$t8,0xb100
-/*  f0b01ec:	3c195232 */ 	lui	$t9,0x5232
-/*  f0b01f0:	25cf0008 */ 	addiu	$t7,$t6,0x8
-/*  f0b01f4:	afaf01e8 */ 	sw	$t7,0x1e8($sp)
-/*  f0b01f8:	37393210 */ 	ori	$t9,$t9,0x3210
-/*  f0b01fc:	37184512 */ 	ori	$t8,$t8,0x4512
-/*  f0b0200:	add80000 */ 	sw	$t8,0x0($t6)
-/*  f0b0204:	add90004 */ 	sw	$t9,0x4($t6)
-.L0f0b0208:
-/*  f0b0208:	3c08800a */ 	lui	$t0,%hi(g_ModelSlots)
-/*  f0b020c:	2508dd00 */ 	addiu	$t0,$t0,%lo(g_ModelSlots)
-/*  f0b0210:	26100048 */ 	addiu	$s0,$s0,72
-/*  f0b0214:	5608fec9 */ 	bnel	$s0,$t0,.L0f0afd3c
-/*  f0b0218:	8e090000 */ 	lw	$t1,0x0($s0)
-/*  f0b021c:	8fbf007c */ 	lw	$ra,0x7c($sp)
-/*  f0b0220:	8fa201e8 */ 	lw	$v0,0x1e8($sp)
-/*  f0b0224:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f0b0228:	d7b60030 */ 	ldc1	$f22,0x30($sp)
-/*  f0b022c:	d7b80038 */ 	ldc1	$f24,0x38($sp)
-/*  f0b0230:	d7ba0040 */ 	ldc1	$f26,0x40($sp)
-/*  f0b0234:	d7bc0048 */ 	ldc1	$f28,0x48($sp)
-/*  f0b0238:	d7be0050 */ 	ldc1	$f30,0x50($sp)
-/*  f0b023c:	8fb00058 */ 	lw	$s0,0x58($sp)
-/*  f0b0240:	8fb1005c */ 	lw	$s1,0x5c($sp)
-/*  f0b0244:	8fb20060 */ 	lw	$s2,0x60($sp)
-/*  f0b0248:	8fb30064 */ 	lw	$s3,0x64($sp)
-/*  f0b024c:	8fb40068 */ 	lw	$s4,0x68($sp)
-/*  f0b0250:	8fb5006c */ 	lw	$s5,0x6c($sp)
-/*  f0b0254:	8fb60070 */ 	lw	$s6,0x70($sp)
-/*  f0b0258:	8fb70074 */ 	lw	$s7,0x74($sp)
-/*  f0b025c:	8fbe0078 */ 	lw	$s8,0x78($sp)
-/*  f0b0260:	03e00008 */ 	jr	$ra
-/*  f0b0264:	27bd01e8 */ 	addiu	$sp,$sp,0x1e8
-);
+Gfx *lasersightRenderBeam(Gfx *gdl)
+{
+	u32 stack;
+	struct player *player = g_Vars.currentplayer;
+	Mtxf *mtx;
+	s32 i;
+	Mtxf sp198;
+	struct coord campos;
+	Mtxf sp14c;
+	Mtxf sp10c;
 
-// Mismatch: Two load instructions are swapped at afddc, and regalloc
-//Gfx *lasersightRenderBeam(Gfx *gdl)
-//{
-//	f32 tmp;
-//	struct player *player = g_Vars.currentplayer;
-//	Mtxf *mtx;
-//	s32 i;
-//	Mtxf sp198;
-//	struct coord campos; // 18c
-//	Mtxf sp14c;
-//	Mtxf sp10c;
-//
-//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
-//	gDPSetTexturePersp(gdl++, G_TP_PERSP);
-//	gDPSetColorDither(gdl++, G_CD_DISABLE);
-//	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
-//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
-//	gDPSetTextureLOD(gdl++, G_TL_TILE);
-//	gDPSetTextureConvert(gdl++, G_TC_FILT);
-//	gDPSetTextureLUT(gdl++, G_TT_NONE);
-//	gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
-//	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
-//
-//	texSelect(&gdl, &g_TexGeneralConfigs[3], 4, 0, 2, 1, NULL);
-//	mtx4LoadIdentity(&sp14c);
-//
-//	mtx00015be0(camGetWorldToScreenMtxf(), &sp14c);
-//	mtx4LoadIdentity(&sp10c);
-//	mtx00015be0(camGetProjectionMtxF(), &sp10c);
-//
-//	sp10c.m[3][1] = 0;
-//	sp10c.m[3][0] = 0;
-//	sp10c.m[3][2] = 0;
-//
-//	mtx4LoadIdentity(&sp198);
-//	mtx00015be0(camGetWorldToScreenMtxf(), &sp198);
-//
-//	campos.x = player->cam_pos.x;
-//	campos.y = player->cam_pos.y;
-//	campos.z = player->cam_pos.z;
-//
-//	sp198.m[3][0] = 0;
-//	sp198.m[3][1] = 0;
-//	sp198.m[3][2] = 0;
-//
-//	mtx00015f88(0.2f, &sp198);
-//	mtx = gfxAllocateMatrix();
-//	mtx00016054(&sp198, mtx);
-//
-//	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-//
-//	for (i = 0; i < 4; i++) {
-//		if (g_LaserSights[i].id != -1) {
-//			u32 *colours;
-//			struct coord spcc;
-//			struct coord spc0;
-//			struct coord spb4;
-//			struct coord spa8;
-//			struct gfxvtx *vertices;
-//			struct coord sp98;
-//
-//			sp98.f[0] = g_LaserSights[i].beamnear.f[0];
-//			sp98.f[1] = g_LaserSights[i].beamnear.f[1];
-//			sp98.f[2] = g_LaserSights[i].beamnear.f[2];
-//
-//			mtx4TransformVecInPlace(&sp14c, &sp98);
-//
-//			spa8.f[0] = sp98.f[0] < 0.0f ? 1 : -1;
-//			spa8.f[1] = 2;
-//			spa8.f[2] = 0.0f;
-//
-//			guNormalize(&spa8.x, &spa8.y, &spa8.z);
-//
-//			mtx4RotateVecInPlace(&sp10c, &spa8);
-//
-//			spcc.f[0] = (g_LaserSights[i].beamnear.f[0] - campos.f[0]) * 5;
-//			spcc.f[1] = (g_LaserSights[i].beamnear.f[1] - campos.f[1]) * 5;
-//			spcc.f[2] = (g_LaserSights[i].beamnear.f[2] - campos.f[2]) * 5;
-//
-//			spc0.f[0] = (g_LaserSights[i].beamfar.f[0] - campos.f[0]) * 5;
-//			spc0.f[1] = (g_LaserSights[i].beamfar.f[1] - campos.f[1]) * 5;
-//			spc0.f[2] = (g_LaserSights[i].beamfar.f[2] - campos.f[2]) * 5;
-//
-//			spb4.f[0] = spc0.f[0] - spcc.f[0];
-//			spb4.f[1] = spc0.f[1] - spcc.f[1];
-//			spb4.f[2] = spc0.f[2] - spcc.f[2];
-//
-//			guNormalize(&spb4.x, &spb4.y, &spb4.z);
-//
-//			colours = gfxAllocateColours(2);
-//
-//			colours[0] = 0xff00005f;
-//			colours[1] = 0xff00000f;
-//
-//			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
-//
-//			vertices = gfxAllocateVertices(6);
-//
-//			vertices[0].colour = 0;
-//			vertices[1].colour = 0;
-//			vertices[2].colour = 0;
-//			vertices[3].colour = 0;
-//			vertices[4].colour = 4;
-//			vertices[5].colour = 4;
-//
-//			vertices[0].s = 0;
-//			vertices[0].t = 0;
-//			vertices[1].s = 0;
-//			vertices[1].t = 256;
-//			vertices[2].s = 32;
-//			vertices[2].t = 0;
-//			vertices[3].s = 32;
-//			vertices[3].t = 256;
-//			vertices[4].s = 0;
-//			vertices[4].t = 0;
-//			vertices[5].s = 0;
-//			vertices[5].t = 256;
-//
-//			vertices[0].x = spcc.f[0] - spa8.f[0] * 15;
-//			vertices[0].y = spcc.f[1] - spa8.f[1] * 15;
-//			vertices[0].z = spcc.f[2] - spa8.f[2] * 15;
-//
-//			vertices[1].x = spcc.f[0] + spa8.f[0] * 15;
-//			vertices[1].y = spcc.f[1] + spa8.f[1] * 15;
-//			vertices[1].z = spcc.f[2] + spa8.f[2] * 15;
-//
-//			vertices[2].x = spcc.f[0] + (200 * spb4.f[0]) - (spa8.f[0] * 15);
-//			vertices[2].y = spcc.f[1] + (200 * spb4.f[1]) - (spa8.f[1] * 15);
-//			vertices[2].z = spcc.f[2] + (200 * spb4.f[2]) - (spa8.f[2] * 15);
-//
-//			vertices[3].x = spcc.f[0] + (200 * spb4.f[0]) + (spa8.f[0] * 15);
-//			vertices[3].y = spcc.f[1] + (200 * spb4.f[1]) + (spa8.f[1] * 15);
-//			vertices[3].z = spcc.f[2] + (200 * spb4.f[2]) + (spa8.f[2] * 15);
-//
-//			vertices[4].x = spcc.f[0] + (400 * spb4.f[0]) - (spa8.f[0] * 15);
-//			vertices[4].y = spcc.f[1] + (400 * spb4.f[1]) - (spa8.f[1] * 15);
-//			vertices[4].z = spcc.f[2] + (400 * spb4.f[2]) - (spa8.f[2] * 15);
-//
-//			vertices[5].x = spcc.f[0] + (400 * spb4.f[0]) + (spa8.f[0] * 15);
-//			vertices[5].y = spcc.f[1] + (400 * spb4.f[1]) + (spa8.f[1] * 15);
-//			vertices[5].z = spcc.f[2] + (400 * spb4.f[2]) + (spa8.f[2] * 15);
-//
-//			gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
-//
-//			gDPTri4(gdl++, 0, 1, 2, 2, 3, 1, 2, 3, 5, 2, 5, 4);
-//		}
-//	}
-//
-//	return gdl;
-//}
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+	gDPSetTexturePersp(gdl++, G_TP_PERSP);
+	gDPSetColorDither(gdl++, G_CD_DISABLE);
+	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+	gDPSetTextureLOD(gdl++, G_TL_TILE);
+	gDPSetTextureConvert(gdl++, G_TC_FILT);
+	gDPSetTextureLUT(gdl++, G_TT_NONE);
+	gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
+	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+
+	texSelect(&gdl, &g_TexGeneralConfigs[3], 4, 0, 2, 1, NULL);
+	mtx4LoadIdentity(&sp14c);
+
+	mtx00015be0(camGetWorldToScreenMtxf(), &sp14c);
+	mtx4LoadIdentity(&sp10c);
+	mtx00015be0(camGetProjectionMtxF(), &sp10c);
+
+	sp10c.m[3][1] = 0;
+	sp10c.m[3][0] = 0;
+	sp10c.m[3][2] = 0;
+
+	mtx4LoadIdentity(&sp198);
+	mtx00015be0(camGetWorldToScreenMtxf(), &sp198);
+
+	campos.x = player->cam_pos.x;
+	campos.y = player->cam_pos.y;
+	campos.z = player->cam_pos.z;
+
+	sp198.m[3][0] = 0;
+	sp198.m[3][1] = 0;
+	sp198.m[3][2] = 0;
+
+	mtx00015f88(0.2f, &sp198);
+	mtx = gfxAllocateMatrix();
+	mtx00016054(&sp198, mtx);
+
+	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+
+	for (i = 0; i < 4; i++) {
+		if (g_LaserSights[i].id != -1) {
+			u32 *colours;
+			struct coord spcc;
+			struct coord spc0;
+			struct coord spb4;
+			struct coord spa8;
+			struct gfxvtx *vertices;
+			struct coord sp98;
+
+			sp98.x = g_LaserSights[i].beamnear.x;
+			sp98.y = g_LaserSights[i].beamnear.y;
+			sp98.z = g_LaserSights[i].beamnear.z;
+
+			mtx4TransformVecInPlace(&sp14c, &sp98);
+
+			spa8.x = sp98.f[0] < 0.0f ? 1.0f : -1.0f;
+			spa8.y = 2.0f;
+			spa8.z = 0.0f;
+
+			guNormalize(&spa8.x, &spa8.y, &spa8.z);
+
+			mtx4RotateVecInPlace(&sp10c, &spa8);
+
+			spcc.x = g_LaserSights[i].beamnear.x;
+			spcc.y = g_LaserSights[i].beamnear.y;
+			spcc.z = g_LaserSights[i].beamnear.z;
+
+			spcc.x = (spcc.x - campos.x) * 5.0f;
+			spcc.y = (spcc.y - campos.y) * 5.0f;
+			spcc.z = (spcc.z - campos.z) * 5.0f;
+
+			spc0.x = g_LaserSights[i].beamfar.x;
+			spc0.y = g_LaserSights[i].beamfar.y;
+			spc0.z = g_LaserSights[i].beamfar.z;
+
+			spc0.x = (spc0.x - campos.f[0]) * 5.0f;
+			spc0.y = (spc0.y - campos.f[1]) * 5.0f;
+			spc0.z = (spc0.z - campos.f[2]) * 5.0f;
+
+			spb4.x = spc0.f[0] - spcc.x;
+			spb4.y = spc0.f[1] - spcc.y;
+			spb4.z = spc0.f[2] - spcc.z;
+
+			guNormalize(&spb4.x, &spb4.y, &spb4.z);
+
+			colours = gfxAllocateColours(2);
+
+			colours[0] = 0xff00005f;
+			colours[1] = 0xff00000f;
+
+			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+
+			vertices = gfxAllocateVertices(6);
+
+			vertices[0].colour = 0;
+			vertices[1].colour = 0;
+			vertices[2].colour = 0;
+			vertices[3].colour = 0;
+			vertices[4].colour = 4;
+			vertices[5].colour = 4;
+
+			vertices[0].s = 0;
+			vertices[0].t = 0;
+			vertices[1].s = 0;
+			vertices[1].t = 256;
+			vertices[2].s = 32;
+			vertices[2].t = 0;
+			vertices[3].s = 32;
+			vertices[3].t = 256;
+			vertices[4].s = 0;
+			vertices[4].t = 0;
+			vertices[5].s = 0;
+			vertices[5].t = 256;
+
+			vertices[0].x = spcc.f[0] - spa8.f[0] * 15.0f;
+			vertices[0].y = spcc.f[1] - spa8.f[1] * 15.0f;
+			vertices[0].z = spcc.f[2] - spa8.f[2] * 15.0f;
+
+			vertices[1].x = spcc.f[0] + spa8.f[0] * 15.0f;
+			vertices[1].y = spcc.f[1] + spa8.f[1] * 15.0f;
+			vertices[1].z = spcc.f[2] + spa8.f[2] * 15.0f;
+
+			vertices[2].x = spcc.f[0] + (200 * spb4.f[0]) - (spa8.f[0] * 15.0f);
+			vertices[2].y = spcc.f[1] + (200 * spb4.f[1]) - (spa8.f[1] * 15.0f);
+			vertices[2].z = spcc.f[2] + (200 * spb4.f[2]) - (spa8.f[2] * 15.0f);
+
+			vertices[3].x = spcc.f[0] + (200 * spb4.f[0]) + (spa8.f[0] * 15.0f);
+			vertices[3].y = spcc.f[1] + (200 * spb4.f[1]) + (spa8.f[1] * 15.0f);
+			vertices[3].z = spcc.f[2] + (200 * spb4.f[2]) + (spa8.f[2] * 15.0f);
+
+			vertices[4].x = spcc.f[0] + (400 * spb4.f[0]) - (spa8.f[0] * 15.0f);
+			vertices[4].y = spcc.f[1] + (400 * spb4.f[1]) - (spa8.f[1] * 15.0f);
+			vertices[4].z = spcc.f[2] + (400 * spb4.f[2]) - (spa8.f[2] * 15.0f);
+
+			vertices[5].x = spcc.f[0] + (400 * spb4.f[0]) + (spa8.f[0] * 15.0f);
+			vertices[5].y = spcc.f[1] + (400 * spb4.f[1]) + (spa8.f[1] * 15.0f);
+			vertices[5].z = spcc.f[2] + (400 * spb4.f[2]) + (spa8.f[2] * 15.0f);
+
+			gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+
+			gDPTri4(gdl++, 0, 1, 2, 2, 3, 1, 2, 3, 5, 2, 5, 4);
+		}
+	}
+
+	return gdl;
+}
 
 void lasersightSetBeam(s32 id, s32 arg1, struct coord *near, struct coord *far)
 {
