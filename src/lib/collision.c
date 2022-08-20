@@ -593,130 +593,38 @@ f32 cdFindGroundInTileType0AtVertex1(struct geotilei *tile, f32 x, f32 z)
 }
 #endif
 
-GLOBAL_ASM(
-glabel cdFindGroundInIntTile
-/*    25f90:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    25f94:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*    25f98:	4485a000 */ 	mtc1	$a1,$f20
-/*    25f9c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    25fa0:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*    25fa4:	90850001 */ 	lbu	$a1,0x1($a0)
-/*    25fa8:	4486b000 */ 	mtc1	$a2,$f22
-/*    25fac:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    25fb0:	28a10004 */ 	slti	$at,$a1,0x4
-/*    25fb4:	1420003c */ 	bnez	$at,.L000260a8
-/*    25fb8:	2403ffff */ 	addiu	$v1,$zero,-1
-/*    25fbc:	28a10002 */ 	slti	$at,$a1,0x2
-/*    25fc0:	14200039 */ 	bnez	$at,.L000260a8
-/*    25fc4:	00077880 */ 	sll	$t7,$a3,0x2
-/*    25fc8:	848e0012 */ 	lh	$t6,0x12($a0)
-/*    25fcc:	8498000e */ 	lh	$t8,0xe($a0)
-/*    25fd0:	01e77823 */ 	subu	$t7,$t7,$a3
-/*    25fd4:	448e2000 */ 	mtc1	$t6,$f4
-/*    25fd8:	44983000 */ 	mtc1	$t8,$f6
-/*    25fdc:	000f7840 */ 	sll	$t7,$t7,0x1
-/*    25fe0:	44807000 */ 	mtc1	$zero,$f14
-/*    25fe4:	008f1021 */ 	addu	$v0,$a0,$t7
-/*    25fe8:	46802420 */ 	cvt.s.w	$f16,$f4
-/*    25fec:	468034a0 */ 	cvt.s.w	$f18,$f6
-.L00025ff0:
-/*    25ff0:	84590012 */ 	lh	$t9,0x12($v0)
-/*    25ff4:	8448000e */ 	lh	$t0,0xe($v0)
-/*    25ff8:	44994000 */ 	mtc1	$t9,$f8
-/*    25ffc:	44885000 */ 	mtc1	$t0,$f10
-/*    26000:	46804020 */ 	cvt.s.w	$f0,$f8
-/*    26004:	468050a0 */ 	cvt.s.w	$f2,$f10
-/*    26008:	46008101 */ 	sub.s	$f4,$f16,$f0
-/*    2600c:	4602a181 */ 	sub.s	$f6,$f20,$f2
-/*    26010:	4600b281 */ 	sub.s	$f10,$f22,$f0
-/*    26014:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*    26018:	46029101 */ 	sub.s	$f4,$f18,$f2
-/*    2601c:	46045182 */ 	mul.s	$f6,$f10,$f4
-/*    26020:	46064301 */ 	sub.s	$f12,$f8,$f6
-/*    26024:	460e6032 */ 	c.eq.s	$f12,$f14
-/*    26028:	00000000 */ 	nop
-/*    2602c:	4503001b */ 	bc1tl	.L0002609c
-/*    26030:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*    26034:	04610008 */ 	bgez	$v1,.L00026058
-/*    26038:	00000000 */ 	nop
-/*    2603c:	460c703c */ 	c.lt.s	$f14,$f12
-/*    26040:	00001825 */ 	or	$v1,$zero,$zero
-/*    26044:	45020015 */ 	bc1fl	.L0002609c
-/*    26048:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*    2604c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*    26050:	10000012 */ 	b	.L0002609c
-/*    26054:	24e70001 */ 	addiu	$a3,$a3,0x1
-.L00026058:
-/*    26058:	10600007 */ 	beqz	$v1,.L00026078
-/*    2605c:	00000000 */ 	nop
-/*    26060:	460e603c */ 	c.lt.s	$f12,$f14
-/*    26064:	00000000 */ 	nop
-/*    26068:	45000003 */ 	bc1f	.L00026078
-/*    2606c:	00000000 */ 	nop
-/*    26070:	1000000d */ 	b	.L000260a8
-/*    26074:	24e7ffff */ 	addiu	$a3,$a3,-1
-.L00026078:
-/*    26078:	54600008 */ 	bnezl	$v1,.L0002609c
-/*    2607c:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*    26080:	460c703c */ 	c.lt.s	$f14,$f12
-/*    26084:	00000000 */ 	nop
-/*    26088:	45020004 */ 	bc1fl	.L0002609c
-/*    2608c:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*    26090:	10000005 */ 	b	.L000260a8
-/*    26094:	24e7ffff */ 	addiu	$a3,$a3,-1
-/*    26098:	24e70001 */ 	addiu	$a3,$a3,0x1
-.L0002609c:
-/*    2609c:	00e5082a */ 	slt	$at,$a3,$a1
-/*    260a0:	1420ffd3 */ 	bnez	$at,.L00025ff0
-/*    260a4:	24420006 */ 	addiu	$v0,$v0,0x6
-.L000260a8:
-/*    260a8:	4405a000 */ 	mfc1	$a1,$f20
-/*    260ac:	4406b000 */ 	mfc1	$a2,$f22
-/*    260b0:	0c00971d */ 	jal	cdFindGroundInIntTileAtVertex
-/*    260b4:	00000000 */ 	nop
-/*    260b8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    260bc:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*    260c0:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*    260c4:	03e00008 */ 	jr	$ra
-/*    260c8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+f32 cdFindGroundInIntTile(struct geotilei *tile, f32 x, f32 z)
+{
+	s32 i = 1;
+	s32 ival = -1;
+	struct geotilei *tile2 = tile;
 
-// Mismatch: regalloc, and operators for second mult are swapped
-//f32 cdFindGroundInIntTile(struct geotilei *tile, f32 x, f32 z)
-//{
-//	s32 i = 1;
-//	s32 ival = -1;
-//	f32 tmpx;
-//	f32 tmpz;
-//	f32 fval;
-//
-//	if (tile->header.numvertices >= 4) {
-//		while (i < tile->header.numvertices) { \
-//			tmpz = tile->vertices[i][2];
-//			tmpx = tile->vertices[i][0];
-//
-//			fval =
-//				(tile->vertices[0][2] - tmpz) * (x - tmpx) -
-//				(tile->vertices[0][0] - tmpx) * (z - tmpz);
-//
-//			if (fval != 0) {
-//				if (ival < 0) {
-//					ival = (fval > 0);
-//				} else if (ival != 0 && fval < 0) {
-//					i--;
-//					break;
-//				} else if (ival == 0 && fval > 0) {
-//					i--;
-//					break;
-//				}
-//			}
-//
-//			i++;
-//		}
-//	}
-//
-//	return cdFindGroundInIntTileAtVertex(tile, x, z, i);
-//}
+	if (tile->header.numvertices >= 4) {
+		while (i < tile->header.numvertices) {
+			f32 tmpz = tile2->vertices[i][2];
+			f32 tmpx = tile2->vertices[i][0];
+
+			f32 fval = ((tile->vertices[0][2] - tmpz) * (x - tmpx))
+				- ((tile2->vertices[0][0] - tmpx) * (0, z - tmpz));
+
+			if (fval != 0) {
+				if (ival < 0) {
+					ival = (fval > 0);
+				} else if (ival != 0 && fval < 0) {
+					i--;
+					break;
+				} else if (ival == 0 && fval > 0) {
+					i--;
+					break;
+				}
+			}
+
+			i++;
+		}
+	}
+
+	return cdFindGroundInIntTileAtVertex(tile, x, z, i);
+}
 
 f32 cdFindGroundInFltTile(struct geotilef *tile, f32 x, f32 z)
 {
