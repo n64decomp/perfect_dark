@@ -272,266 +272,53 @@ void filelistUpdate(struct filelist *list)
 	}
 }
 
+void pheadAllocateTextures(s32 playernum, struct perfectheadtexturelist *textures)
+{
+	s32 i;
+	s32 j;
+	s32 k;
+
+	if (g_Menus[playernum].fm.headtextures == NULL) {
+		if (textures == NULL) {
+			g_Menus[playernum].fm.unke40_01 = true;
+			bgGarbageCollectRooms(align16(sizeof(struct perfectheadtexturelist)), 1);
+			g_Menus[playernum].fm.headtextures = memaAlloc(align16(sizeof(struct perfectheadtexturelist)));
+		} else {
+			g_Menus[playernum].fm.headtextures = textures;
+			g_Menus[playernum].fm.unke40_01 = false;
+		}
+	}
+
+	if (g_Menus[playernum].fm.headtextures == NULL) {
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pheadAllocateTextures
-/*  f111260:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f111264:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f111268:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11126c:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f111270:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f111274:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f111278:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f11127c:	3c0f800a */ 	lui	$t7,%hi(g_Menus)
-/*  f111280:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f111284:	25efe000 */ 	addiu	$t7,$t7,%lo(g_Menus)
-/*  f111288:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f11128c:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f111290:	8e030e68 */ 	lw	$v1,0xe68($s0)
-/*  f111294:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f111298:	14600017 */ 	bnez	$v1,.L0f1112f8
-/*  f11129c:	00000000 */ 	nop
-/*  f1112a0:	54a00011 */ 	bnezl	$a1,.L0f1112e8
-/*  f1112a4:	92090e40 */ 	lbu	$t1,0xe40($s0)
-/*  f1112a8:	92190e40 */ 	lbu	$t9,0xe40($s0)
-/*  f1112ac:	24040890 */ 	addiu	$a0,$zero,0x890
-/*  f1112b0:	37280040 */ 	ori	$t0,$t9,0x40
-/*  f1112b4:	0fc5db69 */ 	jal	align16
-/*  f1112b8:	a2080e40 */ 	sb	$t0,0xe40($s0)
-/*  f1112bc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1112c0:	0fc5796e */ 	jal	bgGarbageCollectRooms
-/*  f1112c4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1112c8:	0fc5db69 */ 	jal	align16
-/*  f1112cc:	24040890 */ 	addiu	$a0,$zero,0x890
-/*  f1112d0:	0c004aac */ 	jal	memaAlloc
-/*  f1112d4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1112d8:	ae020e68 */ 	sw	$v0,0xe68($s0)
-/*  f1112dc:	10000006 */ 	b	.L0f1112f8
-/*  f1112e0:	00401825 */ 	or	$v1,$v0,$zero
-/*  f1112e4:	92090e40 */ 	lbu	$t1,0xe40($s0)
-.L0f1112e8:
-/*  f1112e8:	ae050e68 */ 	sw	$a1,0xe68($s0)
-/*  f1112ec:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f1112f0:	312affbf */ 	andi	$t2,$t1,0xffbf
-/*  f1112f4:	a20a0e40 */ 	sb	$t2,0xe40($s0)
-.L0f1112f8:
-/*  f1112f8:	14600006 */ 	bnez	$v1,.L0f111314
-/*  f1112fc:	3c047f1b */ 	lui	$a0,%hi(var7f1b3a08)
-/*  f111300:	3c057f1b */ 	lui	$a1,%hi(var7f1b3a14)
-/*  f111304:	24a53a14 */ 	addiu	$a1,$a1,%lo(var7f1b3a14)
-/*  f111308:	24843a08 */ 	addiu	$a0,$a0,%lo(var7f1b3a08)
-/*  f11130c:	0c002ff4 */ 	jal	faultAssert
-/*  f111310:	240601ca */ 	addiu	$a2,$zero,0x1ca
-.L0f111314:
-/*  f111314:	00001025 */ 	or	$v0,$zero,$zero
-/*  f111318:	24030080 */ 	addiu	$v1,$zero,0x80
-.L0f11131c:
-/*  f11131c:	8e0b0e68 */ 	lw	$t3,0xe68($s0)
-/*  f111320:	01626021 */ 	addu	$t4,$t3,$v0
-/*  f111324:	ad800800 */ 	sw	$zero,0x800($t4)
-/*  f111328:	8e0d0e68 */ 	lw	$t5,0xe68($s0)
-/*  f11132c:	01a27021 */ 	addu	$t6,$t5,$v0
-/*  f111330:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f111334:	1443fff9 */ 	bne	$v0,$v1,.L0f11131c
-/*  f111338:	a5c00804 */ 	sh	$zero,0x804($t6)
-/*  f11133c:	8e0f0e68 */ 	lw	$t7,0xe68($s0)
-/*  f111340:	24020010 */ 	addiu	$v0,$zero,0x10
-/*  f111344:	24090004 */ 	addiu	$t1,$zero,0x4
-/*  f111348:	ade00880 */ 	sw	$zero,0x880($t7)
-/*  f11134c:	8e180e68 */ 	lw	$t8,0xe68($s0)
-/*  f111350:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f111354:	00001825 */ 	or	$v1,$zero,$zero
-/*  f111358:	a3020888 */ 	sb	$v0,0x888($t8)
-/*  f11135c:	8e190e68 */ 	lw	$t9,0xe68($s0)
-/*  f111360:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f111364:	24040080 */ 	addiu	$a0,$zero,0x80
-/*  f111368:	a3220889 */ 	sb	$v0,0x889($t9)
-/*  f11136c:	8e080e68 */ 	lw	$t0,0xe68($s0)
-/*  f111370:	a100088a */ 	sb	$zero,0x88a($t0)
-/*  f111374:	8e0a0e68 */ 	lw	$t2,0xe68($s0)
-/*  f111378:	a149088b */ 	sb	$t1,0x88b($t2)
-/*  f11137c:	8e0b0e68 */ 	lw	$t3,0xe68($s0)
-/*  f111380:	a160088c */ 	sb	$zero,0x88c($t3)
-/*  f111384:	8e0c0e68 */ 	lw	$t4,0xe68($s0)
-/*  f111388:	a180088d */ 	sb	$zero,0x88d($t4)
-/*  f11138c:	8e0e0e68 */ 	lw	$t6,0xe68($s0)
-/*  f111390:	a1cd088e */ 	sb	$t5,0x88e($t6)
-/*  f111394:	8e0f0e68 */ 	lw	$t7,0xe68($s0)
-/*  f111398:	a1e0088f */ 	sb	$zero,0x88f($t7)
-/*  f11139c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1113a0:
-/*  f1113a0:	8e190e68 */ 	lw	$t9,0xe68($s0)
-/*  f1113a4:	000341c0 */ 	sll	$t0,$v1,0x7
-/*  f1113a8:	0040c025 */ 	or	$t8,$v0,$zero
-/*  f1113ac:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f1113b0:	01225021 */ 	addu	$t2,$t1,$v0
-/*  f1113b4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1113b8:	1444fff9 */ 	bne	$v0,$a0,.L0f1113a0
-/*  f1113bc:	a1580000 */ 	sb	$t8,0x0($t2)
-/*  f1113c0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f1113c4:	5465fff6 */ 	bnel	$v1,$a1,.L0f1113a0
-/*  f1113c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1113cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1113d0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1113d4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1113d8:	03e00008 */ 	jr	$ra
-/*  f1113dc:	00000000 */ 	nop
-);
+		faultAssert("tc != NULL", "gamefile.c", 458);
 #else
-GLOBAL_ASM(
-glabel pheadAllocateTextures
-/*  f10b6bc:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f10b6c0:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f10b6c4:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f10b6c8:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f10b6cc:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f10b6d0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10b6d4:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f10b6d8:	3c0f800a */ 	lui	$t7,0x800a
-/*  f10b6dc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f10b6e0:	25ef27c0 */ 	addiu	$t7,$t7,0x27c0
-/*  f10b6e4:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f10b6e8:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f10b6ec:	8e030db4 */ 	lw	$v1,0xdb4($s0)
-/*  f10b6f0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f10b6f4:	14600017 */ 	bnez	$v1,.NB0f10b754
-/*  f10b6f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10b6fc:	54a00011 */ 	bnezl	$a1,.NB0f10b744
-/*  f10b700:	92090d9c */ 	lbu	$t1,0xd9c($s0)
-/*  f10b704:	92190d9c */ 	lbu	$t9,0xd9c($s0)
-/*  f10b708:	24040890 */ 	addiu	$a0,$zero,0x890
-/*  f10b70c:	37280040 */ 	ori	$t0,$t9,0x40
-/*  f10b710:	0fc5c691 */ 	jal	align16
-/*  f10b714:	a2080d9c */ 	sb	$t0,0xd9c($s0)
-/*  f10b718:	00402025 */ 	or	$a0,$v0,$zero
-/*  f10b71c:	0fc5636f */ 	jal	bgGarbageCollectRooms
-/*  f10b720:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f10b724:	0fc5c691 */ 	jal	align16
-/*  f10b728:	24040890 */ 	addiu	$a0,$zero,0x890
-/*  f10b72c:	0c004cc9 */ 	jal	memaAlloc
-/*  f10b730:	00402025 */ 	or	$a0,$v0,$zero
-/*  f10b734:	ae020db4 */ 	sw	$v0,0xdb4($s0)
-/*  f10b738:	10000006 */ 	beqz	$zero,.NB0f10b754
-/*  f10b73c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f10b740:	92090d9c */ 	lbu	$t1,0xd9c($s0)
-.NB0f10b744:
-/*  f10b744:	ae050db4 */ 	sw	$a1,0xdb4($s0)
-/*  f10b748:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f10b74c:	312affbf */ 	andi	$t2,$t1,0xffbf
-/*  f10b750:	a20a0d9c */ 	sb	$t2,0xd9c($s0)
-.NB0f10b754:
-/*  f10b754:	14600006 */ 	bnez	$v1,.NB0f10b770
-/*  f10b758:	3c047f1b */ 	lui	$a0,0x7f1b
-/*  f10b75c:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f10b760:	24a5d6d4 */ 	addiu	$a1,$a1,-10540
-/*  f10b764:	2484d6c8 */ 	addiu	$a0,$a0,-10552
-/*  f10b768:	0c003068 */ 	jal	faultAssert
-/*  f10b76c:	240601c2 */ 	addiu	$a2,$zero,0x1c2
-.NB0f10b770:
-/*  f10b770:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10b774:	24030080 */ 	addiu	$v1,$zero,0x80
-.NB0f10b778:
-/*  f10b778:	8e0b0db4 */ 	lw	$t3,0xdb4($s0)
-/*  f10b77c:	01626021 */ 	addu	$t4,$t3,$v0
-/*  f10b780:	ad800800 */ 	sw	$zero,0x800($t4)
-/*  f10b784:	8e0d0db4 */ 	lw	$t5,0xdb4($s0)
-/*  f10b788:	01a27021 */ 	addu	$t6,$t5,$v0
-/*  f10b78c:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f10b790:	1443fff9 */ 	bne	$v0,$v1,.NB0f10b778
-/*  f10b794:	a5c00804 */ 	sh	$zero,0x804($t6)
-/*  f10b798:	8e0f0db4 */ 	lw	$t7,0xdb4($s0)
-/*  f10b79c:	24020010 */ 	addiu	$v0,$zero,0x10
-/*  f10b7a0:	24090004 */ 	addiu	$t1,$zero,0x4
-/*  f10b7a4:	ade00880 */ 	sw	$zero,0x880($t7)
-/*  f10b7a8:	8e180db4 */ 	lw	$t8,0xdb4($s0)
-/*  f10b7ac:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f10b7b0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f10b7b4:	a3020888 */ 	sb	$v0,0x888($t8)
-/*  f10b7b8:	8e190db4 */ 	lw	$t9,0xdb4($s0)
-/*  f10b7bc:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f10b7c0:	24040080 */ 	addiu	$a0,$zero,0x80
-/*  f10b7c4:	a3220889 */ 	sb	$v0,0x889($t9)
-/*  f10b7c8:	8e080db4 */ 	lw	$t0,0xdb4($s0)
-/*  f10b7cc:	a100088a */ 	sb	$zero,0x88a($t0)
-/*  f10b7d0:	8e0a0db4 */ 	lw	$t2,0xdb4($s0)
-/*  f10b7d4:	a149088b */ 	sb	$t1,0x88b($t2)
-/*  f10b7d8:	8e0b0db4 */ 	lw	$t3,0xdb4($s0)
-/*  f10b7dc:	a160088c */ 	sb	$zero,0x88c($t3)
-/*  f10b7e0:	8e0c0db4 */ 	lw	$t4,0xdb4($s0)
-/*  f10b7e4:	a180088d */ 	sb	$zero,0x88d($t4)
-/*  f10b7e8:	8e0e0db4 */ 	lw	$t6,0xdb4($s0)
-/*  f10b7ec:	a1cd088e */ 	sb	$t5,0x88e($t6)
-/*  f10b7f0:	8e0f0db4 */ 	lw	$t7,0xdb4($s0)
-/*  f10b7f4:	a1e0088f */ 	sb	$zero,0x88f($t7)
-/*  f10b7f8:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f10b7fc:
-/*  f10b7fc:	8e190db4 */ 	lw	$t9,0xdb4($s0)
-/*  f10b800:	000341c0 */ 	sll	$t0,$v1,0x7
-/*  f10b804:	0040c025 */ 	or	$t8,$v0,$zero
-/*  f10b808:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f10b80c:	01225021 */ 	addu	$t2,$t1,$v0
-/*  f10b810:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f10b814:	1444fff9 */ 	bne	$v0,$a0,.NB0f10b7fc
-/*  f10b818:	a1580000 */ 	sb	$t8,0x0($t2)
-/*  f10b81c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f10b820:	5465fff6 */ 	bnel	$v1,$a1,.NB0f10b7fc
-/*  f10b824:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10b828:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f10b82c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f10b830:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10b834:	03e00008 */ 	jr	$ra
-/*  f10b838:	00000000 */ 	sll	$zero,$zero,0x0
-);
+		faultAssert("tc != NULL", "gamefile.c", 450);
 #endif
+	}
 
-const char var7f1b3a08[] = "tc != NULL";
-const char var7f1b3a14[] = "gamefile.c";
+	for (i = 0; i != ARRAYCOUNT(g_Menus[playernum].fm.headtextures->fileguids); i++) {
+		g_Menus[playernum].fm.headtextures->fileguids[i].fileid = 0;
+		g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial = 0;
+	}
 
-// Mismatch: In goal, k loop copies k to t8 then increments k, using t8 for the
-// assign. The below uses k and increments it afterwards.
-//void pheadAllocateTextures(s32 playernum, struct perfectheadtexturelist *textures)
-//{
-//	s32 i;
-//	s32 j;
-//	s32 k;
-//
-//	if (g_Menus[playernum].headtextures == NULL) {
-//		if (textures == NULL) {
-//			g_Menus[playernum].fm.unke40_01 = true;
-//			bgGarbageCollectRooms(align16(sizeof(struct perfectheadtexturelist)), 1);
-//			g_Menus[playernum].fm.headtextures = memaAlloc(align16(sizeof(struct perfectheadtexturelist)));
-//		} else {
-//			g_Menus[playernum].fm.headtextures = textures;
-//			g_Menus[playernum].fm.unke40_01 = false;
-//		}
-//	}
-//
-//	if (g_Menus[playernum].fm.headtextures == NULL) {
-//		faultAssert("tc != NULL", "gamefile.c", 458);
-//	}
-//
-//	for (i = 0; i != ARRAYCOUNT(g_Menus[playernum].headtextures->fileguids); i++) {
-//		g_Menus[playernum].fm.headtextures->fileguids[i].fileid = 0;
-//		g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial = 0;
-//	}
-//
-//	g_Menus[playernum].fm.headtextures->lastupdated240 = 0;
-//
-//	g_Menus[playernum].fm.headtextures->selectedtexture.width = 16;
-//	g_Menus[playernum].fm.headtextures->selectedtexture.height = 16;
-//	g_Menus[playernum].fm.headtextures->selectedtexture.level = 0;
-//	g_Menus[playernum].fm.headtextures->selectedtexture.format = G_IM_FMT_I;
-//	g_Menus[playernum].fm.headtextures->selectedtexture.depth = 0;
-//	g_Menus[playernum].fm.headtextures->selectedtexture.s = 0;
-//	g_Menus[playernum].fm.headtextures->selectedtexture.t = 1;
-//	g_Menus[playernum].fm.headtextures->selectedtexture.unk0b = 0;
-//
-//	for (j = 0; j < 16; j++) {
-//		for (k = 0; k < 0x80; k++) {
-//			g_Menus[playernum].fm.headtextures->unk000[j][k] = k;
-//		}
-//	}
-//}
+	g_Menus[playernum].fm.headtextures->lastupdated240 = 0;
+
+	g_Menus[playernum].fm.headtextures->selectedtexture.width = 16;
+	g_Menus[playernum].fm.headtextures->selectedtexture.height = 16;
+	g_Menus[playernum].fm.headtextures->selectedtexture.level = 0;
+	g_Menus[playernum].fm.headtextures->selectedtexture.format = G_IM_FMT_I;
+	g_Menus[playernum].fm.headtextures->selectedtexture.depth = 0;
+	g_Menus[playernum].fm.headtextures->selectedtexture.s = 0;
+	g_Menus[playernum].fm.headtextures->selectedtexture.t = 1;
+	g_Menus[playernum].fm.headtextures->selectedtexture.unk0b = 0;
+
+	for (j = 0; j < 16; j++) {
+		for (k = 0; k < 0x80; k++) {
+			g_Menus[playernum].fm.headtextures->unk000[j][k] = k & 0xff;
+		}
+	}
+}
 
 void pheadFreeTextures(s32 playernum)
 {
