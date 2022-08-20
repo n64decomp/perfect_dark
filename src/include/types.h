@@ -3226,12 +3226,6 @@ struct envtype2 {
 	/*0x34*/ u32 unk34;
 };
 
-struct hoverprop {
-	u32 fileid;
-	s32 y_offset;
-	u16 size;
-};
-
 struct menuitemdata_controller {
 	u8 textfadetimer;
 	u8 contfadetimer;
