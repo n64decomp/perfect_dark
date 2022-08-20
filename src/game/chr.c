@@ -5677,263 +5677,94 @@ bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct mode
 	}
 }
 
-GLOBAL_ASM(
-glabel shieldhitCreate
-/*  f028f7c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f028f80:	3c0a8006 */ 	lui	$t2,%hi(g_ShieldHits)
-/*  f028f84:	8d4a2a8c */ 	lw	$t2,%lo(g_ShieldHits)($t2)
-/*  f028f88:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f028f8c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f028f90:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f028f94:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f028f98:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f028f9c:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f028fa0:	00005825 */ 	or	$t3,$zero,$zero
-/*  f028fa4:	00004825 */ 	or	$t1,$zero,$zero
-/*  f028fa8:	01404025 */ 	or	$t0,$t2,$zero
-.L0f028fac:
-/*  f028fac:	8d0e0000 */ 	lw	$t6,0x0($t0)
-/*  f028fb0:	55c00004 */ 	bnezl	$t6,.L0f028fc4
-/*  f028fb4:	2529005c */ 	addiu	$t1,$t1,0x5c
-/*  f028fb8:	10000005 */ 	b	.L0f028fd0
-/*  f028fbc:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f028fc0:	2529005c */ 	addiu	$t1,$t1,0x5c
-.L0f028fc4:
-/*  f028fc4:	29210730 */ 	slti	$at,$t1,0x730
-/*  f028fc8:	1420fff8 */ 	bnez	$at,.L0f028fac
-/*  f028fcc:	2508005c */ 	addiu	$t0,$t0,0x5c
-.L0f028fd0:
-/*  f028fd0:	15600010 */ 	bnez	$t3,.L0f029014
-/*  f028fd4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f028fd8:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x8)
-/*  f028fdc:	8c639fc8 */ 	lw	$v1,%lo(g_Vars+0x8)($v1)
-/*  f028fe0:	00004825 */ 	or	$t1,$zero,$zero
-/*  f028fe4:	01404025 */ 	or	$t0,$t2,$zero
-/*  f028fe8:	24040730 */ 	addiu	$a0,$zero,0x730
-.L0f028fec:
-/*  f028fec:	8d02000c */ 	lw	$v0,0xc($t0)
-/*  f028ff0:	0043082a */ 	slt	$at,$v0,$v1
-/*  f028ff4:	50200004 */ 	beqzl	$at,.L0f029008
-/*  f028ff8:	2529005c */ 	addiu	$t1,$t1,0x5c
-/*  f028ffc:	012a2821 */ 	addu	$a1,$t1,$t2
-/*  f029000:	00401825 */ 	or	$v1,$v0,$zero
-/*  f029004:	2529005c */ 	addiu	$t1,$t1,0x5c
-.L0f029008:
-/*  f029008:	1524fff8 */ 	bne	$t1,$a0,.L0f028fec
-/*  f02900c:	2508005c */ 	addiu	$t0,$t0,0x5c
-/*  f029010:	00a05825 */ 	or	$t3,$a1,$zero
-.L0f029014:
-/*  f029014:	51600069 */ 	beqzl	$t3,.L0f0291bc
-/*  f029018:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02901c:	ad700000 */ 	sw	$s0,0x0($t3)
-/*  f029020:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f029024:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x8)
-/*  f029028:	00001025 */ 	or	$v0,$zero,$zero
-/*  f02902c:	ad6f0004 */ 	sw	$t7,0x4($t3)
-/*  f029030:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*  f029034:	01601825 */ 	or	$v1,$t3,$zero
-/*  f029038:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f02903c:	ad780008 */ 	sw	$t8,0x8($t3)
-/*  f029040:	8fb9003c */ 	lw	$t9,0x3c($sp)
-/*  f029044:	a1790010 */ 	sb	$t9,0x10($t3)
-/*  f029048:	8d8c9fc8 */ 	lw	$t4,%lo(g_Vars+0x8)($t4)
-/*  f02904c:	ad6c000c */ 	sw	$t4,0xc($t3)
-.L0f029050:
-/*  f029050:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f029054:	28410020 */ 	slti	$at,$v0,0x20
-/*  f029058:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f02905c:	1420fffc */ 	bnez	$at,.L0f029050
-/*  f029060:	a0670017 */ 	sb	$a3,0x17($v1)
-/*  f029064:	0c004b70 */ 	jal	random
-/*  f029068:	afab0024 */ 	sw	$t3,0x24($sp)
-/*  f02906c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f029070:	0041001b */ 	divu	$zero,$v0,$at
-/*  f029074:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*  f029078:	00006810 */ 	mfhi	$t5
-/*  f02907c:	8fa30040 */ 	lw	$v1,0x40($sp)
-/*  f029080:	25ae0002 */ 	addiu	$t6,$t5,0x2
-/*  f029084:	a16e0011 */ 	sb	$t6,0x11($t3)
-/*  f029088:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f02908c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f029090:	10600008 */ 	beqz	$v1,.L0f0290b4
-/*  f029094:	e5640058 */ 	swc1	$f4,0x58($t3)
-/*  f029098:	846f0000 */ 	lh	$t7,0x0($v1)
-/*  f02909c:	a56f0012 */ 	sh	$t7,0x12($t3)
-/*  f0290a0:	84780002 */ 	lh	$t8,0x2($v1)
-/*  f0290a4:	a5780014 */ 	sh	$t8,0x14($t3)
-/*  f0290a8:	84790004 */ 	lh	$t9,0x4($v1)
-/*  f0290ac:	10000003 */ 	b	.L0f0290bc
-/*  f0290b0:	a5790016 */ 	sh	$t9,0x16($t3)
-.L0f0290b4:
-/*  f0290b4:	240c7fff */ 	addiu	$t4,$zero,0x7fff
-/*  f0290b8:	a56c0012 */ 	sh	$t4,0x12($t3)
-.L0f0290bc:
-/*  f0290bc:	8fad0034 */ 	lw	$t5,0x34($sp)
-/*  f0290c0:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0290c4:	00004825 */ 	or	$t1,$zero,$zero
-/*  f0290c8:	11a00024 */ 	beqz	$t5,.L0f02915c
-/*  f0290cc:	3c088006 */ 	lui	$t0,%hi(g_ShieldHits)
-/*  f0290d0:	8d082a8c */ 	lw	$t0,%lo(g_ShieldHits)($t0)
-/*  f0290d4:	24060020 */ 	addiu	$a2,$zero,0x20
-/*  f0290d8:	2405fffe */ 	addiu	$a1,$zero,-2
-.L0f0290dc:
-/*  f0290dc:	8d0e0000 */ 	lw	$t6,0x0($t0)
-/*  f0290e0:	2529005c */ 	addiu	$t1,$t1,0x5c
-/*  f0290e4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0290e8:	160e000c */ 	bne	$s0,$t6,.L0f02911c
-/*  f0290ec:	01601825 */ 	or	$v1,$t3,$zero
-.L0f0290f0:
-/*  f0290f0:	80640018 */ 	lb	$a0,0x18($v1)
-/*  f0290f4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0290f8:	10e40005 */ 	beq	$a3,$a0,.L0f029110
-/*  f0290fc:	00000000 */ 	nop
-/*  f029100:	10a40003 */ 	beq	$a1,$a0,.L0f029110
-/*  f029104:	00000000 */ 	nop
-/*  f029108:	10000003 */ 	b	.L0f029118
-/*  f02910c:	00005025 */ 	or	$t2,$zero,$zero
-.L0f029110:
-/*  f029110:	1446fff7 */ 	bne	$v0,$a2,.L0f0290f0
-/*  f029114:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f029118:
-/*  f029118:	11400003 */ 	beqz	$t2,.L0f029128
-.L0f02911c:
-/*  f02911c:	29210730 */ 	slti	$at,$t1,0x730
-/*  f029120:	1420ffee */ 	bnez	$at,.L0f0290dc
-/*  f029124:	2508005c */ 	addiu	$t0,$t0,92
-.L0f029128:
-/*  f029128:	1140000c */ 	beqz	$t2,.L0f02915c
-/*  f02912c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f029130:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f029134:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f029138:	02003825 */ 	or	$a3,$s0,$zero
-/*  f02913c:	0fc0a386 */ 	jal	chr0f028e18
-/*  f029140:	afab0024 */ 	sw	$t3,0x24($sp)
-/*  f029144:	28410020 */ 	slti	$at,$v0,0x20
-/*  f029148:	10200004 */ 	beqz	$at,.L0f02915c
-/*  f02914c:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*  f029150:	01621821 */ 	addu	$v1,$t3,$v0
-/*  f029154:	a0600018 */ 	sb	$zero,0x18($v1)
-/*  f029158:	a0600038 */ 	sb	$zero,0x38($v1)
-.L0f02915c:
-/*  f02915c:	92020000 */ 	lbu	$v0,0x0($s0)
-/*  f029160:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f029164:	10410003 */ 	beq	$v0,$at,.L0f029174
-/*  f029168:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f02916c:	54410007 */ 	bnel	$v0,$at,.L0f02918c
-/*  f029170:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f029174:
-/*  f029174:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f029178:	944f0192 */ 	lhu	$t7,0x192($v0)
-/*  f02917c:	35f80002 */ 	ori	$t8,$t7,0x2
-/*  f029180:	1000000d */ 	b	.L0f0291b8
-/*  f029184:	a4580192 */ 	sh	$t8,0x192($v0)
-/*  f029188:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f02918c:
-/*  f02918c:	10410005 */ 	beq	$v0,$at,.L0f0291a4
-/*  f029190:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f029194:	10410003 */ 	beq	$v0,$at,.L0f0291a4
-/*  f029198:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f02919c:	54410007 */ 	bnel	$v0,$at,.L0f0291bc
-/*  f0291a0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0291a4:
-/*  f0291a4:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f0291a8:	3c010002 */ 	lui	$at,0x2
-/*  f0291ac:	8c590010 */ 	lw	$t9,0x10($v0)
-/*  f0291b0:	03216025 */ 	or	$t4,$t9,$at
-/*  f0291b4:	ac4c0010 */ 	sw	$t4,0x10($v0)
-.L0f0291b8:
-/*  f0291b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0291bc:
-/*  f0291bc:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f0291c0:	3c018006 */ 	lui	$at,%hi(g_ShieldHitActive)
-/*  f0291c4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0291c8:	ac2d2a90 */ 	sw	$t5,%lo(g_ShieldHitActive)($at)
-/*  f0291cc:	03e00008 */ 	jr	$ra
-/*  f0291d0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void shieldhitCreate(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s16 *arg6)
+{
+	struct shieldhit *shieldhit = NULL;
+	s32 i;
+	s32 j;
 
-// Mismatch: Goal uses a temp register for shieldhit and handles the i/j loop
-// differently.
-//void shieldhitCreate(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s16 *arg6)
-//{
-//	struct shieldhit *shieldhit = NULL;
-//	s32 i;
-//	s32 j;
-//
-//	for (i = 0; i < 20; i++) {
-//		if (g_ShieldHits[i].prop == NULL) {
-//			shieldhit = &g_ShieldHits[i];
-//			break;
-//		}
-//	}
-//
-//	if (shieldhit == NULL) {
-//		for (i = 0; i < 20; i++) {
-//			if (g_ShieldHits[i].lvframe60 < g_Vars.lvframe60) {
-//				shieldhit = &g_ShieldHits[i];
-//			}
-//		}
-//	}
-//
-//	if (shieldhit) {
-//		shieldhit->prop = prop;
-//		shieldhit->node = node;
-//		shieldhit->model = model;
-//		shieldhit->side = side;
-//		shieldhit->lvframe60 = g_Vars.lvframe60;
-//
-//		for (i = 0; i < 32; i++) {
-//			shieldhit->unk018[i] = -1;
-//		}
-//
-//		shieldhit->unk011 = 2 + (random() % 6);
-//		shieldhit->shield = shield;
-//
-//		if (arg6) {
-//			shieldhit->unk012 = arg6[0];
-//			shieldhit->unk014 = arg6[1];
-//			shieldhit->unk016 = arg6[2];
-//		} else {
-//			shieldhit->unk012 = 0x7fff;
-//		}
-//
-//		if (node) {
-//			bool pass = true;
-//
-//			for (i = 0; i < 20; i++) {
-//				if (g_ShieldHits[i].prop == prop) {
-//					for (j = 0; j < 32; j++) {
-//						if (g_ShieldHits[i].unk018[j] != -1 && g_ShieldHits[i].unk018[j] != -2) {
-//							pass = false;
-//							break;
-//						}
-//					}
-//
-//					if (!pass) {
-//						break;
-//					}
-//				}
-//			}
-//
-//			if (pass) {
-//				s32 index = chr0f028e18(arg2, node, model, prop);
-//
-//				if (index < 32) {
-//					shieldhit->unk018[index] = 0;
-//					shieldhit->unk038[index] = 0;
-//				}
-//			}
-//		}
-//
-//		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
-//			prop->chr->hidden2 |= CHRH2FLAG_SHIELDHIT;
-//		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-//			prop->obj->flags3 |= OBJFLAG3_SHIELDHIT;
-//		}
-//	}
-//
-//	g_ShieldHitActive = true;
-//}
+	// Find any slot that isn't in use (ie. prop is NULL)
+	for (i = 0; i < 20; i++) {
+		if (g_ShieldHits[i].prop == NULL) {
+			shieldhit = &g_ShieldHits[i];
+			break;
+		}
+	}
+
+	// If all slots are in use, take the oldest one
+	if (shieldhit == NULL) {
+		struct shieldhit *oldesthit = NULL;
+		s32 oldestframe = g_Vars.lvframe60;
+
+		for (i = 0; i < 20; i++) {
+			if (g_ShieldHits[i].lvframe60 < oldestframe) {
+				oldesthit = &g_ShieldHits[i];
+				oldestframe = g_ShieldHits[i].lvframe60;
+			}
+		}
+
+		shieldhit = oldesthit;
+	}
+
+	if (shieldhit) {
+		shieldhit->prop = prop;
+		shieldhit->node = node;
+		shieldhit->model = model;
+		shieldhit->side = side;
+		shieldhit->lvframe60 = g_Vars.lvframe60;
+
+		for (i = 0; i < 32; i++) {
+			shieldhit->unk018[i] = -1;
+		}
+
+		shieldhit->unk011 = 2 + (random() % 6);
+		shieldhit->shield = shield;
+
+		if (arg6) {
+			shieldhit->unk012 = arg6[0];
+			shieldhit->unk014 = arg6[1];
+			shieldhit->unk016 = arg6[2];
+		} else {
+			shieldhit->unk012 = 0x7fff;
+		}
+
+		if (node) {
+			bool pass = true;
+
+			for (i = 0; i < 20; i++) {
+				if (g_ShieldHits[i].prop == prop) {
+					for (j = 0; j < 32; j++) {
+						if (shieldhit->unk018[j] != -1 && shieldhit->unk018[j] != -2) {
+							pass = false;
+							break;
+						}
+					}
+
+					if (!pass) {
+						break;
+					}
+				}
+			}
+
+			if (pass) {
+				s32 index = chr0f028e18(arg2, node, model, prop);
+
+				if (index < 32) {
+					shieldhit->unk018[index] = 0;
+					shieldhit->unk038[index] = 0;
+				}
+			}
+		}
+
+		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+			prop->chr->hidden2 |= CHRH2FLAG_SHIELDHIT;
+		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+			prop->obj->flags3 |= OBJFLAG3_SHIELDHIT;
+		}
+	}
+
+	g_ShieldHitActive = true;
+}
 
 void shieldhitRemove(struct shieldhit *shieldhit)
 {
