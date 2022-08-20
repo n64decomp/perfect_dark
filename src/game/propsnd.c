@@ -4337,223 +4337,70 @@ s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 *rooms,
 	return func0f0927d4(sp64, arg1, arg2, arg3, arg6);
 }
 
-GLOBAL_ASM(
-glabel propsnd0f094940
-.late_rodata
-glabel var7f1ab74c
-.word 0x3f2aaaab
-glabel var7f1ab750
-.word 0x3f333333
-glabel var7f1ab754
-.word 0x3f333333
-.text
-/*  f094940:	44856000 */ 	mtc1	$a1,$f12
-/*  f094944:	288100b4 */ 	slti	$at,$a0,0xb4
-/*  f094948:	14200005 */ 	bnez	$at,.L0f094960
-/*  f09494c:	3c0e8006 */ 	lui	$t6,%hi(g_SoundMode)
-/*  f094950:	2484fe98 */ 	addiu	$a0,$a0,-360
-.L0f094954:
-/*  f094954:	288100b4 */ 	slti	$at,$a0,0xb4
-/*  f094958:	5020fffe */ 	beqzl	$at,.L0f094954
-/*  f09495c:	2484fe98 */ 	addiu	$a0,$a0,-360
-.L0f094960:
-/*  f094960:	2881ff4c */ 	slti	$at,$a0,-180
-/*  f094964:	10200005 */ 	beqz	$at,.L0f09497c
-/*  f094968:	00000000 */ 	nop
-/*  f09496c:	24840168 */ 	addiu	$a0,$a0,0x168
-.L0f094970:
-/*  f094970:	2881ff4c */ 	slti	$at,$a0,-180
-/*  f094974:	5420fffe */ 	bnezl	$at,.L0f094970
-/*  f094978:	24840168 */ 	addiu	$a0,$a0,0x168
-.L0f09497c:
-/*  f09497c:	8dceddcc */ 	lw	$t6,%lo(g_SoundMode)($t6)
-/*  f094980:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f094984:	51c10012 */ 	beql	$t6,$at,.L0f0949d0
-/*  f094988:	2881ffd4 */ 	slti	$at,$a0,-44
-/*  f09498c:	18800003 */ 	blez	$a0,.L0f09499c
-/*  f094990:	00041023 */ 	negu	$v0,$a0
-/*  f094994:	10000001 */ 	b	.L0f09499c
-/*  f094998:	00801025 */ 	or	$v0,$a0,$zero
-.L0f09499c:
-/*  f09499c:	2841005b */ 	slti	$at,$v0,0x5b
-/*  f0949a0:	14200002 */ 	bnez	$at,.L0f0949ac
-/*  f0949a4:	240f00b4 */ 	addiu	$t7,$zero,0xb4
-/*  f0949a8:	01e21023 */ 	subu	$v0,$t7,$v0
-.L0f0949ac:
-/*  f0949ac:	18800003 */ 	blez	$a0,.L0f0949bc
-/*  f0949b0:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f0949b4:	10000001 */ 	b	.L0f0949bc
-/*  f0949b8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0949bc:
-/*  f0949bc:	00a20019 */ 	multu	$a1,$v0
-/*  f0949c0:	00002012 */ 	mflo	$a0
-/*  f0949c4:	10000021 */ 	b	.L0f094a4c
-/*  f0949c8:	2881ffa6 */ 	slti	$at,$a0,-90
-/*  f0949cc:	2881ffd4 */ 	slti	$at,$a0,-44
-.L0f0949d0:
-/*  f0949d0:	14200006 */ 	bnez	$at,.L0f0949ec
-/*  f0949d4:	241900b4 */ 	addiu	$t9,$zero,0xb4
-/*  f0949d8:	2881002d */ 	slti	$at,$a0,0x2d
-/*  f0949dc:	10200003 */ 	beqz	$at,.L0f0949ec
-/*  f0949e0:	0004c040 */ 	sll	$t8,$a0,0x1
-/*  f0949e4:	10000018 */ 	b	.L0f094a48
-/*  f0949e8:	03002025 */ 	or	$a0,$t8,$zero
-.L0f0949ec:
-/*  f0949ec:	18800003 */ 	blez	$a0,.L0f0949fc
-/*  f0949f0:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0949f4:	10000001 */ 	b	.L0f0949fc
-/*  f0949f8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0949fc:
-/*  f0949fc:	18800003 */ 	blez	$a0,.L0f094a0c
-/*  f094a00:	00042823 */ 	negu	$a1,$a0
-/*  f094a04:	10000001 */ 	b	.L0f094a0c
-/*  f094a08:	00802825 */ 	or	$a1,$a0,$zero
-.L0f094a0c:
-/*  f094a0c:	03254023 */ 	subu	$t0,$t9,$a1
-/*  f094a10:	44882000 */ 	mtc1	$t0,$f4
-/*  f094a14:	3c017f1b */ 	lui	$at,%hi(var7f1ab74c)
-/*  f094a18:	c428b74c */ 	lwc1	$f8,%lo(var7f1ab74c)($at)
-/*  f094a1c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f094a20:	240b00b4 */ 	addiu	$t3,$zero,0xb4
-/*  f094a24:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f094a28:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f094a2c:	440a8000 */ 	mfc1	$t2,$f16
-/*  f094a30:	00000000 */ 	nop
-/*  f094a34:	016a6023 */ 	subu	$t4,$t3,$t2
-/*  f094a38:	01820019 */ 	multu	$t4,$v0
-/*  f094a3c:	00002012 */ 	mflo	$a0
-/*  f094a40:	00000000 */ 	nop
-/*  f094a44:	00000000 */ 	nop
-.L0f094a48:
-/*  f094a48:	2881ffa6 */ 	slti	$at,$a0,-90
-.L0f094a4c:
-/*  f094a4c:	14200010 */ 	bnez	$at,.L0f094a90
-/*  f094a50:	240e00b4 */ 	addiu	$t6,$zero,0xb4
-/*  f094a54:	2881005b */ 	slti	$at,$a0,0x5b
-/*  f094a58:	1020000d */ 	beqz	$at,.L0f094a90
-/*  f094a5c:	00000000 */ 	nop
-/*  f094a60:	44849000 */ 	mtc1	$a0,$f18
-/*  f094a64:	3c017f1b */ 	lui	$at,%hi(var7f1ab750)
-/*  f094a68:	c426b750 */ 	lwc1	$f6,%lo(var7f1ab750)($at)
-/*  f094a6c:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f094a70:	3c014280 */ 	lui	$at,0x4280
-/*  f094a74:	44815000 */ 	mtc1	$at,$f10
-/*  f094a78:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f094a7c:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f094a80:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f094a84:	44039000 */ 	mfc1	$v1,$f18
-/*  f094a88:	10000019 */ 	b	.L0f094af0
-/*  f094a8c:	00000000 */ 	nop
-.L0f094a90:
-/*  f094a90:	18800003 */ 	blez	$a0,.L0f094aa0
-/*  f094a94:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f094a98:	10000001 */ 	b	.L0f094aa0
-/*  f094a9c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f094aa0:
-/*  f094aa0:	18800003 */ 	blez	$a0,.L0f094ab0
-/*  f094aa4:	00042823 */ 	negu	$a1,$a0
-/*  f094aa8:	10000001 */ 	b	.L0f094ab0
-/*  f094aac:	00802825 */ 	or	$a1,$a0,$zero
-.L0f094ab0:
-/*  f094ab0:	01c57823 */ 	subu	$t7,$t6,$a1
-/*  f094ab4:	01e20019 */ 	multu	$t7,$v0
-/*  f094ab8:	3c017f1b */ 	lui	$at,%hi(var7f1ab754)
-/*  f094abc:	c428b754 */ 	lwc1	$f8,%lo(var7f1ab754)($at)
-/*  f094ac0:	3c014280 */ 	lui	$at,0x4280
-/*  f094ac4:	44818000 */ 	mtc1	$at,$f16
-/*  f094ac8:	0000c012 */ 	mflo	$t8
-/*  f094acc:	44982000 */ 	mtc1	$t8,$f4
-/*  f094ad0:	00000000 */ 	nop
-/*  f094ad4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f094ad8:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f094adc:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f094ae0:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f094ae4:	44032000 */ 	mfc1	$v1,$f4
-/*  f094ae8:	00000000 */ 	nop
-/*  f094aec:	24630080 */ 	addiu	$v1,$v1,0x80
-.L0f094af0:
-/*  f094af0:	10c00008 */ 	beqz	$a2,.L0f094b14
-/*  f094af4:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f094af8:	44813000 */ 	mtc1	$at,$f6
-/*  f094afc:	a4c40014 */ 	sh	$a0,0x14($a2)
-/*  f094b00:	460c3202 */ 	mul.s	$f8,$f6,$f12
-/*  f094b04:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f094b08:	44095000 */ 	mfc1	$t1,$f10
-/*  f094b0c:	00000000 */ 	nop
-/*  f094b10:	a4c90016 */ 	sh	$t1,0x16($a2)
-.L0f094b14:
-/*  f094b14:	03e00008 */ 	jr	$ra
-/*  f094b18:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 propsnd0f094940(s32 degrees, f32 arg1, struct audiochannel *channel)
+{
+	s32 result;
 
-// Mismatch: regalloc
-//s32 propsnd0f094940(s32 arg0, f32 arg1, struct audiochannel *channel)
-//{
-//	s32 v1;
-//
-//	while (arg0 >= 180) {
-//		arg0 -= 360;
-//	}
-//
-//	while (arg0 < -180) {
-//		arg0 += 360;
-//	}
-//
-//	switch (g_SoundMode) {
-//	default:
-//		{
-//			s32 v0;
-//			s32 a1;
-//
-//			v0 = ABS(arg0);
-//
-//			if (v0 > 90) {
-//				v0 = 180 - v0;
-//			}
-//
-//			// 9ac
-//			a1 = arg0 > 0 ? 1 : -1;
-//
-//			arg0 = a1 * v0;
-//		}
-//		break;
-//	case SOUNDMODE_SURROUND:
-//		if (arg0 > -45 && arg0 < 45) {
-//			arg0 *= 2;
-//		} else {
-//			s32 t4;
-//			s32 v0;
-//			s32 a1;
-//
-//			// 9fc
-//			v0 = arg0 > 0 ? 1 : -1;
-//			a1 = ABS(arg0);
-//
-//			t4 = (180 - a1) * 0.6666667f;
-//			arg0 = (180 - t4) * v0;
-//		}
-//		break;
-//	}
-//
-//	if (arg0 >= -90 && arg0 <= 90) {
-//		v1 = arg0 * 0.7f + 64.0f;
-//	} else {
-//		s32 v0;
-//		s32 a1;
-//
-//		v0 = (arg0 > 0 ? 1 : -1);
-//		a1 = ABS(arg0);
-//
-//		v1 = (s32) ((180 - a1) * v0 * 0.7f + 64.0f) + 128;
-//	}
-//
-//	if (channel != NULL) {
-//		channel->unk14 = arg0;
-//		channel->unk16 = 100.0f * arg1;
-//	}
-//
-//	return v1;
-//}
+	while (degrees >= 180) {
+		degrees -= 360;
+	}
+
+	while (degrees < -180) {
+		degrees += 360;
+	}
+
+	switch (g_SoundMode) {
+	default:
+		{
+			s32 absdegrees = degrees > 0 ? degrees : -degrees;
+			s32 dir;
+			s32 v1;
+
+			if (absdegrees > 90) {
+				absdegrees = 180 - absdegrees;
+			}
+
+			v1 = absdegrees && absdegrees;
+			dir = (degrees > 0) ? (1) : (-1);
+
+			if (v1);
+
+			degrees = dir * absdegrees;
+		}
+		break;
+	case SOUNDMODE_SURROUND:
+		if (degrees > -45 && degrees < 45) {
+			degrees *= 2;
+		} else {
+			s32 dir = degrees > 0 ? 1 : -1;
+			s32 v1 = dir && dir;
+			s32 absdegrees = degrees > 0 ? degrees : -degrees;
+			s32 t4 = (180 - absdegrees) * 0.6666667f;
+
+			if (v1);
+
+			degrees = (180 - t4) * dir;
+		}
+		break;
+	}
+
+	if (degrees >= -90 && degrees <= 90) {
+		result = degrees * 0.7f + 64.0f;
+	} else {
+		s32 v0;
+		s32 dir = degrees > 0 ? 1 : -1;
+		s32 absdegrees = ABS(degrees);
+
+		result = (s32) ((180 - absdegrees) * dir * 0.7f + 64.0f) + 128;
+	}
+
+	if (channel != NULL) {
+		channel->unk14 = degrees;
+		channel->unk16 = 100.0f * arg1;
+	}
+
+	return result;
+}
 
 s32 propsnd0f094b1c(struct coord *pos, s32 arg1, f32 arg2, struct audiochannel *channel)
 {
