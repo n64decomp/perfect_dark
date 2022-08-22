@@ -3,6 +3,7 @@
 #include <os_internal.h>
 #include <R4300.h>
 #include <rcp.h>
+#include "constants.h"
 
 typedef struct {
 	unsigned int inst1;
@@ -57,7 +58,7 @@ void osInitialize(void)
 	osClockRate = osClockRate * 3 / 4;
 #endif
 
-	if (osResetType == 0 /*cold reset*/) {
+	if (osResetType == RESETTYPE_COLD) {
 		bzero(&osAppNMIBuffer, 0x40);
 	}
 

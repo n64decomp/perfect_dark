@@ -8105,7 +8105,7 @@ void titleTickNintendoLogo(void)
 	}
 
 	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
-		if (osResetType == 1 /*warm*/) {
+		if (osResetType == RESETTYPE_WARM) {
 			g_TitleButtonPressed = true;
 			titleSetNextMode(TITLEMODE_PDLOGO);
 		} else if (!g_TitleButtonPressed) {
@@ -8278,7 +8278,7 @@ void titleTickRareLogo(void)
 		g_TitleTimer += g_Vars.lvupdate240_60;
 
 		if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
-			if (osResetType == 1 /*warm*/) {
+			if (osResetType == RESETTYPE_WARM) {
 				g_TitleButtonPressed = true;
 				titleSetNextMode(TITLEMODE_PDLOGO);
 			} else if (!g_TitleButtonPressed) {

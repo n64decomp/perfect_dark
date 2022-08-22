@@ -106,13 +106,6 @@ extern u32 *g_VmZipTable;
 
 #define MAX_LOADED_PAGES 268
 
-#define VM_MEMORY_END (0x80400000 \
-		- STACKSIZE_MAIN \
-		- STACKSIZE_IDLE \
-		- STACKSIZE_RMON \
-		- STACKSIZE_SCHED \
-		- STACKSIZE_AUDIO - 8)
-
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel vmInit
@@ -818,8 +811,8 @@ glabel vmInit
 //		sp1474 = t8 + 1;
 //
 //		g_VmRamEnd = 0x7f000000 + PAGE_SIZE * g_VmNumPages;
-//		g_VmStateTableEnd = VM_MEMORY_END;
-//		g_VmStateTable = (u32 *)(VM_MEMORY_END - g_VmNumPages * 8);
+//		g_VmStateTableEnd = STACK_START;
+//		g_VmStateTable = (u32 *)(STACK_START - g_VmNumPages * 8);
 //		g_VmZipTable = (u32 *)(((u32)g_VmStateTable - (sp1474 + 5) * 4) & ~0xf);
 //
 //		// Load gamezips pointer list
@@ -864,7 +857,7 @@ glabel vmInit
 //		g_Is4Mb = false;
 //
 //		t8 = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + 0xfff) / PAGE_SIZE;
-//		s7 = (u8 *)VM_MEMORY_END;
+//		s7 = (u8 *)STACK_START;
 //		gameseg = (u8 *)(((u32)s7 - ALIGN64(&_gameSegmentEnd - &_gameSegmentStart)) & 0xfffe0000);
 //		sp1474 = t8 + 1;
 //

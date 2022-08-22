@@ -2,6 +2,7 @@
 #include <os_internal.h>
 #include <R4300.h>
 #include <rcp.h>
+#include "constants.h"
 #include "versions.h"
 
 /**
@@ -52,7 +53,7 @@ void osInitialize2()
 
 	osClockRate = osClockRate * 3 / 4;
 
-	if (osResetType == 0 /*cold reset */) {
+	if (osResetType == RESETTYPE_COLD) {
 		bzero(osAppNMIBuffer, OS_APP_NMI_BUFSIZE);
 	}
 

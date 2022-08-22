@@ -152,13 +152,6 @@ SECTIONS
 	osMemSize = 0x80000318;
 	osAppNMIBuffer = 0x8000031c;
 
-	var800902e4 = 0x800902e4; /* for ntsc-beta */
-	var800902e8 = 0x800902e8; /* for ntsc-beta */
-
-	var803f50b8 = 0x803f50b8;
-
-	varbc000c02 = 0xbc000c02; /* for ntsc-beta */
-
 	getitle0f0155f0_hack = getitle0f0155f0;
 	viGetHeight_hack = viGetHeight;
 

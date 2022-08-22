@@ -132,8 +132,7 @@ typedef struct OSThread_s {
 
 /* Thread operations */
 
-extern void		osCreateThread(OSThread *, OSId, void (*)(void *),
-				       void *, void *, OSPri);
+extern void		osCreateThread(OSThread *, OSId, void (*)(void *), void *, void *, OSPri);
 extern void		osDestroyThread(OSThread *);
 extern void		osYieldThread(void);
 extern void		osStartThread(OSThread *);
