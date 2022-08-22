@@ -41,7 +41,9 @@
 #include "game/splat.h"
 #include "game/utils.h"
 #include "bss.h"
+#include "lib/audiomgr.h"
 #include "lib/args.h"
+#include "lib/boot.h"
 #include "lib/vm.h"
 #include "lib/rzip.h"
 #include "lib/vi.h"
@@ -62,7 +64,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 var8005d9b0 = 0;
+bool var8005d9b0 = false;
 s32 g_StageNum = STAGE_TITLE;
 u32 g_MainMemaHeapSize = 1024 * 300;
 bool var8005d9bc = false;
@@ -293,1627 +295,296 @@ Gfx var8005dcf0[] = {
 
 s32 var8005dd18 = 1;
 
+extern u8 _accessingpakSegmentRomStart;
+extern u8 _accessingpakSegmentRomEnd;
+extern u8 _copyrightSegmentRomStart;
+extern u8 _copyrightSegmentRomEnd;
+extern u8 _bssSegmentEnd;
+
+#if VERSION >= VERSION_NTSC_1_0
+/**
+ * Initialise various subsystems, display the copyright or accessing pak texture,
+ * then initialise more subsystems.
+ */
+void mainInit(void)
+{
+	s32 x;
+	s32 dsty;
+	OSMesg msg;
+	OSTimer timer;
+	OSMesgQueue queue;
+	s32 i;
+	s32 j;
+	u16 *fb;
+	s32 srcy;
+	u32 addr;
+	u8 *start;
+	u8 *end;
+
+	faultInit();
+	dmaInit();
+	amgrInit();
+	varsInit();
+	mempInit();
+	memaInit();
+	videbugInit();
+	viConfigureForLogos();
+	var8005d9b0 = rmonIsDisabled();
+	joyInit();
+	osCreateMesgQueue(&queue, &msg, 1);
+
+	// Wait a bit, reset the controllers and wait a bit more
+	for (i = 0; i < 4; i++) {
+		osSetTimer(&timer, 781250 * 6, 0, &queue, &msg);
+		osRecvMesg(&queue, &msg, OS_MESG_BLOCK);
+
+		if (i == 1) {
+			joyReset();
+		} else if (i >= 2) {
+			joyDebugJoy();
+		}
+
+		if (1);
+		if (1);
+	}
+
+	if (argFindByPrefix(1, "-level_") == NULL) {
+		var8005d9b0 = true;
+	}
+
+	// If holding start on any controller, open boot pak menu
+	if (joyGetButtons(0, START_BUTTON) == 0
+			&& joyGetButtons(1, START_BUTTON) == 0
+			&& joyGetButtons(2, START_BUTTON) == 0
+			&& joyGetButtons(3, START_BUTTON) == 0) {
+		g_DoBootPakMenu = false;
+	} else {
+		g_DoBootPakMenu = true;
+	}
+
+#if VERSION == VERSION_PAL_BETA
+	// In PAL beta, pressing all C buttons during poweron sets g_CrashHasMessage.
+	// If it's set, a sound effect is played on the legal screen.
+	// It's likely some debug code to see how far the game got before crashing.
+#define BUTTON_MASK (U_CBUTTONS | D_CBUTTONS | L_CBUTTONS | R_CBUTTONS)
+
+	if (joyGetButtons(0, BUTTON_MASK) == BUTTON_MASK
+			|| joyGetButtons(1, BUTTON_MASK) == BUTTON_MASK
+			|| joyGetButtons(2, BUTTON_MASK) == BUTTON_MASK
+			|| joyGetButtons(3, BUTTON_MASK) == BUTTON_MASK) {
+		g_CrashHasMessage = true;
+	}
+#endif
+
+	{
+		OSMesg receivedmsg = NULL;
+		OSScMsg scdonemsg = { OS_SC_DONE_MSG };
+		u16 *texture;
+		s32 numpages;
+		u8 scratch[1024 * 5 - 8];
+#if PAL
+		u32 stack[2];
+#endif
+
+		// Choose where to place the temporary framebuffer.
+		// In 4MB mode, place it close to the end of memory,
+		// but before the thread stacks and VM system.
+		// In 8MB mode, put it at the end of the expansion pak.
+		if (bootGetMemSize() <= 4 * 1024 * 1024) {
+			addr = 0x80400000;
+			addr -= STACKSIZE_MAIN;
+			addr -= STACKSIZE_IDLE;
+			addr -= STACKSIZE_RMON;
+			addr -= STACKSIZE_SCHED;
+			addr -= STACKSIZE_AUDIO;
+			addr -= 8; // markers for stack overflow detection
+			addr -= g_VmNumPages * 8; // vm state table
+			addr -= 268 * 4096; // vm loaded pages buffer
+			addr -= addr % 0x2000; // align down to a multiple of 0x2000
+			addr -= 0x1c80; // buffer for single biggest game zip
+		} else {
+			addr = 0x80800000;
+		}
+
+		addr -= 640 * 480 * 2; // the framebuffer itself
+		addr -= 0x40; // align down to a multiple of 0x40
+
+		fb = (u16 *) ALIGN64(PHYS_TO_K0(addr));
+
+		// Prepare space for the unzipped texture immediately before the framebuffer.
+		// Both textures are 507x48.
+		texture = fb - 507 * 48;
+
+		// DMA the compressed texture from the ROM to the framebuffer.
+		// It's using the framebuffer as a temporary data buffer.
+		if (g_DoBootPakMenu) {
+			start = &_accessingpakSegmentRomStart;
+			end = &_accessingpakSegmentRomEnd;
+			dmaExec(fb, (u32) start, end - start);
+		} else {
+			start = &_copyrightSegmentRomStart;
+			end = &_copyrightSegmentRomEnd;
+			dmaExec(fb, (u32) start, end - start);
+		}
+
+		// This is required for a match
+		numpages = g_VmNumPages;
+
+		if ((f64) numpages && (f64) numpages);
+
+		// Unzip the compressed texture from fb to texture
+		rzipInflate(fb, texture, scratch);
+
+		// Clear the framebuffer except for the bottom 48 rows,
+		// because that's where the texture will go.
+		// The increment here is too small, so some pixels are zeroed twice.
+		for (dsty = 0; dsty < (480 - 48) * 640; dsty += 576) {
+			for (x = 0; x < 640; x++) {
+				fb[dsty + x] = 0;
+			}
+		}
+
 #if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel mainInit
-/*  d4c0:	27bdeb28 */ 	addiu	$sp,$sp,-5336
-/*  d4c4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  d4c8:	0c002fd4 */ 	jal	faultInit
-/*  d4cc:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  d4d0:	0c003410 */ 	jal	dmaInit
-/*  d4d4:	00000000 */ 	nop
-/*  d4d8:	0c002264 */ 	jal	amgrInit
-/*  d4dc:	00000000 */ 	nop
-/*  d4e0:	0c005600 */ 	jal	varsInit
-/*  d4e4:	00000000 */ 	nop
-/*  d4e8:	0c004868 */ 	jal	mempInit
-/*  d4ec:	00000000 */ 	nop
-/*  d4f0:	0c004a73 */ 	jal	memaInit
-/*  d4f4:	00000000 */ 	nop
-/*  d4f8:	0c004dbe */ 	jal	videbugInit
-/*  d4fc:	00000000 */ 	nop
-/*  d500:	0c002690 */ 	jal	viConfigureForLogos
-/*  d504:	00000000 */ 	nop
-/*  d508:	0c00bd46 */ 	jal	rmonIsDisabled
-/*  d50c:	00000000 */ 	nop
-/*  d510:	3c018006 */ 	lui	$at,0x8006
-/*  d514:	0c004f0b */ 	jal	joyInit
-/*  d518:	ac22d860 */ 	sw	$v0,-0x27a0($at)
-/*  d51c:	27a41490 */ 	addiu	$a0,$sp,0x1490
-/*  d520:	27a514cc */ 	addiu	$a1,$sp,0x14cc
-/*  d524:	0c011f94 */ 	jal	osCreateMesgQueue
-/*  d528:	24060001 */ 	li	$a2,0x1
-/*  d52c:	00008025 */ 	move	$s0,$zero
-/*  d530:	3c070047 */ 	lui	$a3,0x47
-.JF0000d534:
-/*  d534:	240e0000 */ 	li	$t6,0x0
-/*  d538:	240f0000 */ 	li	$t7,0x0
-/*  d53c:	27b81490 */ 	addiu	$t8,$sp,0x1490
-/*  d540:	27b914cc */ 	addiu	$t9,$sp,0x14cc
-/*  d544:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  d548:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  d54c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  d550:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  d554:	34e7868c */ 	ori	$a3,$a3,0x868c
-/*  d558:	27a414a8 */ 	addiu	$a0,$sp,0x14a8
-/*  d55c:	0c01218c */ 	jal	osSetTimer
-/*  d560:	24060000 */ 	li	$a2,0x0
-/*  d564:	27a41490 */ 	addiu	$a0,$sp,0x1490
-/*  d568:	27a514cc */ 	addiu	$a1,$sp,0x14cc
-/*  d56c:	0c012080 */ 	jal	osRecvMesg
-/*  d570:	24060001 */ 	li	$a2,0x1
-/*  d574:	24010001 */ 	li	$at,0x1
-/*  d578:	56010006 */ 	bnel	$s0,$at,.JF0000d594
-/*  d57c:	2a010002 */ 	slti	$at,$s0,0x2
-/*  d580:	0c004f65 */ 	jal	joyReset
-/*  d584:	00000000 */ 	nop
-/*  d588:	10000007 */ 	b	.JF0000d5a8
-/*  d58c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  d590:	2a010002 */ 	slti	$at,$s0,0x2
-.JF0000d594:
-/*  d594:	54200004 */ 	bnezl	$at,.JF0000d5a8
-/*  d598:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  d59c:	0c0050a2 */ 	jal	joyDebugJoy
-/*  d5a0:	00000000 */ 	nop
-/*  d5a4:	26100001 */ 	addiu	$s0,$s0,0x1
-.JF0000d5a8:
-/*  d5a8:	24010004 */ 	li	$at,0x4
-/*  d5ac:	5601ffe1 */ 	bnel	$s0,$at,.JF0000d534
-/*  d5b0:	3c070047 */ 	lui	$a3,0x47
-/*  d5b4:	3c057005 */ 	lui	$a1,0x7005
-/*  d5b8:	24a53948 */ 	addiu	$a1,$a1,0x3948
-/*  d5bc:	0c004bec */ 	jal	argFindByPrefix
-/*  d5c0:	24040001 */ 	li	$a0,0x1
-/*  d5c4:	14400004 */ 	bnez	$v0,.JF0000d5d8
-/*  d5c8:	00002025 */ 	move	$a0,$zero
-/*  d5cc:	240b0001 */ 	li	$t3,0x1
-/*  d5d0:	3c018006 */ 	lui	$at,0x8006
-/*  d5d4:	ac2bd860 */ 	sw	$t3,-0x27a0($at)
-.JF0000d5d8:
-/*  d5d8:	0c0053be */ 	jal	joyGetButtons
-/*  d5dc:	24051000 */ 	li	$a1,0x1000
-/*  d5e0:	14400010 */ 	bnez	$v0,.JF0000d624
-/*  d5e4:	24040001 */ 	li	$a0,0x1
-/*  d5e8:	0c0053be */ 	jal	joyGetButtons
-/*  d5ec:	24051000 */ 	li	$a1,0x1000
-/*  d5f0:	1440000c */ 	bnez	$v0,.JF0000d624
-/*  d5f4:	24040002 */ 	li	$a0,0x2
-/*  d5f8:	0c0053be */ 	jal	joyGetButtons
-/*  d5fc:	24051000 */ 	li	$a1,0x1000
-/*  d600:	14400008 */ 	bnez	$v0,.JF0000d624
-/*  d604:	24040003 */ 	li	$a0,0x3
-/*  d608:	0c0053be */ 	jal	joyGetButtons
-/*  d60c:	24051000 */ 	li	$a1,0x1000
-/*  d610:	14400004 */ 	bnez	$v0,.JF0000d624
-/*  d614:	3c108006 */ 	lui	$s0,0x8006
-/*  d618:	2610d884 */ 	addiu	$s0,$s0,-10108
-/*  d61c:	10000005 */ 	b	.JF0000d634
-/*  d620:	ae000000 */ 	sw	$zero,0x0($s0)
-.JF0000d624:
-/*  d624:	3c108006 */ 	lui	$s0,0x8006
-/*  d628:	2610d884 */ 	addiu	$s0,$s0,-10108
-/*  d62c:	240c0001 */ 	li	$t4,0x1
-/*  d630:	ae0c0000 */ 	sw	$t4,0x0($s0)
-.JF0000d634:
-/*  d634:	3c0e8006 */ 	lui	$t6,0x8006
-/*  d638:	afa01470 */ 	sw	$zero,0x1470($sp)
-/*  d63c:	25cedbcc */ 	addiu	$t6,$t6,-9268
-/*  d640:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  d644:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  d648:	27ad1450 */ 	addiu	$t5,$sp,0x1450
-/*  d64c:	ada10000 */ 	sw	$at,0x0($t5)
-/*  d650:	adb90004 */ 	sw	$t9,0x4($t5)
-/*  d654:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*  d658:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  d65c:	adb9000c */ 	sw	$t9,0xc($t5)
-/*  d660:	ada10008 */ 	sw	$at,0x8($t5)
-/*  d664:	8dc10010 */ 	lw	$at,0x10($t6)
-/*  d668:	8dd90014 */ 	lw	$t9,0x14($t6)
-/*  d66c:	ada10010 */ 	sw	$at,0x10($t5)
-/*  d670:	adb90014 */ 	sw	$t9,0x14($t5)
-/*  d674:	8dd9001c */ 	lw	$t9,0x1c($t6)
-/*  d678:	8dc10018 */ 	lw	$at,0x18($t6)
-/*  d67c:	adb9001c */ 	sw	$t9,0x1c($t5)
-/*  d680:	0c0005b0 */ 	jal	bootGetMemSize
-/*  d684:	ada10018 */ 	sw	$at,0x18($t5)
-/*  d688:	3c010040 */ 	lui	$at,0x40
-/*  d68c:	34210001 */ 	ori	$at,$at,0x1
-/*  d690:	0041082a */ 	slt	$at,$v0,$at
-/*  d694:	1020000e */ 	beqz	$at,.JF0000d6d0
-/*  d698:	3c028080 */ 	lui	$v0,0x8080
-/*  d69c:	3c0b8006 */ 	lui	$t3,0x8006
-/*  d6a0:	8d6bce34 */ 	lw	$t3,-0x31cc($t3)
-/*  d6a4:	3c18803f */ 	lui	$t8,0x803f
-/*  d6a8:	371850b8 */ 	ori	$t8,$t8,0x50b8
-/*  d6ac:	3c01ffef */ 	lui	$at,0xffef
-/*  d6b0:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  d6b4:	030c1023 */ 	subu	$v0,$t8,$t4
-/*  d6b8:	34214000 */ 	ori	$at,$at,0x4000
-/*  d6bc:	00411021 */ 	addu	$v0,$v0,$at
-/*  d6c0:	304f1fff */ 	andi	$t7,$v0,0x1fff
-/*  d6c4:	004f1023 */ 	subu	$v0,$v0,$t7
-/*  d6c8:	10000001 */ 	b	.JF0000d6d0
-/*  d6cc:	2442e380 */ 	addiu	$v0,$v0,-7296
-.JF0000d6d0:
-/*  d6d0:	8e0d0000 */ 	lw	$t5,0x0($s0)
-/*  d6d4:	3c01fff6 */ 	lui	$at,0xfff6
-/*  d6d8:	3421a000 */ 	ori	$at,$at,0xa000
-/*  d6dc:	00411021 */ 	addu	$v0,$v0,$at
-/*  d6e0:	11a0000f */ 	beqz	$t5,.JF0000d720
-/*  d6e4:	2442ffc0 */ 	addiu	$v0,$v0,-64
-/*  d6e8:	3c018000 */ 	lui	$at,0x8000
-/*  d6ec:	00418025 */ 	or	$s0,$v0,$at
-/*  d6f0:	2610003f */ 	addiu	$s0,$s0,0x3f
-/*  d6f4:	3c030200 */ 	lui	$v1,0x200
-/*  d6f8:	360e003f */ 	ori	$t6,$s0,0x3f
-/*  d6fc:	3c0b0200 */ 	lui	$t3,0x200
-/*  d700:	2465e1e0 */ 	addiu	$a1,$v1,-7712
-/*  d704:	256bea90 */ 	addiu	$t3,$t3,-5488
-/*  d708:	39c4003f */ 	xori	$a0,$t6,0x3f
-/*  d70c:	00808025 */ 	move	$s0,$a0
-/*  d710:	0c0034ec */ 	jal	dmaExec
-/*  d714:	01653023 */ 	subu	$a2,$t3,$a1
-/*  d718:	1000000e */ 	b	.JF0000d754
-/*  d71c:	3c01ffff */ 	lui	$at,0xffff
-.JF0000d720:
-/*  d720:	3c018000 */ 	lui	$at,0x8000
-/*  d724:	00418025 */ 	or	$s0,$v0,$at
-/*  d728:	2610003f */ 	addiu	$s0,$s0,0x3f
-/*  d72c:	3c030200 */ 	lui	$v1,0x200
-/*  d730:	3618003f */ 	ori	$t8,$s0,0x3f
-/*  d734:	3c0f0200 */ 	lui	$t7,0x200
-/*  d738:	2465d6b0 */ 	addiu	$a1,$v1,-10576
-/*  d73c:	25efe1e0 */ 	addiu	$t7,$t7,-7712
-/*  d740:	3b04003f */ 	xori	$a0,$t8,0x3f
-/*  d744:	00808025 */ 	move	$s0,$a0
-/*  d748:	0c0034ec */ 	jal	dmaExec
-/*  d74c:	01e53023 */ 	subu	$a2,$t7,$a1
-/*  d750:	3c01ffff */ 	lui	$at,0xffff
-.JF0000d754:
-/*  d754:	342141e0 */ 	ori	$at,$at,0x41e0
-/*  d758:	02012821 */ 	addu	$a1,$s0,$at
-/*  d75c:	afa50048 */ 	sw	$a1,0x48($sp)
-/*  d760:	02002025 */ 	move	$a0,$s0
-/*  d764:	0c001d18 */ 	jal	rzipInflate
-/*  d768:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  d76c:	3c050004 */ 	lui	$a1,0x4
-/*  d770:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  d774:	34a53800 */ 	ori	$a1,$a1,0x3800
-/*  d778:	00003825 */ 	move	$a3,$zero
-/*  d77c:	24040500 */ 	li	$a0,0x500
-/*  d780:	00076840 */ 	sll	$t5,$a3,0x1
-.JF0000d784:
-/*  d784:	020d1821 */ 	addu	$v1,$s0,$t5
-/*  d788:	00001025 */ 	move	$v0,$zero
-.JF0000d78c:
-/*  d78c:	00627021 */ 	addu	$t6,$v1,$v0
-/*  d790:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  d794:	1444fffd */ 	bne	$v0,$a0,.JF0000d78c
-/*  d798:	a5c00000 */ 	sh	$zero,0x0($t6)
-/*  d79c:	24e70240 */ 	addiu	$a3,$a3,0x240
-/*  d7a0:	00e5082a */ 	slt	$at,$a3,$a1
-/*  d7a4:	5420fff7 */ 	bnezl	$at,.JF0000d784
-/*  d7a8:	00076840 */ 	sll	$t5,$a3,0x1
-/*  d7ac:	3c198000 */ 	lui	$t9,0x8000
-/*  d7b0:	8f390300 */ 	lw	$t9,0x300($t9)
-/*  d7b4:	24010001 */ 	li	$at,0x1
-/*  d7b8:	00003825 */ 	move	$a3,$zero
-/*  d7bc:	17210011 */ 	bne	$t9,$at,.JF0000d804
-/*  d7c0:	00003025 */ 	move	$a2,$zero
-/*  d7c4:	24095f10 */ 	li	$t1,0x5f10
-/*  d7c8:	240503f6 */ 	li	$a1,0x3f6
-.JF0000d7cc:
-/*  d7cc:	00075840 */ 	sll	$t3,$a3,0x1
-/*  d7d0:	0006c040 */ 	sll	$t8,$a2,0x1
-/*  d7d4:	01582021 */ 	addu	$a0,$t2,$t8
-/*  d7d8:	020b1821 */ 	addu	$v1,$s0,$t3
-/*  d7dc:	00001025 */ 	move	$v0,$zero
-.JF0000d7e0:
-/*  d7e0:	00826021 */ 	addu	$t4,$a0,$v0
-/*  d7e4:	958f0000 */ 	lhu	$t7,0x0($t4)
-/*  d7e8:	00626821 */ 	addu	$t5,$v1,$v0
-/*  d7ec:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  d7f0:	1445fffb */ 	bne	$v0,$a1,.JF0000d7e0
-/*  d7f4:	a5af008a */ 	sh	$t7,0x8a($t5)
-/*  d7f8:	24c601fb */ 	addiu	$a2,$a2,0x1fb
-/*  d7fc:	14c9fff3 */ 	bne	$a2,$t1,.JF0000d7cc
-/*  d800:	24e70240 */ 	addiu	$a3,$a3,0x240
-.JF0000d804:
-/*  d804:	0c002a95 */ 	jal	viSetMode
-/*  d808:	24040002 */ 	li	$a0,0x2
-/*  d80c:	0c0026bd */ 	jal	viConfigureForBanner
-/*  d810:	02002025 */ 	move	$a0,$s0
-/*  d814:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  d818:	3c018006 */ 	lui	$at,0x8006
-/*  d81c:	3c048009 */ 	lui	$a0,0x8009
-/*  d820:	ac2aef04 */ 	sw	$t2,-0x10fc($at)
-/*  d824:	3c018006 */ 	lui	$at,0x8006
-/*  d828:	254e0800 */ 	addiu	$t6,$t2,0x800
-/*  d82c:	ac2eef00 */ 	sw	$t6,-0x1100($at)
-/*  d830:	2484e1a0 */ 	addiu	$a0,$a0,-7776
-/*  d834:	27a51470 */ 	addiu	$a1,$sp,0x1470
-/*  d838:	0c012080 */ 	jal	osRecvMesg
-/*  d83c:	00003025 */ 	move	$a2,$zero
-/*  d840:	14400007 */ 	bnez	$v0,.JF0000d860
-.JF0000d844:
-/*  d844:	3c048009 */ 	lui	$a0,0x8009
-/*  d848:	2484e1a0 */ 	addiu	$a0,$a0,-7776
-/*  d84c:	27a51470 */ 	addiu	$a1,$sp,0x1470
-/*  d850:	0c012080 */ 	jal	osRecvMesg
-/*  d854:	00003025 */ 	move	$a2,$zero
-/*  d858:	1040fffa */ 	beqz	$v0,.JF0000d844
-/*  d85c:	00000000 */ 	nop
-.JF0000d860:
-/*  d860:	00001825 */ 	move	$v1,$zero
-.JF0000d864:
-/*  d864:	3c048009 */ 	lui	$a0,0x8009
-/*  d868:	2484e1a0 */ 	addiu	$a0,$a0,-7776
-/*  d86c:	27a51470 */ 	addiu	$a1,$sp,0x1470
-/*  d870:	24060001 */ 	li	$a2,0x1
-/*  d874:	0c012080 */ 	jal	osRecvMesg
-/*  d878:	afa31488 */ 	sw	$v1,0x1488($sp)
-/*  d87c:	8fb91470 */ 	lw	$t9,0x1470($sp)
-/*  d880:	24010001 */ 	li	$at,0x1
-/*  d884:	8fa31488 */ 	lw	$v1,0x1488($sp)
-/*  d888:	872b0000 */ 	lh	$t3,0x0($t9)
-/*  d88c:	27b01450 */ 	addiu	$s0,$sp,0x1450
-/*  d890:	5561000d */ 	bnel	$t3,$at,.JF0000d8c8
-/*  d894:	28610006 */ 	slti	$at,$v1,0x6
-/*  d898:	0c0027fa */ 	jal	viUpdateMode
-/*  d89c:	afa31488 */ 	sw	$v1,0x1488($sp)
-/*  d8a0:	3c048006 */ 	lui	$a0,0x8006
-/*  d8a4:	3c058006 */ 	lui	$a1,0x8006
-/*  d8a8:	24a5dba0 */ 	addiu	$a1,$a1,-9312
-/*  d8ac:	2484db78 */ 	addiu	$a0,$a0,-9352
-/*  d8b0:	00003025 */ 	move	$a2,$zero
-/*  d8b4:	0c00bd01 */ 	jal	rdpCreateTask
-/*  d8b8:	02003825 */ 	move	$a3,$s0
-/*  d8bc:	8fa31488 */ 	lw	$v1,0x1488($sp)
-/*  d8c0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  d8c4:	28610006 */ 	slti	$at,$v1,0x6
-.JF0000d8c8:
-/*  d8c8:	1420ffe6 */ 	bnez	$at,.JF0000d864
-/*  d8cc:	00000000 */ 	nop
-/*  d8d0:	3c188000 */ 	lui	$t8,0x8000
-/*  d8d4:	8f180300 */ 	lw	$t8,0x300($t8)
-/*  d8d8:	24010001 */ 	li	$at,0x1
-/*  d8dc:	13010003 */ 	beq	$t8,$at,.JF0000d8ec
-/*  d8e0:	00000000 */ 	nop
-.JF0000d8e4:
-/*  d8e4:	1000ffff */ 	b	.JF0000d8e4
-/*  d8e8:	00000000 */ 	nop
-.JF0000d8ec:
-/*  d8ec:	0c001c10 */ 	jal	vmInit
-/*  d8f0:	00000000 */ 	nop
-/*  d8f4:	0fc6a10c */ 	jal	func0f1a78b0
-/*  d8f8:	00000000 */ 	nop
-/*  d8fc:	0fc59ce1 */ 	jal	filesInit
-/*  d900:	00000000 */ 	nop
-/*  d904:	0fc5d8e8 */ 	jal	stub0f175f50
-/*  d908:	00000000 */ 	nop
-/*  d90c:	0fc5d8f8 */ 	jal	func0f175f90
-/*  d910:	00000000 */ 	nop
-/*  d914:	3c0c8006 */ 	lui	$t4,0x8006
-/*  d918:	8d8cd860 */ 	lw	$t4,-0x27a0($t4)
-/*  d91c:	11800003 */ 	beqz	$t4,.JF0000d92c
-/*  d920:	3c047005 */ 	lui	$a0,0x7005
-/*  d924:	0c004baf */ 	jal	argSetString
-/*  d928:	24843950 */ 	addiu	$a0,$a0,0x3950
-.JF0000d92c:
-/*  d92c:	3c04800b */ 	lui	$a0,0x800b
-/*  d930:	0c012b34 */ 	jal	osVirtualToPhysical
-/*  d934:	2484dbf0 */ 	addiu	$a0,$a0,-9232
-/*  d938:	3c038009 */ 	lui	$v1,0x8009
-/*  d93c:	8c631170 */ 	lw	$v1,0x1170($v1)
-/*  d940:	3c018000 */ 	lui	$at,0x8000
-/*  d944:	00412025 */ 	or	$a0,$v0,$at
-/*  d948:	0c00486a */ 	jal	mempSetHeap
-/*  d94c:	00642823 */ 	subu	$a1,$v1,$a0
-/*  d950:	0c00493a */ 	jal	mempResetPool
-/*  d954:	24040008 */ 	li	$a0,0x8
-/*  d958:	0c00493a */ 	jal	mempResetPool
-/*  d95c:	24040006 */ 	li	$a0,0x6
-/*  d960:	0c0033a6 */ 	jal	crashReset
-/*  d964:	00000000 */ 	nop
-/*  d968:	0fc02ca8 */ 	jal	challengesInit
-/*  d96c:	00000000 */ 	nop
-/*  d970:	0fc5dc8b */ 	jal	utilsInit
-/*  d974:	00000000 */ 	nop
-/*  d978:	0c000d34 */ 	jal	func000034d0
-/*  d97c:	00000000 */ 	nop
-/*  d980:	0fc02c88 */ 	jal	texInit
-/*  d984:	00000000 */ 	nop
-/*  d988:	0fc00000 */ 	jal	langInit
-/*  d98c:	00000000 */ 	nop
-/*  d990:	0fc59fc2 */ 	jal	lvInit
-/*  d994:	00000000 */ 	nop
-/*  d998:	0fc41d8f */ 	jal	cheatsInit
-/*  d99c:	00000000 */ 	nop
-/*  d9a0:	0c003a58 */ 	jal	func0000e9c0
-/*  d9a4:	00000000 */ 	nop
-/*  d9a8:	0fc54a14 */ 	jal	textInit
-/*  d9ac:	00000000 */ 	nop
-/*  d9b0:	0c004dcc */ 	jal	dhudInit
-/*  d9b4:	00000000 */ 	nop
-/*  d9b8:	0fc49f44 */ 	jal	playermgrInit
-/*  d9bc:	00000000 */ 	nop
-/*  d9c0:	0fc5b3ec */ 	jal	frametimeInit
-/*  d9c4:	00000000 */ 	nop
-/*  d9c8:	0fc02ca4 */ 	jal	stub0f00b200
-/*  d9cc:	00000000 */ 	nop
-/*  d9d0:	0c002684 */ 	jal	profileInit
-/*  d9d4:	00000000 */ 	nop
-/*  d9d8:	0fc00240 */ 	jal	stub0f000870
-/*  d9dc:	00000000 */ 	nop
-/*  d9e0:	0fc00244 */ 	jal	smokesInit
-/*  d9e4:	00000000 */ 	nop
-/*  d9e8:	0fc0025c */ 	jal	stub0f0008e0
-/*  d9ec:	00000000 */ 	nop
-/*  d9f0:	0fc00260 */ 	jal	stub0f0008f0
-/*  d9f4:	00000000 */ 	nop
-/*  d9f8:	0fc00264 */ 	jal	stub0f000900
-/*  d9fc:	00000000 */ 	nop
-/*  da00:	0fc02c84 */ 	jal	stub0f00b180
-/*  da04:	00000000 */ 	nop
-/*  da08:	0fc00268 */ 	jal	stub0f000910
-/*  da0c:	00000000 */ 	nop
-/*  da10:	0fc00234 */ 	jal	stub0f000840
-/*  da14:	00000000 */ 	nop
-/*  da18:	0fc6224c */ 	jal	mpInit
-/*  da1c:	00000000 */ 	nop
-/*  da20:	0fc52652 */ 	jal	pheadInit
-/*  da24:	00000000 */ 	nop
-/*  da28:	0fc46362 */ 	jal	paksInit
-/*  da2c:	00000000 */ 	nop
-/*  da30:	0fc52677 */ 	jal	pheadInit2
-/*  da34:	00000000 */ 	nop
-/*  da38:	0c008bb4 */ 	jal	animsInit
-/*  da3c:	00000000 */ 	nop
-/*  da40:	0fc00064 */ 	jal	racesInit
-/*  da44:	00000000 */ 	nop
-/*  da48:	0fc00070 */ 	jal	bodiesInit
-/*  da4c:	00000000 */ 	nop
-/*  da50:	0fc00238 */ 	jal	stub0f000850
-/*  da54:	00000000 */ 	nop
-/*  da58:	0fc0023c */ 	jal	stub0f000860
-/*  da5c:	00000000 */ 	nop
-/*  da60:	0fc00040 */ 	jal	titleInit
-/*  da64:	00000000 */ 	nop
-/*  da68:	0c0026e7 */ 	jal	viConfigureForLegal
-/*  da6c:	00000000 */ 	nop
-/*  da70:	0c00279a */ 	jal	viBlack
-/*  da74:	24040001 */ 	li	$a0,0x1
-/*  da78:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  da7c:	3c018006 */ 	lui	$at,0x8006
-/*  da80:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  da84:	ac20dbc8 */ 	sw	$zero,-0x2438($at)
-/*  da88:	03e00008 */ 	jr	$ra
-/*  da8c:	27bd14d8 */ 	addiu	$sp,$sp,0x14d8
-);
-#elif VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel mainInit
-/*     d260:	27bdeb20 */ 	addiu	$sp,$sp,-5344
-/*     d264:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     d268:	0c002f3c */ 	jal	faultInit
-/*     d26c:	afb00028 */ 	sw	$s0,0x28($sp)
-/*     d270:	0c003378 */ 	jal	dmaInit
-/*     d274:	00000000 */ 	nop
-/*     d278:	0c002258 */ 	jal	amgrInit
-/*     d27c:	00000000 */ 	nop
-/*     d280:	0c00557c */ 	jal	varsInit
-/*     d284:	00000000 */ 	nop
-/*     d288:	0c0047dc */ 	jal	mempInit
-/*     d28c:	00000000 */ 	nop
-/*     d290:	0c0049e7 */ 	jal	memaInit
-/*     d294:	00000000 */ 	nop
-/*     d298:	0c004d3a */ 	jal	videbugInit
-/*     d29c:	00000000 */ 	nop
-/*     d2a0:	0c002668 */ 	jal	viConfigureForLogos
-/*     d2a4:	00000000 */ 	nop
-/*     d2a8:	0c00bcc2 */ 	jal	rmonIsDisabled
-/*     d2ac:	00000000 */ 	nop
-/*     d2b0:	3c018006 */ 	lui	$at,0x8006
-/*     d2b4:	0c004e87 */ 	jal	joyInit
-/*     d2b8:	ac22d650 */ 	sw	$v0,-0x29b0($at)
-/*     d2bc:	27a41498 */ 	addiu	$a0,$sp,0x1498
-/*     d2c0:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
-/*     d2c4:	0c011f10 */ 	jal	osCreateMesgQueue
-/*     d2c8:	24060001 */ 	li	$a2,0x1
-/*     d2cc:	00008025 */ 	move	$s0,$zero
-/*     d2d0:	3c070047 */ 	lui	$a3,0x47
-.PF0000d2d4:
-/*     d2d4:	240e0000 */ 	li	$t6,0x0
-/*     d2d8:	240f0000 */ 	li	$t7,0x0
-/*     d2dc:	27b81498 */ 	addiu	$t8,$sp,0x1498
-/*     d2e0:	27b914d4 */ 	addiu	$t9,$sp,0x14d4
-/*     d2e4:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*     d2e8:	afb80018 */ 	sw	$t8,0x18($sp)
-/*     d2ec:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     d2f0:	afae0010 */ 	sw	$t6,0x10($sp)
-/*     d2f4:	34e7868c */ 	ori	$a3,$a3,0x868c
-/*     d2f8:	27a414b0 */ 	addiu	$a0,$sp,0x14b0
-/*     d2fc:	0c012108 */ 	jal	osSetTimer
-/*     d300:	24060000 */ 	li	$a2,0x0
-/*     d304:	27a41498 */ 	addiu	$a0,$sp,0x1498
-/*     d308:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
-/*     d30c:	0c011ffc */ 	jal	osRecvMesg
-/*     d310:	24060001 */ 	li	$a2,0x1
-/*     d314:	24010001 */ 	li	$at,0x1
-/*     d318:	56010006 */ 	bnel	$s0,$at,.PF0000d334
-/*     d31c:	2a010002 */ 	slti	$at,$s0,0x2
-/*     d320:	0c004ee1 */ 	jal	joyReset
-/*     d324:	00000000 */ 	nop
-/*     d328:	10000007 */ 	b	.PF0000d348
-/*     d32c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d330:	2a010002 */ 	slti	$at,$s0,0x2
-.PF0000d334:
-/*     d334:	54200004 */ 	bnezl	$at,.PF0000d348
-/*     d338:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d33c:	0c00501e */ 	jal	joyDebugJoy
-/*     d340:	00000000 */ 	nop
-/*     d344:	26100001 */ 	addiu	$s0,$s0,0x1
-.PF0000d348:
-/*     d348:	24010004 */ 	li	$at,0x4
-/*     d34c:	5601ffe1 */ 	bnel	$s0,$at,.PF0000d2d4
-/*     d350:	3c070047 */ 	lui	$a3,0x47
-/*     d354:	3c057005 */ 	lui	$a1,0x7005
-/*     d358:	24a53738 */ 	addiu	$a1,$a1,0x3738
-/*     d35c:	0c004b68 */ 	jal	argFindByPrefix
-/*     d360:	24040001 */ 	li	$a0,0x1
-/*     d364:	14400004 */ 	bnez	$v0,.PF0000d378
-/*     d368:	00002025 */ 	move	$a0,$zero
-/*     d36c:	240b0001 */ 	li	$t3,0x1
-/*     d370:	3c018006 */ 	lui	$at,0x8006
-/*     d374:	ac2bd650 */ 	sw	$t3,-0x29b0($at)
-.PF0000d378:
-/*     d378:	0c00533a */ 	jal	joyGetButtons
-/*     d37c:	24051000 */ 	li	$a1,0x1000
-/*     d380:	1440000f */ 	bnez	$v0,.PF0000d3c0
-/*     d384:	24040001 */ 	li	$a0,0x1
-/*     d388:	0c00533a */ 	jal	joyGetButtons
-/*     d38c:	24051000 */ 	li	$a1,0x1000
-/*     d390:	1440000b */ 	bnez	$v0,.PF0000d3c0
-/*     d394:	24040002 */ 	li	$a0,0x2
-/*     d398:	0c00533a */ 	jal	joyGetButtons
-/*     d39c:	24051000 */ 	li	$a1,0x1000
-/*     d3a0:	14400007 */ 	bnez	$v0,.PF0000d3c0
-/*     d3a4:	24040003 */ 	li	$a0,0x3
-/*     d3a8:	0c00533a */ 	jal	joyGetButtons
-/*     d3ac:	24051000 */ 	li	$a1,0x1000
-/*     d3b0:	14400003 */ 	bnez	$v0,.PF0000d3c0
-/*     d3b4:	3c018006 */ 	lui	$at,0x8006
-/*     d3b8:	10000004 */ 	b	.PF0000d3cc
-/*     d3bc:	ac20d674 */ 	sw	$zero,-0x298c($at)
-.PF0000d3c0:
-/*     d3c0:	240c0001 */ 	li	$t4,0x1
-/*     d3c4:	3c018006 */ 	lui	$at,0x8006
-/*     d3c8:	ac2cd674 */ 	sw	$t4,-0x298c($at)
-.PF0000d3cc:
-/*     d3cc:	3c0e8006 */ 	lui	$t6,0x8006
-/*     d3d0:	afa01478 */ 	sw	$zero,0x1478($sp)
-/*     d3d4:	25ced9bc */ 	addiu	$t6,$t6,-9796
-/*     d3d8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*     d3dc:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*     d3e0:	27ad1458 */ 	addiu	$t5,$sp,0x1458
-/*     d3e4:	ada10000 */ 	sw	$at,0x0($t5)
-/*     d3e8:	adb90004 */ 	sw	$t9,0x4($t5)
-/*     d3ec:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*     d3f0:	8dc10008 */ 	lw	$at,0x8($t6)
-/*     d3f4:	adb9000c */ 	sw	$t9,0xc($t5)
-/*     d3f8:	ada10008 */ 	sw	$at,0x8($t5)
-/*     d3fc:	8dc10010 */ 	lw	$at,0x10($t6)
-/*     d400:	8dd90014 */ 	lw	$t9,0x14($t6)
-/*     d404:	ada10010 */ 	sw	$at,0x10($t5)
-/*     d408:	adb90014 */ 	sw	$t9,0x14($t5)
-/*     d40c:	8dd9001c */ 	lw	$t9,0x1c($t6)
-/*     d410:	8dc10018 */ 	lw	$at,0x18($t6)
-/*     d414:	adb9001c */ 	sw	$t9,0x1c($t5)
-/*     d418:	0c0005b0 */ 	jal	bootGetMemSize
-/*     d41c:	ada10018 */ 	sw	$at,0x18($t5)
-/*     d420:	3c010040 */ 	lui	$at,0x40
-/*     d424:	34210001 */ 	ori	$at,$at,0x1
-/*     d428:	0041082a */ 	slt	$at,$v0,$at
-/*     d42c:	1020000e */ 	beqz	$at,.PF0000d468
-/*     d430:	3c0d8006 */ 	lui	$t5,0x8006
-/*     d434:	3c0b8006 */ 	lui	$t3,0x8006
-/*     d438:	8d6bcc24 */ 	lw	$t3,-0x33dc($t3)
-/*     d43c:	3c18803f */ 	lui	$t8,0x803f
-/*     d440:	371850b8 */ 	ori	$t8,$t8,0x50b8
-/*     d444:	3c01ffef */ 	lui	$at,0xffef
-/*     d448:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*     d44c:	030c1023 */ 	subu	$v0,$t8,$t4
-/*     d450:	34214000 */ 	ori	$at,$at,0x4000
-/*     d454:	00411021 */ 	addu	$v0,$v0,$at
-/*     d458:	304f1fff */ 	andi	$t7,$v0,0x1fff
-/*     d45c:	004f1023 */ 	subu	$v0,$v0,$t7
-/*     d460:	10000002 */ 	b	.PF0000d46c
-/*     d464:	2442e380 */ 	addiu	$v0,$v0,-7296
-.PF0000d468:
-/*     d468:	3c028080 */ 	lui	$v0,0x8080
-.PF0000d46c:
-/*     d46c:	8dadd674 */ 	lw	$t5,-0x298c($t5)
-/*     d470:	3c01fff6 */ 	lui	$at,0xfff6
-/*     d474:	3421a000 */ 	ori	$at,$at,0xa000
-/*     d478:	00411021 */ 	addu	$v0,$v0,$at
-/*     d47c:	11a0000f */ 	beqz	$t5,.PF0000d4bc
-/*     d480:	2442ffc0 */ 	addiu	$v0,$v0,-64
-/*     d484:	3c018000 */ 	lui	$at,0x8000
-/*     d488:	00418025 */ 	or	$s0,$v0,$at
-/*     d48c:	2610003f */ 	addiu	$s0,$s0,0x3f
-/*     d490:	3c0301ff */ 	lui	$v1,0x1ff
-/*     d494:	360e003f */ 	ori	$t6,$s0,0x3f
-/*     d498:	3c0b01ff */ 	lui	$t3,0x1ff
-/*     d49c:	24656030 */ 	addiu	$a1,$v1,0x6030
-/*     d4a0:	256b68e0 */ 	addiu	$t3,$t3,0x68e0
-/*     d4a4:	39c4003f */ 	xori	$a0,$t6,0x3f
-/*     d4a8:	00808025 */ 	move	$s0,$a0
-/*     d4ac:	0c003454 */ 	jal	dmaExec
-/*     d4b0:	01653023 */ 	subu	$a2,$t3,$a1
-/*     d4b4:	1000000e */ 	b	.PF0000d4f0
-/*     d4b8:	3c01ffff */ 	lui	$at,0xffff
-.PF0000d4bc:
-/*     d4bc:	3c018000 */ 	lui	$at,0x8000
-/*     d4c0:	00418025 */ 	or	$s0,$v0,$at
-/*     d4c4:	2610003f */ 	addiu	$s0,$s0,0x3f
-/*     d4c8:	3c0301ff */ 	lui	$v1,0x1ff
-/*     d4cc:	3618003f */ 	ori	$t8,$s0,0x3f
-/*     d4d0:	3c0f01ff */ 	lui	$t7,0x1ff
-/*     d4d4:	24655500 */ 	addiu	$a1,$v1,0x5500
-/*     d4d8:	25ef6030 */ 	addiu	$t7,$t7,0x6030
-/*     d4dc:	3b04003f */ 	xori	$a0,$t8,0x3f
-/*     d4e0:	00808025 */ 	move	$s0,$a0
-/*     d4e4:	0c003454 */ 	jal	dmaExec
-/*     d4e8:	01e53023 */ 	subu	$a2,$t7,$a1
-/*     d4ec:	3c01ffff */ 	lui	$at,0xffff
-.PF0000d4f0:
-/*     d4f0:	342141e0 */ 	ori	$at,$at,0x41e0
-/*     d4f4:	02012821 */ 	addu	$a1,$s0,$at
-/*     d4f8:	afa50048 */ 	sw	$a1,0x48($sp)
-/*     d4fc:	02002025 */ 	move	$a0,$s0
-/*     d500:	0c001d0c */ 	jal	rzipInflate
-/*     d504:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*     d508:	3c050004 */ 	lui	$a1,0x4
-/*     d50c:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*     d510:	34a53800 */ 	ori	$a1,$a1,0x3800
-/*     d514:	00003825 */ 	move	$a3,$zero
-/*     d518:	24040500 */ 	li	$a0,0x500
-/*     d51c:	00076840 */ 	sll	$t5,$a3,0x1
-.PF0000d520:
-/*     d520:	020d1821 */ 	addu	$v1,$s0,$t5
-/*     d524:	00001025 */ 	move	$v0,$zero
-.PF0000d528:
-/*     d528:	00627021 */ 	addu	$t6,$v1,$v0
-/*     d52c:	24420002 */ 	addiu	$v0,$v0,0x2
-/*     d530:	1444fffd */ 	bne	$v0,$a0,.PF0000d528
-/*     d534:	a5c00000 */ 	sh	$zero,0x0($t6)
-/*     d538:	24e70240 */ 	addiu	$a3,$a3,0x240
-/*     d53c:	00e5082a */ 	slt	$at,$a3,$a1
-/*     d540:	5420fff7 */ 	bnezl	$at,.PF0000d520
-/*     d544:	00076840 */ 	sll	$t5,$a3,0x1
-/*     d548:	3c198000 */ 	lui	$t9,0x8000
-/*     d54c:	8f390300 */ 	lw	$t9,0x300($t9)
-/*     d550:	00003825 */ 	move	$a3,$zero
-/*     d554:	00003025 */ 	move	$a2,$zero
-/*     d558:	17200010 */ 	bnez	$t9,.PF0000d59c
-/*     d55c:	24095f10 */ 	li	$t1,0x5f10
-/*     d560:	240503f6 */ 	li	$a1,0x3f6
-.PF0000d564:
-/*     d564:	00075840 */ 	sll	$t3,$a3,0x1
-/*     d568:	0006c040 */ 	sll	$t8,$a2,0x1
-/*     d56c:	01582021 */ 	addu	$a0,$t2,$t8
-/*     d570:	020b1821 */ 	addu	$v1,$s0,$t3
-/*     d574:	00001025 */ 	move	$v0,$zero
-.PF0000d578:
-/*     d578:	00826021 */ 	addu	$t4,$a0,$v0
-/*     d57c:	958f0000 */ 	lhu	$t7,0x0($t4)
-/*     d580:	00626821 */ 	addu	$t5,$v1,$v0
-/*     d584:	24420002 */ 	addiu	$v0,$v0,0x2
-/*     d588:	1445fffb */ 	bne	$v0,$a1,.PF0000d578
-/*     d58c:	a5af008a */ 	sh	$t7,0x8a($t5)
-/*     d590:	24c601fb */ 	addiu	$a2,$a2,0x1fb
-/*     d594:	14c9fff3 */ 	bne	$a2,$t1,.PF0000d564
-/*     d598:	24e70240 */ 	addiu	$a3,$a3,0x240
-.PF0000d59c:
-/*     d59c:	0c0029fd */ 	jal	viSetMode
-/*     d5a0:	24040002 */ 	li	$a0,0x2
-/*     d5a4:	0c002696 */ 	jal	viConfigureForBanner
-/*     d5a8:	02002025 */ 	move	$a0,$s0
-/*     d5ac:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*     d5b0:	3c018006 */ 	lui	$at,0x8006
-/*     d5b4:	3c048009 */ 	lui	$a0,0x8009
-/*     d5b8:	ac2aecf4 */ 	sw	$t2,-0x130c($at)
-/*     d5bc:	3c018006 */ 	lui	$at,0x8006
-/*     d5c0:	254e0800 */ 	addiu	$t6,$t2,0x800
-/*     d5c4:	ac2eecf0 */ 	sw	$t6,-0x1310($at)
-/*     d5c8:	2484e080 */ 	addiu	$a0,$a0,-8064
-/*     d5cc:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*     d5d0:	0c011ffc */ 	jal	osRecvMesg
-/*     d5d4:	00003025 */ 	move	$a2,$zero
-/*     d5d8:	14400007 */ 	bnez	$v0,.PF0000d5f8
-.PF0000d5dc:
-/*     d5dc:	3c048009 */ 	lui	$a0,0x8009
-/*     d5e0:	2484e080 */ 	addiu	$a0,$a0,-8064
-/*     d5e4:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*     d5e8:	0c011ffc */ 	jal	osRecvMesg
-/*     d5ec:	00003025 */ 	move	$a2,$zero
-/*     d5f0:	1040fffa */ 	beqz	$v0,.PF0000d5dc
-/*     d5f4:	00000000 */ 	nop
-.PF0000d5f8:
-/*     d5f8:	00001825 */ 	move	$v1,$zero
-.PF0000d5fc:
-/*     d5fc:	3c048009 */ 	lui	$a0,0x8009
-/*     d600:	2484e080 */ 	addiu	$a0,$a0,-8064
-/*     d604:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*     d608:	24060001 */ 	li	$a2,0x1
-/*     d60c:	0c011ffc */ 	jal	osRecvMesg
-/*     d610:	afa31490 */ 	sw	$v1,0x1490($sp)
-/*     d614:	8fb91478 */ 	lw	$t9,0x1478($sp)
-/*     d618:	24010001 */ 	li	$at,0x1
-/*     d61c:	8fa31490 */ 	lw	$v1,0x1490($sp)
-/*     d620:	872b0000 */ 	lh	$t3,0x0($t9)
-/*     d624:	27b01458 */ 	addiu	$s0,$sp,0x1458
-/*     d628:	5561000d */ 	bnel	$t3,$at,.PF0000d660
-/*     d62c:	28610006 */ 	slti	$at,$v1,0x6
-/*     d630:	0c0027d9 */ 	jal	viUpdateMode
-/*     d634:	afa31490 */ 	sw	$v1,0x1490($sp)
-/*     d638:	3c048006 */ 	lui	$a0,0x8006
-/*     d63c:	3c058006 */ 	lui	$a1,0x8006
-/*     d640:	24a5d990 */ 	addiu	$a1,$a1,-9840
-/*     d644:	2484d968 */ 	addiu	$a0,$a0,-9880
-/*     d648:	00003025 */ 	move	$a2,$zero
-/*     d64c:	0c00bc7d */ 	jal	rdpCreateTask
-/*     d650:	02003825 */ 	move	$a3,$s0
-/*     d654:	8fa31490 */ 	lw	$v1,0x1490($sp)
-/*     d658:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     d65c:	28610006 */ 	slti	$at,$v1,0x6
-.PF0000d660:
-/*     d660:	1420ffe6 */ 	bnez	$at,.PF0000d5fc
-/*     d664:	00000000 */ 	nop
-/*     d668:	3c188000 */ 	lui	$t8,0x8000
-/*     d66c:	8f180300 */ 	lw	$t8,0x300($t8)
-/*     d670:	13000003 */ 	beqz	$t8,.PF0000d680
-/*     d674:	00000000 */ 	nop
-.PF0000d678:
-/*     d678:	1000ffff */ 	b	.PF0000d678
-/*     d67c:	00000000 */ 	nop
-.PF0000d680:
-/*     d680:	0c001c04 */ 	jal	vmInit
-/*     d684:	00000000 */ 	nop
-/*     d688:	0fc6a2ac */ 	jal	func0f1a78b0
-/*     d68c:	00000000 */ 	nop
-/*     d690:	0fc59fbd */ 	jal	filesInit
-/*     d694:	00000000 */ 	nop
-/*     d698:	0fc5dbe0 */ 	jal	stub0f175f50
-/*     d69c:	00000000 */ 	nop
-/*     d6a0:	0fc5dbf0 */ 	jal	func0f175f90
-/*     d6a4:	00000000 */ 	nop
-/*     d6a8:	3c0c8006 */ 	lui	$t4,0x8006
-/*     d6ac:	8d8cd650 */ 	lw	$t4,-0x29b0($t4)
-/*     d6b0:	11800003 */ 	beqz	$t4,.PF0000d6c0
-/*     d6b4:	3c047005 */ 	lui	$a0,0x7005
-/*     d6b8:	0c004b23 */ 	jal	argSetString
-/*     d6bc:	24843740 */ 	addiu	$a0,$a0,0x3740
-.PF0000d6c0:
-/*     d6c0:	3c04800b */ 	lui	$a0,0x800b
-/*     d6c4:	0c012ab0 */ 	jal	osVirtualToPhysical
-/*     d6c8:	2484d760 */ 	addiu	$a0,$a0,-10400
-/*     d6cc:	3c038009 */ 	lui	$v1,0x8009
-/*     d6d0:	8c631050 */ 	lw	$v1,0x1050($v1)
-/*     d6d4:	3c018000 */ 	lui	$at,0x8000
-/*     d6d8:	00412025 */ 	or	$a0,$v0,$at
-/*     d6dc:	0c0047de */ 	jal	mempSetHeap
-/*     d6e0:	00642823 */ 	subu	$a1,$v1,$a0
-/*     d6e4:	0c0048ae */ 	jal	mempResetPool
-/*     d6e8:	24040008 */ 	li	$a0,0x8
-/*     d6ec:	0c0048ae */ 	jal	mempResetPool
-/*     d6f0:	24040006 */ 	li	$a0,0x6
-/*     d6f4:	0c00330e */ 	jal	crashReset
-/*     d6f8:	00000000 */ 	nop
-/*     d6fc:	0fc02c88 */ 	jal	challengesInit
-/*     d700:	00000000 */ 	nop
-/*     d704:	0fc5df83 */ 	jal	utilsInit
-/*     d708:	00000000 */ 	nop
-/*     d70c:	0c000d28 */ 	jal	func000034d0
-/*     d710:	00000000 */ 	nop
-/*     d714:	0fc02c68 */ 	jal	texInit
-/*     d718:	00000000 */ 	nop
-/*     d71c:	0fc00000 */ 	jal	langInit
-/*     d720:	00000000 */ 	nop
-/*     d724:	0fc5a29e */ 	jal	lvInit
-/*     d728:	00000000 */ 	nop
-/*     d72c:	0fc41f77 */ 	jal	cheatsInit
-/*     d730:	00000000 */ 	nop
-/*     d734:	0c0039c8 */ 	jal	func0000e9c0
-/*     d738:	00000000 */ 	nop
-/*     d73c:	0fc54f94 */ 	jal	textInit
-/*     d740:	00000000 */ 	nop
-/*     d744:	0c004d48 */ 	jal	dhudInit
-/*     d748:	00000000 */ 	nop
-/*     d74c:	0fc4a0f8 */ 	jal	playermgrInit
-/*     d750:	00000000 */ 	nop
-/*     d754:	0fc5b718 */ 	jal	frametimeInit
-/*     d758:	00000000 */ 	nop
-/*     d75c:	0fc02c84 */ 	jal	stub0f00b200
-/*     d760:	00000000 */ 	nop
-/*     d764:	0c00265c */ 	jal	profileInit
-/*     d768:	00000000 */ 	nop
-/*     d76c:	0fc0021c */ 	jal	stub0f000870
-/*     d770:	00000000 */ 	nop
-/*     d774:	0fc00220 */ 	jal	smokesInit
-/*     d778:	00000000 */ 	nop
-/*     d77c:	0fc00238 */ 	jal	stub0f0008e0
-/*     d780:	00000000 */ 	nop
-/*     d784:	0fc0023c */ 	jal	stub0f0008f0
-/*     d788:	00000000 */ 	nop
-/*     d78c:	0fc00240 */ 	jal	stub0f000900
-/*     d790:	00000000 */ 	nop
-/*     d794:	0fc02c64 */ 	jal	stub0f00b180
-/*     d798:	00000000 */ 	nop
-/*     d79c:	0fc00244 */ 	jal	stub0f000910
-/*     d7a0:	00000000 */ 	nop
-/*     d7a4:	0fc00210 */ 	jal	stub0f000840
-/*     d7a8:	00000000 */ 	nop
-/*     d7ac:	0fc62468 */ 	jal	mpInit
-/*     d7b0:	00000000 */ 	nop
-/*     d7b4:	0fc52bf6 */ 	jal	pheadInit
-/*     d7b8:	00000000 */ 	nop
-/*     d7bc:	0fc4652e */ 	jal	paksInit
-/*     d7c0:	00000000 */ 	nop
-/*     d7c4:	0fc52c1b */ 	jal	pheadInit2
-/*     d7c8:	00000000 */ 	nop
-/*     d7cc:	0c008b30 */ 	jal	animsInit
-/*     d7d0:	00000000 */ 	nop
-/*     d7d4:	0fc00040 */ 	jal	racesInit
-/*     d7d8:	00000000 */ 	nop
-/*     d7dc:	0fc0004c */ 	jal	bodiesInit
-/*     d7e0:	00000000 */ 	nop
-/*     d7e4:	0fc00214 */ 	jal	stub0f000850
-/*     d7e8:	00000000 */ 	nop
-/*     d7ec:	0fc00218 */ 	jal	stub0f000860
-/*     d7f0:	00000000 */ 	nop
-/*     d7f4:	0fc00024 */ 	jal	titleInit
-/*     d7f8:	00000000 */ 	nop
-/*     d7fc:	0c0026c0 */ 	jal	viConfigureForLegal
-/*     d800:	00000000 */ 	nop
-/*     d804:	0c002779 */ 	jal	viBlack
-/*     d808:	24040001 */ 	li	$a0,0x1
-/*     d80c:	3c0f8006 */ 	lui	$t7,0x8006
-/*     d810:	8defd674 */ 	lw	$t7,-0x298c($t7)
-/*     d814:	3c018006 */ 	lui	$at,0x8006
-/*     d818:	ac20d9b8 */ 	sw	$zero,-0x2648($at)
-/*     d81c:	51e00004 */ 	beqzl	$t7,.PF0000d830
-/*     d820:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     d824:	0c011f84 */ 	jal	osGetCount
-/*     d828:	00000000 */ 	nop
-/*     d82c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.PF0000d830:
-/*     d830:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*     d834:	27bd14e0 */ 	addiu	$sp,$sp,0x14e0
-/*     d838:	03e00008 */ 	jr	$ra
-/*     d83c:	00000000 */ 	nop
-);
-#elif VERSION >= VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel mainInit
-/*  d2b0:	27bdeb20 */ 	addiu	$sp,$sp,-5344
-/*  d2b4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  d2b8:	0c002f38 */ 	jal	faultInit
-/*  d2bc:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  d2c0:	0c00338c */ 	jal	dmaInit
-/*  d2c4:	00000000 */ 	nop
-/*  d2c8:	0c002258 */ 	jal	amgrInit
-/*  d2cc:	00000000 */ 	nop
-/*  d2d0:	0c0058ac */ 	jal	varsInit
-/*  d2d4:	00000000 */ 	nop
-/*  d2d8:	0c004890 */ 	jal	mempInit
-/*  d2dc:	00000000 */ 	nop
-/*  d2e0:	0c004aaf */ 	jal	memaInit
-/*  d2e4:	00000000 */ 	nop
-/*  d2e8:	0c004e46 */ 	jal	videbugInit
-/*  d2ec:	00000000 */ 	nop
-/*  d2f0:	0c002668 */ 	jal	viConfigureForLogos
-/*  d2f4:	00000000 */ 	nop
-/*  d2f8:	0c00bff2 */ 	jal	rmonIsDisabled
-/*  d2fc:	00000000 */ 	nop
-/*  d300:	3c018006 */ 	lui	$at,0x8006
-/*  d304:	0c0051b7 */ 	jal	joyInit
-/*  d308:	ac22e4c0 */ 	sw	$v0,-0x1b40($at)
-/*  d30c:	27a41498 */ 	addiu	$a0,$sp,0x1498
-/*  d310:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
-/*  d314:	0c012240 */ 	jal	osCreateMesgQueue
-/*  d318:	24060001 */ 	li	$a2,0x1
-/*  d31c:	00008025 */ 	move	$s0,$zero
-/*  d320:	3c070047 */ 	lui	$a3,0x47
-.PB0000d324:
-/*  d324:	240e0000 */ 	li	$t6,0x0
-/*  d328:	240f0000 */ 	li	$t7,0x0
-/*  d32c:	27b81498 */ 	addiu	$t8,$sp,0x1498
-/*  d330:	27b914d4 */ 	addiu	$t9,$sp,0x14d4
-/*  d334:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  d338:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  d33c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  d340:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  d344:	34e7868c */ 	ori	$a3,$a3,0x868c
-/*  d348:	27a414b0 */ 	addiu	$a0,$sp,0x14b0
-/*  d34c:	0c012438 */ 	jal	osSetTimer
-/*  d350:	24060000 */ 	li	$a2,0x0
-/*  d354:	27a41498 */ 	addiu	$a0,$sp,0x1498
-/*  d358:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
-/*  d35c:	0c01232c */ 	jal	osRecvMesg
-/*  d360:	24060001 */ 	li	$a2,0x1
-/*  d364:	24010001 */ 	li	$at,0x1
-/*  d368:	56010006 */ 	bnel	$s0,$at,.PB0000d384
-/*  d36c:	2a010002 */ 	slti	$at,$s0,0x2
-/*  d370:	0c005211 */ 	jal	joyReset
-/*  d374:	00000000 */ 	nop
-/*  d378:	10000007 */ 	b	.PB0000d398
-/*  d37c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  d380:	2a010002 */ 	slti	$at,$s0,0x2
-.PB0000d384:
-/*  d384:	54200004 */ 	bnezl	$at,.PB0000d398
-/*  d388:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  d38c:	0c00534e */ 	jal	joyDebugJoy
-/*  d390:	00000000 */ 	nop
-/*  d394:	26100001 */ 	addiu	$s0,$s0,0x1
-.PB0000d398:
-/*  d398:	24010004 */ 	li	$at,0x4
-/*  d39c:	5601ffe1 */ 	bnel	$s0,$at,.PB0000d324
-/*  d3a0:	3c070047 */ 	lui	$a3,0x47
-/*  d3a4:	3c057005 */ 	lui	$a1,0x7005
-/*  d3a8:	24a543f8 */ 	addiu	$a1,$a1,0x43f8
-/*  d3ac:	0c004c74 */ 	jal	argFindByPrefix
-/*  d3b0:	24040001 */ 	li	$a0,0x1
-/*  d3b4:	14400004 */ 	bnez	$v0,.PB0000d3c8
-/*  d3b8:	00002025 */ 	move	$a0,$zero
-/*  d3bc:	240b0001 */ 	li	$t3,0x1
-/*  d3c0:	3c018006 */ 	lui	$at,0x8006
-/*  d3c4:	ac2be4c0 */ 	sw	$t3,-0x1b40($at)
-.PB0000d3c8:
-/*  d3c8:	0c00566a */ 	jal	joyGetButtons
-/*  d3cc:	24051000 */ 	li	$a1,0x1000
-/*  d3d0:	1440000f */ 	bnez	$v0,.PB0000d410
-/*  d3d4:	24040001 */ 	li	$a0,0x1
-/*  d3d8:	0c00566a */ 	jal	joyGetButtons
-/*  d3dc:	24051000 */ 	li	$a1,0x1000
-/*  d3e0:	1440000b */ 	bnez	$v0,.PB0000d410
-/*  d3e4:	24040002 */ 	li	$a0,0x2
-/*  d3e8:	0c00566a */ 	jal	joyGetButtons
-/*  d3ec:	24051000 */ 	li	$a1,0x1000
-/*  d3f0:	14400007 */ 	bnez	$v0,.PB0000d410
-/*  d3f4:	24040003 */ 	li	$a0,0x3
-/*  d3f8:	0c00566a */ 	jal	joyGetButtons
-/*  d3fc:	24051000 */ 	li	$a1,0x1000
-/*  d400:	14400003 */ 	bnez	$v0,.PB0000d410
-/*  d404:	3c018006 */ 	lui	$at,0x8006
-/*  d408:	10000004 */ 	b	.PB0000d41c
-/*  d40c:	ac20e4e4 */ 	sw	$zero,-0x1b1c($at)
-.PB0000d410:
-/*  d410:	240c0001 */ 	li	$t4,0x1
-/*  d414:	3c018006 */ 	lui	$at,0x8006
-/*  d418:	ac2ce4e4 */ 	sw	$t4,-0x1b1c($at)
-.PB0000d41c:
-/*  d41c:	00002025 */ 	move	$a0,$zero
-/*  d420:	0c00566a */ 	jal	joyGetButtons
-/*  d424:	2405000f */ 	li	$a1,0xf
-/*  d428:	2410000f */ 	li	$s0,0xf
-/*  d42c:	1202000c */ 	beq	$s0,$v0,.PB0000d460
-/*  d430:	24040001 */ 	li	$a0,0x1
-/*  d434:	0c00566a */ 	jal	joyGetButtons
-/*  d438:	2405000f */ 	li	$a1,0xf
-/*  d43c:	12020008 */ 	beq	$s0,$v0,.PB0000d460
-/*  d440:	24040002 */ 	li	$a0,0x2
-/*  d444:	0c00566a */ 	jal	joyGetButtons
-/*  d448:	2405000f */ 	li	$a1,0xf
-/*  d44c:	12020004 */ 	beq	$s0,$v0,.PB0000d460
-/*  d450:	24040003 */ 	li	$a0,0x3
-/*  d454:	0c00566a */ 	jal	joyGetButtons
-/*  d458:	2405000f */ 	li	$a1,0xf
-/*  d45c:	16020003 */ 	bne	$s0,$v0,.PB0000d46c
-.PB0000d460:
-/*  d460:	240d0001 */ 	li	$t5,0x1
-/*  d464:	3c018006 */ 	lui	$at,0x8006
-/*  d468:	ac2ddf40 */ 	sw	$t5,-0x20c0($at)
-.PB0000d46c:
-/*  d46c:	3c0f8006 */ 	lui	$t7,0x8006
-/*  d470:	afa01478 */ 	sw	$zero,0x1478($sp)
-/*  d474:	25efe82c */ 	addiu	$t7,$t7,-6100
-/*  d478:	8de10000 */ 	lw	$at,0x0($t7)
-/*  d47c:	8deb0004 */ 	lw	$t3,0x4($t7)
-/*  d480:	27ae1458 */ 	addiu	$t6,$sp,0x1458
-/*  d484:	adc10000 */ 	sw	$at,0x0($t6)
-/*  d488:	adcb0004 */ 	sw	$t3,0x4($t6)
-/*  d48c:	8deb000c */ 	lw	$t3,0xc($t7)
-/*  d490:	8de10008 */ 	lw	$at,0x8($t7)
-/*  d494:	adcb000c */ 	sw	$t3,0xc($t6)
-/*  d498:	adc10008 */ 	sw	$at,0x8($t6)
-/*  d49c:	8de10010 */ 	lw	$at,0x10($t7)
-/*  d4a0:	8deb0014 */ 	lw	$t3,0x14($t7)
-/*  d4a4:	adc10010 */ 	sw	$at,0x10($t6)
-/*  d4a8:	adcb0014 */ 	sw	$t3,0x14($t6)
-/*  d4ac:	8deb001c */ 	lw	$t3,0x1c($t7)
-/*  d4b0:	8de10018 */ 	lw	$at,0x18($t7)
-/*  d4b4:	adcb001c */ 	sw	$t3,0x1c($t6)
-/*  d4b8:	0c0005b0 */ 	jal	bootGetMemSize
-/*  d4bc:	adc10018 */ 	sw	$at,0x18($t6)
-/*  d4c0:	3c010040 */ 	lui	$at,0x40
-/*  d4c4:	34210001 */ 	ori	$at,$at,0x1
-/*  d4c8:	0041082a */ 	slt	$at,$v0,$at
-/*  d4cc:	1020000e */ 	beqz	$at,.PB0000d508
-/*  d4d0:	3c0e8006 */ 	lui	$t6,0x8006
-/*  d4d4:	3c0c8006 */ 	lui	$t4,0x8006
-/*  d4d8:	8d8cd914 */ 	lw	$t4,-0x26ec($t4)
-/*  d4dc:	3c19803f */ 	lui	$t9,0x803f
-/*  d4e0:	373950b8 */ 	ori	$t9,$t9,0x50b8
-/*  d4e4:	3c01ffef */ 	lui	$at,0xffef
-/*  d4e8:	000c68c0 */ 	sll	$t5,$t4,0x3
-/*  d4ec:	032d1023 */ 	subu	$v0,$t9,$t5
-/*  d4f0:	34214000 */ 	ori	$at,$at,0x4000
-/*  d4f4:	00411021 */ 	addu	$v0,$v0,$at
-/*  d4f8:	30581fff */ 	andi	$t8,$v0,0x1fff
-/*  d4fc:	00581023 */ 	subu	$v0,$v0,$t8
-/*  d500:	10000002 */ 	b	.PB0000d50c
-/*  d504:	2442e380 */ 	addiu	$v0,$v0,-7296
-.PB0000d508:
-/*  d508:	3c028080 */ 	lui	$v0,0x8080
-.PB0000d50c:
-/*  d50c:	8dcee4e4 */ 	lw	$t6,-0x1b1c($t6)
-/*  d510:	3c01fff6 */ 	lui	$at,0xfff6
-/*  d514:	3421a000 */ 	ori	$at,$at,0xa000
-/*  d518:	00411021 */ 	addu	$v0,$v0,$at
-/*  d51c:	11c0000f */ 	beqz	$t6,.PB0000d55c
-/*  d520:	2442ffc0 */ 	addiu	$v0,$v0,-64
-/*  d524:	3c018000 */ 	lui	$at,0x8000
-/*  d528:	00418025 */ 	or	$s0,$v0,$at
-/*  d52c:	2610003f */ 	addiu	$s0,$s0,0x3f
-/*  d530:	3c0301ff */ 	lui	$v1,0x1ff
-/*  d534:	360f003f */ 	ori	$t7,$s0,0x3f
-/*  d538:	3c0c01ff */ 	lui	$t4,0x1ff
-/*  d53c:	24655160 */ 	addiu	$a1,$v1,0x5160
-/*  d540:	258c5a10 */ 	addiu	$t4,$t4,0x5a10
-/*  d544:	39e4003f */ 	xori	$a0,$t7,0x3f
-/*  d548:	00808025 */ 	move	$s0,$a0
-/*  d54c:	0c003468 */ 	jal	dmaExec
-/*  d550:	01853023 */ 	subu	$a2,$t4,$a1
-/*  d554:	1000000e */ 	b	.PB0000d590
-/*  d558:	3c01ffff */ 	lui	$at,0xffff
-.PB0000d55c:
-/*  d55c:	3c018000 */ 	lui	$at,0x8000
-/*  d560:	00418025 */ 	or	$s0,$v0,$at
-/*  d564:	2610003f */ 	addiu	$s0,$s0,0x3f
-/*  d568:	3c0301ff */ 	lui	$v1,0x1ff
-/*  d56c:	3619003f */ 	ori	$t9,$s0,0x3f
-/*  d570:	3c1801ff */ 	lui	$t8,0x1ff
-/*  d574:	24654630 */ 	addiu	$a1,$v1,0x4630
-/*  d578:	27185160 */ 	addiu	$t8,$t8,0x5160
-/*  d57c:	3b24003f */ 	xori	$a0,$t9,0x3f
-/*  d580:	00808025 */ 	move	$s0,$a0
-/*  d584:	0c003468 */ 	jal	dmaExec
-/*  d588:	03053023 */ 	subu	$a2,$t8,$a1
-/*  d58c:	3c01ffff */ 	lui	$at,0xffff
-.PB0000d590:
-/*  d590:	342141e0 */ 	ori	$at,$at,0x41e0
-/*  d594:	02012821 */ 	addu	$a1,$s0,$at
-/*  d598:	afa50048 */ 	sw	$a1,0x48($sp)
-/*  d59c:	02002025 */ 	move	$a0,$s0
-/*  d5a0:	0c001d0c */ 	jal	rzipInflate
-/*  d5a4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  d5a8:	3c050004 */ 	lui	$a1,0x4
-/*  d5ac:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  d5b0:	34a53800 */ 	ori	$a1,$a1,0x3800
-/*  d5b4:	00003825 */ 	move	$a3,$zero
-/*  d5b8:	24040500 */ 	li	$a0,0x500
-/*  d5bc:	00077040 */ 	sll	$t6,$a3,0x1
-.PB0000d5c0:
-/*  d5c0:	020e1821 */ 	addu	$v1,$s0,$t6
-/*  d5c4:	00001025 */ 	move	$v0,$zero
-.PB0000d5c8:
-/*  d5c8:	00627821 */ 	addu	$t7,$v1,$v0
-/*  d5cc:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  d5d0:	1444fffd */ 	bne	$v0,$a0,.PB0000d5c8
-/*  d5d4:	a5e00000 */ 	sh	$zero,0x0($t7)
-/*  d5d8:	24e70240 */ 	addiu	$a3,$a3,0x240
-/*  d5dc:	00e5082a */ 	slt	$at,$a3,$a1
-/*  d5e0:	5420fff7 */ 	bnezl	$at,.PB0000d5c0
-/*  d5e4:	00077040 */ 	sll	$t6,$a3,0x1
-/*  d5e8:	3c0b8000 */ 	lui	$t3,0x8000
-/*  d5ec:	8d6b0300 */ 	lw	$t3,0x300($t3)
-/*  d5f0:	00003825 */ 	move	$a3,$zero
-/*  d5f4:	00003025 */ 	move	$a2,$zero
-/*  d5f8:	15600010 */ 	bnez	$t3,.PB0000d63c
-/*  d5fc:	24095f10 */ 	li	$t1,0x5f10
-/*  d600:	240503f6 */ 	li	$a1,0x3f6
-.PB0000d604:
-/*  d604:	00076040 */ 	sll	$t4,$a3,0x1
-/*  d608:	0006c840 */ 	sll	$t9,$a2,0x1
-/*  d60c:	01592021 */ 	addu	$a0,$t2,$t9
-/*  d610:	020c1821 */ 	addu	$v1,$s0,$t4
-/*  d614:	00001025 */ 	move	$v0,$zero
-.PB0000d618:
-/*  d618:	00826821 */ 	addu	$t5,$a0,$v0
-/*  d61c:	95b80000 */ 	lhu	$t8,0x0($t5)
-/*  d620:	00627021 */ 	addu	$t6,$v1,$v0
-/*  d624:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  d628:	1445fffb */ 	bne	$v0,$a1,.PB0000d618
-/*  d62c:	a5d8008a */ 	sh	$t8,0x8a($t6)
-/*  d630:	24c601fb */ 	addiu	$a2,$a2,0x1fb
-/*  d634:	14c9fff3 */ 	bne	$a2,$t1,.PB0000d604
-/*  d638:	24e70240 */ 	addiu	$a3,$a3,0x240
-.PB0000d63c:
-/*  d63c:	0c0029f7 */ 	jal	viSetMode
-/*  d640:	24040002 */ 	li	$a0,0x2
-/*  d644:	0c002690 */ 	jal	viConfigureForBanner
-/*  d648:	02002025 */ 	move	$a0,$s0
-/*  d64c:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  d650:	3c018006 */ 	lui	$at,0x8006
-/*  d654:	3c048009 */ 	lui	$a0,0x8009
-/*  d658:	ac2a06e4 */ 	sw	$t2,0x6e4($at)
-/*  d65c:	3c018006 */ 	lui	$at,0x8006
-/*  d660:	254f0800 */ 	addiu	$t7,$t2,0x800
-/*  d664:	ac2f06e0 */ 	sw	$t7,0x6e0($at)
-/*  d668:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  d66c:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*  d670:	0c01232c */ 	jal	osRecvMesg
-/*  d674:	00003025 */ 	move	$a2,$zero
-/*  d678:	14400007 */ 	bnez	$v0,.PB0000d698
-.PB0000d67c:
-/*  d67c:	3c048009 */ 	lui	$a0,0x8009
-/*  d680:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  d684:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*  d688:	0c01232c */ 	jal	osRecvMesg
-/*  d68c:	00003025 */ 	move	$a2,$zero
-/*  d690:	1040fffa */ 	beqz	$v0,.PB0000d67c
-/*  d694:	00000000 */ 	nop
-.PB0000d698:
-/*  d698:	00001825 */ 	move	$v1,$zero
-.PB0000d69c:
-/*  d69c:	3c048009 */ 	lui	$a0,0x8009
-/*  d6a0:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  d6a4:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*  d6a8:	24060001 */ 	li	$a2,0x1
-/*  d6ac:	0c01232c */ 	jal	osRecvMesg
-/*  d6b0:	afa31490 */ 	sw	$v1,0x1490($sp)
-/*  d6b4:	8fab1478 */ 	lw	$t3,0x1478($sp)
-/*  d6b8:	24010001 */ 	li	$at,0x1
-/*  d6bc:	8fa31490 */ 	lw	$v1,0x1490($sp)
-/*  d6c0:	856c0000 */ 	lh	$t4,0x0($t3)
-/*  d6c4:	27b01458 */ 	addiu	$s0,$sp,0x1458
-/*  d6c8:	5581000d */ 	bnel	$t4,$at,.PB0000d700
-/*  d6cc:	28610006 */ 	slti	$at,$v1,0x6
-/*  d6d0:	0c0027d3 */ 	jal	viUpdateMode
-/*  d6d4:	afa31490 */ 	sw	$v1,0x1490($sp)
-/*  d6d8:	3c048006 */ 	lui	$a0,0x8006
-/*  d6dc:	3c058006 */ 	lui	$a1,0x8006
-/*  d6e0:	24a5e800 */ 	addiu	$a1,$a1,-6144
-/*  d6e4:	2484e7d8 */ 	addiu	$a0,$a0,-6184
-/*  d6e8:	00003025 */ 	move	$a2,$zero
-/*  d6ec:	0c00bfad */ 	jal	rdpCreateTask
-/*  d6f0:	02003825 */ 	move	$a3,$s0
-/*  d6f4:	8fa31490 */ 	lw	$v1,0x1490($sp)
-/*  d6f8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  d6fc:	28610006 */ 	slti	$at,$v1,0x6
-.PB0000d700:
-/*  d700:	1420ffe6 */ 	bnez	$at,.PB0000d69c
-/*  d704:	00000000 */ 	nop
-/*  d708:	3c198000 */ 	lui	$t9,0x8000
-/*  d70c:	8f390300 */ 	lw	$t9,0x300($t9)
-/*  d710:	13200003 */ 	beqz	$t9,.PB0000d720
-/*  d714:	00000000 */ 	nop
-.PB0000d718:
-/*  d718:	1000ffff */ 	b	.PB0000d718
-/*  d71c:	00000000 */ 	nop
-.PB0000d720:
-/*  d720:	0c001c04 */ 	jal	vmInit
-/*  d724:	00000000 */ 	nop
-/*  d728:	0fc6a558 */ 	jal	func0f1a78b0
-/*  d72c:	00000000 */ 	nop
-/*  d730:	0fc5a179 */ 	jal	filesInit
-/*  d734:	00000000 */ 	nop
-/*  d738:	0fc5dea0 */ 	jal	stub0f175f50
-/*  d73c:	00000000 */ 	nop
-/*  d740:	0fc5deb0 */ 	jal	func0f175f90
-/*  d744:	00000000 */ 	nop
-/*  d748:	3c0d8006 */ 	lui	$t5,0x8006
-/*  d74c:	8dade4c0 */ 	lw	$t5,-0x1b40($t5)
-/*  d750:	11a00003 */ 	beqz	$t5,.PB0000d760
-/*  d754:	3c047005 */ 	lui	$a0,0x7005
-/*  d758:	0c004c2f */ 	jal	argSetString
-/*  d75c:	24844400 */ 	addiu	$a0,$a0,0x4400
-.PB0000d760:
-/*  d760:	3c04800b */ 	lui	$a0,0x800b
-/*  d764:	0c012de0 */ 	jal	osVirtualToPhysical
-/*  d768:	248417e0 */ 	addiu	$a0,$a0,0x17e0
-/*  d76c:	3c038009 */ 	lui	$v1,0x8009
-/*  d770:	8c632fe0 */ 	lw	$v1,0x2fe0($v1)
-/*  d774:	3c018000 */ 	lui	$at,0x8000
-/*  d778:	00412025 */ 	or	$a0,$v0,$at
-/*  d77c:	0c004892 */ 	jal	mempSetHeap
-/*  d780:	00642823 */ 	subu	$a1,$v1,$a0
-/*  d784:	0c004977 */ 	jal	mempResetPool
-/*  d788:	24040008 */ 	li	$a0,0x8
-/*  d78c:	0c004977 */ 	jal	mempResetPool
-/*  d790:	24040006 */ 	li	$a0,0x6
-/*  d794:	0c003320 */ 	jal	crashReset
-/*  d798:	00000000 */ 	nop
-/*  d79c:	0fc02c88 */ 	jal	challengesInit
-/*  d7a0:	00000000 */ 	nop
-/*  d7a4:	0fc5e243 */ 	jal	utilsInit
-/*  d7a8:	00000000 */ 	nop
-/*  d7ac:	0c000d28 */ 	jal	func000034d0
-/*  d7b0:	00000000 */ 	nop
-/*  d7b4:	0fc02c68 */ 	jal	texInit
-/*  d7b8:	00000000 */ 	nop
-/*  d7bc:	0fc00000 */ 	jal	langInit
-/*  d7c0:	00000000 */ 	nop
-/*  d7c4:	0fc5a45a */ 	jal	lvInit
-/*  d7c8:	00000000 */ 	nop
-/*  d7cc:	0fc41edb */ 	jal	cheatsInit
-/*  d7d0:	00000000 */ 	nop
-/*  d7d4:	0c003a7d */ 	jal	func0000e9c0
-/*  d7d8:	00000000 */ 	nop
-/*  d7dc:	0fc55154 */ 	jal	textInit
-/*  d7e0:	00000000 */ 	nop
-/*  d7e4:	0c004e5e */ 	jal	dhudInit
-/*  d7e8:	00000000 */ 	nop
-/*  d7ec:	0fc4a37c */ 	jal	playermgrInit
-/*  d7f0:	00000000 */ 	nop
-/*  d7f4:	0fc5b9d8 */ 	jal	frametimeInit
-/*  d7f8:	00000000 */ 	nop
-/*  d7fc:	0fc02c84 */ 	jal	stub0f00b200
-/*  d800:	00000000 */ 	nop
-/*  d804:	0c00265c */ 	jal	profileInit
-/*  d808:	00000000 */ 	nop
-/*  d80c:	0fc0021c */ 	jal	stub0f000870
-/*  d810:	00000000 */ 	nop
-/*  d814:	0fc00220 */ 	jal	smokesInit
-/*  d818:	00000000 */ 	nop
-/*  d81c:	0fc00238 */ 	jal	stub0f0008e0
-/*  d820:	00000000 */ 	nop
-/*  d824:	0fc0023c */ 	jal	stub0f0008f0
-/*  d828:	00000000 */ 	nop
-/*  d82c:	0fc00240 */ 	jal	stub0f000900
-/*  d830:	00000000 */ 	nop
-/*  d834:	0fc02c64 */ 	jal	stub0f00b180
-/*  d838:	00000000 */ 	nop
-/*  d83c:	0fc00244 */ 	jal	stub0f000910
-/*  d840:	00000000 */ 	nop
-/*  d844:	0fc00210 */ 	jal	stub0f000840
-/*  d848:	00000000 */ 	nop
-/*  d84c:	0fc62728 */ 	jal	mpInit
-/*  d850:	00000000 */ 	nop
-/*  d854:	0fc52db6 */ 	jal	pheadInit
-/*  d858:	00000000 */ 	nop
-/*  d85c:	0fc4649e */ 	jal	paksInit
-/*  d860:	00000000 */ 	nop
-/*  d864:	0fc52ddb */ 	jal	pheadInit2
-/*  d868:	00000000 */ 	nop
-/*  d86c:	0c008e60 */ 	jal	animsInit
-/*  d870:	00000000 */ 	nop
-/*  d874:	0fc00040 */ 	jal	racesInit
-/*  d878:	00000000 */ 	nop
-/*  d87c:	0fc0004c */ 	jal	bodiesInit
-/*  d880:	00000000 */ 	nop
-/*  d884:	0fc00214 */ 	jal	stub0f000850
-/*  d888:	00000000 */ 	nop
-/*  d88c:	0fc00218 */ 	jal	stub0f000860
-/*  d890:	00000000 */ 	nop
-/*  d894:	0fc00024 */ 	jal	titleInit
-/*  d898:	00000000 */ 	nop
-/*  d89c:	0c0026ba */ 	jal	viConfigureForLegal
-/*  d8a0:	00000000 */ 	nop
-/*  d8a4:	0c002773 */ 	jal	viBlack
-/*  d8a8:	24040001 */ 	li	$a0,0x1
-/*  d8ac:	3c188006 */ 	lui	$t8,0x8006
-/*  d8b0:	8f18e4e4 */ 	lw	$t8,-0x1b1c($t8)
-/*  d8b4:	3c018006 */ 	lui	$at,0x8006
-/*  d8b8:	ac20e828 */ 	sw	$zero,-0x17d8($at)
-/*  d8bc:	53000004 */ 	beqzl	$t8,.PB0000d8d0
-/*  d8c0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  d8c4:	0c0122b4 */ 	jal	osGetCount
-/*  d8c8:	00000000 */ 	nop
-/*  d8cc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.PB0000d8d0:
-/*  d8d0:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  d8d4:	27bd14e0 */ 	addiu	$sp,$sp,0x14e0
-/*  d8d8:	03e00008 */ 	jr	$ra
-/*  d8dc:	00000000 */ 	nop
-);
-#elif VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel mainInit
-/*     d520:	27bdeb28 */ 	addiu	$sp,$sp,-5336
-/*     d524:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     d528:	0c002fec */ 	jal	faultInit
-/*     d52c:	afb00028 */ 	sw	$s0,0x28($sp)
-/*     d530:	0c003428 */ 	jal	dmaInit
-/*     d534:	00000000 */ 	nop
-/*     d538:	0c002288 */ 	jal	amgrInit
-/*     d53c:	00000000 */ 	nop
-/*     d540:	0c005618 */ 	jal	varsInit
-/*     d544:	00000000 */ 	nop
-/*     d548:	0c004878 */ 	jal	mempInit
-/*     d54c:	00000000 */ 	nop
-/*     d550:	0c004a83 */ 	jal	memaInit
-/*     d554:	00000000 */ 	nop
-/*     d558:	0c004dd6 */ 	jal	videbugInit
-/*     d55c:	00000000 */ 	nop
-/*     d560:	0c0026ac */ 	jal	viConfigureForLogos
-/*     d564:	00000000 */ 	nop
-/*     d568:	0c00be82 */ 	jal	rmonIsDisabled
-/*     d56c:	00000000 */ 	nop
-/*     d570:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
-/*     d574:	0c004f25 */ 	jal	joyInit
-/*     d578:	ac22d9b0 */ 	sw	$v0,%lo(var8005d9b0)($at)
-/*     d57c:	27a41490 */ 	addiu	$a0,$sp,0x1490
-/*     d580:	27a514cc */ 	addiu	$a1,$sp,0x14cc
-/*     d584:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*     d588:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     d58c:	00008025 */ 	or	$s0,$zero,$zero
-/*     d590:	3c070047 */ 	lui	$a3,0x47
-.L0000d594:
-/*     d594:	240e0000 */ 	addiu	$t6,$zero,0x0
-/*     d598:	240f0000 */ 	addiu	$t7,$zero,0x0
-/*     d59c:	27b81490 */ 	addiu	$t8,$sp,0x1490
-/*     d5a0:	27b914cc */ 	addiu	$t9,$sp,0x14cc
-/*     d5a4:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*     d5a8:	afb80018 */ 	sw	$t8,0x18($sp)
-/*     d5ac:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     d5b0:	afae0010 */ 	sw	$t6,0x10($sp)
-/*     d5b4:	34e7868c */ 	ori	$a3,$a3,0x868c
-/*     d5b8:	27a414a8 */ 	addiu	$a0,$sp,0x14a8
-/*     d5bc:	0c0122c8 */ 	jal	osSetTimer
-/*     d5c0:	24060000 */ 	addiu	$a2,$zero,0x0
-/*     d5c4:	27a41490 */ 	addiu	$a0,$sp,0x1490
-/*     d5c8:	27a514cc */ 	addiu	$a1,$sp,0x14cc
-/*     d5cc:	0c0121bc */ 	jal	osRecvMesg
-/*     d5d0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     d5d4:	24010001 */ 	addiu	$at,$zero,0x1
-/*     d5d8:	56010006 */ 	bnel	$s0,$at,.L0000d5f4
-/*     d5dc:	2a010002 */ 	slti	$at,$s0,0x2
-/*     d5e0:	0c004f7f */ 	jal	joyReset
-/*     d5e4:	00000000 */ 	nop
-/*     d5e8:	10000007 */ 	b	.L0000d608
-/*     d5ec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d5f0:	2a010002 */ 	slti	$at,$s0,0x2
-.L0000d5f4:
-/*     d5f4:	54200004 */ 	bnezl	$at,.L0000d608
-/*     d5f8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d5fc:	0c0050bc */ 	jal	joyDebugJoy
-/*     d600:	00000000 */ 	nop
-/*     d604:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0000d608:
-/*     d608:	24010004 */ 	addiu	$at,$zero,0x4
-/*     d60c:	5601ffe1 */ 	bnel	$s0,$at,.L0000d594
-/*     d610:	3c070047 */ 	lui	$a3,0x47
-/*     d614:	3c057005 */ 	lui	$a1,%hi(var70053a98)
-/*     d618:	24a53a98 */ 	addiu	$a1,$a1,%lo(var70053a98)
-/*     d61c:	0c004c04 */ 	jal	argFindByPrefix
-/*     d620:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     d624:	14400004 */ 	bnez	$v0,.L0000d638
-/*     d628:	00002025 */ 	or	$a0,$zero,$zero
-/*     d62c:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*     d630:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
-/*     d634:	ac2bd9b0 */ 	sw	$t3,%lo(var8005d9b0)($at)
-.L0000d638:
-/*     d638:	0c0053d8 */ 	jal	joyGetButtons
-/*     d63c:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*     d640:	14400010 */ 	bnez	$v0,.L0000d684
-/*     d644:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     d648:	0c0053d8 */ 	jal	joyGetButtons
-/*     d64c:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*     d650:	1440000c */ 	bnez	$v0,.L0000d684
-/*     d654:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     d658:	0c0053d8 */ 	jal	joyGetButtons
-/*     d65c:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*     d660:	14400008 */ 	bnez	$v0,.L0000d684
-/*     d664:	24040003 */ 	addiu	$a0,$zero,0x3
-/*     d668:	0c0053d8 */ 	jal	joyGetButtons
-/*     d66c:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*     d670:	14400004 */ 	bnez	$v0,.L0000d684
-/*     d674:	3c108006 */ 	lui	$s0,%hi(g_DoBootPakMenu)
-/*     d678:	2610d9d4 */ 	addiu	$s0,$s0,%lo(g_DoBootPakMenu)
-/*     d67c:	10000005 */ 	b	.L0000d694
-/*     d680:	ae000000 */ 	sw	$zero,0x0($s0)
-.L0000d684:
-/*     d684:	3c108006 */ 	lui	$s0,%hi(g_DoBootPakMenu)
-/*     d688:	2610d9d4 */ 	addiu	$s0,$s0,%lo(g_DoBootPakMenu)
-/*     d68c:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*     d690:	ae0c0000 */ 	sw	$t4,0x0($s0)
-.L0000d694:
-/*     d694:	3c0e8006 */ 	lui	$t6,%hi(var8005dd1c)
-/*     d698:	afa01470 */ 	sw	$zero,0x1470($sp)
-/*     d69c:	25cedd1c */ 	addiu	$t6,$t6,%lo(var8005dd1c)
-/*     d6a0:	8dc10000 */ 	lw	$at,0x0($t6)
-/*     d6a4:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*     d6a8:	27ad1450 */ 	addiu	$t5,$sp,0x1450
-/*     d6ac:	ada10000 */ 	sw	$at,0x0($t5)
-/*     d6b0:	adb90004 */ 	sw	$t9,0x4($t5)
-/*     d6b4:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*     d6b8:	8dc10008 */ 	lw	$at,0x8($t6)
-/*     d6bc:	adb9000c */ 	sw	$t9,0xc($t5)
-/*     d6c0:	ada10008 */ 	sw	$at,0x8($t5)
-/*     d6c4:	8dc10010 */ 	lw	$at,0x10($t6)
-/*     d6c8:	8dd90014 */ 	lw	$t9,0x14($t6)
-/*     d6cc:	ada10010 */ 	sw	$at,0x10($t5)
-/*     d6d0:	adb90014 */ 	sw	$t9,0x14($t5)
-/*     d6d4:	8dd9001c */ 	lw	$t9,0x1c($t6)
-/*     d6d8:	8dc10018 */ 	lw	$at,0x18($t6)
-/*     d6dc:	adb9001c */ 	sw	$t9,0x1c($t5)
-/*     d6e0:	0c0005b0 */ 	jal	bootGetMemSize
-/*     d6e4:	ada10018 */ 	sw	$at,0x18($t5)
-/*     d6e8:	3c010040 */ 	lui	$at,0x40
-/*     d6ec:	34210001 */ 	ori	$at,$at,0x1
-/*     d6f0:	0041082a */ 	slt	$at,$v0,$at
-/*     d6f4:	1020000e */ 	beqz	$at,.L0000d730
-/*     d6f8:	3c028080 */ 	lui	$v0,0x8080
-/*     d6fc:	3c0b8006 */ 	lui	$t3,%hi(g_VmNumPages)
-/*     d700:	8d6bcf84 */ 	lw	$t3,%lo(g_VmNumPages)($t3)
-/*     d704:	3c18803f */ 	lui	$t8,0x803f
-/*     d708:	371850b8 */ 	ori	$t8,$t8,0x50b8
-/*     d70c:	3c01ffef */ 	lui	$at,0xffef
-/*     d710:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*     d714:	030c1023 */ 	subu	$v0,$t8,$t4
-/*     d718:	34214000 */ 	ori	$at,$at,0x4000
-/*     d71c:	00411021 */ 	addu	$v0,$v0,$at
-/*     d720:	304f1fff */ 	andi	$t7,$v0,0x1fff
-/*     d724:	004f1023 */ 	subu	$v0,$v0,$t7
-/*     d728:	10000001 */ 	b	.L0000d730
-/*     d72c:	2442e380 */ 	addiu	$v0,$v0,-7296
-.L0000d730:
-/*     d730:	8e0d0000 */ 	lw	$t5,0x0($s0)
-/*     d734:	3c01fff6 */ 	lui	$at,0xfff6
-/*     d738:	3421a000 */ 	ori	$at,$at,0xa000
-/*     d73c:	00411021 */ 	addu	$v0,$v0,$at
-/*     d740:	11a0000f */ 	beqz	$t5,.L0000d780
-/*     d744:	2442ffc0 */ 	addiu	$v0,$v0,-64
-/*     d748:	3c018000 */ 	lui	$at,0x8000
-/*     d74c:	00418025 */ 	or	$s0,$v0,$at
-/*     d750:	2610003f */ 	addiu	$s0,$s0,0x3f
-/*     d754:	3c030200 */ 	lui	$v1,%hi(_accessingpakSegmentRomStart)
-/*     d758:	360e003f */ 	ori	$t6,$s0,0x3f
-/*     d75c:	3c0b0200 */ 	lui	$t3,%hi(_accessingpakSegmentRomEnd)
-/*     d760:	2465f550 */ 	addiu	$a1,$v1,%lo(_accessingpakSegmentRomStart)
-/*     d764:	256bfe00 */ 	addiu	$t3,$t3,%lo(_accessingpakSegmentRomEnd)
-/*     d768:	39c4003f */ 	xori	$a0,$t6,0x3f
-/*     d76c:	00808025 */ 	or	$s0,$a0,$zero
-/*     d770:	0c003504 */ 	jal	dmaExec
-/*     d774:	01653023 */ 	subu	$a2,$t3,$a1
-/*     d778:	1000000e */ 	b	.L0000d7b4
-/*     d77c:	3c01ffff */ 	lui	$at,0xffff
-.L0000d780:
-/*     d780:	3c018000 */ 	lui	$at,0x8000
-/*     d784:	00418025 */ 	or	$s0,$v0,$at
-/*     d788:	2610003f */ 	addiu	$s0,$s0,0x3f
-/*     d78c:	3c030200 */ 	lui	$v1,%hi(_copyrightSegmentRomStart)
-/*     d790:	3618003f */ 	ori	$t8,$s0,0x3f
-/*     d794:	3c0f0200 */ 	lui	$t7,%hi(_copyrightSegmentRomEnd)
-/*     d798:	2465ea20 */ 	addiu	$a1,$v1,%lo(_copyrightSegmentRomStart)
-/*     d79c:	25eff550 */ 	addiu	$t7,$t7,%lo(_copyrightSegmentRomEnd)
-/*     d7a0:	3b04003f */ 	xori	$a0,$t8,0x3f
-/*     d7a4:	00808025 */ 	or	$s0,$a0,$zero
-/*     d7a8:	0c003504 */ 	jal	dmaExec
-/*     d7ac:	01e53023 */ 	subu	$a2,$t7,$a1
-/*     d7b0:	3c01ffff */ 	lui	$at,0xffff
-.L0000d7b4:
-/*     d7b4:	342141e0 */ 	ori	$at,$at,0x41e0
-/*     d7b8:	02012821 */ 	addu	$a1,$s0,$at
-/*     d7bc:	afa50048 */ 	sw	$a1,0x48($sp)
-/*     d7c0:	02002025 */ 	or	$a0,$s0,$zero
-/*     d7c4:	0c001d3c */ 	jal	rzipInflate
-/*     d7c8:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*     d7cc:	3c050004 */ 	lui	$a1,0x4
-/*     d7d0:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*     d7d4:	34a53800 */ 	ori	$a1,$a1,0x3800
-/*     d7d8:	00003825 */ 	or	$a3,$zero,$zero
-/*     d7dc:	24040500 */ 	addiu	$a0,$zero,0x500
-/*     d7e0:	00076840 */ 	sll	$t5,$a3,0x1
-.L0000d7e4:
-/*     d7e4:	020d1821 */ 	addu	$v1,$s0,$t5
-/*     d7e8:	00001025 */ 	or	$v0,$zero,$zero
-.L0000d7ec:
-/*     d7ec:	00627021 */ 	addu	$t6,$v1,$v0
-/*     d7f0:	24420002 */ 	addiu	$v0,$v0,0x2
-/*     d7f4:	1444fffd */ 	bne	$v0,$a0,.L0000d7ec
-/*     d7f8:	a5c00000 */ 	sh	$zero,0x0($t6)
-/*     d7fc:	24e70240 */ 	addiu	$a3,$a3,0x240
-/*     d800:	00e5082a */ 	slt	$at,$a3,$a1
-/*     d804:	5420fff7 */ 	bnezl	$at,.L0000d7e4
-/*     d808:	00076840 */ 	sll	$t5,$a3,0x1
-/*     d80c:	3c198000 */ 	lui	$t9,0x8000
-/*     d810:	8f390300 */ 	lw	$t9,0x300($t9)
-/*     d814:	00003825 */ 	or	$a3,$zero,$zero
-/*     d818:	00003025 */ 	or	$a2,$zero,$zero
-/*     d81c:	13200010 */ 	beqz	$t9,.L0000d860
-/*     d820:	24095f10 */ 	addiu	$t1,$zero,0x5f10
-/*     d824:	240503f6 */ 	addiu	$a1,$zero,0x3f6
-.L0000d828:
-/*     d828:	00075840 */ 	sll	$t3,$a3,0x1
-/*     d82c:	0006c040 */ 	sll	$t8,$a2,0x1
-/*     d830:	01582021 */ 	addu	$a0,$t2,$t8
-/*     d834:	020b1821 */ 	addu	$v1,$s0,$t3
-/*     d838:	00001025 */ 	or	$v0,$zero,$zero
-.L0000d83c:
-/*     d83c:	00826021 */ 	addu	$t4,$a0,$v0
-/*     d840:	958f0000 */ 	lhu	$t7,0x0($t4)
-/*     d844:	00626821 */ 	addu	$t5,$v1,$v0
-/*     d848:	24420002 */ 	addiu	$v0,$v0,0x2
-/*     d84c:	1445fffb */ 	bne	$v0,$a1,.L0000d83c
-/*     d850:	a5af008a */ 	sh	$t7,0x8a($t5)
-/*     d854:	24c601fb */ 	addiu	$a2,$a2,0x1fb
-/*     d858:	14c9fff3 */ 	bne	$a2,$t1,.L0000d828
-/*     d85c:	24e70240 */ 	addiu	$a3,$a3,0x240
-.L0000d860:
-/*     d860:	0c002aac */ 	jal	viSetMode
-/*     d864:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     d868:	0c0026d4 */ 	jal	viConfigureForBanner
-/*     d86c:	02002025 */ 	or	$a0,$s0,$zero
-/*     d870:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*     d874:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferStart)
-/*     d878:	3c048009 */ 	lui	$a0,%hi(g_SchedMesgQueue)
-/*     d87c:	ac2af044 */ 	sw	$t2,%lo(g_RdpOutBufferStart)($at)
-/*     d880:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferEnd)
-/*     d884:	254e0800 */ 	addiu	$t6,$t2,0x800
-/*     d888:	ac2ef040 */ 	sw	$t6,%lo(g_RdpOutBufferEnd)($at)
-/*     d88c:	2484db30 */ 	addiu	$a0,$a0,%lo(g_SchedMesgQueue)
-/*     d890:	27a51470 */ 	addiu	$a1,$sp,0x1470
-/*     d894:	0c0121bc */ 	jal	osRecvMesg
-/*     d898:	00003025 */ 	or	$a2,$zero,$zero
-/*     d89c:	14400007 */ 	bnez	$v0,.L0000d8bc
-.L0000d8a0:
-/*     d8a0:	3c048009 */ 	lui	$a0,%hi(g_SchedMesgQueue)
-/*     d8a4:	2484db30 */ 	addiu	$a0,$a0,%lo(g_SchedMesgQueue)
-/*     d8a8:	27a51470 */ 	addiu	$a1,$sp,0x1470
-/*     d8ac:	0c0121bc */ 	jal	osRecvMesg
-/*     d8b0:	00003025 */ 	or	$a2,$zero,$zero
-/*     d8b4:	1040fffa */ 	beqz	$v0,.L0000d8a0
-/*     d8b8:	00000000 */ 	nop
-.L0000d8bc:
-/*     d8bc:	00001825 */ 	or	$v1,$zero,$zero
-.L0000d8c0:
-/*     d8c0:	3c048009 */ 	lui	$a0,%hi(g_SchedMesgQueue)
-/*     d8c4:	2484db30 */ 	addiu	$a0,$a0,%lo(g_SchedMesgQueue)
-/*     d8c8:	27a51470 */ 	addiu	$a1,$sp,0x1470
-/*     d8cc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     d8d0:	0c0121bc */ 	jal	osRecvMesg
-/*     d8d4:	afa31488 */ 	sw	$v1,0x1488($sp)
-/*     d8d8:	8fb91470 */ 	lw	$t9,0x1470($sp)
-/*     d8dc:	24010001 */ 	addiu	$at,$zero,0x1
-/*     d8e0:	8fa31488 */ 	lw	$v1,0x1488($sp)
-/*     d8e4:	872b0000 */ 	lh	$t3,0x0($t9)
-/*     d8e8:	27b01450 */ 	addiu	$s0,$sp,0x1450
-/*     d8ec:	5561000d */ 	bnel	$t3,$at,.L0000d924
-/*     d8f0:	28610006 */ 	slti	$at,$v1,0x6
-/*     d8f4:	0c002811 */ 	jal	viUpdateMode
-/*     d8f8:	afa31488 */ 	sw	$v1,0x1488($sp)
-/*     d8fc:	3c048006 */ 	lui	$a0,%hi(var8005dcc8)
-/*     d900:	3c058006 */ 	lui	$a1,%hi(var8005dcf0)
-/*     d904:	24a5dcf0 */ 	addiu	$a1,$a1,%lo(var8005dcf0)
-/*     d908:	2484dcc8 */ 	addiu	$a0,$a0,%lo(var8005dcc8)
-/*     d90c:	00003025 */ 	or	$a2,$zero,$zero
-/*     d910:	0c00be3d */ 	jal	rdpCreateTask
-/*     d914:	02003825 */ 	or	$a3,$s0,$zero
-/*     d918:	8fa31488 */ 	lw	$v1,0x1488($sp)
-/*     d91c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     d920:	28610006 */ 	slti	$at,$v1,0x6
-.L0000d924:
-/*     d924:	1420ffe6 */ 	bnez	$at,.L0000d8c0
-/*     d928:	00000000 */ 	nop
-/*     d92c:	3c188000 */ 	lui	$t8,0x8000
-/*     d930:	8f180300 */ 	lw	$t8,0x300($t8)
-/*     d934:	17000003 */ 	bnez	$t8,.L0000d944
-/*     d938:	00000000 */ 	nop
-.L0000d93c:
-/*     d93c:	1000ffff */ 	b	.L0000d93c
-/*     d940:	00000000 */ 	nop
-.L0000d944:
-/*     d944:	0c001c34 */ 	jal	vmInit
-/*     d948:	00000000 */ 	nop
-/*     d94c:	0fc69e2c */ 	jal	func0f1a78b0
-/*     d950:	00000000 */ 	nop
-/*     d954:	0fc59bdd */ 	jal	filesInit
-/*     d958:	00000000 */ 	nop
-/*     d95c:	0fc5d7d4 */ 	jal	stub0f175f50
-/*     d960:	00000000 */ 	nop
-/*     d964:	0fc5d7e4 */ 	jal	func0f175f90
-/*     d968:	00000000 */ 	nop
-/*     d96c:	3c0c8006 */ 	lui	$t4,%hi(var8005d9b0)
-/*     d970:	8d8cd9b0 */ 	lw	$t4,%lo(var8005d9b0)($t4)
-/*     d974:	11800003 */ 	beqz	$t4,.L0000d984
-/*     d978:	3c047005 */ 	lui	$a0,%hi(var70053aa0)
-/*     d97c:	0c004bbf */ 	jal	argSetString
-/*     d980:	24843aa0 */ 	addiu	$a0,$a0,%lo(var70053aa0)
-.L0000d984:
-/*     d984:	3c04800b */ 	lui	$a0,%hi(_bssSegmentEnd)
-/*     d988:	0c012d20 */ 	jal	osVirtualToPhysical
-/*     d98c:	2484d1c0 */ 	addiu	$a0,$a0,%lo(_bssSegmentEnd)
-/*     d990:	3c038009 */ 	lui	$v1,%hi(g_VmMarker)
-/*     d994:	8c630b00 */ 	lw	$v1,%lo(g_VmMarker)($v1)
-/*     d998:	3c018000 */ 	lui	$at,0x8000
-/*     d99c:	00412025 */ 	or	$a0,$v0,$at
-/*     d9a0:	0c00487a */ 	jal	mempSetHeap
-/*     d9a4:	00642823 */ 	subu	$a1,$v1,$a0
-/*     d9a8:	0c00494a */ 	jal	mempResetPool
-/*     d9ac:	24040008 */ 	addiu	$a0,$zero,0x8
-/*     d9b0:	0c00494a */ 	jal	mempResetPool
-/*     d9b4:	24040006 */ 	addiu	$a0,$zero,0x6
-/*     d9b8:	0c0033be */ 	jal	crashReset
-/*     d9bc:	00000000 */ 	nop
-/*     d9c0:	0fc02c84 */ 	jal	challengesInit
-/*     d9c4:	00000000 */ 	nop
-/*     d9c8:	0fc5db77 */ 	jal	utilsInit
-/*     d9cc:	00000000 */ 	nop
-/*     d9d0:	0c000d34 */ 	jal	func000034d0
-/*     d9d4:	00000000 */ 	nop
-/*     d9d8:	0fc02c64 */ 	jal	texInit
-/*     d9dc:	00000000 */ 	nop
-/*     d9e0:	0fc00000 */ 	jal	langInit
-/*     d9e4:	00000000 */ 	nop
-/*     d9e8:	0fc59ebe */ 	jal	lvInit
-/*     d9ec:	00000000 */ 	nop
-/*     d9f0:	0fc41d3b */ 	jal	cheatsInit
-/*     d9f4:	00000000 */ 	nop
-/*     d9f8:	0c003a70 */ 	jal	func0000e9c0
-/*     d9fc:	00000000 */ 	nop
-/*     da00:	0fc54c68 */ 	jal	textInit
-/*     da04:	00000000 */ 	nop
-/*     da08:	0c004de4 */ 	jal	dhudInit
-/*     da0c:	00000000 */ 	nop
-/*     da10:	0fc49e44 */ 	jal	playermgrInit
-/*     da14:	00000000 */ 	nop
-/*     da18:	0fc5b384 */ 	jal	frametimeInit
-/*     da1c:	00000000 */ 	nop
-/*     da20:	0fc02c80 */ 	jal	stub0f00b200
-/*     da24:	00000000 */ 	nop
-/*     da28:	0c0026a0 */ 	jal	profileInit
-/*     da2c:	00000000 */ 	nop
-/*     da30:	0fc0021c */ 	jal	stub0f000870
-/*     da34:	00000000 */ 	nop
-/*     da38:	0fc00220 */ 	jal	smokesInit
-/*     da3c:	00000000 */ 	nop
-/*     da40:	0fc00238 */ 	jal	stub0f0008e0
-/*     da44:	00000000 */ 	nop
-/*     da48:	0fc0023c */ 	jal	stub0f0008f0
-/*     da4c:	00000000 */ 	nop
-/*     da50:	0fc00240 */ 	jal	stub0f000900
-/*     da54:	00000000 */ 	nop
-/*     da58:	0fc02c60 */ 	jal	stub0f00b180
-/*     da5c:	00000000 */ 	nop
-/*     da60:	0fc00244 */ 	jal	stub0f000910
-/*     da64:	00000000 */ 	nop
-/*     da68:	0fc00210 */ 	jal	stub0f000840
-/*     da6c:	00000000 */ 	nop
-/*     da70:	0fc62084 */ 	jal	mpInit
-/*     da74:	00000000 */ 	nop
-/*     da78:	0fc528ca */ 	jal	pheadInit
-/*     da7c:	00000000 */ 	nop
-/*     da80:	0fc46276 */ 	jal	paksInit
-/*     da84:	00000000 */ 	nop
-/*     da88:	0fc528ef */ 	jal	pheadInit2
-/*     da8c:	00000000 */ 	nop
-/*     da90:	0c008cf0 */ 	jal	animsInit
-/*     da94:	00000000 */ 	nop
-/*     da98:	0fc00040 */ 	jal	racesInit
-/*     da9c:	00000000 */ 	nop
-/*     daa0:	0fc0004c */ 	jal	bodiesInit
-/*     daa4:	00000000 */ 	nop
-/*     daa8:	0fc00214 */ 	jal	stub0f000850
-/*     daac:	00000000 */ 	nop
-/*     dab0:	0fc00218 */ 	jal	stub0f000860
-/*     dab4:	00000000 */ 	nop
-/*     dab8:	0fc00024 */ 	jal	titleInit
-/*     dabc:	00000000 */ 	nop
-/*     dac0:	0c0026fe */ 	jal	viConfigureForLegal
-/*     dac4:	00000000 */ 	nop
-/*     dac8:	0c0027b1 */ 	jal	viBlack
-/*     dacc:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     dad0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     dad4:	3c018006 */ 	lui	$at,%hi(var8005dd18)
-/*     dad8:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*     dadc:	ac20dd18 */ 	sw	$zero,%lo(var8005dd18)($at)
-/*     dae0:	03e00008 */ 	jr	$ra
-/*     dae4:	27bd14d8 */ 	addiu	$sp,$sp,0x14d8
-);
+		if (osTvType == OS_TV_NTSC)
+#elif PAL
+		if (osTvType == OS_TV_PAL)
 #else
+		if (osTvType != OS_TV_PAL)
+#endif
+		{
+			// Copy the texture to the framebuffer.
+			// The framebuffer will be displayed at 576 wide,
+			// and the texture is right aligned.
+			dsty = 0;
+
+			for (srcy = 0; srcy < 507 * 48; srcy += 507) {
+				for (x = 0; x < 507; x++) {
+					fb[dsty + (576 - 507) + x] = texture[srcy + x];
+				}
+
+				dsty += 576;
+			}
+		}
+
+		viSetMode(VIMODE_HI);
+		viConfigureForCopyright((u8 *) fb);
+
+		g_RdpOutBufferStart = texture;
+		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
+
+		while (osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0) {
+			// empty
+		}
+
+		j = 0;
+
+		while (j < 6) {
+			osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_BLOCK);
+
+			i = (s32) &scdonemsg;
+
+			if (*(s16 *) receivedmsg == 1) {
+				viUpdateMode();
+				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (void *) i);
+				j++;
+			}
+		}
+	}
+
+	// From the N64 SDK:
+	//
+	//     Please design the game program so that it won't execute normally
+	//     when an unexpected television system format is detected by osTvType.
+	//     Design the program to either go into an infinite loop or display a
+	//     message indicating a system error.
+	//
+#if VERSION >= VERSION_JPN_FINAL
+	if (osTvType != OS_TV_NTSC) {
+		while (1);
+	}
+#elif PAL
+	if (osTvType != OS_TV_PAL) {
+		while (1);
+	}
+#else
+	if (osTvType == OS_TV_PAL) {
+		while (1);
+	}
+#endif
+
+	vmInit();
+	func0f1a78b0();
+	filesInit();
+	stub0f175f50();
+	func0f175f90();
+
+	if (var8005d9b0) {
+		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
+	}
+
+	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_bssSegmentEnd));
+	end = g_VmMarker;
+	mempSetHeap(start, end - start);
+
+	mempResetPool(MEMPOOL_8);
+	mempResetPool(MEMPOOL_PERMANENT);
+	crashReset();
+	challengesInit();
+	utilsInit();
+	func000034d0();
+	texInit();
+	langInit();
+	lvInit();
+	cheatsInit();
+	func0000e9c0();
+	textInit();
+	dhudInit();
+	playermgrInit();
+	frametimeInit();
+	stub0f00b200();
+	profileInit();
+	stub0f000870();
+	smokesInit();
+	stub0f0008e0();
+	stub0f0008f0();
+	stub0f000900();
+	stub0f00b180();
+	stub0f000910();
+	stub0f000840();
+	mpInit();
+	pheadInit();
+	paksInit();
+	pheadInit2();
+	animsInit();
+	racesInit();
+	bodiesInit();
+	stub0f000850();
+	stub0f000860();
+	titleInit();
+	viConfigureForLegal();
+	viBlack(true);
+
+	var8005dd18 = 0;
+
+#if VERSION >= VERSION_PAL_BETA && VERSION < VERSION_JPN_FINAL
+	if (g_DoBootPakMenu) {
+		osGetCount();
+	}
+#endif
+}
+#else
+const char var70053a98[] = "-level_";
+const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
+
+u32 var8005dd1c = 0x00020000;
+u32 var8005dd20 = 0x00000000;
+u32 var8005dd24 = 0x00000000;
+u32 var8005dd28 = 0x00000000;
+u32 var8005dd2c = 0x00000000;
+u32 var8005dd30 = 0x00000000;
+u32 var8005dd34 = 0x00000000;
+u32 var8005dd38 = 0x00000000;
+
 GLOBAL_ASM(
 glabel mainInit
 /*     da80:	27bdeb20 */ 	addiu	$sp,$sp,-5344
@@ -2123,7 +794,7 @@ glabel mainInit
 /*     dd80:	24e70240 */ 	addiu	$a3,$a3,0x240
 /*     dd84:	0c002b0c */ 	jal	viSetMode
 /*     dd88:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     dd8c:	0c00273c */ 	jal	viConfigureForBanner
+/*     dd8c:	0c00273c */ 	jal	viConfigureForCopyright
 /*     dd90:	02202025 */ 	or	$a0,$s1,$zero
 /*     dd94:	3c018006 */ 	lui	$at,0x8006
 /*     dd98:	3c118009 */ 	lui	$s1,0x8009
@@ -2289,227 +960,6 @@ glabel mainInit
 /*     dffc:	27bd14e0 */ 	addiu	$sp,$sp,0x14e0
 );
 #endif
-
-const char var70053a98[] = "-level_";
-const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
-
-//extern u8 _accessingpakSegmentRomStart;
-//extern u8 _accessingpakSegmentRomEnd;
-//extern u8 _copyrightSegmentRomStart;
-//extern u8 _copyrightSegmentRomEnd;
-//extern u8 _bssSegmentEnd;
-
-// Mismatch: goal saves j to stack in its loop and puts &sp1450 in s0, while the
-// below puts j in s0 and calculates &sp1450 each time. The key to solving this
-// will probably be to find out what sp1470 and sp1450 are.
-//void mainInit(void)
-//{
-//	s32 x;
-//	s32 y;
-//	OSMesg msg; // 14cc
-//	OSTimer timer; // 14a8
-//	OSMesgQueue queue; // 1490
-//	s32 j;
-//	s32 i;
-//	u16 *fb;
-//	u16 *texture; // 48?
-//	u32 uVar2;
-//	u32 iVar5;
-//	u32 tmp;
-//
-//	faultInit();
-//	dmaInit();
-//	amgrInit();
-//	varsInit();
-//	mempInit();
-//	memaInit();
-//	videbugInit();
-//	viConfigureForLogos();
-//	var8005d9b0 = rmonIsDisabled();
-//	joyInit();
-//	osCreateMesgQueue(&queue, &msg, 1);
-//
-//	for (i = 0; i < 4; i++) {
-//		osSetTimer(&timer, 781250 * 6, 0, &queue, &msg);
-//		osRecvMesg(&queue, &msg, OS_MESG_BLOCK);
-//
-//		if (i == 1) {
-//			joyReset();
-//		} else if (i >= 2) {
-//			joyDebugJoy();
-//		}
-//	}
-//
-//	if (argFindByPrefix(1, "-level_") == 0) {
-//		var8005d9b0 = 1;
-//	}
-//
-//	// If holding start on any controller, open boot pak menu
-//	if (joyGetButtons(0, START_BUTTON) == 0
-//			&& joyGetButtons(1, START_BUTTON) == 0
-//			&& joyGetButtons(2, START_BUTTON) == 0
-//			&& joyGetButtons(3, START_BUTTON) == 0) {
-//		g_DoBootPakMenu = false;
-//	} else {
-//		g_DoBootPakMenu = true;
-//	}
-//
-//	{
-//		OSMesg sp1470 = NULL;
-//		u32 sp1450[] = { 0x20000, 0, 0, 0, 0, 0, 0, 0 };
-//		u8 sp50[5120];
-//		u32 stack;
-//
-//		if (bootGetMemSize() <= 4 * 1024 * 1024) {
-//			iVar5 = 0x803f50b8 - g_VmNumPages * 8;
-//			iVar5 -= 548864 * 2;
-//			iVar5 = iVar5 - (iVar5 & 0x1fff) - 0x1c80;
-//		} else {
-//			iVar5 = 0x80800000;
-//		}
-//
-//		iVar5 -= 640 * 480 * 2;
-//		iVar5 -= 0x40;
-//		fb = (u16 *)ALIGN64(iVar5 | 0x80000000);
-//
-//		// DMA the texture from the ROM to the framebuffer.
-//		// It's using the framebuffer as temporary scratch memory, presumably so
-//		// the texture format can be changed then copied into the framebuffer in
-//		// the correct format.
-//		if (g_DoBootPakMenu) {
-//			dmaExec(fb, &_accessingpakSegmentRomStart, &_accessingpakSegmentRomEnd - &_accessingpakSegmentRomStart);
-//		} else {
-//			dmaExec(fb, &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
-//		}
-//
-//		// Prepare space for the texture immediately before the framebuffer
-//		// Both textures are 507x48
-//		texture = fb - 507 * 48;
-//
-//		// Convert the texture format? Probably reading from fb and writing to texture
-//		rzipInflate(fb, texture, &sp50);
-//
-//		// Clear the framebuffer
-//		// This seems a bit wasteful. The buffer is 640x480, so the y increment
-//		// should be 640. But it's 576, so some bytes are zeroed multiple times.
-//		for (y = 0; y < 480 * 576; y += 576) {
-//			for (x = 0; x < 640; x++) {
-//				fb[y + x] = 0;
-//			}
-//		}
-//
-//		// Copy the texture to the framebuffer
-//		if (osTvType != OS_TV_PAL) {
-//			s32 fby = 0;
-//
-//			for (y = 0; y < 48 * 507; y += 507) {
-//				for (x = 0; x < 507; x++) {
-//					fb[fby + x + 69] = texture[y + x];
-//				}
-//
-//				fby += 576;
-//			}
-//		}
-//
-//		viSetMode(VIMODE_HI);
-//		viConfigureForBanner(fb);
-//
-//		g_RdpOutBufferStart = texture;
-//		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
-//
-//		while (osRecvMesg(&g_SchedMesgQueue, &sp1470, OS_MESG_NOBLOCK) == 0) {
-//			// empty
-//		}
-//
-//		// Mismatch begins here
-//		// 8bc
-//		j = 0;
-//
-//		while (j < 6) {
-//			osRecvMesg(&g_SchedMesgQueue, &sp1470, OS_MESG_BLOCK);
-//
-//			if (*(s16 *)sp1470 == 1) {
-//				viUpdateMode();
-//				rdpCreateTask(var8005dcc8, var8005dcf0, 0, sp1450);
-//				j++;
-//			}
-//		}
-//	}
-//
-//	// From the N64 SDK:
-//	//
-//	//     Please design the game program so that it won't execute normally
-//	//     when an unexpected television system format is detected by osTvType.
-//	//     Design the program to either go into an infinite loop or display a
-//	//     message indicating a system error.
-//	//
-//	if (osTvType == OS_TV_PAL) {
-//		while (1);
-//	}
-//
-//	vmInit();
-//	func0f1a78b0();
-//	filesInit();
-//	stub0f175f50();
-//	func0f175f90();
-//
-//	if (var8005d9b0) {
-//		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
-//	}
-//
-//	uVar2 = osVirtualToPhysical(&_bssSegmentEnd) | 0x80000000;
-//	tmp = g_VmMarker;
-//	mempSetHeap(uVar2, tmp - uVar2);
-//
-//	mempResetPool(MEMPOOL_8);
-//	mempResetPool(MEMPOOL_PERMANENT);
-//	crashReset();
-//	challengesInit();
-//	utilsInit();
-//	func000034d0();
-//	texInit();
-//	langInit();
-//	lvInit();
-//	cheatsInit();
-//	func0000e9c0();
-//	textInit();
-//	dhudInit();
-//	playermgrInit();
-//	frametimeInit();
-//	stub0f00b200();
-//	profileInit();
-//	stub0f000870();
-//	smokesInit();
-//	stub0f0008e0();
-//	stub0f0008f0();
-//	stub0f000900();
-//	stub0f00b180();
-//	stub0f000910();
-//	stub0f000840();
-//	mpInit();
-//	pheadInit();
-//	paksInit();
-//	pheadInit2();
-//	animsInit();
-//	racesInit();
-//	bodiesInit();
-//	stub0f000850();
-//	stub0f000860();
-//	titleInit();
-//	viConfigureForLegal();
-//	viBlack(true);
-//
-//	var8005dd18 = 0;
-//}
-
-u32 var8005dd1c = 0x00020000;
-u32 var8005dd20 = 0x00000000;
-u32 var8005dd24 = 0x00000000;
-u32 var8005dd28 = 0x00000000;
-u32 var8005dd2c = 0x00000000;
-u32 var8005dd30 = 0x00000000;
-u32 var8005dd34 = 0x00000000;
-u32 var8005dd38 = 0x00000000;
 
 u32 var8005dd3c = 0x00000000;
 u32 var8005dd40 = 0x00000000;

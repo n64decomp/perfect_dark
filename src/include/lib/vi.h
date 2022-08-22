@@ -11,7 +11,7 @@ void profile00009a98(void);
 void profileSetMarker(u32 arg0);
 Gfx *profileRender(Gfx *gdl);
 void viConfigureForLogos(void);
-void viConfigureForBanner(u8 *fb);
+void viConfigureForCopyright(u8 *fb);
 void viConfigureForLegal(void);
 void viReset(s32 stagenum);
 void viBlack(bool black);

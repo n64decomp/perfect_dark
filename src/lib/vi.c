@@ -104,15 +104,13 @@ void viConfigureForLogos(void)
 }
 
 /**
- * Configure the VI to display a banner texture.
+ * Configure the VI to display the copyright or accessingpak texture.
  *
- * The banner texture is the first thing displayed after power on.
- * It is either the copyright notice, or the "Accessing Pak" message
- * if holding start to enter the boot pak menu.
+ * The texture is the first thing displayed after power on.
  *
- * Both textures are 576 x 48.
+ * Both textures are 507 x 48, but the framebuffer width is 576.
  */
-void viConfigureForBanner(u8 *texturedata)
+void viConfigureForCopyright(u8 *texturedata)
 {
 	s32 i;
 

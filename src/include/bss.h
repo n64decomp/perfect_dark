@@ -23,7 +23,7 @@ extern u8 g_Is4Mb;
 extern u32 g_VmNumTlbMisses;
 extern u32 g_VmNumPageMisses;
 extern u32 g_VmNumPageReplaces;
-extern u32 g_VmMarker;
+extern u8 *g_VmMarker;
 extern u32 g_VmRamEnd;
 extern u32 g_VmStateTableEnd;
 extern AMAudioMgr g_AudioManager;

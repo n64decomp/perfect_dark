@@ -70,7 +70,7 @@ u8 g_Is4Mb;
 u32 g_VmNumTlbMisses;
 u32 g_VmNumPageMisses;
 u32 g_VmNumPageReplaces;
-u32 g_VmMarker;
+u8 *g_VmMarker;
 u32 g_VmRamEnd;
 u32 g_VmStateTableEnd;
 
