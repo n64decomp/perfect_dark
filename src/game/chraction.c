@@ -20482,10 +20482,10 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 				waydata->aimposobj.z = waydata->aimpos.z;
 			} else {
 				// Obstacle ahead
-				waydata->mode = WAYMODE_NEWOBSACTLE;
+				waydata->mode = WAYMODE_NEWOBSTACLE;
 				waydata->iter = 0;
 			}
-		} else if (waydata->mode == WAYMODE_NEWOBSACTLE) {
+		} else if (waydata->mode == WAYMODE_NEWOBSTACLE) {
 			// Chr has just noticed an obstacle ahead of them which they need to
 			// route around. The obstacleleft and obstacleright coordinates are
 			// already populated and they indicate the left and right corners of

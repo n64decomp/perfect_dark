@@ -4208,7 +4208,7 @@
 #define WAYMODE_RETRY       2
 #define WAYMODE_LOST2       3
 #define WAYMODE_HAVEAIMPOS  4
-#define WAYMODE_NEWOBSACTLE 5
+#define WAYMODE_NEWOBSTACLE 5
 #define WAYMODE_MAGIC       6
 
 enum weaponnum {

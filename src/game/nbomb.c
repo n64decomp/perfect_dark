@@ -1337,9 +1337,12 @@ Gfx *nbombsRender(Gfx *gdl)
 void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 {
 	u32 stack;
-	s32 oldest240 = -1;
-	s32 index = 0;
+	s32 oldest240;
+	s32 index;
 	s32 i;
+
+	oldest240 = -1;
+	index = 0;
 
 	g_NbombsActive = true;
 
