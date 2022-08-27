@@ -105,7 +105,7 @@ struct skeleton *g_Skeletons[] = {
 	&g_SkelBB,
 };
 
-void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32 arg3, struct texturething *arg4, bool arg5)
+void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32 arg3, struct texpool *arg4, bool arg5)
 {
 	s32 allocsize;
 	s32 loadedsize;
@@ -175,7 +175,7 @@ void modelPromoteTypeToPointer(struct modelfiledata *filedata)
 	}
 }
 
-struct modelfiledata *modeldefLoad(u16 fileid, u8 *dst, s32 size, struct texturething *arg3)
+struct modelfiledata *modeldefLoad(u16 fileid, u8 *dst, s32 size, struct texpool *arg3)
 {
 	struct modelfiledata *filedata;
 

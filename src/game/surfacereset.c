@@ -8,7 +8,8 @@
 void surfaceReset(void)
 {
 	g_TexCacheCount = 0;
-	var800aabc8.unk00 = NULL;
-	var800aabc8.unk04 = NULL;
-	var800aabc8.unk0c = NULL;
+
+	g_TexSharedPool.start = NULL;
+	g_TexSharedPool.end = NULL;
+	g_TexSharedPool.rightpos = NULL;
 }

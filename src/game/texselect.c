@@ -249,9 +249,9 @@ void texLoadFromConfig(struct textureconfig *config)
 	}
 }
 
-void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, u32 ulst, bool arg5, struct texturething *arg6)
+void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, u32 ulst, bool arg5, struct texpool *pool)
 {
-	struct texloadthing *s4;
+	struct tex *tex;
 	Gfx *gdl;
 	s32 tile;
 
@@ -280,10 +280,10 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 		s32 line;
 		u16 texturenum;
 
-		s4 = NULL;
+		tex = NULL;
 
 		if ((u32)tconfig->texturenum < NUM_TEXTURES) {
-			texLoadFromConfigs(tconfig, 1, arg6, 0);
+			texLoadFromConfigs(tconfig, 1, pool, 0);
 		}
 
 		if (tconfig->unk0b == 1) {
@@ -292,23 +292,23 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 			index = tconfig - g_TexWallhitConfigs;
 
 			if (index >= 0 && index < g_TexNumConfigs) {
-				s4 = g_TexWords[index];
+				tex = g_TexWords[index];
 			}
 
-			if (s4 == NULL) {
-				s4 = tex0f172e8c(texturenum, arg6);
+			if (tex == NULL) {
+				tex = texFindInPool(texturenum, pool);
 
 				if (index >= 0 && index < g_TexNumConfigs) {
-					g_TexWords[index] = s4;
+					g_TexWords[index] = tex;
 				}
 			}
 		}
 
 		if (tconfig->level == 0) {
-			if (s4) {
-				format = s4->gbiformat;
-				depth = s4->depth;
-				lutmode = s4->lutmodeindex << G_MDSFT_TEXTLUT;
+			if (tex) {
+				format = tex->gbiformat;
+				depth = tex->depth;
+				lutmode = tex->lutmodeindex << G_MDSFT_TEXTLUT;
 			} else {
 				format = tconfig->format;
 				depth = tconfig->depth;
@@ -388,12 +388,12 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 			if (format == G_IM_FMT_CI) {
 				u32 a3 = lrs + 1;
-				u32 t0 = (0x3ff - s4->unk0a) < a3 ? (0x3ff - s4->unk0a) : 0;
+				u32 t0 = (0x3ff - tex->unk0a) < a3 ? (0x3ff - tex->unk0a) : 0;
 
 				a3 -= t0;
 
 				gDPLoadSync(gdl++);
-				gDPLoadTLUT06(gdl++, a3, t0, s4->unk0a + a3, t0);
+				gDPLoadTLUT06(gdl++, a3, t0, tex->unk0a + a3, t0);
 				gDPPipeSync(gdl++);
 
 				if (arg5) {
@@ -425,17 +425,17 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 				lod = 6;
 			}
 
-			if (s4) {
-				format = s4->gbiformat;
-				depth = s4->depth;
-				lutmode = s4->lutmodeindex << G_MDSFT_TEXTLUT;
+			if (tex) {
+				format = tex->gbiformat;
+				depth = tex->depth;
+				lutmode = tex->lutmodeindex << G_MDSFT_TEXTLUT;
 			} else {
 				format = tconfig->format;
 				depth = tconfig->depth;
 			}
 
-			if (s4 && s4->unk0c_02) {
-				tex0f173e50(s4, &depth2, &lrs);
+			if (tex && tex->unk0c_02) {
+				tex0f173e50(tex, &depth2, &lrs);
 			} else {
 				switch (depth) {
 				case G_IM_SIZ_32b:
@@ -506,12 +506,12 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 			if (format == G_IM_FMT_CI) {
 				u32 a2 = lrs + 1;
-				u32 a3 = (0x3ff - s4->unk0a) < a2 ? (0x3ff - s4->unk0a) : 0;
+				u32 a3 = (0x3ff - tex->unk0a) < a2 ? (0x3ff - tex->unk0a) : 0;
 
 				a2 -= a3;
 
 				gDPLoadSync(gdl++);
-				gDPLoadTLUT06(gdl++, a2, a3, s4->unk0a + a2, a3);
+				gDPLoadTLUT06(gdl++, a2, a3, tex->unk0a + a2, a3);
 				gDPPipeSync(gdl++);
 
 				if (arg5) {
@@ -527,9 +527,9 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 				s32 line;
 
 				if (tile > 0) {
-					if (s4 && s4->unk0c_02) {
-						width = texGetWidthAtLod(s4, tile);
-						height = texGetHeightAtLod(s4, tile);
+					if (tex && tex->unk0c_02) {
+						width = texGetWidthAtLod(tex, tile);
+						height = texGetHeightAtLod(tex, tile);
 					} else {
 						if (width >= 2) {
 							width >>= 1;

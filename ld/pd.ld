@@ -120,12 +120,6 @@ SECTIONS
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-	_numtextures = 3511;
-#else
-	_numtextures = 3503;
-#endif
-
-#if VERSION >= VERSION_JPN_FINAL
 	_val7f11aa14 = 0x0e52;
 	_val7f11aae4 = 0x0e60;
 	_val7f11c1d0 = 0x1292;

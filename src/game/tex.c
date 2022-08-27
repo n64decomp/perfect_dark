@@ -258,18 +258,18 @@ bool tex0f173b8c(s32 index, s32 uls, s32 ult, s32 lrs, s32 lrt)
 	return result;
 }
 
-s32 texGetWidthAtLod(struct texloadthing *arg0, s32 lod)
+s32 texGetWidthAtLod(struct tex *tex, s32 lod)
 {
 	s32 i;
-	s32 width = arg0->width;
+	s32 width = tex->width;
 
 	if (lod == 0) {
 		return width;
 	}
 
-	if (arg0->unk0c_02) {
+	if (tex->unk0c_02) {
 		for (i = 0; i < g_TexCacheCount; i++) {
-			if (arg0->texturenum == g_TexCacheItems[i].texturenum) {
+			if (tex->texturenum == g_TexCacheItems[i].texturenum) {
 				return g_TexCacheItems[i].widths[lod - 1];
 			}
 		}
@@ -284,18 +284,18 @@ s32 texGetWidthAtLod(struct texloadthing *arg0, s32 lod)
 	return width;
 }
 
-s32 texGetHeightAtLod(struct texloadthing *arg0, s32 lod)
+s32 texGetHeightAtLod(struct tex *tex, s32 lod)
 {
 	s32 i;
-	s32 height = arg0->height;
+	s32 height = tex->height;
 
 	if (lod == 0) {
 		return height;
 	}
 
-	if (arg0->unk0c_02) {
+	if (tex->unk0c_02) {
 		for (i = 0; i < g_TexCacheCount; i++) {
-			if (arg0->texturenum == g_TexCacheItems[i].texturenum) {
+			if (tex->texturenum == g_TexCacheItems[i].texturenum) {
 				return g_TexCacheItems[i].heights[lod - 1];
 			}
 		}
@@ -310,10 +310,10 @@ s32 texGetHeightAtLod(struct texloadthing *arg0, s32 lod)
 	return height;
 }
 
-s32 texGetLineSizeInBytes(struct texloadthing *arg0, s32 lod)
+s32 texGetLineSizeInBytes(struct tex *tex, s32 lod)
 {
-	s32 depth = arg0->depth;
-	s32 width = texGetWidthAtLod(arg0, lod);
+	s32 depth = tex->depth;
+	s32 width = texGetWidthAtLod(tex, lod);
 
 	if (depth == G_IM_SIZ_32b) {
 		return (width + 3) / 4;
@@ -330,15 +330,15 @@ s32 texGetLineSizeInBytes(struct texloadthing *arg0, s32 lod)
 	return (width + 15) / 16;
 }
 
-s32 texGetSizeInBytes(struct texloadthing *arg0, s32 lod)
+s32 texGetSizeInBytes(struct tex *tex, s32 lod)
 {
-	return texGetHeightAtLod(arg0, lod) * texGetLineSizeInBytes(arg0, lod);
+	return texGetHeightAtLod(tex, lod) * texGetLineSizeInBytes(tex, lod);
 }
 
-void tex0f173e50(struct texloadthing *arg0, s32 *deptharg, s32 *lenarg)
+void tex0f173e50(struct tex *tex, s32 *deptharg, s32 *lenarg)
 {
-	s32 depth = arg0->depth;
-	s32 maxlod = arg0->maxlod ? arg0->maxlod : 1;
+	s32 depth = tex->depth;
+	s32 maxlod = tex->maxlod ? tex->maxlod : 1;
 	s32 lod;
 
 	*lenarg = 0;
@@ -354,7 +354,7 @@ void tex0f173e50(struct texloadthing *arg0, s32 *deptharg, s32 *lenarg)
 	}
 
 	for (lod = 0; lod < maxlod; lod++) {
-		*lenarg += texGetSizeInBytes(arg0, lod) * 4;
+		*lenarg += texGetSizeInBytes(tex, lod) * 4;
 	}
 }
 
@@ -385,9 +385,9 @@ s32 tex0f173f48(s32 arg0)
 	return 0;
 }
 
-Gfx *tex0f173f78(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 shifts, s32 shiftt, s32 arg5)
+Gfx *tex0f173f78(Gfx *gdl, struct tex *tex, s32 arg2, s32 shifts, s32 shiftt, s32 arg5)
 {
-	struct texture *s0 = &g_Textures[arg1->texturenum];
+	struct texture *s0 = &g_Textures[tex->texturenum];
 	s32 sp88;
 	s32 sp84;
 	s32 line;
@@ -397,27 +397,27 @@ Gfx *tex0f173f78(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 shifts, s32 
 	s32 lrs;
 	s32 lrt;
 
-	sp88 = tex0f173f18(arg1->width);
-	sp84 = tex0f173f18(arg1->height);
+	sp88 = tex0f173f18(tex->width);
+	sp84 = tex0f173f18(tex->height);
 
-	line = texGetLineSizeInBytes(arg1, 0);
+	line = texGetLineSizeInBytes(tex, 0);
 
 	gDPSetPrimColorViaWord(gdl++, arg5, 0, 0xffffffff);
 
-	if (texSetLutMode(arg1->lutmodeindex << G_MDSFT_TEXTLUT)) {
-		gDPSetTextureLUT(gdl++, arg1->lutmodeindex << G_MDSFT_TEXTLUT);
+	if (texSetLutMode(tex->lutmodeindex << G_MDSFT_TEXTLUT)) {
+		gDPSetTextureLUT(gdl++, tex->lutmodeindex << G_MDSFT_TEXTLUT);
 	}
 
-	if (tex0f173a70(0, arg1->gbiformat, arg1->depth, line, s0->unk04_00 + line * s0->unk04_04, 0, 0, sp88 - s0->unk04_08, sp84 - s0->unk04_0c, shifts, shiftt)) {
-		gDPSetTile(gdl++, arg1->gbiformat, arg1->depth, line, s0->unk04_00 + line * s0->unk04_04, 0, 0,
+	if (tex0f173a70(0, tex->gbiformat, tex->depth, line, s0->unk04_00 + line * s0->unk04_04, 0, 0, sp88 - s0->unk04_08, sp84 - s0->unk04_0c, shifts, shiftt)) {
+		gDPSetTile(gdl++, tex->gbiformat, tex->depth, line, s0->unk04_00 + line * s0->unk04_04, 0, 0,
 				tex0f173f48(0), sp84 - s0->unk04_0c, shiftt,
 				tex0f173f48(0), sp88 - s0->unk04_08, shifts);
 	}
 
-	uls = (arg2 == 2 && !arg1->unk0c_02 ? 2 : 0) + 0;
-	ult = (arg2 == 2 && !arg1->unk0c_02 ? 2 : 0) + 0;
-	lrs = (arg2 == 2 && !arg1->unk0c_02 ? 2 : 0) + ((arg1->width - 1) << 2);
-	lrt = (arg2 == 2 && !arg1->unk0c_02 ? 2 : 0) + ((arg1->height - 1) << 2);
+	uls = (arg2 == 2 && !tex->unk0c_02 ? 2 : 0) + 0;
+	ult = (arg2 == 2 && !tex->unk0c_02 ? 2 : 0) + 0;
+	lrs = (arg2 == 2 && !tex->unk0c_02 ? 2 : 0) + ((tex->width - 1) << 2);
+	lrt = (arg2 == 2 && !tex->unk0c_02 ? 2 : 0) + ((tex->height - 1) << 2);
 
 	if (tex0f173b8c(0, uls, ult, lrs, lrt)) {
 		gDPSetTileSize(gdl++, 0, uls, ult, lrs, lrt);
@@ -426,9 +426,9 @@ Gfx *tex0f173f78(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 shifts, s32 
 	return gdl;
 }
 
-Gfx *tex0f1742e4(Gfx *arg0, Gfx *arg1, struct texloadthing *arg2, bool arg3)
+Gfx *tex0f1742e4(Gfx *arg0, Gfx *arg1, struct tex *tex, bool arg3)
 {
-	s32 lod = arg2->maxlod ? arg2->maxlod - 1 : 0;
+	s32 lod = tex->maxlod ? tex->maxlod - 1 : 0;
 
 	if (arg3) {
 		if (arg1 != NULL) {
@@ -450,15 +450,15 @@ Gfx *tex0f1742e4(Gfx *arg0, Gfx *arg1, struct texloadthing *arg2, bool arg3)
 	return arg0;
 }
 
-Gfx *tex0f1743a0(Gfx *gdl, struct texloadthing *arg1, s32 arg2)
+Gfx *tex0f1743a0(Gfx *gdl, struct tex *tex, s32 arg2)
 {
 	s32 depth;
 	s32 len;
 
-	tex0f173e50(arg1, &depth, &len);
+	tex0f173e50(tex, &depth, &len);
 
-	if (arg1->lutmodeindex == 0) {
-		gDPSetTextureImage(gdl++, arg1->gbiformat, depth, 1, arg1->unk04);
+	if (tex->lutmodeindex == 0) {
+		gDPSetTextureImage(gdl++, tex->gbiformat, depth, 1, tex->data);
 
 		if (!var800844d0) {
 			gDPPipeSync(gdl++);
@@ -479,7 +479,7 @@ Gfx *tex0f1743a0(Gfx *gdl, struct texloadthing *arg1, s32 arg2)
 			gDPLoadBlock(gdl++, 5, 0, 0, len - 1, 0);
 		}
 	} else {
-		gDPSetTextureImage(gdl++, arg1->gbiformat, depth, 1, arg1->unk04);
+		gDPSetTextureImage(gdl++, tex->gbiformat, depth, 1, tex->data);
 
 		if (!var800844d0) {
 			gDPPipeSync(gdl++);
@@ -502,26 +502,26 @@ Gfx *tex0f1743a0(Gfx *gdl, struct texloadthing *arg1, s32 arg2)
 
 		{
 			s32 tmp = len;
-			s32 a2 = (u32)(0x3ff - arg1->unk0a) < len ? (u32)(0x3ff - arg1->unk0a) : 0;
+			s32 a2 = (u32)(0x3ff - tex->unk0a) < len ? (u32)(0x3ff - tex->unk0a) : 0;
 
 			tmp -= a2;
 
 			gDPLoadSync(gdl++);
-			gDPLoadTLUT06(gdl++, tmp, a2, arg1->unk0a + tmp, a2);
+			gDPLoadTLUT06(gdl++, tmp, a2, tex->unk0a + tmp, a2);
 		}
 	}
 
 	return gdl;
 }
 
-Gfx *tex0f1747a4(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u32 arg7)
+Gfx *tex0f1747a4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u32 arg7)
 {
 	u32 tmem;
 	s32 maxlod;
 	s32 tile;
 
 	tmem = arg7;
-	maxlod = arg1->maxlod;
+	maxlod = tex->maxlod;
 
 	if (arg6 >= 0 && arg6 < maxlod) {
 		maxlod = arg6;
@@ -530,30 +530,30 @@ Gfx *tex0f1747a4(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	for (tile = arg5; tile < maxlod + arg5 && tile < 6; tile++) {
 		s32 stack[2];
 		s32 lod = tile - arg5;
-		u32 masks = tex0f173f18(texGetWidthAtLod(arg1, lod));
-		u32 maskt = tex0f173f18(texGetHeightAtLod(arg1, lod));
-		s32 line = texGetLineSizeInBytes(arg1, lod);
+		u32 masks = tex0f173f18(texGetWidthAtLod(tex, lod));
+		u32 maskt = tex0f173f18(texGetHeightAtLod(tex, lod));
+		s32 line = texGetLineSizeInBytes(tex, lod);
 		s32 uls;
 		s32 ult;
 		s32 lrs;
 		s32 lrt;
-		s32 bytes = texGetSizeInBytes(arg1, lod);
-		s32 sp7c = arg1->unk0c_02;
+		s32 bytes = texGetSizeInBytes(tex, lod);
+		s32 sp7c = tex->unk0c_02;
 
-		if (texSetLutMode(arg1->lutmodeindex << G_MDSFT_TEXTLUT)) {
-			gDPSetTextureLUT(gdl++, arg1->lutmodeindex << G_MDSFT_TEXTLUT);
+		if (texSetLutMode(tex->lutmodeindex << G_MDSFT_TEXTLUT)) {
+			gDPSetTextureLUT(gdl++, tex->lutmodeindex << G_MDSFT_TEXTLUT);
 		}
 
-		if (tex0f173a70(tile, arg1->gbiformat, arg1->depth, line, tmem, arg2, arg3, masks, maskt, lod, lod)) {
-			gDPSetTile(gdl++, arg1->gbiformat, arg1->depth, line, tmem, tile, 0,
+		if (tex0f173a70(tile, tex->gbiformat, tex->depth, line, tmem, arg2, arg3, masks, maskt, lod, lod)) {
+			gDPSetTile(gdl++, tex->gbiformat, tex->depth, line, tmem, tile, 0,
 					tex0f173f48(arg3), maskt, lod,
 					tex0f173f48(arg2), masks, tile - arg5);
 		}
 
 		uls = (arg4 == 2 && sp7c == 0 ? 2 : 0) + 0;
 		ult = (arg4 == 2 && sp7c == 0 ? 2 : 0) + 0;
-		lrs = ((texGetWidthAtLod(arg1, lod) - 1) << 2) + (arg4 == 2 && sp7c == 0 ? 2 : 0);
-		lrt = ((texGetHeightAtLod(arg1, lod) - 1) << 2) + (arg4 == 2 && sp7c == 0 ? 2 : 0);
+		lrs = ((texGetWidthAtLod(tex, lod) - 1) << 2) + (arg4 == 2 && sp7c == 0 ? 2 : 0);
+		lrt = ((texGetHeightAtLod(tex, lod) - 1) << 2) + (arg4 == 2 && sp7c == 0 ? 2 : 0);
 
 		if (tex0f173b8c(tile, uls, ult, lrs, lrt)) {
 			gDPSetTileSize(gdl++, tile, uls, ult, lrs, lrt);
@@ -565,15 +565,15 @@ Gfx *tex0f1747a4(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	return gdl;
 }
 
-Gfx *tex0f174b54(Gfx *gdl, struct texloadthing *arg1)
+Gfx *tex0f174b54(Gfx *gdl, struct tex *tex)
 {
 	s32 depth;
 	s32 len;
 
-	tex0f173e50(arg1, &depth, &len);
+	tex0f173e50(tex, &depth, &len);
 
-	if (arg1->lutmodeindex == 0) {
-		gDPSetTextureImage(gdl++, arg1->gbiformat, depth, 1, arg1->unk04);
+	if (tex->lutmodeindex == 0) {
+		gDPSetTextureImage(gdl++, tex->gbiformat, depth, 1, tex->data);
 
 		if (!var800844d0) {
 			gDPPipeSync(gdl++);
@@ -592,7 +592,7 @@ Gfx *tex0f174b54(Gfx *gdl, struct texloadthing *arg1)
 			gDPLoadBlock(gdl++, 5, 0, 0, len - 1, 0);
 		}
 	} else {
-		gDPSetTextureImage(gdl++, arg1->gbiformat, depth, 1, arg1->unk04);
+		gDPSetTextureImage(gdl++, tex->gbiformat, depth, 1, tex->data);
 
 		if (!var800844d0) {
 			gDPPipeSync(gdl++);
@@ -613,19 +613,19 @@ Gfx *tex0f174b54(Gfx *gdl, struct texloadthing *arg1)
 
 		{
 			s32 tmp = len;
-			s32 a2 = (u32)(0x3ff - arg1->unk0a) < len ? (u32)(0x3ff - arg1->unk0a) : 0;
+			s32 a2 = (u32)(0x3ff - tex->unk0a) < len ? (u32)(0x3ff - tex->unk0a) : 0;
 
 			tmp -= a2;
 
 			gDPLoadSync(gdl++);
-			gDPLoadTLUT06(gdl++, tmp, a2, arg1->unk0a + tmp, a2);
+			gDPLoadTLUT06(gdl++, tmp, a2, tex->unk0a + tmp, a2);
 		}
 	}
 
 	return gdl;
 }
 
-Gfx *tex0f174f30(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4, s32 tile)
+Gfx *tex0f174f30(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 tile)
 {
 	s32 masks;
 	s32 maskt;
@@ -636,25 +636,25 @@ Gfx *tex0f174f30(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	s32 lrt;
 	s32 sp50;
 
-	masks = tex0f173f18(arg1->width);
-	maskt = tex0f173f18(arg1->height);
-	line = texGetLineSizeInBytes(arg1, 0);
-	sp50 = arg1->unk0c_02;
+	masks = tex0f173f18(tex->width);
+	maskt = tex0f173f18(tex->height);
+	line = texGetLineSizeInBytes(tex, 0);
+	sp50 = tex->unk0c_02;
 
-	if (texSetLutMode(arg1->lutmodeindex << G_MDSFT_TEXTLUT)) {
-		gDPSetTextureLUT(gdl++, arg1->lutmodeindex << G_MDSFT_TEXTLUT);
+	if (texSetLutMode(tex->lutmodeindex << G_MDSFT_TEXTLUT)) {
+		gDPSetTextureLUT(gdl++, tex->lutmodeindex << G_MDSFT_TEXTLUT);
 	}
 
-	if (tex0f173a70(tile, arg1->gbiformat, arg1->depth, line, 0, arg2, arg3, masks, maskt, 0, 0)) {
-		gDPSetTile(gdl++, arg1->gbiformat, arg1->depth, line, 0x0000, tile, 0,
+	if (tex0f173a70(tile, tex->gbiformat, tex->depth, line, 0, arg2, arg3, masks, maskt, 0, 0)) {
+		gDPSetTile(gdl++, tex->gbiformat, tex->depth, line, 0x0000, tile, 0,
 				tex0f173f48(arg3), maskt, G_TX_NOLOD,
 				tex0f173f48(arg2), masks, G_TX_NOLOD);
 	}
 
 	uls = (arg4 == 2 && sp50 == 0 ? 2 : 0) + 0;
 	ult = (arg4 == 2 && sp50 == 0 ? 2 : 0) + 0;
-	lrs = (arg4 == 2 && sp50 == 0 ? 2 : 0) + ((arg1->width - 1) << 2);
-	lrt = (arg4 == 2 && sp50 == 0 ? 2 : 0) + ((arg1->height - 1) << 2);
+	lrs = (arg4 == 2 && sp50 == 0 ? 2 : 0) + ((tex->width - 1) << 2);
+	lrt = (arg4 == 2 && sp50 == 0 ? 2 : 0) + ((tex->height - 1) << 2);
 
 	if (tex0f173b8c(tile, uls, ult, lrs, lrt)) {
 		gDPSetTileSize(gdl++, tile, uls, ult, lrs, lrt);
@@ -663,23 +663,23 @@ Gfx *tex0f174f30(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	return gdl;
 }
 
-Gfx *tex0f1751e4(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+Gfx *tex0f1751e4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
 	s32 sp34 = 0;
 
-	gdl = tex0f1743a0(gdl, arg1, 0);
+	gdl = tex0f1743a0(gdl, tex, 0);
 
 	if (arg5) {
-		gdl = tex0f1747a4(gdl, arg1, arg2, arg3, arg4, 0, 1, 0);
+		gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, 0, 1, 0);
 		sp34++;
 	}
 
-	gdl = tex0f1747a4(gdl, arg1, arg2, arg3, arg4, sp34, -1, 0);
+	gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, sp34, -1, 0);
 
-	sp34 += arg1->maxlod;
+	sp34 += tex->maxlod;
 
-	if (!arg5 && arg1->maxlod == 1) {
-		gdl = tex0f1747a4(gdl, arg1, arg2, arg3, arg4, sp34, -1, 0);
+	if (!arg5 && tex->maxlod == 1) {
+		gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, sp34, -1, 0);
 	}
 
 	gDPPipeSync(gdl++);
@@ -689,31 +689,31 @@ Gfx *tex0f1751e4(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	return gdl;
 }
 
-Gfx *tex0f175308(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4, struct texloadthing *arg5, s32 arg6, s32 arg7, s32 arg8, bool arg9)
+Gfx *tex0f175308(Gfx *gdl, struct tex *tex1, s32 arg2, s32 arg3, s32 arg4, struct tex *tex2, s32 arg6, s32 arg7, s32 arg8, bool arg9)
 {
-	s32 size = texGetSizeInBytes(arg5, 0);
+	s32 size = texGetSizeInBytes(tex2, 0);
 	s32 sp38 = 0;
 
-	gdl = tex0f174b54(gdl, arg5);
+	gdl = tex0f174b54(gdl, tex2);
 
 	gDPTileSync(gdl++);
 
-	gdl = tex0f1743a0(gdl, arg1, size);
-	gdl = tex0f173f78(gdl, arg5, arg4, arg6, arg7, arg8);
+	gdl = tex0f1743a0(gdl, tex1, size);
+	gdl = tex0f173f78(gdl, tex2, arg4, arg6, arg7, arg8);
 
 	sp38++;
 
 	if (arg9) {
-		gdl = tex0f1747a4(gdl, arg1, arg2, arg3, arg4, sp38, 1, size);
+		gdl = tex0f1747a4(gdl, tex1, arg2, arg3, arg4, sp38, 1, size);
 		sp38++;
 	}
 
-	gdl = tex0f1747a4(gdl, arg1, arg2, arg3, arg4, sp38, -1, size);
+	gdl = tex0f1747a4(gdl, tex1, arg2, arg3, arg4, sp38, -1, size);
 
-	sp38 += arg1->maxlod;
+	sp38 += tex1->maxlod;
 
-	if (!arg9 && arg1->maxlod == 1) {
-		gdl = tex0f1747a4(gdl, arg1, arg2, arg3, arg4, sp38, -1, size);
+	if (!arg9 && tex1->maxlod == 1) {
+		gdl = tex0f1747a4(gdl, tex1, arg2, arg3, arg4, sp38, -1, size);
 	}
 
 	gDPPipeSync(gdl++);
@@ -723,26 +723,26 @@ Gfx *tex0f175308(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	return gdl;
 }
 
-Gfx *tex0f175490(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, bool arg8)
+Gfx *tex0f175490(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, bool arg8)
 {
 	s32 sp34 = 0;
 
-	gdl = tex0f1743a0(gdl, arg1, 0);
-	gdl = tex0f173f78(gdl, arg1, arg4, arg5, arg6, arg7);
+	gdl = tex0f1743a0(gdl, tex, 0);
+	gdl = tex0f173f78(gdl, tex, arg4, arg5, arg6, arg7);
 
 	sp34++;
 
 	if (arg8) {
-		gdl = tex0f1747a4(gdl, arg1, arg2, arg3, arg4, sp34, 1, 0);
+		gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, sp34, 1, 0);
 		sp34++;
 	}
 
-	gdl = tex0f1747a4(gdl, arg1, arg2, arg3, arg4, sp34, -1, 0);
+	gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, sp34, -1, 0);
 
-	sp34 += arg1->maxlod;
+	sp34 += tex->maxlod;
 
-	if (!arg8 && arg1->maxlod == 1) {
-		gdl = tex0f1747a4(gdl, arg1, arg2, arg3, arg4, sp34, -1, 0);
+	if (!arg8 && tex->maxlod == 1) {
+		gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, sp34, -1, 0);
 	}
 
 	gDPPipeSync(gdl++);
@@ -752,10 +752,10 @@ Gfx *tex0f175490(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	return gdl;
 }
 
-Gfx *tex0f1755dc(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4)
+Gfx *tex0f1755dc(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4)
 {
-	gdl = tex0f174b54(gdl, arg1);
-	gdl = tex0f174f30(gdl, arg1, arg2, arg3, arg4, 0);
+	gdl = tex0f174b54(gdl, tex);
+	gdl = tex0f174f30(gdl, tex, arg2, arg3, arg4, 0);
 
 	gDPPipeSync(gdl++);
 
@@ -764,11 +764,11 @@ Gfx *tex0f1755dc(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	return gdl;
 }
 
-Gfx *tex0f17563c(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4)
+Gfx *tex0f17563c(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4)
 {
-	gdl = tex0f174b54(gdl, arg1);
-	gdl = tex0f174f30(gdl, arg1, arg2, arg3, arg4, 0);
-	gdl = tex0f174f30(gdl, arg1, arg2, arg3, arg4, 1);
+	gdl = tex0f174b54(gdl, tex);
+	gdl = tex0f174f30(gdl, tex, arg2, arg3, arg4, 0);
+	gdl = tex0f174f30(gdl, tex, arg2, arg3, arg4, 1);
 
 	gDPPipeSync(gdl++);
 
@@ -843,8 +843,8 @@ glabel jtbl_var7f1b7c70
 /*  f17574c:	a040ffff */ 	sb	$zero,-0x1($v0)
 .L0f175750:
 /*  f175750:	8faf0144 */ 	lw	$t7,0x144($sp)
-/*  f175754:	3c18800b */ 	lui	$t8,%hi(var800aabc8)
-/*  f175758:	2718abc8 */ 	addiu	$t8,$t8,%lo(var800aabc8)
+/*  f175754:	3c18800b */ 	lui	$t8,%hi(g_TexSharedPool)
+/*  f175758:	2718abc8 */ 	addiu	$t8,$t8,%lo(g_TexSharedPool)
 /*  f17575c:	15e00002 */ 	bnez	$t7,.L0f175768
 /*  f175760:	27b70090 */ 	addiu	$s7,$sp,0x90
 /*  f175764:	afb80144 */ 	sw	$t8,0x144($sp)
@@ -895,7 +895,7 @@ glabel jtbl_var7f1b7c70
 /*  f175800:	0fc5cd3a */ 	jal	texLoadFromTextureNum
 /*  f175804:	01e09825 */ 	or	$s3,$t7,$zero
 /*  f175808:	02402025 */ 	or	$a0,$s2,$zero
-/*  f17580c:	0fc5cba3 */ 	jal	tex0f172e8c
+/*  f17580c:	0fc5cba3 */ 	jal	texFindInPool
 /*  f175810:	8fa50144 */ 	lw	$a1,0x144($sp)
 /*  f175814:	10400006 */ 	beqz	$v0,.L0f175830
 /*  f175818:	00408825 */ 	or	$s1,$v0,$zero
@@ -960,7 +960,7 @@ glabel jtbl_var7f1b7c70
 /*  f1758f4:	0fc5cd3a */ 	jal	texLoadFromTextureNum
 /*  f1758f8:	00808025 */ 	or	$s0,$a0,$zero
 /*  f1758fc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f175900:	0fc5cba3 */ 	jal	tex0f172e8c
+/*  f175900:	0fc5cba3 */ 	jal	texFindInPool
 /*  f175904:	8fa50144 */ 	lw	$a1,0x144($sp)
 /*  f175908:	10400046 */ 	beqz	$v0,.L0f175a24
 /*  f17590c:	00405825 */ 	or	$t3,$v0,$zero
@@ -1388,10 +1388,10 @@ glabel jtbl_var7f1b7c70
 );
 
 // Mismatch: Extra move instruction in last half of G_VTX case
-//s32 tex0f1756c0(Gfx *arg0, s32 arg1, Gfx *arg2, struct texturething *arg3, u32 arg4)
+//s32 tex0f1756c0(Gfx *arg0, s32 arg1, Gfx *arg2, struct texpool *arg3, u32 arg4)
 //{
-//	struct texloadthing *v0;
-//	struct texloadthing *v0_2;
+//	struct tex *v0;
+//	struct tex *v0_2;
 //	Gfx *sp12c;
 //	s32 sp128;
 //	u32 tmp1;
@@ -1440,7 +1440,7 @@ glabel jtbl_var7f1b7c70
 //	}
 //
 //	if (arg3 == NULL) {
-//		arg3 = &var800aabc8;
+//		arg3 = &g_TexSharedPool;
 //	}
 //
 //	while (sp128 > 0) {
@@ -1457,7 +1457,7 @@ glabel jtbl_var7f1b7c70
 //
 //			texLoadFromTextureNum(texturenum, arg3);
 //
-//			v0 = tex0f172e8c(texturenum, arg3);
+//			v0 = texFindInPool(texturenum, arg3);
 //
 //			if (v0 != NULL) {
 //				spf4 = v0->unk0c_03;
@@ -1484,7 +1484,7 @@ glabel jtbl_var7f1b7c70
 //				case 1:
 //					texturenum2 = (s5->words.w1 >> 12) & 0xfff;
 //					texLoadFromTextureNum(texturenum2, arg3);
-//					v0_2 = tex0f172e8c(texturenum2, arg3);
+//					v0_2 = texFindInPool(texturenum2, arg3);
 //
 //					if (v0_2 != NULL) {
 //						tmp6 = (s5->words.w1 >> 24) & 0xff;

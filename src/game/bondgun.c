@@ -5463,7 +5463,7 @@ void bgunTickGunLoad(void)
 
 		osSyncPrintf("BriGun:  Texture Block at 0x%08x size %d, endp 0x%08x\n");
 
-		tex0f172e70(&player->gunctrl.unk15c0, (u8 *)end, remaining);
+		texInitPool(&player->gunctrl.unk15c0, (u8 *)end, remaining);
 
 		// Tidy up the model
 		modelPromoteTypeToPointer(modeldef);
@@ -5495,7 +5495,7 @@ void bgunTickGunLoad(void)
 
 			if (modeldef->texconfigs[i].texturenum < NUM_TEXTURES) {
 				osSyncPrintf("BriGun:  Uncompress %d of %d\n", i, modeldef->numtexconfigs);
-				texLoad(&modeldef->texconfigs[i].texturenum, &player->gunctrl.unk15c0, 1);
+				texLoad(&modeldef->texconfigs[i].texturenum, &player->gunctrl.unk15c0, true);
 				modeldef->texconfigs[i].unk0b = 1;
 			}
 
@@ -5538,7 +5538,7 @@ void bgunTickGunLoad(void)
 		osSyncPrintf("BriGun:  DL waste space %d from %d (Used %d, Ramlen %d, ObSize %d)\n");
 		osSyncPrintf("Increase GUNSAVESIZE to %d!!!\n");
 
-		newvalue = ALIGN64(func0f172f54(&player->gunctrl.unk15c0));
+		newvalue = ALIGN64(texGetPoolLeftPos(&player->gunctrl.unk15c0));
 		remaining = *player->gunctrl.loadmemremaining;
 		remaining -= (s32)(newvalue - *player->gunctrl.loadmemptr);
 

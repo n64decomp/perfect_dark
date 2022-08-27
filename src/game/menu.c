@@ -1735,7 +1735,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 	f32 sp428;
 	f32 sp424;
 	s32 totalfilelen;
-	struct texturething sp410;
+	struct texpool texpool;
 	s32 bodyfilelen2;
 	u16 bodyfilenum;
 	u16 headfilenum;
@@ -1811,18 +1811,18 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 					totalfilelen += 0x4000;
 
-					tex0f172e70(&sp410, thing->unk004 + totalfilelen, thing->unk008 - totalfilelen);
+					texInitPool(&texpool, thing->unk004 + totalfilelen, thing->unk008 - totalfilelen);
 
 					thing->headnum = headnum;
 					thing->bodynum = bodynum;
-					thing->bodymodeldef = modeldefLoad(bodyfilenum, thing->unk004, totalfilelen, &sp410);
+					thing->bodymodeldef = modeldefLoad(bodyfilenum, thing->unk004, totalfilelen, &texpool);
 					bodyfilelen2 = ALIGN64(fileGetLoadedSize(bodyfilenum));
 					modelCalculateRwDataLen(thing->bodymodeldef);
 
 					if (headnum < 0) {
 						thing->headmodeldef = NULL;
 					} else {
-						thing->headmodeldef = modeldefLoad(headfilenum, thing->unk004 + bodyfilelen2, totalfilelen - bodyfilelen2, &sp410);
+						thing->headmodeldef = modeldefLoad(headfilenum, thing->unk004 + bodyfilelen2, totalfilelen - bodyfilelen2, &texpool);
 						fileGetLoadedSize(headfilenum);
 						bodyCalculateHeadOffset(thing->headmodeldef, headnum, bodynum);
 						modelCalculateRwDataLen(thing->headmodeldef);
@@ -1839,11 +1839,11 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 					totalfilelen = ALIGN64(fileGetInflatedSize(thing->unk00c)) + 0x4000;
 					if (1);
 
-					tex0f172e70(&sp410, &thing->unk004[(u32)totalfilelen], thing->unk008 - totalfilelen);
+					texInitPool(&texpool, &thing->unk004[(u32)totalfilelen], thing->unk008 - totalfilelen);
 
 					thing->headnum = -1;
 					thing->bodynum = -1;
-					thing->bodymodeldef = modeldefLoad(thing->unk00c, thing->unk004, totalfilelen, &sp410);
+					thing->bodymodeldef = modeldefLoad(thing->unk00c, thing->unk004, totalfilelen, &texpool);
 
 					fileGetLoadedSize(thing->unk00c);
 					modelCalculateRwDataLen(thing->bodymodeldef);
@@ -2574,7 +2574,7 @@ glabel var7f1b2948
 /*  f0f0650:	afa30448 */ 	sw	$v1,0x448($sp)
 /*  f0f0654:	27a40438 */ 	addiu	$a0,$sp,0x438
 /*  f0f0658:	03032821 */ 	addu	$a1,$t8,$v1
-/*  f0f065c:	0fc5b6c2 */ 	jal	tex0f172e70
+/*  f0f065c:	0fc5b6c2 */ 	jal	texInitPool
 /*  f0f0660:	03233023 */ 	subu	$a2,$t9,$v1
 /*  f0f0664:	8faa0428 */ 	lw	$t2,0x428($sp)
 /*  f0f0668:	8e250004 */ 	lw	$a1,0x4($s1)
@@ -2655,7 +2655,7 @@ glabel var7f1b2948
 /*  f0f0788:	afa30448 */ 	sw	$v1,0x448($sp)
 /*  f0f078c:	27a40438 */ 	addiu	$a0,$sp,0x438
 /*  f0f0790:	01c32821 */ 	addu	$a1,$t6,$v1
-/*  f0f0794:	0fc5b6c2 */ 	jal	tex0f172e70
+/*  f0f0794:	0fc5b6c2 */ 	jal	texInitPool
 /*  f0f0798:	01e33023 */ 	subu	$a2,$t7,$v1
 /*  f0f079c:	2402ffff */ 	addiu	$v0,$zero,-1
 /*  f0f07a0:	a6220002 */ 	sh	$v0,0x2($s1)

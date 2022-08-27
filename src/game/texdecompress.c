@@ -12,10 +12,10 @@
 
 struct texture *g_Textures;
 u32 var800aabc4;
-struct texturething var800aabc8;
+struct texpool g_TexSharedPool;
 struct texcacheitem g_TexCacheItems[150];
 s32 g_TexCacheCount;
-s32 var800ab53c;
+s32 g_TexNumToLoad;
 u8 *var800ab540;
 u32 var800ab544;
 s32 var800ab548;
@@ -23,7 +23,7 @@ u32 var800ab54c;
 u32 g_TexBase;
 u8 *g_TextureConfigSegment;
 s32 g_TexNumConfigs;
-struct texloadthing **g_TexWords;
+struct tex **g_TexWords;
 struct textureconfig *g_TexWallhitConfigs;
 Gfx *g_TexGdl1;
 Gfx *g_TexGdl2;
@@ -140,7 +140,7 @@ void func0f16e810(u32 arg0)
  *
  * The zlib data is prefixed with the standard 5-byte rarezip header.
  */
-s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texturething *arg4, s32 arg5)
+s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
 {
 	s32 i;
 	s32 imagebytesout;
@@ -170,14 +170,14 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 		numimages = 1;
 	}
 
-	arg4->unk0c->maxlod = forcenumimages;
-	arg4->unk0c->unk0c_02 = arg2;
+	pool->rightpos->maxlod = forcenumimages;
+	pool->rightpos->unk0c_02 = arg2;
 
 	if (arg2) {
 		writetocache = true;
 
 		for (i = 0; i < g_TexCacheCount; i++) {
-			if (g_TexCacheItems[i].texturenum == arg4->unk0c->texturenum) {
+			if (g_TexCacheItems[i].texturenum == pool->rightpos->texturenum) {
 				writetocache = false;
 			}
 		}
@@ -197,12 +197,12 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 		height = texReadBits(8);
 
 		if (j == 0) {
-			arg4->unk0c->width = width;
-			arg4->unk0c->height = height;
-			arg4->unk0c->unk0a = numcolours - 1;
-			arg4->unk0c->gbiformat = g_TexFormatGbiMappings[format];
-			arg4->unk0c->depth = g_TexFormatDepths[format];
-			arg4->unk0c->lutmodeindex = g_TexFormatLutModes[format] >> G_MDSFT_TEXTLUT;
+			pool->rightpos->width = width;
+			pool->rightpos->height = height;
+			pool->rightpos->unk0a = numcolours - 1;
+			pool->rightpos->gbiformat = g_TexFormatGbiMappings[format];
+			pool->rightpos->depth = g_TexFormatDepths[format];
+			pool->rightpos->lutmodeindex = g_TexFormatLutModes[format] >> G_MDSFT_TEXTLUT;
 		} else if (writetocache) {
 			g_TexCacheItems[g_TexCacheCount].widths[j - 1] = width;
 			g_TexCacheItems[g_TexCacheCount].heights[j - 1] = height;
@@ -227,13 +227,13 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 
 		if (arg2 == 1) {
 			if (IS4MB() && j == 2 && !foundthething) {
-				arg4->unk0c->maxlod = j;
+				pool->rightpos->maxlod = j;
 				foundthething = true;
 			}
 
 			if (totalbytesout + imagebytesout > 0x800 || foundthething) {
 				if (!foundthething) {
-					arg4->unk0c->maxlod = j;
+					pool->rightpos->maxlod = j;
 					foundthething = true;
 				}
 			} else {
@@ -246,7 +246,7 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 	}
 
 	if (writetocache) {
-		g_TexCacheItems[g_TexCacheCount].texturenum = arg4->unk0c->texturenum;
+		g_TexCacheItems[g_TexCacheCount].texturenum = pool->rightpos->texturenum;
 
 		g_TexCacheCount++;
 
@@ -267,12 +267,12 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 				imagebytesout = texShrinkPaletted(start, end, tmpwidth, tmpheight, format, palette, numcolours);
 
 				if (IS4MB() && j == 2) {
-					arg4->unk0c->maxlod = j;
+					pool->rightpos->maxlod = j;
 					break;
 				}
 
 				if (totalbytesout + imagebytesout > 0x800) {
-					arg4->unk0c->maxlod = j;
+					pool->rightpos->maxlod = j;
 					break;
 				}
 
@@ -307,7 +307,7 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 		dst[totalbytesout + 0] = dst[totalbytesout - 2];
 		dst[totalbytesout + 1] = dst[totalbytesout - 1];
 		totalbytesout += 2;
-		arg4->unk0c->unk0a++;
+		pool->rightpos->unk0a++;
 	}
 
 	totalbytesout = (totalbytesout + 7) & ~7;
@@ -677,7 +677,7 @@ s32 texFindClosestColourIndexIA(u16 *palette, s32 numcolours, s32 intensity, s32
  * h = height in pixels
  * c = compression method (see TEXCOMPMETHOD constants)
  */
-s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texturething *arg4, s32 arg5)
+s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
 {
 	u8 scratch[0x2000];
 	u8 lookup[0x1000];
@@ -700,14 +700,14 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 
 	numimages = arg2 && forcenumimages ? forcenumimages : 1;
 
-	arg4->unk0c->maxlod = forcenumimages;
-	arg4->unk0c->unk0c_02 = arg2;
+	pool->rightpos->maxlod = forcenumimages;
+	pool->rightpos->unk0c_02 = arg2;
 
 	if (arg2) {
 		writetocache = true;
 
 		for (i = 0; i < g_TexCacheCount; i++) {
-			if (g_TexCacheItems[i].texturenum == arg4->unk0c->texturenum) {
+			if (g_TexCacheItems[i].texturenum == pool->rightpos->texturenum) {
 				writetocache = false;
 			}
 		}
@@ -720,11 +720,11 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 		compmethod = texReadBits(4);
 
 		if (i == 0) {
-			arg4->unk0c->width = width;
-			arg4->unk0c->height = height;
-			arg4->unk0c->gbiformat = g_TexFormatGbiMappings[format];
-			arg4->unk0c->depth = g_TexFormatDepths[format];
-			arg4->unk0c->lutmodeindex = g_TexFormatLutModes[format] >> G_MDSFT_TEXTLUT;
+			pool->rightpos->width = width;
+			pool->rightpos->height = height;
+			pool->rightpos->gbiformat = g_TexFormatGbiMappings[format];
+			pool->rightpos->depth = g_TexFormatDepths[format];
+			pool->rightpos->lutmodeindex = g_TexFormatLutModes[format] >> G_MDSFT_TEXTLUT;
 		} else if (writetocache) {
 			g_TexCacheItems[g_TexCacheCount].widths[i - 1] = width;
 			g_TexCacheItems[g_TexCacheCount].heights[i - 1] = height;
@@ -821,7 +821,7 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 	}
 
 	if (writetocache) {
-		g_TexCacheItems[g_TexCacheCount].texturenum = arg4->unk0c->texturenum;
+		g_TexCacheItems[g_TexCacheCount].texturenum = pool->rightpos->texturenum;
 
 		g_TexCacheCount++;
 
@@ -2009,44 +2009,44 @@ void texBlur(u8 *pixels, s32 width, s32 height, s32 method, s32 chansize)
 	}
 }
 
-void tex0f172e70(struct texturething *arg0, u8 *arg1, s32 arg2)
+void texInitPool(struct texpool *pool, u8 *start, s32 len)
 {
-	arg0->unk00 = (struct texloadthing *)arg1;
-	arg0->unk04 = (struct texloadthing *)(arg1 + arg2);
-	arg0->unk08 = (struct texloadthing *)arg1;
-	arg0->unk0c = (struct texloadthing *)((s32)arg1 + arg2);
+	pool->start = start;
+	pool->end = (struct tex *)(start + len);
+	pool->leftpos = start;
+	pool->rightpos = (struct tex *)((s32)start + len);
 }
 
-struct texloadthing *tex0f172e8c(s32 texturenum, struct texturething *arg1)
+struct tex *texFindInPool(s32 texturenum, struct texpool *pool)
 {
-	struct texloadthing *end;
-	struct texloadthing *cur;
+	struct tex *end;
+	struct tex *cur;
 	s32 i;
 
-	if (arg1 == NULL) {
-		arg1 = &var800aabc8;
+	if (pool == NULL) {
+		pool = &g_TexSharedPool;
 	}
 
-	if (arg1 == &var800aabc8) {
-		cur = arg1->unk04;
+	if (pool == &g_TexSharedPool) {
+		cur = pool->head;
 
 		while (cur) {
 			if (cur->texturenum == texturenum) {
 				return cur;
 			}
 
-			if (!cur->unk0c_04) {
+			if (!cur->next) {
 				return NULL;
 			}
 
-			cur = (struct texloadthing *)PHYS_TO_K0(cur->unk0c_04);
+			cur = (struct tex *) PHYS_TO_K0(cur->next);
 		}
 
 		return NULL;
 	}
 
-	end = arg1->unk04;
-	cur = arg1->unk0c;
+	end = pool->end;
+	cur = pool->rightpos;
 
 	while (cur < end) {
 		if (cur->texturenum == texturenum) {
@@ -2059,321 +2059,31 @@ struct texloadthing *tex0f172e8c(s32 texturenum, struct texturething *arg1)
 	return NULL;
 }
 
-s32 func0f172f44(struct texturething *arg0)
+s32 texGetPoolFreeBytes(struct texpool *pool)
 {
-	return (u32)arg0->unk0c - (u32)arg0->unk08;
+	return (s32) pool->rightpos - (s32) pool->leftpos;
 }
 
-struct texloadthing *func0f172f54(struct texturething *arg0)
+u8 *texGetPoolLeftPos(struct texpool *pool)
 {
-	return arg0->unk08;
+	return pool->leftpos;
 }
 
-void texLoadFromDisplayList(Gfx *gdl, struct texturething *arg1, s32 arg2)
+void texLoadFromDisplayList(Gfx *gdl, struct texpool *pool, s32 arg2)
 {
 	u8 *bytes = (u8 *)gdl;
 
 	while (bytes[0] != (u8)G_ENDDL) {
 		// Look for GBI sequence: fd...... abcd....
 		if (bytes[0] == G_SETTIMG && bytes[4] == 0xab && bytes[5] == 0xcd) {
-			texLoad((s32 *)((s32)bytes + 4), arg1, arg2);
+			texLoad((s32 *)((s32)bytes + 4), pool, arg2);
 		}
 
 		bytes += 8;
 	}
 }
 
-GLOBAL_ASM(
-glabel texLoad
-/*  f173010:	27bddb10 */ 	addiu	$sp,$sp,-9456
-/*  f173014:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f173018:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f17301c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f173020:	afa424f0 */ 	sw	$a0,0x24f0($sp)
-/*  f173024:	afa624f8 */ 	sw	$a2,0x24f8($sp)
-/*  f173028:	14a00003 */ 	bnez	$a1,.L0f173038
-/*  f17302c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f173030:	3c10800b */ 	lui	$s0,%hi(var800aabc8)
-/*  f173034:	2610abc8 */ 	addiu	$s0,$s0,%lo(var800aabc8)
-.L0f173038:
-/*  f173038:	3c0e800b */ 	lui	$t6,%hi(var800aabc8)
-/*  f17303c:	25ceabc8 */ 	addiu	$t6,$t6,%lo(var800aabc8)
-/*  f173040:	160e0002 */ 	bne	$s0,$t6,.L0f17304c
-/*  f173044:	8faf24f0 */ 	lw	$t7,0x24f0($sp)
-/*  f173048:	24070001 */ 	addiu	$a3,$zero,0x1
-.L0f17304c:
-/*  f17304c:	8de20000 */ 	lw	$v0,0x0($t7)
-/*  f173050:	3c01ffff */ 	lui	$at,0xffff
-/*  f173054:	02002825 */ 	or	$a1,$s0,$zero
-/*  f173058:	00411824 */ 	and	$v1,$v0,$at
-/*  f17305c:	10600002 */ 	beqz	$v1,.L0f173068
-/*  f173060:	3c01abcd */ 	lui	$at,0xabcd
-/*  f173064:	146100ee */ 	bne	$v1,$at,.L0f173420
-.L0f173068:
-/*  f173068:	3c03800b */ 	lui	$v1,%hi(var800ab53c)
-/*  f17306c:	2463b53c */ 	addiu	$v1,$v1,%lo(var800ab53c)
-/*  f173070:	3044ffff */ 	andi	$a0,$v0,0xffff
-/*  f173074:	ac640000 */ 	sw	$a0,0x0($v1)
-/*  f173078:	0fc5cba3 */ 	jal	tex0f172e8c
-/*  f17307c:	a3a7148b */ 	sb	$a3,0x148b($sp)
-/*  f173080:	144000e2 */ 	bnez	$v0,.L0f17340c
-/*  f173084:	afa2149c */ 	sw	$v0,0x149c($sp)
-/*  f173088:	3c19800b */ 	lui	$t9,%hi(var800ab53c)
-/*  f17308c:	8f39b53c */ 	lw	$t9,%lo(var800ab53c)($t9)
-/*  f173090:	27a314bf */ 	addiu	$v1,$sp,0x14bf
-/*  f173094:	00035102 */ 	srl	$t2,$v1,0x4
-/*  f173098:	2b210daf */ 	slti	$at,$t9,_numtextures
-/*  f17309c:	102000e0 */ 	beqz	$at,.L0f173420
-/*  f1730a0:	000a5900 */ 	sll	$t3,$t2,0x4
-/*  f1730a4:	0c012048 */ 	jal	osWritebackDCacheAll
-/*  f1730a8:	afab002c */ 	sw	$t3,0x2c($sp)
-/*  f1730ac:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f1730b0:	0c013920 */ 	jal	osInvalDCache
-/*  f1730b4:	24052000 */ 	addiu	$a1,$zero,0x2000
-/*  f1730b8:	3c0d800b */ 	lui	$t5,%hi(var800ab53c)
-/*  f1730bc:	8dadb53c */ 	lw	$t5,%lo(var800ab53c)($t5)
-/*  f1730c0:	3c0c800b */ 	lui	$t4,%hi(g_Textures)
-/*  f1730c4:	8d8cabc0 */ 	lw	$t4,%lo(g_Textures)($t4)
-/*  f1730c8:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f1730cc:	3c0100ff */ 	lui	$at,0xff
-/*  f1730d0:	018e1021 */ 	addu	$v0,$t4,$t6
-/*  f1730d4:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f1730d8:	8c470008 */ 	lw	$a3,0x8($v0)
-/*  f1730dc:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f1730e0:	00617824 */ 	and	$t7,$v1,$at
-/*  f1730e4:	00e1c024 */ 	and	$t8,$a3,$at
-/*  f1730e8:	11f800cd */ 	beq	$t7,$t8,.L0f173420
-/*  f1730ec:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f1730f0:	030f3023 */ 	subu	$a2,$t8,$t7
-/*  f1730f4:	24c6001f */ 	addiu	$a2,$a2,0x1f
-/*  f1730f8:	2401fff8 */ 	addiu	$at,$zero,-8
-/*  f1730fc:	3c0a01d6 */ 	lui	$t2,%hi(_texturesdataSegmentRomStart)
-/*  f173100:	254a5f40 */ 	addiu	$t2,$t2,%lo(_texturesdataSegmentRomStart)
-/*  f173104:	01e1c824 */ 	and	$t9,$t7,$at
-/*  f173108:	00065902 */ 	srl	$t3,$a2,0x4
-/*  f17310c:	000b3100 */ 	sll	$a2,$t3,0x4
-/*  f173110:	032a2821 */ 	addu	$a1,$t9,$t2
-/*  f173114:	0c003504 */ 	jal	dmaExec
-/*  f173118:	afaf0044 */ 	sw	$t7,0x44($sp)
-/*  f17311c:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f173120:	8fac002c */ 	lw	$t4,0x2c($sp)
-/*  f173124:	93aa148b */ 	lbu	$t2,0x148b($sp)
-/*  f173128:	306e0007 */ 	andi	$t6,$v1,0x7
-/*  f17312c:	018e3021 */ 	addu	$a2,$t4,$t6
-/*  f173130:	90c20000 */ 	lbu	$v0,0x0($a2)
-/*  f173134:	00002825 */ 	or	$a1,$zero,$zero
-/*  f173138:	02002025 */ 	or	$a0,$s0,$zero
-/*  f17313c:	304f0080 */ 	andi	$t7,$v0,0x80
-/*  f173140:	30490040 */ 	andi	$t1,$v0,0x40
-/*  f173144:	3047003f */ 	andi	$a3,$v0,0x3f
-/*  f173148:	000fc1c3 */ 	sra	$t8,$t7,0x7
-/*  f17314c:	0009c983 */ 	sra	$t9,$t1,0x6
-/*  f173150:	28e10006 */ 	slti	$at,$a3,0x6
-/*  f173154:	afb814a8 */ 	sw	$t8,0x14a8($sp)
-/*  f173158:	14200002 */ 	bnez	$at,.L0f173164
-/*  f17315c:	03204825 */ 	or	$t1,$t9,$zero
-/*  f173160:	24070005 */ 	addiu	$a3,$zero,0x5
-.L0f173164:
-/*  f173164:	1140000f */ 	beqz	$t2,.L0f1731a4
-/*  f173168:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f17316c:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f173170:	afa614ac */ 	sw	$a2,0x14ac($sp)
-/*  f173174:	afa714a0 */ 	sw	$a3,0x14a0($sp)
-/*  f173178:	0c004935 */ 	jal	mempGetPoolFree
-/*  f17317c:	afa914a4 */ 	sw	$t1,0x14a4($sp)
-/*  f173180:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f173184:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f173188:	0c004935 */ 	jal	mempGetPoolFree
-/*  f17318c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f173190:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*  f173194:	8fa714a0 */ 	lw	$a3,0x14a0($sp)
-/*  f173198:	8fa914a4 */ 	lw	$t1,0x14a4($sp)
-/*  f17319c:	10000008 */ 	b	.L0f1731c0
-/*  f1731a0:	004b1821 */ 	addu	$v1,$v0,$t3
-.L0f1731a4:
-/*  f1731a4:	afa614ac */ 	sw	$a2,0x14ac($sp)
-/*  f1731a8:	afa714a0 */ 	sw	$a3,0x14a0($sp)
-/*  f1731ac:	0fc5cbd1 */ 	jal	func0f172f44
-/*  f1731b0:	afa914a4 */ 	sw	$t1,0x14a4($sp)
-/*  f1731b4:	8fa714a0 */ 	lw	$a3,0x14a0($sp)
-/*  f1731b8:	8fa914a4 */ 	lw	$t1,0x14a4($sp)
-/*  f1731bc:	00401825 */ 	or	$v1,$v0,$zero
-.L0f1731c0:
-/*  f1731c0:	15200003 */ 	bnez	$t1,.L0f1731d0
-/*  f1731c4:	2c6110cc */ 	sltiu	$at,$v1,0x10cc
-/*  f1731c8:	14200005 */ 	bnez	$at,.L0f1731e0
-/*  f1731cc:	00000000 */ 	nop
-.L0f1731d0:
-/*  f1731d0:	11200008 */ 	beqz	$t1,.L0f1731f4
-/*  f1731d4:	2c610a28 */ 	sltiu	$at,$v1,0xa28
-/*  f1731d8:	50200007 */ 	beqzl	$at,.L0f1731f8
-/*  f1731dc:	93ac148b */ 	lbu	$t4,0x148b($sp)
-.L0f1731e0:
-/*  f1731e0:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f1731e4:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f1731e8:	8fad24f0 */ 	lw	$t5,0x24f0($sp)
-/*  f1731ec:	1000008c */ 	b	.L0f173420
-/*  f1731f0:	ada20000 */ 	sw	$v0,0x0($t5)
-.L0f1731f4:
-/*  f1731f4:	93ac148b */ 	lbu	$t4,0x148b($sp)
-.L0f1731f8:
-/*  f1731f8:	27a20057 */ 	addiu	$v0,$sp,0x57
-/*  f1731fc:	00027102 */ 	srl	$t6,$v0,0x4
-/*  f173200:	11800015 */ 	beqz	$t4,.L0f173258
-/*  f173204:	3c0b800b */ 	lui	$t3,%hi(var800ab53c)
-/*  f173208:	8e03000c */ 	lw	$v1,0xc($s0)
-/*  f17320c:	000e7900 */ 	sll	$t7,$t6,0x4
-/*  f173210:	25e20010 */ 	addiu	$v0,$t7,0x10
-/*  f173214:	24580010 */ 	addiu	$t8,$v0,0x10
-/*  f173218:	ae02000c */ 	sw	$v0,0xc($s0)
-/*  f17321c:	ae180008 */ 	sw	$t8,0x8($s0)
-/*  f173220:	1060000d */ 	beqz	$v1,.L0f173258
-/*  f173224:	afa31490 */ 	sw	$v1,0x1490($sp)
-/*  f173228:	3c048000 */ 	lui	$a0,0x8000
-/*  f17322c:	8c62000c */ 	lw	$v0,0xc($v1)
-.L0f173230:
-/*  f173230:	0002c900 */ 	sll	$t9,$v0,0x4
-/*  f173234:	00191202 */ 	srl	$v0,$t9,0x8
-/*  f173238:	54400004 */ 	bnezl	$v0,.L0f17324c
-/*  f17323c:	00441825 */ 	or	$v1,$v0,$a0
-/*  f173240:	10000005 */ 	b	.L0f173258
-/*  f173244:	afa31490 */ 	sw	$v1,0x1490($sp)
-/*  f173248:	00441825 */ 	or	$v1,$v0,$a0
-.L0f17324c:
-/*  f17324c:	5460fff8 */ 	bnezl	$v1,.L0f173230
-/*  f173250:	8c62000c */ 	lw	$v0,0xc($v1)
-/*  f173254:	afa31490 */ 	sw	$v1,0x1490($sp)
-.L0f173258:
-/*  f173258:	8e020008 */ 	lw	$v0,0x8($s0)
-/*  f17325c:	8d6bb53c */ 	lw	$t3,%lo(var800ab53c)($t3)
-/*  f173260:	8fa31490 */ 	lw	$v1,0x1490($sp)
-/*  f173264:	3c18800b */ 	lui	$t8,%hi(var800ab53c)
-/*  f173268:	a44b0000 */ 	sh	$t3,0x0($v0)
-/*  f17326c:	8e0d0008 */ 	lw	$t5,0x8($s0)
-/*  f173270:	8e0e000c */ 	lw	$t6,0xc($s0)
-/*  f173274:	25ac0008 */ 	addiu	$t4,$t5,0x8
-/*  f173278:	25c8fff0 */ 	addiu	$t0,$t6,-16
-/*  f17327c:	ae0c0008 */ 	sw	$t4,0x8($s0)
-/*  f173280:	ae08000c */ 	sw	$t0,0xc($s0)
-/*  f173284:	950d0000 */ 	lhu	$t5,0x0($t0)
-/*  f173288:	8f19b53c */ 	lw	$t9,%lo(var800ab53c)($t8)
-/*  f17328c:	9118000c */ 	lbu	$t8,0xc($t0)
-/*  f173290:	31ac000f */ 	andi	$t4,$t5,0xf
-/*  f173294:	00195900 */ 	sll	$t3,$t9,0x4
-/*  f173298:	016c7025 */ 	or	$t6,$t3,$t4
-/*  f17329c:	a50e0000 */ 	sh	$t6,0x0($t0)
-/*  f1732a0:	8e0f0008 */ 	lw	$t7,0x8($s0)
-/*  f1732a4:	3319ffef */ 	andi	$t9,$t8,0xffef
-/*  f1732a8:	a119000c */ 	sb	$t9,0xc($t0)
-/*  f1732ac:	1120000d */ 	beqz	$t1,.L0f1732e4
-/*  f1732b0:	ad0f0004 */ 	sw	$t7,0x4($t0)
-/*  f1732b4:	8e050008 */ 	lw	$a1,0x8($s0)
-/*  f1732b8:	8faa24f8 */ 	lw	$t2,0x24f8($sp)
-/*  f1732bc:	afa8149c */ 	sw	$t0,0x149c($sp)
-/*  f1732c0:	afa31490 */ 	sw	$v1,0x1490($sp)
-/*  f1732c4:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f1732c8:	8fa414ac */ 	lw	$a0,0x14ac($sp)
-/*  f1732cc:	8fa614a8 */ 	lw	$a2,0x14a8($sp)
-/*  f1732d0:	0fc5ba06 */ 	jal	texInflateZlib
-/*  f1732d4:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f1732d8:	8fa31490 */ 	lw	$v1,0x1490($sp)
-/*  f1732dc:	1000000c */ 	b	.L0f173310
-/*  f1732e0:	afa20038 */ 	sw	$v0,0x38($sp)
-.L0f1732e4:
-/*  f1732e4:	8e050008 */ 	lw	$a1,0x8($s0)
-/*  f1732e8:	8fad24f8 */ 	lw	$t5,0x24f8($sp)
-/*  f1732ec:	afa8149c */ 	sw	$t0,0x149c($sp)
-/*  f1732f0:	afa31490 */ 	sw	$v1,0x1490($sp)
-/*  f1732f4:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f1732f8:	8fa414ac */ 	lw	$a0,0x14ac($sp)
-/*  f1732fc:	8fa614a8 */ 	lw	$a2,0x14a8($sp)
-/*  f173300:	0fc5bf79 */ 	jal	texInflateNonZlib
-/*  f173304:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f173308:	8fa31490 */ 	lw	$v1,0x1490($sp)
-/*  f17330c:	afa20038 */ 	sw	$v0,0x38($sp)
-.L0f173310:
-/*  f173310:	93ab148b */ 	lbu	$t3,0x148b($sp)
-/*  f173314:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f173318:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f17331c:	11600032 */ 	beqz	$t3,.L0f1733e8
-/*  f173320:	2484002f */ 	addiu	$a0,$a0,0x2f
-/*  f173324:	348c000f */ 	ori	$t4,$a0,0xf
-/*  f173328:	3984000f */ 	xori	$a0,$t4,0xf
-/*  f17332c:	0c004991 */ 	jal	mempAllocFromRight
-/*  f173330:	afa31490 */ 	sw	$v1,0x1490($sp)
-/*  f173334:	ae02000c */ 	sw	$v0,0xc($s0)
-/*  f173338:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f17333c:	8fa4149c */ 	lw	$a0,0x149c($sp)
-/*  f173340:	00402825 */ 	or	$a1,$v0,$zero
-/*  f173344:	0c012c5c */ 	jal	bcopy
-/*  f173348:	24060010 */ 	addiu	$a2,$zero,0x10
-/*  f17334c:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*  f173350:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f173354:	afa7149c */ 	sw	$a3,0x149c($sp)
-/*  f173358:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f17335c:	24e50010 */ 	addiu	$a1,$a3,0x10
-/*  f173360:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f173364:	24c60008 */ 	addiu	$a2,$a2,0x8
-/*  f173368:	0c012c5c */ 	jal	bcopy
-/*  f17336c:	2484fff8 */ 	addiu	$a0,$a0,-8
-/*  f173370:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*  f173374:	8e18000c */ 	lw	$t8,0xc($s0)
-/*  f173378:	8fa31490 */ 	lw	$v1,0x1490($sp)
-/*  f17337c:	24ef0008 */ 	addiu	$t7,$a3,0x8
-/*  f173380:	af0f0004 */ 	sw	$t7,0x4($t8)
-/*  f173384:	8e02000c */ 	lw	$v0,0xc($s0)
-/*  f173388:	3c0100ff */ 	lui	$at,0xff
-/*  f17338c:	8c44000c */ 	lw	$a0,0xc($v0)
-/*  f173390:	0004c902 */ 	srl	$t9,$a0,0x4
-/*  f173394:	00195200 */ 	sll	$t2,$t9,0x8
-/*  f173398:	000a6902 */ 	srl	$t5,$t2,0x4
-/*  f17339c:	01a45826 */ 	xor	$t3,$t5,$a0
-/*  f1733a0:	1060000e */ 	beqz	$v1,.L0f1733dc
-/*  f1733a4:	ac4b000c */ 	sw	$t3,0xc($v0)
-/*  f1733a8:	8e0c000c */ 	lw	$t4,0xc($s0)
-/*  f1733ac:	8c64000c */ 	lw	$a0,0xc($v1)
-/*  f1733b0:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f1733b4:	01817024 */ 	and	$t6,$t4,$at
-/*  f1733b8:	01c17824 */ 	and	$t7,$t6,$at
-/*  f1733bc:	0004c102 */ 	srl	$t8,$a0,0x4
-/*  f1733c0:	01f8c826 */ 	xor	$t9,$t7,$t8
-/*  f1733c4:	00195200 */ 	sll	$t2,$t9,0x8
-/*  f1733c8:	000a6902 */ 	srl	$t5,$t2,0x4
-/*  f1733cc:	01a45826 */ 	xor	$t3,$t5,$a0
-/*  f1733d0:	ac6b000c */ 	sw	$t3,0xc($v1)
-/*  f1733d4:	10000003 */ 	b	.L0f1733e4
-/*  f1733d8:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0f1733dc:
-/*  f1733dc:	8e02000c */ 	lw	$v0,0xc($s0)
-/*  f1733e0:	ae020004 */ 	sw	$v0,0x4($s0)
-.L0f1733e4:
-/*  f1733e4:	ae020000 */ 	sw	$v0,0x0($s0)
-.L0f1733e8:
-/*  f1733e8:	8e0c0008 */ 	lw	$t4,0x8($s0)
-/*  f1733ec:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f1733f0:	018e7821 */ 	addu	$t7,$t4,$t6
-/*  f1733f4:	ae0f0008 */ 	sw	$t7,0x8($s0)
-/*  f1733f8:	93b8148b */ 	lbu	$t8,0x148b($sp)
-/*  f1733fc:	57000004 */ 	bnezl	$t8,.L0f173410
-/*  f173400:	8fb9149c */ 	lw	$t9,0x149c($sp)
-/*  f173404:	0fc5cbd1 */ 	jal	func0f172f44
-/*  f173408:	02002025 */ 	or	$a0,$s0,$zero
-.L0f17340c:
-/*  f17340c:	8fb9149c */ 	lw	$t9,0x149c($sp)
-.L0f173410:
-/*  f173410:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f173414:	8f240004 */ 	lw	$a0,0x4($t9)
-/*  f173418:	8faa24f0 */ 	lw	$t2,0x24f0($sp)
-/*  f17341c:	ad420000 */ 	sw	$v0,0x0($t2)
-.L0f173420:
-/*  f173420:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f173424:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f173428:	27bd24f0 */ 	addiu	$sp,$sp,0x24f0
-/*  f17342c:	03e00008 */ 	jr	$ra
-/*  f173430:	00000000 */ 	nop
-);
-
-//extern u8 _texturesdataSegmentRomStart;
+extern u8 _texturesdataSegmentRomStart;
 
 /**
  * Load and decompress a texture from ROM.
@@ -2410,152 +2120,174 @@ glabel texLoad
  * z = texture is compressed with zlib
  * l = number of levels of detail within the texture
  */
-// Mismatch: Reordered instructions and regalloc. Is functionally identical.
-//void texLoad(u32 *ptr, struct texturething *arg1, s32 arg2)
-//{
-//	s32 sp14b0[1040];
-//	u8 *sp14ac_ptr;
-//	s32 sp14a8;
-//	s32 sp14a4_iszlib;
-//	s32 sp14a0_lod;
-//	struct texloadthing *sp149c;
-//	u32 freebytes;
-//	u32 stack;
-//	struct texloadthing *sp1490;
-//	u32 stack2;
-//	u8 sp148b_usingsharedstruct;
-//	s8 sp48[5187];
-//	s32 sp44;
-//	s32 sp38;
-//	struct texloadthing *sp34;
-//	s32 sp30;
-//	u8 *sp2c;
-//
-//	sp148b_usingsharedstruct = 0;
-//
-//	if (arg1 == NULL) {
-//		arg1 = &var800aabc8;
-//	}
-//
-//	if (arg1 == &var800aabc8) {
-//		sp148b_usingsharedstruct = 1;
-//	}
-//
-//	if ((*ptr & 0xffff0000) == 0 || (*ptr & 0xffff0000) == 0xabcd0000) {
-//		var800ab53c = *ptr & 0xffff;
-//
-//		sp149c = tex0f172e8c(var800ab53c, arg1);
-//
-//		if (sp149c == NULL && var800ab53c < NUM_TEXTURES) {
-//			sp2c = (void *)(((u32)sp14b0 + 0xf) >> 4 << 4);
-//
-//			if (sp2c);
-//
-//			osWritebackDCacheAll();
-//			osInvalDCache(sp2c, DCACHE_SIZE);
-//
-//			if (g_Textures[var800ab53c].dataoffset == g_Textures[var800ab53c + 1].dataoffset) {
-//				return;
-//			}
-//
-//			sp44 = g_Textures[var800ab53c].dataoffset;
-//
-//			dmaExec(sp2c,
-//					(u32)&_texturesdataSegmentRomStart + (sp44 & 0xfffffff8),
-//					(((g_Textures[var800ab53c + 1].dataoffset - sp44) + 0x1f) >> 4) * 0x10);
-//
-//			if (sp148b_usingsharedstruct);
-//			sp14ac_ptr = sp2c + (sp44 & 7);
-//			sp14a8 = (*sp14ac_ptr & 0x80) >> 7;
-//			sp14a4_iszlib = (*sp14ac_ptr & 0x40) >> 6;
-//			sp14a0_lod = *sp14ac_ptr & 0x3f;
-//
-//			if (sp14a0_lod > 5) {
-//				sp14a0_lod = 5;
-//			}
-//
-//			sp14ac_ptr++;
-//
-//			if (sp148b_usingsharedstruct) {
-//				freebytes = mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_ONBOARD) + mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_EXPANSION);
-//			} else {
-//				freebytes = func0f172f44(arg1);
-//			}
-//
-//			if ((sp14a4_iszlib == 0 && freebytes < 4300) || (sp14a4_iszlib != 0 && freebytes < 2600)) {
-//				*ptr = osVirtualToPhysical(arg1->unk00);
-//				return;
-//			}
-//
-//			if (sp148b_usingsharedstruct) {
-//				sp1490 = arg1->unk0c;
-//				arg1->unk0c = (struct texloadthing *)((((u32)sp48 + 0xf) >> 4 << 4) + 0x10);
-//				arg1->unk08 = arg1->unk0c + 1;
-//
-//				while (sp1490) {
-//					if (sp1490->unk0c_04 == 0) {
-//						break;
-//					}
-//
-//					sp1490 = (struct texloadthing *)PHYS_TO_K0(sp1490->unk0c_04);
-//				}
-//			}
-//
-//			*(s16 *)(arg1->unk08) = var800ab53c;
-//			arg1->unk08 = (void *)((u32)arg1->unk08 + 8);
-//			sp149c = (struct texloadthing *)(arg1->unk0c - 1);
-//			arg1->unk0c = sp149c;
-//			sp149c->texturenum = var800ab53c;
-//			sp149c->unk04 = arg1->unk08;
-//			sp149c->unk0c_03 = false;
-//
-//			if (sp14a4_iszlib) {
-//				sp38 = texInflateZlib(sp14ac_ptr, (u32 *)arg1->unk08, sp14a8, sp14a0_lod, arg1, arg2);
-//			} else {
-//				sp38 = texInflateNonZlib(sp14ac_ptr, (u32 *)arg1->unk08, sp14a8, sp14a0_lod, arg1, arg2);
-//			}
-//
-//			if (sp148b_usingsharedstruct) {
-//				sp34 = mempAllocFromRight(ALIGN16(sp38 + 0x20), MEMPOOL_STAGE);
-//				arg1->unk0c = sp34;
-//
-//				bcopy(sp149c, sp34, 0x10);
-//
-//				sp149c = sp34;
-//				sp34++;
-//
-//				bcopy((void *)((u32)arg1->unk08 - 8), sp34, sp38 + 8);
-//
-//				arg1->unk0c->unk04 = (void *)((u32)sp34 + 8);
-//				arg1->unk0c->unk0c_04 = 0;
-//
-//				if (sp1490 != NULL) {
-//					sp1490->unk0c_04 = (u32)arg1->unk0c & 0xffffff;
-//				} else {
-//					arg1->unk04 = arg1->unk0c;
-//				}
-//
-//				arg1->unk00 = arg1->unk0c;
-//			}
-//
-//			arg1->unk08 = (void *)((u32)arg1->unk08 + sp38);
-//
-//			if (!sp148b_usingsharedstruct) {
-//				func0f172f44(arg1);
-//			}
-//		}
-//	}
-//
-//	*ptr = osVirtualToPhysical(sp149c->unk04);
-//}
+void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
+{
+	u8 compbuffer[4 * 1024 + 0x40];
+	u8 *compptr;
+	s32 sp14a8;
+	s32 iszlib;
+	s32 lod;
+	struct tex *tex;
+	u8 *alignedcompbuffer;
+	u32 stack;
+	struct tex *tail;
+	u32 freebytes;
+	u8 usingsharedpool = 0;
+	s8 buffer5kb[5 * 1024 + 0x40];
+	s32 thisoffset;
+	s32 nextoffset;
+	s16 *texnumptr;
+	s32 bytesout;
 
-void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct texturething *arg2, s32 arg3)
+	usingsharedpool = 0;
+
+	if (pool == NULL) {
+		pool = &g_TexSharedPool;
+	}
+
+	if (pool == &g_TexSharedPool) {
+		usingsharedpool = 1;
+	}
+
+	// If the value at updateword isn't already a pointer
+	if ((*updateword & 0xffff0000) == 0 || (*updateword & 0xffff0000) == 0xabcd0000) {
+		g_TexNumToLoad = *updateword & 0xffff;
+
+		tex = texFindInPool(g_TexNumToLoad, pool);
+
+		if (tex == NULL) {
+			if (g_TexNumToLoad >= NUM_TEXTURES) {
+				return;
+			}
+
+			alignedcompbuffer = (u8 *) (((u32)compbuffer + 0xf) >> 4 << 4);
+
+			if (alignedcompbuffer);
+			if (tex);
+
+			osWritebackDCacheAll();
+			osInvalDCache(alignedcompbuffer, DCACHE_SIZE);
+
+			thisoffset = g_Textures[g_TexNumToLoad].dataoffset;
+			nextoffset = g_Textures[g_TexNumToLoad + 1].dataoffset;
+
+			if (thisoffset == nextoffset) {
+				// The texture has no data
+				return;
+			}
+
+			// Copy the compressed texture to RAM
+			dmaExec(alignedcompbuffer,
+					(u32) &_texturesdataSegmentRomStart + (thisoffset & 0xfffffff8),
+					((u32) (nextoffset - thisoffset) + 0x1f) >> 4 << 4);
+
+			compptr = (u8 *) alignedcompbuffer + (thisoffset & 7);
+			thisoffset = 0;
+			sp14a8 = (*compptr & 0x80) >> 7;
+			iszlib = (*compptr & 0x40) >> 6;
+			lod = *compptr & 0x3f;
+
+			if (lod > 5) {
+				lod = 5;
+			}
+
+			compptr++;
+
+			// If there's not enough memory to load the texture, set the texture
+			// pointer to the start of the pool. It'll be garbage data but the
+			// only other option is a crash. GBI commands contain texture IDs
+			// instead of pointers, and they must be replaced with pointers.
+			if (usingsharedpool) {
+				freebytes = mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_ONBOARD) + mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_EXPANSION);
+			} else {
+				freebytes = texGetPoolFreeBytes(pool);
+			}
+
+			if ((!iszlib && freebytes < 4300) || (iszlib && freebytes < 2600)) {
+				*updateword = osVirtualToPhysical(pool->start);
+				return;
+			}
+
+			// If we're using the shared pool:
+			// - rightpos is the head of a linked list, so grab it and find the tail
+			// - set rightpos to a spot in the buffer that can fit a tex before it
+			// - set leftpos to 0x10 after rightpos
+			if (usingsharedpool) {
+				tail = pool->rightpos;
+				pool->rightpos = (struct tex *) ((((u32) buffer5kb + 0xf) >> 4 << 4) + sizeof(struct tex));
+				pool->leftpos = ((u8 *) pool->rightpos + sizeof(struct tex));
+
+				while (tail) {
+					if (tail->next == 0) {
+						break;
+					}
+
+					tail = (struct tex *) PHYS_TO_K0(tail->next);
+				}
+			}
+
+			// Write the texturenum into the allocation
+			texnumptr = (s16 *) pool->leftpos;
+			*texnumptr = g_TexNumToLoad;
+			pool->leftpos += 8;
+
+			// Write a tex into the allocation
+			pool->rightpos--;
+			tex = pool->rightpos;
+			tex->texturenum = g_TexNumToLoad;
+			tex->data = pool->leftpos;
+			tex->unk0c_03 = false;
+
+			// Extract the texture data to the allocation (pool->leftpos)
+			if (iszlib) {
+				bytesout = texInflateZlib(compptr, pool->leftpos, sp14a8, lod, pool, arg2);
+			} else {
+				bytesout = texInflateNonZlib(compptr, pool->leftpos, sp14a8, lod, pool, arg2);
+			}
+
+			// If we're using the shared pool, the data must be copied out of
+			// the stack and into the heap.
+			if (usingsharedpool) {
+				u8 *ptr = mempAllocFromRight(ALIGN16(bytesout + 2 * sizeof(struct tex)), MEMPOOL_STAGE);
+				pool->rightpos = (struct tex *) ptr;
+
+				bcopy(tex, ptr, sizeof(struct tex));
+
+				tex = (struct tex *) ptr;
+				ptr += sizeof(struct tex);
+
+				bcopy(pool->leftpos - 8, ptr, bytesout + 8);
+
+				pool->rightpos->data = ptr + 8;
+				pool->rightpos->next = 0;
+
+				if (tail != NULL) {
+					tail->next = (u32) pool->rightpos & 0xffffff;
+				} else {
+					pool->head = pool->rightpos;
+				}
+
+				pool->start = (u8 *) pool->rightpos;
+			}
+
+			pool->leftpos += bytesout;
+
+			if (!usingsharedpool) {
+				texGetPoolFreeBytes(pool);
+			}
+		}
+
+		*updateword = osVirtualToPhysical(tex->data);
+	}
+}
+
+void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct texpool *pool, s32 arg3)
 {
 	s32 i;
 
 	for (i = 0; i < numconfigs; i++) {
 		if ((s32)configs[i].texturenum < NUM_TEXTURES) {
-			texLoad(&configs[i].texturenum, arg2, 1);
+			texLoad(&configs[i].texturenum, pool, true);
 			configs[i].unk0b = 1;
 		} else {
 			configs[i].texturenum += arg3;
@@ -2563,11 +2295,11 @@ void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct te
 	}
 }
 
-void texLoadFromTextureNum(u32 texturenum, struct texturething *arg1)
+void texLoadFromTextureNum(u32 texturenum, struct texpool *pool)
 {
 	s32 texturenumcopy = texturenum;
 
-	texLoad(&texturenumcopy, arg1, 1);
+	texLoad(&texturenumcopy, pool, true);
 }
 
 s32 func0f173510(s32 arg0, s32 arg1, s32 arg3)

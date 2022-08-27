@@ -2285,11 +2285,14 @@ struct hand {
 	/*0x0dd8*/ Mtxf *unk0dd8;
 };
 
-struct texturething {
-	struct texloadthing *unk00;
-	struct texloadthing *unk04;
-	struct texloadthing *unk08;
-	struct texloadthing *unk0c;
+struct texpool {
+	u8 *start;
+	union {
+		struct tex *head; // for shared pool
+		struct tex *end; // for dedicated pools
+	};
+	u8 *leftpos;
+	struct tex *rightpos;
 };
 
 struct fileinfo {
@@ -2326,7 +2329,7 @@ struct gunctrl {
 	/*0x15b4*/ struct modelfiledata **loadtomodeldef;
 	/*0x15b8*/ u32 *loadmemptr;
 	/*0x15bc*/ u32 *loadmemremaining;
-	/*0x15c0*/ struct texturething unk15c0;
+	/*0x15c0*/ struct texpool unk15c0;
 	/*0x15d0*/ u32 nexttexturetoload;
 	/*0x15d4*/ struct fileinfo fileinfo;
 	/*0x15dc*/ struct abmag abmag;
@@ -6262,10 +6265,10 @@ struct awardmetrics {
 	/*0x38*/ f32 accuracyfrac;
 };
 
-struct texloadthing {
+struct tex {
 	/*0x00*/ u16 texturenum : 12;
 	/*0x00*/ u16 unk00_0c : 4;
-	/*0x04*/ u32 unk04;
+	/*0x04*/ u8 *data;
 	/*0x08*/ u8 width;
 	/*0x09*/ u8 height;
 	/*0x0a*/ u8 unk0a;
@@ -6275,7 +6278,7 @@ struct texloadthing {
 	/*0x0c*/ u32 lutmodeindex : 2;
 	/*0x0c*/ u32 unk0c_02 : 1;
 	/*0x0c*/ u32 unk0c_03 : 1;
-	/*0x0c*/ u32 unk0c_04 : 24;
+	/*0x0c*/ u32 next : 24;
 };
 
 struct texcacheitem {

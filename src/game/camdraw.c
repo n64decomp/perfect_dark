@@ -42,7 +42,7 @@ struct camerafile {
 
 struct var800a45a0 *var800a45a0;
 u32 var800a45a4;
-struct texturething var800a45a8;
+struct texpool var800a45a8;
 u32 var800a45b8;
 u32 var800a45bc;
 
