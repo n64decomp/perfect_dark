@@ -5054,7 +5054,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 		}
 
 		if (optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex)) {
-			gdl = bgunRenderHud(gdl);
+			gdl = bgunDrawHud(gdl);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
