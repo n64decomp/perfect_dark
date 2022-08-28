@@ -2312,8 +2312,8 @@ struct gunctrl {
 	/*0x1583*/ u8 wantammo : 1;
 	/*0x1583*/ u8 unk1583_06 : 1;
 	/*0x1583*/ u8 passivemode : 1;
-	/*0x1584*/ s32 gunmemnew; // weapon number?
-	/*0x1588*/ s32 gunmemtype; // also a weapon number?
+	/*0x1584*/ s32 gunmemnew; // a weapon number, -1 when not changing guns
+	/*0x1588*/ s32 gunmemtype; // also a weapon number
 	/*0x158c*/ u8 *gunmem;
 	/*0x1590*/ struct modelfiledata *gunmodeldef;
 	/*0x1594*/ struct modelfiledata *handmodeldef;
@@ -2321,8 +2321,8 @@ struct gunctrl {
 	/*0x159c*/ u16 handfilenum;
 	/*0x15a0*/ u8 *unk15a0;
 	/*0x15a4*/ s32 unk15a4;
-	/*0x15a8*/ s32 unk15a8;
-	/*0x15ac*/ s32 unk15ac;
+	/*0x15a8*/ u8 *unk15a8;
+	/*0x15ac*/ u32 unk15ac;
 	/*0x15b0*/ u8 masterloadstate;
 	/*0x15b1*/ u8 gunloadstate;
 	/*0x15b2*/ u16 loadfilenum;
