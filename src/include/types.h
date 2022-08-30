@@ -2250,7 +2250,7 @@ struct hand {
 	/*0x0d0f*/ u8 createsmoke : 1;
 	/*0x0d0f*/ u8 forcecreatesmoke : 1;
 	/*0x0d0f*/ u8 unk0d0f_02 : 1;
-	/*0x0d0f*/ u8 unk0d0f_03 : 1;
+	/*0x0d0f*/ u8 activatesecondary : 1;
 	/*0x0d0f*/ u8 unk0d0f_04 : 4;
 	/*0x0d10*/ f32 unk0d10;
 	/*0x0d14*/ f32 unk0d14;

@@ -1280,7 +1280,7 @@ void handTickAttack(s32 handnum)
 		struct gset gset;
 		bool cloaked;
 
-		g_Vars.currentplayer->hands[handnum].unk0d0f_03 = false;
+		g_Vars.currentplayer->hands[handnum].activatesecondary = false;
 
 		gsetPopulateFromCurrentPlayer(handnum, &gset);
 		frIncrementNumShots();

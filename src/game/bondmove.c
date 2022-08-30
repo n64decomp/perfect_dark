@@ -917,17 +917,17 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 								if (g_Vars.currentplayer->usedowntime >= -1) {
 									if (joyGetButtonsPressedOnSample(i, shootpad, shootallowedbuttons & Z_TRIG)
 											&& g_Vars.currentplayer->usedowntime > -1
-											&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
+											&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, true, false) != USETIMER_CONTINUE) {
 										g_Vars.currentplayer->usedowntime = -3;
 									}
 
 									if (g_Vars.currentplayer->usedowntime > -1) {
 										if (g_Vars.currentplayer->usedowntime > TICKS(25)) {
-											result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
+											result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false);
 
-											if (result == 1) {
+											if (result == USETIMER_STOP) {
 												g_Vars.currentplayer->usedowntime = -1;
-											} else if (result == 2) {
+											} else if (result == USETIMER_REPEAT) {
 												g_Vars.currentplayer->usedowntime = -2;
 											} else {
 												g_Vars.currentplayer->usedowntime++;
@@ -937,7 +937,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 										}
 									}
 								} else if (g_Vars.currentplayer->usedowntime >= -2) {
-									bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
+									bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false);
 								}
 							} else {
 								// Released B - activate or reload
@@ -1276,17 +1276,17 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 								if (g_Vars.currentplayer->usedowntime >= -1) {
 									if (joyGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)
 											&& g_Vars.currentplayer->usedowntime >= 0
-											&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
+											&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, true, false) != USETIMER_CONTINUE) {
 										g_Vars.currentplayer->usedowntime = -3;
 									}
 
 									if (g_Vars.currentplayer->usedowntime >= 0) {
 										if (g_Vars.currentplayer->usedowntime > TICKS(25)) {
-											s32 result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
+											s32 result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false);
 
-											if (result == 1) {
+											if (result == USETIMER_STOP) {
 												g_Vars.currentplayer->usedowntime = -1;
-											} else if (result == 2) {
+											} else if (result == USETIMER_REPEAT) {
 												g_Vars.currentplayer->usedowntime = -2;
 											} else {
 												g_Vars.currentplayer->usedowntime++;
@@ -1297,7 +1297,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 									}
 								} else {
 									if (g_Vars.currentplayer->usedowntime >= -2) {
-										bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
+										bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false);
 									}
 								}
 							} else {

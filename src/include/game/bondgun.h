@@ -145,7 +145,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum);
 void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 texturenum);
 void bgunPlayBgHitSound(struct gset *gset, struct coord *hitpos, s32 texturenum, s16 *arg3);
 void bgunSetTriggerOn(s32 handnum, bool on);
-s32 bgunConsiderToggleGunFunction(s32 usedowntime, bool firing, s32 arg2);
+s32 bgunConsiderToggleGunFunction(s32 usedowntime, bool trigpressed, bool fromactivemenu);
 void bgun0f0a8c50(void);
 bool bgunIsUsingSecondaryFunction(void);
 void bgunTickGameplay(bool triggeron);
