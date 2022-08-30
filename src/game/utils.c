@@ -451,119 +451,47 @@ void func0f177a38(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f177a54
-/*  f177a54:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f177a58:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f177a5c:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f177a60:	00001025 */ 	or	$v0,$zero,$zero
-/*  f177a64:	00001825 */ 	or	$v1,$zero,$zero
-/*  f177a68:	18a0002d */ 	blez	$a1,.L0f177b20
-/*  f177a6c:	00004025 */ 	or	$t0,$zero,$zero
-/*  f177a70:	00803025 */ 	or	$a2,$a0,$zero
-/*  f177a74:	240c00ff */ 	addiu	$t4,$zero,0xff
-/*  f177a78:	240b00c8 */ 	addiu	$t3,$zero,0xc8
-/*  f177a7c:	240a00ff */ 	addiu	$t2,$zero,0xff
-.L0f177a80:
-/*  f177a80:	90c40000 */ 	lbu	$a0,0x0($a2)
-/*  f177a84:	50800023 */ 	beqzl	$a0,.L0f177b14
-/*  f177a88:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f177a8c:	1040001d */ 	beqz	$v0,.L0f177b04
-/*  f177a90:	02034821 */ 	addu	$t1,$s0,$v1
-/*  f177a94:	00c77023 */ 	subu	$t6,$a2,$a3
-/*  f177a98:	91cf0000 */ 	lbu	$t7,0x0($t6)
-/*  f177a9c:	55e0001a */ 	bnezl	$t7,.L0f177b08
-/*  f177aa0:	a1240000 */ 	sb	$a0,0x0($t1)
-/*  f177aa4:	a1200000 */ 	sb	$zero,0x0($t1)
-/*  f177aa8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f177aac:	150a0007 */ 	bne	$t0,$t2,.L0f177acc
-/*  f177ab0:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f177ab4:	a12b0000 */ 	sb	$t3,0x0($t1)
-/*  f177ab8:	a1200001 */ 	sb	$zero,0x1($t1)
-/*  f177abc:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f177ac0:	25290002 */ 	addiu	$t1,$t1,0x2
-/*  f177ac4:	1000000a */ 	b	.L0f177af0
-/*  f177ac8:	2508ff38 */ 	addiu	$t0,$t0,-200
-.L0f177acc:
-/*  f177acc:	29010100 */ 	slti	$at,$t0,0x100
-/*  f177ad0:	54200008 */ 	bnezl	$at,.L0f177af4
-/*  f177ad4:	a1280000 */ 	sb	$t0,0x0($t1)
-.L0f177ad8:
-/*  f177ad8:	2508ff01 */ 	addiu	$t0,$t0,-255
-/*  f177adc:	29010100 */ 	slti	$at,$t0,0x100
-/*  f177ae0:	a12c0000 */ 	sb	$t4,0x0($t1)
-/*  f177ae4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f177ae8:	1020fffb */ 	beqz	$at,.L0f177ad8
-/*  f177aec:	25290001 */ 	addiu	$t1,$t1,0x1
-.L0f177af0:
-/*  f177af0:	a1280000 */ 	sb	$t0,0x0($t1)
-.L0f177af4:
-/*  f177af4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f177af8:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f177afc:	90c40000 */ 	lbu	$a0,0x0($a2)
-/*  f177b00:	00004025 */ 	or	$t0,$zero,$zero
-.L0f177b04:
-/*  f177b04:	a1240000 */ 	sb	$a0,0x0($t1)
-.L0f177b08:
-/*  f177b08:	10000002 */ 	b	.L0f177b14
-/*  f177b0c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f177b10:	25080001 */ 	addiu	$t0,$t0,0x1
-.L0f177b14:
-/*  f177b14:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f177b18:	1445ffd9 */ 	bne	$v0,$a1,.L0f177a80
-/*  f177b1c:	00c73021 */ 	addu	$a2,$a2,$a3
-.L0f177b20:
-/*  f177b20:	0203c021 */ 	addu	$t8,$s0,$v1
-/*  f177b24:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f177b28:	a3000000 */ 	sb	$zero,0x0($t8)
-/*  f177b2c:	0203c821 */ 	addu	$t9,$s0,$v1
-/*  f177b30:	a3200000 */ 	sb	$zero,0x0($t9)
-/*  f177b34:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f177b38:	24620001 */ 	addiu	$v0,$v1,0x1
-/*  f177b3c:	03e00008 */ 	jr	$ra
-/*  f177b40:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+s32 func0f177a54(u8 *arg0, s32 arg1, u8 *arg2, s32 arg3)
+{
+	s32 i = 0;
+	s32 v1 = 0;
+	s32 t0 = 0;
 
-// Mismatch: Goal moves a0 to a2
-//s32 func0f177a54(u8 *arg0, s32 arg1, u8 *arg2, s32 arg3)
-//{
-//	s32 i = 0;
-//	s32 v1 = 0;
-//	s32 t0 = 0;
-//
-//	for (; i < arg1; i++) {
-//		if (*arg0 != 0) {
-//			if (i != 0 && arg0[-arg3] == 0) {
-//				arg2[v1++] = 0;
-//
-//				if (t0 == 255) {
-//					arg2[v1++] = 200;
-//					arg2[v1++] = 0;
-//					t0 -= 200;
-//				} else {
-//					while (t0 > 255) {
-//						arg2[v1++] = 255;
-//						t0 -= 255;
-//					}
-//				}
-//
-//				arg2[v1++] = t0;
-//				t0 = 0;
-//			}
-//
-//			arg2[v1++] = *arg0;
-//		} else {
-//			t0++;
-//		}
-//
-//		arg0 += arg3;
-//	}
-//
-//	arg2[v1++] = 0;
-//	arg2[v1++] = 0;
-//
-//	return v1;
-//}
+	for (; i < arg1; i++) {
+		s32 index = i * arg3;
+
+		if (arg0[index] != 0) {
+			u8 *ptr = &arg0[index];
+
+			if (i != 0 && ptr[-arg3] == 0) {
+				arg2[v1++] = 0;
+
+				if (t0 == 255) {
+					arg2[v1++] = 200;
+					arg2[v1++] = 0;
+					t0 -= 200;
+				} else {
+					while (t0 > 255) {
+						arg2[v1++] = 255;
+						t0 -= 255;
+					}
+				}
+
+				arg2[v1++] = t0;
+				t0 = 0;
+			}
+
+			arg2[v1++] = arg0[index];
+		} else {
+			t0++;
+		}
+	}
+
+	arg2[v1++] = 0;
+	arg2[v1++] = 0;
+
+	return v1;
+}
 
 u8 func0f177b44(u8 *arg0, s32 *arg1)
 {
