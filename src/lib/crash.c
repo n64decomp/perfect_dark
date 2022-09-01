@@ -1031,7 +1031,7 @@ void crashReset(void)
 	}
 }
 
-void crashRenderFrame(u8 *fb)
+void crashRenderFrame(u16 *fb)
 {
 	s32 width;
 	s32 height;

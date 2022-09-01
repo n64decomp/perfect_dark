@@ -110,7 +110,7 @@ void viConfigureForLogos(void)
  *
  * Both textures are 507 x 48, but the framebuffer width is 576.
  */
-void viConfigureForCopyright(u8 *texturedata)
+void viConfigureForCopyright(u16 *texturedata)
 {
 	s32 i;
 
@@ -227,14 +227,14 @@ void viReset(s32 stagenum)
 
 	ptr = (u8 *)(((u32)ptr + 0x3f) & 0xffffffc0);
 
-	g_FrameBuffers[0] = &ptr[0];
-	g_FrameBuffers[1] = fbsize + ptr;
+	g_FrameBuffers[0] = (u16 *) ptr;
+	g_FrameBuffers[1] = (u16 *) (fbsize + ptr);
 
 	g_ViFrontData->fb = g_FrameBuffers[g_ViFrontIndex];
 	g_ViBackData->fb = g_FrameBuffers[g_ViBackIndex];
 
-	fb0 = g_FrameBuffers[0];
-	fb1 = g_FrameBuffers[1];
+	fb0 = (u8 *) g_FrameBuffers[0];
+	fb1 = (u8 *) g_FrameBuffers[1];
 
 	for (i = 0; i < fbsize; i++) {
 		fb0[i] = 0;
@@ -2342,17 +2342,17 @@ void viSet32Bit(void)
 	g_ViIs16Bit = false;
 }
 
-u8 *viGetBackBuffer(void)
+u16 *viGetBackBuffer(void)
 {
 	return g_ViBackData->fb;
 }
 
-u8 *viGetFrontBuffer(void)
+u16 *viGetFrontBuffer(void)
 {
 	return g_ViFrontData->fb;
 }
 
-void viSetBackBuffer(u8 *fb)
+void viSetBackBuffer(u16 *fb)
 {
 	g_ViBackData->fb = fb;
 }

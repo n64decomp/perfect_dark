@@ -108,6 +108,6 @@ void crashAppendChar(char c);
 void crashScroll(s32 numlines);
 void crashRenderChar(s32 x, s32 y, char c);
 void crashReset(void);
-void crashRenderFrame(u8 *fb);
+void crashRenderFrame(u16 *fb);
 
 #endif

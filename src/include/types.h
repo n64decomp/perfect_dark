@@ -5329,7 +5329,7 @@ struct rend_vidat {
 	/*0x20*/ s16 viewleft;
 	/*0x22*/ s16 viewtop;
 	/*0x24*/ bool usezbuf;
-	/*0x28*/ u8 *fb;
+	/*0x28*/ u16 *fb;
 };
 
 struct shieldhit {

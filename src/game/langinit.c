@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-u8 *g_FrameBuffers[2];
+u16 *g_FrameBuffers[2];
 
 extern s32 var8009d140jf;
 

@@ -61,7 +61,7 @@ extern OSTimer __osEepromTimer;
 extern OSMesgQueue __osEepromTimerQ;
 extern OSMesg __osEepromTimerMsg;
 extern u32 var8009ca84;
-extern u8 *g_FrameBuffers[2];
+extern u16 *g_FrameBuffers[2];
 extern u8 var8009caec;
 extern u8 var8009caed;
 extern u8 var8009caee;

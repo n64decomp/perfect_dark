@@ -467,7 +467,7 @@ void mainInit(void)
 		}
 
 		viSetMode(VIMODE_HI);
-		viConfigureForCopyright((u8 *) fb);
+		viConfigureForCopyright(fb);
 
 		g_RdpOutBufferStart = texture;
 		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
