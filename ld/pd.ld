@@ -122,19 +122,15 @@ SECTIONS
 #if VERSION >= VERSION_JPN_FINAL
 	_val7f11aa14 = 0x0e52;
 	_val7f11aae4 = 0x0e60;
-	_val7f11c1d0 = 0x1292;
 #elif VERSION >= VERSION_PAL_BETA
 	_val7f11aa14 = 0x0e4d;
 	_val7f11aae4 = 0x0e5b;
-	_val7f11c1d0 = 0x128d;
 #elif VERSION >= VERSION_NTSC_FINAL
 	_val7f11aa14 = 0x0e46;
 	_val7f11aae4 = 0x0e54;
-	_val7f11c1d0 = 0x1286;
 #else
 	_val7f11aa14 = 0x0d83;
 	_val7f11aae4 = 0x0d91;
-	_val7f11c1d0 = 0x11c3;
 #endif
 
 	osTvType = 0x80000300;

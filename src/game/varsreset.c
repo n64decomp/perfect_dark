@@ -27,6 +27,9 @@ void varsReset(void)
 
 	g_Vars.freeprops = g_Vars.props;
 
+	// @bug: The tail of the freeprops list will have an uninitialised next pointer.
+	// This will likely crash the game if too many props get allocated,
+	// but there is no known way to exhaust the free props list.
 	for (i = 0; i < g_Vars.maxprops - 1; i++) {
 		g_Vars.props[i].next = &g_Vars.props[i + 1];
 	}
