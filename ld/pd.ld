@@ -102,35 +102,17 @@ OUTPUT_ARCH (mips)
 SECTIONS
 {
 #if VERSION >= VERSION_JPN_FINAL
-	_gamecode = 0x444a;
 	_jpndata1 = 0x17fc40;
 	_jpndata2 = 0x18b340;
 #elif VERSION >= VERSION_PAL_BETA
-	_gamecode = 0x4450;
 	_jpndata1 = 0x17fc40;
 	_jpndata2 = 0x18b340;
 #elif VERSION >= VERSION_NTSC_1_0
-	_gamecode = 0x4445;
 	_jpndata1 = 0x194440;
 	_jpndata2 = 0x19fb40;
 #else
-	_gamecode = 0x4445;
 	_jpndata1 = 0x148c40;
 	_jpndata2 = 0x154340;
-#endif
-
-#if VERSION >= VERSION_JPN_FINAL
-	_val7f11aa14 = 0x0e52;
-	_val7f11aae4 = 0x0e60;
-#elif VERSION >= VERSION_PAL_BETA
-	_val7f11aa14 = 0x0e4d;
-	_val7f11aae4 = 0x0e5b;
-#elif VERSION >= VERSION_NTSC_FINAL
-	_val7f11aa14 = 0x0e46;
-	_val7f11aae4 = 0x0e54;
-#else
-	_val7f11aa14 = 0x0d83;
-	_val7f11aae4 = 0x0d91;
 #endif
 
 	osTvType = 0x80000300;
