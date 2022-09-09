@@ -20,6 +20,7 @@
 
 #define NUM_SUCCESS_PARTICLES 280
 
+#if MATCHING
 #if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel menugfxCreateBlur
@@ -517,6 +518,7 @@ const u32 var7f1adf00[] = {0x63636363};
 const u32 var7f1adf04[] = {0x00000000};
 u32 var80071180 = 1;
 
+#else
 #define BLURIMG_WIDTH  40
 #define BLURIMG_HEIGHT 30
 #define SAMPLE_WIDTH  8
@@ -539,113 +541,114 @@ u32 var80071180 = 1;
  * It's a simple fade between the source framebuffer and the blurred image.
  * Only one blurred image is made.
  */
-//void menugfxCreateBlur(void)
-//{
-//#if VERSION >= VERSION_PAL_FINAL
-//	// Mismatch: Different codegen
-//	u8 *fb = viGetFrontBuffer();
-//	s32 fbwidthinbytes = viGetWidth() * 2;
-//	f32 scale = viGetWidth() / 320.0f;
-//	s32 dsty;
-//	s32 dstx;
-//	s32 srcx;
-//	s32 srcy;
-//
-//	static u32 var80071180 = 1;
-//
-//	g_ScaleX = 1;
-//
-//	if (var80071180 == 1) {
-//		fb = viGetFrontBuffer();
-//	}
-//
-//	mainOverrideVariable("cccc", &var80071180);
-//
-//	for (dsty = 0; dsty < 30; dsty++) {
-//		for (dstx = 0; dstx < 40; dstx++) {
-//			s32 dstindex = dsty * 80 + dstx * 2;
-//			u32 r = 0;
-//			u32 g = 0;
-//			u32 b = 0;
-//
-//			for (srcx = 0; srcx < 8; srcx++) {
-//				for (srcy = 0; srcy < 8; srcy++) {
-//					s32 e = (f32)dstx * 2 * 4 * 2 * scale;
-//					s32 c = (dsty * fbwidthinbytes * 8);
-//					s32 block = (e + c) & ~1;
-//					s32 a = (f32)srcx * 2 * scale;
-//					s32 d = (srcy * fbwidthinbytes);
-//					s32 index = (a + block + d) & ~1;
-//
-//					u32 colour = fb[index] << 8 | fb[index + 1];
-//
-//					r += colour >> 11 & 0x1f;
-//					g += colour >> 6 & 0x1f;
-//					b += colour >> 1 & 0x1f;
-//				}
-//			}
-//
-//			r /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
-//			g /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
-//			b /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
-//
-//			g_BlurBuffer[dstindex + 0] = (r << 3) | (g >> 2);
-//			g_BlurBuffer[dstindex + 1] = (g << 6) | ((b & 0x1f) << 1);
-//		}
-//	}
-//
-//	g_ScaleX = 1;
-//#else
-//	// Mismatch: The below stores 0x280 (end value for dstx loop) in s8,
-//	// and doesn't store samplestartindex in s2.
-//	u8 *fb = viGetFrontBuffer();
-//	s32 fbwidthinbytes = PXTOBYTES(viGetWidth());
-//	s32 dsty;
-//	s32 dstx;
-//	s32 srcx;
-//	s32 srcy;
-//
-//	static u32 var80071180 = 1;
-//
-//	g_ScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
-//
-//	if (var80071180 == 1) {
-//		fb = viGetFrontBuffer();
-//	}
-//
-//	mainOverrideVariable("cccc", &var80071180);
-//
-//	for (dsty = 0; dsty < BLURIMG_HEIGHT; dsty++) {
-//		for (dstx = 0; dstx < BLURIMG_WIDTH; dstx++) {
-//			s32 dstindex = PXTOBYTES(dsty * BLURIMG_WIDTH) + PXTOBYTES(dstx);
-//			u32 r = 0;
-//			u32 g = 0;
-//			u32 b = 0;
-//			s32 samplestartindex = PXTOBYTES(dstx * SAMPLE_WIDTH) * g_ScaleX + dsty * fbwidthinbytes * SAMPLE_HEIGHT;
-//
-//			for (srcx = 0; srcx < SAMPLE_WIDTH; srcx++) {
-//				for (srcy = 0; srcy < SAMPLE_HEIGHT; srcy++) {
-//					s32 offset = PXTOBYTES(srcx) * g_ScaleX + srcy * fbwidthinbytes;
-//					s32 colour = fb[samplestartindex + offset] << 8 | fb[samplestartindex + offset + 1];
-//
-//					r += colour >> 11 & 0x1f;
-//					g += colour >> 6 & 0x1f;
-//					b += colour >> 1 & 0x1f;
-//				}
-//			}
-//
-//			r /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
-//			g /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
-//			b /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
-//
-//			g_BlurBuffer[dstindex + 0] = (r << 3) | (g >> 2);
-//			g_BlurBuffer[dstindex + 1] = (g << 6) | ((b & 0x1f) << 1);
-//		}
-//	}
-//
-//	g_ScaleX = 1;
-//#endif
-//}
+void menugfxCreateBlur(void)
+{
+#if VERSION >= VERSION_PAL_FINAL
+	// Mismatch: Different codegen
+	u8 *fb = (u8 *) viGetFrontBuffer();
+	s32 fbwidthinbytes = viGetWidth() * 2;
+	f32 scale = viGetWidth() / 320.0f;
+	s32 dsty;
+	s32 dstx;
+	s32 srcx;
+	s32 srcy;
+
+	static u32 var80071180 = 1;
+
+	g_ScaleX = 1;
+
+	if (var80071180 == 1) {
+		fb = (u8 *) viGetFrontBuffer();
+	}
+
+	mainOverrideVariable("cccc", &var80071180);
+
+	for (dsty = 0; dsty < 30; dsty++) {
+		for (dstx = 0; dstx < 40; dstx++) {
+			s32 dstindex = dsty * 80 + dstx * 2;
+			u32 r = 0;
+			u32 g = 0;
+			u32 b = 0;
+
+			for (srcx = 0; srcx < 8; srcx++) {
+				for (srcy = 0; srcy < 8; srcy++) {
+					s32 e = (f32)dstx * 2 * 4 * 2 * scale;
+					s32 c = (dsty * fbwidthinbytes * 8);
+					s32 block = (e + c) & ~1;
+					s32 a = (f32)srcx * 2 * scale;
+					s32 d = (srcy * fbwidthinbytes);
+					s32 index = (a + block + d) & ~1;
+
+					u32 colour = fb[index] << 8 | fb[index + 1];
+
+					r += colour >> 11 & 0x1f;
+					g += colour >> 6 & 0x1f;
+					b += colour >> 1 & 0x1f;
+				}
+			}
+
+			r /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+			g /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+			b /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+
+			g_BlurBuffer[dstindex + 0] = (r << 3) | (g >> 2);
+			g_BlurBuffer[dstindex + 1] = (g << 6) | ((b & 0x1f) << 1);
+		}
+	}
+
+	g_ScaleX = 1;
+#else
+	// Mismatch: The below stores 0x280 (end value for dstx loop) in s8,
+	// and doesn't store samplestartindex in s2.
+	u8 *fb = (u8 *) viGetFrontBuffer();
+	s32 fbwidthinbytes = PXTOBYTES(viGetWidth());
+	s32 dsty;
+	s32 dstx;
+	s32 srcx;
+	s32 srcy;
+
+	static u32 var80071180 = 1;
+
+	g_ScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
+
+	if (var80071180 == 1) {
+		fb = (u8 *) viGetFrontBuffer();
+	}
+
+	mainOverrideVariable("cccc", &var80071180);
+
+	for (dsty = 0; dsty < BLURIMG_HEIGHT; dsty++) {
+		for (dstx = 0; dstx < BLURIMG_WIDTH; dstx++) {
+			s32 dstindex = PXTOBYTES(dsty * BLURIMG_WIDTH) + PXTOBYTES(dstx);
+			u32 r = 0;
+			u32 g = 0;
+			u32 b = 0;
+			s32 samplestartindex = PXTOBYTES(dstx * SAMPLE_WIDTH) * g_ScaleX + dsty * fbwidthinbytes * SAMPLE_HEIGHT;
+
+			for (srcx = 0; srcx < SAMPLE_WIDTH; srcx++) {
+				for (srcy = 0; srcy < SAMPLE_HEIGHT; srcy++) {
+					s32 offset = PXTOBYTES(srcx) * g_ScaleX + srcy * fbwidthinbytes;
+					s32 colour = fb[samplestartindex + offset] << 8 | fb[samplestartindex + offset + 1];
+
+					r += colour >> 11 & 0x1f;
+					g += colour >> 6 & 0x1f;
+					b += colour >> 1 & 0x1f;
+				}
+			}
+
+			r /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+			g /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+			b /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+
+			g_BlurBuffer[dstindex + 0] = (r << 3) | (g >> 2);
+			g_BlurBuffer[dstindex + 1] = (g << 6) | ((b & 0x1f) << 1);
+		}
+	}
+
+	g_ScaleX = 1;
+#endif
+}
+#endif
 
 Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 {
@@ -803,6 +806,7 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
 	return gdl;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel menugfxRenderBgGreenHaze
 .late_rodata
@@ -1261,7 +1265,7 @@ glabel var7f1adf18
 /*  f0e1660:	03e00008 */ 	jr	$ra
 /*  f0e1664:	27bd0118 */ 	addiu	$sp,$sp,0x118
 );
-
+#else
 /**
  * This unused function renders an experimental menu background.
  *
@@ -1269,126 +1273,127 @@ glabel var7f1adf18
  * Both layers spin slowly in opposite directions.
  */
 // Mismatch: Regalloc, and a different approach is taken for the i == 1 checks.
-//Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
-//{
-//	u32 *colours;
-//	struct gfxvtx *vertices;
-//	u32 alphas[2]; // 104
-//	s32 i;
-//	s16 t5;
-//	s16 s0;
-//	s16 s2;
-//	s16 s3;
-//	f32 f20;
-//	f32 f22;
-//	f32 f24;
-//	f32 f26;
-//	f32 f0;
-//	f32 f2;
-//	u32 stack[2];
-//	struct gfxvtx *iter;
-//
-//	colours = gfxAllocateColours(4);
-//	vertices = gfxAllocateVertices(8);
-//
-//	gDPPipeSync(gdl++);
-//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
-//	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
-//	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
-//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
-//
-//	texSelect(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
-//
-//	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-//
-//	vertices[4].x = vertices[0].x = x1 * 10;
-//	vertices[4].y = vertices[0].y = y1 * 10;
-//	vertices[4].z = vertices[0].z = -10;
-//	vertices[5].x = vertices[1].x = x2 * 10;
-//	vertices[5].y = vertices[1].y = y1 * 10;
-//	vertices[5].z = vertices[1].z = -10;
-//	vertices[6].x = vertices[2].x = x2 * 10;
-//	vertices[6].y = vertices[2].y = y2 * 10;
-//	vertices[6].z = vertices[2].z = -10;
-//	vertices[7].x = vertices[3].x = x1 * 10;
-//	vertices[7].y = vertices[3].y = y2 * 10;
-//	vertices[7].z = vertices[3].z = -10;
-//
-//	for (i = 0; i < 2; i++) {
-//		f0 = var80061630;
-//		f26 = M_BADTAU * var80061630;
-//
-//		if (i == 1) {
-//			f26 = -f26;
-//		}
-//
-//		if (i == 1) {
-//			f0 += 0.5f;
-//		}
-//
-//		if (f0 > 1.0f) {
-//			f0 -= 1.0f;
-//		}
-//
-//		f2 = 1.0f - f0;
-//
-//		if (f0 < 0.2f) {
-//			alphas[i] = f0 / 0.2f * 127.0f;
-//		} else if (f0 > 0.9f) {
-//			alphas[i] = f2 / 0.1f * 127.0f;
-//		} else {
-//			alphas[i] = 0x7f;
-//		}
-//
-//		f20 = (f2 + 0.1f) * 15.0f;
-//		f22 = (x2 - x1) / 2 * f20;
-//		f24 = (y2 - y1) / 2 * f20;
-//
-//		s2 = sinf(f26) * f22;
-//		s3 = cosf(f26) * f24;
-//		s0 = cosf(f26) * f22;
-//		t5 = -sinf(f26) * f24;
-//
-//		if (1);
-//
-//		iter = &vertices[i * 4];
-//
-//		iter[0].unk08 = i * 256 - s2 - s0;
-//		iter[0].unk0a = i * 256 - s3 - t5;
-//		iter[1].unk08 = i * 256 + s2 - s0;
-//		iter[1].unk0a = i * 256 + s3 - t5;
-//		iter[2].unk08 = i * 256 + s2 + s0;
-//		iter[2].unk0a = i * 256 + s3 + t5;
-//		iter[3].unk08 = i * 256 - s2 + s0;
-//		iter[3].unk0a = i * 256 - s3 + t5;
-//	}
-//
-//	vertices[0].colour = 0;
-//	vertices[1].colour = 0;
-//	vertices[2].colour = 4;
-//	vertices[3].colour = 4;
-//	vertices[4].colour = 12;
-//	vertices[5].colour = 12;
-//	vertices[6].colour = 8;
-//	vertices[7].colour = 8;
-//
-//	colours[0] = 0x00af0000 | alphas[0];
-//	colours[1] = 0xffff0000 | alphas[0];
-//	colours[2] = 0x00af0000 | alphas[1];
-//	colours[3] = 0xffff0000 | alphas[1];
-//
-//	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 4);
-//	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
-//
-//	if (var80061630 > 0.5f) {
-//		gDPTri4(gdl++, 4, 5, 6, 6, 7, 4, 0, 1, 2, 2, 3, 0);
-//	} else {
-//		gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
-//	}
-//
-//	return gdl;
-//}
+Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+{
+	u32 *colours;
+	struct gfxvtx *vertices;
+	u32 alphas[2]; // 104
+	s32 i;
+	s16 t5;
+	s16 s0;
+	s16 s2;
+	s16 s3;
+	f32 f20;
+	f32 f22;
+	f32 f24;
+	f32 f26;
+	f32 f0;
+	f32 f2;
+	u32 stack[2];
+	struct gfxvtx *iter;
+
+	colours = gfxAllocateColours(4);
+	vertices = gfxAllocateVertices(8);
+
+	gDPPipeSync(gdl++);
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
+	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+
+	texSelect(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
+
+	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+
+	vertices[4].x = vertices[0].x = x1 * 10;
+	vertices[4].y = vertices[0].y = y1 * 10;
+	vertices[4].z = vertices[0].z = -10;
+	vertices[5].x = vertices[1].x = x2 * 10;
+	vertices[5].y = vertices[1].y = y1 * 10;
+	vertices[5].z = vertices[1].z = -10;
+	vertices[6].x = vertices[2].x = x2 * 10;
+	vertices[6].y = vertices[2].y = y2 * 10;
+	vertices[6].z = vertices[2].z = -10;
+	vertices[7].x = vertices[3].x = x1 * 10;
+	vertices[7].y = vertices[3].y = y2 * 10;
+	vertices[7].z = vertices[3].z = -10;
+
+	for (i = 0; i < 2; i++) {
+		f0 = var80061630;
+		f26 = M_BADTAU * var80061630;
+
+		if (i == 1) {
+			f26 = -f26;
+		}
+
+		if (i == 1) {
+			f0 += 0.5f;
+		}
+
+		if (f0 > 1.0f) {
+			f0 -= 1.0f;
+		}
+
+		f2 = 1.0f - f0;
+
+		if (f0 < 0.2f) {
+			alphas[i] = f0 / 0.2f * 127.0f;
+		} else if (f0 > 0.9f) {
+			alphas[i] = f2 / 0.1f * 127.0f;
+		} else {
+			alphas[i] = 0x7f;
+		}
+
+		f20 = (f2 + 0.1f) * 15.0f;
+		f22 = (x2 - x1) / 2 * f20;
+		f24 = (y2 - y1) / 2 * f20;
+
+		s2 = sinf(f26) * f22;
+		s3 = cosf(f26) * f24;
+		s0 = cosf(f26) * f22;
+		t5 = -sinf(f26) * f24;
+
+		if (1);
+
+		iter = &vertices[i * 4];
+
+		iter[0].s = i * 256 - s2 - s0;
+		iter[0].t = i * 256 - s3 - t5;
+		iter[1].s = i * 256 + s2 - s0;
+		iter[1].t = i * 256 + s3 - t5;
+		iter[2].s = i * 256 + s2 + s0;
+		iter[2].t = i * 256 + s3 + t5;
+		iter[3].s = i * 256 - s2 + s0;
+		iter[3].t = i * 256 - s3 + t5;
+	}
+
+	vertices[0].colour = 0;
+	vertices[1].colour = 0;
+	vertices[2].colour = 4;
+	vertices[3].colour = 4;
+	vertices[4].colour = 12;
+	vertices[5].colour = 12;
+	vertices[6].colour = 8;
+	vertices[7].colour = 8;
+
+	colours[0] = 0x00af0000 | alphas[0];
+	colours[1] = 0xffff0000 | alphas[0];
+	colours[2] = 0x00af0000 | alphas[1];
+	colours[3] = 0xffff0000 | alphas[1];
+
+	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 4);
+	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
+
+	if (var80061630 > 0.5f) {
+		gDPTri4(gdl++, 4, 5, 6, 6, 7, 4, 0, 1, 2, 2, 3, 0);
+	} else {
+		gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
+	}
+
+	return gdl;
+}
+#endif
 
 Gfx *menugfxDrawDropdownBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
@@ -1803,6 +1808,7 @@ glabel menugfxDrawListGroupHeader
 );
 #endif
 
+#if MATCHING
 GLOBAL_ASM(
 glabel menugfxRenderGradient
 /*  f0e1ce8:	27bdffa0 */ 	addiu	$sp,$sp,-96
@@ -1985,79 +1991,80 @@ glabel menugfxRenderGradient
 /*  f0e1fa4:	03e00008 */ 	jr	$ra
 /*  f0e1fa8:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
-
+#else
 // Mismatch: Goal has the if statement with empty contents
-//Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourstart, u32 colourmid, u32 colourend)
-//{
-//	u32 *colours = gfxAllocateColours(3);
-//	struct gfxvtx *vertices = gfxAllocateVertices(6);
-//	s32 ymid;
-//
-//	gDPPipeSync(gdl++);
-//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
-//	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
-//	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
-//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
-//
-//	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
-//
-//	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-//
-//	ymid = (y1 + y2) / 2;
-//
-//	if (x2 - x1 < ymid * 2) {
-//		ymid <<= 0;
-//	}
-//
-//	// 0 = top left
-//	// 1 = top right
-//	// 2 = bottom right
-//	// 3 = bottom left
-//	// 4 = mid left
-//	// 5 = mid right
-//
-//	vertices[0].z = -10;
-//	vertices[1].z = -10;
-//	vertices[2].z = -10;
-//	vertices[3].z = -10;
-//	vertices[4].z = -10;
-//	vertices[5].z = -10;
-//
-//	vertices[0].x = x1 * 10;
-//	vertices[0].y = y1 * 10;
-//	vertices[0].colour = 0;
-//
-//	vertices[1].x = x2 * 10;
-//	vertices[1].y = y1 * 10;
-//	vertices[1].colour = 0;
-//
-//	vertices[2].x = x2 * 10;
-//	vertices[2].y = y2 * 10;
-//	vertices[2].colour = 4;
-//
-//	vertices[3].x = x1 * 10;
-//	vertices[3].y = y2 * 10;
-//	vertices[3].colour = 4;
-//
-//	vertices[4].x = x1 * 10;
-//	vertices[4].y = ymid * 10;
-//	vertices[4].colour = 8;
-//
-//	vertices[5].x = x2 * 10;
-//	vertices[5].y = ymid * 10;
-//	vertices[5].colour = 8;
-//
-//	colours[0] = colourstart;
-//	colours[2] = colourmid;
-//	colours[1] = colourend;
-//
-//	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
-//	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
-//	gDPTri4(gdl++, 0, 1, 5, 5, 4, 0, 2, 3, 4, 4, 5, 2);
-//
-//	return gdl;
-//}
+Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourstart, u32 colourmid, u32 colourend)
+{
+	u32 *colours = gfxAllocateColours(3);
+	struct gfxvtx *vertices = gfxAllocateVertices(6);
+	s32 ymid;
+
+	gDPPipeSync(gdl++);
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
+	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+
+	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
+
+	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+
+	ymid = (y1 + y2) / 2;
+
+	if (x2 - x1 < ymid * 2) {
+		ymid <<= 0;
+	}
+
+	// 0 = top left
+	// 1 = top right
+	// 2 = bottom right
+	// 3 = bottom left
+	// 4 = mid left
+	// 5 = mid right
+
+	vertices[0].z = -10;
+	vertices[1].z = -10;
+	vertices[2].z = -10;
+	vertices[3].z = -10;
+	vertices[4].z = -10;
+	vertices[5].z = -10;
+
+	vertices[0].x = x1 * 10;
+	vertices[0].y = y1 * 10;
+	vertices[0].colour = 0;
+
+	vertices[1].x = x2 * 10;
+	vertices[1].y = y1 * 10;
+	vertices[1].colour = 0;
+
+	vertices[2].x = x2 * 10;
+	vertices[2].y = y2 * 10;
+	vertices[2].colour = 4;
+
+	vertices[3].x = x1 * 10;
+	vertices[3].y = y2 * 10;
+	vertices[3].colour = 4;
+
+	vertices[4].x = x1 * 10;
+	vertices[4].y = ymid * 10;
+	vertices[4].colour = 8;
+
+	vertices[5].x = x2 * 10;
+	vertices[5].y = ymid * 10;
+	vertices[5].colour = 8;
+
+	colours[0] = colourstart;
+	colours[2] = colourmid;
+	colours[1] = colourend;
+
+	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
+	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+	gDPTri4(gdl++, 0, 1, 5, 5, 4, 0, 2, 3, 4, 4, 5, 2);
+
+	return gdl;
+}
+#endif
 
 Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, u32 colour)
 {
@@ -2222,6 +2229,7 @@ Gfx *menugfxDrawLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 
 	return gdl;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel menugfxDrawTessellatedRect
 /*  f0e2744:	27bdff68 */ 	addiu	$sp,$sp,-152
@@ -2456,87 +2464,88 @@ glabel menugfxDrawTessellatedRect
 /*  f0e2a9c:	03e00008 */ 	jr	$ra
 /*  f0e2aa0:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
-
+#else
 // Mismatch: Uses callee-save registers differently
-//Gfx *menugfxDrawTessellatedRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
-//{
-//	if (textHasDiagonalBlend()) {
-//		if (y2 - y1 > x2 - x1) {
-//			// Portrait
-//			s32 numfullparts; // 94
-//			u32 nextcolour;
-//			u32 thiscolour; // 8c
-//			s32 i;
-//			s32 nexty;
-//			s32 thisy; // 80
-//			u32 stack[2];
-//
-//			numfullparts = (y2 - y1) / 15;
-//			thiscolour = text0f153e94(x1, y1, colour1);
-//			thisy = y1;
-//
-//			for (i = 0; i < numfullparts; i++) {
-//				nexty = y1 + i * 15;
-//
-//				if (y2 - nexty < 3) {
-//					nexty = y2;
-//					nextcolour = text0f153e94(x2, y2, colour2);
-//				} else {
-//					nextcolour = colourBlend(colour2, colour1, (nexty - y1) * 255 / (y2 - y1));
-//					// @bug? Should y1 be x1?
-//					nextcolour = text0f153e94(y1, thisy, nextcolour);
-//				}
-//
-//				gdl = menugfxDrawTri2(gdl, x1, thisy, x2, nexty, thiscolour, nextcolour, false);
-//
-//				thisy = nexty;
-//				thiscolour = nextcolour;
-//			}
-//
-//			nextcolour = text0f153e94(x2, y2, colour2);
-//			gdl = menugfxDrawTri2(gdl, x1, thisy, x2, y2, thiscolour, nextcolour, false);
-//		} else {
-//			// Landscape
-//			// 8f4
-//			s32 numfullparts; // 74
-//			u32 nextcolour;
-//			u32 thiscolour; // 6c
-//			s32 i;
-//			s32 nextx;
-//			s32 thisx; // 60
-//			u32 stack[1];
-//
-//			numfullparts = (x2 - x1) / 15;
-//			thiscolour = text0f153e94(x1, y1, colour1);
-//			thisx = x1;
-//
-//			for (i = 0; i < numfullparts; i++) {
-//				nextx = x1 + i * 15;
-//
-//				if (x2 - nextx < 3) {
-//					nextx = x2;
-//					nextcolour = text0f153e94(x2, y2, colour2);
-//				} else {
-//					nextcolour = colourBlend(colour2, colour1, (nextx - x1) * 255 / (x2 - x1));
-//					nextcolour = text0f153e94(thisx, y1, nextcolour);
-//				}
-//
-//				gdl = menugfxDrawTri2(gdl, thisx, y1, nextx, y2, thiscolour, nextcolour, false);
-//
-//				thisx = nextx;
-//				thiscolour = nextcolour;
-//			}
-//
-//			nextcolour = text0f153e94(x2, y2, colour2);
-//			gdl = menugfxDrawTri2(gdl, thisx, y1, x2, y2, thiscolour, nextcolour, false);
-//		}
-//	} else {
-//		// a40
-//		gdl = menugfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
-//	}
-//
-//	return gdl;
-//}
+Gfx *menugfxDrawTessellatedRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+{
+	if (textHasDiagonalBlend()) {
+		if (y2 - y1 > x2 - x1) {
+			// Portrait
+			s32 numfullparts; // 94
+			u32 nextcolour;
+			u32 thiscolour; // 8c
+			s32 i;
+			s32 nexty;
+			s32 thisy; // 80
+			u32 stack[2];
+
+			numfullparts = (y2 - y1) / 15;
+			thiscolour = text0f153e94(x1, y1, colour1);
+			thisy = y1;
+
+			for (i = 0; i < numfullparts; i++) {
+				nexty = y1 + i * 15;
+
+				if (y2 - nexty < 3) {
+					nexty = y2;
+					nextcolour = text0f153e94(x2, y2, colour2);
+				} else {
+					nextcolour = colourBlend(colour2, colour1, (nexty - y1) * 255 / (y2 - y1));
+					// @bug? Should y1 be x1?
+					nextcolour = text0f153e94(y1, thisy, nextcolour);
+				}
+
+				gdl = menugfxDrawTri2(gdl, x1, thisy, x2, nexty, thiscolour, nextcolour, false);
+
+				thisy = nexty;
+				thiscolour = nextcolour;
+			}
+
+			nextcolour = text0f153e94(x2, y2, colour2);
+			gdl = menugfxDrawTri2(gdl, x1, thisy, x2, y2, thiscolour, nextcolour, false);
+		} else {
+			// Landscape
+			// 8f4
+			s32 numfullparts; // 74
+			u32 nextcolour;
+			u32 thiscolour; // 6c
+			s32 i;
+			s32 nextx;
+			s32 thisx; // 60
+			u32 stack[1];
+
+			numfullparts = (x2 - x1) / 15;
+			thiscolour = text0f153e94(x1, y1, colour1);
+			thisx = x1;
+
+			for (i = 0; i < numfullparts; i++) {
+				nextx = x1 + i * 15;
+
+				if (x2 - nextx < 3) {
+					nextx = x2;
+					nextcolour = text0f153e94(x2, y2, colour2);
+				} else {
+					nextcolour = colourBlend(colour2, colour1, (nextx - x1) * 255 / (x2 - x1));
+					nextcolour = text0f153e94(thisx, y1, nextcolour);
+				}
+
+				gdl = menugfxDrawTri2(gdl, thisx, y1, nextx, y2, thiscolour, nextcolour, false);
+
+				thisx = nextx;
+				thiscolour = nextcolour;
+			}
+
+			nextcolour = text0f153e94(x2, y2, colour2);
+			gdl = menugfxDrawTri2(gdl, thisx, y1, x2, y2, thiscolour, nextcolour, false);
+		}
+	} else {
+		// a40
+		gdl = menugfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
+	}
+
+	return gdl;
+}
+#endif
 
 /**
  * Consider rendering a shimmer effect along a line, based on timing.
@@ -2977,6 +2986,7 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 	return gdl;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel menugfxRenderBgCone
 .late_rodata
@@ -3253,77 +3263,78 @@ glabel var7f1adf4c
 /*  f0e4584:	03e00008 */ 	jr	$ra
 /*  f0e4588:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
-
+#else
 // Mismatch: Float regalloc
-//Gfx *menugfxRenderBgCone(Gfx *gdl)
-//{
-//	f32 sp9c;
-//	u32 stack[2];
-//	f32 angle;
-//	s32 x1;
-//	s32 y1;
-//	s32 x2;
-//	s32 y2;
-//	u32 s0;
-//	f32 sp78;
-//	s32 colour;
-//	s32 i;
-//
-//	angle = M_BADTAU * var80061630;
-//	sp9c = angle * 2.0f;
-//	s0 = (u32)(func0f006b08(1) * 255.0f) << 16;
-//
-//	gdl = func0f0d4a3c(gdl, 0);
-//
-//	colour = s0 | 0xff00007f;
-//
-//	var8009de90 = -100000;
-//	var8009de94 = 100000;
-//
-//	for (i = 0; i < 8; i++) {
-//		angle = sp9c + i * 2.0f * M_PI * 0.125f;
-//
-//		x1 = 600.0f * sinf(angle);
-//		y1 = 600.0f * cosf(angle);
-//		x2 = 600.0f * sinf(angle + 0.78539818525314f);
-//		y2 = 600.0f * cosf(angle + 0.78539818525314f);
-//
-//		x1 += 160;
-//		x2 += 160;
-//		y1 += 120;
-//		y2 += 120;
-//
-//		gdl = menugfxDrawPlane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_08);
-//	}
-//
-//	s0 = (u32)(255.0f - func0f006b54(1) * 255.0f) << 16;
-//
-//	if (M_BADTAU * var80061630);
-//	angle = M_BADTAU * var80061630;
-//	sp78 = -angle;
-//
-//	colour = s0 | 0xff00007f;
-//
-//	for (i = 0; i < 8; i++) {
-//		angle = sp78 + 2.0f * i * M_PI * 0.125f;
-//
-//		x1 = 600.0f * sinf(angle);
-//		y1 = 600.0f * cosf(angle);
-//		x2 = 600.0f * sinf(angle + 0.78539818525314f);
-//		y2 = 600.0f * cosf(angle + 0.78539818525314f);
-//
-//		x1 += 160;
-//		x2 += 160;
-//		y1 += 120;
-//		y2 += 120;
-//
-//		gdl = menugfxDrawPlane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_09);
-//	}
-//
-//	gdl = func0f0d4c80(gdl);
-//
-//	return gdl;
-//}
+Gfx *menugfxRenderBgCone(Gfx *gdl)
+{
+	f32 sp9c;
+	u32 stack[2];
+	f32 angle;
+	s32 x1;
+	s32 y1;
+	s32 x2;
+	s32 y2;
+	u32 s0;
+	f32 sp78;
+	s32 colour;
+	s32 i;
+
+	angle = M_BADTAU * var80061630;
+	sp9c = angle * 2.0f;
+	s0 = (u32)(func0f006b08(1) * 255.0f) << 16;
+
+	gdl = func0f0d4a3c(gdl, 0);
+
+	colour = s0 | 0xff00007f;
+
+	var8009de90 = -100000;
+	var8009de94 = 100000;
+
+	for (i = 0; i < 8; i++) {
+		angle = sp9c + i * 2.0f * M_PI * 0.125f;
+
+		x1 = 600.0f * sinf(angle);
+		y1 = 600.0f * cosf(angle);
+		x2 = 600.0f * sinf(angle + 0.78539818525314f);
+		y2 = 600.0f * cosf(angle + 0.78539818525314f);
+
+		x1 += 160;
+		x2 += 160;
+		y1 += 120;
+		y2 += 120;
+
+		gdl = menugfxDrawPlane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_08);
+	}
+
+	s0 = (u32)(255.0f - func0f006b54(1) * 255.0f) << 16;
+
+	if (M_BADTAU * var80061630);
+	angle = M_BADTAU * var80061630;
+	sp78 = -angle;
+
+	colour = s0 | 0xff00007f;
+
+	for (i = 0; i < 8; i++) {
+		angle = sp78 + 2.0f * i * M_PI * 0.125f;
+
+		x1 = 600.0f * sinf(angle);
+		y1 = 600.0f * cosf(angle);
+		x2 = 600.0f * sinf(angle + 0.78539818525314f);
+		y2 = 600.0f * cosf(angle + 0.78539818525314f);
+
+		x1 += 160;
+		x2 += 160;
+		y1 += 120;
+		y2 += 120;
+
+		gdl = menugfxDrawPlane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_09);
+	}
+
+	gdl = func0f0d4c80(gdl);
+
+	return gdl;
+}
+#endif
 
 /**
  * Fill the framebuffer with a transparent green overlay.

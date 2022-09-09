@@ -65,6 +65,7 @@ glabel __d_to_ull
 //}
 #endif
 
+#if MATCHING
 GLOBAL_ASM(
 glabel __f_to_ull
 /*     5a7c:	444ef800 */ 	cfc1	$t6,$31
@@ -110,13 +111,14 @@ glabel __f_to_ull
 /*     5b10:	03e00008 */ 	jr	$ra
 /*     5b14:	0002103f */ 	dsra32	$v0,$v0,0x0
 );
-
+#else
 // Mismatch: Goal loads 0x80000000 then shifts it left by 32,
 // while the below stores it in .rodata and loads it.
-//unsigned long long __f_to_ull(float f)
-//{
-//	return f;
-//}
+unsigned long long __f_to_ull(float f)
+{
+	return f;
+}
+#endif
 
 double __ll_to_d(long long s)
 {

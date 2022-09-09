@@ -9838,6 +9838,7 @@ void chrCalculateTrajectory(struct coord *frompos, f32 arg1, struct coord *aimpo
 	arg3->z = zvel / latvel * sp28;
 }
 
+#if MATCHING
 #if VERSION == VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel chrShoot
@@ -17758,7 +17759,7 @@ glabel var7f1a9184
 /*  f041238:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
-
+#else
 /**
  * Fire the chr's gun, check what was hit and do all the appropriate things such
  * as dealing damage, creating beams and sparks and playing sounds.
@@ -17772,616 +17773,617 @@ glabel var7f1a9184
 // - Float calculations near 65536 have diffent codegen
 // - Calculation of sp168 and spcc have reordered instructions
 // - Calculate of xdiff/ydiff/zdiff prior to chrCalculateHit is different
-//void chrShoot(struct chrdata *chr, s32 handnum)
-//{
-//	struct prop *chrprop = chr->prop; // 274
-//	struct prop *gunprop;
-//	u8 isaibot = false; // 26f
-//	u8 normalshoot = true; // 26e
-//
-//	if (chr->aibot) {
-//		isaibot = true;
-//	}
-//
-//	gunprop = chrGetHeldProp(chr, handnum);
-//
-//	if (gunprop) {
-//		bool firingthistick = false;
-//		struct weaponobj *weapon = gunprop->weapon; // 264
-//		struct gset gset; // 260
-//		struct prop *targetprop = chrGetTargetProp(chr); // 25c
-//		u32 attackflags;
-//		bool shotdue; // 254
-//		bool makebeam; // 250
-//		struct coord gunpos; // 244
-//		s16 gunrooms[8]; // 234
-//		struct coord hitpos; // 228
-//		bool hitsomething; // 224
-//		s16 hitrooms[8]; // 214
-//		bool sp210;
-//		s32 tickspershot;
-//		f32 sp208; // unused?
-//
-//		gset = weapon->gset;
-//		attackflags = ATTACKFLAG_AIMATTARGET;
-//
-//		if (chr->actiontype == ACT_ATTACK
-//				|| chr->actiontype == ACT_BOT_ATTACKSTAND
-//				|| chr->actiontype == ACT_BOT_ATTACKKNEEL
-//				|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
-//			attackflags = chr->act_attack.flags;
-//		}
-//
-//		shotdue = false;
-//		makebeam = false;
-//		hitsomething = false;
-//		sp210 = false;
-//
-//		// Most guns can fire at most once every few ticks - even automatics.
-//		// The chr's firecount property tracks how many ticks have elapsed since
-//		// the last bullet, which is used to determine if another bullet should
-//		// be discharged on this tick.
-//		tickspershot = weaponGetNumTicksPerShot(gset.weaponnum, gset.weaponfunc);
-//
-//		if (tickspershot <= 0) {
-//			shotdue = true;
-//			makebeam = true;
-//		} else {
-//			if (chr->aibot
-//					&& chr->aibot->weaponnum == WEAPON_REAPER
-//					&& chr->aibot->gunfunc == FUNC_PRIMARY) {
-//				sp208 = (TICKS(90) - chr->aibot->reaperspeed[handnum]);
-//				sp208 *= 1.0f / 1.8f;
-//				tickspershot *= sp208 + 1;
-//			}
-//
-//			chr->firecount[handnum] += g_Vars.lvupdate240_60;
-//
-//			if (chr->firecount[handnum] >= tickspershot) {
-//				chr->firecount[handnum] = 0;
-//				chr->unk32c_12 ^= 1 << handnum;
-//
-//				shotdue = true;
-//
-//				if ((chr->unk32c_12 & (1 << handnum)) || gset.weaponnum == WEAPON_LASER) {
-//					makebeam = true;
-//				}
-//
-//				if (chr->actiontype == ACT_ATTACK) {
-//					if (modelGetAnimNum(chr->model) == ANIM_SNIPING_ONGROUND) {
-//						chr->act_attack.numshots++;
-//					}
-//				}
-//			}
-//		}
-//
-//		if (shotdue) {
-//			f32 aimangle = chrGetAimAngle(chr);
-//			f32 sp200 = func0f03e754(chr);
-//			bool sp1fc = isaibot ? CDTYPE_PLAYERS : 0;
-//
-//			firingthistick = true;
-//
-//			if (!chrGetGunPos(chr, handnum, &gunpos)) {
-//				// Gun is off screen - use a quick but inexact calculation
-//				gunpos.f[0] = chrprop->pos.f[0];
-//				gunpos.f[1] = chrprop->pos.f[1] + 30;
-//				gunpos.f[2] = chrprop->pos.f[2];
-//
-//				if (handnum == HAND_LEFT) {
-//					gunpos.f[0] += cosf(aimangle) * 10;
-//					gunpos.f[2] += -sinf(aimangle) * 10;
-//				} else {
-//					gunpos.f[0] += -cosf(aimangle) * 10;
-//					gunpos.f[2] += sinf(aimangle) * 10;
-//				}
-//			}
-//
-//			// Check that the chr isn't clipping their gun through anything such
-//			// as another chr or a closed door. If they are, the shot won't be
-//			// taken because that wouldn't be fair.
-//			// How nice of the developers to check for this!
-//			chrSetPerimEnabled(chr, false);
-//
-//			if (cd0002de34(&chrprop->pos, chrprop->rooms, &gunpos, gunrooms,
-//						CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG | sp1fc,
-//						0x10) == CDRESULT_COLLISION) {
-//				firingthistick = false;
-//			}
-//
-//			chrSetPerimEnabled(chr, true);
-//
-//			if (firingthistick) {
-//				bool angleok = false; // 1f8
-//				bool hitplayer = false; // 1f4
-//				bool effective = true; // 1f0
-//				u32 sp1ec;
-//				struct coord vector; // 1e0
-//				f32 xdiff;
-//				f32 ydiff;
-//				f32 zdiff;
-//				f32 sqshotdist; // 1d0
-//				struct prop *hitprop = NULL; // 1cc
-//				u32 sp1c8 = isaibot
-//					? CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG | CDTYPE_PLAYERS
-//					: CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG;
-//				u32 sp1c4;
-//				bool isshootingeyespy = CHRRACE(targetprop->chr) == RACE_EYESPY && chrGetDistanceToTarget(chr) > 150; // 1c0
-//				bool fudgeforeyespy = false; // 1bc
-//
-//				if (isshootingeyespy) {
-//					vector.f[0] = xdiff = targetprop->pos.f[0] - gunpos.f[0];
-//					vector.f[1] = ydiff = targetprop->pos.f[1] - gunpos.f[1];
-//					vector.f[2] = zdiff = targetprop->pos.f[2] - gunpos.f[2];
-//
-//					guNormalize(&vector.f[0], &vector.f[1], &vector.f[2]);
-//					propSetPerimEnabled(targetprop, true);
-//				} else {
-//					vector.f[0] = cosf(sp200) * sinf(aimangle);
-//					vector.f[1] = sinf(sp200);
-//					vector.f[2] = cosf(sp200) * cosf(aimangle);
-//
-//					if (isaibot) {
-//						bgunCalculateBotShotSpread(&vector, chr->aibot->weaponnum, chr->aibot->gunfunc, chr->aibot->burstsdone[handnum], botGuessCrouchPos(chr), chr->weapons_held[0] && chr->weapons_held[1]);
-//					}
-//				}
-//
-//				// Handle Farsight shots by aibots specially
-//				// because they can shoot through walls.
-//				if (chr->aibot && gset.weaponnum == WEAPON_FARSIGHT && !chr->aibot->unk128) {
-//					makebeam = true;
-//
-//					// This function can never return 2 though...
-//					if (botactShootFarsight(chr, 0, &vector, &gunpos) == 2) {
-//						normalshoot = random() % 255 > 200;
-//					}
-//				}
-//
-//				// Check if the shot would hit anything
-//				hitpos.f[0] = gunpos.f[0] + vector.f[0] * 65536;
-//				hitpos.f[1] = gunpos.f[1] + vector.f[1] * 65536;
-//				hitpos.f[2] = gunpos.f[2] + vector.f[2] * 65536;
-//
-//				chrSetPerimEnabled(chr, false);
-//
-//				if (isaibot) {
-//					g_Vars.useperimshoot = true;
-//				}
-//
-//				if (cdTestAToB4(&gunpos, gunrooms, &hitpos, sp1c8, 0x10) == CDRESULT_COLLISION) {
-//					hitsomething = true;
-//					cdGetPos(&hitpos, 12072, "chraction.c");
-//					hitprop = cdGetObstacle();
-//				}
-//
-//				chrSetPerimEnabled(chr, true);
-//
-//				if (isaibot) {
-//					g_Vars.useperimshoot = false;
-//				}
-//
-//				// Eyespy is small and hard to hit, so make it a 50/50 chance
-//				if (hitprop == NULL && isshootingeyespy) {
-//					fudgeforeyespy = random() % 100 > 50;
-//
-//					if (fudgeforeyespy) {
-//						hitprop = targetprop;
-//
-//						hitpos.x = targetprop->pos.x;
-//						hitpos.y = targetprop->pos.y;
-//						hitpos.z = targetprop->pos.z;
-//					}
-//				}
-//
-//				xdiff = hitpos.x - gunpos.x;
-//				ydiff = hitpos.y - gunpos.y;
-//				zdiff = hitpos.z - gunpos.z;
-//
-//				sqshotdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
-//
-//				// Handle projectile launchers specially
-//				if (gset.weaponnum == WEAPON_ROCKETLAUNCHER
-//						|| gset.weaponnum == WEAPON_SLAYER
-//						|| (gset.weaponnum == WEAPON_SUPERDRAGON && gset.weaponfunc == FUNC_SECONDARY)
-//						|| gset.weaponnum == WEAPON_DEVASTATOR
-//						|| gset.weaponnum == WEAPON_CROSSBOW
-//						|| gset.weaponnum == WEAPON_ROCKETLAUNCHER_34) {
-//					makebeam = false;
-//
-//					// AI bots won't fire their projectile weapon in less than
-//					// 4 metres of space
-//					if (isaibot || sqshotdist > 400 * 400) {
-//						struct weaponobj *projectileobj; // 1b8
-//						Mtxf sp178;
-//						struct coord sp16c;
-//						f32 sp168;
-//						struct coord sp15c;
-//						Mtxf sp11c;
-//						Mtxf spdc;
-//						struct weapon *weapondef = weaponFindById(gset.weaponnum);
-//						struct weaponfunc_shootprojectile *func = weapondef->functions[gset.weaponfunc]; // d4
-//
-//						// Handle creating the projectile
-//						if (gset.weaponnum == WEAPON_ROCKETLAUNCHER
-//								|| gset.weaponnum == WEAPON_ROCKETLAUNCHER_34
-//								|| gset.weaponnum == WEAPON_SLAYER) {
-//							s32 rockettype = WEAPON_ROCKET;
-//
-//							if (func->base.base.flags & FUNCFLAG_HOMINGROCKET) {
-//								rockettype = WEAPON_HOMINGROCKET;
-//							}
-//
-//							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, rockettype, chr);
-//						} else if (gset.weaponnum == WEAPON_CROSSBOW) {
-//							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_BOLT, chr);
-//
-//							if (projectileobj) {
-//								projectileobj->gunfunc = gset.weaponfunc;
-//							}
-//						} else if (gset.weaponnum == WEAPON_DEVASTATOR) {
-//							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
-//
-//							if (projectileobj) {
-//								projectileobj->gunfunc = gset.weaponfunc;
-//							}
-//						} else if (gset.weaponnum == WEAPON_SUPERDRAGON) {
-//							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
-//
-//							if (projectileobj) {
-//								projectileobj->gunfunc = FUNC_2;
-//							}
-//						} else {
-//							// Unreachable
-//							projectileobj = weaponCreateProjectileFromGset(func->projectilemodelnum, &gset, g_Vars.currentplayer->prop->chr);
-//						}
-//
-//						if (projectileobj) {
-//							f32 spcc;
-//
-//							sp168 = func->unk4c * (1.0f / 0.6f) / 60.0f;
-//							spcc = func->unk54 * (1.0f / 0.6f);
-//
-//							// AI bots are a bit smarter than solo chrs
-//							// with regard to how they aim their projectiles
-//							if (isaibot && chrIsTargetInFov(chr, 30, 0)) {
-//								bool hasaimpos = false;
-//								f32 tmp1;
-//								struct coord aimpos; // b8
-//
-//								if (gset.weaponfunc == FUNC_PRIMARY &&
-//										(gset.weaponnum == WEAPON_ROCKETLAUNCHER
-//										 || gset.weaponnum == WEAPON_ROCKETLAUNCHER_34
-//										 || gset.weaponnum == WEAPON_SLAYER)) {
-//									if (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER) {
-//										// Rockets - aim at target's feet
-//										aimpos.f[0] = targetprop->pos.f[0];
-//										aimpos.f[1] = targetprop->chr->manground;
-//										aimpos.f[2] = targetprop->pos.f[2];
-//
-//										vector.f[0] = aimpos.f[0] - gunpos.f[0];
-//										vector.f[1] = aimpos.f[1] - gunpos.f[1];
-//										vector.f[2] = aimpos.f[2] - gunpos.f[2];
-//
-//										guNormalize(&vector.f[0], &vector.f[1], &vector.f[2]);
-//										hasaimpos = true;
-//									}
-//								} else if ((gset.weaponnum == WEAPON_DEVASTATOR && gset.weaponfunc == FUNC_PRIMARY)
-//										|| gset.weaponnum == WEAPON_SUPERDRAGON) {
-//									if (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER) {
-//										// Grenades - aim at target's feet
-//										aimpos.x = targetprop->pos.x;
-//										aimpos.y = targetprop->chr->manground;
-//										aimpos.z = targetprop->pos.z;
-//
-//										chrCalculateTrajectory(&gunpos, spcc, &aimpos, &vector);
-//										hasaimpos = true;
-//									}
-//								} else if ((gset.weaponnum == WEAPON_DEVASTATOR && gset.weaponfunc == FUNC_SECONDARY)
-//										|| gset.weaponnum == WEAPON_CROSSBOW) {
-//									// Wall hugger grenade or crossbow - aim at target directly
-//									aimpos.x = targetprop->pos.x;
-//									aimpos.y = targetprop->pos.y;
-//									aimpos.z = targetprop->pos.z;
-//
-//									if (targetprop->type == PROPTYPE_PLAYER) {
-//										aimpos.y -= 25;
-//									}
-//
-//									chrCalculateTrajectory(&gunpos, spcc, &aimpos, &vector);
-//									hasaimpos = true;
-//								}
-//
-//								if (hasaimpos) {
-//									f32 angle = chrGetAngleToPos(chr, &aimpos); // b4
-//									f32 cos = cosf(angle); // b0
-//									f32 sin = sinf(angle);
-//
-//									tmp1 = vector.f[0];
-//									vector.x = vector.f[2] * sin + vector.f[0] * cos;
-//									vector.z = vector.f[2] * cos - tmp1 * sin;
-//								}
-//							}
-//
-//							// Calculate and projectile's matrix,
-//							// spawn position and speed
-//							mtx4LoadIdentity(&sp178);
-//							mtx4LoadXRotation(sp200, &sp11c);
-//							mtx4LoadYRotation(aimangle, &spdc);
-//							mtx00015be0(&spdc, &sp11c);
-//
-//							sp15c.f[0] = xdiff = vector.f[0] * sp168;
-//							sp15c.f[1] = ydiff = vector.f[1] * sp168;
-//							sp15c.f[2] = zdiff = vector.f[2] * sp168;
-//
-//							sp16c.x = vector.f[0] * spcc + xdiff * g_Vars.lvupdate240freal;
-//							sp16c.y = vector.f[1] * spcc + ydiff * g_Vars.lvupdate240freal;
-//							sp16c.z = vector.f[2] * spcc + zdiff * g_Vars.lvupdate240freal;
-//
-//							projectileobj->timer240 = func->timer60;
-//
-//							if (projectileobj->timer240 != -1) {
-//#if PAL
-//								projectileobj->timer240 = projectileobj->timer240 * 200 / 60;
-//#else
-//								projectileobj->timer240 *= 4;
-//#endif
-//							}
-//
-//							bgun0f09ebcc(&projectileobj->base, &gunpos, gunrooms, &sp11c, &sp16c, &sp178, chrprop, &gunpos);
-//
-//							if (projectileobj->base.hidden & OBJHFLAG_PROJECTILE) {
-//								if (func->base.base.flags & FUNCFLAG_PROJECTILE_LIGHTWEIGHT) {
-//									projectileobj->base.projectile->flags |= PROJECTILEFLAG_LIGHTWEIGHT;
-//								} else if (func->base.base.flags & FUNCFLAG_PROJECTILE_POWERED) {
-//									projectileobj->base.projectile->flags |= PROJECTILEFLAG_POWERED;
-//								}
-//
-//								projectileobj->base.projectile->unk010 = sp15c.x;
-//								projectileobj->base.projectile->unk014 = sp15c.y;
-//								projectileobj->base.projectile->unk018 = sp15c.z;
-//
-//								projectileobj->base.projectile->pickuptimer240 = 240;
-//								projectileobj->base.projectile->unk08c = func->unk5c;
-//								projectileobj->base.projectile->unk098 = func->unk50 * (1.0f / 0.6f);
-//
-//								projectileobj->base.projectile->targetprop = chrGetTargetProp(chr);
-//
-//								// Play sound
-//								if (func->unk60 > 0) {
-//									propsnd0f0939f8(NULL, projectileobj->base.prop, func->unk60, -1,
-//											-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
-//								}
-//							}
-//						}
-//					} else {
-//						firingthistick = false;
-//					}
-//
-//					normalshoot = false;
-//				} else if (gset.weaponnum == WEAPON_MAULER && isaibot && gset.weaponfunc == FUNC_SECONDARY) {
-//					gset.unk063a = (s32)(chr->aibot->maulercharge[handnum] * 10);
-//					chr->aibot->maulercharge[handnum] = 0;
-//				}
-//
-//				if (normalshoot) {
-//					if (!isaibot) {
-//						if ((attackflags & ATTACKFLAG_AIMATTARGET)
-//								&& targetprop->type == PROPTYPE_PLAYER
-//								&& chrCanSeeAttackTarget(chr, &gunpos, gunrooms, false)
-//#if VERSION >= VERSION_NTSC_1_0
-//								&& chrCompareTeams(targetprop->chr, chr, COMPARE_ENEMIES)
-//#endif
-//								) {
-//							// Solo chr shooting at a player
-//							f32 xdiff = targetprop->pos.f[0] - gunpos.f[0] - vector.f[0] * 15;
-//							f32 ydiff = targetprop->pos.f[1] - gunpos.f[1] - vector.f[1] * 15;
-//							f32 zdiff = targetprop->pos.f[2] - gunpos.f[2] - vector.f[2] * 15;
-//
-//							if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff <= sqshotdist) {
-//								// Player has a chance of being hit
-//								chrCalculateHit(chr, &angleok, &hitplayer, &gset);
-//
-//								// If the player was hit then turn off effective
-//								// (There's no need to check other props for
-//								// hits later on in this function)
-//								effective = !hitplayer;
-//
-//								if (angleok
-//										&& (chr->actiontype == ACT_ATTACK
-//										 || chr->actiontype == ACT_ATTACKROLL
-//										 || chr->actiontype == ACT_BOT_ATTACKSTAND
-//										 || chr->actiontype == ACT_BOT_ATTACKKNEEL
-//										 || chr->actiontype == ACT_BOT_ATTACKSTRAFE)) {
-//									chr->act_attack.lastontarget60 = g_Vars.lvframe60;
-//								}
-//							}
-//						} else {
-//							// Solo chr shooting at something else
-//							if (chr->actiontype == ACT_ATTACK
-//									|| chr->actiontype == ACT_ATTACKROLL
-//									|| chr->actiontype == ACT_BOT_ATTACKSTAND
-//									|| chr->actiontype == ACT_BOT_ATTACKKNEEL
-//									|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
-//								chr->act_attack.lastontarget60 = g_Vars.lvframe60;
-//							}
-//						}
-//
-//						if (hitplayer) {
-//							f32 damage = gsetGetDamage(&gset); // 9c
-//							struct modelnode *node = NULL; // 98
-//							struct model *model = NULL; // 94
-//							s32 side = -1; // 90
-//							s32 hitpart = HITPART_GENERAL; // 8c
-//							struct chrdata *targetchr = targetprop->chr; // 88
-//
-//							hitpos.x = targetprop->pos.x;
-//							hitpos.y = targetprop->pos.y;
-//							hitpos.z = targetprop->pos.z;
-//
-//							if (random() % 2) {
-//								hitpos.y += 2 + random() % 10;
-//							} else {
-//								hitpos.y -= 2 + random() % 10;
-//							}
-//
-//							bgunPlayPropHitSound(&gset, targetprop, -1);
-//
-//							if (targetchr->model && chrGetShield(targetchr) > 0) {
-//								chrCalculateShieldHit(targetchr, &hitpos, &vector, &node, &hitpart, &model, &side);
-//							}
-//
-//							func0f0341dc(targetchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, targetprop, node, model, side, NULL);
-//						} else if ((hitprop == NULL || (hitprop->type != PROPTYPE_CHR && hitprop->type != PROPTYPE_PLAYER))
-//								&& sqshotdist < 100 * 100) {
-//							// Hit the background or something other than a
-//							// player or chr, and the shot distance was less
-//							// than 1 metre. Don't bother applying damage etc.
-//							effective = false;
-//						}
-//					}
-//
-//					if (effective) {
-//						if (hitprop) {
-//							if (hitprop->type == PROPTYPE_PLAYER || hitprop->type == PROPTYPE_CHR) {
-//								// Hit a player or chr other than the one they
-//								// were aiming for
-//								if (isaibot
-//										|| fudgeforeyespy
-//										|| ((chr->chrflags & CHRCFLAG_00000040) && chrCompareTeams(hitprop->chr, chr, COMPARE_ENEMIES))) {
-//									struct modelnode *node = NULL; // 84
-//									struct model *model = NULL; // 80
-//									s32 side = -1; // 7c
-//									s32 hitpart = HITPART_GENERAL; // 78
-//									f32 damage = gsetGetDamage(&gset);
-//									struct chrdata *hitchr = hitprop->chr; // 70
-//
-//									bgunPlayPropHitSound(&gset, hitprop, -1);
-//
-//									if (hitchr->model && chrGetShield(hitchr) > 0) {
-//										chrCalculateShieldHit(hitchr, &hitpos, &vector, &node, &hitpart, &model, &side);
-//									}
-//
-//									chrEmitSparks(hitchr, hitprop, hitpart, &hitpos, &vector, chr);
-//									func0f0341dc(hitchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, hitprop, node, model, side, NULL);
-//								} else {
-//									makebeam = false;
-//									firingthistick = false;
-//								}
-//							} else if (hitprop->type == PROPTYPE_OBJ
-//									|| hitprop->type == PROPTYPE_WEAPON
-//									|| hitprop->type == PROPTYPE_DOOR) {
-//								// Hit an object
-//								struct defaultobj *hitobj = hitprop->obj; // 6c
-//								s32 playernum = -1; // 68
-//
-//								if (g_Vars.mplayerisrunning) {
-//									playernum = mpPlayerGetIndex(chr);
-//								}
-//
-//								bgunPlayPropHitSound(&gset, hitprop, -1);
-//								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
-//								sp210 = true;
-//
-//								if (chrIsUsingPaintball(chr)) {
-//									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_PAINT);
-//								} else {
-//									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_DEFAULT);
-//								}
-//
-//								if (g_MissionConfig.iscoop && chr->team == TEAM_ALLY
-//										&& (hitobj->flags2 & OBJFLAG2_IMMUNETOANTI)) {
-//									// empty
-//								} else {
-//									objTakeGunfire(hitobj, gsetGetDamage(&gset), &hitpos, gset.weaponnum, playernum);
-//								}
-//							}
-//						} else if (hitsomething) {
-//							// Hit the background
-//							func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
-//							sp210 = true;
-//							bgunPlayBgHitSound(&gset, &hitpos, -1, hitrooms);
-//
-//							if (chrIsUsingPaintball(chr)) {
-//								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_PAINT);
-//							} else {
-//								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_DEFAULT);
-//							}
-//						}
-//
-//						// Create explosion if using Phoenix
-//						if (gset.weaponnum == WEAPON_PHOENIX && gset.weaponfunc == FUNC_SECONDARY) {
-//							s32 playernum = chr->aibot ? mpPlayerGetIndex(chr) : g_Vars.currentplayernum;
-//
-//							if (!sp210) {
-//								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
-//							}
-//
-//							explosionCreateSimple(0, &hitpos, hitrooms, EXPLOSIONTYPE_PHOENIX, playernum);
-//						}
-//					}
-//				}
-//
-//				if (isshootingeyespy) {
-//					propSetPerimEnabled(targetprop, false);
-//				}
-//			}
-//		}
-//
-//		if (makebeam) {
-//			switch (gset.weaponnum) {
-//			case WEAPON_FALCON2:
-//			case WEAPON_FALCON2_SILENCER:
-//			case WEAPON_FALCON2_SCOPE:
-//			case WEAPON_MAGSEC4:
-//			case WEAPON_MAULER:
-//			case WEAPON_PHOENIX:
-//			case WEAPON_DY357MAGNUM:
-//			case WEAPON_DY357LX:
-//			case WEAPON_CMP150:
-//			case WEAPON_CYCLONE:
-//			case WEAPON_CALLISTO:
-//			case WEAPON_RCP120:
-//			case WEAPON_LAPTOPGUN:
-//			case WEAPON_DRAGON:
-//			case WEAPON_K7AVENGER:
-//			case WEAPON_AR34:
-//			case WEAPON_SUPERDRAGON:
-//			case WEAPON_REAPER:
-//			case WEAPON_SNIPERRIFLE:
-//			case WEAPON_FARSIGHT:
-//			case WEAPON_TRANQUILIZER:
-//			case WEAPON_LASER:
-//			case WEAPON_PP9I:
-//			case WEAPON_CC13:
-//			case WEAPON_KL01313:
-//			case WEAPON_KF7SPECIAL:
-//			case WEAPON_ZZT:
-//			case WEAPON_DMC:
-//			case WEAPON_AR53:
-//			case WEAPON_RCP45:
-//				makebeam = true;
-//				break;
-//			default:
-//				makebeam = false;
-//				break;
-//			}
-//		}
-//
-//		chrCreateFireslot(chr, handnum, firingthistick, firingthistick && makebeam, &gunpos, &hitpos);
-//
-//		if (isaibot) {
-//			if (firingthistick) {
-//				if (chr->aibot->loadedammo[handnum] > 0) {
-//					chr->aibot->loadedammo[handnum]--;
-//				}
-//			}
-//
-//			chrSetFiring(chr, handnum, firingthistick && normalshoot);
-//		} else {
-//			chrSetFiring(chr, handnum, firingthistick);
-//		}
-//	}
-//}
+void chrShoot(struct chrdata *chr, s32 handnum)
+{
+	struct prop *chrprop = chr->prop; // 274
+	struct prop *gunprop;
+	u8 isaibot = false; // 26f
+	u8 normalshoot = true; // 26e
+
+	if (chr->aibot) {
+		isaibot = true;
+	}
+
+	gunprop = chrGetHeldProp(chr, handnum);
+
+	if (gunprop) {
+		bool firingthistick = false;
+		struct weaponobj *weapon = gunprop->weapon; // 264
+		struct gset gset; // 260
+		struct prop *targetprop = chrGetTargetProp(chr); // 25c
+		u32 attackflags;
+		bool shotdue; // 254
+		bool makebeam; // 250
+		struct coord gunpos; // 244
+		s16 gunrooms[8]; // 234
+		struct coord hitpos; // 228
+		bool hitsomething; // 224
+		s16 hitrooms[8]; // 214
+		bool sp210;
+		s32 tickspershot;
+		f32 sp208; // unused?
+
+		gset = weapon->gset;
+		attackflags = ATTACKFLAG_AIMATTARGET;
+
+		if (chr->actiontype == ACT_ATTACK
+				|| chr->actiontype == ACT_BOT_ATTACKSTAND
+				|| chr->actiontype == ACT_BOT_ATTACKKNEEL
+				|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
+			attackflags = chr->act_attack.flags;
+		}
+
+		shotdue = false;
+		makebeam = false;
+		hitsomething = false;
+		sp210 = false;
+
+		// Most guns can fire at most once every few ticks - even automatics.
+		// The chr's firecount property tracks how many ticks have elapsed since
+		// the last bullet, which is used to determine if another bullet should
+		// be discharged on this tick.
+		tickspershot = weaponGetNumTicksPerShot(gset.weaponnum, gset.weaponfunc);
+
+		if (tickspershot <= 0) {
+			shotdue = true;
+			makebeam = true;
+		} else {
+			if (chr->aibot
+					&& chr->aibot->weaponnum == WEAPON_REAPER
+					&& chr->aibot->gunfunc == FUNC_PRIMARY) {
+				sp208 = (TICKS(90) - chr->aibot->reaperspeed[handnum]);
+				sp208 *= 1.0f / 1.8f;
+				tickspershot *= sp208 + 1;
+			}
+
+			chr->firecount[handnum] += g_Vars.lvupdate240_60;
+
+			if (chr->firecount[handnum] >= tickspershot) {
+				chr->firecount[handnum] = 0;
+				chr->unk32c_12 ^= 1 << handnum;
+
+				shotdue = true;
+
+				if ((chr->unk32c_12 & (1 << handnum)) || gset.weaponnum == WEAPON_LASER) {
+					makebeam = true;
+				}
+
+				if (chr->actiontype == ACT_ATTACK) {
+					if (modelGetAnimNum(chr->model) == ANIM_SNIPING_ONGROUND) {
+						chr->act_attack.numshots++;
+					}
+				}
+			}
+		}
+
+		if (shotdue) {
+			f32 aimangle = chrGetAimAngle(chr);
+			f32 sp200 = func0f03e754(chr);
+			bool sp1fc = isaibot ? CDTYPE_PLAYERS : 0;
+
+			firingthistick = true;
+
+			if (!chrGetGunPos(chr, handnum, &gunpos)) {
+				// Gun is off screen - use a quick but inexact calculation
+				gunpos.f[0] = chrprop->pos.f[0];
+				gunpos.f[1] = chrprop->pos.f[1] + 30;
+				gunpos.f[2] = chrprop->pos.f[2];
+
+				if (handnum == HAND_LEFT) {
+					gunpos.f[0] += cosf(aimangle) * 10;
+					gunpos.f[2] += -sinf(aimangle) * 10;
+				} else {
+					gunpos.f[0] += -cosf(aimangle) * 10;
+					gunpos.f[2] += sinf(aimangle) * 10;
+				}
+			}
+
+			// Check that the chr isn't clipping their gun through anything such
+			// as another chr or a closed door. If they are, the shot won't be
+			// taken because that wouldn't be fair.
+			// How nice of the developers to check for this!
+			chrSetPerimEnabled(chr, false);
+
+			if (cd0002de34(&chrprop->pos, chrprop->rooms, &gunpos, gunrooms,
+						CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG | sp1fc,
+						0x10) == CDRESULT_COLLISION) {
+				firingthistick = false;
+			}
+
+			chrSetPerimEnabled(chr, true);
+
+			if (firingthistick) {
+				bool angleok = false; // 1f8
+				bool hitplayer = false; // 1f4
+				bool effective = true; // 1f0
+				u32 sp1ec;
+				struct coord vector; // 1e0
+				f32 xdiff;
+				f32 ydiff;
+				f32 zdiff;
+				f32 sqshotdist; // 1d0
+				struct prop *hitprop = NULL; // 1cc
+				u32 sp1c8 = isaibot
+					? CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG | CDTYPE_PLAYERS
+					: CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG;
+				u32 sp1c4;
+				bool isshootingeyespy = CHRRACE(targetprop->chr) == RACE_EYESPY && chrGetDistanceToTarget(chr) > 150; // 1c0
+				bool fudgeforeyespy = false; // 1bc
+
+				if (isshootingeyespy) {
+					vector.f[0] = xdiff = targetprop->pos.f[0] - gunpos.f[0];
+					vector.f[1] = ydiff = targetprop->pos.f[1] - gunpos.f[1];
+					vector.f[2] = zdiff = targetprop->pos.f[2] - gunpos.f[2];
+
+					guNormalize(&vector.f[0], &vector.f[1], &vector.f[2]);
+					propSetPerimEnabled(targetprop, true);
+				} else {
+					vector.f[0] = cosf(sp200) * sinf(aimangle);
+					vector.f[1] = sinf(sp200);
+					vector.f[2] = cosf(sp200) * cosf(aimangle);
+
+					if (isaibot) {
+						bgunCalculateBotShotSpread(&vector, chr->aibot->weaponnum, chr->aibot->gunfunc, chr->aibot->burstsdone[handnum], botGuessCrouchPos(chr), chr->weapons_held[0] && chr->weapons_held[1]);
+					}
+				}
+
+				// Handle Farsight shots by aibots specially
+				// because they can shoot through walls.
+				if (chr->aibot && gset.weaponnum == WEAPON_FARSIGHT && !chr->aibot->targetinsight) {
+					makebeam = true;
+
+					// This function can never return 2 though...
+					if (botactShootFarsight(chr, 0, &vector, &gunpos) == 2) {
+						normalshoot = random() % 255 > 200;
+					}
+				}
+
+				// Check if the shot would hit anything
+				hitpos.f[0] = gunpos.f[0] + vector.f[0] * 65536;
+				hitpos.f[1] = gunpos.f[1] + vector.f[1] * 65536;
+				hitpos.f[2] = gunpos.f[2] + vector.f[2] * 65536;
+
+				chrSetPerimEnabled(chr, false);
+
+				if (isaibot) {
+					g_Vars.useperimshoot = true;
+				}
+
+				if (cdTestAToB4(&gunpos, gunrooms, &hitpos, sp1c8, 0x10) == CDRESULT_COLLISION) {
+					hitsomething = true;
+					cdGetPos(&hitpos, 12072, "chraction.c");
+					hitprop = cdGetObstacle();
+				}
+
+				chrSetPerimEnabled(chr, true);
+
+				if (isaibot) {
+					g_Vars.useperimshoot = false;
+				}
+
+				// Eyespy is small and hard to hit, so make it a 50/50 chance
+				if (hitprop == NULL && isshootingeyespy) {
+					fudgeforeyespy = random() % 100 > 50;
+
+					if (fudgeforeyespy) {
+						hitprop = targetprop;
+
+						hitpos.x = targetprop->pos.x;
+						hitpos.y = targetprop->pos.y;
+						hitpos.z = targetprop->pos.z;
+					}
+				}
+
+				xdiff = hitpos.x - gunpos.x;
+				ydiff = hitpos.y - gunpos.y;
+				zdiff = hitpos.z - gunpos.z;
+
+				sqshotdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+
+				// Handle projectile launchers specially
+				if (gset.weaponnum == WEAPON_ROCKETLAUNCHER
+						|| gset.weaponnum == WEAPON_SLAYER
+						|| (gset.weaponnum == WEAPON_SUPERDRAGON && gset.weaponfunc == FUNC_SECONDARY)
+						|| gset.weaponnum == WEAPON_DEVASTATOR
+						|| gset.weaponnum == WEAPON_CROSSBOW
+						|| gset.weaponnum == WEAPON_ROCKETLAUNCHER_34) {
+					makebeam = false;
+
+					// AI bots won't fire their projectile weapon in less than
+					// 4 metres of space
+					if (isaibot || sqshotdist > 400 * 400) {
+						struct weaponobj *projectileobj; // 1b8
+						Mtxf sp178;
+						struct coord sp16c;
+						f32 sp168;
+						struct coord sp15c;
+						Mtxf sp11c;
+						Mtxf spdc;
+						struct weapon *weapondef = weaponFindById(gset.weaponnum);
+						struct weaponfunc_shootprojectile *func = weapondef->functions[gset.weaponfunc]; // d4
+
+						// Handle creating the projectile
+						if (gset.weaponnum == WEAPON_ROCKETLAUNCHER
+								|| gset.weaponnum == WEAPON_ROCKETLAUNCHER_34
+								|| gset.weaponnum == WEAPON_SLAYER) {
+							s32 rockettype = WEAPON_ROCKET;
+
+							if (func->base.base.flags & FUNCFLAG_HOMINGROCKET) {
+								rockettype = WEAPON_HOMINGROCKET;
+							}
+
+							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, rockettype, chr);
+						} else if (gset.weaponnum == WEAPON_CROSSBOW) {
+							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_BOLT, chr);
+
+							if (projectileobj) {
+								projectileobj->gunfunc = gset.weaponfunc;
+							}
+						} else if (gset.weaponnum == WEAPON_DEVASTATOR) {
+							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
+
+							if (projectileobj) {
+								projectileobj->gunfunc = gset.weaponfunc;
+							}
+						} else if (gset.weaponnum == WEAPON_SUPERDRAGON) {
+							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
+
+							if (projectileobj) {
+								projectileobj->gunfunc = FUNC_2;
+							}
+						} else {
+							// Unreachable
+							projectileobj = weaponCreateProjectileFromGset(func->projectilemodelnum, &gset, g_Vars.currentplayer->prop->chr);
+						}
+
+						if (projectileobj) {
+							f32 spcc;
+
+							sp168 = func->unk4c * (1.0f / 0.6f) / 60.0f;
+							spcc = func->unk54 * (1.0f / 0.6f);
+
+							// AI bots are a bit smarter than solo chrs
+							// with regard to how they aim their projectiles
+							if (isaibot && chrIsTargetInFov(chr, 30, 0)) {
+								bool hasaimpos = false;
+								f32 tmp1;
+								struct coord aimpos; // b8
+
+								if (gset.weaponfunc == FUNC_PRIMARY &&
+										(gset.weaponnum == WEAPON_ROCKETLAUNCHER
+										 || gset.weaponnum == WEAPON_ROCKETLAUNCHER_34
+										 || gset.weaponnum == WEAPON_SLAYER)) {
+									if (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER) {
+										// Rockets - aim at target's feet
+										aimpos.f[0] = targetprop->pos.f[0];
+										aimpos.f[1] = targetprop->chr->manground;
+										aimpos.f[2] = targetprop->pos.f[2];
+
+										vector.f[0] = aimpos.f[0] - gunpos.f[0];
+										vector.f[1] = aimpos.f[1] - gunpos.f[1];
+										vector.f[2] = aimpos.f[2] - gunpos.f[2];
+
+										guNormalize(&vector.f[0], &vector.f[1], &vector.f[2]);
+										hasaimpos = true;
+									}
+								} else if ((gset.weaponnum == WEAPON_DEVASTATOR && gset.weaponfunc == FUNC_PRIMARY)
+										|| gset.weaponnum == WEAPON_SUPERDRAGON) {
+									if (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER) {
+										// Grenades - aim at target's feet
+										aimpos.x = targetprop->pos.x;
+										aimpos.y = targetprop->chr->manground;
+										aimpos.z = targetprop->pos.z;
+
+										chrCalculateTrajectory(&gunpos, spcc, &aimpos, &vector);
+										hasaimpos = true;
+									}
+								} else if ((gset.weaponnum == WEAPON_DEVASTATOR && gset.weaponfunc == FUNC_SECONDARY)
+										|| gset.weaponnum == WEAPON_CROSSBOW) {
+									// Wall hugger grenade or crossbow - aim at target directly
+									aimpos.x = targetprop->pos.x;
+									aimpos.y = targetprop->pos.y;
+									aimpos.z = targetprop->pos.z;
+
+									if (targetprop->type == PROPTYPE_PLAYER) {
+										aimpos.y -= 25;
+									}
+
+									chrCalculateTrajectory(&gunpos, spcc, &aimpos, &vector);
+									hasaimpos = true;
+								}
+
+								if (hasaimpos) {
+									f32 angle = chrGetAngleToPos(chr, &aimpos); // b4
+									f32 cos = cosf(angle); // b0
+									f32 sin = sinf(angle);
+
+									tmp1 = vector.f[0];
+									vector.x = vector.f[2] * sin + vector.f[0] * cos;
+									vector.z = vector.f[2] * cos - tmp1 * sin;
+								}
+							}
+
+							// Calculate and projectile's matrix,
+							// spawn position and speed
+							mtx4LoadIdentity(&sp178);
+							mtx4LoadXRotation(sp200, &sp11c);
+							mtx4LoadYRotation(aimangle, &spdc);
+							mtx00015be0(&spdc, &sp11c);
+
+							sp15c.f[0] = xdiff = vector.f[0] * sp168;
+							sp15c.f[1] = ydiff = vector.f[1] * sp168;
+							sp15c.f[2] = zdiff = vector.f[2] * sp168;
+
+							sp16c.x = vector.f[0] * spcc + xdiff * g_Vars.lvupdate240freal;
+							sp16c.y = vector.f[1] * spcc + ydiff * g_Vars.lvupdate240freal;
+							sp16c.z = vector.f[2] * spcc + zdiff * g_Vars.lvupdate240freal;
+
+							projectileobj->timer240 = func->timer60;
+
+							if (projectileobj->timer240 != -1) {
+#if PAL
+								projectileobj->timer240 = projectileobj->timer240 * 200 / 60;
+#else
+								projectileobj->timer240 *= 4;
+#endif
+							}
+
+							bgun0f09ebcc(&projectileobj->base, &gunpos, gunrooms, &sp11c, &sp16c, &sp178, chrprop, &gunpos);
+
+							if (projectileobj->base.hidden & OBJHFLAG_PROJECTILE) {
+								if (func->base.base.flags & FUNCFLAG_PROJECTILE_LIGHTWEIGHT) {
+									projectileobj->base.projectile->flags |= PROJECTILEFLAG_LIGHTWEIGHT;
+								} else if (func->base.base.flags & FUNCFLAG_PROJECTILE_POWERED) {
+									projectileobj->base.projectile->flags |= PROJECTILEFLAG_POWERED;
+								}
+
+								projectileobj->base.projectile->unk010 = sp15c.x;
+								projectileobj->base.projectile->unk014 = sp15c.y;
+								projectileobj->base.projectile->unk018 = sp15c.z;
+
+								projectileobj->base.projectile->pickuptimer240 = 240;
+								projectileobj->base.projectile->unk08c = func->unk5c;
+								projectileobj->base.projectile->unk098 = func->unk50 * (1.0f / 0.6f);
+
+								projectileobj->base.projectile->targetprop = chrGetTargetProp(chr);
+
+								// Play sound
+								if (func->soundnum > 0) {
+									propsnd0f0939f8(NULL, projectileobj->base.prop, func->soundnum, -1,
+											-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+								}
+							}
+						}
+					} else {
+						firingthistick = false;
+					}
+
+					normalshoot = false;
+				} else if (gset.weaponnum == WEAPON_MAULER && isaibot && gset.weaponfunc == FUNC_SECONDARY) {
+					gset.unk063a = (s32)(chr->aibot->maulercharge[handnum] * 10);
+					chr->aibot->maulercharge[handnum] = 0;
+				}
+
+				if (normalshoot) {
+					if (!isaibot) {
+						if ((attackflags & ATTACKFLAG_AIMATTARGET)
+								&& targetprop->type == PROPTYPE_PLAYER
+								&& chrCanSeeAttackTarget(chr, &gunpos, gunrooms, false)
+#if VERSION >= VERSION_NTSC_1_0
+								&& chrCompareTeams(targetprop->chr, chr, COMPARE_ENEMIES)
+#endif
+								) {
+							// Solo chr shooting at a player
+							f32 xdiff = targetprop->pos.f[0] - gunpos.f[0] - vector.f[0] * 15;
+							f32 ydiff = targetprop->pos.f[1] - gunpos.f[1] - vector.f[1] * 15;
+							f32 zdiff = targetprop->pos.f[2] - gunpos.f[2] - vector.f[2] * 15;
+
+							if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff <= sqshotdist) {
+								// Player has a chance of being hit
+								chrCalculateHit(chr, &angleok, &hitplayer, &gset);
+
+								// If the player was hit then turn off effective
+								// (There's no need to check other props for
+								// hits later on in this function)
+								effective = !hitplayer;
+
+								if (angleok
+										&& (chr->actiontype == ACT_ATTACK
+										 || chr->actiontype == ACT_ATTACKROLL
+										 || chr->actiontype == ACT_BOT_ATTACKSTAND
+										 || chr->actiontype == ACT_BOT_ATTACKKNEEL
+										 || chr->actiontype == ACT_BOT_ATTACKSTRAFE)) {
+									chr->act_attack.lastontarget60 = g_Vars.lvframe60;
+								}
+							}
+						} else {
+							// Solo chr shooting at something else
+							if (chr->actiontype == ACT_ATTACK
+									|| chr->actiontype == ACT_ATTACKROLL
+									|| chr->actiontype == ACT_BOT_ATTACKSTAND
+									|| chr->actiontype == ACT_BOT_ATTACKKNEEL
+									|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
+								chr->act_attack.lastontarget60 = g_Vars.lvframe60;
+							}
+						}
+
+						if (hitplayer) {
+							f32 damage = gsetGetDamage(&gset); // 9c
+							struct modelnode *node = NULL; // 98
+							struct model *model = NULL; // 94
+							s32 side = -1; // 90
+							s32 hitpart = HITPART_GENERAL; // 8c
+							struct chrdata *targetchr = targetprop->chr; // 88
+
+							hitpos.x = targetprop->pos.x;
+							hitpos.y = targetprop->pos.y;
+							hitpos.z = targetprop->pos.z;
+
+							if (random() % 2) {
+								hitpos.y += 2 + random() % 10;
+							} else {
+								hitpos.y -= 2 + random() % 10;
+							}
+
+							bgunPlayPropHitSound(&gset, targetprop, -1);
+
+							if (targetchr->model && chrGetShield(targetchr) > 0) {
+								chrCalculateShieldHit(targetchr, &hitpos, &vector, &node, &hitpart, &model, &side);
+							}
+
+							func0f0341dc(targetchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, targetprop, node, model, side, NULL);
+						} else if ((hitprop == NULL || (hitprop->type != PROPTYPE_CHR && hitprop->type != PROPTYPE_PLAYER))
+								&& sqshotdist < 100 * 100) {
+							// Hit the background or something other than a
+							// player or chr, and the shot distance was less
+							// than 1 metre. Don't bother applying damage etc.
+							effective = false;
+						}
+					}
+
+					if (effective) {
+						if (hitprop) {
+							if (hitprop->type == PROPTYPE_PLAYER || hitprop->type == PROPTYPE_CHR) {
+								// Hit a player or chr other than the one they
+								// were aiming for
+								if (isaibot
+										|| fudgeforeyespy
+										|| ((chr->chrflags & CHRCFLAG_00000040) && chrCompareTeams(hitprop->chr, chr, COMPARE_ENEMIES))) {
+									struct modelnode *node = NULL; // 84
+									struct model *model = NULL; // 80
+									s32 side = -1; // 7c
+									s32 hitpart = HITPART_GENERAL; // 78
+									f32 damage = gsetGetDamage(&gset);
+									struct chrdata *hitchr = hitprop->chr; // 70
+
+									bgunPlayPropHitSound(&gset, hitprop, -1);
+
+									if (hitchr->model && chrGetShield(hitchr) > 0) {
+										chrCalculateShieldHit(hitchr, &hitpos, &vector, &node, &hitpart, &model, &side);
+									}
+
+									chrEmitSparks(hitchr, hitprop, hitpart, &hitpos, &vector, chr);
+									func0f0341dc(hitchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, hitprop, node, model, side, NULL);
+								} else {
+									makebeam = false;
+									firingthistick = false;
+								}
+							} else if (hitprop->type == PROPTYPE_OBJ
+									|| hitprop->type == PROPTYPE_WEAPON
+									|| hitprop->type == PROPTYPE_DOOR) {
+								// Hit an object
+								struct defaultobj *hitobj = hitprop->obj; // 6c
+								s32 playernum = -1; // 68
+
+								if (g_Vars.mplayerisrunning) {
+									playernum = mpPlayerGetIndex(chr);
+								}
+
+								bgunPlayPropHitSound(&gset, hitprop, -1);
+								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
+								sp210 = true;
+
+								if (chrIsUsingPaintball(chr)) {
+									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_PAINT);
+								} else {
+									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_DEFAULT);
+								}
+
+								if (g_MissionConfig.iscoop && chr->team == TEAM_ALLY
+										&& (hitobj->flags2 & OBJFLAG2_IMMUNETOANTI)) {
+									// empty
+								} else {
+									objTakeGunfire(hitobj, gsetGetDamage(&gset), &hitpos, gset.weaponnum, playernum);
+								}
+							}
+						} else if (hitsomething) {
+							// Hit the background
+							func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
+							sp210 = true;
+							bgunPlayBgHitSound(&gset, &hitpos, -1, hitrooms);
+
+							if (chrIsUsingPaintball(chr)) {
+								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_PAINT);
+							} else {
+								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_DEFAULT);
+							}
+						}
+
+						// Create explosion if using Phoenix
+						if (gset.weaponnum == WEAPON_PHOENIX && gset.weaponfunc == FUNC_SECONDARY) {
+							s32 playernum = chr->aibot ? mpPlayerGetIndex(chr) : g_Vars.currentplayernum;
+
+							if (!sp210) {
+								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
+							}
+
+							explosionCreateSimple(0, &hitpos, hitrooms, EXPLOSIONTYPE_PHOENIX, playernum);
+						}
+					}
+				}
+
+				if (isshootingeyespy) {
+					propSetPerimEnabled(targetprop, false);
+				}
+			}
+		}
+
+		if (makebeam) {
+			switch (gset.weaponnum) {
+			case WEAPON_FALCON2:
+			case WEAPON_FALCON2_SILENCER:
+			case WEAPON_FALCON2_SCOPE:
+			case WEAPON_MAGSEC4:
+			case WEAPON_MAULER:
+			case WEAPON_PHOENIX:
+			case WEAPON_DY357MAGNUM:
+			case WEAPON_DY357LX:
+			case WEAPON_CMP150:
+			case WEAPON_CYCLONE:
+			case WEAPON_CALLISTO:
+			case WEAPON_RCP120:
+			case WEAPON_LAPTOPGUN:
+			case WEAPON_DRAGON:
+			case WEAPON_K7AVENGER:
+			case WEAPON_AR34:
+			case WEAPON_SUPERDRAGON:
+			case WEAPON_REAPER:
+			case WEAPON_SNIPERRIFLE:
+			case WEAPON_FARSIGHT:
+			case WEAPON_TRANQUILIZER:
+			case WEAPON_LASER:
+			case WEAPON_PP9I:
+			case WEAPON_CC13:
+			case WEAPON_KL01313:
+			case WEAPON_KF7SPECIAL:
+			case WEAPON_ZZT:
+			case WEAPON_DMC:
+			case WEAPON_AR53:
+			case WEAPON_RCP45:
+				makebeam = true;
+				break;
+			default:
+				makebeam = false;
+				break;
+			}
+		}
+
+		chrCreateFireslot(chr, handnum, firingthistick, firingthistick && makebeam, &gunpos, &hitpos);
+
+		if (isaibot) {
+			if (firingthistick) {
+				if (chr->aibot->loadedammo[handnum] > 0) {
+					chr->aibot->loadedammo[handnum]--;
+				}
+			}
+
+			chrSetFiring(chr, handnum, firingthistick && normalshoot);
+		} else {
+			chrSetFiring(chr, handnum, firingthistick);
+		}
+	}
+}
+#endif
 
 void func0f041a74(struct chrdata *chr)
 {
@@ -19985,6 +19987,7 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 	return result;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel chrNavTryObstacle
 .late_rodata
@@ -20204,86 +20207,87 @@ glabel var7f1a925c
 /*  f045a68:	03e00008 */ 	jr	$ra
 /*  f045a6c:	00000000 */ 	nop
 );
-
+#else
 // Mismatch: regalloc
-//bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 radius, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10)
-//{
-//	struct prop *prop = chr->prop; // 74
-//	struct coord sp68;
-//	struct coord sp5c;
-//	f32 norm = 1; // 58
-//	f32 sp54;
-//	struct coord sp48;
-//	struct coord *sp44;
-//	struct coord *sp40;
-//
-//	if (arg2) {
-//		sp44 = arg1;
-//		sp40 = arg3;
-//	} else {
-//		sp44 = arg3;
-//		sp40 = arg1;
-//	}
-//
-//	sp68.x = arg1->f[0] - prop->pos.f[0];
-//	sp68.y = 0;
-//	sp68.z = arg1->f[2] - prop->pos.f[2];
-//
-//	if (sp68.f[0] || sp68.f[2]) {
-//		f32 tmp = sqrtf(sp68.f[0] * sp68.f[0] + sp68.f[2] * sp68.f[2]);
-//
-//		if (tmp > 0) {
-//			norm = 1 / tmp;
-//			sp68.f[0] *= radius * norm;
-//			sp68.f[2] *= radius * norm;
-//			sp54 = radius * norm;
-//		} else {
-//			sp68.f[2] = radius;
-//			sp54 = radius * norm;
-//		}
-//	} else {
-//		sp68.f[2] = radius;
-//		sp54 = radius * norm;
-//	}
-//
-//	if (sp54 > 1) {
-//		sp54 = 0.7852731347084f;
-//	} else {
-//		sp54 = acosf(sp54);
-//	}
-//
-//	if (!arg2 && sp54) {
-//		sp54 = M_BADTAU - sp54;
-//	}
-//
-//	sp48.x = sp68.f[0] * -cosf(sp54) + sp68.f[2] * sinf(sp54);
-//	sp48.y = 0;
-//	sp48.z = sp68.f[0] * -sinf(sp54) - sp68.f[2] * cosf(sp54);
-//
-//	sp5c.x = arg1->f[0] + sp48.f[0];
-//	sp5c.y = arg1->f[1];
-//	sp5c.z = arg1->f[2] + sp48.f[2];
-//
-//	if (chrNavCanSeeNextPos(chr, &prop->pos, prop->rooms, &sp5c, sp44, sp40, arg8, chr->radius, cdtypes, 1)) {
-//		if (!arg5 || func0f03645c(chr, &prop->pos, prop->rooms, &sp5c, nextpos, cdtypes)) {
-//			if (arg10) {
-//				waydata->gotaimposobj = true;
-//				waydata->aimposobj.x = sp5c.x;
-//				waydata->aimposobj.y = sp5c.y;
-//				waydata->aimposobj.z = sp5c.z;
-//			} else {
-//				waydata->gotaimpos = true;
-//				waydata->aimpos.x = sp5c.x;
-//				waydata->aimpos.y = sp5c.y;
-//				waydata->aimpos.z = sp5c.z;
-//			}
-//
-//			return true;
-//		}
-//	}
-//
-//	return false;
-//}
+bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 radius, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10)
+{
+	struct prop *prop = chr->prop; // 74
+	struct coord sp68;
+	struct coord sp5c;
+	f32 norm = 1; // 58
+	f32 sp54;
+	struct coord sp48;
+	struct coord *sp44;
+	struct coord *sp40;
+
+	if (arg2) {
+		sp44 = arg1;
+		sp40 = arg3;
+	} else {
+		sp44 = arg3;
+		sp40 = arg1;
+	}
+
+	sp68.x = arg1->f[0] - prop->pos.f[0];
+	sp68.y = 0;
+	sp68.z = arg1->f[2] - prop->pos.f[2];
+
+	if (sp68.f[0] || sp68.f[2]) {
+		f32 tmp = sqrtf(sp68.f[0] * sp68.f[0] + sp68.f[2] * sp68.f[2]);
+
+		if (tmp > 0) {
+			norm = 1 / tmp;
+			sp68.f[0] *= radius * norm;
+			sp68.f[2] *= radius * norm;
+			sp54 = radius * norm;
+		} else {
+			sp68.f[2] = radius;
+			sp54 = radius * norm;
+		}
+	} else {
+		sp68.f[2] = radius;
+		sp54 = radius * norm;
+	}
+
+	if (sp54 > 1) {
+		sp54 = 0.7852731347084f;
+	} else {
+		sp54 = acosf(sp54);
+	}
+
+	if (!arg2 && sp54) {
+		sp54 = M_BADTAU - sp54;
+	}
+
+	sp48.x = sp68.f[0] * -cosf(sp54) + sp68.f[2] * sinf(sp54);
+	sp48.y = 0;
+	sp48.z = sp68.f[0] * -sinf(sp54) - sp68.f[2] * cosf(sp54);
+
+	sp5c.x = arg1->f[0] + sp48.f[0];
+	sp5c.y = arg1->f[1];
+	sp5c.z = arg1->f[2] + sp48.f[2];
+
+	if (chrNavCanSeeNextPos(chr, &prop->pos, prop->rooms, &sp5c, sp44, sp40, arg8, chr->radius, cdtypes, 1)) {
+		if (!arg5 || func0f03645c(chr, &prop->pos, prop->rooms, &sp5c, nextpos, cdtypes)) {
+			if (arg10) {
+				waydata->gotaimposobj = true;
+				waydata->aimposobj.x = sp5c.x;
+				waydata->aimposobj.y = sp5c.y;
+				waydata->aimposobj.z = sp5c.z;
+			} else {
+				waydata->gotaimpos = true;
+				waydata->aimpos.x = sp5c.x;
+				waydata->aimpos.y = sp5c.y;
+				waydata->aimpos.z = sp5c.z;
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}
+#endif
 
 #if VERSION >=  VERSION_NTSC_1_0
 const char var7f1a8be8[] = "CHARS -> FRAMETIMESCALEI(240)  = %d";

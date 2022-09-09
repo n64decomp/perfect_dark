@@ -21,6 +21,7 @@ struct stageheadlimit g_StageHeadLimits[3] = {
 u32 var80061708 = 0x00000000;
 u32 var8006170c = 0x00000000;
 
+#if MATCHING
 GLOBAL_ASM(
 glabel bodiesReset
 /*  f00b820:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -267,92 +268,93 @@ glabel bodiesReset
 /*  f00bb68:	03e00008 */ 	jr	$ra
 /*  f00bb6c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
-
+#else
 // Mismatches:
 // - Address of var80062b14 Should be loaded to a callee-save register
 // - PLAYERCOUNT() calculation is more spread out
 //   (does other register preparation during calculation)
 // - Loop at 950 is calculated differently
-//void bodiesReset(s32 stagenum)
-//{
-//	s32 *headsavailablelist;
-//	s32 headsavailablelen;
-//	bool done;
-//	s32 i;
-//	s32 j;
-//
-//	for (i = 0; g_HeadsAndBodies[i].bodyfileid; i++) {
-//		g_HeadsAndBodies[i].unk0c = NULL;
-//	}
-//
-//	var80062c80 = random() % g_NumBondBodies;
-//	var80062b14 = 0;
-//	var80062b18 = 0;
-//
-//	if (PLAYERCOUNT() >= 2) {
-//		g_NumActiveHeadsPerGender = 4;
-//	} else {
-//		// 950
-//		g_NumActiveHeadsPerGender = 8;
-//
-//		for (i = 0; i < ARRAYCOUNT(g_StageHeadLimits); i++) {
-//			if (g_StageHeadLimits[i].stagenum == stagenum) {
-//				g_NumActiveHeadsPerGender = g_StageHeadLimits[i].maxheads;
-//			}
-//		}
-//	}
-//
-//	// Male heads
-//	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
-//		headsavailablelist = g_MaleGuardTeamHeads;
-//		headsavailablelen = g_NumMaleGuardTeamHeads;
-//	} else {
-//		headsavailablelist = g_MaleGuardHeads;
-//		headsavailablelen = g_NumMaleGuardHeads;
-//	}
-//
-//	for (i = 0; i < g_NumActiveHeadsPerGender; i++) {
-//		do {
-//			done = true;
-//			g_ActiveMaleHeads[i] = headsavailablelist[random() % headsavailablelen];
-//
-//			if (headsavailablelen > g_NumActiveHeadsPerGender) {
-//				for (j = 0; j < i; j++) {
-//					if (g_ActiveMaleHeads[i] == g_ActiveMaleHeads[j]) {
-//						done = false;
-//					}
-//				}
-//			}
-//		} while (!done);
-//	}
-//
-//	// Female heads
-//	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
-//		headsavailablelist = g_FemaleGuardTeamHeads;
-//		headsavailablelen = g_NumFemaleGuardTeamHeads;
-//	} else {
-//		headsavailablelist = g_FemaleGuardHeads;
-//		headsavailablelen = g_NumFemaleGuardHeads;
-//	}
-//
-//	for (i = 0; i < g_NumActiveHeadsPerGender; i++) {
-//		do {
-//			done = true;
-//			g_ActiveFemaleHeads[i] = headsavailablelist[random() % headsavailablelen];
-//
-//			if (headsavailablelen > g_NumActiveHeadsPerGender) {
-//				for (j = 0; j < i; j++) {
-//					if (g_ActiveFemaleHeads[i] == g_ActiveFemaleHeads[j]) {
-//						done = false;
-//					}
-//				}
-//			}
-//		} while (!done);
-//	}
-//
-//	g_ActiveMaleHeadsIndex = 0;
-//	g_ActiveFemaleHeadsIndex = 0;
-//
-//	for (i = 0; i < g_NumActiveHeadsPerGender; i++);
-//	for (i = 0; i < g_NumActiveHeadsPerGender; i++);
-//}
+void bodiesReset(s32 stagenum)
+{
+	s32 *headsavailablelist;
+	s32 headsavailablelen;
+	bool done;
+	s32 i;
+	s32 j;
+
+	for (i = 0; g_HeadsAndBodies[i].filenum; i++) {
+		g_HeadsAndBodies[i].filedata = NULL;
+	}
+
+	var80062c80 = random() % g_NumBondBodies;
+	var80062b14 = 0;
+	var80062b18 = 0;
+
+	if (PLAYERCOUNT() >= 2) {
+		g_NumActiveHeadsPerGender = 4;
+	} else {
+		// 950
+		g_NumActiveHeadsPerGender = 8;
+
+		for (i = 0; i < ARRAYCOUNT(g_StageHeadLimits); i++) {
+			if (g_StageHeadLimits[i].stagenum == stagenum) {
+				g_NumActiveHeadsPerGender = g_StageHeadLimits[i].maxheads;
+			}
+		}
+	}
+
+	// Male heads
+	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
+		headsavailablelist = g_MaleGuardTeamHeads;
+		headsavailablelen = g_NumMaleGuardTeamHeads;
+	} else {
+		headsavailablelist = g_MaleGuardHeads;
+		headsavailablelen = g_NumMaleGuardHeads;
+	}
+
+	for (i = 0; i < g_NumActiveHeadsPerGender; i++) {
+		do {
+			done = true;
+			g_ActiveMaleHeads[i] = headsavailablelist[random() % headsavailablelen];
+
+			if (headsavailablelen > g_NumActiveHeadsPerGender) {
+				for (j = 0; j < i; j++) {
+					if (g_ActiveMaleHeads[i] == g_ActiveMaleHeads[j]) {
+						done = false;
+					}
+				}
+			}
+		} while (!done);
+	}
+
+	// Female heads
+	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
+		headsavailablelist = g_FemaleGuardTeamHeads;
+		headsavailablelen = g_NumFemaleGuardTeamHeads;
+	} else {
+		headsavailablelist = g_FemaleGuardHeads;
+		headsavailablelen = g_NumFemaleGuardHeads;
+	}
+
+	for (i = 0; i < g_NumActiveHeadsPerGender; i++) {
+		do {
+			done = true;
+			g_ActiveFemaleHeads[i] = headsavailablelist[random() % headsavailablelen];
+
+			if (headsavailablelen > g_NumActiveHeadsPerGender) {
+				for (j = 0; j < i; j++) {
+					if (g_ActiveFemaleHeads[i] == g_ActiveFemaleHeads[j]) {
+						done = false;
+					}
+				}
+			}
+		} while (!done);
+	}
+
+	g_ActiveMaleHeadsIndex = 0;
+	g_ActiveFemaleHeadsIndex = 0;
+
+	for (i = 0; i < g_NumActiveHeadsPerGender; i++);
+	for (i = 0; i < g_NumActiveHeadsPerGender; i++);
+}
+#endif

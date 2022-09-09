@@ -393,6 +393,7 @@ void memaPrint(void)
 #endif
 }
 
+#if MATCHING
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel memaAlloc
@@ -618,86 +619,87 @@ glabel memaAlloc
 /*    13494:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 #endif
+#else
+void *memaAlloc(u32 size)
+{
+	u32 addr;
+	u32 diff;
+	s32 i;
 
-//void *memaAlloc(u32 size)
-//{
-//	u32 addr;
-//	u32 diff;
-//	s32 i;
-//
-//	struct memaspace *curr = &g_MemaHeap.spaces[0];
-//	u32 bestdiff = 0xffffffff;
-//	struct memaspace *best = NULL;
-//
-//	// Iterate up to the first 16 spaces, looking for the
-//	// smallest space that will accommodate the requested size.
-//	for (i = 0; i < 16; i++) {
-//		if (curr->size >= size) {
-//			if (curr->addr == 0xffffffff) {
-//				// Reached the end
-//				break;
-//			}
-//
-//			diff = curr->size - size;
-//
-//			if (diff < bestdiff) {
-//				bestdiff = diff;
-//				best = curr;
-//
-//				// Stop looking if the space is small enough
-//#if VERSION >= VERSION_NTSC_1_0
-//				if (diff < 64 || (IS8MB() && diff < size / 4))
-//#else
-//				if (diff < 64 || diff < size / 4)
-//#endif
-//				{
-//					break;
-//				}
-//			}
-//		}
-//
-//		curr++;
-//	}
-//
-//	if (best == NULL) {
-//		// Keep iterating until we find a space that is big enough to fit.
-//		// The last space is marked as size 0xffffffff which prevents this loop
-//		// from iterating past the end of the spaces array.
-//		while (curr->size < size) {
-//			curr++;
-//		}
-//
-//		if (curr->addr == 0xffffffff) {
-//			// There was no space, so attempt to free up some space
-//			// by doing several defrag passes
-//			for (i = 0; i < 8; i++) {
-//				memaDefragPass(&g_MemaHeap);
-//			}
-//
-//			curr = &g_MemaHeap.spaces[0];
-//
-//			while (curr->size < size) {
-//				curr++;
-//			}
-//
-//			if (curr->addr == 0xffffffff) {
-//				return NULL;
-//			}
-//		}
-//
-//		best = curr;
-//	}
-//
-//	addr = best->addr;
-//	best->addr += size;
-//	best->size -= size;
-//
-//	if (best->size == 0) {
-//		best->addr = 0;
-//	}
-//
-//	return (void *)addr;
-//}
+	struct memaspace *curr = &g_MemaHeap.spaces[0];
+	u32 bestdiff = 0xffffffff;
+	struct memaspace *best = NULL;
+
+	// Iterate up to the first 16 spaces, looking for the
+	// smallest space that will accommodate the requested size.
+	for (i = 0; i < 16; i++) {
+		if (curr->size >= size) {
+			if (curr->addr == 0xffffffff) {
+				// Reached the end
+				break;
+			}
+
+			diff = curr->size - size;
+
+			if (diff < bestdiff) {
+				bestdiff = diff;
+				best = curr;
+
+				// Stop looking if the space is small enough
+#if VERSION >= VERSION_NTSC_1_0
+				if (diff < 64 || (IS8MB() && diff < size / 4))
+#else
+				if (diff < 64 || diff < size / 4)
+#endif
+				{
+					break;
+				}
+			}
+		}
+
+		curr++;
+	}
+
+	if (best == NULL) {
+		// Keep iterating until we find a space that is big enough to fit.
+		// The last space is marked as size 0xffffffff which prevents this loop
+		// from iterating past the end of the spaces array.
+		while (curr->size < size) {
+			curr++;
+		}
+
+		if (curr->addr == 0xffffffff) {
+			// There was no space, so attempt to free up some space
+			// by doing several defrag passes
+			for (i = 0; i < 8; i++) {
+				memaDefragPass(&g_MemaHeap);
+			}
+
+			curr = &g_MemaHeap.spaces[0];
+
+			while (curr->size < size) {
+				curr++;
+			}
+
+			if (curr->addr == 0xffffffff) {
+				return NULL;
+			}
+		}
+
+		best = curr;
+	}
+
+	addr = best->addr;
+	best->addr += size;
+	best->size -= size;
+
+	if (best->size == 0) {
+		best->addr = 0;
+	}
+
+	return (void *)addr;
+}
+#endif
 
 /**
  * Grow the allocation which currently *ends at* the given address.

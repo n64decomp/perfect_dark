@@ -412,6 +412,7 @@ void wallhitReapOne(void)
 	if (1);
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel wallhitsTick
 .late_rodata
@@ -1027,205 +1028,206 @@ glabel var7f1b5d18
 /*  f13f3ec:	03e00008 */ 	jr	$ra
 /*  f13f3f0:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
-
 const char var7f1b5a54[] = "wallhit";
 
 s32 var8007f834 = 0;
+#else
 
 // Mismatch: float regalloc for midx, midy and midz
-//void wallhitsTick(void)
-//{
-//	f32 sp12c;
-//	f32 fov;
-//	s32 numallocated;
-//	s32 i;
-//	s32 j;
-//	u32 stack[3];
-//	f32 midx;
-//	f32 midy;
-//	f32 midz;
-//	f32 f22;
-//	f32 f24;
-//	struct wallhit *wallhit;
-//	struct coord spc8[4];
-//	u32 stack2[4];
-//
-//	static s32 var8007f834 = 0;
-//
-//	sp12c = (g_Vars.lvupdate240 + 2.0f) * 0.25f;
-//	fov = currentPlayerGetGunZoomFov();
-//
-//	mainOverrideVariable("wallhit", &var8007f750);
-//
-//	var8007f740 = 0;
-//
-//	if (fov == 0.0f || fov == 60.0f) {
-//		var8007f748 = 1;
-//	} else {
-//		f32 tmp = fov / g_Vars.currentplayer->zoominfovy;
-//		var8007f748 = 60.0f / fov - 1.00f / tmp + 1;
-//	}
-//
-//	var8007f74c = 1.0f / var8007f748;
-//
-//	numallocated = g_WallhitsNumFree + g_WallhitsNumUsed;
-//
-//	if (numallocated < var8009cc70) {
-//		wallhitReapOne();
-//	} else if (numallocated < var8009cc74) {
-//		var8007f834++;
-//
-//		if (var8007f834 == 8) {
-//			var8007f834 = 0;
-//			wallhitReapOne();
-//		}
-//	}
-//
-//	wallhit = g_Wallhits;
-//
-//	for (i = 0; i < g_WallhitsMax; i++) {
-//		f32 f0 = sp12c;
-//
-//		if (wallhit->inuse) {
-//			if (wallhit->timerspeed != 8) {
-//				f0 *= 0.6f * ((wallhit->timerspeed - 8.0f) * 0.125f);
-//			}
-//
-//			if (wallhit->timermax) {
-//				u32 amount = (u32)(f0 + 0.5f);
-//
-//				if (wallhit->expanding) {
-//					if (wallhit->timercur > wallhit->timermax) {
-//						wallhit->timermax = 0;
-//						wallhit->timercur = 0;
-//						wallhit->inuse = true;
-//					}
-//
-//					wallhit->timercur += amount;
-//				} else {
-//					if (amount < wallhit->timercur) {
-//						wallhit->timercur -= amount;
-//					} else {
-//						wallhitFree(wallhit);
-//					}
-//				}
-//
-//				if (wallhit->timermax) {
-//					f24 = (f32) wallhit->timercur / wallhit->timermax;
-//
-//					if (f24 > 1.0f) {
-//						f24 = 1.0f;
-//					}
-//
-//					f22 = f24;
-//
-//					if (wallhit->expanding) {
-//						f32 frac = 0.2f;
-//						f32 sizefrac;
-//						f32 f30;
-//						s32 minindex;
-//						f32 tmp;
-//						s32 j;
-//
-//						tmp = 1.5707964f * f24;
-//						f30 = (1.0f - frac) * sinf(tmp);
-//						f22 = 1.0f - tmp + 0.6f;
-//
-//						wallhit->vertices2 = gfxAllocateVertices(4);
-//
-//						midx = var800845dc.x; \
-//						midy = var800845dc.y; \
-//						midz = var800845dc.z;
-//
-//						// Copy the vertices into a float array
-//						for (j = 0; j < 4; j++) {
-//							spc8[j].x = wallhit->vertices[j].x;
-//							spc8[j].y = wallhit->vertices[j].y;
-//							spc8[j].z = wallhit->vertices[j].z;
-//						}
-//
-//						// Sum the vertices and divide them by 4 to get the centre
-//						minindex = 0;
-//
-//						for (j = 0; j < 4; j++) {
-//							midx = midx + spc8[j].x;
-//							midy = midy + spc8[j].y;
-//							midz = midz + spc8[j].z;
-//
-//							// This should be j != 0, but minindex is unused
-//							// so it doesn't affect anything
-//							if (minindex != 0 && spc8[j].y < spc8[minindex].y) {
-//								minindex = j;
-//							}
-//						}
-//
-//						midx = 0.25f * midx;
-//						midy = 0.25f * midy;
-//						midz = 0.25f * midz;
-//
-//						sizefrac = frac + f30;
-//
-//						// Calculate and apply the new size
-//						for (j = 0; j < 4; j++) {
-//							f32 xradius = spc8[j].x - midx;
-//							f32 yradius = spc8[j].y - midy;
-//							f32 zradius = spc8[j].z - midz;
-//
-//							wallhit->vertices2[j].x = midx + xradius * sizefrac;
-//							wallhit->vertices2[j].y = midy + yradius * sizefrac;
-//							wallhit->vertices2[j].z = midz + zradius * sizefrac;
-//							wallhit->vertices2[j].s = wallhit->vertices[j].s;
-//							wallhit->vertices2[j].t = wallhit->vertices[j].t;
-//							wallhit->vertices2[j].colour = wallhit->vertices[j].colour;
-//						}
-//
-//						if (1);
-//
-//						f24 *= 2.0f;
-//
-//						if (f24 > 1.0f) {
-//							f24 = 1.0f;
-//						}
-//
-//						if (1);
-//					}
-//
-//					for (j = 0; j < 4; j++) {
-//						u32 alpha;
-//
-//						if (f22 > 1.0f) {
-//							f22 = 1.0f;
-//						}
-//
-//						alpha = wallhit->basecolours[j].a * f24;
-//
-//						if (alpha > 255) {
-//							alpha = 255;
-//						}
-//
-//						wallhit->finalcolours[j].a = alpha;
-//					}
-//				} else {
-//					if (wallhit->inuse) {
-//						wallhit->vertices2 = NULL;
-//
-//						for (j = 0; j < 4; j++) {
-//							wallhit->finalcolours[j].a = wallhit->basecolours[j].a;
-//						}
-//					} else {
-//						wallhit->vertices2 = NULL;
-//					}
-//				}
-//			}
-//
-//			wallhit->unk6f_05 = true;
-//		}
-//
-//		wallhit++;
-//
-//		if (1);
-//	}
-//}
+void wallhitsTick(void)
+{
+	f32 sp12c;
+	f32 fov;
+	s32 numallocated;
+	s32 i;
+	s32 j;
+	u32 stack[3];
+	f32 midx;
+	f32 midy;
+	f32 midz;
+	f32 f22;
+	f32 f24;
+	struct wallhit *wallhit;
+	struct coord spc8[4];
+	u32 stack2[4];
+
+	static s32 var8007f834 = 0;
+
+	sp12c = (g_Vars.lvupdate240 + 2.0f) * 0.25f;
+	fov = currentPlayerGetGunZoomFov();
+
+	mainOverrideVariable("wallhit", &var8007f750);
+
+	var8007f740 = 0;
+
+	if (fov == 0.0f || fov == 60.0f) {
+		var8007f748 = 1;
+	} else {
+		f32 tmp = fov / g_Vars.currentplayer->zoominfovy;
+		var8007f748 = 60.0f / fov - 1.00f / tmp + 1;
+	}
+
+	var8007f74c = 1.0f / var8007f748;
+
+	numallocated = g_WallhitsNumFree + g_WallhitsNumUsed;
+
+	if (numallocated < var8009cc70) {
+		wallhitReapOne();
+	} else if (numallocated < var8009cc74) {
+		var8007f834++;
+
+		if (var8007f834 == 8) {
+			var8007f834 = 0;
+			wallhitReapOne();
+		}
+	}
+
+	wallhit = g_Wallhits;
+
+	for (i = 0; i < g_WallhitsMax; i++) {
+		f32 f0 = sp12c;
+
+		if (wallhit->inuse) {
+			if (wallhit->timerspeed != 8) {
+				f0 *= 0.6f * ((wallhit->timerspeed - 8.0f) * 0.125f);
+			}
+
+			if (wallhit->timermax) {
+				u32 amount = (u32)(f0 + 0.5f);
+
+				if (wallhit->expanding) {
+					if (wallhit->timercur > wallhit->timermax) {
+						wallhit->timermax = 0;
+						wallhit->timercur = 0;
+						wallhit->inuse = true;
+					}
+
+					wallhit->timercur += amount;
+				} else {
+					if (amount < wallhit->timercur) {
+						wallhit->timercur -= amount;
+					} else {
+						wallhitFree(wallhit);
+					}
+				}
+
+				if (wallhit->timermax) {
+					f24 = (f32) wallhit->timercur / wallhit->timermax;
+
+					if (f24 > 1.0f) {
+						f24 = 1.0f;
+					}
+
+					f22 = f24;
+
+					if (wallhit->expanding) {
+						f32 frac = 0.2f;
+						f32 sizefrac;
+						f32 f30;
+						s32 minindex;
+						f32 tmp;
+						s32 j;
+
+						tmp = 1.5707964f * f24;
+						f30 = (1.0f - frac) * sinf(tmp);
+						f22 = 1.0f - tmp + 0.6f;
+
+						wallhit->vertices2 = gfxAllocateVertices(4);
+
+						midx = var800845dc.x; \
+						midy = var800845dc.y; \
+						midz = var800845dc.z;
+
+						// Copy the vertices into a float array
+						for (j = 0; j < 4; j++) {
+							spc8[j].x = wallhit->vertices[j].x;
+							spc8[j].y = wallhit->vertices[j].y;
+							spc8[j].z = wallhit->vertices[j].z;
+						}
+
+						// Sum the vertices and divide them by 4 to get the centre
+						minindex = 0;
+
+						for (j = 0; j < 4; j++) {
+							midx = midx + spc8[j].x;
+							midy = midy + spc8[j].y;
+							midz = midz + spc8[j].z;
+
+							// This should be j != 0, but minindex is unused
+							// so it doesn't affect anything
+							if (minindex != 0 && spc8[j].y < spc8[minindex].y) {
+								minindex = j;
+							}
+						}
+
+						midx = 0.25f * midx;
+						midy = 0.25f * midy;
+						midz = 0.25f * midz;
+
+						sizefrac = frac + f30;
+
+						// Calculate and apply the new size
+						for (j = 0; j < 4; j++) {
+							f32 xradius = spc8[j].x - midx;
+							f32 yradius = spc8[j].y - midy;
+							f32 zradius = spc8[j].z - midz;
+
+							wallhit->vertices2[j].x = midx + xradius * sizefrac;
+							wallhit->vertices2[j].y = midy + yradius * sizefrac;
+							wallhit->vertices2[j].z = midz + zradius * sizefrac;
+							wallhit->vertices2[j].s = wallhit->vertices[j].s;
+							wallhit->vertices2[j].t = wallhit->vertices[j].t;
+							wallhit->vertices2[j].colour = wallhit->vertices[j].colour;
+						}
+
+						if (1);
+
+						f24 *= 2.0f;
+
+						if (f24 > 1.0f) {
+							f24 = 1.0f;
+						}
+
+						if (1);
+					}
+
+					for (j = 0; j < 4; j++) {
+						u32 alpha;
+
+						if (f22 > 1.0f) {
+							f22 = 1.0f;
+						}
+
+						alpha = wallhit->basecolours[j].a * f24;
+
+						if (alpha > 255) {
+							alpha = 255;
+						}
+
+						wallhit->finalcolours[j].a = alpha;
+					}
+				} else {
+					if (wallhit->inuse) {
+						wallhit->vertices2 = NULL;
+
+						for (j = 0; j < 4; j++) {
+							wallhit->finalcolours[j].a = wallhit->basecolours[j].a;
+						}
+					} else {
+						wallhit->vertices2 = NULL;
+					}
+				}
+			}
+
+			wallhit->unk6f_05 = true;
+		}
+
+		wallhit++;
+
+		if (1);
+	}
+}
+#endif
 
 const char var7f1b5a5c[] = "g_MaxRound = %s%s%f";
 const char var7f1b5a70[] = "";

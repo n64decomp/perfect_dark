@@ -1,6 +1,7 @@
 # User configurable
 
 ROMID ?= ntsc-final
+MATCHING ?= 1
 PIRACYCHECKS ?= 1
 
 # In PD, some code is compiled with IDO 5.3 and some is IDO 7.1.
@@ -54,7 +55,7 @@ ifeq ($(ROMID),jpn-final)
 	COPYLEN=4
 endif
 
-DEFINES := VERSION=$(VERSION) PAL=$(PAL) PIRACYCHECKS=$(PIRACYCHECKS) _FINALROM=1
+DEFINES := VERSION=$(VERSION) MATCHING=$(MATCHING) PAL=$(PAL) PIRACYCHECKS=$(PIRACYCHECKS) _FINALROM=1
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 AS_DEFINES := $(foreach d,$(DEFINES),--defsym $(d)) --defsym _LANGUAGE_ASSEMBLY=1

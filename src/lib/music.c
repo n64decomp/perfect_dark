@@ -209,6 +209,7 @@ s32 musicHandleEvent5(struct musicevent *event, s32 result)
 }
 #endif
 
+#if MATCHING
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel musicTickEvents
@@ -862,161 +863,162 @@ glabel musicTickEvents
 /*    1211c:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 #endif
-
+#else
 // Mismatch: In the "Remove the marked events" loop, goal reloads
 // g_MusicEventQueueLength if the if statement passed. Suspect there's some code
 // being optimised out that overwrites a1 or wrote to g_MusicEventQueueLength.
 // The code below uses += 0 to get the mismatch down to one instruction,
-//void musicTickEvents(void)
-//{
-//	s32 i;
-//	s32 j;
-//	s32 result;
-//	struct musicevent *event;
-//
-//	if (!g_SndDisabled) {
-//		if (g_MusicEventQueueLength);
-//
-//		for (i = 0; i < 3; i++) {
-//			if (var800aaa38[i].unk04 == 0 && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
-//				if (g_SeqInstances[i].seqp->chanState[0].unk0d <= var70053ca0[var800aaa38[i].tracktype]) {
-//					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
-//
-//					var800aaa38[i].tracktype = TRACKTYPE_NONE;
-//					var800aaa38[i].unk04 = 0;
-//					var800aaa38[i].unk08 = 0;
-//					var800aaa38[i].unk0c = 0;
-//				} else if (g_SeqInstances[i].seqp->chanState[0].unk0d == var800aaa38[i].unk0c) {
-//					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
-//
-//					var800aaa38[i].tracktype = TRACKTYPE_NONE;
-//					var800aaa38[i].unk04 = 0;
-//					var800aaa38[i].unk08 = 0;
-//					var800aaa38[i].unk0c = 0;
-//				}
-//			}
-//		}
-//
-//		// Figure out which events can be removed from the queue due to later
-//		// events superseding them. This loop just marks those events as
-//		// removable by setting their tracktype to none.
-//		for (i = g_MusicEventQueueLength - 1; i >= 0; i--) {
-//			event = &g_MusicEventQueue[i];
-//
-//			if (event->eventtype == MUSICEVENTTYPE_5) {
-//				continue;
-//			}
-//
-//			if (event->tracktype == TRACKTYPE_NONE) {
-//				continue;
-//			}
-//
-//			for (j = i - 1; j >= 0; j--) {
-//				struct musicevent *earlier = &g_MusicEventQueue[j];
-//
-//				if (event->eventtype == MUSICEVENTTYPE_STOPALL) {
-//					earlier->tracktype = TRACKTYPE_NONE;
-//					continue;
-//				}
-//
-//				if (earlier->eventtype == MUSICEVENTTYPE_5) {
-//					continue;
-//				}
-//
-//				if (earlier->tracktype == TRACKTYPE_NONE) {
-//					continue;
-//				}
-//
-//				if (earlier->tracktype == event->tracktype) {
-//					switch (event->eventtype) {
-//					case MUSICEVENTTYPE_STOP:
-//						earlier->tracktype = TRACKTYPE_NONE;
-//						break;
-//					case MUSICEVENTTYPE_PLAY:
-//						switch (earlier->eventtype) {
-//						case MUSICEVENTTYPE_PLAY:
-//						case MUSICEVENTTYPE_FADE:
-//							earlier->tracktype = TRACKTYPE_NONE;
-//							break;
-//						}
-//						break;
-//					case MUSICEVENTTYPE_FADE:
-//						if (earlier->eventtype == MUSICEVENTTYPE_FADE) {
-//							earlier->tracktype = TRACKTYPE_NONE;
-//						}
-//						break;
-//					}
-//				}
-//			}
-//		}
-//
-//		// Remove the marked events from the queue, shift the remaining
-//		// events forward and recount the queue length.
-//		for (i = 0, j = 0; i < g_MusicEventQueueLength; i++) {
-//			if (g_MusicEventQueue[i].tracktype) {
-//				g_MusicEventQueue[j] = g_MusicEventQueue[i];
-//				j++;
-//
-//				g_MusicEventQueueLength += 0;
-//			}
-//		}
-//
-//		g_MusicEventQueueLength = j;
-//
-//		event = &g_MusicEventQueue[0];
-//
-//		if (var800840e0 == 0 || var800840e4 < g_Vars.diffframe240) {
-//			var800840e4 = var800840e0;
-//
-//			while (g_MusicEventQueueLength) {
-//				event->numattempts++;
-//
-//				result = RESULT_FAIL;
-//
-//				switch (event->eventtype) {
-//				case MUSICEVENTTYPE_PLAY:
-//					result = musicHandlePlayEvent(event, 0);
-//					break;
-//				case MUSICEVENTTYPE_STOP:
-//					result = musicHandleStopEvent(event, 0);
-//					break;
-//				case MUSICEVENTTYPE_FADE:
-//					result = musicHandleFadeEvent(event, 0);
-//					break;
-//				case MUSICEVENTTYPE_STOPALL:
-//					result = musicHandleStopAllEvent(0);
-//					break;
-//				case MUSICEVENTTYPE_5:
-//					result = musicHandleEvent5(event, 0);
-//					break;
-//				}
-//
-//				if (result != RESULT_FAIL) {
-//					// Remove the item from the queue
-//					g_MusicEventQueueLength--;
-//
-//					for (i = 0; i < g_MusicEventQueueLength; i++) {
-//						g_MusicEventQueue[i] = g_MusicEventQueue[i + 1];
-//					}
-//
-//					// Break from processing further events on this frame
-//					// if requested
-//					if (result == RESULT_OK_BREAK) {
-//						break;
-//					}
-//				} else {
-//					break;
-//				}
-//			}
-//		}
-//
-//		if (var800840e0) {
-//			var800840e4 -= g_Vars.diffframe240;
-//		} else {
-//			var800840e4 = 0;
-//		}
-//	}
-//}
+void musicTickEvents(void)
+{
+	s32 i;
+	s32 j;
+	s32 result;
+	struct musicevent *event;
+
+	if (!g_SndDisabled) {
+		if (g_MusicEventQueueLength);
+
+		for (i = 0; i < 3; i++) {
+			if (var800aaa38[i].unk04 == 0 && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
+				if (g_SeqInstances[i].seqp->chanState[0].unk0d <= var70053ca0[var800aaa38[i].tracktype]) {
+					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
+
+					var800aaa38[i].tracktype = TRACKTYPE_NONE;
+					var800aaa38[i].unk04 = 0;
+					var800aaa38[i].unk08 = 0;
+					var800aaa38[i].unk0c = 0;
+				} else if (g_SeqInstances[i].seqp->chanState[0].unk0d == var800aaa38[i].unk0c) {
+					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
+
+					var800aaa38[i].tracktype = TRACKTYPE_NONE;
+					var800aaa38[i].unk04 = 0;
+					var800aaa38[i].unk08 = 0;
+					var800aaa38[i].unk0c = 0;
+				}
+			}
+		}
+
+		// Figure out which events can be removed from the queue due to later
+		// events superseding them. This loop just marks those events as
+		// removable by setting their tracktype to none.
+		for (i = g_MusicEventQueueLength - 1; i >= 0; i--) {
+			event = &g_MusicEventQueue[i];
+
+			if (event->eventtype == MUSICEVENTTYPE_5) {
+				continue;
+			}
+
+			if (event->tracktype == TRACKTYPE_NONE) {
+				continue;
+			}
+
+			for (j = i - 1; j >= 0; j--) {
+				struct musicevent *earlier = &g_MusicEventQueue[j];
+
+				if (event->eventtype == MUSICEVENTTYPE_STOPALL) {
+					earlier->tracktype = TRACKTYPE_NONE;
+					continue;
+				}
+
+				if (earlier->eventtype == MUSICEVENTTYPE_5) {
+					continue;
+				}
+
+				if (earlier->tracktype == TRACKTYPE_NONE) {
+					continue;
+				}
+
+				if (earlier->tracktype == event->tracktype) {
+					switch (event->eventtype) {
+					case MUSICEVENTTYPE_STOP:
+						earlier->tracktype = TRACKTYPE_NONE;
+						break;
+					case MUSICEVENTTYPE_PLAY:
+						switch (earlier->eventtype) {
+						case MUSICEVENTTYPE_PLAY:
+						case MUSICEVENTTYPE_FADE:
+							earlier->tracktype = TRACKTYPE_NONE;
+							break;
+						}
+						break;
+					case MUSICEVENTTYPE_FADE:
+						if (earlier->eventtype == MUSICEVENTTYPE_FADE) {
+							earlier->tracktype = TRACKTYPE_NONE;
+						}
+						break;
+					}
+				}
+			}
+		}
+
+		// Remove the marked events from the queue, shift the remaining
+		// events forward and recount the queue length.
+		for (i = 0, j = 0; i < g_MusicEventQueueLength; i++) {
+			if (g_MusicEventQueue[i].tracktype) {
+				g_MusicEventQueue[j] = g_MusicEventQueue[i];
+				j++;
+
+				g_MusicEventQueueLength += 0;
+			}
+		}
+
+		g_MusicEventQueueLength = j;
+
+		event = &g_MusicEventQueue[0];
+
+		if (var800840e0 == 0 || var800840e4 < g_Vars.diffframe240) {
+			var800840e4 = var800840e0;
+
+			while (g_MusicEventQueueLength) {
+				event->numattempts++;
+
+				result = RESULT_FAIL;
+
+				switch (event->eventtype) {
+				case MUSICEVENTTYPE_PLAY:
+					result = musicHandlePlayEvent(event, 0);
+					break;
+				case MUSICEVENTTYPE_STOP:
+					result = musicHandleStopEvent(event, 0);
+					break;
+				case MUSICEVENTTYPE_FADE:
+					result = musicHandleFadeEvent(event, 0);
+					break;
+				case MUSICEVENTTYPE_STOPALL:
+					result = musicHandleStopAllEvent(0);
+					break;
+				case MUSICEVENTTYPE_5:
+					result = musicHandleEvent5(event, 0);
+					break;
+				}
+
+				if (result != RESULT_FAIL) {
+					// Remove the item from the queue
+					g_MusicEventQueueLength--;
+
+					for (i = 0; i < g_MusicEventQueueLength; i++) {
+						g_MusicEventQueue[i] = g_MusicEventQueue[i + 1];
+					}
+
+					// Break from processing further events on this frame
+					// if requested
+					if (result == RESULT_OK_BREAK) {
+						break;
+					}
+				} else {
+					break;
+				}
+			}
+		}
+
+		if (var800840e0) {
+			var800840e4 -= g_Vars.diffframe240;
+		} else {
+			var800840e4 = 0;
+		}
+	}
+}
+#endif
 
 void musicTick(void)
 {

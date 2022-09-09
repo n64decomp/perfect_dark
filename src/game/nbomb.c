@@ -423,6 +423,7 @@ void func0f0099a4(void)
 	}
 }
 
+#if MATCHING
 #if PAL
 GLOBAL_ASM(
 glabel nbombInflictDamage
@@ -1095,96 +1096,97 @@ glabel var7f1a7f20
 /*  f0099d4:	27bd0320 */ 	addiu	$sp,$sp,0x320
 );
 #endif
-
+#else
 // Mismatch: different usage of callee-save registers relating to room loop
-//void nbombInflictDamage(struct nbomb *nbomb)
-//{
-//	s32 index = 0;
-//	u32 stack;
-//	s16 propnums[256]; // 100
-//	struct coord bbmin; // f4
-//	struct coord bbmax; // e8
-//	s16 roomnums[54]; // 7c
-//	s16 *propnumptr;
-//	s32 i;
-//	u8 sp70[4];
-//	u32 stack2;
-//
-//	sp70[0] = WEAPON_NBOMB;
-//	sp70[3] = 0;
-//
-//	if (g_Vars.lvupdate240 <= 0 || nbomb->age240 > 350) {
-//		return;
-//	}
-//
-//	if (g_Rooms);
-//
-//	// Find rooms which intersect the nbomb dome's bbox
-//	bbmin.x = nbomb->pos.f[0] - nbomb->radius;
-//	bbmin.y = nbomb->pos.f[1] - nbomb->radius;
-//	bbmin.z = nbomb->pos.f[2] - nbomb->radius;
-//
-//	bbmax.x = nbomb->pos.f[0] + nbomb->radius;
-//	bbmax.y = nbomb->pos.f[1] + nbomb->radius;
-//	bbmax.z = nbomb->pos.f[2] + nbomb->radius;
-//
-//	if (g_Vars.roomcount);
-//	if (g_Vars.roomcount);
-//
-//	for (i = 1; i < g_Vars.roomcount; i++) {
-//		if (!(bbmax.f[0] < g_Rooms[i].bbmin[0]
-//				|| bbmin.f[0] > g_Rooms[i].bbmax[0]
-//				|| bbmax.f[1] < g_Rooms[i].bbmin[1]
-//				|| bbmin.f[1] > g_Rooms[i].bbmax[1]
-//				|| bbmax.f[2] < g_Rooms[i].bbmin[2]
-//				|| bbmin.f[2] > g_Rooms[i].bbmax[2])
-//				&& index < 52) {
-//			roomnums[index] = i;
-//			index++;
-//			roomAdjustLighting(i, -38, -180);
-//		}
-//	}
-//
-//	roomnums[index] = -1;
-//
-//	// Iterate props in the affected rooms and damage any chrs
-//	roomGetProps(roomnums, propnums, 256);
-//
-//	propnumptr = propnums;
-//
-//	while (*propnumptr >= 0) {
-//		struct prop *prop = &g_Vars.props[*propnumptr];
-//
-//		if (prop->timetoregen == 0) {
-//			if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
-//				f32 xdiff = prop->pos.f[0] - nbomb->pos.f[0];
-//				f32 ydiff = prop->pos.f[1] - nbomb->pos.f[1];
-//				f32 zdiff = prop->pos.f[2] - nbomb->pos.f[2];
-//
-//				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
-//
-//				if (dist < nbomb->radius) {
-//					struct chrdata *chr = prop->chr;
-//
-//					if (chr) {
-//						struct coord vector = {0, 0, 0};
-//						f32 damage = 0.0099999997764826f * g_Vars.lvupdate240freal;
-//
-//						chrDamageByMisc(chr, damage, &vector, sp70, nbomb->prop);
-//
-//						chr->chrflags |= CHRCFLAG_TRIGGERSHOTLIST;
-//
-//						if (chr->hidden & CHRHFLAG_CLOAKED) {
-//							chrUncloak(chr, true);
-//						}
-//					}
-//				}
-//			}
-//		}
-//
-//		propnumptr++;
-//	}
-//}
+void nbombInflictDamage(struct nbomb *nbomb)
+{
+	s32 index = 0;
+	u32 stack;
+	s16 propnums[256]; // 100
+	struct coord bbmin; // f4
+	struct coord bbmax; // e8
+	s16 roomnums[54]; // 7c
+	s16 *propnumptr;
+	s32 i;
+	struct gset gset; // 70
+	u32 stack2;
+
+	gset.weaponnum = WEAPON_NBOMB;
+	gset.weaponfunc = FUNC_PRIMARY;
+
+	if (g_Vars.lvupdate240 <= 0 || nbomb->age240 > 350) {
+		return;
+	}
+
+	if (g_Rooms);
+
+	// Find rooms which intersect the nbomb dome's bbox
+	bbmin.x = nbomb->pos.f[0] - nbomb->radius;
+	bbmin.y = nbomb->pos.f[1] - nbomb->radius;
+	bbmin.z = nbomb->pos.f[2] - nbomb->radius;
+
+	bbmax.x = nbomb->pos.f[0] + nbomb->radius;
+	bbmax.y = nbomb->pos.f[1] + nbomb->radius;
+	bbmax.z = nbomb->pos.f[2] + nbomb->radius;
+
+	if (g_Vars.roomcount);
+	if (g_Vars.roomcount);
+
+	for (i = 1; i < g_Vars.roomcount; i++) {
+		if (!(bbmax.f[0] < g_Rooms[i].bbmin[0]
+				|| bbmin.f[0] > g_Rooms[i].bbmax[0]
+				|| bbmax.f[1] < g_Rooms[i].bbmin[1]
+				|| bbmin.f[1] > g_Rooms[i].bbmax[1]
+				|| bbmax.f[2] < g_Rooms[i].bbmin[2]
+				|| bbmin.f[2] > g_Rooms[i].bbmax[2])
+				&& index < 52) {
+			roomnums[index] = i;
+			index++;
+			roomAdjustLighting(i, -38, -180);
+		}
+	}
+
+	roomnums[index] = -1;
+
+	// Iterate props in the affected rooms and damage any chrs
+	roomGetProps(roomnums, propnums, 256);
+
+	propnumptr = propnums;
+
+	while (*propnumptr >= 0) {
+		struct prop *prop = &g_Vars.props[*propnumptr];
+
+		if (prop->timetoregen == 0) {
+			if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+				f32 xdiff = prop->pos.f[0] - nbomb->pos.f[0];
+				f32 ydiff = prop->pos.f[1] - nbomb->pos.f[1];
+				f32 zdiff = prop->pos.f[2] - nbomb->pos.f[2];
+
+				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+
+				if (dist < nbomb->radius) {
+					struct chrdata *chr = prop->chr;
+
+					if (chr) {
+						struct coord vector = {0, 0, 0};
+						f32 damage = 0.0099999997764826f * g_Vars.lvupdate240freal;
+
+						chrDamageByMisc(chr, damage, &vector, &gset, nbomb->ownerprop);
+
+						chr->chrflags |= CHRCFLAG_TRIGGERSHOTLIST;
+
+						if (chr->hidden & CHRHFLAG_CLOAKED) {
+							chrUncloak(chr, true);
+						}
+					}
+				}
+			}
+		}
+
+		propnumptr++;
+	}
+}
+#endif
 
 u32 var800616e8 = 0x00000000;
 u32 var800616ec = 0x00000000;
@@ -1451,6 +1453,7 @@ f32 gasGetDoorFrac(s32 tagnum)
 	return 0;
 }
 
+#if MATCHING
 #if PAL
 GLOBAL_ASM(
 glabel nbombRenderOverlay
@@ -2074,134 +2077,136 @@ glabel nbombRenderOverlay
 /*  f00a93c:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 #endif
-
+#else
 /**
  * Checks if the player is inside an nbomb storm, and if so renders the black
  * storm texture directly over the screen.
  */
 // Mismatch: Goal has an extra move in the calculation of sp5e
-//Gfx *nbombRenderOverlay(Gfx *gdl)
-//{
-//	u32 stack;
-//	struct coord campos; // 70
-//	struct gfxvtx *vertices;
-//	u32 maxalpha;
-//	bool inside;
-//	s32 i;
-//	s16 sp5e;
-//	s16 s2;
-//	u32 stack2[2];
-//	bool sp50 = false;
-//	s32 b;
-//	u32 *colours; // 48
-//	s32 a;
-//	s16 viewleft; // 42
-//	s16 viewtop; // 40
-//	s16 viewright; // 3e
-//	s16 viewbottom; // 3c
-//
-//	campos.x = g_Vars.currentplayer->cam_pos.x;
-//	campos.y = g_Vars.currentplayer->cam_pos.y;
-//	campos.z = g_Vars.currentplayer->cam_pos.z;
-//
-//	inside = false;
-//	maxalpha = 0;
-//
-//	for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
-//		if (g_Nbombs[i].age240 >= 0 && g_Nbombs[i].age240 <= TICKS(350)) {
-//			f32 xdiff = campos.f[0] - g_Nbombs[i].pos.f[0];
-//			f32 ydiff = campos.f[1] - g_Nbombs[i].pos.f[1];
-//			f32 zdiff = campos.f[2] - g_Nbombs[i].pos.f[2];
-//
-//			if (sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff) < g_Nbombs[i].radius) {
-//				u32 alpha = nbombCalculateAlpha(&g_Nbombs[i]);
-//
-//				inside = true;
-//
-//				if (alpha > maxalpha) {
-//					maxalpha = alpha;
-//				}
-//			}
-//		}
-//	}
-//
-//	if (inside) {
-//		colours = gfxAllocateColours(1);
-//		vertices = gfxAllocateVertices(4);
-//
-//		viewleft = viGetViewLeft() * 10;
-//		viewtop = viGetViewTop() * 10;
-//		viewright = (s16)(viGetViewLeft() + viGetViewWidth()) * 10;
-//		viewbottom = (s16)(viGetViewTop() + viGetViewHeight()) * 10;
-//
-//		sp50 = true;
-//
-//		s2 = (s32) (8.0f * var80061630 * 128.0f * 32.0f) % 2048;
-//		sp5e = ((s32)(campos.f[1] * 8.0f) % 2048) + (s32)(2.0f * var80061630 * 128.0f * 32.0f);
-//
-//		if (1);
-//		if (1);
-//
-//		gdl = func0f0d479c(gdl);
-//
-//		if (1);
-//
-//		texSelect(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, true, NULL);
-//
-//		gDPPipeSync(gdl++);
-//		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-//		gDPSetAlphaCompare(gdl++, G_AC_NONE);
-//		gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
-//		gSPClearGeometryMode(gdl++, G_CULL_BOTH);
-//		gDPSetColorDither(gdl++, G_CD_DISABLE);
-//		gDPSetTextureFilter(gdl++, G_TF_BILERP);
-//		gDPSetRenderMode(gdl++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
-//		gDPSetTexturePersp(gdl++, G_TP_PERSP);
-//
-//		vertices[0].x = viewleft;
-//		vertices[0].y = viewtop;
-//		vertices[0].z = -10;
-//
-//		vertices[1].x = viewright;
-//		vertices[1].y = viewtop;
-//		vertices[1].z = -10;
-//
-//		vertices[2].x = viewright;
-//		vertices[2].y = viewbottom;
-//		vertices[2].z = -10;
-//
-//		vertices[3].x = viewleft;
-//		vertices[3].y = viewbottom;
-//		vertices[3].z = -10;
-//
-//		vertices[0].s = s2;
-//		vertices[0].t = sp5e;
-//		vertices[1].s = s2 + 160;
-//		vertices[1].t = sp5e;
-//		vertices[2].s = s2 + 160;
-//		vertices[2].t = sp5e + 960;
-//		vertices[3].s = s2;
-//		vertices[3].t = sp5e + 960;
-//
-//		vertices[0].colour = 0;
-//		vertices[1].colour = 0;
-//		vertices[2].colour = 0;
-//		vertices[3].colour = 0;
-//
-//		colours[0] = maxalpha;
-//
-//		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-//		gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
-//		gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
-//	}
-//
-//	if (sp50) {
-//		gdl = func0f0d49c8(gdl);
-//	}
-//
-//	return gdl;
-//}
+Gfx *nbombRenderOverlay(Gfx *gdl)
+{
+	u32 stack;
+	struct coord campos; // 70
+	struct gfxvtx *vertices;
+	u32 maxalpha;
+	bool inside;
+	s32 i;
+	s16 sp5e;
+	s16 s2;
+	u32 stack2[2];
+	bool sp50 = false;
+	s32 b;
+	u32 *colours; // 48
+	s32 a;
+	s16 viewleft; // 42
+	s16 viewtop; // 40
+	s16 viewright; // 3e
+	s16 viewbottom; // 3c
 
+	campos.x = g_Vars.currentplayer->cam_pos.x;
+	campos.y = g_Vars.currentplayer->cam_pos.y;
+	campos.z = g_Vars.currentplayer->cam_pos.z;
+
+	inside = false;
+	maxalpha = 0;
+
+	for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
+		if (g_Nbombs[i].age240 >= 0 && g_Nbombs[i].age240 <= TICKS(350)) {
+			f32 xdiff = campos.f[0] - g_Nbombs[i].pos.f[0];
+			f32 ydiff = campos.f[1] - g_Nbombs[i].pos.f[1];
+			f32 zdiff = campos.f[2] - g_Nbombs[i].pos.f[2];
+
+			if (sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff) < g_Nbombs[i].radius) {
+				u32 alpha = nbombCalculateAlpha(&g_Nbombs[i]);
+
+				inside = true;
+
+				if (alpha > maxalpha) {
+					maxalpha = alpha;
+				}
+			}
+		}
+	}
+
+	if (inside) {
+		colours = gfxAllocateColours(1);
+		vertices = gfxAllocateVertices(4);
+
+		viewleft = viGetViewLeft() * 10;
+		viewtop = viGetViewTop() * 10;
+		viewright = (s16)(viGetViewLeft() + viGetViewWidth()) * 10;
+		viewbottom = (s16)(viGetViewTop() + viGetViewHeight()) * 10;
+
+		sp50 = true;
+
+		s2 = (s32) (8.0f * var80061630 * 128.0f * 32.0f) % 2048;
+		sp5e = ((s32)(campos.f[1] * 8.0f) % 2048) + (s32)(2.0f * var80061630 * 128.0f * 32.0f);
+
+		if (1);
+		if (1);
+
+		gdl = func0f0d479c(gdl);
+
+		if (1);
+
+		texSelect(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, true, NULL);
+
+		gDPPipeSync(gdl++);
+		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+		gDPSetAlphaCompare(gdl++, G_AC_NONE);
+		gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+		gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+		gDPSetColorDither(gdl++, G_CD_DISABLE);
+		gDPSetTextureFilter(gdl++, G_TF_BILERP);
+		gDPSetRenderMode(gdl++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
+		gDPSetTexturePersp(gdl++, G_TP_PERSP);
+
+		vertices[0].x = viewleft;
+		vertices[0].y = viewtop;
+		vertices[0].z = -10;
+
+		vertices[1].x = viewright;
+		vertices[1].y = viewtop;
+		vertices[1].z = -10;
+
+		vertices[2].x = viewright;
+		vertices[2].y = viewbottom;
+		vertices[2].z = -10;
+
+		vertices[3].x = viewleft;
+		vertices[3].y = viewbottom;
+		vertices[3].z = -10;
+
+		vertices[0].s = s2;
+		vertices[0].t = sp5e;
+		vertices[1].s = s2 + 160;
+		vertices[1].t = sp5e;
+		vertices[2].s = s2 + 160;
+		vertices[2].t = sp5e + 960;
+		vertices[3].s = s2;
+		vertices[3].t = sp5e + 960;
+
+		vertices[0].colour = 0;
+		vertices[1].colour = 0;
+		vertices[2].colour = 0;
+		vertices[3].colour = 0;
+
+		colours[0] = maxalpha;
+
+		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
+		gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+		gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+	}
+
+	if (sp50) {
+		gdl = func0f0d49c8(gdl);
+	}
+
+	return gdl;
+}
+#endif
+
+#if MATCHING
 GLOBAL_ASM(
 glabel gasRender
 .late_rodata
@@ -2775,206 +2780,207 @@ const u32 var7f1a7ea0[] = {0x0000009a};
 const u32 var7f1a7ea4[] = {0x00000091};
 const u32 var7f1a7ea8[] = {0x0000008f};
 const u32 var7f1a7eac[] = {0x00000090};
-
+#else
 // Mismatch: Float calculations
-//Gfx *gasRender(Gfx *gdl)
-//{
-//	bool show = false;
-//	f32 alphafrac = 1.0f; // 108
-//	struct coord campos; // fc
-//	s16 spfa; // fa
-//	u32 alpha;
-//	s32 i;
-//	bool drawn = false; // ec
-//	const u32 gasrooms[] = { 0x92, 0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9a, 0x91, 0x8f, 0x90 }; // bc
-//	f32 intensityfrac; // b8
-//	u32 stack;
-//	f32 frac1; // b0
-//	f32 frac2;
-//
-//	f32 distance;
-//	u32 *colours; // a4
-//	struct gfxvtx *vertices;
-//	s16 viewleft; // 9e
-//	s16 viewtop; // 9c
-//	s16 viewright; // 9a
-//	s16 viewbottom; // 98
-//	f32 fVar19;
-//	f32 camposx; // 8c
-//	f32 camposz; // 88
-//	f32 sp78; // 78
-//	s16 sp76; // 76
-//	s16 sp72; // 72
-//	s16 sVar15;
-//	s32 uVar21;
-//	f32 sp38; // 38
-//
-//	if (g_Vars.stagenum == STAGE_ESCAPE) {
-//		intensityfrac = 1.0f;
-//
-//		campos.x = g_Vars.currentplayer->cam_pos.x;
-//		campos.y = g_Vars.currentplayer->cam_pos.y;
-//		campos.z = g_Vars.currentplayer->cam_pos.z;
-//
-//		for (i = 0; i < 12; i++) {
-//			if (roomContainsCoord(&campos, gasrooms[i])) {
-//				show = true;
-//			}
-//		}
-//
-//		if (!show) {
-//			// Outside of the gas rooms list - check distance to abitrary point
-//			distance = sqrtf(
-//					(campos.f[0] - -1473.0f) * (campos.f[0] - -1473.0f) +
-//					(campos.f[1] - -308.0f) * (campos.f[1] - -308.0f) +
-//					(campos.f[2] - -13660.0f) * (campos.f[2] - -13660.0f));
-//
-//			if (distance < 1328.0f) {
-//				show = true;
-//				alphafrac = 1.0f - distance / 1328.0f;
-//				intensityfrac = gasGetDoorFrac(0x32);
-//			}
-//		} else {
-//			if (roomContainsCoord(&campos, 0x91)) {
-//				// In the small room between the first two doors
-//				frac1 = gasGetDoorFrac(0x30);
-//				frac2 = gasGetDoorFrac(0x31);
-//
-//				if (frac2 > frac1) {
-//					intensityfrac = frac2;
-//				} else {
-//					intensityfrac = frac1;
-//				}
-//
-//				intensityfrac += 0.2f;
-//			}
-//		}
-//
-//		alphafrac *= intensityfrac;
-//
-//		if (show && g_Vars.tickmode == TICKMODE_CUTSCENE) {
-//			if (g_CutsceneCurAnimFrame60 < 2180) {
-//				show = false;
-//			} else {
-//				if (g_CutsceneCurAnimFrame60 < 2600) {
-//					alphafrac *= (g_CutsceneCurAnimFrame60 - 2180) / 420.0f;
-//				}
-//			}
-//		}
-//
-//		if (show) {
-//			f32 lookx;
-//			f32 lookz;
-//			f32 tmp;
-//			f32 tmp2;
-//			s32 tmp3;
-//			colours = gfxAllocateColours(1);
-//			vertices = gfxAllocateVertices(8);
-//			viewleft = viGetViewLeft() * 10;
-//			viewtop = viGetViewTop() * 10;
-//			viewright = (viGetViewLeft() + viGetViewWidth()) * 10;
-//			viewbottom = (viGetViewTop() + viGetViewHeight()) * 10;
-//
-//			lookx = g_Vars.currentplayer->cam_look.x;
-//			lookz = g_Vars.currentplayer->cam_look.z;
-//			camposx = g_Vars.currentplayer->cam_pos.f[0];
-//			camposz = g_Vars.currentplayer->cam_pos.f[2];
-//
-//			sp78 = atan2f(-lookx, lookz) / M_BADTAU;
-//			sp38 = (func0f006b08(4) - 0.5f) / 6.0f;
-//
-//			fVar19 = (camposx + camposz) / 3000.0f;
-//			fVar19 -= (s32)fVar19;
-//			tmp = sp38 + sp78 + fVar19 * 1.5f;
-//
-//			sp76 = (s32)((2.0f * tmp) * 128.0f * 32.0f) % 0x800;
-//
-//			tmp2 = (func0f006b54(4) - 0.5f) / -9.0f;
-//			drawn = true;
-//			fVar19 = tmp2 + sp78 + sp38;
-//
-//			sVar15 = (s32)((2.0f * fVar19) * 128.0f * 32.0f) % 0x800;
-//
-//			tmp3 = (s32)(campos.y * 8.0f) % 0x800;
-//
-//			spfa = tmp3 + (s32)((2.0f * var80061630) * 128.0f * 32.0f);
-//			sp72 = tmp3 + (s32)((2.0f * var80061630) * 64.0f * 32.0f);
-//
-//			gdl = func0f0d479c(gdl);
-//
-//			texSelect(&gdl, &g_TexGeneralConfigs[6], 4, 1, 2, 1, NULL);
-//
-//			gDPPipeSync(gdl++);
-//			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-//			gDPSetAlphaCompare(gdl++, G_AC_NONE);
-//			gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
-//			gSPClearGeometryMode(gdl++, G_CULL_BOTH);
-//			gDPSetColorDither(gdl++, G_CD_DISABLE);
-//			gDPSetTextureFilter(gdl++, G_TF_BILERP);
-//			gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
-//			gDPSetTexturePersp(gdl++, G_TP_PERSP);
-//
-//			vertices[0].x = viewleft;
-//			vertices[0].y = viewtop;
-//			vertices[0].z = -10;
-//			vertices[1].z = -10;
-//			vertices[2].z = -10;
-//			vertices[3].z = -10;
-//			vertices[4].z = -10;
-//			vertices[5].z = -10;
-//			vertices[6].z = -10;
-//			vertices[7].z = -10;
-//			vertices[0].s = sVar15;
-//			vertices[0].t = sp72;
-//			vertices[1].y = viewtop;
-//			vertices[4].y = viewtop;
-//			vertices[5].y = viewtop;
-//			vertices[3].x = viewleft;
-//			vertices[4].x = viewleft;
-//			vertices[7].x = viewleft;
-//			vertices[2].y = viewbottom;
-//			vertices[3].y = viewbottom;
-//			vertices[6].y = viewbottom;
-//			vertices[7].y = viewbottom;
-//			vertices[1].x = viewright;
-//			vertices[2].x = viewright;
-//			vertices[5].x = viewright;
-//			vertices[6].x = viewright;
-//			vertices[1].s = sVar15 + 960;
-//			vertices[2].s = sVar15 + 960;
-//			vertices[2].t = sp72 + 640;
-//			vertices[3].s = sVar15;
-//			vertices[3].t = sp72 + 640;
-//			vertices[0].colour = 0;
-//			vertices[1].colour = 0;
-//			vertices[2].colour = 0;
-//			vertices[3].colour = 0;
-//			vertices[1].t = sp72;
-//			vertices[4].t = spfa;
-//			vertices[4].s = sp76;
-//			vertices[5].s = sp76 + 640;
-//			vertices[6].s = sp76 + 640;
-//			vertices[6].t = spfa + 480;
-//			vertices[7].t = spfa + 480;
-//			vertices[4].colour = 0;
-//			vertices[5].colour = 0;
-//			vertices[6].colour = 0;
-//			vertices[7].colour = 0;
-//			vertices[5].t = spfa;
-//			vertices[7].s = sp76;
-//
-//			colours[0] = 0x3faf1100 | (u32)(alphafrac * 127.0f);
-//
-//			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-//			gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
-//
-//			gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
-//		}
-//	}
-//
-//	if (drawn) {
-//		gdl = func0f0d49c8(gdl);
-//	}
-//
-//	return gdl;
-//}
+Gfx *gasRender(Gfx *gdl)
+{
+	bool show = false;
+	f32 alphafrac = 1.0f; // 108
+	struct coord campos; // fc
+	s16 spfa; // fa
+	u32 alpha;
+	s32 i;
+	bool drawn = false; // ec
+	const u32 gasrooms[] = { 0x92, 0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9a, 0x91, 0x8f, 0x90 }; // bc
+	f32 intensityfrac; // b8
+	u32 stack;
+	f32 frac1; // b0
+	f32 frac2;
+
+	f32 distance;
+	u32 *colours; // a4
+	struct gfxvtx *vertices;
+	s16 viewleft; // 9e
+	s16 viewtop; // 9c
+	s16 viewright; // 9a
+	s16 viewbottom; // 98
+	f32 fVar19;
+	f32 camposx; // 8c
+	f32 camposz; // 88
+	f32 sp78; // 78
+	s16 sp76; // 76
+	s16 sp72; // 72
+	s16 sVar15;
+	s32 uVar21;
+	f32 sp38; // 38
+
+	if (g_Vars.stagenum == STAGE_ESCAPE) {
+		intensityfrac = 1.0f;
+
+		campos.x = g_Vars.currentplayer->cam_pos.x;
+		campos.y = g_Vars.currentplayer->cam_pos.y;
+		campos.z = g_Vars.currentplayer->cam_pos.z;
+
+		for (i = 0; i < 12; i++) {
+			if (roomContainsCoord(&campos, gasrooms[i])) {
+				show = true;
+			}
+		}
+
+		if (!show) {
+			// Outside of the gas rooms list - check distance to abitrary point
+			distance = sqrtf(
+					(campos.f[0] - -1473.0f) * (campos.f[0] - -1473.0f) +
+					(campos.f[1] - -308.0f) * (campos.f[1] - -308.0f) +
+					(campos.f[2] - -13660.0f) * (campos.f[2] - -13660.0f));
+
+			if (distance < 1328.0f) {
+				show = true;
+				alphafrac = 1.0f - distance / 1328.0f;
+				intensityfrac = gasGetDoorFrac(0x32);
+			}
+		} else {
+			if (roomContainsCoord(&campos, 0x91)) {
+				// In the small room between the first two doors
+				frac1 = gasGetDoorFrac(0x30);
+				frac2 = gasGetDoorFrac(0x31);
+
+				if (frac2 > frac1) {
+					intensityfrac = frac2;
+				} else {
+					intensityfrac = frac1;
+				}
+
+				intensityfrac += 0.2f;
+			}
+		}
+
+		alphafrac *= intensityfrac;
+
+		if (show && g_Vars.tickmode == TICKMODE_CUTSCENE) {
+			if (g_CutsceneCurAnimFrame60 < 2180) {
+				show = false;
+			} else {
+				if (g_CutsceneCurAnimFrame60 < 2600) {
+					alphafrac *= (g_CutsceneCurAnimFrame60 - 2180) / 420.0f;
+				}
+			}
+		}
+
+		if (show) {
+			f32 lookx;
+			f32 lookz;
+			f32 tmp;
+			f32 tmp2;
+			s32 tmp3;
+			colours = gfxAllocateColours(1);
+			vertices = gfxAllocateVertices(8);
+			viewleft = viGetViewLeft() * 10;
+			viewtop = viGetViewTop() * 10;
+			viewright = (viGetViewLeft() + viGetViewWidth()) * 10;
+			viewbottom = (viGetViewTop() + viGetViewHeight()) * 10;
+
+			lookx = g_Vars.currentplayer->cam_look.x;
+			lookz = g_Vars.currentplayer->cam_look.z;
+			camposx = g_Vars.currentplayer->cam_pos.f[0];
+			camposz = g_Vars.currentplayer->cam_pos.f[2];
+
+			sp78 = atan2f(-lookx, lookz) / M_BADTAU;
+			sp38 = (func0f006b08(4) - 0.5f) / 6.0f;
+
+			fVar19 = (camposx + camposz) / 3000.0f;
+			fVar19 -= (s32)fVar19;
+			tmp = sp38 + sp78 + fVar19 * 1.5f;
+
+			sp76 = (s32)((2.0f * tmp) * 128.0f * 32.0f) % 0x800;
+
+			tmp2 = (func0f006b54(4) - 0.5f) / -9.0f;
+			drawn = true;
+			fVar19 = tmp2 + sp78 + sp38;
+
+			sVar15 = (s32)((2.0f * fVar19) * 128.0f * 32.0f) % 0x800;
+
+			tmp3 = (s32)(campos.y * 8.0f) % 0x800;
+
+			spfa = tmp3 + (s32)((2.0f * var80061630) * 128.0f * 32.0f);
+			sp72 = tmp3 + (s32)((2.0f * var80061630) * 64.0f * 32.0f);
+
+			gdl = func0f0d479c(gdl);
+
+			texSelect(&gdl, &g_TexGeneralConfigs[6], 4, 1, 2, 1, NULL);
+
+			gDPPipeSync(gdl++);
+			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+			gDPSetAlphaCompare(gdl++, G_AC_NONE);
+			gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+			gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+			gDPSetColorDither(gdl++, G_CD_DISABLE);
+			gDPSetTextureFilter(gdl++, G_TF_BILERP);
+			gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
+			gDPSetTexturePersp(gdl++, G_TP_PERSP);
+
+			vertices[0].x = viewleft;
+			vertices[0].y = viewtop;
+			vertices[0].z = -10;
+			vertices[1].z = -10;
+			vertices[2].z = -10;
+			vertices[3].z = -10;
+			vertices[4].z = -10;
+			vertices[5].z = -10;
+			vertices[6].z = -10;
+			vertices[7].z = -10;
+			vertices[0].s = sVar15;
+			vertices[0].t = sp72;
+			vertices[1].y = viewtop;
+			vertices[4].y = viewtop;
+			vertices[5].y = viewtop;
+			vertices[3].x = viewleft;
+			vertices[4].x = viewleft;
+			vertices[7].x = viewleft;
+			vertices[2].y = viewbottom;
+			vertices[3].y = viewbottom;
+			vertices[6].y = viewbottom;
+			vertices[7].y = viewbottom;
+			vertices[1].x = viewright;
+			vertices[2].x = viewright;
+			vertices[5].x = viewright;
+			vertices[6].x = viewright;
+			vertices[1].s = sVar15 + 960;
+			vertices[2].s = sVar15 + 960;
+			vertices[2].t = sp72 + 640;
+			vertices[3].s = sVar15;
+			vertices[3].t = sp72 + 640;
+			vertices[0].colour = 0;
+			vertices[1].colour = 0;
+			vertices[2].colour = 0;
+			vertices[3].colour = 0;
+			vertices[1].t = sp72;
+			vertices[4].t = spfa;
+			vertices[4].s = sp76;
+			vertices[5].s = sp76 + 640;
+			vertices[6].s = sp76 + 640;
+			vertices[6].t = spfa + 480;
+			vertices[7].t = spfa + 480;
+			vertices[4].colour = 0;
+			vertices[5].colour = 0;
+			vertices[6].colour = 0;
+			vertices[7].colour = 0;
+			vertices[5].t = spfa;
+			vertices[7].s = sp76;
+
+			colours[0] = 0x3faf1100 | (u32)(alphafrac * 127.0f);
+
+			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
+			gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
+
+			gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
+		}
+	}
+
+	if (drawn) {
+		gdl = func0f0d49c8(gdl);
+	}
+
+	return gdl;
+}
+#endif

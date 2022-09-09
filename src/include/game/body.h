@@ -6,7 +6,7 @@
 
 void bodiesInit(void);
 
-void bodiesReset(void);
+void bodiesReset(s32 stagenum);
 
 u32 bodyGetRace(s32 bodynum);
 bool bodyLoad(s32 bodynum);

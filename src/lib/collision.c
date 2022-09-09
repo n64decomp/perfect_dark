@@ -2988,6 +2988,7 @@ s32 cdTestVolume(struct coord *pos, f32 width, s16 *rooms, s32 types, s32 arg4, 
 	return result;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel cd0002a6fc
 /*    2a6fc:	27bdff58 */ 	addiu	$sp,$sp,-168
@@ -3191,77 +3192,78 @@ glabel cd0002a6fc
 /*    2a9e8:	03e00008 */ 	jr	$ra
 /*    2a9ec:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
-
+#else
 // Mismatch: Goal copies geo from t1 to v0 in the type 0 block
-//s32 cd0002a6fc(struct coord *pos, struct coord *pos2, f32 width, s16 *rooms, s32 types, bool arg5, f32 arg6, f32 arg7)
-//{
-//	u32 stack[5];
-//	struct collisionthing thing; // 80
-//	s32 cdresult;
-//	struct coord sp70;
-//	struct coord sp64;
-//
-//	cdresult = CDRESULT_NOCOLLISION;
-//
-//	cd00027d1c(pos2, width, rooms, types, 4, arg5, arg6, arg7, &thing, 1);
-//
-//	// 768
-//	if (thing.geo != NULL) {
-//		cdresult = CDRESULT_COLLISION;
-//
-//		// 778
-//		if (thing.geo->type == GEOTYPE_TILE_I) {
-//			struct geotilei *tile = (struct geotilei *) thing.geo;
-//			s32 this = thing.vertexindex;
-//			s32 next = (this + 1) % thing.geo->numvertices;
-//
-//			sp70.x = tile->vertices[this][0];
-//			sp70.y = tile->vertices[this][1];
-//			sp70.z = tile->vertices[this][2];
-//
-//			sp64.x = tile->vertices[next][0];
-//			sp64.y = tile->vertices[next][1];
-//			sp64.z = tile->vertices[next][2];
-//		} else /*854*/ if (thing.geo->type == GEOTYPE_TILE_F) {
-//			struct geotilef *type1 = (struct geotilef *) thing.geo;
-//			s32 this = thing.vertexindex;
-//			s32 next = (this + 1) % thing.geo->numvertices;
-//
-//			sp70.x = type1->vertices[this].x;
-//			sp70.y = type1->vertices[this].y;
-//			sp70.z = type1->vertices[this].z;
-//
-//			sp64.x = type1->vertices[next].x;
-//			sp64.y = type1->vertices[next].y;
-//			sp64.z = type1->vertices[next].z;
-//		} else if (thing.geo->type == GEOTYPE_BLOCK) {
-//			struct geoblock *block = (struct geoblock *) thing.geo;
-//			s32 this = thing.vertexindex;
-//			s32 next = (this + 1) % thing.geo->numvertices;
-//
-//			sp70.x = block->vertices[this][0];
-//			sp70.y = pos->y;
-//			sp70.z = block->vertices[this][1];
-//
-//			sp64.x = block->vertices[next][0];
-//			sp64.y = pos->y;
-//			sp64.z = block->vertices[next][1];
-//		} else if (thing.geo->type == GEOTYPE_CYL) {
-//			struct geocyl *cyl = (struct geocyl *) thing.geo;
-//
-//			if (1);
-//
-//			cd00025848(cyl->x, cyl->z, cyl->width, pos->x, pos->z, &sp70.x, &sp70.z, &sp64.x, &sp64.z);
-//
-//			sp70.y = pos->y;
-//			sp64.y = pos->y;
-//		}
-//
-//		cd00024fb0(&sp70, &sp64, thing.prop);
-//	}
-//
-//	return cdresult;
-//}
+s32 cd0002a6fc(struct coord *pos, struct coord *pos2, f32 width, s16 *rooms, s32 types, bool arg5, f32 arg6, f32 arg7)
+{
+	u32 stack[5];
+	struct collisionthing thing; // 80
+	s32 cdresult;
+	struct coord sp70;
+	struct coord sp64;
+
+	cdresult = CDRESULT_NOCOLLISION;
+
+	cd00027d1c(pos2, width, rooms, types, 4, arg5, arg6, arg7, &thing, 1);
+
+	// 768
+	if (thing.geo != NULL) {
+		cdresult = CDRESULT_COLLISION;
+
+		// 778
+		if (thing.geo->type == GEOTYPE_TILE_I) {
+			struct geotilei *tile = (struct geotilei *) thing.geo;
+			s32 this = thing.vertexindex;
+			s32 next = (this + 1) % thing.geo->numvertices;
+
+			sp70.x = tile->vertices[this][0];
+			sp70.y = tile->vertices[this][1];
+			sp70.z = tile->vertices[this][2];
+
+			sp64.x = tile->vertices[next][0];
+			sp64.y = tile->vertices[next][1];
+			sp64.z = tile->vertices[next][2];
+		} else /*854*/ if (thing.geo->type == GEOTYPE_TILE_F) {
+			struct geotilef *type1 = (struct geotilef *) thing.geo;
+			s32 this = thing.vertexindex;
+			s32 next = (this + 1) % thing.geo->numvertices;
+
+			sp70.x = type1->vertices[this].x;
+			sp70.y = type1->vertices[this].y;
+			sp70.z = type1->vertices[this].z;
+
+			sp64.x = type1->vertices[next].x;
+			sp64.y = type1->vertices[next].y;
+			sp64.z = type1->vertices[next].z;
+		} else if (thing.geo->type == GEOTYPE_BLOCK) {
+			struct geoblock *block = (struct geoblock *) thing.geo;
+			s32 this = thing.vertexindex;
+			s32 next = (this + 1) % thing.geo->numvertices;
+
+			sp70.x = block->vertices[this][0];
+			sp70.y = pos->y;
+			sp70.z = block->vertices[this][1];
+
+			sp64.x = block->vertices[next][0];
+			sp64.y = pos->y;
+			sp64.z = block->vertices[next][1];
+		} else if (thing.geo->type == GEOTYPE_CYL) {
+			struct geocyl *cyl = (struct geocyl *) thing.geo;
+
+			if (1);
+
+			cd00025848(cyl->x, cyl->z, cyl->radius, pos->x, pos->z, &sp70.x, &sp70.z, &sp64.x, &sp64.z);
+
+			sp70.y = pos->y;
+			sp64.y = pos->y;
+		}
+
+		cd00024fb0(&sp70, &sp64, thing.prop);
+	}
+
+	return cdresult;
+}
+#endif
 
 s32 cdTestAToB1(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dstrooms, s32 types, s32 arg5, f32 ymax, f32 ymin)
 {
@@ -4185,6 +4187,7 @@ bool cd0002d15c(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, 
 	return true;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel cd0002d3b0
 /*    2d3b0:	27bdfd20 */ 	addiu	$sp,$sp,-736
@@ -4386,68 +4389,69 @@ glabel cd0002d3b0
 /*    2d6a4:	03e00008 */ 	jr	$ra
 /*    2d6a8:	27bd02e0 */ 	addiu	$sp,$sp,0x2e0
 );
-
+#else
 // Mismatch: Calculation of g_TileRooms[roomnum] is different
 // Other functions and the below use t3 as the offset, t2 as the base, then t2 + t3
 // But goal for this function uses t2 as the offset, t3 as the base, then t2 + t3
-//s32 cd0002d3b0(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u16 arg4, s32 arg5, s32 arg6, f32 ymax, f32 ymin)
-//{
-//	s32 roomnum;
-//	s16 *roomptr;
-//	u8 *start;
-//	u8 *end;
-//	struct coord sp2c4;
-//	bool sp2c0 = false;
-//	u32 sp2b4[3];
-//	struct coord sp2a8;
-//	struct coord sp29c;
-//	f32 sp298 = 4294967296;
-//	struct geo *sp294;
-//	s16 *propnumptr;
-//	s16 propnums[256];
-//
-//	sp2c4.x = arg1->x - arg0->x;
-//	sp2c4.y = arg1->y - arg0->y;
-//	sp2c4.z = arg1->z - arg0->z;
-//
-//	if (types & CDTYPE_BG) {
-//		roomptr = rooms;
-//		roomnum = rooms[0];
-//
-//		while (roomnum != -1) {
-//			if (roomnum < g_TileNumRooms) {
-//				start = g_TileFileData.u8 + g_TileRooms[roomnum];
-//				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
-//
-//				if (!cd0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, sp2b4, &sp2a8, &sp29c, &sp294, roomnum)) {
-//					sp2c0 = true;
-//					cd00025254(&sp2a8, &sp29c, sp2b4, NULL, sp298, sp294);
-//				}
-//			}
-//
-//			roomptr++;
-//			roomnum = *roomptr;
-//		}
-//	}
-//
-//	roomGetProps(rooms, propnums, 256);
-//	propnumptr = propnums;
-//
-//	while (*propnumptr >= 0) {
-//		struct prop *prop = &g_Vars.props[*propnumptr];
-//
-//		if (propIsOfCdType(prop, types)
-//				&& propUpdateGeometry(prop, &start, &end)
-//				&& !cd0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, sp2b4, &sp2a8, &sp29c, &sp294, -999)) {
-//			sp2c0 = true;
-//			cd00025254(&sp2a8, &sp29c, sp2b4, prop, sp298, sp294);
-//		}
-//
-//		propnumptr++;
-//	}
-//
-//	return !sp2c0;
-//}
+s32 cd0002d3b0(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u16 arg4, s32 arg5, s32 arg6, f32 ymax, f32 ymin)
+{
+	s32 roomnum;
+	s16 *roomptr;
+	u8 *start;
+	u8 *end;
+	struct coord sp2c4;
+	bool sp2c0 = false;
+	struct coord sp2b4;
+	struct coord sp2a8;
+	struct coord sp29c;
+	f32 sp298 = 4294967296;
+	struct geo *sp294;
+	s16 *propnumptr;
+	s16 propnums[256];
+
+	sp2c4.x = arg1->x - arg0->x;
+	sp2c4.y = arg1->y - arg0->y;
+	sp2c4.z = arg1->z - arg0->z;
+
+	if (types & CDTYPE_BG) {
+		roomptr = rooms;
+		roomnum = rooms[0];
+
+		while (roomnum != -1) {
+			if (roomnum < g_TileNumRooms) {
+				start = g_TileFileData.u8 + g_TileRooms[roomnum];
+				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
+
+				if (!cd0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, &sp2b4, &sp2a8, &sp29c, &sp294, roomnum)) {
+					sp2c0 = true;
+					cd00025254(&sp2a8, &sp29c, &sp2b4, NULL, sp298, sp294);
+				}
+			}
+
+			roomptr++;
+			roomnum = *roomptr;
+		}
+	}
+
+	roomGetProps(rooms, propnums, 256);
+	propnumptr = propnums;
+
+	while (*propnumptr >= 0) {
+		struct prop *prop = &g_Vars.props[*propnumptr];
+
+		if (propIsOfCdType(prop, types)
+				&& propUpdateGeometry(prop, &start, &end)
+				&& !cd0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, &sp2b4, &sp2a8, &sp29c, &sp294, -999)) {
+			sp2c0 = true;
+			cd00025254(&sp2a8, &sp29c, &sp2b4, prop, sp298, sp294);
+		}
+
+		propnumptr++;
+	}
+
+	return !sp2c0;
+}
+#endif
 
 bool cd0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 arg5, f32 arg6)
 {
@@ -4677,6 +4681,7 @@ bool cd0002ded8(struct coord *arg0, struct coord *arg1, struct prop *prop)
 	return !result;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel cd0002dffc
 /*    2dffc:	27bdff78 */ 	addiu	$sp,$sp,-136
@@ -4857,64 +4862,65 @@ glabel cd0002dffc
 /*    2e270:	03e00008 */ 	jr	$ra
 /*    2e274:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
-
+#else
 // Mismatch: Float regalloc, likely related to the zero variable
-//bool cd0002dffc(struct geoblock *arg0, struct geoblock *arg1)
-//{
-//	u32 stack[4];
-//	f32 zero = 0;
-//	s32 numvertices0 = arg0->header.numvertices;
-//	s32 numvertices1 = arg1->header.numvertices;
-//	s32 i;
-//
-//	for (i = 0; i < numvertices0; i++) {
-//		s32 next = (i + 1) % numvertices0;
-//		f64 diff1;
-//		f64 diff2;
-//
-//		diff1 = arg0->vertices[next][1] - (f64)arg0->vertices[i][1];
-//		diff2 = arg0->vertices[i][0] - (f64)arg0->vertices[next][0];
-//
-//		if (diff1 == zero && diff2 == zero) {
-//			if (cdIs2dPointInBlock(arg1, arg0->vertices[i][0], arg0->vertices[i][1])) {
-//				return false;
-//			}
-//		} else {
-//			f64 sum1 = arg0->vertices[i][0] * diff1 + arg0->vertices[i][1] * diff2;
-//			f64 sum2;
-//			s32 j = (next + 1) % numvertices0;
-//			s32 k;
-//
-//			while (j != i) {
-//				sum2 = arg0->vertices[j][0] * diff1 + arg0->vertices[j][1] * diff2;
-//
-//				if (sum2 != sum1) {
-//					break;
-//				}
-//
-//				j = (j + 1) % numvertices0;
-//			}
-//
-//			for (k = 0; k < numvertices1; k++) {
-//				f64 sum3 = arg1->vertices[k][0] * diff1 + arg1->vertices[k][1] * diff2;
-//
-//				if (sum2 == sum1) {
-//					sum2 = sum1 - sum3 + sum1;
-//				}
-//
-//				if ((sum3 < sum1 && sum2 < sum1) || (sum3 > sum1 && sum2 > sum1)) {
-//					break;
-//				}
-//			}
-//
-//			if (k == numvertices1) {
-//				return true;
-//			}
-//		}
-//	}
-//
-//	return false;
-//}
+bool cd0002dffc(struct geoblock *arg0, struct geoblock *arg1)
+{
+	u32 stack[4];
+	f32 zero = 0;
+	s32 numvertices0 = arg0->header.numvertices;
+	s32 numvertices1 = arg1->header.numvertices;
+	s32 i;
+
+	for (i = 0; i < numvertices0; i++) {
+		s32 next = (i + 1) % numvertices0;
+		f64 diff1;
+		f64 diff2;
+
+		diff1 = arg0->vertices[next][1] - (f64)arg0->vertices[i][1];
+		diff2 = arg0->vertices[i][0] - (f64)arg0->vertices[next][0];
+
+		if (diff1 == zero && diff2 == zero) {
+			if (cdIs2dPointInBlock(arg1, arg0->vertices[i][0], arg0->vertices[i][1])) {
+				return false;
+			}
+		} else {
+			f64 sum1 = arg0->vertices[i][0] * diff1 + arg0->vertices[i][1] * diff2;
+			f64 sum2;
+			s32 j = (next + 1) % numvertices0;
+			s32 k;
+
+			while (j != i) {
+				sum2 = arg0->vertices[j][0] * diff1 + arg0->vertices[j][1] * diff2;
+
+				if (sum2 != sum1) {
+					break;
+				}
+
+				j = (j + 1) % numvertices0;
+			}
+
+			for (k = 0; k < numvertices1; k++) {
+				f64 sum3 = arg1->vertices[k][0] * diff1 + arg1->vertices[k][1] * diff2;
+
+				if (sum2 == sum1) {
+					sum2 = sum1 - sum3 + sum1;
+				}
+
+				if ((sum3 < sum1 && sum2 < sum1) || (sum3 > sum1 && sum2 > sum1)) {
+					break;
+				}
+			}
+
+			if (k == numvertices1) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+#endif
 
 s32 cd0002e278(u8 *start, u8 *end, struct geoblock *ref, u16 flags)
 {

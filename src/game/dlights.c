@@ -950,6 +950,7 @@ void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4)
 	}
 }
 
+#if MATCHING
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel lightTickBroken
@@ -1592,122 +1593,123 @@ glabel lightTickBroken
 
 const char var7f1a7bb4[] = "dlights.c";
 const char var7f1a7bc0[] = "dlights.c";
-
+#else
 // Mismatch: Documented below
-//bool lightTickBroken(s32 roomnum, s32 lightnum)
-//{
-//	struct light *light = (struct light *)(g_BgLightsFileData + ((g_Rooms[roomnum].lightindex + lightnum) * 0x22));
-//	struct coord spc8;
-//	struct coord spbc;
-//	struct coord spb0;
-//	struct coord spa4;
-//	struct coord sp98;
-//	struct coord sp8c;
-//	struct coord sp80;
-//	struct coord centre; // 74
-//	f32 rand1; // 70
-//	f32 rand2; // 6c
-//	s32 sparktype; // 68
-//
-//	if (!light->unk05_00) {
-//		return false;
-//	}
-//
-//	if (light->sparking) {
-//		if ((random() % 8) == 0) {
-//			light->sparking = false;
-//		} else if ((random() % 2) == 0) {
-//			rand1 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
-//			rand2 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
-//			sparktype = -1;
-//
-//			spc8.x = light->bbox[1].x - light->bbox[0].x;
-//			spc8.y = light->bbox[1].y - light->bbox[0].y;
-//			spc8.z = light->bbox[1].z - light->bbox[0].z;
-//
-//			spc8.x = rand1 * spc8.x;
-//			spc8.y = rand1 * spc8.y;
-//			spc8.z = rand1 * spc8.z;
-//
-//			spbc.x = light->bbox[2].x - light->bbox[0].x;
-//			spbc.y = light->bbox[2].y - light->bbox[0].y;
-//			spbc.z = light->bbox[2].z - light->bbox[0].z;
-//
-//			spbc.x = rand2 * spbc.x;
-//			spbc.y = rand2 * spbc.y;
-//			spbc.z = rand2 * spbc.z;
-//
-//			// @bug? These all use x
-//			sp98.x = light->bbox[0].x + spc8.x + spbc.x;
-//			sp98.y = light->bbox[0].x + spc8.y + spbc.y;
-//			sp98.z = light->bbox[0].x + spc8.z + spbc.z;
-//
-//			sp8c.x = light->unk07;
-//			sp8c.y = light->unk08;
-//			sp8c.z = light->unk09;
-//
-//			sp80.x = -sp8c.f[0];
-//			sp80.y = -sp8c.f[1];
-//			sp80.z = -sp8c.f[2];
-//
-//			func0f177164(&sp98, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1546 : 1570, "dlights.c");
-//
-//			spa4.x += sp80.x;
-//			spa4.y += sp80.y;
-//			spa4.z += sp80.z;
-//
-//			func0f177164(&spa4, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1548 : 1572, "dlights.c");
-//
-//			// Mismatch: Goal loads roomnum * 0x14 into sp58 here but doesn't
-//			// use it until after lightGetBboxCentre. The below statement does
-//			// the same but also emits the load and store instructions.
-//			g_BgRooms[roomnum].unk00 += 0;
-//
-//			switch (random() % 4) {
-//			case 0:
-//				sparktype = SPARKTYPE_LIGHT1;
-//				break;
-//			case 1:
-//				sparktype = SPARKTYPE_LIGHT2;
-//				break;
-//			case 2:
-//				sparktype = SPARKTYPE_LIGHT3;
-//				break;
-//			case 3:
-//				sparktype = SPARKTYPE_LIGHT4;
-//				break;
-//			}
-//
-//			lightGetBboxCentre(roomnum, lightnum, &centre);
-//
-//			centre.x += g_BgRooms[roomnum].pos.x;
-//			centre.y += g_BgRooms[roomnum].pos.y;
-//			centre.z += g_BgRooms[roomnum].pos.z;
-//
-//			sparksCreate(roomnum, NULL, &centre, &spa4, &sp8c, sparktype);
-//
-//			if ((random() % 4) == 0) {
-//				s16 smokerooms[2]; // 64
-//				smokerooms[0] = roomnum;
-//				smokerooms[1] = -1;
-//
-//				smokeCreateSimple(&centre, smokerooms, SMOKETYPE_BULLETIMPACT);
-//			}
-//
-//			roomAdjustLighting(roomnum, 0x40, 0x50);
-//			propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0x400, 0, 0x10, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
-//			return true;
-//		}
-//	} else {
-//		u32 stack;
-//
-//		if ((random() % 80) == 0) {
-//			light->sparking = true;
-//		}
-//	}
-//
-//	return false;
-//}
+bool lightTickBroken(s32 roomnum, s32 lightnum)
+{
+	struct light *light = (struct light *)(g_BgLightsFileData + ((g_Rooms[roomnum].lightindex + lightnum) * 0x22));
+	struct coord spc8;
+	struct coord spbc;
+	struct coord spb0;
+	struct coord spa4;
+	struct coord sp98;
+	struct coord sp8c;
+	struct coord sp80;
+	struct coord centre; // 74
+	f32 rand1; // 70
+	f32 rand2; // 6c
+	s32 sparktype; // 68
+
+	if (!light->unk05_00) {
+		return false;
+	}
+
+	if (light->sparking) {
+		if ((random() % 8) == 0) {
+			light->sparking = false;
+		} else if ((random() % 2) == 0) {
+			rand1 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
+			rand2 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
+			sparktype = -1;
+
+			spc8.x = light->bbox[1].x - light->bbox[0].x;
+			spc8.y = light->bbox[1].y - light->bbox[0].y;
+			spc8.z = light->bbox[1].z - light->bbox[0].z;
+
+			spc8.x = rand1 * spc8.x;
+			spc8.y = rand1 * spc8.y;
+			spc8.z = rand1 * spc8.z;
+
+			spbc.x = light->bbox[2].x - light->bbox[0].x;
+			spbc.y = light->bbox[2].y - light->bbox[0].y;
+			spbc.z = light->bbox[2].z - light->bbox[0].z;
+
+			spbc.x = rand2 * spbc.x;
+			spbc.y = rand2 * spbc.y;
+			spbc.z = rand2 * spbc.z;
+
+			// @bug? These all use x
+			sp98.x = light->bbox[0].x + spc8.x + spbc.x;
+			sp98.y = light->bbox[0].x + spc8.y + spbc.y;
+			sp98.z = light->bbox[0].x + spc8.z + spbc.z;
+
+			sp8c.x = light->unk07;
+			sp8c.y = light->unk08;
+			sp8c.z = light->unk09;
+
+			sp80.x = -sp8c.f[0];
+			sp80.y = -sp8c.f[1];
+			sp80.z = -sp8c.f[2];
+
+			func0f177164(&sp98, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1546 : 1570, "dlights.c");
+
+			spa4.x += sp80.x;
+			spa4.y += sp80.y;
+			spa4.z += sp80.z;
+
+			func0f177164(&spa4, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1548 : 1572, "dlights.c");
+
+			// Mismatch: Goal loads roomnum * 0x14 into sp58 here but doesn't
+			// use it until after lightGetBboxCentre. The below statement does
+			// the same but also emits the load and store instructions.
+			g_BgRooms[roomnum].unk00 += 0;
+
+			switch (random() % 4) {
+			case 0:
+				sparktype = SPARKTYPE_LIGHT1;
+				break;
+			case 1:
+				sparktype = SPARKTYPE_LIGHT2;
+				break;
+			case 2:
+				sparktype = SPARKTYPE_LIGHT3;
+				break;
+			case 3:
+				sparktype = SPARKTYPE_LIGHT4;
+				break;
+			}
+
+			lightGetBboxCentre(roomnum, lightnum, &centre);
+
+			centre.x += g_BgRooms[roomnum].pos.x;
+			centre.y += g_BgRooms[roomnum].pos.y;
+			centre.z += g_BgRooms[roomnum].pos.z;
+
+			sparksCreate(roomnum, NULL, &centre, &spa4, &sp8c, sparktype);
+
+			if ((random() % 4) == 0) {
+				s16 smokerooms[2]; // 64
+				smokerooms[0] = roomnum;
+				smokerooms[1] = -1;
+
+				smokeCreateSimple(&centre, smokerooms, SMOKETYPE_BULLETIMPACT);
+			}
+
+			roomAdjustLighting(roomnum, 0x40, 0x50);
+			propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0x400, 0, 0x10, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+			return true;
+		}
+	} else {
+		u32 stack;
+
+		if ((random() % 80) == 0) {
+			light->sparking = true;
+		}
+	}
+
+	return false;
+}
+#endif
 
 const char var7f1a7bcc[] = "L2 - g_bfGlobalLightRebuild = %d";
 const char var7f1a7bf0[] = "Acoustic Shadowing is %s";

@@ -5960,7 +5960,7 @@ struct sndcache {
 
 struct rdptask {
 	OSScTask sctask;
-	u8 *framebuffer;
+	u16 *framebuffer;
 	u32 unk5c;
 };
 

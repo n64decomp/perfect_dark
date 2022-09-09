@@ -1,10 +1,12 @@
 #include <ultra64.h>
+#include "stdarg.h"
 
 char *proutSprintf(char *dst, const char *src, size_t count)
 {
 	return (char *)memcpy((u8 *)dst, (u8 *)src, count) + count;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel sprintf
 /*    136b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -30,21 +32,24 @@ glabel sprintf
 /*    13700:	03e00008 */ 	jr	$ra
 /*    13704:	00000000 */ 	nop
 );
-
+#else
 // Mismatch:
 // Goal takes v0 from _Printf and copies it to v1 but leaves v0 unmodified.
 // The below copies v0 to v1 then back to v0 for the return.
-//int sprintf(char *dst, const char *fmt, ...)
-//{
-//	int ans;
-//	va_list ap;
-//
-//	va_start(ap, fmt);
-//	ans = _Printf(proutSprintf, dst, fmt, ap);
-//
-//	if (ans >= 0) {
-//		dst[ans] = 0;
-//	}
-//
-//	return ans;
-//}
+int sprintf(char *dst, const char *fmt, ...)
+{
+	int ans;
+	va_list ap;
+
+	va_start(ap, fmt);
+	ans = _Printf(proutSprintf, dst, fmt, ap);
+
+	if (ans >= 0) {
+		dst[ans] = 0;
+	}
+
+	va_end(ap);
+
+	return ans;
+}
+#endif

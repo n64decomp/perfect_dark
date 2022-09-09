@@ -7410,6 +7410,7 @@ struct guncmd var80070200[2] = {
 	{ GUNCMD_END },
 };
 
+#if MATCHING
 GLOBAL_ASM(
 glabel bgunAutoSwitchWeapon
 /*  f0a1df4:	27bdff98 */ 	addiu	$sp,$sp,-104
@@ -7600,7 +7601,7 @@ glabel bgunAutoSwitchWeapon
 /*  f0a2088:	03e00008 */ 	jr	$ra
 /*  f0a208c:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
-
+#else
 /**
  * Automatically choose and equip a new weapon after trying to fire a weapon
  * which is out of ammo.
@@ -7629,121 +7630,122 @@ glabel bgunAutoSwitchWeapon
 // Mismatch: First loop should store pointer to current item in s3 and do an
 // address comparison for the end, but the below stores index in s4 and does an
 // integer comparison. Variable refcounts affects this so might be related.
-//void bgunAutoSwitchWeapon(void)
-//{
-//	s32 i;
-//	bool foundcurrent2;
-//	s32 firstweaponnum2;
-//	bool usable;
-//	s32 firstweaponnum = -1; // 50
-//	s32 newweaponnum = -1;
-//	bool foundcurrent = false; // 48
-//	s32 curweaponnum = g_Vars.currentplayer->gunctrl.weaponnum; // 44
-//	s32 foundsuperdragon = 0;
-//	s32 wantammo = false; // 40
-//	s32 weaponnum;
-//	struct weapon *weapon;
-//	struct weaponfunc *func;
-//	s32 weaponnum2;
-//
-//	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-//		return;
-//	}
-//
-//	// Loop through g_AutoSwitchWeaponsPrimary, checking which weapons the
-//	// player has which are usable. Stop when both any usable weapon is found
-//	// and when the player's current weapon is found. Note the first and last
-//	// usable weapons.
-//	for (i = 0; i < ARRAYCOUNT(g_AutoSwitchWeaponsPrimary) && (newweaponnum == -1 || !foundcurrent); i++) {
-//		usable = false;
-//
-//		if (invHasSingleWeaponIncAllGuns(g_AutoSwitchWeaponsPrimary[i])) {
-//			weaponnum = g_AutoSwitchWeaponsPrimary[i];
-//			weapon = weaponFindById(weaponnum);
-//			func = weaponGetFunctionById(weaponnum, FUNC_PRIMARY);
-//
-//			if (!bgun0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
-//				usable = true;
-//			}
-//
-//			if (weaponnum == WEAPON_SUPERDRAGON && !foundsuperdragon) {
-//				foundsuperdragon++;
-//			} else {
-//				func = weaponGetFunctionById(weaponnum, FUNC_SECONDARY);
-//
-//				if (!bgun0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
-//					usable = true;
-//				}
-//			}
-//
-//			if (weaponnum == curweaponnum) {
-//				foundcurrent = true;
-//			} else if (usable) {
-//				newweaponnum = weaponnum;
-//
-//				if (firstweaponnum == -1) {
-//					firstweaponnum = weaponnum;
-//				}
-//			}
-//		}
-//	}
-//
-//	foundcurrent2 = false;
-//	firstweaponnum2 = -1;
-//
-//	if (!foundcurrent) {
-//		newweaponnum = firstweaponnum;
-//	}
-//
-//	if (newweaponnum == -1) {
-//		newweaponnum = WEAPON_UNARMED;
-//	}
-//
-//	if (newweaponnum == WEAPON_UNARMED) {
-//		// No usable weapon was found in the primary array,
-//		// so search the secondary array.
-//		for (i = 0; i < ARRAYCOUNT(g_AutoSwitchWeaponsSecondary); i++) {
-//			weaponnum2 = g_AutoSwitchWeaponsSecondary[i];
-//
-//			if (invHasSingleWeaponIncAllGuns(weaponnum2)) {
-//				if (weaponnum2 == curweaponnum) {
-//					foundcurrent2 = true;
-//				}
-//
-//				if (firstweaponnum2 == -1) {
-//					firstweaponnum2 = weaponnum2;
-//				}
-//			}
-//		}
-//
-//		newweaponnum = firstweaponnum2;
-//
-//		if (newweaponnum == -1) {
-//			newweaponnum = WEAPON_UNARMED;
-//		}
-//
-//		if (foundcurrent2) {
-//			newweaponnum = -1;
-//		}
-//
-//		wantammo = true;
-//	}
-//
-//	// Switch to newweaponnum
-//	if (newweaponnum >= 0 && newweaponnum != curweaponnum) {
-//		if (invHasDoubleWeaponIncAllGuns(newweaponnum, newweaponnum)) {
-//			g_Vars.currentplayer->gunctrl.dualwielding = true;
-//		} else {
-//			g_Vars.currentplayer->gunctrl.dualwielding = false;
-//		}
-//
-//		bgunEquipWeapon(newweaponnum);
-//
-//		if (wantammo) {
-//			g_Vars.currentplayer->gunctrl.wantammo = true;
-//		}
-//	}
-//}
+void bgunAutoSwitchWeapon(void)
+{
+	s32 i;
+	bool foundcurrent2;
+	s32 firstweaponnum2;
+	bool usable;
+	s32 firstweaponnum = -1; // 50
+	s32 newweaponnum = -1;
+	bool foundcurrent = false; // 48
+	s32 curweaponnum = g_Vars.currentplayer->gunctrl.weaponnum; // 44
+	s32 foundsuperdragon = 0;
+	s32 wantammo = false; // 40
+	s32 weaponnum;
+	struct weapon *weapon;
+	struct weaponfunc *func;
+	s32 weaponnum2;
+
+	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
+		return;
+	}
+
+	// Loop through g_AutoSwitchWeaponsPrimary, checking which weapons the
+	// player has which are usable. Stop when both any usable weapon is found
+	// and when the player's current weapon is found. Note the first and last
+	// usable weapons.
+	for (i = 0; i < ARRAYCOUNT(g_AutoSwitchWeaponsPrimary) && (newweaponnum == -1 || !foundcurrent); i++) {
+		usable = false;
+
+		if (invHasSingleWeaponIncAllGuns(g_AutoSwitchWeaponsPrimary[i])) {
+			weaponnum = g_AutoSwitchWeaponsPrimary[i];
+			weapon = weaponFindById(weaponnum);
+			func = weaponGetFunctionById(weaponnum, FUNC_PRIMARY);
+
+			if (!bgun0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
+				usable = true;
+			}
+
+			if (weaponnum == WEAPON_SUPERDRAGON && !foundsuperdragon) {
+				foundsuperdragon++;
+			} else {
+				func = weaponGetFunctionById(weaponnum, FUNC_SECONDARY);
+
+				if (!bgun0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
+					usable = true;
+				}
+			}
+
+			if (weaponnum == curweaponnum) {
+				foundcurrent = true;
+			} else if (usable) {
+				newweaponnum = weaponnum;
+
+				if (firstweaponnum == -1) {
+					firstweaponnum = weaponnum;
+				}
+			}
+		}
+	}
+
+	foundcurrent2 = false;
+	firstweaponnum2 = -1;
+
+	if (!foundcurrent) {
+		newweaponnum = firstweaponnum;
+	}
+
+	if (newweaponnum == -1) {
+		newweaponnum = WEAPON_UNARMED;
+	}
+
+	if (newweaponnum == WEAPON_UNARMED) {
+		// No usable weapon was found in the primary array,
+		// so search the secondary array.
+		for (i = 0; i < ARRAYCOUNT(g_AutoSwitchWeaponsSecondary); i++) {
+			weaponnum2 = g_AutoSwitchWeaponsSecondary[i];
+
+			if (invHasSingleWeaponIncAllGuns(weaponnum2)) {
+				if (weaponnum2 == curweaponnum) {
+					foundcurrent2 = true;
+				}
+
+				if (firstweaponnum2 == -1) {
+					firstweaponnum2 = weaponnum2;
+				}
+			}
+		}
+
+		newweaponnum = firstweaponnum2;
+
+		if (newweaponnum == -1) {
+			newweaponnum = WEAPON_UNARMED;
+		}
+
+		if (foundcurrent2) {
+			newweaponnum = -1;
+		}
+
+		wantammo = true;
+	}
+
+	// Switch to newweaponnum
+	if (newweaponnum >= 0 && newweaponnum != curweaponnum) {
+		if (invHasDoubleWeaponIncAllGuns(newweaponnum, newweaponnum)) {
+			g_Vars.currentplayer->gunctrl.dualwielding = true;
+		} else {
+			g_Vars.currentplayer->gunctrl.dualwielding = false;
+		}
+
+		bgunEquipWeapon(newweaponnum);
+
+		if (wantammo) {
+			g_Vars.currentplayer->gunctrl.wantammo = true;
+		}
+	}
+}
+#endif
 
 void bgunEquipWeapon2(s32 handnum, s32 weaponnum)
 {
@@ -8974,6 +8976,7 @@ void bgun0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool isdeto
 	}
 }
 
+#if MATCHING
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel bgun0f0a46a4
@@ -11187,107 +11190,108 @@ glabel var7f1ac918
 /*  f0a4e40:	27bd00e0 */ 	addiu	$sp,$sp,0xe0
 );
 #endif
-
+#else
 /**
  * With this function stubbed, the tranquilizer's spent ammo does not detach
  * when reloading, and the pulled pin on grenades and nbombs appears to move
  * with the model rather than detaching properly.
  */
-//void bgun0f0a46a4(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator)
-//{
-//	struct coord spd0;
-//	Mtxf sp90;
-//	struct coord sp84;
-//	Mtxf sp44;
-//	s32 i;
-//	f32 lvupdate;
-//	f32 newval;
-//	f32 sumval;
-//
-//	switch (hand->unk0d0e_00) {
-//	case 1:
-//		// 6e4
-//		switch (hand->unk0d0e_04) {
-//		case 0:
-//			// 710
-//			hand->unk0d20.f[0] = (RANDOMFRAC() - 0.5f) * 0.5333333f * 0.0625f + 0.5333333f;
-//			hand->unk0d20.f[1] = 0.0f;
-//			hand->unk0d20.f[2] = RANDOMFRAC() * 2.5f * 0.0625f + 2.5f;
-//			spd0.f[0] = 2.0f * RANDOMFRAC() * M_BADTAU / 184.0f - 0.03414231f;
-//			spd0.f[1] = 2.0f * RANDOMFRAC() * M_BADTAU / 184.0f - 0.03414231f;
-//			spd0.f[2] = 2.0f * RANDOMFRAC() * M_BADTAU / 184.0f - 0.03414231f;
-//			break;
-//		case 1:
-//			// 8b8
-//			hand->unk0d20.f[0] = -((RANDOMFRAC() - 0.5f) * 0.5333333f * 0.0625f + 3.0f * 0.5333333f);
-//			hand->unk0d20.f[1] = RANDOMFRAC() * 2.5f * 0.125f + 2.5f;
-//			hand->unk0d20.f[2] = -(RANDOMFRAC() + 1.0f);
-//			spd0.f[0] = (RANDOMFRAC() + 3.0f) * M_BADTAU / 208.0f;
-//			spd0.f[1] = 2.0f * RANDOMFRAC() * M_BADTAU / 544.0f - 0.0115481345f;
-//			spd0.f[2] = 2.0f * RANDOMFRAC() * M_BADTAU / 544.0f - 0.0115481345f;
-//			break;
-//		case 2:
-//			// aa4
-//			hand->unk0d20.f[0] = 0.0f;
-//			hand->unk0d20.f[1] = RANDOMFRAC() * 2.5f * 0.125f + 2.5f;
-//			hand->unk0d20.f[2] = (RANDOMFRAC() + 1.0f) * 0.25f;
-//			spd0.f[0] = (RANDOMFRAC() + 3.0f) * M_BADTAU / 368.0f;
-//			spd0.f[1] = 2.0f * RANDOMFRAC() * M_BADTAU / 944.0f - 0.006654857f;
-//			spd0.f[2] = 2.0f * RANDOMFRAC() * M_BADTAU / 944.0f - 0.006654857f;
-//			break;
-//		}
-//
-//		// c28
-//		hand->unk0d10 = hand->unk0d14 - 200.0f;
-//
-//		mtx4LoadRotation(&spd0, &sp90);
-//		mtx4ToMtx3(&sp90, hand->unk0d50);
-//
-//		if (g_Vars.lvupdate240 > 0 && hand->unk0d0e_04) {
-//			sp84.x = (hand->posmtx.m[3][0] - hand->prevmtx.m[3][0]) / g_Vars.lvupdate240f;
-//			sp84.y = (hand->posmtx.m[3][1] - hand->prevmtx.m[3][1]) / g_Vars.lvupdate240f;
-//			sp84.z = (hand->posmtx.m[3][2] - hand->prevmtx.m[3][2]) / g_Vars.lvupdate240f;
-//
-//			mtx00017588(hand->posmtx.m, sp44.m);
-//			mtx4RotateVecInPlace(&sp44, &sp84);
-//
-//			hand->unk0d20.f[0] += sp84.x * 0.3f;
-//			hand->unk0d20.f[1] += sp84.y * 0.3f;
-//			hand->unk0d20.f[2] += sp84.z * 0.3f;
-//		}
-//
-//		hand->unk0d0e_00 = 2;
-//		break;
-//	case 2:
-//		// d28
-//		lvupdate = g_Vars.lvupdate240f;
-//
-//		if (g_Vars.currentplayer->isdead && lvupdate > 1.5f) {
-//			lvupdate = 1.5f;
-//		}
-//
-//		newval = hand->unk0d20.f[1] - lvupdate * 0.2777778f;
-//
-//		if (hand->unk0d18 < hand->unk0d10) {
-//			hand->unk0d0e_00 = 3;
-//			break;
-//		}
-//
-//		sumval = hand->unk0d20.f[1] + newval;
-//
-//		hand->unk0d20.f[1] = newval;
-//
-//		hand->unk0d14 += lvupdate * hand->unk0d20.f[0];
-//		hand->unk0d18 += lvupdate * 0.5f * sumval;
-//		hand->unk0d1c += lvupdate * hand->unk0d20.f[2];
-//
-//		for (i = 0; i < g_Vars.lvupdate240; i++) {
-//			mtx00016110(hand->unk0d50, hand->unk0d2c);
-//		}
-//
-//		break;
-//	}
-//}
+void bgun0f0a46a4(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator)
+{
+	struct coord spd0;
+	Mtxf sp90;
+	struct coord sp84;
+	Mtxf sp44;
+	s32 i;
+	f32 lvupdate;
+	f32 newval;
+	f32 sumval;
+
+	switch (hand->unk0d0e_00) {
+	case 1:
+		// 6e4
+		switch (hand->unk0d0e_04) {
+		case 0:
+			// 710
+			hand->unk0d20.f[0] = (RANDOMFRAC() - 0.5f) * 0.5333333f * 0.0625f + 0.5333333f;
+			hand->unk0d20.f[1] = 0.0f;
+			hand->unk0d20.f[2] = RANDOMFRAC() * 2.5f * 0.0625f + 2.5f;
+			spd0.f[0] = 2.0f * RANDOMFRAC() * M_BADTAU / 184.0f - 0.03414231f;
+			spd0.f[1] = 2.0f * RANDOMFRAC() * M_BADTAU / 184.0f - 0.03414231f;
+			spd0.f[2] = 2.0f * RANDOMFRAC() * M_BADTAU / 184.0f - 0.03414231f;
+			break;
+		case 1:
+			// 8b8
+			hand->unk0d20.f[0] = -((RANDOMFRAC() - 0.5f) * 0.5333333f * 0.0625f + 3.0f * 0.5333333f);
+			hand->unk0d20.f[1] = RANDOMFRAC() * 2.5f * 0.125f + 2.5f;
+			hand->unk0d20.f[2] = -(RANDOMFRAC() + 1.0f);
+			spd0.f[0] = (RANDOMFRAC() + 3.0f) * M_BADTAU / 208.0f;
+			spd0.f[1] = 2.0f * RANDOMFRAC() * M_BADTAU / 544.0f - 0.0115481345f;
+			spd0.f[2] = 2.0f * RANDOMFRAC() * M_BADTAU / 544.0f - 0.0115481345f;
+			break;
+		case 2:
+			// aa4
+			hand->unk0d20.f[0] = 0.0f;
+			hand->unk0d20.f[1] = RANDOMFRAC() * 2.5f * 0.125f + 2.5f;
+			hand->unk0d20.f[2] = (RANDOMFRAC() + 1.0f) * 0.25f;
+			spd0.f[0] = (RANDOMFRAC() + 3.0f) * M_BADTAU / 368.0f;
+			spd0.f[1] = 2.0f * RANDOMFRAC() * M_BADTAU / 944.0f - 0.006654857f;
+			spd0.f[2] = 2.0f * RANDOMFRAC() * M_BADTAU / 944.0f - 0.006654857f;
+			break;
+		}
+
+		// c28
+		hand->unk0d10 = hand->unk0d14 - 200.0f;
+
+		mtx4LoadRotation(&spd0, &sp90);
+		mtx4ToMtx3(&sp90, hand->unk0d50);
+
+		if (g_Vars.lvupdate240 > 0 && hand->unk0d0e_04) {
+			sp84.x = (hand->posmtx.m[3][0] - hand->prevmtx.m[3][0]) / g_Vars.lvupdate240f;
+			sp84.y = (hand->posmtx.m[3][1] - hand->prevmtx.m[3][1]) / g_Vars.lvupdate240f;
+			sp84.z = (hand->posmtx.m[3][2] - hand->prevmtx.m[3][2]) / g_Vars.lvupdate240f;
+
+			mtx00017588(hand->posmtx.m, sp44.m);
+			mtx4RotateVecInPlace(&sp44, &sp84);
+
+			hand->unk0d20.f[0] += sp84.x * 0.3f;
+			hand->unk0d20.f[1] += sp84.y * 0.3f;
+			hand->unk0d20.f[2] += sp84.z * 0.3f;
+		}
+
+		hand->unk0d0e_00 = 2;
+		break;
+	case 2:
+		// d28
+		lvupdate = g_Vars.lvupdate240f;
+
+		if (g_Vars.currentplayer->isdead && lvupdate > 1.5f) {
+			lvupdate = 1.5f;
+		}
+
+		newval = hand->unk0d20.f[1] - lvupdate * 0.2777778f;
+
+		if (hand->unk0d18 < hand->unk0d10) {
+			hand->unk0d0e_00 = 3;
+			break;
+		}
+
+		sumval = hand->unk0d20.f[1] + newval;
+
+		hand->unk0d20.f[1] = newval;
+
+		hand->unk0d14 += lvupdate * hand->unk0d20.f[0];
+		hand->unk0d18 += lvupdate * 0.5f * sumval;
+		hand->unk0d1c += lvupdate * hand->unk0d20.f[2];
+
+		for (i = 0; i < g_Vars.lvupdate240; i++) {
+			mtx00016110(hand->unk0d50, hand->unk0d2c);
+		}
+
+		break;
+	}
+}
+#endif
 
 void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiledata *modeldef,
 		struct weaponfunc *funcdef, s32 maxburst, u8 *allocation, s32 weaponnum,
@@ -12345,6 +12349,7 @@ u32 var800702d4 = 0x00000000;
 u32 var800702d8 = 0x00000000;
 u32 var800702dc = 0x00000001;
 
+#if MATCHING
 #if PAL
 GLOBAL_ASM(
 glabel bgunRender
@@ -14860,261 +14865,262 @@ glabel var7f1aca90
 /*  f0a5a84:	27bd0148 */ 	addiu	$sp,$sp,0x148
 );
 #endif
-
+#else
 // Mismatch: Goal uses different codegen for accessing vertices
-//void bgunRender(Gfx **gdlptr)
-//{
-//	Gfx *gdl = *gdlptr;
-//	struct modelrenderdata renderdata = {NULL, true, 3}; // 10c
-//	struct player *player;
-//	s32 i;
-//
-//	static bool renderhand = true; // var800702dc
-//
-//	player = g_Vars.currentplayer;
-//
-//	if (player->visionmode == VISIONMODE_XRAY) {
-//		for (i = 0; i < 2; i++) {
-//			if (g_Vars.currentplayer->hands[i].firedrocket) {
-//				g_Vars.currentplayer->hands[i].rocket = NULL;
-//			}
-//		}
-//		return;
-//	}
-//
-//	gdl = mblurRender(gdl);
-//	gdl = vi0000b280(gdl);
-//	gdl = vi0000b1d0(gdl);
-//
-//	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
-//			viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
-//
-//	gdl = vi0000aca4(gdl, 1.5, 1000);
-//
-//	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
-//		f32 f2;
-//
-//		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-//			f2 = player0f0bd358() * 1.3333334f;
-//		} else {
-//			f2 = player0f0bd358();
-//		}
-//
-//		gdl = vi0000b0e8(gdl, 60, f2);
-//	}
-//
-//	if (PLAYERCOUNT() == 1 && IS8MB()) {
-//		gdl = lasersightRenderBeam(gdl);
-//	}
-//
-//	for (i = 0; i < 2; i++) {
-//		struct hand *hand;
-//		s32 j;
-//		s32 alpha;
-//		s32 weaponnum; // ec
-//		struct modelnode *node; // e8
-//		u32 colour; // e4
-//
-//		hand = player->hands + i;
-//
-//		weaponnum = bgunGetWeaponNum2(i);
-//
-//		if (hand->visible) {
-//			gdl = beamRender(gdl, &hand->beam, 0, 0);
-//
-//			if (weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00008000)) {
-//				gSPNumLights(gdl++, 1);
-//				gSPLight(gdl++, &var80070098, 1);
-//				gSPLight(gdl++, &var80070090, 2);
-//				gSPLookAt(gdl++, camGetLookAt());
-//			}
-//
-//			gSPPerspNormalize(gdl++, mtx00016dcc(0, 300));
-//
-//			// There is support for guns having a TV screen on them
-//			// but no guns have this model part so it's not used.
-//			node = modelGetPart(hand->gunmodel.filedata, MODELPART_0010);
-//
-//			if (node) {
-//				union modelrwdata *rwdata = modelGetNodeRwData(&hand->gunmodel, modelGetPart(hand->gunmodel.filedata, MODELPART_0011));
-//
-//				if (rwdata) {
-//					rwdata->toggle.visible = true;
-//				}
-//
-//				gdl = tvscreenRender(&hand->gunmodel, node, &var8009cf88, gdl, 0, 1);
-//			}
-//
-//			renderdata.gdl = gdl;
-//			renderdata.unk30 = 4;
-//
-//			if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-//				// 67c
-//				u8 *col = player->gunshadecol;
-//				u32 shade;
-//				s32 spb0[4];
-//				s32 spa0[4];
-//
-//				if (col[0] > col[1] && col[0] > col[2]) {
-//					shade = col[0];
-//				} else if (col[1] > col[2]) {
-//					shade = col[1];
-//				} else {
-//					shade = col[2];
-//				}
-//
-//				renderdata.envcolour = (shade << 24 | shade << 16 | shade << 8) + col[3];
-//
-//				if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-//					spb0[0] = var8009caef;
-//					spb0[1] = var8009caef;
-//					spb0[2] = var8009caef;
-//					spb0[3] = var8009caf0;
-//
-//					colour = (spb0[0] << 24 | spb0[1] << 16 | spb0[2] << 8) + spb0[3];
-//				} else if (USINGDEVICE(DEVICE_IRSCANNER)) {
-//					spa0[0] = 0xff;
-//					spa0[1] = 0;
-//					spa0[2] = 0;
-//					spa0[3] = 0x80;
-//
-//					colour = (spa0[0] << 24 | spa0[1] << 16 | spa0[2] << 8) + spa0[3];
-//				}
-//
-//				if (weaponnum == WEAPON_UNARMED) {
-//					renderdata.envcolour = colour;
-//				}
-//			} else {
-//				renderdata.envcolour = player->gunshadecol[0] << 24 | player->gunshadecol[1] << 16 | player->gunshadecol[2] << 8 | player->gunshadecol[3];
-//				colour = renderdata.envcolour;
-//
-//				// 838
-//				if (hand->gset.weaponnum == WEAPON_MAULER) {
-//					u32 weight = hand->matmot1 * 50.0f;
-//					renderdata.envcolour = colourBlend(0xff00007f, renderdata.envcolour, weight);
-//				}
-//			}
-//
-//			// Apply transparency based on player's cloak
-//			alpha = chrGetCloakAlpha(player->prop->chr);
-//
-//			if (alpha < 255) {
-//				colour = (s32) (alpha * 0.74509805f) + 0x41;
-//				renderdata.unk30 = 5;
-//				renderdata.fogcolour = renderdata.envcolour;
-//				renderdata.envcolour = colour;
-//			}
-//
-//			renderdata.zbufferenabled = true;
-//
-//			mtx00016760();
-//
-//			// Render rocket launcher's rocket if it's in Jo's hand or in the launcher
-//			if (hand->rocket) {
-//				struct model *rocketmodel = hand->rocket->base.model; // 98
-//				bool sp94 = false;
-//
-//#if VERSION >= VERSION_NTSC_1_0
-//				if (rocketmodel && rocketmodel->filedata) {
-//					sp94 = true;
-//
-//					modelRender(&renderdata, rocketmodel);
-//
-//					func0f0c33f0(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
-//
-//					if (hand->firedrocket) {
-//						hand->rocket = NULL;
-//					}
-//				}
-//
-//				if (sp94);
-//#else
-//				modelRender(&renderdata, rocketmodel);
-//
-//				func0f0c33f0(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
-//
-//				if (hand->firedrocket) {
-//					hand->rocket = NULL;
-//				}
-//#endif
-//			}
-//
-//			if (weaponHasFlag(weaponnum, WEAPONFLAG_DUALFLIP)) {
-//				gSPClearGeometryMode(renderdata.gdl++, G_CULL_BOTH);
-//
-//				if (i == HAND_RIGHT) {
-//					renderdata.cullmode = CULLMODE_BACK;
-//				} else {
-//					renderdata.cullmode = CULLMODE_FRONT;
-//				}
-//			}
-//
-//			// Slide the laser's liquid texture
-//			if (PLAYERCOUNT() == 1) {
-//				node = modelGetPart(hand->gunmodel.filedata, MODELPART_LASER_0041);
-//
-//				// a5c
-//				if (node) {
-//					struct modelrodata_gundl *rodata;
-//					rodata = &node->rodata->gundl;
-//
-//					for (j = 0; j < rodata->numvertices; j++) {
-//						// a7c
-//						s32 stack[2];
-//						s32 k;
-//
-//						(rodata->vertices + j)->t -= g_Vars.lvupdate240 * PALUP(25);
-//
-//						if ((rodata->vertices + j)->t < -0x6000) {
-//							for (k = 0; k < rodata->numvertices; k++) {
-//								(rodata->vertices + k)->t += 0x2000;
-//							}
-//						}
-//					}
-//				}
-//			}
-//
-//			// Render the gun
-//			modelRender(&renderdata, &hand->gunmodel);
-//
-//			// Render the hand
-//			if (player->gunctrl.handmodeldef && renderhand) {
-//				s32 prevcolour = renderdata.envcolour; // 7c
-//
-//				hand->handmodel.matrices = hand->gunmodel.matrices;
-//
-//				model0001cc20(&hand->handmodel);
-//
-//				renderdata.envcolour = colour;
-//				modelRender(&renderdata, &hand->handmodel);
-//				renderdata.envcolour = prevcolour;
-//			}
-//
-//			// Clean up
-//			gdl = renderdata.gdl;
-//
-//			if (weaponHasFlag(weaponnum, WEAPONFLAG_DUALFLIP)) {
-//				gSPClearGeometryMode(gdl++, G_CULL_BOTH);
-//			}
-//
-//			func0f0c33f0(hand->gunmodel.matrices, hand->gunmodel.filedata->nummatrices);
-//			mtx00016784();
-//
-//			gSPPerspNormalize(gdl++, viGetPerspScale());
-//		}
-//	}
-//
-//	casingsRender(&gdl);
-//	mblur0f176298();
-//
-//	gdl = mblur0f1762ac(gdl);
-//	gdl = vi0000b1d0(gdl);
-//
-//	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
-//			viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
-//
-//	*gdlptr = gdl;
-//}
+void bgunRender(Gfx **gdlptr)
+{
+	Gfx *gdl = *gdlptr;
+	struct modelrenderdata renderdata = {NULL, true, 3}; // 10c
+	struct player *player;
+	s32 i;
+
+	static bool renderhand = true; // var800702dc
+
+	player = g_Vars.currentplayer;
+
+	if (player->visionmode == VISIONMODE_XRAY) {
+		for (i = 0; i < 2; i++) {
+			if (g_Vars.currentplayer->hands[i].firedrocket) {
+				g_Vars.currentplayer->hands[i].rocket = NULL;
+			}
+		}
+		return;
+	}
+
+	gdl = mblurRender(gdl);
+	gdl = vi0000b280(gdl);
+	gdl = vi0000b1d0(gdl);
+
+	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
+			viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+
+	gdl = vi0000aca4(gdl, 1.5, 1000);
+
+	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
+		f32 f2;
+
+		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+			f2 = player0f0bd358() * 1.3333334f;
+		} else {
+			f2 = player0f0bd358();
+		}
+
+		gdl = vi0000b0e8(gdl, 60, f2);
+	}
+
+	if (PLAYERCOUNT() == 1 && IS8MB()) {
+		gdl = lasersightRenderBeam(gdl);
+	}
+
+	for (i = 0; i < 2; i++) {
+		struct hand *hand;
+		s32 j;
+		s32 alpha;
+		s32 weaponnum; // ec
+		struct modelnode *node; // e8
+		u32 colour; // e4
+
+		hand = player->hands + i;
+
+		weaponnum = bgunGetWeaponNum2(i);
+
+		if (hand->visible) {
+			gdl = beamRender(gdl, &hand->beam, 0, 0);
+
+			if (weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00008000)) {
+				gSPNumLights(gdl++, 1);
+				gSPLight(gdl++, &var80070098, 1);
+				gSPLight(gdl++, &var80070090, 2);
+				gSPLookAt(gdl++, camGetLookAt());
+			}
+
+			gSPPerspNormalize(gdl++, mtx00016dcc(0, 300));
+
+			// There is support for guns having a TV screen on them
+			// but no guns have this model part so it's not used.
+			node = modelGetPart(hand->gunmodel.filedata, MODELPART_0010);
+
+			if (node) {
+				union modelrwdata *rwdata = modelGetNodeRwData(&hand->gunmodel, modelGetPart(hand->gunmodel.filedata, MODELPART_0011));
+
+				if (rwdata) {
+					rwdata->toggle.visible = true;
+				}
+
+				gdl = tvscreenRender(&hand->gunmodel, node, &var8009cf88, gdl, 0, 1);
+			}
+
+			renderdata.gdl = gdl;
+			renderdata.unk30 = 4;
+
+			if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
+				// 67c
+				u8 *col = player->gunshadecol;
+				u32 shade;
+				s32 spb0[4];
+				s32 spa0[4];
+
+				if (col[0] > col[1] && col[0] > col[2]) {
+					shade = col[0];
+				} else if (col[1] > col[2]) {
+					shade = col[1];
+				} else {
+					shade = col[2];
+				}
+
+				renderdata.envcolour = (shade << 24 | shade << 16 | shade << 8) + col[3];
+
+				if (USINGDEVICE(DEVICE_NIGHTVISION)) {
+					spb0[0] = var8009caef;
+					spb0[1] = var8009caef;
+					spb0[2] = var8009caef;
+					spb0[3] = var8009caf0;
+
+					colour = (spb0[0] << 24 | spb0[1] << 16 | spb0[2] << 8) + spb0[3];
+				} else if (USINGDEVICE(DEVICE_IRSCANNER)) {
+					spa0[0] = 0xff;
+					spa0[1] = 0;
+					spa0[2] = 0;
+					spa0[3] = 0x80;
+
+					colour = (spa0[0] << 24 | spa0[1] << 16 | spa0[2] << 8) + spa0[3];
+				}
+
+				if (weaponnum == WEAPON_UNARMED) {
+					renderdata.envcolour = colour;
+				}
+			} else {
+				renderdata.envcolour = player->gunshadecol[0] << 24 | player->gunshadecol[1] << 16 | player->gunshadecol[2] << 8 | player->gunshadecol[3];
+				colour = renderdata.envcolour;
+
+				// 838
+				if (hand->gset.weaponnum == WEAPON_MAULER) {
+					u32 weight = hand->matmot1 * 50.0f;
+					renderdata.envcolour = colourBlend(0xff00007f, renderdata.envcolour, weight);
+				}
+			}
+
+			// Apply transparency based on player's cloak
+			alpha = chrGetCloakAlpha(player->prop->chr);
+
+			if (alpha < 255) {
+				colour = (s32) (alpha * 0.74509805f) + 0x41;
+				renderdata.unk30 = 5;
+				renderdata.fogcolour = renderdata.envcolour;
+				renderdata.envcolour = colour;
+			}
+
+			renderdata.zbufferenabled = true;
+
+			mtx00016760();
+
+			// Render rocket launcher's rocket if it's in Jo's hand or in the launcher
+			if (hand->rocket) {
+				struct model *rocketmodel = hand->rocket->base.model; // 98
+				bool sp94 = false;
+
+#if VERSION >= VERSION_NTSC_1_0
+				if (rocketmodel && rocketmodel->filedata) {
+					sp94 = true;
+
+					modelRender(&renderdata, rocketmodel);
+
+					func0f0c33f0(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
+
+					if (hand->firedrocket) {
+						hand->rocket = NULL;
+					}
+				}
+
+				if (sp94);
+#else
+				modelRender(&renderdata, rocketmodel);
+
+				func0f0c33f0(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
+
+				if (hand->firedrocket) {
+					hand->rocket = NULL;
+				}
+#endif
+			}
+
+			if (weaponHasFlag(weaponnum, WEAPONFLAG_DUALFLIP)) {
+				gSPClearGeometryMode(renderdata.gdl++, G_CULL_BOTH);
+
+				if (i == HAND_RIGHT) {
+					renderdata.cullmode = CULLMODE_BACK;
+				} else {
+					renderdata.cullmode = CULLMODE_FRONT;
+				}
+			}
+
+			// Slide the laser's liquid texture
+			if (PLAYERCOUNT() == 1) {
+				node = modelGetPart(hand->gunmodel.filedata, MODELPART_LASER_0041);
+
+				// a5c
+				if (node) {
+					struct modelrodata_gundl *rodata;
+					rodata = &node->rodata->gundl;
+
+					for (j = 0; j < rodata->numvertices; j++) {
+						// a7c
+						s32 stack[2];
+						s32 k;
+
+						(rodata->vertices + j)->t -= g_Vars.lvupdate240 * PALUP(25);
+
+						if ((rodata->vertices + j)->t < -0x6000) {
+							for (k = 0; k < rodata->numvertices; k++) {
+								(rodata->vertices + k)->t += 0x2000;
+							}
+						}
+					}
+				}
+			}
+
+			// Render the gun
+			modelRender(&renderdata, &hand->gunmodel);
+
+			// Render the hand
+			if (player->gunctrl.handmodeldef && renderhand) {
+				s32 prevcolour = renderdata.envcolour; // 7c
+
+				hand->handmodel.matrices = hand->gunmodel.matrices;
+
+				model0001cc20(&hand->handmodel);
+
+				renderdata.envcolour = colour;
+				modelRender(&renderdata, &hand->handmodel);
+				renderdata.envcolour = prevcolour;
+			}
+
+			// Clean up
+			gdl = renderdata.gdl;
+
+			if (weaponHasFlag(weaponnum, WEAPONFLAG_DUALFLIP)) {
+				gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+			}
+
+			func0f0c33f0(hand->gunmodel.matrices, hand->gunmodel.filedata->nummatrices);
+			mtx00016784();
+
+			gSPPerspNormalize(gdl++, viGetPerspScale());
+		}
+	}
+
+	casingsRender(&gdl);
+	mblur0f176298();
+
+	gdl = mblur0f1762ac(gdl);
+	gdl = vi0000b1d0(gdl);
+
+	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
+			viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+
+	*gdlptr = gdl;
+}
+#endif
 
 /**
  * Find and return an available audio handle out of a pool of four.

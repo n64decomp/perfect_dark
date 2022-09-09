@@ -6,6 +6,7 @@
 
 const u32 var7f1a8680[] = {0xb8d1b717};
 
+#if MATCHING
 GLOBAL_ASM(
 glabel sparksTick
 /*  f01e050:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -148,83 +149,84 @@ glabel sparksTick
 /*  f01e244:	03e00008 */ 	jr	$ra
 /*  f01e248:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
-
+#else
 // Mismatch due to regalloc near group->startindex
-//void sparksTick(void)
-//{
-//	struct sparkgroup *group;
-//	struct sparktype *type;
-//	s32 i;
-//	s32 j;
-//	s32 k;
-//
-//	// 074
-//	if (g_SparksAreActive) {
-//		g_SparksAreActive = false;
-//		group = &g_SparkGroups[0];
-//
-//		// Iterate spark groups
-//		for (i = 0; i != 10; i++) {
-//			type = &g_SparkTypes[group->type];
-//
-//			// 0e8
-//			if (group->age >= type->maxage) {
-//				group->age = 0;
-//			} else /*0f8*/ if (group->age) {
-//				// 10c
-//				if (g_SparksAreActive == false) {
-//					g_SparksAreActive = true;
-//				}
-//
-//				// 118
-//				// Iterate the lvupdate multiplier
-//				for (j = 0; j < g_Vars.lvupdate240_60; j++) {
-//					// 120
-//					struct spark *spark = &g_Sparks[group->startindex];
-//					struct spark *next = &g_Sparks[group->startindex];
-//					group->age++;
-//
-//					// 144
-//					// Iterate sparks in this group
-//					for (k = 0; k < group->numsparks; k++) {
-//						// 14c
-//						// Update this spark if active
-//						if (spark->ttl) {
-//							spark->speed.x -= spark->speed.x * type->decel;
-//							spark->speed.y = (spark->speed.y - spark->speed.y * type->decel) - type->weight;
-//							spark->speed.z -= spark->speed.z * type->decel;
-//
-//							if (spark->speed.y == 0) {
-//								spark->speed.y = -0.0001f;
-//							}
-//
-//							spark->pos.x += spark->speed.x;
-//							spark->pos.y += spark->speed.y;
-//							spark->pos.z += spark->speed.z;
-//
-//							spark->ttl--;
-//						}
-//
-//						// 1f4
-//						// If reached the end of the array, jump back to start
-//						if (++next == &g_Sparks[100]) {
-//							// @dangerous: `next` is not reset here, so this
-//							// condition will only pass once per group.
-//							// If a group contains more than 100 sparks, it
-//							// could cause spark to overflow the array and write
-//							// over whatever's after it.
-//							spark = &g_Sparks[0];
-//						} else {
-//							spark++;
-//						}
-//
-//						// 208
-//					}
-//				}
-//			}
-//
-//			// 224
-//			group++;
-//		}
-//	}
-//}
+void sparksTick(void)
+{
+	struct sparkgroup *group;
+	struct sparktype *type;
+	s32 i;
+	s32 j;
+	s32 k;
+
+	// 074
+	if (g_SparksAreActive) {
+		g_SparksAreActive = false;
+		group = &g_SparkGroups[0];
+
+		// Iterate spark groups
+		for (i = 0; i != 10; i++) {
+			type = &g_SparkTypes[group->type];
+
+			// 0e8
+			if (group->age >= type->maxage) {
+				group->age = 0;
+			} else /*0f8*/ if (group->age) {
+				// 10c
+				if (g_SparksAreActive == false) {
+					g_SparksAreActive = true;
+				}
+
+				// 118
+				// Iterate the lvupdate multiplier
+				for (j = 0; j < g_Vars.lvupdate240_60; j++) {
+					// 120
+					struct spark *spark = &g_Sparks[group->startindex];
+					struct spark *next = &g_Sparks[group->startindex];
+					group->age++;
+
+					// 144
+					// Iterate sparks in this group
+					for (k = 0; k < group->numsparks; k++) {
+						// 14c
+						// Update this spark if active
+						if (spark->ttl) {
+							spark->speed.x -= spark->speed.x * type->decel;
+							spark->speed.y = (spark->speed.y - spark->speed.y * type->decel) - type->weight;
+							spark->speed.z -= spark->speed.z * type->decel;
+
+							if (spark->speed.y == 0) {
+								spark->speed.y = -0.0001f;
+							}
+
+							spark->pos.x += spark->speed.x;
+							spark->pos.y += spark->speed.y;
+							spark->pos.z += spark->speed.z;
+
+							spark->ttl--;
+						}
+
+						// 1f4
+						// If reached the end of the array, jump back to start
+						if (++next == &g_Sparks[100]) {
+							// @dangerous: `next` is not reset here, so this
+							// condition will only pass once per group.
+							// If a group contains more than 100 sparks, it
+							// could cause spark to overflow the array and write
+							// over whatever's after it.
+							spark = &g_Sparks[0];
+						} else {
+							spark++;
+						}
+
+						// 208
+					}
+				}
+			}
+
+			// 224
+			group++;
+		}
+	}
+}
+#endif

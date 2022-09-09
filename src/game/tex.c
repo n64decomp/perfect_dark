@@ -777,6 +777,7 @@ Gfx *tex0f17563c(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4)
 	return gdl;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel tex0f1756c0
 .late_rodata
@@ -1386,346 +1387,347 @@ glabel jtbl_var7f1b7c70
 /*  f175eec:	03e00008 */ 	jr	$ra
 /*  f175ef0:	27bd0138 */ 	addiu	$sp,$sp,0x138
 );
-
+#else
 // Mismatch: Extra move instruction in last half of G_VTX case
-//s32 tex0f1756c0(Gfx *arg0, s32 arg1, Gfx *arg2, struct texpool *arg3, u32 arg4)
-//{
-//	struct tex *v0;
-//	struct tex *v0_2;
-//	Gfx *sp12c;
-//	s32 sp128;
-//	u32 tmp1;
-//	u32 tmp2;
-//	u32 tmp3;
-//	u32 tmp4;
-//	u32 tmp5;
-//	u32 tmp6;
-//	bool flag;
-//	s32 j;
-//	bool sp104;
-//	u8 animated;
-//	Gfx *s5;
-//	Gfx *s6;
-//	u32 spf4;
-//	s32 texturenum;
-//	s32 texturenum2;
-//	bool spe8;
-//	s32 spe4;
-//	s32 spe0;
-//	struct gfxvtx *spA0[16];
-//	u8 sp90[16];
-//
-//	s32 i;
-//
-//	sp12c = NULL;
-//	sp104 = true;
-//	animated = false;
-//	spe8 = false;
-//	spe4 = false;
-//	var800844d0 = false;
-//	spf4 = 0;
-//	s5 = arg0;
-//	s6 = arg2;
-//
-//	sp128 = arg1 >> 3;
-//
-//	tex0f173a08();
-//
-//	spe0 = dyntexHasRoom();
-//
-//	if (spe0) {
-//		for (j = 0; j < 16; j++) {
-//			sp90[j] = 0;
-//		}
-//	}
-//
-//	if (arg3 == NULL) {
-//		arg3 = &g_TexSharedPool;
-//	}
-//
-//	while (sp128 > 0) {
-//		switch (s5->texture.cmd) {
-//		case 0xc0: // Repurposed?
-//			spe4 = true;
-//
-//			if (animated) {
-//				spe8 = true;
-//			}
-//
-//			texturenum = s5->words.w1 & 0xfff;
-//			flag = s5->words.w0 & 0x200;
-//
-//			texLoadFromTextureNum(texturenum, arg3);
-//
-//			v0 = texFindInPool(texturenum, arg3);
-//
-//			if (v0 != NULL) {
-//				spf4 = v0->unk0c_03;
-//			} else {
-//				spf4 = 0;
-//			}
-//
-//			if (v0 != NULL) {
-//				s6 = tex0f1742e4(s6, sp12c, v0, sp104);
-//				sp104 = false;
-//				animated = false;
-//
-//				switch (s5->unkc0.subcmd) {
-//				case 0:
-//					tmp6 = (s5->words.w1 >> 24) & 0xff;
-//					tmp1 = (s5->words.w0 >> 22) & 3;
-//					tmp2 = (s5->words.w0 >> 20) & 3;
-//					tmp3 = (s5->words.w0 >> 18) & 3;
-//					tmp4 = (s5->words.w0 >> 14) & 0xf;
-//					tmp5 = (s5->words.w0 >> 10) & 0xf;
-//
-//					s6 = tex0f175490(s6, v0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, flag);
-//					break;
-//				case 1:
-//					texturenum2 = (s5->words.w1 >> 12) & 0xfff;
-//					texLoadFromTextureNum(texturenum2, arg3);
-//					v0_2 = texFindInPool(texturenum2, arg3);
-//
-//					if (v0_2 != NULL) {
-//						tmp6 = (s5->words.w1 >> 24) & 0xff;
-//						tmp1 = (s5->words.w0 >> 22) & 3;
-//						tmp2 = (s5->words.w0 >> 20) & 3;
-//						tmp3 = (s5->words.w0 >> 18) & 3;
-//						tmp4 = (s5->words.w0 >> 14) & 0xf;
-//						tmp5 = (s5->words.w0 >> 10) & 0xf;
-//
-//						s6 = tex0f175308(s6, v0, tmp1, tmp2, tmp3, v0_2, tmp4, tmp5, tmp6, flag);
-//					}
-//					break;
-//				case 2:
-//					tmp1 = (s5->words.w0 >> 22) & 3;
-//					tmp2 = (s5->words.w0 >> 20) & 3;
-//					tmp3 = (s5->words.w0 >> 18) & 3;
-//
-//					s6 = tex0f1751e4(s6, v0, tmp1, tmp2, tmp3, flag);
-//					break;
-//				case 3:
-//					tmp1 = (s5->words.w0 >> 22) & 3;
-//					tmp2 = (s5->words.w0 >> 20) & 3;
-//					tmp3 = (s5->words.w0 >> 18) & 3;
-//
-//					s6 = tex0f17563c(s6, v0, tmp1, tmp2, tmp3);
-//					break;
-//				case 4:
-//					tmp1 = (s5->words.w0 >> 22) & 3;
-//					tmp2 = (s5->words.w0 >> 20) & 3;
-//					tmp3 = (s5->words.w0 >> 18) & 3;
-//
-//					s6 = tex0f1755dc(s6, v0, tmp1, tmp2, tmp3);
-//					break;
-//				}
-//
-//				if (spe0 != 0) {
-//					// Deep Sea - green river under floor
-//					if (texturenum == TEXTURE_06CB) {
-//						dyntexSetCurrentType(DYNTEXTYPE_RIVER);
-//						animated = true;
-//					}
-//
-//					// Deep Sea - juice that flows inside SA megaweapon
-//					// Attack Ship - juice that flows inside engine power node
-//					if (texturenum == TEXTURE_0A6A) {
-//						dyntexSetCurrentType(DYNTEXTYPE_POWERJUICE);
-//						animated = true;
-//					}
-//
-//					// Deep Sea - white rings around SA megaweapon node
-//					// Attack Ship - white rings around engine power node
-//					if (texturenum == TEXTURE_0A69) {
-//						dyntexSetCurrentType(DYNTEXTYPE_POWERRING);
-//						animated = true;
-//					}
-//
-//					// Deep Sea - teleport
-//					if (texturenum == TEXTURE_06E2) {
-//						dyntexSetCurrentType(DYNTEXTYPE_TELEPORTAL);
-//						animated = true;
-//					}
-//
-//					// 01c7 - Air Base - distant water
-//					// 01c7 - Investigation - puddle behind glass near shield
-//					// 0dae - Chicago - canal
-//					// 0dae - Villa - shallow water
-//					// 0dae - Sewers (MP)
-//					if (texturenum == TEXTURE_01C7 || texturenum == TEXTURE_0DAE) {
-//						dyntexSetCurrentType(DYNTEXTYPE_RIVER);
-//						animated = true;
-//					}
-//
-//					// Air Force One - Monitor
-//					if (texturenum == TEXTURE_029B) {
-//						dyntexSetCurrentType(DYNTEXTYPE_MONITOR);
-//						animated = true;
-//					}
-//
-//					// Villa - deep water
-//					// Complex - water
-//					if (texturenum == TEXTURE_090F) {
-//						dyntexSetCurrentType(DYNTEXTYPE_OCEAN);
-//						animated = true;
-//					}
-//
-//					// Attack Ship - triangular arrows
-//					if (texturenum == TEXTURE_0A42) {
-//						dyntexSetCurrentType(DYNTEXTYPE_ARROWS);
-//						animated = true;
-//					}
-//				}
-//			}
-//
-//			s5++;
-//			break;
-//		case G_VTX:
-//			{
-//				s32 start;
-//				s32 count;
-//				u32 offset;
-//				struct gfxvtx *vtx;
-//
-//				if (spe0) {
-//					start = s5->bytes[1] & 0xf;
-//					count = ((u32)s5->bytes[1] >> 4) + 1;
-//					vtx = (struct gfxvtx *)(s5->dma.addr & 0x00ffffff);
-//
-//					for (i = start; i < start + count; i++) {
-//						if (animated && sp90[i]) {
-//							dyntexAddVertex(spA0[i]);
-//							sp90[i] = 0;
-//						}
-//
-//						spA0[i] = vtx;
-//						vtx++;
-//					}
-//				}
-//
-//				if (spf4 && arg4) {
-//					// b7c
-//					u32 offset;
-//					struct gfxvtx *vtx;
-//					s32 i;
-//
-//					count = (s5->dma.par >> 4) + 1;
-//					offset = s5->dma.addr & 0x00ffffff;
-//					i = 0;
-//					offset = (arg4 + offset);
-//					vtx = (struct gfxvtx *) offset;
-//
-//					for (; i < count; i++) {
-//						vtx[i].unk08 >>= 1;
-//						vtx[i].unk0a >>= 1;
-//					}
-//				}
-//			}
-//
-//			*s6 = *s5;
-//			s6++;
-//			s5++;
-//			break;
-//		case G_RDPPIPESYNC:
-//			var800844d0 = true;
-//			*s6 = *s5;
-//			s6++;
-//			s5++;
-//			break;
-//		case (u8)G_TRI4:
-//		case (u8)G_TRI1:
-//			if (animated) {
-//				if (s5->texture.cmd == (u8)G_TRI1) {
-//					sp90[s5->tri.tri.v[0] / 10] = 1;
-//					sp90[s5->tri.tri.v[1] / 10] = 1;
-//					sp90[s5->tri.tri.v[2] / 10] = 1;
-//				} else {
-//					// c68
-//					if (s5->tri4.x1 != s5->tri4.y1 || s5->tri4.z1 != s5->tri4.y1) {
-//						sp90[s5->tri4.x1] = 1;
-//						sp90[s5->tri4.y1] = 1;
-//						sp90[s5->tri4.z1] = 1;
-//					}
-//
-//					// cbc
-//					if (s5->tri4.x2 != s5->tri4.y2 || s5->tri4.z2 != s5->tri4.y2) {
-//						sp90[s5->tri4.x2] = 1;
-//						sp90[s5->tri4.y2] = 1;
-//						sp90[s5->tri4.z2] = 1;
-//					}
-//
-//					// d0c
-//					if (s5->tri4.x3 != s5->tri4.y3 || s5->tri4.z3 != s5->tri4.y3) {
-//						sp90[s5->tri4.x3] = 1;
-//						sp90[s5->tri4.y3] = 1;
-//						sp90[s5->tri4.z3] = 1;
-//					}
-//
-//					// d58
-//					if (s5->tri4.x4 != s5->tri4.y4 || s5->tri4.z4 != s5->tri4.y4) {
-//						sp90[s5->tri4.x4] = 1;
-//						sp90[s5->tri4.y4] = 1;
-//						sp90[s5->tri4.z4] = 1;
-//					}
-//				}
-//			}
-//
-//			sp104 = true;
-//			var800844d0 = false;
-//
-//			*s6 = *s5;
-//			s6++;
-//			s5++;
-//			break;
-//		case (u8)G_TEXTURE:
-//			spe4 = true;
-//
-//			if (animated) {
-//				spe8 = true;
-//			}
-//
-//			animated = false;
-//			sp104 = false;
-//
-//			sp12c = s6;
-//			*s6 = *s5;
-//			s6++;
-//			s5++;
-//			break;
-//		case (u8)G_SETOTHERMODE_H:
-//			*s6 = *s5;
-//			s6++;
-//			s5++;
-//			break;
-//		default:
-//			*s6 = *s5;
-//			s6++;
-//			s5++;
-//			break;
-//		}
-//
-//		sp128--;
-//
-//		if (spe4 || sp128 <= 0) {
-//			spe4 = false;
-//
-//			if (spe8 || animated) {
-//				s32 i;
-//
-//				spe8 = false;
-//
-//				for (i = 0; i < 16; i++) {
-//					if (sp90[i]) {
-//						dyntexAddVertex(spA0[i]);
-//						sp90[i] = 0;
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	return (u32)s6 - (u32)arg2;
-//}
+s32 tex0f1756c0(Gfx *arg0, s32 arg1, Gfx *arg2, struct texpool *arg3, u32 arg4)
+{
+	struct tex *v0;
+	struct tex *v0_2;
+	Gfx *sp12c;
+	s32 sp128;
+	u32 tmp1;
+	u32 tmp2;
+	u32 tmp3;
+	u32 tmp4;
+	u32 tmp5;
+	u32 tmp6;
+	bool flag;
+	s32 j;
+	bool sp104;
+	u8 animated;
+	Gfx *s5;
+	Gfx *s6;
+	u32 spf4;
+	s32 texturenum;
+	s32 texturenum2;
+	bool spe8;
+	s32 spe4;
+	s32 spe0;
+	struct gfxvtx *spA0[16];
+	u8 sp90[16];
+
+	s32 i;
+
+	sp12c = NULL;
+	sp104 = true;
+	animated = false;
+	spe8 = false;
+	spe4 = false;
+	var800844d0 = false;
+	spf4 = 0;
+	s5 = arg0;
+	s6 = arg2;
+
+	sp128 = arg1 >> 3;
+
+	tex0f173a08();
+
+	spe0 = dyntexHasRoom();
+
+	if (spe0) {
+		for (j = 0; j < 16; j++) {
+			sp90[j] = 0;
+		}
+	}
+
+	if (arg3 == NULL) {
+		arg3 = &g_TexSharedPool;
+	}
+
+	while (sp128 > 0) {
+		switch (s5->texture.cmd) {
+		case 0xc0: // Repurposed?
+			spe4 = true;
+
+			if (animated) {
+				spe8 = true;
+			}
+
+			texturenum = s5->words.w1 & 0xfff;
+			flag = s5->words.w0 & 0x200;
+
+			texLoadFromTextureNum(texturenum, arg3);
+
+			v0 = texFindInPool(texturenum, arg3);
+
+			if (v0 != NULL) {
+				spf4 = v0->unk0c_03;
+			} else {
+				spf4 = 0;
+			}
+
+			if (v0 != NULL) {
+				s6 = tex0f1742e4(s6, sp12c, v0, sp104);
+				sp104 = false;
+				animated = false;
+
+				switch (s5->unkc0.subcmd) {
+				case 0:
+					tmp6 = (s5->words.w1 >> 24) & 0xff;
+					tmp1 = (s5->words.w0 >> 22) & 3;
+					tmp2 = (s5->words.w0 >> 20) & 3;
+					tmp3 = (s5->words.w0 >> 18) & 3;
+					tmp4 = (s5->words.w0 >> 14) & 0xf;
+					tmp5 = (s5->words.w0 >> 10) & 0xf;
+
+					s6 = tex0f175490(s6, v0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, flag);
+					break;
+				case 1:
+					texturenum2 = (s5->words.w1 >> 12) & 0xfff;
+					texLoadFromTextureNum(texturenum2, arg3);
+					v0_2 = texFindInPool(texturenum2, arg3);
+
+					if (v0_2 != NULL) {
+						tmp6 = (s5->words.w1 >> 24) & 0xff;
+						tmp1 = (s5->words.w0 >> 22) & 3;
+						tmp2 = (s5->words.w0 >> 20) & 3;
+						tmp3 = (s5->words.w0 >> 18) & 3;
+						tmp4 = (s5->words.w0 >> 14) & 0xf;
+						tmp5 = (s5->words.w0 >> 10) & 0xf;
+
+						s6 = tex0f175308(s6, v0, tmp1, tmp2, tmp3, v0_2, tmp4, tmp5, tmp6, flag);
+					}
+					break;
+				case 2:
+					tmp1 = (s5->words.w0 >> 22) & 3;
+					tmp2 = (s5->words.w0 >> 20) & 3;
+					tmp3 = (s5->words.w0 >> 18) & 3;
+
+					s6 = tex0f1751e4(s6, v0, tmp1, tmp2, tmp3, flag);
+					break;
+				case 3:
+					tmp1 = (s5->words.w0 >> 22) & 3;
+					tmp2 = (s5->words.w0 >> 20) & 3;
+					tmp3 = (s5->words.w0 >> 18) & 3;
+
+					s6 = tex0f17563c(s6, v0, tmp1, tmp2, tmp3);
+					break;
+				case 4:
+					tmp1 = (s5->words.w0 >> 22) & 3;
+					tmp2 = (s5->words.w0 >> 20) & 3;
+					tmp3 = (s5->words.w0 >> 18) & 3;
+
+					s6 = tex0f1755dc(s6, v0, tmp1, tmp2, tmp3);
+					break;
+				}
+
+				if (spe0 != 0) {
+					// Deep Sea - green river under floor
+					if (texturenum == TEXTURE_06CB) {
+						dyntexSetCurrentType(DYNTEXTYPE_RIVER);
+						animated = true;
+					}
+
+					// Deep Sea - juice that flows inside SA megaweapon
+					// Attack Ship - juice that flows inside engine power node
+					if (texturenum == TEXTURE_0A6A) {
+						dyntexSetCurrentType(DYNTEXTYPE_POWERJUICE);
+						animated = true;
+					}
+
+					// Deep Sea - white rings around SA megaweapon node
+					// Attack Ship - white rings around engine power node
+					if (texturenum == TEXTURE_0A69) {
+						dyntexSetCurrentType(DYNTEXTYPE_POWERRING);
+						animated = true;
+					}
+
+					// Deep Sea - teleport
+					if (texturenum == TEXTURE_06E2) {
+						dyntexSetCurrentType(DYNTEXTYPE_TELEPORTAL);
+						animated = true;
+					}
+
+					// 01c7 - Air Base - distant water
+					// 01c7 - Investigation - puddle behind glass near shield
+					// 0dae - Chicago - canal
+					// 0dae - Villa - shallow water
+					// 0dae - Sewers (MP)
+					if (texturenum == TEXTURE_01C7 || texturenum == TEXTURE_0DAE) {
+						dyntexSetCurrentType(DYNTEXTYPE_RIVER);
+						animated = true;
+					}
+
+					// Air Force One - Monitor
+					if (texturenum == TEXTURE_029B) {
+						dyntexSetCurrentType(DYNTEXTYPE_MONITOR);
+						animated = true;
+					}
+
+					// Villa - deep water
+					// Complex - water
+					if (texturenum == TEXTURE_090F) {
+						dyntexSetCurrentType(DYNTEXTYPE_OCEAN);
+						animated = true;
+					}
+
+					// Attack Ship - triangular arrows
+					if (texturenum == TEXTURE_0A42) {
+						dyntexSetCurrentType(DYNTEXTYPE_ARROWS);
+						animated = true;
+					}
+				}
+			}
+
+			s5++;
+			break;
+		case G_VTX:
+			{
+				s32 start;
+				s32 count;
+				u32 offset;
+				struct gfxvtx *vtx;
+
+				if (spe0) {
+					start = s5->bytes[1] & 0xf;
+					count = ((u32)s5->bytes[1] >> 4) + 1;
+					vtx = (struct gfxvtx *)(s5->dma.addr & 0x00ffffff);
+
+					for (i = start; i < start + count; i++) {
+						if (animated && sp90[i]) {
+							dyntexAddVertex(spA0[i]);
+							sp90[i] = 0;
+						}
+
+						spA0[i] = vtx;
+						vtx++;
+					}
+				}
+
+				if (spf4 && arg4) {
+					// b7c
+					u32 offset;
+					struct gfxvtx *vtx;
+					s32 i;
+
+					count = (s5->dma.par >> 4) + 1;
+					offset = s5->dma.addr & 0x00ffffff;
+					i = 0;
+					offset = (arg4 + offset);
+					vtx = (struct gfxvtx *) offset;
+
+					for (; i < count; i++) {
+						vtx[i].s >>= 1;
+						vtx[i].t >>= 1;
+					}
+				}
+			}
+
+			*s6 = *s5;
+			s6++;
+			s5++;
+			break;
+		case G_RDPPIPESYNC:
+			var800844d0 = true;
+			*s6 = *s5;
+			s6++;
+			s5++;
+			break;
+		case (u8)G_TRI4:
+		case (u8)G_TRI1:
+			if (animated) {
+				if (s5->texture.cmd == (u8)G_TRI1) {
+					sp90[s5->tri.tri.v[0] / 10] = 1;
+					sp90[s5->tri.tri.v[1] / 10] = 1;
+					sp90[s5->tri.tri.v[2] / 10] = 1;
+				} else {
+					// c68
+					if (s5->tri4.x1 != s5->tri4.y1 || s5->tri4.z1 != s5->tri4.y1) {
+						sp90[s5->tri4.x1] = 1;
+						sp90[s5->tri4.y1] = 1;
+						sp90[s5->tri4.z1] = 1;
+					}
+
+					// cbc
+					if (s5->tri4.x2 != s5->tri4.y2 || s5->tri4.z2 != s5->tri4.y2) {
+						sp90[s5->tri4.x2] = 1;
+						sp90[s5->tri4.y2] = 1;
+						sp90[s5->tri4.z2] = 1;
+					}
+
+					// d0c
+					if (s5->tri4.x3 != s5->tri4.y3 || s5->tri4.z3 != s5->tri4.y3) {
+						sp90[s5->tri4.x3] = 1;
+						sp90[s5->tri4.y3] = 1;
+						sp90[s5->tri4.z3] = 1;
+					}
+
+					// d58
+					if (s5->tri4.x4 != s5->tri4.y4 || s5->tri4.z4 != s5->tri4.y4) {
+						sp90[s5->tri4.x4] = 1;
+						sp90[s5->tri4.y4] = 1;
+						sp90[s5->tri4.z4] = 1;
+					}
+				}
+			}
+
+			sp104 = true;
+			var800844d0 = false;
+
+			*s6 = *s5;
+			s6++;
+			s5++;
+			break;
+		case (u8)G_TEXTURE:
+			spe4 = true;
+
+			if (animated) {
+				spe8 = true;
+			}
+
+			animated = false;
+			sp104 = false;
+
+			sp12c = s6;
+			*s6 = *s5;
+			s6++;
+			s5++;
+			break;
+		case (u8)G_SETOTHERMODE_H:
+			*s6 = *s5;
+			s6++;
+			s5++;
+			break;
+		default:
+			*s6 = *s5;
+			s6++;
+			s5++;
+			break;
+		}
+
+		sp128--;
+
+		if (spe4 || sp128 <= 0) {
+			spe4 = false;
+
+			if (spe8 || animated) {
+				s32 i;
+
+				spe8 = false;
+
+				for (i = 0; i < 16; i++) {
+					if (sp90[i]) {
+						dyntexAddVertex(spA0[i]);
+						sp90[i] = 0;
+					}
+				}
+			}
+		}
+	}
+
+	return (u32)s6 - (u32)arg2;
+}
+#endif
 
 void tex0f175ef4(Gfx *arg0, Gfx *arg1, s32 arg2)
 {

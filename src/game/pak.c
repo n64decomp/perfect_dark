@@ -5432,6 +5432,7 @@ bool pak0f11d7c4(s8 device)
 	return false;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel pakConvertFromGbcImage
 /*  f11d8b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -5509,7 +5510,7 @@ glabel pakConvertFromGbcImage
 /*  f11d9bc:	03e00008 */ 	jr	$ra
 /*  f11d9c0:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
-
+#else
 /**
  * Convert camera pixel data from the Game Boy Camera's format and write it to
  * a 128x128 byte array.
@@ -5518,46 +5519,47 @@ glabel pakConvertFromGbcImage
  * linear; the two bits for each pixel are in neighbouring bytes using the same
  * bit index. It also appears that the GBC format is column major.
  */
-//void pakConvertFromGbcImage(u8 *src, u8 *dst)
-//{
-//	s32 i;
-//	s32 j;
-//	s32 byte;
-//	s32 bit;
-//	s32 a0;
-//	s32 a3;
-//	s32 t2;
-//	u8 *s2;
-//
-//	for (i = 0; i < 16; i++) {
-//		a0 = (i * 16) << 4;
-//
-//		for (j = 0; j < 16; j++) {
-//			s2 = &src[a0];
-//
-//			for (byte = 0; byte < 8; byte++) {
-//				t2 = (i * 8 + byte) << 7;
-//				a3 = j * 8;
-//
-//				for (bit = 0; bit < 8; bit++) {
-//					dst[t2 + a3] = 0;
-//
-//					if ((s2[byte * 2 + 0] & (0x80 >> bit)) == 0) {
-//						dst[t2 + a3] += 0x40;
-//					}
-//
-//					if ((s2[byte * 2 + 1] & (0x80 >> bit)) == 0) {
-//						dst[t2 + a3] += 0x80;
-//					}
-//
-//					a3++;
-//				}
-//			}
-//
-//			a0 += 16;
-//		}
-//	}
-//}
+void pakConvertFromGbcImage(u8 *src, u8 *dst)
+{
+	s32 i;
+	s32 j;
+	s32 byte;
+	s32 bit;
+	s32 a0;
+	s32 a3;
+	s32 t2;
+	u8 *s2;
+
+	for (i = 0; i < 16; i++) {
+		a0 = (i * 16) << 4;
+
+		for (j = 0; j < 16; j++) {
+			s2 = &src[a0];
+
+			for (byte = 0; byte < 8; byte++) {
+				t2 = (i * 8 + byte) << 7;
+				a3 = j * 8;
+
+				for (bit = 0; bit < 8; bit++) {
+					dst[t2 + a3] = 0;
+
+					if ((s2[byte * 2 + 0] & (0x80 >> bit)) == 0) {
+						dst[t2 + a3] += 0x40;
+					}
+
+					if ((s2[byte * 2 + 1] & (0x80 >> bit)) == 0) {
+						dst[t2 + a3] += 0x80;
+					}
+
+					a3++;
+				}
+			}
+
+			a0 += 16;
+		}
+	}
+}
+#endif
 
 /**
  * Perform operations on a 128 x 128 image.

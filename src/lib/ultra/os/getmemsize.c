@@ -2,6 +2,7 @@
 #include <rcp.h>
 #include <R4300.h>
 
+#if MATCHING
 GLOBAL_ASM(
 glabel osGetMemSize
 /*    4f530:	27bdfff0 */ 	addiu	$sp,$sp,-16
@@ -77,4 +78,5 @@ glabel osGetMemSize
 .NB0004f63c:
 /*    4f63c:	03e00008 */ 	jr	$ra
 /*    4f640:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);;
+);
+#endif

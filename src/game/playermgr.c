@@ -701,6 +701,7 @@ void playermgrSetAspectRatio(f32 aspect)
 	g_Vars.currentplayer->aspect = aspect;
 }
 
+#if MATCHING
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel playermgrGetModelOfWeapon
@@ -1184,67 +1185,68 @@ glabel var7f1b522c
 /*  f128cec:	00601025 */ 	or	$v0,$v1,$zero
 );
 #endif
+#else
+s32 playermgrGetModelOfWeapon(s32 weapon)
+{
+	switch (weapon) {
+	case WEAPON_NONE:
+	case WEAPON_UNARMED:          return -1;
+	case WEAPON_FALCON2:          return MODEL_CHRFALCON2;
+	case WEAPON_MAGSEC4:          return MODEL_CHRLEEGUN1;
+	case WEAPON_MAULER:           return MODEL_CHRMAULER;
+	case WEAPON_DY357MAGNUM:      return MODEL_CHRDY357;
+	case WEAPON_DY357LX:          return MODEL_CHRDY357TRENT;
+	case WEAPON_PHOENIX:          return MODEL_CHRMAIANPISTOL;
+	case WEAPON_FALCON2_SILENCER: return MODEL_CHRFALCON2SIL;
+	case WEAPON_FALCON2_SCOPE:    return MODEL_CHRFALCON2SCOPE;
+	case WEAPON_CMP150:           return MODEL_CHRCMP150;
+	case WEAPON_AR34:             return MODEL_CHRAR34;
+	case WEAPON_DRAGON:           return MODEL_CHRDRAGON;
+	case WEAPON_SUPERDRAGON:      return MODEL_CHRSUPERDRAGON;
+	case WEAPON_K7AVENGER:        return MODEL_CHRAVENGER;
+	case WEAPON_CYCLONE:          return MODEL_CHRCYCLONE;
+	case WEAPON_CALLISTO:         return MODEL_CHRMAIANSMG;
+	case WEAPON_RCP120:           return MODEL_CHRRCP120;
+	case WEAPON_LAPTOPGUN:        return MODEL_CHRPCGUN;
+	case WEAPON_SHOTGUN:          return MODEL_CHRSHOTGUN;
+	case WEAPON_REAPER:           return MODEL_CHRSKMINIGUN;
+	case WEAPON_ROCKETLAUNCHER:   return MODEL_CHRDYROCKET;
+	case WEAPON_DEVASTATOR:       return MODEL_CHRDEVASTATOR;
+	case WEAPON_SLAYER:           return MODEL_CHRSKROCKET;
+	case WEAPON_FARSIGHT:         return MODEL_CHRZ2020;
+	case WEAPON_SNIPERRIFLE:      return MODEL_CHRSNIPERRIFLE;
+	case WEAPON_CROSSBOW:         return MODEL_CHRCROSSBOW;
+	case WEAPON_LASER:            return MODEL_CHRLASER;
+	case WEAPON_COMBATKNIFE:      return MODEL_CHRKNIFE;
+	case WEAPON_TRANQUILIZER:     return MODEL_CHRDRUGGUN;
+	case WEAPON_PSYCHOSISGUN:     return MODEL_CHRDRUGGUN;
+	case WEAPON_NBOMB:            return MODEL_CHRNBOMB;
+	case WEAPON_GRENADE:          return MODEL_CHRGRENADE;
+	case WEAPON_REMOTEMINE:       return MODEL_CHRREMOTEMINE;
+	case WEAPON_PROXIMITYMINE:    return MODEL_CHRPROXIMITYMINE;
+	case WEAPON_TIMEDMINE:        return MODEL_CHRTIMEDMINE;
+	case WEAPON_BRIEFCASE2:       return MODEL_CHRBRIEFCASE;
+	case WEAPON_CLOAKINGDEVICE:   return MODEL_CHRCLOAKER;
+	case WEAPON_PP9I:             return MODEL_CHRWPPK;
+	case WEAPON_CC13:             return MODEL_CHRTT33;
+	case WEAPON_KL01313:          return MODEL_CHRSKORPION;
+	case WEAPON_KF7SPECIAL:       return MODEL_CHRKALASH;
+	case WEAPON_ZZT:              return MODEL_CHRUZI;
+	case WEAPON_DMC:              return MODEL_CHRMP5K;
+	case WEAPON_AR53:             return MODEL_CHRM16;
+	case WEAPON_RCP45:            return MODEL_CHRFNP90;
+	case WEAPON_COMBATBOOST:      return -1;
+	case WEAPON_HAMMER:           return MODEL_CHRLUMPHAMMER;
+	case WEAPON_SCREWDRIVER:      return MODEL_CHRSONICSCREWER;
+	}
 
-//s32 playermgrGetModelOfWeapon(s32 weapon)
-//{
-//	switch (weapon) {
-//	case WEAPON_NONE:
-//	case WEAPON_UNARMED:          return -1;
-//	case WEAPON_FALCON2:          return MODEL_CHRFALCON2;
-//	case WEAPON_MAGSEC4:          return MODEL_CHRLEEGUN1;
-//	case WEAPON_MAULER:           return MODEL_CHRMAULER;
-//	case WEAPON_DY357MAGNUM:      return MODEL_CHRDY357;
-//	case WEAPON_DY357LX:          return MODEL_CHRDY357TRENT;
-//	case WEAPON_PHOENIX:          return MODEL_CHRMAIANPISTOL;
-//	case WEAPON_FALCON2_SILENCER: return MODEL_CHRFALCON2SIL;
-//	case WEAPON_FALCON2_SCOPE:    return MODEL_CHRFALCON2SCOPE;
-//	case WEAPON_CMP150:           return MODEL_CHRCMP150;
-//	case WEAPON_AR34:             return MODEL_CHRAR34;
-//	case WEAPON_DRAGON:           return MODEL_CHRDRAGON;
-//	case WEAPON_SUPERDRAGON:      return MODEL_CHRSUPERDRAGON;
-//	case WEAPON_K7AVENGER:        return MODEL_CHRAVENGER;
-//	case WEAPON_CYCLONE:          return MODEL_CHRCYCLONE;
-//	case WEAPON_CALLISTO:         return MODEL_CHRMAIANSMG;
-//	case WEAPON_RCP120:           return MODEL_CHRRCP120;
-//	case WEAPON_LAPTOPGUN:        return MODEL_CHRPCGUN;
-//	case WEAPON_SHOTGUN:          return MODEL_CHRSHOTGUN;
-//	case WEAPON_REAPER:           return MODEL_CHRSKMINIGUN;
-//	case WEAPON_ROCKETLAUNCHER:   return MODEL_CHRDYROCKET;
-//	case WEAPON_DEVASTATOR:       return MODEL_CHRDEVASTATOR;
-//	case WEAPON_SLAYER:           return MODEL_CHRSKROCKET;
-//	case WEAPON_FARSIGHT:         return MODEL_CHRZ2020;
-//	case WEAPON_SNIPERRIFLE:      return MODEL_CHRSNIPERRIFLE;
-//	case WEAPON_CROSSBOW:         return MODEL_CHRCROSSBOW;
-//	case WEAPON_LASER:            return MODEL_CHRLASER;
-//	case WEAPON_COMBATKNIFE:      return MODEL_CHRKNIFE;
-//	case WEAPON_TRANQUILIZER:     return MODEL_CHRDRUGGUN;
-//	case WEAPON_PSYCHOSISGUN:     return MODEL_CHRDRUGGUN;
-//	case WEAPON_NBOMB:            return MODEL_CHRNBOMB;
-//	case WEAPON_GRENADE:          return MODEL_CHRGRENADE;
-//	case WEAPON_REMOTEMINE:       return MODEL_CHRREMOTEMINE;
-//	case WEAPON_PROXIMITYMINE:    return MODEL_CHRPROXIMITYMINE;
-//	case WEAPON_TIMEDMINE:        return MODEL_CHRTIMEDMINE;
-//	case WEAPON_BRIEFCASE2:       return MODEL_CHRBRIEFCASE;
-//	case WEAPON_CLOAKINGDEVICE:   return MODEL_CHRCLOAKER;
-//	case WEAPON_PP9I:             return MODEL_CHRWPPK;
-//	case WEAPON_CC13:             return MODEL_CHRTT33;
-//	case WEAPON_KL01313:          return MODEL_CHRSKORPION;
-//	case WEAPON_KF7SPECIAL:       return MODEL_CHRKALASH;
-//	case WEAPON_ZZT:              return MODEL_CHRUZI;
-//	case WEAPON_DMC:              return MODEL_CHRMP5K;
-//	case WEAPON_AR53:             return MODEL_CHRM16;
-//	case WEAPON_RCP45:            return MODEL_CHRFNP90;
-//	case WEAPON_COMBATBOOST:      return -1;
-//	case WEAPON_HAMMER:           return MODEL_CHRLUMPHAMMER;
-//	case WEAPON_SCREWDRIVER:      return MODEL_CHRSONICSCREWER;
-//	}
-//
-//	if (weapon <= WEAPON_PSYCHOSISGUN) {
-//		return MODEL_CHRSNIPERRIFLE;
-//	}
-//
-//	return -1;
-//}
+	if (weapon <= WEAPON_PSYCHOSISGUN) {
+		return MODEL_CHRSNIPERRIFLE;
+	}
+
+	return -1;
+}
+#endif
 
 void playermgrDeleteWeapon(s32 hand)
 {

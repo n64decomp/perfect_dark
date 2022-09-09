@@ -2911,6 +2911,7 @@ Gfx *func0f1574d0jf(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1
 }
 #endif
 
+#if MATCHING
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel textMeasure
@@ -3534,99 +3535,99 @@ glabel textMeasure
 /*  f15751c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 #endif
-
+#else
 // Mismatch: Goal moves textheight to s0 then uses a0 for text[i] and/or
 // thischar.
-//void textMeasure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *font1, struct font *font2, s32 lineheight)
-//{
-//	s32 thischar;
-//	s32 prevchar;
-//	s32 longest;
-//	s32 i;
-//	s32 tmp;
-//
-//	*textheight = 0;
-//	prevchar = 'H'; // Just a default - presumably chosen for its flat right edge
-//	longest = 0;
-//	*textwidth = 0;
-//
-//	// 324
-//	if (lineheight == 0) {
-//		lineheight = font1['['].baseline + font1['['].height;
-//	}
-//
-//	// 344
-//	// Force minimum height for non-English languages
-//	if (g_Jpn && lineheight < 14) {
-//		lineheight = 14;
-//	}
-//
-//	// 358
-//	if (text) {
-//		thischar = text[0];
-//
-//		for (i = 0; text[i] != '\0'; ) {
-//			// 388
-//			if (thischar == ' ') {
-//				// Space
-//				if (text[i + 1] != '\n') {
-//					*textwidth += 5;
-//				}
-//
-//				prevchar = 'H';
-//				i++;
-//			} else /*3b4*/ if (thischar == '\n') {
-//				// Line break
-//				if (*textwidth > longest) {
-//					longest = *textwidth;
-//				}
-//
-//				*textwidth = 0;
-//				*textheight += lineheight;
-//				i++;
-//			} else /*3e8*/ {
-//				if (thischar < 0x80) {
-//					// Normal single-byte character
-//					u8 character = thischar;
-//					s32 b = font1[character - 0x21].unk04;
-//					s32 a = font1[prevchar - 0x21].unk04;
-//
-//					tmp = font2->unk000[b + a * 13] + var8007fac4 - 1;
-//					tmp = font1[character - 0x21].width + tmp;
-//
-//					*textwidth = *textwidth - tmp;
-//
-//					prevchar = text[i];
-//					i++;
-//				} else /*460*/ if (thischar < 0xc0) {
-//					// Multi-byte character
-//					tmp = font2->unk000[0] + var8007fac4 - 1;
-//					*textwidth = *textwidth - tmp + 11;
-//					i += 2;
-//				} else {
-//					// Multi-byte character
-//					// 494
-//					tmp = font2->unk000[0] + var8007fac4 - 1;
-//					*textwidth = *textwidth - tmp + 15;
-//					i += 2;
-//				}
-//
-//				if (textheight);
-//			}
-//
-//			thischar = text[i];
-//		}
-//	}
-//
-//	if (g_ScaleX == 1) {
-//		*textwidth *= var8007fad0;
-//	}
-//
-//	// @bug? Shouldn't this go before the scale check?
-//	if (*textwidth < longest) {
-//		*textwidth = longest;
-//	}
-//}
+void textMeasure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *font1, struct font *font2, s32 lineheight)
+{
+	s32 thischar;
+	s32 prevchar;
+	s32 longest;
+	s32 i;
+	s32 tmp;
+
+	*textheight = 0;
+	prevchar = 'H'; // Just a default - presumably chosen for its flat right edge
+	longest = 0;
+	*textwidth = 0;
+
+	// 324
+	if (lineheight == 0) {
+		lineheight = font1['['].baseline + font1['['].height;
+	}
+
+	// 344
+	// Force minimum height for non-English languages
+	if (g_Jpn && lineheight < 14) {
+		lineheight = 14;
+	}
+
+	// 358
+	if (text) {
+		thischar = text[0];
+
+		for (i = 0; text[i] != '\0'; ) {
+			// 388
+			if (thischar == ' ') {
+				// Space
+				if (text[i + 1] != '\n') {
+					*textwidth += 5;
+				}
+
+				prevchar = 'H';
+				i++;
+			} else /*3b4*/ if (thischar == '\n') {
+				// Line break
+				if (*textwidth > longest) {
+					longest = *textwidth;
+				}
+
+				*textwidth = 0;
+				*textheight += lineheight;
+				i++;
+			} else /*3e8*/ {
+				if (thischar < 0x80) {
+					// Normal single-byte character
+					u8 character = thischar;
+					s32 b = font1[character - 0x21].unk04;
+					s32 a = font1[prevchar - 0x21].unk04;
+
+					tmp = font2->unk000[b + a * 13] + var8007fac4 - 1;
+
+					*textwidth = *textwidth + font1[character - 0x21].width - tmp;
+
+					prevchar = text[i];
+					i++;
+				} else /*460*/ if (thischar < 0xc0) {
+					// Multi-byte character
+					tmp = font2->unk000[0] + var8007fac4 - 1;
+					*textwidth = *textwidth - tmp + 11;
+					i += 2;
+				} else {
+					// Multi-byte character
+					// 494
+					tmp = font2->unk000[0] + var8007fac4 - 1;
+					*textwidth = *textwidth - tmp + 15;
+					i += 2;
+				}
+
+				if (textheight);
+			}
+
+			thischar = text[i];
+		}
+	}
+
+	if (g_ScaleX == 1) {
+		*textwidth *= var8007fad0;
+	}
+
+	// @bug? Shouldn't this go before the scale check?
+	if (*textwidth < longest) {
+		*textwidth = longest;
+	}
+}
+#endif
 
 #if VERSION == VERSION_JPN_FINAL
 bool func0f157768jf(s32 arg0, s32 arg1)

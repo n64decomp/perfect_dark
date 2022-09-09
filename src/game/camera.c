@@ -586,6 +586,7 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 	return true;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel camIsPosInFovAndVisibleRoom
 /*  f0b6260:	27bdffb0 */ 	addiu	$sp,$sp,-80
@@ -681,50 +682,51 @@ glabel camIsPosInFovAndVisibleRoom
 /*  f0b63a0:	03e00008 */ 	jr	$ra
 /*  f0b63a4:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
-
+#else
 // Mismatch: Too much compiler-managed stack
-//bool camIsPosInFovAndVisibleRoom(s16 *rooms, struct coord *pos, f32 arg2)
-//{
-//	s8 hasdata = false;
-//	s16 room;
-//	s32 i;
-//	struct var800a4640_00 *thisthing;
-//	struct var800a4640_00 thing; // 34
-//
-//	for (i = 0, room = rooms[0]; room != -1; i++, room = rooms[i]) {
-//		if (g_Rooms[room].flags & ROOMFLAG_ONSCREEN) {
-//			thisthing = func0f158140(room);
-//
-//			if (hasdata == false) {
-//				thing.box.xmin = thisthing->box.xmin;
-//				thing.box.ymin = thisthing->box.ymin;
-//				thing.box.xmax = thisthing->box.xmax;
-//				thing.box.ymax = thisthing->box.ymax;
-//			} else {
-//				if (thisthing->box.xmin < thing.box.xmin) {
-//					thing.box.xmin = thisthing->box.xmin;
-//				}
-//
-//				if (thisthing->box.ymin < thing.box.ymin) {
-//					thing.box.ymin = thisthing->box.ymin;
-//				}
-//
-//				if (thisthing->box.xmax > thing.box.xmax) {
-//					thing.box.xmax = thisthing->box.xmax;
-//				}
-//
-//				if (thisthing->box.ymax > thing.box.ymax) {
-//					thing.box.ymax = thisthing->box.ymax;
-//				}
-//			}
-//
-//			hasdata = true;
-//		}
-//	}
-//
-//	if (!hasdata) {
-//		return false;
-//	}
-//
-//	return camIsPosInScreenBox(pos, arg2, &thing);
-//}
+bool camIsPosInFovAndVisibleRoom(s16 *rooms, struct coord *pos, f32 arg2)
+{
+	s8 hasdata = false;
+	s16 room;
+	s32 i;
+	struct var800a4640_00 *thisthing;
+	struct var800a4640_00 thing; // 34
+
+	for (i = 0, room = rooms[0]; room != -1; i++, room = rooms[i]) {
+		if (g_Rooms[room].flags & ROOMFLAG_ONSCREEN) {
+			thisthing = func0f158140(room);
+
+			if (hasdata == false) {
+				thing.box.xmin = thisthing->box.xmin;
+				thing.box.ymin = thisthing->box.ymin;
+				thing.box.xmax = thisthing->box.xmax;
+				thing.box.ymax = thisthing->box.ymax;
+			} else {
+				if (thisthing->box.xmin < thing.box.xmin) {
+					thing.box.xmin = thisthing->box.xmin;
+				}
+
+				if (thisthing->box.ymin < thing.box.ymin) {
+					thing.box.ymin = thisthing->box.ymin;
+				}
+
+				if (thisthing->box.xmax > thing.box.xmax) {
+					thing.box.xmax = thisthing->box.xmax;
+				}
+
+				if (thisthing->box.ymax > thing.box.ymax) {
+					thing.box.ymax = thisthing->box.ymax;
+				}
+			}
+
+			hasdata = true;
+		}
+	}
+
+	if (!hasdata) {
+		return false;
+	}
+
+	return camIsPosInScreenBox(pos, arg2, &thing);
+}
+#endif

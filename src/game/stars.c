@@ -92,6 +92,7 @@ void starInsert(s32 index, struct coord *arg1)
 	}
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel starsReset
 /*  f1360e8:	27bdff18 */ 	addiu	$sp,$sp,-232
@@ -631,123 +632,124 @@ glabel starsReset
 /*  f136874:	03e00008 */ 	jr	$ra
 /*  f136878:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
 );
-
+#else
 #define ABS2(value) ((value) < 0 ? -(value) : (value))
 
-//void starsReset(void)
-//{
-//	struct coord spd4;
-//	struct coord spc8;
-//	f32 spbc[2];
-//	s32 spb0;
-//	f32 f12;
-//	f32 f0;
-//	f32 f2;
-//	s32 v0;
-//	s32 v1;
-//	s32 i;
-//	s32 tmp;
-//
-//	g_StarPositions = NULL;
-//
-//	if (PLAYERCOUNT() < 2) {
-//		g_StarsBelowHorizon = false;
-//		g_StarGridSize = 3;
-//
-//		if (g_Vars.stagenum == STAGE_TEST_OLD) {
-//			g_StarsBelowHorizon = true;
-//			g_StarCount = 1600;
-//		} else if (g_Vars.stagenum == STAGE_DEFECTION || g_Vars.stagenum == STAGE_EXTRACTION) {
-//			g_StarCount = 200;
-//			g_StarGridSize = 2;
-//		} else if (g_Vars.stagenum == STAGE_ATTACKSHIP) {
-//			g_StarsBelowHorizon = true;
-//			g_StarCount = 1200;
-//		} else {
-//			g_StarCount = 200;
-//			g_StarGridSize = 2;
-//		}
-//
-//		tmp = g_StarGridSize + 1;
-//		g_StarPositions = mempAlloc(ALIGN64(g_StarCount * 3 + tmp * 72 * tmp + g_StarGridSize * 6 * g_StarGridSize * 4 + 4), MEMPOOL_STAGE);
-//
-//		if (g_StarPositions != NULL) {
-//			s32 tmp;
-//			g_StarPosIndexes = (s32 *)(g_StarPositions + g_StarCount * 3);
-//
-//			for (i = 0; i < (g_StarGridSize * 6 * g_StarGridSize + 1); i++) {
-//				g_StarPosIndexes[i] = 0;
-//			}
-//
-//			g_StarData3 = (f32 *)((u32)g_StarPosIndexes + (g_StarGridSize * 6 * g_StarGridSize + 1) * sizeof(f32));
-//
-//			stars0f135c70();
-//
-//			for (i = 0; i < g_StarCount; i++) {
-//				spd4.f[0] = 2.0f * RANDOMFRAC() - 1.0f;
-//
-//				if (g_StarsBelowHorizon) {
-//					spd4.f[1] = 2.0f * RANDOMFRAC() - 1.0f;
-//				} else {
-//					spd4.f[1] = RANDOMFRAC();
-//				}
-//
-//				spd4.f[2] = 2.0f * RANDOMFRAC() - 1.0f;
-//
-//				guNormalize(&spd4.f[0], &spd4.f[1], &spd4.f[2]);
-//
-//				if (ABS2(spd4.f[1]) < ABS2(spd4.f[0])) {
-//					f0 = ABS2(spd4.f[2]) < ABS2(spd4.f[0]) ? ABS2(spd4.f[0]) : ABS2(spd4.f[2]);
-//				} else {
-//					f0 = ABS2(spd4.f[2]) < ABS2(spd4.f[1]) ? ABS2(spd4.f[1]) : ABS2(spd4.f[2]);
-//				}
-//
-//				// 5e0
-//				tmp = g_StarGridSize * g_StarGridSize;
-//
-//				spc8.f[0] = spd4.f[0] / f0;
-//				spc8.f[1] = spd4.f[1] / f0;
-//				spc8.f[2] = spd4.f[2] / f0;
-//
-//				if (spc8.f[0] == 1.0f || spc8.f[0] == -1.0f) {
-//					spb0 = spc8.f[0] == -1.0f ? 0 : 1;
-//					spbc[0] = spc8.f[2];
-//					spbc[1] = spc8.f[1];
-//					f12 = (spbc[0] + 1.0f) / 2.0f;
-//					f2 = (spbc[1] + 1.0f) / 2.0f;
-//				} else if (spc8.f[1] == 1.0f || spc8.f[1] == -1.0f) {
-//					spb0 = spc8.f[1] == -1.0f ? 2 : 3;
-//					spbc[0] = spc8.f[0];
-//					spbc[1] = spc8.f[2];
-//					f12 = (spbc[0] + 1.0f) / 2.0f;
-//					f2 = (spbc[1] + 1.0f) / 2.0f;
-//				} else if (spc8.f[2] == 1.0f || spc8.f[2] == -1.0f) {
-//					spb0 = spc8.f[2] == -1.0f ? 4 : 5;
-//					spbc[0] = spc8.f[1];
-//					spbc[1] = spc8.f[0];
-//					f12 = (spbc[0] + 1.0f) / 2.0f;
-//					f2 = (spbc[1] + 1.0f) / 2.0f;
-//				} else{
-//					f12 = (spbc[0] + 1.0f) / 2.0f;
-//					f2 = (spbc[1] + 1.0f) / 2.0f;
-//				}
-//
-//				v0 = f2 * g_StarGridSize;
-//				v1 = f12 * g_StarGridSize;
-//
-//				if (v0 == g_StarGridSize) {
-//					v0--;
-//				}
-//
-//				if (v1 == g_StarGridSize) {
-//					v1--;
-//				}
-//
-//				starInsert(spb0 * tmp + (g_StarGridSize * v1) + v0, spd4.f);
-//			}
-//		}
-//	}
-//}
+void starsReset(void)
+{
+	struct coord spd4;
+	struct coord spc8;
+	f32 spbc[2];
+	s32 spb0;
+	f32 f12;
+	f32 f0;
+	f32 f2;
+	s32 v0;
+	s32 v1;
+	s32 i;
+	s32 tmp;
+
+	g_StarPositions = NULL;
+
+	if (PLAYERCOUNT() < 2) {
+		g_StarsBelowHorizon = false;
+		g_StarGridSize = 3;
+
+		if (g_Vars.stagenum == STAGE_TEST_OLD) {
+			g_StarsBelowHorizon = true;
+			g_StarCount = 1600;
+		} else if (g_Vars.stagenum == STAGE_DEFECTION || g_Vars.stagenum == STAGE_EXTRACTION) {
+			g_StarCount = 200;
+			g_StarGridSize = 2;
+		} else if (g_Vars.stagenum == STAGE_ATTACKSHIP) {
+			g_StarsBelowHorizon = true;
+			g_StarCount = 1200;
+		} else {
+			g_StarCount = 200;
+			g_StarGridSize = 2;
+		}
+
+		tmp = g_StarGridSize + 1;
+		g_StarPositions = mempAlloc(ALIGN64(g_StarCount * 3 + tmp * 72 * tmp + g_StarGridSize * 6 * g_StarGridSize * 4 + 4), MEMPOOL_STAGE);
+
+		if (g_StarPositions != NULL) {
+			s32 tmp;
+			g_StarPosIndexes = (s32 *)(g_StarPositions + g_StarCount * 3);
+
+			for (i = 0; i < (g_StarGridSize * 6 * g_StarGridSize + 1); i++) {
+				g_StarPosIndexes[i] = 0;
+			}
+
+			g_StarData3 = (f32 *)((u32)g_StarPosIndexes + (g_StarGridSize * 6 * g_StarGridSize + 1) * sizeof(f32));
+
+			stars0f135c70();
+
+			for (i = 0; i < g_StarCount; i++) {
+				spd4.f[0] = 2.0f * RANDOMFRAC() - 1.0f;
+
+				if (g_StarsBelowHorizon) {
+					spd4.f[1] = 2.0f * RANDOMFRAC() - 1.0f;
+				} else {
+					spd4.f[1] = RANDOMFRAC();
+				}
+
+				spd4.f[2] = 2.0f * RANDOMFRAC() - 1.0f;
+
+				guNormalize(&spd4.f[0], &spd4.f[1], &spd4.f[2]);
+
+				if (ABS2(spd4.f[1]) < ABS2(spd4.f[0])) {
+					f0 = ABS2(spd4.f[2]) < ABS2(spd4.f[0]) ? ABS2(spd4.f[0]) : ABS2(spd4.f[2]);
+				} else {
+					f0 = ABS2(spd4.f[2]) < ABS2(spd4.f[1]) ? ABS2(spd4.f[1]) : ABS2(spd4.f[2]);
+				}
+
+				// 5e0
+				tmp = g_StarGridSize * g_StarGridSize;
+
+				spc8.f[0] = spd4.f[0] / f0;
+				spc8.f[1] = spd4.f[1] / f0;
+				spc8.f[2] = spd4.f[2] / f0;
+
+				if (spc8.f[0] == 1.0f || spc8.f[0] == -1.0f) {
+					spb0 = spc8.f[0] == -1.0f ? 0 : 1;
+					spbc[0] = spc8.f[2];
+					spbc[1] = spc8.f[1];
+					f12 = (spbc[0] + 1.0f) / 2.0f;
+					f2 = (spbc[1] + 1.0f) / 2.0f;
+				} else if (spc8.f[1] == 1.0f || spc8.f[1] == -1.0f) {
+					spb0 = spc8.f[1] == -1.0f ? 2 : 3;
+					spbc[0] = spc8.f[0];
+					spbc[1] = spc8.f[2];
+					f12 = (spbc[0] + 1.0f) / 2.0f;
+					f2 = (spbc[1] + 1.0f) / 2.0f;
+				} else if (spc8.f[2] == 1.0f || spc8.f[2] == -1.0f) {
+					spb0 = spc8.f[2] == -1.0f ? 4 : 5;
+					spbc[0] = spc8.f[1];
+					spbc[1] = spc8.f[0];
+					f12 = (spbc[0] + 1.0f) / 2.0f;
+					f2 = (spbc[1] + 1.0f) / 2.0f;
+				} else{
+					f12 = (spbc[0] + 1.0f) / 2.0f;
+					f2 = (spbc[1] + 1.0f) / 2.0f;
+				}
+
+				v0 = f2 * g_StarGridSize;
+				v1 = f12 * g_StarGridSize;
+
+				if (v0 == g_StarGridSize) {
+					v0--;
+				}
+
+				if (v1 == g_StarGridSize) {
+					v1--;
+				}
+
+				starInsert(spb0 * tmp + (g_StarGridSize * v1) + v0, &spd4);
+			}
+		}
+	}
+}
+#endif
 
 Gfx *starsRender(Gfx *gdl)
 {

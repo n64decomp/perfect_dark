@@ -825,6 +825,7 @@ s32 func0f14ad38(s32 device)
 const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
 const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
 
+#if MATCHING
 GLOBAL_ASM(
 glabel func0f14ad58
 .late_rodata
@@ -916,62 +917,63 @@ glabel var7f1b72e8
 /*  f14ae98:	03e00008 */ 	jr	$ra
 /*  f14ae9c:	e4500048 */ 	swc1	$f16,0x48($v0)
 );
-
+#else
 // Mismatch: need to fiddle with the order of these
-//void func0f14ad58(s32 index)
-//{
-//	struct var8007f8dc *thing = &var8007f8dc[index];
-//
-//	thing->unk000 = 0;
-//	thing->unk004 = 1.0f;
-//	thing->unk008 = 1.0f;
-//	thing->unk050 = 110.0f;
-//	thing->unk00c = 0.1f;
-//	thing->unk010 = 0.2f;
-//	thing->unk054 = 30;
-//	thing->unk058 = -1;
-//	thing->unk068 = -1;
-//	thing->unk06c = 0;
-//	thing->unk070 = 0;
-//	thing->unk074 = 0;
-//	thing->unk084 = 0;
-//	thing->unk024 = 1.0f;
-//	thing->unk028 = 1.0f;
-//	thing->unk03c = 1.0f;
-//	thing->unk014 = 0.0f;
-//	thing->unk018 = 0.0f;
-//	thing->unk01c = 0.0f;
-//	thing->unk020 = 0.0f;
-//	thing->unk02c = 0.0f;
-//	thing->unk030 = 0.0f;
-//	thing->unk034 = 0.0f;
-//	thing->unk038 = 0.0f;
-//	thing->unk040 = 0.0f;
-//	thing->unk044 = 30.0f;
-//	thing->unk060 = 6;
-//	thing->unk08c = 14;
-//	thing->unk088 = 1;
-//	thing->unk090 = 0;
-//	thing->unk064 = 0;
-//	thing->unk0f4 = 0;
-//	thing->unk094 = 0;
-//	thing->unk0f8 = 0;
-//	thing->unk0fc = 3;
-//	thing->unk100 = 3;
-//	thing->unk0e0 = 0;
-//	thing->unk0e4 = 0;
-//	thing->unk0e8 = 0;
-//	thing->unk0ec = 0;
-//	thing->unk0f0 = 0;
-//	thing->unk078 = 0;
-//	thing->unk07c = 0;
-//	thing->unk05c = var8007f940;
-//	thing->unk048 = 1.0f;
-//	thing->unk0d4_00 = false;
-//	thing->unk0d4_01 = false;
-//	thing->unk0d4_02 = false;
-//	thing->unk0d4_04 = true;
-//}
+void func0f14ad58(s32 index)
+{
+	struct var8007f8dc *thing = &var8007f8dc[index];
+
+	thing->unk000 = 0;
+	thing->unk004 = 1.0f;
+	thing->unk008 = 1.0f;
+	thing->unk050 = 110.0f;
+	thing->unk00c = 0.1f;
+	thing->unk010 = 0.2f;
+	thing->unk054 = 30;
+	thing->unk058 = -1;
+	thing->unk068 = -1;
+	thing->unk06c = 0;
+	thing->unk070 = 0;
+	thing->unk074 = 0;
+	thing->unk084 = 0;
+	thing->unk024 = 1.0f;
+	thing->unk028 = 1.0f;
+	thing->unk03c = 1.0f;
+	thing->unk014 = 0.0f;
+	thing->unk018 = 0.0f;
+	thing->unk01c = 0.0f;
+	thing->unk020 = 0.0f;
+	thing->unk02c = 0.0f;
+	thing->unk030 = 0.0f;
+	thing->unk034 = 0.0f;
+	thing->unk038 = 0.0f;
+	thing->unk040 = 0.0f;
+	thing->unk044 = 30.0f;
+	thing->unk060 = 6;
+	thing->unk08c = 14;
+	thing->unk088 = 1;
+	thing->unk090 = 0;
+	thing->unk064 = 0;
+	thing->unk0f4 = 0;
+	thing->unk094 = 0;
+	thing->unk0f8 = 0;
+	thing->unk0fc = 3;
+	thing->unk100 = 3;
+	thing->unk0e0 = 0;
+	thing->unk0e4 = 0;
+	thing->unk0e8 = 0;
+	thing->unk0ec = 0;
+	thing->unk0f0 = 0;
+	thing->unk078 = 0;
+	thing->unk07c = 0;
+	thing->unk05c = var8007f904[30];
+	thing->unk048 = 1.0f;
+	thing->unk0d4_00 = false;
+	thing->unk0d4_01 = false;
+	thing->unk0d4_02 = false;
+	thing->unk0d4_04 = true;
+}
+#endif
 
 bool func0f14aea0(s32 device)
 {
@@ -1630,6 +1632,7 @@ void func0f14c4c0(s32 index)
 	menuSetBanner(MENUBANNER_DOWNLOADINGIMAGE, false);
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel func0f14c50c
 /*  f14c50c:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -1792,68 +1795,69 @@ glabel func0f14c50c
 /*  f14c754:	03e00008 */ 	jr	$ra
 /*  f14c758:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
-
+#else
 // Mismatch: Goal loads var8007f8e0 into a2 then does nothing with it.
 // The below optimises it out.
-//void func0f14c50c(struct var8007f8e0 *dst, struct var8007f8e0 *src, u32 line, char *file)
-//{
-//	struct var8007f8e0 *thing = var8007f8e0;
-//	s32 i;
-//	s32 j;
-//	s32 row = 0;
-//
-//	for (i = 0; i < 22; i++);
-//
-//	dst->unk3f4_00 = src->unk3f4_00;
-//	dst->unk3f4_01 = src->unk3f4_01;
-//	dst->unk3f4_02 = src->unk3f4_02;
-//	dst->unk3f4_03 = src->unk3f4_03;
-//	dst->colournum = src->colournum;
-//	dst->stylenum = src->stylenum;
-//	dst->unk3a4 = src->unk3a4;
-//	dst->unk3b4 = src->unk3b4;
-//	dst->unk3b8 = src->unk3b8;
-//	dst->unk3bc = src->unk3bc;
-//	dst->unk3c0 = src->unk3c0;
-//	dst->unk3c4 = src->unk3c4;
-//	dst->unk3c8 = src->unk3c8;
-//	dst->unk3cc = src->unk3cc;
-//	dst->unk3ec = src->unk3ec;
-//	dst->unk3f0 = src->unk3f0;
-//
-//	dst->fileguid.fileid = src->fileguid.fileid;
-//	dst->fileguid.deviceserial = src->fileguid.deviceserial;
-//
-//	for (i = 0; i != 7; i++) {
-//		dst->unk3d0[i] = src->unk3d0[i];
-//	}
-//
-//	if (dst->unk01c) {
-//		s32 i;
-//
-//		for (i = 63; i != -1; i--) {
-//			for (j = 0; j != 64; j++) {
-//				s32 fudge = (i & 1) ? ((j & 4) ? -4 : 4) : 0;
-//
-//				dst->unk01c[row * 64 + j] = src->unk004.textureptr[i * 64 + j + fudge];
-//			}
-//
-//			row++;
-//		}
-//	}
-//
-//	func0f14c75c(&dst->unk004, &src->unk004);
-//
-//	if (dst->unk010.textureptr && src->unk010.textureptr) {
-//		func0f14c75c(&dst->unk010, &src->unk010);
-//	}
-//
-//	if (src->unk3f4_04) {
-//		for (i = 0; i < 1024; i++) {
-//			dst->unk020[i] = src->unk020[i];
-//		}
-//	}
-//}
+void func0f14c50c(struct var8007f8e0 *dst, struct var8007f8e0 *src, u32 line, char *file)
+{
+	struct var8007f8e0 *thing = var8007f8e0;
+	s32 i;
+	s32 j;
+	s32 row = 0;
+
+	for (i = 0; i < 22; i++);
+
+	dst->unk3f4_00 = src->unk3f4_00;
+	dst->unk3f4_01 = src->unk3f4_01;
+	dst->unk3f4_02 = src->unk3f4_02;
+	dst->unk3f4_03 = src->unk3f4_03;
+	dst->colournum = src->colournum;
+	dst->stylenum = src->stylenum;
+	dst->unk3a4 = src->unk3a4;
+	dst->unk3b4 = src->unk3b4;
+	dst->unk3b8 = src->unk3b8;
+	dst->unk3bc = src->unk3bc;
+	dst->unk3c0 = src->unk3c0;
+	dst->unk3c4 = src->unk3c4;
+	dst->unk3c8 = src->unk3c8;
+	dst->unk3cc = src->unk3cc;
+	dst->unk3ec = src->unk3ec;
+	dst->unk3f0 = src->unk3f0;
+
+	dst->fileguid.fileid = src->fileguid.fileid;
+	dst->fileguid.deviceserial = src->fileguid.deviceserial;
+
+	for (i = 0; i != 7; i++) {
+		dst->unk3d0[i] = src->unk3d0[i];
+	}
+
+	if (dst->unk01c) {
+		s32 i;
+
+		for (i = 63; i != -1; i--) {
+			for (j = 0; j != 64; j++) {
+				s32 fudge = (i & 1) ? ((j & 4) ? -4 : 4) : 0;
+
+				dst->unk01c[row * 64 + j] = src->unk004.textureptr[i * 64 + j + fudge];
+			}
+
+			row++;
+		}
+	}
+
+	func0f14c75c(&dst->unk004, &src->unk004);
+
+	if (dst->unk010.textureptr && src->unk010.textureptr) {
+		func0f14c75c(&dst->unk010, &src->unk010);
+	}
+
+	if (src->unk3f4_04) {
+		for (i = 0; i < 1024; i++) {
+			dst->unk020[i] = src->unk020[i];
+		}
+	}
+}
+#endif
 
 void func0f14c75c(struct textureconfig *arg0, struct textureconfig *arg1)
 {
@@ -2112,6 +2116,7 @@ void func0f14d2c8(u8 *arg0, u8 *arg1)
 	}
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel func0f14d4f0
 /*  f14d4f0:	27bdff30 */ 	addiu	$sp,$sp,-208
@@ -2289,75 +2294,76 @@ u32 var8007fa50 = 0x3c5a0169;
 u32 var8007fa54 = 0x3cb3b752;
 u32 var8007fa58 = 0x3c5a0169;
 u32 var8007fa5c = 0x3b42938e;
-
+#else
 // Mismatch: Different codegen. The function is generating a 64x64 thumbnail
 // from a 128x128 source, and there's lots of different ways that variables can
 // be used to do this.
-//void func0f14d4f0(u8 *arg0, u8 *arg1)
-//{
-//	f32 *s1 = (f32 *) var800a45a0->unk474;
-//	f32 *s0 = (f32 *) var800a45a0->unk478;
-//	s32 i;
-//	s32 j;
-//	s32 x;
-//	s32 y;
-//
-//	f32 sp50[] = {
-//		0.0029690000228584f,
-//		0.013306000269949f,
-//		0.021937999874353f,
-//		0.013306000269949f,
-//		0.0029690000228584f,
-//		0.013306000269949f,
-//		0.059634000062943f,
-//		0.098319999873638f,
-//		0.059634000062943f,
-//		0.013306000269949f,
-//		0.021937999874353f,
-//		0.098319999873638f,
-//		0.16210299730301f,
-//		0.098319999873638f,
-//		0.021937999874353f,
-//		0.013306000269949f,
-//		0.059634000062943f,
-//		0.098319999873638f,
-//		0.059634000062943f,
-//		0.013306000269949f,
-//		0.0029690000228584f,
-//		0.013306000269949f,
-//		0.021937999874353f,
-//		0.013306000269949f,
-//		0.0029690000228584f,
-//	};
-//
-//	for (i = 0; i < 128; i++) {
-//		for (j = 0; j < 128; j++) {
-//			s1[i * 128 + j] = arg0[i * 128 + j];
-//		}
-//	}
-//
-//	func0f14d8d8(s1, s0, 128, sp50, 5);
-//
-//	for (y = 0; y < 63; y++) {
-//		for (x = 0; x < 63; x++) {
-//			f32 value = (
-//					s0[y * 2 * 128 + x * 2 + 0] +
-//					s0[y * 2 * 128 + x * 2 + 1] +
-//					s0[y * 2 * 128 + x * 2 + 128] +
-//					s0[y * 2 * 128 + x * 2 + 129]) * 0.25f;
-//
-//			if (value < 0.0f) {
-//				value = 0.0f;
-//			}
-//
-//			if (value > 255.0f) {
-//				value = 255.0f;
-//			}
-//
-//			arg1[y * 64 + x] = value;
-//		}
-//	}
-//}
+void func0f14d4f0(u8 *arg0, u8 *arg1)
+{
+	f32 *s1 = (f32 *) var800a45a0->unk474;
+	f32 *s0 = (f32 *) var800a45a0->unk478;
+	s32 i;
+	s32 j;
+	s32 x;
+	s32 y;
+
+	f32 sp50[] = {
+		0.0029690000228584f,
+		0.013306000269949f,
+		0.021937999874353f,
+		0.013306000269949f,
+		0.0029690000228584f,
+		0.013306000269949f,
+		0.059634000062943f,
+		0.098319999873638f,
+		0.059634000062943f,
+		0.013306000269949f,
+		0.021937999874353f,
+		0.098319999873638f,
+		0.16210299730301f,
+		0.098319999873638f,
+		0.021937999874353f,
+		0.013306000269949f,
+		0.059634000062943f,
+		0.098319999873638f,
+		0.059634000062943f,
+		0.013306000269949f,
+		0.0029690000228584f,
+		0.013306000269949f,
+		0.021937999874353f,
+		0.013306000269949f,
+		0.0029690000228584f,
+	};
+
+	for (i = 0; i < 128; i++) {
+		for (j = 0; j < 128; j++) {
+			s1[i * 128 + j] = arg0[i * 128 + j];
+		}
+	}
+
+	func0f14d8d8(s1, s0, 128, sp50, 5);
+
+	for (y = 0; y < 63; y++) {
+		for (x = 0; x < 63; x++) {
+			f32 value = (
+					s0[y * 2 * 128 + x * 2 + 0] +
+					s0[y * 2 * 128 + x * 2 + 1] +
+					s0[y * 2 * 128 + x * 2 + 128] +
+					s0[y * 2 * 128 + x * 2 + 129]) * 0.25f;
+
+			if (value < 0.0f) {
+				value = 0.0f;
+			}
+
+			if (value > 255.0f) {
+				value = 255.0f;
+			}
+
+			arg1[y * 64 + x] = value;
+		}
+	}
+}
+#endif
 
 void func0f14d714(u8 *arg0, u8 *arg1)
 {
@@ -3250,6 +3256,7 @@ void func0f14f4e4(struct var8007f8e0 *arg0)
 	}
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel func0f14f510
 .late_rodata
@@ -3386,35 +3393,36 @@ glabel var7f1b7364
 /*  f14f6f8:	03e00008 */ 	jr	$ra
 /*  f14f6fc:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
+#else
+void func0f14f510(s32 arg0)
+{
+	s32 i;
+	s32 j;
 
-//void func0f14f510(s32 arg0)
-//{
-//	s32 i;
-//	s32 j;
-//
-//	for (i = 0; i < 8; i++) {
-//		s32 tmp = (i + 1) * arg0 + 1;
-//
-//		for (j = 0; j < 8; j++) {
-//			var800a45a0->unk06c[i * 8 + j] = tmp + j * arg0;
-//		}
-//	}
-//
-//	var800a45a0->unk010 = 0;
-//	var800a45a0->unk00c = 0;
-//
-//	for (i = 0; i < 8; i++) {
-//		var800a45a0->unk17c[i] = 1 / sqrtf(8);
-//		var800a45a0->unk27c[i * 8] = var800a45a0->unk17c[i];
-//	}
-//
-//	for (i = 1; i < 8; i++) {
-//		for (j = 0; j < 8; j++) {
-//			var800a45a0->unk17c[i * 8 + j] = sqrtf(0.25f) * cosf(((1 + j * 2) * M_PI * i) / 16.0f);
-//			var800a45a0->unk27c[j * 8 + i] = var800a45a0->unk17c[i * 8 + j];
-//		}
-//	}
-//}
+	for (i = 0; i < 8; i++) {
+		s32 tmp = (i + 1) * arg0 + 1;
+
+		for (j = 0; j < 8; j++) {
+			var800a45a0->unk06c[i][j] = tmp + j * arg0;
+		}
+	}
+
+	var800a45a0->unk010 = 0;
+	var800a45a0->unk00c = 0;
+
+	for (i = 0; i < 8; i++) {
+		var800a45a0->unk17c[0][i] = 1 / sqrtf(8);
+		var800a45a0->unk27c[i][0] = var800a45a0->unk17c[0][i];
+	}
+
+	for (i = 1; i < 8; i++) {
+		for (j = 0; j < 8; j++) {
+			var800a45a0->unk17c[i][j] = sqrtf(0.25f) * cosf(((1 + j * 2) * M_PI * i) / 16.0f);
+			var800a45a0->unk27c[j][i] = var800a45a0->unk17c[i][j];
+		}
+	}
+}
+#endif
 
 void func0f14f700(struct var8007f8e0 *arg0, u32 arg1, u32 arg2)
 {
@@ -3807,6 +3815,7 @@ const char var7f1b727c[] = "\nCam_SaveEditSlotToParamPakItem -> Save failed\n";
 const char var7f1b72ac[] = "Camera Save Error Result: %d\n";
 const char var7f1b72cc[] = "Magic Guid set to %d\n";
 
+#if MATCHING
 GLOBAL_ASM(
 glabel pheadSaveFile
 /*  f150468:	27bdeb08 */ 	addiu	$sp,$sp,-5368
@@ -4037,106 +4046,107 @@ glabel pheadSaveFile
 /*  f1507ac:	03e00008 */ 	jr	$ra
 /*  f1507b0:	27bd14f8 */ 	addiu	$sp,$sp,0x14f8
 );
-
+#else
 // Mismatch: Regalloc
-//s32 pheadSaveFile(s8 device, s32 fileid, u16 serial)
-//{
-//	u32 stack[2];
-//	struct camerafile file; // 1050
-//	struct var8007f8e0 *thing = func0f14a06c(-1);
-//	s32 ret;
-//	s32 writtenfileid; // 1044
-//	u8 sp44[0x1000];
-//	s32 i;
-//
-//	if (!thing->unk3f4_03) {
-//		thing->unk036 = 1;
-//		thing->unk024 = sp44;
-//
-//		while (true) {
-//			func0f150068(thing, thing->unk036);
-//
-//			file.unk80 = thing->unk02c / 8;
-//
-//			if ((u32)file.unk80 >= 1024) {
-//				thing->unk036++;
-//
-//				if (thing->unk036 >= 12) {
-//					return -1;
-//				}
-//			} else {
-//				break;
-//			}
-//		}
-//
-//		for (i = 0; i < (u32)file.unk80; i++) {
-//			thing->unk020[i] = thing->unk024[i];
-//		}
-//
-//		for (i = file.unk80; i < 1024; i++) {
-//			thing->unk020[i] = 0;
-//		}
-//
-//		thing->unk3f4_03 = true;
-//	}
-//
-//	file.unk8e_00 = thing->unk3f4_01;
-//	file.unk8e_01 = thing->unk3f4_02;
-//	file.unk8e_02 = thing->unk3a4;
-//
-//	file.unk82 = thing->unk3bc;
-//	file.unk84 = thing->unk3b8;
-//	file.unk8c = thing->colournum;
-//	file.unk8d = thing->stylenum;
-//	file.unk86 = thing->unk3c0;
-//	file.unk87 = thing->unk3c4;
-//	file.unk88 = thing->unk3c8;
-//	file.unk89 = thing->unk3cc;
-//	file.unk8a = thing->unk3ec;
-//	file.unk8b = thing->unk3f0;
-//
-//	for (i = 0; i != ARRAYCOUNT(file.unk90); i++) {
-//		file.unk90[i] = thing->unk3d0[i] * 1000.0f;
-//	}
-//
-//	for (i = 0; i < ARRAYCOUNT(file.unk00); i++) {
-//		file.unk00[i] = thing->unk010.textureptr[i];
-//	}
-//
-//	for (i = 0; i < ARRAYCOUNT(file.unk9e); i++) {
-//		file.unk9e[i] = thing->unk020[i];
-//	}
-//
-//	var80075bd0[3] = true;
-//
-//	ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_CAMERA, (u8 *)&file, &writtenfileid, NULL);
-//
-//	if (ret == 0) {
-//		s32 i;
-//		for (i = 0; i < 18; i++) {
-//			struct var8007f8e0 *thing2 = func0f14a06c(i);
-//
-//			if (thing2->fileguid.fileid == thing->fileguid.fileid
-//					&& thing2->fileguid.deviceserial == thing->fileguid.deviceserial) {
-//				thing2->fileguid.fileid = writtenfileid;
-//				thing2->fileguid.deviceserial = serial;
-//
-//				if (i >= 12) {
-//					g_Vars.modifiedfiles |= MODFILE_GAME;
-//				}
-//			}
-//		}
-//
-//		thing->fileguid.fileid = writtenfileid;
-//		thing->fileguid.deviceserial = serial;
-//
-//		return 0;
-//	}
-//
-//	g_FilemgrLastPakError = ret;
-//
-//	return -1;
-//}
+s32 pheadSaveFile(s8 device, s32 fileid, u16 serial)
+{
+	u32 stack[2];
+	struct camerafile file; // 1050
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+	s32 ret;
+	s32 writtenfileid; // 1044
+	u8 sp44[0x1000];
+	s32 i;
+
+	if (!thing->unk3f4_03) {
+		thing->unk036 = 1;
+		thing->unk024 = sp44;
+
+		while (true) {
+			func0f150068(thing, thing->unk036);
+
+			file.unk80 = thing->unk02c / 8;
+
+			if ((u32)file.unk80 >= 1024) {
+				thing->unk036++;
+
+				if (thing->unk036 >= 12) {
+					return -1;
+				}
+			} else {
+				break;
+			}
+		}
+
+		for (i = 0; i < (u32)file.unk80; i++) {
+			thing->unk020[i] = thing->unk024[i];
+		}
+
+		for (i = file.unk80; i < 1024; i++) {
+			thing->unk020[i] = 0;
+		}
+
+		thing->unk3f4_03 = true;
+	}
+
+	file.unk8e_00 = thing->unk3f4_01;
+	file.unk8e_01 = thing->unk3f4_02;
+	file.unk8e_02 = thing->unk3a4;
+
+	file.unk82 = thing->unk3bc;
+	file.unk84 = thing->unk3b8;
+	file.unk8c = thing->colournum;
+	file.unk8d = thing->stylenum;
+	file.unk86 = thing->unk3c0;
+	file.unk87 = thing->unk3c4;
+	file.unk88 = thing->unk3c8;
+	file.unk89 = thing->unk3cc;
+	file.unk8a = thing->unk3ec;
+	file.unk8b = thing->unk3f0;
+
+	for (i = 0; i != ARRAYCOUNT(file.unk90); i++) {
+		file.unk90[i] = thing->unk3d0[i] * 1000.0f;
+	}
+
+	for (i = 0; i < ARRAYCOUNT(file.unk00); i++) {
+		file.unk00[i] = thing->unk010.textureptr[i];
+	}
+
+	for (i = 0; i < ARRAYCOUNT(file.unk9e); i++) {
+		file.unk9e[i] = thing->unk020[i];
+	}
+
+	var80075bd0[3] = true;
+
+	ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_CAMERA, (u8 *)&file, &writtenfileid, NULL);
+
+	if (ret == 0) {
+		s32 i;
+		for (i = 0; i < 18; i++) {
+			struct var8007f8e0 *thing2 = func0f14a06c(i);
+
+			if (thing2->fileguid.fileid == thing->fileguid.fileid
+					&& thing2->fileguid.deviceserial == thing->fileguid.deviceserial) {
+				thing2->fileguid.fileid = writtenfileid;
+				thing2->fileguid.deviceserial = serial;
+
+				if (i >= 12) {
+					g_Vars.modifiedfiles |= MODFILE_GAME;
+				}
+			}
+		}
+
+		thing->fileguid.fileid = writtenfileid;
+		thing->fileguid.deviceserial = serial;
+
+		return 0;
+	}
+
+	g_FilemgrLastPakError = ret;
+
+	return -1;
+}
+#endif
 
 void phGetGuid(s32 index, struct fileguid *guid)
 {

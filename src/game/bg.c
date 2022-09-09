@@ -414,6 +414,7 @@ Gfx *func0f158400(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 ver
 	return gdl;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel bgChooseXrayVtxColour
 .late_rodata
@@ -774,76 +775,77 @@ glabel var7f1b75c0
 /*  f158d94:	03e00008 */ 	jr	$ra
 /*  f158d98:	00000000 */ 	nop
 );
-
+#else
 // Mismatch: Reordered statements in the last else block. Goal saves player and
 // alphafrac to the stack after the division. The code below does it before.
-//void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xraydata *xraydata)
-//{
-//	f32 sp2c[3];
-//	f32 f12;
-//	f32 alphafrac; // 24
-//	f32 f0;
-//	struct player *player = g_Vars.currentplayer; // 1c
-//	f32 tmp;
-//
-//	*inrange = false;
-//
-//	sp2c[0] = (f32) vertex[0] - (f32) xraydata->unk000;
-//	sp2c[0] = sp2c[0] * sp2c[0];
-//
-//	if (sp2c[0] < xraydata->unk010) {
-//		sp2c[2] = (f32) vertex[2] - (f32) xraydata->unk008;
-//		sp2c[2] = sp2c[2] * sp2c[2];
-//
-//		if (sp2c[2] < xraydata->unk010) {
-//			sp2c[1] = (f32) vertex[1] - (f32) xraydata->unk004;
-//			sp2c[1] = sp2c[1] * sp2c[1];
-//
-//			if (sp2c[1] < xraydata->unk010) {
-//				f0 = sqrtf(sp2c[0] + sp2c[1] + sp2c[2]);
-//
-//				if (f0 < xraydata->unk00c) {
-//					*inrange = true;
-//
-//					f12 = f0 / xraydata->unk00c;
-//
-//					if (xraydata->unk014 < f12) {
-//						alphafrac = 1.0f - (f12 - xraydata->unk014) / (1.0f - xraydata->unk014);
-//					} else {
-//						alphafrac = 1.0f;
-//					}
-//
-//					// 9e0
-//					if (f12 < xraydata->unk01c) {
-//						f32 f0 = f12 / xraydata->unk01c;
-//
-//						f0 = sinf((1.0f - f0) * 1.5707964f);
-//
-//						*colour = (u32)(f0 * 255.0f) << player->ecol_1
-//							| (u32)((1.0f - f0) * 255.0f) << player->ecol_2
-//							| (u32)(alphafrac * 128.0f);
-//					} else {
-//						// bec
-//						f32 f0;
-//
-//						f0 = (f12 - xraydata->unk01c) / (1.0f - xraydata->unk01c);
-//						f0 = 0.65f * f0 + 0.35f;
-//
-//						tmp = sinf(f0 * 1.5707964f);
-//
-//						*colour = (u32)(tmp * 255.0f) << player->ecol_3
-//							| 0xff << player->ecol_2
-//							| (u32)(alphafrac * 128.0f);
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	if (*inrange == false) {
-//		*colour = 0x0000ff00;
-//	}
-//}
+void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xraydata *xraydata)
+{
+	f32 sp2c[3];
+	f32 f12;
+	f32 alphafrac; // 24
+	f32 f0;
+	struct player *player = g_Vars.currentplayer; // 1c
+	f32 tmp;
+
+	*inrange = false;
+
+	sp2c[0] = (f32) vertex[0] - (f32) xraydata->unk000;
+	sp2c[0] = sp2c[0] * sp2c[0];
+
+	if (sp2c[0] < xraydata->unk010) {
+		sp2c[2] = (f32) vertex[2] - (f32) xraydata->unk008;
+		sp2c[2] = sp2c[2] * sp2c[2];
+
+		if (sp2c[2] < xraydata->unk010) {
+			sp2c[1] = (f32) vertex[1] - (f32) xraydata->unk004;
+			sp2c[1] = sp2c[1] * sp2c[1];
+
+			if (sp2c[1] < xraydata->unk010) {
+				f0 = sqrtf(sp2c[0] + sp2c[1] + sp2c[2]);
+
+				if (f0 < xraydata->unk00c) {
+					*inrange = true;
+
+					f12 = f0 / xraydata->unk00c;
+
+					if (xraydata->unk014 < f12) {
+						alphafrac = 1.0f - (f12 - xraydata->unk014) / (1.0f - xraydata->unk014);
+					} else {
+						alphafrac = 1.0f;
+					}
+
+					// 9e0
+					if (f12 < xraydata->unk01c) {
+						f32 f0 = f12 / xraydata->unk01c;
+
+						f0 = sinf((1.0f - f0) * 1.5707964f);
+
+						*colour = (u32)(f0 * 255.0f) << player->ecol_1
+							| (u32)((1.0f - f0) * 255.0f) << player->ecol_2
+							| (u32)(alphafrac * 128.0f);
+					} else {
+						// bec
+						f32 f0;
+
+						f0 = (f12 - xraydata->unk01c) / (1.0f - xraydata->unk01c);
+						f0 = 0.65f * f0 + 0.35f;
+
+						tmp = sinf(f0 * 1.5707964f);
+
+						*colour = (u32)(tmp * 255.0f) << player->ecol_3
+							| 0xff << player->ecol_2
+							| (u32)(alphafrac * 128.0f);
+					}
+				}
+			}
+		}
+	}
+
+	if (*inrange == false) {
+		*colour = 0x0000ff00;
+	}
+}
+#endif
 
 Gfx *func0f158d9c(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3[3], s16 arg4[3], s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
 {
@@ -1017,6 +1019,7 @@ bool g_BgCmdStack[20] = {0};
 s32 g_BgCmdStackIndex = 0;
 u32 g_BgCmdResult = BGRESULT_TRUE;
 
+#if MATCHING
 GLOBAL_ASM(
 glabel bg0f1598b4
 .late_rodata
@@ -1447,102 +1450,103 @@ glabel var7f1b75c4
 /*  f159f14:	03e00008 */ 	jr	$ra
 /*  f159f18:	27bd03d8 */ 	addiu	$sp,$sp,0x3d8
 );
-
+#else
 // Mismatch: Regalloc and some reordered instructions
-//Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
-//{
-//	s32 i;
-//	s32 stack;
-//	struct xraydata xraydata;
-//	struct stagetableentry *stage = stageGetCurrent();
-//	s16 sp120[16][3];
-//	s32 colours[16];
-//	bool inrange[16];
-//
-//	xraydata.unk00c = g_Vars.currentplayer->eraserbgdist;
-//	xraydata.unk010 = xraydata.unk00c * xraydata.unk00c;
-//	xraydata.unk018 = xraydata.unk00c * 0.25f;
-//	xraydata.unk01c = g_Vars.currentplayer->eraserpropdist / xraydata.unk00c;
-//
-//	if (xraydata.unk01c > 0.7f) {
-//		xraydata.unk01c = 0.7f;
-//	}
-//
-//	xraydata.unk014 = 0.250f;
-//	xraydata.unk020 = stage->unk2c;
-//	xraydata.unk024 = xraydata.unk020 * xraydata.unk020;
-//	xraydata.unk000 = arg3[0];
-//	xraydata.unk004 = arg3[1];
-//	xraydata.unk008 = arg3[2];
-//	xraydata.numtris = 0;
-//	xraydata.numvertices = 0;
-//
-//	while (true) {
-//		if (gdl2->dma.cmd == G_ENDDL) {
-//			break;
-//		}
-//
-//		if (gdl2->dma.cmd == G_MTX) {
-//			// empty
-//		} else if (gdl2->dma.cmd == G_VTX) {
-//			s32 index = gdl2->bytes[1] & 0xf;
-//			s32 numvertices = (((u32)gdl2->bytes[1] >> 4)) + 1;
-//			s32 offset = (gdl2->words.w1 & 0xffffff);
-//			struct gfxvtx *vtx = (struct gfxvtx *)((u32)vertices + offset);
-//			u32 stack[4];
-//
-//			for (i = 0; i < numvertices; i++) {
-//				sp120[index + i][0] = vtx->x;
-//				sp120[index + i][1] = vtx->y;
-//				sp120[index + i][2] = vtx->z;
-//
-//				bgChooseXrayVtxColour(&inrange[i], sp120[index + i], &colours[index + i], &xraydata);
-//
-//				vtx++;
-//			}
-//		} else if (gdl2->dma.cmd == G_TRI1) {
-//			s16 x = gdl2->tri.tri.v[0] / 10;
-//			s16 y = gdl2->tri.tri.v[1] / 10;
-//			s16 z = gdl2->tri.tri.v[2] / 10;
-//
-//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
-//		} else if (gdl2->dma.cmd == G_TRI4) {
-//			s16 x;
-//			s16 y;
-//			s16 z;
-//
-//			x = gdl2->tri4.x1;
-//			y = gdl2->tri4.y1;
-//			z = gdl2->tri4.z1;
-//
-//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
-//
-//			x = gdl2->tri4.x2;
-//			y = gdl2->tri4.y2;
-//			z = gdl2->tri4.z2;
-//
-//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
-//
-//			x = gdl2->tri4.x3;
-//			y = gdl2->tri4.y3;
-//			z = gdl2->tri4.z3;
-//
-//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
-//
-//			x = gdl2->tri4.x4;
-//			y = gdl2->tri4.y4;
-//			z = gdl2->tri4.z4;
-//
-//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
-//		}
-//
-//		gdl2++;
-//	}
-//
-//	gdl = bg0f158184(gdl, &xraydata);
-//
-//	return gdl;
-//}
+Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
+{
+	s32 i;
+	s32 stack;
+	struct xraydata xraydata;
+	struct stagetableentry *stage = stageGetCurrent();
+	s16 sp120[16][3];
+	u32 colours[16];
+	bool inrange[16];
+
+	xraydata.unk00c = g_Vars.currentplayer->eraserbgdist;
+	xraydata.unk010 = xraydata.unk00c * xraydata.unk00c;
+	xraydata.unk018 = xraydata.unk00c * 0.25f;
+	xraydata.unk01c = g_Vars.currentplayer->eraserpropdist / xraydata.unk00c;
+
+	if (xraydata.unk01c > 0.7f) {
+		xraydata.unk01c = 0.7f;
+	}
+
+	xraydata.unk014 = 0.250f;
+	xraydata.unk020 = stage->unk2c;
+	xraydata.unk024 = xraydata.unk020 * xraydata.unk020;
+	xraydata.unk000 = arg3[0];
+	xraydata.unk004 = arg3[1];
+	xraydata.unk008 = arg3[2];
+	xraydata.numtris = 0;
+	xraydata.numvertices = 0;
+
+	while (true) {
+		if (gdl2->dma.cmd == G_ENDDL) {
+			break;
+		}
+
+		if (gdl2->dma.cmd == G_MTX) {
+			// empty
+		} else if (gdl2->dma.cmd == G_VTX) {
+			s32 index = gdl2->bytes[1] & 0xf;
+			s32 numvertices = (((u32)gdl2->bytes[1] >> 4)) + 1;
+			s32 offset = (gdl2->words.w1 & 0xffffff);
+			struct gfxvtx *vtx = (struct gfxvtx *)((u32)vertices + offset);
+			u32 stack[4];
+
+			for (i = 0; i < numvertices; i++) {
+				sp120[index + i][0] = vtx->x;
+				sp120[index + i][1] = vtx->y;
+				sp120[index + i][2] = vtx->z;
+
+				bgChooseXrayVtxColour(&inrange[i], sp120[index + i], &colours[index + i], &xraydata);
+
+				vtx++;
+			}
+		} else if (gdl2->dma.cmd == G_TRI1) {
+			s16 x = gdl2->tri.tri.v[0] / 10;
+			s16 y = gdl2->tri.tri.v[1] / 10;
+			s16 z = gdl2->tri.tri.v[2] / 10;
+
+			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
+		} else if (gdl2->dma.cmd == G_TRI4) {
+			s16 x;
+			s16 y;
+			s16 z;
+
+			x = gdl2->tri4.x1;
+			y = gdl2->tri4.y1;
+			z = gdl2->tri4.z1;
+
+			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
+
+			x = gdl2->tri4.x2;
+			y = gdl2->tri4.y2;
+			z = gdl2->tri4.z2;
+
+			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
+
+			x = gdl2->tri4.x3;
+			y = gdl2->tri4.y3;
+			z = gdl2->tri4.z3;
+
+			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
+
+			x = gdl2->tri4.x4;
+			y = gdl2->tri4.y4;
+			z = gdl2->tri4.z4;
+
+			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
+		}
+
+		gdl2++;
+	}
+
+	gdl = bg0f158184(gdl, &xraydata);
+
+	return gdl;
+}
+#endif
 
 Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool recurse, s16 arg4[3])
 {
@@ -4379,6 +4383,7 @@ struct gfxvtx *room0f15dbb4(s32 roomnum, Gfx *gdl)
 	return NULL;
 }
 
+#if MATCHING
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel bgLoadRoom
@@ -5542,228 +5547,230 @@ const char var7f1b1a2cnb[] = "bg.c";
 const char var7f1b1a34nb[] = "bg.c: roominf[room].allocsize > calculated!";
 const char var7f1b1a60nb[] = "bg.c";
 #endif
+#else
 
 // Mismatch: The below stores len * 4 into s1 which causes further codegen
 // differences.
-//void bgLoadRoom(s32 roomnum)
-//{
-//	s32 size; // 2f4
-//	s32 inflatedlen; // 2f0
-//	u8 *allocation;
-//	s32 readlen;
-//	s32 fileoffset;
-//	u8 *memaddr;
-//	struct roomgfxdata18 *thing1;
-//	struct roomgfxdata18 *thing2;
-//	s32 v0;
-//	s32 len;
-//	u32 sp208[50];
-//	s32 sp140[50];
-//	u32 sp78[50];
-//	s32 allocationend;
-//	s32 a2;
-//	s32 i; // 6c
-//	u32 end1;
-//	u32 end2;
-//	s32 prev;
-//
-//#if VERSION < VERSION_NTSC_1_0
-//	bgVerifyLightSums("bg.c", 7076);
-//#endif
-//
-//	if (roomnum == 0 || roomnum >= g_Vars.roomcount || g_Rooms[roomnum].loaded240) {
-//		return;
-//	}
-//
-//	if (g_Rooms[roomnum].gfxdatalen > 0) {
-//		size = g_Rooms[roomnum].gfxdatalen;
-//
-//		if (debug0f11edb0()) {
-//			size += 1024;
-//		}
-//	} else {
-//		size = memaGetLongestFree();
-//	}
-//
-//	bgGarbageCollectRooms(size, false);
-//	allocation = memaAlloc(size);
-//
-//	if (allocation != NULL) {
-//		dyntexSetCurrentRoom(roomnum);
-//
-//		readlen = ((g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00) + 0xf) & ~0xf;
-//		fileoffset = (g_BgPrimaryData + g_BgRooms[roomnum].unk00 - g_BgPrimaryData) + 0xf1000000;
-//		fileoffset -= var8007fc54;
-//
-//		if (size < readlen) {
-//			dyntexSetCurrentRoom(-1);
-//			return;
-//		}
-//
-//		memaddr = size - readlen + allocation;
-//		bgLoadFile(memaddr, fileoffset, readlen);
-//
-//		if (rzipIs1173(memaddr) && size < readlen + 0x20) {
-//			dyntexSetCurrentRoom(-1);
-//			return;
-//		}
-//
-//		inflatedlen = bgInflate(memaddr, allocation, g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00);
-//		g_Rooms[roomnum].gfxdata = (struct roomgfxdata *)allocation;
-//
-//		if (g_Rooms[roomnum].gfxdata->vertices) {
-//			g_Rooms[roomnum].gfxdata->vertices = (struct gfxvtx *)((u32)g_Rooms[roomnum].gfxdata->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//		}
-//
-//		if (g_Rooms[roomnum].gfxdata->colours) {
-//			g_Rooms[roomnum].gfxdata->colours = (u32 *)((u32)g_Rooms[roomnum].gfxdata->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//		}
-//
-//		if (g_Rooms[roomnum].gfxdata->unk08) {
-//			g_Rooms[roomnum].gfxdata->unk08 = (struct roomgfxdata18 *)((u32)g_Rooms[roomnum].gfxdata->unk08 - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//		}
-//
-//		if (g_Rooms[roomnum].gfxdata->unk0c) {
-//			g_Rooms[roomnum].gfxdata->unk0c = (struct roomgfxdata18 *)((u32)g_Rooms[roomnum].gfxdata->unk0c - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//		}
-//
-//		thing1 = g_Rooms[roomnum].gfxdata->unk18;
-//		end1 = (u32)g_Rooms[roomnum].gfxdata->vertices;
-//
-//		while ((u32)(thing1 + 1) <= end1) {
-//			switch (thing1->unk00) {
-//			case 0:
-//				if (thing1->unk04 != 0) {
-//					thing1->unk04 = (void *)((u32)thing1->unk04 - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//				}
-//				if (thing1->gdl != 0) {
-//					thing1->gdl = (Gfx *)((u32)thing1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//				}
-//				if (thing1->vertices != 0) {
-//					thing1->vertices = (struct gfxvtx *)((u32)thing1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//				}
-//				if (thing1->colours != 0) {
-//					thing1->colours = (u32 *)((u32)thing1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//				}
-//				break;
-//			case 1:
-//				if (thing1->unk04 != 0) {
-//					thing1->unk04 = (void *)((u32)thing1->unk04 - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//				}
-//				if (thing1->gdl != 0) {
-//					thing1->gdl = (Gfx *)((u32)thing1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//				}
-//				if (thing1->vertices != 0) {
-//					thing1->vertices = (struct gfxvtx *)((u32)thing1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//				}
-//				if (thing1->colours != 0) {
-//					thing1->colours = (u32 *)((u32)thing1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
-//				}
-//				if ((u32)thing1->vertices < end1) {
-//					end1 = (u32)thing1->vertices;
-//				}
-//				break;
-//			}
-//
-//			thing1++;
-//		}
-//
-//		g_Rooms[roomnum].gfxdata->numvertices = ((u32)g_Rooms[roomnum].gfxdata->colours - (u32)g_Rooms[roomnum].gfxdata->vertices) / sizeof(struct gfxvtx);
-//		g_Rooms[roomnum].gfxdata->numcolours = ((u32)room0f15dab4(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (u32)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
-//
-//		len = 0;
-//		v0 = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
-//
-//		while (v0) {
-//			sp208[len] = v0;
-//			sp140[len] = room0f15dbb4(roomnum, v0);
-//			len++;
-//
-//			v0 = room0f15dab4(roomnum, v0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
-//		}
-//
-//		sp208[len] = (s32)allocation + inflatedlen;
-//		allocationend = (s32)allocation + size;
-//
-//		tex0f175ef4(sp208[0], allocationend - (sp208[len] - sp208[0]), sp208[len] - sp208[0]);
-//
-//		for (i = 0; i < len + 1; i++) {
-//			sp78[i] = sp208[i] + (allocationend - sp208[len]);
-//		}
-//
-//		a2 = sp208[0];
-//
-//		for (i = 0; i < len; i++) {
-//			v0 = tex0f1756c0(sp78[i], sp208[i + 1] - sp208[i], a2, 0, sp140[i]);
-//			sp78[i] = a2;
-//			a2 += v0;
-//			a2 = ALIGN8(a2);
-//		}
-//
-//		sp78[len] = a2;
-//
-//		prev = g_Rooms[roomnum].gfxdatalen;
-//		g_Rooms[roomnum].gfxdatalen = ALIGN16(a2 - (s32)allocation + 0x20);
-//
-//		if (g_Rooms[roomnum].gfxdatalen > prev) {
-//#if VERSION < VERSION_NTSC_1_0
-//			crashSetMessage("bg.c: roominf[room].allocsize > calculated!");
-//			CRASH();
-//#endif
-//		}
-//
-//		g_Rooms[roomnum].loaded240 = 1;
-//
-//		if (g_Rooms[roomnum].gfxdatalen != size) {
-//			bool result = memaRealloc((s32)allocation, size, g_Rooms[roomnum].gfxdatalen);
-//		}
-//
-//		thing2 = g_Rooms[roomnum].gfxdata->unk18;
-//		end2 = (u32)g_Rooms[roomnum].gfxdata->vertices;
-//
-//		while ((u32)(thing2 + 1) <= end2) {
-//			switch (thing2->unk00) {
-//			case 0:
-//				if (thing2->gdl) {
-//					for (i = 0; i < len; i++) {
-//						if (thing2->gdl == (Gfx *)sp208[i]) {
-//							thing2->gdl = (Gfx *)sp78[i];
-//							break;
-//						}
-//					}
-//				}
-//				break;
-//			case 1:
-//				if ((u32)thing2->vertices < end2) {
-//					end2 = (u32)thing2->vertices;
-//				}
-//				break;
-//			}
-//
-//			thing2++;
-//		}
-//
-//		if (g_FogEnabled) {
-//			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk08, 1);
-//			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 5);
-//		} else if (var800a65e4 == 0) {
-//			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk08, 6);
-//			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 7);
-//		}
-//
-//		bgFindRoomVtxBatches(roomnum);
-//
-//		g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
-//		g_Rooms[roomnum].flags |= ROOMFLAG_0200;
-//		g_Rooms[roomnum].colours = NULL;
-//
-//		dyntexSetCurrentRoom(-1);
-//	}
-//
-//#if VERSION < VERSION_NTSC_1_0
-//	bgVerifyLightSums("bg.c", 7474);
-//#endif
-//}
+void bgLoadRoom(s32 roomnum)
+{
+	s32 size; // 2f4
+	s32 inflatedlen; // 2f0
+	u8 *allocation;
+	s32 readlen;
+	s32 fileoffset;
+	u8 *memaddr;
+	struct roomgfxdata18 *thing1;
+	struct roomgfxdata18 *thing2;
+	Gfx *v0;
+	s32 len;
+	Gfx *sp208[50];
+	struct gfxvtx *sp140[50];
+	Gfx *sp78[50];
+	s32 allocationend;
+	Gfx *a2;
+	s32 i; // 6c
+	u32 end1;
+	u32 end2;
+	s32 prev;
+
+#if VERSION < VERSION_NTSC_1_0
+	bgVerifyLightSums("bg.c", 7076);
+#endif
+
+	if (roomnum == 0 || roomnum >= g_Vars.roomcount || g_Rooms[roomnum].loaded240) {
+		return;
+	}
+
+	if (g_Rooms[roomnum].gfxdatalen > 0) {
+		size = g_Rooms[roomnum].gfxdatalen;
+
+		if (debug0f11edb0()) {
+			size += 1024;
+		}
+	} else {
+		size = memaGetLongestFree();
+	}
+
+	bgGarbageCollectRooms(size, false);
+	allocation = memaAlloc(size);
+
+	if (allocation != NULL) {
+		dyntexSetCurrentRoom(roomnum);
+
+		readlen = ((g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00) + 0xf) & ~0xf;
+		fileoffset = (g_BgPrimaryData + g_BgRooms[roomnum].unk00 - g_BgPrimaryData) + 0xf1000000;
+		fileoffset -= var8007fc54;
+
+		if (size < readlen) {
+			dyntexSetCurrentRoom(-1);
+			return;
+		}
+
+		memaddr = size - readlen + allocation;
+		bgLoadFile(memaddr, fileoffset, readlen);
+
+		if (rzipIs1173(memaddr) && size < readlen + 0x20) {
+			dyntexSetCurrentRoom(-1);
+			return;
+		}
+
+		inflatedlen = bgInflate(memaddr, allocation, g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00);
+		g_Rooms[roomnum].gfxdata = (struct roomgfxdata *)allocation;
+
+		if (g_Rooms[roomnum].gfxdata->vertices) {
+			g_Rooms[roomnum].gfxdata->vertices = (struct gfxvtx *)((u32)g_Rooms[roomnum].gfxdata->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+		}
+
+		if (g_Rooms[roomnum].gfxdata->colours) {
+			g_Rooms[roomnum].gfxdata->colours = (u32 *)((u32)g_Rooms[roomnum].gfxdata->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+		}
+
+		if (g_Rooms[roomnum].gfxdata->unk08) {
+			g_Rooms[roomnum].gfxdata->unk08 = (struct roomgfxdata18 *)((u32)g_Rooms[roomnum].gfxdata->unk08 - g_BgRooms[roomnum].unk00 + (u32)allocation);
+		}
+
+		if (g_Rooms[roomnum].gfxdata->unk0c) {
+			g_Rooms[roomnum].gfxdata->unk0c = (struct roomgfxdata18 *)((u32)g_Rooms[roomnum].gfxdata->unk0c - g_BgRooms[roomnum].unk00 + (u32)allocation);
+		}
+
+		thing1 = g_Rooms[roomnum].gfxdata->unk18;
+		end1 = (u32)g_Rooms[roomnum].gfxdata->vertices;
+
+		while ((u32)(thing1 + 1) <= end1) {
+			switch (thing1->type) {
+			case 0:
+				if (thing1->next != NULL) {
+					thing1->next = (struct roomgfxdata18 *)((u32)thing1->next - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				}
+				if (thing1->gdl != 0) {
+					thing1->gdl = (Gfx *)((u32)thing1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				}
+				if (thing1->vertices != 0) {
+					thing1->vertices = (struct gfxvtx *)((u32)thing1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				}
+				if (thing1->colours != 0) {
+					thing1->colours = (u32 *)((u32)thing1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				}
+				break;
+			case 1:
+				if (thing1->next != NULL) {
+					thing1->next = (struct roomgfxdata18 *)((u32)thing1->next - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				}
+				if (thing1->gdl != 0) {
+					thing1->gdl = (Gfx *)((u32)thing1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				}
+				if (thing1->vertices != 0) {
+					thing1->vertices = (struct gfxvtx *)((u32)thing1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				}
+				if (thing1->colours != 0) {
+					thing1->colours = (u32 *)((u32)thing1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				}
+				if ((u32)thing1->vertices < end1) {
+					end1 = (u32)thing1->vertices;
+				}
+				break;
+			}
+
+			thing1++;
+		}
+
+		g_Rooms[roomnum].gfxdata->numvertices = ((u32)g_Rooms[roomnum].gfxdata->colours - (u32)g_Rooms[roomnum].gfxdata->vertices) / sizeof(struct gfxvtx);
+		g_Rooms[roomnum].gfxdata->numcolours = ((u32)room0f15dab4(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (u32)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
+
+		len = 0;
+		v0 = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
+
+		while (v0) {
+			sp208[len] = v0;
+			sp140[len] = room0f15dbb4(roomnum, v0);
+			len++;
+
+			v0 = room0f15dab4(roomnum, v0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
+		}
+
+		sp208[len] = (Gfx *) ((s32)allocation + inflatedlen);
+		allocationend = (s32)allocation + size;
+
+		tex0f175ef4(sp208[0], (Gfx *) (allocationend - ((s32)sp208[len] - (s32)sp208[0])), (s32)sp208[len] - (s32)sp208[0]);
+
+		for (i = 0; i < len + 1; i++) {
+			sp78[i] = (Gfx *) ((s32)sp208[i] + (allocationend - (s32)sp208[len]));
+		}
+
+		a2 = sp208[0];
+
+		for (i = 0; i < len; i++) {
+			v0 = (Gfx *) tex0f1756c0(sp78[i], (s32)sp208[i + 1] - (s32)sp208[i], a2, 0, (u32) sp140[i]);
+			sp78[i] = a2;
+			a2 = (Gfx *) ((s32) a2 + (s32) v0);
+			a2 = (Gfx *) ALIGN8((s32)a2);
+		}
+
+		sp78[len] = a2;
+
+		prev = g_Rooms[roomnum].gfxdatalen;
+		g_Rooms[roomnum].gfxdatalen = ALIGN16((s32)a2 - (s32)allocation + 0x20);
+
+		if (g_Rooms[roomnum].gfxdatalen > prev) {
+#if VERSION < VERSION_NTSC_1_0
+			crashSetMessage("bg.c: roominf[room].allocsize > calculated!");
+			CRASH();
+#endif
+		}
+
+		g_Rooms[roomnum].loaded240 = 1;
+
+		if (g_Rooms[roomnum].gfxdatalen != size) {
+			bool result = memaRealloc((s32)allocation, size, g_Rooms[roomnum].gfxdatalen);
+		}
+
+		thing2 = g_Rooms[roomnum].gfxdata->unk18;
+		end2 = (u32)g_Rooms[roomnum].gfxdata->vertices;
+
+		while ((u32)(thing2 + 1) <= end2) {
+			switch (thing2->type) {
+			case 0:
+				if (thing2->gdl) {
+					for (i = 0; i < len; i++) {
+						if (thing2->gdl == (Gfx *)sp208[i]) {
+							thing2->gdl = (Gfx *)sp78[i];
+							break;
+						}
+					}
+				}
+				break;
+			case 1:
+				if ((u32)thing2->vertices < end2) {
+					end2 = (u32)thing2->vertices;
+				}
+				break;
+			}
+
+			thing2++;
+		}
+
+		if (g_FogEnabled) {
+			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk08, 1);
+			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 5);
+		} else if (var800a65e4 == 0) {
+			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk08, 6);
+			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 7);
+		}
+
+		bgFindRoomVtxBatches(roomnum);
+
+		g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
+		g_Rooms[roomnum].flags |= ROOMFLAG_0200;
+		g_Rooms[roomnum].colours = NULL;
+
+		dyntexSetCurrentRoom(-1);
+	}
+
+#if VERSION < VERSION_NTSC_1_0
+	bgVerifyLightSums("bg.c", 7474);
+#endif
+}
+#endif
 
 const char var7f1b7420[] = "Checking Convex Room %d";
 const char var7f1b7438[] = " Portal %d %s%s%.1f < %.1f";
@@ -6629,6 +6636,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 	return hit;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel bgTestHitOnChr
 /*  f15ffdc:	27bdff10 */ 	addiu	$sp,$sp,-240
@@ -7357,292 +7365,293 @@ glabel bgTestHitOnChr
 /*  f160a30:	03e00008 */ 	jr	$ra
 /*  f160a34:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
 );
-
+#else
 // Mismatch: Some moderate reordering, likely related to variable reuse.
 // Note that the branch instruction at 16052c can appear and disappear due to
 // changing other things in the function.
-//bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2, struct coord *arg3,
-//		Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, f32 *sqdistptr, struct hitthing *hitthing)
-//{
-//	s16 triref; // ee
-//	s32 trisremaining; // e8
-//	bool intersectsbbox; // e4
-//	s32 spdc;
-//	s32 spd8;
-//	bool hit; // cc
-//	struct gfxvtx *vtx; // c0
-//	Mtxf *mtx; // a8
-//	struct coord min; // 9c
-//	struct coord max; // 90
-//	struct coord sp84;
-//	struct coord sp78;
-//	s32 points[3]; // 6c
-//	s32 v1;
-//	s32 numvertices;
-//	f32 *ptr;
-//	s32 i;
-//	struct coord *point1;
-//	struct coord *point2;
-//	struct coord *point3;
-//	Gfx *tri4gdl;
-//
-//	spdc = 16;
-//	spd8 = 0;
-//	hit = false;
-//
-//	while (true) {
-//		if (gdl->dma.cmd == G_ENDDL) {
-//			if (gdl2 != NULL) {
-//				gdl = gdl2;
-//				gdl2 = NULL;
-//				continue;
-//			}
-//			break;
-//		} else if (gdl->dma.cmd == G_MTX) {
-//			// 080
-//			s32 mtxindex = (gdl->words.w1 & 0xffffff) / sizeof(Mtxf);
-//			mtx = &model->matrices[mtxindex];
-//		} else if (gdl->dma.cmd == G_VTX) {
-//			// 0bc
-//			v1 = gdl->bytes[1] & 0xf;
-//			numvertices = ((u32)gdl->bytes[1] >> 4) + 1;
-//			vtx = (struct gfxvtx *)((u32)vertices + (gdl->words.w1 & 0xffffff));
-//
-//			if (v1 < spdc) {
-//				spdc = v1;
-//			}
-//
-//			if (numvertices + v1 > spd8) {
-//				spd8 = numvertices + v1;
-//			}
-//
-//			ptr = &var800a6470[v1 * 3];
-//
-//			while (numvertices > 0) {
-//				ptr[0] = vtx->x;
-//				ptr[1] = vtx->y;
-//				ptr[2] = vtx->z;
-//
-//				mtx4TransformVecInPlace(mtx, (struct coord *) ptr);
-//
-//				ptr += 3;
-//				vtx++;
-//
-//				numvertices--;
-//			}
-//
-//			ptr = &var800a6470[spdc];
-//
-//			min.x = ptr[0];
-//			max.x = ptr[0];
-//			min.y = ptr[1];
-//			max.y = ptr[1];
-//			min.z = ptr[2];
-//			max.z = ptr[2];
-//
-//			ptr += 3;
-//
-//			for (i = spdc; i < spd8; i++) {
-//				if (ptr[0] < min.x) {
-//					min.x = ptr[0];
-//				}
-//
-//				if (ptr[1] < min.y) {
-//					min.y = ptr[1];
-//				}
-//
-//				if (ptr[2] < min.z) {
-//					min.z = ptr[2];
-//				}
-//
-//				if (ptr[0] > max.x) {
-//					max.x = ptr[0];
-//				}
-//
-//				if (ptr[1] > max.y) {
-//					max.y = ptr[1];
-//				}
-//
-//				if (ptr[2] > max.z) {
-//					max.z = ptr[2];
-//				}
-//
-//				ptr += 3;
-//			}
-//
-//			if ((arg1->x < min.x && arg2->x < min.x)
-//					|| (arg1->x > max.x && arg2->x > max.x)
-//					|| (arg1->y < min.y && arg2->y < min.y)
-//					|| (arg1->y > max.y && arg2->y > max.y)
-//					|| (arg1->z < min.z && arg2->z < min.z)
-//					|| (arg1->z > max.z && arg2->z > max.z)) {
-//				intersectsbbox = false;
-//			} else {
-//				intersectsbbox = bgTestLineIntersectsBbox(arg1, arg3, &min, &max);
-//			}
-//		} else {
-//			// 3d4
-//			if (!intersectsbbox) {
-//				gdl++;
-//				continue;
-//			}
-//
-//			if ((gdl->dma.cmd != G_TRI1 && gdl->dma.cmd != G_TRI4)) {
-//				gdl++;
-//				continue;
-//			}
-//
-//			if (gdl->dma.cmd == G_TRI1) {
-//				trisremaining = 0;
-//				triref = 0;
-//				points[0] = gdl->tri.tri.v[0] / 10;
-//				points[1] = gdl->tri.tri.v[1] / 10;
-//				points[2] = gdl->tri.tri.v[2] / 10;
-//			} else if (gdl->dma.cmd == G_TRI4) {
-//				tri4gdl = gdl;
-//				trisremaining = 3;
-//				triref = 1;
-//				points[0] = tri4gdl->tri4.x1;
-//				points[1] = tri4gdl->tri4.y1;
-//				points[2] = tri4gdl->tri4.z1;
-//			}
-//
-//			do {
-//				if (points[0] == 0 && points[1] == 0 && points[2] == 0) {
-//					break;
-//				}
-//
-//				point1 = (struct coord *) &var800a6470[points[0] * 3];
-//				point2 = (struct coord *) &var800a6470[points[1] * 3];
-//				point3 = (struct coord *) &var800a6470[points[2] * 3];
-//
-//				min.x = point1->x;
-//				max.x = point1->x;
-//
-//				if (point2->x < min.x) {
-//					min.x = point2->x;
-//				}
-//
-//				if (point2->x > max.x) {
-//					max.x = point2->x;
-//				}
-//
-//				if (point3->x < min.x) {
-//					min.x = point3->x;
-//				}
-//
-//				if (point3->x > max.x) {
-//					max.x = point3->x;
-//				}
-//
-//				if (!(arg1->x < min.x && arg2->x < min.x) && !(arg1->x > max.x && arg2->x > max.x)) {
-//					min.z = point1->z;
-//					max.z = point1->z;
-//
-//					if (point2->z < min.z) {
-//						min.z = point2->z;
-//					}
-//
-//					if (point2->z > max.z) {
-//						max.z = point2->z;
-//					}
-//
-//					if (point3->z < min.z) {
-//						min.z = point3->z;
-//					}
-//
-//					if (point3->z > max.z) {
-//						max.z = point3->z;
-//					}
-//
-//					if (!(arg1->z < min.z && arg2->z < min.z) && !(arg1->z > max.z && arg2->z > max.z)) {
-//						min.y = point1->y;
-//						max.y = point1->y;
-//
-//						if (point2->y < min.y) {
-//							min.y = point2->y;
-//						}
-//
-//						if (point2->y > max.y) {
-//							max.y = point2->y;
-//						}
-//
-//						if (point3->y < min.y) {
-//							min.y = point3->y;
-//						}
-//
-//						if (point3->y > max.y) {
-//							max.y = point3->y;
-//						}
-//
-//						if (!(arg1->y < min.y && arg2->y < min.y) && !(arg1->y > max.y && arg2->y > max.y)) {
-//							if (bgTestLineIntersectsBbox(arg1, arg3, &min, &max)
-//									&& func0002f560(point1, point2, point3, 0, arg1, arg2, arg3, &sp84, &sp78)) {
-//								f32 tmp;
-//								f32 sqdist;
-//
-//								tmp = sp84.x - arg1->x;
-//								sqdist = tmp * tmp;
-//
-//								tmp = sp84.y - arg1->y;
-//								sqdist += tmp * tmp;
-//
-//								tmp = sp84.z - arg1->z;
-//								sqdist += tmp * tmp;
-//
-//								if (sqdist < *sqdistptr) {
-//									hit = true;
-//
-//									*sqdistptr = sqdist;
-//
-//									hitthing->unk00.x = sp84.x;
-//									hitthing->unk00.y = sp84.y;
-//									hitthing->unk00.z = sp84.z;
-//									hitthing->unk0c.x = sp78.x;
-//									hitthing->unk0c.y = sp78.y;
-//									hitthing->unk0c.z = sp78.z;
-//									hitthing->unk18 = &vtx[points[0]];
-//									hitthing->unk1c = &vtx[points[1]];
-//									hitthing->unk20 = &vtx[points[2]];
-//									hitthing->texturenum = -1;
-//									hitthing->unk28 = triref;
-//									hitthing->tricmd = gdl;
-//								}
-//							}
-//						}
-//					}
-//				}
-//
-//				trisremaining--;
-//
-//				if (1);
-//				if (1);
-//				if (1);
-//
-//				if (trisremaining == 2) {
-//					points[0] = tri4gdl->tri4.x2;
-//					points[1] = tri4gdl->tri4.y2;
-//					points[2] = tri4gdl->tri4.z2;
-//					triref = 2;
-//				} else if (trisremaining == 1) {
-//					points[0] = tri4gdl->tri4.x3;
-//					points[1] = tri4gdl->tri4.y3;
-//					points[2] = tri4gdl->tri4.z3;
-//					triref = 3;
-//				} else if (trisremaining == 0) {
-//					points[0] = tri4gdl->tri4.x4;
-//					points[1] = tri4gdl->tri4.y4;
-//					points[2] = tri4gdl->tri4.z4;
-//					triref = 1;
-//				}
-//			} while (trisremaining >= 0);
-//		}
-//
-//		gdl++;
-//	}
-//
-//	return hit;
-//}
+bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2, struct coord *arg3,
+		Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, f32 *sqdistptr, struct hitthing *hitthing)
+{
+	s16 triref; // ee
+	s32 trisremaining; // e8
+	bool intersectsbbox; // e4
+	s32 spdc;
+	s32 spd8;
+	bool hit; // cc
+	struct gfxvtx *vtx; // c0
+	Mtxf *mtx; // a8
+	struct coord min; // 9c
+	struct coord max; // 90
+	struct coord sp84;
+	struct coord sp78;
+	s32 points[3]; // 6c
+	s32 v1;
+	s32 numvertices;
+	f32 *ptr;
+	s32 i;
+	struct coord *point1;
+	struct coord *point2;
+	struct coord *point3;
+	Gfx *tri4gdl;
+
+	spdc = 16;
+	spd8 = 0;
+	hit = false;
+
+	while (true) {
+		if (gdl->dma.cmd == G_ENDDL) {
+			if (gdl2 != NULL) {
+				gdl = gdl2;
+				gdl2 = NULL;
+				continue;
+			}
+			break;
+		} else if (gdl->dma.cmd == G_MTX) {
+			// 080
+			s32 mtxindex = (gdl->words.w1 & 0xffffff) / sizeof(Mtxf);
+			mtx = &model->matrices[mtxindex];
+		} else if (gdl->dma.cmd == G_VTX) {
+			// 0bc
+			v1 = gdl->bytes[1] & 0xf;
+			numvertices = ((u32)gdl->bytes[1] >> 4) + 1;
+			vtx = (struct gfxvtx *)((u32)vertices + (gdl->words.w1 & 0xffffff));
+
+			if (v1 < spdc) {
+				spdc = v1;
+			}
+
+			if (numvertices + v1 > spd8) {
+				spd8 = numvertices + v1;
+			}
+
+			ptr = &var800a6470[v1 * 3];
+
+			while (numvertices > 0) {
+				ptr[0] = vtx->x;
+				ptr[1] = vtx->y;
+				ptr[2] = vtx->z;
+
+				mtx4TransformVecInPlace(mtx, (struct coord *) ptr);
+
+				ptr += 3;
+				vtx++;
+
+				numvertices--;
+			}
+
+			ptr = &var800a6470[spdc];
+
+			min.x = ptr[0];
+			max.x = ptr[0];
+			min.y = ptr[1];
+			max.y = ptr[1];
+			min.z = ptr[2];
+			max.z = ptr[2];
+
+			ptr += 3;
+
+			for (i = spdc; i < spd8; i++) {
+				if (ptr[0] < min.x) {
+					min.x = ptr[0];
+				}
+
+				if (ptr[1] < min.y) {
+					min.y = ptr[1];
+				}
+
+				if (ptr[2] < min.z) {
+					min.z = ptr[2];
+				}
+
+				if (ptr[0] > max.x) {
+					max.x = ptr[0];
+				}
+
+				if (ptr[1] > max.y) {
+					max.y = ptr[1];
+				}
+
+				if (ptr[2] > max.z) {
+					max.z = ptr[2];
+				}
+
+				ptr += 3;
+			}
+
+			if ((arg1->x < min.x && arg2->x < min.x)
+					|| (arg1->x > max.x && arg2->x > max.x)
+					|| (arg1->y < min.y && arg2->y < min.y)
+					|| (arg1->y > max.y && arg2->y > max.y)
+					|| (arg1->z < min.z && arg2->z < min.z)
+					|| (arg1->z > max.z && arg2->z > max.z)) {
+				intersectsbbox = false;
+			} else {
+				intersectsbbox = bgTestLineIntersectsBbox(arg1, arg3, &min, &max);
+			}
+		} else {
+			// 3d4
+			if (!intersectsbbox) {
+				gdl++;
+				continue;
+			}
+
+			if ((gdl->dma.cmd != G_TRI1 && gdl->dma.cmd != G_TRI4)) {
+				gdl++;
+				continue;
+			}
+
+			if (gdl->dma.cmd == G_TRI1) {
+				trisremaining = 0;
+				triref = 0;
+				points[0] = gdl->tri.tri.v[0] / 10;
+				points[1] = gdl->tri.tri.v[1] / 10;
+				points[2] = gdl->tri.tri.v[2] / 10;
+			} else if (gdl->dma.cmd == G_TRI4) {
+				tri4gdl = gdl;
+				trisremaining = 3;
+				triref = 1;
+				points[0] = tri4gdl->tri4.x1;
+				points[1] = tri4gdl->tri4.y1;
+				points[2] = tri4gdl->tri4.z1;
+			}
+
+			do {
+				if (points[0] == 0 && points[1] == 0 && points[2] == 0) {
+					break;
+				}
+
+				point1 = (struct coord *) &var800a6470[points[0] * 3];
+				point2 = (struct coord *) &var800a6470[points[1] * 3];
+				point3 = (struct coord *) &var800a6470[points[2] * 3];
+
+				min.x = point1->x;
+				max.x = point1->x;
+
+				if (point2->x < min.x) {
+					min.x = point2->x;
+				}
+
+				if (point2->x > max.x) {
+					max.x = point2->x;
+				}
+
+				if (point3->x < min.x) {
+					min.x = point3->x;
+				}
+
+				if (point3->x > max.x) {
+					max.x = point3->x;
+				}
+
+				if (!(arg1->x < min.x && arg2->x < min.x) && !(arg1->x > max.x && arg2->x > max.x)) {
+					min.z = point1->z;
+					max.z = point1->z;
+
+					if (point2->z < min.z) {
+						min.z = point2->z;
+					}
+
+					if (point2->z > max.z) {
+						max.z = point2->z;
+					}
+
+					if (point3->z < min.z) {
+						min.z = point3->z;
+					}
+
+					if (point3->z > max.z) {
+						max.z = point3->z;
+					}
+
+					if (!(arg1->z < min.z && arg2->z < min.z) && !(arg1->z > max.z && arg2->z > max.z)) {
+						min.y = point1->y;
+						max.y = point1->y;
+
+						if (point2->y < min.y) {
+							min.y = point2->y;
+						}
+
+						if (point2->y > max.y) {
+							max.y = point2->y;
+						}
+
+						if (point3->y < min.y) {
+							min.y = point3->y;
+						}
+
+						if (point3->y > max.y) {
+							max.y = point3->y;
+						}
+
+						if (!(arg1->y < min.y && arg2->y < min.y) && !(arg1->y > max.y && arg2->y > max.y)) {
+							if (bgTestLineIntersectsBbox(arg1, arg3, &min, &max)
+									&& func0002f560(point1, point2, point3, 0, arg1, arg2, arg3, &sp84, &sp78)) {
+								f32 tmp;
+								f32 sqdist;
+
+								tmp = sp84.x - arg1->x;
+								sqdist = tmp * tmp;
+
+								tmp = sp84.y - arg1->y;
+								sqdist += tmp * tmp;
+
+								tmp = sp84.z - arg1->z;
+								sqdist += tmp * tmp;
+
+								if (sqdist < *sqdistptr) {
+									hit = true;
+
+									*sqdistptr = sqdist;
+
+									hitthing->unk00.x = sp84.x;
+									hitthing->unk00.y = sp84.y;
+									hitthing->unk00.z = sp84.z;
+									hitthing->unk0c.x = sp78.x;
+									hitthing->unk0c.y = sp78.y;
+									hitthing->unk0c.z = sp78.z;
+									hitthing->unk18 = &vtx[points[0]];
+									hitthing->unk1c = &vtx[points[1]];
+									hitthing->unk20 = &vtx[points[2]];
+									hitthing->texturenum = -1;
+									hitthing->unk28 = triref;
+									hitthing->tricmd = gdl;
+								}
+							}
+						}
+					}
+				}
+
+				trisremaining--;
+
+				if (1);
+				if (1);
+				if (1);
+
+				if (trisremaining == 2) {
+					points[0] = tri4gdl->tri4.x2;
+					points[1] = tri4gdl->tri4.y2;
+					points[2] = tri4gdl->tri4.z2;
+					triref = 2;
+				} else if (trisremaining == 1) {
+					points[0] = tri4gdl->tri4.x3;
+					points[1] = tri4gdl->tri4.y3;
+					points[2] = tri4gdl->tri4.z3;
+					triref = 3;
+				} else if (trisremaining == 0) {
+					points[0] = tri4gdl->tri4.x4;
+					points[1] = tri4gdl->tri4.y4;
+					points[2] = tri4gdl->tri4.z4;
+					triref = 1;
+				}
+			} while (trisremaining >= 0);
+		}
+
+		gdl++;
+	}
+
+	return hit;
+}
+#endif
 
 bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct vtxbatch *batch, s32 roomnum, struct hitthing *hitthing)
 {
@@ -8191,6 +8200,7 @@ bool func0f161c08(struct coord *arg0, s16 roomnum)
 	return true;
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel func0f161d30
 /*  f161d30:	27bdff60 */ 	addiu	$sp,$sp,-160
@@ -8462,132 +8472,133 @@ glabel func0f161d30
 /*  f162120:	03e00008 */ 	jr	$ra
 /*  f162124:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
-
+#else
 // Mismatch: Goal writes to sp40 and lower
-//bool func0f161d30(struct coord *arg0, s16 roomnum)
-//{
-//	struct room *room;
-//	s32 portalnum;
-//	struct var800a4ccc *s2;
-//	struct portalvertices *pvertices;
-//	s32 i;
-//	s32 j;
-//	struct coord *cur;
-//	struct coord *next;
-//	f32 f0;
-//	f32 f18;
-//	s32 t4;
-//	bool t5;
-//
-//	struct coord sp74;
-//	struct coord sp68;
-//	struct coord sp5c;
-//	f32 sp58;
-//	struct coord sp4c;
-//
-//	room = &g_Rooms[roomnum];
-//
-//	sp74.f[0] = room->centre.f[0];
-//	sp74.f[1] = room->centre.f[1];
-//	sp74.f[2] = room->centre.f[2];
-//
-//	for (i = 0; i < room->numportals; i++) {
-//		portalnum = g_RoomPortals[room->roomportallistoffset + i];
-//		pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
-//		s2 = &var800a4ccc[portalnum];
-//
-//		f0 = arg0->f[0] * s2->coord.f[0] + arg0->f[1] * s2->coord.f[1] + arg0->f[2] * s2->coord.f[2];
-//		f18 = sp74.f[0] * s2->coord.f[0] + sp74.f[1] * s2->coord.f[1] + sp74.f[2] * s2->coord.f[2];
-//
-//		if (f0 < s2->unk0c) {
-//			if (f18 < s2->unk0c) {
-//				continue;
-//			}
-//		} else {
-//			if (f0 > s2->unk10 && f18 > s2->unk10) {
-//				continue;
-//			}
-//		}
-//
-//		sp68.f[0] = sp74.f[0] - arg0->f[0];
-//		sp68.f[1] = sp74.f[1] - arg0->f[1];
-//		sp68.f[2] = sp74.f[2] - arg0->f[2];
-//
-//		t4 = 0;
-//		t5 = true;
-//		cur = &pvertices->vertices[0];
-//		next = &pvertices->vertices[1];
-//
-//		for (j = 0; j < pvertices->count; j++) {
-//			f32 tmp;
-//			f32 sp44;
-//			f32 sp40;
-//			f32 sp3c;
-//			f32 sp38;
-//			f32 sp34;
-//			f32 sp30;
-//
-//			if (j + 1 == pvertices->count) {
-//				next = &pvertices->vertices[0];
-//			}
-//
-//			sp5c.f[0] = next->f[0] - cur->f[0];
-//			sp5c.f[1] = next->f[1] - cur->f[1];
-//			sp5c.f[2] = next->f[2] - cur->f[2];
-//
-//			sp44 = sp68.f[0];
-//			sp40 = sp68.f[1];
-//			sp3c = sp68.f[2];
-//
-//			sp38 = sp5c.f[0];
-//			sp34 = sp5c.f[1];
-//			sp30 = sp5c.f[2];
-//
-//			sp4c.f[0] = sp34 * sp3c - sp30 * sp40;
-//			sp4c.f[1] = sp30 * sp44 - sp38 * sp3c;
-//			sp4c.f[2] = sp38 * sp40 - sp34 * sp44;
-//
-//			if (sp4c.f[0] * sp4c.f[0] + sp4c.f[1] * sp4c.f[1] + sp4c.f[2] * sp4c.f[2] == 0.0f) {
-//				t5 = false;
-//				break;
-//			}
-//
-//			sp58 = sp4c.f[0] * cur->f[0] + sp4c.f[1] * cur->f[1] + sp4c.f[2] * cur->f[2];
-//			tmp = sp4c.f[0] * arg0->f[0] + sp4c.f[1] * arg0->f[1] + sp4c.f[2] * arg0->f[2];
-//
-//			if (tmp < sp58) {
-//				if (t4 == 2) {
-//					t5 = false;
-//					break;
-//				}
-//
-//				t4 = 1;
-//			} else if (t4 == 1) {
-//				t5 = false;
-//				break;
-//			} else {
-//				t4 = 2;
-//			}
-//
-//			cur++;
-//			next++;
-//		}
-//
-//		if (t5) {
-//			if (f0 < s2->unk0c) {
-//				if (roomnum == g_BgPortals[portalnum].roomnum2) {
-//					return false;
-//				}
-//			} else if (f0 > s2->unk10) {
-//				if (roomnum == g_BgPortals[portalnum].roomnum1) {
-//					return false;
-//				}
-//			}
-//		}
-//	}
-//
-//	return true;
-//}
+bool func0f161d30(struct coord *arg0, s16 roomnum)
+{
+	struct room *room;
+	s32 portalnum;
+	struct var800a4ccc *s2;
+	struct portalvertices *pvertices;
+	s32 i;
+	s32 j;
+	struct coord *cur;
+	struct coord *next;
+	f32 f0;
+	f32 f18;
+	s32 t4;
+	bool t5;
+
+	struct coord sp74;
+	struct coord sp68;
+	struct coord sp5c;
+	f32 sp58;
+	struct coord sp4c;
+
+	room = &g_Rooms[roomnum];
+
+	sp74.f[0] = room->centre.f[0];
+	sp74.f[1] = room->centre.f[1];
+	sp74.f[2] = room->centre.f[2];
+
+	for (i = 0; i < room->numportals; i++) {
+		portalnum = g_RoomPortals[room->roomportallistoffset + i];
+		pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+		s2 = &var800a4ccc[portalnum];
+
+		f0 = arg0->f[0] * s2->coord.f[0] + arg0->f[1] * s2->coord.f[1] + arg0->f[2] * s2->coord.f[2];
+		f18 = sp74.f[0] * s2->coord.f[0] + sp74.f[1] * s2->coord.f[1] + sp74.f[2] * s2->coord.f[2];
+
+		if (f0 < s2->min) {
+			if (f18 < s2->min) {
+				continue;
+			}
+		} else {
+			if (f0 > s2->max && f18 > s2->max) {
+				continue;
+			}
+		}
+
+		sp68.f[0] = sp74.f[0] - arg0->f[0];
+		sp68.f[1] = sp74.f[1] - arg0->f[1];
+		sp68.f[2] = sp74.f[2] - arg0->f[2];
+
+		t4 = 0;
+		t5 = true;
+		cur = &pvertices->vertices[0];
+		next = &pvertices->vertices[1];
+
+		for (j = 0; j < pvertices->count; j++) {
+			f32 tmp;
+			f32 sp44;
+			f32 sp40;
+			f32 sp3c;
+			f32 sp38;
+			f32 sp34;
+			f32 sp30;
+
+			if (j + 1 == pvertices->count) {
+				next = &pvertices->vertices[0];
+			}
+
+			sp5c.f[0] = next->f[0] - cur->f[0];
+			sp5c.f[1] = next->f[1] - cur->f[1];
+			sp5c.f[2] = next->f[2] - cur->f[2];
+
+			sp44 = sp68.f[0];
+			sp40 = sp68.f[1];
+			sp3c = sp68.f[2];
+
+			sp38 = sp5c.f[0];
+			sp34 = sp5c.f[1];
+			sp30 = sp5c.f[2];
+
+			sp4c.f[0] = sp34 * sp3c - sp30 * sp40;
+			sp4c.f[1] = sp30 * sp44 - sp38 * sp3c;
+			sp4c.f[2] = sp38 * sp40 - sp34 * sp44;
+
+			if (sp4c.f[0] * sp4c.f[0] + sp4c.f[1] * sp4c.f[1] + sp4c.f[2] * sp4c.f[2] == 0.0f) {
+				t5 = false;
+				break;
+			}
+
+			sp58 = sp4c.f[0] * cur->f[0] + sp4c.f[1] * cur->f[1] + sp4c.f[2] * cur->f[2];
+			tmp = sp4c.f[0] * arg0->f[0] + sp4c.f[1] * arg0->f[1] + sp4c.f[2] * arg0->f[2];
+
+			if (tmp < sp58) {
+				if (t4 == 2) {
+					t5 = false;
+					break;
+				}
+
+				t4 = 1;
+			} else if (t4 == 1) {
+				t5 = false;
+				break;
+			} else {
+				t4 = 2;
+			}
+
+			cur++;
+			next++;
+		}
+
+		if (t5) {
+			if (f0 < s2->min) {
+				if (roomnum == g_BgPortals[portalnum].roomnum2) {
+					return false;
+				}
+			} else if (f0 > s2->max) {
+				if (roomnum == g_BgPortals[portalnum].roomnum1) {
+					return false;
+				}
+			}
+		}
+	}
+
+	return true;
+}
+#endif
 
 bool func0f162128(struct coord *arg0, s16 roomnum)
 {
@@ -9008,6 +9019,7 @@ struct bgcmd *bgExecuteCommands(struct bgcmd *cmd)
 	return bgExecuteCommandsBranch(cmd, true);
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel bgTickPortalsXray
 /*  f162d9c:	27bdff48 */ 	addiu	$sp,$sp,-184
@@ -9357,143 +9369,144 @@ glabel bgTickPortalsXray
 /*  f1632cc:	03e00008 */ 	jr	$ra
 /*  f1632d0:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
-
 const char var7f1b75ac[] = "edist";
 
 u32 edist = 400;
+#else
 
 // Mismatch: Regalloc and some reordered instructions. Related to var800a4640.
-//void bgTickPortalsXray(void)
-//{
-//	struct coord vismax; // ac
-//	struct coord vismin; // a0
-//	struct coord eraserpos; // 94
-//	struct coord vismid; // 88
-//	struct player *player = g_Vars.currentplayer;
-//	s16 ymax; // 82
-//	s16 xmax; // 80
-//	s16 ymin; // 7e
-//	s16 xmin; // 7c
-//	struct stagetableentry *stage;
-//	s32 i;
-//	u32 stack;
-//
-//	static u32 edist = 400;
-//
-//	currentPlayerCalculateScreenProperties();
-//
-//	if (var8007fc34 < var8007fc30) {
-//		var8007fc34 = var8007fc30;
-//	}
-//
-//	xmin = player->screenxminf;
-//	ymin = player->screenyminf;
-//	xmax = player->screenxmaxf;
-//	ymax = player->screenymaxf;
-//
-//	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT && player->gunsightoff == 0) {
-//		player->eraserdepth = -500.0f / camGetLodScaleZ();
-//	} else {
-//		player->eraserdepth = -500.0f;
-//	}
-//
-//	eraserpos.f[0] = 0.0f;
-//	eraserpos.f[1] = 0.0f;
-//	eraserpos.f[2] = player->eraserdepth;
-//
-//	mtx4TransformVecInPlace(camGetProjectionMtxF(), &eraserpos);
-//
-//	player->eraserpos.f[0] = eraserpos.f[0];
-//	player->eraserpos.f[1] = eraserpos.f[1];
-//	player->eraserpos.f[2] = eraserpos.f[2];
-//
-//	mainOverrideVariable("edist", &edist);
-//
-//	stage = stageGetCurrent();
-//
-//	player->eraserpropdist = stage->eraserpropdist;
-//	player->eraserbgdist = (f32) stage->eraserpropdist + stage->unk30;
-//
-//	vismax.f[0] = eraserpos.f[0] + player->eraserbgdist;
-//	vismax.f[1] = eraserpos.f[1] + player->eraserbgdist;
-//	vismax.f[2] = eraserpos.f[2] + player->eraserbgdist;
-//
-//	vismin.f[0] = eraserpos.f[0] - player->eraserbgdist;
-//	vismin.f[1] = eraserpos.f[1] - player->eraserbgdist;
-//	vismin.f[2] = eraserpos.f[2] - player->eraserbgdist;
-//
-//	vismid.f[0] = eraserpos.f[0];
-//	vismid.f[1] = eraserpos.f[1];
-//	vismid.f[2] = eraserpos.f[2];
-//
-//	var8007fc2c = 0;
-//	var8007fc30 = 0;
-//
-//	var800a4640.unk2d0.roomnum = -1;
-//	var800a4640.unk2d0.draworder = 255;
-//	var800a4640.unk2d0.box.xmin = xmin;
-//	var800a4640.unk2d0.box.ymin = ymin;
-//	var800a4640.unk2d0.box.xmax = xmax;
-//	var800a4640.unk2d0.box.ymax = ymax;
-//
-//	var800a4ce6 = 0;
-//	var800a4ce4 = 0x7fff;
-//
-//	for (i = 1; i < g_Vars.roomcount; i++) {
-//		if (!(vismax.f[0] < g_Rooms[i].bbmin[0]) && !(vismin.f[0] > g_Rooms[i].bbmax[0])
-//				&& !(vismax.f[2] < g_Rooms[i].bbmin[2]) && !(vismin.f[2] > g_Rooms[i].bbmax[2])
-//				&& !(vismax.f[1] < g_Rooms[i].bbmin[1]) && !(vismin.f[1] > g_Rooms[i].bbmax[1])) {
-//			s32 index = var8007fc2c;
-//
-//			if (1);
-//			if (1);
-//
-//			if (index < 60) {
-//				f32 x;
-//				f32 y;
-//				f32 z;
-//
-//				if (var800a4640.unk000[index].roomnum); \
-//				g_Rooms[i].flags |= ROOMFLAG_ONSCREEN;
-//
-//				var800a4640.unk000[index].roomnum = i;
-//
-//				roomUnpauseProps(i, false);
-//
-//				x = (g_Rooms[i].bbmin[0] + g_Rooms[i].bbmax[0]) / 2.0f - vismid.f[0];
-//				y = (g_Rooms[i].bbmin[1] + g_Rooms[i].bbmax[1]) / 2.0f - vismid.f[1];
-//				z = (g_Rooms[i].bbmin[2] + g_Rooms[i].bbmax[2]) / 2.0f - vismid.f[2];
-//
-//				var800a4640.unk000[index].draworder = sqrtf(x * x + y * y + z * z) / 100.0f;
-//
-//				if (var800a4640.unk000[index].draworder > var800a4ce6) {
-//					var800a4ce6 = var800a4640.unk000[index].draworder;
-//				}
-//
-//				if (var800a4640.unk000[index].draworder < var800a4ce4) {
-//					var800a4ce4 = var800a4640.unk000[index].draworder;
-//				}
-//
-//				var800a4640.unk000[index].box.xmin = xmin;
-//				var800a4640.unk000[index].box.ymin = ymin;
-//				var800a4640.unk000[index].box.xmax = xmax;
-//				var800a4640.unk000[index].box.ymax = ymax;
-//
-//				var8007fc2c++;
-//				var8007fc30++;
-//
-//				g_Rooms[player->cam_room].flags |= ROOMFLAG_ONSCREEN;
-//			} else {
-//				// empty
-//			}
-//		}
-//	}
-//
-//	bgChooseRoomsToLoad();
-//
-//	if (1);
-//	if (1);
-//}
+void bgTickPortalsXray(void)
+{
+	struct coord vismax; // ac
+	struct coord vismin; // a0
+	struct coord eraserpos; // 94
+	struct coord vismid; // 88
+	struct player *player = g_Vars.currentplayer;
+	s16 ymax; // 82
+	s16 xmax; // 80
+	s16 ymin; // 7e
+	s16 xmin; // 7c
+	struct stagetableentry *stage;
+	s32 i;
+	u32 stack;
+
+	static u32 edist = 400;
+
+	currentPlayerCalculateScreenProperties();
+
+	if (var8007fc34 < var8007fc30) {
+		var8007fc34 = var8007fc30;
+	}
+
+	xmin = player->screenxminf;
+	ymin = player->screenyminf;
+	xmax = player->screenxmaxf;
+	ymax = player->screenymaxf;
+
+	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT && player->gunsightoff == 0) {
+		player->eraserdepth = -500.0f / camGetLodScaleZ();
+	} else {
+		player->eraserdepth = -500.0f;
+	}
+
+	eraserpos.f[0] = 0.0f;
+	eraserpos.f[1] = 0.0f;
+	eraserpos.f[2] = player->eraserdepth;
+
+	mtx4TransformVecInPlace(camGetProjectionMtxF(), &eraserpos);
+
+	player->eraserpos.f[0] = eraserpos.f[0];
+	player->eraserpos.f[1] = eraserpos.f[1];
+	player->eraserpos.f[2] = eraserpos.f[2];
+
+	mainOverrideVariable("edist", &edist);
+
+	stage = stageGetCurrent();
+
+	player->eraserpropdist = stage->eraserpropdist;
+	player->eraserbgdist = (f32) stage->eraserpropdist + stage->unk30;
+
+	vismax.f[0] = eraserpos.f[0] + player->eraserbgdist;
+	vismax.f[1] = eraserpos.f[1] + player->eraserbgdist;
+	vismax.f[2] = eraserpos.f[2] + player->eraserbgdist;
+
+	vismin.f[0] = eraserpos.f[0] - player->eraserbgdist;
+	vismin.f[1] = eraserpos.f[1] - player->eraserbgdist;
+	vismin.f[2] = eraserpos.f[2] - player->eraserbgdist;
+
+	vismid.f[0] = eraserpos.f[0];
+	vismid.f[1] = eraserpos.f[1];
+	vismid.f[2] = eraserpos.f[2];
+
+	var8007fc2c = 0;
+	var8007fc30 = 0;
+
+	var800a4640.unk2d0.roomnum = -1;
+	var800a4640.unk2d0.draworder = 255;
+	var800a4640.unk2d0.box.xmin = xmin;
+	var800a4640.unk2d0.box.ymin = ymin;
+	var800a4640.unk2d0.box.xmax = xmax;
+	var800a4640.unk2d0.box.ymax = ymax;
+
+	var800a4ce6 = 0;
+	var800a4ce4 = 0x7fff;
+
+	for (i = 1; i < g_Vars.roomcount; i++) {
+		if (!(vismax.f[0] < g_Rooms[i].bbmin[0]) && !(vismin.f[0] > g_Rooms[i].bbmax[0])
+				&& !(vismax.f[2] < g_Rooms[i].bbmin[2]) && !(vismin.f[2] > g_Rooms[i].bbmax[2])
+				&& !(vismax.f[1] < g_Rooms[i].bbmin[1]) && !(vismin.f[1] > g_Rooms[i].bbmax[1])) {
+			s32 index = var8007fc2c;
+
+			if (1);
+			if (1);
+
+			if (index < 60) {
+				f32 x;
+				f32 y;
+				f32 z;
+
+				if (var800a4640.unk000[index].roomnum); \
+				g_Rooms[i].flags |= ROOMFLAG_ONSCREEN;
+
+				var800a4640.unk000[index].roomnum = i;
+
+				roomUnpauseProps(i, false);
+
+				x = (g_Rooms[i].bbmin[0] + g_Rooms[i].bbmax[0]) / 2.0f - vismid.f[0];
+				y = (g_Rooms[i].bbmin[1] + g_Rooms[i].bbmax[1]) / 2.0f - vismid.f[1];
+				z = (g_Rooms[i].bbmin[2] + g_Rooms[i].bbmax[2]) / 2.0f - vismid.f[2];
+
+				var800a4640.unk000[index].draworder = sqrtf(x * x + y * y + z * z) / 100.0f;
+
+				if (var800a4640.unk000[index].draworder > var800a4ce6) {
+					var800a4ce6 = var800a4640.unk000[index].draworder;
+				}
+
+				if (var800a4640.unk000[index].draworder < var800a4ce4) {
+					var800a4ce4 = var800a4640.unk000[index].draworder;
+				}
+
+				var800a4640.unk000[index].box.xmin = xmin;
+				var800a4640.unk000[index].box.ymin = ymin;
+				var800a4640.unk000[index].box.xmax = xmax;
+				var800a4640.unk000[index].box.ymax = ymax;
+
+				var8007fc2c++;
+				var8007fc30++;
+
+				g_Rooms[player->cam_room].flags |= ROOMFLAG_ONSCREEN;
+			} else {
+				// empty
+			}
+		}
+	}
+
+	bgChooseRoomsToLoad();
+
+	if (1);
+	if (1);
+}
+#endif
 
 void func0f1632d4(s16 roomnum1, s16 roomnum2, s16 draworder, struct screenbox *box)
 {

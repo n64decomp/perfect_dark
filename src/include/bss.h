@@ -35,7 +35,7 @@ extern u32 var80095200;
 extern OSMesgQueue g_PiMesgQueue;
 extern struct g_vars g_Vars;
 extern u8 **var8009a874;
-extern s32 *var8009a888;
+extern u8 **var8009a888;
 extern union filedataptr g_TileFileData;
 extern s32 g_TileNumRooms;
 extern u32 *g_TileRooms;

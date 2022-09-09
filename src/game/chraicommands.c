@@ -6853,6 +6853,7 @@ s16 g_MaianQuipBank[][4] = {
 /**
  * @cmd 0130
  */
+#if MATCHING
 #if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel aiSayQuip
@@ -9490,265 +9491,266 @@ glabel var7f1a9d64
 /*  f05a010:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
-
+#else
 // regalloc difference near 64c
-//bool aiSayQuip(void)
-//{
-//	u8 column; // 167
-//	s16 audioid; // 164
-//	u8 i; // 163
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset; // 156
-//	s32 numnearbychrs; // 152
-//	bool issomeonetalking; // 148
-//	s32 probability; // 144
-//	u32 stack; // 140 - not referenced
-//	s16 *chrnums; // 136
-//	s16 (*bank)[4]; // 132
-//	char *text; // 128
-//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]); // 124
-//	u32 prevplayernum = g_Vars.currentplayernum; // 120
-//	s32 distance; // 116 - not referenced
-//	s32 row = cmd[3]; // 112
-//	u32 playernum; // 108 - not referenced
-//	u8 headshotted = g_Vars.chrdata->hidden2 & CHRH2FLAG_HEADSHOTTED; // 107
-//	struct chrdata *loopchr; // 100
-//
-//	// Choose bank
-//	// 2c0
-//	if (CHRRACE(g_Vars.chrdata) == RACE_SKEDAR) {
-//		bank = g_SkedarQuipBank;
-//
-//		if (row > 5) {
-//			row = 0;
-//		}
-//		// 2e0
-//	} else if (g_Vars.chrdata->headnum == HEAD_MAIAN_S) {
-//		bank = g_MaianQuipBank;
-//
-//		if (row > 2) {
-//			row = random() & 1;
-//		}
-//		// 324
-//	} else if (cmd[7] == 0) {
-//		if (g_Vars.chrdata->voicebox > 3) {
-//			g_Vars.chrdata->voicebox = 3;
-//		}
-//
-//		bank = &g_GuardQuipBank[g_Vars.chrdata->voicebox * 41];
-//	} else {
-//		// 37c
-//		bank = g_SpecialQuipBank;
-//	}
-//
-//	// 37c
-//	if (!row && !cmd[4] && !cmd[6]) {
-//		g_Vars.chrdata->soundtimer = 0;
-//		g_Vars.aioffset += 10;
-//		return false;
-//	}
-//
-//	// 3bc
-//	chrnums = teamGetChrIds(g_Vars.chrdata->team);
-//	numnearbychrs = 0;
-//	issomeonetalking = false;
-//	probability = cmd[4];
-//
-//	// Make it impossible for Elvis and Jon to use anything but special phrases
-//	// 3f0
-//	if ((g_Vars.chrdata->headnum == HEAD_ELVIS
-//				|| g_Vars.chrdata->headnum == HEAD_THEKING
-//				|| g_Vars.chrdata->headnum == HEAD_ELVIS_GOGS
-//				|| g_Vars.chrdata->headnum == HEAD_JONATHAN) &&
-//			bank != g_SpecialQuipBank) {
-//		probability = 0;
-//	}
-//
-//	// If the person talking is a player, and they've just died,
-//	// try using the other coop player.
-//	// 420
-//	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-//		// 444
-//		playernum = playermgrGetPlayerNumByProp(chr->prop);
-//
-//		if (g_Vars.coopplayernum >= 0 && g_Vars.players[playernum]->isdead) {
-//			// 470
-//			if (playernum == g_Vars.bondplayernum) {
-//				playernum = g_Vars.coopplayernum;
-//			} else {
-//				playernum = g_Vars.bondplayernum;
-//			}
-//		}
-//
-//		setCurrentPlayerNum(playernum);
-//	}
-//
-//	// If soundgap permits talking at this time and probability passes
-//	// 494
-//	if ((g_Vars.chrdata->soundgap == 0 || g_Vars.chrdata->soundgap * 60 < g_Vars.chrdata->soundtimer)
-//			&& probability > (u8)random()) {
-//		// Try and find a chr in the same squadron who is currently talking
-//		// 4dc
-//		while (*chrnums != -2) {
-//			loopchr = chrFindByLiteralId(*chrnums);
-//
-//			if (loopchr && loopchr->model
-//					&& !chrIsDead(loopchr)
-//					&& loopchr->actiontype != ACT_DEAD
-//					&& g_Vars.chrdata->squadron == loopchr->squadron
-//					&& loopchr->alertness >= 100
-//					&& g_Vars.chrdata->chrnum != loopchr->chrnum
-//					&& chrGetDistanceToChr(g_Vars.chrdata, loopchr->chrnum) < 7000) {
-//				// 584
-//				numnearbychrs++;
-//
-//				// 594
-//				if (loopchr->soundtimer < 60 && cmd[6] != 0 && cmd[6] != 255) {
-//					issomeonetalking = true;
-//				}
-//			}
-//
-//			chrnums++;
-//		}
-//
-//		// 5dc
-//		if (!issomeonetalking &&
-//				((numnearbychrs == 0 && (cmd[6] == 0 || cmd[6] == 255)) ||
-//				 (numnearbychrs > 0 && cmd[6] > 0))) {
-//			column = random() % 3;
-//
-//			// 64c
-//			if ((cmd[7] & 0x80) == 0) {
-//				audioid = bank[row][1 + column];
-//			} else {
-//				audioid = bank[row][1 + g_Vars.chrdata->tude];
-//			}
-//
-//			// 6a0
-//			if (audioWasNotPlayedRecently(audioid) || CHRRACE(g_Vars.chrdata) == RACE_SKEDAR) {
-//				// 6d4
-//				audioMarkAsRecentlyPlayed(audioid);
-//
-//				// 6e8
-//				// Replace gurgle with "why me"
-//				if (audioid == 0x34e && !headshotted) {
-//					audioid = 0x34d;
-//				}
-//
-//				// 700
-//				g_Vars.chrdata->soundtimer = 0;
-//				g_Vars.chrdata->soundgap = cmd[5];
-//				g_Vars.chrdata->propsoundcount++;
-//
-//				// 72c
-//				if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
-//					func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
-//					// 7a8
-//					propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
-//							-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
-//				} else {
-//					// Audio is "Stop moving", "Stop dodging" or "Stand still"
-//					distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
-//
-//					if (ABS(distance) > 50) {
-//						func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
-//						// 840
-//						propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
-//								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
-//					}
-//				}
-//
-//				// Consider putting text on screen
-//				// Note: if cmd[8] is 0 then it means no text, so the value
-//				// needs to be be decremented by one so it's 0-indexed.
-//				// 850
-//				if (cmd[8] && (cmd[7] & 0x80) == 0) {
-//					if (column > 2) {
-//						column = 2;
-//					}
-//
-//					text = langGet(g_QuipTexts[cmd[8] - 1][1 + column]);
-//
-//					if (!sndIsFiltered(audioid)) {
-//						// 8ac
-//						hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
-//					}
-//				} else if (cmd[8]) {
-//					text = langGet(g_QuipTexts[cmd[8] - 1][1 + g_Vars.chrdata->tude]);
-//
-//					if (!sndIsFiltered(audioid)) {
-//						// 904
-//						hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
-//					}
-//				}
-//			} else {
-//				// Audio was played recently - try and find a different one
-//				audioid = 0;
-//
-//				// 92c
-//				for (i = 1; i < 4; i++) {
-//					if (audioWasNotPlayedRecently(g_GuardQuipBank[row][i])
-//							&& audioWasNotPlayedRecently(bank[row][i])) {
-//						audioid = bank[row][i];
-//						break;
-//					}
-//				}
-//
-//				// 99c
-//				if (audioid) {
-//					audioMarkAsRecentlyPlayed(audioid);
-//
-//					// Replace gurgle with "why me"
-//					if (audioid == 0x34e && !headshotted) {
-//						audioid = 0x34d;
-//					}
-//
-//					g_Vars.chrdata->soundtimer = 0;
-//					g_Vars.chrdata->soundgap = cmd[5];
-//					g_Vars.chrdata->propsoundcount++;
-//
-//					// 9fc
-//					if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
-//						func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
-//						// a80
-//						propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
-//								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
-//					} else {
-//						// Audio is "Stop moving", "Stop dodging" or "Stand still"
-//						// a90
-//						distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
-//
-//						if (ABS(distance) > 50) {
-//							func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
-//							// b28
-//							propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
-//									-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
-//						}
-//					}
-//
-//					// b44
-//					if (cmd[8]) {
-//						text = langGet(g_QuipTexts[cmd[8] - 1][i]);
-//
-//						if (!sndIsFiltered(audioid)) {
-//							// b78
-//							hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
-//						}
-//					}
-//				} else {
-//					g_Vars.chrdata->soundtimer = 0;
-//					g_Vars.chrdata->soundgap = cmd[5];
-//					chrUnsetFlags(g_Vars.chrdata, CHRFLAG1_TALKINGTODISGUISE, BANK_1);
-//				}
-//			}
-//		}
-//	}
-//
-//	setCurrentPlayerNum(prevplayernum);
-//
-//	g_Vars.aioffset += 10;
-//
-//	return false;
-//}
+bool aiSayQuip(void)
+{
+	u8 column; // 167
+	s16 audioid; // 164
+	u8 i; // 163
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset; // 156
+	s32 numnearbychrs; // 152
+	bool issomeonetalking; // 148
+	s32 probability; // 144
+	u32 stack; // 140 - not referenced
+	s16 *chrnums; // 136
+	s16 (*bank)[4]; // 132
+	char *text; // 128
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]); // 124
+	u32 prevplayernum = g_Vars.currentplayernum; // 120
+	s32 distance; // 116 - not referenced
+	s32 row = cmd[3]; // 112
+	u32 playernum; // 108 - not referenced
+	u8 headshotted = g_Vars.chrdata->hidden2 & CHRH2FLAG_HEADSHOTTED; // 107
+	struct chrdata *loopchr; // 100
+
+	// Choose bank
+	// 2c0
+	if (CHRRACE(g_Vars.chrdata) == RACE_SKEDAR) {
+		bank = g_SkedarQuipBank;
+
+		if (row > 5) {
+			row = 0;
+		}
+		// 2e0
+	} else if (g_Vars.chrdata->headnum == HEAD_MAIAN_S) {
+		bank = g_MaianQuipBank;
+
+		if (row > 2) {
+			row = random() & 1;
+		}
+		// 324
+	} else if (cmd[7] == 0) {
+		if (g_Vars.chrdata->voicebox > 3) {
+			g_Vars.chrdata->voicebox = 3;
+		}
+
+		bank = &g_GuardQuipBank[g_Vars.chrdata->voicebox * 41];
+	} else {
+		// 37c
+		bank = g_SpecialQuipBank;
+	}
+
+	// 37c
+	if (!row && !cmd[4] && !cmd[6]) {
+		g_Vars.chrdata->soundtimer = 0;
+		g_Vars.aioffset += 10;
+		return false;
+	}
+
+	// 3bc
+	chrnums = teamGetChrIds(g_Vars.chrdata->team);
+	numnearbychrs = 0;
+	issomeonetalking = false;
+	probability = cmd[4];
+
+	// Make it impossible for Elvis and Jon to use anything but special phrases
+	// 3f0
+	if ((g_Vars.chrdata->headnum == HEAD_ELVIS
+				|| g_Vars.chrdata->headnum == HEAD_THEKING
+				|| g_Vars.chrdata->headnum == HEAD_ELVIS_GOGS
+				|| g_Vars.chrdata->headnum == HEAD_JONATHAN) &&
+			bank != g_SpecialQuipBank) {
+		probability = 0;
+	}
+
+	// If the person talking is a player, and they've just died,
+	// try using the other coop player.
+	// 420
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		// 444
+		playernum = playermgrGetPlayerNumByProp(chr->prop);
+
+		if (g_Vars.coopplayernum >= 0 && g_Vars.players[playernum]->isdead) {
+			// 470
+			if (playernum == g_Vars.bondplayernum) {
+				playernum = g_Vars.coopplayernum;
+			} else {
+				playernum = g_Vars.bondplayernum;
+			}
+		}
+
+		setCurrentPlayerNum(playernum);
+	}
+
+	// If soundgap permits talking at this time and probability passes
+	// 494
+	if ((g_Vars.chrdata->soundgap == 0 || g_Vars.chrdata->soundgap * 60 < g_Vars.chrdata->soundtimer)
+			&& probability > (u8)random()) {
+		// Try and find a chr in the same squadron who is currently talking
+		// 4dc
+		while (*chrnums != -2) {
+			loopchr = chrFindByLiteralId(*chrnums);
+
+			if (loopchr && loopchr->model
+					&& !chrIsDead(loopchr)
+					&& loopchr->actiontype != ACT_DEAD
+					&& g_Vars.chrdata->squadron == loopchr->squadron
+					&& loopchr->alertness >= 100
+					&& g_Vars.chrdata->chrnum != loopchr->chrnum
+					&& chrGetDistanceToChr(g_Vars.chrdata, loopchr->chrnum) < 7000) {
+				// 584
+				numnearbychrs++;
+
+				// 594
+				if (loopchr->soundtimer < 60 && cmd[6] != 0 && cmd[6] != 255) {
+					issomeonetalking = true;
+				}
+			}
+
+			chrnums++;
+		}
+
+		// 5dc
+		if (!issomeonetalking &&
+				((numnearbychrs == 0 && (cmd[6] == 0 || cmd[6] == 255)) ||
+				 (numnearbychrs > 0 && cmd[6] > 0))) {
+			column = random() % 3;
+
+			// 64c
+			if ((cmd[7] & 0x80) == 0) {
+				audioid = bank[row][1 + column];
+			} else {
+				audioid = bank[row][1 + g_Vars.chrdata->tude];
+			}
+
+			// 6a0
+			if (audioWasNotPlayedRecently(audioid) || CHRRACE(g_Vars.chrdata) == RACE_SKEDAR) {
+				// 6d4
+				audioMarkAsRecentlyPlayed(audioid);
+
+				// 6e8
+				// Replace gurgle with "why me"
+				if (audioid == 0x34e && !headshotted) {
+					audioid = 0x34d;
+				}
+
+				// 700
+				g_Vars.chrdata->soundtimer = 0;
+				g_Vars.chrdata->soundgap = cmd[5];
+				g_Vars.chrdata->propsoundcount++;
+
+				// 72c
+				if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
+					func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+					// 7a8
+					propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+							-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+				} else {
+					// Audio is "Stop moving", "Stop dodging" or "Stand still"
+					distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
+
+					if (ABS(distance) > 50) {
+						func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+						// 840
+						propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+					}
+				}
+
+				// Consider putting text on screen
+				// Note: if cmd[8] is 0 then it means no text, so the value
+				// needs to be be decremented by one so it's 0-indexed.
+				// 850
+				if (cmd[8] && (cmd[7] & 0x80) == 0) {
+					if (column > 2) {
+						column = 2;
+					}
+
+					text = langGet(g_QuipTexts[cmd[8] - 1][1 + column]);
+
+					if (!sndIsFiltered(audioid)) {
+						// 8ac
+						hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
+					}
+				} else if (cmd[8]) {
+					text = langGet(g_QuipTexts[cmd[8] - 1][1 + g_Vars.chrdata->tude]);
+
+					if (!sndIsFiltered(audioid)) {
+						// 904
+						hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
+					}
+				}
+			} else {
+				// Audio was played recently - try and find a different one
+				audioid = 0;
+
+				// 92c
+				for (i = 1; i < 4; i++) {
+					if (audioWasNotPlayedRecently(g_GuardQuipBank[row][i])
+							&& audioWasNotPlayedRecently(bank[row][i])) {
+						audioid = bank[row][i];
+						break;
+					}
+				}
+
+				// 99c
+				if (audioid) {
+					audioMarkAsRecentlyPlayed(audioid);
+
+					// Replace gurgle with "why me"
+					if (audioid == 0x34e && !headshotted) {
+						audioid = 0x34d;
+					}
+
+					g_Vars.chrdata->soundtimer = 0;
+					g_Vars.chrdata->soundgap = cmd[5];
+					g_Vars.chrdata->propsoundcount++;
+
+					// 9fc
+					if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
+						func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+						// a80
+						propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+					} else {
+						// Audio is "Stop moving", "Stop dodging" or "Stand still"
+						// a90
+						distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
+
+						if (ABS(distance) > 50) {
+							func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+							// b28
+							propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+									-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+						}
+					}
+
+					// b44
+					if (cmd[8]) {
+						text = langGet(g_QuipTexts[cmd[8] - 1][i]);
+
+						if (!sndIsFiltered(audioid)) {
+							// b78
+							hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
+						}
+					}
+				} else {
+					g_Vars.chrdata->soundtimer = 0;
+					g_Vars.chrdata->soundgap = cmd[5];
+					chrUnsetFlags(g_Vars.chrdata, CHRFLAG1_TALKINGTODISGUISE, BANK_1);
+				}
+			}
+		}
+	}
+
+	setCurrentPlayerNum(prevplayernum);
+
+	g_Vars.aioffset += 10;
+
+	return false;
+}
+#endif
 
 void propDecrementSoundCount(struct prop *prop)
 {

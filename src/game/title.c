@@ -778,6 +778,7 @@ bool g_PdLogoUnusedRotEnabled = false;
 bool g_PdLogoLightMoving = false;
 f32 g_PdLogoLightDirFrac = 0;
 
+#if MATCHING
 GLOBAL_ASM(
 glabel titleRenderPdLogoModel
 /*  f017248:	27bdfeb0 */ 	addiu	$sp,$sp,-336
@@ -1277,175 +1278,176 @@ glabel titleRenderPdLogoModel
 /*  f017978:	03e00008 */ 	jr	$ra
 /*  f01797c:	27bd0150 */ 	addiu	$sp,$sp,0x150
 );
-
+#else
 // Mismatch: Minor reordering in the sp100 loop
-//Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, struct gfxvtx *vertices, u32 *colours)
-//{
-//	struct modelrenderdata renderdata = {NULL, true, 3}; // 110
-//	s16 tmp2;
-//	s32 i; // 108
-//	s32 j;
-//	struct gfxvtx *sp100;
-//	struct colour *spfc;
-//	union modelrwdata *tmp;
-//	struct modelrwdata_dl *rwdata;
-//	struct modelnode *node1;
-//	struct modelnode *node2;
-//	s32 s6;
-//	s32 k;
-//	struct modelrodata_dl *s5rodata;
-//	struct modelrodata_dl *s1rodata;
-//	s32 alpha1; // d8
-//	s32 spcc[3];
-//	f32 spc0[3];
-//	struct gfxvtx *a3;
-//	s32 alpha2; // b8
-//	Mtxf sp6c;
-//	struct gfxvtx *t0;
-//	struct colour *s1;
-//	struct colour *s2;
-//
-//	tmp = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_LOGO_0000));
-//	tmp->toggle.visible = arg2;
-//
-//	tmp = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_LOGO_0001));
-//	tmp->toggle.visible = !arg2;
-//
-//	s6 = arg3 * 65536.0f;
-//
-//	if (s6 < 0) {
-//		s6 = 0;
-//	} else if (s6 > 65536) {
-//		s6 = 65536;
-//	}
-//
-//	alpha1 = s6 / 256;
-//
-//	if (alpha1 > arg4) {
-//		alpha1 = arg4;
-//	}
-//
-//	if (!arg2) {
-//		s6 = 65536 - s6;
-//		alpha1 = 256 - alpha1;
-//	}
-//
-//	if (alpha1 < 0) {
-//		alpha1 = 0;
-//	} else if (alpha1 > 255) {
-//		alpha1 = 255;
-//	}
-//
-//	alpha2 = arg5 * 256.0f;
-//
-//	if (alpha2 < 0) {
-//		alpha2 = 0;
-//	} else if (alpha2 > 255) {
-//		alpha2 = 255;
-//	}
-//
-//	sp100 = vertices;
-//	spfc = (void *)colours;
-//
-//	for (i = 0; i < 4; i++) {
-//		if (i == 0) {
-//			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0002);
-//			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0003);
-//		} else if (i == 1) {
-//			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0004);
-//			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0005);
-//		} else if (i == 2) {
-//			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0006);
-//			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0007);
-//		} else {
-//			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0008);
-//			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0009);
-//		}
-//
-//		if (node1 && node2) {
-//			if (arg2) {
-//				s5rodata = &node1->rodata->dl;
-//				s1rodata = &node2->rodata->dl;
-//				rwdata = modelGetNodeRwData(model, node1);
-//			} else {
-//				s5rodata = &node2->rodata->dl;
-//				s1rodata = &node1->rodata->dl;
-//				rwdata = modelGetNodeRwData(model, node2);
-//			}
-//
-//			s1 = (struct colour *)ALIGN8(s5rodata->numvertices * sizeof(struct gfxvtx) + (s32)s5rodata->vertices);
-//			if (1);
-//			s2 = (struct colour *)ALIGN8(s1rodata->numvertices * sizeof(struct gfxvtx) + (s32)s1rodata->vertices);
-//
-//			a3 = s5rodata->vertices;
-//			t0 = s1rodata->vertices;
-//
-//			rwdata->vertices = sp100;
-//			rwdata->colours = spfc;
-//
-//			for (j = 0; j < s5rodata->numvertices; j++) {
-//				sp100[j] = a3[j];
-//
-//				tmp2 = (t0[j].x - a3[j].x) * s6 / 65536;
-//				sp100[j].x += tmp2;
-//
-//				tmp2 = (t0[j].y - a3[j].y) * s6 / 65536;
-//				sp100[j].y += tmp2;
-//
-//				tmp2 = (t0[j].z - a3[j].z) * s6 / 65536;
-//				sp100[j].z += tmp2;
-//			}
-//
-//			for (j = 0; j < s5rodata->numcolours; j++) {
-//				spcc[0] = (s32)((s1[j].r * (65536 - s6) + s2[j].r * s6) / 65536);
-//				spcc[1] = (s32)((s1[j].g * (65536 - s6) + s2[j].g * s6) / 65536);
-//				spcc[2] = (s32)((s1[j].b * (65536 - s6) + s2[j].b * s6) / 65536);
-//
-//				spc0[0] = spcc[0];
-//				spc0[1] = spcc[1];
-//				spc0[2] = spcc[2];
-//
-//				if (spc0[0] != 0.0f || spc0[1] != 0.0f || spc0[2] != 0.0f) {
-//					guNormalize(&spc0[0], &spc0[1], &spc0[2]);
-//				}
-//
-//				spfc[j].r = (s32)(spc0[0] * 127.0f);
-//				spfc[j].g = (s32)(spc0[1] * 127.0f);
-//				spfc[j].b = (s32)(spc0[2] * 127.0f);
-//				spfc[j].a = alpha2;
-//			}
-//
-//			sp100 = (void *)ALIGN8(s5rodata->numvertices * sizeof(struct gfxvtx) + (s32)sp100);
-//			spfc = (void *)ALIGN8(s5rodata->numcolours * sizeof(u32) + (s32)spfc);
-//		}
-//	}
-//
-//	gDPSetPrimColor(gdl++, 0, 0, 0x00, 0x00, 0x00, alpha1);
-//
-//	renderdata.unk00 = arg6;
-//	renderdata.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
-//
-//	mtx4Copy(arg6, renderdata.unk10);
-//
-//	model->matrices = renderdata.unk10;
-//
-//	model0001cc20(model);
-//
-//	renderdata.flags = 3;
-//	renderdata.zbufferenabled = false;
-//	renderdata.gdl = gdl;
-//
-//	modelRender(&renderdata, model);
-//
-//	gdl = renderdata.gdl;
-//
-//	for (k = 0, j = 0; k < model->filedata->nummatrices; k++, j += sizeof(Mtxf)) {
-//		mtx4Copy((Mtxf *)((u32)model->matrices + j), &sp6c);
-//		mtx00016054(&sp6c, model->matrices + k);
-//	}
-//
-//	return gdl;
-//}
+Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, struct gfxvtx *vertices, u32 *colours)
+{
+	struct modelrenderdata renderdata = {NULL, true, 3}; // 110
+	s16 tmp2;
+	s32 i; // 108
+	s32 j;
+	struct gfxvtx *sp100;
+	struct colour *spfc;
+	union modelrwdata *tmp;
+	struct modelrwdata_dl *rwdata;
+	struct modelnode *node1;
+	struct modelnode *node2;
+	s32 s6;
+	s32 k;
+	struct modelrodata_dl *s5rodata;
+	struct modelrodata_dl *s1rodata;
+	s32 alpha1; // d8
+	s32 spcc[3];
+	f32 spc0[3];
+	struct gfxvtx *a3;
+	s32 alpha2; // b8
+	Mtxf sp6c;
+	struct gfxvtx *t0;
+	struct colour *s1;
+	struct colour *s2;
+
+	tmp = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_LOGO_0000));
+	tmp->toggle.visible = arg2;
+
+	tmp = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_LOGO_0001));
+	tmp->toggle.visible = !arg2;
+
+	s6 = arg3 * 65536.0f;
+
+	if (s6 < 0) {
+		s6 = 0;
+	} else if (s6 > 65536) {
+		s6 = 65536;
+	}
+
+	alpha1 = s6 / 256;
+
+	if (alpha1 > arg4) {
+		alpha1 = arg4;
+	}
+
+	if (!arg2) {
+		s6 = 65536 - s6;
+		alpha1 = 256 - alpha1;
+	}
+
+	if (alpha1 < 0) {
+		alpha1 = 0;
+	} else if (alpha1 > 255) {
+		alpha1 = 255;
+	}
+
+	alpha2 = arg5 * 256.0f;
+
+	if (alpha2 < 0) {
+		alpha2 = 0;
+	} else if (alpha2 > 255) {
+		alpha2 = 255;
+	}
+
+	sp100 = vertices;
+	spfc = (void *)colours;
+
+	for (i = 0; i < 4; i++) {
+		if (i == 0) {
+			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0002);
+			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0003);
+		} else if (i == 1) {
+			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0004);
+			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0005);
+		} else if (i == 2) {
+			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0006);
+			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0007);
+		} else {
+			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0008);
+			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0009);
+		}
+
+		if (node1 && node2) {
+			if (arg2) {
+				s5rodata = &node1->rodata->dl;
+				s1rodata = &node2->rodata->dl;
+				rwdata = modelGetNodeRwData(model, node1);
+			} else {
+				s5rodata = &node2->rodata->dl;
+				s1rodata = &node1->rodata->dl;
+				rwdata = modelGetNodeRwData(model, node2);
+			}
+
+			s1 = (struct colour *)ALIGN8(s5rodata->numvertices * sizeof(struct gfxvtx) + (s32)s5rodata->vertices);
+			if (1);
+			s2 = (struct colour *)ALIGN8(s1rodata->numvertices * sizeof(struct gfxvtx) + (s32)s1rodata->vertices);
+
+			a3 = s5rodata->vertices;
+			t0 = s1rodata->vertices;
+
+			rwdata->vertices = sp100;
+			rwdata->colours = spfc;
+
+			for (j = 0; j < s5rodata->numvertices; j++) {
+				sp100[j] = a3[j];
+
+				tmp2 = (t0[j].x - a3[j].x) * s6 / 65536;
+				sp100[j].x += tmp2;
+
+				tmp2 = (t0[j].y - a3[j].y) * s6 / 65536;
+				sp100[j].y += tmp2;
+
+				tmp2 = (t0[j].z - a3[j].z) * s6 / 65536;
+				sp100[j].z += tmp2;
+			}
+
+			for (j = 0; j < s5rodata->numcolours; j++) {
+				spcc[0] = (s32)((s1[j].r * (65536 - s6) + s2[j].r * s6) / 65536);
+				spcc[1] = (s32)((s1[j].g * (65536 - s6) + s2[j].g * s6) / 65536);
+				spcc[2] = (s32)((s1[j].b * (65536 - s6) + s2[j].b * s6) / 65536);
+
+				spc0[0] = spcc[0];
+				spc0[1] = spcc[1];
+				spc0[2] = spcc[2];
+
+				if (spc0[0] != 0.0f || spc0[1] != 0.0f || spc0[2] != 0.0f) {
+					guNormalize(&spc0[0], &spc0[1], &spc0[2]);
+				}
+
+				spfc[j].r = (s32)(spc0[0] * 127.0f);
+				spfc[j].g = (s32)(spc0[1] * 127.0f);
+				spfc[j].b = (s32)(spc0[2] * 127.0f);
+				spfc[j].a = alpha2;
+			}
+
+			sp100 = (void *)ALIGN8(s5rodata->numvertices * sizeof(struct gfxvtx) + (s32)sp100);
+			spfc = (void *)ALIGN8(s5rodata->numcolours * sizeof(u32) + (s32)spfc);
+		}
+	}
+
+	gDPSetPrimColor(gdl++, 0, 0, 0x00, 0x00, 0x00, alpha1);
+
+	renderdata.unk00 = arg6;
+	renderdata.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+
+	mtx4Copy(arg6, renderdata.unk10);
+
+	model->matrices = renderdata.unk10;
+
+	model0001cc20(model);
+
+	renderdata.flags = 3;
+	renderdata.zbufferenabled = false;
+	renderdata.gdl = gdl;
+
+	modelRender(&renderdata, model);
+
+	gdl = renderdata.gdl;
+
+	for (k = 0, j = 0; k < model->filedata->nummatrices; k++, j += sizeof(Mtxf)) {
+		mtx4Copy((Mtxf *)((u32)model->matrices + j), &sp6c);
+		mtx00016054(&sp6c, model->matrices + k);
+	}
+
+	return gdl;
+}
+#endif
 
 /**
  * Skip immediately to the "PERFECT DARK" part of the PdLogo mode.
@@ -1489,6 +1491,7 @@ void titleSkipToPdTitle(void)
 	musicStartTemporaryPrimary(MUSIC_TITLE2);
 }
 
+#if MATCHING
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel titleRenderPdLogo
@@ -7469,7 +7472,6 @@ glabel var7f1a8468
 /*  f018dac:	00000000 */ 	nop
 );
 #endif
-
 u32 var80062818 = 0x00000000;
 u32 var8006281c = 0x00000001;
 u32 var80062820 = 0x00000003;
@@ -7490,434 +7492,436 @@ u32 var80062854 = 0x00000000;
 u32 var80062858 = 0x00000000;
 u32 var8006285c = 0x00000000;
 f32 var80062860 = 1000;
+#else
 
 // Mismatch: first tick assignments need to be permutated
-//Gfx *titleRenderPdLogo(Gfx *gdl)
-//{
-//	struct modelrenderdata renderdata = { NULL, true, 3 }; // 2f0
-//	Mtxf sp2b0;
-//	Mtxf sp270;
-//	Mtxf sp230;
-//	struct model *model; // 22c
-//	Mtxf sp1e8;
-//	Mtxf sp1a8;
-//	struct modelnode *node;
-//	struct modelrodata_dl *rodata; // 164
-//	struct modelrwdata_dl *rwdata; // 160
-//	f32 sp13c = g_TitleTimer / 4500.0f - 0.1f;
-//	LookAt *lookat; // 134
-//	Mtx spf0;
-//	f32 spe4;
-//	f32 spe0;
-//	s32 numvertices; // dc
-//	s32 numcolours; // d8
-//
-//	// b74
-//	if (g_PdLogoIsFirstTick) {
-//		g_PdLogoYRotCur = 4.2404751777649f;
-//		g_PdLogoYRotSpeed = 0.018846554681659f;
-//		g_PdLogoXRotCur = 0.47116386890411f;
-//		g_PdLogoXRotSpeed = 0.0f;
-//		g_PdLogoScale = 0.35f;
-//		g_PdLogoFrac = 0.0f;
-//		g_PdLogoUseCombinedModel = false;
-//		g_PdLogoAmbientLightFrac = 1.0f;
-//		g_PdLogoIsFirstTick = false;
-//		g_PdLogoBlackTimer = 1;
-//		g_PdLogoYRotEnabled = false;
-//		g_PdLogoPreMorphTimer = 0;
-//		g_PdLogoMorphing = false;
-//		g_PdLogoExitTimer = 0;
-//		g_PdLogoMorphEndTimer = 0;
-//		g_PdLogoYRotStopping = false;
-//		g_PdLogoDarkenEnabled = false;
-//		var80062804 = 1;
-//		g_PdLogoPointlessTimerEnabled = false;
-//		g_PdLogoPreTitleTimer = 0;
-//		g_PdLogoTitleStepFrac = 0.0f;
-//		g_PdLogoTitlePresenting = false;
-//		g_PdLogoTitleStep = -1;
-//		g_PdLogoPointlessTimer = 0;
-//		g_PdLogoUnusedRotEnabled = false;
-//		g_PdLogoUnusedRot = 1.5705462694168f;
-//		g_PdLogoLightMoving = false;
-//		g_PdLogoLightDirFrac = 0.0f;
-//	}
-//
-//	// c7c
-//	if (g_PdLogoBlackTimer != 0) {
-//		g_PdLogoBlackTimer++;
-//
-//		if (g_PdLogoBlackTimer >= 4) {
-//			g_PdLogoBlackTimer = 0;
-//			g_PdLogoYRotEnabled = true;
-//			g_PdLogoPreMorphTimer = 1;
-//		}
-//	}
-//
-//	// ce4
-//	if (g_PdLogoYRotStopping) {
-//		if (g_PdLogoYRotCur < g_PdLogoEndYRot) {
-//			applySpeed(&g_PdLogoYRotCur, g_PdLogoEndYRot, &g_PdLogoYRotSpeed, 0.00018846555030905f, 0.00018846555030905f, 0.018846554681659f);
-//
-//			if (g_PdLogoYRotCur >= g_PdLogoEndYRot) {
-//				g_PdLogoYRotCur = g_PdLogoEndYRot;
-//				g_PdLogoYRotSpeed = 0.0f;
-//			}
-//
-//			if (g_PdLogoYRotCur >= M_BADTAU) {
-//				g_PdLogoYRotCur -= M_BADTAU;
-//				g_PdLogoEndYRot -= M_BADTAU;
-//			} else if (g_PdLogoYRotCur < 0.0f) {
-//				g_PdLogoYRotCur += M_BADTAU;
-//				g_PdLogoEndYRot += M_BADTAU;
-//			}
-//		}
-//
-//		if (g_PdLogoYRotCur >= g_PdLogoEndYRot) {
-//			g_PdLogoYRotStopping = false;
-//		}
-//	} else /*e18*/ if (g_PdLogoYRotEnabled) {
-//		g_PdLogoYRotCur += g_PdLogoYRotSpeed * g_Vars.lvupdate240freal;
-//
-//		if (g_PdLogoYRotCur >= M_BADTAU) {
-//			g_PdLogoYRotCur -= M_BADTAU;
-//		} else if (g_PdLogoYRotCur < 0.0f) {
-//			g_PdLogoYRotCur += M_BADTAU;
-//		}
-//	}
-//
-//	// e90
-//	if (g_PdLogoPreMorphTimer != 0) {
-//		s32 duration = 80;
-//
-//		g_PdLogoPreMorphTimer += g_Vars.lvupdate240_60;
-//
-//		if (g_PdLogoPreMorphTimer > 0) {
-//			g_PdLogoFrac = (f32) g_PdLogoPreMorphTimer / (f32) duration;
-//		} else {
-//			g_PdLogoFrac = 0.0f;
-//		}
-//
-//		if (g_PdLogoPreMorphTimer > duration) {
-//			g_PdLogoPreMorphTimer = 0;
-//			g_PdLogoMorphing = true;
-//			g_PdLogoFrac = 0.0f;
-//			g_PdLogoUseCombinedModel = true;
-//		}
-//	}
-//
-//	// f14
-//	if (g_PdLogoMorphing) {
-//		g_PdLogoFrac += 0.004f * g_Vars.lvupdate240freal;
-//
-//		if (g_PdLogoFrac >= 0.8f) {
-//			if (g_PdLogoMorphEndTimer == 0) {
-//				g_PdLogoMorphEndTimer = 1;
-//			}
-//		}
-//
-//		if (g_PdLogoFrac >= 1.0f) {
-//			g_PdLogoFrac = 1.0f;
-//			g_PdLogoMorphing = false;
-//		}
-//	}
-//
-//	// f80
-//	if (g_PdLogoMorphEndTimer != 0) {
-//		g_PdLogoMorphEndTimer += g_Vars.lvupdate240_60;
-//
-//		if (g_PdLogoXRotCur > 0.0f) {
-//			// Implement the camera lowering effect, but it's actually
-//			// the model that rotates upwards to face the camera
-//			applyRotation(&g_PdLogoXRotCur, 0.0f, &g_PdLogoXRotSpeed, 0.00011307933164062f, 0.00011307933164062f, 0.011307933367789f);
-//
-//			if (g_PdLogoXRotCur <= 0.0f) {
-//				g_PdLogoXRotCur = 0.0f;
-//				g_PdLogoXRotSpeed = 0.0f;
-//			}
-//		}
-//
-//		if (g_PdLogoMorphEndTimer > 30 && g_PdLogoMorphEndTimer - g_Vars.lvupdate240_60 <= 30) {
-//			// Start slowing the spinning rotation
-//			g_PdLogoYRotEnabled = false;
-//			g_PdLogoYRotStopping = true;
-//			g_PdLogoEndYRot = ((s32) (g_PdLogoYRotCur * 4.0f / M_BADTAU) + 2) * M_BADTAU * 0.25f;
-//		}
-//
-//		if (g_PdLogoMorphEndTimer > 100 && g_PdLogoMorphEndTimer - g_Vars.lvupdate240_60 <= 100) {
-//			g_PdLogoDarkenEnabled = true;
-//		}
-//
-//		if (!g_PdLogoYRotStopping && g_PdLogoXRotCur <= 0.0f) {
-//			// Spinning has stopped and model is also facing camera vertically
-//			g_PdLogoMorphEndTimer = 0;
-//			g_PdLogoDarkenEnabled = true;
-//		}
-//	}
-//
-//	// 118
-//	if (g_PdLogoDarkenEnabled) {
-//		// Fading out the side and back faces of the logo...
-//		// This is done by adjusting the ambient lighting. I guess the front
-//		// face is excluded from ambient light?
-//		g_PdLogoAmbientLightFrac -= 0.0075f * g_Vars.lvupdate240freal;
-//
-//		if (g_PdLogoAmbientLightFrac <= 0.0f) {
-//			g_PdLogoAmbientLightFrac = 0.0f;
-//			g_PdLogoDarkenEnabled = false;
-//			g_PdLogoPreTitleTimer = 1;
-//		}
-//	}
-//
-//	// 178
-//	if (g_PdLogoPreTitleTimer != 0) {
-//		g_PdLogoPreTitleTimer += g_Vars.lvupdate240_60;
-//
-//		if (g_PdLogoPreTitleTimer > 20) {
-//			g_PdLogoPreTitleTimer = 0;
-//			g_PdLogoPointlessTimerEnabled = true;
-//		}
-//	}
-//
-//	// 1a8
-//	if (g_PdLogoPointlessTimerEnabled) {
-//		g_PdLogoPointlessTimerEnabled = false;
-//		g_PdLogoPointlessTimer = 1;
-//	}
-//
-//	// 1c4
-//	if (g_PdLogoPointlessTimer != 0) {
-//		g_PdLogoPointlessTimer += g_Vars.lvupdate240_60;
-//
-//		if (g_PdLogoPointlessTimer > 0) {
-//			g_PdLogoPointlessTimer = 0;
-//			g_PdLogoTitlePresenting = true;
-//			g_PdLogoTitleStep = 1;
-//			g_PdLogoLightMoving = true;
-//		}
-//	}
-//
-//	// 208
-//	if (g_PdLogoTitlePresenting) {
-//		g_PdLogoUnusedRotEnabled = true;
-//
-//		if (g_PdLogoTitleStep == 0) {
-//			// Unreachable - step 0 is not used
-//			g_PdLogoTitleStepFrac += 0.025f;
-//		} else if (g_PdLogoTitleStep == 1) {
-//			g_PdLogoTitleStepFrac += 0.09f;
-//		} else {
-//			g_PdLogoTitleStepFrac += 0.1f;
-//		}
-//
-//		if (g_PdLogoTitleStepFrac >= 1.0f) {
-//			g_PdLogoTitleStepFrac = 0.0f;
-//			g_PdLogoTitleStep++;
-//
-//			if (g_PdLogoTitleStep == 10) {
-//				g_PdLogoTitlePresenting = false;
-//				g_PdLogoExitTimer = 1;
-//			}
-//		}
-//	}
-//
-//	// 2d4
-//	if (g_PdLogoUnusedRotEnabled) {
-//		// Some unused value... maybe a different method of rotating the light?
-//		g_PdLogoUnusedRot += 0.0062821852043271f * g_Vars.lvupdate240freal;
-//
-//		if (g_PdLogoUnusedRot >= M_BADTAU) {
-//			g_PdLogoUnusedRot -= M_BADTAU;
-//		}
-//	}
-//
-//	// 32c
-//	if (g_PdLogoLightMoving) {
-//		g_PdLogoLightDirFrac += 0.017f * g_Vars.lvupdate240freal;
-//
-//		if (g_PdLogoLightDirFrac >= 1.0f) {
-//			g_PdLogoLightDirFrac = 1.0f;
-//			g_PdLogoLightMoving = false;
-//		}
-//	}
-//
-//	// 380
-//	if (g_PdLogoExitTimer != 0) {
-//		g_PdLogoExitTimer += g_Vars.lvupdate240_60;
-//
-//		if (g_PdLogoExitTimer > 60) {
-//			g_PdLogoExitTimer = 0;
-//			g_PdLogoTriggerExit = true;
-//		}
-//	}
-//
-//	// 3b0
-//	gdl = viSetFillColour(gdl, 0, 0, 0);
-//	gdl = viFillBuffer(gdl);
-//
-//	if (g_PdLogoBlackTimer != 0) {
-//		return gdl;
-//	}
-//
-//	lookat = gfxAllocateLookAt(2);
-//
-//	guLookAtReflect(&spf0, lookat,
-//			0.0f, 0.0f, 4000.0f,
-//			0.0f, 0.0f, 0.0f,
-//			0.0f, 1.0f, 0.0f);
-//
-//	gSPLookAt(gdl++, lookat);
-//
-//	spe4 = (g_PdLogoLightDirFrac + -1.0f) * M_PI + M_PI;
-//	spe0 = (0.0f - 0.15f * g_PdLogoLightDirFrac) * M_PI + M_PI;
-//
-//	var80062578.a.l.colc[0] = var80062578.a.l.colc[1] = var80062578.a.l.colc[2] = 0;
-//	var80062578.a.l.col[0] = var80062578.a.l.col[1] = var80062578.a.l.col[2] = 0;
-//	var80062578.l[0].l.colc[0] = var80062578.l[0].l.colc[1] = var80062578.l[0].l.colc[2] = 255;
-//	var80062578.l[0].l.col[0] = var80062578.l[0].l.col[1] = var80062578.l[0].l.col[2] = 255;
-//
-//	var80062578.l[0].l.dir[0] = 127.0f * sinf(spe4) * cosf(spe0);
-//	var80062578.l[0].l.dir[1] = 127.0f * sinf(spe0);
-//	var80062578.l[0].l.dir[2] = 127.0f * cosf(spe4) * cosf(spe0);
-//
-//	mtx00016ae4(&sp2b0,
-//			0.0f, 0.0f, 4000,
-//			0.0f, 0.0f, 0.0f,
-//			0.0f, 1.0f, 0.0f);
-//
-//	if (g_PdLogoUseCombinedModel == true) {
-//		model = g_TitleModel;
-//	} else {
-//		model = g_TitleModelNLogo2;
-//	}
-//
-//	mtx4LoadYRotation(g_PdLogoYRotCur, &sp1e8);
-//	mtx4LoadXRotation(g_PdLogoXRotCur, &sp1a8);
-//	mtx4MultMtx4InPlace(&sp1a8, &sp1e8);
-//	mtx4MultMtx4(&sp2b0, &sp1e8, &sp270);
-//	mtx00015f04(g_PdLogoScale, &sp270);
-//
-//	var80062560.a.l.colc[0] = var80062560.a.l.colc[1] = var80062560.a.l.colc[2] = 255.0f * g_PdLogoAmbientLightFrac;
-//	var80062560.a.l.col[0] = var80062560.a.l.col[1] = var80062560.a.l.col[2] = 255.0f * g_PdLogoAmbientLightFrac;
-//
-//	numvertices = 0;
-//	numcolours = 0;
-//
-//	node = modelGetPart(model->filedata, MODELPART_LOGO_0002);
-//
-//	if (node) {
-//		Gfx *tmp;
-//
-//		rodata = &node->rodata->dl;
-//		numvertices += rodata->numvertices + 1;
-//		numcolours += rodata->numcolours + 1;
-//
-//		rwdata = modelGetNodeRwData(model, node);
-//		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
-//
-//		gSPSetLights1(tmp++, var80062530);
-//		gSPBranchList(tmp++, rodata->primary);
-//	}
-//
-//	node = modelGetPart(model->filedata, MODELPART_LOGO_0004);
-//
-//	if (node) {
-//		Gfx *tmp;
-//
-//		rodata = &node->rodata->dl;
-//		numvertices += rodata->numvertices + 1;
-//		numcolours += rodata->numcolours + 1;
-//
-//		rwdata = modelGetNodeRwData(model, node);
-//		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
-//
-//		if (g_PdLogoAmbientLightFrac > 0.0f) {
-//			gSPSetLights1(tmp++, var80062560);
-//			gSPBranchList(tmp++, rodata->primary);
-//		} else {
-//			gSPEndDisplayList(tmp++);
-//		}
-//	}
-//
-//	node = modelGetPart(model->filedata, MODELPART_LOGO_0006);
-//
-//	if (node) {
-//		Gfx *tmp;
-//
-//		rodata = &node->rodata->dl;
-//		numvertices += rodata->numvertices + 1;
-//		numcolours += rodata->numcolours + 1;
-//
-//		rwdata = modelGetNodeRwData(model, node);
-//		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
-//
-//		if (g_PdLogoAmbientLightFrac > 0.0f) {
-//			gSPSetLights1(tmp++, var80062560);
-//			gSPBranchList(tmp++, rodata->primary);
-//		} else {
-//			gSPEndDisplayList(tmp++);
-//		}
-//	}
-//
-//	node = modelGetPart(model->filedata, MODELPART_LOGO_0008);
-//
-//	if (node) {
-//		Gfx *tmp;
-//
-//		rodata = &node->rodata->dl;
-//		numvertices += rodata->numvertices + 1;
-//		numcolours += rodata->numcolours + 1;
-//
-//		rwdata = modelGetNodeRwData(model, node);
-//		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
-//
-//		if (g_PdLogoAmbientLightFrac > 0.0f) {
-//			gSPSetLights1(tmp++, var80062560);
-//			gSPBranchList(tmp++, rodata->primary);
-//		} else {
-//			gSPEndDisplayList(tmp++);
-//		}
-//	}
-//
-//	gdl = titleRenderPdLogoModel(gdl, model, var80062804, g_PdLogoFrac, 240, 1.0f, &sp270, gfxAllocateVertices(numvertices), gfxAllocateColours(numcolours));
-//
-//	gSPSetLights1(gdl++, var80062578);
-//
-//	{
-//		struct coord sp64 = {0, 0, 1000};
-//
-//		mtx4LoadTranslation(&sp64, &sp1e8);
-//		mtx00015f88(1.0f + sp13c, &sp1e8);
-//		mtx4MultMtx4(&sp2b0, &sp1e8, &sp230);
-//		mtx00015f04(0.308f, &sp230);
-//
-//		if (g_PdLogoTitleStep >= 0) {
-//			if (g_PdLogoTitleStep == 0) {
-//				// empty
-//			} else if (g_PdLogoTitleStep == 1) {
-//				f32 frac = g_PdLogoTitleStepFrac;
-//				s32 a2 = g_PdLogoTitleStepFrac < 0.5f;
-//
-//				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdThree, a2, frac, 255, frac, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
-//			} else if (g_PdLogoTitleStep == 2) {
-//				f32 frac = g_PdLogoTitleStepFrac;
-//				s32 a2 = g_PdLogoTitleStepFrac < 0.5f;
-//
-//				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdTwo, a2, 1.0f - frac, 255, 1.0f, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
-//			} else if (g_PdLogoTitleStep == 3) {
-//				f32 frac = g_PdLogoTitleStepFrac;
-//				s32 a2 = g_PdLogoTitleStepFrac < 0.5f;
-//
-//				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdTwo, a2, frac, 255, 1.0f, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
-//			} else {
-//				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdTwo, 0, 1.0f, 255, 1.0f, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
-//			}
-//		}
-//	}
-//
-//	return gdl;
-//}
+Gfx *titleRenderPdLogo(Gfx *gdl)
+{
+	struct modelrenderdata renderdata = { NULL, true, 3 }; // 2f0
+	Mtxf sp2b0;
+	Mtxf sp270;
+	Mtxf sp230;
+	struct model *model; // 22c
+	Mtxf sp1e8;
+	Mtxf sp1a8;
+	struct modelnode *node;
+	struct modelrodata_dl *rodata; // 164
+	struct modelrwdata_dl *rwdata; // 160
+	f32 sp13c = g_TitleTimer / 4500.0f - 0.1f;
+	LookAt *lookat; // 134
+	Mtx spf0;
+	f32 spe4;
+	f32 spe0;
+	s32 numvertices; // dc
+	s32 numcolours; // d8
+
+	// b74
+	if (g_PdLogoIsFirstTick) {
+		g_PdLogoYRotCur = 4.2404751777649f;
+		g_PdLogoYRotSpeed = 0.018846554681659f;
+		g_PdLogoXRotCur = 0.47116386890411f;
+		g_PdLogoXRotSpeed = 0.0f;
+		g_PdLogoScale = 0.35f;
+		g_PdLogoFrac = 0.0f;
+		g_PdLogoUseCombinedModel = false;
+		g_PdLogoAmbientLightFrac = 1.0f;
+		g_PdLogoIsFirstTick = false;
+		g_PdLogoBlackTimer = 1;
+		g_PdLogoYRotEnabled = false;
+		g_PdLogoPreMorphTimer = 0;
+		g_PdLogoMorphing = false;
+		g_PdLogoExitTimer = 0;
+		g_PdLogoMorphEndTimer = 0;
+		g_PdLogoYRotStopping = false;
+		g_PdLogoDarkenEnabled = false;
+		var80062804 = 1;
+		g_PdLogoPointlessTimerEnabled = false;
+		g_PdLogoPreTitleTimer = 0;
+		g_PdLogoTitleStepFrac = 0.0f;
+		g_PdLogoTitlePresenting = false;
+		g_PdLogoTitleStep = -1;
+		g_PdLogoPointlessTimer = 0;
+		g_PdLogoUnusedRotEnabled = false;
+		g_PdLogoUnusedRot = 1.5705462694168f;
+		g_PdLogoLightMoving = false;
+		g_PdLogoLightDirFrac = 0.0f;
+	}
+
+	// c7c
+	if (g_PdLogoBlackTimer != 0) {
+		g_PdLogoBlackTimer++;
+
+		if (g_PdLogoBlackTimer >= 4) {
+			g_PdLogoBlackTimer = 0;
+			g_PdLogoYRotEnabled = true;
+			g_PdLogoPreMorphTimer = 1;
+		}
+	}
+
+	// ce4
+	if (g_PdLogoYRotStopping) {
+		if (g_PdLogoYRotCur < g_PdLogoEndYRot) {
+			applySpeed(&g_PdLogoYRotCur, g_PdLogoEndYRot, &g_PdLogoYRotSpeed, 0.00018846555030905f, 0.00018846555030905f, 0.018846554681659f);
+
+			if (g_PdLogoYRotCur >= g_PdLogoEndYRot) {
+				g_PdLogoYRotCur = g_PdLogoEndYRot;
+				g_PdLogoYRotSpeed = 0.0f;
+			}
+
+			if (g_PdLogoYRotCur >= M_BADTAU) {
+				g_PdLogoYRotCur -= M_BADTAU;
+				g_PdLogoEndYRot -= M_BADTAU;
+			} else if (g_PdLogoYRotCur < 0.0f) {
+				g_PdLogoYRotCur += M_BADTAU;
+				g_PdLogoEndYRot += M_BADTAU;
+			}
+		}
+
+		if (g_PdLogoYRotCur >= g_PdLogoEndYRot) {
+			g_PdLogoYRotStopping = false;
+		}
+	} else /*e18*/ if (g_PdLogoYRotEnabled) {
+		g_PdLogoYRotCur += g_PdLogoYRotSpeed * g_Vars.lvupdate240freal;
+
+		if (g_PdLogoYRotCur >= M_BADTAU) {
+			g_PdLogoYRotCur -= M_BADTAU;
+		} else if (g_PdLogoYRotCur < 0.0f) {
+			g_PdLogoYRotCur += M_BADTAU;
+		}
+	}
+
+	// e90
+	if (g_PdLogoPreMorphTimer != 0) {
+		s32 duration = 80;
+
+		g_PdLogoPreMorphTimer += g_Vars.lvupdate240_60;
+
+		if (g_PdLogoPreMorphTimer > 0) {
+			g_PdLogoFrac = (f32) g_PdLogoPreMorphTimer / (f32) duration;
+		} else {
+			g_PdLogoFrac = 0.0f;
+		}
+
+		if (g_PdLogoPreMorphTimer > duration) {
+			g_PdLogoPreMorphTimer = 0;
+			g_PdLogoMorphing = true;
+			g_PdLogoFrac = 0.0f;
+			g_PdLogoUseCombinedModel = true;
+		}
+	}
+
+	// f14
+	if (g_PdLogoMorphing) {
+		g_PdLogoFrac += 0.004f * g_Vars.lvupdate240freal;
+
+		if (g_PdLogoFrac >= 0.8f) {
+			if (g_PdLogoMorphEndTimer == 0) {
+				g_PdLogoMorphEndTimer = 1;
+			}
+		}
+
+		if (g_PdLogoFrac >= 1.0f) {
+			g_PdLogoFrac = 1.0f;
+			g_PdLogoMorphing = false;
+		}
+	}
+
+	// f80
+	if (g_PdLogoMorphEndTimer != 0) {
+		g_PdLogoMorphEndTimer += g_Vars.lvupdate240_60;
+
+		if (g_PdLogoXRotCur > 0.0f) {
+			// Implement the camera lowering effect, but it's actually
+			// the model that rotates upwards to face the camera
+			applyRotation(&g_PdLogoXRotCur, 0.0f, &g_PdLogoXRotSpeed, 0.00011307933164062f, 0.00011307933164062f, 0.011307933367789f);
+
+			if (g_PdLogoXRotCur <= 0.0f) {
+				g_PdLogoXRotCur = 0.0f;
+				g_PdLogoXRotSpeed = 0.0f;
+			}
+		}
+
+		if (g_PdLogoMorphEndTimer > 30 && g_PdLogoMorphEndTimer - g_Vars.lvupdate240_60 <= 30) {
+			// Start slowing the spinning rotation
+			g_PdLogoYRotEnabled = false;
+			g_PdLogoYRotStopping = true;
+			g_PdLogoEndYRot = ((s32) (g_PdLogoYRotCur * 4.0f / M_BADTAU) + 2) * M_BADTAU * 0.25f;
+		}
+
+		if (g_PdLogoMorphEndTimer > 100 && g_PdLogoMorphEndTimer - g_Vars.lvupdate240_60 <= 100) {
+			g_PdLogoDarkenEnabled = true;
+		}
+
+		if (!g_PdLogoYRotStopping && g_PdLogoXRotCur <= 0.0f) {
+			// Spinning has stopped and model is also facing camera vertically
+			g_PdLogoMorphEndTimer = 0;
+			g_PdLogoDarkenEnabled = true;
+		}
+	}
+
+	// 118
+	if (g_PdLogoDarkenEnabled) {
+		// Fading out the side and back faces of the logo...
+		// This is done by adjusting the ambient lighting. I guess the front
+		// face is excluded from ambient light?
+		g_PdLogoAmbientLightFrac -= 0.0075f * g_Vars.lvupdate240freal;
+
+		if (g_PdLogoAmbientLightFrac <= 0.0f) {
+			g_PdLogoAmbientLightFrac = 0.0f;
+			g_PdLogoDarkenEnabled = false;
+			g_PdLogoPreTitleTimer = 1;
+		}
+	}
+
+	// 178
+	if (g_PdLogoPreTitleTimer != 0) {
+		g_PdLogoPreTitleTimer += g_Vars.lvupdate240_60;
+
+		if (g_PdLogoPreTitleTimer > 20) {
+			g_PdLogoPreTitleTimer = 0;
+			g_PdLogoPointlessTimerEnabled = true;
+		}
+	}
+
+	// 1a8
+	if (g_PdLogoPointlessTimerEnabled) {
+		g_PdLogoPointlessTimerEnabled = false;
+		g_PdLogoPointlessTimer = 1;
+	}
+
+	// 1c4
+	if (g_PdLogoPointlessTimer != 0) {
+		g_PdLogoPointlessTimer += g_Vars.lvupdate240_60;
+
+		if (g_PdLogoPointlessTimer > 0) {
+			g_PdLogoPointlessTimer = 0;
+			g_PdLogoTitlePresenting = true;
+			g_PdLogoTitleStep = 1;
+			g_PdLogoLightMoving = true;
+		}
+	}
+
+	// 208
+	if (g_PdLogoTitlePresenting) {
+		g_PdLogoUnusedRotEnabled = true;
+
+		if (g_PdLogoTitleStep == 0) {
+			// Unreachable - step 0 is not used
+			g_PdLogoTitleStepFrac += 0.025f;
+		} else if (g_PdLogoTitleStep == 1) {
+			g_PdLogoTitleStepFrac += 0.09f;
+		} else {
+			g_PdLogoTitleStepFrac += 0.1f;
+		}
+
+		if (g_PdLogoTitleStepFrac >= 1.0f) {
+			g_PdLogoTitleStepFrac = 0.0f;
+			g_PdLogoTitleStep++;
+
+			if (g_PdLogoTitleStep == 10) {
+				g_PdLogoTitlePresenting = false;
+				g_PdLogoExitTimer = 1;
+			}
+		}
+	}
+
+	// 2d4
+	if (g_PdLogoUnusedRotEnabled) {
+		// Some unused value... maybe a different method of rotating the light?
+		g_PdLogoUnusedRot += 0.0062821852043271f * g_Vars.lvupdate240freal;
+
+		if (g_PdLogoUnusedRot >= M_BADTAU) {
+			g_PdLogoUnusedRot -= M_BADTAU;
+		}
+	}
+
+	// 32c
+	if (g_PdLogoLightMoving) {
+		g_PdLogoLightDirFrac += 0.017f * g_Vars.lvupdate240freal;
+
+		if (g_PdLogoLightDirFrac >= 1.0f) {
+			g_PdLogoLightDirFrac = 1.0f;
+			g_PdLogoLightMoving = false;
+		}
+	}
+
+	// 380
+	if (g_PdLogoExitTimer != 0) {
+		g_PdLogoExitTimer += g_Vars.lvupdate240_60;
+
+		if (g_PdLogoExitTimer > 60) {
+			g_PdLogoExitTimer = 0;
+			g_PdLogoTriggerExit = true;
+		}
+	}
+
+	// 3b0
+	gdl = viSetFillColour(gdl, 0, 0, 0);
+	gdl = viFillBuffer(gdl);
+
+	if (g_PdLogoBlackTimer != 0) {
+		return gdl;
+	}
+
+	lookat = gfxAllocateLookAt(2);
+
+	guLookAtReflect(&spf0, lookat,
+			0.0f, 0.0f, 4000.0f,
+			0.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f);
+
+	gSPLookAt(gdl++, lookat);
+
+	spe4 = (g_PdLogoLightDirFrac + -1.0f) * M_PI + M_PI;
+	spe0 = (0.0f - 0.15f * g_PdLogoLightDirFrac) * M_PI + M_PI;
+
+	var80062578.a.l.colc[0] = var80062578.a.l.colc[1] = var80062578.a.l.colc[2] = 0;
+	var80062578.a.l.col[0] = var80062578.a.l.col[1] = var80062578.a.l.col[2] = 0;
+	var80062578.l[0].l.colc[0] = var80062578.l[0].l.colc[1] = var80062578.l[0].l.colc[2] = 255;
+	var80062578.l[0].l.col[0] = var80062578.l[0].l.col[1] = var80062578.l[0].l.col[2] = 255;
+
+	var80062578.l[0].l.dir[0] = 127.0f * sinf(spe4) * cosf(spe0);
+	var80062578.l[0].l.dir[1] = 127.0f * sinf(spe0);
+	var80062578.l[0].l.dir[2] = 127.0f * cosf(spe4) * cosf(spe0);
+
+	mtx00016ae4(&sp2b0,
+			0.0f, 0.0f, 4000,
+			0.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f);
+
+	if (g_PdLogoUseCombinedModel == true) {
+		model = g_TitleModel;
+	} else {
+		model = g_TitleModelNLogo2;
+	}
+
+	mtx4LoadYRotation(g_PdLogoYRotCur, &sp1e8);
+	mtx4LoadXRotation(g_PdLogoXRotCur, &sp1a8);
+	mtx4MultMtx4InPlace(&sp1a8, &sp1e8);
+	mtx4MultMtx4(&sp2b0, &sp1e8, &sp270);
+	mtx00015f04(g_PdLogoScale, &sp270);
+
+	var80062560.a.l.colc[0] = var80062560.a.l.colc[1] = var80062560.a.l.colc[2] = 255.0f * g_PdLogoAmbientLightFrac;
+	var80062560.a.l.col[0] = var80062560.a.l.col[1] = var80062560.a.l.col[2] = 255.0f * g_PdLogoAmbientLightFrac;
+
+	numvertices = 0;
+	numcolours = 0;
+
+	node = modelGetPart(model->filedata, MODELPART_LOGO_0002);
+
+	if (node) {
+		Gfx *tmp;
+
+		rodata = &node->rodata->dl;
+		numvertices += rodata->numvertices + 1;
+		numcolours += rodata->numcolours + 1;
+
+		rwdata = modelGetNodeRwData(model, node);
+		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
+
+		gSPSetLights1(tmp++, var80062530);
+		gSPBranchList(tmp++, rodata->primary);
+	}
+
+	node = modelGetPart(model->filedata, MODELPART_LOGO_0004);
+
+	if (node) {
+		Gfx *tmp;
+
+		rodata = &node->rodata->dl;
+		numvertices += rodata->numvertices + 1;
+		numcolours += rodata->numcolours + 1;
+
+		rwdata = modelGetNodeRwData(model, node);
+		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
+
+		if (g_PdLogoAmbientLightFrac > 0.0f) {
+			gSPSetLights1(tmp++, var80062560);
+			gSPBranchList(tmp++, rodata->primary);
+		} else {
+			gSPEndDisplayList(tmp++);
+		}
+	}
+
+	node = modelGetPart(model->filedata, MODELPART_LOGO_0006);
+
+	if (node) {
+		Gfx *tmp;
+
+		rodata = &node->rodata->dl;
+		numvertices += rodata->numvertices + 1;
+		numcolours += rodata->numcolours + 1;
+
+		rwdata = modelGetNodeRwData(model, node);
+		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
+
+		if (g_PdLogoAmbientLightFrac > 0.0f) {
+			gSPSetLights1(tmp++, var80062560);
+			gSPBranchList(tmp++, rodata->primary);
+		} else {
+			gSPEndDisplayList(tmp++);
+		}
+	}
+
+	node = modelGetPart(model->filedata, MODELPART_LOGO_0008);
+
+	if (node) {
+		Gfx *tmp;
+
+		rodata = &node->rodata->dl;
+		numvertices += rodata->numvertices + 1;
+		numcolours += rodata->numcolours + 1;
+
+		rwdata = modelGetNodeRwData(model, node);
+		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
+
+		if (g_PdLogoAmbientLightFrac > 0.0f) {
+			gSPSetLights1(tmp++, var80062560);
+			gSPBranchList(tmp++, rodata->primary);
+		} else {
+			gSPEndDisplayList(tmp++);
+		}
+	}
+
+	gdl = titleRenderPdLogoModel(gdl, model, var80062804, g_PdLogoFrac, 240, 1.0f, &sp270, gfxAllocateVertices(numvertices), gfxAllocateColours(numcolours));
+
+	gSPSetLights1(gdl++, var80062578);
+
+	{
+		struct coord sp64 = {0, 0, 1000};
+
+		mtx4LoadTranslation(&sp64, &sp1e8);
+		mtx00015f88(1.0f + sp13c, &sp1e8);
+		mtx4MultMtx4(&sp2b0, &sp1e8, &sp230);
+		mtx00015f04(0.308f, &sp230);
+
+		if (g_PdLogoTitleStep >= 0) {
+			if (g_PdLogoTitleStep == 0) {
+				// empty
+			} else if (g_PdLogoTitleStep == 1) {
+				f32 frac = g_PdLogoTitleStepFrac;
+				s32 a2 = g_PdLogoTitleStepFrac < 0.5f;
+
+				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdThree, a2, frac, 255, frac, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
+			} else if (g_PdLogoTitleStep == 2) {
+				f32 frac = g_PdLogoTitleStepFrac;
+				s32 a2 = g_PdLogoTitleStepFrac < 0.5f;
+
+				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdTwo, a2, 1.0f - frac, 255, 1.0f, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
+			} else if (g_PdLogoTitleStep == 3) {
+				f32 frac = g_PdLogoTitleStepFrac;
+				s32 a2 = g_PdLogoTitleStepFrac < 0.5f;
+
+				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdTwo, a2, frac, 255, 1.0f, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
+			} else {
+				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdTwo, 0, 1.0f, 255, 1.0f, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
+			}
+		}
+	}
+
+	return gdl;
+}
+#endif
 
 struct sndstate *g_TitleAudioHandle = NULL;
 bool g_TitleTypewriterFinishing = false;

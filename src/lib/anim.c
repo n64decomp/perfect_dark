@@ -19,7 +19,7 @@ s16 *var8009a878;
 s16 *var8009a87c;
 u8 *var8009a880;
 u8 *var8009a884;
-s32 *var8009a888;
+u8 **var8009a888;
 s16 *var8009a88c;
 s32 *var8009a890;
 s16 var8009a894;
@@ -290,6 +290,7 @@ void anim00023d0c(void)
 	}
 }
 
+#if MATCHING
 GLOBAL_ASM(
 glabel anim00023d38
 /*    23d38:	3c0b8006 */ 	lui	$t3,%hi(var8005f010)
@@ -436,44 +437,46 @@ glabel anim00023d38
 /*    23f48:	03e00008 */ 	jr	$ra
 /*    23f4c:	00000000 */ 	nop
 );
-
+#else
 // Mismatch: for loop is handled differently
-//void anim00023d38(s16 animnum)
-//{
-//	s32 i;
-//
-//	if (var8005f010[animnum] != 0xff) {
-//		var8009a890[var8005f010[animnum]] = g_Vars.thisframe240;
-//		var8005f004 = (var8005f010[animnum] + 1) % 40;
-//	} else {
-//		s32 index = var8005f004;
-//		s32 bestvalue = var8009a890[index];
-//		s32 stack;
-//		s32 tmp;
-//
-//		for (i = 0; i < 40; i++) {
-//			if (var8009a890[i] < bestvalue) {
-//				bestvalue = var8009a890[i];
-//				index = i;
-//			}
-//		}
-//
-//		tmp = var8009a88c[index];
-//
-//		if (tmp) {
-//			var8005f010[tmp] = 0xff;
-//		}
-//
-//		tmp = g_Anims[animnum].headerlen;
-//
-//		var8009a888[index] = animDma(&var8009a884[var8005f01c * index], g_Anims[animnum].data, tmp);
-//		var8005f010[animnum] = index;
-//		var8009a88c[index] = animnum;
-//		var8009a890[index] = g_Vars.thisframe240;
-//		var8005f004 = (index + 1) % 40;
-//	}
-//}
+void anim00023d38(s16 animnum)
+{
+	s32 i;
 
+	if (var8005f010[animnum] != 0xff) {
+		var8009a890[var8005f010[animnum]] = g_Vars.thisframe240;
+		var8005f004 = (var8005f010[animnum] + 1) % 40;
+	} else {
+		s32 index = var8005f004;
+		s32 bestvalue = var8009a890[index];
+		s32 stack;
+		s32 tmp;
+
+		for (i = 0; i < 40; i++) {
+			if (var8009a890[i] < bestvalue) {
+				bestvalue = var8009a890[i];
+				index = i;
+			}
+		}
+
+		tmp = var8009a88c[index];
+
+		if (tmp) {
+			var8005f010[tmp] = 0xff;
+		}
+
+		tmp = g_Anims[animnum].headerlen;
+
+		var8009a888[index] = animDma(&var8009a884[var8005f01c * index], g_Anims[animnum].data, tmp);
+		var8005f010[animnum] = index;
+		var8009a88c[index] = animnum;
+		var8009a890[index] = g_Vars.thisframe240;
+		var8005f004 = (index + 1) % 40;
+	}
+}
+#endif
+
+#if MATCHING
 GLOBAL_ASM(
 glabel anim00023f50
 /*    23f50:	30cf0007 */ 	andi	$t7,$a2,0x7
@@ -516,32 +519,33 @@ glabel anim00023f50
 /*    23fd8:	03e00008 */ 	jr	$ra
 /*    23fdc:	00601025 */ 	or	$v0,$v1,$zero
 );
-
+#else
 // Mismatch: regalloc
-//u32 anim00023f50(u8 *arg0, u8 arg1, u32 arg2)
-//{
-//	u32 result = 0;
-//	u8 numbits;
-//	u32 tmp;
-//
-//	arg0 += arg2 / 8;
-//	numbits = 8 - (arg2 % 8);
-//
-//	while (arg1 >= numbits) {
-//		arg1 -= numbits;
-//		result |= (*arg0 & ((1 << numbits) - 1)) << arg1;
-//		arg0++;
-//		numbits = 8;
-//	}
-//
-//	if (arg1 > 0) {
-//		result |= (*arg0 >> (numbits - arg1)) & ((1 << arg1) - 1);
-//	}
-//
-//	if (arg2 / 8);
-//
-//	return result;
-//}
+s32 anim00023f50(u8 *arg0, u8 arg1, u32 arg2)
+{
+	u32 result = 0;
+	u8 numbits;
+	u32 tmp;
+
+	arg0 += arg2 / 8;
+	numbits = 8 - (arg2 % 8);
+
+	while (arg1 >= numbits) {
+		arg1 -= numbits;
+		result |= (*arg0 & ((1 << numbits) - 1)) << arg1;
+		arg0++;
+		numbits = 8;
+	}
+
+	if (arg1 > 0) {
+		result |= (*arg0 >> (numbits - arg1)) & ((1 << arg1) - 1);
+	}
+
+	if (arg2 / 8);
+
+	return result;
+}
+#endif
 
 s32 anim00023fe0(u8 *arg0, u8 arg1, s32 arg2)
 {
@@ -571,7 +575,7 @@ void anim00024050(s32 arg0, bool flip, struct skeleton *skel, s16 animnum, u8 ar
 	}
 
 	bitsperentry = g_Anims[animnum].initialposbitsperentry;
-	ptr = (u8 *)var8009a888[var8005f010[animnum]];
+	ptr = var8009a888[var8005f010[animnum]];
 	sum = 0;
 	end = ptr + g_Anims[animnum].headerlen;
 
@@ -765,7 +769,7 @@ u16 anim0002485c(s32 arg0, bool arg1, struct skeleton *skel, s16 animnum, s32 lo
 
 		// This is iterating the header information in the animation's data
 		sum = 0;
-		ptr = (u8 *)var8009a888[var8005f010[animnum]];
+		ptr = var8009a888[var8005f010[animnum]];
 
 		for (i = 0; i < arg0; i++) {
 			u8 flags = *ptr;
@@ -843,7 +847,7 @@ f32 anim00024c14(s32 arg0, s16 animnum, u8 arg2)
 {
 	u32 stack[2];
 	u8 *sp24 = var8009a874[arg2];
-	u8 *ptr = (u8 *)var8009a888[var8005f010[animnum]];
+	u8 *ptr = var8009a888[var8005f010[animnum]];
 	f32 result = 0;
 	s32 total = 0;
 	s32 i;
