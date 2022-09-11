@@ -1704,6 +1704,15 @@ typedef struct {
 	unsigned int tile2:12;
 } GunkC0;
 
+typedef struct {
+	unsigned int cmd:8;
+	unsigned int unk08:4;
+	unsigned int unk0c:4;
+	unsigned int unk10:16;
+	unsigned int seg:8;
+	unsigned int offset:24;
+} Gvtx;
+
 /*
  * This union is the fundamental type of the display list.
  * It is, by law, exactly 64 bits in size.
@@ -1712,6 +1721,7 @@ typedef union {
 	Gwords		words;
 	u8          bytes[8];
 	Gdma		dma;
+	Gvtx		vtx;
 	Gtri		tri;
 	Gtri4		tri4;
 	Gline3D		line;

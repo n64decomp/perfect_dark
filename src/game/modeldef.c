@@ -154,7 +154,7 @@ void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32
 				vertices = NULL;
 			}
 
-			s5 += tex0f1756c0((Gfx *)((u32)modeldef + (s0 & 0xffffff) + sp84), s4, (Gfx *)((u32)modeldef + (s5 & 0xffffff)), arg4, (u32)vertices);
+			s5 += tex0f1756c0((Gfx *)((u32)modeldef + (s0 & 0xffffff) + sp84), s4, (Gfx *)((u32)modeldef + (s5 & 0xffffff)), arg4, (u8 *) vertices);
 		}
 
 		fileSetSize(filenum, modeldef, (((u32)modeldef + (s5 & 0xffffff)) - (u32)modeldef + 0xf) & ~0xf, arg5);

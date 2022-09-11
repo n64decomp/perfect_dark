@@ -5700,7 +5700,7 @@ void bgLoadRoom(s32 roomnum)
 		a2 = sp208[0];
 
 		for (i = 0; i < len; i++) {
-			v0 = (Gfx *) tex0f1756c0(sp78[i], (s32)sp208[i + 1] - (s32)sp208[i], a2, 0, (u32) sp140[i]);
+			v0 = (Gfx *) tex0f1756c0(sp78[i], (s32)sp208[i + 1] - (s32)sp208[i], a2, 0, (u8 *) sp140[i]);
 			sp78[i] = a2;
 			a2 = (Gfx *) ((s32) a2 + (s32) v0);
 			a2 = (Gfx *) ALIGN8((s32)a2);
