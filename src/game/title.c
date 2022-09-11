@@ -1398,9 +1398,9 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 			}
 
 			for (j = 0; j < s5rodata->numcolours; j++) {
-				spcc[0] = (s32)((s1[j].r * (65536 - s6) + s2[j].r * s6) / 65536);
-				spcc[1] = (s32)((s1[j].g * (65536 - s6) + s2[j].g * s6) / 65536);
-				spcc[2] = (s32)((s1[j].b * (65536 - s6) + s2[j].b * s6) / 65536);
+				spcc[0] = (s32)(((s8)s1[j].r * (65536 - s6) + (s8)s2[j].r * s6) / 65536);
+				spcc[1] = (s32)(((s8)s1[j].g * (65536 - s6) + (s8)s2[j].g * s6) / 65536);
+				spcc[2] = (s32)(((s8)s1[j].b * (65536 - s6) + (s8)s2[j].b * s6) / 65536);
 
 				spc0[0] = spcc[0];
 				spc0[1] = spcc[1];

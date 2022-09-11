@@ -2301,7 +2301,7 @@ void viUpdateMode(void)
 	g_ViFrontData = g_ViDataArray + g_ViFrontIndex;
 	g_ViBackData = g_ViDataArray + g_ViBackIndex;
 
-	bcopy(prevdata, g_ViBackData, sizeof(g_ViBackData));
+	bcopy(prevdata, g_ViBackData, sizeof(struct rend_vidat));
 
 	g_ViBackData->fb = g_FrameBuffers[g_ViBackIndex];
 
