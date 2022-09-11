@@ -5792,15 +5792,15 @@ struct fontchar {
 	u8 height;
 	u8 width;
 #if VERSION == VERSION_JPN_FINAL
-	s16 unk04;
+	s16 kerningindex;
 #else
-	u32 unk04;
+	s32 kerningindex;
 #endif
 	u8 *pixeldata;
 };
 
 struct font {
-	u32 unk000[169];
+	s32 kerning[13 * 13];
 	struct fontchar chars[94]; // can be 135 in PAL
 };
 
