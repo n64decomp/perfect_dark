@@ -841,7 +841,7 @@ bool textHasDiagonalBlend(void)
 		&& (g_Blend.diagmode == DIAGMODE_FADEIN || g_Blend.diagmode == DIAGMODE_FADEOUT);
 }
 
-u32 text0f153e94(s32 x, s32 y, u32 colour)
+u32 textApplyProjectionColour(s32 x, s32 y, u32 colour)
 {
 	u32 stack[3];
 	u32 result = colour;

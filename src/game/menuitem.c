@@ -1957,7 +1957,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eabb4:	afb90054 */ 	sw	$t9,0x54($sp)
 /*  f0eabb8:	00402025 */ 	move	$a0,$v0
 /*  f0eabbc:	87a50142 */ 	lh	$a1,0x142($sp)
-/*  f0eabc0:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eabc0:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eabc4:	8fa700b4 */ 	lw	$a3,0xb4($sp)
 /*  f0eabc8:	8fa500b4 */ 	lw	$a1,0xb4($sp)
 /*  f0eabcc:	8faa00ac */ 	lw	$t2,0xac($sp)
@@ -1967,7 +1967,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eabdc:	8fa600b0 */ 	lw	$a2,0xb0($sp)
 /*  f0eabe0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0eabe4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eabe8:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eabe8:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eabec:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f0eabf0:	8fa600ac */ 	lw	$a2,0xac($sp)
 /*  f0eabf4:	8fa7005c */ 	lw	$a3,0x5c($sp)
@@ -1980,7 +1980,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eac10:	00402025 */ 	move	$a0,$v0
 /*  f0eac14:	87a50142 */ 	lh	$a1,0x142($sp)
 /*  f0eac18:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eac1c:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eac1c:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eac20:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0eac24:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0eac28:	8fa80048 */ 	lw	$t0,0x48($sp)
@@ -1991,7 +1991,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eac3c:	8fa7004c */ 	lw	$a3,0x4c($sp)
 /*  f0eac40:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0eac44:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eac48:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eac48:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eac4c:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f0eac50:	8fa300a8 */ 	lw	$v1,0xa8($sp)
 /*  f0eac54:	8fa50058 */ 	lw	$a1,0x58($sp)
@@ -2002,7 +2002,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eac68:	8fa600ac */ 	lw	$a2,0xac($sp)
 /*  f0eac6c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0eac70:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eac74:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eac74:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eac78:	24a70001 */ 	addiu	$a3,$a1,0x1
 /*  f0eac7c:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0eac80:	8fa900a8 */ 	lw	$t1,0xa8($sp)
@@ -2013,7 +2013,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eac94:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0eac98:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0eac9c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eaca0:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eaca0:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eaca4:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0eaca8:	8fa600a8 */ 	lw	$a2,0xa8($sp)
 /*  f0eacac:	8fa7005c */ 	lw	$a3,0x5c($sp)
@@ -2025,7 +2025,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eacc4:	afa30048 */ 	sw	$v1,0x48($sp)
 /*  f0eacc8:	00402025 */ 	move	$a0,$v0
 /*  f0eaccc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0eacd0:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eacd0:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eacd4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0eacd8:	8fa300a8 */ 	lw	$v1,0xa8($sp)
 /*  f0eacdc:	00402025 */ 	move	$a0,$v0
@@ -2036,7 +2036,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eacf0:	8fa6004c */ 	lw	$a2,0x4c($sp)
 /*  f0eacf4:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0eacf8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0eacfc:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eacfc:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0ead00:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0ead04:	8fae0048 */ 	lw	$t6,0x48($sp)
 /*  f0ead08:	00402025 */ 	move	$a0,$v0
@@ -2045,7 +2045,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0ead14:	8fa70098 */ 	lw	$a3,0x98($sp)
 /*  f0ead18:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ead1c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ead20:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0ead20:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0ead24:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0ead28:	8fac0044 */ 	lw	$t4,0x44($sp)
 /*  f0ead2c:	00402025 */ 	move	$a0,$v0
@@ -2054,7 +2054,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0ead38:	8fa70098 */ 	lw	$a3,0x98($sp)
 /*  f0ead3c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ead40:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ead44:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0ead44:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0ead48:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0ead4c:	8fa300c8 */ 	lw	$v1,0xc8($sp)
 /*  f0ead50:	8fa50098 */ 	lw	$a1,0x98($sp)
@@ -2070,7 +2070,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0ead78:	afb8005c */ 	sw	$t8,0x5c($sp)
 /*  f0ead7c:	00402025 */ 	move	$a0,$v0
 /*  f0ead80:	8fa600a8 */ 	lw	$a2,0xa8($sp)
-/*  f0ead84:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0ead84:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0ead88:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0ead8c:	8fa7009c */ 	lw	$a3,0x9c($sp)
 /*  f0ead90:	8faf004c */ 	lw	$t7,0x4c($sp)
@@ -2081,7 +2081,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eada4:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f0eada8:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0eadac:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eadb0:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eadb0:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eadb4:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0eadb8:	8faa005c */ 	lw	$t2,0x5c($sp)
 /*  f0eadbc:	8fb9004c */ 	lw	$t9,0x4c($sp)
@@ -2092,7 +2092,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eadd0:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f0eadd4:	8fa7009c */ 	lw	$a3,0x9c($sp)
 /*  f0eadd8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0eaddc:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eaddc:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eade0:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0eade4:	10000077 */ 	b	.JF0f0eafc4
 /*  f0eade8:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -2140,7 +2140,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eae8c:	afaf0054 */ 	sw	$t7,0x54($sp)
 /*  f0eae90:	00402025 */ 	move	$a0,$v0
 /*  f0eae94:	87a50142 */ 	lh	$a1,0x142($sp)
-/*  f0eae98:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eae98:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eae9c:	8fa70080 */ 	lw	$a3,0x80($sp)
 /*  f0eaea0:	8fa50080 */ 	lw	$a1,0x80($sp)
 /*  f0eaea4:	8faa0078 */ 	lw	$t2,0x78($sp)
@@ -2150,7 +2150,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eaeb4:	8fa6007c */ 	lw	$a2,0x7c($sp)
 /*  f0eaeb8:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0eaebc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eaec0:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eaec0:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eaec4:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f0eaec8:	87a90142 */ 	lh	$t1,0x142($sp)
 /*  f0eaecc:	8fa60078 */ 	lw	$a2,0x78($sp)
@@ -2172,7 +2172,7 @@ glabel menuitemObjectivesRenderOne
 .JF0f0eaf0c:
 /*  f0eaf0c:	2587ffff */ 	addiu	$a3,$t4,-1
 /*  f0eaf10:	afa70058 */ 	sw	$a3,0x58($sp)
-/*  f0eaf14:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eaf14:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eaf18:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0eaf1c:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0eaf20:	8fa8004c */ 	lw	$t0,0x4c($sp)
@@ -2183,7 +2183,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eaf34:	8fa7005c */ 	lw	$a3,0x5c($sp)
 /*  f0eaf38:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0eaf3c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eaf40:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eaf40:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eaf44:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f0eaf48:	8fad0074 */ 	lw	$t5,0x74($sp)
 /*  f0eaf4c:	8fa50058 */ 	lw	$a1,0x58($sp)
@@ -2193,7 +2193,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eaf5c:	8fa60078 */ 	lw	$a2,0x78($sp)
 /*  f0eaf60:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0eaf64:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eaf68:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eaf68:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eaf6c:	24a70001 */ 	addiu	$a3,$a1,0x1
 /*  f0eaf70:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0eaf74:	8fb80074 */ 	lw	$t8,0x74($sp)
@@ -2204,7 +2204,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eaf88:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0eaf8c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0eaf90:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eaf94:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eaf94:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eaf98:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0eaf9c:	8fa60074 */ 	lw	$a2,0x74($sp)
 /*  f0eafa0:	8fa50044 */ 	lw	$a1,0x44($sp)
@@ -2213,7 +2213,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eafac:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0eafb0:	8fa7006c */ 	lw	$a3,0x6c($sp)
 /*  f0eafb4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0eafb8:	0fc38d3e */ 	jal	menugfxDrawTessellatedRect
+/*  f0eafb8:	0fc38d3e */ 	jal	menugfxDrawProjectedLine
 /*  f0eafbc:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0eafc0:	afa20130 */ 	sw	$v0,0x130($sp)
 .JF0f0eafc4:
@@ -2358,21 +2358,21 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 		gdl = menugfx0f0e2498(gdl);
 
 		// Blue lines
-		gdl = menugfxDrawTessellatedRect(gdl, objx, spb0, spb4, spb0 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, spb4, spb0, spb4 + 1, spac, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, objx, spac, sp58, spac + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 3, spac, spb4 + 1, spac + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp58, spac, sp58 + 1, spa8 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 2, spac, sp58 + 3, spa8, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 2, spa8, sp54, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp58, spa8 + 2, sp54, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp54, spa8, sp98, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp54, spa8 + 2, sp98, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, objx, spb0, spb4, spb0 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, spb4, spb0, spb4 + 1, spac, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, objx, spac, sp58, spac + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp58 + 3, spac, spb4 + 1, spac + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp58, spac, sp58 + 1, spa8 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp58 + 2, spac, sp58 + 3, spa8, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp58 + 2, spa8, sp54, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp58, spa8 + 2, sp54, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp54, spa8, sp98, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp54, spa8 + 2, sp98, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
 
 		// Coloured lines
-		gdl = menugfxDrawTessellatedRect(gdl, sp98, spa8, sp98 + 1, spa8 + 3, (spc8 & 0xffffff00) | 0x3f, (spc8 & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp98 + 1, spa8 + 1, sp9c - 4, spa8 + 2, (spc8 & 0xffffff00) | 0x3f, (spc8 & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp9c - 4, spa8 + 1, sp9c, spa8 + 2, (spc8 & 0xffffff00) | 0x3f, (spc8 & 0xffffff00) | 0xcf);
+		gdl = menugfxDrawProjectedLine(gdl, sp98, spa8, sp98 + 1, spa8 + 3, (spc8 & 0xffffff00) | 0x3f, (spc8 & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp98 + 1, spa8 + 1, sp9c - 4, spa8 + 2, (spc8 & 0xffffff00) | 0x3f, (spc8 & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp9c - 4, spa8 + 1, sp9c, spa8 + 2, (spc8 & 0xffffff00) | 0x3f, (spc8 & 0xffffff00) | 0xcf);
 	} else {
 		// Render lines without status
 		sp80 = objx + 22;
@@ -2388,13 +2388,13 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 		gdl = text0f153780(gdl);
 		gdl = menugfx0f0e2498(gdl);
 
-		gdl = menugfxDrawTessellatedRect(gdl, objx, sp7c, sp80, sp7c + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp80, sp7c, sp80 + 1, sp78, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, objx, sp78, sp58, sp78 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 3, sp78, sp80 + 1, sp78 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp58, sp78, sp58 + 1, sp74 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 2, sp78, sp58 + 3, sp74, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 2, sp74, sp6c, sp74 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, objx, sp7c, sp80, sp7c + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp80, sp7c, sp80 + 1, sp78, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, objx, sp78, sp58, sp78 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp58 + 3, sp78, sp80 + 1, sp78 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp58, sp78, sp58 + 1, sp74 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp58 + 2, sp78, sp58 + 3, sp74, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfxDrawProjectedLine(gdl, sp58 + 2, sp74, sp6c, sp74 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
 	}
 
 	return gdl;
@@ -4279,8 +4279,8 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 		linecolour2 = colourBlend(linecolour2, 0, 44) & 0xffffff00 | linecolour2 & 0xff;
 	}
 
-	linecolour1 = text0f153e94(context->x, context->y + 2, -129) & 0xff | linecolour1 & 0xffffff00;
-	linecolour2 = text0f153e94(context->x + context->width, context->y + 2, -129) & 0xff | linecolour2 & 0xffffff00;
+	linecolour1 = textApplyProjectionColour(context->x, context->y + 2, -129) & 0xff | linecolour1 & 0xffffff00;
+	linecolour2 = textApplyProjectionColour(context->x + context->width, context->y + 2, -129) & 0xff | linecolour2 & 0xffffff00;
 
 	// Horizontal line between header and body
 #if VERSION == VERSION_JPN_FINAL

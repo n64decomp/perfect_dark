@@ -37,7 +37,7 @@ void textSetMenuBlend(f32 arg0);
 void textSetWaveColours(u32 colour1, u32 colour2);
 void textResetBlends(void);
 bool textHasDiagonalBlend(void);
-u32 text0f153e94(s32 x, s32 y, u32 colour);
+u32 textApplyProjectionColour(s32 x, s32 y, u32 colour);
 u32 text0f1543ac(s32 x, s32 y, u32 colour);
 Gfx *text0f154ecc(Gfx *gdl, u32 arg1, u32 arg2);
 Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar *prevchar, struct font *font, f32 widthscale, f32 heightscale, f32 x, f32 y);

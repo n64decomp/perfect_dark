@@ -2229,323 +2229,85 @@ Gfx *menugfxDrawLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 
 	return gdl;
 }
 
-#if MATCHING
-GLOBAL_ASM(
-glabel menugfxDrawTessellatedRect
-/*  f0e2744:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f0e2748:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f0e274c:	afbe0048 */ 	sw	$s8,0x48($sp)
-/*  f0e2750:	afb60040 */ 	sw	$s6,0x40($sp)
-/*  f0e2754:	00c0b025 */ 	or	$s6,$a2,$zero
-/*  f0e2758:	00e0f025 */ 	or	$s8,$a3,$zero
-/*  f0e275c:	afb70044 */ 	sw	$s7,0x44($sp)
-/*  f0e2760:	afb5003c */ 	sw	$s5,0x3c($sp)
-/*  f0e2764:	afb40038 */ 	sw	$s4,0x38($sp)
-/*  f0e2768:	afb30034 */ 	sw	$s3,0x34($sp)
-/*  f0e276c:	afb20030 */ 	sw	$s2,0x30($sp)
-/*  f0e2770:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*  f0e2774:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0e2778:	afa40098 */ 	sw	$a0,0x98($sp)
-/*  f0e277c:	0fc54f96 */ 	jal	textHasDiagonalBlend
-/*  f0e2780:	afa5009c */ 	sw	$a1,0x9c($sp)
-/*  f0e2784:	104000ae */ 	beqz	$v0,.L0f0e2a40
-/*  f0e2788:	8fb500b0 */ 	lw	$s5,0xb0($sp)
-/*  f0e278c:	8fa4009c */ 	lw	$a0,0x9c($sp)
-/*  f0e2790:	8fb700a8 */ 	lw	$s7,0xa8($sp)
-/*  f0e2794:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f0e2798:	03c41023 */ 	subu	$v0,$s8,$a0
-/*  f0e279c:	02f61823 */ 	subu	$v1,$s7,$s6
-/*  f0e27a0:	0043082a */ 	slt	$at,$v0,$v1
-/*  f0e27a4:	10200053 */ 	beqz	$at,.L0f0e28f4
-/*  f0e27a8:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f0e27ac:	0061001a */ 	div	$zero,$v1,$at
-/*  f0e27b0:	00008012 */ 	mflo	$s0
-/*  f0e27b4:	afb00094 */ 	sw	$s0,0x94($sp)
-/*  f0e27b8:	afb60080 */ 	sw	$s6,0x80($sp)
-/*  f0e27bc:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f0e27c0:	8fa600ac */ 	lw	$a2,0xac($sp)
-/*  f0e27c4:	0fc54fa5 */ 	jal	text0f153e94
-/*  f0e27c8:	afa30050 */ 	sw	$v1,0x50($sp)
-/*  f0e27cc:	afa2008c */ 	sw	$v0,0x8c($sp)
-/*  f0e27d0:	1a000038 */ 	blez	$s0,.L0f0e28b4
-/*  f0e27d4:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f0e27d8:	02c08825 */ 	or	$s1,$s6,$zero
-/*  f0e27dc:	02f69823 */ 	subu	$s3,$s7,$s6
-/*  f0e27e0:	8fb500b0 */ 	lw	$s5,0xb0($sp)
-.L0f0e27e4:
-/*  f0e27e4:	2a610003 */ 	slti	$at,$s3,0x3
-/*  f0e27e8:	10200008 */ 	beqz	$at,.L0f0e280c
-/*  f0e27ec:	02209025 */ 	or	$s2,$s1,$zero
-/*  f0e27f0:	02e09025 */ 	or	$s2,$s7,$zero
-/*  f0e27f4:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0e27f8:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f0e27fc:	0fc54fa5 */ 	jal	text0f153e94
-/*  f0e2800:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f0e2804:	10000019 */ 	b	.L0f0e286c
-/*  f0e2808:	00408025 */ 	or	$s0,$v0,$zero
-.L0f0e280c:
-/*  f0e280c:	02367023 */ 	subu	$t6,$s1,$s6
-/*  f0e2810:	000e7a00 */ 	sll	$t7,$t6,0x8
-/*  f0e2814:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f0e2818:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0e281c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0e2820:	01f8001a */ 	div	$zero,$t7,$t8
-/*  f0e2824:	00003012 */ 	mflo	$a2
-/*  f0e2828:	8fa500ac */ 	lw	$a1,0xac($sp)
-/*  f0e282c:	17000002 */ 	bnez	$t8,.L0f0e2838
-/*  f0e2830:	00000000 */ 	nop
-/*  f0e2834:	0007000d */ 	break	0x7
-.L0f0e2838:
-/*  f0e2838:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0e283c:	17010004 */ 	bne	$t8,$at,.L0f0e2850
-/*  f0e2840:	3c018000 */ 	lui	$at,0x8000
-/*  f0e2844:	15e10002 */ 	bne	$t7,$at,.L0f0e2850
-/*  f0e2848:	00000000 */ 	nop
-/*  f0e284c:	0006000d */ 	break	0x6
-.L0f0e2850:
-/*  f0e2850:	0fc01a40 */ 	jal	colourBlend
-/*  f0e2854:	00000000 */ 	nop
-/*  f0e2858:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f0e285c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0e2860:	0fc54fa5 */ 	jal	text0f153e94
-/*  f0e2864:	00403025 */ 	or	$a2,$v0,$zero
-/*  f0e2868:	00408025 */ 	or	$s0,$v0,$zero
-.L0f0e286c:
-/*  f0e286c:	8fb9008c */ 	lw	$t9,0x8c($sp)
-/*  f0e2870:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f0e2874:	8fa5009c */ 	lw	$a1,0x9c($sp)
-/*  f0e2878:	8fa60080 */ 	lw	$a2,0x80($sp)
-/*  f0e287c:	03c03825 */ 	or	$a3,$s8,$zero
-/*  f0e2880:	afb20010 */ 	sw	$s2,0x10($sp)
-/*  f0e2884:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e2888:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e288c:	0fc38963 */ 	jal	menugfxDrawTri2
-/*  f0e2890:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f0e2894:	8fa80094 */ 	lw	$t0,0x94($sp)
-/*  f0e2898:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f0e289c:	2631000f */ 	addiu	$s1,$s1,0xf
-/*  f0e28a0:	2673fff1 */ 	addiu	$s3,$s3,-15
-/*  f0e28a4:	afa20098 */ 	sw	$v0,0x98($sp)
-/*  f0e28a8:	afb20080 */ 	sw	$s2,0x80($sp)
-/*  f0e28ac:	1688ffcd */ 	bne	$s4,$t0,.L0f0e27e4
-/*  f0e28b0:	afb0008c */ 	sw	$s0,0x8c($sp)
-.L0f0e28b4:
-/*  f0e28b4:	8fa600b0 */ 	lw	$a2,0xb0($sp)
-/*  f0e28b8:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0e28bc:	0fc54fa5 */ 	jal	text0f153e94
-/*  f0e28c0:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f0e28c4:	8fa9008c */ 	lw	$t1,0x8c($sp)
-/*  f0e28c8:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f0e28cc:	8fa5009c */ 	lw	$a1,0x9c($sp)
-/*  f0e28d0:	8fa60080 */ 	lw	$a2,0x80($sp)
-/*  f0e28d4:	03c03825 */ 	or	$a3,$s8,$zero
-/*  f0e28d8:	afb70010 */ 	sw	$s7,0x10($sp)
-/*  f0e28dc:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f0e28e0:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e28e4:	0fc38963 */ 	jal	menugfxDrawTri2
-/*  f0e28e8:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0e28ec:	10000060 */ 	b	.L0f0e2a70
-/*  f0e28f0:	afa20098 */ 	sw	$v0,0x98($sp)
-.L0f0e28f4:
-/*  f0e28f4:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f0e28f8:	0041001a */ 	div	$zero,$v0,$at
-/*  f0e28fc:	00008012 */ 	mflo	$s0
-/*  f0e2900:	afb00074 */ 	sw	$s0,0x74($sp)
-/*  f0e2904:	afa40060 */ 	sw	$a0,0x60($sp)
-/*  f0e2908:	8fa600ac */ 	lw	$a2,0xac($sp)
-/*  f0e290c:	0fc54fa5 */ 	jal	text0f153e94
-/*  f0e2910:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f0e2914:	afa2006c */ 	sw	$v0,0x6c($sp)
-/*  f0e2918:	1a000039 */ 	blez	$s0,.L0f0e2a00
-/*  f0e291c:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f0e2920:	8fb1009c */ 	lw	$s1,0x9c($sp)
-/*  f0e2924:	8fb500b0 */ 	lw	$s5,0xb0($sp)
-/*  f0e2928:	03d19823 */ 	subu	$s3,$s8,$s1
-.L0f0e292c:
-/*  f0e292c:	2a610003 */ 	slti	$at,$s3,0x3
-/*  f0e2930:	10200008 */ 	beqz	$at,.L0f0e2954
-/*  f0e2934:	02209025 */ 	or	$s2,$s1,$zero
-/*  f0e2938:	03c09025 */ 	or	$s2,$s8,$zero
-/*  f0e293c:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0e2940:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f0e2944:	0fc54fa5 */ 	jal	text0f153e94
-/*  f0e2948:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f0e294c:	1000001a */ 	b	.L0f0e29b8
-/*  f0e2950:	00408025 */ 	or	$s0,$v0,$zero
-.L0f0e2954:
-/*  f0e2954:	8faa009c */ 	lw	$t2,0x9c($sp)
-/*  f0e2958:	8fad0054 */ 	lw	$t5,0x54($sp)
-/*  f0e295c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0e2960:	022a5823 */ 	subu	$t3,$s1,$t2
-/*  f0e2964:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f0e2968:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f0e296c:	018d001a */ 	div	$zero,$t4,$t5
-/*  f0e2970:	00003012 */ 	mflo	$a2
-/*  f0e2974:	8fa500ac */ 	lw	$a1,0xac($sp)
-/*  f0e2978:	15a00002 */ 	bnez	$t5,.L0f0e2984
-/*  f0e297c:	00000000 */ 	nop
-/*  f0e2980:	0007000d */ 	break	0x7
-.L0f0e2984:
-/*  f0e2984:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0e2988:	15a10004 */ 	bne	$t5,$at,.L0f0e299c
-/*  f0e298c:	3c018000 */ 	lui	$at,0x8000
-/*  f0e2990:	15810002 */ 	bne	$t4,$at,.L0f0e299c
-/*  f0e2994:	00000000 */ 	nop
-/*  f0e2998:	0006000d */ 	break	0x6
-.L0f0e299c:
-/*  f0e299c:	0fc01a40 */ 	jal	colourBlend
-/*  f0e29a0:	00000000 */ 	nop
-/*  f0e29a4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0e29a8:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f0e29ac:	0fc54fa5 */ 	jal	text0f153e94
-/*  f0e29b0:	00403025 */ 	or	$a2,$v0,$zero
-/*  f0e29b4:	00408025 */ 	or	$s0,$v0,$zero
-.L0f0e29b8:
-/*  f0e29b8:	8fae006c */ 	lw	$t6,0x6c($sp)
-/*  f0e29bc:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f0e29c0:	8fa50060 */ 	lw	$a1,0x60($sp)
-/*  f0e29c4:	02c03025 */ 	or	$a2,$s6,$zero
-/*  f0e29c8:	02403825 */ 	or	$a3,$s2,$zero
-/*  f0e29cc:	afb70010 */ 	sw	$s7,0x10($sp)
-/*  f0e29d0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e29d4:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e29d8:	0fc38963 */ 	jal	menugfxDrawTri2
-/*  f0e29dc:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f0e29e0:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*  f0e29e4:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f0e29e8:	2631000f */ 	addiu	$s1,$s1,0xf
-/*  f0e29ec:	2673fff1 */ 	addiu	$s3,$s3,-15
-/*  f0e29f0:	afa20098 */ 	sw	$v0,0x98($sp)
-/*  f0e29f4:	afb20060 */ 	sw	$s2,0x60($sp)
-/*  f0e29f8:	168fffcc */ 	bne	$s4,$t7,.L0f0e292c
-/*  f0e29fc:	afb0006c */ 	sw	$s0,0x6c($sp)
-.L0f0e2a00:
-/*  f0e2a00:	8fa600b0 */ 	lw	$a2,0xb0($sp)
-/*  f0e2a04:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0e2a08:	0fc54fa5 */ 	jal	text0f153e94
-/*  f0e2a0c:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f0e2a10:	8fb8006c */ 	lw	$t8,0x6c($sp)
-/*  f0e2a14:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f0e2a18:	8fa50060 */ 	lw	$a1,0x60($sp)
-/*  f0e2a1c:	02c03025 */ 	or	$a2,$s6,$zero
-/*  f0e2a20:	03c03825 */ 	or	$a3,$s8,$zero
-/*  f0e2a24:	afb70010 */ 	sw	$s7,0x10($sp)
-/*  f0e2a28:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f0e2a2c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e2a30:	0fc38963 */ 	jal	menugfxDrawTri2
-/*  f0e2a34:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f0e2a38:	1000000d */ 	b	.L0f0e2a70
-/*  f0e2a3c:	afa20098 */ 	sw	$v0,0x98($sp)
-.L0f0e2a40:
-/*  f0e2a40:	8fb700a8 */ 	lw	$s7,0xa8($sp)
-/*  f0e2a44:	8fb900ac */ 	lw	$t9,0xac($sp)
-/*  f0e2a48:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f0e2a4c:	8fa5009c */ 	lw	$a1,0x9c($sp)
-/*  f0e2a50:	02c03025 */ 	or	$a2,$s6,$zero
-/*  f0e2a54:	03c03825 */ 	or	$a3,$s8,$zero
-/*  f0e2a58:	afb50018 */ 	sw	$s5,0x18($sp)
-/*  f0e2a5c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e2a60:	afb70010 */ 	sw	$s7,0x10($sp)
-/*  f0e2a64:	0fc38963 */ 	jal	menugfxDrawTri2
-/*  f0e2a68:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f0e2a6c:	afa20098 */ 	sw	$v0,0x98($sp)
-.L0f0e2a70:
-/*  f0e2a70:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f0e2a74:	8fa20098 */ 	lw	$v0,0x98($sp)
-/*  f0e2a78:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0e2a7c:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f0e2a80:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*  f0e2a84:	8fb30034 */ 	lw	$s3,0x34($sp)
-/*  f0e2a88:	8fb40038 */ 	lw	$s4,0x38($sp)
-/*  f0e2a8c:	8fb5003c */ 	lw	$s5,0x3c($sp)
-/*  f0e2a90:	8fb60040 */ 	lw	$s6,0x40($sp)
-/*  f0e2a94:	8fb70044 */ 	lw	$s7,0x44($sp)
-/*  f0e2a98:	8fbe0048 */ 	lw	$s8,0x48($sp)
-/*  f0e2a9c:	03e00008 */ 	jr	$ra
-/*  f0e2aa0:	27bd0098 */ 	addiu	$sp,$sp,0x98
-);
-#else
-// Mismatch: Uses callee-save registers differently
-Gfx *menugfxDrawTessellatedRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+Gfx *menugfxDrawProjectedLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
+	s32 numfullblocks;
+	s32 i;
+	u32 partcolourtop;
+	u32 partcolourbottom;
+	s32 partbottom;
+	s32 parttop;
+	u32 stack[2];
+
 	if (textHasDiagonalBlend()) {
-		if (y2 - y1 > x2 - x1) {
+		if (x2 - x1 < y2 - y1) {
 			// Portrait
-			s32 numfullparts; // 94
-			u32 nextcolour;
-			u32 thiscolour; // 8c
-			s32 i;
-			s32 nexty;
-			s32 thisy; // 80
-			u32 stack[2];
+			numfullblocks = (y2 - y1) / 15;
+			parttop = y1;
+			partcolourtop = textApplyProjectionColour(x1, y1, colour1);
 
-			numfullparts = (y2 - y1) / 15;
-			thiscolour = text0f153e94(x1, y1, colour1);
-			thisy = y1;
+			for (i = 0; i < numfullblocks; i++) {
+				partbottom = y1 + i * 15;
 
-			for (i = 0; i < numfullparts; i++) {
-				nexty = y1 + i * 15;
-
-				if (y2 - nexty < 3) {
-					nexty = y2;
-					nextcolour = text0f153e94(x2, y2, colour2);
+				if (y2 - partbottom < 3) {
+					partbottom = y2;
+					partcolourbottom = textApplyProjectionColour(x2, partbottom, colour2);
 				} else {
-					nextcolour = colourBlend(colour2, colour1, (nexty - y1) * 255 / (y2 - y1));
-					// @bug? Should y1 be x1?
-					nextcolour = text0f153e94(y1, thisy, nextcolour);
+					partcolourbottom = colourBlend(colour2, colour1, (partbottom - y1) * 255 / (y2 - y1));
+					// @bug: y1 should be x1
+					partcolourbottom = textApplyProjectionColour(y1, partbottom, partcolourbottom);
 				}
 
-				gdl = menugfxDrawTri2(gdl, x1, thisy, x2, nexty, thiscolour, nextcolour, false);
+				gdl = menugfxDrawTri2(gdl, x1, parttop, x2, partbottom, partcolourtop, partcolourbottom, false);
 
-				thisy = nexty;
-				thiscolour = nextcolour;
+				parttop = partbottom;
+				partcolourtop = partcolourbottom;
 			}
 
-			nextcolour = text0f153e94(x2, y2, colour2);
-			gdl = menugfxDrawTri2(gdl, x1, thisy, x2, y2, thiscolour, nextcolour, false);
+			partcolourbottom = textApplyProjectionColour(x2, y2, colour2);
+			gdl = menugfxDrawTri2(gdl, x1, parttop, x2, y2, partcolourtop, partcolourbottom, false);
 		} else {
 			// Landscape
-			// 8f4
-			s32 numfullparts; // 74
-			u32 nextcolour;
-			u32 thiscolour; // 6c
+			s32 numfullblocks;
 			s32 i;
-			s32 nextx;
-			s32 thisx; // 60
-			u32 stack[1];
+			u32 partcolourleft;
+			u32 partcolourright;
+			s32 partright;
+			s32 partleft;
+			u32 stack[2];
 
-			numfullparts = (x2 - x1) / 15;
-			thiscolour = text0f153e94(x1, y1, colour1);
-			thisx = x1;
+			numfullblocks = (x2 - x1) / 15;
+			partleft = x1;
+			partcolourleft = textApplyProjectionColour(x1, y1, colour1);
 
-			for (i = 0; i < numfullparts; i++) {
-				nextx = x1 + i * 15;
+			for (i = 0; i < numfullblocks; i++) {
+				partright = x1 + i * 15;
 
-				if (x2 - nextx < 3) {
-					nextx = x2;
-					nextcolour = text0f153e94(x2, y2, colour2);
+				if (x2 - partright < 3) {
+					partright = x2;
+					partcolourright = textApplyProjectionColour(x2, y2, colour2);
 				} else {
-					nextcolour = colourBlend(colour2, colour1, (nextx - x1) * 255 / (x2 - x1));
-					nextcolour = text0f153e94(thisx, y1, nextcolour);
+					partcolourright = colourBlend(colour2, colour1, (partright - x1) * 255 / (x2 - x1));
+					partcolourright = textApplyProjectionColour(partright, y1, partcolourright);
 				}
 
-				gdl = menugfxDrawTri2(gdl, thisx, y1, nextx, y2, thiscolour, nextcolour, false);
+				gdl = menugfxDrawTri2(gdl, partleft, y1, partright, y2, partcolourleft, partcolourright, false);
 
-				thisx = nextx;
-				thiscolour = nextcolour;
+				partleft = partright;
+				partcolourleft = partcolourright;
 			}
 
-			nextcolour = text0f153e94(x2, y2, colour2);
-			gdl = menugfxDrawTri2(gdl, thisx, y1, x2, y2, thiscolour, nextcolour, false);
+			if (partcolourtop);
+
+			partcolourright = textApplyProjectionColour(x2, y2, colour2);
+			gdl = menugfxDrawTri2(gdl, partleft, y1, x2, y2, partcolourleft, partcolourright, false);
 		}
 	} else {
-		// a40
 		gdl = menugfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
 	}
 
 	return gdl;
 }
-#endif
 
 /**
  * Consider rendering a shimmer effect along a line, based on timing.
@@ -2679,7 +2441,7 @@ Gfx *menugfxDrawDialogBorderLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 c
 Gfx *menugfxDrawFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
 	gdl = menugfx0f0e2498(gdl);
-	gdl = menugfxDrawTessellatedRect(gdl, x1, y1, x2, y2, colour1, colour2);
+	gdl = menugfxDrawProjectedLine(gdl, x1, y1, x2, y2, colour1, colour2);
 	gdl = menugfxDrawShimmer(gdl, x1, y1, x2, y2, colour1, 0, 10, false);
 
 	return gdl;
