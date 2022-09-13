@@ -825,100 +825,6 @@ s32 func0f14ad38(s32 device)
 const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
 const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
 
-#if MATCHING
-GLOBAL_ASM(
-glabel func0f14ad58
-.late_rodata
-glabel var7f1b72e4
-.word 0x3dcccccd
-glabel var7f1b72e8
-.word 0x3e4ccccd
-.text
-/*  f14ad58:	3c0f8008 */ 	lui	$t7,%hi(var8007f8dc)
-/*  f14ad5c:	8deff8dc */ 	lw	$t7,%lo(var8007f8dc)($t7)
-/*  f14ad60:	00047180 */ 	sll	$t6,$a0,0x6
-/*  f14ad64:	3c013f80 */ 	lui	$at,0x3f80
-/*  f14ad68:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f14ad6c:	44810000 */ 	mtc1	$at,$f0
-/*  f14ad70:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f14ad74:	3c0142dc */ 	lui	$at,0x42dc
-/*  f14ad78:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f14ad7c:	44812000 */ 	mtc1	$at,$f4
-/*  f14ad80:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f14ad84:	3c017f1b */ 	lui	$at,%hi(var7f1b72e4)
-/*  f14ad88:	e4400004 */ 	swc1	$f0,0x4($v0)
-/*  f14ad8c:	e4400008 */ 	swc1	$f0,0x8($v0)
-/*  f14ad90:	e4440050 */ 	swc1	$f4,0x50($v0)
-/*  f14ad94:	c42672e4 */ 	lwc1	$f6,%lo(var7f1b72e4)($at)
-/*  f14ad98:	3c017f1b */ 	lui	$at,%hi(var7f1b72e8)
-/*  f14ad9c:	44801000 */ 	mtc1	$zero,$f2
-/*  f14ada0:	e446000c */ 	swc1	$f6,0xc($v0)
-/*  f14ada4:	c42872e8 */ 	lwc1	$f8,%lo(var7f1b72e8)($at)
-/*  f14ada8:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f14adac:	44815000 */ 	mtc1	$at,$f10
-/*  f14adb0:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f14adb4:	2418001e */ 	addiu	$t8,$zero,0x1e
-/*  f14adb8:	ac430058 */ 	sw	$v1,0x58($v0)
-/*  f14adbc:	ac430068 */ 	sw	$v1,0x68($v0)
-/*  f14adc0:	ac40006c */ 	sw	$zero,0x6c($v0)
-/*  f14adc4:	ac400070 */ 	sw	$zero,0x70($v0)
-/*  f14adc8:	ac400074 */ 	sw	$zero,0x74($v0)
-/*  f14adcc:	ac400084 */ 	sw	$zero,0x84($v0)
-/*  f14add0:	ac580054 */ 	sw	$t8,0x54($v0)
-/*  f14add4:	3c198008 */ 	lui	$t9,%hi(var8007f904+0x3c)
-/*  f14add8:	e4400024 */ 	swc1	$f0,0x24($v0)
-/*  f14addc:	e4400028 */ 	swc1	$f0,0x28($v0)
-/*  f14ade0:	e440003c */ 	swc1	$f0,0x3c($v0)
-/*  f14ade4:	e4420014 */ 	swc1	$f2,0x14($v0)
-/*  f14ade8:	e4420018 */ 	swc1	$f2,0x18($v0)
-/*  f14adec:	e442001c */ 	swc1	$f2,0x1c($v0)
-/*  f14adf0:	e4420020 */ 	swc1	$f2,0x20($v0)
-/*  f14adf4:	e442002c */ 	swc1	$f2,0x2c($v0)
-/*  f14adf8:	e4420030 */ 	swc1	$f2,0x30($v0)
-/*  f14adfc:	e4420034 */ 	swc1	$f2,0x34($v0)
-/*  f14ae00:	e4420038 */ 	swc1	$f2,0x38($v0)
-/*  f14ae04:	e4420040 */ 	swc1	$f2,0x40($v0)
-/*  f14ae08:	e4480010 */ 	swc1	$f8,0x10($v0)
-/*  f14ae0c:	e44a0044 */ 	swc1	$f10,0x44($v0)
-/*  f14ae10:	9739f940 */ 	lhu	$t9,%lo(var8007f904+0x3c)($t9)
-/*  f14ae14:	904b00d4 */ 	lbu	$t3,0xd4($v0)
-/*  f14ae18:	24080006 */ 	addiu	$t0,$zero,0x6
-/*  f14ae1c:	ac480060 */ 	sw	$t0,0x60($v0)
-/*  f14ae20:	316dff7f */ 	andi	$t5,$t3,0xff7f
-/*  f14ae24:	31af00bf */ 	andi	$t7,$t5,0xbf
-/*  f14ae28:	2409000e */ 	addiu	$t1,$zero,0xe
-/*  f14ae2c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f14ae30:	a04d00d4 */ 	sb	$t5,0xd4($v0)
-/*  f14ae34:	31e800df */ 	andi	$t0,$t7,0xdf
-/*  f14ae38:	44818000 */ 	mtc1	$at,$f16
-/*  f14ae3c:	ac49008c */ 	sw	$t1,0x8c($v0)
-/*  f14ae40:	a04f00d4 */ 	sb	$t7,0xd4($v0)
-/*  f14ae44:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f14ae48:	24030003 */ 	addiu	$v1,$zero,0x3
-/*  f14ae4c:	a04800d4 */ 	sb	$t0,0xd4($v0)
-/*  f14ae50:	35090008 */ 	ori	$t1,$t0,0x8
-/*  f14ae54:	ac4a0088 */ 	sw	$t2,0x88($v0)
-/*  f14ae58:	ac400090 */ 	sw	$zero,0x90($v0)
-/*  f14ae5c:	ac400064 */ 	sw	$zero,0x64($v0)
-/*  f14ae60:	ac4000f4 */ 	sw	$zero,0xf4($v0)
-/*  f14ae64:	ac400094 */ 	sw	$zero,0x94($v0)
-/*  f14ae68:	a04900d4 */ 	sb	$t1,0xd4($v0)
-/*  f14ae6c:	ac4000f8 */ 	sw	$zero,0xf8($v0)
-/*  f14ae70:	ac4300fc */ 	sw	$v1,0xfc($v0)
-/*  f14ae74:	ac430100 */ 	sw	$v1,0x100($v0)
-/*  f14ae78:	ac4000e0 */ 	sw	$zero,0xe0($v0)
-/*  f14ae7c:	ac4000e4 */ 	sw	$zero,0xe4($v0)
-/*  f14ae80:	ac4000e8 */ 	sw	$zero,0xe8($v0)
-/*  f14ae84:	ac4000ec */ 	sw	$zero,0xec($v0)
-/*  f14ae88:	ac4000f0 */ 	sw	$zero,0xf0($v0)
-/*  f14ae8c:	ac400078 */ 	sw	$zero,0x78($v0)
-/*  f14ae90:	ac40007c */ 	sw	$zero,0x7c($v0)
-/*  f14ae94:	ac59005c */ 	sw	$t9,0x5c($v0)
-/*  f14ae98:	03e00008 */ 	jr	$ra
-/*  f14ae9c:	e4500048 */ 	swc1	$f16,0x48($v0)
-);
-#else
-// Mismatch: need to fiddle with the order of these
 void func0f14ad58(s32 index)
 {
 	struct var8007f8dc *thing = &var8007f8dc[index];
@@ -929,33 +835,39 @@ void func0f14ad58(s32 index)
 	thing->unk050 = 110.0f;
 	thing->unk00c = 0.1f;
 	thing->unk010 = 0.2f;
-	thing->unk054 = 30;
 	thing->unk058 = -1;
 	thing->unk068 = -1;
 	thing->unk06c = 0;
 	thing->unk070 = 0;
 	thing->unk074 = 0;
 	thing->unk084 = 0;
-	thing->unk024 = 1.0f;
-	thing->unk028 = 1.0f;
-	thing->unk03c = 1.0f;
+	thing->unk054 = 30;
 	thing->unk014 = 0.0f;
 	thing->unk018 = 0.0f;
 	thing->unk01c = 0.0f;
 	thing->unk020 = 0.0f;
+	thing->unk024 = 1.0f;
+	thing->unk028 = 1.0f;
 	thing->unk02c = 0.0f;
 	thing->unk030 = 0.0f;
 	thing->unk034 = 0.0f;
 	thing->unk038 = 0.0f;
+	thing->unk03c = 1.0f;
 	thing->unk040 = 0.0f;
 	thing->unk044 = 30.0f;
+	thing->unk05c = var8007f904[30];
 	thing->unk060 = 6;
 	thing->unk08c = 14;
+	thing->unk048 = 1.00f;
 	thing->unk088 = 1;
 	thing->unk090 = 0;
 	thing->unk064 = 0;
 	thing->unk0f4 = 0;
 	thing->unk094 = 0;
+	thing->unk0d4_00 = false;
+	thing->unk0d4_01 = false;
+	thing->unk0d4_02 = false;
+	thing->unk0d4_04 = true;
 	thing->unk0f8 = 0;
 	thing->unk0fc = 3;
 	thing->unk100 = 3;
@@ -966,14 +878,7 @@ void func0f14ad58(s32 index)
 	thing->unk0f0 = 0;
 	thing->unk078 = 0;
 	thing->unk07c = 0;
-	thing->unk05c = var8007f904[30];
-	thing->unk048 = 1.0f;
-	thing->unk0d4_00 = false;
-	thing->unk0d4_01 = false;
-	thing->unk0d4_02 = false;
-	thing->unk0d4_04 = true;
 }
-#endif
 
 bool func0f14aea0(s32 device)
 {
