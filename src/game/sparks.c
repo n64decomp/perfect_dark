@@ -91,7 +91,7 @@ struct sparktype g_SparkTypes[] = {
 #endif
 };
 
-s32 g_SparksAreActive = false;
+bool g_SparksAreActive = false;
 
 void sparkCreate(struct coord *pos, struct sparktype *type)
 {

@@ -416,7 +416,7 @@ extern s32 g_ExplosionShakeTotalTimer;
 extern s32 g_ExplosionShakeIntensityTimer;
 extern f32 g_ExplosionDamageTxScale;
 extern struct sparktype g_SparkTypes[];
-extern s32 g_SparksAreActive;
+extern bool g_SparksAreActive;
 extern struct weatherdata *g_WeatherData;
 extern s32 g_NextShardNum;
 extern bool g_ShardsActive;
