@@ -8037,7 +8037,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		g_TitleAudioHandle = NULL;
 	}
 
-	if (((s32)(var80061630 * 80.0f) % 2) == 0) {
+	if (((s32)(g_20SecIntervalFrac * 80.0f) % 2) == 0) {
 		u32 colour = (colourcomponent << 8) | 0x7f7fffff | (colourcomponent << 16);
 		gdl = text0f153a34(gdl, x + 2, y, x + 12, y + 20, colour);
 	}

@@ -179,7 +179,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 			colour = teamcolours[g_MpAllChrConfigPtrs[chrindex]->team] | renderdata->colour & 0xff;
 
 			if (renderdata->unk10) {
-				u32 weight = func0f006b08(40) * 255;
+				u32 weight = menuGetSinOscFrac(40) * 255;
 				colour = colourBlend(renderdata->colour | 0xffffff00, colourBlend(colour, colour & 0xff, 0x7f), weight);
 			}
 
@@ -1240,7 +1240,7 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 	}
 
 	if (flags & AMSLOTFLAG_ACTIVE) {
-		colour = colourBlend(0xffaf8fff, colour, func0f006b54(10) * 255.0f);
+		colour = colourBlend(0xffaf8fff, colour, menuGetCosOscFrac(10) * 255.0f);
 	}
 
 	colour = (u32)(g_AmMenus[g_AmIndex].alphafrac * (colour & 0xff)) | (colour & 0xffffff00);

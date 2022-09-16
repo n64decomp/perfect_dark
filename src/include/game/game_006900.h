@@ -5,10 +5,10 @@
 #include "types.h"
 
 u32 colourBlend(u32 a, u32 b, u32 weight);
-void func0f0069dc(void);
-f32 func0f006b08(f32 arg0);
-f32 func0f006b54(f32 arg0);
-f32 func0f006ba0(f32 arg0);
-f32 func0f006bd0(f32 arg0);
+void menuTickTimers(void);
+f32 menuGetSinOscFrac(f32 freq);
+f32 menuGetCosOscFrac(f32 freq);
+f32 menuGetLinearIntervalFrac(f32 freq);
+f32 menuGetLinearOscPauseFrac(f32 frac);
 
 #endif

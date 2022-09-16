@@ -329,15 +329,15 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 	vertices[3].z = -10 - a1;
 
 	if (type == MENUPLANE_10) {
-		t1 = var80061630 * sp34 * 64.0f * 32.0f;
+		t1 = g_20SecIntervalFrac * sp34 * 64.0f * 32.0f;
 	} else {
-		t1 = (var80061630 - 0.5f) * sp34 * 64.0f * 32.0f;
+		t1 = (g_20SecIntervalFrac - 0.5f) * sp34 * 64.0f * 32.0f;
 	}
 
 	if (type == MENUPLANE_10) {
-		a1_2 = (var80061630 - 0.5f) * sp30 * 64.0f * 32.0f;
+		a1_2 = (g_20SecIntervalFrac - 0.5f) * sp30 * 64.0f * 32.0f;
 	} else {
-		a1_2 = var80061630 * sp30 * 64.0f * 32.0f;
+		a1_2 = g_20SecIntervalFrac * sp30 * 64.0f * 32.0f;
 	}
 
 	vertices[0].s = sp2e + t1;

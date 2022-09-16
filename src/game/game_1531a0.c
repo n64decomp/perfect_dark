@@ -2444,7 +2444,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 
 	if (var8007fbd8) {
 #if VERSION >= VERSION_JPN_FINAL
-		func0f006b08(40);
+		menuGetSinOscFrac(40);
 		newx = *x / g_ScaleX;
 		newy = *y;
 		tmpcolour = var800a463c;
@@ -2492,7 +2492,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 		g_Blend.types = savedtypes;
 		g_Blend.diagmode = savedmode;
 #else
-		alpha = (1.0f - func0f006b08(40.0f)) * 100.0f + 150.0f;
+		alpha = (1.0f - menuGetSinOscFrac(40.0f)) * 100.0f + 150.0f;
 		newx = *x / g_ScaleX;
 		newy = *y;
 		tmpcolour = var800a463c;

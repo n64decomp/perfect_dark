@@ -453,7 +453,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 
 					if (optionindex == itemdata->unk02 && context->focused) {
 						u32 spb0;
-						u32 weight = func0f006b08(40.0f) * 255.0f;
+						u32 weight = menuGetSinOscFrac(40.0f) * 255.0f;
 
 						spb0 = MIXCOLOUR(context->dialog, focused);
 						colour = colourBlend(colour, colour & 0xff, 127);
@@ -853,14 +853,14 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 	if (context->focused != 0) {
 		if ((context->focused & 2) != 0) {
 			u32 tmpcolour;
-			u32 weight = func0f006b08(20) * 255.0f; \
+			u32 weight = menuGetSinOscFrac(20) * 255.0f; \
 			tmpcolour = MIXCOLOUR(context->dialog, focused);
 
 			colour = colourBlend(colour, colour & 0xff, 0x7f);
 			colour = colourBlend(colour, tmpcolour, weight);
 		} else {
 			u32 tmpcolour;
-			u32 weight = func0f006b08(40) * 255.0f; \
+			u32 weight = menuGetSinOscFrac(40) * 255.0f; \
 			tmpcolour = MIXCOLOUR(context->dialog, focused);
 
 			colour = colourBlend(colour, colour & 0xff, 0x7f);
@@ -1137,7 +1137,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = text0f153780(gdl);
 
 	// Render cursor
-	alpha = func0f006b08(40) * 255;
+	alpha = menuGetSinOscFrac(40) * 255;
 
 	if (context->dialog->transitionfrac < 0) {
 		cursorcolour = g_MenuColourPalettes[context->dialog->type].focused;
@@ -1201,7 +1201,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 
 			// If this button is the focused one, set highlighted colour
 			if (col == data->col && row == data->row) {
-				alpha = func0f006b08(40) * 255;
+				alpha = menuGetSinOscFrac(40) * 255;
 
 				if (context->dialog->transitionfrac < 0) {
 					tmpcolour = g_MenuColourPalettes[context->dialog->type].focused;
@@ -2767,7 +2767,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 		// use in the else branch. The lui is loading a value into $at for the
 		// float to u32 conversion for weight.
 		u32 colour2;
-		u32 weight = func0f006b08(40) * 255; \
+		u32 weight = menuGetSinOscFrac(40) * 255; \
 		if (context->dialog->transitionfrac < 0) { \
 			colour2 = g_MenuColourPalettes[context->dialog->type].focused; \
 		} else { \
@@ -2917,7 +2917,7 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 	if (context->focused) {
 		if (context->focused & 2) {
 			u32 tmpcolour;
-			u32 weight = func0f006b08(40) * 255.0f;
+			u32 weight = menuGetSinOscFrac(40) * 255.0f;
 
 			tmpcolour = MIXCOLOUR(context->dialog, focused);
 
@@ -2941,14 +2941,14 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 	if (context->focused != 0) {
 		if (context->focused & 2) {
 			u32 tmpcolour;
-			u32 weight = func0f006b08(20) * 255.0f;
+			u32 weight = menuGetSinOscFrac(20) * 255.0f;
 			tmpcolour = MIXCOLOUR(context->dialog, focused);
 
 			colour = colourBlend(colour, colour & 0xff, 0x7f);
 			colour = colourBlend(colour, tmpcolour, weight);
 		} else {
 			u32 tmpcolour;
-			u32 weight = func0f006b08(40) * 255.0f;
+			u32 weight = menuGetSinOscFrac(40) * 255.0f;
 			tmpcolour = MIXCOLOUR(context->dialog, focused);
 
 			colour = colourBlend(colour, colour & 0xff, 0x7f);
@@ -3117,7 +3117,7 @@ Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
 
 	if (context->focused) {
 		u32 colour1;
-		u32 weight = func0f006b08(40) * 255;
+		u32 weight = menuGetSinOscFrac(40) * 255;
 
 		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColourPalettes[context->dialog->type].focused;
@@ -3284,7 +3284,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		// use in the else branch. The lui is loading a value into $at for the
 		// float to u32 conversion for weight.
 		u32 focuscolour;
-		u32 weight = func0f006b08(40) * 255; \
+		u32 weight = menuGetSinOscFrac(40) * 255; \
 		if (context->dialog->transitionfrac < 0) { \
 			focuscolour = g_MenuColourPalettes[context->dialog->type].focused;
 		} else {
@@ -4472,7 +4472,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = text0f153628(gdl);
 
 	// Write selected player's name
-	weight = func0f006b08(40) * 255;
+	weight = menuGetSinOscFrac(40) * 255;
 
 	if (context->dialog->transitionfrac < 0) {
 		selectioncolour = g_MenuColourPalettes[context->dialog->type].focused;
@@ -5111,7 +5111,7 @@ Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, 
 #endif
 	};
 
-	speed = (s32)(-var80061630 * 4.0f * 50.0f) % 4;
+	speed = (s32)(-g_20SecIntervalFrac * 4.0f * 50.0f) % 4;
 	alpha = alpha >> 1;
 
 	gDPPipeSync(gdl++);

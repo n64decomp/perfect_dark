@@ -859,8 +859,8 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 
 	for (i = 0; i < 2; i++) {
 		s16 tmp = i * 256;
-		f0 = var80061630;
-		f26 = M_BADTAU * var80061630;
+		f0 = g_20SecIntervalFrac;
+		f26 = M_BADTAU * g_20SecIntervalFrac;
 
 		if (i == 1) {
 			f26 = -f26;
@@ -893,14 +893,14 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 		s0 = cosf(f26) * f22;
 		t5 = -sinf(f26) * f24;
 
-		vertices[i * 4 + 0].s = tmp - s2 - (s0);
-		vertices[i * 4 + 0].t = tmp - s3 - (t5);
-		vertices[i * 4 + 1].s = tmp + s2 - (s0);
-		vertices[i * 4 + 1].t = tmp + s3 - (t5);
-		vertices[i * 4 + 2].s = tmp + s2 + (s0);
-		vertices[i * 4 + 2].t = tmp + s3 + (t5);
-		vertices[i * 4 + 3].s = tmp - s2 + (s0);
-		vertices[i * 4 + 3].t = tmp - s3 + (t5);
+		vertices[i * 4 + 0].s = tmp - s2 - s0;
+		vertices[i * 4 + 0].t = tmp - s3 - t5;
+		vertices[i * 4 + 1].s = tmp + s2 - s0;
+		vertices[i * 4 + 1].t = tmp + s3 - t5;
+		vertices[i * 4 + 2].s = tmp + s2 + s0;
+		vertices[i * 4 + 2].t = tmp + s3 + t5;
+		vertices[i * 4 + 3].s = tmp - s2 + s0;
+		vertices[i * 4 + 3].t = tmp - s3 + t5;
 	}
 
 	vertices[0].colour = 0;
@@ -920,7 +920,7 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 4);
 	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
 
-	if (var80061630 > 0.5f) {
+	if (g_20SecIntervalFrac > 0.5f) {
 		gDPTri4(gdl++, 4, 5, 6, 6, 7, 4, 0, 1, 2, 2, 3, 0);
 	} else {
 		gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
@@ -1870,9 +1870,9 @@ Gfx *menugfxDrawShimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bo
 	minalpha = 0;
 
 	if (reverse) {
-		v0 = 6.0f * var80061630 * 600.0f;
+		v0 = 6.0f * g_20SecIntervalFrac * 600.0f;
 	} else {
-		v0 = (1.0f - var80061630) * 6.0f * 600.0f;
+		v0 = (1.0f - g_20SecIntervalFrac) * 6.0f * 600.0f;
 	}
 
 	if (y2 - y1 < x2 - x1) {
@@ -2191,7 +2191,7 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 	u32 alpha1;
 	u32 alpha2;
 
-	spb4 = M_TAU * var80061630;
+	spb4 = M_TAU * g_20SecIntervalFrac;
 
 	var8009de98 = var8009de9c = 0;
 
@@ -2245,8 +2245,8 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		alpha1 = func0f006b54(4) * 127.0f;
-		alpha2 = func0f006b54(4) * 55.0f;
+		alpha1 = menuGetCosOscFrac(4) * 127.0f;
+		alpha2 = menuGetCosOscFrac(4) * 55.0f;
 
 		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
 		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
@@ -2270,8 +2270,8 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		alpha1 = (1.0f - func0f006b54(4)) * 99.0f;
-		alpha2 = (1.0f - func0f006b54(4)) * 33.0f;
+		alpha1 = (1.0f - menuGetCosOscFrac(4)) * 99.0f;
+		alpha2 = (1.0f - menuGetCosOscFrac(4)) * 33.0f;
 
 		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, MENUPLANE_02);
 		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, MENUPLANE_03);
@@ -2301,8 +2301,8 @@ Gfx *menugfxRenderBgCone(Gfx *gdl)
 	u32 colour;
 
 	// Cone 1
-	baseangle = M_TAU * var80061630 * 2.0f;
-	colourupper = (u32) (func0f006b08(1.0f) * 255.0f) << 16;
+	baseangle = M_TAU * g_20SecIntervalFrac * 2.0f;
+	colourupper = (u32) (menuGetSinOscFrac(1.0f) * 255.0f) << 16;
 
 	gdl = func0f0d4a3c(gdl, 0);
 
@@ -2330,9 +2330,9 @@ Gfx *menugfxRenderBgCone(Gfx *gdl)
 	}
 
 	// Cone 2
-	colourupper = (u32) (255.0f - func0f006b54(1.0f) * 255.0f) << 16;
+	colourupper = (u32) (255.0f - menuGetCosOscFrac(1.0f) * 255.0f) << 16;
 
-	baseangle = M_TAU * var80061630;
+	baseangle = M_TAU * g_20SecIntervalFrac;
 
 	if (1);
 
@@ -2424,7 +2424,7 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 	u32 alpha1;
 	u32 alpha2;
 
-	spb4 = M_TAU * var80061630;
+	spb4 = M_TAU * g_20SecIntervalFrac;
 
 	var8009de98 = var8009de9c = 0;
 
@@ -2478,8 +2478,8 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		alpha1 = func0f006b54(4) * 127.0f;
-		alpha2 = func0f006b54(4) * 55.0f;
+		alpha1 = menuGetCosOscFrac(4) * 127.0f;
+		alpha2 = menuGetCosOscFrac(4) * 55.0f;
 
 		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
 		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
@@ -2503,8 +2503,8 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		alpha1 = (1.0f - func0f006b54(4)) * 99.0f;
-		alpha2 = (1.0f - func0f006b54(4)) * 33.0f;
+		alpha1 = (1.0f - menuGetCosOscFrac(4)) * 99.0f;
+		alpha2 = (1.0f - menuGetCosOscFrac(4)) * 33.0f;
 
 		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, MENUPLANE_02);
 		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, MENUPLANE_03);
@@ -2598,7 +2598,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 		}
 	}
 
-	f0 = func0f006ba0(10.0f);
+	f0 = menuGetLinearIntervalFrac(10.0f);
 
 	// Draw the two haze layers
 	var8009de98 = 0;

@@ -3824,8 +3824,8 @@ s32 inventoryMenuDialog(s32 operation, struct menudialogdef *dialogdef, union ha
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
 			g_Menus[g_MpPlayerNum].unk840.unk574 -= g_Vars.diffframe60;
-			g_Menus[g_MpPlayerNum].unk840.unk54c = 18.849555969238f * var80061630;
-			g_Menus[g_MpPlayerNum].unk840.unk524 = 18.849555969238f * var80061630;
+			g_Menus[g_MpPlayerNum].unk840.unk54c = 18.849555969238f * g_20SecIntervalFrac;
+			g_Menus[g_MpPlayerNum].unk840.unk524 = 18.849555969238f * g_20SecIntervalFrac;
 			g_Menus[g_MpPlayerNum].unk840.unk528 = 0;
 			g_Menus[g_MpPlayerNum].unk840.unk550 = 0;
 

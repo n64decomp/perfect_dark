@@ -224,10 +224,10 @@ Gfx *starsRender(Gfx *gdl)
 		isddtower = true;
 	}
 
-	colours[0] = colourBlend(0xffffff7f, 0x7777777f, func0f006b08(2) * 255);
-	colours[1] = colourBlend(0x0000aa7f, 0x2222ff7f, func0f006b08(4) * 255);
-	colours[2] = colourBlend(0x0000ff7f, 0x5555ff7f, func0f006b54(2) * 255);
-	colours[3] = colourBlend(0xaaaaff7f, 0x7777ff7f, func0f006b54(4) * 255);
+	colours[0] = colourBlend(0xffffff7f, 0x7777777f, menuGetSinOscFrac(2) * 255);
+	colours[1] = colourBlend(0x0000aa7f, 0x2222ff7f, menuGetSinOscFrac(4) * 255);
+	colours[2] = colourBlend(0x0000ff7f, 0x5555ff7f, menuGetCosOscFrac(2) * 255);
+	colours[3] = colourBlend(0xaaaaff7f, 0x7777ff7f, menuGetCosOscFrac(4) * 255);
 
 	if (isddtower) {
 		for (i = 0; i < 3; i++) {

@@ -3763,8 +3763,8 @@ void func0f15c920(void)
 #if PIRACYCHECKS
 	if ((var8007fc3c & 0xff) == 0xff) {
 		u32 checksum = 0;
-		s32 *ptr = (s32 *)&func0f0069dc;
-		s32 *end = (s32 *)&func0f006b08;
+		s32 *ptr = (s32 *)&menuTickTimers;
+		s32 *end = (s32 *)&menuGetSinOscFrac;
 
 		while (ptr < end) {
 			checksum ^= ~*ptr;

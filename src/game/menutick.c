@@ -68,7 +68,7 @@ void menuTick(void)
 	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
-	func0f0069dc();
+	menuTickTimers();
 
 	if (g_MenuData.count) {
 		// empty

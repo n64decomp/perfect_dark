@@ -1904,7 +1904,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 				if (node) {
 					struct modelrodata_position *rodata = &node->rodata->position;
-					f32 f0 = func0f006bd0(thing->unk574 / TICKS(480.0f));
+					f32 f0 = menuGetLinearOscPauseFrac(thing->unk574 / TICKS(480.0f));
 
 					sp2fc.f[0] = 0.0f;
 					sp2fc.f[1] = 0.0f - (rodata->pos.f[1] / 7.6f * (1.0f - f0 * f0));
@@ -2283,7 +2283,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 				Mtxf spe0;
 				sp160 = model0001a524(node, 0);
 				mtx4LoadIdentity(&sp120);
-				mtx4LoadXRotation(func0f006b54(4), &sp120);
+				mtx4LoadXRotation(menuGetCosOscFrac(4), &sp120);
 				mtx4MultMtx4((Mtxf *)((u32)sp3b4 + sp160 * sizeof(Mtxf)), &sp120, &spe0);
 				mtx4Copy(&spe0, (Mtxf *)((u32)sp3b4 + sp160 * sizeof(Mtxf)));
 			}
@@ -2787,7 +2787,7 @@ glabel var7f1b2948
 /*  f0f0978:	448d4000 */ 	mtc1	$t5,$f8
 /*  f0f097c:	8c500004 */ 	lw	$s0,0x4($v0)
 /*  f0f0980:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0f0984:	0fc01a1d */ 	jal	func0f006bd0
+/*  f0f0984:	0fc01a1d */ 	jal	menuGetLinearOscPauseFrac
 /*  f0f0988:	46045303 */ 	div.s	$f12,$f10,$f4
 /*  f0f098c:	44806000 */ 	mtc1	$zero,$f12
 /*  f0f0990:	3c013f80 */ 	lui	$at,0x3f80
@@ -3732,7 +3732,7 @@ glabel var7f1b2948
 /*  f0f175c:	27a40124 */ 	addiu	$a0,$sp,0x124
 /*  f0f1760:	3c014080 */ 	lui	$at,0x4080
 /*  f0f1764:	44816000 */ 	mtc1	$at,$f12
-/*  f0f1768:	0fc019fe */ 	jal	func0f006b54
+/*  f0f1768:	0fc019fe */ 	jal	menuGetCosOscFrac
 /*  f0f176c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0f1770:	46000306 */ 	mov.s	$f12,$f0
 /*  f0f1774:	0c005c9e */ 	jal	mtx4LoadXRotation
@@ -4631,13 +4631,13 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 			// Draw chevrons
 			u32 colour1;
 			u32 colour;
-			u32 weight = func0f006b08(10) * 255.0f;
+			u32 weight = menuGetSinOscFrac(10) * 255.0f;
 
 			colour1 = MIXCOLOUR(dialog, unk00);
 			colour = colourBlend(0xffffffff, colour1, weight);
 
-			gdl = menugfxDrawDialogChevron(gdl, dialogleft - 5, (dialogtop + dialogbottom) / 2, 9, 1, colour, colour, func0f006b08(20));
-			gdl = menugfxDrawDialogChevron(gdl, dialogright + 5, (dialogtop + dialogbottom) / 2, 9, 3, colour, colour, func0f006b08(20));
+			gdl = menugfxDrawDialogChevron(gdl, dialogleft - 5, (dialogtop + dialogbottom) / 2, 9, 1, colour, colour, menuGetSinOscFrac(20));
+			gdl = menugfxDrawDialogChevron(gdl, dialogright + 5, (dialogtop + dialogbottom) / 2, 9, 3, colour, colour, menuGetSinOscFrac(20));
 
 			if (g_MenuData.root == MENUROOT_MAINMENU
 					|| g_MenuData.root == MENUROOT_4MBFILEMGR
@@ -7965,7 +7965,7 @@ glabel var7f1b381cjf
 /*  f0fd19c:	18400092 */ 	blez	$v0,.JF0f0fd3e8
 /*  f0fd1a0:	3c0141a0 */ 	lui	$at,0x41a0
 /*  f0fd1a4:	44816000 */ 	mtc1	$at,$f12
-/*  f0fd1a8:	0fc01ae2 */ 	jal	func0f006b08
+/*  f0fd1a8:	0fc01ae2 */ 	jal	menuGetSinOscFrac
 /*  f0fd1ac:	00000000 */ 	nop
 /*  f0fd1b0:	3c01437f */ 	lui	$at,0x437f
 /*  f0fd1b4:	44813000 */ 	mtc1	$at,$f6
@@ -8586,7 +8586,7 @@ Gfx *menuRender(Gfx *gdl)
 					}
 
 					if (g_MenuData.playerjoinalpha[i] > 0) {
-						u32 weight = func0f006b08(20) * 255.0f;
+						u32 weight = menuGetSinOscFrac(20) * 255.0f;
 
 						// "Player %d: "
 						sprintf(text, langGet(L_MPMENU_482), i + 1);

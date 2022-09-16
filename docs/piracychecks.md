@@ -132,9 +132,9 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 ---
 
-### func0f0069dc
+### menuTickTimers
 
-**When Called:** Unknown.
+**When Called:** On every frame except credits.
 
 **What It Checks:** Checksums `func00015fd0` to make sure it hasn't been modified.
 
@@ -144,7 +144,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** Unknown.
 
-**What It Checks:** Checksums `func0f0069dc` to make sure it hasn't been modified.
+**What It Checks:** Checksums `menuTickTimers` to make sure it hasn't been modified.
 
 **Payload:** Corrupts `bgBuildTables` by adding a fixed amount to 16 bytes within that function.
 

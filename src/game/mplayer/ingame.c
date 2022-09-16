@@ -627,7 +627,7 @@ s32 mpPlacementMenuHandler(s32 operation, struct menuitem *item, union handlerda
 {
 	if (operation == MENUOP_GETCOLOUR) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].base.placement == 0) { // winner
-			data->label.colour2 = colourBlend(data->label.colour2, 0xffff00ff, func0f006b08(40) * 255);
+			data->label.colour2 = colourBlend(data->label.colour2, 0xffff00ff, menuGetSinOscFrac(40) * 255);
 		}
 	}
 
@@ -708,7 +708,7 @@ s32 mpPlayerTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 {
 	if (operation == MENUOP_GETCOLOUR) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].title != g_PlayerConfigsArray[g_MpPlayerNum].newtitle) {
-			data->label.colour2 = colourBlend(data->label.colour2, 0xffff00ff, func0f006b08(40) * 255);
+			data->label.colour2 = colourBlend(data->label.colour2, 0xffff00ff, menuGetSinOscFrac(40) * 255);
 		}
 	}
 

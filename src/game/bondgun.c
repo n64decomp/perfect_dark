@@ -12103,7 +12103,7 @@ void bgunTickMaulerCharge(void)
 			}
 
 			if (hand->audiohandle) {
-				f32 speed = 0.5f + hand->matmot1 / 3.0f + sinf(var80061630 * M_PI * 32.0f) * 0.03f;
+				f32 speed = 0.5f + hand->matmot1 / 3.0f + sinf(g_20SecIntervalFrac * M_PI * 32.0f) * 0.03f;
 
 				if (hand->matmot1 < 0.1f || !charging) {
 					audioStop(hand->audiohandle);
@@ -16812,7 +16812,7 @@ Gfx *bgunDrawHud(Gfx *gdl)
 			gDPFillRectangleScaled(gdl++, x - 1, y - 1, xpos - 11, bottom);
 
 			gdl = text0f153838(gdl);
-			textSetWaveBlend(var80061630 * 50.0f, 0, 50);
+			textSetWaveBlend(g_20SecIntervalFrac * 50.0f, 0, 50);
 			textSetWaveColours(0xffffffff, 0xffffffff);
 			gdl = textRenderProjected(gdl, &x, &y, str, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, textwidth, 1000, 0, 0);
 			textResetBlends();
@@ -16880,7 +16880,7 @@ Gfx *bgunDrawHud(Gfx *gdl)
 
 				gdl = text0f153838(gdl);
 
-				textSetWaveBlend(var80061630 * 50.0f, 0, 50);
+				textSetWaveBlend(g_20SecIntervalFrac * 50.0f, 0, 50);
 				textSetWaveColours(0xffffffff, 0xffffffff);
 
 				gdl = textRenderProjected(gdl, &x, &y, str,

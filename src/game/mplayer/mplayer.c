@@ -1209,7 +1209,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 #endif
 
 	if (g_MpSetup.paused == MPPAUSEMODE_PAUSED) {
-		s32 red = (s32) ((1.0f - var80061630) * 20.0f * 255.0f) % 255;
+		s32 red = (s32) ((1.0f - g_20SecIntervalFrac) * 20.0f * 255.0f) % 255;
 		s32 stack2;
 
 		gdl = text0f153628(gdl);

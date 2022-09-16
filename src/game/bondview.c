@@ -328,7 +328,7 @@ Gfx *bviewDrawSlayerRocketInterlace(Gfx *gdl, u32 colour, u32 alpha)
 	s32 y;
 	s32 viewleft = viGetViewLeft();
 	f32 angle = 0.52359879016876f;
-	s32 offset = (s32)(var80061630 * 600.0f) % 12;
+	s32 offset = (s32)(g_20SecIntervalFrac * 600.0f) % 12;
 	f32 increment;
 
 	var8007f840++;
@@ -375,7 +375,7 @@ Gfx *bviewDrawFilmInterlace(Gfx *gdl, u32 colour, u32 alpha)
 	s32 y;
 	s32 viewwidth = viGetViewWidth();
 	s32 viewleft = viGetViewLeft();
-	s32 offset = (s32)(var80061630 * 600.0f) % 12;
+	s32 offset = (s32)(g_20SecIntervalFrac * 600.0f) % 12;
 	u32 stack;
 
 	var8007f840++;
@@ -18003,7 +18003,7 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 		tmplensheight = viewheight - 30;
 	}
 
-	if (((s32)(var80061630 * 30.0f) & 1) == 1) {
+	if (((s32)(g_20SecIntervalFrac * 30.0f) & 1) == 1) {
 		sprintf(arrows, ">> ");
 	} else {
 		sprintf(arrows, " >>");
@@ -18022,7 +18022,7 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 
 	// Prepare text buffers
 	sprintf(directiontext, "%s %s:%03d", arrows, &directions[(turnangle + 22) / 45], turnangle);
-	sprintf(hertztext, "%s %s%s%4.2fh", arrows, "", "", func0f006b54(4) * 4.6f + 917.4f);
+	sprintf(hertztext, "%s %s%s%4.2fh", arrows, "", "", menuGetCosOscFrac(4) * 4.6f + 917.4f);
 
 	fovy = viGetFovY();
 
@@ -18406,7 +18406,7 @@ glabel var7f1b04c8nb
 /*  f14296c:	afa30010 */ 	sw	$v1,0x10($sp)
 /*  f142970:	3c014080 */ 	lui	$at,0x4080
 /*  f142974:	44816000 */ 	mtc1	$at,$f12
-/*  f142978:	0fc019fe */ 	jal	func0f006b54
+/*  f142978:	0fc019fe */ 	jal	menuGetCosOscFrac
 /*  f14297c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f142980:	3c017f1b */ 	lui	$at,0x7f1b
 /*  f142984:	c42a04c4 */ 	lwc1	$f10,0x4c4($at)

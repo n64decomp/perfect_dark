@@ -4542,7 +4542,7 @@ Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
  */
 Gfx *sky0f126de8(Gfx *gdl)
 {
-	f32 sp154 = var80061630 * M_BADTAU;
+	f32 sp154 = g_20SecIntervalFrac * M_BADTAU;
 	s32 i;
 	f32 f20 = 0.0f;
 	f32 f20_2;

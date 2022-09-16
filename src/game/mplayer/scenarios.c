@@ -730,7 +730,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 				colour[0] = 0;
 				colour[1] = 0xcd;
 				colour[2] = 0xff;
-				colour[3] = func0f006b08(20) * 255;
+				colour[3] = menuGetSinOscFrac(20) * 255;
 				return true;
 			}
 		}
@@ -769,7 +769,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 			colour[0] = tmp >> 24 & 0xff;
 			colour[1] = tmp >> 16 & 0xff;
 			colour[2] = tmp >> 8 & 0xff;
-			colour[3] = pulse ? (s32)(func0f006b08(20) * 128) : 75;
+			colour[3] = pulse ? (s32)(menuGetSinOscFrac(20) * 128) : 75;
 			return true;
 		}
 
@@ -777,7 +777,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 			colour[0] = 0;
 			colour[1] = 0xcd;
 			colour[2] = 0xff;
-			colour[3] = func0f006b08(20) * 205;
+			colour[3] = menuGetSinOscFrac(20) * 205;
 			return true;
 		}
 	}
