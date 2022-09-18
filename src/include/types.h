@@ -2244,8 +2244,8 @@ struct hand {
 	/*0x0cfc*/ struct coord dotrot;
 	/*0x0d08*/ f32 gangstarot; // frac
 	/*0x0d0c*/ s16 primetimer60;
-	/*0x0d0e*/ u8 unk0d0e_00 : 4;
-	/*0x0d0e*/ u8 unk0d0e_04 : 3;
+	/*0x0d0e*/ u8 ejectstate : 4;
+	/*0x0d0e*/ u8 ejecttype : 3;
 	/*0x0d0e*/ u8 unk0d0e_07 : 1;
 	/*0x0d0f*/ u8 createsmoke : 1;
 	/*0x0d0f*/ u8 forcecreatesmoke : 1;
