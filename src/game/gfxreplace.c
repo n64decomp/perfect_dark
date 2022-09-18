@@ -265,23 +265,23 @@ void gfxReplaceGbiCommands(Gfx *startgdl, Gfx *endgdl, s32 type)
 	}
 }
 
-void gfxReplaceGbiCommandsRecursively(struct roomgfxdata18 *arg0, s32 type)
+void gfxReplaceGbiCommandsRecursively(struct roomblock *block, s32 type)
 {
-	if (arg0->type == 1);
+	if (block->type == ROOMBLOCKTYPE_PARENT);
 
 	while (true) {
-		if (!arg0) {
+		if (!block) {
 			return;
 		}
 
-		switch (arg0->type) {
-		case 0:
-			gfxReplaceGbiCommands(arg0->gdl, NULL, type);
-			arg0 = arg0->next;
+		switch (block->type) {
+		case ROOMBLOCKTYPE_LEAF:
+			gfxReplaceGbiCommands(block->gdl, NULL, type);
+			block = block->next;
 			break;
-		case 1:
-			gfxReplaceGbiCommandsRecursively(arg0->child, type);
-			arg0 = arg0->next;
+		case ROOMBLOCKTYPE_PARENT:
+			gfxReplaceGbiCommandsRecursively(block->child, type);
+			block = block->next;
 			break;
 		default:
 			return;

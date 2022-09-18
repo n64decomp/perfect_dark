@@ -3499,6 +3499,9 @@
 #define RESETTYPE_COLD 0
 #define RESETTYPE_WARM 1
 
+#define ROOMBLOCKTYPE_LEAF   0
+#define ROOMBLOCKTYPE_PARENT 1
+
 #define ROOMFLAG_DISABLEDBYSCRIPT 0x0001
 #define ROOMFLAG_HASDYNTEX        0x0002 // Has dynamic textures such as water
 #define ROOMFLAG_ONSCREEN         0x0004

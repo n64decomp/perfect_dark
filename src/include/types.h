@@ -3524,32 +3524,32 @@ struct screenbox {
 	};
 };
 
-struct roomgfxdata18 {
+struct roomblock {
 	u8 type;
-	struct roomgfxdata18 *next;
+	struct roomblock *next;
 	union {
-		struct { // type 0
+		struct { // type 0 (leaf)
 			Gfx *gdl;
 			struct gfxvtx *vertices;
+			u32 *colours;
 		};
-		struct { // type 1
-			struct roomgfxdata18 *child;
+		struct { // type 1 (parent)
+			struct roomblock *child;
 			struct coord *unk0c; // pointer to 2 coords at least
 		};
 	};
-	u32 *colours;
 };
 
 struct roomgfxdata {
 	/*0x00*/ struct gfxvtx *vertices;
 	/*0x04*/ u32 *colours;
-	/*0x08*/ struct roomgfxdata18 *unk08; // opa
-	/*0x0c*/ struct roomgfxdata18 *unk0c; // xlu
+	/*0x08*/ struct roomblock *opablocks;
+	/*0x0c*/ struct roomblock *xlublocks;
 	/*0x10*/ s16 lightsindex;
 	/*0x12*/ s16 numlights;
 	/*0x14*/ s16 numvertices;
 	/*0x16*/ s16 numcolours;
-	/*0x18*/ struct roomgfxdata18 unk18[1];
+	/*0x18*/ struct roomblock blocks[1];
 };
 
 struct vtxbatch {

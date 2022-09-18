@@ -1548,27 +1548,27 @@ Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
 }
 #endif
 
-Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool recurse, s16 arg4[3])
+Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool recurse, s16 arg4[3])
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (arg2 == NULL) {
+	if (block == NULL) {
 		return gdl;
 	}
 
-	switch (arg2->type) {
-	case 0:
-		gdl = bg0f1598b4(gdl, arg2->gdl, arg2->vertices, arg4);
+	switch (block->type) {
+	case ROOMBLOCKTYPE_LEAF:
+		gdl = bg0f1598b4(gdl, block->gdl, block->vertices, arg4);
 
 		if (recurse) {
-			gdl = bgRenderRoomXrayPass(gdl, roomnum, arg2->next, true, arg4);
+			gdl = bgRenderRoomXrayPass(gdl, roomnum, block->next, true, arg4);
 		}
 		break;
-	case 1:
-		if (arg2->child != NULL) {
-			struct roomgfxdata18 *child1 = arg2->child;
-			struct roomgfxdata18 *child2 = child1->next;
-			struct coord *coords = arg2->unk0c;
+	case ROOMBLOCKTYPE_PARENT:
+		if (block->child != NULL) {
+			struct roomblock *child1 = block->child;
+			struct roomblock *child2 = child1->next;
+			struct coord *coords = block->unk0c;
 			struct coord sp34;
 			struct coord sp28;
 			f32 sum;
@@ -1592,7 +1592,7 @@ Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, boo
 			}
 
 			if (recurse) {
-				gdl = bgRenderRoomXrayPass(gdl, roomnum, arg2->next, true, arg4);
+				gdl = bgRenderRoomXrayPass(gdl, roomnum, block->next, true, arg4);
 			}
 		}
 		break;
@@ -1641,8 +1641,8 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 	sp40[2] = sp54.f[2];
 
 	gdl = roomPushMtx(gdl, roomnum);
-	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk08, true, sp40);
-	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, true, sp40);
+	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true, sp40);
+	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true, sp40);
 
 	g_Rooms[roomnum].loaded240 = 1;
 
@@ -4291,93 +4291,93 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 	return result;
 }
 
-Gfx *func0f15da00(struct roomgfxdata18 *arg0, Gfx *arg1, Gfx *arg2)
+Gfx *roomGetNextGdlInBlock(struct roomblock *block, Gfx *start, Gfx *end)
 { \
 	Gfx *tmp; \
 	while (true) {
-		if (arg0 == NULL) {
-			return arg2;
+		if (block == NULL) {
+			return end;
 		}
 
-		if (arg1);
-		if (arg1);
-		if (arg1);
-		if (arg1);
+		if (start);
+		if (start);
+		if (start);
+		if (start);
 
-		switch (arg0->type) {
-		case 0:
-			if (arg1 < arg0->gdl && (arg2 > arg0->gdl || arg2 == NULL)) {
-				arg2 = arg0->gdl;
+		switch (block->type) {
+		case ROOMBLOCKTYPE_LEAF:
+			if (block->gdl > start && (block->gdl < end || end == NULL)) {
+				end = block->gdl;
 			}
-			arg0 = arg0->next;
+			block = block->next;
 			break;
-		case 1:
-			tmp = func0f15da00(arg0->child, arg1, arg2);
-			arg0 = arg0->next;
-			arg2 = tmp;
+		case ROOMBLOCKTYPE_PARENT:
+			tmp = roomGetNextGdlInBlock(block->child, start, end);
+			block = block->next;
+			end = tmp;
 			break;
 		default:
-			return arg2;
+			return end;
 		}
 	}
 
-	return arg2;
+	return end;
 }
 
-Gfx *room0f15dab4(s32 roomnum, Gfx *gdl, u32 types)
+Gfx *roomGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
 {
-	struct roomgfxdata18 *thing1 = g_Rooms[roomnum].gfxdata->unk08;
-	struct roomgfxdata18 *thing2 = g_Rooms[roomnum].gfxdata->unk0c;
-	Gfx *sp1c = NULL;
-	Gfx *sp18 = NULL;
+	struct roomblock *opablocks = g_Rooms[roomnum].gfxdata->opablocks;
+	struct roomblock *xlublocks = g_Rooms[roomnum].gfxdata->xlublocks;
+	Gfx *opagdl = NULL;
+	Gfx *xlugdl = NULL;
 
-	if ((types & VTXBATCHTYPE_OPA) && thing1) {
-		sp1c = func0f15da00(thing1, gdl, NULL);
+	if ((types & VTXBATCHTYPE_OPA) && opablocks) {
+		opagdl = roomGetNextGdlInBlock(opablocks, start, NULL);
 
 		if (types == VTXBATCHTYPE_OPA) {
-			return sp1c;
+			return opagdl;
 		}
 	}
 
-	if ((types & VTXBATCHTYPE_XLU) && thing2) {
-		sp18 = func0f15da00(thing2, gdl, NULL);
+	if ((types & VTXBATCHTYPE_XLU) && xlublocks) {
+		xlugdl = roomGetNextGdlInBlock(xlublocks, start, NULL);
 
 		if (types == VTXBATCHTYPE_XLU) {
-			return sp18;
+			return xlugdl;
 		}
 	}
 
-	if (sp1c) {
-		if (sp18 && sp18 < sp1c) {
-			return sp18;
+	if (opagdl) {
+		if (xlugdl && xlugdl < opagdl) {
+			return xlugdl;
 		}
 
-		return sp1c;
+		return opagdl;
 	}
 
-	return sp18;
+	return xlugdl;
 }
 
-struct gfxvtx *room0f15dbb4(s32 roomnum, Gfx *gdl)
+struct gfxvtx *roomFindVerticesForGdl(s32 roomnum, Gfx *gdl)
 {
-	struct roomgfxdata18 *thing = g_Rooms[roomnum].gfxdata->unk18;
+	struct roomblock *block = g_Rooms[roomnum].gfxdata->blocks;
 	u32 end = (u32)g_Rooms[roomnum].gfxdata->vertices;
 
-	while ((u32)(thing + 1) <= end) {
-		switch (thing->type) {
-		case 0:
-			if (gdl == thing->gdl) {
-				return thing->vertices;
+	while ((u32)(block + 1) <= end) {
+		switch (block->type) {
+		case ROOMBLOCKTYPE_LEAF:
+			if (gdl == block->gdl) {
+				return block->vertices;
 			}
 			break;
-		case 1:
-			if ((u32)thing->vertices < end) {
-				end = (u32)thing->vertices;
+		case ROOMBLOCKTYPE_PARENT:
+			if ((u32)block->unk0c < end) {
+				end = (u32)block->unk0c;
 			}
 			break;
 		}
 
-		thing++;
+		block++;
 	}
 
 	return NULL;
@@ -4679,7 +4679,7 @@ glabel bgLoadRoom
 /*  f15e084:	0321001b */ 	divu	$zero,$t9,$at
 /*  f15e088:	00005812 */ 	mflo	$t3
 /*  f15e08c:	a66b0014 */ 	sh	$t3,0x14($s3)
-/*  f15e090:	0fc576ad */ 	jal	room0f15dab4
+/*  f15e090:	0fc576ad */ 	jal	roomGetNextGdlInLayer
 /*  f15e094:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
 /*  f15e098:	3c0c800a */ 	lui	$t4,%hi(g_Rooms)
 /*  f15e09c:	8d8c4928 */ 	lw	$t4,%lo(g_Rooms)($t4)
@@ -4693,7 +4693,7 @@ glabel bgLoadRoom
 /*  f15e0bc:	004fc023 */ 	subu	$t8,$v0,$t7
 /*  f15e0c0:	0018c882 */ 	srl	$t9,$t8,0x2
 /*  f15e0c4:	a6790016 */ 	sh	$t9,0x16($s3)
-/*  f15e0c8:	0fc576ad */ 	jal	room0f15dab4
+/*  f15e0c8:	0fc576ad */ 	jal	roomGetNextGdlInLayer
 /*  f15e0cc:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
 /*  f15e0d0:	10400014 */ 	beqz	$v0,.L0f15e124
 /*  f15e0d4:	00408025 */ 	or	$s0,$v0,$zero
@@ -4705,7 +4705,7 @@ glabel bgLoadRoom
 .L0f15e0ec:
 /*  f15e0ec:	ae700000 */ 	sw	$s0,0x0($s3)
 /*  f15e0f0:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
-/*  f15e0f4:	0fc576ed */ 	jal	room0f15dbb4
+/*  f15e0f4:	0fc576ed */ 	jal	roomFindVerticesForGdl
 /*  f15e0f8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f15e0fc:	ae220000 */ 	sw	$v0,0x0($s1)
 /*  f15e100:	26520001 */ 	addiu	$s2,$s2,0x1
@@ -4713,7 +4713,7 @@ glabel bgLoadRoom
 /*  f15e108:	26310004 */ 	addiu	$s1,$s1,0x4
 /*  f15e10c:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
 /*  f15e110:	02002825 */ 	or	$a1,$s0,$zero
-/*  f15e114:	0fc576ad */ 	jal	room0f15dab4
+/*  f15e114:	0fc576ad */ 	jal	roomGetNextGdlInLayer
 /*  f15e118:	24060003 */ 	addiu	$a2,$zero,0x3
 /*  f15e11c:	1440fff3 */ 	bnez	$v0,.L0f15e0ec
 /*  f15e120:	00408025 */ 	or	$s0,$v0,$zero
@@ -4730,7 +4730,7 @@ glabel bgLoadRoom
 /*  f15e148:	02988021 */ 	addu	$s0,$s4,$t8
 /*  f15e14c:	00441823 */ 	subu	$v1,$v0,$a0
 /*  f15e150:	02032823 */ 	subu	$a1,$s0,$v1
-/*  f15e154:	0fc5d7bd */ 	jal	tex0f175ef4
+/*  f15e154:	0fc5d7bd */ 	jal	texCopyGdls
 /*  f15e158:	00603025 */ 	or	$a2,$v1,$zero
 /*  f15e15c:	26420001 */ 	addiu	$v0,$s2,0x1
 /*  f15e160:	1840000d */ 	blez	$v0,.L0f15e198
@@ -4765,7 +4765,7 @@ glabel bgLoadRoom
 /*  f15e1c8:	afa30038 */ 	sw	$v1,0x38($sp)
 /*  f15e1cc:	00003825 */ 	or	$a3,$zero,$zero
 /*  f15e1d0:	01ae2823 */ 	subu	$a1,$t5,$t6
-/*  f15e1d4:	0fc5d5b0 */ 	jal	tex0f1756c0
+/*  f15e1d4:	0fc5d5b0 */ 	jal	texLoadFromGdl
 /*  f15e1d8:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f15e1dc:	8fa602dc */ 	lw	$a2,0x2dc($sp)
 /*  f15e1e0:	8fa90040 */ 	lw	$t1,0x40($sp)
@@ -5248,7 +5248,7 @@ glabel bgLoadRoom
 /*  f158830:	0321001b */ 	divu	$zero,$t9,$at
 /*  f158834:	00005812 */ 	mflo	$t3
 /*  f158838:	a64b0014 */ 	sh	$t3,0x14($s2)
-/*  f15883c:	0fc56093 */ 	jal	room0f15dab4
+/*  f15883c:	0fc56093 */ 	jal	roomGetNextGdlInLayer
 /*  f158840:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
 /*  f158844:	3c0c800b */ 	lui	$t4,0x800b
 /*  f158848:	8d8c90a8 */ 	lw	$t4,-0x6f58($t4)
@@ -5262,7 +5262,7 @@ glabel bgLoadRoom
 /*  f158868:	004fc023 */ 	subu	$t8,$v0,$t7
 /*  f15886c:	0018c882 */ 	srl	$t9,$t8,0x2
 /*  f158870:	a6590016 */ 	sh	$t9,0x16($s2)
-/*  f158874:	0fc56093 */ 	jal	room0f15dab4
+/*  f158874:	0fc56093 */ 	jal	roomGetNextGdlInLayer
 /*  f158878:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
 /*  f15887c:	10400018 */ 	beqz	$v0,.NB0f1588e0
 /*  f158880:	00408025 */ 	or	$s0,$v0,$zero
@@ -5275,7 +5275,7 @@ glabel bgLoadRoom
 /*  f158898:	ae500000 */ 	sw	$s0,0x0($s2)
 /*  f15889c:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f1588a0:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
-/*  f1588a4:	0fc560d3 */ 	jal	room0f15dbb4
+/*  f1588a4:	0fc560d3 */ 	jal	roomFindVerticesForGdl
 /*  f1588a8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1588ac:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f1588b0:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -5285,7 +5285,7 @@ glabel bgLoadRoom
 /*  f1588c0:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f1588c4:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
 /*  f1588c8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1588cc:	0fc56093 */ 	jal	room0f15dab4
+/*  f1588cc:	0fc56093 */ 	jal	roomGetNextGdlInLayer
 /*  f1588d0:	24060003 */ 	addiu	$a2,$zero,0x3
 /*  f1588d4:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f1588d8:	1440ffef */ 	bnez	$v0,.NB0f158898
@@ -5303,7 +5303,7 @@ glabel bgLoadRoom
 /*  f158904:	02788021 */ 	addu	$s0,$s3,$t8
 /*  f158908:	00441823 */ 	subu	$v1,$v0,$a0
 /*  f15890c:	02032823 */ 	subu	$a1,$s0,$v1
-/*  f158910:	0fc5c2e5 */ 	jal	tex0f175ef4
+/*  f158910:	0fc5c2e5 */ 	jal	texCopyGdls
 /*  f158914:	00603025 */ 	or	$a2,$v1,$zero
 /*  f158918:	26220001 */ 	addiu	$v0,$s1,0x1
 /*  f15891c:	1840000d */ 	blez	$v0,.NB0f158954
@@ -5339,7 +5339,7 @@ glabel bgLoadRoom
 /*  f158988:	afa602dc */ 	sw	$a2,0x2dc($sp)
 /*  f15898c:	afa30034 */ 	sw	$v1,0x34($sp)
 /*  f158990:	00003825 */ 	or	$a3,$zero,$zero
-/*  f158994:	0fc5c0d8 */ 	jal	tex0f1756c0
+/*  f158994:	0fc5c0d8 */ 	jal	texLoadFromGdl
 /*  f158998:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f15899c:	8fa602dc */ 	lw	$a2,0x2dc($sp)
 /*  f1589a0:	8fa9003c */ 	lw	$t1,0x3c($sp)
@@ -5549,8 +5549,7 @@ const char var7f1b1a60nb[] = "bg.c";
 #endif
 #else
 
-// Mismatch: The below stores len * 4 into s1 which causes further codegen
-// differences.
+// Mismatch: With hacks removed, the below stores len * 4 into s1
 void bgLoadRoom(s32 roomnum)
 {
 	s32 size; // 2f4
@@ -5559,28 +5558,34 @@ void bgLoadRoom(s32 roomnum)
 	s32 readlen;
 	s32 fileoffset;
 	u8 *memaddr;
-	struct roomgfxdata18 *thing1;
-	struct roomgfxdata18 *thing2;
-	Gfx *v0;
+	u8 *a2; // 2dc
+	struct roomblock *block1;
+	struct roomblock *block2;
+	u8 *v0;
+	u8 *gfxblocks[50]; // 208
+	u8 *vtxblocks[50]; // 140
+	u8 *sp78[50];
 	s32 len;
-	Gfx *sp208[50];
-	struct gfxvtx *sp140[50];
-	Gfx *sp78[50];
-	s32 allocationend;
-	Gfx *a2;
-	s32 i; // 6c
 	u32 end1;
+	s32 i; // 6c
 	u32 end2;
 	s32 prev;
+	s32 v1;
 
 #if VERSION < VERSION_NTSC_1_0
 	bgVerifyLightSums("bg.c", 7076);
 #endif
 
-	if (roomnum == 0 || roomnum >= g_Vars.roomcount || g_Rooms[roomnum].loaded240) {
+	if (roomnum == 0 || roomnum >= g_Vars.roomcount) {
 		return;
 	}
 
+	if (g_Rooms[roomnum].loaded240) {
+		return;
+	}
+
+	// Determine how much memory to allocate.
+	// It must be big enough to fit both the inflated and compressed room data.
 	if (g_Rooms[roomnum].gfxdatalen > 0) {
 		size = g_Rooms[roomnum].gfxdatalen;
 
@@ -5591,12 +5596,17 @@ void bgLoadRoom(s32 roomnum)
 		size = memaGetLongestFree();
 	}
 
+	// Try to free enough bytes
 	bgGarbageCollectRooms(size, false);
+
+	// Make the allocation
 	allocation = memaAlloc(size);
 
 	if (allocation != NULL) {
 		dyntexSetCurrentRoom(roomnum);
 
+		// Calculate the file offset and read length
+		// of the compressed room data in the BG file
 		readlen = ((g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00) + 0xf) & ~0xf;
 		fileoffset = (g_BgPrimaryData + g_BgRooms[roomnum].unk00 - g_BgPrimaryData) + 0xf1000000;
 		fileoffset -= var8007fc54;
@@ -5606,17 +5616,22 @@ void bgLoadRoom(s32 roomnum)
 			return;
 		}
 
+		// Load the compressed data to the right side of the allocation
 		memaddr = size - readlen + allocation;
+
 		bgLoadFile(memaddr, fileoffset, readlen);
 
-		if (rzipIs1173(memaddr) && size < readlen + 0x20) {
+		if (rzipIs1173(memaddr) && readlen + 0x20 > size) {
 			dyntexSetCurrentRoom(-1);
 			return;
 		}
 
+		// Uncompress the data to the left size of the allocation
 		inflatedlen = bgInflate(memaddr, allocation, g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00);
+
 		g_Rooms[roomnum].gfxdata = (struct roomgfxdata *)allocation;
 
+		// Promote offsets to pointers in the gfxdata header
 		if (g_Rooms[roomnum].gfxdata->vertices) {
 			g_Rooms[roomnum].gfxdata->vertices = (struct gfxvtx *)((u32)g_Rooms[roomnum].gfxdata->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
 		}
@@ -5625,91 +5640,105 @@ void bgLoadRoom(s32 roomnum)
 			g_Rooms[roomnum].gfxdata->colours = (u32 *)((u32)g_Rooms[roomnum].gfxdata->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
 		}
 
-		if (g_Rooms[roomnum].gfxdata->unk08) {
-			g_Rooms[roomnum].gfxdata->unk08 = (struct roomgfxdata18 *)((u32)g_Rooms[roomnum].gfxdata->unk08 - g_BgRooms[roomnum].unk00 + (u32)allocation);
+		if (g_Rooms[roomnum].gfxdata->opablocks) {
+			g_Rooms[roomnum].gfxdata->opablocks = (struct roomblock *)((u32)g_Rooms[roomnum].gfxdata->opablocks - g_BgRooms[roomnum].unk00 + (u32)allocation);
 		}
 
-		if (g_Rooms[roomnum].gfxdata->unk0c) {
-			g_Rooms[roomnum].gfxdata->unk0c = (struct roomgfxdata18 *)((u32)g_Rooms[roomnum].gfxdata->unk0c - g_BgRooms[roomnum].unk00 + (u32)allocation);
+		if (g_Rooms[roomnum].gfxdata->xlublocks) {
+			g_Rooms[roomnum].gfxdata->xlublocks = (struct roomblock *)((u32)g_Rooms[roomnum].gfxdata->xlublocks - g_BgRooms[roomnum].unk00 + (u32)allocation);
 		}
 
-		thing1 = g_Rooms[roomnum].gfxdata->unk18;
+		// Promote offsets to pointers in each gfxdata block
+		block1 = g_Rooms[roomnum].gfxdata->blocks;
 		end1 = (u32)g_Rooms[roomnum].gfxdata->vertices;
 
-		while ((u32)(thing1 + 1) <= end1) {
-			switch (thing1->type) {
-			case 0:
-				if (thing1->next != NULL) {
-					thing1->next = (struct roomgfxdata18 *)((u32)thing1->next - g_BgRooms[roomnum].unk00 + (u32)allocation);
+		while ((s32) (block1 + 1) <= end1) {
+			switch (block1->type) {
+			case ROOMBLOCKTYPE_LEAF:
+				if (block1->next != NULL) {
+					block1->next = (struct roomblock *)((u32)block1->next - g_BgRooms[roomnum].unk00 + (u32)allocation);
 				}
-				if (thing1->gdl != 0) {
-					thing1->gdl = (Gfx *)((u32)thing1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				if (block1->gdl != 0) {
+					block1->gdl = (Gfx *)((u32)block1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
 				}
-				if (thing1->vertices != 0) {
-					thing1->vertices = (struct gfxvtx *)((u32)thing1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				if (block1->vertices != 0) {
+					block1->vertices = (struct gfxvtx *)((u32)block1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
 				}
-				if (thing1->colours != 0) {
-					thing1->colours = (u32 *)((u32)thing1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				if (block1->colours != 0) {
+					block1->colours = (u32 *)((u32)block1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
 				}
 				break;
-			case 1:
-				if (thing1->next != NULL) {
-					thing1->next = (struct roomgfxdata18 *)((u32)thing1->next - g_BgRooms[roomnum].unk00 + (u32)allocation);
+			case ROOMBLOCKTYPE_PARENT:
+				if (block1->next != NULL) {
+					block1->next = (struct roomblock *)((u32)block1->next - g_BgRooms[roomnum].unk00 + (u32)allocation);
 				}
-				if (thing1->gdl != 0) {
-					thing1->gdl = (Gfx *)((u32)thing1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				if (block1->gdl != 0) {
+					block1->gdl = (Gfx *)((u32)block1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
 				}
-				if (thing1->vertices != 0) {
-					thing1->vertices = (struct gfxvtx *)((u32)thing1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				if (block1->vertices != 0) {
+					block1->vertices = (struct gfxvtx *)((u32)block1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
 				}
-				if (thing1->colours != 0) {
-					thing1->colours = (u32 *)((u32)thing1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+				if (block1->colours != 0) {
+					block1->colours = (u32 *)((u32)block1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
 				}
-				if ((u32)thing1->vertices < end1) {
-					end1 = (u32)thing1->vertices;
+				if ((u32)block1->vertices < end1) {
+					end1 = (u32)block1->vertices;
 				}
 				break;
 			}
 
-			thing1++;
+			block1++;
 		}
 
+		// Calculate the number of vertices and colours
 		g_Rooms[roomnum].gfxdata->numvertices = ((u32)g_Rooms[roomnum].gfxdata->colours - (u32)g_Rooms[roomnum].gfxdata->vertices) / sizeof(struct gfxvtx);
-		g_Rooms[roomnum].gfxdata->numcolours = ((u32)room0f15dab4(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (u32)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
+		g_Rooms[roomnum].gfxdata->numcolours = ((u32)roomGetNextGdlInLayer(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (u32)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
 
+		// Build arrays of pointers to gfx blocks and vtx blocks
 		len = 0;
-		v0 = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
+		v0 = (u8 *) roomGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
 
 		while (v0) {
-			sp208[len] = v0;
-			sp140[len] = room0f15dbb4(roomnum, v0);
+			gfxblocks[len] = v0;
+			vtxblocks[len] = (u8 *) roomFindVerticesForGdl(roomnum, (void *) v0);
 			len++;
 
-			v0 = room0f15dab4(roomnum, v0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
+			v0 = (u8 *) roomGetNextGdlInLayer(roomnum, (void *) v0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
 		}
 
-		sp208[len] = (Gfx *) ((s32)allocation + inflatedlen);
-		allocationend = (s32)allocation + size;
+		gfxblocks[len] = allocation + inflatedlen;
 
-		tex0f175ef4(sp208[0], (Gfx *) (allocationend - ((s32)sp208[len] - (s32)sp208[0])), (s32)sp208[len] - (s32)sp208[0]);
+		// Copy gdls to the end of the allocation
+		// and build a pointer array to them
+		v1 = (gfxblocks[len] - gfxblocks[0]); \
+		texCopyGdls((void *) gfxblocks[0], (void *) (allocation + size - v1), v1);
+
+		if (allocation + size - v1);
 
 		for (i = 0; i < len + 1; i++) {
-			sp78[i] = (Gfx *) ((s32)sp208[i] + (allocationend - (s32)sp208[len]));
+			sp78[i] = gfxblocks[i] + (allocation + size - gfxblocks[len]);
 		}
 
-		a2 = sp208[0];
+		// Load textures by scanning the gdls.
+		// texLoadFromGdl is reading from sp78 and writing new GBI commands
+		// to a2, overwriting the GBI commands that were loaded from the
+		// BG file. As these are being processed the sp78 pointers are
+		// changed to point to the written GBI, because they need to be kept
+		// track of temporarily so the room blocks can be pointed to them.
+		a2 = gfxblocks[0];
 
 		for (i = 0; i < len; i++) {
-			v0 = (Gfx *) tex0f1756c0(sp78[i], (s32)sp208[i + 1] - (s32)sp208[i], a2, 0, (u8 *) sp140[i]);
+			s32 byteswritten = texLoadFromGdl((void *) sp78[i], gfxblocks[i + 1] - gfxblocks[i], (void *) a2, NULL, vtxblocks[i]);
 			sp78[i] = a2;
-			a2 = (Gfx *) ((s32) a2 + (s32) v0);
-			a2 = (Gfx *) ALIGN8((s32)a2);
+			a2 += byteswritten;
+			a2 = (u8 *) ALIGN8((s32) a2);
 		}
 
 		sp78[len] = a2;
 
+		// Free the right side of the allocation
 		prev = g_Rooms[roomnum].gfxdatalen;
-		g_Rooms[roomnum].gfxdatalen = ALIGN16((s32)a2 - (s32)allocation + 0x20);
+		g_Rooms[roomnum].gfxdatalen = ALIGN16(a2 - allocation + 0x20);
 
 		if (g_Rooms[roomnum].gfxdatalen > prev) {
 #if VERSION < VERSION_NTSC_1_0
@@ -5721,46 +5750,53 @@ void bgLoadRoom(s32 roomnum)
 		g_Rooms[roomnum].loaded240 = 1;
 
 		if (g_Rooms[roomnum].gfxdatalen != size) {
-			bool result = memaRealloc((s32)allocation, size, g_Rooms[roomnum].gfxdatalen);
+			memaRealloc((s32) allocation, size, g_Rooms[roomnum].gfxdatalen);
 		}
 
-		thing2 = g_Rooms[roomnum].gfxdata->unk18;
-		end2 = (u32)g_Rooms[roomnum].gfxdata->vertices;
+		// Update gdl pointers in the gfxdata so they point to the ones
+		// that have been processed by the texture decompressor.
+		block2 = g_Rooms[roomnum].gfxdata->blocks; // a1 =
+		end2 = (u32) g_Rooms[roomnum].gfxdata->vertices; // a3 =
 
-		while ((u32)(thing2 + 1) <= end2) {
-			switch (thing2->type) {
-			case 0:
-				if (thing2->gdl) {
+		while ((s32) (block2 + 1) <= end2) {
+			switch (block2->type) {
+			case ROOMBLOCKTYPE_LEAF:
+				if (block2->gdl) {
 					for (i = 0; i < len; i++) {
-						if (thing2->gdl == (Gfx *)sp208[i]) {
-							thing2->gdl = (Gfx *)sp78[i];
+						Gfx *tmp = block2->gdl;
+
+						if (tmp == (Gfx *) gfxblocks[i]) {
+							block2->gdl = (Gfx *) sp78[i];
 							break;
 						}
 					}
 				}
 				break;
-			case 1:
-				if ((u32)thing2->vertices < end2) {
-					end2 = (u32)thing2->vertices;
+			case ROOMBLOCKTYPE_PARENT:
+				if ((u32) block2->unk0c < end2) {
+					end2 = (u32) block2->unk0c;
 				}
 				break;
 			}
 
-			thing2++;
+			block2++;
 		}
 
+		// Do some find/replaces in the gdls based on some configuration
 		if (g_FogEnabled) {
-			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk08, 1);
-			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 5);
+			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->opablocks, 1);
+			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->xlublocks, 5);
 		} else if (var800a65e4 == 0) {
-			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk08, 6);
-			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 7);
+			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->opablocks, 6);
+			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->xlublocks, 7);
 		}
 
+		// Create vertex batches - these are used for hit detection
 		bgFindRoomVtxBatches(roomnum);
 
 		g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 		g_Rooms[roomnum].flags |= ROOMFLAG_0200;
+
 		g_Rooms[roomnum].colours = NULL;
 
 		dyntexSetCurrentRoom(-1);
@@ -5924,21 +5960,21 @@ void bgTickRooms(void)
 	}
 }
 
-Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3)
+Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 {
 	u32 v0;
 
-	if (arg2 == NULL) {
+	if (block == NULL) {
 		return gdl;
 	}
 
-	switch (arg2->type) {
-	case 0:
+	switch (block->type) {
+	case ROOMBLOCKTYPE_LEAF:
 		if (g_Rooms[roomnum].flags & ROOMFLAG_HASDYNTEX) {
-			dyntexTickRoom(roomnum, arg2->vertices);
+			dyntexTickRoom(roomnum, block->vertices);
 		}
 
-		gSPSegment(gdl++, SPSEGMENT_BG_VTX, OS_PHYSICAL_TO_K0(arg2->vertices));
+		gSPSegment(gdl++, SPSEGMENT_BG_VTX, OS_PHYSICAL_TO_K0(block->vertices));
 
 		roomHighlight(roomnum);
 
@@ -5946,32 +5982,32 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool ar
 
 		if (v0 != NULL) {
 			s32 addr = ALIGN8((u32)&g_Rooms[roomnum].gfxdata->vertices[g_Rooms[roomnum].gfxdata->numvertices]);
-			v0 += (((s32)arg2->colours - addr) >> 2) * 4;
+			v0 += (((s32)block->colours - addr) >> 2) * 4;
 		} else {
-			v0 = (u32)arg2->colours;
+			v0 = (u32)block->colours;
 		}
 
 		gSPSegment(gdl++, SPSEGMENT_BG_COL, OS_PHYSICAL_TO_K0(v0));
 
-		gSPDisplayList(gdl++, OS_PHYSICAL_TO_K0(arg2->gdl));
+		gSPDisplayList(gdl++, OS_PHYSICAL_TO_K0(block->gdl));
 
 		if (arg3) {
-			gdl = bgRenderRoomPass(gdl, roomnum, arg2->next, true);
+			gdl = bgRenderRoomPass(gdl, roomnum, block->next, true);
 		}
 		break;
-	case 1:
-		if (arg2->child != NULL) {
-			struct roomgfxdata18 *sp58;
-			struct roomgfxdata18 *sp54;
+	case ROOMBLOCKTYPE_PARENT:
+		if (block->child != NULL) {
+			struct roomblock *sp58;
+			struct roomblock *sp54;
 			struct coord *coord;
 			f32 sum;
 			f32 sp40[3];
 			f32 sp34[3];
 			u32 stack;
 
-			sp58 = arg2->child;
+			sp58 = block->child;
 			sp54 = sp58->next;
-			coord = arg2->unk0c;
+			coord = block->unk0c;
 
 			sp40[0] = coord[1].f[0];
 			sp40[1] = coord[1].f[1];
@@ -5991,7 +6027,7 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool ar
 			}
 
 			if (arg3) {
-				gdl = bgRenderRoomPass(gdl, roomnum, arg2->next, true);
+				gdl = bgRenderRoomPass(gdl, roomnum, block->next, true);
 			}
 		}
 		break;
@@ -6012,7 +6048,7 @@ Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
 	gdl = roomPushMtx(gdl, roomnum);
 
 	gdl = lightsSetForRoom(gdl, roomnum);
-	gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk08, true);
+	gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true);
 	gdl = lightsSetDefault(gdl);
 
 	g_Rooms[roomnum].loaded240 = 1;
@@ -6032,7 +6068,7 @@ Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 	}
 
 	if (g_Rooms[roomnum].loaded240) {
-		if (!g_Rooms[roomnum].gfxdata->unk0c) {
+		if (g_Rooms[roomnum].gfxdata->xlublocks == NULL) {
 			return gdl;
 		}
 
@@ -6042,7 +6078,7 @@ Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 		if (g_Rooms[roomnum].gfxdata);
 
 		gdl = roomPushMtx(gdl, roomnum);
-		gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, true);
+		gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true);
 
 		g_Rooms[roomnum].loaded240 = 1;
 	} else {
@@ -6139,7 +6175,7 @@ void bgFindRoomVtxBatches(s32 roomnum)
 	struct vtxbatch *batches;
 
 	if (g_Rooms[roomnum].vtxbatches == NULL) {
-		gdl = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_OPA);
+		gdl = roomGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_OPA);
 
 		if (gdl != NULL) {
 			while (gdl) {
@@ -6150,12 +6186,12 @@ void bgFindRoomVtxBatches(s32 roomnum)
 					}
 				}
 
-				gdl = room0f15dab4(roomnum, gdl, VTXBATCHTYPE_OPA);
+				gdl = roomGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_OPA);
 			}
 
 			xlucount = 0;
 
-			gdl = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_XLU);
+			gdl = roomGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_XLU);
 
 			while (gdl) {
 				for (i = 0; gdl[i].dma.cmd != G_ENDDL; i++) {
@@ -6165,7 +6201,7 @@ void bgFindRoomVtxBatches(s32 roomnum)
 					}
 				}
 
-				gdl = room0f15dab4(roomnum, gdl, VTXBATCHTYPE_XLU);
+				gdl = roomGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_XLU);
 			}
 
 			batchindex += xlucount;
@@ -6173,24 +6209,24 @@ void bgFindRoomVtxBatches(s32 roomnum)
 			batches = memaAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf);
 
 			if (batches != NULL) {
-				gdl = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_OPA);
+				gdl = roomGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_OPA);
 				batchindex = 0;
 
 				g_Rooms[roomnum].vtxbatches = batches;
 
 				while (gdl) {
-					struct gfxvtx *vertices = room0f15dbb4(roomnum, gdl);
+					struct gfxvtx *vertices = roomFindVerticesForGdl(roomnum, gdl);
 					batchindex = bgPopulateVtxBatchType(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_OPA);
-					gdl = room0f15dab4(roomnum, gdl, VTXBATCHTYPE_OPA);
+					gdl = roomGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_OPA);
 				}
 
 				if (xlucount) {
-					gdl = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_XLU);
+					gdl = roomGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_XLU);
 
 					while (gdl) {
-						struct gfxvtx *vertices = room0f15dbb4(roomnum, gdl);
+						struct gfxvtx *vertices = roomFindVerticesForGdl(roomnum, gdl);
 						batchindex = bgPopulateVtxBatchType(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_XLU);
-						gdl = room0f15dab4(roomnum, gdl, VTXBATCHTYPE_XLU);
+						gdl = roomGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_XLU);
 					}
 				}
 
@@ -7679,7 +7715,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 	Gfx *tmpgdl;
 	Gfx *tri4gdl;
 
-	vtx = room0f15dbb4(roomnum, gdl);
+	vtx = roomFindVerticesForGdl(roomnum, gdl);
 	iter = &gdl[batch->gbicmdindex];
 	vtx = (struct gfxvtx *)((iter->words.w1 & 0xffffff) + (s32)vtx);
 	numvertices = (((u32)iter->bytes[1] >> 4) & 0xf) + 1;

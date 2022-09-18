@@ -777,7 +777,7 @@ Gfx *tex0f17563c(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4)
 	return gdl;
 }
 
-s32 tex0f1756c0(Gfx *arg0, s32 arg1, Gfx *arg2, struct texpool *pool, u8 *arg4)
+s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *pool, u8 *arg4)
 {
 	struct tex *tex1;
 	struct tex *tex2;
@@ -816,7 +816,7 @@ s32 tex0f1756c0(Gfx *arg0, s32 arg1, Gfx *arg2, struct texpool *pool, u8 *arg4)
 	s5 = arg0;
 	s6 = arg2;
 
-	sp128 = arg1 >> 3;
+	sp128 = gdlsizeinbytes >> 3;
 
 	tex0f173a08();
 
@@ -1110,15 +1110,15 @@ s32 tex0f1756c0(Gfx *arg0, s32 arg1, Gfx *arg2, struct texpool *pool, u8 *arg4)
 	return (u32) s6 - (u32) arg2;
 }
 
-void tex0f175ef4(Gfx *arg0, Gfx *arg1, s32 arg2)
+void texCopyGdls(Gfx *src, Gfx *dst, s32 arg2)
 {
 	arg2 = (arg2 >> 3);
-	arg0 = arg0 + (arg2 - 1);
-	arg1 = arg1 + (arg2 - 1);
+	src = src + (arg2 - 1);
+	dst = dst + (arg2 - 1);
 
 	while (arg2--) {
-		arg1->force_structure_alignment = arg0->force_structure_alignment;
-		arg1--;
-		arg0--;
+		dst->force_structure_alignment = src->force_structure_alignment;
+		dst--;
+		src--;
 	}
 }

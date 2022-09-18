@@ -130,7 +130,7 @@ void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32
 		s32 v1 = allocsize - (loadedsize - (s32)(((u32)modeldef + (gdl & 0xffffff)) - (u32)modeldef));
 		sp84 = (s32)v1 + (s32)((s32)modeldef - ((u32)modeldef + (gdl & 0xffffff)));
 
-		tex0f175ef4((Gfx *)((u32)modeldef + (gdl & 0xffffff)), (Gfx *)(v1 + (u32)modeldef), loadedsize - (s32)(((u32)modeldef + (gdl & 0xffffff)) - (u32)modeldef));
+		texCopyGdls((Gfx *)((u32)modeldef + (gdl & 0xffffff)), (Gfx *)(v1 + (u32)modeldef), loadedsize - (s32)(((u32)modeldef + (gdl & 0xffffff)) - (u32)modeldef));
 		texLoadFromConfigs(modeldef->texconfigs, modeldef->numtexconfigs, arg4, arg3 - arg2);
 
 		while (node) {
@@ -154,7 +154,7 @@ void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32
 				vertices = NULL;
 			}
 
-			s5 += tex0f1756c0((Gfx *)((u32)modeldef + (s0 & 0xffffff) + sp84), s4, (Gfx *)((u32)modeldef + (s5 & 0xffffff)), arg4, (u8 *) vertices);
+			s5 += texLoadFromGdl((Gfx *)((u32)modeldef + (s0 & 0xffffff) + sp84), s4, (Gfx *)((u32)modeldef + (s5 & 0xffffff)), arg4, (u8 *) vertices);
 		}
 
 		fileSetSize(filenum, modeldef, (((u32)modeldef + (s5 & 0xffffff)) - (u32)modeldef + 0xf) & ~0xf, arg5);

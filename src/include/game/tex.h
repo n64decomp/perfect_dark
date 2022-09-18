@@ -43,7 +43,7 @@ Gfx *tex0f175308(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, struct
 Gfx *tex0f175490(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, bool arg8);
 Gfx *tex0f1755dc(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4);
 Gfx *tex0f17563c(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4);
-s32 tex0f1756c0(Gfx *arg0, s32 arg1, Gfx *arg2, struct texpool *pool, u8 *arg4);
-void tex0f175ef4(Gfx *arg0, Gfx *arg1, s32 arg2);
+s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *pool, u8 *arg4);
+void texCopyGdls(Gfx *src, Gfx *dst, s32 numbytes);
 
 #endif
