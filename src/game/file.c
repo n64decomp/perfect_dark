@@ -4168,11 +4168,6 @@ void fileLoad(u8 *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info
 	}
 }
 
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1b1d80nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
-const char var7f1b1dd8nb[] = "ob.c";
-#endif
-
 void filesInit(void)
 {
 	s32 i;
@@ -4203,180 +4198,46 @@ void fileLoadPartToAddr(u16 filenum, void *memaddr, s32 offset, u32 len)
 	}
 }
 
-#if MATCHING
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel fileGetInflatedSize
-/*  f167054:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f167058:	3c0f8008 */ 	lui	$t7,%hi(g_FileTable)
-/*  f16705c:	25ef2060 */ 	addiu	$t7,$t7,%lo(g_FileTable)
-/*  f167060:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f167064:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f167068:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f16706c:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*  f167070:	8c850000 */ 	lw	$a1,0x0($a0)
-/*  f167074:	27b00044 */ 	addiu	$s0,$sp,0x44
-/*  f167078:	2401fff0 */ 	addiu	$at,$zero,-16
-/*  f16707c:	14a0000c */ 	bnez	$a1,.L0f1670b0
-/*  f167080:	24060040 */ 	addiu	$a2,$zero,0x40
-/*  f167084:	0fc59baa */ 	jal	file0f166ea8
-/*  f167088:	00000000 */ 	nop
-/*  f16708c:	27b00044 */ 	addiu	$s0,$sp,0x44
-/*  f167090:	2401fff0 */ 	addiu	$at,$zero,-16
-/*  f167094:	02012824 */ 	and	$a1,$s0,$at
-/*  f167098:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f16709c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1670a0:	0fc5d7d6 */ 	jal	stub0f175f58
-/*  f1670a4:	24060010 */ 	addiu	$a2,$zero,0x10
-/*  f1670a8:	10000004 */ 	b	.L0f1670bc
-/*  f1670ac:	00000000 */ 	nop
-.L0f1670b0:
-/*  f1670b0:	02012024 */ 	and	$a0,$s0,$at
-/*  f1670b4:	0c003504 */ 	jal	dmaExec
-/*  f1670b8:	00808025 */ 	or	$s0,$a0,$zero
-.L0f1670bc:
-/*  f1670bc:	0c002277 */ 	jal	rzipIs1173
-/*  f1670c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1670c4:	10400009 */ 	beqz	$v0,.L0f1670ec
-/*  f1670c8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1670cc:	92090002 */ 	lbu	$t1,0x2($s0)
-/*  f1670d0:	92080004 */ 	lbu	$t0,0x4($s0)
-/*  f1670d4:	920c0003 */ 	lbu	$t4,0x3($s0)
-/*  f1670d8:	00095400 */ 	sll	$t2,$t1,0x10
-/*  f1670dc:	010a5825 */ 	or	$t3,$t0,$t2
-/*  f1670e0:	000c6a00 */ 	sll	$t5,$t4,0x8
-/*  f1670e4:	10000002 */ 	b	.L0f1670f0
-/*  f1670e8:	016d1025 */ 	or	$v0,$t3,$t5
-.L0f1670ec:
-/*  f1670ec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1670f0:
-/*  f1670f0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1670f4:	03e00008 */ 	jr	$ra
-/*  f1670f8:	27bd0088 */ 	addiu	$sp,$sp,0x88
-);
-#else
-GLOBAL_ASM(
-glabel fileGetInflatedSize
-/*  f1618d4:	27bdfeb8 */ 	addiu	$sp,$sp,-328
-/*  f1618d8:	3c0f8008 */ 	lui	$t7,0x8008
-/*  f1618dc:	25ef48c0 */ 	addiu	$t7,$t7,0x48c0
-/*  f1618e0:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1618e4:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f1618e8:	afb00058 */ 	sw	$s0,0x58($sp)
-/*  f1618ec:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*  f1618f0:	8c850000 */ 	lw	$a1,0x0($a0)
-/*  f1618f4:	27b00104 */ 	addiu	$s0,$sp,0x104
-/*  f1618f8:	2401fff0 */ 	addiu	$at,$zero,-16
-/*  f1618fc:	14a0000c */ 	bnez	$a1,.NB0f161930
-/*  f161900:	24060040 */ 	addiu	$a2,$zero,0x40
-/*  f161904:	0fc585aa */ 	jal	file0f166ea8
-/*  f161908:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16190c:	27b00104 */ 	addiu	$s0,$sp,0x104
-/*  f161910:	2401fff0 */ 	addiu	$at,$zero,-16
-/*  f161914:	02012824 */ 	and	$a1,$s0,$at
-/*  f161918:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f16191c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f161920:	0fc5c2fe */ 	jal	stub0f175f58
-/*  f161924:	24060010 */ 	addiu	$a2,$zero,0x10
-/*  f161928:	10000004 */ 	beqz	$zero,.NB0f16193c
-/*  f16192c:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f161930:
-/*  f161930:	02012024 */ 	and	$a0,$s0,$at
-/*  f161934:	0c003664 */ 	jal	dmaExec
-/*  f161938:	00808025 */ 	or	$s0,$a0,$zero
-.NB0f16193c:
-/*  f16193c:	0c0022df */ 	jal	rzipIs1173
-/*  f161940:	02002025 */ 	or	$a0,$s0,$zero
-/*  f161944:	5040000a */ 	beqzl	$v0,.NB0f161970
-/*  f161948:	920e0000 */ 	lbu	$t6,0x0($s0)
-/*  f16194c:	92090002 */ 	lbu	$t1,0x2($s0)
-/*  f161950:	92080004 */ 	lbu	$t0,0x4($s0)
-/*  f161954:	920c0003 */ 	lbu	$t4,0x3($s0)
-/*  f161958:	00095400 */ 	sll	$t2,$t1,0x10
-/*  f16195c:	010a5825 */ 	or	$t3,$t0,$t2
-/*  f161960:	000c6a00 */ 	sll	$t5,$t4,0x8
-/*  f161964:	1000002d */ 	beqz	$zero,.NB0f161a1c
-/*  f161968:	016d1025 */ 	or	$v0,$t3,$t5
-/*  f16196c:	920e0000 */ 	lbu	$t6,0x0($s0)
-.NB0f161970:
-/*  f161970:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f161974:	3c067f1b */ 	lui	$a2,0x7f1b
-/*  f161978:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f16197c:	920f0001 */ 	lbu	$t7,0x1($s0)
-/*  f161980:	24c61dd8 */ 	addiu	$a2,$a2,0x1dd8
-/*  f161984:	24a51d80 */ 	addiu	$a1,$a1,0x1d80
-/*  f161988:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f16198c:	92180002 */ 	lbu	$t8,0x2($s0)
-/*  f161990:	27a40070 */ 	addiu	$a0,$sp,0x70
-/*  f161994:	240701be */ 	addiu	$a3,$zero,0x1be
-/*  f161998:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f16199c:	92190003 */ 	lbu	$t9,0x3($s0)
-/*  f1619a0:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f1619a4:	92090004 */ 	lbu	$t1,0x4($s0)
-/*  f1619a8:	afa90020 */ 	sw	$t1,0x20($sp)
-/*  f1619ac:	92080005 */ 	lbu	$t0,0x5($s0)
-/*  f1619b0:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f1619b4:	920a0006 */ 	lbu	$t2,0x6($s0)
-/*  f1619b8:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f1619bc:	920c0007 */ 	lbu	$t4,0x7($s0)
-/*  f1619c0:	afac002c */ 	sw	$t4,0x2c($sp)
-/*  f1619c4:	920b0008 */ 	lbu	$t3,0x8($s0)
-/*  f1619c8:	afab0030 */ 	sw	$t3,0x30($sp)
-/*  f1619cc:	920d0009 */ 	lbu	$t5,0x9($s0)
-/*  f1619d0:	afad0034 */ 	sw	$t5,0x34($sp)
-/*  f1619d4:	920e000a */ 	lbu	$t6,0xa($s0)
-/*  f1619d8:	afae0038 */ 	sw	$t6,0x38($sp)
-/*  f1619dc:	920f000b */ 	lbu	$t7,0xb($s0)
-/*  f1619e0:	afaf003c */ 	sw	$t7,0x3c($sp)
-/*  f1619e4:	9218000c */ 	lbu	$t8,0xc($s0)
-/*  f1619e8:	afb80040 */ 	sw	$t8,0x40($sp)
-/*  f1619ec:	9219000d */ 	lbu	$t9,0xd($s0)
-/*  f1619f0:	afb90044 */ 	sw	$t9,0x44($sp)
-/*  f1619f4:	9209000e */ 	lbu	$t1,0xe($s0)
-/*  f1619f8:	afa90048 */ 	sw	$t1,0x48($sp)
-/*  f1619fc:	9208000f */ 	lbu	$t0,0xf($s0)
-/*  f161a00:	0c004fc1 */ 	jal	sprintf
-/*  f161a04:	afa8004c */ 	sw	$t0,0x4c($sp)
-/*  f161a08:	0c003074 */ 	jal	crashSetMessage
-/*  f161a0c:	27a40070 */ 	addiu	$a0,$sp,0x70
-/*  f161a10:	240a0045 */ 	addiu	$t2,$zero,0x45
-/*  f161a14:	a00a0000 */ 	sb	$t2,0x0($zero)
-/*  f161a18:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f161a1c:
-/*  f161a1c:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f161a20:	8fb00058 */ 	lw	$s0,0x58($sp)
-/*  f161a24:	27bd0148 */ 	addiu	$sp,$sp,0x148
-/*  f161a28:	03e00008 */ 	jr	$ra
-/*  f161a2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
-#else
 u32 fileGetInflatedSize(s32 filenum)
 {
+	u8 *ptr;
 	u8 buffer[0x50];
-	u8 *alignedbuffer;
+	u32 *romaddrptr;
+#if VERSION < VERSION_NTSC_1_0
+	char message[128];
+#endif
 	u32 romaddr;
-	u32 tmp;
 
-	romaddr = g_FileTable[filenum];
-	alignedbuffer = buffer;
+	romaddrptr = &g_FileTable[filenum];
+
+	if (1);
+
+	romaddr = *romaddrptr;
+	ptr = (u8 *) ((u32) &buffer[0x10] & ~0xf);
 
 	if (romaddr == 0) {
-		alignedbuffer = (u8 *)(((u32)alignedbuffer) & ~0xf);
-
-		stub0f175f58(file0f166ea8((u32 *) &g_FileTable[filenum]), (u32)alignedbuffer, 16);
+		stub0f175f58(file0f166ea8(&g_FileTable[filenum]), ptr, 16);
 	} else {
-		alignedbuffer = (u8 *)(((u32)alignedbuffer) & ~0xf);
-		dmaExec((void *)alignedbuffer, romaddr, 0x40);
+		dmaExec(ptr, romaddr, 0x40);
 	}
 
-	if (rzipIs1173((void *)alignedbuffer)) {
-		return (alignedbuffer[2] << 16) | (alignedbuffer[3] << 8) | alignedbuffer[4];
+	if (rzipIs1173(ptr)) {
+		return (ptr[2] << 16) | (ptr[3] << 8) | ptr[4];
 	}
+
+#if VERSION < VERSION_NTSC_1_0
+	sprintf(message, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+			"ob.c", 446,
+			ptr[0x00], ptr[0x01], ptr[0x02], ptr[0x03],
+			ptr[0x04], ptr[0x05], ptr[0x06], ptr[0x07],
+			ptr[0x08], ptr[0x09], ptr[0x0a], ptr[0x0b],
+			ptr[0x0c], ptr[0x0d], ptr[0x0e], ptr[0x0f]);
+	crashSetMessage(message);
+	CRASH();
+#endif
 
 	return 0;
 }
-#endif
 
 void *fileLoadToNew(s32 filenum, u32 method)
 {
