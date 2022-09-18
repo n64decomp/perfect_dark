@@ -586,136 +586,49 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 	return true;
 }
 
-#if MATCHING
-GLOBAL_ASM(
-glabel camIsPosInFovAndVisibleRoom
-/*  f0b6260:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0b6264:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0b6268:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0b626c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0b6270:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0b6274:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0b6278:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0b627c:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f0b6280:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f0b6284:	84860000 */ 	lh	$a2,0x0($a0)
-/*  f0b6288:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f0b628c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0b6290:	10d20036 */ 	beq	$a2,$s2,.L0f0b636c
-/*  f0b6294:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0b6298:	3c13800a */ 	lui	$s3,%hi(g_Rooms)
-/*  f0b629c:	26734928 */ 	addiu	$s3,$s3,%lo(g_Rooms)
-/*  f0b62a0:	2414008c */ 	addiu	$s4,$zero,0x8c
-.L0f0b62a4:
-/*  f0b62a4:	00d40019 */ 	multu	$a2,$s4
-/*  f0b62a8:	8e6e0000 */ 	lw	$t6,0x0($s3)
-/*  f0b62ac:	00007812 */ 	mflo	$t7
-/*  f0b62b0:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0b62b4:	97190000 */ 	lhu	$t9,0x0($t8)
-/*  f0b62b8:	33280004 */ 	andi	$t0,$t9,0x4
-/*  f0b62bc:	51000028 */ 	beqzl	$t0,.L0f0b6360
-/*  f0b62c0:	86060002 */ 	lh	$a2,0x2($s0)
-/*  f0b62c4:	0fc56050 */ 	jal	func0f158140
-/*  f0b62c8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0b62cc:	2e230001 */ 	sltiu	$v1,$s1,0x1
-/*  f0b62d0:	1060000a */ 	beqz	$v1,.L0f0b62fc
-/*  f0b62d4:	24110001 */ 	addiu	$s1,$zero,0x1
-/*  f0b62d8:	84490004 */ 	lh	$t1,0x4($v0)
-/*  f0b62dc:	a7a90038 */ 	sh	$t1,0x38($sp)
-/*  f0b62e0:	844a0006 */ 	lh	$t2,0x6($v0)
-/*  f0b62e4:	a7aa003a */ 	sh	$t2,0x3a($sp)
-/*  f0b62e8:	844b0008 */ 	lh	$t3,0x8($v0)
-/*  f0b62ec:	a7ab003c */ 	sh	$t3,0x3c($sp)
-/*  f0b62f0:	844c000a */ 	lh	$t4,0xa($v0)
-/*  f0b62f4:	10000019 */ 	b	.L0f0b635c
-/*  f0b62f8:	a7ac003e */ 	sh	$t4,0x3e($sp)
-.L0f0b62fc:
-/*  f0b62fc:	84430004 */ 	lh	$v1,0x4($v0)
-/*  f0b6300:	87ad0038 */ 	lh	$t5,0x38($sp)
-/*  f0b6304:	006d082a */ 	slt	$at,$v1,$t5
-/*  f0b6308:	50200003 */ 	beqzl	$at,.L0f0b6318
-/*  f0b630c:	84430006 */ 	lh	$v1,0x6($v0)
-/*  f0b6310:	a7a30038 */ 	sh	$v1,0x38($sp)
-/*  f0b6314:	84430006 */ 	lh	$v1,0x6($v0)
-.L0f0b6318:
-/*  f0b6318:	87ae003a */ 	lh	$t6,0x3a($sp)
-/*  f0b631c:	006e082a */ 	slt	$at,$v1,$t6
-/*  f0b6320:	50200003 */ 	beqzl	$at,.L0f0b6330
-/*  f0b6324:	84430008 */ 	lh	$v1,0x8($v0)
-/*  f0b6328:	a7a3003a */ 	sh	$v1,0x3a($sp)
-/*  f0b632c:	84430008 */ 	lh	$v1,0x8($v0)
-.L0f0b6330:
-/*  f0b6330:	87af003c */ 	lh	$t7,0x3c($sp)
-/*  f0b6334:	01e3082a */ 	slt	$at,$t7,$v1
-/*  f0b6338:	50200003 */ 	beqzl	$at,.L0f0b6348
-/*  f0b633c:	8443000a */ 	lh	$v1,0xa($v0)
-/*  f0b6340:	a7a3003c */ 	sh	$v1,0x3c($sp)
-/*  f0b6344:	8443000a */ 	lh	$v1,0xa($v0)
-.L0f0b6348:
-/*  f0b6348:	87b8003e */ 	lh	$t8,0x3e($sp)
-/*  f0b634c:	0303082a */ 	slt	$at,$t8,$v1
-/*  f0b6350:	50200003 */ 	beqzl	$at,.L0f0b6360
-/*  f0b6354:	86060002 */ 	lh	$a2,0x2($s0)
-/*  f0b6358:	a7a3003e */ 	sh	$v1,0x3e($sp)
-.L0f0b635c:
-/*  f0b635c:	86060002 */ 	lh	$a2,0x2($s0)
-.L0f0b6360:
-/*  f0b6360:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f0b6364:	14d2ffcf */ 	bne	$a2,$s2,.L0f0b62a4
-/*  f0b6368:	00000000 */ 	nop
-.L0f0b636c:
-/*  f0b636c:	16200003 */ 	bnez	$s1,.L0f0b637c
-/*  f0b6370:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f0b6374:	10000004 */ 	b	.L0f0b6388
-/*  f0b6378:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b637c:
-/*  f0b637c:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*  f0b6380:	0fc2d74e */ 	jal	camIsPosInScreenBox
-/*  f0b6384:	27a60034 */ 	addiu	$a2,$sp,0x34
-.L0f0b6388:
-/*  f0b6388:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0b638c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0b6390:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0b6394:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0b6398:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0b639c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0b63a0:	03e00008 */ 	jr	$ra
-/*  f0b63a4:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
-#else
-// Mismatch: Too much compiler-managed stack
+/**
+ * This function is building a struct var800a4640_00 on the stack so it can
+ * pass it to camIsPosInScreenBox, however if we allocate this struct then it
+ * uses too much stack and creates a mismatch.
+ *
+ * We resolve this by allocating a screenbox instead, which is a substruct of
+ * var800a4640_00 and is all we need in this function. screenbox isn't at the
+ * start of var800a4640_00 though, so we use a negative array index to pass the
+ * correct address to camIsPosInScreenBox so it can interpret the pointer as a
+ * struct var800a4640_00.
+ */
 bool camIsPosInFovAndVisibleRoom(s16 *rooms, struct coord *pos, f32 arg2)
 {
-	s8 hasdata = false;
-	s16 room;
 	s32 i;
+	s16 room;
+	bool hasdata = false;
 	struct var800a4640_00 *thisthing;
-	struct var800a4640_00 thing; // 34
+	struct screenbox box;
 
-	for (i = 0, room = rooms[0]; room != -1; i++, room = rooms[i]) {
+	for (i = 0, room = rooms[i]; room != -1; i++, room = rooms[i]) {
 		if (g_Rooms[room].flags & ROOMFLAG_ONSCREEN) {
 			thisthing = func0f158140(room);
 
 			if (hasdata == false) {
-				thing.box.xmin = thisthing->box.xmin;
-				thing.box.ymin = thisthing->box.ymin;
-				thing.box.xmax = thisthing->box.xmax;
-				thing.box.ymax = thisthing->box.ymax;
+				box.xmin = thisthing->box.xmin;
+				box.ymin = thisthing->box.ymin;
+				box.xmax = thisthing->box.xmax;
+				box.ymax = thisthing->box.ymax;
 			} else {
-				if (thisthing->box.xmin < thing.box.xmin) {
-					thing.box.xmin = thisthing->box.xmin;
+				if (thisthing->box.xmin < box.xmin) {
+					box.xmin = thisthing->box.xmin;
 				}
 
-				if (thisthing->box.ymin < thing.box.ymin) {
-					thing.box.ymin = thisthing->box.ymin;
+				if (thisthing->box.ymin < box.ymin) {
+					box.ymin = thisthing->box.ymin;
 				}
 
-				if (thisthing->box.xmax > thing.box.xmax) {
-					thing.box.xmax = thisthing->box.xmax;
+				if (thisthing->box.xmax > box.xmax) {
+					box.xmax = thisthing->box.xmax;
 				}
 
-				if (thisthing->box.ymax > thing.box.ymax) {
-					thing.box.ymax = thisthing->box.ymax;
+				if (thisthing->box.ymax > box.ymax) {
+					box.ymax = thisthing->box.ymax;
 				}
 			}
 
@@ -727,6 +640,5 @@ bool camIsPosInFovAndVisibleRoom(s16 *rooms, struct coord *pos, f32 arg2)
 		return false;
 	}
 
-	return camIsPosInScreenBox(pos, arg2, &thing);
+	return camIsPosInScreenBox(pos, arg2, (struct var800a4640_00 *) (&box.array[-1][0]));
 }
-#endif
