@@ -993,7 +993,7 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 	shotCalculateHits(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
 }
 
-void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4)
+void shotCreate(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4)
 {
 	struct coord shootdir;
 	struct coord shootpos;
@@ -1294,14 +1294,14 @@ void handTickAttack(s32 handnum)
 				mpstatsIncrementPlayerShotCount2(&gset, 0);
 
 				if (weaponnum == WEAPON_SHOTGUN) {
-					handCreateBulletRaycast(handnum, true, true, 1, true);
-					handCreateBulletRaycast(handnum, true, true, 1, true);
-					handCreateBulletRaycast(handnum, true, true, 1, true);
-					handCreateBulletRaycast(handnum, true, true, 1, true);
-					handCreateBulletRaycast(handnum, true, true, 1, true);
-					handCreateBulletRaycast(handnum, true, true, 1, true);
+					shotCreate(handnum, true, true, 1, true);
+					shotCreate(handnum, true, true, 1, true);
+					shotCreate(handnum, true, true, 1, true);
+					shotCreate(handnum, true, true, 1, true);
+					shotCreate(handnum, true, true, 1, true);
+					shotCreate(handnum, true, true, 1, true);
 				} else {
-					handCreateBulletRaycast(handnum, true, true, bgunGetShotsToTake(handnum), g_Vars.mplayerisrunning);
+					shotCreate(handnum, true, true, bgunGetShotsToTake(handnum), g_Vars.mplayerisrunning);
 				}
 
 				mpstats0f0b0520();

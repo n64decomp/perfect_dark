@@ -510,7 +510,7 @@ void botactCreateSlayerRocket(struct chrdata *chr)
 		struct coord sp100;
 
 		yrot = chrGetAimAngle(chr);
-		xrot = func0f03e754(chr);
+		xrot = chrGetPitchAngle(chr);
 
 		sp100.x = cosf(xrot) * sinf(yrot);
 		sp100.y = sinf(xrot);

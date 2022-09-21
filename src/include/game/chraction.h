@@ -137,7 +137,7 @@ void chrTickSurprised(struct chrdata *chr);
 void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool withbeam, struct coord *from, struct coord *to);
 f32 chrGetInverseTheta(struct chrdata *chr);
 f32 chrGetAimAngle(struct chrdata *chr);
-f32 func0f03e754(struct chrdata *chr);
+f32 chrGetPitchAngle(struct chrdata *chr);
 s32 chrTurn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 toleranceangle);
 bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, s32 arg2, s32 arg3, f32 arg4);
 void chrCalculateAimEndProperties(struct chrdata *chr, struct attackanimconfig *animcfg, bool firingleft, bool firingright, f32 shootrotx);
@@ -146,7 +146,7 @@ void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gs
 bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos);
 void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord *vector, struct modelnode **node, s32 *hitpart, struct model **model, s32 *side);
 void chrCalculateTrajectory(struct coord *frompos, f32 arg1, struct coord *aimpos, struct coord *arg3);
-void chrShoot(struct chrdata *chr, s32 handnum);
+void chrTickShoot(struct chrdata *chr, s32 handnum);
 void func0f041a74(struct chrdata *chr);
 bool func0f041c44(struct chrdata *chr);
 void chrAttackAmountUpdateAnimation(struct chrdata *chr);
