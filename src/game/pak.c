@@ -5432,85 +5432,6 @@ bool pak0f11d7c4(s8 device)
 	return false;
 }
 
-#if MATCHING
-GLOBAL_ASM(
-glabel pakConvertFromGbcImage
-/*  f11d8b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11d8b8:	afb6001c */ 	sw	$s6,0x1c($sp)
-/*  f11d8bc:	afb50018 */ 	sw	$s5,0x18($sp)
-/*  f11d8c0:	afb40014 */ 	sw	$s4,0x14($sp)
-/*  f11d8c4:	afb30010 */ 	sw	$s3,0x10($sp)
-/*  f11d8c8:	afb10008 */ 	sw	$s1,0x8($sp)
-/*  f11d8cc:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f11d8d0:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f11d8d4:	00808825 */ 	or	$s1,$a0,$zero
-/*  f11d8d8:	afb2000c */ 	sw	$s2,0xc($sp)
-/*  f11d8dc:	24130008 */ 	addiu	$s3,$zero,0x8
-/*  f11d8e0:	24140010 */ 	addiu	$s4,$zero,0x10
-/*  f11d8e4:	24150080 */ 	addiu	$s5,$zero,0x80
-/*  f11d8e8:	24160080 */ 	addiu	$s6,$zero,0x80
-/*  f11d8ec:	00001825 */ 	or	$v1,$zero,$zero
-/*  f11d8f0:	00004025 */ 	or	$t0,$zero,$zero
-.L0f11d8f4:
-/*  f11d8f4:	00032100 */ 	sll	$a0,$v1,0x4
-/*  f11d8f8:	00003025 */ 	or	$a2,$zero,$zero
-.L0f11d8fc:
-/*  f11d8fc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f11d900:	01004825 */ 	or	$t1,$t0,$zero
-/*  f11d904:	00919021 */ 	addu	$s2,$a0,$s1
-.L0f11d908:
-/*  f11d908:	000951c0 */ 	sll	$t2,$t1,0x7
-/*  f11d90c:	020a5821 */ 	addu	$t3,$s0,$t2
-/*  f11d910:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11d914:	00c03825 */ 	or	$a3,$a2,$zero
-.L0f11d918:
-/*  f11d918:	01677021 */ 	addu	$t6,$t3,$a3
-/*  f11d91c:	a1c00000 */ 	sb	$zero,0x0($t6)
-/*  f11d920:	92580000 */ 	lbu	$t8,0x0($s2)
-/*  f11d924:	240f0080 */ 	addiu	$t7,$zero,0x80
-/*  f11d928:	004f6007 */ 	srav	$t4,$t7,$v0
-/*  f11d92c:	030cc824 */ 	and	$t9,$t8,$t4
-/*  f11d930:	17200006 */ 	bnez	$t9,.L0f11d94c
-/*  f11d934:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f11d938:	01477021 */ 	addu	$t6,$t2,$a3
-/*  f11d93c:	01d06821 */ 	addu	$t5,$t6,$s0
-/*  f11d940:	91af0000 */ 	lbu	$t7,0x0($t5)
-/*  f11d944:	25f80040 */ 	addiu	$t8,$t7,0x40
-/*  f11d948:	a1b80000 */ 	sb	$t8,0x0($t5)
-.L0f11d94c:
-/*  f11d94c:	92590001 */ 	lbu	$t9,0x1($s2)
-/*  f11d950:	01477821 */ 	addu	$t7,$t2,$a3
-/*  f11d954:	01f06821 */ 	addu	$t5,$t7,$s0
-/*  f11d958:	032c7024 */ 	and	$t6,$t9,$t4
-/*  f11d95c:	15c00004 */ 	bnez	$t6,.L0f11d970
-/*  f11d960:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11d964:	91b80000 */ 	lbu	$t8,0x0($t5)
-/*  f11d968:	27190080 */ 	addiu	$t9,$t8,0x80
-/*  f11d96c:	a1b90000 */ 	sb	$t9,0x0($t5)
-.L0f11d970:
-/*  f11d970:	1453ffe9 */ 	bne	$v0,$s3,.L0f11d918
-/*  f11d974:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f11d978:	24a50002 */ 	addiu	$a1,$a1,0x2
-/*  f11d97c:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f11d980:	14b4ffe1 */ 	bne	$a1,$s4,.L0f11d908
-/*  f11d984:	26520002 */ 	addiu	$s2,$s2,0x2
-/*  f11d988:	24c60008 */ 	addiu	$a2,$a2,0x8
-/*  f11d98c:	14d5ffdb */ 	bne	$a2,$s5,.L0f11d8fc
-/*  f11d990:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  f11d994:	25080008 */ 	addiu	$t0,$t0,0x8
-/*  f11d998:	1516ffd6 */ 	bne	$t0,$s6,.L0f11d8f4
-/*  f11d99c:	24630010 */ 	addiu	$v1,$v1,0x10
-/*  f11d9a0:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f11d9a4:	8fb10008 */ 	lw	$s1,0x8($sp)
-/*  f11d9a8:	8fb2000c */ 	lw	$s2,0xc($sp)
-/*  f11d9ac:	8fb30010 */ 	lw	$s3,0x10($sp)
-/*  f11d9b0:	8fb40014 */ 	lw	$s4,0x14($sp)
-/*  f11d9b4:	8fb50018 */ 	lw	$s5,0x18($sp)
-/*  f11d9b8:	8fb6001c */ 	lw	$s6,0x1c($sp)
-/*  f11d9bc:	03e00008 */ 	jr	$ra
-/*  f11d9c0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
-#else
 /**
  * Convert camera pixel data from the Game Boy Camera's format and write it to
  * a 128x128 byte array.
@@ -5527,27 +5448,26 @@ void pakConvertFromGbcImage(u8 *src, u8 *dst)
 	s32 bit;
 	s32 a0;
 	s32 a3;
-	s32 t2;
-	u8 *s2;
 
 	for (i = 0; i < 16; i++) {
-		a0 = (i * 16) << 4;
+		byte = (i * 16) << 4;
+		a0 = byte;
 
 		for (j = 0; j < 16; j++) {
-			s2 = &src[a0];
-
 			for (byte = 0; byte < 8; byte++) {
-				t2 = (i * 8 + byte) << 7;
-				a3 = j * 8;
+				s32 srcindex = a0 + byte * 2;
+				s32 tmp = j * 8;
 
-				for (bit = 0; bit < 8; bit++) {
+				for (bit = 0, a3 = tmp; bit < 8; bit++) {
+					s32 t2 = (i * 8 + byte) << 7;
+
 					dst[t2 + a3] = 0;
 
-					if ((s2[byte * 2 + 0] & (0x80 >> bit)) == 0) {
+					if ((src[srcindex + 0] & (0x80 >> bit)) == 0) {
 						dst[t2 + a3] += 0x40;
 					}
 
-					if ((s2[byte * 2 + 1] & (0x80 >> bit)) == 0) {
+					if ((src[srcindex + 1] & (0x80 >> bit)) == 0) {
 						dst[t2 + a3] += 0x80;
 					}
 
@@ -5559,7 +5479,6 @@ void pakConvertFromGbcImage(u8 *src, u8 *dst)
 		}
 	}
 }
-#endif
 
 /**
  * Perform operations on a 128 x 128 image.
