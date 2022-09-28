@@ -53,7 +53,7 @@ void func0f14cdb8(s32 index, u8 *arg1);
 void func0f14cf6c(void);
 void func0f14d064(s32 index, u8 *arg1);
 void func0f14d2c8(u8 *arg0, u8 *arg1);
-void func0f14d4f0(u8 *arg0, u8 *arg1);
+void func0f14d4f0(u8 *src, u8 *dst);
 void func0f14d714(u8 *arg0, u8 *arg1);
 void func0f14d84c(f32 *arg0, s32 arg1);
 void func0f14d8d8(f32 *arg0, f32 *arg1, s32 arg2, f32 *arg3, s32 arg4);

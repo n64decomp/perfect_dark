@@ -2021,189 +2021,10 @@ void func0f14d2c8(u8 *arg0, u8 *arg1)
 	}
 }
 
-#if MATCHING
-GLOBAL_ASM(
-glabel func0f14d4f0
-/*  f14d4f0:	27bdff30 */ 	addiu	$sp,$sp,-208
-/*  f14d4f4:	3c02800a */ 	lui	$v0,%hi(var800a45a0)
-/*  f14d4f8:	8c4245a0 */ 	lw	$v0,%lo(var800a45a0)($v0)
-/*  f14d4fc:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f14d500:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f14d504:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f14d508:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f14d50c:	afa500d4 */ 	sw	$a1,0xd4($sp)
-/*  f14d510:	3c0f8008 */ 	lui	$t7,%hi(var8007f9fc)
-/*  f14d514:	25eff9fc */ 	addiu	$t7,$t7,%lo(var8007f9fc)
-/*  f14d518:	00809025 */ 	or	$s2,$a0,$zero
-/*  f14d51c:	24080080 */ 	addiu	$t0,$zero,0x80
-/*  f14d520:	25ea0060 */ 	addiu	$t2,$t7,0x60
-/*  f14d524:	27ae0050 */ 	addiu	$t6,$sp,0x50
-/*  f14d528:	8c510474 */ 	lw	$s1,0x474($v0)
-/*  f14d52c:	8c500478 */ 	lw	$s0,0x478($v0)
-.L0f14d530:
-/*  f14d530:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f14d534:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f14d538:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f14d53c:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f14d540:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f14d544:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f14d548:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f14d54c:	15eafff8 */ 	bne	$t7,$t2,.L0f14d530
-/*  f14d550:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f14d554:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f14d558:	00003825 */ 	or	$a3,$zero,$zero
-/*  f14d55c:	24050080 */ 	addiu	$a1,$zero,0x80
-/*  f14d560:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f14d564:	000731c0 */ 	sll	$a2,$a3,0x7
-.L0f14d568:
-/*  f14d568:	00065880 */ 	sll	$t3,$a2,0x2
-/*  f14d56c:	022b1821 */ 	addu	$v1,$s1,$t3
-/*  f14d570:	02462021 */ 	addu	$a0,$s2,$a2
-/*  f14d574:	00001025 */ 	or	$v0,$zero,$zero
-.L0f14d578:
-/*  f14d578:	908c0000 */ 	lbu	$t4,0x0($a0)
-/*  f14d57c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f14d580:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f14d584:	448c2000 */ 	mtc1	$t4,$f4
-/*  f14d588:	3c014f80 */ 	lui	$at,0x4f80
-/*  f14d58c:	05810004 */ 	bgez	$t4,.L0f14d5a0
-/*  f14d590:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f14d594:	44814000 */ 	mtc1	$at,$f8
-/*  f14d598:	00000000 */ 	nop
-/*  f14d59c:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f14d5a0:
-/*  f14d5a0:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f14d5a4:	1445fff4 */ 	bne	$v0,$a1,.L0f14d578
-/*  f14d5a8:	e466fffc */ 	swc1	$f6,-0x4($v1)
-/*  f14d5ac:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f14d5b0:	00e8082a */ 	slt	$at,$a3,$t0
-/*  f14d5b4:	5420ffec */ 	bnezl	$at,.L0f14d568
-/*  f14d5b8:	000731c0 */ 	sll	$a2,$a3,0x7
-/*  f14d5bc:	240d0005 */ 	addiu	$t5,$zero,0x5
-/*  f14d5c0:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f14d5c4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f14d5c8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f14d5cc:	24060080 */ 	addiu	$a2,$zero,0x80
-/*  f14d5d0:	0fc53636 */ 	jal	func0f14d8d8
-/*  f14d5d4:	27a70050 */ 	addiu	$a3,$sp,0x50
-/*  f14d5d8:	3c013e80 */ 	lui	$at,0x3e80
-/*  f14d5dc:	44817000 */ 	mtc1	$at,$f14
-/*  f14d5e0:	3c01437f */ 	lui	$at,0x437f
-/*  f14d5e4:	44816000 */ 	mtc1	$at,$f12
-/*  f14d5e8:	44801000 */ 	mtc1	$zero,$f2
-/*  f14d5ec:	8fa800d4 */ 	lw	$t0,0xd4($sp)
-/*  f14d5f0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f14d5f4:	24093f00 */ 	addiu	$t1,$zero,0x3f00
-/*  f14d5f8:	2406007e */ 	addiu	$a2,$zero,0x7e
-.L0f14d5fc:
-/*  f14d5fc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f14d600:	01002025 */ 	or	$a0,$t0,$zero
-/*  f14d604:	00e02825 */ 	or	$a1,$a3,$zero
-.L0f14d608:
-/*  f14d608:	0005c880 */ 	sll	$t9,$a1,0x2
-/*  f14d60c:	03301021 */ 	addu	$v0,$t9,$s0
-/*  f14d610:	c44a0000 */ 	lwc1	$f10,0x0($v0)
-/*  f14d614:	c4500004 */ 	lwc1	$f16,0x4($v0)
-/*  f14d618:	c4440200 */ 	lwc1	$f4,0x200($v0)
-/*  f14d61c:	c4460204 */ 	lwc1	$f6,0x204($v0)
-/*  f14d620:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f14d624:	24a50002 */ 	addiu	$a1,$a1,0x2
-/*  f14d628:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f14d62c:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f14d630:	46049200 */ 	add.s	$f8,$f18,$f4
-/*  f14d634:	3c014f00 */ 	lui	$at,0x4f00
-/*  f14d638:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f14d63c:	460e5002 */ 	mul.s	$f0,$f10,$f14
-/*  f14d640:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f14d644:	00000000 */ 	nop
-/*  f14d648:	45020003 */ 	bc1fl	.L0f14d658
-/*  f14d64c:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f14d650:	46001006 */ 	mov.s	$f0,$f2
-/*  f14d654:	4600603c */ 	c.lt.s	$f12,$f0
-.L0f14d658:
-/*  f14d658:	00000000 */ 	nop
-/*  f14d65c:	45020003 */ 	bc1fl	.L0f14d66c
-/*  f14d660:	4458f800 */ 	cfc1	$t8,$31
-/*  f14d664:	46006006 */ 	mov.s	$f0,$f12
-/*  f14d668:	4458f800 */ 	cfc1	$t8,$31
-.L0f14d66c:
-/*  f14d66c:	44caf800 */ 	ctc1	$t2,$31
-/*  f14d670:	00000000 */ 	nop
-/*  f14d674:	46000424 */ 	cvt.w.s	$f16,$f0
-/*  f14d678:	444af800 */ 	cfc1	$t2,$31
-/*  f14d67c:	00000000 */ 	nop
-/*  f14d680:	314a0078 */ 	andi	$t2,$t2,0x78
-/*  f14d684:	51400013 */ 	beqzl	$t2,.L0f14d6d4
-/*  f14d688:	440a8000 */ 	mfc1	$t2,$f16
-/*  f14d68c:	44818000 */ 	mtc1	$at,$f16
-/*  f14d690:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f14d694:	46100401 */ 	sub.s	$f16,$f0,$f16
-/*  f14d698:	44caf800 */ 	ctc1	$t2,$31
-/*  f14d69c:	00000000 */ 	nop
-/*  f14d6a0:	46008424 */ 	cvt.w.s	$f16,$f16
-/*  f14d6a4:	444af800 */ 	cfc1	$t2,$31
-/*  f14d6a8:	00000000 */ 	nop
-/*  f14d6ac:	314a0078 */ 	andi	$t2,$t2,0x78
-/*  f14d6b0:	15400005 */ 	bnez	$t2,.L0f14d6c8
-/*  f14d6b4:	00000000 */ 	nop
-/*  f14d6b8:	440a8000 */ 	mfc1	$t2,$f16
-/*  f14d6bc:	3c018000 */ 	lui	$at,0x8000
-/*  f14d6c0:	10000007 */ 	b	.L0f14d6e0
-/*  f14d6c4:	01415025 */ 	or	$t2,$t2,$at
-.L0f14d6c8:
-/*  f14d6c8:	10000005 */ 	b	.L0f14d6e0
-/*  f14d6cc:	240affff */ 	addiu	$t2,$zero,-1
-/*  f14d6d0:	440a8000 */ 	mfc1	$t2,$f16
-.L0f14d6d4:
-/*  f14d6d4:	00000000 */ 	nop
-/*  f14d6d8:	0540fffb */ 	bltz	$t2,.L0f14d6c8
-/*  f14d6dc:	00000000 */ 	nop
-.L0f14d6e0:
-/*  f14d6e0:	44d8f800 */ 	ctc1	$t8,$31
-/*  f14d6e4:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f14d6e8:	1466ffc7 */ 	bne	$v1,$a2,.L0f14d608
-/*  f14d6ec:	a08affff */ 	sb	$t2,-0x1($a0)
-/*  f14d6f0:	24e70100 */ 	addiu	$a3,$a3,0x100
-/*  f14d6f4:	14e9ffc1 */ 	bne	$a3,$t1,.L0f14d5fc
-/*  f14d6f8:	25080040 */ 	addiu	$t0,$t0,0x40
-/*  f14d6fc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f14d700:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f14d704:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f14d708:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f14d70c:	03e00008 */ 	jr	$ra
-/*  f14d710:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
-);
-
-u32 var8007f9fc = 0x3b42938e;
-u32 var8007fa00 = 0x3c5a0169;
-u32 var8007fa04 = 0x3cb3b752;
-u32 var8007fa08 = 0x3c5a0169;
-u32 var8007fa0c = 0x3b42938e;
-u32 var8007fa10 = 0x3c5a0169;
-u32 var8007fa14 = 0x3d7442c8;
-u32 var8007fa18 = 0x3dc95bff;
-u32 var8007fa1c = 0x3d7442c8;
-u32 var8007fa20 = 0x3c5a0169;
-u32 var8007fa24 = 0x3cb3b752;
-u32 var8007fa28 = 0x3dc95bff;
-u32 var8007fa2c = 0x3e25fe54;
-u32 var8007fa30 = 0x3dc95bff;
-u32 var8007fa34 = 0x3cb3b752;
-u32 var8007fa38 = 0x3c5a0169;
-u32 var8007fa3c = 0x3d7442c8;
-u32 var8007fa40 = 0x3dc95bff;
-u32 var8007fa44 = 0x3d7442c8;
-u32 var8007fa48 = 0x3c5a0169;
-u32 var8007fa4c = 0x3b42938e;
-u32 var8007fa50 = 0x3c5a0169;
-u32 var8007fa54 = 0x3cb3b752;
-u32 var8007fa58 = 0x3c5a0169;
-u32 var8007fa5c = 0x3b42938e;
-#else
-// Mismatch: Different codegen. The function is generating a 64x64 thumbnail
-// from a 128x128 source, and there's lots of different ways that variables can
-// be used to do this.
-void func0f14d4f0(u8 *arg0, u8 *arg1)
+/**
+ * Generate a 64x64 thumbnail from a 128x128 source.
+ */
+void func0f14d4f0(u8 *src, u8 *dst)
 {
 	f32 *s1 = (f32 *) var800a45a0->unk474;
 	f32 *s0 = (f32 *) var800a45a0->unk478;
@@ -2211,6 +2032,7 @@ void func0f14d4f0(u8 *arg0, u8 *arg1)
 	s32 j;
 	s32 x;
 	s32 y;
+	s32 size = 128;
 
 	f32 sp50[] = {
 		0.0029690000228584f,
@@ -2240,21 +2062,19 @@ void func0f14d4f0(u8 *arg0, u8 *arg1)
 		0.0029690000228584f,
 	};
 
-	for (i = 0; i < 128; i++) {
-		for (j = 0; j < 128; j++) {
-			s1[i * 128 + j] = arg0[i * 128 + j];
+	for (i = 0; i < size; i++) {
+		for (j = 0; j < size; j++) {
+			s32 index = i * size + j;
+			s1[index] = src[index];
 		}
 	}
 
-	func0f14d8d8(s1, s0, 128, sp50, 5);
+	func0f14d8d8(s1, s0, size, sp50, 5);
 
 	for (y = 0; y < 63; y++) {
 		for (x = 0; x < 63; x++) {
-			f32 value = (
-					s0[y * 2 * 128 + x * 2 + 0] +
-					s0[y * 2 * 128 + x * 2 + 1] +
-					s0[y * 2 * 128 + x * 2 + 128] +
-					s0[y * 2 * 128 + x * 2 + 129]) * 0.25f;
+			f32 *ptr = &s0[y * sizeof(u16) * size + x * sizeof(u16)];
+			f32 value = (ptr[0] + ptr[1] + ptr[128] + ptr[129]) * 0.25f;
 
 			if (value < 0.0f) {
 				value = 0.0f;
@@ -2264,11 +2084,10 @@ void func0f14d4f0(u8 *arg0, u8 *arg1)
 				value = 255.0f;
 			}
 
-			arg1[y * 64 + x] = value;
+			dst[y * 64 + x] = value;
 		}
 	}
 }
-#endif
 
 void func0f14d714(u8 *arg0, u8 *arg1)
 {
