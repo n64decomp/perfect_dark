@@ -1865,7 +1865,7 @@ void setupCreateProps(s32 stagenum)
 						car->nextstep = 0;
 
 						if (obj->flags & OBJFLAG_CHOPPER_INACTIVE) {
-							prop->pos.y = cd0002a36c(&prop->pos, prop->rooms, NULL, 0) + 30;
+							prop->pos.y = cdFindFloorYColourTypeAtPos(&prop->pos, prop->rooms, NULL, 0) + 30;
 						}
 
 						prop->forcetick = true;

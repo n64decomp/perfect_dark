@@ -91,7 +91,7 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s1
 	struct coord sp88;
 	struct explosiontype *etype;
 	bool makescorch = true;
-	s16 ret;
+	s16 room;
 	f32 y;
 	bool sp68;
 
@@ -100,12 +100,12 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s1
 	}
 
 	if (prop) {
-		ret = cd0002a564(&prop->pos, prop->rooms, &y, 0, &sp88, &sp68);
+		room = cdFindFloorRoomYColourNormalPropAtPos(&prop->pos, prop->rooms, &y, 0, &sp88, &sp68);
 		sp100.x = prop->pos.x;
 		sp100.y = y;
 		sp100.z = prop->pos.z;
 	} else {
-		ret = cd0002a564(pos, rooms, &y, 0, &sp88, &sp68);
+		room = cdFindFloorRoomYColourNormalPropAtPos(pos, rooms, &y, 0, &sp88, &sp68);
 		sp100.x = pos->x;
 		sp100.y = y;
 		sp100.z = pos->z;
@@ -113,12 +113,12 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s1
 
 	etype = &g_ExplosionTypes[type];
 
-	if (sp68 || ret <= 0
+	if (sp68 || room <= 0
 			|| !(pos->y - y <= (etype->rangev + etype->changeratev * etype->duration + etype->innersize) * 0.5f || pos->y - y <= 75)) {
 		makescorch = false;
 	}
 
-	return explosionCreate(prop, pos, rooms, type, playernum, makescorch, &sp100, ret, &sp88);
+	return explosionCreate(prop, pos, rooms, type, playernum, makescorch, &sp100, room, &sp88);
 }
 
 f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)

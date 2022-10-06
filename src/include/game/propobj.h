@@ -107,7 +107,7 @@ void objFreeProjectile(struct defaultobj *obj);
 void objFreeEmbedmentOrProjectile(struct prop *prop);
 void objFree(struct defaultobj *obj, bool freeprop, bool canregen);
 void objFreePermanently(struct defaultobj *obj, bool freeprop);
-f32 objGetWidth(struct defaultobj *obj);
+f32 objGetRadius(struct defaultobj *obj);
 bool func0f06b39c(struct coord *pos, struct coord *dir, struct coord *aimpos, f32 arg3);
 bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5, f32 *arg6);
 bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3, f32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8, f32 *arg9);

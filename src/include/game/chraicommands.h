@@ -260,7 +260,7 @@
 /*0x0100*/ bool aiNoOp0100(void);
 /*0x0101*/ bool aiNoOp0101(void);
 /*0x0102*/ bool aiSetLights(void);
-/*0x0103*/ bool ai0103(void);
+/*0x0103*/ bool aiIfPropPresetIsBlockingSightToTarget(void);
 /*0x0104*/ bool aiRemoveObjectAtPropPreset(void);
 /*0x0105*/ bool aiIfPropPresetHeightLessThan(void);
 /*0x0106*/ bool aiSetTarget(void);

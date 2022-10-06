@@ -629,6 +629,9 @@
 #define CDTYPE_DOORSLOCKEDTOAI   0x8000
 #define CDTYPE_ALL               0x003f
 
+#define CHECKVERTICAL_NO  0
+#define CHECKVERTICAL_YES 1
+
 #define CHOPPERMODE_PATROL 0
 #define CHOPPERMODE_COMBAT 1
 #define CHOPPERMODE_FALL   2
@@ -1138,22 +1141,22 @@
 #define GBGAME_OTHER 0
 #define GBGAME_PD    2
 
-#define GEOFLAG_0001           0x0001
-#define GEOFLAG_0002           0x0002
-#define GEOFLAG_COLLISIONS     0x0004
-#define GEOFLAG_0008           0x0008
-#define GEOFLAG_OPAQUE         0x0010 // Block AI fire/sight
-#define GEOFLAG_LIFTFLOOR      0x0020
-#define GEOFLAG_LADDER         0x0040
-#define GEOFLAG_0080           0x0080
-#define GEOFLAG_0100           0x0100 // Editor: Low wall/edge
-#define GEOFLAG_UNDERWATER     0x0200
-#define GEOFLAG_0400           0x0400 // Unused
-#define GEOFLAG_AIBOTCROUCH    0x0800
-#define GEOFLAG_AIBOTDUCK      0x1000
-#define GEOFLAG_STEP           0x2000 // Ascend regardless of steepness
-#define GEOFLAG_DIE            0x4000
-#define GEOFLAG_CLIMBABLELEDGE 0x8000 // Used for most ledges in Chicago, but not near drain pickup
+#define GEOFLAG_FLOOR1            0x0001
+#define GEOFLAG_FLOOR2            0x0002
+#define GEOFLAG_WALL              0x0004
+#define GEOFLAG_BLOCK_SIGHT       0x0008
+#define GEOFLAG_BLOCK_SHOOT       0x0010
+#define GEOFLAG_LIFTFLOOR         0x0020
+#define GEOFLAG_LADDER            0x0040
+#define GEOFLAG_RAMPWALL          0x0080
+#define GEOFLAG_SLOPE             0x0100
+#define GEOFLAG_UNDERWATER        0x0200
+#define GEOFLAG_0400              0x0400 // Unused
+#define GEOFLAG_AIBOTCROUCH       0x0800
+#define GEOFLAG_AIBOTDUCK         0x1000
+#define GEOFLAG_STEP              0x2000 // Ascend regardless of steepness
+#define GEOFLAG_DIE               0x4000
+#define GEOFLAG_LADDER_PLAYERONLY 0x8000 // Used for most ledges in Chicago, but not near drain pickup
 
 #define GEOTYPE_TILE_I 0 // Tiles with integer vertices - used for BG
 #define GEOTYPE_TILE_F 1 // Tiles with float vertices - used for lifts

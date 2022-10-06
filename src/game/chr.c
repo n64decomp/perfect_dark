@@ -260,13 +260,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	movez = dstpos->z - prop->pos.z;
 
 	if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-		cdresult = cd0002d8b8(&prop->pos, prop->rooms, dstpos, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+		cdresult = cdExamCylMove05(&prop->pos, prop->rooms, dstpos, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 
 		if (cdresult == CDRESULT_NOCOLLISION) {
-			cdresult = cd0002a6fc(&prop->pos, dstpos, radius, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+			cdresult = cdExamCylMove01(&prop->pos, dstpos, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 		}
 	} else {
-		cdresult = cd0002a6fc(&prop->pos, dstpos, radius, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+		cdresult = cdExamCylMove01(&prop->pos, dstpos, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 	}
 
 	if (cdresult != CDRESULT_ERROR) {
@@ -280,13 +280,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 			moveok = true;
 		} else {
 #if VERSION >= VERSION_PAL_FINAL
-			cd00024e4c(&sp78, &sp6c, 453, "chr/chr.c");
+			cdGetEdge(&sp78, &sp6c, 453, "chr/chr.c");
 #elif VERSION >= VERSION_PAL_BETA
-			cd00024e4c(&sp78, &sp6c, 453, "chr.c");
+			cdGetEdge(&sp78, &sp6c, 453, "chr.c");
 #elif VERSION >= VERSION_NTSC_1_0
-			cd00024e4c(&sp78, &sp6c, 453, "chr/chr.c");
+			cdGetEdge(&sp78, &sp6c, 453, "chr/chr.c");
 #else
-			cd00024e4c(&sp78, &sp6c, 451, "chr.c");
+			cdGetEdge(&sp78, &sp6c, 451, "chr.c");
 #endif
 
 			// Attempt to find a valid position - method #1
@@ -326,13 +326,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 				movez = sp44.z - prop->pos.z;
 
 				if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-					cdresult = cdTestAToB2(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+					cdresult = cdTestCylMove02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
 
 					if (cdresult == CDRESULT_NOCOLLISION) {
-						cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+						cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 					}
 				} else {
-					cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+					cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 				}
 
 				if (cdresult == CDRESULT_NOCOLLISION) {
@@ -382,13 +382,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 						movez = sp44.z - prop->pos.z;
 
 						if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-							cdresult = cdTestAToB2(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+							cdresult = cdTestCylMove02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
 
 							if (cdresult == CDRESULT_NOCOLLISION) {
-								cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+								cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 							}
 						} else {
-							cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+							cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 						}
 
 						if (cdresult == CDRESULT_NOCOLLISION) {
@@ -436,13 +436,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 							movez = sp44.z - prop->pos.z;
 
 							if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-								cdresult = cdTestAToB2(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+								cdresult = cdTestCylMove02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
 
 								if (cdresult == CDRESULT_NOCOLLISION) {
-									cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+									cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 								}
 							} else {
-								cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+								cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 							}
 
 							if (cdresult == CDRESULT_NOCOLLISION) {
@@ -494,7 +494,7 @@ bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3)
 	func0f065e74(pos, rooms, &newpos, newrooms);
 	chr0f021fa8(chr, &newpos, newrooms);
 	chrSetPerimEnabled(chr, false);
-	result = cdTestVolume(&newpos, radius, newrooms, CDTYPE_ALL, 1,
+	result = cdTestVolume(&newpos, radius, newrooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 			ymax - chr->prop->pos.y,
 			ymin - chr->prop->pos.y);
 	chrSetPerimEnabled(chr, true);
@@ -550,7 +550,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			func0f065e74(&prop->pos, prop->rooms, arg2, spfc);
 		}
 
-		ground = cdFindGroundY(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
+		ground = cdFindGroundInfoAtCyl(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 
 		if (ground < -1000000) {
 			ground = 0.0f;
@@ -603,10 +603,10 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		}
 
 		if (chr->actiontype == ACT_PATROL || chr->actiontype == ACT_GOPOS) {
-			chr->onladder = cd00029ffc(&chr->prop->pos, chr->radius * 2.5f,
+			chr->onladder = cdFindLadder(&chr->prop->pos, chr->radius * 2.5f,
 					chr->manground + chr->height - chr->prop->pos.y,
 					chr->manground + 1.0f - chr->prop->pos.y,
-					chr->prop->rooms, 0x40, &chr->laddernormal);
+					chr->prop->rooms, GEOFLAG_LADDER, &chr->laddernormal);
 		} else {
 			chr->onladder = false;
 		}
@@ -621,12 +621,12 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			} else if (cd0002a13c(&chr->prop->pos, chr->radius * 1.1f,
 						chr->manground + 185.0f - chr->prop->pos.y,
 						chr->manground - 10.0f - chr->prop->pos.y,
-						chr->prop->rooms, 0x1000) != CDRESULT_COLLISION) {
+						chr->prop->rooms, GEOFLAG_AIBOTDUCK)) {
 				chr->height = 135.0f;
 			} else if (cd0002a13c(&chr->prop->pos, chr->radius * 1.1f,
 						chr->manground + 135.0f - chr->prop->pos.y,
 						chr->manground - 10.0f - chr->prop->pos.y,
-						chr->prop->rooms, 0x800) != CDRESULT_COLLISION) {
+						chr->prop->rooms, GEOFLAG_AIBOTCROUCH)) {
 				chr->height = 90.0f;
 			}
 
@@ -815,7 +815,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 						sp94 = spfc;
 					}
 
-					ground = cdFindGroundY(sp98, chr->radius, sp94,
+					ground = cdFindGroundInfoAtCyl(sp98, chr->radius, sp94,
 							&chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -834,7 +834,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 						lvupdate240freal = 0.0f;
 
-						ground = cdFindGroundY(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
+						ground = cdFindGroundInfoAtCyl(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 					}
 #endif
 
@@ -1303,7 +1303,7 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	testpos.y = pos->y + 100;
 	testpos.z = pos->z;
 
-	chr->ground = chr->manground = ground = cdFindGroundY(&testpos, chr->radius, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
+	chr->ground = chr->manground = ground = cdFindGroundInfoAtCyl(&testpos, chr->radius, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
 
 	chr->sumground = ground * (PAL ? 8.4175090789795f : 9.999998f);
 
@@ -2037,7 +2037,7 @@ void chrUncloak(struct chrdata *chr, bool value)
 			}
 
 			if (checksum != CHECKSUM_PLACEHOLDER) {
-				((u32 *)&cd0002a324)[-2] = 0;
+				((u32 *)&cdReturnZero)[-2] = 0;
 			}
 		}
 #endif
@@ -5499,9 +5499,9 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 		chr->geo.header.type = GEOTYPE_CYL;
 
 		if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DRUGGEDDROP) {
-			chr->geo.header.flags = GEOFLAG_OPAQUE;
+			chr->geo.header.flags = GEOFLAG_BLOCK_SHOOT;
 		} else {
-			chr->geo.header.flags = GEOFLAG_COLLISIONS | GEOFLAG_OPAQUE;
+			chr->geo.header.flags = GEOFLAG_WALL | GEOFLAG_BLOCK_SHOOT;
 		}
 
 		chr->geo.ymin = chr->manground;

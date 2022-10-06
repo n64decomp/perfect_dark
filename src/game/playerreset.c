@@ -409,7 +409,7 @@ void playerReset(void)
 		}
 	}
 
-	groundy = cdFindGroundY(&pos, 30, rooms,
+	groundy = cdFindGroundInfoAtCyl(&pos, 30, rooms,
 			&g_Vars.currentplayer->floorcol,
 			&g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags,

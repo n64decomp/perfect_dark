@@ -39,7 +39,7 @@ extern u8 **var8009a888;
 extern union filedataptr g_TileFileData;
 extern s32 g_TileNumRooms;
 extern u32 *g_TileRooms;
-extern struct geoblock var8009a918;
+extern struct geoblock g_CdSavedBlock;
 extern u8 g_RdpDramStack[SP_DRAM_STACK_SIZE8];
 extern N_ALSndPlayer var8009c2d0;
 extern struct var8009c340 var8009c340;

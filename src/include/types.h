@@ -861,7 +861,7 @@ struct geotilef {
 	union {
 		// The arrays are surely the correct type here, but they create
 		// mismatches in code that has already been matched using individual
-		// properties (eg. cd00027738). @TODO: Rematch them using the arrays.
+		// properties (eg. cdCollectGeoForCylFromList). @TODO: Rematch them using the arrays.
 		struct {
 			/*0x06*/ u8 min[3]; // These are indexes into vertices
 			/*0x09*/ u8 max[3];
@@ -5769,7 +5769,7 @@ struct texturepair {
 	s32 texturenum2;
 };
 
-struct collisionthing {
+struct collision {
 	struct geo *geo;
 	bool intile;
 	s32 vertexindex;

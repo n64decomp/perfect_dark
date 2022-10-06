@@ -1104,7 +1104,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 
 void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 {
-	s32 someval;
+	s32 cdtypes;
 	struct prop **ptr;
 	struct prop *playerprop;
 	bool skipthething;
@@ -1190,13 +1190,13 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 				if (func0f0679ac(model, &distance, &sp110, spfc, spf4)
 						&& sp110 <= 0
 						&& distance >= -rangelimit) {
-					someval = 0x33;
+					cdtypes = CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG;
 
 					if (isglass) {
-						someval = 0;
+						cdtypes = 0;
 					}
 
-					if (cd0002dc18(&playerprop->pos, playerprop->rooms, &prop->pos, someval)) {
+					if (cdTestLos04(&playerprop->pos, playerprop->rooms, &prop->pos, cdtypes)) {
 						if (isglass) {
 							struct model *model = obj->model;
 							struct coord spd8;
@@ -2351,7 +2351,7 @@ void propsTestForPickup(void)
 	}
 }
 
-f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5, bool cangangsta, s32 arg7)
+f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool throughobjects, bool cangangsta, s32 arg7)
 {
 	f32 spa0[2];
 	struct coord sp94;
@@ -2371,7 +2371,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 	bool sp4c;
 	f32 sp48;
 	struct prop *playerprop;
-	s32 lVar3;
+	s32 ok;
 
 	if (func && bgun0f0a27c8()) {
 		sp50 = true;
@@ -2439,13 +2439,17 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 
 			playerSetPerimEnabled(playerprop, false);
 
-			if (arg5) {
-				lVar3 = cd0002db98(&playerprop->pos, playerprop->rooms, &prop->pos, 0x32, 16);
+			if (throughobjects) {
+				ok = cdTestLos03(&playerprop->pos, playerprop->rooms, &prop->pos,
+						CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
+						GEOFLAG_BLOCK_SHOOT);
 			} else {
-				lVar3 = cd0002db98(&playerprop->pos, playerprop->rooms, &prop->pos, 0x33, 16);
+				ok = cdTestLos03(&playerprop->pos, playerprop->rooms, &prop->pos,
+						CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
+						GEOFLAG_BLOCK_SHOOT);
 			}
 
-			if (lVar3) {
+			if (ok) {
 				f32 value = spa0[1];
 
 				if (value < top) {
@@ -2682,7 +2686,7 @@ void autoaimTick(void)
 								|| (chr->chrflags & CHRCFLAG_FORCEAUTOAIM)
 								|| chr->gunprop)
 							&& chrCalculateAutoAim(prop, &sp94, sp8c, sp84)) {
-						f32 thing = func0f06438c(prop, &sp94, sp8c, sp84, sp78, 0, cangangsta, 0);
+						f32 thing = func0f06438c(prop, &sp94, sp8c, sp84, sp78, false, cangangsta, 0);
 
 						if (thing > bestthing) {
 							bestthing = thing;
@@ -3110,7 +3114,7 @@ void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *dstroo
 	}
 
 	if (ptr) {
-		s32 room = cdFindRoom(pos2, ptr);
+		s32 room = cdFindFloorRoomAtPos(pos2, ptr);
 
 		if (room > 0) {
 			dstrooms[0] = room;

@@ -6110,7 +6110,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 
 	playerSetPerimEnabled(playerprop, false);
 
-	if (cd0002deac(&playerprop->pos, playerprop->rooms, &muzzlepos, spawnrooms, CDTYPE_ALL) != CDRESULT_COLLISION) {
+	if (cdTestLos11(&playerprop->pos, playerprop->rooms, &muzzlepos, spawnrooms, CDTYPE_ALL) != CDRESULT_COLLISION) {
 		spawnpos.x = muzzlepos.x;
 		spawnpos.y = muzzlepos.y;
 		spawnpos.z = muzzlepos.z;

@@ -137,7 +137,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
 		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &pos, rooms);
 
-		result = cdTestAToB2(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+		result = cdTestCylMove02(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 				&pos, rooms, CDTYPE_ALL, true,
 				ymax - g_Vars.currentplayer->prop->pos.y,
 				ymin - g_Vars.currentplayer->prop->pos.y);
@@ -145,7 +145,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, true);
 
 		if (result == CDRESULT_NOCOLLISION) {
-			result = cdTestVolume(&pos, radius, rooms, CDTYPE_ALL, true,
+			result = cdTestVolume(&pos, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
@@ -313,7 +313,7 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 	struct coord sp60;
 	struct coord sp54;
 
-	cd00024e4c(&sp78, &sp6c, 333, "bondbike.c");
+	cdGetEdge(&sp78, &sp6c, 333, "bondbike.c");
 
 	sp60.x = bike->prop->pos.x;
 	sp60.y = bike->prop->pos.y;
@@ -414,21 +414,21 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 		zdiff = dstpos.z - g_Vars.currentplayer->hoverbike->pos.z;
 
 		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
-			result = cdTestAToB3(&g_Vars.currentplayer->hoverbike->pos,
+			result = cdExamCylMove06(&g_Vars.currentplayer->hoverbike->pos,
 					g_Vars.currentplayer->hoverbike->rooms,
 					&dstpos, dstrooms, radius, CDTYPE_ALL, 1,
 					ymax - g_Vars.currentplayer->hoverbike->pos.y,
 					ymin - g_Vars.currentplayer->hoverbike->pos.y);
 
 			if (result == CDRESULT_NOCOLLISION) {
-				result = cdTestAToB1(&g_Vars.currentplayer->hoverbike->pos,
-						&dstpos, radius, dstrooms, CDTYPE_ALL, 1,
+				result = cdExamCylMove02(&g_Vars.currentplayer->hoverbike->pos,
+						&dstpos, radius, dstrooms, CDTYPE_ALL, true,
 						ymax - g_Vars.currentplayer->hoverbike->pos.y,
 						ymin - g_Vars.currentplayer->hoverbike->pos.y);
 			}
 		} else {
-			result = cdTestAToB1(&g_Vars.currentplayer->hoverbike->pos,
-					&dstpos, radius, spa8, CDTYPE_ALL, 1,
+			result = cdExamCylMove02(&g_Vars.currentplayer->hoverbike->pos,
+					&dstpos, radius, spa8, CDTYPE_ALL, true,
 					ymax - g_Vars.currentplayer->hoverbike->pos.y,
 					ymin - g_Vars.currentplayer->hoverbike->pos.y);
 		}
@@ -473,7 +473,7 @@ s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 	s32 result = bbikeCalculateNewPosition(arg0, arg1);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		struct prop *obstacle = cdGetObstacle();
+		struct prop *obstacle = cdGetObstacleProp();
 
 		if (obstacle && g_Vars.lvupdate240 > 0) {
 			if (obstacle->type == PROPTYPE_CHR) {
@@ -563,7 +563,7 @@ void bbikeUpdateVertical(struct coord *pos)
 	g_Vars.currentplayer->prop->pos.y = pos->y;
 	g_Vars.currentplayer->prop->pos.z = pos->z;
 
-	ground = cdFindGroundY(&g_Vars.currentplayer->prop->pos,
+	ground = cdFindGroundInfoAtCyl(&g_Vars.currentplayer->prop->pos,
 			g_Vars.currentplayer->bond2.radius,
 			g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->floorcol,
@@ -618,9 +618,9 @@ s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 
 	if (!result) {
 #if VERSION >= VERSION_NTSC_1_0
-		cd00024e4c(arg1, arg2, 659, "bondbike.c");
+		cdGetEdge(arg1, arg2, 659, "bondbike.c");
 #else
-		cd00024e4c(arg1, arg2, 656, "bondbike.c");
+		cdGetEdge(arg1, arg2, 656, "bondbike.c");
 #endif
 	}
 
@@ -646,9 +646,9 @@ s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, st
 
 		if (someint == 0) {
 #if VERSION >= VERSION_NTSC_1_0
-			cd00024e4c(arg3, arg4, 685, "bondbike.c");
+			cdGetEdge(arg3, arg4, 685, "bondbike.c");
 #else
-			cd00024e4c(arg3, arg4, 682, "bondbike.c");
+			cdGetEdge(arg3, arg4, 682, "bondbike.c");
 #endif
 
 			if (arg3->f[0] != arg1->f[0]

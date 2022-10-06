@@ -515,7 +515,7 @@ void playerStartNewLife(void)
 
 	angle = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop); // var7f1ad534
 
-	groundy = cdFindGroundY(&pos, 30, rooms,
+	groundy = cdFindGroundInfoAtCyl(&pos, 30, rooms,
 			&g_Vars.currentplayer->floorcol,
 			&g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags,
@@ -689,7 +689,7 @@ void playerLoadDefaults(void)
 
 	g_Vars.currentplayer->bondperimenabled = true;
 	g_Vars.currentplayer->periminfo.header.type = GEOTYPE_CYL;
-	g_Vars.currentplayer->periminfo.header.flags = GEOFLAG_COLLISIONS | GEOFLAG_OPAQUE;
+	g_Vars.currentplayer->periminfo.header.flags = GEOFLAG_WALL | GEOFLAG_BLOCK_SHOOT;
 	g_Vars.currentplayer->periminfo.ymax = 0;
 	g_Vars.currentplayer->periminfo.ymin = 0;
 	g_Vars.currentplayer->periminfo.x = 0;
@@ -5326,7 +5326,7 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 		bgFindRoomsByPos(pos, inrooms, aboverooms, 20, &bestroom);
 
 		if (inrooms[0] != -1) {
-			tmp = room = cdFindRoom(pos, inrooms);
+			tmp = room = cdFindFloorRoomAtPos(pos, inrooms);
 
 			if (room > 0) {
 				playerSetCamPropertiesWithRoom(pos, up, look, tmp);
@@ -5334,7 +5334,7 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 				playerSetCamPropertiesWithRoom(pos, up, look, inrooms[0]);
 			}
 		} else if (aboverooms[0] != -1) {
-			tmp = room = cdFindRoom(pos, aboverooms);
+			tmp = room = cdFindFloorRoomAtPos(pos, aboverooms);
 
 			if (room > 0) {
 				playerSetCamPropertiesWithoutRoom(pos, up, look, tmp);
@@ -5467,7 +5467,7 @@ bool playerUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 void playerUpdatePerimInfo(void)
 {
 	g_Vars.currentplayer->periminfo.header.type = GEOTYPE_CYL;
-	g_Vars.currentplayer->periminfo.header.flags = GEOFLAG_COLLISIONS | GEOFLAG_OPAQUE;
+	g_Vars.currentplayer->periminfo.header.flags = GEOFLAG_WALL | GEOFLAG_BLOCK_SHOOT;
 
 	g_Vars.currentplayer->periminfo.ymin = g_Vars.currentplayer->vv_manground;
 	g_Vars.currentplayer->periminfo.ymax = g_Vars.currentplayer->vv_manground + g_Vars.currentplayer->vv_headheight;

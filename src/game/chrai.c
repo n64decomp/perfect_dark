@@ -269,7 +269,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0100*/ aiNoOp0100,
 	/*0x0101*/ aiNoOp0101,
 	/*0x0102*/ aiSetLights,
-	/*0x0103*/ ai0103,
+	/*0x0103*/ aiIfPropPresetIsBlockingSightToTarget,
 	/*0x0104*/ aiRemoveObjectAtPropPreset,
 	/*0x0105*/ aiIfPropPresetHeightLessThan,
 	/*0x0106*/ aiSetTarget,

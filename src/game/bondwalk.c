@@ -148,9 +148,9 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	abstarget.z = reltarget->z + g_Vars.currentplayer->prop->pos.z;
 
 #if VERSION >= VERSION_NTSC_1_0
-	cd00024e4c(&globalthinga, &globalthingb, 223, "bondwalk.c");
+	cdGetEdge(&globalthinga, &globalthingb, 223, "bondwalk.c");
 #else
-	cd00024e4c(&globalthinga, &globalthingb, 221, "bondwalk.c");
+	cdGetEdge(&globalthinga, &globalthingb, 221, "bondwalk.c");
 #endif
 
 	vector.x = globalthingb.z - globalthinga.z;
@@ -192,7 +192,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 	f32 ymin;
 	f32 radius;
 
-	if (g_Vars.currentplayer->floorflags & GEOFLAG_0100) {
+	if (g_Vars.currentplayer->floorflags & GEOFLAG_SLOPE) {
 		g_Vars.enableslopes = false;
 	} else {
 		g_Vars.enableslopes = true;
@@ -211,7 +211,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 
 	ymin -= 0.1f;
 
-	result = cdTestVolume(&newpos, radius, rooms, types, 1,
+	result = cdTestVolume(&newpos, radius, rooms, types, CHECKVERTICAL_YES,
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
@@ -244,7 +244,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 	f32 zdiff;
 	s32 i;
 
-	if (g_Vars.currentplayer->floorflags & GEOFLAG_0100) {
+	if (g_Vars.currentplayer->floorflags & GEOFLAG_SLOPE) {
 		g_Vars.enableslopes = false;
 	} else {
 		g_Vars.enableslopes = true;
@@ -295,21 +295,21 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 		halfradius = radius * 0.5f;
 
 		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
-			result = cdTestAToB3(&g_Vars.currentplayer->prop->pos,
+			result = cdExamCylMove06(&g_Vars.currentplayer->prop->pos,
 					g_Vars.currentplayer->prop->rooms,
 					&dstpos, dstrooms, radius, types, 1,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 
 			if (result == CDRESULT_NOCOLLISION) {
-				result = cdTestAToB1(&g_Vars.currentplayer->prop->pos,
-						&dstpos, radius, dstrooms, types, 1,
+				result = cdExamCylMove02(&g_Vars.currentplayer->prop->pos,
+						&dstpos, radius, dstrooms, types, true,
 						ymax - g_Vars.currentplayer->prop->pos.y,
 						ymin - g_Vars.currentplayer->prop->pos.y);
 			}
 		} else {
-			result = cdTestAToB1(&g_Vars.currentplayer->prop->pos,
-					&dstpos, radius, sp64, types, 1,
+			result = cdExamCylMove02(&g_Vars.currentplayer->prop->pos,
+					&dstpos, radius, sp64, types, true,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
@@ -354,7 +354,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 	s32 result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		struct prop *obstacle = cdGetObstacle();
+		struct prop *obstacle = cdGetObstacleProp();
 
 		if (obstacle && g_Vars.lvupdate240 > 0) {
 			if (obstacle->type == PROPTYPE_DOOR) {
@@ -366,9 +366,9 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 				if (door->doorflags & DOORFLAG_DAMAGEONCONTACT) {
 					if (!g_Vars.currentplayer->isdead) {
 #if VERSION >= VERSION_NTSC_1_0
-						cd00024e4c(&sp84, &sp78, 465, "bondwalk.c");
+						cdGetEdge(&sp84, &sp78, 465, "bondwalk.c");
 #else
-						cd00024e4c(&sp84, &sp78, 460, "bondwalk.c");
+						cdGetEdge(&sp84, &sp78, 460, "bondwalk.c");
 #endif
 
 						sp90.x = sp78.f[2] - sp84.f[2];
@@ -503,9 +503,9 @@ s32 bwalk0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s
 
 	if (result == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_NTSC_1_0
-		cd00024e4c(arg1, arg2, 607, "bondwalk.c");
+		cdGetEdge(arg1, arg2, 607, "bondwalk.c");
 #else
-		cd00024e4c(arg1, arg2, 602, "bondwalk.c");
+		cdGetEdge(arg1, arg2, 602, "bondwalk.c");
 #endif
 	}
 
@@ -531,9 +531,9 @@ s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 
 		if (result == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_NTSC_1_0
-			cd00024e4c(d, e, 635, "bondwalk.c");
+			cdGetEdge(d, e, 635, "bondwalk.c");
 #else
-			cd00024e4c(d, e, 630, "bondwalk.c");
+			cdGetEdge(d, e, 630, "bondwalk.c");
 #endif
 
 			if (b->x != d->x
@@ -740,7 +740,7 @@ void bwalkUpdateVertical(void)
 	if (g_Vars.antiplayernum >= 0
 			&& g_Vars.currentplayer == g_Vars.anti
 			&& g_Vars.currentplayer->bond2.radius != 30
-			&& cdTestVolume(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, CDTYPE_ALL, 1, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
+			&& cdTestVolume(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
 		g_Vars.currentplayer->prop->chr->radius = 30;
 		g_Vars.currentplayer->bond2.radius = 30;
 		radius = 30;
@@ -751,10 +751,11 @@ void bwalkUpdateVertical(void)
 	// If this comes up false, a second check is done... maybe checking if the
 	// player is touching a ladder from a room which shares the same coordinate
 	// space?
-	onladder = cd00029ffc(&g_Vars.currentplayer->prop->pos,
+	onladder = cdFindLadder(&g_Vars.currentplayer->prop->pos,
 			radius * 1.2f, ymax - g_Vars.currentplayer->prop->pos.y,
 			g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y + 1,
-			g_Vars.currentplayer->prop->rooms, 0x8040, &g_Vars.currentplayer->laddernormal);
+			g_Vars.currentplayer->prop->rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY,
+			&g_Vars.currentplayer->laddernormal);
 
 	if (!onladder) {
 		testpos.x = g_Vars.currentplayer->prop->pos.x;
@@ -762,10 +763,10 @@ void bwalkUpdateVertical(void)
 		testpos.z = g_Vars.currentplayer->prop->pos.z;
 		roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
 		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &testpos, rooms);
-		onladder2 = cd00029ffc(&g_Vars.currentplayer->prop->pos,
+		onladder2 = cdFindLadder(&g_Vars.currentplayer->prop->pos,
 				radius * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 				g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y - 10,
-				rooms, 0x8040, &g_Vars.currentplayer->laddernormal);
+				rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY, &g_Vars.currentplayer->laddernormal);
 	}
 
 	testpos.x = g_Vars.currentplayer->prop->pos.x;
@@ -778,7 +779,7 @@ void bwalkUpdateVertical(void)
 
 	roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
 	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &testpos, rooms);
-	ground = cdFindGroundY(&testpos, g_Vars.currentplayer->bond2.radius, rooms,
+	ground = cdFindGroundInfoAtCyl(&testpos, g_Vars.currentplayer->bond2.radius, rooms,
 			&g_Vars.currentplayer->floorcol, &g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags, &g_Vars.currentplayer->floorroom,
 			&newinlift, &lift);
@@ -888,7 +889,7 @@ void bwalkUpdateVertical(void)
 #if VERSION >= VERSION_NTSC_1_0
 			else {
 				// Not enough room above. If on a hoverbike, blow it up
-				prop = cdGetObstacle();
+				prop = cdGetObstacleProp();
 
 				if (prop
 						&& g_Vars.currentplayer->prop->pos.y < prop->pos.y
@@ -963,7 +964,7 @@ void bwalkUpdateVertical(void)
 					&& g_Vars.currentplayer->vv_ground < g_Vars.currentplayer->vv_manground - 30) {
 				// Not falling - but still at least 30 units off the ground.
 				// Must be something in the way...
-				prop = cdGetObstacle();
+				prop = cdGetObstacleProp();
 
 				if (prop) {
 					if (prop->type == PROPTYPE_CHR) {
@@ -1592,12 +1593,10 @@ void bwalk0f0c69b8(void)
 				} else {
 					playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
-					cdresult = cd0002a13c(&g_Vars.currentplayer->prop->pos,
+					if (!cd0002a13c(&g_Vars.currentplayer->prop->pos,
 							radius * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 							(g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y) + 1.0f,
-							g_Vars.currentplayer->prop->rooms, 0x8040);
-
-					if (cdresult == CDRESULT_COLLISION) {
+							g_Vars.currentplayer->prop->rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY)) {
 						g_Vars.currentplayer->ladderupdown = 0.0f;
 					} else {
 						spcc.f[0] += sp74 * g_Vars.currentplayer->laddernormal.f[0];

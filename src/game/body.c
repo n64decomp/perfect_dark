@@ -361,7 +361,7 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	rooms[0] = pad.room;
 	rooms[1] = -1;
 
-	if (cdTestVolume(&pad.pos, 20, rooms, CDTYPE_ALL, 1, 200, -200) == CDRESULT_COLLISION
+	if (cdTestVolume(&pad.pos, 20, rooms, CDTYPE_ALL, CHECKVERTICAL_YES, 200, -200) == CDRESULT_COLLISION
 			&& packed->chair == -1
 			&& (packed->spawnflags & SPAWNFLAG_IGNORECOLLISION) == 0) {
 		return;
@@ -587,7 +587,7 @@ struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
 			chr->visionrange = 0;
 			chr->race = bodyGetRace(chr->bodynum);
 
-			ground = cdFindGroundY(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &inlift, &lift);
+			ground = cdFindGroundInfoAtCyl(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &inlift, &lift);
 			chr->ground = ground;
 			chr->manground = ground;
 

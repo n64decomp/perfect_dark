@@ -24,7 +24,7 @@ f32 chrGetAttackEntityRelativeAngle(struct chrdata *chr, s32 attackflags, s32 en
 f32 chrGetAttackEntityDistance(struct chrdata *chr, u32 attackflags, s32 entityid);
 void func0f02e3dc(struct coord *a, struct coord *b, struct coord *c, struct coord *d, struct coord *dst);
 void func0f02e4f8(struct coord *arg0, struct coord *arg1, struct coord *dst);
-f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 arg3, f32 ymax, f32 ymin);
+f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 ymax, f32 ymin);
 f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2);
 void chrChooseStandAnimation(struct chrdata *chr, f32 mergetime);
 void chrStand(struct chrdata *chr);
@@ -169,7 +169,7 @@ void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2);
 bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *aimpos, struct coord *arg4, struct coord *arg5, f32 negchrradius, f32 chrradius, s32 cdtypes, s32 arg9);
 bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, bool hasobstacle);
 bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 radius, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10);
-struct prop *chrOpenDoor(struct chrdata *chr, struct coord *coord);
+struct prop *chrOpenDoor(struct chrdata *chr, struct coord *rangepos);
 void chrNavTickMain(struct chrdata *chr, struct coord *pos, struct waydata *waydata, bool arg3);
 bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum);
 s16 chrGoPosGetNextPadNum(struct chrdata *chr);
@@ -212,12 +212,12 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
 #endif
 
 struct prop *chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f32 angle, u8 *ailist, u32 spawnflags);
-bool func0f04b658(struct chrdata *chr);
+bool chrIsPropPresetBlockingSightToTarget(struct chrdata *chr);
 bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle, bool allowonscreen);
 bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool soft);
 s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 arg1, s32 arg2);
 s32 chrAssignCoverAwayFromDanger(struct chrdata *chr, s32 mindist, s32 maxdist);
-bool chrRunFromPos(struct chrdata *chr, u32 speed, f32 distance, struct coord *frompos);
+bool chrRunFromPos(struct chrdata *chr, u32 goposflags, f32 distance, struct coord *frompos);
 f32 func0f04c784(struct chrdata *chr);
 bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, u8 arg4);
 void rebuildTeams(void);
@@ -266,7 +266,7 @@ bool chrTrySurprisedLookAround(struct chrdata *chr);
 bool chrTryKneel(struct chrdata *chr);
 bool chrTryStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 chranimflags, s32 merge, f32 speed);
 bool chrTryStartAlarm(struct chrdata *chr, s32 pad_id);
-s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 attackflags, u32 entityid);
+bool chrConsiderGrenadeThrow(struct chrdata *chr, u32 attackflags, u32 entityid);
 void chrTickKneel(struct chrdata *chr);
 void chrFadeCorpse(struct chrdata *chr);
 void chrFadeCorpseWhenOffScreen(struct chrdata *chr);

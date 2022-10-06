@@ -60,7 +60,7 @@ f32 eyespyFindGround(s16 *floorroom)
 	pos.y = prop->pos.y + yoffset;
 	pos.z = prop->pos.z;
 
-	ground = cdFindGroundY(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &inlift, &lift);
+	ground = cdFindGroundInfoAtCyl(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &inlift, &lift);
 
 	if (ground < -30000) {
 		ground = -30000;
@@ -100,7 +100,7 @@ s32 eyespyTryMoveUpwards(f32 yvel)
 
 	f0 -= 0.1f;
 
-	result = cdTestVolume(&dstpos, 26, dstrooms, types, 1, 15, f0);
+	result = cdTestVolume(&dstpos, 26, dstrooms, types, CHECKVERTICAL_YES, 15, f0);
 	propSetPerimEnabled(prop, true);
 
 	if (result == CDRESULT_NOCOLLISION) {
@@ -123,12 +123,12 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 	s16 sp74[24];
 	s32 types;
 	s32 i;
-	f32 f18;
+	f32 ymin;
 	f32 xdiff;
 	f32 zdiff;
 	u32 stack;
-	f32 limit;
-	f32 halflimit;
+	f32 radius;
+	f32 halfradius;
 	struct prop *prop;
 	s32 playernum;
 	u32 stack2;
@@ -146,9 +146,9 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 
 		// Allow eyespy to go up steps 30cm or less
 		if (g_Vars.currentplayer->eyespy->oldground <= chr->manground + 30) {
-			f18 = chr->manground - eyespyprop->pos.y + 30;
+			ymin = chr->manground - eyespyprop->pos.y + 30;
 		} else {
-			f18 = g_Vars.currentplayer->eyespy->oldground - eyespyprop->pos.y;
+			ymin = g_Vars.currentplayer->eyespy->oldground - eyespyprop->pos.y;
 		}
 
 		// This must be populating dstrooms at least
@@ -172,21 +172,21 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 		xdiff = dstpos.x - eyespyprop->pos.x;
 		zdiff = dstpos.z - eyespyprop->pos.z;
 
-		limit = 26;
-		halflimit = limit * 0.5f;
+		radius = 26;
+		halfradius = radius * 0.5f;
 
-		if (xdiff > halflimit || zdiff > halflimit || xdiff < -halflimit || zdiff < -halflimit) {
-			result = cdTestAToB3(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, limit, types, 1, 15, f18);
+		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
+			result = cdExamCylMove06(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, radius, types, 1, 15, ymin);
 
 			if (result == CDRESULT_NOCOLLISION) {
-				result = cdTestAToB1(&eyespyprop->pos, &dstpos, limit, dstrooms, types, 1, 15, f18);
+				result = cdExamCylMove02(&eyespyprop->pos, &dstpos, radius, dstrooms, types, true, 15, ymin);
 			}
 		} else {
-			result = cdTestAToB1(&eyespyprop->pos, &dstpos, limit, sp74, types, 1, 15, f18);
+			result = cdExamCylMove02(&eyespyprop->pos, &dstpos, radius, sp74, types, true, 15, ymin);
 		}
 
 		if (result == CDRESULT_COLLISION) {
-			prop = cdGetObstacle();
+			prop = cdGetObstacleProp();
 
 			if (prop && prop->type == PROPTYPE_PLAYER) {
 				playernum = g_Vars.currentplayernum;
@@ -222,7 +222,7 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 	if (result != CDRESULT_NOCOLLISION) {
 		g_EyespyHit = EYESPYHIT_BG;
 
-		prop = cdGetObstacle();
+		prop = cdGetObstacleProp();
 
 		if (prop && g_Vars.lvupdate240 > 0) {
 			if (prop->type == PROPTYPE_DOOR) {
@@ -235,7 +235,7 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 					struct coord sp2c;
 					struct coord sp20;
 
-					cd00024e4c(&sp2c, &sp20, 286, "bondeyespy.c");
+					cdGetEdge(&sp2c, &sp20, 286, "bondeyespy.c");
 
 					// Nothing is actually done with these coordinates...
 					// This code was likely copied from bondwalk then the bounce
@@ -286,7 +286,7 @@ s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, s
 		}
 
 		if (someint == 0) {
-			cd00024e4c(arg3, arg4, 350, "bondeyespy.c");
+			cdGetEdge(arg3, arg4, 350, "bondeyespy.c");
 
 			if (arg3->f[0] != arg1->f[0]
 					|| arg3->f[1] != arg1->f[1]
@@ -405,7 +405,7 @@ s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
 	bool result = eyespyCalculateNewPositionWithPush(vel);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		cd00024e4c(arg1, arg2, 473, "bondeyespy.c");
+		cdGetEdge(arg1, arg2, 473, "bondeyespy.c");
 	}
 
 	return result;
@@ -635,8 +635,10 @@ bool eyespyTryLaunch(void)
 
 	playerSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
-	if (insafe || !cdTestAToB4(&testfrompos, g_Vars.currentplayer->prop->rooms,
-				&g_Vars.currentplayer->eyespy->prop->pos, CDTYPE_ALL, 15)) {
+	if (insafe || !cdExamLos08(&testfrompos, g_Vars.currentplayer->prop->rooms,
+				&g_Vars.currentplayer->eyespy->prop->pos,
+				CDTYPE_ALL,
+				GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT)) {
 		// Launch failed due to not enough physical space, or we're in the G5 safe
 		g_Vars.currentplayer->eyespy->deployed = false;
 
@@ -1142,8 +1144,10 @@ void eyespyProcessInput(bool allowbuttons)
 			g_EyespyPickup = false;
 		}
 
-		cdresult = cdHasLineOfSight(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
-				&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms, 0x22, 0x1c);
+		cdresult = cdTestLos05(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+				&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms,
+				CDTYPE_DOORS | CDTYPE_BG,
+				GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT);
 
 		if (cdresult == CDRESULT_COLLISION) {
 			// Something's in the way

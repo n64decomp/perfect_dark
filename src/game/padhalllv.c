@@ -121,14 +121,14 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 			padrooms[0] = pad.room;
 			padrooms[1] = -1;
 
-			if (cdHasLineOfSight(pos, rooms, &pad.pos, padrooms, CDTYPE_BG, 3) != CDRESULT_COLLISION) {
-				s32 cdresult = cd0002d8b8(pos, rooms, &pad.pos, padrooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, true, 0.0f, 0.0f);
+			if (cdTestLos05(pos, rooms, &pad.pos, padrooms, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2) != CDRESULT_COLLISION) {
+				s32 cdresult = cdExamCylMove05(pos, rooms, &pad.pos, padrooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, true, 0.0f, 0.0f);
 
 				if (cdresult == CDRESULT_ERROR) {
 					checkmore[i] = false;
 				} else if (cdresult == CDRESULT_COLLISION) {
 					checkmore[i] = true;
-					cd00024e4c(&sp250[i], &sp1d8[i], 441, "padhalllv.c");
+					cdGetEdge(&sp250[i], &sp1d8[i], 441, "padhalllv.c");
 				} else {
 					closest = candwaypoints[i];
 					break;
@@ -171,7 +171,7 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 					tmppos.y = pos->y;
 					tmppos.z = sp250[i].f[2] + sp98.f[2];
 
-					if (cd0002d840(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, 1, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+					if (cdTestCylMove04(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, 1, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 						closest = candwaypoints[i];
 						break;
 					}
@@ -180,7 +180,7 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 					tmppos.y = pos->y;
 					tmppos.z = sp1d8[i].z - sp98.z;
 
-					if (cd0002d840(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, 1, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+					if (cdTestCylMove04(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, 1, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 						closest = candwaypoints[i];
 						break;
 					}

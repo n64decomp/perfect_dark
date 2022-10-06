@@ -201,7 +201,7 @@ void kohInitProps(void)
 	g_ScenarioData.koh.hillpos.x = pad.pos.x;
 	g_ScenarioData.koh.hillpos.y = pad.pos.y;
 	g_ScenarioData.koh.hillpos.z = pad.pos.z;
-	g_ScenarioData.koh.hillpos.y = cd0002a36c(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillrooms[0], 0, 0);
+	g_ScenarioData.koh.hillpos.y = cdFindFloorYColourTypeAtPos(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillrooms[0], 0, 0);
 	g_ScenarioData.koh.movehill = false;
 	roomSetLighting(g_ScenarioData.koh.hillrooms[0], LIGHTOP_5, 0, 0, 0);
 }
@@ -292,7 +292,7 @@ void kohTick(void)
 			g_ScenarioData.koh.hillpos.y = pad.pos.y;
 			g_ScenarioData.koh.hillpos.z = pad.pos.z;
 
-			g_ScenarioData.koh.hillpos.y = cd0002a36c(&g_ScenarioData.koh.hillpos, g_ScenarioData.koh.hillrooms, NULL, NULL);
+			g_ScenarioData.koh.hillpos.y = cdFindFloorYColourTypeAtPos(&g_ScenarioData.koh.hillpos, g_ScenarioData.koh.hillrooms, NULL, NULL);
 
 			roomSetLighting(g_ScenarioData.koh.hillrooms[0], 5, 0, 0, 0);
 

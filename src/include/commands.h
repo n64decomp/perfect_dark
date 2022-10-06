@@ -2345,7 +2345,11 @@
 	0x00, \
 	0x00,
 
-#define cmd0103(label) \
+/**
+ * Checks if the current chr's proppreset is blocking line of sight from the chr
+ * to their target.
+ */
+#define if_proppreset_blocking_sight_to_target(label) \
 	mkshort(0x0103), \
 	label,
 

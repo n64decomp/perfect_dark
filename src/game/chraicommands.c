@@ -5844,9 +5844,9 @@ bool aiSetLights(void)
 /**
  * @cmd 0103
  */
-bool ai0103(void)
+bool aiIfPropPresetIsBlockingSightToTarget(void)
 {
-	if (func0f04b658(g_Vars.chrdata)) {
+	if (chrIsPropPresetBlockingSightToTarget(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

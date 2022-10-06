@@ -978,7 +978,7 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 		dprint();
 
 		if ((obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
-				&& !cd0002dcd0(&chrprop->pos, chrprop->rooms, &prop->pos, prop->rooms, 0x22)) {
+				&& !cdTestLos06(&chrprop->pos, chrprop->rooms, &prop->pos, prop->rooms, CDTYPE_DOORS | CDTYPE_BG)) {
 			sp3c = false;
 		}
 	}

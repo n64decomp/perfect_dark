@@ -39,7 +39,7 @@ void propsTickPlayer(bool islastplayer);
 void propsTickPadEffects(void);
 void propSetPerimEnabled(struct prop *prop, bool enable);
 void propsTestForPickup(void);
-f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5, bool cangangsta, s32 arg7);
+f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool throughobjects, bool cangangsta, s32 arg7);
 void farsightChooseTarget(void);
 void autoaimTick(void);
 u32 propDoorGetCdTypes(struct prop *prop);

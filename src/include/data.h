@@ -66,7 +66,7 @@ extern s32 var8005f018;
 extern s32 var8005f01c;
 extern bool g_AnimHostEnabled;
 extern s32 var8005f030;
-extern s32 var8005f034;
+extern s32 g_CdHasSavedBlock;
 extern s32 var8005f038;
 extern u16 *g_RdpOutBufferEnd;
 extern u16 *g_RdpOutBufferStart;

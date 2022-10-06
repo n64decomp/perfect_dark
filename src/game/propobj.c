@@ -994,7 +994,7 @@ struct defaultobj *objFindByPos(struct coord *pos, s16 *rooms)
 		if (prop->type == PROPTYPE_OBJ
 				&& arrayIntersects(prop->rooms, rooms)
 				&& propUpdateGeometry(prop, &sp38, &sp34)
-				&& func000266a4(pos->x, pos->z, (struct geo *)sp38)) {
+				&& cd000266a4(pos->x, pos->z, (struct geo *)sp38)) {
 			return prop->obj;
 		}
 
@@ -1764,7 +1764,7 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 
 	if (obj->flags3 & OBJFLAG3_GEOCYL) {
 		cyl->header.type = GEOTYPE_CYL;
-		cyl->header.flags = GEOFLAG_COLLISIONS | GEOFLAG_0008 | GEOFLAG_OPAQUE;
+		cyl->header.flags = GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT;
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *)obj;
@@ -1818,7 +1818,7 @@ void func0f069b4c(struct defaultobj *obj)
 		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0065);
 
 		if (rodata != NULL) {
-			u32 flags = GEOFLAG_0001 | GEOFLAG_0002;
+			u32 flags = GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2;
 
 			if (obj->type == OBJTYPE_ESCASTEP) {
 				flags |= GEOFLAG_LIFTFLOOR;
@@ -1832,7 +1832,7 @@ void func0f069b4c(struct defaultobj *obj)
 		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0066);
 
 		if (rodata != NULL) {
-			func0f070ca0(obj, (struct geotilef *)ptr, GEOFLAG_COLLISIONS | GEOFLAG_0008 | GEOFLAG_OPAQUE, NULL, &rodata->type19);
+			func0f070ca0(obj, (struct geotilef *)ptr, GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT, NULL, &rodata->type19);
 		}
 	}
 }
@@ -2177,9 +2177,9 @@ void func0f06a650(struct defaultobj *obj, struct coord *pos, Mtxf *arg2, s16 *ro
 	bbox = modelFindBboxRodata(obj->model);
 
 #if VERSION >= VERSION_NTSC_1_0
-	room = cd0002a440(pos, rooms, &sp3c, &obj->floorcol, NULL);
+	room = cdFindFloorRoomYColourFlagsAtPos(pos, rooms, &sp3c, &obj->floorcol, NULL);
 #else
-	room = cd0002a440(pos, rooms, &sp3c, &obj->floorcol);
+	room = cdFindFloorRoomYColourFlagsAtPos(pos, rooms, &sp3c, &obj->floorcol);
 #endif
 
 	if (room > 0) {
@@ -2289,9 +2289,9 @@ void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, s16 *ro
 		func0f065e74(arg1, rooms, &pos2, rooms2);
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (cd0002a440(&pos2, rooms2, &y, &obj->floorcol, NULL) > 0)
+		if (cdFindFloorRoomYColourFlagsAtPos(&pos2, rooms2, &y, &obj->floorcol, NULL) > 0)
 #else
-		if (cd0002a440(&pos2, rooms2, &y, &obj->floorcol) > 0)
+		if (cdFindFloorRoomYColourFlagsAtPos(&pos2, rooms2, &y, &obj->floorcol) > 0)
 #endif
 		{
 			bool updated;
@@ -2557,7 +2557,7 @@ void objFreePermanently(struct defaultobj *obj, bool freeprop)
 	objFree(obj, freeprop, false);
 }
 
-f32 objGetWidth(struct defaultobj *obj)
+f32 objGetRadius(struct defaultobj *obj)
 {
 	if (obj->type == OBJTYPE_KEY) {
 		return 20;
@@ -2598,16 +2598,16 @@ bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, str
 
 	if (!cd0002ded8(arg1, arg2, prop)) {
 #if VERSION >= VERSION_PAL_FINAL
-		cd00024e4c(&sp3c, &sp30, 2910, "prop/propobj.c");
+		cdGetEdge(&sp3c, &sp30, 2910, "prop/propobj.c");
 		cdGetPos(&sp20, 2911, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-		cd00024e4c(&sp3c, &sp30, 2910, "propobj.c");
+		cdGetEdge(&sp3c, &sp30, 2910, "propobj.c");
 		cdGetPos(&sp20, 2911, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-		cd00024e4c(&sp3c, &sp30, 2909, "propobj.c");
+		cdGetEdge(&sp3c, &sp30, 2909, "propobj.c");
 		cdGetPos(&sp20, 2910, "propobj.c");
 #else
-		cd00024e4c(&sp3c, &sp30, 2898, "propobj.c");
+		cdGetEdge(&sp3c, &sp30, 2898, "propobj.c");
 		cdGetPos(&sp20, 2899, "propobj.c");
 #endif
 
@@ -3287,7 +3287,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 				spa0[0] = spcc[i];
 				spa0[1] = -1;
 
-				if (cd0002de10(&prop->pos, spa0, &sp1c4, CDTYPE_BG) == CDRESULT_COLLISION) {
+				if (cdExamLos09(&prop->pos, spa0, &sp1c4, CDTYPE_BG) == CDRESULT_COLLISION) {
 					s0 = true;
 #if VERSION >= VERSION_PAL_FINAL
 					cdGetPos(&hitthing.unk00, 4258, "prop/propobj.c");
@@ -3298,7 +3298,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 #else
 					cdGetPos(&hitthing.unk00, 4246, "propobj.c");
 #endif
-					cd00024ee8(&hitthing.unk0c);
+					cdGetObstacleNormal(&hitthing.unk0c);
 				}
 			}
 
@@ -3368,7 +3368,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3)
 {
 	struct prop *prop = obj->prop;
-	f32 width = objGetWidth(obj);
+	f32 radius = objGetRadius(obj);
 	bool result = true;
 	bool sp98 = false;
 	struct coord sp8c;
@@ -3388,10 +3388,10 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 
 	if (prop->pos.x != arg1->x || prop->pos.y != arg1->y || prop->pos.z != arg1->z) {
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
-			if (cd0002dac8(&prop->pos, prop->rooms, &sp80, rooms, width, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+			if (cdExamCylMove08(&prop->pos, prop->rooms, &sp80, rooms, radius, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 				setup0f09233c(obj, &sp80, obj->realrot, rooms);
 
-				if (cdTestAToB1(&prop->pos, &sp80, width, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+				if (cdExamCylMove02(&prop->pos, &sp80, radius, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 					prop->pos.x = sp80.x;
 					prop->pos.y = sp80.y;
 					prop->pos.z = sp80.z;
@@ -3407,13 +3407,13 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 
 			if (!result) {
 #if VERSION >= VERSION_PAL_FINAL
-				cd00024e4c(&sp64, &sp58, 4386, "prop/propobj.c");
+				cdGetEdge(&sp64, &sp58, 4386, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-				cd00024e4c(&sp64, &sp58, 4386, "propobj.c");
+				cdGetEdge(&sp64, &sp58, 4386, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-				cd00024e4c(&sp64, &sp58, 4385, "propobj.c");
+				cdGetEdge(&sp64, &sp58, 4385, "propobj.c");
 #else
-				cd00024e4c(&sp64, &sp58, 4374, "propobj.c");
+				cdGetEdge(&sp64, &sp58, 4374, "propobj.c");
 #endif
 
 				arg3->x = sp58.z - sp64.z;
@@ -3481,10 +3481,10 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 					sp4c.y = sp80.y;
 					sp4c.z = sp8c.z * f2 + prop->pos.z;
 
-					if (cd0002da50(&prop->pos, prop->rooms, &sp4c, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+					if (cdExamCylMove07(&prop->pos, prop->rooms, &sp4c, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 						setup0f09233c(obj, &sp4c, obj->realrot, rooms);
 
-						if (cdTestVolume(&sp4c, width, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+						if (cdTestVolume(&sp4c, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 							prop->pos.x = sp4c.x;
 							prop->pos.y = sp4c.y;
 							prop->pos.z = sp4c.z;
@@ -5785,7 +5785,7 @@ f32 liftGetY(struct liftobj *lift)
 		struct geotilef *tile = lift->base.geotilef;
 
 		if (tile && tile->header.type == GEOTYPE_TILE_F) {
-			if (tile->header.flags & GEOFLAG_0001) {
+			if (tile->header.flags & GEOFLAG_FLOOR1) {
 				y = tile->vertices[tile->max[1]].y;
 			}
 		}
@@ -5843,9 +5843,9 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 		do {
 			if (i == 0) {
 #if VERSION >= VERSION_NTSC_1_0
-				flags = GEOFLAG_0001 | GEOFLAG_0002 | GEOFLAG_0008 | GEOFLAG_OPAQUE | GEOFLAG_LIFTFLOOR;
+				flags = GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT | GEOFLAG_LIFTFLOOR;
 #else
-				flags = GEOFLAG_0001 | GEOFLAG_0002 | GEOFLAG_LIFTFLOOR;
+				flags = GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_LIFTFLOOR;
 #endif
 
 				// Look for a non-rectangular floor with fallback to rectangular
@@ -5861,13 +5861,13 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 					}
 				}
 			} else if (i == 1) {
-				flags = GEOFLAG_COLLISIONS;
+				flags = GEOFLAG_WALL;
 				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL1);
 			} else if (i == 2) {
-				flags = GEOFLAG_COLLISIONS;
+				flags = GEOFLAG_WALL;
 				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL2);
 			} else if (i == 3) {
-				flags = GEOFLAG_COLLISIONS;
+				flags = GEOFLAG_WALL;
 				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL3);
 			} else if (i == 4) {
 				// The doorblock model part exists in the dataDyne tower lifts.
@@ -5875,14 +5875,14 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 				// is moving. Without it, the player could exit the lift through
 				// the doorway while it's moving.
 				if (!stationary) {
-					flags = GEOFLAG_COLLISIONS;
+					flags = GEOFLAG_WALL;
 					rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_DOORBLOCK);
 				}
 			} else if (i == 5) {
 #if VERSION >= VERSION_NTSC_1_0
-				flags = GEOFLAG_0001 | GEOFLAG_0002 | GEOFLAG_0008 | GEOFLAG_OPAQUE | GEOFLAG_LIFTFLOOR;
+				flags = GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT | GEOFLAG_LIFTFLOOR;
 #else
-				flags = GEOFLAG_0001 | GEOFLAG_0002 | GEOFLAG_LIFTFLOOR;
+				flags = GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_LIFTFLOOR;
 #endif
 				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_FLOORNONRECT2);
 			} else {
@@ -6004,7 +6004,7 @@ void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos,
 		roomsCopy(rooms, testrooms);
 		setup0f09233c(obj, &testpos, matrix, testrooms);
 
-		ground = cdFindGroundYSimple(pos, 5, testrooms, &obj->floorcol, NULL);
+		ground = cdFindGroundAtCyl(pos, 5, testrooms, &obj->floorcol, NULL);
 
 		if (ground < -30000) {
 			ground = hov->ground;
@@ -6089,11 +6089,11 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 
 			func0f065e74(&prop->pos, prop->rooms, &sp1b4, sp198);
 			roomsAppend(sp9c, sp198, ARRAYCOUNT(sp198));
-			ground1 = cdFindGroundYSimple(&sp1b4, 5, sp198, &obj->floorcol, NULL);
+			ground1 = cdFindGroundAtCyl(&sp1b4, 5, sp198, &obj->floorcol, NULL);
 
 			func0f065e74(&prop->pos, prop->rooms, &sp1a8, sp188);
 			roomsAppend(sp9c, sp188, ARRAYCOUNT(sp188));
-			ground2 = cdFindGroundYSimple(&sp1a8, 5, sp188, NULL, NULL);
+			ground2 = cdFindGroundAtCyl(&sp1a8, 5, sp188, NULL, NULL);
 
 			if (ground1 >= -30000.0f && ground2 >= -30000.0f) {
 				spb4 = atan2f(ground1 - ground2, sp1cc - sp1d0);
@@ -6388,12 +6388,12 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 			pos.y += hov->ground - prevhov.ground;
 		}
 
-		cdresult = cd0002d8b8(&prop->pos, prop->rooms, &pos, rooms, CDTYPE_ALL, true, 0.0f, 0.0f);
+		cdresult = cdExamCylMove05(&prop->pos, prop->rooms, &pos, rooms, CDTYPE_ALL, true, 0.0f, 0.0f);
 
 		if (cdresult == CDRESULT_ERROR) {
 			// empty
 		} else if (cdresult == CDRESULT_COLLISION) {
-			cd00025314(&prop->pos, &pos);
+			cdSetSavedPos(&prop->pos, &pos);
 		}
 	} else {
 		roomsCopy(prop->rooms, rooms);
@@ -6404,7 +6404,7 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		func0f069850(obj, &pos, sp460, &cyl);
 
 		if (obj->flags3 & OBJFLAG3_GEOCYL) {
-			cdresult = cd0002a6fc(&prop->pos, &pos, cyl.radius, rooms, CDTYPE_ALL, true, cyl.ymax - pos.y, cyl.ymin - pos.y);
+			cdresult = cdExamCylMove01(&prop->pos, &pos, cyl.radius, rooms, CDTYPE_ALL, CHECKVERTICAL_YES, cyl.ymax - pos.y, cyl.ymin - pos.y);
 		} else {
 			cdresult = cd0002f02c((struct geoblock *)&cyl, rooms, CDTYPE_ALL);
 		}
@@ -6513,7 +6513,7 @@ void hovercarIncrementStep(struct hovercarobj *hovercar)
 f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotation)
 {
 	f32 force = 1.0f;
-	struct prop *obstacle = cdGetObstacle();
+	struct prop *obstacle = cdGetObstacleProp();
 
 	if (obstacle && g_Vars.lvupdate240 > 0) {
 		if (obstacle->type == PROPTYPE_CHR || obstacle->type == PROPTYPE_PLAYER) {
@@ -6538,16 +6538,16 @@ f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotati
 				objApplyMomentum(obstacleobj, &obstaclevel, 0.0f, true, true);
 
 #if VERSION >= VERSION_PAL_FINAL
-				cd00024e4c(&sp70, &sp64, 7356, "prop/propobj.c");
+				cdGetEdge(&sp70, &sp64, 7356, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-				cd00024e4c(&sp70, &sp64, 7356, "propobj.c");
+				cdGetEdge(&sp70, &sp64, 7356, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-				cd00024e4c(&sp70, &sp64, 7355, "propobj.c");
+				cdGetEdge(&sp70, &sp64, 7355, "propobj.c");
 #else
-				cd00024e4c(&sp70, &sp64, 7308, "propobj.c");
+				cdGetEdge(&sp70, &sp64, 7308, "propobj.c");
 #endif
 
-				if (cd00025364(&sp58, &sp4c)) {
+				if (cdGetSavedPos(&sp58, &sp4c)) {
 					sp4c.x -= sp58.x;
 					sp4c.y -= sp58.y;
 					sp4c.z -= sp58.z;
@@ -8018,7 +8018,7 @@ void platformDisplaceProps2(struct prop *platform, Mtxf *arg1)
 
 				if (prop->pos.y > platform->pos.y
 						&& (obj->hidden & OBJHFLAG_00008000)
-						&& func000266a4(prop->pos.x, prop->pos.z, (struct geo *)sp9c)) {
+						&& cd000266a4(prop->pos.x, prop->pos.z, (struct geo *)sp9c)) {
 					mtx3ToMtx4(obj->realrot, &sp58);
 					mtx4SetTranslation(&prop->pos, &sp58);
 					mtx4MultMtx4InPlace(arg1, &sp58);
@@ -8192,7 +8192,9 @@ bool rocketTickFbw(struct weaponobj *rocket)
 				// Check if rocket can fly directly to target
 				if (chrGetTargetProp(ownerchr) == chr->prop
 						&& mpPlayerGetIndex(ownerchr) == g_Vars.lvframenum % g_MpNumChrs
-						&& cdHasLineOfSight(&rocketprop->pos, rocketprop->rooms, &chr->prop->pos, chr->prop->rooms, CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE, 8)) {
+						&& cdTestLos05(&rocketprop->pos, rocketprop->rooms, &chr->prop->pos, chr->prop->rooms,
+							CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
+							GEOFLAG_BLOCK_SIGHT)) {
 					projectile->nextsteppos.x = chr->prop->pos.x;
 					projectile->nextsteppos.y = chr->prop->pos.y;
 					projectile->nextsteppos.z = chr->prop->pos.z;
@@ -8486,19 +8488,19 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						struct coord sp3ac;
 						f32 f0_2;
 
-						if (cd00025364(&sp3d0, &sp3c4)) {
+						if (cdGetSavedPos(&sp3d0, &sp3c4)) {
 							sp3c4.x -= sp3d0.x;
 							sp3c4.y -= sp3d0.y;
 							sp3c4.z -= sp3d0.z;
 						} else {
 #if VERSION >= VERSION_PAL_FINAL
-							cd00024e4c(&sp3d0, &sp3c4, 8360, "prop/propobj.c");
+							cdGetEdge(&sp3d0, &sp3c4, 8360, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-							cd00024e4c(&sp3d0, &sp3c4, 8360, "propobj.c");
+							cdGetEdge(&sp3d0, &sp3c4, 8360, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-							cd00024e4c(&sp3d0, &sp3c4, 8339, "propobj.c");
+							cdGetEdge(&sp3d0, &sp3c4, 8339, "propobj.c");
 #else
-							cd00024e4c(&sp3d0, &sp3c4, 8289, "propobj.c");
+							cdGetEdge(&sp3d0, &sp3c4, 8289, "propobj.c");
 #endif
 
 							sp3d0.x -= sp3c4.x;
@@ -8534,13 +8536,13 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						projectile->unk0dc += f0;
 
 #if VERSION >= VERSION_PAL_FINAL
-						cd00024e4c(&sp3e8, &sp3dc, 8398, "prop/propobj.c");
+						cdGetEdge(&sp3e8, &sp3dc, 8398, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-						cd00024e4c(&sp3e8, &sp3dc, 8398, "propobj.c");
+						cdGetEdge(&sp3e8, &sp3dc, 8398, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-						cd00024e4c(&sp3e8, &sp3dc, 8377, "propobj.c");
+						cdGetEdge(&sp3e8, &sp3dc, 8377, "propobj.c");
 #else
-						cd00024e4c(&sp3e8, &sp3dc, 8327, "propobj.c");
+						cdGetEdge(&sp3e8, &sp3dc, 8327, "propobj.c");
 #endif
 
 						sp3f4.x = sp3dc.z - sp3e8.z;
@@ -8700,7 +8702,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				}
 
 				if (cdresult == CDRESULT_NOCOLLISION) {
-					ground = cdFindGroundYSimple(&prop->pos, 2, prop->rooms, &obj->floorcol, NULL);
+					ground = cdFindGroundAtCyl(&prop->pos, 2, prop->rooms, &obj->floorcol, NULL);
 
 					if (ground > -30000.0f) {
 						prop->pos.y = ground + objGetHov04(obj);
@@ -9244,12 +9246,16 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 					sp5ac.y = prop->pos.y + sp37c;
 					sp5ac.z = prop->pos.z;
 
-					roomnum = cd0002a5e4(&sp5ac, prop->rooms, &sp390, &obj->floorcol, &geoflags, &sp380);
+					roomnum = cdFindCeilingRoomYColourFlagsNormalAtPos(&sp5ac, prop->rooms, &sp390, &obj->floorcol, &geoflags, &sp380);
 
 #if VERSION >= VERSION_NTSC_1_0
-					if (roomnum > 0 && prop->pos.y + sp37c < sp390 && !cd0002db98(&sp5c8, sp5b8, &sp5ac, CDTYPE_OBJS | CDTYPE_BG, 3))
+					if (roomnum > 0
+							&& prop->pos.y + sp37c < sp390
+							&& !cdTestLos03(&sp5c8, sp5b8, &sp5ac, CDTYPE_OBJS | CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2))
 #else
-					if (roomnum > 0 && prop->pos.y + sp37c < sp390 && !cd0002db98(&sp5c8, sp5b8, &sp5ac, CDTYPE_BG, 3))
+					if (roomnum > 0
+							&& prop->pos.y + sp37c < sp390
+							&& !cdTestLos03(&sp5c8, sp5b8, &sp5ac, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2))
 #endif
 					{
 						sp354 = true;
@@ -9269,14 +9275,14 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							obj->hidden |= OBJHFLAG_REAPABLE;
 						}
 					} else {
-						roomnum = cd0002a564(&prop->pos, prop->rooms, &sp390, &obj->floorcol, &sp380, NULL);
+						roomnum = cdFindFloorRoomYColourNormalPropAtPos(&prop->pos, prop->rooms, &sp390, &obj->floorcol, &sp380, NULL);
 
 #if VERSION >= VERSION_NTSC_1_0
 						if (roomnum <= 0 && (projectile->flags & PROJECTILEFLAG_STICKY) == 0) {
 							if ((projectile->flags & PROJECTILEFLAG_00010000) == 0) {
 								projectile->flags |= PROJECTILEFLAG_00010000;
 
-								if (cdFindRoom(&sp5c8, sp5b8) > 0) {
+								if (cdFindFloorRoomAtPos(&sp5c8, sp5b8) > 0) {
 									projectile->flags |= PROJECTILEFLAG_INROOM;
 								}
 							}
@@ -9289,7 +9295,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 								propDeregisterRooms(prop);
 								roomsCopy(sp5b8, prop->rooms);
 
-								roomnum = cd0002a440(&prop->pos, prop->rooms, &sp390, &obj->floorcol, NULL);
+								roomnum = cdFindFloorRoomYColourFlagsAtPos(&prop->pos, prop->rooms, &sp390, &obj->floorcol, NULL);
 
 								projectile->speed.x = 0.0f;
 								projectile->speed.z = 0.0f;
@@ -9546,16 +9552,16 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 					sp5ac.z = prop->pos.z;
 
 #if VERSION >= VERSION_NTSC_1_0
-					roomnum = cd0002a4d0(&sp5ac, prop->rooms, &spa4, &obj->floorcol, &geoflags);
+					roomnum = cdFindCeilingRoomYColourFlagsAtPos(&sp5ac, prop->rooms, &spa4, &obj->floorcol, &geoflags);
 
-					if (roomnum <= 0 || cd0002db98(&sp5c8, sp5b8, &sp5ac, CDTYPE_OBJS | CDTYPE_BG, 3)) {
-						roomnum = cd0002a440(&prop->pos, prop->rooms, &spa4, &obj->floorcol, &geoflags);
+					if (roomnum <= 0 || cdTestLos03(&sp5c8, sp5b8, &sp5ac, CDTYPE_OBJS | CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2)) {
+						roomnum = cdFindFloorRoomYColourFlagsAtPos(&prop->pos, prop->rooms, &spa4, &obj->floorcol, &geoflags);
 					}
 #else
-					roomnum = cd0002a4d0(&sp5ac, prop->rooms, &spa4, &obj->floorcol);
+					roomnum = cdFindCeilingRoomYColourFlagsAtPos(&sp5ac, prop->rooms, &spa4, &obj->floorcol);
 
-					if (roomnum <= 0 || cd0002db98(&sp5c8, sp5b8, &sp5ac, CDTYPE_BG, 3)) {
-						roomnum = cd0002a440(&prop->pos, prop->rooms, &spa4, &obj->floorcol);
+					if (roomnum <= 0 || cdTestLos03(&sp5c8, sp5b8, &sp5ac, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2)) {
+						roomnum = cdFindFloorRoomYColourFlagsAtPos(&prop->pos, prop->rooms, &spa4, &obj->floorcol);
 					}
 #endif
 
@@ -9567,9 +9573,9 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						roomsCopy(sp5b8, prop->rooms);
 
 #if VERSION >= VERSION_NTSC_1_0
-						roomnum = cd0002a440(&prop->pos, prop->rooms, &spa4, &obj->floorcol, &geoflags);
+						roomnum = cdFindFloorRoomYColourFlagsAtPos(&prop->pos, prop->rooms, &spa4, &obj->floorcol, &geoflags);
 #else
-						roomnum = cd0002a440(&prop->pos, prop->rooms, &spa4, &obj->floorcol);
+						roomnum = cdFindFloorRoomYColourFlagsAtPos(&prop->pos, prop->rooms, &spa4, &obj->floorcol);
 #endif
 
 						projectile->speed.x = 0.0f;
@@ -10208,7 +10214,7 @@ void escastepTick(struct prop *prop)
 	prop->pos.z = newpos.z;
 
 	if ((obj->flags & OBJFLAG_IGNOREFLOORCOLOUR) == 0) {
-		cd0002a36c(&prop->pos, prop->rooms, &obj->floorcol, 0);
+		cdFindFloorYColourTypeAtPos(&prop->pos, prop->rooms, &obj->floorcol, 0);
 	}
 
 	func0f069c70(obj, true, true);
@@ -10326,7 +10332,9 @@ void cctvTick(struct prop *camprop)
 	if (canseeplayer) {
 		playerSetPerimEnabled(playerprop, false);
 
-		if (!cdHasLineOfSight(&camprop->pos, camprop->rooms, &playerprop->pos, playerprop->rooms, 315, 8)) {
+		if (!cdTestLos05(&camprop->pos, camprop->rooms, &playerprop->pos, playerprop->rooms,
+					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
+					GEOFLAG_BLOCK_SIGHT)) {
 			canseeplayer = false;
 		}
 
@@ -10815,7 +10823,7 @@ void autogunTick(struct prop *prop)
 				if (relangleh <= autogun->ymaxleft
 						&& relangleh >= autogun->ymaxright
 						&& track
-						&& cdHasLineOfSight(&prop->pos, prop->rooms, &target->pos, target->rooms, CDTYPE_ALL, 8)) {
+						&& cdTestLos05(&prop->pos, prop->rooms, &target->pos, target->rooms, CDTYPE_ALL, GEOFLAG_BLOCK_SIGHT)) {
 					// Target is in sight
 					obj->flags |= OBJFLAG_AUTOGUN_SEENTARGET;
 					insight = true;
@@ -11114,7 +11122,7 @@ void autogunTickShoot(struct prop *autogunprop)
 					mtx00015be4(camGetProjectionMtxF(), sp108, &spc8);
 					mtx4TransformVecInPlace(&spc8, &gunpos);
 
-					if (cd0002de34(&autogunprop->pos, autogunprop->rooms, &gunpos, gunrooms, CDTYPE_BG, 0x10) == CDRESULT_COLLISION) {
+					if (cdTestLos10(&autogunprop->pos, autogunprop->rooms, &gunpos, gunrooms, CDTYPE_BG, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 						gunpos.x = autogunprop->pos.x;
 						gunpos.y = autogunprop->pos.y;
 						gunpos.z = autogunprop->pos.z;
@@ -11142,7 +11150,7 @@ void autogunTickShoot(struct prop *autogunprop)
 				if (g_Vars.normmplayerisrunning
 						|| (targetprop && (targetprop->type == PROPTYPE_CHR))
 						|| (g_Vars.antiplayernum >= 0 && targetprop && targetprop == g_Vars.anti->prop)) {
-					if (cdTestAToB4(&gunpos, gunrooms, &hitpos, CDTYPE_ALL, 0x10) == CDRESULT_COLLISION) {
+					if (cdExamLos08(&gunpos, gunrooms, &hitpos, CDTYPE_ALL, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_PAL_FINAL
 						cdGetPos(&hitpos, 11480, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
@@ -11153,7 +11161,7 @@ void autogunTickShoot(struct prop *autogunprop)
 						cdGetPos(&hitpos, 11296, "propobj.c");
 #endif
 
-						hitprop = cdGetObstacle();
+						hitprop = cdGetObstacleProp();
 
 						// SP: If the hit prop is a chr and it's our target
 						// MP: If the hit prop is a chr
@@ -11197,7 +11205,9 @@ void autogunTickShoot(struct prop *autogunprop)
 					// Laptop in firing range
 					struct prop *hitprop = NULL;
 
-					if (cdTestAToB4(&gunpos, gunrooms, &hitpos, CDTYPE_ALL & ~CDTYPE_PLAYERS, 0x10) == CDRESULT_COLLISION) {
+					if (cdExamLos08(&gunpos, gunrooms, &hitpos,
+								CDTYPE_ALL & ~CDTYPE_PLAYERS,
+								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_PAL_FINAL
 						cdGetPos(&hitpos, 11535, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
@@ -11208,7 +11218,7 @@ void autogunTickShoot(struct prop *autogunprop)
 						cdGetPos(&hitpos, 11351, "propobj.c");
 #endif
 
-						hitprop = cdGetObstacle();
+						hitprop = cdGetObstacleProp();
 						missed = true;
 					}
 
@@ -11233,7 +11243,9 @@ void autogunTickShoot(struct prop *autogunprop)
 					}
 				} else {
 					// Enemy autogun in solo
-					if (cdTestAToB4(&gunpos, gunrooms, &hitpos, CDTYPE_DOORS | CDTYPE_BG, 0x10) == CDRESULT_COLLISION) {
+					if (cdExamLos08(&gunpos, gunrooms, &hitpos,
+								CDTYPE_DOORS | CDTYPE_BG,
+								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_PAL_FINAL
 						cdGetPos(&hitpos, 11561, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
@@ -11511,7 +11523,9 @@ bool chopperCheckTargetInSight(struct chopperobj *obj)
 		struct prop *target = chopperGetTargetProp(chopper);
 
 		if (target->type != PROPTYPE_PLAYER || g_Vars.bondvisible) {
-			visible = cdHasLineOfSight(&target->pos, target->rooms, &chopper->base.prop->pos, chopper->base.prop->rooms, 307, 16);
+			visible = cdTestLos05(&target->pos, target->rooms, &chopper->base.prop->pos, chopper->base.prop->rooms,
+					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
+					GEOFLAG_BLOCK_SHOOT);
 		}
 
 		chopper->targetvisible = visible;
@@ -12106,7 +12120,7 @@ void chopperTickFall(struct prop *chopperprop)
 		newpos.y = chopperprop->pos.y + newspeed.f[1] * g_Vars.lvupdate240freal;
 		newpos.z = chopperprop->pos.z + newspeed.f[2] * g_Vars.lvupdate240freal;
 
-		if (cd0002de10(&chopperprop->pos, chopperprop->rooms, &newpos, CDTYPE_BG) == CDRESULT_COLLISION) {
+		if (cdExamLos09(&chopperprop->pos, chopperprop->rooms, &newpos, CDTYPE_BG) == CDRESULT_COLLISION) {
 			struct coord sp74;
 			s16 room;
 			struct coord sp64;
@@ -12114,7 +12128,7 @@ void chopperTickFall(struct prop *chopperprop)
 			s16 newrooms[8];
 
 			chopperprop->pos.y += 100;
-			ground = cdFindGroundYSimple(&chopperprop->pos, 5, chopperprop->rooms, NULL, NULL);
+			ground = cdFindGroundAtCyl(&chopperprop->pos, 5, chopperprop->rooms, NULL, NULL);
 			chopperprop->pos.y -= 100;
 
 #if VERSION >= VERSION_PAL_FINAL
@@ -12353,7 +12367,7 @@ void chopperTickCombat(struct prop *chopperprop)
 				goalpos.y = sp6c.y;
 				goalpos.z = sp6c.z;
 			}
-		} else if (cd0002db98(&targetprop->pos, targetprop->rooms, &goalpos, CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE, 0x10) == 0) {
+		} else if (cdTestLos03(&targetprop->pos, targetprop->rooms, &goalpos, CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE, GEOFLAG_BLOCK_SHOOT) == 0) {
 			padUnpack(chopper->path->pads[chopper->cw ? (sp8c + 1) % chopper->path->len : sp8c], PADFIELD_POS, &pad);
 
 			pad.pos.y += -250.0f;
@@ -12523,7 +12537,7 @@ void hovercarTick(struct prop *prop)
 			sp210[0] = pad.room;
 			sp210[1] = -1;
 
-			sp214.y = cdFindGroundYSimple(&pad.pos, 5, sp210, NULL, NULL) + 35;
+			sp214.y = cdFindGroundAtCyl(&pad.pos, 5, sp210, NULL, NULL) + 35;
 		} else {
 			sp214.y = pad.pos.y;
 		}
@@ -12552,8 +12566,9 @@ void hovercarTick(struct prop *prop)
 		}
 
 		if (active) {
-			if (cd0002d7c0(&prop->pos, prop->rooms, &sp214, 0x5000, 0, 0, 0) == 0) {
-				doorprop = cdGetObstacle();
+			if (cdExamCylMove03(&prop->pos, prop->rooms, &sp214,
+						CDTYPE_CLOSEDDOORS | CDTYPE_AJARDOORS, 0, 0, 0) == CDRESULT_COLLISION) {
+				doorprop = cdGetObstacleProp();
 			}
 
 			if (doorprop) {
@@ -12687,7 +12702,7 @@ void hovercarTick(struct prop *prop)
 		func0f065e74(&prop->pos, prop->rooms, &sp150, sp140);
 
 		if (active) {
-			sp150.y = cdFindGroundYSimple(&sp150, 5, sp140, NULL, NULL) + 35;
+			sp150.y = cdFindGroundAtCyl(&sp150, 5, sp140, NULL, NULL) + 35;
 
 #if VERSION >= VERSION_NTSC_1_0
 			if (sp150.y < -100000) {
@@ -13136,7 +13151,7 @@ s32 objTickPlayer(struct prop *prop)
 						}
 
 						if ((obj->flags & OBJFLAG_IGNOREFLOORCOLOUR) == 0) {
-							cd0002a36c(&prop->pos, prop->rooms, &obj->floorcol, 0);
+							cdFindFloorYColourTypeAtPos(&prop->pos, prop->rooms, &obj->floorcol, 0);
 						}
 
 						func0f069c70(obj, true, true);
@@ -13229,7 +13244,7 @@ s32 objTickPlayer(struct prop *prop)
 				roomsCopy(sp220, prop->rooms);
 
 				if (sp148 <= sp144) {
-					prop->pos.y = cdFindGroundYSimple(&prop->pos, 5, prop->rooms, &obj->floorcol, NULL)
+					prop->pos.y = cdFindGroundAtCyl(&prop->pos, 5, prop->rooms, &obj->floorcol, NULL)
 						+ func0f06a620(obj) + sp112;
 				}
 
@@ -13238,7 +13253,7 @@ s32 objTickPlayer(struct prop *prop)
 
 				if (objUpdateGeometry(prop, (u8 **)geos, &end)
 						&& geos[0]->type == GEOTYPE_BLOCK
-						&& cd0002e4c4((struct geoblock *) geos[0], prop->rooms, 4) == 0) {
+						&& cdTestBlockOverlapsAnyProp((struct geoblock *) geos[0], prop->rooms, CDTYPE_PLAYERS) == CDRESULT_COLLISION) {
 					damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
 					obj->flags &= ~OBJFLAG_INVINCIBLE;
 					objDamage(obj, damage, &prop->pos, WEAPON_REMOTEMINE, -1);
@@ -15567,15 +15582,15 @@ Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl)
 	f32 y;
 
 #if VERSION >= VERSION_NTSC_1_0
-	s32 value = cd0002a440(&obj->prop->pos, obj->prop->rooms, &y, NULL, NULL);
+	s32 room = cdFindFloorRoomYColourFlagsAtPos(&obj->prop->pos, obj->prop->rooms, &y, NULL, NULL);
 #else
-	s32 value = cd0002a440(&obj->prop->pos, obj->prop->rooms, &y, NULL);
+	s32 room = cdFindFloorRoomYColourFlagsAtPos(&obj->prop->pos, obj->prop->rooms, &y, NULL);
 #endif
 
-	if (value > 0 && (obj->modelnum == MODEL_HOOVERBOT || obj->modelnum == MODEL_TESTERBOT)) {
+	if (room > 0 && (obj->modelnum == MODEL_HOOVERBOT || obj->modelnum == MODEL_TESTERBOT)) {
 		angle = hoverpropGetTurnAngle(obj);
 		gdl = gfxRenderRadialShadow(gdl, obj->prop->pos.x, y, obj->prop->pos.z, angle, 20, 0xffffff78);
-	} else if (value > 0) {
+	} else if (room > 0) {
 		angle = hoverpropGetTurnAngle(obj);
 		gdl = gfxRenderRadialShadow(gdl, obj->prop->pos.x, y, obj->prop->pos.z, angle, 30, 0xffffff78);
 	}
@@ -16573,9 +16588,10 @@ bool objDrop(struct prop *prop, bool lazy)
 				spe4.y = spf0.m[3][1];
 				spe4.z = spf0.m[3][2];
 
-				if (cd0002de34(&root->pos, root->rooms, &spe4, rooms, CDTYPE_ALL, 7) == CDRESULT_COLLISION
+				if (cdTestLos10(&root->pos, root->rooms, &spe4, rooms, CDTYPE_ALL,
+							GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_WALL) == CDRESULT_COLLISION
 						|| (projectile->flags & PROJECTILEFLAG_STICKY) == 0) {
-					if (cdTestVolume(&spe4, objGetWidth(obj), rooms, CDTYPE_ALL, 0, 0.0f, 0) == CDRESULT_COLLISION) {
+					if (cdTestVolume(&spe4, objGetRadius(obj), rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0) == CDRESULT_COLLISION) {
 						spf0.m[3][0] = root->pos.x;
 						spf0.m[3][2] = root->pos.z;
 					}
@@ -16720,7 +16736,7 @@ void objDestroySupportedObjects(struct prop *tableprop, s32 playernum)
 				{
 					if (prop->pos.y > tableprop->pos.y
 							&& (obj->hidden & OBJHFLAG_00008000)
-							&& func000266a4(prop->pos.x, prop->pos.z, (struct geo *)start)) {
+							&& cd000266a4(prop->pos.x, prop->pos.z, (struct geo *)start)) {
 						objFall(obj, playernum);
 					}
 				}
@@ -18026,7 +18042,8 @@ bool objTestForInteract(struct prop *prop)
 			}
 
 			if (angle <= 0.3926365673542f) {
-				if ((obj->flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0 || cd0002dcd0(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, 0x20)) {
+				if ((obj->flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0
+						|| cdTestLos06(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
 					g_InteractProp = prop;
 				}
 			}
@@ -20534,7 +20551,9 @@ s32 objTestForPickup(struct prop *prop)
 		if (pickup
 				&& (obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
 				&& !usebigrange
-				&& cdHasLineOfSight(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, 0x22, 0x1c) == 0) {
+				&& cdTestLos05(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms,
+					CDTYPE_DOORS | CDTYPE_BG,
+					GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT) == false) {
 			pickup = false;
 		}
 
@@ -23053,13 +23072,13 @@ void doorsCalcFrac(struct doorobj *door)
 			{
 				propSetPerimEnabled(loopprop, false);
 
-				cdresult = cd0002e4c4(loopdoor->base.geoblock, loopprop->rooms,
+				cdresult = cdTestBlockOverlapsAnyProp(loopdoor->base.geoblock, loopprop->rooms,
 						CDTYPE_OBJS | CDTYPE_PLAYERS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_OBJSNOTSAFEORHELI);
 
 				propSetPerimEnabled(loopprop, true);
 
 				if (cdresult == CDRESULT_COLLISION) {
-					struct prop *blockerprop = cdGetObstacle();
+					struct prop *blockerprop = cdGetObstacleProp();
 
 					if (blockerprop && blockerprop->type == PROPTYPE_CHR) {
 						struct chrdata *chr = blockerprop->chr;
@@ -23441,7 +23460,7 @@ bool doorTestForInteract(struct prop *prop)
 
 		if (maybe) {
 			if ((door->base.flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0
-					|| cd0002dcd0(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, 0x20)) {
+					|| cdTestLos06(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
 				checkmore = func0f08f968(door, false);
 
 				if (checkmore && (door->base.flags2 & OBJFLAG2_80000000)) {
@@ -24125,7 +24144,9 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 
 			propSetPerimEnabled(fromprop, false);
 
-			if (cdTestAToB4(pos, fromprop->rooms, &endpos, CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER| CDTYPE_BG, 0x10) == CDRESULT_COLLISION) {
+			if (cdExamLos08(pos, fromprop->rooms, &endpos,
+						CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER| CDTYPE_BG,
+						GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 				blocked = true;
 #if VERSION >= VERSION_JPN_FINAL
 				cdGetPos(&endpos, 24883, "prop/propobj.c");
@@ -24138,7 +24159,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 #else
 				cdGetPos(&endpos, 24137, "propobj.c");
 #endif
-				obstacle = cdGetObstacle();
+				obstacle = cdGetObstacleProp();
 			}
 
 			propSetPerimEnabled(fromprop, true);

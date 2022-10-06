@@ -238,7 +238,7 @@ void playermgrAllocatePlayer(s32 index)
 
 	g_Vars.players[index]->bondperimenabled = true;
 	g_Vars.players[index]->periminfo.header.type = GEOTYPE_CYL;
-	g_Vars.players[index]->periminfo.header.flags = GEOFLAG_COLLISIONS | GEOFLAG_OPAQUE;
+	g_Vars.players[index]->periminfo.header.flags = GEOFLAG_WALL | GEOFLAG_BLOCK_SHOOT;
 	g_Vars.players[index]->periminfo.ymax = 0;
 	g_Vars.players[index]->periminfo.ymin = 0;
 	g_Vars.players[index]->periminfo.x = 0;

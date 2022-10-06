@@ -489,7 +489,7 @@ void botactGetRocketNextStepPos(u16 padnum, struct coord *pos)
 	rooms[1] = -1;
 
 	pos->x = pad.pos.x;
-	pos->y = cd0002a36c(&pad.pos, rooms, 0, 0) + 150;
+	pos->y = cdFindFloorYColourTypeAtPos(&pad.pos, rooms, 0, 0) + 150;
 	pos->z = pad.pos.z;
 }
 

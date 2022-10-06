@@ -429,16 +429,18 @@ f32 bmoveCalculateLookahead(void)
 	sp150.y = sp100.y * 400 + spf0.y;
 	sp150.z = sp100.z * 400 + spf0.z;
 
-	if (cdTestAToB4(&spf0, spe0, &sp150, CDTYPE_BG | CDTYPE_CLOSEDDOORS, 0xf) == CDRESULT_COLLISION) {
+	if (cdExamLos08(&spf0, spe0, &sp150,
+				CDTYPE_BG | CDTYPE_CLOSEDDOORS,
+				GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT) == CDRESULT_COLLISION) {
 		cdGetPos(&sp150, 455, "bondmove.c");
-		flags = cdGetTileFlags();
+		flags = cdGetGeoFlags();
 
 		sp160 = sqrtf((sp150.x - spf0.x) * (sp150.x - spf0.x)
 				+ (sp150.y - spf0.y) * (sp150.y - spf0.y)
 				+ (sp150.z - spf0.z) * (sp150.z - spf0.z));
 	}
 
-	if (sp160 > 60.0f || (flags & GEOFLAG_0001)) {
+	if (sp160 > 60.0f || (flags & GEOFLAG_FLOOR1)) {
 		for (i = 0; i < 5; i++) {
 			populated[i] = false;
 			value = (i + 1) * sp160 * 0.2f;
@@ -457,9 +459,9 @@ f32 bmoveCalculateLookahead(void)
 
 			if (
 #if VERSION >= VERSION_NTSC_1_0
-					cd0002a440(&spbc, sp80, &sp78, NULL, NULL) > 0
+					cdFindFloorRoomYColourFlagsAtPos(&spbc, sp80, &sp78, NULL, NULL) > 0
 #else
-					cd0002a440(&spbc, sp80, &sp78, NULL) > 0
+					cdFindFloorRoomYColourFlagsAtPos(&spbc, sp80, &sp78, NULL) > 0
 #endif
 					&& sp78 - ground < 200
 					&& sp78 - ground > -200) {
