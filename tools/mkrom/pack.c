@@ -20,7 +20,7 @@ static void copy(char *segname, uint8_t *payload, size_t len, char *constname)
 
 	if (len > allocation) {
 		fprintf(stderr, "The %s segment is too big after compression to fit the allocation of 0x%x.\n", segname, allocation);
-		fprintf(stderr, "In ld/pd.ld, increase the value of %s to 0x%x or higher.\n", constname, len);
+		fprintf(stderr, "In the Makefile, increase the value of %s to 0x%x or higher.\n", constname, len);
 		exit(1);
 	}
 

@@ -69,37 +69,6 @@
 	} \
 	END_SEG(name)
 
-/******************************************************************************
- * ROM Allocations
- * ----------------------------------------------------------------------------
- * The lib, data and game segments are compressed in the final ROM. To do this,
- * we build them uncompressed here but place them past the end of the ROM, then
- * mkrom compresses them and writes them into the ROM.
- *
- * These constants are defining how much space is reserved for the compressed
- * segments. If these segments are edited and grow to a point that their
- * compressed size exceeds the allocation then their allocations will need to be
- * increased.
- */
-
-#if VERSION >= VERSION_JPN_FINAL
-#define ROMALLOCATION_LIB   0x038800
-#define ROMALLOCATION_DATA  0x015000
-#define ROMALLOCATION_GAME  0x1296f0
-#elif VERSION >= VERSION_PAL_BETA
-#define ROMALLOCATION_LIB   0x038800
-#define ROMALLOCATION_DATA  0x015000
-#define ROMALLOCATION_GAME  0x1306f0
-#elif VERSION >= VERSION_NTSC_1_0
-#define ROMALLOCATION_LIB   0x038800
-#define ROMALLOCATION_DATA  0x015000
-#define ROMALLOCATION_GAME  0x144ee0
-#else
-#define ROMALLOCATION_LIB   0x02f800
-#define ROMALLOCATION_DATA  0x012000
-#define ROMALLOCATION_GAME  0x105000
-#endif
-
 OUTPUT_ARCH (mips)
 
 SECTIONS

@@ -46,6 +46,19 @@ GCC_OPT_LVL = -Os
 
 PAL = 0
 
+# ROMALLOCATION
+#
+# The lib, data and game segments are compressed in the final ROM.
+#
+# These options define how much space is allocated for the compressed segments.
+#
+# If any value is not big enough, the build system will tell you which one needs
+# to be changed and what to change it to.
+
+ROMALLOCATION_DATA = 0x015000
+ROMALLOCATION_LIB  = 0x038800
+ROMALLOCATION_GAME = 0x144ee0
+
 ################################################################################
 
 # The VERSION constant is used in the source to handle version-specific code.
@@ -86,34 +99,45 @@ COPYLEN = 2
 ifeq ($(MATCHING), 1)
 COMPILER = ido
 
+ROMALLOCATION_DATA = 0x015000
+ROMALLOCATION_LIB  = 0x038800
+
 ifeq ($(ROMID), ntsc-beta)
     PAL = 0
     PIRACYCHECKS = 0
+    ROMALLOCATION_DATA = 0x012000
+    ROMALLOCATION_LIB  = 0x02f800
+    ROMALLOCATION_GAME = 0x105000
 endif
 ifeq ($(ROMID), ntsc-1.0)
     PAL = 0
     PIRACYCHECKS = 1
+    ROMALLOCATION_GAME = 0x144ee0
     ZIPMAGIC = 0xffff
 endif
 ifeq ($(ROMID), ntsc-final)
     PAL = 0
     PIRACYCHECKS = 1
+    ROMALLOCATION_GAME = 0x144ee0
     ZIPMAGIC = 0xffff
 endif
 ifeq ($(ROMID), pal-beta)
     PAL = 1
     PIRACYCHECKS = 1
+    ROMALLOCATION_GAME = 0x1306f0
     ZIPMAGIC = 0x0c00
     COPYLEN = 6
 endif
 ifeq ($(ROMID), pal-final)
     PAL = 1
     PIRACYCHECKS = 1
+    ROMALLOCATION_GAME = 0x1306f0
     ZIPMAGIC = 0xaf00
 endif
 ifeq ($(ROMID), jpn-final)
     PAL = 0
     PIRACYCHECKS = 1
+    ROMALLOCATION_GAME = 0x1296f0
     ZIPMAGIC = 0x0002
     COPYLEN = 4
 endif
@@ -495,7 +519,7 @@ build/recomp/%/err.english.cc:
 # Link all objects together with ld to make stage1.elf. In this stage, the game,
 # lib and data segments are uncompressed and placed past the end of the ROM.
 $(B_DIR)/stage1.elf: $(O_FILES) ld/pd.ld
-	cpp -DROMID=$(ROMID) -DVERSION=$(VERSION) -P ld/pd.ld -o $(B_DIR)/pd.ld
+	cpp -DROMID=$(ROMID) -DVERSION=$(VERSION) -DROMALLOCATION_DATA=$(ROMALLOCATION_DATA) -DROMALLOCATION_LIB=$(ROMALLOCATION_LIB) -DROMALLOCATION_GAME=$(ROMALLOCATION_GAME) -P ld/pd.ld -o $(B_DIR)/pd.ld
 	$(TOOLCHAIN)-ld --no-check-sections -z muldefs -T $(B_DIR)/pd.ld --print-map -o $@ > $(B_DIR)/pd.map
 
 $(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf
