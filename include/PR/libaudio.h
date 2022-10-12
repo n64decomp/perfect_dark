@@ -968,9 +968,6 @@ void            alSndpSetPriority(ALSndPlayer *sndp, ALSndId id, u8 priority);
 void            alSndpSetFXMix(ALSndPlayer *sndp, u8 mix);
 s32             alSndpGetState(ALSndPlayer *sndp);
 
-#ifndef _FINALROM
-void alParseAbiCL(Acmd *cmdList, u32 nbytes);
-#endif
 #ifdef _LANGUAGE_C_PLUS_PLUS
 }
 #endif

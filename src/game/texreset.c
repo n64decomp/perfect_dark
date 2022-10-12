@@ -50,7 +50,7 @@ void texReset(void)
 	g_TextureConfigSegment = mempAlloc(len, MEMPOOL_STAGE);
 	dmaExec(g_TextureConfigSegment, (u32)&_textureconfigSegmentRomStart, len);
 
-	g_TexBase = (u32)g_TextureConfigSegment - 0x02000000;
+	g_TexBase = (u32)g_TextureConfigSegment - ROM_SIZE * 1024 * 1024;
 	g_TexGdl1 = (Gfx *)(g_TexBase + (u32)g_TcGdl1);
 	g_TexGdl2 = (Gfx *)(g_TexBase + (u32)g_TcGdl2);
 	g_TexGdl3 = (Gfx *)(g_TexBase + (u32)g_TcGdl3);
@@ -72,7 +72,7 @@ void texReset(void)
 	g_TexGeneralConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcGeneralConfigs);
 	g_TexRadarConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcRadarConfigs);
 
-	g_TexNumConfigs = (len - (u32)&g_TcWallhitConfigs + 0x02000000) / sizeof(struct textureconfig);
+	g_TexNumConfigs = (len - (u32)&g_TcWallhitConfigs + ROM_SIZE * 1024 * 1024) / sizeof(struct textureconfig);
 	g_TexWords = mempAlloc(ALIGN16(g_TexNumConfigs * 4), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_TexNumConfigs; i++) {

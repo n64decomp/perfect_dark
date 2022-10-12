@@ -59,6 +59,15 @@ ROMALLOCATION_DATA = 0x015000
 ROMALLOCATION_LIB  = 0x038800
 ROMALLOCATION_GAME = 0x144ee0
 
+# ROM_SIZE - The desired ROM size in megabytes.
+#
+# All versions of the retail ROM are 32MB.
+#
+# If this is too low you might get this error from ld:
+# "final link failed: memory exhausted"
+
+ROM_SIZE := 32
+
 ################################################################################
 
 # The VERSION constant is used in the source to handle version-specific code.
@@ -102,6 +111,8 @@ COMPILER = ido
 ROMALLOCATION_DATA = 0x015000
 ROMALLOCATION_LIB  = 0x038800
 
+ROM_SIZE = 32
+
 ifeq ($(ROMID), ntsc-beta)
     PAL = 0
     PIRACYCHECKS = 0
@@ -143,7 +154,12 @@ ifeq ($(ROMID), jpn-final)
 endif
 endif
 
-DEFINES := VERSION=$(VERSION) MATCHING=$(MATCHING) PAL=$(PAL) PIRACYCHECKS=$(PIRACYCHECKS) _FINALROM=1
+DEFINES := \
+    VERSION=$(VERSION) \
+    MATCHING=$(MATCHING) \
+    PAL=$(PAL) \
+    PIRACYCHECKS=$(PIRACYCHECKS) \
+    ROM_SIZE=$(ROM_SIZE)
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 AS_DEFINES := $(foreach d,$(DEFINES),--defsym $(d)) --defsym _LANGUAGE_ASSEMBLY=1
@@ -519,7 +535,7 @@ build/recomp/%/err.english.cc:
 # Link all objects together with ld to make stage1.elf. In this stage, the game,
 # lib and data segments are uncompressed and placed past the end of the ROM.
 $(B_DIR)/stage1.elf: $(O_FILES) ld/pd.ld
-	cpp -DROMID=$(ROMID) -DVERSION=$(VERSION) -DROMALLOCATION_DATA=$(ROMALLOCATION_DATA) -DROMALLOCATION_LIB=$(ROMALLOCATION_LIB) -DROMALLOCATION_GAME=$(ROMALLOCATION_GAME) -P ld/pd.ld -o $(B_DIR)/pd.ld
+	cpp -DROMID=$(ROMID) -DVERSION=$(VERSION) -DROMALLOCATION_DATA=$(ROMALLOCATION_DATA) -DROMALLOCATION_LIB=$(ROMALLOCATION_LIB) -DROMALLOCATION_GAME=$(ROMALLOCATION_GAME) -DROM_SIZE=$(ROM_SIZE) -P ld/pd.ld -o $(B_DIR)/pd.ld
 	$(TOOLCHAIN)-ld --no-check-sections -z muldefs -T $(B_DIR)/pd.ld --print-map -o $@ > $(B_DIR)/pd.map
 
 $(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf

@@ -167,7 +167,7 @@ SECTIONS
 
 	PLACEHOLDER_SEGMENT(libzip, ROMALLOCATION_LIB)
 
-	__rompos = 0x02000000;
+	__rompos = ROM_SIZE * 1024 * 1024;
 	__rampos = 0x70001050;
 
 	BEGIN_SEG(lib) SUBALIGN(0x10)
@@ -367,7 +367,7 @@ SECTIONS
 	 * -------------------------------------------------------------------------
 	 */
 
-	__rampos = 0x02000000;
+	__rampos = ROM_SIZE * 1024 * 1024;
 
 	BEGIN_SEG(textureconfig)
 	{
@@ -390,14 +390,14 @@ SECTIONS
 	}
 	END_SEG(getitle)
 
-	_getitleSegmentStart = 0x02000000;
-	_getitleSegmentEnd = 0x020065d0;
-	var020043f8 = 0x020043f8;
-	var02004468 = 0x02004468;
-	var02004700 = 0x02004700;
-	var02004d28 = 0x02004d28;
-	var02004dc8 = 0x02004dc8;
-	var02005dd0 = 0x02005dd0;
+	_getitleSegmentStart = ROM_SIZE * 1024 * 1024;
+	_getitleSegmentEnd = _getitleSegmentStart + 0x65d0;
+	var020043f8 = _getitleSegmentStart + 0x43f8;
+	var02004468 = _getitleSegmentStart + 0x4468;
+	var02004700 = _getitleSegmentStart + 0x4700;
+	var02004d28 = _getitleSegmentStart + 0x4d28;
+	var02004dc8 = _getitleSegmentStart + 0x4dc8;
+	var02005dd0 = _getitleSegmentStart + 0x5dd0;
 
 	/***************************************************************************
 	 * fonts
@@ -603,12 +603,13 @@ SECTIONS
 	_accessingpakSegmentRomEnd = 0;
 #endif
 
-	.fill : AT(__rompos)
+	BEGIN_SEG(fill)
 	{
 		FILL(0xff);
-		. = 0x02000000 - __rompos - 1;
+		. = ROM_SIZE * 1024 * 1024 - __rompos - 1;
 		BYTE(0xff);
 	}
+	END_SEG(fill)
 
 	/DISCARD/ : {
 		* (.MIPS.abiflags);

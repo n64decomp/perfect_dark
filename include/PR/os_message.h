@@ -21,7 +21,7 @@
 
 /*---------------------------------------------------------------------*
         Copyright (C) 1998 Nintendo. (Originated by SGI)
-        
+
         $RCSfile: os_message.h,v $
         $Revision: 1.1 $
         $Date: 1998/10/09 08:01:15 $
@@ -75,11 +75,7 @@ typedef struct OSMesgQueue_s {
  */
 
 /* Events */
-#ifdef _FINALROM
 #define OS_NUM_EVENTS           15
-#else
-#define OS_NUM_EVENTS           23
-#endif
 
 #define OS_EVENT_SW1              0     /* CPU SW1 interrupt */
 #define OS_EVENT_SW2              1     /* CPU SW2 interrupt */
@@ -96,16 +92,6 @@ typedef struct OSMesgQueue_s {
 #define OS_EVENT_FAULT            12    /* CPU fault event: used by rmon */
 #define OS_EVENT_THREADSTATUS     13    /* CPU thread status: used by rmon */
 #define OS_EVENT_PRENMI           14    /* Pre NMI interrupt */
-#ifndef _FINALROM
-#define OS_EVENT_RDB_READ_DONE    15    /* RDB read ok event: used by rmon */
-#define OS_EVENT_RDB_LOG_DONE     16    /* read of log data complete */
-#define OS_EVENT_RDB_DATA_DONE    17    /* read of hostio data complete */
-#define OS_EVENT_RDB_REQ_RAMROM   18    /* host needs ramrom access */
-#define OS_EVENT_RDB_FREE_RAMROM  19    /* host is done with ramrom access */
-#define OS_EVENT_RDB_DBG_DONE     20
-#define OS_EVENT_RDB_FLUSH_PROF   21
-#define OS_EVENT_RDB_ACK_PROF     22
-#endif
 
 /* Flags to turn blocking on/off when sending/receiving message */
 

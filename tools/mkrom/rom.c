@@ -40,13 +40,17 @@ void rom_load(char *filename)
 void rom_write(char *filename)
 {
 	FILE *fp = fopen(filename, "wb");
+	uint32_t fill_start;
+	uint32_t rom_size;
 
 	if (!fp) {
 		fprintf(stderr, "Unable to open \"%s\" for writing\n", filename);
 		exit(1);
 	}
 
-	fwrite(state.rom, 1024 * 1024 * 32, 1, fp);
+	map_get_segment_rompos("fill", &fill_start, &rom_size);
+
+	fwrite(state.rom, rom_size, 1, fp);
 	fclose(fp);
 }
 
