@@ -5,6 +5,7 @@
 #include "game/body.h"
 #include "game/prop.h"
 #include "game/botcmd.h"
+#include "game/botinvinit.h"
 #include "game/mplayer/mplayer.h"
 #include "bss.h"
 #include "lib/memp.h"

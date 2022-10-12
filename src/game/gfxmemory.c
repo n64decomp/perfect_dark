@@ -3,10 +3,12 @@
 #include "game/gfxmemory.h"
 #include "game/stubs/game_175f50.h"
 #include "bss.h"
+#include "lib/args.h"
 #include "lib/rzip.h"
 #include "lib/dma.h"
 #include "lib/memp.h"
 #include "lib/rng.h"
+#include "lib/str.h"
 #include "data.h"
 #include "types.h"
 

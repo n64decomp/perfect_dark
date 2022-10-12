@@ -88,7 +88,7 @@ s32 func0f068fc8(struct prop *prop, bool arg1);
 void propCalculateShadeColour(struct prop *prop, u8 *nextcol, u16 floorcol);
 void propCalculateShadeInfo(struct prop *prop, u8 *nextcol, u16 floorcol);
 void colourTween(u8 *col, u8 *nextcol);
-void func0f069750(s32 *arg0, s32 arg1, f32 *arg2);
+void func0f069750(s32 *arg0, s32 arg1, f32 arg2[4]);
 void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], struct geocyl *cyl);
 void func0f069b4c(struct defaultobj *obj);
 void func0f069c1c(struct defaultobj *obj);

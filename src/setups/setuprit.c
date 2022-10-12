@@ -113,10 +113,10 @@
 #define AILIST_REINIT_STRIPES      0x042b
 #define AILIST_REMOVE_IF_OFFSCREEN 0x042c
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

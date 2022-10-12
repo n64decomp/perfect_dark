@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/activemenu.h"
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/chr.h"
@@ -10,6 +11,7 @@
 #include "game/bot.h"
 #include "game/botcmd.h"
 #include "game/botact.h"
+#include "game/botinv.h"
 #include "game/mplayer/mplayer.h"
 #include "game/propobj.h"
 #include "bss.h"

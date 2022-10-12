@@ -25,10 +25,10 @@
 #define AILIST_JON_INIT     0x0406
 #define AILIST_TRENT_INIT   0x0407
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

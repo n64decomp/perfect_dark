@@ -3,7 +3,7 @@
 
 s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, int fileSizeInPages, int *startPage, u8 bank, int *decleared, int *finalPage);
 
-s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, int num_bytes, s32 *file_no)
+s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, int num_bytes, s32 *file_no)
 {
 	int startPage;
 	int decleared;

@@ -6,6 +6,7 @@
 #include "game/camdraw.h"
 #include "game/cheats.h"
 #include "game/debug.h"
+#include "game/file.h"
 #include "game/lang.h"
 #include "game/race.h"
 #include "game/body.h"
@@ -29,6 +30,7 @@
 #include "game/playermgr.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
+#include "game/lang.h"
 #include "game/lv.h"
 #include "game/timing.h"
 #include "game/music.h"
@@ -55,12 +57,16 @@
 #include "lib/snd.h"
 #include "lib/memp.h"
 #include "lib/mema.h"
+#include "lib/profile.h"
 #include "lib/videbug.h"
 #include "lib/debughud.h"
 #include "lib/anim.h"
 #include "lib/rdp.h"
+#include "lib/lib_34d0.h"
 #include "lib/lib_2f490.h"
 #include "lib/rmon.h"
+#include "lib/rng.h"
+#include "lib/str.h"
 #include "data.h"
 #include "types.h"
 
@@ -391,7 +397,7 @@ void mainInit(void)
 		// but before the thread stacks and VM system.
 		// In 8MB mode, put it at the end of the expansion pak.
 		if (bootGetMemSize() <= 4 * 1024 * 1024) {
-			addr = 0x80400000;
+			addr = K0BASE + 4 * 1024 * 1024;
 			addr -= STACKSIZE_MAIN;
 			addr -= STACKSIZE_IDLE;
 			addr -= STACKSIZE_RMON;
@@ -403,7 +409,7 @@ void mainInit(void)
 			addr -= addr % 0x2000; // align down to a multiple of 0x2000
 			addr -= 0x1c80; // buffer for single biggest game zip
 		} else {
-			addr = 0x80800000;
+			addr = K0BASE + 8 * 1024 * 1024;
 		}
 
 		addr -= 640 * 480 * 2; // the framebuffer itself

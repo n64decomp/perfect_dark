@@ -2173,7 +2173,7 @@ bool mp3decInit(void)
 				sp25c = sp28[sp22c];
 
 				if (sp230 <= sp254->unk02) {
-					sp258 = &sp250[sp25c].bytes[sp254->unk04 & 1 << (sp230 + 31) ? 1 : 0];
+					sp258 = &sp250[sp25c].bytes[sp254->unk04 & 1 << (sp230 - 1) ? 1 : 0];
 
 					if (*sp258) {
 						sp25c = sp28[sp22c] + *sp258;

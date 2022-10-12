@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "lib/sched.h"
+#include "lib/str.h"
 #include "game/camdraw.h"
 #include "game/cheats.h"
 #include "game/inv.h"
@@ -251,16 +252,16 @@ void cheatsReset(void)
 				(1 << CHEAT_LAPTOPGUN)
 			);
 			g_CheatsActiveBank1 &= ~(
-				(1 << CHEAT_PHOENIX - 32) |
-				(1 << CHEAT_PSYCHOSISGUN - 32) |
-				(1 << CHEAT_PP9I - 32) |
-				(1 << CHEAT_CC13 - 32) |
-				(1 << CHEAT_KL01313 - 32) |
-				(1 << CHEAT_KF7SPECIAL - 32) |
-				(1 << CHEAT_ZZT - 32) |
-				(1 << CHEAT_DMC - 32) |
-				(1 << CHEAT_AR53 - 32) |
-				(1 << CHEAT_RCP45 - 32)
+				(1 << (CHEAT_PHOENIX - 32)) |
+				(1 << (CHEAT_PSYCHOSISGUN - 32)) |
+				(1 << (CHEAT_PP9I - 32)) |
+				(1 << (CHEAT_CC13 - 32)) |
+				(1 << (CHEAT_KL01313 - 32)) |
+				(1 << (CHEAT_KF7SPECIAL - 32)) |
+				(1 << (CHEAT_ZZT - 32)) |
+				(1 << (CHEAT_DMC - 32)) |
+				(1 << (CHEAT_AR53 - 32)) |
+				(1 << (CHEAT_RCP45 - 32))
 			);
 		}
 	} else {

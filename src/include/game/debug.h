@@ -28,6 +28,7 @@ bool debugIsChrStatsEnabled(void);
 bool debug0f11ef80(void);
 
 s32 dmenuGetSelectedOption(void);
+void dmenuSetSelectedOption(s32 option);
 void dmenuSetMenu(char **labels, s32 (*positions)[2], s32 *offsets);
 void dmenuNavigateRight(void);
 void dmenuNavigateLeft(void);

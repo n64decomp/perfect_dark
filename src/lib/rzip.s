@@ -22,6 +22,7 @@
 .set gp=64
 
 .bss
+.balign 4
 
 glabel var80090b10
 .space 2504

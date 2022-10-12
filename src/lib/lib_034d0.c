@@ -10,7 +10,7 @@ void func000034d8(void)
 	// empty
 }
 
-Gfx *func000034e0(Gfx *gdl)
+void func000034e0(Gfx **gdl)
 {
 	// empty
 }

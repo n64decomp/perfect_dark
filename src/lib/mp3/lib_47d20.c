@@ -3,7 +3,11 @@
 
 f32 fabsf(f32 value);
 
+#ifdef __sgi
 #pragma intrinsic (fabsf)
+#else
+#define fabsf(f) __builtin_fabsf((f32)(f))
+#endif
 
 f32 func00047d20(f32 arg0)
 {

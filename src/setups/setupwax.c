@@ -43,10 +43,10 @@
 #define AILIST_CHIEF                0x0415
 #define AILIST_OUTRO                0x0417
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

@@ -23,17 +23,6 @@
 
 struct weatherdata *g_WeatherData = NULL;
 
-s32 var8007f0c4[4] = {
-	0x000080b7,
-	0x000080b6,
-	0x000080b8,
-	-1,
-};
-
-u32 g_RainSpeedExtra = 20;
-u32 g_SnowSpeed = 15;
-u32 g_SnowSpeedExtra = 10;
-
 Gfx *weatherRender(Gfx *gdl)
 {
 	struct weatherdata *weather;
@@ -267,6 +256,10 @@ void weatherSetIntensity(s32 intensity)
 	g_WeatherData->intensity = intensity;
 }
 
+u32 g_RainSpeedExtra;
+u32 g_SnowSpeed;
+u32 g_SnowSpeedExtra;
+
 void weatherTickRain(struct weatherdata *weather)
 { \
 	s32 lVar6 = 0;
@@ -302,7 +295,12 @@ void weatherTickRain(struct weatherdata *weather)
 
 	// Rain noise
 	for (i = 0; i != 4; i++) {
-		s32 sounds[4] = var8007f0c4;
+		s32 sounds[] = {
+			0x80b7,
+			0x80b6,
+			0x80b8,
+			-1,
+		};
 
 		iVar10 = weather->unk58[i].unk00 * 32767.0f * weather->unk88;
 
@@ -421,6 +419,10 @@ void weatherTickRain(struct weatherdata *weather)
 		func0f131678(3);
 	}
 }
+
+u32 g_RainSpeedExtra = 20;
+u32 g_SnowSpeed = 15;
+u32 g_SnowSpeedExtra = 10;
 
 void weatherTickSnow(struct weatherdata *weather)
 { \
@@ -4559,8 +4561,6 @@ u32 var8007f108 = 10;
 u32 var8007f10c = 0x8888aaff;
 u32 var8007f110 = 0xffffff7f;
 #else
-u32 var8007f100 = 50;
-
 Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 {
 	struct weatherparticledata *particledata;
@@ -4621,6 +4621,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	s32 index;
 	s32 stack2[2];
 
+	static u32 var8007f100 = 50;
 	static u32 var8007f104 = 5;
 	static u32 var8007f108 = 10;
 	static u32 var8007f10c = 0x8888aaff;
@@ -4686,7 +4687,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		// x
 		f0 = particle->pos.f[0] - particledata->boundarymin.f[0] - sp228.f[0];
 
-		if (f0 < 0) {
+		if (f0 < 0.0f) {
 			f0 += particledata->boundaryrange.f[0];
 		}
 
@@ -4699,7 +4700,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		// y
 		f0 = particle->pos.f[1] - particledata->boundarymin.f[1] - sp228.f[1];
 
-		if (f0 < 0) {
+		if (f0 < 0.0f) {
 			f0 += particledata->boundaryrange.f[1];
 		}
 
@@ -4712,7 +4713,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		// z
 		f0 = particle->pos.f[2] - particledata->boundarymin.f[2] - sp228.f[2];
 
-		if (f0 < 0) {
+		if (f0 < 0.0f) {
 			f0 += particledata->boundaryrange.f[2];
 		}
 
@@ -4771,6 +4772,8 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 				if (a0 && sp1268 < 50) {
 					sp126c[sp1268] = sp144[j2];
 					sp1268++;
+				} else {
+					// empty
 				}
 			}
 		}
@@ -4790,15 +4793,15 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 			if (s7 < 50) {
 				sp1078[s7] = sp126c[i];
 				s7++;
+			} else {
+				// empty
 			}
 		}
-
-		if (1);
 	}
 
 	// 4ea4
 	for (j = 0; j < s7; j++) {
-		if (var8007f100);
+		if (1);
 
 		sp264[j][6] = sp264[j][0] = g_Rooms[sp1078[j]].bbmin[0] / 1 - var8007f104;
 		sp264[j][9] = sp264[j][3] = g_Rooms[sp1078[j]].bbmax[0] / 1 + var8007f104;
@@ -4832,7 +4835,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	colours = gfxAllocateColours(16);
 
 	for (j = 0; j < 16; j++) {
-		colours[j] = (var8007f10c & 0xffffff00) | ((0x10ef - j * 0xff) / 0x11);
+		colours[j] = (var8007f10c & 0xffffff00) | ((0xff * 17 - j * 0xff) / 17);
 	}
 
 	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 16);
@@ -4844,12 +4847,13 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		if (particledata->particles[s8].active & 3) {
 			sp1354 = osGetCount();
 
-			sp124.f[0] = particledata->unk3e80.f[0] + particledata->particles[s8].pos.f[0];
-			sp124.f[1] = particledata->unk3e80.f[1] + particledata->particles[s8].pos.f[1];
-			sp124.f[2] = particledata->unk3e80.f[2] + particledata->particles[s8].pos.f[2];
+			sp124.f[0] = particledata->particles[s8].pos.f[0] + particledata->unk3e80.f[0];
+			sp124.f[1] = particledata->particles[s8].pos.f[1] + particledata->unk3e80.f[1];
+			sp124.f[2] = particledata->particles[s8].pos.f[2] + particledata->unk3e80.f[2];
 
 			if (cam0f0b5b9c(&sp124, 5)) {
-				sp137c = sp137c + osGetCount() - sp1354;
+				s32 count = osGetCount();
+				sp137c = sp137c + count - sp1354;
 
 				sp21c = particledata->particles[s8].pos.f[0];
 				sp220 = particledata->particles[s8].pos.f[2];
@@ -4859,16 +4863,18 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 				if (f20 < 0.00001f) {
 					// empty
 				} else {
-					sp260 = 0.0f;
+					s32 tmp2 = sp198 * 4;
 
 					if (sp198 == 0) {
 						vertices = gfxAllocateVertices(8);
 					}
 
+					v0_2 = &vertices[tmp2];
+
+					sp260 = 0.0f;
+
 					sp21c /= f20;
 					sp220 /= f20;
-
-					v0_2 = &vertices[sp198 * 4];
 
 					for (j = 0; j < 4; j++) {
 						v0_2[j].s = 0;
@@ -4887,8 +4893,6 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 						for (j = 0; j < s7; j++) {
 							// 5398
-							if (var8007f100);
-
 							if (s1
 									&& sp264[j][6] < sp118.f[0]
 									&& sp264[j][9] > sp118.f[0]
@@ -4946,6 +4950,8 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 					// 559c
 					if (s1) {
+						s32 j;
+
 						f0_3 = sqrtf(particledata->particles[s8].pos.f[0] * particledata->particles[s8].pos.f[0]
 								+ particledata->particles[s8].pos.f[1] * particledata->particles[s8].pos.f[1]
 								+ particledata->particles[s8].pos.f[2] * particledata->particles[s8].pos.f[2]);
@@ -4957,21 +4963,33 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						// 55fc
 						f0_4 = sqrtf(f24 * f24 + f26 * f26);
 
-						sp1144.f[2] = sp108 * (f24 / f0_4);
-						sp1144.f[1] = -f0_3;
 						sp1144.f[0] = sp108 * (f26 / f0_4);
+						sp1144.f[1] = -f0_4;
+						sp1144.f[2] = sp108 * (f24 / f0_4);
 
-						sp1144.f[6] = -sp220;
-						sp1144.f[7] = 1.0f;
-						sp1144.f[8] = sp21c;
+						sp115c.f[0] = -sp220;
+						sp115c.f[1] = 1.0f;
+						sp115c.f[2] = sp21c;
 
 						// 5720
 						index = (s8 >> 2) & 7;
 
 						for (j = 0; j < 4; j++) {
-							sp19c[j].f[0] += (var8007f104 * (f26 / f0_4)) * sp1168[index][j][0] + (var8007f104 * sp1144.f[2]) * sp1168[index][j][1];
-							sp19c[j].f[1] += 0.0f + (var8007f104 * sp1144.f[1]) * sp1168[index][j][1];
-							sp19c[j].f[2] += (var8007f104 * -(f24 / f0_4)) * sp1168[index][j][0] + (var8007f104 * sp1144.f[0]) * sp1168[index][j][1];
+							f32 a;
+							f32 b;
+							f32 c;
+
+							a = var8007f104 * (f26 / f0_4) * sp1168[index][j][0];
+							b = 0.0f;
+							c = var8007f104 * -(f24 / f0_4) * sp1168[index][j][0];
+
+							a += var8007f104 * sp1144.f[2] * sp1168[index][j][1];
+							b += var8007f104 * sp1144.f[1] * sp1168[index][j][1];
+							c += var8007f104 * sp1144.f[0] * sp1168[index][j][1];
+
+							sp19c[j].f[1] += b;
+							sp19c[j].f[0] += a;
+							sp19c[j].f[2] += c;
 						}
 
 						// 5784
@@ -5029,44 +5047,49 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						}
 
 						// 5978
-						v0 = &vertices[sp198 * 4];
+						{
+							s16 a;
+							s16 b;
 
-						v0[0].colour = (s32)(sp260 * 16.0f) * 4;
-						v0[1].colour = (s32)(sp260 * 16.0f) * 4;
-						v0[2].colour = (s32)(sp260 * 16.0f) * 4;
-						v0[3].colour = (s32)(sp260 * 16.0f) * 4;
+							b = (s16) (((s8 & 2) >> 1) * 8);
+							a = (s16) ((s8 & 1) * 8);
 
-						v0[0].s = ((s32)(s8 & 1) * 8) * 32;
-						v0[1].s = ((s32)(s8 & 1) * 8 + 8) * 32;
-						v0[2].s = ((s32)(s8 & 1) * 8 + 8) * 32;
-						v0[3].s = ((s32)(s8 & 1) * 8) * 32;
+							vertices[sp198 * 4 + 0].colour = (s32) (sp260 * 16.0f) * 4;
+							vertices[sp198 * 4 + 1].colour = (s32) (sp260 * 16.0f) * 4;
+							vertices[sp198 * 4 + 2].colour = (s32) (sp260 * 16.0f) * 4;
+							vertices[sp198 * 4 + 3].colour = (s32) (sp260 * 16.0f) * 4;
 
-						v0[0].t = (((s8 & 2) >> 1) * 8 + 8) * 32;
-						v0[1].t = (((s8 & 2) >> 1) * 8 + 8) * 32;
-						v0[2].t = (((s8 & 2) >> 1) * 8) * 32;
-						v0[3].t = (((s8 & 2) >> 1) * 8) * 32;
+							vertices[sp198 * 4 + 0].s = (s16) (a) * 32;
+							vertices[sp198 * 4 + 1].s = (s16) (a + 8) * 32;
+							vertices[sp198 * 4 + 2].s = (s16) (a + 8) * 32;
+							vertices[sp198 * 4 + 3].s = (s16) (a) * 32;
 
-						v0[0].x = sp19c[0].f[0];
-						v0[0].y = sp19c[0].f[1];
-						v0[0].z = sp19c[0].f[2];
+							vertices[sp198 * 4 + 0].t = (s16) (b + 8) * 32;
+							vertices[sp198 * 4 + 1].t = (s16) (b + 8) * 32;
+							vertices[sp198 * 4 + 2].t = (s16) (b) * 32;
+							vertices[sp198 * 4 + 3].t = (s16) (b) * 32;
+						}
 
-						v0[1].x = sp19c[1].f[0];
-						v0[1].y = sp19c[1].f[1];
-						v0[1].z = sp19c[1].f[2];
+						vertices[sp198 * 4 + 0].x = sp19c[0].f[0];
+						vertices[sp198 * 4 + 0].y = sp19c[0].f[1];
+						vertices[sp198 * 4 + 0].z = sp19c[0].f[2];
 
-						v0[2].x = sp19c[2].f[0];
-						v0[2].y = sp19c[2].f[1];
-						v0[2].z = sp19c[2].f[2];
+						vertices[sp198 * 4 + 1].x = sp19c[1].f[0];
+						vertices[sp198 * 4 + 1].y = sp19c[1].f[1];
+						vertices[sp198 * 4 + 1].z = sp19c[1].f[2];
 
-						v0[3].x = sp19c[3].f[0];
-						v0[3].y = sp19c[3].f[1];
-						v0[3].z = sp19c[3].f[2];
+						vertices[sp198 * 4 + 2].x = sp19c[2].f[0];
+						vertices[sp198 * 4 + 2].y = sp19c[2].f[1];
+						vertices[sp198 * 4 + 2].z = sp19c[2].f[2];
+
+						vertices[sp198 * 4 + 3].x = sp19c[3].f[0];
+						vertices[sp198 * 4 + 3].y = sp19c[3].f[1];
+						vertices[sp198 * 4 + 3].z = sp19c[3].f[2];
 
 						if (sp198 == 1) {
-							sp198 = 0;
-
 							gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
 							gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
+							sp198 = 0;
 						} else {
 							sp198 = 1;
 						}

@@ -191,7 +191,7 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 			}
 
 #if VERSION >= VERSION_NTSC_1_0
-			colour = colour & 0xffffff00 | ((colour & 0xff) * (renderdata->colour & 0xff)) >> 8;
+			colour = (colour & 0xffffff00) | (((colour & 0xff) * (renderdata->colour & 0xff)) >> 8);
 #endif
 
 			gDPSetEnvColorViaWord(gdl++, colour);
@@ -607,9 +607,9 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		static u32 y4 = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
-		linecolourmid = linecolourmid & 0xffffff00 | (linecolourmid & 0xff) * (renderdata->colour & 0xff) >> 8;
-		linecolourfig = linecolourfig & 0xffffff00 | (linecolourfig & 0xff) * (renderdata->colour & 0xff) >> 8;
-		linecolourtex = linecolourtex & 0xffffff00 | (linecolourtex & 0xff) * (renderdata->colour & 0xff) >> 8;
+		linecolourmid = (linecolourmid & 0xffffff00) | ((linecolourmid & 0xff) * (renderdata->colour & 0xff) >> 8);
+		linecolourfig = (linecolourfig & 0xffffff00) | ((linecolourfig & 0xff) * (renderdata->colour & 0xff) >> 8);
+		linecolourtex = (linecolourtex & 0xffffff00) | ((linecolourtex & 0xff) * (renderdata->colour & 0xff) >> 8);
 #endif
 
 		mainOverrideVariable("x1", &x1);
@@ -635,7 +635,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
 #if VERSION >= VERSION_NTSC_1_0
-		colour = (failed ? 0xff777799 : 0x55ff5588) & 0xffffff00 | ((failed ? 0xff777799 : 0x55ff5588) & 0xff) * (renderdata->colour & 0xff) >> 8;
+		colour = ((failed ? 0xff777799 : 0x55ff5588) & 0xffffff00) | (((failed ? 0xff777799 : 0x55ff5588) & 0xff) * (renderdata->colour & 0xff) >> 8);
 		gDPSetEnvColorViaWord(gdl++, colour);
 #else
 		gDPSetEnvColorViaWord(gdl++, failed ? 0xff777799 : 0x55ff5588);
@@ -670,8 +670,8 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 				G_TX_RENDERTILE, 16, 1024, -1024 / g_ScaleX, 1024);
 
 #if VERSION >= VERSION_NTSC_1_0
-		gdl = textSetPrimColour(gdl, (failed ? 0xff000055 : 0x00ff0055) & 0xffffff00 | ((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8);
-		colour = (failed ? 0xff6969aa : renderdata->colour) & 0xffffff00 | (((failed ? 0xff6969aa : renderdata->colour) & 0xff) * (renderdata->colour & 0xff)) >> 8;
+		gdl = textSetPrimColour(gdl, ((failed ? 0xff000055 : 0x00ff0055) & 0xffffff00) | (((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8));
+		colour = ((failed ? 0xff6969aa : renderdata->colour) & 0xffffff00) | ((((failed ? 0xff6969aa : renderdata->colour) & 0xff) * (renderdata->colour & 0xff)) >> 8);
 #else
 		gdl = textSetPrimColour(gdl, failed ? 0xff000055 : 0x00ff0055);
 #endif

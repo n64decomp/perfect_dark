@@ -1,8 +1,13 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/challenge.h"
 #include "game/chraction.h"
 #include "game/debug.h"
+#include "game/gamefile.h"
+#include "lib/ailist.h"
+#include "lib/debughud.h"
 #include "lib/rmon.h"
+#include "lib/str.h"
 #include "lib/vi.h"
 #include "lib/vm.h"
 #include "bss.h"

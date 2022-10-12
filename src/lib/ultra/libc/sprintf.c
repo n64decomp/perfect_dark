@@ -1,5 +1,6 @@
 #include <ultratypes.h>
 #include "stdarg.h"
+#include "string.h"
 
 char _Printf(char *(*prout)(char *, const char *, size_t), char *dst, const char *fmt, va_list args);
 
@@ -19,7 +20,11 @@ char *proutSprintf(char *dst, const char *src, size_t count)
  * Also note this file is using an incorrect declaration for _Printf.
  * _Printf returns an int, not a char.
  */
+#ifdef AVOID_UB
+int sprintf(char *dst, const char *fmt, ...)
+#else
 void sprintf(char *dst, const char *fmt, ...)
+#endif
 {
 	int ans;
 	va_list ap;
@@ -34,4 +39,8 @@ void sprintf(char *dst, const char *fmt, ...)
 	va_end(ap);
 
 	if ((ans && ans) != 0);
+
+#ifdef AVOID_UB
+	return ans;
+#endif
 }

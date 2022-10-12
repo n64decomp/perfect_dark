@@ -3,6 +3,7 @@
 #include "game/bg.h"
 #include "game/pad.h"
 #include "bss.h"
+#include "lib/collision.h"
 #include "lib/memp.h"
 #include "lib/anim.h"
 #include "data.h"

@@ -2152,8 +2152,8 @@ glabel model0001a2dc
 	slti   $at, $t3, 0x7fe0
 	bnez   $at, .L0001a348
  	nop
-	lui    $t4, %hi(var8006af8c)
-	addiu  $t4, $t4, %lo(var8006af8c)
+	lui    $t4, %hi(var8006ae90+252)
+	addiu  $t4, $t4, %lo(var8006ae90+252)
 	addi   $t3, $t3, -32736
 	addiu  $t5, $zero, 0x3
 	b      .L0001a37c
@@ -2162,8 +2162,8 @@ glabel model0001a2dc
 	slti   $at, $t3, 0x7800
 	bnez   $at, .L0001a36c
  	nop
-	lui    $t4, %hi(var8006af0c)
-	addiu  $t4, $t4, %lo(var8006af0c)
+	lui    $t4, %hi(var8006ae90+124)
+	addiu  $t4, $t4, %lo(var8006ae90+124)
 	addi   $t3, $t3, -30720
 	addiu  $t5, $zero, 0x5
 	b      .L0001a37c

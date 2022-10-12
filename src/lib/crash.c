@@ -6,6 +6,7 @@
 #include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/rmon.h"
+#include "lib/vi.h"
 #include "data.h"
 #include "types.h"
 
@@ -593,7 +594,7 @@ u32 crashGetStackEnd(u32 sp, s32 tid)
 	start = (u32)g_StackLeftAddrs[tid];
 	end = (u32)g_StackRightAddrs[tid];
 
-	if (sp >= 0x80000000) {
+	if (sp >= K0BASE) {
 		return end;
 	}
 
@@ -611,7 +612,7 @@ u32 crashGetStackStart(u32 sp, s32 tid)
 
 	start = (u32)g_StackLeftAddrs[tid];
 
-	if (sp >= 0x80000000) {
+	if (sp >= K0BASE) {
 		return start;
 	}
 

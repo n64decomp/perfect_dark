@@ -9,7 +9,7 @@
 
 /**
  * PD polls the controllers from the scheduler's thread. The scheduler polls the
- * controllers on each retrace and stores teh results inside g_JoyData->samples.
+ * controllers on each retrace and stores the results inside g_JoyData->samples.
  * This allows the main thread to access a history of controller states since
  * the last rendered frame. For example, under laggy conditions the player might
  * press and release a button between two frames and the main thread can tell

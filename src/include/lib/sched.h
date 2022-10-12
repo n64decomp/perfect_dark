@@ -14,6 +14,7 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
 void __scMain(void *arg);
 void __scYield(OSSched *sc);
 void schedInitArtifacts(void);
+void schedResetArtifacts(void);
 struct artifact *schedGetWriteArtifacts(void);
 struct artifact *schedGetFrontArtifacts(void);
 void schedIncrementWriteArtifacts(void);

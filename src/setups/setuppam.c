@@ -95,10 +95,10 @@
 #define PAD_PAAREA_TELEPORT    0x0200
 #define PAD_DRCAROLLROOM_ENTRY 0x01cb
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,
@@ -3877,7 +3877,7 @@ u8 func101b_pa_door4[] = {
 
 u8 func101c_pa_door5[] = {
 	// @bug: One of the PA door glasses is checked twice, and one is not
-	// checked at all, hence why this doesn't use the pa_cylindar macro.
+	// checked at all, hence why this doesn't use the pa_cylinder macro.
 
 	// Wait until any object destroyed
 	beginloop(0x04)

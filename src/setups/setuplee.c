@@ -230,10 +230,10 @@ enum labelnum {
 #define LABEL_6C LABEL_6D
 #endif
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

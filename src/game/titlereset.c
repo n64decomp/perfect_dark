@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_00b820.h"
+#include "game/getitle.h"
 #include "game/title.h"
 #include "bss.h"
 #include "lib/memp.h"

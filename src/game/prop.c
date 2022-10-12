@@ -28,6 +28,8 @@
 #include "game/wallhit.h"
 #include "game/mpstats.h"
 #include "bss.h"
+#include "lib/collision.h"
+#include "lib/lib_17ce0.h"
 #include "lib/model.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
@@ -588,12 +590,11 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	bool done;
 	s32 sparktype;
 
-	// This is probably supposed to have a length of 131 because the game can
-	// write that far into the array, but changing it causes a mismatch due to
-	// too much stack allocation.
-	// @dangerous: You'll want to change this to 131 if compiling using a
-	// non-matching compiler.
+#ifdef AVOID_UB
+	s16 rooms[131];
+#else
 	s16 rooms[124];
+#endif
 
 	s16 spc8[8];
 	s16 spb8[8];
@@ -990,7 +991,7 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 	mtx4TransformVec(camGetProjectionMtxF(), &sp58, &sp40);
 	mtx4RotateVec(camGetProjectionMtxF(), &sp64, &sp4c);
 
-	shotCalculateHits(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
+	return shotCalculateHits(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
 }
 
 void shotCreate(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4)
@@ -2504,7 +2505,7 @@ void farsightChooseTarget(void)
 			struct prop *prop = g_ChrSlots[i].prop;
 
 			if (prop && prop->chr) {
-				if (prop->type == PROPTYPE_CHR && (prop->flags & PROPFLAG_ENABLED)
+				if ((prop->type == PROPTYPE_CHR && (prop->flags & PROPFLAG_ENABLED))
 						|| (prop->type == PROPTYPE_PLAYER && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
 					struct chrdata *chr = prop->chr;
 

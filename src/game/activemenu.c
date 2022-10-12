@@ -22,6 +22,7 @@
 #include "lib/main.h"
 #include "lib/mtx.h"
 #include "lib/ailist.h"
+#include "lib/str.h"
 #include "data.h"
 #include "types.h"
 
@@ -176,7 +177,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 				}
 			} while (numremaining >= 0);
 
-			colour = teamcolours[g_MpAllChrConfigPtrs[chrindex]->team] | renderdata->colour & 0xff;
+			colour = teamcolours[g_MpAllChrConfigPtrs[chrindex]->team] | (renderdata->colour & 0xff);
 
 			if (renderdata->unk10) {
 				u32 weight = menuGetSinOscFrac(40) * 255;
@@ -374,7 +375,7 @@ void amApply(s32 slot)
 	case 1: // Function
 		if (g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED
 				&& g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST
-				&& g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7))) {
+				&& g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->gunctrl.weaponnum - 1) & 7))) {
 			if (slot == 1) {
 				g_AmMenus[g_AmIndex].togglefunc = true;
 			}
@@ -469,10 +470,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 			secfunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].gset, FUNC_SECONDARY);
 
 			if (slot == 1) {
-				if (!secfunc
-						|| g_Vars.currentplayer->gunctrl.weaponnum < WEAPON_UNARMED
-						|| g_Vars.currentplayer->gunctrl.weaponnum > WEAPON_COMBATBOOST
-						|| (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7))) == 0) {
+				if (!secfunc || !FUNCISSEC()) {
 					*flags |= AMSLOTFLAG_CURRENT;
 				}
 
@@ -480,10 +478,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 					strcpy(label, langGet(prifunc->name));
 				}
 			} else {
-				if (!prifunc || (
-						g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED
-						&& g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST
-						&& g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7)))) {
+				if (!prifunc || FUNCISSEC()) {
 					*flags |= AMSLOTFLAG_CURRENT;
 				}
 

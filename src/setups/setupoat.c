@@ -8,10 +8,10 @@
 #define AILIST_INIT_ENEMY 0x0401
 #define AILIST_INIT_MAIAN 0x0402
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

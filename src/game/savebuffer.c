@@ -380,7 +380,7 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
  */
 void savebufferOr(struct savebuffer *buffer, u32 value, s32 numbits)
 {
-	u32 bit = 1 << (numbits + 31);
+	u32 bit = 1 << (numbits - 1);
 
 	for (; bit; bit >>= 1) {
 		if (bit & value) {
@@ -403,7 +403,7 @@ void savebufferOr(struct savebuffer *buffer, u32 value, s32 numbits)
  */
 void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *dst)
 {
-	u32 bit = 1 << (numbits + 31);
+	u32 bit = 1 << (numbits - 1);
 
 	for (; bit; bit >>= 1) {
 		s32 bitindex = buffer->bitpos % 8;
@@ -429,7 +429,7 @@ void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *
  */
 u32 savebufferReadBits(struct savebuffer *buffer, s32 numbits)
 {
-	u32 bit = 1 << (numbits + 31);
+	u32 bit = 1 << (numbits - 1);
 	u32 value = 0;
 
 	for (; bit; bit >>= 1) {

@@ -16,6 +16,7 @@
 #include "game/bondgun.h"
 #include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
+#include "game/modeldef.h"
 #include "game/modelmgr.h"
 #include "game/tex.h"
 #include "game/camera.h"
@@ -39,6 +40,7 @@
 #include "game/propobj.h"
 #include "game/objectives.h"
 #include "bss.h"
+#include "lib/collision.h"
 #include "lib/vi.h"
 #include "lib/joy.h"
 #include "lib/main.h"
@@ -153,12 +155,8 @@ struct fireslot g_Fireslots[NUM_FIRESLOTS];
 u32 fill2[1];
 #endif
 
-u32 var80070090 = 0x96969600;
-u32 var80070094 = 0x96969600;
-u32 var80070098 = 0xffffff00;
-u32 var8007009c = 0xffffff00;
-u32 var800700a0 = 0xb24d2e00;
-u32 var800700a4 = 0x00000000;
+Lights1 var80070090 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0xb2, 0x4d, 0x2e);
+
 u32 var800700a8 = 0x00025800;
 u32 var800700ac = 0x0001e000;
 
@@ -2880,9 +2878,7 @@ s32 bgunTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand,
 			}
 
 			// Consider switching to other gun function
-			usesec = g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED
-				&& g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST
-				&& (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7)));
+			usesec = FUNCISSEC();
 
 			if (usesec == gunfunc) {
 				sp30 = bgun0f098ca0(1 - hand->gset.weaponfunc, info, hand);
@@ -10185,10 +10181,10 @@ glabel var7f1aca90
 /*  f0a747c:	ad6e0004 */ 	sw	$t6,0x4($t3)
 /*  f0a7480:	8faf014c */ 	lw	$t7,0x14c($sp)
 /*  f0a7484:	3c090386 */ 	lui	$t1,0x386
-/*  f0a7488:	3c088007 */ 	lui	$t0,%hi(var80070098)
+/*  f0a7488:	3c088007 */ 	lui	$t0,%hi(var80070090+0x08)
 /*  f0a748c:	25ec0008 */ 	addiu	$t4,$t7,0x8
 /*  f0a7490:	afac014c */ 	sw	$t4,0x14c($sp)
-/*  f0a7494:	25080098 */ 	addiu	$t0,$t0,%lo(var80070098)
+/*  f0a7494:	25080098 */ 	addiu	$t0,$t0,%lo(var80070090+0x08)
 /*  f0a7498:	35290010 */ 	ori	$t1,$t1,0x10
 /*  f0a749c:	ade90000 */ 	sw	$t1,0x0($t7)
 /*  f0a74a0:	ade80004 */ 	sw	$t0,0x4($t7)
@@ -11026,10 +11022,10 @@ glabel var7f1aca90
 /*  f0a747c:	ad6e0004 */ 	sw	$t6,0x4($t3)
 /*  f0a7480:	8faf014c */ 	lw	$t7,0x14c($sp)
 /*  f0a7484:	3c090386 */ 	lui	$t1,0x386
-/*  f0a7488:	3c088007 */ 	lui	$t0,%hi(var80070098)
+/*  f0a7488:	3c088007 */ 	lui	$t0,%hi(var80070090+0x08)
 /*  f0a748c:	25ec0008 */ 	addiu	$t4,$t7,0x8
 /*  f0a7490:	afac014c */ 	sw	$t4,0x14c($sp)
-/*  f0a7494:	25080098 */ 	addiu	$t0,$t0,%lo(var80070098)
+/*  f0a7494:	25080098 */ 	addiu	$t0,$t0,%lo(var80070090+0x08)
 /*  f0a7498:	35290010 */ 	ori	$t1,$t1,0x10
 /*  f0a749c:	ade90000 */ 	sw	$t1,0x0($t7)
 /*  f0a74a0:	ade80004 */ 	sw	$t0,0x4($t7)
@@ -12528,9 +12524,7 @@ void bgunRender(Gfx **gdlptr)
 			gdl = beamRender(gdl, &hand->beam, 0, 0);
 
 			if (weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00008000)) {
-				gSPNumLights(gdl++, 1);
-				gSPLight(gdl++, &var80070098, 1);
-				gSPLight(gdl++, &var80070090, 2);
+				gSPSetLights1(gdl++, var80070090);
 				gSPLookAt(gdl++, camGetLookAt());
 			}
 
@@ -13242,8 +13236,6 @@ void bgunSetTriggerOn(s32 handnum, bool on)
 	}
 }
 
-#define VALIDWEAPON() (g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED && g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST)
-#define GETFUNC() (VALIDWEAPON() && (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->gunctrl.weaponnum - 1) & 7))))
 #define SETFUNCPRI() g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->gunctrl.weaponnum - 1) & 7))
 #define SETFUNCSEC() g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] |= 1 << ((g_Vars.currentplayer->gunctrl.weaponnum - 1) & 7)
 
@@ -13303,7 +13295,7 @@ s32 bgunConsiderToggleGunFunction(s32 usedowntime, bool trigpressed, bool fromac
 		// These weapons disallow B+Z
 		if (!trigpressed) {
 			if (VALIDWEAPON()) {
-				if (1 - GETFUNC()) {
+				if (1 - FUNCISSEC()) {
 					SETFUNCSEC();
 				} else {
 					SETFUNCPRI();
@@ -13319,7 +13311,7 @@ s32 bgunConsiderToggleGunFunction(s32 usedowntime, bool trigpressed, bool fromac
 			g_Vars.currentplayer->gunctrl.invertgunfunc = true;
 		} else {
 			if (VALIDWEAPON()) {
-				if (!GETFUNC()) {
+				if (!FUNCISSEC()) {
 					SETFUNCSEC();
 				} else {
 					SETFUNCPRI();

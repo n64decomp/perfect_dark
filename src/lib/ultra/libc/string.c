@@ -38,3 +38,21 @@ char *strchr(const char *s, int c)
 
 	return (char *)s;
 }
+
+#ifdef __GNUC__
+/**
+ * When compiling with gcc it replaces some loops with a call to memset,
+ * which means memset must be included in the project.
+ */
+void *memset(void *str, s32 c, size_t n)
+{
+	u8* m1 = (u8*) str;
+	u32 i;
+
+	for (i = 0; i < n; i++) {
+		m1[i] = c;
+	}
+
+	return str;
+}
+#endif

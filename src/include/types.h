@@ -4,10 +4,10 @@
 #include <sched.h>
 #include "n_libaudio.h"
 #include "constants.h"
-#include "gbiex.h"
 #include "lang.h"
 #include "pads.h"
 #include "tiles.h"
+#include "gbi.h"
 
 #define bool s32
 #define ubool u32
@@ -893,6 +893,13 @@ struct geocyl {
 	/*0x0c*/ f32 x;
 	/*0x10*/ f32 z;
 	/*0x14*/ f32 radius;
+};
+
+union geounion {
+	struct geotilei tilei;
+	struct geotilef tilef;
+	struct geoblock block;
+	struct geocyl cyl;
 };
 
 struct act_stand {
@@ -3431,7 +3438,7 @@ union soundnumhack {
 	};
 
 	struct {
-		u16 hasconfig : 1;
+		u16 hasconfig2 : 1;
 		u16 unk02 : 2;
 		u16 mp3priority : 2;
 		u16 id : 11;
@@ -4232,8 +4239,7 @@ struct mpplayerconfig {
 	/*0x94*/ u8 medals;
 	/*0x95*/ u8 title;
 	/*0x96*/ u8 newtitle;
-	/*0x97*/ u8 gunfuncs[5];
-	/*0x9c*/ u8 unk9c;
+	/*0x97*/ u8 gunfuncs[6];
 	/*0x9d*/ u8 handicap;
 };
 

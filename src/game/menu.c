@@ -14,6 +14,7 @@
 #include "game/menugfx.h"
 #include "game/menuitem.h"
 #include "game/menu.h"
+#include "game/filelist.h"
 #include "game/filemgr.h"
 #include "game/credits.h"
 #include "game/game_1531a0.h"
@@ -41,6 +42,7 @@
 #include "lib/snd.h"
 #include "lib/memp.h"
 #include "lib/rng.h"
+#include "lib/str.h"
 #include "lib/mtx.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
@@ -1713,13 +1715,7 @@ void func0f0f37a4(struct menu840 *arg0)
 	arg0->unk554 = -1.0f;
 }
 
-u32 var80071468 = 0x96969600;
-u32 var8007146c = 0x96969600;
-
-u32 var80071470 = 0xffffff00;
-u32 var80071474 = 0xffffff00;
-u32 var80071478 = 0xb24d2e00;
-u32 var8007147c = 0x00000000;
+Lights1 var80071468 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0xb2, 0x4d, 0x2e);
 
 #if VERSION >= VERSION_NTSC_1_0
 /**
@@ -2310,9 +2306,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			}
 		}
 
-		gSPNumLights(gdl++, 1);
-		gSPLight(gdl++, &var80071470, 1);
-		gSPLight(gdl++, &var80071468, 2);
+		gSPSetLights1(gdl++, var80071468);
 		gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
 		gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
 
@@ -5635,7 +5629,7 @@ void func0f0f820c(struct menudialogdef *dialogdef, s32 root)
 	g_MenuData.unk00c = dialogdef;
 }
 
-bool menuSetBackground(s32 bg)
+void menuSetBackground(s32 bg)
 {
 	// Can only screenshot if there is no background already,
 	// because we want a clean screenshot

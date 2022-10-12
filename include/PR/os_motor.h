@@ -1,7 +1,7 @@
 
 /*---------------------------------------------------------------------*
         Copyright (C) 1998 Nintendo.
-        
+
         $RCSfile: os_motor.h,v $
         $Revision: 1.1 $
         $Date: 1998/10/09 08:01:15 $
@@ -68,6 +68,7 @@ extern s32 osMotorInit(OSMesgQueue *, OSPfs *, int);
 #define	osMotorStart(x)		__osMotorAccess((x), MOTOR_START)
 #define	osMotorStop(x)		__osMotorAccess((x), MOTOR_STOP)
 extern s32 __osMotorAccess(OSPfs *, s32);
+s32 osMotorProbe(OSMesgQueue* ctrlrqueue, OSPfs* pfs, s32 channel);
 #else
 extern s32 osMotorStop(OSPfs *);
 extern s32 osMotorStart(OSPfs *);

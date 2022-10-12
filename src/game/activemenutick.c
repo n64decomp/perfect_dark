@@ -9,6 +9,7 @@
 #include "game/options.h"
 #include "bss.h"
 #include "lib/joy.h"
+#include "lib/str.h"
 #include "data.h"
 #include "types.h"
 

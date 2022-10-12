@@ -105,6 +105,6 @@ void modelInit(struct model *model, struct modelfiledata *filedata, union modelr
 void animInit(struct anim *anim);
 void model00023108(struct model *model, struct modelfiledata *arg1, struct modelnode *node, struct modelfiledata *arg3);
 void modelIterateDisplayLists(struct modelfiledata *filedata, struct modelnode **nodeptr, Gfx **gdlptr);
-void modelNodeReplaceGdl(u32 arg0, struct modelnode *node, Gfx *find, Gfx *replacement);
+void modelNodeReplaceGdl(struct modelfiledata *modeldef, struct modelnode *node, Gfx *find, Gfx *replacement);
 
 #endif

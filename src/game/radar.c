@@ -14,6 +14,7 @@
 #include "lib/vi.h"
 #include "lib/mtx.h"
 #include "data.h"
+#include "gbiex.h"
 #include "types.h"
 
 u32 g_RadarX;
@@ -129,7 +130,7 @@ Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour1, 
 	osSyncPrintf("RadarDrawDot : Prop=%x", prop);
 
 	spcc = (atan2f(dist->x, dist->z) * 180.0f) / M_PI + g_Vars.currentplayer->vv_theta + 180.0f;
-	sqdist = sqrtf(dist->z * dist->z + dist->x * dist->x) * 0.004f;
+	sqdist = sqrtf(dist->z * dist->z + dist->x * dist->x) * (1.0f / 250.0f);
 
 	if (sqdist < 16.0f) {
 		shiftamount = 0;

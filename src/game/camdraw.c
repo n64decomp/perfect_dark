@@ -19,6 +19,7 @@
 #include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"
+#include "string.h"
 
 struct camerafile {
 	u8 unk00[128];
@@ -3014,7 +3015,7 @@ void func0f14f700(struct var8007f8e0 *arg0, u32 arg1, u32 arg2)
 {
 	u32 bit;
 
-	for (bit = 1 << (arg2 + 31); bit != 0; bit >>= 1) {
+	for (bit = 1 << (arg2 - 1); bit != 0; bit >>= 1) {
 		if (bit & arg1) {
 			s32 remainder = arg0->unk02c % 8;
 			s32 index = arg0->unk02c / 8;
@@ -3032,7 +3033,7 @@ u32 func0f14f76c(struct var8007f8e0 *arg0, u32 arg1)
 	u32 bit;
 	u32 bits;
 
-	for (bit = 1 << (arg1 + 31), bits = 0; bit != 0; bit >>= 1) {
+	for (bit = 1 << (arg1 - 1), bits = 0; bit != 0; bit >>= 1) {
 		u32 remainder = arg0->unk02c % 8;
 		u32 index = arg0->unk02c / 8;
 		u8 mask = 1 << (7 - remainder);
@@ -3072,7 +3073,7 @@ s32 phead0f14f7d4(struct var8007f8e0 *arg0)
 
 	v0 = func0f14f76c(arg0, sp24);
 
-	if ((1 << (sp24 + 31)) & v0) {
+	if ((1 << (sp24 - 1)) & v0) {
 		return v0;
 	}
 

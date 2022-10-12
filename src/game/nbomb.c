@@ -323,7 +323,7 @@ Gfx *nbombCreateGdl(void)
 
 	gdl = gdlstart = gfxAllocate(gdlsizes[index]);
 
-	texSelect(&gdl, &g_TexGeneralConfigs[0x0a], 2, 1, 2, 1, NULL);
+	texSelect(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, 1, NULL);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);

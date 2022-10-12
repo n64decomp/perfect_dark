@@ -24,6 +24,7 @@
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/rng.h"
+#include "lib/str.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
@@ -666,7 +667,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 
 			scenarioCalculatePlayerScore(mpchr, i, &score, &deaths);
 
-			rankablescore = (score + 0x8000) << 16 | 0xffff - deaths;
+			rankablescore = (score + 0x8000) << 16 | (0xffff - deaths);
 			dstindex = 0;
 			found = false;
 
@@ -693,7 +694,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 			count++;
 
 			// Write the new figures
-			rankablescores[dstindex] = (score + 0x8000) << 16 | 0xffff - deaths;
+			rankablescores[dstindex] = (score + 0x8000) << 16 | (0xffff - deaths);
 			scores[dstindex] = score;
 			mpchrs[dstindex] = mpchr;
 			chrnums[dstindex] = i;
@@ -794,7 +795,7 @@ s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
 
 	if (teamexists) {
 		*result = teamscore;
-		return (teamscore + 0x8000) << 16 | 0xffff - teamdeaths;
+		return (teamscore + 0x8000) << 16 | (0xffff - teamdeaths);
 	}
 
 	return 0;
@@ -2196,8 +2197,12 @@ void mpCalculateAwards(void)
 	// @bug: playerrankings should have 12 elements. Because it's too small,
 	// overflow occurs in mpGetPlayerRankings. The overflow writes into the
 	// metrics array (above) which is yet to be initialised, so this bug has
-	// no effect.
+	// no effect on IDO.
+#ifdef AVOID_UB
+	struct ranking playerrankings[MAX_MPCHRS];
+#else
 	struct ranking playerrankings[1];
+#endif
 
 	s32 numchrs;
 	s32 numteams;

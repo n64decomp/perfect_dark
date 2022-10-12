@@ -43,6 +43,7 @@
 #include "game/mpstats.h"
 #include "bss.h"
 #include "lib/joy.h"
+#include "lib/lib_17ce0.h"
 #include "lib/main.h"
 #include "lib/model.h"
 #include "lib/snd.h"
@@ -5113,16 +5114,14 @@ bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coo
 	f32 ymax;
 	f32 ymin;
 	f32 radius;
-	u32 stack[3];
-	s16 sp32;
-	s16 sp30;
+	s16 rooms[8];
 	struct prop *prop = chr->prop;
 
 	chrGetBbox(prop, &radius, &ymax, &ymin);
 	chrSetPerimEnabled(chr, false);
 
-	if (cdTestCylMove04(arg1, arg2, arg3, &sp30, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
-		if (cdTestCylMove01(arg3, &sp30, arg4, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+	if (cdTestCylMove04(arg1, arg2, arg3, rooms, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+		if (cdTestCylMove01(arg3, rooms, arg4, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 			result = true;
 		}
 	}

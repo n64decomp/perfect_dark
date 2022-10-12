@@ -133,10 +133,10 @@
 #define AILIST_SURRENDERING_GUARD 0x042f
 #define AILIST_INIT_FALCON_GUARD  0x0430
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

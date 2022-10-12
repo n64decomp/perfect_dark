@@ -28,7 +28,7 @@ s32 texReadBits(s32 arg0)
 
 	var800ab548 -= arg0;
 
-	return var800ab544 >> var800ab548 & (1 << arg0) - 1;
+	return var800ab544 >> var800ab548 & ((1 << arg0) - 1);
 }
 
 extern u8 *g_TextureConfigSegment;
@@ -76,7 +76,7 @@ void texReset(void)
 	g_TexWords = mempAlloc(ALIGN16(g_TexNumConfigs * 4), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_TexNumConfigs; i++) {
-		g_TexWords[i] = 0;
+		g_TexWords[i] = NULL;
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_TcExplosionTexturePairs); i++) {

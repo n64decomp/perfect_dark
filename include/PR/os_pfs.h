@@ -153,21 +153,21 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel, s32 *arg3);
 #else
 s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel);
 #endif
-extern s32 osPfsRepairId(OSPfs *);
-extern s32 osPfsInit(OSMesgQueue *, OSPfs *, int);
-extern s32 osPfsReFormat(OSPfs *, OSMesgQueue *, int);
-extern s32 osPfsChecker(OSPfs *);
-extern s32 osPfsAllocateFile(OSPfs *, u16, u32, u8 *, u8 *, int, s32 *);
-extern s32 osPfsFindFile(OSPfs *, u16, u32, u8 *, u8 *, s32 *);
-extern s32 osPfsDeleteFile(OSPfs *, u16, u32, u8 *, u8 *);
-extern s32 osPfsReadWriteFile(OSPfs *, s32, u8, int, int, u8 *);
-extern s32 osPfsFileState(OSPfs *, s32, OSPfsState *);
-extern s32 osPfsGetLabel(OSPfs *, u8 *, int *);
-extern s32 osPfsSetLabel(OSPfs *, u8 *);
-extern s32 osPfsIsPlug(OSMesgQueue *, u8 *);
-extern s32 osPfsFreeBlocks(OSPfs *, s32 *);
-extern s32 osPfsNumFiles(OSPfs *, s32 *, s32 *);
-
+s32 osPfsRepairId(OSPfs *);
+s32 osPfsInit(OSMesgQueue *, OSPfs *, int);
+s32 osPfsReFormat(OSPfs *, OSMesgQueue *, int);
+s32 osPfsChecker(OSPfs *);
+s32 osPfsAllocateFile(OSPfs *, u16, u32, u8 *, u8 *, int, s32 *);
+s32 osPfsFindFile(OSPfs *, u16, u32, u8 *, u8 *, s32 *);
+s32 osPfsDeleteFile(OSPfs *, u16, u32, u8 *, u8 *);
+s32 osPfsReadWriteFile(OSPfs *, s32, u8, int, int, u8 *);
+s32 osPfsFileState(OSPfs *, s32, OSPfsState *);
+s32 osPfsGetLabel(OSPfs *, u8 *, int *);
+s32 osPfsSetLabel(OSPfs *, u8 *);
+s32 osPfsIsPlug(OSMesgQueue *, u8 *);
+s32 osPfsFreeBlocks(OSPfs *, s32 *);
+s32 osPfsNumFiles(OSPfs *, s32 *, s32 *);
+s32 osPfsReSizeFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, int length);
 
 #endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

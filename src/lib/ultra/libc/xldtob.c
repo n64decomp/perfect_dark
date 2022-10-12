@@ -35,7 +35,7 @@ const double pows[] = {10e0L, 10e1L, 10e3L, 10e7L, 10e15L, 10e31L, 10e63L, 10e12
 #define _D2    2
 #define _D3    3
 
-void _Ldtob(printf_struct *args, u8 type)
+void _Ldtob(printf_struct *args, char type)
 {
 	u8 buff[0x20];
 	u8 *p = buff;
@@ -201,32 +201,35 @@ short _Ldunscale(short *pex, printf_struct *px)
 
 void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp)
 {
-	const char point = 0x2e;
+	const char point = '.';
 
 	if (nsig <= 0) {
-		nsig = 1, p = (char *)"0";
+		p = (char *) "0";
+		nsig = 1;
 	}
 
-	if (code == 0x66 || ((code == 0x67 || code == 0x47) && (-4 <= xexp) && (xexp < px->precision))) {
-		/* 0x66 format */
-		++xexp; /* change to leading digit count */
+	if (code == 'f' || ((code == 'g' || code == 'G') && xexp >= -4 && xexp < px->precision)) {
+		/* 'f' format */
+		xexp++; /* change to leading digit count */
 
-		if (code != 0x66) {
-			/* fixup for 0x67 */
+		if (code != 'f') {
+			/* fixup for 'g' */
 			if (!(px->flags & FLAGS_HASH) && nsig < px->precision) {
 				px->precision = nsig;
 			}
 
-			if ((px->precision -= xexp) < 0) {
+			px->precision -= xexp;
+
+			if (px->precision < 0) {
 				px->precision = 0;
 			}
 		}
 
 		if (xexp <= 0) {
 			/* digits only to right of point */
-			px->buff[px->part2_len++] = 0x30;
+			px->buff[px->part2_len++] = '0';
 
-			if (0 < px->precision || px->flags & FLAGS_HASH) {
+			if (px->precision > 0 || px->flags & FLAGS_HASH) {
 				px->buff[px->part2_len++] = point;
 			}
 
@@ -241,7 +244,9 @@ void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp)
 				nsig = px->precision;
 			}
 
-			memcpy(&px->buff[px->part2_len], p, px->part3_len = nsig);
+			px->part3_len = nsig;
+
+			memcpy(&px->buff[px->part2_len], p, nsig);
 
 			px->num_trailing_zeros = px->precision - nsig;
 		} else if (nsig < xexp) {
@@ -251,8 +256,9 @@ void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp)
 			px->part2_len += nsig;
 			px->num_mid_zeros = xexp - nsig;
 
-			if (0 < px->precision || px->flags & FLAGS_HASH) {
-				px->buff[px->part2_len] = point, ++px->part3_len;
+			if (px->precision > 0 || px->flags & FLAGS_HASH) {
+				px->buff[px->part2_len] = point;
+				px->part3_len++;
 			}
 
 			px->num_trailing_zeros = px->precision;
@@ -263,7 +269,7 @@ void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp)
 			px->part2_len += xexp;
 			nsig -= xexp;
 
-			if (0 < px->precision || px->flags & FLAGS_HASH) {
+			if (px->precision > 0 || px->flags & FLAGS_HASH) {
 				px->buff[px->part2_len++] = point;
 			}
 
@@ -277,29 +283,36 @@ void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp)
 			px->num_mid_zeros = px->precision - nsig;
 		}
 	} else {
-		/* 0x65 format */
-		if (code == 0x67 || code == 0x47) {
-			/* fixup for 0x67 */
+		/* 'e' format */
+		if (code == 'g' || code == 'G') {
+			/* fixup for 'g' */
 			if (nsig < px->precision) {
 				px->precision = nsig;
 			}
 
-			if (--px->precision < 0) {
+			px->precision--;
+
+			if (px->precision < 0) {
 				px->precision = 0;
 			}
 
-			code = code == 0x67 ? 0x65 : 0x45;
+			code = code == 'g' ? 'e' : 'E';
 		}
 
-		px->buff[px->part2_len++] = *p++;
+		px->buff[px->part2_len] = *p;
+		px->part2_len++;
+		p++;
 
-		if (0 < px->precision || px->flags & FLAGS_HASH) {
-			px->buff[px->part2_len++] = point;
+		if (px->precision > 0 || px->flags & FLAGS_HASH) {
+			px->buff[px->part2_len] = point;
+			px->part2_len++;
 		}
 
-		if (0 < px->precision) {
+		if (px->precision > 0) {
 			/* put fraction digits */
-			if (px->precision < --nsig) {
+			nsig--;
+
+			if (px->precision < nsig) {
 				nsig = px->precision;
 			}
 
@@ -309,30 +322,35 @@ void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp)
 			px->num_mid_zeros = px->precision - nsig;
 		}
 
-		p = (char *)&px->buff[px->part2_len]; /* put exponent */
-		*p++ = code;
+		p = (char *) &px->buff[px->part2_len]; /* put exponent */
+		*p = code;
+		p++;
 
-		if (0 <= xexp) {
-			*p++ = 0x2b;
+		if (xexp >= 0) {
+			*p++ = '+';
 		} else {
 			/* negative exponent */
-			*p++ = 0x2d;
+			*p++ = '-';
 			xexp = -xexp;
 		}
 
-		if (100 <= xexp) {
+		if (xexp >= 100) {
 			/* put oversize exponent */
-			if (1000 <= xexp) {
-				*p++ = xexp / 1000 + 0x30, xexp %= 1000;
+			if (xexp >= 1000) {
+				*p = xexp / 1000 + 0x30, xexp %= 1000;
+				p++;
 			}
 
-			*p++ = xexp / 100 + 0x30, xexp %= 100;
+			*p = xexp / 100 + 0x30, xexp %= 100;
+			p++;
 		}
 
-		*p++ = xexp / 10 + 0x30, xexp %= 10;
-		*p++ = xexp + 0x30;
+		*p = xexp / 10 + 0x30, xexp %= 10;
+		p++;
+		*p = xexp + 0x30;
+		p++;
 
-		px->part3_len = p - (char *)&px->buff[px->part2_len];
+		px->part3_len = p - (char *) &px->buff[px->part2_len];
 	}
 
 	if ((px->flags & (FLAGS_ZERO | FLAGS_MINUS)) == FLAGS_ZERO) {

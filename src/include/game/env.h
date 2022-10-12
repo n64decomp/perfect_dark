@@ -16,6 +16,6 @@ Gfx *envStartFog(Gfx *gdl, bool xlupass);
 Gfx *envStopFog(Gfx *gdl);
 bool env0f1666f8(struct coord *pos, f32 arg1);
 struct coord *env0f1667e8(void);
-s32 env0f1667f4(struct prop *prop, f32 *arg1);
+s32 env0f1667f4(struct prop *prop, f32 arg1[4]);
 
 #endif

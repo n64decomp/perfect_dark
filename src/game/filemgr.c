@@ -14,6 +14,7 @@
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/vi.h"
+#include "lib/joy.h"
 #include "lib/mema.h"
 #include "lib/str.h"
 #include "data.h"

@@ -402,6 +402,8 @@ extern long long int    n_aspMainDataStart[], n_aspMainDataEnd[];
 
 f32 func0003b9d4(s32 arg0);
 void func0003ba64(struct fx *fx, f32 outputrate);
+s16 _getRate(f32 vol, f32 tgt, s32 count, u16 *ratel);
+s16 _getVol(s16 ivol, s32 samples, s16 ratem, u16 ratel);
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
 }

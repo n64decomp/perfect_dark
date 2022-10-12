@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "xstdio.h"
+#include <string.h>
 
 #define BUFF_LEN 0x18
 

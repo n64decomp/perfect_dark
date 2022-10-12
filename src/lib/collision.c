@@ -1802,6 +1802,8 @@ void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisi
 	cdSetObstacleVtxPropFlt(&vtx1, &vtx2, collisions[bestindex].prop, bestvalue);
 }
 
+f32 cdFindGroundFromList(struct collision *collisions, struct coord *pos, struct collision **collisionptr, f32 width);
+
 #if VERSION >= VERSION_NTSC_1_0
 // NTSC beta mismatches due to swapped s5/s6 registers
 // collision should be s6; next should be s5
@@ -2735,7 +2737,7 @@ glabel cdFindGroundFromList
 #endif
 
 /**
- * Test if the given cylindar is intersecting a tile with the given geoflags.
+ * Test if the given cylinder is intersecting a tile with the given geoflags.
  * If so, populate the laddernormal argument and return true.
  *
  * There is nothing specific to ladders in this function, but it's only used

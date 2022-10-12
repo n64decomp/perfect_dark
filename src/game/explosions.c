@@ -19,6 +19,7 @@
 #include "game/utils.h"
 #include "game/wallhit.h"
 #include "bss.h"
+#include "lib/collision.h"
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/rng.h"
@@ -93,19 +94,19 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s1
 	bool makescorch = true;
 	s16 room;
 	f32 y;
-	bool sp68;
+	struct prop *collisionprop;
 
 	if (type == EXPLOSIONTYPE_NONE) {
 		return false;
 	}
 
 	if (prop) {
-		room = cdFindFloorRoomYColourNormalPropAtPos(&prop->pos, prop->rooms, &y, 0, &sp88, &sp68);
+		room = cdFindFloorRoomYColourNormalPropAtPos(&prop->pos, prop->rooms, &y, NULL, &sp88, &collisionprop);
 		sp100.x = prop->pos.x;
 		sp100.y = y;
 		sp100.z = prop->pos.z;
 	} else {
-		room = cdFindFloorRoomYColourNormalPropAtPos(pos, rooms, &y, 0, &sp88, &sp68);
+		room = cdFindFloorRoomYColourNormalPropAtPos(pos, rooms, &y, NULL, &sp88, &collisionprop);
 		sp100.x = pos->x;
 		sp100.y = y;
 		sp100.z = pos->z;
@@ -113,7 +114,7 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s1
 
 	etype = &g_ExplosionTypes[type];
 
-	if (sp68 || room <= 0
+	if (collisionprop || room <= 0
 			|| !(pos->y - y <= (etype->rangev + etype->changeratev * etype->duration + etype->innersize) * 0.5f || pos->y - y <= 75)) {
 		makescorch = false;
 	}

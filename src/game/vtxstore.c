@@ -6,6 +6,7 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/mema.h"
+#include "lib/model.h"
 #include "lib/rng.h"
 #include "data.h"
 #include "types.h"

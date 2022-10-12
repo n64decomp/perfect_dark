@@ -6,6 +6,7 @@
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/chr.h"
+#include "game/env.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
 #include "game/objectives.h"
@@ -44,6 +45,7 @@
 #include "lib/anim.h"
 #include "lib/collision.h"
 #include "data.h"
+#include "gbiex.h"
 #include "types.h"
 
 void *var8009ccc0[20];
@@ -4237,8 +4239,7 @@ glabel chr0f0260c4
 #else
 // Mismatch: The bottom two tmp calculations should multiply by s32 0xc using
 // shift operations, however doing this causes it to boot gdlptr out of s8 and
-// use s8 for s32 0xc. The below multiplies by 6 which is incorrect, but creates
-// a diff of only one instruction to show that this is the only issue.
+// use s8 for s32 0xc.
 void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3)
 {
 	struct modelnode *bestnode = NULL;
@@ -4460,7 +4461,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 
 											tmp = ALIGN8((s32)&rodata->vertices[rodata->numvertices]); // s32 0xc
 										} else {
-											tmp = ALIGN8((s32)rodata->vertices + rodata->numvertices * 6); // s32 0xc
+											tmp = ALIGN8((s32)&rodata->vertices[rodata->numvertices]); // s32 0xc
 										}
 									}
 

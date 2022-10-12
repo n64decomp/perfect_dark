@@ -16,10 +16,12 @@
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/snd.h"
+#include "lib/str.h"
 #include "lib/memp.h"
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
+#include "string.h"
 
 u32 g_NextHudMessageId;
 

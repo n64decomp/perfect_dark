@@ -15,6 +15,7 @@
 #include "lib/joy.h"
 #include "lib/main.h"
 #include "lib/rng.h"
+#include "lib/str.h"
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
@@ -193,7 +194,7 @@ Gfx *bviewPrepareStaticRgba16(Gfx *gdl, u32 colour, u32 alpha)
 			G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 	gDPSetTileSize(gdl++, G_TX_RENDERTILE, 0, 0, 0x0800, 0x0020);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);
-	gDPSetColor(gdl++, G_SETENVCOLOR, colour & 0xffffff00 | alpha & 0xff);
+	gDPSetColor(gdl++, G_SETENVCOLOR, (colour & 0xffffff00) | (alpha & 0xff));
 	gDPSetCombineLERP(gdl++,
 			TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, ENVIRONMENT,
 			TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, ENVIRONMENT);
@@ -227,7 +228,7 @@ Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
 			G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 	gDPSetTileSize(gdl++, G_TX_RENDERTILE, 0, 0, 0x0800, 0x0020);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);
-	gDPSetColor(gdl++, G_SETENVCOLOR, colour & 0xffffff00 | alpha & 0xff);
+	gDPSetColor(gdl++, G_SETENVCOLOR, (colour & 0xffffff00) | (alpha & 0xff));
 	gDPSetCombineLERP(gdl++,
 			TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, ENVIRONMENT,
 			TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, ENVIRONMENT);
@@ -298,7 +299,7 @@ Gfx *bviewDrawStatic(Gfx *gdl, u32 arg1, s32 arg2)
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
 	s32 viewleft = viGetViewLeft();
-	u16 *fb2 = (u16 *) (random() & 0xfff00 | 0x80000000);
+	u16 *fb2 = (u16 *) PHYS_TO_K0(random() & 0xfff00);
 	s32 y;
 
 	gDPPipeSync(gdl++);

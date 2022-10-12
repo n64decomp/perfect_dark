@@ -66,14 +66,17 @@
 #include "lib/str.h"
 #include "lib/memp.h"
 #include "lib/model.h"
+#include "lib/path.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/anim.h"
 #include "lib/collision.h"
+#include "lib/lib_17ce0.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "textures.h"
 #include "types.h"
+#include "string.h"
 
 struct weaponobj *g_Proxies[30];
 f32 g_GasReleaseTimerMax240;
@@ -1719,7 +1722,7 @@ void colourTween(u8 *col, u8 *nextcol)
 	}
 }
 
-void func0f069750(s32 *arg0, s32 arg1, f32 *arg2)
+void func0f069750(s32 *arg0, s32 arg1, f32 arg2[4])
 {
 	if (arg1 == 1) {
 		f32 tmp;
@@ -2490,7 +2493,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 				// flag. If the propnum was 0, all chrs would be assigned to
 				// this one chair, and their original chairs would still have
 				// the occupied flag.
-				if (g_ChrSlots[i].proppreset1 = obj->prop - g_Vars.props) {
+				if ((g_ChrSlots[i].proppreset1 = obj->prop - g_Vars.props)) {
 					g_ChrSlots[i].proppreset1 = -1;
 				}
 			}
@@ -3229,11 +3232,9 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 	bool s0;
 	s16 spcc[120];
 	s16 *ptr;
+	s16 spb8[8];
 	s32 i;
 	f32 scale = 1.0f;
-	u32 stack2;
-	s32 spb8;
-	u32 stack3[2];
 
 	cdresult = CDRESULT_NOCOLLISION;
 
@@ -3251,7 +3252,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 	if ((prop->pos.x != pos->x || prop->pos.y != pos->y || prop->pos.z != pos->z)
 			&& (obj->hidden & OBJHFLAG_PROJECTILE)
 			&& (obj->projectile->flags & PROJECTILEFLAG_STICKY)) {
-		portal00018148(&prop->pos, &sp1c4, prop->rooms, &spb8, &spcc, 20);
+		portal00018148(&prop->pos, &sp1c4, prop->rooms, spb8, spcc, 20);
 
 		ptr = spcc;
 
@@ -6315,12 +6316,9 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 	s16 rooms[8];
 	struct hov prevhov;
 	struct hov *hov = NULL;
-	struct hoverbikeobj *hoverbike;
-	struct hoverpropobj *hoverprop;
-	u8 stack[0x2f0];
-	struct geocyl cyl;
+	union geounion geounion;
 	struct prop *prop = obj->prop;
-	u32 stack2;
+	struct hoverbikeobj *hoverbike;
 	Mtxf spa4;
 	Mtxf sp64;
 	f32 sp40[3][3];
@@ -6373,11 +6371,10 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		setup0f09233c(obj, &pos, sp460, rooms);
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
-			hoverbike = (struct hoverbikeobj *)obj;
+			hoverbike = (struct hoverbikeobj *) obj;
 			hov = &hoverbike->hov;
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
-			hoverprop = (struct hoverpropobj *)obj;
-			hov = &hoverprop->hov;
+			hov = &((struct hoverpropobj *) obj)->hov;
 		}
 
 		if (hov != NULL) {
@@ -6401,12 +6398,13 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 	}
 
 	if (cdresult == CDRESULT_NOCOLLISION) {
-		func0f069850(obj, &pos, sp460, &cyl);
+		func0f069850(obj, &pos, sp460, &geounion.cyl);
 
 		if (obj->flags3 & OBJFLAG3_GEOCYL) {
-			cdresult = cdExamCylMove01(&prop->pos, &pos, cyl.radius, rooms, CDTYPE_ALL, CHECKVERTICAL_YES, cyl.ymax - pos.y, cyl.ymin - pos.y);
+			cdresult = cdExamCylMove01(&prop->pos, &pos, geounion.cyl.radius, rooms, CDTYPE_ALL,
+					CHECKVERTICAL_YES, geounion.cyl.ymax - pos.y, geounion.cyl.ymin - pos.y);
 		} else {
-			cdresult = cd0002f02c((struct geoblock *)&cyl, rooms, CDTYPE_ALL);
+			cdresult = cd0002f02c(&geounion.block, rooms, CDTYPE_ALL);
 		}
 	}
 
@@ -6424,9 +6422,9 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 
 		if (obj->geocyl && (obj->hidden2 & OBJH2FLAG_08)) {
 			if (obj->flags3 & OBJFLAG3_GEOCYL) {
-				*obj->geocyl = cyl;
+				*obj->geocyl = geounion.cyl;
 			} else {
-				*obj->geoblock = *(struct geoblock *)&cyl;
+				*obj->geoblock = geounion.block;
 			}
 		}
 	} else if (hov) {
@@ -15600,12 +15598,9 @@ Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl)
 
 Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 {
-	u32 stack;
-	u32 stack2;
-	struct defaultobj *obj = prop->obj;
-	f32 spe8;
+	f32 spe8[4];
 	s32 spe4;
-	s32 i;
+	struct defaultobj *obj = prop->obj;
 	struct modelrenderdata renderdata = {NULL, true, 3};
 	struct screenbox screenbox;
 	s32 colour[4];
@@ -15624,8 +15619,9 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	struct colour *oldcolours;
 	struct colour *newcolours;
 	f32 objdist;
+	s32 i;
 
-	spe4 = env0f1667f4(prop, &spe8);
+	spe4 = env0f1667f4(prop, spe8);
 
 	if (spe4 == 0) {
 		return gdl;
@@ -15708,9 +15704,9 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		if (door->doortype == DOORTYPE_LASER) {
 			node = func0f0687e4(obj->model);
 			dldata1 = &node->rodata->dl;
-			dldata2 = (struct modelrwdata_dl *)modelGetNodeRwData(obj->model, node);
-			oldcolours = (struct colour *)(((u32)&dldata1->vertices[dldata1->numvertices] + 7 | 7) ^ 7);
-			newcolours = (struct colour *)gfxAllocateColours(dldata1->numcolours);
+			dldata2 = (struct modelrwdata_dl *) modelGetNodeRwData(obj->model, node);
+			oldcolours = (struct colour *) ((((u32) &dldata1->vertices[dldata1->numvertices] + 7) | 7) ^ 7);
+			newcolours = (struct colour *) gfxAllocateColours(dldata1->numcolours);
 
 			for (i = 0; i < dldata1->numcolours; i++) {
 				newcolours[i] = oldcolours[i];
@@ -15809,7 +15805,7 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		colour[3] = 0xff;
 	}
 
-	func0f069750(colour, spe4, &spe8);
+	func0f069750(colour, spe4, spe8);
 
 	if (USINGDEVICE(DEVICE_NIGHTVISION)) {
 		if ((obj->flags & OBJFLAG_PATHBLOCKER) == 0) {

@@ -4,6 +4,7 @@
 #include "data.h"
 #include "bss.h"
 #include "lib/memp.h"
+#include "lib/sched.h"
 
 u8 g_RdpDramStack[SP_DRAM_STACK_SIZE8];
 

@@ -286,8 +286,8 @@ void mtx00016798(Mtxf *src, Mtxf *dst)
 		u32 word1 = srcwords[i + 0];
 		u32 word2 = srcwords[i + 8];
 
-		dstfloats[(i << 1) + 0] = (s32) (word1 & 0xffff0000 | word2 >> 16) / var8005ef10[0];
-		dstfloats[(i << 1) + 1] = (s32) (word1 << 16 | word2 & 0xffff) / var8005ef10[i & 1];
+		dstfloats[(i << 1) + 0] = (s32) ((word1 & 0xffff0000) | (word2 >> 16)) / var8005ef10[0];
+		dstfloats[(i << 1) + 1] = (s32) ((word1 << 16) | (word2 & 0xffff)) / var8005ef10[i & 1];
 	}
 }
 
@@ -301,8 +301,8 @@ void mtx00016820(Mtx *src, Mtx *dst)
 		u32 word1 = srcwords[i + 0];
 		u32 word2 = srcwords[i + 8];
 
-		dstwords[(i << 1) + 0] = word1 & 0xffff0000 | word2 >> 16;
-		dstwords[(i << 1) + 1] = word1 << 16 | word2 & 0xffff;
+		dstwords[(i << 1) + 0] = (word1 & 0xffff0000) | (word2 >> 16);
+		dstwords[(i << 1) + 1] = (word1 << 16) | (word2 & 0xffff);
 	}
 }
 

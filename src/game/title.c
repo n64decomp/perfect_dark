@@ -29,6 +29,7 @@
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
+#include "string.h"
 
 u8 *var8009cca0;
 u32 var8009cca4;

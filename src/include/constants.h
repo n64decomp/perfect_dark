@@ -23,9 +23,9 @@
 #define ABS(val)            ((val) > 0 ? (val) : -(val))
 #define ABSF(val)           ((val) > 0.0f ? (val) : -(val))
 #define ALIGN2(val)         (((val) | 1) ^ 0x1)
-#define ALIGN8(val)         (((val) + 0x7 | 0x7) ^ 0x7)
-#define ALIGN16(val)        (((val) + 0xf | 0xf) ^ 0xf)
-#define ALIGN64(val)        ((((u32)(val)) + 0x3f | 0x3f) ^ 0x3f)
+#define ALIGN8(val)         ((((val) + 0x7) | 0x7) ^ 0x7)
+#define ALIGN16(val)        ((((val) + 0xf) | 0xf) ^ 0xf)
+#define ALIGN64(val)        (((((u32)(val)) + 0x3f) | 0x3f) ^ 0x3f)
 #define ARRAYCOUNT(a)       (s32)(sizeof(a) / sizeof(a[0]))
 #define CHRRACE(chr)        (chr ? chr->race : RACE_HUMAN)
 #define CRASH()             *(u8 *)0 = 69
@@ -39,6 +39,9 @@
 #define SECSTOTIME240(secs) (secs * 240)
 #define SECSTOTIME60(secs)  (secs * 60)
 #define PFS(device)         (device == SAVEDEVICE_GAMEPAK ? NULL : &g_Pfses[device])
+
+#define VALIDWEAPON()       (g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED && g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST)
+#define FUNCISSEC()         (VALIDWEAPON() && (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->gunctrl.weaponnum - 1) & 7))))
 
 #define USINGDEVICE(device) (!g_Vars.currentplayer->isdead \
 		&& !g_InCutscene \

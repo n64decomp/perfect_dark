@@ -86,10 +86,10 @@
 #define AILIST_ELVIS_PREPARE_LEADING 0x0417
 #define AILIST_ELVIS_AT_MOONPOOL     0x0418
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

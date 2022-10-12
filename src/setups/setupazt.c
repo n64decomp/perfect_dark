@@ -106,10 +106,10 @@ enum chrnum {
 #define AILIST_STARTING_AREA_GUARD 0x0421
 #define AILIST_HIDE                0x0422
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

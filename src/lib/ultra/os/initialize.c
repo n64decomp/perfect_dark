@@ -112,4 +112,8 @@ OSPiHandle *osCartRomInit(void)
 	LeoDiskHandle.pulse = IO_READ(0xa4600028);
 	LeoDiskHandle.pageSize = IO_READ(0xa460002c);
 	LeoDiskHandle.relDuration = IO_READ(0xa4600030);
+
+#ifdef AVOID_UB
+	return &CartRomHandle;
+#endif
 }

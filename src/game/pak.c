@@ -1,7 +1,9 @@
 #include "versions.h"
 #include <ultra64.h>
 #include "constants.h"
+#include "game/bossfile.h"
 #include "game/camdraw.h"
+#include "game/filelist.h"
 #include "game/menu.h"
 #include "game/crc.h"
 #include "game/gamefile.h"
@@ -14,8 +16,10 @@
 #include "lib/main.h"
 #include "lib/memp.h"
 #include "lib/rng.h"
+#include "lib/str.h"
 #include "data.h"
 #include "types.h"
+#include "string.h"
 
 /**
  * Perfect Dark supports saving to an in-cartridge EEPROM chip, as well as to
@@ -944,7 +948,7 @@ s32 _pakSaveAtGuid(s8 device, s32 fileid, s32 filetype, u8 *newdata, s32 *outfil
 	// Find the file to be "replaced"
 	oldoffset = pakFindFile(device, fileid, &header);
 
-	if (oldoffset && (!oldoffset || oldoffset >= pakGetPdNumBytes(device) || (pakGetBlockSize(device) - 1 & oldoffset))) {
+	if (oldoffset && (!oldoffset || oldoffset >= pakGetPdNumBytes(device) || ((pakGetBlockSize(device) - 1) & oldoffset))) {
 		return 3;
 	}
 
@@ -1703,7 +1707,7 @@ s32 pak0f118b04(s8 device, u32 fileid)
 		}
 #endif
 
-		if (offset == 0 || (offset != 0 && offset < pakGetPdNumBytes(device) && (pakGetBlockSize(device) - 1 & offset) == 0)) {
+		if (offset == 0 || (offset != 0 && offset < pakGetPdNumBytes(device) && ((pakGetBlockSize(device) - 1) & offset) == 0)) {
 			if (!pakReplaceFileAtOffsetWithBlank(device, offset)) {
 				return 4;
 			}

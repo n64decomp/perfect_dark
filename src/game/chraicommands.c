@@ -9511,7 +9511,7 @@ bool aiSayQuip(void)
 	s32 distance; // 116 - not referenced
 	s32 row = cmd[3]; // 112
 	u32 playernum; // 108 - not referenced
-	u8 headshotted = g_Vars.chrdata->hidden2 & CHRH2FLAG_HEADSHOTTED; // 107
+	u8 headshotted = (g_Vars.chrdata->hidden2 & CHRH2FLAG_HEADSHOTTED) & 0xff; // 107
 	struct chrdata *loopchr; // 100
 
 	// Choose bank

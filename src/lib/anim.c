@@ -400,8 +400,8 @@ s32 anim00023fe0(u8 *arg0, u8 arg1, s32 arg2)
 {
 	u16 result = anim00023f50(arg0, arg1, arg2);
 
-	if (arg1 < 16 && (result & 1 << (arg1 + 31))) {
-		result |= (1 << (16 - arg1)) - 1 << arg1;
+	if (arg1 < 16 && (result & (1 << (arg1 - 1)))) {
+		result |= ((1 << (16 - arg1)) - 1) << arg1;
 	}
 
 	return result;
@@ -689,7 +689,7 @@ f32 anim00024b64(u32 arg0, u32 arg1, struct skeleton *arg2, s16 animnum, u32 arg
 	coord->y = sp30[1];
 	coord->z = sp30[2];
 
-	return (value * M_BADTAU) / 65536.0f;
+	return value * M_BADTAU / 65536.0f;
 }
 
 f32 anim00024c14(s32 arg0, s16 animnum, u8 arg2)

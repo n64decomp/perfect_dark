@@ -38,6 +38,7 @@
 	BEGIN_SEG(mpstrings##lang) \
 	{ \
 		build/ROMID/assets/mpstrings/mpstrings##lang.o (.data); \
+		. = ALIGN(0x10); \
 	} \
 	END_SEG(mpstrings##lang)
 
@@ -45,6 +46,7 @@
 	varname = __rompos; \
 	.file##id : AT(__rompos) { \
 		build/ROMID/assets/files/filename.o (.data); \
+		. = ALIGN(0x10); \
 	} \
 	__rompos += SIZEOF(.file##id)
 
@@ -52,6 +54,7 @@
 	BEGIN_SEG(font##name) \
 	{ \
 		build/ROMID/assets/fonts/name.o (.data); \
+		. = ALIGN(0x10); \
 	} \
 	END_SEG(font##name)
 
@@ -198,10 +201,11 @@ SECTIONS
 	__rompos = 0x02000000;
 	__rampos = 0x70001050;
 
-	BEGIN_SEG(lib) SUBALIGN(16)
+	BEGIN_SEG(lib) SUBALIGN(0x10)
 	{
 		LIBFILES(.text)
 		LIBFILES(.rodata)
+		. = ALIGN(0x10);
 	}
 	END_SEG(lib)
 
@@ -231,6 +235,7 @@ SECTIONS
 		GAMEFILES(.data)
 		build/ROMID/rsp/gsp.data.o (.data);
 		build/ROMID/rsp/asp.data.o (.data);
+		. = ALIGN(0x10);
 	}
 	END_SEG(data)
 
@@ -258,6 +263,7 @@ SECTIONS
 	{
 		LIBFILES(.bss)
 		GAMEFILES(.bss)
+		. = ALIGN(0x10);
 	}
 	END_SEG(bss)
 
@@ -277,6 +283,9 @@ SECTIONS
 	{
 		build/ROMID/inflate/inflate.o (.text);
 		build/ROMID/inflate/inflate.o (.data);
+		build/ROMID/inflate/inflate.o (.bss);
+		build/ROMID/inflate/inflate.o (.rodata);
+		. = ALIGN(0x10);
 	}
 	END_SEG(inflate)
 
@@ -297,6 +306,7 @@ SECTIONS
 	{
 		GAMEFILES(.text)
 		GAMEFILES(.rodata)
+		. = ALIGN(0x10);
 	}
 	END_SEG(game)
 
@@ -345,6 +355,7 @@ SECTIONS
 	BEGIN_SEG(mpconfigs)
 	{
 		build/ROMID/mpconfigs.o (.data);
+		. = ALIGN(0x10);
 	}
 	END_SEG(mpconfigs)
 
@@ -375,6 +386,7 @@ SECTIONS
 	BEGIN_SEG(firingrange)
 	{
 		build/ROMID/firingrange.o (.data);
+		. = ALIGN(0x10);
 	}
 	END_SEG(firingrange)
 
@@ -391,6 +403,7 @@ SECTIONS
 	BEGIN_SEG(textureconfig)
 	{
 		build/ROMID/textureconfig.o (.data);
+		. = ALIGN(0x10);
 	}
 	END_SEG(textureconfig)
 
@@ -547,6 +560,7 @@ SECTIONS
 	{
 		build/ROMID/assets/files/list.o (.data);
 		build/ROMID/assets/files/list.o (.rodata);
+		. = ALIGN(0x10);
 	}
 	END_SEG(filenames)
 

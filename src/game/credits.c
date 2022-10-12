@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/camera.h"
 #include "game/game_006900.h"
 #include "game/title.h"
 #include "game/tex.h"
@@ -972,7 +973,7 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 
 				gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
 
-				gDPTri2(gdl++, 0, 1, 2, 2, 3, 0)
+				gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 			}
 		}
 	}

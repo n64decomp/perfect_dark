@@ -16,6 +16,7 @@
 #include "game/atan2f.h"
 #include "game/quaternion.h"
 #include "game/bondgun.h"
+#include "game/env.h"
 #include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b2150.h"
@@ -27,6 +28,7 @@
 #include "game/hudmsg.h"
 #include "game/menu.h"
 #include "game/mainmenu.h"
+#include "game/file.h"
 #include "game/filemgr.h"
 #include "game/inv.h"
 #include "game/playermgr.h"
@@ -55,6 +57,7 @@
 #include "lib/ailist.h"
 #include "lib/collision.h"
 #include "lib/joy.h"
+#include "lib/lib_17ce0.h"
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/snd.h"
@@ -2237,7 +2240,7 @@ Gfx *player0f0baf84(Gfx *gdl)
 		guPerspective(a, &b, g_Vars.currentplayer->zoominfovy,
 				PAL ? 1.7316017150879f : 1.4545454978943f, 10, 300, 1);
 
-		gSPMatrix(gdl++, 0x80000000 + (u32)a, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, OS_PHYSICAL_TO_K0(a), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		gSPPerspNormalize(gdl++, b);
 	}
 
@@ -3753,7 +3756,7 @@ void playerTick(bool arg0)
 			if (rocket->base.hidden & OBJHFLAG_PROJECTILE) {
 				struct projectile *projectile = rocket->base.projectile;
 				u32 mode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
-				f32 fVar22;
+				f32 targetspeed;
 				s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 				s8 contpad2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
 				s8 stickx = 0;
@@ -3761,14 +3764,18 @@ void playerTick(bool arg0)
 				Mtxf sp1fc;
 				Mtxf sp1bc;
 				Mtxf sp17c;
-				f32 targetspeed;
+				f32 sp178;
 				f32 sp174;
 				f32 sp15c[6];
 				f32 sp14c[4];
 				f32 sp13c[4];
 				f32 sp12c[4];
 				f32 prevspeed;
+#ifdef AVOID_UB
+				f32 sp11c[4];
+#else
 				f32 sp11c[3];
+#endif
 				bool explode = false;
 				bool slow = false;
 				bool pause = false;
@@ -3853,7 +3860,7 @@ void playerTick(bool arg0)
 				sp2ac.x = sp2b8[0][0];
 				sp2ac.z = sp2b8[0][2];
 
-				fVar22 = sticky * LVUPDATE240FREAL() * 0.00025f;
+				sp178 = sticky * LVUPDATE240FREAL() * 0.00025f;
 				sp174 = -stickx * LVUPDATE240FREAL() * 0.00025f;
 
 				f20 = sqrtf(sp2ac.f[0] * sp2ac.f[0] + sp2ac.f[2] * sp2ac.f[2]);
@@ -3861,9 +3868,9 @@ void playerTick(bool arg0)
 				sp2ac.x /= f20;
 				sp2ac.z /= f20;
 
-				f20 = sinf(fVar22);
+				f20 = sinf(sp178);
 
-				sp14c[0] = cosf(fVar22);
+				sp14c[0] = cosf(sp178);
 				sp14c[1] = sp2ac.f[0] * f20;
 				sp14c[2] = 0;
 				sp14c[3] = sp2ac.f[2] * f20;

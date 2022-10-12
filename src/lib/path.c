@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "bss.h"
 #include "data.h"
+#include "game/padhalllv.h"
 #include "types.h"
 
 void objSetBlockedPathUnblocked(struct defaultobj *blocker, bool unblocked)

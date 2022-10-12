@@ -5,6 +5,7 @@
 #include "game/propsnd.h"
 #include "game/bg.h"
 #include "bss.h"
+#include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "data.h"
@@ -162,7 +163,6 @@ void footstepCheckDefault(struct chrdata *chr)
 			s32 soundnum;
 			f32 prevframe = chr->oldframe;
 			f32 frame = chr->model->anim->frame;
-			f32 stack;
 			s32 i;
 
 			chr->oldframe = frame;

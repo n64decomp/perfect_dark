@@ -1,5 +1,6 @@
 #include "versions.h"
 #include <libaudio.h>
+#include <os_convert.h>
 #include <os_internal.h>
 #include <ultraerror.h>
 #include "n_libaudio.h"
@@ -65,6 +66,7 @@ f32 var8005f34c[100] = {
 
 u32 var8005f4dc = 0x00000000;
 
+void func00039cd0(N_ALCSPlayer *seqp);
 ALMicroTime __n_CSPVoiceHandler(void *node);
 
 void n_alCSPNew(N_ALCSPlayer *seqp, ALSeqpConfig *c)
@@ -271,8 +273,9 @@ ALMicroTime __n_CSPVoiceHandler(void *node)
 				ALFxRef fx = func0003e540(seqp->nextEvent.msg.evt19.unk00);
 
 				if (fx) {
-					n_alSynSetFXParam(fx, seqp->nextEvent.msg.evt19.unk02 << 3 |
-							seqp->nextEvent.msg.evt19.unk01 & 7, &seqp->nextEvent.msg.evt19.param);
+					n_alSynSetFXParam(fx,
+							(seqp->nextEvent.msg.evt19.unk02 << 3) | (seqp->nextEvent.msg.evt19.unk01 & 7),
+							&seqp->nextEvent.msg.evt19.param);
 				}
 			} else {
 				ALFxRef fx = func0003e5b8(seqp->nextEvent.msg.evt19.unk00);
@@ -724,7 +727,7 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 			}
 
 			if ((chanstate->unk10 & 1) && seqp->queue) {
-				osSendMesg(seqp->queue, (OSMesg)(var8009c350[chan] & 0xffffff00 | chanstate->unk10 >> 2), OS_MESG_NOBLOCK);
+				osSendMesg(seqp->queue, (OSMesg)((var8009c350[chan] & 0xffffff00) | (chanstate->unk10 >> 2)), OS_MESG_NOBLOCK);
 			}
 
 			break;
@@ -895,7 +898,7 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 			break;
 		case (0x1e):
 			if (seqp->queue) {
-				osSendMesg(seqp->queue, (OSMesg)(byte2 & 7 | 0x10 | (seqp->node.samplesLeft << 5) & 0xffffff00), OS_MESG_NOBLOCK);
+				osSendMesg(seqp->queue, (OSMesg)((byte2 & 7) | 0x10 | ((seqp->node.samplesLeft << 5) & 0xffffff00)), OS_MESG_NOBLOCK);
 			}
 			break;
 		case (AL_MIDI_VOLUME_CTRL):
@@ -933,6 +936,7 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 						} else if (vs->phase == AL_PHASE_SUSTREL) {
 							vs->phase = AL_PHASE_RELEASE;
 
+							// @bug: chanstate is uninitialised
 							if (chanstate->unk24) {
 								__n_seqpReleaseVoice((N_ALSeqPlayer*)seqp,
 										&vs->voice,

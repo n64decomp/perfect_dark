@@ -683,8 +683,7 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 	struct coord sp10c;
 	f32 spfc[4];
 	f32 spec[4];
-	u8 stack4[0xc];
-	f32 spdc;
+	f32 spdc[4];
 	struct coord spd0;
 	struct coord spc4;
 	struct coord spb8;
@@ -735,8 +734,8 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 
 		quaternion0f096ca0(&sp230, spfc);
 		quaternion0f0976c0(spfc, spec);
-		quaternionSlerp(spfc, spec, anim->fracmerge, &spdc);
-		quaternionToMtx(&spdc, &sp1d8);
+		quaternionSlerp(spfc, spec, anim->fracmerge, spdc);
+		quaternionToMtx(spdc, &sp1d8);
 	} else {
 		mtx4LoadRotation(&sp230, &sp1d8);
 	}
@@ -4277,7 +4276,7 @@ void modelIterateDisplayLists(struct modelfiledata *filedata, struct modelnode *
 	*nodeptr = node;
 }
 
-void modelNodeReplaceGdl(u32 arg0, struct modelnode *node, Gfx *find, Gfx *replacement)
+void modelNodeReplaceGdl(struct modelfiledata *modeldef, struct modelnode *node, Gfx *find, Gfx *replacement)
 {
 	union modelrodata *rodata;
 	u32 type = node->type & 0xff;

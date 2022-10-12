@@ -9,6 +9,7 @@
 #include "game/playermgr.h"
 #include "game/mplayer/setup.h"
 #include "game/botcmd.h"
+#include "game/botinv.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"

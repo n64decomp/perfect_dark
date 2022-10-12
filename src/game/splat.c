@@ -7,6 +7,7 @@
 #include "game/utils.h"
 #include "game/wallhit.h"
 #include "bss.h"
+#include "lib/lib_17ce0.h"
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
@@ -273,8 +274,8 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 		endpos.f[i] = stackshotdata.gunpos.f[i] + stackshotdata.dir.f[i] * g_SplatMaxDistance;
 	}
 
-	portal00018148(&chrprop->pos, &stackshotdata.gunpos, chrprop->rooms, &gunrooms, NULL, 0);
-	portal00018148(&stackshotdata.gunpos, &endpos, &gunrooms, &endrooms, rooms, ARRAYCOUNT(rooms) - 1);
+	portal00018148(&chrprop->pos, &stackshotdata.gunpos, chrprop->rooms, gunrooms, NULL, 0);
+	portal00018148(&stackshotdata.gunpos, &endpos, gunrooms, endrooms, rooms, ARRAYCOUNT(rooms) - 1);
 
 	for (i = 0; rooms[i] != -1; i++) {
 		if (bgTestHitInRoom(&stackshotdata.gunpos, &endpos, rooms[i], &hitthing)

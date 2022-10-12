@@ -26,6 +26,7 @@
 #include "game/propobj.h"
 #include "game/splat.h"
 #include "bss.h"
+#include "lib/collision.h"
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"

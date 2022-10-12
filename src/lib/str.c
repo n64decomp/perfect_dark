@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "lib/fault.h"
 
-char *strcpy(char *dst, char *src)
+char *strcpy(char *dst, const char *src)
 {
 	char *ptr = dst;
 	char c;
@@ -27,7 +27,7 @@ char *strcpy(char *dst, char *src)
 	return dst;
 }
 
-char *strncpy(char *dst, char *src, s32 len)
+char *strncpy(char *dst, const char *src, s32 len)
 {
 	char *ptr = dst;
 	char c;
@@ -56,7 +56,7 @@ char *strncpy(char *dst, char *src, s32 len)
 	return dst;
 }
 
-char *strcat(char *dst, char *src)
+char *strcat(char *dst, const char *src)
 {
 	char *ptr = dst;
 	char c;
@@ -78,7 +78,7 @@ char *strcat(char *dst, char *src)
 	return dst;
 }
 
-s32 strcmp(char *s1, char *s2)
+s32 strcmp(const char *s1, const char *s2)
 {
 	if (*s1 != *s2) {
 		if (*s1 < *s2) {
@@ -95,7 +95,7 @@ s32 strcmp(char *s1, char *s2)
 	return strcmp(s1 + 1, s2 + 1);
 }
 
-s32 strncmp(char *s1, char *s2, s32 len)
+s32 strncmp(const char *s1, const char *s2, s32 len)
 {
 	if (len == 0) {
 		return 0;
@@ -142,15 +142,15 @@ s32 isspace(char c)
 	return c == ' ' || c == '\t' || c == '\n' || c == '\f' || c == '\v';
 }
 
-s32 strtol(char *src, char **endptr, s32 base)
+s32 strtol(const char *src, const char **endptr, s32 base)
 {
 	bool negative;
 	u32 cutoff;
 	u32 cutlim;
 	u32 value;
-	char *ptr;
+	const char *ptr;
 	char c;
-	char *save;
+	const char *save;
 	bool overflow;
 
 	if (base < 0 || base == 1 || base > 36) {

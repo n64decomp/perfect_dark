@@ -34,6 +34,7 @@ extern "C" {
 #endif
 
 #include <PR/ultratypes.h>
+#include <PR/abi.h>
 #include <PR/mbi.h>
 
 /***********************************************************************
@@ -300,10 +301,7 @@ typedef struct {
     ALHeap              *heap;
     s32                 outputRate;     /* output sample rate */
     ALFxId              fxTypes[4];
-
-	// This should be [4], but this causes too much stack usage in sndInit.
-	// May have to figure out what sndInit's sp7c is before this can be fixed.
-    s32                 *params[1];
+    s32                 *params[2];
 } ALSynConfig;
 
 typedef struct ALPlayer_s {

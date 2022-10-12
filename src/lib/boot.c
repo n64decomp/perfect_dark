@@ -41,7 +41,7 @@ u32 var8005ce08 = 0;
 u32 var8005ce0c = 0;
 u8 *g_StackLeftAddrs[7] = {0};
 u8 *g_StackRightAddrs[7] = {0};
-u8 *g_StackAllocatedPos = (u8 *)0x80400000;
+u8 *g_StackAllocatedPos = (u8 *) K0BASE + 4 * 1024 * 1024;
 u32 var8005ce4c = 0x00000002;
 u32 var8005ce50 = 0x10000000;
 
@@ -149,10 +149,11 @@ void bootPhase1(void)
 	osWritebackDCacheAll();
 
 	// Invalidate all instruction cache
-	osInvalICache((void *) 0x80000000, ICACHE_SIZE);
+	osInvalICache((void *) K0BASE, ICACHE_SIZE);
 
 	// Configure the floating point unit
 	flags = __osGetFpcCsr();
+
 	flags |= FPCSR_EI; // enable inexact operation
 	flags |= FPCSR_EO; // enable overflow
 	flags |= FPCSR_EZ; // enable division by zero

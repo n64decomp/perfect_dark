@@ -6,13 +6,17 @@
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/audiomgr.h"
+#include "lib/reset.h"
 #include "lib/rzip.h"
 #include "lib/crash.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/pimgr.h"
+#include "lib/profile.h"
 #include "lib/rmon.h"
 #include "lib/lib_48150.h"
+#include "lib/vi.h"
+#include "lib/joy.h"
 #include "data.h"
 #include "types.h"
 
@@ -763,10 +767,6 @@ s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)
 					if (gfx->state & OS_SC_DP) {
 						*dp = gfx;
 						avail &= ~OS_SC_DP;
-
-						if (avail & OS_SC_DP == 0) {
-							assert(sc->curRDPTask == gfx);
-						}
 					}
 
 					sc->gfxListHead = sc->gfxListHead->next;

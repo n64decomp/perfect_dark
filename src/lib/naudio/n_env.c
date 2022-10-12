@@ -23,8 +23,6 @@ s16 n_eqpower[] = {
 	0x0b11, 0x097d, 0x07e9, 0x0654, 0x04c0, 0x032a, 0x0195, 0x0000,
 };
 
-s16 _getRate(f32 vol, f32 tgt, s32 count, u16 *ratel);
-s16 _getVol(s16 ivol, s32 samples, s16 ratem, u16 ratel);
 Acmd *_pullSubFrame(N_PVoice *filter, s16 *inp, s16 *outp, s32 outCount, Acmd *p);
 
 Acmd *n_alEnvmixerPull(N_PVoice *filter, s32 sampleOffset, Acmd *p)
@@ -80,7 +78,7 @@ Acmd *n_alEnvmixerPull(N_PVoice *filter, s32 sampleOffset, Acmd *p)
 
 				e->em_volume = tmp;
 				e->em_pan    = param->pan;
-				e->em_dryamt = n_eqpower[param->fxMix & 0x7f] & 0xfffe | param->fxMix >> 7;
+				e->em_dryamt = (n_eqpower[param->fxMix & 0x7f] & 0xfffe) | (param->fxMix >> 7);
 
 				if (!var8009c340.surround) {
 					e->em_dryamt &= 0xfffe;
@@ -191,8 +189,8 @@ Acmd *n_alEnvmixerPull(N_PVoice *filter, s32 sampleOffset, Acmd *p)
 					}
 				}
 
-				e->em_dryamt = n_eqpower[e->em_ctrlList->data.i & 0x7f] & 0xfffe | e->em_dryamt & 1;
-				e->em_wetamt = n_eqpower[N_EQPOWER_LENGTH - (e->em_ctrlList->data.i & 0x7f) - 1] & 0xfffe | e->em_wetamt & 1;
+				e->em_dryamt = (n_eqpower[e->em_ctrlList->data.i & 0x7f] & 0xfffe) | (e->em_dryamt & 1);
+				e->em_wetamt = (n_eqpower[N_EQPOWER_LENGTH - (e->em_ctrlList->data.i & 0x7f) - 1] & 0xfffe) | (e->em_wetamt & 1);
 			}
 
 			/*

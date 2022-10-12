@@ -15,11 +15,11 @@
 #include "types.h"
 
 #define TO_U16_A(x) ((u16)(x))
-#define TO_U16_B(x) (x & 0xffff)
-#define TO_U16_C(x) ((u16)(x & 0xffff))
+#define TO_U16_B(x) ((x) & 0xffff)
+#define TO_U16_C(x) ((u16)((x) & 0xffff))
 
 #define ADD_LOW_AND_HI_16_TRUNCATE(reg, add) ((TO_U16_B(TO_U16_A((reg) >> 16) + (add)) << 16) | TO_U16_B(TO_U16_A(reg) + (add)))
-#define ADD_LOW_AND_HI_16_MOD(reg, add)      ((((((reg >> 16) & 0xffff) + add) % 0xffff) << 16) | (((((reg >> 0) & 0xffff) + add) % 0xffff) << 0))
+#define ADD_LOW_AND_HI_16_MOD(reg, add)      ((((((reg >> 16) & 0xffff) + (add)) % 0xffff) << 16) | (((((reg >> 0) & 0xffff) + (add)) % 0xffff) << 0))
 
 Mtxf var80092830;
 Mtx *var80092870;

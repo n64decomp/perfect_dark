@@ -289,7 +289,21 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 		if (tconfig->unk0b == 1) {
 			ptr = (u16 *)tconfig->textureptr;
 			texturenum = ((u16 *)PHYS_TO_K0(ptr))[-4];
+
+			// GCC has problems with this area because it seems to think that
+			// registers are 64 bits wide. To do the index < g_TexNumConfigs
+			// comparison, it shifts index left and adds to it repeatedly,
+			// creating a 64-bit value, then uses a neg before the comparison.
+			// When a tconfig is passed that is not in the preset configs list,
+			// the index < g_TexNumConfigs check passes when it shouldn't,
+			// causing a read from g_TexWords using an invalid index.
+			// Casting the pointers to integers makes gcc emit different code
+			// which works around this issue.
+#ifdef __sgi
 			index = tconfig - g_TexWallhitConfigs;
+#else
+			index = ((s32) tconfig - (s32) g_TexWallhitConfigs) / sizeof(struct textureconfig);
+#endif
 
 			if (index >= 0 && index < g_TexNumConfigs) {
 				tex = g_TexWords[index];

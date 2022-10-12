@@ -77,10 +77,10 @@
 #define AILIST_DEFEND_PAD         0x0413
 #define AILIST_INIT_SHOCK         0x0414
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

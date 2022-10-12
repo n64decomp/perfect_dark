@@ -2338,6 +2338,9 @@ u8 g_ChrBioSlot = 0;
 
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 {
+#ifdef AVOID_UB
+	static
+#endif
 	struct chrbio bios[] = {
 		// name, race, age, profile
 #if VERSION >= VERSION_PAL_BETA
@@ -2432,6 +2435,9 @@ s32 ciGetChrBioBodynumBySlot(s32 slot)
 
 struct miscbio *ciGetMiscBio(s32 index)
 {
+#ifdef AVOID_UB
+	static
+#endif
 	struct miscbio bios[] = {
 		// name, description
 #if VERSION >= VERSION_PAL_BETA
@@ -2521,6 +2527,9 @@ u8 g_HangarBioSlot = 0;
 
 struct hangarbio *ciGetHangarBio(s32 index)
 {
+#ifdef AVOID_UB
+	static
+#endif
 	struct hangarbio bios[] = {
 		// name, description
 #if VERSION >= VERSION_PAL_BETA

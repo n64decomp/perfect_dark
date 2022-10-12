@@ -7,14 +7,17 @@
 #include "bss.h"
 #include "lib/rzip.h"
 #include "lib/args.h"
+#include "lib/audiomgr.h"
 #include "lib/dma.h"
 #include "lib/snd.h"
 #include "lib/memp.h"
 #include "lib/rng.h"
+#include "lib/str.h"
 #include "lib/lib_2fc60.h"
 #include "lib/lib_317f0.h"
 #include "lib/mp3.h"
 #include "lib/lib_39c80.h"
+#include "lib/speaker.h"
 #include "data.h"
 #include "types.h"
 
@@ -146,7 +149,6 @@ enum audioconfig_e {
 #endif
 };
 
-// 3e04
 struct audiorussmapping g_AudioRussMappings[] = {
 	/*0x0000*/ { 0x85ba, AUDIOCONFIG_59 },
 	/*0x0001*/ { 0x85a5, AUDIOCONFIG_15 },
@@ -836,8 +838,7 @@ s16 var8005ecf8[] = {
 	0x6665,
 	0x4ccc,
 	0x6ccb,
-	0xffff,
-	0x0000,
+	-1,
 };
 
 extern u8 _sfxctlSegmentRomStart;
@@ -1667,6 +1668,10 @@ void sndRemoveRef(ALSound *sound)
 void sndInit(void)
 {
 	ALSndpConfig sndpconfig;
+	ALSynConfig synconfig;
+#if VERSION >= VERSION_PAL_BETA
+		u32 settings[3];
+#endif
 
 #if VERSION >= VERSION_JPN_FINAL
 	u32 heaplen = 1024 * 441;
@@ -1701,14 +1706,9 @@ void sndInit(void)
 	if (!g_SndDisabled) {
 		// Allocate memory for the audio heap,
 		// clear it and give it to the audio library
-		ALSynConfig synconfig;
-#if VERSION >= VERSION_PAL_BETA
-		u32 settings[3];
-#endif
-		u8 *ptr = mempAlloc(heaplen, MEMPOOL_PERMANENT);
 		u32 len = &_seqctlSegmentRomEnd - &_seqctlSegmentRomStart;
+		u8 *ptr = mempAlloc(heaplen, MEMPOOL_PERMANENT);
 		s32 i;
-		u32 seqromaddr = (u32) &_sequencesSegmentRomStart;
 		u8 *heapstart = ptr;
 		u8 *end = heapstart + heaplen;
 		ALBankFile *bankfile;
@@ -1741,15 +1741,15 @@ void sndInit(void)
 		// enough space for the table and load it.
 		var80095204 = bankfile->bankArray[0];
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, 0x10);
-		dmaExec(g_SeqTable, seqromaddr, 0x10);
+		dmaExec(g_SeqTable, (u32) &_sequencesSegmentRomStart, 0x10);
 
 		len = g_SeqTable->count * sizeof(struct seqtableentry) + 4;
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
-		dmaExec(g_SeqTable, seqromaddr, len + 0xf & 0xfffffff0);
+		dmaExec(g_SeqTable, (u32) &_sequencesSegmentRomStart, (len + 0xf) & 0xfffffff0);
 
 		// Promote segment-relative offsets to ROM addresses
 		for (i = 0; i < g_SeqTable->count; i++) {
-			g_SeqTable->entries[i].romaddr += seqromaddr;
+			g_SeqTable->entries[i].romaddr += (u32) &_sequencesSegmentRomStart;
 		}
 
 		synconfig.maxVVoices = 44;
@@ -2031,7 +2031,7 @@ u16 seqGetVolume(struct seqinstance *seq)
 void seqSetVolume(struct seqinstance *seq, u16 volume)
 {
 	if (!g_SndDisabled) {
-		u32 tmp = (var8005ecf8[seq->tracknum] * volume);
+		u32 tmp = var8005ecf8[seq->tracknum] * volume;
 		tmp >>=	15;
 
 		seq->volume = volume;
@@ -2106,8 +2106,7 @@ void sndTick(void)
 		if ((state->flags & SNDSTATEFLAG_02) == 0
 				&& stateptrs[i]->state == AL_PLAYING
 				&& stateptrs[i]->unk48 > 0
-				&& stateptrs[i]->unk48 < curtime
-				) {
+				&& stateptrs[i]->unk48 < curtime) {
 			state->unk48 = 0;
 			func00033db0();
 			break;
@@ -2148,7 +2147,7 @@ void sndTick(void)
 		}
 
 		if (g_SndGuardStringPtr != NULL) {
-			if (strcmp(g_SndGuardStringPtr, &g_SndGuardString) != 0) {
+			if (strcmp(g_SndGuardStringPtr, g_SndGuardString) != 0) {
 #if VERSION < VERSION_NTSC_1_0
 				crashSetMessage("Snd Heap Check FAILED");
 				CRASH();
@@ -2480,14 +2479,12 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (sp40.id < (u32)g_NumSounds) {
-		return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f,
-				sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
+		return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
 	}
 
 	return NULL;
 #else
-	return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f,
-			sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
+	return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
 #endif
 }
 

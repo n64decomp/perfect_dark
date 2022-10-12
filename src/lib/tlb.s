@@ -6,20 +6,21 @@
 .set noreorder
 
 .bss
+.balign 4
 
 glabel var8008ae20
 .space 4
 
-glabel g_VmStateTable;
+glabel g_VmStateTable
 .space 4
 
-glabel g_VmInitialised;
+glabel g_VmInitialised
 .space 4
 
-glabel g_VmZipBuffer;
+glabel g_VmZipBuffer
 .space 4
 
-glabel g_VmZipTable;
+glabel g_VmZipTable
 .space 8
 
 glabel var8008ae38

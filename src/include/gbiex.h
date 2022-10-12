@@ -1,8 +1,5 @@
 #ifndef _IN_GBIEX_H
 #define _IN_GBIEX_H
-#include <ultra64.h>
-#include "data.h"
-#include "types.h"
 
 #define G_SETCOLOR 0x07
 #define G_TRI4     -79

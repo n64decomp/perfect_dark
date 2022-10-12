@@ -19,6 +19,7 @@
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
 #include "game/botcmd.h"
+#include "game/botinv.h"
 #include "game/challenge.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"

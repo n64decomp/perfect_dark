@@ -3,6 +3,7 @@
 #include "constants.h"
 #include "game/music.h"
 #include "game/game_176080.h"
+#include "game/stagemusic.h"
 #include "bss.h"
 #include "lib/snd.h"
 #include "lib/music.h"

@@ -5,6 +5,7 @@
 #include "bss.h"
 #include "lib/audiodma.h"
 #include "lib/lib_2fc60.h"
+#include "lib/profile.h"
 #include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"

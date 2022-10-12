@@ -56,7 +56,7 @@ void mblurAllocate(void)
 	}
 
 	var800844f0 = mempAlloc(var800ab7c0 * var800ab7c4 * 2 + 0x40, MEMPOOL_STAGE);
-	var800844f0 = (void *)((u32)var800844f0 + 0x3f & ~0x3f);
+	var800844f0 = (void *)(((u32) var800844f0 + 0x3f) & ~0x3f);
 	var800844f4 = var800844f0;
 }
 

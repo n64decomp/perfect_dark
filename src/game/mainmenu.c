@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/bossfile.h"
 #include "game/cheats.h"
 #include "game/setup.h"
 #include "game/title.h"
@@ -24,8 +25,10 @@
 #include "game/options.h"
 #include "bss.h"
 #include "lib/vi.h"
+#include "lib/joy.h"
 #include "lib/main.h"
 #include "lib/snd.h"
+#include "lib/str.h"
 #include "data.h"
 #include "types.h"
 

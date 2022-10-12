@@ -17,7 +17,7 @@ f32 acosf(f32 value)
 		intval = value * 32767.0f;
 	}
 
-	return (acos(intval) * M_PI) / 65535.0f;
+	return acos(intval) * M_PI / 65535.0f;
 }
 
 f32 asinf(f32 value)
@@ -29,8 +29,8 @@ f32 asinf(f32 value)
 	} else if (value <= -1) {
 		intval = -32767;
 	} else {
-		intval = (value * 32767.0f);
+		intval = value * 32767.0f;
 	}
 
-	return (asin(intval) * M_PI) / 65535.0f;
+	return asin(intval) * M_PI / 65535.0f;
 }

@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/bossfile.h"
 #include "game/cheats.h"
 #include "game/game_006900.h"
 #include "game/title.h"
@@ -25,6 +26,7 @@
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/main.h"
+#include "lib/str.h"
 #include "data.h"
 #include "types.h"
 
@@ -89,7 +91,7 @@ s32 endscreenHandleRetryMission(s32 operation, struct menudialogdef *dialogdef, 
 		}
 	}
 
-	menudialog00103608(operation, dialogdef, data);
+	return menudialog00103608(operation, dialogdef, data);
 }
 
 char *endscreenMenuTitleRetryMission(struct menudialogdef *dialogdef)

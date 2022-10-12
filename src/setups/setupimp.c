@@ -141,10 +141,10 @@
 #define AILIST_INIT_CISOLDIER         0x043c
 #define AILIST_CARRINGTON             0x043e
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,
@@ -3352,7 +3352,7 @@ u8 func043a_unused[] = {
 };
 
 u8 unregistered_function1[] = {
-	// All of these objects have been removed :\
+	// All of these objects have been removed...
 	// Wait for all 4 objects destroyed
 	beginloop(0x04)
 		if_object_in_good_condition(0x1f, /*goto*/ 0x08)

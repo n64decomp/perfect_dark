@@ -98,10 +98,10 @@
 #define AILIST_CLOAK_GUARD       0x0412
 #define AILIST_CLOAK2_GUARD      0x0414
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

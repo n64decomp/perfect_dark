@@ -20,6 +20,7 @@
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/main.h"
+#include "lib/model.h"
 #include "data.h"
 #include "types.h"
 
@@ -105,7 +106,7 @@ struct skeleton *g_Skeletons[] = {
 	&g_SkelBB,
 };
 
-void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32 arg3, struct texpool *arg4, bool arg5)
+void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, struct modelfiledata *modeldef2, struct texpool *texpool, bool arg5)
 {
 	s32 allocsize;
 	s32 loadedsize;
@@ -131,13 +132,13 @@ void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32
 		sp84 = (s32)v1 + (s32)((s32)modeldef - ((u32)modeldef + (gdl & 0xffffff)));
 
 		texCopyGdls((Gfx *)((u32)modeldef + (gdl & 0xffffff)), (Gfx *)(v1 + (u32)modeldef), loadedsize - (s32)(((u32)modeldef + (gdl & 0xffffff)) - (u32)modeldef));
-		texLoadFromConfigs(modeldef->texconfigs, modeldef->numtexconfigs, arg4, arg3 - arg2);
+		texLoadFromConfigs(modeldef->texconfigs, modeldef->numtexconfigs, texpool, (u32)modeldef2 - arg2);
 
 		while (node) {
 			prevnode = node;
 			s0 = gdl;
 
-			modelIterateDisplayLists(modeldef, &node, &gdl);
+			modelIterateDisplayLists(modeldef, &node, (Gfx **) &gdl);
 
 			if (gdl) {
 				s4 = gdl - s0;
@@ -145,7 +146,7 @@ void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32
 				s4 = loadedsize + (u32)modeldef - (u32)modeldef - (s0 & 0xffffff);
 			}
 
-			modelNodeReplaceGdl(modeldef, prevnode, s0, s5);
+			modelNodeReplaceGdl(modeldef, prevnode, (Gfx *) s0, (Gfx *) s5);
 
 			if (prevnode->type == MODELNODETYPE_DL) {
 				struct modelrodata_dl *rodata = &prevnode->rodata->dl;
@@ -154,7 +155,7 @@ void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32
 				vertices = NULL;
 			}
 
-			s5 += texLoadFromGdl((Gfx *)((u32)modeldef + (s0 & 0xffffff) + sp84), s4, (Gfx *)((u32)modeldef + (s5 & 0xffffff)), arg4, (u8 *) vertices);
+			s5 += texLoadFromGdl((Gfx *)((u32)modeldef + (s0 & 0xffffff) + sp84), s4, (Gfx *)((u32)modeldef + (s5 & 0xffffff)), texpool, (u8 *) vertices);
 		}
 
 		fileSetSize(filenum, modeldef, (((u32)modeldef + (s5 & 0xffffff)) - (u32)modeldef + 0xf) & ~0xf, arg5);
@@ -189,7 +190,7 @@ struct modelfiledata *modeldefLoad(u16 fileid, u8 *dst, s32 size, struct texpool
 
 	modelPromoteTypeToPointer(filedata);
 	modelPromoteOffsetsToPointers(filedata, 0x5000000, (u32) filedata);
-	modeldef0f1a7560(filedata, fileid, 0x5000000, (u32)filedata, arg3, dst == NULL);
+	modeldef0f1a7560(filedata, fileid, 0x5000000, filedata, arg3, dst == NULL);
 
 	return filedata;
 }

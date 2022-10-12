@@ -93,10 +93,10 @@
 #define SPAWNGROUP3 0x0b
 #define SPAWNGROUP4 0x0d
 
-s32 intro[];
-u32 props[];
-struct path paths[];
-struct ailist ailists[];
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
 
 struct stagesetup setup = {
 	NULL,

@@ -26,7 +26,6 @@
 struct mp3vars g_Mp3Vars;
 struct asistream *g_AsiStream;
 
-s16 _getRate(f32 vol, f32 tgt, s32 count, u16 *ratel);
 s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
 
 extern f32 *var8009c6d8;
@@ -241,7 +240,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 					sp58++;
 				}
 
-				g_Mp3Vars.var8009c3d8 = g_Mp3Vars.var8009c3d8 - 0x24 & 0x1e;
+				g_Mp3Vars.var8009c3d8 = (g_Mp3Vars.var8009c3d8 - 0x24) & 0x1e;
 				g_Mp3Vars.var8009c3cc = 0x240;
 				g_Mp3Vars.var8009c3f1 = sp5c == 2;
 			} else {

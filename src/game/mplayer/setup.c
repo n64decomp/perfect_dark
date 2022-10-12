@@ -19,7 +19,9 @@
 #include "lib/snd.h"
 #include "lib/vi.h"
 #include "lib/rng.h"
+#include "lib/str.h"
 #include "data.h"
+#include "gbiex.h"
 #include "types.h"
 
 struct menuitem g_MpCharacterMenuItems[];
@@ -971,7 +973,7 @@ s32 mpMedalMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
-		colour = colour & 0xffffff00 | (colour & 0xff) * (renderdata->colour & 0xff) >> 8;
+		colour = (colour & 0xffffff00) | (colour & 0xff) * (renderdata->colour & 0xff) >> 8;
 #endif
 
 		gDPSetEnvColorViaWord(gdl++, colour);

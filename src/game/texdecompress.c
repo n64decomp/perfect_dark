@@ -351,10 +351,10 @@ s32 texGetAverageRed(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 {
 	s32 value = 0;
 
-	value += ((colour1 >> 11) & 0x1f) << 3 | (colour1 >> 13) & 7;
-	value += ((colour2 >> 11) & 0x1f) << 3 | (colour2 >> 13) & 7;
-	value += ((colour3 >> 11) & 0x1f) << 3 | (colour3 >> 13) & 7;
-	value += ((colour4 >> 11) & 0x1f) << 3 | (colour4 >> 13) & 7;
+	value += (((colour1 >> 11) & 0x1f) << 3) | ((colour1 >> 13) & 7);
+	value += (((colour2 >> 11) & 0x1f) << 3) | ((colour2 >> 13) & 7);
+	value += (((colour3 >> 11) & 0x1f) << 3) | ((colour3 >> 13) & 7);
+	value += (((colour4 >> 11) & 0x1f) << 3) | ((colour4 >> 13) & 7);
 
 	value = (value + 2) >> 2;
 
@@ -373,10 +373,10 @@ s32 texGetAverageGreen(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 {
 	s32 value = 0;
 
-	value += ((colour1 >> 6) & 0x1f) << 3 | (colour1 >> 8) & 7;
-	value += ((colour2 >> 6) & 0x1f) << 3 | (colour2 >> 8) & 7;
-	value += ((colour3 >> 6) & 0x1f) << 3 | (colour3 >> 8) & 7;
-	value += ((colour4 >> 6) & 0x1f) << 3 | (colour4 >> 8) & 7;
+	value += (((colour1 >> 6) & 0x1f) << 3) | ((colour1 >> 8) & 7);
+	value += (((colour2 >> 6) & 0x1f) << 3) | ((colour2 >> 8) & 7);
+	value += (((colour3 >> 6) & 0x1f) << 3) | ((colour3 >> 8) & 7);
+	value += (((colour4 >> 6) & 0x1f) << 3) | ((colour4 >> 8) & 7);
 
 	value = (value + 2) >> 2;
 
@@ -395,10 +395,10 @@ s32 texGetAverageBlue(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 {
 	s32 value = 0;
 
-	value += ((colour1 >> 1) & 0x1f) << 3 | (colour1 >> 3) & 7;
-	value += ((colour2 >> 1) & 0x1f) << 3 | (colour2 >> 3) & 7;
-	value += ((colour3 >> 1) & 0x1f) << 3 | (colour3 >> 3) & 7;
-	value += ((colour4 >> 1) & 0x1f) << 3 | (colour4 >> 3) & 7;
+	value += (((colour1 >> 1) & 0x1f) << 3) | ((colour1 >> 3) & 7);
+	value += (((colour2 >> 1) & 0x1f) << 3) | ((colour2 >> 3) & 7);
+	value += (((colour3 >> 1) & 0x1f) << 3) | ((colour3 >> 3) & 7);
+	value += (((colour4 >> 1) & 0x1f) << 3) | ((colour4 >> 3) & 7);
 
 	value = (value + 2) >> 2;
 

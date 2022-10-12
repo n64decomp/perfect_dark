@@ -8,6 +8,8 @@ extern f32 g_AutoAimScale;
 
 void propsTick(void);
 
+void propsStop(void);
+
 void propsSort(void);
 void propEnable(struct prop *prop);
 void propDisable(struct prop *prop);

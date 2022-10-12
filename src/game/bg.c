@@ -3,6 +3,7 @@
 #include "game/debug.h"
 #include "game/dlights.h"
 #include "game/game_006900.h"
+#include "game/portal.h"
 #include "game/room.h"
 #include "game/chr.h"
 #include "game/prop.h"
@@ -28,6 +29,7 @@
 #include "game/texdecompress.h"
 #include "game/wallhit.h"
 #include "bss.h"
+#include "lib/lib_17ce0.h"
 #include "lib/rzip.h"
 #include "lib/vi.h"
 #include "lib/dma.h"
@@ -38,6 +40,7 @@
 #include "lib/mtx.h"
 #include "lib/lib_2f490.h"
 #include "data.h"
+#include "gbiex.h"
 #include "types.h"
 
 #define BGCMD_END                               0x00
@@ -266,7 +269,7 @@ Gfx *bg0f158184(Gfx *gdl, struct xraydata *xraydata)
 {
 	struct gfxvtx *vertices;
 	u32 *colours;
-	s32 end;
+	s32 numgroups;
 	s32 i;
 	s32 count;
 
@@ -288,13 +291,22 @@ Gfx *bg0f158184(Gfx *gdl, struct xraydata *xraydata)
 		count = xraydata->numvertices;
 		gDPSetVerticeArray(gdl++, vertices, count);
 
-		end = (xraydata->numtris - 1) / 4 + 1;
+		numgroups = (xraydata->numtris - 1) / 4 + 1;
 
+		// @bug: The original code overflows the tris array and unintentionally writes zero
+		// into the xraydata->numtris property. IDO reloads the xraydata->numtris value
+		// on each loop iteration so it reads the 0 value and ends the loop.
+#ifdef AVOID_UB
+		for (i = xraydata->numtris; i < numgroups * 4; i++) {
+			xraydata->tris[i][0] = xraydata->tris[i][1] = xraydata->tris[i][2] = 0;
+		}
+#else
 		for (i = xraydata->numtris; i < xraydata->numtris * 4; i++) {
 			xraydata->tris[i][0] = xraydata->tris[i][1] = xraydata->tris[i][2] = 0;
 		}
+#endif
 
-		for (i = 0; i < end; i++) {
+		for (i = 0; i < numgroups; i++) {
 			gDPTri4(gdl++,
 					xraydata->tris[i * 4 + 0][0], xraydata->tris[i * 4 + 0][1], xraydata->tris[i * 4 + 0][2],
 					xraydata->tris[i * 4 + 1][0], xraydata->tris[i * 4 + 1][1], xraydata->tris[i * 4 + 1][2],
@@ -2619,17 +2631,17 @@ void bgReset(s32 stagenum)
 	g_BgPrimaryData = mempAlloc(ALIGN16(inflatedsize + 0x8010), MEMPOOL_STAGE);
 
 	// Set up pointer to scratch space
-	scratch = ((u32)g_BgPrimaryData + inflatedsize) - primcompsize;
+	scratch = (u32) g_BgPrimaryData + inflatedsize - primcompsize;
 	scratch = ALIGN16(scratch + 0x8000);
 
 	g_LoadType = LOADTYPE_BG;
 
 	// Copy section 1 header + compressed primary to scratch space
-	bgLoadFile((u8 *)scratch, 0, ALIGN16(primcompsize + 15));
+	bgLoadFile((u8 *) scratch, 0, ALIGN16(primcompsize + 15));
 
 	// Inflate primary data to the start of the buffer
 	scratch += 0xc;
-	bgInflate((u8 *)scratch, g_BgPrimaryData, primcompsize);
+	bgInflate((u8 *) scratch, g_BgPrimaryData, primcompsize);
 
 	// Shrink the allocation (ie. free the scratch space)
 	mempRealloc(g_BgPrimaryData, inflatedsize, MEMPOOL_STAGE);
@@ -2639,30 +2651,33 @@ void bgReset(s32 stagenum)
 
 	bgLoadFile(header, section2start, 0x40);
 
-	inflatedsize = (*(u16 *)&header[0] & 0x7fff) - 1;
-	section2compsize = *(u16 *)&header[2];
+	inflatedsize = (*(u16 *) &header[0] & 0x7fff) - 1;
+	section2compsize = *(u16 *) &header[2];
 	inflatedsize = (inflatedsize | 0xf) + 1;
 
 	// Allocate space for the section 2 data (texture ID list).
 	// This is the cause and fix for the Challenge 7 memory corruption bug in
 	// NTSC 1.0. A full writeup about the bug and how the fix works can be found
 	// in the docs folder of this project.
-#if VERSION >= VERSION_NTSC_FINAL
+#ifdef AVOID_UB
+	section2 = mempAlloc(inflatedsize + section2compsize, MEMPOOL_STAGE);
+	scratch = (u32) section2 + inflatedsize;
+#elif VERSION >= VERSION_NTSC_FINAL
 	section2 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
-	scratch = (u32)section2 + 0x8000;
+	scratch = (u32) section2 + 0x8000;
 #else
 	section2 = mempAlloc(inflatedsize + 0x800, MEMPOOL_STAGE);
-	scratch = (u32)section2 + 0x800;
+	scratch = (u32) section2 + 0x800;
 #endif
 
 	// Load compressed data from ROM to scratch
-	bgLoadFile((u8 *)scratch, section2start + 4, ((section2compsize - 1) | 0xf) + 1);
+	bgLoadFile((u8 *) scratch, section2start + 4, ((section2compsize - 1) | 0xf) + 1);
 
 	// Inflate section 2 to the start of the buffer
-	bgInflate((u8 *)scratch, (u8 *)section2, section2compsize);
+	bgInflate((u8 *) scratch, (u8 *) section2, section2compsize);
 
 	// Iterate texture IDs and ensure they're loaded
-	inflatedsize = (*(u16 *)&header[0] & 0x7fff) >> 1;
+	inflatedsize = (*(u16 *) &header[0] & 0x7fff) >> 1;
 
 	for (i = 0; i != inflatedsize; i++) {
 		texLoadFromTextureNum(section2[i], NULL);

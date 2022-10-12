@@ -5,6 +5,7 @@
 #include "game/texdecompress.h"
 #include "bss.h"
 #include "data.h"
+#include "gbiex.h"
 #include "textures.h"
 #include "types.h"
 

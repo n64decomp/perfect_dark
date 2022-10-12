@@ -4,12 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void profileInit(void);
-void profileTick(void);
-void profileReset(void);
-void profile00009a98(void);
-void profileSetMarker(u32 arg0);
-Gfx *profileRender(Gfx *gdl);
 void viConfigureForLogos(void);
 void viConfigureForCopyright(u16 *fb);
 void viConfigureForLegal(void);
@@ -19,6 +13,7 @@ void vi00009ed4(void);
 void viUpdateMode(void);
 void viShake(f32 intensity);
 void viSetMode(s32 mode);
+void viSet16Bit(void);
 u16 *viGetBackBuffer(void);
 u16 *viGetFrontBuffer(void);
 Vp *viGetCurrentPlayerViewport(void);
@@ -54,5 +49,7 @@ f32 viGetFovY(void);
 void viSetZRange(f32 arg0, f32 arg1);
 void viGetZRange(struct zrange *zrange);
 Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b);
+void viGrabJpg32(void);
+void viGrabRgb32(void);
 
 #endif

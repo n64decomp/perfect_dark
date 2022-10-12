@@ -19,6 +19,7 @@
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/main.h"
+#include "lib/str.h"
 #include "data.h"
 #include "types.h"
 
@@ -1191,12 +1192,12 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 			}
 
 			if (context->dialog->dimmed) {
-				textcolour = colourBlend(textcolour, 0x00000000, 127) & 0xffffff00 | textcolour & 0xff;
+				textcolour = (colourBlend(textcolour, 0x00000000, 127) & 0xffffff00) | (textcolour & 0xff);
 			}
 
 			if (data->capseffective && col == 2 && row == 4) {
 				// CAPS button - make it yellow
-				textcolour = textcolour & 0xff | 0xffff0000;
+				textcolour = (textcolour & 0xff) | 0xffff0000;
 			}
 
 			// If this button is the focused one, set highlighted colour
@@ -1267,7 +1268,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 						}
 
 						if (context->dialog->dimmed) {
-							textcolour = colourBlend(textcolour, 0, 127) & 0xffffff00 | textcolour & 0xff;
+							textcolour = (colourBlend(textcolour, 0, 127) & 0xffffff00) | (textcolour & 0xff);
 						}
 
 						textSetWaveColours(
@@ -2756,7 +2757,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->dialog->dimmed) {
-		leftcolour = colourBlend(leftcolour, 0, 127) & 0xffffff00 | leftcolour & 0xff;
+		leftcolour = (colourBlend(leftcolour, 0, 127) & 0xffffff00) | (leftcolour & 0xff);
 	}
 
 	rightcolour = leftcolour;
@@ -2799,7 +2800,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		if (context->dialog->dimmed) {
-			leftcolour = colourBlend(leftcolour, 0x00000000, 127) & 0xffffff00 | leftcolour & 0xff;
+			leftcolour = (colourBlend(leftcolour, 0x00000000, 127) & 0xffffff00) | (leftcolour & 0xff);
 		}
 
 		rightcolour = leftcolour;
@@ -3251,7 +3252,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		if (context->dialog->dimmed) {
-			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+			maincolour = (colourBlend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
 		}
 
 		textSetWaveColours(
@@ -3268,7 +3269,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		if (context->dialog->dimmed) {
-			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+			maincolour = (colourBlend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
 		}
 
 		textSetWaveColours(
@@ -3312,7 +3313,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		if (context->dialog->dimmed) {
-			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+			maincolour = (colourBlend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
 		}
 
 		textSetWaveColours(
@@ -3473,7 +3474,7 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->dialog->dimmed) {
-		colour = colourBlend(colour, 0, 0x7f) & 0xffffff00 | colour & 0xff;
+		colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 	}
 
 	textSetWaveColours(
@@ -4007,7 +4008,7 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->dialog->dimmed) {
-		colour = colourBlend(colour, 0, 127) & 0xffffff00 | colour & 0xff;
+		colour = (colourBlend(colour, 0, 127) & 0xffffff00) | (colour & 0xff);
 	}
 
 	x = context->x + context->width - data->totalmoved;
@@ -4231,7 +4232,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->dialog->dimmed) {
-		textcolour = colourBlend(textcolour, 0, 127) & 0xffffff00 | textcolour & 0xff;
+		textcolour = (colourBlend(textcolour, 0, 127) & 0xffffff00) | (textcolour & 0xff);
 	}
 
 	if (!team) {
@@ -4263,7 +4264,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (dialog->dimmed) {
-		linecolour1 = colourBlend(linecolour1, 0, 44) & 0xffffff00 | linecolour1 & 0xff;
+		linecolour1 = (colourBlend(linecolour1, 0, 44) & 0xffffff00) | (linecolour1 & 0xff);
 	}
 
 	if (dialog->transitionfrac < 0) {
@@ -4276,11 +4277,11 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (dialog->dimmed) {
-		linecolour2 = colourBlend(linecolour2, 0, 44) & 0xffffff00 | linecolour2 & 0xff;
+		linecolour2 = (colourBlend(linecolour2, 0, 44) & 0xffffff00) | (linecolour2 & 0xff);
 	}
 
-	linecolour1 = textApplyProjectionColour(context->x, context->y + 2, -129) & 0xff | linecolour1 & 0xffffff00;
-	linecolour2 = textApplyProjectionColour(context->x + context->width, context->y + 2, -129) & 0xff | linecolour2 & 0xffffff00;
+	linecolour1 = (textApplyProjectionColour(context->x, context->y + 2, -129) & 0xff) | (linecolour1 & 0xffffff00);
+	linecolour2 = (textApplyProjectionColour(context->x + context->width, context->y + 2, -129) & 0xff) | (linecolour2 & 0xffffff00);
 
 	// Horizontal line between header and body
 #if VERSION == VERSION_JPN_FINAL
@@ -4501,7 +4502,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->dialog->dimmed) {
-		maincolour = colourBlend(maincolour, 0x00000000, 127) & 0xffffff00 | maincolour & 0xff;
+		maincolour = (colourBlend(maincolour, 0x00000000, 127) & 0xffffff00) | (maincolour & 0xff);
 	}
 
 	textMeasure(&textheight, &textwidth, langGet(L_MPMENU_281), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
@@ -4553,7 +4554,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		if (context->dialog->dimmed) {
-			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+			maincolour = (colourBlend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
 		}
 
 		// "Deaths" heading
@@ -4736,7 +4737,7 @@ bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, s
 		}
 	}
 
-	menuitemDropdownTick(item, dialog, inputs, tickflags, data);
+	return menuitemDropdownTick(item, dialog, inputs, tickflags, data);
 }
 
 Gfx *menuitemPlayerStatsOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
@@ -5406,7 +5407,7 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (dialog->dimmed) {
-		colour = colourBlend(colour, 0, 44) & 0xffffff00 | colour & 0xff;
+		colour = (colourBlend(colour, 0, 44) & 0xffffff00) | (colour & 0xff);
 	}
 
 	textSetWaveColours(

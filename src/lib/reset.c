@@ -1,5 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "lib/audiomgr.h"
+#include "lib/joy.h"
 #include "lib/reset.h"
 #include "bss.h"
 #include "data.h"

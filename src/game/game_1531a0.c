@@ -110,40 +110,40 @@ u32 var8007fb30 = 0x00000000;
 u32 var8007fb34 = 0x00000000;
 u32 var8007fb38 = 0x00000000;
 
-u32 var8007fb3c = 0xff00ff00;
-u32 var8007fb40 = 0xff00ff00;
-u32 var8007fb44 = 0xff00ff00;
-u32 var8007fb48 = 0xff00ff00;
-u32 var8007fb4c = 0xff00ff24;
-u32 var8007fb50 = 0xff48ff6c;
-u32 var8007fb54 = 0xff90ffb4;
-u32 var8007fb58 = 0xffd8ffff;
-u32 var8007fb5c = 0xff00ff58;
-u32 var8007fb60 = 0xff74ff90;
-u32 var8007fb64 = 0xffacffc8;
-u32 var8007fb68 = 0xffe4ffff;
-u32 var8007fb6c = 0xffffffff;
-u32 var8007fb70 = 0xffffffff;
-u32 var8007fb74 = 0xffffffff;
-u32 var8007fb78 = 0xffffffff;
-u32 var8007fb7c = 0xff00ff00;
-u32 var8007fb80 = 0xff00ff00;
-u32 var8007fb84 = 0xff00ff00;
-u32 var8007fb88 = 0xff00ff00;
-u32 var8007fb8c = 0xff00ff18;
-u32 var8007fb90 = 0xff30ff5c;
-u32 var8007fb94 = 0xff88ffb4;
-u32 var8007fb98 = 0xffd8ffff;
+u16 var8007fb3c[] = {
+	0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00,
+	0xff00, 0xff24, 0xff48, 0xff6c, 0xff90, 0xffb4, 0xffd8, 0xffff,
+};
+
+u16 var8007fb5c[] = {
+	0xff00, 0xff58, 0xff74, 0xff90, 0xffac, 0xffc8, 0xffe4, 0xffff,
+	0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
+};
+
+u16 var8007fb7c[] = {
+	0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00,
+	0xff00, 0xff18, 0xff30, 0xff5c, 0xff88, 0xffb4, 0xffd8, 0xffff,
+};
 
 #if VERSION == VERSION_JPN_FINAL
-u32 var800801d8jf = 0xff00ff11;
-u32 var800801dcjf = 0xff22ff33;
-u32 var800801e0jf = 0xff44ff55;
-u32 var800801e4jf = 0xff66ff77;
-u32 var800801e8jf = 0xff88ff99;
-u32 var800801ecjf = 0xffaaffbb;
-u32 var800801f0jf = 0xffccffdd;
-u32 var800801f4jf = 0xffeeffff;
+u16 var800801d8jf[] = {
+	0xff00,
+	0xff11,
+	0xff22,
+	0xff33,
+	0xff44,
+	0xff55,
+	0xff66,
+	0xff77,
+	0xff88,
+	0xff99,
+	0xffaa,
+	0xffbb,
+	0xffcc,
+	0xffdd,
+	0xffee,
+	0xffff,
+};
 #endif
 
 bool var8007fb9c = false;
@@ -873,7 +873,7 @@ u32 textApplyProjectionColour(s32 x, s32 y, u32 colour)
 				intensity = 255 - (u32) weightf;
 				result = intensity << 8 | intensity | intensity << 16 | intensity << 24;
 			} else if (g_Blend.diagtimer - (f14 + f16) < f12) {
-				result = ((colour & 0xff) + 0xff) >> 1 | colour & 0xffffff00;
+				result = (((colour & 0xff) + 0xff) >> 1) | (colour & 0xffffff00);
 			} else if ((g_Blend.diagtimer - (f14 + f18 + f16)) < f12) {
 				u32 colour2 = (((colour & 0xff) + 0xff) / 2) | (colour & 0xffffff00);
 				weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
@@ -1925,14 +1925,14 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 
 	if (curchar->index >= 0x80) {
 		if (!var80080104jf) {
-			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var800801d8jf));
+			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var800801d8jf));
 			var80080104jf = 1;
 			gDPLoadSync(gdl++);
 			gDPLoadTLUTCmd(gdl++, 6, 15);
 		}
 	} else {
 		if (var80080104jf) {
-			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var8007fb3c));
+			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var8007fb3c));
 			var80080104jf = 0;
 			gDPLoadSync(gdl++);
 			gDPLoadTLUTCmd(gdl++, 6, 15);
@@ -2044,10 +2044,10 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 	gDPSetTextureLUT(gdl++, G_TT_IA16);
 
 #if VERSION >= VERSION_JPN_FINAL
-	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var800801d8jf));
+	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var800801d8jf));
 	var80080104jf = true;
 #else
-	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var8007fb3c));
+	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var8007fb3c));
 #endif
 
 	gDPLoadSync(gdl++);
@@ -2170,7 +2170,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 
 			if (curchar->index >= 0x80) {
 				if (!var80080104jf) {
-					gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var800801d8jf));
+					gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var800801d8jf));
 
 					var80080104jf = true;
 
@@ -2179,7 +2179,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 				}
 			} else {
 				if (var80080104jf) {
-					gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var8007fb3c));
+					gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var8007fb3c));
 
 					var80080104jf = false;
 
@@ -2546,10 +2546,10 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 	gDPSetTextureLUT(gdl++, G_TT_IA16);
 
 #if VERSION >= VERSION_JPN_FINAL
-	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var800801d8jf));
+	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var800801d8jf));
 	var80080104jf = 1;
 #else
-	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var8007fb3c));
+	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var8007fb3c));
 #endif
 
 	gDPLoadSync(gdl++);

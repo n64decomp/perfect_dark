@@ -7,6 +7,7 @@
 #include "game/game_152fa0.h"
 #include "game/env.h"
 #include "game/pad.h"
+#include "game/tex.h"
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/mtx.h"

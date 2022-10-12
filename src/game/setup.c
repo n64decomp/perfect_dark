@@ -7,6 +7,7 @@
 #include "game/playerreset.h"
 #include "game/botmgr.h"
 #include "game/chr.h"
+#include "game/chrmgr.h"
 #include "game/body.h"
 #include "game/prop.h"
 #include "game/setuputils.h"
@@ -24,8 +25,10 @@
 #include "game/pad.h"
 #include "game/propobj.h"
 #include "bss.h"
+#include "lib/args.h"
 #include "lib/memp.h"
 #include "lib/model.h"
+#include "lib/path.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/ailist.h"
@@ -781,7 +784,7 @@ void setupCreateMine(struct mineobj *mine, s32 cmdindex)
 	setupCreateObject(&mine->base, cmdindex);
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mine->base.hidden = mine->base.hidden & 0x0fffffff | OBJHFLAG_20000000;
+		mine->base.hidden = (mine->base.hidden & 0x0fffffff) | OBJHFLAG_20000000;
 	}
 
 	mine->base.prop->forcetick = true;

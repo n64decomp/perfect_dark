@@ -2,7 +2,9 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/args.h"
+#include "lib/str.h"
 #include "lib/rmon.h"
+#include "string.h"
 #include "data.h"
 #include "types.h"
 
@@ -56,7 +58,7 @@ char *argParseString(char *str)
 
 void argSetString(char *string)
 {
-	strcpy(g_ArgBuffer, string);
+	strcpy((char *) g_ArgBuffer, string);
 	argParseString((char *) g_ArgBuffer);
 }
 
