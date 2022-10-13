@@ -1,17 +1,23 @@
-# Perfect Dark Decompilation (WIP)
+# Perfect Dark Decompilation
 
-This repository contains a work-in-progress decompilation of Perfect Dark for the Nintendo 64.
+This repository contains a complete decompilation of Perfect Dark for the Nintendo 64.
+
+The project aims to be a matching decompilation. When a matching decompilation is compiled with the same compiler that the original developers used, the output will be exactly the same as the retail game, byte for byte.
+
+To build the project, you must already have a Perfect Dark ROM. The project can build the exact same ROM from decomp's source code combined with assets that it extracts from your base ROM.
 
 ## Status
 
 See the [Perfect Dark Decompilation Status Page](https://ryandwyer.gitlab.io/pdstatus/).
+
+The ntsc-1.0 and ntsc-final versions are fully decompiled, but a small handful of functions are not yet byte-matching even though they are functionally the same. The status page doesn't show these as 100% because it counts matching functions only.
 
 ## Installation Requirements
 
 For Arch Linux:
 
 * Install these packages: `binutils fakeroot gcc make python vim`
-* Install from AUR: `armips mips64-elf-binutils`
+* Install from AUR: `armips` and a mips binutils package of your choice (eg. `mips-elf-binutils`)
 
 For Debian and Ubuntu:
 
@@ -34,8 +40,6 @@ Perfect Dark has six known versions:
 The project uses the `$ROMID` environment variable to know which version to work with. If not set, it defaults to `ntsc-final`. You can change it by running something like `export ROMID=ntsc-1.0`.
 
 ## Extracting the base ROM
-
-Before you do anything you need an existing ROM to extract assets from.
 
 1. Save your existing ROM file into the root of the repository with the name `pd.ntsc-final.z64`. It should not be byteswapped (the first four bytes should be `0x80371240`).
 2. Run `make extract`.
