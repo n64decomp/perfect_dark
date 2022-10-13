@@ -446,6 +446,7 @@ else ifeq ($(COMPILER), gcc)
         -mabi=32 \
         -mfix4300 \
         -mdivide-breaks \
+        -mno-abicalls \
         -ffreestanding \
         -ffast-math \
         -fno-unsafe-math-optimizations \
