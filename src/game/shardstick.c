@@ -11,7 +11,7 @@ void shardsTick(void)
 	s32 j;
 
 	if (g_ShardsActive) {
-		lvupdate = (g_Vars.lvupdate240_60 < TICKS(15)) ? g_Vars.lvupdate240_60 : TICKS(15);
+		lvupdate = (g_Vars.lvupdate60 < TICKS(15)) ? g_Vars.lvupdate60 : TICKS(15);
 
 		for (i = 0; i < g_MaxShards; i++) {
 			if (g_Shards[i].age60 > 0) {

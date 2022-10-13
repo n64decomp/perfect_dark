@@ -526,8 +526,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	u16 floorflags = 0;
 #if VERSION >= VERSION_NTSC_1_0
 	s32 lvupdate240;
-	f32 lvupdate240f;
-	f32 lvupdate240freal;
+	f32 lvupdate60f;
+	f32 lvupdate60freal;
 	struct coord spd0;
 	s16 spc0[8];
 #endif
@@ -537,8 +537,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	// A macro is used here for readability
 #if VERSION >= VERSION_NTSC_1_0
 	lvupdate240 = g_Vars.lvupdate240;
-	lvupdate240f = g_Vars.lvupdate240f;
-	lvupdate240freal = g_Vars.lvupdate240freal;
+	lvupdate60f = g_Vars.lvupdate60f;
+	lvupdate60freal = g_Vars.lvupdate60freal;
 
 #define VAR(property) property
 #else
@@ -581,20 +581,20 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 						chr->aibot->unk078--;
 
 						if (lvupdate240 >= 25) {
-							lvupdate240f = 4.0f;
-							lvupdate240freal = PALUPF(4.0f);
+							lvupdate60f = 4.0f;
+							lvupdate60freal = PALUPF(4.0f);
 							lvupdate240 = 16;
 						}
 					}
 				} else if (chr->onladder
 						&& ((chr->prop->flags & (PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0)
 						&& lvupdate240 >= 25) {
-					lvupdate240f = 4.0f;
-					lvupdate240freal = PALUPF(4.0f);
+					lvupdate60f = 4.0f;
+					lvupdate60freal = PALUPF(4.0f);
 					lvupdate240 = 16;
 				}
 
-				bot0f1921f8(chr, move, lvupdate240, lvupdate240freal);
+				bot0f1921f8(chr, move, lvupdate240, lvupdate60freal);
 #else
 				bot0f1921f8(chr, move);
 #endif
@@ -634,32 +634,32 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 			bmove0f0cb904(&chr->aibot->shotspeed);
 
-			arg2->x += chr->aibot->shotspeed.x * var80075c00[1].unk0c * VAR(lvupdate240freal) * 0.5f;
-			arg2->z += chr->aibot->shotspeed.z * var80075c00[1].unk0c * VAR(lvupdate240freal) * 0.5f;
+			arg2->x += chr->aibot->shotspeed.x * var80075c00[1].unk0c * VAR(lvupdate60freal) * 0.5f;
+			arg2->z += chr->aibot->shotspeed.z * var80075c00[1].unk0c * VAR(lvupdate60freal) * 0.5f;
 		}
 
 		if (chr->actiontype == ACT_DIE && chr->act_die.timeextra > 0.0f) {
-			f32 speed = model->anim->playspeed * VAR(lvupdate240f) * (chr->act_die.timeextra - chr->act_die.elapseextra) / chr->act_die.timeextra;
+			f32 speed = model->anim->playspeed * VAR(lvupdate60f) * (chr->act_die.timeextra - chr->act_die.elapseextra) / chr->act_die.timeextra;
 
 			arg2->x += chr->act_die.extraspeed.x * speed;
 			arg2->z += chr->act_die.extraspeed.z * speed;
 
 			yincrement += chr->act_die.extraspeed.y * speed;
 
-			chr->act_die.elapseextra += VAR(lvupdate240f) * model->anim->playspeed;
+			chr->act_die.elapseextra += VAR(lvupdate60f) * model->anim->playspeed;
 
 			if (chr->act_die.elapseextra > chr->act_die.timeextra) {
 				chr->act_die.timeextra = 0.0f;
 			}
 		} else if (chr->timeextra > 0.0f) {
-			f32 speed = model->anim->playspeed * VAR(lvupdate240f) * (chr->timeextra - chr->elapseextra) / chr->timeextra;
+			f32 speed = model->anim->playspeed * VAR(lvupdate60f) * (chr->timeextra - chr->elapseextra) / chr->timeextra;
 
 			arg2->x += chr->extraspeed.x * speed;
 			arg2->z += chr->extraspeed.z * speed;
 
 			yincrement += chr->extraspeed.y * speed;
 
-			chr->elapseextra += VAR(lvupdate240f) * model->anim->playspeed;
+			chr->elapseextra += VAR(lvupdate60f) * model->anim->playspeed;
 
 			if (chr->elapseextra > chr->timeextra) {
 				chr->timeextra = 0.0f;
@@ -667,8 +667,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		}
 
 		if (chr->pushspeed[0] != 0.0f || chr->pushspeed[1] != 0.0f) {
-			arg2->x += chr->pushspeed[0] * VAR(lvupdate240freal);
-			arg2->z += chr->pushspeed[1] * VAR(lvupdate240freal);
+			arg2->x += chr->pushspeed[0] * VAR(lvupdate60freal);
+			arg2->z += chr->pushspeed[1] * VAR(lvupdate60freal);
 
 			chr->pushspeed[0] *= 0.9f;
 			chr->pushspeed[1] *= 0.9f;
@@ -677,7 +677,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 				f32 pushdist = sqrtf(chr->pushspeed[0] * chr->pushspeed[0] + chr->pushspeed[1] * chr->pushspeed[1]);
 
 				if (pushdist > 0.0f) {
-					pushdist = 0.1f * VAR(lvupdate240freal) / pushdist;
+					pushdist = 0.1f * VAR(lvupdate60freal) / pushdist;
 
 					if (pushdist >= 1.0f) {
 						chr->pushspeed[0] = 0.0f;
@@ -693,8 +693,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			}
 		}
 
-		arg2->x += chr->fallspeed.x * VAR(lvupdate240freal);
-		arg2->z += chr->fallspeed.z * VAR(lvupdate240freal);
+		arg2->x += chr->fallspeed.x * VAR(lvupdate60freal);
+		arg2->z += chr->fallspeed.z * VAR(lvupdate60freal);
 
 		if (race == RACE_EYESPY) {
 			struct eyespy *eyespy = chrToEyespy(chr);
@@ -707,7 +707,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		} else if (chr->actiontype == ACT_SKJUMP
 				&& chr->act_skjump.state == SKJUMPSTATE_AIRBORNE
 				&& !chr->act_skjump.needsnewanim
-				&& g_Vars.lvupdate240_60 != 0) {
+				&& g_Vars.lvupdate60 != 0) {
 			arg2->x = chr->act_skjump.pos.x;
 			yincrement = chr->act_skjump.pos.y;
 			arg2->z = chr->act_skjump.pos.z;
@@ -752,7 +752,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		if (chr->actiontype == ACT_SKJUMP
 				&& chr->act_skjump.state == SKJUMPSTATE_AIRBORNE
 				&& !chr->act_skjump.needsnewanim
-				&& g_Vars.lvupdate240_60 != 0) {
+				&& g_Vars.lvupdate60 != 0) {
 #if VERSION >= VERSION_NTSC_1_0
 			if (chr0f01f264(chr, arg2, spfc, yincrement, true)) {
 				chr->manground += yincrement;
@@ -824,7 +824,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 					if (chr->aibot
 							&& chr->aibot->unk078 == 0
 							&& ground < -100000
-							&& g_Vars.lvupdate240_60 >= 5
+							&& g_Vars.lvupdate60 >= 5
 							&& (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) == 0) {
 						chr->aibot->unk078 = 10;
 
@@ -834,7 +834,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 						roomsCopy(prop->rooms, spfc);
 
-						lvupdate240freal = 0.0f;
+						lvupdate60freal = 0.0f;
 
 						ground = cdFindGroundInfoAtCyl(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 					}
@@ -881,7 +881,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 						sp68 = chr->fallspeed.y;
 
-						func0f0965e4(&yincrement, &sp68, VAR(lvupdate240freal));
+						func0f0965e4(&yincrement, &sp68, VAR(lvupdate60freal));
 
 #if VERSION >= VERSION_NTSC_1_0
 						if (chr0f01f264(chr, arg2, spfc, yincrement, false))
@@ -919,7 +919,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 							}
 						}
 					} else if (chr->manground <= chr->ground) {
-						for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+						for (i = 0; i < g_Vars.lvupdate60; i++) {
 							chr->sumground = chr->sumground * (PAL ? 0.88120001554489f : 0.9f) + chr->ground;
 							chr->fallspeed.x *= (PAL ? 0.88120001554489f : 0.9f);
 							chr->fallspeed.z *= (PAL ? 0.88120001554489f : 0.9f);
@@ -1476,7 +1476,7 @@ f32 chr0f02124c(void)
 void chrUpdateAimProperties(struct chrdata *chr)
 {
 	if (chr->aimendcount >= 2) {
-		f32 mult = g_Vars.lvupdate240f / chr->aimendcount;
+		f32 mult = g_Vars.lvupdate60f / chr->aimendcount;
 
 		if (mult > 1) {
 			mult = 1;
@@ -1487,7 +1487,7 @@ void chrUpdateAimProperties(struct chrdata *chr)
 		chr->aimupback += (chr->aimendback - chr->aimupback) * mult;
 		chr->aimsideback += (chr->aimendsideback - chr->aimsideback) * mult;
 
-		chr->aimendcount -= g_Vars.lvupdate240_60;
+		chr->aimendcount -= g_Vars.lvupdate60;
 	} else {
 		chr->aimuplshoulder = chr->aimendlshoulder;
 		chr->aimuprshoulder = chr->aimendrshoulder;
@@ -2062,7 +2062,7 @@ void chrUpdateCloak(struct chrdata *chr)
 
 	// Decrement cloakpause
 	if (chr->cloakpause > 0) {
-		chr->cloakpause -= g_Vars.lvupdate240_60;
+		chr->cloakpause -= g_Vars.lvupdate60;
 
 		if (chr->cloakpause < 1) {
 			chr->cloakpause = 0;
@@ -2076,7 +2076,7 @@ void chrUpdateCloak(struct chrdata *chr)
 
 			if (qty > 0 && !chrIsDead(chr)) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
-					qty -= g_Vars.lvupdate240_60;
+					qty -= g_Vars.lvupdate60;
 
 					if (qty <= 0) {
 						qty = 0;
@@ -2092,7 +2092,7 @@ void chrUpdateCloak(struct chrdata *chr)
 					&& !chrIsDead(chr)
 					&& botactGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
-					chr->aibot->unk2c4 += LVUPDATE240FREAL() * 0.4f;
+					chr->aibot->unk2c4 += LVUPDATE60FREAL() * 0.4f;
 
 					if (chr->aibot->unk2c4 >= 1) {
 						qty = chr->aibot->unk2c4;
@@ -2142,7 +2142,7 @@ void chrUpdateCloak(struct chrdata *chr)
 			if (qty > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
 					// Cloak is effective
-					qty -= g_Vars.lvupdate240_60;
+					qty -= g_Vars.lvupdate60;
 
 					if (qty < 1) {
 						qty = 0;
@@ -2185,7 +2185,7 @@ void chrUpdateCloak(struct chrdata *chr)
 				chr->cloakfadefrac = fadefrac;
 			}
 		} else {
-			s32 tmp = chr->cloakfadefrac + g_Vars.lvupdate240_60;
+			s32 tmp = chr->cloakfadefrac + g_Vars.lvupdate60;
 			chr->cloakfadefrac = tmp % 127;
 		}
 	} else {
@@ -2321,8 +2321,8 @@ bool chrTickBeams(struct prop *prop)
 	}
 
 	if (chr->aibot && chr->aibot->unk058 > 0) {
-		if (chr->aibot->unk058 > g_Vars.lvupdate240_60) {
-			chr->aibot->unk058 -= g_Vars.lvupdate240_60;
+		if (chr->aibot->unk058 > g_Vars.lvupdate60) {
+			chr->aibot->unk058 -= g_Vars.lvupdate60;
 		} else {
 			chr->aibot->unk058 = 0;
 		}
@@ -2387,7 +2387,7 @@ s32 chrTick(struct prop *prop)
 
 			if (chr->drugheadsway > 0.0f) {
 #if VERSION >= VERSION_PAL_BETA
-				chr->drugheadsway -= 0.175f * g_Vars.lvupdate240freal;
+				chr->drugheadsway -= 0.175f * g_Vars.lvupdate60freal;
 #else
 				chr->drugheadsway -= 0.04375f * g_Vars.lvupdate240;
 #endif
@@ -2397,7 +2397,7 @@ s32 chrTick(struct prop *prop)
 				}
 			} else if (chr->drugheadsway < 0.0f) {
 #if VERSION >= VERSION_PAL_BETA
-				chr->drugheadsway += 0.175f * g_Vars.lvupdate240freal;
+				chr->drugheadsway += 0.175f * g_Vars.lvupdate60freal;
 #else
 				chr->drugheadsway += 0.04375f * g_Vars.lvupdate240;
 #endif
@@ -2689,7 +2689,7 @@ s32 chrTick(struct prop *prop)
 		sp210.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
 
 		if (fulltick && g_CurModelChr->flinchcnt >= 0) {
-			g_CurModelChr->flinchcnt += g_Vars.lvupdate240_60;
+			g_CurModelChr->flinchcnt += g_Vars.lvupdate60;
 
 			if (g_CurModelChr->flinchcnt >= (PAL ? 24 : 30)) {
 				g_CurModelChr->flinchcnt = -1;
@@ -6177,8 +6177,8 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 			blue3 = 0;
 		}
 
-		st1 = (sinf((g_Vars.thisframe240 % TICKS(1200)) * PALUPF(0.005235154f)) + 1.0f) * 0.5f * 32.0f * 32.0f;
-		st2 = (cosf((g_Vars.thisframe240 % TICKS(1200)) * PALUPF(0.005235154f)) + 1.0f) * 0.5f * 32.0f * 32.0f;
+		st1 = (sinf((g_Vars.thisframestart240 % TICKS(1200)) * PALUPF(0.005235154f)) + 1.0f) * 0.5f * 32.0f * 32.0f;
+		st2 = (cosf((g_Vars.thisframestart240 % TICKS(1200)) * PALUPF(0.005235154f)) + 1.0f) * 0.5f * 32.0f * 32.0f;
 		st3 = st1 + 512;
 		st4 = st2 + 512;
 
@@ -6214,7 +6214,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 
 			if ((prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR)
 					&& (prop->obj->flags3 & OBJFLAG3_SHOWSHIELD)) {
-				f32 mult = (sinf((g_Vars.thisframe240 % TICKS(350)) * (PAL ? 0.021588264033198f : 0.0179491f)) + 1.0f) * 0.5f;
+				f32 mult = (sinf((g_Vars.thisframestart240 % TICKS(350)) * (PAL ? 0.021588264033198f : 0.0179491f)) + 1.0f) * 0.5f;
 
 				colours->a = 50 + (u8) (s32) (120.0f * mult);
 				colours->r = (u8) red2 + 50.0f * mult;
@@ -7095,13 +7095,13 @@ void shieldhitsTick(void)
 			if (g_ShieldHits[i].prop) {
 				if (g_ShieldHits[i].lvframe60 >= g_Vars.lvframe60 - TICKS(80)) {
 					changed = true;
-					g_ShieldHits[i].shield += (propGetShieldThing(&g_ShieldHits[i].prop) - g_ShieldHits[i].shield) * g_Vars.lvupdate240f * (PAL ? 0.0151515156f : 0.0125f);
+					g_ShieldHits[i].shield += (propGetShieldThing(&g_ShieldHits[i].prop) - g_ShieldHits[i].shield) * g_Vars.lvupdate60f * (PAL ? 0.0151515156f : 0.0125f);
 				}
 
 				for (j = 0; j < 32; j++) {
 					if (g_ShieldHits[i].unk018[j] >= 0) {
 						changed = true;
-						time60 = g_ShieldHits[i].unk018[j] + g_Vars.lvupdate240_60;
+						time60 = g_ShieldHits[i].unk018[j] + g_Vars.lvupdate60;
 
 						if (g_ShieldHits[i].unk018[j] < 1 && time60 > 0) {
 							index = chr0f02932c(g_ShieldHits[i].prop, j);

@@ -852,17 +852,17 @@ void eyespyProcessInput(bool allowbuttons)
 	g_EyespyPickup = false;
 
 #if VERSION >= VERSION_PAL_BETA
-	for (f = 1; f < g_Vars.lvupdate240_60; f++) {
+	for (f = 1; f < g_Vars.lvupdate60; f++) {
 		spe0 *= PAL ? 0.952f : 0.96f;
 	}
 #else
-	for (f = 1; f < g_Vars.lvupdate240freal; f++) {
+	for (f = 1; f < g_Vars.lvupdate60freal; f++) {
 		spe0 *= 0.96f;
 	}
 #endif
 
 	if (g_Vars.currentplayer->eyespy->startuptimer60 < TICKS(50)) {
-		g_Vars.currentplayer->eyespy->startuptimer60 += g_Vars.lvupdate240_60;
+		g_Vars.currentplayer->eyespy->startuptimer60 += g_Vars.lvupdate60;
 	} else {
 		g_Vars.currentplayer->eyespy->startuptimer60 = TICKS(50);
 	}
@@ -899,7 +899,7 @@ void eyespyProcessInput(bool allowbuttons)
 #endif
 
 		// Update theta
-		g_Vars.currentplayer->eyespy->theta += c1stickx * 0.0625f * g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->eyespy->theta += c1stickx * 0.0625f * g_Vars.lvupdate60freal;
 
 		while (g_Vars.currentplayer->eyespy->theta < 0.0f) {
 			g_Vars.currentplayer->eyespy->theta += 360.0f;
@@ -913,7 +913,7 @@ void eyespyProcessInput(bool allowbuttons)
 		g_Vars.currentplayer->eyespy->sintheta = sinf(g_Vars.currentplayer->eyespy->theta * 0.017453292384744f);
 
 		// Update verta
-		g_Vars.currentplayer->eyespy->verta -= pitchspeed * 0.0625f * g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->eyespy->verta -= pitchspeed * 0.0625f * g_Vars.lvupdate60freal;
 
 		if (prevverta != g_Vars.currentplayer->eyespy->verta) {
 			while (g_Vars.currentplayer->eyespy->verta < 0.0f) {
@@ -940,14 +940,14 @@ void eyespyProcessInput(bool allowbuttons)
 				if (g_Vars.currentplayer->eyespy->verta < 180.0f) {
 					tmp = g_Vars.currentplayer->eyespy->verta;
 
-					for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+					for (i = 0; i < g_Vars.lvupdate60; i++) {
 						tmp *= 0.04f;
 						g_Vars.currentplayer->eyespy->verta -= tmp;
 					}
 				} else {
 					tmp = 360.0f - g_Vars.currentplayer->eyespy->verta;
 
-					for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+					for (i = 0; i < g_Vars.lvupdate60; i++) {
 						tmp *= 0.04f;
 						g_Vars.currentplayer->eyespy->verta += tmp;
 					}
@@ -957,17 +957,17 @@ void eyespyProcessInput(bool allowbuttons)
 				g_Vars.currentplayer->eyespy->sinverta = sinf(g_Vars.currentplayer->eyespy->verta * 0.017453292384744f);
 			}
 
-			spcc += forwardspeed * g_Vars.currentplayer->eyespy->sintheta * 0.15f * g_Vars.lvupdate240freal;
-			spc8 += -forwardspeed * g_Vars.currentplayer->eyespy->costheta * 0.15f * g_Vars.lvupdate240freal;
+			spcc += forwardspeed * g_Vars.currentplayer->eyespy->sintheta * 0.15f * g_Vars.lvupdate60freal;
+			spc8 += -forwardspeed * g_Vars.currentplayer->eyespy->costheta * 0.15f * g_Vars.lvupdate60freal;
 		}
 
 		if (sidespeed != 0) {
-			spd4 += sidespeed * 5 * g_Vars.currentplayer->eyespy->costheta * 0.15f * g_Vars.lvupdate240freal;
-			spd0 += sidespeed * 5 * g_Vars.currentplayer->eyespy->sintheta * 0.15f * g_Vars.lvupdate240freal;
+			spd4 += sidespeed * 5 * g_Vars.currentplayer->eyespy->costheta * 0.15f * g_Vars.lvupdate60freal;
+			spd0 += sidespeed * 5 * g_Vars.currentplayer->eyespy->sintheta * 0.15f * g_Vars.lvupdate60freal;
 		}
 
 		if (ascendspeed != 0) {
-			spc4 += ascendspeed * 3 * 0.15f * g_Vars.lvupdate240freal;
+			spc4 += ascendspeed * 3 * 0.15f * g_Vars.lvupdate60freal;
 
 			g_Vars.currentplayer->eyespy->bobdir = (ascendspeed < 0.0f) ? -1 : 1;
 			g_Vars.currentplayer->eyespy->bobtimer = 0;
@@ -982,8 +982,8 @@ void eyespyProcessInput(bool allowbuttons)
 		spcc = g_Vars.currentplayer->eyespy->velf[0] * g_Vars.currentplayer->eyespy->velf[0]
 			+ g_Vars.currentplayer->eyespy->velf[1] * g_Vars.currentplayer->eyespy->velf[1];
 
-		if (spcc > 90.25f * g_Vars.lvupdate240freal * g_Vars.lvupdate240freal) {
-			spcc = 9.5f * g_Vars.lvupdate240freal / sqrtf(spcc);
+		if (spcc > 90.25f * g_Vars.lvupdate60freal * g_Vars.lvupdate60freal) {
+			spcc = 9.5f * g_Vars.lvupdate60freal / sqrtf(spcc);
 
 			g_Vars.currentplayer->eyespy->velf[0] *= spcc;
 			g_Vars.currentplayer->eyespy->velf[1] *= spcc;
@@ -992,8 +992,8 @@ void eyespyProcessInput(bool allowbuttons)
 		spd4 = g_Vars.currentplayer->eyespy->vels[0] * g_Vars.currentplayer->eyespy->vels[0]
 			+ g_Vars.currentplayer->eyespy->vels[1] * g_Vars.currentplayer->eyespy->vels[1];
 
-		if (spd4 > 225.0f * g_Vars.lvupdate240freal * g_Vars.lvupdate240freal) {
-			spd4 = 15.0f * g_Vars.lvupdate240freal / sqrtf(spd4);
+		if (spd4 > 225.0f * g_Vars.lvupdate60freal * g_Vars.lvupdate60freal) {
+			spd4 = 15.0f * g_Vars.lvupdate60freal / sqrtf(spd4);
 
 			g_Vars.currentplayer->eyespy->vels[0] *= spd4;
 			g_Vars.currentplayer->eyespy->vels[1] *= spd4;
@@ -1001,12 +1001,12 @@ void eyespyProcessInput(bool allowbuttons)
 
 		g_Vars.currentplayer->eyespy->vel.y += spc4;
 
-		if (g_Vars.currentplayer->eyespy->vel.y < -(5 * g_Vars.lvupdate240freal)) {
-			g_Vars.currentplayer->eyespy->vel.y = -(5 * g_Vars.lvupdate240freal);
+		if (g_Vars.currentplayer->eyespy->vel.y < -(5 * g_Vars.lvupdate60freal)) {
+			g_Vars.currentplayer->eyespy->vel.y = -(5 * g_Vars.lvupdate60freal);
 		}
 
-		if (g_Vars.currentplayer->eyespy->vel.y > 5 * g_Vars.lvupdate240freal) {
-			g_Vars.currentplayer->eyespy->vel.y = 5 * g_Vars.lvupdate240freal;
+		if (g_Vars.currentplayer->eyespy->vel.y > 5 * g_Vars.lvupdate60freal) {
+			g_Vars.currentplayer->eyespy->vel.y = 5 * g_Vars.lvupdate60freal;
 		}
 	} else {
 		g_Vars.currentplayer->eyespy->bobactive = true;
@@ -1016,7 +1016,7 @@ void eyespyProcessInput(bool allowbuttons)
 	if (spc4 == 0.0f) {
 		if (g_Vars.currentplayer->eyespy->bobactive || ABS(g_Vars.currentplayer->eyespy->vel.y) < 0.1f) {
 			g_Vars.currentplayer->eyespy->bobactive = true;
-			g_Vars.currentplayer->eyespy->bobtimer += g_Vars.lvupdate240_60;
+			g_Vars.currentplayer->eyespy->bobtimer += g_Vars.lvupdate60;
 			g_Vars.currentplayer->eyespy->vel.y += 0.025f * g_Vars.currentplayer->eyespy->bobdir;
 
 			if (g_Vars.currentplayer->eyespy->bobtimer > TICKS(120)) {

@@ -329,7 +329,7 @@ void weatherTickRain(struct weatherdata *weather)
 	}
 
 	if (weather->unkc0 > 0) {
-		lvupdate = g_Vars.lvupdate240_60;
+		lvupdate = g_Vars.lvupdate60;
 
 		if (weather->unkc0 < lvupdate) {
 			weather->unkb8 = weather->unkbc;
@@ -345,7 +345,7 @@ void weatherTickRain(struct weatherdata *weather)
 		weather->windspeedz = -weather->windspeed;
 		weather->windspeedx = 0;
 	} else if (weather->unk10 > 0) {
-		s32 lvupdate = g_Vars.lvupdate240_60;
+		s32 lvupdate = g_Vars.lvupdate60;
 
 		if (weather->unk10 < lvupdate) {
 			weather->windanglerad = weather->unk0c;
@@ -377,9 +377,9 @@ void weatherTickRain(struct weatherdata *weather)
 	for (i = 0; i != ARRAYCOUNT(data->particles); i++) {
 		struct weatherparticle *particle = &data->particles[i];
 
-		particle->pos.x += particle->inc.x * LVUPDATE240FREAL();
-		particle->pos.y += particle->inc.y * LVUPDATE240FREAL();
-		particle->pos.z += particle->inc.z * LVUPDATE240FREAL();
+		particle->pos.x += particle->inc.x * LVUPDATE60FREAL();
+		particle->pos.y += particle->inc.y * LVUPDATE60FREAL();
+		particle->pos.z += particle->inc.z * LVUPDATE60FREAL();
 
 		if (particle->pos.y < data->boundarymin.y) {
 			lVar6 = 2;
@@ -441,7 +441,7 @@ void weatherTickSnow(struct weatherdata *weather)
 		weather->windspeedz = -weather->windspeed;
 		weather->windspeedx = 0;
 	} else if (weather->unk10 > 0) {
-		s32 lvupdate = g_Vars.lvupdate240_60;
+		s32 lvupdate = g_Vars.lvupdate60;
 
 		if (weather->unk10 < lvupdate) {
 			weather->windanglerad = weather->unk0c;
@@ -471,7 +471,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	data = g_WeatherData->particledata[0];
 
 	// 0
-	data->unk3ec8[0] += 0.04f * LVUPDATE240FREAL();
+	data->unk3ec8[0] += 0.04f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[0] < 0) {
 		data->unk3ec8[0] += M_TAU;
@@ -482,7 +482,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 1
-	data->unk3ec8[1] += -0.03f * LVUPDATE240FREAL();
+	data->unk3ec8[1] += -0.03f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[1] < 0) {
 		data->unk3ec8[1] += M_TAU;
@@ -493,7 +493,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 2
-	data->unk3ec8[2] += 0.04f * LVUPDATE240FREAL();
+	data->unk3ec8[2] += 0.04f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[2] < 0) {
 		data->unk3ec8[2] += M_TAU;
@@ -504,7 +504,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 3
-	data->unk3ec8[3] += 0.03f * LVUPDATE240FREAL();
+	data->unk3ec8[3] += 0.03f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[3] < 0) {
 		data->unk3ec8[3] += M_TAU;
@@ -515,7 +515,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 4
-	data->unk3ec8[4] += 0.02f * LVUPDATE240FREAL();
+	data->unk3ec8[4] += 0.02f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[4] < 0) {
 		data->unk3ec8[4] += M_TAU;
@@ -526,7 +526,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 5
-	data->unk3ec8[5] += 0.01f * LVUPDATE240FREAL();
+	data->unk3ec8[5] += 0.01f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[5] < 0) {
 		data->unk3ec8[5] += M_TAU;
@@ -537,7 +537,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 6
-	data->unk3ec8[6] += -0.01f * LVUPDATE240FREAL();
+	data->unk3ec8[6] += -0.01f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[6] < 0) {
 		data->unk3ec8[6] += M_TAU;
@@ -548,7 +548,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 7
-	data->unk3ec8[7] += -0.02f * LVUPDATE240FREAL();
+	data->unk3ec8[7] += -0.02f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[7] < 0) {
 		data->unk3ec8[7] += M_TAU;
@@ -561,9 +561,9 @@ void weatherTickSnow(struct weatherdata *weather)
 	for (i = 0; i < ARRAYCOUNT(data->particles); i++) {
 		struct weatherparticle *particle = &data->particles[i];
 
-		particle->pos.x += particle->inc.x * LVUPDATE240FREAL();
-		particle->pos.y += particle->inc.y * LVUPDATE240FREAL();
-		particle->pos.z += particle->inc.z * LVUPDATE240FREAL();
+		particle->pos.x += particle->inc.x * LVUPDATE60FREAL();
+		particle->pos.y += particle->inc.y * LVUPDATE60FREAL();
+		particle->pos.z += particle->inc.z * LVUPDATE60FREAL();
 
 		if (particle->pos.y < data->boundarymin.y) {
 			lVar7 = 2;

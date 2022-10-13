@@ -146,9 +146,9 @@ void bgrabExit(void)
 		obj->hidden &= ~OBJHFLAG_GRABBED;
 
 		if (g_Vars.lvupdate240 > 0) {
-			moveamount.x = (g_Vars.currentplayer->grabbedprop->pos.x - g_Vars.currentplayer->grabbedprevpos.x) / g_Vars.lvupdate240freal;
+			moveamount.x = (g_Vars.currentplayer->grabbedprop->pos.x - g_Vars.currentplayer->grabbedprevpos.x) / g_Vars.lvupdate60freal;
 			moveamount.y = 0;
-			moveamount.z = (g_Vars.currentplayer->grabbedprop->pos.z - g_Vars.currentplayer->grabbedprevpos.z) / g_Vars.lvupdate240freal;
+			moveamount.z = (g_Vars.currentplayer->grabbedprop->pos.z - g_Vars.currentplayer->grabbedprevpos.z) / g_Vars.lvupdate60freal;
 
 			rotateamount = -(g_Vars.currentplayer->vv_theta - g_Vars.currentplayer->bondprevtheta)
 				* M_BADTAU / 360;
@@ -159,7 +159,7 @@ void bgrabExit(void)
 				rotateamount -= M_BADTAU;
 			}
 
-			rotateamount /= g_Vars.lvupdate240freal;
+			rotateamount /= g_Vars.lvupdate60freal;
 
 			objApplyMomentum(g_Vars.currentplayer->grabbedprop->obj, &moveamount,
 					rotateamount, 0, 0);
@@ -202,9 +202,9 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 
 			func0f02e3dc(&spb0, &spa4, &sp98, &spc8, &spd4);
 
-			spbc.x = (sp98.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate240freal;
+			spbc.x = (sp98.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate60freal;
 			spbc.y = 0.0f;
-			spbc.z = (sp98.z - g_Vars.currentplayer->prop->pos.z) / g_Vars.lvupdate240freal;
+			spbc.z = (sp98.z - g_Vars.currentplayer->prop->pos.z) / g_Vars.lvupdate60freal;
 
 			func0f082e84(obj, &spd4, &spc8, &spbc, false);
 		} else {
@@ -249,11 +249,11 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 			}
 
 			if (delta->x != 0.0f) {
-				sp74.x += delta->x / g_Vars.lvupdate240freal;
+				sp74.x += delta->x / g_Vars.lvupdate60freal;
 			}
 
 			if (delta->z != 0.0f) {
-				sp74.z += delta->z / g_Vars.lvupdate240freal;
+				sp74.z += delta->z / g_Vars.lvupdate60freal;
 			}
 
 			func0f082e84(obj, &sp8c, &sp80, &sp74, false);
@@ -267,7 +267,7 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 
 				sp40 *= mult;
 				sp3c *= mult;
-				angle = angle / g_Vars.lvupdate240freal;
+				angle = angle / g_Vars.lvupdate60freal;
 
 				sp2c.x += -sp3c * angle * 40.0f;
 				sp2c.z += sp40 * angle * 40.0f;
@@ -720,7 +720,7 @@ bool bgrab0f0cdb68(f32 angle)
 void bgrab0f0cdef0(void)
 {
 	if (g_Vars.lvupdate240 > 0) {
-		f32 angle = g_Vars.currentplayer->speedtheta * g_Vars.lvupdate240freal * 0.017450513318181f * 3.5f;
+		f32 angle = g_Vars.currentplayer->speedtheta * g_Vars.lvupdate60freal * 0.017450513318181f * 3.5f;
 
 		if (bgrab0f0cdb04(angle, true) == 0) {
 			bgrab0f0cdb68(angle);
@@ -920,13 +920,13 @@ void bgrabUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 void bgrabUpdateSpeedForwards(f32 target, f32 speed)
 {
 	if (g_Vars.currentplayer->speedgo < target) {
-		g_Vars.currentplayer->speedgo += speed * g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->speedgo += speed * g_Vars.lvupdate60freal;
 
 		if (g_Vars.currentplayer->speedgo > target) {
 			g_Vars.currentplayer->speedgo = target;
 		}
 	} else if (g_Vars.currentplayer->speedgo > target) {
-		g_Vars.currentplayer->speedgo -= speed * g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->speedgo -= speed * g_Vars.lvupdate60freal;
 
 		if (g_Vars.currentplayer->speedgo < target) {
 			g_Vars.currentplayer->speedgo = target;
@@ -944,17 +944,17 @@ void bgrabApplyMoveData(struct movedata *data)
 	} else if (data->digitalstepright) {
 		bgrabUpdateSpeedSideways(1, 0.2f / 3.0f, data->digitalstepright);
 	} else if (data->unk14 == 0) {
-		bgrabUpdateSpeedSideways(0, 0.2f / 3.0f, g_Vars.lvupdate240_60);
+		bgrabUpdateSpeedSideways(0, 0.2f / 3.0f, g_Vars.lvupdate60);
 	}
 
 	if (data->unk14) {
-		bgrabUpdateSpeedSideways(data->analogstrafe * 0.014285714365542f, 0.2f / 3.0f, g_Vars.lvupdate240_60);
+		bgrabUpdateSpeedSideways(data->analogstrafe * 0.014285714365542f, 0.2f / 3.0f, g_Vars.lvupdate60);
 	}
 
 	// Forward/back
 	if (data->digitalstepforward) {
 		bgrabUpdateSpeedForwards(1, 0.2f / 3.0f);
-		g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
+		g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate60;
 	} else if (data->digitalstepback) {
 		bgrabUpdateSpeedForwards(-1, 0.2f / 3.0f);
 	} else if (data->canlookahead == false) {
@@ -965,7 +965,7 @@ void bgrabApplyMoveData(struct movedata *data)
 		bgrabUpdateSpeedForwards(data->analogwalk * 0.014285714365542f, 0.2f / 3.0f);
 
 		if (data->analogwalk > 60) {
-			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
+			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate60;
 		} else {
 			g_Vars.currentplayer->speedmaxtime60 = 0;
 		}
@@ -1038,7 +1038,7 @@ void bgrab0f0ce924(void)
 		g_Vars.currentplayer->speedforwards += sp70;
 		g_Vars.currentplayer->speedsideways += sp6c;
 
-		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate240freal;
+		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate60freal;
 		sp88 = mult * g_Vars.currentplayer->speedsideways;
 
 		speedsideways = g_Vars.currentplayer->speedsideways * 0.8f;
@@ -1068,9 +1068,9 @@ void bgrab0f0ce924(void)
 		}
 
 		if (maxspeed >= 0.75f) {
-			g_Vars.currentplayer->bondbreathing += (maxspeed - 0.75f) * g_Vars.lvupdate240freal / 900.0f;
+			g_Vars.currentplayer->bondbreathing += (maxspeed - 0.75f) * g_Vars.lvupdate60freal / 900.0f;
 		} else {
-			g_Vars.currentplayer->bondbreathing -= (0.75f - maxspeed) * g_Vars.lvupdate240freal / 2700.0f;
+			g_Vars.currentplayer->bondbreathing -= (0.75f - maxspeed) * g_Vars.lvupdate60freal / 2700.0f;
 		}
 
 		if (g_Vars.currentplayer->bondbreathing < 0.0f) {
@@ -1093,14 +1093,14 @@ void bgrab0f0ce924(void)
 		}
 #endif
 
-		sp74.x += (sp80 * g_Vars.currentplayer->bond2.unk00.f[0] - sp84 * g_Vars.currentplayer->bond2.unk00.f[2]) * g_Vars.lvupdate240freal;
-		sp74.z += (sp80 * g_Vars.currentplayer->bond2.unk00.f[2] + sp84 * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate240freal;
+		sp74.x += (sp80 * g_Vars.currentplayer->bond2.unk00.f[0] - sp84 * g_Vars.currentplayer->bond2.unk00.f[2]) * g_Vars.lvupdate60freal;
+		sp74.z += (sp80 * g_Vars.currentplayer->bond2.unk00.f[2] + sp84 * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate60freal;
 
 		bmoveUpdateMoveInitSpeed(&sp74);
 
 		if (debugIsTurboModeEnabled()) {
-			sp74.x += (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedforwards - (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedsideways)) * g_Vars.lvupdate240freal * 10.0f;
-			sp74.z += (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedforwards + (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedsideways)) * g_Vars.lvupdate240freal * 10.0f;
+			sp74.x += (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedforwards - (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedsideways)) * g_Vars.lvupdate60freal * 10.0f;
+			sp74.z += (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedforwards + (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedsideways)) * g_Vars.lvupdate60freal * 10.0f;
 		}
 
 		bgrab0f0ce0bc(&sp74);

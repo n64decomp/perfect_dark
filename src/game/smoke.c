@@ -457,7 +457,7 @@ u32 smokeTick(struct prop *prop)
 
 	// These tick values aren't adjusted for PAL,
 	// so smoke will hang around for longer in PAL versions
-	lvupdate = g_Vars.lvupdate240_60 < 15 ? (f32)g_Vars.lvupdate240_60 : 15.0f;
+	lvupdate = g_Vars.lvupdate60 < 15 ? (f32)g_Vars.lvupdate60 : 15.0f;
 
 	for (i = 0; i < lvupdate; i++) {
 		smoke->age++;

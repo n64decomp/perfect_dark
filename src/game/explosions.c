@@ -671,7 +671,7 @@ void explosionInflictDamage(struct prop *expprop)
 	s32 j;
 	f32 damageradius;
 
-	if (g_Vars.lvupdate240_60 <= 0) {
+	if (g_Vars.lvupdate60 <= 0) {
 		return;
 	}
 
@@ -878,7 +878,7 @@ void explosionInflictDamage(struct prop *expprop)
 							}
 						} else if (objIsHealthy(obj)) {
 							// Sustained damage
-							minfrac *= 0.05f * g_Vars.lvupdate240freal;
+							minfrac *= 0.05f * g_Vars.lvupdate60freal;
 
 							if ((obj->hidden & OBJHFLAG_00001000) == 0
 									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_00200000)) == 0) {
@@ -978,7 +978,7 @@ void explosionInflictDamage(struct prop *expprop)
 							}
 						}
 					} else {
-						minfrac *= 0.05f * g_Vars.lvupdate240freal;
+						minfrac *= 0.05f * g_Vars.lvupdate60freal;
 					}
 
 					if (g_Vars.normmplayerisrunning) {
@@ -1035,11 +1035,11 @@ u32 explosionTick(struct prop *prop)
 
 	maxage = TICKS(type->duration);
 
-	if (g_Vars.lvupdate240_60 == 0) {
+	if (g_Vars.lvupdate60 == 0) {
 		return TICKOP_NONE;
 	}
 
-	lvupdate = g_Vars.lvupdate240_60 < TICKS(15) ? g_Vars.lvupdate240_60 : (s32)TICKS(15);
+	lvupdate = g_Vars.lvupdate60 < TICKS(15) ? g_Vars.lvupdate60 : (s32)TICKS(15);
 
 #if PAL
 	if (exp->age >= 7 && exp->age < maxage)

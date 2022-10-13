@@ -506,7 +506,7 @@ Gfx *sightDrawDelayedAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u3
 	static f32 xspeed = 0;
 	static f32 yspeed = 0;
 
-	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+	for (i = 0; i < g_Vars.lvupdate60; i++) {
 		dist = x - xpos;
 
 		if (dist > 0.5f || dist < -0.5f) {

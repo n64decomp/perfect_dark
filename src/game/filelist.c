@@ -363,11 +363,11 @@ struct textureconfig *pheadGetTexture(s32 playernum, s32 fileid, u16 deviceseria
 			return NULL;
 		}
 
-		if (g_Vars.thisframe240 - g_Menus[playernum].fm.headtextures->lastupdated240 < 20) {
+		if (g_Vars.thisframestart240 - g_Menus[playernum].fm.headtextures->lastupdated240 < 20) {
 			return NULL;
 		}
 
-		g_Menus[playernum].fm.headtextures->lastupdated240 = g_Vars.thisframe240;
+		g_Menus[playernum].fm.headtextures->lastupdated240 = g_Vars.thisframestart240;
 
 		func0f15015c(device, fileid, g_Menus[playernum].fm.headtextures->unk000[freeslot]);
 

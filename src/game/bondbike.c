@@ -216,16 +216,16 @@ void bbikeApplyMoveData(struct movedata *data)
 	if (data->digitalstepforward) {
 		value1 = 1.0f - g_Vars.currentplayer->speedforwards;
 
-		if (value1 > 0.1f * g_Vars.lvupdate240freal) {
-			value1 = 0.1f * g_Vars.lvupdate240freal;
+		if (value1 > 0.1f * g_Vars.lvupdate60freal) {
+			value1 = 0.1f * g_Vars.lvupdate60freal;
 		}
 
 		g_Vars.currentplayer->speedforwards += value1;
 	} else if (data->digitalstepback) {
 		value1 = -1.0f - g_Vars.currentplayer->speedforwards;
 
-		if (value1 < -0.1f * g_Vars.lvupdate240freal) {
-			value1 = -0.1f * g_Vars.lvupdate240freal;
+		if (value1 < -0.1f * g_Vars.lvupdate60freal) {
+			value1 = -0.1f * g_Vars.lvupdate60freal;
 		}
 
 		g_Vars.currentplayer->speedforwards += value1;
@@ -336,11 +336,11 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 	}
 
 	if (arg1->x) {
-		sp84.x += arg1->x / g_Vars.lvupdate240freal;
+		sp84.x += arg1->x / g_Vars.lvupdate60freal;
 	}
 
 	if (arg1->z) {
-		sp84.z += arg1->z / g_Vars.lvupdate240freal;
+		sp84.z += arg1->z / g_Vars.lvupdate60freal;
 	}
 
 	func0f082e84(obstacle, &sp9c, &sp90, &sp84, false);
@@ -356,7 +356,7 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 		xdiff *= tmp;
 		zdiff *= tmp;
 
-		arg2 = arg2 / g_Vars.lvupdate240freal;
+		arg2 = arg2 / g_Vars.lvupdate60freal;
 
 		speed.x += -zdiff * arg2 * 40;
 		speed.z += xdiff * arg2 * 40;
@@ -836,7 +836,7 @@ void bbikeTick(void)
 		g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
 		g_Vars.currentplayer->bondprevpos.z = g_Vars.currentplayer->prop->pos.z;
 
-		g_Vars.currentplayer->bondbreathing -= (0.75f * g_Vars.lvupdate240freal) / 2700.0f;
+		g_Vars.currentplayer->bondbreathing -= (0.75f * g_Vars.lvupdate60freal) / 2700.0f;
 
 		if (g_Vars.currentplayer->bondbreathing < 0.0f) {
 			g_Vars.currentplayer->bondbreathing = 0.0f;
@@ -885,19 +885,19 @@ void bbikeTick(void)
 
 		if (1);
 
-		bbike0f0d363c(bike->w * g_Vars.lvupdate240freal);
+		bbike0f0d363c(bike->w * g_Vars.lvupdate60freal);
 
-		sp20c.x = bike->speed[0] * g_Vars.lvupdate240freal;
+		sp20c.x = bike->speed[0] * g_Vars.lvupdate60freal;
 		sp20c.y = 0.0f;
-		sp20c.z = bike->speed[1] * g_Vars.lvupdate240freal;
+		sp20c.z = bike->speed[1] * g_Vars.lvupdate60freal;
 
 		bike->prevpos[0] = bike->base.prop->pos.x;
 		bike->prevpos[1] = bike->base.prop->pos.z;
 
 		bbike0f0d3c60(&sp20c);
 
-		sp1f8 = (bike->base.prop->pos.x - bike->prevpos[0]) / g_Vars.lvupdate240freal;
-		sp1f4 = (bike->base.prop->pos.z - bike->prevpos[1]) / g_Vars.lvupdate240freal;
+		sp1f8 = (bike->base.prop->pos.x - bike->prevpos[0]) / g_Vars.lvupdate60freal;
+		sp1f4 = (bike->base.prop->pos.z - bike->prevpos[1]) / g_Vars.lvupdate60freal;
 
 		if (sp1f8 != 0.0f || sp1f4 != 0.0f) {
 			f32 tmp = sp1f8 * sp1f8 + sp1f4 * sp1f4;
@@ -957,7 +957,7 @@ void bbikeTick(void)
 	mtx4MultMtx4InPlace(&sp124, &sp164);
 
 	if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_OFF) {
-		g_Vars.currentplayer->bondentert += g_Vars.lvupdate240freal / 60.0f;
+		g_Vars.currentplayer->bondentert += g_Vars.lvupdate60freal / 60.0f;
 
 		if (g_Vars.currentplayer->bondentert >= 1.0f) {
 			g_Vars.currentplayer->bondentert = 1.0f;

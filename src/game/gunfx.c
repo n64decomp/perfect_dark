@@ -1750,7 +1750,7 @@ void beamTick(struct beam *beam)
 		} else {
 			if (g_Vars.lvupdate240 <= 8) {
 				// Not lagging
-				beam->dist += beam->speed * g_Vars.lvupdate240f;
+				beam->dist += beam->speed * g_Vars.lvupdate60f;
 			} else {
 				// Lagging
 				beam->dist += beam->speed * (2 + RANDOMFRAC() * 0.5f);
@@ -1891,9 +1891,9 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 			casing->speed.y = newyspeed;
 
 			if (g_Vars.lvupdate240 > 0) {
-				casing->speed.x += (player->hands[handnum].posmtx.m[3][0] - player->hands[handnum].prevmtx.m[3][0]) / g_Vars.lvupdate240freal;
-				casing->speed.y += (player->hands[handnum].posmtx.m[3][1] - player->hands[handnum].prevmtx.m[3][1]) / g_Vars.lvupdate240freal;
-				casing->speed.z += (player->hands[handnum].posmtx.m[3][2] - player->hands[handnum].prevmtx.m[3][2]) / g_Vars.lvupdate240freal;
+				casing->speed.x += (player->hands[handnum].posmtx.m[3][0] - player->hands[handnum].prevmtx.m[3][0]) / g_Vars.lvupdate60freal;
+				casing->speed.y += (player->hands[handnum].posmtx.m[3][1] - player->hands[handnum].prevmtx.m[3][1]) / g_Vars.lvupdate60freal;
+				casing->speed.z += (player->hands[handnum].posmtx.m[3][2] - player->hands[handnum].prevmtx.m[3][2]) / g_Vars.lvupdate60freal;
 			}
 		} else {
 			if (weaponnum == WEAPON_REAPER) {
@@ -1948,9 +1948,9 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 			casing->speed.y = newyspeed;
 
 			if (g_Vars.lvupdate240 > 0) {
-				casing->speed.x += (player->hands[handnum].posmtx.m[3][0] - player->hands[handnum].prevmtx.m[3][0]) / g_Vars.lvupdate240freal;
-				casing->speed.y += (player->hands[handnum].posmtx.m[3][1] - player->hands[handnum].prevmtx.m[3][1]) / g_Vars.lvupdate240freal;
-				casing->speed.z += (player->hands[handnum].posmtx.m[3][2] - player->hands[handnum].prevmtx.m[3][2]) / g_Vars.lvupdate240freal;
+				casing->speed.x += (player->hands[handnum].posmtx.m[3][0] - player->hands[handnum].prevmtx.m[3][0]) / g_Vars.lvupdate60freal;
+				casing->speed.y += (player->hands[handnum].posmtx.m[3][1] - player->hands[handnum].prevmtx.m[3][1]) / g_Vars.lvupdate60freal;
+				casing->speed.z += (player->hands[handnum].posmtx.m[3][2] - player->hands[handnum].prevmtx.m[3][2]) / g_Vars.lvupdate60freal;
 			}
 		}
 	}
@@ -2139,7 +2139,7 @@ void boltbeamsTick(void)
 					(g_BoltBeams[i].tailpos.f[1] - g_BoltBeams[i].headpos.f[1]) * (g_BoltBeams[i].tailpos.f[1] - g_BoltBeams[i].headpos.f[1]) +
 					(g_BoltBeams[i].tailpos.f[2] - g_BoltBeams[i].headpos.f[2]) * (g_BoltBeams[i].tailpos.f[2] - g_BoltBeams[i].headpos.f[2]));
 
-			length -= g_BoltBeams[i].speed * LVUPDATE240FREAL() / 60.0f;
+			length -= g_BoltBeams[i].speed * LVUPDATE60FREAL() / 60.0f;
 
 			if (length < 0) {
 				g_BoltBeams[i].unk00 = -1;

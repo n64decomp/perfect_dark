@@ -17,7 +17,7 @@ void casingTick(struct casing *casing)
 	f32 sp68[3][3];
 	s32 i;
 	s32 j;
-	f32 lvupdate = g_Vars.lvupdate240freal;
+	f32 lvupdate = g_Vars.lvupdate60freal;
 	f32 sp58;
 
 	tmp2 = lvupdate * (1.0f / 3.6f);

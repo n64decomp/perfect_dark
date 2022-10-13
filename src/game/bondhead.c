@@ -176,8 +176,8 @@ void bheadUpdate(f32 arg0, f32 arg1)
 		g_Vars.currentplayer->bondheadmatrices[0].m[3][2] *= arg0;
 
 		if (g_Vars.lvupdate240 > 0) {
-			g_Vars.currentplayer->bondheadmatrices[0].m[3][0] /= g_Vars.lvupdate240freal;
-			g_Vars.currentplayer->bondheadmatrices[0].m[3][2] /= g_Vars.lvupdate240freal;
+			g_Vars.currentplayer->bondheadmatrices[0].m[3][0] /= g_Vars.lvupdate60freal;
+			g_Vars.currentplayer->bondheadmatrices[0].m[3][2] /= g_Vars.lvupdate60freal;
 		}
 
 		headpos.x = g_Vars.currentplayer->bondheadmatrices[0].m[3][0] * g_Vars.currentplayer->headamplitude;
@@ -194,7 +194,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			upvel.y = (g_Vars.currentplayer->bondheadmatrices[0].m[1][1] - 1.0f) * g_Vars.currentplayer->headamplitude + 1.0f;
 			upvel.z = g_Vars.currentplayer->bondheadmatrices[0].m[1][2] * g_Vars.currentplayer->headamplitude;
 
-			g_Vars.currentplayer->headwalkingtime60 += g_Vars.lvupdate240_60;
+			g_Vars.currentplayer->headwalkingtime60 += g_Vars.lvupdate60;
 
 			if (g_Vars.currentplayer->headwalkingtime60 > TICKS(60)) {
 				bheadSetdamp(PAL ? 0.9785f : 0.982f);
@@ -227,7 +227,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 		if (bmoveGetCrouchPos() != CROUCHPOS_SQUAT) {
 			g_Vars.currentplayer->standfrac +=
 				(0.0083333337679505f + 0.025000002235174f * g_Vars.currentplayer->bondbreathing)
-				* g_Vars.lvupdate240freal;
+				* g_Vars.lvupdate60freal;
 
 			if (g_Vars.currentplayer->standfrac >= 1) {
 				bheadUpdateIdleRoll();

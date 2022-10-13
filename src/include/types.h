@@ -98,147 +98,155 @@ struct fileguid {
 };
 
 struct g_vars {
-	/*000000*/ s32 diffframe60;
-	/*000004*/ f32 diffframe60f;
-	/*000008*/ s32 lvframe60;
-	/*00000c*/ s32 lvframenum; // increments by 1 each frame when not paused
-	/*000010*/ f32 diffframe60freal;
-	/*000014*/ s32 lastframetime;
-	/*000018*/ s32 thisframetime;
-	/*00001c*/ s32 thisframeticks;
-	/*000020*/ s32 lostframetime;
-	/*000024*/ s32 lostframetime240;
-	/*000028*/ u32 mininc60;
-	/*00002c*/ s32 roomportalrecursionlimit;
-	/*000030*/ s32 lvframe240;
-	/*000034*/ s32 lvupdate240; // 0 = paused, 4 = slowmo, 8 = normal
-	/*000038*/ s32 lvupdate240_60;
-	/*00003c*/ s32 lvupdate240_60error;
-	/*000040*/ s32 diffframe240;
-	/*000044*/ f32 lvupdate240f;
-	/*000048*/ f32 diffframe240f;
-	/*00004c*/ f32 lvupdate240freal; // actually a 60 value
-	/*000050*/ f32 lvupdate240frealprev;
-	/*000054*/ s32 lastframe240;
-	/*000058*/ s32 thisframe240;
-	/*00005c*/ f32 diffframe240freal;
-	/*000060*/ s16 *waypointnums; // ordered by room asc, padnum asc
-	/*000064*/ struct player *players[4];
-	/*000074*/ struct playerstats playerstats[4];
-	/*000274*/ u32 playerorder[4];
-	/*000284*/ struct player *currentplayer;
-	/*000288*/ struct playerstats *currentplayerstats;
-	/*00028c*/ s32 currentplayernum; // 0-3 - controller numbers I think
-	/*000290*/ s32 currentplayerindex; // 0-3 - but 2 or 3 probably only used in combat simulator
-	/*000294*/ s32 bondplayernum;
-	/*000298*/ s32 coopplayernum;
-	/*00029c*/ s32 antiplayernum;
-	/*0002a0*/ struct player *bond; // Joanna
-	/*0002a4*/ struct player *coop; // Co-op buddy when controlled by human
-	/*0002a8*/ struct player *anti; // Counter-op
-	/*0002ac*/ s32 tickmode;
-	/*0002b0*/ s32 killcount;
-	/*0002b4*/ u32 knockoutcount;
-	/*0002b8*/ struct textoverride *textoverrides;
-	/*0002bc*/ s32 roomcount;
-	/*0002c0*/ s32 hitboundscount;
-	/*0002c4*/ struct modelnode *hitnodes[20];
-	/*000314*/ u32 mplayerisrunning;     // combat sim with any number of players, coop with human buddy, and counter-op
-	/*000318*/ u32 normmplayerisrunning; // combat sim with any number of players
-	/*00031c*/ s32 lvmpbotlevel;
-	/*000320*/ s32 lockscreen;
-	/*000324*/ bool bondvisible;
-	/*000328*/ bool bondcollisions;
-	/*00032c*/ bool enableslopes;
-	/*000330*/ u32 padrandomroutes;
-	/*000334*/ s32 maxprops;
-	/*000338*/ struct prop *props; // pointer to array of structs
-	/*00033c*/ struct prop *activeprops; // head of a doubly linked list
-	/*000340*/ struct prop *activepropstail; // next pointer points to pausedprops
-	/*000344*/ struct prop *freeprops; // head of a singularly linked list
-	/*000348*/ struct prop **onscreenprops; // sorted by distance, furthest first
-	/*00034c*/ struct prop **endonscreenprops;
-	/*000350*/ s32 numonscreenprops;
-	/*000354*/ struct prop *pausedprops; // head of a doubly linked list, prev pointer points to activepropstail
-	/*000358*/ u8 numpropstates;
-	/*000359*/ u8 allocstateindex;
-	/*00035a*/ u8 runstateindex;
-	/*00035b*/ u8 alwaystick;
-	/*00035c*/ u16 updateframe;
-	/*00035e*/ u16 prevupdateframe;
-	/*000360*/ struct propstate propstates[7];
-	/*000424*/ struct chrdata *chrdata;
-	/*000428*/ struct truckobj *truck;
-	/*00042c*/ struct heliobj *heli;
-	/*000430*/ struct chopperobj *hovercar;
-	/*000434*/ u8 *ailist;
-	/*000438*/ u32 aioffset;
-	/*00043c*/ s32 hardfreeabletally;
-	/*000440*/ s32 antiheadnum;
-	/*000444*/ s32 antibodynum;
-	/*000448*/ s32 coopradaron;
-	/*00044c*/ s32 antiradaron;
-	/*000450*/ s32 pendingantiplayernum;
-	/*000454*/ s32 coopfriendlyfire;
-	/*000458*/ u32 modifiedfiles;
-	/*00045c*/ s32 speedpilltime; // in time60
-	/*000460*/ s32 speedpillchange;
-	/*000464*/ u32 speedpillwant;
-	/*000468*/ bool speedpillon;
-	/*00046c*/ s32 restartlevel;
-	/*000470*/ s32 perfectbuddynum;
-	/*000474*/ s32 numaibuddies;
-	/*000478*/ bool aibuddiesspawned;
-	/*00047c*/ s32 bossfileid;
-	/*000480*/ u16 bossdeviceserial;
-	/*000482*/ u16 language;
-	/*000484*/ s32 mphilltime;
-	/*000488*/ s32 totalkills;
-	/*00048c*/ bool useperimshoot;
-	/*000490*/ s32 mpsetupmenu;
-	/*000494*/ s8 waitingtojoin[4];
-	/*000498*/ s32 unk000498;
-	/*00049c*/ bool usingadvsetup;
-	/*0004a0*/ s32 unk0004a0;
-	/*0004a4*/ s32 mpquickteamnumsims;
-	/*0004a8*/ s32 mpsimdifficulty;
-	/*0004ac*/ s8 mpplayerteams[4];
-	/*0004b0*/ u32 mpquickteam;
-	/*0004b4*/ s32 stagenum;
-	/*0004b8*/ struct prop *aibuddies[4];
-	/*0004c8*/ u32 dontplaynrg; // allow X music to be played (NRG = energy track)
-	/*0004cc*/ s32 in_cutscene;
-	/*0004d0*/ u8 paksconnected;
-	/*0004d1*/ u8 paksconnected2;
-	/*0004d2*/ s8 autocutnum; // cutscene scene number (0, 1 or 2), set to -1 while loading cutscene
-	/*0004d3*/ s8 autocutplaying; // true if playing a cutscene via the menu, false when a button is pressed
-	/*0004d4*/ s8 autocutgroupcur; // index into g_Cutscenes
-	/*0004d5*/ s8 autocutgroupleft; // number of cutscenes left to play
-	/*0004d6*/ s8 autocutfinished; // true if cutscene reached natural end
-	/*0004d7*/ s8 autocutgroupskip; // true if pressed start during auto cutscene
-	/*0004d8*/ s32 joydisableframestogo;
-	/*0004dc*/ u8 playertojoymap[4];
-	/*0004e0*/ u8 fourmeg2player;
-	/*0004e1*/ u8 remakewallhitvtx;
-	/*0004e2*/ u8 cutsceneskip60ths;
-	/*0004e3*/ u8 langfilteron;
+	// lv values pause when the game is paused, and reset when a new level is loaded
+	// diff values run all the time
+	// names ending in f are the same as their non-f counterparts, but as a float
+	// names ending in freal are the same as f but multiplied by 1.2 on PAL
+	// names ending in 60 mean their units are 60ths of a second
+	// names ending in 240 mean their units are 240ths of a second
+	// names ending in t mean their units are CPU ticks/cycles
+
+	/*0x000*/ s32 diffframe60;         // time between current frame start and previous frame start in 60ths of a second
+	/*0x004*/ f32 diffframe60f;        // always .0 decimal
+	/*0x008*/ s32 lvframe60;           // incrementing 60ths, but it doesn't apply remainder so it drops behind lvframe240 / 4
+	/*0x00c*/ s32 lvframenum;          // increments by 1 each frame
+	/*0x010*/ f32 diffframe60freal;
+	/*0x014*/ s32 prevframestartt;     // cycle count at start of previous frame
+	/*0x018*/ s32 thisframestartt;     // cycle count at start of current frame
+	/*0x01c*/ s32 diffframet;          // previous frame's duration in ticks, including any wait time after it finished
+	/*0x020*/ s32 lostframetime60t;
+	/*0x024*/ s32 lostframetime240t;
+	/*0x028*/ u32 mininc60;            // minimum amount of time between frames (always set to 1, ie. max 60fps)
+	/*0x02c*/ s32 roomportalrecursionlimit;
+	/*0x030*/ s32 lvframe240;          // incrementing 240ths
+	/*0x034*/ s32 lvupdate240;         // update multiplier, capped at 4 if slow motion
+	/*0x038*/ s32 lvupdate60;          // update multiplier, factoring in remainder from previous frame
+	/*0x03c*/ s32 lvupdate240rem;      // update multiplier's remainder for next frame's lvupdate60 (0 - 3)
+	/*0x040*/ s32 diffframe240;        // time between current frame start and previous frame start in 240ths of a second
+	/*0x044*/ f32 lvupdate60f;         // with decimal
+	/*0x048*/ f32 diffframe240f;       // always .0 decimal
+	/*0x04c*/ f32 lvupdate60freal;
+	/*0x050*/ f32 lvupdate60frealprev; // previous frame's lvupdate60freal
+	/*0x054*/ s32 prevframestart240;   // previous frame's start time in 240ths (incrementing)
+	/*0x058*/ s32 thisframestart240;   // current frame's start time in 240ths (incrementing)
+	/*0x05c*/ f32 diffframe240freal;
+	/*0x060*/ s16 *waypointnums; // ordered by room asc, padnum asc
+	/*0x064*/ struct player *players[4];
+	/*0x074*/ struct playerstats playerstats[4];
+	/*0x274*/ u32 playerorder[4];
+	/*0x284*/ struct player *currentplayer;
+	/*0x288*/ struct playerstats *currentplayerstats;
+	/*0x28c*/ s32 currentplayernum; // 0-3 - controller numbers I think
+	/*0x290*/ s32 currentplayerindex; // 0-3 - but 2 or 3 probably only used in combat simulator
+	/*0x294*/ s32 bondplayernum;
+	/*0x298*/ s32 coopplayernum;
+	/*0x29c*/ s32 antiplayernum;
+	/*0x2a0*/ struct player *bond; // Joanna
+	/*0x2a4*/ struct player *coop; // Co-op buddy when controlled by human
+	/*0x2a8*/ struct player *anti; // Counter-op
+	/*0x2ac*/ s32 tickmode;
+	/*0x2b0*/ s32 killcount;
+	/*0x2b4*/ u32 knockoutcount;
+	/*0x2b8*/ struct textoverride *textoverrides;
+	/*0x2bc*/ s32 roomcount;
+	/*0x2c0*/ s32 hitboundscount;
+	/*0x2c4*/ struct modelnode *hitnodes[20];
+	/*0x314*/ u32 mplayerisrunning;     // combat sim with any number of players, coop with human buddy, and counter-op
+	/*0x318*/ u32 normmplayerisrunning; // combat sim with any number of players
+	/*0x31c*/ s32 lvmpbotlevel;
+	/*0x320*/ s32 lockscreen;
+	/*0x324*/ bool bondvisible;
+	/*0x328*/ bool bondcollisions;
+	/*0x32c*/ bool enableslopes;
+	/*0x330*/ u32 padrandomroutes;
+	/*0x334*/ s32 maxprops;
+	/*0x338*/ struct prop *props; // pointer to array of structs
+	/*0x33c*/ struct prop *activeprops; // head of a doubly linked list
+	/*0x340*/ struct prop *activepropstail; // next pointer points to pausedprops
+	/*0x344*/ struct prop *freeprops; // head of a singularly linked list
+	/*0x348*/ struct prop **onscreenprops; // sorted by distance, furthest first
+	/*0x34c*/ struct prop **endonscreenprops;
+	/*0x350*/ s32 numonscreenprops;
+	/*0x354*/ struct prop *pausedprops; // head of a doubly linked list, prev pointer points to activepropstail
+	/*0x358*/ u8 numpropstates;
+	/*0x359*/ u8 allocstateindex;
+	/*0x35a*/ u8 runstateindex;
+	/*0x35b*/ u8 alwaystick;
+	/*0x35c*/ u16 updateframe;
+	/*0x35e*/ u16 prevupdateframe;
+	/*0x360*/ struct propstate propstates[7];
+	/*0x424*/ struct chrdata *chrdata;
+	/*0x428*/ struct truckobj *truck;
+	/*0x42c*/ struct heliobj *heli;
+	/*0x430*/ struct chopperobj *hovercar;
+	/*0x434*/ u8 *ailist;
+	/*0x438*/ u32 aioffset;
+	/*0x43c*/ s32 hardfreeabletally;
+	/*0x440*/ s32 antiheadnum;
+	/*0x444*/ s32 antibodynum;
+	/*0x448*/ s32 coopradaron;
+	/*0x44c*/ s32 antiradaron;
+	/*0x450*/ s32 pendingantiplayernum;
+	/*0x454*/ s32 coopfriendlyfire;
+	/*0x458*/ u32 modifiedfiles;
+	/*0x45c*/ s32 speedpilltime; // in time60
+	/*0x460*/ s32 speedpillchange;
+	/*0x464*/ u32 speedpillwant;
+	/*0x468*/ bool speedpillon;
+	/*0x46c*/ s32 restartlevel;
+	/*0x470*/ s32 perfectbuddynum;
+	/*0x474*/ s32 numaibuddies;
+	/*0x478*/ bool aibuddiesspawned;
+	/*0x47c*/ s32 bossfileid;
+	/*0x480*/ u16 bossdeviceserial;
+	/*0x482*/ u16 language;
+	/*0x484*/ s32 mphilltime;
+	/*0x488*/ s32 totalkills;
+	/*0x48c*/ bool useperimshoot;
+	/*0x490*/ s32 mpsetupmenu;
+	/*0x494*/ s8 waitingtojoin[4];
+	/*0x498*/ s32 unk000498;
+	/*0x49c*/ bool usingadvsetup;
+	/*0x4a0*/ s32 unk0004a0;
+	/*0x4a4*/ s32 mpquickteamnumsims;
+	/*0x4a8*/ s32 mpsimdifficulty;
+	/*0x4ac*/ s8 mpplayerteams[4];
+	/*0x4b0*/ u32 mpquickteam;
+	/*0x4b4*/ s32 stagenum;
+	/*0x4b8*/ struct prop *aibuddies[4];
+	/*0x4c8*/ u32 dontplaynrg; // allow X music to be played (NRG = energy track)
+	/*0x4cc*/ s32 in_cutscene;
+	/*0x4d0*/ u8 paksconnected;
+	/*0x4d1*/ u8 paksconnected2;
+	/*0x4d2*/ s8 autocutnum; // cutscene scene number (0, 1 or 2), set to -1 while loading cutscene
+	/*0x4d3*/ s8 autocutplaying; // true if playing a cutscene via the menu, false when a button is pressed
+	/*0x4d4*/ s8 autocutgroupcur; // index into g_Cutscenes
+	/*0x4d5*/ s8 autocutgroupleft; // number of cutscenes left to play
+	/*0x4d6*/ s8 autocutfinished; // true if cutscene reached natural end
+	/*0x4d7*/ s8 autocutgroupskip; // true if pressed start during auto cutscene
+	/*0x4d8*/ s32 joydisableframestogo;
+	/*0x4dc*/ u8 playertojoymap[4];
+	/*0x4e0*/ u8 fourmeg2player;
+	/*0x4e1*/ u8 remakewallhitvtx;
+	/*0x4e2*/ u8 cutsceneskip60ths;
+	/*0x4e3*/ u8 langfilteron;
 
 	// 000f = Counter: if 10-15 then ticks down 1 per 7 frames, if under 10 then 1 per frame.
 	// 00f0 = One bit per pak. Does something with the pak if counter expired.
 	// 0f00 = One bit per pak. Does something with the pak if counter expired (likely opposite of the above).
-	/*0004e4*/ u16 unk0004e4;
+	/*0x4e4*/ u16 unk0004e4;
 
-	/*0004e8*/ u32 unk0004e8;
-	/*0004ec*/ u32 unk0004ec;
-	/*0004f0*/ u32 unk0004f0;
-	/*0004f4*/ u32 unk0004f4;
-	/*0004f8*/ u32 unk0004f8;
-	/*0004fc*/ u32 unk0004fc;
-	/*0004e0*/ u32 unk000500;
-	/*000504*/ u32 unk000504;
-	/*000508*/ u32 unk000508;
-	/*00050c*/ u32 unk00050c;
-	/*000510*/ f32 unk000510;
+	/*0x4e8*/ u32 unk0004e8;
+	/*0x4ec*/ u32 unk0004ec;
+	/*0x4f0*/ u32 unk0004f0;
+	/*0x4f4*/ u32 unk0004f4;
+	/*0x4f8*/ u32 unk0004f8;
+	/*0x4fc*/ u32 unk0004fc;
+	/*0x4e0*/ u32 unk000500;
+	/*0x504*/ u32 unk000504;
+	/*0x508*/ u32 unk000508;
+	/*0x50c*/ u32 unk00050c;
+	/*0x510*/ f32 unk000510;
 };
 
 struct weaponobj;

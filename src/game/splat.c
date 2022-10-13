@@ -121,7 +121,7 @@ void splatTickChr(struct prop *prop)
 		}
 	}
 
-	chr->tickssincesplat += g_Vars.lvupdate240_60;
+	chr->tickssincesplat += g_Vars.lvupdate60;
 }
 
 void splatsCreateForChrHit(struct prop *prop, struct shotdata *shotdata, struct coord *arg2, struct coord *arg3, bool isskedar, s32 splattype, struct chrdata *chr2)

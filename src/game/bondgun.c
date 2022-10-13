@@ -442,8 +442,8 @@ void bgunTickUnequippedReload(void)
 		for (j = 0; j < 4; j++) {
 			u16 spent = g_Vars.currentplayer->hands[i].gunroundsspent[j];
 
-			if (spent > g_Vars.lvupdate240_60) {
-				spent -= g_Vars.lvupdate240_60;
+			if (spent > g_Vars.lvupdate60) {
+				spent -= g_Vars.lvupdate60;
 			} else {
 				spent = 0;
 			}
@@ -3402,7 +3402,7 @@ s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 
 			if (autofunc->unk50 > 0) {
 				if (hand->gs_float1 < 1) {
-					hand->gs_float1 += LVUPDATE240FREAL() / autofunc->unk50;
+					hand->gs_float1 += LVUPDATE60FREAL() / autofunc->unk50;
 
 					if (hand->gs_float1 > 1) {
 						hand->gs_float1 = 1;
@@ -3460,7 +3460,7 @@ s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 
 		if (autofunc->unk51 > 0) {
 			if (hand->gs_float1 > 0) {
-				hand->gs_float1 -= LVUPDATE240FREAL() / autofunc->unk51;
+				hand->gs_float1 -= LVUPDATE60FREAL() / autofunc->unk51;
 
 				if (hand->gs_float1 < 0) {
 					hand->gs_float1 = 0;
@@ -3497,7 +3497,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 		f32 tmp2;
 
 		tmp = autofunc->initialfirerate + (autofunc->maxfirerate - autofunc->initialfirerate) * hand->gs_float1;
-		tmp2 = tmp / 60.0f * (LVUPDATE240FREAL() / 60.0f) + hand->shotremainder;
+		tmp2 = tmp / 60.0f * (LVUPDATE60FREAL() / 60.0f) + hand->shotremainder;
 
 		hand->shotstotake = tmp2;
 		hand->shotremainder = tmp2 - hand->shotstotake;
@@ -4009,7 +4009,7 @@ bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 		hand->burstbullets++;
 
 		if (hand->triggeron) {
-			hand->matmot2 += 0.01f * LVUPDATE240FREAL();
+			hand->matmot2 += 0.01f * LVUPDATE60FREAL();
 
 			if (hand->matmot2 > 1) {
 				hand->matmot2 = 1;
@@ -4794,7 +4794,7 @@ s32 bgunTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 	hand->stateframes += lvupdate;
 
 	if (g_Vars.lvupdate240 > 0) {
-		hand->count60 += g_Vars.lvupdate240_60;
+		hand->count60 += g_Vars.lvupdate60;
 		hand->count++;
 	}
 
@@ -4879,13 +4879,13 @@ void bgunTickHand(s32 handnum)
 
 	bgunGetWeaponInfo(&info, handnum);
 
-	lvupdate = g_Vars.lvupdate240_60;
+	lvupdate = g_Vars.lvupdate60;
 
-	hand->animframeinc = g_Vars.lvupdate240_60;
+	hand->animframeinc = g_Vars.lvupdate60;
 #if VERSION >= VERSION_PAL_BETA
 	hand->animframeincfreal = modelGetAbsAnimSpeed(&hand->gunmodel) * PALUPF(hand->animframeinc);
 #else
-	hand->animframeincfreal += PALUPF(g_Vars.lvupdate240_60);
+	hand->animframeincfreal += PALUPF(g_Vars.lvupdate60);
 #endif
 
 	while (i >= 0) {
@@ -4957,8 +4957,8 @@ void bgunDecreaseNoiseRadius(void)
 		}
 	}
 
-	subamount = g_Vars.lvupdate240freal * noisesettingsright.incradius / (noisesettingsright.unk0c * 60.0f);
-	consideramount = (player->hands[HAND_RIGHT].noiseradius - noisesettingsright.minradius) * g_Vars.lvupdate240freal / (noisesettingsright.unk10 * 60.0f);
+	subamount = g_Vars.lvupdate60freal * noisesettingsright.incradius / (noisesettingsright.unk0c * 60.0f);
+	consideramount = (player->hands[HAND_RIGHT].noiseradius - noisesettingsright.minradius) * g_Vars.lvupdate60freal / (noisesettingsright.unk10 * 60.0f);
 
 	if (consideramount > subamount) {
 		subamount = consideramount;
@@ -4979,8 +4979,8 @@ void bgunDecreaseNoiseRadius(void)
 		}
 	}
 
-	subamount = g_Vars.lvupdate240freal * noisesettingsleft.incradius / (noisesettingsleft.unk0c * 60.0f);
-	consideramount = (player->hands[HAND_LEFT].noiseradius - noisesettingsleft.minradius) * g_Vars.lvupdate240freal / (noisesettingsleft.unk10 * 60.0f);
+	subamount = g_Vars.lvupdate60freal * noisesettingsleft.incradius / (noisesettingsleft.unk0c * 60.0f);
+	consideramount = (player->hands[HAND_LEFT].noiseradius - noisesettingsleft.minradius) * g_Vars.lvupdate60freal / (noisesettingsleft.unk10 * 60.0f);
 
 	if (consideramount > subamount) {
 		subamount = consideramount;
@@ -5158,7 +5158,7 @@ void bgun0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 	}
 
 	breathing = player->cyclesum * (PAL ? 0.01529997587204f : 0.012799978256226f);
-	sp4c = breathing * g_Vars.lvupdate240freal;
+	sp4c = breathing * g_Vars.lvupdate60freal;
 	dampt[0] = player->hands[0].dampt + sp4c;
 
 	while (dampt[0] >= 1.0f) {
@@ -5167,7 +5167,7 @@ void bgun0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 		player->syncoffset++;
 	}
 
-	player->synccount += g_Vars.lvupdate240freal;
+	player->synccount += g_Vars.lvupdate60freal;
 
 	if (player->synccount > 60.0f) {
 		player->synccount = 0.0f;
@@ -6191,9 +6191,9 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 
 	// Add player movement to velocity
 	if (g_Vars.lvupdate240 > 0) {
-		velocity.x += (playerprop->pos.x - prevpos->x + extrapos->x) / g_Vars.lvupdate240freal;
-		velocity.y += (playerprop->pos.y - prevpos->y + extrapos->y) / g_Vars.lvupdate240freal;
-		velocity.z += (playerprop->pos.z - prevpos->z + extrapos->z) / g_Vars.lvupdate240freal;
+		velocity.x += (playerprop->pos.x - prevpos->x + extrapos->x) / g_Vars.lvupdate60freal;
+		velocity.y += (playerprop->pos.y - prevpos->y + extrapos->y) / g_Vars.lvupdate60freal;
+		velocity.z += (playerprop->pos.z - prevpos->z + extrapos->z) / g_Vars.lvupdate60freal;
 	}
 
 	obj = bgunCreateThrownProjectile2(g_Vars.currentplayer->prop->chr, gset, &spawnpos, spawnrooms, &sp1f4, &velocity);
@@ -6417,14 +6417,14 @@ void bgunCreateFiredProjectile(s32 handnum)
 			sp250.y = sp1f8.y * sp260;
 			sp250.z = sp1f8.z * sp260;
 
-			sp264.x = sp250.f[0] * g_Vars.lvupdate240freal + sp1f8.f[0] * sp25c;
-			sp264.y = sp250.f[1] * g_Vars.lvupdate240freal + sp1f8.f[1] * sp25c;
-			sp264.z = sp250.f[2] * g_Vars.lvupdate240freal + sp1f8.f[2] * sp25c;
+			sp264.x = sp250.f[0] * g_Vars.lvupdate60freal + sp1f8.f[0] * sp25c;
+			sp264.y = sp250.f[1] * g_Vars.lvupdate60freal + sp1f8.f[1] * sp25c;
+			sp264.z = sp250.f[2] * g_Vars.lvupdate60freal + sp1f8.f[2] * sp25c;
 
 			if ((funcdef->base.base.flags & FUNCFLAG_FLYBYWIRE) == 0 && g_Vars.lvupdate240 > 0) {
-				sp264.x += (playerprop->pos.x - prevpos->x + extrapos->x) / g_Vars.lvupdate240freal;
-				sp264.y += (playerprop->pos.y - prevpos->y + extrapos->y) / g_Vars.lvupdate240freal;
-				sp264.z += (playerprop->pos.z - prevpos->z + extrapos->z) / g_Vars.lvupdate240freal;
+				sp264.x += (playerprop->pos.x - prevpos->x + extrapos->x) / g_Vars.lvupdate60freal;
+				sp264.y += (playerprop->pos.y - prevpos->y + extrapos->y) / g_Vars.lvupdate60freal;
+				sp264.z += (playerprop->pos.z - prevpos->z + extrapos->z) / g_Vars.lvupdate60freal;
 			}
 
 			mtx4Copy(&g_Vars.currentplayer->hands[handnum].posmtx, &sp210);
@@ -7644,7 +7644,7 @@ void bgunUpdateSlide(s32 handnum)
 	if (player->hands[handnum].slideinc) {
 		// Slide is moving backwards
 		if (player->hands[handnum].slidetrans < slidemax) {
-			player->hands[handnum].slidetrans += slidemax * 0.25f * g_Vars.lvupdate240freal;
+			player->hands[handnum].slidetrans += slidemax * 0.25f * g_Vars.lvupdate60freal;
 		}
 
 		if (player->hands[handnum].slidetrans >= slidemax) {
@@ -7655,7 +7655,7 @@ void bgunUpdateSlide(s32 handnum)
 		if (bgun0f098a44(&player->hands[handnum], 3)) {
 			// Slide is moving forwards
 			if (player->hands[handnum].slidetrans > 0.0f) {
-				player->hands[handnum].slidetrans -= slidemax * 0.16666667f * g_Vars.lvupdate240freal;
+				player->hands[handnum].slidetrans -= slidemax * 0.16666667f * g_Vars.lvupdate60freal;
 			}
 
 			if (player->hands[handnum].slidetrans < 0.0f) {
@@ -8184,7 +8184,7 @@ void bgunUpdateGangsta(struct hand *hand, s32 handnum, struct coord *arg2, struc
 			hand->ispare1 += g_Vars.lvupdate240;
 
 			if (hand->ispare1 > TICKS(60)) {
-				hand->gangstarot += LVUPDATE240FREAL() / 30.0f;
+				hand->gangstarot += LVUPDATE60FREAL() / 30.0f;
 
 				if (hand->gangstarot > 1.0f) {
 					hand->gangstarot = 1.0f;
@@ -8229,7 +8229,7 @@ void bgunUpdateGangsta(struct hand *hand, s32 handnum, struct coord *arg2, struc
 			}
 
 			if (revert) {
-				hand->gangstarot -= LVUPDATE240FREAL() / inversespeed;
+				hand->gangstarot -= LVUPDATE60FREAL() / inversespeed;
 			}
 
 			if (hand->gangstarot < 0.0f) {
@@ -8275,7 +8275,7 @@ void bgunUpdateSmoke(struct hand *hand, s32 handnum, s32 weaponnum, struct weapo
 		}
 	}
 
-	hand->gunsmokepoint -= LVUPDATE240FREAL() / 120.0f;
+	hand->gunsmokepoint -= LVUPDATE60FREAL() / 120.0f;
 
 	if (hand->gunsmokepoint < 0.0f) {
 		hand->gunsmokepoint = 0.0f;
@@ -8497,7 +8497,7 @@ void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef)
 
 	if (hand->matmot3 <= hand->matmot2) {
 		if (hand->matmot2 < 0.0f) {
-			hand->matmot2 += 0.01f * LVUPDATE240FREAL();
+			hand->matmot2 += 0.01f * LVUPDATE60FREAL();
 
 			if (hand->matmot2 > 0.0f) {
 				hand->matmot2 = 0.0f;
@@ -8506,7 +8506,7 @@ void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef)
 
 		hand->matmot3 = hand->matmot2;
 	} else {
-		f12 = LVUPDATE240FREAL() * 0.005;
+		f12 = LVUPDATE60FREAL() * 0.005;
 
 		if (hand->matmot2 < 0.0000001f) {
 			hand->matmot2 = -0.14f;
@@ -8526,9 +8526,9 @@ void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef)
 	}
 
 	if (hand->matmot3 < 0.0f) {
-		hand->matmot1 = hand->matmot1 - (1.0f - cosf(hand->matmot3 * M_PI)) * 0.5f * LVUPDATE240FREAL() * 0.2f;
+		hand->matmot1 = hand->matmot1 - (1.0f - cosf(hand->matmot3 * M_PI)) * 0.5f * LVUPDATE60FREAL() * 0.2f;
 	} else {
-		hand->matmot1 = hand->matmot1 + (1.0f - cosf(hand->matmot3 * M_PI)) * 0.5f * LVUPDATE240FREAL() * 0.2f;
+		hand->matmot1 = hand->matmot1 + (1.0f - cosf(hand->matmot3 * M_PI)) * 0.5f * LVUPDATE60FREAL() * 0.2f;
 	}
 
 	tmp = hand->matmot1 / 6.2831802368164f;
@@ -8635,7 +8635,7 @@ void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledat
 		s32 mtxindex = model0001a524(node, 0);
 		struct coord sp24;
 
-		hand->loadslide += 0.01f * LVUPDATE240FREAL();
+		hand->loadslide += 0.01f * LVUPDATE60FREAL();
 
 		if (hand->loadslide > 1.0f) {
 			hand->loadslide = 1.0f;
@@ -8667,7 +8667,7 @@ void bgunUpdateShotgun(struct hand *hand, u8 *allocation, bool *arg2, struct mod
 	}
 
 	if (hand->matmot1 > 0.0f) {
-		hand->matmot1 -= LVUPDATE240FREAL() / 6.0f;
+		hand->matmot1 -= LVUPDATE60FREAL() / 6.0f;
 
 		if (hand->matmot1 < 0.01f) {
 			hand->matmot1 = 0.0f;
@@ -8703,7 +8703,7 @@ void bgunUpdateLaser(struct hand *hand)
 	}
 
 	if (hand->matmot1 > 0) {
-		hand->matmot1 -= LVUPDATE240FREAL() / 10.0f;
+		hand->matmot1 -= LVUPDATE60FREAL() / 10.0f;
 	} else if (hand->audiohandle != NULL && sndGetState(hand->audiohandle) != AL_STOPPED) {
 		audioStop(hand->audiohandle);
 	}
@@ -8847,9 +8847,9 @@ void bgunTickEject(struct hand *hand, struct modelfiledata *modeldef, bool isdet
 		mtx4ToMtx3(&sp90, hand->unk0d50);
 
 		if (g_Vars.lvupdate240 > 0 && hand->ejecttype != EJECTTYPE_GUN) {
-			sp84.f[0] = (hand->posmtx.m[3][0] - hand->prevmtx.m[3][0]) / g_Vars.lvupdate240freal;
-			sp84.f[1] = (hand->posmtx.m[3][1] - hand->prevmtx.m[3][1]) / g_Vars.lvupdate240freal;
-			sp84.f[2] = (hand->posmtx.m[3][2] - hand->prevmtx.m[3][2]) / g_Vars.lvupdate240freal;
+			sp84.f[0] = (hand->posmtx.m[3][0] - hand->prevmtx.m[3][0]) / g_Vars.lvupdate60freal;
+			sp84.f[1] = (hand->posmtx.m[3][1] - hand->prevmtx.m[3][1]) / g_Vars.lvupdate60freal;
+			sp84.f[2] = (hand->posmtx.m[3][2] - hand->prevmtx.m[3][2]) / g_Vars.lvupdate60freal;
 
 			mtx00017588(hand->posmtx.m, sp44.m);
 			mtx4RotateVecInPlace(&sp44, &sp84);
@@ -8862,7 +8862,7 @@ void bgunTickEject(struct hand *hand, struct modelfiledata *modeldef, bool isdet
 		hand->ejectstate = EJECTSTATE_AIRBORNE;
 		break;
 	case EJECTSTATE_AIRBORNE:
-		lvupdate = g_Vars.lvupdate240freal;
+		lvupdate = g_Vars.lvupdate60freal;
 
 		if (g_Vars.currentplayer->isdead && lvupdate > 1.5f) {
 			lvupdate = 1.5f;
@@ -9129,13 +9129,13 @@ void bgun0f0a5550(s32 handnum)
 
 	if (handnum == HAND_RIGHT) {
 		if (weaponHasFlag(bgunGetWeaponNum2(HAND_LEFT), WEAPONFLAG_00000040)) {
-			hand->xshift += 2.0f * g_Vars.lvupdate240freal / 240.0f;
+			hand->xshift += 2.0f * g_Vars.lvupdate60freal / 240.0f;
 
 			if (hand->xshift > 2.0f) {
 				hand->xshift = 2.0f;
 			}
 		} else {
-			hand->xshift -= 2.0f * g_Vars.lvupdate240freal / 240.0f;
+			hand->xshift -= 2.0f * g_Vars.lvupdate60freal / 240.0f;
 
 			if (hand->xshift < 0.0f) {
 				hand->xshift = 0.0f;
@@ -9143,13 +9143,13 @@ void bgun0f0a5550(s32 handnum)
 		}
 	} else {
 		if (weaponHasFlag(bgunGetWeaponNum2(HAND_RIGHT), WEAPONFLAG_00000040)) {
-			hand->xshift -= 2.0f * g_Vars.lvupdate240freal / 240.0f;
+			hand->xshift -= 2.0f * g_Vars.lvupdate60freal / 240.0f;
 
 			if (hand->xshift < -2.0f) {
 				hand->xshift = -2.0f;
 			}
 		} else {
-			hand->xshift += 2.0f * g_Vars.lvupdate240freal / 240.0f;
+			hand->xshift += 2.0f * g_Vars.lvupdate60freal / 240.0f;
 
 			if (hand->xshift > 0.0f) {
 				hand->xshift = 0.0f;
@@ -9654,7 +9654,7 @@ void bgunTickMaulerCharge(void)
 
 				if (hand->loadedammo[0] >= 2 && hand->matmot1 < 5) {
 					charging = true;
-					hand->matmot1 += g_Vars.lvupdate240freal * 0.05f;
+					hand->matmot1 += g_Vars.lvupdate60freal * 0.05f;
 				}
 
 				if (hand->matmot1 > 5) {
@@ -9668,7 +9668,7 @@ void bgunTickMaulerCharge(void)
 				}
 			} else {
 				// Using primary function - make the charge wear off slowly
-				hand->matmot1 -= g_Vars.lvupdate240freal * 0.005f;
+				hand->matmot1 -= g_Vars.lvupdate60freal * 0.005f;
 
 				if (hand->matmot1 < 0) {
 					hand->matmot1 = 0;
@@ -9805,7 +9805,7 @@ void bgunTickGameplay2(void)
 			// Handle RCP120 cloak ammo usage
 			if ((chr->hidden & CHRHFLAG_CLOAKED) && chr->cloakfadefinished == true) {
 				hand = &player->hands[HAND_RIGHT];
-				hand->matmot1 += LVUPDATE240FREAL() * 0.4f;
+				hand->matmot1 += LVUPDATE60FREAL() * 0.4f;
 
 				if (hand->matmot1 > 1.0f) {
 					s32 usedqty = hand->matmot1;
@@ -13948,7 +13948,7 @@ void bgun0f0a9da8(struct abmag *mag, s32 remaining, s32 capacity, s32 height)
 	}
 
 	if (mag->change != 0) {
-		mag->timer60 += (s16)g_Vars.lvupdate240_60 * height;
+		mag->timer60 += (s16)g_Vars.lvupdate60 * height;
 
 		if (mag->timer60 > TICKS(255)) {
 			if (mag->change > 0) {
@@ -14368,10 +14368,10 @@ Gfx *bgunDrawHud(Gfx *gdl)
 
 			if (ctrl->guntypetimer);
 
-			if (ctrl->guntypetimer + g_Vars.lvupdate240_60 > 255) {
+			if (ctrl->guntypetimer + g_Vars.lvupdate60 > 255) {
 				ctrl->guntypetimer = 255;
 			} else {
-				ctrl->guntypetimer += (u16) g_Vars.lvupdate240_60;
+				ctrl->guntypetimer += (u16) g_Vars.lvupdate60;
 			}
 
 			textMeasure(&textheight, &textwidth, str, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
@@ -14423,10 +14423,10 @@ Gfx *bgunDrawHud(Gfx *gdl)
 			str = langGet(ctrl->curfnstr);
 
 			if (ctrl->fnstrtimer < 255) {
-				if (ctrl->fnstrtimer + g_Vars.lvupdate240_60 > 255) {
+				if (ctrl->fnstrtimer + g_Vars.lvupdate60 > 255) {
 					ctrl->fnstrtimer = 255;
 				} else {
-					ctrl->fnstrtimer += (u16) g_Vars.lvupdate240_60;
+					ctrl->fnstrtimer += (u16) g_Vars.lvupdate60;
 				}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -14668,7 +14668,7 @@ void bgunRevertBoost(void)
 void bgunTickBoost(void)
 {
 	if (g_Vars.speedpillon && g_Vars.speedpilltime > 0 && !g_Vars.in_cutscene) {
-		g_Vars.speedpilltime -= g_Vars.lvupdate240_60;
+		g_Vars.speedpilltime -= g_Vars.lvupdate60;
 
 		if (g_Vars.speedpilltime <= 0) {
 			g_Vars.speedpilltime = 0;

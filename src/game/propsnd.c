@@ -3521,17 +3521,17 @@ void propsndTickChannel(s32 channelnum)
 		if (channel->unk06 == -1) {
 			sp48 = channel->unk04;
 		} else if (channel->unk1c >= 0) {
-			if (channel->unk1c > g_Vars.lvupdate240_60) {
-				sp48 = channel->unk06 + (channel->unk04 - channel->unk06) * g_Vars.lvupdate240_60 / channel->unk1c;
+			if (channel->unk1c > g_Vars.lvupdate60) {
+				sp48 = channel->unk06 + (channel->unk04 - channel->unk06) * g_Vars.lvupdate60 / channel->unk1c;
 			}
 
-			channel->unk1c -= g_Vars.lvupdate240_60;
+			channel->unk1c -= g_Vars.lvupdate60;
 		} else if (channel->unk18 && channel->unk06 != channel->unk04) {
 			f32 f12 = channel->unk04 - channel->unk06;
 #if VERSION >= VERSION_PAL_BETA
-			f32 f14 = g_Vars.lvupdate240freal * (1.0f / 6000.0f) * channel->unk18;
+			f32 f14 = g_Vars.lvupdate60freal * (1.0f / 6000.0f) * channel->unk18;
 #else
-			f32 f14 = g_Vars.lvupdate240_60 * (1.0f / 6000.0f) * channel->unk18;
+			f32 f14 = g_Vars.lvupdate60 * (1.0f / 6000.0f) * channel->unk18;
 #endif
 
 			if (ABS(f12) > 1.0f) {

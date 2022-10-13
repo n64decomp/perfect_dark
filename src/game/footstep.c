@@ -226,7 +226,7 @@ void footstepCheckMagic(struct chrdata *chr)
 
 	if (debugIsFootstepsEnabled() && PLAYERCOUNT() == 1 && chr->magicanim >= 0) {
 #if VERSION >= VERSION_PAL_BETA
-		chr->magicframe += g_Vars.lvupdate240freal * chr->magicspeed;
+		chr->magicframe += g_Vars.lvupdate60freal * chr->magicspeed;
 #else
 		chr->magicframe += g_Vars.lvupdate240 * chr->magicspeed;
 #endif

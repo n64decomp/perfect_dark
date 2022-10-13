@@ -847,7 +847,7 @@ void frExecuteHelpScript(void)
 			break;
 		}
 	} else {
-		g_FrData.helpscriptsleep -= g_Vars.lvupdate240_60;
+		g_FrData.helpscriptsleep -= g_Vars.lvupdate60;
 
 		if (g_FrData.helpscriptsleep <= 0) {
 			g_FrData.helpscriptsleep = 0;
@@ -1605,7 +1605,7 @@ bool frIsAmmoWasted(void)
 							return false;
 						}
 
-						g_FrData.proxyendtimer -= g_Vars.lvupdate240_60;
+						g_FrData.proxyendtimer -= g_Vars.lvupdate60;
 
 						if (g_FrData.proxyendtimer <= 0) {
 							// Timer has just hit zero - remove all proxy items
@@ -1698,7 +1698,7 @@ void frTick(void)
 
 	// Handle the menu countdown
 	if (g_FrData.menucountdown != 0) {
-		g_FrData.menucountdown -= g_Vars.lvupdate240_60;
+		g_FrData.menucountdown -= g_Vars.lvupdate60;
 
 		// Prevent showing the menu until gun is put away
 		if (g_FrData.menucountdown <= 0) {
@@ -1829,7 +1829,7 @@ void frTick(void)
 		g_FrData.numshotssincetopup = 0;
 	}
 
-	g_FrData.timetaken += g_Vars.lvupdate240_60;
+	g_FrData.timetaken += g_Vars.lvupdate60;
 
 	// Handle prestart
 	if (g_FrData.timetaken < 0) {
@@ -1884,7 +1884,7 @@ void frTick(void)
 			if ((g_FrData.targets[i].flags & FRTARGETFLAG_TMPINVINCIBLE)
 					&& g_FrData.targets[i].invincibletimer < TICKS(300)) {
 				invincible = true;
-				g_FrData.targets[i].invincibletimer += g_Vars.lvupdate240_60;
+				g_FrData.targets[i].invincibletimer += g_Vars.lvupdate60;
 			}
 
 			if (obj->damage > 0) {
@@ -2009,7 +2009,7 @@ void frTick(void)
 #if VERSION >= VERSION_NTSC_1_0
 
 #if VERSION >= VERSION_PAL_BETA
-						mult = g_FrData.targets[i].travelspeed * g_Vars.lvupdate240freal;
+						mult = g_FrData.targets[i].travelspeed * g_Vars.lvupdate60freal;
 #else
 						mult = (g_FrData.targets[i].travelspeed * g_Vars.lvupdate240) * 0.25f;
 #endif
@@ -2087,7 +2087,7 @@ void frTick(void)
 						}
 					}
 				} else {
-					g_FrData.targets[i].timeuntilrotate -= g_Vars.lvupdate240_60;
+					g_FrData.targets[i].timeuntilrotate -= g_Vars.lvupdate60;
 
 					if (g_FrData.targets[i].timeuntilrotate <= 0) {
 						g_FrData.targets[i].timeuntilrotate = 0;
@@ -2109,7 +2109,7 @@ void frTick(void)
 				oldside = (u8)oldside;
 
 #if VERSION >= VERSION_PAL_BETA
-				g_FrData.targets[i].angle += speed * g_Vars.lvupdate240freal;
+				g_FrData.targets[i].angle += speed * g_Vars.lvupdate60freal;
 #else
 				g_FrData.targets[i].angle += speed * g_Vars.lvupdate240 * 0.25f;
 #endif
@@ -2147,7 +2147,7 @@ void frTick(void)
 			}
 
 			if (g_FrData.targets[i].scriptenabled && g_FrData.targets[i].scriptsleep != SECSTOTIME60(255)) {
-				g_FrData.targets[i].scriptsleep -= g_Vars.lvupdate240_60;
+				g_FrData.targets[i].scriptsleep -= g_Vars.lvupdate60;
 
 				if (g_FrData.targets[i].scriptsleep <= 0) {
 					g_FrData.targets[i].scriptenabled = false;
@@ -2787,7 +2787,7 @@ void dtTick(void)
 {
 	if (var80088adc) {
 		if (g_DtData.intraining) {
-			g_DtData.timetaken += g_Vars.lvupdate240_60;
+			g_DtData.timetaken += g_Vars.lvupdate60;
 
 			if (g_Vars.currentplayer->isdead) {
 				dtEnd();
@@ -2808,7 +2808,7 @@ void dtTick(void)
 			if (g_DtData.timeleft <= 0) {
 				dtPushEndscreen();
 			} else {
-				g_DtData.timeleft -= g_Vars.lvupdate240_60;
+				g_DtData.timeleft -= g_Vars.lvupdate60;
 			}
 		}
 	}
@@ -3074,7 +3074,7 @@ void htTick(void)
 {
 	if (var80088bb8) {
 		if (g_HtData.intraining) {
-			g_HtData.timetaken += g_Vars.lvupdate240_60;
+			g_HtData.timetaken += g_Vars.lvupdate60;
 
 			if (g_Vars.currentplayer->isdead) {
 				htEnd();
@@ -3095,7 +3095,7 @@ void htTick(void)
 			if (g_HtData.timeleft <= 0) {
 				htPushEndscreen();
 			} else {
-				g_HtData.timeleft -= g_Vars.lvupdate240_60;
+				g_HtData.timeleft -= g_Vars.lvupdate60;
 			}
 		}
 	}
@@ -3553,7 +3553,7 @@ bool frGetFeedback(char *scorebuffer, char *zonebuffer, char *extrabuffer)
 	sprintf(extrabuffer, "");
 
 	if (g_FrData.feedbackzone) {
-		g_FrData.feedbackttl -= g_Vars.lvupdate240_60;
+		g_FrData.feedbackttl -= g_Vars.lvupdate60;
 
 		if (g_FrData.feedbackttl <= 0) {
 			g_FrData.feedbackzone = 0;
@@ -3603,7 +3603,7 @@ bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 	};
 
 	if (g_FrData.feedbackzone) {
-		g_FrData.feedbackttl -= g_Vars.lvupdate240_60;
+		g_FrData.feedbackttl -= g_Vars.lvupdate60;
 
 		if (g_FrData.feedbackttl <= 0) {
 			g_FrData.feedbackzone = 0;

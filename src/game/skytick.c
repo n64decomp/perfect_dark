@@ -7,7 +7,7 @@
 
 void skyTick(void)
 {
-	g_SkyCloudOffset += g_Vars.lvupdate240freal * g_SkyWindSpeed;
+	g_SkyCloudOffset += g_Vars.lvupdate60freal * g_SkyWindSpeed;
 
 	if (g_SkyCloudOffset > 4096) {
 		g_SkyCloudOffset -= 4096;

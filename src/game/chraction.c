@@ -5471,14 +5471,14 @@ void chrGoPosConsiderRestart(struct chrdata *chr)
 			}
 
 			chr->act_gopos.restartttl = value;
-		} else if (chr->act_gopos.restartttl <= (u16)g_Vars.lvupdate240_60) {
+		} else if (chr->act_gopos.restartttl <= (u16)g_Vars.lvupdate60) {
 			if (chr->aibot) {
 				botCheckFetch(chr);
 			} else {
 				chrGoToRoomPos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
 			}
 		} else {
-			chr->act_gopos.restartttl -= (u16)g_Vars.lvupdate240_60;
+			chr->act_gopos.restartttl -= (u16)g_Vars.lvupdate60;
 		}
 	}
 }
@@ -5671,7 +5671,7 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
 	chr->invalidmove = 0;
 	chr->lastmoveok60 = g_Vars.lvframe60;
 
-	waydata->magicdone += speed * modelGetAbsAnimSpeed(chr->model) * g_Vars.lvupdate240freal;
+	waydata->magicdone += speed * modelGetAbsAnimSpeed(chr->model) * g_Vars.lvupdate60freal;
 
 	if (waydata->magicdone >= waydata->magictotal) {
 		// Reached end of segment
@@ -8182,7 +8182,7 @@ void chrTickDead(struct chrdata *chr)
 
 	// If fade is active, handle it
 	if (chr->act_dead.fadetimer60 >= 0) {
-		chr->act_dead.fadetimer60 += g_Vars.lvupdate240_60;
+		chr->act_dead.fadetimer60 += g_Vars.lvupdate60;
 
 		if (chr->act_dead.fadetimer60 >= TICKS(90)) {
 			// Fade finished
@@ -8209,7 +8209,7 @@ void chrTickDead(struct chrdata *chr)
 			// Keep corpse for now
 			chr->act_dead.invistimer60 = 0;
 		} else {
-			chr->act_dead.invistimer60 += g_Vars.lvupdate240_60;
+			chr->act_dead.invistimer60 += g_Vars.lvupdate60;
 		}
 
 		if (chr->act_dead.fadewheninvis && chr->act_dead.invistimer60 >= TICKS(120)) {
@@ -8365,7 +8365,7 @@ void chrTickDie(struct chrdata *chr)
 
 		// Change images randomly
 		if (chr->act_die.drcarollimagedelay > 0) {
-			chr->act_die.drcarollimagedelay -= g_Vars.lvupdate240_60;
+			chr->act_die.drcarollimagedelay -= g_Vars.lvupdate60;
 		} else {
 			chr->act_die.drcarollimagedelay = (random() % TICKS(1000)) * 0.01f + 5.0f;
 			chr->drcarollimage_left = 1 + (s32)((random() % 400) * 0.01f);
@@ -8458,7 +8458,7 @@ void chrTickDruggedComingUp(struct chrdata *chr)
 		SFX_THUD_8097,
 	};
 
-	chr->act_druggedcomingup.timer60 += g_Vars.lvupdate240_60;
+	chr->act_druggedcomingup.timer60 += g_Vars.lvupdate60;
 
 	if (chr->act_druggedcomingup.timer60 > 0) {
 		struct animtablerow *row;
@@ -8586,7 +8586,7 @@ void chrTickDruggedKo(struct chrdata *chr)
 
 	// If fade is active, handle it
 	if (chr->act_dead.fadetimer60 >= 0) {
-		chr->act_dead.fadetimer60 += g_Vars.lvupdate240_60;
+		chr->act_dead.fadetimer60 += g_Vars.lvupdate60;
 
 		if (chr->act_dead.fadetimer60 >= TICKS(90)) {
 			reap = true;
@@ -8601,7 +8601,7 @@ void chrTickDruggedKo(struct chrdata *chr)
 		if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 			chr->act_dead.invistimer60 = 0;
 		} else {
-			chr->act_dead.invistimer60 += g_Vars.lvupdate240_60;
+			chr->act_dead.invistimer60 += g_Vars.lvupdate60;
 		}
 
 		if (chr->act_dead.fadewheninvis && chr->act_dead.invistimer60 >= TICKS(120)) {
@@ -8933,7 +8933,7 @@ s32 chrTurn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 t
 		u32 stack;
 		f32 finalangle = chrGetInverseTheta(chr);
 		f32 remainingangle;
-		f32 increment = M_BADTAU / 100.0f * speed * g_Vars.lvupdate240f * model->anim->playspeed;
+		f32 increment = M_BADTAU / 100.0f * speed * g_Vars.lvupdate60f * model->anim->playspeed;
 
 		if (chr->aibot) {
 			struct prop *target = chrGetTargetProp(chr);
@@ -9900,7 +9900,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 				tickspershot *= 1 + sp208;
 			}
 
-			chr->firecount[handnum] += g_Vars.lvupdate240_60;
+			chr->firecount[handnum] += g_Vars.lvupdate60;
 
 			if (chr->firecount[handnum] >= tickspershot) {
 				chr->firecount[handnum] = 0;
@@ -10191,9 +10191,9 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 							sp15c.y = vector.y * sp168;
 							sp15c.z = vector.z * sp168;
 
-							sp16c.x = sp15c.f[0] * g_Vars.lvupdate240freal + vector.f[0] * spcc;
-							sp16c.y = sp15c.f[1] * g_Vars.lvupdate240freal + vector.f[1] * spcc;
-							sp16c.z = sp15c.f[2] * g_Vars.lvupdate240freal + vector.f[2] * spcc;
+							sp16c.x = sp15c.f[0] * g_Vars.lvupdate60freal + vector.f[0] * spcc;
+							sp16c.y = sp15c.f[1] * g_Vars.lvupdate60freal + vector.f[1] * spcc;
+							sp16c.z = sp15c.f[2] * g_Vars.lvupdate60freal + vector.f[2] * spcc;
 
 							projectileobj->timer240 = func->timer60;
 
@@ -10706,7 +10706,7 @@ void chrTickFire(struct chrdata *chr)
 								modelSetAnimSpeed(model, 0.5f, 0);
 							} else {
 								modelSetAnimSpeed(model, 0.1f, 0);
-								chr->act_attack.pausecount += g_Vars.lvupdate240_60;
+								chr->act_attack.pausecount += g_Vars.lvupdate60;
 							}
 						} else {
 							modelSetAnimSpeed(model, 0.5f, 0);
@@ -11479,7 +11479,7 @@ void chrTickAttackWalk(struct chrdata *chr)
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
-	chr->act_attackwalk.frame60count += g_Vars.lvupdate240_60;
+	chr->act_attackwalk.frame60count += g_Vars.lvupdate60;
 	chr->lastwalk60 = g_Vars.lvframe60;
 
 	// If stuck or time exceeded, stop
@@ -11703,7 +11703,7 @@ void chrTickRunPos(struct chrdata *chr)
 	func0f043f2c(chr, &chr->act_runpos.pos, 1, &chr->act_runpos.turnspeed);
 
 	if (chr->act_runpos.eta60 > 0) {
-		chr->act_runpos.eta60 -= g_Vars.lvupdate240_60;
+		chr->act_runpos.eta60 -= g_Vars.lvupdate60;
 	} else {
 		fVar7 = 1;
 
@@ -11717,7 +11717,7 @@ void chrTickRunPos(struct chrdata *chr)
 			fVar7 = func0f02dff0(ANIM_SKEDAR_RUNNING);
 		}
 
-		chr->act_runpos.neardist += fVar7 * g_Vars.lvupdate240freal * modelGetAbsAnimSpeed(model);
+		chr->act_runpos.neardist += fVar7 * g_Vars.lvupdate60freal * modelGetAbsAnimSpeed(model);
 	}
 }
 
@@ -12795,7 +12795,7 @@ void chrTickGoPos(struct chrdata *chr)
 	// obstacles, but is also used as a run countdown timer.
 #if VERSION >= VERSION_NTSC_1_0
 	if (chr->goposforce >= 0) {
-		chr->goposforce -= g_Vars.lvupdate240_60;
+		chr->goposforce -= g_Vars.lvupdate60;
 
 		if (chr->goposforce < 0) {
 			chrStop(chr);
@@ -13153,7 +13153,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 
 void chrTickSkJump(struct chrdata *chr)
 {
-	if (g_Vars.lvupdate240_60 == 0) {
+	if (g_Vars.lvupdate60 == 0) {
 		return;
 	}
 
@@ -13201,8 +13201,8 @@ void chrTickSkJump(struct chrdata *chr)
 			}
 			break;
 		case SKJUMPSTATE_AIRBORNE:
-			chr->act_skjump.pos.x = chr->act_skjump.vel[0] * g_Vars.lvupdate240_60 + chr->prop->pos.x;
-			chr->act_skjump.pos.z = chr->act_skjump.vel[1] * g_Vars.lvupdate240_60 + chr->prop->pos.z;
+			chr->act_skjump.pos.x = chr->act_skjump.vel[0] * g_Vars.lvupdate60 + chr->prop->pos.x;
+			chr->act_skjump.pos.z = chr->act_skjump.vel[1] * g_Vars.lvupdate60 + chr->prop->pos.z;
 
 			if (chr->act_skjump.total60 > 0) {
 				fVar6 = 1.0f - chr->act_skjump.timer60 / (f32)chr->act_skjump.total60;
@@ -13225,7 +13225,7 @@ void chrTickSkJump(struct chrdata *chr)
 			}
 
 			if (chr->act_skjump.timer60 > 0) {
-				chr->act_skjump.timer60 -= g_Vars.lvupdate240_60;
+				chr->act_skjump.timer60 -= g_Vars.lvupdate60;
 			} else {
 				chrTryStop(chr);
 			}
@@ -13249,23 +13249,23 @@ void chraTick(struct chrdata *chr)
 	}
 
 	if (race == RACE_DRCAROLL) {
-		g_DrCarollDyingTimer += g_Vars.lvupdate240_60;
+		g_DrCarollDyingTimer += g_Vars.lvupdate60;
 	}
 
-	chr->soundtimer += g_Vars.lvupdate240_60;
-	chr->talktimer += g_Vars.lvupdate240_60;
+	chr->soundtimer += g_Vars.lvupdate60;
+	chr->talktimer += g_Vars.lvupdate60;
 
 #if VERSION < VERSION_PAL_BETA
 	if (chr->aibot) {
-		chr->aibot->unk030 += g_Vars.lvupdate240_60;
+		chr->aibot->unk030 += g_Vars.lvupdate60;
 	}
 #endif
 
 	if (chr->hidden & CHRHFLAG_TIMER_RUNNING) {
-		chr->timer60 += g_Vars.lvupdate240_60;
+		chr->timer60 += g_Vars.lvupdate60;
 	}
 
-	chr->sleep -= g_Vars.lvupdate240_60;
+	chr->sleep -= g_Vars.lvupdate60;
 
 	if (chr->sleep < 0
 			|| (chr->chrflags & CHRCFLAG_00040000)
@@ -13287,7 +13287,7 @@ void chraTick(struct chrdata *chr)
 					chr->chrflags |= CHRCFLAG_CONSIDER_DODGE;
 				}
 			} else {
-				chr->aimtesttimer60 -= g_Vars.lvupdate240_60;
+				chr->aimtesttimer60 -= g_Vars.lvupdate60;
 			}
 		}
 
@@ -13585,8 +13585,8 @@ void chraTickBg(void)
 	// 8 60ths since the last frame then the max corpses will be reduced by 2.
 	// This is why corpses are more likely to fade on screen when you change
 	// weapons - the lag spike from changing guns triggers a lower corpse limit.
-	if (g_Vars.lvupdate240_60 > 6) {
-		maxdeadonscreen = maxdeadonscreen - g_Vars.lvupdate240_60 + 6;
+	if (g_Vars.lvupdate60 > 6) {
+		maxdeadonscreen = maxdeadonscreen - g_Vars.lvupdate60 + 6;
 	}
 
 	if (maxdeadonscreen < 0) {
@@ -15675,7 +15675,7 @@ void chrAddTargetToBdlist(struct chrdata *chr)
 		s32 i;
 
 		if (target) {
-			for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+			for (i = 0; i < g_Vars.lvupdate60; i++) {
 				chr->bdlist[chr->bdstart] = target->pos.x - chr->prop->pos.x;
 				chr->bdstart++;
 				chr->bdstart %= 60;

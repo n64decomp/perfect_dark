@@ -226,7 +226,7 @@ void currentPlayerZoomOut(f32 fovpersec)
 	}
 
 	if (index >= 0) {
-		f32 amount = fovpersec * 0.25f * LVUPDATE240FREAL();
+		f32 amount = fovpersec * 0.25f * LVUPDATE60FREAL();
 
 		if (bgunGetWeaponNum2(0) == WEAPON_FARSIGHT) {
 			amount *= 0.5f;
@@ -251,7 +251,7 @@ void currentPlayerZoomIn(f32 fovpersec)
 	}
 
 	if (index >= 0) {
-		f32 amount = fovpersec * 0.25f * LVUPDATE240FREAL();
+		f32 amount = fovpersec * 0.25f * LVUPDATE60FREAL();
 
 		if (bgunGetWeaponNum2(0) == WEAPON_FARSIGHT) {
 			amount *= 0.5f;
@@ -476,7 +476,7 @@ f32 gsetGetDamage(struct gset *gset)
 			damage = fullfunc->damage;
 
 			if (gset->weaponnum == WEAPON_REAPER) {
-				damage *= LVUPDATE240FREAL();
+				damage *= LVUPDATE60FREAL();
 			}
 		}
 

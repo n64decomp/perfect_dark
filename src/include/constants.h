@@ -29,6 +29,7 @@
 #define ARRAYCOUNT(a)       (s32)(sizeof(a) / sizeof(a[0]))
 #define CHRRACE(chr)        (chr ? chr->race : RACE_HUMAN)
 #define CRASH()             *(u8 *)0 = 69
+#define CYCLES_PER_FRAME    ((s32) OS_CPU_COUNTER / (PAL ? 50 : 60))
 #define IS4MB()             (g_Is4Mb == true)
 #define IS8MB()             (g_Is4Mb != true)
 #define LINEHEIGHT          (VERSION == VERSION_JPN_FINAL ? 14 : 11)
@@ -49,9 +50,9 @@
 		&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & (device)))
 
 #if VERSION >= VERSION_PAL_BETA
-#define LVUPDATE240FREAL()  g_Vars.lvupdate240freal
+#define LVUPDATE60FREAL()   g_Vars.lvupdate60freal
 #else
-#define LVUPDATE240FREAL()  g_Vars.lvupdate240f
+#define LVUPDATE60FREAL()   g_Vars.lvupdate60f
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0

@@ -1581,7 +1581,7 @@ void playerTickMpSwirl(void)
 	// but the swirl position should only be updated once per frame,
 	// so it's only updated for the player at index 0.
 	if (g_Vars.currentplayerindex == 0) {
-		for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+		for (i = 0; i < g_Vars.lvupdate60; i++) {
 			// Calculate rotation
 			if (g_MpSwirlAngleDegrees < 179.5f) {
 				if (g_MpSwirlAngleDegrees < -20) {
@@ -1777,7 +1777,7 @@ void playerExecutePreparedWarp(void)
 		look.y = memcampos.y + g_WarpType3MoreHeight - pos.f[1];
 		look.z = memcampos.z + sinf(g_WarpType3PosAngle) * 0.0f - pos.f[2];
 
-		g_WarpType3PosAngle += g_WarpType3RotAngle * g_Vars.lvupdate240freal;
+		g_WarpType3PosAngle += g_WarpType3RotAngle * g_Vars.lvupdate60freal;
 
 		while (g_WarpType3PosAngle >= M_BADTAU) {
 			g_WarpType3PosAngle -= M_BADTAU;
@@ -1906,7 +1906,7 @@ void playerTickCutscene(bool arg0)
 
 		if (g_CutsceneCurAnimFrame60 < endframe) {
 #if PAL
-			g_CutsceneCurAnimFrame240 += g_Vars.lvupdate240freal;
+			g_CutsceneCurAnimFrame240 += g_Vars.lvupdate60freal;
 			g_CutsceneCurAnimFrame60 = floorf(g_CutsceneCurAnimFrame240 + 0.01f);
 #else
 			g_CutsceneCurAnimFrame240 += g_Vars.lvupdate240;
@@ -2004,7 +2004,7 @@ void playerTickCutscene(bool arg0)
 	viSetFovY(fovy);
 
 	if (g_Vars.currentplayerindex == 0) {
-		g_CutsceneCurTotalFrame60f += g_Vars.lvupdate240freal;
+		g_CutsceneCurTotalFrame60f += g_Vars.lvupdate60freal;
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2094,7 +2094,7 @@ void playerUpdateZoom(void)
 	struct stagetableentry *stage;
 
 	if (g_Vars.currentplayer->zoomintime < g_Vars.currentplayer->zoomintimemax) {
-		g_Vars.currentplayer->zoomintime += g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->zoomintime += g_Vars.lvupdate60freal;
 
 		if (g_Vars.currentplayer->zoomintime > g_Vars.currentplayer->zoomintimemax) {
 			g_Vars.currentplayer->zoomintime = g_Vars.currentplayer->zoomintimemax;
@@ -2321,7 +2321,7 @@ bool playerIsFadeComplete(void)
 void playerUpdateColourScreenProperties(void)
 {
 	if (g_Vars.currentplayer->colourfadetimemax60 >= 0) {
-		g_Vars.currentplayer->colourfadetime60 += g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->colourfadetime60 += g_Vars.lvupdate60freal;
 
 		if (g_Vars.currentplayer->colourfadetime60 < g_Vars.currentplayer->colourfadetimemax60) {
 			f32 mult = g_Vars.currentplayer->colourfadetime60 / g_Vars.currentplayer->colourfadetimemax60;
@@ -2358,7 +2358,7 @@ void playerTickChrFade(void)
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 		f32 frac;
 
-		g_Vars.currentplayer->bondfadetime60 += g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->bondfadetime60 += g_Vars.lvupdate60freal;
 
 		if (g_Vars.currentplayer->bondfadetime60 < g_Vars.currentplayer->bondfadetimemax60) {
 			frac = g_Vars.currentplayer->bondfadefracold
@@ -2493,7 +2493,7 @@ void playerTickDamageAndHealth(void)
 			f32 inc;
 
 			if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
-				inc = g_Vars.lvupdate240freal;
+				inc = g_Vars.lvupdate60freal;
 			} else {
 				inc = g_Vars.diffframe240freal;
 			}
@@ -3383,7 +3383,7 @@ void playerTickTeleport(f32 *aspectratio)
 	// State 1: TELEPORTSTATE_PREENTER
 	// Wait in this state for 24 ticks
 	if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_PREENTER) {
-		u32 time = g_Vars.currentplayer->teleporttime + g_Vars.lvupdate240_60;
+		u32 time = g_Vars.currentplayer->teleporttime + g_Vars.lvupdate60;
 
 		if (time >= 24) {
 			g_Vars.currentplayer->teleporttime = 0;
@@ -3396,7 +3396,7 @@ void playerTickTeleport(f32 *aspectratio)
 	// State 2: TELEPORTSTATE_ENTERING
 	// Adjust aspect ratio over 48 ticks
 	if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_ENTERING) {
-		u32 time = g_Vars.currentplayer->teleporttime + g_Vars.lvupdate240_60;
+		u32 time = g_Vars.currentplayer->teleporttime + g_Vars.lvupdate60;
 
 		if (g_Vars.currentplayer->teleporttime == 48) {
 			g_Vars.currentplayer->teleportstate = TELEPORTSTATE_WHITE;
@@ -3417,7 +3417,7 @@ void playerTickTeleport(f32 *aspectratio)
 	// Adjust aspect ratio over 48 ticks, but with slightly faster
 	// time progression in the first several ticks.
 	if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_EXITING) {
-		u32 time = g_Vars.currentplayer->teleporttime + g_Vars.lvupdate240_60;
+		u32 time = g_Vars.currentplayer->teleporttime + g_Vars.lvupdate60;
 
 		if (g_Vars.currentplayer->teleporttime < 7) {
 			time = g_Vars.currentplayer->teleporttime + 1;
@@ -3538,7 +3538,7 @@ void playerTick(bool arg0)
 	bgunSetSightVisible(GUNSIGHTREASON_1, true);
 
 	if ((g_Vars.tickmode == TICKMODE_GE_FADEIN || g_Vars.tickmode == TICKMODE_NORMAL) && !g_InCutscene && !g_MainIsEndscreen) {
-		g_Vars.currentplayer->bondviewlevtime60 += g_Vars.lvupdate240_60;
+		g_Vars.currentplayer->bondviewlevtime60 += g_Vars.lvupdate60;
 	}
 
 	if (g_Vars.currentplayer->devicesactive & DEVICE_SUICIDEPILL) {
@@ -3732,7 +3732,7 @@ void playerTick(bool arg0)
 			if (outofbounds) {
 				// Slayer rocket has flown out of bounds
 				// Allow 2 seconds of this, then blow up rocket
-				g_Vars.currentplayer->badrockettime += g_Vars.lvupdate240_60;
+				g_Vars.currentplayer->badrockettime += g_Vars.lvupdate60;
 
 				if (g_Vars.currentplayer->badrockettime > TICKS(120)) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -3743,7 +3743,7 @@ void playerTick(bool arg0)
 				}
 			} else if (g_Vars.currentplayer->badrockettime > 0) {
 				// Slayer rocket is in bounds, but was recently out
-				g_Vars.currentplayer->badrockettime -= g_Vars.lvupdate240_60;
+				g_Vars.currentplayer->badrockettime -= g_Vars.lvupdate60;
 
 				if (g_Vars.currentplayer->badrockettime < 0) {
 					g_Vars.currentplayer->badrockettime = 0;
@@ -3860,8 +3860,8 @@ void playerTick(bool arg0)
 				sp2ac.x = sp2b8[0][0];
 				sp2ac.z = sp2b8[0][2];
 
-				sp178 = sticky * LVUPDATE240FREAL() * 0.00025f;
-				sp174 = -stickx * LVUPDATE240FREAL() * 0.00025f;
+				sp178 = sticky * LVUPDATE60FREAL() * 0.00025f;
+				sp174 = -stickx * LVUPDATE60FREAL() * 0.00025f;
 
 				f20 = sqrtf(sp2ac.f[0] * sp2ac.f[0] + sp2ac.f[2] * sp2ac.f[2]);
 
@@ -3914,13 +3914,13 @@ void playerTick(bool arg0)
 				newspeed = prevspeed;
 
 				if (prevspeed < targetspeed) {
-					newspeed = prevspeed + 0.05f * LVUPDATE240FREAL();
+					newspeed = prevspeed + 0.05f * LVUPDATE60FREAL();
 
 					if (newspeed > targetspeed) {
 						newspeed = targetspeed;
 					}
 				} else if (prevspeed > targetspeed) {
-					newspeed = prevspeed - 0.05f * LVUPDATE240FREAL();
+					newspeed = prevspeed - 0.05f * LVUPDATE60FREAL();
 
 					if (newspeed < targetspeed) {
 						newspeed = targetspeed;
@@ -4665,7 +4665,7 @@ void playerDisplayShield(void)
 		s32 rand = ((g_Vars.currentplayer->shieldshowrnd >> 16) % 200) * 4 + 800;
 
 		g_Vars.currentplayer->shieldshowrnd = random();
-		g_Vars.currentplayer->shieldshowrot = g_Vars.thisframe240 % rand;
+		g_Vars.currentplayer->shieldshowrot = g_Vars.thisframestart240 % rand;
 	}
 
 	g_Vars.currentplayer->shieldshowtime = 0;
@@ -4693,7 +4693,7 @@ Gfx *playerRenderShield(Gfx *gdl)
 		maxrotf = maxrot;
 		f20 = (60 - g_Vars.currentplayer->shieldshowtime) * (1.0f / 60.0f);
 
-		g_Vars.currentplayer->shieldshowrot += g_Vars.lvupdate240freal * (0.8f + 2.0f * f20 * f20);
+		g_Vars.currentplayer->shieldshowrot += g_Vars.lvupdate60freal * (0.8f + 2.0f * f20 * f20);
 
 		if (g_Vars.currentplayer->shieldshowrot >= maxrotf) {
 			g_Vars.currentplayer->shieldshowrot -= maxrotf;
@@ -4759,7 +4759,7 @@ Gfx *playerRenderShield(Gfx *gdl)
 				(g_Vars.currentplayer->shieldshowrnd & 4) != 0,
 				0);
 
-		g_Vars.currentplayer->shieldshowtime += g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->shieldshowtime += g_Vars.lvupdate60freal;
 
 		if (g_Vars.currentplayer->shieldshowtime > 60) {
 			g_Vars.currentplayer->shieldshowtime = -1;
@@ -4810,7 +4810,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 		// Adjust eyes shutting
 		if (g_Vars.currentplayer->eyesshut) {
 			if (g_Vars.currentplayer->eyesshutfrac < 0.95f) {
-				g_Vars.currentplayer->eyesshutfrac += g_Vars.lvupdate240freal * 0.12f;
+				g_Vars.currentplayer->eyesshutfrac += g_Vars.lvupdate60freal * 0.12f;
 
 				if (g_Vars.currentplayer->eyesshutfrac > 0.95f) {
 					g_Vars.currentplayer->eyesshutfrac = 0.95f;
@@ -4818,7 +4818,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 			}
 		} else {
 			if (g_Vars.currentplayer->eyesshutfrac > 0) {
-				g_Vars.currentplayer->eyesshutfrac -= g_Vars.lvupdate240freal * 0.12f;
+				g_Vars.currentplayer->eyesshutfrac -= g_Vars.lvupdate60freal * 0.12f;
 
 				if (g_Vars.currentplayer->eyesshutfrac < 0) {
 					g_Vars.currentplayer->eyesshutfrac = 0;
@@ -5030,7 +5030,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 							}
 
 							if (g_Vars.currentplayer->deadtimer >= 0) {
-								g_Vars.currentplayer->deadtimer -= g_Vars.lvupdate240_60;
+								g_Vars.currentplayer->deadtimer -= g_Vars.lvupdate60;
 
 								if (g_Vars.currentplayer->deadtimer < 0) {
 									canrestart = true;
@@ -5089,7 +5089,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 						gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
 					}
 
-					g_Vars.currentplayer->eyespy->camerashuttertime -= g_Vars.lvupdate240_60;
+					g_Vars.currentplayer->eyespy->camerashuttertime -= g_Vars.lvupdate60;
 				} else {
 					gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
 				}
@@ -5960,7 +5960,7 @@ void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 sp
 				}
 			}
 
-			limit = g_Vars.lvupdate240freal * 0.10470308363438f;
+			limit = g_Vars.lvupdate60freal * 0.10470308363438f;
 
 			if (angle - *angleoffset > limit) {
 				*angleoffset += limit;

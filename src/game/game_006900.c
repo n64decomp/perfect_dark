@@ -52,7 +52,7 @@ void menuTickTimers(void)
 		g_20SecIntervalFrac -= 1.0f;
 	}
 
-	g_Lv80SecIntervalFrac = g_Lv80SecIntervalFrac + LVUPDATE240FREAL() / 4800.0f;
+	g_Lv80SecIntervalFrac = g_Lv80SecIntervalFrac + LVUPDATE60FREAL() / 4800.0f;
 
 	if (g_Lv80SecIntervalFrac > 1.0f) {
 		g_Lv80SecIntervalFrac -= 1.0f;

@@ -265,14 +265,14 @@ void lvReset(s32 stagenum)
 	g_Vars.lvupdate240 = 4;
 
 #if VERSION >= VERSION_NTSC_1_0
-	g_Vars.lvupdate240f = 1.0f;
-	g_Vars.lvupdate240frealprev = PALUPF(1);
+	g_Vars.lvupdate60f = 1.0f;
+	g_Vars.lvupdate60frealprev = PALUPF(1);
 #else
-	g_Vars.lvupdate240frealprev = PALUPF(1);
-	g_Vars.lvupdate240f = 1.0f;
+	g_Vars.lvupdate60frealprev = PALUPF(1);
+	g_Vars.lvupdate60f = 1.0f;
 #endif
 
-	g_Vars.lvupdate240freal = g_Vars.lvupdate240frealprev;
+	g_Vars.lvupdate60freal = g_Vars.lvupdate60frealprev;
 
 	g_StageTimeElapsed60 = 0;
 	g_StageTimeElapsed1f = 0;
@@ -950,6 +950,83 @@ void lvFindThreats(void)
 	}
 }
 
+//Gfx *lvPrintI(Gfx *gdl, s32 *x, s32 *y, char *name, u32 value)
+//{
+//	char buffer[64];
+//
+//	sprintf(buffer, "%s: %u\n", name, value);
+//	gdl = textRender(gdl, x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+//
+//	return gdl;
+//}
+//
+//Gfx *lvPrintH(Gfx *gdl, s32 *x, s32 *y, char *name, u32 value)
+//{
+//	char buffer[64];
+//
+//	sprintf(buffer, "%s: %08x\n", name, value);
+//	gdl = textRender(gdl, x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+//
+//	return gdl;
+//}
+//
+//Gfx *lvPrintF(Gfx *gdl, s32 *x, s32 *y, char *name, f32 value)
+//{
+//	char buffer[64];
+//
+//	sprintf(buffer, "%s: %s%s%.1f\n", name, "", "", value);
+//	gdl = textRender(gdl, x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+//
+//	return gdl;
+//}
+//
+//Gfx *lvPrint(Gfx *gdl)
+//{
+//	static u32 times[60] = {0};
+//	static s32 index = 0;
+//
+//	times[index++] = g_Vars.diffframet / 1000;
+//
+//	if (index >= 60) {
+//		index = 0;
+//	}
+//
+//	if (g_FontHandelGothicXs) {
+//		char buffer[64];
+//		s32 x = 10;
+//		s32 y = 10;
+//
+//		gdl = text0f153628(gdl);
+//
+//		gdl = lvPrintI(gdl, &x, &y, "diffframe60", g_Vars.diffframe60         );
+//		gdl = lvPrintF(gdl, &x, &y, "diffframe60f", g_Vars.diffframe60f        );
+//		gdl = lvPrintI(gdl, &x, &y, "lvframe60", g_Vars.lvframe60           );
+//		gdl = lvPrintI(gdl, &x, &y, "lvframenum", g_Vars.lvframenum          );
+//		gdl = lvPrintF(gdl, &x, &y, "diffframe60freal", g_Vars.diffframe60freal    );
+//		gdl = lvPrintH(gdl, &x, &y, "prevframestartt", g_Vars.prevframestartt       );
+//		gdl = lvPrintH(gdl, &x, &y, "thisframestartt", g_Vars.thisframestartt       );
+//		gdl = lvPrintH(gdl, &x, &y, "diffframet", g_Vars.diffframet      );
+//		gdl = lvPrintI(gdl, &x, &y, "lostframetime60t", g_Vars.lostframetime60t       );
+//		gdl = lvPrintI(gdl, &x, &y, "lostframetime240t", g_Vars.lostframetime240t    );
+//		gdl = lvPrintI(gdl, &x, &y, "lvframe240", g_Vars.lvframe240          );
+//		gdl = lvPrintI(gdl, &x, &y, "lvupdate240", g_Vars.lvupdate240         );
+//		gdl = lvPrintI(gdl, &x, &y, "lvupdate60", g_Vars.lvupdate60      );
+//		gdl = lvPrintI(gdl, &x, &y, "lvupdate240rem", g_Vars.lvupdate240rem );
+//		gdl = lvPrintI(gdl, &x, &y, "diffframe240", g_Vars.diffframe240        );
+//		gdl = lvPrintF(gdl, &x, &y, "lvupdate60f", g_Vars.lvupdate60f        );
+//		gdl = lvPrintF(gdl, &x, &y, "diffframe240f", g_Vars.diffframe240f       );
+//		gdl = lvPrintF(gdl, &x, &y, "lvupdate60freal", g_Vars.lvupdate60freal    );
+//		gdl = lvPrintF(gdl, &x, &y, "lvupdate60frealprev", g_Vars.lvupdate60frealprev);
+//		gdl = lvPrintI(gdl, &x, &y, "prevframestart240", g_Vars.prevframestart240        );
+//		gdl = lvPrintI(gdl, &x, &y, "thisframestart240", g_Vars.thisframestart240        );
+//		gdl = lvPrintF(gdl, &x, &y, "diffframe240freal", g_Vars.diffframe240freal   );
+//
+//		gdl = text0f153780(gdl);
+//	}
+//
+//	return gdl;
+//}
+
 /**
  * Renders a complete frame for all players, and also does some other game logic
  * that really doesn't belong here.
@@ -1120,7 +1197,7 @@ Gfx *lvRender(Gfx *gdl)
 						chr->blurdrugamount = TICKS(5000);
 					}
 
-					chr->blurdrugamount -= g_Vars.lvupdate240_60 * (chr->blurnumtimesdied + 1);
+					chr->blurdrugamount -= g_Vars.lvupdate60 * (chr->blurnumtimesdied + 1);
 
 					if (chr->blurdrugamount < 1) {
 						chr->blurdrugamount = 0;
@@ -1724,6 +1801,8 @@ Gfx *lvRender(Gfx *gdl)
 	}
 #endif
 
+	//gdl = lvPrint(gdl);
+
 	return gdl;
 }
 
@@ -1933,7 +2012,7 @@ s32 sub54321(s32 value)
 void lvUpdateCutsceneTime(void)
 {
 	if (g_Vars.in_cutscene) {
-		g_CutsceneTime240_60 += g_Vars.lvupdate240_60;
+		g_CutsceneTime240_60 += g_Vars.lvupdate60;
 		return;
 	}
 
@@ -2103,19 +2182,19 @@ void lvTick(void)
 		}
 	}
 
-	g_Vars.lvupdate240_60 = g_Vars.lvupdate240 + g_Vars.lvupdate240_60error;
-	g_Vars.lvupdate240_60error = g_Vars.lvupdate240_60 & 3;
-	g_Vars.lvupdate240_60 >>= 2;
+	g_Vars.lvupdate60 = g_Vars.lvupdate240 + g_Vars.lvupdate240rem;
+	g_Vars.lvupdate240rem = g_Vars.lvupdate60 & 3;
+	g_Vars.lvupdate60 >>= 2;
 
 	if (g_Vars.lvupdate240 > 0) {
 		g_Vars.lvframenum++;
 	}
 
-	g_Vars.lvupdate240f = g_Vars.lvupdate240 * 0.25f;
-	g_Vars.lvframe60 += g_Vars.lvupdate240_60;
+	g_Vars.lvupdate60f = g_Vars.lvupdate240 * 0.25f;
+	g_Vars.lvframe60 += g_Vars.lvupdate60;
 	g_Vars.lvframe240 += g_Vars.lvupdate240;
-	g_Vars.lvupdate240frealprev = g_Vars.lvupdate240freal;
-	g_Vars.lvupdate240freal = PALUPF(g_Vars.lvupdate240f);
+	g_Vars.lvupdate60frealprev = g_Vars.lvupdate60freal;
+	g_Vars.lvupdate60freal = PALUPF(g_Vars.lvupdate60f);
 
 	bgunTickBoost();
 	hudmsgsTick();
@@ -2183,7 +2262,7 @@ void lvTick(void)
 	if (g_Vars.normmplayerisrunning && g_Vars.stagenum < STAGE_TITLE) {
 		if (g_MpTimeLimit60 > 0) {
 			s32 elapsed = g_StageTimeElapsed60;
-			s32 nexttime = g_Vars.lvupdate240_60 + g_StageTimeElapsed60;
+			s32 nexttime = g_Vars.lvupdate60 + g_StageTimeElapsed60;
 			s32 warntime = TICKS(g_MpTimeLimit60) - TICKS(3600);
 
 			// Show HUD message at one minute remaining
@@ -2257,7 +2336,7 @@ void lvTick(void)
 		}
 	}
 
-	g_StageTimeElapsed60 += g_Vars.lvupdate240_60;
+	g_StageTimeElapsed60 += g_Vars.lvupdate60;
 	g_StageTimeElapsed1f = g_StageTimeElapsed60 / TICKS(60.0f);
 
 	viSetUseZBuf(true);

@@ -1123,7 +1123,7 @@ void invIncrementHeldTime(s32 weapon1, s32 weapon2)
 		if (time >= 0) {
 			if (weapon1 == g_Vars.currentplayer->gunheldarr[i].weapon1 &&
 					weapon2 == g_Vars.currentplayer->gunheldarr[i].weapon2) {
-				g_Vars.currentplayer->gunheldarr[i].totaltime240_60 = time + g_Vars.lvupdate240_60;
+				g_Vars.currentplayer->gunheldarr[i].totaltime240_60 = time + g_Vars.lvupdate60;
 				break;
 			}
 
@@ -1139,7 +1139,7 @@ void invIncrementHeldTime(s32 weapon1, s32 weapon2)
 	}
 
 	if (i == ARRAYCOUNT(g_Vars.currentplayer->gunheldarr)) {
-		g_Vars.currentplayer->gunheldarr[leastusedindex].totaltime240_60 = g_Vars.lvupdate240_60;
+		g_Vars.currentplayer->gunheldarr[leastusedindex].totaltime240_60 = g_Vars.lvupdate60;
 		g_Vars.currentplayer->gunheldarr[leastusedindex].weapon1 = weapon1;
 		g_Vars.currentplayer->gunheldarr[leastusedindex].weapon2 = weapon2;
 	}

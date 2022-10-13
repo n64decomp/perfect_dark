@@ -97,7 +97,7 @@ bool bmoveIsInSightAimMode(void)
 void bmoveUpdateAutoAimYProp(struct prop *prop, f32 autoaimy)
 {
 	if (g_Vars.currentplayer->autoyaimtime60 >= 0) {
-		g_Vars.currentplayer->autoyaimtime60 -= g_Vars.lvupdate240_60;
+		g_Vars.currentplayer->autoyaimtime60 -= g_Vars.lvupdate60;
 	}
 
 	if (prop != g_Vars.currentplayer->autoyaimprop) {
@@ -150,7 +150,7 @@ bool bmoveIsAutoAimXEnabledForCurrentWeapon(void)
 void bmoveUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
 {
 	if (g_Vars.currentplayer->autoxaimtime60 >= 0) {
-		g_Vars.currentplayer->autoxaimtime60 -= g_Vars.lvupdate240_60;
+		g_Vars.currentplayer->autoxaimtime60 -= g_Vars.lvupdate60;
 	}
 
 	if (prop != g_Vars.currentplayer->autoxaimprop) {
@@ -278,9 +278,9 @@ void bmoveUpdateSpeedVerta(f32 value)
 
 	if (value > 0) {
 		if (g_Vars.currentplayer->speedverta > 0) {
-			g_Vars.currentplayer->speedverta -= 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedverta -= 0.05f * g_Vars.lvupdate60freal * mult;
 		} else {
-			g_Vars.currentplayer->speedverta -= 0.0125f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedverta -= 0.0125f * g_Vars.lvupdate60freal * mult;
 		}
 
 		if (g_Vars.currentplayer->speedverta < limit) {
@@ -288,9 +288,9 @@ void bmoveUpdateSpeedVerta(f32 value)
 		}
 	} else if (value < 0) {
 		if (g_Vars.currentplayer->speedverta < 0) {
-			g_Vars.currentplayer->speedverta += 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedverta += 0.05f * g_Vars.lvupdate60freal * mult;
 		} else {
-			g_Vars.currentplayer->speedverta += 0.0125f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedverta += 0.0125f * g_Vars.lvupdate60freal * mult;
 		}
 
 		if (g_Vars.currentplayer->speedverta > limit) {
@@ -298,13 +298,13 @@ void bmoveUpdateSpeedVerta(f32 value)
 		}
 	} else {
 		if (g_Vars.currentplayer->speedverta > limit) {
-			g_Vars.currentplayer->speedverta -= 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedverta -= 0.05f * g_Vars.lvupdate60freal * mult;
 
 			if (g_Vars.currentplayer->speedverta < limit) {
 				g_Vars.currentplayer->speedverta = limit;
 			}
 		} else {
-			g_Vars.currentplayer->speedverta += 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedverta += 0.05f * g_Vars.lvupdate60freal * mult;
 
 			if (g_Vars.currentplayer->speedverta > limit) {
 				g_Vars.currentplayer->speedverta = limit;
@@ -333,9 +333,9 @@ void bmoveUpdateSpeedThetaControl(f32 value)
 
 	if (value > 0) {
 		if (g_Vars.currentplayer->speedthetacontrol > 0) {
-			g_Vars.currentplayer->speedthetacontrol -= 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedthetacontrol -= 0.05f * g_Vars.lvupdate60freal * mult;
 		} else {
-			g_Vars.currentplayer->speedthetacontrol -= 0.0125f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedthetacontrol -= 0.0125f * g_Vars.lvupdate60freal * mult;
 		}
 
 		if (g_Vars.currentplayer->speedthetacontrol < limit) {
@@ -343,9 +343,9 @@ void bmoveUpdateSpeedThetaControl(f32 value)
 		}
 	} else if (value < 0) {
 		if (g_Vars.currentplayer->speedthetacontrol < 0.0f) {
-			g_Vars.currentplayer->speedthetacontrol += 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedthetacontrol += 0.05f * g_Vars.lvupdate60freal * mult;
 		} else {
-			g_Vars.currentplayer->speedthetacontrol += 0.0125f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedthetacontrol += 0.0125f * g_Vars.lvupdate60freal * mult;
 		}
 
 		if (g_Vars.currentplayer->speedthetacontrol > limit) {
@@ -353,13 +353,13 @@ void bmoveUpdateSpeedThetaControl(f32 value)
 		}
 	} else {
 		if (g_Vars.currentplayer->speedthetacontrol > limit) {
-			g_Vars.currentplayer->speedthetacontrol -= 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedthetacontrol -= 0.05f * g_Vars.lvupdate60freal * mult;
 
 			if (g_Vars.currentplayer->speedthetacontrol < limit) {
 				g_Vars.currentplayer->speedthetacontrol = limit;
 			}
 		} else {
-			g_Vars.currentplayer->speedthetacontrol += 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedthetacontrol += 0.05f * g_Vars.lvupdate60freal * mult;
 
 			if (g_Vars.currentplayer->speedthetacontrol > limit) {
 				g_Vars.currentplayer->speedthetacontrol = limit;
@@ -1546,7 +1546,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 	// The multiplier starts at 1 and reaches 1.25 after about 0.1 seconds.
 	if (g_Vars.currentplayer->speedmaxtime60 >= TICKS(180)) {
 		if (g_Vars.currentplayer->speedboost < 1.25f) {
-			g_Vars.currentplayer->speedboost += 0.01f * g_Vars.lvupdate240freal;
+			g_Vars.currentplayer->speedboost += 0.01f * g_Vars.lvupdate60freal;
 		}
 
 		if (g_Vars.currentplayer->speedboost > 1.25f) {
@@ -1557,7 +1557,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 		}
 	} else {
 		if (g_Vars.currentplayer->speedboost > 1) {
-			g_Vars.currentplayer->speedboost -= 0.01f * g_Vars.lvupdate240freal;
+			g_Vars.currentplayer->speedboost -= 0.01f * g_Vars.lvupdate60freal;
 		}
 
 		if (g_Vars.currentplayer->speedboost < 1) {
@@ -1636,7 +1636,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				}
 
 				// Calculate new verta
-				newverta = g_Vars.currentplayer->vv_verta + (g_Vars.currentplayer->speedverta * g_Vars.lvupdate240freal + g_Vars.currentplayer->speedverta * g_Vars.lvupdate240freal);
+				newverta = g_Vars.currentplayer->vv_verta + (g_Vars.currentplayer->speedverta * g_Vars.lvupdate60freal + g_Vars.currentplayer->speedverta * g_Vars.lvupdate60freal);
 
 				if (g_Vars.currentplayer->vv_verta > lookahead && newverta > lookahead) {
 					g_Vars.currentplayer->vv_verta = newverta;
@@ -1685,7 +1685,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				bmoveUpdateSpeedVerta(0);
 			}
 
-			g_Vars.currentplayer->vv_verta += g_Vars.currentplayer->speedverta * g_Vars.lvupdate240freal * 3.5f;
+			g_Vars.currentplayer->vv_verta += g_Vars.currentplayer->speedverta * g_Vars.lvupdate60freal * 3.5f;
 		}
 	}
 
@@ -1769,7 +1769,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			}
 
 			if (g_Vars.currentplayer->autoaimdamp > (PAL ? 0.955f : 0.963f)) {
-				g_Vars.currentplayer->autoaimdamp -= (PAL ? 0.00037999986670911f : 0.00031999943894334f) * g_Vars.lvupdate240freal;
+				g_Vars.currentplayer->autoaimdamp -= (PAL ? 0.00037999986670911f : 0.00031999943894334f) * g_Vars.lvupdate60freal;
 			}
 
 			if (g_Vars.currentplayer->autoaimdamp < (PAL ? 0.955f : 0.963f)) {
@@ -1788,7 +1788,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			// This code moves the crosshair as the player turns and makes
 			// it return to the centre when not affected by anything else.
 			if (g_Vars.currentplayer->autoaimdamp < (PAL ? 0.974f : 0.979f)) {
-				g_Vars.currentplayer->autoaimdamp += (PAL ? 0.00037999986670911f : 0.00031999943894334f) * g_Vars.lvupdate240freal;
+				g_Vars.currentplayer->autoaimdamp += (PAL ? 0.00037999986670911f : 0.00031999943894334f) * g_Vars.lvupdate60freal;
 			}
 
 			if (g_Vars.currentplayer->autoaimdamp > (PAL ? 0.974f : 0.979f)) {
@@ -1854,13 +1854,13 @@ void bmove0f0cb904(struct coord *arg0)
 			if (hypotenuse > 0.0001f) {
 				if (arg0->f[i] != 0) {
 					if (arg0->f[i] > 0) {
-						arg0->f[i] -= (1.0f / 30.0f) * g_Vars.lvupdate240freal * arg0->f[i] / hypotenuse;
+						arg0->f[i] -= (1.0f / 30.0f) * g_Vars.lvupdate60freal * arg0->f[i] / hypotenuse;
 
 						if (arg0->f[i] < 0) {
 							arg0->f[i] = 0;
 						}
 					} else if (arg0->f[i] < 0) {
-						arg0->f[i] -= (1.0f / 30.0f) * g_Vars.lvupdate240freal * arg0->f[i] / hypotenuse;
+						arg0->f[i] -= (1.0f / 30.0f) * g_Vars.lvupdate60freal * arg0->f[i] / hypotenuse;
 
 						if (arg0->f[i] > 0) {
 							arg0->f[i] = 0;
@@ -1893,7 +1893,7 @@ void bmoveUpdateMoveInitSpeed(struct coord *newpos)
 			g_Vars.currentplayer->moveinitspeed.x = 0;
 		} else {
 			g_Vars.currentplayer->moveinitspeed.x *= 0.9f;
-			newpos->x += g_Vars.currentplayer->moveinitspeed.x * g_Vars.lvupdate240freal;
+			newpos->x += g_Vars.currentplayer->moveinitspeed.x * g_Vars.lvupdate60freal;
 		}
 	}
 
@@ -1902,7 +1902,7 @@ void bmoveUpdateMoveInitSpeed(struct coord *newpos)
 			g_Vars.currentplayer->moveinitspeed.z = 0;
 		} else {
 			g_Vars.currentplayer->moveinitspeed.z *= 0.9f;
-			newpos->z += g_Vars.currentplayer->moveinitspeed.z * g_Vars.lvupdate240freal;
+			newpos->z += g_Vars.currentplayer->moveinitspeed.z * g_Vars.lvupdate60freal;
 		}
 	}
 }

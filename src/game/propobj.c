@@ -3532,7 +3532,7 @@ void applySpeed(f32 *distdone, f32 maxdist, f32 *speedptr, f32 accel, f32 decel,
 	f32 speed = *speedptr;
 	s32 i;
 
-	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+	for (i = 0; i < g_Vars.lvupdate60; i++) {
 		f32 limit = speed * speed * 0.5f / decel;
 		f32 distremaining = maxdist - *distdone;
 
@@ -3848,7 +3848,7 @@ void projectileFall(struct defaultobj *obj, f32 arg1[3][3])
 		} else if (sp6c > 0.0f && obj->realrot[t2][1] < 0.0f && obj->realrot[t2][1] < arg1[t2][1]) {
 			projectile->unk064 = 0.05f / (sp6c * 0.63672113f);
 		} else {
-			f2 = acosf((arg1[t2][0] * obj->realrot[t2][0] + arg1[t2][1] * obj->realrot[t2][1] + arg1[t2][2] * obj->realrot[t2][2]) / (obj->model->scale * obj->model->scale)) / g_Vars.lvupdate240freal;
+			f2 = acosf((arg1[t2][0] * obj->realrot[t2][0] + arg1[t2][1] * obj->realrot[t2][1] + arg1[t2][2] * obj->realrot[t2][2]) / (obj->model->scale * obj->model->scale)) / g_Vars.lvupdate60freal;
 
 			if (sp6c != 0.0f) {
 				projectile->unk064 = f2 / sp6c;
@@ -4636,7 +4636,7 @@ void weaponTick(struct prop *prop)
 	// HARDFREEING. They then fade out over 1 second, at which point they are
 	// given the REAPABLE flag and soon freed.
 	if (obj->flags3 & OBJFLAG3_HARDFREEING) {
-		weapon->fadeouttimer60 -= g_Vars.lvupdate240_60;
+		weapon->fadeouttimer60 -= g_Vars.lvupdate60;
 
 		if (weapon->fadeouttimer60 <= 0) {
 			weapon->fadeouttimer60 = 0;
@@ -6176,7 +6176,7 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 			}
 		}
 
-		for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+		for (i = 0; i < g_Vars.lvupdate60; i++) {
 			f32 f0;
 			f32 f12;
 			f32 f2;
@@ -6529,9 +6529,9 @@ f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotati
 				struct coord sp58;
 				struct coord sp4c;
 
-				obstaclevel.x = movingvel->x * 0.5f / g_Vars.lvupdate240freal;
+				obstaclevel.x = movingvel->x * 0.5f / g_Vars.lvupdate60freal;
 				obstaclevel.y = 0.0f;
-				obstaclevel.z = movingvel->z * 0.5f / g_Vars.lvupdate240freal;
+				obstaclevel.z = movingvel->z * 0.5f / g_Vars.lvupdate60freal;
 
 				objApplyMomentum(obstacleobj, &obstaclevel, 0.0f, true, true);
 
@@ -6573,7 +6573,7 @@ f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotati
 					xdiff *= mult;
 					zdiff *= mult;
 
-					rotation /= g_Vars.lvupdate240freal;
+					rotation /= g_Vars.lvupdate60freal;
 
 					speed.f[0] += -zdiff * rotation * 10.0f;
 					speed.f[2] += xdiff * rotation * 10.0f;
@@ -7830,7 +7830,7 @@ void hoverbikeUpdateMovement(struct hoverbikeobj *bike, f32 speedforwards, f32 s
 		tmp *= 1.0f - speedforwards * 0.5f;
 	}
 
-	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+	for (i = 0; i < g_Vars.lvupdate60; i++) {
 		bike->w += (tmp - bike->w) * PALUPF(0.075f);
 	}
 
@@ -7840,9 +7840,9 @@ void hoverbikeUpdateMovement(struct hoverbikeobj *bike, f32 speedforwards, f32 s
 	cosangle = cosf(angle);
 
 	if (speedforwards >= 0) {
-		f2 = (speedforwards + 0.1f) * 0.3f * g_Vars.lvupdate240freal;
+		f2 = (speedforwards + 0.1f) * 0.3f * g_Vars.lvupdate60freal;
 	} else {
-		f2 = (0.1f - speedforwards) * 0.3f * g_Vars.lvupdate240freal;
+		f2 = (0.1f - speedforwards) * 0.3f * g_Vars.lvupdate60freal;
 	}
 
 	if (bike->rels[1] < speedforwards * 0.5f) {
@@ -7888,9 +7888,9 @@ void hoverbikeUpdateMovement(struct hoverbikeobj *bike, f32 speedforwards, f32 s
 	sp70 += f12 * 0.04f * M_BADTAU;
 
 	if (speedsideways >= 0) {
-		f12 = (speedsideways + 0.1f) * 0.3f * g_Vars.lvupdate240freal;
+		f12 = (speedsideways + 0.1f) * 0.3f * g_Vars.lvupdate60freal;
 	} else {
-		f12 = (0.1f - speedsideways) * 0.3f * g_Vars.lvupdate240freal;
+		f12 = (0.1f - speedsideways) * 0.3f * g_Vars.lvupdate60freal;
 	}
 
 	if (bike->rels[0] < 0.4f * speedsideways) {
@@ -7909,7 +7909,7 @@ void hoverbikeUpdateMovement(struct hoverbikeobj *bike, f32 speedforwards, f32 s
 
 	sp68 += speedsideways * 0.2512874007225f;
 
-	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+	for (i = 0; i < g_Vars.lvupdate60; i++) {
 		bike->speedabs[1] *= PAL ? 0.964f : 0.97f;
 		bike->speedabs[0] *= PAL ? 0.964f : 0.97f;
 		bike->speedabs[1] += bike->rels[1] * cosangle * PALUPF(1.08f);
@@ -7918,7 +7918,7 @@ void hoverbikeUpdateMovement(struct hoverbikeobj *bike, f32 speedforwards, f32 s
 		bike->speedabs[0] += -bike->rels[0] * cosangle * PALUPF(0.72f);
 	}
 
-	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+	for (i = 0; i < g_Vars.lvupdate60; i++) {
 		bike->exreal += (sp70 - bike->exreal) * 0.04f;
 		bike->ezreal += (sp6c - bike->ezreal) * 0.15f;
 		bike->ezreal2 += (sp68 - bike->ezreal2) * 0.04f;
@@ -8115,7 +8115,7 @@ bool rocketTickFbw(struct weaponobj *rocket)
 	newpos.y = rocketprop->pos.y;
 	newpos.z = rocketprop->pos.z;
 
-	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+	for (i = 0; i < g_Vars.lvupdate60; i++) {
 		projectile->unk010 += PAL ? 0.0021600001f : 0.0018f;
 
 		speed = projectile->unk010;
@@ -8330,24 +8330,24 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				mtx4SetTranslation(&prop->pos, &sp504);
 
 				if (projectile->unk0dc > 0.0f) {
-					projectile->unk0dc -= projectile->unk0e0 * g_Vars.lvupdate240freal;
+					projectile->unk0dc -= projectile->unk0e0 * g_Vars.lvupdate60freal;
 
 					if (projectile->unk0dc < 0.0f) {
 						projectile->unk0dc = 0.0f;
 					} else if (projectile->unk0e4 < 1.0f) {
-						for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+						for (i = 0; i < g_Vars.lvupdate60; i++) {
 							if (projectile->unk0dc > projectile->unk0ec) {
 								projectile->unk0dc = projectile->unk0ec + (projectile->unk0dc - projectile->unk0ec) * projectile->unk0e4;
 							}
 						}
 					}
 				} else if (projectile->unk0dc < 0.0f) {
-					projectile->unk0dc += projectile->unk0e0 * g_Vars.lvupdate240freal;
+					projectile->unk0dc += projectile->unk0e0 * g_Vars.lvupdate60freal;
 
 					if (projectile->unk0dc > 0.0f) {
 						projectile->unk0dc = 0.0f;
 					} else if (projectile->unk0e4 < 1.0f) {
-						for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+						for (i = 0; i < g_Vars.lvupdate60; i++) {
 							if (projectile->unk0dc < -projectile->unk0ec) {
 								projectile->unk0dc = -projectile->unk0ec + (projectile->unk0dc + projectile->unk0ec) * projectile->unk0e4;
 							}
@@ -8359,7 +8359,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 					dist = sqrtf(projectile->speed.f[0] * projectile->speed.f[0] + projectile->speed.f[2] * projectile->speed.f[2]);
 
 					if (dist > 0.0f) {
-						f32 f12 = projectile->unk098 * g_Vars.lvupdate240freal / dist;
+						f32 f12 = projectile->unk098 * g_Vars.lvupdate60freal / dist;
 
 						if (f12 >= 1.0f) {
 							projectile->speed.x = 0.0f;
@@ -8369,7 +8369,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							projectile->speed.z -= projectile->speed.z * f12;
 
 							if (projectile->unk0e4 < 1.0f) {
-								for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+								for (i = 0; i < g_Vars.lvupdate60; i++) {
 									if (projectile->speed.x > projectile->unk0f0) {
 										projectile->speed.x = (projectile->speed.x - projectile->unk0f0) * projectile->unk0e4 + projectile->unk0f0;
 									} else if (projectile->speed.x < -projectile->unk0f0) {
@@ -8432,7 +8432,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 					}
 				}
 
-				sp5a8 = projectile->unk0dc * g_Vars.lvupdate240freal;
+				sp5a8 = projectile->unk0dc * g_Vars.lvupdate60freal;
 
 				if (sp5a8 != 0.0f) {
 					struct coord sp404 = {0, 0, 0};
@@ -8445,9 +8445,9 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 					}
 				}
 
-				sp59c.x = projectile->speed.x * g_Vars.lvupdate240freal;
+				sp59c.x = projectile->speed.x * g_Vars.lvupdate60freal;
 				sp59c.y = 0.0f;
-				sp59c.z = projectile->speed.z * g_Vars.lvupdate240freal;
+				sp59c.z = projectile->speed.z * g_Vars.lvupdate60freal;
 
 				if (haslimitedarea) {
 					x = pad.pos.x - prop->pos.x - sp59c.x;
@@ -8560,9 +8560,9 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						sp590.y = 0.0f;
 						sp590.z = projectile->speed.z + sp3f4.f[2] * f0_2;
 
-						sp59c.x = sp590.f[0] * g_Vars.lvupdate240freal;
+						sp59c.x = sp590.f[0] * g_Vars.lvupdate60freal;
 						sp59c.y = 0.0f;
-						sp59c.z = sp590.f[2] * g_Vars.lvupdate240freal;
+						sp59c.z = sp590.f[2] * g_Vars.lvupdate60freal;
 
 						if (haslimitedarea) {
 							x = pad.pos.x - prop->pos.x - sp59c.x;
@@ -8594,9 +8594,9 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							sp590.y = 0.0f;
 							sp590.z = -projectile->speed.f[2] * sp58c;
 
-							sp59c.x = sp590.f[0] * g_Vars.lvupdate240freal;
+							sp59c.x = sp590.f[0] * g_Vars.lvupdate60freal;
 							sp59c.y = 0.0f;
-							sp59c.z = sp590.f[2] * g_Vars.lvupdate240freal;
+							sp59c.z = sp590.f[2] * g_Vars.lvupdate60freal;
 
 							if (haslimitedarea) {
 								x = pad.pos.x - prop->pos.x - sp59c.x;
@@ -8643,9 +8643,9 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 									sp590.y = 0.0f;
 									sp590.z = sp398.f[2] * f14;
 
-									sp59c.x = sp590.f[0] * g_Vars.lvupdate240freal;
+									sp59c.x = sp590.f[0] * g_Vars.lvupdate60freal;
 									sp59c.y = 0.0f;
-									sp59c.z = sp590.f[2] * g_Vars.lvupdate240freal;
+									sp59c.z = sp590.f[2] * g_Vars.lvupdate60freal;
 
 									if (haslimitedarea) {
 										x = pad.pos.x - prop->pos.x - sp59c.x;
@@ -8742,19 +8742,19 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 				if (projectile->flags & PROJECTILEFLAG_00000020) {
 					if (projectile->unk01c < (1.0f / 3.6f)) {
-						projectile->unk0ac += projectile->unk014 * g_Vars.lvupdate240freal;
-						projectile->unk0a8 += projectile->unk0ac * g_Vars.lvupdate240freal;
-						projectile->unk01c += (1.0f / 90.0f) * g_Vars.lvupdate240freal;
+						projectile->unk0ac += projectile->unk014 * g_Vars.lvupdate60freal;
+						projectile->unk0a8 += projectile->unk0ac * g_Vars.lvupdate60freal;
+						projectile->unk01c += (1.0f / 90.0f) * g_Vars.lvupdate60freal;
 
 						if (projectile->unk01c > (1.0f / 3.6f)) {
 							projectile->unk01c = (1.0f / 3.6f);
 						}
 					} else {
 						if (projectile->unk0a8 > sp5dc.y) {
-							projectile->unk0ac += projectile->unk014 * g_Vars.lvupdate240freal;
-							projectile->unk0a8 += projectile->unk0ac * g_Vars.lvupdate240freal;
+							projectile->unk0ac += projectile->unk014 * g_Vars.lvupdate60freal;
+							projectile->unk0a8 += projectile->unk0ac * g_Vars.lvupdate60freal;
 
-							sp5dc.y += 0.07f * (projectile->unk0a8 - sp5dc.y) * g_Vars.lvupdate240freal;
+							sp5dc.y += 0.07f * (projectile->unk0a8 - sp5dc.y) * g_Vars.lvupdate60freal;
 						} else {
 							sp5dc.y = projectile->unk0a8;
 
@@ -8832,7 +8832,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							mainOverrideVariable("kkd", &kkd);
 							mainOverrideVariable("kkp", &kkp);
 
-							tmp = ((kkd / 100.0f * var80069bc4 / LVUPDATE240FREAL()) + (kkp / 100.00f * sp28c * LVUPDATE240FREAL())) * (kkg / 100.000f);
+							tmp = ((kkd / 100.0f * var80069bc4 / LVUPDATE60FREAL()) + (kkp / 100.00f * sp28c * LVUPDATE60FREAL())) * (kkg / 100.000f);
 
 							var80069bc4 = sp28c;
 
@@ -8874,27 +8874,27 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 					// Apply gravity
 					f32 f0;
 
-					projectile->speed.y += (projectile->unk014 + projectile->unk01c) * g_Vars.lvupdate240freal;
+					projectile->speed.y += (projectile->unk014 + projectile->unk01c) * g_Vars.lvupdate60freal;
 
 					if (projectile->flags & PROJECTILEFLAG_LIGHTWEIGHT) {
-						f0 = projectile->speed.y - (1.0f / 7.2f) * g_Vars.lvupdate240freal;
+						f0 = projectile->speed.y - (1.0f / 7.2f) * g_Vars.lvupdate60freal;
 					} else {
-						f0 = projectile->speed.y - (1.0f / 3.6f) * g_Vars.lvupdate240freal;
+						f0 = projectile->speed.y - (1.0f / 3.6f) * g_Vars.lvupdate60freal;
 					}
 
-					sp5dc.y += g_Vars.lvupdate240freal * (projectile->speed.y + f0) * 0.5f;
+					sp5dc.y += g_Vars.lvupdate60freal * (projectile->speed.y + f0) * 0.5f;
 
 					projectile->speed.y = f0;
 				} else {
-					projectile->speed.y += (projectile->unk014 + projectile->unk01c) * g_Vars.lvupdate240freal;
-					sp5dc.y += projectile->speed.y * g_Vars.lvupdate240freal;
+					projectile->speed.y += (projectile->unk014 + projectile->unk01c) * g_Vars.lvupdate60freal;
+					sp5dc.y += projectile->speed.y * g_Vars.lvupdate60freal;
 				}
 
-				projectile->speed.x += projectile->unk010 * g_Vars.lvupdate240freal;
-				projectile->speed.z += projectile->unk018 * g_Vars.lvupdate240freal;
+				projectile->speed.x += projectile->unk010 * g_Vars.lvupdate60freal;
+				projectile->speed.z += projectile->unk018 * g_Vars.lvupdate60freal;
 
-				sp5dc.x += projectile->speed.x * g_Vars.lvupdate240freal;
-				sp5dc.z += projectile->speed.z * g_Vars.lvupdate240freal;
+				sp5dc.x += projectile->speed.x * g_Vars.lvupdate60freal;
+				sp5dc.z += projectile->speed.z * g_Vars.lvupdate60freal;
 
 				mtx3ToMtx4(obj->realrot, &sp30c);
 				func0f096698(&sp30c, &projectile->mtx, g_Vars.lvupdate240);
@@ -9476,9 +9476,9 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				Mtxf spac;
 
 				if (projectile->unk060 < 1.0f) {
-					projectile->unk060 += projectile->unk064 * g_Vars.lvupdate240freal;
+					projectile->unk060 += projectile->unk064 * g_Vars.lvupdate60freal;
 
-					if (g_Vars.lvupdate240_60 > 0) {
+					if (g_Vars.lvupdate60 > 0) {
 						projectile->unk064 *= 1.1f;
 					}
 
@@ -9507,7 +9507,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 					stop = false;
 
-					for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+					for (i = 0; i < g_Vars.lvupdate60; i++) {
 						sp5dc.x += PALUPF(projectile->speed.x);
 						sp5dc.z += PALUPF(projectile->speed.z);
 
@@ -9516,7 +9516,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 								f32 dist = sqrtf(projectile->speed.f[0] * projectile->speed.f[0] + projectile->speed.f[2] * projectile->speed.f[2]);
 
 								if (dist > 0.0f) {
-									f12 = projectile->unk098 * g_Vars.lvupdate240freal / dist;
+									f12 = projectile->unk098 * g_Vars.lvupdate60freal / dist;
 
 									if (f12 >= 1.0f) {
 										projectile->speed.x = 0.0f;
@@ -10170,7 +10170,7 @@ void escastepTick(struct prop *prop)
 
 	resetting = false;
 
-	step->frame += g_Vars.lvupdate240_60;
+	step->frame += g_Vars.lvupdate60;
 
 	keyframes = (obj->flags & OBJFLAG_ESCSTEP_ZALIGNED) ? g_EscaStepKeyframesZ : g_EscaStepKeyframesX;
 
@@ -10341,10 +10341,10 @@ void cctvTick(struct prop *camprop)
 
 	if (canseeplayer) {
 		obj->flags |= OBJFLAG_CAMERA_BONDINVIEW;
-		camera->seebondtime60 += g_Vars.lvupdate240_60;
+		camera->seebondtime60 += g_Vars.lvupdate60;
 
 		if (g_Vars.coopplayernum >= 0) {
-			camera->seebondtime60 += g_Vars.lvupdate240_60;
+			camera->seebondtime60 += g_Vars.lvupdate60;
 		}
 
 		if (camera->seebondtime60 >= (s32)(TICKS(300) * g_CctvWaitScale)) {
@@ -10360,13 +10360,13 @@ void cctvTick(struct prop *camprop)
 		f32 tmp = camera->yspeed * camera->yspeed * 764.06536865234f;
 
 		if (camera->yrot >= yaw - tmp) {
-			camera->yspeed -= 0.00065439427271485f * g_Vars.lvupdate240freal;
+			camera->yspeed -= 0.00065439427271485f * g_Vars.lvupdate60freal;
 
 			if (camera->yspeed < 0.00065439427271485f) {
 				camera->yspeed = 0.00065439427271485f;
 			}
 		} else if (camera->yspeed < camera->ymaxspeed) {
-			f32 newspeed = camera->yspeed + 0.00065439427271485f * g_Vars.lvupdate240freal;
+			f32 newspeed = camera->yspeed + 0.00065439427271485f * g_Vars.lvupdate60freal;
 
 			if (newspeed > camera->ymaxspeed) {
 				newspeed = camera->ymaxspeed;
@@ -10377,7 +10377,7 @@ void cctvTick(struct prop *camprop)
 			}
 		}
 
-		camera->yrot += camera->yspeed * g_Vars.lvupdate240freal;
+		camera->yrot += camera->yspeed * g_Vars.lvupdate60freal;
 
 		if (camera->yrot >= yaw) {
 			camera->yrot = yaw;
@@ -10388,13 +10388,13 @@ void cctvTick(struct prop *camprop)
 		f32 tmp = camera->yspeed * camera->yspeed * 764.06536865234f;
 
 		if (camera->yrot <= yaw + tmp) {
-			camera->yspeed -= 0.00065439427271485f * g_Vars.lvupdate240freal;
+			camera->yspeed -= 0.00065439427271485f * g_Vars.lvupdate60freal;
 
 			if (camera->yspeed < 0.00065439427271485f) {
 				camera->yspeed = 0.00065439427271485f;
 			}
 		} else if (camera->yspeed < camera->ymaxspeed) {
-			f32 newspeed = camera->yspeed + 0.00065439427271485f * g_Vars.lvupdate240freal;
+			f32 newspeed = camera->yspeed + 0.00065439427271485f * g_Vars.lvupdate60freal;
 
 			if (newspeed > camera->ymaxspeed) {
 				newspeed = camera->ymaxspeed;
@@ -10405,7 +10405,7 @@ void cctvTick(struct prop *camprop)
 			}
 		}
 
-		camera->yrot -= camera->yspeed * g_Vars.lvupdate240freal;
+		camera->yrot -= camera->yspeed * g_Vars.lvupdate60freal;
 
 		if (camera->yrot <= yaw) {
 			camera->yrot = yaw;
@@ -10462,7 +10462,7 @@ void fanTick(struct prop *prop)
 	// Adjust fan speed
 	if (fan->on == true) {
 		// Accelerating
-		fan->yspeed += fan->yaccel * g_Vars.lvupdate240freal;
+		fan->yspeed += fan->yaccel * g_Vars.lvupdate60freal;
 
 		if (fan->yspeed > fan->ymaxspeed) {
 			fan->yspeed = fan->ymaxspeed;
@@ -10482,7 +10482,7 @@ void fanTick(struct prop *prop)
 
 	// Rotate
 	if (fan->yspeed > 0) {
-		fan->yrot += fan->yspeed * g_Vars.lvupdate240freal;
+		fan->yrot += fan->yspeed * g_Vars.lvupdate60freal;
 
 		while (fan->yrot >= 1.5705462694168f) { // almost BADDEG2RAD(90)
 			fan->yrot -= 1.5705462694168f;
@@ -10498,7 +10498,7 @@ void fanUpdateModel(struct prop *prop)
 	Mtxf sp6c;
 	f32 sp48[3][3];
 	f32 sp24[3][3];
-	f32 angle = fan->yspeed * g_Vars.lvupdate240freal;
+	f32 angle = fan->yspeed * g_Vars.lvupdate60freal;
 
 	while (angle >= M_BADTAU) {
 		angle -= M_BADTAU;
@@ -10592,13 +10592,13 @@ void autogunTick(struct prop *prop)
 		// must be here for a match, so it was likely copied from later in the
 		// function.
 		if (spinup) {
-			autogun->barrelspeed += 0.009971722f * g_Vars.lvupdate240freal;
+			autogun->barrelspeed += 0.009971722f * g_Vars.lvupdate60freal;
 
 			if (autogun->barrelspeed > maxspeed) {
 				autogun->barrelspeed = maxspeed;
 			}
 		} else if (autogun->barrelspeed > 0.0f) {
-			for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+			for (i = 0; i < g_Vars.lvupdate60; i++) {
 				autogun->barrelspeed *= 0.99f;
 			}
 
@@ -10608,7 +10608,7 @@ void autogunTick(struct prop *prop)
 		}
 
 		if (autogun->barrelspeed > 0.0f) {
-			autogun->barrelrot += autogun->barrelspeed * g_Vars.lvupdate240freal;
+			autogun->barrelrot += autogun->barrelspeed * g_Vars.lvupdate60freal;
 
 			while (autogun->barrelrot >= M_BADTAU) {
 				autogun->barrelrot -= M_BADTAU;
@@ -10940,13 +10940,13 @@ void autogunTick(struct prop *prop)
 
 	// Increase or decrease the barrel speed and apply the rotation
 	if (spinup) {
-		autogun->barrelspeed += 0.009971722f * g_Vars.lvupdate240freal;
+		autogun->barrelspeed += 0.009971722f * g_Vars.lvupdate60freal;
 
 		if (autogun->barrelspeed > 0.5983033f) {
 			autogun->barrelspeed = 0.5983033f;
 		}
 	} else if (autogun->barrelspeed > 0.0f) {
-		for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+		for (i = 0; i < g_Vars.lvupdate60; i++) {
 			autogun->barrelspeed *= 0.99f;
 		}
 
@@ -10956,7 +10956,7 @@ void autogunTick(struct prop *prop)
 	}
 
 	if (autogun->barrelspeed > 0.0f) {
-		autogun->barrelrot += autogun->barrelspeed * g_Vars.lvupdate240freal;
+		autogun->barrelrot += autogun->barrelspeed * g_Vars.lvupdate60freal;
 
 		while (autogun->barrelrot >= M_BADTAU) {
 			autogun->barrelrot -= M_BADTAU;
@@ -11280,7 +11280,7 @@ void autogunTickShoot(struct prop *autogunprop)
 
 						if (sqguntohitdist >= sqguntotargetdist) {
 							f32 guntotargetdist = sqrtf(sqguntotargetdist);
-							f32 increment = 0.16f * g_Vars.lvupdate240freal * g_AutogunAccuracyScale;
+							f32 increment = 0.16f * g_Vars.lvupdate60freal * g_AutogunAccuracyScale;
 
 							if (guntotargetdist > 200.0f) {
 								increment *= 200.0f / guntotargetdist;
@@ -11744,7 +11744,7 @@ void chopperIncrementBarrel(struct prop *chopperprop, bool firing)
 		}
 
 		if (chopper->barrelrotspeed < 0.34906584f) {
-			chopper->barrelrotspeed += 0.017453292f * LVUPDATE240FREAL();
+			chopper->barrelrotspeed += 0.017453292f * LVUPDATE60FREAL();
 		} else {
 			chopper->barrelrotspeed = 0.34906584f;
 		}
@@ -11758,7 +11758,7 @@ void chopperIncrementBarrel(struct prop *chopperprop, bool firing)
 		}
 	}
 
-	chopper->barrelrot += chopper->barrelrotspeed * LVUPDATE240FREAL();
+	chopper->barrelrot += chopper->barrelrotspeed * LVUPDATE60FREAL();
 
 #if PAL
 	applySpeed(&gunroty, angleh, &gunturnyspeed60, 0.0027920822612941f * speedmult, 0.0055841645225883f * speedmult, 0.16752494871616f * speedmult);
@@ -11861,7 +11861,7 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 	dir->z *= chopper->power;
 
 	if (chopper->power < 3.7f) {
-		chopper->power += 0.030833334f * g_Vars.lvupdate240freal;
+		chopper->power += 0.030833334f * g_Vars.lvupdate60freal;
 	}
 
 	chopper->bob += 0.052359f;
@@ -11879,7 +11879,7 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 
 	f2 = PAL ? 0.976f : 0.98f;
 
-	for (i = 1; i < g_Vars.lvupdate240_60; i++) {
+	for (i = 1; i < g_Vars.lvupdate60; i++) {
 		f2 *= PAL ? 0.976f : 0.98f;
 	}
 
@@ -11979,9 +11979,9 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 
 	chopper->ontarget = angle < 0.1745f;
 
-	newpos.x = prop->pos.x + chopper->vx * g_Vars.lvupdate240freal;
-	newpos.y = prop->pos.y + chopper->vy * g_Vars.lvupdate240freal;
-	newpos.z = prop->pos.z + chopper->vz * g_Vars.lvupdate240freal;
+	newpos.x = prop->pos.x + chopper->vx * g_Vars.lvupdate60freal;
+	newpos.y = prop->pos.y + chopper->vy * g_Vars.lvupdate60freal;
+	newpos.z = prop->pos.z + chopper->vz * g_Vars.lvupdate60freal;
 
 	func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
 
@@ -12030,7 +12030,7 @@ void chopperTickFall(struct prop *chopperprop)
 		xdiff = 0;
 		zdiff = 0;
 
-		chopper->timer60 -= g_Vars.lvupdate240_60;
+		chopper->timer60 -= g_Vars.lvupdate60;
 
 		if (chopper->path) {
 			for (i = 0; i < chopper->path->len; i++) {
@@ -12056,7 +12056,7 @@ void chopperTickFall(struct prop *chopperprop)
 		*z = xdiff;
 	} else if (chopper->timer60 >= 0) {
 		// Haven't started falling yet
-		chopper->timer60 -= g_Vars.lvupdate240_60;
+		chopper->timer60 -= g_Vars.lvupdate60;
 	} else {
 #if VERSION >= VERSION_NTSC_1_0
 		if (*y > -0.7f)
@@ -12066,7 +12066,7 @@ void chopperTickFall(struct prop *chopperprop)
 #endif
 		{
 			// Increase fall speed
-			*y -= 0.009f * g_Vars.lvupdate240f;
+			*y -= 0.009f * g_Vars.lvupdate60f;
 		}
 	}
 
@@ -12092,7 +12092,7 @@ void chopperTickFall(struct prop *chopperprop)
 		f32 bob;
 		s32 i;
 
-		for (i = 1; i < g_Vars.lvupdate240_60; i++) {
+		for (i = 1; i < g_Vars.lvupdate60; i++) {
 			mult *= 1.0f - PALUPF(0.02f);
 		}
 
@@ -12114,9 +12114,9 @@ void chopperTickFall(struct prop *chopperprop)
 		newspeed.y = mult * (speed.f[1] * chopper->power + chopper->vy);
 		newspeed.z = mult * (speed.f[2] * chopper->power + chopper->vz);
 
-		newpos.x = chopperprop->pos.x + newspeed.f[0] * g_Vars.lvupdate240freal;
-		newpos.y = chopperprop->pos.y + newspeed.f[1] * g_Vars.lvupdate240freal;
-		newpos.z = chopperprop->pos.z + newspeed.f[2] * g_Vars.lvupdate240freal;
+		newpos.x = chopperprop->pos.x + newspeed.f[0] * g_Vars.lvupdate60freal;
+		newpos.y = chopperprop->pos.y + newspeed.f[1] * g_Vars.lvupdate60freal;
+		newpos.z = chopperprop->pos.z + newspeed.f[2] * g_Vars.lvupdate60freal;
 
 		if (cdExamLos09(&chopperprop->pos, chopperprop->rooms, &newpos, CDTYPE_BG) == CDRESULT_COLLISION) {
 			struct coord sp74;
@@ -12186,7 +12186,7 @@ void chopperTickIdle(struct prop *prop)
 
 	chraiExecute(chopper, PROPTYPE_OBJ);
 
-	chopper->timer60 += g_Vars.lvupdate240_60;
+	chopper->timer60 += g_Vars.lvupdate60;
 
 	coord.x = 0;
 	coord.y = 0;
@@ -12208,10 +12208,10 @@ void chopperTickPatrol(struct prop *chopperprop)
 
 	chraiExecute(chopper, PROPTYPE_OBJ);
 
-	chopper->timer60 += g_Vars.lvupdate240_60;
+	chopper->timer60 += g_Vars.lvupdate60;
 
 	if (chopper->patroltimer60 > 0) {
-		chopper->patroltimer60 -= g_Vars.lvupdate240_60;
+		chopper->patroltimer60 -= g_Vars.lvupdate60;
 	}
 
 	if (chopper->path) {
@@ -12289,7 +12289,7 @@ void chopperTickCombat(struct prop *chopperprop)
 
 	chraiExecute(chopper, PROPTYPE_OBJ);
 
-	chopper->timer60 += g_Vars.lvupdate240_60;
+	chopper->timer60 += g_Vars.lvupdate60;
 
 	if ((chopper->targetvisible && dist < 2000000.0f) || chopper->path == NULL) {
 		// Stay put
@@ -12483,8 +12483,8 @@ void hovercarTick(struct prop *prop)
 
 	if (hovercar->dead) {
 		if (active) {
-			hovercar->deadtimer60 -= g_Vars.lvupdate240_60;
-			hovercar->sparkstimer60 -= g_Vars.lvupdate240_60;
+			hovercar->deadtimer60 -= g_Vars.lvupdate60;
+			hovercar->sparkstimer60 -= g_Vars.lvupdate60;
 
 			if (hovercar->sparkstimer60 < 0) {
 				hovercar->sparkstimer60 = TICKS(50);
@@ -12600,30 +12600,30 @@ void hovercarTick(struct prop *prop)
 	// during acceleration can cause the hovercar to exceed its max speed.
 	if (hovercar->speedtime60 >= 0) {
 		if (1);
-		if (hovercar->speedtime60 <= g_Vars.lvupdate240freal) {
+		if (hovercar->speedtime60 <= g_Vars.lvupdate60freal) {
 			hovercar->speed = hovercar->speedaim;
 		} else {
-			hovercar->speed += (hovercar->speedaim - hovercar->speed) * g_Vars.lvupdate240freal / hovercar->speedtime60;
+			hovercar->speed += (hovercar->speedaim - hovercar->speed) * g_Vars.lvupdate60freal / hovercar->speedtime60;
 		}
 
-		hovercar->speedtime60 -= g_Vars.lvupdate240freal;
+		hovercar->speedtime60 -= g_Vars.lvupdate60freal;
 	}
 
 	if (active) {
 		if (hovercar->turnyspeed60 > 0) {
-			hovercar->speed -= hovercar->speedaim * (1.0f / 24.0f) * LVUPDATE240FREAL();
+			hovercar->speed -= hovercar->speedaim * (1.0f / 24.0f) * LVUPDATE60FREAL();
 
 			if (hovercar->speed < 0) {
 				hovercar->speed = 0.1f;
 			}
 		} else {
 			if (hovercar->speed < hovercar->speedaim) {
-				hovercar->speed += hovercar->speedaim * (1.0f / 24.0f) * LVUPDATE240FREAL();
+				hovercar->speed += hovercar->speedaim * (1.0f / 24.0f) * LVUPDATE60FREAL();
 			}
 		}
 
 		if (stopping) {
-			hovercar->speed -= 50.0f / 240.f * LVUPDATE240FREAL();
+			hovercar->speed -= 50.0f / 240.f * LVUPDATE60FREAL();
 
 			if (hovercar->speed < 0) {
 				hovercar->speed = 0;
@@ -12693,9 +12693,9 @@ void hovercarTick(struct prop *prop)
 		sp194.y = active ? sinf(sp1fc) : sinf(sp18c);
 		sp194.z = cosf(sp190) * sp138;
 
-		sp150.x = prop->pos.x + sp194.f[0] * (hovercar->speed * g_Vars.lvupdate240freal);
-		sp150.y = prop->pos.y + sp194.f[1] * (hovercar->speed * g_Vars.lvupdate240freal);
-		sp150.z = prop->pos.z + sp194.f[2] * (hovercar->speed * g_Vars.lvupdate240freal);
+		sp150.x = prop->pos.x + sp194.f[0] * (hovercar->speed * g_Vars.lvupdate60freal);
+		sp150.y = prop->pos.y + sp194.f[1] * (hovercar->speed * g_Vars.lvupdate60freal);
+		sp150.z = prop->pos.z + sp194.f[2] * (hovercar->speed * g_Vars.lvupdate60freal);
 
 		func0f065e74(&prop->pos, prop->rooms, &sp150, sp140);
 
@@ -12704,7 +12704,7 @@ void hovercarTick(struct prop *prop)
 
 #if VERSION >= VERSION_NTSC_1_0
 			if (sp150.y < -100000) {
-				sp150.y = prop->pos.y + sp194.f[1] * (hovercar->speed * g_Vars.lvupdate240freal);
+				sp150.y = prop->pos.y + sp194.f[1] * (hovercar->speed * g_Vars.lvupdate60freal);
 			}
 #endif
 		}
@@ -12912,7 +12912,7 @@ u32 objTick(struct prop *prop)
 			regenning = false;
 		}
 
-		prop->timetoregen -= g_Vars.lvupdate240_60;
+		prop->timetoregen -= g_Vars.lvupdate60;
 
 		// If ready to start fading in but propCanRegen returns false, wait
 		// another second and try again. In practice propCanRegen will always
@@ -15135,7 +15135,7 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 				break;
 			case TVCMD_PAUSE: // f07ffb4
 				if (screen->pause60 >= 0) {
-					screen->pause60 -= g_Vars.lvupdate240_60;
+					screen->pause60 -= g_Vars.lvupdate60;
 
 					if (screen->pause60 >= 0) {
 						yielding = true;
@@ -15186,7 +15186,7 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 				screen->offset += 2;
 				break;
 			case TVCMD_ROTATEREL: // f080140
-				screen->rot += g_Vars.lvupdate240f * (s32)cmd[1] * (M_BADTAU / 65536.0f);
+				screen->rot += g_Vars.lvupdate60f * (s32)cmd[1] * (M_BADTAU / 65536.0f);
 
 				if (screen->rot >= M_BADTAU) {
 					screen->rot -= M_BADTAU;
@@ -15203,7 +15203,7 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 
 		// Increment X scale
 		if (screen->xscaleinc > 0) {
-			screen->xscalefrac += screen->xscaleinc * g_Vars.lvupdate240f;
+			screen->xscalefrac += screen->xscaleinc * g_Vars.lvupdate60f;
 
 			if (screen->xscalefrac < 1.0f) {
 				screen->xscale = screen->xscaleold + (screen->xscalenew - screen->xscaleold) * screen->xscalefrac;
@@ -15216,7 +15216,7 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 
 		// Increment Y scale
 		if (screen->yscaleinc > 0) {
-			screen->yscalefrac += screen->yscaleinc * g_Vars.lvupdate240f;
+			screen->yscalefrac += screen->yscaleinc * g_Vars.lvupdate60f;
 
 			if (screen->yscalefrac < 1.0f) {
 				screen->yscale = screen->yscaleold + (screen->yscalenew - screen->yscaleold) * screen->yscalefrac;
@@ -15229,7 +15229,7 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 
 		// Increment X scroll
 		if (screen->xmidinc > 0) {
-			screen->xmidfrac += screen->xmidinc * g_Vars.lvupdate240f;
+			screen->xmidfrac += screen->xmidinc * g_Vars.lvupdate60f;
 
 			if (screen->xmidfrac < 1.0f) {
 				screen->xmid = screen->xmidold + (screen->xmidnew - screen->xmidold) * screen->xmidfrac;
@@ -15242,7 +15242,7 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 
 		// Increment Y scroll
 		if (screen->ymidinc > 0) {
-			screen->ymidfrac += screen->ymidinc * g_Vars.lvupdate240f;
+			screen->ymidfrac += screen->ymidinc * g_Vars.lvupdate60f;
 
 			if (screen->ymidfrac < 1.0f) {
 				screen->ymid = screen->ymidold + (screen->ymidnew - screen->ymidold) * screen->ymidfrac;
@@ -15256,7 +15256,7 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 		// Increment colour change
 		// 370
 		if (screen->colinc > 0) {
-			screen->colfrac += screen->colinc * g_Vars.lvupdate240f;
+			screen->colfrac += screen->colinc * g_Vars.lvupdate60f;
 
 			// 398
 			if (screen->colfrac < 1.0f) {
@@ -22936,7 +22936,7 @@ bool doorCalcIntendedFrac(struct doorobj *door)
 	bool checkcollision = false;
 
 	if (door->doortype == DOORTYPE_LASER && door->fadetime60 != 0) {
-		door->fadetime60 -= g_Vars.lvupdate240_60;
+		door->fadetime60 -= g_Vars.lvupdate60;
 
 		if (door->fadetime60 < 0) {
 			door->fadetime60 = 0;
@@ -23673,7 +23673,7 @@ void gasTick(void)
 	u32 stack;
 
 	if (g_GasReleasing) {
-		g_GasReleaseTimer240 += g_Vars.lvupdate240freal;
+		g_GasReleaseTimer240 += g_Vars.lvupdate60freal;
 
 		if (g_GasReleaseTimer240 >= g_GasReleaseTimerMax240) {
 			g_GasReleaseTimer240 = g_GasReleaseTimerMax240;
@@ -23702,7 +23702,7 @@ void gasTick(void)
 			if (g_GasSoundTimer240 < g_GasReleaseTimerMax240) {
 				s16 soundnum = -1;
 
-				g_GasSoundTimer240 += g_Vars.lvupdate240freal;
+				g_GasSoundTimer240 += g_Vars.lvupdate60freal;
 
 				if (!g_GasAudioHandle && !lvIsPaused()) {
 					soundnum = SFX_0037;
@@ -23756,7 +23756,7 @@ bool countdownTimerIsRunning(void)
 void countdownTimerTick(void)
 {
 	if (g_CountdownTimerRunning) {
-		g_CountdownTimerValue60 -= g_Vars.lvupdate240freal;
+		g_CountdownTimerValue60 -= g_Vars.lvupdate60freal;
 	}
 }
 
@@ -23892,7 +23892,7 @@ void alarmTick(void)
 			}
 		}
 
-		g_AlarmTimer += g_Vars.lvupdate240_60;
+		g_AlarmTimer += g_Vars.lvupdate60;
 	}
 
 	// For G5, stop alarm after 55 seconds.
@@ -24112,9 +24112,9 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 					sp120.y = dir->y * 0.27777776f;
 					sp120.z = dir->z * 0.27777776f;
 
-					sp130.x = sp120.f[0] * g_Vars.lvupdate240freal;
-					sp130.y = sp120.f[1] * g_Vars.lvupdate240freal;
-					sp130.z = sp120.f[2] * g_Vars.lvupdate240freal;
+					sp130.x = sp120.f[0] * g_Vars.lvupdate60freal;
+					sp130.y = sp120.f[1] * g_Vars.lvupdate60freal;
+					sp130.z = sp120.f[2] * g_Vars.lvupdate60freal;
 
 					bgun0f09ebcc(&rocket->base, pos, fromprop->rooms, &spe0, &sp130, &sp13c, fromprop, pos);
 
@@ -24173,7 +24173,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 				aimpos.z = targetprop->pos.z;
 
 				if (func0f06b39c(pos, dir, &aimpos, 30)) {
-					f32 f0 = 0.16f * g_Vars.lvupdate240freal * arg1->unk0c;
+					f32 f0 = 0.16f * g_Vars.lvupdate60freal * arg1->unk0c;
 
 					if (dist > 200.0f) {
 						f0 *= 200.0f / dist;

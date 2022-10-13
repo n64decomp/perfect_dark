@@ -30,7 +30,7 @@ void sparksTick(void)
 				}
 
 				// Iterate the lvupdate multiplier
-				for (j = 0; j < g_Vars.lvupdate240_60; j++) {
+				for (j = 0; j < g_Vars.lvupdate60; j++) {
 					group->age++;
 					next = group->startindex;
 					spark = &g_Sparks[next];

@@ -198,7 +198,7 @@ void titleTickLegal(void)
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
-	g_TitleTimer += g_Vars.lvupdate240_60;
+	g_TitleTimer += g_Vars.lvupdate60;
 
 	if (g_TitleTimer > TICKS(180)) {
 		titleSetNextMode(TITLEMODE_CHECKCONTROLLERS);
@@ -691,7 +691,7 @@ void titleTickPdLogo(void)
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
-	g_TitleTimer += g_Vars.lvupdate240_60;
+	g_TitleTimer += g_Vars.lvupdate60;
 	var8009ccb8 = 1 - var8009ccb8;
 
 #if VERSION == VERSION_JPN_FINAL
@@ -7065,7 +7065,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			g_PdLogoYRotStopping = false;
 		}
 	} else /*e18*/ if (g_PdLogoYRotEnabled) {
-		g_PdLogoYRotCur += g_PdLogoYRotSpeed * g_Vars.lvupdate240freal;
+		g_PdLogoYRotCur += g_PdLogoYRotSpeed * g_Vars.lvupdate60freal;
 
 		if (g_PdLogoYRotCur >= M_BADTAU) {
 			g_PdLogoYRotCur -= M_BADTAU;
@@ -7078,7 +7078,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 	if (g_PdLogoPreMorphTimer != 0) {
 		s32 duration = 80;
 
-		g_PdLogoPreMorphTimer += g_Vars.lvupdate240_60;
+		g_PdLogoPreMorphTimer += g_Vars.lvupdate60;
 
 		if (g_PdLogoPreMorphTimer > 0) {
 			g_PdLogoFrac = (f32) g_PdLogoPreMorphTimer / (f32) duration;
@@ -7096,7 +7096,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 	// f14
 	if (g_PdLogoMorphing) {
-		g_PdLogoFrac += 0.004f * g_Vars.lvupdate240freal;
+		g_PdLogoFrac += 0.004f * g_Vars.lvupdate60freal;
 
 		if (g_PdLogoFrac >= 0.8f) {
 			if (g_PdLogoMorphEndTimer == 0) {
@@ -7112,7 +7112,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 	// f80
 	if (g_PdLogoMorphEndTimer != 0) {
-		g_PdLogoMorphEndTimer += g_Vars.lvupdate240_60;
+		g_PdLogoMorphEndTimer += g_Vars.lvupdate60;
 
 		if (g_PdLogoXRotCur > 0.0f) {
 			// Implement the camera lowering effect, but it's actually
@@ -7125,14 +7125,14 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			}
 		}
 
-		if (g_PdLogoMorphEndTimer > 30 && g_PdLogoMorphEndTimer - g_Vars.lvupdate240_60 <= 30) {
+		if (g_PdLogoMorphEndTimer > 30 && g_PdLogoMorphEndTimer - g_Vars.lvupdate60 <= 30) {
 			// Start slowing the spinning rotation
 			g_PdLogoYRotEnabled = false;
 			g_PdLogoYRotStopping = true;
 			g_PdLogoEndYRot = ((s32) (g_PdLogoYRotCur * 4.0f / M_BADTAU) + 2) * M_BADTAU * 0.25f;
 		}
 
-		if (g_PdLogoMorphEndTimer > 100 && g_PdLogoMorphEndTimer - g_Vars.lvupdate240_60 <= 100) {
+		if (g_PdLogoMorphEndTimer > 100 && g_PdLogoMorphEndTimer - g_Vars.lvupdate60 <= 100) {
 			g_PdLogoDarkenEnabled = true;
 		}
 
@@ -7148,7 +7148,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 		// Fading out the side and back faces of the logo...
 		// This is done by adjusting the ambient lighting. I guess the front
 		// face is excluded from ambient light?
-		g_PdLogoAmbientLightFrac -= 0.0075f * g_Vars.lvupdate240freal;
+		g_PdLogoAmbientLightFrac -= 0.0075f * g_Vars.lvupdate60freal;
 
 		if (g_PdLogoAmbientLightFrac <= 0.0f) {
 			g_PdLogoAmbientLightFrac = 0.0f;
@@ -7159,7 +7159,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 	// 178
 	if (g_PdLogoPreTitleTimer != 0) {
-		g_PdLogoPreTitleTimer += g_Vars.lvupdate240_60;
+		g_PdLogoPreTitleTimer += g_Vars.lvupdate60;
 
 		if (g_PdLogoPreTitleTimer > 20) {
 			g_PdLogoPreTitleTimer = 0;
@@ -7175,7 +7175,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 	// 1c4
 	if (g_PdLogoPointlessTimer != 0) {
-		g_PdLogoPointlessTimer += g_Vars.lvupdate240_60;
+		g_PdLogoPointlessTimer += g_Vars.lvupdate60;
 
 		if (g_PdLogoPointlessTimer > 0) {
 			g_PdLogoPointlessTimer = 0;
@@ -7212,7 +7212,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 	// 2d4
 	if (g_PdLogoUnusedRotEnabled) {
 		// Some unused value... maybe a different method of rotating the light?
-		g_PdLogoUnusedRot += 0.0062821852043271f * g_Vars.lvupdate240freal;
+		g_PdLogoUnusedRot += 0.0062821852043271f * g_Vars.lvupdate60freal;
 
 		if (g_PdLogoUnusedRot >= M_BADTAU) {
 			g_PdLogoUnusedRot -= M_BADTAU;
@@ -7221,7 +7221,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 	// 32c
 	if (g_PdLogoLightMoving) {
-		g_PdLogoLightDirFrac += 0.017f * g_Vars.lvupdate240freal;
+		g_PdLogoLightDirFrac += 0.017f * g_Vars.lvupdate60freal;
 
 		if (g_PdLogoLightDirFrac >= 1.0f) {
 			g_PdLogoLightDirFrac = 1.0f;
@@ -7231,7 +7231,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 	// 380
 	if (g_PdLogoExitTimer != 0) {
-		g_PdLogoExitTimer += g_Vars.lvupdate240_60;
+		g_PdLogoExitTimer += g_Vars.lvupdate60;
 
 		if (g_PdLogoExitTimer > 60) {
 			g_PdLogoExitTimer = 0;
@@ -7434,7 +7434,7 @@ void titleTickRarePresents(void)
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
-	g_TitleTimer += g_Vars.lvupdate240_60;
+	g_TitleTimer += g_Vars.lvupdate60;
 
 	if (g_TitleTimer > TICKS(300)) {
 		titleSetNextMode(TITLEMODE_PDLOGO);
@@ -7586,10 +7586,10 @@ void titleTickNintendoLogo(void)
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
-	g_TitleTimer += g_Vars.lvupdate240_60;
+	g_TitleTimer += g_Vars.lvupdate60;
 
 	if (g_TitleFastForward) {
-		g_TitleTimer += g_Vars.lvupdate240_60;
+		g_TitleTimer += g_Vars.lvupdate60;
 	}
 
 	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
@@ -7763,7 +7763,7 @@ void titleTickRareLogo(void)
 			musicQueueStartEvent(TRACKTYPE_PRIMARY, MUSIC_TITLE1, 0, 0x7fff);
 		}
 
-		g_TitleTimer += g_Vars.lvupdate240_60;
+		g_TitleTimer += g_Vars.lvupdate60;
 
 		if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
 			if (osResetType == RESETTYPE_WARM) {
@@ -7860,7 +7860,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 			titleSetLight(&var800625a8, s0, s0, s0, 0, &lightdir);
 		}
 
-		var80062920 += g_Vars.lvupdate240f / 90;
+		var80062920 += g_Vars.lvupdate60f / 90;
 
 		tmp = 1 - fracdone * 1;
 
@@ -8027,7 +8027,7 @@ void titleTickNoController(void)
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
-	g_TitleTimer += g_Vars.lvupdate240_60;
+	g_TitleTimer += g_Vars.lvupdate60;
 }
 
 Gfx *titleRenderNoController(Gfx *gdl)
@@ -8150,7 +8150,7 @@ void titleTickNoExpansion(void)
 	viSetZRange(100, 10000);
 	viSetUseZBuf(0);
 
-	g_TitleTimer += g_Vars.lvupdate240_60;
+	g_TitleTimer += g_Vars.lvupdate60;
 }
 #endif
 

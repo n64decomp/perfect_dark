@@ -1220,21 +1220,17 @@ void mainLoop(void)
 		}
 
 		while (g_MainChangeToStageNum < 0 || g_MainNumGfxTasks != 0) {
-			s32 tmp;
+			s32 cycles;
+
 			osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_BLOCK);
 
-			switch (*(s16 *)msg) {
+			switch (*(s16 *) msg) {
 			case OS_SC_RETRACE_MSG:
-				tmp = osGetCount() - g_Vars.thisframetime;
-#if PAL
-				if (tmp >= g_Vars.mininc60 * 937500 - 937500 / 2) {
+				cycles = osGetCount() - g_Vars.thisframestartt;
+
+				if (cycles >= g_Vars.mininc60 * CYCLES_PER_FRAME - CYCLES_PER_FRAME / 2) {
 					mainTick();
 				}
-#else
-				if (tmp >= g_Vars.mininc60 * 781250 - 781250 / 2) {
-					mainTick();
-				}
-#endif
 				break;
 			case OS_SC_DONE_MSG:
 				g_MainNumGfxTasks--;

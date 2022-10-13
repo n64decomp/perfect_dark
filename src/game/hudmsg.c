@@ -1398,7 +1398,7 @@ void hudmsgsTick(void)
 
 				fadeintime = (sqrtf(msg->width * msg->width + msg->height * msg->height) + 132) / PALUPF(7.0f);
 
-				msg->timer += g_Vars.lvupdate240_60;
+				msg->timer += g_Vars.lvupdate60;
 
 				if (msg->timer >= (s32)fadeintime || msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
 					msg->state = HUDMSGSTATE_ONSCREEN;
@@ -1407,7 +1407,7 @@ void hudmsgsTick(void)
 			}
 			break;
 		case HUDMSGSTATE_ONSCREEN:
-			msg->timer += g_Vars.lvupdate240_60;
+			msg->timer += g_Vars.lvupdate60;
 
 			hide = false;
 
@@ -1436,7 +1436,7 @@ void hudmsgsTick(void)
 		case HUDMSGSTATE_FADINGOUT:
 			fadeouttime = (sqrtf(msg->width * msg->width + msg->height * msg->height) + 92) / PALUPF(7.0f);
 
-			msg->timer += g_Vars.lvupdate240_60;
+			msg->timer += g_Vars.lvupdate60;
 
 			if (msg->timer >= (s32)fadeouttime) {
 				msg->state = HUDMSGSTATE_FREE;

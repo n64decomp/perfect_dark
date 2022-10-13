@@ -884,13 +884,13 @@ void botinvTick(struct chrdata *chr)
 	weaponindex = mpGetWeaponSlotByWeaponNum(aibot->weaponnum);
 
 	if (weaponindex >= 0) {
-		aibot->equipdurations60[weaponindex][aibot->gunfunc] += g_Vars.lvupdate240_60;
+		aibot->equipdurations60[weaponindex][aibot->gunfunc] += g_Vars.lvupdate60;
 	}
 
 	// Every 60-61 seconds, decrease suicide values. These values are used when
 	// determining which gun to use. The more suicides with a particular gun and
 	// function, the less likely the aibot is to use it. This value cools off.
-	aibot->dampensuicidesttl60 -= g_Vars.lvupdate240_60;
+	aibot->dampensuicidesttl60 -= g_Vars.lvupdate60;
 
 	if (aibot->dampensuicidesttl60 < 0) {
 		aibot->dampensuicidesttl60 = TICKS(3600) + random() % TICKS(60);
@@ -902,7 +902,7 @@ void botinvTick(struct chrdata *chr)
 	}
 
 	// Every 10-60 seconds, generate new unk2a8 values
-	aibot->unk2a4 -= g_Vars.lvupdate240_60;
+	aibot->unk2a4 -= g_Vars.lvupdate60;
 
 	if (aibot->unk2a4 < 0) {
 		aibot->unk2a4 = TICKS(600) + random() % TICKS(3000);
@@ -920,7 +920,7 @@ void botinvTick(struct chrdata *chr)
 
 	// Every 2-12 seconds, generate a new random value which is used as a factor
 	// in various aibot logic.
-	aibot->random1ttl60 -= g_Vars.lvupdate240_60;
+	aibot->random1ttl60 -= g_Vars.lvupdate60;
 
 	if (aibot->random1ttl60 < 0) {
 		aibot->random1ttl60 = TICKS(120) + random() % TICKS(600);

@@ -188,9 +188,9 @@ Gfx *getitleRender(Gfx *gdl)
 		}
 
 #if PAL
-		var80062484 += 2.4f * g_Vars.lvupdate240f;
+		var80062484 += 2.4f * g_Vars.lvupdate60f;
 #else
-		var80062484 += g_Vars.lvupdate240f + g_Vars.lvupdate240f;
+		var80062484 += g_Vars.lvupdate60f + g_Vars.lvupdate60f;
 #endif
 
 		guRotate(&var8009cc88[var80062410], var80062484, 0, 1, 0);

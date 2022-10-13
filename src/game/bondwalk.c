@@ -167,9 +167,9 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 
 	func0f02e3dc(&globalthinga, &globalthingb, &abstarget, &vector, &posunk);
 
-	tween.x = (abstarget.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate240freal;
+	tween.x = (abstarget.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate60freal;
 	tween.y = 0;
-	tween.z = (abstarget.z - g_Vars.currentplayer->prop->pos.z) / g_Vars.lvupdate240freal;
+	tween.z = (abstarget.z - g_Vars.currentplayer->prop->pos.z) / g_Vars.lvupdate60freal;
 
 	func0f082e84(obj, &posunk, &vector, &tween, false);
 }
@@ -413,7 +413,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 				}
 
 				if (canpush) {
-					movingdist = sqrtf(delta->f[0] * delta->f[0] + delta->f[2] * delta->f[2]) / LVUPDATE240FREAL();
+					movingdist = sqrtf(delta->f[0] * delta->f[0] + delta->f[2] * delta->f[2]) / LVUPDATE60FREAL();
 
 					xdist = obstacle->pos.x - g_Vars.currentplayer->prop->pos.x;
 					zdist = obstacle->pos.z - g_Vars.currentplayer->prop->pos.z;
@@ -430,9 +430,9 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 							chr->pushspeed[0] = 0.5f * xdist;
 							chr->pushspeed[1] = 0.5f * zdist;
 
-							newpos.x = obstacle->pos.x + chr->pushspeed[0] * LVUPDATE240FREAL();
+							newpos.x = obstacle->pos.x + chr->pushspeed[0] * LVUPDATE60FREAL();
 							newpos.y = obstacle->pos.y;
-							newpos.z = obstacle->pos.z + chr->pushspeed[1] * LVUPDATE240FREAL();
+							newpos.z = obstacle->pos.z + chr->pushspeed[1] * LVUPDATE60FREAL();
 
 							chrCalculatePushPos(chr, &newpos, newrooms, false);
 
@@ -687,13 +687,13 @@ void bwalkUpdateSpeedForwards(f32 targetspeed, f32 accelspeed)
 	}
 
 	if (g_Vars.currentplayer->speedgo < targetspeed) {
-		g_Vars.currentplayer->speedgo += accelspeed * g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->speedgo += accelspeed * g_Vars.lvupdate60freal;
 
 		if (g_Vars.currentplayer->speedgo > targetspeed) {
 			g_Vars.currentplayer->speedgo = targetspeed;
 		}
 	} else if (g_Vars.currentplayer->speedgo > targetspeed) {
-		g_Vars.currentplayer->speedgo -= accelspeed * g_Vars.lvupdate240freal;
+		g_Vars.currentplayer->speedgo -= accelspeed * g_Vars.lvupdate60freal;
 
 		if (g_Vars.currentplayer->speedgo < targetspeed) {
 			g_Vars.currentplayer->speedgo = targetspeed;
@@ -930,8 +930,8 @@ void bwalkUpdateVertical(void)
 			multiplier = 0.277777777f;
 		}
 
-		newfallspeed = fallspeed - g_Vars.lvupdate240freal * multiplier;
-		newmanground += g_Vars.lvupdate240freal * (fallspeed + newfallspeed) * 0.5f;
+		newfallspeed = fallspeed - g_Vars.lvupdate60freal * multiplier;
+		newmanground += g_Vars.lvupdate60freal * (fallspeed + newfallspeed) * 0.5f;
 		fallspeed = newfallspeed;
 
 		if (newmanground < g_Vars.currentplayer->vv_ground) {
@@ -1212,7 +1212,7 @@ void bwalkUpdateTheta(void)
 	// Turn speed is calculated from the chr's height
 	mult = 159.0f / g_Vars.currentplayer->vv_eyeheight;
 	rotateamount = g_Vars.currentplayer->speedtheta * mult
-		* g_Vars.lvupdate240freal * 0.0174505133f * 3.5f;
+		* g_Vars.lvupdate60freal * 0.0174505133f * 3.5f;
 
 	bwalkCalculateNewPositionWithPush(&delta, rotateamount, true, 0, CDTYPE_ALL);
 }
@@ -1288,17 +1288,17 @@ void bwalkApplyMoveData(struct movedata *data)
 		} else if (data->digitalstepright) {
 			bwalkUpdateSpeedSideways(1, 0.2f, data->digitalstepright);
 		} else if (data->unk14 == false) {
-			bwalkUpdateSpeedSideways(0, 0.2f, g_Vars.lvupdate240_60);
+			bwalkUpdateSpeedSideways(0, 0.2f, g_Vars.lvupdate60);
 		}
 
 		if (data->unk14) {
-			bwalkUpdateSpeedSideways(data->analogstrafe * 0.014285714365542f, 0.2f, g_Vars.lvupdate240_60);
+			bwalkUpdateSpeedSideways(data->analogstrafe * 0.014285714365542f, 0.2f, g_Vars.lvupdate60);
 		}
 
 		// Forward/back
 		if (data->digitalstepforward) {
 			bwalkUpdateSpeedForwards(1, 1);
-			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
+			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate60;
 		} else if (data->digitalstepback) {
 			bwalkUpdateSpeedForwards(-1, 1);
 		} else if (data->canlookahead == false) {
@@ -1309,7 +1309,7 @@ void bwalkApplyMoveData(struct movedata *data)
 			bwalkUpdateSpeedForwards(data->analogwalk * 0.014285714365542f, 1);
 
 			if (data->analogwalk > 60) {
-				g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
+				g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate60;
 			} else {
 				g_Vars.currentplayer->speedmaxtime60 = 0;
 			}
@@ -1387,7 +1387,7 @@ void bwalk0f0c69b8(void)
 	f32 spa8;
 	f32 mult;
 	f32 f0;
-	f32 lvupdate240f;
+	f32 lvupdate60f;
 	s32 lvupdate240;
 	s32 cdresult;
 	struct escalatorobj *esc;
@@ -1433,7 +1433,7 @@ void bwalk0f0c69b8(void)
 #endif
 
 	if (g_Vars.currentplayer->walkinitmove) {
-		g_Vars.currentplayer->walkinitt += g_Vars.lvupdate240freal * (1.0f / 60.0f);
+		g_Vars.currentplayer->walkinitt += g_Vars.lvupdate60freal * (1.0f / 60.0f);
 
 		if (g_Vars.currentplayer->walkinitt >= 1.0f) {
 			g_Vars.currentplayer->walkinitt = 1.0f;
@@ -1475,19 +1475,19 @@ void bwalk0f0c69b8(void)
 
 		dist = sqrtf(spb4 * spb4 + spb0 * spb0);
 
-		if (g_Vars.lvupdate240freal > PALUPF(4)) {
-			lvupdate240f = PALUPF(4);
+		if (g_Vars.lvupdate60freal > PALUPF(4)) {
+			lvupdate60f = PALUPF(4);
 			lvupdate240 = 4;
 		} else {
-			lvupdate240f = g_Vars.lvupdate240freal;
-			lvupdate240 = g_Vars.lvupdate240_60;
+			lvupdate60f = g_Vars.lvupdate60freal;
+			lvupdate240 = g_Vars.lvupdate60;
 		}
 
 		for (i = 0; i < lvupdate240; i++) {
 			spa8 += (dist - spa8) * PALUPF(0.1f);
 		}
 
-		spa8 += 3.75f * lvupdate240f;
+		spa8 += 3.75f * lvupdate60f;
 
 		if (g_Vars.currentplayer->crouchoffset < -45.0f) {
 			spa8 *= 0.35f;
@@ -1532,9 +1532,9 @@ void bwalk0f0c69b8(void)
 		}
 
 		if (maxspeed >= 0.75f) {
-			g_Vars.currentplayer->bondbreathing += (maxspeed - 0.75f) * g_Vars.lvupdate240freal / 900;
+			g_Vars.currentplayer->bondbreathing += (maxspeed - 0.75f) * g_Vars.lvupdate60freal / 900;
 		} else {
-			g_Vars.currentplayer->bondbreathing -= (0.75f - maxspeed) * g_Vars.lvupdate240freal / 2700;
+			g_Vars.currentplayer->bondbreathing -= (0.75f - maxspeed) * g_Vars.lvupdate60freal / 2700;
 		}
 
 		if (g_Vars.currentplayer->bondbreathing < 0.0f) {
@@ -1543,7 +1543,7 @@ void bwalk0f0c69b8(void)
 			g_Vars.currentplayer->bondbreathing = 1.0f;
 		}
 
-		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate240freal;
+		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate60freal;
 		spe0 = (g_Vars.currentplayer->speedsideways * spc0 + spc4) * mult;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1565,21 +1565,21 @@ void bwalk0f0c69b8(void)
 		}
 #endif
 
-		spcc.f[0] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[0] - spdc * g_Vars.currentplayer->bond2.unk00.f[2]) * g_Vars.lvupdate240freal;
-		spcc.f[2] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[2] + spdc * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate240freal;
+		spcc.f[0] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[0] - spdc * g_Vars.currentplayer->bond2.unk00.f[2]) * g_Vars.lvupdate60freal;
+		spcc.f[2] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[2] + spdc * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate60freal;
 		spcc.f[0] += spb4;
 		spcc.f[2] += spb0;
 
 		bmoveUpdateMoveInitSpeed(&spcc);
 
 		if (debugIsTurboModeEnabled()) {
-			spcc.f[0] += (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedforwards - g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate240freal * 10.0f;
-			spcc.f[2] += (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedforwards + g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate240freal * 10.0f;
+			spcc.f[0] += (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedforwards - g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
+			spcc.f[2] += (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedforwards + g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
 		}
 
 		if (g_Vars.currentplayer->bondforcespeed.f[0] != 0.0f || g_Vars.currentplayer->bondforcespeed.f[2] != 0.0f) {
-			spcc.f[0] += g_Vars.currentplayer->bondforcespeed.f[0] * g_Vars.lvupdate240freal;
-			spcc.f[2] += g_Vars.currentplayer->bondforcespeed.f[2] * g_Vars.lvupdate240freal;
+			spcc.f[0] += g_Vars.currentplayer->bondforcespeed.f[0] * g_Vars.lvupdate60freal;
+			spcc.f[2] += g_Vars.currentplayer->bondforcespeed.f[2] * g_Vars.lvupdate60freal;
 		}
 
 		if (g_Vars.currentplayer->onladder) {
@@ -1587,7 +1587,7 @@ void bwalk0f0c69b8(void)
 
 			sp74 = -(spcc.f[0] * g_Vars.currentplayer->laddernormal.f[0] + spcc.f[2] * g_Vars.currentplayer->laddernormal.f[2]);
 
-			if (-4.0f * g_Vars.lvupdate240freal < sp74) {
+			if (-4.0f * g_Vars.lvupdate60freal < sp74) {
 				if (sp74 < 0.0f) {
 					spcc.f[0] += sp74 * g_Vars.currentplayer->laddernormal.f[0];
 					spcc.f[2] += sp74 * g_Vars.currentplayer->laddernormal.f[2];

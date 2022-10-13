@@ -1677,9 +1677,9 @@ void propsTickPlayer(bool islastplayer)
 	struct prop *prop;
 	struct prop *end;
 	s32 savedlvupdate240;
-	s32 savedlvupdate240_60;
-	f32 savedlvupdate240f;
-	f32 savedlvupdate240freal;
+	s32 savedlvupdate60;
+	f32 savedlvupdate60f;
+	f32 savedlvupdate60freal;
 	s32 savedslotupdate240;
 	s32 savedslotupdate240_60;
 	f32 savedslotupdate240f;
@@ -1720,9 +1720,9 @@ void propsTickPlayer(bool islastplayer)
 	// Save these global timing values because we'll be modifying them
 	// and restoring them afterwards
 	savedlvupdate240 = g_Vars.lvupdate240;
-	savedlvupdate240_60 = g_Vars.lvupdate240_60;
-	savedlvupdate240f = g_Vars.lvupdate240f;
-	savedlvupdate240freal = g_Vars.lvupdate240freal;
+	savedlvupdate60 = g_Vars.lvupdate60;
+	savedlvupdate60f = g_Vars.lvupdate60f;
+	savedlvupdate60freal = g_Vars.lvupdate60freal;
 
 	for (i = 0; i < g_Vars.numpropstates; i++) {
 		g_Vars.propstates[i].slotupdate240 += g_Vars.lvupdate240;
@@ -1872,16 +1872,16 @@ void propsTickPlayer(bool islastplayer)
 			// The prop is in the foreground, so it must be ticked on this frame
 			if (prop->lastupdateframe != g_Vars.prevupdateframe) {
 				g_Vars.lvupdate240 = prop->propupdate240;
-				g_Vars.lvupdate240_60 = prop->propupdate240 + prop->propupdate60err;
-				prop->propupdate60err = g_Vars.lvupdate240_60 & 3;
-				g_Vars.lvupdate240_60 >>= 2;
-				g_Vars.lvupdate240f = g_Vars.lvupdate240 / 4.0f;
-				g_Vars.lvupdate240freal = PALUPF(g_Vars.lvupdate240f);
+				g_Vars.lvupdate60 = prop->propupdate240 + prop->propupdate60err;
+				prop->propupdate60err = g_Vars.lvupdate60 & 3;
+				g_Vars.lvupdate60 >>= 2;
+				g_Vars.lvupdate60f = g_Vars.lvupdate240 / 4.0f;
+				g_Vars.lvupdate60freal = PALUPF(g_Vars.lvupdate60f);
 			} else {
 				g_Vars.lvupdate240 = savedlvupdate240;
-				g_Vars.lvupdate240_60 = savedlvupdate240_60;
-				g_Vars.lvupdate240f = savedlvupdate240f;
-				g_Vars.lvupdate240freal = savedlvupdate240freal;
+				g_Vars.lvupdate60 = savedlvupdate60;
+				g_Vars.lvupdate60f = savedlvupdate60f;
+				g_Vars.lvupdate60freal = savedlvupdate60freal;
 			}
 
 			prop->backgroundedframes = 0;
@@ -1916,9 +1916,9 @@ void propsTickPlayer(bool islastplayer)
 
 			if (prop->lastupdateframe != g_Vars.prevupdateframe) {
 				g_Vars.lvupdate240 = savedlvupdate240;
-				g_Vars.lvupdate240_60 = savedlvupdate240_60;
-				g_Vars.lvupdate240f = savedlvupdate240f;
-				g_Vars.lvupdate240freal = savedlvupdate240freal;
+				g_Vars.lvupdate60 = savedlvupdate60;
+				g_Vars.lvupdate60f = savedlvupdate60f;
+				g_Vars.lvupdate60freal = savedlvupdate60freal;
 			}
 
 			prop->lastupdateframe = g_Vars.updateframe;
@@ -1936,16 +1936,16 @@ void propsTickPlayer(bool islastplayer)
 			if (prop->propstateindex == runstateindex) {
 				if (prop->lastupdateframe != g_Vars.propstates[runstateindex].lastupdateframe) {
 					g_Vars.lvupdate240 = prop->propupdate240;
-					g_Vars.lvupdate240_60 = prop->propupdate240 + prop->propupdate60err;
-					prop->propupdate60err = g_Vars.lvupdate240_60 & 3;
-					g_Vars.lvupdate240_60 >>= 2;
-					g_Vars.lvupdate240f = g_Vars.lvupdate240 / 4.0f;
-					g_Vars.lvupdate240freal = PALUPF(g_Vars.lvupdate240f);
+					g_Vars.lvupdate60 = prop->propupdate240 + prop->propupdate60err;
+					prop->propupdate60err = g_Vars.lvupdate60 & 3;
+					g_Vars.lvupdate60 >>= 2;
+					g_Vars.lvupdate60f = g_Vars.lvupdate240 / 4.0f;
+					g_Vars.lvupdate60freal = PALUPF(g_Vars.lvupdate60f);
 				} else {
 					g_Vars.lvupdate240 = savedslotupdate240;
-					g_Vars.lvupdate240_60 = savedslotupdate240_60;
-					g_Vars.lvupdate240f = savedslotupdate240f;
-					vars->lvupdate240freal = PALUPF(savedslotupdate240f);
+					g_Vars.lvupdate60 = savedslotupdate240_60;
+					g_Vars.lvupdate60f = savedslotupdate240f;
+					vars->lvupdate60freal = PALUPF(savedslotupdate240f);
 				}
 
 				// Tick the prop
@@ -1986,9 +1986,9 @@ void propsTickPlayer(bool islastplayer)
 
 				if (prop->lastupdateframe != g_Vars.propstates[runstateindex].lastupdateframe) {
 					g_Vars.lvupdate240 = savedslotupdate240;
-					g_Vars.lvupdate240_60 = savedslotupdate240_60;
-					g_Vars.lvupdate240f = savedslotupdate240f;
-					vars->lvupdate240freal = PALUPF(savedslotupdate240f);
+					g_Vars.lvupdate60 = savedslotupdate240_60;
+					g_Vars.lvupdate60f = savedslotupdate240f;
+					vars->lvupdate60freal = PALUPF(savedslotupdate240f);
 				}
 
 				prop->lastupdateframe = g_Vars.updateframe;
@@ -1998,9 +1998,9 @@ void propsTickPlayer(bool islastplayer)
 		}
 
 		g_Vars.lvupdate240 = savedlvupdate240;
-		g_Vars.lvupdate240_60 = savedlvupdate240_60;
-		g_Vars.lvupdate240f = savedlvupdate240f;
-		g_Vars.lvupdate240freal = savedlvupdate240freal;
+		g_Vars.lvupdate60 = savedlvupdate60;
+		g_Vars.lvupdate60f = savedlvupdate60f;
+		g_Vars.lvupdate60freal = savedlvupdate60freal;
 
 		if (op == TICKOP_CHANGEDLIST) {
 			// The prop has changed from active to paused, which means its
@@ -2189,9 +2189,9 @@ void propsTickPlayer(bool islastplayer)
 	}
 
 	g_Vars.lvupdate240 = savedlvupdate240;
-	g_Vars.lvupdate240_60 = savedlvupdate240_60;
-	g_Vars.lvupdate240f = savedlvupdate240f;
-	g_Vars.lvupdate240freal = savedlvupdate240freal;
+	g_Vars.lvupdate60 = savedlvupdate60;
+	g_Vars.lvupdate60f = savedlvupdate60f;
+	g_Vars.lvupdate60freal = savedlvupdate60freal;
 
 	g_Vars.propstates[runstateindex].slotupdate240 = 0;
 	g_Vars.propstates[runstateindex].lastupdateframe = g_Vars.updateframe;

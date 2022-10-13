@@ -1258,7 +1258,7 @@ s32 botTick(struct prop *prop)
 					chr->blurdrugamount = TICKS(5000);
 				}
 
-				chr->blurdrugamount -= g_Vars.lvupdate240_60 * (chr->blurnumtimesdied + 1);
+				chr->blurdrugamount -= g_Vars.lvupdate60 * (chr->blurnumtimesdied + 1);
 
 				if (chr->blurdrugamount <= 0) {
 					chr->blurdrugamount = 0;
@@ -1312,7 +1312,7 @@ s32 botTick(struct prop *prop)
 				targetangle += M_BADTAU;
 			}
 
-			tweenangle = g_Vars.lvupdate240freal * 0.061590049415827f;
+			tweenangle = g_Vars.lvupdate60freal * 0.061590049415827f;
 			diffangle = targetangle - oldangle;
 
 			if (diffangle < -M_PI) {
@@ -1353,7 +1353,7 @@ s32 botTick(struct prop *prop)
 				aibot->speedtheta -= M_BADTAU;
 			}
 
-			aibot->speedtheta /= g_Vars.lvupdate240freal;
+			aibot->speedtheta /= g_Vars.lvupdate60freal;
 			aibot->speedtheta *= 16.236389160156f;
 
 			while (newangle >= M_BADTAU) {
@@ -1521,7 +1521,7 @@ void bot0f1921f8(struct chrdata *chr, f32 *move)
 		move[1] += chr->aibot->unk0b8 * tmp;
 	}
 #else
-	tmp = (PAL ? 0.065f : 0.055000007152557f) * g_Vars.lvupdate240freal / g_Vars.lvupdate240;
+	tmp = (PAL ? 0.065f : 0.055000007152557f) * g_Vars.lvupdate60freal / g_Vars.lvupdate240;
 
 	for (i = 0; i < g_Vars.lvupdate240; i++) {
 		chr->aibot->unk0b4 = (PAL ? 0.935f : 0.945f) * chr->aibot->unk0b4 + sp30[0];
@@ -1712,7 +1712,7 @@ void botSetTarget(struct chrdata *botchr, s32 propnum)
 			botchr->aibot->targetcloaktimer60 = TICKS(120);
 		} else {
 			if (botchr->aibot->targetcloaktimer60 > 0) {
-				botchr->aibot->targetcloaktimer60 -= g_Vars.lvupdate240_60;
+				botchr->aibot->targetcloaktimer60 -= g_Vars.lvupdate60;
 			}
 		}
 	} else {
@@ -1763,7 +1763,7 @@ void bot0f192a74(struct chrdata *chr)
 	f32 fVar11;
 	f32 tmp;
 
-	aibot->unk1cc -= g_Vars.lvupdate240_60;
+	aibot->unk1cc -= g_Vars.lvupdate60;
 
 	if (aibot->unk1cc <= 0) {
 		aibot->unk1d0 = random();
@@ -1777,7 +1777,7 @@ void bot0f192a74(struct chrdata *chr)
 			aibot->unk1d4 -= g_Vars.diffframe60;
 		}
 
-		tmp = g_BotDifficulties[diff].unk10 * (aibot->speedtheta * g_Vars.lvupdate240f);
+		tmp = g_BotDifficulties[diff].unk10 * (aibot->speedtheta * g_Vars.lvupdate60f);
 
 		if (tmp < 0) {
 			tmp = -tmp;
@@ -1908,7 +1908,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 		// However, the usage of canseecloaked appears to be botched.
 		// It is implemented in botIsTargetInvisible, but that function is not
 		// called here while canseecloaked is true.
-		if (random() % TICKS(4 * 60 * 60) < g_MpNumChrs * g_Vars.lvupdate240_60) {
+		if (random() % TICKS(4 * 60 * 60) < g_MpNumChrs * g_Vars.lvupdate60) {
 			aibot->canseecloaked = true;
 		}
 
@@ -8782,7 +8782,7 @@ void botTickUnpaused(struct chrdata *chr)
 		s32 i;
 
 		// Consider updating random values
-		aibot->random2ttl60 -= g_Vars.lvupdate240_60;
+		aibot->random2ttl60 -= g_Vars.lvupdate60;
 
 		if (aibot->random2ttl60 < 0) {
 			aibot->random2ttl60 = 1800 + random() % 14400;
@@ -8794,7 +8794,7 @@ void botTickUnpaused(struct chrdata *chr)
 		for (i = 0; i != 2; i++) {
 			// Reload if timer has reached 0
 			if (aibot->timeuntilreload60[i] > 0) {
-				aibot->timeuntilreload60[i] -= g_Vars.lvupdate240_60;
+				aibot->timeuntilreload60[i] -= g_Vars.lvupdate60;
 
 				if (aibot->timeuntilreload60[i] <= 0) {
 					botactReload(chr, i, true);
@@ -8816,7 +8816,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 		// Handle switching weapons
 		if (aibot->changeguntimer60 > 0) {
-			aibot->changeguntimer60 -= g_Vars.lvupdate240_60;
+			aibot->changeguntimer60 -= g_Vars.lvupdate60;
 
 			if (aibot->changeguntimer60 <= 0) {
 				struct invitem *item = botinvGetItem(chr, aibot->weaponnum);
@@ -8898,7 +8898,7 @@ void botTickUnpaused(struct chrdata *chr)
 		// out which commands to apply automatically based on the scenario.
 		if (aibot->teamisonlyai) {
 			if (aibot->commandtimer60 > 0) {
-				aibot->commandtimer60 -= g_Vars.lvupdate240_60;
+				aibot->commandtimer60 -= g_Vars.lvupdate60;
 			}
 
 			if (aibot->commandtimer60 <= 0) {
@@ -9619,7 +9619,7 @@ void botTickUnpaused(struct chrdata *chr)
 				}
 
 				if (aibot->returntodefendtimer60 > 0) {
-					aibot->returntodefendtimer60 -= g_Vars.lvupdate240_60;
+					aibot->returntodefendtimer60 -= g_Vars.lvupdate60;
 				}
 
 				if (xdist > 40 || zdist > 40 || (ydist > 200 && !chr->inlift)) {
@@ -9714,7 +9714,7 @@ void botTickUnpaused(struct chrdata *chr)
 				// nextbullettimer60 is positive if the chr is firing
 				// It's used to implement the weapon's fire rate correctly
 				if (aibot->nextbullettimer60[i] > 0) {
-					aibot->nextbullettimer60[i] -= g_Vars.lvupdate240_60;
+					aibot->nextbullettimer60[i] -= g_Vars.lvupdate60;
 				}
 
 				// Don't shoot the left hand on the same frame as the right
@@ -9743,7 +9743,7 @@ void botTickUnpaused(struct chrdata *chr)
 								// This seems a bit backwards in that the timer
 								// is set to negative (ie. punch) then the check
 								// below has to cancel it by setting it back to 0.
-								aibot->punchtimer60[i] -= g_Vars.lvupdate240_60;
+								aibot->punchtimer60[i] -= g_Vars.lvupdate60;
 
 								if (chr->target != -1
 										&& aibot->targetinsight
@@ -9846,7 +9846,7 @@ void botTickUnpaused(struct chrdata *chr)
 						// Hand throwing a weapon
 						if (i == HAND_RIGHT) {
 							if (aibot->throwtimer60 > 0) {
-								aibot->throwtimer60 -= g_Vars.lvupdate240_60;
+								aibot->throwtimer60 -= g_Vars.lvupdate60;
 							}
 
 							if (chr->aibot->throwtimer60 <= 0) {
@@ -9895,7 +9895,7 @@ void botTickUnpaused(struct chrdata *chr)
 								s32 newchargei;
 								s32 oldchargei = aibot->maulercharge[i];
 
-								aibot->maulercharge[i] += g_Vars.lvupdate240freal * 0.05f;
+								aibot->maulercharge[i] += g_Vars.lvupdate60freal * 0.05f;
 
 								if (aibot->maulercharge[i] > 5) {
 									aibot->maulercharge[i] = 5;
@@ -9928,7 +9928,7 @@ void botTickUnpaused(struct chrdata *chr)
 								if (aibot->weaponnum == WEAPON_CYCLONE && aibot->gunfunc == FUNC_SECONDARY) {
 									aibot->cyclonedischarging[i] = true;
 								} else if (aibot->weaponnum == WEAPON_REAPER) {
-									aibot->reaperspeed[i] += g_Vars.lvupdate240_60;
+									aibot->reaperspeed[i] += g_Vars.lvupdate60;
 
 									if (aibot->reaperspeed[i] > 90) {
 										aibot->reaperspeed[i] = 90;
@@ -9941,7 +9941,7 @@ void botTickUnpaused(struct chrdata *chr)
 							if (!firing && aibot->reaperspeed[i] > 0) {
 								firing = true;
 
-								aibot->reaperspeed[i] -= g_Vars.lvupdate240_60;
+								aibot->reaperspeed[i] -= g_Vars.lvupdate60;
 
 								if (aibot->reaperspeed[i] < 0) {
 									aibot->reaperspeed[i] = 0;
