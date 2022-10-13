@@ -170,13 +170,13 @@ E_DIR := extracted/$(ROMID)
 
 ifneq ($(strip $(MIPS_BINUTILS_PREFIX)),)
     TOOLCHAIN := $(MIPS_BINUTILS_PREFIX)
-else ifneq ($(shell type mips-elf-ld),)
+else ifeq ($(shell type mips-elf-ld >/dev/null 2>/dev/null; echo $$?), 0)
     TOOLCHAIN := mips-elf
-else ifneq ($(shell type mips-linux-gnu-ld),)
+else ifeq ($(shell type mips-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
     TOOLCHAIN := mips-linux-gnu
-else ifneq ($(shell type mips64-elf-ld),)
+else ifeq ($(shell type mips64-elf-ld >/dev/null 2>/dev/null; echo $$?), 0)
     TOOLCHAIN := mips64-elf
-else ifneq ($(shell type mips64-linux-gnu-ld),)
+else ifeq ($(shell type mips64-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
     TOOLCHAIN := mips64-linux-gnu
 else
     $(error You need to install a suitable MIPS binutils toolchain (eg. mips-elf-ld))
