@@ -3,7 +3,12 @@
 #include "controller.h"
 #include "siint.h"
 
+#ifdef __sgi
 OSPifRam __osContPifRam;
+#else
+__attribute__ ((aligned (0x10))) OSPifRam __osContPifRam;
+#endif
+
 u8 __osContLastCmd;
 u8 __osMaxControllers;
 OSTimer __osEepromTimer;
