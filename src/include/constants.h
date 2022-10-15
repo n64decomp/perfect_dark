@@ -86,6 +86,12 @@
 
 #define PORTAL_IS_CLOSED(portalnum) ((g_BgPortals[portalnum].flags & PORTALFLAG_CLOSED) && (g_BgPortals[portalnum].flags & PORTALFLAG_FORCEOPEN) == 0)
 
+#ifdef __sgi
+#define ALIGNED16
+#else
+#define ALIGNED16 __attribute__ ((aligned (16)))
+#endif
+
 #if VERSION >= VERSION_NTSC_1_0
 #define ROM_COMPANYCODE 0x3459
 #else

@@ -6,9 +6,8 @@
 #include "lib/memp.h"
 #include "lib/sched.h"
 
-u8 g_RdpDramStack[SP_DRAM_STACK_SIZE8];
-
-u8 g_RdpYieldData[0xb00];
+ALIGNED16 u8 g_RdpDramStack[SP_DRAM_STACK_SIZE8];
+ALIGNED16 u8 g_RdpYieldData[0xb00];
 
 u16 *g_RdpOutBufferEnd = NULL;
 u16 *g_RdpOutBufferStart = NULL;
