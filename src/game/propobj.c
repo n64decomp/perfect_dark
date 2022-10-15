@@ -15064,76 +15064,79 @@ glabel var7f1aa824
 /*  f0809c0:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
 #else
-// Mismatch: Several issues, but main one is the float variables near the cosf
-// and sinf calls. Appears to be functionally identical.
+struct tvcmd {
+	u32 type;
+	s32 arg1;
+	u32 arg2;
+};
+
 Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen *screen, Gfx *gdl, s32 arg4, s32 arg5)
 {
-	struct textureconfig *tconfig;
-
 	if (node && (node->type & 0xff) == MODELNODETYPE_DL) {
 		struct gfxvtx *vertices = gfxAllocateVertices(4); // b4
-		u8 *colours = gfxAllocateColours(1); // b0
+		struct colour *colours = gfxAllocateColours(1); // b0
 		Gfx *savedgdl = gdl++; // ac
 		union modelrodata *rodata = node->rodata; // a8
 		union modelrwdata *rwdata = modelGetNodeRwData(model, node); // a4
+		struct textureconfig *tconfig;
 		bool yielding = false;
 
 		while (!yielding) {
-			u32 *cmd = &screen->cmdlist[screen->offset];
+			struct tvcmd *cmd = (struct tvcmd *) &screen->cmdlist[screen->offset]; // 98
 
-			switch (cmd[0]) {
-			case TVCMD_STOPSCROLL: // f07fce4
-				screen->xmidinc = 0;
-				screen->ymidinc = 0;
+			switch (cmd->type) {
+			case TVCMD_STOPSCROLL:
+				screen->xmidinc = 0.0f;
+				screen->ymidinc = 0.0f;
 				screen->offset++;
 				break;
-			case TVCMD_SCROLLRELX: // f07fcf8
-				screen->xmidfrac = 0;
-				screen->xmidinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+			case TVCMD_SCROLLRELX:
+				screen->xmidfrac = 0.0f;
+				screen->xmidinc = cmd->arg2 == 0 ? 1.0f : 1.0f / cmd->arg2;
 				screen->xmidold = screen->xmid;
-				screen->xmidnew = screen->xmid + (s32)cmd[1] * (1.0f / 1024.0f);
+				screen->xmidnew = screen->xmid + cmd->arg1 * (1.0f / 1024.0f);
 				screen->offset += 3;
 				break;
-			case TVCMD_SCROLLRELY: // f07fd68
-				screen->ymidfrac = 0;
-				screen->ymidinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+			case TVCMD_SCROLLRELY:
+				screen->ymidfrac = 0.0f;
+				screen->ymidinc = cmd->arg2 == 0 ? 1.0f : 1.0f / cmd->arg2;
 				screen->ymidold = screen->ymid;
-				screen->ymidnew = screen->ymid + (s32)cmd[1] * (1.0f / 1024.0f);
+				screen->ymidnew = screen->ymid + cmd->arg1 * (1.0f / 1024.0f);
 				screen->offset += 3;
 				break;
-			case TVCMD_SCROLLABSX: // f07fdd8
-				screen->xmidfrac = 0;
-				screen->xmidinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+			case TVCMD_SCROLLABSX:
+				screen->xmidfrac = 0.0f;
+				screen->xmidinc = cmd->arg2 == 0 ? 1.0f : 1.0f / cmd->arg2;
 				screen->xmidold = screen->xmid;
-				screen->xmidnew = (s32)cmd[1] * (1.0f / 1024.0f);
+				screen->xmidnew = cmd->arg1 * (1.0f / 1024.0f);
 				screen->offset += 3;
 				break;
-			case TVCMD_SCROLLABSY: // f07fe44
-				screen->ymidfrac = 0;
-				screen->ymidinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+			case TVCMD_SCROLLABSY:
+				screen->ymidfrac = 0.0f;
+				screen->ymidinc = cmd->arg2 == 0 ? 1.0f : 1.0f / cmd->arg2;
 				screen->ymidold = screen->ymid;
-				screen->ymidnew = (s32)cmd[1] * (1.0f / 1024.0f);
+				screen->ymidnew = cmd->arg1 * (1.0f / 1024.0f);
 				screen->offset += 3;
 				break;
-			case TVCMD_SCALEABSX: // f07feb0
-				screen->xscalefrac = 0;
-				screen->xscaleinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+			case TVCMD_SCALEABSX:
+				screen->xscalefrac = 0.0f;
+				screen->xscaleinc = cmd->arg2 == 0 ? 1.0f : 1.0f / cmd->arg2;
 				screen->xscaleold = screen->xscale;
-				screen->xscalenew = (s32)cmd[1] * (1.0f / 1024.0f);
+				screen->xscalenew = cmd->arg1 * (1.0f / 1024.0f);
 				screen->offset += 3;
 				break;
-			case TVCMD_SCALEABSY: // f07ff1c
-				screen->yscalefrac = 0;
-				screen->yscaleinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+			case TVCMD_SCALEABSY:
+				screen->yscalefrac = 0.0f;
+				screen->yscaleinc = cmd->arg2 == 0 ? 1.0f : 1.0f / cmd->arg2;
 				screen->yscaleold = screen->yscale;
-				screen->yscalenew = (s32)cmd[1] * (1.0f / 1024.0f);
+				screen->yscalenew = cmd->arg1 * (1.0f / 1024.0f);
 				screen->offset += 3;
 				break;
-			case TVCMD_SETTEXTURE: // f07ff88
-				tvscreenSetTexture(screen, cmd[1]);
+			case TVCMD_SETTEXTURE:
+				tvscreenSetTexture(screen, cmd->arg1);
 				screen->offset += 2;
 				break;
-			case TVCMD_PAUSE: // f07ffb4
+			case TVCMD_PAUSE:
 				if (screen->pause60 >= 0) {
 					screen->pause60 -= g_Vars.lvupdate60;
 
@@ -15144,55 +15147,55 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 					}
 				} else {
 					yielding = true;
-					screen->pause60 = cmd[1];
+					screen->pause60 = cmd->arg1;
 				}
 				break;
-			case TVCMD_SETCMDLIST: // f080000
-				tvscreenSetCmdlist(screen, (u32 *) cmd[1]);
+			case TVCMD_SETCMDLIST:
+				tvscreenSetCmdlist(screen, (u32 *) cmd->arg1);
 				break;
-			case TVCMD_RANDSETCMDLIST: // f080020
-				if ((random() >> 16) < cmd[2]) {
-					tvscreenSetCmdlist(screen, (u32 *) cmd[1]);
+			case TVCMD_RANDSETCMDLIST:
+				if ((random() >> 16) < cmd->arg2) {
+					tvscreenSetCmdlist(screen, (u32 *) cmd->arg1);
 				} else {
 					screen->offset += 3;
 				}
 				break;
-			case TVCMD_RESTART: // f080074
+			case TVCMD_RESTART:
 				screen->offset = 0;
 				break;
-			case TVCMD_YIELD: // f08007c
+			case TVCMD_YIELD:
 				yielding = true;
 				break;
-			case TVCMD_SETCOLOUR: // f080084
-				screen->colfrac = 0;
-				screen->colinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+			case TVCMD_SETCOLOUR:
+				screen->colfrac = 0.0f;
+				screen->colinc = cmd->arg2 == 0 ? 1.0f : 1.0f / cmd->arg2;
 
 				screen->redold = screen->red;
-				screen->rednew = (cmd[1] >> 24);
+				screen->rednew = ((u32)cmd->arg1 >> 24) & 0xff;
 
 				screen->greenold = screen->green;
-				screen->greennew = (cmd[1] >> 16);
+				screen->greennew = ((u32)cmd->arg1 >> 16) & 0xff;
 
 				screen->blueold = screen->blue;
-				screen->bluenew = (cmd[1] >> 8);
+				screen->bluenew = ((u32)cmd->arg1 >> 8) & 0xff;
 
 				screen->alphaold = screen->alpha;
-				screen->alphanew = cmd[1];
+				screen->alphanew = cmd->arg1 & 0xff;
 
 				screen->offset += 3;
 				break;
-			case TVCMD_ROTATEABS: // f08011c
-				screen->rot = (s32)cmd[1] * (M_BADTAU / 65536.0f);
+			case TVCMD_ROTATEABS:
+				screen->rot = cmd->arg1 * (M_BADTAU / 65536.0f);
 				screen->offset += 2;
 				break;
-			case TVCMD_ROTATEREL: // f080140
-				screen->rot += g_Vars.lvupdate60f * (s32)cmd[1] * (M_BADTAU / 65536.0f);
+			case TVCMD_ROTATEREL:
+				screen->rot += g_Vars.lvupdate60f * cmd->arg1 * (M_BADTAU / 65536.0f);
 
 				if (screen->rot >= M_BADTAU) {
 					screen->rot -= M_BADTAU;
 				}
 
-				if (screen->rot < 0) {
+				if (screen->rot < 0.0f) {
 					screen->rot += M_BADTAU;
 				}
 
@@ -15202,79 +15205,69 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 		}
 
 		// Increment X scale
-		if (screen->xscaleinc > 0) {
+		if (screen->xscaleinc > 0.0f) {
 			screen->xscalefrac += screen->xscaleinc * g_Vars.lvupdate60f;
 
 			if (screen->xscalefrac < 1.0f) {
 				screen->xscale = screen->xscaleold + (screen->xscalenew - screen->xscaleold) * screen->xscalefrac;
 			} else {
 				screen->xscalefrac = 1.0f;
-				screen->xscaleinc = 0;
+				screen->xscaleinc = 0.0f;
 				screen->xscale = screen->xscalenew;
 			}
 		}
 
 		// Increment Y scale
-		if (screen->yscaleinc > 0) {
+		if (screen->yscaleinc > 0.0f) {
 			screen->yscalefrac += screen->yscaleinc * g_Vars.lvupdate60f;
 
 			if (screen->yscalefrac < 1.0f) {
 				screen->yscale = screen->yscaleold + (screen->yscalenew - screen->yscaleold) * screen->yscalefrac;
 			} else {
 				screen->yscalefrac = 1.0f;
-				screen->yscaleinc = 0;
+				screen->yscaleinc = 0.0f;
 				screen->yscale = screen->yscalenew;
 			}
 		}
 
 		// Increment X scroll
-		if (screen->xmidinc > 0) {
+		if (screen->xmidinc > 0.0f) {
 			screen->xmidfrac += screen->xmidinc * g_Vars.lvupdate60f;
 
 			if (screen->xmidfrac < 1.0f) {
 				screen->xmid = screen->xmidold + (screen->xmidnew - screen->xmidold) * screen->xmidfrac;
 			} else {
 				screen->xmidfrac = 1.0f;
-				screen->xmidinc = 0;
+				screen->xmidinc = 0.0f;
 				screen->xmid = screen->xmidnew;
 			}
 		}
 
 		// Increment Y scroll
-		if (screen->ymidinc > 0) {
+		if (screen->ymidinc > 0.0f) {
 			screen->ymidfrac += screen->ymidinc * g_Vars.lvupdate60f;
 
 			if (screen->ymidfrac < 1.0f) {
 				screen->ymid = screen->ymidold + (screen->ymidnew - screen->ymidold) * screen->ymidfrac;
 			} else {
 				screen->ymidfrac = 1.0f;
-				screen->ymidinc = 0;
+				screen->ymidinc = 0.0f;
 				screen->ymid = screen->ymidnew;
 			}
 		}
 
 		// Increment colour change
-		// 370
-		if (screen->colinc > 0) {
+		if (screen->colinc > 0.0f) {
 			screen->colfrac += screen->colinc * g_Vars.lvupdate60f;
 
-			// 398
 			if (screen->colfrac < 1.0f) {
-				s32 r;
-				s32 g;
-				s32 b;
-				s32 a;
-				r = screen->colfrac * (screen->rednew - screen->redold);
-				g = screen->colfrac * (screen->greennew - screen->greenold);
-				screen->red = r + screen->redold;
-				screen->green = g + screen->greenold;
-				b = screen->colfrac * (screen->bluenew - screen->blueold);
-				a = screen->colfrac * (screen->alphanew - screen->alphaold);
-				screen->blue = b + screen->blueold;
-				screen->alpha = a + screen->alphaold;
+				screen->red = screen->redold + (s32) ((screen->rednew - screen->redold) * screen->colfrac);
+				screen->green = screen->greenold + (s32) ((screen->greennew - screen->greenold) * screen->colfrac);
+				screen->blue = screen->blueold + (s32) ((screen->bluenew - screen->blueold) * screen->colfrac);
+				screen->alpha = screen->alphaold + (s32) ((screen->alphanew - screen->alphaold) * screen->colfrac);
 			} else {
 				screen->colfrac = 1.0f;
-				screen->colinc = 0;
+				screen->colinc = 0.0f;
 				screen->red = screen->rednew;
 				screen->green = screen->greennew;
 				screen->blue = screen->bluenew;
@@ -15283,9 +15276,9 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 		}
 
 		// Set up everything for rendering
-		rwdata->dl.vertices = vertices;
-		rwdata->dl.colours = (struct colour *) colours;
 		rwdata->dl.gdl = gdl;
+		rwdata->dl.vertices = vertices;
+		rwdata->dl.colours = colours;
 
 		vertices[0] = rodata->dl.vertices[0];
 		vertices[1] = rodata->dl.vertices[1];
@@ -15293,20 +15286,38 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 		vertices[3] = rodata->dl.vertices[3];
 
 		if ((u32)screen->tconfig < 100) {
-			tconfig = &g_TexScreenConfigs[(u32)screen->tconfig];
+			tconfig = &g_TexScreenConfigs[(s32)screen->tconfig];
 		} else {
 			tconfig = screen->tconfig;
 		}
 
 		if (tconfig != NULL) {
-			f32 f20 = screen->xscale * 0.5f;
-			f32 f24 = screen->yscale * 0.5f;
-			f32 f14 = f20;
-			f32 f16 = f24;
+			u32 stack[13];
+			f32 f20;
+			f32 f24;
+			f32 f14; // 58
+			f32 f16; // 54
+			u8 stack2[0x8];
+			f32 a;
+			f32 b;
 
-			if (screen->rot != 0) {
-				f32 f22 = cosf(screen->rot) * 1.4141999483109f;
-				f32 f2 = sinf(screen->rot) * 1.4141999483109f;
+			f20 = screen->xscale / 2.0f;
+			f24 = screen->yscale / 2.0f;
+			f14 = f20;
+			f16 = f24;
+
+			if (1);
+			if (1);
+			if (1);
+			if (1);
+			if (1);
+
+			if (screen->rot != 0.0f) {
+				f32 f22;
+				f32 f2;
+
+				f22 = cosf(screen->rot) * 1.4142f;
+				f2 = sinf(screen->rot) * 1.4142f;
 
 				f20 *= f22;
 				f24 *= f2;
@@ -15314,22 +15325,20 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 				f16 *= f22;
 			}
 
-			vertices[0].s = tconfig->width * (screen->xmid + f20) * 32;
-			vertices[0].t = tconfig->height * (screen->ymid + f24) * 32;
-			vertices[1].s = tconfig->width * (screen->xmid - f14) * 32;
-			vertices[1].t = tconfig->height * (screen->ymid + f16) * 32;
-			vertices[2].s = tconfig->width * (screen->xmid - f20) * 32;
-			vertices[2].t = tconfig->height * (screen->ymid - f24) * 32;
-			vertices[3].s = tconfig->width * (screen->xmid + f14) * 32;
-			vertices[3].t = tconfig->height * (screen->ymid - f16) * 32;
+			vertices[0].s = tconfig->width * (screen->xmid + f20) * 32.0f;
+			vertices[0].t = tconfig->height * (screen->ymid + f24) * 32.0f;
+			vertices[1].s = tconfig->width * (screen->xmid - f14) * 32.0f;
+			vertices[1].t = tconfig->height * (screen->ymid + f16) * 32.0f;
+			vertices[2].s = tconfig->width * (screen->xmid - f20) * 32.0f;
+			vertices[2].t = tconfig->height * (screen->ymid - f24) * 32.0f;
+			vertices[3].s = tconfig->width * (screen->xmid + f14) * 32.0f;
+			vertices[3].t = tconfig->height * (screen->ymid - f16) * 32.0f;
 		}
 
-		if (tconfig);
-
-		colours[0] = screen->red;
-		colours[1] = screen->green;
-		colours[2] = screen->blue;
-		colours[3] = screen->alpha;
+		colours[0].r = screen->red;
+		colours[0].g = screen->green;
+		colours[0].b = screen->blue;
+		colours[0].a = screen->alpha;
 
 		vertices[0].colour = 0;
 		vertices[1].colour = 0;
@@ -15343,14 +15352,14 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 		// Render the image
 		gSPSetGeometryMode(gdl++, G_CULL_BACK);
 
+		if (1);
+
 		texSelect(&gdl, tconfig, arg5, arg4, 2, 1, NULL);
 
 		gSPMatrix(gdl++, osVirtualToPhysical(model->matrices), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-
-		gMoveWd(gdl++, 1, 6, osVirtualToPhysical(vertices));
+		gSPSegment(gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(vertices));
 		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-		gDPSetVerticeArray(gdl++, 0x04000000, 4);
-
+		gDPSetVerticeArray(gdl++, SPSEGMENT_MODEL_VTX << 24, 4);
 		gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
 		gSPEndDisplayList(gdl++);
 
