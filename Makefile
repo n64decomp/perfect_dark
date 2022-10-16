@@ -360,6 +360,7 @@ ifeq ($(COMPILER), ido)
         src/lib/ultra/os/atomic.c \
         src/lib/ultra/os/createmesgqueue.c \
         src/lib/ultra/os/destroythread.c \
+        src/lib/ultra/os/getmemsize.c \
         src/lib/ultra/os/gettime.c \
         src/lib/ultra/os/initialize2.c \
         src/lib/ultra/os/jammesg.c \
