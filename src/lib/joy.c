@@ -1138,52 +1138,19 @@ u16 joyGetButtonsPressedThisFrame(s8 contpadnum, u16 mask)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00015fa4nb
-/*    15fa4:	3c038006 */ 	lui	$v1,0x8006
-/*    15fa8:	8c631250 */ 	lw	$v1,0x1250($v1)
-/*    15fac:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    15fb0:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    15fb4:	8c790200 */ 	lw	$t9,0x200($v1)
-/*    15fb8:	00047600 */ 	sll	$t6,$a0,0x18
-/*    15fbc:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    15fc0:	30b8ffff */ 	andi	$t8,$a1,0xffff
-/*    15fc4:	03002825 */ 	or	$a1,$t8,$zero
-/*    15fc8:	0721000f */ 	bgez	$t9,.NB00016008
-/*    15fcc:	01e02025 */ 	or	$a0,$t7,$zero
-/*    15fd0:	3c088006 */ 	lui	$t0,0x8006
-/*    15fd4:	9108129c */ 	lbu	$t0,0x129c($t0)
-/*    15fd8:	3c0c8006 */ 	lui	$t4,0x8006
-/*    15fdc:	258c128c */ 	addiu	$t4,$t4,0x128c
-/*    15fe0:	01e84807 */ 	srav	$t1,$t0,$t7
-/*    15fe4:	312a0001 */ 	andi	$t2,$t1,0x1
-/*    15fe8:	15400007 */ 	bnez	$t2,.NB00016008
-/*    15fec:	000f5880 */ 	sll	$t3,$t7,0x2
-/*    15ff0:	016c1821 */ 	addu	$v1,$t3,$t4
-/*    15ff4:	8c6d0000 */ 	lw	$t5,0x0($v1)
-/*    15ff8:	00001025 */ 	or	$v0,$zero,$zero
-/*    15ffc:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*    16000:	03e00008 */ 	jr	$ra
-/*    16004:	ac6e0000 */ 	sw	$t6,0x0($v1)
-.NB00016008:
-/*    16008:	00047880 */ 	sll	$t7,$a0,0x2
-/*    1600c:	3c18800a */ 	lui	$t8,0x800a
-/*    16010:	030fc021 */ 	addu	$t8,$t8,$t7
-/*    16014:	8f18e5c8 */ 	lw	$t8,-0x1a38($t8)
-/*    16018:	5b000004 */ 	blezl	$t8,.NB0001602c
-/*    1601c:	0004c840 */ 	sll	$t9,$a0,0x1
-/*    16020:	03e00008 */ 	jr	$ra
-/*    16024:	00001025 */ 	or	$v0,$zero,$zero
-/*    16028:	0004c840 */ 	sll	$t9,$a0,0x1
-.NB0001602c:
-/*    1602c:	00794021 */ 	addu	$t0,$v1,$t9
-/*    16030:	950901f8 */ 	lhu	$t1,0x1f8($t0)
-/*    16034:	01251024 */ 	and	$v0,$t1,$a1
-/*    16038:	304affff */ 	andi	$t2,$v0,0xffff
-/*    1603c:	01401025 */ 	or	$v0,$t2,$zero
-/*    16040:	03e00008 */ 	jr	$ra
-/*    16044:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u16 joyGetButtonsReleasedThisFrame(s8 contpadnum, u16 mask)
+{
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsButtonsPressed[contpadnum]++;
+		return 0;
+	}
+
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
+		return 0;
+	}
+
+	return g_JoyDataPtr->buttonsreleased[contpadnum] & mask;
+}
 #endif
 
 bool joyIsCyclicPollingEnabled(void)
