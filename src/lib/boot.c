@@ -302,72 +302,30 @@ void bootCountUnusedStack(void)
 		}
 	}
 }
-#endif
 
-#if VERSION < VERSION_NTSC_1_0
-const char var700539b0nb[] = "Stack overflow thread %d";
+void bootCheckStackOverflow(void)
+{
+	s32 threadid;
 
-GLOBAL_ASM(
-glabel func00001bf4nb
-/*     1bf4:	27bdff28 */ 	addiu	$sp,$sp,-216
-/*     1bf8:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*     1bfc:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*     1c00:	afb40028 */ 	sw	$s4,0x28($sp)
-/*     1c04:	afb70034 */ 	sw	$s7,0x34($sp)
-/*     1c08:	afb60030 */ 	sw	$s6,0x30($sp)
-/*     1c0c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*     1c10:	afb20020 */ 	sw	$s2,0x20($sp)
-/*     1c14:	3c14dead */ 	lui	$s4,0xdead
-/*     1c18:	3c157005 */ 	lui	$s5,0x7005
-/*     1c1c:	3c1e8006 */ 	lui	$s8,0x8006
-/*     1c20:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*     1c24:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     1c28:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     1c2c:	27dee590 */ 	addiu	$s8,$s8,-6768
-/*     1c30:	26b539b0 */ 	addiu	$s5,$s5,0x39b0
-/*     1c34:	3694babe */ 	ori	$s4,$s4,0xbabe
-/*     1c38:	27b2004c */ 	addiu	$s2,$sp,0x4c
-/*     1c3c:	00009825 */ 	move	$s3,$zero
-/*     1c40:	24160045 */ 	li	$s6,0x45
-/*     1c44:	24170008 */ 	li	$s7,0x8
-.L00001c48:
-/*     1c48:	8fc20000 */ 	lw	$v0,0x0($s8)
-/*     1c4c:	00008825 */ 	move	$s1,$zero
-/*     1c50:	10400010 */ 	beqz	$v0,.L00001c94
-/*     1c54:	00408025 */ 	move	$s0,$v0
-.L00001c58:
-/*     1c58:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*     1c5c:	528e000b */ 	beql	$s4,$t6,.L00001c8c
-/*     1c60:	26310001 */ 	addiu	$s1,$s1,0x1
-/*     1c64:	0c0006dc */ 	jal	bootCountUnusedStack
-/*     1c68:	00000000 */ 	nop
-/*     1c6c:	02402025 */ 	move	$a0,$s2
-/*     1c70:	02a02825 */ 	move	$a1,$s5
-/*     1c74:	0c004fc1 */ 	jal	sprintf
-/*     1c78:	02603025 */ 	move	$a2,$s3
-/*     1c7c:	0c003074 */ 	jal	crashSetMessage
-/*     1c80:	02402025 */ 	move	$a0,$s2
-/*     1c84:	a0160000 */ 	sb	$s6,0x0($zero)
-/*     1c88:	26310001 */ 	addiu	$s1,$s1,0x1
-.L00001c8c:
-/*     1c8c:	1637fff2 */ 	bne	$s1,$s7,.L00001c58
-/*     1c90:	26100004 */ 	addiu	$s0,$s0,0x4
-.L00001c94:
-/*     1c94:	26730001 */ 	addiu	$s3,$s3,0x1
-/*     1c98:	24010007 */ 	li	$at,0x7
-/*     1c9c:	1661ffea */ 	bne	$s3,$at,.L00001c48
-/*     1ca0:	27de0004 */ 	addiu	$s8,$s8,0x4
-/*     1ca4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*     1ca8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     1cac:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*     1cb0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*     1cb4:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*     1cb8:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*     1cbc:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*     1cc0:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*     1cc4:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*     1cc8:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*     1ccc:	03e00008 */ 	jr	$ra
-/*     1cd0:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
-);
+	for (threadid = 0; threadid < 7; threadid++) {
+		if (g_StackLeftAddrs[threadid] != NULL) {
+			u32 *ptr = (u32 *) g_StackLeftAddrs[threadid];
+			s32 i;
+
+			for (i = 0; i < 8; i++) {
+				if (*ptr != 0xdeadbabe) {
+					char message[128];
+
+					bootCountUnusedStack();
+
+					sprintf(message, "Stack overflow thread %d", threadid);
+					crashSetMessage(message);
+					CRASH();
+				}
+
+				ptr++;
+			}
+		}
+	}
+}
 #endif
