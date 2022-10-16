@@ -439,8 +439,6 @@ else ifeq ($(COMPILER), gcc)
 
     $(C_O_FILES): OPT_LVL := $(GCC_OPT_LVL)
 
-    # Turn off symbol reordering for asset files (eg. stage setups)
-    # but allow it for source C files.
     CFLAGS := $(C_DEFINES) -DAVOID_UB=1 $(INCLUDES) \
         -EB \
         -march=vr4300 \
@@ -449,8 +447,6 @@ else ifeq ($(COMPILER), gcc)
         -mdivide-breaks \
         -mno-abicalls \
         -ffreestanding \
-        -ffast-math \
-        -fno-unsafe-math-optimizations \
         -fno-builtin \
         -fno-inline-functions \
         -fno-merge-constants \
@@ -476,6 +472,8 @@ else ifeq ($(COMPILER), gcc)
         -Wno-unused-value \
         -Wno-unused-variable \
         -G 0
+
+    $(B_DIR)/lib/ultra/libc/xldtob.o: CFLAGS += -ffast-math -fno-unsafe-math-optimizations
 else
     $(error The COMPILER option must be "ido" or "gcc")
 endif
