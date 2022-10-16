@@ -283,46 +283,25 @@ void bootPhase2(void *arg)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00001b70nb
-/*     1b70:	3c048006 */ 	lui	$a0,0x8006
-/*     1b74:	3c068006 */ 	lui	$a2,0x8006
-/*     1b78:	24c6e5ac */ 	addiu	$a2,$a2,-6740
-/*     1b7c:	2484e590 */ 	addiu	$a0,$a0,-6768
-/*     1b80:	00001025 */ 	move	$v0,$zero
-/*     1b84:	240a0007 */ 	li	$t2,0x7
-/*     1b88:	2409000f */ 	li	$t1,0xf
-.L00001b8c:
-/*     1b8c:	8c830000 */ 	lw	$v1,0x0($a0)
-/*     1b90:	24840004 */ 	addiu	$a0,$a0,0x4
-/*     1b94:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*     1b98:	10600011 */ 	beqz	$v1,.L00001be0
-/*     1b9c:	3047000f */ 	andi	$a3,$v0,0xf
-/*     1ba0:	90780020 */ 	lbu	$t8,0x20($v1)
-/*     1ba4:	01277023 */ 	subu	$t6,$t1,$a3
-/*     1ba8:	000e7900 */ 	sll	$t7,$t6,0x4
-/*     1bac:	01e74025 */ 	or	$t0,$t7,$a3
-/*     1bb0:	1518000b */ 	bne	$t0,$t8,.L00001be0
-/*     1bb4:	24630020 */ 	addiu	$v1,$v1,0x20
-/*     1bb8:	0065082b */ 	sltu	$at,$v1,$a1
-/*     1bbc:	50200009 */ 	beqzl	$at,.L00001be4
-/*     1bc0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     1bc4:	90790001 */ 	lbu	$t9,0x1($v1)
-.L00001bc8:
-/*     1bc8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     1bcc:	0065082b */ 	sltu	$at,$v1,$a1
-/*     1bd0:	55190004 */ 	bnel	$t0,$t9,.L00001be4
-/*     1bd4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     1bd8:	5420fffb */ 	bnezl	$at,.L00001bc8
-/*     1bdc:	90790001 */ 	lbu	$t9,0x1($v1)
-.L00001be0:
-/*     1be0:	24420001 */ 	addiu	$v0,$v0,0x1
-.L00001be4:
-/*     1be4:	144affe9 */ 	bne	$v0,$t2,.L00001b8c
-/*     1be8:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*     1bec:	03e00008 */ 	jr	$ra
-/*     1bf0:	00000000 */ 	nop
-);
+void bootCountUnusedStack(void)
+{
+	s32 threadid;
+
+	for (threadid = 0; threadid < 7; threadid++) {
+		u8 *left = g_StackLeftAddrs[threadid];
+		u8 *right = g_StackRightAddrs[threadid];
+
+		if (left != NULL) {
+			u32 byte = ((0xf - (threadid & 0xf)) << 4) | (threadid & 0xf);
+
+			left += 0x20;
+
+			while (*left == byte && left < right) {
+				left++;
+			}
+		}
+	}
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
@@ -360,7 +339,7 @@ glabel func00001bf4nb
 /*     1c58:	8e0e0000 */ 	lw	$t6,0x0($s0)
 /*     1c5c:	528e000b */ 	beql	$s4,$t6,.L00001c8c
 /*     1c60:	26310001 */ 	addiu	$s1,$s1,0x1
-/*     1c64:	0c0006dc */ 	jal	func00001b70nb
+/*     1c64:	0c0006dc */ 	jal	bootCountUnusedStack
 /*     1c68:	00000000 */ 	nop
 /*     1c6c:	02402025 */ 	move	$a0,$s2
 /*     1c70:	02a02825 */ 	move	$a1,$s5
