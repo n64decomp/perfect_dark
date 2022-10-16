@@ -784,4 +784,4 @@ allclean:
 	rm -rf build/*
 
 codeclean:
-	find $(B_DIR)/{game,inflate,lib} -name '*.o' -delete
+	find $(B_DIR)/game $(B_DIR)/inflate $(B_DIR)/lib -name '*.o' -delete

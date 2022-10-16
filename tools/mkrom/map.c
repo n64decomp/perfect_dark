@@ -41,9 +41,7 @@ bool map_get_function_rompos(char *funcname, uint32_t *start, uint32_t *end)
 
 	fseek(state.mapfd, 0, SEEK_SET);
 
-	while (!feof(state.mapfd)) {
-		fgets(line, 1024, state.mapfd);
-
+	while (fgets(line, 1024, state.mapfd)) {
 		if (lookingforend) {
 			ptr = line;
 
@@ -116,9 +114,7 @@ bool map_get_segment_rompos(char *segname, uint32_t *start, uint32_t *end)
 	// Find lines like this:
 	// "                0x0000000000001050                _libzipSegmentRomStart = __rompos"
 
-	while (!feof(state.mapfd)) {
-		fgets(line, 1024, state.mapfd);
-
+	while (fgets(line, 1024, state.mapfd)) {
 		if (!found_start && strstr(line, startstring)) {
 			char *ptr = strstr(line, "0x");
 

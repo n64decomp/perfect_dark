@@ -42,7 +42,11 @@ static uint32_t calc_sum(char *sumfunc, Algo algo)
 	uint32_t offset;
 
 	if (!map_get_function_rompos(sumfunc, &start, &end)) {
-		fprintf(stderr, "Unable to find function \"%s\" in map file\n", sumfunc);
+		fprintf(stderr, "Unable to find function \"%s\" in map file.\n", sumfunc);
+		fprintf(stderr, "If a piracy function has been renamed then you may need to rebuild mkrom:\n");
+		fprintf(stderr, "\n");
+		fprintf(stderr, "    make -C tools/mkrom\n");
+		fprintf(stderr, "\n");
 		exit(1);
 	}
 
@@ -99,7 +103,11 @@ static void write_sum(char *patchfunc, uint32_t sum)
 	uint32_t end;
 
 	if (!map_get_function_rompos(patchfunc, &start, &end)) {
-		fprintf(stderr, "Unable to find function \"%s\" in map file\n", patchfunc);
+		fprintf(stderr, "Unable to find function \"%s\" in map file.\n", patchfunc);
+		fprintf(stderr, "If a piracy function has been renamed then you may need to rebuild mkrom:\n");
+		fprintf(stderr, "\n");
+		fprintf(stderr, "    make -C tools/mkrom\n");
+		fprintf(stderr, "\n");
 		exit(1);
 	}
 

@@ -4,4 +4,4 @@ C_FILES = $(wildcard *.c)
 	gcc -O3 %< -o $@
 
 mkrom: $(C_FILES)
-	gcc -O3 $(C_FILES) -o mkrom
+	gcc -Wno-unused-result -O3 $(C_FILES) -o mkrom

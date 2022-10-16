@@ -17,11 +17,13 @@ The ntsc-1.0 and ntsc-final versions are fully decompiled, but a small handful o
 For Arch Linux:
 
 * Install these packages: `binutils fakeroot gcc make python vim`
-* Install from AUR: `armips` and a mips binutils package of your choice (eg. `mips-elf-binutils`)
+* Install from AUR: `armips`
+* Install from AUR: a MIPS binutils package of your choice (eg. `mips-elf-binutils`)
+* Install from AUR: a MIPS gcc package of your choice (eg. `mips-elf-gcc`)
 
 For Debian and Ubuntu:
 
-* Install these packages: `binutils-mips-linux-gnu build-essential libc6-dev-i386 libcapstone3 libcapstone-dev make`
+* Install these packages: `binutils-mips-linux-gnu build-essential gcc-mips-linux-gnu libc6-dev-i386 libcapstone-dev make`
 * Compile and install `armips`
 
 ## ROM Versions

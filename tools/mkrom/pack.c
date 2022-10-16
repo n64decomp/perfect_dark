@@ -5,7 +5,7 @@
 
 extern struct state state;
 
-static void copy(char *segname, uint8_t *payload, size_t len, char *constname)
+static void copy(char *segname, uint8_t *payload, uint32_t len, char *constname)
 {
 	uint32_t start;
 	uint32_t end;
