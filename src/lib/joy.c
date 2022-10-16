@@ -73,7 +73,7 @@ u32 var8005eec0 = 1;
 s32 (*var8005eec4)(struct contsample *samples, s32 samplenum) = NULL;
 void (*var8005eec8)(struct contsample *samples, s32 samplenum, s32 samplenum2) = NULL;
 s32 g_JoyNextPfsStateIndex = (VERSION >= VERSION_NTSC_1_0 ? 0 : 30);
-u32 var8005eed0 = 0;
+s32 var8005eed0 = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
 u32 var8005eed4 = 0;
@@ -475,49 +475,23 @@ void joyConsumeSamples(struct joydata *joydata)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0001509cnb
-/*    1509c:	3c0e8006 */ 	lui	$t6,0x8006
-/*    150a0:	8dce12d4 */ 	lw	$t6,0x12d4($t6)
-/*    150a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    150a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    150ac:	15c00019 */ 	bnez	$t6,.NB00015114
-/*    150b0:	3c028006 */ 	lui	$v0,0x8006
-/*    150b4:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    150b8:	3c018006 */ 	lui	$at,0x8006
-/*    150bc:	244212c0 */ 	addiu	$v0,$v0,0x12c0
-/*    150c0:	ac2f12d4 */ 	sw	$t7,0x12d4($at)
-/*    150c4:	3c188006 */ 	lui	$t8,0x8006
-/*    150c8:	8f1812bc */ 	lw	$t8,0x12bc($t8)
-/*    150cc:	8c590000 */ 	lw	$t9,0x0($v0)
-/*    150d0:	0319082a */ 	slt	$at,$t8,$t9
-/*    150d4:	1020000d */ 	beqz	$at,.NB0001510c
-/*    150d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    150dc:	0c005332 */ 	jal	joy00013e84
-/*    150e0:	ac400000 */ 	sw	$zero,0x0($v0)
-/*    150e4:	3c04800a */ 	lui	$a0,0x800a
-/*    150e8:	3c058006 */ 	lui	$a1,0x8006
-/*    150ec:	24a512c4 */ 	addiu	$a1,$a1,0x12c4
-/*    150f0:	0c014228 */ 	jal	osPfsIsPlug
-/*    150f4:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*    150f8:	3c028006 */ 	lui	$v0,0x8006
-/*    150fc:	244212c4 */ 	addiu	$v0,$v0,0x12c4
-/*    15100:	90480000 */ 	lbu	$t0,0x0($v0)
-/*    15104:	35090010 */ 	ori	$t1,$t0,0x10
-/*    15108:	a0490000 */ 	sb	$t1,0x0($v0)
-.NB0001510c:
-/*    1510c:	3c018006 */ 	lui	$at,0x8006
-/*    15110:	ac2012d4 */ 	sw	$zero,0x12d4($at)
-.NB00015114:
-/*    15114:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    15118:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1511c:	03e00008 */ 	jr	$ra
-/*    15120:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+void joy0001509cnb(void)
+{
+	static bool doingit = false;
 
-#if VERSION < VERSION_NTSC_1_0
-u32 var800612d4nb = 0;
+	if (!doingit) {
+		doingit = true;
+
+		if (g_JoyNextPfsStateIndex < var8005eed0) {
+			var8005eed0 = 0;
+			joy00013e84();
+			osPfsIsPlug(&g_PiMesgQueue, &var8005eed8);
+			var8005eed8 |= 0x10;
+		}
+
+		doingit = false;
+	}
+}
 #endif
 
 /**
@@ -529,7 +503,7 @@ void joy00014238(void)
 	static bool doingit = false;
 	s32 i;
 
-	if (doingit == false) {
+	if (!doingit) {
 		doingit = true;
 
 		for (i = 0; i < 4; i++) {
@@ -587,7 +561,7 @@ void joyDebugJoy(void)
 #else
 		joyDisableCyclicPolling(500, "joy.c");
 		joy00014238();
-		func0001509cnb();
+		joy0001509cnb();
 		joyEnableCyclicPolling(507, "joy.c");
 		joyConsumeSamples(&g_JoyData[0]);
 #endif
@@ -912,7 +886,7 @@ glabel joysTick
 .NB00015618:
 /*    15618:	0c005449 */ 	jal	joy00014238
 /*    1561c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    15620:	0c005427 */ 	jal	func0001509cnb
+/*    15620:	0c005427 */ 	jal	joy0001509cnb
 /*    15624:	00000000 */ 	sll	$zero,$zero,0x0
 /*    15628:	3c04800a */ 	lui	$a0,0x800a
 /*    1562c:	0c0054b4 */ 	jal	joyStartReadData
