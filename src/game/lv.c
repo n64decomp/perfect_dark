@@ -950,83 +950,6 @@ void lvFindThreats(void)
 	}
 }
 
-//Gfx *lvPrintI(Gfx *gdl, s32 *x, s32 *y, char *name, u32 value)
-//{
-//	char buffer[64];
-//
-//	sprintf(buffer, "%s: %u\n", name, value);
-//	gdl = textRender(gdl, x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-//
-//	return gdl;
-//}
-//
-//Gfx *lvPrintH(Gfx *gdl, s32 *x, s32 *y, char *name, u32 value)
-//{
-//	char buffer[64];
-//
-//	sprintf(buffer, "%s: %08x\n", name, value);
-//	gdl = textRender(gdl, x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-//
-//	return gdl;
-//}
-//
-//Gfx *lvPrintF(Gfx *gdl, s32 *x, s32 *y, char *name, f32 value)
-//{
-//	char buffer[64];
-//
-//	sprintf(buffer, "%s: %s%s%.1f\n", name, "", "", value);
-//	gdl = textRender(gdl, x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-//
-//	return gdl;
-//}
-//
-//Gfx *lvPrint(Gfx *gdl)
-//{
-//	static u32 times[60] = {0};
-//	static s32 index = 0;
-//
-//	times[index++] = g_Vars.diffframet / 1000;
-//
-//	if (index >= 60) {
-//		index = 0;
-//	}
-//
-//	if (g_FontHandelGothicXs) {
-//		char buffer[64];
-//		s32 x = 10;
-//		s32 y = 10;
-//
-//		gdl = text0f153628(gdl);
-//
-//		gdl = lvPrintI(gdl, &x, &y, "diffframe60", g_Vars.diffframe60         );
-//		gdl = lvPrintF(gdl, &x, &y, "diffframe60f", g_Vars.diffframe60f        );
-//		gdl = lvPrintI(gdl, &x, &y, "lvframe60", g_Vars.lvframe60           );
-//		gdl = lvPrintI(gdl, &x, &y, "lvframenum", g_Vars.lvframenum          );
-//		gdl = lvPrintF(gdl, &x, &y, "diffframe60freal", g_Vars.diffframe60freal    );
-//		gdl = lvPrintH(gdl, &x, &y, "prevframestartt", g_Vars.prevframestartt       );
-//		gdl = lvPrintH(gdl, &x, &y, "thisframestartt", g_Vars.thisframestartt       );
-//		gdl = lvPrintH(gdl, &x, &y, "diffframet", g_Vars.diffframet      );
-//		gdl = lvPrintI(gdl, &x, &y, "lostframetime60t", g_Vars.lostframetime60t       );
-//		gdl = lvPrintI(gdl, &x, &y, "lostframetime240t", g_Vars.lostframetime240t    );
-//		gdl = lvPrintI(gdl, &x, &y, "lvframe240", g_Vars.lvframe240          );
-//		gdl = lvPrintI(gdl, &x, &y, "lvupdate240", g_Vars.lvupdate240         );
-//		gdl = lvPrintI(gdl, &x, &y, "lvupdate60", g_Vars.lvupdate60      );
-//		gdl = lvPrintI(gdl, &x, &y, "lvupdate240rem", g_Vars.lvupdate240rem );
-//		gdl = lvPrintI(gdl, &x, &y, "diffframe240", g_Vars.diffframe240        );
-//		gdl = lvPrintF(gdl, &x, &y, "lvupdate60f", g_Vars.lvupdate60f        );
-//		gdl = lvPrintF(gdl, &x, &y, "diffframe240f", g_Vars.diffframe240f       );
-//		gdl = lvPrintF(gdl, &x, &y, "lvupdate60freal", g_Vars.lvupdate60freal    );
-//		gdl = lvPrintF(gdl, &x, &y, "lvupdate60frealprev", g_Vars.lvupdate60frealprev);
-//		gdl = lvPrintI(gdl, &x, &y, "prevframestart240", g_Vars.prevframestart240        );
-//		gdl = lvPrintI(gdl, &x, &y, "thisframestart240", g_Vars.thisframestart240        );
-//		gdl = lvPrintF(gdl, &x, &y, "diffframe240freal", g_Vars.diffframe240freal   );
-//
-//		gdl = text0f153780(gdl);
-//	}
-//
-//	return gdl;
-//}
-
 /**
  * Renders a complete frame for all players, and also does some other game logic
  * that really doesn't belong here.
@@ -1800,8 +1723,6 @@ Gfx *lvRender(Gfx *gdl)
 		CRASH();
 	}
 #endif
-
-	//gdl = lvPrint(gdl);
 
 	return gdl;
 }
