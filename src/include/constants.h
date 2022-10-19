@@ -3379,10 +3379,11 @@
 #define PAKFILETYPE_GAME       0x080 // Single Player Agent File
 #define PAKFILETYPE_ALL        0x100 // Not really a file type
 
-#define PAKTYPE_NONE    0
-#define PAKTYPE_RUMBLE  1
-#define PAKTYPE_MEMORY  2
-#define PAKTYPE_GAMEBOY 3
+#define PAKTYPE_NONE          0
+#define PAKTYPE_RUMBLE        1
+#define PAKTYPE_MEMORY        2
+#define PAKTYPE_GAMEBOY       3
+#define PAKTYPE_GAMEBOY_ERROR 4
 
 #define PATHFLAG_CIRCULAR 1
 #define PATHFLAG_FLYING   2
