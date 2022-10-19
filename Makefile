@@ -448,6 +448,7 @@ else ifeq ($(COMPILER), gcc)
         -mno-abicalls \
         -ffreestanding \
         -fno-builtin \
+        -fno-common \
         -fno-inline-functions \
         -fno-merge-constants \
         -fno-strict-aliasing \
