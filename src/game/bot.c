@@ -271,7 +271,6 @@ u32 add87654321(u32 value)
 }
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
 u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 {
 	struct defaultobj *obj = prop->obj;
@@ -282,6 +281,8 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 
 	dprint();
 
+	if (1);
+
 	obj->flags3 &= ~OBJFLAG3_ISFETCHTARGET;
 
 	switch (obj->type) {
@@ -290,7 +291,10 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 	case OBJTYPE_AMMOCRATE:
 		{
 			struct ammocrateobj *crate = (struct ammocrateobj *)prop->obj;
-			u32 qty = ammocrateGetPickupAmmoQty((struct ammocrateobj *)prop->obj);
+			s32 qty;
+
+			if (1);
+			qty = ammocrateGetPickupAmmoQty(crate);
 			dprint();
 
 			if (qty) {
@@ -312,7 +316,7 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 		{
 			struct multiammocrateobj *crate = (struct multiammocrateobj *)prop->obj;
 			u32 padding[1];
-			u32 qty;
+			s32 qty;
 			s32 i;
 #if PIRACYCHECKS
 			{
@@ -328,7 +332,7 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 
 				if (checksum != CHECKSUM_PLACEHOLDER) {
 					u32 *ptr = (u32 *)chrCheckTargetInSight;
-					ptr[0] = add87654321(0x24020001 - 0x87654321); // addiu v0,zero,1
+					ptr[0] = add87654321(0x24020001 - 0x87654321); // li v0, 1
 					ptr[1] = add87654321(0x03e00008 - 0x87654321); // jr ra
 					ptr[2] = add87654321(0x00000000 - 0x87654321); // nop
 				}
@@ -358,9 +362,9 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 	case OBJTYPE_WEAPON:
 		{
 			struct weaponobj *weapon = prop->weapon;
-			u32 itemtype = botinvGetItemType(chr, weapon->weaponnum);
-			u32 result;
-			u32 qty;
+			s32 itemtype = botinvGetItemType(chr, weapon->weaponnum);
+			s32 result;
+			s32 qty;
 
 			if (weapon->weaponnum == WEAPON_BRIEFCASE2) {
 				result = scenarioPickUpBriefcase(chr, prop);
@@ -376,8 +380,8 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 
 				if (itemtype) {
 					struct weapon *weapondef = weaponFindById(weapon->weaponnum);
-					u32 originalpad = botinvGetWeaponPad(chr, weapon->weaponnum);
-					u32 currentpad = obj->pad;
+					s32 originalpad = botinvGetWeaponPad(chr, weapon->weaponnum);
+					s32 currentpad = obj->pad;
 
 					if (itemtype == INVITEMTYPE_WEAP
 							&& weapondef
@@ -410,394 +414,14 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 		}
 		return 3;
 	case OBJTYPE_BASIC:
-	case OBJTYPE_ALARM:
-	case OBJTYPE_CCTV:
-	case OBJTYPE_CHR:
-	case OBJTYPE_SINGLEMONITOR:
-	case OBJTYPE_MULTIMONITOR:
-	case OBJTYPE_HANGINGMONITORS:
-	case OBJTYPE_AUTOGUN:
-	case OBJTYPE_LINKGUNS:
-	case OBJTYPE_DEBRIS:
-	case OBJTYPE_10:
-	case OBJTYPE_HAT:
-	case OBJTYPE_GRENADEPROB:
-	case OBJTYPE_LINKLIFTDOOR:
-	case OBJTYPE_TAG:
-	case OBJTYPE_22:
-	case OBJTYPE_BRIEFING:
-	case OBJTYPE_GASBOTTLE:
-	case OBJTYPE_RENAMEOBJ:
-	case OBJTYPE_PADLOCKEDDOOR:
-	case OBJTYPE_TRUCK:
-	case OBJTYPE_HELI:
-	case OBJTYPE_29:
 	case OBJTYPE_GLASS:
-	case OBJTYPE_SAFE:
-	case OBJTYPE_SAFEITEM:
-	case OBJTYPE_TANK:
-	case OBJTYPE_CAMERAPOS:
+	case OBJTYPE_AUTOGUN:
 	case OBJTYPE_TINTEDGLASS:
 		break;
 	}
 
 	return 0;
 }
-#else
-GLOBAL_ASM(
-glabel botPickupProp
-.late_rodata
-glabel var7f1b33d0nb
-.word botPickupProp+0x3ac
-glabel var7f1b33d4nb
-.word botPickupProp+0x080
-glabel var7f1b33d8nb
-.word botPickupProp+0x3ac
-glabel var7f1b33dcnb
-.word botPickupProp+0x3ac
-glabel var7f1b33e0nb
-.word botPickupProp+0x080
-glabel var7f1b33e4nb
-.word botPickupProp+0x1f4
-glabel var7f1b33e8nb
-.word botPickupProp+0x3ac
-glabel var7f1b33ecnb
-.word botPickupProp+0x3ac
-glabel var7f1b33f0nb
-.word botPickupProp+0x3ac
-glabel var7f1b33f4nb
-.word botPickupProp+0x3ac
-glabel var7f1b33f8nb
-.word botPickupProp+0x3ac
-glabel var7f1b33fcnb
-.word botPickupProp+0x3ac
-glabel var7f1b3400nb
-.word botPickupProp+0x3ac
-glabel var7f1b3404nb
-.word botPickupProp+0x3ac
-glabel var7f1b3408nb
-.word botPickupProp+0x3ac
-glabel var7f1b340cnb
-.word botPickupProp+0x3ac
-glabel var7f1b3410nb
-.word botPickupProp+0x3ac
-glabel var7f1b3414nb
-.word botPickupProp+0x130
-glabel var7f1b3418nb
-.word botPickupProp+0x314
-glabel var7f1b341cnb
-.word botPickupProp+0x3ac
-glabel var7f1b3420nb
-.word botPickupProp+0x3ac
-glabel var7f1b3424nb
-.word botPickupProp+0x3ac
-glabel var7f1b3428nb
-.word botPickupProp+0x3ac
-glabel var7f1b342cnb
-.word botPickupProp+0x3ac
-glabel var7f1b3430nb
-.word botPickupProp+0x3ac
-glabel var7f1b3434nb
-.word botPickupProp+0x3ac
-glabel var7f1b3438nb
-.word botPickupProp+0x3ac
-glabel var7f1b343cnb
-.word botPickupProp+0x3ac
-glabel var7f1b3440nb
-.word botPickupProp+0x3ac
-glabel var7f1b3444nb
-.word botPickupProp+0x3ac
-glabel var7f1b3448nb
-.word botPickupProp+0x3ac
-glabel var7f1b344cnb
-.word botPickupProp+0x3ac
-glabel var7f1b3450nb
-.word botPickupProp+0x3ac
-glabel var7f1b3454nb
-.word botPickupProp+0x3ac
-glabel var7f1b3458nb
-.word botPickupProp+0x3ac
-glabel var7f1b345cnb
-.word botPickupProp+0x3ac
-glabel var7f1b3460nb
-.word botPickupProp+0x3ac
-glabel var7f1b3464nb
-.word botPickupProp+0x3ac
-glabel var7f1b3468nb
-.word botPickupProp+0x3ac
-glabel var7f1b346cnb
-.word botPickupProp+0x3ac
-glabel var7f1b3470nb
-.word botPickupProp+0x3ac
-glabel var7f1b3474nb
-.word botPickupProp+0x3ac
-glabel var7f1b3478nb
-.word botPickupProp+0x3ac
-glabel var7f1b347cnb
-.word botPickupProp+0x3ac
-glabel var7f1b3480nb
-.word botPickupProp+0x3ac
-.text
-/*  f18a918:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f18a91c:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f18a920:	afb20050 */ 	sw	$s2,0x50($sp)
-/*  f18a924:	afb1004c */ 	sw	$s1,0x4c($sp)
-/*  f18a928:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f18a92c:	afa40080 */ 	sw	$a0,0x80($sp)
-/*  f18a930:	8c8f0004 */ 	lw	$t7,0x4($a0)
-/*  f18a934:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f18a938:	10a00004 */ 	beqz	$a1,.NB0f18a94c
-/*  f18a93c:	afaf007c */ 	sw	$t7,0x7c($sp)
-/*  f18a940:	8cb802d4 */ 	lw	$t8,0x2d4($a1)
-/*  f18a944:	17000003 */ 	bnez	$t8,.NB0f18a954
-/*  f18a948:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f18a94c:
-/*  f18a94c:	100000de */ 	beqz	$zero,.NB0f18acc8
-/*  f18a950:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f18a954:
-/*  f18a954:	0fc466bd */ 	jal	dprint
-/*  f18a958:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18a95c:	8fa2007c */ 	lw	$v0,0x7c($sp)
-/*  f18a960:	2401bfff */ 	addiu	$at,$zero,-16385
-/*  f18a964:	8c590010 */ 	lw	$t9,0x10($v0)
-/*  f18a968:	90490003 */ 	lbu	$t1,0x3($v0)
-/*  f18a96c:	03214024 */ 	and	$t0,$t9,$at
-/*  f18a970:	252afffd */ 	addiu	$t2,$t1,-3
-/*  f18a974:	2d41002d */ 	sltiu	$at,$t2,0x2d
-/*  f18a978:	102000d2 */ 	beqz	$at,.NB0f18acc4
-/*  f18a97c:	ac480010 */ 	sw	$t0,0x10($v0)
-/*  f18a980:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f18a984:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f18a988:	002a0821 */ 	addu	$at,$at,$t2
-/*  f18a98c:	8c2a33d0 */ 	lw	$t2,0x33d0($at)
-/*  f18a990:	01400008 */ 	jr	$t2
-/*  f18a994:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18a998:	8fab0080 */ 	lw	$t3,0x80($sp)
-/*  f18a99c:	8d710004 */ 	lw	$s1,0x4($t3)
-/*  f18a9a0:	0fc21a7e */ 	jal	ammocrateGetPickupAmmoQty
-/*  f18a9a4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f18a9a8:	0fc466bd */ 	jal	dprint
-/*  f18a9ac:	00408025 */ 	or	$s0,$v0,$zero
-/*  f18a9b0:	12000004 */ 	beqz	$s0,.NB0f18a9c4
-/*  f18a9b4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18a9b8:	8e4402d4 */ 	lw	$a0,0x2d4($s2)
-/*  f18a9bc:	0fc64fb5 */ 	jal	botactGiveAmmoByType
-/*  f18a9c0:	8e25005c */ 	lw	$a1,0x5c($s1)
-.NB0f18a9c4:
-/*  f18a9c4:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f18a9c8:	44810000 */ 	mtc1	$at,$f0
-/*  f18a9cc:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f18a9d0:	240d0400 */ 	addiu	$t5,$zero,0x400
-/*  f18a9d4:	240effff */ 	addiu	$t6,$zero,-1
-/*  f18a9d8:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f18a9dc:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f18a9e0:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f18a9e4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18a9e8:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f18a9ec:	240600ea */ 	addiu	$a2,$zero,0xea
-/*  f18a9f0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f18a9f4:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f18a9f8:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f18a9fc:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f18aa00:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f18aa04:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f18aa08:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f18aa0c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f18aa10:	0fc24762 */ 	jal	propsnd0f0939f8
-/*  f18aa14:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f18aa18:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f18aa1c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f18aa20:	90860002 */ 	lbu	$a2,0x2($a0)
-/*  f18aa24:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f18aa28:	0fc1a7e4 */ 	jal	objFree
-/*  f18aa2c:	01e03025 */ 	or	$a2,$t7,$zero
-/*  f18aa30:	12000003 */ 	beqz	$s0,.NB0f18aa40
-/*  f18aa34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18aa38:	0fc466bd */ 	jal	dprint
-/*  f18aa3c:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f18aa40:
-/*  f18aa40:	100000a1 */ 	beqz	$zero,.NB0f18acc8
-/*  f18aa44:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f18aa48:	8fb80080 */ 	lw	$t8,0x80($sp)
-/*  f18aa4c:	8f190004 */ 	lw	$t9,0x4($t8)
-/*  f18aa50:	0fc466bd */ 	jal	dprint
-/*  f18aa54:	afb90070 */ 	sw	$t9,0x70($sp)
-/*  f18aa58:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18aa5c:	8fb10070 */ 	lw	$s1,0x70($sp)
-.NB0f18aa60:
-/*  f18aa60:	9626005e */ 	lhu	$a2,0x5e($s1)
-/*  f18aa64:	10c00004 */ 	beqz	$a2,.NB0f18aa78
-/*  f18aa68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18aa6c:	0fc466bd */ 	jal	dprint
-/*  f18aa70:	afa60068 */ 	sw	$a2,0x68($sp)
-/*  f18aa74:	8fa60068 */ 	lw	$a2,0x68($sp)
-.NB0f18aa78:
-/*  f18aa78:	10c00003 */ 	beqz	$a2,.NB0f18aa88
-/*  f18aa7c:	26050001 */ 	addiu	$a1,$s0,0x1
-/*  f18aa80:	0fc64fb5 */ 	jal	botactGiveAmmoByType
-/*  f18aa84:	8e4402d4 */ 	lw	$a0,0x2d4($s2)
-.NB0f18aa88:
-/*  f18aa88:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18aa8c:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f18aa90:	1601fff3 */ 	bne	$s0,$at,.NB0f18aa60
-/*  f18aa94:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f18aa98:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f18aa9c:	44810000 */ 	mtc1	$at,$f0
-/*  f18aaa0:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f18aaa4:	24090400 */ 	addiu	$t1,$zero,0x400
-/*  f18aaa8:	240affff */ 	addiu	$t2,$zero,-1
-/*  f18aaac:	afaa002c */ 	sw	$t2,0x2c($sp)
-/*  f18aab0:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f18aab4:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f18aab8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18aabc:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f18aac0:	240600ea */ 	addiu	$a2,$zero,0xea
-/*  f18aac4:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f18aac8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f18aacc:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f18aad0:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f18aad4:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f18aad8:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f18aadc:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f18aae0:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f18aae4:	0fc24762 */ 	jal	propsnd0f0939f8
-/*  f18aae8:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f18aaec:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f18aaf0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f18aaf4:	90860002 */ 	lbu	$a2,0x2($a0)
-/*  f18aaf8:	30cc0004 */ 	andi	$t4,$a2,0x4
-/*  f18aafc:	0fc1a7e4 */ 	jal	objFree
-/*  f18ab00:	01803025 */ 	or	$a2,$t4,$zero
-/*  f18ab04:	10000070 */ 	beqz	$zero,.NB0f18acc8
-/*  f18ab08:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f18ab0c:	8fad0080 */ 	lw	$t5,0x80($sp)
-/*  f18ab10:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18ab14:	8db00004 */ 	lw	$s0,0x4($t5)
-/*  f18ab18:	0fc64788 */ 	jal	botinvGetItemType
-/*  f18ab1c:	9205005c */ 	lbu	$a1,0x5c($s0)
-/*  f18ab20:	afa2005c */ 	sw	$v0,0x5c($sp)
-/*  f18ab24:	9205005c */ 	lbu	$a1,0x5c($s0)
-/*  f18ab28:	24010056 */ 	addiu	$at,$zero,0x56
-/*  f18ab2c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18ab30:	54a10006 */ 	bnel	$a1,$at,.NB0f18ab4c
-/*  f18ab34:	24010036 */ 	addiu	$at,$zero,0x36
-/*  f18ab38:	0fc60340 */ 	jal	scenarioPickUpBriefcase
-/*  f18ab3c:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f18ab40:	10000062 */ 	beqz	$zero,.NB0f18accc
-/*  f18ab44:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f18ab48:	24010036 */ 	addiu	$at,$zero,0x36
-.NB0f18ab4c:
-/*  f18ab4c:	14a10005 */ 	bne	$a1,$at,.NB0f18ab64
-/*  f18ab50:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18ab54:	0fc60612 */ 	jal	scenarioPickUpUplink
-/*  f18ab58:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f18ab5c:	1000005b */ 	beqz	$zero,.NB0f18accc
-/*  f18ab60:	8fbf0054 */ 	lw	$ra,0x54($sp)
-.NB0f18ab64:
-/*  f18ab64:	0fc2191a */ 	jal	propPlayPickupSound
-/*  f18ab68:	8fa40080 */ 	lw	$a0,0x80($sp)
-/*  f18ab6c:	0fc21aac */ 	jal	weaponGetPickupAmmoQty
-/*  f18ab70:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18ab74:	10400005 */ 	beqz	$v0,.NB0f18ab8c
-/*  f18ab78:	00403825 */ 	or	$a3,$v0,$zero
-/*  f18ab7c:	8e4402d4 */ 	lw	$a0,0x2d4($s2)
-/*  f18ab80:	9205005c */ 	lbu	$a1,0x5c($s0)
-/*  f18ab84:	0fc64f87 */ 	jal	botactGiveAmmoByWeapon
-/*  f18ab88:	9206005f */ 	lbu	$a2,0x5f($s0)
-.NB0f18ab8c:
-/*  f18ab8c:	8fae005c */ 	lw	$t6,0x5c($sp)
-/*  f18ab90:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18ab94:	11c0001a */ 	beqz	$t6,.NB0f18ac00
-/*  f18ab98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18ab9c:	0fc2bb4c */ 	jal	weaponFindById
-/*  f18aba0:	9204005c */ 	lbu	$a0,0x5c($s0)
-/*  f18aba4:	00408825 */ 	or	$s1,$v0,$zero
-/*  f18aba8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18abac:	0fc647c4 */ 	jal	botinvGetWeaponPad
-/*  f18abb0:	9205005c */ 	lbu	$a1,0x5c($s0)
-/*  f18abb4:	8fb8005c */ 	lw	$t8,0x5c($sp)
-/*  f18abb8:	8faf007c */ 	lw	$t7,0x7c($sp)
-/*  f18abbc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f18abc0:	1701000d */ 	bne	$t8,$at,.NB0f18abf8
-/*  f18abc4:	85e30006 */ 	lh	$v1,0x6($t7)
-/*  f18abc8:	1220000b */ 	beqz	$s1,.NB0f18abf8
-/*  f18abcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18abd0:	8e39004c */ 	lw	$t9,0x4c($s1)
-/*  f18abd4:	33281000 */ 	andi	$t0,$t9,0x1000
-/*  f18abd8:	11000007 */ 	beqz	$t0,.NB0f18abf8
-/*  f18abdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18abe0:	10430005 */ 	beq	$v0,$v1,.NB0f18abf8
-/*  f18abe4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18abe8:	0fc647b9 */ 	jal	botinvGiveDualWeapon
-/*  f18abec:	9205005c */ 	lbu	$a1,0x5c($s0)
-/*  f18abf0:	10000006 */ 	beqz	$zero,.NB0f18ac0c
-/*  f18abf4:	24100001 */ 	addiu	$s0,$zero,0x1
-.NB0f18abf8:
-/*  f18abf8:	10000004 */ 	beqz	$zero,.NB0f18ac0c
-/*  f18abfc:	24100002 */ 	addiu	$s0,$zero,0x2
-.NB0f18ac00:
-/*  f18ac00:	0fc647d3 */ 	jal	botinvGiveProp
-/*  f18ac04:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f18ac08:	24100001 */ 	addiu	$s0,$zero,0x1
-.NB0f18ac0c:
-/*  f18ac0c:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f18ac10:	00002825 */ 	or	$a1,$zero,$zero
-/*  f18ac14:	90860002 */ 	lbu	$a2,0x2($a0)
-/*  f18ac18:	30ca0004 */ 	andi	$t2,$a2,0x4
-/*  f18ac1c:	0fc1a7e4 */ 	jal	objFree
-/*  f18ac20:	01403025 */ 	or	$a2,$t2,$zero
-/*  f18ac24:	10000028 */ 	beqz	$zero,.NB0f18acc8
-/*  f18ac28:	02001025 */ 	or	$v0,$s0,$zero
-/*  f18ac2c:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f18ac30:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f18ac34:	44810000 */ 	mtc1	$at,$f0
-/*  f18ac38:	8cb00004 */ 	lw	$s0,0x4($a1)
-/*  f18ac3c:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f18ac40:	240c0400 */ 	addiu	$t4,$zero,0x400
-/*  f18ac44:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f18ac48:	afad002c */ 	sw	$t5,0x2c($sp)
-/*  f18ac4c:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f18ac50:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f18ac54:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f18ac58:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f18ac5c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f18ac60:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f18ac64:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18ac68:	240601cd */ 	addiu	$a2,$zero,0x1cd
-/*  f18ac6c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f18ac70:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f18ac74:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f18ac78:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f18ac7c:	0fc24762 */ 	jal	propsnd0f0939f8
-/*  f18ac80:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f18ac84:	3c014100 */ 	lui	$at,0x4100
-/*  f18ac88:	44813000 */ 	mtc1	$at,$f6
-/*  f18ac8c:	c6040060 */ 	lwc1	$f4,0x60($s0)
-/*  f18ac90:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18ac94:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f18ac98:	44054000 */ 	mfc1	$a1,$f8
-/*  f18ac9c:	0fc0ce2c */ 	jal	chrSetShield
-/*  f18aca0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18aca4:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f18aca8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f18acac:	90860002 */ 	lbu	$a2,0x2($a0)
-/*  f18acb0:	30ce0004 */ 	andi	$t6,$a2,0x4
-/*  f18acb4:	0fc1a7e4 */ 	jal	objFree
-/*  f18acb8:	01c03025 */ 	or	$a2,$t6,$zero
-/*  f18acbc:	10000002 */ 	beqz	$zero,.NB0f18acc8
-/*  f18acc0:	24020003 */ 	addiu	$v0,$zero,0x3
-.NB0f18acc4:
-/*  f18acc4:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f18acc8:
-/*  f18acc8:	8fbf0054 */ 	lw	$ra,0x54($sp)
-.NB0f18accc:
-/*  f18accc:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f18acd0:	8fb1004c */ 	lw	$s1,0x4c($sp)
-/*  f18acd4:	8fb20050 */ 	lw	$s2,0x50($sp)
-/*  f18acd8:	03e00008 */ 	jr	$ra
-/*  f18acdc:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
-#endif
 
 bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 {
