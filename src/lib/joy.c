@@ -580,11 +580,6 @@ const char var70054168[] = "osContStartReadData -> Failed - CONT_OVERRUN_ERROR\n
 const char var7005419c[] = "joyTickRetrace:joy%derrno%d->%d\n";
 const char var700541c0[] = "joyTickRetrace:joy%derrno%d->%d\n";
 
-#if VERSION < VERSION_NTSC_1_0
-const char var70055958nb[] = "joy.c";
-const char var70055960nb[] = "joy.c";
-#endif
-
 s32 joyStartReadData(OSMesgQueue *mq)
 {
 	return osContStartReadData(mq);
@@ -1253,15 +1248,22 @@ void joyGetContpadNumsForPlayer(s8 playernum, s32 *pad1, s32 *pad2)
 }
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-void joyStopRumble(s8 device, bool disablepolling)
+void joyStopRumble(s8 arg0, bool disablepolling)
 {
-	u32 stack;
+	if (arg0 != SAVEDEVICE_GAMEPAK) {
+#if VERSION >= VERSION_NTSC_1_0
+		s32 device = arg0;
+#else
+		s32 device = g_Vars.playertojoymap[arg0];
+#endif
 
-	if (device != SAVEDEVICE_GAMEPAK) {
 		if (g_Paks[device].type != PAKTYPE_MEMORY && g_Paks[device].type != PAKTYPE_GAMEBOY) {
 			if (disablepolling) {
+#if VERSION >= VERSION_NTSC_1_0
 				joyDisableCyclicPolling();
+#else
+				joyDisableCyclicPolling(1054, "joy.c");
+#endif
 			}
 
 			if (osMotorProbe(&g_PiMesgQueue, PFS(device), device) == 0) {
@@ -1271,7 +1273,11 @@ void joyStopRumble(s8 device, bool disablepolling)
 			}
 
 			if (disablepolling) {
+#if VERSION >= VERSION_NTSC_1_0
 				joyEnableCyclicPolling();
+#else
+				joyEnableCyclicPolling(1066, "joy.c");
+#endif
 			}
 
 			if (g_Paks[device].rumblestate != RUMBLESTATE_DISABLED_STOPPING
@@ -1282,156 +1288,7 @@ void joyStopRumble(s8 device, bool disablepolling)
 			g_Paks[device].rumblettl = -1;
 		}
 	}
-
-	if (device) {
-		// empty
-	}
 }
-#else
-GLOBAL_ASM(
-glabel joyStopRumble
-/*    162b0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    162b4:	00047600 */ 	sll	$t6,$a0,0x18
-/*    162b8:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    162bc:	24010004 */ 	addiu	$at,$zero,0x4
-/*    162c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    162c4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    162c8:	11e10073 */ 	beq	$t7,$at,.NB00016498
-/*    162cc:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    162d0:	3c06800a */ 	lui	$a2,0x800a
-/*    162d4:	00cf3021 */ 	addu	$a2,$a2,$t7
-/*    162d8:	90c6eb9c */ 	lbu	$a2,-0x1464($a2)
-/*    162dc:	3c19800a */ 	lui	$t9,0x800a
-/*    162e0:	27396870 */ 	addiu	$t9,$t9,0x6870
-/*    162e4:	0006c080 */ 	sll	$t8,$a2,0x2
-/*    162e8:	0306c023 */ 	subu	$t8,$t8,$a2
-/*    162ec:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    162f0:	0306c023 */ 	subu	$t8,$t8,$a2
-/*    162f4:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*    162f8:	0306c021 */ 	addu	$t8,$t8,$a2
-/*    162fc:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*    16300:	03194021 */ 	addu	$t0,$t8,$t9
-/*    16304:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*    16308:	8d020000 */ 	lw	$v0,0x0($t0)
-/*    1630c:	24010002 */ 	addiu	$at,$zero,0x2
-/*    16310:	10410061 */ 	beq	$v0,$at,.NB00016498
-/*    16314:	24010003 */ 	addiu	$at,$zero,0x3
-/*    16318:	50410060 */ 	beql	$v0,$at,.NB0001649c
-/*    1631c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    16320:	10a00006 */ 	beqz	$a1,.NB0001633c
-/*    16324:	2404041e */ 	addiu	$a0,$zero,0x41e
-/*    16328:	3c057005 */ 	lui	$a1,0x7005
-/*    1632c:	24a55958 */ 	addiu	$a1,$a1,0x5958
-/*    16330:	0c00581b */ 	jal	joyDisableCyclicPolling
-/*    16334:	afa60024 */ 	sw	$a2,0x24($sp)
-/*    16338:	8fa60024 */ 	lw	$a2,0x24($sp)
-.NB0001633c:
-/*    1633c:	24010004 */ 	addiu	$at,$zero,0x4
-/*    16340:	14c10003 */ 	bne	$a2,$at,.NB00016350
-/*    16344:	3c04800a */ 	lui	$a0,0x800a
-/*    16348:	10000009 */ 	beqz	$zero,.NB00016370
-/*    1634c:	00003825 */ 	or	$a3,$zero,$zero
-.NB00016350:
-/*    16350:	00065080 */ 	sll	$t2,$a2,0x2
-/*    16354:	01465023 */ 	subu	$t2,$t2,$a2
-/*    16358:	000a5080 */ 	sll	$t2,$t2,0x2
-/*    1635c:	01465021 */ 	addu	$t2,$t2,$a2
-/*    16360:	3c0b800a */ 	lui	$t3,0x800a
-/*    16364:	256b7658 */ 	addiu	$t3,$t3,0x7658
-/*    16368:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*    1636c:	014b3821 */ 	addu	$a3,$t2,$t3
-.NB00016370:
-/*    16370:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*    16374:	00e02825 */ 	or	$a1,$a3,$zero
-/*    16378:	0c01440d */ 	jal	osMotorProbe
-/*    1637c:	afa60024 */ 	sw	$a2,0x24($sp)
-/*    16380:	14400032 */ 	bnez	$v0,.NB0001644c
-/*    16384:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*    16388:	24010004 */ 	addiu	$at,$zero,0x4
-/*    1638c:	14c10003 */ 	bne	$a2,$at,.NB0001639c
-/*    16390:	00002825 */ 	or	$a1,$zero,$zero
-/*    16394:	10000009 */ 	beqz	$zero,.NB000163bc
-/*    16398:	00003825 */ 	or	$a3,$zero,$zero
-.NB0001639c:
-/*    1639c:	00066080 */ 	sll	$t4,$a2,0x2
-/*    163a0:	01866023 */ 	subu	$t4,$t4,$a2
-/*    163a4:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    163a8:	01866021 */ 	addu	$t4,$t4,$a2
-/*    163ac:	3c0d800a */ 	lui	$t5,0x800a
-/*    163b0:	25ad7658 */ 	addiu	$t5,$t5,0x7658
-/*    163b4:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*    163b8:	018d3821 */ 	addu	$a3,$t4,$t5
-.NB000163bc:
-/*    163bc:	00e02025 */ 	or	$a0,$a3,$zero
-/*    163c0:	0c014370 */ 	jal	__osMotorAccess
-/*    163c4:	afa60024 */ 	sw	$a2,0x24($sp)
-/*    163c8:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*    163cc:	24010004 */ 	addiu	$at,$zero,0x4
-/*    163d0:	00002825 */ 	or	$a1,$zero,$zero
-/*    163d4:	14c10003 */ 	bne	$a2,$at,.NB000163e4
-/*    163d8:	00067080 */ 	sll	$t6,$a2,0x2
-/*    163dc:	10000008 */ 	beqz	$zero,.NB00016400
-/*    163e0:	00003825 */ 	or	$a3,$zero,$zero
-.NB000163e4:
-/*    163e4:	01c67023 */ 	subu	$t6,$t6,$a2
-/*    163e8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    163ec:	01c67021 */ 	addu	$t6,$t6,$a2
-/*    163f0:	3c0f800a */ 	lui	$t7,0x800a
-/*    163f4:	25ef7658 */ 	addiu	$t7,$t7,0x7658
-/*    163f8:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*    163fc:	01cf3821 */ 	addu	$a3,$t6,$t7
-.NB00016400:
-/*    16400:	00e02025 */ 	or	$a0,$a3,$zero
-/*    16404:	0c014370 */ 	jal	__osMotorAccess
-/*    16408:	afa60024 */ 	sw	$a2,0x24($sp)
-/*    1640c:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*    16410:	24010004 */ 	addiu	$at,$zero,0x4
-/*    16414:	00002825 */ 	or	$a1,$zero,$zero
-/*    16418:	14c10003 */ 	bne	$a2,$at,.NB00016428
-/*    1641c:	0006c080 */ 	sll	$t8,$a2,0x2
-/*    16420:	10000008 */ 	beqz	$zero,.NB00016444
-/*    16424:	00003825 */ 	or	$a3,$zero,$zero
-.NB00016428:
-/*    16428:	0306c023 */ 	subu	$t8,$t8,$a2
-/*    1642c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    16430:	0306c021 */ 	addu	$t8,$t8,$a2
-/*    16434:	3c19800a */ 	lui	$t9,0x800a
-/*    16438:	27397658 */ 	addiu	$t9,$t9,0x7658
-/*    1643c:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*    16440:	03193821 */ 	addu	$a3,$t8,$t9
-.NB00016444:
-/*    16444:	0c014370 */ 	jal	__osMotorAccess
-/*    16448:	00e02025 */ 	or	$a0,$a3,$zero
-.NB0001644c:
-/*    1644c:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    16450:	2404042a */ 	addiu	$a0,$zero,0x42a
-/*    16454:	3c057005 */ 	lui	$a1,0x7005
-/*    16458:	51000004 */ 	beqzl	$t0,.NB0001646c
-/*    1645c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    16460:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*    16464:	24a55960 */ 	addiu	$a1,$a1,0x5960
-/*    16468:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.NB0001646c:
-/*    1646c:	24010006 */ 	addiu	$at,$zero,0x6
-/*    16470:	8c620004 */ 	lw	$v0,0x4($v1)
-/*    16474:	10410004 */ 	beq	$v0,$at,.NB00016488
-/*    16478:	24010007 */ 	addiu	$at,$zero,0x7
-/*    1647c:	10410002 */ 	beq	$v0,$at,.NB00016488
-/*    16480:	24090005 */ 	addiu	$t1,$zero,0x5
-/*    16484:	ac690004 */ 	sw	$t1,0x4($v1)
-.NB00016488:
-/*    16488:	3c01bf80 */ 	lui	$at,0xbf80
-/*    1648c:	44812000 */ 	mtc1	$at,$f4
-/*    16490:	00000000 */ 	sll	$zero,$zero,0x0
-/*    16494:	e46402b4 */ 	swc1	$f4,0x2b4($v1)
-.NB00016498:
-/*    16498:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0001649c:
-/*    1649c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    164a0:	03e00008 */ 	jr	$ra
-/*    164a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 s32 joy000155b4(s8 device)
 {
