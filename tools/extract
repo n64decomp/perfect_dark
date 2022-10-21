@@ -125,7 +125,7 @@ class Extractor:
             elif name.endswith('padsZ'):
                 self.write_asset('files/bgdata/%s.bin' % os.path.basename(unzippedname), unzipped)
             elif name.endswith('tilesZ'):
-                self.write_extracted('files/bgdata/%s.bin' % os.path.basename(unzippedname), unzipped)
+                self.write_asset('files/bgdata/%s.bin' % os.path.basename(unzippedname), unzipped)
             elif name.startswith('A'):
                 self.write_asset('files/audio/%s.mp3' % unzippedname[1:-1], content)
             elif name.startswith('C'):
