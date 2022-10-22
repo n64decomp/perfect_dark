@@ -136,7 +136,6 @@
 	build/ROMID/game/mainmenu.o (section); \
 	build/ROMID/game/cheats.o (section); \
 	build/ROMID/game/filemgr.o (section); \
-	build/ROMID/game/fmb.o (section); \
 	build/ROMID/game/endscreen.o (section); \
 	build/ROMID/game/gamefile.o (section); \
 	build/ROMID/game/bossfile.o (section); \

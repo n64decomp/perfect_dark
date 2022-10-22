@@ -453,10 +453,6 @@ void lvReset(s32 stagenum)
 		bootmenuReset();
 	}
 
-	if (stagenum == STAGE_4MBMENU) {
-		fmbReset();
-	}
-
 	modelmgrSetLvResetting(false);
 	var80084018 = 1;
 	schedResetArtifacts();

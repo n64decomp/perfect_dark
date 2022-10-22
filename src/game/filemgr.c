@@ -1973,10 +1973,6 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 			&& file->deviceserial == g_FilemgrFileToCopy.deviceserial) {
 		return true;
 	}
-
-	if (menuIsDialogOpen(&g_FilemgrFileSelect4MbMenuDialog)) {
-		return false;
-	}
 #else
 	if (g_MenuData.root == MENUROOT_FILEMGR
 			&& menuIsDialogOpen(&g_FilemgrCopyMenuDialog)

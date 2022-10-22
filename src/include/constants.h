@@ -30,8 +30,8 @@
 #define CHRRACE(chr)        (chr ? chr->race : RACE_HUMAN)
 #define CRASH()             *(u8 *)0 = 69
 #define CYCLES_PER_FRAME    ((s32) OS_CPU_COUNTER / (PAL ? 50 : 60))
-#define IS4MB()             (g_Is4Mb == true)
-#define IS8MB()             (g_Is4Mb != true)
+#define IS4MB()             0
+#define IS8MB()             1
 #define LINEHEIGHT          (VERSION == VERSION_JPN_FINAL ? 14 : 11)
 #define MIXCOLOUR(dialog, property) dialog->transitionfrac < 0.0f ? g_MenuColourPalettes[dialog->type].property : colourBlend(g_MenuColourPalettes[dialog->type2].property, g_MenuColourPalettes[dialog->type].property, dialog->colourweight)
 #define MPCHR(index)        ((index) < 4 ? &g_PlayerConfigsArray[index].base : &g_BotConfigsArray[(index) - 4].base)

@@ -804,64 +804,7 @@ void vmInit(void)
 	rzipInit();
 
 	if (bootGetMemSize() <= 0x400000) {
-		u32 t8;
-		u32 sp1474;
-		u32 stackstart;
-		u32 *ptr;
-
-		g_Is4Mb = true;
-
-		stackstart = STACK_START - 8;
-
-		g_VmNumPages = (s32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
-
-		g_VmRamEnd = 0x7f000000 + PAGE_SIZE * g_VmNumPages;
-		g_VmStateTableEnd = stackstart;
-		gameseg = (u8 *) (stackstart - g_VmNumPages * 8);
-		g_VmStateTable = (u32 *) gameseg;
-
-		t8 = (u32) (((u32) &_gameSegmentEnd - (u32) &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
-		sp1474 = t8 + 1;
-		g_VmZipTable = (u32 *) ((u32) ((u32 *)gameseg - (sp1474 + 4)) & ~0xf);
-
-		// Load gamezips pointer list
-		dmaExec(g_VmZipTable, (u32) &_gamezipSegmentRomStart, ALIGN16((sp1474 + 1) << 2));
-
-		// Make pointers absolute instead of relative to their segment
-		for (i = 0; i < sp1474; i++) { // s0
-			g_VmZipTable[i] += (u32) &_gamezipSegmentRomStart;
-		}
-
-		// Find the size of the biggest compressed zip
-		maxsize = 0;
-
-		for (i = 0; i < sp1474 - 1; i++) { // s0
-			u32 size = g_VmZipTable[i + 1] - g_VmZipTable[i];
-
-			if (size > maxsize) {
-				maxsize = size;
-			}
-		}
-
-		maxsize += 0x40;
-		maxsize &= ~0xf;
-		g_VmZipBuffer = (u32) g_VmZipTable - maxsize;
-		g_VmZipBuffer &= ~0xf;
-		gameseg = (u8 *) (g_VmZipBuffer - MAX_LOADED_PAGES * PAGE_SIZE);
-		gameseg -= (u32) gameseg & 0x1fff;
-		var8008ae20 = (u32) gameseg;
-		g_VmMarker = gameseg;
-
-		tlb000010a4();
-
-		ptr = g_VmStateTable;
-		statetablelen = (g_VmNumPages * 8) >> 2;
-
-		for (i = 0; i < statetablelen; i++) { // s1
-			ptr[i] = 0;
-		}
-
-		tlb0000113c();
+		while (1);
 	} else {
 		// Expansion pak is being used
 		g_Is4Mb = false;
