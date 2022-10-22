@@ -188,19 +188,19 @@ endif
 # despite them being written in C.
 #
 # Create names such as $(B_DIR)/assets/files/PfooZ.
-# These names (with .o added) will be dependencies for ld.
+# These names (with .o added) will be dependenices for ld.
 ASSET_FILES := \
-	$(patsubst $(A_DIR)/files/audio/%.mp3,           $(B_DIR)/assets/files/A%M,                $(shell find $(A_DIR) -path '*/files/audio/*.mp3')) \
-	$(patsubst $(A_DIR)/files/chrs/%.bin,            $(B_DIR)/assets/files/C%Z,                $(shell find $(A_DIR) -path '*/files/chrs/*.bin')) \
-	$(patsubst $(A_DIR)/files/guns/%.bin,            $(B_DIR)/assets/files/G%Z,                $(shell find $(A_DIR) -path '*/files/guns/*.bin')) \
-	$(patsubst $(A_DIR)/files/props/%.bin,           $(B_DIR)/assets/files/P%Z,                $(shell find $(A_DIR) -path '*/files/props/*.bin')) \
-	$(patsubst src/setups/%.c,                       $(B_DIR)/assets/files/U%Z,                $(shell find src/setups -name '*.c')) \
-	$(patsubst $(A_DIR)/files/bgdata/bg_%.seg,       $(B_DIR)/assets/files/bgdata/bg_%.seg,    $(shell find $(A_DIR) -path '*/files/bgdata/*.seg')) \
-	$(patsubst $(A_DIR)/files/bgdata/bg_%_tiles.bin, $(B_DIR)/assets/files/bgdata/bg_%_tilesZ, $(shell find $(A_DIR) -path '*/files/bgdata/bg_*_tiles.bin')) \
+	$(patsubst $(A_DIR)/files/audio/%.mp3,  $(B_DIR)/assets/files/A%M,          $(shell find $(A_DIR) -path '*/files/audio/*.mp3')) \
+	$(patsubst $(A_DIR)/files/chrs/%.bin,   $(B_DIR)/assets/files/C%Z,          $(shell find $(A_DIR) -path '*/files/chrs/*.bin')) \
+	$(patsubst $(A_DIR)/files/guns/%.bin,   $(B_DIR)/assets/files/G%Z,          $(shell find $(A_DIR) -path '*/files/guns/*.bin')) \
+	$(patsubst $(A_DIR)/files/props/%.bin,  $(B_DIR)/assets/files/P%Z,          $(shell find $(A_DIR) -path '*/files/props/*.bin')) \
+	$(patsubst src/setups/%.c,              $(B_DIR)/assets/files/U%Z,          $(shell find src/setups -name '*.c')) \
+	$(patsubst $(A_DIR)/files/bgdata/%.seg, $(B_DIR)/assets/files/bgdata/%.seg, $(shell find $(A_DIR) -path '*/files/bgdata/*.seg')) \
 	$(B_DIR)/assets/files/ob/ob_mid.seg.o
 
 LANG_JSON_FILES := $(shell find $(A_DIR) -path '*/lang/*.json')
 PADS_JSON_FILES := $(shell find $(A_DIR) -path '*/pads/*.json')
+TILES_JSON_FILES := $(shell find $(A_DIR) -path '*/tiles/*.json')
 
 LANG_O_FILES := \
 	$(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%E.o, $(LANG_JSON_FILES)) \
@@ -212,6 +212,7 @@ LANG_O_FILES := \
 	$(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%_str_s.o, $(LANG_JSON_FILES))
 
 PADS_O_FILES := $(patsubst $(A_DIR)/pads/%.json, $(B_DIR)/assets/files/bgdata/bg_%_padsZ.o, $(PADS_JSON_FILES))
+TILES_O_FILES := $(patsubst $(A_DIR)/tiles/%.json, $(B_DIR)/assets/files/bgdata/bg_%_tilesZ.o, $(TILES_JSON_FILES))
 
 C_FILES := $(shell find src/lib src/game src/inflate -name '*.c')
 S_FILES := $(shell find src/lib src/game src/preamble -name '*.s')
@@ -225,6 +226,7 @@ O_FILES := \
 	$(patsubst %, %.o, $(ASSET_FILES)) \
 	$(LANG_O_FILES) \
 	$(PADS_O_FILES) \
+	$(TILES_O_FILES) \
 	$(B_DIR)/assets/animations.o \
 	$(B_DIR)/assets/copyrightZ.o \
 	$(B_DIR)/assets/files/list.o \
@@ -596,6 +598,7 @@ ASSETMGR_O_FILES := \
 	$(B_DIR)/assets/animations.o \
 	$(LANG_O_FILES) \
 	$(PADS_O_FILES) \
+	$(TILES_O_FILES) \
 	$(B_DIR)/assets/sequences.o \
 	$(B_DIR)/assets/textureslist.o \
 
@@ -641,6 +644,14 @@ $(B_DIR)/assets/sequences.o: $(A_DIR)/sequences.json
 $(B_DIR)/assets/textureslist.o: $(A_DIR)/textures.json
 	tools/assetmgr/mktextures
 
+# Tiles
+$(B_DIR)/assets/files/bgdata/bg_%_tilesZ.o: $(A_DIR)/tiles/%.json
+	tools/assetmgr/mktiles $<
+
+# Tiles - but this is the zipped non-obj, for make test
+$(B_DIR)/assets/files/bgdata/bg_%_tilesZ: $(A_DIR)/tiles/%.json
+	tools/assetmgr/mktiles $<
+
 ################################################################################
 # Files
 
@@ -653,11 +664,6 @@ $(B_DIR)/assets/files/A%M: $(A_DIR)/files/audio/%.mp3
 $(B_DIR)/assets/files/bgdata/bg_%.seg: $(A_DIR)/files/bgdata/bg_%.seg
 	@mkdir -p $(B_DIR)/assets/files/bgdata
 	cp $< $@
-
-# BG tiles
-$(B_DIR)/assets/files/bgdata/bg_%_tilesZ: $(A_DIR)/files/bgdata/bg_%_tiles.bin
-	@mkdir -p $(B_DIR)/assets/files/bgdata
-	tools/rarezip $< > $@
 
 # Chrs
 $(B_DIR)/assets/files/C%Z: $(A_DIR)/files/chrs/%.bin

@@ -1,0 +1,679 @@
+{
+    "rooms": {
+        "ROOM_OLD_0000": [],
+        "ROOM_OLD_0001": [
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": -5000,
+                        "y": 0,
+                        "z": -5000
+                    },
+                    {
+                        "x": -5000,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": -5000
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": -5000,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": -5000,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": -2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": -5000,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": -5000,
+                        "y": 0,
+                        "z": 2500
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 2500
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 0
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": -5000,
+                        "y": 0,
+                        "z": 2500
+                    },
+                    {
+                        "x": -5000,
+                        "y": 0,
+                        "z": 5000
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 5000
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 5000
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 5000
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 2500
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 2500
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": 0
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": -5000
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": -5000
+                    },
+                    {
+                        "x": -2500,
+                        "y": 0,
+                        "z": -2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 5000
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 5000
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 2500
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 2500
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": 0
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": -5000
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": -5000
+                    },
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "z": -2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 5000
+                    },
+                    {
+                        "x": 5000,
+                        "y": 0,
+                        "z": 5000
+                    },
+                    {
+                        "x": 5000,
+                        "y": 0,
+                        "z": 2500
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 5000,
+                        "y": 0,
+                        "z": 2500
+                    },
+                    {
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 2500
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                    },
+                    {
+                        "x": 5000,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": 0
+                    }
+                ]
+            },
+            {
+                "flag0001": true,
+                "flag0002": true,
+                "flag0004": false,
+                "flag0008": true,
+                "flag0010": true,
+                "flag0020": false,
+                "ladder": false,
+                "flag0080": false,
+                "flag0100": false,
+                "underwater": false,
+                "flag0400": false,
+                "aibotcrouch": false,
+                "aibotduck": false,
+                "flag2000": false,
+                "die": false,
+                "climbableledge": false,
+                "floortype": "default",
+                "floorcolour": 4095,
+                "vertices": [
+                    {
+                        "x": 5000,
+                        "y": 0,
+                        "z": -2500
+                    },
+                    {
+                        "x": 5000,
+                        "y": 0,
+                        "z": -5000
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": -5000
+                    },
+                    {
+                        "x": 2500,
+                        "y": 0,
+                        "z": -2500
+                    }
+                ]
+            }
+        ]
+    }
+}
