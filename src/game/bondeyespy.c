@@ -736,7 +736,7 @@ void eyespyProcessInput(bool allowbuttons)
 		exitpressed = c1buttons & R_TRIG;
 		activatepressed = c1buttons & B_BUTTON;
 	} else if (controlmode <= CONTROLMODE_14) {
-		aimpressed = c1buttons & (L_TRIG | R_TRIG);
+		aimpressed = c1buttons & (0 | R_TRIG);
 		shootpressed = c1buttons & Z_TRIG;
 		exitpressed = c1buttons & A_BUTTON;
 		activatepressed = c1buttons & B_BUTTON;
@@ -816,18 +816,18 @@ void eyespyProcessInput(bool allowbuttons)
 			forwardspeed = c1sticky;
 		}
 
-		ascendspeed = (c1buttons & (U_CBUTTONS | U_JPAD) ? 1 : 0) - (c1buttons & (D_CBUTTONS | D_JPAD) ? 1 : 0);
-		sidespeed = (c1buttons & (R_CBUTTONS | R_JPAD) ? 1 : 0) - (c1buttons & (L_CBUTTONS | L_JPAD) ? 1 : 0);
+		ascendspeed = (c1buttons & (U_CBUTTONS | 0) ? 1 : 0) - (c1buttons & (D_CBUTTONS | 0) ? 1 : 0);
+		sidespeed = (c1buttons & (R_CBUTTONS | 0) ? 1 : 0) - (c1buttons & (L_CBUTTONS | 0) ? 1 : 0);
 	} else if (controlmode <= CONTROLMODE_14) {
 		if (aimpressed) {
 			domovecentre = false;
 			pitchspeed = c1sticky;
 		} else {
 			ascendspeed = c1sticky * 0.25f;
-			forwardspeed = (c1buttons & (U_CBUTTONS | U_JPAD) ? 24.0f : 0) - (c1buttons & (D_CBUTTONS | D_JPAD) ? 24.0f : 0);
+			forwardspeed = (c1buttons & (U_CBUTTONS | 0) ? 24.0f : 0) - (c1buttons & (D_CBUTTONS | 0) ? 24.0f : 0);
 		}
 
-		sidespeed = (c1buttons & (R_CBUTTONS | R_JPAD) ? 1 : 0) - (c1buttons & (L_CBUTTONS | L_JPAD) ? 1 : 0);
+		sidespeed = (c1buttons & (R_CBUTTONS | 0) ? 1 : 0) - (c1buttons & (L_CBUTTONS | 0) ? 1 : 0);
 	} else if (controlmode == CONTROLMODE_21 || controlmode == CONTROLMODE_23) {
 		forwardspeed = c1sticky;
 
