@@ -171,6 +171,9 @@ void *mempAllocFromBank(struct memorypool *pool, u32 size, u8 poolnum)
 	return (void *)allocation;
 }
 
+extern u8 g_LvOom;
+extern u32 g_LvOomSize;
+
 void *mempAlloc(u32 len, u8 pool)
 {
 	void *allocation = mempAllocFromBank(g_MempOnboardPools, len, pool);
@@ -183,6 +186,11 @@ void *mempAlloc(u32 len, u8 pool)
 
 	if (allocation) {
 		return allocation;
+	}
+
+	if (pool != MEMPOOL_8 && pool != MEMPOOL_7 && len) {
+		g_LvOom = 'p';
+		g_LvOomSize = len;
 	}
 
 #if VERSION < VERSION_NTSC_1_0

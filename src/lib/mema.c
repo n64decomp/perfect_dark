@@ -620,6 +620,8 @@ glabel memaAlloc
 );
 #endif
 #else
+extern u8 g_LvOom;
+
 void *memaAlloc(u32 size)
 {
 	u32 addr;
@@ -682,6 +684,7 @@ void *memaAlloc(u32 size)
 			}
 
 			if (curr->addr == 0xffffffff) {
+				g_LvOom = 'a';
 				return NULL;
 			}
 		}
