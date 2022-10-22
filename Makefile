@@ -779,10 +779,10 @@ extract:
 rom: $(B_DIR)/pd.z64
 
 clean:
-	rm -rf build/$(ROMID)
+	rm -rf build/$(ROMID) src/generated/$(ROMID)
 
 allclean:
-	rm -rf build/*
+	rm -rf build/* src/generated
 
 codeclean:
 	find $(B_DIR)/game $(B_DIR)/inflate $(B_DIR)/lib -name '*.o' -delete
