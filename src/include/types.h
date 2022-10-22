@@ -235,6 +235,7 @@ struct g_vars {
 	// 00f0 = One bit per pak. Does something with the pak if counter expired.
 	// 0f00 = One bit per pak. Does something with the pak if counter expired (likely opposite of the above).
 	/*0x4e4*/ u16 unk0004e4;
+	u8 playercount;
 
 	/*0x4e8*/ u32 unk0004e8;
 	/*0x4ec*/ u32 unk0004ec;

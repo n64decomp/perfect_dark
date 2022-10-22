@@ -30,6 +30,7 @@ void playermgrReset(void)
 	g_Vars.players[1] = NULL;
 	g_Vars.players[2] = NULL;
 	g_Vars.players[3] = NULL;
+	g_Vars.playercount = 0;
 	g_Vars.currentplayer = NULL;
 	g_Vars.currentplayerindex = 0;
 	g_Vars.currentplayerstats = NULL;
@@ -49,6 +50,7 @@ void playermgrAllocatePlayers(s32 count)
 	g_Vars.players[1] = NULL;
 	g_Vars.players[2] = NULL;
 	g_Vars.players[3] = NULL;
+	g_Vars.playercount = 0;
 
 	if (count > 0) {
 		s32 i;
@@ -67,6 +69,7 @@ void playermgrAllocatePlayers(s32 count)
 			g_Vars.coop = NULL;
 			g_Vars.anti = g_Vars.players[g_Vars.antiplayernum];
 		}
+
 	} else {
 		playermgrAllocatePlayer(0);
 		setCurrentPlayerNum(0);
@@ -212,6 +215,7 @@ void playermgrAllocatePlayer(s32 index)
 	s32 i;
 
 	g_Vars.players[index] = mempAlloc(sizeof(struct player), MEMPOOL_STAGE);
+	g_Vars.playercount++;
 
 	g_Vars.players[index]->cameramode = CAMERAMODE_DEFAULT;
 	g_Vars.players[index]->memcampos.x = 0;
