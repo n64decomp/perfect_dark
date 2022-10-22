@@ -868,10 +868,12 @@ void vmInit(void)
 
 		t8 = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
 		s7 = (u8 *)(STACK_START - 8);
-		gameseg = (u8 *) ((u32) (s7 - (u8 *) ALIGN64((u32) &_gameSegmentEnd - (u32) &_gameSegmentStart)) & 0xfffe0000);
+
+		// 0x803c0000 - (_gameSegmentLen aligned to 0x20000)
+		gameseg = (u8 *) 0x80240000;
 
 		s5 = (u32 *) (((u32) gameseg - ((t8 + 5) << 2)) & ~0xf);
-		g_VmMarker = gameseg;
+		g_VmMarker = (u8 *) 0x80240000;
 		sp1474 = t8 + 1;
 
 		// Load gamezips pointer list
@@ -890,24 +892,6 @@ void vmInit(void)
 		for (i = 0; i < sp1474 - 1; i++) { \
 			dmaExec(chunkbuffer, s5[i], ALIGN16(s5[i + 1] - s5[i])); \
 			s2 += rzipInflate(zip, s2, sp68);
-		}
-
-		// This loop sets the following TLB entries:
-		// entry 2: 0x7f000000 to 0x7f010000 and 0x7f010000 to 0x7f020000
-		// entry 3: 0x7f020000 to 0x7f030000 and 0x7f030000 to 0x7f040000
-		// ...
-		// entry 14: 0x7f1a0000 to 0x7f1b0000 and 0x7f1b0000 to 0x7f1c0000
-		s1 = (u8 *) 0x7f000000;
-		i = 2;
-
-		while (gameseg <= s7) {
-			osMapTLB(i, OS_PM_64K, s1,
-					osVirtualToPhysical((void *) gameseg),
-					osVirtualToPhysical((void *) (gameseg + 0x10000)), -1);
-
-			gameseg += 0x20000;
-			s1 += 0x20000;
-			i++;
 		}
 	}
 

@@ -104,9 +104,9 @@ void bootPhase1(void)
 	inflatelen = (s32) &_inflateSegmentRomEnd - (s32) &_inflateSegmentRomStart;
 	copylen = datacomplen + inflatelen;
 	libram = (u32 *) ((u32) &_libSegmentStart + 0x2000);
-	libzipram = (u32 *) 0x70280000;
-	dataziprom = (u8 *) ((s32) &_datazipSegmentRomStart | 0x70000000);
-	datazipram = (u8 *) (0x70200000 - datacomplen);
+	libzipram = (u32 *) 0x80280000;
+	dataziprom = (u8 *) ((s32) &_datazipSegmentRomStart | 0x80000000);
+	datazipram = (u8 *) (0x80200000 - datacomplen);
 	dataram = (u32) &_dataSegmentStart;
 
 	for (i = copylen - 1; i >= 0; i--) {
