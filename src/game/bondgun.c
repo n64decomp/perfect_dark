@@ -453,22 +453,22 @@ void bgunTickUnequippedReload(void)
 	}
 }
 
-bool bgun0f097df0(struct inventory_typef *arg0, struct hand *hand)
+bool bgunTestGunVisCommand(struct gunviscmd *cmd, struct hand *hand)
 {
 	bool result = true;
 
-	switch (arg0->unk00) {
-	case 4:
-		if (((hand->gset.unk0639 >> arg0->unk02) & 1) == 0) {
+	switch (cmd->type) {
+	case GUNVISCMD_CHECKUPGRADE:
+		if (((hand->gset.unk0639 >> cmd->param) & 1) == 0) {
 			result = false;
 		}
 		break;
-	case 5:
+	case GUNVISCMD_CHECKINLEFTHAND:
 		if (hand != &g_Vars.currentplayer->hands[HAND_LEFT]) {
 			result = false;
 		}
 		break;
-	case 6:
+	case GUNVISCMD_CHECKINRIGHTHAND:
 		if (hand != &g_Vars.currentplayer->hands[HAND_RIGHT]) {
 			result = false;
 		}
@@ -503,37 +503,37 @@ void bgunSetPartVisible(s16 partnum, bool visible, struct hand *hand, struct mod
 	}
 }
 
-void bgun0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inventory_typef *arg2)
+void bgunExecuteGunVisCommands(struct hand *hand, struct modelfiledata *filedata, struct gunviscmd *commands)
 {
-	struct inventory_typef *thing = arg2;
+	struct gunviscmd *cmd = commands;
 	bool done = false;
 
-	if (thing == NULL) {
+	if (cmd == NULL) {
 		return;
 	}
 
 	while (!done) {
-		if (bgun0f097df0(thing, hand)) {
-			if (thing->unk04 == 0) {
-				bgunSetPartVisible(thing->partnum, true, hand, filedata);
+		if (bgunTestGunVisCommand(cmd, hand)) {
+			if (cmd->op == GUNVISOP_IFTRUE_SETVISIBLE) {
+				bgunSetPartVisible(cmd->partnum, true, hand, filedata);
 			}
 
-			if (thing->unk04 == 1) {
-				bgunSetPartVisible(thing->partnum, false, hand, filedata);
+			if (cmd->op == GUNVISOP_IFTRUE_SETHIDDEN) {
+				bgunSetPartVisible(cmd->partnum, false, hand, filedata);
 			}
 
-			if (thing->unk04 == 3) {
-				bgunSetPartVisible(thing->partnum, true, hand, filedata);
+			if (cmd->op == GUNVISOP_SETVISIBILITY) {
+				bgunSetPartVisible(cmd->partnum, true, hand, filedata);
 			}
 		} else {
-			if (thing->unk04 == 3) {
-				bgunSetPartVisible(thing->partnum, false, hand, filedata);
+			if (cmd->op == GUNVISOP_SETVISIBILITY) {
+				bgunSetPartVisible(cmd->partnum, false, hand, filedata);
 			}
 		}
 
-		thing++;
+		cmd++;
 
-		if (thing->unk00 == 0) {
+		if (cmd->type == GUNVISCMD_END) {
 			done = true;
 		}
 	}
@@ -545,7 +545,7 @@ void bgun0f098030(struct hand *hand, struct modelfiledata *filedata)
 	s32 i;
 	s32 j;
 
-	bgun0f097f28(hand, filedata, weapon->fptr);
+	bgunExecuteGunVisCommands(hand, filedata, weapon->gunviscmds);
 	bgunSetPartVisible(MODELPART_0042, false, hand, filedata);
 
 	for (i = 0; i < 2; i++) {
@@ -1216,7 +1216,7 @@ s32 bgunTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand,
 			// Attempted to shoot with no ammo
 
 			// Consider switching to another weapon
-			if (weaponHasFlag(info->weaponnum, WEAPONFLAG_00000001)
+			if (weaponHasFlag(info->weaponnum, WEAPONFLAG_THROWABLE)
 					&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
 					&& bgunSetState(handnum, HANDSTATE_AUTOSWITCH)) {
 				return lvupdate;
@@ -1745,9 +1745,9 @@ s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 		if ((func->type & 0xff00) == 0x100) {
 			struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
 
-			if (autofunc->unk50 > 0) {
+			if (autofunc->turretaccel > 0) {
 				if (hand->gs_float1 < 1) {
-					hand->gs_float1 += LVUPDATE60FREAL() / autofunc->unk50;
+					hand->gs_float1 += LVUPDATE60FREAL() / autofunc->turretaccel;
 
 					if (hand->gs_float1 > 1) {
 						hand->gs_float1 = 1;
@@ -1798,14 +1798,12 @@ s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 		return 2;
 	}
 
-	if ((func->type & 0xff00) == 0x100) {
-		// This is similar to the earlier code, but uses unk51
-		// and subtracts the timer instead of adding to it.
+	if ((func->type & 0xff00) == (INVENTORYFUNCTYPE_SHOOT_AUTOMATIC & 0xff00)) {
 		struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
 
-		if (autofunc->unk51 > 0) {
+		if (autofunc->turretdecel > 0) {
 			if (hand->gs_float1 > 0) {
-				hand->gs_float1 -= LVUPDATE60FREAL() / autofunc->unk51;
+				hand->gs_float1 -= LVUPDATE60FREAL() / autofunc->turretdecel;
 
 				if (hand->gs_float1 < 0) {
 					hand->gs_float1 = 0;
@@ -1841,7 +1839,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 		f32 tmp;
 		f32 tmp2;
 
-		tmp = autofunc->initialfirerate + (autofunc->maxfirerate - autofunc->initialfirerate) * hand->gs_float1;
+		tmp = autofunc->initialrpm + (autofunc->maxrpm - autofunc->initialrpm) * hand->gs_float1;
 		tmp2 = tmp / 60.0f * (LVUPDATE60FREAL() / 60.0f) + hand->shotremainder;
 
 		hand->shotstotake = tmp2;
@@ -1972,12 +1970,12 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	s32 sum;
 	s32 unk26;
 	s32 unk27;
-	s32 unk18;
+	s32 recoverytime60;
 	s32 frames;
 	struct weapon *weapondef;
 	f32 mult1;
-	f32 recoil;
-	f32 unk2c;
+	f32 recoildist;
+	f32 recoilangle;
 	f32 mult2;
 	u32 stack;
 
@@ -1986,7 +1984,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	unk25 = func->unk25;
 	unk26 = func->unk26;
 	unk27 = func->unk27;
-	unk18 = func->unk18;
+	recoverytime60 = func->recoverytime60;
 	weapondef = info->definition;
 
 	if (unk24 >= 4) {
@@ -2005,8 +2003,8 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 		unk27 = TICKS(unk27);
 	}
 
-	if (unk18 >= 4) {
-		unk18 = TICKS(unk18);
+	if (recoverytime60 >= 4) {
+		recoverytime60 = TICKS(recoverytime60);
 	}
 
 	sum = unk24 + unk25;
@@ -2015,7 +2013,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	unk25 = func->unk25;
 	unk26 = func->unk26;
 	unk27 = func->unk27;
-	unk18 = func->unk18;
+	recoverytime60 = func->recoverytime60;
 	weapondef = info->definition;
 	sum = unk24 + unk25;
 #else
@@ -2024,7 +2022,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	sum = unk24 + unk25;
 	unk26 = func->unk26;
 	unk27 = func->unk27;
-	unk18 = func->unk18;
+	recoverytime60 = func->recoverytime60;
 	weapondef = info->definition;
 #endif
 
@@ -2076,8 +2074,8 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 		}
 
 		if (frames < sum && (hand->stateflags & HANDSTATEFLAG_00000040) == 0) {
-			recoil = func->recoil;
-			unk2c = func->unk2c;
+			recoildist = func->recoildist;
+			recoilangle = func->recoilangle;
 
 			if ((hand->stateflags & HANDSTATEFLAG_00000080) == 0) {
 				hand->stateflags |= HANDSTATEFLAG_00000080;
@@ -2087,11 +2085,11 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 				hand->posstart.z = hand->posoffset.z;
 			}
 
-			hand->rotxend = M_BADTAU - (unk2c * M_BADTAU) / 360.0f;
+			hand->rotxend = M_BADTAU - (recoilangle * M_BADTAU) / 360.0f;
 
-			hand->posend.x = (func0f0b131c(handnum) - hand->aimpos.x) * recoil / 1000.0f;
+			hand->posend.x = (func0f0b131c(handnum) - hand->aimpos.x) * recoildist / 1000.0f;
 			hand->posend.y = 0;
-			hand->posend.z = (weapondef->frontback - hand->aimpos.z) * recoil / 1000.0f;
+			hand->posend.z = (weapondef->posz - hand->aimpos.z) * recoildist / 1000.0f;
 
 			if (frames < unk24) {
 				mult2 = sinf(frames * 1.5707963705063f / (f32)unk24);
@@ -2114,7 +2112,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	if (sum <= frames) {
 		if (unk27 >= 0 && hand->triggerreleased && hand->triggeron) {
 			return true;
-		} else if (sum + unk18 <= frames) {
+		} else if (sum + recoverytime60 <= frames) {
 			return true;
 		}
 	}
@@ -2167,11 +2165,11 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 
 		if ((func->type & 0xff00) == 0x100) {
 			struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
-			f32 auStack68[12];
+			f32 floats[12];
 
-			if (autofunc->unk48 != NULL && autofunc->unk4c != NULL) {
-				func0f097b64(autofunc->unk48, autofunc->unk4c, hand->gs_float1, auStack68);
-				func0f097b40(hand->upgrademult, auStack68, hand->finalmult);
+			if (autofunc->vibrationstart != NULL && autofunc->vibrationmax != NULL) {
+				func0f097b64(autofunc->vibrationstart, autofunc->vibrationmax, hand->gs_float1, floats);
+				func0f097b40(hand->upgrademult, floats, hand->finalmult);
 			}
 		}
 
@@ -2468,7 +2466,7 @@ bool bgunTickIncAttackingSpecial(struct hand *hand)
 	}
 
 	if (hand->stateminor == 2) {
-		if (hand->stateframes > TICKS(func->unk18)) {
+		if (hand->stateframes > TICKS(func->recoverytime60)) {
 			return true;
 		}
 
@@ -2792,7 +2790,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 	if (hand->stateminor == 0) {
 		bool skipanim = false;
 
-		if (weaponHasFlag(info->weaponnum, WEAPONFLAG_00000001)
+		if (weaponHasFlag(info->weaponnum, WEAPONFLAG_THROWABLE)
 				&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
 				&& bgun0f098ca0(0, info, hand) < 0) {
 			skipanim = true;
@@ -2933,7 +2931,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 
 			bgun0f098f8c(info, hand);
 
-			if (weaponHasFlag(info->weaponnum, WEAPONFLAG_00000001)
+			if (weaponHasFlag(info->weaponnum, WEAPONFLAG_THROWABLE)
 					&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
 					&& bgun0f098ca0(0, info, hand) < 0
 					&& bgunSetState(handnum, HANDSTATE_AUTOSWITCH)) {
@@ -3302,8 +3300,8 @@ void bgunDecreaseNoiseRadius(void)
 		}
 	}
 
-	subamount = g_Vars.lvupdate60freal * noisesettingsright.incradius / (noisesettingsright.unk0c * 60.0f);
-	consideramount = (player->hands[HAND_RIGHT].noiseradius - noisesettingsright.minradius) * g_Vars.lvupdate60freal / (noisesettingsright.unk10 * 60.0f);
+	subamount = g_Vars.lvupdate60freal * noisesettingsright.incradius / (noisesettingsright.decbasespeed * 60.0f);
+	consideramount = (player->hands[HAND_RIGHT].noiseradius - noisesettingsright.minradius) * g_Vars.lvupdate60freal / (noisesettingsright.decremspeed * 60.0f);
 
 	if (consideramount > subamount) {
 		subamount = consideramount;
@@ -3324,8 +3322,8 @@ void bgunDecreaseNoiseRadius(void)
 		}
 	}
 
-	subamount = g_Vars.lvupdate60freal * noisesettingsleft.incradius / (noisesettingsleft.unk0c * 60.0f);
-	consideramount = (player->hands[HAND_LEFT].noiseradius - noisesettingsleft.minradius) * g_Vars.lvupdate60freal / (noisesettingsleft.unk10 * 60.0f);
+	subamount = g_Vars.lvupdate60freal * noisesettingsleft.incradius / (noisesettingsleft.decbasespeed * 60.0f);
+	consideramount = (player->hands[HAND_LEFT].noiseradius - noisesettingsleft.minradius) * g_Vars.lvupdate60freal / (noisesettingsleft.decremspeed * 60.0f);
 
 	if (consideramount > subamount) {
 		subamount = consideramount;
@@ -3343,20 +3341,20 @@ void bgunCalculateBlend(s32 handnum)
 	s32 sp60[2];
 	s32 sp58[2];
 	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(handnum));
-	f32 mult = weapon->unk38;
+	f32 sway = weapon->sway;
 	struct player *player = g_Vars.currentplayer;
 
 	sp60[handnum] = (player->hands[handnum].curblendpos + 2) % 4;
 	sp58[handnum] = (player->hands[handnum].curblendpos + 1) % 4;
 	player->hands[handnum].curblendpos = sp58[handnum];
 
-	player->hands[handnum].blendlook[sp60[handnum]].x = (RANDOMFRAC() - 0.5f) * 0.08f * mult;
-	player->hands[handnum].blendlook[sp60[handnum]].y = (RANDOMFRAC() - 0.5f) * 0.1f * mult;
+	player->hands[handnum].blendlook[sp60[handnum]].x = (RANDOMFRAC() - 0.5f) * 0.08f * sway;
+	player->hands[handnum].blendlook[sp60[handnum]].y = (RANDOMFRAC() - 0.5f) * 0.1f * sway;
 	player->hands[handnum].blendlook[sp60[handnum]].z = -1;
 
-	player->hands[handnum].blendup[sp60[handnum]].x = (RANDOMFRAC() - 0.5f) * 0.1f * mult;
+	player->hands[handnum].blendup[sp60[handnum]].x = (RANDOMFRAC() - 0.5f) * 0.1f * sway;
 	player->hands[handnum].blendup[sp60[handnum]].y = 1;
-	player->hands[handnum].blendup[sp60[handnum]].z = (RANDOMFRAC() - 0.5f) * 0.1f * mult;
+	player->hands[handnum].blendup[sp60[handnum]].z = (RANDOMFRAC() - 0.5f) * 0.1f * sway;
 
 	player->hands[handnum].blendpos[sp60[handnum]].x = (RANDOMFRAC() * 0.75f) + 1.5f;
 	player->hands[handnum].blendpos[sp60[handnum]].y = (2 + RANDOMFRAC()) * player->hands[handnum].blendscale1;
@@ -4715,8 +4713,8 @@ void bgunCreateFiredProjectile(s32 handnum)
 				spawnpos.z += 50.0f * sp1f8.z;
 			}
 
-			sp260 = funcdef->unk4c * 1.6666666f / 60.0f;
-			sp25c = funcdef->unk54 * 1.6666666f;
+			sp260 = funcdef->speed * 1.6666666f / 60.0f;
+			sp25c = funcdef->traveldist * 1.6666666f;
 
 			if (gsetHasFunctionFlags(&hand->gset, FUNCFLAG_CALCULATETRAJECTORY)) {
 				func0f061d54(0, 0, 0);
@@ -4864,7 +4862,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 						weapon->base.projectile->unk014 = sp250.y;
 						weapon->base.projectile->unk018 = sp250.z;
 						weapon->base.projectile->pickuptimer240 = TICKS(240);
-						weapon->base.projectile->unk08c = funcdef->unk5c;
+						weapon->base.projectile->unk08c = funcdef->reflectangle;
 						weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
 
 						if (funcdef->soundnum > 0) {
@@ -4940,7 +4938,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 					weapon->base.projectile->unk014 = sp250.y;
 					weapon->base.projectile->unk018 = sp250.z;
 					weapon->base.projectile->pickuptimer240 = TICKS(240);
-					weapon->base.projectile->unk08c = funcdef->unk5c;
+					weapon->base.projectile->unk08c = funcdef->reflectangle;
 					weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
 
 					if (funcdef->soundnum > 0) {
@@ -5132,7 +5130,7 @@ void bgunSwivel(f32 screenx, f32 screeny, f32 crossdamp, f32 aimdamp)
 void bgunSwivelWithDamp(f32 screenx, f32 screeny, f32 crossdamp)
 {
 	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
-	f32 aimdamp = PAL ? weapon->eptr->unk10 : weapon->eptr->unk14;
+	f32 aimdamp = PAL ? weapon->aimsettings->aimdamppal : weapon->aimsettings->aimdamp;
 
 	if (aimdamp < crossdamp) {
 		aimdamp = crossdamp;
@@ -5150,7 +5148,7 @@ void bgunSwivelWithDamp(f32 screenx, f32 screeny, f32 crossdamp)
 void bgunSwivelWithoutDamp(f32 screenx, f32 screeny)
 {
 	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
-	f32 aimdamp = PAL ? weapon->eptr->unk10 : weapon->eptr->unk14;
+	f32 aimdamp = PAL ? weapon->aimsettings->aimdamppal : weapon->aimsettings->aimdamp;
 
 	bgunSwivel(screenx, screeny, PAL ? 0.935f : 0.945f, aimdamp);
 }
@@ -5196,7 +5194,7 @@ void bgunCalculatePlayerShotSpread(struct coord *arg0, struct coord *arg1, s32 h
 	}
 
 	// Unsure what this is
-	if (weaponHasClassFlag(bgunGetWeaponNum2(handnum), WEAPONCLASSFLAG_00000004)
+	if (weaponHasAimFlag(bgunGetWeaponNum2(handnum), INVAIMFLAG_ACCURATESINGLESHOT)
 			&& player->hands[handnum].burstbullets == 1) {
 		spread *= 0.25f;
 	}
@@ -5258,7 +5256,7 @@ void bgunCalculateBotShotSpread(struct coord *arg0, s32 weaponnum, s32 funcnum, 
 		}
 	}
 
-	if (arg3 && weaponHasClassFlag(weaponnum, WEAPONCLASSFLAG_00000004)) {
+	if (arg3 && weaponHasAimFlag(weaponnum, INVAIMFLAG_ACCURATESINGLESHOT)) {
 		spread *= 0.25f;
 	}
 
@@ -6223,7 +6221,7 @@ void bgunDisarm(struct prop *attackerprop)
 	s32 i;
 	bool drop;
 
-	if (!weaponHasFlag(weaponnum, WEAPONFLAG_08000000) && weaponnum <= WEAPON_RCP45) {
+	if (!weaponHasFlag(weaponnum, WEAPONFLAG_UNDROPPABLE) && weaponnum <= WEAPON_RCP45) {
 #if VERSION >= VERSION_NTSC_1_0
 		// Coop must not allow player to drop a mission critical weapon
 		// because AI lists can fail the mission if the player has zero
@@ -7246,14 +7244,14 @@ void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiled
 	s32 i;
 	s32 partnum;
 	f32 spb4;
-	f32 sway;
+	f32 muzzlez;
 	Mtxf sp70;
 
 	index = hand->burstbullets % maxburst;
 	shotstotake = hand->shotstotake;
 
 	spb4 = RANDOMFRAC() * 0.25f + 1.0f;
-	sway = weapondef->sway;
+	muzzlez = weapondef->muzzlez;
 
 	mtx4LoadIdentity(&spd8);
 
@@ -7268,7 +7266,7 @@ void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiled
 
 	mtx4MultMtx4InPlace(mtx, &spd8);
 	mtx00015f04(spb4, &spd8);
-	mtx00015ea8(sway, &spd8);
+	mtx00015ea8(muzzlez, &spd8);
 	mtx4Copy(&spd8, mtx);
 
 	if (shotstotake == 0 && weaponnum != WEAPON_REAPER) {
@@ -7310,7 +7308,7 @@ void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiled
 
 			mtx00016e98(arg10->m, 0, mtx->m[3][0] - hand->aimpos.x, mtx->m[3][1] - hand->aimpos.y, mtx->m[3][2] - hand->aimpos.z);
 			mtx4MultMtx4InPlace(arg10, &sp70);
-			mtx00016710(sway, sp70.m);
+			mtx00016710(muzzlez, sp70.m);
 			mtx4MultMtx4InPlace(arg9, &sp70);
 			mtx4SetTranslation(&sp60, &sp70);
 
@@ -7504,33 +7502,33 @@ void bgun0f0a5550(s32 handnum)
 
 	if (handnum == HAND_RIGHT) {
 		sp274.x = func0f0b131c(handnum) + hand->damppos.f[0] + hand->adjustpos.f[0];
-		sp274.y = weapondef->updown + hand->damppos.f[1] + hand->adjustpos.f[1];
-		sp274.z = weapondef->frontback + hand->damppos.f[2] + hand->adjustpos.f[2];
+		sp274.y = weapondef->posy + hand->damppos.f[1] + hand->adjustpos.f[1];
+		sp274.z = weapondef->posz + hand->damppos.f[2] + hand->adjustpos.f[2];
 	} else if (isdetonator) {
 		sp274.x = 6.5f + hand->damppos.f[0] - hand->adjustpos.f[0];
 		sp274.y = -16.5f + hand->damppos.f[1] + hand->adjustpos.f[1];
 		sp274.z = -16.0f + hand->damppos.f[2] + hand->adjustpos.f[2];
 	} else {
 		sp274.x = func0f0b131c(handnum) + hand->damppos.f[0] - hand->adjustpos.f[0];
-		sp274.y = weapondef->updown + hand->damppos.f[1] + hand->adjustpos.f[1];
-		sp274.z = weapondef->frontback + hand->damppos.f[2] + hand->adjustpos.f[2];
+		sp274.y = weapondef->posy + hand->damppos.f[1] + hand->adjustpos.f[1];
+		sp274.z = weapondef->posz + hand->damppos.f[2] + hand->adjustpos.f[2];
 	}
 
 	sp274.y += player->guncloseroffset * 5.0f / -90.0f * 50.0f;
 	sp274.z -= player->guncloseroffset * 15.0f / -90.0f * 50.0f;
 
-	if (hand->firing && shootfunc && g_Vars.lvupdate240 != 0 && shootfunc->unk14 != NULL) {
-		sp274.x += (RANDOMFRAC() - 0.5f) * shootfunc->unk14->minradius * hand->finalmult[0];
-		sp274.y += (RANDOMFRAC() - 0.5f) * shootfunc->unk14->maxradius * hand->finalmult[0];
-		sp274.z += (RANDOMFRAC() - 0.5f) * shootfunc->unk14->incradius * hand->finalmult[0];
+	if (hand->firing && shootfunc && g_Vars.lvupdate240 != 0 && shootfunc->recoilsettings != NULL) {
+		sp274.x += (RANDOMFRAC() - 0.5f) * shootfunc->recoilsettings->xrange * hand->finalmult[0];
+		sp274.y += (RANDOMFRAC() - 0.5f) * shootfunc->recoilsettings->yrange * hand->finalmult[0];
+		sp274.z += (RANDOMFRAC() - 0.5f) * shootfunc->recoilsettings->zrange * hand->finalmult[0];
 	}
 
-	hand->fspare1 = (player->crosspos2[0] - camGetScreenLeft() - camGetScreenWidth() * 0.5f) * weapondef->eptr->unk0c / (camGetScreenWidth() * 0.5f);
+	hand->fspare1 = (player->crosspos2[0] - camGetScreenLeft() - camGetScreenWidth() * 0.5f) * weapondef->aimsettings->guntransside / (camGetScreenWidth() * 0.5f);
 
 	if (player->crosspos2[1] - camGetScreenTop() > camGetScreenHeight() * 0.5f) {
-		hand->fspare2 = (player->crosspos2[1] - camGetScreenTop() - camGetScreenHeight() * 0.5f) * weapondef->eptr->unk08 / (camGetScreenHeight() * 0.5f);
+		hand->fspare2 = (player->crosspos2[1] - camGetScreenTop() - camGetScreenHeight() * 0.5f) * weapondef->aimsettings->guntransdown / (camGetScreenHeight() * 0.5f);
 	} else {
-		hand->fspare2 = (player->crosspos2[1] - camGetScreenTop() - camGetScreenHeight() * 0.5f) * weapondef->eptr->unk04 / (camGetScreenHeight() * 0.5f);
+		hand->fspare2 = (player->crosspos2[1] - camGetScreenTop() - camGetScreenHeight() * 0.5f) * weapondef->aimsettings->guntransup / (camGetScreenHeight() * 0.5f);
 	}
 
 	fspare1 = hand->fspare1;

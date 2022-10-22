@@ -640,7 +640,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 	controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
 	weaponnum = bgunGetWeaponNum(HAND_RIGHT);
-	canmanualzoom = weaponHasClassFlag(weaponnum, WEAPONCLASSFLAG_MANUALZOOM);
+	canmanualzoom = weaponHasAimFlag(weaponnum, INVAIMFLAG_MANUALZOOM);
 	contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 
 	c1stickx = allowc1x ? joyGetStickX(contpad1) : 0;
@@ -1757,7 +1757,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				 && (bmoveIsAutoAimXEnabledForCurrentWeapon() || bmoveIsAutoAimYEnabledForCurrentWeapon())
 				 && g_Vars.currentplayer->autoxaimprop
 				 && g_Vars.currentplayer->autoyaimprop
-				 && weaponHasClassFlag(weaponnum, WEAPONCLASSFLAG_AUTOAIM)
+				 && weaponHasAimFlag(weaponnum, INVAIMFLAG_AUTOAIM)
 				)
 				|| (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_CMP150 && g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc == FUNC_SECONDARY)) {
 			// Auto aim - move crosshair towards target

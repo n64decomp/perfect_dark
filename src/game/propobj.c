@@ -21844,7 +21844,7 @@ void currentPlayerDropAllItems(void)
 
 	for (i = WEAPON_UNARMED; i <= WEAPON_SUICIDEPILL; i++) {
 		if (playermgrGetModelOfWeapon(i) >= 0 && invHasSingleWeaponExcAllGuns(i)) {
-			if (!weaponHasFlag(i, WEAPONFLAG_08000000)
+			if (!weaponHasFlag(i, WEAPONFLAG_UNDROPPABLE)
 					|| (g_Vars.normmplayerisrunning
 						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
 						&& i == WEAPON_DATAUPLINK)) {

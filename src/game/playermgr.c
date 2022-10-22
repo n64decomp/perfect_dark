@@ -592,7 +592,7 @@ void playermgrAllocatePlayer(s32 index)
 		g_Vars.players[index]->targetset[i] = 0;
 	}
 
-	g_Vars.players[index]->target = 0;
+	g_Vars.players[index]->sighttracktype = SIGHTTRACKTYPE_NONE;
 	g_Vars.players[index]->gunextraaimx = 0;
 	g_Vars.players[index]->gunextraaimy = 0;
 

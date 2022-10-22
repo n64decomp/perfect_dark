@@ -6,129 +6,167 @@
 #include "data.h"
 #include "types.h"
 
-struct noisesettings invnoisesettings_00010fd0 = {
-	0, 0, 0, 1, 6,
+/**
+ * Noise settings
+ *
+ * - minradius
+ * - maxradius
+ * - incradius
+ * - decbasespeed
+ * - decremspeed
+ *
+ * incradius is how var the radius is incremented on each shot.
+ *
+ * decbasespeed controls how quickly the noise radius shrinks.
+ * The value is the amount of seconds it takes to shrink by one increment.
+ *
+ * decremspeed also controls how quickly the noise radius shrinks.
+ * The value is the amount of seconds it takes to shrink the total remaining.
+ * Because the remaining amount changes on each frame, this property causes the
+ * noise radius to shrink faster at high radiuses and slower at small radiuses.
+ *
+ * The highest speed out of both decbasespeed and decremspeed is used.
+ */
+
+struct noisesettings invnoisesettings_silent   = { 0, 0,  0,   1, 6 };
+struct noisesettings invnoisesettings_silenced = { 0, 3,  1.4, 1, 6 };
+struct noisesettings invnoisesettings_sniper   = { 0, 9,  2,   1, 6 };
+struct noisesettings invnoisesettings_default  = { 0, 14, 2,   1, 6 };
+struct noisesettings invnoisesettings_loud     = { 0, 18, 2,   1, 6 };
+struct noisesettings invnoisesettings_louder   = { 0, 22, 3,   1, 6 };
+struct noisesettings invnoisesettings_loudest  = { 0, 25, 15,  5, 6 };
+struct noisesettings invnoisesettings_reaper   = { 0, 35, 1,   1, 6 };
+
+/**
+ * Recoil settings
+ *
+ * - xrange
+ * - yrange
+ * - zrange
+ * - unused
+ * - unused
+ *
+ * These settings affect the gun's position, but only on the frame that it's firing.
+ * The distance moved is random within the range that is specified here.
+ *
+ * xrange is left to right.
+ * yrange is bottom to top.
+ * zrange is forward to back.
+ */
+
+struct recoilsettings invrecoilsettings_tester      = { 0,   0,   0,   0.2, 1 };
+struct recoilsettings invrecoilsettings_laserstream = { 0.2, 0.2, 0.2, 0.2, 1 };
+struct recoilsettings invrecoilsettings_default     = { 0.6, 0.6, 0.6, 0.2, 1 };
+struct recoilsettings invrecoilsettings_reaper      = { 0.6, 0.6, 2.6, 0.2, 1 };
+
+/**
+ * Aim settings
+ *
+ * f32 zoomfov
+ * f32 guntransup
+ * f32 guntransdown
+ * f32 guntransside
+ * f32 aimdamppal
+ * f32 aimdamp
+ * u32 tracktype
+ * u32 unused
+ * u32 flags
+ *
+ * zoomfov is in degrees. The default field of view is 60. A zoomfov value of 30
+ * means a 2x zoom is being used.
+ *
+ * guntransup, guntransdown and guntransside is how far the gun's position is
+ * translated when aiming in that direction, either with R or by turning.
+ *
+ * aimdamp is how quickly the aim slows down as it reaches its target.
+ * The aimdamp value is only used on NTSC, while aimdamppal is only used on PAL.
+ *
+ * tracktype is what kind of red box tracking is used when aiming.
+ * See the SIGHTRACKTYPE constants for possible values.
+ *
+ * flags is a bitfield of INVAIMFLAG constants.
+ */
+
+struct invaimsettings invaimsettings_default = {
+	0,                                                  // zoomfov
+	3,                                                  // guntransup
+	8,                                                  // guntransdown
+	15,                                                 // guntransside
+	0.9721,                                             // aimdamppal
+	0.9767,                                             // aimdamp
+	SIGHTTRACKTYPE_DEFAULT,                             // tracktype
+	0,                                                  // unused
+	INVAIMFLAG_AUTOAIM,                                 // flags
 };
 
-struct noisesettings invnoisesettings_00010fe4 = {
-	0, 3, 1.4, 1, 6,
+struct invaimsettings invaimsettings_smg = {
+	0,                                                  // zoomfov
+	3,                                                  // guntransup
+	8,                                                  // guntransdown
+	15,                                                 // guntransside
+	0.9721,                                             // aimdamppal
+	0.9767,                                             // aimdamp
+	SIGHTTRACKTYPE_DEFAULT,                             // tracktype
+	0,                                                  // unused
+	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT, // flags
 };
 
-struct noisesettings invnoisesettings_00010ff8 = {
-	0, 9, 2, 1, 6,
+struct invaimsettings invaimsettings_unarmed = {
+	0,                                                  // zoomfov
+	3,                                                  // guntransup
+	8,                                                  // guntransdown
+	15,                                                 // guntransside
+	0.9721,                                             // aimdamppal
+	0.9767,                                             // aimdamp
+	SIGHTTRACKTYPE_NONE,                                // tracktype
+	7,                                                  // unused
+	INVAIMFLAG_AUTOAIM,                                 // flags
 };
 
-struct noisesettings invnoisesettings_0001100c = {
-	0, 14, 2, 1, 6,
+struct invaimsettings invaimsettings_falcon2scope = {
+	30,                                                 // zoomfov
+	3,                                                  // guntransup
+	8,                                                  // guntransdown
+	15,                                                 // guntransside
+	0.9721,                                             // aimdamppal
+	0.9767,                                             // aimdamp
+	SIGHTTRACKTYPE_DEFAULT,                             // tracktype
+	5,                                                  // unused
+	INVAIMFLAG_AUTOAIM,                                 // flags
 };
 
-struct noisesettings invnoisesettings_00011020 = {
-	0, 18, 2, 1, 6,
-};
-
-struct noisesettings invnoisesettings_00011034 = {
-	0, 22, 3, 1, 6,
-};
-
-struct noisesettings invnoisesettings_00011048 = {
-	0, 25, 15, 5, 6,
-};
-
-struct noisesettings invnoisesettings_0001105c = {
-	0, 35, 1, 1, 6,
-};
-
-struct noisesettings invnoisesettings_00011070 = {
-	0, 0, 0, 0.2, 2.3509887016446E-38,
-};
-
-struct noisesettings invnoisesettings_00011084 = {
-	0.2, 0.2, 0.2, 0.2, 2.3509887016446E-38,
-};
-
-struct noisesettings invnoisesettings_00011098 = {
-	0.6, 0.6, 0.6, 0.2, 2.3509887016446E-38,
-};
-
-struct noisesettings invnoisesettings_000110ac = {
-	0.6, 0.6, 2.6, 0.2, 2.3509887016446E-38,
-};
-
-struct inventory_class invclass_default = {
-	0,
-	3,
-	8,
-	15,
-	0.9721,
-	0.9767,
-	0x10000000,
-	WEAPONCLASSFLAG_AUTOAIM,
-};
-
-struct inventory_class invclass_smg = {
-	0,
-	3,
-	8,
-	15,
-	0.9721,
-	0.9767,
-	0x10000000,
-	WEAPONCLASSFLAG_AUTOAIM | WEAPONCLASSFLAG_00000004,
-};
-
-struct inventory_class invclass_unarmed = {
-	0,
-	3,
-	8,
-	15,
-	0.9721,
-	0.9767,
-	0x07000000,
-	WEAPONCLASSFLAG_AUTOAIM,
-};
-
-struct inventory_class invclass_falcon2scope = {
-	30,
-	3,
-	8,
-	15,
-	0.9721,
-	0.9767,
-	0x15000000,
-	WEAPONCLASSFLAG_AUTOAIM,
-};
-
-struct inventory_class invclass_heavy = {
-	30,
-	3,
-	8,
-	15,
-	0.9721,
-	0.9767,
-	0x15000000,
-	WEAPONCLASSFLAG_AUTOAIM | WEAPONCLASSFLAG_00000004,
+struct invaimsettings invaimsettings_heavy = {
+	30,                                                 // zoomfov
+	3,                                                  // guntransup
+	8,                                                  // guntransdown
+	15,                                                 // guntransside
+	0.9721,                                             // aimdamppal
+	0.9767,                                             // aimdamp
+	SIGHTTRACKTYPE_DEFAULT,                             // tracktype
+	5,                                                  // unused
+	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT, // flags
 };
 
 struct weaponfunc_shootsingle invfunc_00011160 = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x8039,
-	1,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_8039, // shootsound
+	1, // penetration
 };
 
 struct inventory_ammo invammo_default = {
@@ -150,13 +188,13 @@ struct weapon invitem_hammer = {
 	NULL, // sec function
 	&invammo_default, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	12.5, // posx
+	-17, // posy
+	-27.5, // posz
 	1, // sway
-	12.5, // left/right
-	-17, // up/down
-	-27.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_000, // short name
 	L_GUN_000, // name
@@ -176,13 +214,13 @@ struct weapon invitem_nothing = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	12.5, // posx
+	-17, // posy
+	-27.5, // posz
 	1, // sway
-	12.5, // left/right
-	-17, // up/down
-	-27.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_000, // short name
 	L_GUN_000, // name
@@ -227,49 +265,49 @@ struct guncmd invanim_punch[] = {
 struct weaponfunc_close invfunc_unarmed_punch = {
 	INVENTORYFUNCTYPE_CLOSE,
 	L_GUN_100, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	invanim_punch, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.5, // damage
-	60,
-	0x00000069,
-	0x00000069,
-	0x00000069,
-	0x40f00000,
-	0xc20c0000,
-	0x40f00000,
-	0xc20c0000,
-	0xbf800000,
-	0xbf800000,
-	0x40000000,
-	0x40000000,
-	0x00000000,
+	60, // range
+	105, // unused
+	105, // unused
+	105, // unused
+	7.5, // unused
+	-35, // unused
+	7.5, // unused
+	-35, // unused
+	-1, // unused
+	-1, // unused
+	2, // unused
+	2, // unused
+	0, // unused
 };
 
 struct weaponfunc_close invfunc_unarmed_disarm = {
 	INVENTORYFUNCTYPE_CLOSE,
 	L_GUN_101, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	invanim_punch, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_DISARM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.3, // damage
-	60,
-	0x00000069,
-	0x00000069,
-	0x00000069,
-	0x40f00000,
-	0xc20c0000,
-	0x40f00000,
-	0xc20c0000,
-	0xbf800000,
-	0xbf800000,
-	0x40000000,
-	0x40000000,
-	0x00000000,
+	60, // range
+	105, // unused
+	105, // unused
+	105, // unused
+	7.5, // unused
+	-35, // unused
+	7.5, // unused
+	-35, // unused
+	-1, // unused
+	-1, // unused
+	2, // unused
+	2, // unused
+	0, // unused
 };
 
 struct weapon invitem_unarmed = {
@@ -282,19 +320,19 @@ struct weapon invitem_unarmed = {
 	{&invfunc_unarmed_punch, &invfunc_unarmed_disarm}, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_unarmed,
+	&invaimsettings_unarmed,
+	1, // muzzlez
+	7.5, // posx
+	-41, // posy
+	-16, // posz
 	1, // sway
-	7.5, // left/right
-	-41, // up/down
-	-16, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_006, // short name
 	L_GUN_006, // name
 	L_GUN_000, // manufacturer
 	L_GUN_155, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_HIDEMENUMODEL | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_HIDEMENUMODEL | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct modelpartvisibility invpartvisibility_falcon2[] = {
@@ -326,35 +364,35 @@ struct modelpartvisibility invpartvisibility_falcon2silencer[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_000113f4[] = {
-	{ 1, 0x0000, 1, 0x002a, 0x0000 },
-	{ 1, 0x0000, 1, 0x002b, 0x0000 },
-	{ 1, 0x0000, 1, 0x002c, 0x0000 },
-	{ 1, 0x0000, 1, 0x002d, 0x0000 },
-	{ 1, 0x0000, 1, 0x002e, 0x0000 },
-	{ 1, 0x0000, 1, 0x002f, 0x0000 },
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_falcon2[] = {
+	gunviscmd_sethidden(MODELPART_FALCON2_002A)
+	gunviscmd_sethidden(MODELPART_FALCON2_002B)
+	gunviscmd_sethidden(MODELPART_FALCON2_SCOPE)
+	gunviscmd_sethidden(MODELPART_FALCON2_SILENCER)
+	gunviscmd_sethidden(MODELPART_FALCON2_002E)
+	gunviscmd_sethidden(MODELPART_FALCON2_002F)
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_end
 };
 
-struct inventory_typef invf_00011444[] = {
-	{ 1, 0x0000, 1, 0x002a, 0x0000 },
-	{ 1, 0x0000, 1, 0x002b, 0x0000 },
-	{ 1, 0x0000, 1, 0x002d, 0x0000 },
-	{ 1, 0x0000, 1, 0x002e, 0x0000 },
-	{ 1, 0x0000, 1, 0x002f, 0x0000 },
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_falcon2scope[] = {
+	gunviscmd_sethidden(MODELPART_FALCON2_002A)
+	gunviscmd_sethidden(MODELPART_FALCON2_002B)
+	gunviscmd_sethidden(MODELPART_FALCON2_SILENCER)
+	gunviscmd_sethidden(MODELPART_FALCON2_002E)
+	gunviscmd_sethidden(MODELPART_FALCON2_002F)
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_end
 };
 
-struct inventory_typef invf_0001148c[] = {
-	{ 1, 0x0000, 1, 0x002a, 0x0000 },
-	{ 1, 0x0000, 1, 0x002b, 0x0000 },
-	{ 1, 0x0000, 1, 0x002c, 0x0000 },
-	{ 1, 0x0000, 1, 0x002e, 0x0000 },
-	{ 1, 0x0000, 1, 0x002f, 0x0000 },
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_falcon2silencer[] = {
+	gunviscmd_sethidden(MODELPART_FALCON2_002A)
+	gunviscmd_sethidden(MODELPART_FALCON2_002B)
+	gunviscmd_sethidden(MODELPART_FALCON2_SCOPE)
+	gunviscmd_sethidden(MODELPART_FALCON2_002E)
+	gunviscmd_sethidden(MODELPART_FALCON2_002F)
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_end
 };
 
 struct guncmd invanim_falcon2_reload_singlewield[] = {
@@ -447,69 +485,69 @@ struct guncmd invanim_falcon2_shoot[] = {
 struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_falcon2_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	1, // damage
 	1, // spread
 	3, 5, 2, 0,
-	10,
-	15,
-	59.999996185303,
-	0,
-	0,
-	0x804d,
-	1,
+	10, // recoildist
+	15, // recoilangle
+	59.999996185303, // slidemax
+	0, // impactforce
+	0, // duration60
+	SFX_804D, // shootsound
+	1, // penetration
 };
 
 struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fe4,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silenced,
 	invanim_falcon2_shoot, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	1, // damage
 	1, // spread
 	3, 5, 2, 0,
-	10,
-	15,
-	59.999996185303,
-	0,
-	0,
-	0x8054,
-	1,
+	10, // recoildist
+	15, // recoilangle
+	59.999996185303, // slidemax
+	0, // impactforce
+	0, // duration60
+	SFX_8054, // shootsound
+	1, // penetration
 };
 
 struct weaponfunc_close invfunc_falcon2_pistolwhip = {
 	INVENTORYFUNCTYPE_CLOSE,
 	L_GUN_094, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	invanim_falcon2_pistolwhip, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.9, // damage
-	60,
-	0x00000069,
-	0x00000069,
-	0x00000069,
-	0xc1800000,
-	0x3f4ccccd,
-	0x41bc0000,
-	0xc202cccd,
-	0xbf800000,
-	0xbf800000,
-	0x40000000,
-	0x40000000,
-	0x00000000,
+	60, // range
+	105, // unused
+	105, // unused
+	105, // unused
+	-16, // unused
+	0.8, // unused
+	23.5, // unused
+	-32.7, // unused
+	-1, // unused
+	-1, // unused
+	2, // unused
+	2, // unused
+	0, // unused
 };
 
 struct inventory_ammo invammo_falcon2 = {
@@ -538,13 +576,13 @@ struct weapon invitem_falcon2 = {
 	{ &invfunc_falcon2_singleshot, &invfunc_falcon2_pistolwhip }, // functions
 	&invammo_falcon2, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
-	2, // sway
-	9, // left/right
-	-15.7, // up/down
-	-23.8, // front/back
-	1, // unk38
-	invf_000113f4, // fptr
+	&invaimsettings_default,
+	2, // muzzlez
+	9, // posx
+	-15.7, // posy
+	-23.8, // posz
+	1, // sway
+	gunviscmds_falcon2, // gunviscmds
 	invpartvisibility_falcon2, // part visibility
 #if VERSION == VERSION_JPN_FINAL
 	L_GUN_257, // short name
@@ -567,13 +605,13 @@ struct weapon invitem_falcon2scope = {
 	{ &invfunc_falcon2_singleshot, &invfunc_falcon2_pistolwhip }, // functions
 	&invammo_falcon2scope, // pri ammo
 	NULL, // sec ammo
-	&invclass_falcon2scope,
+	&invaimsettings_falcon2scope,
+	1, // muzzlez
+	9, // posx
+	-15.7, // posy
+	-23.8, // posz
 	1, // sway
-	9, // left/right
-	-15.7, // up/down
-	-23.8, // front/back
-	1, // unk38
-	invf_00011444, // fptr
+	gunviscmds_falcon2scope, // gunviscmds
 	invpartvisibility_falcon2scope, // part visibility
 	L_GUN_077, // short name
 	L_GUN_009, // name
@@ -592,13 +630,13 @@ struct weapon invitem_falcon2silencer = {
 	{ &invfunc_falcon2silenced_singleshot, &invfunc_falcon2_pistolwhip }, // functions
 	&invammo_falcon2, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	9, // posx
+	-15.7, // posy
+	-23.8, // posz
 	1, // sway
-	9, // left/right
-	-15.7, // up/down
-	-23.8, // front/back
-	1, // unk38
-	invf_0001148c, // fptr
+	gunviscmds_falcon2silencer, // gunviscmds
 	invpartvisibility_falcon2silencer, // part visibility
 	L_GUN_078, // short name
 	L_GUN_008, // name
@@ -614,11 +652,11 @@ struct modelpartvisibility invpartvisibility_magsec[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_00011840[] = {
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 1, 0x0000, 1, 0x002a, 0x0000 },
-	{ 1, 0x0000, 1, 0x0029, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_magsec[] = {
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_PISTOL_002A)
+	gunviscmd_sethidden(MODELPART_PISTOL_0029)
+	gunviscmd_end
 };
 
 struct guncmd invanim_magsec_reload_singlewield[] = {
@@ -674,59 +712,60 @@ struct guncmd invanim_magsec_shoot[] = {
 	gunscript_end
 };
 
-struct inventory_class invclass_magsec4 = {
+struct invaimsettings invaimsettings_magsec4 = {
 	25,
 	3,
 	8,
 	15,
 	0.9721,
 	0.9767,
-	0x11000000,
-	WEAPONCLASSFLAG_AUTOAIM,
+	SIGHTTRACKTYPE_DEFAULT,
+	1,
+	INVAIMFLAG_AUTOAIM,
 };
 
 struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_magsec_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	1.1, // damage
 	6, // spread
 	4, 8, 3, 0,
-	5,
-	10,
-	59.999996185303,
-	10,
-	0,
-	0x804c,
-	1,
+	5, // recoildist
+	10, // recoilangle
+	59.999996185303, // slidemax
+	10, // impactforce
+	0, // duration60
+	SFX_804C, // shootsound
+	1, // penetration
 };
 
 struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_128, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_magsec_shoot, // fire animation
 	FUNCFLAG_BURST3,
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	1.1, // damage
 	10, // spread
 	9, 14, 0, 0,
-	8,
-	12,
-	59.999996185303,
-	10,
-	0,
-	0x804c,
-	1,
+	8, // recoildist
+	12, // recoilangle
+	59.999996185303, // slidemax
+	10, // impactforce
+	0, // duration60
+	SFX_804C, // shootsound
+	1, // penetration
 };
 
 struct inventory_ammo invammo_magsec = {
@@ -747,13 +786,13 @@ struct weapon invitem_magsec = {
 	{ &invfunc_magsec_singleshot, &invfunc_magsec_burst }, // functions
 	&invammo_magsec, // pri ammo
 	NULL, // sec ammo
-	&invclass_magsec4,
-	2, // sway
-	10.5, // left/right
-	-17.2, // up/down
-	-26.5, // front/back
-	1, // unk38
-	invf_00011840, // fptr
+	&invaimsettings_magsec4,
+	2, // muzzlez
+	10.5, // posx
+	-17.2, // posy
+	-26.5, // posz
+	1, // sway
+	gunviscmds_magsec, // gunviscmds
 	invpartvisibility_magsec, // part visibility
 	L_GUN_010, // short name
 	L_GUN_010, // name
@@ -773,15 +812,15 @@ struct modelpartvisibility invpartvisibility_dy357[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_00011a84[] = {
-	{ 1, 0x0000, 1, 0x0028, 0x0000 },
-	{ 1, 0x0000, 1, 0x0029, 0x0000 },
-	{ 1, 0x0000, 1, 0x002a, 0x0000 },
-	{ 1, 0x0000, 1, 0x002b, 0x0000 },
-	{ 1, 0x0000, 1, 0x002c, 0x0000 },
-	{ 1, 0x0000, 1, 0x002d, 0x0000 },
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_magnum[] = {
+	gunviscmd_sethidden(MODELPART_MAGNUM_0028)
+	gunviscmd_sethidden(MODELPART_MAGNUM_0029)
+	gunviscmd_sethidden(MODELPART_MAGNUM_002A)
+	gunviscmd_sethidden(MODELPART_MAGNUM_002B)
+	gunviscmd_sethidden(MODELPART_MAGNUM_002C)
+	gunviscmd_sethidden(MODELPART_MAGNUM_002D)
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_end
 };
 
 struct guncmd invanim_dy357_shoot[] = {
@@ -855,69 +894,69 @@ struct guncmd invanim_dy357_pistolwhip[] = {
 struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011020,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loud,
 	invanim_dy357_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	20,
+	&invrecoilsettings_default,
+	20, // recoverytime60
 	2, // damage
 	0, // spread
 	8, 16, 0, -1,
-	12,
-	35,
-	0,
-	6,
-	0,
-	0x8066,
-	5,
+	12, // recoildist
+	35, // recoilangle
+	0, // slidemax
+	6, // impactforce
+	0, // duration60
+	SFX_8066, // shootsound
+	5, // penetration
 };
 
 struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011020,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loud,
 	invanim_dy357_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	30,
+	&invrecoilsettings_default,
+	30, // recoverytime60
 	200, // damage
 	0, // spread
 	8, 24, 0, -1,
-	12,
-	35,
-	0,
-	6,
-	0,
-	0x8066,
-	5,
+	12, // recoildist
+	35, // recoilangle
+	0, // slidemax
+	6, // impactforce
+	0, // duration60
+	SFX_8066, // shootsound
+	5, // penetration
 };
 
 struct weaponfunc_close invfunc_dy357_pistolwhip = {
 	INVENTORYFUNCTYPE_CLOSE,
 	L_GUN_094, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	invanim_dy357_pistolwhip, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.9, // damage
-	60,
-	0x00000069,
-	0x00000069,
-	0x00000069,
-	0x41980000,
-	0xc195999a,
-	0x41980000,
-	0xc195999a,
-	0xbf800000,
-	0xbf800000,
-	0x40000000,
-	0x40000000,
-	0x00000000,
+	60, // range
+	105, // unused
+	105, // unused
+	105, // unused
+	19, // unused
+	-18.7, // unused
+	19, // unused
+	-18.7, // unused
+	-1, // unused
+	-1, // unused
+	2, // unused
+	2, // unused
+	0, // unused
 };
 
 struct inventory_ammo invammo_dy357 = {
@@ -938,13 +977,13 @@ struct weapon invitem_dy357 = {
 	{ &invfunc_dy357_singleshot, &invfunc_dy357_pistolwhip }, // functions
 	&invammo_dy357, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
-	2, // sway
-	9.5, // left/right
-	-18.2, // up/down
-	-25.5, // front/back
-	1, // unk38
-	invf_00011a84, // fptr
+	&invaimsettings_default,
+	2, // muzzlez
+	9.5, // posx
+	-18.2, // posy
+	-25.5, // posz
+	1, // sway
+	gunviscmds_magnum, // gunviscmds
 	invpartvisibility_dy357, // part visibility
 	L_GUN_084, // short name
 	L_GUN_012, // name
@@ -963,13 +1002,13 @@ struct weapon invitem_dy357lx = {
 	{ &invfunc_dy357lx_singleshot, &invfunc_dy357_pistolwhip }, // functions
 	&invammo_dy357, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
-	2, // sway
-	9.5, // left/right
-	-18.2, // up/down
-	-25.5, // front/back
-	1, // unk38
-	invf_00011a84, // fptr
+	&invaimsettings_default,
+	2, // muzzlez
+	9.5, // posx
+	-18.2, // posy
+	-25.5, // posz
+	1, // sway
+	gunviscmds_magnum, // gunviscmds
 	invpartvisibility_dy357, // part visibility
 	L_GUN_013, // short name
 	L_GUN_013, // name
@@ -983,10 +1022,10 @@ struct modelpartvisibility invpartvisibility_phoenix[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_00011e00[] = {
-	{ 1, 0x0000, 1, 0x0028, 0x0000 },
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_phoenix[] = {
+	gunviscmd_sethidden(MODELPART_PHOENIX_0028)
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_end
 };
 
 struct guncmd invanim_phoenix_reload_singlewield[] = {
@@ -1024,45 +1063,45 @@ struct guncmd invanim_phoenix_shoot[] = {
 struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_phoenix_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	1.1, // damage
 	3, // spread
 	3, 5, 2, 0,
-	10,
-	15,
-	59.999996185303,
-	0,
-	0,
-	0x8071,
-	1,
+	10, // recoildist
+	15, // recoilangle
+	59.999996185303, // slidemax
+	0, // impactforce
+	0, // duration60
+	SFX_8071, // shootsound
+	1, // penetration
 };
 
 struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_095, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_phoenix_shoot, // fire animation
 	FUNCFLAG_EXPLOSIVESHELLS,
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	1.2, // damage
 	5, // spread
 	13, 15, 25, 0,
-	15,
-	25,
-	59.999996185303,
-	0,
-	0,
-	0x8072,
-	1,
+	15, // recoildist
+	25, // recoilangle
+	59.999996185303, // slidemax
+	0, // impactforce
+	0, // duration60
+	SFX_8072, // shootsound
+	1, // penetration
 };
 
 struct inventory_ammo invammo_phoenix = {
@@ -1083,13 +1122,13 @@ struct weapon invitem_phoenix = {
 	{ &invfunc_phoenix_singleshot, &invfunc_phoenix_explosiveshells }, // functions
 	&invammo_phoenix, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	9.5, // posx
+	-16.2, // posy
+	-23, // posz
 	1, // sway
-	9.5, // left/right
-	-16.2, // up/down
-	-23, // front/back
-	1, // unk38
-	invf_00011e00, // fptr
+	gunviscmds_phoenix, // gunviscmds
 	invpartvisibility_phoenix, // part visibility
 	L_GUN_014, // short name
 	L_GUN_014, // name
@@ -1104,10 +1143,10 @@ struct modelpartvisibility invpartvisibility_mauler[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_00011fac[] = {
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 1, 0x0000, 1, 0x002b, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_mauler[] = {
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_MAULER_002B)
+	gunviscmd_end
 };
 
 struct guncmd invanim_mauler_shoot[] = {
@@ -1164,45 +1203,45 @@ struct guncmd invanim_unused_8007c0bc[] = {
 struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011020,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loud,
 	invanim_mauler_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.2, // damage
 	6, // spread
 	3, 9, 32, 28,
-	0,
-	0,
-	59.999996185303,
-	4,
-	0,
-	0x805b,
-	1,
+	0, // recoildist
+	0, // recoilangle
+	59.999996185303, // slidemax
+	4, // impactforce
+	0, // duration60
+	SFX_805B, // shootsound
+	1, // penetration
 };
 
 struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_129, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011020,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loud,
 	invanim_mauler_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.2, // damage
 	6, // spread
 	3, 9, 32, 28,
-	0,
-	0,
-	59.999996185303,
-	4,
-	0,
-	0x805b,
-	1,
+	0, // recoildist
+	0, // recoilangle
+	59.999996185303, // slidemax
+	4, // impactforce
+	0, // duration60
+	SFX_805B, // shootsound
+	1, // penetration
 };
 
 struct inventory_ammo invammo_mauler = {
@@ -1223,13 +1262,13 @@ struct weapon invitem_mauler = {
 	{ &invfunc_mauler_singleshot, &invfunc_mauler_chargeshot }, // functions
 	&invammo_mauler, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	11.5, // posx
+	-17.5, // posy
+	-20, // posz
 	1, // sway
-	11.5, // left/right
-	-17.5, // up/down
-	-20, // front/back
-	1, // unk38
-	invf_00011fac, // fptr
+	gunviscmds_mauler, // gunviscmds
 	invpartvisibility_mauler, // part visibility
 	L_GUN_011, // short name
 	L_GUN_011, // name
@@ -1244,11 +1283,11 @@ struct modelpartvisibility invpartvisibility_cmp150[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_000121d8[] = {
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 1, 0x0000, 1, 0x002b, 0x0000 },
-	{ 1, 0x0000, 1, 0x0047, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_cmp150[] = {
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_CMP150_002B)
+	gunviscmd_sethidden(MODELPART_CMP150_0047)
+	gunviscmd_end
 };
 
 struct guncmd invanim_cmp150_reload_singlewield[] = {
@@ -1304,69 +1343,72 @@ struct guncmd invanim_cmp150_shoot[] = {
 	gunscript_end
 };
 
-struct inventory_class invclass_cmp150 = {
+struct invaimsettings invaimsettings_cmp150 = {
 	0,
 	3,
 	8,
 	15,
 	0.9721,
 	0.9767,
-	0x40000000,
-	WEAPONCLASSFLAG_AUTOAIM | WEAPONCLASSFLAG_00000004,
+	SIGHTTRACKTYPE_FOLLOWLOCKON,
+	0,
+	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
 struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011020,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loud,
 	invanim_cmp150_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1, // damage
 	9, // spread
 	6, 18, 0, 6,
-	4,
-	3,
-	0,
-	0,
-	3,
-	0x8040,
-	1,
-	900,
-	900,
-	NULL,
-	NULL,
-	0, 0,
+	4, // recoildist
+	3, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	3, // duration60
+	SFX_MENU_ERROR, // shootsound
+	1, // penetration
+	900, // initialrpm
+	900, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_102, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011020,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loud,
 	invanim_cmp150_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1, // damage
 	9, // spread
 	6, 18, 0, 6,
-	4,
-	3,
-	0,
-	0,
-	3,
-	0x8040,
-	1,
-	900,
-	900,
-	NULL,
-	NULL,
-	0, 0,
+	4, // recoildist
+	3, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	3, // duration60
+	SFX_MENU_ERROR, // shootsound
+	1, // penetration
+	900, // initialrpm
+	900, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_cmp150 = {
@@ -1387,13 +1429,13 @@ struct weapon invitem_cmp150 = {
 	{ &invfunc_cmp150_rapidfire, &invfunc_cmp150_followlockon }, // functions
 	&invammo_cmp150, // pri ammo
 	NULL, // sec ammo
-	&invclass_cmp150,
-	3, // sway
-	13, // left/right
-	-17.7, // up/down
-	-27.5, // front/back
-	1, // unk38
-	invf_000121d8, // fptr
+	&invaimsettings_cmp150,
+	3, // muzzlez
+	13, // posx
+	-17.7, // posy
+	-27.5, // posz
+	1, // sway
+	gunviscmds_cmp150, // gunviscmds
 	invpartvisibility_cmp150, // part visibility
 	L_GUN_015, // short name
 	L_GUN_015, // name
@@ -1408,10 +1450,10 @@ struct modelpartvisibility invpartvisibility_cyclone[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_0001243c[] = {
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 1, 0x0000, 1, 0x0028, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_cyclone[] = {
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_CYCLONE_0028)
+	gunviscmd_end
 };
 
 struct guncmd invanim_cyclone_reload_singlewield[] = {
@@ -1444,55 +1486,57 @@ struct guncmd invanim_cyclone_shoot[] = {
 struct weaponfunc_shootauto invfunc_cyclone_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	invanim_cyclone_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	0.8, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x805f,
-	1,
-	900,
-	900,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_805F, // shootsound
+	1, // penetration
+	900, // initialrpm
+	900, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_097, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	invanim_cyclone_shoot, // fire animation
 	FUNCFLAG_BURST50,
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.4, // damage
 	25, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x8075,
-	1,
-	2000,
-	2000,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_8075, // shootsound
+	1, // penetration
+	2000, // initialrpm
+	2000, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_cyclone = {
@@ -1513,13 +1557,13 @@ struct weapon invitem_cyclone = {
 	{ &invfunc_cyclone_rapidfire, &invfunc_cyclone_magazinedischarge }, // functions
 	&invammo_cyclone, // pri ammo
 	NULL, // sec ammo
-	&invclass_smg,
+	&invaimsettings_smg,
+	1, // muzzlez
+	21.5, // posx
+	-26.5, // posy
+	-35, // posz
 	1, // sway
-	21.5, // left/right
-	-26.5, // up/down
-	-35, // front/back
-	1, // unk38
-	invf_0001243c, // fptr
+	gunviscmds_cyclone, // gunviscmds
 	invpartvisibility_cyclone, // part visibility
 	L_GUN_020, // short name
 	L_GUN_020, // name
@@ -1554,49 +1598,50 @@ struct modelpartvisibility invpartvisibility_rcp120[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_00012658[] = {
-	{ 1, 0x0000, 1, 0x0029, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_rcp120[] = {
+	gunviscmd_sethidden(MODELPART_RCP120_0029)
+	gunviscmd_end
 };
 
 struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_rcp120_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.2, // damage
 	6, // spread
 	6, 18, 0, 6,
-	4,
-	3,
-	0,
-	0,
-	4,
-	0x806d,
-	1,
-	1100,
-	1100,
-	NULL,
-	NULL,
-	0, 0,
+	4, // recoildist
+	3, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	4, // duration60
+	SFX_806D, // shootsound
+	1, // penetration
+	1100, // initialrpm
+	1100, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weaponfunc_special invfunc_rcp120_cloak = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_116, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_RCP120CLOAK,
-	0x0000001e,
-	0x00000000,
+	30, // recoverytime60
+	0, // soundnum (unused)
 };
 
 struct inventory_ammo invammo_rcp120 = {
@@ -1617,13 +1662,13 @@ struct weapon invitem_rcp120 = {
 	{ &invfunc_rcp120_rapidfire, &invfunc_rcp120_cloak }, // functions
 	&invammo_rcp120, // pri ammo
 	NULL, // sec ammo
-	&invclass_smg,
-	3, // sway
-	13, // left/right
-	-18.2, // up/down
-	-27.5, // front/back
-	1, // unk38
-	invf_00012658, // fptr
+	&invaimsettings_smg,
+	3, // muzzlez
+	13, // posx
+	-18.2, // posy
+	-27.5, // posz
+	1, // sway
+	gunviscmds_rcp120, // gunviscmds
 	invpartvisibility_rcp120, // part visibility
 	L_GUN_022, // short name
 	L_GUN_022, // name
@@ -1653,63 +1698,65 @@ struct modelpartvisibility invpartvisibility_callisto[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_00012798[] = {
-	{ 1, 0x0000, 1, 0x0028, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_callisto[] = {
+	gunviscmd_sethidden(MODELPART_CALLISTO_0028)
+	gunviscmd_end
 };
 
 struct weaponfunc_shootauto invfunc_callisto_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_callisto_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.2, // damage
 	9, // spread
 	6, 18, 0, 6,
-	4,
-	3,
-	0,
-	0,
-	3,
-	0x8063,
-	1,
-	900,
-	900,
-	NULL,
-	NULL,
-	0, 0,
+	4, // recoildist
+	3, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	3, // duration60
+	SFX_8063, // shootsound
+	1, // penetration
+	900, // initialrpm
+	900, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_115, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_callisto_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	2.4, // damage
 	9, // spread
 	6, 18, 0, 6,
-	4,
-	3,
-	0,
-	0,
-	3,
-	0x8064,
-	5,
-	300,
-	300,
-	NULL,
-	NULL,
-	0, 0,
+	4, // recoildist
+	3, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	3, // duration60
+	SFX_8064, // shootsound
+	5, // penetration
+	300, // initialrpm
+	300, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_callisto = {
@@ -1730,13 +1777,13 @@ struct weapon invitem_callisto = {
 	{ &invfunc_callisto_rapidfire, &invfunc_callisto_highimpactshells }, // functions
 	&invammo_callisto, // pri ammo
 	NULL, // sec ammo
-	&invclass_smg,
-	3, // sway
-	17.5, // left/right
-	-22.7, // up/down
-	-25, // front/back
-	1, // unk38
-	invf_00012798, // fptr
+	&invaimsettings_smg,
+	3, // muzzlez
+	17.5, // posx
+	-22.7, // posy
+	-25, // posz
+	1, // sway
+	gunviscmds_callisto, // gunviscmds
 	invpartvisibility_callisto, // part visibility
 	L_GUN_023, // short name
 	L_GUN_023, // name
@@ -1745,9 +1792,9 @@ struct weapon invitem_callisto = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS,
 };
 
-struct inventory_typef invf_000128b8[] = {
-	{ 1, 0x0000, 1, 0x0028, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_dragon[] = {
+	gunviscmd_sethidden(MODELPART_DRAGON_0028)
+	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_dragon[] = {
@@ -1776,39 +1823,40 @@ struct guncmd invanim_dragon_reload[] = {
 struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	invanim_dragon_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.1, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x8049,
-	1,
-	700,
-	700,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_8049, // shootsound
+	1, // penetration
+	700, // initialrpm
+	700, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weaponfunc_throw invfunc_dragon_selfdestruct = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_118, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_DISCARDWEAPON,
-	0x000000ff,
+	MODEL_CHRDRAGON, // projectilemodelnum
 	240, // activatetime60
 	60, // recoverytime60
 	0, // damage
@@ -1832,13 +1880,13 @@ struct weapon invitem_dragon = {
 	{ &invfunc_dragon_rapidfire, &invfunc_dragon_selfdestruct }, // functions
 	&invammo_dragon, // pri ammo
 	NULL, // sec ammo
-	&invclass_heavy,
+	&invaimsettings_heavy,
+	1, // muzzlez
+	15, // posx
+	-29.5, // posy
+	-27, // posz
 	1, // sway
-	15, // left/right
-	-29.5, // up/down
-	-27, // front/back
-	1, // unk38
-	invf_000128b8, // fptr
+	gunviscmds_dragon, // gunviscmds
 	invpartvisibility_dragon, // part visibility
 	L_GUN_017, // short name
 	L_GUN_017, // name
@@ -1847,10 +1895,10 @@ struct weapon invitem_dragon = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_04000000,
 };
 
-struct inventory_typef invf_00012a08[] = {
-	{ 1, 0x0000, 1, 0x0028, 0x0000 },
-	{ 1, 0x0000, 1, 0x0029, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_superdragon[] = {
+	gunviscmd_sethidden(MODELPART_SUPERDRAGON_0028)
+	gunviscmd_sethidden(MODELPART_SUPERDRAGON_0029)
+	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_superdragon[] = {
@@ -1909,36 +1957,37 @@ struct guncmd invanim_superdragon_sectopri[] = {
 struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	invanim_superdragon_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.2, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x8049,
-	1,
-	700,
-	700,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_8049, // shootsound
+	1, // penetration
+	700, // initialrpm
+	700, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_098, // name
-	0x00, // unk06
-	1, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	1, // ammoindex
+	&invnoisesettings_loudest,
 	invanim_superdragon_shootgrenade, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_10000000 | FUNCFLAG_20000000,
 	NULL,
@@ -1951,17 +2000,17 @@ struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
 	0,
 	4,
 	4,
-	0x8073,
+	SFX_8073,
 	1,
-	0x00000123,
-	0x00000000,
-	1,
-	0x00000000,
-	0.08,
-	0x0000001e,
-	0x000004b0,
-	0.1,
-	SFX_LAUNCH_ROCKET_8053,
+	MODEL_CHRDRAGGRENADE, // projectilemodelnum
+	0, // unused
+	1, // scale
+	0, // speed
+	0.08, // unk50
+	30, // traveldist
+	1200, // timer60
+	0.1, // reflectangle
+	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
 struct inventory_ammo invammo_superdragon = {
@@ -1990,13 +2039,13 @@ struct weapon invitem_superdragon = {
 	{ &invfunc_superdragon_rapidfire, &invfunc_superdragon_grenadelauncher }, // functions
 	&invammo_superdragon, // pri ammo
 	&invammo_superdragon_grenades, // sec ammo
-	&invclass_heavy,
+	&invaimsettings_heavy,
+	1, // muzzlez
+	15, // posx
+	-29.5, // posy
+	-27, // posz
 	1, // sway
-	15, // left/right
-	-29.5, // up/down
-	-27, // front/back
-	1, // unk38
-	invf_00012a08, // fptr
+	gunviscmds_superdragon, // gunviscmds
 	invpartvisibility_superdragon, // part visibility
 	L_GUN_018, // short name
 	L_GUN_018, // name
@@ -2005,9 +2054,9 @@ struct weapon invitem_superdragon = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS,
 };
 
-struct inventory_typef invf_00012c40[] = {
-	{ 1, 0x0000, 1, 0x002a, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_ar34[] = {
+	gunviscmd_sethidden(MODELPART_AR34_002A)
+	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_ar34[] = {
@@ -2032,69 +2081,72 @@ struct guncmd invanim_ar34_reload[] = {
 	gunscript_end
 };
 
-struct inventory_class invclass_ar34 = {
+struct invaimsettings invaimsettings_ar34 = {
 	20,
 	3,
 	8,
 	15,
 	0.9721,
 	0.9767,
-	0x15000000,
-	WEAPONCLASSFLAG_AUTOAIM | WEAPONCLASSFLAG_00000004,
+	SIGHTTRACKTYPE_DEFAULT,
+	5,
+	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
 struct weaponfunc_shootauto invfunc_ar34_burstfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.4, // damage
 	8, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	5,
-	0x8059,
-	1,
-	750,
-	750,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	5, // duration60
+	SFX_8059, // shootsound
+	1, // penetration
+	750, // initialrpm
+	750, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weaponfunc_shootauto invfunc_ar34_usescope = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_103, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.4, // damage
 	8, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	5,
-	0x8059,
-	1,
-	750,
-	750,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	5, // duration60
+	SFX_8059, // shootsound
+	1, // penetration
+	750, // initialrpm
+	750, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_ar34 = {
@@ -2115,13 +2167,13 @@ struct weapon invitem_ar34 = {
 	{ &invfunc_ar34_burstfire, &invfunc_ar34_usescope }, // functions
 	&invammo_ar34, // pri ammo
 	NULL, // sec ammo
-	&invclass_ar34,
+	&invaimsettings_ar34,
+	1, // muzzlez
+	11.5, // posx
+	-25.7, // posy
+	-30.5, // posz
 	1, // sway
-	11.5, // left/right
-	-25.7, // up/down
-	-30.5, // front/back
-	1, // unk38
-	invf_00012c40, // fptr
+	gunviscmds_ar34, // gunviscmds
 	invpartvisibility_ar34, // part visibility
 	L_GUN_016, // short name
 	L_GUN_016, // name
@@ -2130,9 +2182,9 @@ struct weapon invitem_ar34 = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_04000000,
 };
 
-struct inventory_typef invf_00012df0[] = {
-	{ 1, 0x0000, 1, 0x002a, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_k7avenger[] = {
+	gunviscmd_sethidden(MODELPART_K7AVENGER_002A)
+	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_k7avenger[] = {
@@ -2171,69 +2223,72 @@ struct guncmd invanim_unused_8007ce6c[] = {
 	gunscript_end
 };
 
-struct inventory_class invclass_k7avenger = {
+struct invaimsettings invaimsettings_k7avenger = {
 	20,
 	3,
 	8,
 	15,
 	0.9721,
 	0.9767,
-	0x15000000,
-	WEAPONCLASSFLAG_AUTOAIM | WEAPONCLASSFLAG_00000004,
+	SIGHTTRACKTYPE_DEFAULT,
+	5,
+	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
 struct weaponfunc_shootauto invfunc_k7avenger_burstfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.5, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x805a,
-	1,
-	950,
-	950,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_805A, // shootsound
+	1, // penetration
+	950, // initialrpm
+	950, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_119, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	NULL, // fire animation
 	FUNCFLAG_BURST3 | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_THREATDETECTOR,
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.5, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x805a,
-	1,
-	950,
-	950,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_805A, // shootsound
+	1, // penetration
+	950, // initialrpm
+	950, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_k7avenger = {
@@ -2254,13 +2309,13 @@ struct weapon invitem_k7avenger = {
 	{ &invfunc_k7avenger_burstfire, &invfunc_k7avenger_threatdetector }, // functions
 	&invammo_k7avenger, // pri ammo
 	NULL, // sec ammo
-	&invclass_k7avenger,
+	&invaimsettings_k7avenger,
+	1, // muzzlez
+	6.5, // posx
+	-24, // posy
+	-27, // posz
 	1, // sway
-	6.5, // left/right
-	-24, // up/down
-	-27, // front/back
-	1, // unk38
-	invf_00012df0, // fptr
+	gunviscmds_k7avenger, // gunviscmds
 	invpartvisibility_k7avenger, // part visibility
 	L_GUN_019, // short name
 	L_GUN_019, // name
@@ -2274,10 +2329,10 @@ struct weapon invitem_k7avenger = {
 #endif
 };
 
-struct inventory_typef invf_00012fc8[] = {
-	{ 1, 0x0000, 1, 0x002a, 0x0000 },
-	{ 1, 0x0000, 1, 0x0029, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_laptopgun[] = {
+	gunviscmd_sethidden(MODELPART_LAPTOPGUN_002A)
+	gunviscmd_sethidden(MODELPART_LAPTOPGUN_0029)
+	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_laptopgun[] = {
@@ -2336,39 +2391,40 @@ struct guncmd invanim_laptopgun_unequip[] = {
 struct weaponfunc_shootauto invfunc_laptopgun_burstfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011020,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loud,
 	invanim_laptopgun_shoot, // fire animation
 	FUNCFLAG_BURST3,
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.15, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x8044,
-	1,
-	1000,
-	1000,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_8044, // shootsound
+	1, // penetration
+	1000, // initialrpm
+	1000, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weaponfunc_throw invfunc_laptopgun_deploy = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_117, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_STICKTOWALL | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_DISCARDWEAPON | FUNCFLAG_CALCULATETRAJECTORY,
-	0x00000157,
+	MODEL_CHRAUTOGUN, // projectilemodelnum
 	240, // activatetime60
 	60, // recoverytime60
 	0, // damage
@@ -2392,13 +2448,13 @@ struct weapon invitem_laptopgun = {
 	{ &invfunc_laptopgun_burstfire, &invfunc_laptopgun_deploy }, // functions
 	&invammo_laptopgun, // pri ammo
 	NULL, // sec ammo
-	&invclass_heavy,
-	1.2, // sway
-	16, // left/right
-	-17.7, // up/down
-	-14.5, // front/back
-	1, // unk38
-	invf_00012fc8, // fptr
+	&invaimsettings_heavy,
+	1.2, // muzzlez
+	16, // posx
+	-17.7, // posy
+	-14.5, // posz
+	1, // sway
+	gunviscmds_laptopgun, // gunviscmds
 	invpartvisibility_laptopgun, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_251, // short name
@@ -2411,9 +2467,9 @@ struct weapon invitem_laptopgun = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_04000000,
 };
 
-struct inventory_typef invf_000131dc[] = {
-	{ 1, 0x0000, 1, 0x002b, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_shotgun[] = {
+	gunviscmd_sethidden(MODELPART_SHOTGUN_002B)
+	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_shotgun[] = {
@@ -2450,45 +2506,45 @@ struct guncmd invanim_shotgun_doubleshot[] = {
 struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_089, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loudest,
 	invanim_shotgun_singleshot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	0.6, // damage
 	30, // spread
 	20, 28, 0, 0,
-	0,
-	0,
-	0,
-	4,
-	0,
-	0x8055,
-	1,
+	0, // recoildist
+	0, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	0, // duration60
+	SFX_FIRE_SHOTGUN, // shootsound
+	1, // penetration
 };
 
 struct weaponfunc_shootsingle invfunc_shotgun_double = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_105, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loudest,
 	invanim_shotgun_doubleshot, // fire animation
 	FUNCFLAG_BURST2,
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	0.6, // damage
 	16, // spread
 	20, 28, 0, 0,
-	0,
-	0,
-	0,
-	4,
-	0,
-	0x8055,
-	1,
+	0, // recoildist
+	0, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	0, // duration60
+	SFX_FIRE_SHOTGUN, // shootsound
+	1, // penetration
 };
 
 struct inventory_ammo invammo_shotgun = {
@@ -2509,13 +2565,13 @@ struct weapon invitem_shotgun = {
 	{ &invfunc_shotgun_single, &invfunc_shotgun_double }, // functions
 	&invammo_shotgun, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	12, // posx
+	-16.7, // posy
+	-21, // posz
 	1, // sway
-	12, // left/right
-	-16.7, // up/down
-	-21, // front/back
-	1, // unk38
-	invf_000131dc, // fptr
+	gunviscmds_shotgun, // gunviscmds
 	invpartvisibility_shotgun, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_253, // short name
@@ -2528,8 +2584,8 @@ struct weapon invitem_shotgun = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS,
 };
 
-f32 var8006d33c[] = {0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
-f32 var8006d36c[] = {1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+f32 vibrationstart_reaper[] = {0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+f32 vibrationmax_reaper[] = {1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
 
 struct modelpartvisibility invpartvisibility_reaper[] = {
 	{ MODELPART_REAPER_005A, false },
@@ -2539,9 +2595,9 @@ struct modelpartvisibility invpartvisibility_reaper[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_000133c8[] = {
-	{ 1, 0x0000, 1, 0x002b, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_reaper[] = {
+	gunviscmd_sethidden(MODELPART_REAPER_002B)
+	gunviscmd_end
 };
 
 struct guncmd invanim_reaper_shoot[] = {
@@ -2575,52 +2631,53 @@ struct guncmd invanim_reaper_unequip[] = {
 struct weaponfunc_shootauto invfunc_reaper_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_088, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001105c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_reaper,
 	invanim_reaper_shoot, // fire animation
 	FUNCFLAG_BURST3,
-	&invnoisesettings_000110ac,
-	0,
+	&invrecoilsettings_reaper,
+	0, // recoverytime60
 	1.2, // damage
 	56, // spread
 	3, 9, 32, 28,
-	0,
-	0,
-	0,
-	4,
-	2,
-	0x803f,
-	1,
-	60,
-	1800,
-	var8006d33c,
-	var8006d36c,
-	88, 88,
+	0, // recoildist
+	0, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	2, // duration60
+	SFX_803F, // shootsound
+	1, // penetration
+	60, // initialrpm
+	1800,  // maxrpm
+	vibrationstart_reaper, // vibrationstart
+	vibrationmax_reaper, // vibrationmax
+	88, // turretaccel
+	88, // turretdecel
 };
 
 struct weaponfunc_close invfunc_reaper_grind = {
 	INVENTORYFUNCTYPE_CLOSE,
 	L_GUN_106, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	0.05, // damage
-	80,
-	0x00000069,
-	0x00000069,
-	0x00000069,
-	0xbf000000,
-	0xc1a9999a,
-	0xbf000000,
-	0xc1a9999a,
-	0xbf800000,
-	0xbf800000,
-	0x40000000,
-	0x40000000,
-	0x00000000,
+	80, // range
+	105, // unused
+	105, // unused
+	105, // unused
+	-0.5, // unused
+	-21.2, // unused
+	-0.5, // unused
+	-21.2, // unused
+	-1, // unused
+	-1, // unused
+	2, // unused
+	2, // unused
+	0, // unused
 };
 
 struct inventory_ammo invammo_reaper = {
@@ -2641,13 +2698,13 @@ struct weapon invitem_reaper = {
 	{ &invfunc_reaper_shoot, &invfunc_reaper_grind }, // functions
 	&invammo_reaper, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	4, // posx
+	-21.2, // posy
+	-30.5, // posz
 	1, // sway
-	4, // left/right
-	-21.2, // up/down
-	-30.5, // front/back
-	1, // unk38
-	invf_000133c8, // fptr
+	gunviscmds_reaper, // gunviscmds
 	invpartvisibility_reaper, // part visibility
 	L_GUN_026, // short name
 	L_GUN_026, // name
@@ -2661,9 +2718,9 @@ struct modelpartvisibility invpartvisibility_rocketlauncher[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_00013564[] = {
-	{ 1, 0x0000, 1, 0x0028, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_rocketlauncher[] = {
+	gunviscmd_sethidden(MODELPART_ROCKET_0028)
+	gunviscmd_end
 };
 
 struct guncmd invanim_rocketlauncher_reload[] = {
@@ -2687,23 +2744,24 @@ struct guncmd invanim_rockerlauncher_shoot[] = {
 	gunscript_end
 };
 
-struct inventory_class invclass_rocketlauncher = {
+struct invaimsettings invaimsettings_rocketlauncher = {
 	0,
 	3,
 	8,
 	15,
 	0.9721,
 	0.9767,
-	0x30000000,
-	WEAPONCLASSFLAG_AUTOAIM,
+	SIGHTTRACKTYPE_ROCKETLAUNCHER,
+	0,
+	INVAIMFLAG_AUTOAIM,
 };
 
 struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_091, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loudest,
 	invanim_rockerlauncher_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED,
 	NULL,
@@ -2716,25 +2774,25 @@ struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 	0,
 	4,
 	4,
-	0x8053,
-	1,
-	0x0000011f,
-	0x00000000,
-	2.1,
-	0x0000003c,
-	0,
-	0x00000000,
-	0xffffffff,
-	0.05,
 	SFX_LAUNCH_ROCKET_8053,
+	1,
+	MODEL_CHRDYROCKETMIS, // projectilemodelnum
+	0, // unused
+	2.1, // scale
+	60, // speed
+	0, // unk50
+	0, // traveldist
+	-1, // timer60
+	0.05, // reflectangle
+	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
 struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_092, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loudest,
 	invanim_rockerlauncher_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED | FUNCFLAG_HOMINGROCKET,
 	NULL,
@@ -2747,17 +2805,17 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 	0,
 	4,
 	4,
-	0x8053,
-	1,
-	0x0000011f,
-	0x00000000,
-	2.1,
-	0x00000000,
-	0,
-	0x00000005,
-	0xffffffff,
-	0.05,
 	SFX_LAUNCH_ROCKET_8053,
+	1,
+	MODEL_CHRDYROCKETMIS, // projectilemodelnum
+	0, // unused
+	2.1, // scale
+	0, // speed
+	0, // unk50
+	5, // traveldist
+	-1, // timer60
+	0.05, // reflectangle
+	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
 struct inventory_ammo invammo_rocketlauncher = {
@@ -2778,13 +2836,13 @@ struct weapon invitem_rocketlauncher = {
 	{ &invfunc_rockerlauncher_shoot, &invfunc_rocketlauncher_homing }, // functions
 	&invammo_rocketlauncher, // pri ammo
 	NULL, // sec ammo
-	&invclass_rocketlauncher,
+	&invaimsettings_rocketlauncher,
+	1, // muzzlez
+	24.5, // posx
+	-25.2, // posy
+	-30, // posz
 	1, // sway
-	24.5, // left/right
-	-25.2, // up/down
-	-30, // front/back
-	1, // unk38
-	invf_00013564, // fptr
+	gunviscmds_rocketlauncher, // gunviscmds
 	invpartvisibility_rocketlauncher, // part visibility
 	L_GUN_080, // short name
 	L_GUN_027, // name
@@ -2811,9 +2869,9 @@ struct guncmd invanim_slayer_reload[] = {
 struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_091, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loudest,
 	invanim_slayer_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED,
 	NULL,
@@ -2826,25 +2884,25 @@ struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 	0,
 	4,
 	4,
-	0x8067,
+	SFX_8067,
 	1,
-	0x00000120,
-	0x00000000,
-	4.1,
-	0x0000000a,
-	0,
-	0x00000000,
-	0xffffffff,
-	0.05,
-	SFX_LAUNCH_ROCKET_8053,
+	MODEL_CHRSKROCKETMIS, // projectilemodelnum
+	0, // unused
+	4.1, // scale
+	10, // speed
+	0, // unk50
+	0, // traveldist
+	-1, // timer60
+	0.05, // reflectangle
+	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
 struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_093, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loudest,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_FLYBYWIRE | FUNCFLAG_PROJECTILE_POWERED | FUNCFLAG_20000000,
 	NULL,
@@ -2857,17 +2915,17 @@ struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
 	0,
 	4,
 	4,
-	0x8067,
+	SFX_8067,
 	1,
-	0x00000120,
-	0x00000000,
-	4.1,
-	0x0000000a,
-	0,
-	0x00000000,
-	0xffffffff,
-	0.05,
-	SFX_SLAYER_WHIR,
+	MODEL_CHRSKROCKETMIS, // projectilemodelnum
+	0, // unused
+	4.1, // scale
+	10, // speed
+	0, // unk50
+	0, // traveldist
+	-1, // timer60
+	0.05, // reflectangle
+	SFX_SLAYER_WHIR, // soundnum
 };
 
 struct inventory_ammo invammo_slayer = {
@@ -2888,13 +2946,13 @@ struct weapon invitem_slayer = {
 	{ &invfunc_slayer_shoot, &invfunc_slayer_flybywire }, // functions
 	&invammo_slayer, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	22.5, // posx
+	-32, // posy
+	-40.5, // posz
 	1, // sway
-	22.5, // left/right
-	-32, // up/down
-	-40.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_029, // short name
 	L_GUN_029, // name
@@ -2903,9 +2961,9 @@ struct weapon invitem_slayer = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_02000000,
 };
 
-struct inventory_typef invf_unused_8006d890[] = {
-	{ 1, 0x0000, 1, 0x0029, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_unused_8006d890[] = {
+	gunviscmd_sethidden(MODELPART_0029)
+	gunviscmd_end
 };
 
 struct guncmd invanim_devastator_shoot[] = {
@@ -2931,9 +2989,9 @@ struct guncmd invanim_devastator_reload[] = {
 struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_098, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loudest,
 	invanim_devastator_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_10000000 | FUNCFLAG_20000000,
 	NULL,
@@ -2946,25 +3004,25 @@ struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
 	0,
 	4,
 	4,
-	0x8073,
+	SFX_8073,
 	1,
-	0x00000122,
-	0x00000000,
-	1,
-	0x00000000,
-	0.08,
-	0x00000028,
-	0x000004b0,
-	0.3,
-	SFX_LAUNCH_ROCKET_8053,
+	MODEL_CHRDEVGRENADE, // projectilemodelnum
+	0, // unused
+	1, // scale
+	0, // speed
+	0.08, // unk50
+	40, // traveldist
+	1200, // timer60
+	0.3, // reflectangle
+	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
 struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_099, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loudest,
 	invanim_devastator_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_STICKTOWALL | FUNCFLAG_10000000 | FUNCFLAG_20000000,
 	NULL,
@@ -2977,17 +3035,17 @@ struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
 	0,
 	4,
 	4,
-	0x8073,
+	SFX_8073,
 	1,
-	0x00000122,
-	0x00000000,
-	1,
-	0x00000000,
-	0.08,
-	0x00000028,
-	0x00000168,
-	0.3,
-	SFX_LAUNCH_ROCKET_8053,
+	MODEL_CHRDEVGRENADE, // projectilemodelnum
+	0, // unused
+	1, // scale
+	0, // speed
+	0.08, // unk50
+	40, // traveldist
+	360, // timer60
+	0.3, // reflectangle
+	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
 struct inventory_ammo invammo_devastator = {
@@ -3013,13 +3071,13 @@ struct weapon invitem_devastator = {
 	{ &invfunc_devastator_shoot, &invfunc_devastator_wallhugger }, // functions
 	&invammo_devastator, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	19.5, // posx
+	-25.5, // posy
+	-29, // posz
 	1, // sway
-	19.5, // left/right
-	-25.5, // up/down
-	-29, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	invpartvisibility_devastator, // part visibility
 	L_GUN_028, // short name
 	L_GUN_028, // name
@@ -3031,9 +3089,9 @@ struct weapon invitem_devastator = {
 struct weaponfunc invfunc_mine_threatdetector = {
 	INVENTORYFUNCTYPE_NONE,
 	L_GUN_119, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_THREATDETECTOR,
 };
@@ -3058,12 +3116,12 @@ struct guncmd invanim_mine_throw[] = {
 struct weaponfunc_throw invfunc_timedmine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_120, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_mine_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
-	0x00000113,
+	MODEL_CHRTIMEDMINE, // projectilemodelnum
 	240, // activatetime60
 	0, // recoverytime60
 	0, // damage
@@ -3087,13 +3145,13 @@ struct weapon invitem_timedmine = {
 	{ &invfunc_timedmine_throw, &invfunc_mine_threatdetector }, // functions
 	&invammo_timedmine, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	8, // posx
+	-15, // posy
+	-23, // posz
 	1, // sway
-	8, // left/right
-	-15, // up/down
-	-23, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_255, // short name
@@ -3103,15 +3161,15 @@ struct weapon invitem_timedmine = {
 	L_GUN_038, // name
 	L_GUN_000, // manufacturer
 	L_GUN_185, // description
-	WEAPONFLAG_00000001 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS,
+	WEAPONFLAG_THROWABLE | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS,
 };
 
-struct inventory_typef invf_00013b40[] = {
-	{ 5, 0x0000, 3, 0x0035, 0x0000 },
-	{ 5, 0x0000, 3, 0x0029, 0x0000 },
-	{ 6, 0x0000, 3, 0x0036, 0x0000 },
-	{ 6, 0x0000, 3, 0x0028, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_remotemine[] = {
+	gunviscmd_checkinlefthand(GUNVISOP_SETVISIBILITY, MODELPART_0035)
+	gunviscmd_checkinlefthand(GUNVISOP_SETVISIBILITY, MODELPART_REMOTEMINE_0029)
+	gunviscmd_checkinrighthand(GUNVISOP_SETVISIBILITY, MODELPART_0036)
+	gunviscmd_checkinrighthand(GUNVISOP_SETVISIBILITY, MODELPART_REMOTEMINE_0028)
+	gunviscmd_end
 };
 
 struct guncmd invanim_remotemine_equip[] = {
@@ -3134,12 +3192,12 @@ struct guncmd invanim_remotemine_throw[] = {
 struct weaponfunc_throw invfunc_remotemine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_122, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_remotemine_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
-	0x00000115,
+	MODEL_CHRREMOTEMINE, // projectilemodelnum
 	240, // activatetime60
 	0, // recoverytime60
 	0, // damage
@@ -3148,14 +3206,14 @@ struct weaponfunc_throw invfunc_remotemine_throw = {
 struct weaponfunc_special invfunc_remotemine_detonate = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_123, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_DETONATE,
-	0x0000001e,
-	0x00000000,
+	30, // recoverytime60
+	0, // soundnum (unused)
 };
 
 struct inventory_ammo invammo_remotemine = {
@@ -3181,13 +3239,13 @@ struct weapon invitem_remotemine = {
 	{ &invfunc_remotemine_throw, &invfunc_remotemine_detonate }, // functions
 	&invammo_remotemine, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	4, // posx
+	-15, // posy
+	-23, // posz
 	1, // sway
-	4, // left/right
-	-15, // up/down
-	-23, // front/back
-	1, // unk38
-	invf_00013b40, // fptr
+	gunviscmds_remotemine,
 	invpartvisibility_remotemine, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_252, // short name
@@ -3197,18 +3255,18 @@ struct weapon invitem_remotemine = {
 	L_GUN_040, // name
 	L_GUN_000, // manufacturer
 	L_GUN_187, // description
-	WEAPONFLAG_00000001 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS,
+	WEAPONFLAG_THROWABLE | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS,
 };
 
 struct weaponfunc_throw invfunc_proxymine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_121, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_mine_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
-	0x00000114,
+	MODEL_CHRPROXIMITYMINE, // projectilemodelnum
 	240, // activatetime60
 	0, // recoverytime60
 	0, // damage
@@ -3232,19 +3290,19 @@ struct weapon invitem_proximitymine = {
 	{ &invfunc_proxymine_throw, &invfunc_mine_threatdetector }, // functions
 	&invammo_proximitymine, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	8, // posx
+	-15, // posy
+	-23, // posz
 	1, // sway
-	8, // left/right
-	-15, // up/down
-	-23, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_081, // short name
 	L_GUN_039, // name
 	L_GUN_000, // manufacturer
 	L_GUN_186, // description
-	WEAPONFLAG_00000001 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS,
+	WEAPONFLAG_THROWABLE | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS,
 };
 
 struct guncmd invanim_ecmmine_equip[] = {
@@ -3266,12 +3324,12 @@ struct guncmd invanim_ecmmine_throw[] = {
 struct weaponfunc_throw invfunc_ecmmine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_140, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_ecmmine_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
-	0x00000116,
+	MODEL_CHRECMMINE, // projectilemodelnum
 	240, // activatetime60
 	60, // recoverytime60
 	0, // damage
@@ -3295,13 +3353,13 @@ struct weapon invitem_ecmmine = {
 	{ &invfunc_ecmmine_throw, NULL }, // functions
 	&invammo_ecmmine, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	14, // posx
+	-25, // posy
+	-31.5, // posz
 	1, // sway
-	14, // left/right
-	-25, // up/down
-	-31.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_JPN_FINAL
 	L_GUN_256, // short name
@@ -3311,7 +3369,7 @@ struct weapon invitem_ecmmine = {
 	L_GUN_041, // name
 	L_GUN_000, // manufacturer
 	L_GUN_188, // description
-	WEAPONFLAG_00000001 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_08000000,
+	WEAPONFLAG_THROWABLE | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_UNDROPPABLE,
 };
 
 // Some unfinished Reaper-like gun. The name is "Timed Mine". The primary
@@ -3326,24 +3384,24 @@ struct weapon invitem_unused_8007dd88 = {
 	{ &invfunc_remotemine_detonate, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_038, // short name
 	L_GUN_038, // name
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_00000040 | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_00000040 | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct inventory_typef invf_00013df8[] = {
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_grenade[] = {
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_end
 };
 
 struct guncmd invanim_grenade_throw[] = {
@@ -3363,12 +3421,12 @@ struct guncmd invanim_grenade_equip[] = {
 struct weaponfunc_throw invfunc_grenade_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_124, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_grenade_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH,
-	0x00000112,
+	MODEL_CHRGRENADE, // projectilemodelnum
 	240, // activatetime60
 	60, // recoverytime60
 	0, // damage
@@ -3377,12 +3435,12 @@ struct weaponfunc_throw invfunc_grenade_throw = {
 struct weaponfunc_throw invfunc_grenade_pinball = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_125, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_grenade_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH,
-	0x00000112,
+	MODEL_CHRGRENADE, // projectilemodelnum
 	90, // activatetime60
 	60, // recoverytime60
 	0, // damage
@@ -3406,30 +3464,30 @@ struct weapon invitem_grenade = {
 	{ &invfunc_grenade_throw, &invfunc_grenade_pinball }, // functions
 	&invammo_grenade, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	17, // posx
+	-19.7, // posy
+	-21, // posz
 	1, // sway
-	17, // left/right
-	-19.7, // up/down
-	-21, // front/back
-	1, // unk38
-	invf_00013df8, // fptr
+	gunviscmds_grenade, // gunviscmds
 	NULL, // part visibility
 	L_GUN_036, // short name
 	L_GUN_036, // name
 	L_GUN_000, // manufacturer
 	L_GUN_183, // description
-	WEAPONFLAG_00000001 | WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS,
+	WEAPONFLAG_THROWABLE | WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS,
 };
 
 struct weaponfunc_throw invfunc_nbomb_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_134, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_grenade_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_MAKEDIZZY | FUNCFLAG_DISARM | FUNCFLAG_NOMUZZLEFLASH,
-	0x00000110,
+	MODEL_CHRNBOMB, // projectilemodelnum
 	240, // activatetime60
 	60, // recoverytime60
 	0, // damage
@@ -3438,12 +3496,12 @@ struct weaponfunc_throw invfunc_nbomb_throw = {
 struct weaponfunc_throw invfunc_nbomb_proxy = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_127, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_grenade_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_MAKEDIZZY | FUNCFLAG_DISARM | FUNCFLAG_NOMUZZLEFLASH,
-	0x00000110,
+	MODEL_CHRNBOMB, // projectilemodelnum
 	240, // activatetime60
 	60, // recoverytime60
 	0, // damage
@@ -3467,24 +3525,24 @@ struct weapon invitem_nbomb = {
 	{ &invfunc_nbomb_throw, &invfunc_nbomb_proxy }, // functions
 	&invammo_nbomb, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	17, // posx
+	-19.7, // posy
+	-21, // posz
 	1, // sway
-	17, // left/right
-	-19.7, // up/down
-	-21, // front/back
-	1, // unk38
-	invf_00013df8, // fptr
+	gunviscmds_grenade, // gunviscmds
 	NULL, // part visibility
 	L_GUN_037, // short name
 	L_GUN_037, // name
 	L_GUN_000, // manufacturer
 	L_GUN_184, // description
-	WEAPONFLAG_00000001 | WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN,
+	WEAPONFLAG_THROWABLE | WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN,
 };
 
-struct inventory_typef invf_00013fa4[] = {
-	{ 1, 0x0000, 1, 0x0028, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_farsight[] = {
+	gunviscmd_sethidden(0x0028)
+	gunviscmd_end
 };
 
 struct guncmd invanim_farsight_reload[] = {
@@ -3501,59 +3559,60 @@ struct guncmd invanim_farsight_shoot[] = {
 	gunscript_end
 };
 
-struct inventory_class invclass_farsight = {
+struct invaimsettings invaimsettings_farsight = {
 	0,
 	3,
 	8,
 	15,
 	0.9721,
 	0.9767,
-	0x16000000,
-	WEAPONCLASSFLAG_MANUALZOOM | WEAPONCLASSFLAG_00000004,
+	SIGHTTRACKTYPE_DEFAULT,
+	6,
+	INVAIMFLAG_MANUALZOOM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
 struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_090, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	invanim_farsight_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	100, // damage
 	0, // spread
 	70, 40, 0, 0,
-	0,
-	0,
-	0,
-	0,
-	4,
-	SFX_813E,
-	5,
+	0, // recoildist
+	0, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	4, // duration60
+	SFX_813E, // shootsound
+	5, // penetration
 };
 
 struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_111, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011034,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_louder,
 	invanim_farsight_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	100, // damage
 	0, // spread
 	70, 40, 0, 0,
-	0,
-	0,
-	0,
-	0,
-	4,
-	SFX_813E,
-	5,
+	0, // recoildist
+	0, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	4, // duration60
+	SFX_813E, // shootsound
+	5, // penetration
 };
 
 struct inventory_ammo invammo_farsight = {
@@ -3579,13 +3638,13 @@ struct weapon invitem_farsight = {
 	{ &invfunc_farsight_shoot, &invfunc_farsight_targetlocator }, // functions
 	&invammo_farsight, // pri ammo
 	NULL, // sec ammo
-	&invclass_farsight,
-	6, // sway
-	21.5, // left/right
-	-25.2, // up/down
-	-32.5, // front/back
-	1, // unk38
-	invf_00013fa4, // fptr
+	&invaimsettings_farsight,
+	6, // muzzlez
+	21.5, // posx
+	-25.2, // posy
+	-32.5, // posz
+	1, // sway
+	gunviscmds_farsight, // gunviscmds
 	invpartvisibility_farsight, // part visibility
 	L_GUN_079, // short name
 	L_GUN_031, // name
@@ -3594,10 +3653,10 @@ struct weapon invitem_farsight = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS,
 };
 
-struct inventory_typef invf_00014100[] = {
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 1, 0x0000, 1, 0x0029, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_crossbow[] = {
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(0x0029)
+	gunviscmd_end
 };
 
 struct guncmd invanim_crossbow_reload[] = {
@@ -3639,9 +3698,9 @@ struct guncmd invanim_crosbow_equip[] = {
 struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_112, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fe4,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silenced,
 	invanim_crossbow_shoot, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	NULL,
@@ -3654,25 +3713,25 @@ struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
 	0,
 	4,
 	4,
-	0x8056,
+	SFX_8056,
 	1,
-	0x00000121,
-	0x00000000,
-	2.1,
-	0x00000000,
-	0,
-	0x0000003c,
-	0xffffffff,
-	0.05,
-	-1,
+	MODEL_CHRCROSSBOLT, // projectilemodelnum
+	0, // unused
+	2.1, // scale
+	0, // speed
+	0, // unk50
+	60, // traveldist
+	-1, // timer60
+	0.05, // reflectangle
+	-1, // soundnum
 };
 
 struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_107, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fe4,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silenced,
 	invanim_crossbow_shoot, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	NULL,
@@ -3685,17 +3744,17 @@ struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
 	0,
 	4,
 	4,
-	0x8056,
+	SFX_8056,
 	1,
-	0x00000121,
-	0x00000000,
-	2.1,
-	0x00000000,
-	0,
-	0x0000003c,
-	0xffffffff,
-	0.05,
-	-1,
+	MODEL_CHRCROSSBOLT, // projectilemodelnum
+	0, // unused
+	2.1, // scale
+	0, // speed
+	0, // unk50
+	60, // traveldist
+	-1, // timer60
+	0.05, // reflectangle
+	-1, // soundnum
 };
 
 struct inventory_ammo invammo_crossbow = {
@@ -3723,13 +3782,13 @@ struct weapon invitem_crossbow = {
 	{ &invfunc_crossbow_shoot, &invfunc_crossbow_lethal }, // functions
 	&invammo_crossbow, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	11, // posx
+	-15, // posy
+	-21, // posz
 	1, // sway
-	11, // left/right
-	-15, // up/down
-	-21, // front/back
-	1, // unk38
-	invf_00014100, // fptr
+	gunviscmds_crossbow, // gunviscmds
 	invpartvisibility_crossbow, // part visibility
 	L_GUN_033, // short name
 	L_GUN_033, // name
@@ -3738,10 +3797,10 @@ struct weapon invitem_crossbow = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS,
 };
 
-struct inventory_typef invf_00014314[] = {
-	{ 1, 0x0000, 1, 0x0028, 0x0000 },
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_tranquilizer[] = {
+	gunviscmd_sethidden(0x0028)
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_end
 };
 
 struct guncmd invanim_tranquilizer_lethalinject[] = {
@@ -3780,47 +3839,47 @@ struct guncmd invanim_tranquilizer_reload[] = {
 struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_107, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fe4,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silenced,
 	invanim_tranquilizer_shoot, // fire animation
 	FUNCFLAG_MAKEDIZZY,
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	0.25, // damage
 	3, // spread
 	3, 5, 5, 0,
-	1,
-	0,
-	59.999996185303,
-	0,
-	0,
-	0x8057,
-	1,
+	1, // recoildist
+	0, // recoilangle
+	59.999996185303, // slidemax
+	0, // impactforce
+	0, // duration60
+	SFX_DRUGSPY_FIREDART, // shootsound
+	1, // penetration
 };
 
 struct weaponfunc_close invfunc_tranquilizer_lethal = {
 	INVENTORYFUNCTYPE_CLOSE,
 	L_GUN_108, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fe4,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silenced,
 	invanim_tranquilizer_lethalinject, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	100, // damage
-	60,
-	0x00000069,
-	0x00000069,
-	0x00000069,
-	0x41200000,
-	0xc181999a,
-	0x41200000,
-	0xc181999a,
-	0xbf800000,
-	0xbf800000,
-	0x40000000,
-	0x40000000,
-	0x00000000,
+	60, // range
+	105, // unused
+	105, // unused
+	105, // unused
+	10, // unused
+	-16.2, // unused
+	10, // unused
+	-16.2, // unused
+	-1, // unused
+	-1, // unused
+	2, // unused
+	2, // unused
+	0, // unused
 };
 
 struct inventory_ammo invammo_tranquilizer = {
@@ -3848,13 +3907,13 @@ struct weapon invitem_tranquilizer = {
 	{ &invfunc_tranquilizer_shoot, &invfunc_tranquilizer_lethal }, // functions
 	&invammo_tranquilizer, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	10, // posx
+	-15.2, // posy
+	-24, // posz
 	1, // sway
-	10, // left/right
-	-15.2, // up/down
-	-24, // front/back
-	1, // unk38
-	invf_00014314, // fptr
+	gunviscmds_tranquilizer, // gunviscmds
 	invpartvisibility_tranquilizer, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_247, // short name
@@ -3878,23 +3937,23 @@ struct inventory_ammo invammo_psychosisgun = {
 struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_131, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fe4,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silenced,
 	invanim_tranquilizer_shoot, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_PSYCHOSIS,
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	0.5, // damage
 	3, // spread
 	3, 5, 5, 0,
-	1,
-	0,
-	59.999996185303,
-	0,
-	0,
-	0x8057,
-	1,
+	1, // recoildist
+	0, // recoilangle
+	59.999996185303, // slidemax
+	0, // impactforce
+	0, // duration60
+	SFX_DRUGSPY_FIREDART, // shootsound
+	1, // penetration
 };
 
 struct weapon invitem_psychosisgun = {
@@ -3907,13 +3966,13 @@ struct weapon invitem_psychosisgun = {
 	{ &invfunc_psychosisgun_shoot, NULL }, // functions
 	&invammo_psychosisgun, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	10, // posx
+	-16.2, // posy
+	-28.5, // posz
 	1, // sway
-	10, // left/right
-	-16.2, // up/down
-	-28.5, // front/back
-	1, // unk38
-	invf_00014314, // fptr
+	gunviscmds_tranquilizer, // gunviscmds
 	invpartvisibility_tranquilizer, // part visibility
 	L_GUN_082, // short name
 	L_GUN_049, // name
@@ -3922,9 +3981,9 @@ struct weapon invitem_psychosisgun = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS,
 };
 
-struct inventory_typef invf_00014590[] = {
-	{ 1, 0x0000, 1, 0x0029, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_sniperrifle[] = {
+	gunviscmd_sethidden(0x0029)
+	gunviscmd_end
 };
 
 struct guncmd invanim_sniperrifle_equip[] = {
@@ -3950,50 +4009,51 @@ struct guncmd invanim_sniperrifle_reload[] = {
 	gunscript_end
 };
 
-struct inventory_class invclass_sniperrifle = {
+struct invaimsettings invaimsettings_sniperrifle = {
 	0,
 	3,
 	8,
 	15,
 	0.9721,
 	0.9767,
-	0x15000000,
-	WEAPONCLASSFLAG_MANUALZOOM | WEAPONCLASSFLAG_00000004,
+	SIGHTTRACKTYPE_DEFAULT,
+	5,
+	INVAIMFLAG_MANUALZOOM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
 struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010ff8,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_sniper,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	1.2, // damage
 	0, // spread
 	6, 10, 0, 0,
-	8,
-	0,
-	0,
-	0,
-	4,
-	0x8058,
-	1,
+	8, // recoildist
+	0, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	4, // duration60
+	SFX_8058, // shootsound
+	1, // penetration
 };
 
 struct weaponfunc_special invfunc_sniperrifle_crouch = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_130, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_CROUCH,
-	0x0000001e,
-	0x00000000,
+	30, // recoverytime60
+	0, // soundnum (unused)
 };
 
 struct inventory_ammo invammo_sniperrifle = {
@@ -4019,13 +4079,13 @@ struct weapon invitem_sniperrifle = {
 	{ &invfunc_sniperrifle_singleshot, &invfunc_sniperrifle_crouch }, // functions
 	&invammo_sniperrifle, // pri ammo
 	NULL, // sec ammo
-	&invclass_sniperrifle,
-	6, // sway
-	21, // left/right
-	-27.2, // up/down
-	-31.5, // front/back
-	1, // unk38
-	invf_00014590, // fptr
+	&invaimsettings_sniperrifle,
+	6, // muzzlez
+	21, // posx
+	-27.2, // posy
+	-31.5, // posz
+	1, // sway
+	gunviscmds_sniperrifle, // gunviscmds
 	invpartvisibility_sniperrifle, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_254, // short name
@@ -4051,50 +4111,51 @@ struct guncmd invanim_laser_unequip[] = {
 struct weaponfunc_shootsingle invfunc_laser_pulse = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_132, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1, // damage
 	0, // spread
 	6, 18, 24, -1,
-	0,
-	0,
-	0,
-	0,
-	3,
-	0x8043,
-	1,
+	0, // recoildist
+	0, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	3, // duration60
+	SFX_8043, // shootsound
+	1, // penetration
 };
 
 struct weaponfunc_shootauto invfunc_laser_stream = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_133, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	0, // flags
-	&invnoisesettings_00011084,
-	0,
+	&invrecoilsettings_laserstream,
+	0, // recoverytime60
 	0.1, // damage
 	0, // spread
 	6, 18, 0, 6,
-	4,
-	3,
-	0,
-	0,
-	3,
-	0,
-	1,
-	3600,
-	3600,
-	NULL,
-	NULL,
-	0, 0,
+	4, // recoildist
+	3, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	3, // duration60
+	0, // shootsound
+	1, // penetration
+	3600, // initialrpm
+	3600, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct weapon invitem_laser = {
@@ -4107,13 +4168,13 @@ struct weapon invitem_laser = {
 	{ &invfunc_laser_pulse, &invfunc_laser_stream }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
-	3, // sway
-	-12, // left/right
-	-12.7, // up/down
-	-21.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	&invaimsettings_default,
+	3, // muzzlez
+	-12, // posx
+	-12.7, // posy
+	-21.5, // posz
+	1, // sway
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_047, // short name
 	L_GUN_047, // name
@@ -4127,9 +4188,9 @@ struct modelpartvisibility invpartvisibility_classic[] = {
 	{ 255 },
 };
 
-struct inventory_typef invf_000147fc[] = {
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_classicpistol[] = {
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_end
 };
 
 struct guncmd invanim_pp9i_shoot[] = {
@@ -4141,23 +4202,23 @@ struct guncmd invanim_pp9i_shoot[] = {
 struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_pp9i_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	1, // damage
 	1, // spread
 	4, 8, 3, 0,
-	3,
-	10,
-	29.999998092651,
-	0,
-	0,
-	0x8069,
-	1,
+	3, // recoildist
+	10, // recoilangle
+	29.999998092651, // slidemax
+	0, // impactforce
+	0, // duration60
+	SFX_8069, // shootsound
+	1, // penetration
 };
 
 struct inventory_ammo invammo_pp9i = {
@@ -4178,13 +4239,13 @@ struct weapon invitem_pp9i = {
 	{ &invfunc_pp9i_shoot, NULL }, // functions
 	&invammo_pp9i, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	10, // posx
+	-14.8, // posy
+	-19, // posz
 	1, // sway
-	10, // left/right
-	-14.8, // up/down
-	-19, // front/back
-	1, // unk38
-	invf_000147fc, // fptr
+	gunviscmds_classicpistol, // gunviscmds
 	invpartvisibility_classic, // part visibility
 	L_GUN_050, // short name
 	L_GUN_050, // name
@@ -4202,23 +4263,23 @@ struct guncmd invanim_cc13_shoot[] = {
 struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_cc13_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	16,
+	&invrecoilsettings_default,
+	16, // recoverytime60
 	1, // damage
 	6, // spread
 	4, 8, 3, 0,
-	5,
-	10,
-	59.999996185303,
-	0,
-	0,
-	0x806a,
-	1,
+	5, // recoildist
+	10, // recoilangle
+	59.999996185303, // slidemax
+	0, // impactforce
+	0, // duration60
+	SFX_806A, // shootsound
+	1, // penetration
 };
 
 struct inventory_ammo invammo_cc13 = {
@@ -4239,13 +4300,13 @@ struct weapon invitem_cc13 = {
 	{ &invfunc_cc13_shoot, NULL }, // functions
 	&invammo_cc13, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	10, // posx
+	-17, // posy
+	-26.5, // posz
 	1, // sway
-	10, // left/right
-	-17, // up/down
-	-26.5, // front/back
-	1, // unk38
-	invf_000147fc, // fptr
+	gunviscmds_classicpistol, // gunviscmds
 	invpartvisibility_classic, // part visibility
 	L_GUN_051, // short name
 	L_GUN_051, // name
@@ -4257,28 +4318,29 @@ struct weapon invitem_cc13 = {
 struct weaponfunc_shootauto invfunc_kl01313_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	0.6, // damage
 	15, // spread
 	0, 0, 0, 6,
-	0,
-	0,
-	0,
-	0,
-	11,
-	0x806b,
-	1,
-	450,
-	450,
-	NULL,
-	NULL,
-	0, 0,
+	0, // recoildist
+	0, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	11, // duration60
+	SFX_806B, // shootsound
+	1, // penetration
+	450, // initialrpm
+	450, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_kl01313 = {
@@ -4299,13 +4361,13 @@ struct weapon invitem_kl01313 = {
 	{ &invfunc_kl01313_shoot, NULL }, // functions
 	&invammo_kl01313, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	8.5, // posx
+	-13, // posy
+	-29.5, // posz
 	1, // sway
-	8.5, // left/right
-	-13, // up/down
-	-29.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	invpartvisibility_classic, // part visibility
 	L_GUN_052, // short name
 	L_GUN_052, // name
@@ -4317,28 +4379,29 @@ struct weapon invitem_kl01313 = {
 struct weaponfunc_shootauto invfunc_kf7special_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1, // damage
 	10, // spread
 	4, 12, 0, 6,
-	4.5,
-	2,
-	0,
-	3,
-	4,
-	0x806c,
-	1,
-	450,
-	450,
-	NULL,
-	NULL,
-	0, 0,
+	4.5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	3, // impactforce
+	4, // duration60
+	SFX_806C, // shootsound
+	1, // penetration
+	450, // initialrpm
+	450, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_kf7special = {
@@ -4359,13 +4422,13 @@ struct weapon invitem_kf7special = {
 	{ &invfunc_kf7special_shoot, NULL }, // functions
 	&invammo_kf7special, // pri ammo
 	NULL, // sec ammo
-	&invclass_heavy,
-	2, // sway
-	13, // left/right
-	-21, // up/down
-	-13.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	&invaimsettings_heavy,
+	2, // muzzlez
+	13, // posx
+	-21, // posy
+	-13.5, // posz
+	1, // sway
+	NULL, // gunviscmds
 	invpartvisibility_classic, // part visibility
 	L_GUN_053, // short name
 	L_GUN_053, // name
@@ -4377,28 +4440,29 @@ struct weapon invitem_kf7special = {
 struct weaponfunc_shootauto invfunc_zzt9mm_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1, // damage
 	9, // spread
 	6, 18, 0, 6,
-	4,
-	3,
-	0,
-	0,
-	4,
-	0x806d,
-	1,
-	600,
-	600,
-	NULL,
-	NULL,
-	0, 0,
+	4, // recoildist
+	3, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	4, // duration60
+	SFX_806D, // shootsound
+	1, // penetration
+	600, // initialrpm
+	600, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_zzt9mm = {
@@ -4419,13 +4483,13 @@ struct weapon invitem_zzt9mm = {
 	{ &invfunc_zzt9mm_shoot, NULL }, // functions
 	&invammo_zzt9mm, // pri ammo
 	NULL, // sec ammo
-	&invclass_smg,
-	0.5, // sway
-	11, // left/right
-	-24.5, // up/down
-	-37, // front/back
-	1, // unk38
-	NULL, // fptr
+	&invaimsettings_smg,
+	0.5, // muzzlez
+	11, // posx
+	-24.5, // posy
+	-37, // posz
+	1, // sway
+	NULL, // gunviscmds
 	invpartvisibility_classic, // part visibility
 	L_GUN_054, // short name
 	L_GUN_054, // name
@@ -4437,28 +4501,29 @@ struct weapon invitem_zzt9mm = {
 struct weaponfunc_shootauto invfunc_dmc_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1, // damage
 	7, // spread
 	6, 18, 0, 6,
-	4,
-	3,
-	0,
-	0,
-	4,
-	0x806e,
-	1,
-	450,
-	450,
-	NULL,
-	NULL,
-	0, 0,
+	4, // recoildist
+	3, // recoilangle
+	0, // slidemax
+	0, // impactforce
+	4, // duration60
+	SFX_806E, // shootsound
+	1, // penetration
+	450, // initialrpm
+	450, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_dmc = {
@@ -4479,13 +4544,13 @@ struct weapon invitem_dmc = {
 	{ &invfunc_dmc_shoot, NULL }, // functions
 	&invammo_dmc, // pri ammo
 	NULL, // sec ammo
-	&invclass_smg,
+	&invaimsettings_smg,
+	1, // muzzlez
+	16.5, // posx
+	-22.9, // posy
+	-35, // posz
 	1, // sway
-	16.5, // left/right
-	-22.9, // up/down
-	-35, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	invpartvisibility_classic, // part visibility
 	L_GUN_055, // short name
 	L_GUN_055, // name
@@ -4497,28 +4562,29 @@ struct weapon invitem_dmc = {
 struct weaponfunc_shootauto invfunc_ar53_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.4, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	5,
-	0x806f,
-	1,
-	550,
-	550,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	5, // duration60
+	SFX_806F, // shootsound
+	1, // penetration
+	550, // initialrpm
+	550, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_ar53 = {
@@ -4539,13 +4605,13 @@ struct weapon invitem_ar53 = {
 	{ &invfunc_ar53_shoot, NULL }, // functions
 	&invammo_ar53, // pri ammo
 	NULL, // sec ammo
-	&invclass_heavy,
-	6, // sway
-	11, // left/right
-	-19.2, // up/down
-	-21.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	&invaimsettings_heavy,
+	6, // muzzlez
+	11, // posx
+	-19.2, // posy
+	-21.5, // posz
+	1, // sway
+	NULL, // gunviscmds
 	invpartvisibility_classic, // part visibility
 	L_GUN_056, // short name
 	L_GUN_056, // name
@@ -4557,28 +4623,29 @@ struct weapon invitem_ar53 = {
 struct weaponfunc_shootauto invfunc_rcp45_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1.8, // damage
 	6, // spread
 	4, 8, 0, 3,
-	3.5,
-	2,
-	0,
-	4,
-	2,
-	0x8070,
-	1,
-	600,
-	600,
-	NULL,
-	NULL,
-	0, 0,
+	3.5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	2, // duration60
+	SFX_8070, // shootsound
+	1, // penetration
+	600, // initialrpm
+	600, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_rcp45 = {
@@ -4599,13 +4666,13 @@ struct weapon invitem_rcp45 = {
 	{ &invfunc_rcp45_shoot, NULL }, // functions
 	&invammo_rcp45, // pri ammo
 	NULL, // sec ammo
-	&invclass_smg,
-	4, // sway
-	11, // left/right
-	-22.3, // up/down
-	-29, // front/back
-	1, // unk38
-	NULL, // fptr
+	&invaimsettings_smg,
+	4, // muzzlez
+	11, // posx
+	-22.3, // posy
+	-29, // posz
+	1, // sway
+	NULL, // gunviscmds
 	invpartvisibility_classic, // part visibility
 	L_GUN_057, // short name
 	L_GUN_057, // name
@@ -4617,16 +4684,16 @@ struct weapon invitem_rcp45 = {
 struct weaponfunc invfunc_briefcase_use = {
 	INVENTORYFUNCTYPE_NONE,
 	L_GUN_000, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	0, // flags
 };
 
-struct inventory_typef invf_unused_8006edcc[] = {
+struct gunviscmd gunviscmds_unused_8006edcc[] = {
 	{ 0, 0x001e, 0, 0x0002, 0x0001 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+	gunviscmd_end
 };
 
 struct weapon invitem_briefcase2 = {
@@ -4639,13 +4706,13 @@ struct weapon invitem_briefcase2 = {
 	{ &invfunc_briefcase_use, &invfunc_briefcase_use }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	12.5, // posx
+	-17, // posy
+	-27.5, // posz
 	1, // sway
-	12.5, // left/right
-	-17, // up/down
-	-27.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_071, // short name
 	L_GUN_071, // name
@@ -4657,28 +4724,29 @@ struct weapon invitem_briefcase2 = {
 struct weaponfunc_shootauto invfunc_choppergun_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x8059,
-	2,
-	900,
-	900,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_8059, // shootsound
+	2, // penetration
+	900, // initialrpm
+	900, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_choppergun = {
@@ -4699,13 +4767,13 @@ struct weapon invitem_choppergun = {
 	{ &invfunc_choppergun_rapidfire, NULL }, // functions
 	&invammo_choppergun, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	16.5, // posx
+	-19.5, // posy
+	-24, // posz
 	1, // sway
-	16.5, // left/right
-	-19.5, // up/down
-	-24, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_000, // short name
 	L_GUN_000, // name
@@ -4717,28 +4785,29 @@ struct weapon invitem_choppergun = {
 struct weaponfunc_shootauto invfunc_watchlaser_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	NULL, // fire animation
 	0, // flags
-	&invnoisesettings_00011098,
-	0,
+	&invrecoilsettings_default,
+	0, // recoverytime60
 	1, // damage
 	6, // spread
 	6, 18, 2, 8,
-	5,
-	2,
-	0,
-	4,
-	4,
-	0x803f,
-	1,
-	900,
-	900,
-	NULL,
-	NULL,
-	0, 0,
+	5, // recoildist
+	2, // recoilangle
+	0, // slidemax
+	4, // impactforce
+	4, // duration60
+	SFX_803F, // shootsound
+	1, // penetration
+	900, // initialrpm
+	900, // maxrpm
+	NULL, // vibrationstart
+	NULL, // vibrationmax
+	0, // turretaccel
+	0, // turretdecel
 };
 
 struct inventory_ammo invammo_watchlaser = {
@@ -4759,13 +4828,13 @@ struct weapon invitem_watchlaser = {
 	{ &invfunc_watchlaser_rapidfire, NULL }, // functions
 	&invammo_watchlaser, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	16.5, // posx
+	-19.5, // posy
+	-24, // posz
 	1, // sway
-	16.5, // left/right
-	-19.5, // up/down
-	-24, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_000, // short name
 	L_GUN_000, // name
@@ -4774,9 +4843,9 @@ struct weapon invitem_watchlaser = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_DUALWIELD,
 };
 
-struct inventory_typef invf_00014fc0[] = {
-	{ 1, 0x0000, 1, 0x0035, 0x0000 },
-	{ 0, 0x0000, 0, 0x0000, 0x0000 },
+struct gunviscmd gunviscmds_knife[] = {
+	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_end
 };
 
 struct guncmd invanim_combatknife_equip[] = {
@@ -4833,36 +4902,36 @@ struct guncmd invanim_combatknife_reload[] = {
 struct weaponfunc_close invfunc_combatknife_slash = {
 	INVENTORYFUNCTYPE_CLOSE,
 	L_GUN_109, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_combatknife_slash, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	2, // damage
-	70,
-	0x00000069,
-	0x00000069,
-	0x00000069,
-	0x41300000,
-	0xc1cc0000,
-	0x41300000,
-	0xc1cc0000,
-	0xbf800000,
-	0xbf800000,
-	0x40000000,
-	0x40000000,
-	0x00000000,
+	70, // range
+	105, // unused
+	105, // unused
+	105, // unused
+	11, // unused
+	-25.5, // unused
+	11, // unused
+	-25.5, // unused
+	-1, // unused
+	-1, // unused
+	2, // unused
+	2, // unused
+	0, // unused
 };
 
 struct weaponfunc_throw invfunc_combatknife_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_110, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	invanim_combatknife_throw, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
-	0x0000010f,
+	MODEL_CHRKNIFE, // projectilemodelnum
 	240, // activatetime60
 	60, // recoverytime60
 	1, // damage
@@ -4886,30 +4955,30 @@ struct weapon invitem_combatknife = {
 	{ &invfunc_combatknife_slash, &invfunc_combatknife_throw }, // functions
 	&invammo_combatknife, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	18.5, // posx
+	-26.5, // posy
+	-28, // posz
 	1, // sway
-	18.5, // left/right
-	-26.5, // up/down
-	-28, // front/back
-	1, // unk38
-	invf_00014fc0, // fptr
+	gunviscmds_knife, // gunviscmds
 	NULL, // part visibility
 	L_GUN_083, // short name
 	L_GUN_035, // name
 	L_GUN_000, // manufacturer
 	L_GUN_182, // description
-	WEAPONFLAG_00000001 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_04000000,
+	WEAPONFLAG_THROWABLE | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_00008000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_04000000,
 };
 
 struct weaponfunc_throw invfunc_bug_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_000, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
-	0x00000012,
+	MODEL_CHRBUG, // projectilemodelnum
 	240, // activatetime60
 	60, // recoverytime60
 	0, // damage
@@ -4918,12 +4987,12 @@ struct weaponfunc_throw invfunc_bug_throw = {
 struct weaponfunc_throw invfunc_targetamplifier_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_000, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
-	0x000001b1,
+	MODEL_TARGETAMP, // projectilemodelnum
 	240, // activatetime60
 	60, // recoverytime60
 	0, // damage
@@ -4947,19 +5016,19 @@ struct weapon invitem_commsrider = {
 	{ &invfunc_bug_throw, NULL }, // functions
 	&invammo_bug, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_222, // short name
 	L_GUN_222, // name
 	L_GUN_000, // manufacturer
 	L_GUN_204, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weapon invitem_tracerbug = {
@@ -4972,19 +5041,19 @@ struct weapon invitem_tracerbug = {
 	{ &invfunc_bug_throw, NULL }, // functions
 	&invammo_bug, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_223, // short name
 	L_GUN_223, // name
 	L_GUN_000, // manufacturer
 	L_GUN_205, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weapon invitem_targetamplifier = {
@@ -4997,27 +5066,27 @@ struct weapon invitem_targetamplifier = {
 	{ &invfunc_targetamplifier_throw, NULL }, // functions
 	&invammo_bug, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_235, // short name
 	L_GUN_224, // name
 	L_GUN_000, // manufacturer
 	L_GUN_206, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weaponfunc_device invfunc_nightvision_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_135, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_NIGHTVISION,
@@ -5033,13 +5102,13 @@ struct weapon invitem_nightvision = {
 	{ &invfunc_nightvision_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_244, // short name
@@ -5049,28 +5118,29 @@ struct weapon invitem_nightvision = {
 	L_GUN_059, // name
 	L_GUN_000, // manufacturer
 	L_GUN_191, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000080 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000080 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weaponfunc invfunc_horizonscanner_primary = {
 	INVENTORYFUNCTYPE_NONE,
 	L_GUN_139, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	0, // flags
 };
 
-struct inventory_class invclass_horizonscanner = {
+struct invaimsettings invaimsettings_horizonscanner = {
 	0,
 	3,
 	8,
 	15,
 	0.9721,
 	0.9767,
-	0x05000000,
-	WEAPONCLASSFLAG_MANUALZOOM | WEAPONCLASSFLAG_00000004,
+	SIGHTTRACKTYPE_NONE,
+	5,
+	INVAIMFLAG_MANUALZOOM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
 struct weapon invitem_horizonscanner = {
@@ -5083,27 +5153,27 @@ struct weapon invitem_horizonscanner = {
 	{ &invfunc_horizonscanner_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_horizonscanner,
+	&invaimsettings_horizonscanner,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_234, // short name
 	L_GUN_076, // name
 	L_GUN_000, // manufacturer
 	L_GUN_196, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weaponfunc_device invfunc_cloak_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_116, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_CLOAKDEVICE,
@@ -5127,13 +5197,13 @@ struct weapon invitem_cloakingdevice = {
 	{ &invfunc_cloak_primary, NULL }, // functions
 	&invammo_cloakingdevice, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_073, // short name
 	L_GUN_073, // name
@@ -5145,27 +5215,27 @@ struct weapon invitem_cloakingdevice = {
 struct weaponfunc_special invfunc_combatboost_boost = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_113, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	HANDATTACKTYPE_BOOST,
-	0x0000001e,
-	0x05c90000,
+	30, // recoverytime60
+	SFX_JO_BOOST_ACTIVATE, // soundnum (unused)
 };
 
 struct weaponfunc_special invfunc_combatboost_revert = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_114, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	HANDATTACKTYPE_REVERTBOOST,
-	0x0000001e,
-	0x05c90000,
+	30, // recoverytime60
+	SFX_JO_BOOST_ACTIVATE, // soundnum (unused)
 };
 
 struct inventory_ammo invammo_combatboost = {
@@ -5186,13 +5256,13 @@ struct weapon invitem_combatboost = {
 	{ &invfunc_combatboost_boost, &invfunc_combatboost_revert }, // functions
 	&invammo_combatboost, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_232, // short name
 	L_GUN_074, // name
@@ -5204,9 +5274,9 @@ struct weapon invitem_combatboost = {
 struct weaponfunc_device invfunc_suicidepill_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_000, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_SUICIDEPILL,
@@ -5222,13 +5292,13 @@ struct weapon invitem_suicidepill = {
 	{ &invfunc_suicidepill_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_246, // short name
@@ -5238,15 +5308,15 @@ struct weapon invitem_suicidepill = {
 	L_GUN_072, // name
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description
-	WEAPONFLAG_AICANUSE | WEAPONFLAG_08000000,
+	WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weaponfunc_device invfunc_irscanner_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_138, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_IRSCANNER,
@@ -5262,27 +5332,27 @@ struct weapon invitem_irscanner = {
 	{ &invfunc_irscanner_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_069, // short name
 	L_GUN_069, // name
 	L_GUN_000, // manufacturer
 	L_GUN_194, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weaponfunc invfunc_disguise_primary = {
 	INVENTORYFUNCTYPE_NONE,
 	L_GUN_143, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	0, // flags
 };
@@ -5297,13 +5367,13 @@ struct weapon invitem_disguise40 = {
 	{ &invfunc_disguise_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_250, // short name
@@ -5313,7 +5383,7 @@ struct weapon invitem_disguise40 = {
 	L_GUN_043, // name
 	L_GUN_000, // manufacturer
 	L_GUN_211, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_08000000 | WEAPONFLAG_FIRETOACTIVATE,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
 struct weapon invitem_disguise41 = {
@@ -5326,13 +5396,13 @@ struct weapon invitem_disguise41 = {
 	{ &invfunc_disguise_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_250, // short name
@@ -5342,15 +5412,15 @@ struct weapon invitem_disguise41 = {
 	L_GUN_043, // name
 	L_GUN_000, // manufacturer
 	L_GUN_211, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_08000000 | WEAPONFLAG_FIRETOACTIVATE,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
 struct weaponfunc_device invfunc_camspy_deploy = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_136, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_EYESPY,
@@ -5366,27 +5436,27 @@ struct weapon invitem_camspy = {
 	{ &invfunc_camspy_deploy, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_060, // short name
 	L_GUN_060, // name
 	L_GUN_000, // manufacturer
 	L_GUN_192, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALWIELD | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weaponfunc_device invfunc_rtracker_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_142, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_RTRACKER,
@@ -5402,27 +5472,27 @@ struct weapon invitem_rtracker = {
 	{ &invfunc_rtracker_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_070, // short name
 	L_GUN_070, // name
 	L_GUN_000, // manufacturer
 	L_GUN_198, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALWIELD | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weaponfunc_device invfunc_xray_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_137, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_XRAYSCANNER,
@@ -5438,23 +5508,23 @@ struct weapon invitem_xrayscanner = {
 	{ &invfunc_xray_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_233, // short name
 	L_GUN_065, // name
 	L_GUN_000, // manufacturer
 	L_GUN_193, // description
 #if VERSION >= VERSION_NTSC_1_0
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_UNDROPPABLE,
 #else
 	// NTSC beta uses "a" in "Picked up a X-ray scanner"
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_UNDROPPABLE,
 #endif
 };
 
@@ -5476,14 +5546,14 @@ struct guncmd invanim_unused_8007f794[] = {
 struct weaponfunc_special invfunc_datauplink_primary = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_141, // name
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_UPLINK,
-	0x0000001e,
-	0x00000000,
+	30, // recoverytime60
+	0, // soundnum (unused)
 };
 
 struct weapon invitem_datauplink = {
@@ -5496,13 +5566,13 @@ struct weapon invitem_datauplink = {
 	{ &invfunc_datauplink_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	8, // posx
+	-16.2, // posy
+	-17.5, // posz
 	1, // sway
-	8, // left/right
-	-16.2, // up/down
-	-17.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_243, // short name
@@ -5512,7 +5582,7 @@ struct weapon invitem_datauplink = {
 	L_GUN_075, // name
 	L_GUN_000, // manufacturer
 	L_GUN_197, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_00000040 | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_08000000 | WEAPONFLAG_FIRETOACTIVATE,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_00000040 | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
 struct weapon invitem_doordecoder = {
@@ -5526,13 +5596,13 @@ struct weapon invitem_doordecoder = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	35, // posx
+	-26.7, // posy
+	-41, // posz
 	1, // sway
-	35, // left/right
-	-26.7, // up/down
-	-41, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_245, // short name
@@ -5542,7 +5612,7 @@ struct weapon invitem_doordecoder = {
 	L_GUN_063, // name
 	L_GUN_000, // manufacturer
 	L_GUN_200, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_08000000 | WEAPONFLAG_FIRETOACTIVATE,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
 struct weapon invitem_rocket = {
@@ -5556,13 +5626,13 @@ struct weapon invitem_rocket = {
 	NULL, // sec function
 	&invammo_default, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	12.5, // posx
+	-17, // posy
+	-27.5, // posz
 	1, // sway
-	12.5, // left/right
-	-17, // up/down
-	-27.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_044, // short name
 	L_GUN_044, // name
@@ -5582,13 +5652,13 @@ struct weapon invitem_homingrocket = {
 	NULL, // sec function
 	&invammo_default, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	12.5, // posx
+	-17, // posy
+	-27.5, // posz
 	1, // sway
-	12.5, // left/right
-	-17, // up/down
-	-27.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_045, // short name
 	L_GUN_045, // name
@@ -5607,13 +5677,13 @@ struct weapon invitem_grenaderound = {
 	{ &invfunc_devastator_shoot, &invfunc_devastator_wallhugger }, // functions
 	&invammo_default, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	12.5, // posx
+	-17, // posy
+	-27.5, // posz
 	1, // sway
-	12.5, // left/right
-	-17, // up/down
-	-27.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_046, // short name
 	L_GUN_046, // name
@@ -5632,13 +5702,13 @@ struct weapon invitem_bolt = {
 	{ &invfunc_crossbow_shoot, &invfunc_crossbow_lethal }, // functions
 	&invammo_default, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	12.5, // posx
+	-17, // posy
+	-27.5, // posz
 	1, // sway
-	12.5, // left/right
-	-17, // up/down
-	-27.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_048, // short name
 	L_GUN_048, // name
@@ -5650,14 +5720,14 @@ struct weapon invitem_bolt = {
 struct weaponfunc_special invfunc_unused_8006f9a4 = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_144, // "Place Explosives"
-	0x00, // unk06
-	-1, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	-1, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_UPLINK,
-	0x0000001e,
-	0x00000000,
+	30, // recoverytime60
+	0, // soundnum (unused)
 };
 
 struct weapon invitem_skedarbomb = {
@@ -5671,13 +5741,13 @@ struct weapon invitem_skedarbomb = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_JPN_FINAL
 	L_GUN_259, // short name
@@ -5701,13 +5771,13 @@ struct weapon invitem_explosives = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_064, // short name
 	L_GUN_064, // name
@@ -5719,9 +5789,9 @@ struct weapon invitem_explosives = {
 struct weaponfunc_device invfunc_presidentscanner_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_142, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00010fd0,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_silent,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_RTRACKER,
@@ -5737,19 +5807,19 @@ struct weapon invitem_presidentscanner = {
 	{ &invfunc_presidentscanner_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	0, // posx
+	-39.5, // posy
+	-55.5, // posz
 	1, // sway
-	0, // left/right
-	-39.5, // up/down
-	-55.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_231, // short name
 	L_GUN_219, // name
 	L_GUN_000, // manufacturer
 	L_GUN_199, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALWIELD | WEAPONFLAG_08000000,
+	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weapon invitem_autosurgeon = {
@@ -5763,13 +5833,13 @@ struct weapon invitem_autosurgeon = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_248, // short name
@@ -5779,7 +5849,7 @@ struct weapon invitem_autosurgeon = {
 	L_GUN_220, // name
 	L_GUN_000, // manufacturer
 	L_GUN_201, // description
-	WEAPONFLAG_08000000 | WEAPONFLAG_FIRETOACTIVATE,
+	WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
 struct weapon invitem_flightplans = {
@@ -5793,19 +5863,19 @@ struct weapon invitem_flightplans = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_225, // short name
 	L_GUN_225, // name
 	L_GUN_000, // manufacturer
 	L_GUN_207, // description
-	WEAPONFLAG_08000000,
+	WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weapon invitem_researchtape = {
@@ -5819,19 +5889,19 @@ struct weapon invitem_researchtape = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_226, // short name
 	L_GUN_226, // name
 	L_GUN_000, // manufacturer
 	L_GUN_208, // description
-	WEAPONFLAG_08000000,
+	WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weapon invitem_backupdisk = {
@@ -5845,13 +5915,13 @@ struct weapon invitem_backupdisk = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_PAL_FINAL
 	L_GUN_249, // short name
@@ -5861,7 +5931,7 @@ struct weapon invitem_backupdisk = {
 	L_GUN_227, // name
 	L_GUN_000, // manufacturer
 	L_GUN_209, // description
-	WEAPONFLAG_08000000,
+	WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weapon invitem_briefcase = {
@@ -5875,19 +5945,19 @@ struct weapon invitem_briefcase = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_229, // short name
 	L_GUN_229, // name
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description
-	WEAPONFLAG_HIDEMENUMODEL | WEAPONFLAG_08000000,
+	WEAPONFLAG_HIDEMENUMODEL | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weapon invitem_suitcase = {
@@ -5901,13 +5971,13 @@ struct weapon invitem_suitcase = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 #if VERSION >= VERSION_JPN_FINAL
 	L_GUN_258, // short name
@@ -5917,7 +5987,7 @@ struct weapon invitem_suitcase = {
 	L_GUN_067, // name
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description
-	WEAPONFLAG_08000000 | WEAPONFLAG_FIRETOACTIVATE,
+	WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
 struct weapon invitem_necklace = {
@@ -5931,19 +6001,19 @@ struct weapon invitem_necklace = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_230, // short name
 	L_GUN_230, // name
 	L_GUN_000, // manufacturer
 	L_GUN_238, // description
-	WEAPONFLAG_08000000,
+	WEAPONFLAG_UNDROPPABLE,
 };
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -5958,19 +6028,19 @@ struct weapon invitem_shieldtechitem = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_240, // short name
 	L_GUN_240, // name
 	L_GUN_000, // manufacturer
 	L_GUN_241, // description
-	WEAPONFLAG_08000000,
+	WEAPONFLAG_UNDROPPABLE,
 };
 #endif
 
@@ -5985,27 +6055,27 @@ struct weapon invitem_keycard = {
 	NULL, // sec function
 	NULL, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_228, // short name
 	L_GUN_228, // name
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description
-	WEAPONFLAG_08000000,
+	WEAPONFLAG_UNDROPPABLE,
 };
 
 struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_000, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_00011048,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_loudest,
 	invanim_rockerlauncher_shoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED,
 	NULL,
@@ -6018,17 +6088,17 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 	0,
 	4,
 	4,
-	0x8053,
-	1,
-	0x0000011f,
-	0x00000000,
-	2.1,
-	0x00000014,
-	0,
-	0x00000000,
-	0xffffffff,
-	0.05,
 	SFX_LAUNCH_ROCKET_8053,
+	1,
+	MODEL_CHRDYROCKETMIS, // projectilemodelnum
+	0, // unused
+	2.1, // scale
+	20, // speed
+	0, // unk50
+	0, // traveldist
+	-1, // timer60
+	0.05, // reflectangle
+	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
 struct inventory_ammo invammo_rocketlauncher34 = {
@@ -6049,13 +6119,13 @@ struct weapon invitem_rocketlauncher_34 = {
 	{ &invfunc_rocketlauncher34_primary, NULL }, // functions
 	&invammo_rocketlauncher34, // pri ammo
 	NULL, // sec ammo
-	&invclass_rocketlauncher,
+	&invaimsettings_rocketlauncher,
+	1, // muzzlez
+	24.5, // posx
+	-25.2, // posy
+	-30, // posz
 	1, // sway
-	24.5, // left/right
-	-25.2, // up/down
-	-30, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_080, // short name
 	L_GUN_027, // name
@@ -6072,23 +6142,23 @@ struct guncmd invanim_tester_shoot[] = {
 struct weaponfunc_shootsingle invfunc_tester_primary = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_000, // name
-	0x00, // unk06
-	0, // unk07
-	&invnoisesettings_0001100c,
+	0, // unused
+	0, // ammoindex
+	&invnoisesettings_default,
 	invanim_tester_shoot, // fire animation
 	0, // flags
-	&invnoisesettings_00011070,
-	16,
+	&invrecoilsettings_tester,
+	16, // recoverytime60
 	1, // damage
 	6, // spread
 	4, 8, 3, 0,
-	0,
-	0,
-	59.999996185303,
-	0,
-	0,
-	0x804d,
-	1,
+	0, // recoildist
+	0, // recoilangle
+	59.999996185303, // slidemax
+	0, // impactforce
+	0, // duration60
+	SFX_804D, // shootsound
+	1, // penetration
 };
 
 struct inventory_ammo invammo_tester = {
@@ -6109,13 +6179,13 @@ struct weapon invitem_tester = {
 	{ &invfunc_tester_primary, NULL }, // functions
 	&invammo_tester, // pri ammo
 	NULL, // sec ammo
-	&invclass_default,
+	&invaimsettings_default,
+	1, // muzzlez
+	15.5, // posx
+	-20.2, // posy
+	-33.5, // posz
 	1, // sway
-	15.5, // left/right
-	-20.2, // up/down
-	-33.5, // front/back
-	1, // unk38
-	NULL, // fptr
+	NULL, // gunviscmds
 	NULL, // part visibility
 	L_GUN_058, // short name
 	L_GUN_058, // name

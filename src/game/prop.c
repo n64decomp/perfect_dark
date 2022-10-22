@@ -646,9 +646,9 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	}
 
 	if (arg1) {
-		shotdata.unk38 = gsetGetSingleUnk3c(&shotdata.gset);
+		shotdata.penetration = gsetGetSinglePenetration(&shotdata.gset);
 	} else {
-		shotdata.unk38 = 1;
+		shotdata.penetration = 1;
 	}
 
 	shotdata.unk34 = arg7;
@@ -789,7 +789,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 						|| (explosiveshells && (obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS))) {
 					s1++;
 
-					if (s1 >= shotdata.unk38) {
+					if (s1 >= shotdata.penetration) {
 						sp6cc = true;
 						doexplosiveshells = explosiveshells;
 						hitpos.x = shotdata.hits[i].pos.x;
@@ -963,7 +963,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 					if (shotdata.hits[i].unk4c) {
 						s1++;
 
-						if (s1 >= shotdata.unk38) {
+						if (s1 >= shotdata.penetration) {
 							done = true;
 						}
 					}
@@ -1038,7 +1038,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 			}
 		}
 
-		if (count >= shotdata->unk38) {
+		if (count >= shotdata->penetration) {
 			shotdata->hits[bestindex].prop = NULL;
 			shotdata->unk34 = prevmostdist;
 
@@ -1051,7 +1051,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 					shotdata->hits[i].prop = NULL;
 				}
 			}
-		} else if (count + 1 == shotdata->unk38) {
+		} else if (count + 1 == shotdata->penetration) {
 			if (shotdata->unk34 > arg2) {
 				shotdata->unk34 = arg2;
 			}

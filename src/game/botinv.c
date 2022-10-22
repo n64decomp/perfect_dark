@@ -1137,7 +1137,7 @@ void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall)
 
 		if ((item->type == INVITEMTYPE_WEAP || item->type == INVITEMTYPE_DUAL)
 				&& (dropall || weaponnum == item->type_weap.weapon1)) {
-			if (weaponHasFlag(item->type_weap.weapon1, WEAPONFLAG_08000000) == 0
+			if (!weaponHasFlag(item->type_weap.weapon1, WEAPONFLAG_UNDROPPABLE)
 					|| (g_Vars.normmplayerisrunning
 						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
 						&& item->type_weap.weapon1 == WEAPON_DATAUPLINK)) {

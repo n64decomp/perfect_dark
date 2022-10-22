@@ -268,7 +268,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 		stackshotdata.dir.f[i] = shotdata->dir.f[i];
 	}
 
-	stackshotdata.unk38 = 1;
+	stackshotdata.penetration = 1;
 
 	for (i = 0; i < 3; i++) {
 		endpos.f[i] = stackshotdata.gunpos.f[i] + stackshotdata.dir.f[i] * g_SplatMaxDistance;

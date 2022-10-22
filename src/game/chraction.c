@@ -2993,9 +2993,9 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 	s32 buddyplayernum;
 	struct eyespy *eyespy;
 	s32 objectivenum;
-	f32 mult1;
-	f32 mult2;
-	f32 mult3;
+	f32 impactforce1;
+	f32 impactforce2;
+	f32 impactforce3;
 
 	// If chr was previously knocked out, they are now dead so decrease KO counter
 	if (chr->actiontype == ACT_DRUGGEDCOMINGUP
@@ -3124,18 +3124,18 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 
 	// Handle robots and Dr Caroll then return early
 	if (race == RACE_ROBOT || race == RACE_DRCAROLL) {
-		mult1 = gsetGetStrength(gset) * 0.5f;
+		impactforce1 = gsetGetImpactForce(gset) * 0.5f;
 
-		if (mult1 <= 0) {
-			mult1 = 3;
+		if (impactforce1 <= 0) {
+			impactforce1 = 3;
 		}
 
-		if (mult1 != 0.0f) {
+		if (impactforce1 != 0.0f) {
 			chr->elapseextra = 0;
-			chr->timeextra = mult1 * 15;
-			chr->extraspeed.x = dir->x * mult1;
-			chr->extraspeed.y = dir->y * mult1;
-			chr->extraspeed.z = dir->z * mult1;
+			chr->timeextra = impactforce1 * 15;
+			chr->extraspeed.x = dir->x * impactforce1;
+			chr->extraspeed.y = dir->y * impactforce1;
+			chr->extraspeed.z = dir->z * impactforce1;
 		}
 
 		if (race == RACE_DRCAROLL) {
@@ -3296,18 +3296,18 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 						modelSetAnimEndFrame(model, row->endframe);
 					}
 
-					mult2 = gsetGetStrength(gset);
+					impactforce2 = gsetGetImpactForce(gset);
 
-					if (mult2 <= 0 && (chr->chrflags & CHRCFLAG_DIEWITHFORCE)) {
-						mult2 = 6;
+					if (impactforce2 <= 0 && (chr->chrflags & CHRCFLAG_DIEWITHFORCE)) {
+						impactforce2 = 6;
 					}
 
-					if (row->unk10 && mult2 > 0) {
-						chr->act_die.timeextra = mult2 * 15;
+					if (row->unk10 && impactforce2 > 0) {
+						chr->act_die.timeextra = impactforce2 * 15;
 						chr->act_die.elapseextra = 0;
-						chr->act_die.extraspeed.x = dir->x * mult2;
-						chr->act_die.extraspeed.y = dir->y * mult2;
-						chr->act_die.extraspeed.z = dir->z * mult2;
+						chr->act_die.extraspeed.x = dir->x * impactforce2;
+						chr->act_die.extraspeed.y = dir->y * impactforce2;
+						chr->act_die.extraspeed.z = dir->z * impactforce2;
 					}
 
 					chr->chrflags &= ~CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION;
@@ -3349,18 +3349,18 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 				modelSetAnimEndFrame(model, row->endframe);
 			}
 
-			mult3 = gsetGetStrength(gset);
+			impactforce3 = gsetGetImpactForce(gset);
 
-			if (mult3 <= 0 && (chr->chrflags & CHRCFLAG_DIEWITHFORCE)) {
-				mult3 = 6;
+			if (impactforce3 <= 0 && (chr->chrflags & CHRCFLAG_DIEWITHFORCE)) {
+				impactforce3 = 6;
 			}
 
-			if (row->unk10 != 0 && mult3 > 0) {
-				chr->act_die.timeextra = mult3 * 15;
+			if (row->unk10 != 0 && impactforce3 > 0) {
+				chr->act_die.timeextra = impactforce3 * 15;
 				chr->act_die.elapseextra = 0;
-				chr->act_die.extraspeed.x = dir->x * mult3;
-				chr->act_die.extraspeed.y = dir->y * mult3;
-				chr->act_die.extraspeed.z = dir->z * mult3;
+				chr->act_die.extraspeed.x = dir->x * impactforce3;
+				chr->act_die.extraspeed.y = dir->y * impactforce3;
+				chr->act_die.extraspeed.z = dir->z * impactforce3;
 			}
 		}
 	} else if (race == RACE_DRCAROLL) {
@@ -3543,7 +3543,7 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 	}
 
 	if (race == RACE_EYESPY) {
-		f32 strength = gsetGetStrength(gset);
+		f32 strength = gsetGetImpactForce(gset);
 		struct eyespy *eyespy = chrToEyespy(chr);
 
 		if (eyespy) {
@@ -3568,7 +3568,7 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 	} else if (race == RACE_EYESPY) {
 		// empty
 	} else if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
-		f32 strength = gsetGetStrength(gset);
+		f32 strength = gsetGetImpactForce(gset);
 
 		if (race == RACE_DRCAROLL) {
 			strength *= 0.5f;
@@ -10114,8 +10114,8 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 						if (projectileobj) {
 							f32 spcc;
 
-							sp168 = func->unk4c * (1.0f / 0.6f) / 60.0f;
-							spcc = func->unk54 * (1.0f / 0.6f);
+							sp168 = func->speed * (1.0f / 0.6f) / 60.0f;
+							spcc = func->traveldist * (1.0f / 0.6f);
 
 							// AI bots are a bit smarter than solo chrs
 							// with regard to how they aim their projectiles
@@ -10219,7 +10219,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 								projectileobj->base.projectile->unk018 = sp15c.z;
 
 								projectileobj->base.projectile->pickuptimer240 = TICKS(240);
-								projectileobj->base.projectile->unk08c = func->unk5c;
+								projectileobj->base.projectile->unk08c = func->reflectangle;
 								projectileobj->base.projectile->unk098 = func->unk50 * (1.0f / 0.6f);
 
 								projectileobj->base.projectile->targetprop = chrGetTargetProp(chr);

@@ -2752,7 +2752,7 @@ struct player {
 	/*0x1b88*/ s32 introanimnum;
 	/*0x1b8c*/ s32 lastsighton;
 	/*0x1b90*/ u16 targetset[4]; // related to trackedprops
-	/*0x1b98*/ u8 target;
+	/*0x1b98*/ u8 sighttracktype; // eg. threat detector, follow lock-on
 	/*0x1b9c*/ f32 speedthetacontrol;
 	/*0x1ba0*/ s32 cam_room;
 	/*0x1ba4*/ s16 autocontrol_aimpad;
@@ -2860,37 +2860,46 @@ struct noisesettings {
 	f32 minradius;
 	f32 maxradius;
 	f32 incradius;
-	f32 unk0c;
-	f32 unk10;
+	f32 decbasespeed;
+	f32 decremspeed;
 };
 
-struct inventory_class {
+struct recoilsettings {
+	f32 xrange;
+	f32 yrange;
+	f32 zrange;
+	f32 unk0c; // not used
+	u8 unk10;  // not used
+};
+
+struct invaimsettings {
 	f32 zoomfov;
-	f32 unk04;
-	f32 unk08;
-	f32 unk0c;
-	f32 unk10;
-	f32 unk14;
-	u32 unk18;
+	f32 guntransup;   // gun y translation when aiming upwards
+	f32 guntransdown; // gun y translation when aiming downwards
+	f32 guntransside; // gun x translation when aiming sideways
+	f32 aimdamppal;   // slowdown speed when aiming or turning (PAL)
+	f32 aimdamp;      // slowdown speed when aiming or turning (NTSC)
+	u32 tracktype : 4;
+	u32 unk18_04 : 4;  // not used
 	u32 flags;
 };
 
-struct inventory_typef {
-	// See related functions: bgun0f097f28 and bgun0f097df0
+struct gunviscmd {
+	// See related functions: bgunExecuteGunVisCommands and bgunTestGunVisCommand
 
 	// unk00 - Some kind of condition field
 	// 0 = terminator
 	// 4 = if bit in hand->unk0639 (bit index specified via unk02)
 	// 5 = if in left hand
 	// 6 = if in right hand
-	u8 unk00;
+	u8 type;
 
-	u16 unk02;
+	u16 param;
 
-	// 0 = do true thing if condition passed
-	// 1 = do false thing if condition passed
-	// 3 = do true thing if condition passed, or false thing if condition failed
-	u8 unk04;
+	// 0 = set part visible if condition passed
+	// 1 = set part hidden if condition passed
+	// 3 = set part visible if condition passed, or hidden if condition failed
+	u8 op;
 
 	u16 partnum;
 	u16 unk08;
@@ -2899,7 +2908,7 @@ struct inventory_typef {
 struct weaponfunc {
 	/*0x00*/ s32 type;
 	/*0x04*/ u16 name;
-	/*0x06*/ u8 unk06;
+	/*0x06*/ u8 unk06; // not used
 	/*0x07*/ s8 ammoindex; // -1 = no ammo, 0 or 1 = index into weapon->ammos[]
 	/*0x08*/ struct noisesettings *noisesettings;
 	/*0x0c*/ struct guncmd *fire_animation;
@@ -2908,8 +2917,8 @@ struct weaponfunc {
 
 struct weaponfunc_shoot {
 	struct weaponfunc base;
-	/*0x14*/ struct noisesettings *unk14;
-	/*0x18*/ s8 unk18;
+	/*0x14*/ struct recoilsettings *recoilsettings;
+	/*0x18*/ s8 recoverytime60;
 	/*0x1c*/ f32 damage;
 	/*0x20*/ f32 spread;
 
@@ -2922,13 +2931,13 @@ struct weaponfunc_shoot {
 	/*0x26*/ s8 unk26;
 	/*0x27*/ s8 unk27;
 
-	/*0x28*/ f32 recoil;
-	/*0x2c*/ f32 unk2c;
+	/*0x28*/ f32 recoildist;
+	/*0x2c*/ f32 recoilangle;
 	/*0x30*/ f32 slidemax;
-	/*0x34*/ f32 strength;
-	/*0x38*/ u8 unk38;
+	/*0x34*/ f32 impactforce;
+	/*0x38*/ u8 duration60;
 	/*0x3a*/ u16 shootsound;
-	/*0x3c*/ u8 unk3c;
+	/*0x3c*/ u8 penetration;
 };
 
 struct weaponfunc_shootsingle {
@@ -2937,24 +2946,24 @@ struct weaponfunc_shootsingle {
 
 struct weaponfunc_shootauto {
 	struct weaponfunc_shoot base;
-	/*0x40*/ f32 initialfirerate; // rounds per minute
-	/*0x44*/ f32 maxfirerate; // rounds per minute
-	/*0x48*/ f32 *unk48;
-	/*0x4c*/ f32 *unk4c;
-	/*0x50*/ s8 unk50;
-	/*0x51*/ s8 unk51;
+	/*0x40*/ f32 initialrpm; // rounds per minute
+	/*0x44*/ f32 maxrpm; // rounds per minute
+	/*0x48*/ f32 *vibrationstart;
+	/*0x4c*/ f32 *vibrationmax;
+	/*0x50*/ s8 turretaccel;
+	/*0x51*/ s8 turretdecel;
 };
 
 struct weaponfunc_shootprojectile {
 	struct weaponfunc_shoot base;
 	/*0x40*/ s32 projectilemodelnum;
-	/*0x44*/ u32 unk44;
+	/*0x44*/ u32 unk44; // unused
 	/*0x48*/ f32 scale;
-	/*0x4c*/ s32 unk4c;
+	/*0x4c*/ s32 speed;
 	/*0x50*/ f32 unk50;
-	/*0x54*/ s32 unk54;
+	/*0x54*/ s32 traveldist;
 	/*0x58*/ s32 timer60;
-	/*0x5c*/ f32 unk5c;
+	/*0x5c*/ f32 reflectangle;
 	/*0x60*/ s16 soundnum;
 };
 
@@ -2970,25 +2979,25 @@ struct weaponfunc_close {
 	struct weaponfunc base;
 	/*0x14*/ f32 damage;
 	/*0x18*/ f32 range;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
+	/*0x1c*/ u32 unk1c; // unused
+	/*0x20*/ u32 unk20; // unused
+	/*0x24*/ u32 unk24; // unused
+	/*0x28*/ f32 unk28; // unused
+	/*0x2c*/ f32 unk2c; // unused
+	/*0x30*/ f32 unk30; // unused
+	/*0x34*/ f32 unk34; // unused
+	/*0x38*/ f32 unk38; // unused
+	/*0x3c*/ f32 unk3c; // unused
+	/*0x40*/ f32 unk40; // unused
+	/*0x44*/ f32 unk44; // unused
+	/*0x48*/ u32 unk48; // unused
 };
 
 struct weaponfunc_special {
 	struct weaponfunc base;
 	/*0x14*/ s32 specialfunc;
-	/*0x18*/ s32 unk18;
-	/*0x1c*/ u32 unk1c;
+	/*0x18*/ s32 recoverytime60;
+	/*0x1c*/ u16 soundnum; // unused
 };
 
 struct weaponfunc_device {
@@ -3018,13 +3027,13 @@ struct weapon {
 	/*0x10*/ struct guncmd *sectopri_animation;
 	/*0x14*/ void *functions[2];
 	/*0x1c*/ struct inventory_ammo *ammos[2];
-	/*0x24*/ struct inventory_class *eptr;
-	/*0x28*/ f32 sway;
-	/*0x2c*/ f32 leftright;
-	/*0x30*/ f32 updown;
-	/*0x34*/ f32 frontback;
-	/*0x38*/ f32 unk38;
-	/*0x3c*/ struct inventory_typef *fptr;
+	/*0x24*/ struct invaimsettings *aimsettings;
+	/*0x28*/ f32 muzzlez;
+	/*0x2c*/ f32 posx;
+	/*0x30*/ f32 posy;
+	/*0x34*/ f32 posz;
+	/*0x38*/ f32 sway;
+	/*0x3c*/ struct gunviscmd *gunviscmds;
 	/*0x40*/ struct modelpartvisibility *partvisibility;
 	/*0x44*/ u16 shortname;
 	/*0x46*/ u16 name;
@@ -6019,7 +6028,7 @@ struct shotdata {
 	/*0x1c*/ struct coord gunpos;
 	/*0x28*/ struct coord dir;
 	/*0x34*/ f32 unk34;
-	/*0x38*/ s32 unk38;
+	/*0x38*/ s32 penetration;
 	/*0x3c*/ struct hit hits[10];
 };
 

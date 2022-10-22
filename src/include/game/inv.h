@@ -4,8 +4,8 @@
 #include "data.h"
 #include "types.h"
 
-extern struct noisesettings invnoisesettings_00010fd0;
-extern struct inventory_class invclass_default;
+extern struct noisesettings invnoisesettings_silent;
+extern struct invaimsettings invaimsettings_default;
 extern struct weapon *g_Weapons[WEAPON_SUICIDEPILL + 1];
 
 void invReset(void);

@@ -157,10 +157,10 @@ void func0f0d7364(void)
 void sightTick(bool sighton)
 {
 	struct trackedprop *trackedprop;
-	u8 newtarget;
+	u8 newtracktype;
 	s32 i;
 	s32 index;
-	struct inventory_class *thing = func0f0b11bc(&g_Vars.currentplayer->hands[0].gset);
+	struct invaimsettings *gunsettings = gsetGetAimSettings(&g_Vars.currentplayer->hands[0].gset);
 	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->hands[0].gset.weaponnum,
 			g_Vars.currentplayer->hands[0].gset.weaponfunc);
 
@@ -182,36 +182,36 @@ void sightTick(bool sighton)
 		}
 	}
 
-	newtarget = thing->unk18 >> 28;
+	newtracktype = gunsettings->tracktype;
 
 	if (gsetHasFunctionFlags(&g_Vars.currentplayer->hands[0].gset, FUNCFLAG_THREATDETECTOR)) {
-		newtarget = 5;
+		newtracktype = SIGHTTRACKTYPE_THREATDETECTOR;
 	}
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
-		newtarget = 0;
+		newtracktype = SIGHTTRACKTYPE_NONE;
 	}
 
-	if (newtarget != g_Vars.currentplayer->target) {
-		if (newtarget == 5) {
+	if (newtracktype != g_Vars.currentplayer->sighttracktype) {
+		if (newtracktype == SIGHTTRACKTYPE_THREATDETECTOR) {
 			for (i = 0; i < 4; i++) {
 				g_Vars.currentplayer->trackedprops[i].prop = NULL;
 			}
 		}
 
-		g_Vars.currentplayer->target = newtarget;
+		g_Vars.currentplayer->sighttracktype = newtracktype;
 
-		switch (newtarget) {
-		case SIGHTTARGET_NONE:
-		case SIGHTTARGET_DEFAULT:
-		case SIGHTTARGET_BETASCANNER:
-		case SIGHTTARGET_ROCKETLAUNCHER:
-		case SIGHTTARGET_CMP150:
+		switch (newtracktype) {
+		case SIGHTTRACKTYPE_NONE:
+		case SIGHTTRACKTYPE_DEFAULT:
+		case SIGHTTRACKTYPE_BETASCANNER:
+		case SIGHTTRACKTYPE_ROCKETLAUNCHER:
+		case SIGHTTRACKTYPE_FOLLOWLOCKON:
 			break;
 		}
 	}
 
-	if (sighton && g_Vars.currentplayer->lastsighton == false && newtarget != 5) {
+	if (sighton && g_Vars.currentplayer->lastsighton == false && newtracktype != SIGHTTRACKTYPE_THREATDETECTOR) {
 		for (i = 0; i < 4; i++) {
 			g_Vars.currentplayer->trackedprops[i].prop = NULL;
 		}
@@ -231,9 +231,9 @@ void sightTick(bool sighton)
 		trackedprop->prop = NULL;
 	}
 
-	switch (g_Vars.currentplayer->target) {
-	case SIGHTTARGET_DEFAULT:
-	case SIGHTTARGET_BETASCANNER:
+	switch (g_Vars.currentplayer->sighttracktype) {
+	case SIGHTTRACKTYPE_DEFAULT:
+	case SIGHTTRACKTYPE_BETASCANNER:
 		// Conditionally copy lookingatprop to trackedprops[0], overwriting anything that's there
 		if (sighton) {
 			if (g_Vars.currentplayer->lookingatprop.prop) {
@@ -257,7 +257,7 @@ void sightTick(bool sighton)
 			}
 		}
 		break;
-	case SIGHTTARGET_ROCKETLAUNCHER:
+	case SIGHTTRACKTYPE_ROCKETLAUNCHER:
 		// Conditionally copy lookingatprop to trackedprops[0], but only if that slot is empty
 		if (sighton && g_Vars.currentplayer->lookingatprop.prop
 				&& sightCanTargetProp(g_Vars.currentplayer->lookingatprop.prop, 1)) {
@@ -280,7 +280,7 @@ void sightTick(bool sighton)
 			}
 		}
 		break;
-	case SIGHTTARGET_CMP150:
+	case SIGHTTRACKTYPE_FOLLOWLOCKON:
 		// Conditionally copy lookingatprop to any trackedprops slot, but only if the slot is empty
 		if (sighton && g_Vars.currentplayer->lookingatprop.prop
 				&& sightCanTargetProp(g_Vars.currentplayer->lookingatprop.prop, 4)) {
@@ -303,8 +303,8 @@ void sightTick(bool sighton)
 			}
 		}
 		break;
-	case SIGHTTARGET_NONE:
-	case SIGHTTARGET_THREATDETECTOR:
+	case SIGHTTRACKTYPE_NONE:
+	case SIGHTTRACKTYPE_THREATDETECTOR:
 		break;
 	}
 
@@ -633,9 +633,9 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 
 	if (1);
 
-	switch (g_Vars.currentplayer->target) {
-	case SIGHTTARGET_NONE:
-		// SIGHTTARGET_NONE is used for unarmed, but this appears to be
+	switch (g_Vars.currentplayer->sighttracktype) {
+	case SIGHTTRACKTYPE_NONE:
+		// SIGHTTRACKTYPE_NONE is used for unarmed, but this appears to be
 		// unreachable. The aimer is never drawn when unarmed.
 		if (sighton) {
 			colour = 0x00ff0028;
@@ -644,7 +644,7 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 			gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
 		}
 		break;
-	case SIGHTTARGET_DEFAULT:
+	case SIGHTTRACKTYPE_DEFAULT:
 		// For most guns, render the aimer if holding R
 		if (sighton) {
 			if (g_Vars.currentplayer->lookingatprop.prop == NULL) {
@@ -669,7 +669,7 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 			}
 		}
 		break;
-	case SIGHTTARGET_BETASCANNER:
+	case SIGHTTRACKTYPE_BETASCANNER:
 		// An unused sight target. When holding R, it flashes the text
 		// "Identify" and draws a red box around the targetted prop.
 		if (sighton) {
@@ -711,7 +711,7 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 			}
 		}
 		break;
-	case SIGHTTARGET_ROCKETLAUNCHER:
+	case SIGHTTRACKTYPE_ROCKETLAUNCHER:
 		for (i = 0; i < 1; i++) {
 			trackedprop = &g_Vars.currentplayer->trackedprops[i];
 
@@ -734,13 +734,13 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 			gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
 		}
 		break;
-	case SIGHTTARGET_CMP150:
-	case SIGHTTARGET_THREATDETECTOR:
+	case SIGHTTRACKTYPE_FOLLOWLOCKON:
+	case SIGHTTRACKTYPE_THREATDETECTOR:
 		for (i = 0; i < 4; i++) {
 			trackedprop = &g_Vars.currentplayer->trackedprops[i];
 
 			if (trackedprop->prop) {
-				if (g_Vars.currentplayer->target == SIGHTTARGET_THREATDETECTOR) {
+				if (g_Vars.currentplayer->sighttracktype == SIGHTTRACKTYPE_THREATDETECTOR) {
 					struct defaultobj *obj = trackedprop->prop->obj;
 					struct weaponobj *weapon;
 					u32 textid = 0;
