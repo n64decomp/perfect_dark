@@ -246,12 +246,6 @@ void bootCreateIdleThread(void)
 	osStartThread(&g_IdleThread);
 }
 
-void bootCreateRmonThread(void)
-{
-	osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, bootAllocateStack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
-	osStartThread(&g_RmonThread);
-}
-
 void bootCreateSchedThread(void)
 {
 	osCreateMesgQueue(&g_SchedMesgQueue, var8008db48, ARRAYCOUNT(var8008db48));
@@ -271,7 +265,6 @@ void bootPhase2(void *arg)
 	bootCreateIdleThread();
 	videbugCreate();
 	pimgrCreate();
-	bootCreateRmonThread();
 
 	if (argsParseDebugArgs()) {
 		osStopThread(NULL);

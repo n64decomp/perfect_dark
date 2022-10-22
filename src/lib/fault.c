@@ -8,7 +8,6 @@
 
 void faultInit(void)
 {
-	crashCreateThread();
 }
 
 void faultAssert(char *message, char *file, s32 line)

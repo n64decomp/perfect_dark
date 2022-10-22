@@ -327,7 +327,6 @@ void mainInit(void)
 	u8 *start;
 	u8 *end;
 
-	faultInit();
 	dmaInit();
 	amgrInit();
 	varsInit();
