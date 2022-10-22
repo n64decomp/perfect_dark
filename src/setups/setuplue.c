@@ -1574,7 +1574,6 @@ u8 func0417_traitor[] = {
 
 		label(0x2e)
 		try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x0a)
-		dprint 'S','H','O','O','T','F','A','I','L','E','D','\n',0,
 		yield
 		label(0x0a)
 		try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0b)
@@ -1763,7 +1762,6 @@ u8 func040a_top_interceptor[] = {
 
 		// Unreachable
 		label(0x5a)
-		dprint 'C','H','A','N','G','E',' ','T','O',' ','L','O','W','\n',0,
 		goto_first(0x09)
 
 		label(0x59)
@@ -2701,7 +2699,6 @@ u8 func0419_clone_spawner[] = {
 		reloop(0x04)
 
 		label(0x2e)
-		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0,
 		if_never_been_onscreen(/*goto*/ 0x4f)
 		if_can_see_target(/*goto*/ 0x09)
 		reloop(0x04)
@@ -2749,7 +2746,6 @@ u8 func1019_spawn_guards_at_antenna[] = {
 	// (two guards near antenna blue door)
 	// SA and PA: Wait until bug thrown on antenna
 	beginloop(0x04)
-		dprint 'C','H','E','C','K',' ','F','O','R',' ','O','B','J','E','C','T','I','V','E','\n',0,
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x06)
 		if_objective_complete(1, /*goto*/ 0x2e)
 		reloop(0x04)
@@ -2772,14 +2768,12 @@ u8 func1019_spawn_guards_at_antenna[] = {
 	set_morale(3)
 
 	beginloop(0x56)
-		dprint 'T','R','Y',' ','C','R','E','A','T','E','\n',0,
 		if_morale_lt(1, /*goto*/ 0x06)
 		try_spawn_chr_at_pad(BODY_A51TROOPER, HEAD_RANDOM, PAD_LUE_00A0, AILIST_SPAWNED_GUARD, SPAWNFLAG_00000200, /*goto*/ 0x57)
 		reloop(0x56)
 
 		label(0x57)
 		yield
-		dprint 'C','R','E','A','T','E','\n',0,
 		subtract_morale(1)
 		restart_timer
 
@@ -2884,7 +2878,6 @@ u8 func101a_check_mechanic_dead[] = {
 
 	label(0x2e)
 	set_savefile_flag(GAMEFILEFLAG_RESCUE_MECHANIC_DEAD)
-	dprint 'D','E','L','E','T','E',' ','M','E','C','H','\n',0,
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

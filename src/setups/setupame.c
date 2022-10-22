@@ -1081,7 +1081,6 @@ u8 func0403_shielded_guard[] = {
 };
 
 u8 func0404_init_hovercar[] = {
-	dprint 'h','o','v','\n',0,
 	begin_hovercar_path(0)
 	set_vehicle_speed(0x0c00, 120)
 
@@ -1442,7 +1441,6 @@ u8 func0411_secretary[] = {
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	set_chr_hiddenflag(CHR_SECRETARY, CHRHFLAG_00100000)
 	chr_move_to_pad(CHR_SECRETARY, PAD_AME_01C3, 0x00, /*goto*/ 0x2c)
-	dprint 'D','E','T','E','C','T',' ','4',0,
 	label(0x2c)
 	stop_chr
 	label(0x06)
@@ -3827,7 +3825,6 @@ u8 func042f_surrendering_guard[] = {
 
 	// Wait 1 second
 	beginloop(0x08)
-		dprint 'S','4',0,
 		if_timer_gt(60, /*goto*/ 0x2c)
 	endloop(0x08)
 
@@ -3850,7 +3847,6 @@ u8 func042f_surrendering_guard[] = {
 
 	// Warn
 	label(0x57)
-	dprint 'W','A','R','N',' ','F','R','I','E','N','D','S','\n',0,
 	say_quip(CHR_BOND, QUIP_WARNFRIENDS, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	increase_squadron_alertness(100)
 

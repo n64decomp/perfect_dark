@@ -1729,14 +1729,6 @@
 	dstchr,
 
 /**
- * This command would have printed a message to the developer's console.
- *
- * It has no purpose in the retail game.
- */
-#define dprint \
-	mkshort(0x00b5),
-
-/**
  * Resets the current chr's timer to zero and starts it.
  */
 #define restart_timer \

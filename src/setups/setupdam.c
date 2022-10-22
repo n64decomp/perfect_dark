@@ -1583,7 +1583,6 @@ u8 func0411_labtech_alerted[] = {
 	label(0x04)
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x04)
 	set_alertness(100)
-	dprint 'T','A','L','K',' ','1','\n',0,
 	say_quip(CHR_BOND, 0x2a, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
 	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -2628,7 +2627,6 @@ u8 func0416_elvis_leading[] = {
 		if_timer_gt(1200, /*goto*/ 0x08)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0b)
 		label(0x07)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_chr_stopped(/*goto*/ 0x04)
 	endloop(0x00)
 
@@ -2644,11 +2642,9 @@ u8 func0416_elvis_leading[] = {
 	beginloop(0x0c)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0b)
 		label(0x07)
-		dprint 'A','T',' ','P','A','D','\n',0,
 	endloop(0x0c)
 
 	label(0x0b)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	call_rng
 	if_rand_lt(85, /*goto*/ 0x3b)
 	if_rand_lt(170, /*goto*/ 0x3c)

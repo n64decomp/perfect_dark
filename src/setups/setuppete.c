@@ -718,7 +718,6 @@ u8 func100f_check_mine[] = {
 		set_target_chr(CHR_P1P2)
 
 		beginloop(0x11)
-			dprint 'M','A','I','N','\n',0,
 			if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x29)
 			if_chr_dead(CHR_TARGET, /*goto*/ 0x29)
 			if_chr_knockedout(CHR_TARGET, /*goto*/ 0x29)
@@ -728,12 +727,10 @@ u8 func100f_check_mine[] = {
 		label(0x29)
 		label(0x54)
 		yield
-		dprint 'D','E','A','D','\n',0,
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x28)
 		if_chr_dead(CHR_TARGET, /*goto*/ 0x28)
 		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x28)
 		yield
-		dprint 'N','O','T','D','E','A','D','\n',0,
 		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_REMOTE_MINE, 1, /*goto*/ 0x29)
 		reloop(0x08)
 
@@ -742,13 +739,10 @@ u8 func100f_check_mine[] = {
 	endloop(0x08)
 
 	label(0x29)
-	dprint 'N','O','A','M','M','O','\n',0,
 	label(0x28)
-	dprint 'S','T','I','L','L','D','E','A','D','\n',0,
 	goto_first(0x54)
 
 	label(0x03)
-	dprint 'F','A','I','L','\n',0,
 	yield
 	yield
 	yield
@@ -965,7 +959,6 @@ u8 func040c_taxi[] = {
 
 	label(0x04)
 	label(0x38)
-	dprint 'G','O',' ','F','O','R',' ','C','R','A','S','H','\n',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_CRASH)
 	yield
 	mute_channel(CHANNEL_0)
@@ -989,7 +982,6 @@ u8 func040c_taxi[] = {
 	yield \
  \
 	beginloop(0x11) \
-		dprint 'B','U','G',' ','C','1','\n',0, \
 		set_target_chr(chr2) \
 		if_chr_death_animation_finished(chr, /*goto*/ 0x2f) \
 		if_chr_dead(chr, /*goto*/ 0x2f) \
@@ -1000,7 +992,6 @@ u8 func040c_taxi[] = {
  \
 	/* Dead - not sure why it checks this a second time */ \
 	beginloop(0x2f) \
-		dprint 'B','U','G',' ','D','O','\n',0, \
 		set_target_chr(chr2) \
 		if_chr_death_animation_finished(chr, /*goto*/ 0x30) \
 		if_chr_dead(chr, /*goto*/ 0x30) \
@@ -1018,7 +1009,6 @@ u8 func040c_taxi[] = {
  \
 	/* Alive but has no bug */ \
 	label(0x03) \
-		dprint 'B','U','G',' ','C','2','\n',0, \
 		yield \
 		if_weapon_thrown(WEAPON_TRACERBUG, /*goto*/ 0x04) \
 	goto_first(0x03) \
@@ -1032,7 +1022,6 @@ u8 func040c_taxi[] = {
 	restart_timer \
  \
 	beginloop(0x05) \
-		dprint 'B','U','G',' ','C','3','\n',0, \
 		if_weapon_thrown_on_object(WEAPON_TRACERBUG, OBJ_LIMO, /*goto*/ 0x06) \
 		if_timer_gt(120, /*goto*/ 0x07) \
 	endloop(0x05) \
@@ -1044,7 +1033,6 @@ u8 func040c_taxi[] = {
 	restart_timer \
  \
 	beginloop(0x08) \
-		dprint 'B','U','G',' ','C','4','\n',0, \
 		if_timer_gt(300, /*goto*/ 0x04) \
 	goto_first(0x08) \
  \
@@ -1054,14 +1042,11 @@ u8 func040c_taxi[] = {
  \
 	/* Bug wasted */ \
 	label(0x07) \
-	dprint 'W','R','O','N','G','1','\n',0, \
 	if_stage_flag_eq(STAGEFLAG_ONE_BUG_REMAINING, TRUE, /*goto*/ 0x03) \
-	dprint 'W','R','O','N','G','2','\n',0, \
 	set_stage_flag(STAGEFLAG_ONE_BUG_REMAINING) \
 	set_ailist(CHR_SELF, GAILIST_IDLE) \
  \
 	label(0x03) \
-	dprint 'W','R','O','N','G','3','\n',0, \
 	set_stage_flag(STAGEFLAG_TRACERBUG_WASTED) \
 	show_hudmsg(chr, 0x3218) /* "Tracer Bug placed incorrectly." */ \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1148,13 +1133,11 @@ u8 func1006_check_for_end[] = {
 		reloop(0x05)
 
 		label(0x0a)
-		dprint 'P','A','D',' ','C','H','E','C','K','\n',0,
 		if_chr_distance_to_pad_lt(CHR_P1P2, 350, PAD_PETE_00A7, /*goto*/ 0x04)
 	endloop(0x05)
 
 	label(0x04)
 	set_stage_flag(STAGEFLAG_IN_ELEVATOR)
-	dprint 'I','N',' ','T','H','E',' ','E','L','E','V','A','T','O','R','\n',0,
 	yield
 	yield
 	set_invincible(CHR_BOND)
@@ -1236,7 +1219,6 @@ u8 func040d_limo_timing[] = {
 	// Ready to leave
 	label(0x04)
 	set_stage_flag(STAGEFLAG_LIMO_READY_TO_LEAVE)
-	dprint 'L','I','M','O',' ','R','E','A','D','Y',' ','T','O',' ','G','O','\n',0,
 	restart_timer
 
 	// Wait 15 seconds
@@ -1314,20 +1296,17 @@ u8 func0412_cia[] = {
 	beginloop(0x43)
 		if_saw_death(0x00, /*goto*/ 0x1d)
 		if_saw_injury(0x00, /*goto*/ 0x1e)
-		dprint 'D','U','R','I','N','G','T','A','L','K','\n',0,
 		if_timer_gt(180, /*goto*/ 0x04)
 	endloop(0x43)
 
 	// Idle + 3 seconds
 	label(0x04)
 	if_self_flag_bankx_eq(CHRFLAG0_FORCESAFETYCHECKS, TRUE, BANK_0, /*goto*/ 0x54)
-	dprint 'N','O','T',' ','A',' ','P','A','T','R','O','L','L','E','R','\n',0,
 	stop_chr
 	goto_next(0x10)
 
 	// Patroller
 	label(0x54)
-	dprint 'P','A','T',' ','R','E','T','\n',0,
 	start_patrol
 
 	// Not shot, not a patroller, or patroller who has started his path
@@ -1430,7 +1409,6 @@ u8 func0412_cia[] = {
 	if_timer_lt(600, /*goto*/ 0x03)
 	unset_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	label(0x03)
-	dprint 'L','I','M','O',' ','R','E','A','D','Y',' ','T','O',' ','G','O','\n',0,
 	goto_first(0x10)
 
 	label(0x1e)
@@ -1843,7 +1821,6 @@ u8 func041d_fbi[] = {
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 
 	label(0x04)
-	dprint 'T','R','A','C','K',' ','P','L','A','Y','E','R','\n',0,
 	try_jog_to_target(/*goto*/ 0x06)
 
 	beginloop(0x06)
@@ -1883,13 +1860,11 @@ u8 func041d_fbi[] = {
 	endloop(0x0e)
 
 	label(0x04)
-	dprint 'C','R','E','A','T','E','D',' ','W','E','A','P','\n',0,
 	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x04)
 	label(0x04)
 	yield
 	set_stage_flag(STAGEFLAG_ALARM_SOUNDED)
 	activate_alarm
-	dprint 'C','R','E','A','T','E','D',' ','W','E','A','P','\n',0,
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 	endlist
 };
@@ -2070,7 +2045,6 @@ u8 func041a_robot[] = {
 	chr_do_animation(ANIM_016A, 0, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SELF, 4)
 
 	beginloop(0x2d)
-		dprint 'P','A','R','T',' ','4','\n',0,
 		if_chr_stopped(/*goto*/ 0x04)
 	goto_first(0x2d)
 
@@ -2536,10 +2510,8 @@ u8 func040a_intro_sfx[] = {
 	unset_stage_flag(STAGEFLAG_TRIGGER_INTRO)
 	label(0x10)
 	yield
-	dprint 'C','U','T','S','C','E','N','E',' ','S','T','A','R','T','E','D','\n',0,
 	label(0x03)
 	restart_timer
-	dprint 'C','U','T','S','C','E','N','E',' ','S','T','A','R','T','E','D','\n',0,
 
 	#define wait_until(time, loopid) \
 		beginloop(loopid) \

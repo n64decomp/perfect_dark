@@ -909,12 +909,10 @@ u8 func1002_devicetraining_camspy[] = {
 	endloop(0x0c)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
-	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	set_savefile_flag(GAMEFILEFLAG_CI_CAMSPY_DONE)
@@ -1040,13 +1038,11 @@ u8 func1003_devicetraining_nightvision[] = {
 	endloop(0x0d)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_NIGHTVISION_DONE)
-	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	set_lights_state(0x0030, LIGHTOP_1, 0xff, 0x00, 0x00)
 	set_lights_state(0x002e, LIGHTOP_1, 0xff, 0x00, 0x00)
@@ -1219,13 +1215,11 @@ u8 func1004_devicetraining_doordecoder[] = {
 	endloop(0x0d)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_DOORDECODER_DONE)
-	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	unset_object_flag2(0x88, OBJFLAG2_INVISIBLE)
@@ -1257,7 +1251,6 @@ u8 func1005_devicetraining_xray[] = {
 	lock_door(0x31, 0x40)
 	lock_door(0x8a, 0x40)
 	lock_door(0x89, 0x40)
-	dprint 't','r','a','i','n','i','n','g',0,
 	enable_object(0x29)
 	move_object_to_pad(0x29, PAD_DISH_011D)
 	unset_object_flag(0x29, OBJFLAG_UNCOLLECTABLE)
@@ -1432,13 +1425,11 @@ u8 func1005_devicetraining_xray[] = {
 	endloop(0x0e)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_XRAY_DONE)
-	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
@@ -1471,7 +1462,6 @@ u8 func1006_devicetraining_disguise[] = {
 	lock_door(0x31, 0x40)
 	lock_door(0x8a, 0x40)
 	lock_door(0x89, 0x40)
-	dprint 't','r','a','i','n','i','n','g',0,
 	enable_object(0x2a)
 	move_object_to_pad(0x2a, PAD_DISH_011D)
 	unset_object_flag(0x2a, OBJFLAG_UNCOLLECTABLE)
@@ -1571,13 +1561,11 @@ u8 func1006_devicetraining_disguise[] = {
 	endloop(0x0f)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_DISGUISE_DONE)
-	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
@@ -1616,7 +1604,6 @@ u8 func1007_devicetrainign_ir[] = {
 	lock_door(0x31, 0x40)
 	lock_door(0x8a, 0x40)
 	lock_door(0x89, 0x40)
-	dprint 't','r','a','i','n','i','n','g',0,
 	enable_object(0x2b)
 	move_object_to_pad(0x2b, PAD_DISH_011D)
 	unset_object_flag(0x2b, OBJFLAG_UNCOLLECTABLE)
@@ -1720,13 +1707,11 @@ u8 func1007_devicetrainign_ir[] = {
 	endloop(0x0e)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_IR_DONE)
-	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
@@ -1756,7 +1741,6 @@ u8 func1008_devicetraining_rtracker[] = {
 	lock_door(0x31, 0x40)
 	lock_door(0x8a, 0x40)
 	lock_door(0x89, 0x40)
-	dprint 't','r','a','i','n','i','n','g',0,
 	enable_object(0x2c)
 	move_object_to_pad(0x2c, PAD_DISH_011D)
 	unset_object_flag(0x2c, OBJFLAG_UNCOLLECTABLE)
@@ -1847,13 +1831,11 @@ u8 func1008_devicetraining_rtracker[] = {
 	endloop(0x0e)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_RTRACKER_DONE)
-	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
@@ -1886,7 +1868,6 @@ u8 func1009_devicetraining_cloak[] = {
 	lock_door(0x31, 0x40)
 	lock_door(0x8a, 0x40)
 	lock_door(0x89, 0x40)
-	dprint 't','r','a','i','n','i','n','g',0,
 	restart_timer
 	enable_object(0x2d)
 	move_object_to_pad(0x2d, PAD_DISH_011D)
@@ -1998,13 +1979,11 @@ u8 func1009_devicetraining_cloak[] = {
 	endloop(0x0f)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_CLOAK_DONE)
-	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
@@ -2151,13 +2130,11 @@ u8 func100a_devicetraining_ecmmine[] = {
 	endloop(0x0d)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_ECMMINE_DONE)
-	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
@@ -2194,7 +2171,6 @@ u8 func100b_devicetraining_uplink[] = {
 	move_object_to_pad(0x2f, PAD_DISH_0131)
 	unset_object_flag(0x2f, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(0x2f, OBJFLAG2_INVISIBLE)
-	dprint 't','r','a','i','n','i','n','g',0,
 	close_door(0x31)
 	close_door(0x8a)
 	close_door(0x89)
@@ -2359,13 +2335,11 @@ u8 func100b_devicetraining_uplink[] = {
 	goto_first(0x82)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_UPLINK_DONE)
-	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	yield
 	goto_next(0x84)
@@ -2383,7 +2357,6 @@ u8 func100b_devicetraining_uplink[] = {
 	mute_channel(CHANNEL_5)
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_7)
-	dprint 'a','b','o','r','t','e','d',0,
 	disable_object(0x2f)
 	goto_first(0x08)
 
@@ -2492,7 +2465,6 @@ u8 func0402_move_to_holoroom[] = {
 
 u8 func0429_grimshaw_disguise[] = {
 	set_returnlist(CHR_SELF, AILIST_GRIMSHAW_DISGUISE)
-	dprint 'I','n','i','t','i','a','l','i','s','e','a',0,
 	restart_timer
 
 	beginloop(0x0f)
@@ -2516,7 +2488,6 @@ u8 func0429_grimshaw_disguise[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	dprint 'I','n','i','t','i','a','l','i','s','e','b',0,
 	restart_timer
 	label(0x08)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x06)
@@ -2529,7 +2500,6 @@ u8 func0429_grimshaw_disguise[] = {
 	endloop(0x09)
 
 	label(0x06)
-	dprint 'I','n','i','t','i','a','l','i','s','e','c',0,
 	do_preset_animation(PRESETANIM_TALK3)
 	play_cistaff_quip(CIQUIP_GREETING, CHANNEL_6)
 	restart_timer
@@ -2540,7 +2510,6 @@ u8 func0429_grimshaw_disguise[] = {
 	endloop(0x57)
 
 	label(0x06)
-	dprint 'I','n','i','t','i','a','l','i','s','e','d',0,
 	restart_timer
 
 	beginloop(0x58)
@@ -2598,18 +2567,15 @@ u8 func0429_grimshaw_disguise[] = {
 u8 func100c_cloak_detection[] = {
 	beginloop(0x04)
 		deactivate_alarm
-		dprint 'I','N','I','T','Y',0,
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_CLOAK, TRUE, /*goto*/ 0x8f)
 		reloop(0x04)
 
 		beginloop(0x8f)
-			dprint 'L','O','O','P','Y',0,
 			if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x5d)
 			if_chr_distance_to_pad_lt(CHR_BOND, 200, PAD_DISH_027B, /*goto*/ 0x06)
 		endloop(0x8f)
 
 		beginloop(0x5d)
-			dprint 'W','A','I','T','Y',0,
 			if_stage_flag_eq(STAGEFLAG_TRIGGER_CLOAK, FALSE, /*goto*/ 0x30)
 		endloop(0x5d)
 
@@ -2627,7 +2593,6 @@ u8 func100c_cloak_detection[] = {
 	endloop(0x04)
 
 	label(0x06)
-	dprint 'G','O','T','T','H','R','U',0,
 	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_CLOAKED, /*goto*/ 0x30)
 	activate_alarm
 	yield
@@ -2671,7 +2636,6 @@ u8 func100c_cloak_detection[] = {
 
 	beginloop(0x5c)
 		yield
-		dprint 'W','A','I','T','F','I','N',0,
 		if_timer_gt(60, /*goto*/ 0x2f)
 	endloop(0x5c)
 
@@ -2692,7 +2656,6 @@ u8 func042a_carrington_cloak[] = {
 	endloop(0x8f)
 
 	label(0x06)
-	dprint 'I','n','i','t','i','a','l','i','s','e','a',0,
 
 	beginloop(0x04)
 		if_target_in_sight(/*goto*/ 0x2f)
@@ -2708,7 +2671,6 @@ u8 func042a_carrington_cloak[] = {
 	label(0x2f)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	close_door(0x40)
-	dprint 'I','n','i','t','i','a','l','i','s','e','b',0,
 	restart_timer
 	label(0x08)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x06)
@@ -2720,7 +2682,6 @@ u8 func042a_carrington_cloak[] = {
 	endloop(0x09)
 
 	label(0x06)
-	dprint 'I','n','i','t','i','a','l','i','s','e','c',0,
 	restart_timer
 	chr_do_animation(ANIM_WALK_BACKWARDS, -1, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	restart_timer
@@ -2938,7 +2899,6 @@ u8 func042b_init_carrington[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	set_savefile_flag(GAMEFILEFLAG_CI_TOUR_DONE)
 #endif
-	dprint 'E','E','P','R','O','M',' ','S','E','T',0,
 
 	beginloop(0x08)
 		chr_move_to_pad(CHR_SELF, PAD_CARRINGTON_OFFICE, 0x01, /*goto*/ 0x2f)
@@ -2948,7 +2908,6 @@ u8 func042b_init_carrington[] = {
 	set_ailist(CHR_SELF, 0x041e)
 
 	label(0x06)
-	dprint 'E','E','P','R','O','M',' ','N','O','T','S','E','T',0,
 	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_DONE, /*goto*/ 0x8f)
 	goto_first(0x08)
 
@@ -2984,7 +2943,6 @@ u8 func042c_carrington_tour[] = {
 	try_face_entity(ATTACKFLAG_AIMATPAD, 0x0054, /*goto*/ 0x04)
 
 	beginloop(0x04)
-		dprint 'F','A','C','E',' ','P','A','D',0,
 		if_timer_gt(1200, /*goto*/ 0x2f)
 		if_can_see_target(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
@@ -3631,7 +3589,6 @@ u8 func101c_holo1_main[] = {
 	unset_object_flag2(0x4e, OBJFLAG2_IMMUNETOANTI)
 	unset_object_flag2(0x4f, OBJFLAG2_IMMUNETOANTI)
 	disable_chr(0x04)
-	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x91)
 	if_object_flag2(0x4c, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
@@ -3675,13 +3632,11 @@ u8 func101c_holo1_main[] = {
 	goto_first(0x91)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_HOLO1_DONE)
-	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
 	goto_next(0x84)
@@ -3699,7 +3654,6 @@ u8 func101c_holo1_main[] = {
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_7)
 	enable_chr(0x04)
-	dprint 'a','b','o','r','t','e','d',0,
 	disable_object(0x48)
 	disable_object(0x49)
 	disable_object(0x4a)
@@ -3907,23 +3861,19 @@ u8 func0430_holo1_check_done[] = {
 	goto_next(0x06)
 
 	label(0x2f)
-	dprint 'D','O','H','1',0,
 	if_object_flag2(0x4d, OBJFLAG2_00040000, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	dprint 'D','O','H','2',0,
 	if_object_flag2(0x4e, OBJFLAG2_00040000, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	dprint 'D','O','H','3',0,
 	if_object_flag2(0x4f, OBJFLAG2_00040000, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	// All flags are set
 	label(0x2f)
-	dprint 'D','O','H','4',0,
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_106) // "Holoprogram 1 has been completed successfully."
 	restart_timer
@@ -3993,7 +3943,6 @@ u8 func1022_holo2_main[] = {
 	enable_object(0x56)
 	enable_object(0x57)
 	disable_chr(0x04)
-	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x2f)
 	label(0x91)
 	remove_hudmsgs
@@ -4017,13 +3966,11 @@ u8 func1022_holo2_main[] = {
 	goto_first(0x91)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	goto_next(0x90)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_HOLO2_DONE)
-	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
 	goto_next(0x84)
@@ -4040,7 +3987,6 @@ u8 func1022_holo2_main[] = {
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_7)
 	enable_chr(0x04)
-	dprint 'a','b','o','r','t','e','d',0,
 	disable_object(0x54)
 	disable_object(0x55)
 	disable_object(0x56)
@@ -4300,7 +4246,6 @@ u8 func1027_holo3_main[] = {
 	close_door(0x70)
 	close_door(0x71)
 	close_door(0x72)
-	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x2f)
 	label(0x91)
 	remove_hudmsgs
@@ -4325,13 +4270,11 @@ u8 func1027_holo3_main[] = {
 	goto_first(0x91)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_HOLO3_DONE)
-	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
 	goto_next(0x84)
@@ -4348,7 +4291,6 @@ u8 func1027_holo3_main[] = {
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_7)
 	enable_chr(0x04)
-	dprint 'a','b','o','r','t','e','d',0,
 	disable_object(0x58)
 	disable_object(0x59)
 	disable_object(0x5a)
@@ -4528,7 +4470,6 @@ u8 func1028_holo4_main[] = {
 	disable_chr(0x04)
 	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0274, AILIST_HOLO4_GUARD1, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x08)
 	label(0x08)
-	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_hudmsgs
@@ -4567,13 +4508,11 @@ u8 func1028_holo4_main[] = {
 	goto_first(0x91)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_HOLO4_DONE)
-	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
 	goto_next(0x84)
@@ -4592,7 +4531,6 @@ u8 func1028_holo4_main[] = {
 	remove_chr(0x0d)
 	remove_chr(0x0e)
 	remove_chr(0x0f)
-	dprint 'a','b','o','r','t','e','d',0,
 	enable_object(0x45)
 	label(0x06)
 	remove_hudmsgs
@@ -4772,7 +4710,6 @@ u8 func1029_holo5_main[] = {
 	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0126, AILIST_HOLO5_INIT_GUARD1, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x06)
 	label(0x06)
 	yield
-	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_hudmsgs
@@ -4812,13 +4749,11 @@ u8 func1029_holo5_main[] = {
 	goto_first(0x82)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_HOLO5_DONE)
-	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
 	goto_next(0x84)
@@ -4838,7 +4773,6 @@ u8 func1029_holo5_main[] = {
 	remove_chr(0x10)
 	remove_chr(0x11)
 	remove_chr(0x12)
-	dprint 'a','b','o','r','t','e','d',0,
 	enable_object(0x45)
 	remove_hudmsgs
 
@@ -4865,7 +4799,6 @@ u8 func0406_holo5_init_guard1[] = {
 
 u8 func0407_holo5_guard1[] = {
 	set_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
-	dprint 'C','R','E','A','T','E','D',' ','4',0,
 	set_shotlist(AILIST_HOLO5_GUARD1)
 	set_chr_maxdamage(CHR_SELF, 300)
 	add_health_or_armor(300)
@@ -4954,7 +4887,6 @@ u8 func0408_holo5_init_guard2[] = {
 };
 
 u8 func0409_holo5_guard2[] = {
-	dprint 'C','R','E','A','T','E','D',' ','5',0,
 	set_shotlist(AILIST_HOLO5_GUARD2)
 	label(0x04)
 	yield
@@ -4966,7 +4898,6 @@ u8 func0409_holo5_guard2[] = {
 	start_patrol
 	label(0x08)
 	yield
-	dprint 'O','n',' ','P','a','t','r','o','l',0,
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
@@ -5014,7 +4945,6 @@ u8 func040a_holo5_init_guard3[] = {
 };
 
 u8 func040b_holo5_guard3[] = {
-	dprint 'C','R','E','A','T','E','D',' ','6',0,
 	set_shotlist(AILIST_HOLO_GUARD_ARMED_UNALERT)
 	restart_timer
 
@@ -5061,10 +4991,8 @@ u8 func1034_holo5_part1[] = {
 		if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 #if VERSION >= VERSION_NTSC_1_0
 		if_chr_has_flag_bankx(0x10, CHRFLAG0_00008000, BANK_0, /*goto*/ 0x2f)
-		dprint 'C','H','R',' ','4','F','D',0,
 #else
 		if_chr_alertness_lt(100, 0x10, /*goto*/ 0x06)
-		dprint 'C','H','R',' ','4','F','D',0,
 		goto_next(0x2f)
 #endif
 		label(0x06)
@@ -5083,7 +5011,6 @@ u8 func1034_holo5_part1[] = {
 	goto_first(0x04)
 
 	label(0x2f)
-	dprint 'C','H','R',' ','5','F','D',0,
 	yield
 	yield
 	yield
@@ -5096,7 +5023,6 @@ u8 func1034_holo5_part1[] = {
 	goto_first(0x04)
 
 	label(0x2f)
-	dprint 'C','H','R',' ','6','F','D',0,
 	restart_timer
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
@@ -5162,7 +5088,6 @@ u8 func102e_holo6_main[] = {
 	endloop(0x5c)
 
 	label(0x5d)
-	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x2f)
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
@@ -5188,13 +5113,11 @@ u8 func102e_holo6_main[] = {
 	goto_first(0x91)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_HOLO6_DONE)
-	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
 	goto_next(0x84)
@@ -5215,7 +5138,6 @@ u8 func102e_holo6_main[] = {
 	remove_chr(0x14)
 	remove_chr(0x15)
 	remove_chr(0x16)
-	dprint 'a','b','o','r','t','e','d',0,
 	enable_object(0x45)
 	label(0x06)
 	remove_hudmsgs
@@ -5460,7 +5382,6 @@ u8 func102f_holo1_part1[] = {
 		yield
 		yield
 		yield
-		dprint 'N','O',' ','D','E','A','D',0,
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 		if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 		if_chr_dead(0x13, /*goto*/ 0x2f)
@@ -5473,7 +5394,6 @@ u8 func102f_holo1_part1[] = {
 	yield
 	yield
 	yield
-	dprint 'C','H','R',' ','7','F','D',0,
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	if_chr_dead(0x14, /*goto*/ 0x2f)
@@ -5486,7 +5406,6 @@ u8 func102f_holo1_part1[] = {
 	yield
 	yield
 	yield
-	dprint 'C','H','R',' ','8','F','D',0,
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	if_chr_dead(0x15, /*goto*/ 0x2f)
@@ -5499,7 +5418,6 @@ u8 func102f_holo1_part1[] = {
 	yield
 	yield
 	yield
-	dprint 'C','H','R',' ','9','F','D',0,
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	if_chr_dead(0x16, /*goto*/ 0x2f)
@@ -5508,7 +5426,6 @@ u8 func102f_holo1_part1[] = {
 	goto_first(0x04)
 
 	label(0x2f)
-	dprint 'C','H','R',' ','1','0','F','D',0,
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	remove_hudmsgs
@@ -5577,7 +5494,6 @@ u8 func1030_holo7_main[] = {
 	endloop(0x5d)
 
 	label(0x5e)
-	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x2f)
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
@@ -5587,7 +5503,6 @@ u8 func1030_holo7_main[] = {
 	restart_timer
 
 	beginloop(0x82)
-		dprint 't','r','a','n',' ','l','o','o','p',0,
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x90)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_FAILURE, TRUE, /*goto*/ 0x85)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x83)
@@ -5605,13 +5520,11 @@ u8 func1030_holo7_main[] = {
 	goto_first(0x91)
 
 	label(0x85)
-	dprint 'f','a','i','l',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	goto_next(0x84)
 
 	label(0x83)
 	set_savefile_flag(GAMEFILEFLAG_CI_HOLO7_DONE)
-	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
 	goto_next(0x84)
@@ -5633,7 +5546,6 @@ u8 func1030_holo7_main[] = {
 	remove_chr(0x1b)
 	remove_chr(0x17)
 	remove_chr(0x18)
-	dprint 'a','b','o','r','t','e','d',0,
 	enable_object(0x45)
 	remove_hudmsgs
 
@@ -6066,7 +5978,6 @@ u8 func1042_check_jo_in_training_room[] = {
 	beginloop(0x04)
 		// Wait until player in training
 #if VERSION >= VERSION_NTSC_1_0
-		dprint 'C','H','K','1',0,
 #endif
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_UPLINK, TRUE, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_ECMMINE, TRUE, /*goto*/ 0x2f)
@@ -6105,7 +6016,6 @@ u8 func1042_check_jo_in_training_room[] = {
 		set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 		label(0x06)
 #if VERSION >= VERSION_NTSC_1_0
-		dprint 'C','H','K','2',0,
 #endif
 		yield
 		yield
@@ -6114,7 +6024,6 @@ u8 func1042_check_jo_in_training_room[] = {
 
 		label(0x57)
 #if VERSION >= VERSION_NTSC_1_0
-		dprint 'C','H','K','3',0,
 #endif
 		yield
 		if_stage_flag_eq(STAGEFLAG_CONSIDER_WARP, TRUE, /*goto*/ 0x2f)
@@ -6123,7 +6032,6 @@ u8 func1042_check_jo_in_training_room[] = {
 		label(0x2f)
 		label(0x59)
 #if VERSION >= VERSION_NTSC_1_0
-		dprint 'C','H','K','4',0,
 #endif
 		yield
 		if_stage_flag_eq(STAGEFLAG_CONSIDER_WARP, FALSE, /*goto*/ 0x2f)
@@ -6131,7 +6039,6 @@ u8 func1042_check_jo_in_training_room[] = {
 
 		label(0x2f)
 #if VERSION >= VERSION_NTSC_1_0
-		dprint 'C','H','K','5',0,
 #endif
 		yield
 		yield
@@ -6150,7 +6057,6 @@ u8 func1042_check_jo_in_training_room[] = {
 	restart_timer
 	label(0x5c)
 #if VERSION >= VERSION_NTSC_1_0
-	dprint 'C','H','K','6',0,
 #endif
 	yield
 	if_timer_gt(60, /*goto*/ 0x2f)

@@ -664,7 +664,7 @@ u32 chraiGoToLabel(u8 *ailist, u32 aioffset, u8 label)
 			return 0;
 		}
 
-		aioffset += chraiGetCommandLength(ailist, aioffset);
+		aioffset += g_CommandLengths[type];
 	} while (true);
 }
 
@@ -779,15 +779,8 @@ void chraiExecute(void *entity, s32 proptype)
 			u8 *cmd = g_Vars.aioffset + g_Vars.ailist;
 			s32 type = (cmd[0] << 8) + cmd[1];
 
-			if (type >= 0 && type < ARRAYCOUNT(g_CommandPointers)) {
-				if (g_CommandPointers[type]()) {
-					break;
-				}
-			} else {
-				// This is attempting to handle situations where the command
-				// type is invalid by passing over them and continuing
-				// execution. This would very likely result in a crash though.
-				g_Vars.aioffset += chraiGetCommandLength(g_Vars.ailist, g_Vars.aioffset);
+			if (g_CommandPointers[type]()) {
+				break;
 			}
 		}
 	}
@@ -797,16 +790,6 @@ u32 chraiGetCommandLength(u8 *ailist, u32 aioffset)
 {
 	u8 *cmd = aioffset + ailist;
 	s32 type = (cmd[0] << 8) + cmd[1];
-
-	if (type == CMD_PRINT) {
-		u32 prop = aioffset + 2;
-
-		while (ailist[prop] != 0) {
-			++prop;
-		}
-
-		return (prop - aioffset) + 1;
-	}
 
 	if (type >= 0 && type < ARRAYCOUNT(g_CommandLengths)) {
 		return g_CommandLengths[type];

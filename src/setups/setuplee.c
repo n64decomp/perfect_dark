@@ -944,7 +944,6 @@ u8 func0409_elvis_follow[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	restart_timer
 	say_quip(CHR_BOND, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
-	dprint 'I','N','J','U','R','E','D','\n',0,
 
 	beginloop(LABEL_C1)
 		if_timer_gt(180, /*goto*/ 0x06)
@@ -953,7 +952,6 @@ u8 func0409_elvis_follow[] = {
 
 	// Healthy
 	label(0x06)
-	dprint 'I','N','J','U','R','E','D','F','I','N','\n',0,
 #else
 	say_quip(CHR_BOND, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 
@@ -985,7 +983,6 @@ u8 func0409_elvis_follow[] = {
 		if_stage_flag_eq(STAGEFLAG_SAID_GO_ON_AHEAD, TRUE, /*goto*/ 0x2c)
 		if_chr_in_room(CHR_ELVIS, 0x00, 0x006c, /*goto*/ LABEL_C4)
 		label(0x2c)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
 		if_distance_to_target_lt(200, /*goto*/ 0x06)
@@ -1007,7 +1004,6 @@ u8 func0409_elvis_follow[] = {
 		if_stage_flag_eq(STAGEFLAG_SAID_GO_ON_AHEAD, TRUE, /*goto*/ 0x2c)
 		if_chr_in_room(CHR_ELVIS, 0x00, 0x006c, /*goto*/ LABEL_C4)
 		label(0x2c)
-		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
 		if_distance_to_target_gt(300, /*goto*/ 0x06)
@@ -1027,7 +1023,6 @@ u8 func0409_elvis_follow[] = {
 	goto_first(0x03)
 
 	label(0x06)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	call_rng
 	if_rand_lt(85, /*goto*/ LABEL_65)
 	if_rand_lt(170, /*goto*/ LABEL_66)
@@ -1120,7 +1115,6 @@ u8 func041c_elvis_outside_prebridgelift[] = {
 	endloop(0x0c)
 
 	label(0x08)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_shotlist(AILIST_ELVIS_OUTSIDE_PREBRIDGELIFT)
 	set_returnlist(CHR_SELF, AILIST_ELVIS_OUTSIDE_PREBRIDGELIFT)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
@@ -1235,7 +1229,6 @@ u8 func041b_elvis_at_bridge[] = {
 	endloop(0x0c)
 
 	label(0x08)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_shotlist(AILIST_ELVIS_AT_BRIDGE)
 	set_returnlist(CHR_SELF, AILIST_ELVIS_AT_BRIDGE)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
@@ -1412,7 +1405,6 @@ u8 func1008_hangar_lifts[] = {
 
 	// Activate Jo's lift so it starts going to bottom
 	label(0x2c)
-	dprint 'U','N','\n',0,
 	unset_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 	yield
 	yield
@@ -1428,7 +1420,6 @@ u8 func1008_hangar_lifts[] = {
 
 	// Wait until lift stopped at bottom
 	beginloop(LABEL_65)
-		dprint 'D','A','\n',0,
 		if_lift_stationary(OBJ_HANGARLIFT_JO, /*goto*/ LABEL_66)
 	endloop(LABEL_65)
 
@@ -1443,7 +1434,6 @@ u8 func1008_hangar_lifts[] = {
 	set_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 
 	beginloop(LABEL_67)
-		dprint 'T','R','\n',0,
 		chr_toggle_p1p2(CHR_SELF)
 		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
 		if_chr_in_room(CHR_BOND, 0x00, 0x0018, /*goto*/ 0x2c)
@@ -1453,7 +1443,6 @@ u8 func1008_hangar_lifts[] = {
 
 	// Door closing automatically - reopen it
 	label(0x2d)
-	dprint 'P','E','\n',0,
 	goto_first(LABEL_66)
 
 	// Jo has entered the lift, or Jo dead in co-op
@@ -1473,7 +1462,6 @@ u8 func1008_hangar_lifts[] = {
 
 	// Wait until Y coordinate >= 400
 	beginloop(0x09)
-		dprint 'P','U','\n',0,
 		chr_toggle_p1p2(CHR_SELF)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ 0x2c)
 		if_chr_y(CHR_P1P2, 400, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
@@ -1698,7 +1686,6 @@ u8 func0408_knifeable_skedar[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_just_injured(CHR_SELF, /*goto*/ 0x0c)
-		dprint 'W','A','I','T','I','N','G',' ','T','W','O','\n',0,
 		if_chr_stopped(/*goto*/ 0x0d)
 		label(0x06)
 		if_target_in_sight(/*goto*/ 0x0c)
@@ -1914,7 +1901,6 @@ u8 func0419_hangar_maian[] = {
 	go_to_target_pad(GOPOSFLAG_RUN)
 
 	beginloop(0x04)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2c)
@@ -1929,7 +1915,6 @@ u8 func0419_hangar_maian[] = {
 
 	// Wait at pad for enemy
 	beginloop(0x09)
-		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		if_chr_distance_to_pad_gt(CHR_SELF, 300, PAD_PRESET, /*goto*/ 0x06)
 	endloop(0x09)
@@ -1939,7 +1924,6 @@ u8 func0419_hangar_maian[] = {
 
 	// Enemy detected
 	label(0x08)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_returnlist(CHR_SELF, AILIST_HANGAR_MAIAN)
 	set_shotlist(AILIST_HANGAR_MAIAN)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
@@ -2486,7 +2470,6 @@ u8 func041a_bridgeclone[] = {
 	// Close to target - face them
 	label(0x2e)
 	restart_timer
-	dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
 	if_target_in_fov_left(10, /*goto*/ 0x06)
 	if_target_out_of_fov_left(246, /*goto*/ 0x06)
 	stop_chr
@@ -3240,7 +3223,6 @@ u8 func0421_bridge_skedar[] = {
 
 	label(LABEL_60)
 	try_attack_amount(40, 60)
-	dprint 'F','I','R','E',' ','F','U','L','L','\n',0,
 	label(0x06)
 	goto_first(LABEL_CB)
 
@@ -3579,7 +3561,6 @@ u8 func101c_lift_door_sounds[] = {
 	endloop(LABEL_C2)
 
 	label(0x2c)
-	dprint 'S','O','U','N','D','\n',0,
 	play_sound(SFX_81A6, -1)
 	restart_timer
 

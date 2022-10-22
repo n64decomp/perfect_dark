@@ -1261,7 +1261,6 @@ u8 func0408_outro[] = {
 
 	#define outro_wait_until1(time, msg, loopid) \
 		beginloop(loopid) \
-			dprint msg, '\n', 0, \
 			if_controller_button_pressed(/*goto*/ 0x56) \
 			if_timer_gt(time, /*goto*/ 0x06) \
 		endloop(loopid) \
@@ -1269,7 +1268,6 @@ u8 func0408_outro[] = {
 
 	#define outro_wait_until2(time, msg1, msg2, loopid) \
 		beginloop(loopid) \
-			dprint msg1, msg2, '\n', 0, \
 			if_controller_button_pressed(/*goto*/ 0x56) \
 			if_timer_gt(time, /*goto*/ 0x06) \
 		endloop(loopid) \
@@ -1317,7 +1315,6 @@ u8 func0408_outro[] = {
 	// @bug: No check for button presses for about 8 seconds while Carrington is
 	// saying the above line.
 	beginloop(0xaf)
-		dprint '1','4','\n',0,
 		if_timer_gt(738, /*goto*/ 0x06)
 	endloop(0xaf)
 
@@ -1382,7 +1379,6 @@ u8 func0408_outro[] = {
 
 	label(0x56)
 	label(0x06)
-	dprint '3','2','\n',0,
 	mute_channel(CHANNEL_7)
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_5)
@@ -1553,7 +1549,6 @@ u8 func0402_taker[] = {
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
-		dprint 'A','I','M','I','N','G',' ','A','T',' ','M','E','\n',0,
 		if_chr_distance_to_pad_lt(CHR_P1P2, 200, PAD_ELD_0236, /*goto*/ 0x06)
 		label(0x2d)
 		if_self_flag_bankx_eq(CHRFLAG0_CAN_FLEESURRENDER, TRUE, BANK_0, /*goto*/ 0x06)
@@ -1678,7 +1673,6 @@ u8 func0403_negotiator[] = {
 	run_to_pad(PAD_ELD_004F)
 
 	beginloop(0x08)
-		dprint 'R','U','N',' ','T','O',' ','P','A','D','\n',0,
 		if_chr_stopped(/*goto*/ 0x06)
 	endloop(0x08)
 
@@ -1800,7 +1794,6 @@ u8 func0404_sniper[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		dprint 'S','T','A','R','T','\n',0,
 		if_target_in_sight(/*goto*/ 0x58)
 
 		// Choose a direction to face
@@ -1826,7 +1819,6 @@ u8 func0404_sniper[] = {
 		// Not actually running to a pad. Just waiting 2 seconds for the change
 		// in direction, or until detected player.
 		label(0x06)
-		dprint 'R','U','N',' ','T','O',' ','P','A','D','\n',0,
 		restart_timer
 
 		beginloop(0x0a)
@@ -1835,7 +1827,6 @@ u8 func0404_sniper[] = {
 			if_target_in_sight(/*goto*/ 0x58)
 			if_saw_death(0x00, /*goto*/ 0x58)
 			if_saw_injury(0x00, /*goto*/ 0x58)
-			dprint 'F','A','C','E','\n',0,
 			if_timer_gt(120, /*goto*/ 0x06)
 		endloop(0x0a)
 
@@ -1870,7 +1861,6 @@ u8 func0404_sniper[] = {
 			if_target_in_sight(/*goto*/ 0x58)
 			if_saw_death(0x00, /*goto*/ 0x58)
 			if_saw_injury(0x00, /*goto*/ 0x58)
-			dprint 'R','U','N','\n',0,
 			call_rng
 			if_rand_gt(3, /*goto*/ 0x2d)
 			if_timer_gt(600, /*goto*/ 0x06)
@@ -1909,7 +1899,6 @@ u8 func0404_sniper[] = {
 	endloop(0x04)
 
 	label(0x64)
-	dprint 'S','N','I','P','E',' ','D','I','E','\n',0,
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

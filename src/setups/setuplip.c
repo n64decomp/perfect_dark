@@ -1097,7 +1097,6 @@ u8 func1007_check_disguise_collected[] = {
 	endloop(0x04)
 
 	label(0x06)
-	dprint 'D','I','S','G','U','I','S','E','D',' ','U','P','\n',0,
 
 	beginloop(0x08)
 		if_chr_has_hiddenflag(CHR_P1P2, CHRHFLAG_DISGUISED, /*goto*/ LABEL_2D)
@@ -1590,7 +1589,6 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	endloop(0x09)
 
 	label(0x06)
-	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_TARGET, L_LIP_037, MP3_032D, CHANNEL_4, COLOR_08_RED) // "Who are you?"
 	restart_timer
 	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ LABEL_64)
@@ -1703,7 +1701,6 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	// Tech saw weapon
 	label(LABEL_53)
 	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
-	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_TARGET, L_LIP_041, SFX_8156, CHANNEL_4, COLOR_08_RED) // "Oh, my God - a gun!"
 	restart_timer
 
@@ -1984,7 +1981,6 @@ u8 func0418_doorman[] = {
 
 	// Disguise not used, or uncovered
 	label(LABEL_2D)
-	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_TARGET, L_LIP_051, SFX_8158, CHANNEL_4, COLOR_08_RED) // "Hey, you're not... SECURITY ALERT!"
 	restart_timer
 	stop_chr
@@ -2235,7 +2231,6 @@ u8 func041a_labtech_harrysmate[] = {
 	endloop(0x0c)
 
 	label(0x06)
-	dprint 'C','R','E','A','T','E','D',' ','W','E','A','P','\n',0,
 	try_equip_weapon(MODEL_CHRDRUGGUN, WEAPON_TRANQUILIZER, 0x10000000, /*goto*/ 0x06)
 	label(0x06)
 #if VERSION >= VERSION_NTSC_1_0
@@ -2327,7 +2322,6 @@ u8 func041b_labtech_keycardguy[] = {
 	endloop(0x0a)
 
 	label(0x06)
-	dprint 'C','R','E','A','T','E','D',' ','W','E','A','P','\n',0,
 	try_equip_weapon(MODEL_CHRDRUGGUN, WEAPON_TRANQUILIZER, 0x10000000, /*goto*/ 0x06)
 	label(0x06)
 #if VERSION >= VERSION_NTSC_1_0
@@ -2463,7 +2457,6 @@ u8 func1010_give_keycard[] = {
 	if_chr_death_animation_finished(0x23, /*goto*/ 0x06)
 	if_chr_knockedout(0x23, /*goto*/ 0x06)
 	give_object_to_chr(0x10, 0x23)
-	dprint 'G','I','V','E',' ','T','O','4',0,
 	goto_next(LABEL_2D)
 
 	label(0x06)
@@ -2471,7 +2464,6 @@ u8 func1010_give_keycard[] = {
 	if_chr_death_animation_finished(0x24, /*goto*/ 0x06)
 	if_chr_knockedout(0x24, /*goto*/ 0x06)
 	give_object_to_chr(0x10, 0x24)
-	dprint 'G','I','V','E',' ','T','O','5',0,
 	goto_next(LABEL_2D)
 
 	label(0x06)
@@ -2479,14 +2471,12 @@ u8 func1010_give_keycard[] = {
 	if_chr_death_animation_finished(0x25, /*goto*/ 0x06)
 	if_chr_knockedout(0x25, /*goto*/ 0x06)
 	give_object_to_chr(0x10, 0x25)
-	dprint 'G','I','V','E',' ','T','O','6',0,
 	goto_next(LABEL_2D)
 
 	label(0x06)
 	if_chr_death_animation_finished(0x26, /*goto*/ LABEL_2D)
 	if_chr_dead(0x26, /*goto*/ LABEL_2D)
 	if_chr_knockedout(0x26, /*goto*/ LABEL_2D)
-	dprint 'G','I','V','E',' ','T','O','7',0,
 
 	label(LABEL_2D)
 	unset_object_flag2(0x10, OBJFLAG2_INVISIBLE)
@@ -2585,7 +2575,6 @@ u8 func0413_mechanic[] = {
 	endloop(0x09)
 
 	label(0x06)
-	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_BOND, L_LIP_065, SFX_M0_GET_THE_HELL_OUT_OF_HERE, CHANNEL_4, COLOR_08_RED) // "Get the hell out of here!"
 	restart_timer
 	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -2650,11 +2639,9 @@ u8 func0415_warehouse_spawner[] = {
 		reloop(0x04)
 
 		label(0x08)
-		dprint 'H','E','A','R','S','P','A','W','N','\n',0,
 
 		label(LABEL_2D)
 		if_never_been_onscreen(/*goto*/ LABEL_4E)
-		dprint 'N','E','V','E','R',' ','V','I','S','F','A','I','L','\n',0,
 		if_can_see_target(/*goto*/ 0x08)
 		reloop(0x04)
 
@@ -2665,14 +2652,11 @@ u8 func0415_warehouse_spawner[] = {
 		set_ailist(CHR_SELF, GAILIST_ALERTED)
 
 		label(LABEL_4E)
-		dprint 'C','H','E','C','K',' ','D','U','P','E','\n',0,
 		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ LABEL_4E)
 		reloop(0x04)
 
 		label(LABEL_4E)
-		dprint 'C','R','E','A','T','E',' ','S','P','A','W','N','\n',0,
 		try_spawn_clone2(CHR_SELF, AILIST_WAREHOUSE_CLONE, 0, /*goto*/ LABEL_2D)
-		dprint 'C','R','E','A','T','E',' ','F','A','I','L','\n',0,
 		reloop(0x04)
 
 		label(LABEL_2D)
@@ -2879,7 +2863,6 @@ u8 func041f_labtech_lights[] = {
 	// Jo in sight
 	label(0x03)
 	object_do_animation(ANIM_025A, 0xff, 0x02, 0xffff)
-	dprint 'T','A','L','K',' ','0','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_SKIPSAFETYCHECKS, TRUE, BANK_0, /*goto*/ LABEL_53)
 	restart_timer
 	label(0x08)
@@ -2891,7 +2874,6 @@ u8 func041f_labtech_lights[] = {
 	endloop(0x09)
 
 	label(0x06)
-	dprint 'T','A','L','K',' ','1','\n',0,
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISE_UNCOVERED, /*goto*/ 0x06)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ LABEL_2D)
 	label(0x06)
@@ -3120,18 +3102,14 @@ u8 func0420_labtech_doors[] = {
 	endloop(0x09)
 
 	label(0x06)
-	dprint 'T','A','L','K',' ','1','\n',0,
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISE_UNCOVERED, /*goto*/ 0x06)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ LABEL_2D)
 	label(0x06)
-	dprint 'T','A','L','K',' ','2','\n',0,
 	goto_next(0x06)
 
 	label(LABEL_2D)
-	dprint 'T','A','L','K',' ','3','\n',0,
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ LABEL_2D)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ LABEL_2D)
-	dprint 'T','A','L','K',' ','4','\n',0,
 	goto_next(0x06)
 
 	label(LABEL_2D)
@@ -3142,7 +3120,6 @@ u8 func0420_labtech_doors[] = {
 	beginloop(LABEL_7B)
 		if_saw_injury(0x00, /*goto*/ LABEL_89)
 		if_saw_death(0x00, /*goto*/ LABEL_89)
-		dprint 'T','A','L','K',' ','5','\n',0,
 		if_chr_not_talking(CHR_SELF, /*goto*/ LABEL_2D)
 	endloop(LABEL_7B)
 
@@ -3214,7 +3191,6 @@ u8 func0420_labtech_doors[] = {
 	endloop(LABEL_73)
 
 	label(0x06)
-	dprint 'F','L','A','G',' ','S','E','T','\n',0,
 	label(0x10)
 	chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
@@ -3367,7 +3343,6 @@ u8 func0422_labtech_records[] = {
 	endloop(LABEL_79)
 
 	label(LABEL_2D)
-	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_TARGET, L_LIP_086, SFX_M1_WARN_THE_OTHERS, CHANNEL_4, COLOR_08_RED) // "Warn the others..."
 	label(LABEL_2D)
 	label(0x06)
@@ -3378,7 +3353,6 @@ u8 func0422_labtech_records[] = {
 	endloop(0x0a)
 
 	label(0x06)
-	dprint 'F','L','A','G',' ','S','E','T','\n',0,
 	label(0x10)
 	chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
@@ -4315,7 +4289,6 @@ u8 func0429_spawn_while_xraying[] = {
 		reloop(0x04)
 
 		label(0x06)
-		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0,
 		label(LABEL_4E)
 		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ LABEL_4E)
 		reloop(0x04)
@@ -4497,11 +4470,9 @@ u8 func1027_check_disguise_worn[] = {
 
 u8 func1028_toggle_mechanic[] = {
 	if_savefile_flag_is_set(GAMEFILEFLAG_RESCUE_MECHANIC_DEAD, /*goto*/ 0x06)
-	dprint 'K','E','E','P',' ','M','E','C','H','\n',0,
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x06)
-	dprint 'D','E','L','E','T','E',' ','M','E','C','H','\n',0,
 	disable_chr(CHR_MECHANIC)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

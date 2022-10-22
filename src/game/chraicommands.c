@@ -3811,21 +3811,6 @@ bool aiChrCopyPadPreset(void)
  */
 bool aiPrint(void)
 {
-	u32 len;
-	u32 result = dprint();
-
-	if (result) {
-		result = 2;
-	}
-
-	if (result == 2) {
-		// empty
-	}
-
-	len = chraiGetCommandLength(g_Vars.ailist, g_Vars.aioffset);
-
-	g_Vars.aioffset += len;
-
 	return false;
 }
 

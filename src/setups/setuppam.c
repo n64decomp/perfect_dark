@@ -720,7 +720,6 @@ s32 path10[] = {
 };
 
 u8 func0401_unused[] = {
-	dprint 'h','o','v','\n',0,
 	begin_hovercar_path(0x00)
 	set_vehicle_speed(384, 120)
 
@@ -757,7 +756,6 @@ u8 func040b_init_elvis[] = {
 };
 
 u8 func0402_elvis_follow_and_reactive_teleportals[] = {
-	dprint 'B','A','C','K',' ','T','O',' ','E','L','V','I','S','\n',0,
 	set_returnlist(CHR_SELF, AILIST_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	set_shotlist(AILIST_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	set_target_chr(CHR_PRESET)
@@ -803,7 +801,6 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 
 	// Jo distance >= 200
 	label(0x03)
-	dprint 'G','O','T','O','W','\n',0,
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_distance_to_target_gt(300, /*goto*/ 0x06)
@@ -988,7 +985,6 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 		if_stage_flag_eq(STAGEFLAG_AGENT_MEGAWEAPON_DISABLED, TRUE, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_ELVIS, 0x00, 0x006c, /*goto*/ 0x1d)
 		label(0x2e)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
 		if_distance_to_target_lt(200, /*goto*/ 0x06)
@@ -1002,11 +998,9 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	stop_chr
 
 	beginloop(0x09)
-		dprint 'B','4',' ','P','A','D','\n',0,
 		if_stage_flag_eq(STAGEFLAG_AGENT_MEGAWEAPON_DISABLED, TRUE, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_ELVIS, 0x00, 0x006c, /*goto*/ 0x1d)
 		label(0x2e)
-		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
 		if_distance_to_target_gt(300, /*goto*/ 0x06)
@@ -1016,7 +1010,6 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	goto_first(0x03)
 
 	label(0x08)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	call_rng
 	if_rand_lt(85, /*goto*/ 0x63)
 	if_rand_lt(170, /*goto*/ 0x64)
@@ -1123,7 +1116,6 @@ u8 func0405_elvis_follow_nocombat[] = {
 
 	beginloop(0x04)
 		label(0x2e)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(300, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
 		if_distance_to_target_lt(200, /*goto*/ 0x06)
@@ -1137,9 +1129,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 	stop_chr
 
 	beginloop(0x09)
-		dprint 'B','4',' ','P','A','D','\n',0,
 		label(0x2e)
-		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
 		if_distance_to_target_gt(300, /*goto*/ 0x06)
@@ -1319,7 +1309,6 @@ u8 func0407_elvis_go_to_sa_teleport[] = {
 	label(0x06)
 	restart_timer
 	label(0x08)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	call_rng
 	if_rand_lt(85, /*goto*/ 0x63)
 	if_rand_lt(170, /*goto*/ 0x64)
@@ -1378,7 +1367,6 @@ u8 func0403_elvis_give_farsight[] = {
 	try_run_to_target(/*goto*/ 0x04)
 
 	beginloop(0x04)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		set_target_chr(CHR_PRESET)
 		if_distance_to_target_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2e)
@@ -1858,12 +1846,10 @@ u8 func042d_elvis_warp_to_outside_drcaroll[] = {
 	stop_chr
 
 	beginloop(0x04)
-		dprint 'T','E','L','E','P','O','R','T',' ','F','A','I','L','E','D','\n',0,
 		chr_move_to_pad(CHR_ELVIS, PAD_PAM_0017, 0x01, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)
-	dprint 'T','E','L','E','P','O','R','T',' ','G','O','O','D','\n',0,
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	stop_chr
 	set_ailist(CHR_SELF, AILIST_ELVIS_RUN_TO_EXIT)
@@ -1894,7 +1880,6 @@ u8 func0c02_outro[] = {
 			if_timer_gt(time, /*goto*/ 0x2e) \
 		endloop(loopid) \
 		label(0x2e) \
-		dprint msg, '\n', 0, \
 		enable_object(mine) \
 		yield \
 		move_object_to_pad(mine, pad) \
@@ -1906,7 +1891,6 @@ u8 func0c02_outro[] = {
 			if_timer_gt(time, /*goto*/ 0x2e) \
 		endloop(loopid) \
 		label(0x2e) \
-		dprint msg1, msg2, '\n', 0, \
 		enable_object(mine) \
 		yield \
 		move_object_to_pad(mine, pad) \
@@ -1941,7 +1925,6 @@ u8 func0c02_outro[] = {
 	endloop(0x7c)
 
 	label(0x2e)
-	dprint '2','3','\n',0,
 
 	blow_mine2(1038, 0x7d, '2','4', 0x8d, 0x0275)
 	blow_mine2(1071, 0x7e, '2','5', 0x8e, 0x0274)
@@ -3168,9 +3151,7 @@ u8 func041d_sniper[] = {
 	beginloop(0x63)
 		chr_toggle_p1p2(CHR_SELF)
 		if_can_see_target(/*goto*/ 0x2e)
-		dprint 'N','O',' ','P','L','A','Y','E','R',' ','T','A','R','G','E','T','\n',0,
 		if_enemy_distance_lt_and_los(1000, /*goto*/ 0x2f)
-		dprint 'N','O',' ','O','P','P','\n',0,
 		goto_next(0x2f)
 
 		label(0x2e)
@@ -3180,13 +3161,11 @@ u8 func041d_sniper[] = {
 		goto_next(0x2e)
 
 		label(0x2f)
-		dprint 'T','H','E',' ','P','L','A','Y','E','R',' ','i','s',' ','i','t','\n',0,
 		if_timer_gt(180, /*goto*/ 0x06)
 		if_chr_stopped(/*goto*/ 0x06)
 	endloop(0x63)
 
 	label(0x06)
-	dprint '1','\n',0,
 	stop_chr
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x06)
@@ -3197,7 +3176,6 @@ u8 func041d_sniper[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	dprint '2','\n',0,
 	set_chrpreset(CHR_TARGET)
 	goto_next(0x06)
 
@@ -3206,17 +3184,13 @@ u8 func041d_sniper[] = {
 	goto_next(0x06)
 
 	label(0x2e)
-	dprint 'C','H','E','C','K',' ','P','L','A','Y','E','R',' ','D','I','R','\n',0,
 	if_within_targets_fovx_by_angle(20, /*goto*/ 0x0d)
-	dprint '3','\n',0,
 	label(0x06)
 	if_can_see_target(/*goto*/ 0x2e)
-	dprint '4','\n',0,
 	goto_next(0x0d)
 
 	label(0x2e)
 	restart_timer
-	dprint '5','\n',0,
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	label(0x0a)
 	label(0x2e)
@@ -3366,7 +3340,6 @@ u8 func100f_check_drcaroll_dead[] = {
 };
 
 u8 func040f_miniskedar_send_clones[] = {
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
@@ -3462,7 +3435,6 @@ u8 func040f_miniskedar[] = {
 
 		label(0x30)
 		restart_timer
-		dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
 		stop_chr
 		try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0b)
 
@@ -3594,7 +3566,6 @@ u8 func1012_sa_megaweapon_spawner[] = {
 	restart_timer
 
 	beginloop(0x20)
-		dprint 'T','I','M','E','\n',0,
 		if_stage_flag_eq(STAGEFLAG_MEGAWEAPON_DISABLED, TRUE, /*goto*/ 0x06)
 
 		// Megaweapon not disabled yet - spawn every 8 seconds
@@ -3607,7 +3578,6 @@ u8 func1012_sa_megaweapon_spawner[] = {
 
 		// Consider spawn
 		label(0x2e)
-		dprint 'S','Q','U','A','D','\n',0,
 		if_num_chrs_in_squadron_gt(5, 0x0e, /*goto*/ 0x21)
 		call_rng
 		if_rand_gt(86, /*goto*/ 0x63)
@@ -4011,10 +3981,8 @@ u8 func101f_pa_circleroom_spawner[] = {
 	beginloop(0x20)
 		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x008c, /*goto*/ 0x58)
-		dprint 'T','I','M','E','\n',0,
 		if_timer_lt(300, /*goto*/ 0x21)
 		label(0x2e)
-		dprint 'S','Q','U','A','D','\n',0,
 		if_num_chrs_in_squadron_gt(3, 0x0d, /*goto*/ 0x21)
 		call_rng
 		if_rand_gt(128, /*goto*/ 0x63)
@@ -4061,10 +4029,8 @@ u8 func1020_pa_deadendroom_spawner[] = {
 	restart_timer
 
 	beginloop(0x20)
-		dprint 'T','I','M','E','\n',0,
 		if_timer_lt(300, /*goto*/ 0x21)
 		label(0x2e)
-		dprint 'S','Q','U','A','D','\n',0,
 		if_num_chrs_in_squadron_gt(3, 0x0b, /*goto*/ 0x21)
 		call_rng
 		if_rand_gt(64, /*goto*/ 0x63)
@@ -4359,7 +4325,6 @@ u8 func042e_elvis_run_to_exit[] = {
 	goto_first(0x1f)
 
 	label(0x2e)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	call_rng
 	if_rand_lt(85, /*goto*/ 0x63)
 	if_rand_lt(170, /*goto*/ 0x64)

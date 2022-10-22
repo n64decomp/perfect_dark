@@ -1027,7 +1027,6 @@ struct path paths[] = {
 };
 
 u8 func0401_init_hovercar[] = {
-	dprint 'h','o','v','\n',0,
 	begin_hovercar_path(0x00)
 	set_vehicle_speed(0x0c00, 120)
 

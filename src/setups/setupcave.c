@@ -1283,7 +1283,6 @@ u8 func0407_stewardess[] = {
 
 	label(0x0f)
 	try_jog_to_chr(CHR_SEEDIE, /*goto*/ 0x49)
-	dprint 'W','A','L','K','F','A','I','L','\n',0,
 
 	beginloop(0x49)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1293,7 +1292,6 @@ u8 func0407_stewardess[] = {
 		set_stage_flag(STAGEFLAG_TRIGGER_MSG_NOWSYOURCHANCE)
 		label(0x75)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x4e)
-		dprint 'W','A','L','K','I','N','G','\n',0,
 		if_target_outside_my_yvisang(/*goto*/ 0x31)
 		if_target_in_sight(/*goto*/ 0x02)
 		label(0x31)
@@ -2434,7 +2432,6 @@ u8 func040f_nsa[] = {
 	walk_to_pad(PAD_PRESET)
 
 	beginloop(0x06)
-		dprint 'G','O',' ','F','O','R',' ','P','A','D','\n',0,
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_distance_to_target_lt(250, /*goto*/ 0x64)
@@ -2467,7 +2464,6 @@ u8 func040f_nsa[] = {
 
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
-		dprint 'W','A','I','T',' ','F','O','R',' ','C','H','R','\n',0,
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x0b)
 		if_can_see_target(/*goto*/ 0x31)
@@ -2475,7 +2471,6 @@ u8 func040f_nsa[] = {
 
 	// Seen player
 	label(0x31)
-	dprint 'C','H','R','\n',0,
 	if_chr_y(CHR_TARGET, -330, OPERATOR_LESS_THAN, /*goto*/ 0x02)
 	goto_first(0x00)
 
@@ -2532,7 +2527,6 @@ u8 func040f_nsa[] = {
 
 	// Also unreachable
 	label(0x31)
-	dprint 'R','U','N',' ','S','T','A','R','T','\n',0,
 	restart_timer
 	set_target_chr(CHR_BOND)
 	try_run_to_target(/*goto*/ 0x05)
@@ -2540,7 +2534,6 @@ u8 func040f_nsa[] = {
 	beginloop(0x05)
 		set_returnlist(CHR_SELF, GAILIST_ALERTED)
 		set_ailist(CHR_SELF, GAILIST_ALERTED)
-		dprint 'G','O',' ','F','O','R',' ','C','H','R','\n',0,
 		if_chr_stopped(/*goto*/ 0x32)
 		if_timer_gt(30, /*goto*/ 0x32)
 		if_chr_y(CHR_TARGET, -330, OPERATOR_LESS_THAN, /*goto*/ 0x02)
@@ -3154,7 +3147,6 @@ u8 func042a_foyer_spawner[] = {
 		set_chr_team(CHR_SELF, TEAM_04)
 		rebuild_teams
 		rebuild_squadrons
-		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0,
 		if_never_been_onscreen(/*goto*/ 0x6a)
 		if_can_see_target(/*goto*/ 0x04)
 		reloop(0x00)
@@ -3294,18 +3286,15 @@ u8 func0419_ba8c[] = {
 	beginloop(0x6b)
 		if_saw_death(0x00, /*goto*/ 0x4f)
 		if_saw_injury(0x00, /*goto*/ 0x0f)
-		dprint 'D','U','R','I','N','G','T','A','L','K','\n',0,
 		if_timer_gt(180, /*goto*/ 0x02)
 	endloop(0x6b)
 
 	label(0x02)
 	if_self_flag_bankx_eq(CHRFLAG0_FORCESAFETYCHECKS, TRUE, BANK_0, /*goto*/ 0x33)
-	dprint 'N','O','T',' ','A',' ','P','A','T','R','O','L','L','E','R','\n',0,
 	stop_chr
 	goto_next(0x00)
 
 	label(0x33)
-	dprint 'P','A','T',' ','R','E','T','\n',0,
 	start_patrol
 
 	label(0x00)
@@ -3407,7 +3396,6 @@ u8 func0419_ba8c[] = {
 	if_timer_lt(600, /*goto*/ 0x31)
 	unset_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	label(0x31)
-	dprint 'L','I','M','O',' ','R','E','A','D','Y',' ','T','O',' ','G','O','\n',0,
 	goto_first(0x00)
 
 	label(0x0f)
@@ -3981,11 +3969,9 @@ u8 func1024_double_dy357[] = {
 u8 func0416_watch_flag[] = {
 	beginloop(0x00)
 		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_ANTINONINTERACTABLE, /*goto*/ 0x31)
-		dprint 'F','L','A','G',' ','N','O','T',' ','S','E','T','\n',0,
 		reloop(0x00)
 
 		label(0x31)
-		dprint 'F','L','A','G',' ','S','E','T','\n',0,
 	endloop(0x00)
 
 	endlist
@@ -3998,7 +3984,6 @@ u8 func101a_check_disguise_used2[] = {
 	endloop(0x00)
 
 	label(0x02)
-	dprint 'D','I','S','G','U','I','S','E','D',' ','U','P','\n',0,
 
 	beginloop(0x04)
 		if_chr_has_hiddenflag(CHR_P1P2, CHRHFLAG_DISGUISED, /*goto*/ 0x31)

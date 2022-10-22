@@ -688,7 +688,6 @@ u8 func1004_laser_switch_2[] = {
 
 		// Activated/deactivated
 		label(0x08)
-		dprint 'S','W','I','T','C','H',' ','2',0,
 		if_stage_flag_eq(STAGEFLAG_LASERSET2_DISABLED, TRUE, /*goto*/ 0x09)
 
 		// Deactivated
@@ -1056,7 +1055,6 @@ u8 func1009_spawner_during_decode[] = {
 		goto_next(0x0d)
 
 		label(0x2c)
-		dprint 'S','Q','U','A','D',' ','F','U','L','L',0,
 		reloop(0x09)
 
 		label(0x0b)
@@ -1199,7 +1197,6 @@ u8 func100a_give_keycards[] = {
 	disable_object(OBJ_CROSSBOW)
 
 	beginloop(0x08)
-		dprint 'C','H','E','C','K',' ','D','E','A','D',0,
 		if_stage_flag_eq(STAGEFLAG_CLOAK2_ONE_REMAINING, TRUE, /*goto*/ 0x2c)
 	endloop(0x08)
 
@@ -1211,7 +1208,6 @@ u8 func100a_give_keycards[] = {
 
 	// 2A alive
 	give_object_to_chr(OBJ_KEYCARD2, CHR_CLOAK_2A)
-	dprint 'G','I','V','E',' ','T','O','4',0,
 	goto_next(0x2c)
 
 	// 2A dead
@@ -1220,7 +1216,6 @@ u8 func100a_give_keycards[] = {
 	if_chr_death_animation_finished(CHR_CLOAK_2B, /*goto*/ 0x06)
 	if_chr_knockedout(CHR_CLOAK_2B, /*goto*/ 0x06)
 	give_object_to_chr(OBJ_KEYCARD2, CHR_CLOAK_2B)
-	dprint 'G','I','V','E',' ','T','O','5',0,
 	goto_next(0x2c)
 
 	// 2B dead
@@ -1229,13 +1224,11 @@ u8 func100a_give_keycards[] = {
 	if_chr_death_animation_finished(CHR_CLOAK_2C, /*goto*/ 0x06)
 	if_chr_knockedout(CHR_CLOAK_2C, /*goto*/ 0x06)
 	give_object_to_chr(OBJ_KEYCARD2, CHR_CLOAK_2C)
-	dprint 'G','I','V','E',' ','T','O','6',0,
 	goto_next(0x2c)
 
 	// 2C dead
 	label(0x06)
 	give_object_to_chr(OBJ_KEYCARD2, CHR_CLOAK_2D)
-	dprint 'G','I','V','E',' ','T','O','7',0,
 
 	label(0x2c)
 	unset_object_flag(OBJ_KEYCARD2, OBJFLAG_UNCOLLECTABLE)
@@ -1434,7 +1427,6 @@ u8 func1012_check_for_end[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_EXITED_BUILDING)
-	dprint 'I','N',' ','T','H','E',' ','E','L','E','V','A','T','O','R','\n',0,
 	set_invincible(CHR_BOND)
 	yield
 	yield
@@ -1484,7 +1476,6 @@ u8 func1013_check_escape_doors[] = {
 		label(0x06)
 		if_object_in_good_condition(OBJ_ESCAPEDOOR2, /*goto*/ 0x06)
 		label(0x2c)
-		dprint 'S','T','A','R','T',' ','A','L','A','R','M','\n',0,
 		activate_alarm
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		reloop(0x04)
@@ -1517,7 +1508,6 @@ u8 func100c_check_for_meeting_trigger[] = {
 	endloop(0x00)
 
 	label(0x06)
-	dprint 's','h','o','t',' ','1',0,
 	set_ailist(CHR_SELF, AILIST_MEETING_CUTSCENE)
 	endlist
 };
@@ -2585,11 +2575,9 @@ u8 func101d_init_mines[] = {
 	if_savefile_flag_is_unset(GAMEFILEFLAG_G5_MINE, /*goto*/ 0x06)
 
 	disable_object(OBJ_MINE1)
-	dprint 'E','P','R','O','M','F','L','A','G',' ','N','O','T','S','E','T',0,
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x06)
-	dprint 'E','P','R','O','M','F','L','A','G',' ','S','E','T',0,
 	disable_object(OBJ_MINE2)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

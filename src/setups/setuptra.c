@@ -923,7 +923,6 @@ u8 func0404_jonathan_following_and_mine[] = {
 	label(0x63)
 	if_stage_flag_eq(STAGEFLAG_JON_SHOT_WHILE_PLANTING, TRUE, /*goto*/ 0x0e)
 	set_target_chr(CHR_P1P2)
-	dprint 'J','O','N','A',' ','F','O','L','L','O','W','\n',0,
 
 	label(LABEL_FOLLOW)
 	if_distance_to_target_gt(200, /*goto*/ 0x5c)
@@ -2033,7 +2032,6 @@ u8 func100c_medpack_activation[] = {
 };
 
 u8 func0412_init_elvis[] = {
-	dprint 'E','L','V','I','S',' ','W','O','K','E','\n',0,
 	stop_chr
 #if VERSION >= VERSION_NTSC_1_0
 	set_self_chrflag(CHRCFLAG_PUSHABLE)
@@ -2049,7 +2047,6 @@ u8 func0412_init_elvis[] = {
 };
 
 u8 func040b_elvis_follow[] = {
-	dprint 'E','L','V','I','S',' ','F','O','L','L','O','W','\n',0,
 	set_target_chr(CHR_JONATHAN)
 
 	label(0x5a)
@@ -2213,14 +2210,12 @@ u8 func1010_check_end_level[] = {
 
 		label(0x32)
 #if VERSION < VERSION_NTSC_1_0
-		dprint '1','\n',0,
 #endif
 		if_objective_complete(1, /*goto*/ 0x32)
 		reloop(0x04)
 
 		label(0x32)
 #if VERSION < VERSION_NTSC_1_0
-		dprint '2','\n',0,
 #endif
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x32)
 		if_objective_complete(3, /*goto*/ 0x32)
@@ -2228,7 +2223,6 @@ u8 func1010_check_end_level[] = {
 
 		label(0x32)
 #if VERSION < VERSION_NTSC_1_0
-		dprint '3','\n',0,
 #endif
 		if_objective_complete(2, /*goto*/ 0x32)
 		reloop(0x04)
@@ -2239,18 +2233,15 @@ u8 func1010_check_end_level[] = {
 
 		label(0x32)
 #if VERSION < VERSION_NTSC_1_0
-		dprint '4','\n',0,
 #endif
 		if_stage_flag_eq(STAGEFLAG_INNER_DOOR_OPENING, TRUE, /*goto*/ 0x32)
 		reloop(0x04)
 
 		label(0x32)
-		dprint '5','\n',0,
 		if_stage_flag_eq(STAGEFLAG_OUTER_DOOR_OPENING, TRUE, /*goto*/ 0x32)
 	reloop(0x04)
 
 	label(0x32)
-	dprint '6','\n',0,
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x0f)
 	if_chr_dead(CHR_ELVIS, /*goto*/ 0x0f)
 	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x0f)

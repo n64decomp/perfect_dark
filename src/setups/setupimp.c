@@ -703,7 +703,6 @@ u8 func0413_defend_pad[] = {
 	jog_to_pad(PAD_PRESET)
 
 	beginloop(0x04)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0a)
 		if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x08)
 	endloop(0x04)
@@ -713,7 +712,6 @@ u8 func0413_defend_pad[] = {
 	stop_chr
 
 	beginloop(0x0b)
-		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0a)
 		if_chr_distance_to_pad_gt(CHR_SELF, 300, PAD_PRESET, /*goto*/ 0x08)
 	endloop(0x0b)
@@ -723,7 +721,6 @@ u8 func0413_defend_pad[] = {
 
 	// Detected enemy
 	label(0x0a)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_shotlist(AILIST_DEFEND_PAD)
 	set_returnlist(CHR_SELF, AILIST_DEFEND_PAD)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
@@ -1618,7 +1615,6 @@ u8 func0414_firingrange_hostage[] = {
 	jog_to_pad(PAD_PRESET)
 
 	beginloop(0x04)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0a)
 		goto_next(0x12)
 	endloop(0x04)
@@ -1627,7 +1623,6 @@ u8 func0414_firingrange_hostage[] = {
 	stop_chr
 
 	beginloop(0x0b)
-		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0a)
 		goto_next(0x12)
 	endloop(0x0b)
@@ -1636,7 +1631,6 @@ u8 func0414_firingrange_hostage[] = {
 	goto_first(0x03)
 
 	label(0x0a)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_returnlist(CHR_SELF, AILIST_FIRINGRANGE_HOSTAGE)
 	set_shotlist(AILIST_FIRINGRANGE_HOSTAGE)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
@@ -3007,7 +3001,6 @@ u8 func1015_firingrange_pc[] = {
 		reloop(0x04) \
  \
 		label(0x2e) \
-		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0, \
 		if_never_been_onscreen(/*goto*/ 0x4f) \
 		if_can_see_target(/*goto*/ 0x0a) \
 		reloop(0x04) \
@@ -3149,7 +3142,6 @@ u8 func0410_spawner6[] = {
 		reloop(0x04)
 
 		label(0x2e)
-		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0,
 		if_never_been_onscreen(/*goto*/ 0x4f)
 		if_can_see_target(/*goto*/ 0x0a)
 		reloop(0x04)
@@ -3305,7 +3297,6 @@ u8 func1022_skedar_shuttle[] = {
 	restart_timer
 
 	beginloop(0x0b)
-		dprint 'O','B','J','\n',0,
 		if_timer_gt(60, /*goto*/ 0x2e)
 	endloop(0x0b)
 
@@ -3314,12 +3305,10 @@ u8 func1022_skedar_shuttle[] = {
 	play_sound_from_object(CHANNEL_4, OBJ_SKEDAR_SHUTTLE, 1, 1800, 3000)
 
 	beginloop(0x0d)
-		dprint 'O','B','J','\n',0,
 		if_timer_gt(200, /*goto*/ 0x08)
 	endloop(0x0d)
 
 	label(0x08)
-	dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0,
 	set_stage_flag(STAGEFLAG_BOMB_AIRBORNE)
 	restart_timer
 

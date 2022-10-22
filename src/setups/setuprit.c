@@ -627,7 +627,6 @@ u8 func1004_reassign_ailists_during_conversation[] = {
 	endloop(0x04)
 
 	label(0x06)
-	dprint 'b','4',' ','s','h','i','e','l','d',' ','c','h','e','c','k','\n',0,
 	set_stage_flag(STAGEFLAG_00100000)
 	set_chr_target_chr(CHR_PRESIDENT, CHR_P1P2)
 	set_ailist(0x01, AILIST_BE_UNALERT)
@@ -1474,7 +1473,6 @@ u8 func0404_president_running[] = {
 
 	// Alive
 	label(0x2d)
-	dprint 'b','4',' ','s','h','i','e','l','d',' ','c','h','e','c','k','\n',0,
 	if_just_injured(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x55)
 
@@ -1516,7 +1514,6 @@ u8 func0404_president_running[] = {
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0030, /*goto*/ 0x11)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0031, /*goto*/ 0x11)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0032, /*goto*/ 0x11)
-		dprint 't','a','r','g','e','t','\n',0,
 		if_can_see_target(/*goto*/ 0x06)
 		goto_next(0x58)
 
@@ -2167,7 +2164,6 @@ u8 func1002_intro[] = {
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2d)
 	set_chr_hiddenflag(CHR_COOP, CHRHFLAG_DISGUISED)
 	label(0x2d)
-	dprint 'D','I','S','G','U','I','S','E','D','\n',0,
 	camera_movement(ANIM_CUT_RIT_INTRO_CAM_03)
 	cmd0175(60)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2d)
@@ -2368,7 +2364,6 @@ u8 func040a_defend_pad[] = {
 	jog_to_pad(PAD_PRESET)
 
 	beginloop(0x04)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x06)
 	endloop(0x04)
@@ -2377,7 +2372,6 @@ u8 func040a_defend_pad[] = {
 	stop_chr
 
 	beginloop(0x09)
-		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		if_chr_distance_to_pad_gt(CHR_SELF, 300, PAD_PRESET, /*goto*/ 0x06)
 	endloop(0x09)
@@ -2387,7 +2381,6 @@ u8 func040a_defend_pad[] = {
 
 	// Detected enemy
 	label(0x08)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_returnlist(CHR_SELF, AILIST_DEFEND_PAD)
 	set_shotlist(AILIST_DEFEND_PAD)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
@@ -2406,7 +2399,6 @@ u8 func040b_defend_president[] = {
 	try_jog_to_chr(CHR_PRESIDENT, /*goto*/ 0x04)
 
 	beginloop(0x04)
-		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		if_detected_chr(CHR_PRESIDENT, /*goto*/ 0x60)
 	endloop(0x04)
@@ -2420,7 +2412,6 @@ u8 func040b_defend_president[] = {
 	stop_chr
 
 	beginloop(0x09)
-		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		if_detected_chr(CHR_PRESIDENT, /*goto*/ 0x60)
 		goto_first(0x04)
@@ -2434,7 +2425,6 @@ u8 func040b_defend_president[] = {
 
 	// Detected enemy
 	label(0x08)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_returnlist(CHR_SELF, AILIST_DEFEND_PRESIDENT)
 	set_shotlist(AILIST_DEFEND_PRESIDENT)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
@@ -3587,7 +3577,6 @@ u8 func1019_midcutscene[] = {
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	if_stage_flag_eq(STAGEFLAG_MIDCUTSCENE_STARTED, TRUE, /*goto*/ 0x2d)
 	set_stage_flag(STAGEFLAG_MIDCUTSCENE_STARTED)
-	dprint 'm','i','d',' ','c','u','t','s','c','e','n','e','\n',0,
 	play_cutscene_track(MUSIC_AIRFORCEONE_MIDCUTSCENE)
 	label(0x2d)
 	camera_movement(ANIM_CUT_RIT_MID_CAM)

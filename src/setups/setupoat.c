@@ -55,7 +55,6 @@ u8 func0404_spawn_enemies[] = {
 	// Spawn 12 enemies
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	restart_timer
-	dprint 'B','4','C','H','E','C','K','\n',0,
 	set_morale(12)
 	label(0x04)
 	if_morale_lt(1, /*goto*/ 0x01)
@@ -95,7 +94,6 @@ u8 func0405_spawn_maians[] = {
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	stop_chr
 	restart_timer
-	dprint 'B','4','C','H','E','K','\n',0,
 	set_morale(12)
 	label(0x04)
 	if_morale_lt(1, /*goto*/ 0x01)
@@ -148,7 +146,6 @@ u8 unregistered_function1[] = {
 	goto_first(0x04)
 
 	label(0x01)
-	dprint 't',0,
 	goto_first(0x04)
 
 	endlist
@@ -176,7 +173,6 @@ u8 func0407_defend_pad[] = {
 	jog_to_pad(PAD_PRESET)
 	label(0xdc)
 	yield
-	dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0xa5)
 	if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x01)
 	goto_first(0xdc)
@@ -186,7 +182,6 @@ u8 func0407_defend_pad[] = {
 	stop_chr
 	label(0xa6)
 	yield
-	dprint 'A','T',' ','P','A','D','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0xa5)
 	if_chr_distance_to_pad_gt(CHR_SELF, 300, PAD_PRESET, /*goto*/ 0x01)
 	goto_first(0xa6)
@@ -196,7 +191,6 @@ u8 func0407_defend_pad[] = {
 
 	// Do combat
 	label(0xa5)
-	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_returnlist(CHR_SELF, 0x0407)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 	endlist
