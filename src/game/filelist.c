@@ -334,54 +334,5 @@ void pheadFreeTextures(s32 playernum)
 
 struct textureconfig *pheadGetTexture(s32 playernum, s32 fileid, u16 deviceserial)
 {
-	s32 i;
-	s32 freeslot = -1;
-	s32 indextouse = -1;
-
-	for (i = 0; i < 16; i++) {
-		if (g_Menus[playernum].fm.headtextures->fileguids[i].fileid == fileid
-				&& g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial == deviceserial) {
-			indextouse = i;
-			break;
-		}
-
-		if (g_Menus[playernum].fm.headtextures->fileguids[i].fileid == 0) {
-			if (g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial == 0) {
-				freeslot = i;
-			}
-		}
-	}
-
-	if (indextouse == -1) {
-		s8 device = pakFindBySerial(deviceserial);
-
-		if (device < 0) {
-			return NULL;
-		}
-
-		if (freeslot == -1) {
-			return NULL;
-		}
-
-		if (g_Vars.thisframestart240 - g_Menus[playernum].fm.headtextures->lastupdated240 < 20) {
-			return NULL;
-		}
-
-		g_Menus[playernum].fm.headtextures->lastupdated240 = g_Vars.thisframestart240;
-
-		func0f15015c(device, fileid, g_Menus[playernum].fm.headtextures->unk000[freeslot]);
-
-		g_Menus[playernum].fm.headtextures->fileguids[freeslot].fileid = fileid;
-		g_Menus[playernum].fm.headtextures->fileguids[freeslot].deviceserial = deviceserial;
-
-		indextouse = freeslot;
-	}
-
-	if (indextouse == -1) {
-		return NULL;
-	}
-
-	g_Menus[playernum].fm.headtextures->selectedtexture.textureptr = g_Menus[playernum].fm.headtextures->unk000[indextouse];
-
-	return &g_Menus[playernum].fm.headtextures->selectedtexture;
+	return NULL;
 }

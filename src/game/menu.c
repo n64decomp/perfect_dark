@@ -1785,10 +1785,6 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 						if (mpheadnum < mpGetNumHeads2()) {
 							headnum = mpGetHeadId(mpheadnum);
-						} else {
-							headnum = func0f14a9f8(mpheadnum - mpGetNumHeads2());
-							headnum = mpGetBeauHeadId(headnum);
-							thing->unk5b0 = (mpheadnum - mpGetNumHeads2()) & 0xff;
 						}
 					}
 

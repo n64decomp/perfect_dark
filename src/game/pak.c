@@ -5118,7 +5118,7 @@ bool gbpak0f11cef8(s8 device)
 
 		if (pak->unk2b9);
 
-		pak0f11d118(sp2c, pak->unk2b9, func0f14aa70());
+		pak0f11d118(sp2c, pak->unk2b9, 0);
 		pak0f11d174(device, sp2c);
 
 		sp2c[0] |= 1;
@@ -5177,17 +5177,6 @@ void pak0f11d118(u8 *arg0, u8 arg1, u32 arg2)
 
 void pak0f11d174(s8 device, u8 *arg1)
 {
-	u8 tmp1;
-	s32 tmp2;
-
-	pak0f11d118(arg1, g_Paks[device].unk2b9, func0f14aa70());
-
-	tmp1 = func0f14ad38(device);
-	tmp2 = func0f14ad14(device);
-
-	arg1[1] = (arg1[1] & 0xe0) + tmp1;
-	arg1[2] = (tmp2 >> 8) & 0xff;
-	arg1[3] = tmp2;
 }
 
 void pak0f11d214(u8 *arg0, u32 arg1)
@@ -5718,7 +5707,6 @@ void pak0f11df94(s8 device)
 		menuSetBanner(-1, true);
 #endif
 
-		func0f14aed0(device);
 		break;
 	case PAK010_02:
 #if VERSION >= VERSION_NTSC_1_0
@@ -5730,7 +5718,6 @@ void pak0f11df94(s8 device)
 #else
 		pak0f114dd4nb(device);
 #endif
-		func0f14aed0(device);
 		break;
 	case PAK010_03:
 #if VERSION >= VERSION_NTSC_1_0
@@ -5794,9 +5781,6 @@ void pak0f11df94(s8 device)
 		g_Paks[device].unk010 = PAK010_11;
 		break;
 	case PAK010_08:
-		if (func0f14aea0(device)) {
-			g_Paks[device].unk010 = PAK010_09;
-		}
 		break;
 	case PAK010_09:
 #if VERSION >= VERSION_NTSC_1_0

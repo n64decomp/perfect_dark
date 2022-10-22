@@ -1892,12 +1892,6 @@ s32 mpCharacterHeadMenuHandler(s32 operation, struct menuitem *item, union handl
 
 			g_Menus[g_MpPlayerNum].unk840.unk00c = g_HeadsAndBodies[headnum].filenum;
 			g_Menus[g_MpPlayerNum].unk840.unk5b1_01 = false;
-		} else {
-			headnum = mpGetBeauHeadId(func0f14a9f8(mpheadnum - mpGetNumHeads2()));
-
-			g_Menus[g_MpPlayerNum].unk840.unk00c = g_HeadsAndBodies[headnum].filenum;
-			g_Menus[g_MpPlayerNum].unk840.unk5b1_01 = true;
-			g_Menus[g_MpPlayerNum].unk840.unk5b0 = mpheadnum - mpGetNumHeads2();
 		}
 
 		g_Menus[g_MpPlayerNum].unk840.unk574 = 0;

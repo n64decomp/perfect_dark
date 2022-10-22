@@ -4979,11 +4979,7 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.mpheadnum, 7);
 	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.mpbodynum, 7);
 
-	if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mpGetNumHeads2()) {
-		struct fileguid guid;
-		phGetGuid(g_PlayerConfigsArray[playernum].base.mpheadnum - mpGetNumHeads2(), &guid);
-		savebufferWriteGuid(buffer, &guid);
-	} else {
+	{
 		struct fileguid guid;
 		guid.deviceserial = 0;
 		guid.fileid = 0;

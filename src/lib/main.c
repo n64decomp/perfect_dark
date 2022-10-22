@@ -557,9 +557,7 @@ void mainInit(void)
 	stub0f000910();
 	stub0f000840();
 	mpInit();
-	pheadInit();
 	paksInit();
-	pheadInit2();
 	animsInit();
 	racesInit();
 	bodiesInit();

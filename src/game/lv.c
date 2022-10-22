@@ -457,10 +457,6 @@ void lvReset(s32 stagenum)
 		fmbReset();
 	}
 
-	if (IS8MB()) {
-		pheadReset();
-	}
-
 	modelmgrSetLvResetting(false);
 	var80084018 = 1;
 	schedResetArtifacts();

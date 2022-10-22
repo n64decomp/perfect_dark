@@ -181,7 +181,6 @@
 	build/ROMID/game/wallhit.o (section); \
 	build/ROMID/game/bondview.o (section); \
 	build/ROMID/game/splat.o (section); \
-	build/ROMID/game/camdraw.o (section); \
 	build/ROMID/game/shards.o (section); \
 	build/ROMID/game/options.o (section); \
 	build/ROMID/game/game_152fa0.o (section); \
