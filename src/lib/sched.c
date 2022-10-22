@@ -594,6 +594,8 @@ OSScTask *__scTaskReady(OSScTask *t)
 	return 0;
 }
 
+extern u8 g_LvAntialias;
+
 /*
  * __scTaskComplete checks to see if the task is complete (all RCP
  * operations have been performed) and sends the done message to the
@@ -620,6 +622,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 						|| var8008dd60[1 - var8005ce74]->fldRegs[0].origin != var8008dcc0[1 - var8005ce74].fldRegs[0].origin
 						|| var8008dd60[1 - var8005ce74]->fldRegs[1].origin != var8008dcc0[1 - var8005ce74].fldRegs[1].origin) {
 					s32 mask = osSetIntMask(0x80401);
+					u32 features;
 
 					*var8008dd60[1 - var8005ce74] = var8008dcc0[1 - var8005ce74];
 
@@ -629,7 +632,16 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 					osViBlack(g_ViUnblackTimer);
 					osViSetXScale(g_ViXScalesBySlot[1 - var8005ce74]);
 					osViSetYScale(g_ViYScalesBySlot[1 - var8005ce74]);
-					osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_DITHER_FILTER_ON);
+
+					features = OS_VI_GAMMA_OFF;
+
+					if (g_LvAntialias) {
+						features |= OS_VI_DITHER_FILTER_ON;
+					} else {
+						features |= OS_VI_DITHER_FILTER_OFF;
+					}
+
+					osViSetSpecialFeatures(features);
 				}
 
 				g_SchedViModesPending[1 - var8005ce74] = false;
