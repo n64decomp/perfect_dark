@@ -5093,7 +5093,7 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 		chr->act_die.timeextra = 0;
 
 		chr->ailist = ailistFindById(GAILIST_AIBOT_DEAD);
-		chr->aioffset = 0;
+		chr->aioffset = chr->ailist;
 
 		mpstatsRecordDeath(aplayernum, mpPlayerGetIndex(chr));
 		botinvDropAll(chr, chr->aibot->weaponnum);
@@ -13407,7 +13407,7 @@ void cutsceneStart(u32 ailistid)
 	}
 
 	g_BgChrs[g_NumBgChrs - 1].ailist = ailistFindById(ailistid);
-	g_BgChrs[g_NumBgChrs - 1].aioffset = 0;
+	g_BgChrs[g_NumBgChrs - 1].aioffset = g_BgChrs[g_NumBgChrs - 1].ailist;
 	g_BgChrs[g_NumBgChrs - 1].aireturnlist = -1;
 }
 

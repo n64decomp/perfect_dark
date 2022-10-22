@@ -21,7 +21,7 @@ bool aiMpInitSimulants(void)
  */
 bool ai0176(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct aibot *aibot;
 
 	/**

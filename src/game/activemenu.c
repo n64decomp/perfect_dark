@@ -274,7 +274,7 @@ void amSetAiBuddyStealth(void)
 					&& chr->actiontype != ACT_DRUGGEDCOMINGUP) {
 				chrStopFiring(chr);
 				chr->ailist = ailistFindById(GAILIST_BUDDY_STEALTH);
-				chr->aioffset = 0;
+				chr->aioffset = chr->ailist;
 			}
 		}
 	}

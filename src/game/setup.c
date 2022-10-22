@@ -1840,7 +1840,7 @@ void setupCreateProps(s32 stagenum)
 						truck->turnrot60 = 0;
 						truck->roty = 0;
 						truck->ailist = ailistFindById((u32)truck->ailist);
-						truck->aioffset = 0;
+						truck->aioffset = truck->ailist;
 						truck->aireturnlist = -1;
 						truck->path = NULL;
 						truck->nextstep = 0;
@@ -1862,7 +1862,7 @@ void setupCreateProps(s32 stagenum)
 						car->rotx = 0;
 						car->speedtime60 = -1;
 						car->ailist = ailistFindById((s32)car->ailist);
-						car->aioffset = 0;
+						car->aioffset = car->ailist;
 						car->aireturnlist = -1;
 						car->path = NULL;
 						car->nextstep = 0;
@@ -1891,7 +1891,7 @@ void setupCreateProps(s32 stagenum)
 						chopper->barrelrot = 0;
 						chopper->barrelrotspeed = 0;
 						chopper->ailist = ailistFindById((u32)chopper->ailist);
-						chopper->aioffset = 0;
+						chopper->aioffset = chopper->ailist;
 						chopper->aireturnlist = -1;
 						chopper->path = NULL;
 						chopper->nextstep = 0;
@@ -1938,7 +1938,7 @@ void setupCreateProps(s32 stagenum)
 						heli->speedtime60 = -1;
 						heli->rotoryspeedtime = -1;
 						heli->ailist = ailistFindById((u32)heli->ailist);
-						heli->aioffset = 0;
+						heli->aioffset = heli->ailist;
 						heli->aireturnlist = -1;
 						heli->path = NULL;
 						heli->nextstep = 0;

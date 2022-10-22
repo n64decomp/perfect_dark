@@ -1126,7 +1126,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->sleep = 0;
 
 	chr->ailist = ailist;
-	chr->aioffset = 0;
+	chr->aioffset = ailist;
 	chr->aireturnlist = -1;
 	chr->aishotlist = -1;
 	chr->aipunchdodgelist = -1;

@@ -650,10 +650,10 @@ s32 chraiGetListIdByList(u8 *ailist, bool *is_global)
 	return -1;
 }
 
-u32 chraiGoToLabel(u8 *ailist, u32 aioffset, u8 label)
+u8 *chraiGoToLabel(u8 *ailist, u8 *aioffset, u8 label)
 {
 	do {
-		u8 *cmd = aioffset + ailist;
+		u8 *cmd = aioffset;
 		u32 type = (cmd[0] << 8) + cmd[1];
 
 		if (type == CMD_LABEL) {
@@ -675,7 +675,7 @@ void chraiExecute(void *entity, s32 proptype)
 	g_Vars.heli = NULL;
 	g_Vars.hovercar = NULL;
 	g_Vars.ailist = NULL;
-	g_Vars.aioffset = 0;
+	g_Vars.aioffset = NULL;
 
 	if (proptype == PROPTYPE_CHR) {
 		g_Vars.chrdata = entity;
@@ -722,7 +722,7 @@ void chraiExecute(void *entity, s32 proptype)
 				// Set shot list
 				g_Vars.chrdata->chrflags &= ~CHRCFLAG_TRIGGERSHOTLIST;
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishotlist);
-				g_Vars.aioffset = 0;
+				g_Vars.aioffset = g_Vars.ailist;
 			}
 		} else if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & CHRCFLAG_CONSIDER_DODGE)) {
 			g_Vars.chrdata->chrflags &= ~CHRCFLAG_CONSIDER_DODGE;
@@ -742,7 +742,7 @@ void chraiExecute(void *entity, s32 proptype)
 					&& g_Vars.chrdata->actiontype != ACT_ATTACKROLL) {
 				// Set shooting at me list
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishootingatmelist);
-				g_Vars.aioffset = 0;
+				g_Vars.aioffset = g_Vars.ailist;
 				g_Vars.chrdata->dodgerating = 0;
 			} else {
 				// Increase dodge rating
@@ -768,7 +768,7 @@ void chraiExecute(void *entity, s32 proptype)
 				chrSetFlags(g_Vars.chrdata, CHRFLAG1_SEARCHSAMEROOM, BANK_1);
 				g_Vars.chrdata->alertness = 0;
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aidarkroomlist);
-				g_Vars.aioffset = 0;
+				g_Vars.aioffset = g_Vars.ailist;
 			}
 		} else {
 			// empty
@@ -776,7 +776,7 @@ void chraiExecute(void *entity, s32 proptype)
 
 		// Iterate and execute the ailist
 		while (g_Vars.ailist) {
-			u8 *cmd = g_Vars.aioffset + g_Vars.ailist;
+			u8 *cmd = g_Vars.aioffset;
 			s32 type = (cmd[0] << 8) + cmd[1];
 
 			if (g_CommandPointers[type]()) {
@@ -786,9 +786,9 @@ void chraiExecute(void *entity, s32 proptype)
 	}
 }
 
-u32 chraiGetCommandLength(u8 *ailist, u32 aioffset)
+u32 chraiGetCommandLength(u8 *ailist, u8 *aioffset)
 {
-	u8 *cmd = aioffset + ailist;
+	u8 *cmd = aioffset;
 	s32 type = (cmd[0] << 8) + cmd[1];
 
 	if (type >= 0 && type < ARRAYCOUNT(g_CommandLengths)) {

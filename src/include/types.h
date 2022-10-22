@@ -180,7 +180,7 @@ struct g_vars {
 	/*0x42c*/ struct heliobj *heli;
 	/*0x430*/ struct chopperobj *hovercar;
 	/*0x434*/ u8 *ailist;
-	/*0x438*/ u32 aioffset;
+	/*0x438*/ u8 *aioffset;
 	/*0x43c*/ s32 hardfreeabletally;
 	/*0x440*/ s32 antiheadnum;
 	/*0x444*/ s32 antibodynum;
@@ -1202,7 +1202,7 @@ struct chrdata {
 	/*0x100*/ f32 damage;
 	/*0x104*/ f32 maxdamage;
 	/*0x108*/ u8 *ailist;
-	/*0x10c*/ u16 aioffset;
+	/*0x10c*/ u8 *aioffset;
 	/*0x10e*/ s16 aireturnlist;
 	/*0x110*/ s16 aishotlist;
 	/*0x112*/ u8 morale;
@@ -1748,7 +1748,7 @@ struct padlockeddoorobj { // objtype 0x26
 struct truckobj { // objtype 0x27
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u16 aioffset;
+	/*0x60*/ u8 *aioffset;
 	/*0x62*/ s16 aireturnlist;
 	/*0x64*/ f32 speed;
 	/*0x68*/ f32 wheelxrot;
@@ -1764,7 +1764,7 @@ struct truckobj { // objtype 0x27
 struct heliobj { // objtype 0x28
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u16 aioffset;
+	/*0x60*/ u8 *aioffset;
 	/*0x62*/ s16 aireturnlist;
 	/*0x64*/ f32 rotoryrot;
 	/*0x68*/ f32 rotoryspeed;
@@ -1879,7 +1879,7 @@ struct fanobj { // objtype 0x36
 struct hovercarobj { // objtype 0x37
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u16 aioffset;
+	/*0x60*/ u8 *aioffset;
 	/*0x62*/ s16 aireturnlist;
 	/*0x64*/ f32 speed;
 	/*0x68*/ f32 speedaim;
@@ -1907,7 +1907,7 @@ struct padeffectobj { // objtype 0x38
 struct chopperobj { // objtype 0x39
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u16 aioffset;
+	/*0x60*/ u8 *aioffset;
 	/*0x62*/ s16 aireturnlist;
 	union {
 		struct {

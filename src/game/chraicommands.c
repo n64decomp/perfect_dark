@@ -57,7 +57,7 @@
  */
 bool aiGoToNext(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	osSyncPrintf(" (%d)\n", cmd[2]);
 
@@ -69,8 +69,8 @@ bool aiGoToNext(void)
  */
 bool aiGoToFirst(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, 0, cmd[2]);
+	u8 *cmd = g_Vars.aioffset;
+	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.ailist, cmd[2]);
 	osSyncPrintf(" (%d)\n", cmd[2]);
 
 	return false;
@@ -114,7 +114,7 @@ bool aiYield(void)
  */
 bool aiSetList(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 ailistid = cmd[4] | (cmd[3] << 8);
 	u8 *ailist = ailistFindById(ailistid & 0xffff);
 
@@ -122,13 +122,13 @@ bool aiSetList(void)
 
 	if ((cmd[2] & 0xff) == CHR_SELF) {
 		g_Vars.ailist = ailist;
-		g_Vars.aioffset = 0;
+		g_Vars.aioffset = ailist;
 	} else {
 		chr = chrFindById(chr, cmd[2]);
 
 		if (chr) {
 			chr->ailist = ailist;
-			chr->aioffset = 0;
+			chr->aioffset = ailist;
 			chr->sleep = 0;
 		}
 
@@ -143,7 +143,7 @@ bool aiSetList(void)
  */
 bool aiSetReturnList(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[4] | (cmd[3] << 8);
 	struct chrdata *chr;
 
@@ -175,7 +175,7 @@ bool aiSetReturnList(void)
  */
 bool aiSetShotList(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
@@ -259,7 +259,7 @@ const char var7f1a9c18[] = "IVE FOUND MY PAD %d \n";
  */
 bool aiSetPunchDodgeList(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
@@ -276,7 +276,7 @@ bool aiSetPunchDodgeList(void)
  */
 bool aiSetShootingAtMeList(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
@@ -293,7 +293,7 @@ bool aiSetShootingAtMeList(void)
  */
 bool aiSetDarkRoomList(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
@@ -310,7 +310,7 @@ bool aiSetDarkRoomList(void)
  */
 bool aiSetPlayerDeadList(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
@@ -340,7 +340,7 @@ bool aiReturn(void)
 	}
 
 	g_Vars.ailist = ailist;
-	g_Vars.aioffset = 0;
+	g_Vars.aioffset = ailist;
 
 	return false;
 }
@@ -389,7 +389,7 @@ bool aiKneel(void)
  */
 bool aiChrDoAnimation(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 anim_id = cmd[3] | (cmd[2] << 8);
 	s32 startframe = cmd[5] | (cmd[4] << 8);
 	s32 endframe = cmd[7] | (cmd[6] << 8);
@@ -455,7 +455,7 @@ bool aiChrDoAnimation(void)
 bool aiIfIdle(void)
 {
 	if (g_Vars.chrdata->actiontype == ACT_ANIM) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -497,7 +497,7 @@ bool aiBeSurprisedLookAround(void)
 bool aiIfStopped(void)
 {
 	if (chrIsStopped(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -511,7 +511,7 @@ bool aiIfStopped(void)
  */
 bool aiIfChrDead(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) && (!chr || !chr->model || chrIsDead(chr))) {
@@ -528,7 +528,7 @@ bool aiIfChrDead(void)
  */
 bool aiIfChrDeathAnimationFinished(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool pass;
 
@@ -557,7 +557,7 @@ bool aiIfChrDeathAnimationFinished(void)
  */
 bool aiIfChrKnockedOut(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) &&
@@ -576,7 +576,7 @@ bool aiIfChrKnockedOut(void)
 bool aiIfTargetInSight(void)
 {
 	if (chrCheckTargetInSight(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -591,7 +591,7 @@ bool aiIfTargetInSight(void)
 bool aiTrySidestep(void)
 {
 	if (chrTrySidestep(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -606,7 +606,7 @@ bool aiTrySidestep(void)
 bool aiTryJumpOut(void)
 {
 	if (chrTryJumpOut(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -621,7 +621,7 @@ bool aiTryJumpOut(void)
 bool aiTryRunSideways(void)
 {
 	if (chrTryRunSideways(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -636,7 +636,7 @@ bool aiTryRunSideways(void)
 bool aiTryAttackWalk(void)
 {
 	if (chrTryAttackWalk(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -651,7 +651,7 @@ bool aiTryAttackWalk(void)
 bool aiTryAttackRun(void)
 {
 	if (chrTryAttackRun(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -666,7 +666,7 @@ bool aiTryAttackRun(void)
 bool aiTryAttackRoll(void)
 {
 	if (chrTryAttackRoll(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -680,7 +680,7 @@ bool aiTryAttackRoll(void)
  */
 bool aiTryAttackStand(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
@@ -698,7 +698,7 @@ bool aiTryAttackStand(void)
  */
 bool aiTryAttackKneel(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
@@ -716,7 +716,7 @@ bool aiTryAttackKneel(void)
  */
 bool aiTryAttackLie(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
@@ -734,7 +734,7 @@ bool aiTryAttackLie(void)
  */
 bool ai00f0(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->actiontype == ACT_ATTACK &&
 			!g_Vars.chrdata->act_attack.reaim &&
@@ -752,7 +752,7 @@ bool ai00f0(void)
  */
 bool aiIfAttacking(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->actiontype == ACT_ATTACK) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -768,7 +768,7 @@ bool aiIfAttacking(void)
  */
 bool aiTryModifyAttack(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
@@ -787,7 +787,7 @@ bool aiTryModifyAttack(void)
  */
 bool aiFaceEntity(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
@@ -805,7 +805,7 @@ bool aiFaceEntity(void)
  */
 bool ai0019(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct coord pos = {0, 0, 0};
 
@@ -824,7 +824,7 @@ bool ai0019(void)
  */
 bool aiChrDamageChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 
@@ -859,7 +859,7 @@ bool aiChrDamageChr(void)
  */
 bool aiConsiderGrenadeThrow(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 value2 = cmd[5] | (cmd[4] << 8);
 	u32 value1 = cmd[3] | (cmd[2] << 8);
 
@@ -877,7 +877,7 @@ bool aiConsiderGrenadeThrow(void)
  */
 bool aiDropItem(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 modelnum = cmd[3] | (cmd[2] << 8);
 
 	if (chrDropItem(g_Vars.chrdata, modelnum & 0xffff, cmd[4] & 0xff)) {
@@ -916,7 +916,7 @@ bool aiFadeOut(void)
  */
 bool aiRemoveChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -934,7 +934,7 @@ bool aiRemoveChr(void)
  */
 bool aiTryStartAlarm(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 
 	if (chrTryStartAlarm(g_Vars.chrdata, pad_id)) {
@@ -974,7 +974,7 @@ bool aiDeactivateAlarm(void)
 bool aiTryRunFromTarget(void)
 {
 	if (chrTryRunFromTarget(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -989,7 +989,7 @@ bool aiTryRunFromTarget(void)
 bool aiTryJogToTargetProp(void)
 {
 	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_JOG)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1004,7 +1004,7 @@ bool aiTryJogToTargetProp(void)
 bool aiTryWalkToTargetProp(void)
 {
 	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_WALK)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1019,7 +1019,7 @@ bool aiTryWalkToTargetProp(void)
 bool aiTryRunToTargetProp(void)
 {
 	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_RUN)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1034,7 +1034,7 @@ bool aiTryRunToTargetProp(void)
 bool aiTryGoToCoverProp(void)
 {
 	if (chrGoToCoverProp(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist,g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1048,7 +1048,7 @@ bool aiTryGoToCoverProp(void)
  */
 bool aiTryJogToChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_JOG)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -1064,7 +1064,7 @@ bool aiTryJogToChr(void)
  */
 bool aiTryWalkToChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_WALK)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -1080,7 +1080,7 @@ bool aiTryWalkToChr(void)
  */
 bool aiTryRunToChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_RUN)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -1107,7 +1107,7 @@ bool aiRandom(void)
  */
 bool aiIfRandomLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if ((g_Vars.chrdata && g_Vars.chrdata->random < cmd[2]) ||
 			(g_Vars.hovercar && ((u8)random()) < cmd[2])) {
@@ -1124,7 +1124,7 @@ bool aiIfRandomLessThan(void)
  */
 bool aiIfRandomGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if ((g_Vars.chrdata && g_Vars.chrdata->random > cmd[2]) ||
 			(g_Vars.hovercar && ((u8)random()) > cmd[2])) {
@@ -1141,7 +1141,7 @@ bool aiIfRandomGreaterThan(void)
  */
 bool aiJogToPad(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
 	chrGoToPad(g_Vars.chrdata, pad, GOPOSFLAG_JOG);
@@ -1155,7 +1155,7 @@ bool aiJogToPad(void)
  */
 bool aiGoToPadPreset(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	switch (cmd[2]) {
 	case 0:
@@ -1179,7 +1179,7 @@ bool aiGoToPadPreset(void)
  */
 bool aiWalkToPad(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
 	chrGoToPad(g_Vars.chrdata, pad, GOPOSFLAG_WALK);
@@ -1193,7 +1193,7 @@ bool aiWalkToPad(void)
  */
 bool aiRunToPad(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
 	chrGoToPad(g_Vars.chrdata, pad, GOPOSFLAG_RUN);
@@ -1207,7 +1207,7 @@ bool aiRunToPad(void)
  */
 bool aiSetPath(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	chrSetPath(g_Vars.chrdata, cmd[2]);
 	g_Vars.aioffset += 3;
@@ -1232,7 +1232,7 @@ bool aiStartPatrol(void)
 bool aiIfCanHearAlarm(void)
 {
 	if (chrCanHearAlarm(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1246,7 +1246,7 @@ bool aiIfCanHearAlarm(void)
  */
 bool aiIfPatrolling(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->actiontype == ACT_PATROL
 			|| (g_Vars.chrdata->actiontype == ACT_GOPOS && g_Vars.chrdata->act_gopos.flags & GOPOSFLAG_FORPATHSTART)) {
@@ -1264,7 +1264,7 @@ bool aiIfPatrolling(void)
 bool aiIfAlarmActive(void)
 {
 	if (alarmIsActive()) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1279,7 +1279,7 @@ bool aiIfAlarmActive(void)
 bool aiIfGasActive(void)
 {
 	if (gasIsActive()) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1294,7 +1294,7 @@ bool aiIfGasActive(void)
 bool aiIfHearsTarget(void)
 {
 	if (chrIsHearingTarget(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1308,7 +1308,7 @@ bool aiIfHearsTarget(void)
  */
 bool aiIfSawInjury(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrSawInjury(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -1324,7 +1324,7 @@ bool aiIfSawInjury(void)
  */
 bool aiIfSawDeath(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrSawDeath(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -1342,7 +1342,7 @@ bool aiIfCanSeeTarget(void)
 {
 	if ((g_Vars.chrdata && chrCanSeeTarget(g_Vars.chrdata)) ||
 			(g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1358,7 +1358,7 @@ bool aiIfCanSeeAttackTarget(void)
 {
 	if ((g_Vars.chrdata && g_Vars.chrdata->prop && chrCanSeeAttackTarget(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, true))
 			|| (g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1372,11 +1372,11 @@ bool aiIfCanSeeAttackTarget(void)
  */
 bool aiIfTargetNearlyInSight(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 distance = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	if (chrIsTargetNearlyInSight(g_Vars.chrdata, distance)) {
-		cmd = g_Vars.ailist + g_Vars.aioffset;
+		cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -1390,11 +1390,11 @@ bool aiIfTargetNearlyInSight(void)
  */
 bool aiIfNearlyInTargetsSight(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 distance = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	if (chrIsNearlyInTargetsSight(g_Vars.chrdata, distance)) {
-		cmd = g_Vars.ailist + g_Vars.aioffset;
+		cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -1409,7 +1409,7 @@ bool aiIfNearlyInTargetsSight(void)
 bool aiSetPadPresetToPadOnRouteToTarget(void)
 {
 	if (chrSetPadPresetToPadOnRouteToTarget(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1424,7 +1424,7 @@ bool aiSetPadPresetToPadOnRouteToTarget(void)
 bool aiIfSawTargetRecently(void)
 {
 	if (chrSawTargetRecently(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1439,7 +1439,7 @@ bool aiIfSawTargetRecently(void)
 bool aiIfHeardTargetRecently(void)
 {
 	if (chrHeardTargetRecently(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1453,7 +1453,7 @@ bool aiIfHeardTargetRecently(void)
  */
 bool ai0045(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chrHasLineOfSightToPos(g_Vars.chrdata, &chr->prop->pos, chr->prop->rooms)) {
@@ -1471,7 +1471,7 @@ bool ai0045(void)
 bool aiIfNeverBeenOnScreen(void)
 {
 	if ((g_Vars.chrdata->chrflags & CHRCFLAG_EVERONSCREEN) == 0) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1486,7 +1486,7 @@ bool aiIfNeverBeenOnScreen(void)
 bool aiIfOnScreen(void)
 {
 	if (g_Vars.chrdata->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1500,7 +1500,7 @@ bool aiIfOnScreen(void)
  */
 bool aiIfChrInOnScreenRoom(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u8 pass = false;
 	s32 i;
@@ -1514,7 +1514,7 @@ bool aiIfChrInOnScreenRoom(void)
 	}
 
 	if (pass) {
-		cmd = g_Vars.ailist + g_Vars.aioffset;
+		cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1528,7 +1528,7 @@ bool aiIfChrInOnScreenRoom(void)
  */
 bool aiIfRoomIsOnScreen(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
@@ -1547,7 +1547,7 @@ bool aiIfRoomIsOnScreen(void)
 bool ai004a(void)
 {
 	if (chrCanSeeTargetWithExtraCheck(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1562,7 +1562,7 @@ bool ai004a(void)
 bool aiIfNearMiss(void)
 {
 	if (chrResetNearMiss(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1610,7 +1610,7 @@ bool aiIfSeesSuspiciousItem(void)
 	}
 
 	if (pass) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1625,7 +1625,7 @@ bool aiIfSeesSuspiciousItem(void)
 bool aiIfCheckFovWithTarget(void)
 {
 	bool pass;
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[4] == 0) {
 		if (cmd[3]) {
@@ -1651,7 +1651,7 @@ bool aiIfCheckFovWithTarget(void)
  */
 bool aiIfTargetInFovLeft(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetAngleToTarget(g_Vars.chrdata) < cmd[2] * M_BADTAU * 0.00390625f) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -1667,7 +1667,7 @@ bool aiIfTargetInFovLeft(void)
  */
 bool aiIfTargetOutOfFovLeft(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetAngleToTarget(g_Vars.chrdata) > cmd[2] * M_BADTAU * 0.00390625f) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -1683,7 +1683,7 @@ bool aiIfTargetOutOfFovLeft(void)
  */
 bool aiIfTargetInFov(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrIsTargetInFov(g_Vars.chrdata, cmd[2], 0)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -1699,7 +1699,7 @@ bool aiIfTargetInFov(void)
  */
 bool aiIfTargetOutOfFov(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (!chrIsTargetInFov(g_Vars.chrdata, cmd[2], 0)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -1715,7 +1715,7 @@ bool aiIfTargetOutOfFov(void)
  */
 bool aiIfDistanceToTargetLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * (f32)10;
 
 	if (chrGetDistanceToTarget(g_Vars.chrdata) < distance) {
@@ -1732,7 +1732,7 @@ bool aiIfDistanceToTargetLessThan(void)
  */
 bool aiIfDistanceToTargetGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * (f32)10;
 
 	if (chrGetDistanceToTarget(g_Vars.chrdata) > distance) {
@@ -1749,7 +1749,7 @@ bool aiIfDistanceToTargetGreaterThan(void)
  */
 bool aiIfChrDistanceToPadLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1790,7 +1790,7 @@ bool aiIfChrDistanceToPadLessThan(void)
  */
 bool aiIfChrSameFloorDistanceToPadLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u16 padnum = cmd[6] | (cmd[5] << 8);
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
@@ -1817,7 +1817,7 @@ bool aiIfChrSameFloorDistanceToPadLessThan(void)
  */
 bool aiIfChrDistanceToPadGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u16 padnum = cmd[6] | (cmd[5] << 8);
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
@@ -1845,7 +1845,7 @@ bool aiIfChrDistanceToPadGreaterThan(void)
  */
 bool aiIfDistanceToChrLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToChr(g_Vars.chrdata, cmd[4]) < cutoff) {
@@ -1862,7 +1862,7 @@ bool aiIfDistanceToChrLessThan(void)
  */
 bool aiIfDistanceToChrGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToChr(g_Vars.chrdata, cmd[4]) > cutoff) {
@@ -1879,7 +1879,7 @@ bool aiIfDistanceToChrGreaterThan(void)
  */
 bool ai0058(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrSetChrPresetToAnyChrNearSelf(g_Vars.chrdata, distance)) {
@@ -1896,7 +1896,7 @@ bool ai0058(void)
  */
 bool aiIfDistanceFromTargetToPadLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[5] | (cmd[4] << 8);
 	f32 value = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
@@ -1914,7 +1914,7 @@ bool aiIfDistanceFromTargetToPadLessThan(void)
  */
 bool aiIfDistanceFromTargetToPadGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[5] | (cmd[4] << 8);
 	f32 value = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
@@ -1932,7 +1932,7 @@ bool aiIfDistanceFromTargetToPadGreaterThan(void)
  */
 bool aiIfChrInRoom(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u16 pad_id = cmd[5] | (cmd[4] << 8);
 	s32 room = chrGetPadRoom(g_Vars.chrdata, pad_id);
@@ -1978,7 +1978,7 @@ bool aiIfChrInRoom(void)
  */
 bool aiIfTargetInRoom(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
@@ -1997,7 +1997,7 @@ bool aiIfTargetInRoom(void)
  */
 bool aiIfChrHasObject(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	s32 hasprop = false;
@@ -2023,7 +2023,7 @@ bool aiIfChrHasObject(void)
  */
 bool aiIfWeaponThrown(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (weaponFindLanded(cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2039,7 +2039,7 @@ bool aiIfWeaponThrown(void)
  */
 bool aiIfWeaponThrownOnObject(void)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 	struct defaultobj *obj = objFindByTagId(cmd->b3);
 	bool pass = false;
 
@@ -2073,7 +2073,7 @@ bool aiIfWeaponThrownOnObject(void)
  */
 bool aiIfChrHasWeaponEquipped(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool passes = false;
 
@@ -2103,7 +2103,7 @@ bool aiIfChrHasWeaponEquipped(void)
  */
 bool aiIfGunUnclaimed(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[3] == 0) {
 		struct defaultobj *obj = objFindByTagId(cmd[2]);
@@ -2132,7 +2132,7 @@ bool aiIfGunUnclaimed(void)
  */
 bool aiIfObjectHealthy(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && objIsHealthy(obj)) {
@@ -2149,7 +2149,7 @@ bool aiIfObjectHealthy(void)
  */
 bool aiIfChrActivatedObject(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	u32 stack[1];
 	bool pass = false;
@@ -2189,7 +2189,7 @@ bool aiIfChrActivatedObject(void)
  */
 bool aiObjInteract(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
@@ -2210,7 +2210,7 @@ bool aiObjInteract(void)
  */
 bool aiDestroyObject(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && objGetDestroyedLevel(obj) == 0) {
@@ -2236,7 +2236,7 @@ bool aiDestroyObject(void)
  */
 bool ai0067(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->parent && obj->prop->parent->type == PROPTYPE_CHR) {
@@ -2255,7 +2255,7 @@ bool ai0067(void)
  */
 bool aiChrDropItems(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop) {
@@ -2272,7 +2272,7 @@ bool aiChrDropItems(void)
  */
 bool aiChrDropWeapon(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -2306,7 +2306,7 @@ bool aiChrDropWeapon(void)
  */
 bool aiGiveObjectToChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
@@ -2356,7 +2356,7 @@ bool aiGiveObjectToChr(void)
  */
 bool aiObjectMoveToPad(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	u16 padnum = cmd[4] | (cmd[3] << 8);
 	Mtxf matrix;
@@ -2389,7 +2389,7 @@ bool aiObjectMoveToPad(void)
  */
 bool aiOpenDoor(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
@@ -2409,7 +2409,7 @@ bool aiOpenDoor(void)
  */
 bool aiCloseDoor(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
@@ -2427,7 +2427,7 @@ bool aiCloseDoor(void)
  */
 bool aiIfDoorState(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	bool pass = false;
 
@@ -2461,7 +2461,7 @@ bool aiIfDoorState(void)
  */
 bool aiIfObjectIsDoor(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->type == OBJTYPE_DOOR && (obj->hidden & 0x200)) {
@@ -2478,7 +2478,7 @@ bool aiIfObjectIsDoor(void)
  */
 bool aiLockDoor(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
@@ -2497,7 +2497,7 @@ bool aiLockDoor(void)
  */
 bool aiUnlockDoor(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
@@ -2516,7 +2516,7 @@ bool aiUnlockDoor(void)
  */
 bool aiIfDoorLocked(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	bool pass = false;
 
@@ -2544,7 +2544,7 @@ bool aiIfDoorLocked(void)
  */
 bool aiIfObjectiveComplete(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_COMPLETE &&
@@ -2562,7 +2562,7 @@ bool aiIfObjectiveComplete(void)
  */
 bool aiIfObjectiveFailed(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_FAILED &&
@@ -2580,7 +2580,7 @@ bool aiIfObjectiveFailed(void)
  */
 bool ai0075(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (func0f04a4ec(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2596,7 +2596,7 @@ bool ai0075(void)
  */
 bool aiSetPadPresetToTargetQuadrant(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrSetPadPresetToWaypointWithinTargetQuadrant(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2612,7 +2612,7 @@ bool aiSetPadPresetToTargetQuadrant(void)
  */
 bool aiIfNumArghsLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetNumArghs(g_Vars.chrdata) < cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2628,7 +2628,7 @@ bool aiIfNumArghsLessThan(void)
  */
 bool aiIfNumArghsGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetNumArghs(g_Vars.chrdata) > cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2644,7 +2644,7 @@ bool aiIfNumArghsGreaterThan(void)
  */
 bool aiIfNumCloseArghsLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetNumCloseArghs(g_Vars.chrdata) < cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2660,7 +2660,7 @@ bool aiIfNumCloseArghsLessThan(void)
  */
 bool aiIfNumCloseArghsGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetNumCloseArghs(g_Vars.chrdata) > cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2676,7 +2676,7 @@ bool aiIfNumCloseArghsGreaterThan(void)
  */
 bool aiIfChrHealthGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 value = cmd[3] * 0.1f;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u32 pass = false;
@@ -2705,7 +2705,7 @@ bool aiIfChrHealthGreaterThan(void)
  */
 bool aiIfChrHealthLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 value = cmd[3] * 0.1f;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u32 pass = false;
@@ -2734,7 +2734,7 @@ bool aiIfChrHealthLessThan(void)
  */
 bool aiIfChrShieldLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 value = (cmd[4] | (cmd[3] << 8)) * 0.1f;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
 
@@ -2752,7 +2752,7 @@ bool aiIfChrShieldLessThan(void)
  */
 bool aiIfChrShieldGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 value = (cmd[4] | (cmd[3] << 8)) * 0.1f;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
 
@@ -2770,7 +2770,7 @@ bool aiIfChrShieldGreaterThan(void)
  */
 bool aiIfInjured(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & CHRCFLAG_JUST_INJURED)) {
@@ -2788,7 +2788,7 @@ bool aiIfInjured(void)
  */
 bool aiIfShieldDamaged(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & CHRCFLAG_SHIELDDAMAGED)) {
@@ -2806,7 +2806,7 @@ bool aiIfShieldDamaged(void)
  */
 bool aiIfDifficultyLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (lvGetDifficulty() < cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2822,7 +2822,7 @@ bool aiIfDifficultyLessThan(void)
  */
 bool aiIfDifficultyGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (lvGetDifficulty() > cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2838,7 +2838,7 @@ bool aiIfDifficultyGreaterThan(void)
  */
 bool aiIfStageTimerLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
 	f32 time = lvGetStageTimeInSeconds();
 
@@ -2856,7 +2856,7 @@ bool aiIfStageTimerLessThan(void)
  */
 bool aiIfStageTimerGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
 	f32 time = lvGetStageTimeInSeconds();
 
@@ -2874,7 +2874,7 @@ bool aiIfStageTimerGreaterThan(void)
  */
 bool aiIfStageIdLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] > mainGetStageNum()) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2890,7 +2890,7 @@ bool aiIfStageIdLessThan(void)
  */
 bool aiIfStageIdGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (mainGetStageNum() > cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2906,7 +2906,7 @@ bool aiIfStageIdGreaterThan(void)
  */
 bool aiSetMorale(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_Vars.chrdata->morale = cmd[2];
 	g_Vars.aioffset += 3;
 
@@ -2918,7 +2918,7 @@ bool aiSetMorale(void)
  */
 bool aiAddMorale(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	incrementByte(&g_Vars.chrdata->morale, cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -2930,7 +2930,7 @@ bool aiAddMorale(void)
  */
 bool aiChrAddMorale(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 	incrementByte(&chr->morale, cmd[2]);
 	g_Vars.aioffset += 4;
@@ -2943,7 +2943,7 @@ bool aiChrAddMorale(void)
  */
 bool aiSubtractMorale(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	decrementByte(&g_Vars.chrdata->morale, cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -2955,7 +2955,7 @@ bool aiSubtractMorale(void)
  */
 bool aiIfMoraleLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->morale < cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -2971,7 +2971,7 @@ bool aiIfMoraleLessThan(void)
  */
 bool aiIfMoraleLessThanRandom(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->morale < g_Vars.chrdata->random) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -2987,7 +2987,7 @@ bool aiIfMoraleLessThanRandom(void)
  */
 bool aiSetAlertness(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_Vars.chrdata->alertness = cmd[2];
 	g_Vars.aioffset += 3;
 
@@ -2999,7 +2999,7 @@ bool aiSetAlertness(void)
  */
 bool aiAddAlertness(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	incrementByte(&g_Vars.chrdata->alertness, cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -3011,7 +3011,7 @@ bool aiAddAlertness(void)
  */
 bool aiChrAddAlertness(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
 	if (chr && chr->prop) {
@@ -3028,7 +3028,7 @@ bool aiChrAddAlertness(void)
  */
 bool aiSubtractAlertness(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	decrementByte(&g_Vars.chrdata->alertness, cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -3040,7 +3040,7 @@ bool aiSubtractAlertness(void)
  */
 bool aiIfAlertness(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if ((g_Vars.chrdata->alertness < cmd[2] && cmd[3] == 0) ||
 			(cmd[2] < g_Vars.chrdata->alertness && cmd[3] == 1)) {
@@ -3057,7 +3057,7 @@ bool aiIfAlertness(void)
  */
 bool aiIfChrAlertnessLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
 	if (chr && chr->alertness < cmd[2]) {
@@ -3074,7 +3074,7 @@ bool aiIfChrAlertnessLessThan(void)
  */
 bool aiIfAlertnessLessThanRandom(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->alertness < g_Vars.chrdata->random) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -3090,7 +3090,7 @@ bool aiIfAlertnessLessThanRandom(void)
  */
 bool aiSetHearDistance(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) / 1000.0f;
 	g_Vars.chrdata->hearingscale = distance;
 
@@ -3104,7 +3104,7 @@ bool aiSetHearDistance(void)
  */
 bool aiSetViewDistance(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (!cheatIsActive(CHEAT_PERFECTDARKNESS)) {
 		g_Vars.chrdata->visionrange = cmd[2];
@@ -3120,7 +3120,7 @@ bool aiSetViewDistance(void)
  */
 bool aiSetGrenadeProbability(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_Vars.chrdata->grenadeprob = cmd[2];
 	g_Vars.aioffset += + 3;
 
@@ -3132,7 +3132,7 @@ bool aiSetGrenadeProbability(void)
  */
 bool aiSetChrNum(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	chrSetChrnum(g_Vars.chrdata, cmd[2]);
 	g_Vars.chrdata->chrnum = cmd[2];
@@ -3146,7 +3146,7 @@ bool aiSetChrNum(void)
  */
 bool aiSetMaxDamage(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 maxdamage = (cmd[4] | (cmd[3] << 8)) * 0.1f;
 
 	if (g_Vars.hovercar) {
@@ -3174,7 +3174,7 @@ bool aiSetMaxDamage(void)
  */
 bool aiAddHealth()
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 amount = (cmd[3] | (cmd[2] << 8)) * 0.1f;
 
 	chrAddHealth(g_Vars.chrdata, amount);
@@ -3189,7 +3189,7 @@ bool aiAddHealth()
  */
 bool aiSetShield(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 amount = (cmd[3] | (cmd[2] << 8)) * 0.1f;
 
 	if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
@@ -3208,7 +3208,7 @@ bool aiSetShield(void)
  */
 bool aiSetReactionSpeed(void)
 {
-	s8 *cmd = (s8 *)g_Vars.ailist + g_Vars.aioffset;
+	s8 *cmd = (s8 *)g_Vars.aioffset;
 
 	g_Vars.chrdata->speedrating = cmd[2];
 	g_Vars.aioffset += 3;
@@ -3221,7 +3221,7 @@ bool aiSetReactionSpeed(void)
  */
 bool aiSetRecoverySpeed(void)
 {
-	s8 *cmd = (s8 *)g_Vars.ailist + g_Vars.aioffset;
+	s8 *cmd = (s8 *)g_Vars.aioffset;
 
 	g_Vars.chrdata->arghrating = cmd[2];
 	g_Vars.aioffset += 3;
@@ -3234,7 +3234,7 @@ bool aiSetRecoverySpeed(void)
  */
 bool aiSetAccuracy(void)
 {
-	s8 *cmd = (s8 *)g_Vars.ailist + g_Vars.aioffset;
+	s8 *cmd = (s8 *)g_Vars.aioffset;
 
 	g_Vars.chrdata->accuracyrating = cmd[2];
 	g_Vars.aioffset += 3;
@@ -3247,7 +3247,7 @@ bool aiSetAccuracy(void)
  */
 bool aiSetDodgeRating(void)
 {
-	s8 *cmd = (s8 *)g_Vars.ailist + g_Vars.aioffset;
+	s8 *cmd = (s8 *)g_Vars.aioffset;
 
 	if (cmd[2] == 0) {
 		g_Vars.chrdata->dodgerating = cmd[3];
@@ -3268,7 +3268,7 @@ bool aiSetDodgeRating(void)
  */
 bool aiSetUnarmedDodgeRating(void)
 {
-	s8 *cmd = (s8 *)g_Vars.ailist + g_Vars.aioffset;
+	s8 *cmd = (s8 *)g_Vars.aioffset;
 
 	g_Vars.chrdata->unarmeddodgerating = cmd[2];
 	g_Vars.aioffset += 3;
@@ -3281,7 +3281,7 @@ bool aiSetUnarmedDodgeRating(void)
  */
 bool aiSetFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	chrSetFlags(g_Vars.chrdata, flags, cmd[6]);
 
@@ -3295,7 +3295,7 @@ bool aiSetFlag(void)
  */
 bool aiUnsetFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	chrUnsetFlags(g_Vars.chrdata, flags, cmd[6]);
 
@@ -3310,7 +3310,7 @@ bool aiUnsetFlag(void)
 bool aiIfHasFlag(void)
 {
 	bool result;
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	result = chrHasFlag(g_Vars.chrdata, flags, cmd[7]);
@@ -3333,7 +3333,7 @@ bool aiIfHasFlag(void)
  */
 bool aiChrSetFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	chrSetFlagsById(g_Vars.chrdata, cmd[2], flags, cmd[7]);
 	g_Vars.aioffset += 8;
@@ -3346,7 +3346,7 @@ bool aiChrSetFlag(void)
  */
 bool aiChrUnsetFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	chrUnsetFlagsById(g_Vars.chrdata, cmd[2], flags, cmd[7]);
 	g_Vars.aioffset += 8;
@@ -3359,7 +3359,7 @@ bool aiChrUnsetFlag(void)
  */
 bool aiIfChrHasFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 
 	if (chrHasFlagById(g_Vars.chrdata, cmd[2], flags, cmd[7])) {
@@ -3376,7 +3376,7 @@ bool aiIfChrHasFlag(void)
  */
 bool aiSetStageFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	chrSetStageFlag(g_Vars.chrdata, flags);
 	g_Vars.aioffset += 6;
@@ -3389,7 +3389,7 @@ bool aiSetStageFlag(void)
  */
 bool aiUnsetStageFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	chrUnsetStageFlag(g_Vars.chrdata, flags);
 	g_Vars.aioffset += 6;
@@ -3402,7 +3402,7 @@ bool aiUnsetStageFlag(void)
  */
 bool aiIfStageFlagEq(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	if ((chrHasStageFlag(g_Vars.chrdata, flags) && cmd[6] == 1) ||
@@ -3420,7 +3420,7 @@ bool aiIfStageFlagEq(void)
  */
 bool aiSetChrflag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	g_Vars.chrdata->chrflags |= flags;
@@ -3434,7 +3434,7 @@ bool aiSetChrflag(void)
  */
 bool aiUnsetChrflag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	g_Vars.chrdata->chrflags &= ~flags;
@@ -3448,7 +3448,7 @@ bool aiUnsetChrflag(void)
  */
 bool aiIfHasChrflag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	if ((g_Vars.chrdata->chrflags & flags) == flags) {
@@ -3465,7 +3465,7 @@ bool aiIfHasChrflag(void)
  */
 bool aiChrSetChrflag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3483,7 +3483,7 @@ bool aiChrSetChrflag(void)
  */
 bool aiChrUnsetChrflag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3501,7 +3501,7 @@ bool aiChrUnsetChrflag(void)
  */
 bool aiIfChrHasChrflag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3519,7 +3519,7 @@ bool aiIfChrHasChrflag(void)
  */
 bool aiChrSetHiddenFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3537,7 +3537,7 @@ bool aiChrSetHiddenFlag(void)
  */
 bool aiChrUnsetHiddenFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3555,7 +3555,7 @@ bool aiChrUnsetHiddenFlag(void)
  */
 bool aiIfChrHasHiddenFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3573,7 +3573,7 @@ bool aiIfChrHasHiddenFlag(void)
  */
 bool aiSetObjFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3591,7 +3591,7 @@ bool aiSetObjFlag(void)
  */
 bool aiUnsetObjFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3609,7 +3609,7 @@ bool aiUnsetObjFlag(void)
  */
 bool aiIfObjHasFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3627,7 +3627,7 @@ bool aiIfObjHasFlag(void)
  */
 bool aiSetObjFlag2(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3645,7 +3645,7 @@ bool aiSetObjFlag2(void)
  */
 bool aiUnsetObjFlag2(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3663,7 +3663,7 @@ bool aiUnsetObjFlag2(void)
  */
 bool aiIfObjHasFlag2(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3681,7 +3681,7 @@ bool aiIfObjHasFlag2(void)
  */
 bool aiSetObjFlag3(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3699,7 +3699,7 @@ bool aiSetObjFlag3(void)
  */
 bool aiUnsetObjFlag3(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3717,7 +3717,7 @@ bool aiUnsetObjFlag3(void)
  */
 bool aiIfObjHasFlag3(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3735,7 +3735,7 @@ bool aiIfObjHasFlag3(void)
  */
 bool aiSetChrPreset(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	chrSetChrPreset(g_Vars.chrdata, cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -3747,7 +3747,7 @@ bool aiSetChrPreset(void)
  */
 bool aiSetChrTarget(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	chrSetChrPresetByChrnum(g_Vars.chrdata, cmd[2], cmd[3]);
 	g_Vars.aioffset += 4;
 
@@ -3759,7 +3759,7 @@ bool aiSetChrTarget(void)
  */
 bool aiSetPadPreset(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
@@ -3778,7 +3778,7 @@ bool aiSetPadPreset(void)
  */
 bool aiChrSetPadPreset(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[4] | (cmd[3] << 8);
 
 	chrSetPadPresetByChrnum(g_Vars.chrdata, cmd[2], pad_id);
@@ -3793,7 +3793,7 @@ bool aiChrSetPadPreset(void)
  */
 bool aiChrCopyPadPreset(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chrsrc = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct chrdata *chrdst = chrFindById(g_Vars.chrdata, cmd[3]);
 
@@ -3877,7 +3877,7 @@ bool aiResumeTimer(void)
  */
 bool aiIfTimerStopped(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if ((g_Vars.chrdata->hidden & CHRHFLAG_TIMER_RUNNING) == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -3893,7 +3893,7 @@ bool aiIfTimerStopped(void)
  */
 bool aiIfTimerGreaterThanRandom(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 timer = chrGetTimer(g_Vars.chrdata);
 
 	if (g_Vars.chrdata->random < timer) {
@@ -3910,7 +3910,7 @@ bool aiIfTimerGreaterThanRandom(void)
  */
 bool aiIfTimerLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 value = (u32)((cmd[3] << 8) | cmd[4] | (cmd[2] << 16)) / 60.0f;
 
 	if ((g_Vars.chrdata && chrGetTimer(g_Vars.chrdata) < value) ||
@@ -3928,7 +3928,7 @@ bool aiIfTimerLessThan(void)
  */
 bool aiIfTimerGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 value = (u32)((cmd[3] << 8) | cmd[4] | (cmd[2] << 16)) / 60.0f;
 
 	// These two function calls were likely used in a debug print statement
@@ -3977,7 +3977,7 @@ bool aiHideCountdownTimer(void)
  */
 bool aiSetCountdownTimerValue(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 seconds = cmd[3] | (cmd[2] << 8);
 
 	countdownTimerSetValue60(seconds * 60);
@@ -4013,7 +4013,7 @@ bool aiStartCountdownTimer(void)
  */
 bool aiIfCountdownTimerStopped(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (!countdownTimerIsRunning()) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -4029,7 +4029,7 @@ bool aiIfCountdownTimerStopped(void)
  */
 bool aiIfCountdownTimerLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 value = cmd[3] | (cmd[2] << 8);
 
 	if (countdownTimerGetValue60() < value * 60) {
@@ -4046,7 +4046,7 @@ bool aiIfCountdownTimerLessThan(void)
  */
 bool aiIfCountdownTimerGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 value = cmd[3] | (cmd[2] << 8);
 
 	if (countdownTimerGetValue60() > value * 60) {
@@ -4063,7 +4063,7 @@ bool aiIfCountdownTimerGreaterThan(void)
  */
 bool aiSpawnChrAtPad(void)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 	u16 pad = cmd->b4 << 8 | cmd->b5;
 	u32 spawnflags = cmd->b8 << 24 | cmd->b9 << 16 | cmd->b10 << 8 | cmd->b11;
 	u16 ailistid = cmd->b6 << 8 | cmd->b7;
@@ -4085,7 +4085,7 @@ bool aiSpawnChrAtPad(void)
  */
 bool aiSpawnChrAtChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 spawnflags = (cmd[8] << 16) | (cmd[9] << 8) | cmd[10] | (cmd[7] << 24);
 	u16 ailistid = cmd[6] | (cmd[5] << 8);
 	u8 *ailist = ailistFindById(ailistid);
@@ -4104,7 +4104,7 @@ bool aiSpawnChrAtChr(void)
  */
 bool aiTryEquipWeapon(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[6] << 16) | (cmd[7] << 8) | cmd[8] | (cmd[5] << 24);
 	u32 model = cmd[3] | (cmd[2] << 8);
 	struct prop *prop = NULL;
@@ -4210,7 +4210,7 @@ bool aiTryEquipWeapon(void)
  */
 bool aiTryEquipHat(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 	u32 modelnum = cmd[3] | (cmd[2] << 8);
 	struct prop *prop = NULL;
@@ -4233,7 +4233,7 @@ bool aiTryEquipHat(void)
  */
 bool aiDuplicateChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 spawnflags = (cmd[6] << 16) | (cmd[7] << 8) | cmd[8] | (cmd[5] << 24);
 	u16 ailistid = cmd[4] | (cmd[3] << 8);
 	u8 *ailist = ailistFindById(ailistid);
@@ -4330,7 +4330,7 @@ bool aiDuplicateChr(void)
  */
 bool aiShowHudmsg(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	char *text = langGet(cmd[4] | (cmd[3] << 8));
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -4355,7 +4355,7 @@ bool aiShowHudmsg(void)
  */
 bool aiShowHudmsgMiddle(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] == 0) {
 		u32 text_id = cmd[5] | (cmd[4] << 8);
@@ -4379,7 +4379,7 @@ bool aiShowHudmsgMiddle(void)
  */
 bool aiShowHudmsgTopMiddle(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	char *text = langGet(cmd[4] | (cmd[3] << 8));
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -4404,7 +4404,7 @@ bool aiShowHudmsgTopMiddle(void)
  */
 bool aiSpeak(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	s16 audio_id = cmd[6] | (cmd[5] << 8);
 	s16 text_id = cmd[4] | (cmd[3] << 8);
@@ -4445,7 +4445,7 @@ bool aiSpeak(void)
  */
 bool aiPlaySound(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
 	audioPlayFromProp((s8)cmd[4], audio_id, 0, NULL, 0, 0);
@@ -4460,7 +4460,7 @@ bool aiPlaySound(void)
  */
 bool aiAssignSound(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
 	audioPlayFromProp((s8)cmd[4], audio_id, -1, NULL, 11, 0);
@@ -4475,7 +4475,7 @@ bool aiAssignSound(void)
  */
 bool aiAudioMuteChannel(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s8 channel = (s8)cmd[2];
 
 	audioMuteChannel(channel);
@@ -4489,7 +4489,7 @@ bool aiAudioMuteChannel(void)
  */
 bool aiIfChannelIdle(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s8 channel = (s8) cmd[2];
 
 	if (audioIsChannelIdle(channel)) {
@@ -4506,7 +4506,7 @@ bool aiIfChannelIdle(void)
  */
 bool ai00d1(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 audio_id = cmd[4] | (cmd[3] << 8);
 	u16 thing = cmd[6] | (cmd[5] << 8);
 
@@ -4522,7 +4522,7 @@ bool ai00d1(void)
  */
 bool ai00d2(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 thing1 = cmd[4] | (cmd[3] << 8);
 	u16 thing2 = cmd[6] | (cmd[5] << 8);
 	s32 audio_id = func0f0927d4(thing1, 400, 2500, 3000, 32767);
@@ -4539,7 +4539,7 @@ bool ai00d2(void)
  */
 bool ai00cf(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	u16 thing = cmd[5] | (cmd[4] << 8);
 
@@ -4557,7 +4557,7 @@ bool ai00cf(void)
  */
 bool ai016b(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	u16 thing1 = cmd[5] | (cmd[4] << 8);
 	u16 thing2 = cmd[7] | (cmd[6] << 8);
@@ -4585,7 +4585,7 @@ bool ai016b(void)
  */
 bool ai0179(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 thing1 = cmd[5] | (cmd[4] << 8);
 	u16 thing2 = cmd[7] | (cmd[6] << 8);
 	u16 thing3 = cmd[9] | (cmd[8] << 8);
@@ -4614,7 +4614,7 @@ bool ai0179(void)
  */
 bool ai00d0(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 padnum = cmd[4] | (cmd[3] << 8);
 	s16 sound = cmd[6] | (cmd[5] << 8);
 
@@ -4630,7 +4630,7 @@ bool ai00d0(void)
  */
 bool ai00d4(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 thing = cmd[4] | (cmd[3] << 8);
 
 	if (channelGetUnk06((s8)cmd[2]) < thing) {
@@ -4647,7 +4647,7 @@ bool ai00d4(void)
  */
 bool aiHovercarBeginPath(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct path *path = pathFindById(cmd[2]);
 
 	if (g_Vars.truck) {
@@ -4700,7 +4700,7 @@ bool aiHovercarBeginPath(void)
  */
 bool aiSetVehicleSpeed(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 speedtime = cmd[5] | (cmd[4] << 8);
 	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * 100.0f / 15360.0f;
 
@@ -4724,7 +4724,7 @@ bool aiSetVehicleSpeed(void)
  */
 bool aiSetRotorSpeed(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 speedtime = cmd[5] | (cmd[4] << 8);
 	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * M_BADTAU / 3600;
 
@@ -4761,7 +4761,7 @@ bool aiNoOp00d9(void)
  */
 bool aiSetObjImage(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
@@ -4826,7 +4826,7 @@ bool ai00dd(void)
  */
 bool aiWarpJoToPad(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	playerPrepareWarpType1(pad_id);
 
@@ -4849,7 +4849,7 @@ bool aiNoOp010d(void)
  */
 bool aiSetCameraAnimation(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 anim_id = cmd[3] | (cmd[2] << 8);
 
 	playerStartCutscene(anim_id);
@@ -4868,7 +4868,7 @@ bool aiSetCameraAnimation(void)
  */
 bool aiIfInCutscene(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.in_cutscene) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -4884,7 +4884,7 @@ bool aiIfInCutscene(void)
  */
 bool aiIfCutsceneButtonPressed(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if ((g_Vars.in_cutscene && g_CutsceneSkipRequested) ||
 			(g_Vars.stagenum == STAGE_CITRAINING && var80087260 > 0)) {
@@ -4901,7 +4901,7 @@ bool aiIfCutsceneButtonPressed(void)
  */
 bool ai0175(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	playerReorientForCutsceneStop(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -4913,7 +4913,7 @@ bool ai0175(void)
  */
 bool aiObjectDoAnimation(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 anim_id = cmd[3] | (cmd[2] << 8);
 	struct defaultobj *obj = NULL;
 	f32 thing;
@@ -4979,7 +4979,7 @@ bool aiObjectDoAnimation(void)
  */
 bool aiEnableChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
@@ -4998,7 +4998,7 @@ bool aiEnableChr(void)
  */
 bool aiDisableChr(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
@@ -5017,7 +5017,7 @@ bool aiDisableChr(void)
  */
 bool aiEnableObj(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->model) {
@@ -5043,7 +5043,7 @@ bool aiEnableObj(void)
  */
 bool aiDisableObj(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->model) {
@@ -5082,7 +5082,7 @@ bool aiDisableObj(void)
  */
 bool ai00df(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct tag *tag = tagFindById(cmd[2]);
 
 	if (tag) {
@@ -5104,7 +5104,7 @@ bool ai00df(void)
  */
 bool aiRevokeControl(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5136,7 +5136,7 @@ bool aiRevokeControl(void)
  */
 bool aiGrantControl(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5160,7 +5160,7 @@ bool aiGrantControl(void)
  */
 bool aiChrMoveToPad(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 #if VERSION < VERSION_NTSC_1_0
 	s32 padnum = cmd[4] | (cmd[3] << 8);
 #endif
@@ -5219,7 +5219,7 @@ bool aiChrMoveToPad(void)
  */
 bool ai00e3(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5268,7 +5268,7 @@ bool ai00e4(void)
  */
 bool aiIfColourFadeComplete(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -5294,7 +5294,7 @@ bool aiIfColourFadeComplete(void)
  */
 bool aiSetDoorOpen(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
@@ -5318,7 +5318,7 @@ bool aiSetDoorOpen(void)
  */
 bool ai00e9(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
@@ -5335,7 +5335,7 @@ bool ai00e9(void)
  */
 bool aiIfNumPlayersLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if ((s8)cmd[2] > PLAYERCOUNT()) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -5351,7 +5351,7 @@ bool aiIfNumPlayersLessThan(void)
  */
 bool aiIfChrAmmoQuantityLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool passes = false;
 
@@ -5381,7 +5381,7 @@ bool aiIfChrAmmoQuantityLessThan(void)
  */
 bool aiChrDrawWeapon(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5403,7 +5403,7 @@ bool aiChrDrawWeapon(void)
  */
 bool aiChrDrawWeaponInCutscene(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5424,7 +5424,7 @@ bool aiChrDrawWeaponInCutscene(void)
  */
 bool ai00ee(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5449,7 +5449,7 @@ bool ai00ee(void)
  */
 bool aiIfObjInRoom(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	u16 room_id = cmd[4] | (cmd[3] << 8);
 	s32 room_something = chrGetPadRoom(g_Vars.chrdata, room_id);
@@ -5479,7 +5479,7 @@ bool aiSwitchToAltSky(void)
  */
 bool aiChrSetInvincible(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5500,7 +5500,7 @@ bool aiChrSetInvincible(void)
  */
 bool ai00f4(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	s32 range = cmd[3] | (cmd[2] << 8);
 	s16 height1 = cmd[5] | (cmd[4] << 8);
@@ -5532,7 +5532,7 @@ bool ai00f5(void)
  */
 bool ai00f6(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (var8007073c == 2) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -5548,7 +5548,7 @@ bool ai00f6(void)
  */
 bool aiIfAllObjectivesComplete(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (objectiveIsAllComplete()) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -5564,7 +5564,7 @@ bool aiIfAllObjectivesComplete(void)
  */
 bool aiIfPlayerIsInvincible(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -5590,7 +5590,7 @@ bool aiIfPlayerIsInvincible(void)
  */
 bool aiPlayXTrack(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_Vars.aioffset += 5;
 	musicSetXReason((s8)cmd[2], cmd[3], cmd[4]);
 
@@ -5602,7 +5602,7 @@ bool aiPlayXTrack(void)
  */
 bool aiStopXTrack(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_Vars.aioffset += 3;
 	musicUnsetXReason((s8)cmd[2]);
 
@@ -5614,7 +5614,7 @@ bool aiStopXTrack(void)
  */
 bool aiPlayTrackIsolated(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] == MUSIC_CI_TRAINING) {
 		u16 volume = optionsGetMusicVolume();
@@ -5645,7 +5645,7 @@ bool aiPlayDefaultTracks(void)
  */
 bool aiPlayCutsceneTrack(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	musicStartCutscene(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -5668,7 +5668,7 @@ bool aiStopCutsceneTrack(void)
  */
 bool aiPlayTemporaryTrack(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	musicStartTemporaryAmbient(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -5691,7 +5691,7 @@ bool aiStopAmbientTrack(void)
  */
 bool aiChrExplosions(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5712,7 +5712,7 @@ bool aiChrExplosions(void)
  */
 bool aiIfKillCountGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.killcount > cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -5728,7 +5728,7 @@ bool aiIfKillCountGreaterThan(void)
  */
 bool aiIfNumKnockedOutChrs(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] < mpstatsGetTotalKnockoutCount() && cmd[3] == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -5746,7 +5746,7 @@ bool aiIfNumKnockedOutChrs(void)
  */
 bool ai00fd(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & CHRCFLAG_TRIGGERSHOTLIST)) {
@@ -5804,7 +5804,7 @@ bool aiNoOp0101(void)
  */
 bool aiSetLights(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 padnum = cmd[3] | (cmd[2] << 8);
 	s32 roomnum = chrGetPadRoom(g_Vars.chrdata, padnum);
 
@@ -5832,7 +5832,7 @@ bool aiSetLights(void)
 bool aiIfPropPresetIsBlockingSightToTarget(void)
 {
 	if (chrIsPropPresetBlockingSightToTarget(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -5862,7 +5862,7 @@ bool aiRemoveObjectAtPropPreset(void)
  */
 bool aiIfPropPresetHeightLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct prop *prop = &g_Vars.props[g_Vars.chrdata->proppreset1];
 	f32 value = cmd[3] | (cmd[2] << 8);
 	f32 ymax;
@@ -5885,7 +5885,7 @@ bool aiIfPropPresetHeightLessThan(void)
  */
 bool aiSetTarget(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata) {
 		s16 prop_id;
@@ -5920,7 +5920,7 @@ bool aiSetTarget(void)
 bool aiIfPresetsTargetIsNotMyTarget(void)
 {
 	s32 mypresetchrstarget;
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->chrpreset1 != -1) {
 		mypresetchrstarget = propGetIndexByChrId(g_Vars.chrdata, g_Vars.chrdata->chrpreset1);
@@ -5940,7 +5940,7 @@ bool aiIfPresetsTargetIsNotMyTarget(void)
  */
 bool aiIfChrTarget(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool pass = false;
 
@@ -5974,7 +5974,7 @@ bool aiIfChrTarget(void)
  */
 bool aiSetChrPresetToChrNearSelf(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
 
 	if (chrSetChrPresetToChrNearSelf(cmd[2], g_Vars.chrdata, distance)) {
@@ -5991,7 +5991,7 @@ bool aiSetChrPresetToChrNearSelf(void)
  */
 bool aiSetChrPresetToChrNearPad(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
 	u16 padnum = cmd[6] | (cmd[5] << 8);
 
@@ -6009,7 +6009,7 @@ bool aiSetChrPresetToChrNearPad(void)
  */
 bool aiChrSetTeam(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
@@ -6026,7 +6026,7 @@ bool aiChrSetTeam(void)
  */
 bool aiIfCompareChrPresetsTeam(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 
 	if (!chr || (!chr->model && chr->prop->type != PROPTYPE_PLAYER)) {
@@ -6048,7 +6048,7 @@ bool aiIfCompareChrPresetsTeam(void)
  */
 bool aiIfHuman(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && CHRRACE(chr) == RACE_HUMAN) {
@@ -6065,7 +6065,7 @@ bool aiIfHuman(void)
  */
 bool aiIfSkedar(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && CHRRACE(chr) == RACE_SKEDAR) {
@@ -6082,7 +6082,7 @@ bool aiIfSkedar(void)
  */
 bool aiIfSafety2LessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u8 score;
 	u8 numnearby;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
@@ -6170,7 +6170,7 @@ bool aiIfSafety2LessThan(void)
  */
 bool aiFindCover(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 criteria = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, 0) != -1) {
@@ -6187,7 +6187,7 @@ bool aiFindCover(void)
  */
 bool aiFindCoverWithinDist(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 criteria = cmd[3] | (cmd[2] << 8);
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
@@ -6205,7 +6205,7 @@ bool aiFindCoverWithinDist(void)
  */
 bool aiFindCoverOutsideDist(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 criteria = cmd[3] | (cmd[2] << 8);
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
@@ -6223,7 +6223,7 @@ bool aiFindCoverOutsideDist(void)
  */
 bool aiGoToCover(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	chrGoToCover(g_Vars.chrdata, cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -6235,7 +6235,7 @@ bool aiGoToCover(void)
  */
 bool aiCheckCoverOutOfSight(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrCheckCoverOutOfSight(g_Vars.chrdata, g_Vars.chrdata->cover, false)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -6252,7 +6252,7 @@ bool aiCheckCoverOutOfSight(void)
 bool aiIfPlayerUsingCmpOrAr34(void)
 {
 	u32 hand = HAND_RIGHT;
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	switch (bgunGetWeaponNum(hand)) {
 		case WEAPON_CMP150:
@@ -6277,7 +6277,7 @@ bool aiDetectEnemyOnSameFloor(void)
 	f32 distance;
 	u32 stack[2];
 	f32 y;
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 scandist;
 	s16 *chrnums = teamGetChrIds(1);
 	struct chrdata *chr;
@@ -6351,7 +6351,7 @@ bool aiDetectEnemy(void)
 	s16 *chrnums;
 	s32 team = 0;
 	u32 stack[4];
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 closestdist = 10000000;
 	f32 maxdist = (s32)cmd[2] * 10.0f;
 	s16 closesttarg = -1;
@@ -6446,7 +6446,7 @@ bool aiDetectEnemy(void)
  */
 bool aiIfSafetyLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 	u8 safety = 6;
 	u8 numnearby = 0;
@@ -6491,7 +6491,7 @@ bool aiIfTargetMovingSlowly(void)
 {
 	s32 delta;
 	s32 absdelta;
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] == 0) {
 		delta = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
@@ -6516,7 +6516,7 @@ bool aiIfTargetMovingSlowly(void)
  */
 bool aiIfTargetMovingCloser(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) < -50) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -6532,7 +6532,7 @@ bool aiIfTargetMovingCloser(void)
  */
 bool aiIfTargetMovingAway(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) > 50) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -9483,7 +9483,7 @@ bool aiSayQuip(void)
 	u8 column; // 167
 	s16 audioid; // 164
 	u8 i; // 163
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset; // 156
+	u8 *cmd = g_Vars.aioffset; // 156
 	s32 numnearbychrs; // 152
 	bool issomeonetalking; // 148
 	s32 probability; // 144
@@ -9749,7 +9749,7 @@ void propDecrementSoundCount(struct prop *prop)
  */
 bool aiIfChrNotTalking(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindByLiteralId(cmd[2]);
 
 	if (chr && chr->propsoundcount == 0) {
@@ -9766,7 +9766,7 @@ bool aiIfChrNotTalking(void)
  */
 bool aiIncreaseSquadronAlertness(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 
 	for (; *chrnums != -2; chrnums++) {
@@ -9793,7 +9793,7 @@ bool aiIncreaseSquadronAlertness(void)
  */
 bool aiSetAction(void)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 	g_Vars.chrdata->myaction = cmd->b2;
 
 	if (cmd->b3 == 0) {
@@ -9816,7 +9816,7 @@ bool aiSetTeamOrders(void)
 	struct chrnumaction chractions[50];
 	s32 num;
 	u32 stack;
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	// Get list of chrs in the current chr's squadron
 	chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
@@ -9955,7 +9955,7 @@ bool aiSetTeamOrders(void)
  */
 bool aiIfOrders(void)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 
 	if (g_Vars.chrdata->orders == cmd->b3) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b4);
@@ -9975,7 +9975,7 @@ bool aiIfOrders(void)
  */
 bool aiIfHasOrders(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->orders) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -9991,7 +9991,7 @@ bool aiIfHasOrders(void)
  */
 bool aiRetreat(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[3] == 0) {
 		chrRunFromPos(g_Vars.chrdata, cmd[2], (cmd[2] & 0x10) ? 400.0f : 10000.0f, &g_Vars.chrdata->runfrompos);
@@ -10019,7 +10019,7 @@ bool aiIfChrInSquadronDoingAction(void)
 {
 	s32 ret;
 	s16 *chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 	ret = 1;
 
 	if (chrnums) {
@@ -10052,7 +10052,7 @@ bool aiIfChrInSquadronDoingAction(void)
  */
 bool ai0139(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 angle = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	struct coord pos;
 
@@ -10070,7 +10070,7 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 {
 	f32 closest_distance = 30999.9;
 	s16 candidate_chrnum = -1;
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 
 	if (g_Vars.chrdata->talktimer > TICKS(480) && g_Vars.chrdata->listening) {
@@ -10122,7 +10122,7 @@ bool aiSetChrPresetToUnalertedTeammate(void)
  */
 bool aiSetSquadron(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_Vars.chrdata->squadron = cmd[2];
 	g_Vars.aioffset += 3;
 
@@ -10134,7 +10134,7 @@ bool aiSetSquadron(void)
  */
 bool aiFaceCover(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrFaceCover(g_Vars.chrdata)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -10150,7 +10150,7 @@ bool aiFaceCover(void)
  */
 bool aiIfDangerousObjectNearby(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrDetectDangerousObject(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -10180,7 +10180,7 @@ bool ai013e(void)
  */
 bool aiIfHeliWeaponsArmed(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.hovercar) {
 		if (g_Vars.hovercar->weaponsarmed) {
@@ -10200,7 +10200,7 @@ bool aiIfHeliWeaponsArmed(void)
  */
 bool aiIfHoverbotNextStep(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.hovercar) {
 		if ((g_Vars.hovercar->nextstep > cmd[3] && cmd[2] == 1) ||
@@ -10231,7 +10231,7 @@ bool aiShuffleInvestigationTerminals(void)
 
 	u8 rand1;
 	u8 rand2;
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct tag *goodtag = tagFindById(cmd[2]);
 	struct tag *badtag = tagFindById(cmd[3]);
 	struct tag *pc;
@@ -10330,7 +10330,7 @@ u16 g_InvestigationPadMap[] = {
  */
 bool aiSetPadPresetToInvestigationTerminal(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj) {
@@ -10409,7 +10409,7 @@ bool aiIfSquadronIsDead(void)
 	 * loop iteration. This causes it to use the last chr's status only.
 	 */
 	u32 stack[2];
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	bool anyalive = true;
 	s16 *chrnums = squadronGetChrIds(cmd[2]);
 
@@ -10443,7 +10443,7 @@ bool aiIfSquadronIsDead(void)
  */
 bool aiChrSetListening(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->listening == 0) {
@@ -10460,7 +10460,7 @@ bool aiChrSetListening(void)
  */
 bool aiIfChrListening(void)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd->b2);
 
 	if (cmd->b4 == 0) {
@@ -10485,7 +10485,7 @@ bool aiIfChrListening(void)
  */
 bool aiIfTrue(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
 
 	return false;
@@ -10496,7 +10496,7 @@ bool aiIfTrue(void)
  */
 bool aiIfNotListening(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->listening == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -10512,7 +10512,7 @@ bool aiIfNotListening(void)
  */
 bool aiSetTintedGlassEnabled(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_TintedGlassEnabled = cmd[2];
 	g_Vars.aioffset += 3;
 
@@ -10524,7 +10524,7 @@ bool aiSetTintedGlassEnabled(void)
  */
 bool aiIfNumChrsInSquadronGreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s32 count = 0;
 	s16 *chrnums = squadronGetChrIds(cmd[3]);
 
@@ -10558,7 +10558,7 @@ bool aiIfNumChrsInSquadronGreaterThan(void)
  */
 bool aiIfChrInjured(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & CHRCFLAG_INJUREDTARGET)) {
@@ -10576,7 +10576,7 @@ bool aiIfChrInjured(void)
  */
 bool aiIfAction(void)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 
 	if (g_Vars.chrdata->myaction == cmd->b2) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
@@ -10592,7 +10592,7 @@ bool aiIfAction(void)
  */
 bool aiHovercopterFireRocket(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	chopperFireRocket(g_Vars.hovercar, cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -10604,7 +10604,7 @@ bool aiHovercopterFireRocket(void)
  */
 bool aiIfNaturalAnim(void)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 
 	if (g_Vars.chrdata->naturalanim == cmd->b2) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
@@ -10620,7 +10620,7 @@ bool aiIfNaturalAnim(void)
  */
 bool aiIfY(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = NULL;
 	f32 cutoff_y = ((cmd[4] | (cmd[3] << 8)) << 16) >> 16;
 
@@ -10663,7 +10663,7 @@ bool aiNoOp016c(void)
  */
 bool aiChrAdjustMotionBlur(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
@@ -10684,7 +10684,7 @@ bool aiChrAdjustMotionBlur(void)
  */
 bool aiDamageChrByAmount(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct coord coord = {0, 0, 0};
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -10709,7 +10709,7 @@ bool aiDamageChrByAmount(void)
  */
 bool aiIfChrHasGun(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->model && chr->gunprop == NULL) {
@@ -10726,7 +10726,7 @@ bool aiIfChrHasGun(void)
  */
 bool aiDoGunCommand(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
 	if (cmd[2] == 0 || ((weapon->base.hidden & OBJHFLAG_PROJECTILE) == 0 && cmd[2] == 1)) {
@@ -10747,7 +10747,7 @@ bool aiDoGunCommand(void)
  */
 bool aiIfDistanceToGunLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 	f32 xdiff = 0;
 	f32 ydiff = 0;
@@ -10775,7 +10775,7 @@ bool aiIfDistanceToGunLessThan(void)
  */
 bool aiRecoverGun(void)
 { \
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct prop *prop = g_Vars.chrdata->gunprop;
 	g_Vars.chrdata->gunprop = NULL;
 
@@ -10798,7 +10798,7 @@ bool aiRecoverGun(void)
  */
 bool aiChrCopyProperties(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->model) {
@@ -10833,7 +10833,7 @@ bool aiChrCopyProperties(void)
  */
 bool aiPlayerAutoWalk(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 pad_id = cmd[4] | (cmd[3] << 8);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -10855,7 +10855,7 @@ bool aiPlayerAutoWalk(void)
  */
 bool aiIfPlayerAutoWalkFinished(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	bool walking = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -10885,7 +10885,7 @@ bool aiIfPlayerAutoWalkFinished(void)
  */
 bool aiIfPlayerLookingAtObject(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
@@ -10916,7 +10916,7 @@ bool aiIfPlayerLookingAtObject(void)
  */
 bool aiPunchOrKick(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata && chrTryPunch(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -10932,7 +10932,7 @@ bool aiPunchOrKick(void)
  */
 bool aiIfTargetIsPlayer(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct prop *target = chrGetTargetProp(g_Vars.chrdata);
 
 	if (target->type == PROPTYPE_EYESPY || target->type == PROPTYPE_PLAYER) {
@@ -10949,7 +10949,7 @@ bool aiIfTargetIsPlayer(void)
  */
 bool ai0184(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	chrTryAttackAmount(g_Vars.chrdata, 512, 0, cmd[2], cmd[3]);
 	g_Vars.aioffset += 4;
 
@@ -10961,7 +10961,7 @@ bool ai0184(void)
  */
 bool aiIfSoundTimer(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s32 value = TICKS(cmd[3] | (cmd[2] << 8));
 
 	if ((g_Vars.chrdata->soundtimer > value && cmd[4] == 0) ||
@@ -10979,7 +10979,7 @@ bool aiIfSoundTimer(void)
  */
 bool aiSetTargetToEyespyIfInSight(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 prevtarget = g_Vars.chrdata->target;
 	struct eyespy *eyespy = g_Vars.players[g_Vars.chrdata->p1p2]->eyespy;
 
@@ -11005,7 +11005,7 @@ bool aiSetTargetToEyespyIfInSight(void)
  */
 bool aiIfLiftStationary(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	bool pass = false;
 
@@ -11031,7 +11031,7 @@ bool aiIfLiftStationary(void)
  */
 bool aiLiftGoToStop(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
@@ -11049,7 +11049,7 @@ bool aiLiftGoToStop(void)
  */
 bool aiIfLiftAtStop(void)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 	struct defaultobj *obj = objFindByTagId(cmd->b2);
 	bool pass = false;
 
@@ -11075,7 +11075,7 @@ bool aiIfLiftAtStop(void)
  */
 bool aiConfigureRain(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	weatherConfigureRain(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -11087,7 +11087,7 @@ bool aiConfigureRain(void)
  */
 bool aiConfigureSnow(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	weatherConfigureSnow(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -11099,7 +11099,7 @@ bool aiConfigureSnow(void)
  */
 bool aiChrToggleModelPart(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
@@ -11116,7 +11116,7 @@ bool aiChrToggleModelPart(void)
  */
 bool aiActivateLift(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 
 	if (obj && obj->prop) {
@@ -11133,7 +11133,7 @@ bool aiActivateLift(void)
  */
 bool aiMiniSkedarTryPounce(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 thing = cmd[4] | (cmd[3] << 8);
 
 	if (chrTrySkJump(g_Vars.chrdata, g_Vars.chrdata->pouncebits, cmd[2], thing, cmd[5])) {
@@ -11151,7 +11151,7 @@ bool aiMiniSkedarTryPounce(void)
  */
 bool aiIfObjectDistanceToPadLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (f32)(cmd[4] | (cmd[3] << 8)) * 10;
 	f32 xdiff;
 	f32 ydiff;
@@ -11199,7 +11199,7 @@ bool aiIfObjectDistanceToPadLessThan(void)
  */
 bool aiSetSavefileFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	gamefileSetFlag(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -11211,7 +11211,7 @@ bool aiSetSavefileFlag(void)
  */
 bool aiUnsetSavefileFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	gamefileUnsetFlag(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -11223,7 +11223,7 @@ bool aiUnsetSavefileFlag(void)
  */
 bool aiIfSavefileFlagIsSet(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (gamefileHasFlag(cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -11239,7 +11239,7 @@ bool aiIfSavefileFlagIsSet(void)
  */
 bool aiIfSavefileFlagIsUnset(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (!gamefileHasFlag(cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -11255,7 +11255,7 @@ bool aiIfSavefileFlagIsUnset(void)
  */
 bool aiIfObjHealthLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s32 damage = cmd[4] | (cmd[3] << 8);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -11279,7 +11279,7 @@ bool aiIfObjHealthLessThan(void)
  */
 bool aiSetObjHealth(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s32 damage = cmd[4] | (cmd[3] << 8);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -11297,7 +11297,7 @@ bool aiSetObjHealth(void)
  */
 bool aiSetChrSpecialDeathAnimation(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
@@ -11378,7 +11378,7 @@ s16 g_CiThanksQuips[] = {
  */
 bool aiSayCiStaffQuip(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 quip;
 
 	if (cmd[2] == CIQUIP_GREETING) {
@@ -11411,7 +11411,7 @@ bool aiSayCiStaffQuip(void)
  */
 bool aiDoPresetAnimation(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	// These all appear to be talking animations
 	u16 anims[] = {
@@ -11459,7 +11459,7 @@ bool aiDoPresetAnimation(void)
  */
 bool aiIfUsingLift(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (chrIsUsingLift(g_Vars.chrdata)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -11475,7 +11475,7 @@ bool aiIfUsingLift(void)
  */
 bool aiIfTargetYDifferenceLessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
 	f32 diff = prop->pos.y - g_Vars.chrdata->prop->pos.y;
 
@@ -11497,7 +11497,7 @@ bool aiIfTargetYDifferenceLessThan(void)
  */
 bool ai01aa(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 a = 3000;
 
 	func0f0056f4(
@@ -11560,7 +11560,7 @@ bool aiReleaseObject(void)
  */
 bool aiChrGrabObject(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -11588,7 +11588,7 @@ bool aiChrGrabObject(void)
  */
 bool aiShuffleRuinsPillars(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct tag *ptr1 = tagFindById(cmd[2]);
 	struct tag *ptr2 = tagFindById(cmd[3]);
 	struct tag *ptr3 = tagFindById(cmd[4]);
@@ -11657,7 +11657,7 @@ bool aiShuffleRuinsPillars(void)
  */
 bool aiSetWindSpeed(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	g_SkyWindSpeed = 0.1f * (s32)cmd[2];
 	g_Vars.aioffset += 3;
@@ -11670,7 +11670,7 @@ bool aiSetWindSpeed(void)
  */
 bool aiToggleP1P2(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.coopplayernum >= 0) {
 		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
@@ -11694,7 +11694,7 @@ bool aiToggleP1P2(void)
  */
 bool aiChrSetP1P2(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.coopplayernum >= 0) {
 		struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
@@ -11723,7 +11723,7 @@ bool aiChrSetP1P2(void)
  */
 bool aiChrSetCloaked(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop) {
@@ -11746,7 +11746,7 @@ bool aiChrSetCloaked(void)
  */
 bool aiSetAutogunTargetTeam(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->type == OBJTYPE_AUTOGUN) {
@@ -11812,7 +11812,7 @@ bool aiNoOp01bb(void)
  */
 bool ai01bc(void)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 
 	if (g_Vars.chrdata->pouncebits == cmd->b2) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
@@ -11828,7 +11828,7 @@ bool ai01bc(void)
  */
 bool aiIfTrainingPcHolographed(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct trainingdata *data = dtGetData();
 
 	if (data->holographedpc) {
@@ -11845,7 +11845,7 @@ bool aiIfTrainingPcHolographed(void)
  */
 bool aiIfPlayerUsingDevice(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct prop *prop = chr ? chr->prop : NULL;
 	u8 active = false;
@@ -11876,7 +11876,7 @@ bool aiIfPlayerUsingDevice(void)
  */
 bool aiChrBeginOrEndTeleport(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	f32 fvalue;
 	struct chrdata *chr;
@@ -11936,7 +11936,7 @@ bool aiChrBeginOrEndTeleport(void)
  */
 bool aiIfChrTeleportFullWhite(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 	u32 prevplayernum = g_Vars.currentplayernum;
 #if VERSION >= VERSION_NTSC_1_0
@@ -11999,7 +11999,7 @@ bool aiAvoid(void)
  */
 bool aiTitleInitMode(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	g_Vars.aioffset += 3;
 	titleInitFromAiCmd(cmd[2]);
 
@@ -12011,7 +12011,7 @@ bool aiTitleInitMode(void)
  */
 bool aiTryExitTitle(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (titleIsChangingMode()) {
 		titleExit();
@@ -12028,7 +12028,7 @@ bool aiTryExitTitle(void)
  */
 bool aiChrSetCutsceneWeapon(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	s32 model_id = playermgrGetModelOfWeapon(cmd[3]);
 	s32 fallback_model_id = playermgrGetModelOfWeapon(cmd[4]);
@@ -12087,7 +12087,7 @@ bool aiChrSetCutsceneWeapon(void)
  */
 bool aiFadeScreen(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	u32 color = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	s16 num_frames = (cmd[7] | (cmd[6] << 8));
 	lvConfigureFade(color, num_frames);
@@ -12101,7 +12101,7 @@ bool aiFadeScreen(void)
  */
 bool aiIfFadeComplete(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 
 	if (lvIsFadeActive() == false) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -12117,7 +12117,7 @@ bool aiIfFadeComplete(void)
  */
 bool aiSetChrHudpieceVisible(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
@@ -12134,7 +12134,7 @@ bool aiSetChrHudpieceVisible(void)
  */
 bool aiSetPassiveMode(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	bgunSetPassiveMode(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -12146,7 +12146,7 @@ bool aiSetPassiveMode(void)
  */
 bool aiChrSetFiringInCutscene(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct coord from = {0, 0, 0};
 	struct coord to = {0, 0, 0};
@@ -12170,7 +12170,7 @@ bool aiChrSetFiringInCutscene(void)
  */
 bool aiSetPortalFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 portalnum = cmd[3] | (cmd[2] << 8);
 
 	g_BgPortals[portalnum].flags |= cmd[4];
@@ -12184,7 +12184,7 @@ bool aiSetPortalFlag(void)
  */
 bool aiObjSetModelPartVisible(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
@@ -12201,7 +12201,7 @@ bool aiObjSetModelPartVisible(void)
  */
 bool aiChrEmitSparks(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
@@ -12218,7 +12218,7 @@ bool aiChrEmitSparks(void)
  */
 bool aiSetDrCarollImages(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *drcaroll = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (drcaroll) {
@@ -12253,7 +12253,7 @@ bool aiSetDrCarollImages(void)
  */
 bool aiSetRoomFlag(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 roomnum = cmd[3] | cmd[2] << 8;
 	s16 flag = cmd[5] | cmd[4] << 8;
 
@@ -12269,7 +12269,7 @@ bool aiSetRoomFlag(void)
  */
 bool aiShowCutsceneChrs(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	bool show = cmd[2];
 	s32 i;
 
@@ -12300,7 +12300,7 @@ bool aiShowCutsceneChrs(void)
  */
 bool aiConfigureEnvironment(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 room_id = (cmd[3] | (cmd[2] << 8));
 	s32 value = cmd[5];
 	s32 i;
@@ -12378,7 +12378,7 @@ bool aiConfigureEnvironment(void)
  */
 bool aiIfDistanceToTarget2LessThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToTarget2(g_Vars.chrdata) < distance) {
@@ -12395,7 +12395,7 @@ bool aiIfDistanceToTarget2LessThan(void)
  */
 bool aiIfDistanceToTarget2GreaterThan(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToTarget2(g_Vars.chrdata) > distance) {
@@ -12412,7 +12412,7 @@ bool aiIfDistanceToTarget2GreaterThan(void)
  */
 bool aiPlaySoundFromProp(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	s16 audio_id = cmd[5] | (cmd[4] << 8);
 	s32 volumemaybe = cmd[7] | (cmd[6] << 8);
 	u16 unk1 = cmd[10] | (cmd[10] << 8); // @bug: Using 10 twice
@@ -12432,7 +12432,7 @@ bool aiPlaySoundFromProp(void)
  */
 bool aiPlayTemporaryPrimaryTrack(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	musicStartTemporaryPrimary(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -12444,7 +12444,7 @@ bool aiPlayTemporaryPrimaryTrack(void)
  */
 bool aiChrKill(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
@@ -12468,7 +12468,7 @@ bool aiChrKill(void)
  */
 bool aiRemoveWeaponFromInventory(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.aioffset;
 	invRemoveItemByNum(cmd[2]);
 	g_Vars.aioffset += 3;
 
@@ -12485,7 +12485,7 @@ bool aiIfMusicEventQueueIsEmpty(void)
 	if (g_MusicEventQueueLength) {
 		g_Vars.aioffset += 4;
 	} else {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	}
 
@@ -12498,7 +12498,7 @@ bool aiIfMusicEventQueueIsEmpty(void)
 bool aiIfCoopMode(void)
 {
 	if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -12532,7 +12532,7 @@ bool ai01b4(void)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
 			chr0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, 0, false)) {
-		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		u8 *cmd = g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
