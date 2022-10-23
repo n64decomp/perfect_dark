@@ -8226,6 +8226,7 @@ void chrTickDead(struct chrdata *chr)
 
 	if (aibot == NULL) {
 		chr->ailist = NULL;
+		chr->aioffset = NULL;
 	}
 }
 

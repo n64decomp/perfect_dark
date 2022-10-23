@@ -687,7 +687,7 @@ void chraiExecute(void *entity, s32 proptype)
 		g_Vars.aioffset = g_Vars.hovercar->aioffset;
 	}
 
-	if (g_Vars.ailist) {
+	if (g_Vars.ailist && g_Vars.aioffset) {
 		if (g_Vars.chrdata) {
 			chrAddTargetToBdlist(g_Vars.chrdata);
 		}
@@ -757,7 +757,7 @@ void chraiExecute(void *entity, s32 proptype)
 		}
 
 		// Iterate and execute the ailist
-		while (g_Vars.ailist) {
+		while (true) {
 			u8 *cmd = g_Vars.aioffset;
 			s32 type = (cmd[0] << 8) + cmd[1];
 

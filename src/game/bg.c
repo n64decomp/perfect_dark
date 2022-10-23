@@ -106,6 +106,7 @@ struct var800a4ce8 *var800a4ce8;
 struct portalthing *g_PortalThings;
 struct var800a4cf0 var800a4cf0;
 
+bool g_BgPreload = false;
 s32 g_StageIndex = 1;
 u32 var8007fc04 = 0x00000000;
 u8 *var8007fc08 = NULL;
@@ -2610,6 +2611,18 @@ void bgReset(s32 stagenum)
 		g_BgUnloadDelay240_2 = 120;
 	}
 
+	switch (g_Vars.stagenum) {
+	case STAGE_INFILTRATION:
+	case STAGE_RESCUE:
+	case STAGE_ESCAPE:
+	case STAGE_MAIANSOS:
+		g_BgPreload = false;
+		break;
+	default:
+		g_BgPreload = true;
+		break;
+	}
+
 	g_StageIndex = stageGetIndex2(stagenum);
 
 	if (g_StageIndex < 0) {
@@ -3455,7 +3468,7 @@ void bgTick(void)
 
 	func0f15c920();
 
-	if (g_Vars.currentplayerindex == 0) {
+	if (g_Vars.currentplayerindex == 0 && !g_BgPreload) {
 		bgTickRooms();
 	}
 
@@ -5240,21 +5253,17 @@ void bgLoadRoom(s32 roomnum)
 
 	// Determine how much memory to allocate.
 	// It must be big enough to fit both the inflated and compressed room data.
-	if (g_Rooms[roomnum].gfxdatalen > 0) {
-		size = g_Rooms[roomnum].gfxdatalen;
+	size = g_Rooms[roomnum].gfxdatalen;
 
-		if (debug0f11edb0()) {
-			size += 1024;
-		}
+	if (g_BgPreload) {
+		allocation = mempAlloc(size, MEMPOOL_STAGE);
 	} else {
-		size = memaGetLongestFree();
+		// Try to free enough bytes
+		bgGarbageCollectRooms(size, false);
+
+		// Make the allocation
+		allocation = memaAlloc(size);
 	}
-
-	// Try to free enough bytes
-	bgGarbageCollectRooms(size, false);
-
-	// Make the allocation
-	allocation = memaAlloc(size);
 
 	if (allocation != NULL) {
 		dyntexSetCurrentRoom(roomnum);
@@ -5404,7 +5413,11 @@ void bgLoadRoom(s32 roomnum)
 		g_Rooms[roomnum].loaded240 = 1;
 
 		if (g_Rooms[roomnum].gfxdatalen != size) {
-			memaRealloc((s32) allocation, size, g_Rooms[roomnum].gfxdatalen);
+			if (g_BgPreload) {
+				mempRealloc(allocation, g_Rooms[roomnum].gfxdatalen, MEMPOOL_STAGE);
+			} else {
+				memaRealloc((s32) allocation, size, g_Rooms[roomnum].gfxdatalen);
+			}
 		}
 
 		// Update gdl pointers in the gfxdata so they point to the ones
@@ -5489,6 +5502,10 @@ const char var7f1b75a4[] = " Passed";
 void bgUnloadRoom(s32 roomnum)
 {
 	u32 size;
+
+	if (g_BgPreload) {
+		return;
+	}
 
 	if (g_Rooms[roomnum].vtxbatches) {
 		size = ((g_Rooms[roomnum].numvtxbatches) * sizeof(struct vtxbatch) + 0xf) & ~0xf;
@@ -8736,4 +8753,15 @@ void bgFindEnteredRooms(struct coord *bbmin, struct coord *bbmax, s16 *rooms, s3
 
 end:
 	rooms[len] = -1;
+}
+
+void bgPreload(void)
+{
+	if (g_BgPreload) {
+		s32 i;
+
+		for (i = 0; i < g_Vars.roomcount; i++) {
+			bgLoadRoom(i);
+		}
+	}
 }
