@@ -1379,6 +1379,8 @@ void setupLoadFiles(s32 stagenum)
 		for (g_NumGlobalAilists = 0; g_GlobalAilists[g_NumGlobalAilists].list != NULL; g_NumGlobalAilists++);
 		for (g_NumLvAilists = 0; g_StageSetup.ailists[g_NumLvAilists].list != NULL; g_NumLvAilists++);
 
+		ailistPreprocessFile(g_StageSetup.ailists, MEMPOOL_STAGE);
+
 		// Convert path pad pointers from file-local to proper pointers
 		// and calculate the path lengths
 		if (g_StageSetup.paths) {

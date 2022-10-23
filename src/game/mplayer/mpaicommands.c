@@ -36,7 +36,7 @@ bool ai0176(void)
 	aibot = g_Vars.chrdata->aibot;
 
 	if (aibot->unk059 == 1) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 		aibot->unk059 = 0;
 	} else {
 		g_Vars.aioffset += 3;
@@ -44,3 +44,4 @@ bool ai0176(void)
 
 	return false;
 }
+

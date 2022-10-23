@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include <sched.h>
+#include "lib/ailist.h"
 #include "lib/sched.h"
 #include "lib/vars.h"
 #include "constants.h"
@@ -464,6 +465,9 @@ void mainInit(void)
 
 	mempResetPool(MEMPOOL_8);
 	mempResetPool(MEMPOOL_PERMANENT);
+
+	ailistPreprocessFile(g_GlobalAilists, MEMPOOL_PERMANENT);
+
 	crashReset();
 	challengesInit();
 	utilsInit();

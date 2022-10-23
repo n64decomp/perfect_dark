@@ -58,7 +58,7 @@
 bool aiGoToNext(void)
 {
 	u8 *cmd = g_Vars.aioffset;
-	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	osSyncPrintf(" (%d)\n", cmd[2]);
 
 	return false;
@@ -70,7 +70,7 @@ bool aiGoToNext(void)
 bool aiGoToFirst(void)
 {
 	u8 *cmd = g_Vars.aioffset;
-	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.ailist, cmd[2]);
+	g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	osSyncPrintf(" (%d)\n", cmd[2]);
 
 	return false;
@@ -456,9 +456,9 @@ bool aiIfIdle(void)
 {
 	if (g_Vars.chrdata->actiontype == ACT_ANIM) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -498,9 +498,9 @@ bool aiIfStopped(void)
 {
 	if (chrIsStopped(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -515,9 +515,9 @@ bool aiIfChrDead(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) && (!chr || !chr->model || chrIsDead(chr))) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -544,9 +544,9 @@ bool aiIfChrDeathAnimationFinished(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -562,9 +562,9 @@ bool aiIfChrKnockedOut(void)
 
 	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) &&
 			(!chr || !chr->model || chr->actiontype == ACT_DRUGGEDKO || chr->actiontype == ACT_DRUGGEDDROP || chr->actiontype == ACT_DRUGGEDCOMINGUP)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -577,9 +577,9 @@ bool aiIfTargetInSight(void)
 {
 	if (chrCheckTargetInSight(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -592,9 +592,9 @@ bool aiTrySidestep(void)
 {
 	if (chrTrySidestep(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -607,9 +607,9 @@ bool aiTryJumpOut(void)
 {
 	if (chrTryJumpOut(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -622,9 +622,9 @@ bool aiTryRunSideways(void)
 {
 	if (chrTryRunSideways(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -637,9 +637,9 @@ bool aiTryAttackWalk(void)
 {
 	if (chrTryAttackWalk(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -652,9 +652,9 @@ bool aiTryAttackRun(void)
 {
 	if (chrTryAttackRun(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -667,9 +667,9 @@ bool aiTryAttackRoll(void)
 {
 	if (chrTryAttackRoll(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -685,9 +685,9 @@ bool aiTryAttackStand(void)
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if (chrTryAttackStand(g_Vars.chrdata, thingtype, thingid)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -703,9 +703,9 @@ bool aiTryAttackKneel(void)
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if (chrTryAttackKneel(g_Vars.chrdata, thingtype, thingid)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -721,9 +721,9 @@ bool aiTryAttackLie(void)
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if (chrTryAttackLie(g_Vars.chrdata, thingtype, thingid)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -739,9 +739,9 @@ bool ai00f0(void)
 	if (g_Vars.chrdata->actiontype == ACT_ATTACK &&
 			!g_Vars.chrdata->act_attack.reaim &&
 			g_Vars.chrdata->act_attack.flags & ATTACKFLAG_DONTTURN) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -755,9 +755,9 @@ bool aiIfAttacking(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->actiontype == ACT_ATTACK) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -774,9 +774,9 @@ bool aiTryModifyAttack(void)
 
 	if ((g_Vars.chrdata && chrTryModifyAttack(g_Vars.chrdata, thingtype, thingid)) ||
 			(g_Vars.hovercar && chopperAttack(g_Vars.hovercar))) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -792,9 +792,9 @@ bool aiFaceEntity(void)
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if (chrFaceEntity(g_Vars.chrdata, thingtype, thingid)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -864,9 +864,9 @@ bool aiConsiderGrenadeThrow(void)
 	u32 value1 = cmd[3] | (cmd[2] << 8);
 
 	if (chrConsiderGrenadeThrow(g_Vars.chrdata, value1, value2)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -881,9 +881,9 @@ bool aiDropItem(void)
 	u32 modelnum = cmd[3] | (cmd[2] << 8);
 
 	if (chrDropItem(g_Vars.chrdata, modelnum & 0xffff, cmd[4] & 0xff)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -938,9 +938,9 @@ bool aiTryStartAlarm(void)
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 
 	if (chrTryStartAlarm(g_Vars.chrdata, pad_id)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -975,9 +975,9 @@ bool aiTryRunFromTarget(void)
 {
 	if (chrTryRunFromTarget(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -990,9 +990,9 @@ bool aiTryJogToTargetProp(void)
 {
 	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_JOG)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1005,9 +1005,9 @@ bool aiTryWalkToTargetProp(void)
 {
 	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_WALK)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1020,9 +1020,9 @@ bool aiTryRunToTargetProp(void)
 {
 	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_RUN)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1035,9 +1035,9 @@ bool aiTryGoToCoverProp(void)
 {
 	if (chrGoToCoverProp(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist,g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1051,9 +1051,9 @@ bool aiTryJogToChr(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_JOG)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1067,9 +1067,9 @@ bool aiTryWalkToChr(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_WALK)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1083,9 +1083,9 @@ bool aiTryRunToChr(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_RUN)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1111,9 +1111,9 @@ bool aiIfRandomLessThan(void)
 
 	if ((g_Vars.chrdata && g_Vars.chrdata->random < cmd[2]) ||
 			(g_Vars.hovercar && ((u8)random()) < cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1128,9 +1128,9 @@ bool aiIfRandomGreaterThan(void)
 
 	if ((g_Vars.chrdata && g_Vars.chrdata->random > cmd[2]) ||
 			(g_Vars.hovercar && ((u8)random()) > cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1233,9 +1233,9 @@ bool aiIfCanHearAlarm(void)
 {
 	if (chrCanHearAlarm(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1250,9 +1250,9 @@ bool aiIfPatrolling(void)
 
 	if (g_Vars.chrdata->actiontype == ACT_PATROL
 			|| (g_Vars.chrdata->actiontype == ACT_GOPOS && g_Vars.chrdata->act_gopos.flags & GOPOSFLAG_FORPATHSTART)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1265,9 +1265,9 @@ bool aiIfAlarmActive(void)
 {
 	if (alarmIsActive()) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1280,9 +1280,9 @@ bool aiIfGasActive(void)
 {
 	if (gasIsActive()) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1295,9 +1295,9 @@ bool aiIfHearsTarget(void)
 {
 	if (chrIsHearingTarget(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1311,9 +1311,9 @@ bool aiIfSawInjury(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrSawInjury(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1327,9 +1327,9 @@ bool aiIfSawDeath(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrSawDeath(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1343,9 +1343,9 @@ bool aiIfCanSeeTarget(void)
 	if ((g_Vars.chrdata && chrCanSeeTarget(g_Vars.chrdata)) ||
 			(g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1359,9 +1359,9 @@ bool aiIfCanSeeAttackTarget(void)
 	if ((g_Vars.chrdata && g_Vars.chrdata->prop && chrCanSeeAttackTarget(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, true))
 			|| (g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1377,9 +1377,9 @@ bool aiIfTargetNearlyInSight(void)
 
 	if (chrIsTargetNearlyInSight(g_Vars.chrdata, distance)) {
 		cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -1395,9 +1395,9 @@ bool aiIfNearlyInTargetsSight(void)
 
 	if (chrIsNearlyInTargetsSight(g_Vars.chrdata, distance)) {
 		cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -1410,9 +1410,9 @@ bool aiSetPadPresetToPadOnRouteToTarget(void)
 {
 	if (chrSetPadPresetToPadOnRouteToTarget(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1425,9 +1425,9 @@ bool aiIfSawTargetRecently(void)
 {
 	if (chrSawTargetRecently(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1440,9 +1440,9 @@ bool aiIfHeardTargetRecently(void)
 {
 	if (chrHeardTargetRecently(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1457,9 +1457,9 @@ bool ai0045(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chrHasLineOfSightToPos(g_Vars.chrdata, &chr->prop->pos, chr->prop->rooms)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1472,9 +1472,9 @@ bool aiIfNeverBeenOnScreen(void)
 {
 	if ((g_Vars.chrdata->chrflags & CHRCFLAG_EVERONSCREEN) == 0) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1487,9 +1487,9 @@ bool aiIfOnScreen(void)
 {
 	if (g_Vars.chrdata->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1515,9 +1515,9 @@ bool aiIfChrInOnScreenRoom(void)
 
 	if (pass) {
 		cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1533,9 +1533,9 @@ bool aiIfRoomIsOnScreen(void)
 	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
 	if (room_id >= 0 && roomIsOnscreen(room_id)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -1548,9 +1548,9 @@ bool ai004a(void)
 {
 	if (chrCanSeeTargetWithExtraCheck(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1563,9 +1563,9 @@ bool aiIfNearMiss(void)
 {
 	if (chrResetNearMiss(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1611,9 +1611,9 @@ bool aiIfSeesSuspiciousItem(void)
 
 	if (pass) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -1638,9 +1638,9 @@ bool aiIfCheckFovWithTarget(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -1654,9 +1654,9 @@ bool aiIfTargetInFovLeft(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetAngleToTarget(g_Vars.chrdata) < cmd[2] * M_BADTAU * 0.00390625f) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1670,9 +1670,9 @@ bool aiIfTargetOutOfFovLeft(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetAngleToTarget(g_Vars.chrdata) > cmd[2] * M_BADTAU * 0.00390625f) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1686,9 +1686,9 @@ bool aiIfTargetInFov(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrIsTargetInFov(g_Vars.chrdata, cmd[2], 0)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1702,9 +1702,9 @@ bool aiIfTargetOutOfFov(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (!chrIsTargetInFov(g_Vars.chrdata, cmd[2], 0)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -1719,9 +1719,9 @@ bool aiIfDistanceToTargetLessThan(void)
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * (f32)10;
 
 	if (chrGetDistanceToTarget(g_Vars.chrdata) < distance) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -1736,9 +1736,9 @@ bool aiIfDistanceToTargetGreaterThan(void)
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * (f32)10;
 
 	if (chrGetDistanceToTarget(g_Vars.chrdata) > distance) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -1762,9 +1762,9 @@ bool aiIfChrDistanceToPadLessThan(void)
 	}
 
 	if (chr && realpadnum < 9000 && chrGetDistanceToPad(chr, realpadnum) < value) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 #else
 	u16 padnum = cmd[6] | (cmd[5] << 8);
@@ -1775,9 +1775,9 @@ bool aiIfChrDistanceToPadLessThan(void)
 	}
 
 	if (chr && chrGetDistanceToPad(chr, padnum) < value) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 #endif
 
@@ -1803,9 +1803,9 @@ bool aiIfChrSameFloorDistanceToPadLessThan(void)
 	padnum2 = padnum;
 
 	if (chr && chrGetSameFloorDistanceToPad(chr, padnum2 & 0xffffffff) < distance) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -1832,9 +1832,9 @@ bool aiIfChrDistanceToPadGreaterThan(void)
 	if (chr && chrGetDistanceToPad(chr, padnum) > distance)
 #endif
 	{
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -1849,9 +1849,9 @@ bool aiIfDistanceToChrLessThan(void)
 	f32 cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToChr(g_Vars.chrdata, cmd[4]) < cutoff) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -1866,9 +1866,9 @@ bool aiIfDistanceToChrGreaterThan(void)
 	f32 cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToChr(g_Vars.chrdata, cmd[4]) > cutoff) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -1883,9 +1883,9 @@ bool ai0058(void)
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrSetChrPresetToAnyChrNearSelf(g_Vars.chrdata, distance)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -1901,9 +1901,9 @@ bool aiIfDistanceFromTargetToPadLessThan(void)
 	f32 value = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceFromTargetToPad(g_Vars.chrdata, pad) < value) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -1919,9 +1919,9 @@ bool aiIfDistanceFromTargetToPadGreaterThan(void)
 	f32 value = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceFromTargetToPad(g_Vars.chrdata, pad) > value) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -1939,7 +1939,7 @@ bool aiIfChrInRoom(void)
 
 	if ((cmd[3] == 0 && room >= 0 && chr && chr->prop && chr->prop->rooms[0] == room)
 			|| (cmd[3] == 1 && chr && chr->prop && chr->prop->rooms[0] == g_Vars.chrdata->roomtosearch)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 		return false;
 	}
 
@@ -1960,15 +1960,15 @@ bool aiIfChrInRoom(void)
 		}
 
 		if (pass == true) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 		} else {
-			g_Vars.aioffset += 7;
+			g_Vars.aioffset += 8;
 		}
 
 		return false;
 	}
 
-	g_Vars.aioffset += 7;
+	g_Vars.aioffset += 8;
 
 	return false;
 }
@@ -1984,9 +1984,9 @@ bool aiIfTargetInRoom(void)
 	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
 	if (room_id >= 0 && prop && room_id == prop->rooms[0]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2010,9 +2010,9 @@ bool aiIfChrHasObject(void)
 	}
 
 	if (hasprop) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2026,9 +2026,9 @@ bool aiIfWeaponThrown(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (weaponFindLanded(cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2060,9 +2060,9 @@ bool aiIfWeaponThrownOnObject(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b4);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b4, cmd->b5);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2090,9 +2090,9 @@ bool aiIfChrHasWeaponEquipped(void)
 	}
 
 	if (passes) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2109,18 +2109,18 @@ bool aiIfGunUnclaimed(void)
 		struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 		if (obj && obj->prop) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 		} else {
-			g_Vars.aioffset += 5;
+			g_Vars.aioffset += 6;
 		}
 	} else {
 		struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
 		if (weapon && weapon->base.prop) {
 			weapon->base.flags |= OBJFLAG_00400000;
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 		} else {
-			g_Vars.aioffset += 5;
+			g_Vars.aioffset += 6;
 		}
 	}
 
@@ -2136,9 +2136,9 @@ bool aiIfObjectHealthy(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && objIsHealthy(obj)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2176,9 +2176,9 @@ bool aiIfChrActivatedObject(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2448,9 +2448,9 @@ bool aiIfDoorState(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2465,9 +2465,9 @@ bool aiIfObjectIsDoor(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->type == OBJTYPE_DOOR && (obj->hidden & 0x200)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2531,9 +2531,9 @@ bool aiIfDoorLocked(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2549,9 +2549,9 @@ bool aiIfObjectiveComplete(void)
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_COMPLETE &&
 			objectiveGetDifficultyBits(cmd[2]) & (1 << lvGetDifficulty())) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2567,9 +2567,9 @@ bool aiIfObjectiveFailed(void)
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_FAILED &&
 			objectiveGetDifficultyBits(cmd[2]) & (1 << lvGetDifficulty())) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2583,9 +2583,9 @@ bool ai0075(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (func0f04a4ec(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2599,9 +2599,9 @@ bool aiSetPadPresetToTargetQuadrant(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrSetPadPresetToWaypointWithinTargetQuadrant(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2615,9 +2615,9 @@ bool aiIfNumArghsLessThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetNumArghs(g_Vars.chrdata) < cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2631,9 +2631,9 @@ bool aiIfNumArghsGreaterThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetNumArghs(g_Vars.chrdata) > cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2647,9 +2647,9 @@ bool aiIfNumCloseArghsLessThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetNumCloseArghs(g_Vars.chrdata) < cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2663,9 +2663,9 @@ bool aiIfNumCloseArghsGreaterThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetNumCloseArghs(g_Vars.chrdata) > cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2692,9 +2692,9 @@ bool aiIfChrHealthGreaterThan(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2721,9 +2721,9 @@ bool aiIfChrHealthLessThan(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2739,9 +2739,9 @@ bool aiIfChrShieldLessThan(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
 
 	if (chr && chrGetShield(chr) < value) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 6;
+		g_Vars.aioffset = g_Vars.aioffset + 7;
 	}
 
 	return false;
@@ -2757,9 +2757,9 @@ bool aiIfChrShieldGreaterThan(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
 
 	if (chr && chrGetShield(chr) > value) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 6;
+		g_Vars.aioffset = g_Vars.aioffset + 7;
 	}
 
 	return false;
@@ -2775,9 +2775,9 @@ bool aiIfInjured(void)
 
 	if (chr && (chr->chrflags & CHRCFLAG_JUST_INJURED)) {
 		chr->chrflags &= ~CHRCFLAG_JUST_INJURED;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 4;
+		g_Vars.aioffset = g_Vars.aioffset + 5;
 	}
 
 	return false;
@@ -2793,9 +2793,9 @@ bool aiIfShieldDamaged(void)
 
 	if (chr && (chr->chrflags & CHRCFLAG_SHIELDDAMAGED)) {
 		chr->chrflags &= ~CHRCFLAG_SHIELDDAMAGED;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 4;
+		g_Vars.aioffset = g_Vars.aioffset + 5;
 	}
 
 	return false;
@@ -2809,9 +2809,9 @@ bool aiIfDifficultyLessThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (lvGetDifficulty() < cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2825,9 +2825,9 @@ bool aiIfDifficultyGreaterThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (lvGetDifficulty() > cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2843,9 +2843,9 @@ bool aiIfStageTimerLessThan(void)
 	f32 time = lvGetStageTimeInSeconds();
 
 	if (time < target) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2861,9 +2861,9 @@ bool aiIfStageTimerGreaterThan(void)
 	f32 time = lvGetStageTimeInSeconds();
 
 	if (time > target) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -2877,9 +2877,9 @@ bool aiIfStageIdLessThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] > mainGetStageNum()) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2893,9 +2893,9 @@ bool aiIfStageIdGreaterThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (mainGetStageNum() > cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2958,9 +2958,9 @@ bool aiIfMoraleLessThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->morale < cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -2974,9 +2974,9 @@ bool aiIfMoraleLessThanRandom(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->morale < g_Vars.chrdata->random) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -3044,9 +3044,9 @@ bool aiIfAlertness(void)
 
 	if ((g_Vars.chrdata->alertness < cmd[2] && cmd[3] == 0) ||
 			(cmd[2] < g_Vars.chrdata->alertness && cmd[3] == 1)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -3061,9 +3061,9 @@ bool aiIfChrAlertnessLessThan(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
 	if (chr && chr->alertness < cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -3077,9 +3077,9 @@ bool aiIfAlertnessLessThanRandom(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->alertness < g_Vars.chrdata->random) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -3320,9 +3320,9 @@ bool aiIfHasFlag(void)
 	}
 
 	if (result) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 9;
+		g_Vars.aioffset += 10;
 	}
 
 	return false;
@@ -3363,9 +3363,9 @@ bool aiIfChrHasFlag(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 
 	if (chrHasFlagById(g_Vars.chrdata, cmd[2], flags, cmd[7])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 9;
+		g_Vars.aioffset += 10;
 	}
 
 	return false;
@@ -3407,9 +3407,9 @@ bool aiIfStageFlagEq(void)
 
 	if ((chrHasStageFlag(g_Vars.chrdata, flags) && cmd[6] == 1) ||
 			(!chrHasStageFlag(g_Vars.chrdata, flags) && cmd[6] == 0)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -3452,9 +3452,9 @@ bool aiIfHasChrflag(void)
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	if ((g_Vars.chrdata->chrflags & flags) == flags) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -3506,9 +3506,9 @@ bool aiIfChrHasChrflag(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & flags) == flags) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -3560,9 +3560,9 @@ bool aiIfChrHasHiddenFlag(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->hidden & flags) == flags) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -3614,9 +3614,9 @@ bool aiIfObjHasFlag(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && (obj->flags & flags) == flags) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -3668,9 +3668,9 @@ bool aiIfObjHasFlag2(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && (obj->flags2 & flags) == flags) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -3722,9 +3722,9 @@ bool aiIfObjHasFlag3(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && (obj->flags3 & flags) == flags) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -3880,9 +3880,9 @@ bool aiIfTimerStopped(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if ((g_Vars.chrdata->hidden & CHRHFLAG_TIMER_RUNNING) == 0) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -3897,9 +3897,9 @@ bool aiIfTimerGreaterThanRandom(void)
 	f32 timer = chrGetTimer(g_Vars.chrdata);
 
 	if (g_Vars.chrdata->random < timer) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -3915,9 +3915,9 @@ bool aiIfTimerLessThan(void)
 
 	if ((g_Vars.chrdata && chrGetTimer(g_Vars.chrdata) < value) ||
 			(g_Vars.hovercar && chopperGetTimer(g_Vars.hovercar) < value)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -3942,9 +3942,9 @@ bool aiIfTimerGreaterThan(void)
 
 	if ((g_Vars.chrdata && chrGetTimer(g_Vars.chrdata) > value) ||
 			(g_Vars.hovercar && chopperGetTimer(g_Vars.hovercar) > value)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -4016,9 +4016,9 @@ bool aiIfCountdownTimerStopped(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (!countdownTimerIsRunning()) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -4033,9 +4033,9 @@ bool aiIfCountdownTimerLessThan(void)
 	f32 value = cmd[3] | (cmd[2] << 8);
 
 	if (countdownTimerGetValue60() < value * 60) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -4050,9 +4050,9 @@ bool aiIfCountdownTimerGreaterThan(void)
 	f32 value = cmd[3] | (cmd[2] << 8);
 
 	if (countdownTimerGetValue60() > value * 60) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -4072,9 +4072,9 @@ bool aiSpawnChrAtPad(void)
 	if (spawnflags);
 
 	if (chrSpawnAtPad(g_Vars.chrdata, cmd->b2, (s8)cmd->b3, pad, ailist, spawnflags)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b12);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b12, cmd->b13);
 	} else {
-		g_Vars.aioffset += 13;
+		g_Vars.aioffset += 14;
 	}
 
 	return false;
@@ -4091,9 +4091,9 @@ bool aiSpawnChrAtChr(void)
 	u8 *ailist = ailistFindById(ailistid);
 
 	if (chrSpawnAtChr(g_Vars.chrdata, cmd[2], (s8)cmd[3], cmd[4], ailist, spawnflags)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[11]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[11], cmd[12]);
 	} else {
-		g_Vars.aioffset += 12;
+		g_Vars.aioffset += 13;
 	}
 
 	return false;
@@ -4197,9 +4197,9 @@ bool aiTryEquipWeapon(void)
 	}
 
 	if (prop) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[9]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[9], cmd[10]);
 	} else {
-		g_Vars.aioffset += 10;
+		g_Vars.aioffset += 11;
 	}
 
 	return false;
@@ -4220,9 +4220,9 @@ bool aiTryEquipHat(void)
 	}
 
 	if (prop) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 9;
+		g_Vars.aioffset += 10;
 	}
 
 	return false;
@@ -4317,9 +4317,9 @@ bool aiDuplicateChr(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[9]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[9], cmd[10]);
 	} else {
-		g_Vars.aioffset += 10;
+		g_Vars.aioffset += 11;
 	}
 
 	return false;
@@ -4493,9 +4493,9 @@ bool aiIfChannelIdle(void)
 	s8 channel = (s8) cmd[2];
 
 	if (audioIsChannelIdle(channel)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -4634,9 +4634,9 @@ bool ai00d4(void)
 	s16 thing = cmd[4] | (cmd[3] << 8);
 
 	if (channelGetUnk06((s8)cmd[2]) < thing) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -4871,9 +4871,9 @@ bool aiIfInCutscene(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.in_cutscene) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -4888,9 +4888,9 @@ bool aiIfCutsceneButtonPressed(void)
 
 	if ((g_Vars.in_cutscene && g_CutsceneSkipRequested) ||
 			(g_Vars.stagenum == STAGE_CITRAINING && var80087260 > 0)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -5206,9 +5206,9 @@ bool aiChrMoveToPad(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -5281,9 +5281,9 @@ bool aiIfColourFadeComplete(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -5338,9 +5338,9 @@ bool aiIfNumPlayersLessThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if ((s8)cmd[2] > PLAYERCOUNT()) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -5368,9 +5368,9 @@ bool aiIfChrAmmoQuantityLessThan(void)
 	}
 
 	if (passes) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -5455,9 +5455,9 @@ bool aiIfObjInRoom(void)
 	s32 room_something = chrGetPadRoom(g_Vars.chrdata, room_id);
 
 	if (room_something >= 0 && obj && obj->prop && room_something == obj->prop->rooms[0]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -5535,9 +5535,9 @@ bool ai00f6(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (var8007073c == 2) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -5551,9 +5551,9 @@ bool aiIfAllObjectivesComplete(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (objectiveIsAllComplete()) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 3;
+		g_Vars.aioffset = g_Vars.aioffset + 4;
 	}
 
 	return false;
@@ -5577,9 +5577,9 @@ bool aiIfPlayerIsInvincible(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -5715,9 +5715,9 @@ bool aiIfKillCountGreaterThan(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.killcount > cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -5731,11 +5731,11 @@ bool aiIfNumKnockedOutChrs(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] < mpstatsGetTotalKnockoutCount() && cmd[3] == 0) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else if (mpstatsGetTotalKnockoutCount() < cmd[2] && cmd[3] == 1) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -5751,9 +5751,9 @@ bool ai00fd(void)
 
 	if (chr && (chr->chrflags & CHRCFLAG_TRIGGERSHOTLIST)) {
 		chr->chrflags &= ~CHRCFLAG_TRIGGERSHOTLIST;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -5833,9 +5833,9 @@ bool aiIfPropPresetIsBlockingSightToTarget(void)
 {
 	if (chrIsPropPresetBlockingSightToTarget(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -5872,9 +5872,9 @@ bool aiIfPropPresetHeightLessThan(void)
 	propGetBbox(prop, &radius, &ymax, &ymin);
 
 	if (ymax - ymin < value) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -5927,9 +5927,9 @@ bool aiIfPresetsTargetIsNotMyTarget(void)
 	}
 
 	if (g_Vars.chrdata->target != -1 && mypresetchrstarget != g_Vars.chrdata->target) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -5961,9 +5961,9 @@ bool aiIfChrTarget(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -5978,9 +5978,9 @@ bool aiSetChrPresetToChrNearSelf(void)
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
 
 	if (chrSetChrPresetToChrNearSelf(cmd[2], g_Vars.chrdata, distance)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -5996,9 +5996,9 @@ bool aiSetChrPresetToChrNearPad(void)
 	u16 padnum = cmd[6] | (cmd[5] << 8);
 
 	if (chrSetChrPresetToChrNearPad(cmd[2], g_Vars.chrdata, distance, padnum)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -6035,9 +6035,9 @@ bool aiIfCompareChrPresetsTeam(void)
 	}
 
 	if (chrCompareTeams(chr, g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -6052,9 +6052,9 @@ bool aiIfHuman(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && CHRRACE(chr) == RACE_HUMAN) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -6069,9 +6069,9 @@ bool aiIfSkedar(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && CHRRACE(chr) == RACE_SKEDAR) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -6157,9 +6157,9 @@ bool aiIfSafety2LessThan(void)
 	}
 
 	if (score < cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -6174,9 +6174,9 @@ bool aiFindCover(void)
 	u16 criteria = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, 0) != -1) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -6192,9 +6192,9 @@ bool aiFindCoverWithinDist(void)
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, flags) != -1) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 9;
+		g_Vars.aioffset += 10;
 	}
 
 	return false;
@@ -6210,9 +6210,9 @@ bool aiFindCoverOutsideDist(void)
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, -flags) != -1) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 9;
+		g_Vars.aioffset += 10;
 	}
 
 	return false;
@@ -6238,9 +6238,9 @@ bool aiCheckCoverOutOfSight(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrCheckCoverOutOfSight(g_Vars.chrdata, g_Vars.chrdata->cover, false)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -6257,10 +6257,10 @@ bool aiIfPlayerUsingCmpOrAr34(void)
 	switch (bgunGetWeaponNum(hand)) {
 		case WEAPON_CMP150:
 		case WEAPON_AR34:
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 			break;
 		default:
-			g_Vars.aioffset += 3;
+			g_Vars.aioffset += 4;
 			break;
 	}
 
@@ -6335,9 +6335,9 @@ bool aiDetectEnemyOnSameFloor(void)
 
 	if (newtarget != -1) {
 		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, newtarget);
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 3;
+		g_Vars.aioffset = g_Vars.aioffset + 4;
 	}
 
 	return false;
@@ -6433,9 +6433,9 @@ bool aiDetectEnemy(void)
 
 	if (closesttarg != -1) {
 		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, closesttarg);
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 4;
+		g_Vars.aioffset = g_Vars.aioffset + 5;
 	}
 
 	return false;
@@ -6476,9 +6476,9 @@ bool aiIfSafetyLessThan(void)
 	}
 
 	if (safety < cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -6503,9 +6503,9 @@ bool aiIfTargetMovingSlowly(void)
 	absdelta = delta > 0 ? delta : -delta;
 
 	if (absdelta < 50) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -6519,9 +6519,9 @@ bool aiIfTargetMovingCloser(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) < -50) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -6535,9 +6535,9 @@ bool aiIfTargetMovingAway(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) > 50) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -9753,9 +9753,9 @@ bool aiIfChrNotTalking(void)
 	struct chrdata *chr = chrFindByLiteralId(cmd[2]);
 
 	if (chr && chr->propsoundcount == 0) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 4;
+		g_Vars.aioffset = g_Vars.aioffset + 5;
 	}
 
 	return false;
@@ -9939,12 +9939,12 @@ bool aiSetTeamOrders(void)
 		}
 
 		if (num != 1) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 		} else {
-			g_Vars.aioffset += 4;
+			g_Vars.aioffset += 5;
 		}
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -9958,13 +9958,13 @@ bool aiIfOrders(void)
 	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 
 	if (g_Vars.chrdata->orders == cmd->b3) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b4);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b4, cmd->b5);
 
 		if (g_Vars.chrdata->orders == MA_WITHDRAW) {
 			// empty
 		}
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -9978,9 +9978,9 @@ bool aiIfHasOrders(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->orders) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -10039,9 +10039,9 @@ bool aiIfChrInSquadronDoingAction(void)
 	}
 
 	if (ret != 1) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b3, cmd->b4);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -10109,9 +10109,9 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 
 	if (candidate_chrnum != -1) {
 		chrSetChrPreset(g_Vars.chrdata, candidate_chrnum);
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -10137,9 +10137,9 @@ bool aiFaceCover(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrFaceCover(g_Vars.chrdata)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -10153,9 +10153,9 @@ bool aiIfDangerousObjectNearby(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrDetectDangerousObject(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -10184,12 +10184,12 @@ bool aiIfHeliWeaponsArmed(void)
 
 	if (g_Vars.hovercar) {
 		if (g_Vars.hovercar->weaponsarmed) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 		} else {
-			g_Vars.aioffset += 3;
+			g_Vars.aioffset += 4;
 		}
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -10205,12 +10205,12 @@ bool aiIfHoverbotNextStep(void)
 	if (g_Vars.hovercar) {
 		if ((g_Vars.hovercar->nextstep > cmd[3] && cmd[2] == 1) ||
 				(g_Vars.hovercar->nextstep < cmd[3] && cmd[2] == 0)) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 		} else {
-			g_Vars.aioffset += 5;
+			g_Vars.aioffset += 6;
 		}
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -10430,9 +10430,9 @@ bool aiIfSquadronIsDead(void)
 	}
 
 	if (!anyalive) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -10465,15 +10465,15 @@ bool aiIfChrListening(void)
 
 	if (cmd->b4 == 0) {
 		if (chr->listening == cmd->b3) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b5);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b5, cmd->b6);
 		} else {
-			g_Vars.aioffset += 6;
+			g_Vars.aioffset += 7;
 		}
 	} else {
 		if (g_Vars.chrdata->convtalk == 0) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b5);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b5, cmd->b6);
 		} else {
-			g_Vars.aioffset += 6;
+			g_Vars.aioffset += 7;
 		}
 	}
 
@@ -10486,7 +10486,7 @@ bool aiIfChrListening(void)
 bool aiIfTrue(void)
 {
 	u8 *cmd = g_Vars.aioffset;
-	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 
 	return false;
 }
@@ -10499,9 +10499,9 @@ bool aiIfNotListening(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->listening == 0) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -10545,9 +10545,9 @@ bool aiIfNumChrsInSquadronGreaterThan(void)
 	}
 
 	if (count > cmd[2]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -10563,9 +10563,9 @@ bool aiIfChrInjured(void)
 
 	if (chr && (chr->chrflags & CHRCFLAG_INJUREDTARGET)) {
 		chr->chrflags &= ~CHRCFLAG_INJUREDTARGET;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -10579,9 +10579,9 @@ bool aiIfAction(void)
 	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 
 	if (g_Vars.chrdata->myaction == cmd->b2) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b3, cmd->b4);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -10607,9 +10607,9 @@ bool aiIfNaturalAnim(void)
 	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 
 	if (g_Vars.chrdata->naturalanim == cmd->b2) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b3, cmd->b4);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -10641,9 +10641,9 @@ bool aiIfY(void)
 	if (chr && chr->prop && (
 				(chr->prop->pos.y < cutoff_y && cmd[5] == 0) ||
 				(chr->prop->pos.y > cutoff_y && cmd[5] == 1))) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 	}
 
 	return false;
@@ -10713,9 +10713,9 @@ bool aiIfChrHasGun(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->model && chr->gunprop == NULL) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -10734,9 +10734,9 @@ bool aiDoGunCommand(void)
 			chrGoToProp(g_Vars.chrdata, g_Vars.chrdata->gunprop, GOPOSFLAG_JOG);
 		}
 
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -10762,9 +10762,9 @@ bool aiIfDistanceToGunLessThan(void)
 	if (ydiff < 200 && ydiff > -200 &&
 			xdiff < distance && xdiff > -distance &&
 			zdiff < distance && zdiff > -distance) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -10786,7 +10786,7 @@ bool aiRecoverGun(void)
 		chrEquipWeapon(prop->weapon, g_Vars.chrdata);
 	}
 
-	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 
 	if (1);
 
@@ -10820,9 +10820,9 @@ bool aiChrCopyProperties(void)
 		g_Vars.chrdata->yvisang = chr->yvisang;
 		g_Vars.chrdata->teamscandist = chr->teamscandist;
 
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -10872,9 +10872,9 @@ bool aiIfPlayerAutoWalkFinished(void)
 	}
 
 	if (walking) {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	} else {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	}
 
 	return false;
@@ -10903,9 +10903,9 @@ bool aiIfPlayerLookingAtObject(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -10919,9 +10919,9 @@ bool aiPunchOrKick(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata && chrTryPunch(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -10936,9 +10936,9 @@ bool aiIfTargetIsPlayer(void)
 	struct prop *target = chrGetTargetProp(g_Vars.chrdata);
 
 	if (target->type == PROPTYPE_EYESPY || target->type == PROPTYPE_PLAYER) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -10966,9 +10966,9 @@ bool aiIfSoundTimer(void)
 
 	if ((g_Vars.chrdata->soundtimer > value && cmd[4] == 0) ||
 			(g_Vars.chrdata->soundtimer < value && cmd[4] == 1)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -10988,13 +10988,13 @@ bool aiSetTargetToEyespyIfInSight(void)
 		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, chr->chrnum);
 
 		if (chrCheckTargetInSight(g_Vars.chrdata)) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 		} else {
-			g_Vars.aioffset += 3;
+			g_Vars.aioffset += 4;
 			g_Vars.chrdata->target = prevtarget;
 		}
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -11018,9 +11018,9 @@ bool aiIfLiftStationary(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -11062,9 +11062,9 @@ bool aiIfLiftAtStop(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b4);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b4, cmd->b5);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -11137,9 +11137,9 @@ bool aiMiniSkedarTryPounce(void)
 	u16 thing = cmd[4] | (cmd[3] << 8);
 
 	if (chrTrySkJump(g_Vars.chrdata, g_Vars.chrdata->pouncebits, cmd[2], thing, cmd[5])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 7;
+		g_Vars.aioffset += 8;
 
 	}
 
@@ -11186,9 +11186,9 @@ bool aiIfObjectDistanceToPadLessThan(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 8;
+		g_Vars.aioffset += 9;
 	}
 
 	return false;
@@ -11226,9 +11226,9 @@ bool aiIfSavefileFlagIsSet(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (gamefileHasFlag(cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -11242,9 +11242,9 @@ bool aiIfSavefileFlagIsUnset(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (!gamefileHasFlag(cmd[2])) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -11266,9 +11266,9 @@ bool aiIfObjHealthLessThan(void)
 	}
 
 	if (condition_passes) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 6;
+		g_Vars.aioffset += 7;
 	}
 
 	return false;
@@ -11462,9 +11462,9 @@ bool aiIfUsingLift(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (chrIsUsingLift(g_Vars.chrdata)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -11484,9 +11484,9 @@ bool aiIfTargetYDifferenceLessThan(void)
 	}
 
 	if (diff < (s32)cmd[2] * 10.0f) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -11508,9 +11508,9 @@ bool ai01aa(void)
 			0, &a, 0);
 
 	if (a < 3000) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -11815,9 +11815,9 @@ bool ai01bc(void)
 	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
 
 	if (g_Vars.chrdata->pouncebits == cmd->b2) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b3, cmd->b4);
 	} else {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	}
 
 	return false;
@@ -11832,9 +11832,9 @@ bool aiIfTrainingPcHolographed(void)
 	struct trainingdata *data = dtGetData();
 
 	if (data->holographedpc) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -11863,9 +11863,9 @@ bool aiIfPlayerUsingDevice(void)
 	}
 
 	if (active) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -11937,7 +11937,7 @@ bool aiChrBeginOrEndTeleport(void)
 bool aiIfChrTeleportFullWhite(void)
 {
 	u8 *cmd = g_Vars.aioffset;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[4]);
 	u32 prevplayernum = g_Vars.currentplayernum;
 #if VERSION >= VERSION_NTSC_1_0
 	s32 mainpri;
@@ -11954,7 +11954,7 @@ bool aiIfChrTeleportFullWhite(void)
 	}
 
 	if (g_Vars.currentplayer->teleportstate < TELEPORTSTATE_WHITE) {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	} else {
 		fvalue = 0.4;
 
@@ -11975,7 +11975,7 @@ bool aiIfChrTeleportFullWhite(void)
 #endif
 
 		g_Vars.currentplayer->teleportstate = TELEPORTSTATE_WHITE;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	}
 
 	setCurrentPlayerNum(prevplayernum);
@@ -12015,9 +12015,9 @@ bool aiTryExitTitle(void)
 
 	if (titleIsChangingMode()) {
 		titleExit();
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 3;
+		g_Vars.aioffset = g_Vars.aioffset + 4;
 	}
 
 	return false;
@@ -12104,9 +12104,9 @@ bool aiIfFadeComplete(void)
 	u8 *cmd = g_Vars.aioffset;
 
 	if (lvIsFadeActive() == false) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -12382,9 +12382,9 @@ bool aiIfDistanceToTarget2LessThan(void)
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToTarget2(g_Vars.chrdata) < distance) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -12399,9 +12399,9 @@ bool aiIfDistanceToTarget2GreaterThan(void)
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToTarget2(g_Vars.chrdata) > distance) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 5;
+		g_Vars.aioffset += 6;
 	}
 
 	return false;
@@ -12483,10 +12483,10 @@ bool aiIfMusicEventQueueIsEmpty(void)
 	f32 value = (u64)osGetCount() * 64 / 3000;
 
 	if (g_MusicEventQueueLength) {
-		g_Vars.aioffset += 4;
+		g_Vars.aioffset += 5;
 	} else {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	}
 
 	return false;
@@ -12499,9 +12499,9 @@ bool aiIfCoopMode(void)
 {
 	if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;
@@ -12533,9 +12533,9 @@ bool ai01b4(void)
 	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
 			chr0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, 0, false)) {
 		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 3;
+		g_Vars.aioffset += 4;
 	}
 
 	return false;

@@ -127,52 +127,6 @@ void stageAllocateBgChrs(void)
 	g_SquadronList = mempAlloc(0x220, MEMPOOL_STAGE);
 }
 
-void stageLoadAllAilistModels(void)
-{
-	u8 *cmd = g_StageSetup.ailists[0].list;
-	s32 i = 0;
-	u16 id;
-
-	if (!cmd) {
-		return;
-	}
-
-	do {
-		while (true) {
-			if (cmd[0] == AICMD_END) {
-				break;
-			}
-
-			switch (cmd[0]) {
-			case AICMD_DROPITEM:
-				id = cmd[3] | (cmd[2] << 8);
-				if (setupLoadModeldef(id));
-				break;
-			case AICMD_SPAWNCHRATPAD:
-				bodyLoad(cmd[2]);
-				if ((s8)cmd[3] >= 0 && bodyLoad((s8)cmd[3]));
-				break;
-			case AICMD_SPAWNCHRATCHR:
-				bodyLoad(cmd[2]);
-				if ((s8)cmd[3] >= 0 && bodyLoad((s8)cmd[3]));
-				break;
-			case AICMD_EQUIPWEAPON:
-				setupLoadModeldef(cmd[3] | (cmd[2] << 8));
-				if (modelmgrLoadProjectileModeldefs(cmd[4]));
-				break;
-			case AICMD_EQUIPHAT:
-				setupLoadModeldef(cmd[3] | (cmd[2] << 8));
-				break;
-			}
-
-			cmd += chraiGetCommandLength(cmd, cmd);
-		}
-
-		i++;
-		cmd = g_StageSetup.ailists[i].list;
-	} while (cmd);
-}
-
 void func0f00c230(void)
 {
 	// empty

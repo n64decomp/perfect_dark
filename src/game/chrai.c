@@ -650,24 +650,6 @@ s32 chraiGetListIdByList(u8 *ailist, bool *is_global)
 	return -1;
 }
 
-u8 *chraiGoToLabel(u8 *ailist, u8 *aioffset, u8 label)
-{
-	do {
-		u8 *cmd = aioffset;
-		u32 type = (cmd[0] << 8) + cmd[1];
-
-		if (type == CMD_LABEL) {
-			if (label == cmd[2]) {
-				return aioffset;
-			}
-		} else if (type == CMD_END) {
-			return 0;
-		}
-
-		aioffset += g_CommandLengths[type];
-	} while (true);
-}
-
 void chraiExecute(void *entity, s32 proptype)
 {
 	g_Vars.chrdata = NULL;
@@ -784,16 +766,4 @@ void chraiExecute(void *entity, s32 proptype)
 			}
 		}
 	}
-}
-
-u32 chraiGetCommandLength(u8 *ailist, u8 *aioffset)
-{
-	u8 *cmd = aioffset;
-	s32 type = (cmd[0] << 8) + cmd[1];
-
-	if (type >= 0 && type < ARRAYCOUNT(g_CommandLengths)) {
-		return g_CommandLengths[type];
-	}
-
-	return 1;
 }
