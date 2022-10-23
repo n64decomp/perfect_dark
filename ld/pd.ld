@@ -245,6 +245,7 @@ SECTIONS
 	 */
 
 	__savedrompos = __rompos;
+	__savedrampos = __rampos;
 	__rampos = 0x80200000;
 	__rompos = _datazipSegmentRomEnd;
 
@@ -269,7 +270,7 @@ SECTIONS
 	PLACEHOLDER_SEGMENT(gamezip, ROMALLOCATION_GAME)
 
 	__rompos = __savedrompos;
-	__rampos = 0x80240000;
+	__rampos = __savedrampos;
 
 	BEGIN_SEG(game)
 	{

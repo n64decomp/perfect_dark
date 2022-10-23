@@ -813,10 +813,10 @@ void vmInit(void)
 		s7 = (u8 *)(STACK_START - 8);
 
 		// 0x803c0000 - (_gameSegmentLen aligned to 0x20000)
-		gameseg = (u8 *) 0x80240000;
+		gameseg = (u8 *) &_gameSegmentStart;
 
 		s5 = (u32 *) (((u32) gameseg - ((t8 + 5) << 2)) & ~0xf);
-		g_VmMarker = (u8 *) 0x80240000;
+		g_VmMarker = (u8 *) s7;
 		sp1474 = t8 + 1;
 
 		// Load gamezips pointer list

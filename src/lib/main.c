@@ -237,7 +237,7 @@ extern u8 _accessingpakSegmentRomStart;
 extern u8 _accessingpakSegmentRomEnd;
 extern u8 _copyrightSegmentRomStart;
 extern u8 _copyrightSegmentRomEnd;
-extern u8 _bssSegmentEnd;
+extern u8 _gameSegmentEnd;
 
 #if VERSION >= VERSION_NTSC_1_0
 /**
@@ -459,7 +459,7 @@ void mainInit(void)
 		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
 	}
 
-	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_bssSegmentEnd));
+	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_gameSegmentEnd));
 	end = g_VmMarker;
 	mempSetHeap(start, end - start);
 
