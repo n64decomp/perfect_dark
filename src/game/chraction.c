@@ -14419,9 +14419,9 @@ void chrRestartTimer(struct chrdata *chr)
 	chr->hidden |= CHRHFLAG_TIMER_RUNNING;
 }
 
-f32 chrGetTimer(struct chrdata *chr)
+s32 chrGetTimer(struct chrdata *chr)
 {
-	return chr->timer60 * FRAMEDURATION;
+	return chr->timer60;
 }
 
 bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)

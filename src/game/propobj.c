@@ -10374,11 +10374,11 @@ void chopperRestartTimer(struct chopperobj *obj)
 	}
 }
 
-f32 chopperGetTimer(struct chopperobj *obj)
+s32 chopperGetTimer(struct chopperobj *obj)
 {
 	struct chopperobj *chopper = chopperFromHovercar(obj);
 
-	return chopper->timer60 * FRAMEDURATION;
+	return chopper->timer60;
 }
 
 void chopperSetMaxDamage(struct chopperobj *chopper, u16 health)

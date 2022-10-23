@@ -192,7 +192,7 @@ bool chrIsLookingAtPos(struct chrdata *chr, struct coord *pos, u8 arg2);
 f32 chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id);
 void chrsClearRefsToPlayer(s32 playernum);
 s32 chrResolveId(struct chrdata *ref, s32 id);
-f32 chrGetTimer(struct chrdata *chr);
+s32 chrGetTimer(struct chrdata *chr);
 bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr);
 bool chrSawInjury(struct chrdata *chr, u8 arg1);
 bool chrSawDeath(struct chrdata *chr, u8 arg1);

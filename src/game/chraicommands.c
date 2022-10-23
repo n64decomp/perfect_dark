@@ -3669,9 +3669,7 @@ u8 *aiIfTimerStopped(u8 *cmd)
  */
 u8 *aiIfTimerGreaterThanRandom(u8 *cmd)
 {
-	f32 timer = chrGetTimer(g_Vars.chrdata);
-
-	if (g_Vars.chrdata->random < timer) {
+	if (g_Vars.chrdata->random < g_Vars.chrdata->timer60 * 60) {
 		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
 		cmd += 4;
@@ -3685,10 +3683,10 @@ u8 *aiIfTimerGreaterThanRandom(u8 *cmd)
  */
 u8 *aiIfTimerLessThan(u8 *cmd)
 {
-	f32 value = (u32)((cmd[3] << 8) | cmd[4] | (cmd[2] << 16)) / 60.0f;
+	s32 value = (cmd[3] << 8) | cmd[4] | (cmd[2] << 16);
 
-	if ((g_Vars.chrdata && chrGetTimer(g_Vars.chrdata) < value) ||
-			(g_Vars.hovercar && chopperGetTimer(g_Vars.hovercar) < value)) {
+	if ((g_Vars.chrdata && g_Vars.chrdata->timer60 < value)
+			|| (g_Vars.hovercar && chopperGetTimer(g_Vars.hovercar) < value)) {
 		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
 		cmd += 7;
@@ -3702,19 +3700,10 @@ u8 *aiIfTimerLessThan(u8 *cmd)
  */
 u8 *aiIfTimerGreaterThan(u8 *cmd)
 {
-	f32 value = (u32)((cmd[3] << 8) | cmd[4] | (cmd[2] << 16)) / 60.0f;
+	s32 value = (cmd[3] << 8) | cmd[4] | (cmd[2] << 16);
 
-	// These two function calls were likely used in a debug print statement
-	if (g_Vars.chrdata) {
-		chrGetTimer(g_Vars.chrdata);
-	}
-
-	if (g_Vars.hovercar) {
-		chopperGetTimer(g_Vars.hovercar);
-	}
-
-	if ((g_Vars.chrdata && chrGetTimer(g_Vars.chrdata) > value) ||
-			(g_Vars.hovercar && chopperGetTimer(g_Vars.hovercar) > value)) {
+	if ((g_Vars.chrdata && g_Vars.chrdata->timer60 > value)
+			|| (g_Vars.hovercar && chopperGetTimer(g_Vars.hovercar) > value)) {
 		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
 		cmd += 7;
