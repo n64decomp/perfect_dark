@@ -102,54 +102,44 @@ class App():
 
     def make_pads(self):
         output = bytes()
-        offsets = bytes()
-        start = pos = assetmgr.align4(0x14 + len(self.json['pads']) * 2)
 
         for pad in self.json['pads']:
-            # flags, room and liftnum
-            # ffffffff ffffffff ffrrrrrr rrrrllll
+            output += self.make_float(pad['pos'][0])
+            output += self.make_float(pad['pos'][1])
+            output += self.make_float(pad['pos'][2])
+
+            output += self.make_float(pad['dir'][0])
+            output += self.make_float(pad['dir'][1])
+            output += self.make_float(pad['dir'][2])
+
+            output += self.make_float(pad['up'][0])
+            output += self.make_float(pad['up'][1])
+            output += self.make_float(pad['up'][2])
+
+            # normal
+            output += self.make_float(pad['up'][1] * pad['dir'][2] - pad['dir'][1] * pad['up'][2]);
+            output += self.make_float(pad['up'][2] * pad['dir'][0] - pad['dir'][2] * pad['up'][0]);
+            output += self.make_float(pad['up'][0] * pad['dir'][1] - pad['dir'][0] * pad['up'][1]);
+
+            output += self.make_float(pad['xmin'])
+            output += self.make_float(pad['xmax'])
+            output += self.make_float(pad['ymin'])
+            output += self.make_float(pad['ymax'])
+            output += self.make_float(pad['zmin'])
+            output += self.make_float(pad['zmax'])
+
+            # room is filled in at runtime
+            room = 0xffffffff
+            output += room.to_bytes(4, 'big')
+
             flags = self.make_pad_flags(pad)
+            output += flags.to_bytes(4, 'big')
 
-            word = (flags << 14) | 0x3ff0 | (pad['liftnum'] & 0x0f)
-
-            output += word.to_bytes(4, 'big')
-
-            if flags & PADFLAG_INTPOS:
-                output += self.make_unsigned(pad['pos'][0]).to_bytes(2, 'big')
-                output += self.make_unsigned(pad['pos'][1]).to_bytes(2, 'big')
-                output += self.make_unsigned(pad['pos'][2]).to_bytes(2, 'big')
-                output += b'\x00\x00'
-            else:
-                output += self.make_float(pad['pos'][0])
-                output += self.make_float(pad['pos'][1])
-                output += self.make_float(pad['pos'][2])
-
-            if (flags & 0x0e) == 0:
-                output += self.make_float(pad['up'][0])
-                output += self.make_float(pad['up'][1])
-                output += self.make_float(pad['up'][2])
-
-            if (flags & 0xe0) == 0:
-                output += self.make_float(pad['dir'][0])
-                output += self.make_float(pad['dir'][1])
-                output += self.make_float(pad['dir'][2])
-
-            if flags & PADFLAG_HASBBOXDATA:
-                output += self.make_float(pad['xmin'])
-                output += self.make_float(pad['xmax'])
-                output += self.make_float(pad['ymin'])
-                output += self.make_float(pad['ymax'])
-                output += self.make_float(pad['zmin'])
-                output += self.make_float(pad['zmax'])
+            output += pad['liftnum'].to_bytes(1, 'big')
 
             output = assetmgr.pad4(output)
 
-            offsets += pos.to_bytes(2, 'big')
-            pos = start + len(output)
-
-        offsets = assetmgr.pad4(offsets)
-
-        return offsets + output
+        return output
 
     # Some pads need to store 0x80000000 (negative 0), but this isn't supported
     # in JSON, nor does it appear to be a thing in Python, hence this hack.

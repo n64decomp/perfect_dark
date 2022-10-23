@@ -185,7 +185,7 @@ extern struct fileguid g_GameFileGuid;
 extern u8 g_AltTitleUnlocked;
 extern u8 g_AltTitleEnabled;
 extern struct padsfileheader *g_PadsFile;
-extern u16 *g_PadOffsets;
+extern struct pad *g_Pads;
 extern u16 *g_CoverFlags;
 extern s32 *g_CoverRooms;
 extern struct covercandidate *g_CoverCandidates;
