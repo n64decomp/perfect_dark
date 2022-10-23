@@ -55,66 +55,61 @@
 /**
  * @cmd 0000
  */
-bool aiGoToNext(void)
+u8 *aiGoToNext(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-	g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	osSyncPrintf(" (%d)\n", cmd[2]);
+	cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0001
  */
-bool aiGoToFirst(void)
+u8 *aiGoToFirst(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-	g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	osSyncPrintf(" (%d)\n", cmd[2]);
+	cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0002
  */
-bool aiLabel(void)
+u8 *aiLabel(u8 *cmd)
 {
-	g_Vars.aioffset += 3;
-	return false;
+	cmd += 3;
+	return cmd;
 }
 
 /**
  * @cmd 0003
  */
-bool aiYield(void)
+u8 *aiYield(u8 *cmd)
 {
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
 	if (g_Vars.chrdata) {
 		g_Vars.chrdata->ailist = g_Vars.ailist;
-		g_Vars.chrdata->aioffset = g_Vars.aioffset;
+		g_Vars.chrdata->aioffset = cmd;
 	} else if (g_Vars.truck) {
 		g_Vars.truck->ailist = g_Vars.ailist;
-		g_Vars.truck->aioffset = g_Vars.aioffset;
+		g_Vars.truck->aioffset = cmd;
 	} else if (g_Vars.heli) {
 		g_Vars.heli->ailist = g_Vars.ailist;
-		g_Vars.heli->aioffset = g_Vars.aioffset;
+		g_Vars.heli->aioffset = cmd;
 	} else if (g_Vars.hovercar) {
 		g_Vars.hovercar->ailist = g_Vars.ailist;
-		g_Vars.hovercar->aioffset = g_Vars.aioffset;
+		g_Vars.hovercar->aioffset = cmd;
 	}
 
-	return true;
+	return NULL;
 }
 
 /**
  * @cmd 0005
  */
-bool aiSetList(void)
+u8 *aiSetList(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 ailistid = cmd[4] | (cmd[3] << 8);
 	u8 *ailist = ailistFindById(ailistid & 0xffff);
 
@@ -122,28 +117,27 @@ bool aiSetList(void)
 
 	if ((cmd[2] & 0xff) == CHR_SELF) {
 		g_Vars.ailist = ailist;
-		g_Vars.aioffset = ailist;
-	} else {
-		chr = chrFindById(chr, cmd[2]);
-
-		if (chr) {
-			chr->ailist = ailist;
-			chr->aioffset = ailist;
-			chr->sleep = 0;
-		}
-
-		g_Vars.aioffset += 5;
+		return ailist;
 	}
 
-	return false;
+	chr = chrFindById(chr, cmd[2]);
+
+	if (chr) {
+		chr->ailist = ailist;
+		chr->aioffset = ailist;
+		chr->sleep = 0;
+	}
+
+	cmd += 5;
+
+	return cmd;
 }
 
 /**
  * @cmd 0006
  */
-bool aiSetReturnList(void)
+u8 *aiSetReturnList(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[4] | (cmd[3] << 8);
 	struct chrdata *chr;
 
@@ -165,17 +159,16 @@ bool aiSetReturnList(void)
 		g_Vars.hovercar->aireturnlist = ailistid;
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0007
  */
-bool aiSetShotList(void)
+u8 *aiSetShotList(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
@@ -188,9 +181,9 @@ bool aiSetShotList(void)
 		osSyncPrintf("set shot list(void) doesn't work for g_Vars.CommandInfo.hovercar!\n");
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 const char var7f1a9524[] = "BOND IN ROOM \n";
@@ -257,75 +250,71 @@ const char var7f1a9c18[] = "IVE FOUND MY PAD %d \n";
 /**
  * @cmd 01c1
  */
-bool aiSetPunchDodgeList(void)
+u8 *aiSetPunchDodgeList(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
 		g_Vars.chrdata->aipunchdodgelist = ailistid;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01c2
  */
-bool aiSetShootingAtMeList(void)
+u8 *aiSetShootingAtMeList(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
 		g_Vars.chrdata->aishootingatmelist = ailistid;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01c3
  */
-bool aiSetDarkRoomList(void)
+u8 *aiSetDarkRoomList(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
 		g_Vars.chrdata->aidarkroomlist = ailistid;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01c4
  */
-bool aiSetPlayerDeadList(void)
+u8 *aiSetPlayerDeadList(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
 		g_Vars.chrdata->aiplayerdeadlist = ailistid;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0008
  */
-bool aiReturn(void)
+u8 *aiReturn(u8 *cmd)
 {
 	u8 *ailist = NULL;
 
@@ -340,27 +329,28 @@ bool aiReturn(void)
 	}
 
 	g_Vars.ailist = ailist;
-	g_Vars.aioffset = ailist;
 
-	return false;
+	return ailist;
 }
 
 /**
  * @cmd 0004
  */
-bool aiEndList(void)
+u8 *aiEndList(u8 *cmd)
 {
 	s32 ailistid;
 	bool is_global;
 	ailistid = chraiGetListIdByList(g_Vars.ailist, &is_global);
 
-	return true;
+	while (1);
+
+	return NULL;
 }
 
 /**
  * @cmd 0009
  */
-bool aiStop(void)
+u8 *aiStop(u8 *cmd)
 {
 	if (g_Vars.chrdata) {
 		chrTryStop(g_Vars.chrdata);
@@ -368,28 +358,27 @@ bool aiStop(void)
 		chopperStop(g_Vars.hovercar);
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 000a
  */
-bool aiKneel(void)
+u8 *aiKneel(u8 *cmd)
 {
 	chrTryKneel(g_Vars.chrdata);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 000b
  */
-bool aiChrDoAnimation(void)
+u8 *aiChrDoAnimation(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 anim_id = cmd[3] | (cmd[2] << 8);
 	s32 startframe = cmd[5] | (cmd[4] << 8);
 	s32 endframe = cmd[7] | (cmd[6] << 8);
@@ -444,24 +433,23 @@ bool aiChrDoAnimation(void)
 		}
 	}
 
-	g_Vars.aioffset += 12;
+	cmd += 12;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 000c
  */
-bool aiIfIdle(void)
+u8 *aiIfIdle(u8 *cmd)
 {
 	if (g_Vars.chrdata->actiontype == ACT_ANIM) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 bool func0f04e418(void)
@@ -472,63 +460,60 @@ bool func0f04e418(void)
 /**
  * @cmd 000d
  */
-bool aiBeSurprisedOneHand(void)
+u8 *aiBeSurprisedOneHand(u8 *cmd)
 {
 	chrTrySurprisedOneHand(g_Vars.chrdata);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 000e
  */
-bool aiBeSurprisedLookAround(void)
+u8 *aiBeSurprisedLookAround(u8 *cmd)
 {
 	chrTrySurprisedLookAround(g_Vars.chrdata);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0032
  */
-bool aiIfStopped(void)
+u8 *aiIfStopped(u8 *cmd)
 {
 	if (chrIsStopped(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0033
  */
-bool aiIfChrDead(void)
+u8 *aiIfChrDead(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) && (!chr || !chr->model || chrIsDead(chr))) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0034
  */
-bool aiIfChrDeathAnimationFinished(void)
+u8 *aiIfChrDeathAnimationFinished(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool pass;
 
@@ -544,268 +529,250 @@ bool aiIfChrDeathAnimationFinished(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 017b
  */
-bool aiIfChrKnockedOut(void)
+u8 *aiIfChrKnockedOut(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) &&
 			(!chr || !chr->model || chr->actiontype == ACT_DRUGGEDKO || chr->actiontype == ACT_DRUGGEDDROP || chr->actiontype == ACT_DRUGGEDCOMINGUP)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0035
  */
-bool aiIfTargetInSight(void)
+u8 *aiIfTargetInSight(u8 *cmd)
 {
 	if (chrCheckTargetInSight(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 000f
  */
-bool aiTrySidestep(void)
+u8 *aiTrySidestep(u8 *cmd)
 {
 	if (chrTrySidestep(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0010
  */
-bool aiTryJumpOut(void)
+u8 *aiTryJumpOut(u8 *cmd)
 {
 	if (chrTryJumpOut(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0011
  */
-bool aiTryRunSideways(void)
+u8 *aiTryRunSideways(u8 *cmd)
 {
 	if (chrTryRunSideways(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0012
  */
-bool aiTryAttackWalk(void)
+u8 *aiTryAttackWalk(u8 *cmd)
 {
 	if (chrTryAttackWalk(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0013
  */
-bool aiTryAttackRun(void)
+u8 *aiTryAttackRun(u8 *cmd)
 {
 	if (chrTryAttackRun(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0014
  */
-bool aiTryAttackRoll(void)
+u8 *aiTryAttackRoll(u8 *cmd)
 {
 	if (chrTryAttackRoll(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0015
  */
-bool aiTryAttackStand(void)
+u8 *aiTryAttackStand(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if (chrTryAttackStand(g_Vars.chrdata, thingtype, thingid)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0016
  */
-bool aiTryAttackKneel(void)
+u8 *aiTryAttackKneel(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if (chrTryAttackKneel(g_Vars.chrdata, thingtype, thingid)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01ba
  */
-bool aiTryAttackLie(void)
+u8 *aiTryAttackLie(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if (chrTryAttackLie(g_Vars.chrdata, thingtype, thingid)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f0
  */
-bool ai00f0(void)
+u8 *ai00f0(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata->actiontype == ACT_ATTACK &&
 			!g_Vars.chrdata->act_attack.reaim &&
 			g_Vars.chrdata->act_attack.flags & ATTACKFLAG_DONTTURN) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f1
  */
-bool aiIfAttacking(void)
+u8 *aiIfAttacking(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata->actiontype == ACT_ATTACK) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0017
  */
-bool aiTryModifyAttack(void)
+u8 *aiTryModifyAttack(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if ((g_Vars.chrdata && chrTryModifyAttack(g_Vars.chrdata, thingtype, thingid)) ||
 			(g_Vars.hovercar && chopperAttack(g_Vars.hovercar))) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0018
  */
-bool aiFaceEntity(void)
+u8 *aiFaceEntity(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if (chrFaceEntity(g_Vars.chrdata, thingtype, thingid)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0019
  */
-bool ai0019(void)
+u8 *ai0019(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct coord pos = {0, 0, 0};
 
@@ -814,17 +781,16 @@ bool ai0019(void)
 		chrDamageByImpact(chr, damage, &pos, (struct gset *)&cmd[4], NULL, (s8)cmd[3]);
 	}
 
-	g_Vars.aioffset += 8;
+	cmd += 8;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 001a
  */
-bool aiChrDamageChr(void)
+u8 *aiChrDamageChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 
@@ -849,314 +815,291 @@ bool aiChrDamageChr(void)
 		}
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 001b
  */
-bool aiConsiderGrenadeThrow(void)
+u8 *aiConsiderGrenadeThrow(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 value2 = cmd[5] | (cmd[4] << 8);
 	u32 value1 = cmd[3] | (cmd[2] << 8);
 
 	if (chrConsiderGrenadeThrow(g_Vars.chrdata, value1, value2)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 001c
  */
-bool aiDropItem(void)
+u8 *aiDropItem(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 modelnum = cmd[3] | (cmd[2] << 8);
 
 	if (chrDropItem(g_Vars.chrdata, modelnum & 0xffff, cmd[4] & 0xff)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0024
  */
-bool aiSurrender(void)
+u8 *aiSurrender(u8 *cmd)
 {
 	chrTrySurrender(g_Vars.chrdata);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0025
  */
-bool aiFadeOut(void)
+u8 *aiFadeOut(u8 *cmd)
 {
 	chrFadeOut(g_Vars.chrdata);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0026
  */
-bool aiRemoveChr(void)
+u8 *aiRemoveChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop) {
 		chr->hidden |= 0x20;
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0027
  */
-bool aiTryStartAlarm(void)
+u8 *aiTryStartAlarm(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 
 	if (chrTryStartAlarm(g_Vars.chrdata, pad_id)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0028
  */
-bool aiActivateAlarm(void)
+u8 *aiActivateAlarm(u8 *cmd)
 {
 	alarmActivate();
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0029
  */
-bool aiDeactivateAlarm(void)
+u8 *aiDeactivateAlarm(u8 *cmd)
 {
 	alarmDeactivate();
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 002a
  */
-bool aiTryRunFromTarget(void)
+u8 *aiTryRunFromTarget(u8 *cmd)
 {
 	if (chrTryRunFromTarget(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 002b
  */
-bool aiTryJogToTargetProp(void)
+u8 *aiTryJogToTargetProp(u8 *cmd)
 {
 	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_JOG)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 002c
  */
-bool aiTryWalkToTargetProp(void)
+u8 *aiTryWalkToTargetProp(u8 *cmd)
 {
 	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_WALK)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 002d
  */
-bool aiTryRunToTargetProp(void)
+u8 *aiTryRunToTargetProp(u8 *cmd)
 {
 	if (chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_RUN)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 002e
  */
-bool aiTryGoToCoverProp(void)
+u8 *aiTryGoToCoverProp(u8 *cmd)
 {
 	if (chrGoToCoverProp(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 002f
  */
-bool aiTryJogToChr(void)
+u8 *aiTryJogToChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_JOG)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0030
  */
-bool aiTryWalkToChr(void)
+u8 *aiTryWalkToChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_WALK)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0031
  */
-bool aiTryRunToChr(void)
+u8 *aiTryRunToChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_RUN)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0036
  */
-bool aiRandom(void)
+u8 *aiRandom(u8 *cmd)
 {
 	g_Vars.chrdata->random = random() & 0xff;
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0037
  */
-bool aiIfRandomLessThan(void)
+u8 *aiIfRandomLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if ((g_Vars.chrdata && g_Vars.chrdata->random < cmd[2]) ||
 			(g_Vars.hovercar && ((u8)random()) < cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0038
  */
-bool aiIfRandomGreaterThan(void)
+u8 *aiIfRandomGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if ((g_Vars.chrdata && g_Vars.chrdata->random > cmd[2]) ||
 			(g_Vars.hovercar && ((u8)random()) > cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 001d
  */
-bool aiJogToPad(void)
+u8 *aiJogToPad(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
 	chrGoToPad(g_Vars.chrdata, pad, GOPOSFLAG_JOG);
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 001e
  */
-bool aiGoToPadPreset(void)
+u8 *aiGoToPadPreset(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	switch (cmd[2]) {
 	case 0:
 		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, GOPOSFLAG_WALK);
@@ -1169,338 +1112,311 @@ bool aiGoToPadPreset(void)
 		break;
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 001f
  */
-bool aiWalkToPad(void)
+u8 *aiWalkToPad(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
 	chrGoToPad(g_Vars.chrdata, pad, GOPOSFLAG_WALK);
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0020
  */
-bool aiRunToPad(void)
+u8 *aiRunToPad(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
 	chrGoToPad(g_Vars.chrdata, pad, GOPOSFLAG_RUN);
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0021
  */
-bool aiSetPath(void)
+u8 *aiSetPath(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	chrSetPath(g_Vars.chrdata, cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0022
  */
-bool aiStartPatrol(void)
+u8 *aiStartPatrol(u8 *cmd)
 {
 	chrTryStartPatrol(g_Vars.chrdata);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0039
  */
-bool aiIfCanHearAlarm(void)
+u8 *aiIfCanHearAlarm(u8 *cmd)
 {
 	if (chrCanHearAlarm(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0023
  */
-bool aiIfPatrolling(void)
+u8 *aiIfPatrolling(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata->actiontype == ACT_PATROL
 			|| (g_Vars.chrdata->actiontype == ACT_GOPOS && g_Vars.chrdata->act_gopos.flags & GOPOSFLAG_FORPATHSTART)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 003a
  */
-bool aiIfAlarmActive(void)
+u8 *aiIfAlarmActive(u8 *cmd)
 {
 	if (alarmIsActive()) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 003b
  */
-bool aiIfGasActive(void)
+u8 *aiIfGasActive(u8 *cmd)
 {
 	if (gasIsActive()) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 003c
  */
-bool aiIfHearsTarget(void)
+u8 *aiIfHearsTarget(u8 *cmd)
 {
 	if (chrIsHearingTarget(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 003d
  */
-bool aiIfSawInjury(void)
+u8 *aiIfSawInjury(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrSawInjury(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 003e
  */
-bool aiIfSawDeath(void)
+u8 *aiIfSawDeath(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrSawDeath(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 003f
  */
-bool aiIfCanSeeTarget(void)
+u8 *aiIfCanSeeTarget(u8 *cmd)
 {
 	if ((g_Vars.chrdata && chrCanSeeTarget(g_Vars.chrdata)) ||
 			(g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 017a
  */
-bool aiIfCanSeeAttackTarget(void)
+u8 *aiIfCanSeeAttackTarget(u8 *cmd)
 {
 	if ((g_Vars.chrdata && g_Vars.chrdata->prop && chrCanSeeAttackTarget(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, true))
 			|| (g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0040
  */
-bool aiIfTargetNearlyInSight(void)
+u8 *aiIfTargetNearlyInSight(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 distance = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	if (chrIsTargetNearlyInSight(g_Vars.chrdata, distance)) {
-		cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0041
  */
-bool aiIfNearlyInTargetsSight(void)
+u8 *aiIfNearlyInTargetsSight(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 distance = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	if (chrIsNearlyInTargetsSight(g_Vars.chrdata, distance)) {
-		cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0042
  */
-bool aiSetPadPresetToPadOnRouteToTarget(void)
+u8 *aiSetPadPresetToPadOnRouteToTarget(u8 *cmd)
 {
 	if (chrSetPadPresetToPadOnRouteToTarget(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0043
  */
-bool aiIfSawTargetRecently(void)
+u8 *aiIfSawTargetRecently(u8 *cmd)
 {
 	if (chrSawTargetRecently(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0044
  */
-bool aiIfHeardTargetRecently(void)
+u8 *aiIfHeardTargetRecently(u8 *cmd)
 {
 	if (chrHeardTargetRecently(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0045
  */
-bool ai0045(void)
+u8 *ai0045(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chrHasLineOfSightToPos(g_Vars.chrdata, &chr->prop->pos, chr->prop->rooms)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0046
  */
-bool aiIfNeverBeenOnScreen(void)
+u8 *aiIfNeverBeenOnScreen(u8 *cmd)
 {
 	if ((g_Vars.chrdata->chrflags & CHRCFLAG_EVERONSCREEN) == 0) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0047
  */
-bool aiIfOnScreen(void)
+u8 *aiIfOnScreen(u8 *cmd)
 {
 	if (g_Vars.chrdata->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0048
  */
-bool aiIfChrInOnScreenRoom(void)
+u8 *aiIfChrInOnScreenRoom(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u8 pass = false;
 	s32 i;
@@ -1514,67 +1430,63 @@ bool aiIfChrInOnScreenRoom(void)
 	}
 
 	if (pass) {
-		cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0049
  */
-bool aiIfRoomIsOnScreen(void)
+u8 *aiIfRoomIsOnScreen(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
 	if (room_id >= 0 && roomIsOnscreen(room_id)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 004a
  */
-bool ai004a(void)
+u8 *ai004a(u8 *cmd)
 {
 	if (chrCanSeeTargetWithExtraCheck(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 004b
  */
-bool aiIfNearMiss(void)
+u8 *aiIfNearMiss(u8 *cmd)
 {
 	if (chrResetNearMiss(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 004c
  */
-bool aiIfSeesSuspiciousItem(void)
+u8 *aiIfSeesSuspiciousItem(u8 *cmd)
 {
 	s16 *ptr;
 	ubool pass = false;
@@ -1610,22 +1522,20 @@ bool aiIfSeesSuspiciousItem(void)
 	}
 
 	if (pass) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 004e
  */
-bool aiIfCheckFovWithTarget(void)
+u8 *aiIfCheckFovWithTarget(u8 *cmd)
 {
 	bool pass;
-	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[4] == 0) {
 		if (cmd[3]) {
@@ -1638,118 +1548,107 @@ bool aiIfCheckFovWithTarget(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 004d
  */
-bool aiIfTargetInFovLeft(void)
+u8 *aiIfTargetInFovLeft(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGetAngleToTarget(g_Vars.chrdata) < cmd[2] * M_BADTAU * 0.00390625f) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 004f
  */
-bool aiIfTargetOutOfFovLeft(void)
+u8 *aiIfTargetOutOfFovLeft(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGetAngleToTarget(g_Vars.chrdata) > cmd[2] * M_BADTAU * 0.00390625f) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0050
  */
-bool aiIfTargetInFov(void)
+u8 *aiIfTargetInFov(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrIsTargetInFov(g_Vars.chrdata, cmd[2], 0)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0051
  */
-bool aiIfTargetOutOfFov(void)
+u8 *aiIfTargetOutOfFov(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (!chrIsTargetInFov(g_Vars.chrdata, cmd[2], 0)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0052
  */
-bool aiIfDistanceToTargetLessThan(void)
+u8 *aiIfDistanceToTargetLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * (f32)10;
 
 	if (chrGetDistanceToTarget(g_Vars.chrdata) < distance) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0053
  */
-bool aiIfDistanceToTargetGreaterThan(void)
+u8 *aiIfDistanceToTargetGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * (f32)10;
 
 	if (chrGetDistanceToTarget(g_Vars.chrdata) > distance) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0054
  */
-bool aiIfChrDistanceToPadLessThan(void)
+u8 *aiIfChrDistanceToPadLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1762,9 +1661,9 @@ bool aiIfChrDistanceToPadLessThan(void)
 	}
 
 	if (chr && realpadnum < 9000 && chrGetDistanceToPad(chr, realpadnum) < value) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 #else
 	u16 padnum = cmd[6] | (cmd[5] << 8);
@@ -1775,22 +1674,21 @@ bool aiIfChrDistanceToPadLessThan(void)
 	}
 
 	if (chr && chrGetDistanceToPad(chr, padnum) < value) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 #endif
 
-	return false;
+	return cmd;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
 /**
  * @cmd 01df
  */
-bool aiIfChrSameFloorDistanceToPadLessThan(void)
+u8 *aiIfChrSameFloorDistanceToPadLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u16 padnum = cmd[6] | (cmd[5] << 8);
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
@@ -1803,21 +1701,20 @@ bool aiIfChrSameFloorDistanceToPadLessThan(void)
 	padnum2 = padnum;
 
 	if (chr && chrGetSameFloorDistanceToPad(chr, padnum2 & 0xffffffff) < distance) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 #endif
 
 /**
  * @cmd 0055
  */
-bool aiIfChrDistanceToPadGreaterThan(void)
+u8 *aiIfChrDistanceToPadGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u16 padnum = cmd[6] | (cmd[5] << 8);
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
@@ -1832,115 +1729,109 @@ bool aiIfChrDistanceToPadGreaterThan(void)
 	if (chr && chrGetDistanceToPad(chr, padnum) > distance)
 #endif
 	{
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0056
  */
-bool aiIfDistanceToChrLessThan(void)
+u8 *aiIfDistanceToChrLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToChr(g_Vars.chrdata, cmd[4]) < cutoff) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0057
  */
-bool aiIfDistanceToChrGreaterThan(void)
+u8 *aiIfDistanceToChrGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToChr(g_Vars.chrdata, cmd[4]) > cutoff) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0058
  */
-bool ai0058(void)
+u8 *ai0058(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrSetChrPresetToAnyChrNearSelf(g_Vars.chrdata, distance)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0059
  */
-bool aiIfDistanceFromTargetToPadLessThan(void)
+u8 *aiIfDistanceFromTargetToPadLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[5] | (cmd[4] << 8);
 	f32 value = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceFromTargetToPad(g_Vars.chrdata, pad) < value) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 005a
  */
-bool aiIfDistanceFromTargetToPadGreaterThan(void)
+u8 *aiIfDistanceFromTargetToPadGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad = cmd[5] | (cmd[4] << 8);
 	f32 value = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceFromTargetToPad(g_Vars.chrdata, pad) > value) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 005b
  */
-bool aiIfChrInRoom(void)
+u8 *aiIfChrInRoom(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u16 pad_id = cmd[5] | (cmd[4] << 8);
 	s32 room = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
 	if ((cmd[3] == 0 && room >= 0 && chr && chr->prop && chr->prop->rooms[0] == room)
 			|| (cmd[3] == 1 && chr && chr->prop && chr->prop->rooms[0] == g_Vars.chrdata->roomtosearch)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
-		return false;
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		return cmd;
 	}
 
 	if (cmd[3] == 2 && stageGetIndex(g_Vars.stagenum) == STAGEINDEX_G5BUILDING) {
@@ -1960,44 +1851,42 @@ bool aiIfChrInRoom(void)
 		}
 
 		if (pass == true) {
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+			cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 		} else {
-			g_Vars.aioffset += 8;
+			cmd += 8;
 		}
 
-		return false;
+		return cmd;
 	}
 
-	g_Vars.aioffset += 8;
+	cmd += 8;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 005c
  */
-bool aiIfTargetInRoom(void)
+u8 *aiIfTargetInRoom(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
 	if (room_id >= 0 && prop && room_id == prop->rooms[0]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 005d
  */
-bool aiIfChrHasObject(void)
+u8 *aiIfChrHasObject(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	s32 hasprop = false;
@@ -2010,37 +1899,35 @@ bool aiIfChrHasObject(void)
 	}
 
 	if (hasprop) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 005e
  */
-bool aiIfWeaponThrown(void)
+u8 *aiIfWeaponThrown(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (weaponFindLanded(cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 005f
  */
-bool aiIfWeaponThrownOnObject(void)
+u8 *aiIfWeaponThrownOnObject(u8 *cmd)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
-	struct defaultobj *obj = objFindByTagId(cmd->b3);
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
+	struct defaultobj *obj = objFindByTagId(cmd2->b3);
 	bool pass = false;
 
 	if (obj && obj->prop) {
@@ -2050,7 +1937,7 @@ bool aiIfWeaponThrownOnObject(void)
 			if (prop->type == PROPTYPE_WEAPON) {
 				struct weaponobj *weapon = prop->weapon;
 
-				if (weapon->weaponnum == cmd->b2) {
+				if (weapon->weaponnum == cmd2->b2) {
 					pass = true;
 				}
 			}
@@ -2060,20 +1947,19 @@ bool aiIfWeaponThrownOnObject(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b4, cmd->b5);
+		cmd = AILABEL(g_Vars.ailist, cmd2->b4, cmd2->b5);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0060
  */
-bool aiIfChrHasWeaponEquipped(void)
+u8 *aiIfChrHasWeaponEquipped(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool passes = false;
 
@@ -2090,66 +1976,62 @@ bool aiIfChrHasWeaponEquipped(void)
 	}
 
 	if (passes) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0061
  */
-bool aiIfGunUnclaimed(void)
+u8 *aiIfGunUnclaimed(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (cmd[3] == 0) {
 		struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 		if (obj && obj->prop) {
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+			cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 		} else {
-			g_Vars.aioffset += 6;
+			cmd += 6;
 		}
 	} else {
 		struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
 		if (weapon && weapon->base.prop) {
 			weapon->base.flags |= OBJFLAG_00400000;
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+			cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 		} else {
-			g_Vars.aioffset += 6;
+			cmd += 6;
 		}
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0062
  */
-bool aiIfObjectHealthy(void)
+u8 *aiIfObjectHealthy(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && objIsHealthy(obj)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0063
  */
-bool aiIfChrActivatedObject(void)
+u8 *aiIfChrActivatedObject(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	u32 stack[1];
 	bool pass = false;
@@ -2176,20 +2058,19 @@ bool aiIfChrActivatedObject(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0065
  */
-bool aiObjInteract(void)
+u8 *aiObjInteract(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
@@ -2200,17 +2081,16 @@ bool aiObjInteract(void)
 		}
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0066
  */
-bool aiDestroyObject(void)
+u8 *aiDestroyObject(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && objGetDestroyedLevel(obj) == 0) {
@@ -2226,17 +2106,16 @@ bool aiDestroyObject(void)
 		}
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0067
  */
-bool ai0067(void)
+u8 *ai0067(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->parent && obj->prop->parent->type == PROPTYPE_CHR) {
@@ -2245,34 +2124,32 @@ bool ai0067(void)
 		chr->hidden |= CHRHFLAG_00000001;
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0068
  */
-bool aiChrDropItems(void)
+u8 *aiChrDropItems(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop) {
 		chrDropConcealedItems(chr);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0069
  */
-bool aiChrDropWeapon(void)
+u8 *aiChrDropWeapon(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -2296,17 +2173,16 @@ bool aiChrDropWeapon(void)
 		}
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 006a
  */
-bool aiGiveObjectToChr(void)
+u8 *aiGiveObjectToChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
@@ -2346,17 +2222,16 @@ bool aiGiveObjectToChr(void)
 		}
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 006b
  */
-bool aiObjectMoveToPad(void)
+u8 *aiObjectMoveToPad(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	u16 padnum = cmd[4] | (cmd[3] << 8);
 	Mtxf matrix;
@@ -2379,17 +2254,16 @@ bool aiObjectMoveToPad(void)
 		func0f06a730(obj, &pad.pos, &matrix, rooms, &pad.pos);
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 006c
  */
-bool aiOpenDoor(void)
+u8 *aiOpenDoor(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
@@ -2399,17 +2273,16 @@ bool aiOpenDoor(void)
 		}
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 006d
  */
-bool aiCloseDoor(void)
+u8 *aiCloseDoor(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
@@ -2417,17 +2290,16 @@ bool aiCloseDoor(void)
 		doorsRequestMode(door, DOORMODE_CLOSING);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 006e
  */
-bool aiIfDoorState(void)
+u8 *aiIfDoorState(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	bool pass = false;
 
@@ -2448,37 +2320,35 @@ bool aiIfDoorState(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 006f
  */
-bool aiIfObjectIsDoor(void)
+u8 *aiIfObjectIsDoor(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->type == OBJTYPE_DOOR && (obj->hidden & 0x200)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0070
  */
-bool aiLockDoor(void)
+u8 *aiLockDoor(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
@@ -2487,17 +2357,16 @@ bool aiLockDoor(void)
 		door->keyflags = door->keyflags | bits;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0071
  */
-bool aiUnlockDoor(void)
+u8 *aiUnlockDoor(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
@@ -2506,17 +2375,16 @@ bool aiUnlockDoor(void)
 		door->keyflags = door->keyflags & ~bits;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0072
  */
-bool aiIfDoorLocked(void)
+u8 *aiIfDoorLocked(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	bool pass = false;
 
@@ -2531,152 +2399,135 @@ bool aiIfDoorLocked(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0073
  */
-bool aiIfObjectiveComplete(void)
+u8 *aiIfObjectiveComplete(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_COMPLETE &&
 			objectiveGetDifficultyBits(cmd[2]) & (1 << lvGetDifficulty())) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0074
  */
-bool aiIfObjectiveFailed(void)
+u8 *aiIfObjectiveFailed(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_FAILED &&
 			objectiveGetDifficultyBits(cmd[2]) & (1 << lvGetDifficulty())) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0075
  */
-bool ai0075(void)
+u8 *ai0075(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (func0f04a4ec(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0076
  */
-bool aiSetPadPresetToTargetQuadrant(void)
+u8 *aiSetPadPresetToTargetQuadrant(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrSetPadPresetToWaypointWithinTargetQuadrant(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 007d
  */
-bool aiIfNumArghsLessThan(void)
+u8 *aiIfNumArghsLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGetNumArghs(g_Vars.chrdata) < cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 007e
  */
-bool aiIfNumArghsGreaterThan(void)
+u8 *aiIfNumArghsGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGetNumArghs(g_Vars.chrdata) > cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 007f
  */
-bool aiIfNumCloseArghsLessThan(void)
+u8 *aiIfNumCloseArghsLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGetNumCloseArghs(g_Vars.chrdata) < cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0080
  */
-bool aiIfNumCloseArghsGreaterThan(void)
+u8 *aiIfNumCloseArghsGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGetNumCloseArghs(g_Vars.chrdata) > cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0081
  */
-bool aiIfChrHealthGreaterThan(void)
+u8 *aiIfChrHealthGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 value = cmd[3] * 0.1f;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u32 pass = false;
@@ -2692,20 +2543,19 @@ bool aiIfChrHealthGreaterThan(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0082
  */
-bool aiIfChrHealthLessThan(void)
+u8 *aiIfChrHealthLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 value = cmd[3] * 0.1f;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	u32 pass = false;
@@ -2721,432 +2571,394 @@ bool aiIfChrHealthLessThan(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 010f
  */
-bool aiIfChrShieldLessThan(void)
+u8 *aiIfChrShieldLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 value = (cmd[4] | (cmd[3] << 8)) * 0.1f;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
 
 	if (chr && chrGetShield(chr) < value) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 7;
+		cmd = cmd + 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0110
  */
-bool aiIfChrShieldGreaterThan(void)
+u8 *aiIfChrShieldGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 value = (cmd[4] | (cmd[3] << 8)) * 0.1f;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
 
 	if (chr && chrGetShield(chr) > value) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 7;
+		cmd = cmd + 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0083
  */
-bool aiIfInjured(void)
+u8 *aiIfInjured(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & CHRCFLAG_JUST_INJURED)) {
 		chr->chrflags &= ~CHRCFLAG_JUST_INJURED;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 5;
+		cmd = cmd + 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0168
  */
-bool aiIfShieldDamaged(void)
+u8 *aiIfShieldDamaged(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & CHRCFLAG_SHIELDDAMAGED)) {
 		chr->chrflags &= ~CHRCFLAG_SHIELDDAMAGED;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 5;
+		cmd = cmd + 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0077
  */
-bool aiIfDifficultyLessThan(void)
+u8 *aiIfDifficultyLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (lvGetDifficulty() < cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0078
  */
-bool aiIfDifficultyGreaterThan(void)
+u8 *aiIfDifficultyGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (lvGetDifficulty() > cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0079
  */
-bool aiIfStageTimerLessThan(void)
+u8 *aiIfStageTimerLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
 	f32 time = lvGetStageTimeInSeconds();
 
 	if (time < target) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 007a
  */
-bool aiIfStageTimerGreaterThan(void)
+u8 *aiIfStageTimerGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
 	f32 time = lvGetStageTimeInSeconds();
 
 	if (time > target) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 007b
  */
-bool aiIfStageIdLessThan(void)
+u8 *aiIfStageIdLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (cmd[2] > mainGetStageNum()) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 007c
  */
-bool aiIfStageIdGreaterThan(void)
+u8 *aiIfStageIdGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (mainGetStageNum() > cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0084
  */
-bool aiSetMorale(void)
+u8 *aiSetMorale(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	g_Vars.chrdata->morale = cmd[2];
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0085
  */
-bool aiAddMorale(void)
+u8 *aiAddMorale(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	incrementByte(&g_Vars.chrdata->morale, cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0086
  */
-bool aiChrAddMorale(void)
+u8 *aiChrAddMorale(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 	incrementByte(&chr->morale, cmd[2]);
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0087
  */
-bool aiSubtractMorale(void)
+u8 *aiSubtractMorale(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	decrementByte(&g_Vars.chrdata->morale, cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0088
  */
-bool aiIfMoraleLessThan(void)
+u8 *aiIfMoraleLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata->morale < cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0089
  */
-bool aiIfMoraleLessThanRandom(void)
+u8 *aiIfMoraleLessThanRandom(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata->morale < g_Vars.chrdata->random) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 008a
  */
-bool aiSetAlertness(void)
+u8 *aiSetAlertness(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	g_Vars.chrdata->alertness = cmd[2];
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 008b
  */
-bool aiAddAlertness(void)
+u8 *aiAddAlertness(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	incrementByte(&g_Vars.chrdata->alertness, cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 008c
  */
-bool aiChrAddAlertness(void)
+u8 *aiChrAddAlertness(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
 	if (chr && chr->prop) {
 		incrementByte(&chr->alertness, cmd[2]);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 008d
  */
-bool aiSubtractAlertness(void)
+u8 *aiSubtractAlertness(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	decrementByte(&g_Vars.chrdata->alertness, cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 008e
  */
-bool aiIfAlertness(void)
+u8 *aiIfAlertness(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if ((g_Vars.chrdata->alertness < cmd[2] && cmd[3] == 0) ||
 			(cmd[2] < g_Vars.chrdata->alertness && cmd[3] == 1)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 008f
  */
-bool aiIfChrAlertnessLessThan(void)
+u8 *aiIfChrAlertnessLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
 	if (chr && chr->alertness < cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0090
  */
-bool aiIfAlertnessLessThanRandom(void)
+u8 *aiIfAlertnessLessThanRandom(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata->alertness < g_Vars.chrdata->random) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0092
  */
-bool aiSetHearDistance(void)
+u8 *aiSetHearDistance(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) / 1000.0f;
 	g_Vars.chrdata->hearingscale = distance;
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0093
  */
-bool aiSetViewDistance(void)
+u8 *aiSetViewDistance(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (!cheatIsActive(CHEAT_PERFECTDARKNESS)) {
 		g_Vars.chrdata->visionrange = cmd[2];
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0094
  */
-bool aiSetGrenadeProbability(void)
+u8 *aiSetGrenadeProbability(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	g_Vars.chrdata->grenadeprob = cmd[2];
-	g_Vars.aioffset += + 3;
+	cmd += + 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0095
  */
-bool aiSetChrNum(void)
+u8 *aiSetChrNum(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	chrSetChrnum(g_Vars.chrdata, cmd[2]);
 	g_Vars.chrdata->chrnum = cmd[2];
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0096
  */
-bool aiSetMaxDamage(void)
+u8 *aiSetMaxDamage(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 maxdamage = (cmd[4] | (cmd[3] << 8)) * 0.1f;
 
 	if (g_Vars.hovercar) {
@@ -3164,32 +2976,30 @@ bool aiSetMaxDamage(void)
 		}
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0097
  */
-bool aiAddHealth()
+u8 *aiAddHealth(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 amount = (cmd[3] | (cmd[2] << 8)) * 0.1f;
 
 	chrAddHealth(g_Vars.chrdata, amount);
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 010e
  */
-bool aiSetShield(void)
+u8 *aiSetShield(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 amount = (cmd[3] | (cmd[2] << 8)) * 0.1f;
 
 	if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
@@ -3198,119 +3008,116 @@ bool aiSetShield(void)
 
 	chrSetShield(g_Vars.chrdata, amount);
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0098
  */
-bool aiSetReactionSpeed(void)
+u8 *aiSetReactionSpeed(u8 *cmd)
 {
-	s8 *cmd = (s8 *)g_Vars.aioffset;
+	s8 *cmd2 = (s8 *)cmd;
 
-	g_Vars.chrdata->speedrating = cmd[2];
-	g_Vars.aioffset += 3;
+	g_Vars.chrdata->speedrating = cmd2[2];
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0099
  */
-bool aiSetRecoverySpeed(void)
+u8 *aiSetRecoverySpeed(u8 *cmd)
 {
-	s8 *cmd = (s8 *)g_Vars.aioffset;
+	s8 *cmd2 = (s8 *)cmd;
 
-	g_Vars.chrdata->arghrating = cmd[2];
-	g_Vars.aioffset += 3;
+	g_Vars.chrdata->arghrating = cmd2[2];
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 009a
  */
-bool aiSetAccuracy(void)
+u8 *aiSetAccuracy(u8 *cmd)
 {
-	s8 *cmd = (s8 *)g_Vars.aioffset;
+	s8 *cmd2 = (s8 *)cmd;
 
-	g_Vars.chrdata->accuracyrating = cmd[2];
-	g_Vars.aioffset += 3;
+	g_Vars.chrdata->accuracyrating = cmd2[2];
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01c6
  */
-bool aiSetDodgeRating(void)
+u8 *aiSetDodgeRating(u8 *cmd)
 {
-	s8 *cmd = (s8 *)g_Vars.aioffset;
+	s8 *cmd2 = (s8 *)cmd;
 
 	if (cmd[2] == 0) {
-		g_Vars.chrdata->dodgerating = cmd[3];
+		g_Vars.chrdata->dodgerating = cmd2[3];
 	} else if (cmd[2] == 1) {
-		g_Vars.chrdata->maxdodgerating = cmd[3];
+		g_Vars.chrdata->maxdodgerating = cmd2[3];
 	} else {
-		g_Vars.chrdata->dodgerating = cmd[3];
-		g_Vars.chrdata->maxdodgerating = cmd[3];
+		g_Vars.chrdata->dodgerating = cmd2[3];
+		g_Vars.chrdata->maxdodgerating = cmd2[3];
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01c7
  */
-bool aiSetUnarmedDodgeRating(void)
+u8 *aiSetUnarmedDodgeRating(u8 *cmd)
 {
-	s8 *cmd = (s8 *)g_Vars.aioffset;
+	s8 *cmd2 = (s8 *)cmd;
 
-	g_Vars.chrdata->unarmeddodgerating = cmd[2];
-	g_Vars.aioffset += 3;
+	g_Vars.chrdata->unarmeddodgerating = cmd2[2];
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 009b
  */
-bool aiSetFlag(void)
+u8 *aiSetFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	chrSetFlags(g_Vars.chrdata, flags, cmd[6]);
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 009c
  */
-bool aiUnsetFlag(void)
+u8 *aiUnsetFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	chrUnsetFlags(g_Vars.chrdata, flags, cmd[6]);
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 009d
  */
-bool aiIfHasFlag(void)
+u8 *aiIfHasFlag(u8 *cmd)
 {
 	bool result;
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	result = chrHasFlag(g_Vars.chrdata, flags, cmd[7]);
@@ -3320,152 +3127,142 @@ bool aiIfHasFlag(void)
 	}
 
 	if (result) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
+		cmd = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 10;
+		cmd += 10;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 009e
  */
-bool aiChrSetFlag(void)
+u8 *aiChrSetFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	chrSetFlagsById(g_Vars.chrdata, cmd[2], flags, cmd[7]);
-	g_Vars.aioffset += 8;
+	cmd += 8;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 009f
  */
-bool aiChrUnsetFlag(void)
+u8 *aiChrUnsetFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	chrUnsetFlagsById(g_Vars.chrdata, cmd[2], flags, cmd[7]);
-	g_Vars.aioffset += 8;
+	cmd += 8;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a0
  */
-bool aiIfChrHasFlag(void)
+u8 *aiIfChrHasFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 
 	if (chrHasFlagById(g_Vars.chrdata, cmd[2], flags, cmd[7])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
+		cmd = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 10;
+		cmd += 10;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a1
  */
-bool aiSetStageFlag(void)
+u8 *aiSetStageFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	chrSetStageFlag(g_Vars.chrdata, flags);
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a2
  */
-bool aiUnsetStageFlag(void)
+u8 *aiUnsetStageFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	chrUnsetStageFlag(g_Vars.chrdata, flags);
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a3
  */
-bool aiIfStageFlagEq(void)
+u8 *aiIfStageFlagEq(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	if ((chrHasStageFlag(g_Vars.chrdata, flags) && cmd[6] == 1) ||
 			(!chrHasStageFlag(g_Vars.chrdata, flags) && cmd[6] == 0)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a4
  */
-bool aiSetChrflag(void)
+u8 *aiSetChrflag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	g_Vars.chrdata->chrflags |= flags;
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a5
  */
-bool aiUnsetChrflag(void)
+u8 *aiUnsetChrflag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	g_Vars.chrdata->chrflags &= ~flags;
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a6
  */
-bool aiIfHasChrflag(void)
+u8 *aiIfHasChrflag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
 	if ((g_Vars.chrdata->chrflags & flags) == flags) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a7
  */
-bool aiChrSetChrflag(void)
+u8 *aiChrSetChrflag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3473,17 +3270,16 @@ bool aiChrSetChrflag(void)
 		chr->chrflags |= flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a8
  */
-bool aiChrUnsetChrflag(void)
+u8 *aiChrUnsetChrflag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3491,35 +3287,33 @@ bool aiChrUnsetChrflag(void)
 		chr->chrflags &= ~flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00a9
  */
-bool aiIfChrHasChrflag(void)
+u8 *aiIfChrHasChrflag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & flags) == flags) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 011b
  */
-bool aiChrSetHiddenFlag(void)
+u8 *aiChrSetHiddenFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3527,17 +3321,16 @@ bool aiChrSetHiddenFlag(void)
 		chr->hidden |= flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 011c
  */
-bool aiChrUnsetHiddenFlag(void)
+u8 *aiChrUnsetHiddenFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -3545,35 +3338,33 @@ bool aiChrUnsetHiddenFlag(void)
 		chr->hidden &= ~flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 011d
  */
-bool aiIfChrHasHiddenFlag(void)
+u8 *aiIfChrHasHiddenFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->hidden & flags) == flags) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00aa
  */
-bool aiSetObjFlag(void)
+u8 *aiSetObjFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3581,17 +3372,16 @@ bool aiSetObjFlag(void)
 		obj->flags |= flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ab
  */
-bool aiUnsetObjFlag(void)
+u8 *aiUnsetObjFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3599,35 +3389,33 @@ bool aiUnsetObjFlag(void)
 		obj->flags &= ~flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ac
  */
-bool aiIfObjHasFlag(void)
+u8 *aiIfObjHasFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && (obj->flags & flags) == flags) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ad
  */
-bool aiSetObjFlag2(void)
+u8 *aiSetObjFlag2(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3635,17 +3423,16 @@ bool aiSetObjFlag2(void)
 		obj->flags2 |= flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ae
  */
-bool aiUnsetObjFlag2(void)
+u8 *aiUnsetObjFlag2(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3653,35 +3440,33 @@ bool aiUnsetObjFlag2(void)
 		obj->flags2 &= ~flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00af
  */
-bool aiIfObjHasFlag2(void)
+u8 *aiIfObjHasFlag2(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && (obj->flags2 & flags) == flags) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0118
  */
-bool aiSetObjFlag3(void)
+u8 *aiSetObjFlag3(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3689,17 +3474,16 @@ bool aiSetObjFlag3(void)
 		obj->flags3 |= flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0119
  */
-bool aiUnsetObjFlag3(void)
+u8 *aiUnsetObjFlag3(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -3707,59 +3491,55 @@ bool aiUnsetObjFlag3(void)
 		obj->flags3 &= ~flags;
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 011a
  */
-bool aiIfObjHasFlag3(void)
+u8 *aiIfObjHasFlag3(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && (obj->flags3 & flags) == flags) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00b0
  */
-bool aiSetChrPreset(void)
+u8 *aiSetChrPreset(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	chrSetChrPreset(g_Vars.chrdata, cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00b1
  */
-bool aiSetChrTarget(void)
+u8 *aiSetChrTarget(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	chrSetChrPresetByChrnum(g_Vars.chrdata, cmd[2], cmd[3]);
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00b2
  */
-bool aiSetPadPreset(void)
+u8 *aiSetPadPreset(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata) {
@@ -3768,39 +3548,37 @@ bool aiSetPadPreset(void)
 		g_Vars.heli->base.pad = pad_id;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00b3
  */
-bool aiChrSetPadPreset(void)
+u8 *aiChrSetPadPreset(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[4] | (cmd[3] << 8);
 
 	chrSetPadPresetByChrnum(g_Vars.chrdata, cmd[2], pad_id);
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00b4
  */
-bool aiChrCopyPadPreset(void)
+u8 *aiChrCopyPadPreset(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chrsrc = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct chrdata *chrdst = chrFindById(g_Vars.chrdata, cmd[3]);
 
 	chrdst->padpreset1 = chrsrc->padpreset1;
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
@@ -3809,24 +3587,24 @@ bool aiChrCopyPadPreset(void)
  * The weirdness to do with result is required for a match.
  * The original source likely had something similar and probably used ifdefs.
  */
-bool aiPrint(void)
+u8 *aiPrint(u8 *cmd)
 {
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0091
  */
-bool aiNoOp0091(void)
+u8 *aiNoOp0091(u8 *cmd)
 {
-	g_Vars.aioffset += 2;
-	return false;
+	cmd += 2;
+	return cmd;
 }
 
 /**
  * @cmd 00b6
  */
-bool aiRestartTimer(void)
+u8 *aiRestartTimer(u8 *cmd)
 {
 	if (g_Vars.chrdata) {
 		chrRestartTimer(g_Vars.chrdata);
@@ -3834,101 +3612,96 @@ bool aiRestartTimer(void)
 		chopperRestartTimer(g_Vars.hovercar);
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00b7
  */
-bool aiResetTimer(void)
+u8 *aiResetTimer(u8 *cmd)
 {
 	g_Vars.chrdata->timer60 = 0;
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00b8
  */
-bool aiPauseTimer(void)
+u8 *aiPauseTimer(u8 *cmd)
 {
 	g_Vars.chrdata->hidden &= ~CHRHFLAG_TIMER_RUNNING;
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00b9
  */
-bool aiResumeTimer(void)
+u8 *aiResumeTimer(u8 *cmd)
 {
 	g_Vars.chrdata->hidden |= CHRHFLAG_TIMER_RUNNING;
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ba
  */
-bool aiIfTimerStopped(void)
+u8 *aiIfTimerStopped(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if ((g_Vars.chrdata->hidden & CHRHFLAG_TIMER_RUNNING) == 0) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00bb
  */
-bool aiIfTimerGreaterThanRandom(void)
+u8 *aiIfTimerGreaterThanRandom(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 timer = chrGetTimer(g_Vars.chrdata);
 
 	if (g_Vars.chrdata->random < timer) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00bc
  */
-bool aiIfTimerLessThan(void)
+u8 *aiIfTimerLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 value = (u32)((cmd[3] << 8) | cmd[4] | (cmd[2] << 16)) / 60.0f;
 
 	if ((g_Vars.chrdata && chrGetTimer(g_Vars.chrdata) < value) ||
 			(g_Vars.hovercar && chopperGetTimer(g_Vars.hovercar) < value)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00bd
  */
-bool aiIfTimerGreaterThan(void)
+u8 *aiIfTimerGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 value = (u32)((cmd[3] << 8) | cmd[4] | (cmd[2] << 16)) / 60.0f;
 
 	// These two function calls were likely used in a debug print statement
@@ -3942,169 +3715,162 @@ bool aiIfTimerGreaterThan(void)
 
 	if ((g_Vars.chrdata && chrGetTimer(g_Vars.chrdata) > value) ||
 			(g_Vars.hovercar && chopperGetTimer(g_Vars.hovercar) > value)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00be
  */
-bool aiShowCountdownTimer(void)
+u8 *aiShowCountdownTimer(u8 *cmd)
 {
 	countdownTimerSetVisible(COUNTDOWNTIMERREASON_AI, true);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00bf
  */
-bool aiHideCountdownTimer(void)
+u8 *aiHideCountdownTimer(u8 *cmd)
 {
 	countdownTimerSetVisible(COUNTDOWNTIMERREASON_AI, false);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c0
  */
-bool aiSetCountdownTimerValue(void)
+u8 *aiSetCountdownTimerValue(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 seconds = cmd[3] | (cmd[2] << 8);
 
 	countdownTimerSetValue60(seconds * 60);
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c1
  */
-bool aiStopCountdownTimer(void)
+u8 *aiStopCountdownTimer(u8 *cmd)
 {
 	countdownTimerSetRunning(false);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c2
  */
-bool aiStartCountdownTimer(void)
+u8 *aiStartCountdownTimer(u8 *cmd)
 {
 	countdownTimerSetRunning(true);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c3
  */
-bool aiIfCountdownTimerStopped(void)
+u8 *aiIfCountdownTimerStopped(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (!countdownTimerIsRunning()) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c4
  */
-bool aiIfCountdownTimerLessThan(void)
+u8 *aiIfCountdownTimerLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 value = cmd[3] | (cmd[2] << 8);
 
 	if (countdownTimerGetValue60() < value * 60) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c5
  */
-bool aiIfCountdownTimerGreaterThan(void)
+u8 *aiIfCountdownTimerGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 value = cmd[3] | (cmd[2] << 8);
 
 	if (countdownTimerGetValue60() > value * 60) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c6
  */
-bool aiSpawnChrAtPad(void)
+u8 *aiSpawnChrAtPad(u8 *cmd)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
-	u16 pad = cmd->b4 << 8 | cmd->b5;
-	u32 spawnflags = cmd->b8 << 24 | cmd->b9 << 16 | cmd->b10 << 8 | cmd->b11;
-	u16 ailistid = cmd->b6 << 8 | cmd->b7;
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
+	u16 pad = cmd2->b4 << 8 | cmd2->b5;
+	u32 spawnflags = cmd2->b8 << 24 | cmd2->b9 << 16 | cmd2->b10 << 8 | cmd2->b11;
+	u16 ailistid = cmd2->b6 << 8 | cmd2->b7;
 	u8 *ailist = ailistFindById(ailistid);
 
 	if (spawnflags);
 
-	if (chrSpawnAtPad(g_Vars.chrdata, cmd->b2, (s8)cmd->b3, pad, ailist, spawnflags)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b12, cmd->b13);
+	if (chrSpawnAtPad(g_Vars.chrdata, cmd2->b2, (s8)cmd2->b3, pad, ailist, spawnflags)) {
+		cmd = AILABEL(g_Vars.ailist, cmd2->b12, cmd2->b13);
 	} else {
-		g_Vars.aioffset += 14;
+		cmd += 14;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c7
  */
-bool aiSpawnChrAtChr(void)
+u8 *aiSpawnChrAtChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 spawnflags = (cmd[8] << 16) | (cmd[9] << 8) | cmd[10] | (cmd[7] << 24);
 	u16 ailistid = cmd[6] | (cmd[5] << 8);
 	u8 *ailist = ailistFindById(ailistid);
 
 	if (chrSpawnAtChr(g_Vars.chrdata, cmd[2], (s8)cmd[3], cmd[4], ailist, spawnflags)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[11], cmd[12]);
+		cmd = AILABEL(g_Vars.ailist, cmd[11], cmd[12]);
 	} else {
-		g_Vars.aioffset += 13;
+		cmd += 13;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c8
  */
-bool aiTryEquipWeapon(void)
+u8 *aiTryEquipWeapon(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[6] << 16) | (cmd[7] << 8) | cmd[8] | (cmd[5] << 24);
 	u32 model = cmd[3] | (cmd[2] << 8);
 	struct prop *prop = NULL;
@@ -4197,20 +3963,19 @@ bool aiTryEquipWeapon(void)
 	}
 
 	if (prop) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[9], cmd[10]);
+		cmd = AILABEL(g_Vars.ailist, cmd[9], cmd[10]);
 	} else {
-		g_Vars.aioffset += 11;
+		cmd += 11;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00c9
  */
-bool aiTryEquipHat(void)
+u8 *aiTryEquipHat(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 	u32 modelnum = cmd[3] | (cmd[2] << 8);
 	struct prop *prop = NULL;
@@ -4220,20 +3985,19 @@ bool aiTryEquipHat(void)
 	}
 
 	if (prop) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
+		cmd = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 10;
+		cmd += 10;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ca
  */
-bool aiDuplicateChr(void)
+u8 *aiDuplicateChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 spawnflags = (cmd[6] << 16) | (cmd[7] << 8) | cmd[8] | (cmd[5] << 24);
 	u16 ailistid = cmd[4] | (cmd[3] << 8);
 	u8 *ailist = ailistFindById(ailistid);
@@ -4317,20 +4081,19 @@ bool aiDuplicateChr(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[9], cmd[10]);
+		cmd = AILABEL(g_Vars.ailist, cmd[9], cmd[10]);
 	} else {
-		g_Vars.aioffset += 11;
+		cmd += 11;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00cb
  */
-bool aiShowHudmsg(void)
+u8 *aiShowHudmsg(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	char *text = langGet(cmd[4] | (cmd[3] << 8));
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -4345,18 +4108,16 @@ bool aiShowHudmsg(void)
 	hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 	setCurrentPlayerNum(prevplayernum);
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01a4
  */
-bool aiShowHudmsgMiddle(void)
+u8 *aiShowHudmsgMiddle(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (cmd[2] == 0) {
 		u32 text_id = cmd[5] | (cmd[4] << 8);
 		char *text = langGet(text_id);
@@ -4369,17 +4130,16 @@ bool aiShowHudmsgMiddle(void)
 		hudmsgRemoveAll();
 	}
 
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00cc
  */
-bool aiShowHudmsgTopMiddle(void)
+u8 *aiShowHudmsgTopMiddle(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	char *text = langGet(cmd[4] | (cmd[3] << 8));
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -4394,17 +4154,16 @@ bool aiShowHudmsgTopMiddle(void)
 	hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[5]);
 	setCurrentPlayerNum(prevplayernum);
 
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00cd
  */
-bool aiSpeak(void)
+u8 *aiSpeak(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	s16 audio_id = cmd[6] | (cmd[5] << 8);
 	s16 text_id = cmd[4] | (cmd[3] << 8);
@@ -4435,111 +4194,104 @@ bool aiSpeak(void)
 
 	setCurrentPlayerNum(prevplayernum);
 
-	g_Vars.aioffset += 9;
+	cmd += 9;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ce
  */
-bool aiPlaySound(void)
+u8 *aiPlaySound(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
 	audioPlayFromProp((s8)cmd[4], audio_id, 0, NULL, 0, 0);
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 017c
  */
-bool aiAssignSound(void)
+u8 *aiAssignSound(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
 	audioPlayFromProp((s8)cmd[4], audio_id, -1, NULL, 11, 0);
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00d3
  */
-bool aiAudioMuteChannel(void)
+u8 *aiAudioMuteChannel(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s8 channel = (s8)cmd[2];
 
 	audioMuteChannel(channel);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0138
  */
-bool aiIfChannelIdle(void)
+u8 *aiIfChannelIdle(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s8 channel = (s8) cmd[2];
 
 	if (audioIsChannelIdle(channel)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00d1
  */
-bool ai00d1(void)
+u8 *ai00d1(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 audio_id = cmd[4] | (cmd[3] << 8);
 	u16 thing = cmd[6] | (cmd[5] << 8);
 
 	audioPlayFromProp2((s8)cmd[2], audio_id, -1, NULL, thing, 2500, 3000, 0);
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00d2
  */
-bool ai00d2(void)
+u8 *ai00d2(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 thing1 = cmd[4] | (cmd[3] << 8);
 	u16 thing2 = cmd[6] | (cmd[5] << 8);
 	s32 audio_id = func0f0927d4(thing1, 400, 2500, 3000, 32767);
 
 	audioPlayFromProp2((s8)cmd[2], audio_id, -1, NULL, thing2, 2500, 3000, 0);
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00cf
  */
-bool ai00cf(void)
+u8 *ai00cf(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	u16 thing = cmd[5] | (cmd[4] << 8);
 
@@ -4547,17 +4299,16 @@ bool ai00cf(void)
 		audioPlayFromProp2((s8)cmd[2], -1, -1, obj->prop, thing, 2500, 3000, 0);
 	}
 
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 016b
  */
-bool ai016b(void)
+u8 *ai016b(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	u16 thing1 = cmd[5] | (cmd[4] << 8);
 	u16 thing2 = cmd[7] | (cmd[6] << 8);
@@ -4575,17 +4326,16 @@ bool ai016b(void)
 		audioPlayFromProp2((s8)cmd[2], -1, -1, obj->prop, thing1again, thing2, thing3, 2);
 	}
 
-	g_Vars.aioffset += 10;
+	cmd += 10;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0179
  */
-bool ai0179(void)
+u8 *ai0179(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 thing1 = cmd[5] | (cmd[4] << 8);
 	u16 thing2 = cmd[7] | (cmd[6] << 8);
 	u16 thing3 = cmd[9] | (cmd[8] << 8);
@@ -4604,50 +4354,47 @@ bool ai0179(void)
 		}
 	}
 
-	g_Vars.aioffset += 11;
+	cmd += 11;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00d0
  */
-bool ai00d0(void)
+u8 *ai00d0(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 padnum = cmd[4] | (cmd[3] << 8);
 	s16 sound = cmd[6] | (cmd[5] << 8);
 
 	propsnd0f0939f8(0, NULL, sound, padnum, -1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00d4
  */
-bool ai00d4(void)
+u8 *ai00d4(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 thing = cmd[4] | (cmd[3] << 8);
 
 	if (channelGetUnk06((s8)cmd[2]) < thing) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00d5
  */
-bool aiHovercarBeginPath(void)
+u8 *aiHovercarBeginPath(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct path *path = pathFindById(cmd[2]);
 
 	if (g_Vars.truck) {
@@ -4690,17 +4437,16 @@ bool aiHovercarBeginPath(void)
 		}
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00d6
  */
-bool aiSetVehicleSpeed(void)
+u8 *aiSetVehicleSpeed(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 speedtime = cmd[5] | (cmd[4] << 8);
 	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * 100.0f / 15360.0f;
 
@@ -4714,17 +4460,16 @@ bool aiSetVehicleSpeed(void)
 		g_Vars.hovercar->speedtime60 = speedtime;
 	}
 
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00d7
  */
-bool aiSetRotorSpeed(void)
+u8 *aiSetRotorSpeed(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 speedtime = cmd[5] | (cmd[4] << 8);
 	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * M_BADTAU / 3600;
 
@@ -4733,35 +4478,34 @@ bool aiSetRotorSpeed(void)
 		g_Vars.heli->rotoryspeedtime = speedtime;
 	}
 
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00d8
  */
-bool aiNoOp00d8(void)
+u8 *aiNoOp00d8(u8 *cmd)
 {
-	g_Vars.aioffset += 3;
-	return false;
+	cmd += 3;
+	return cmd;
 }
 
 /**
  * @cmd 00d9
  */
-bool aiNoOp00d9(void)
+u8 *aiNoOp00d9(u8 *cmd)
 {
-	g_Vars.aioffset += 3;
-	return false;
+	cmd += 3;
+	return cmd;
 }
 
 /**
  * @cmd 00da
  */
-bool aiSetObjImage(void)
+u8 *aiSetObjImage(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
@@ -4777,24 +4521,24 @@ bool aiSetObjImage(void)
 		}
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00db
  */
-bool aiNoOp00db(void)
+u8 *aiNoOp00db(u8 *cmd)
 {
-	g_Vars.aioffset += 3;
-	return false;
+	cmd += 3;
+	return cmd;
 }
 
 /**
  * @cmd 00dc
  */
-bool aiEndLevel(void)
+u8 *aiEndLevel(u8 *cmd)
 {
 	if (debugAllowEndLevel()) {
 		if (g_IsTitleDemo) {
@@ -4806,114 +4550,107 @@ bool aiEndLevel(void)
 		}
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00dd
  */
-bool ai00dd(void)
+u8 *ai00dd(u8 *cmd)
 {
 	playerEndCutscene();
-	g_Vars.aioffset += 2;
-	return false;
+	cmd += 2;
+	return cmd;
 }
 
 /**
  * @cmd 00de
  */
-bool aiWarpJoToPad(void)
+u8 *aiWarpJoToPad(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	playerPrepareWarpType1(pad_id);
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 010d
  */
-bool aiNoOp010d(void)
+u8 *aiNoOp010d(u8 *cmd)
 {
-	g_Vars.aioffset += 2;
-	return false;
+	cmd += 2;
+	return cmd;
 }
 
 /**
  * @cmd 0111
  */
-bool aiSetCameraAnimation(void)
+u8 *aiSetCameraAnimation(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 anim_id = cmd[3] | (cmd[2] << 8);
 
 	playerStartCutscene(anim_id);
 
 	if (g_Vars.currentplayer->haschrbody == false) {
-		return true;
+		while (1);
+		return NULL;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0113
  */
-bool aiIfInCutscene(void)
+u8 *aiIfInCutscene(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.in_cutscene) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0174
  */
-bool aiIfCutsceneButtonPressed(void)
+u8 *aiIfCutsceneButtonPressed(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if ((g_Vars.in_cutscene && g_CutsceneSkipRequested) ||
 			(g_Vars.stagenum == STAGE_CITRAINING && var80087260 > 0)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0175
  */
-bool ai0175(void)
+u8 *ai0175(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	playerReorientForCutsceneStop(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0112
  */
-bool aiObjectDoAnimation(void)
+u8 *aiObjectDoAnimation(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 anim_id = cmd[3] | (cmd[2] << 8);
 	struct defaultobj *obj = NULL;
 	f32 thing;
@@ -4969,17 +4706,16 @@ bool aiObjectDoAnimation(void)
 		}
 	}
 
-	g_Vars.aioffset += 8;
+	cmd += 8;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0114
  */
-bool aiEnableChr(void)
+u8 *aiEnableChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
@@ -4988,17 +4724,16 @@ bool aiEnableChr(void)
 		chr0f0220ac(chr);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0115
  */
-bool aiDisableChr(void)
+u8 *aiDisableChr(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
@@ -5007,17 +4742,16 @@ bool aiDisableChr(void)
 		propDisable(chr->prop);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0116
  */
-bool aiEnableObj(void)
+u8 *aiEnableObj(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->model) {
@@ -5033,17 +4767,16 @@ bool aiEnableObj(void)
 		}
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0117
  */
-bool aiDisableObj(void)
+u8 *aiDisableObj(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->model) {
@@ -5072,17 +4805,16 @@ bool aiDisableObj(void)
 #endif
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00df
  */
-bool ai00df(void)
+u8 *ai00df(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct tag *tag = tagFindById(cmd[2]);
 
 	if (tag) {
@@ -5094,17 +4826,16 @@ bool ai00df(void)
 		}
 	}
 
-	g_Vars.aioffset += 7;
+	cmd += 7;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00e0
  */
-bool aiRevokeControl(void)
+u8 *aiRevokeControl(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5126,17 +4857,16 @@ bool aiRevokeControl(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00e1
  */
-bool aiGrantControl(void)
+u8 *aiGrantControl(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5150,17 +4880,16 @@ bool aiGrantControl(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00e2
  */
-bool aiChrMoveToPad(void)
+u8 *aiChrMoveToPad(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 #if VERSION < VERSION_NTSC_1_0
 	s32 padnum = cmd[4] | (cmd[3] << 8);
 #endif
@@ -5206,20 +4935,19 @@ bool aiChrMoveToPad(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00e3
  */
-bool ai00e3(void)
+u8 *ai00e3(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5235,15 +4963,15 @@ bool ai00e3(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00e4
  */
-bool ai00e4(void)
+u8 *ai00e4(u8 *cmd)
 {
 	s32 playernum;
 	u32 prevplayernum = g_Vars.currentplayernum;
@@ -5258,17 +4986,16 @@ bool ai00e4(void)
 	}
 
 	setCurrentPlayerNum(prevplayernum);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00e5
  */
-bool aiIfColourFadeComplete(void)
+u8 *aiIfColourFadeComplete(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -5281,20 +5008,19 @@ bool aiIfColourFadeComplete(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00e8
  */
-bool aiSetDoorOpen(void)
+u8 *aiSetDoorOpen(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
@@ -5308,50 +5034,46 @@ bool aiSetDoorOpen(void)
 		func0f0926bc(door->base.prop, 1, 0xffff);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00e9
  */
-bool ai00e9(void)
+u8 *ai00e9(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
 		weaponDeleteFromChr(chr, cmd[3]);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ea
  */
-bool aiIfNumPlayersLessThan(void)
+u8 *aiIfNumPlayersLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if ((s8)cmd[2] > PLAYERCOUNT()) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00eb
  */
-bool aiIfChrAmmoQuantityLessThan(void)
+u8 *aiIfChrAmmoQuantityLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool passes = false;
 
@@ -5368,20 +5090,19 @@ bool aiIfChrAmmoQuantityLessThan(void)
 	}
 
 	if (passes) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ec
  */
-bool aiChrDrawWeapon(void)
+u8 *aiChrDrawWeapon(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5393,17 +5114,16 @@ bool aiChrDrawWeapon(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ed
  */
-bool aiChrDrawWeaponInCutscene(void)
+u8 *aiChrDrawWeaponInCutscene(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5414,17 +5134,16 @@ bool aiChrDrawWeaponInCutscene(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ee
  */
-bool ai00ee(void)
+u8 *ai00ee(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5439,47 +5158,45 @@ bool ai00ee(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ef
  */
-bool aiIfObjInRoom(void)
+u8 *aiIfObjInRoom(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	u16 room_id = cmd[4] | (cmd[3] << 8);
 	s32 room_something = chrGetPadRoom(g_Vars.chrdata, room_id);
 
 	if (room_something >= 0 && obj && obj->prop && room_something == obj->prop->rooms[0]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f2
  */
-bool aiSwitchToAltSky(void)
+u8 *aiSwitchToAltSky(u8 *cmd)
 {
 	envApplyTransitionFrac(1);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f3
  */
-bool aiChrSetInvincible(void)
+u8 *aiChrSetInvincible(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5490,18 +5207,16 @@ bool aiChrSetInvincible(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f4
  */
-bool ai00f4(void)
+u8 *ai00f4(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	s32 range = cmd[3] | (cmd[2] << 8);
 	s16 height1 = cmd[5] | (cmd[4] << 8);
 	s16 rotangle = cmd[7] | (cmd[6] << 8);
@@ -5511,60 +5226,55 @@ bool ai00f4(void)
 
 	playerPrepareWarpType3(posangle * M_BADTAU / 65536, rotangle * M_BADTAU / 65536, range, height1, height2, padnum);
 
-	g_Vars.aioffset += 14;
+	cmd += 14;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f5
  */
-bool ai00f5(void)
+u8 *ai00f5(u8 *cmd)
 {
 	var8007073c = 1;
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f6
  */
-bool ai00f6(void)
+u8 *ai00f6(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (var8007073c == 2) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f7
  */
-bool aiIfAllObjectivesComplete(void)
+u8 *aiIfAllObjectivesComplete(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (objectiveIsAllComplete()) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 4;
+		cmd = cmd + 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f8
  */
-bool aiIfPlayerIsInvincible(void)
+u8 *aiIfPlayerIsInvincible(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -5577,45 +5287,41 @@ bool aiIfPlayerIsInvincible(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00f9
  */
-bool aiPlayXTrack(void)
+u8 *aiPlayXTrack(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-	g_Vars.aioffset += 5;
 	musicSetXReason((s8)cmd[2], cmd[3], cmd[4]);
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00fa
  */
-bool aiStopXTrack(void)
+u8 *aiStopXTrack(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-	g_Vars.aioffset += 3;
 	musicUnsetXReason((s8)cmd[2]);
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 015b
  */
-bool aiPlayTrackIsolated(void)
+u8 *aiPlayTrackIsolated(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (cmd[2] == MUSIC_CI_TRAINING) {
 		u16 volume = optionsGetMusicVolume();
 		musicPlayTrackIsolated(cmd[2]);
@@ -5624,74 +5330,71 @@ bool aiPlayTrackIsolated(void)
 		musicPlayTrackIsolated(cmd[2]);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 015c
  */
-bool aiPlayDefaultTracks(void)
+u8 *aiPlayDefaultTracks(u8 *cmd)
 {
-	g_Vars.aioffset += 2;
+	cmd += 2;
 	musicPlayDefaultTracks();
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 017d
  */
-bool aiPlayCutsceneTrack(void)
+u8 *aiPlayCutsceneTrack(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	musicStartCutscene(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 017e
  */
-bool aiStopCutsceneTrack(void)
+u8 *aiStopCutsceneTrack(u8 *cmd)
 {
-	g_Vars.aioffset += 2;
 	musicEndCutscene();
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 017f
  */
-bool aiPlayTemporaryTrack(void)
+u8 *aiPlayTemporaryTrack(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	musicStartTemporaryAmbient(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0180
  */
-bool aiStopAmbientTrack(void)
+u8 *aiStopAmbientTrack(u8 *cmd)
 {
-	g_Vars.aioffset += 2;
 	musicEndTemporaryAmbient();
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00fb
  */
-bool aiChrExplosions(void)
+u8 *aiChrExplosions(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -5702,109 +5405,103 @@ bool aiChrExplosions(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00fc
  */
-bool aiIfKillCountGreaterThan(void)
+u8 *aiIfKillCountGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.killcount > cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01ab
  */
-bool aiIfNumKnockedOutChrs(void)
+u8 *aiIfNumKnockedOutChrs(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (cmd[2] < mpstatsGetTotalKnockoutCount() && cmd[3] == 0) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else if (mpstatsGetTotalKnockoutCount() < cmd[2] && cmd[3] == 1) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00fd
  */
-bool ai00fd(void)
+u8 *ai00fd(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & CHRCFLAG_TRIGGERSHOTLIST)) {
 		chr->chrflags &= ~CHRCFLAG_TRIGGERSHOTLIST;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00fe
  */
-bool aiKillBond(void)
+u8 *aiKillBond(u8 *cmd)
 {
 	g_Vars.bond->isdead = true;
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 00ff
  */
-bool aiBeSurprisedSurrender(void)
+u8 *aiBeSurprisedSurrender(u8 *cmd)
 {
 	chrTrySurprisedSurrender(g_Vars.chrdata);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0100
  */
-bool aiNoOp0100(void)
+u8 *aiNoOp0100(u8 *cmd)
 {
-	g_Vars.aioffset += 3;
-	return false;
+	cmd += 3;
+	return cmd;
 }
 
 /**
  * @cmd 0101
  */
-bool aiNoOp0101(void)
+u8 *aiNoOp0101(u8 *cmd)
 {
-	g_Vars.aioffset += 3;
-	return false;
+	cmd += 3;
+	return cmd;
 }
 
 /**
  * @cmd 0102
  */
-bool aiSetLights(void)
+u8 *aiSetLights(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 padnum = cmd[3] | (cmd[2] << 8);
 	s32 roomnum = chrGetPadRoom(g_Vars.chrdata, padnum);
 
@@ -5821,30 +5518,29 @@ bool aiSetLights(void)
 		}
 	}
 
-	g_Vars.aioffset += 11;
+	cmd += 11;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0103
  */
-bool aiIfPropPresetIsBlockingSightToTarget(void)
+u8 *aiIfPropPresetIsBlockingSightToTarget(u8 *cmd)
 {
 	if (chrIsPropPresetBlockingSightToTarget(g_Vars.chrdata)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0104
  */
-bool aiRemoveObjectAtPropPreset(void)
+u8 *aiRemoveObjectAtPropPreset(u8 *cmd)
 {
 	if (g_Vars.chrdata->proppreset1 >= 0) {
 		struct defaultobj *obj = (g_Vars.props + g_Vars.chrdata->proppreset1)->obj;
@@ -5852,17 +5548,16 @@ bool aiRemoveObjectAtPropPreset(void)
 	}
 
 	g_Vars.chrdata->proppreset1 = -1;
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0105
  */
-bool aiIfPropPresetHeightLessThan(void)
+u8 *aiIfPropPresetHeightLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct prop *prop = &g_Vars.props[g_Vars.chrdata->proppreset1];
 	f32 value = cmd[3] | (cmd[2] << 8);
 	f32 ymax;
@@ -5872,21 +5567,19 @@ bool aiIfPropPresetHeightLessThan(void)
 	propGetBbox(prop, &radius, &ymax, &ymin);
 
 	if (ymax - ymin < value) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0106
  */
-bool aiSetTarget(void)
+u8 *aiSetTarget(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata) {
 		s16 prop_id;
 
@@ -5909,38 +5602,36 @@ bool aiSetTarget(void)
 		chopperSetTarget(g_Vars.hovercar, cmd[2]);
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0107
  */
-bool aiIfPresetsTargetIsNotMyTarget(void)
+u8 *aiIfPresetsTargetIsNotMyTarget(u8 *cmd)
 {
 	s32 mypresetchrstarget;
-	u8 *cmd = g_Vars.aioffset;
 
 	if (g_Vars.chrdata->chrpreset1 != -1) {
 		mypresetchrstarget = propGetIndexByChrId(g_Vars.chrdata, g_Vars.chrdata->chrpreset1);
 	}
 
 	if (g_Vars.chrdata->target != -1 && mypresetchrstarget != g_Vars.chrdata->target) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0108
  */
-bool aiIfChrTarget(void)
+u8 *aiIfChrTarget(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool pass = false;
 
@@ -5961,72 +5652,68 @@ bool aiIfChrTarget(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0109
  */
-bool aiSetChrPresetToChrNearSelf(void)
+u8 *aiSetChrPresetToChrNearSelf(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
 
 	if (chrSetChrPresetToChrNearSelf(cmd[2], g_Vars.chrdata, distance)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 010a
  */
-bool aiSetChrPresetToChrNearPad(void)
+u8 *aiSetChrPresetToChrNearPad(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
 	u16 padnum = cmd[6] | (cmd[5] << 8);
 
 	if (chrSetChrPresetToChrNearPad(cmd[2], g_Vars.chrdata, distance, padnum)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 010b
  */
-bool aiChrSetTeam(void)
+u8 *aiChrSetTeam(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
 		chr->team = cmd[3];
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 010c
  */
-bool aiIfCompareChrPresetsTeam(void)
+u8 *aiIfCompareChrPresetsTeam(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 
 	if (!chr || (!chr->model && chr->prop->type != PROPTYPE_PLAYER)) {
@@ -6035,54 +5722,51 @@ bool aiIfCompareChrPresetsTeam(void)
 	}
 
 	if (chrCompareTeams(chr, g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 011e
  */
-bool aiIfHuman(void)
+u8 *aiIfHuman(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && CHRRACE(chr) == RACE_HUMAN) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 011f
  */
-bool aiIfSkedar(void)
+u8 *aiIfSkedar(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && CHRRACE(chr) == RACE_SKEDAR) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0120
  */
-bool aiIfSafety2LessThan(void)
+u8 *aiIfSafety2LessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u8 score;
 	u8 numnearby;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
@@ -6157,127 +5841,119 @@ bool aiIfSafety2LessThan(void)
 	}
 
 	if (score < cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0121
  */
-bool aiFindCover(void)
+u8 *aiFindCover(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 criteria = cmd[3] | (cmd[2] << 8);
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, 0) != -1) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0122
  */
-bool aiFindCoverWithinDist(void)
+u8 *aiFindCoverWithinDist(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 criteria = cmd[3] | (cmd[2] << 8);
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, flags) != -1) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
+		cmd = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 10;
+		cmd += 10;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0123
  */
-bool aiFindCoverOutsideDist(void)
+u8 *aiFindCoverOutsideDist(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 criteria = cmd[3] | (cmd[2] << 8);
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, -flags) != -1) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
+		cmd = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
 	} else {
-		g_Vars.aioffset += 10;
+		cmd += 10;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0124
  */
-bool aiGoToCover(void)
+u8 *aiGoToCover(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	chrGoToCover(g_Vars.chrdata, cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0125
  */
-bool aiCheckCoverOutOfSight(void)
+u8 *aiCheckCoverOutOfSight(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrCheckCoverOutOfSight(g_Vars.chrdata, g_Vars.chrdata->cover, false)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0126
  */
-bool aiIfPlayerUsingCmpOrAr34(void)
+u8 *aiIfPlayerUsingCmpOrAr34(u8 *cmd)
 {
 	u32 hand = HAND_RIGHT;
-	u8 *cmd = g_Vars.aioffset;
 
 	switch (bgunGetWeaponNum(hand)) {
 		case WEAPON_CMP150:
 		case WEAPON_AR34:
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+			cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 			break;
 		default:
-			g_Vars.aioffset += 4;
+			cmd += 4;
 			break;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0127
  */
-bool aiDetectEnemyOnSameFloor(void)
+u8 *aiDetectEnemyOnSameFloor(u8 *cmd)
 { \
 	s32 team = 0;
 	f32 closestdist = 9999.9;
 	f32 distance;
 	u32 stack[2];
 	f32 y;
-	u8 *cmd = g_Vars.aioffset;
 	f32 scandist;
 	s16 *chrnums = teamGetChrIds(1);
 	struct chrdata *chr;
@@ -6335,23 +6011,22 @@ bool aiDetectEnemyOnSameFloor(void)
 
 	if (newtarget != -1) {
 		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, newtarget);
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 4;
+		cmd = cmd + 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0128
  */
-bool aiDetectEnemy(void)
+u8 *aiDetectEnemy(u8 *cmd)
 {
 	s16 *chrnums;
 	s32 team = 0;
 	u32 stack[4];
-	u8 *cmd = g_Vars.aioffset;
 	f32 closestdist = 10000000;
 	f32 maxdist = (s32)cmd[2] * 10.0f;
 	s16 closesttarg = -1;
@@ -6359,8 +6034,8 @@ bool aiDetectEnemy(void)
 	chrnums = teamGetChrIds(1);
 
 	if (!g_Vars.chrdata) {
-		g_Vars.aioffset = g_Vars.aioffset + 4;
-		return false;
+		cmd = cmd + 5;
+		return cmd;
 	}
 
 	/**
@@ -6433,20 +6108,19 @@ bool aiDetectEnemy(void)
 
 	if (closesttarg != -1) {
 		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, closesttarg);
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 5;
+		cmd = cmd + 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0129
  */
-bool aiIfSafetyLessThan(void)
+u8 *aiIfSafetyLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 	u8 safety = 6;
 	u8 numnearby = 0;
@@ -6476,22 +6150,21 @@ bool aiIfSafetyLessThan(void)
 	}
 
 	if (safety < cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 012a
  */
-bool aiIfTargetMovingSlowly(void)
+u8 *aiIfTargetMovingSlowly(u8 *cmd)
 {
 	s32 delta;
 	s32 absdelta;
-	u8 *cmd = g_Vars.aioffset;
 
 	if (cmd[2] == 0) {
 		delta = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
@@ -6503,58 +6176,54 @@ bool aiIfTargetMovingSlowly(void)
 	absdelta = delta > 0 ? delta : -delta;
 
 	if (absdelta < 50) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 012b
  */
-bool aiIfTargetMovingCloser(void)
+u8 *aiIfTargetMovingCloser(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) < -50) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 012c
  */
-bool aiIfTargetMovingAway(void)
+u8 *aiIfTargetMovingAway(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) > 50) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 012f
  */
-bool ai012f(void)
+u8 *ai012f(u8 *cmd)
 {
 	if (g_Vars.chrdata->cover >= 0) {
 		coverSetInUse(g_Vars.chrdata->cover, 0);
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 s16 g_GuardQuipBank[][4] = {
@@ -9478,12 +9147,11 @@ glabel var7f1a9d64
 #endif
 #else
 // regalloc difference near 64c
-bool aiSayQuip(void)
+u8 *aiSayQuip(u8 *cmd)
 {
 	u8 column; // 167
 	s16 audioid; // 164
 	u8 i; // 163
-	u8 *cmd = g_Vars.aioffset; // 156
 	s32 numnearbychrs; // 152
 	bool issomeonetalking; // 148
 	s32 probability; // 144
@@ -9529,8 +9197,8 @@ bool aiSayQuip(void)
 	// 37c
 	if (!row && !cmd[4] && !cmd[6]) {
 		g_Vars.chrdata->soundtimer = 0;
-		g_Vars.aioffset += 10;
-		return false;
+		cmd += 10;
+		return cmd;
 	}
 
 	// 3bc
@@ -9731,9 +9399,9 @@ bool aiSayQuip(void)
 
 	setCurrentPlayerNum(prevplayernum);
 
-	g_Vars.aioffset += 10;
+	cmd += 10;
 
-	return false;
+	return cmd;
 }
 #endif
 
@@ -9747,26 +9415,24 @@ void propDecrementSoundCount(struct prop *prop)
 /**
  * @cmd 01a7
  */
-bool aiIfChrNotTalking(void)
+u8 *aiIfChrNotTalking(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindByLiteralId(cmd[2]);
 
 	if (chr && chr->propsoundcount == 0) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 5;
+		cmd = cmd + 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0131
  */
-bool aiIncreaseSquadronAlertness(void)
+u8 *aiIncreaseSquadronAlertness(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 
 	for (; *chrnums != -2; chrnums++) {
@@ -9783,32 +9449,32 @@ bool aiIncreaseSquadronAlertness(void)
 		}
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0132
  */
-bool aiSetAction(void)
+u8 *aiSetAction(u8 *cmd)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
-	g_Vars.chrdata->myaction = cmd->b2;
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
+	g_Vars.chrdata->myaction = cmd2->b2;
 
-	if (cmd->b3 == 0) {
+	if (cmd2->b3 == 0) {
 		g_Vars.chrdata->orders = 0;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0133
  */
-bool aiSetTeamOrders(void)
+u8 *aiSetTeamOrders(u8 *cmd)
 {
 	struct chrnumaction *chraction;
 	s32 chrcount = 1;
@@ -9816,7 +9482,6 @@ bool aiSetTeamOrders(void)
 	struct chrnumaction chractions[50];
 	s32 num;
 	u32 stack;
-	u8 *cmd = g_Vars.aioffset;
 
 	// Get list of chrs in the current chr's squadron
 	chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
@@ -9939,60 +9604,56 @@ bool aiSetTeamOrders(void)
 		}
 
 		if (num != 1) {
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+			cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 		} else {
-			g_Vars.aioffset += 5;
+			cmd += 5;
 		}
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0134
  */
-bool aiIfOrders(void)
+u8 *aiIfOrders(u8 *cmd)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
 
-	if (g_Vars.chrdata->orders == cmd->b3) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b4, cmd->b5);
+	if (g_Vars.chrdata->orders == cmd2->b3) {
+		cmd = AILABEL(g_Vars.ailist, cmd2->b4, cmd2->b5);
 
 		if (g_Vars.chrdata->orders == MA_WITHDRAW) {
 			// empty
 		}
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0135
  */
-bool aiIfHasOrders(void)
+u8 *aiIfHasOrders(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata->orders) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0136
  */
-bool aiRetreat(void)
+u8 *aiRetreat(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (cmd[3] == 0) {
 		chrRunFromPos(g_Vars.chrdata, cmd[2], (cmd[2] & 0x10) ? 400.0f : 10000.0f, &g_Vars.chrdata->runfrompos);
 	} else if (cmd[3] == 1) {
@@ -10007,19 +9668,19 @@ bool aiRetreat(void)
 		chrGoToCover(g_Vars.chrdata, cmd[2]);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0137
  */
-bool aiIfChrInSquadronDoingAction(void)
+u8 *aiIfChrInSquadronDoingAction(u8 *cmd)
 {
 	s32 ret;
 	s16 *chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
 	ret = 1;
 
 	if (chrnums) {
@@ -10031,7 +9692,7 @@ bool aiIfChrInSquadronDoingAction(void)
 					chrCompareTeams(g_Vars.chrdata, chr, COMPARE_FRIENDS) &&
 					g_Vars.chrdata->chrnum != chr->chrnum &&
 					chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500 &&
-					chr->myaction == cmd->b2) {
+					chr->myaction == cmd2->b2) {
 				ret = 2;
 				break;
 			}
@@ -10039,38 +9700,36 @@ bool aiIfChrInSquadronDoingAction(void)
 	}
 
 	if (ret != 1) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b3, cmd->b4);
+		cmd = AILABEL(g_Vars.ailist, cmd2->b3, cmd2->b4);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0139
  */
-bool ai0139(void)
+u8 *ai0139(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 angle = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	struct coord pos;
 
 	chr0f04c874(g_Vars.chrdata, angle, &pos, cmd[7], cmd[6]);
 
-	g_Vars.aioffset += 8;
+	cmd += 8;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 013a
  */
-bool aiSetChrPresetToUnalertedTeammate(void)
+u8 *aiSetChrPresetToUnalertedTeammate(u8 *cmd)
 {
 	f32 closest_distance = 30999.9;
 	s16 candidate_chrnum = -1;
-	u8 *cmd = g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 
 	if (g_Vars.chrdata->talktimer > TICKS(480) && g_Vars.chrdata->listening) {
@@ -10109,117 +9768,108 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 
 	if (candidate_chrnum != -1) {
 		chrSetChrPreset(g_Vars.chrdata, candidate_chrnum);
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 013b
  */
-bool aiSetSquadron(void)
+u8 *aiSetSquadron(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	g_Vars.chrdata->squadron = cmd[2];
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 013c
  */
-bool aiFaceCover(void)
+u8 *aiFaceCover(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrFaceCover(g_Vars.chrdata)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 013d
  */
-bool aiIfDangerousObjectNearby(void)
+u8 *aiIfDangerousObjectNearby(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrDetectDangerousObject(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 013e
  */
-bool ai013e(void)
+u8 *ai013e(u8 *cmd)
 {
 	if (func0f03aca0(g_Vars.chrdata, 400, true) == 0 && chrAssignCoverAwayFromDanger(g_Vars.chrdata, 1000, 12000) != -1) {
 		chrGoToCover(g_Vars.chrdata, GOPOSFLAG_RUN);
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 013f
  */
-bool aiIfHeliWeaponsArmed(void)
+u8 *aiIfHeliWeaponsArmed(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.hovercar) {
 		if (g_Vars.hovercar->weaponsarmed) {
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+			cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 		} else {
-			g_Vars.aioffset += 4;
+			cmd += 4;
 		}
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0140
  */
-bool aiIfHoverbotNextStep(void)
+u8 *aiIfHoverbotNextStep(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.hovercar) {
 		if ((g_Vars.hovercar->nextstep > cmd[3] && cmd[2] == 1) ||
 				(g_Vars.hovercar->nextstep < cmd[3] && cmd[2] == 0)) {
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+			cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 		} else {
-			g_Vars.aioffset += 6;
+			cmd += 6;
 		}
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0141
  */
-bool aiShuffleInvestigationTerminals(void)
+u8 *aiShuffleInvestigationTerminals(u8 *cmd)
 {
 	// 2 = goodtag
 	// 3 = badtag
@@ -10231,7 +9881,6 @@ bool aiShuffleInvestigationTerminals(void)
 
 	u8 rand1;
 	u8 rand2;
-	u8 *cmd = g_Vars.aioffset;
 	struct tag *goodtag = tagFindById(cmd[2]);
 	struct tag *badtag = tagFindById(cmd[3]);
 	struct tag *pc;
@@ -10291,9 +9940,9 @@ bool aiShuffleInvestigationTerminals(void)
 		}
 	}
 
-	g_Vars.aioffset += 9;
+	cmd += 9;
 
-	return false;
+	return cmd;
 }
 
 /**
@@ -10328,9 +9977,8 @@ u16 g_InvestigationPadMap[] = {
 /**
  * @cmd 0142
  */
-bool aiSetPadPresetToInvestigationTerminal(void)
+u8 *aiSetPadPresetToInvestigationTerminal(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj) {
@@ -10344,72 +9992,71 @@ bool aiSetPadPresetToInvestigationTerminal(void)
 		}
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0143
  */
-bool aiHeliArmWeapons(void)
+u8 *aiHeliArmWeapons(u8 *cmd)
 {
 	if (g_Vars.hovercar) {
 		chopperSetArmed(g_Vars.hovercar, true);
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0144
  */
-bool aiHeliUnarmWeapons(void)
+u8 *aiHeliUnarmWeapons(u8 *cmd)
 {
 	if (g_Vars.hovercar) {
 		chopperSetArmed(g_Vars.hovercar, false);
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0145
  */
-bool aiRebuildTeams(void)
+u8 *aiRebuildTeams(u8 *cmd)
 {
 	rebuildTeams();
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0146
  */
-bool aiRebuildSquadrons(void)
+u8 *aiRebuildSquadrons(u8 *cmd)
 {
 	rebuildSquadrons();
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0147
  */
-bool aiIfSquadronIsDead(void)
+u8 *aiIfSquadronIsDead(u8 *cmd)
 {
 	/**
 	 * @bug: anyalive is initialised to true here, and reset to false in each
 	 * loop iteration. This causes it to use the last chr's status only.
 	 */
 	u32 stack[2];
-	u8 *cmd = g_Vars.aioffset;
 	bool anyalive = true;
 	s16 *chrnums = squadronGetChrIds(cmd[2]);
 
@@ -10430,101 +10077,95 @@ bool aiIfSquadronIsDead(void)
 	}
 
 	if (!anyalive) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0148
  */
-bool aiChrSetListening(void)
+u8 *aiChrSetListening(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->listening == 0) {
 		chr->listening = cmd[3];
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0149
  */
-bool aiIfChrListening(void)
+u8 *aiIfChrListening(u8 *cmd)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd->b2);
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd2->b2);
 
-	if (cmd->b4 == 0) {
-		if (chr->listening == cmd->b3) {
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b5, cmd->b6);
+	if (cmd2->b4 == 0) {
+		if (chr->listening == cmd2->b3) {
+			cmd = AILABEL(g_Vars.ailist, cmd2->b5, cmd2->b6);
 		} else {
-			g_Vars.aioffset += 7;
+			cmd += 7;
 		}
 	} else {
 		if (g_Vars.chrdata->convtalk == 0) {
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b5, cmd->b6);
+			cmd = AILABEL(g_Vars.ailist, cmd2->b5, cmd2->b6);
 		} else {
-			g_Vars.aioffset += 7;
+			cmd += 7;
 		}
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 014a
  */
-bool aiIfTrue(void)
+u8 *aiIfTrue(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-	g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+	cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 014b
  */
-bool aiIfNotListening(void)
+u8 *aiIfNotListening(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata->listening == 0) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0157
  */
-bool aiSetTintedGlassEnabled(void)
+u8 *aiSetTintedGlassEnabled(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	g_TintedGlassEnabled = cmd[2];
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0152
  */
-bool aiIfNumChrsInSquadronGreaterThan(void)
+u8 *aiIfNumChrsInSquadronGreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s32 count = 0;
 	s16 *chrnums = squadronGetChrIds(cmd[3]);
 
@@ -10545,82 +10186,79 @@ bool aiIfNumChrsInSquadronGreaterThan(void)
 	}
 
 	if (count > cmd[2]) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0165
  */
-bool aiIfChrInjured(void)
+u8 *aiIfChrInjured(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && (chr->chrflags & CHRCFLAG_INJUREDTARGET)) {
 		chr->chrflags &= ~CHRCFLAG_INJUREDTARGET;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0166
  */
-bool aiIfAction(void)
+u8 *aiIfAction(u8 *cmd)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
 
-	if (g_Vars.chrdata->myaction == cmd->b2) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b3, cmd->b4);
+	if (g_Vars.chrdata->myaction == cmd2->b2) {
+		cmd = AILABEL(g_Vars.ailist, cmd2->b3, cmd2->b4);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0167
  */
-bool aiHovercopterFireRocket(void)
+u8 *aiHovercopterFireRocket(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	chopperFireRocket(g_Vars.hovercar, cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0169
  */
-bool aiIfNaturalAnim(void)
+u8 *aiIfNaturalAnim(u8 *cmd)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
 
-	if (g_Vars.chrdata->naturalanim == cmd->b2) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b3, cmd->b4);
+	if (g_Vars.chrdata->naturalanim == cmd2->b2) {
+		cmd = AILABEL(g_Vars.ailist, cmd2->b3, cmd2->b4);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 016a
  */
-bool aiIfY(void)
+u8 *aiIfY(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = NULL;
 	f32 cutoff_y = ((cmd[4] | (cmd[3] << 8)) << 16) >> 16;
 
@@ -10641,29 +10279,28 @@ bool aiIfY(void)
 	if (chr && chr->prop && (
 				(chr->prop->pos.y < cutoff_y && cmd[5] == 0) ||
 				(chr->prop->pos.y > cutoff_y && cmd[5] == 1))) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 016c
  */
-bool aiNoOp016c(void)
+u8 *aiNoOp016c(u8 *cmd)
 {
-	g_Vars.aioffset += 2;
-	return false;
+	cmd += 2;
+	return cmd;
 }
 
 /**
  * @cmd 016d
  */
-bool aiChrAdjustMotionBlur(void)
+u8 *aiChrAdjustMotionBlur(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
@@ -10674,17 +10311,16 @@ bool aiChrAdjustMotionBlur(void)
 		}
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 016e
  */
-bool aiDamageChrByAmount(void)
+u8 *aiDamageChrByAmount(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct coord coord = {0, 0, 0};
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -10699,34 +10335,32 @@ bool aiDamageChrByAmount(void)
 		}
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 016f
  */
-bool aiIfChrHasGun(void)
+u8 *aiIfChrHasGun(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->model && chr->gunprop == NULL) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0170
  */
-bool aiDoGunCommand(void)
+u8 *aiDoGunCommand(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
 	if (cmd[2] == 0 || ((weapon->base.hidden & OBJHFLAG_PROJECTILE) == 0 && cmd[2] == 1)) {
@@ -10734,20 +10368,19 @@ bool aiDoGunCommand(void)
 			chrGoToProp(g_Vars.chrdata, g_Vars.chrdata->gunprop, GOPOSFLAG_JOG);
 		}
 
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0171
  */
-bool aiIfDistanceToGunLessThan(void)
+u8 *aiIfDistanceToGunLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 	f32 xdiff = 0;
 	f32 ydiff = 0;
@@ -10762,20 +10395,19 @@ bool aiIfDistanceToGunLessThan(void)
 	if (ydiff < 200 && ydiff > -200 &&
 			xdiff < distance && xdiff > -distance &&
 			zdiff < distance && zdiff > -distance) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0172
  */
-bool aiRecoverGun(void)
+u8 *aiRecoverGun(u8 *cmd)
 { \
-	u8 *cmd = g_Vars.aioffset;
 	struct prop *prop = g_Vars.chrdata->gunprop;
 	g_Vars.chrdata->gunprop = NULL;
 
@@ -10786,19 +10418,18 @@ bool aiRecoverGun(void)
 		chrEquipWeapon(prop->weapon, g_Vars.chrdata);
 	}
 
-	g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+	cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 
 	if (1);
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0173
  */
-bool aiChrCopyProperties(void)
+u8 *aiChrCopyProperties(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->model) {
@@ -10820,20 +10451,19 @@ bool aiChrCopyProperties(void)
 		g_Vars.chrdata->yvisang = chr->yvisang;
 		g_Vars.chrdata->teamscandist = chr->teamscandist;
 
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0177
  */
-bool aiPlayerAutoWalk(void)
+u8 *aiPlayerAutoWalk(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 pad_id = cmd[4] | (cmd[3] << 8);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -10845,17 +10475,16 @@ bool aiPlayerAutoWalk(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 9;
+	cmd += 9;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0178
  */
-bool aiIfPlayerAutoWalkFinished(void)
+u8 *aiIfPlayerAutoWalkFinished(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	bool walking = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -10872,20 +10501,19 @@ bool aiIfPlayerAutoWalkFinished(void)
 	}
 
 	if (walking) {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	} else {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0181
  */
-bool aiIfPlayerLookingAtObject(void)
+u8 *aiIfPlayerLookingAtObject(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
@@ -10903,83 +10531,77 @@ bool aiIfPlayerLookingAtObject(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0182
  */
-bool aiPunchOrKick(void)
+u8 *aiPunchOrKick(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.chrdata && chrTryPunch(g_Vars.chrdata, cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0183
  */
-bool aiIfTargetIsPlayer(void)
+u8 *aiIfTargetIsPlayer(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct prop *target = chrGetTargetProp(g_Vars.chrdata);
 
 	if (target->type == PROPTYPE_EYESPY || target->type == PROPTYPE_PLAYER) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0184
  */
-bool ai0184(void)
+u8 *ai0184(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	chrTryAttackAmount(g_Vars.chrdata, 512, 0, cmd[2], cmd[3]);
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0186
  */
-bool aiIfSoundTimer(void)
+u8 *aiIfSoundTimer(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s32 value = TICKS(cmd[3] | (cmd[2] << 8));
 
 	if ((g_Vars.chrdata->soundtimer > value && cmd[4] == 0) ||
 			(g_Vars.chrdata->soundtimer < value && cmd[4] == 1)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0187
  */
-bool aiSetTargetToEyespyIfInSight(void)
+u8 *aiSetTargetToEyespyIfInSight(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 prevtarget = g_Vars.chrdata->target;
 	struct eyespy *eyespy = g_Vars.players[g_Vars.chrdata->p1p2]->eyespy;
 
@@ -10988,24 +10610,23 @@ bool aiSetTargetToEyespyIfInSight(void)
 		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, chr->chrnum);
 
 		if (chrCheckTargetInSight(g_Vars.chrdata)) {
-			g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+			cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 		} else {
-			g_Vars.aioffset += 4;
+			cmd += 4;
 			g_Vars.chrdata->target = prevtarget;
 		}
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0188
  */
-bool aiIfLiftStationary(void)
+u8 *aiIfLiftStationary(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	bool pass = false;
 
@@ -11018,20 +10639,19 @@ bool aiIfLiftStationary(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0189
  */
-bool aiLiftGoToStop(void)
+u8 *aiLiftGoToStop(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
@@ -11039,119 +10659,113 @@ bool aiLiftGoToStop(void)
 		liftGoToStop(lift, cmd[3]);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 018a
  */
-bool aiIfLiftAtStop(void)
+u8 *aiIfLiftAtStop(u8 *cmd)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
-	struct defaultobj *obj = objFindByTagId(cmd->b2);
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
+	struct defaultobj *obj = objFindByTagId(cmd2->b2);
 	bool pass = false;
 
 	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
 		struct liftobj *lift = (struct liftobj *)obj;
 
-		if (lift->levelcur == cmd->b3 && lift->dist == 0) {
+		if (lift->levelcur == cmd2->b3 && lift->dist == 0) {
 			pass = true;
 		}
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b4, cmd->b5);
+		cmd = AILABEL(g_Vars.ailist, cmd2->b4, cmd2->b5);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 018b
  */
-bool aiConfigureRain(void)
+u8 *aiConfigureRain(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	weatherConfigureRain(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01b6
  */
-bool aiConfigureSnow(void)
+u8 *aiConfigureSnow(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	weatherConfigureSnow(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 018c
  */
-bool aiChrToggleModelPart(void)
+u8 *aiChrToggleModelPart(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
 		chrToggleModelPart(chr, cmd[3]);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 018d
  */
-bool aiActivateLift(void)
+u8 *aiActivateLift(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 
 	if (obj && obj->prop) {
 		liftActivate(obj->prop, cmd[2]);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 018e
  */
-bool aiMiniSkedarTryPounce(void)
+u8 *aiMiniSkedarTryPounce(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 thing = cmd[4] | (cmd[3] << 8);
 
 	if (chrTrySkJump(g_Vars.chrdata, g_Vars.chrdata->pouncebits, cmd[2], thing, cmd[5])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
+		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
-		g_Vars.aioffset += 8;
+		cmd += 8;
 
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 018f
  */
-bool aiIfObjectDistanceToPadLessThan(void)
+u8 *aiIfObjectDistanceToPadLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (f32)(cmd[4] | (cmd[3] << 8)) * 10;
 	f32 xdiff;
 	f32 ydiff;
@@ -11186,76 +10800,69 @@ bool aiIfObjectDistanceToPadLessThan(void)
 	}
 
 	if (pass) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
+		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
 	} else {
-		g_Vars.aioffset += 9;
+		cmd += 9;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0190
  */
-bool aiSetSavefileFlag(void)
+u8 *aiSetSavefileFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	gamefileSetFlag(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0191
  */
-bool aiUnsetSavefileFlag(void)
+u8 *aiUnsetSavefileFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	gamefileUnsetFlag(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0192
  */
-bool aiIfSavefileFlagIsSet(void)
+u8 *aiIfSavefileFlagIsSet(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (gamefileHasFlag(cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 0193
  */
-bool aiIfSavefileFlagIsUnset(void)
+u8 *aiIfSavefileFlagIsUnset(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (!gamefileHasFlag(cmd[2])) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 019e
  */
-bool aiIfObjHealthLessThan(void)
+u8 *aiIfObjHealthLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s32 damage = cmd[4] | (cmd[3] << 8);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -11266,20 +10873,19 @@ bool aiIfObjHealthLessThan(void)
 	}
 
 	if (condition_passes) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
+		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
-		g_Vars.aioffset += 7;
+		cmd += 7;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 019f
  */
-bool aiSetObjHealth(void)
+u8 *aiSetObjHealth(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s32 damage = cmd[4] | (cmd[3] << 8);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
@@ -11287,32 +10893,31 @@ bool aiSetObjHealth(void)
 		obj->damage = damage;
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01a0
  */
-bool aiSetChrSpecialDeathAnimation(void)
+u8 *aiSetChrSpecialDeathAnimation(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
 		chr->specialdie = cmd[3];
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return 0;
+	return cmd;
 }
 
 /**
  * @cmd 01a1
  */
-bool aiSetRoomToSearch(void)
+u8 *aiSetRoomToSearch(u8 *cmd)
 {
 	struct chrdata *target = chrFindById(g_Vars.chrdata, CHR_TARGET);
 
@@ -11320,9 +10925,9 @@ bool aiSetRoomToSearch(void)
 		g_Vars.chrdata->roomtosearch = target->prop->rooms[0];
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 s16 g_CiMainQuips[][3] = {
@@ -11376,9 +10981,8 @@ s16 g_CiThanksQuips[] = {
 /**
  * @cmd 01a2
  */
-bool aiSayCiStaffQuip(void)
+u8 *aiSayCiStaffQuip(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 quip;
 
 	if (cmd[2] == CIQUIP_GREETING) {
@@ -11401,18 +11005,16 @@ bool aiSayCiStaffQuip(void)
 		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01a3
  */
-bool aiDoPresetAnimation(void)
+u8 *aiDoPresetAnimation(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	// These all appear to be talking animations
 	u16 anims[] = {
 		/* 0*/ ANIM_0296,
@@ -11449,33 +11051,30 @@ bool aiDoPresetAnimation(void)
 		chrTryStartAnim(g_Vars.chrdata, anims[cmd[2]], 0, -1, 0, 15, 0.5);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01a5
  */
-bool aiIfUsingLift(void)
+u8 *aiIfUsingLift(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (chrIsUsingLift(g_Vars.chrdata)) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01a6
  */
-bool aiIfTargetYDifferenceLessThan(void)
+u8 *aiIfTargetYDifferenceLessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
 	f32 diff = prop->pos.y - g_Vars.chrdata->prop->pos.y;
 
@@ -11484,20 +11083,19 @@ bool aiIfTargetYDifferenceLessThan(void)
 	}
 
 	if (diff < (s32)cmd[2] * 10.0f) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01aa
  */
-bool ai01aa(void)
+u8 *ai01aa(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 a = 3000;
 
 	func0f0056f4(
@@ -11508,18 +11106,18 @@ bool ai01aa(void)
 			0, &a, 0);
 
 	if (a < 3000) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01ae
  */
-bool aiClearInventory(void)
+u8 *aiClearInventory(u8 *cmd)
 {
 	u32 stackpadding[2];
 	u32 prevplayernum = g_Vars.currentplayernum;
@@ -11539,28 +11137,27 @@ bool aiClearInventory(void)
 	}
 
 	setCurrentPlayerNum(prevplayernum);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01ad
  */
-bool aiReleaseObject(void)
+u8 *aiReleaseObject(u8 *cmd)
 {
 	bmoveSetModeForAllPlayers(MOVEMODE_WALK);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01af
  */
-bool aiChrGrabObject(void)
+u8 *aiChrGrabObject(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -11578,17 +11175,16 @@ bool aiChrGrabObject(void)
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01b1
  */
-bool aiShuffleRuinsPillars(void)
+u8 *aiShuffleRuinsPillars(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct tag *ptr1 = tagFindById(cmd[2]);
 	struct tag *ptr2 = tagFindById(cmd[3]);
 	struct tag *ptr3 = tagFindById(cmd[4]);
@@ -11647,31 +11243,27 @@ bool aiShuffleRuinsPillars(void)
 	ptr3->cmdoffset = src->cmdoffset;
 	ptr3->obj = src->obj;
 
-	g_Vars.aioffset += 18;
+	cmd += 18;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01b2
  */
-bool aiSetWindSpeed(void)
+u8 *aiSetWindSpeed(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	g_SkyWindSpeed = 0.1f * (s32)cmd[2];
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01b3
  */
-bool aiToggleP1P2(void)
+u8 *aiToggleP1P2(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.coopplayernum >= 0) {
 		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
@@ -11684,18 +11276,16 @@ bool aiToggleP1P2(void)
 		}
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01b5
  */
-bool aiChrSetP1P2(void)
+u8 *aiChrSetP1P2(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (g_Vars.coopplayernum >= 0) {
 		struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
 		struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
@@ -11713,17 +11303,16 @@ bool aiChrSetP1P2(void)
 		}
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01b7
  */
-bool aiChrSetCloaked(void)
+u8 *aiChrSetCloaked(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop) {
@@ -11736,17 +11325,16 @@ bool aiChrSetCloaked(void)
 		}
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01b8
  */
-bool aiSetAutogunTargetTeam(void)
+u8 *aiSetAutogunTargetTeam(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->type == OBJTYPE_AUTOGUN) {
@@ -11755,15 +11343,15 @@ bool aiSetAutogunTargetTeam(void)
 		autogun->target = NULL;
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01b9
  */
-bool aiShufflePelagicSwitches(void)
+u8 *aiShufflePelagicSwitches(u8 *cmd)
 {
 	u8 buttonsdone[] = {0, 0, 0, 0, 0, 0, 0, 0};
 	u8 i;
@@ -11793,59 +11381,57 @@ bool aiShufflePelagicSwitches(void)
 		}
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01bb
  */
-bool aiNoOp01bb(void)
+u8 *aiNoOp01bb(u8 *cmd)
 {
-	g_Vars.aioffset += 4;
-	return false;
+	cmd += 4;
+	return cmd;
 }
 
 /**
  * @cmd 01bc
  */
-bool ai01bc(void)
+u8 *ai01bc(u8 *cmd)
 {
-	struct bytelist *cmd = (struct bytelist *)(g_Vars.aioffset);
+	struct bytelist *cmd2 = (struct bytelist *)(cmd);
 
-	if (g_Vars.chrdata->pouncebits == cmd->b2) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd->b3, cmd->b4);
+	if (g_Vars.chrdata->pouncebits == cmd2->b2) {
+		cmd = AILABEL(g_Vars.ailist, cmd2->b3, cmd2->b4);
 	} else {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01bd
  */
-bool aiIfTrainingPcHolographed(void)
+u8 *aiIfTrainingPcHolographed(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct trainingdata *data = dtGetData();
 
 	if (data->holographedpc) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01be
  */
-bool aiIfPlayerUsingDevice(void)
+u8 *aiIfPlayerUsingDevice(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct prop *prop = chr ? chr->prop : NULL;
 	u8 active = false;
@@ -11863,20 +11449,19 @@ bool aiIfPlayerUsingDevice(void)
 	}
 
 	if (active) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01bf
  */
-bool aiChrBeginOrEndTeleport(void)
+u8 *aiChrBeginOrEndTeleport(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	f32 fvalue;
 	struct chrdata *chr;
@@ -11924,19 +11509,18 @@ bool aiChrBeginOrEndTeleport(void)
 #endif
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
 	setCurrentPlayerNum(prevplayernum);
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01c0
  */
-bool aiIfChrTeleportFullWhite(void)
+u8 *aiIfChrTeleportFullWhite(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[4]);
 	u32 prevplayernum = g_Vars.currentplayernum;
 #if VERSION >= VERSION_NTSC_1_0
@@ -11954,7 +11538,7 @@ bool aiIfChrTeleportFullWhite(void)
 	}
 
 	if (g_Vars.currentplayer->teleportstate < TELEPORTSTATE_WHITE) {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	} else {
 		fvalue = 0.4;
 
@@ -11975,60 +11559,56 @@ bool aiIfChrTeleportFullWhite(void)
 #endif
 
 		g_Vars.currentplayer->teleportstate = TELEPORTSTATE_WHITE;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	}
 
 	setCurrentPlayerNum(prevplayernum);
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01c5
  */
-bool aiAvoid(void)
+u8 *aiAvoid(u8 *cmd)
 {
 	chrAvoid(g_Vars.chrdata);
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01c8
  */
-bool aiTitleInitMode(void)
+u8 *aiTitleInitMode(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-	g_Vars.aioffset += 3;
 	titleInitFromAiCmd(cmd[2]);
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01c9
  */
-bool aiTryExitTitle(void)
+u8 *aiTryExitTitle(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (titleIsChangingMode()) {
 		titleExit();
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset = g_Vars.aioffset + 4;
+		cmd = cmd + 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01ca
  */
-bool aiChrSetCutsceneWeapon(void)
+u8 *aiChrSetCutsceneWeapon(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	s32 model_id = playermgrGetModelOfWeapon(cmd[3]);
 	s32 fallback_model_id = playermgrGetModelOfWeapon(cmd[4]);
@@ -12077,76 +11657,70 @@ bool aiChrSetCutsceneWeapon(void)
 		}
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01cb
  */
-bool aiFadeScreen(void)
+u8 *aiFadeScreen(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	u32 color = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	s16 num_frames = (cmd[7] | (cmd[6] << 8));
 	lvConfigureFade(color, num_frames);
-	g_Vars.aioffset += 8;
+	cmd += 8;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01cc
  */
-bool aiIfFadeComplete(void)
+u8 *aiIfFadeComplete(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
-
 	if (lvIsFadeActive() == false) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01cd
  */
-bool aiSetChrHudpieceVisible(void)
+u8 *aiSetChrHudpieceVisible(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
 		chrSetHudpieceVisible(chr, cmd[3]);
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01ce
  */
-bool aiSetPassiveMode(void)
+u8 *aiSetPassiveMode(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	bgunSetPassiveMode(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01cf
  */
-bool aiChrSetFiringInCutscene(void)
+u8 *aiChrSetFiringInCutscene(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct coord from = {0, 0, 0};
 	struct coord to = {0, 0, 0};
@@ -12160,65 +11734,61 @@ bool aiChrSetFiringInCutscene(void)
 		}
 	}
 
-	g_Vars.aioffset += 4;
+	cmd += 4;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d0
  */
-bool aiSetPortalFlag(void)
+u8 *aiSetPortalFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 portalnum = cmd[3] | (cmd[2] << 8);
 
 	g_BgPortals[portalnum].flags |= cmd[4];
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d1
  */
-bool aiObjSetModelPartVisible(void)
+u8 *aiObjSetModelPartVisible(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
 		objSetModelPartVisible(obj, cmd[3], cmd[4]);
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d2
  */
-bool aiChrEmitSparks(void)
+u8 *aiChrEmitSparks(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
 		chrDrCarollEmitSparks(chr);
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d3
  */
-bool aiSetDrCarollImages(void)
+u8 *aiSetDrCarollImages(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *drcaroll = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (drcaroll) {
@@ -12243,33 +11813,31 @@ bool aiSetDrCarollImages(void)
 		}
 	}
 
-	g_Vars.aioffset += 5;
+	cmd += 5;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d4
  */
-bool aiSetRoomFlag(void)
+u8 *aiSetRoomFlag(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 roomnum = cmd[3] | cmd[2] << 8;
 	s16 flag = cmd[5] | cmd[4] << 8;
 
 	g_Rooms[roomnum].flags |= flag;
 
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d5
  */
-bool aiShowCutsceneChrs(void)
+u8 *aiShowCutsceneChrs(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	bool show = cmd[2];
 	s32 i;
 
@@ -12290,17 +11858,16 @@ bool aiShowCutsceneChrs(void)
 		}
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d6
  */
-bool aiConfigureEnvironment(void)
+u8 *aiConfigureEnvironment(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 room_id = (cmd[3] | (cmd[2] << 8));
 	s32 value = cmd[5];
 	s32 i;
@@ -12368,51 +11935,48 @@ bool aiConfigureEnvironment(void)
 		break;
 	}
 
-	g_Vars.aioffset += 6;
+	cmd += 6;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d7
  */
-bool aiIfDistanceToTarget2LessThan(void)
+u8 *aiIfDistanceToTarget2LessThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToTarget2(g_Vars.chrdata) < distance) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d8
  */
-bool aiIfDistanceToTarget2GreaterThan(void)
+u8 *aiIfDistanceToTarget2GreaterThan(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToTarget2(g_Vars.chrdata) > distance) {
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
+		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
-		g_Vars.aioffset += 6;
+		cmd += 6;
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01d9
  */
-bool aiPlaySoundFromProp(void)
+u8 *aiPlaySoundFromProp(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	s16 audio_id = cmd[5] | (cmd[4] << 8);
 	s32 volumemaybe = cmd[7] | (cmd[6] << 8);
 	u16 unk1 = cmd[10] | (cmd[10] << 8); // @bug: Using 10 twice
@@ -12422,29 +11986,27 @@ bool aiPlaySoundFromProp(void)
 
 	audioPlayFromProp(channel, audio_id, volumemaybe, obj->prop, unk2, unk1);
 
-	g_Vars.aioffset += 11;
+	cmd += 11;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01da
  */
-bool aiPlayTemporaryPrimaryTrack(void)
+u8 *aiPlayTemporaryPrimaryTrack(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	musicStartTemporaryPrimary(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01db
  */
-bool aiChrKill(void)
+u8 *aiChrKill(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
@@ -12458,69 +12020,66 @@ bool aiChrKill(void)
 		chr->chrflags |= CHRCFLAG_KEEPCORPSEKO | CHRCFLAG_PERIMDISABLEDTMP;
 	}
 
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01dc
  */
-bool aiRemoveWeaponFromInventory(void)
+u8 *aiRemoveWeaponFromInventory(u8 *cmd)
 {
-	u8 *cmd = g_Vars.aioffset;
 	invRemoveItemByNum(cmd[2]);
-	g_Vars.aioffset += 3;
+	cmd += 3;
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01dd
  */
-bool aiIfMusicEventQueueIsEmpty(void)
+u8 *aiIfMusicEventQueueIsEmpty(u8 *cmd)
 {
 	f32 value = (u64)osGetCount() * 64 / 3000;
 
 	if (g_MusicEventQueueLength) {
-		g_Vars.aioffset += 5;
+		cmd += 5;
 	} else {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	}
 
-	return false;
+	return cmd;
 }
 
 /**
  * @cmd 01de
  */
-bool aiIfCoopMode(void)
+u8 *aiIfCoopMode(u8 *cmd)
 {
 	if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
 /**
  * @cmd 01e0
  */
-bool aiRemoveReferencesToChr(void)
+u8 *aiRemoveReferencesToChr(u8 *cmd)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop) {
 		u32 index = g_Vars.chrdata->prop - g_Vars.props;
 		chrClearReferences(index);
 	}
 
-	g_Vars.aioffset += 2;
+	cmd += 2;
 
-	return false;
+	return cmd;
 }
 #endif
 
@@ -12528,16 +12087,15 @@ bool aiRemoveReferencesToChr(void)
 /**
  * @cmd 01b4
  */
-bool ai01b4(void)
+u8 *ai01b4(u8 *cmd)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
 			chr0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, 0, false)) {
-		u8 *cmd = g_Vars.aioffset;
-		g_Vars.aioffset = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
+		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
-		g_Vars.aioffset += 4;
+		cmd += 4;
 	}
 
-	return false;
+	return cmd;
 }
 #endif

@@ -23,7 +23,7 @@ void challengeApply(void);
 char *challengeGetCurrentDescription(void);
 char *challengeGetConfigDescription(struct mpconfigfull *mpconfig);
 bool challengeIsCompleteForEndscreen(void);
-bool aiMpInitSimulants(void);
+u8 *aiMpInitSimulants(u8 *cmd);
 void vmPrintStatsIfEnabled(void);
 bool ChallengeIsAvailableToPlayer(s32 chrnum, s32 challengeindex);
 bool challengeIsAvailableToAnyPlayer(s32 challengeindex);

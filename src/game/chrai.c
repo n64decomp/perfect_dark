@@ -10,7 +10,7 @@
 #include "data.h"
 #include "types.h"
 
-bool (*g_CommandPointers[])(void) = {
+u8 *(*g_CommandPointers[])(u8 *cmd) = {
 	/*0x0000*/ aiGoToNext,
 	/*0x0001*/ aiGoToFirst,
 	/*0x0002*/ aiLabel,
@@ -652,12 +652,13 @@ s32 chraiGetListIdByList(u8 *ailist, bool *is_global)
 
 void chraiExecute(void *entity, s32 proptype)
 {
+	u8 *cmd = NULL;
+
 	g_Vars.chrdata = NULL;
 	g_Vars.truck = NULL;
 	g_Vars.heli = NULL;
 	g_Vars.hovercar = NULL;
 	g_Vars.ailist = NULL;
-	g_Vars.aioffset = NULL;
 
 	if (proptype == PROPTYPE_CHR) {
 		g_Vars.chrdata = entity;
@@ -675,19 +676,23 @@ void chraiExecute(void *entity, s32 proptype)
 
 	if (g_Vars.chrdata) {
 		g_Vars.ailist = g_Vars.chrdata->ailist;
-		g_Vars.aioffset = g_Vars.chrdata->aioffset;
+		cmd = g_Vars.chrdata->aioffset;
 	} else if (g_Vars.truck) {
 		g_Vars.ailist = g_Vars.truck->ailist;
-		g_Vars.aioffset = g_Vars.truck->aioffset;
+		cmd = g_Vars.truck->aioffset;
 	} else if (g_Vars.heli) {
 		g_Vars.ailist = g_Vars.heli->ailist;
-		g_Vars.aioffset = g_Vars.heli->aioffset;
+		cmd = g_Vars.heli->aioffset;
 	} else if (g_Vars.hovercar) {
 		g_Vars.ailist = g_Vars.hovercar->ailist;
-		g_Vars.aioffset = g_Vars.hovercar->aioffset;
+		cmd = g_Vars.hovercar->aioffset;
 	}
 
-	if (g_Vars.ailist && g_Vars.aioffset) {
+	if (g_Vars.ailist) {
+		if (!cmd) {
+			cmd = g_Vars.ailist;
+		}
+
 		if (g_Vars.chrdata) {
 			chrAddTargetToBdlist(g_Vars.chrdata);
 		}
@@ -704,7 +709,7 @@ void chraiExecute(void *entity, s32 proptype)
 				// Set shot list
 				g_Vars.chrdata->chrflags &= ~CHRCFLAG_TRIGGERSHOTLIST;
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishotlist);
-				g_Vars.aioffset = g_Vars.ailist;
+				cmd = g_Vars.ailist;
 			}
 		} else if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & CHRCFLAG_CONSIDER_DODGE)) {
 			g_Vars.chrdata->chrflags &= ~CHRCFLAG_CONSIDER_DODGE;
@@ -724,7 +729,7 @@ void chraiExecute(void *entity, s32 proptype)
 					&& g_Vars.chrdata->actiontype != ACT_ATTACKROLL) {
 				// Set shooting at me list
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishootingatmelist);
-				g_Vars.aioffset = g_Vars.ailist;
+				cmd = g_Vars.ailist;
 				g_Vars.chrdata->dodgerating = 0;
 			} else {
 				// Increase dodge rating
@@ -750,20 +755,16 @@ void chraiExecute(void *entity, s32 proptype)
 				chrSetFlags(g_Vars.chrdata, CHRFLAG1_SEARCHSAMEROOM, BANK_1);
 				g_Vars.chrdata->alertness = 0;
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aidarkroomlist);
-				g_Vars.aioffset = g_Vars.ailist;
+				cmd = g_Vars.ailist;
 			}
 		} else {
 			// empty
 		}
 
 		// Iterate and execute the ailist
-		while (true) {
-			u8 *cmd = g_Vars.aioffset;
-			s32 type = (cmd[0] << 8) + cmd[1];
-
-			if (g_CommandPointers[type]()) {
-				break;
-			}
-		}
+		do {
+			s32 type = (cmd[0] << 8) | cmd[1];
+			cmd = g_CommandPointers[type](cmd);
+		} while (cmd);
 	}
 }
