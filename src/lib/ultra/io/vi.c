@@ -18,9 +18,7 @@ void __osViInit(void)
 	__osViNext->framep = (void*)K0BASE;
 	__osViCurr->framep = (void*)K0BASE;
 
-	if (osTvType == OS_TV_TYPE_PAL) {
-		__osViNext->modep = &osViModePalLan1;
-	} else if (osTvType == OS_TV_TYPE_MPAL) {
+	if (osTvType == OS_TV_TYPE_MPAL) {
 		__osViNext->modep = &osViModeMpalLan1;
 	} else {
 		__osViNext->modep = &osViModeNtscLan1;
