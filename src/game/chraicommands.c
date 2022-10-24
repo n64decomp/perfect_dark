@@ -2235,23 +2235,23 @@ u8 *aiObjectMoveToPad(u8 *cmd)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	u16 padnum = cmd[4] | (cmd[3] << 8);
 	Mtxf matrix;
-	struct pad pad;
+	struct pad *pad;
 	s16 rooms[2];
 
 	if (obj && obj->prop) {
-		padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_ROOM, &pad);
+		pad = &g_Pads[padnum];
 		mtx00016d58(&matrix,
 				0, 0, 0,
-				-pad.look.x, -pad.look.y, -pad.look.z,
-				pad.up.x, pad.up.y, pad.up.z);
+				-pad->look.x, -pad->look.y, -pad->look.z,
+				pad->up.x, pad->up.y, pad->up.z);
 
 		if (obj->model) {
 			mtx00015f04(obj->model->scale, &matrix);
 		}
 
-		rooms[0] = pad.room;
+		rooms[0] = pad->room;
 		rooms[1] = -1;
-		func0f06a730(obj, &pad.pos, &matrix, rooms, &pad.pos);
+		func0f06a730(obj, &pad->pos, &matrix, rooms, &pad->pos);
 	}
 
 	cmd += 5;
@@ -4885,12 +4885,11 @@ u8 *aiChrMoveToPad(u8 *cmd)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool pass = false;
 	f32 theta;
-	struct pad pad;
+	struct pad *pad;
 	s16 rooms[2];
 	struct chrdata *chr2;
 
 	if (chr && chr->prop) {
-#if VERSION >= VERSION_NTSC_1_0
 		if (cmd[5] == 88) {
 			chr2 = chrFindById(g_Vars.chrdata, cmd[4]);
 
@@ -4903,24 +4902,14 @@ u8 *aiChrMoveToPad(u8 *cmd)
 			padnum = chrResolvePadId(chr, padnum);
 
 			if (padnum >= 0) {
-				padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
-				theta = atan2f(pad.look.x, pad.look.z);
+				pad = &g_Pads[padnum];
+				theta = atan2f(pad->look.x, pad->look.z);
 
-				rooms[0] = pad.room;
+				rooms[0] = pad->room;
 				rooms[1] = -1;
-				pass = chrMoveToPos(chr, &pad.pos, rooms, theta, cmd[5]);
+				pass = chrMoveToPos(chr, &pad->pos, rooms, theta, cmd[5]);
 			}
 		}
-#else
-		padnum = chrResolvePadId(chr, padnum);
-
-		padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
-		theta = atan2f(pad.look.x, pad.look.z);
-
-		rooms[0] = pad.room;
-		rooms[1] = -1;
-		pass = chrMoveToPos(chr, &pad.pos, rooms, theta, cmd[5]);
-#endif
 	}
 
 	if (pass) {
@@ -10771,14 +10760,10 @@ u8 *aiIfObjectDistanceToPadLessThan(u8 *cmd)
 	if (obj && obj->prop) {
 		pad_id = chrResolvePadId(g_Vars.chrdata, pad_id);
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (pad_id >= 0)
-#endif
-		{
-			padUnpack(pad_id, PADFIELD_POS, &pad);
-			xdiff = obj->prop->pos.x - pad.pos.x;
-			ydiff = obj->prop->pos.y - pad.pos.y;
-			zdiff = obj->prop->pos.z - pad.pos.z;
+		if (pad_id >= 0) {
+			xdiff = obj->prop->pos.x - g_Pads[pad_id].pos.x;
+			ydiff = obj->prop->pos.y - g_Pads[pad_id].pos.y;
+			zdiff = obj->prop->pos.z - g_Pads[pad_id].pos.z;
 
 			if (ydiff < 200 && ydiff > -200 &&
 					xdiff < distance && xdiff > -distance &&

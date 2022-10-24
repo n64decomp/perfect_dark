@@ -184,7 +184,6 @@ void kohInit(void)
 void kohInitProps(void)
 {
 	s16 pad_id = 0;
-	struct pad pad;
 
 	if (g_ScenarioData.koh.hillcount > 1) {
 		g_ScenarioData.koh.hillindex = random() % g_ScenarioData.koh.hillcount;
@@ -195,12 +194,11 @@ void kohInitProps(void)
 		g_ScenarioData.koh.hillindex = 0;
 	}
 
-	padUnpack(pad_id, PADFIELD_POS | PADFIELD_ROOM, &pad);
-	g_ScenarioData.koh.hillrooms[0] = pad.room;
+	g_ScenarioData.koh.hillrooms[0] = g_Pads[pad_id].room;
 	g_ScenarioData.koh.hillrooms[1] = -1;
-	g_ScenarioData.koh.hillpos.x = pad.pos.x;
-	g_ScenarioData.koh.hillpos.y = pad.pos.y;
-	g_ScenarioData.koh.hillpos.z = pad.pos.z;
+	g_ScenarioData.koh.hillpos.x = g_Pads[pad_id].pos.x;
+	g_ScenarioData.koh.hillpos.y = g_Pads[pad_id].pos.y;
+	g_ScenarioData.koh.hillpos.z = g_Pads[pad_id].pos.z;
 	g_ScenarioData.koh.hillpos.y = cdFindFloorYColourTypeAtPos(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillrooms[0], 0, 0);
 	g_ScenarioData.koh.movehill = false;
 	roomSetLighting(g_ScenarioData.koh.hillrooms[0], LIGHTOP_5, 0, 0, 0);
@@ -283,14 +281,12 @@ void kohTick(void)
 				g_ScenarioData.koh.hillindex = 0;
 			}
 
-			padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
-
-			g_ScenarioData.koh.hillrooms[0] = pad.room;
+			g_ScenarioData.koh.hillrooms[0] = g_Pads[padnum].room;
 			g_ScenarioData.koh.hillrooms[1] = -1;
 
-			g_ScenarioData.koh.hillpos.x = pad.pos.x;
-			g_ScenarioData.koh.hillpos.y = pad.pos.y;
-			g_ScenarioData.koh.hillpos.z = pad.pos.z;
+			g_ScenarioData.koh.hillpos.x = g_Pads[padnum].pos.x;
+			g_ScenarioData.koh.hillpos.y = g_Pads[padnum].pos.y;
+			g_ScenarioData.koh.hillpos.z = g_Pads[padnum].pos.z;
 
 			g_ScenarioData.koh.hillpos.y = cdFindFloorYColourTypeAtPos(&g_ScenarioData.koh.hillpos, g_ScenarioData.koh.hillrooms, NULL, NULL);
 

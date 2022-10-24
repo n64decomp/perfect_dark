@@ -70,13 +70,13 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 					f32 sqdist;
 					s32 k;
 					u32 stack;
-					struct pad pad;
+					struct pad *pad;
 
-					padUnpack(waypoint->padnum, PADFIELD_POS, &pad);
+					pad = &g_Pads[waypoint->padnum];
 
-					sqdist = (pos->f[0] - pad.pos.f[0]) * (pos->f[0] - pad.pos.f[0])
-						+ (pos->f[1] - pad.pos.f[1]) * (pos->f[1] - pad.pos.f[1])
-						+ (pos->f[2] - pad.pos.f[2]) * (pos->f[2] - pad.pos.f[2]);
+					sqdist = (pos->f[0] - pad->pos.f[0]) * (pos->f[0] - pad->pos.f[0])
+						+ (pos->f[1] - pad->pos.f[1]) * (pos->f[1] - pad->pos.f[1])
+						+ (pos->f[2] - pad->pos.f[2]) * (pos->f[2] - pad->pos.f[2]);
 
 					// Find the index where this waypoint should go
 					// into the candidates list
@@ -113,16 +113,16 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 
 		// Check which candidates have line of sight
 		for (i = 0; i < candlen; i++) {
-			struct pad pad;
+			struct pad *pad;
 			s16 padrooms[8];
 
-			padUnpack(candwaypoints[i]->padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
+			pad = &g_Pads[candwaypoints[i]->padnum];
 
-			padrooms[0] = pad.room;
+			padrooms[0] = pad->room;
 			padrooms[1] = -1;
 
-			if (cdTestLos05(pos, rooms, &pad.pos, padrooms, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2) != CDRESULT_COLLISION) {
-				s32 cdresult = cdExamCylMove05(pos, rooms, &pad.pos, padrooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, true, 0.0f, 0.0f);
+			if (cdTestLos05(pos, rooms, &pad->pos, padrooms, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2) != CDRESULT_COLLISION) {
+				s32 cdresult = cdExamCylMove05(pos, rooms, &pad->pos, padrooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, true, 0.0f, 0.0f);
 
 				if (cdresult == CDRESULT_ERROR) {
 					checkmore[i] = false;
@@ -146,16 +146,13 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 			// crtieria relating to collisions.
 			for (i = 0; i < candlen; i++) {
 				if (checkmore[i] && (sp250[i].x != sp1d8[i].x || sp250[i].z != sp1d8[i].z)) {
-					struct pad pad;
 					s16 padrooms[8];
 					struct coord sp98;
 					struct coord tmppos;
 					s16 tmprooms[8];
 					f32 mult;
 
-					padUnpack(candwaypoints[i]->padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
-
-					padrooms[0] = pad.room;
+					padrooms[0] = g_Pads[candwaypoints[i]->padnum].room;
 					padrooms[1] = -1;
 
 					sp98.f[0] = sp250[i].x - sp1d8[i].x;

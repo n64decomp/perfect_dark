@@ -237,7 +237,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 	s32 playercount = PLAYERCOUNT();
 	f32 dstangle;
 	u8 stack2[0x10];
-	struct pad pad;
+	struct pad *pad;
 	s32 stack3[2];
 	s16 tmppadrooms[2];
 	f32 bestsqdist;
@@ -246,7 +246,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 	// Iterate all spawn pads and populate the category arrays
 	for (p = 0; p < numpads; p++) {
 		bestsqdist = U32_MAX;
-		padUnpack(pads[p], PADFIELD_POS | PADFIELD_ROOM, &pad);
+		pad = &g_Pads[pads[p]];
 		verybadpads[p] = false;
 		badpads[p] = false;
 
@@ -257,9 +257,9 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 			if (g_Vars.players[i]->prop
 					&& g_Vars.players[i]->prop != prop
 					&& (!prop || chrCompareTeams(prop->chr, g_Vars.players[i]->prop->chr, COMPARE_ENEMIES))) {
-				xdiff = g_Vars.players[i]->prop->pos.x - pad.pos.x;
-				ydiff = g_Vars.players[i]->prop->pos.y - pad.pos.y;
-				zdiff = g_Vars.players[i]->prop->pos.z - pad.pos.z;
+				xdiff = g_Vars.players[i]->prop->pos.x - pad->pos.x;
+				ydiff = g_Vars.players[i]->prop->pos.y - pad->pos.y;
+				zdiff = g_Vars.players[i]->prop->pos.z - pad->pos.z;
 
 				sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 
@@ -267,29 +267,29 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 					bestsqdist = sqdist;
 				}
 
-				if (roomIsOnPlayerScreen(pad.room, i)) {
+				if (roomIsOnPlayerScreen(pad->room, i)) {
 					verybadpads[p] = true;
 				}
 
-				if (verybadpads[p] || roomIsOnPlayerStandby(pad.room, i)) {
+				if (verybadpads[p] || roomIsOnPlayerStandby(pad->room, i)) {
 					badpads[p] = true;
 				}
 			}
 		}
 
 		// Do the same as above, but for simulants
-		tmppadrooms[0] = pad.room;
+		tmppadrooms[0] = pad->room;
 		tmppadrooms[1] = -1;
 
-		roomGetNeighbours(pad.room, neighbours, 20);
+		roomGetNeighbours(pad->room, neighbours, 20);
 
 		for (i = 0; i < g_BotCount; i++) {
 			if (g_MpBotChrPtrs[i]->prop
 					&& g_MpBotChrPtrs[i]->prop != prop
 					&& (!prop || chrCompareTeams(prop->chr, g_MpBotChrPtrs[i], COMPARE_ENEMIES))) {
-				xdiff = g_MpBotChrPtrs[i]->prop->pos.x - pad.pos.x;
-				ydiff = g_MpBotChrPtrs[i]->prop->pos.y - pad.pos.y;
-				zdiff = g_MpBotChrPtrs[i]->prop->pos.z - pad.pos.z;
+				xdiff = g_MpBotChrPtrs[i]->prop->pos.x - pad->pos.x;
+				ydiff = g_MpBotChrPtrs[i]->prop->pos.y - pad->pos.y;
+				zdiff = g_MpBotChrPtrs[i]->prop->pos.z - pad->pos.z;
 
 				sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 
@@ -320,16 +320,16 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 	p = i; \
 	while (sllen < 4) {
 		if (padsqdists[p] > 1000 * 1000 && !badpads[p]) {
-			padUnpack(pads[p], PADFIELD_POS | PADFIELD_ROOM | PADFIELD_LOOK, &pad);
+			pad = &g_Pads[pads[p]];
 
-			slrooms[sllen][0] = pad.room;
+			slrooms[sllen][0] = pad->room;
 			slrooms[sllen][1] = -1;
 
-			slpositions[sllen].x = pad.pos.x;
-			slpositions[sllen].y = pad.pos.y;
-			slpositions[sllen].z = pad.pos.z;
+			slpositions[sllen].x = pad->pos.x;
+			slpositions[sllen].y = pad->pos.y;
+			slpositions[sllen].z = pad->pos.z;
 
-			slangles[sllen] = atan2f(pad.look.x, pad.look.z);
+			slangles[sllen] = atan2f(pad->look.x, pad->look.z);
 
 #if VERSION >= VERSION_NTSC_1_0
 			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
@@ -359,16 +359,16 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 
 	while (sllen < 4) {
 		if (padsqdists[p] > 1000 * 1000 && !verybadpads[p]) {
-			padUnpack(pads[p], PADFIELD_POS | PADFIELD_ROOM | PADFIELD_LOOK, &pad);
+			pad = &g_Pads[pads[p]];
 
-			slrooms[sllen][0] = pad.room;
+			slrooms[sllen][0] = pad->room;
 			slrooms[sllen][1] = -1;
 
-			slpositions[sllen].x = pad.pos.x;
-			slpositions[sllen].y = pad.pos.y;
-			slpositions[sllen].z = pad.pos.z;
+			slpositions[sllen].x = pad->pos.x;
+			slpositions[sllen].y = pad->pos.y;
+			slpositions[sllen].z = pad->pos.z;
 
-			slangles[sllen] = atan2f(pad.look.x, pad.look.z);
+			slangles[sllen] = atan2f(pad->look.x, pad->look.z);
 
 #if VERSION >= VERSION_NTSC_1_0
 			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
@@ -420,16 +420,16 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 		}
 
 		// Add this pad to the shortlist
-		padUnpack(pads[i], PADFIELD_POS | PADFIELD_ROOM | PADFIELD_LOOK, &pad);
+		pad = &g_Pads[pads[i]];
 
-		slrooms[sllen][0] = pad.room;
+		slrooms[sllen][0] = pad->room;
 		slrooms[sllen][1] = -1;
 
-		slpositions[sllen].x = pad.pos.x;
-		slpositions[sllen].y = pad.pos.y;
-		slpositions[sllen].z = pad.pos.z;
+		slpositions[sllen].x = pad->pos.x;
+		slpositions[sllen].y = pad->pos.y;
+		slpositions[sllen].z = pad->pos.z;
 
-		slangles[sllen] = atan2f(pad.look.x, pad.look.z);
+		slangles[sllen] = atan2f(pad->look.x, pad->look.z);
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
@@ -459,16 +459,16 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 		dstangle = slangles[p];
 	} else {
 		// No shortlisted pads, so pick a random one from the full selection
-		padUnpack(pads[random() % numpads], PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
+		pad = &g_Pads[pads[random() % numpads]];
 
-		dstrooms[0] = pad.room;
+		dstrooms[0] = pad->room;
 		dstrooms[1] = -1;
 
-		dstpos->x = pad.pos.x;
-		dstpos->y = pad.pos.y;
-		dstpos->z = pad.pos.z;
+		dstpos->x = pad->pos.x;
+		dstpos->y = pad->pos.y;
+		dstpos->z = pad->pos.z;
 
-		dstangle = atan2f(pad.look.x, pad.look.z);
+		dstangle = atan2f(pad->look.x, pad->look.z);
 	}
 
 	return dstangle;
@@ -1711,7 +1711,6 @@ void playerPrepareWarpType3(f32 posangle, f32 rotangle, f32 range, f32 height1, 
 
 void playerExecutePreparedWarp(void)
 {
-	struct pad pad;
 	struct coord pos = {0, 0, 0};
 	struct coord look = {0, 0, 1};
 	struct coord up = {0, 1, 0};
@@ -1724,17 +1723,15 @@ void playerExecutePreparedWarp(void)
 		// Warp to an exact position with a static direction of 0, 0, 1.
 		// Used by device and holo training to warp player back to room,
 		// and Deep Sea teleports
-		padUnpack(g_WarpType1Pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
-
-		memcampos.x = pad.pos.x;
-		memcampos.y = pad.pos.y;
-		memcampos.z = pad.pos.z;
+		memcampos.x = g_Pads[g_WarpType1Pad].pos.x;
+		memcampos.y = g_Pads[g_WarpType1Pad].pos.y;
+		memcampos.z = g_Pads[g_WarpType1Pad].pos.z;
 
 		pos.x = memcampos.f[0];
 		pos.y = memcampos.f[1];
 		pos.z = memcampos.f[2];
 
-		room = pad.room;
+		room = g_Pads[g_WarpType1Pad].room;
 	} else if (g_WarpType2Params) {
 		// Warp to an exact position with an optional direction.
 		// Used by AI command 00df, but that command is not used.
@@ -1742,13 +1739,11 @@ void playerExecutePreparedWarp(void)
 		pos.y = g_WarpType2Params->pos.y;
 		pos.z = g_WarpType2Params->pos.z;
 
-		padUnpack(g_WarpType2Params->pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+		room = g_Pads[g_WarpType2Params->pad].room;
 
-		room = pad.room;
-
-		memcampos.x = pad.pos.x;
-		memcampos.y = pad.pos.y;
-		memcampos.z = pad.pos.z;
+		memcampos.x = g_Pads[g_WarpType2Params->pad].pos.x;
+		memcampos.y = g_Pads[g_WarpType2Params->pad].pos.y;
+		memcampos.z = g_Pads[g_WarpType2Params->pad].pos.z;
 
 		if (1);
 
@@ -1761,13 +1756,11 @@ void playerExecutePreparedWarp(void)
 		// Warp to a location within a specified range and angle of the pad,
 		// with options for the direction and height offset from the pad.
 		// Used by AI command 00f4, but that command is not used.
-		padUnpack(g_WarpType3Pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+		room = g_Pads[g_WarpType3Pad].room;
 
-		room = pad.room;
-
-		memcampos.x = pad.pos.x;
-		memcampos.y = pad.pos.y;
-		memcampos.z = pad.pos.z;
+		memcampos.x = g_Pads[g_WarpType3Pad].pos.x;
+		memcampos.y = g_Pads[g_WarpType3Pad].pos.y;
+		memcampos.z = g_Pads[g_WarpType3Pad].pos.z;
 
 		pos.x = memcampos.x + sinf(g_WarpType3PosAngle) * g_WarpType3Range + cosf(g_WarpType3PosAngle) * 0.0f;
 		pos.y = memcampos.y + g_WarpType3MoreHeight + g_WarpType3Height;
@@ -4286,19 +4279,20 @@ void playerTick(bool arg0)
 		f32 zdist;
 		f32 diffangle;
 		f32 direction;
-		struct pad pad;
+		struct pad *pad;
 		f32 speedfrac;
 
 		playerRemoveChrBody();
-		padUnpack(g_Vars.currentplayer->autocontrol_aimpad, PADFIELD_POS, &pad);
+		pad = &g_Pads[g_Vars.currentplayer->autocontrol_aimpad];
 
 		if (mainGetStageNum() == g_Stages[STAGEINDEX_EXTRACTION].id
 				&& g_Vars.currentplayer->autocontrol_aimpad == 0x19) {
-			pad.pos.x -= 100;
+			xdist = pad->pos.x - 100 - g_Vars.currentplayer->bond2.unk10.x;
+		} else {
+			xdist = pad->pos.x - g_Vars.currentplayer->bond2.unk10.x;
 		}
 
-		xdist = pad.pos.x - g_Vars.currentplayer->bond2.unk10.x;
-		zdist = pad.pos.z - g_Vars.currentplayer->bond2.unk10.z;
+		zdist = pad->pos.z - g_Vars.currentplayer->bond2.unk10.z;
 		targetangle = atan2f(xdist, zdist);
 
 		if (targetangle > M_BADTAU) {

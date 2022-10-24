@@ -2791,7 +2791,7 @@ Gfx *sky0f126de8(Gfx *gdl)
 	f32 f20_2;
 	f32 f22;
 	f32 f22_3;
-	struct pad pad;
+	struct pad *pad;
 	struct coord spe0;
 	f32 spd0[4];
 	Mtxf mtx;
@@ -2821,17 +2821,17 @@ Gfx *sky0f126de8(Gfx *gdl)
 		f20 = 1.0f;
 	}
 
-	padUnpack(g_Vars.currentplayer->teleportpad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP, &pad);
+	pad = &g_Pads[g_Vars.currentplayer->teleportpad];
 
-	g_TeleportToPos.x = pad.pos.x;
-	g_TeleportToPos.y = pad.pos.y;
-	g_TeleportToPos.z = pad.pos.z;
-	g_TeleportToLook.x = pad.look.x;
-	g_TeleportToLook.y = pad.look.y;
-	g_TeleportToLook.z = pad.look.z;
-	g_TeleportToUp.x = pad.up.x;
-	g_TeleportToUp.y = pad.up.y;
-	g_TeleportToUp.z = pad.up.z;
+	g_TeleportToPos.x = pad->pos.x;
+	g_TeleportToPos.y = pad->pos.y;
+	g_TeleportToPos.z = pad->pos.z;
+	g_TeleportToLook.x = pad->look.x;
+	g_TeleportToLook.y = pad->look.y;
+	g_TeleportToLook.z = pad->look.z;
+	g_TeleportToUp.x = pad->up.x;
+	g_TeleportToUp.y = pad->up.y;
+	g_TeleportToUp.z = pad->up.z;
 
 	f22 = -cosf(f22 * M_PI) * 0.5f + .5f;
 	f24 = 100 * f22;

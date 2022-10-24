@@ -345,7 +345,7 @@ s32 bodyChooseHead(s32 bodynum)
  */
 void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 {
-	struct pad pad;
+	struct pad *pad;
 	s16 rooms[2];
 	struct chrdata *chr;
 	struct modelfiledata *headfiledata;
@@ -356,12 +356,12 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	f32 angle;
 	s32 index;
 
-	padUnpack(packed->padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
+	pad = &g_Pads[packed->padnum];
 
-	rooms[0] = pad.room;
+	rooms[0] = pad->room;
 	rooms[1] = -1;
 
-	if (cdTestVolume(&pad.pos, 20, rooms, CDTYPE_ALL, CHECKVERTICAL_YES, 200, -200) == CDRESULT_COLLISION
+	if (cdTestVolume(&pad->pos, 20, rooms, CDTYPE_ALL, CHECKVERTICAL_YES, 200, -200) == CDRESULT_COLLISION
 			&& packed->chair == -1
 			&& (packed->spawnflags & SPAWNFLAG_IGNORECOLLISION) == 0) {
 		return;
@@ -411,8 +411,8 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	}
 
 	if (model != NULL) {
-		angle = atan2f(pad.look.x, pad.look.z);
-		prop = chrAllocate(model, &pad.pos, rooms, angle, ailistFindById(packed->ailistnum));
+		angle = atan2f(pad->look.x, pad->look.z);
+		prop = chrAllocate(model, &pad->pos, rooms, angle, ailistFindById(packed->ailistnum));
 
 		if (prop != NULL) {
 			propActivate(prop);

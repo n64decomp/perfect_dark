@@ -27,24 +27,22 @@ bool padHasBboxData(s32 padnum)
 
 void padGetCentre(s32 padnum, struct coord *coord)
 {
-	struct pad pad;
+	struct pad *pad = &g_Pads[padnum];
 
-	padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
+	coord->x = pad->pos.f[0] + (
+			(pad->bbox.xmin + pad->bbox.xmax) * pad->normal.f[0] +
+			(pad->bbox.ymin + pad->bbox.ymax) * pad->up.f[0] +
+			(pad->bbox.zmin + pad->bbox.zmax) * pad->look.f[0]) * 0.5f;
 
-	coord->x = pad.pos.f[0] + (
-			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.f[0] +
-			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.f[0] +
-			(pad.bbox.zmin + pad.bbox.zmax) * pad.look.f[0]) * 0.5f;
+	coord->y = pad->pos.f[1] + (
+			(pad->bbox.xmin + pad->bbox.xmax) * pad->normal.f[1] +
+			(pad->bbox.ymin + pad->bbox.ymax) * pad->up.f[1] +
+			(pad->bbox.zmin + pad->bbox.zmax) * pad->look.f[1]) * 0.5f;
 
-	coord->y = pad.pos.f[1] + (
-			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.f[1] +
-			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.f[1] +
-			(pad.bbox.zmin + pad.bbox.zmax) * pad.look.f[1]) * 0.5f;
-
-	coord->z = pad.pos.f[2] + (
-			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.f[2] +
-			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.f[2] +
-			(pad.bbox.zmin + pad.bbox.zmax) * pad.look.f[2]) * 0.5f;
+	coord->z = pad->pos.f[2] + (
+			(pad->bbox.xmin + pad->bbox.xmax) * pad->normal.f[2] +
+			(pad->bbox.ymin + pad->bbox.ymax) * pad->up.f[2] +
+			(pad->bbox.zmin + pad->bbox.zmax) * pad->look.f[2]) * 0.5f;
 }
 
 /**

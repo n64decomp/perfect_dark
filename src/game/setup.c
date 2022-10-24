@@ -387,7 +387,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 {
 	f32 f0;
 	s32 modelnum;
-	struct pad pad;
+	struct pad *pad;
 	Mtxf mtx;
 	struct coord centre;
 	f32 scale;
@@ -443,33 +443,33 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 			return;
 		}
 
-		padUnpack(obj->pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_BBOX | PADFIELD_ROOM, &pad);
+		pad = &g_Pads[obj->pad];
 
-		if (pad.room > 0) {
-			mtx00016d58(&mtx, 0, 0, 0, -pad.look.x, -pad.look.y, -pad.look.z, pad.up.x, pad.up.y, pad.up.z);
+		if (pad->room > 0) {
+			mtx00016d58(&mtx, 0, 0, 0, -pad->look.x, -pad->look.y, -pad->look.z, pad->up.x, pad->up.y, pad->up.z);
 
-			pos.x = pad.pos.x;
-			pos.y = pad.pos.y;
-			pos.z = pad.pos.z;
+			pos.x = pad->pos.x;
+			pos.y = pad->pos.y;
+			pos.z = pad->pos.z;
 
-			rooms[0] = pad.room;
+			rooms[0] = pad->room;
 			rooms[1] = -1;
 
 			if (!padHasBboxData(obj->pad)) {
 				if (obj->flags & OBJFLAG_00000002) {
-					centre.x = pad.pos.x;
-					centre.y = pad.pos.y;
-					centre.z = pad.pos.z;
+					centre.x = pad->pos.x;
+					centre.y = pad->pos.y;
+					centre.z = pad->pos.z;
 				} else {
-					centre.x = pad.pos.x;
-					centre.y = pad.pos.y;
-					centre.z = pad.pos.z;
+					centre.x = pad->pos.x;
+					centre.y = pad->pos.y;
+					centre.z = pad->pos.z;
 				}
 			} else {
 				padGetCentre(obj->pad, &centre);
-				centre.x += (pad.bbox.ymin - pad.bbox.ymax) * 0.5f * pad.up.x;
-				centre.y += (pad.bbox.ymin - pad.bbox.ymax) * 0.5f * pad.up.y;
-				centre.z += (pad.bbox.ymin - pad.bbox.ymax) * 0.5f * pad.up.z;
+				centre.x += (pad->bbox.ymin - pad->bbox.ymax) * 0.5f * pad->up.x;
+				centre.y += (pad->bbox.ymin - pad->bbox.ymax) * 0.5f * pad->up.y;
+				centre.z += (pad->bbox.ymin - pad->bbox.ymax) * 0.5f * pad->up.z;
 			}
 
 			if (obj->type == OBJTYPE_WEAPON) {
@@ -493,9 +493,9 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 					if (obj->flags & OBJFLAG_00000020) {
 						if (bbox->xmin < bbox->xmax) {
 							if (obj->flags & OBJFLAG_00000002) {
-								xscale = (pad.bbox.xmax - pad.bbox.xmin) / ((bbox->xmax - bbox->xmin) * obj->model->scale);
+								xscale = (pad->bbox.xmax - pad->bbox.xmin) / ((bbox->xmax - bbox->xmin) * obj->model->scale);
 							} else {
-								xscale = (pad.bbox.xmax - pad.bbox.xmin) / ((bbox->xmax - bbox->xmin) * obj->model->scale);
+								xscale = (pad->bbox.xmax - pad->bbox.xmin) / ((bbox->xmax - bbox->xmin) * obj->model->scale);
 							}
 						}
 					}
@@ -503,9 +503,9 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 					if (obj->flags & flag40) {
 						if (bbox->ymin < bbox->ymax) {
 							if (obj->flags & OBJFLAG_00000002) {
-								zscale = (pad.bbox.zmax - pad.bbox.zmin) / ((bbox->ymax - bbox->ymin) * obj->model->scale);
+								zscale = (pad->bbox.zmax - pad->bbox.zmin) / ((bbox->ymax - bbox->ymin) * obj->model->scale);
 							} else {
-								yscale = (pad.bbox.ymax - pad.bbox.ymin) / ((bbox->ymax - bbox->ymin) * obj->model->scale);
+								yscale = (pad->bbox.ymax - pad->bbox.ymin) / ((bbox->ymax - bbox->ymin) * obj->model->scale);
 							}
 						}
 					}
@@ -513,9 +513,9 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 					if (obj->flags & OBJFLAG_00000080) {
 						if (bbox->zmin < bbox->zmax) {
 							if (obj->flags & OBJFLAG_00000002) {
-								yscale = (pad.bbox.ymax - pad.bbox.ymin) / ((bbox->zmax - bbox->zmin) * obj->model->scale);
+								yscale = (pad->bbox.ymax - pad->bbox.ymin) / ((bbox->zmax - bbox->zmin) * obj->model->scale);
 							} else {
-								zscale = (pad.bbox.zmax - pad.bbox.zmin) / ((bbox->zmax - bbox->zmin) * obj->model->scale);
+								zscale = (pad->bbox.zmax - pad->bbox.zmin) / ((bbox->zmax - bbox->zmin) * obj->model->scale);
 							}
 						}
 					}
@@ -799,12 +799,12 @@ void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
 	if (cctv->lookatpadnum >= 0) {
 		struct coord lenspos;
 		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_CCTV_CASING);
-		struct pad pad;
+		struct pad *pad;
 		f32 xdiff;
 		f32 ydiff;
 		f32 zdiff;
 
-		padUnpack(cctv->lookatpadnum, PADFIELD_POS, &pad);
+		pad = &g_Pads[cctv->lookatpadnum];
 
 		lenspos.x = lens->position.pos.x;
 		lenspos.y = lens->position.pos.y;
@@ -816,9 +816,9 @@ void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
 		lenspos.y += obj->prop->pos.y;
 		lenspos.z += obj->prop->pos.z;
 
-		xdiff = lenspos.x - pad.pos.x;
-		ydiff = lenspos.y - pad.pos.y;
-		zdiff = lenspos.z - pad.pos.z;
+		xdiff = lenspos.x - pad->pos.x;
+		ydiff = lenspos.y - pad->pos.y;
+		zdiff = lenspos.z - pad->pos.z;
 
 		if (ydiff) {
 			// empty
@@ -879,13 +879,13 @@ void setupCreateAutogun(struct autogunobj *autogun, s32 cmdindex)
 		f32 ydiff;
 		f32 zdiff;
 		u32 stack2;
-		struct pad pad;
+		struct pad *pad;
 
-		padUnpack(autogun->targetpad, PADFIELD_POS, &pad);
+		pad = &g_Pads[autogun->targetpad];
 
-		xdiff = pad.pos.x - autogun->base.prop->pos.x;
-		ydiff = pad.pos.y - autogun->base.prop->pos.y;
-		zdiff = pad.pos.z - autogun->base.prop->pos.z;
+		xdiff = pad->pos.x - autogun->base.prop->pos.x;
+		ydiff = pad->pos.y - autogun->base.prop->pos.y;
+		zdiff = pad->pos.z - autogun->base.prop->pos.z;
 
 		autogun->yzero = atan2f(xdiff, zdiff);
 		autogun->xzero = atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
@@ -989,20 +989,20 @@ s32 setupGetPortalByPad(s32 padnum)
 	struct coord centre;
 	struct coord coord;
 	u32 stack;
-	struct pad pad;
+	struct pad *pad;
 
 	padGetCentre(padnum, &centre);
-	padUnpack(padnum, PADFIELD_BBOX | PADFIELD_UP, &pad);
+	pad = &g_Pads[padnum];
 
-	mult = (pad.bbox.ymax - pad.bbox.ymin) * 0.5f + 10;
+	mult = (pad->bbox.ymax - pad->bbox.ymin) * 0.5f + 10;
 
-	coord.x = pad.up.x * mult + centre.x;
-	coord.y = pad.up.y * mult + centre.y;
-	coord.z = pad.up.z * mult + centre.z;
+	coord.x = pad->up.x * mult + centre.x;
+	coord.y = pad->up.y * mult + centre.y;
+	coord.z = pad->up.z * mult + centre.z;
 
-	centre.x = centre.x - pad.up.x * mult;
-	centre.y = centre.y - pad.up.y * mult;
-	centre.z = centre.z - pad.up.z * mult;
+	centre.x = centre.x - pad->up.x * mult;
+	centre.y = centre.y - pad->up.y * mult;
+	centre.z = centre.z - pad->up.z * mult;
 
 	return bg0f164e8c(&centre, &coord);
 }
@@ -1013,20 +1013,21 @@ s32 setupGetPortalByDoorPad(s32 padnum)
 	struct coord centre;
 	struct coord coord;
 	u32 stack;
-	struct pad pad;
+	struct pad *pad;
 
 	padGetCentre(padnum, &centre);
-	padUnpack(padnum, PADFIELD_BBOX | PADFIELD_NORMAL, &pad);
 
-	mult = (pad.bbox.xmax - pad.bbox.xmin) * 0.5f + 10;
+	pad = &g_Pads[padnum];
 
-	coord.x = pad.normal.x * mult + centre.x;
-	coord.y = pad.normal.y * mult + centre.y;
-	coord.z = pad.normal.z * mult + centre.z;
+	mult = (pad->bbox.xmax - pad->bbox.xmin) * 0.5f + 10;
 
-	centre.x = centre.x - pad.normal.x * mult;
-	centre.y = centre.y - pad.normal.y * mult;
-	centre.z = centre.z - pad.normal.z * mult;
+	coord.x = pad->normal.x * mult + centre.x;
+	coord.y = pad->normal.y * mult + centre.y;
+	coord.z = pad->normal.z * mult + centre.z;
+
+	centre.x = centre.x - pad->normal.x * mult;
+	centre.y = centre.y - pad->normal.y * mult;
+	centre.z = centre.z - pad->normal.z * mult;
 
 	return bg0f164e8c(&centre, &coord);
 }
@@ -1036,7 +1037,7 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 	f32 scale;
 	s32 modelnum = door->base.modelnum;
 	s32 portalnum = -1;
-	struct pad pad;
+	struct pad *pad;
 
 	setupLoadModeldef(modelnum);
 
@@ -1048,16 +1049,16 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 		portalnum = setupGetPortalByDoorPad(door->base.pad);
 	}
 
-	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX | PADFIELD_ROOM, &pad);
+	pad = &g_Pads[door->base.pad];
 
 	if (g_DoorScale != 1) {
-		pad.bbox.xmin *= g_DoorScale;
-		pad.bbox.xmax *= g_DoorScale;
+		pad->bbox.xmin *= g_DoorScale;
+		pad->bbox.xmax *= g_DoorScale;
 
 		// If the door has a portal, adjust the pad's bbox to match the portal's dimensions
 		if (portalnum >= 0) {
 			struct var800a4ccc *ptr = &var800a4ccc[portalnum];
-			f32 f0 = pad.pos.f[0] * ptr->coord.f[0] + pad.pos.f[1] * ptr->coord.f[1] + pad.pos.f[2] * ptr->coord.f[2];
+			f32 f0 = pad->pos.f[0] * ptr->coord.f[0] + pad->pos.f[1] * ptr->coord.f[1] + pad->pos.f[2] * ptr->coord.f[2];
 			f32 min = ptr->min;
 			struct coord sp150;
 			f0 = (f0 - min) * (g_DoorScale - 1);
@@ -1066,24 +1067,21 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 			sp150.y = ptr->coord.y * f0;
 			sp150.z = ptr->coord.z * f0;
 
-			f0 = sp150.f[0] * pad.normal.f[0] + sp150.f[1] * pad.normal.f[1] + sp150.f[2] * pad.normal.f[2];
-			pad.bbox.xmin += f0;
-			pad.bbox.xmax += f0;
+			f0 = sp150.f[0] * pad->normal.f[0] + sp150.f[1] * pad->normal.f[1] + sp150.f[2] * pad->normal.f[2];
+			pad->bbox.xmin += f0;
+			pad->bbox.xmax += f0;
 
-			f0 = sp150.f[0] * pad.up.f[0] + sp150.f[1] * pad.up.f[1] + sp150.f[2] * pad.up.f[2];
-			pad.bbox.ymin += f0;
-			pad.bbox.ymax += f0;
+			f0 = sp150.f[0] * pad->up.f[0] + sp150.f[1] * pad->up.f[1] + sp150.f[2] * pad->up.f[2];
+			pad->bbox.ymin += f0;
+			pad->bbox.ymax += f0;
 
-			f0 = sp150.f[0] * pad.look.f[0] + sp150.f[1] * pad.look.f[1] + sp150.f[2] * pad.look.f[2];
-			pad.bbox.zmin += f0;
-			pad.bbox.zmax += f0;
+			f0 = sp150.f[0] * pad->look.f[0] + sp150.f[1] * pad->look.f[1] + sp150.f[2] * pad->look.f[2];
+			pad->bbox.zmin += f0;
+			pad->bbox.zmax += f0;
 		}
-
-		// Write the modified bbox into the pad file data
-		padCopyBboxFromPad(door->base.pad, &pad);
 	}
 
-	if (pad.room > 0) {
+	if (pad->room > 0) {
 		Mtxf sp110;
 		struct prop *prop;
 		s32 siblingcmdindex;
@@ -1101,8 +1099,8 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 		bbox = modelFileDataFindBboxRodata(g_ModelStates[modelnum].filedata);
 
 		mtx00016d58(&sp110, 0, 0, 0,
-				-pad.look.x, -pad.look.y, -pad.look.z,
-				pad.up.x, pad.up.y, pad.up.z);
+				-pad->look.x, -pad->look.y, -pad->look.z,
+				pad->up.x, pad->up.y, pad->up.z);
 		mtx4LoadXRotation(1.5705462694168f, &finalmtx);
 		mtx4LoadZRotation(1.5705462694168f, &zrotmtx);
 		mtx4MultMtx4InPlace(&zrotmtx, &finalmtx);
@@ -1110,9 +1108,9 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 
 		padGetCentre(door->base.pad, &centre);
 
-		xscale = (pad.bbox.ymax - pad.bbox.ymin) / (bbox->xmax - bbox->xmin);
-		yscale = (pad.bbox.zmax - pad.bbox.zmin) / (bbox->ymax - bbox->ymin);
-		zscale = (pad.bbox.xmax - pad.bbox.xmin) / (bbox->zmax - bbox->zmin);
+		xscale = (pad->bbox.ymax - pad->bbox.ymin) / (bbox->xmax - bbox->xmin);
+		yscale = (pad->bbox.zmax - pad->bbox.zmin) / (bbox->ymax - bbox->ymin);
+		zscale = (pad->bbox.xmax - pad->bbox.xmin) / (bbox->zmax - bbox->zmin);
 
 		if (xscale <= 0.000001f || yscale <= 0.000001f || zscale <= 0.000001f) {
 			xscale = yscale = zscale = 1;
@@ -1122,21 +1120,21 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 		mtx00015e80(yscale, &finalmtx);
 		mtx00015edc(zscale, &finalmtx);
 
-		pos.x = pad.pos.x;
-		pos.y = pad.pos.y;
-		pos.z = pad.pos.z;
+		pos.x = pad->pos.x;
+		pos.y = pad->pos.y;
+		pos.z = pad->pos.z;
 
-		rooms[0] = pad.room;
+		rooms[0] = pad->room;
 		rooms[1] = -1;
 
 		if (door->doortype == DOORTYPE_VERTICAL || door->doortype == DOORTYPE_FALLAWAY) {
-			sp54.x = pad.look.f[0] * (pad.bbox.zmax - pad.bbox.zmin);
-			sp54.y = pad.look.f[1] * (pad.bbox.zmax - pad.bbox.zmin);
-			sp54.z = pad.look.f[2] * (pad.bbox.zmax - pad.bbox.zmin);
+			sp54.x = pad->look.f[0] * (pad->bbox.zmax - pad->bbox.zmin);
+			sp54.y = pad->look.f[1] * (pad->bbox.zmax - pad->bbox.zmin);
+			sp54.z = pad->look.f[2] * (pad->bbox.zmax - pad->bbox.zmin);
 		} else {
-			sp54.x = pad.up.f[0] * (pad.bbox.ymin - pad.bbox.ymax);
-			sp54.y = pad.up.f[1] * (pad.bbox.ymin - pad.bbox.ymax);
-			sp54.z = pad.up.f[2] * (pad.bbox.ymin - pad.bbox.ymax);
+			sp54.x = pad->up.f[0] * (pad->bbox.ymin - pad->bbox.ymax);
+			sp54.y = pad->up.f[1] * (pad->bbox.ymin - pad->bbox.ymax);
+			sp54.z = pad->up.f[2] * (pad->bbox.ymin - pad->bbox.ymax);
 		}
 
 		// These values are stored in the setup files as integers, but at

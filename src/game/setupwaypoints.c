@@ -15,8 +15,8 @@ void setupLoadWaypoints(void)
 	s32 numinserted;
 	s32 j;
 	s32 k;
-	struct pad pad;
-	struct pad pad2;
+	struct pad *pad1;
+	struct pad *pad2;
 	s32 i;
 	s32 currentroom;
 
@@ -39,20 +39,20 @@ void setupLoadWaypoints(void)
 	// Populate g_Vars.waypointnums, ordering them by roomnum asc, padnum asc
 	for (i = 0; i < numwaypoints; i++) {
 		waypoint = &waypoints[i];
-		padUnpack(waypoint->padnum, PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
+		pad1 = &g_Pads[waypoint->padnum];
 
 		// Iterate previously processed waypoints and bail if the outer loop's
 		// waypoint should be inserted prior to this one
 		for (j = 0; j < numinserted; j++) {
 			waypoint2 = &waypoints[g_Vars.waypointnums[j]];
-			padUnpack(waypoint2->padnum, PADFIELD_ROOM | PADFIELD_FLAGS, &pad2);
+			pad2 = &g_Pads[waypoint2->padnum];
 
-			if (pad.room < pad2.room) {
+			if (pad1->room < pad2->room) {
 				break;
 			}
 
-			if (pad.room == pad2.room
-					&& ((pad2.flags & PADFLAG_AIDROP) || waypoint->padnum < waypoint2->padnum)) {
+			if (pad1->room == pad2->room
+					&& ((pad2->flags & PADFLAG_AIDROP) || waypoint->padnum < waypoint2->padnum)) {
 				break;
 			}
 		}
@@ -78,14 +78,14 @@ void setupLoadWaypoints(void)
 
 	for (i = 0; i < numwaypoints; i++) {
 		waypoint = &g_StageSetup.waypoints[g_Vars.waypointnums[i]];
-		padUnpack(waypoint->padnum, PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
+		pad1 = &g_Pads[waypoint->padnum];
 
-		if (pad.room != currentroom) {
-			currentroom = pad.room;
+		if (pad1->room != currentroom) {
+			currentroom = pad1->room;
 			g_Rooms[currentroom].firstwaypoint = i;
 		}
 
-		if ((pad.flags & PADFLAG_AIDROP) == 0 && currentroom != -1) {
+		if ((pad1->flags & PADFLAG_AIDROP) == 0 && currentroom != -1) {
 			g_Rooms[currentroom].numwaypoints++;
 		}
 	}

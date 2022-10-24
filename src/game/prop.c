@@ -2208,7 +2208,7 @@ void propsTickPlayer(bool islastplayer)
 void propsTickPadEffects(void)
 {
 	s32 i;
-	struct pad pad;
+	struct pad *pad;
 	u32 stack;
 	struct coord up;
 	s16 rooms[2];
@@ -2219,36 +2219,34 @@ void propsTickPadEffects(void)
 		for (i = 0; i <= g_LastPadEffectIndex; i++) {
 			struct padeffectobj *effect = &g_PadEffects[i];
 
-			padUnpack(effect->pad, PADFIELD_ROOM, &pad);
+			pad = &g_Pads[effect->pad];
 
-			if (roomIsOnscreen(pad.room)) {
+			if (roomIsOnscreen(pad->room)) {
 				switch (effect->effect) {
 				case PADEFFECT_SPARKS:
 				case PADEFFECT_SPARKS2:
-					rooms[0] = pad.room;
+					rooms[0] = pad->room;
 					rooms[1] = -1;
 
-					padUnpack(effect->pad, PADFIELD_POS | PADFIELD_UP, &pad);
-
-					up.x = -pad.up.x;
-					up.y = -pad.up.y;
-					up.z = -pad.up.z;
+					up.x = -pad->up.x;
+					up.y = -pad->up.y;
+					up.z = -pad->up.z;
 
 					if ((random() % 2048) <= 50) {
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
-						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+						sparksCreate(rooms[0], NULL, &pad->pos, &up, &pad->up, SPARKTYPE_ENVIRONMENTAL1);
+						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad->pos, -1, rooms, -1, -1, -1, -1);
 					}
 
 					if ((random() % 2048) <= 15) {
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL2);
-						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+						sparksCreate(rooms[0], NULL, &pad->pos, &up, &pad->up, SPARKTYPE_ENVIRONMENTAL1);
+						sparksCreate(rooms[0], NULL, &pad->pos, &up, &pad->up, SPARKTYPE_ENVIRONMENTAL2);
+						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad->pos, -1, rooms, -1, -1, -1, -1);
 					}
 
 					if ((random() % 2048) <= 5) {
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL3);
-						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+						sparksCreate(rooms[0], NULL, &pad->pos, &up, &pad->up, SPARKTYPE_ENVIRONMENTAL1);
+						sparksCreate(rooms[0], NULL, &pad->pos, &up, &pad->up, SPARKTYPE_ENVIRONMENTAL3);
+						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad->pos, -1, rooms, -1, -1, -1, -1);
 					}
 					break;
 				case PADEFFECT_OUTROSMOKE:
@@ -2272,11 +2270,10 @@ void propsTickPadEffects(void)
 						break;
 					}
 
-					rooms2[0] = pad.room;
+					rooms2[0] = pad->room;
 					rooms2[1] = -1;
 
-					padUnpack(effect->pad, PADFIELD_POS | PADFIELD_UP, &pad);
-					smokeCreateAtPadEffect(effect, &pad.pos, rooms2, type);
+					smokeCreateAtPadEffect(effect, &pad->pos, rooms2, type);
 					break;
 				case PADEFFECT_01:
 					break;

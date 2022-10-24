@@ -44,8 +44,7 @@ void playerInitEyespy(void)
 		 * the camspy will start in a trigger point for the mid cutscene,
 		 * causing the mid cutscene to play instead of the intro.
 		 */
-		padUnpack(nextpad++, PADFIELD_ROOM | PADFIELD_POS, &pad);
-		prop = bodyAllocateEyespy(&pad, pad.room);
+		prop = bodyAllocateEyespy(&pad, g_Pads[nextpad++].room);
 
 		if (prop) {
 			g_Vars.currentplayer->eyespy = mempAlloc(sizeof(struct eyespy), MEMPOOL_STAGE);

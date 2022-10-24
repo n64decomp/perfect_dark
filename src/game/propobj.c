@@ -706,12 +706,10 @@ bool func0f0677ac(struct coord *coord, struct coord *arg1, struct coord *pos,
 
 bool func0f0678f8(struct coord *coord, struct coord *arg1, s32 padnum)
 {
-	struct pad pad;
+	struct pad *pad = &g_Pads[padnum];
 
-	padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
-
-	return func0f0677ac(coord, arg1, &pad.pos, &pad.normal, &pad.up, &pad.look,
-			pad.bbox.xmin, pad.bbox.xmax, pad.bbox.ymin, pad.bbox.ymax, pad.bbox.zmin, pad.bbox.zmax);
+	return func0f0677ac(coord, arg1, &pad->pos, &pad->normal, &pad->up, &pad->look,
+			pad->bbox.xmin, pad->bbox.xmax, pad->bbox.ymin, pad->bbox.ymax, pad->bbox.zmin, pad->bbox.zmax);
 }
 
 bool func0f06797c(struct coord *coord, f32 arg1, s32 padnum)
@@ -1390,7 +1388,7 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 	s32 v1;
 	s32 result;
 	struct prop *loopprop;
-	struct pad pad;
+	struct pad *pad;
 
 #if VERSION < VERSION_PAL_BETA
 	static u32 debugdoors = 0;
@@ -1406,11 +1404,11 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 				struct coord *campos = &g_Vars.currentplayer->cam_pos;
 				loopprop = sibling->base.prop;
 
-				padUnpack(sibling->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_ROOM, &pad);
+				pad = &g_Pads[sibling->base.pad];
 
 				if (door->base.flags3 & OBJFLAG3_04000000) {
-					s3 += func0f000b24(pad.room);
-					s4 += func0f000c54(pad.room);
+					s3 += func0f000b24(pad->room);
+					s4 += func0f000c54(pad->room);
 					s5++;
 
 					s2 = s3 + s4;
@@ -1422,22 +1420,22 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 					f32 xdist;
 					f32 ydist;
 					f32 zdist;
-					struct coord *pos = &pad.pos;
-					struct coord *normal = &pad.normal;
+					struct coord *pos = &pad->pos;
+					struct coord normal = pad->normal;
 					f32 sum1;
 					f32 sum2;
 
 					if (door->doorflags & DOORFLAG_FLIP) {
-						normal->f[0] = -normal->f[0];
-						normal->f[1] = -normal->f[1];
-						normal->f[2] = -normal->f[2];
+						normal.f[0] = -normal.f[0];
+						normal.f[1] = -normal.f[1];
+						normal.f[2] = -normal.f[2];
 					}
 
 					xdist = campos->f[0] - pos->x;
 					ydist = campos->f[1] - pos->y;
 					zdist = campos->f[2] - pos->z;
 
-					sum1 = xdist * normal->x + ydist * normal->y + zdist * normal->z;
+					sum1 = xdist * normal.x + ydist * normal.y + zdist * normal.z;
 
 					for (i = 0; loopprop->rooms[i] != -1; i++) {
 						f32 roomx = g_Rooms[loopprop->rooms[i]].centre.x;
@@ -1447,7 +1445,7 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 						f32 ydist = roomy - pos->y;
 						f32 zdist = roomz - pos->z;
 
-						sum2 = xdist * normal->x + ydist * normal->y + zdist * normal->z;
+						sum2 = xdist * normal.x + ydist * normal.y + zdist * normal.z;
 
 						// @bug? Duplicate sum1 < 0.0f check in the first part.
 						// Perhaps one of them should be sum2 < 0.0f.
@@ -5768,14 +5766,11 @@ void liftActivate(struct prop *prop, u8 liftnum)
 
 struct prop *liftFindByPad(s16 padnum)
 {
-	struct pad pad;
-	padUnpack(padnum, PADFIELD_LIFT, &pad);
-
-	if (pad.liftnum <= 0 || pad.liftnum > MAX_LIFTS) {
+	if (g_Pads[padnum].liftnum <= 0 || g_Pads[padnum].liftnum > MAX_LIFTS) {
 		return NULL;
 	}
 
-	return g_Lifts[pad.liftnum - 1];
+	return g_Lifts[g_Pads[padnum].liftnum - 1];
 }
 
 f32 liftGetY(struct liftobj *lift)
@@ -5905,9 +5900,9 @@ void liftGoToStop(struct liftobj *lift, s32 stopnum)
 #if VERSION >= VERSION_NTSC_1_0
 	u32 stack;
 #endif
-	struct pad curpad;
-	struct pad aimpad;
-	struct pad reqpad;
+	struct pad *curpad;
+	struct pad *aimpad;
+	struct pad *reqpad;
 
 	if (lift->pads[stopnum] >= 0 && lift->levelaim != stopnum) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -5928,35 +5923,25 @@ void liftGoToStop(struct liftobj *lift, s32 stopnum)
 		}
 #endif
 
-		padUnpack(lift->pads[lift->levelcur], PADFIELD_POS, &curpad);
-		padUnpack(lift->pads[lift->levelaim], PADFIELD_POS, &aimpad);
-		padUnpack(lift->pads[stopnum], PADFIELD_POS, &reqpad);
+		curpad = &g_Pads[lift->pads[lift->levelcur]];
+		aimpad = &g_Pads[lift->pads[lift->levelaim]];
+		reqpad = &g_Pads[lift->pads[stopnum]];
 
 		// Figure out if the lift needs to reverse direction on any axis
-#if VERSION >= VERSION_NTSC_1_0
 		if (stopnum != lift->levelcur &&
-				((aimpad.pos.x >= curpad.pos.x && reqpad.pos.x >= curpad.pos.x) ||
-				 (curpad.pos.x >= aimpad.pos.x && curpad.pos.x >= reqpad.pos.x)) &&
-				((aimpad.pos.y >= curpad.pos.y && reqpad.pos.y >= curpad.pos.y) ||
-				 (curpad.pos.y >= aimpad.pos.y && curpad.pos.y >= reqpad.pos.y)) &&
-				((aimpad.pos.z >= curpad.pos.z && reqpad.pos.z >= curpad.pos.z) ||
-				 (curpad.pos.z >= aimpad.pos.z && curpad.pos.z >= reqpad.pos.z)))
-#else
-		if (((aimpad.pos.x >= curpad.pos.x && reqpad.pos.x >= aimpad.pos.x) ||
-				 (curpad.pos.x >= aimpad.pos.x && aimpad.pos.x >= reqpad.pos.x)) &&
-				((aimpad.pos.y >= curpad.pos.y && reqpad.pos.y >= aimpad.pos.y) ||
-				 (curpad.pos.y >= aimpad.pos.y && aimpad.pos.y >= reqpad.pos.y)) &&
-				((aimpad.pos.z >= curpad.pos.z && reqpad.pos.z >= aimpad.pos.z) ||
-				 (curpad.pos.z >= aimpad.pos.z && aimpad.pos.z >= reqpad.pos.z)))
-#endif
-		{
+				((aimpad->pos.x >= curpad->pos.x && reqpad->pos.x >= curpad->pos.x) ||
+				 (curpad->pos.x >= aimpad->pos.x && curpad->pos.x >= reqpad->pos.x)) &&
+				((aimpad->pos.y >= curpad->pos.y && reqpad->pos.y >= curpad->pos.y) ||
+				 (curpad->pos.y >= aimpad->pos.y && curpad->pos.y >= reqpad->pos.y)) &&
+				((aimpad->pos.z >= curpad->pos.z && reqpad->pos.z >= curpad->pos.z) ||
+				 (curpad->pos.z >= aimpad->pos.z && curpad->pos.z >= reqpad->pos.z))) {
 			// Same direction
 			lift->levelaim = stopnum;
 		} else {
 			// Reverse direction
-			f32 xdiff = aimpad.pos.x - curpad.pos.x;
-			f32 ydiff = aimpad.pos.y - curpad.pos.y;
-			f32 zdiff = aimpad.pos.z - curpad.pos.z;
+			f32 xdiff = aimpad->pos.x - curpad->pos.x;
+			f32 ydiff = aimpad->pos.y - curpad->pos.y;
+			f32 zdiff = aimpad->pos.z - curpad->pos.z;
 			f32 result = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 
 			lift->levelcur = lift->levelaim;
@@ -6462,7 +6447,7 @@ void hovercarFindNextPath(struct hovercarobj *hovercar)
 void hovercarStartNextPath(struct hovercarobj *hovercar)
 {
 	s32 *pads;
-	struct pad pad;
+	struct pad *pad;
 	Mtxf matrix;
 	s16 rooms[2];
 
@@ -6471,14 +6456,14 @@ void hovercarStartNextPath(struct hovercarobj *hovercar)
 	pads = hovercar->path->pads;
 	hovercar->nextstep = 0;
 
-	padUnpack(pads[0], PADFIELD_POS | PADFIELD_ROOM, &pad);
+	pad = &g_Pads[pads[0]];
 
 	mtx3ToMtx4(hovercar->base.realrot, &matrix);
 
-	rooms[0] = pad.room;
+	rooms[0] = pad->room;
 	rooms[1] = -1;
 
-	func0f06a730(&hovercar->base, &pad.pos, &matrix, rooms, &pad.pos);
+	func0f06a730(&hovercar->base, &pad->pos, &matrix, rooms, &pad->pos);
 
 	hovercar->base.flags |= OBJFLAG_HOVERCAR_20000000;
 }
@@ -7072,7 +7057,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 	Mtxf sp504;
 	Mtxf sp4c4;
 	Mtxf sp484;
-	struct pad pad;
+	struct pad *pad;
 	f32 dist;
 	f32 shield;
 	s32 i;
@@ -7177,7 +7162,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				haslimitedarea = obj->pad >= 0 && (obj->flags3 & (OBJFLAG3_GRABBABLE | OBJFLAG3_PUSHFREELY)) == 0;
 
 				if (haslimitedarea) {
-					padUnpack(obj->pad, PADFIELD_POS, &pad);
+					pad = &g_Pads[obj->pad];
 
 					innerdist = 200.0f;
 					outerdist = 300.0f;
@@ -7198,8 +7183,8 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 					}
 #endif
 
-					x = pad.pos.x - prop->pos.x;
-					z = pad.pos.z - prop->pos.z;
+					x = pad->pos.x - prop->pos.x;
+					z = pad->pos.z - prop->pos.z;
 
 					dist = sqrtf(x * x + z * z);
 
@@ -7228,8 +7213,8 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				sp59c.z = projectile->speed.z * g_Vars.lvupdate60freal;
 
 				if (haslimitedarea) {
-					x = pad.pos.x - prop->pos.x - sp59c.x;
-					z = pad.pos.z - prop->pos.z - sp59c.z;
+					x = pad->pos.x - prop->pos.x - sp59c.x;
+					z = pad->pos.z - prop->pos.z - sp59c.z;
 
 					dist = sqrtf(x * x + z * z);
 
@@ -7343,8 +7328,8 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						sp59c.z = sp590.f[2] * g_Vars.lvupdate60freal;
 
 						if (haslimitedarea) {
-							x = pad.pos.x - prop->pos.x - sp59c.x;
-							z = pad.pos.z - prop->pos.z - sp59c.z;
+							x = pad->pos.x - prop->pos.x - sp59c.x;
+							z = pad->pos.z - prop->pos.z - sp59c.z;
 
 							dist = sqrtf(x * x + z * z);
 
@@ -7377,8 +7362,8 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							sp59c.z = sp590.f[2] * g_Vars.lvupdate60freal;
 
 							if (haslimitedarea) {
-								x = pad.pos.x - prop->pos.x - sp59c.x;
-								z = pad.pos.z - prop->pos.z - sp59c.z;
+								x = pad->pos.x - prop->pos.x - sp59c.x;
+								z = pad->pos.z - prop->pos.z - sp59c.z;
 
 								dist = sqrtf(x * x + z * z);
 
@@ -7426,8 +7411,8 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 									sp59c.z = sp590.f[2] * g_Vars.lvupdate60freal;
 
 									if (haslimitedarea) {
-										x = pad.pos.x - prop->pos.x - sp59c.x;
-										z = pad.pos.z - prop->pos.z - sp59c.z;
+										x = pad->pos.x - prop->pos.x - sp59c.x;
+										z = pad->pos.z - prop->pos.z - sp59c.z;
 
 										dist = sqrtf(x * x + z * z);
 
@@ -8797,8 +8782,8 @@ void liftTick(struct prop *prop)
 	struct liftobj *lift = (struct liftobj *)prop->obj;
 	struct defaultobj *obj = prop->obj;
 	struct doorobj *door;
-	struct pad padcur;
-	struct pad padaim;
+	struct pad *padcur;
+	struct pad *padaim;
 	f32 segdist;
 	f32 xdiff;
 	f32 ydiff;
@@ -8848,12 +8833,12 @@ void liftTick(struct prop *prop)
 			}
 
 			padGetCentre(lift->pads[lift->levelcur], &curcentre);
-			padUnpack(lift->pads[lift->levelcur], PADFIELD_POS, &padcur);
-			padUnpack(lift->pads[lift->levelaim], PADFIELD_POS, &padaim);
+			padcur = &g_Pads[lift->pads[lift->levelcur]];
+			padaim = &g_Pads[lift->pads[lift->levelaim]];
 
-			xdiff = padaim.pos.f[0] - padcur.pos.f[0];
-			ydiff = padaim.pos.f[1] - padcur.pos.f[1];
-			zdiff = padaim.pos.f[2] - padcur.pos.f[2];
+			xdiff = padaim->pos.f[0] - padcur->pos.f[0];
+			ydiff = padaim->pos.f[1] - padcur->pos.f[1];
+			zdiff = padaim->pos.f[2] - padcur->pos.f[2];
 
 			segdist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 
@@ -10794,8 +10779,8 @@ void chopperTickFall(struct prop *chopperprop)
 	f32 *z = &chopper->fall.z;
 	struct coord speed;
 	s32 i;
-	struct pad prevpad;
-	struct pad nextpad;
+	struct pad *prevpad;
+	struct pad *nextpad;
 	f32 xdiff;
 	f32 zdiff;
 	f32 tmp;
@@ -10817,11 +10802,11 @@ void chopperTickFall(struct prop *chopperprop)
 				}
 			}
 
-			padUnpack(chopper->path->pads[PREVSTEP()], PADFIELD_POS, &prevpad);
-			padUnpack(chopper->path->pads[NEXTSTEP()], PADFIELD_POS, &nextpad);
+			prevpad = &g_Pads[chopper->path->pads[PREVSTEP()]];
+			nextpad = &g_Pads[chopper->path->pads[NEXTSTEP()]];
 
-			xdiff = prevpad.pos.f[0] - nextpad.pos.f[0];
-			zdiff = prevpad.pos.f[2] - nextpad.pos.f[2];
+			xdiff = prevpad->pos.f[0] - nextpad->pos.f[0];
+			zdiff = prevpad->pos.f[2] - nextpad->pos.f[2];
 
 			tmp = 0.25f / sqrtf(xdiff * xdiff + zdiff * zdiff);
 
@@ -10980,7 +10965,7 @@ void chopperTickPatrol(struct prop *chopperprop)
 	f32 roty = chopper->roty;
 	f32 rotx = chopper->rotx;
 	struct coord vector;
-	struct pad pad;
+	struct coord padpos;
 	f32 mult;
 	f32 zdiff;
 
@@ -10993,20 +10978,20 @@ void chopperTickPatrol(struct prop *chopperprop)
 	}
 
 	if (chopper->path) {
-		padUnpack(chopper->path->pads[chopper->nextstep], PADFIELD_POS, &pad);
-		pad.pos.y += -250;
+		padpos = g_Pads[chopper->path->pads[chopper->nextstep]].pos;
+		padpos.y += -250;
 
-		if (posIsArrivingLaterallyAtPos(&chopperprop->pos, &chopperprop->pos, &pad.pos, 350)) {
+		if (posIsArrivingLaterallyAtPos(&chopperprop->pos, &chopperprop->pos, &padpos, 350)) {
 			chopper->nextstep = ((chopper->cw ? -1 : 1) + chopper->nextstep + chopper->path->len) % chopper->path->len;
 
-			padUnpack(chopper->path->pads[chopper->nextstep], PADFIELD_POS, &pad);
-			pad.pos.y += -250;
+			padpos = g_Pads[chopper->path->pads[chopper->nextstep]].pos;
+			padpos.y += -250;
 		}
 
-		roty = atan2f(pad.pos.x - chopperprop->pos.x, pad.pos.z - chopperprop->pos.z);
-		xdiff = pad.pos.x - chopperprop->pos.x;
-		zdiff = pad.pos.z - chopperprop->pos.z;
-		rotx = atan2f(pad.pos.y - chopperprop->pos.y, sqrtf(xdiff * xdiff + zdiff * zdiff));
+		roty = atan2f(padpos.x - chopperprop->pos.x, padpos.z - chopperprop->pos.z);
+		xdiff = padpos.x - chopperprop->pos.x;
+		zdiff = padpos.z - chopperprop->pos.z;
+		rotx = atan2f(padpos.y - chopperprop->pos.y, sqrtf(xdiff * xdiff + zdiff * zdiff));
 	}
 
 	if (chopper->base.flags & OBJFLAG_20000000) {
@@ -11017,9 +11002,9 @@ void chopperTickPatrol(struct prop *chopperprop)
 	}
 
 	if (chopper->patroltimer60 > 0) {
-		vector.x = pad.pos.x - chopperprop->pos.x;
-		vector.y = pad.pos.y - chopperprop->pos.y;
-		vector.z = pad.pos.z - chopperprop->pos.z;
+		vector.x = padpos.x - chopperprop->pos.x;
+		vector.y = padpos.y - chopperprop->pos.y;
+		vector.z = padpos.z - chopperprop->pos.z;
 
 		guNormalize(&vector.x, &vector.y, &vector.z);
 	} else {
@@ -11052,8 +11037,8 @@ void chopperTickCombat(struct prop *chopperprop)
 	f32 dist;
 	struct coord goalpos;
 	struct coord dir;
-	struct pad pad;
-	struct pad nextpad;
+	struct coord padpos;
+	struct coord nextpadpos;
 	f32 f20;
 	s32 sp90;
 	s32 sp8c;
@@ -11080,13 +11065,13 @@ void chopperTickCombat(struct prop *chopperprop)
 		f20 = 2.6843546e8f;
 
 		for (i = 0; i < chopper->path->len; i++) {
-			padUnpack(chopper->path->pads[i], PADFIELD_POS, &pad);
-			padUnpack(chopper->path->pads[(i + 1) % chopper->path->len], PADFIELD_POS, &nextpad);
+			padpos = g_Pads[chopper->path->pads[i]].pos;
+			nextpadpos = g_Pads[chopper->path->pads[(i + 1) % chopper->path->len]].pos;
 
-			pad.pos.y += -250.0f;
-			nextpad.pos.y += -250.0f;
+			padpos.y += -250.0f;
+			nextpadpos.y += -250.0f;
 
-			f0 = func0f07b164(&pad.pos, &nextpad.pos, &targetprop->pos, &sp78);
+			f0 = func0f07b164(&padpos, &nextpadpos, &targetprop->pos, &sp78);
 
 			if (f0 < f20) {
 				f20 = f0;
@@ -11123,34 +11108,32 @@ void chopperTickCombat(struct prop *chopperprop)
 
 				chopper->nextstep = chopper->cw ? sp8c : (sp8c + 1) % chopper->path->len;
 
-				padUnpack(chopper->path->pads[chopper->nextstep], PADFIELD_POS, &pad);
+				padpos = g_Pads[chopper->path->pads[chopper->nextstep]].pos;
+				padpos.y += -250.0f;
 
-				pad.pos.y += -250.0f;
-
-				if (coordGetSquaredDistanceToCoord(&pad.pos, &chopperprop->pos) < 10000.0f) {
+				if (coordGetSquaredDistanceToCoord(&padpos, &chopperprop->pos) < 10000.0f) {
 					chopper->power = 0.0f;
 					chopper->nextstep = (chopper->nextstep + (chopper->cw ? -1 : 1) + chopper->path->len) % chopper->path->len;
 
-					padUnpack(chopper->path->pads[chopper->nextstep], PADFIELD_POS, &pad);
-					pad.pos.y += -250.0f;
+					padpos = g_Pads[chopper->path->pads[chopper->nextstep]].pos;
+					padpos.y += -250.0f;
 				}
 
-				goalpos.x = pad.pos.x;
-				goalpos.y = pad.pos.y;
-				goalpos.z = pad.pos.z;
+				goalpos.x = padpos.x;
+				goalpos.y = padpos.y;
+				goalpos.z = padpos.z;
 			} else {
 				goalpos.x = sp6c.x;
 				goalpos.y = sp6c.y;
 				goalpos.z = sp6c.z;
 			}
 		} else if (cdTestLos03(&targetprop->pos, targetprop->rooms, &goalpos, CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE, GEOFLAG_BLOCK_SHOOT) == 0) {
-			padUnpack(chopper->path->pads[chopper->cw ? (sp8c + 1) % chopper->path->len : sp8c], PADFIELD_POS, &pad);
+			padpos = g_Pads[chopper->path->pads[chopper->cw ? (sp8c + 1) % chopper->path->len : sp8c]].pos;
+			padpos.y += -250.0f;
 
-			pad.pos.y += -250.0f;
-
-			sp78.x = pad.pos.x - goalpos.x;
-			sp78.y = pad.pos.y - goalpos.y;
-			sp78.z = pad.pos.z - goalpos.z;
+			sp78.x = padpos.x - goalpos.x;
+			sp78.y = padpos.y - goalpos.y;
+			sp78.z = padpos.z - goalpos.z;
 
 			guNormalize(&sp78.x, &sp78.y, &sp78.z);
 
@@ -11199,7 +11182,7 @@ void chopperTickCombat(struct prop *chopperprop)
 void hovercarTick(struct prop *prop)
 {
 	bool stopping;
-	struct pad pad;
+	struct pad *pad;
 	struct coord sp214;
 	s16 sp210[2];
 	struct hovercarobj *hovercar = (struct hovercarobj *) prop->obj;
@@ -11305,26 +11288,26 @@ void hovercarTick(struct prop *prop)
 
 	if (hovercar->path) {
 		padnum = &hovercar->path->pads[hovercar->nextstep];
-		padUnpack(*padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
+		pad = &g_Pads[*padnum];
 
-		sp214.x = pad.pos.x;
+		sp214.x = pad->pos.x;
 
 		if (active) {
-			sp210[0] = pad.room;
+			sp210[0] = pad->room;
 			sp210[1] = -1;
 
-			sp214.y = cdFindGroundAtCyl(&pad.pos, 5, sp210, NULL, NULL) + 35;
+			sp214.y = cdFindGroundAtCyl(&pad->pos, 5, sp210, NULL, NULL) + 35;
 		} else {
-			sp214.y = pad.pos.y;
+			sp214.y = pad->pos.y;
 		}
 
-		sp214.z = pad.pos.z;
+		sp214.z = pad->pos.z;
 
 		if ((hovercar->base.flags & OBJFLAG_20000000)
 				&& posIsArrivingLaterallyAtPos(&prop->pos, &prop->pos, &sp214, (0, sp1f4))) {
 			hovercarIncrementStep(hovercar);
 			padnum = &hovercar->path->pads[hovercar->nextstep];
-			padUnpack(*padnum, PADFIELD_POS, &pad);
+			pad = &g_Pads[*padnum];
 		}
 
 		sp200 = atan2f(sp214.x - prop->pos.x, sp214.z - prop->pos.z);
@@ -19755,18 +19738,12 @@ bool doorIsObjInRange(struct doorobj *door, struct defaultobj *obj, bool isbike)
 	return doorIsPosInRange(door, &obj->prop->pos, scale, isbike);
 }
 
-/**
- * @bug: result should be an integer. Its value can only be 0.0f or 1.0f.
- * Nothing bad comes from this, but it uses unnecessary float conversions.
- */
 bool vectorIsInFrontOfDoor(struct doorobj *door, struct coord *vector)
 {
-	f32 result;
-	struct pad pad;
+	s32 result;
+	struct pad *pad = &g_Pads[door->base.pad];
 
-	padUnpack(door->base.pad, PADFIELD_NORMAL, &pad);
-
-	result = vector->f[0] * pad.normal.f[0] + vector->f[1] * pad.normal.f[1] + vector->f[2] * pad.normal.f[2] >= 0.0f;
+	result = vector->f[0] * pad->normal.f[0] + vector->f[1] * pad->normal.f[1] + vector->f[2] * pad->normal.f[2] >= 0.0f;
 
 	if (door->doorflags & DOORFLAG_FLIP) {
 		result = !result;
@@ -19906,7 +19883,7 @@ void doorUpdateTiles(struct doorobj *door)
 	Mtxf sp98;
 	struct coord sp8c;
 	struct coord sp80;
-	struct pad pad;
+	struct pad *pad;
 
 	if (door->doorflags & DOORFLAG_0080) {
 		door->base.prop->pos.x = door->unk98.x * door->frac + door->startpos.x;
@@ -19915,31 +19892,29 @@ void doorUpdateTiles(struct doorobj *door)
 	} else if (door->doortype == DOORTYPE_SWINGING
 			|| door->doortype == DOORTYPE_AZTECCHAIR
 			|| door->doortype == DOORTYPE_HULL) {
-		// @bug: LOOK is not loaded but is used below
-		// It doesn't appear to make any difference though
-		padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
+		pad = &g_Pads[door->base.pad];
 
-		sp8c.x = pad.pos.x + pad.up.x * pad.bbox.ymin;
-		sp8c.y = pad.pos.y + pad.up.y * pad.bbox.ymin;
-		sp8c.z = pad.pos.z + pad.up.z * pad.bbox.ymin;
+		sp8c.x = pad->pos.x + pad->up.x * pad->bbox.ymin;
+		sp8c.y = pad->pos.y + pad->up.y * pad->bbox.ymin;
+		sp8c.z = pad->pos.z + pad->up.z * pad->bbox.ymin;
 
 		if (door->doortype == DOORTYPE_AZTECCHAIR) {
-			sp8c.x += pad.normal.x * pad.bbox.xmax;
-			sp8c.y += pad.normal.y * pad.bbox.xmax;
-			sp8c.z += pad.normal.z * pad.bbox.xmax;
+			sp8c.x += pad->normal.x * pad->bbox.xmax;
+			sp8c.y += pad->normal.y * pad->bbox.xmax;
+			sp8c.z += pad->normal.z * pad->bbox.xmax;
 		} else if (door->doortype == DOORTYPE_HULL) {
-			sp8c.x += pad.look.x * pad.bbox.zmin;
-			sp8c.y += pad.look.y * pad.bbox.zmin;
-			sp8c.z += pad.look.z * pad.bbox.zmin;
+			sp8c.x += pad->look.x * pad->bbox.zmin;
+			sp8c.y += pad->look.y * pad->bbox.zmin;
+			sp8c.z += pad->look.z * pad->bbox.zmin;
 		} else {
 			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
-				sp8c.x += pad.normal.x * pad.bbox.xmax;
-				sp8c.y += pad.normal.y * pad.bbox.xmax;
-				sp8c.z += pad.normal.z * pad.bbox.xmax;
+				sp8c.x += pad->normal.x * pad->bbox.xmax;
+				sp8c.y += pad->normal.y * pad->bbox.xmax;
+				sp8c.z += pad->normal.z * pad->bbox.xmax;
 			} else {
-				sp8c.x += pad.normal.x * pad.bbox.xmin;
-				sp8c.y += pad.normal.y * pad.bbox.xmin;
-				sp8c.z += pad.normal.z * pad.bbox.xmin;
+				sp8c.x += pad->normal.x * pad->bbox.xmin;
+				sp8c.y += pad->normal.y * pad->bbox.xmin;
+				sp8c.z += pad->normal.z * pad->bbox.xmin;
 			}
 		}
 
@@ -19959,9 +19934,9 @@ void doorUpdateTiles(struct doorobj *door)
 			}
 		} else if (door->doortype == DOORTYPE_HULL) {
 			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
-				guRotateF(sp98.m, 360 - door->frac, pad.normal.x, pad.normal.y, pad.normal.z);
+				guRotateF(sp98.m, 360 - door->frac, pad->normal.x, pad->normal.y, pad->normal.z);
 			} else {
-				guRotateF(sp98.m, door->frac, pad.normal.x, pad.normal.y, pad.normal.z);
+				guRotateF(sp98.m, door->frac, pad->normal.x, pad->normal.y, pad->normal.z);
 			}
 		} else {
 			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
@@ -20785,38 +20760,38 @@ bool posIsInDrawDistance(struct coord *pos)
 
 void doorCreateSparks(struct doorobj *door)
 {
-	struct pad pad;
+	struct pad *pad;
 	struct coord sp88;
 	struct coord sp7c;
 	struct coord sp70;
 	s32 i;
 
-	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
+	pad = &g_Pads[door->base.pad];
 
-	sp88.x = sp7c.f[0] = pad.pos.f[0] + pad.up.f[0] * (pad.bbox.ymin + (1 - door->frac) * (pad.bbox.ymax - pad.bbox.ymin));
-	sp88.y = sp7c.f[1] = pad.pos.f[1] + pad.up.f[1] * (pad.bbox.ymin + (1 - door->frac) * (pad.bbox.ymax - pad.bbox.ymin));
-	sp88.z = sp7c.f[2] = pad.pos.f[2] + pad.up.f[2] * (pad.bbox.ymin + (1 - door->frac) * (pad.bbox.ymax - pad.bbox.ymin));
+	sp88.x = sp7c.f[0] = pad->pos.f[0] + pad->up.f[0] * (pad->bbox.ymin + (1 - door->frac) * (pad->bbox.ymax - pad->bbox.ymin));
+	sp88.y = sp7c.f[1] = pad->pos.f[1] + pad->up.f[1] * (pad->bbox.ymin + (1 - door->frac) * (pad->bbox.ymax - pad->bbox.ymin));
+	sp88.z = sp7c.f[2] = pad->pos.f[2] + pad->up.f[2] * (pad->bbox.ymin + (1 - door->frac) * (pad->bbox.ymax - pad->bbox.ymin));
 
-	sp88.x += pad.look.f[0] * pad.bbox.zmax;
-	sp88.y += pad.look.f[1] * pad.bbox.zmax;
-	sp88.z += pad.look.f[2] * pad.bbox.zmax;
+	sp88.x += pad->look.f[0] * pad->bbox.zmax;
+	sp88.y += pad->look.f[1] * pad->bbox.zmax;
+	sp88.z += pad->look.f[2] * pad->bbox.zmax;
 
-	sp7c.x += pad.look.f[0] * pad.bbox.zmin;
-	sp7c.y += pad.look.f[1] * pad.bbox.zmin;
-	sp7c.z += pad.look.f[2] * pad.bbox.zmin;
+	sp7c.x += pad->look.f[0] * pad->bbox.zmin;
+	sp7c.y += pad->look.f[1] * pad->bbox.zmin;
+	sp7c.z += pad->look.f[2] * pad->bbox.zmin;
 
-	sp70.x = -pad.up.x;
-	sp70.y = -pad.up.y;
-	sp70.z = -pad.up.z;
+	sp70.x = -pad->up.x;
+	sp70.y = -pad->up.y;
+	sp70.z = -pad->up.z;
 
-	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
+	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad->up, SPARKTYPE_ENVIRONMENTAL1);
 
-	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp7c, &sp70, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
+	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp7c, &sp70, &pad->up, SPARKTYPE_ENVIRONMENTAL1);
 
 	if (random() % 2) {
-		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_ENVIRONMENTAL4);
+		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad->up, SPARKTYPE_ENVIRONMENTAL4);
 	} else {
-		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_ENVIRONMENTAL5);
+		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad->up, SPARKTYPE_ENVIRONMENTAL5);
 	}
 
 	propsnd0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
@@ -21161,7 +21136,7 @@ void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *ar
 	f32 spa8;
 	f32 spa4;
 	struct coord playerpos;
-	struct pad pad;
+	struct pad *pad;
 	f32 xfrac;
 	f32 zfrac;
 	f32 angle;
@@ -21174,30 +21149,30 @@ void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *ar
 		playerprop = g_Vars.currentplayer->prop;
 	}
 
-	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_BBOX, &pad);
+	pad = &g_Pads[door->base.pad];
 
 	playerpos.f[0] = playerprop->pos.x;
 	playerpos.f[1] = playerprop->pos.y;
 	playerpos.f[2] = playerprop->pos.z;
 
 	if (arg5) {
-		spa8 = pad.bbox.xmin;
-		spa4 = pad.bbox.xmax;
-		spb0 = pad.up.y * pad.look.z - pad.look.y * pad.up.z;
-		spac = pad.up.x * pad.look.y - pad.look.x * pad.up.y;
+		spa8 = pad->bbox.xmin;
+		spa4 = pad->bbox.xmax;
+		spb0 = pad->up.y * pad->look.z - pad->look.y * pad->up.z;
+		spac = pad->up.x * pad->look.y - pad->look.x * pad->up.y;
 	} else {
-		spa8 = pad.bbox.ymin;
-		spa4 = pad.bbox.ymax;
-		spb0 = pad.up.x;
-		spac = pad.up.z;
+		spa8 = pad->bbox.ymin;
+		spa4 = pad->bbox.ymax;
+		spb0 = pad->up.x;
+		spac = pad->up.z;
 	}
 
-	x1 = pad.pos.x + spb0 * spa8 - playerpos.f[0];
-	y1 = pad.pos.z + spac * spa8 - playerpos.f[2];
+	x1 = pad->pos.x + spb0 * spa8 - playerpos.f[0];
+	y1 = pad->pos.z + spac * spa8 - playerpos.f[2];
 	value1 = func0f08f538(x1, y1);
 
-	x2 = pad.pos.x + spb0 * spa4 - playerpos.f[0];
-	y2 = pad.pos.z + spac * spa4 - playerpos.f[2];
+	x2 = pad->pos.x + spb0 * spa4 - playerpos.f[0];
+	y2 = pad->pos.z + spac * spa4 - playerpos.f[2];
 	value2 = func0f08f538(x2, y2);
 
 	if (value1 < value2) {
@@ -21220,8 +21195,8 @@ void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *ar
 			cosine = cosf(angle);
 			sine = sinf(angle);
 
-			x1 = pad.pos.x + (spb0 * spa8) - playerpos.f[0] + (spa4 - spa8) * (spb0 * cosine + spac * sine);
-			y1 = pad.pos.z + (spac * spa8) - playerpos.f[2] + (spa4 - spa8) * (-spb0 * sine + spac * cosine);
+			x1 = pad->pos.x + (spb0 * spa8) - playerpos.f[0] + (spa4 - spa8) * (spb0 * cosine + spac * sine);
+			y1 = pad->pos.z + (spac * spa8) - playerpos.f[2] + (spa4 - spa8) * (-spb0 * sine + spac * cosine);
 
 			value4 = func0f08f538(x1, y1);
 		} else if (door->doortype == DOORTYPE_SLIDING
@@ -21420,15 +21395,15 @@ bool posIsInFrontOfDoor(struct coord *pos, struct doorobj *door)
 	f32 y;
 	f32 z;
 	f32 value;
-	struct pad pad;
+	struct pad *pad;
 
-	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_NORMAL, &pad);
+	pad = &g_Pads[door->base.pad];
 
-	x = pos->x - pad.pos.x;
-	y = pos->y - pad.pos.y;
-	z = pos->z - pad.pos.z;
+	x = pos->x - pad->pos.x;
+	y = pos->y - pad->pos.y;
+	z = pos->z - pad->pos.z;
 
-	value = x * pad.normal.f[0] + y * pad.normal.f[1] + z * pad.normal.f[2];
+	value = x * pad->normal.f[0] + y * pad->normal.f[1] + z * pad->normal.f[2];
 
 	if (door->doorflags & DOORFLAG_FLIP) {
 		value = -value;

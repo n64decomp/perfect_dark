@@ -2949,14 +2949,12 @@ void botTickUnpaused(struct chrdata *chr)
 				} else if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
 					// If the bot is holding an opponent's token, take it home
 					if (botShouldReturnCtcToken(chr)) {
-						struct pad pad;
+						struct pad *pad;
 						s32 teamindex = g_ScenarioData.ctc.teamindexes[radarGetTeamIndex(chr->team)];
 						newaction = MA_AIBOTGOTOPOS;
-						padUnpack(g_ScenarioData.ctc.spawnpadsperteam[teamindex].homepad, PADFIELD_POS | PADFIELD_ROOM, &pad);
-						aibot->gotopos.x = pad.pos.x;
-						aibot->gotopos.y = pad.pos.y;
-						aibot->gotopos.z = pad.pos.z;
-						aibot->gotorooms[0] = pad.room;
+						pad = &g_Pads[g_ScenarioData.ctc.spawnpadsperteam[teamindex].homepad];
+						aibot->gotopos = pad->pos;
+						aibot->gotorooms[0] = pad->room;
 						aibot->gotorooms[1] = -1;
 						aibot->unk04c_00 = false;
 					}

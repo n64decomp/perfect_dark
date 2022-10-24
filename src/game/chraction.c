@@ -5366,20 +5366,20 @@ void chrGoPosInitMagic(struct chrdata *chr, struct waydata *waydata, struct coor
 void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
 {
 	struct waypoint *waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
-	struct pad pad;
+	struct pad *pad;
 
 	if (waypoint) {
-		padUnpack(waypoint->padnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
+		pad = &g_Pads[waypoint->padnum];
 
-		pos->x = pad.pos.x;
-		pos->y = pad.pos.y;
-		pos->z = pad.pos.z;
+		pos->x = pad->pos.x;
+		pos->y = pad->pos.y;
+		pos->z = pad->pos.z;
 
-		rooms[0] = pad.room;
+		rooms[0] = pad->room;
 		rooms[1] = -1;
 
 		if (flags) {
-			*flags = pad.flags;
+			*flags = pad->flags;
 		}
 	} else {
 		pos->x = chr->act_gopos.endpos.x;
@@ -5605,19 +5605,19 @@ s16 chrPatrolCalculatePadNum(struct chrdata *chr, s32 numsteps)
 void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
 {
 	s32 padnum = chrPatrolCalculatePadNum(chr, 0);
-	struct pad pad;
+	struct pad *pad;
 
-	padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
+	pad = &g_Pads[padnum];
 
-	pos->x = pad.pos.x;
-	pos->y = pad.pos.y;
-	pos->z = pad.pos.z;
+	pos->x = pad->pos.x;
+	pos->y = pad->pos.y;
+	pos->z = pad->pos.z;
 
-	rooms[0] = pad.room;
+	rooms[0] = pad->room;
 	rooms[1] = -1;
 
 	if (flags) {
-		*flags = pad.flags;
+		*flags = pad->flags;
 	}
 }
 
@@ -5664,7 +5664,6 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
 	struct coord spdc;
 	s16 spcc[8];
 	u32 stack[4];
-	struct pad pad;
 	struct coord sp5c;
 	s16 sp4c[8];
 
@@ -5726,8 +5725,7 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
 					} else {
 						if (chr->act_gopos.curindex >= 2) {
 							waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex - 2];
-							padUnpack(waypoint->padnum, PADFIELD_POS, &pad);
-							chrSetLookAngle(chr, atan2f(prop->pos.x - pad.pos.x, prop->pos.z - pad.pos.z));
+							chrSetLookAngle(chr, atan2f(prop->pos.x - g_Pads[waypoint->padnum].pos.x, prop->pos.z - g_Pads[waypoint->padnum].pos.z));
 						}
 
 						if (CHRRACE(chr) == RACE_HUMAN || CHRRACE(chr) == RACE_SKEDAR) {
@@ -6251,7 +6249,7 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 	f32 xdiff;
 	f32 zdiff;
 	s32 *padnumptr;
-	struct pad pad;
+	struct pad *pad;
 	struct coord nextpos;
 	s16 nextrooms[8];
 	s16 rooms[8];
@@ -6268,16 +6266,16 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 		// maybe a line of sight check?
 		if (chr->patrolnextstep >= 0 && chr->patrolnextstep < path->len) {
 			padnumptr = &path->pads[chr->patrolnextstep];
-			padUnpack(*padnumptr, PADFIELD_POS | PADFIELD_ROOM, &pad);
+			pad = &g_Pads[*padnumptr];
 
-			rooms[0] = pad.room;
+			rooms[0] = pad->room;
 			rooms[1] = -1;
 
 			chrGetBbox(prop, &radius, &ymax, &ymin);
 
 			chrSetPerimEnabled(chr, false);
 
-			if (cdTestCylMove04(&prop->pos, prop->rooms, &pad.pos, rooms, CDTYPE_BG, 1,
+			if (cdTestCylMove04(&prop->pos, prop->rooms, &pad->pos, rooms, CDTYPE_BG, 1,
 						ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 				nextstep = chr->patrolnextstep;
 			}
@@ -6290,10 +6288,10 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 		if (nextstep < 0) {
 			for (i = 0; path->pads[i] >= 0; i++) {
 				padnumptr = &path->pads[i];
-				padUnpack(*padnumptr, PADFIELD_POS, &pad);
+				pad = &g_Pads[*padnumptr];
 
-				xdiff = pad.pos.x - prop->pos.x;
-				zdiff = pad.pos.z - prop->pos.z;
+				xdiff = pad->pos.x - prop->pos.x;
+				zdiff = pad->pos.z - prop->pos.z;
 				dist = xdiff * xdiff + zdiff * zdiff;
 
 				if (nextstep < 0 || dist < bestdistance) {
@@ -6304,14 +6302,14 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 		}
 
 		padnumptr = &path->pads[nextstep];
-		padUnpack(*padnumptr, PADFIELD_POS | PADFIELD_ROOM, &pad);
+		pad = &g_Pads[*padnumptr];
 
-		rooms[0] = pad.room;
+		rooms[0] = pad->room;
 		rooms[1] = -1;
 
 		// If chr has line of sight to the pad then begin the patrol,
 		// otherwise use gopos to get to the starting pad
-		if (func0f03654c(chr, &prop->pos, prop->rooms, &pad.pos, rooms, NULL,
+		if (func0f03654c(chr, &prop->pos, prop->rooms, &pad->pos, rooms, NULL,
 					chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG) != CDRESULT_COLLISION) {
 			chrStopFiring(chr);
 
@@ -6352,10 +6350,10 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 				chr->hidden &= ~CHRHFLAG_NEEDANIM;
 			}
 		} else {
-			sp60[0] = pad.room;
+			sp60[0] = pad->room;
 			sp60[1] = -1;
 
-			chrGoToRoomPos(chr, &pad.pos, sp60, GOPOSFLAG_FORPATHSTART);
+			chrGoToRoomPos(chr, &pad->pos, sp60, GOPOSFLAG_FORPATHSTART);
 		}
 	}
 }
@@ -7119,14 +7117,11 @@ bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 goposflags)
 #endif
 		{
 			s16 rooms[2];
-			struct pad pad;
 
-			padUnpack(padnum, PADFIELD_ROOM | PADFIELD_POS, &pad);
-
-			rooms[0] = pad.room;
+			rooms[0] = g_Pads[padnum].room;
 			rooms[1] = -1;
 
-			if (chrGoToRoomPos(chr, &pad.pos, rooms, goposflags)) {
+			if (chrGoToRoomPos(chr, &g_Pads[padnum].pos, rooms, goposflags)) {
 				return true;
 			}
 		}
@@ -12571,7 +12566,7 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum)
 {
 	bool advance = false;
-	struct pad nextpad;
+	struct pad *nextpad;
 	u32 nextpadflags = 0;
 	f32 nextground;
 	f32 lifty;
@@ -12588,8 +12583,7 @@ bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, b
 	lifty = liftGetY(lift);
 
 	if (nextpadnum >= 0) {
-		padUnpack(nextpadnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &nextpad);
-		nextpadflags = nextpad.flags;
+		nextpadflags = nextpad->flags;
 	}
 
 	if (curpadflags & PADFLAG_AIWAITLIFT) {
@@ -12621,7 +12615,7 @@ bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, b
 
 					if (nextpadnum >= 0) {
 						// Call the lift
-						chrOpenDoor(chr, &nextpad.pos);
+						chrOpenDoor(chr, &nextpad->pos);
 					}
 				}
 			} else {
@@ -12652,9 +12646,9 @@ bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, b
 				s16 rooms[] = {0, -1};
 				u32 stack2;
 
-				rooms[0] = nextpad.room;
+				rooms[0] = nextpad->room;
 
-				nextground = cdFindFloorYColourTypeAtPos(&nextpad.pos, rooms, NULL, NULL);
+				nextground = cdFindFloorYColourTypeAtPos(&nextpad->pos, rooms, NULL, NULL);
 
 				// Begin exiting lift if lift is 30cm under destination or higher
 				advance = (lifty >= nextground - 30);
@@ -12723,7 +12717,7 @@ void chrTickGoPos(struct chrdata *chr)
 	s16 nextrooms[8];
 	struct prop *prop = chr->prop;
 	bool enteringmagic = false;
-	struct pad pad;
+	struct pad *pad;
 	bool sp240 = true;
 	struct coord curwppos;
 	s16 curwprooms[8];
@@ -12829,28 +12823,28 @@ void chrTickGoPos(struct chrdata *chr)
 		f32 sp160;
 		f32 sp156;
 		struct waypoint *next;
-		struct pad pad2;
+		struct pad *pad2;
 
 		waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 
 		if (waypoint) {
-			padUnpack(waypoint->padnum, PADFIELD_FLAGS | PADFIELD_POS, &pad);
+			pad = &g_Pads[waypoint->padnum];
 
 			// Both of these functions are calculating something with the coords
 			// and are returning a boolean. There are no write operations.
-			sp188 = posIsArrivingAtPos(&chr->prevpos, &prop->pos, &pad.pos, 30);
-			sp184 = posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &pad.pos, 30);
+			sp188 = posIsArrivingAtPos(&chr->prevpos, &prop->pos, &pad->pos, 30);
+			sp184 = posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &pad->pos, 30);
 
-			if (pad.flags & PADFLAG_AIDUCK) {
+			if (pad->flags & PADFLAG_AIDUCK) {
 				chr->act_gopos.flags |= GOPOSFLAG_DUCK;
-			} else if (pad.flags & PADFLAG_10000) {
+			} else if (pad->flags & PADFLAG_10000) {
 				chr->act_gopos.flags |= GOPOSFLAG_WALKDIRECT;
 			}
 
-			if ((pad.flags & PADFLAG_AIWAITLIFT) || (pad.flags & PADFLAG_AIONLIFT)) {
-				advance = chrGoPosUpdateLiftAction(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoPosGetNextPadNum(chr));
+			if ((pad->flags & PADFLAG_AIWAITLIFT) || (pad->flags & PADFLAG_AIONLIFT)) {
+				advance = chrGoPosUpdateLiftAction(chr, pad->flags, sp184, sp188, waypoint->padnum, chrGoPosGetNextPadNum(chr));
 			} else {
-				if (sp188 || (sp184 && (chr->inlift || (pad.flags & PADFLAG_8000)))) {
+				if (sp188 || (sp184 && (chr->inlift || (pad->flags & PADFLAG_8000)))) {
 					advance = true;
 				}
 			}
@@ -12880,9 +12874,9 @@ void chrTickGoPos(struct chrdata *chr)
 			waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 
 			if (waypoint) {
-				padUnpack(waypoint->padnum, PADFIELD_FLAGS, &pad);
+				pad = &g_Pads[waypoint->padnum];
 
-				if ((pad.flags & PADFLAG_AIWALKDIRECT) == 0) {
+				if ((pad->flags & PADFLAG_AIWALKDIRECT) == 0) {
 					// The waypoint the chr is running to doesn't have
 					// PADFLAG_AIWALKDIRECT, so the chr is able to ignore it and run
 					// towards the next one if it's in sight.
@@ -12891,21 +12885,21 @@ void chrTickGoPos(struct chrdata *chr)
 					waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex + 1];
 
 					if (waypoint) {
-						padUnpack(waypoint->padnum, PADFIELD_FLAGS, &pad);
+						pad = &g_Pads[waypoint->padnum];
 
-						if ((pad.flags & PADFLAG_AIWALKDIRECT) == 0) {
+						if ((pad->flags & PADFLAG_AIWALKDIRECT) == 0) {
 							// And this one doesn't have PADFLAG_AIWALKDIRECT either,
 							// so the chr can consider skipping this one too.
 							waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex + 2];
 
 							if (waypoint) {
-								padUnpack(waypoint->padnum, PADFIELD_ROOM | PADFIELD_POS, &pad);
+								pad = &g_Pads[waypoint->padnum];
 
-								nextpos.x = pad.pos.x;
-								nextpos.y = pad.pos.y;
-								nextpos.z = pad.pos.z;
+								nextpos.x = pad->pos.x;
+								nextpos.y = pad->pos.y;
+								nextpos.z = pad->pos.z;
 
-								nextrooms[0] = pad.room;
+								nextrooms[0] = pad->room;
 								nextrooms[1] = -1;
 							} else {
 								nextpos.x = chr->act_gopos.endpos.x;
@@ -12931,26 +12925,26 @@ void chrTickGoPos(struct chrdata *chr)
 
 			if (waypoint) {
 				candosomething = (chr->act_gopos.flags & GOPOSFLAG_INIT) != 0;
-				padUnpack(waypoint->padnum, PADFIELD_FLAGS | PADFIELD_POS, &pad);
+				pad = &g_Pads[waypoint->padnum];
 
 				next = chr->act_gopos.waypoints[chr->act_gopos.curindex + 1];
 
 				if (next) {
-					padUnpack(next->padnum, PADFIELD_ROOM | PADFIELD_POS, &pad2);
+					pad2 = &g_Pads[next->padnum];
 
-					if ((pad.flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
-							&& (pad2.flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))) {
+					if ((pad->flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
+							&& (pad2->flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))) {
 						candosomething = false;
 					}
 				}
 
-				if ((pad.flags & PADFLAG_AIWALKDIRECT) == 0 || candosomething) {
+				if ((pad->flags & PADFLAG_AIWALKDIRECT) == 0 || candosomething) {
 					if (next) {
-						nextpos.x = pad2.pos.x;
-						nextpos.y = pad2.pos.y;
-						nextpos.z = pad2.pos.z;
+						nextpos.x = pad2->pos.x;
+						nextpos.y = pad2->pos.y;
+						nextpos.z = pad2->pos.z;
 
-						nextrooms[0] = pad2.room;
+						nextrooms[0] = pad2->room;
 						nextrooms[1] = -1;
 					} else {
 						nextpos.x = chr->act_gopos.endpos.x;
@@ -12961,12 +12955,12 @@ void chrTickGoPos(struct chrdata *chr)
 					}
 
 					// I suspect this is making the chr turn to face the next pad
-					if ((pad.flags & PADFLAG_AIWALKDIRECT) && candosomething) {
+					if ((pad->flags & PADFLAG_AIWALKDIRECT) && candosomething) {
 						if (true) {
-							sp180 = prop->pos.x - pad.pos.x;
-							sp176 = prop->pos.z - pad.pos.z;
-							sp172 = nextpos.x - pad.pos.x;
-							sp168 = nextpos.z - pad.pos.z;
+							sp180 = prop->pos.x - pad->pos.x;
+							sp176 = prop->pos.z - pad->pos.z;
+							sp172 = nextpos.x - pad->pos.x;
+							sp168 = nextpos.z - pad->pos.z;
 						}
 
 						sp156 = sqrtf((sp180 * sp180 + sp176 * sp176) * (sp172 * sp172 + sp168 * sp168));
@@ -12995,11 +12989,9 @@ void chrTickGoPos(struct chrdata *chr)
 		waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 
 		if (waypoint) {
-			padUnpack(waypoint->padnum, PADFIELD_POS, &pad);
-
-			nextpos.x = pad.pos.x;
-			nextpos.y = pad.pos.y;
-			nextpos.z = pad.pos.z;
+			nextpos.x = g_Pads[waypoint->padnum].pos.x;
+			nextpos.y = g_Pads[waypoint->padnum].pos.y;
+			nextpos.z = g_Pads[waypoint->padnum].pos.z;
 		} else {
 			nextpos.x = chr->act_gopos.endpos.x;
 			nextpos.y = chr->act_gopos.endpos.y;
@@ -13741,7 +13733,6 @@ void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, s
 {
 	struct prop *targetprop;
 	struct chrdata *targetchr;
-	struct pad pad;
 
 	if (attackflags & ATTACKFLAG_AIMATCHR) {
 		// Aiming at a chr by chrnum
@@ -13767,13 +13758,12 @@ void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, s
 	} else if (attackflags & ATTACKFLAG_AIMATPAD) {
 		// Aiming at a pad by padnum
 		s32 padnum = chrResolvePadId(chr, entityid);
-		padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
 
-		pos->x = pad.pos.x;
-		pos->y = pad.pos.y;
-		pos->z = pad.pos.z;
+		pos->x = g_Pads[padnum].pos.x;
+		pos->y = g_Pads[padnum].pos.y;
+		pos->z = g_Pads[padnum].pos.z;
 
-		rooms[0] = pad.room;
+		rooms[0] = g_Pads[padnum].room;
 		rooms[1] = -1;
 	} else {
 		// Aiming at the chr's preconfigured target
@@ -13962,17 +13952,12 @@ f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
 	struct prop *prop = chr->prop;
 	f32 xdiff, ydiff, zdiff;
 	f32 distance = 0;
-	struct pad pad;
 	pad_id = chrResolvePadId(chr, pad_id);
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (pad_id >= 0)
-#endif
-	{
-		padUnpack(pad_id, PADFIELD_POS, &pad);
-		xdiff = pad.pos.x - prop->pos.x;
-		ydiff = pad.pos.y - prop->pos.y;
-		zdiff = pad.pos.z - prop->pos.z;
+	if (pad_id >= 0) {
+		xdiff = g_Pads[pad_id].pos.x - prop->pos.x;
+		ydiff = g_Pads[pad_id].pos.y - prop->pos.y;
+		zdiff = g_Pads[pad_id].pos.z - prop->pos.z;
 		distance = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 	}
 
@@ -13984,14 +13969,13 @@ f32 chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct prop *prop = chr->prop;
 	f32 xdiff, ydiff, zdiff, ydiff_absolute;
-	struct pad pad;
 	f32 ret;
 
 	pad_id = chrResolvePadId(chr, pad_id);
-	padUnpack(pad_id, PADFIELD_POS, &pad);
-	xdiff = pad.pos.x - prop->pos.x;
-	ydiff = pad.pos.y - prop->pos.y;
-	zdiff = pad.pos.z - prop->pos.z;
+
+	xdiff = g_Pads[pad_id].pos.x - prop->pos.x;
+	ydiff = g_Pads[pad_id].pos.y - prop->pos.y;
+	zdiff = g_Pads[pad_id].pos.z - prop->pos.z;
 
 	if (ydiff > 0) {
 		ydiff_absolute = ydiff;
@@ -14030,28 +14014,17 @@ f32 chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct prop *prop = chr->prop;
 	f32 xdiff, zdiff;
-	struct pad pad;
-
-#if VERSION >= VERSION_NTSC_1_0
 	f32 distance = 0;
 
 	pad_id = chrResolvePadId(chr, pad_id);
 
 	if (pad_id >= 0) {
-		padUnpack(pad_id, PADFIELD_POS, &pad);
-		xdiff = pad.pos.x - prop->pos.x;
-		zdiff = pad.pos.z - prop->pos.z;
+		xdiff = g_Pads[pad_id].pos.x - prop->pos.x;
+		zdiff = g_Pads[pad_id].pos.z - prop->pos.z;
 		distance = sqrtf(xdiff * xdiff + zdiff * zdiff);
 	}
 
 	return distance;
-#else
-	pad_id = chrResolvePadId(chr, pad_id);
-	padUnpack(pad_id, PADFIELD_POS, &pad);
-	xdiff = pad.pos.x - prop->pos.x;
-	zdiff = pad.pos.z - prop->pos.z;
-	return sqrtf(xdiff * xdiff + zdiff * zdiff);
-#endif
 }
 
 f32 chrGetSquaredDistanceToCoord(struct chrdata *chr, struct coord *pos)
@@ -14076,17 +14049,12 @@ s32 chrGetPadRoom(struct chrdata *chr, s32 pad_id)
 {
 	s32 ret = -1;
 	s32 pad_id_backup = pad_id;
-	struct pad pad;
 
 	if (pad_id >= 10000) {
 		s32 resolved_pad_id = chrResolvePadId(chr, pad_id - 10000);
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (resolved_pad_id >= 0)
-#endif
-		{
-			padUnpack(resolved_pad_id, PADFIELD_ROOM, &pad);
-			ret = pad.room;
+		if (resolved_pad_id >= 0) {
+			ret = g_Pads[resolved_pad_id].room;
 		}
 	} else {
 		ret = pad_id;
@@ -14319,18 +14287,13 @@ f32 chrGetDistanceFromTargetToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct prop *prop = chrGetTargetProp(chr);
 	f32 xdiff, ydiff, zdiff;
-	struct pad pad;
 	f32 distance = 0;
 	pad_id = chrResolvePadId(chr, pad_id);
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (pad_id >= 0)
-#endif
-	{
-		padUnpack(pad_id, PADFIELD_POS, &pad);
-		xdiff = pad.pos.x - prop->pos.x;
-		ydiff = pad.pos.y - prop->pos.y;
-		zdiff = pad.pos.z - prop->pos.z;
+	if (pad_id >= 0) {
+		xdiff = g_Pads[pad_id].pos.x - prop->pos.x;
+		ydiff = g_Pads[pad_id].pos.y - prop->pos.y;
+		zdiff = g_Pads[pad_id].pos.z - prop->pos.z;
 		distance = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 	}
 
@@ -14550,11 +14513,11 @@ bool waypointIsWithin90DegreesOfPosAngle(struct waypoint *waypoint, struct coord
 {
 	u32 stack[3];
 	f32 diffangle;
-	struct pad pad;
+	struct pad *pad;
 
-	padUnpack(waypoint->padnum, PADFIELD_POS, &pad);
+	pad = &g_Pads[waypoint->padnum];
 
-	diffangle = angle - atan2f(pad.pos.x - pos->x, pad.pos.z - pos->z);
+	diffangle = angle - atan2f(pad->pos.x - pos->x, pad->pos.z - pos->z);
 
 	if (diffangle < 0) {
 		diffangle += M_BADTAU;
@@ -14719,16 +14682,14 @@ bool chrSetChrPresetToChrNearSelf(u8 checktype, struct chrdata *chr, f32 distanc
 
 bool chrSetChrPresetToChrNearPad(u32 checktype, struct chrdata *chr, f32 distance, s32 padnum)
 {
-	struct pad pad;
 	s16 rooms[2];
 
 	padnum = chrResolvePadId(chr, padnum);
-	padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
 
-	rooms[0] = pad.room;
+	rooms[0] = g_Pads[padnum].room;
 	rooms[1] = -1;
 
-	return chrSetChrPresetToChrNearPos(checktype, chr, distance, &pad.pos, rooms);
+	return chrSetChrPresetToChrNearPos(checktype, chr, distance, &g_Pads[padnum].pos, rooms);
 }
 
 bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, s16 *rooms)
@@ -14880,7 +14841,7 @@ bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr)
 	struct waypoint *waypoints[5];
 	s32 numwaypoints;
 	s32 i;
-	struct pad pad;
+	struct pad *pad;
 
 	if (target->type != PROPTYPE_PLAYER || g_Vars.bondvisible) {
 		if (cdTestLos04(&prop->pos, prop->rooms, &target->pos, CDTYPE_BG)) {
@@ -14902,10 +14863,10 @@ bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr)
 				for (i = 0; waypoints[i] != NULL; i++) {
 					struct waypoint *wp = waypoints[i];
 
-					padUnpack(wp->padnum, PADFIELD_POS, &pad);
+					pad = &g_Pads[wp->padnum];
 
-					if (cdTestLos04(&target->pos, target->rooms, &pad.pos, CDTYPE_BG)) {
-						if (cdTestLos04(&prop->pos, prop->rooms, &pad.pos, CDTYPE_BG)) {
+					if (cdTestLos04(&target->pos, target->rooms, &pad->pos, CDTYPE_BG)) {
+						if (cdTestLos04(&prop->pos, prop->rooms, &pad->pos, CDTYPE_BG)) {
 							chr->padpreset1 = wp->padnum;
 							return true;
 						}
@@ -15204,15 +15165,18 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 spawnflags)
 {
 	s32 resolved_pad_id = chrResolvePadId(basechr, pad_id);
-	struct pad pad;
+	struct pad *pad;
 	s16 room[2];
 	f32 fvalue;
-	padUnpack(resolved_pad_id, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
-	fvalue = atan2f(pad.look.x, pad.look.z);
-	room[0] = pad.room;
+
+	pad = &g_Pads[resolved_pad_id];
+
+	fvalue = atan2f(pad->look.x, pad->look.z);
+
+	room[0] = pad->room;
 	room[1] = -1;
 
-	return chrSpawnAtCoord(body, head, &pad.pos, &room[0], fvalue, ailist, spawnflags);
+	return chrSpawnAtCoord(body, head, &pad->pos, &room[0], fvalue, ailist, spawnflags);
 }
 
 struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 spawnflags)

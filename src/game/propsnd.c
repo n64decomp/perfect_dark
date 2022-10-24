@@ -3919,9 +3919,8 @@ s16 propsnd0f0939f8(
 #endif
 
 	if (padnum >= 0) {
-		padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
-		pos = &pad.pos;
-		room = pad.room;
+		pos = &g_Pads[padnum].pos;
+		room = g_Pads[padnum].room;
 		prop = NULL;
 	}
 

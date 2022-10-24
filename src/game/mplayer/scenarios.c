@@ -1349,7 +1349,7 @@ void scenarioHandleDroppedToken(struct chrdata *chr, struct prop *prop)
 	s32 i;
 	struct weaponobj *weapon = prop->weapon;
 	struct defaultobj *obj;
-	struct pad pad;
+	struct pad *pad;
 	Mtxf mtx;
 	s16 rooms[2];
 
@@ -1362,18 +1362,18 @@ void scenarioHandleDroppedToken(struct chrdata *chr, struct prop *prop)
 				weapon->team = i;
 				obj = prop->obj;
 
-				padUnpack(g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[i]].homepad,
-						PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_ROOM, &pad);
-				mtx00016d58(&mtx, 0, 0, 0, -pad.look.x, -pad.look.y, -pad.look.z, pad.up.x, pad.up.y, pad.up.z);
+				pad = &g_Pads[g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[i]].homepad];
+
+				mtx00016d58(&mtx, 0, 0, 0, -pad->look.x, -pad->look.y, -pad->look.z, pad->up.x, pad->up.y, pad->up.z);
 
 				if (obj->model) {
 					mtx00015f04(obj->model->scale, &mtx);
 				}
 
-				rooms[0] = pad.room;
+				rooms[0] = pad->room;
 				rooms[1] = -1;
 
-				func0f06a730(obj, &pad.pos, &mtx, rooms, &pad.pos);
+				func0f06a730(obj, &pad->pos, &mtx, rooms, &pad->pos);
 			}
 		}
 	}

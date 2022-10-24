@@ -480,17 +480,14 @@ bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct co
  */
 void botactGetRocketNextStepPos(u16 padnum, struct coord *pos)
 {
-	struct pad pad;
 	s16 rooms[2];
 
-	padUnpack(padnum, PADFIELD_ROOM | PADFIELD_POS, &pad);
-
-	rooms[0] = pad.room;
+	rooms[0] = g_Pads[padnum].room;
 	rooms[1] = -1;
 
-	pos->x = pad.pos.x;
-	pos->y = cdFindFloorYColourTypeAtPos(&pad.pos, rooms, 0, 0) + 150;
-	pos->z = pad.pos.z;
+	pos->x = g_Pads[padnum].pos.x;
+	pos->y = cdFindFloorYColourTypeAtPos(&g_Pads[padnum].pos, rooms, 0, 0) + 150;
+	pos->z = g_Pads[padnum].pos.z;
 }
 
 /**
