@@ -2202,18 +2202,10 @@ void viUpdateMode(void)
 
 	// 12c
 	if (g_ViBackData->mode == VIMODE_LO) {
-		if (g_ViIs16Bit) {
-			if (osTvType == OS_TV_MPAL) {
-				var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_MPAL_LAN1];
-			} else {
-				var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_NTSC_LAN1];
-			}
+		if (osTvType == OS_TV_MPAL) {
+			var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_MPAL_LAN1];
 		} else {
-			if (osTvType == OS_TV_MPAL) {
-				var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_MPAL_LAN2];
-			} else {
-				var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_NTSC_LAN2];
-			}
+			var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_NTSC_LAN1];
 		}
 
 		var8008dcc0[g_ViSlot].comRegs.width = g_ViBackData->bufx;
