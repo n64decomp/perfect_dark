@@ -88,7 +88,6 @@
 	build/ROMID/game/body.o (section); \
 	build/ROMID/game/chraction.o (section); \
 	build/ROMID/game/chrai.o (section); \
-	build/ROMID/game/chraicommands.o (section); \
 	build/ROMID/game/prop.o (section); \
 	build/ROMID/game/propobj.o (section); \
 	build/ROMID/game/propobjbss.o (section); \
