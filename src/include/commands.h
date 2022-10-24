@@ -15,7 +15,7 @@
  * label command, so this will match beginloops too.
  */
 #define goto_first(label) \
-	mkshort(0x0001), \
+	mkshort(0x0100), \
 	label,
 
 /**
@@ -27,7 +27,7 @@
  * command.
  */
 #define label(id) \
-	mkshort(0x0002), \
+	mkshort(0x9400), \
 	id,
 
 /**
@@ -45,7 +45,7 @@
  * may need to yield before detonating it.
  */
 #define yield \
-	mkshort(0x0003),
+	mkshort(0x9500),
 
 /**
  * Marks the end of the ailist.
@@ -55,7 +55,7 @@
  * or assign a different ailist before the end is reached.
  */
 #define endlist \
-	mkshort(0x0004),
+	mkshort(0x9600),
 
 /**
  * Assigns a new ailist to the given chr. If the given chr is the current chr,
@@ -63,7 +63,7 @@
  * yield).
  */
 #define set_ailist(chr, ailist) \
-	mkshort(0x0005), \
+	mkshort(0x9700), \
 	chr, \
 	mkshort(ailist),
 
@@ -76,7 +76,7 @@
  * to the original ailist.
  */
 #define set_returnlist(chr, ailist) \
-	mkshort(0x0006), \
+	mkshort(0x9800), \
 	chr, \
 	mkshort(ailist),
 
@@ -91,7 +91,7 @@
  * continue their regular logic.
  */
 #define set_shotlist(ailist) \
-	mkshort(0x0007), \
+	mkshort(0x9900), \
 	mkshort(ailist),
 
 /**
@@ -99,19 +99,19 @@
  * is started from the top.
  */
 #define return \
-	mkshort(0x0008),
+	mkshort(0x9a00),
 
 /**
  * Makes the chr stop doing whatever they were doing (eg. running).
  */
 #define stop_chr \
-	mkshort(0x0009),
+	mkshort(0x9b00),
 
 /**
  * Makes the chr begin kneeling.
  */
 #define kneel \
-	mkshort(0x000a),
+	mkshort(0x9c00),
 
 /**
  * Make a chr do an animation. See the ANIM constants in constants.h for known
@@ -125,7 +125,7 @@
  * chranimflags is expected to be a CHRANIMFLAG constant.
  */
 #define chr_do_animation(animation, startframe, endframe, chranimflags, timemerge, chr, animspeed) \
-	mkshort(0x000b), \
+	mkshort(0x9d00), \
 	mkshort(animation), \
 	mkshort(startframe), \
 	mkshort(endframe), \
@@ -143,31 +143,15 @@
  * - idle animations such as yawning
  */
 #define if_chr_idle(label) \
-	mkshort(0x000c), \
+	mkshort(0x0200), \
 	label,
-
-/**
- * Makes the chr raise one hand briefly.
- * This isn't used, but was copied from GoldenEye and still works.
- */
-#define be_surprised_one_hand \
-	mkshort(0x000d),
-
-/**
- * Makes the chr look over their shoulder.
- *
- * This command isn't used. The "surprised" part of the name is there because
- * this is internally implemented using the ACT_SURPRISED action.
- */
-#define be_surprised_look_around \
-	mkshort(0x000e),
 
 /**
  * Attempt to jump sideways. If it worked then go to the given label.
  * The command may fail if the chr is blocked.
  */
 #define try_sidestep(label) \
-	mkshort(0x000f), \
+	mkshort(0x0300), \
 	label,
 
 /**
@@ -175,7 +159,7 @@
  * The command may fail if the chr is blocked.
  */
 #define try_jumpout(label) \
-	mkshort(0x0010), \
+	mkshort(0x0400), \
 	label,
 
 /**
@@ -183,7 +167,7 @@
  * The command may fail if the chr is blocked.
  */
 #define try_run_sideways(label) \
-	mkshort(0x0011), \
+	mkshort(0x0500), \
 	label,
 
 /**
@@ -192,16 +176,7 @@
  * their target.
  */
 #define try_attack_walk(label) \
-	mkshort(0x0012), \
-	label,
-
-/**
- * Attempt to run and shoot. If it worked then go to the given label.
- * The command may fail if the chr is blocked, or maybe if the chr can't see
- * their target.
- */
-#define try_attack_run(label) \
-	mkshort(0x0013), \
+	mkshort(0x0600), \
 	label,
 
 /**
@@ -210,7 +185,7 @@
  * their target.
  */
 #define try_attack_roll(label) \
-	mkshort(0x0014), \
+	mkshort(0x0700), \
 	label,
 
 /**
@@ -219,7 +194,7 @@
  * attackflags is expected to be a bitfield of ATTACKFLAG constants.
  */
 #define try_attack_stand(attackflags, entity_id, label) \
-	mkshort(0x0015), \
+	mkshort(0x0800), \
 	mkshort(attackflags), \
 	mkshort(entity_id), \
 	label,
@@ -230,7 +205,7 @@
  * attackflags is expected to be a bitfield of ATTACKFLAG constants.
  */
 #define try_attack_kneel(attackflags, entity_id, label) \
-	mkshort(0x0016), \
+	mkshort(0x0900), \
 	mkshort(attackflags), \
 	mkshort(entity_id), \
 	label,
@@ -245,7 +220,7 @@
  * ATTACKFLAG_AIMONLY flag, causing the chr to shoot.
  */
 #define try_modify_attack(attackflags, entity_id, label) \
-	mkshort(0x0017), \
+	mkshort(0x0a00), \
 	mkshort(attackflags), \
 	mkshort(entity_id), \
 	label,
@@ -257,7 +232,7 @@
  * attackflags is expected to be a bitfield of ATTACKFLAG constants.
  */
 #define try_face_entity(attackflags, entity_id, label) \
-	mkshort(0x0018), \
+	mkshort(0x0b00), \
 	mkshort(attackflags), \
 	mkshort(entity_id), \
 	label,
@@ -266,7 +241,7 @@
  * Damages the chr using the given weapon's stats.
  */
 #define damage_chr(chr, weapon) \
-	mkshort(0x0019), \
+	mkshort(0x9e00), \
 	chr, \
 	HITPART_HEAD, \
 	weapon, \
@@ -283,7 +258,7 @@
  * It's expected to be a HITPART constant.
  */
 #define chr_damage_chr(achr, vchr, hitpart) \
-	mkshort(0x001a), \
+	mkshort(0x9f00), \
 	achr, \
 	vchr, \
 	hitpart,
@@ -295,25 +270,16 @@
  * The values are not known. It's only called with values 512 and 0.
  */
 #define consider_throwing_grenade(value_1, value_2, label) \
-	mkshort(0x001b), \
+	mkshort(0x0c00), \
 	mkshort(value_1), \
 	mkshort(value_2), \
-	label,
-
-/**
- * Makes the chr spawn the given item and drop it immediately.
- */
-#define drop_item(modelnum, weaponnum, label) \
-	mkshort(0x001c), \
-	mkshort(modelnum), \
-	weaponnum, \
 	label,
 
 /**
  * Makes the chr jog to the given pad. This may fail if pathfinding fails.
  */
 #define jog_to_pad(pad) \
-	mkshort(0x001d), \
+	mkshort(0xa000), \
 	mkshort(pad),
 
 /**
@@ -322,21 +288,21 @@
  * Speed should be GOPOSFLAG_WALK, GOPOSFLAG_JOG or GOPOSFLAG_RUN.
  */
 #define go_to_target_pad(speed) \
-	mkshort(0x001e), \
+	mkshort(0xa100), \
 	speed,
 
 /**
  * Makes the chr walk to the given pad. This may fail if pathfinding fails.
  */
 #define walk_to_pad(pad) \
-	mkshort(0x001f), \
+	mkshort(0xa200), \
 	mkshort(pad),
 
 /**
  * Makes the chr run to the given pad. This may fail if pathfinding fails.
  */
 #define run_to_pad(pad) \
-	mkshort(0x0020), \
+	mkshort(0xa300), \
 	mkshort(pad),
 
 /**
@@ -344,56 +310,41 @@
  * patrolling until start_patrol is used.
  */
 #define assign_path(pathid) \
-	mkshort(0x0021), \
+	mkshort(0xff07), \
 	pathid,
 
 /**
  * Makes the chr start patrolling.
  */
 #define start_patrol \
-	mkshort(0x0022),
+	mkshort(0xff08),
 
 /**
  * Checks if the chr is patrolling.
  */
 #define if_patrolling(label) \
-	mkshort(0x0023), \
+	mkshort(0x0d00), \
 	label,
 
 /**
  * Makes the chr surrender.
  */
 #define surrender \
-	mkshort(0x0024),
+	mkshort(0xff09),
 
 /**
  * Makes the chr drop their gun and fade out. For an immersive gameplay
  * experience, don't do this when the chr is on screen.
  */
 #define drop_gun_and_fade_out \
-	mkshort(0x0025),
+	mkshort(0xa400),
 
 /**
  * Remove the chr completely.
  */
 #define remove_chr(chr) \
-	mkshort(0x0026), \
+	mkshort(0xa500), \
 	chr,
-
-/**
- * Makes the chr try to run to an alarm switch and activate it.
- *
- * The pad argument should be the pad that the alarm is at. A check is done to
- * make sure the object at that pad is healthy.
- *
- * Note that no check is done to make sure that the object at the pad is
- * actually an alarm switch, and the chr will actually run to their closest
- * alarm switch rather than the one at the given pad.
- */
-#define try_start_alarm(pad, label) \
-	mkshort(0x0027), \
-	mkshort(pad), \
-	label,
 
 /**
  * Activates the alarm. This alone does nothing except make the alarm sound
@@ -404,29 +355,20 @@
  * 55 seconds.
  */
 #define activate_alarm \
-	mkshort(0x0028),
+	mkshort(0xa600),
 
 /**
  * Deactivates the alarm.
  */
 #define deactivate_alarm \
-	mkshort(0x0029),
-
-/**
- * Makes the chr attempt to run 1000 units in the opposite direction to their
- * target, without any pathfinding. If this destination is obstructed by a wall
- * then they'll run as far as they can and stop at the wall.
- */
-#define try_run_from_target(label) \
-	mkshort(0x002a), \
-	label,
+	mkshort(0xa700),
 
 /**
  * Makes the chr attempt to jog to their target. The target can be a chr, object
  * or the player.
  */
 #define try_jog_to_target(label) \
-	mkshort(0x002b), \
+	mkshort(0x0e00), \
 	label,
 
 /**
@@ -434,7 +376,7 @@
  * or the player.
  */
 #define try_walk_to_target(label) \
-	mkshort(0x002c), \
+	mkshort(0x0f00), \
 	label,
 
 /**
@@ -442,31 +384,14 @@
  * or the player.
  */
 #define try_run_to_target(label) \
-	mkshort(0x002d), \
-	label,
-
-/**
- * Does nothing due to a bug in the implementation. But if it worked, it would
- * make the chr find a suitable prop in their current room to use as cover and
- * run to it.
- */
-#define try_go_to_cover_prop(label) \
-	mkshort(0x002e), \
+	mkshort(0x1000), \
 	label,
 
 /**
  * Makes the chr attempt to jog to the given chr.
  */
 #define try_jog_to_chr(chr, label) \
-	mkshort(0x002f), \
-	chr, \
-	label,
-
-/**
- * Makes the chr attempt to walk to the given chr.
- */
-#define try_walk_to_chr(chr, label) \
-	mkshort(0x0030), \
+	mkshort(0x1100), \
 	chr, \
 	label,
 
@@ -474,7 +399,7 @@
  * Makes the chr attempt to run to the given chr.
  */
 #define try_run_to_chr(chr, label) \
-	mkshort(0x0031), \
+	mkshort(0x1200), \
 	chr, \
 	label,
 
@@ -482,7 +407,7 @@
  * Checks if the chr is doing anything, such as running or animating.
  */
 #define if_chr_stopped(label) \
-	mkshort(0x0032), \
+	mkshort(0x1300), \
 	label,
 
 /**
@@ -490,7 +415,7 @@
  * animation or is invalid.
  */
 #define if_chr_dead(chr, label) \
-	mkshort(0x0033), \
+	mkshort(0x1400), \
 	chr, \
 	label,
 
@@ -498,7 +423,7 @@
  * Checks if the chr has finished dying.
  */
 #define if_chr_death_animation_finished(chr, label) \
-	mkshort(0x0034), \
+	mkshort(0x1500), \
 	chr, \
 	label,
 
@@ -507,7 +432,7 @@
  * object or the player.
  */
 #define if_target_in_sight(label) \
-	mkshort(0x0035), \
+	mkshort(0x1600), \
 	label,
 
 /**
@@ -515,13 +440,13 @@
  * value between 0 and 255 (inclusive).
  */
 #define call_rng \
-	mkshort(0x0036),
+	mkshort(0xa800),
 
 /**
  * Checks if the chr's rand property is less than the given value.
  */
 #define if_rand_lt(value, label) \
-	mkshort(0x0037), \
+	mkshort(0x1700), \
 	value, \
 	label,
 
@@ -529,7 +454,7 @@
  * Checks if the chr's rand property is greater than the given value.
  */
 #define if_rand_gt(value, label) \
-	mkshort(0x0038), \
+	mkshort(0x1800), \
 	value, \
 	label,
 
@@ -540,31 +465,21 @@
  * have contained extra per-chr checks such as chr flags and distance.
  */
 #define if_can_hear_alarm(label) \
-	mkshort(0x0039), \
+	mkshort(0x1900), \
 	label,
 
 /**
  * Checks if the alarm is currently sounding.
  */
 #define if_alarm_active(label) \
-	mkshort(0x003a), \
-	label,
-
-/**
- * Checks if gas has been released from a gas bottle. This is different to the
- * gas that is released in Escape.
- *
- * Gas bottles aren't used in PD. This command is a leftover from GoldenEye.
- */
-#define if_gas_active(label) \
-	mkshort(0x003b), \
+	mkshort(0x1a00), \
 	label,
 
 /**
  * Checks if the chr has heard their target (eg. due to gunfire).
  */
 #define if_hears_target(label) \
-	mkshort(0x003c), \
+	mkshort(0x1b00), \
 	label,
 
 /**
@@ -581,7 +496,7 @@
  * |-----------|-------|-------------------------|
  */
 #define if_saw_injury(checktype, label) \
-	mkshort(0x003d), \
+	mkshort(0x1c00), \
 	checktype, \
 	label,
 
@@ -599,7 +514,7 @@
  * |-----------|-------|------------------------|
  */
 #define if_saw_death(checktype, label) \
-	mkshort(0x003e), \
+	mkshort(0x1d00), \
 	checktype, \
 	label,
 
@@ -607,17 +522,7 @@
  * Checks if the current chr can see their target.
  */
 #define if_can_see_target(label) \
-	mkshort(0x003f), \
-	label,
-
-/**
- * Checks if the current chr's target is in sight of the current chr, or would
- * be in sight if the target were to move <distance> units left or right in a
- * circle around the current chr.
- */
-#define if_target_nearly_in_sight(distance, label) \
-	mkshort(0x0040), \
-	mkword(distance), \
+	mkshort(0x1e00), \
 	label,
 
 /**
@@ -626,31 +531,15 @@
  * around their target.
  */
 #define if_nearly_in_targets_sight(distance, label) \
-	mkshort(0x0041), \
+	mkshort(0x1f00), \
 	mkword(distance), \
-	label,
-
-/**
- * Checks if the current chr can see their target. If so, the chr's pad preset
- * is set to a pad along the route to their target. The pad chosen is the pad
- * on the route which is closest to the target and in sight of the current chr.
- */
-#define set_pad_preset_to_pad_on_route_to_target(label) \
-	mkshort(0x0042), \
-	label,
-
-/**
- * Checks if the chr saw their target within the last 10 seconds.
- */
-#define if_saw_target_recently(label) \
-	mkshort(0x0043), \
 	label,
 
 /**
  * Checks if the chr heard their target within the last 10 seconds.
  */
 #define if_heard_target_recently(label) \
-	mkshort(0x0044), \
+	mkshort(0x2000), \
 	label,
 
 /**
@@ -658,7 +547,7 @@
  * the chr or hearing gunfire.
  */
 #define if_detected_chr(chr, label) \
-	mkshort(0x0045), \
+	mkshort(0x2100), \
 	chr, \
 	label,
 
@@ -667,7 +556,7 @@
  * clones until the source chr has appeared on screen.
  */
 #define if_never_been_onscreen(label) \
-	mkshort(0x0046), \
+	mkshort(0x2200), \
 	label,
 
 /**
@@ -675,15 +564,7 @@
  * either on this tick or on the prev tick.
  */
 #define if_onscreen(label) \
-	mkshort(0x0047), \
-	label,
-
-/**
- * Checks if the chr's room is onscreen.
- */
-#define if_chr_in_onscreen_room(chr, label) \
-	mkshort(0x0048), \
-	chr, \
+	mkshort(0x2300), \
 	label,
 
 /**
@@ -693,19 +574,19 @@
  * it as a pad number, and use the room that the pad is in.
  */
 #define if_room_onscreen(room, label) \
-	mkshort(0x0049), \
+	mkshort(0x2400), \
 	mkshort(room), \
 	label,
 
 #define if_chr_in_view(label) \
-	mkshort(0x004a), \
+	mkshort(0x2500), \
 	label,
 
 /**
  * Checks if the chr had a shot nearly hit them.
  */
 #define if_near_miss(label) \
-	mkshort(0x004b), \
+	mkshort(0x2600), \
 	label,
 
 /**
@@ -717,7 +598,7 @@
  * - And other unknown things
  */
 #define if_sees_suspicious_item(label) \
-	mkshort(0x004c), \
+	mkshort(0x2700), \
 	label,
 
 /**
@@ -727,7 +608,7 @@
  * With angle 10, returns true if target is roughly within 12-11 o'clock.
  */
 #define if_target_in_fov_left(angle, label) \
-	mkshort(0x004d), \
+	mkshort(0x2800), \
 	angle, \
 	label,
 
@@ -755,7 +636,7 @@
  * if_target_outside_my_yvisang
  */
 #define if_fov_check_with_target(angle, op1, op2, label) \
-	mkshort(0x004e), \
+	mkshort(0x2900), \
 	angle, \
 	op1, \
 	op2, \
@@ -768,7 +649,7 @@
  * if the target is roughly within 12-1 o'clock.
  */
 #define if_target_out_of_fov_left(angle, label) \
-	mkshort(0x004f), \
+	mkshort(0x2a00), \
 	angle, \
 	label,
 
@@ -777,16 +658,7 @@
  * current chr's 12 o'clock (ie. either side).
  */
 #define if_target_in_fov(angle, label) \
-	mkshort(0x0050), \
-	angle, \
-	label,
-
-/**
- * Similar to 004d and 004f, but checks if the target is not in front of the
- * current chr by the given angle.
- */
-#define if_target_out_of_fov(angle, label) \
-	mkshort(0x0051), \
+	mkshort(0x2b00), \
 	angle, \
 	label,
 
@@ -795,7 +667,7 @@
  * given value.
  */
 #define if_distance_to_target_lt(distance, label) \
-	mkshort(0x0052), \
+	mkshort(0x2c00), \
 	mkshort(distance / 10), \
 	label,
 
@@ -804,7 +676,7 @@
  * the given value.
  */
 #define if_distance_to_target_gt(distance, label) \
-	mkshort(0x0053), \
+	mkshort(0x2d00), \
 	mkshort(distance / 10), \
 	label,
 
@@ -813,7 +685,7 @@
  * given value.
  */
 #define if_chr_distance_to_pad_lt(chr, distance, pad, label) \
-	mkshort(0x0054), \
+	mkshort(0x2e00), \
 	chr, \
 	mkshort(distance / 10), \
 	mkshort(pad), \
@@ -824,7 +696,7 @@
  * the given value.
  */
 #define if_chr_distance_to_pad_gt(chr, distance, pad, label) \
-	mkshort(0x0055), \
+	mkshort(0x2f00), \
 	chr, \
 	mkshort(distance / 10), \
 	mkshort(pad), \
@@ -835,7 +707,7 @@
  * given value.
  */
 #define if_distance_to_chr_lt(distance, chr, label) \
-	mkshort(0x0056), \
+	mkshort(0x3000), \
 	mkshort(distance / 10), \
 	chr, \
 	label,
@@ -845,14 +717,9 @@
  * the given value.
  */
 #define if_distance_to_chr_gt(distance, chr, label) \
-	mkshort(0x0057), \
+	mkshort(0x3100), \
 	mkshort(distance / 10), \
 	chr, \
-	label,
-
-#define cmd0058(distance, label) \
-	mkshort(0x0058), \
-	mkshort(distance / 10), \
 	label,
 
 /**
@@ -860,17 +727,7 @@
  * than the given value. The target can be another chr or an object.
  */
 #define if_distance_from_target_to_pad_lt(distance, pad, label) \
-	mkshort(0x0059), \
-	mkshort(distance / 10), \
-	mkshort(pad), \
-	label,
-
-/**
- * Checks if the distance from the current chr's target to the given pad is
- * greater than the given value. The target can be another chr or an object.
- */
-#define if_distance_from_target_to_pad_gt(distance, pad, label) \
-	mkshort(0x005a), \
+	mkshort(0x3200), \
 	mkshort(distance / 10), \
 	mkshort(pad), \
 	label,
@@ -885,26 +742,17 @@
  * Type 2 is hard coded to only work in G5 Building.
  */
 #define if_chr_in_room(chr, type, room_or_pad, label) \
-	mkshort(0x005b), \
+	mkshort(0x3300), \
 	chr, \
 	type, \
 	mkshort(room_or_pad), \
 	label,
 
 /**
- * Checks if the chr's target is in the given room. The target can be another
- * chr or object.
- */
-#define if_target_in_room(room, label) \
-	mkshort(0x005c), \
-	mkshort(room), \
-	label
-
-/**
  * Checks if the given chr has the given object in their inventory.
  */
 #define if_chr_has_object(chr, object, label) \
-	mkshort(0x005d), \
+	mkshort(0x3400), \
 	chr, \
 	object, \
 	label,
@@ -913,7 +761,7 @@
  * Checks if the given weapon has been thrown.
  */
 #define if_weapon_thrown(weapon, label) \
-	mkshort(0x005e), \
+	mkshort(0x3500), \
 	weapon, \
 	label,
 
@@ -922,7 +770,7 @@
  * object.
  */
 #define if_weapon_thrown_on_object(weapon, object, label) \
-	mkshort(0x005f), \
+	mkshort(0x3600), \
 	weapon, \
 	object, \
 	label,
@@ -931,7 +779,7 @@
  * Checks if the chr has the given weapon equipped.
  */
 #define if_chr_weapon_equipped(chr, weapon, label) \
-	mkshort(0x0060), \
+	mkshort(0x3700), \
 	chr, \
 	weapon, \
 	label,
@@ -943,7 +791,7 @@
  * In practice this is always called with object = -1 and behavior = 1.
  */
 #define if_gun_unclaimed(object, behavior, label) \
-	mkshort(0x0061), \
+	mkshort(0x3800), \
 	object, \
 	behavior, \
 	label,
@@ -952,7 +800,7 @@
  * Checks if the object is in good working order (ie. not destroyed).
  */
 #define if_object_in_good_condition(object, label) \
-	mkshort(0x0062), \
+	mkshort(0x3900), \
 	object, \
 	label,
 
@@ -963,19 +811,10 @@
  * of this command will not pass unless the chr activates it again.
  */
 #define if_chr_activated_object(chr, object, label) \
-	mkshort(0x0063), \
+	mkshort(0x3a00), \
 	chr, \
 	object, \
 	label,
-
-/**
- * Interacts with the given object, as if the player pressed B on it.
- *
- * If the object is a door, lock checks are skipped.
- */
-#define obj_interact(object) \
-	mkshort(0x0065), \
-	object,
 
 /**
  * Destroys the given object.
@@ -983,32 +822,28 @@
  * In practice this is only used on mines. It might work on other objects.
  */
 #define destroy_object(object) \
-	mkshort(0x0066), \
-	object,
-
-#define cmd0067(object) \
-	mkshort(0x0067), \
+	mkshort(0xa900), \
 	object,
 
 /**
  * Makes the given chr drop their concealed items.
  */
 #define drop_concealed_items(chr) \
-	mkshort(0x0068), \
+	mkshort(0xaa00), \
 	chr,
 
 /**
  * Makes the given chr drop their weapon.
  */
 #define chr_drop_weapon(chr) \
-	mkshort(0x0069), \
+	mkshort(0xab00), \
 	chr,
 
 /**
  * Makes the current chr give their object to the given chr.
  */
 #define give_object_to_chr(object, chr) \
-	mkshort(0x006a), \
+	mkshort(0xac00), \
 	object, \
 	chr,
 
@@ -1016,7 +851,7 @@
  * Moves the object to the given pad. The move is instant.
  */
 #define move_object_to_pad(object, pad) \
-	mkshort(0x006b), \
+	mkshort(0xad00), \
 	object, \
 	mkshort(pad),
 
@@ -1024,14 +859,14 @@
  * Opens the door.
  */
 #define open_door(door) \
-	mkshort(0x006c), \
+	mkshort(0xae00), \
 	door,
 
 /**
  * Closes the door.
  */
 #define close_door(door) \
-	mkshort(0x006d), \
+	mkshort(0xaf00), \
 	door,
 
 /**
@@ -1042,19 +877,9 @@
  * together to check multiple states at the same time.
  */
 #define if_door_state(door, doorstate, label) \
-	mkshort(0x006e), \
+	mkshort(0x3b00), \
 	door, \
 	doorstate, \
-	label,
-
-/**
- * Checks if the given object is a door.
- *
- * Most likely a debug command, as you'd know what IDs your doors use.
- */
-#define if_object_is_door(object, label) \
-	mkshort(0x006f), \
-	object, \
 	label,
 
 /**
@@ -1067,7 +892,7 @@
  * player completes each requirement.
  */
 #define lock_door(door, bits) \
-	mkshort(0x0070), \
+	mkshort(0xff0a), \
 	door, \
 	bits,
 
@@ -1076,7 +901,7 @@
  * the same bitmask that was used to lock the door) then the door is unlocked.
  */
 #define unlock_door(door, bits) \
-	mkshort(0x0071), \
+	mkshort(0xb000), \
 	door, \
 	bits,
 
@@ -1084,7 +909,7 @@
  * Checks if the door is locked with the given bitmask.
  */
 #define if_door_locked(door, bits, label) \
-	mkshort(0x0072), \
+	mkshort(0x3c00), \
 	door, \
 	bits, \
 	label,
@@ -1096,7 +921,7 @@
  * and some objective indexes do not apply to easier difficulties.
  */
 #define if_objective_complete(objective, label) \
-	mkshort(0x0073), \
+	mkshort(0x3d00), \
 	objective, \
 	label,
 
@@ -1107,7 +932,7 @@
  * and some objective indexes do not apply to easier difficulties.
  */
 #define if_objective_failed(objective, label) \
-	mkshort(0x0074), \
+	mkshort(0x3e00), \
 	objective, \
 	label,
 
@@ -1118,7 +943,7 @@
  * If u1 were 0x10 or 0x20, some other logic would be used.
  */
 #define try_set_target_pad_to_something(u1, label) \
-	mkshort(0x0075), \
+	mkshort(0x3f00), \
 	u1, \
 	label,
 
@@ -1136,7 +961,7 @@
  * No further checks are done.
  */
 #define try_set_padpreset_to_target_quadrant(quadrant, label) \
-	mkshort(0x0076), \
+	mkshort(0x4000), \
 	quadrant, \
 	label,
 
@@ -1146,7 +971,7 @@
  * Diff is expected to be one of DIFF_A, DIFF_SA, DIFF_PA or DIFF_PD.
  */
 #define if_difficulty_lt(diff, label) \
-	mkshort(0x0077), \
+	mkshort(0x4100), \
 	diff, \
 	label,
 
@@ -1156,24 +981,8 @@
  * Diff is expected to be one of DIFF_A, DIFF_SA, DIFF_PA or DIFF_PD.
  */
 #define if_difficulty_gt(diff, label) \
-	mkshort(0x0078), \
+	mkshort(0x4200), \
 	diff, \
-	label,
-
-/**
- * Checks if the stage timer is less than the given number of seconds.
- */
-#define if_stage_timer_lt(seconds, label) \
-	mkshort(0x0079), \
-	mkshort(seconds), \
-	label,
-
-/**
- * Checks if the stage timer is greater than the given number of seconds.
- */
-#define if_stage_timer_gt(seconds, label) \
-	mkshort(0x007a), \
-	mkshort(seconds), \
 	label,
 
 /**
@@ -1181,18 +990,8 @@
  *
  * Consider using the helper macro if_stage_is_not instead.
  */
-#define if_stage_lt(stage, label) \
-	mkshort(0x007b), \
-	stage, \
-	label,
-
-/**
- * Checks if the stage ID is greater than the given value.
- *
- * Consider using the helper macro if_stage_is_not instead.
- */
-#define if_stage_gt(stage, label) \
-	mkshort(0x007c), \
+#define if_stage_is_not(stage, label) \
+	mkshort(0x4300), \
 	stage, \
 	label,
 
@@ -1200,7 +999,7 @@
  * Checks if the chr has been shot less than the given number of times.
  */
 #define if_num_times_shot_lt(value, label) \
-	mkshort(0x007d), \
+	mkshort(0x4400), \
 	value, \
 	label,
 
@@ -1208,42 +1007,8 @@
  * Checks if the chr has been shot more than the given number of times.
  */
 #define if_num_times_shot_gt(value, label) \
-	mkshort(0x007e), \
+	mkshort(0x4500), \
 	value, \
-	label,
-
-/**
- * Checks if the chr has had less than the given number of near misses.
- */
-#define if_num_close_arghs_lt(value, label) \
-	mkshort(0x007f), \
-	value, \
-	label,
-
-/**
- * Checks if the chr has had more than the given number of near misses.
- */
-#define if_num_close_arghs_gt(value, label) \
-	mkshort(0x0080), \
-	value, \
-	label,
-
-/**
- * Checks if the chr's health is greater than the given value.
- */
-#define if_chr_health_gt(chr, health, label) \
-	mkshort(0x0081), \
-	chr, \
-	health, \
-	label,
-
-/**
- * Checks if the chr's health is less than the given value.
- */
-#define if_chr_health_lt(chr, health, label) \
-	mkshort(0x0082), \
-	chr, \
-	health, \
 	label,
 
 /**
@@ -1261,7 +1026,7 @@
  * unless the chr is injured again.
  */
 #define if_just_injured(chr, label) \
-	mkshort(0x0083), \
+	mkshort(0x4600), \
 	chr, \
 	label,
 
@@ -1272,44 +1037,29 @@
  * The value range is 0-255.
  */
 #define set_morale(value) \
-	mkshort(0x0084), \
+	mkshort(0xb100), \
 	value,
 
 /**
  * Adds the given value to the current chr's morale property.
  */
 #define add_morale(value) \
-	mkshort(0x0085), \
-	value,
-
-/**
- * Adds the given value to the given chr's morale property.
- */
-#define chr_add_morale(chr, value) \
-	mkshort(0x0086), \
-	chr, \
+	mkshort(0xb200), \
 	value,
 
 /**
  * Subtracts the given value from the current chr's morale property.
  */
 #define subtract_morale(value) \
-	mkshort(0x0087), \
+	mkshort(0xb300), \
 	value,
 
 /**
  * Checks if the chr's morale property is less than the given value.
  */
 #define if_morale_lt(value, label) \
-	mkshort(0x0088), \
+	mkshort(0x4700), \
 	value, \
-	label,
-
-/**
- * Checks if the chr's morale property is less than the chr's rand property.
- */
-#define if_morale_lt_random(label) \
-	mkshort(0x0089), \
 	label,
 
 /**
@@ -1317,29 +1067,21 @@
  * respond.
  */
 #define set_alertness(value) \
-	mkshort(0x008a), \
+	mkshort(0xb400), \
 	value,
 
 /**
  * Adds the given value to the current chr's alertness.
  */
 #define increase_self_alertness(value) \
-	mkshort(0x008b), \
+	mkshort(0xb500), \
 	value,
 
 /**
  * Adds the given value to the given chr's alertness.
  */
 #define increase_chr_alertness(value, chr) \
-	mkshort(0x008c), \
-	value, \
-	chr,
-
-/**
- * Subtracts the given value from current chr's alertness.
- */
-#define subtract_alertness(value, chr) \
-	mkshort(0x008d), \
+	mkshort(0xb600), \
 	value, \
 	chr,
 
@@ -1349,7 +1091,7 @@
  * Operator is expected to be OPERATOR_LESS_THAN or OPERATOR_GREATER_THAN.
  */
 #define if_alertness(value, operator, label) \
-	mkshort(0x008e), \
+	mkshort(0x4800), \
 	value, \
 	operator, \
 	label,
@@ -1358,20 +1100,10 @@
  * Checks if the given chr's alertness is less than the given value.
  */
 #define if_chr_alertness_lt(value, chr, label) \
-	mkshort(0x008f), \
+	mkshort(0x4900), \
 	value, \
 	chr, \
 	label,
-
-/**
- * Checks if the current chr's alertness is less than their rand property.
- */
-#define if_alertness_lt_random(label) \
-	mkshort(0x0090), \
-	label,
-
-#define noop0091 \
-	mkshort(0x0091),
 
 /**
  * Set the current chr's hear distance.
@@ -1379,14 +1111,14 @@
  * This value might be multiplied or divided by 1000.
  */
 #define set_hear_distance(value) \
-	mkshort(0x0092), \
+	mkshort(0xb700), \
 	mkshort(value),
 
 /**
  * Set the current chr's view distance.
  */
 #define set_view_distance(value) \
-	mkshort(0x0093), \
+	mkshort(0xb800), \
 	value,
 
 /**
@@ -1394,14 +1126,14 @@
  * consider_throwing_grenade command.
  */
 #define set_grenade_probability_out_of_255(value) \
-	mkshort(0x0094), \
+	mkshort(0xff0b), \
 	value,
 
 /**
  * Assigns a new ID to the chr.
  */
 #define set_chr_id(newid) \
-	mkshort(0x0095), \
+	mkshort(0xff0c), \
 	newid,
 
 /**
@@ -1412,7 +1144,7 @@
  * be assigned to the object itself.
  */
 #define set_chr_maxdamage(chr, value) \
-	mkshort(0x0096), \
+	mkshort(0xff0d), \
 	chr, \
 	mkshort(value),
 
@@ -1428,21 +1160,21 @@
  *     may become negative, which has the effect of having body armor.
  */
 #define add_health_or_armor(value) \
-	mkshort(0x0097), \
+	mkshort(0xff0e), \
 	mkshort(value),
 
 /**
  * Set the chr's reaction speed. Range is probably -128 to 127.
  */
 #define set_reaction_speed(value) \
-	mkshort(0x0098), \
+	mkshort(0xff0f), \
 	value,
 
 /**
  * Set the chr's injury recovery speed. Range is probably -128 to 127.
  */
 #define set_recovery_speed(value) \
-	mkshort(0x0099), \
+	mkshort(0xff10), \
 	value,
 
 /**
@@ -1454,7 +1186,7 @@
  * This setting has no effect if the chr has CHRHFLAG_PERFECTACCURACY.
  */
 #define set_accuracy(value) \
-	mkshort(0x009a), \
+	mkshort(0xff11), \
 	value,
 
 /**
@@ -1464,7 +1196,7 @@
  * Use BANK_1 and a CHRFLAG1 constant for chr->flags2 (chr struct offset 0x118).
  */
 #define set_self_flag_bankx(flag, bank) \
-	mkshort(0x009b), \
+	mkshort(0xb900), \
 	mkword(flag), \
 	bank,
 
@@ -1474,7 +1206,7 @@
  * See set_self_flag_bankx for more info.
  */
 #define unset_self_flag_bankx(flag, bank) \
-	mkshort(0x009c), \
+	mkshort(0xba00), \
 	mkword(flag), \
 	bank,
 
@@ -1487,7 +1219,7 @@
  * See set_self_flag_bankx for more info.
  */
 #define if_self_flag_bankx_eq(flag, bool, bank, label) \
-	mkshort(0x009d), \
+	mkshort(0x4a00), \
 	mkword(flag), \
 	bool, \
 	bank, \
@@ -1499,7 +1231,7 @@
  * See set_self_flag_bankx for more info.
  */
 #define set_chr_flag_bankx(chr, props, bank) \
-	mkshort(0x009e), \
+	mkshort(0xbb00), \
 	chr, \
 	mkword(props), \
 	bank,
@@ -1510,7 +1242,7 @@
  * See set_self_flag_bankx for more info.
  */
 #define unset_chr_flag_bankx(chr, flag, bank) \
-	mkshort(0x009f), \
+	mkshort(0xbc00), \
 	chr, \
 	mkword(flag), \
 	bank,
@@ -1521,7 +1253,7 @@
  * See set_self_flag_bankx for more info.
  */
 #define if_chr_has_flag_bankx(chr, flag, bank, label) \
-	mkshort(0x00a0), \
+	mkshort(0x4b00), \
 	chr, \
 	mkword(flag), \
 	bank, \
@@ -1536,7 +1268,7 @@
  * stage flag is set.
  */
 #define set_stage_flag(stageflag) \
-	mkshort(0x00a1), \
+	mkshort(0xbd00), \
 	mkword(stageflag),
 
 /**
@@ -1546,7 +1278,7 @@
  * incomplete.
  */
 #define unset_stage_flag(stageflag) \
-	mkshort(0x00a2), \
+	mkshort(0xbe00), \
 	mkword(stageflag),
 
 /**
@@ -1555,7 +1287,7 @@
  * Set bool to TRUE if checking if set, or FALSE if checking if unset.
  */
 #define if_stage_flag_eq(stageflag, bool, label) \
-	mkshort(0x00a3), \
+	mkshort(0x4c00), \
 	mkword(stageflag), \
 	bool, \
 	label,
@@ -1566,7 +1298,7 @@
  * Expects a CHRCFLAG constant.
  */
 #define set_self_chrflag(chrflag3) \
-	mkshort(0x00a4), \
+	mkshort(0xbf00), \
 	mkword(chrflag3),
 
 /**
@@ -1575,7 +1307,7 @@
  * See set_self_chrflag for more info.
  */
 #define unset_self_chrflag(chrflag3) \
-	mkshort(0x00a5), \
+	mkshort(0xc000), \
 	mkword(chrflag3),
 
 /**
@@ -1584,7 +1316,7 @@
  * See set_self_chrflag for more info.
  */
 #define if_self_has_chrflag(chrflag3, label) \
-	mkshort(0x00a6), \
+	mkshort(0x4d00), \
 	mkword(chrflag3), \
 	label,
 
@@ -1594,7 +1326,7 @@
  * See set_self_chrflag for more info.
  */
 #define set_chr_chrflag(chr, chrflag3) \
-	mkshort(0x00a7), \
+	mkshort(0xc100), \
 	chr, \
 	mkword(chrflag3),
 
@@ -1604,7 +1336,7 @@
  * See set_self_chrflag for more info.
  */
 #define unset_chr_chrflag(chr, chrflag3) \
-	mkshort(0x00a8), \
+	mkshort(0xc200), \
 	chr, \
 	mkword(chrflag3),
 
@@ -1614,7 +1346,7 @@
  * See set_self_chrflag for more info.
  */
 #define if_chr_has_chrflag(chr, chrflag3, label) \
-	mkshort(0x00a9), \
+	mkshort(0x4e00), \
 	chr, \
 	mkword(chrflag3), \
 	label,
@@ -1625,7 +1357,7 @@
  * Expects an OBJFLAG constant.
  */
 #define set_object_flag(object, objectflag) \
-	mkshort(0x00aa), \
+	mkshort(0xc300), \
 	object, \
 	mkword(objectflag),
 
@@ -1635,20 +1367,9 @@
  * See set_object_flag for more info.
  */
 #define unset_object_flag(object, objectflag) \
-	mkshort(0x00ab), \
+	mkshort(0xc400), \
 	object, \
 	mkword(objectflag),
-
-/**
- * Checks if the given object has the given flags property.
- *
- * See set_object_flag for more info.
- */
-#define if_object_has_flag(object, objectflag, label) \
-	mkshort(0x00ac), \
-	object, \
-	mkword(objectflag), \
-	label,
 
 /**
  * Sets a flag on the object's flags2 property (object struct offset 0x0c).
@@ -1656,7 +1377,7 @@
  * Expects an OBJFLAG2 constant.
  */
 #define set_object_flag2(object, objectflag2) \
-	mkshort(0x00ad), \
+	mkshort(0xc500), \
 	object, \
 	mkword(objectflag2),
 
@@ -1666,7 +1387,7 @@
  * See set_object_flag2 for more info.
  */
 #define unset_object_flag2(object, objectflag2) \
-	mkshort(0x00ae), \
+	mkshort(0xc600), \
 	object, \
 	mkword(objectflag2),
 
@@ -1676,7 +1397,7 @@
  * See set_object_flag2 for more info.
  */
 #define if_object_flag2(object, objectflag2, label) \
-	mkshort(0x00af), \
+	mkshort(0x4f00), \
 	object, \
 	mkword(objectflag2), \
 	label,
@@ -1687,7 +1408,7 @@
  * chrpreset is a general purpose property. It can be referenced via CHR_PRESET.
  */
 #define set_chrpreset(chr) \
-	mkshort(0x00b0), \
+	mkshort(0xc700), \
 	chr,
 
 /**
@@ -1697,7 +1418,7 @@
  * CHR_TARGET.
  */
 #define set_chr_target_chr(chr, target) \
-	mkshort(0x00b1), \
+	mkshort(0xc800), \
 	chr, \
 	target,
 
@@ -1707,73 +1428,39 @@
  * padpreset can be referenced via PAD_PRESET.
  */
 #define set_padpreset(pad) \
-	mkshort(0x00b2), \
+	mkshort(0xc900), \
 	mkshort(pad),
-
-/**
- * Sets the given chr's padpreset property.
- *
- * padpreset can be referenced via PAD_PRESET.
- */
-#define chr_set_target_pad(chr, pad) \
-	mkshort(0x00b3), \
-	chr, \
-	mkshort(pad),
-
-/**
- * Copies the padpreset from the source chr to the destination chr.
- */
-#define chr_copy_target_pad(srcchr, dstchr) \
-	mkshort(0x00b4), \
-	srcchr, \
-	dstchr,
 
 /**
  * Resets the current chr's timer to zero and starts it.
  */
 #define restart_timer \
-	mkshort(0x00b6),
+	mkshort(0xca00),
 
 /**
  * Resets the current chr's timer to zero. The running state is unchanged.
  */
 #define reset_timer \
-	mkshort(0x00b7),
+	mkshort(0xcb00),
 
 /**
  * Pauses the current chr's timer. The timer value is unchanged.
  */
 #define pause_timer \
-	mkshort(0x00b8),
+	mkshort(0xcc00),
 
 /**
  * Resumes the current chr's timer. The timer continues from where it left off
  * previously.
  */
 #define resume_timer \
-	mkshort(0x00b9),
-
-/**
- * Checks if the current chr's timer is stopped.
- */
-#define if_timer_stopped(label) \
-	mkshort(0x00ba), \
-	label,
-
-/**
- * Checks if the current chr's timer value is greater than the chr's rand value.
- *
- * You need to use call_rng before using this.
- */
-#define if_timer_gt_random(label) \
-	mkshort(0x00bb), \
-	label,
+	mkshort(0xcd00),
 
 /**
  * Checks if the current chr's timer value is greater than the given value.
  */
 #define if_timer_gt(value, label) \
-	mkshort(0x00bd), \
+	mkshort(0x5100), \
 	0x00, \
 	mkshort(value), \
 	label,
@@ -1782,7 +1469,7 @@
  * Checks if the current chr's timer value is less than the given value.
  */
 #define if_timer_lt(value, label) \
-	mkshort(0x00bc), \
+	mkshort(0x5000), \
 	0x00, \
 	mkshort(value), \
 	label,
@@ -1791,45 +1478,38 @@
  * Shows the countdown timer.
  */
 #define show_countdown_timer \
-	mkshort(0x00be),
+	mkshort(0xff12),
 
 /**
  * Hides the countdown timer.
  */
 #define hide_countdown_timer \
-	mkshort(0x00bf),
+	mkshort(0xff13),
 
 /**
  * Sets the countdown timer value.
  */
 #define set_countdown_timer(seconds) \
-	mkshort(0x00c0), \
+	mkshort(0xff14), \
 	mkshort(seconds),
 
 /**
  * Stops the countdown timer.
  */
 #define stop_countdown_timer \
-	mkshort(0x00c1),
+	mkshort(0xff15),
 
 /**
  * Starts the countdown timer.
  */
 #define start_countdown_timer \
-	mkshort(0x00c2),
-
-/**
- * Checks if the countdown timer is stopped.
- */
-#define if_countdown_timer_stopped(label) \
-	mkshort(0x00c3), \
-	label,
+	mkshort(0xff16),
 
 /**
  * Checks if the countdown timer value is less than the given value.
  */
 #define if_countdown_timer_lt(value, label) \
-	mkshort(0x00c4), \
+	mkshort(0x5200), \
 	mkshort(value), \
 	label,
 
@@ -1837,7 +1517,7 @@
  * Checks if the countdown timer value is greater than the given value.
  */
 #define if_countdown_timer_gt(value, label) \
-	mkshort(0x00c5), \
+	mkshort(0x5300), \
 	mkshort(value), \
 	label,
 
@@ -1845,7 +1525,7 @@
  * Attempts to spawn a chr at the given pad.
  */
 #define try_spawn_chr_at_pad(body, head, pad, ailist, spawnflags, label) \
-	mkshort(0x00c6), \
+	mkshort(0x5400), \
 	body, \
 	head, \
 	mkshort(pad), \
@@ -1857,7 +1537,7 @@
  * Attempts to spawn a chr at the given chr.
  */
 #define try_spawn_chr_at_chr(body, head, chrnum, ailist, spawnflags, label) \
-	mkshort(0x00c7), \
+	mkshort(0x5500), \
 	body, \
 	head, \
 	chrnum, \
@@ -1871,25 +1551,14 @@
  * Will cause crashes if the weapon's model file lacks positional information.
  */
 #define try_equip_weapon(model, weapon, flags, label) \
-	mkshort(0x00c8), \
+	mkshort(0x5600), \
 	mkshort(model), \
 	weapon, \
 	mkword(flags), \
 	label,
 
-/**
- * Makes the chr equip the given model as a hat.
- *
- * Will cause crashes if the model file lacks positional information.
- */
-#define try_equip_hat(model, flags, label) \
-	mkshort(0x00c9), \
-	mkshort(model), \
-	mkword(flags), \
-	label,
-
 #define try_spawn_clone2(chr, ailist, spawnflags, label) \
-	mkshort(0x00ca), \
+	mkshort(0x5700), \
 	chr, \
 	mkshort(ailist), \
 	mkword(spawnflags), \
@@ -1901,7 +1570,7 @@
  * The chr argument should be a player.
  */
 #define show_hudmsg(chr, text) \
-	mkshort(0x00cb), \
+	mkshort(0xce00), \
 	chr, \
 	mkshort(text),
 
@@ -1912,7 +1581,7 @@
  * The color argument should be a COLOR constant.
  */
 #define show_hudmsg_top_middle(chr, text, color) \
-	mkshort(0x00cc), \
+	mkshort(0xcf00), \
 	chr, \
 	mkshort(text), \
 	color,
@@ -1925,7 +1594,7 @@
  * The color argument should be a COLOR constant.
  */
 #define speak(chr, text, sound, channel, color) \
-	mkshort(0x00cd), \
+	mkshort(0xd000), \
 	chr, \
 	mkshort(text), \
 	mkshort(sound), \
@@ -1938,7 +1607,7 @@
  * The channel argument should be a CHANNEL constant.
  */
 #define play_sound(id, channel) \
-	mkshort(0x00ce), \
+	mkshort(0xd100), \
 	mkshort(id), \
 	channel,
 
@@ -1949,7 +1618,7 @@
  * The bool argument should be TRUE to play or FALSE to stop.
  */
 #define control_sound_from_object(channel, object, bool) \
-	mkshort(0x00cf), \
+	mkshort(0xd200), \
 	channel, \
 	object, \
 	0x00, \
@@ -1959,22 +1628,10 @@
  * Plays a sound coming from the given pad.
  */
 #define play_sound_from_pad(pad, sound) \
-	mkshort(0x00d0), \
+	mkshort(0xff17), \
 	0x00, \
 	mkshort(pad), \
 	mkshort(sound),
-
-#define cmd00d1(channel, audio_id, u1) \
-	mkshort(0x00d1), \
-	channel, \
-	mkshort(audio_id), \
-	mkshort(u1),
-
-#define cmd00d2(channel, audio_id, u1) \
-	mkshort(0x00d2), \
-	channel, \
-	mkshort(audio_id), \
-	mkshort(u1),
 
 /**
  * Stops the given audio channel.
@@ -1982,20 +1639,14 @@
  * The channel argument should be a CHANNEL constant.
  */
 #define mute_channel(channel) \
-	mkshort(0x00d3), \
+	mkshort(0xd300), \
 	channel,
-
-#define cmd00d4(channel, u2, label) \
-	mkshort(0x00d4), \
-	channel, \
-	mkshort(u2), \
-	label,
 
 /**
  * Assigns a path to a hovercar and makes it start it.
  */
 #define begin_hovercar_path(path) \
-	mkshort(0x00d5), \
+	mkshort(0xff18), \
 	path,
 
 /**
@@ -2007,7 +1658,7 @@
  * new speed, assuming 60 frames per second.
  */
 #define set_vehicle_speed(speed, num_accel_frames) \
-	mkshort(0x00d6), \
+	mkshort(0xff19), \
 	mkshort(speed), \
 	mkshort(num_accel_frames),
 
@@ -2018,17 +1669,9 @@
  * The units for this aren't known.
  */
 #define set_rotor_speed(speed, time) \
-	mkshort(0x00d7), \
+	mkshort(0xff1a), \
 	mkshort(speed), \
 	mkshort(time),
-
-#define noop00d8(u1) \
-	mkshort(0x00d8), \
-	u1,
-
-#define noop00d9(u1) \
-	mkshort(0x00d9), \
-	u1,
 
 /**
  * Sets the image for a monitor object.
@@ -2037,14 +1680,10 @@
  * For multi screen objects, slot can be 0-3.
  */
 #define set_object_image(object, slot, image) \
-	mkshort(0x00da), \
+	mkshort(0xd400), \
 	object, \
 	slot, \
 	image,
-
-#define noop00db(u1) \
-	mkshort(0x00db), \
-	u1,
 
 /**
  * End the current level immediately.
@@ -2052,20 +1691,14 @@
  * If all objectives are complete then the endscreen will be completed.
  */
 #define end_level \
-	mkshort(0x00dc),
+	mkshort(0xff1b),
 
 #define enter_firstperson \
-	mkshort(0x00dd),
+	mkshort(0xff1c),
 
 #define enter_camera_and_move_to_pad(pad) \
-	mkshort(0x00de), \
+	mkshort(0xff1d), \
 	mkshort(pad),
-
-#define cmd00df(object, u1, u2) \
-	mkshort(0x00df), \
-	object, \
-	mkshort(u1), \
-	mkshort(u2),
 
 /**
  * Remove control from the given chr.
@@ -2073,7 +1706,7 @@
  * Used for the auto walk sequences in Extraction and Duel.
  */
 #define revoke_control(chr, value) \
-	mkshort(0x00e0), \
+	mkshort(0xff1e), \
 	chr, \
 	value,
 
@@ -2081,7 +1714,7 @@
  * Grant control back to the given chr.
  */
 #define grant_control(chr) \
-	mkshort(0x00e1), \
+	mkshort(0xff1f), \
 	chr,
 
 /**
@@ -2101,23 +1734,10 @@
  * warp a co-op AI buddy to the player when using the stealth command.
  */
 #define chr_move_to_pad(chr, pad, allowonscreen, label) \
-	mkshort(0x00e2), \
+	mkshort(0x5800), \
 	chr, \
 	mkshort(pad), \
 	allowonscreen, \
-	label,
-
-#define cmd00e3(chr) \
-	mkshort(0x00e3), \
-	chr,
-
-#define cmd00e4(u1) \
-	mkshort(0x00e4), \
-	u1,
-
-#define if_colour_fade_complete(chr, label) \
-	mkshort(0x00e5), \
-	chr, \
 	label,
 
 /**
@@ -2125,19 +1745,14 @@
  * applied instantly.
  */
 #define set_door_open(door) \
-	mkshort(0x00e8), \
+	mkshort(0xd500), \
 	door,
-
-#define cmd00e9(chr, u1) \
-	mkshort(0x00e9), \
-	chr, \
-	u1,
 
 /**
  * Checks if the number of players is less than the given value.
  */
 #define if_num_human_players_lt(value, label) \
-	mkshort(0x00ea), \
+	mkshort(0x5900), \
 	value, \
 	label,
 
@@ -2147,7 +1762,7 @@
  * Ammotype is expected to be an AMMOTYPE constant.
  */
 #define if_ammo_quantity_lt(chr, ammotype, value, label) \
-	mkshort(0x00eb), \
+	mkshort(0x5a00), \
 	chr, \
 	ammotype, \
 	value, \
@@ -2157,7 +1772,7 @@
  * Makes the player equip the given weapon.
  */
 #define chr_draw_weapon(chr, weapon) \
-	mkshort(0x00ec), \
+	mkshort(0xd600), \
 	chr, \
 	weapon,
 
@@ -2165,82 +1780,31 @@
  * Makes the player equip the given weapon (for cutscene use).
  */
 #define chr_draw_weapon_in_cutscene(chr, weapon) \
-	mkshort(0x00ed), \
+	mkshort(0xff20), \
 	chr, \
 	weapon,
-
-#define cmd00ee(chr, x, z) \
-	mkshort(0x00ee), \
-	x, \
-	z,
 
 /**
  * Checks if the given object is in the given room.
  */
 #define if_object_in_room(object, room, label) \
-	mkshort(0x00ef), \
+	mkshort(0x5b00), \
 	object, \
 	mkshort(room), \
 	label,
-
-#define cmd00f0(label) \
-	mkshort(0x00f0), \
-	label,
-
-/**
- * Checks if the current chr is attacking.
- */
-#define if_attacking(label) \
-	mkshort(0x00f1), \
-	label,
-
-/**
- * Switch to the stage's alternative sky/fog settings. The switch is instant.
- *
- * The stage must use a type 1 sky (in the g_EnvironmentsType1 table) and the
- * alternative sky must be placed immediately after it.
- */
-#define switch_to_alt_sky \
-	mkshort(0x00f2),
 
 /**
  * Makes the given player invincible.
  */
 #define set_invincible(chr) \
-	mkshort(0x00f3), \
+	mkshort(0xff21), \
 	chr,
-
-#define cmd00f4(u1, u2, u3, u4, u5, u6) \
-	mkshort(0x00f4), \
-	mkshort(u1), \
-	mkshort(u2), \
-	mkshort(u3), \
-	mkshort(u4), \
-	mkshort(u5), \
-	mkshort(u6),
-
-#define cmd00f5 \
-	mkshort(0x00f5),
-
-#define cmd00f6(label) \
-	mkshort(0x00f6), \
-	label,
 
 /**
  * Checks if all objectives are complete.
  */
 #define if_all_objectives_complete(label) \
-	mkshort(0x00f7), \
-	label,
-
-/**
- * Checks if the player is invincible.
- *
- * See set_invincible.
- */
-#define if_player_is_invincible(chr, label) \
-	mkshort(0x00f8), \
-	chr, \
+	mkshort(0x5c00), \
 	label,
 
 /**
@@ -2258,7 +1822,7 @@
  * Once maxsecs is reached the track is stopped regardless.
  */
 #define play_x_track(xreason, minsecs, maxsecs) \
-	mkshort(0x00f9), \
+	mkshort(0xff22), \
 	xreason, \
 	minsecs, \
 	maxsecs,
@@ -2273,14 +1837,14 @@
  * reason.
  */
 #define stop_x_track(xreason) \
-	mkshort(0x00fa), \
+	mkshort(0xff23), \
 	xreason,
 
 /**
  * Surround the given player in infinite explosions.
  */
 #define explosions_around_chr(chr) \
-	mkshort(0x00fb), \
+	mkshort(0xff24), \
 	chr,
 
 /**
@@ -2291,43 +1855,12 @@
  * Skedar in Attack Ship.
  */
 #define if_kill_count_gt(value, label) \
-	mkshort(0x00fc), \
+	mkshort(0x5d00), \
 	value, \
 	label,
 
-#define cmd00fd(chr, label) \
-	mkshort(0x00fd), \
-	chr, \
-	label,
-
-/**
- * Kill Bond/Joanna immediately.
- */
-#define kill_bond \
-	mkshort(0x00fe),
-
-/**
- * Makes the chr raise their hands in a surrendering pose.
- *
- * This should not be used to make a chr surrender. Use the `surrender` command
- * instead.
- *
- * This command isn't used. The "surprised" part of the name is there because
- * this is internally implemented using the ACT_SURPRISED action.
- */
-#define be_surprised_surrender \
-	mkshort(0x00ff),
-
-#define cmd0100_noop(u1) \
-	mkshort(0x0100), \
-	u1,
-
-#define cmd0101_noop(u1) \
-	mkshort(0x0101), \
-	u1,
-
 #define set_lights_state(pad, operation, u1, u2, u3) \
-	mkshort(0x0102), \
+	mkshort(0xff25), \
 	mkshort(pad), \
 	operation, \
 	u1, \
@@ -2338,40 +1871,13 @@
 	0x00,
 
 /**
- * Checks if the current chr's proppreset is blocking line of sight from the chr
- * to their target.
- */
-#define if_proppreset_blocking_sight_to_target(label) \
-	mkshort(0x0103), \
-	label,
-
-/**
- * Removes a prop (chr or object) from the stage. The prop is the one referenced
- * by the current chr's proppreset property.
- */
-#define remove_object_at_proppreset \
-	mkshort(0x0104),
-
-/**
- * Checks if the height (bounding box height, not Y value) of the current chr's
- * proppreset is less than the given value.
- *
- * If the prop is invalid, the computed height will be zero which causes the
- * check to pass.
- */
-#define if_proppreset_height_lt(height, label) \
-	mkshort(0x0105), \
-	mkshort(height), \
-	label,
-
-/**
  * Set the current chr's target to the given chr.
  *
  * This command supports copying the target from another chr too, but this is
  * not currently supported by the decomp project.
  */
 #define set_target_chr(chr) \
-	mkshort(0x0106), \
+	mkshort(0xd700), \
 	chr, \
 	0x00, \
 	0x00,
@@ -2384,7 +1890,7 @@
  * prevent both chrs from attacking the same enemy.
  */
 #define if_chrpresets_target_is_different(label) \
-	mkshort(0x0107), \
+	mkshort(0x5e00), \
 	label,
 
 /**
@@ -2392,37 +1898,10 @@
  * If anytarget is true, check if chr1 has any target at all.
  */
 #define if_chr_target_eq(chr1, chr2, anytarget, label) \
-	mkshort(0x0108), \
+	mkshort(0x5f00), \
 	chr1, \
 	chr2, \
 	anytarget, \
-	label,
-
-/**
- * Check all chrs within the given distance of the current chr. If any chr
- * passes a team check (as given by checktype), set the current chr's chrpreset
- * to that chr and follow the label.
- *
- * Checktype can be COMPARE_FRIENDS, COMPARE_ENEMIES or COMPANY_ANY.
- */
-#define set_chrpreset_to_chr_near_self(checktype, distance, label) \
-	mkshort(0x0109), \
-	checktype, \
-	mkshort(distance), \
-	label, \
-
-/**
- * Check all chrs within the given distance of the given pad. If any chr passes
- * a team check (as given by checktype), set the current chr's chrpreset to that
- * chr and follow the label.
- *
- * Checktype can be COMPARE_FRIENDS, COMPARE_ENEMIES or COMPANY_ANY.
- */
-#define set_chrpreset_to_chr_near_pad(checktype, distance, padnum, label) \
-	mkshort(0x010a), \
-	checktype, \
-	mkshort(distance / 10), \
-	mkshort(padnum), \
 	label,
 
 /**
@@ -2435,53 +1914,31 @@
  * Chrs will not engage in combat with anyone who is on this team.
  */
 #define set_chr_team(chr, team) \
-	mkshort(0x010b), \
+	mkshort(0xff26), \
 	chr, \
 	team,
-
-/**
- * Compares the current chr's chrpreset's team with our own.
- *
- * Checktype is expected to be COMPARE_FRIENDS or COMPARE_ENEMIES.
- */
-#define if_compare_chrpresets_team(checktype, label) \
-	mkshort(0x010c), \
-	checktype, \
-	label,
-
-#define noop010d \
-	mkshort(0x010d),
 
 /**
  * Set the shield amount for the current chr.
  */
 #define set_shield(amount) \
-	mkshort(0x010e), \
+	mkshort(0xff27), \
 	mkshort(amount),
 
 /**
  * Checks if the chr's shield amount is less than the given value.
  */
 #define if_chr_shield_lt(chr, value, label) \
-	mkshort(0x010f), \
+	mkshort(0x6000), \
 	chr, \
 	mkshort(value), \
-	label,
-
-/**
- * Checks if the chr's shield amount is greater than the given value.
- */
-#define if_chr_shield_gt(chr, u1, label) \
-	mkshort(0x0110), \
-	chr, \
-	mkshort(u1), \
 	label,
 
 /**
  * Begins a camera animation (ie. for cutscenes).
  */
 #define camera_movement(animation) \
-	mkshort(0x0111), \
+	mkshort(0xff28), \
 	mkshort(animation),
 
 /**
@@ -2496,7 +1953,7 @@
  * (ie. same as 0), or -2 for the last frame.
  */
 #define object_do_animation(animation, object, u2, startframe) \
-	mkshort(0x0112), \
+	mkshort(0xd800), \
 	mkshort(animation), \
 	object, \
 	u2, \
@@ -2506,7 +1963,7 @@
  * Checks if a cutscene is still running.
  */
 #define if_camera_animating(label) \
-	mkshort(0x0113), \
+	mkshort(0x6100), \
 	label,
 
 /**
@@ -2514,7 +1971,7 @@
  * considered in collision checks.
  */
 #define enable_chr(chr) \
-	mkshort(0x0114), \
+	mkshort(0xd900), \
 	chr,
 
 /**
@@ -2523,7 +1980,7 @@
  * explosives, at which point they become enabled (and die) automatically.
  */
 #define disable_chr(chr) \
-	mkshort(0x0115), \
+	mkshort(0xda00), \
 	chr,
 
 /**
@@ -2531,7 +1988,7 @@
  * be considered in collision checks.
  */
 #define enable_object(object) \
-	mkshort(0x0116), \
+	mkshort(0xdb00), \
 	object,
 
 /**
@@ -2539,7 +1996,7 @@
  * not considered in collision checks.
  */
 #define disable_object(object) \
-	mkshort(0x0117), \
+	mkshort(0xdc00), \
 	object,
 
 /**
@@ -2548,7 +2005,7 @@
  * Expects an OBJFLAG3 constant.
  */
 #define set_object_flag3(object, objectflag3) \
-	mkshort(0x0118), \
+	mkshort(0xdd00), \
 	object, \
 	mkword(objectflag3),
 
@@ -2558,7 +2015,7 @@
  * See set_object_flag3 for more info.
  */
 #define unset_object_flag3(object, objectflag3) \
-	mkshort(0x0119), \
+	mkshort(0xde00), \
 	object, \
 	mkword(objectflag3),
 
@@ -2568,7 +2025,7 @@
  * See set_object_flag3 for more info.
  */
 #define if_object_flag3(object, objectflag3, label) \
-	mkshort(0x011a), \
+	mkshort(0x6200), \
 	object, \
 	mkword(objectflag3), \
 	label,
@@ -2579,7 +2036,7 @@
  * Expects a CHRHFLAG constant.
  */
 #define set_chr_hiddenflag(chr, chrflag2) \
-	mkshort(0x011b), \
+	mkshort(0xdf00), \
 	chr, \
 	mkword(chrflag2),
 
@@ -2589,7 +2046,7 @@
  * See set_chr_hiddenflag for more info.
  */
 #define unset_chr_hiddenflag(chr, chrflag2) \
-	mkshort(0x011c), \
+	mkshort(0xe000), \
 	chr, \
 	mkword(chrflag2),
 
@@ -2599,26 +2056,16 @@
  * See set_chr_hiddenflag for more info.
  */
 #define if_chr_has_hiddenflag(chr, chrflag2, label) \
-	mkshort(0x011d), \
+	mkshort(0x6300), \
 	chr, \
 	mkword(chrflag2), \
-	label,
-
-/**
- * Checks if the given chr is human.
- *
- * Not sure how this handles Maians, or the female Extraction guards.
- */
-#define if_chr_is_human(chr, label) \
-	mkshort(0x011e), \
-	chr, \
 	label,
 
 /**
  * Checks if the given chr is Skedar.
  */
 #define if_chr_is_skedar(chr, label) \
-	mkshort(0x011f), \
+	mkshort(0x6400), \
 	chr, \
 	label,
 
@@ -2639,7 +2086,7 @@
  * weapon check.
  */
 #define if_calculated_safety2_lt(value, label) \
-	mkshort(0x0120), \
+	mkshort(0x6500), \
 	value, \
 	label,
 
@@ -2652,24 +2099,12 @@
  * To actually go to the cover, go_to_cover must be used afterwards.
  */
 #define find_cover(criteria, label) \
-	mkshort(0x0121), \
+	mkshort(0x6600), \
 	mkshort(criteria), \
-	label,
-
-#define find_cover_within_dist(criteria, distance, label) \
-	mkshort(0x0122), \
-	mkshort(criteria), \
-	mkword(distance), \
-	label,
-
-#define find_cover_outside_dist(criteria, distance, label) \
-	mkshort(0x0123), \
-	mkshort(criteria), \
-	mkword(distance), \
 	label,
 
 #define go_to_cover(speed) \
-	mkshort(0x0124), \
+	mkshort(0xe100), \
 	speed,
 
 /**
@@ -2678,14 +2113,14 @@
  * can't see the cover.
  */
 #define check_cover_out_of_sight(label) \
-	mkshort(0x0125), \
+	mkshort(0x6700), \
 	label,
 
 /**
  * Checks if the player is using the CMP150 or AR34.
  */
 #define if_player_using_cmp150_or_ar34(label) \
-	mkshort(0x0126), \
+	mkshort(0x6800), \
 	label,
 
 /**
@@ -2694,7 +2129,7 @@
  * A line of sight check is not used.
  */
 #define set_target_to_enemy_on_same_floor(label) \
-	mkshort(0x0127), \
+	mkshort(0x6900), \
 	label,
 
 /**
@@ -2702,27 +2137,8 @@
  * chr's target chr field to that enemy.
  */
 #define if_enemy_distance_lt_and_los(distance, label) \
-	mkshort(0x0128), \
+	mkshort(0x6a00), \
 	distance / 10, \
-	label,
-
-/**
- * Calculates a safety score based on several factors and compares it to the
- * given value.
- *
- * The safety score starts at 6.
- * Subtract 1 point if current chr has been shot.
- * Subtract 2 points if there are no other chrs nearby.
- * Subtract 1 point if there are 1 or 2 chrs nearby.
- *
- * So maximum safety is 6 and minimum safety is 3.
- *
- * See also if_calculated_safety2_lt, which is similar but includes a player
- * weapon check.
- */
-#define if_calculated_safety_lt(score, label) \
-	mkshort(0x0129), \
-	score, \
 	label,
 
 /**
@@ -2737,7 +2153,7 @@
  * If chr is non-zero, compare the given chr and their target.
  */
 #define if_target_moving_slowly(chr, label) \
-	mkshort(0x012a), \
+	mkshort(0x6b00), \
 	chr, \
 	label,
 
@@ -2746,7 +2162,7 @@
  * least 50 units in the last second.
  */
 #define if_target_moving_closer(label) \
-	mkshort(0x012b), \
+	mkshort(0x6c00), \
 	label,
 
 /**
@@ -2754,14 +2170,14 @@
  * least 50 units in the last second.
  */
 #define if_target_moving_away(label) \
-	mkshort(0x012c), \
+	mkshort(0x6d00), \
 	label,
 
 // If chr->cover > 0, call some function.
 // Involves some global array at 0x800a2360
 // globals.c only
 #define cmd012f \
-	mkshort(0x012f),
+	mkshort(0xe200),
 
 /**
  * Allows the current chr to say a semi-random statement from some predefined
@@ -2822,7 +2238,7 @@
  * the chr's current speech (if any) will be stopped.
  */
 #define say_quip(player, quip, probability, soundgap, onlyifothers, special, textrow, colour) \
-	mkshort(0x0130), \
+	mkshort(0xe300), \
 	player, \
 	quip, \
 	probability, \
@@ -2844,7 +2260,7 @@
  * The current chr's alertness will not be adjusted by this command.
  */
 #define increase_squadron_alertness(value) \
-	mkshort(0x0131), \
+	mkshort(0xe400), \
 	value,
 
 /**
@@ -2853,7 +2269,7 @@
  * Action is expected to be a MA constant.
  */
 #define set_action(action, bool) \
-	mkshort(0x0132), \
+	mkshort(0xe500), \
 	action, \
 	bool,
 
@@ -2886,7 +2302,7 @@
  * For all other actions it will follow if there is any eligible chr nearby.
  */
 #define set_team_orders(orders, label) \
-	mkshort(0x0133), \
+	mkshort(0x6e00), \
 	orders, \
 	label,
 
@@ -2894,7 +2310,7 @@
  * Checks if the current chr's orders equal the given value.
  */
 #define if_orders_eq(action, label) \
-	mkshort(0x0134), \
+	mkshort(0x6f00), \
 	0xfd, \
 	action, \
 	label,
@@ -2903,7 +2319,7 @@
  * Checks if the current chr has orders at all.
  */
 #define if_has_orders(label) \
-	mkshort(0x0135), \
+	mkshort(0x7000), \
 	label,
 
 /**
@@ -2917,12 +2333,12 @@
  * within 2314 units then runs to it.
  */
 #define retreat(speed, operation) \
-	mkshort(0x0136), \
+	mkshort(0xe600), \
 	speed, \
 	operation,
 
 #define if_chr_in_squadron_doing_action(action, label) \
-	mkshort(0x0137), \
+	mkshort(0x7100), \
 	action, \
 	label,
 
@@ -2933,7 +2349,7 @@
  * otherwise the speech can be skipped by pausing as it starts.
  */
 #define if_sound_finished(channel, label) \
-	mkshort(0x0138), \
+	mkshort(0x7200), \
 	channel, \
 	label,
 
@@ -2945,7 +2361,7 @@
 // relative to the player's direction. 335 is the same as 25 degress to the
 // right (360 - 25).
 #define cmd0139(angle, u1, bool) \
-	mkshort(0x0139), \
+	mkshort(0xe700), \
 	mkword(angle), \
 	u1, \
 	bool,
@@ -2957,7 +2373,7 @@
  * If distance is specified, limit search to chrs within that distance.
  */
 #define try_set_chrpreset_to_unalerted_teammate(distance, label) \
-	mkshort(0x013a), \
+	mkshort(0x7300), \
 	distance, \
 	0x00, \
 	label,
@@ -2966,17 +2382,8 @@
  * Set the current chr's squadron.
  */
 #define set_squadron(id) \
-	mkshort(0x013b), \
+	mkshort(0xff29), \
 	id,
-
-/**
- * Makes the current chr face their cover spot. Or face away from it. Not sure.
- *
- * The cover spot must have been assigned to the chr already.
- */
-#define face_cover(label) \
-	mkshort(0x013c), \
-	label,
 
 /**
  * Checks if there is a live grenade or explosion nearby. If so, the position of
@@ -2993,7 +2400,7 @@
  * Those are the only supported flags.
  */
 #define if_dangerous_object_nearby(flags, label) \
-	mkshort(0x013d), \
+	mkshort(0x7400), \
 	flags, \
 	label,
 
@@ -3001,14 +2408,7 @@
  * Makes the chr run away from a live grenade.
  */
 #define run_from_grenade \
-	mkshort(0x013e),
-
-/**
- * Checks if the current chopper's weapons are armed.
- */
-#define if_chopper_weapons_armed(label) \
-	mkshort(0x013f), \
-	label,
+	mkshort(0xe800),
 
 /**
  * Checks if a hoverbot's next step is less than or greater than the given
@@ -3017,7 +2417,7 @@
  * Operator is expected to be OPERATOR_LESS_THAN or OPERATOR_GREATER_THAN.
  */
 #define if_hoverbot_next_step(operator, step, label) \
-	mkshort(0x0140), \
+	mkshort(0x7500), \
 	operator, \
 	step, \
 	label,
@@ -3029,7 +2429,7 @@
  * terminals.
  */
 #define shuffle_investigation_terminals(goodtag, badtag, pc1, pc2, pc3, pc4) \
-	mkshort(0x0141), \
+	mkshort(0xff2a), \
 	goodtag, \
 	badtag, \
 	pc1, \
@@ -3048,7 +2448,7 @@
  * location, it's recommended to keep usage of this function to one stage only.
  */
 #define set_pad_preset_to_investigation_terminal(object) \
-	mkshort(0x0142), \
+	mkshort(0xff2b), \
 	object, \
 	0x00,
 
@@ -3058,16 +2458,7 @@
  * The state of the weapons can be checked with if_chopper_weapons_armed.
  */
 #define chopper_arm_weapons \
-	mkshort(0x0143),
-
-/**
- * Sets the current chopper's weapons to unarmed.
- *
- * The state of the weapons can be checked with if_chopper_weapons_armed.
- */
-#define chopper_unarm_weapons \
-	mkshort(0x0144), \
-	label,
+	mkshort(0xff2c),
 
 /**
  * Rebuilds the list of teams containing chr IDs in each team.
@@ -3075,15 +2466,9 @@
  * Should be used after reassigning chrs to teams.
  */
 #define rebuild_teams \
-	mkshort(0x0145),
+	mkshort(0xe900),
 
-/**
- * Rebuilds the list of squadrons containing chr IDs in each squadron.
- *
- * Should be used after reassigning chrs to squadrons.
- */
-#define rebuild_squadrons \
-	mkshort(0x0146),
+#define rebuild_squadrons
 
 /**
  * Checks if all chrs in the given squadron are dead.
@@ -3092,50 +2477,8 @@
  * squadron is dead.
  */
 #define if_all_chrs_in_squadron_are_dead(squadron, label) \
-	mkshort(0x0147), \
+	mkshort(0x7600), \
 	squadron, \
-	label,
-
-/**
- * Set the given chr to listening.
- *
- * The listening feature appears to be completely unused.
- */
-#define chr_set_listening(chr, value) \
-	mkshort(0x0148), \
-	chr, \
-	value,
-
-/**
- * Checks if the given chr is listening.
- *
- * checktype 0 = if chr's listening value is listenvalue
- * checktype 1 = if chr's convtalk value is zero
- */
-#define if_chr_listening(chr, listenvalue, checktype, label) \
-	mkshort(0x0149), \
-	chr, \
-	listenvalue, \
-	checktype, \
-	label,
-
-/**
- * Always goes to label. Other arguments are unused. Probably has a purpose in
- * debug.
- */
-#define if_true(u1, u2, u3, label) \
-	mkshort(0x014a), \
-	u1, \
-	u2, \
-	u3, \
-	label,
-
-/**
- * Checks if the current chr is not listening (ie. not participating in a
- * conversation).
- */
-#define if_not_listening(label) \
-	mkshort(0x014b), \
 	label,
 
 /**
@@ -3143,7 +2486,7 @@
  * value.
  */
 #define if_num_chrs_in_squadron_gt(value, squadron, label) \
-	mkshort(0x0152), \
+	mkshort(0x7700), \
 	value, \
 	squadron, \
 	label,
@@ -3152,7 +2495,7 @@
  * Toggles tinted glass opaqueness/transparency.
  */
 #define set_tinted_glass_enabled(bool) \
-	mkshort(0x0157), \
+	mkshort(0xff2d), \
 	bool,
 
 /**
@@ -3164,7 +2507,7 @@
  * It's used to start the CI training music and the Skedar King battle music.
  */
 #define play_track_isolated(id) \
-	mkshort(0x015b), \
+	mkshort(0xff2e), \
 	id,
 
 /**
@@ -3173,7 +2516,7 @@
  * It's used to restart the default CI music after a training session.
  */
 #define play_default_tracks \
-	mkshort(0x015c),
+	mkshort(0xff2f),
 
 /**
  * Checks if the chr injured their target. Use this after attacking.
@@ -3181,15 +2524,8 @@
  * The command will unset the flag so it may be used again.
  */
 #define if_chr_injured_target(chr, label) \
-	mkshort(0x0165), \
+	mkshort(0x7800), \
 	chr, \
-	label,
-
-/**
- * Checks if the current chr's action is the given action.
- */
-#define if_action_eq(action, label) \
-	mkshort(0x0166), \
 	label,
 
 /**
@@ -3198,7 +2534,7 @@
  * Side may be 0 or 1.
  */
 #define hovercopter_fire_rocket(side) \
-	mkshort(0x0167), \
+	mkshort(0xea00), \
 	side,
 
 /**
@@ -3206,12 +2542,12 @@
  * checked.
  */
 #define if_chr_shield_damaged(chr, label) \
-	mkshort(0x0168), \
+	mkshort(0x7900), \
 	chr, \
 	label,
 
 #define if_chr_idle_action_eq(action, label) \
-	mkshort(0x0169), \
+	mkshort(0x7a00), \
 	action, \
 	label,
 
@@ -3222,7 +2558,7 @@
  * Operator is expected to be OPERATOR_LESS_THAN or OPERATOR_GREATER_THAN.
  */
 #define if_chr_y(chr, value, operator, label) \
-	mkshort(0x016a), \
+	mkshort(0x7b00), \
 	chr, \
 	mkshort(value), \
 	operator, \
@@ -3234,21 +2570,18 @@
  * Typically used to make terminals hum.
  */
 #define play_sound_from_object(channel, object, u1, u2, u3) \
-	mkshort(0x016b), \
+	mkshort(0xff30), \
 	channel, \
 	object, \
 	mkshort(u1), \
 	mkshort(u2), \
 	mkshort(u3),
 
-#define noop016c \
-	mkshort(0x016c),
-
 /**
  * Add motion blur to the player. Motion blur will wear off automatically.
  */
 #define add_motion_blur(chr, value, bool) \
-	mkshort(0x016d), \
+	mkshort(0xff31), \
 	chr, \
 	value, \
 	bool,
@@ -3263,7 +2596,7 @@
  * If operation is 2, the chr is damaged and poisoned.
  */
 #define damage_chr_by_amount(chr, amount, operation) \
-	mkshort(0x016e), \
+	mkshort(0xeb00), \
 	chr, \
 	amount, \
 	operation,
@@ -3276,7 +2609,7 @@
  * has been collected by the player, or if the chr has drawn a backup gun.
  */
 #define if_has_gun(chr, label) \
-	mkshort(0x016f), \
+	mkshort(0x7c00), \
 	chr, \
 	0x00, \
 	label,
@@ -3292,7 +2625,7 @@
  * instead.
  */
 #define do_gun_command(operation, label) \
-	mkshort(0x0170), \
+	mkshort(0x7d00), \
 	operation, \
 	label,
 
@@ -3301,7 +2634,7 @@
  * value.
  */
 #define if_distance_to_gun_lt(distance, label) \
-	mkshort(0x0171), \
+	mkshort(0x7e00), \
 	mkshort(distance / 10), \
 	label,
 
@@ -3312,7 +2645,7 @@
  * The chr argument is ignored. The command applies to the current chr.
  */
 #define chr_recover_gun(chr, label) \
-	mkshort(0x0172), \
+	mkshort(0x7f00), \
 	chr, \
 	label,
 
@@ -3322,7 +2655,7 @@
  * Typically used after spawning a guard.
  */
 #define try_inherit_properties(chr_src, label) \
-	mkshort(0x0173), \
+	mkshort(0x8000), \
 	chr_src, \
 	label,
 
@@ -3333,28 +2666,28 @@
  * the cutscene becomes unskippable.
  */
 #define if_controller_button_pressed(label) \
-	mkshort(0x0174), \
+	mkshort(0xff00), \
 	label,
 
 // Used in cutscenes before giving control to Jo
 // Value is always 60
 // Without this command, or with a 0 value, Jo faces a different direction
 #define cmd0175(u1) \
-	mkshort(0x0175), \
+	mkshort(0xec00), \
 	u1,
 
 /**
  *
  */
 #define cmd0176_if_something(label) \
-	mkshort(0x0176), \
+	mkshort(0x8100), \
 	label,
 
 /**
  * Forces the player to walk to the given pad (eg. Extraction and Duel).
  */
 #define force_walk(chr, aimpad, walkspeed, turnspeed, lookup, dist) \
-	mkshort(0x0177), \
+	mkshort(0xff32), \
 	chr, \
 	mkshort(aimpad), \
 	walkspeed, \
@@ -3366,12 +2699,12 @@
  * Checks if the player's force walk has finished.
  */
 #define if_force_walk_finished(chr, label) \
-	mkshort(0x0178), \
+	mkshort(0xff01), \
 	chr, \
 	label,
 
 #define play_sound_from_entity(channel, entity_id, u1, u2, attackflags) \
-	mkshort(0x0179), \
+	mkshort(0xed00), \
 	channel, \
 	entity_id, \
 	0x00, \
@@ -3388,14 +2721,14 @@
  * their normal target (same as if_can_see_target).
  */
 #define if_can_see_attack_target(label) \
-	mkshort(0x017a), \
+	mkshort(0x8200), \
 	label,
 
 /**
  * Checks if the chr is knocked out or invalid.
  */
 #define if_chr_knockedout(chr, label) \
-	mkshort(0x017b), \
+	mkshort(0x8300), \
 	chr, \
 	label,
 
@@ -3403,7 +2736,7 @@
  * Assigns a sound to the given channel. Does not play the sound.
  */
 #define assign_sound(sound, channel) \
-	mkshort(0x017c), \
+	mkshort(0xee00), \
 	mkshort(sound), \
 	channel,
 
@@ -3414,7 +2747,7 @@
  * until stop_cutscene_track is called.
  */
 #define play_cutscene_track(tracknum) \
-	mkshort(0x017d), \
+	mkshort(0xff33), \
 	tracknum,
 
 /**
@@ -3422,7 +2755,7 @@
  * stage.
  */
 #define stop_cutscene_track \
-	mkshort(0x017e),
+	mkshort(0xff34),
 
 /**
  * Overrides the ambient track temporarily to the given one and plays it.
@@ -3431,7 +2764,7 @@
  * outro to traffic noises.
  */
 #define play_temporary_track(tracknum) \
-	mkshort(0x017f), \
+	mkshort(0xff35), \
 	tracknum,
 
 /**
@@ -3441,13 +2774,13 @@
  * ambient tracks.
  */
 #define stop_ambient_track \
-	mkshort(0x0180),
+	mkshort(0xff36),
 
 /**
  * Checks if the player is looking directly at the given object.
  */
 #define if_chr_looking_at_object(chr, object, label) \
-	mkshort(0x0181), \
+	mkshort(0x8400), \
 	chr, \
 	object, \
 	label,
@@ -3456,7 +2789,7 @@
  * Makes the current chr attack their target by punching or kicking.
  */
 #define try_punch_or_kick(label) \
-	mkshort(0x0182), \
+	mkshort(0x8500), \
 	0x00, \
 	label,
 
@@ -3464,7 +2797,7 @@
  * Checks if the current chr's target is the player.
  */
 #define if_target_is_player(label) \
-	mkshort(0x0183), \
+	mkshort(0x8600), \
 	label,
 
 /**
@@ -3490,15 +2823,15 @@
  * Global AI lists - with values 90,100 and 20,30
  */
 #define try_attack_amount(lower, upper) \
-	mkshort(0x0184), \
+	mkshort(0xef00), \
 	lower, \
 	upper,
 
 #define mp_init_simulants \
-	mkshort(0x0185),
+	mkshort(0xff37),
 
 #define if_chr_soundtimer(value, operator, label) \
-	mkshort(0x0186), \
+	mkshort(0x8700), \
 	mkshort(value), \
 	operator, \
 	label,
@@ -3511,34 +2844,15 @@
  * be set to the player whose camspy should be checked.
  */
 #define set_target_to_camspy_if_in_sight(label) \
-	mkshort(0x0187), \
+	mkshort(0x8800), \
 	label,
 
 /**
  * Checks if the lift is currently stopped.
  */
 #define if_lift_stationary(lift, label) \
-	mkshort(0x0188), \
+	mkshort(0x8900), \
 	lift, \
-	label,
-
-/**
- * Makes the lift go to the given stop number.
- *
- * Lifts only support up to 4 stops, so stopnum must be 0-3.
- */
-#define lift_go_to_stop(lift, stopnum) \
-	mkshort(0x0189), \
-	lift, \
-	stopnum,
-
-/**
- * Checks if the lift is stopped at the given stop number.
- */
-#define if_lift_at_stop(lift, stopnum, label) \
-	mkshort(0x018a), \
-	lift, \
-	stopnum, \
 	label,
 
 /**
@@ -3547,7 +2861,7 @@
  * The given value is not known. It may be intensity or direction.
  */
 #define enable_rain(value) \
-	mkshort(0x018b), \
+	mkshort(0xff38), \
 	value,
 
 /**
@@ -3557,7 +2871,7 @@
  * modelpart should be a MODELPART constant, and refers to a node in the model.
  */
 #define chr_toggle_modelpart(chr, modelpart) \
-	mkshort(0x018c), \
+	mkshort(0xff39), \
 	chr, \
 	modelpart,
 
@@ -3567,7 +2881,7 @@
  * Lifts need to be activated before they start working.
  */
 #define activate_lift(liftid, object) \
-	mkshort(0x018d), \
+	mkshort(0xff3a), \
 	liftid, \
 	object,
 
@@ -3577,7 +2891,7 @@
  * Will not pass the check if the miniskedar doesn't have enough room.
  */
 #define miniskedar_try_pounce(u1, u2, label) \
-	mkshort(0x018e), \
+	mkshort(0x8a00), \
 	u1, \
 	mkshort(u2), \
 	0x00, \
@@ -3588,7 +2902,7 @@
  * than the given value.
  */
 #define if_object_distance_to_pad_lt(object, distance, pad, label) \
-	mkshort(0x018f), \
+	mkshort(0x8b00), \
 	object, \
 	mkshort(distance / 10), \
 	mkshort(pad), \
@@ -3600,21 +2914,21 @@
  * Expected to be a GAMEFILEFLAG constant.
  */
 #define set_savefile_flag(flag) \
-	mkshort(0x0190), \
+	mkshort(0xff3b), \
 	flag,
 
 /**
  * Unsets a savefile flag.
  */
 #define unset_savefile_flag(flag) \
-	mkshort(0x0191), \
+	mkshort(0xff3c), \
 	flag,
 
 /**
  * Checks if the given savefile flag is set.
  */
 #define if_savefile_flag_is_set(flag, label) \
-	mkshort(0x0192), \
+	mkshort(0xff02), \
 	flag, \
 	label,
 
@@ -3622,7 +2936,7 @@
  * Checks if the given savefile flag is unset.
  */
 #define if_savefile_flag_is_unset(flag, label) \
-	mkshort(0x0193), \
+	mkshort(0xff03), \
 	flag, \
 	label,
 
@@ -3630,7 +2944,7 @@
  * Checks if the given object's health is less than the given value.
  */
 #define if_object_health_lt(object, value, label) \
-	mkshort(0x019e), \
+	mkshort(0x8c00), \
 	object, \
 	mkshort(value), \
 	label,
@@ -3639,7 +2953,7 @@
  * Sets the given object's health.
  */
 #define set_object_health(object, value) \
-	mkshort(0x019f), \
+	mkshort(0xf000), \
 	object, \
 	mkshort(value),
 
@@ -3652,7 +2966,7 @@
  * The value for specialdie should be one of the SPECIALDIE constants.
  */
 #define set_chr_special_death_animation(chr, specialdie) \
-	mkshort(0x01a0), \
+	mkshort(0xf100), \
 	chr, \
 	specialdie,
 
@@ -3661,7 +2975,7 @@
  * target is in.
  */
 #define set_chr_roomtosearch \
-	mkshort(0x01a1),
+	mkshort(0xf200),
 
 /**
  * Play a quip for the CI staff.
@@ -3676,7 +2990,7 @@
  * The quip used is random.
  */
 #define play_cistaff_quip(ciquip, channel) \
-	mkshort(0x01a2), \
+	mkshort(0xff3d), \
 	ciquip, \
 	channel,
 
@@ -3689,7 +3003,7 @@
  * See the PRESETANIM constants.
  */
 #define do_preset_animation(value) \
-	mkshort(0x01a3), \
+	mkshort(0xf300), \
 	value,
 
 /**
@@ -3702,38 +3016,17 @@
  * For removing HUD messages, consider using remove_hudmsgs instead.
  */
 #define show_hudmsg_middle(operation, color, text) \
-	mkshort(0x01a4), \
+	mkshort(0xf400), \
 	operation, \
 	color, \
 	mkshort(text),
 
 /**
- * Checks if the current chr is using a lift (most likely from the moment they
- * call it until the moment the door opens at the end of the journey).
- */
-#define if_using_lift(label) \
-	mkshort(0x01a5), \
-	label,
-
-/**
- * Checks if the Y distance between the current chr and their target is less
- * than the given value.
- */
-#define if_target_y_difference_lt(distance, label) \
-	mkshort(0x01a6), \
-	distance / 10, \
-	label
-
-/**
  * Checks if the chr is not currently talking.
  */
 #define if_chr_not_talking(chr, label) \
-	mkshort(0x01a7), \
+	mkshort(0x8d00), \
 	chr, \
-	label,
-
-#define cmd01aa(label) \
-	mkshort(0x01aa), \
 	label,
 
 /**
@@ -3743,7 +3036,7 @@
  * Operator is expected to be OPERATOR_LESS_THAN or OPERATOR_GREATER_THAN.
  */
 #define if_num_subdued(value, operator, label) \
-	mkshort(0x01ab), \
+	mkshort(0x8e00), \
 	value, \
 	1 - operator, \
 	label,
@@ -3752,21 +3045,21 @@
  * Makes the player let go of the currently held object (eg. hovercrate or bed).
  */
 #define release_grabbed_object(chr) \
-	mkshort(0x01ad), \
+	mkshort(0xff3e), \
 	chr,
 
 /**
  * Removes all items from the player's inventory.
  */
 #define clear_inventory(chr) \
-	mkshort(0x01ae), \
+	mkshort(0xff3f), \
 	chr,
 
 /**
  * Makes the player grab the given object (eg. hovercrate or bed).
  */
 #define grab_object(chr, object) \
-	mkshort(0x01af), \
+	mkshort(0xff40), \
 	chr, \
 	object,
 
@@ -3778,7 +3071,7 @@
  * The dst tags are remapped so they point at random pillars.
  */
 #define shuffle_ruins_pillars(pdst1, pdst2, pdst3, psrc1, psrc2, psrc3, psrc4, psrc5, mdst1, mdst2, mdst3, msrc1, msrc2, msrc3, msrc4, msrc5) \
-	mkshort(0x01b1), \
+	mkshort(0xff41), \
 	pdst1, \
 	pdst2, \
 	pdst3, \
@@ -3800,7 +3093,7 @@
  * Set the wind speed, which controls how quickly clouds in the sky are moving.
  */
 #define set_wind_speed(speed) \
-	mkshort(0x01b2), \
+	mkshort(0xff42), \
 	speed,
 
 /**
@@ -3812,26 +3105,18 @@
  * exist.
  */
 #define chr_toggle_p1p2(chr) \
-	mkshort(0x01b3), \
+	mkshort(0xf500), \
 	chr,
 
 #define cmd01b4_if_something(label) \
-	mkshort(0x01b4), \
+	mkshort(0x8f00), \
 	label,
-
-/**
- * Sets the given chr's p1p2 value explicitly to the given p1p2_chr.
- */
-#define chr_set_p1p2(chr, p1p2_chr) \
-	mkshort(0x01b5), \
-	chr, \
-	p1p2_chr,
 
 /**
  * Enables or disables the snow effect.
  */
 #define enable_snow(bool) \
-	mkshort(0x01b6), \
+	mkshort(0xff43), \
 	bool,
 
 /**
@@ -3840,7 +3125,7 @@
  * bool_unknown determines whether to call some function on the chr afterwards
  */
 #define set_chr_cloaked(chr, bool_enable, bool_unknown) \
-	mkshort(0x01b7), \
+	mkshort(0xf600), \
 	chr, \
 	bool_enable, \
 	bool_unknown,
@@ -3849,7 +3134,7 @@
  * Define the team that an autogun should shoot at.
  */
 #define set_autogun_target_team(object, team) \
-	mkshort(0x01b8), \
+	mkshort(0xf700), \
 	object, \
 	team,
 
@@ -3859,7 +3144,7 @@
  * Note no arguments are passed here. The switch numbers are hard coded.
  */
 #define shuffle_pelagic_switches \
-	mkshort(0x01b9),
+	mkshort(0xff44),
 
 /**
  * Makes the chr attempt to do a lying down attack.
@@ -3867,25 +3152,16 @@
  * attackflags is expected to be a bitfield of ATTACKFLAG constants.
  */
 #define try_attack_lie(attackflags, entity_id, label) \
-	mkshort(0x01ba), \
+	mkshort(0x9000), \
 	mkshort(attackflags), \
 	mkshort(entity_id), \
-	label,
-
-#define noop01bb \
-	mkshort(0x01bb), \
-	mkshort(0),
-
-#define cmd01bc(u1, label) \
-	mkshort(0x01bc), \
-	u1, \
 	label,
 
 /**
  * Checks if the CI training PC has been holographed.
  */
 #define if_training_pc_holographed(label) \
-	mkshort(0x01bd), \
+	mkshort(0xff04), \
 	label,
 
 /**
@@ -3904,7 +3180,7 @@
  * WEAPON_XRAYSCANNER
  */
 #define if_player_using_device(player, weapon, label) \
-	mkshort(0x01be), \
+	mkshort(0x9100), \
 	player, \
 	weapon, \
 	label,
@@ -3916,7 +3192,7 @@
  * if_teleport_full_white, then call this again with pad = 0.
  */
 #define teleport_to_pad(pad, chr) \
-	mkshort(0x01bf), \
+	mkshort(0xff45), \
 	mkshort(pad), \
 	chr,
 
@@ -3924,16 +3200,9 @@
  * Checks if the teleport effect is full white.
  */
 #define if_teleport_full_white(label, chr) \
-	mkshort(0x01c0), \
+	mkshort(0xff05), \
 	label, \
 	chr,
-
-/**
- * Sets the current chr's punchdodge ailist. Not sure if this used or not.
- */
-#define set_aipunchdodgelist(ailistid) \
-	mkshort(0x01c1), \
-	mkshort(ailistid),
 
 /**
  * Sets the current chr's shootingatme ailist.
@@ -3942,7 +3211,7 @@
  * them. It is invoked somewhat randomly. See set_chr_dodge_rating.
  */
 #define set_aishootingatmelist(ailistid) \
-	mkshort(0x01c2), \
+	mkshort(0xf800), \
 	mkshort(ailistid),
 
 /**
@@ -3950,27 +3219,8 @@
  * switched off.
  */
 #define set_darkroomlist(ailist) \
-	mkshort(0x01c3), \
+	mkshort(0xf900), \
 	mkshort(ailist),
-
-/**
- * Sets the current chr's playerdead ailist. This is probably assigned when the
- * player dies.
- */
-#define set_aiplayerdeadlist(ailistid) \
-	mkshort(0x01c4), \
-	mkshort(ailistid),
-
-/**
- * Makes the chr do an animation as if they are avoiding a projectile.
- *
- * The animation they do is selected from a group of 4 and is chosen based on
- * the chr's relative angle to their target.
- *
- * This command is not used.
- */
-#define avoid \
-	mkshort(0x01c5),
 
 /**
  * Sets the current chr's dodgerating and maxdodgerating properties.
@@ -3985,7 +3235,7 @@
  * again.
  */
 #define set_chr_dodge_rating(value, whichprop) \
-	mkshort(0x01c6), \
+	mkshort(0xff46), \
 	value, \
 	whichprop,
 
@@ -3993,26 +3243,8 @@
  * This doesn't appear to be used.
  */
 #define set_unarmeddodgerating(value) \
-	mkshort(0x01c7), \
+	mkshort(0xff47), \
 	value,
-
-/**
- * Sets the title mode (legal, Rare logo, etc). This is an unused feature - it
- * appears that at one point the title screen could be controlled via AI
- * commands.
- *
- * Expects a TITLEAIMODE constant.
- */
-#define title_init_mode(mode) \
-	mkshort(0x01c8), \
-	mode,
-
-/**
- * Exits the title screen. This is an unused feature.
- */
-#define try_exit_title(label) \
-	mkshort(0x01c9), \
-	label,
 
 /**
  * Set a weapon to be used in a cutscene.
@@ -4026,7 +3258,7 @@
  * a pistol, otherwise the Falcon 2 will be used.
  */
 #define set_cutscene_weapon(chr, weapon, weapon_fallback) \
-	mkshort(0x01ca), \
+	mkshort(0xff48), \
 	chr, \
 	weapon, \
 	weapon_fallback,
@@ -4042,23 +3274,16 @@
  * Second with 0x00000000 (transparent) and num_frames = 90.
  */
 #define fade_to_color(rgba, num_frames) \
-	mkshort(0x01cb), \
+	mkshort(0xfa00), \
 	mkword(rgba), \
 	mkshort(num_frames),
-
-/**
- * Checks if the screen fade is complete. Follows the label if complete.
- */
-#define if_fade_complete(label) \
-	mkshort(0x01cc), \
-	label,
 
 /**
  * Determines whether Jo's HUD eyepiece thing is visible when in the third
  * person perspective (ie. in cutscenes or when playing coop).
  */
 #define set_chr_hudpiece_visible(chr, bool) \
-	mkshort(0x01cd), \
+	mkshort(0xff49), \
 	chr, \
 	bool,
 
@@ -4068,19 +3293,19 @@
  * Used in the Carrington Institute.
  */
 #define passive_mode(bool) \
-	mkshort(0x01ce), \
+	mkshort(0xff4a), \
 	bool,
 
 /**
  * Makes a chr start or stop shooting in a cutscene.
  */
 #define set_chr_shooting_in_cutscene(chr, bool) \
-	mkshort(0x01cf), \
+	mkshort(0xff4b), \
 	chr, \
 	bool,
 
 #define set_portal_flag(portal, flag) \
-	mkshort(0x01d0), \
+	mkshort(0xff4c), \
 	mkshort(portal), \
 	flag,
 
@@ -4092,7 +3317,7 @@
  * visible is a boolean. TRUE makes it visible. FALSE makes it invisible.
  */
 #define object_set_modelpart_visible(object, modelpart, visible) \
-	mkshort(0x01d1), \
+	mkshort(0xff4d), \
 	object, \
 	modelpart, \
 	visible,
@@ -4103,7 +3328,7 @@
  * Used for Dr Caroll.
  */
 #define emit_sparks(chr) \
-	mkshort(0x01d2), \
+	mkshort(0xfb00), \
 	chr,
 
 /**
@@ -4118,13 +3343,13 @@
  * See also DRCAROLLIMAGE constants.
  */
 #define set_drcaroll_images(chr, left, right) \
-	mkshort(0x01d3), \
+	mkshort(0xff4e), \
 	chr, \
 	left, \
 	right,
 
 #define set_room_flag(room, flag) \
-	mkshort(0x01d4), \
+	mkshort(0xff4f), \
 	mkshort(room), \
 	mkshort(flag),
 
@@ -4134,7 +3359,7 @@
  * Used for cutscenes.
  */
 #define show_nonessential_chrs(bool) \
-	mkshort(0x01d5), \
+	mkshort(0xff50), \
 	bool,
 
 /**
@@ -4197,29 +3422,13 @@
  * - Stops the UFO humming noise.
  */
 #define configure_environment(room, operation, value) \
-	mkshort(0x01d6), \
+	mkshort(0xff51), \
 	mkshort(room), \
 	operation, \
 	value,
 
-/**
- * Redundant command. See if_distance_to_target_lt.
- */
-#define if_distance_to_target2_lt(distance, label) \
-	mkshort(0x01d7), \
-	mkshort(distance / 10), \
-	label,
-
-/**
- * Redundant command. See if_distance_to_target_gt.
- */
-#define if_distance_to_target2_gt(distance, label) \
-	mkshort(0x01d8), \
-	mkshort(distance / 10), \
-	label,
-
 #define play_sound_from_object2(channel, object, sound, u1, u2) \
-	mkshort(0x01d9), \
+	mkshort(0xff52), \
 	channel, \
 	object, \
 	mkshort(sound), \
@@ -4236,21 +3445,21 @@
  * Track is expected to be a MUSIC constant.
  */
 #define play_music_continuously(track) \
-	mkshort(0x01da), \
+	mkshort(0xff53), \
 	track,
 
 /**
  * Kills the given chr.
  */
 #define kill(chr) \
-	mkshort(0x01db), \
+	mkshort(0xfc00), \
 	chr,
 
 /**
  * Removes the given weapon from the current player's inventory.
  */
 #define remove_weapon_from_inventory(weapon) \
-	mkshort(0x01dc), \
+	mkshort(0xff54), \
 	weapon,
 
 /**
@@ -4262,7 +3471,7 @@
  * The value argument is unused.
  */
 #define if_music_event_queue_empty(value, label) \
-	mkshort(0x01dd), \
+	mkshort(0xff06), \
 	value, \
 	label,
 
@@ -4271,7 +3480,7 @@
  * (ie. Y difference is less than 150).
  */
 #define if_chr_same_floor_distance_to_pad_lt(chr, pad, distance, label) \
-	mkshort(0x01df), \
+	mkshort(0x9300), \
 	chr, \
 	mkshort(pad), \
 	mkshort(distance / 10), \
@@ -4284,7 +3493,7 @@
  * if_num_human_players_lt for that.
  */
 #define if_coop_mode(label) \
-	mkshort(0x01de), \
+	mkshort(0x9200), \
 	label,
 
 /**
@@ -4297,7 +3506,7 @@
  * This appears to be a debug command. It is not used normally.
  */
 #define remove_references_to_chr \
-	mkshort(0x01e0),
+	mkshort(0xff55),
 
 // Convenience macros for readability
 #define beginloop(id) \
@@ -4312,10 +3521,6 @@
 
 #define remove_hudmsgs \
 	show_hudmsg_middle(0x02, 0, 0x0002)
-
-#define if_stage_is_not(stage, label) \
-	if_stage_lt(stage, label) \
-	if_stage_gt(stage, label)
 
 #define go_to_gun(label) \
 	do_gun_command(0, label)

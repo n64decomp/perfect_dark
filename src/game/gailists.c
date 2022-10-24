@@ -5220,8 +5220,6 @@ u8 func0014_buddy_main[] = {
  * Not used.
  */
 u8 func002b_avoid[] = {
-	avoid
-
 	beginloop(0x03)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0x03)

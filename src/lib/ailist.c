@@ -58,233 +58,368 @@ u8 *ailistFindById(s32 ailistid)
 	return NULL;
 }
 
-bool ailistIsGoto(s32 type)
-{
-	switch (type) {
-	case 0x0000:
-	case 0x0001:
-	case 0x000c:
-	case 0x000f:
-	case 0x0010:
-	case 0x0011:
-	case 0x0012:
-	case 0x0013:
-	case 0x0014:
-	case 0x0015:
-	case 0x0016:
-	case 0x0017:
-	case 0x0018:
-	case 0x001b:
-	case 0x001c:
-	case 0x0023:
-	case 0x0027:
-	case 0x002a:
-	case 0x002b:
-	case 0x002c:
-	case 0x002d:
-	case 0x002e:
-	case 0x002f:
-	case 0x0030:
-	case 0x0031:
-	case 0x0032:
-	case 0x0033:
-	case 0x0034:
-	case 0x0035:
-	case 0x0037:
-	case 0x0038:
-	case 0x0039:
-	case 0x003a:
-	case 0x003b:
-	case 0x003c:
-	case 0x003d:
-	case 0x003e:
-	case 0x003f:
-	case 0x0040:
-	case 0x0041:
-	case 0x0042:
-	case 0x0043:
-	case 0x0044:
-	case 0x0045:
-	case 0x0046:
-	case 0x0047:
-	case 0x0048:
-	case 0x0049:
-	case 0x004a:
-	case 0x004b:
-	case 0x004c:
-	case 0x004d:
-	case 0x004e:
-	case 0x004f:
-	case 0x0050:
-	case 0x0051:
-	case 0x0052:
-	case 0x0053:
-	case 0x0054:
-	case 0x0055:
-	case 0x0056:
-	case 0x0057:
-	case 0x0058:
-	case 0x0059:
-	case 0x005a:
-	case 0x005b:
-	case 0x005c:
-	case 0x005d:
-	case 0x005e:
-	case 0x005f:
-	case 0x0060:
-	case 0x0061:
-	case 0x0062:
-	case 0x0063:
-	case 0x006e:
-	case 0x006f:
-	case 0x0072:
-	case 0x0073:
-	case 0x0074:
-	case 0x0075:
-	case 0x0076:
-	case 0x0077:
-	case 0x0078:
-	case 0x0079:
-	case 0x007a:
-	case 0x007b:
-	case 0x007c:
-	case 0x007d:
-	case 0x007e:
-	case 0x007f:
-	case 0x0080:
-	case 0x0081:
-	case 0x0082:
-	case 0x0083:
-	case 0x0088:
-	case 0x0089:
-	case 0x008e:
-	case 0x008f:
-	case 0x0090:
-	case 0x009d:
-	case 0x00a0:
-	case 0x00a3:
-	case 0x00a6:
-	case 0x00a9:
-	case 0x00ac:
-	case 0x00af:
-	case 0x00ba:
-	case 0x00bb:
-	case 0x00bd:
-	case 0x00bc:
-	case 0x00c3:
-	case 0x00c4:
-	case 0x00c5:
-	case 0x00c6:
-	case 0x00c7:
-	case 0x00c8:
-	case 0x00c9:
-	case 0x00ca:
-	case 0x00d4:
-	case 0x00e2:
-	case 0x00e5:
-	case 0x00ea:
-	case 0x00eb:
-	case 0x00ef:
-	case 0x00f0:
-	case 0x00f1:
-	case 0x00f6:
-	case 0x00f7:
-	case 0x00f8:
-	case 0x00fc:
-	case 0x00fd:
-	case 0x0103:
-	case 0x0105:
-	case 0x0107:
-	case 0x0108:
-	case 0x0109:
-	case 0x010a:
-	case 0x010c:
-	case 0x010f:
-	case 0x0110:
-	case 0x0113:
-	case 0x011a:
-	case 0x011d:
-	case 0x011e:
-	case 0x011f:
-	case 0x0120:
-	case 0x0121:
-	case 0x0122:
-	case 0x0123:
-	case 0x0125:
-	case 0x0126:
-	case 0x0127:
-	case 0x0128:
-	case 0x0129:
-	case 0x012a:
-	case 0x012b:
-	case 0x012c:
-	case 0x0133:
-	case 0x0134:
-	case 0x0135:
-	case 0x0137:
-	case 0x0138:
-	case 0x013a:
-	case 0x013c:
-	case 0x013d:
-	case 0x013f:
-	case 0x0140:
-	case 0x0147:
-	case 0x0149:
-	case 0x014a:
-	case 0x014b:
-	case 0x0152:
-	case 0x0165:
-	case 0x0166:
-	case 0x0168:
-	case 0x0169:
-	case 0x016a:
-	case 0x016f:
-	case 0x0170:
-	case 0x0171:
-	case 0x0172:
-	case 0x0173:
-	case 0x0174:
-	case 0x0176:
-	case 0x0178:
-	case 0x017a:
-	case 0x017b:
-	case 0x0181:
-	case 0x0182:
-	case 0x0183:
-	case 0x0186:
-	case 0x0187:
-	case 0x0188:
-	case 0x018a:
-	case 0x018e:
-	case 0x018f:
-	case 0x0192:
-	case 0x0193:
-	case 0x019e:
-	case 0x01a5:
-	case 0x01a6:
-	case 0x01a7:
-	case 0x01aa:
-	case 0x01ab:
-	case 0x01b4:
-	case 0x01ba:
-	case 0x01bc:
-	case 0x01bd:
-	case 0x01be:
-	case 0x01c0:
-	case 0x01c9:
-	case 0x01cc:
-	case 0x01d7:
-	case 0x01d8:
-	case 0x01dd:
-	case 0x01df:
-	case 0x01de:
-		return true;
-	}
+u8 g_TopLengths[] = {
+	/* 0x00 */ 3,
+	/* 0x01 */ 3,
+	/* 0x02 */ 3,
+	/* 0x03 */ 3,
+	/* 0x04 */ 3,
+	/* 0x05 */ 3,
+	/* 0x06 */ 3,
+	/* 0x07 */ 3,
+	/* 0x08 */ 7,
+	/* 0x09 */ 7,
+	/* 0x0a */ 7,
+	/* 0x0b */ 7,
+	/* 0x0c */ 7,
+	/* 0x0d */ 3,
+	/* 0x0e */ 3,
+	/* 0x0f */ 3,
+	/* 0x10 */ 3,
+	/* 0x11 */ 4,
+	/* 0x12 */ 4,
+	/* 0x13 */ 3,
+	/* 0x14 */ 4,
+	/* 0x15 */ 4,
+	/* 0x16 */ 3,
+	/* 0x17 */ 4,
+	/* 0x18 */ 4,
+	/* 0x19 */ 3,
+	/* 0x1a */ 3,
+	/* 0x1b */ 3,
+	/* 0x1c */ 4,
+	/* 0x1d */ 4,
+	/* 0x1e */ 3,
+	/* 0x1f */ 7,
+	/* 0x20 */ 3,
+	/* 0x21 */ 4,
+	/* 0x22 */ 3,
+	/* 0x23 */ 3,
+	/* 0x24 */ 5,
+	/* 0x25 */ 3,
+	/* 0x26 */ 3,
+	/* 0x27 */ 3,
+	/* 0x28 */ 4,
+	/* 0x29 */ 6,
+	/* 0x2a */ 4,
+	/* 0x2b */ 4,
+	/* 0x2c */ 5,
+	/* 0x2d */ 5,
+	/* 0x2e */ 8,
+	/* 0x2f */ 8,
+	/* 0x30 */ 6,
+	/* 0x31 */ 6,
+	/* 0x32 */ 7,
+	/* 0x33 */ 7,
+	/* 0x34 */ 5,
+	/* 0x35 */ 4,
+	/* 0x36 */ 5,
+	/* 0x37 */ 5,
+	/* 0x38 */ 5,
+	/* 0x39 */ 4,
+	/* 0x3a */ 5,
+	/* 0x3b */ 5,
+	/* 0x3c */ 5,
+	/* 0x3d */ 4,
+	/* 0x3e */ 4,
+	/* 0x3f */ 4,
+	/* 0x40 */ 4,
+	/* 0x41 */ 4,
+	/* 0x42 */ 4,
+	/* 0x43 */ 4,
+	/* 0x44 */ 4,
+	/* 0x45 */ 4,
+	/* 0x46 */ 4,
+	/* 0x47 */ 4,
+	/* 0x48 */ 5,
+	/* 0x49 */ 5,
+	/* 0x4a */ 9,
+	/* 0x4b */ 9,
+	/* 0x4c */ 8,
+	/* 0x4d */ 7,
+	/* 0x4e */ 8,
+	/* 0x4f */ 8,
+	/* 0x50 */ 6,
+	/* 0x51 */ 6,
+	/* 0x52 */ 5,
+	/* 0x53 */ 5,
+	/* 0x54 */ 13,
+	/* 0x55 */ 12,
+	/* 0x56 */ 10,
+	/* 0x57 */ 10,
+	/* 0x58 */ 7,
+	/* 0x59 */ 4,
+	/* 0x5a */ 6,
+	/* 0x5b */ 6,
+	/* 0x5c */ 3,
+	/* 0x5d */ 4,
+	/* 0x5e */ 3,
+	/* 0x5f */ 6,
+	/* 0x60 */ 6,
+	/* 0x61 */ 3,
+	/* 0x62 */ 8,
+	/* 0x63 */ 8,
+	/* 0x64 */ 4,
+	/* 0x65 */ 4,
+	/* 0x66 */ 5,
+	/* 0x67 */ 3,
+	/* 0x68 */ 3,
+	/* 0x69 */ 3,
+	/* 0x6a */ 4,
+	/* 0x6b */ 4,
+	/* 0x6c */ 3,
+	/* 0x6d */ 3,
+	/* 0x6e */ 4,
+	/* 0x6f */ 5,
+	/* 0x70 */ 3,
+	/* 0x71 */ 4,
+	/* 0x72 */ 4,
+	/* 0x73 */ 5,
+	/* 0x74 */ 4,
+	/* 0x75 */ 5,
+	/* 0x76 */ 4,
+	/* 0x77 */ 5,
+	/* 0x78 */ 4,
+	/* 0x79 */ 4,
+	/* 0x7a */ 4,
+	/* 0x7b */ 7,
+	/* 0x7c */ 5,
+	/* 0x7d */ 4,
+	/* 0x7e */ 5,
+	/* 0x7f */ 4,
+	/* 0x80 */ 4,
+	/* 0x81 */ 3,
+	/* 0x82 */ 3,
+	/* 0x83 */ 4,
+	/* 0x84 */ 5,
+	/* 0x85 */ 4,
+	/* 0x86 */ 3,
+	/* 0x87 */ 6,
+	/* 0x88 */ 3,
+	/* 0x89 */ 4,
+	/* 0x8a */ 7,
+	/* 0x8b */ 8,
+	/* 0x8c */ 6,
+	/* 0x8d */ 4,
+	/* 0x8e */ 5,
+	/* 0x8f */ 3,
+	/* 0x90 */ 7,
+	/* 0x91 */ 5,
+	/* 0x92 */ 3,
+	/* 0x93 */ 8,
+	/* 0x94 */ 3,
+	/* 0x95 */ 2,
+	/* 0x96 */ 2,
+	/* 0x97 */ 5,
+	/* 0x98 */ 5,
+	/* 0x99 */ 4,
+	/* 0x9a */ 2,
+	/* 0x9b */ 2,
+	/* 0x9c */ 2,
+	/* 0x9d */ 12,
+	/* 0x9e */ 8,
+	/* 0x9f */ 5,
+	/* 0xa0 */ 4,
+	/* 0xa1 */ 3,
+	/* 0xa2 */ 4,
+	/* 0xa3 */ 4,
+	/* 0xa4 */ 2,
+	/* 0xa5 */ 3,
+	/* 0xa6 */ 2,
+	/* 0xa7 */ 2,
+	/* 0xa8 */ 2,
+	/* 0xa9 */ 3,
+	/* 0xaa */ 3,
+	/* 0xab */ 3,
+	/* 0xac */ 4,
+	/* 0xad */ 5,
+	/* 0xae */ 3,
+	/* 0xaf */ 3,
+	/* 0xb0 */ 4,
+	/* 0xb1 */ 3,
+	/* 0xb2 */ 3,
+	/* 0xb3 */ 3,
+	/* 0xb4 */ 3,
+	/* 0xb5 */ 3,
+	/* 0xb6 */ 4,
+	/* 0xb7 */ 4,
+	/* 0xb8 */ 3,
+	/* 0xb9 */ 7,
+	/* 0xba */ 7,
+	/* 0xbb */ 8,
+	/* 0xbc */ 8,
+	/* 0xbd */ 6,
+	/* 0xbe */ 6,
+	/* 0xbf */ 6,
+	/* 0xc0 */ 6,
+	/* 0xc1 */ 7,
+	/* 0xc2 */ 7,
+	/* 0xc3 */ 7,
+	/* 0xc4 */ 7,
+	/* 0xc5 */ 7,
+	/* 0xc6 */ 7,
+	/* 0xc7 */ 3,
+	/* 0xc8 */ 4,
+	/* 0xc9 */ 4,
+	/* 0xca */ 2,
+	/* 0xcb */ 2,
+	/* 0xcc */ 2,
+	/* 0xcd */ 2,
+	/* 0xce */ 5,
+	/* 0xcf */ 6,
+	/* 0xd0 */ 9,
+	/* 0xd1 */ 5,
+	/* 0xd2 */ 6,
+	/* 0xd3 */ 3,
+	/* 0xd4 */ 5,
+	/* 0xd5 */ 3,
+	/* 0xd6 */ 4,
+	/* 0xd7 */ 5,
+	/* 0xd8 */ 8,
+	/* 0xd9 */ 3,
+	/* 0xda */ 3,
+	/* 0xdb */ 3,
+	/* 0xdc */ 3,
+	/* 0xdd */ 7,
+	/* 0xde */ 7,
+	/* 0xdf */ 7,
+	/* 0xe0 */ 7,
+	/* 0xe1 */ 3,
+	/* 0xe2 */ 2,
+	/* 0xe3 */ 10,
+	/* 0xe4 */ 3,
+	/* 0xe5 */ 4,
+	/* 0xe6 */ 4,
+	/* 0xe7 */ 8,
+	/* 0xe8 */ 2,
+	/* 0xe9 */ 2,
+	/* 0xea */ 3,
+	/* 0xeb */ 5,
+	/* 0xec */ 3,
+	/* 0xed */ 11,
+	/* 0xee */ 5,
+	/* 0xef */ 4,
+	/* 0xf0 */ 5,
+	/* 0xf1 */ 4,
+	/* 0xf2 */ 2,
+	/* 0xf3 */ 3,
+	/* 0xf4 */ 6,
+	/* 0xf5 */ 3,
+	/* 0xf6 */ 5,
+	/* 0xf7 */ 4,
+	/* 0xf8 */ 4,
+	/* 0xf9 */ 4,
+	/* 0xfa */ 8,
+	/* 0xfb */ 3,
+	/* 0xfc */ 3,
+};
 
-	return false;
+u8 g_SubLengths[] = {
+	/* 0x00 */ 3,
+	/* 0x01 */ 4,
+	/* 0x02 */ 4,
+	/* 0x03 */ 4,
+	/* 0x04 */ 3,
+	/* 0x05 */ 4,
+	/* 0x06 */ 4,
+	/* 0x07 */ 3,
+	/* 0x08 */ 2,
+	/* 0x09 */ 2,
+	/* 0x0a */ 4,
+	/* 0x0b */ 3,
+	/* 0x0c */ 3,
+	/* 0x0d */ 5,
+	/* 0x0e */ 4,
+	/* 0x0f */ 3,
+	/* 0x10 */ 3,
+	/* 0x11 */ 3,
+	/* 0x12 */ 2,
+	/* 0x13 */ 2,
+	/* 0x14 */ 4,
+	/* 0x15 */ 2,
+	/* 0x16 */ 2,
+	/* 0x17 */ 7,
+	/* 0x18 */ 3,
+	/* 0x19 */ 6,
+	/* 0x1a */ 6,
+	/* 0x1b */ 2,
+	/* 0x1c */ 2,
+	/* 0x1d */ 4,
+	/* 0x1e */ 4,
+	/* 0x1f */ 3,
+	/* 0x20 */ 4,
+	/* 0x21 */ 3,
+	/* 0x22 */ 5,
+	/* 0x23 */ 3,
+	/* 0x24 */ 3,
+	/* 0x25 */ 11,
+	/* 0x26 */ 4,
+	/* 0x27 */ 4,
+	/* 0x28 */ 4,
+	/* 0x29 */ 3,
+	/* 0x2a */ 9,
+	/* 0x2b */ 4,
+	/* 0x2c */ 2,
+	/* 0x2d */ 3,
+	/* 0x2e */ 3,
+	/* 0x2f */ 2,
+	/* 0x30 */ 10,
+	/* 0x31 */ 5,
+	/* 0x32 */ 9,
+	/* 0x33 */ 3,
+	/* 0x34 */ 2,
+	/* 0x35 */ 3,
+	/* 0x36 */ 2,
+	/* 0x37 */ 2,
+	/* 0x38 */ 3,
+	/* 0x39 */ 4,
+	/* 0x3a */ 4,
+	/* 0x3b */ 3,
+	/* 0x3c */ 3,
+	/* 0x3d */ 4,
+	/* 0x3e */ 3,
+	/* 0x3f */ 3,
+	/* 0x40 */ 4,
+	/* 0x41 */ 18,
+	/* 0x42 */ 3,
+	/* 0x43 */ 3,
+	/* 0x44 */ 2,
+	/* 0x45 */ 5,
+	/* 0x46 */ 4,
+	/* 0x47 */ 3,
+	/* 0x48 */ 5,
+	/* 0x49 */ 4,
+	/* 0x4a */ 3,
+	/* 0x4b */ 4,
+	/* 0x4c */ 5,
+	/* 0x4d */ 5,
+	/* 0x4e */ 5,
+	/* 0x4f */ 6,
+	/* 0x50 */ 3,
+	/* 0x51 */ 6,
+	/* 0x52 */ 11,
+	/* 0x53 */ 3,
+	/* 0x54 */ 3,
+	/* 0x55 */ 2,
+};
+
+bool ailistIsGoto(u8 major, u8 minor)
+{
+	if (major == 0xff) {
+		return minor <= 0x06;
+	} else {
+		return major <= 0x93;
+	}
 }
 
-extern u16 g_CommandLengths[];
+bool ailistGetLen(u8 major, u8 minor)
+{
+	if (major == 0xff) {
+		return g_SubLengths[minor];
+	} else {
+		return g_TopLengths[major];
+	}
+}
 
 void ailistAnalyse(u8 *ailist, s32 *numcmdsptr, s32 *numlabelsptr, s32 *numgotosptr, s32 *oldsizeptr)
 {
@@ -295,16 +430,19 @@ void ailistAnalyse(u8 *ailist, s32 *numcmdsptr, s32 *numlabelsptr, s32 *numgotos
 	s32 type;
 
 	do {
-		type = ptr[0] << 8 | ptr[1];
+		u8 major = ptr[0];
+		u8 minor = ptr[1];
 
-		if (type == 0x0002) {
+		type = major << 8 | minor;
+
+		if (type == CMD_LABEL) {
 			numlabels++;
-		} else if (ailistIsGoto(type)) {
+		} else if (ailistIsGoto(major, minor)) {
 			numgotos++;
 		}
 
 		numcmds++;
-		ptr += g_CommandLengths[type];
+		ptr += ailistGetLen(major, minor);
 	} while (type != CMD_END);
 
 	*numcmdsptr = numcmds;
@@ -333,7 +471,10 @@ void ailistConvert(u8 *src, u8 *dst, struct tmpcmd *cmds, s32 numcmds)
 
 	// Start by building the tmpcmd list, but keeping the target pointers NULL
 	do {
-		type = ptr[0] << 8 | ptr[1];
+		u8 major = ptr[0];
+		u8 minor = ptr[1];
+
+		type = major << 8 | minor;
 
 		cmds[i].type = type;
 		cmds[i].oldoffset = ptr - src;
@@ -341,12 +482,12 @@ void ailistConvert(u8 *src, u8 *dst, struct tmpcmd *cmds, s32 numcmds)
 		cmds[i].labelnum = 0xff;
 		cmds[i].gotolabelnum = 0xff;
 		cmds[i].target = NULL;
-		cmds[i].len = g_CommandLengths[type];
+		cmds[i].len = ailistGetLen(major, minor);
 
-		if (type == 0x0002) {
+		if (type == CMD_LABEL) {
 			cmds[i].labelnum = ptr[2];
-		} else if (ailistIsGoto(type)) {
-			if (type == 0x01c0) {
+		} else if (ailistIsGoto(major, minor)) {
+			if (type == 0xff05) {
 				cmds[i].gotolabelnum = ptr[2];
 			} else {
 				cmds[i].gotolabelnum = ptr[cmds[i].len - 1];
@@ -364,7 +505,7 @@ void ailistConvert(u8 *src, u8 *dst, struct tmpcmd *cmds, s32 numcmds)
 	// Iterate again and populate the target pointers
 	for (i = 0; i < numcmds; i++) {
 		if (cmds[i].gotolabelnum != 0xff) {
-			j = cmds[i].type == 0x0001 ? 0 : i + 1;
+			j = cmds[i].type == CMD_GOTOFIRST ? 0 : i + 1;
 
 			while (j < numcmds) {
 				if (cmds[j].labelnum == cmds[i].gotolabelnum) {
@@ -388,10 +529,10 @@ void ailistConvert(u8 *src, u8 *dst, struct tmpcmd *cmds, s32 numcmds)
 	for (i = 0; i < numcmds; i++) {
 		if (cmds[i].labelnum != 0xff) {
 			// Label - don't write it
-		} else if (cmds[i].type == 0x01c0) {
+		} else if (cmds[i].type == 0xff05) {
 			// Special goto with label as first param instead of last
-			ptr[0] = 0x01;
-			ptr[1] = 0xc0;
+			ptr[0] = 0xff;
+			ptr[1] = 0x05;
 			ptr[2] = cmds[i].target->newoffset >> 8;
 			ptr[3] = cmds[i].target->newoffset & 0xff;
 			ptr[4] = src[cmds[i].oldoffset + 3];

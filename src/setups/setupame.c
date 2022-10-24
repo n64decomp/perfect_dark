@@ -3303,7 +3303,6 @@ u8 func1000_rebuild_groups[] = {
 };
 
 u8 func1401_setup_counterop[] = {
-	noop016c
 	yield
 	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	set_ailist(CHR_SELF, GAILIST_REBUILD_GROUPS)

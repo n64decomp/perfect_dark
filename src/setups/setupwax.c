@@ -1236,7 +1236,6 @@ u8 func1001_objectives_failed_msg[] = {
 };
 
 u8 func1000_setup_counterop[] = {
-	noop016c
 	yield
 	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	yield

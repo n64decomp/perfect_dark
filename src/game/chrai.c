@@ -52,130 +52,6 @@
 #include "lib/snd.h"
 #include "types.h"
 
-u16 g_CommandLengths[] = {
-	/*0x0000*/ 3,  /*0x0001*/ 3,  /*0x0002*/ 3,  /*0x0003*/ 2,
-	/*0x0004*/ 2,  /*0x0005*/ 5,  /*0x0006*/ 5,  /*0x0007*/ 4,
-	/*0x0008*/ 2,  /*0x0009*/ 2,  /*0x000a*/ 2,  /*0x000b*/ 12,
-	/*0x000c*/ 3,  /*0x000d*/ 2,  /*0x000e*/ 2,  /*0x000f*/ 3,
-	/*0x0010*/ 3,  /*0x0011*/ 3,  /*0x0012*/ 3,  /*0x0013*/ 3,
-	/*0x0014*/ 3,  /*0x0015*/ 7,  /*0x0016*/ 7,  /*0x0017*/ 7,
-	/*0x0018*/ 7,  /*0x0019*/ 8,  /*0x001a*/ 5,  /*0x001b*/ 7,
-	/*0x001c*/ 6,  /*0x001d*/ 4,  /*0x001e*/ 3,  /*0x001f*/ 4,
-	/*0x0020*/ 4,  /*0x0021*/ 3,  /*0x0022*/ 2,  /*0x0023*/ 3,
-	/*0x0024*/ 2,  /*0x0025*/ 2,  /*0x0026*/ 3,  /*0x0027*/ 5,
-	/*0x0028*/ 2,  /*0x0029*/ 2,  /*0x002a*/ 3,  /*0x002b*/ 3,
-	/*0x002c*/ 3,  /*0x002d*/ 3,  /*0x002e*/ 3,  /*0x002f*/ 4,
-	/*0x0030*/ 4,  /*0x0031*/ 4,  /*0x0032*/ 3,  /*0x0033*/ 4,
-	/*0x0034*/ 4,  /*0x0035*/ 3,  /*0x0036*/ 2,  /*0x0037*/ 4,
-	/*0x0038*/ 4,  /*0x0039*/ 3,  /*0x003a*/ 3,  /*0x003b*/ 3,
-	/*0x003c*/ 3,  /*0x003d*/ 4,  /*0x003e*/ 4,  /*0x003f*/ 3,
-	/*0x0040*/ 7,  /*0x0041*/ 7,  /*0x0042*/ 3,  /*0x0043*/ 3,
-	/*0x0044*/ 3,  /*0x0045*/ 4,  /*0x0046*/ 3,  /*0x0047*/ 3,
-	/*0x0048*/ 4,  /*0x0049*/ 5,  /*0x004a*/ 3,  /*0x004b*/ 3,
-	/*0x004c*/ 3,  /*0x004d*/ 4,  /*0x004e*/ 6,  /*0x004f*/ 4,
-	/*0x0050*/ 4,  /*0x0051*/ 4,  /*0x0052*/ 5,  /*0x0053*/ 5,
-	/*0x0054*/ 8,  /*0x0055*/ 8,  /*0x0056*/ 6,  /*0x0057*/ 6,
-	/*0x0058*/ 5,  /*0x0059*/ 7,  /*0x005a*/ 7,  /*0x005b*/ 7,
-	/*0x005c*/ 5,  /*0x005d*/ 5,  /*0x005e*/ 4,  /*0x005f*/ 5,
-	/*0x0060*/ 5,  /*0x0061*/ 5,  /*0x0062*/ 4,  /*0x0063*/ 5,
-	/*0x0064*/ 1,  /*0x0065*/ 3,  /*0x0066*/ 3,  /*0x0067*/ 3,
-	/*0x0068*/ 3,  /*0x0069*/ 3,  /*0x006a*/ 4,  /*0x006b*/ 5,
-	/*0x006c*/ 3,  /*0x006d*/ 3,  /*0x006e*/ 5,  /*0x006f*/ 4,
-	/*0x0070*/ 4,  /*0x0071*/ 4,  /*0x0072*/ 5,  /*0x0073*/ 4,
-	/*0x0074*/ 4,  /*0x0075*/ 4,  /*0x0076*/ 4,  /*0x0077*/ 4,
-	/*0x0078*/ 4,  /*0x0079*/ 5,  /*0x007a*/ 5,  /*0x007b*/ 4,
-	/*0x007c*/ 4,  /*0x007d*/ 4,  /*0x007e*/ 4,  /*0x007f*/ 4,
-	/*0x0080*/ 4,  /*0x0081*/ 5,  /*0x0082*/ 5,  /*0x0083*/ 4,
-	/*0x0084*/ 3,  /*0x0085*/ 3,  /*0x0086*/ 4,  /*0x0087*/ 3,
-	/*0x0088*/ 4,  /*0x0089*/ 3,  /*0x008a*/ 3,  /*0x008b*/ 3,
-	/*0x008c*/ 4,  /*0x008d*/ 3,  /*0x008e*/ 5,  /*0x008f*/ 5,
-	/*0x0090*/ 3,  /*0x0091*/ 2,  /*0x0092*/ 4,  /*0x0093*/ 3,
-	/*0x0094*/ 3,  /*0x0095*/ 3,  /*0x0096*/ 5,  /*0x0097*/ 4,
-	/*0x0098*/ 3,  /*0x0099*/ 3,  /*0x009a*/ 3,  /*0x009b*/ 7,
-	/*0x009c*/ 7,  /*0x009d*/ 9,  /*0x009e*/ 8,  /*0x009f*/ 8,
-	/*0x00a0*/ 9,  /*0x00a1*/ 6,  /*0x00a2*/ 6,  /*0x00a3*/ 8,
-	/*0x00a4*/ 6,  /*0x00a5*/ 6,  /*0x00a6*/ 7,  /*0x00a7*/ 7,
-	/*0x00a8*/ 7,  /*0x00a9*/ 8,  /*0x00aa*/ 7,  /*0x00ab*/ 7,
-	/*0x00ac*/ 8,  /*0x00ad*/ 7,  /*0x00ae*/ 7,  /*0x00af*/ 8,
-	/*0x00b0*/ 3,  /*0x00b1*/ 4,  /*0x00b2*/ 4,  /*0x00b3*/ 5,
-	/*0x00b4*/ 4,  /*0x00b5*/ 0,  /*0x00b6*/ 2,  /*0x00b7*/ 2,
-	/*0x00b8*/ 2,  /*0x00b9*/ 2,  /*0x00ba*/ 3,  /*0x00bb*/ 3,
-	/*0x00bc*/ 6,  /*0x00bd*/ 6,  /*0x00be*/ 2,  /*0x00bf*/ 2,
-	/*0x00c0*/ 4,  /*0x00c1*/ 2,  /*0x00c2*/ 2,  /*0x00c3*/ 3,
-	/*0x00c4*/ 5,  /*0x00c5*/ 5,  /*0x00c6*/ 13, /*0x00c7*/ 12,
-	/*0x00c8*/ 10, /*0x00c9*/ 9,  /*0x00ca*/ 10, /*0x00cb*/ 5,
-	/*0x00cc*/ 6,  /*0x00cd*/ 9,  /*0x00ce*/ 5,  /*0x00cf*/ 6,
-	/*0x00d0*/ 7,  /*0x00d1*/ 7,  /*0x00d2*/ 7,  /*0x00d3*/ 3,
-	/*0x00d4*/ 6,  /*0x00d5*/ 3,  /*0x00d6*/ 6,  /*0x00d7*/ 6,
-	/*0x00d8*/ 3,  /*0x00d9*/ 3,  /*0x00da*/ 5,  /*0x00db*/ 3,
-	/*0x00dc*/ 2,  /*0x00dd*/ 2,  /*0x00de*/ 4,  /*0x00df*/ 7,
-	/*0x00e0*/ 4,  /*0x00e1*/ 3,  /*0x00e2*/ 7,  /*0x00e3*/ 3,
-	/*0x00e4*/ 3,  /*0x00e5*/ 4,  /*0x00e6*/ 1,  /*0x00e7*/ 1,
-	/*0x00e8*/ 3,  /*0x00e9*/ 4,  /*0x00ea*/ 4,  /*0x00eb*/ 6,
-	/*0x00ec*/ 4,  /*0x00ed*/ 4,  /*0x00ee*/ 5,  /*0x00ef*/ 6,
-	/*0x00f0*/ 3,  /*0x00f1*/ 3,  /*0x00f2*/ 2,  /*0x00f3*/ 3,
-	/*0x00f4*/ 14, /*0x00f5*/ 2,  /*0x00f6*/ 3,  /*0x00f7*/ 3,
-	/*0x00f8*/ 4,  /*0x00f9*/ 5,  /*0x00fa*/ 3,  /*0x00fb*/ 3,
-	/*0x00fc*/ 4,  /*0x00fd*/ 4,  /*0x00fe*/ 2,  /*0x00ff*/ 2,
-	/*0x0100*/ 3,  /*0x0101*/ 3,  /*0x0102*/ 11, /*0x0103*/ 3,
-	/*0x0104*/ 2,  /*0x0105*/ 5,  /*0x0106*/ 5,  /*0x0107*/ 3,
-	/*0x0108*/ 6,  /*0x0109*/ 6,  /*0x010a*/ 8,  /*0x010b*/ 4,
-	/*0x010c*/ 4,  /*0x010d*/ 2,  /*0x010e*/ 4,  /*0x010f*/ 6,
-	/*0x0110*/ 6,  /*0x0111*/ 4,  /*0x0112*/ 8,  /*0x0113*/ 3,
-	/*0x0114*/ 3,  /*0x0115*/ 3,  /*0x0116*/ 3,  /*0x0117*/ 3,
-	/*0x0118*/ 7,  /*0x0119*/ 7,  /*0x011a*/ 8,  /*0x011b*/ 7,
-	/*0x011c*/ 7,  /*0x011d*/ 8,  /*0x011e*/ 4,  /*0x011f*/ 4,
-	/*0x0120*/ 4,  /*0x0121*/ 5,  /*0x0122*/ 9,  /*0x0123*/ 9,
-	/*0x0124*/ 3,  /*0x0125*/ 3,  /*0x0126*/ 3,  /*0x0127*/ 3,
-	/*0x0128*/ 4,  /*0x0129*/ 4,  /*0x012a*/ 4,  /*0x012b*/ 3,
-	/*0x012c*/ 3,  /*0x012d*/ 1,  /*0x012e*/ 1,  /*0x012f*/ 2,
-	/*0x0130*/ 10, /*0x0131*/ 3,  /*0x0132*/ 4,  /*0x0133*/ 4,
-	/*0x0134*/ 5,  /*0x0135*/ 3,  /*0x0136*/ 4,  /*0x0137*/ 4,
-	/*0x0138*/ 4,  /*0x0139*/ 8,  /*0x013a*/ 5,  /*0x013b*/ 3,
-	/*0x013c*/ 3,  /*0x013d*/ 4,  /*0x013e*/ 2,  /*0x013f*/ 3,
-	/*0x0140*/ 5,  /*0x0141*/ 9,  /*0x0142*/ 4,  /*0x0143*/ 2,
-	/*0x0144*/ 2,  /*0x0145*/ 2,  /*0x0146*/ 2,  /*0x0147*/ 4,
-	/*0x0148*/ 4,  /*0x0149*/ 6,  /*0x014a*/ 6,  /*0x014b*/ 3,
-	/*0x014c*/ 1,  /*0x014d*/ 1,  /*0x014e*/ 1,  /*0x014f*/ 1,
-	/*0x0150*/ 1,  /*0x0151*/ 1,  /*0x0152*/ 5,  /*0x0153*/ 1,
-	/*0x0154*/ 1,  /*0x0155*/ 1,  /*0x0156*/ 1,  /*0x0157*/ 3,
-	/*0x0158*/ 1,  /*0x0159*/ 1,  /*0x015a*/ 1,  /*0x015b*/ 3,
-	/*0x015c*/ 2,  /*0x015d*/ 1,  /*0x015e*/ 1,  /*0x015f*/ 1,
-	/*0x0160*/ 1,  /*0x0161*/ 1,  /*0x0162*/ 1,  /*0x0163*/ 1,
-	/*0x0164*/ 1,  /*0x0165*/ 4,  /*0x0166*/ 4,  /*0x0167*/ 3,
-	/*0x0168*/ 4,  /*0x0169*/ 4,  /*0x016a*/ 7,  /*0x016b*/ 10,
-	/*0x016c*/ 2,  /*0x016d*/ 5,  /*0x016e*/ 5,  /*0x016f*/ 5,
-	/*0x0170*/ 4,  /*0x0171*/ 5,  /*0x0172*/ 4,  /*0x0173*/ 4,
-	/*0x0174*/ 3,  /*0x0175*/ 3,  /*0x0176*/ 3,  /*0x0177*/ 9,
-	/*0x0178*/ 4,  /*0x0179*/ 11, /*0x017a*/ 3,  /*0x017b*/ 4,
-	/*0x017c*/ 5,  /*0x017d*/ 3,  /*0x017e*/ 2,  /*0x017f*/ 3,
-	/*0x0180*/ 2,  /*0x0181*/ 5,  /*0x0182*/ 4,  /*0x0183*/ 3,
-	/*0x0184*/ 4,  /*0x0185*/ 2,  /*0x0186*/ 6,  /*0x0187*/ 3,
-	/*0x0188*/ 4,  /*0x0189*/ 4,  /*0x018a*/ 5,  /*0x018b*/ 3,
-	/*0x018c*/ 4,  /*0x018d*/ 4,  /*0x018e*/ 7,  /*0x018f*/ 8,
-	/*0x0190*/ 3,  /*0x0191*/ 3,  /*0x0192*/ 4,  /*0x0193*/ 4,
-	/*0x0194*/ 1,  /*0x0195*/ 1,  /*0x0196*/ 1,  /*0x0197*/ 1,
-	/*0x0198*/ 1,  /*0x0199*/ 1,  /*0x019a*/ 1,  /*0x019b*/ 1,
-	/*0x019c*/ 1,  /*0x019d*/ 1,  /*0x019e*/ 6,  /*0x019f*/ 5,
-	/*0x01a0*/ 4,  /*0x01a1*/ 2,  /*0x01a2*/ 4,  /*0x01a3*/ 3,
-	/*0x01a4*/ 6,  /*0x01a5*/ 3,  /*0x01a6*/ 4,  /*0x01a7*/ 4,
-	/*0x01a8*/ 1,  /*0x01a9*/ 1,  /*0x01aa*/ 3,  /*0x01ab*/ 5,
-	/*0x01ac*/ 1,  /*0x01ad*/ 3,  /*0x01ae*/ 3,  /*0x01af*/ 4,
-	/*0x01b0*/ 1,  /*0x01b1*/ 18, /*0x01b2*/ 3,  /*0x01b3*/ 3,
-	/*0x01b4*/ 3,  /*0x01b5*/ 4, /*0x01b6*/ 3, /*0x01b7*/ 5,
-	/*0x01b8*/ 4,  /*0x01b9*/ 2,  /*0x01ba*/ 7,  /*0x01bb*/ 4,
-	/*0x01bc*/ 4,  /*0x01bd*/ 3,  /*0x01be*/ 5,  /*0x01bf*/ 5,
-	/*0x01c0*/ 4,  /*0x01c1*/ 4,  /*0x01c2*/ 4,  /*0x01c3*/ 4,
-	/*0x01c4*/ 4,  /*0x01c5*/ 2,  /*0x01c6*/ 4,  /*0x01c7*/ 3,
-	/*0x01c8*/ 3,  /*0x01c9*/ 3,  /*0x01ca*/ 5,  /*0x01cb*/ 8,
-	/*0x01cc*/ 3,  /*0x01cd*/ 4,  /*0x01ce*/ 3,  /*0x01cf*/ 4,
-	/*0x01d0*/ 5,  /*0x01d1*/ 5,  /*0x01d2*/ 3,  /*0x01d3*/ 5,
-	/*0x01d4*/ 6,  /*0x01d5*/ 3,  /*0x01d6*/ 6,  /*0x01d7*/ 5,
-	/*0x01d8*/ 5,  /*0x01d9*/ 11, /*0x01da*/ 3,  /*0x01db*/ 3,
-	/*0x01dc*/ 3,  /*0x01dd*/ 4,  /*0x01de*/ 3,  /*0x01df*/ 8,
-	/*0x01e0*/ 2,
-};
-
 /**
  * @cmd 0000
  */
@@ -372,22 +248,6 @@ const char var7f1a9bf0[] = "Randnum = %d,    Alarmrandnum = %d \n";
 const char var7f1a9c18[] = "IVE FOUND MY PAD %d \n";
 
 /**
- * @cmd 01c1
- */
-static u8 *aiSetPunchDodgeList(u8 *cmd)
-{
-	u16 ailistid = cmd[3] | (cmd[2] << 8);
-
-	if (g_Vars.chrdata) {
-		g_Vars.chrdata->aipunchdodgelist = ailistid;
-	}
-
-	cmd += 4;
-
-	return cmd;
-}
-
-/**
  * @cmd 01c2
  */
 static u8 *aiSetShootingAtMeList(u8 *cmd)
@@ -412,22 +272,6 @@ static u8 *aiSetDarkRoomList(u8 *cmd)
 
 	if (g_Vars.chrdata) {
 		g_Vars.chrdata->aidarkroomlist = ailistid;
-	}
-
-	cmd += 4;
-
-	return cmd;
-}
-
-/**
- * @cmd 01c4
- */
-static u8 *aiSetPlayerDeadList(u8 *cmd)
-{
-	u16 ailistid = cmd[3] | (cmd[2] << 8);
-
-	if (g_Vars.chrdata) {
-		g_Vars.chrdata->aiplayerdeadlist = ailistid;
 	}
 
 	cmd += 4;
@@ -576,28 +420,6 @@ bool func0f04e418(void)
 }
 
 /**
- * @cmd 000d
- */
-static u8 *aiBeSurprisedOneHand(u8 *cmd)
-{
-	chrTrySurprisedOneHand(g_Vars.chrdata);
-	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 000e
- */
-static u8 *aiBeSurprisedLookAround(u8 *cmd)
-{
-	chrTrySurprisedLookAround(g_Vars.chrdata);
-	cmd += 2;
-
-	return cmd;
-}
-
-/**
  * @cmd 0032
  */
 static u8 *aiIfStopped(u8 *cmd)
@@ -743,20 +565,6 @@ static u8 *aiTryAttackWalk(u8 *cmd)
 }
 
 /**
- * @cmd 0013
- */
-static u8 *aiTryAttackRun(u8 *cmd)
-{
-	if (chrTryAttackRun(g_Vars.chrdata)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 0014
  */
 static u8 *aiTryAttackRoll(u8 *cmd)
@@ -816,36 +624,6 @@ static u8 *aiTryAttackLie(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
 		cmd += 8;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 00f0
- */
-static u8 *ai00f0(u8 *cmd)
-{
-	if (g_Vars.chrdata->actiontype == ACT_ATTACK &&
-			!g_Vars.chrdata->act_attack.reaim &&
-			g_Vars.chrdata->act_attack.flags & ATTACKFLAG_DONTTURN) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 00f1
- */
-static u8 *aiIfAttacking(u8 *cmd)
-{
-	if (g_Vars.chrdata->actiontype == ACT_ATTACK) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
 	}
 
 	return cmd;
@@ -956,22 +734,6 @@ static u8 *aiConsiderGrenadeThrow(u8 *cmd)
 }
 
 /**
- * @cmd 001c
- */
-static u8 *aiDropItem(u8 *cmd)
-{
-	u32 modelnum = cmd[3] | (cmd[2] << 8);
-
-	if (chrDropItem(g_Vars.chrdata, modelnum & 0xffff, cmd[4] & 0xff)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
-	} else {
-		cmd += 7;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 0024
  */
 static u8 *aiSurrender(u8 *cmd)
@@ -1010,22 +772,6 @@ static u8 *aiRemoveChr(u8 *cmd)
 }
 
 /**
- * @cmd 0027
- */
-static u8 *aiTryStartAlarm(u8 *cmd)
-{
-	u16 pad_id = cmd[3] | (cmd[2] << 8);
-
-	if (chrTryStartAlarm(g_Vars.chrdata, pad_id)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 0028
  */
 static u8 *aiActivateAlarm(u8 *cmd)
@@ -1043,20 +789,6 @@ static u8 *aiDeactivateAlarm(u8 *cmd)
 {
 	alarmDeactivate();
 	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 002a
- */
-static u8 *aiTryRunFromTarget(u8 *cmd)
-{
-	if (chrTryRunFromTarget(g_Vars.chrdata)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
 
 	return cmd;
 }
@@ -1104,39 +836,11 @@ static u8 *aiTryRunToTargetProp(u8 *cmd)
 }
 
 /**
- * @cmd 002e
- */
-static u8 *aiTryGoToCoverProp(u8 *cmd)
-{
-	if (chrGoToCoverProp(g_Vars.chrdata)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 002f
  */
 static u8 *aiTryJogToChr(u8 *cmd)
 {
 	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_JOG)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0030
- */
-static u8 *aiTryWalkToChr(u8 *cmd)
-{
-	if (chrGoToChr(g_Vars.chrdata, cmd[2], GOPOSFLAG_WALK)) {
 		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
 		cmd += 5;
@@ -1327,20 +1031,6 @@ static u8 *aiIfAlarmActive(u8 *cmd)
 }
 
 /**
- * @cmd 003b
- */
-static u8 *aiIfGasActive(u8 *cmd)
-{
-	if (gasIsActive()) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 003c
  */
 static u8 *aiIfHearsTarget(u8 *cmd)
@@ -1413,22 +1103,6 @@ static u8 *aiIfCanSeeAttackTarget(u8 *cmd)
 }
 
 /**
- * @cmd 0040
- */
-static u8 *aiIfTargetNearlyInSight(u8 *cmd)
-{
-	u32 distance = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
-
-	if (chrIsTargetNearlyInSight(g_Vars.chrdata, distance)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
-	} else {
-		cmd += 8;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 0041
  */
 static u8 *aiIfNearlyInTargetsSight(u8 *cmd)
@@ -1439,34 +1113,6 @@ static u8 *aiIfNearlyInTargetsSight(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
 		cmd += 8;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0042
- */
-static u8 *aiSetPadPresetToPadOnRouteToTarget(u8 *cmd)
-{
-	if (chrSetPadPresetToPadOnRouteToTarget(g_Vars.chrdata)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0043
- */
-static u8 *aiIfSawTargetRecently(u8 *cmd)
-{
-	if (chrSawTargetRecently(g_Vars.chrdata)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
 	}
 
 	return cmd;
@@ -1525,32 +1171,6 @@ static u8 *aiIfOnScreen(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
 		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0048
- */
-static u8 *aiIfChrInOnScreenRoom(u8 *cmd)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-	u8 pass = false;
-	s32 i;
-
-	if (chr && chr->prop) {
-		for (i = 0; chr->prop->rooms[i] != -1; i++) {
-			if (roomIsOnscreen(chr->prop->rooms[i])) {
-				pass = true;
-			}
-		}
-	}
-
-	if (pass) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
 	}
 
 	return cmd;
@@ -1717,20 +1337,6 @@ static u8 *aiIfTargetInFov(u8 *cmd)
 }
 
 /**
- * @cmd 0051
- */
-static u8 *aiIfTargetOutOfFov(u8 *cmd)
-{
-	if (!chrIsTargetInFov(g_Vars.chrdata, cmd[2], 0)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 0052
  */
 static u8 *aiIfDistanceToTargetLessThan(u8 *cmd)
@@ -1888,22 +1494,6 @@ static u8 *aiIfDistanceToChrGreaterThan(u8 *cmd)
 }
 
 /**
- * @cmd 0058
- */
-static u8 *ai0058(u8 *cmd)
-{
-	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
-
-	if (chrSetChrPresetToAnyChrNearSelf(g_Vars.chrdata, distance)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 0059
  */
 static u8 *aiIfDistanceFromTargetToPadLessThan(u8 *cmd)
@@ -1912,23 +1502,6 @@ static u8 *aiIfDistanceFromTargetToPadLessThan(u8 *cmd)
 	f32 value = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceFromTargetToPad(g_Vars.chrdata, pad) < value) {
-		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
-	} else {
-		cmd += 8;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 005a
- */
-static u8 *aiIfDistanceFromTargetToPadGreaterThan(u8 *cmd)
-{
-	u16 pad = cmd[5] | (cmd[4] << 8);
-	f32 value = (cmd[3] | (cmd[2] << 8)) * 10.0f;
-
-	if (chrGetDistanceFromTargetToPad(g_Vars.chrdata, pad) > value) {
 		cmd = AILABEL(g_Vars.ailist, cmd[6], cmd[7]);
 	} else {
 		cmd += 8;
@@ -1978,24 +1551,6 @@ static u8 *aiIfChrInRoom(u8 *cmd)
 	}
 
 	cmd += 8;
-
-	return cmd;
-}
-
-/**
- * @cmd 005c
- */
-static u8 *aiIfTargetInRoom(u8 *cmd)
-{
-	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
-	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
-
-	if (room_id >= 0 && prop && room_id == prop->rooms[0]) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
 
 	return cmd;
 }
@@ -2185,26 +1740,6 @@ static u8 *aiIfChrActivatedObject(u8 *cmd)
 }
 
 /**
- * @cmd 0065
- */
-static u8 *aiObjInteract(u8 *cmd)
-{
-	struct defaultobj *obj = objFindByTagId(cmd[2]);
-
-	if (obj && obj->prop) {
-		if (obj->prop->type == PROPTYPE_DOOR) {
-			doorsActivate(obj->prop, false);
-		} else if (obj->prop->type == PROPTYPE_OBJ || obj->prop->type == PROPTYPE_WEAPON) {
-			propobjInteract(obj->prop);
-		}
-	}
-
-	cmd += 3;
-
-	return cmd;
-}
-
-/**
  * @cmd 0066
  */
 static u8 *aiDestroyObject(u8 *cmd)
@@ -2222,24 +1757,6 @@ static u8 *aiDestroyObject(u8 *cmd)
 			f32 damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
 			objDamage(obj, damage, &obj->prop->pos, WEAPON_REMOTEMINE, -1);
 		}
-	}
-
-	cmd += 3;
-
-	return cmd;
-}
-
-/**
- * @cmd 0067
- */
-static u8 *ai0067(u8 *cmd)
-{
-	struct defaultobj *obj = objFindByTagId(cmd[2]);
-
-	if (obj && obj->prop && obj->prop->parent && obj->prop->parent->type == PROPTYPE_CHR) {
-		struct chrdata *chr = obj->prop->parent->chr;
-		objSetDropped(obj->prop, DROPTYPE_SURRENDER);
-		chr->hidden |= CHRHFLAG_00000001;
 	}
 
 	cmd += 3;
@@ -2447,22 +1964,6 @@ static u8 *aiIfDoorState(u8 *cmd)
 }
 
 /**
- * @cmd 006f
- */
-static u8 *aiIfObjectIsDoor(u8 *cmd)
-{
-	struct defaultobj *obj = objFindByTagId(cmd[2]);
-
-	if (obj && obj->prop && obj->type == OBJTYPE_DOOR && (obj->hidden & 0x200)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 0070
  */
 static u8 *aiLockDoor(u8 *cmd)
@@ -2614,90 +2115,6 @@ static u8 *aiIfNumArghsGreaterThan(u8 *cmd)
 }
 
 /**
- * @cmd 007f
- */
-static u8 *aiIfNumCloseArghsLessThan(u8 *cmd)
-{
-	if (chrGetNumCloseArghs(g_Vars.chrdata) < cmd[2]) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0080
- */
-static u8 *aiIfNumCloseArghsGreaterThan(u8 *cmd)
-{
-	if (chrGetNumCloseArghs(g_Vars.chrdata) > cmd[2]) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0081
- */
-static u8 *aiIfChrHealthGreaterThan(u8 *cmd)
-{
-	f32 value = cmd[3] * 0.1f;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-	u32 pass = false;
-
-	if (chr && chr->prop) {
-		if (chr->prop->type == PROPTYPE_PLAYER) {
-			u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
-
-			pass = (value > g_Vars.players[playernum]->bondhealth * 8.0f);
-		} else {
-			pass = (value > chr->maxdamage - chr->damage);
-		}
-	}
-
-	if (pass) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0082
- */
-static u8 *aiIfChrHealthLessThan(u8 *cmd)
-{
-	f32 value = cmd[3] * 0.1f;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-	u32 pass = false;
-
-	if (chr && chr->prop) {
-		if (chr->prop->type == PROPTYPE_PLAYER) {
-			u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
-
-			pass = (value < g_Vars.players[playernum]->bondhealth * 8.0f);
-		} else {
-			pass = (value < chr->maxdamage - chr->damage);
-		}
-	}
-
-	if (pass) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 010f
  */
 static u8 *aiIfChrShieldLessThan(u8 *cmd)
@@ -2706,23 +2123,6 @@ static u8 *aiIfChrShieldLessThan(u8 *cmd)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
 
 	if (chr && chrGetShield(chr) < value) {
-		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
-	} else {
-		cmd = cmd + 7;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0110
- */
-static u8 *aiIfChrShieldGreaterThan(u8 *cmd)
-{
-	f32 value = (cmd[4] | (cmd[3] << 8)) * 0.1f;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
-
-	if (chr && chrGetShield(chr) > value) {
 		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
 	} else {
 		cmd = cmd + 7;
@@ -2794,59 +2194,11 @@ static u8 *aiIfDifficultyGreaterThan(u8 *cmd)
 }
 
 /**
- * @cmd 0079
- */
-static u8 *aiIfStageTimerLessThan(u8 *cmd)
-{
-	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
-	f32 time = lvGetStageTimeInSeconds();
-
-	if (time < target) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 007a
- */
-static u8 *aiIfStageTimerGreaterThan(u8 *cmd)
-{
-	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
-	f32 time = lvGetStageTimeInSeconds();
-
-	if (time > target) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 007b
  */
-static u8 *aiIfStageIdLessThan(u8 *cmd)
+static u8 *aiIfStageIsNot(u8 *cmd)
 {
-	if (cmd[2] > mainGetStageNum()) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 007c
- */
-static u8 *aiIfStageIdGreaterThan(u8 *cmd)
-{
-	if (mainGetStageNum() > cmd[2]) {
+	if (mainGetStageNum() != cmd[2]) {
 		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
 		cmd += 5;
@@ -2878,18 +2230,6 @@ static u8 *aiAddMorale(u8 *cmd)
 }
 
 /**
- * @cmd 0086
- */
-static u8 *aiChrAddMorale(u8 *cmd)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
-	incrementByte(&chr->morale, cmd[2]);
-	cmd += 4;
-
-	return cmd;
-}
-
-/**
  * @cmd 0087
  */
 static u8 *aiSubtractMorale(u8 *cmd)
@@ -2909,20 +2249,6 @@ static u8 *aiIfMoraleLessThan(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
 		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0089
- */
-static u8 *aiIfMoraleLessThanRandom(u8 *cmd)
-{
-	if (g_Vars.chrdata->morale < g_Vars.chrdata->random) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
 	}
 
 	return cmd;
@@ -2967,17 +2293,6 @@ static u8 *aiChrAddAlertness(u8 *cmd)
 }
 
 /**
- * @cmd 008d
- */
-static u8 *aiSubtractAlertness(u8 *cmd)
-{
-	decrementByte(&g_Vars.chrdata->alertness, cmd[2]);
-	cmd += 3;
-
-	return cmd;
-}
-
-/**
  * @cmd 008e
  */
 static u8 *aiIfAlertness(u8 *cmd)
@@ -3003,20 +2318,6 @@ static u8 *aiIfChrAlertnessLessThan(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
 		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0090
- */
-static u8 *aiIfAlertnessLessThanRandom(u8 *cmd)
-{
-	if (g_Vars.chrdata->alertness < g_Vars.chrdata->random) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
 	}
 
 	return cmd;
@@ -3513,23 +2814,6 @@ static u8 *aiUnsetObjFlag(u8 *cmd)
 }
 
 /**
- * @cmd 00ac
- */
-static u8 *aiIfObjHasFlag(u8 *cmd)
-{
-	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
-	struct defaultobj *obj = objFindByTagId(cmd[2]);
-
-	if (obj && obj->prop && (obj->flags & flags) == flags) {
-		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
-	} else {
-		cmd += 9;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 00ad
  */
 static u8 *aiSetObjFlag2(u8 *cmd)
@@ -3672,54 +2956,6 @@ static u8 *aiSetPadPreset(u8 *cmd)
 }
 
 /**
- * @cmd 00b3
- */
-static u8 *aiChrSetPadPreset(u8 *cmd)
-{
-	u16 pad_id = cmd[4] | (cmd[3] << 8);
-
-	chrSetPadPresetByChrnum(g_Vars.chrdata, cmd[2], pad_id);
-
-	cmd += 5;
-
-	return cmd;
-}
-
-/**
- * @cmd 00b4
- */
-static u8 *aiChrCopyPadPreset(u8 *cmd)
-{
-	struct chrdata *chrsrc = chrFindById(g_Vars.chrdata, cmd[2]);
-	struct chrdata *chrdst = chrFindById(g_Vars.chrdata, cmd[3]);
-
-	chrdst->padpreset1 = chrsrc->padpreset1;
-	cmd += 4;
-
-	return cmd;
-}
-
-/**
- * @cmd 00b5
- *
- * The weirdness to do with result is required for a match.
- * The original source likely had something similar and probably used ifdefs.
- */
-static u8 *aiPrint(u8 *cmd)
-{
-	return cmd;
-}
-
-/**
- * @cmd 0091
- */
-static u8 *aiNoOp0091(u8 *cmd)
-{
-	cmd += 2;
-	return cmd;
-}
-
-/**
  * @cmd 00b6
  */
 static u8 *aiRestartTimer(u8 *cmd)
@@ -3764,34 +3000,6 @@ static u8 *aiResumeTimer(u8 *cmd)
 {
 	g_Vars.chrdata->hidden |= CHRHFLAG_TIMER_RUNNING;
 	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 00ba
- */
-static u8 *aiIfTimerStopped(u8 *cmd)
-{
-	if ((g_Vars.chrdata->hidden & CHRHFLAG_TIMER_RUNNING) == 0) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 00bb
- */
-static u8 *aiIfTimerGreaterThanRandom(u8 *cmd)
-{
-	if (g_Vars.chrdata->random < g_Vars.chrdata->timer60 * 60) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
 
 	return cmd;
 }
@@ -3883,20 +3091,6 @@ static u8 *aiStartCountdownTimer(u8 *cmd)
 {
 	countdownTimerSetRunning(true);
 	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 00c3
- */
-static u8 *aiIfCountdownTimerStopped(u8 *cmd)
-{
-	if (!countdownTimerIsRunning()) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
 
 	return cmd;
 }
@@ -4073,28 +3267,6 @@ static u8 *aiTryEquipWeapon(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[9], cmd[10]);
 	} else {
 		cmd += 11;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 00c9
- */
-static u8 *aiTryEquipHat(u8 *cmd)
-{
-	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
-	u32 modelnum = cmd[3] | (cmd[2] << 8);
-	struct prop *prop = NULL;
-
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->model) {
-		prop = hatCreateForChr(g_Vars.chrdata, modelnum, flags);
-	}
-
-	if (prop) {
-		cmd = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
-	} else {
-		cmd += 10;
 	}
 
 	return cmd;
@@ -4364,37 +3536,6 @@ static u8 *aiIfChannelIdle(u8 *cmd)
 }
 
 /**
- * @cmd 00d1
- */
-static u8 *ai00d1(u8 *cmd)
-{
-	s16 audio_id = cmd[4] | (cmd[3] << 8);
-	u16 thing = cmd[6] | (cmd[5] << 8);
-
-	audioPlayFromProp2((s8)cmd[2], audio_id, -1, NULL, thing, 2500, 3000, 0);
-
-	cmd += 7;
-
-	return cmd;
-}
-
-/**
- * @cmd 00d2
- */
-static u8 *ai00d2(u8 *cmd)
-{
-	f32 thing1 = cmd[4] | (cmd[3] << 8);
-	u16 thing2 = cmd[6] | (cmd[5] << 8);
-	s32 audio_id = func0f0927d4(thing1, 400, 2500, 3000, 32767);
-
-	audioPlayFromProp2((s8)cmd[2], audio_id, -1, NULL, thing2, 2500, 3000, 0);
-
-	cmd += 7;
-
-	return cmd;
-}
-
-/**
  * @cmd 00cf
  */
 static u8 *ai00cf(u8 *cmd)
@@ -4477,22 +3618,6 @@ static u8 *ai00d0(u8 *cmd)
 	propsnd0f0939f8(0, NULL, sound, padnum, -1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 	cmd += 7;
-
-	return cmd;
-}
-
-/**
- * @cmd 00d4
- */
-static u8 *ai00d4(u8 *cmd)
-{
-	s16 thing = cmd[4] | (cmd[3] << 8);
-
-	if (channelGetUnk06((s8)cmd[2]) < thing) {
-		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
-	} else {
-		cmd += 7;
-	}
 
 	return cmd;
 }
@@ -4591,24 +3716,6 @@ static u8 *aiSetRotorSpeed(u8 *cmd)
 }
 
 /**
- * @cmd 00d8
- */
-static u8 *aiNoOp00d8(u8 *cmd)
-{
-	cmd += 3;
-	return cmd;
-}
-
-/**
- * @cmd 00d9
- */
-static u8 *aiNoOp00d9(u8 *cmd)
-{
-	cmd += 3;
-	return cmd;
-}
-
-/**
  * @cmd 00da
  */
 static u8 *aiSetObjImage(u8 *cmd)
@@ -4630,15 +3737,6 @@ static u8 *aiSetObjImage(u8 *cmd)
 
 	cmd += 5;
 
-	return cmd;
-}
-
-/**
- * @cmd 00db
- */
-static u8 *aiNoOp00db(u8 *cmd)
-{
-	cmd += 3;
 	return cmd;
 }
 
@@ -4682,15 +3780,6 @@ static u8 *aiWarpJoToPad(u8 *cmd)
 
 	cmd += 4;
 
-	return cmd;
-}
-
-/**
- * @cmd 010d
- */
-static u8 *aiNoOp010d(u8 *cmd)
-{
-	cmd += 2;
 	return cmd;
 }
 
@@ -4917,27 +4006,6 @@ static u8 *aiDisableObj(u8 *cmd)
 }
 
 /**
- * @cmd 00df
- */
-static u8 *ai00df(u8 *cmd)
-{
-	struct tag *tag = tagFindById(cmd[2]);
-
-	if (tag) {
-		s32 cmdindex = setupGetCmdIndexByTag(tag);
-
-		if (cmdindex >= 0) {
-			struct warpparams *params = (struct warpparams *) setupGetCmdByIndex(cmdindex + tag->cmdoffset);
-			playerPrepareWarpType2(params, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
-		}
-	}
-
-	cmd += 7;
-
-	return cmd;
-}
-
-/**
  * @cmd 00e0
  */
 static u8 *aiRevokeControl(u8 *cmd)
@@ -5039,79 +4107,6 @@ static u8 *aiChrMoveToPad(u8 *cmd)
 }
 
 /**
- * @cmd 00e3
- */
-static u8 *ai00e3(u8 *cmd)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-
-	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
-		setCurrentPlayerNum(playernum);
-
-		if (var8007074c != 2) {
-			playerSetFadeColour(0, 0, 0, 0);
-			playerSetFadeFrac(60, 1);
-		}
-
-		setCurrentPlayerNum(prevplayernum);
-	}
-
-	cmd += 3;
-
-	return cmd;
-}
-
-/**
- * @cmd 00e4
- */
-static u8 *ai00e4(u8 *cmd)
-{
-	s32 playernum;
-	u32 prevplayernum = g_Vars.currentplayernum;
-
-	for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
-		setCurrentPlayerNum(playernum);
-
-		if (var8007074c != 2) {
-			playerSetFadeColour(0, 0, 0, 1);
-			playerSetFadeFrac(60, 0);
-		}
-	}
-
-	setCurrentPlayerNum(prevplayernum);
-	cmd += 3;
-
-	return cmd;
-}
-
-/**
- * @cmd 00e5
- */
-static u8 *aiIfColourFadeComplete(u8 *cmd)
-{
-	bool pass = false;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-
-	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
-
-		if (g_Vars.players[playernum]->colourfadetimemax60 < 0) {
-			pass = true;
-		}
-	}
-
-	if (pass) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 00e8
  */
 static u8 *aiSetDoorOpen(u8 *cmd)
@@ -5130,22 +4125,6 @@ static u8 *aiSetDoorOpen(u8 *cmd)
 	}
 
 	cmd += 3;
-
-	return cmd;
-}
-
-/**
- * @cmd 00e9
- */
-static u8 *ai00e9(u8 *cmd)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-
-	if (chr) {
-		weaponDeleteFromChr(chr, cmd[3]);
-	}
-
-	cmd += 4;
 
 	return cmd;
 }
@@ -5235,30 +4214,6 @@ static u8 *aiChrDrawWeaponInCutscene(u8 *cmd)
 }
 
 /**
- * @cmd 00ee
- */
-static u8 *ai00ee(u8 *cmd)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-
-	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
-		setCurrentPlayerNum(playernum);
-
-		g_Vars.currentplayer->bondforcespeed.x = (s8)cmd[3];
-		g_Vars.currentplayer->bondforcespeed.y = 0;
-		g_Vars.currentplayer->bondforcespeed.z = (s8)cmd[4];
-
-		setCurrentPlayerNum(prevplayernum);
-	}
-
-	cmd += 5;
-
-	return cmd;
-}
-
-/**
  * @cmd 00ef
  */
 static u8 *aiIfObjInRoom(u8 *cmd)
@@ -5272,17 +4227,6 @@ static u8 *aiIfObjInRoom(u8 *cmd)
 	} else {
 		cmd += 7;
 	}
-
-	return cmd;
-}
-
-/**
- * @cmd 00f2
- */
-static u8 *aiSwitchToAltSky(u8 *cmd)
-{
-	envApplyTransitionFrac(1);
-	cmd += 2;
 
 	return cmd;
 }
@@ -5308,50 +4252,6 @@ static u8 *aiChrSetInvincible(u8 *cmd)
 }
 
 /**
- * @cmd 00f4
- */
-static u8 *ai00f4(u8 *cmd)
-{
-	s32 range = cmd[3] | (cmd[2] << 8);
-	s16 height1 = cmd[5] | (cmd[4] << 8);
-	s16 rotangle = cmd[7] | (cmd[6] << 8);
-	s32 padnum = cmd[9] | (cmd[8] << 8);
-	s16 height2 = cmd[11] | (cmd[10] << 8);
-	s32 posangle = cmd[13] | (cmd[12] << 8);
-
-	playerPrepareWarpType3(posangle * M_BADTAU / 65536, rotangle * M_BADTAU / 65536, range, height1, height2, padnum);
-
-	cmd += 14;
-
-	return cmd;
-}
-
-/**
- * @cmd 00f5
- */
-static u8 *ai00f5(u8 *cmd)
-{
-	var8007073c = 1;
-	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 00f6
- */
-static u8 *ai00f6(u8 *cmd)
-{
-	if (var8007073c == 2) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 00f7
  */
 static u8 *aiIfAllObjectivesComplete(u8 *cmd)
@@ -5360,31 +4260,6 @@ static u8 *aiIfAllObjectivesComplete(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
 	} else {
 		cmd = cmd + 4;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 00f8
- */
-static u8 *aiIfPlayerIsInvincible(u8 *cmd)
-{
-	bool pass = false;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-
-	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
-		setCurrentPlayerNum(playernum);
-		pass = g_PlayerInvincible;
-		setCurrentPlayerNum(prevplayernum);
-	}
-
-	if (pass) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
 	}
 
 	return cmd;
@@ -5536,63 +4411,6 @@ static u8 *aiIfNumKnockedOutChrs(u8 *cmd)
 }
 
 /**
- * @cmd 00fd
- */
-static u8 *ai00fd(u8 *cmd)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-
-	if (chr && (chr->chrflags & CHRCFLAG_TRIGGERSHOTLIST)) {
-		chr->chrflags &= ~CHRCFLAG_TRIGGERSHOTLIST;
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 00fe
- */
-static u8 *aiKillBond(u8 *cmd)
-{
-	g_Vars.bond->isdead = true;
-	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 00ff
- */
-static u8 *aiBeSurprisedSurrender(u8 *cmd)
-{
-	chrTrySurprisedSurrender(g_Vars.chrdata);
-	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 0100
- */
-static u8 *aiNoOp0100(u8 *cmd)
-{
-	cmd += 3;
-	return cmd;
-}
-
-/**
- * @cmd 0101
- */
-static u8 *aiNoOp0101(u8 *cmd)
-{
-	cmd += 3;
-	return cmd;
-}
-
-/**
  * @cmd 0102
  */
 static u8 *aiSetLights(u8 *cmd)
@@ -5614,58 +4432,6 @@ static u8 *aiSetLights(u8 *cmd)
 	}
 
 	cmd += 11;
-
-	return cmd;
-}
-
-/**
- * @cmd 0103
- */
-static u8 *aiIfPropPresetIsBlockingSightToTarget(u8 *cmd)
-{
-	if (chrIsPropPresetBlockingSightToTarget(g_Vars.chrdata)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0104
- */
-static u8 *aiRemoveObjectAtPropPreset(u8 *cmd)
-{
-	if (g_Vars.chrdata->proppreset1 >= 0) {
-		struct defaultobj *obj = (g_Vars.props + g_Vars.chrdata->proppreset1)->obj;
-		obj->hidden &= ~OBJHFLAG_OCCUPIEDCHAIR;
-	}
-
-	g_Vars.chrdata->proppreset1 = -1;
-	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 0105
- */
-static u8 *aiIfPropPresetHeightLessThan(u8 *cmd)
-{
-	struct prop *prop = &g_Vars.props[g_Vars.chrdata->proppreset1];
-	f32 value = cmd[3] | (cmd[2] << 8);
-	f32 ymax;
-	f32 ymin;
-	f32 radius;
-
-	propGetBbox(prop, &radius, &ymax, &ymin);
-
-	if (ymax - ymin < value) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
 
 	return cmd;
 }
@@ -5756,39 +4522,6 @@ static u8 *aiIfChrTarget(u8 *cmd)
 }
 
 /**
- * @cmd 0109
- */
-static u8 *aiSetChrPresetToChrNearSelf(u8 *cmd)
-{
-	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
-
-	if (chrSetChrPresetToChrNearSelf(cmd[2], g_Vars.chrdata, distance)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
-	} else {
-		cmd += 7;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 010a
- */
-static u8 *aiSetChrPresetToChrNearPad(u8 *cmd)
-{
-	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
-	u16 padnum = cmd[6] | (cmd[5] << 8);
-
-	if (chrSetChrPresetToChrNearPad(cmd[2], g_Vars.chrdata, distance, padnum)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[7], cmd[8]);
-	} else {
-		cmd += 9;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 010b
  */
 static u8 *aiChrSetTeam(u8 *cmd)
@@ -5800,43 +4533,6 @@ static u8 *aiChrSetTeam(u8 *cmd)
 	}
 
 	cmd += 4;
-
-	return cmd;
-}
-
-/**
- * @cmd 010c
- */
-static u8 *aiIfCompareChrPresetsTeam(u8 *cmd)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
-
-	if (!chr || (!chr->model && chr->prop->type != PROPTYPE_PLAYER)) {
-		chrSetChrPreset(g_Vars.chrdata, CHR_BOND);
-		chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
-	}
-
-	if (chrCompareTeams(chr, g_Vars.chrdata, cmd[2])) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 011e
- */
-static u8 *aiIfHuman(u8 *cmd)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-
-	if (chr && chr->prop && CHRRACE(chr) == RACE_HUMAN) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
 
 	return cmd;
 }
@@ -5955,40 +4651,6 @@ static u8 *aiFindCover(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
 	} else {
 		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0122
- */
-static u8 *aiFindCoverWithinDist(u8 *cmd)
-{
-	u16 criteria = cmd[3] | (cmd[2] << 8);
-	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
-
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, flags) != -1) {
-		cmd = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
-	} else {
-		cmd += 10;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0123
- */
-static u8 *aiFindCoverOutsideDist(u8 *cmd)
-{
-	u16 criteria = cmd[3] | (cmd[2] << 8);
-	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
-
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, -flags) != -1) {
-		cmd = AILABEL(g_Vars.ailist, cmd[8], cmd[9]);
-	} else {
-		cmd += 10;
 	}
 
 	return cmd;
@@ -6206,48 +4868,6 @@ static u8 *aiDetectEnemy(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
 		cmd = cmd + 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0129
- */
-static u8 *aiIfSafetyLessThan(u8 *cmd)
-{
-	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
-	u8 safety = 6;
-	u8 numnearby = 0;
-
-	if (chrGetNumArghs(g_Vars.chrdata) > 0) {
-		safety--;
-	}
-
-	while (*chrnums != -2) {
-		struct chrdata *chr = chrFindByLiteralId(*chrnums);
-
-		if (chr && chr->model
-				&& !chrIsDead(chr)
-				&& chr->actiontype != ACT_DEAD
-				&& g_Vars.chrdata->chrnum != chr->chrnum
-				&& chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500) {
-			numnearby++;
-		}
-
-		chrnums++;
-	}
-
-	if (numnearby == 0) {
-		safety -= 2;
-	} else if (numnearby < 3) {
-		safety--;
-	}
-
-	if (safety < cmd[2]) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
 	}
 
 	return cmd;
@@ -7242,20 +5862,6 @@ static u8 *aiSetSquadron(u8 *cmd)
 }
 
 /**
- * @cmd 013c
- */
-static u8 *aiFaceCover(u8 *cmd)
-{
-	if (chrFaceCover(g_Vars.chrdata)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 013d
  */
 static u8 *aiIfDangerousObjectNearby(u8 *cmd)
@@ -7279,24 +5885,6 @@ static u8 *ai013e(u8 *cmd)
 	}
 
 	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 013f
- */
-static u8 *aiIfHeliWeaponsArmed(u8 *cmd)
-{
-	if (g_Vars.hovercar) {
-		if (g_Vars.hovercar->weaponsarmed) {
-			cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-		} else {
-			cmd += 4;
-		}
-	} else {
-		cmd += 4;
-	}
 
 	return cmd;
 }
@@ -7466,35 +6054,11 @@ static u8 *aiHeliArmWeapons(u8 *cmd)
 }
 
 /**
- * @cmd 0144
- */
-static u8 *aiHeliUnarmWeapons(u8 *cmd)
-{
-	if (g_Vars.hovercar) {
-		chopperSetArmed(g_Vars.hovercar, false);
-	}
-
-	cmd += 2;
-
-	return cmd;
-}
-
-/**
  * @cmd 0145
  */
 static u8 *aiRebuildTeams(u8 *cmd)
 {
 	rebuildTeams();
-	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 0146
- */
-static u8 *aiRebuildSquadrons(u8 *cmd)
-{
 	rebuildSquadrons();
 	cmd += 2;
 
@@ -7534,71 +6098,6 @@ static u8 *aiIfSquadronIsDead(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
 		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0148
- */
-static u8 *aiChrSetListening(u8 *cmd)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-
-	if (chr && chr->listening == 0) {
-		chr->listening = cmd[3];
-	}
-
-	cmd += 4;
-
-	return cmd;
-}
-
-/**
- * @cmd 0149
- */
-static u8 *aiIfChrListening(u8 *cmd)
-{
-	struct bytelist *cmd2 = (struct bytelist *)(cmd);
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd2->b2);
-
-	if (cmd2->b4 == 0) {
-		if (chr->listening == cmd2->b3) {
-			cmd = AILABEL(g_Vars.ailist, cmd2->b5, cmd2->b6);
-		} else {
-			cmd += 7;
-		}
-	} else {
-		if (g_Vars.chrdata->convtalk == 0) {
-			cmd = AILABEL(g_Vars.ailist, cmd2->b5, cmd2->b6);
-		} else {
-			cmd += 7;
-		}
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 014a
- */
-static u8 *aiIfTrue(u8 *cmd)
-{
-	cmd = AILABEL(g_Vars.ailist, cmd[5], cmd[6]);
-
-	return cmd;
-}
-
-/**
- * @cmd 014b
- */
-static u8 *aiIfNotListening(u8 *cmd)
-{
-	if (g_Vars.chrdata->listening == 0) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
 	}
 
 	return cmd;
@@ -7666,22 +6165,6 @@ static u8 *aiIfChrInjured(u8 *cmd)
 }
 
 /**
- * @cmd 0166
- */
-static u8 *aiIfAction(u8 *cmd)
-{
-	struct bytelist *cmd2 = (struct bytelist *)(cmd);
-
-	if (g_Vars.chrdata->myaction == cmd2->b2) {
-		cmd = AILABEL(g_Vars.ailist, cmd2->b3, cmd2->b4);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 0167
  */
 static u8 *aiHovercopterFireRocket(u8 *cmd)
@@ -7738,15 +6221,6 @@ static u8 *aiIfY(u8 *cmd)
 		cmd += 8;
 	}
 
-	return cmd;
-}
-
-/**
- * @cmd 016c
- */
-static u8 *aiNoOp016c(u8 *cmd)
-{
-	cmd += 2;
 	return cmd;
 }
 
@@ -8096,49 +6570,6 @@ static u8 *aiIfLiftStationary(u8 *cmd)
 		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
 		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 0189
- */
-static u8 *aiLiftGoToStop(u8 *cmd)
-{
-	struct defaultobj *obj = objFindByTagId(cmd[2]);
-
-	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
-		struct liftobj *lift = (struct liftobj *)obj;
-		liftGoToStop(lift, cmd[3]);
-	}
-
-	cmd += 4;
-
-	return cmd;
-}
-
-/**
- * @cmd 018a
- */
-static u8 *aiIfLiftAtStop(u8 *cmd)
-{
-	struct bytelist *cmd2 = (struct bytelist *)(cmd);
-	struct defaultobj *obj = objFindByTagId(cmd2->b2);
-	bool pass = false;
-
-	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
-		struct liftobj *lift = (struct liftobj *)obj;
-
-		if (lift->levelcur == cmd2->b3 && lift->dist == 0) {
-			pass = true;
-		}
-	}
-
-	if (pass) {
-		cmd = AILABEL(g_Vars.ailist, cmd2->b4, cmd2->b5);
-	} else {
-		cmd += 6;
 	}
 
 	return cmd;
@@ -8507,64 +6938,6 @@ static u8 *aiDoPresetAnimation(u8 *cmd)
 }
 
 /**
- * @cmd 01a5
- */
-static u8 *aiIfUsingLift(u8 *cmd)
-{
-	if (chrIsUsingLift(g_Vars.chrdata)) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 01a6
- */
-static u8 *aiIfTargetYDifferenceLessThan(u8 *cmd)
-{
-	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
-	f32 diff = prop->pos.y - g_Vars.chrdata->prop->pos.y;
-
-	if (diff < 0) {
-		diff = 0 - diff;
-	}
-
-	if (diff < (s32)cmd[2] * 10.0f) {
-		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
-	} else {
-		cmd += 5;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 01aa
- */
-static u8 *ai01aa(u8 *cmd)
-{
-	f32 a = 3000;
-
-	func0f0056f4(
-			g_Vars.currentplayer->prop->rooms[0],
-			&g_Vars.currentplayer->prop->pos,
-			g_Vars.chrdata->prop->rooms[0],
-			&g_Vars.chrdata->prop->pos,
-			0, &a, 0);
-
-	if (a < 3000) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 01ae
  */
 static u8 *aiClearInventory(u8 *cmd)
@@ -8732,33 +7105,6 @@ static u8 *aiToggleP1P2(u8 *cmd)
 }
 
 /**
- * @cmd 01b5
- */
-static u8 *aiChrSetP1P2(u8 *cmd)
-{
-	if (g_Vars.coopplayernum >= 0) {
-		struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
-		struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
-
-		if (chr1 && chr2 && chr2->prop && chr2->prop->type == PROPTYPE_PLAYER) {
-			u32 playernum = playermgrGetPlayerNumByProp(chr2->prop);
-
-			if (!g_Vars.players[playernum]->isdead) {
-				if (chr2->prop == g_Vars.coop->prop) {
-					chr1->p1p2 = g_Vars.coopplayernum;
-				} else {
-					chr1->p1p2 = g_Vars.bondplayernum;
-				}
-			}
-		}
-	}
-
-	cmd += 4;
-
-	return cmd;
-}
-
-/**
  * @cmd 01b7
  */
 static u8 *aiChrSetCloaked(u8 *cmd)
@@ -8832,31 +7178,6 @@ static u8 *aiShufflePelagicSwitches(u8 *cmd)
 	}
 
 	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 01bb
- */
-static u8 *aiNoOp01bb(u8 *cmd)
-{
-	cmd += 4;
-	return cmd;
-}
-
-/**
- * @cmd 01bc
- */
-static u8 *ai01bc(u8 *cmd)
-{
-	struct bytelist *cmd2 = (struct bytelist *)(cmd);
-
-	if (g_Vars.chrdata->pouncebits == cmd2->b2) {
-		cmd = AILABEL(g_Vars.ailist, cmd2->b3, cmd2->b4);
-	} else {
-		cmd += 5;
-	}
 
 	return cmd;
 }
@@ -9018,43 +7339,6 @@ static u8 *aiIfChrTeleportFullWhite(u8 *cmd)
 }
 
 /**
- * @cmd 01c5
- */
-static u8 *aiAvoid(u8 *cmd)
-{
-	chrAvoid(g_Vars.chrdata);
-	cmd += 2;
-
-	return cmd;
-}
-
-/**
- * @cmd 01c8
- */
-static u8 *aiTitleInitMode(u8 *cmd)
-{
-	titleInitFromAiCmd(cmd[2]);
-	cmd += 3;
-
-	return cmd;
-}
-
-/**
- * @cmd 01c9
- */
-static u8 *aiTryExitTitle(u8 *cmd)
-{
-	if (titleIsChangingMode()) {
-		titleExit();
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd = cmd + 4;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 01ca
  */
 static u8 *aiChrSetCutsceneWeapon(u8 *cmd)
@@ -9121,20 +7405,6 @@ static u8 *aiFadeScreen(u8 *cmd)
 	s16 num_frames = (cmd[7] | (cmd[6] << 8));
 	lvConfigureFade(color, num_frames);
 	cmd += 8;
-
-	return cmd;
-}
-
-/**
- * @cmd 01cc
- */
-static u8 *aiIfFadeComplete(u8 *cmd)
-{
-	if (lvIsFadeActive() == false) {
-		cmd = AILABEL(g_Vars.ailist, cmd[2], cmd[3]);
-	} else {
-		cmd += 4;
-	}
 
 	return cmd;
 }
@@ -9391,38 +7661,6 @@ static u8 *aiConfigureEnvironment(u8 *cmd)
 }
 
 /**
- * @cmd 01d7
- */
-static u8 *aiIfDistanceToTarget2LessThan(u8 *cmd)
-{
-	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
-
-	if (chrGetDistanceToTarget2(g_Vars.chrdata) < distance) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
- * @cmd 01d8
- */
-static u8 *aiIfDistanceToTarget2GreaterThan(u8 *cmd)
-{
-	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
-
-	if (chrGetDistanceToTarget2(g_Vars.chrdata) > distance) {
-		cmd = AILABEL(g_Vars.ailist, cmd[4], cmd[5]);
-	} else {
-		cmd += 6;
-	}
-
-	return cmd;
-}
-
-/**
  * @cmd 01d9
  */
 static u8 *aiPlaySoundFromProp(u8 *cmd)
@@ -9584,10 +7822,102 @@ static u8 *ai0176(u8 *cmd)
 	return cmd;
 }
 
+static u8 *aiSubCommand(u8 *cmd)
+{
+	switch (cmd[1]) {
+	case 0x00: return aiIfCutsceneButtonPressed(cmd);
+	case 0x01: return aiIfPlayerAutoWalkFinished(cmd);
+	case 0x02: return aiIfSavefileFlagIsSet(cmd);
+	case 0x03: return aiIfSavefileFlagIsUnset(cmd);
+	case 0x04: return aiIfTrainingPcHolographed(cmd);
+	case 0x05: return aiIfChrTeleportFullWhite(cmd);
+	case 0x06: return aiIfMusicEventQueueIsEmpty(cmd);
+	case 0x07: return aiSetPath(cmd);
+	case 0x08: return aiStartPatrol(cmd);
+	case 0x09: return aiSurrender(cmd);
+	case 0x0a: return aiLockDoor(cmd);
+	case 0x0b: return aiSetGrenadeProbability(cmd);
+	case 0x0c: return aiSetChrNum(cmd);
+	case 0x0d: return aiSetMaxDamage(cmd);
+	case 0x0e: return aiAddHealth(cmd);
+	case 0x0f: return aiSetReactionSpeed(cmd);
+	case 0x10: return aiSetRecoverySpeed(cmd);
+	case 0x11: return aiSetAccuracy(cmd);
+	case 0x12: return aiShowCountdownTimer(cmd);
+	case 0x13: return aiHideCountdownTimer(cmd);
+	case 0x14: return aiSetCountdownTimerValue(cmd);
+	case 0x15: return aiStopCountdownTimer(cmd);
+	case 0x16: return aiStartCountdownTimer(cmd);
+	case 0x17: return ai00d0(cmd);
+	case 0x18: return aiHovercarBeginPath(cmd);
+	case 0x19: return aiSetVehicleSpeed(cmd);
+	case 0x1a: return aiSetRotorSpeed(cmd);
+	case 0x1b: return aiEndLevel(cmd);
+	case 0x1c: return ai00dd(cmd);
+	case 0x1d: return aiWarpJoToPad(cmd);
+	case 0x1e: return aiRevokeControl(cmd);
+	case 0x1f: return aiGrantControl(cmd);
+	case 0x20: return aiChrDrawWeaponInCutscene(cmd);
+	case 0x21: return aiChrSetInvincible(cmd);
+	case 0x22: return aiPlayXTrack(cmd);
+	case 0x23: return aiStopXTrack(cmd);
+	case 0x24: return aiChrExplosions(cmd);
+	case 0x25: return aiSetLights(cmd);
+	case 0x26: return aiChrSetTeam(cmd);
+	case 0x27: return aiSetShield(cmd);
+	case 0x28: return aiSetCameraAnimation(cmd);
+	case 0x29: return aiSetSquadron(cmd);
+	case 0x2a: return aiShuffleInvestigationTerminals(cmd);
+	case 0x2b: return aiSetPadPresetToInvestigationTerminal(cmd);
+	case 0x2c: return aiHeliArmWeapons(cmd);
+	case 0x2d: return aiSetTintedGlassEnabled(cmd);
+	case 0x2e: return aiPlayTrackIsolated(cmd);
+	case 0x2f: return aiPlayDefaultTracks(cmd);
+	case 0x30: return ai016b(cmd);
+	case 0x31: return aiChrAdjustMotionBlur(cmd);
+	case 0x32: return aiPlayerAutoWalk(cmd);
+	case 0x33: return aiPlayCutsceneTrack(cmd);
+	case 0x34: return aiStopCutsceneTrack(cmd);
+	case 0x35: return aiPlayTemporaryTrack(cmd);
+	case 0x36: return aiStopAmbientTrack(cmd);
+	case 0x37: return aiMpInitSimulants(cmd);
+	case 0x38: return aiConfigureRain(cmd);
+	case 0x39: return aiChrToggleModelPart(cmd);
+	case 0x3a: return aiActivateLift(cmd);
+	case 0x3b: return aiSetSavefileFlag(cmd);
+	case 0x3c: return aiUnsetSavefileFlag(cmd);
+	case 0x3d: return aiSayCiStaffQuip(cmd);
+	case 0x3e: return aiReleaseObject(cmd);
+	case 0x3f: return aiClearInventory(cmd);
+	case 0x40: return aiChrGrabObject(cmd);
+	case 0x41: return aiShuffleRuinsPillars(cmd);
+	case 0x42: return aiSetWindSpeed(cmd);
+	case 0x43: return aiConfigureSnow(cmd);
+	case 0x44: return aiShufflePelagicSwitches(cmd);
+	case 0x45: return aiChrBeginOrEndTeleport(cmd);
+	case 0x46: return aiSetDodgeRating(cmd);
+	case 0x47: return aiSetUnarmedDodgeRating(cmd);
+	case 0x48: return aiChrSetCutsceneWeapon(cmd);
+	case 0x49: return aiSetChrHudpieceVisible(cmd);
+	case 0x4a: return aiSetPassiveMode(cmd);
+	case 0x4b: return aiChrSetFiringInCutscene(cmd);
+	case 0x4c: return aiSetPortalFlag(cmd);
+	case 0x4d: return aiObjSetModelPartVisible(cmd);
+	case 0x4e: return aiSetDrCarollImages(cmd);
+	case 0x4f: return aiSetRoomFlag(cmd);
+	case 0x50: return aiShowCutsceneChrs(cmd);
+	case 0x51: return aiConfigureEnvironment(cmd);
+	case 0x52: return aiPlaySoundFromProp(cmd);
+	case 0x53: return aiPlayTemporaryPrimaryTrack(cmd);
+	case 0x54: return aiRemoveWeaponFromInventory(cmd);
+	case 0x55: return aiRemoveReferencesToChr(cmd);
+	}
+
+	while (1);
+}
+
 void chraiExecute(void *entity, s32 proptype)
 {
-	static u8 *(*g_CommandPointers[])(u8 *cmd) = {
-	};
 	u8 *cmd = NULL;
 
 	g_Vars.chrdata = NULL;
@@ -9699,490 +8029,263 @@ void chraiExecute(void *entity, s32 proptype)
 
 		// Iterate and execute the ailist
 		do {
-			s32 type = (cmd[0] << 8) | cmd[1];
-
-			switch (type) {
-			case 0x0000: cmd = aiGoToNext(cmd); break;
-			case 0x0001: cmd = aiGoToFirst(cmd); break;
-			case 0x0002: cmd = aiLabel(cmd); break;
-			case 0x0003: cmd = aiYield(cmd); break;
-			case 0x0004: cmd = aiEndList(cmd); break;
-			case 0x0005: cmd = aiSetList(cmd); break;
-			case 0x0006: cmd = aiSetReturnList(cmd); break;
-			case 0x0007: cmd = aiSetShotList(cmd); break;
-			case 0x0008: cmd = aiReturn(cmd); break;
-			case 0x0009: cmd = aiStop(cmd); break;
-			case 0x000a: cmd = aiKneel(cmd); break;
-			case 0x000b: cmd = aiChrDoAnimation(cmd); break;
-			case 0x000c: cmd = aiIfIdle(cmd); break;
-			case 0x000d: cmd = aiBeSurprisedOneHand(cmd); break;
-			case 0x000e: cmd = aiBeSurprisedLookAround(cmd); break;
-			case 0x000f: cmd = aiTrySidestep(cmd); break;
-			case 0x0010: cmd = aiTryJumpOut(cmd); break;
-			case 0x0011: cmd = aiTryRunSideways(cmd); break;
-			case 0x0012: cmd = aiTryAttackWalk(cmd); break;
-			case 0x0013: cmd = aiTryAttackRun(cmd); break;
-			case 0x0014: cmd = aiTryAttackRoll(cmd); break;
-			case 0x0015: cmd = aiTryAttackStand(cmd); break;
-			case 0x0016: cmd = aiTryAttackKneel(cmd); break;
-			case 0x0017: cmd = aiTryModifyAttack(cmd); break;
-			case 0x0018: cmd = aiFaceEntity(cmd); break;
-			case 0x0019: cmd = ai0019(cmd); break;
-			case 0x001a: cmd = aiChrDamageChr(cmd); break;
-			case 0x001b: cmd = aiConsiderGrenadeThrow(cmd); break;
-			case 0x001c: cmd = aiDropItem(cmd); break;
-			case 0x001d: cmd = aiJogToPad(cmd); break;
-			case 0x001e: cmd = aiGoToPadPreset(cmd); break;
-			case 0x001f: cmd = aiWalkToPad(cmd); break;
-			case 0x0020: cmd = aiRunToPad(cmd); break;
-			case 0x0021: cmd = aiSetPath(cmd); break;
-			case 0x0022: cmd = aiStartPatrol(cmd); break;
-			case 0x0023: cmd = aiIfPatrolling(cmd); break;
-			case 0x0024: cmd = aiSurrender(cmd); break;
-			case 0x0025: cmd = aiFadeOut(cmd); break;
-			case 0x0026: cmd = aiRemoveChr(cmd); break;
-			case 0x0027: cmd = aiTryStartAlarm(cmd); break;
-			case 0x0028: cmd = aiActivateAlarm(cmd); break;
-			case 0x0029: cmd = aiDeactivateAlarm(cmd); break;
-			case 0x002a: cmd = aiTryRunFromTarget(cmd); break;
-			case 0x002b: cmd = aiTryJogToTargetProp(cmd); break;
-			case 0x002c: cmd = aiTryWalkToTargetProp(cmd); break;
-			case 0x002d: cmd = aiTryRunToTargetProp(cmd); break;
-			case 0x002e: cmd = aiTryGoToCoverProp(cmd); break;
-			case 0x002f: cmd = aiTryJogToChr(cmd); break;
-			case 0x0030: cmd = aiTryWalkToChr(cmd); break;
-			case 0x0031: cmd = aiTryRunToChr(cmd); break;
-			case 0x0032: cmd = aiIfStopped(cmd); break;
-			case 0x0033: cmd = aiIfChrDead(cmd); break;
-			case 0x0034: cmd = aiIfChrDeathAnimationFinished(cmd); break;
-			case 0x0035: cmd = aiIfTargetInSight(cmd); break;
-			case 0x0036: cmd = aiRandom(cmd); break;
-			case 0x0037: cmd = aiIfRandomLessThan(cmd); break;
-			case 0x0038: cmd = aiIfRandomGreaterThan(cmd); break;
-			case 0x0039: cmd = aiIfCanHearAlarm(cmd); break;
-			case 0x003a: cmd = aiIfAlarmActive(cmd); break;
-			case 0x003b: cmd = aiIfGasActive(cmd); break;
-			case 0x003c: cmd = aiIfHearsTarget(cmd); break;
-			case 0x003d: cmd = aiIfSawInjury(cmd); break;
-			case 0x003e: cmd = aiIfSawDeath(cmd); break;
-			case 0x003f: cmd = aiIfCanSeeTarget(cmd); break;
-			case 0x0040: cmd = aiIfTargetNearlyInSight(cmd); break;
-			case 0x0041: cmd = aiIfNearlyInTargetsSight(cmd); break;
-			case 0x0042: cmd = aiSetPadPresetToPadOnRouteToTarget(cmd); break;
-			case 0x0043: cmd = aiIfSawTargetRecently(cmd); break;
-			case 0x0044: cmd = aiIfHeardTargetRecently(cmd); break;
-			case 0x0045: cmd = ai0045(cmd); break;
-			case 0x0046: cmd = aiIfNeverBeenOnScreen(cmd); break;
-			case 0x0047: cmd = aiIfOnScreen(cmd); break;
-			case 0x0048: cmd = aiIfChrInOnScreenRoom(cmd); break;
-			case 0x0049: cmd = aiIfRoomIsOnScreen(cmd); break;
-			case 0x004a: cmd = ai004a(cmd); break;
-			case 0x004b: cmd = aiIfNearMiss(cmd); break;
-			case 0x004c: cmd = aiIfSeesSuspiciousItem(cmd); break;
-			case 0x004d: cmd = aiIfTargetInFovLeft(cmd); break;
-			case 0x004e: cmd = aiIfCheckFovWithTarget(cmd); break;
-			case 0x004f: cmd = aiIfTargetOutOfFovLeft(cmd); break;
-			case 0x0050: cmd = aiIfTargetInFov(cmd); break;
-			case 0x0051: cmd = aiIfTargetOutOfFov(cmd); break;
-			case 0x0052: cmd = aiIfDistanceToTargetLessThan(cmd); break;
-			case 0x0053: cmd = aiIfDistanceToTargetGreaterThan(cmd); break;
-			case 0x0054: cmd = aiIfChrDistanceToPadLessThan(cmd); break;
-			case 0x0055: cmd = aiIfChrDistanceToPadGreaterThan(cmd); break;
-			case 0x0056: cmd = aiIfDistanceToChrLessThan(cmd); break;
-			case 0x0057: cmd = aiIfDistanceToChrGreaterThan(cmd); break;
-			case 0x0058: cmd = ai0058(cmd); break;
-			case 0x0059: cmd = aiIfDistanceFromTargetToPadLessThan(cmd); break;
-			case 0x005a: cmd = aiIfDistanceFromTargetToPadGreaterThan(cmd); break;
-			case 0x005b: cmd = aiIfChrInRoom(cmd); break;
-			case 0x005c: cmd = aiIfTargetInRoom(cmd); break;
-			case 0x005d: cmd = aiIfChrHasObject(cmd); break;
-			case 0x005e: cmd = aiIfWeaponThrown(cmd); break;
-			case 0x005f: cmd = aiIfWeaponThrownOnObject(cmd); break;
-			case 0x0060: cmd = aiIfChrHasWeaponEquipped(cmd); break;
-			case 0x0061: cmd = aiIfGunUnclaimed(cmd); break;
-			case 0x0062: cmd = aiIfObjectHealthy(cmd); break;
-			case 0x0063: cmd = aiIfChrActivatedObject(cmd); break;
-			case 0x0064: break;
-			case 0x0065: cmd = aiObjInteract(cmd); break;
-			case 0x0066: cmd = aiDestroyObject(cmd); break;
-			case 0x0067: cmd = ai0067(cmd); break;
-			case 0x0068: cmd = aiChrDropItems(cmd); break;
-			case 0x0069: cmd = aiChrDropWeapon(cmd); break;
-			case 0x006a: cmd = aiGiveObjectToChr(cmd); break;
-			case 0x006b: cmd = aiObjectMoveToPad(cmd); break;
-			case 0x006c: cmd = aiOpenDoor(cmd); break;
-			case 0x006d: cmd = aiCloseDoor(cmd); break;
-			case 0x006e: cmd = aiIfDoorState(cmd); break;
-			case 0x006f: cmd = aiIfObjectIsDoor(cmd); break;
-			case 0x0070: cmd = aiLockDoor(cmd); break;
-			case 0x0071: cmd = aiUnlockDoor(cmd); break;
-			case 0x0072: cmd = aiIfDoorLocked(cmd); break;
-			case 0x0073: cmd = aiIfObjectiveComplete(cmd); break;
-			case 0x0074: cmd = aiIfObjectiveFailed(cmd); break;
-			case 0x0075: cmd = ai0075(cmd); break;
-			case 0x0076: cmd = aiSetPadPresetToTargetQuadrant(cmd); break;
-			case 0x0077: cmd = aiIfDifficultyLessThan(cmd); break;
-			case 0x0078: cmd = aiIfDifficultyGreaterThan(cmd); break;
-			case 0x0079: cmd = aiIfStageTimerLessThan(cmd); break;
-			case 0x007a: cmd = aiIfStageTimerGreaterThan(cmd); break;
-			case 0x007b: cmd = aiIfStageIdLessThan(cmd); break;
-			case 0x007c: cmd = aiIfStageIdGreaterThan(cmd); break;
-			case 0x007d: cmd = aiIfNumArghsLessThan(cmd); break;
-			case 0x007e: cmd = aiIfNumArghsGreaterThan(cmd); break;
-			case 0x007f: cmd = aiIfNumCloseArghsLessThan(cmd); break;
-			case 0x0080: cmd = aiIfNumCloseArghsGreaterThan(cmd); break;
-			case 0x0081: cmd = aiIfChrHealthGreaterThan(cmd); break;
-			case 0x0082: cmd = aiIfChrHealthLessThan(cmd); break;
-			case 0x0083: cmd = aiIfInjured(cmd); break;
-			case 0x0084: cmd = aiSetMorale(cmd); break;
-			case 0x0085: cmd = aiAddMorale(cmd); break;
-			case 0x0086: cmd = aiChrAddMorale(cmd); break;
-			case 0x0087: cmd = aiSubtractMorale(cmd); break;
-			case 0x0088: cmd = aiIfMoraleLessThan(cmd); break;
-			case 0x0089: cmd = aiIfMoraleLessThanRandom(cmd); break;
-			case 0x008a: cmd = aiSetAlertness(cmd); break;
-			case 0x008b: cmd = aiAddAlertness(cmd); break;
-			case 0x008c: cmd = aiChrAddAlertness(cmd); break;
-			case 0x008d: cmd = aiSubtractAlertness(cmd); break;
-			case 0x008e: cmd = aiIfAlertness(cmd); break;
-			case 0x008f: cmd = aiIfChrAlertnessLessThan(cmd); break;
-			case 0x0090: cmd = aiIfAlertnessLessThanRandom(cmd); break;
-			case 0x0091: cmd = aiNoOp0091(cmd); break;
-			case 0x0092: cmd = aiSetHearDistance(cmd); break;
-			case 0x0093: cmd = aiSetViewDistance(cmd); break;
-			case 0x0094: cmd = aiSetGrenadeProbability(cmd); break;
-			case 0x0095: cmd = aiSetChrNum(cmd); break;
-			case 0x0096: cmd = aiSetMaxDamage(cmd); break;
-			case 0x0097: cmd = aiAddHealth(cmd); break;
-			case 0x0098: cmd = aiSetReactionSpeed(cmd); break;
-			case 0x0099: cmd = aiSetRecoverySpeed(cmd); break;
-			case 0x009a: cmd = aiSetAccuracy(cmd); break;
-			case 0x009b: cmd = aiSetFlag(cmd); break;
-			case 0x009c: cmd = aiUnsetFlag(cmd); break;
-			case 0x009d: cmd = aiIfHasFlag(cmd); break;
-			case 0x009e: cmd = aiChrSetFlag(cmd); break;
-			case 0x009f: cmd = aiChrUnsetFlag(cmd); break;
-			case 0x00a0: cmd = aiIfChrHasFlag(cmd); break;
-			case 0x00a1: cmd = aiSetStageFlag(cmd); break;
-			case 0x00a2: cmd = aiUnsetStageFlag(cmd); break;
-			case 0x00a3: cmd = aiIfStageFlagEq(cmd); break;
-			case 0x00a4: cmd = aiSetChrflag(cmd); break;
-			case 0x00a5: cmd = aiUnsetChrflag(cmd); break;
-			case 0x00a6: cmd = aiIfHasChrflag(cmd); break;
-			case 0x00a7: cmd = aiChrSetChrflag(cmd); break;
-			case 0x00a8: cmd = aiChrUnsetChrflag(cmd); break;
-			case 0x00a9: cmd = aiIfChrHasChrflag(cmd); break;
-			case 0x00aa: cmd = aiSetObjFlag(cmd); break;
-			case 0x00ab: cmd = aiUnsetObjFlag(cmd); break;
-			case 0x00ac: cmd = aiIfObjHasFlag(cmd); break;
-			case 0x00ad: cmd = aiSetObjFlag2(cmd); break;
-			case 0x00ae: cmd = aiUnsetObjFlag2(cmd); break;
-			case 0x00af: cmd = aiIfObjHasFlag2(cmd); break;
-			case 0x00b0: cmd = aiSetChrPreset(cmd); break;
-			case 0x00b1: cmd = aiSetChrTarget(cmd); break;
-			case 0x00b2: cmd = aiSetPadPreset(cmd); break;
-			case 0x00b3: cmd = aiChrSetPadPreset(cmd); break;
-			case 0x00b4: cmd = aiChrCopyPadPreset(cmd); break;
-			case 0x00b5: cmd = aiPrint(cmd); break;
-			case 0x00b6: cmd = aiRestartTimer(cmd); break;
-			case 0x00b7: cmd = aiResetTimer(cmd); break;
-			case 0x00b8: cmd = aiPauseTimer(cmd); break;
-			case 0x00b9: cmd = aiResumeTimer(cmd); break;
-			case 0x00ba: cmd = aiIfTimerStopped(cmd); break;
-			case 0x00bb: cmd = aiIfTimerGreaterThanRandom(cmd); break;
-			case 0x00bc: cmd = aiIfTimerLessThan(cmd); break;
-			case 0x00bd: cmd = aiIfTimerGreaterThan(cmd); break;
-			case 0x00be: cmd = aiShowCountdownTimer(cmd); break;
-			case 0x00bf: cmd = aiHideCountdownTimer(cmd); break;
-			case 0x00c0: cmd = aiSetCountdownTimerValue(cmd); break;
-			case 0x00c1: cmd = aiStopCountdownTimer(cmd); break;
-			case 0x00c2: cmd = aiStartCountdownTimer(cmd); break;
-			case 0x00c3: cmd = aiIfCountdownTimerStopped(cmd); break;
-			case 0x00c4: cmd = aiIfCountdownTimerLessThan(cmd); break;
-			case 0x00c5: cmd = aiIfCountdownTimerGreaterThan(cmd); break;
-			case 0x00c6: cmd = aiSpawnChrAtPad(cmd); break;
-			case 0x00c7: cmd = aiSpawnChrAtChr(cmd); break;
-			case 0x00c8: cmd = aiTryEquipWeapon(cmd); break;
-			case 0x00c9: cmd = aiTryEquipHat(cmd); break;
-			case 0x00ca: cmd = aiDuplicateChr(cmd); break;
-			case 0x00cb: cmd = aiShowHudmsg(cmd); break;
-			case 0x00cc: cmd = aiShowHudmsgTopMiddle(cmd); break;
-			case 0x00cd: cmd = aiSpeak(cmd); break;
-			case 0x00ce: cmd = aiPlaySound(cmd); break;
-			case 0x00cf: cmd = ai00cf(cmd); break;
-			case 0x00d0: cmd = ai00d0(cmd); break;
-			case 0x00d1: cmd = ai00d1(cmd); break;
-			case 0x00d2: cmd = ai00d2(cmd); break;
-			case 0x00d3: cmd = aiAudioMuteChannel(cmd); break;
-			case 0x00d4: cmd = ai00d4(cmd); break;
-			case 0x00d5: cmd = aiHovercarBeginPath(cmd); break;
-			case 0x00d6: cmd = aiSetVehicleSpeed(cmd); break;
-			case 0x00d7: cmd = aiSetRotorSpeed(cmd); break;
-			case 0x00d8: cmd = aiNoOp00d8(cmd); break;
-			case 0x00d9: cmd = aiNoOp00d9(cmd); break;
-			case 0x00da: cmd = aiSetObjImage(cmd); break;
-			case 0x00db: cmd = aiNoOp00db(cmd); break;
-			case 0x00dc: cmd = aiEndLevel(cmd); break;
-			case 0x00dd: cmd = ai00dd(cmd); break;
-			case 0x00de: cmd = aiWarpJoToPad(cmd); break;
-			case 0x00df: cmd = ai00df(cmd); break;
-			case 0x00e0: cmd = aiRevokeControl(cmd); break;
-			case 0x00e1: cmd = aiGrantControl(cmd); break;
-			case 0x00e2: cmd = aiChrMoveToPad(cmd); break;
-			case 0x00e3: cmd = ai00e3(cmd); break;
-			case 0x00e4: cmd = ai00e4(cmd); break;
-			case 0x00e5: cmd = aiIfColourFadeComplete(cmd); break;
-			case 0x00e6: break;
-			case 0x00e7: break;
-			case 0x00e8: cmd = aiSetDoorOpen(cmd); break;
-			case 0x00e9: cmd = ai00e9(cmd); break;
-			case 0x00ea: cmd = aiIfNumPlayersLessThan(cmd); break;
-			case 0x00eb: cmd = aiIfChrAmmoQuantityLessThan(cmd); break;
-			case 0x00ec: cmd = aiChrDrawWeapon(cmd); break;
-			case 0x00ed: cmd = aiChrDrawWeaponInCutscene(cmd); break;
-			case 0x00ee: cmd = ai00ee(cmd); break;
-			case 0x00ef: cmd = aiIfObjInRoom(cmd); break;
-			case 0x00f0: cmd = ai00f0(cmd); break;
-			case 0x00f1: cmd = aiIfAttacking(cmd); break;
-			case 0x00f2: cmd = aiSwitchToAltSky(cmd); break;
-			case 0x00f3: cmd = aiChrSetInvincible(cmd); break;
-			case 0x00f4: cmd = ai00f4(cmd); break;
-			case 0x00f5: cmd = ai00f5(cmd); break;
-			case 0x00f6: cmd = ai00f6(cmd); break;
-			case 0x00f7: cmd = aiIfAllObjectivesComplete(cmd); break;
-			case 0x00f8: cmd = aiIfPlayerIsInvincible(cmd); break;
-			case 0x00f9: cmd = aiPlayXTrack(cmd); break;
-			case 0x00fa: cmd = aiStopXTrack(cmd); break;
-			case 0x00fb: cmd = aiChrExplosions(cmd); break;
-			case 0x00fc: cmd = aiIfKillCountGreaterThan(cmd); break;
-			case 0x00fd: cmd = ai00fd(cmd); break;
-			case 0x00fe: cmd = aiKillBond(cmd); break;
-			case 0x00ff: cmd = aiBeSurprisedSurrender(cmd); break;
-			case 0x0100: cmd = aiNoOp0100(cmd); break;
-			case 0x0101: cmd = aiNoOp0101(cmd); break;
-			case 0x0102: cmd = aiSetLights(cmd); break;
-			case 0x0103: cmd = aiIfPropPresetIsBlockingSightToTarget(cmd); break;
-			case 0x0104: cmd = aiRemoveObjectAtPropPreset(cmd); break;
-			case 0x0105: cmd = aiIfPropPresetHeightLessThan(cmd); break;
-			case 0x0106: cmd = aiSetTarget(cmd); break;
-			case 0x0107: cmd = aiIfPresetsTargetIsNotMyTarget(cmd); break;
-			case 0x0108: cmd = aiIfChrTarget(cmd); break;
-			case 0x0109: cmd = aiSetChrPresetToChrNearSelf(cmd); break;
-			case 0x010a: cmd = aiSetChrPresetToChrNearPad(cmd); break;
-			case 0x010b: cmd = aiChrSetTeam(cmd); break;
-			case 0x010c: cmd = aiIfCompareChrPresetsTeam(cmd); break;
-			case 0x010d: cmd = aiNoOp010d(cmd); break;
-			case 0x010e: cmd = aiSetShield(cmd); break;
-			case 0x010f: cmd = aiIfChrShieldLessThan(cmd); break;
-			case 0x0110: cmd = aiIfChrShieldGreaterThan(cmd); break;
-			case 0x0111: cmd = aiSetCameraAnimation(cmd); break;
-			case 0x0112: cmd = aiObjectDoAnimation(cmd); break;
-			case 0x0113: cmd = aiIfInCutscene(cmd); break;
-			case 0x0114: cmd = aiEnableChr(cmd); break;
-			case 0x0115: cmd = aiDisableChr(cmd); break;
-			case 0x0116: cmd = aiEnableObj(cmd); break;
-			case 0x0117: cmd = aiDisableObj(cmd); break;
-			case 0x0118: cmd = aiSetObjFlag3(cmd); break;
-			case 0x0119: cmd = aiUnsetObjFlag3(cmd); break;
-			case 0x011a: cmd = aiIfObjHasFlag3(cmd); break;
-			case 0x011b: cmd = aiChrSetHiddenFlag(cmd); break;
-			case 0x011c: cmd = aiChrUnsetHiddenFlag(cmd); break;
-			case 0x011d: cmd = aiIfChrHasHiddenFlag(cmd); break;
-			case 0x011e: cmd = aiIfHuman(cmd); break;
-			case 0x011f: cmd = aiIfSkedar(cmd); break;
-			case 0x0120: cmd = aiIfSafety2LessThan(cmd); break;
-			case 0x0121: cmd = aiFindCover(cmd); break;
-			case 0x0122: cmd = aiFindCoverWithinDist(cmd); break;
-			case 0x0123: cmd = aiFindCoverOutsideDist(cmd); break;
-			case 0x0124: cmd = aiGoToCover(cmd); break;
-			case 0x0125: cmd = aiCheckCoverOutOfSight(cmd); break;
-			case 0x0126: cmd = aiIfPlayerUsingCmpOrAr34(cmd); break;
-			case 0x0127: cmd = aiDetectEnemyOnSameFloor(cmd); break;
-			case 0x0128: cmd = aiDetectEnemy(cmd); break;
-			case 0x0129: cmd = aiIfSafetyLessThan(cmd); break;
-			case 0x012a: cmd = aiIfTargetMovingSlowly(cmd); break;
-			case 0x012b: cmd = aiIfTargetMovingCloser(cmd); break;
-			case 0x012c: cmd = aiIfTargetMovingAway(cmd); break;
-			case 0x012d: break;
-			case 0x012e: break;
-			case 0x012f: cmd = ai012f(cmd); break;
-			case 0x0130: cmd = aiSayQuip(cmd); break;
-			case 0x0131: cmd = aiIncreaseSquadronAlertness(cmd); break;
-			case 0x0132: cmd = aiSetAction(cmd); break;
-			case 0x0133: cmd = aiSetTeamOrders(cmd); break;
-			case 0x0134: cmd = aiIfOrders(cmd); break;
-			case 0x0135: cmd = aiIfHasOrders(cmd); break;
-			case 0x0136: cmd = aiRetreat(cmd); break;
-			case 0x0137: cmd = aiIfChrInSquadronDoingAction(cmd); break;
-			case 0x0138: cmd = aiIfChannelIdle(cmd); break;
-			case 0x0139: cmd = ai0139(cmd); break;
-			case 0x013a: cmd = aiSetChrPresetToUnalertedTeammate(cmd); break;
-			case 0x013b: cmd = aiSetSquadron(cmd); break;
-			case 0x013c: cmd = aiFaceCover(cmd); break;
-			case 0x013d: cmd = aiIfDangerousObjectNearby(cmd); break;
-			case 0x013e: cmd = ai013e(cmd); break;
-			case 0x013f: cmd = aiIfHeliWeaponsArmed(cmd); break;
-			case 0x0140: cmd = aiIfHoverbotNextStep(cmd); break;
-			case 0x0141: cmd = aiShuffleInvestigationTerminals(cmd); break;
-			case 0x0142: cmd = aiSetPadPresetToInvestigationTerminal(cmd); break;
-			case 0x0143: cmd = aiHeliArmWeapons(cmd); break;
-			case 0x0144: cmd = aiHeliUnarmWeapons(cmd); break;
-			case 0x0145: cmd = aiRebuildTeams(cmd); break;
-			case 0x0146: cmd = aiRebuildSquadrons(cmd); break;
-			case 0x0147: cmd = aiIfSquadronIsDead(cmd); break;
-			case 0x0148: cmd = aiChrSetListening(cmd); break;
-			case 0x0149: cmd = aiIfChrListening(cmd); break;
-			case 0x014a: cmd = aiIfTrue(cmd); break;
-			case 0x014b: cmd = aiIfNotListening(cmd); break;
-			case 0x014c: break;
-			case 0x014d: break;
-			case 0x014e: break;
-			case 0x014f: break;
-			case 0x0150: break;
-			case 0x0151: break;
-			case 0x0152: cmd = aiIfNumChrsInSquadronGreaterThan(cmd); break;
-			case 0x0153: break;
-			case 0x0154: break;
-			case 0x0155: break;
-			case 0x0156: break;
-			case 0x0157: cmd = aiSetTintedGlassEnabled(cmd); break;
-			case 0x0158: break;
-			case 0x0159: break;
-			case 0x015a: break;
-			case 0x015b: cmd = aiPlayTrackIsolated(cmd); break;
-			case 0x015c: cmd = aiPlayDefaultTracks(cmd); break;
-			case 0x015d: break;
-			case 0x015e: break;
-			case 0x015f: break;
-			case 0x0160: break;
-			case 0x0161: break;
-			case 0x0162: break;
-			case 0x0163: break;
-			case 0x0164: break;
-			case 0x0165: cmd = aiIfChrInjured(cmd); break;
-			case 0x0166: cmd = aiIfAction(cmd); break;
-			case 0x0167: cmd = aiHovercopterFireRocket(cmd); break;
-			case 0x0168: cmd = aiIfShieldDamaged(cmd); break;
-			case 0x0169: cmd = aiIfNaturalAnim(cmd); break;
-			case 0x016a: cmd = aiIfY(cmd); break;
-			case 0x016b: cmd = ai016b(cmd); break;
-			case 0x016c: cmd = aiNoOp016c(cmd); break;
-			case 0x016d: cmd = aiChrAdjustMotionBlur(cmd); break;
-			case 0x016e: cmd = aiDamageChrByAmount(cmd); break;
-			case 0x016f: cmd = aiIfChrHasGun(cmd); break;
-			case 0x0170: cmd = aiDoGunCommand(cmd); break;
-			case 0x0171: cmd = aiIfDistanceToGunLessThan(cmd); break;
-			case 0x0172: cmd = aiRecoverGun(cmd); break;
-			case 0x0173: cmd = aiChrCopyProperties(cmd); break;
-			case 0x0174: cmd = aiIfCutsceneButtonPressed(cmd); break;
-			case 0x0175: cmd = ai0175(cmd); break;
-			case 0x0176: cmd = ai0176(cmd); break;
-			case 0x0177: cmd = aiPlayerAutoWalk(cmd); break;
-			case 0x0178: cmd = aiIfPlayerAutoWalkFinished(cmd); break;
-			case 0x0179: cmd = ai0179(cmd); break;
-			case 0x017a: cmd = aiIfCanSeeAttackTarget(cmd); break;
-			case 0x017b: cmd = aiIfChrKnockedOut(cmd); break;
-			case 0x017c: cmd = aiAssignSound(cmd); break;
-			case 0x017d: cmd = aiPlayCutsceneTrack(cmd); break;
-			case 0x017e: cmd = aiStopCutsceneTrack(cmd); break;
-			case 0x017f: cmd = aiPlayTemporaryTrack(cmd); break;
-			case 0x0180: cmd = aiStopAmbientTrack(cmd); break;
-			case 0x0181: cmd = aiIfPlayerLookingAtObject(cmd); break;
-			case 0x0182: cmd = aiPunchOrKick(cmd); break;
-			case 0x0183: cmd = aiIfTargetIsPlayer(cmd); break;
-			case 0x0184: cmd = ai0184(cmd); break;
-			case 0x0185: cmd = aiMpInitSimulants(cmd); break;
-			case 0x0186: cmd = aiIfSoundTimer(cmd); break;
-			case 0x0187: cmd = aiSetTargetToEyespyIfInSight(cmd); break;
-			case 0x0188: cmd = aiIfLiftStationary(cmd); break;
-			case 0x0189: cmd = aiLiftGoToStop(cmd); break;
-			case 0x018a: cmd = aiIfLiftAtStop(cmd); break;
-			case 0x018b: cmd = aiConfigureRain(cmd); break;
-			case 0x018c: cmd = aiChrToggleModelPart(cmd); break;
-			case 0x018d: cmd = aiActivateLift(cmd); break;
-			case 0x018e: cmd = aiMiniSkedarTryPounce(cmd); break;
-			case 0x018f: cmd = aiIfObjectDistanceToPadLessThan(cmd); break;
-			case 0x0190: cmd = aiSetSavefileFlag(cmd); break;
-			case 0x0191: cmd = aiUnsetSavefileFlag(cmd); break;
-			case 0x0192: cmd = aiIfSavefileFlagIsSet(cmd); break;
-			case 0x0193: cmd = aiIfSavefileFlagIsUnset(cmd); break;
-			case 0x0194: break;
-			case 0x0195: break;
-			case 0x0196: break;
-			case 0x0197: break;
-			case 0x0198: break;
-			case 0x0199: break;
-			case 0x019a: break;
-			case 0x019b: break;
-			case 0x019c: break;
-			case 0x019d: break;
-			case 0x019e: cmd = aiIfObjHealthLessThan(cmd); break;
-			case 0x019f: cmd = aiSetObjHealth(cmd); break;
-			case 0x01a0: cmd = aiSetChrSpecialDeathAnimation(cmd); break;
-			case 0x01a1: cmd = aiSetRoomToSearch(cmd); break;
-			case 0x01a2: cmd = aiSayCiStaffQuip(cmd); break;
-			case 0x01a3: cmd = aiDoPresetAnimation(cmd); break;
-			case 0x01a4: cmd = aiShowHudmsgMiddle(cmd); break;
-			case 0x01a5: cmd = aiIfUsingLift(cmd); break;
-			case 0x01a6: cmd = aiIfTargetYDifferenceLessThan(cmd); break;
-			case 0x01a7: cmd = aiIfChrNotTalking(cmd); break;
-			case 0x01a8: break;
-			case 0x01a9: break;
-			case 0x01aa: cmd = ai01aa(cmd); break;
-			case 0x01ab: cmd = aiIfNumKnockedOutChrs(cmd); break;
-			case 0x01ac: break;
-			case 0x01ad: cmd = aiReleaseObject(cmd); break;
-			case 0x01ae: cmd = aiClearInventory(cmd); break;
-			case 0x01af: cmd = aiChrGrabObject(cmd); break;
-			case 0x01b0: break;
-			case 0x01b1: cmd = aiShuffleRuinsPillars(cmd); break;
-			case 0x01b2: cmd = aiSetWindSpeed(cmd); break;
-			case 0x01b3: cmd = aiToggleP1P2(cmd); break;
-			case 0x01b4: cmd = ai01b4(cmd); break;
-			case 0x01b5: cmd = aiChrSetP1P2(cmd); break;
-			case 0x01b6: cmd = aiConfigureSnow(cmd); break;
-			case 0x01b7: cmd = aiChrSetCloaked(cmd); break;
-			case 0x01b8: cmd = aiSetAutogunTargetTeam(cmd); break;
-			case 0x01b9: cmd = aiShufflePelagicSwitches(cmd); break;
-			case 0x01ba: cmd = aiTryAttackLie(cmd); break;
-			case 0x01bb: cmd = aiNoOp01bb(cmd); break;
-			case 0x01bc: cmd = ai01bc(cmd); break;
-			case 0x01bd: cmd = aiIfTrainingPcHolographed(cmd); break;
-			case 0x01be: cmd = aiIfPlayerUsingDevice(cmd); break;
-			case 0x01bf: cmd = aiChrBeginOrEndTeleport(cmd); break;
-			case 0x01c0: cmd = aiIfChrTeleportFullWhite(cmd); break;
-			case 0x01c1: cmd = aiSetPunchDodgeList(cmd); break;
-			case 0x01c2: cmd = aiSetShootingAtMeList(cmd); break;
-			case 0x01c3: cmd = aiSetDarkRoomList(cmd); break;
-			case 0x01c4: cmd = aiSetPlayerDeadList(cmd); break;
-			case 0x01c5: cmd = aiAvoid(cmd); break;
-			case 0x01c6: cmd = aiSetDodgeRating(cmd); break;
-			case 0x01c7: cmd = aiSetUnarmedDodgeRating(cmd); break;
-			case 0x01c8: cmd = aiTitleInitMode(cmd); break;
-			case 0x01c9: cmd = aiTryExitTitle(cmd); break;
-			case 0x01ca: cmd = aiChrSetCutsceneWeapon(cmd); break;
-			case 0x01cb: cmd = aiFadeScreen(cmd); break;
-			case 0x01cc: cmd = aiIfFadeComplete(cmd); break;
-			case 0x01cd: cmd = aiSetChrHudpieceVisible(cmd); break;
-			case 0x01ce: cmd = aiSetPassiveMode(cmd); break;
-			case 0x01cf: cmd = aiChrSetFiringInCutscene(cmd); break;
-			case 0x01d0: cmd = aiSetPortalFlag(cmd); break;
-			case 0x01d1: cmd = aiObjSetModelPartVisible(cmd); break;
-			case 0x01d2: cmd = aiChrEmitSparks(cmd); break;
-			case 0x01d3: cmd = aiSetDrCarollImages(cmd); break;
-			case 0x01d4: cmd = aiSetRoomFlag(cmd); break;
-			case 0x01d5: cmd = aiShowCutsceneChrs(cmd); break;
-			case 0x01d6: cmd = aiConfigureEnvironment(cmd); break;
-			case 0x01d7: cmd = aiIfDistanceToTarget2LessThan(cmd); break;
-			case 0x01d8: cmd = aiIfDistanceToTarget2GreaterThan(cmd); break;
-			case 0x01d9: cmd = aiPlaySoundFromProp(cmd); break;
-			case 0x01da: cmd = aiPlayTemporaryPrimaryTrack(cmd); break;
-			case 0x01db: cmd = aiChrKill(cmd); break;
-			case 0x01dc: cmd = aiRemoveWeaponFromInventory(cmd); break;
-			case 0x01dd: cmd = aiIfMusicEventQueueIsEmpty(cmd); break;
-			case 0x01de: cmd = aiIfCoopMode(cmd); break;
-			case 0x01df: cmd = aiIfChrSameFloorDistanceToPadLessThan(cmd); break;
-			case 0x01e0: cmd = aiRemoveReferencesToChr(cmd); break;
+			switch (cmd[0]) {
+			case 0x00: cmd = aiGoToNext(cmd); break;
+			case 0x01: cmd = aiGoToFirst(cmd); break;
+			case 0x02: cmd = aiIfIdle(cmd); break;
+			case 0x03: cmd = aiTrySidestep(cmd); break;
+			case 0x04: cmd = aiTryJumpOut(cmd); break;
+			case 0x05: cmd = aiTryRunSideways(cmd); break;
+			case 0x06: cmd = aiTryAttackWalk(cmd); break;
+			case 0x07: cmd = aiTryAttackRoll(cmd); break;
+			case 0x08: cmd = aiTryAttackStand(cmd); break;
+			case 0x09: cmd = aiTryAttackKneel(cmd); break;
+			case 0x0a: cmd = aiTryModifyAttack(cmd); break;
+			case 0x0b: cmd = aiFaceEntity(cmd); break;
+			case 0x0c: cmd = aiConsiderGrenadeThrow(cmd); break;
+			case 0x0d: cmd = aiIfPatrolling(cmd); break;
+			case 0x0e: cmd = aiTryJogToTargetProp(cmd); break;
+			case 0x0f: cmd = aiTryWalkToTargetProp(cmd); break;
+			case 0x10: cmd = aiTryRunToTargetProp(cmd); break;
+			case 0x11: cmd = aiTryJogToChr(cmd); break;
+			case 0x12: cmd = aiTryRunToChr(cmd); break;
+			case 0x13: cmd = aiIfStopped(cmd); break;
+			case 0x14: cmd = aiIfChrDead(cmd); break;
+			case 0x15: cmd = aiIfChrDeathAnimationFinished(cmd); break;
+			case 0x16: cmd = aiIfTargetInSight(cmd); break;
+			case 0x17: cmd = aiIfRandomLessThan(cmd); break;
+			case 0x18: cmd = aiIfRandomGreaterThan(cmd); break;
+			case 0x19: cmd = aiIfCanHearAlarm(cmd); break;
+			case 0x1a: cmd = aiIfAlarmActive(cmd); break;
+			case 0x1b: cmd = aiIfHearsTarget(cmd); break;
+			case 0x1c: cmd = aiIfSawInjury(cmd); break;
+			case 0x1d: cmd = aiIfSawDeath(cmd); break;
+			case 0x1e: cmd = aiIfCanSeeTarget(cmd); break;
+			case 0x1f: cmd = aiIfNearlyInTargetsSight(cmd); break;
+			case 0x20: cmd = aiIfHeardTargetRecently(cmd); break;
+			case 0x21: cmd = ai0045(cmd); break;
+			case 0x22: cmd = aiIfNeverBeenOnScreen(cmd); break;
+			case 0x23: cmd = aiIfOnScreen(cmd); break;
+			case 0x24: cmd = aiIfRoomIsOnScreen(cmd); break;
+			case 0x25: cmd = ai004a(cmd); break;
+			case 0x26: cmd = aiIfNearMiss(cmd); break;
+			case 0x27: cmd = aiIfSeesSuspiciousItem(cmd); break;
+			case 0x28: cmd = aiIfTargetInFovLeft(cmd); break;
+			case 0x29: cmd = aiIfCheckFovWithTarget(cmd); break;
+			case 0x2a: cmd = aiIfTargetOutOfFovLeft(cmd); break;
+			case 0x2b: cmd = aiIfTargetInFov(cmd); break;
+			case 0x2c: cmd = aiIfDistanceToTargetLessThan(cmd); break;
+			case 0x2d: cmd = aiIfDistanceToTargetGreaterThan(cmd); break;
+			case 0x2e: cmd = aiIfChrDistanceToPadLessThan(cmd); break;
+			case 0x2f: cmd = aiIfChrDistanceToPadGreaterThan(cmd); break;
+			case 0x30: cmd = aiIfDistanceToChrLessThan(cmd); break;
+			case 0x31: cmd = aiIfDistanceToChrGreaterThan(cmd); break;
+			case 0x32: cmd = aiIfDistanceFromTargetToPadLessThan(cmd); break;
+			case 0x33: cmd = aiIfChrInRoom(cmd); break;
+			case 0x34: cmd = aiIfChrHasObject(cmd); break;
+			case 0x35: cmd = aiIfWeaponThrown(cmd); break;
+			case 0x36: cmd = aiIfWeaponThrownOnObject(cmd); break;
+			case 0x37: cmd = aiIfChrHasWeaponEquipped(cmd); break;
+			case 0x38: cmd = aiIfGunUnclaimed(cmd); break;
+			case 0x39: cmd = aiIfObjectHealthy(cmd); break;
+			case 0x3a: cmd = aiIfChrActivatedObject(cmd); break;
+			case 0x3b: cmd = aiIfDoorState(cmd); break;
+			case 0x3c: cmd = aiIfDoorLocked(cmd); break;
+			case 0x3d: cmd = aiIfObjectiveComplete(cmd); break;
+			case 0x3e: cmd = aiIfObjectiveFailed(cmd); break;
+			case 0x3f: cmd = ai0075(cmd); break;
+			case 0x40: cmd = aiSetPadPresetToTargetQuadrant(cmd); break;
+			case 0x41: cmd = aiIfDifficultyLessThan(cmd); break;
+			case 0x42: cmd = aiIfDifficultyGreaterThan(cmd); break;
+			case 0x43: cmd = aiIfStageIsNot(cmd); break;
+			case 0x44: cmd = aiIfNumArghsLessThan(cmd); break;
+			case 0x45: cmd = aiIfNumArghsGreaterThan(cmd); break;
+			case 0x46: cmd = aiIfInjured(cmd); break;
+			case 0x47: cmd = aiIfMoraleLessThan(cmd); break;
+			case 0x48: cmd = aiIfAlertness(cmd); break;
+			case 0x49: cmd = aiIfChrAlertnessLessThan(cmd); break;
+			case 0x4a: cmd = aiIfHasFlag(cmd); break;
+			case 0x4b: cmd = aiIfChrHasFlag(cmd); break;
+			case 0x4c: cmd = aiIfStageFlagEq(cmd); break;
+			case 0x4d: cmd = aiIfHasChrflag(cmd); break;
+			case 0x4e: cmd = aiIfChrHasChrflag(cmd); break;
+			case 0x4f: cmd = aiIfObjHasFlag2(cmd); break;
+			case 0x50: cmd = aiIfTimerLessThan(cmd); break;
+			case 0x51: cmd = aiIfTimerGreaterThan(cmd); break;
+			case 0x52: cmd = aiIfCountdownTimerLessThan(cmd); break;
+			case 0x53: cmd = aiIfCountdownTimerGreaterThan(cmd); break;
+			case 0x54: cmd = aiSpawnChrAtPad(cmd); break;
+			case 0x55: cmd = aiSpawnChrAtChr(cmd); break;
+			case 0x56: cmd = aiTryEquipWeapon(cmd); break;
+			case 0x57: cmd = aiDuplicateChr(cmd); break;
+			case 0x58: cmd = aiChrMoveToPad(cmd); break;
+			case 0x59: cmd = aiIfNumPlayersLessThan(cmd); break;
+			case 0x5a: cmd = aiIfChrAmmoQuantityLessThan(cmd); break;
+			case 0x5b: cmd = aiIfObjInRoom(cmd); break;
+			case 0x5c: cmd = aiIfAllObjectivesComplete(cmd); break;
+			case 0x5d: cmd = aiIfKillCountGreaterThan(cmd); break;
+			case 0x5e: cmd = aiIfPresetsTargetIsNotMyTarget(cmd); break;
+			case 0x5f: cmd = aiIfChrTarget(cmd); break;
+			case 0x60: cmd = aiIfChrShieldLessThan(cmd); break;
+			case 0x61: cmd = aiIfInCutscene(cmd); break;
+			case 0x62: cmd = aiIfObjHasFlag3(cmd); break;
+			case 0x63: cmd = aiIfChrHasHiddenFlag(cmd); break;
+			case 0x64: cmd = aiIfSkedar(cmd); break;
+			case 0x65: cmd = aiIfSafety2LessThan(cmd); break;
+			case 0x66: cmd = aiFindCover(cmd); break;
+			case 0x67: cmd = aiCheckCoverOutOfSight(cmd); break;
+			case 0x68: cmd = aiIfPlayerUsingCmpOrAr34(cmd); break;
+			case 0x69: cmd = aiDetectEnemyOnSameFloor(cmd); break;
+			case 0x6a: cmd = aiDetectEnemy(cmd); break;
+			case 0x6b: cmd = aiIfTargetMovingSlowly(cmd); break;
+			case 0x6c: cmd = aiIfTargetMovingCloser(cmd); break;
+			case 0x6d: cmd = aiIfTargetMovingAway(cmd); break;
+			case 0x6e: cmd = aiSetTeamOrders(cmd); break;
+			case 0x6f: cmd = aiIfOrders(cmd); break;
+			case 0x70: cmd = aiIfHasOrders(cmd); break;
+			case 0x71: cmd = aiIfChrInSquadronDoingAction(cmd); break;
+			case 0x72: cmd = aiIfChannelIdle(cmd); break;
+			case 0x73: cmd = aiSetChrPresetToUnalertedTeammate(cmd); break;
+			case 0x74: cmd = aiIfDangerousObjectNearby(cmd); break;
+			case 0x75: cmd = aiIfHoverbotNextStep(cmd); break;
+			case 0x76: cmd = aiIfSquadronIsDead(cmd); break;
+			case 0x77: cmd = aiIfNumChrsInSquadronGreaterThan(cmd); break;
+			case 0x78: cmd = aiIfChrInjured(cmd); break;
+			case 0x79: cmd = aiIfShieldDamaged(cmd); break;
+			case 0x7a: cmd = aiIfNaturalAnim(cmd); break;
+			case 0x7b: cmd = aiIfY(cmd); break;
+			case 0x7c: cmd = aiIfChrHasGun(cmd); break;
+			case 0x7d: cmd = aiDoGunCommand(cmd); break;
+			case 0x7e: cmd = aiIfDistanceToGunLessThan(cmd); break;
+			case 0x7f: cmd = aiRecoverGun(cmd); break;
+			case 0x80: cmd = aiChrCopyProperties(cmd); break;
+			case 0x81: cmd = ai0176(cmd); break;
+			case 0x82: cmd = aiIfCanSeeAttackTarget(cmd); break;
+			case 0x83: cmd = aiIfChrKnockedOut(cmd); break;
+			case 0x84: cmd = aiIfPlayerLookingAtObject(cmd); break;
+			case 0x85: cmd = aiPunchOrKick(cmd); break;
+			case 0x86: cmd = aiIfTargetIsPlayer(cmd); break;
+			case 0x87: cmd = aiIfSoundTimer(cmd); break;
+			case 0x88: cmd = aiSetTargetToEyespyIfInSight(cmd); break;
+			case 0x89: cmd = aiIfLiftStationary(cmd); break;
+			case 0x8a: cmd = aiMiniSkedarTryPounce(cmd); break;
+			case 0x8b: cmd = aiIfObjectDistanceToPadLessThan(cmd); break;
+			case 0x8c: cmd = aiIfObjHealthLessThan(cmd); break;
+			case 0x8d: cmd = aiIfChrNotTalking(cmd); break;
+			case 0x8e: cmd = aiIfNumKnockedOutChrs(cmd); break;
+			case 0x8f: cmd = ai01b4(cmd); break;
+			case 0x90: cmd = aiTryAttackLie(cmd); break;
+			case 0x91: cmd = aiIfPlayerUsingDevice(cmd); break;
+			case 0x92: cmd = aiIfCoopMode(cmd); break;
+			case 0x93: cmd = aiIfChrSameFloorDistanceToPadLessThan(cmd); break;
+			case 0x94: cmd = aiLabel(cmd); break;
+			case 0x95: cmd = aiYield(cmd); break;
+			case 0x96: cmd = aiEndList(cmd); break;
+			case 0x97: cmd = aiSetList(cmd); break;
+			case 0x98: cmd = aiSetReturnList(cmd); break;
+			case 0x99: cmd = aiSetShotList(cmd); break;
+			case 0x9a: cmd = aiReturn(cmd); break;
+			case 0x9b: cmd = aiStop(cmd); break;
+			case 0x9c: cmd = aiKneel(cmd); break;
+			case 0x9d: cmd = aiChrDoAnimation(cmd); break;
+			case 0x9e: cmd = ai0019(cmd); break;
+			case 0x9f: cmd = aiChrDamageChr(cmd); break;
+			case 0xa0: cmd = aiJogToPad(cmd); break;
+			case 0xa1: cmd = aiGoToPadPreset(cmd); break;
+			case 0xa2: cmd = aiWalkToPad(cmd); break;
+			case 0xa3: cmd = aiRunToPad(cmd); break;
+			case 0xa4: cmd = aiFadeOut(cmd); break;
+			case 0xa5: cmd = aiRemoveChr(cmd); break;
+			case 0xa6: cmd = aiActivateAlarm(cmd); break;
+			case 0xa7: cmd = aiDeactivateAlarm(cmd); break;
+			case 0xa8: cmd = aiRandom(cmd); break;
+			case 0xa9: cmd = aiDestroyObject(cmd); break;
+			case 0xaa: cmd = aiChrDropItems(cmd); break;
+			case 0xab: cmd = aiChrDropWeapon(cmd); break;
+			case 0xac: cmd = aiGiveObjectToChr(cmd); break;
+			case 0xad: cmd = aiObjectMoveToPad(cmd); break;
+			case 0xae: cmd = aiOpenDoor(cmd); break;
+			case 0xaf: cmd = aiCloseDoor(cmd); break;
+			case 0xb0: cmd = aiUnlockDoor(cmd); break;
+			case 0xb1: cmd = aiSetMorale(cmd); break;
+			case 0xb2: cmd = aiAddMorale(cmd); break;
+			case 0xb3: cmd = aiSubtractMorale(cmd); break;
+			case 0xb4: cmd = aiSetAlertness(cmd); break;
+			case 0xb5: cmd = aiAddAlertness(cmd); break;
+			case 0xb6: cmd = aiChrAddAlertness(cmd); break;
+			case 0xb7: cmd = aiSetHearDistance(cmd); break;
+			case 0xb8: cmd = aiSetViewDistance(cmd); break;
+			case 0xb9: cmd = aiSetFlag(cmd); break;
+			case 0xba: cmd = aiUnsetFlag(cmd); break;
+			case 0xbb: cmd = aiChrSetFlag(cmd); break;
+			case 0xbc: cmd = aiChrUnsetFlag(cmd); break;
+			case 0xbd: cmd = aiSetStageFlag(cmd); break;
+			case 0xbe: cmd = aiUnsetStageFlag(cmd); break;
+			case 0xbf: cmd = aiSetChrflag(cmd); break;
+			case 0xc0: cmd = aiUnsetChrflag(cmd); break;
+			case 0xc1: cmd = aiChrSetChrflag(cmd); break;
+			case 0xc2: cmd = aiChrUnsetChrflag(cmd); break;
+			case 0xc3: cmd = aiSetObjFlag(cmd); break;
+			case 0xc4: cmd = aiUnsetObjFlag(cmd); break;
+			case 0xc5: cmd = aiSetObjFlag2(cmd); break;
+			case 0xc6: cmd = aiUnsetObjFlag2(cmd); break;
+			case 0xc7: cmd = aiSetChrPreset(cmd); break;
+			case 0xc8: cmd = aiSetChrTarget(cmd); break;
+			case 0xc9: cmd = aiSetPadPreset(cmd); break;
+			case 0xca: cmd = aiRestartTimer(cmd); break;
+			case 0xcb: cmd = aiResetTimer(cmd); break;
+			case 0xcc: cmd = aiPauseTimer(cmd); break;
+			case 0xcd: cmd = aiResumeTimer(cmd); break;
+			case 0xce: cmd = aiShowHudmsg(cmd); break;
+			case 0xcf: cmd = aiShowHudmsgTopMiddle(cmd); break;
+			case 0xd0: cmd = aiSpeak(cmd); break;
+			case 0xd1: cmd = aiPlaySound(cmd); break;
+			case 0xd2: cmd = ai00cf(cmd); break;
+			case 0xd3: cmd = aiAudioMuteChannel(cmd); break;
+			case 0xd4: cmd = aiSetObjImage(cmd); break;
+			case 0xd5: cmd = aiSetDoorOpen(cmd); break;
+			case 0xd6: cmd = aiChrDrawWeapon(cmd); break;
+			case 0xd7: cmd = aiSetTarget(cmd); break;
+			case 0xd8: cmd = aiObjectDoAnimation(cmd); break;
+			case 0xd9: cmd = aiEnableChr(cmd); break;
+			case 0xda: cmd = aiDisableChr(cmd); break;
+			case 0xdb: cmd = aiEnableObj(cmd); break;
+			case 0xdc: cmd = aiDisableObj(cmd); break;
+			case 0xdd: cmd = aiSetObjFlag3(cmd); break;
+			case 0xde: cmd = aiUnsetObjFlag3(cmd); break;
+			case 0xdf: cmd = aiChrSetHiddenFlag(cmd); break;
+			case 0xe0: cmd = aiChrUnsetHiddenFlag(cmd); break;
+			case 0xe1: cmd = aiGoToCover(cmd); break;
+			case 0xe2: cmd = ai012f(cmd); break;
+			case 0xe3: cmd = aiSayQuip(cmd); break;
+			case 0xe4: cmd = aiIncreaseSquadronAlertness(cmd); break;
+			case 0xe5: cmd = aiSetAction(cmd); break;
+			case 0xe6: cmd = aiRetreat(cmd); break;
+			case 0xe7: cmd = ai0139(cmd); break;
+			case 0xe8: cmd = ai013e(cmd); break;
+			case 0xe9: cmd = aiRebuildTeams(cmd); break;
+			case 0xea: cmd = aiHovercopterFireRocket(cmd); break;
+			case 0xeb: cmd = aiDamageChrByAmount(cmd); break;
+			case 0xec: cmd = ai0175(cmd); break;
+			case 0xed: cmd = ai0179(cmd); break;
+			case 0xee: cmd = aiAssignSound(cmd); break;
+			case 0xef: cmd = ai0184(cmd); break;
+			case 0xf0: cmd = aiSetObjHealth(cmd); break;
+			case 0xf1: cmd = aiSetChrSpecialDeathAnimation(cmd); break;
+			case 0xf2: cmd = aiSetRoomToSearch(cmd); break;
+			case 0xf3: cmd = aiDoPresetAnimation(cmd); break;
+			case 0xf4: cmd = aiShowHudmsgMiddle(cmd); break;
+			case 0xf5: cmd = aiToggleP1P2(cmd); break;
+			case 0xf6: cmd = aiChrSetCloaked(cmd); break;
+			case 0xf7: cmd = aiSetAutogunTargetTeam(cmd); break;
+			case 0xf8: cmd = aiSetShootingAtMeList(cmd); break;
+			case 0xf9: cmd = aiSetDarkRoomList(cmd); break;
+			case 0xfa: cmd = aiFadeScreen(cmd); break;
+			case 0xfb: cmd = aiChrEmitSparks(cmd); break;
+			case 0xfc: cmd = aiChrKill(cmd); break;
+			case 0xff: cmd = aiSubCommand(cmd); break;
+			default:
+				while (1);
 			}
 		} while (cmd);
 	}

@@ -616,9 +616,9 @@
 #define CIQUIP_ANNOYED  2
 #define CIQUIP_THANKS   3
 
-#define CMD_LABEL 0x0002
-#define CMD_END   0x0004
-#define CMD_PRINT 0x00b5
+#define CMD_LABEL     0x9400
+#define CMD_END       0x9600
+#define CMD_GOTOFIRST 0x0100
 
 // Collision detection
 #define CDRESULT_ERROR       -1

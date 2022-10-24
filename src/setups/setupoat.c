@@ -130,7 +130,6 @@ u8 func0402_init_maian[] = {
 };
 
 u8 func1001_01a4[] = {
-	noop016c
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, GAILIST_IDLE)
