@@ -147,13 +147,6 @@ void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
 				size = ALIGN16(count * 0xc);
 				g_VtxstoreTypes[index].unk24[i].unk00 = memaAlloc(size);
 
-#if VERSION < VERSION_NTSC_1_0
-				if (!g_VtxstoreTypes[index].unk24[i].unk00) {
-					bgGarbageCollectRooms(size, false);
-					g_VtxstoreTypes[index].unk24[i].unk00 = memaAlloc(size);
-				}
-#endif
-
 				if (g_VtxstoreTypes[index].unk24[i].unk00) {
 					g_VtxstoreTypes[index].unk24[i].count = count;
 					g_VtxstoreTypes[index].unk24[i].unk0e = 1;

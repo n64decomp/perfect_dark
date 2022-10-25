@@ -324,7 +324,6 @@ void lvReset(s32 stagenum)
 		bgReset(g_Vars.stagenum);
 		bgBuildTables(g_Vars.stagenum);
 		skyReset(g_Vars.stagenum);
-		bgPreload();
 
 		if (g_Vars.normmplayerisrunning) {
 			musicSetStageAndStartMusic(stagenum);
@@ -441,6 +440,7 @@ void lvReset(s32 stagenum)
 		portalsReset();
 		lightsReset();
 		setCurrentPlayerNum(0);
+		bgPreload();
 	}
 
 	if (g_Vars.lvmpbotlevel) {

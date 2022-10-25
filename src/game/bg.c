@@ -3453,7 +3453,7 @@ void bgTick(void)
 
 	func0f15c920();
 
-	if (g_Vars.currentplayerindex == 0 && !g_BgPreload) {
+	if (!g_BgPreload && g_Vars.currentplayerindex == 0) {
 		bgTickRooms();
 	}
 
@@ -5536,6 +5536,10 @@ void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
 	s32 count = 0;
 	s32 i;
 
+	if (g_BgPreload) {
+		return;
+	}
+
 	while (bytesfree < bytesneeded) {
 		oldestroom = 0;
 		oldesttimer = 0;
@@ -5862,7 +5866,11 @@ void bgFindRoomVtxBatches(s32 roomnum)
 
 			batchindex += xlucount;
 
-			batches = memaAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf);
+			if (g_BgPreload) {
+				batches = mempAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf, MEMPOOL_STAGE);
+			} else {
+				batches = memaAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf);
+			}
 
 			if (batches != NULL) {
 				gdl = roomGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_OPA);
@@ -9012,7 +9020,7 @@ void bgPreload(void)
 	if (g_BgPreload) {
 		s32 i;
 
-		for (i = 0; i < g_Vars.roomcount; i++) {
+		for (i = 1; i < g_Vars.roomcount; i++) {
 			bgLoadRoom(i);
 		}
 	}
