@@ -88,6 +88,7 @@
 #define N64CHAR(c)          (c == ' ' ? 0x0f : (c >= 'A' && c <= 'Z' ? c - 0x27 : c - 0x20))
 
 #define PORTAL_IS_CLOSED(portalnum) ((g_BgPortals[portalnum].flags & PORTALFLAG_CLOSED) && (g_BgPortals[portalnum].flags & PORTALFLAG_FORCEOPEN) == 0)
+#define PORTAL_IS_OPEN(portalnum) (!PORTAL_IS_CLOSED(portalnum))
 
 #ifdef __sgi
 #define ALIGNED16
