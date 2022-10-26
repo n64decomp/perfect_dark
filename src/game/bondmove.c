@@ -1572,7 +1572,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 		offbike = g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
 			|| g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB;
 
-		if (g_Vars.currentplayer->lookaheadcentreenabled) {
+		if (movedata.canlookahead && g_Vars.currentplayer->automovecentreenabled) {
 			if (g_Vars.lvframenum != g_Vars.currentplayer->lookaheadframe
 					&& g_Vars.currentplayernum == (g_Vars.lvframenum & 3)) {
 				g_Vars.currentplayer->cachedlookahead = bmoveCalculateLookahead();
