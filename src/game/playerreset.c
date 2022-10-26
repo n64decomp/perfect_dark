@@ -27,7 +27,7 @@
 void playerInitEyespy(void)
 {
 	struct prop *prop;
-	struct pad pad;
+	struct pad *pad;
 	struct chrdata *propchr;
 	struct chrdata *playerchr;
 	static u8 nextpad = 0;
@@ -44,7 +44,8 @@ void playerInitEyespy(void)
 		 * the camspy will start in a trigger point for the mid cutscene,
 		 * causing the mid cutscene to play instead of the intro.
 		 */
-		prop = bodyAllocateEyespy(&pad, g_Pads[nextpad++].room);
+		pad = &g_Pads[nextpad++];
+		prop = bodyAllocateEyespy(pad, pad->room);
 
 		if (prop) {
 			g_Vars.currentplayer->eyespy = mempAlloc(sizeof(struct eyespy), MEMPOOL_STAGE);
