@@ -1162,10 +1162,10 @@ Gfx *sightDrawZoom(Gfx *gdl, bool sighton)
 	s32 availableright;
 	f32 zoominfovy;
 	f32 frac;
-	f32 marginright;
-	f32 margintop;
-	f32 marginbottom;
-	f32 marginleft;
+	s32 marginright;
+	s32 margintop;
+	s32 marginbottom;
+	s32 marginleft;
 	s32 cornerwidth;
 	s32 cornerheight;
 	s32 weaponnum;
