@@ -2171,9 +2171,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 			f32 sine = sinf(f0 * M_BADTAU + M_BADTAU * (i / 15.0f));
 			f32 cosine = cosf(f0 * M_BADTAU + M_BADTAU * (i / 15.0f));
 
-			pos.x = g_MenuParticles[i].x;
-			pos.y = g_MenuParticles[i].y;
-			pos.z = g_MenuParticles[i].z;
+			pos = g_MenuParticles[i];
 
 			if (pos.z < -6600.0f) {
 				s3 = -(pos.f[2] + 6600.0f) / 1400.0f * 5.0f;

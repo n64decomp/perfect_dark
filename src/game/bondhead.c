@@ -158,9 +158,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			sp80.unk10 = g_Vars.currentplayer->bondheadmatrices;
 			model0001cebc(&sp80, &g_Vars.currentplayer->model);
 
-			g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
-			g_Vars.currentplayer->headbodyoffset.y = g_Vars.currentplayer->standbodyoffset.y;
-			g_Vars.currentplayer->headbodyoffset.z = g_Vars.currentplayer->standbodyoffset.z;
+			g_Vars.currentplayer->headbodyoffset = g_Vars.currentplayer->standbodyoffset;
 
 			modelGetRootPosition(&g_Vars.currentplayer->model, &modelpos);
 
@@ -213,9 +211,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			bheadSetdamp(PAL ? 0.952f : 0.96f);
 		}
 	} else {
-		g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
-		g_Vars.currentplayer->headbodyoffset.y = g_Vars.currentplayer->standbodyoffset.y;
-		g_Vars.currentplayer->headbodyoffset.z = g_Vars.currentplayer->standbodyoffset.z;
+		g_Vars.currentplayer->headbodyoffset = g_Vars.currentplayer->standbodyoffset;
 
 		headpos.x = 0;
 		headpos.y = g_Vars.currentplayer->standheight;

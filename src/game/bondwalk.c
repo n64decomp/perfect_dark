@@ -102,9 +102,7 @@ void bwalkInit(void)
 				g_Vars.currentplayer->bond2.unk28.x, g_Vars.currentplayer->bond2.unk28.y, g_Vars.currentplayer->bond2.unk28.z);
 		g_Vars.currentplayer->walkinitt = 0;
 		g_Vars.currentplayer->walkinitt2 = 0;
-		g_Vars.currentplayer->walkinitstart.x = g_Vars.currentplayer->prop->pos.x;
-		g_Vars.currentplayer->walkinitstart.y = g_Vars.currentplayer->prop->pos.y;
-		g_Vars.currentplayer->walkinitstart.z = g_Vars.currentplayer->prop->pos.z;
+		g_Vars.currentplayer->walkinitstart = g_Vars.currentplayer->prop->pos;
 
 		delta.x = g_Vars.currentplayer->walkinitpos.x - g_Vars.currentplayer->prop->pos.x;
 		delta.y = 0;
@@ -252,9 +250,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 		g_Vars.enableslopes = true;
 	}
 
-	dstpos.x = g_Vars.currentplayer->prop->pos.x;
-	dstpos.y = g_Vars.currentplayer->prop->pos.y;
-	dstpos.z = g_Vars.currentplayer->prop->pos.z;
+	dstpos = g_Vars.currentplayer->prop->pos;
 
 	if (vel->x || vel->y || vel->z) {
 		if (g_Vars.currentplayer->tank) {
@@ -336,9 +332,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 		g_Vars.currentplayer->vv_theta = angle;
 
-		g_Vars.currentplayer->prop->pos.x = dstpos.x;
-		g_Vars.currentplayer->prop->pos.y = dstpos.y;
-		g_Vars.currentplayer->prop->pos.z = dstpos.z;
+		g_Vars.currentplayer->prop->pos = dstpos;
 
 		if (copyrooms) {
 			propDeregisterRooms(g_Vars.currentplayer->prop);
@@ -436,9 +430,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 
 							chrCalculatePushPos(chr, &newpos, newrooms, false);
 
-							obstacle->pos.x = newpos.x;
-							obstacle->pos.y = newpos.y;
-							obstacle->pos.z = newpos.z;
+							obstacle->pos = newpos;
 
 							propDeregisterRooms(obstacle);
 							roomsCopy(newrooms, obstacle->rooms);
@@ -771,9 +763,7 @@ void bwalkUpdateVertical(void)
 				rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY, &g_Vars.currentplayer->laddernormal);
 	}
 
-	testpos.x = g_Vars.currentplayer->prop->pos.x;
-	testpos.y = g_Vars.currentplayer->prop->pos.y;
-	testpos.z = g_Vars.currentplayer->prop->pos.z;
+	testpos = g_Vars.currentplayer->prop->pos;
 
 	if (g_Vars.currentplayer->inlift) {
 		testpos.y -= g_Vars.currentplayer->crouchheight + g_Vars.currentplayer->crouchoffsetrealsmall;
@@ -1124,9 +1114,7 @@ void bwalkUpdateVertical(void)
 			|| newpos.z != g_Vars.currentplayer->prop->pos.z) {
 		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, newrooms);
 
-		g_Vars.currentplayer->prop->pos.x = newpos.x;
-		g_Vars.currentplayer->prop->pos.y = newpos.y;
-		g_Vars.currentplayer->prop->pos.z = newpos.z;
+		g_Vars.currentplayer->prop->pos = newpos;
 
 		propDeregisterRooms(g_Vars.currentplayer->prop);
 		roomsCopy(newrooms, g_Vars.currentplayer->prop->rooms);
@@ -1265,9 +1253,7 @@ void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 
 void bwalkUpdatePrevPos(void)
 {
-	g_Vars.currentplayer->bondprevpos.x = g_Vars.currentplayer->prop->pos.x;
-	g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
-	g_Vars.currentplayer->bondprevpos.z = g_Vars.currentplayer->prop->pos.z;
+	g_Vars.currentplayer->bondprevpos = g_Vars.currentplayer->prop->pos;
 
 	roomsCopy(g_Vars.currentplayer->prop->rooms, g_Vars.currentplayer->bondprevrooms);
 }

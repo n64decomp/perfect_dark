@@ -134,7 +134,5 @@ struct coord *roomGetPos(s32 room)
 
 void room0f166df0(s32 room, struct coord *globaldrawworldoffset)
 {
-	globaldrawworldoffset->x = g_BgRooms[room].pos.x;
-	globaldrawworldoffset->y = g_BgRooms[room].pos.y;
-	globaldrawworldoffset->z = g_BgRooms[room].pos.z;
+	*globaldrawworldoffset = g_BgRooms[room].pos;
 }

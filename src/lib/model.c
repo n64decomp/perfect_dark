@@ -364,25 +364,19 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 	case MODELNODETYPE_CHRINFO:
 		{
 			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
-			pos->x = rwdata->pos.x;
-			pos->y = rwdata->pos.y;
-			pos->z = rwdata->pos.z;
+			*pos = rwdata->pos;
 		}
 		break;
 	case MODELNODETYPE_POSITION:
 		{
 			struct modelrodata_position *rodata = &node->rodata->position;
-			pos->x = rodata->pos.x;
-			pos->y = rodata->pos.y;
-			pos->z = rodata->pos.z;
+			*pos = rodata->pos;
 		}
 		break;
 	case MODELNODETYPE_POSITIONHELD:
 		{
 			struct modelrodata_positionheld *rodata = &node->rodata->positionheld;
-			pos->x = rodata->pos.x;
-			pos->y = rodata->pos.y;
-			pos->z = rodata->pos.z;
+			*pos = rodata->pos;
 		}
 		break;
 	default:
@@ -404,9 +398,7 @@ void modelNodeSetPosition(struct model *model, struct modelnode *node, struct co
 			diff[0].x = pos->x - rwdata->pos.x;
 			diff[0].z = pos->z - rwdata->pos.z;
 
-			rwdata->pos.x = pos->x;
-			rwdata->pos.y = pos->y;
-			rwdata->pos.z = pos->z;
+			rwdata->pos = *pos;
 
 			rwdata->unk24.x += diff[0].x; rwdata->unk24.z += diff[0].z;
 			rwdata->unk34.x += diff[0].x; rwdata->unk34.z += diff[0].z;
@@ -417,17 +409,13 @@ void modelNodeSetPosition(struct model *model, struct modelnode *node, struct co
 	case MODELNODETYPE_POSITION:
 		{
 			struct modelrodata_position *rodata = &node->rodata->position;
-			rodata->pos.x = pos->x;
-			rodata->pos.y = pos->y;
-			rodata->pos.z = pos->z;
+			rodata->pos = *pos;
 		}
 		break;
 	case MODELNODETYPE_POSITIONHELD:
 		{
 			struct modelrodata_positionheld *rodata = &node->rodata->positionheld;
-			rodata->pos.x = pos->x;
-			rodata->pos.y = pos->y;
-			rodata->pos.z = pos->z;
+			rodata->pos = *pos;
 		}
 		break;
 	}
@@ -576,9 +564,7 @@ void model0001b0e8(struct model *model, struct modelnode *node)
 		return;
 	}
 
-	sp34.x = rwdata->chrinfo.unk34.x;
-	sp34.y = rwdata->chrinfo.unk34.y;
-	sp34.z = rwdata->chrinfo.unk34.z;
+	sp34 = rwdata->chrinfo.unk34;
 
 	rwdata->chrinfo.unk14 = rwdata->chrinfo.unk30;
 
@@ -615,9 +601,7 @@ void model0001b0e8(struct model *model, struct modelnode *node)
 		rwdata->chrinfo.pos.y = rwdata->chrinfo.ground + sp34.f[1];
 		rwdata->chrinfo.pos.z = sp34.z;
 	} else {
-		sp28.x = sp34.x;
-		sp28.y = sp34.y;
-		sp28.z = sp34.z;
+		sp28 = sp34;
 
 		if (anim->unk70(model, &rwdata->chrinfo.pos, &sp28, &rwdata->chrinfo.ground)) {
 			rwdata->chrinfo.pos.x = sp28.x;
@@ -1682,12 +1666,8 @@ void modelCopyAnimForMerge(struct model *model, f32 merge)
 			if (nodetype == MODELNODETYPE_CHRINFO) {
 				struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
 				rwdata->unk02 = 1;
-				rwdata->unk4c.x = rwdata->unk34.x;
-				rwdata->unk4c.y = rwdata->unk34.y;
-				rwdata->unk4c.z = rwdata->unk34.z;
-				rwdata->unk40.x = rwdata->unk24.x;
-				rwdata->unk40.y = rwdata->unk24.y;
-				rwdata->unk40.z = rwdata->unk24.z;
+				rwdata->unk4c = rwdata->unk34;
+				rwdata->unk40 = rwdata->unk24;
 			}
 		} else {
 			anim->animnum2 = 0;
@@ -2114,15 +2094,11 @@ void model0001e2b4(struct model *model, f32 curframe, f32 endframe, f32 curframe
 				struct coord sp90;
 				u32 stack;
 
-				spe0.x = rwdata->unk34.x;
-				spe0.y = rwdata->unk34.y;
-				spe0.z = rwdata->unk34.z;
+				spe0 = rwdata->unk34;
 
 				f30 = rwdata->unk30;
 
-				spd0.x = rwdata->unk24.x;
-				spd0.y = rwdata->unk24.y;
-				spd0.z = rwdata->unk24.z;
+				spd0 = rwdata->unk24;
 
 				spcc = rwdata->unk20;
 				spc8 = rwdata->unk01;
@@ -2162,9 +2138,7 @@ void model0001e2b4(struct model *model, f32 curframe, f32 endframe, f32 curframe
 						anim->framea = s0frame;
 
 						if (spc8 && floorend == anim->frameb) {
-							spe0.x = spd0.x;
-							spe0.y = spd0.y;
-							spe0.z = spd0.z;
+							spe0 = spd0;
 						} else {
 							anim00023d38(anim->animnum);
 							s0 = anim00023ab0(anim->animnum, s0frame);
@@ -2216,9 +2190,7 @@ void model0001e2b4(struct model *model, f32 curframe, f32 endframe, f32 curframe
 						anim->framea = s0frame;
 
 						if (spc8) {
-							spe0.x = spd0.x;
-							spe0.y = spd0.y;
-							spe0.z = spd0.z;
+							spe0 = spd0;
 
 							if (rwdata->unk18 == 0.0f) {
 								f30 = spcc;
@@ -2360,9 +2332,7 @@ void model0001e2b4(struct model *model, f32 curframe, f32 endframe, f32 curframe
 					}
 				}
 
-				rwdata->unk34.x = spe0.x;
-				rwdata->unk34.y = spe0.y;
-				rwdata->unk34.z = spe0.z;
+				rwdata->unk34 = spe0;
 
 				rwdata->unk30 = f30;
 

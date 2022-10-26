@@ -448,22 +448,16 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 		if (pad->room > 0) {
 			mtx00016d58(&mtx, 0, 0, 0, -pad->look.x, -pad->look.y, -pad->look.z, pad->up.x, pad->up.y, pad->up.z);
 
-			pos.x = pad->pos.x;
-			pos.y = pad->pos.y;
-			pos.z = pad->pos.z;
+			pos = pad->pos;
 
 			rooms[0] = pad->room;
 			rooms[1] = -1;
 
 			if (!padHasBboxData(obj->pad)) {
 				if (obj->flags & OBJFLAG_00000002) {
-					centre.x = pad->pos.x;
-					centre.y = pad->pos.y;
-					centre.z = pad->pos.z;
+					centre = pad->pos;
 				} else {
-					centre.x = pad->pos.x;
-					centre.y = pad->pos.y;
-					centre.z = pad->pos.z;
+					centre = pad->pos;
 				}
 			} else {
 				padGetCentre(obj->pad, &centre);
@@ -806,9 +800,7 @@ void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
 
 		pad = &g_Pads[cctv->lookatpadnum];
 
-		lenspos.x = lens->position.pos.x;
-		lenspos.y = lens->position.pos.y;
-		lenspos.z = lens->position.pos.z;
+		lenspos = lens->position.pos;
 
 		mtx00016208(obj->realrot, &lenspos);
 
@@ -1120,9 +1112,7 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 		mtx00015e80(yscale, &finalmtx);
 		mtx00015edc(zscale, &finalmtx);
 
-		pos.x = pad->pos.x;
-		pos.y = pad->pos.y;
-		pos.z = pad->pos.z;
+		pos = pad->pos;
 
 		rooms[0] = pad->room;
 		rooms[1] = -1;
@@ -1679,9 +1669,7 @@ void setupCreateProps(s32 stagenum)
 						prop = obj->prop;
 
 						if (prop) {
-							lift->prevpos.x = prop->pos.x;
-							lift->prevpos.y = prop->pos.y;
-							lift->prevpos.z = prop->pos.z;
+							lift->prevpos = prop->pos;
 
 							liftUpdateTiles(lift, true);
 						}
@@ -1756,9 +1744,7 @@ void setupCreateProps(s32 stagenum)
 						prop = obj->prop;
 
 						if (prop) {
-							step->prevpos.x = prop->pos.x;
-							step->prevpos.y = prop->pos.y;
-							step->prevpos.z = prop->pos.z;
+							step->prevpos = prop->pos;
 						}
 
 						if (obj->flags & OBJFLAG_ESCSTEP_ZALIGNED) {

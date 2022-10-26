@@ -59,13 +59,9 @@ f32 cd00024e40(void)
 
 void cdGetEdge(struct coord *vtx1, struct coord *vtx2, u32 line, char *file)
 {
-	vtx1->x = g_CdEdgeVtx1.x;
-	vtx1->y = g_CdEdgeVtx1.y;
-	vtx1->z = g_CdEdgeVtx1.z;
+	*vtx1 = g_CdEdgeVtx1;
 
-	vtx2->x = g_CdEdgeVtx2.x;
-	vtx2->y = g_CdEdgeVtx2.y;
-	vtx2->z = g_CdEdgeVtx2.z;
+	*vtx2 = g_CdEdgeVtx2;
 }
 
 f32 cd00024e98(void)
@@ -85,9 +81,7 @@ struct prop *cdGetObstacleProp(void)
 
 void cdGetPos(struct coord *pos, u32 line, char *file)
 {
-	pos->x = g_CdObstaclePos.x;
-	pos->y = g_CdObstaclePos.y;
-	pos->z = g_CdObstaclePos.z;
+	*pos = g_CdObstaclePos;
 }
 
 void cdGetObstacleNormal(struct coord *normal)
@@ -131,13 +125,9 @@ void cdClearResults(void)
 
 void cdSetObstacleVtxProp(struct coord *vtx1, struct coord *vtx2, struct prop *prop)
 {
-	g_CdEdgeVtx1.x = vtx1->x;
-	g_CdEdgeVtx1.y = vtx1->y;
-	g_CdEdgeVtx1.z = vtx1->z;
+	g_CdEdgeVtx1 = *vtx1;
 
-	g_CdEdgeVtx2.x = vtx2->x;
-	g_CdEdgeVtx2.y = vtx2->y;
-	g_CdEdgeVtx2.z = vtx2->z;
+	g_CdEdgeVtx2 = *vtx2;
 
 	var8009a8b4 = 1;
 	var8009a8ac = 0;
@@ -153,13 +143,9 @@ void cdSetObstacleVtxPropFlt(struct coord *vtx1, struct coord *vtx2, struct prop
 {
 	var8009a8b0 = arg3;
 
-	g_CdEdgeVtx1.x = vtx1->x;
-	g_CdEdgeVtx1.y = vtx1->y;
-	g_CdEdgeVtx1.z = vtx1->z;
+	g_CdEdgeVtx1 = *vtx1;
 
-	g_CdEdgeVtx2.x = vtx2->x;
-	g_CdEdgeVtx2.y = vtx2->y;
-	g_CdEdgeVtx2.z = vtx2->z;
+	g_CdEdgeVtx2 = *vtx2;
 
 	var8009a8b4 = 1;
 	var8009a8ac = 1;
@@ -209,17 +195,11 @@ void cdSetObstacleProp(struct prop *prop)
 
 void cdSetObstacleVtxColProp(struct coord *vtxpos1, struct coord *vtxpos2, struct coord *collisionpos, struct prop *prop)
 {
-	g_CdEdgeVtx1.x = vtxpos1->x;
-	g_CdEdgeVtx1.y = vtxpos1->y;
-	g_CdEdgeVtx1.z = vtxpos1->z;
+	g_CdEdgeVtx1 = *vtxpos1;
 
-	g_CdEdgeVtx2.x = vtxpos2->x;
-	g_CdEdgeVtx2.y = vtxpos2->y;
-	g_CdEdgeVtx2.z = vtxpos2->z;
+	g_CdEdgeVtx2 = *vtxpos2;
 
-	g_CdObstaclePos.x = collisionpos->x;
-	g_CdObstaclePos.y = collisionpos->y;
-	g_CdObstaclePos.z = collisionpos->z;
+	g_CdObstaclePos = *collisionpos;
 
 	var8009a8b4 = 1;
 	var8009a8ac = 0;
@@ -233,17 +213,11 @@ void cdSetObstacleVtxColProp(struct coord *vtxpos1, struct coord *vtxpos2, struc
 
 void cdSetObstacleVtxColPropFltGeo(struct coord *vtxpos1, struct coord *vtxpos2, struct coord *collisionpos, struct prop *prop, f32 arg4, struct geo *geo)
 {
-	g_CdEdgeVtx1.x = vtxpos1->x;
-	g_CdEdgeVtx1.y = vtxpos1->y;
-	g_CdEdgeVtx1.z = vtxpos1->z;
+	g_CdEdgeVtx1 = *vtxpos1;
 
-	g_CdEdgeVtx2.x = vtxpos2->x;
-	g_CdEdgeVtx2.y = vtxpos2->y;
-	g_CdEdgeVtx2.z = vtxpos2->z;
+	g_CdEdgeVtx2 = *vtxpos2;
 
-	g_CdObstaclePos.x = collisionpos->x;
-	g_CdObstaclePos.y = collisionpos->y;
-	g_CdObstaclePos.z = collisionpos->z;
+	g_CdObstaclePos = *collisionpos;
 
 	var8009a8b4 = 1;
 	var8009a8ac = 0;
@@ -259,13 +233,9 @@ void cdSetObstacleVtxColPropFltGeo(struct coord *vtxpos1, struct coord *vtxpos2,
 
 void cdSetSavedPos(struct coord *pos1, struct coord *pos2)
 {
-	g_CdPos1.x = pos1->x;
-	g_CdPos1.y = pos1->y;
-	g_CdPos1.z = pos1->z;
+	g_CdPos1 = *pos1;
 
-	g_CdPos2.x = pos2->x;
-	g_CdPos2.y = pos2->y;
-	g_CdPos2.z = pos2->z;
+	g_CdPos2 = *pos2;
 
 	g_CdHasSavedPos = true;
 }
@@ -273,13 +243,9 @@ void cdSetSavedPos(struct coord *pos1, struct coord *pos2)
 bool cdGetSavedPos(struct coord *pos1, struct coord *pos2)
 {
 	if (g_CdHasSavedPos) {
-		pos1->x = g_CdPos1.x;
-		pos1->y = g_CdPos1.y;
-		pos1->z = g_CdPos1.z;
+		*pos1 = g_CdPos1;
 
-		pos2->x = g_CdPos2.x;
-		pos2->y = g_CdPos2.y;
-		pos2->z = g_CdPos2.z;
+		*pos2 = g_CdPos2;
 	}
 
 	return g_CdHasSavedPos;
@@ -1771,13 +1737,9 @@ void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisi
 		s32 curr = collisions[bestindex].vertexindex;
 		s32 next = (curr + 1) % tile->header.numvertices;
 
-		vtx1.x = tile->vertices[curr].x;
-		vtx1.y = tile->vertices[curr].y;
-		vtx1.z = tile->vertices[curr].z;
+		vtx1 = tile->vertices[curr];
 
-		vtx2.x = tile->vertices[next].x;
-		vtx2.y = tile->vertices[next].y;
-		vtx2.z = tile->vertices[next].z;
+		vtx2 = tile->vertices[next];
 	} else if (collisions[bestindex].geo->type == GEOTYPE_BLOCK) {
 		struct geoblock *block = (struct geoblock *) collisions[bestindex].geo;
 		s32 curr = collisions[bestindex].vertexindex;
@@ -3247,13 +3209,9 @@ s32 cdExamCylMove01(struct coord *pos, struct coord *pos2, f32 radius, s16 *room
 			s32 this = collisions[0].vertexindex;
 			s32 next = (this + 1) % collisions[0].geo->numvertices;
 
-			sp70.x = tile->vertices[this].x;
-			sp70.y = tile->vertices[this].y;
-			sp70.z = tile->vertices[this].z;
+			sp70 = tile->vertices[this];
 
-			sp64.x = tile->vertices[next].x;
-			sp64.y = tile->vertices[next].y;
-			sp64.z = tile->vertices[next].z;
+			sp64 = tile->vertices[next];
 		} else if (collisions[0].geo->type == GEOTYPE_BLOCK) {
 			struct geoblock *block = (struct geoblock *) collisions[0].geo;
 			s32 this = collisions[0].vertexindex;
@@ -3408,18 +3366,12 @@ bool cd0002ac70IntTile(struct coord *arg0, struct coord *arg1, struct coord *arg
 		} else if (!result && spb8) {
 			result = true;
 
-			arg4->x = arg0->x;
-			arg4->y = arg0->y;
-			arg4->z = arg0->z;
+			*arg4 = *arg0;
 
 			if (arg5 != NULL && arg6 != NULL) {
-				arg5->x = arg0->x;
-				arg5->y = arg0->y;
-				arg5->z = arg0->z;
+				*arg5 = *arg0;
 
-				arg6->x = arg0->x;
-				arg6->y = arg0->y;
-				arg6->z = arg0->z;
+				*arg6 = *arg0;
 			}
 		}
 	}
@@ -3498,18 +3450,12 @@ bool cd0002b128FltTile(struct coord *arg0, struct coord *arg1, struct coord *arg
 		} else if (!result && spb8) {
 			result = true;
 
-			arg4->x = arg0->x;
-			arg4->y = arg0->y;
-			arg4->z = arg0->z;
+			*arg4 = *arg0;
 
 			if (arg5 != NULL && arg6 != NULL) {
-				arg5->x = arg0->x;
-				arg5->y = arg0->y;
-				arg5->z = arg0->z;
+				*arg5 = *arg0;
 
-				arg6->x = arg0->x;
-				arg6->y = arg0->y;
-				arg6->z = arg0->z;
+				*arg6 = *arg0;
 			}
 		}
 	}
@@ -3586,18 +3532,12 @@ bool cd0002b560Block(struct coord *arg0, struct coord *arg1, struct coord *arg2,
 		} else if (!result && spb8) {
 			result = true;
 
-			arg4->x = arg0->x;
-			arg4->y = arg0->y;
-			arg4->z = arg0->z;
+			*arg4 = *arg0;
 
 			if (arg5 != NULL && arg6 != NULL) {
-				arg5->x = arg0->x;
-				arg5->y = arg0->y;
-				arg5->z = arg0->z;
+				*arg5 = *arg0;
 
-				arg6->x = arg0->x;
-				arg6->y = arg0->y;
-				arg6->z = arg0->z;
+				*arg6 = *arg0;
 			}
 		}
 	}
@@ -3959,9 +3899,7 @@ bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg
 											result = true;
 											*arg10 = sum;
 
-											arg11->x = sp12c.x;
-											arg11->y = sp12c.y;
-											arg11->z = sp12c.z;
+											*arg11 = sp12c;
 
 											cd0002c328IntTile(tile, &sp12c, &sp120, arg12, arg13);
 
@@ -3979,17 +3917,11 @@ bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg
 										result = true;
 										*arg10 = sum;
 
-										arg11->x = sp12c.x;
-										arg11->y = sp12c.y;
-										arg11->z = sp12c.z;
+										*arg11 = sp12c;
 
-										arg12->x = sp114.x;
-										arg12->y = sp114.y;
-										arg12->z = sp114.z;
+										*arg12 = sp114;
 
-										arg13->x = sp108.x;
-										arg13->y = sp108.y;
-										arg13->z = sp108.z;
+										*arg13 = sp108;
 
 										*geoptr = geo;
 									}
@@ -4038,9 +3970,7 @@ bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg
 								result = true;
 								*arg10 = sum;
 
-								arg11->x = spe0.x;
-								arg11->y = spe0.y;
-								arg11->z = spe0.z;
+								*arg11 = spe0;
 
 								cd0002c528FltTile(tile, &spe0, &spd4, arg12, arg13);
 
@@ -4058,17 +3988,11 @@ bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg
 							result = true;
 							*arg10 = sum;
 
-							arg11->x = spe0.x;
-							arg11->y = spe0.y;
-							arg11->z = spe0.z;
+							*arg11 = spe0;
 
-							arg12->x = spc8.x;
-							arg12->y = spc8.y;
-							arg12->z = spc8.z;
+							*arg12 = spc8;
 
-							arg13->x = spbc.x;
-							arg13->y = spbc.y;
-							arg13->z = spbc.z;
+							*arg13 = spbc;
 
 							*geoptr = geo;
 						}
@@ -4094,17 +4018,11 @@ bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg
 					result = true;
 					*arg10 = sum;
 
-					arg11->x = spb0.x;
-					arg11->y = spb0.y;
-					arg11->z = spb0.z;
+					*arg11 = spb0;
 
-					arg12->x = spa4.x;
-					arg12->y = spa4.y;
-					arg12->z = spa4.z;
+					*arg12 = spa4;
 
-					arg13->x = sp98.x;
-					arg13->y = sp98.y;
-					arg13->z = sp98.z;
+					*arg13 = sp98;
 
 					*geoptr = geo;
 				}
@@ -4129,17 +4047,11 @@ bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg
 					result = true;
 					*arg10 = sum;
 
-					arg11->x = sp88.x;
-					arg11->y = sp88.y;
-					arg11->z = sp88.z;
+					*arg11 = sp88;
 
-					arg12->x = sp7c.x;
-					arg12->y = sp7c.y;
-					arg12->z = sp7c.z;
+					*arg12 = sp7c;
 
-					arg13->x = sp70.x;
-					arg13->y = sp70.y;
-					arg13->z = sp70.z;
+					*arg13 = sp70;
 
 					*geoptr = geo;
 				}

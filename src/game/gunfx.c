@@ -28,9 +28,7 @@ void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coo
 {
 	f32 distance;
 
-	beam->from.x = from->x;
-	beam->from.y = from->y;
-	beam->from.z = from->z;
+	beam->from = *from;
 
 	beam->dir.x = to->x - from->x;
 	beam->dir.y = to->y - from->y;
@@ -2072,16 +2070,12 @@ void boltbeamFree(struct prop *prop)
 
 void boltbeamSetHeadPos(s32 beamnum, struct coord *pos)
 {
-	g_BoltBeams[beamnum].headpos.x = pos->x;
-	g_BoltBeams[beamnum].headpos.y = pos->y;
-	g_BoltBeams[beamnum].headpos.z = pos->z;
+	g_BoltBeams[beamnum].headpos = *pos;
 }
 
 void boltbeamSetTailPos(s32 beamnum, struct coord *pos)
 {
-	g_BoltBeams[beamnum].tailpos.x = pos->x;
-	g_BoltBeams[beamnum].tailpos.y = pos->y;
-	g_BoltBeams[beamnum].tailpos.z = pos->z;
+	g_BoltBeams[beamnum].tailpos = *pos;
 }
 
 void boltbeamIncrementHeadPos(s32 beamnum, f32 arg1, bool arg2)
@@ -2228,9 +2222,7 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 	mtx4LoadIdentity(&sp1b0);
 	mtx00015be0(camGetWorldToScreenMtxf(), &sp1b0);
 
-	campos.x = player->cam_pos.x;
-	campos.y = player->cam_pos.y;
-	campos.z = player->cam_pos.z;
+	campos = player->cam_pos;
 
 	sp1b0.m[3][0] = 0.0f;
 	sp1b0.m[3][1] = 0.0f;
@@ -2250,13 +2242,9 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 			u32 *colours;
 			struct gfxvtx *vertices;
 
-			pos.x = g_LaserSights[i].dotpos.x;
-			pos.y = g_LaserSights[i].dotpos.y;
-			pos.z = g_LaserSights[i].dotpos.z;
+			pos = g_LaserSights[i].dotpos;
 
-			rot.x = g_LaserSights[i].dotrot.x;
-			rot.y = g_LaserSights[i].dotrot.y;
-			rot.z = g_LaserSights[i].dotrot.z;
+			rot = g_LaserSights[i].dotrot;
 
 			colours = gfxAllocateColours(2);
 
@@ -2415,9 +2403,7 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 	mtx4LoadIdentity(&sp198);
 	mtx00015be0(camGetWorldToScreenMtxf(), &sp198);
 
-	campos.x = player->cam_pos.x;
-	campos.y = player->cam_pos.y;
-	campos.z = player->cam_pos.z;
+	campos = player->cam_pos;
 
 	sp198.m[3][0] = 0;
 	sp198.m[3][1] = 0;
@@ -2439,9 +2425,7 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 			struct gfxvtx *vertices;
 			struct coord sp98;
 
-			sp98.x = g_LaserSights[i].beamnear.x;
-			sp98.y = g_LaserSights[i].beamnear.y;
-			sp98.z = g_LaserSights[i].beamnear.z;
+			sp98 = g_LaserSights[i].beamnear;
 
 			mtx4TransformVecInPlace(&sp14c, &sp98);
 
@@ -2453,17 +2437,13 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 
 			mtx4RotateVecInPlace(&sp10c, &spa8);
 
-			spcc.x = g_LaserSights[i].beamnear.x;
-			spcc.y = g_LaserSights[i].beamnear.y;
-			spcc.z = g_LaserSights[i].beamnear.z;
+			spcc = g_LaserSights[i].beamnear;
 
 			spcc.x = (spcc.x - campos.x) * 5.0f;
 			spcc.y = (spcc.y - campos.y) * 5.0f;
 			spcc.z = (spcc.z - campos.z) * 5.0f;
 
-			spc0.x = g_LaserSights[i].beamfar.x;
-			spc0.y = g_LaserSights[i].beamfar.y;
-			spc0.z = g_LaserSights[i].beamfar.z;
+			spc0 = g_LaserSights[i].beamfar;
 
 			spc0.x = (spc0.x - campos.f[0]) * 5.0f;
 			spc0.y = (spc0.y - campos.f[1]) * 5.0f;
@@ -2549,17 +2529,11 @@ void lasersightSetBeam(s32 id, s32 arg1, struct coord *near, struct coord *far)
 		g_LaserSights[i].id = id;
 	}
 
-	g_LaserSights[i].unk04.x = near->x;
-	g_LaserSights[i].unk04.y = near->y;
-	g_LaserSights[i].unk04.z = near->z;
+	g_LaserSights[i].unk04 = *near;
 
-	g_LaserSights[i].beamnear.x = near->x;
-	g_LaserSights[i].beamnear.y = near->y;
-	g_LaserSights[i].beamnear.z = near->z;
+	g_LaserSights[i].beamnear = *near;
 
-	g_LaserSights[i].beamfar.x = far->x;
-	g_LaserSights[i].beamfar.y = far->y;
-	g_LaserSights[i].beamfar.z = far->z;
+	g_LaserSights[i].beamfar = *far;
 
 	g_LaserSights[i].unk44 = arg1;
 	g_LaserSights[i].unk28 = 0;
@@ -2572,13 +2546,9 @@ void lasersightSetDot(s32 arg0, struct coord *pos, struct coord *rot)
 	if (lasersightExists(arg0, &i)) {
 		g_LaserSights[i].unk28 += 1.0f;
 
-		g_LaserSights[i].dotpos.x = pos->x;
-		g_LaserSights[i].dotpos.y = pos->y;
-		g_LaserSights[i].dotpos.z = pos->z;
+		g_LaserSights[i].dotpos = *pos;
 
-		g_LaserSights[i].dotrot.x = rot->x;
-		g_LaserSights[i].dotrot.y = rot->y;
-		g_LaserSights[i].dotrot.z = rot->z;
+		g_LaserSights[i].dotrot = *rot;
 	}
 }
 

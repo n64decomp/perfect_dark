@@ -304,9 +304,7 @@ struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type)
 		if (prop) {
 			prop->type = PROPTYPE_SMOKE;
 			prop->smoke = smoke;
-			prop->pos.x = pos->x;
-			prop->pos.y = pos->y;
-			prop->pos.z = pos->z;
+			prop->pos = *pos;
 
 			for (i = 0; rooms[i] != -1 && i < 7; i++) {
 				prop->rooms[i] = rooms[i];
@@ -505,17 +503,11 @@ u32 smokeTick(struct prop *prop)
 						part->deltarot = (0.5f - RANDOMFRAC()) * g_SmokeTypes[smoke->type].bgrotatespeed;
 
 						if (smoke->type >= SMOKETYPE_MUZZLE_PISTOL && smoke->type <= SMOKETYPE_MUZZLE_SHOTGUN) {
-							part->pos.x = g_Vars.currentplayer->hands[smoke->option].muzzlepos.x;
-							part->pos.y = g_Vars.currentplayer->hands[smoke->option].muzzlepos.y;
-							part->pos.z = g_Vars.currentplayer->hands[smoke->option].muzzlepos.z;
+							part->pos = g_Vars.currentplayer->hands[smoke->option].muzzlepos;
 						} else if (smoke->sourceprop && smoke->option == 0) {
-							part->pos.x = smoke->sourceprop->pos.x;
-							part->pos.y = smoke->sourceprop->pos.y;
-							part->pos.z = smoke->sourceprop->pos.z;
+							part->pos = smoke->sourceprop->pos;
 						} else {
-							part->pos.x = prop->pos.x;
-							part->pos.y = prop->pos.y;
-							part->pos.z = prop->pos.z;
+							part->pos = prop->pos;
 						}
 
 						if (smoke->type == SMOKETYPE_WATER) {

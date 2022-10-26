@@ -2203,9 +2203,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 			hand->posend.y = 0;
 			hand->posend.z = 0;
 
-			hand->posstart.x = hand->posoffset.x;
-			hand->posstart.y = hand->posoffset.y;
-			hand->posstart.z = hand->posoffset.z;
+			hand->posstart = hand->posoffset;
 		}
 
 		if (hand->stateflags & HANDSTATEFLAG_00000040) {
@@ -2235,9 +2233,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 			if ((hand->stateflags & HANDSTATEFLAG_00000080) == 0) {
 				hand->stateflags |= HANDSTATEFLAG_00000080;
 				hand->rotxstart = hand->rotxoffset;
-				hand->posstart.x = hand->posoffset.x;
-				hand->posstart.y = hand->posoffset.y;
-				hand->posstart.z = hand->posoffset.z;
+				hand->posstart = hand->posoffset;
 			}
 
 			hand->rotxend = M_BADTAU - (recoilangle * M_BADTAU) / 360.0f;
@@ -4375,9 +4371,7 @@ void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 			projectileSetSticky(objprop);
 			mtx4Copy(matrix2, (Mtxf *)&obj->projectile->mtx);
 
-			obj->projectile->speed.x = velocity->x;
-			obj->projectile->speed.y = velocity->y;
-			obj->projectile->speed.z = velocity->z;
+			obj->projectile->speed = *velocity;
 			obj->projectile->obj = obj;
 			obj->projectile->unk0d8 = g_Vars.lvframenum;
 		}
@@ -4393,9 +4387,7 @@ void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, stru
 	if (objprop) {
 		struct prop *playerprop = g_Vars.currentplayer->prop;
 
-		pos.x = playerprop->pos.x;
-		pos.y = playerprop->pos.y;
-		pos.z = playerprop->pos.z;
+		pos = playerprop->pos;
 
 		roomsCopy(playerprop->rooms, rooms);
 
@@ -4404,9 +4396,7 @@ void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, stru
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
 			obj->projectile->flags |= PROJECTILEFLAG_LAUNCHING;
 
-			obj->projectile->nextsteppos.x = newpos->x;
-			obj->projectile->nextsteppos.y = newpos->y;
-			obj->projectile->nextsteppos.z = newpos->z;
+			obj->projectile->nextsteppos = *newpos;
 		}
 	}
 }
@@ -4543,9 +4533,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 
 	hand = g_Vars.currentplayer->hands + handnum;
 
-	muzzlepos.x = g_Vars.currentplayer->hands[handnum].muzzlepos.x;
-	muzzlepos.y = g_Vars.currentplayer->hands[handnum].muzzlepos.y;
-	muzzlepos.z = g_Vars.currentplayer->hands[handnum].muzzlepos.z;
+	muzzlepos = g_Vars.currentplayer->hands[handnum].muzzlepos;
 
 	mtx4LoadIdentity(&sp1f4);
 
@@ -4570,13 +4558,9 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 	playerSetPerimEnabled(playerprop, false);
 
 	if (cdTestLos11(&playerprop->pos, playerprop->rooms, &muzzlepos, spawnrooms, CDTYPE_ALL) != CDRESULT_COLLISION) {
-		spawnpos.x = muzzlepos.x;
-		spawnpos.y = muzzlepos.y;
-		spawnpos.z = muzzlepos.z;
+		spawnpos = muzzlepos;
 	} else {
-		spawnpos.x = playerprop->pos.x;
-		spawnpos.y = playerprop->pos.y;
-		spawnpos.z = playerprop->pos.z;
+		spawnpos = playerprop->pos;
 
 		roomsCopy(playerprop->rooms, spawnrooms);
 	}
@@ -4596,9 +4580,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 		func0f061d54(0, 0, 0);
 
 		if (hand->hasdotinfo) {
-			aimpos.x = hand->dotpos.x;
-			aimpos.y = hand->dotpos.y;
-			aimpos.z = hand->dotpos.z;
+			aimpos = hand->dotpos;
 
 			chrCalculateTrajectory(&spawnpos, 21.666666f, &aimpos, &sp140);
 
@@ -4626,9 +4608,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 				sp1dc.y = -sp78.m[2][1];
 				sp1dc.z = -sp78.m[2][2];
 			} else {
-				sp1dc.x = sp140.x;
-				sp1dc.y = sp140.y;
-				sp1dc.z = sp140.z;
+				sp1dc = sp140;
 			}
 		}
 
@@ -4684,9 +4664,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
 			obj->projectile->flags |= PROJECTILEFLAG_LAUNCHING;
-			obj->projectile->nextsteppos.x = muzzlepos.x;
-			obj->projectile->nextsteppos.y = muzzlepos.y;
-			obj->projectile->nextsteppos.z = muzzlepos.z;
+			obj->projectile->nextsteppos = muzzlepos;
 
 			if (gset->weaponnum == WEAPON_GRENADE && gset->weaponfunc == FUNC_SECONDARY) {
 				obj->projectile->unk08c = 1.0f;
@@ -4823,9 +4801,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 			bgunCalculatePlayerShotSpread(&sp204, &sp1f8, handnum, true);
 			mtx4RotateVecInPlace(camGetProjectionMtxF(), &sp1f8);
 
-			spawnpos.x = hand->muzzlepos.x;
-			spawnpos.y = hand->muzzlepos.y;
-			spawnpos.z = hand->muzzlepos.z;
+			spawnpos = hand->muzzlepos;
 
 			if (hand->gset.weaponnum == WEAPON_SLAYER && hand->gset.weaponfunc == FUNC_SECONDARY) {
 				spawnpos.x += 50.0f * sp1f8.x;
@@ -4840,9 +4816,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 				func0f061d54(0, 0, 0);
 
 				if (hand->hasdotinfo) {
-					aimpos.x = hand->dotpos.x;
-					aimpos.y = hand->dotpos.y;
-					aimpos.z = hand->dotpos.z;
+					aimpos = hand->dotpos;
 
 					chrCalculateTrajectory(&spawnpos, sp25c, &aimpos, &sp1bc);
 
@@ -4869,9 +4843,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 						sp1f8.y = -spf4.m[2][1];
 						sp1f8.z = -spf4.m[2][2];
 					} else {
-						sp1f8.x = sp1bc.x;
-						sp1f8.y = sp1bc.y;
-						sp1f8.z = sp1bc.z;
+						sp1f8 = sp1bc;
 					}
 				}
 			}
@@ -5141,9 +5113,7 @@ void bgunSwivel(f32 screenx, f32 screeny, f32 crossdamp, f32 aimdamp)
 			hand = &player->hands[h];
 
 			if (hand->hasdotinfo && !g_Vars.mplayerisrunning) {
-				sp94.x = hand->dotpos.x;
-				sp94.y = hand->dotpos.y;
-				sp94.z = hand->dotpos.z;
+				sp94 = hand->dotpos;
 
 				mtx4TransformVecInPlace(camGetWorldToScreenMtxf(), &sp94);
 
@@ -5409,13 +5379,9 @@ bool bgunGetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
 		return false;
 	}
 
-	pos->x = hand->lastshootpos.x;
-	pos->y = hand->lastshootpos.y;
-	pos->z = hand->lastshootpos.z;
+	*pos = hand->lastshootpos;
 
-	dir->x = hand->lastshootdir.x;
-	dir->y = hand->lastshootdir.y;
-	dir->z = hand->lastshootdir.z;
+	*dir = hand->lastshootdir;
 
 	return true;
 }
@@ -5426,13 +5392,9 @@ void bgunSetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
 
 	hand->lastdirvalid = true;
 
-	hand->lastshootpos.x = pos->x;
-	hand->lastshootpos.y = pos->y;
-	hand->lastshootpos.z = pos->z;
+	hand->lastshootpos = *pos;
 
-	hand->lastshootdir.x = dir->x;
-	hand->lastshootdir.y = dir->y;
-	hand->lastshootdir.z = dir->z;
+	hand->lastshootdir = *dir;
 }
 
 s32 bgunGetShotsToTake(s32 handnum)
@@ -6146,9 +6108,7 @@ void bgun0f0a24f0(struct coord *arg0, s32 handnum)
 	b.y *= 1000;
 	b.z *= 1000;
 
-	arg0->x = b.x;
-	arg0->y = b.y;
-	arg0->z = b.z;
+	*arg0 = b;
 }
 
 /**
@@ -6834,9 +6794,7 @@ void bgunUpdateSmoke(struct hand *hand, s32 handnum, s32 weaponnum, struct weapo
 		smokerooms[0] = g_Vars.currentplayer->cam_room;
 		smokerooms[1] = -1;
 
-		smokepos.x = hand->muzzlepos.x;
-		smokepos.y = hand->muzzlepos.y;
-		smokepos.z = hand->muzzlepos.z;
+		smokepos = hand->muzzlepos;
 
 		hand->gunsmokepoint = 0.0f;
 
@@ -6882,13 +6840,9 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 
 			mtx4RotateVecInPlace(&hand->cammtx, &beamfar);
 
-			sp48.x = beamfar.x;
-			sp48.y = beamfar.y;
-			sp48.z = beamfar.z;
+			sp48 = beamfar;
 
-			sp3c.x = beamnear.x;
-			sp3c.y = beamnear.y;
-			sp3c.z = beamnear.z;
+			sp3c = beamnear;
 
 			mtx4TransformVec(camGetWorldToScreenMtxf(), &sp3c, &sp54);
 			mtx4RotateVec(camGetProjectionMtxF(), &sp48, &sp30);
@@ -6933,13 +6887,9 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 		lasersightSetBeam(handnum, 1, &beamnear, &beamfar);
 
 		if (handnum == HAND_RIGHT && hand->hasdotinfo && !busy) {
-			dotpos.x = hand->dotpos.x;
-			dotpos.y = hand->dotpos.y;
-			dotpos.z = hand->dotpos.z;
+			dotpos = hand->dotpos;
 
-			dotrot.x = hand->dotrot.x;
-			dotrot.y = hand->dotrot.y;
-			dotrot.z = hand->dotrot.z;
+			dotrot = hand->dotrot;
 
 			lasersightSetDot(handnum, &dotpos, &dotrot);
 		}

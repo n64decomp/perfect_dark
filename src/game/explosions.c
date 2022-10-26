@@ -326,9 +326,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 
 			expprop->type = PROPTYPE_EXPLOSION;
 			expprop->explosion = exp;
-			expprop->pos.x = exppos->x;
-			expprop->pos.y = exppos->y;
-			expprop->pos.z = exppos->z;
+			expprop->pos = *exppos;
 
 			for (i = 0; exprooms[i] != -1 && i < 7; i++) {
 				expprop->rooms[i] = exprooms[i];
@@ -517,21 +515,15 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 			}
 
 			if (makescorch) {
-				exp->unk3d0.x = arg6->x;
-				exp->unk3d0.y = arg6->y;
-				exp->unk3d0.z = arg6->z;
+				exp->unk3d0 = *arg6;
 				exp->room = room;
-				exp->unk3dc.x = arg8->x;
-				exp->unk3dc.y = arg8->y;
-				exp->unk3dc.z = arg8->z;
+				exp->unk3dc = *arg8;
 			} else {
 				exp->unk3d0.x = 999999.875f;
 			}
 
 			exp->parts[0].frame = 1;
-			exp->parts[0].pos.x = exppos->x;
-			exp->parts[0].pos.y = exppos->y;
-			exp->parts[0].pos.z = exppos->z;
+			exp->parts[0].pos = *exppos;
 			exp->parts[0].size = g_ExplosionTypes[type].innersize * (RANDOMFRAC() * 0.5f + 1);
 			exp->parts[0].rot = RANDOMFRAC() * M_BADTAU;
 			exp->parts[0].bb = 0;
@@ -1082,13 +1074,9 @@ u32 explosionTick(struct prop *prop)
 					} else {
 						bb = j % exp->numbb;
 
-						spfc.x = exp->bbs[bb].bbmin.x;
-						spfc.y = exp->bbs[bb].bbmin.y;
-						spfc.z = exp->bbs[bb].bbmin.z;
+						spfc = exp->bbs[bb].bbmin;
 
-						spf0.x = exp->bbs[bb].bbmax.x;
-						spf0.y = exp->bbs[bb].bbmax.y;
-						spf0.z = exp->bbs[bb].bbmax.z;
+						spf0 = exp->bbs[bb].bbmax;
 
 						if (spfc.x < sp11c.x) {
 							spfc.x = sp11c.x;
@@ -1117,13 +1105,9 @@ u32 explosionTick(struct prop *prop)
 						if (spf0.x <= spfc.x || spf0.y <= spfc.y || spf0.z <= spfc.z) {
 							bb = 0;
 
-							spfc.x = exp->bbs[bb].bbmin.x;
-							spfc.y = exp->bbs[bb].bbmin.y;
-							spfc.z = exp->bbs[bb].bbmin.z;
+							spfc = exp->bbs[bb].bbmin;
 
-							spf0.x = exp->bbs[bb].bbmax.x;
-							spf0.y = exp->bbs[bb].bbmax.y;
-							spf0.z = exp->bbs[bb].bbmax.z;
+							spf0 = exp->bbs[bb].bbmax;
 
 							if (spfc.x < sp11c.x) {
 								spfc.x = sp11c.x;

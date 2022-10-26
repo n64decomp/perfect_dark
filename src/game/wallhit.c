@@ -1309,9 +1309,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 	u32 range;
 	struct coord sp100;
 
-	sp1b8.x = arg1->x;
-	sp1b8.y = arg1->y;
-	sp1b8.z = arg1->z;
+	sp1b8 = *arg1;
 
 #if VERSION >= VERSION_NTSC_1_0
 	func0f177164(&sp1b8, &sp1b8, 956, "wallhit.c");
@@ -1507,13 +1505,9 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 
 			func0f1770ac(&sp13c, &sp118, &sp100);
 
-			sp1f4.x = sp13c.x;
-			sp1f4.y = sp13c.y;
-			sp1f4.z = sp13c.z;
+			sp1f4 = sp13c;
 
-			sp1e8.x = sp118.x;
-			sp1e8.y = sp118.y;
-			sp1e8.z = sp118.z;
+			sp1e8 = sp118;
 		} else {
 			f32 f0 = sqrtf(sp1b8.x * sp1b8.x + sp1b8.z * sp1b8.z);
 			f32 xvalue = sp1b8.x / f0;
@@ -1545,13 +1539,9 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 			sp1d0.y = -spd0 * sp1f4.y + spcc * sp1e8.y;
 			sp1d0.z = -spd0 * sp1f4.z + spcc * sp1e8.z;
 		} else {
-			sp1dc.x = sp1f4.x;
-			sp1dc.y = sp1f4.y;
-			sp1dc.z = sp1f4.z;
+			sp1dc = sp1f4;
 
-			sp1d0.x = sp1e8.x;
-			sp1d0.y = sp1e8.y;
-			sp1d0.z = sp1e8.z;
+			sp1d0 = sp1e8;
 		}
 
 		if (objprop) {
@@ -1567,13 +1557,9 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 				sp1d0.z = -1.0f * sp1d0.z;
 			}
 
-			sp84.x = sp1dc.x;
-			sp84.y = sp1dc.y;
-			sp84.z = sp1dc.z;
+			sp84 = sp1dc;
 
-			sp78.x = sp1d0.x;
-			sp78.y = sp1d0.y;
-			sp78.z = sp1d0.z;
+			sp78 = sp1d0;
 
 			mtx4RotateVecInPlace(mtx, &sp84);
 			mtx4RotateVecInPlace(mtx, &sp78);
@@ -1638,9 +1624,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 		sp17c[3].y = sp1d0.y - sp1dc.y; \
 		sp17c[3].z = sp1d0.z - sp1dc.z;
 
-		wallhit->relpos.x = relpos->x;
-		wallhit->relpos.y = relpos->y;
-		wallhit->relpos.z = relpos->z;
+		wallhit->relpos = *relpos;
 
 		wallhit->mtxindex = mtxindex;
 		wallhit->unk6f_01 = arg10;

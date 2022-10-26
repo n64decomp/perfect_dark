@@ -2144,9 +2144,7 @@ void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, s16 *
 
 	mtx4ToMtx3(matrix, obj->realrot);
 
-	prop->pos.x = pos->x;
-	prop->pos.y = pos->y;
-	prop->pos.z = pos->z;
+	prop->pos = *pos;
 
 	propDeregisterRooms(prop);
 	roomsCopy(rooms, prop->rooms);
@@ -2619,9 +2617,7 @@ bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, str
 		if (f0 < *arg6) {
 			*arg6 = f0;
 
-			arg4->x = sp20.x;
-			arg4->y = sp20.y;
-			arg4->z = sp20.z;
+			*arg4 = sp20;
 
 			arg5->x = -arg3->x;
 			arg5->y = 0.0f;
@@ -3134,15 +3130,11 @@ bool projectileFindCollidingProp(struct prop *prop, struct coord *pos1, struct c
 	sp98.y *= tmp;
 	sp98.z *= tmp;
 
-	sp88.x = pos1->x;
-	sp88.y = pos1->y;
-	sp88.z = pos1->z;
+	sp88 = *pos1;
 
 	mtx4TransformVecInPlace(camGetWorldToScreenMtxf(), &sp88);
 
-	sp7c.x = sp98.x;
-	sp7c.y = sp98.y;
-	sp7c.z = sp98.z;
+	sp7c = sp98;
 
 	mtx4RotateVecInPlace(camGetWorldToScreenMtxf(), &sp7c);
 
@@ -3208,13 +3200,9 @@ bool projectileFindCollidingProp(struct prop *prop, struct coord *pos1, struct c
 	if (spa4) {
 		result = true;
 
-		var8009ce78.x = sp98.x;
-		var8009ce78.y = sp98.y;
-		var8009ce78.z = sp98.z;
+		var8009ce78 = sp98;
 
-		var8009ce88.x = sp7c.x;
-		var8009ce88.y = sp7c.y;
-		var8009ce88.z = sp7c.z;
+		var8009ce88 = sp7c;
 	}
 
 	return result;
@@ -3243,9 +3231,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 	g_EmbedProp = 0;
 	var80069944 = 0;
 
-	sp1c4.x = pos->x;
-	sp1c4.y = pos->y;
-	sp1c4.z = pos->z;
+	sp1c4 = *pos;
 
 	if ((prop->pos.x != pos->x || prop->pos.y != pos->y || prop->pos.z != pos->z)
 			&& (obj->hidden & OBJHFLAG_PROJECTILE)
@@ -3308,21 +3294,15 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 					&& (prop->pos.f[0] != hitthing.unk00.f[0] || prop->pos.f[1] != hitthing.unk00.f[1] || prop->pos.f[2] != hitthing.unk00.f[2])) {
 				cdresult = CDRESULT_COLLISION;
 
-				sp1c4.x = hitthing.unk00.x;
-				sp1c4.y = hitthing.unk00.y;
-				sp1c4.z = hitthing.unk00.z;
+				sp1c4 = hitthing.unk00;
 
-				arg3->x = hitthing.unk0c.x;
-				arg3->y = hitthing.unk0c.y;
-				arg3->z = hitthing.unk0c.z;
+				*arg3 = hitthing.unk0c;
 			}
 		}
 
 		if (!projectileFindCollidingProp(prop, &prop->pos, &sp1c4, CDTYPE_ALL, arg2, arg3, spcc)) {
 			if (cdresult == CDRESULT_COLLISION) {
-				arg2->x = sp1c4.x;
-				arg2->y = sp1c4.y;
-				arg2->z = sp1c4.z;
+				*arg2 = sp1c4;
 			}
 		} else {
 			cdresult = CDRESULT_COLLISION;
@@ -3381,9 +3361,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	g_EmbedProp = NULL;
 	var80069944 = 0;
 
-	sp80.x = arg1->x;
-	sp80.y = arg1->y;
-	sp80.z = arg1->z;
+	sp80 = *arg1;
 
 	if (prop->pos.x != arg1->x || prop->pos.y != arg1->y || prop->pos.z != arg1->z) {
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
@@ -3391,9 +3369,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 				setup0f09233c(obj, &sp80, obj->realrot, rooms);
 
 				if (cdExamCylMove02(&prop->pos, &sp80, radius, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
-					prop->pos.x = sp80.x;
-					prop->pos.y = sp80.y;
-					prop->pos.z = sp80.z;
+					prop->pos = sp80;
 
 					propDeregisterRooms(prop);
 					roomsCopy(rooms, prop->rooms);
@@ -3484,9 +3460,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 						setup0f09233c(obj, &sp4c, obj->realrot, rooms);
 
 						if (cdTestVolume(&sp4c, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0.0f) != CDRESULT_COLLISION) {
-							prop->pos.x = sp4c.x;
-							prop->pos.y = sp4c.y;
-							prop->pos.z = sp4c.z;
+							prop->pos = sp4c;
 
 							propDeregisterRooms(prop);
 							roomsCopy(rooms, prop->rooms);
@@ -3495,9 +3469,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 						}
 					}
 				} else {
-					arg2->x = sp80.x;
-					arg2->y = sp80.y;
-					arg2->z = sp80.z;
+					*arg2 = sp80;
 				}
 
 				if (!sp98) {
@@ -4185,9 +4157,7 @@ bool propExplode(struct prop *prop, s32 exptype)
 
 			mtx4TransformVecInPlace(camGetProjectionMtxF(), &pos);
 		} else {
-			pos.x = parent->pos.x;
-			pos.y = parent->pos.y;
-			pos.z = parent->pos.z;
+			pos = parent->pos;
 		}
 
 		func0f065e74(&parent->pos, parent->rooms, &pos, rooms);
@@ -4296,9 +4266,7 @@ void weaponTick(struct prop *prop)
 
 						projectileSetSticky(prop);
 
-						projectile->speed.x = direction.x;
-						projectile->speed.y = direction.y;
-						projectile->speed.z = direction.z;
+						projectile->speed = direction;
 
 						mtx4LoadIdentity(&projectile->mtx);
 
@@ -5730,9 +5698,7 @@ void func0f070ca0(struct defaultobj *obj, struct geotilef *tile, u32 flags, stru
 	tile->header.numvertices = 4;
 
 	for (i = 0; i < 4; i++) {
-		tile->vertices[i].x = vertices[i].x;
-		tile->vertices[i].y = vertices[i].y;
-		tile->vertices[i].z = vertices[i].z;
+		tile->vertices[i] = vertices[i];
 	}
 
 	tile->floorcol = 0xfff;
@@ -6342,9 +6308,7 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		}
 	}
 
-	pos.x = prop->pos.x;
-	pos.y = prop->pos.y;
-	pos.z = prop->pos.z;
+	pos = prop->pos;
 
 	propSetPerimEnabled(prop, false);
 
@@ -6535,9 +6499,7 @@ f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotati
 					sp4c.y -= sp58.y;
 					sp4c.z -= sp58.z;
 				} else {
-					sp58.x = movingobj->prop->pos.x;
-					sp58.y = movingobj->prop->pos.y;
-					sp58.z = movingobj->prop->pos.z;
+					sp58 = movingobj->prop->pos;
 
 					sp4c.x = obstacle->pos.x - movingobj->prop->pos.x;
 					sp4c.y = obstacle->pos.y - movingobj->prop->pos.y;
@@ -6874,9 +6836,7 @@ bool rocketTickFbw(struct weaponobj *rocket)
 	dir.f[1] = sinf(projectile->unk014);
 	dir.f[2] = cosf(projectile->unk018) * cosf(projectile->unk014);
 
-	newpos.x = rocketprop->pos.x;
-	newpos.y = rocketprop->pos.y;
-	newpos.z = rocketprop->pos.z;
+	newpos = rocketprop->pos;
 
 	for (i = 0; i < g_Vars.lvupdate60; i++) {
 		projectile->unk010 += PAL ? 0.0021600001f : 0.0018f;
@@ -6906,9 +6866,7 @@ bool rocketTickFbw(struct weaponobj *rocket)
 	if (cdresult == CDRESULT_NOCOLLISION) {
 		func0f065e74(&rocketprop->pos, rocketprop->rooms, &newpos, newrooms);
 
-		rocketprop->pos.x = newpos.x;
-		rocketprop->pos.y = newpos.y;
-		rocketprop->pos.z = newpos.z;
+		rocketprop->pos = newpos;
 
 		propDeregisterRooms(rocketprop);
 		roomsCopy(newrooms, rocketprop->rooms);
@@ -6956,9 +6914,7 @@ bool rocketTickFbw(struct weaponobj *rocket)
 						&& cdTestLos05(&rocketprop->pos, rocketprop->rooms, &chr->prop->pos, chr->prop->rooms,
 							CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
 							GEOFLAG_BLOCK_SIGHT)) {
-					projectile->nextsteppos.x = chr->prop->pos.x;
-					projectile->nextsteppos.y = chr->prop->pos.y;
-					projectile->nextsteppos.z = chr->prop->pos.z;
+					projectile->nextsteppos = chr->prop->pos;
 					projectile->numwaypads = 0;
 				}
 			}
@@ -7006,9 +6962,7 @@ s32 projectileLaunch(struct defaultobj *obj, struct projectile *projectile, stru
 
 		func0f065e74(&prop->pos, prop->rooms, &projectile->nextsteppos, rooms);
 
-		prop->pos.x = projectile->nextsteppos.x;
-		prop->pos.y = projectile->nextsteppos.y;
-		prop->pos.z = projectile->nextsteppos.z;
+		prop->pos = projectile->nextsteppos;
 
 		propDeregisterRooms(prop);
 		roomsCopy(rooms, prop->rooms);
@@ -7021,9 +6975,7 @@ s32 projectileLaunch(struct defaultobj *obj, struct projectile *projectile, stru
 
 			func0f065e74(&prop->pos, prop->rooms, arg2, rooms);
 
-			prop->pos.x = arg2->x;
-			prop->pos.y = arg2->y;
-			prop->pos.z = arg2->z;
+			prop->pos = *arg2;
 
 			propDeregisterRooms(prop);
 			roomsCopy(rooms, prop->rooms);
@@ -7075,9 +7027,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				projectileLaunch(obj, projectile, &sp5e8, &sp5f4);
 			}
 
-			sp5dc.x = prop->pos.x;
-			sp5dc.y = prop->pos.y;
-			sp5dc.z = prop->pos.z;
+			sp5dc = prop->pos;
 
 			if (projectile->pickuptimer240 > 0) {
 				projectile->pickuptimer240 -= g_Vars.lvupdate240;
@@ -7272,9 +7222,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							sp3c4.y = sp3d0.y;
 							sp3c4.z = sp3d0.x;
 
-							sp3d0.x = prop->pos.x;
-							sp3d0.y = prop->pos.y;
-							sp3d0.z = prop->pos.z;
+							sp3d0 = prop->pos;
 						}
 
 						func0f02e4f8(&sp3d0, &sp3c4, &sp3b8);
@@ -7441,9 +7389,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						}
 
 						if (cdresult == CDRESULT_NOCOLLISION) {
-							projectile->speed.x = sp590.x;
-							projectile->speed.y = sp590.y;
-							projectile->speed.z = sp590.z;
+							projectile->speed = sp590;
 						}
 					}
 				}
@@ -7558,9 +7504,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						mtx.m[2][1] = obj->realrot[2][1] / sp29c;
 						mtx.m[2][2] = obj->realrot[2][2] / sp29c;
 
-						sp2f8.x = obj->prop->pos.x;
-						sp2f8.y = obj->prop->pos.y;
-						sp2f8.z = obj->prop->pos.z;
+						sp2f8 = obj->prop->pos;
 
 						sp290.x = projectile->targetprop->pos.x - sp2f8.x;
 						sp290.y = projectile->targetprop->pos.y - sp2f8.y;
@@ -7568,9 +7512,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 						guNormalize(&sp290.x, &sp290.y, &sp290.z);
 
-						sp2ec.x = projectile->speed.x;
-						sp2ec.y = projectile->speed.y;
-						sp2ec.z = projectile->speed.z;
+						sp2ec = projectile->speed;
 
 						guNormalize(&sp2ec.x, &sp2ec.y, &sp2ec.z);
 
@@ -7663,9 +7605,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				func0f096698(&sp30c, &projectile->mtx, g_Vars.lvupdate240);
 				mtx4ToMtx3(&sp30c, obj->realrot);
 
-				sp5c8.x = prop->pos.x;
-				sp5c8.y = prop->pos.y;
-				sp5c8.z = prop->pos.z;
+				sp5c8 = prop->pos;
 
 				roomsCopy(prop->rooms, sp5b8);
 
@@ -7943,9 +7883,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 										struct coord dir;
 										struct prop *ownerprop = obj->projectile->ownerprop;
 
-										dir.x = projectile->speed.x;
-										dir.y = projectile->speed.y;
-										dir.z = projectile->speed.z;
+										dir = projectile->speed;
 
 										guNormalize(&dir.x, &dir.y, &dir.z);
 
@@ -7968,9 +7906,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 							func0f065e74(&prop->pos, prop->rooms, &sp5dc, rooms);
 
-							prop->pos.x = sp5dc.x;
-							prop->pos.y = sp5dc.y;
-							prop->pos.z = sp5dc.z;
+							prop->pos = sp5dc;
 
 							propDeregisterRooms(prop);
 							roomsCopy(rooms, prop->rooms);
@@ -7981,16 +7917,12 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 								sp5dc.x = prop->pos.x;
 								sp5dc.z = prop->pos.z;
 							} else {
-								sp5dc.x = sp5e8.x;
-								sp5dc.y = sp5e8.y;
-								sp5dc.z = sp5e8.z;
+								sp5dc = sp5e8;
 							}
 
 							func0f065e74(&prop->pos, prop->rooms, &sp5dc, rooms);
 
-							prop->pos.x = sp5dc.x;
-							prop->pos.y = sp5dc.y;
-							prop->pos.z = sp5dc.z;
+							prop->pos = sp5dc;
 
 							propDeregisterRooms(prop);
 							roomsCopy(rooms, prop->rooms);
@@ -8020,9 +7952,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 #endif
 					{
 						sp354 = true;
-						sp5f4.x = sp380.x;
-						sp5f4.y = sp380.y;
-						sp5f4.z = sp380.z;
+						sp5f4 = sp380;
 
 						guNormalize(&sp5f4.x, &sp5f4.y, &sp5f4.z);
 
@@ -8049,9 +7979,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							}
 
 							if (projectile->flags & PROJECTILEFLAG_INROOM) {
-								prop->pos.x = sp5c8.x;
-								prop->pos.y = sp5c8.y;
-								prop->pos.z = sp5c8.z;
+								prop->pos = sp5c8;
 
 								propDeregisterRooms(prop);
 								roomsCopy(sp5b8, prop->rooms);
@@ -8173,9 +8101,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 								} else {
 									struct coord smokepos;
 
-									smokepos.x = projectile->speed.x;
-									smokepos.y = projectile->speed.y;
-									smokepos.z = projectile->speed.z;
+									smokepos = projectile->speed;
 
 									guNormalize(&smokepos.x, &smokepos.y, &smokepos.z);
 
@@ -8299,9 +8225,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						}
 					}
 
-					sp5c8.x = prop->pos.x;
-					sp5c8.y = prop->pos.y;
-					sp5c8.z = prop->pos.z;
+					sp5c8 = prop->pos;
 
 					roomsCopy(prop->rooms, sp5b8);
 					func0f06d37c(obj, &sp5dc, &sp5e8, &sp5f4);
@@ -8718,9 +8642,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 
 								func0f065e74(&prop->pos, prop->rooms, &sp78, sp68);
 
-								prop->pos.x = sp78.x;
-								prop->pos.y = sp78.y;
-								prop->pos.z = sp78.z;
+								prop->pos = sp78;
 
 								propDeregisterRooms(prop);
 								roomsCopy(sp68, prop->rooms);
@@ -8800,9 +8722,7 @@ void liftTick(struct prop *prop)
 	s16 propnums[256];
 	s32 stop;
 
-	lift->prevpos.x = prop->pos.x;
-	lift->prevpos.y = prop->pos.y;
-	lift->prevpos.z = prop->pos.z;
+	lift->prevpos = prop->pos;
 
 	if (lift->levelcur != lift->levelaim) {
 		// Lift is not at the desired level. So try to move, but not if the lift
@@ -8817,9 +8737,7 @@ void liftTick(struct prop *prop)
 		}
 
 		if (move) {
-			prevpos.x = prop->pos.x;
-			prevpos.y = prop->pos.y;
-			prevpos.z = prop->pos.z;
+			prevpos = prop->pos;
 
 			cdGetPropsOnPlatform(prop, propnums, ARRAYCOUNT(propnums));
 
@@ -8892,9 +8810,7 @@ void liftTick(struct prop *prop)
 
 			func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
 
-			prop->pos.x = newpos.x;
-			prop->pos.y = newpos.y;
-			prop->pos.z = newpos.z;
+			prop->pos = newpos;
 
 			propDeregisterRooms(prop);
 			roomsCopy(newrooms, prop->rooms);
@@ -8955,24 +8871,18 @@ void escastepTick(struct prop *prop)
 	}
 
 	if (!resetting) {
-		oldpos.x = prop->pos.x;
-		oldpos.y = prop->pos.y;
-		oldpos.z = prop->pos.z;
+		oldpos = prop->pos;
 
 		cdGetPropsOnPlatform(prop, propnums, ARRAYCOUNT(propnums));
 
-		step->prevpos.x = prop->pos.x;
-		step->prevpos.y = prop->pos.y;
-		step->prevpos.z = prop->pos.z;
+		step->prevpos = prop->pos;
 	} else {
 		step->prevpos.x = newpos.f[0];
 		step->prevpos.y = newpos.f[1];
 		step->prevpos.z = newpos.f[2];
 	}
 
-	prop->pos.x = newpos.x;
-	prop->pos.y = newpos.y;
-	prop->pos.z = newpos.z;
+	prop->pos = newpos;
 
 	if ((obj->flags & OBJFLAG_IGNOREFLOORCOLOUR) == 0) {
 		cdFindFloorYColourTypeAtPos(&prop->pos, prop->rooms, &obj->floorcol, 0);
@@ -9197,9 +9107,7 @@ void cctvInitMatrices(struct prop *prop, Mtxf *mtx)
 	mtx4LoadYRotation(yrot, &sp24);
 	mtx4MultMtx4(&sp24, &cctv->camrotm, &matrices[1]);
 
-	sp64.x = rodata->position.pos.x;
-	sp64.y = rodata->position.pos.y;
-	sp64.z = rodata->position.pos.z;
+	sp64 = rodata->position.pos;
 
 	mtx4TransformVecInPlace(mtx, &sp64);
 	mtx4SetTranslation(&sp64, &matrices[1]);
@@ -9748,9 +9656,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 
 	rodata = modelGetPartRodata(model->filedata, MODELPART_AUTOGUN_0001);
 
-	sp4c.x = rodata->position.pos.x;
-	sp4c.y = rodata->position.pos.y;
-	sp4c.z = rodata->position.pos.z;
+	sp4c = rodata->position.pos;
 
 	mtx4TransformVecInPlace(mtx, &sp4c);
 	mtx4LoadYRotation(yrot, &matrices[1]);
@@ -9869,9 +9775,7 @@ void autogunTickShoot(struct prop *autogunprop)
 						sp108 = model0001a5cc(model, flashnode, 0);
 						rodata = flashnode->rodata;
 
-						gunpos.x = rodata->chrgunfire.pos.x;
-						gunpos.y = rodata->chrgunfire.pos.y;
-						gunpos.z = rodata->chrgunfire.pos.z;
+						gunpos = rodata->chrgunfire.pos;
 					} else {
 						sp108 = model0001a5cc(model, posnode, 0);
 
@@ -9884,16 +9788,12 @@ void autogunTickShoot(struct prop *autogunprop)
 					mtx4TransformVecInPlace(&spc8, &gunpos);
 
 					if (cdTestLos10(&autogunprop->pos, autogunprop->rooms, &gunpos, gunrooms, CDTYPE_BG, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-						gunpos.x = autogunprop->pos.x;
-						gunpos.y = autogunprop->pos.y;
-						gunpos.z = autogunprop->pos.z;
+						gunpos = autogunprop->pos;
 
 						roomsCopy(autogunprop->rooms, gunrooms);
 					}
 				} else {
-					gunpos.x = autogunprop->pos.x;
-					gunpos.y = autogunprop->pos.y;
-					gunpos.z = autogunprop->pos.z;
+					gunpos = autogunprop->pos;
 
 					roomsCopy(autogunprop->rooms, gunrooms);
 				}
@@ -10052,9 +9952,7 @@ void autogunTickShoot(struct prop *autogunprop)
 							autogun->shotbondsum += increment;
 
 							if (autogun->shotbondsum >= 1.0f) {
-								hitpos.x = targetprop->pos.x;
-								hitpos.y = targetprop->pos.y;
-								hitpos.z = targetprop->pos.z;
+								hitpos = targetprop->pos;
 
 								missed = false;
 
@@ -10111,9 +10009,7 @@ void autogunTickShoot(struct prop *autogunprop)
 					distance = sqrtf(sum);
 
 					if (distance > 0.0f) {
-						beam->from.x = gunpos.x;
-						beam->from.y = gunpos.y;
-						beam->from.z = gunpos.z;
+						beam->from = gunpos;
 
 						beam->dir.x = dist.f[0];
 						beam->dir.y = dist.f[1];
@@ -10748,9 +10644,7 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 
 	func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
 
-	prop->pos.x = newpos.x;
-	prop->pos.y = newpos.y;
-	prop->pos.z = newpos.z;
+	prop->pos = newpos;
 
 	propDeregisterRooms(prop);
 	roomsCopy(newrooms, prop->rooms);
@@ -10908,9 +10802,7 @@ void chopperTickFall(struct prop *chopperprop)
 
 			func0f065e74(&chopperprop->pos, chopperprop->rooms, &newpos, newrooms);
 
-			chopperprop->pos.x = newpos.x;
-			chopperprop->pos.y = newpos.y;
-			chopperprop->pos.z = newpos.z;
+			chopperprop->pos = newpos;
 
 			propDeregisterRooms(chopperprop);
 			roomsCopy(newrooms, chopperprop->rooms);
@@ -11058,9 +10950,7 @@ void chopperTickCombat(struct prop *chopperprop)
 		// Stay put
 		osSyncPrintf("HC: %x - visible\n", chopper);
 
-		goalpos.x = chopperprop->pos.x;
-		goalpos.y = chopperprop->pos.y;
-		goalpos.z = chopperprop->pos.z;
+		goalpos = chopperprop->pos;
 	} else {
 		f20 = 2.6843546e8f;
 
@@ -11076,16 +10966,12 @@ void chopperTickCombat(struct prop *chopperprop)
 			if (f0 < f20) {
 				f20 = f0;
 				sp90 = i;
-				goalpos.x = sp78.x;
-				goalpos.y = sp78.y;
-				goalpos.z = sp78.z;
+				goalpos = sp78;
 			}
 
 			if ((chopper->cw ? i : (i + 1) % chopper->path->len) == chopper->nextstep) {
 				sp8c = i;
-				sp6c.x = sp78.x;
-				sp6c.y = sp78.y;
-				sp6c.z = sp78.z;
+				sp6c = sp78;
 			}
 		}
 
@@ -11119,13 +11005,9 @@ void chopperTickCombat(struct prop *chopperprop)
 					padpos.y += -250.0f;
 				}
 
-				goalpos.x = padpos.x;
-				goalpos.y = padpos.y;
-				goalpos.z = padpos.z;
+				goalpos = padpos;
 			} else {
-				goalpos.x = sp6c.x;
-				goalpos.y = sp6c.y;
-				goalpos.z = sp6c.z;
+				goalpos = sp6c;
 			}
 		} else if (cdTestLos03(&targetprop->pos, targetprop->rooms, &goalpos, CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE, GEOFLAG_BLOCK_SHOOT) == 0) {
 			padpos = g_Pads[chopper->path->pads[chopper->cw ? (sp8c + 1) % chopper->path->len : sp8c]].pos;
@@ -11269,9 +11151,7 @@ void hovercarTick(struct prop *prop)
 
 				func0f065e74(&prop->pos, prop->rooms, &sp1c0, sp1b0);
 
-				prop->pos.x = sp1c0.x;
-				prop->pos.y = sp1c0.y;
-				prop->pos.z = sp1c0.z;
+				prop->pos = sp1c0;
 
 				propDeregisterRooms(prop);
 				roomsCopy(sp1b0, prop->rooms);
@@ -11470,9 +11350,7 @@ void hovercarTick(struct prop *prop)
 #endif
 		}
 
-		prop->pos.x = sp150.x;
-		prop->pos.y = sp150.y;
-		prop->pos.z = sp150.z;
+		prop->pos = sp150;
 
 		propDeregisterRooms(prop);
 		roomsCopy(sp140, prop->rooms);
@@ -11883,9 +11761,7 @@ s32 objTickPlayer(struct prop *prop)
 							func0f065e74(&prop->pos, prop->rooms, &sp400, sp384);
 						}
 
-						prop->pos.x = sp400.x;
-						prop->pos.y = sp400.y;
-						prop->pos.z = sp400.z;
+						prop->pos = sp400;
 
 						propDeregisterRooms(prop);
 						roomsCopy(sp384, prop->rooms);
@@ -14945,9 +14821,7 @@ void objBounce(struct defaultobj *obj, struct coord *arg1)
 
 		projectile->flags |= PROJECTILEFLAG_AIRBORNE;
 
-		dir.x = arg1->x;
-		dir.y = arg1->y;
-		dir.z = arg1->z;
+		dir = *arg1;
 
 		mtx4RotateVecInPlace(camGetProjectionMtxF(), &dir);
 
@@ -15005,9 +14879,7 @@ void objApplyMomentum(struct defaultobj *obj, struct coord *speed, f32 rotation,
 			projectile->speed.y += speed->y;
 			projectile->speed.z += speed->z;
 		} else {
-			projectile->speed.x = speed->x;
-			projectile->speed.y = speed->y;
-			projectile->speed.z = speed->z;
+			projectile->speed = *speed;
 		}
 
 		if (addrotation) {
@@ -15647,15 +15519,11 @@ bool func0f084594(struct model *model, struct modelnode *node, struct coord *arg
 	mtxindex = model0001a524(node, 0);
 	mtx000172f0(model->matrices[mtxindex].m, mtx.m);
 
-	spb8.x = arg2->x;
-	spb8.y = arg2->y;
-	spb8.z = arg2->z;
+	spb8 = *arg2;
 
 	mtx4TransformVecInPlace(&mtx, &spb8);
 
-	spac.x = arg3->x;
-	spac.y = arg3->y;
-	spac.z = arg3->z;
+	spac = *arg3;
 
 	mtx4RotateVecInPlace(&mtx, &spac);
 
@@ -15841,15 +15709,11 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 
 				mtx000172f0(mtx->m, sp64.m);
 
-				spec.x = arg2->x;
-				spec.y = arg2->y;
-				spec.z = arg2->z;
+				spec = *arg2;
 
 				mtx4TransformVecInPlace(&sp64, &spec);
 
-				spd4.x = arg3->x;
-				spd4.y = arg3->y;
-				spd4.z = arg3->z;
+				spd4 = *arg3;
 
 				mtx4RotateVecInPlace(&sp64, &spd4);
 
@@ -16684,9 +16548,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				mtx4MultMtx4(camGetProjectionMtxF(), &obj->model->matrices[hit->mtxindex], &sp58);
 				mtx4TransformVec(&sp58, &hit->hitthing.unk00, &spa4);
 
-				pushdir.x = shotdata->dir.x;
-				pushdir.y = shotdata->dir.y;
-				pushdir.z = shotdata->dir.z;
+				pushdir = shotdata->dir;
 
 				func0f082e84(obj, &spa4, &pushdir, &spb0, true);
 			} else {
@@ -20136,14 +19998,10 @@ struct prop *doorInit(struct doorobj *door, struct coord *pos, Mtxf *mtx, s16 *r
 		door->mode = DOORMODE_IDLE;
 		door->glasshits = 0;
 		door->portalnum = -1;
-		door->startpos.x = centre->x;
-		door->startpos.y = centre->y;
-		door->startpos.z = centre->z;
+		door->startpos = *centre;
 
 		if (door->doorflags & DOORFLAG_0080) {
-			door->unk98.x = coord->x;
-			door->unk98.y = coord->y;
-			door->unk98.z = coord->z;
+			door->unk98 = *coord;
 
 			if (door->doorflags & DOORFLAG_0004) {
 				struct modelnode *node = func0f0687e4(door->base.model);
@@ -20160,9 +20018,7 @@ struct prop *doorInit(struct doorobj *door, struct coord *pos, Mtxf *mtx, s16 *r
 
 		prop->type = PROPTYPE_DOOR;
 		prop->door = door;
-		prop->pos.x = centre->x;
-		prop->pos.y = centre->y;
-		prop->pos.z = centre->z;
+		prop->pos = *centre;
 
 		propDeregisterRooms(prop);
 		roomsCopy(sp28, prop->rooms);
@@ -21523,9 +21379,7 @@ void gasReleaseFromPos(struct coord *pos)
 	g_GasReleasing = true;
 	g_GasSoundTimer240 = 0;
 
-	g_GasPos.x = pos->x;
-	g_GasPos.y = pos->y;
-	g_GasPos.z = pos->z;
+	g_GasPos = *pos;
 
 	// Gas objects don't exist in PD, so this stage number was likely carried
 	// over from GoldenEye. It maps to GE's Egypt stage, which uses gas for a
@@ -21924,9 +21778,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 		u8 drug = false;
 		u32 stack3;
 
-		frompos.x = pos->x;
-		frompos.y = pos->y;
-		frompos.z = pos->z;
+		frompos = *pos;
 
 		if (weaponnum == WEAPON_TRANQUILIZER) {
 			forcebeam = true;
@@ -22067,9 +21919,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 					if (arg1->unk14 >= 1.0f) {
 						blocked = false;
 
-						endpos.x = targetprop->pos.x;
-						endpos.y = targetprop->pos.y;
-						endpos.z = targetprop->pos.z;
+						endpos = targetprop->pos;
 
 						if (random() % 2) {
 							endpos.y += (random() % 10) + 2;

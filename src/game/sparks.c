@@ -264,9 +264,7 @@ void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *
 	group->age = 1;
 	group->startindex = g_NextSparkIndex;
 	group->numsparks = type->numsparks;
-	group->pos.x = pos->x;
-	group->pos.y = pos->y;
-	group->pos.z = pos->z;
+	group->pos = *pos;
 	group->room = room;
 	group->prop = prop;
 

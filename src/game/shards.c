@@ -122,9 +122,7 @@ void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
 	g_Shards[g_NextShardNum].room = room;
 	g_Shards[g_NextShardNum].age60 = 1;
 
-	g_Shards[g_NextShardNum].pos.x = pos->x;
-	g_Shards[g_NextShardNum].pos.y = pos->y;
-	g_Shards[g_NextShardNum].pos.z = pos->z;
+	g_Shards[g_NextShardNum].pos = *pos;
 
 	g_Shards[g_NextShardNum].vel.x = velx * PALUPF(1.5f);
 	g_Shards[g_NextShardNum].vel.y = vely * PALUPF(3.0f);

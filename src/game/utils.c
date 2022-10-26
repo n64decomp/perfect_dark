@@ -163,9 +163,7 @@ void func0f1770ac(struct coord *a, struct coord *b, struct coord *out)
 
 void func0f177120(struct coord *in, struct coord *out)
 {
-	out->x = in->x;
-	out->y = in->y;
-	out->z = in->z;
+	*out = *in;
 }
 
 void func0f17713c(struct coord *in, struct coord *out)
@@ -181,9 +179,7 @@ bool func0f177164(struct coord *arg0, struct coord *arg1, u32 line, char *file)
 	f32 mult;
 
 	if (sqdist < var800845d4) {
-		arg0->x = var800845f4.x;
-		arg0->y = var800845f4.y;
-		arg0->z = var800845f4.z;
+		*arg0 = var800845f4;
 
 		return false;
 	}

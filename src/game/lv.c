@@ -911,9 +911,7 @@ void lvFindThreats(void)
 	struct prop **propptr = g_Vars.endonscreenprops - 1;
 	struct coord campos;
 
-	campos.x = g_Vars.currentplayer->cam_pos.x;
-	campos.y = g_Vars.currentplayer->cam_pos.y;
-	campos.z = g_Vars.currentplayer->cam_pos.z;
+	campos = g_Vars.currentplayer->cam_pos;
 
 	while (propptr >= g_Vars.onscreenprops) {
 		prop = *propptr;
@@ -1422,9 +1420,7 @@ Gfx *lvRender(Gfx *gdl)
 							sndStart(var80095200, SFX_DRUGSPY_FIREDART, 0, -1, -1, -1, -1, -1);
 							g_Vars.currentplayer->eyespydarts--;
 
-							direction.x = g_Vars.currentplayer->eyespy->look.x;
-							direction.y = g_Vars.currentplayer->eyespy->look.y;
-							direction.z = g_Vars.currentplayer->eyespy->look.z;
+							direction = g_Vars.currentplayer->eyespy->look;
 
 							projectileCreate(g_Vars.currentplayer->eyespy->prop, 0,
 									&g_Vars.currentplayer->eyespy->prop->pos, &direction, WEAPON_TRANQUILIZER, NULL);

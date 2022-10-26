@@ -138,9 +138,7 @@ bool botroomFindPos(s16 room, struct coord *pos, f32 *angleptr, s32 *padnumptr, 
 	if (i < covercount) {
 		coverUnpack(covernums[i], &cover);
 
-		pos->x = cover.pos->x;
-		pos->y = cover.pos->y;
-		pos->z = cover.pos->z;
+		*pos = *cover.pos;
 
 		*angleptr = atan2f(cover.look->z, cover.look->x);
 		*padnumptr = -1;
@@ -150,9 +148,7 @@ bool botroomFindPos(s16 room, struct coord *pos, f32 *angleptr, s32 *padnumptr, 
 
 		pad = &g_Pads[padnums[i]];
 
-		pos->x = pad->pos.x;
-		pos->y = pad->pos.y;
-		pos->z = pad->pos.z;
+		*pos = pad->pos;
 
 		*angleptr = atan2f(pad->look.z, pad->look.x);
 		*padnumptr = padnums[i];

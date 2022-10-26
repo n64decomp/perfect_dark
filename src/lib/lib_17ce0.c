@@ -17,9 +17,7 @@ void portalGetAvgVertexPos(s32 portalnum, struct coord *avg)
 	f32 f0;
 	s32 i;
 
-	avg->x = pvertices->vertices[0].x;
-	avg->y = pvertices->vertices[0].y;
-	avg->z = pvertices->vertices[0].z;
+	*avg = pvertices->vertices[0];
 
 	f0 = 1.0f / pvertices->count;
 

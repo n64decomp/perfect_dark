@@ -700,9 +700,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			struct eyespy *eyespy = chrToEyespy(chr);
 
 			if (eyespy && eyespy->deployed) {
-				arg2->x = chr->prop->pos.x;
-				arg2->y = chr->prop->pos.y;
-				arg2->z = chr->prop->pos.z;
+				*arg2 = chr->prop->pos;
 			}
 		} else if (chr->actiontype == ACT_SKJUMP
 				&& chr->act_skjump.state == SKJUMPSTATE_AIRBORNE
@@ -828,9 +826,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 							&& (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) == 0) {
 						chr->aibot->unk078 = 10;
 
-						arg2->x = prop->pos.x;
-						arg2->y = prop->pos.y;
-						arg2->z = prop->pos.z;
+						*arg2 = prop->pos;
 
 						roomsCopy(prop->rooms, spfc);
 
@@ -942,9 +938,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 #if VERSION >= VERSION_NTSC_1_0
 					if (manground != chr->manground) {
-						spd0.x = arg2->x;
-						spd0.y = arg2->y;
-						spd0.z = arg2->z;
+						spd0 = *arg2;
 
 						roomsCopy(spfc, spc0);
 
@@ -1325,9 +1319,7 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 		rwdata->chrinfo.ground = ground;
 	}
 
-	chr->prevpos.x = prop->pos.x;
-	chr->prevpos.y = prop->pos.y;
-	chr->prevpos.z = prop->pos.z;
+	chr->prevpos = prop->pos;
 
 	propCalculateShadeColour(prop, chr->nextcol, chr->floorcol);
 

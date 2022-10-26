@@ -325,9 +325,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 			slrooms[sllen][0] = pad->room;
 			slrooms[sllen][1] = -1;
 
-			slpositions[sllen].x = pad->pos.x;
-			slpositions[sllen].y = pad->pos.y;
-			slpositions[sllen].z = pad->pos.z;
+			slpositions[sllen] = pad->pos;
 
 			slangles[sllen] = atan2f(pad->look.x, pad->look.z);
 
@@ -364,9 +362,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 			slrooms[sllen][0] = pad->room;
 			slrooms[sllen][1] = -1;
 
-			slpositions[sllen].x = pad->pos.x;
-			slpositions[sllen].y = pad->pos.y;
-			slpositions[sllen].z = pad->pos.z;
+			slpositions[sllen] = pad->pos;
 
 			slangles[sllen] = atan2f(pad->look.x, pad->look.z);
 
@@ -425,9 +421,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 		slrooms[sllen][0] = pad->room;
 		slrooms[sllen][1] = -1;
 
-		slpositions[sllen].x = pad->pos.x;
-		slpositions[sllen].y = pad->pos.y;
-		slpositions[sllen].z = pad->pos.z;
+		slpositions[sllen] = pad->pos;
 
 		slangles[sllen] = atan2f(pad->look.x, pad->look.z);
 
@@ -450,9 +444,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 	if (sllen > 0) {
 		p = random() % sllen;
 
-		dstpos->x = slpositions[p].x;
-		dstpos->y = slpositions[p].y;
-		dstpos->z = slpositions[p].z;
+		*dstpos = slpositions[p];
 
 		roomsCopy(slrooms[p], dstrooms);
 
@@ -464,9 +456,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 		dstrooms[0] = pad->room;
 		dstrooms[1] = -1;
 
-		dstpos->x = pad->pos.x;
-		dstpos->y = pad->pos.y;
-		dstpos->z = pad->pos.z;
+		*dstpos = pad->pos;
 
 		dstangle = atan2f(pad->look.x, pad->look.z);
 	}
@@ -1108,9 +1098,7 @@ void playerSpawn(void)
 
 void playerResetBond(struct playerbond *pb, struct coord *pos)
 {
-	pb->unk10.x = pos->x;
-	pb->unk10.y = pos->y;
-	pb->unk10.z = pos->z;
+	pb->unk10 = *pos;
 
 	pb->unk1c.x = 1;
 	pb->unk1c.y = 0;
@@ -1723,9 +1711,7 @@ void playerExecutePreparedWarp(void)
 		// Warp to an exact position with a static direction of 0, 0, 1.
 		// Used by device and holo training to warp player back to room,
 		// and Deep Sea teleports
-		memcampos.x = g_Pads[g_WarpType1Pad].pos.x;
-		memcampos.y = g_Pads[g_WarpType1Pad].pos.y;
-		memcampos.z = g_Pads[g_WarpType1Pad].pos.z;
+		memcampos = g_Pads[g_WarpType1Pad].pos;
 
 		pos.x = memcampos.f[0];
 		pos.y = memcampos.f[1];
@@ -1735,15 +1721,11 @@ void playerExecutePreparedWarp(void)
 	} else if (g_WarpType2Params) {
 		// Warp to an exact position with an optional direction.
 		// Used by AI command 00df, but that command is not used.
-		pos.x = g_WarpType2Params->pos.x;
-		pos.y = g_WarpType2Params->pos.y;
-		pos.z = g_WarpType2Params->pos.z;
+		pos = g_WarpType2Params->pos;
 
 		room = g_Pads[g_WarpType2Params->pad].room;
 
-		memcampos.x = g_Pads[g_WarpType2Params->pad].pos.x;
-		memcampos.y = g_Pads[g_WarpType2Params->pad].pos.y;
-		memcampos.z = g_Pads[g_WarpType2Params->pad].pos.z;
+		memcampos = g_Pads[g_WarpType2Params->pad].pos;
 
 		if (1);
 
@@ -1758,9 +1740,7 @@ void playerExecutePreparedWarp(void)
 		// Used by AI command 00f4, but that command is not used.
 		room = g_Pads[g_WarpType3Pad].room;
 
-		memcampos.x = g_Pads[g_WarpType3Pad].pos.x;
-		memcampos.y = g_Pads[g_WarpType3Pad].pos.y;
-		memcampos.z = g_Pads[g_WarpType3Pad].pos.z;
+		memcampos = g_Pads[g_WarpType3Pad].pos;
 
 		pos.x = memcampos.x + sinf(g_WarpType3PosAngle) * g_WarpType3Range + cosf(g_WarpType3PosAngle) * 0.0f;
 		pos.y = memcampos.y + g_WarpType3MoreHeight + g_WarpType3Height;
@@ -2701,9 +2681,7 @@ void playerTickExplode(void)
 			&& g_Vars.lvframe60 > g_Vars.currentplayer->bondnextexplode) {
 		struct coord pos;
 
-		pos.x = g_Vars.currentplayer->prop->pos.x;
-		pos.y = g_Vars.currentplayer->prop->pos.y;
-		pos.z = g_Vars.currentplayer->prop->pos.z;
+		pos = g_Vars.currentplayer->prop->pos;
 
 		switch (g_Vars.currentplayer->bondcurexplode % 4) {
 		case 0: pos.x += 250.0f + 150.0f * RANDOMFRAC(); break;
@@ -3658,9 +3636,7 @@ void playerTick(bool arg0)
 		struct coord sp308;
 		playermgrSetFovY(120);
 		viSetFovY(120);
-		sp308.x = g_Vars.currentplayer->eyespy->prop->pos.x;
-		sp308.y = g_Vars.currentplayer->eyespy->prop->pos.y;
-		sp308.z = g_Vars.currentplayer->eyespy->prop->pos.z;
+		sp308 = g_Vars.currentplayer->eyespy->prop->pos;
 		playerTickChrBody();
 		bmoveTick(0, 0, 0, 1);
 		playerSetCameraMode(CAMERAMODE_EYESPY);
@@ -3712,9 +3688,7 @@ void playerTick(bool arg0)
 			sp2b8[2][1] = rocket->base.realrot[2][1] / sp2a8;
 			sp2b8[2][2] = rocket->base.realrot[2][2] / sp2a8;
 
-			rocketpos.x = rocket->base.prop->pos.x;
-			rocketpos.y = rocket->base.prop->pos.y;
-			rocketpos.z = rocket->base.prop->pos.z;
+			rocketpos = rocket->base.prop->pos;
 
 			bgFindRoomsByPos(&rocketpos, inrooms, aboverooms, 20, &bestroom);
 
@@ -3979,9 +3953,7 @@ void playerTick(bool arg0)
 		playerUpdateShake();
 		playerSetCameraMode(CAMERAMODE_DEFAULT);
 
-		spf4.x = g_Vars.currentplayer->bond2.unk10.x;
-		spf4.y = g_Vars.currentplayer->bond2.unk10.y;
-		spf4.z = g_Vars.currentplayer->bond2.unk10.z;
+		spf4 = g_Vars.currentplayer->bond2.unk10;
 
 		spf4.x = a + spf4.x;
 		spf4.y = b + spf4.y;
@@ -4514,18 +4486,14 @@ void playerSetGlobalDrawWorldOffset(s32 room)
 {
 	room0f166df0(room, &g_Vars.currentplayer->globaldrawworldoffset);
 
-	g_Vars.currentplayer->globaldrawworldbgoffset.x = g_Vars.currentplayer->globaldrawworldoffset.x;
-	g_Vars.currentplayer->globaldrawworldbgoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
-	g_Vars.currentplayer->globaldrawworldbgoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
+	g_Vars.currentplayer->globaldrawworldbgoffset = g_Vars.currentplayer->globaldrawworldoffset;
 
 	roomSetLastForOffset(room);
 }
 
 void playerSetGlobalDrawCameraOffset(void)
 {
-	g_Vars.currentplayer->globaldrawcameraoffset.x = g_Vars.currentplayer->globaldrawworldoffset.x;
-	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
-	g_Vars.currentplayer->globaldrawcameraoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
+	g_Vars.currentplayer->globaldrawcameraoffset = g_Vars.currentplayer->globaldrawworldoffset;
 
 	mtx4RotateVecInPlace(camGetWorldToScreenMtxf(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
@@ -5156,9 +5124,7 @@ void playerDieByShooter(u32 shooter, bool force)
 		g_Vars.currentplayer->bonddie = g_Vars.currentplayer->bond2;
 		g_Vars.currentplayer->thetadie = g_Vars.currentplayer->vv_theta;
 		g_Vars.currentplayer->vertadie = g_Vars.currentplayer->vv_verta;
-		g_Vars.currentplayer->posdie.x = g_Vars.currentplayer->prop->pos.x;
-		g_Vars.currentplayer->posdie.y = g_Vars.currentplayer->prop->pos.y;
-		g_Vars.currentplayer->posdie.z = g_Vars.currentplayer->prop->pos.z;
+		g_Vars.currentplayer->posdie = g_Vars.currentplayer->prop->pos;
 
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 			if (g_Vars.currentplayer->unk1af0) {
@@ -5372,9 +5338,7 @@ void player0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look)
 
 void playerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
-	g_Vars.currentplayer->memcampos.x = pos->x;
-	g_Vars.currentplayer->memcampos.y = pos->y;
-	g_Vars.currentplayer->memcampos.z = pos->z;
+	g_Vars.currentplayer->memcampos = *pos;
 	g_Vars.currentplayer->memcamroom = room;
 
 	playerSetCamProperties(pos, up, look, room);
@@ -5390,15 +5354,9 @@ void playerSetCamProperties(struct coord *pos, struct coord *up, struct coord *l
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->cam_pos.x = pos->x;
-	player->cam_pos.y = pos->y;
-	player->cam_pos.z = pos->z;
-	player->cam_up.x = up->x;
-	player->cam_up.y = up->y;
-	player->cam_up.z = up->z;
-	player->cam_look.x = look->x;
-	player->cam_look.y = look->y;
-	player->cam_look.z = look->z;
+	player->cam_pos = *pos;
+	player->cam_up = *up;
+	player->cam_look = *look;
 	player->cam_room = room;
 }
 
@@ -5636,9 +5594,7 @@ s32 playerTickThirdPerson(struct prop *prop)
 				player->vv_theta = (M_BADTAU - chrGetInverseTheta(chr)) * 360.0f / M_BADTAU;
 				player->vv_verta = 0;
 			} else {
-				sp9c.x = player->prop->pos.x;
-				sp9c.y = player->prop->pos.y;
-				sp9c.z = player->prop->pos.z;
+				sp9c = player->prop->pos;
 
 				player->vv_theta = (M_BADTAU - chrGetInverseTheta(chr)) * 360.0f / M_BADTAU;
 				player->vv_verta = 0;
@@ -5692,9 +5648,7 @@ s32 playerTickThirdPerson(struct prop *prop)
 			chrSetFiring(chr, HAND_LEFT, player->hands[HAND_LEFT].flashon);
 		}
 
-		sp80.x = prop->pos.x;
-		sp80.y = prop->pos.y;
-		sp80.z = prop->pos.z;
+		sp80 = prop->pos;
 
 		modelGetRootPosition(chr->model, &sp8c);
 
@@ -5717,18 +5671,14 @@ s32 playerTickThirdPerson(struct prop *prop)
 
 		tickop2 = chrTick(prop);
 
-		prop->pos.x = sp80.x;
-		prop->pos.y = sp80.y;
-		prop->pos.z = sp80.z;
+		prop->pos = sp80;
 
 		if ((chr->hidden & CHRHFLAG_00000800) == 0) {
 			for (i = 0; i < 2; i++) {
 				if (chrGetGunPos(chr, i, &player->chrmuzzlelastpos[i])) {
 					player->chrmuzzlelast[i] = g_Vars.lvframenum;
 				} else if (player->chrmuzzlelast[i] < g_Vars.lvframenum - 1) {
-					player->chrmuzzlelastpos[i].x = player->hands[i].muzzlepos.x;
-					player->chrmuzzlelastpos[i].y = player->hands[i].muzzlepos.y;
-					player->chrmuzzlelastpos[i].z = player->hands[i].muzzlepos.z;
+					player->chrmuzzlelastpos[i] = player->hands[i].muzzlepos;
 				}
 			}
 

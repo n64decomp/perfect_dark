@@ -2823,15 +2823,9 @@ Gfx *sky0f126de8(Gfx *gdl)
 
 	pad = &g_Pads[g_Vars.currentplayer->teleportpad];
 
-	g_TeleportToPos.x = pad->pos.x;
-	g_TeleportToPos.y = pad->pos.y;
-	g_TeleportToPos.z = pad->pos.z;
-	g_TeleportToLook.x = pad->look.x;
-	g_TeleportToLook.y = pad->look.y;
-	g_TeleportToLook.z = pad->look.z;
-	g_TeleportToUp.x = pad->up.x;
-	g_TeleportToUp.y = pad->up.y;
-	g_TeleportToUp.z = pad->up.z;
+	g_TeleportToPos = pad->pos;
+	g_TeleportToLook = pad->look;
+	g_TeleportToUp = pad->up;
 
 	f22 = -cosf(f22 * M_PI) * 0.5f + .5f;
 	f24 = 100 * f22;

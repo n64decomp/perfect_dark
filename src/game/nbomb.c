@@ -690,9 +690,7 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 
 	nbombReset(&g_Nbombs[index]);
 
-	g_Nbombs[index].pos.x = pos->x;
-	g_Nbombs[index].pos.y = pos->y;
-	g_Nbombs[index].pos.z = pos->z;
+	g_Nbombs[index].pos = *pos;
 	g_Nbombs[index].age240 = 0;
 	g_Nbombs[index].ownerprop = ownerprop;
 
@@ -799,9 +797,7 @@ Gfx *nbombRenderOverlay(Gfx *gdl)
 	s16 viewright;
 	s16 viewbottom;
 
-	campos.x = g_Vars.currentplayer->cam_pos.x;
-	campos.y = g_Vars.currentplayer->cam_pos.y;
-	campos.z = g_Vars.currentplayer->cam_pos.z;
+	campos = g_Vars.currentplayer->cam_pos;
 
 	for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
 		if (g_Nbombs[i].age240 >= 0 && g_Nbombs[i].age240 <= TICKS(350)) {
@@ -927,9 +923,7 @@ Gfx *gasRender(Gfx *gdl)
 	if (g_Vars.stagenum == STAGE_ESCAPE) {
 		f32 intensityfrac = 1.0f;
 
-		campos.x = g_Vars.currentplayer->cam_pos.x;
-		campos.y = g_Vars.currentplayer->cam_pos.y;
-		campos.z = g_Vars.currentplayer->cam_pos.z;
+		campos = g_Vars.currentplayer->cam_pos;
 
 		for (i = 0; i < 12; i++) {
 			if (roomContainsCoord(&campos, gasrooms[i])) {

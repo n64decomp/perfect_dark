@@ -224,9 +224,7 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdata
 		struct chrdata *chr = prop->chr;
 
 		chr->tickssincesplat = 0;
-		chr->lastdroppos.x = prop->pos.x;
-		chr->lastdroppos.y = prop->pos.y;
-		chr->lastdroppos.z = prop->pos.z;
+		chr->lastdroppos = prop->pos;
 	}
 
 	return numdropped;
@@ -286,9 +284,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 				bestroom = rooms[i];
 				besthitthing = hitthing;
 
-				endpos.x = hitthing.unk00.x;
-				endpos.y = hitthing.unk00.y;
-				endpos.z = hitthing.unk00.z;
+				endpos = hitthing.unk00;
 
 				hasresult = true;
 				break;

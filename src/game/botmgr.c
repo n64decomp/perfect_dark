@@ -164,9 +164,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->command = AIBOTCMD_NORMAL;
 					aibot->unk098 = 0.0f;
 
-					aibot->defendholdpos.x = pos.x;
-					aibot->defendholdpos.y = pos.y;
-					aibot->defendholdpos.z = pos.z;
+					aibot->defendholdpos = pos;
 
 					aibot->weaponnum = WEAPON_UNARMED;
 

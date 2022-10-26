@@ -4054,9 +4054,7 @@ s16 propsnd0f0939f8(
 #endif
 
 	if (pos) {
-		channel->pos.x = pos->x;
-		channel->pos.y = pos->y;
-		channel->pos.z = pos->z;
+		channel->pos = *pos;
 		channel->posptr = &channel->pos;
 	} else {
 		channel->posptr = NULL;

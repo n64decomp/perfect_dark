@@ -417,9 +417,7 @@ f32 bmoveCalculateLookahead(void)
 
 	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
-	sp100.x = g_Vars.currentplayer->bond2.unk00.x;
-	sp100.y = g_Vars.currentplayer->bond2.unk00.y;
-	sp100.z = g_Vars.currentplayer->bond2.unk00.z;
+	sp100 = g_Vars.currentplayer->bond2.unk00;
 
 	spf0.x = g_Vars.currentplayer->prop->pos.x;
 	spf0.y = g_Vars.currentplayer->prop->pos.y - 30;
@@ -2018,9 +2016,7 @@ void bmove0f0cc19c(struct coord *arg)
 	f32 min;
 	f32 mult;
 
-	g_Vars.currentplayer->bond2.unk10.x = arg->x;
-	g_Vars.currentplayer->bond2.unk10.y = arg->y;
-	g_Vars.currentplayer->bond2.unk10.z = arg->z;
+	g_Vars.currentplayer->bond2.unk10 = *arg;
 
 	if (g_Vars.currentplayer->isdead && g_Vars.currentplayer->bondleandown > 0) {
 		g_Vars.currentplayer->bondleandown -= 0.25f;

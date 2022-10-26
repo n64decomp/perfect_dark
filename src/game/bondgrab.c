@@ -36,9 +36,7 @@ void bgrabInit(void)
 	g_Vars.currentplayer->bondmovemode = MOVEMODE_GRAB;
 
 	g_Vars.currentplayer->bondgrabthetaspeedsum = 0;
-	g_Vars.currentplayer->grabbedprevpos.x = prop->pos.x;
-	g_Vars.currentplayer->grabbedprevpos.y = prop->pos.y;
-	g_Vars.currentplayer->grabbedprevpos.z = prop->pos.z;
+	g_Vars.currentplayer->grabbedprevpos = prop->pos;
 	g_Vars.currentplayer->grabbedrotoffset = 0;
 	g_Vars.currentplayer->grabbedforcez = 0;
 	g_Vars.currentplayer->grabbedposoffset.x = prop->pos.x - g_Vars.currentplayer->prop->pos.x;
@@ -227,9 +225,7 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 				sp44.y -= sp50.y;
 				sp44.z -= sp50.z;
 			} else {
-				sp50.x = var8009de70->pos.x;
-				sp50.y = var8009de70->pos.y;
-				sp50.z = var8009de70->pos.z;
+				sp50 = var8009de70->pos;
 
 				sp44.x = obj->prop->pos.x - var8009de70->pos.x;
 				sp44.y = obj->prop->pos.y - var8009de70->pos.y;
@@ -340,9 +336,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 	propSetPerimEnabled(g_Vars.currentplayer->grabbedprop, false);
 
-	pos.x = g_Vars.currentplayer->prop->pos.x;
-	pos.y = g_Vars.currentplayer->prop->pos.y;
-	pos.z = g_Vars.currentplayer->prop->pos.z;
+	pos = g_Vars.currentplayer->prop->pos;
 
 	if (delta->f[0] != 0.0f || delta->f[1] != 0.0f || delta->f[2] != 0.0f) {
 		pos.x += delta->x;
@@ -431,9 +425,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 			posextra.f[2] = g_Vars.currentplayer->grabbedposextra.f[2];
 		}
 
-		sp7c.x = delta->x;
-		sp7c.y = delta->y;
-		sp7c.z = delta->z;
+		sp7c = *delta;
 
 		if (obj->type == OBJTYPE_HOVERPROP) {
 			struct hoverpropobj *tmp = (struct hoverpropobj *)g_Vars.currentplayer->grabbedprop->obj;
@@ -513,9 +505,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 
 			g_Vars.currentplayer->vv_theta = theta;
 
-			g_Vars.currentplayer->prop->pos.x = pos.x;
-			g_Vars.currentplayer->prop->pos.y = pos.y;
-			g_Vars.currentplayer->prop->pos.z = pos.z;
+			g_Vars.currentplayer->prop->pos = pos;
 
 			if (ismoving) {
 				propDeregisterRooms(g_Vars.currentplayer->prop);
@@ -524,13 +514,9 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 
 			if (g_Vars.currentplayer->grabbeddoextra) {
 				g_Vars.currentplayer->grabbedrotextra = rotextra;
-				g_Vars.currentplayer->grabbedposextra.x = posextra.x;
-				g_Vars.currentplayer->grabbedposextra.y = posextra.y;
-				g_Vars.currentplayer->grabbedposextra.z = posextra.z;
+				g_Vars.currentplayer->grabbedposextra = posextra;
 				g_Vars.currentplayer->grabbedrotextrasum = rotextrasum;
-				g_Vars.currentplayer->grabbedposextrasum.x = posextrasum.x;
-				g_Vars.currentplayer->grabbedposextrasum.y = posextrasum.y;
-				g_Vars.currentplayer->grabbedposextrasum.z = posextrasum.z;
+				g_Vars.currentplayer->grabbedposextrasum = posextrasum;
 			}
 		}
 	}
@@ -791,15 +777,11 @@ void bgrab0f0ce0bc(struct coord *arg0)
 
 void bgrabUpdatePrevPos(void)
 {
-	g_Vars.currentplayer->bondprevpos.x = g_Vars.currentplayer->prop->pos.x;
-	g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
-	g_Vars.currentplayer->bondprevpos.z = g_Vars.currentplayer->prop->pos.z;
+	g_Vars.currentplayer->bondprevpos = g_Vars.currentplayer->prop->pos;
 
 	g_Vars.currentplayer->bondprevtheta = g_Vars.currentplayer->vv_theta;
 
-	g_Vars.currentplayer->grabbedprevpos.x = g_Vars.currentplayer->grabbedprop->pos.x;
-	g_Vars.currentplayer->grabbedprevpos.y = g_Vars.currentplayer->grabbedprop->pos.y;
-	g_Vars.currentplayer->grabbedprevpos.z = g_Vars.currentplayer->grabbedprop->pos.z;
+	g_Vars.currentplayer->grabbedprevpos = g_Vars.currentplayer->grabbedprop->pos;
 }
 
 void bgrab0f0ce178(void)

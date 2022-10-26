@@ -1221,9 +1221,7 @@ Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool r
 			struct coord sp28;
 			f32 sum;
 
-			sp34.x = coords[1].x;
-			sp34.y = coords[1].y;
-			sp34.z = coords[1].z;
+			sp34 = coords[1];
 
 			sp28.x = coords[0].x - player->cam_pos.x;
 			sp28.y = coords[0].y - player->cam_pos.y;
@@ -2439,9 +2437,7 @@ void func0f15b3e4(s32 portalnum, struct coord *a, struct coord *b, struct coord 
 	struct portalvertices *pvertices;
 	pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 
-	a->x = pvertices->vertices[0].x;
-	a->y = pvertices->vertices[0].y;
-	a->z = pvertices->vertices[0].z;
+	*a = pvertices->vertices[0];
 
 	b->x = pvertices->vertices[1].x - pvertices->vertices[0].x;
 	b->y = pvertices->vertices[1].y - pvertices->vertices[0].y;
@@ -3205,9 +3201,7 @@ void bgBuildTables(s32 stagenum)
 			}
 
 			tmp = &var800a4ccc[i];
-			tmp->coord.x = tmp2.coord.x;
-			tmp->coord.y = tmp2.coord.y;
-			tmp->coord.z = tmp2.coord.z;
+			tmp->coord = tmp2.coord;
 			tmp->min = tmp2.min;
 			tmp->max = tmp2.max;
 		}
@@ -3652,9 +3646,7 @@ bool func0f15d08c(struct coord *a, struct coord *b)
 {
 	Mtxf *matrix = camGetWorldToScreenMtxf();
 
-	b->x = a->x;
-	b->y = a->y;
-	b->z = a->z;
+	*b = *a;
 
 	mtx4TransformVecInPlace(matrix, b);
 	cam0f0b4d68(b, b->f);
@@ -6291,12 +6283,8 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 
 									lowestsqdist = sqdist;
 
-									hitthing->unk00.x = sp8c.x;
-									hitthing->unk00.y = sp8c.y;
-									hitthing->unk00.z = sp8c.z;
-									hitthing->unk0c.x = sp80.x;
-									hitthing->unk0c.y = sp80.y;
-									hitthing->unk0c.z = sp80.z;
+									hitthing->unk00 = sp8c;
+									hitthing->unk0c = sp80;
 									hitthing->unk18 = &vtx[points[0]];
 									hitthing->unk1c = &vtx[points[1]];
 									hitthing->unk20 = &vtx[points[2]];
@@ -6569,12 +6557,8 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 
 									*sqdistptr = sqdist;
 
-									hitthing->unk00.x = sp84.x;
-									hitthing->unk00.y = sp84.y;
-									hitthing->unk00.z = sp84.z;
-									hitthing->unk0c.x = sp78.x;
-									hitthing->unk0c.y = sp78.y;
-									hitthing->unk0c.z = sp78.z;
+									hitthing->unk00 = sp84;
+									hitthing->unk0c = sp78;
 									hitthing->unk18 = &vtx[points[0]];
 									hitthing->unk1c = &vtx[points[1]];
 									hitthing->unk20 = &vtx[points[2]];
@@ -6793,12 +6777,8 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 											if (hit) {
 												lowestsqdist = sqdist;
 
-												hitthing->unk00.x = spb0.x;
-												hitthing->unk00.y = spb0.y;
-												hitthing->unk00.z = spb0.z;
-												hitthing->unk0c.x = spa4.x;
-												hitthing->unk0c.y = spa4.y;
-												hitthing->unk0c.z = spa4.z;
+												hitthing->unk00 = spb0;
+												hitthing->unk0c = spa4;
 												hitthing->unk18 = &vtx[points[0]];
 												hitthing->unk1c = &vtx[points[1]];
 												hitthing->unk20 = &vtx[points[2]];
@@ -6941,13 +6921,9 @@ bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, st
 
 	count = 0;
 
-	spb8.x = frompos->x;
-	spb8.y = frompos->y;
-	spb8.z = frompos->z;
+	spb8 = *frompos;
 
-	spac.x = topos->x;
-	spac.y = topos->y;
-	spac.z = topos->z;
+	spac = *topos;
 
 	spa0.x = spac.x - spb8.x;
 	spa0.y = spac.y - spb8.y;
@@ -7087,12 +7063,8 @@ bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, st
 							f20 += f0 * f0;
 
 							if (f20 < spc8) {
-								hitthing->unk00.x = sp60.unk00.x;
-								hitthing->unk00.y = sp60.unk00.y;
-								hitthing->unk00.z = sp60.unk00.z;
-								hitthing->unk0c.x = sp60.unk0c.x;
-								hitthing->unk0c.y = sp60.unk0c.y;
-								hitthing->unk0c.z = sp60.unk0c.z;
+								hitthing->unk00 = sp60.unk00;
+								hitthing->unk0c = sp60.unk0c;
 								hitthing->unk18 = sp60.unk18;
 								hitthing->unk1c = sp60.unk1c;
 								hitthing->unk20 = sp60.unk20;
@@ -7123,9 +7095,7 @@ bool roomIsLoaded(s32 room)
 bool roomContainsCoord(struct coord *pos, s16 roomnum)
 {
 	struct coord copy;
-	copy.x = pos->x;
-	copy.y = pos->y;
-	copy.z = pos->z;
+	copy = *pos;
 
 	return copy.f[0] >= g_Rooms[roomnum].bbmin[0]
 		&& copy.f[0] <= g_Rooms[roomnum].bbmax[0]
@@ -7308,9 +7278,7 @@ void bgFindRoomsByPos(struct coord *posarg, s16 *inrooms, s16 *aboverooms, s32 m
 	s32 i;
 	s32 j;
 
-	pos.x = posarg->x;
-	pos.y = posarg->y;
-	pos.z = posarg->z;
+	pos = *posarg;
 
 	// Try rooms which have portals
 	for (i = 1; i < g_Vars.roomcount; i++) {
@@ -8750,18 +8718,12 @@ void func0f164ab8(s32 portalnum)
 	roomnum1 = g_BgPortals[portalnum].roomnum1;
 	roomnum2 = g_BgPortals[portalnum].roomnum2;
 
-	room1centre.x = g_Rooms[roomnum1].centre.x;
-	room1centre.y = g_Rooms[roomnum1].centre.y;
-	room1centre.z = g_Rooms[roomnum1].centre.z;
+	room1centre = g_Rooms[roomnum1].centre;
 
-	room2centre.x = g_Rooms[roomnum2].centre.x;
-	room2centre.y = g_Rooms[roomnum2].centre.y;
-	room2centre.z = g_Rooms[roomnum2].centre.z;
+	room2centre = g_Rooms[roomnum2].centre;
 
 	ptr = &var800a4ccc[portalnum];
-	sp28.coord.x = ptr->coord.x;
-	sp28.coord.y = ptr->coord.y;
-	sp28.coord.z = ptr->coord.z;
+	sp28.coord = ptr->coord;
 	sp28.min = ptr->min;
 	sp28.max = ptr->max;
 
@@ -8952,13 +8914,9 @@ void bgFindEnteredRooms(struct coord *bbmin, struct coord *bbmax, s16 *rooms, s3
 	struct coord portalbbmin;
 	struct coord portalbbmax;
 
-	propbbmin.x = bbmin->x;
-	propbbmin.y = bbmin->y;
-	propbbmin.z = bbmin->z;
+	propbbmin = *bbmin;
 
-	propbbmax.x = bbmax->x;
-	propbbmax.y = bbmax->y;
-	propbbmax.z = bbmax->z;
+	propbbmax = *bbmax;
 
 	i = 0;
 

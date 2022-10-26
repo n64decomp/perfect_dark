@@ -40,9 +40,7 @@ void bbikeInit(void)
 
 	g_Vars.currentplayer->bondentert = 0;
 	g_Vars.currentplayer->bondentert2 = 1;
-	g_Vars.currentplayer->bondenterpos.x = g_Vars.currentplayer->prop->pos.x;
-	g_Vars.currentplayer->bondenterpos.y = g_Vars.currentplayer->prop->pos.y;
-	g_Vars.currentplayer->bondenterpos.z = g_Vars.currentplayer->prop->pos.z;
+	g_Vars.currentplayer->bondenterpos = g_Vars.currentplayer->prop->pos;
 
 	mtx3ToMtx4(hoverbike->base.realrot, &matrix);
 	mtx4SetTranslation(&hoverbike->base.prop->pos, &matrix);
@@ -153,9 +151,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 		if (result == CDRESULT_NOCOLLISION) {
 			g_Vars.currentplayer->walkinitmove = true;
 
-			g_Vars.currentplayer->walkinitpos.x = pos.x;
-			g_Vars.currentplayer->walkinitpos.y = pos.y;
-			g_Vars.currentplayer->walkinitpos.z = pos.z;
+			g_Vars.currentplayer->walkinitpos = pos;
 
 			g_Vars.currentplayer->moveinitspeed.x = bike->speed[0];
 			g_Vars.currentplayer->moveinitspeed.y = 0;
@@ -315,9 +311,7 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 
 	cdGetEdge(&sp78, &sp6c, 333, "bondbike.c");
 
-	sp60.x = bike->prop->pos.x;
-	sp60.y = bike->prop->pos.y;
-	sp60.z = bike->prop->pos.z;
+	sp60 = bike->prop->pos;
 
 	sp54.x = obstacle->prop->pos.x - bike->prop->pos.x;
 	sp54.y = obstacle->prop->pos.y - bike->prop->pos.y;
@@ -383,9 +377,7 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 	f32 radius;
 	f32 halfradius;
 
-	dstpos.x = g_Vars.currentplayer->hoverbike->pos.x;
-	dstpos.y = g_Vars.currentplayer->hoverbike->pos.y;
-	dstpos.z = g_Vars.currentplayer->hoverbike->pos.z;
+	dstpos = g_Vars.currentplayer->hoverbike->pos;
 
 	if (vel->x || vel->y || vel->z) {
 		propSetPerimEnabled(g_Vars.currentplayer->prop, false);
@@ -559,9 +551,7 @@ void bbikeUpdateVertical(struct coord *pos)
 
 	g_Vars.currentplayer->vv_theta = (M_BADTAU - angle) * 360.0f / M_BADTAU;
 
-	g_Vars.currentplayer->prop->pos.x = pos->x;
-	g_Vars.currentplayer->prop->pos.y = pos->y;
-	g_Vars.currentplayer->prop->pos.z = pos->z;
+	g_Vars.currentplayer->prop->pos = *pos;
 
 	ground = cdFindGroundInfoAtCyl(&g_Vars.currentplayer->prop->pos,
 			g_Vars.currentplayer->bond2.radius,
@@ -832,9 +822,7 @@ void bbikeTick(void)
 	static f32 var80070f04 = 0;
 
 	if (g_Vars.lvupdate240 > 0) {
-		g_Vars.currentplayer->bondprevpos.x = g_Vars.currentplayer->prop->pos.x;
-		g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
-		g_Vars.currentplayer->bondprevpos.z = g_Vars.currentplayer->prop->pos.z;
+		g_Vars.currentplayer->bondprevpos = g_Vars.currentplayer->prop->pos;
 
 		g_Vars.currentplayer->bondbreathing -= (0.75f * g_Vars.lvupdate60freal) / 2700.0f;
 

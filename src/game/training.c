@@ -521,9 +521,7 @@ void frInitDefaults(void)
 	g_FrData.speed = 1;
 
 	for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
-		g_FrData.targets[i].dstpos.x = pad->pos.x;
-		g_FrData.targets[i].dstpos.y = pad->pos.y;
-		g_FrData.targets[i].dstpos.z = pad->pos.z;
+		g_FrData.targets[i].dstpos = pad->pos;
 
 #if VERSION >= VERSION_NTSC_1_0
 		g_FrData.targets[i].dstpos.z += 6.0f * i;
@@ -878,9 +876,7 @@ bool frExecuteTargetScript(s32 targetnum)
 
 			g_FrData.targets[targetnum].frpadnum = frpadnum;
 
-			g_FrData.targets[targetnum].dstpos.x = g_Pads[g_FrPads[frpadnum]].pos.x;
-			g_FrData.targets[targetnum].dstpos.y = g_Pads[g_FrPads[frpadnum]].pos.y;
-			g_FrData.targets[targetnum].dstpos.z = g_Pads[g_FrPads[frpadnum]].pos.z;
+			g_FrData.targets[targetnum].dstpos = g_Pads[g_FrPads[frpadnum]].pos;
 
 #if VERSION >= VERSION_NTSC_1_0
 			g_FrData.targets[targetnum].dstpos.z += 6.0f * targetnum;
@@ -997,9 +993,7 @@ void frInitTargets(void)
 				frExecuteTargetScript(i);
 
 				if (g_FrData.targets[i].travelspeed == -1) {
-					pos.x = g_FrData.targets[i].dstpos.x;
-					pos.y = g_FrData.targets[i].dstpos.y;
-					pos.z = g_FrData.targets[i].dstpos.z;
+					pos = g_FrData.targets[i].dstpos;
 				}
 
 				count++;
@@ -1024,9 +1018,7 @@ void frInitTargets(void)
 			mtx4ToMtx3(&sp144, sp108);
 			mtx3Copy(sp108, obj->realrot);
 
-			prop->pos.x = pos.x;
-			prop->pos.y = pos.y;
-			prop->pos.z = pos.z;
+			prop->pos = pos;
 
 			func0f069c70(obj, true, false);
 		}
@@ -2026,9 +2018,7 @@ void frTick(void)
 #endif
 				{
 					// Target is stopping
-					newpos.x = g_FrData.targets[i].dstpos.x;
-					newpos.y = g_FrData.targets[i].dstpos.y;
-					newpos.z = g_FrData.targets[i].dstpos.z;
+					newpos = g_FrData.targets[i].dstpos;
 
 					g_FrData.targets[i].scriptenabled = true;
 					g_FrData.targets[i].travelling = false;
@@ -2048,9 +2038,7 @@ void frTick(void)
 					}
 				}
 
-				prop->pos.x = newpos.x;
-				prop->pos.y = newpos.y;
-				prop->pos.z = newpos.z;
+				prop->pos = newpos;
 
 				func0f069c70(obj, true, false);
 			}
