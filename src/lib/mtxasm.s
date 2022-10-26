@@ -13,7 +13,6 @@ glabel var8005ef10
 
 glabel mtx4LoadIdentity
 	lui    $at, 0x3f80
-	mtc1   $at, $f0
 	sw     $zero, 0x4($a0)
 	sw     $zero, 0x8($a0)
 	sw     $zero, 0xc($a0)
@@ -26,11 +25,11 @@ glabel mtx4LoadIdentity
 	sw     $zero, 0x30($a0)
 	sw     $zero, 0x34($a0)
 	sw     $zero, 0x38($a0)
-	swc1   $f0, 0x0($a0)
-	swc1   $f0, 0x14($a0)
-	swc1   $f0, 0x28($a0)
+	sw     $at, 0x0($a0)
+	sw     $at, 0x14($a0)
+	sw     $at, 0x28($a0)
 	jr     $ra
-	swc1   $f0, 0x3c($a0)
+	sw     $at, 0x3c($a0)
 
 glabel mtx4MultMtx4InPlace
 	add    $a2, $a1, $zero
@@ -275,7 +274,6 @@ glabel mtx4Copy
 glabel mtx3ToMtx4
 	addiu  $t0, $zero, 0x3
 	lui    $at, 0x3f80
-	mtc1   $at, $f4
 .L00015d60:
 	lw     $t1, 0x0($a0)
 	lw     $t2, 0x4($a0)
@@ -292,7 +290,7 @@ glabel mtx3ToMtx4
 	sw     $zero, 0x4($a1)
 	sw     $zero, 0x8($a1)
 	jr     $ra
-	swc1   $f4, 0xc($a1)
+	sw     $at, 0xc($a1)
 
 glabel mtx4ToMtx3
 	addiu  $t0, $zero, 0x3
