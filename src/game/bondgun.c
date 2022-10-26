@@ -183,16 +183,27 @@ char var800700bc[][10] = {
 	{ 'x','x','x'                         }, // "xxx"
 };
 
-struct modelfiledata *g_GunModeldefs[0x24]; // Unarmed to combat boost
+struct modelfiledata *g_GunModeldefs[0x5e]; // All weapon IDs
 struct modelfiledata *g_HandModeldefs[4]; // 4 players, or P1/P2/disguised/unused
 struct modelfiledata *g_CartModeldefs[4]; // 4 types of casings
 
 void bgunPreloadGun(s32 weaponnum)
 {
+	s32 gunfilenum;
+
 	if (weaponnum >= WEAPON_UNARMED && weaponnum < ARRAYCOUNT(g_GunModeldefs) && g_GunModeldefs[weaponnum] == NULL) {
-		s32 gunfilenum = weaponGetModelNum(weaponnum);
-		g_GunModeldefs[weaponnum] = modeldefLoadToNew(gunfilenum);
-		modelCalculateRwDataLen(g_GunModeldefs[weaponnum]);
+		// Classic weapons exist in CI training but cannot be used,
+		// so don't waste time and memory with preloading them.
+		if (g_Vars.stagenum == STAGE_CITRAINING && weaponnum >= WEAPON_PP9I && weaponnum <= WEAPON_RCP45) {
+			return;
+		}
+
+		gunfilenum = weaponGetModelNum(weaponnum);
+
+		if (gunfilenum) {
+			g_GunModeldefs[weaponnum] = modeldefLoadToNew(gunfilenum);
+			modelCalculateRwDataLen(g_GunModeldefs[weaponnum]);
+		}
 	}
 }
 
