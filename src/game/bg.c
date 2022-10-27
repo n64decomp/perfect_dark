@@ -8287,65 +8287,67 @@ void bgChooseRoomsToLoad(void)
 
 	g_BgNumRoomLoadCandidates = 0;
 
-	for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
-		if ((g_BgPortals[i].flags & PORTALFLAG_SKIP) == 0) {
-			s32 roomnum1 = g_BgPortals[i].roomnum1;
-			s32 roomnum2 = g_BgPortals[i].roomnum2;
-			s32 portalnum;
+	if (!g_BgPreload) {
+		for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
+			if ((g_BgPortals[i].flags & PORTALFLAG_SKIP) == 0) {
+				s32 roomnum1 = g_BgPortals[i].roomnum1;
+				s32 roomnum2 = g_BgPortals[i].roomnum2;
+				s32 portalnum;
 
-			if ((g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) && (g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN) == 0) {
-				// From room1 to room2
-				g_Rooms[roomnum2].flags |= ROOMFLAG_STANDBY;
+				if ((g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) && (g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN) == 0) {
+					// From room1 to room2
+					g_Rooms[roomnum2].flags |= ROOMFLAG_STANDBY;
 
-				if (g_Rooms[roomnum2].loaded240 == 0) {
-					g_Rooms[roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
-					g_BgNumRoomLoadCandidates++;
-				}
+					if (g_Rooms[roomnum2].loaded240 == 0) {
+						g_Rooms[roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
+						g_BgNumRoomLoadCandidates++;
+					}
 
-				roomUnpauseProps(roomnum2, true);
+					roomUnpauseProps(roomnum2, true);
 
-				if (PORTAL_IS_CLOSED(i)) {
-					for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
-						portalnum = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
+					if (PORTAL_IS_CLOSED(i)) {
+						for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
+							portalnum = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
 
-						if (roomnum2 == g_BgPortals[portalnum].roomnum1) {
-							if (g_Rooms[g_BgPortals[portalnum].roomnum2].loaded240 == 0) {
-								g_Rooms[g_BgPortals[portalnum].roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
-								g_BgNumRoomLoadCandidates++;
-							}
-						} else {
-							if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
-								g_Rooms[g_BgPortals[portalnum].roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
-								g_BgNumRoomLoadCandidates++;
+							if (roomnum2 == g_BgPortals[portalnum].roomnum1) {
+								if (g_Rooms[g_BgPortals[portalnum].roomnum2].loaded240 == 0) {
+									g_Rooms[g_BgPortals[portalnum].roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
+									g_BgNumRoomLoadCandidates++;
+								}
+							} else {
+								if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
+									g_Rooms[g_BgPortals[portalnum].roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
+									g_BgNumRoomLoadCandidates++;
+								}
 							}
 						}
 					}
-				}
-			} else if ((g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN)
-					&& (g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) == 0) {
-				// From room2 to room1
-				g_Rooms[roomnum1].flags |= ROOMFLAG_STANDBY;
+				} else if ((g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN)
+						&& (g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) == 0) {
+					// From room2 to room1
+					g_Rooms[roomnum1].flags |= ROOMFLAG_STANDBY;
 
-				if (g_Rooms[roomnum1].loaded240 == 0) {
-					g_Rooms[roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
-					g_BgNumRoomLoadCandidates++;
-				}
+					if (g_Rooms[roomnum1].loaded240 == 0) {
+						g_Rooms[roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
+						g_BgNumRoomLoadCandidates++;
+					}
 
-				roomUnpauseProps(roomnum1, true);
+					roomUnpauseProps(roomnum1, true);
 
-				if (PORTAL_IS_CLOSED(i)) {
-					for (j = 0; j < g_Rooms[roomnum1].numportals; j++) {
-						portalnum = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + j];
+					if (PORTAL_IS_CLOSED(i)) {
+						for (j = 0; j < g_Rooms[roomnum1].numportals; j++) {
+							portalnum = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + j];
 
-						if (roomnum1 == g_BgPortals[portalnum].roomnum1) {
-							if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
-								g_Rooms[g_BgPortals[portalnum].roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
-								g_BgNumRoomLoadCandidates++;
-							}
-						} else {
-							if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
-								g_Rooms[g_BgPortals[portalnum].roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
-								g_BgNumRoomLoadCandidates++;
+							if (roomnum1 == g_BgPortals[portalnum].roomnum1) {
+								if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
+									g_Rooms[g_BgPortals[portalnum].roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
+									g_BgNumRoomLoadCandidates++;
+								}
+							} else {
+								if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
+									g_Rooms[g_BgPortals[portalnum].roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
+									g_BgNumRoomLoadCandidates++;
+								}
 							}
 						}
 					}
