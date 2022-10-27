@@ -39,7 +39,7 @@
 #define MIXCOLOUR(dialog, property) dialog->transitionfrac < 0.0f ? g_MenuColourPalettes[dialog->type].property : colourBlend(g_MenuColourPalettes[dialog->type2].property, g_MenuColourPalettes[dialog->type].property, dialog->colourweight)
 #define MPCHR(index)        ((index) < 4 ? &g_PlayerConfigsArray[index].base : &g_BotConfigsArray[(index) - 4].base)
 #define PLAYERCOUNT()       g_Vars.playercount
-#define RANDOMFRAC()        (random() * (1.0f / U32_MAX))
+#define RANDOMFRAC()        randomfrac()
 #define SECSTOTIME240(secs) (secs * 240)
 #define SECSTOTIME60(secs)  (secs * 60)
 #define PFS(device)         (device == SAVEDEVICE_GAMEPAK ? NULL : &g_Pfses[device])
