@@ -439,8 +439,17 @@ static u8 *aiIfStopped(u8 *cmd)
 static u8 *aiIfChrDead(u8 *cmd)
 {
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	bool dead = false;
 
-	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) && (!chr || !chr->model || chrIsDead(chr))) {
+	if (!chr) {
+		dead = true;
+	} else if (chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		dead = false;
+	} else if (!chr->model || chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DIE) {
+		dead = true;
+	}
+
+	if (dead) {
 		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
 		cmd += 5;
@@ -486,6 +495,36 @@ static u8 *aiIfChrKnockedOut(u8 *cmd)
 
 	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) &&
 			(!chr || !chr->model || chr->actiontype == ACT_DRUGGEDKO || chr->actiontype == ACT_DRUGGEDDROP || chr->actiontype == ACT_DRUGGEDCOMINGUP)) {
+		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
+	} else {
+		cmd += 5;
+	}
+
+	return cmd;
+}
+
+static u8 *aiIfChrDeadish(u8 *cmd)
+{
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	bool dead = false;
+
+	if (!chr || !chr->prop) {
+		dead = true;
+	} else if (chr->prop->type == PROPTYPE_PLAYER) {
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
+		dead = g_Vars.players[playernum]->isdead;
+	} else {
+		if (!chr->model
+				|| chr->actiontype == ACT_DEAD
+				|| chr->actiontype == ACT_DIE
+				|| chr->actiontype == ACT_DRUGGEDKO
+				|| chr->actiontype == ACT_DRUGGEDDROP
+				|| chr->actiontype == ACT_DRUGGEDCOMINGUP) {
+			dead = true;
+		}
+	}
+
+	if (dead) {
 		cmd = AILABEL(g_Vars.ailist, cmd[3], cmd[4]);
 	} else {
 		cmd += 5;
@@ -8283,6 +8322,7 @@ void chraiExecute(void *entity, s32 proptype)
 			case 0xfa: cmd = aiFadeScreen(cmd); break;
 			case 0xfb: cmd = aiChrEmitSparks(cmd); break;
 			case 0xfc: cmd = aiChrKill(cmd); break;
+			case 0xfd: cmd = aiIfChrDeadish(cmd); break;
 			case 0xff: cmd = aiSubCommand(cmd); break;
 			default:
 				while (1);

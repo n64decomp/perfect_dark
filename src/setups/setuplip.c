@@ -1526,9 +1526,7 @@ u8 func0412_init_labtech_showers[] = {
 
 u8 func0410_labtech_showers_sa_pa[] = {
 	set_shotlist(AILIST_LABTECH_SA_PA)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(LABEL_2D)
 
 	label(0x06)
@@ -1916,9 +1914,7 @@ u8 func0419_init_doorman[] = {
 
 u8 func0418_doorman[] = {
 	set_shotlist(GAILIST_ALERTED)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(LABEL_2D)
 
 	label(0x06)
@@ -2092,9 +2088,7 @@ u8 func0418_doorman[] = {
 u8 func100b_check_doorman_dead[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
-		if_chr_dead(CHR_DOORMAN, /*goto*/ LABEL_2D)
-		if_chr_death_animation_finished(CHR_DOORMAN, /*goto*/ LABEL_2D)
-		if_chr_knockedout(CHR_DOORMAN, /*goto*/ LABEL_2D)
+		if_chr_deadish(CHR_DOORMAN, /*goto*/ LABEL_2D)
 		reloop(0x04)
 
 		label(LABEL_2D)
@@ -2142,9 +2136,7 @@ u8 func100b_check_doorman_dead[] = {
  */
 u8 func041a_labtech_harrysmate[] = {
 	set_shotlist(AILIST_LABTECH_HARRYSMATE)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(LABEL_2D)
 
 	label(0x06)
@@ -2242,9 +2234,7 @@ u8 func041a_labtech_harrysmate[] = {
 
 u8 func041b_labtech_keycardguy[] = {
 	set_shotlist(AILIST_LABTECH_KEYCARDGUY)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(LABEL_2D)
 
 	// Dying
@@ -2415,15 +2405,11 @@ u8 func100f_check_end_level[] = {
 	restart_timer
 
 	beginloop(LABEL_5C)
-		if_chr_death_animation_finished(CHR_BOND, /*goto*/ LABEL_2D)
-		if_chr_dead(CHR_BOND, /*goto*/ LABEL_2D)
-		if_chr_knockedout(CHR_BOND, /*goto*/ LABEL_2D)
+		if_chr_deadish(CHR_BOND, /*goto*/ LABEL_2D)
 		goto_next(0x06)
 
 		label(LABEL_2D)
-		if_chr_death_animation_finished(CHR_COOP, /*goto*/ LABEL_2D)
-		if_chr_dead(CHR_COOP, /*goto*/ LABEL_2D)
-		if_chr_knockedout(CHR_COOP, /*goto*/ LABEL_2D)
+		if_chr_deadish(CHR_COOP, /*goto*/ LABEL_2D)
 		goto_next(0x06)
 
 		label(LABEL_2D)
@@ -2453,30 +2439,22 @@ u8 func1010_give_keycard[] = {
 
 	label(LABEL_2D)
 	label(LABEL_2D)
-	if_chr_dead(0x23, /*goto*/ 0x06)
-	if_chr_death_animation_finished(0x23, /*goto*/ 0x06)
-	if_chr_knockedout(0x23, /*goto*/ 0x06)
+	if_chr_deadish(0x23, /*goto*/ 0x06)
 	give_object_to_chr(0x10, 0x23)
 	goto_next(LABEL_2D)
 
 	label(0x06)
-	if_chr_dead(0x24, /*goto*/ 0x06)
-	if_chr_death_animation_finished(0x24, /*goto*/ 0x06)
-	if_chr_knockedout(0x24, /*goto*/ 0x06)
+	if_chr_deadish(0x24, /*goto*/ 0x06)
 	give_object_to_chr(0x10, 0x24)
 	goto_next(LABEL_2D)
 
 	label(0x06)
-	if_chr_dead(0x25, /*goto*/ 0x06)
-	if_chr_death_animation_finished(0x25, /*goto*/ 0x06)
-	if_chr_knockedout(0x25, /*goto*/ 0x06)
+	if_chr_deadish(0x25, /*goto*/ 0x06)
 	give_object_to_chr(0x10, 0x25)
 	goto_next(LABEL_2D)
 
 	label(0x06)
-	if_chr_death_animation_finished(0x26, /*goto*/ LABEL_2D)
-	if_chr_dead(0x26, /*goto*/ LABEL_2D)
-	if_chr_knockedout(0x26, /*goto*/ LABEL_2D)
+	if_chr_deadish(0x26, /*goto*/ LABEL_2D)
 
 	label(LABEL_2D)
 	unset_object_flag2(0x10, OBJFLAG2_INVISIBLE)
@@ -2492,9 +2470,7 @@ u8 func0414_init_mechanic[] = {
 
 u8 func0413_mechanic[] = {
 	set_shotlist(AILIST_MECHANIC)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(LABEL_2D)
 
 	label(0x06)
@@ -2797,9 +2773,7 @@ u8 func1016_check_undisguised[] = {
 
 u8 func041f_labtech_lights[] = {
 	set_shotlist(AILIST_LABTECH_LIGHTS)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(LABEL_2D)
 
 	label(0x06)
@@ -3024,9 +2998,7 @@ u8 func0421_init_labtech_doors[] = {
 u8 func0420_labtech_doors[] = {
 	set_self_chrflag(CHRCFLAG_CANFACEWALL)
 	set_shotlist(AILIST_LABTECH_DOORS)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(LABEL_2D)
 
 	label(0x06)
@@ -3230,9 +3202,7 @@ u8 func0423_init_labtech_records[] = {
 
 u8 func0422_labtech_records[] = {
 	set_shotlist(AILIST_LABTECH_RECORDS)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(LABEL_2D)
 	label(0x06)
 	set_shotlist(GAILIST_IDLE)
@@ -4535,9 +4505,7 @@ u8 func102c_msg_hurry[] = {
  */
 u8 func0416_become_unaware[] = {
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00002000)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x0f)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x0f)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x0f)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x0f)
 	if_can_see_target(/*goto*/ LABEL_2D)
 	set_alertness(0)
 	return
@@ -4688,33 +4656,25 @@ u8 func1031_toggle_doorman[] = {
 u8 func1032_count_last_room_guards[] = {
 	beginloop(0x04)
 		set_morale(0)
-		if_chr_dead(0x23, /*goto*/ LABEL_2D)
-		if_chr_death_animation_finished(0x23, /*goto*/ LABEL_2D)
-		if_chr_knockedout(0x23, /*goto*/ LABEL_2D)
+		if_chr_deadish(0x23, /*goto*/ LABEL_2D)
 		goto_next(0x06)
 
 		label(LABEL_2D)
 		add_morale(1)
 		label(0x06)
-		if_chr_dead(0x24, /*goto*/ LABEL_2D)
-		if_chr_death_animation_finished(0x24, /*goto*/ LABEL_2D)
-		if_chr_knockedout(0x24, /*goto*/ LABEL_2D)
+		if_chr_deadish(0x24, /*goto*/ LABEL_2D)
 		goto_next(0x06)
 
 		label(LABEL_2D)
 		add_morale(1)
 		label(0x06)
-		if_chr_dead(0x25, /*goto*/ LABEL_2D)
-		if_chr_death_animation_finished(0x25, /*goto*/ LABEL_2D)
-		if_chr_knockedout(0x25, /*goto*/ LABEL_2D)
+		if_chr_deadish(0x25, /*goto*/ LABEL_2D)
 		goto_next(0x06)
 
 		label(LABEL_2D)
 		add_morale(1)
 		label(0x06)
-		if_chr_dead(0x26, /*goto*/ LABEL_2D)
-		if_chr_death_animation_finished(0x26, /*goto*/ LABEL_2D)
-		if_chr_knockedout(0x26, /*goto*/ LABEL_2D)
+		if_chr_deadish(0x26, /*goto*/ LABEL_2D)
 		goto_next(0x06)
 
 		label(LABEL_2D)

@@ -289,9 +289,7 @@ u8 func1004_revoke_control[] = {
 u8 func1005_main[] = {
 	// Wait until guard dead
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_GUARD, /*goto*/ 0x2d)
-		if_chr_dead(CHR_GUARD, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_GUARD, /*goto*/ 0x2d)
+		if_chr_deadish(CHR_GUARD, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)
@@ -316,9 +314,7 @@ u8 func1005_main[] = {
 
 	// Wait until Jonathan dead
 	beginloop(0x09)
-		if_chr_death_animation_finished(CHR_JONATHAN, /*goto*/ 0x2d)
-		if_chr_dead(CHR_JONATHAN, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_JONATHAN, /*goto*/ 0x2d)
+		if_chr_deadish(CHR_JONATHAN, /*goto*/ 0x2d)
 	endloop(0x09)
 
 	label(0x2d)
@@ -343,9 +339,7 @@ u8 func1005_main[] = {
 
 	// Wait until Trent dead
 	beginloop(0x0c)
-		if_chr_death_animation_finished(CHR_TRENT, /*goto*/ 0x2d)
-		if_chr_dead(CHR_TRENT, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_TRENT, /*goto*/ 0x2d)
+		if_chr_deadish(CHR_TRENT, /*goto*/ 0x2d)
 	endloop(0x0c)
 
 	label(0x2d)

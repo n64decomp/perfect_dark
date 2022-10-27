@@ -1175,9 +1175,7 @@ u8 func1009_check_shuttle_destroyed[] = {
 
 u8 func100a_check_president_dead[] = {
 	beginloop(0x06)
-		if_chr_death_animation_finished(CHR_PRESIDENT, /*goto*/ 0x31)
-		if_chr_dead(CHR_PRESIDENT, /*goto*/ 0x31)
-		if_chr_knockedout(CHR_PRESIDENT, /*goto*/ 0x31)
+		if_chr_deadish(CHR_PRESIDENT, /*goto*/ 0x31)
 	endloop(0x06)
 
 	label(0x31)
@@ -1189,9 +1187,7 @@ u8 func100a_check_president_dead[] = {
 
 u8 func100b_check_clone_dead[] = {
 	beginloop(0x06)
-		if_chr_death_animation_finished(CHR_PRES_CLONE, /*goto*/ 0x31)
-		if_chr_dead(CHR_PRES_CLONE, /*goto*/ 0x31)
-		if_chr_knockedout(CHR_PRES_CLONE, /*goto*/ 0x31)
+		if_chr_deadish(CHR_PRES_CLONE, /*goto*/ 0x31)
 	endloop(0x06)
 
 	label(0x31)
@@ -1526,9 +1522,7 @@ u8 func041b_init_president[] = {
 
 u8 func041c_president_waiting[] = {
 	set_shotlist(AILIST_PRESIDENT_WAITING)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x08)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x08)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x08)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x08)
 	goto_next(0x31)
 
 	// Dying
@@ -1562,9 +1556,7 @@ u8 func041d_president_running[] = {
 	set_alertness(100)
 	set_shotlist(AILIST_PRESIDENT_RUNNING)
 	yield
-	if_chr_dead(CHR_SELF, /*goto*/ 0x08)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x08)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x08)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x08)
 	goto_next(0x31)
 
 	// Dying
@@ -1708,9 +1700,7 @@ u8 func041d_president_running[] = {
 
 u8 func100e_check_robots_left[] = {
 	beginloop(0x06)
-		if_chr_death_animation_finished(CHR_ROBOT1, /*goto*/ 0x31)
-		if_chr_dead(CHR_ROBOT1, /*goto*/ 0x31)
-		if_chr_knockedout(CHR_ROBOT1, /*goto*/ 0x31)
+		if_chr_deadish(CHR_ROBOT1, /*goto*/ 0x31)
 		if_chr_in_room(CHR_ROBOT1, 0x00, ROOM_AZT_004A, /*goto*/ 0x08)
 		if_chr_in_room(CHR_ROBOT1, 0x00, ROOM_AZT_004B, /*goto*/ 0x08)
 		if_chr_in_room(CHR_ROBOT1, 0x00, ROOM_AZT_004C, /*goto*/ 0x08)
@@ -1720,9 +1710,7 @@ u8 func100e_check_robots_left[] = {
 		reloop(0x06)
 
 		label(0x31)
-		if_chr_death_animation_finished(CHR_ROBOT2, /*goto*/ 0x31)
-		if_chr_dead(CHR_ROBOT2, /*goto*/ 0x31)
-		if_chr_knockedout(CHR_ROBOT2, /*goto*/ 0x31)
+		if_chr_deadish(CHR_ROBOT2, /*goto*/ 0x31)
 		if_chr_in_room(CHR_ROBOT2, 0x00, ROOM_AZT_004A, /*goto*/ 0x08)
 		if_chr_in_room(CHR_ROBOT2, 0x00, ROOM_AZT_004B, /*goto*/ 0x08)
 		if_chr_in_room(CHR_ROBOT2, 0x00, ROOM_AZT_004C, /*goto*/ 0x08)
@@ -1732,9 +1720,7 @@ u8 func100e_check_robots_left[] = {
 		reloop(0x06)
 
 		label(0x31)
-		if_chr_death_animation_finished(CHR_ROBOT3, /*goto*/ 0x31)
-		if_chr_dead(CHR_ROBOT3, /*goto*/ 0x31)
-		if_chr_knockedout(CHR_ROBOT3, /*goto*/ 0x31)
+		if_chr_deadish(CHR_ROBOT3, /*goto*/ 0x31)
 		if_chr_in_room(CHR_ROBOT3, 0x00, ROOM_AZT_004A, /*goto*/ 0x08)
 		if_chr_in_room(CHR_ROBOT3, 0x00, ROOM_AZT_004B, /*goto*/ 0x08)
 		if_chr_in_room(CHR_ROBOT3, 0x00, ROOM_AZT_004C, /*goto*/ 0x08)
@@ -1744,9 +1730,7 @@ u8 func100e_check_robots_left[] = {
 		reloop(0x06)
 
 		label(0x31)
-		if_chr_death_animation_finished(CHR_ROBOT4, /*goto*/ 0x31)
-		if_chr_dead(CHR_ROBOT4, /*goto*/ 0x31)
-		if_chr_knockedout(CHR_ROBOT4, /*goto*/ 0x31)
+		if_chr_deadish(CHR_ROBOT4, /*goto*/ 0x31)
 		if_chr_in_room(CHR_ROBOT4, 0x00, ROOM_AZT_004A, /*goto*/ 0x08)
 		if_chr_in_room(CHR_ROBOT4, 0x00, ROOM_AZT_004B, /*goto*/ 0x08)
 		if_chr_in_room(CHR_ROBOT4, 0x00, ROOM_AZT_004C, /*goto*/ 0x08)
@@ -1891,33 +1875,23 @@ u8 func100f_check_end_level[] = {
 	endloop(0x0b)
 
 	label(0x31)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x31)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x31)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x31)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x31)
 	goto_next(0x08)
 
 	label(0x31)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x31)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x31)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x31)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x31)
 
 	// Jo or Velvet alive
 	label(0x08)
-	if_chr_death_animation_finished(CHR_PRESIDENT, /*goto*/ 0x32)
-	if_chr_dead(CHR_PRESIDENT, /*goto*/ 0x32)
-	if_chr_knockedout(CHR_PRESIDENT, /*goto*/ 0x32)
+	if_chr_deadish(CHR_PRESIDENT, /*goto*/ 0x32)
 	set_ailist(CHR_PRESIDENT, GAILIST_STOP_AND_IDLE)
 
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x31)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x31)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x31)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x31)
 	goto_next(0x08)
 
 	// Both players dead
 	label(0x31)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x31)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x31)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x31)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x31)
 	goto_next(0x08)
 
 	label(0x31)

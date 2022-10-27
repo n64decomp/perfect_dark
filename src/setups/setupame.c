@@ -1564,9 +1564,7 @@ u8 func0414_programmer[] = {
 	set_reaction_speed(100)
 	set_shotlist(AILIST_PROGRAMMER)
 	set_chr_chrflag(CHR_PROGRAMMER, CHRCFLAG_CANFACEWALL)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2c)
 
 	label(0x06)
@@ -2161,15 +2159,11 @@ u8 func1004_check_lab_lift_located[] = {
 	endloop(0x52)
 
 	label(0x2c)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)

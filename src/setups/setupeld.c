@@ -1644,15 +1644,11 @@ u8 func0402_taker[] = {
 
 u8 func100f_check_takers_dead[] = {
 	beginloop(0x04)
-		if_chr_dead(CHR_TAKER1, /*goto*/ 0x2d)
-		if_chr_death_animation_finished(CHR_TAKER1, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_TAKER1, /*goto*/ 0x2d)
+		if_chr_deadish(CHR_TAKER1, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dead(CHR_TAKER2, /*goto*/ 0x2d)
-		if_chr_death_animation_finished(CHR_TAKER2, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_TAKER2, /*goto*/ 0x2d)
+		if_chr_deadish(CHR_TAKER2, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)
@@ -2252,21 +2248,15 @@ u8 func100c_check_hackers_dead[] = {
 		yield
 		yield
 		yield
-		if_chr_dead(CHR_HACKER1, /*goto*/ 0x2d)
-		if_chr_death_animation_finished(CHR_HACKER1, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_HACKER1, /*goto*/ 0x2d)
+		if_chr_deadish(CHR_HACKER1, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dead(CHR_HACKER2, /*goto*/ 0x2d)
-		if_chr_death_animation_finished(CHR_HACKER2, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_HACKER2, /*goto*/ 0x2d)
+		if_chr_deadish(CHR_HACKER2, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dead(CHR_HACKER3, /*goto*/ 0x2d)
-		if_chr_death_animation_finished(CHR_HACKER3, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_HACKER3, /*goto*/ 0x2d)
+		if_chr_deadish(CHR_HACKER3, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)
@@ -2321,14 +2311,10 @@ u8 func100e_check_objectives_complete[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2d)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x2d)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2d)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x2d)
 	goto_next(0x06)
 	label(0x2d)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2d)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x2d)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2d)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	// Mission failed - players dead
@@ -2337,9 +2323,7 @@ u8 func100e_check_objectives_complete[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x06)
-	if_chr_dead(CHR_CARRINGTON, /*goto*/ 0x2d)
-	if_chr_death_animation_finished(CHR_CARRINGTON, /*goto*/ 0x2d)
-	if_chr_knockedout(CHR_CARRINGTON, /*goto*/ 0x2d)
+	if_chr_deadish(CHR_CARRINGTON, /*goto*/ 0x2d)
 
 	// Mission complete
 	set_ailist(CHR_SELF, AILIST_OUTRO)
@@ -2435,9 +2419,7 @@ u8 func1014_give_keycard[] = {
 	label(0x06)
 
 	#define give_keycard_if_alive(chr) \
-		if_chr_death_animation_finished(chr, /*goto*/ 0x2d) \
-		if_chr_dead(chr, /*goto*/ 0x2d) \
-		if_chr_knockedout(chr, /*goto*/ 0x2d) \
+		if_chr_deadish(chr, /*goto*/ 0x2d) \
 		give_object_to_chr(OBJ_KEYCARD, chr) \
 		goto_next(0x09) \
 		label(0x2d)
@@ -2976,9 +2958,7 @@ u8 func101e_unlock_doors[] = {
 
 u8 func101f_check_one_basement_guard_remaining[] = {
 	#define inc_var_if_chr_dead(chr) \
-		if_chr_dead(chr, /*goto*/ 0x2d) \
-		if_chr_death_animation_finished(chr, /*goto*/ 0x2d) \
-		if_chr_knockedout(chr, /*goto*/ 0x2d) \
+		if_chr_deadish(chr, /*goto*/ 0x2d) \
 		goto_next(0x06) \
 		label(0x2d) \
 		add_morale(1) \

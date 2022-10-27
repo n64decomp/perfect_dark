@@ -509,9 +509,7 @@ u8 func0401_init_unarmed_skedar[] = {
 u8 func0402_unarmed_skedar[] = {
 	set_shotlist(AILIST_UNARMED_SKEDAR)
 	set_action(MA_NORMAL, TRUE)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2d)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2d)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2d)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	// Dying
@@ -602,9 +600,7 @@ u8 func0402_unarmed_skedar[] = {
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x10)
 		if_chr_in_room(CHR_SELF, 0x00, 0x003b, /*goto*/ LABEL_HANDLE_PHOENIX_AREA)
 		if_chr_in_room(CHR_SELF, 0x00, 0x0041, /*goto*/ LABEL_HANDLE_WALL_AREA)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0x10)
 		if_target_moving_away(/*goto*/ 0x2d)
 		if_distance_to_target_lt(150, /*goto*/ 0x2f)
 		label(0x2d)
@@ -627,9 +623,7 @@ u8 func0402_unarmed_skedar[] = {
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x10)
 		if_chr_in_room(CHR_SELF, 0x00, 0x003b, /*goto*/ LABEL_HANDLE_PHOENIX_AREA)
 		if_chr_in_room(CHR_SELF, 0x00, 0x0041, /*goto*/ LABEL_HANDLE_WALL_AREA)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0x10)
 		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_target_out_of_fov_left(246, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
@@ -647,17 +641,13 @@ u8 func0402_unarmed_skedar[] = {
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x10)
 		if_chr_in_room(CHR_SELF, 0x00, 0x003b, /*goto*/ LABEL_HANDLE_PHOENIX_AREA)
 		if_chr_in_room(CHR_SELF, 0x00, 0x0041, /*goto*/ LABEL_HANDLE_WALL_AREA)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_stopped(/*goto*/ 0x06)
 	endloop(0x30)
 
 	// Finished attack
 	label(0x06)
-	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-	if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
-	if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
+	if_chr_deadish(CHR_TARGET, /*goto*/ 0x10)
 	goto_first(0xd9)
 
 	// Killed target
@@ -738,9 +728,7 @@ u8 func0403_init_miniskedar[] = {
 
 u8 func0404_miniskedar[] = {
 	set_shotlist(AILIST_MINISKEDAR)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2d)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2d)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2d)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	// Dying
@@ -1650,9 +1638,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	unset_self_chrflag(CHRCFLAG_HIDDEN)
 #endif
 	set_shotlist(AILIST_REAPER_SLAYER_SKEDAR)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2d)
 
 	// Dying
@@ -2279,11 +2265,7 @@ u8 func040e_king_skedar_spawner[] = {
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00100000)
 
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x2d)
-#if VERSION >= VERSION_NTSC_1_0
-		if_chr_dead(CHR_CLONE, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x2d)
-#endif
+		if_chr_deadish(CHR_CLONE, /*goto*/ 0x2d)
 		goto_next(0x06)
 
 		// Clone dead
@@ -2295,11 +2277,7 @@ u8 func040e_king_skedar_spawner[] = {
 		reloop(0x04)
 
 		label(0x4f)
-		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x4f)
-#if VERSION >= VERSION_NTSC_1_0
-		if_chr_dead(CHR_CLONE, /*goto*/ 0x4f)
-		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x4f)
-#endif
+		if_chr_deadish(CHR_CLONE, /*goto*/ 0x4f)
 		reloop(0x04)
 
 		label(0x4f)
@@ -2342,11 +2320,7 @@ u8 func0411_king_miniskedar_spawner[] = {
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00100000)
 
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x2d)
-#if VERSION >= VERSION_NTSC_1_0
-		if_chr_dead(CHR_CLONE, /*goto*/ 0x2d)
-		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x2d)
-#endif
+		if_chr_deadish(CHR_CLONE, /*goto*/ 0x2d)
 		goto_next(0x06)
 
 		// Clone dead
@@ -2359,11 +2333,7 @@ u8 func0411_king_miniskedar_spawner[] = {
 		// Clone dead and flag set
 		// Redundant check
 		label(0x4f)
-		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x4f)
-#if VERSION >= VERSION_NTSC_1_0
-		if_chr_dead(CHR_CLONE, /*goto*/ 0x4f)
-		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x4f)
-#endif
+		if_chr_deadish(CHR_CLONE, /*goto*/ 0x4f)
 		reloop(0x04)
 
 		// Spawn clone
@@ -2493,15 +2463,11 @@ u8 func1014_spike_top[] = {
 
 	set_stage_flag(STAGEFLAG_SPIKE5_DESTROYED)
 	yield
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x2d)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2d)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	label(0x2d)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2d)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x2d)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2d)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	label(0x2d)

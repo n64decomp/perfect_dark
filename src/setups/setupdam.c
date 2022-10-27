@@ -1212,32 +1212,22 @@ u8 func100c_check_end_level[] = {
 	endloop(0x0b)
 
 	label(0x07)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x07)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x07)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x07)
 	goto_next(0x08)
 
 	label(0x07)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x07)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x07)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x07)
 
 	// Jo or Velvet alive
 	label(0x08)
-	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x08)
-	if_chr_dead(CHR_ELVIS, /*goto*/ 0x08)
-	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x08)
+	if_chr_deadish(CHR_ELVIS, /*goto*/ 0x08)
 
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x07)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x07)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Both players dead - this check is redundant
 	label(0x07)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x07)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x07)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Both players dead
@@ -1347,9 +1337,7 @@ u8 func040e_init_labtech1[] = {
 
 u8 func040b_labtech1[] = {
 	set_shotlist(AILIST_LABTECH1)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x07)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Dying
@@ -1422,9 +1410,7 @@ u8 func040f_init_labtech2[] = {
 
 u8 func040c_labtech2[] = {
 	set_shotlist(AILIST_LABTECH2)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x07)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Dying
@@ -1501,9 +1487,7 @@ u8 func040d_labtech3[] = {
 	// max health and shoot him with a weak weapon then he will start running to
 	// lab tech 1's pads.
 	set_shotlist(AILIST_LABTECH1)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x07)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Dying
@@ -1878,9 +1862,7 @@ u8 func0401_pilot_dying[] = {
 
 u8 func0401_pilot[] = {
 	set_shotlist(AILIST_PILOT)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x07)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x07)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x07)
 	goto_next(0x00)
 
 	// Dying
@@ -1926,9 +1908,7 @@ u8 func0401_pilot[] = {
 	goto_next(0x04)
 
 	label(0x08)
-	if_chr_death_animation_finished(CHR_ANGRY_PILOT, /*goto*/ 0x09)
-	if_chr_dead(CHR_ANGRY_PILOT, /*goto*/ 0x09)
-	if_chr_knockedout(CHR_ANGRY_PILOT, /*goto*/ 0x09)
+	if_chr_deadish(CHR_ANGRY_PILOT, /*goto*/ 0x09)
 	goto_first(0x0b)
 
 	// Angry pilot dead or hasn't been chosen yet
@@ -2038,21 +2018,15 @@ u8 func0401_pilot[] = {
 u8 func1011_check_pilots_dead[] = {
 	beginloop(0x00)
 		if_stage_flag_eq(STAGEFLAG_00080000, TRUE, /*goto*/ 0x08)
-		if_chr_dead(CHR_PILOT1, /*goto*/ 0x07)
-		if_chr_death_animation_finished(CHR_PILOT1, /*goto*/ 0x07)
-		if_chr_knockedout(CHR_PILOT1, /*goto*/ 0x07)
+		if_chr_deadish(CHR_PILOT1, /*goto*/ 0x07)
 		reloop(0x00)
 
 		label(0x07)
-		if_chr_dead(CHR_PILOT2, /*goto*/ 0x07)
-		if_chr_death_animation_finished(CHR_PILOT2, /*goto*/ 0x07)
-		if_chr_knockedout(CHR_PILOT2, /*goto*/ 0x07)
+		if_chr_deadish(CHR_PILOT2, /*goto*/ 0x07)
 		reloop(0x00)
 
 		label(0x07)
-		if_chr_dead(CHR_PILOT3, /*goto*/ 0x07)
-		if_chr_death_animation_finished(CHR_PILOT3, /*goto*/ 0x07)
-		if_chr_knockedout(CHR_PILOT3, /*goto*/ 0x07)
+		if_chr_deadish(CHR_PILOT3, /*goto*/ 0x07)
 	endloop(0x00)
 
 	// All pilots dead
@@ -2093,25 +2067,19 @@ u8 func1012_choose_angry_pilot[] = {
 
 	beginloop(0x03)
 		if_kill_count_gt(0, /*goto*/ 0x08)
-		if_chr_dead(CHR_PILOT1, /*goto*/ 0x3b)
-		if_chr_death_animation_finished(CHR_PILOT1, /*goto*/ 0x3b)
-		if_chr_knockedout(CHR_PILOT1, /*goto*/ 0x3b)
+		if_chr_deadish(CHR_PILOT1, /*goto*/ 0x3b)
 		if_chr_has_flag_bankx(CHR_PILOT1, CHRFLAG0_COVER_TYPE2, BANK_0, /*goto*/ 0x3b)
 		set_ailist(CHR_PILOT1, AILIST_ANGRY_PILOT)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x3b)
-		if_chr_dead(CHR_PILOT2, /*goto*/ 0x3c)
-		if_chr_death_animation_finished(CHR_PILOT2, /*goto*/ 0x3c)
-		if_chr_knockedout(CHR_PILOT2, /*goto*/ 0x3c)
+		if_chr_deadish(CHR_PILOT2, /*goto*/ 0x3c)
 		if_chr_has_flag_bankx(CHR_PILOT2, CHRFLAG0_COVER_TYPE2, BANK_0, /*goto*/ 0x3c)
 		set_ailist(CHR_PILOT2, AILIST_ANGRY_PILOT)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x3c)
-		if_chr_dead(CHR_PILOT3, /*goto*/ 0x04)
-		if_chr_death_animation_finished(CHR_PILOT3, /*goto*/ 0x04)
-		if_chr_knockedout(CHR_PILOT3, /*goto*/ 0x04)
+		if_chr_deadish(CHR_PILOT3, /*goto*/ 0x04)
 		if_chr_has_flag_bankx(CHR_PILOT3, CHRFLAG0_COVER_TYPE2, BANK_0, /*goto*/ 0x04)
 		set_ailist(CHR_PILOT3, AILIST_ANGRY_PILOT)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2137,9 +2105,7 @@ u8 func0404_angry_pilot[] = {
 	unset_self_flag_bankx(CHRFLAG0_ALERT_ON_HEARSPAWN, BANK_0)
 	set_self_chrflag(CHRCFLAG_00000040)
 	set_shotlist(AILIST_ANGRY_PILOT)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x07)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x07)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Dying
@@ -2168,25 +2134,19 @@ u8 func0404_angry_pilot[] = {
 
 	// Select another pilot as target
 	label(0x04)
-	if_chr_dead(CHR_PILOT1, /*goto*/ 0x3b)
-	if_chr_death_animation_finished(CHR_PILOT1, /*goto*/ 0x3b)
-	if_chr_knockedout(CHR_PILOT1, /*goto*/ 0x3b)
+	if_chr_deadish(CHR_PILOT1, /*goto*/ 0x3b)
 	if_chr_has_flag_bankx(CHR_PILOT1, CHRFLAG0_GP1, BANK_0, /*goto*/ 0x3b)
 	set_target_chr(CHR_PILOT1)
 	goto_next(0x00)
 
 	label(0x3b)
-	if_chr_dead(CHR_PILOT2, /*goto*/ 0x3c)
-	if_chr_death_animation_finished(CHR_PILOT2, /*goto*/ 0x3c)
-	if_chr_knockedout(CHR_PILOT2, /*goto*/ 0x3c)
+	if_chr_deadish(CHR_PILOT2, /*goto*/ 0x3c)
 	if_chr_has_flag_bankx(CHR_PILOT2, CHRFLAG0_GP1, BANK_0, /*goto*/ 0x3c)
 	set_target_chr(CHR_PILOT2)
 	goto_next(0x00)
 
 	label(0x3c)
-	if_chr_dead(CHR_PILOT3, /*goto*/ 0x04)
-	if_chr_death_animation_finished(CHR_PILOT3, /*goto*/ 0x04)
-	if_chr_knockedout(CHR_PILOT3, /*goto*/ 0x04)
+	if_chr_deadish(CHR_PILOT3, /*goto*/ 0x04)
 	if_chr_has_flag_bankx(CHR_PILOT3, CHRFLAG0_GP1, BANK_0, /*goto*/ 0x04)
 	set_target_chr(CHR_PILOT3)
 	goto_next(0x00)
@@ -2448,9 +2408,7 @@ u8 func101b_reactor_hum[] = {
 
 u8 func0415_elvis_at_start[] = {
 	set_shotlist(AILIST_ELVIS_AT_START)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x07)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x07)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Dying
@@ -2592,9 +2550,7 @@ u8 func0415_elvis_at_start[] = {
  */
 u8 func0416_elvis_leading[] = {
 	set_shotlist(AILIST_ELVIS_LEADING)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x07)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x07)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Dying
@@ -2667,9 +2623,7 @@ u8 func0416_elvis_leading[] = {
 
 u8 func101c_check_elvis_dead[] = {
 	beginloop(0x00)
-		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
-		if_chr_dead(CHR_ELVIS, /*goto*/ 0x07)
-		if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x07)
+		if_chr_deadish(CHR_ELVIS, /*goto*/ 0x07)
 	endloop(0x00)
 
 	label(0x07)
@@ -2693,9 +2647,7 @@ u8 func0418_elvis_at_moonpool[] = {
 	endloop(0x00)
 
 	label(0x07)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x07)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x07)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x07)
 	do_preset_animation(PRESETANIM_TALKRANDOM)
 	set_stage_flag(STAGEFLAG_MET_ELVIS)
 	speak(CHR_P1P2, L_DAM_034, SFX_81A4, CHANNEL_6, COLOR_06_WHITE) // "Joanna... What took you so long? Follow me - let's..."

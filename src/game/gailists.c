@@ -93,9 +93,7 @@ u8 func0006_unalerted[] = {
 	label(0x16)
 	set_target_chr(CHR_P1P2)
 	set_shotlist(GAILIST_UNALERTED)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x15)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x15)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x15)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x15)
 	if_just_injured(CHR_SELF, /*goto*/ 0x16)
 	if_has_gun(CHR_SELF, /*goto*/ 0x13)
 	goto_next(0x16)
@@ -826,9 +824,7 @@ u8 func0008_wakeup[] = {
 	// About to stand up
 	label(0x05)
 	yield
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x13)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x13)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x13)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x13)
 	goto_next(0x15)
 
 	// Dead
@@ -917,9 +913,7 @@ u8 func0007_alerted[] = {
 	set_aishootingatmelist(GAILIST_DODGE)
 	set_darkroomlist(GAILIST_SEARCH_FOR_PLAYER)
 
-	if_chr_dead(CHR_SELF, /*goto*/ 0x16)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x16)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x16)
 	goto_next(0x13)
 
 	// Dying
@@ -2784,9 +2778,7 @@ u8 func0007_alerted[] = {
 	label(LABEL_TARGETGONE)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00002000)
 	stop_chr
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x16)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x16)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x16)
 	if_can_see_target(/*goto*/ 0x13)
 	set_alertness(0)
 	set_self_flag_bankx(CHRFLAG1_SEARCHSAMEROOM, BANK_1)
@@ -3099,9 +3091,7 @@ u8 func000c_combat_with_target_chr[] = {
 	// Or follow through if chr still has target
 	label(0x16)
 	set_self_chrflag(CHRCFLAG_00000040)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x16)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x16)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x16)
 	goto_next(0x13)
 
 	// Dying
@@ -3249,9 +3239,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x16)
 	restart_timer
-	if_chr_dead(CHR_TARGET, /*goto*/ 0xba)
-	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
-	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xba)
+	if_chr_deadish(CHR_TARGET, /*goto*/ 0xba)
 	if_chrpresets_target_is_different(/*goto*/ 0x13)
 	goto_next(0x16)
 
@@ -3278,9 +3266,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_timer_gt(20, /*goto*/ 0x09)
 
 		label(0x13)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xba)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xba)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0xba)
 		if_chrpresets_target_is_different(/*goto*/ 0x13)
 		goto_next(0xba)
 
@@ -3312,9 +3298,7 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xb7)
 	label(0xb9)
 	if_can_see_attack_target(/*goto*/ 0xb6)
-	if_chr_dead(CHR_TARGET, /*goto*/ 0xba)
-	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
-	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xba)
+	if_chr_deadish(CHR_TARGET, /*goto*/ 0xba)
 	if_chrpresets_target_is_different(/*goto*/ 0x13)
 	goto_next(0xba)
 
@@ -3327,9 +3311,7 @@ u8 func000c_combat_with_target_chr[] = {
 	try_run_to_target(/*goto*/ 0xbc)
 
 	beginloop(0xbc)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xc0)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc0)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc0)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0xc0)
 		if_chrpresets_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc0)
 
@@ -3354,9 +3336,7 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xb6)
 	set_grenade_probability_out_of_255(255)
 	set_self_chrflag(CHRCFLAG_00000040)
-	if_chr_dead(CHR_TARGET, /*goto*/ 0xc1)
-	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
-	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc1)
+	if_chr_deadish(CHR_TARGET, /*goto*/ 0xc1)
 	if_chrpresets_target_is_different(/*goto*/ 0x13)
 	goto_next(0xc1)
 
@@ -3460,9 +3440,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 #if VERSION >= VERSION_NTSC_1_0
 	beginloop(0xe2)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xc1)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc1)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0xc1)
 		if_chrpresets_target_is_different(/*goto*/ 0x16)
 		goto_next(0xc1)
 
@@ -3470,9 +3448,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_stopped(/*goto*/ 0xc1)
 	endloop(0xe2)
 #else
-	if_chr_dead(CHR_TARGET, /*goto*/ 0xc1)
-	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
-	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc1)
+	if_chr_deadish(CHR_TARGET, /*goto*/ 0xc1)
 	if_chrpresets_target_is_different(/*goto*/ 0xe2)
 	goto_next(0xc1)
 
@@ -3510,9 +3486,7 @@ u8 func000c_combat_with_target_chr[] = {
 	unset_self_flag_bankx(CHRFLAG1_PUNCHAIEXTRADAMAGE, BANK_1)
 
 	label(0x13)
-	if_chr_dead(CHR_TARGET, /*goto*/ 0xc5)
-	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
-	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc5)
+	if_chr_deadish(CHR_TARGET, /*goto*/ 0xc5)
 	if_chrpresets_target_is_different(/*goto*/ 0x13)
 	goto_next(0xc5)
 
@@ -3543,9 +3517,7 @@ u8 func000c_combat_with_target_chr[] = {
 	restart_timer
 
 	beginloop(0xc7)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xc5)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc5)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0xc5)
 		if_enemy_distance_lt_and_los(400, /*goto*/ 0x13)
 		if_chr_stopped(/*goto*/ 0x16)
 		if_timer_gt(360, /*goto*/ 0x16)
@@ -3561,15 +3533,7 @@ u8 func000c_combat_with_target_chr[] = {
 	try_attack_kneel(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0xc9)
 
 	beginloop(0xc9)
-#if VERSION >= VERSION_NTSC_1_0
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xc5)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc5)
-#else
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xa3)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xa3)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xa3)
-#endif
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0xc5)
 		if_chrpresets_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc5)
 
@@ -3623,11 +3587,8 @@ u8 func000c_combat_with_target_chr[] = {
 	say_quip(CHR_BOND, QUIP_ATTACK3, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	say_quip(CHR_BOND, QUIP_ATTACK4, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
-#if VERSION >= VERSION_NTSC_1_0
 	beginloop(0xcc)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xc5)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc5)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0xc5)
 		if_chrpresets_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc5)
 
@@ -3635,17 +3596,6 @@ u8 func000c_combat_with_target_chr[] = {
 		if_timer_gt(300, /*goto*/ 0x16)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0xcc)
-#else
-	if_chr_dead(CHR_TARGET, /*goto*/ 0xa3)
-	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xa3)
-	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xa3)
-	if_chrpresets_target_is_different(/*goto*/ 0xcc)
-	goto_next(0xc5)
-
-	beginloop(0xcc)
-		if_chr_stopped(/*goto*/ 0x16)
-	endloop(0xcc)
-#endif
 
 	label(0x54)
 	goto_first(0xb3)
@@ -4079,9 +4029,7 @@ u8 func001a_patroller_dis_talking[] = {
  */
 u8 func000f_hand_combat[] = {
 #if VERSION >= VERSION_NTSC_1_0
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x13)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x13)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x13)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	// Dying
@@ -4104,9 +4052,7 @@ u8 func000f_hand_combat[] = {
 
 	// Begin loop
 	beginloop(0x0c)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xfa)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xfa)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0xfa)
 
 		// This if-statement is effectively a no op
 		if_chrpresets_target_is_different(/*goto*/ 0x13)
@@ -4145,9 +4091,7 @@ u8 func000f_hand_combat[] = {
 	try_run_to_target(/*goto*/ 0x03)
 
 	beginloop(0x03)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xfa)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xfa)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0xfa)
 
 		label(0x13)
 		if_timer_gt(90, /*goto*/ 0x0b)
@@ -4205,9 +4149,7 @@ u8 func000f_hand_combat[] = {
 	try_face_entity(ATTACKFLAG_AIMATTARGET, 1, /*goto*/ 0x04)
 
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0xfa)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xfa)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0xfa)
 
 		label(0x13)
 		if_distance_to_target_gt(400, /*goto*/ 0x0b)
@@ -4560,9 +4502,7 @@ u8 func001b_observe_camspy[] = {
 	endloop(0xc3)
 
 	label(0x16)
-	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x13)
-	if_chr_dead(CHR_TARGET, /*goto*/ 0x13)
-	if_chr_knockedout(CHR_TARGET, /*goto*/ 0x13)
+	if_chr_deadish(CHR_TARGET, /*goto*/ 0x13)
 
 	// Camspy still alive
 	if_can_see_target(/*goto*/ 0x16)
@@ -4587,9 +4527,7 @@ u8 func001b_observe_camspy[] = {
  * @ailist GAILIST_SEARCH_FOR_PLAYER
  */
 u8 func001d_search_for_player[] = {
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x13)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x13)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x13)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	// Dying
@@ -4782,9 +4720,7 @@ u8 func001d_search_for_player[] = {
  * @ailist GAILIST_RELATED_TO_SPAWNING
  */
 u8 func001f_related_to_spawning[] = {
-	if_chr_dead(CHR_SELF, /*goto*/ 0x13)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x13)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x13)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	// Dying
@@ -5044,9 +4980,7 @@ u8 func0014_buddy_main[] = {
 	set_morale(0)
 	set_shotlist(GAILIST_BUDDY_MAIN)
 	set_target_chr(CHR_BOND)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x13)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x13)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x13)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	// Dying
@@ -5276,9 +5210,7 @@ u8 func0022_comment_on_player_dead[] = {
  * Do a sideways dodge, then assign GAILIST_ALERTED.
  */
 u8 func0023_dodge[] = {
-	if_chr_dead(CHR_SELF, /*goto*/ 0x16)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x16)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x16)
 	goto_next(0x13)
 
 	// Dying
@@ -5535,9 +5467,7 @@ u8 func0027_psychosised[] = {
 	set_morale(0)
 	set_shotlist(GAILIST_PSYCHOSISED)
 	set_target_chr(CHR_PRESET)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x13)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x13)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x13)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	// Dying

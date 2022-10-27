@@ -759,9 +759,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	set_returnlist(CHR_SELF, AILIST_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	set_shotlist(AILIST_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	set_target_chr(CHR_PRESET)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Dying
@@ -943,9 +941,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	unset_self_flag_bankx(CHRFLAG1_NOOP_00200000, BANK_1)
 	set_shotlist(AILIST_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
 	set_target_chr(CHR_PRESET)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Dying
@@ -1080,9 +1076,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 	unset_self_flag_bankx(CHRFLAG1_NOOP_00200000, BANK_1)
 	set_shotlist(0x0405)
 	set_target_chr(CHR_PRESET)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Dying
@@ -1157,9 +1151,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 	set_shotlist(AILIST_ELVIS_FOLLOW_AND_DO_SA_MEGAWEAPON)
 	set_target_chr(CHR_PRESET)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Dying
@@ -1257,9 +1249,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 u8 func0407_elvis_go_to_sa_teleport[] = {
 	set_shotlist(AILIST_ELVIS_GO_TO_SA_TELEPORT)
 	set_target_chr(CHR_PRESET)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Dying
@@ -1331,9 +1321,7 @@ u8 func0407_elvis_go_to_sa_teleport[] = {
 u8 func0403_elvis_give_farsight[] = {
 	set_shotlist(AILIST_ELVIS_GIVE_FARSIGHT)
 	set_target_chr(CHR_PRESET)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Dying
@@ -2221,9 +2209,7 @@ u8 func0430_unused[] = {
 
 u8 func1006_msg_thiswillhelpus[] = {
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_dead(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x0d)
+		if_chr_deadish(CHR_ELVIS, /*goto*/ 0x0d)
 		if_objective_complete(0, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -2231,9 +2217,7 @@ u8 func1006_msg_thiswillhelpus[] = {
 	restart_timer
 
 	beginloop(0x08)
-		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_dead(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x0d)
+		if_chr_deadish(CHR_ELVIS, /*goto*/ 0x0d)
 		if_timer_gt(180, /*goto*/ 0x2e)
 	endloop(0x08)
 
@@ -2248,9 +2232,7 @@ u8 func1007_msg_antibodymasking[] = {
 	restart_timer
 
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_dead(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x0d)
+		if_chr_deadish(CHR_ELVIS, /*goto*/ 0x0d)
 	endloop(0x04)
 
 	// Unreachable
@@ -2264,13 +2246,9 @@ u8 func1007_msg_antibodymasking[] = {
 
 u8 func1008_msg_theresdrcaroll[] = {
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_dead(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x0d)
+		if_chr_deadish(CHR_ELVIS, /*goto*/ 0x0d)
 
-		if_chr_death_animation_finished(CHR_DRCAROLL, /*goto*/ 0x0d)
-		if_chr_dead(CHR_DRCAROLL, /*goto*/ 0x0d)
-		if_chr_knockedout(CHR_DRCAROLL, /*goto*/ 0x0d)
+		if_chr_deadish(CHR_DRCAROLL, /*goto*/ 0x0d)
 
 		if_door_state(0xae, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2e)
 		reloop(0x04)
@@ -2301,9 +2279,7 @@ u8 func1009_msg_getoutofhere[] = {
 	restart_timer
 
 	beginloop(0x08)
-		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_dead(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x0d)
+		if_chr_deadish(CHR_ELVIS, /*goto*/ 0x0d)
 		if_timer_gt(120, /*goto*/ 0x2e)
 	endloop(0x08)
 
@@ -2486,18 +2462,14 @@ u8 func100a_bond_teleports[] = {
 u8 func0414_teleport_bond_to_sapa[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x61)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_STOP)
 
 	label(0x08)
-	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x06)
-	if_chr_dead(CHR_ELVIS, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x06)
+	if_chr_deadish(CHR_ELVIS, /*goto*/ 0x06)
 
 	beginloop(0x63)
 		chr_move_to_pad(CHR_ELVIS, PAD_PAM_01C6, 0x01, /*goto*/ 0x06)
@@ -2516,9 +2488,7 @@ u8 func0414_teleport_bond_to_sapa[] = {
 	stop_chr
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x61)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 	label(0x61)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_GIVE_FARSIGHT)
@@ -2530,16 +2500,12 @@ u8 func0414_teleport_bond_to_sapa[] = {
 u8 func0415_teleport_bond_to_drcaroll[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x61)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_STOP)
-	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_dead(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x07)
+	if_chr_deadish(CHR_ELVIS, /*goto*/ 0x07)
 
 	beginloop(0x65)
 		chr_move_to_pad(CHR_ELVIS, PAD_PAM_01BF, 0x01, /*goto*/ 0x06)
@@ -2562,9 +2528,7 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x61)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2583,9 +2547,7 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
 u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x61)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2597,15 +2559,11 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 
 	// PA
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x61)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
-	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_dead(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x07)
+	if_chr_deadish(CHR_ELVIS, /*goto*/ 0x07)
 
 	beginloop(0x66)
 		chr_move_to_pad(CHR_ELVIS, PAD_PAM_01BE, 0x01, /*goto*/ 0x06)
@@ -2625,9 +2583,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	stop_chr
 	yield
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x61)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2644,15 +2600,11 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	// Agent
 	label(0x09)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x61)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
-	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_dead(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x07)
+	if_chr_deadish(CHR_ELVIS, /*goto*/ 0x07)
 
 	beginloop(0x6b)
 		chr_move_to_pad(CHR_ELVIS, PAD_PAM_0040, 0x01, /*goto*/ 0x06)
@@ -2673,9 +2625,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x61)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2727,9 +2677,7 @@ u8 func100b_coop_teleports[] = {
 	goto_first(0x5b)
 
 	label(0x5e)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2773,9 +2721,7 @@ u8 func100b_coop_teleports[] = {
 	goto_first(0x5c)
 
 	label(0x5e)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2831,9 +2777,7 @@ u8 func100b_coop_teleports[] = {
 	goto_first(0x5d)
 
 	label(0x5e)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2855,18 +2799,14 @@ u8 func100b_coop_teleports[] = {
 
 u8 func0417_teleport_coop_to_sapa[] = {
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_STOP)
 
 	label(0x08)
-	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x06)
-	if_chr_dead(CHR_ELVIS, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x06)
+	if_chr_deadish(CHR_ELVIS, /*goto*/ 0x06)
 
 	beginloop(0x63)
 		chr_move_to_pad(CHR_ELVIS, PAD_PAM_01C6, 0x01, /*goto*/ 0x06)
@@ -2885,9 +2825,7 @@ u8 func0417_teleport_coop_to_sapa[] = {
 	stop_chr
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2900,16 +2838,12 @@ u8 func0417_teleport_coop_to_sapa[] = {
 
 u8 func0418_teleport_coop_to_drcaroll[] = {
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_STOP)
-	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_dead(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x07)
+	if_chr_deadish(CHR_ELVIS, /*goto*/ 0x07)
 
 	beginloop(0x65)
 		chr_move_to_pad(CHR_ELVIS, PAD_PAM_01BF, 0x01, /*goto*/ 0x06)
@@ -2932,9 +2866,7 @@ u8 func0418_teleport_coop_to_drcaroll[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2951,9 +2883,7 @@ u8 func0418_teleport_coop_to_drcaroll[] = {
  */
 u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2964,15 +2894,11 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 
 	// PA
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
-	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_dead(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x07)
+	if_chr_deadish(CHR_ELVIS, /*goto*/ 0x07)
 
 	beginloop(0x66)
 		chr_move_to_pad(CHR_ELVIS, PAD_PAM_01BE, 0x01, /*goto*/ 0x06)
@@ -2992,9 +2918,7 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	stop_chr
 	yield
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -3010,14 +2934,10 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	// Agent
 	label(0x09)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 	label(0x61)
-	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_dead(CHR_ELVIS, /*goto*/ 0x07)
-	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x07)
+	if_chr_deadish(CHR_ELVIS, /*goto*/ 0x07)
 
 	beginloop(0x6b)
 		chr_move_to_pad(CHR_ELVIS, PAD_PAM_0040, 0x01, /*goto*/ 0x06)
@@ -3038,9 +2958,7 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x61)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x61)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -3134,9 +3052,7 @@ u8 func041d_sniper[] = {
 	set_self_chrflag(CHRCFLAG_00000040)
 	set_shotlist(AILIST_SNIPER)
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x03)
 
 	// Dying
@@ -3286,15 +3202,11 @@ u8 func100c_countdown_timer[] = {
 	label(0x09)
 	yield
 	label(0x2e)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2e)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Both players dead
@@ -3313,9 +3225,7 @@ u8 func100c_countdown_timer[] = {
 
 u8 func100e_check_elvis_dead[] = {
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x2e)
-		if_chr_dead(CHR_ELVIS, /*goto*/ 0x2e)
-		if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x2e)
+		if_chr_deadish(CHR_ELVIS, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)
@@ -3327,9 +3237,7 @@ u8 func100e_check_elvis_dead[] = {
 
 u8 func100f_check_drcaroll_dead[] = {
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_DRCAROLL, /*goto*/ 0x2e)
-		if_chr_dead(CHR_DRCAROLL, /*goto*/ 0x2e)
-		if_chr_knockedout(CHR_DRCAROLL, /*goto*/ 0x2e)
+		if_chr_deadish(CHR_DRCAROLL, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)
@@ -3382,9 +3290,7 @@ u8 func040e_init_miniskedar[] = {
 
 u8 func040f_miniskedar[] = {
 	set_shotlist(AILIST_MINISKEDAR)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Dying
@@ -4164,15 +4070,11 @@ u8 func1022_control_room[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	if_chr_dead(CHR_BLONDE1, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_BLONDE1, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_BLONDE1, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_BLONDE1, /*goto*/ 0x2e)
 	goto_first(0x04)
 
 	label(0x2e)
-	if_chr_dead(CHR_BLONDE2, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_BLONDE2, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_BLONDE2, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_BLONDE2, /*goto*/ 0x2e)
 	goto_first(0x04)
 
 	label(0x2e)
@@ -4188,12 +4090,8 @@ u8 func1023_check_drcaroll_restored[] = {
 	give_object_to_chr(OBJ_BACKUPDISK, CHR_BOND)
 
 	beginloop(0x04)
-		if_chr_death_animation_finished(CHR_DRCAROLL, /*goto*/ 0x0d)
-		if_chr_dead(CHR_DRCAROLL, /*goto*/ 0x0d)
-		if_chr_knockedout(CHR_DRCAROLL, /*goto*/ 0x0d)
-		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_dead(CHR_ELVIS, /*goto*/ 0x0d)
-		if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x0d)
+		if_chr_deadish(CHR_DRCAROLL, /*goto*/ 0x0d)
+		if_chr_deadish(CHR_ELVIS, /*goto*/ 0x0d)
 		chr_toggle_p1p2(CHR_SELF)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 200, PAD_PAM_0193, /*goto*/ 0x2e)
 		reloop(0x04)
@@ -4223,17 +4121,13 @@ u8 func1023_check_drcaroll_restored[] = {
 
 u8 func1024_update_elvis_target_chr[] = {
 	beginloop(0x04)
-		if_chr_dead(CHR_BOND, /*goto*/ 0x08)
-		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x08)
-		if_chr_knockedout(CHR_BOND, /*goto*/ 0x08)
+		if_chr_deadish(CHR_BOND, /*goto*/ 0x08)
 		set_chr_target_chr(CHR_ELVIS, CHR_BOND)
 		unset_stage_flag(STAGEFLAG_ELVIS_FOLLOWING_COOP)
 	endloop(0x04)
 
 	beginloop(0x08)
-		if_chr_dead(CHR_COOP, /*goto*/ 0x2e)
-		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
-		if_chr_knockedout(CHR_COOP, /*goto*/ 0x2e)
+		if_chr_deadish(CHR_COOP, /*goto*/ 0x2e)
 		set_chr_target_chr(CHR_ELVIS, CHR_COOP)
 		set_stage_flag(STAGEFLAG_ELVIS_FOLLOWING_COOP)
 	endloop(0x08)
@@ -4268,9 +4162,7 @@ u8 func042e_elvis_run_to_exit[] = {
 	set_shotlist(AILIST_ELVIS_RUN_TO_EXIT)
 	set_returnlist(CHR_SELF, AILIST_ELVIS_RUN_TO_EXIT)
 	set_target_chr(CHR_PRESET)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Dying
@@ -4435,9 +4327,7 @@ u8 func102a_kill_pelagic_guard[] = {
 
 u8 func102b_proxymines[] = {
 	beginloop(0x04)
-		if_chr_death_animation_finished(0x08, /*goto*/ 0x06)
-		if_chr_dead(0x08, /*goto*/ 0x06)
-		if_chr_knockedout(0x08, /*goto*/ 0x06)
+		if_chr_deadish(0x08, /*goto*/ 0x06)
 		if_stage_flag_eq(STAGEFLAG_PURPLE_GUARD_SHOT_JO_OR_ELVIS, TRUE, /*goto*/ 0x2e)
 	endloop(0x04)
 

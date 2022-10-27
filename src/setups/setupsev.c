@@ -1380,15 +1380,11 @@ u8 func1009_check_for_exit[] = {
 	label(0x2c)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	// Both players dead
@@ -1487,15 +1483,11 @@ u8 func100b_check_medlab_escapable[] = {
 
 		// Timer expired, and no glass was broken. Check if lab techs are dead.
 		label(0x2c)
-		if_chr_death_animation_finished(CHR_LABTECH1, /*goto*/ 0x63)
-		if_chr_dead(CHR_LABTECH1, /*goto*/ 0x63)
-		if_chr_knockedout(CHR_LABTECH1, /*goto*/ 0x63)
+		if_chr_deadish(CHR_LABTECH1, /*goto*/ 0x63)
 		goto_next(0x06)
 
 		label(0x63)
-		if_chr_death_animation_finished(CHR_LABTECH2, /*goto*/ 0x65)
-		if_chr_dead(CHR_LABTECH2, /*goto*/ 0x65)
-		if_chr_knockedout(CHR_LABTECH2, /*goto*/ 0x65)
+		if_chr_deadish(CHR_LABTECH2, /*goto*/ 0x65)
 
 		label(0x06)
 		if_chr_has_object(CHR_BOND, OBJ_PSYCHOSISGUN, /*goto*/ 0x2c)

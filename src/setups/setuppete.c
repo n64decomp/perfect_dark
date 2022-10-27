@@ -718,18 +718,14 @@ u8 func100f_check_mine[] = {
 		set_target_chr(CHR_P1P2)
 
 		beginloop(0x11)
-			if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x29)
-			if_chr_dead(CHR_TARGET, /*goto*/ 0x29)
-			if_chr_knockedout(CHR_TARGET, /*goto*/ 0x29)
+			if_chr_deadish(CHR_TARGET, /*goto*/ 0x29)
 			if_ammo_quantity_lt(CHR_TARGET, AMMOTYPE_REMOTE_MINE, 1, /*goto*/ 0x03)
 		endloop(0x11)
 
 		label(0x29)
 		label(0x54)
 		yield
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x28)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0x28)
-		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x28)
+		if_chr_deadish(CHR_TARGET, /*goto*/ 0x28)
 		yield
 		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_REMOTE_MINE, 1, /*goto*/ 0x29)
 		reloop(0x08)
@@ -983,9 +979,7 @@ u8 func040c_taxi[] = {
  \
 	beginloop(0x11) \
 		set_target_chr(chr2) \
-		if_chr_death_animation_finished(chr, /*goto*/ 0x2f) \
-		if_chr_dead(chr, /*goto*/ 0x2f) \
-		if_chr_knockedout(chr, /*goto*/ 0x2f) \
+		if_chr_deadish(chr, /*goto*/ 0x2f) \
 		if_ammo_quantity_lt(chr, AMMOTYPE_BUG, 1, /*goto*/ 0x03) \
 		label(0x04) \
 	endloop(0x11) \
@@ -993,9 +987,7 @@ u8 func040c_taxi[] = {
 	/* Dead - not sure why it checks this a second time */ \
 	beginloop(0x2f) \
 		set_target_chr(chr2) \
-		if_chr_death_animation_finished(chr, /*goto*/ 0x30) \
-		if_chr_dead(chr, /*goto*/ 0x30) \
-		if_chr_knockedout(chr, /*goto*/ 0x30) \
+		if_chr_deadish(chr, /*goto*/ 0x30) \
 		label(0x31) \
 		yield \
 		yield \
@@ -1164,15 +1156,11 @@ u8 func1006_check_for_end[] = {
 
 	// Objectives complete
 	label(0x05)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x03)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x03)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x03)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x03)
 	goto_next(0x04)
 
 	label(0x03)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x03)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x03)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x03)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x03)
 	goto_next(0x04)
 
 	label(0x03)
@@ -1269,9 +1257,7 @@ u8 func040c_taxi_timing[] = {
 u8 func0412_cia[] = {
 	set_returnlist(CHR_SELF, AILIST_CIA)
 	set_shotlist(AILIST_CIA)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x04)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x04)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x04)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x04)
 	goto_next(0x03)
 
 	label(0x04)
@@ -1536,9 +1522,7 @@ u8 func0413_bugspotter[] = {
 
 	set_alertness(255)
 	set_shotlist(AILIST_BUGSPOTTER)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x04)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x04)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x04)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x04)
 	goto_next(0x03)
 
 	label(0x04)
@@ -1767,9 +1751,7 @@ u8 func0419_init_cia1[] = {
 
 u8 func041d_fbi[] = {
 	set_shotlist(AILIST_FBI)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x04)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x04)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x04)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x04)
 	goto_next(0x03)
 
 	label(0x04)

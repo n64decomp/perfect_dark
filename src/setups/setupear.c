@@ -933,9 +933,7 @@ u8 func0405_init_scientist[] = {
 
 u8 func0404_scientist[] = {
 	set_shotlist(AILIST_SCIENTIST)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
@@ -990,16 +988,12 @@ u8 func0404_scientist[] = {
 		chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 		beginloop(0x6b)
-			if_chr_dead(0x2b, /*goto*/ 0x2f)
-			if_chr_death_animation_finished(0x2b, /*goto*/ 0x2f)
-			if_chr_knockedout(0x2b, /*goto*/ 0x2f)
+			if_chr_deadish(0x2b, /*goto*/ 0x2f)
 			if_chr_stopped(/*goto*/ 0x6c)
 			reloop(0x6b)
 
 			label(0x2f)
-			if_chr_dead(0x2c, /*goto*/ 0x06)
-			if_chr_death_animation_finished(0x2c, /*goto*/ 0x06)
-			if_chr_knockedout(0x2c, /*goto*/ 0x06)
+			if_chr_deadish(0x2c, /*goto*/ 0x06)
 			if_chr_stopped(/*goto*/ 0x6c)
 		endloop(0x6b)
 
@@ -1010,16 +1004,12 @@ u8 func0404_scientist[] = {
 		chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 		beginloop(0x6e)
-			if_chr_dead(0x2d, /*goto*/ 0x2f)
-			if_chr_death_animation_finished(0x2d, /*goto*/ 0x2f)
-			if_chr_knockedout(0x2d, /*goto*/ 0x2f)
+			if_chr_deadish(0x2d, /*goto*/ 0x2f)
 			if_chr_stopped(/*goto*/ 0x6f)
 			reloop(0x6e)
 
 			label(0x2f)
-			if_chr_dead(0x2e, /*goto*/ 0x06)
-			if_chr_death_animation_finished(0x2e, /*goto*/ 0x06)
-			if_chr_knockedout(0x2e, /*goto*/ 0x06)
+			if_chr_deadish(0x2e, /*goto*/ 0x06)
 			if_chr_stopped(/*goto*/ 0x6f)
 		endloop(0x6e)
 
@@ -1169,9 +1159,7 @@ u8 func0407_init_nasty_scientist[] = {
 
 u8 func0406_nasty_scientist[] = {
 	set_shotlist(AILIST_NASTY_SCIENTIST)
-	if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
@@ -2621,15 +2609,11 @@ u8 func100f_check_for_end_level[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2f)
-	if_chr_dead(CHR_BOND, /*goto*/ 0x2f)
-	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2f)
+	if_chr_deadish(CHR_BOND, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2f)
-	if_chr_dead(CHR_COOP, /*goto*/ 0x2f)
-	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2f)
+	if_chr_deadish(CHR_COOP, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)

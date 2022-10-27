@@ -427,6 +427,11 @@
 	chr, \
 	label,
 
+#define if_chr_deadish(chr, label) \
+	mkshort(0xfd00), \
+	chr, \
+	label,
+
 /**
  * Checks if the chr has line of sight to their target. The target can be a chr,
  * object or the player.

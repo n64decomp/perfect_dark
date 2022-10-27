@@ -312,6 +312,7 @@ u8 g_TopLengths[] = {
 	/* 0xfa */ 8,
 	/* 0xfb */ 3,
 	/* 0xfc */ 3,
+	/* 0xfd */ 4,
 };
 
 u8 g_SubLengths[] = {
@@ -408,7 +409,7 @@ bool ailistIsGoto(u8 major, u8 minor)
 	if (major == 0xff) {
 		return minor <= 0x06;
 	} else {
-		return major <= 0x93;
+		return major <= 0x93 || major == 0xfd;
 	}
 }
 
