@@ -140,6 +140,7 @@ extern u32 var80062974;
 extern u32 var80062978;
 extern u32 var8006297c;
 extern s32 g_NextChrnum;
+extern s16 g_ChrIndexesByChrnum[240];
 extern struct chrdata *g_ChrSlots;
 extern s32 g_NumChrSlots;
 extern struct shieldhit *g_ShieldHits;

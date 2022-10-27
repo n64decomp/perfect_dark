@@ -6,6 +6,7 @@
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/chr.h"
+#include "game/chrmgr.h"
 #include "game/env.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
@@ -50,8 +51,7 @@
 
 void *var8009ccc0[20];
 s32 g_NumChrs;
-s16 *g_Chrnums;
-s16 *g_ChrIndexes;
+s16 g_ChrIndexesByChrnum[240];
 struct chrdata *g_CurModelChr;
 
 struct var80062960 *var80062960 = NULL;
@@ -63,7 +63,7 @@ u32 var80062974 = 0x00000000;
 u32 var80062978 = 0x00000000;
 u32 var8006297c = 0;
 u32 var80062980 = 0;
-s32 g_NextChrnum = 5000;
+s32 g_NextChrnum = 200;
 
 struct chrdata *g_ChrSlots = NULL;
 
@@ -74,84 +74,26 @@ s32 chrsGetNumSlots(void)
 	return g_NumChrSlots;
 }
 
-void chrSetChrnum(struct chrdata *chr, s16 chrnum)
+void chrSetChrnum(struct chrdata *chr, s16 newnum)
 {
-	s32 i;
-	bool modified;
-	s16 tmp;
+	s16 oldnum = chr->chrnum;
+	s16 index;
 
-	// Set the new chrnum
-	for (i = 0; i < g_NumChrs; i++) {
-		if (g_Chrnums[i] == chr->chrnum) {
-			g_Chrnums[i] = chrnum;
-			break;
-		}
+	index = g_ChrIndexesByChrnum[oldnum];
+	g_ChrIndexesByChrnum[oldnum] = -1;
+	g_ChrIndexesByChrnum[newnum] = index;
 
-	}
-
-	chr->chrnum = chrnum;
-
-	// Sort the g_Chrnums and g_ChrIndexes arrays
-	do {
-		modified = false;
-
-		for (i = 0; i < g_NumChrs - 1; i++) {
-			if (g_Chrnums[i] > g_Chrnums[i + 1]) {
-				tmp = g_Chrnums[i];
-				g_Chrnums[i] = g_Chrnums[i + 1];
-				g_Chrnums[i + 1] = tmp;
-
-				tmp = g_ChrIndexes[i];
-				g_ChrIndexes[i] = g_ChrIndexes[i + 1];
-				g_ChrIndexes[i + 1] = tmp;
-
-				modified = true;
-			}
-		}
-	} while (modified);
+	chr->chrnum = newnum;
 }
 
 void chrRegister(s32 chrnum, s32 chrindex)
 {
-	s32 i;
-	s16 tmp;
-
-	for (i = 0; i < g_NumChrs; i++) {
-		if (g_Chrnums[i] > chrnum) {
-			tmp = g_Chrnums[i];
-			g_Chrnums[i] = chrnum;
-			chrnum = tmp;
-
-			tmp = g_ChrIndexes[i];
-			g_ChrIndexes[i] = chrindex;
-			chrindex = tmp;
-		}
-	}
-
-	g_Chrnums[g_NumChrs] = chrnum;
-	g_ChrIndexes[g_NumChrs] = chrindex;
-	g_NumChrs++;
+	g_ChrIndexesByChrnum[chrnum] = chrindex;
 }
 
 void chrDeregister(s32 chrnum)
 {
-	s32 i;
-
-	for (i = 0; i < g_NumChrs; i++) {
-		if (g_Chrnums[i] == chrnum) {
-			s32 j = i + 1;
-
-			while (j < g_NumChrs) {
-				g_Chrnums[i] = g_Chrnums[j];
-				g_ChrIndexes[i] = g_ChrIndexes[j];
-				i++;
-				j++;
-			}
-
-			g_NumChrs--;
-			return;
-		}
-	}
+	g_ChrIndexesByChrnum[chrnum] = -1;
 }
 
 struct gfxvtx *chrAllocateVertices(s32 numvertices)
@@ -1046,8 +988,8 @@ s16 chrsGetNextUnusedChrnum(void)
 	do {
 		chrnum = ++g_NextChrnum;
 
-		if (chrnum > 32767) {
-			chrnum = g_NextChrnum = 5000;
+		if (chrnum >= ARRAYCOUNT(g_ChrIndexesByChrnum)) {
+			chrnum = g_NextChrnum = 200;
 		}
 
 		chr = chrFindByLiteralId((s16)chrnum);
@@ -5427,22 +5369,8 @@ void chrsCheckForNoise(f32 noiseradius)
 
 struct chrdata *chrFindByLiteralId(s32 chrnum)
 {
-	s32 lower = 0;
-	s32 upper = g_NumChrs;
-	s32 i;
-
-	while (upper >= lower) {
-		i = (lower + upper) / 2;
-
-		if (chrnum == g_Chrnums[i]) {
-			return &g_ChrSlots[g_ChrIndexes[i]];
-		}
-
-		if (chrnum < g_Chrnums[i]) {
-			upper = i - 1;
-		} else {
-			lower = i + 1;
-		}
+	if (g_ChrIndexesByChrnum[chrnum] >= 0) {
+		return &g_ChrSlots[g_ChrIndexesByChrnum[chrnum]];
 	}
 
 	return NULL;
