@@ -324,6 +324,8 @@ void bgunPreload(void)
 			handfilenum = g_HeadsAndBodies[BODY_DARK_AF1].handfilenum;
 			g_HandModeldefs[2] = modeldefLoadToNew(handfilenum);
 			modelCalculateRwDataLen(g_HandModeldefs[2]);
+		} else if (g_Vars.stagenum == STAGE_CITRAINING) {
+			g_HandModeldefs[2] = g_HandModeldefs[0];
 		}
 	}
 
