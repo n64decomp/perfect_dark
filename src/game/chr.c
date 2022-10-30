@@ -5369,7 +5369,7 @@ void chrsCheckForNoise(f32 noiseradius)
 
 struct chrdata *chrFindByLiteralId(s32 chrnum)
 {
-	if (g_ChrIndexesByChrnum[chrnum] >= 0) {
+	if (chrnum >= 0 && chrnum < ARRAYCOUNT(g_ChrIndexesByChrnum) && g_ChrIndexesByChrnum[chrnum] >= 0) {
 		return &g_ChrSlots[g_ChrIndexesByChrnum[chrnum]];
 	}
 
