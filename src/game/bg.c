@@ -7888,13 +7888,19 @@ void bgExecuteCommands(void)
 			bgCmdTryEnableRoom(0x48);
 			bgCmdTryEnableRoom(0x4e);
 			bgCmdDisableRoom(0x4f);
-		} else if (g_CamRoom == 0x49 || g_CamRoom == 0x4a) {
+		} else if (g_CamRoom == 0x49) {
 			bgCmdReset();
 			bgCmdTryEnableRoom(0x4c);
 			bgCmdTryEnableRoom(0x48);
 			bgCmdTryEnableRoom(0x4e);
 			bgCmdTryEnableRoom(0x4d);
 			bgCmdDisableRoom(0x4f);
+		} else if (g_CamRoom == 0x4a) {
+			bgCmdReset();
+			bgCmdTryEnableRoom(0x4c);
+			bgCmdTryEnableRoom(0x48);
+			bgCmdTryEnableRoom(0x4e);
+			bgCmdTryEnableRoom(0x4d);
 		} else if (g_CamRoom == 0x4f) {
 			bgCmdReset();
 			bgCmdTryEnableRoom(0x4e);
