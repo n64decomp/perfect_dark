@@ -3251,7 +3251,10 @@ void bgBuildTables(s32 stagenum)
 		inflatedsize = (inflatedsize | 0xf) + 1;
 
 		// Load and inflate section 3
-#if VERSION >= VERSION_NTSC_FINAL
+#ifdef AVOID_UB
+		section3 = mempAlloc(inflatedsize + section3compsize, MEMPOOL_STAGE);
+		scratch = section3 + inflatedsize;
+#elif VERSION >= VERSION_NTSC_FINAL
 		section3 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
 		scratch = section3 + 0x8000;
 #else
