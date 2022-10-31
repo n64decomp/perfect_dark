@@ -21,7 +21,12 @@
 #include "types.h"
 #include "gbiex.h"
 
+#ifdef AVOID_UB
+char var800a41c0[26];
+#else
 char var800a41c0[24];
+#endif
+
 u8 g_IrScanlines[2][480];
 
 #if VERSION < VERSION_NTSC_1_0
