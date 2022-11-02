@@ -1066,7 +1066,7 @@ u8 unregistered_function[] = {
 u8 func0402_guard_with_chrflag[] = {
 	set_returnlist(CHR_SELF, 0x0402)
 	set_self_chrflag(CHRCFLAG_00000200)
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1122,7 +1122,7 @@ u8 func0404_init_hovercar[] = {
 #define do_path(path) \
 	assign_path(path) \
 	start_patrol \
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004) \
+	set_ailist(CHR_SELF, GAILIST_UNALERTED) \
 	endlist
 
 u8 func0405_start_path26[] = {
@@ -1157,7 +1157,7 @@ u8 func040a_start_path31[] = {
 	set_returnlist(CHR_SELF, 0x040a)
 	assign_path(31)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1172,7 +1172,7 @@ u8 func040b_start_path32[] = {
 	set_shield(0)
 	assign_path(32)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1187,7 +1187,7 @@ u8 func040c_start_path33[] = {
 	set_shield(0)
 	assign_path(33)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1202,14 +1202,14 @@ u8 func040d_start_path34[] = {
 	set_shield(0)
 	assign_path(34)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
 u8 func040e_start_path35[] = {
 	assign_path(35)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1993,7 +1993,7 @@ u8 func0413_c318[] = {
 	set_self_chrflag(CHRCFLAG_00000200)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 

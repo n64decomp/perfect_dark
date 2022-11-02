@@ -875,7 +875,7 @@ struct path paths[] = {
 u8 func0426_8420[] = {
 	try_inherit_properties(0x04, /*goto*/ 0x2e)
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -889,7 +889,7 @@ u8 func0426_8420[] = {
 	set_shield(0) \
 	assign_path(pathid) \
 	start_patrol \
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 u8 func0401_start_path00[] = {
 	init_path(0)
@@ -924,14 +924,14 @@ u8 func0406_start_path05[] = {
 u8 func0407_start_path06[] = {
 	assign_path(6)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
 u8 func0408_start_path07[] = {
 	assign_path(7)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 

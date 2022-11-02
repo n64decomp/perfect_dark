@@ -36,39 +36,6 @@ u8 func0005_end_cinema[] = {
 	endlist
 };
 
-/**
- * @ailist GAILIST_UNALERTED_0001
- */
-u8 func0001_unalerted_0001[] = {
-	set_ailist(CHR_SELF, GAILIST_UNALERTED)
-	endlist
-};
-
-/**
- * @ailist GAILIST_STOP_UNALERTED
- */
-u8 func0003_stop_unalerted[] = {
-	stop_chr
-	set_ailist(CHR_SELF, GAILIST_UNALERTED)
-	endlist
-};
-
-/**
- * @ailist GAILIST_UNALERTED_0002
- */
-u8 func0002_unalerted_0002[] = {
-	set_ailist(CHR_SELF, GAILIST_UNALERTED)
-	endlist
-};
-
-/**
- * @ailist GAILIST_UNALERTED_0004
- */
-u8 func0004_unalerted_0004[] = {
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0002)
-	endlist
-};
-
 #define LABEL_AIVSAIFAIL         0x16
 #define LABEL_DISGUISE_UNCOVERED 0x16
 #define LABEL_SCAN_START         0x1a
@@ -486,7 +453,7 @@ u8 func0006_unalerted[] = {
 	label(0x13)
 	if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x0e)
 	if_chr_knockedout(CHR_CLONE, /*goto*/ 0x0e)
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 	label(0x0e)
 	try_spawn_clone2(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER, 0, /*goto*/ 0x13)
@@ -494,7 +461,7 @@ u8 func0006_unalerted[] = {
 	set_ailist(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER)
 
 	label(0x13)
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 	/***************************************************************************
 	 * Near miss
@@ -701,7 +668,7 @@ u8 func0006_unalerted[] = {
 	goto_first(LABEL_HEARSPAWN)
 
 	label(0x13)
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 	// Unreachable due to set_ailist above
 	increase_self_alertness(255)
@@ -785,11 +752,6 @@ u8 func0006_unalerted[] = {
 	goto_first(0x0c)
 
 	label(0x13)
-	set_ailist(CHR_SELF, GAILIST_WAKEUP)
-	endlist
-};
-
-u8 unregistered_function1[] = {
 	set_ailist(CHR_SELF, GAILIST_WAKEUP)
 	endlist
 };
@@ -3640,28 +3602,6 @@ u8 func000c_combat_with_target_chr[] = {
 	endlist
 };
 
-u8 unregistered_function2[] = {
-	stop_chr
-
-	label(0x19)
-	stop_chr
-	yield
-	goto_first(0x19)
-
-	endlist
-};
-
-u8 unregistered_function3[] = {
-	surrender
-	beginloop(0x19)
-		if_chr_stopped(/*goto*/ 0x16)
-	endloop(0x19)
-
-	label(0x16)
-	return
-	endlist
-};
-
 /**
  * @ailist GAILIST_IDLE_0009
  *
@@ -3676,25 +3616,6 @@ u8 func0000_idle_0009[] = {
 	beginloop(0x0c)
 	endloop(0x0c)
 
-	endlist
-};
-
-/**
- * @ailist GAILIST_SEE_THEN_ATTACK
- *
- * Not used.
- */
-u8 func000e_see_then_attack[] = {
-	set_shotlist(GAILIST_ALERTED)
-
-	beginloop(0x0c)
-		chr_toggle_p1p2(CHR_SELF)
-		set_target_chr(CHR_P1P2)
-		if_can_see_target(/*goto*/ 0x16)
-	endloop(0x0c)
-
-	label(0x16)
-	set_ailist(CHR_SELF, GAILIST_ALERTED)
 	endlist
 };
 
@@ -3921,7 +3842,7 @@ u8 func001a_patroller_dis_talking[] = {
 		// Target is disguised, almost uncovered and has weapon equipped...
 		// While it appears the patroller goes unalert here, it's likely that
 		// something in the unalert ailist makes him alert immediately.
-		set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+		set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 		// Not disguised, or disguised good enough
 
@@ -3951,7 +3872,7 @@ u8 func001a_patroller_dis_talking[] = {
 	// Resume patrol
 	label(0x16)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -5087,62 +5008,6 @@ u8 func0014_buddy_main[] = {
 };
 
 /**
- * @ailist GAILIST_AVOID
- *
- * Not used.
- */
-u8 func002b_avoid[] = {
-	beginloop(0x03)
-		if_chr_stopped(/*goto*/ 0x16)
-	endloop(0x03)
-
-	label(0x16)
-	return
-	endlist
-};
-
-/**
- * @ailist GAILIST_COMMENT_ON_PLAYER_DEAD
- *
- * Not used.
- */
-u8 func0022_comment_on_player_dead[] = {
-	set_aishootingatmelist(GAILIST_IDLE)
-	stop_chr
-
-	// Wait until player in sight. Which won't happen if the current chr is
-	// stopped and player is dying...
-	beginloop(0x0c)
-		if_can_see_target(/*goto*/ 0x16)
-	endloop(0x0c)
-
-	// Wait half a second
-	label(0x16)
-	restart_timer
-
-	beginloop(0x03)
-		if_timer_gt(30, /*goto*/ 0x13)
-	endloop(0x03)
-
-	// Roll the dice, and maybe wait another half second
-	label(0x13)
-	call_rng
-	if_rand_gt(25, /*goto*/ 0x16)
-	goto_first(0x03)
-
-	label(0x16)
-	say_quip(CHR_BOND, QUIP_KILLEDPLAYER2, 0xff, 0x02, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x80, 0x03, 0x01, BANK_0, 0x00, 0x00)
-
-	beginloop(0x04)
-	endloop(0x04)
-
-	// Unreachable
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	endlist
-};
-
-/**
  * @ailist GAILIST_DODGE
  *
  * Do a sideways dodge, then assign GAILIST_ALERTED.
@@ -5271,84 +5136,6 @@ u8 func0015_buddy_stealth[] = {
 	endlist
 };
 #endif
-
-/**
- * @ailist GAILIST_INIT_SEARCH
- *
- * Not used.
- */
-u8 func002c_init_search_unused[] = {
-	set_self_flag_bankx(CHRFLAG1_INDARKROOM, BANK_1)
-	set_self_flag_bankx(CHRFLAG1_SEARCHSAMEROOM, BANK_1)
-	set_ailist(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER)
-	endlist
-};
-
-/**
- * @ailist GAILIST_FOLLOW_BOND
- *
- * Not used.
- */
-u8 func0024_follow_bond[] = {
-	set_target_chr(CHR_BOND)
-
-	label(0x03)
-	restart_timer
-	try_run_to_target(/*goto*/ 0x04)
-
-	beginloop(0x04)
-		set_action(MA_TRACKING, FALSE)
-		if_distance_to_target_lt(200, /*goto*/ 0x16)
-		if_timer_gt(120, /*goto*/ 0x13)
-		if_chr_stopped(/*goto*/ 0x13)
-	endloop(0x04)
-
-	// Been running for 2 seconds, or stopped
-	label(0x13)
-	goto_first(0x03)
-
-	// Within 200 units
-	label(0x16)
-	stop_chr
-
-	// Wait here until 300 units away, then follow again
-	beginloop(0x05)
-		set_action(MA_WAITING, FALSE)
-		if_distance_to_target_gt(300, /*goto*/ 0x16)
-	endloop(0x05)
-
-	label(0x16)
-	goto_first(0x03)
-
-	endlist
-};
-
-/**
- * @ailist GAILIST_POINTLESS
- *
- * Not used.
- */
-u8 func0025_pointless[] = {
-	// Wait until target chr is dead
-	beginloop(0x0c)
-		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x03)
-		if_chr_dead(CHR_TARGET, /*goto*/ 0x03)
-	endloop(0x0c)
-
-	label(0x03)
-		// Wait 10 seconds
-		restart_timer
-
-		beginloop(0x04)
-			if_timer_gt(600, /*goto*/ 0x13)
-		endloop(0x04)
-
-		// Continue waiting 10 seconds indefinitely
-		label(0x13)
-	goto_first(0x03)
-
-	endlist
-};
 
 /**
  * @ailist GAILIST_INIT_PSYCHOSIS
@@ -5708,10 +5495,6 @@ u8 func002a_aibot_main[] = {
 
 struct ailist g_GlobalAilists[] = {
 	{ func0000_idle,                      GAILIST_IDLE                   },
-	{ func0001_unalerted_0001,            GAILIST_UNALERTED_0001         },
-	{ func0004_unalerted_0004,            GAILIST_UNALERTED_0004         },
-	{ func0003_stop_unalerted,            GAILIST_STOP_UNALERTED         },
-	{ func0002_unalerted_0002,            GAILIST_UNALERTED_0002         },
 	{ func0005_end_cinema,                GAILIST_END_CINEMA             },
 	{ func0006_unalerted,                 GAILIST_UNALERTED              },
 	{ func0007_alerted,                   GAILIST_ALERTED                },
@@ -5720,7 +5503,6 @@ struct ailist g_GlobalAilists[] = {
 	{ func000b_choose_target_chr,         GAILIST_CHOOSE_TARGET          },
 	{ func000c_combat_with_target_chr,    GAILIST_COMBAT_WITH_TARGET     },
 	{ func000d_init_combat,               GAILIST_INIT_COMBAT            },
-	{ func000e_see_then_attack,           GAILIST_SEE_THEN_ATTACK        },
 	{ func0016_show_objective_failed_msg, GAILIST_SHOW_OBJ_FAILED_MSG    },
 	{ func0017_rebuild_groups,            GAILIST_REBUILD_GROUPS         },
 	{ func0018_do_bored_animation,        GAILIST_DO_BORED_ANIMATION     },
@@ -5739,11 +5521,7 @@ struct ailist g_GlobalAilists[] = {
 	{ func001e_look_around,               GAILIST_LOOK_AROUND            },
 	{ func001f_related_to_spawning,       GAILIST_RELATED_TO_SPAWNING    },
 	{ func001c_surprised,                 GAILIST_SURPRISED              },
-	{ func0022_comment_on_player_dead,    GAILIST_COMMENT_ON_PLAYER_DEAD },
 	{ func0023_dodge,                     GAILIST_DODGE                  },
-	{ func002c_init_search_unused,        GAILIST_INIT_SEARCH            },
-	{ func0024_follow_bond,               GAILIST_FOLLOW_BOND            },
-	{ func0025_pointless,                 GAILIST_POINTLESS              },
 	{ func0026_init_psychosis,            GAILIST_INIT_PSYCHOSIS         },
 	{ func0027_psychosised,               GAILIST_PSYCHOSISED            },
 	{ func002d_invincible_and_idle,       GAILIST_INVINCIBLE_AND_IDLE    },
@@ -5754,6 +5532,5 @@ struct ailist g_GlobalAilists[] = {
 	{ func0028_aibot_dead,                GAILIST_AIBOT_DEAD             },
 	{ func0029_aibot_init,                GAILIST_AIBOT_INIT             },
 	{ func002a_aibot_main,                GAILIST_AIBOT_MAIN             },
-	{ func002b_avoid,                     GAILIST_AVOID                  },
 	{ NULL },
 };

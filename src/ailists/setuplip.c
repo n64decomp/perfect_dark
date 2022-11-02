@@ -1392,7 +1392,7 @@ u8 func1006_check_lab_accessed[] = {
 	set_shield(0) \
 	assign_path(pathid) \
 	start_patrol \
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 u8 func0401_start_path00[] = {
 	init_path(8, 50, 35, 0x00)

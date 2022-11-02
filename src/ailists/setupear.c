@@ -855,7 +855,7 @@ s32 path13[] = {
 	set_shield(0) \
 	assign_path(pathid) \
 	start_patrol \
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 u8 func040c_start_path00[] = {
 	init_path(0)
@@ -913,15 +913,6 @@ u8 func0414_walk_3_pads[] = {
 		label(0x0a)
 	goto_first(0x03)
 
-	endlist
-};
-
-/**
- * Unused.
- */
-u8 func0401_init_chr_with_flag[] = {
-	set_self_chrflag(CHRCFLAG_00000200)
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)
 	endlist
 };
 
@@ -2037,7 +2028,7 @@ u8 func0408_alarm_responder[] = {
 	label(0x06)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -3308,7 +3299,6 @@ u8 func1424_start_lift[] = {
 };
 
 struct ailist ailists[] = {
-	{ func0401_init_chr_with_flag,             0x0401 },
 	{ func0402_k7_guard,                       0x0402 },
 	{ func0403_k7_scientist,                   0x0403 },
 	{ func0404_scientist,                      0x0404 },

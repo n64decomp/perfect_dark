@@ -1068,35 +1068,35 @@ u8 func0401_init_hovercar[] = {
 u8 func0402_start_path26[] = {
 	assign_path(26)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
 u8 func0403_start_path27[] = {
 	assign_path(27)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
 u8 func0404_start_path28[] = {
 	assign_path(28)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
 u8 func0405_start_path29[] = {
 	assign_path(29)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
 u8 func0406_start_path30[] = {
 	assign_path(30)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1110,7 +1110,7 @@ u8 func0407_start_path31[] = {
 	set_returnlist(CHR_SELF, 0x0407)
 	assign_path(31)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1123,7 +1123,7 @@ u8 func0408_start_path32[] = {
 	set_shield(0)
 	assign_path(32)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1136,7 +1136,7 @@ u8 func0409_start_path33[] = {
 	set_shield(0)
 	assign_path(33)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1149,7 +1149,7 @@ u8 func040a_start_path34[] = {
 	set_shield(0)
 	assign_path(34)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1162,7 +1162,7 @@ u8 func040b_start_path35[] = {
 	set_shield(0)
 	assign_path(35)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -1175,14 +1175,14 @@ u8 func040c_start_path36[] = {
 	set_shield(0)
 	assign_path(36)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
 u8 func040d_start_path37[] = {
 	assign_path(37)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 

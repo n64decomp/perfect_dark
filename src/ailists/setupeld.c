@@ -2589,7 +2589,7 @@ u8 func040e_start_path00[] = {
 	init_guard(3, 15, 40, 0)
 	assign_path(0)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -2597,7 +2597,7 @@ u8 func040f_start_path01[] = {
 	init_guard(3, 15, 40, 0)
 	assign_path(1)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 

@@ -4007,7 +4007,7 @@ u8 func1021_c6c4[] = {
 	set_returnlist(CHR_SELF, function) \
 	assign_path(pathid) \
 	start_patrol \
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 u8 func0421_start_path02[] = {
 	init_path(2, 0x0421)

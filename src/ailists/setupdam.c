@@ -1299,7 +1299,7 @@ u8 func100f_check_researchdata_collected[] = {
 	set_shield(0) \
 	assign_path(pathid) \
 	start_patrol \
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 u8 func0405_start_path00[] = {
 	init_path(0)

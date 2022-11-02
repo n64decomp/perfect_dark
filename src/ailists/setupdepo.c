@@ -521,7 +521,7 @@ u8 func0409_start_path00[] = {
 	set_shield(0)
 	assign_path(0)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -535,7 +535,7 @@ u8 func040a_start_path01[] = {
 	set_shield(0)
 	assign_path(1)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -549,7 +549,7 @@ u8 func040b_start_path02[] = {
 	set_shield(0)
 	assign_path(2)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
@@ -563,7 +563,7 @@ u8 func040c_start_path03[] = {
 	set_shield(0)
 	assign_path(3)
 	start_patrol
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 

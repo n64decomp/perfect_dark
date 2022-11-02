@@ -930,7 +930,7 @@ u8 func1006_msg_elvisbeable[] = {
 	set_returnlist(CHR_SELF, function) \
 	assign_path(pathid) \
 	start_patrol \
-	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
+	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 u8 func0408_start_path00[] = {
 	init_path(0, 0x0408)
