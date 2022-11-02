@@ -56,30 +56,24 @@ u8 *aiTick(u8 *ptr);
 
 void chraiExecute(void *entity, s32 proptype)
 {
+	u8 *cmd = NULL;
+
 	g_Vars.chrdata = NULL;
 	g_Vars.hovercar = NULL;
-	g_Vars.ailist = NULL;
-	g_Vars.aioffset = NULL;
 
 	if (proptype == PROPTYPE_CHR) {
 		g_Vars.chrdata = entity;
+		cmd = g_Vars.chrdata->aioffset;
 	} else if (proptype == PROPTYPE_OBJ) {
 		struct defaultobj *obj = entity;
 
 		if (obj->type == OBJTYPE_HOVERCAR || obj->type == OBJTYPE_CHOPPER) {
 			g_Vars.hovercar = entity;
+			cmd = g_Vars.hovercar->aioffset;
 		}
 	}
 
-	if (g_Vars.chrdata) {
-		g_Vars.ailist = g_Vars.chrdata->ailist;
-		g_Vars.aioffset = g_Vars.chrdata->aioffset;
-	} else if (g_Vars.hovercar) {
-		g_Vars.ailist = g_Vars.hovercar->ailist;
-		g_Vars.aioffset = g_Vars.hovercar->aioffset;
-	}
-
-	if (g_Vars.ailist) {
+	if (cmd) {
 		if (g_Vars.chrdata) {
 			chrAddTargetToBdlist(g_Vars.chrdata);
 		}
@@ -87,7 +81,7 @@ void chraiExecute(void *entity, s32 proptype)
 		// Check if the ailist should be switched to a different one
 		if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & CHRCFLAG_TRIGGERSHOTLIST)) {
 			u32 animnum = modelGetAnimNum(g_Vars.chrdata->model);
-			if (g_Vars.chrdata->aishotlist >= 0
+			if (g_Vars.chrdata->aishotlist != NULL
 					&& g_Vars.chrdata->cshield <= 0
 					&& (0 <= g_Vars.chrdata->damage || g_Vars.chrdata->gunprop != NULL)
 					&& animnum != ANIM_SNIPING_GETDOWN
@@ -95,18 +89,16 @@ void chraiExecute(void *entity, s32 proptype)
 					&& animnum != ANIM_SNIPING_ONGROUND) {
 				// Set shot list
 				g_Vars.chrdata->chrflags &= ~CHRCFLAG_TRIGGERSHOTLIST;
-				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishotlist);
-				g_Vars.aioffset = g_Vars.ailist;
+				cmd = g_Vars.chrdata->ailist = g_Vars.chrdata->aishotlist;
 			}
 		} else if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & CHRCFLAG_CONSIDER_DODGE)) {
 			g_Vars.chrdata->chrflags &= ~CHRCFLAG_CONSIDER_DODGE;
 
-			if (g_Vars.chrdata->aishootingatmelist >= 0
-					&& ailistFindById(g_Vars.chrdata->aishootingatmelist) != g_Vars.chrdata->ailist
+			if (g_Vars.chrdata->aishootingatmelist != NULL
+					&& g_Vars.chrdata->aishootingatmelist != g_Vars.chrdata->ailist
 					&& g_Vars.chrdata->dodgerating > (u32)random() % 100
 					&& chrHasFlag(g_Vars.chrdata, CHRFLAG1_INDARKROOM, BANK_1) == 0
 					&& chrHasFlag(g_Vars.chrdata, CHRFLAG0_AIVSAI, BANK_0) == 0
-					&& ailistFindById(g_Vars.chrdata->aishootingatmelist) != g_Vars.chrdata->ailist
 					&& g_Vars.chrdata->actiontype != ACT_ATTACK
 					&& g_Vars.chrdata->actiontype != ACT_ATTACKWALK
 					&& g_Vars.chrdata->actiontype != ACT_DIE
@@ -115,8 +107,7 @@ void chraiExecute(void *entity, s32 proptype)
 					&& g_Vars.chrdata->actiontype != ACT_PREARGH
 					&& g_Vars.chrdata->actiontype != ACT_ATTACKROLL) {
 				// Set shooting at me list
-				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishootingatmelist);
-				g_Vars.aioffset = g_Vars.ailist;
+				cmd = g_Vars.chrdata->ailist = g_Vars.chrdata->aishootingatmelist;
 				g_Vars.chrdata->dodgerating = 0;
 			} else {
 				// Increase dodge rating
@@ -129,11 +120,11 @@ void chraiExecute(void *entity, s32 proptype)
 		} else if (g_Vars.chrdata
 				&& g_Vars.chrdata->darkroomthing
 				&& chrHasFlag(g_Vars.chrdata, CHRFLAG1_INDARKROOM, BANK_1) == 0
-				&& ailistFindById(g_Vars.chrdata->aidarkroomlist) != g_Vars.chrdata->ailist
+				&& g_Vars.chrdata->aidarkroomlist != g_Vars.chrdata->ailist
 				&& g_Vars.stagenum != STAGE_CRASHSITE) {
 			g_Vars.chrdata->darkroomthing = 0;
 
-			if (g_Vars.chrdata->aidarkroomlist >= 0
+			if (g_Vars.chrdata->aidarkroomlist != NULL
 					&& g_Vars.chrdata->actiontype != ACT_DIE
 					&& g_Vars.chrdata->actiontype != ACT_DEAD
 					&& g_Vars.chrdata->actiontype != ACT_ARGH) {
@@ -141,28 +132,17 @@ void chraiExecute(void *entity, s32 proptype)
 				chrSetFlags(g_Vars.chrdata, CHRFLAG1_INDARKROOM, BANK_1);
 				chrSetFlags(g_Vars.chrdata, CHRFLAG1_SEARCHSAMEROOM, BANK_1);
 				g_Vars.chrdata->alertness = 0;
-				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aidarkroomlist);
-				g_Vars.aioffset = g_Vars.ailist;
+				cmd = g_Vars.chrdata->ailist = g_Vars.chrdata->aidarkroomlist;
 			}
-		} else {
-			// empty
 		}
 
-		// Iterate and execute the ailist
-		{
-			u8 *cmd = g_Vars.aioffset;
+		// Execute the ailist
+		cmd = aiTick(cmd);
 
-			if (cmd) {
-				cmd = aiTick(cmd);
-
-				if (g_Vars.chrdata) {
-					g_Vars.chrdata->ailist = g_Vars.ailist;
-					g_Vars.chrdata->aioffset = cmd;
-				} else if (g_Vars.hovercar) {
-					g_Vars.hovercar->ailist = g_Vars.ailist;
-					g_Vars.hovercar->aioffset = cmd;
-				}
-			}
+		if (g_Vars.chrdata) {
+			g_Vars.chrdata->aioffset = cmd;
+		} else if (g_Vars.hovercar) {
+			g_Vars.hovercar->aioffset = cmd;
 		}
 	}
 }

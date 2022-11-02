@@ -177,8 +177,6 @@ struct g_vars {
 	/*0x360*/ struct propstate propstates[7];
 	/*0x424*/ struct chrdata *chrdata;
 	/*0x430*/ struct chopperobj *hovercar;
-	/*0x434*/ u8 *ailist;
-	/*0x438*/ u8 *aioffset;
 	/*0x43c*/ s32 hardfreeabletally;
 	/*0x440*/ s32 antiheadnum;
 	/*0x444*/ s32 antibodynum;
@@ -1201,8 +1199,8 @@ struct chrdata {
 	/*0x104*/ f32 maxdamage;
 	/*0x108*/ u8 *ailist;
 	/*0x10c*/ u8 *aioffset;
-	/*0x10e*/ s16 aireturnlist;
-	/*0x110*/ s16 aishotlist;
+	/*0x10e*/ u8 *aireturnlist;
+	/*0x110*/ u8 *aishotlist;
 	/*0x112*/ u8 morale;
 	/*0x113*/ u8 alertness;
 	/*0x114*/ u32 flags;
@@ -1333,10 +1331,10 @@ struct chrdata {
 	/*0x33c*/ struct coord lastdroppos;
 	/*0x348*/ struct fireslotthing *unk348[2];
 	/*0x350*/ struct chrdata *lastattacker;
-	/*0x354*/ s16 aipunchdodgelist;
-	/*0x356*/ s16 aishootingatmelist;
+	/*0x354*/ u8 *aipunchdodgelist;
+	/*0x356*/ u8 *aishootingatmelist;
 	/*0x358*/ s16 poisoncounter;
-	/*0x35a*/ s16 aidarkroomlist;
+	/*0x35a*/ u8 *aidarkroomlist;
 	/*0x35e*/ u8 dodgerating;
 	/*0x35f*/ u8 maxdodgerating;
 	/*0x360*/ u8 unarmeddodgerating;
@@ -1842,9 +1840,8 @@ struct fanobj { // objtype 0x36
 
 struct hovercarobj { // objtype 0x37
 	struct defaultobj base;
-	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u8 *aioffset;
-	/*0x62*/ s16 aireturnlist;
+	/*0x5c*/ u8 *aioffset;
+	/*0x60*/ u8 *aireturnlist;
 	/*0x64*/ f32 speed;
 	/*0x68*/ f32 speedaim;
 	/*0x6c*/ f32 speedtime60;
@@ -1870,9 +1867,8 @@ struct padeffectobj { // objtype 0x38
 
 struct chopperobj { // objtype 0x39
 	struct defaultobj base;
-	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u8 *aioffset;
-	/*0x62*/ s16 aireturnlist;
+	/*0x5c*/ u8 *aioffset;
+	/*0x60*/ u8 *aireturnlist;
 	union {
 		struct {
 			/*0x64*/ f32 speed;

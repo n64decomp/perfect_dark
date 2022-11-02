@@ -1063,11 +1063,11 @@ void chrInit(struct prop *prop, u8 *ailist)
 
 	chr->ailist = ailist;
 	chr->aioffset = ailist;
-	chr->aireturnlist = -1;
-	chr->aishotlist = -1;
-	chr->aipunchdodgelist = -1;
-	chr->aishootingatmelist = -1;
-	chr->aidarkroomlist = -1;
+	chr->aireturnlist = NULL;
+	chr->aishotlist = NULL;
+	chr->aipunchdodgelist = NULL;
+	chr->aishootingatmelist = NULL;
+	chr->aidarkroomlist = NULL;
 
 	chr->radius = 20;
 	chr->height = 185;

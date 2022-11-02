@@ -201,14 +201,14 @@
 
 #define hovercar(scale, model, pad, flags, flags2, flags3, maxdamage, unk5c) \
 	_generic_object(0x37, scale, model, pad, flags, flags2, flags3, maxdamage), \
-	unk5c, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	unk5c, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 #define pad_effect(effect, pad) \
 	0x38, effect, pad,
 
 #define chopper(scale, model, pad, flags, flags2, flags3, maxdamage, ailist) \
 	_generic_object(0x39, scale, model, pad, flags, flags2, flags3, maxdamage), \
-	ailist, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	ailist, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 #define mine(scale, model, pad, flags, flags2, flags3, maxdamage, weapon) \
 	_generic_object(0x3a, scale, model, pad, flags, flags2, flags3, maxdamage), \

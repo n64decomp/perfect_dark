@@ -268,12 +268,12 @@ void amSetAiBuddyStealth(void)
 
 			if (chr && chr->prop
 					&& !chrIsDead(chr)
-					&& chr->ailist != ailistFindById(GAILIST_BUDDY_STEALTH)
+					&& chr->ailist != &ailist_0015
 					&& chr->actiontype != ACT_DRUGGEDDROP
 					&& chr->actiontype != ACT_DRUGGEDKO
 					&& chr->actiontype != ACT_DRUGGEDCOMINGUP) {
 				chrStopFiring(chr);
-				chr->ailist = ailistFindById(GAILIST_BUDDY_STEALTH);
+				chr->ailist = &ailist_0015;
 				chr->aioffset = chr->ailist;
 			}
 		}

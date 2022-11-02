@@ -572,7 +572,7 @@ struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
 	model = bodyAllocateModel(BODY_EYESPY, 0, 0);
 
 	if (model) {
-		prop = chrAllocate(model, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
+		prop = chrAllocate(model, &pad->pos, rooms, 0, &ailist_0000);
 
 		if (prop) {
 			propActivate(prop);

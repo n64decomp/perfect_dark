@@ -5082,7 +5082,7 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 		chr->act_die.thudframe2 = -1;
 		chr->act_die.timeextra = 0;
 
-		chr->ailist = ailistFindById(GAILIST_AIBOT_DEAD);
+		chr->ailist = &ailist_0028;
 		chr->aioffset = chr->ailist;
 
 		mpstatsRecordDeath(aplayernum, mpPlayerGetIndex(chr));
@@ -13170,8 +13170,8 @@ void chraTick(struct chrdata *chr)
 			if (chr->aimtesttimer60 < 1) {
 				chr->aimtesttimer60 = TICKS(30);
 
-				if (chr->aishootingatmelist >= 0
-						&& ailistFindById(chr->aishootingatmelist) != chr->ailist
+				if (chr->aishootingatmelist != NULL
+						&& chr->ailist != chr->aishootingatmelist
 						&& chrCanSeeTargetWithExtraCheck(chr)) {
 					chr->chrflags |= CHRCFLAG_CONSIDER_DODGE;
 				}
@@ -13182,9 +13182,9 @@ void chraTick(struct chrdata *chr)
 
 		// Consider setting darkroomlist
 		if (chr->prop
-				&& chr->aidarkroomlist >= 0
+				&& chr->aidarkroomlist != NULL
 				&& roomGetBrightness(chr->prop->rooms[0]) < 25
-				&& ailistFindById(chr->aidarkroomlist) != chr->ailist) {
+				&& chr->ailist != chr->aidarkroomlist) {
 			chr->darkroomthing = true;
 		}
 
@@ -13271,7 +13271,7 @@ void cutsceneStart(u32 ailistid)
 
 	g_BgChrs[g_NumBgChrs - 1].ailist = ailistFindById(ailistid);
 	g_BgChrs[g_NumBgChrs - 1].aioffset = g_BgChrs[g_NumBgChrs - 1].ailist;
-	g_BgChrs[g_NumBgChrs - 1].aireturnlist = -1;
+	g_BgChrs[g_NumBgChrs - 1].aireturnlist = NULL;
 }
 
 /**

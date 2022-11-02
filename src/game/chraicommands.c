@@ -983,9 +983,8 @@ void aiDisableObj(s32 tagnum)
 	}
 }
 
-bool aiDuplicateChr(s32 chrref, s32 ailistid, u32 spawnflags)
+bool aiDuplicateChr(s32 chrref, u8 *ailist, u32 spawnflags)
 {
-	u8 *ailist = ailistFindById(ailistid);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
 	struct chrdata *clone = NULL;
 	struct weaponobj *srcweapon1 = NULL;
@@ -2601,13 +2600,11 @@ u8 *aiReturn(void)
 	u8 *ailist = NULL;
 
 	if (g_Vars.chrdata) {
-		ailist = ailistFindById(g_Vars.chrdata->aireturnlist);
+		ailist = g_Vars.chrdata->aireturnlist;
+		g_Vars.chrdata->ailist = ailist;
 	} else if (g_Vars.hovercar) {
-		ailist = ailistFindById(g_Vars.hovercar->aireturnlist);
+		ailist = g_Vars.hovercar->aireturnlist;
 	}
-
-	g_Vars.ailist = ailist;
-	g_Vars.aioffset = ailist;
 
 	return ailist;
 }
@@ -3305,9 +3302,8 @@ void aiSetChrHudpieceVisible(s32 chrref, bool visible)
 	}
 }
 
-void aiSetChrList(s32 chrref, s32 ailistid)
+void aiSetChrList(s32 chrref, u8 *ailist)
 {
-	u8 *ailist = ailistFindById(ailistid);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
 
 	if (chr) {
@@ -3389,10 +3385,10 @@ void aiSetCoverUnused(void)
 	}
 }
 
-void aiSetDarkRoomList(s32 ailistid)
+void aiSetDarkRoomList(u8 *ailist)
 {
 	if (g_Vars.chrdata) {
-		g_Vars.chrdata->aidarkroomlist = ailistid;
+		g_Vars.chrdata->aidarkroomlist = ailist;
 	}
 }
 
@@ -3517,11 +3513,13 @@ void aiSetMorale(s32 morale)
 	g_Vars.chrdata->morale = morale;
 }
 
-u8 *aiSetMyList(s32 ailistid)
+u8 *aiSetMyList(u8 *ailist)
 {
-	g_Vars.ailist = ailistFindById(ailistid);
+	if (g_Vars.chrdata) {
+		g_Vars.chrdata->ailist = ailist;
+	}
 
-	return g_Vars.ailist;
+	return ailist;
 }
 
 void aiSetObjFlag(s32 tagnum, u32 flag)
@@ -3645,20 +3643,20 @@ void aiSetRecoverySpeed(s32 speed)
 	g_Vars.chrdata->arghrating = speed;
 }
 
-void aiSetReturnList(s32 chrref, s32 ailistid)
+void aiSetReturnList(s32 chrref, u8 *ailist)
 {
 	if (g_Vars.chrdata) {
 		if (chrref == CHR_SELF) {
-			g_Vars.chrdata->aireturnlist = ailistid;
+			g_Vars.chrdata->aireturnlist = ailist;
 		} else {
 			struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
 
 			if (chr) {
-				chr->aireturnlist = ailistid;
+				chr->aireturnlist = ailist;
 			}
 		}
 	} else if (g_Vars.hovercar) {
-		g_Vars.hovercar->aireturnlist = ailistid;
+		g_Vars.hovercar->aireturnlist = ailist;
 	}
 }
 
@@ -3685,17 +3683,17 @@ void aiSetShield(f32 amount)
 	chrSetShield(g_Vars.chrdata, amount);
 }
 
-void aiSetShootingAtMeList(s32 ailistid)
+void aiSetShootingAtMeList(u8 *ailist)
 {
 	if (g_Vars.chrdata) {
-		g_Vars.chrdata->aishootingatmelist = ailistid;
+		g_Vars.chrdata->aishootingatmelist = ailist;
 	}
 }
 
-void aiSetShotList(s32 ailistid)
+void aiSetShotList(u8 *ailist)
 {
 	if (g_Vars.chrdata) {
-		g_Vars.chrdata->aishotlist = ailistid;
+		g_Vars.chrdata->aishotlist = ailist;
 	}
 }
 
@@ -4277,17 +4275,13 @@ bool aiTrySidestep(void)
 	return chrTrySidestep(g_Vars.chrdata);
 }
 
-struct prop *aiSpawnChrAtChr(s32 bodynum, s32 headnum, s32 chrref, s32 ailistid, u32 spawnflags)
+struct prop *aiSpawnChrAtChr(s32 bodynum, s32 headnum, s32 chrref, u8 *ailist, u32 spawnflags)
 {
-	u8 *ailist = ailistFindById(ailistid);
-
 	return chrSpawnAtChr(g_Vars.chrdata, bodynum, headnum, chrref, ailist, spawnflags);
 }
 
-struct prop *aiSpawnChrAtPad(s32 bodynum, s32 headnum, s32 padnum, s32 ailistid, u32 spawnflags)
+struct prop *aiSpawnChrAtPad(s32 bodynum, s32 headnum, s32 padnum, u8 *ailist, u32 spawnflags)
 {
-	u8 *ailist = ailistFindById(ailistid);
-
 	return chrSpawnAtPad(g_Vars.chrdata, bodynum, headnum, padnum, ailist, spawnflags);
 }
 

@@ -1395,6 +1395,8 @@ class App():
         self.emit('beqz', ['$v0', label])
         self.emit('jr', ['$v0'])
         self.emit_raw('%s:' % label)
+        self.emit('move', ['$a0', '$zero'])
+        self.emit('jal', ['aiSetMyList'])
         self.emit('jal', ['aiTerminate'])
 
     def ai_revoke_control(self, params):
@@ -1431,16 +1433,16 @@ class App():
 
     def ai_set_ailist(self, params):
         if params[0] == 0xfd:
-            self.emit('li', ['$a0', '0x%04x' % self.u16(params, 1)])
+            self.emit('la', ['$a0', self.ailist_name(self.u16(params, 1))])
             self.emit('jal', ['aiSetMyList'])
             self.emit('jr', ['$v0'])
         else:
             self.emit('li', ['$a0', '0x%02x' % params[0]])
-            self.emit('li', ['$a1', '0x%04x' % self.u16(params, 1)])
+            self.emit('la', ['$a1', self.ailist_name(self.u16(params, 1))])
             self.emit('jal', ['aiSetChrList'])
 
     def ai_set_aishootingatmelist(self, params):
-        self.emit('li', ['$a0', '0x%04x' % self.u16(params, 0)])
+        self.emit('la', ['$a0', self.ailist_name(self.u16(params, 0))])
         self.emit('jal', ['aiSetShootingAtMeList'])
 
     def ai_set_alertness(self, params):
@@ -1535,7 +1537,7 @@ class App():
         self.emit('jal', ['aiChrSetCutsceneWeapon'])
 
     def ai_set_darkroomlist(self, params):
-        self.emit('li', ['$a0', '0x%04x' % self.u16(params, 0)])
+        self.emit('la', ['$a0', self.ailist_name(self.u16(params, 0))])
         self.emit('jal', ['aiSetDarkRoomList'])
 
     def ai_set_door_open(self, params):
@@ -1623,7 +1625,7 @@ class App():
 
     def ai_set_returnlist(self, params):
         self.emit('li', ['$a0', '0x%02x' % params[0]])
-        self.emit('li', ['$a1', '0x%04x' % self.u16(params, 1)])
+        self.emit('la', ['$a1', self.ailist_name(self.u16(params, 1))])
         self.emit('jal', ['aiSetReturnList'])
 
     def ai_set_room_flag(self, params):
@@ -1654,7 +1656,7 @@ class App():
         self.emit('jal', ['aiSetShield'])
 
     def ai_set_shotlist(self, params):
-        self.emit('li', ['$a0', '0x%04x' % self.u16(params, 0)])
+        self.emit('la', ['$a0', self.ailist_name(self.u16(params, 0))])
         self.emit('jal', ['aiSetShotList'])
 
     def ai_set_squadron(self, params):
@@ -1922,14 +1924,14 @@ class App():
         self.emit('li', ['$a0', params[0]])
         self.emit('li', ['$a1', self.s8(params[1])])
         self.emit('li', ['$a2', '0x%04x' % self.u16(params, 2)])
-        self.emit('li', ['$a3', '0x%04x' % self.u16(params, 4)])
+        self.emit('la', ['$a3', self.ailist_name(self.u16(params, 4))])
         self.emit_store_to_stack(0x10, self.u32(params, 6))
         self.emit('jal', ['aiSpawnChrAtPad'])
         self.emit_bnez_label(params[10])
 
     def ai_try_spawn_clone2(self, params):
         self.emit('li', ['$a0', '0x%02x' % params[0]])
-        self.emit('li', ['$a1', '0x%04x' % self.u16(params, 1)])
+        self.emit('la', ['$a1', self.ailist_name(self.u16(params, 1))])
         self.emit('li', ['$a2', '0x%08x' % self.u32(params, 3)])
         self.emit('jal', ['aiDuplicateChr'])
         self.emit_bnez_label(params[7])

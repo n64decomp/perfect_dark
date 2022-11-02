@@ -1831,9 +1831,8 @@ void setupCreateProps(s32 stagenum)
 						car->roty = 0;
 						car->rotx = 0;
 						car->speedtime60 = -1;
-						car->ailist = ailistFindById((s32)car->ailist);
-						car->aioffset = car->ailist;
-						car->aireturnlist = -1;
+						car->aioffset = ailistFindById((s32)car->aioffset);
+						car->aireturnlist = NULL;
 						car->path = NULL;
 						car->nextstep = 0;
 
@@ -1860,9 +1859,8 @@ void setupCreateProps(s32 stagenum)
 						chopper->gunrotx = 0;
 						chopper->barrelrot = 0;
 						chopper->barrelrotspeed = 0;
-						chopper->ailist = ailistFindById((u32)chopper->ailist);
-						chopper->aioffset = chopper->ailist;
-						chopper->aireturnlist = -1;
+						chopper->aioffset = ailistFindById((u32)chopper->aioffset);
+						chopper->aireturnlist = NULL;
 						chopper->path = NULL;
 						chopper->nextstep = 0;
 						chopper->target = -1;

@@ -84,7 +84,7 @@ void stageAllocateBgChrs(void)
 
 				g_BgChrs[count].ailist = g_StageSetup.ailists[i].list;
 				g_BgChrs[count].aioffset = g_BgChrs[count].ailist;
-				g_BgChrs[count].aireturnlist = -1;
+				g_BgChrs[count].aireturnlist = NULL;
 				g_BgChrs[count].actiontype = ACT_NULL;
 				count++;
 			}
@@ -97,7 +97,7 @@ void stageAllocateBgChrs(void)
 		g_BgChrs[count].chrnum = 4900;
 		g_BgChrs[count].ailist = NULL;
 		g_BgChrs[count].aioffset = NULL;
-		g_BgChrs[count].aireturnlist = -1;
+		g_BgChrs[count].aireturnlist = NULL;
 		g_BgChrs[count].actiontype = ACT_NULL;
 		g_BgChrs[count].hidden2 |= CHRH2FLAG_TICKDURINGAUTOCUT;
 		count++;
