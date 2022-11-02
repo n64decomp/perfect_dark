@@ -562,6 +562,10 @@ class App():
         self.emit('jal', ['aiIfChrAmmoQuantityLessThan'])
         self.emit_bnez_label(params[3])
 
+    def ai_if_any_objective_failed(self, params):
+        self.emit('jal', ['aiIfAnyObjectiveFailed'])
+        self.emit_bnez_label(params[0])
+
     def ai_if_calculated_safety2_lt(self, params):
         self.emit('li', ['$a0', params[0]])
         self.emit('jal', ['aiIfSafety2LessThan'])

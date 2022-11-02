@@ -84,6 +84,7 @@ def get_commands():
     commands[0x0061] = {'macro': 'if_gun_unclaimed',                         'len': 5}
     commands[0x0062] = {'macro': 'if_object_in_good_condition',              'len': 4}
     commands[0x0063] = {'macro': 'if_chr_activated_object',                  'len': 5}
+    commands[0x0064] = {'macro': 'if_any_objective_failed',                  'len': 3}
     commands[0x0066] = {'macro': 'destroy_object',                           'len': 3}
     commands[0x0068] = {'macro': 'drop_concealed_items',                     'len': 3}
     commands[0x0069] = {'macro': 'chr_drop_weapon',                          'len': 3}

@@ -941,6 +941,10 @@
 	objective, \
 	label,
 
+#define if_any_objective_failed(label) \
+	mkshort(0x0064), \
+	label,
+
 /**
  * This is only ever called in a sequence of 4, with u1 values 8, 2, 4, 8 in
  * that order. Believed to be a pad within specific distance of target chr,

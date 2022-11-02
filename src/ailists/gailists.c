@@ -3628,31 +3628,20 @@ u8 func0000_idle_0009[] = {
 u8 func0016_show_objective_failed_msg[] = {
 	// Wait until an objective has failed
 	beginloop(0x0c)
-		if_timer_gt(0, /*goto*/ 0x13)
-		if_objective_failed(0, /*goto*/ 0x16)
-		if_objective_failed(1, /*goto*/ 0x16)
-		if_objective_failed(2, /*goto*/ 0x16)
-		if_objective_failed(3, /*goto*/ 0x16)
-		if_objective_failed(4, /*goto*/ 0x16)
+		if_any_objective_failed(/*goto*/ 0x16)
 	endloop(0x0c)
 
-	// Wait 30 seconds. It iterates to the top loop here, which instantly jumps
-	// down to 0x13 because the timer is > 0. Seems a bit unnecessary...
+	// Wait 30 seconds
 	label(0x16)
 	restart_timer
-	yield
 
-	label(0x13)
-	if_timer_gt(1800, /*goto*/ 0x13)
-	goto_first(0x0c)
+	beginloop(0x0d)
+		if_timer_gt(1800, /*goto*/ 0x13)
+	endloop(0x0d)
 
 	// Check objective is still failed
 	label(0x13)
-	if_objective_failed(0, /*goto*/ 0x13)
-	if_objective_failed(1, /*goto*/ 0x13)
-	if_objective_failed(2, /*goto*/ 0x13)
-	if_objective_failed(3, /*goto*/ 0x13)
-	if_objective_failed(4, /*goto*/ 0x13)
+	if_any_objective_failed(/*goto*/ 0x13)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Show message first time
@@ -3668,11 +3657,7 @@ u8 func0016_show_objective_failed_msg[] = {
 
 	// Check objective is still failed
 	label(0x16)
-	if_objective_failed(0, /*goto*/ 0x13)
-	if_objective_failed(1, /*goto*/ 0x13)
-	if_objective_failed(2, /*goto*/ 0x13)
-	if_objective_failed(3, /*goto*/ 0x13)
-	if_objective_failed(4, /*goto*/ 0x13)
+	if_any_objective_failed(/*goto*/ 0x13)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Show message second time
@@ -3687,11 +3672,7 @@ u8 func0016_show_objective_failed_msg[] = {
 
 	// Check objective is still failed
 	label(0x06)
-	if_objective_failed(0, /*goto*/ 0x13)
-	if_objective_failed(1, /*goto*/ 0x13)
-	if_objective_failed(2, /*goto*/ 0x13)
-	if_objective_failed(3, /*goto*/ 0x13)
-	if_objective_failed(4, /*goto*/ 0x13)
+	if_any_objective_failed(/*goto*/ 0x13)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Show message third time

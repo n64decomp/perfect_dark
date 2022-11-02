@@ -2790,11 +2790,7 @@ u8 func1014_msg_cantleaveany[] = {
 
 u8 func1015_msg_jumpshipwaiting[] = {
 	beginloop(0x1f)
-		if_objective_failed(0, /*goto*/ 0x00)
-		if_objective_failed(1, /*goto*/ 0x00)
-		if_objective_failed(2, /*goto*/ 0x00)
-		if_objective_failed(3, /*goto*/ 0x00)
-		if_objective_failed(4, /*goto*/ 0x00)
+		if_any_objective_failed(/*goto*/ 0x00)
 		if_chr_in_room(CHR_BOND, 0x00, 0x0002, /*goto*/ 0x20)
 	endloop(0x1f)
 

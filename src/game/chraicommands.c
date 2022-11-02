@@ -1980,15 +1980,31 @@ bool aiIfNeverBeenOnScreen(void)
 bool aiIfObjectiveComplete(s32 index)
 {
 	return index < objectiveGetCount()
-		&& objectiveCheck(index) == OBJECTIVE_COMPLETE
+		&& g_ObjectiveStatuses[index] == OBJECTIVE_COMPLETE
 		&& objectiveGetDifficultyBits(index) & (1 << lvGetDifficulty());
 }
 
 bool aiIfObjectiveFailed(s32 index)
 {
 	return index < objectiveGetCount()
-		&& objectiveCheck(index) == OBJECTIVE_FAILED
+		&& g_ObjectiveStatuses[index] == OBJECTIVE_FAILED
 		&& objectiveGetDifficultyBits(index) & (1 << lvGetDifficulty());
+}
+
+bool aiIfAnyObjectiveFailed(void)
+{
+	s32 numobjectives = objectiveGetCount();
+	s32 mask = 1 << lvGetDifficulty();
+	s32 i;
+
+	for (i = 0; i < numobjectives; i++) {
+		if (g_ObjectiveStatuses[i] == OBJECTIVE_FAILED
+				&& objectiveGetDifficultyBits(i) & mask) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool aiIfObjectDistanceToPadLessThan(s32 tagnum, s32 padnum, f32 distance)
