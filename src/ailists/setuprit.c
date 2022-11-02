@@ -613,7 +613,7 @@ u8 func1024_give_objects[] = {
 	give_object_to_chr(OBJ_DATAUPLINK_COOP, CHR_COOP)
 	give_object_to_chr(OBJ_REMOTEMINE_COOP, CHR_COOP)
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -650,7 +650,7 @@ u8 func1004_reassign_ailists_during_conversation[] = {
 	set_ailist(0x13, AILIST_BE_UNALERT)
 	set_ailist(0x14, AILIST_BE_UNALERT)
 	set_ailist(0x15, AILIST_BE_UNALERT)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -691,13 +691,13 @@ u8 func1005_check_neutrals_killed[] = {
 	set_stage_flag(STAGEFLAG_KILLED_NEUTRALS)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0401_init_stripes[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -705,7 +705,7 @@ u8 func0402_init_elvis[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -851,7 +851,7 @@ u8 func1006_hijack[] = {
 	rebuild_squadrons
 	unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED)
 	unset_chr_hiddenflag(CHR_COOP, CHRHFLAG_DISGUISED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -890,7 +890,7 @@ u8 func0403_stripes[] = {
 };
 
 u8 unregistered_function1[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -963,18 +963,18 @@ u8 unregistered_function1[] = {
 	show_hudmsg(CHR_BOND, 0x3615) /* "UFO attachment damaged." */ \
 	set_stage_flag(STAGEFLAG_UFO_ATTACHMENT_DAMAGED) \
 	unset_stage_flag(STAGEFLAG_BOTH_MINES_WASTED) \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	/* Mine wasted */ \
 	label(0x0a) \
 	set_stage_flag(myflag) \
 	if_stage_flag_eq(buddyflag, TRUE, /*goto*/ 0x2d) \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	label(0x2d) \
 	show_hudmsg(CHR_BOND, 0x3645) /* "Timed mine has been wasted." */ \
 	set_stage_flag(STAGEFLAG_BOTH_MINES_WASTED) \
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 u8 func1008_check_mine_wasted_bond[] = {
 	check_mine_wasted(CHR_BOND, CHR_TARGET, STAGEFLAG_BOND_MINE_WASTED, STAGEFLAG_COOP_MINE_WASTED)
@@ -986,7 +986,7 @@ u8 func1021_check_mine_wasted_coop[] = {
 	goto_next(0x06)
 	label(0x2d)
 	set_stage_flag(STAGEFLAG_COOP_MINE_WASTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	check_mine_wasted(CHR_COOP, CHR_COOP, STAGEFLAG_COOP_MINE_WASTED, STAGEFLAG_BOND_MINE_WASTED)
@@ -1085,7 +1085,7 @@ u8 func101e_blow_mines[] = {
 	disable_object(0x30)
 	disable_object(0x31)
 	disable_object(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1109,7 +1109,7 @@ u8 func1009_check_end_level[] = {
 
 	// Both players dead
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Redundant check
 	label(0x06)
@@ -1122,7 +1122,7 @@ u8 func1009_check_end_level[] = {
 
 	label(0x2d)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Mission complete
 	label(0x06)
@@ -1164,13 +1164,13 @@ u8 func100a_autopilot_switch[] = {
 
 	label(0x06)
 	configure_environment(0x0000, AIENVCMD_STOPNOSEDIVE, 0)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Switch destroyed
 	label(0x08)
 	show_hudmsg(CHR_P1P2, L_RIT_025) // "Autopilot systems have been destroyed."
 	set_stage_flag(STAGEFLAG_AUTOPILOT_DESTROYED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1188,7 +1188,7 @@ u8 func0405_president_in_room[] = {
 	// Dying
 	label(0x2d)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1203,7 +1203,7 @@ u8 func0405_president_in_room[] = {
 	// Dying
 	label(0x2d)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x03)
 	set_target_chr(CHR_PRESET)
@@ -1328,8 +1328,8 @@ u8 func0405_president_in_room[] = {
 	increase_squadron_alertness(100)
 	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0a)
 
-	beginloop(0x0a)
-	endloop(0x0a)
+	label(0x0a)
+	terminate
 
 	label(0x06)
 
@@ -1453,7 +1453,7 @@ u8 func0404_president_running[] = {
 	assign_sound(MP3_02BF, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x2d)
@@ -1592,7 +1592,7 @@ u8 func0404_president_running[] = {
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Player is in the entrance to Trent's room and both blondes are dead.
 	// The intention behind this code is to make the president cower until the
@@ -1623,7 +1623,7 @@ u8 func0404_president_running[] = {
 	label(0x06)
 	goto_first(0x55)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1635,7 +1635,7 @@ u8 func100b_check_president_dead[] = {
 	label(0x06)
 	set_stage_flag(STAGEFLAG_PRESIDENT_DEAD)
 	show_hudmsg(CHR_BOND, L_RIT_026) // "The President has been incapacitated."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1813,7 +1813,7 @@ u8 func100c_cockpit[] = {
 
 	// All objectives complete
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// UFO attachment damaged
 	label(0x2e)
@@ -1911,7 +1911,7 @@ u8 func100c_cockpit[] = {
 
 	label(0x2d)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	label(0x7c)
@@ -1920,7 +1920,7 @@ u8 func100c_cockpit[] = {
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 	show_hudmsg(CHR_BOND, L_RIT_028) // "Pilots have been saved."
 	stop_ambient_track
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	label(0x08)
@@ -1928,7 +1928,7 @@ u8 func100c_cockpit[] = {
 
 	// Plane stabilized or all objectives complete
 	label(0x11)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2183,7 +2183,7 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_PRESIDENT, CHRCFLAG_UNPLAYABLE)
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
 	enter_firstperson
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2311,7 +2311,7 @@ u8 func040a_defend_pad[] = {
 	// Dying
 	label(0x2d)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -2461,7 +2461,7 @@ u8 func0415_cloner1[] = {
 
 	// UFO attachment damaged
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2557,7 +2557,7 @@ u8 func0418_cloner2[] = {
 
 	// UFO attachment damaged
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2649,7 +2649,7 @@ u8 func041b_cloner3[] = {
 	endloop(0x04)
 
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2718,7 +2718,7 @@ u8 func041e_blonde[] = {
 	label(0x06)
 	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	// This injured check is pointless
@@ -2936,7 +2936,7 @@ u8 func0422_trent_running[] = {
 	if_can_see_target(/*goto*/ 0x06)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	set_alertness(100)
@@ -2965,7 +2965,7 @@ u8 func1012_check_blondes_dead[] = {
 	// Both blondes dead
 	label(0x2d)
 	set_stage_flag(STAGEFLAG_BOTH_BLONDES_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2995,7 +2995,7 @@ u8 func1013_unhide_trent_and_blondes[] = {
 	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BLONDE1, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BLONDE2, CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3028,7 +3028,7 @@ u8 func0429_be_unalert[] = {
  * The set_ailist at the start has effectively disabled this function.
  */
 u8 func1014_uncover_disguise[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	restart_timer
 
 	beginloop(0x04)
@@ -3037,7 +3037,7 @@ u8 func1014_uncover_disguise[] = {
 
 	label(0x06)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISE_UNCOVERED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3224,7 +3224,7 @@ u8 func0407_steward[] = {
 	label(0x2d)
 	mute_channel(CHANNEL_4)
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3241,7 +3241,7 @@ u8 func0408_stewardess[] = {
 	goto_next(0x03)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Wait until alerted
 	beginloop(0x03)
@@ -3318,7 +3318,7 @@ u8 func1015_msg_retrievetheevidence[] = {
 	label(0x2d)
 	speak(CHR_BOND, L_RIT_046, MP3_03C8, CHANNEL_6, COLOR_09_BLUE) // "Now, let's retrieve the evidence."
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3336,7 +3336,7 @@ u8 func1016_msg_onthislevel[] = {
 	label(0x2d)
 	set_target_chr(CHR_PRESET)
 	speak(CHR_TARGET, L_RIT_047, SFX_8185, CHANNEL_6, COLOR_09_BLUE) // "The President's room is on this level, Joanna."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3362,7 +3362,7 @@ u8 func1017_msg_gettothecockpit[] = {
 	speak(CHR_BOND, L_RIT_048, SFX_8186, CHANNEL_5, COLOR_09_BLUE) // "Something's wrong... You have to get to the cockpi..."
 
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3381,7 +3381,7 @@ u8 func1018_msg_maybeamine[] = {
 	speak(CHR_P1P2, L_RIT_049, MP3_03CB, CHANNEL_6, COLOR_09_BLUE) // "Maybe a mine will detach the UFO."
 
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3516,7 +3516,7 @@ u8 func0423_outro[] = {
 	disable_object(0x1a)
 	set_chr_hudpiece_visible(CHR_TARGET, FALSE)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3689,7 +3689,7 @@ u8 func101b_hoverbike_switch[] = {
 	label(0x06)
 	set_object_flag(0x1f, OBJFLAG_DEACTIVATED)
 	set_object_image(OBJ_HOVERBIKE_SWITCH, 0, TVCMDLIST_12)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3706,7 +3706,7 @@ u8 func101c_check_equipment_switch_destroyed[] = {
 	set_stage_flag(STAGEFLAG_EQUIPMENT_SWITCH_DESTROYED)
 	show_hudmsg(CHR_BOND, L_RIT_062) // "Mission critical object has been destroyed."
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3850,7 +3850,7 @@ u8 func042c_remove_if_offscreen[] = {
 	chr_drop_weapon(CHR_SELF)
 	remove_chr(CHR_SELF)
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	set_ailist(CHR_SELF, AILIST_INIT_DEFEND_PAD)
@@ -3881,7 +3881,7 @@ u8 func101d_handle_early_president_death[] = {
 	label(0x2d)
 	set_stage_flag(STAGEFLAG_PRESIDENT_STARTED_RUNNING)
 	unlock_door(OBJ_COCKPITDOOR, 0x40)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3890,7 +3890,7 @@ u8 func1007_check_pod_destroyed[] = {
 		if_object_in_good_condition(OBJ_ESCAPE_POD, /*goto*/ 0x2d)
 		show_hudmsg(CHR_BOND, L_RIT_062) // "Mission critical object has been destroyed."
 		set_stage_flag(STAGEFLAG_POD_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2d)
 	endloop(0x04)
 
@@ -3901,7 +3901,7 @@ u8 func101f_setup_rtracker[] = {
 	yield
 	set_object_flag3(0x38, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(0x39, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3932,8 +3932,8 @@ u8 func1420_setup_environment[] = {
 	configure_environment(0x0042, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0043, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0059, AIENVCMD_ROOM_SETAMBIENT, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
+	terminate
 	endlist
 };
 
@@ -3967,7 +3967,7 @@ u8 func1022_pilots_stabilizing[] = {
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3986,7 +3986,7 @@ u8 func1023_check_pilots_dead[] = {
 
 	label(0x2d)
 	set_stage_flag(STAGEFLAG_PILOTS_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4019,7 +4019,7 @@ u8 func1025_disable_buddy_warp[] = {
 	yield
 	yield
 	unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4043,7 +4043,7 @@ u8 func1026_buddy_floor_hatch[] = {
 	disable_object(OBJ_FLOORHATCH)
 	set_object_flag(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG_00000100)
 	unset_object_flag2(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG2_INVISIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

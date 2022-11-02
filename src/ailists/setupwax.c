@@ -1030,37 +1030,7 @@ u8 func0401_init_hovercar[] = {
 	begin_hovercar_path(0x00)
 	set_vehicle_speed(0x0c00, 120)
 
-	beginloop(0x04)
-	endloop(0x04)
-
-	// Everything below here in this function is unreachable
-	label(0x08)
-	set_vehicle_speed(0x0600, 120)
-	goto_first(0x04)
-
-	label(0x09)
-	set_vehicle_speed(0x0700, 120)
-	goto_first(0x04)
-
-	label(0x0a)
-	set_vehicle_speed(0x0800, 120)
-	goto_first(0x04)
-
-	label(0x0b)
-	set_vehicle_speed(0x0900, 120)
-	goto_first(0x04)
-
-	label(0x0c)
-	set_vehicle_speed(0x0a00, 120)
-	goto_first(0x04)
-
-	label(0x0d)
-	set_vehicle_speed(0x0b00, 120)
-	goto_first(0x04)
-
-	label(0x0e)
-	set_vehicle_speed(0x0d00, 120)
-	goto_first(0x04)
+	terminate
 
 	endlist
 };
@@ -1298,7 +1268,7 @@ u8 func0411_cass_in_office[] = {
 	// Dying
 	label(0x2c)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Not dying
 	label(0x06)
@@ -1333,7 +1303,7 @@ u8 func0411_cass_in_office[] = {
 	if_chr_knockedout(CHR_CASS, /*goto*/ 0x06)
 	goto_next(0x2c)
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2c)
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -1406,7 +1376,7 @@ u8 func0413_cass_running[] = {
 	// Dying
 	label(0x06)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Not dying
 	label(0x2c)
@@ -1489,7 +1459,7 @@ u8 func0413_cass_running[] = {
 	yield
 #endif
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1502,7 +1472,7 @@ u8 func1004_check_cass_dead[] = {
 	label(0x2c)
 	show_hudmsg(CHR_BOND, L_WAX_014) // "Cassandra has been immobilized."
 	set_stage_flag(STAGEFLAG_CASS_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1513,7 +1483,7 @@ u8 func1005_check_cass_captured[] = {
 		if_chr_y(CHR_CASS, 0, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		show_hudmsg(CHR_BOND, L_WAX_015) // "Cassandra has been captured successfully."
 		set_stage_flag(STAGEFLAG_CASS_CAPTURED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Cass is not at helipad
 		label(0x2c)
@@ -1521,7 +1491,7 @@ u8 func1005_check_cass_captured[] = {
 
 	// Died
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1530,7 +1500,7 @@ u8 func1006_lift_disabling[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x06)
 	goto_next(0x2c)
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Disable chief's lift
 	label(0x2c)
@@ -1575,7 +1545,7 @@ u8 func1006_lift_disabling[] = {
 	label(0x2c)
 	unset_object_flag(OBJ_CHIEF_LIFT, OBJFLAG_DEACTIVATED)
 	unset_object_flag(OBJ_BLONDE_LIFT, OBJFLAG_DEACTIVATED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1588,7 +1558,7 @@ u8 func0414_init_chief[] = {
 	set_shield(0)
 	set_morale(0)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1599,7 +1569,7 @@ u8 func0415_chief[] = {
 	if_chr_deadish(CHR_CHIEF, /*goto*/ 0x2c)
 	goto_next(0x03)
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Wait until player in sight
 	beginloop(0x03)
@@ -1659,7 +1629,7 @@ u8 func100f_disable_chiefs_lift[] = {
 
 	// A or SA - return
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1730,7 +1700,7 @@ u8 func1007_bomb_logic[] = {
 
 	label(0x2c)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1746,7 +1716,7 @@ u8 func1008_check_bomb_unplantable[] = {
 
 		// Bomb planted - return
 		label(0x06)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Alarm active - lock door and wait for door to be closed or bomb planted
 		label(0x2c)
@@ -1776,7 +1746,7 @@ u8 func1008_check_bomb_unplantable[] = {
 
 		// Difficulty is agent or bomb has been planted - return
 		label(0x0d)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x2c)
 	endloop(0x04)
@@ -1855,7 +1825,7 @@ u8 func1009_toggle_top_guards[] = {
 	enable_chr(0x06)
 	yield
 	enable_chr(0x05)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1889,14 +1859,14 @@ u8 func100a_check_for_completion[] = {
 		// Both players dead
 		label(0x2c)
 		end_level
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// At least one player is alive
 		label(0x06)
 		set_ailist(CHR_SELF, AILIST_OUTRO)
 		end_level
 
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Player not at helipad
 		label(0x2d)
@@ -1908,7 +1878,7 @@ u8 func100a_check_for_completion[] = {
 u8 func100b_start_lifts[] = {
 	activate_lift(2, 0x55)
 	activate_lift(1, 0x56)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2027,7 +1997,7 @@ u8 func0416_intro[] = {
 	stop_cutscene_track
 	stop_ambient_track
 	enter_firstperson
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2064,7 +2034,7 @@ u8 func0417_outro[] = {
 
 	label(0x06)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2098,7 +2068,7 @@ u8 func100e_cass_speech[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_CASS_SAID_YWSM)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2136,7 +2106,7 @@ u8 func1010_init_lighting[] = {
 	configure_environment(0x00a4, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x00a5, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x00a7, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2160,7 +2130,7 @@ u8 func1011_shuttle_animation[] = {
 
 	// Unreachable
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2195,7 +2165,7 @@ u8 func1012_chief_lift[] = {
 
 	// A or SA - return
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 #endif

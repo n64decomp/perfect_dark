@@ -937,10 +937,7 @@ u8 func0408_start_path07[] = {
 
 u8 func040b_stop_vehicle[] = {
 	set_vehicle_speed(0, 1)
-
-	beginloop(0x04)
-	endloop(0x04)
-
+	terminate
 	endlist
 };
 
@@ -977,7 +974,7 @@ u8 func140e_check_interceptors_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR3_DESTROYED, FALSE, /*goto*/ 0x2e)
 		show_hudmsg(CHR_BOND, L_LUE_020) // "All robot interceptors disabled."
 
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2e)
 	endloop(0x04)
 
@@ -1071,17 +1068,17 @@ u8 func1400_give_bugs[] = {
 	label(0x0a) \
 	set_stage_flag(STAGEFLAG_COMMSBUG_PLACED) \
 	show_hudmsg(chr, 0x2c1a) /* "Communications bug placed correctly." */ \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	label(0x0b) \
 	if_stage_flag_eq(STAGEFLAG_ONE_BUG_WASTED, TRUE, /*goto*/ 0x2e) \
 	set_stage_flag(STAGEFLAG_ONE_BUG_WASTED) \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	label(0x2e) \
 	set_stage_flag(STAGEFLAG_COMMSBUG_MISPLACED) \
 	show_hudmsg(chr, 0x2c1b) /* "Communications bug placed incorrectly." */ \
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 /**
  * @unused
@@ -1104,7 +1101,7 @@ u8 func1023_check_bug_wasted_coop[] = {
 
 	label(0x2e)
 	set_stage_flag(STAGEFLAG_ONE_BUG_WASTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	check_bug_wasted(CHR_COOP)
@@ -1116,7 +1113,7 @@ u8 func1004_check_antenna_destroyed[] = {
 		if_object_in_good_condition(OBJ_ANTENNA, /*goto*/ 0x2e)
 		show_hudmsg(CHR_BOND, L_LUE_028) // "Antenna has been destroyed."
 		set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2e)
 	endloop(0x04)
 
@@ -1287,7 +1284,7 @@ u8 func1007_check_hangar_accessed[] = {
 	label(0x06)
 	set_stage_flag(STAGEFLAG_HANGAR_ACCESSED)
 	show_hudmsg(CHR_P1P2, L_LUE_039) // "Hangar has been accessed."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1316,12 +1313,12 @@ u8 func1008_check_end_level[] = {
 
 	label(0x2e)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	set_invincible(CHR_BOND)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1336,7 +1333,7 @@ u8 func1009_check_radar_shut_down[] = {
 	show_hudmsg(CHR_BOND, L_LUE_041) // "Air intercept radar shut down."
 	mute_channel(CHANNEL_0)
 	set_stage_flag(STAGEFLAG_RADAR_SHUT_DOWN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1408,7 +1405,7 @@ u8 func100b_final_hangar[] = {
 
 	label(0x0d)
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1605,7 +1602,7 @@ u8 func0417_traitor[] = {
 	endloop(0x60)
 
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1616,7 +1613,7 @@ u8 func0416_mechanic[] = {
 
 	label(0x2e)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	if_just_injured(CHR_SELF, /*goto*/ 0x2e)
@@ -1717,7 +1714,7 @@ u8 func040a_top_interceptor[] = {
 
 	beginloop(0x03)
 		if_object_in_good_condition(OBJ_INTERCEPTOR3, /*goto*/ 0x2e)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2e)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_INTERCEPTOR, TRUE, /*goto*/ 0x06)
 	endloop(0x03)
@@ -1779,8 +1776,7 @@ u8 func040c_init_bottom_interceptors[] = {
 	set_object_flag(OBJ_INTERCEPTOR1, OBJFLAG_CHOPPER_INACTIVE)
 	set_object_flag(OBJ_INTERCEPTOR2, OBJFLAG_CHOPPER_INACTIVE)
 
-	beginloop(0x04)
-	endloop(0x04)
+	terminate
 
 	endlist
 };
@@ -1930,7 +1926,7 @@ u8 func040e_outro[] = {
 	remove_chr(CHR_OUTRO_GUARD)
 	set_chr_hudpiece_visible(CHR_P1P2, FALSE)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2152,7 +2148,7 @@ u8 func0410_intro[] = {
 	stop_ambient_track
 	enter_firstperson
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2164,8 +2160,7 @@ u8 func0410_intro[] = {
  */
 u8 func0418_walk_to_pad[] = {
 	walk_to_pad(PAD_LUE_0019)
-	beginloop(0x09)
-	endloop(0x09)
+	terminate
 
 	endlist
 };
@@ -2201,13 +2196,13 @@ u8 func1010_bunker_lighting[] = {
 
 	label(0x2e)
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1012_bunker_laser1[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// SA and PA only
 	label(0x2e)
@@ -2240,13 +2235,13 @@ u8 func1012_bunker_laser1[] = {
 	goto_first(0x0a)
 
 	label(0x10)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1013_bunker_lasers234[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2e)
 	restart_timer
@@ -2282,13 +2277,13 @@ u8 func1013_bunker_lasers234[] = {
 	goto_first(0x0a)
 
 	label(0x10)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1013_bunker_lasers56[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2e)
 	restart_timer
@@ -2342,7 +2337,7 @@ u8 func1013_bunker_lasers56[] = {
 	goto_first(0x0a)
 
 	label(0x10)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2357,7 +2352,7 @@ u8 func1013_bunker_lasers[] = {
 	disable_object(0x22)
 	disable_object(0x23)
 	disable_object(0x24)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// SA and PA
 	label(0x03)
@@ -2404,7 +2399,7 @@ u8 func1013_bunker_lasers[] = {
 	open_door(0x22)
 	open_door(0x23)
 	open_door(0x24)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2547,7 +2542,7 @@ u8 func1011_bunker_explosives[] = {
 	endloop(0x10)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2578,7 +2573,7 @@ u8 func1016_trigger_interceptor[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TRIGGER_INTERCEPTOR)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2586,7 +2581,7 @@ u8 func1017_radar_terminal_noise[] = {
 	yield
 	assign_sound(SFX_8146, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_RADAR_TERMINAL, 1, 800, 1100)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2657,7 +2652,7 @@ u8 func1018_unhide_guards[] = {
 #endif
 	set_ailist(0x23, AILIST_DRAGON_ALERTED)
 	set_ailist(0x24, AILIST_DRAGON_ALERTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2775,7 +2770,7 @@ u8 func1019_spawn_guards_at_antenna[] = {
 	set_ailist(0x35, GAILIST_SEARCH_FOR_PLAYER)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2842,7 +2837,7 @@ u8 func141f_start_lifts[] = {
 	activate_lift(2, 0x31)
 	activate_lift(3, 0x32)
 	activate_lift(4, 0x33)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2856,7 +2851,7 @@ u8 func101a_check_mechanic_dead[] = {
 
 	label(0x2e)
 	set_savefile_flag(GAMEFILEFLAG_RESCUE_MECHANIC_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2872,7 +2867,7 @@ u8 func101b_msg_airinterceptradar[] = {
 
 	label(0x2e)
 	speak(CHR_P1P2, L_LUE_053, SFX_817D, CHANNEL_6, COLOR_09_BLUE) // "The air intercept radar is controlled from that bu..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2888,7 +2883,7 @@ u8 func101c_msg_cantthrow[] = {
 	label(0x2e)
 	speak(CHR_P1P2, L_LUE_054, MP3_03B9, CHANNEL_6, COLOR_09_BLUE) // "There's the antenna, but... I can't throw a bug th..."
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2908,7 +2903,7 @@ u8 func101d_msg_hangarlift[] = {
 
 	label(0x2e)
 	speak(CHR_P1P2, L_LUE_055, SFX_817E, CHANNEL_6, COLOR_09_BLUE) // "The hangar lift is on the other side of that huge ..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2920,7 +2915,7 @@ u8 func101e_msg_triggerfinger[] = {
 
 	label(0x2e)
 	speak(CHR_P1P2, L_LUE_056, SFX_817F, CHANNEL_6, COLOR_09_BLUE) // "Careful with that trigger finger, Agent Dark - you..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2985,11 +2980,11 @@ u8 func1020_choose_autogun_guard[] = {
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x2e)
 	set_ailist(0x00, AILIST_ACTIVATE_AUTOGUN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2e)
 	set_ailist(0x01, AILIST_ACTIVATE_AUTOGUN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3002,7 +2997,7 @@ u8 func1021_damage_rl_guard[] = {
 	damage_chr(CHR_ROCKETLAUNCHER_GUARD, WEAPON_SUPERDRAGON)
 	yield
 	damage_chr(CHR_ROCKETLAUNCHER_GUARD, WEAPON_SUPERDRAGON)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3020,7 +3015,7 @@ u8 func1022_check_lift_switches_destroyed[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3112,7 +3107,7 @@ u8 func1025_spawn_bunker_guards[] = {
 
 	label(0x06)
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3144,7 +3139,7 @@ u8 func0423_a5e8[] = {
 
 #define watch_for_laser_broken(crate1, crate2, laser) \
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x7e) \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	/* SA and PA */ \
 	beginloop(0x7e) \
@@ -3209,7 +3204,7 @@ u8 func0424_activate_lasers[] = {
 
 	// A and SA
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3218,7 +3213,7 @@ u8 func0425_a7d4[] = {
 	yield
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3230,7 +3225,7 @@ u8 func041c_template_guard[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3250,14 +3245,14 @@ u8 func102d_check_antenna_switch_destroyed[] = {
 	set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
 	label(0x2e)
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func102e_setup_rtracker[] = {
 	yield
 	set_object_flag3(OBJ_ROCKETLAUNCHER, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3307,7 +3302,7 @@ u8 func142f_setup_environment[] = {
 	configure_environment(0x0020, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0020, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x0017, AIENVCMD_ROOM_SETAMBIENT, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

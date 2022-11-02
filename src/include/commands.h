@@ -821,6 +821,9 @@
 	object, \
 	label,
 
+#define terminate \
+	mkshort(0x0065), \
+
 /**
  * Destroys the given object.
  *

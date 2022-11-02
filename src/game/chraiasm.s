@@ -33,6 +33,8 @@ glabel aiYield
 	addiu   $sp, $sp, 0x28
 
 glabel aiTerminate
+	jal     aiTerminateCleanup
+	nop
 	move    $v0, $zero
 	lw      $ra, 0x20($sp)
 	jr      $ra

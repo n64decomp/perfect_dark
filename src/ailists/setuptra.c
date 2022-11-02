@@ -638,7 +638,7 @@ u8 func1023_gas_damage_coop[] = {
 	set_ailist(CHR_SELF, AILIST_GAS_DAMAGE)
 
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -699,7 +699,7 @@ u8 func0401_gas_damage[] = {
 	goto_first(0x08)
 
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -752,7 +752,7 @@ u8 func1004_jon_msgs_gravedanger[] = {
 	endloop(0x0c)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -790,7 +790,7 @@ u8 func1005_jon_msgs_meetup[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_JON_SAID_MAINT_HATCH)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -802,7 +802,7 @@ u8 func1007_check_medpack_collected[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_COLLECTED_MEDPACK)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -831,7 +831,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 	goto_next(0x67)
 
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x67)
 	set_self_flag_bankx(CHRFLAG0_CAMP, BANK_0)
@@ -900,7 +900,7 @@ u8 func0404_jonathan_following_and_mine[] = {
 	goto_next(0x06)
 
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	if_stage_flag_eq(STAGEFLAG_JON_FINISHED_EXPLOSIVES, TRUE, /*goto*/ 0x32)
@@ -1069,7 +1069,7 @@ u8 func0404_jonathan_following_and_mine[] = {
 	label(0x06)
 	goto_first(LABEL_FOLLOW)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1080,7 +1080,7 @@ u8 func0413_jonathan_hangar[] = {
 	goto_next(0x06)
 
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x32)
 	if_just_injured(CHR_SELF, /*goto*/ 0x06)
@@ -1369,7 +1369,7 @@ u8 func041c_elvis_go_to_ufo[] = {
 	goto_next(0x06)
 
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	run_to_pad(PAD_TRA_03FE)
@@ -1381,8 +1381,7 @@ u8 func041c_elvis_go_to_ufo[] = {
 	label(0x06)
 	stop_chr
 
-	beginloop(0x6a)
-	endloop(0x6a)
+	terminate
 
 	endlist
 };
@@ -1394,7 +1393,7 @@ u8 func041b_jonathan_after_terminals[] = {
 	goto_next(0x06)
 
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	run_to_pad(PAD_TRA_015F) // conversation corner
@@ -1539,7 +1538,7 @@ u8 func1008_spawngroup1[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1614,7 +1613,7 @@ u8 func1013_spawngroup2[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1669,7 +1668,7 @@ u8 func1014_spawngroup3[] = {
 
 	// Agent - do nothing
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// SA and PA
 	beginloop(0x04)
@@ -1733,7 +1732,7 @@ u8 func1014_spawngroup3[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TRIGGER_MEDPACK_FINISH)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1814,7 +1813,7 @@ u8 func1015_spawngroup4[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1863,7 +1862,7 @@ u8 func1009_blow_up_wall[] = {
 	yield
 	destroy_object(OBJ_WALLMINE)
 	set_stage_flag(STAGEFLAG_WALL_EXPLODED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1876,7 +1875,7 @@ u8 func100a_check_hangar_accessed[] = {
 	label(0x06)
 	set_stage_flag(STAGEFLAG_ENTERED_HANGAR)
 	show_hudmsg(CHR_P1P2, L_TRA_031) // "The secret hangar has been located."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1905,7 +1904,7 @@ u8 func100b_check_jonathan_dead[] = {
 	set_stage_flag(STAGEFLAG_JON_DEAD)
 
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1989,7 +1988,7 @@ u8 func100c_medpack_activation[] = {
 
 	// Jonathan is dead
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2004,7 +2003,7 @@ u8 func0412_init_elvis[] = {
 	add_health_or_armor(200)
 	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, AILIST_ELVIS_FOLLOW)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2056,8 +2055,7 @@ u8 func040b_elvis_follow[] = {
 	label(0x08)
 	stop_chr
 
-	beginloop(0x09)
-	endloop(0x09)
+	terminate
 
 	endlist
 };
@@ -2144,7 +2142,7 @@ u8 func100d_check_terminals_destroyed[] = {
 	label(0x08)
 	show_hudmsg(CHR_BOND, L_TRA_036) // "Mission critical object destroyed."
 	set_stage_flag(STAGEFLAG_HANGAR_TERMINAL_DESTROYED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2158,7 +2156,7 @@ u8 func100e_check_elvis_dead[] = {
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
 	show_hudmsg(CHR_BOND, L_TRA_030) // "Elvis has been killed."
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2217,7 +2215,7 @@ u8 func1010_check_end_level[] = {
 	// Both Joanna and Velvet are dead
 	label(0x33)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Mission complete
 	label(0x06)
@@ -2230,7 +2228,7 @@ u8 func1010_check_end_level[] = {
 
 	// Jonathan and/or Elvis are dead
 	label(0x0f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2246,7 +2244,7 @@ u8 func1011_unlock_doors_when_jo_escaping[] = {
 	unlock_door(0x09, 0x04)
 	unlock_door(0x1d, 0x40)
 	unlock_door(0x1e, 0x40)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2316,14 +2314,14 @@ u8 func1012_hoverbike_auto_doors[] = {
 		open_door(0x05)
 	endloop(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func040c_hidden_guardtype1[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2375,7 +2373,7 @@ u8 func1016_enable_guards_after_meetup[] = {
 	set_ailist(0x16, AILIST_INIT_SUPERDRAGON_GUARD)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2391,14 +2389,14 @@ u8 func1017_check_both_hangar_doors_open[] = {
 	label(0x32)
 	show_hudmsg(CHR_BOND, L_TRA_053) // "The hangar doors are now open."
 	set_stage_flag(STAGEFLAG_BOTH_HANGAR_DOORS_OPEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func040d_hidden_guardtype2[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2447,7 +2445,7 @@ u8 func1018_unhide_guards_when_jo_escaping[] = {
 	unlock_door(0x1a, 0x40)
 	unlock_door(0x1b, 0x40)
 	unlock_door(0x1c, 0x40)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2455,7 +2453,7 @@ u8 func040e_hidden_biotech[] = {
 	label(0x04)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2477,7 +2475,7 @@ u8 func1019_enable_biotechs_after_stash[] = {
 	unset_chr_chrflag(0x28, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x28, CHRCFLAG_INVINCIBLE)
 	set_ailist(0x28, AILIST_INIT_BIOTECH)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2807,7 +2805,7 @@ u8 func1002_intro[] = {
 	yield
 	kill(0x23)
 	kill(0x24)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3020,7 +3018,7 @@ u8 func101b_gas_sound[] = {
 	yield
 	assign_sound(SFX_816A, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, 0x2b, 1, 8000, 3000)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3110,7 +3108,7 @@ u8 func0c02_outro[] = {
 	stop_countdown_timer
 	unset_savefile_flag(GAMEFILEFLAG_DEFENSE_JON)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3142,8 +3140,8 @@ u8 func0415_ufo_exit[] = {
 	configure_environment(0x0000, AIENVCMD_STOPUFOHUM, 0)
 	stop_ambient_track
 	disable_object(OBJ_UFO1)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
+	terminate
 	endlist
 };
 
@@ -3205,12 +3203,12 @@ u8 func1021_jo_escaping[] = {
 
 	label(0x69)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	end_level
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3263,7 +3261,7 @@ u8 func0416_spawn_during_follow[] = {
 	endloop(0x04)
 
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3325,7 +3323,7 @@ u8 func101a_medpack_switch[] = {
 		set_stage_flag(STAGEFLAG_MEDPACK_SWITCH_DESTROYED)
 		show_hudmsg(CHR_BOND, L_TRA_036) // "Mission critical object destroyed."
 		label(0x06)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x32)
 		if_chr_activated_object(CHR_P1P2, OBJ_MEDPACK_SWITCH, /*goto*/ 0x32)
@@ -3337,7 +3335,7 @@ u8 func101a_medpack_switch[] = {
 	show_hudmsg(CHR_P1P2, L_TRA_054) // "Medical containment doors unlocked."
 	unlock_door(0x12, 0x40)
 	unlock_door(0x13, 0x40)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3359,7 +3357,7 @@ u8 unregistered_function1[] = {
 
 	label(0x32)
 	set_ailist(CHR_JONATHAN, 0x040f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3378,7 +3376,7 @@ u8 func040f_warp_jon_to_catwalk[] = {
 	yield
 	set_ailist(CHR_JONATHAN, AILIST_JONATHAN_FOLLOWING_AND_MINE)
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3398,7 +3396,7 @@ u8 func101d_msg_medpackaroundhere[] = {
 	label(0x32)
 	speak(CHR_P1P2, L_TRA_055, MP3_03C0, CHANNEL_6, COLOR_09_BLUE) // "The medpack's got to be somewhere around here."
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3416,7 +3414,7 @@ u8 func101e_msg_hookup[] = {
 
 	label(0x32)
 	speak(CHR_BOND, L_TRA_056, MP3_03C1, CHANNEL_6, COLOR_09_BLUE) // "Time to hook up with Jonathan, before he gets into..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3441,7 +3439,7 @@ u8 func101f_msg_oil[] = {
 
 	label(0x32)
 	speak(CHR_P1P2, L_TRA_057, MP3_03C2, CHANNEL_6, COLOR_09_BLUE) // "That smell... oil... I smelt that in the other han..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3458,7 +3456,7 @@ u8 func1020_msg_jetbike[] = {
 
 	label(0x32)
 	speak(CHR_BOND, L_TRA_058, MP3_03C3, CHANNEL_6, COLOR_09_BLUE) // "The jetbike should get me out before they lock the..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3473,7 +3471,7 @@ u8 func1024_wall_immune_to_explosives[] = {
 	label(0x32)
 	unset_object_flag(OBJ_WALLOBJECT, OBJFLAG_INVINCIBLE)
 	unset_object_flag(OBJ_WALLDOOR, OBJFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3494,11 +3492,11 @@ u8 func1024_wall_immune_to_explosives[] = {
  \
 		label(0x06) \
 		set_object_flag(OBJ_MEDPACK_GLASS, OBJFLAG_INVINCIBLE) \
-		set_ailist(CHR_SELF, GAILIST_IDLE) \
+		terminate \
 		label(0x32) \
 	endloop(0x04) \
  \
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 u8 unregistered_function2[] = {
 	set_object_flag(OBJ_MEDPACK_GLASS, OBJFLAG_INVINCIBLE)
@@ -3552,7 +3550,7 @@ u8 func1026_ufo_spinning[] = {
 		label(0x32)
 	goto_first(0x03)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3595,7 +3593,7 @@ u8 func102e_keep_hangar_doors_open[] = {
 
 	// Terminal destroyed
 	label(0x0f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3607,12 +3605,12 @@ u8 func102f_toggle_remotemines[] = {
 	endloop(0x08)
 
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	unset_object_flag(OBJ_REMOTEMINES, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(OBJ_REMOTEMINES, OBJFLAG2_INVISIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3620,13 +3618,13 @@ u8 func1030_setup_medpack_glass[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x32)
 	unset_object_flag(OBJ_MEDPACK_GLASS, OBJFLAG_INVINCIBLE)
 	destroy_object(OBJ_MEDPACK_GLASS)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// SA and PA
 	label(0x32)
 	unlock_door(0x3c, 0x40)
 	unlock_door(0x3d, 0x40)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3639,7 +3637,7 @@ u8 func1031_disable_chambers[] = {
 	set_object_flag(0x4b, OBJFLAG_DEACTIVATED)
 	set_object_flag(0x4c, OBJFLAG_DEACTIVATED)
 	set_object_flag(0x4d, OBJFLAG_DEACTIVATED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3651,7 +3649,7 @@ u8 func1032_unlock_door_after_hangar[] = {
 
 	label(0x06)
 	unlock_door(0x0a, 0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3660,7 +3658,7 @@ u8 func1032_unlock_door_after_hangar[] = {
  */
 u8 func1433_start_lift[] = {
 	activate_lift(1, 0x4e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3669,7 +3667,7 @@ u8 func101c_setup_rtracker[] = {
 	set_object_flag3(OBJ_FALCON2SCOPE1, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_FALCON2SCOPE2, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_REMOTEMINES, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3823,7 +3821,7 @@ u8 func1434_setup_environment[] = {
 	configure_environment(0x010d, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x010e, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x00cb, AIENVCMD_ROOM_SETAMBIENT, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

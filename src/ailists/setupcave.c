@@ -919,13 +919,13 @@ u8 func0425_outro[] = {
 	disable_object(OBJ_PLANE)
 #endif
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0402_init_stripes[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1106,7 +1106,7 @@ u8 func1004_guard_activation[] = {
 	enable_bottom_guard(0x1a)
 	enable_bottom_guard(0x1c)
 	enable_bottom_guard(0x1f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1147,7 +1147,7 @@ u8 func0407_stewardess[] = {
 	goto_next(0x31)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x31)
 	if_just_injured(CHR_SELF, /*goto*/ 0x02)
@@ -1178,7 +1178,7 @@ u8 func0407_stewardess[] = {
 	goto_next(0x16)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	restart_timer
 
@@ -1374,10 +1374,10 @@ u8 func1005_check_civilians_killed[] = {
 	label(0x31)
 	show_hudmsg(CHR_BOND, L_CAVE_026) // "Innocent civilians have been killed."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1497,7 +1497,7 @@ u8 func0408_secretary[] = {
 	goto_next(0x00)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 #define LABEL_MAIN_LOOP 0x00
 #define LABEL_BECOME_ALERT1 0x66
 #define LABEL_BECOME_ALERT2 0x68
@@ -1564,7 +1564,7 @@ u8 func0408_secretary[] = {
 	goto_first(0x4f)
 
 	// Unreachable
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Seen Jo while disguised
 	label(0x07)
@@ -1675,7 +1675,7 @@ u8 func0408_secretary[] = {
 	goto_first(0x4f)
 
 	// Unreachable
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	//
 	// TALK 2
@@ -1692,7 +1692,7 @@ u8 func0408_secretary[] = {
 	endloop(0x0e)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(LABEL_BECOME_ALERT2)
 	goto_first(LABEL_BECOME_ALERT1)
@@ -1712,7 +1712,7 @@ u8 unregistered_function2[] = {
 	set_stage_flag(STAGEFLAG_DISGUISED)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1773,7 +1773,7 @@ u8 func1007_console_activation[] = {
 
 	label(0x0c)
 	mute_channel(CHANNEL_1)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1909,11 +1909,11 @@ u8 func1007_console_activation[] = {
 	mute_channel(CHANNEL_6) \
 	yield \
 	activate_alarm \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	/* Agent, or suitcase deposited */ \
 	label(0x08) \
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 u8 func1020_weapon_scanning_bond[] = {
 	yield
@@ -1928,7 +1928,7 @@ u8 func1021_weapon_scanning_coop[] = {
 	goto_next(0x02)
 
 	label(0x31)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x02)
 	weapon_detection_logic(CHR_COOP)
@@ -1950,7 +1950,7 @@ u8 func1009_carousel_activation[] = {
 		yield
 		show_hudmsg(CHR_BOND, L_CAVE_067) // "Equipment cannot be checked in."
 		label(0x09)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Carrier activated
 		label(0x02)
@@ -1983,7 +1983,7 @@ u8 func1009_carousel_activation[] = {
 
 	label(0x02)
 	set_object_flag(OBJ_BAGGAGE_CARRIER, OBJFLAG_DEACTIVATED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2029,7 +2029,7 @@ u8 func100b_suitcase_scanning[] = {
 	label(0x07)
 	stop_countdown_timer
 	hide_countdown_timer
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2049,7 +2049,7 @@ u8 func0409_office1[] = {
 	goto_next(0x42)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x42)
 	chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -2166,7 +2166,7 @@ u8 func0409_office1[] = {
 	increase_squadron_alertness(100)
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
 	activate_alarm
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2184,7 +2184,7 @@ u8 func040a_office2[] = {
 	goto_next(0x42)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x42)
 	chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -2252,7 +2252,7 @@ u8 func040a_office2[] = {
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 
 	// Unreachable
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2295,7 +2295,7 @@ u8 func100c_check_end_level[] = {
 	// Both players dead
 	label(0x31)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Mission complete
 	label(0x02)
@@ -2316,7 +2316,7 @@ u8 func100c_check_end_level[] = {
 	// Both players dead
 	label(0x31)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Mission complete
 	label(0x02)
@@ -2344,7 +2344,7 @@ u8 func100d_laser_panel[] = {
 	label(0x05)
 	set_stage_flag(STAGEFLAG_LASERS_OVERLOADED)
 	show_hudmsg(CHR_P1P2, L_CAVE_046) // "Laser grid system has been overloaded."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2375,7 +2375,7 @@ u8 func100e_check_alaskans_killed[] = {
 	show_hudmsg(CHR_BOND, L_CAVE_047) // "Too many neutral casualties inflicted."
 	set_stage_flag(STAGEFLAG_TOO_MANY_NEUTRALS_KILLED)
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2402,7 +2402,7 @@ u8 func040f_nsa[] = {
 	goto_next(0x44)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x44)
 	if_chr_distance_to_pad_lt(CHR_SELF, 70, PAD_PRESET, /*goto*/ 0x02)
@@ -2582,7 +2582,7 @@ u8 func0411_takeover_lackey[] = {
 	goto_next(0x00)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2645,7 +2645,7 @@ u8 func0414_officeworker[] = {
 	goto_next(0x00)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x44)
 	chr_do_animation(ANIM_SITTING_DORMANT, -1, 60, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 0, CHR_SELF, 2)
@@ -2732,7 +2732,7 @@ u8 func0414_officeworker[] = {
 	endloop(0x06)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x6d)
 		damage_chr(CHR_SELF, WEAPON_SUPERDRAGON)
@@ -2740,7 +2740,7 @@ u8 func0414_officeworker[] = {
 	endloop(0x6d)
 
 	label(0x31)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2752,7 +2752,7 @@ u8 func0415_alaskan_mountainlift_guard[] = {
 
 u8 func1010_setup_baggage_carrier[] = {
 	set_object_flag(OBJ_BAGGAGE_CARRIER, OBJFLAG_DEACTIVATED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2781,7 +2781,7 @@ u8 func1010_setup_baggage_carrier[] = {
 	label(0x02) \
 	goto_first(0x04) \
  \
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 u8 func1011_lasers1[] = {
 	laser_overloaded_logic(0x07, 0x0c, 120)
@@ -2821,7 +2821,7 @@ u8 func1014_lasers4[] = {
 	label(0x02)
 	goto_first(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2836,7 +2836,7 @@ u8 func1017_laser5[] = {
 	label(0x04)
 	restart_timer
 	disable_object(0x13)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	open_door(0x13)
@@ -2848,7 +2848,7 @@ u8 func1017_laser5[] = {
 	label(0x31)
 	goto_first(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2861,7 +2861,7 @@ u8 func0403_unused[] = {
 	set_recovery_speed(30)
 	set_shield(0)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2876,7 +2876,7 @@ u8 func1015_unhide_laser_guards[] = {
 	set_chr_chrflag(0x3f, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x40, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x41, CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	beginloop(0x00)
@@ -2896,7 +2896,7 @@ u8 func1015_unhide_laser_guards[] = {
 	set_ailist(0x40, GAILIST_ALERTED)
 	enable_chr(0x41)
 	set_ailist(0x41, GAILIST_ALERTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2913,7 +2913,7 @@ u8 func0404_laser_guard[] = {
 	yield
 	label(0x02)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3005,7 +3005,7 @@ u8 func1016_console_noises[] = {
 
 	label(0x09)
 	mute_channel(CHANNEL_1)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3192,7 +3192,7 @@ u8 func042c_foyer_clone[] = {
 	label(0x02) \
 	goto_first(0x44) \
  \
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 u8 func042d_hoverbot1[] = {
 	hoverbot_do_paths(0, 1, 2)
@@ -3236,7 +3236,7 @@ u8 func0419_ba8c[] = {
 	goto_next(0x31)
 
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x31)
 	if_chr_idle(/*goto*/ 0x6b)
@@ -3438,7 +3438,7 @@ u8 func141b_setup_lifts[] = {
 	activate_lift(1, 0x20)
 	activate_lift(2, 0x21)
 	activate_lift(9, 0x36)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3504,7 +3504,7 @@ u8 func1018_safe_switch[] = {
 		open_door(OBJ_SAFEDOOR)
 	endloop(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3526,7 +3526,7 @@ u8 func1018_safe_switch_cover[] = {
 
 	label(0x31)
 	set_object_flag(OBJ_SAFE_SWITCH_COVER, OBJFLAG_CANNOT_ACTIVATE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3538,7 +3538,7 @@ u8 func101a_check_disguise_used[] = {
 
 	label(0x31)
 	show_hudmsg(CHR_P1P2, L_CAVE_049) // "Disguise worn."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3808,7 +3808,7 @@ u8 func1003_intro[] = {
 	stop_cutscene_track
 	stop_ambient_track
 	enter_firstperson
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3819,7 +3819,7 @@ u8 func101c_msg_nowsyourchance[] = {
 
 	label(0x31)
 	speak(CHR_BOND, L_CAVE_050, SFX_8182, CHANNEL_6, COLOR_09_BLUE) // "Now's your chance! Grab the stewardess's bag and g..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3848,7 +3848,7 @@ u8 func101d_msg_usethatcase[] = {
 	speak(CHR_P1P2, L_CAVE_051, SFX_8183, CHANNEL_4, COLOR_09_BLUE) // "Use that case to conceal your equipment."
 
 	label(0x09)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3866,7 +3866,7 @@ u8 func101e_msg_casewillgetstopped[] = {
 
 	label(0x31)
 	speak(CHR_BOND, L_CAVE_052, SFX_8184, CHANNEL_6, COLOR_09_BLUE) // "The case will get stopped unless you do something."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3879,7 +3879,7 @@ u8 func101f_msg_smallerthanithought[] = {
 
 	label(0x31)
 	speak(CHR_P1P2, L_CAVE_053, MP3_03C7, CHANNEL_6, COLOR_09_BLUE) // "So that's Air Force One? ... Huh, smaller than I t..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3890,7 +3890,7 @@ u8 func1022_check_office1_dead[] = {
 
 	label(0x31)
 	set_stage_flag(STAGEFLAG_OFFICE1_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3901,7 +3901,7 @@ u8 func1023_check_office2_dead[] = {
 
 	label(0x31)
 	set_stage_flag(STAGEFLAG_OFFICE2_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3924,7 +3924,7 @@ u8 func1024_double_dy357[] = {
 	unset_object_flag2(0x30, OBJFLAG2_INVISIBLE)
 	unset_object_flag(0x31, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(0x31, OBJFLAG2_INVISIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3960,7 +3960,7 @@ u8 func101a_check_disguise_used2[] = {
 	set_stage_flag(STAGEFLAG_DISGUISED)
 	set_stage_flag(STAGEFLAG_DISGUISED2)
 	label(0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x00)
 	endlist
@@ -3970,7 +3970,7 @@ u8 func1026_check_alarm_destroyed[] = {
 	beginloop(0x00)
 		if_object_in_good_condition(OBJ_ALARM, /*goto*/ 0x31)
 		activate_alarm
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x31)
 	endloop(0x00)
 
@@ -3996,7 +3996,7 @@ u8 func0417_remove_or_unalert[] = {
 	chr_drop_weapon(CHR_SELF)
 	remove_chr(CHR_SELF)
 	label(0x31)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x02)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
@@ -4020,7 +4020,7 @@ u8 func0418_remove_or_cower[] = {
 	yield
 	remove_chr(CHR_SELF)
 	label(0x31)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x02)
 	label(0x62)
 	chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
@@ -4037,7 +4037,7 @@ u8 func0418_remove_or_cower[] = {
 
 u8 func102a_setup_snow[] = {
 	enable_snow(TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4055,7 +4055,7 @@ u8 func1027_remotemine[] = {
 		destroy_object(0x46)
 		yield
 		destroy_object(0x47)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x31)
 	endloop(0x00)
 
@@ -4083,7 +4083,7 @@ u8 func141b_setup_lifts_and_doors[] = {
 	label(0x02)
 	unset_object_flag(OBJ_DIAGONAL_LIFT, OBJFLAG_DEACTIVATED)
 	unset_object_flag(OBJ_VERTICAL_LIFT, OBJFLAG_DEACTIVATED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4141,13 +4141,13 @@ u8 func102b_check_secretary_dead[] = {
 
 	label(0x31)
 	if_door_locked(0x18, 0x02, /*goto*/ 0x31)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x31)
 	show_hudmsg(CHR_BOND, L_CAVE_062) // "Critical mission personnel disabled."
 	set_stage_flag(STAGEFLAG_SECRETARY_DEAD)
 	label(0x09)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4159,7 +4159,7 @@ u8 func102c_lock_door_on_alarm[] = {
 	label(0x31)
 	lock_door(0x18, 0x04)
 	close_door(0x18)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4177,7 +4177,7 @@ u8 func102d_check_console_destroyed[] = {
 	set_stage_flag(STAGEFLAG_CONSOLE_DESTROYED)
 	show_hudmsg(CHR_BOND, L_CAVE_063) // "Critical mission object destroyed."
 	label(0x31)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4190,7 +4190,7 @@ u8 func102e_check_base_entered[] = {
 	label(0x31)
 	show_hudmsg(CHR_BOND, L_CAVE_064) // "Entrance to base secured."
 	set_stage_flag(STAGEFLAG_ENTERED_BASE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4204,7 +4204,7 @@ u8 func102f_undisguise_on_alarm[] = {
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x31)
 	set_chr_hiddenflag(CHR_COOP, CHRHFLAG_DISGUISE_UNCOVERED)
 	label(0x31)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4212,7 +4212,7 @@ u8 func1030_setup_rtracker[] = {
 	yield
 	set_object_flag3(0x30, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(0x31, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4250,7 +4250,7 @@ u8 func1031_setup_environment[] = {
 	configure_environment(0x008f, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0090, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x0091, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4289,14 +4289,14 @@ u8 func1032_unhide_guards_near_plane[] = {
 	set_ailist(0x20, AILIST_INIT_POSTTAKEOVER_GUARD)
 	unset_chr_hiddenflag(0x20, CHRHFLAG_ANTINONINTERACTABLE)
 	unset_chr_chrflag(0x20, CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1420_setup_portals[] = {
 	yield
 	set_room_flag(0x0080, ROOMFLAG_0800)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

@@ -697,13 +697,13 @@ u8 func1019_check_shields_lowered[] = {
 
 		label(0x2c)
 		speak(CHR_BOND, L_LEE_017, SFX_81A1, CHANNEL_6, COLOR_04_ORANGE) // "You've got to open the hangar doors so we can dock..."
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x06)
 	endloop(0x04)
 
 	label(0x09)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -723,7 +723,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 		// Console destroyed
 		show_hudmsg(CHR_BOND, L_LEE_048) // "Critical mission object destroyed."
 		set_stage_flag(STAGEFLAG_HANGAR_DOOR_CONSOLE_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Console healthy
 		label(0x2d)
@@ -780,7 +780,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 
 	label(0x08)
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -836,7 +836,7 @@ u8 func040e_elvis_give_ar34[] = {
 
 	label(0x2c)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	stop_chr
@@ -928,7 +928,7 @@ u8 func0409_elvis_follow[] = {
 
 	// Dying
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1083,7 +1083,7 @@ u8 func041c_elvis_outside_prebridgelift[] = {
 
 	// Dying
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1120,7 +1120,7 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 
 	// Dying
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1163,7 +1163,7 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 
 	label(0x06)
 	stop_chr
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1175,7 +1175,7 @@ u8 func041b_elvis_at_bridge[] = {
 
 	// Dying
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1231,7 +1231,7 @@ u8 func1005_check_elvis_dead[] = {
 	label(0x2c)
 	show_hudmsg(CHR_BOND, L_LEE_012) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1250,7 +1250,7 @@ u8 func040f_init_skedar[] = {
 	// Dying or dead
 	label(0x0d)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1259,7 +1259,7 @@ u8 func0410_wake_suspendedanim_skedar[] = {
 	goto_next(0x06)
 
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	set_accuracy(VERSION >= VERSION_NTSC_1_0 ? 20 : 40)
@@ -1348,7 +1348,7 @@ u8 func1006_wake_slayer_skedar[] = {
 	set_chr_team(CHR_SUSPENDEDANIM4, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1370,7 +1370,7 @@ u8 func1007_check_entered_slayer_area[] = {
 	label(0x06)
 	set_stage_flag(STAGEFLAG_ENTERED_SLAYER_AREA)
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1586,7 +1586,7 @@ u8 func1008_hangar_lifts[] = {
 	label(0x2c)
 	goto_first(LABEL_64)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1694,7 +1694,7 @@ u8 func0408_knifeable_skedar[] = {
 	stop_chr
 	set_returnlist(CHR_SELF, GAILIST_UNALERTED)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1723,7 +1723,7 @@ u8 func1009_keep_door_open_in_intro[] = {
 
 	label(0x06)
 	set_chr_flag_bankx(CHR_KNIFEABLE_SKEDAR, CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1852,7 +1852,7 @@ u8 func0419_hangar_maian[] = {
 	goto_next(0x06)
 
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
@@ -1977,7 +1977,7 @@ u8 func100a_check_hangar_kills_done[] = {
 	label(0x2c)
 	set_stage_flag(STAGEFLAG_HANGAR_KILLS_DONE)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_GO_TO_HANGAR_LIFT)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2005,7 +2005,7 @@ u8 func100b_msg_getshieldsdown[] = {
 	label(0x06)
 	speak(CHR_BOND, L_LEE_016, SFX_81A0, CHANNEL_6, COLOR_04_ORANGE) // "Outside, Joanna. Get the shields down and we can h..."
 	set_stage_flag(STAGEFLAG_SAID_GETSHIELDSDOWN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2061,7 +2061,7 @@ u8 func100c_engineroom[] = {
 	destroy_object(0x20)
 	show_hudmsg(CHR_BOND, L_LEE_023) // "Engines have been disabled."
 	set_stage_flag(STAGEFLAG_ENGINES_DESTROYED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2147,7 +2147,7 @@ u8 func100d_prebridgelift[] = {
 	label(0x2c)
 	goto_first(LABEL_64)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2229,7 +2229,7 @@ u8 func100e_bridgelift[] = {
 	label(0x2c)
 	goto_first(LABEL_64)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2368,7 +2368,7 @@ u8 func041a_bridgeclone[] = {
 	// Dying
 	label(0x2c)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -2471,7 +2471,7 @@ u8 func041a_bridgeclone[] = {
 	goto_first(LABEL_C2)
 
 	label(LABEL_B8)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2522,7 +2522,7 @@ u8 func100f_bridge_entry[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TRIGGER_BRIDGE_SPAWNING)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2560,7 +2560,7 @@ u8 func1010_check_bridge_captured[] = {
 	label(0x2c)
 	show_hudmsg(CHR_BOND, L_LEE_025) // "Bridge has been captured."
 	set_stage_flag(STAGEFLAG_BRIDGE_CAPTURED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2587,7 +2587,7 @@ u8 func1011_check_end_level[] = {
 	// Both players dead
 	label(0x2c)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Either buddy is alive
 	label(0x06)
@@ -2599,7 +2599,7 @@ u8 func1011_check_end_level[] = {
 
 	// Elvis dead
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2856,7 +2856,7 @@ u8 func1003_intro[] = {
 	set_ailist(CHR_CASS, AILIST_CASS)
 	stop_cutscene_track
 	stop_ambient_track
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2993,7 +2993,7 @@ u8 func0c01_outro[] = {
 	label(LABEL_B0)
 	mute_channel(CHANNEL_10)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3041,7 +3041,7 @@ u8 func0421_bridge_skedar[] = {
 	label(0x06)
 	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x2c)
@@ -3184,7 +3184,7 @@ u8 func1013_msg_gottogetshieldsdown[] = {
 
 	label(0x2c)
 	speak(CHR_BOND, L_LEE_027, MP3_03DC, CHANNEL_6, COLOR_09_BLUE) // "I've got to get those shields down to let Elvis in..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3207,7 +3207,7 @@ u8 func1014_msg_hangarbaydoors[] = {
 	speak(CHR_BOND, L_LEE_028, MP3_03DD, CHANNEL_6, COLOR_09_BLUE) // "Now only the hangar bay doors are in the way."
 
 	label(0x09)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3219,7 +3219,7 @@ u8 func1015_msg_starmaps[] = {
 
 	label(0x2c)
 	speak(CHR_P1P2, L_LEE_029, MP3_03DE, CHANNEL_6, COLOR_09_BLUE) // "This machine contains the Skedar star maps."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3235,7 +3235,7 @@ u8 func1016_msg_ifwecontrolthebridge[] = {
 	unset_chr_chrflag(CHR_BRIDGE2, CHRCFLAG_INVINCIBLE)
 	unset_chr_chrflag(CHR_BRIDGE3, CHRCFLAG_INVINCIBLE)
 	speak(CHR_P1P2, L_LEE_030, MP3_03DF, CHANNEL_6, COLOR_09_BLUE) // "If we control the bridge, then the ship is ours."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3271,7 +3271,7 @@ u8 func0422_cass[] = {
 	endloop(LABEL_C2)
 
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3367,7 +3367,7 @@ u8 func141b_setup_lifts[] = {
 	activate_lift(5, 0x29)
 	activate_lift(6, 0x2a)
 	activate_lift(7, 0x2b)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3390,7 +3390,7 @@ u8 func1017_pa_skedar_alertness[] = {
 
 	label(0x2c)
 	set_ailist(0x02, GAILIST_ALERTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3413,7 +3413,7 @@ u8 func1012_update_elvis_target_chr[] = {
 		set_chr_target_chr(CHR_ELVIS, CHR_BOND)
 	endloop(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3424,7 +3424,7 @@ u8 func1012_update_elvis_target_chr[] = {
 u8 func1018_place_elvis_in_hangar[] = {
 	label(0x04)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x03)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// A and SA
 	beginloop(0x03)
@@ -3432,7 +3432,7 @@ u8 func1018_place_elvis_in_hangar[] = {
 	endloop(0x03)
 
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3460,7 +3460,7 @@ u8 func1002_hangar_shuttle[] = {
 
 	label(0x06)
 	disable_object(OBJ_HANGAR_SHUTTLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3473,7 +3473,7 @@ u8 func101a_kill_maian[] = {
 	damage_chr(CHR_MAIAN3, WEAPON_SUPERDRAGON)
 	yield
 	damage_chr(CHR_MAIAN3, WEAPON_SUPERDRAGON)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3525,7 +3525,7 @@ u8 func101d_unlock_doors[] = {
 
 	// All difficulties
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3537,7 +3537,7 @@ u8 func101e_bridge_music[] = {
 
 	label(0x2c)
 	play_x_track(XREASON_DEFAULT, 10, 60)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3596,7 +3596,7 @@ u8 func101f_enable_bridge_skedar[] = {
 	enable_chr(CHR_BRIDGE3)
 	enable_chr(CHR_BRIDGESPAWNER1)
 	enable_chr(CHR_BRIDGESPAWNER2)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3604,7 +3604,7 @@ u8 func1020_engine_hum_noise[] = {
 	yield
 	assign_sound(SFX_81A5, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, 0x1b, 1, 2000, 4000)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3635,7 +3635,7 @@ u8 func1021_check_ammo_wasted[] = {
 
 	// Shields disabled
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3644,13 +3644,13 @@ u8 func1022_setup_rtracker[] = {
 	yield
 	set_object_flag3(OBJ_MAULER1, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_MAULER2, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func040b_init_cass[] = {
 	set_chr_maxdamage(CHR_SELF, 1)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3661,7 +3661,7 @@ u8 func1024_set_bridge_skedar_invincible[] = {
 	set_chr_chrflag(CHR_BRIDGE1, CHRCFLAG_UNEXPLODABLE)
 	set_chr_chrflag(CHR_BRIDGE2, CHRCFLAG_UNEXPLODABLE)
 	set_chr_chrflag(CHR_BRIDGE3, CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3677,14 +3677,14 @@ u8 unregistered_function1[] = {
 
 	label(0x2c)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1423_setup_environment[] = {
 	yield
 	configure_environment(0x0000, AIENVCMD_SETAMBIENT, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3809,7 +3809,7 @@ u8 func1025_toggle_chrs[] = {
 	endloop(0x09)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3824,19 +3824,19 @@ u8 func041f_cloak_and_remove[] = {
 
 	label(0x2c)
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1026_hide_necklace[] = {
 	yield
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// A and SA
 	label(0x2c)
 	disable_object(OBJ_NECKLACE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3844,7 +3844,7 @@ u8 func1026_hide_necklace[] = {
 u8 func0427_set_cloaked[] = {
 	stop_chr
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

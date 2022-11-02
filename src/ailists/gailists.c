@@ -21,9 +21,7 @@ struct ailist *tmp = g_GlobalAilists;
  * @ailist GAILIST_IDLE
  */
 u8 func0000_idle[] = {
-	beginloop(0x0d)
-	endloop(0x0d)
-
+	terminate
 	endlist
 };
 
@@ -32,7 +30,7 @@ u8 func0000_idle[] = {
  */
 u8 func0005_end_cinema[] = {
 	enter_firstperson
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -74,7 +72,7 @@ u8 func0006_unalerted[] = {
 	// Dying
 	label(0x15)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Injured or gun has just been shot out of hand
 	label(0x16)
@@ -794,7 +792,7 @@ u8 func0008_wakeup[] = {
 	// Dead
 	label(0x13)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Stand up
 	label(0x15)
@@ -894,7 +892,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x13)
@@ -2681,7 +2679,7 @@ u8 func0007_alerted[] = {
 	goto_first(LABEL_MAINLOOP)
 
 	label(0x88)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	/***************************************************************************
 	 * Run for alarm
@@ -2754,7 +2752,7 @@ u8 func0007_alerted[] = {
 
 	// Unreachable - nothing jumps to here
 	label(0x0a)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2786,7 +2784,7 @@ u8 func000a_do_busy_animation[] = {
 	if_chr_idle_action_eq(IDLEACTION_OPERATING_PAD, /*goto*/ 0x07)
 	stop_chr
 	return
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Standing and operating something
 	label(0x03)
@@ -3062,7 +3060,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x17)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x13)
@@ -3612,10 +3610,7 @@ u8 func0000_idle_0009[] = {
 	set_action(MA_NORMAL, FALSE)
 	set_returnlist(CHR_SELF, GAILIST_IDLE_0009)
 	stop_chr
-
-	beginloop(0x0c)
-	endloop(0x0c)
-
+	terminate
 	endlist
 };
 
@@ -3642,7 +3637,7 @@ u8 func0016_show_objective_failed_msg[] = {
 	// Check objective is still failed
 	label(0x13)
 	if_any_objective_failed(/*goto*/ 0x13)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Show message first time
 	label(0x13)
@@ -3658,7 +3653,7 @@ u8 func0016_show_objective_failed_msg[] = {
 	// Check objective is still failed
 	label(0x16)
 	if_any_objective_failed(/*goto*/ 0x13)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Show message second time
 	label(0x13)
@@ -3673,7 +3668,7 @@ u8 func0016_show_objective_failed_msg[] = {
 	// Check objective is still failed
 	label(0x06)
 	if_any_objective_failed(/*goto*/ 0x13)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Show message third time
 	label(0x13)
@@ -3698,7 +3693,7 @@ u8 func0016_show_objective_failed_msg[] = {
 u8 func0017_rebuild_groups[] = {
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3871,7 +3866,7 @@ u8 func000f_hand_combat[] = {
 	// Dying
 	label(0x13)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x16)
 #endif
@@ -4369,7 +4364,7 @@ u8 func001d_search_for_player[] = {
 	// Dying
 	label(0x13)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x16)
@@ -4563,7 +4558,7 @@ u8 func001f_related_to_spawning[] = {
 	// Dying
 	label(0x13)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x16)
@@ -4825,7 +4820,7 @@ u8 func0014_buddy_main[] = {
 
 	// Dying
 	label(0x13)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x16)
@@ -5000,7 +4995,7 @@ u8 func0023_dodge[] = {
 	// Dying
 	label(0x16)
 	set_aishootingatmelist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x13)
 	set_self_flag_bankx(CHRFLAG1_DODGED, BANK_1)
@@ -5178,7 +5173,7 @@ u8 func0027_psychosised[] = {
 
 	// Dying
 	label(0x13)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x16)
@@ -5279,7 +5274,7 @@ u8 func0027_psychosised[] = {
 u8 func002d_invincible_and_idle[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5412,7 +5407,7 @@ u8 func0020_buddy_warp[] = {
 u8 func0021_stop_and_idle[] = {
 	set_shotlist(GAILIST_STOP_AND_IDLE)
 	stop_chr
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

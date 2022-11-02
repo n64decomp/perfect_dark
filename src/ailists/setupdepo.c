@@ -580,7 +580,7 @@ u8 func1008_check_generator[] = {
 		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_GENERATOR_DESTROYED)
 		label(0x06)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 		reloop(0x04)
 
@@ -616,7 +616,7 @@ u8 func1003_laser_switch_1[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET1_DISABLED, TRUE, /*goto*/ 0x2c)
 		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH1_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 		reloop(0x04)
 
@@ -682,7 +682,7 @@ u8 func1004_laser_switch_2[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET2_DISABLED, TRUE, /*goto*/ 0x2c)
 		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH2_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 		reloop(0x04)
 
@@ -748,7 +748,7 @@ u8 func1005_laser_switch_3[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, TRUE, /*goto*/ 0x2c)
 		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH3_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 		reloop(0x04)
 
@@ -814,7 +814,7 @@ u8 func1006_laser_switch_4[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, TRUE, /*goto*/ 0x2c)
 		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH4_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 		reloop(0x04)
 
@@ -979,7 +979,7 @@ u8 func1007_init_lasers[] = {
 	mute_channel(CHANNEL_1)
 	mute_channel(CHANNEL_2)
 	mute_channel(CHANNEL_3)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1225,7 +1225,7 @@ u8 func100a_give_keycards[] = {
 	label(0x2c)
 	unset_object_flag(OBJ_KEYCARD2, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(OBJ_KEYCARD2, OBJFLAG2_INVISIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1237,7 +1237,7 @@ u8 func100b_check_backup_collected[] = {
 
 	label(0x2c)
 	set_stage_flag(STAGEFLAG_BACKUP_COLLECTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1301,7 +1301,7 @@ u8 func100e_check_conspirators_alerted[] = {
 		unset_stage_flag(STAGEFLAG_ALARM_SOUNDING)
 	endloop(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1336,7 +1336,7 @@ u8 func1010_safe_cracking[] = {
 		if_object_in_good_condition(OBJ_SAFEKEYPAD, /*goto*/ 0x2c)
 		show_hudmsg(CHR_BOND, L_DEPO_064) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_SAFEKEYPAD_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 		if_chr_activated_object(CHR_P1P2, OBJ_SAFEKEYPAD, /*goto*/ 0x2c)
 		reloop(0x04)
@@ -1382,7 +1382,7 @@ u8 func1010_safe_cracking[] = {
 		show_hudmsg(CHR_BOND, L_DEPO_064) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_SAFEKEYPAD_DESTROYED)
 		hide_countdown_timer
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 		if_countdown_timer_lt(1, /*goto*/ 0x06)
 	endloop(0x08)
@@ -1397,7 +1397,7 @@ u8 func1010_safe_cracking[] = {
 	unset_object_flag2(OBJ_SAFEDOOR, OBJFLAG2_AICANNOTUSE)
 	open_door(OBJ_SAFEDOOR)
 	hide_countdown_timer
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1434,7 +1434,7 @@ u8 func1012_check_for_end[] = {
 
 	label(0x2c)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Objectives complete
 	label(0x53)
@@ -1447,7 +1447,7 @@ u8 func1012_check_for_end[] = {
 
 	label(0x2c)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Mission complete
 	label(0x06)
@@ -1463,7 +1463,7 @@ u8 func1013_check_escape_doors[] = {
 		if_object_in_good_condition(OBJ_ESCAPEDOOR2, /*goto*/ 0x06)
 		label(0x2c)
 		activate_alarm
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		reloop(0x04)
 
 		label(0x06)
@@ -1483,7 +1483,7 @@ u8 func1014_check_camspy_location[] = {
 	set_stage_flag(STAGEFLAG_MEETING_HOLOGRAPHED)
 
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1507,7 +1507,7 @@ u8 func0403_walk_from_meeting[] = {
 
 	label(0x06)
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1520,7 +1520,7 @@ u8 func0404_run_from_meeting[] = {
 
 	label(0x06)
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1554,7 +1554,7 @@ u8 func1017_check_lasers_closed[] = {
 	endloop(0x04)
 
 	label(0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1795,7 +1795,7 @@ u8 func040d_intro[] = {
 	set_ailist(CHR_CLOAK_1B, AILIST_INIT_CLOAK1_GUARD)
 	yield
 	kill(CHR_INTRO_VICTIM)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2066,7 +2066,7 @@ u8 func040e_meeting_cutscene[] = {
 	label(0x2c)
 	set_ailist(CHR_BLONDE, AILIST_WALK_FROM_MEETING)
 	set_ailist(CHR_STRIPES, AILIST_WALK_FROM_MEETING)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2202,7 +2202,7 @@ u8 func040f_outro[] = {
 	label(0x06)
 	set_chr_hudpiece_visible(CHR_P1P2, FALSE)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2216,7 +2216,7 @@ u8 func1019_generator_hum[] = {
 	yield
 	assign_sound(SFX_8146, CHANNEL_4)
 	play_sound_from_object(CHANNEL_4, OBJ_GENERATOR, 1, 1600, 2200)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2246,7 +2246,7 @@ u8 func101a_init_laser_switch_guards[] = {
 	set_chr_flag_bankx(0x0d, CHRFLAG0_ACTIVATEALARM, BANK_0)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2319,11 +2319,11 @@ u8 func0412_cloak_guard[] = {
 
 	label(0x10)
 	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED, /*goto*/ 0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2c)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2517,13 +2517,13 @@ u8 func101b_cloak2_entry[] = {
 	set_ailist(CHR_CLOAK_2B, AILIST_CLOAK2_GUARD)
 	set_ailist(CHR_CLOAK_2C, AILIST_CLOAK2_GUARD)
 	set_ailist(CHR_CLOAK_2D, AILIST_CLOAK2_GUARD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0405_cloak2_hide[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2541,7 +2541,7 @@ u8 func101c_check_visited_top_door[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_VISITED_TOP_DOOR)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2559,11 +2559,11 @@ u8 func101d_init_mines[] = {
 	if_savefile_flag_is_unset(GAMEFILEFLAG_G5_MINE, /*goto*/ 0x06)
 
 	disable_object(OBJ_MINE1)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	disable_object(OBJ_MINE2)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2609,7 +2609,7 @@ u8 func101e_msg_nowaythrough[] = {
 	label(0x2c)
 	speak(CHR_P1P2, L_DEPO_060, MP3_03B4, CHANNEL_6, COLOR_09_BLUE) // "There's no way through while those lasers are acti..."
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2632,7 +2632,7 @@ u8 func101f_msg_meetingroomahead[] = {
 	speak(CHR_P1P2, L_DEPO_061, MP3_03B5, CHANNEL_6, COLOR_09_BLUE) // "That must be the meeting room up ahead. Time to us..."
 
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2644,7 +2644,7 @@ u8 func1020_msg_heavilyencrypted[] = {
 
 	label(0x2c)
 	speak(CHR_P1P2, L_DEPO_062, SFX_817C, CHANNEL_6, COLOR_09_BLUE) // "The safe's heavily encrypted. The decoder's gonna ..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2666,7 +2666,7 @@ u8 func1021_blow_mines[] = {
 	label(0x2c)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2c)
 	speak(CHR_P1P2, L_DEPO_063, MP3_03B7, CHANNEL_6, COLOR_09_BLUE) // "Time to leave! Let's get to the door I set up earl..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Agent
 	label(0x2c)
@@ -2696,7 +2696,7 @@ u8 func1021_blow_mines[] = {
 
 	label(0x2c)
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2837,11 +2837,11 @@ u8 func1022_light_switch[] = {
 
 u8 func1023_hide_nbomb_crate[] = {
 	if_savefile_flag_is_unset(GAMEFILEFLAG_G5_MINE, /*goto*/ 0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	disable_object(OBJ_NBOMB_CRATE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2937,7 +2937,7 @@ u8 func1026_unlock_doors[] = {
 	unlock_door(0x40, 0x10)
 
 	label(0x0a)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2946,7 +2946,7 @@ u8 func0410_invincible[] = {
 	yield
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2956,7 +2956,7 @@ u8 func0411_hide[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2969,7 +2969,7 @@ u8 func1027_cloak1_check_one_remaining[] = {
 
 	label(0x2c)
 	set_stage_flag(STAGEFLAG_CLOAK1_ONE_REMAINING)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3003,7 +3003,7 @@ u8 func1028_cloak2_check_one_remaining[] = {
 		label(0x06)
 		if_morale_lt(3, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_CLOAK2_ONE_REMAINING)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 	endloop(0x04)
 
@@ -3014,7 +3014,7 @@ u8 func1029_set_secret_weapon_props[] = {
 	yield
 	set_object_flag3(OBJ_NBOMB_CRATE, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_CROSSBOW, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3032,7 +3032,7 @@ u8 func102a_8174[] = {
 	set_chr_hiddenflag(0x0f, CHRHFLAG_DONTSHOOTME)
 	set_chr_hiddenflag(0x10, CHRHFLAG_DONTSHOOTME)
 	set_chr_hiddenflag(0x11, CHRHFLAG_DONTSHOOTME)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3062,7 +3062,7 @@ u8 func102b_81bc[] = {
 	set_chr_team(0x17, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3070,7 +3070,7 @@ u8 func102c_set_lightswitch_guard_team[] = {
 	set_chr_team(CHR_LIGHTSWITCH_GUARD, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

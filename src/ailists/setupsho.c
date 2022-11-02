@@ -523,7 +523,7 @@ u8 func0402_unarmed_skedar[] = {
 	endloop(0x11)
 
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 #define LABEL_HANDLE_PHOENIX_AREA 0x5a
 #define LABEL_HANDLE_WALL_AREA    0x5b
 
@@ -688,7 +688,7 @@ u8 func0402_unarmed_skedar[] = {
 	set_self_flag_bankx(CHRFLAG0_GP1, BANK_0)
 	goto_first(0x03)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -741,7 +741,7 @@ u8 func0404_miniskedar[] = {
 	endloop(0x11)
 
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -859,7 +859,7 @@ u8 func0407_init_cloaked_skedar[] = {
 		// Remove self
 		label(0x2d)
 		remove_chr(CHR_SELF)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		yield
 	endloop(0x04)
 
@@ -898,7 +898,7 @@ u8 func0408_cloaked_skedar[] = {
 	// King is dead
 	label(0x0e)
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -952,7 +952,7 @@ u8 unregistered_function3[] = {
 	endloop(0x08)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -993,7 +993,7 @@ u8 func1003_remove_random_skedar[] = {
 	remove_random(0x11, 0x12)
 	remove_random(0x13, 0x14)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1003,7 +1003,7 @@ u8 func101a_pointless[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1051,7 +1051,7 @@ u8 func100c_check_army_defeated[] = {
 	label(0x2d)
 	unset_object_flag2(0x45, OBJFLAG2_LOCKEDFRONT)
 	unset_object_flag2(0x46, OBJFLAG2_LOCKEDBACK)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1287,7 +1287,7 @@ u8 func1007_bug_throws_bond[] = {
 	set_stage_flag(STAGEFLAG_BUG_WASTED)
 	show_hudmsg(CHR_BOND, L_SHO_026) // "Target Amplifier placed incorrectly."
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x0f)
 	goto_first(0x03)
@@ -1301,7 +1301,7 @@ u8 func101b_bug_throws_coop[] = {
 
 	label(0x2d)
 	set_stage_flag(STAGEFLAG_COOP_BUGS_WASTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x03)
 		if_stage_flag_eq(STAGEFLAG_COOP_THREW_FIRST_BUG, FALSE, /*goto*/ 0x55)
@@ -1398,7 +1398,7 @@ u8 func101b_bug_throws_coop[] = {
 	show_hudmsg(CHR_COOP, L_SHO_026) // "Target Amplifier placed incorrectly."
 
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x0f)
 	goto_first(0x03)
@@ -1412,14 +1412,14 @@ u8 func1008_lock_door[] = {
 
 	// A
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// SA and PA
 	label(0x04)
 	yield
 	lock_door(0x09, 0x02)
 	lock_door(0x0a, 0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1529,7 +1529,7 @@ u8 func1009_altar[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2d)
 	show_hudmsg(CHR_P1P2, L_SHO_027) // "Generator has been reactivated."
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1574,7 +1574,7 @@ u8 func101c_setup_corridor_lighting[] = {
 	set_lights_state(0x007e, LIGHTOP_1, 0x06, 0x00, 0x00)
 	set_lights_state(0x007f, LIGHTOP_1, 0x06, 0x00, 0x00)
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// The rest of this function is unreachable
 	restart_timer
@@ -1618,7 +1618,7 @@ u8 func101c_setup_corridor_lighting[] = {
 	set_lights_state(0x007f, LIGHTOP_3, 0x06, 0xff, 0x78)
 	goto_first(0x59)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1653,7 +1653,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	label(0x06)
 	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x2d)
@@ -1831,7 +1831,7 @@ u8 func100a_army_room[] = {
 	set_lights_state(0x0087, LIGHTOP_3, 0x06, 0xff, 0x78)
 	set_stage_flag(STAGEFLAG_TRIGGER_SKEDAR_ARMY)
 	play_x_track(XREASON_DEFAULT, 10, 60)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	goto_first(0x04)
 
 	endlist
@@ -1846,7 +1846,7 @@ u8 func100b_check_sanctum_accessed[] = {
 	label(0x2d)
 	show_hudmsg(CHR_P1P2, L_SHO_028) // "Skedar Inner Sanctum has been reached."
 	set_stage_flag(STAGEFLAG_ACCESSED_SANCTUM)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1871,7 +1871,7 @@ u8 func040b_mauler_skedar[] = {
 	set_shotlist(GAILIST_COMBAT_WITH_TARGET)
 	set_returnlist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1898,7 +1898,7 @@ u8 func100e_wake_skedar_army[] = {
 	enable_army_skedar(0x32, 0x0e)
 	enable_army_skedar(0x30, 0x0f)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2472,12 +2472,12 @@ u8 func1014_spike_top[] = {
 
 	label(0x2d)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	set_invincible(CHR_BOND)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2485,24 +2485,24 @@ u8 func040f_update_spike_stageflags[] = {
 	if_stage_flag_eq(STAGEFLAG_SPIKE1_DESTROYED, TRUE, /*goto*/ 0x09)
 	set_stage_flag(STAGEFLAG_SPIKE1_DESTROYED)
 	set_stage_flag(STAGEFLAG_SPIKE_DESTROYED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x09)
 	if_stage_flag_eq(STAGEFLAG_SPIKE2_DESTROYED, TRUE, /*goto*/ 0x0b)
 	set_stage_flag(STAGEFLAG_SPIKE2_DESTROYED)
 	set_stage_flag(STAGEFLAG_SPIKE_DESTROYED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x0b)
 	if_stage_flag_eq(STAGEFLAG_SPIKE3_DESTROYED, TRUE, /*goto*/ 0x0c)
 	set_stage_flag(STAGEFLAG_SPIKE3_DESTROYED)
 	set_stage_flag(STAGEFLAG_SPIKE_DESTROYED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x0c)
 	set_stage_flag(STAGEFLAG_SPIKE4_DESTROYED)
 	set_stage_flag(STAGEFLAG_SPIKE_DESTROYED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2766,7 +2766,7 @@ u8 func0c00_intro[] = {
 	stop_cutscene_track
 	stop_ambient_track
 	enter_firstperson
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2956,14 +2956,14 @@ u8 func0414_outro[] = {
 	stop_cutscene_track
 	stop_ambient_track
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0413_hide[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3009,7 +3009,7 @@ u8 func1015_msg_specialpillars[] = {
 
 	label(0x2d)
 	speak(CHR_P1P2, L_SHO_030, MP3_03E0, CHANNEL_6, COLOR_09_BLUE) // "This seems to be one of the special pillars."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3023,7 +3023,7 @@ u8 func1016_msg_powersmoreconstant[] = {
 
 	label(0x2d)
 	speak(CHR_P1P2, L_SHO_031, MP3_03E1, CHANNEL_6, COLOR_09_BLUE) // "The power's more constant in this area. The Inner ..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3035,7 +3035,7 @@ u8 func1017_msg_skedararmy[] = {
 
 	label(0x2d)
 	speak(CHR_P1P2, L_SHO_032, MP3_03E2, CHANNEL_6, COLOR_09_BLUE) // "OH, NO!!! A Skedar army in suspended animation!"
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3054,7 +3054,7 @@ u8 func1018_msg_cutoffthehead[] = {
 
 	label(0x2d)
 	speak(CHR_P1P2, L_SHO_033, MP3_03E3, CHANNEL_6, COLOR_09_BLUE) // "Okay, this is it... Cut off the head and the body ..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3125,7 +3125,7 @@ u8 func1019_blow_pillars[] = {
 	yield
 	yield
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3139,7 +3139,7 @@ u8 func1004_setup_pillars[] = {
 	set_object_flag(OBJ_PILLAR1, OBJFLAG_INVINCIBLE)
 	set_object_flag(OBJ_PILLAR2, OBJFLAG_INVINCIBLE)
 	set_object_flag(OBJ_PILLAR3, OBJFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3154,13 +3154,13 @@ u8 func101d_remove_pillar_shadow[] = {
 		disable_object(0x3e)
 		unset_object_flag2(0x4e, OBJFLAG2_INVISIBLE)
 		unset_object_flag2(0x4f, OBJFLAG2_INVISIBLE)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x2d)
 	endloop(0x04)
 
 	// Unreachable
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3556,7 +3556,7 @@ u8 func1020_show_phoenix[] = {
 		unset_object_flag2(OBJ_PHOENIX1, OBJFLAG2_INVISIBLE)
 		unset_object_flag(OBJ_PHOENIX2, OBJFLAG_UNCOLLECTABLE)
 		unset_object_flag2(OBJ_PHOENIX2, OBJFLAG2_INVISIBLE)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2d)
 	endloop(0x04)
 
@@ -3576,7 +3576,7 @@ u8 func1021_handle_mine[] = {
 	// A
 	label(0x2d)
 	destroy_object(OBJ_REMOTEMINE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3597,7 +3597,7 @@ u8 func1022_armyroom_exitdoors[] = {
 
 	// All difficulties
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3611,7 +3611,7 @@ u8 unregistered_function1[] = {
 	label(0x2d)
 	chr_drop_weapon(CHR_BOND)
 	show_hudmsg(CHR_BOND, L_SHO_026) // "Target Amplifier placed incorrectly."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3648,7 +3648,7 @@ u8 func1024_check_grenades_wasted[] = {
 
 	label(0x2d)
 	if_object_in_good_condition(0x4d, /*goto*/ 0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	label(0x2d)
@@ -3664,7 +3664,7 @@ u8 func1024_check_grenades_wasted[] = {
 		// Blown up using other means (eg. Phoenix or all guns cheat)
 		unset_stage_flag(STAGEFLAG_GRENADES_WASTED)
 		show_hudmsg(CHR_BOND, L_SHO_053) // "Alternative entrance to Shrine created."
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x2d)
 		if_stage_flag_eq(STAGEFLAG_GRENADES_WASTED, TRUE, /*goto*/ 0x2d)
@@ -3680,7 +3680,7 @@ u8 func1023_setup_rtracker[] = {
 	yield
 	set_object_flag3(OBJ_PHOENIX1, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_PHOENIX2, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3821,7 +3821,7 @@ u8 func1427_setup_environment[] = {
 	configure_environment(0x0036, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x0037, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x0038, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3849,7 +3849,7 @@ u8 func1025_unlock_doors_for_buddy[] = {
 
 	// Buddy doesn't exist
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3860,7 +3860,7 @@ u8 func1025_unlock_doors_for_buddy[] = {
 u8 func1426_setup_portals[] = {
 	yield
 	set_portal_flag(0x0072, PORTALFLAG_FORCEOPEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3886,14 +3886,14 @@ u8 func1028_buddybridge[] = {
 	// This flag is set by global ailists
 	label(0x2d)
 	if_stage_flag_eq(STAGEFLAG_AI_BUDDY_EXISTS, FALSE, /*goto*/ 0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Flag not set - so this is solo mode
 	// Remove the bridge and barricade over the first ravine
 	label(0x2d)
 	disable_object(OBJ_BUDDYBRIDGE)
 	disable_object(OBJ_BUDDYBARRICADE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

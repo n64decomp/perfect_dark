@@ -146,3 +146,32 @@ void chraiExecute(void *entity, s32 proptype)
 		}
 	}
 }
+
+void aiTerminateCleanup(void)
+{
+	if (g_Vars.chrdata) {
+		g_Vars.chrdata->ailist = NULL;
+
+		if (g_Vars.chrdata->model == NULL) {
+			// It's a BG chr (1xxx script).
+			// Remove ourselves from the BG chrs array and shift the later ones back.
+			s32 myindex = -1;
+			s32 i;
+
+			for (i = 0; i < g_NumBgChrs; i++) {
+				if (g_Vars.chrdata == &g_BgChrs[i]) {
+					myindex = i;
+					break;
+				}
+			}
+
+			if (myindex >= 0) {
+				for (i = myindex + 1; i < g_NumBgChrs; i++) {
+					g_BgChrs[i - 1] = g_BgChrs[i];
+				}
+
+				g_NumBgChrs--;
+			}
+		}
+	}
+}

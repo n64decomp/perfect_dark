@@ -465,7 +465,7 @@ u8 func1400_setup_counterop[] = {
 
 u8 func1011_setup_snow[] = {
 	enable_snow(TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -586,7 +586,7 @@ u8 func1002_intro[] = {
 	stop_ambient_track
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 	enter_firstperson
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -834,7 +834,7 @@ u8 func0402_outro[] = {
 
 	label(0x65)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -869,19 +869,7 @@ u8 func1003_msg_therestheescapepod[] = {
 
 	label(0x31)
 	speak(CHR_P1P2, L_AZT_010, MP3_03CC, CHANNEL_6, COLOR_09_BLUE) // "There's the escape pod."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	endlist
-};
-
-u8 func1004_msg_maybetheresabeacon[] = {
-	restart_timer
-	beginloop(0x06)
-	endloop(0x06)
-
-	// Unreachable
-	label(0x31)
-	speak(CHR_BOND, L_AZT_011, MP3_03CD, CHANNEL_6, COLOR_09_BLUE) // "Maybe there's a beacon in there."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -903,7 +891,7 @@ u8 func1005_msg_thejamming[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	label(0x0f)
 #endif
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -915,7 +903,7 @@ u8 func1006_msg_elvisbeable[] = {
 
 	label(0x31)
 	speak(CHR_P1P2, L_AZT_013, MP3_03CF, CHANNEL_6, COLOR_09_BLUE) // "Elvis... He'll be able to protect the President."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1099,7 +1087,7 @@ u8 func100c_spawn_dd_guards[] = {
 	goto_first(0x66)
 
 	label(0x0f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1135,7 +1123,7 @@ u8 func1008_escapepod[] = {
 		mute_channel(CHANNEL_0)
 		show_hudmsg(CHR_BOND, L_AZT_015) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_ESCAPEPOD_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Pod healthy
 		label(0x31)
@@ -1151,7 +1139,7 @@ u8 func1008_escapepod[] = {
 		set_stage_flag(STAGEFLAG_BEACON_ACTIVATED)
 	endloop(0x06)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1166,7 +1154,7 @@ u8 func1009_check_shuttle_destroyed[] = {
 		if_object_in_good_condition(OBJ_SKEDAR_SHUTTLE, /*goto*/ 0x31)
 		show_hudmsg(CHR_BOND, L_AZT_021) // "Jamming device has been shut down."
 		set_stage_flag(STAGEFLAG_SKEDAR_SHUTTLE_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x31)
 	endloop(0x06)
 
@@ -1181,7 +1169,7 @@ u8 func100a_check_president_dead[] = {
 	label(0x31)
 	show_hudmsg(CHR_BOND, L_AZT_022) // "President has been killed."
 	set_stage_flag(STAGEFLAG_PRESIDENT_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1193,7 +1181,7 @@ u8 func100b_check_clone_dead[] = {
 	label(0x31)
 	show_hudmsg(CHR_BOND, L_AZT_023) // "Presidential clone has been eliminated."
 	set_stage_flag(STAGEFLAG_CLONE_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1313,8 +1301,7 @@ u8 func0404_elvis[] = {
 
 u8 func0405_unused[] = {
 	jog_to_pad(PAD_AZT_0107)
-	beginloop(0x06)
-	endloop(0x06)
+	terminate
 
 	endlist
 };
@@ -1418,7 +1405,7 @@ u8 func0418_robot[] = {
 	label(0x11)
 	assign_sound(MP3_ROBOT_ALERT_UNDER_ATTACK, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1456,13 +1443,13 @@ u8 func0414_spawner[] = {
 	label(0x31)
 	yield
 	set_ailist(CHR_SELF, AILIST_SPAWNER)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0419_unused[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1470,7 +1457,7 @@ u8 func0422_hide[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1508,7 +1495,7 @@ u8 func041a_pres_clone[] = {
 	label(0x31)
 	goto_first(0xa5)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1528,7 +1515,7 @@ u8 func041c_president_waiting[] = {
 	// Dying
 	label(0x08)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x31)
 	stop_chr
@@ -1572,7 +1559,7 @@ u8 func041d_president_running[] = {
 	assign_sound(MP3_02BF, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x31)
@@ -1694,7 +1681,7 @@ u8 func041d_president_running[] = {
 	show_hudmsg(CHR_TARGET, L_AZT_025) // "President has been rescued."
 	set_stage_flag(STAGEFLAG_PRESIDENT_RESCUED)
 	label(0x31)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1745,7 +1732,7 @@ u8 func100e_check_robots_left[] = {
 
 	label(0x31)
 	set_stage_flag(STAGEFLAG_TRIGGER_PRESIDENT_RUNNING)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1858,7 +1845,7 @@ u8 func0420_trent_running[] = {
 	// Player definitely not in sight
 	label(0x08)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1896,7 +1883,7 @@ u8 func100f_check_end_level[] = {
 
 	label(0x31)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Mission complete
 	label(0x08)
@@ -1905,7 +1892,7 @@ u8 func100f_check_end_level[] = {
 
 	// President dead
 	label(0x32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1936,7 +1923,7 @@ u8 func1010_set_cave_lights[] = {
 	set_lights_state(ROOM_AZT_0053, LIGHTOP_1, 0x06, 0x00, 0x00)
 	set_lights_state(ROOM_AZT_0058, LIGHTOP_1, 0x06, 0x00, 0x00)
 	set_lights_state(ROOM_AZT_0056, LIGHTOP_1, 0x06, 0x00, 0x00)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1945,14 +1932,14 @@ u8 func1012_give_medicalscanner[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x31)
 	give_object_to_chr(OBJ_MEDICALSCANNER, CHR_BOND)
 	label(0x31)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1013_setup_rtracker[] = {
 	yield
 	set_object_flag3(OBJ_PROXYMINE, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1961,7 +1948,7 @@ u8 func1016_hide_hoverbike[] = {
 	if_savefile_flag_is_set(GAMEFILEFLAG_CRASHSITE_BIKE, /*goto*/ 0x08)
 	disable_object(OBJ_HOVERBIKE)
 	label(0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1971,7 +1958,7 @@ u8 func1014_setup_skedar_shuttle[] = {
 	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
 	object_set_modelpart_visible(OBJ_SKEDAR_SHUTTLE, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
 	object_do_animation(ANIM_0486, OBJ_SKEDAR_SHUTTLE, 0x01, 0xffff)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2079,7 +2066,7 @@ u8 func1415_setup_environment[] = {
 	configure_environment(ROOM_AZT_0045, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(ROOM_AZT_0065, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(ROOM_AZT_0065, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2088,7 +2075,6 @@ struct ailist ailists[] = {
 	{ func1001_objectives_failed_msg,   0x1001 },
 	{ func1002_intro,                   0x1002 },
 	{ func1003_msg_therestheescapepod,  0x1003 },
-	{ func1004_msg_maybetheresabeacon,  0x1004 },
 	{ func1005_msg_thejamming,          0x1005 },
 	{ func1006_msg_elvisbeable,         0x1006 },
 	{ func1008_escapepod,               0x1008 },

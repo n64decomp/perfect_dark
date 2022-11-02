@@ -36,7 +36,7 @@ u8 unregistered_func1[] = {
 	mp_init_simulants
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

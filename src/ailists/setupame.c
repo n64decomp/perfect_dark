@@ -1044,11 +1044,10 @@ u8 func0401_do_some_animation[] = {
 	label(0x2c)
 	chr_do_animation(ANIM_0066, 1, -1, CHRANIMFLAG_PAUSEATEND, 16, CHR_SELF, 2)
 
-	beginloop(0x85)
-	endloop(0x85)
+	terminate
 
 	// Unreachable
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1056,7 +1055,7 @@ u8 func0401_do_some_animation[] = {
  * @unregistered
  */
 u8 unregistered_function[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1227,7 +1226,7 @@ u8 func040f_cass[] = {
 
 	// Dying
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2c)
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -1450,7 +1449,7 @@ u8 func0411_secretary[] = {
 	goto_next(0x2c)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2c)
 	chr_do_animation(ANIM_00A1, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -1558,7 +1557,7 @@ u8 func0414_programmer[] = {
 
 	// PA only
 	if_difficulty_gt(DIFF_SA, /*goto*/ 0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2c)
 	set_reaction_speed(100)
@@ -1568,7 +1567,7 @@ u8 func0414_programmer[] = {
 	goto_next(0x2c)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2c)
 	if_num_times_shot_lt(1, /*goto*/ 0x06)
@@ -1929,11 +1928,10 @@ u8 func0414_programmer[] = {
 	label(0x2c)
 	speak(CHR_TARGET, -1, SFX_TYPING_8118, -1, COLOR_00_GREEN)
 
-	beginloop(0xb0)
-	endloop(0xb0)
+	terminate
 
 	label(0xb1)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(LABEL_PC_BROKEN)
 	set_self_flag_bankx(CHRFLAG0_CANT_ALERT_GROUP, BANK_0)
@@ -1966,7 +1964,7 @@ u8 func1005_give_control[] = {
 	grant_control(CHR_BOND)
 	grant_control(CHR_COOP)
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1974,7 +1972,7 @@ u8 func1005_give_control[] = {
  * @unused
  */
 u8 func0415_set_idle[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2135,9 +2133,6 @@ u8 func100e_check_ecm_mines[] = {
 		label(0x8a)
 	endloop(0x00)
 
-	beginloop(0x06)
-	endloop(0x06)
-
 	endlist
 };
 
@@ -2168,7 +2163,7 @@ u8 func1004_check_lab_lift_located[] = {
 
 	label(0x2c)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	set_invincible(CHR_BOND)
@@ -2188,10 +2183,10 @@ u8 func1006_check_programmer_dead[] = {
 	if_stage_flag_eq(STAGEFLAG_PROGRAMMER_LOGGED_IN, TRUE, /*goto*/ 0x06)
 	show_hudmsg(CHR_BOND, L_AME_057) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_PROGRAMMER_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	label(0xac)
@@ -2283,7 +2278,7 @@ u8 func1007_uplinking[] = {
 		show_hudmsg(CHR_TARGET, L_AME_045) // "File download completed."
 		yield
 		set_stage_flag(STAGEFLAG_DOWNLOAD_COMPLETE)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x2c)
 		show_hudmsg(CHR_TARGET, L_AME_074) // "Datalink broken - connection terminated."
@@ -2327,7 +2322,7 @@ u8 func1008_doorswitch[] = {
 	unset_object_flag2(OBJ_OFFICEDOOR1, OBJFLAG2_AICANNOTUSE)
 	unset_object_flag2(OBJ_OFFICEDOOR2, OBJFLAG2_AICANNOTUSE)
 	set_stage_flag(STAGEFLAG_OFFICE_DOOR_UNLOCKED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// PA
 	beginloop(0x04)
@@ -2362,7 +2357,7 @@ u8 func1008_doorswitch[] = {
 	label(0x06)
 	assign_sound(SFX_043B, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_OFFICEDOOR1, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2376,12 +2371,12 @@ u8 func1009_check_civilians_killed[] = {
 	label(0x2c)
 	show_hudmsg(CHR_BOND, L_AME_055) // "Unacceptable civilian casualties."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x09)
 	show_hudmsg(CHR_BOND, L_AME_057) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2460,7 +2455,7 @@ u8 func100c_noop2[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2507,7 +2502,7 @@ u8 func100d_check_objects_destroyed[] = {
 
 	// Agent
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3183,7 +3178,7 @@ u8 func0422_intro_042d[] = {
 	stop_cutscene_track
 	stop_ambient_track
 	set_savefile_flag(GAMEFILEFLAG_CI_TOUR_DONE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3287,7 +3282,7 @@ u8 func0416_outro[] = {
 	label(0xbd)
 	mute_channel(CHANNEL_10)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3311,7 +3306,7 @@ u8 func100f_check_necklace_collected[] = {
 
 	label(0x2c)
 	chr_toggle_modelpart(CHR_CASS, MODELPART_CHR_NECKLACE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3331,7 +3326,7 @@ u8 func1010_start_hub_humms[] = {
 	yield
 	play_sound_from_object2(CHANNEL_1, OBJ_SECURITYHUB, SFX_0004, 0x0f, 0x00)
 #endif
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3380,7 +3375,7 @@ u8 func1012_trigger_x_music[] = {
 	if_stage_flag_eq(STAGEFLAG_LAB_ELEVATOR_CLOSED, TRUE, /*goto*/ 0x2c)
 	play_x_track(XREASON_DEFAULT, 10, 60)
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3442,7 +3437,7 @@ u8 func1013_msg_commshubnearby[] = {
 	label(0x2c)
 	speak(CHR_BOND, L_AME_093, SFX_8170, CHANNEL_6, COLOR_09_BLUE) // "We're getting a positive reading - the internal co..."
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3457,7 +3452,7 @@ u8 func1014_msg_officefloor[] = {
 	label(0x2c)
 	speak(CHR_BOND, L_AME_094, SFX_8171, CHANNEL_6, COLOR_09_BLUE) // "You're on the same floor as Cassandra's office."
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3471,7 +3466,7 @@ u8 func1015_msg_securityroom[] = {
 	label(0x2c)
 	speak(CHR_BOND, L_AME_095, MP3_03A2, CHANNEL_6, COLOR_09_BLUE) // "The other hub has got to be in the Security Room."
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3482,18 +3477,18 @@ u8 func1016_msg_basementelevator[] = {
 
 	label(0x2c)
 	speak(CHR_BOND, L_AME_096, SFX_8172, CHANNEL_6, COLOR_09_BLUE) // "The basement elevator must be around there somewhe..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1017_unlock_basement_door[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Agent only - unlock basement door (SA and PA requires necklace)
 	label(0x2c)
 	unlock_door(OBJ_SECRETDOOR, 0x20)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3664,7 +3659,7 @@ u8 func1019_toggle_guards[] = {
 	enable_chr(0x15)
 	yield
 	enable_chr(0x16)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3672,14 +3667,14 @@ u8 func101a_noop[] = {
 	yield
 	yield
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func141c_start_lifts[] = {
 	activate_lift(2, OBJ_LIFT1)
 	activate_lift(1, OBJ_LIFT2)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3747,7 +3742,7 @@ u8 func101d_disable_cameras[] = {
 
 	label(0x06)
 	show_hudmsg(CHR_BOND, L_AME_097) // "Security system is now back online."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3756,7 +3751,7 @@ u8 func101d_disable_cameras[] = {
  */
 u8 unregistered_function7[] = {
 	show_hudmsg(CHR_BOND, L_AME_099) // "2023 AD, 2214 Hours Lucerne Tower - dataDyne HQ"
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3872,7 +3867,7 @@ u8 func042f_surrendering_guard[] = {
 	// Surrender
 	label(0x28)
 	surrender
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3881,7 +3876,7 @@ u8 func101f_setup_rtracker[] = {
 	set_object_flag3(OBJ_FALCONSIL1, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_FALCONSIL2, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_LAPTOPGUN, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3997,7 +3992,7 @@ u8 func1420_setup_portals[] = {
 	set_portal_flag(0x00f0, PORTALFLAG_SKIP)
 	set_portal_flag(0x00f8, PORTALFLAG_SKIP)
 	set_portal_flag(0x00f1, PORTALFLAG_SKIP)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4035,12 +4030,12 @@ u8 func1421_setup_environment[] = {
 	configure_environment(0x00a4, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x00a5, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x00a7, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 unregistered_function8[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

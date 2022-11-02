@@ -349,7 +349,7 @@ u8 func0401_defend[] = {
 	// Dying
 	label(0x2d)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Not dying - go to pad
 	label(0x06)
@@ -490,7 +490,7 @@ u8 func1003_spawn_maians[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -649,7 +649,7 @@ u8 func1004_spawn_king1_skedar[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -733,9 +733,9 @@ u8 func1008_spawn_king2_skedar[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -803,9 +803,9 @@ u8 func100c_spawn_king3_skedar[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -900,7 +900,7 @@ u8 func1005_check_leader_dead[] = {
 	label(0x2d)
 	show_hudmsg(CHR_BOND, L_STAT_007) // "Maian leader has been killed."
 	set_stage_flag(STAGEFLAG_LEADER_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -916,7 +916,7 @@ u8 func1009_check_king1_dead[] = {
 	set_stage_flag(STAGEFLAG_KING1_DEAD)
 	unlock_door(0x3e, 0x40)
 	unlock_door(0x3f, 0x40)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -932,7 +932,7 @@ u8 func100a_check_king2_dead[] = {
 	show_hudmsg(CHR_BOND, L_STAT_008) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING2_DEAD)
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -948,7 +948,7 @@ u8 func100b_check_king3_dead[] = {
 	show_hudmsg(CHR_BOND, L_STAT_008) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING3_DEAD)
 	label(0x0e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -979,12 +979,12 @@ u8 func1007_check_end_level[] = {
 	// Mission failed
 	label(0x2d)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Mission complete
 	label(0x06)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -992,7 +992,7 @@ u8 func040c_hide[] = {
 	label(0x03)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1038,10 +1038,10 @@ u8 unregistered_function[] = {
 	// Remove Blonde if counterop doesn't exist
 	label(0x03)
 	if_chr_death_animation_finished(CHR_ANTI, /*goto*/ 0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2d)
 	remove_chr(CHR_BLONDE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1196,7 +1196,7 @@ u8 func040b_outro[] = {
 	label(0x06)
 	mute_channel(CHANNEL_10)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1226,7 +1226,7 @@ u8 func100f_blow_mines[] = {
 	destroy_object(OBJ_MINE5)
 	wait(0x93)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1355,7 +1355,7 @@ u8 func1010_init_lighting[] = {
 	configure_environment(0x0058, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0059, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0059, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

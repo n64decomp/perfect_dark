@@ -929,7 +929,7 @@ u8 func0404_scientist[] = {
 
 	label(0x2f)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	if_just_injured(CHR_SELF, /*goto*/ 0x2f)
@@ -1137,8 +1137,8 @@ u8 func0404_scientist[] = {
 	show_hudmsg(CHR_TARGET, L_EAR_029) // "Experiment has been shut down."
 	stop_chr
 
-	beginloop(0x0e)
-	endloop(0x0e)
+	label(0x0e)
+	terminate
 
 	endlist
 };
@@ -1155,7 +1155,7 @@ u8 func0406_nasty_scientist[] = {
 
 	label(0x2f)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	if_just_injured(CHR_SELF, /*goto*/ 0x2f)
@@ -1281,8 +1281,7 @@ u8 func0406_nasty_scientist[] = {
 	label(0x06)
 	stop_chr
 
-	beginloop(0x0e)
-	endloop(0x0e)
+	terminate
 
 	endlist
 };
@@ -1308,14 +1307,14 @@ u8 func1009_weaponscache[] = {
 	unset_object_flag2(OBJ_CMP150_2, OBJFLAG2_INVISIBLE)
 	set_object_flag2(OBJ_CMP150_1, OBJFLAG2_PICKUPWITHOUTLOS)
 	set_object_flag2(OBJ_CMP150_2, OBJFLAG2_PICKUPWITHOUTLOS)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2f)
 	show_hudmsg(CHR_TARGET, L_EAR_099) // "Enemy detected - weapon cache locked."
 	play_sound(SFX_00F7, -1)
 	unset_stage_flag(STAGEFLAG_BOT_ACTIVE)
 	unset_stage_flag(STAGEFLAG_BOT_REPROGRAMMED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1333,7 +1332,7 @@ u8 func1002_bot_activation_terminal[] = {
 	goto_next(0x04)
 
 	label(0x2f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1411,7 +1410,7 @@ u8 func1003_bot_programming_terminal[] = {
 	goto_next(0x04)
 
 	label(0x2f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1490,7 +1489,7 @@ u8 func1004_check_items_collected[] = {
 	yield
 	set_stage_flag(STAGEFLAG_ALL_ITEMS_COLLECTED)
 	unset_stage_flag(STAGEFLAG_ITEMS_UNCOLLECTABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1526,7 +1525,7 @@ u8 func1018_item_pickup_messages[] = {
 	endloop(0x04)
 
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1583,7 +1582,7 @@ u8 func1005_check_unacceptable_casualties[] = {
 	label(0x0f)
 	set_stage_flag(STAGEFLAG_UNACCEPTABLE_CASUALTIES)
 	show_hudmsg(CHR_BOND, L_EAR_026) // "Unacceptable scientist casualties."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1901,7 +1900,7 @@ u8 func1007_uplink[] = {
 	label(0x0d)
 	mute_channel(CHANNEL_5)
 	mute_channel(CHANNEL_6)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1923,7 +1922,7 @@ u8 func1008_check_bot_terminals_destroyed[] = {
 	endloop(0x04)
 
 	label(0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2043,7 +2042,7 @@ u8 func100b_check_uplink_pc_destroyed[] = {
 	endloop(0x04)
 
 	label(0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2163,8 +2162,7 @@ u8 func0413_purplebot_at_lasers[] = {
 	begin_hovercar_path(0x0a)
 	set_vehicle_speed(512, 120)
 
-	beginloop(0x13)
-	endloop(0x13)
+	terminate
 
 	endlist
 };
@@ -2174,7 +2172,7 @@ u8 func100c_shuffle_terminals[] = {
 	shuffle_investigation_terminals(OBJ_GOODTERM2, OBJ_ALARMTERM2, 0x1a, 0x1b, 0x1c, 0x1d)
 	shuffle_investigation_terminals(OBJ_GOODTERM3, OBJ_ALARMTERM3, 0x15, 0x16, 0x17, 0x18)
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2326,7 +2324,7 @@ u8 func0416_intro[] = {
 	chr_do_animation(ANIM_CUT_EAR_INTRO_GUARD_02, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_GUARD, 2)
 	yield
 	kill(CHR_INTRO_GUARD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2429,7 +2427,7 @@ u8 func0417_outro[] = {
 	wait_for_camera(0x0f)
 
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2609,12 +2607,12 @@ u8 func100f_check_for_end_level[] = {
 
 	label(0x2f)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	set_invincible(CHR_BOND)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2650,7 +2648,7 @@ u8 func1011_spawn_guards_during_uplink[] = {
 
 	label(0x06)
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2693,7 +2691,7 @@ u8 func1012_start_laser_sound[] = {
 	play_sound_from_object(CHANNEL_3, 0x38, 1, 600, 800)
 	assign_sound(SFX_01C5, CHANNEL_4)
 	play_sound_from_object(CHANNEL_4, 0x37, 1, 600, 800)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2725,7 +2723,7 @@ u8 func1013_hatch_pc[] = {
 		label(0x2f)
 	endloop(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2764,7 +2762,7 @@ u8 func0415_radioactivity[] = {
 	label(0x06)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2780,7 +2778,7 @@ u8 func101d_coop_radioactivty[] = {
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2f)
 	set_ailist(CHR_SELF, AILIST_RADIOACTIVITY)
 	label(0x2f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2790,7 +2788,7 @@ u8 func1021_counterop_radioactivity[] = {
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2f)
 	set_ailist(CHR_SELF, AILIST_RADIOACTIVITY)
 	label(0x2f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2989,7 +2987,7 @@ u8 func0403_k7_scientist[] = {
 u8 func1016_setup_drcaroll[] = {
 	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_DRCAROLL, GAILIST_INVINCIBLE_AND_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3025,7 +3023,7 @@ u8 func1019_msg_securitysector[] = {
 
 	label(0x2f)
 	speak(CHR_P1P2, L_EAR_094, SFX_8173, CHANNEL_6, COLOR_09_BLUE) // "That's the highest security sector - Dr. Caroll ha..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3038,7 +3036,7 @@ u8 func101a_msg_lotofpower[] = {
 
 	label(0x2f)
 	speak(CHR_P1P2, L_EAR_095, MP3_03A5, CHANNEL_6, COLOR_09_BLUE) // "Something around here's using a lot of power."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3054,7 +3052,7 @@ u8 func101b_msg_reprogram[] = {
 	label(0x2f)
 	speak(CHR_P1P2, L_EAR_096, SFX_8174, CHANNEL_6, COLOR_09_BLUE) // "Reprogram that cleaning bot - it'll give you a way..."
 	label(0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3068,7 +3066,7 @@ u8 func101c_msg_radioactive[] = {
 	label(0x2f)
 	speak(CHR_P1P2, L_EAR_097, SFX_8175, CHANNEL_6, COLOR_09_BLUE) // "Get out, Jo! The levels are too high. Use the CamS..."
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3094,7 +3092,7 @@ u8 func101e_unlock_drcaroll_door[] = {
 	label(0x06)
 	unlock_door(0x26, 0x40)
 	unlock_door(0x5a, 0x40)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3192,7 +3190,7 @@ u8 func101f_check_bot_destroyed[] = {
 	if_stage_flag_eq(STAGEFLAG_HAS_NIGHTVISION, TRUE, /*goto*/ 0x2f)
 	set_stage_flag(STAGEFLAG_ITEMS_UNCOLLECTABLE)
 	label(0x2f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	if_objective_complete(0, /*goto*/ 0x2f)
@@ -3216,7 +3214,7 @@ u8 func101f_check_bot_destroyed[] = {
 
 	label(0x2f)
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3230,7 +3228,7 @@ u8 func1020_lock_agent_doors[] = {
 	lock_door(0x5e, 0x08)
 	lock_door(0x5f, 0x08)
 	label(0x2f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3239,7 +3237,7 @@ u8 func1022_setup_rtracker[] = {
 	set_object_flag3(OBJ_CMP150_1, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_CMP150_2, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_PROXYMINES, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3288,13 +3286,13 @@ u8 func1423_setup_environment[] = {
 	configure_environment(0x0067, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0069, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x006a, AIENVCMD_ROOM_SETAMBIENT, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1424_start_lift[] = {
 	activate_lift(1, 0x60)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

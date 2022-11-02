@@ -132,7 +132,7 @@ u8 func1002_first_walk[] = {
 	label(0x0c)
 	grant_control(CHR_BOND)
 	set_ailist(CHR_GUARD, AILIST_GUARD_COMBAT)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -146,7 +146,7 @@ u8 func1007_second_walk[] = {
 
 	// Begin cutscene
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x06)
 	revoke_control(CHR_BOND, 0)
 	camera_movement(ANIM_CUT_ATE_INTRO_CAM)
@@ -203,7 +203,7 @@ u8 func1007_second_walk[] = {
 	label(0x0c)
 	grant_control(CHR_BOND)
 	set_ailist(CHR_JONATHAN, AILIST_JON_COMBAT)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -212,7 +212,7 @@ u8 func0401_move_to_pad[] = {
 	label(0x06)
 	yield
 	stop_chr
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -226,7 +226,7 @@ u8 func1008_third_walk[] = {
 
 	// Jo dead
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Do cutscene
 	label(0x06)
@@ -275,14 +275,14 @@ u8 func1008_third_walk[] = {
 	label(0x0c)
 	set_ailist(CHR_TRENT, AILIST_TRENT_COMBAT)
 	grant_control(CHR_BOND)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1004_revoke_control[] = {
 	yield
 	revoke_control(CHR_BOND, 0)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -307,7 +307,7 @@ u8 func1005_main[] = {
 	goto_next(0x06)
 
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_SA_WALK_TRIGGER)
@@ -332,7 +332,7 @@ u8 func1005_main[] = {
 	goto_next(0x06)
 
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_PA_WALK_TRIGGER)
@@ -352,14 +352,14 @@ u8 func1005_main[] = {
 	endloop(0x0d)
 
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1003_init_audio[] = {
 	stop_cutscene_track
 	stop_ambient_track
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -380,7 +380,7 @@ u8 func1006_check_objectives_complete[] = {
 	// End level
 	label(0x2d)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -429,7 +429,7 @@ u8 func0402_guard_combat[] = {
 
 	// Dying
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Hand combat
 	label(0x0e)
@@ -473,7 +473,7 @@ u8 func0403_jon_combat[] = {
 	label(0x0e)
 	set_returnlist(CHR_SELF, AILIST_JON_COMBAT)
 	set_ailist(CHR_SELF, GAILIST_HAND_COMBAT)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -513,7 +513,7 @@ u8 func0404_trent_combat[] = {
 	set_returnlist(CHR_SELF, AILIST_TRENT_COMBAT)
 	set_ailist(CHR_SELF, GAILIST_HAND_COMBAT)
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -529,7 +529,7 @@ u8 func0405_guard_init[] = {
 	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -544,7 +544,7 @@ u8 func0406_jon_init[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -559,7 +559,7 @@ u8 func0407_trent_init[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

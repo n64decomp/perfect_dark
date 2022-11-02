@@ -1130,7 +1130,7 @@ u8 func1002_intro[] = {
 	set_ailist(CHR_NEGOTIATOR, AILIST_NEGOTIATOR)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x4f)
 	camera_movement(ANIM_CUT_ELD_INTRO_CAM_04)
 	cmd0175(60)
@@ -1222,7 +1222,7 @@ u8 func1002_intro[] = {
 	set_ailist(CHR_TAKER2, AILIST_TAKER)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1385,7 +1385,7 @@ u8 func0408_outro[] = {
 	stop_cutscene_track
 	stop_ambient_track
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1405,7 +1405,7 @@ u8 func1003_give_items[] = {
 	disable_object(0x02)
 	disable_object(0x8a)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// A and SA
 	label(0x06)
@@ -1416,13 +1416,13 @@ u8 func1003_give_items[] = {
 	disable_object(0x01)
 	disable_object(0x89)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Velvet doesn't exist
 	label(0x08)
 	disable_object(0x8a)
 	disable_object(0x89)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1442,7 +1442,7 @@ u8 func1004_check_negotiator[] = {
 
 	// PA
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1634,11 +1634,11 @@ u8 func0402_taker[] = {
 
 	label(0x2d)
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2e)
 	stop_chr
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1653,7 +1653,7 @@ u8 func100f_check_takers_dead[] = {
 
 	label(0x2d)
 	set_stage_flag(STAGEFLAG_TAKERS_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1677,7 +1677,7 @@ u8 func0403_negotiator[] = {
 	set_stage_flag(STAGEFLAG_NEGOTIATOR_ESCAPED)
 	stop_x_track(XREASON_DEFAULT)
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1762,7 +1762,7 @@ u8 func1005_toggle_snipers[] = {
 	set_ailist(CHR_SNIPER6, AILIST_ENABLE_SNIPER)
 	set_ailist(CHR_SNIPER7, AILIST_ENABLE_SNIPER)
 	set_ailist(CHR_SNIPER8, AILIST_ENABLE_SNIPER)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1895,7 +1895,7 @@ u8 func0404_sniper[] = {
 	endloop(0x04)
 
 	label(0x64)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1943,7 +1943,7 @@ u8 func1006_check_snipers_dead[] = {
 	label(0x2d)
 	show_hudmsg(CHR_BOND, L_ELD_012) // "Snipers have been eliminated."
 	set_stage_flag(STAGEFLAG_SNIPERS_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2077,7 +2077,7 @@ u8 func1009_windmill_switch[] = {
 		set_object_flag2(OBJ_WINDMILL, OBJFLAG2_AICANNOTUSE)
 		unlock_door(0x06, 0x02)
 		unlock_door(0x07, 0x02)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Cooling and power not active
 		label(0x06)
@@ -2101,21 +2101,21 @@ u8 func100a_check_switches_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_COOLING_ACTIVE, TRUE, /*goto*/ 0x2d)
 		show_hudmsg(CHR_BOND, L_ELD_021) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x2d)
 		if_object_in_good_condition(0x04, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_POWER_ACTIVE, TRUE, /*goto*/ 0x2d)
 		show_hudmsg(CHR_BOND, L_ELD_021) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x2d)
 		if_object_in_good_condition(0x05, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, TRUE, /*goto*/ 0x2d)
 		show_hudmsg(CHR_BOND, L_ELD_021) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x2d)
 	endloop(0x04)
@@ -2137,7 +2137,7 @@ u8 func100b_invoke_hackers[] = {
 
 	// A or SA - exit
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// PA - wait for windmill
 	beginloop(0x04)
@@ -2189,13 +2189,13 @@ u8 func100b_invoke_hackers[] = {
 	// Hackers dead
 	label(0x2d)
 	hide_countdown_timer
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0406_init_hacker[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2224,7 +2224,7 @@ u8 func0405_hacker[] = {
 	label(0x06)
 	stop_chr
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Sees player
 	label(0x09)
@@ -2267,7 +2267,7 @@ u8 func100c_check_hackers_dead[] = {
 	// Hackers succeeded
 	label(0x2d)
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2308,7 +2308,7 @@ u8 func100e_check_objectives_complete[] = {
 
 	// Mission failed - objectives incomplete
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2d)
 	if_chr_deadish(CHR_BOND, /*goto*/ 0x2d)
@@ -2320,7 +2320,7 @@ u8 func100e_check_objectives_complete[] = {
 	// Mission failed - players dead
 	label(0x2d)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	if_chr_deadish(CHR_CARRINGTON, /*goto*/ 0x2d)
@@ -2331,7 +2331,7 @@ u8 func100e_check_objectives_complete[] = {
 	// Carrington died... somehow
 	label(0x2d)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2339,7 +2339,7 @@ u8 func1010_set_pa_negotiator_flag[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x06)
 	set_stage_flag(STAGEFLAG_NEGOTIATOR_ESCAPED)
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2356,7 +2356,7 @@ u8 func1011_setup_snipers[] = {
 	set_chr_chrflag(CHR_SNIPER2, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
 	set_chr_chrflag(CHR_SNIPER6, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
 	set_chr_chrflag(CHR_SNIPER8, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2394,7 +2394,7 @@ u8 func1013_check_guard_subdued[] = {
 
 	// A and SA
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2441,7 +2441,7 @@ u8 func1014_give_keycard[] = {
 	label(0x09)
 	unset_object_flag(OBJ_KEYCARD, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(OBJ_KEYCARD, OBJFLAG2_INVISIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2467,7 +2467,7 @@ u8 func1015_check_computers_destroyed[] = {
 	show_hudmsg(CHR_BOND, L_ELD_021) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_HACKER_PC_DESTROYED)
 	label(0x09)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2517,13 +2517,13 @@ u8 func1016_msg_generator[] = {
 
 	label(0x2d)
 	speak(CHR_P1P2, L_ELD_035, MP3_03AC, CHANNEL_6, COLOR_09_BLUE) // "If I get the wind generator back online, I'll get ..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1017_msg_gottobequick[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2d)
 	restart_timer
@@ -2541,7 +2541,7 @@ u8 func1017_msg_gottobequick[] = {
 
 	label(0x06)
 	speak(CHR_BOND, L_ELD_036, MP3_03AD, CHANNEL_6, COLOR_09_BLUE) // "I've got to be quick, or they'll kill the negotiat..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2563,7 +2563,7 @@ u8 func1018_msg_hidingdaniel[] = {
 
 	label(0x2d)
 	speak(CHR_P1P2, L_ELD_037, MP3_03AE, CHANNEL_6, COLOR_09_BLUE) // "Here's where they must be holding Daniel."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2581,7 +2581,7 @@ u8 func1019_msg_hackershavetobestopped[] = {
 
 	label(0x2d)
 	speak(CHR_BOND, L_ELD_038, MP3_03AF, CHANNEL_6, COLOR_09_BLUE) // "Those hackers have to be stopped before I rescue D..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2762,7 +2762,7 @@ u8 func101b_toggle_basement_chrs[] = {
 		if_object_in_good_condition(0x87, /*goto*/ 0x06)
 		if_object_in_good_condition(0x88, /*goto*/ 0x06)
 		play_sound(MP3_07CB, -1)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x06)
 	goto_first(0x08)
 
@@ -2775,7 +2775,7 @@ u8 func101b_toggle_basement_chrs[] = {
  */
 u8 func101c_toggle_villa_guards[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// A and SA
 	label(0x2d)
@@ -2885,7 +2885,7 @@ u8 func101c_toggle_villa_guards[] = {
 	enable_chr(0x42)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2916,14 +2916,14 @@ u8 func101d_dual_cmp150[] = {
 	unset_object_flag2(OBJ_CMP150_1, OBJFLAG2_INVISIBLE)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0407_init_sniper[] = {
 	set_chr_maxdamage(CHR_SELF, 1)
 	stop_chr
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2933,7 +2933,7 @@ u8 func0410_carrington[] = {
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_chr_maxdamage(CHR_SELF, 1)
 	chr_do_animation(ANIM_CUT_ELD_OUTRO_CARR, 1, 1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CARRINGTON, 2)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2952,7 +2952,7 @@ u8 func101e_unlock_doors[] = {
 	unlock_door(0x97, 0x80)
 	unlock_door(0x98, 0x80)
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2979,7 +2979,7 @@ u8 func101f_check_one_basement_guard_remaining[] = {
 
 		if_morale_lt(8, /*goto*/ 0x2d)
 		set_stage_flag(STAGEFLAG_ONE_BASEMENT_GUARD_REMAINING)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2d)
 	endloop(0x04)
 
@@ -2997,7 +2997,7 @@ u8 func1420_setup_portals[] = {
 	set_room_flag(0x004d, ROOMFLAG_0800)
 	set_room_flag(0x0065, ROOMFLAG_0800)
 	set_room_flag(0x0059, ROOMFLAG_0800)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3087,7 +3087,7 @@ u8 func1423_setup_environment[] = {
 	configure_environment(0x0070, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x0071, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0071, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3122,7 +3122,7 @@ u8 func1021_toggle_last_basement_guard[] = {
 	label(0x2d)
 	unset_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3131,7 +3131,7 @@ u8 func1022_setup_rtracker[] = {
 	set_object_flag3(OBJ_CMP150_1, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_CMP150_2, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_DEVASTATOR, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3146,7 +3146,7 @@ u8 func0411_cisoldier[] = {
 	yield
 	kill(CHR_CISOLDIER)
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3166,7 +3166,7 @@ u8 func1024_set_chr_flags_on_pa[] = {
 	set_chr_hiddenflag(CHR_BASEMENT6, CHRHFLAG_DONTSHOOTME)
 	set_chr_hiddenflag(CHR_BASEMENT8, CHRHFLAG_DONTSHOOTME)
 	label(0x2d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3187,7 +3187,7 @@ u8 func1025_check_basement_entered_without_subdue[] = {
 	set_stage_flag(STAGEFLAG_FORGOT_TO_KO_GUARD)
 
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 #endif

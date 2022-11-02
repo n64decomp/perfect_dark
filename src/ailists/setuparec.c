@@ -26,12 +26,12 @@ u32 props[] = {
 };
 
 u8 unregistered_func1[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 unregistered_func2[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

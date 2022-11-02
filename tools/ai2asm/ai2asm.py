@@ -1399,8 +1399,6 @@ class App():
         self.emit('beqz', ['$v0', label])
         self.emit('jr', ['$v0'])
         self.emit_raw('%s:' % label)
-        self.emit('move', ['$a0', '$zero'])
-        self.emit('jal', ['aiSetMyList'])
         self.emit('jal', ['aiTerminate'])
 
     def ai_revoke_control(self, params):
@@ -1817,6 +1815,9 @@ class App():
         else:
             self.emit('li', ['$a0', params[2]])
             self.emit('jal', ['aiChrEndTeleport'])
+
+    def ai_terminate(self, params):
+        self.emit('jal', ['aiTerminate'])
 
     def ai_try_attack_amount(self, params):
         self.emit('li', ['$a0', params[0]])

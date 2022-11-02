@@ -134,7 +134,7 @@ u8 func1000_1c08[] = {
 	mp_init_simulants
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

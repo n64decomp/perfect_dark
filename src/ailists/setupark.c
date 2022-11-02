@@ -562,8 +562,7 @@ struct path paths[] = {
 u8 func0403_stop_and_idle[] = {
 	stop_chr
 
-	beginloop(0x00)
-	endloop(0x00)
+	terminate
 
 	endlist
 };
@@ -571,7 +570,7 @@ u8 func0403_stop_and_idle[] = {
 u8 func0404_init_drcaroll[] = {
 	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_shield(100)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -604,7 +603,7 @@ u8 func0401_drcaroll_following[] = {
 	label(0x00)
 	say_quip(CHR_TARGET, 0x06, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	set_target_chr(CHR_BOND)
 	set_shield(100)
 	set_chr_maxdamage(CHR_SELF, 100)
@@ -688,8 +687,8 @@ u8 func0401_drcaroll_following[] = {
 	label(0x07)
 	try_run_to_target(/*goto*/ 0x08)
 
-	beginloop(0x08)
-	endloop(0x08)
+	label(0x08)
+	terminate
 
 	label(0x09)
 	goto_first(0x02)
@@ -703,7 +702,7 @@ u8 func0401_drcaroll_following[] = {
 	goto_first(0x02)
 
 	label(0x20)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -715,7 +714,7 @@ u8 func0405_drcaroll_waiting[] = {
 	goto_next(0x00)
 
 	label(0x20)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x00)
 	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00100000)
@@ -749,7 +748,7 @@ u8 func100c_foyer_lights_timer[] = {
 
 	// Agent
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	set_countdown_timer(60)
@@ -813,7 +812,7 @@ u8 func100c_foyer_lights_timer[] = {
 	set_lights_state(0x0013, LIGHTOP_1, 0x64, 0x00, 0x00)
 	set_lights_state(0x0014, LIGHTOP_1, 0x64, 0x00, 0x00)
 	set_lights_state(0x000d, LIGHTOP_1, 0x64, 0x00, 0x00)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -886,7 +885,7 @@ u8 func0411_top_guard_blinded[] = {
 	goto_next(0x00)
 
 	label(0x20)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x00)
 	chr_do_animation(ANIM_BLINDED, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -927,7 +926,7 @@ u8 func0406_general_combat[] = {
 	label(0x00)
 	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive with gun
 	label(0x20)
@@ -1341,7 +1340,7 @@ u8 func1002_check_accessed_foyer_elevator[] = {
 	label(0x00)
 	set_stage_flag(STAGEFLAG_ACCESSED_FOYER_ELEVATOR)
 	show_hudmsg(CHR_TARGET, L_ARK_033) // "Foyer elevator accessed."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1374,7 +1373,7 @@ u8 func1003_check_end_level[] = {
 
 	label(0x20)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x00)
 	set_invincible(CHR_BOND)
@@ -1387,7 +1386,7 @@ u8 func1004_elevator_unlocking[] = {
 	if_difficulty_gt(DIFF_SA, /*goto*/ 0x1f)
 	unlock_door(0x02, 0x01)
 	unlock_door(0x03, 0x01)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x1f)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1404,7 +1403,7 @@ u8 func1004_elevator_unlocking[] = {
 	set_stage_flag(STAGEFLAG_ELEVATOR_PC_DESTROYED)
 	show_hudmsg(CHR_BOND, L_ARK_045) // "Critical mission object destroyed."
 	label(0x00)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Computer activated
 	label(0x20)
@@ -1449,7 +1448,7 @@ u8 func1004_elevator_unlocking[] = {
 	unlock_door(0x03, 0x01)
 	show_hudmsg(CHR_TARGET, L_ARK_034) // "Office elevator door has been unlocked."
 	set_stage_flag(STAGEFLAG_ELEVATOR_UNLOCKED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1487,7 +1486,7 @@ u8 func1005_check_bodyguards_dead[] = {
 	label(0x26)
 	show_hudmsg(CHR_BOND, L_ARK_036) // "Cassandra's bodyguards have been defeated."
 	set_stage_flag(STAGEFLAG_OBJECTIVE_BODYGUARDS_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1498,12 +1497,12 @@ u8 func1006_check_hovercopter_destroyed[] = {
 		if_object_in_good_condition(OBJ_HOVERCOPTER, /*goto*/ 0x00)
 		show_hudmsg(CHR_BOND, L_ARK_035) // "DataDyne Hovercopter eliminated."
 		set_stage_flag(STAGEFLAG_HOVERCOPTER_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x00)
 	endloop(0x1f)
 
 	label(0x26)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1527,7 +1526,7 @@ u8 func100e_drcaroll_warnings[] = {
 		label(0x00)
 		show_hudmsg(CHR_BOND, L_ARK_016) // "Dr. Caroll has been killed!"
 		set_stage_flag(STAGEFLAG_DRCAROLL_DEAD)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Shield under 100
 		label(0x30)
@@ -1544,7 +1543,7 @@ u8 func100e_drcaroll_warnings[] = {
 };
 
 u8 func1007_noop[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1564,7 +1563,7 @@ u8 func1008_trigger_hovercopter_roof[] = {
 
 	label(0x21)
 	set_stage_flag(STAGEFLAG_CHOPPER_GO_TO_ROOF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1615,7 +1614,7 @@ u8 func1009_init_top_room[] = {
 
 	label(0x20)
 	set_stage_flag(STAGEFLAG_CASS_SHIELD_DAMAGED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1804,7 +1803,7 @@ u8 func0409_tech_conversation[] = {
 	label(0x37)
 	restart_timer
 	surrender
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -1822,13 +1821,13 @@ u8 func0409_tech_conversation[] = {
 
 	label(0x00)
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func040d_cass_necklace[] = {
 	chr_toggle_modelpart(CHR_CASS, MODELPART_CHR_NECKLACE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1896,7 +1895,7 @@ u8 func040a_tech2[] = {
 	label(0x37)
 	restart_timer
 	surrender
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Unreachable
 	chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -1914,7 +1913,7 @@ u8 func040a_tech2[] = {
 
 	label(0x00)
 	remove_chr(CHR_SELF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2100,7 +2099,7 @@ u8 func040d_cass[] = {
 #else
 	stop_chr
 #endif
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2113,7 +2112,7 @@ u8 func101f_unlock_top_door[] = {
 	label(0x20)
 	unlock_door(OBJ_TOPROOMDOOR, 0x02)
 	unset_object_flag2(OBJ_TOPROOMDOOR, OBJFLAG2_AICANNOTUSE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2121,7 +2120,7 @@ u8 func101f_unlock_top_door[] = {
  * @unused
  */
 u8 func040e_noop2[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2184,7 +2183,7 @@ u8 func100b_check_top_lights_on[] = {
 	set_ailist(CHR_TOPGUARD3, AILIST_TOP_GUARD_BLINDED)
 	set_ailist(CHR_TOPGUARD4, AILIST_TOP_GUARD_BLINDED)
 	set_ailist(CHR_TOPGUARD5, AILIST_TOP_GUARD_BLINDED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2287,7 +2286,7 @@ u8 func100c_foyer_lights[] = {
 	set_lights_state(0x0013, LIGHTOP_1, 0x02, 0x00, 0x00)
 	set_lights_state(0x0014, LIGHTOP_1, 0x02, 0x00, 0x00)
 	set_lights_state(0x000d, LIGHTOP_1, 0x02, 0x00, 0x00)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2404,7 +2403,7 @@ u8 func100d_intro[] = {
 	set_ailist(CHR_DRCAROLL, 0x0402)
 	yield
 	kill(CHR_INTRO_GUARD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2629,7 +2628,7 @@ u8 func0412_outro[] = {
 	label(0x5d)
 	disable_object(OBJ_JUMPSHIP)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2670,19 +2669,19 @@ u8 func0413_defend_pad[] = {
 
 u8 func100f_move_rocket_ammo[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x00)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Agent only
 	label(0x00)
 	move_object_to_pad(OBJ_ROCKETAMMO1, PAD_ARK_000F)
 	move_object_to_pad(OBJ_ROCKETAMMO2, PAD_ARK_000D)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func040d_cass_outro[] = {
 	set_shield(0)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2728,7 +2727,7 @@ u8 func1012_msg_lockeddown[] = {
 
 	label(0x20)
 	speak(CHR_BOND, L_ARK_051, SFX_8176, CHANNEL_6, COLOR_09_BLUE) // "They've locked down the ground floor - get to the ..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2750,7 +2749,7 @@ u8 func1013_msg_thatcopter[] = {
 	speak(CHR_BOND, L_ARK_052, SFX_8177, CHANNEL_6, COLOR_09_BLUE) // "That copter needs to be taken out, or the jumpship..."
 
 	label(0x26)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2780,11 +2779,11 @@ u8 func1014_msg_cantleaveany[] = {
 	endloop(0x5f)
 
 	label(0x20)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x27)
 	mute_channel(CHANNEL_6)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2798,7 +2797,7 @@ u8 func1015_msg_jumpshipwaiting[] = {
 	speak(CHR_BOND, L_ARK_054, SFX_8178, CHANNEL_6, COLOR_09_BLUE) // "Don't keep the jumpship waiting - get back to the ..."
 
 	label(0x00)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2825,7 +2824,7 @@ u8 func1016_msg_make_foyer_guards_alerted[] = {
 	if_alive_set_alerted(0x09)
 	if_alive_set_alerted(0x0a)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2874,11 +2873,11 @@ u8 func1017_remove_special_shock[] = {
 	endloop(0x1f)
 
 	label(0x20)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x00)
 	remove_chr(CHR_SPECIAL_SHOCK)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2890,14 +2889,14 @@ u8 func1018_give_magnum[] = {
 	// Player has been seen - remove Dy357 from shock trooper
 	label(0x00)
 	give_object_to_chr(OBJ_DY357, CHR_MRBLONDE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1419_start_lifts[] = {
 	activate_lift(2, 0x1d)
 	activate_lift(1, 0x1e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2909,7 +2908,7 @@ u8 func101a_set_rocketlauncher_flag[] = {
 	set_object_flag2(OBJ_ROCKETLAUNCHER, OBJFLAG2_AICANNOTUSE)
 
 	label(0x20)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3065,7 +3064,7 @@ u8 func141c_setup_portals[] = {
 	set_portal_flag(0x00f0, PORTALFLAG_SKIP)
 	set_portal_flag(0x00f8, PORTALFLAG_SKIP)
 	set_portal_flag(0x00f1, PORTALFLAG_SKIP)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3103,7 +3102,7 @@ u8 func141e_setup_environment[] = {
 	configure_environment(0x00a4, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x00a5, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x00a7, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3111,7 +3110,7 @@ u8 func101d_setup_rtracker[] = {
 	yield
 	set_object_flag3(OBJ_GRENADE, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(OBJ_DRAGON, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

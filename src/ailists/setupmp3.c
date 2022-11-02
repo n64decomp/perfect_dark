@@ -35,7 +35,7 @@ struct path paths[] = {
 
 u8 func1000_0038[] = {
 	set_wind_speed(20)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

@@ -723,8 +723,7 @@ u8 func0401_unused[] = {
 	begin_hovercar_path(0x00)
 	set_vehicle_speed(384, 120)
 
-	beginloop(0x04)
-	endloop(0x04)
+	terminate
 
 	endlist
 };
@@ -764,7 +763,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 
 	// Dying
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	if_just_injured(CHR_SELF, /*goto*/ 0x2e)
@@ -946,7 +945,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 
 	// Dying
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1081,7 +1080,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 
 	// Dying
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1157,7 +1156,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 
 	// Dying
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1255,7 +1254,7 @@ u8 func0407_elvis_go_to_sa_teleport[] = {
 
 	// Dying
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1327,7 +1326,7 @@ u8 func0403_elvis_give_farsight[] = {
 
 	// Dying
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -1985,11 +1984,11 @@ u8 func0c02_outro[] = {
 
 	label(0x06)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2e)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2181,7 +2180,7 @@ u8 func1002_intro[] = {
 	enter_firstperson
 	yield
 	set_ailist(CHR_ELVIS, AILIST_INIT_ELVIS)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2225,7 +2224,7 @@ u8 func1006_msg_thiswillhelpus[] = {
 	label(0x2e)
 	speak(CHR_P1P2, L_PAM_010, MP3_03D4, CHANNEL_6, COLOR_04_ORANGE) // "This will help us to get round the ship quicker."
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2241,7 +2240,7 @@ u8 func1007_msg_antibodymasking[] = {
 	speak(CHR_BOND, L_PAM_011, MP3_03D5, CHANNEL_6, COLOR_09_BLUE) // "This antibody masking will protect us from the aut..."
 
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2267,7 +2266,7 @@ u8 func1008_msg_theresdrcaroll[] = {
 
 	// Elvis dead, Dr Caroll dead, or Elvis didn't get teleported
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2288,7 +2287,7 @@ u8 func1009_msg_getoutofhere[] = {
 	speak(CHR_BOND, L_PAM_013, MP3_03D7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
 
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2418,7 +2417,7 @@ u8 func100a_bond_teleports[] = {
 	goto_first(0x04)
 
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	//
 	// At Agent or PA teleport
@@ -2456,7 +2455,7 @@ u8 func100a_bond_teleports[] = {
 	label(0x2e)
 	grant_control(CHR_BOND)
 	teleport_to_pad(PAD_PAM_0000, CHR_BOND)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2494,7 +2493,7 @@ u8 func0414_teleport_bond_to_sapa[] = {
 	label(0x61)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_GIVE_FARSIGHT)
 	label(0x62)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2536,7 +2535,7 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 
 	label(0x62)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2592,7 +2591,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 
 	label(0x62)
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// SA
 	label(0x08)
@@ -2632,7 +2631,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	label(0x61)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_GIVE_FARSIGHT)
 	label(0x62)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2652,7 +2651,7 @@ u8 func100b_coop_teleports[] = {
 	goto_next(0x1f)
 
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x1f)
 		if_stage_flag_eq(STAGEFLAG_TELEPORTALS_ACTIVATED, TRUE, /*goto*/ 0x04)
@@ -2751,7 +2750,7 @@ u8 func100b_coop_teleports[] = {
 	goto_first(0x04)
 
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	//
 	// At Agent or PA area teleport
@@ -2794,7 +2793,7 @@ u8 func100b_coop_teleports[] = {
 	label(0x2e)
 	grant_control(CHR_COOP)
 	teleport_to_pad(PAD_PAM_0000, CHR_COOP)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2833,7 +2832,7 @@ u8 func0417_teleport_coop_to_sapa[] = {
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_GIVE_FARSIGHT)
 
 	label(0x62)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2873,7 +2872,7 @@ u8 func0418_teleport_coop_to_drcaroll[] = {
 	label(0x61)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	label(0x62)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2926,7 +2925,7 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	label(0x62)
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// SA
 	label(0x08)
@@ -2965,7 +2964,7 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	label(0x61)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_GIVE_FARSIGHT)
 	label(0x62)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3137,10 +3136,10 @@ u8 func041d_sniper[] = {
 
 	label(0x10)
 	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2e)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3190,7 +3189,7 @@ u8 func100c_countdown_timer[] = {
 	set_stage_flag(STAGEFLAG_TIMER_EXPIRED)
 	yield
 	set_ailist(CHR_SELF, AILIST_OUTRO)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Player escaped
 	label(0x2e)
@@ -3213,14 +3212,14 @@ u8 func100c_countdown_timer[] = {
 	// Both players dead
 	label(0x2e)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Mission complete
 	label(0x06)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3232,7 +3231,7 @@ u8 func100e_check_elvis_dead[] = {
 	label(0x2e)
 	show_hudmsg(CHR_BOND, L_PAM_014) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3244,7 +3243,7 @@ u8 func100f_check_drcaroll_dead[] = {
 	label(0x2e)
 	show_hudmsg(CHR_BOND, L_PAM_015) // "Dr. Caroll has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3305,7 +3304,7 @@ u8 func040f_miniskedar[] = {
 
 	label(0x2e)
 	say_quip(CHR_BOND, QUIP_GRENADE2, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -3430,7 +3429,7 @@ u8 func1010_agent_hallway_spawner[] = {
 	endloop(0x09)
 
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3440,13 +3439,13 @@ u8 func0411_hide[] = {
 #endif
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0412_unused[] = {
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3460,7 +3459,7 @@ u8 func0413_cloak_and_hide[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3589,19 +3588,19 @@ u8 func0408_check_pa_earlydoorcylinders_destroyed[] = {
 	label(0x04)
 	yield
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER1_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER2_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER3_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER4_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER5_DESTROYED, TRUE, /*goto*/ 0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x08)
 		if_door_state(0x09, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
@@ -3702,16 +3701,16 @@ u8 func0409_check_pa_latedoorcylinders_destroyed[] = {
 	label(0x04)
 	yield
 	if_stage_flag_eq(STAGEFLAG_PA_LATEDOORCYLINDER1_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_LATEDOORCYLINDER2_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_LATEDOORCYLINDER3_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_LATEDOORCYLINDER4_DESTROYED, TRUE, /*goto*/ 0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x08)
 		if_door_state(0x0d, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
@@ -3838,10 +3837,10 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 	label(0x04)
 	yield
 	if_stage_flag_eq(STAGEFLAG_PA_CANISTER1_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_CANISDER2_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Both canisters destroyed
 	label(0x2e)
@@ -3908,7 +3907,7 @@ u8 func101f_pa_circleroom_spawner[] = {
 	goto_first(0x1f)
 
 	label(0x58)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3992,7 +3991,7 @@ u8 func1021_c6c4[] = {
 	set_ailist(0x33, AILIST_INIT_MINISKEDAR)
 	set_ailist(0x34, AILIST_INIT_MINISKEDAR)
 	set_ailist(0x35, AILIST_INIT_MINISKEDAR)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4062,7 +4061,7 @@ u8 func1022_control_room[] = {
 	label(0x2e)
 	remove_chr(CHR_BLONDE1)
 	remove_chr(CHR_BLONDE2)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// SA and PA
 	beginloop(0x04)
@@ -4081,7 +4080,7 @@ u8 func1022_control_room[] = {
 	label(0x2e)
 	show_hudmsg(CHR_P1P2, L_PAM_021) // "Control Room has been secured."
 	set_stage_flag(STAGEFLAG_BLONDES_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4116,7 +4115,7 @@ u8 func1023_check_drcaroll_restored[] = {
 	label(0x08)
 	set_ailist(CHR_SELF, AILIST_MIDCUTSCENE)
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4145,7 +4144,7 @@ u8 unregistered_function1[] = {
 	label(0x06)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4154,7 +4153,7 @@ u8 func1026_setup_autoguns[] = {
 	set_autogun_target_team(0xa8, TEAM_ENEMY | TEAM_ALLY)
 	set_autogun_target_team(0xa9, TEAM_ENEMY | TEAM_ALLY)
 	set_autogun_target_team(0xaa, TEAM_ENEMY | TEAM_ALLY)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4168,7 +4167,7 @@ u8 func042e_elvis_run_to_exit[] = {
 
 	// Dying
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x06)
@@ -4259,7 +4258,7 @@ u8 func1027_powernode_illumination[] = {
 		label(0x06)
 	endloop(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4287,7 +4286,7 @@ u8 func1028_enable_last_3_guards[] = {
 	set_ailist(0x3c, AILIST_RUN_TO_EXIT)
 	set_ailist(0x3d, AILIST_RUN_TO_EXIT)
 	set_ailist(0x3e, AILIST_RUN_TO_EXIT)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4309,7 +4308,7 @@ u8 func1429_start_lift[] = {
 	if_coop_mode(/*goto*/ 0x45)
 	activate_lift(1, 0x07)
 	label(0x45)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4322,7 +4321,7 @@ u8 func102a_kill_pelagic_guard[] = {
 	damage_chr(0x3f, WEAPON_SUPERDRAGON)
 	yield
 	damage_chr(0x3f, WEAPON_SUPERDRAGON)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4337,7 +4336,7 @@ u8 func102b_proxymines[] = {
 	set_object_flag2(OBJ_PROXYMINES, OBJFLAG2_INVISIBLE)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4354,7 +4353,7 @@ u8 func102c_lock_doors[] = {
 
 	// A and SA
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4391,24 +4390,13 @@ u8 func0432_dead_skedar[] = {
 	yield
 	chr_do_animation(ANIM_SKEDAR_COLLAPSE, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x21, 2)
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	endlist
-};
-
-u8 unregistered_function2[] = {
-	set_lights_state(0x0009, LIGHTOP_4, 0x00, 0xff, 0xfa)
-
-	beginloop(0x08)
-	endloop(0x08)
-
-	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func102e_open_powernode_doors_on_agent[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Agent
 	label(0x08)
@@ -4419,7 +4407,7 @@ u8 func102e_open_powernode_doors_on_agent[] = {
 	open_door(0x05)
 	set_object_flag(0x05, OBJFLAG_DOOR_KEEPOPEN)
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4434,7 +4422,7 @@ u8 func042c_elvis_stop[] = {
 	// his function will be reassigned if he takes damage between here and the
 	// teleport. This causes him to not teleport.
 	label(0x2e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4451,7 +4439,7 @@ u8 func102f_unlock_drcaroll_door[] = {
 	unlock_door(0x76, 0x02)
 	unset_object_flag2(0x75, OBJFLAG2_AICANNOTUSE)
 	unset_object_flag2(0x76, OBJFLAG2_AICANNOTUSE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4464,7 +4452,7 @@ u8 func1030_unlock_agent_teleport_door[] = {
 	label(0x2e)
 	unlock_door(0xb7, 0x02)
 	unlock_door(0xb8, 0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4488,7 +4476,7 @@ u8 func1031_unset_trigger_buddy_warp[] = {
 		unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	endloop(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4518,14 +4506,14 @@ u8 unregistered_function3[] = {
 	set_stage_flag(STAGEFLAG_SA_EXIT_TELEPORT_DISABLED)
 	goto_first(0x1f)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func1032_setup_rtracker[] = {
 	yield
 	set_object_flag3(OBJ_PROXYMINES, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4625,7 +4613,7 @@ u8 func1433_setup_environment[] = {
 	configure_environment(0x006b, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x006c, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 #endif
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4646,7 +4634,7 @@ u8 func1034_enable_blondes[] = {
 	set_ailist(CHR_BLONDE1, AILIST_BLONDE)
 	set_ailist(CHR_BLONDE2, AILIST_BLONDE)
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4675,9 +4663,9 @@ u8 func102d_check_farsight_ammo_wasted[] = {
 	label(0x2e)
 	show_hudmsg(CHR_BOND, L_PAM_044) // "Ammo wasted - unable to disable megaweapon."
 	set_stage_flag(STAGEFLAG_FARSIGHT_AMMO_WASTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4685,7 +4673,7 @@ u8 unregistered_function4[] = {
 	mp_init_simulants
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

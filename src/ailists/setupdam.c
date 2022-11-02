@@ -831,7 +831,7 @@ u8 func1002_intro[] = {
 	label(0x04)
 	stop_cutscene_track
 	stop_ambient_track
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1009,14 +1009,14 @@ u8 func0c01_outro[] = {
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	chr_do_animation(ANIM_CUT_DAM_INTRO_ELVIS, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 2)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 unregistered_function1[] = {
 	label(0x00)
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1029,7 +1029,7 @@ u8 func1004_msg_controlledfrom[] = {
 
 	label(0x07)
 	speak(CHR_P1P2, L_DAM_011, MP3_03D1, CHANNEL_6, COLOR_09_BLUE) // "This must be where the sub's controlled from."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1041,7 +1041,7 @@ u8 func1005_msg_withoutautopilot[] = {
 
 	label(0x07)
 	speak(CHR_P1P2, L_DAM_012, MP3_03D2, CHANNEL_6, COLOR_09_BLUE) // "Without the autopilot and the GPS, the ship will w..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1053,7 +1053,7 @@ u8 func1006_msg_conductoperations[] = {
 
 	label(0x07)
 	speak(CHR_P1P2, L_DAM_013, MP3_03D3, CHANNEL_6, COLOR_09_BLUE) // "They'll be unable to conduct any operations withou..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1073,7 +1073,7 @@ u8 unregistered_function2[] = {
 	label(0x04)
 	show_hudmsg(CHR_BOND, L_DAM_016) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_00000400)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1101,7 +1101,7 @@ u8 func1009_open_reactor_hatch[] = {
 	set_object_flag2(OBJ_REACTOR_HATCH, OBJFLAG2_INVISIBLE)
 	show_hudmsg(CHR_P1P2, L_DAM_017) // "Reactor shutdown control hatch opened."
 	set_stage_flag(STAGEFLAG_REACTOR_HATCH_OPEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1111,7 +1111,7 @@ u8 func100a_reactor_switch[] = {
 		if_object_in_good_condition(OBJ_REACTOR_SWITCH, /*goto*/ 0x07)
 		show_hudmsg(CHR_BOND, L_DAM_036) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_REACTOR_SWITCH_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x07)
 		if_chr_activated_object(CHR_P1P2, OBJ_REACTOR_SWITCH, /*goto*/ 0x07)
@@ -1132,7 +1132,7 @@ u8 func100a_reactor_switch[] = {
 	set_object_image(OBJ_REACTOR_SWITCH, 2, TVCMDLIST_12)
 	show_hudmsg(CHR_P1P2, L_DAM_018) // "Reactor has been shut down."
 	set_stage_flag(STAGEFLAG_REACTOR_SHUT_DOWN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1154,7 +1154,7 @@ u8 func100b_check_diving_area_located[] = {
 	label(0x07)
 	show_hudmsg(CHR_P1P2, L_DAM_019) // "Diving control center has been located."
 	set_stage_flag(STAGEFLAG_LOCATED_DIVING_AREA)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1233,7 +1233,7 @@ u8 func100c_check_end_level[] = {
 	// Both players dead
 	label(0x07)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Mission complete
 	label(0x04)
@@ -1242,7 +1242,7 @@ u8 func100c_check_end_level[] = {
 
 	// Elvis dead
 	label(0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1262,7 +1262,7 @@ u8 func100e_check_labtech_dead[] = {
 	show_hudmsg(CHR_BOND, L_DAM_020) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_LABTECH_DEAD)
 	label(0x0b)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1285,7 +1285,7 @@ u8 func100f_check_researchdata_collected[] = {
 	label(0x07)
 	show_hudmsg(CHR_BOND, L_DAM_021) // "Research data has been secured."
 	set_stage_flag(STAGEFLAG_COLLECTED_RESEARCH_DATA)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1343,7 +1343,7 @@ u8 func040b_labtech1[] = {
 	// Dying
 	label(0x07)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x04)
@@ -1416,7 +1416,7 @@ u8 func040c_labtech2[] = {
 	// Dying
 	label(0x07)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x04)
@@ -1493,7 +1493,7 @@ u8 func040d_labtech3[] = {
 	// Dying
 	label(0x07)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x04)
@@ -1641,14 +1641,14 @@ u8 func0411_labtech_alerted[] = {
 	label(0x07)
 	goto_first(0x13)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0412_hide[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1843,7 +1843,7 @@ u8 func1010_alarm_responders[] = {
 	unset_chr_chrflag(0x1e, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x20, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x22, CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1856,7 +1856,7 @@ u8 func0402_init_pilot[] = {
 u8 func0401_pilot_dying[] = {
 	unset_stage_flag(STAGEFLAG_SAID_PULLTHEPLUG)
 	unset_stage_flag(STAGEFLAG_SAID_SWITCHTHINGOFF)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2011,7 +2011,7 @@ u8 func0401_pilot[] = {
 	surrender
 	goto_first(0x0b)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2036,12 +2036,12 @@ u8 func1011_check_pilots_dead[] = {
 	label(0x08)
 	if_stage_flag_eq(STAGEFLAG_AUTOPILOT_DISABLED, FALSE, /*goto*/ 0x07)
 	if_stage_flag_eq(STAGEFLAG_GPS_DISABLED, FALSE, /*goto*/ 0x07)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x07)
 	show_hudmsg(CHR_BOND, L_DAM_027) // "Critical mission personnel have been killed."
 	set_stage_flag(STAGEFLAG_PILOT_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2070,19 +2070,19 @@ u8 func1012_choose_angry_pilot[] = {
 		if_chr_deadish(CHR_PILOT1, /*goto*/ 0x3b)
 		if_chr_has_flag_bankx(CHR_PILOT1, CHRFLAG0_COVER_TYPE2, BANK_0, /*goto*/ 0x3b)
 		set_ailist(CHR_PILOT1, AILIST_ANGRY_PILOT)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x3b)
 		if_chr_deadish(CHR_PILOT2, /*goto*/ 0x3c)
 		if_chr_has_flag_bankx(CHR_PILOT2, CHRFLAG0_COVER_TYPE2, BANK_0, /*goto*/ 0x3c)
 		set_ailist(CHR_PILOT2, AILIST_ANGRY_PILOT)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x3c)
 		if_chr_deadish(CHR_PILOT3, /*goto*/ 0x04)
 		if_chr_has_flag_bankx(CHR_PILOT3, CHRFLAG0_COVER_TYPE2, BANK_0, /*goto*/ 0x04)
 		set_ailist(CHR_PILOT3, AILIST_ANGRY_PILOT)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x04)
 	endloop(0x03)
@@ -2091,7 +2091,7 @@ u8 func1012_choose_angry_pilot[] = {
 	label(0x08)
 	show_hudmsg(CHR_BOND, L_DAM_035) // "Civilians have been killed."
 	set_stage_flag(STAGEFLAG_JO_KILLED_A_PILOT)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2111,7 +2111,7 @@ u8 func0404_angry_pilot[] = {
 	// Dying
 	label(0x07)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x04)
@@ -2209,7 +2209,7 @@ u8 func1013_lift_switch[] = {
 	open_door(0x18)
 	open_door(0x19)
 	set_stage_flag(STAGEFLAG_LIFT_UNLOCKED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2222,7 +2222,7 @@ u8 func1014_moonpool_switch[] = {
 		set_stage_flag(STAGEFLAG_MOONPOOL_SWITCH_DESTROYED)
 
 		label(0x10)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x08)
 		if_chr_activated_object(CHR_P1P2, OBJ_MOONPOOL_SWITCH, /*goto*/ 0x07)
@@ -2232,7 +2232,7 @@ u8 func1014_moonpool_switch[] = {
 	label(0x07)
 	show_hudmsg(CHR_P1P2, L_DAM_029) // "Lift has been activated."
 	set_stage_flag(STAGEFLAG_MOONPOOL_ACTIVATED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2270,7 +2270,7 @@ u8 func1015_shuffle_hatchswitches[] = {
 	yield
 	set_object_image(OBJ_HATCHSWITCH4, 0, TVCMDLIST_13)
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2402,7 +2402,7 @@ u8 func101b_reactor_hum[] = {
 	yield
 	assign_sound(SFX_8146, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, OBJ_REACTOR_SWITCH, 1, 2000, 3000)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2416,7 +2416,7 @@ u8 func0415_elvis_at_start[] = {
 	if_sound_finished(CHANNEL_6, /*goto*/ 0x08)
 	mute_channel(CHANNEL_6)
 	label(0x08)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x04)
@@ -2541,7 +2541,7 @@ u8 func0415_elvis_at_start[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE)
 	add_health_or_armor(2000)
 	set_chr_maxdamage(CHR_SELF, 1)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2557,7 +2557,7 @@ u8 func0416_elvis_leading[] = {
 	// Dying
 	label(0x07)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Alive
 	label(0x04)
@@ -2630,7 +2630,7 @@ u8 func101c_check_elvis_dead[] = {
 	label(0x07)
 	show_hudmsg(CHR_BOND, L_DAM_033) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2843,7 +2843,7 @@ u8 func101f_unlock_doors[] = {
 
 	// A + SA + PA
 	label(0x0b)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2851,7 +2851,7 @@ u8 func1020_setup_rtracker[] = {
 	yield
 	set_object_flag3(0x27, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(0x28, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2887,7 +2887,7 @@ u8 func1421_setup_environment[] = {
 	configure_environment(0x0072, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x0073, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0077, AIENVCMD_ROOM_SETAMBIENT, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

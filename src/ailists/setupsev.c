@@ -1148,7 +1148,7 @@ u8 func100d_start_lifts[] = {
 	activate_lift(1, 0x35)
 	activate_lift(4, 0x38)
 	activate_lift(5, 0x39)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1157,7 +1157,7 @@ u8 func1003_check_experiment_destroyed[] = {
 		if_object_in_good_condition(OBJ_EXPERIMENT, /*goto*/ 0x2c)
 		show_hudmsg(CHR_BOND, L_SEV_007) // "Medical experiment has been sabotaged."
 		set_stage_flag(STAGEFLAG_EXPERIMENT_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 	endloop(0x04)
 
@@ -1169,7 +1169,7 @@ u8 func1004_check_saucer_destroyed[] = {
 		if_object_in_good_condition(0x3e, /*goto*/ 0x2c)
 		show_hudmsg(CHR_BOND, L_SEV_008) // "Captured Maian saucer has been destroyed."
 		set_stage_flag(STAGEFLAG_SAUCER_DESTROYED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 	endloop(0x04)
 
@@ -1180,7 +1180,7 @@ u8 func1005_check_experiment_destroyed_pointless[] = {
 	// This is a pointless function
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_EXPERIMENT, /*goto*/ 0x2c)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 	endloop(0x04)
 
@@ -1198,7 +1198,7 @@ u8 func1006_activate_alarm[] = {
 	label(0x2c)
 	activate_alarm
 	set_stage_flag(STAGEFLAG_ALARM_SOUNDED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1326,7 +1326,7 @@ u8 func1007_disable_pods[] = {
 	set_object_flag(0x1f, OBJFLAG_DEACTIVATED)
 	set_object_flag(0x20, OBJFLAG_DEACTIVATED)
 	set_object_flag(0x21, OBJFLAG_DEACTIVATED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1353,13 +1353,13 @@ u8 func1008_check_console[] = {
 	play_sound_from_object(CHANNEL_0, OBJ_CONSOLE, 1, 300, 400)
 	show_hudmsg(CHR_BOND, L_SEV_009) // "Distress signal has been sent."
 	set_stage_flag(STAGEFLAG_CONSOLE_ACTIVATED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Console destroyed
 	label(0x08)
 	show_hudmsg(CHR_BOND, L_SEV_010) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_CONSOLE_DESTROYED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1390,13 +1390,13 @@ u8 func1009_check_for_exit[] = {
 	// Both players dead
 	label(0x2c)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// At least one player survived
 	label(0x06)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1509,7 +1509,7 @@ u8 func100b_check_medlab_escapable[] = {
 		// Glass broken
 		label(0x0d)
 		unset_stage_flag(STAGEFLAG_TRAPPED_AT_START)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		beginloop(0x0e)
 			if_chr_in_room(CHR_BOND, 0x00, 0x0095, /*goto*/ 0x2c)
@@ -1585,7 +1585,7 @@ u8 func1002_intro[] = {
 	stop_cutscene_track
 	stop_ambient_track
 	enter_firstperson
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1640,14 +1640,14 @@ u8 func041b_outro[] = {
 	label(0x87)
 	label(0x06)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
 u8 func0419_init_outro_guard[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1655,7 +1655,7 @@ u8 func100c_unset_trolley_flag_when_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_TROLLEY, /*goto*/ 0x2c)
 		unset_object_flag3(OBJ_TROLLEY, OBJFLAG3_PUSHABLE)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x2c)
 	endloop(0x04)
 
@@ -1842,7 +1842,7 @@ u8 func100f_init_lighting[] = {
 	configure_environment(0x0088, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0089, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x008a, AIENVCMD_ROOM_SETAMBIENT, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1888,7 +1888,7 @@ u8 func1010_unload_part1_chrs[] = {
 	set_ailist(0x1f, AILIST_UNLOAD)
 	set_ailist(0x20, AILIST_UNLOAD)
 	set_ailist(0x21, AILIST_UNLOAD)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1909,7 +1909,7 @@ u8 func0414_unload[] = {
 	chr_drop_weapon(CHR_SELF)
 	remove_chr(CHR_SELF)
 	label(0x2c)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist

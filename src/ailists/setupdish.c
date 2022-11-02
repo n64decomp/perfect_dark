@@ -824,7 +824,7 @@ u8 func0428_colleague10[] = {
 u8 func1001_set_jo_team[] = {
 	yield
 	set_chr_team(CHR_BOND, TEAM_32)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -929,7 +929,7 @@ u8 func1002_devicetraining_camspy[] = {
 	disable_object(OBJ_CAMSPY)
 	goto_first(0x0f)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1072,7 +1072,7 @@ u8 func1003_devicetraining_nightvision[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1237,7 +1237,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	disable_object(0x28)
 	goto_first(0x0f)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1445,7 +1445,7 @@ u8 func1005_devicetraining_xray[] = {
 	disable_object(0x29)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1588,7 +1588,7 @@ u8 func1006_devicetraining_disguise[] = {
 	set_ailist(0x03, AILIST_INIT_COLLEAGUE_WHEN_SIGHTED)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1727,7 +1727,7 @@ u8 func1007_devicetrainign_ir[] = {
 	disable_object(0x2b)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1852,7 +1852,7 @@ u8 func1008_devicetraining_rtracker[] = {
 	disable_object(0x36)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2006,7 +2006,7 @@ u8 func1009_devicetraining_cloak[] = {
 	set_ailist(CHR_CARRINGTON, AILIST_INIT_COLLEAGUE_WHEN_SIGHTED)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2150,7 +2150,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 	disable_object(0x2e)
 	goto_first(0x0f)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2360,7 +2360,7 @@ u8 func100b_devicetraining_uplink[] = {
 	disable_object(0x2f)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2450,7 +2450,7 @@ u8 func0401_move_to_deviceroom[] = {
 	label(0x06)
 	stop_chr
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2459,7 +2459,7 @@ u8 func0402_move_to_holoroom[] = {
 	label(0x06)
 	stop_chr
 	yield
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2560,7 +2560,7 @@ u8 func0429_grimshaw_disguise[] = {
 	give_object_to_chr(0x3c, CHR_BOND)
 	set_stage_flag(STAGEFLAG_DISGUISE_COMPLETE)
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2716,7 +2716,7 @@ u8 func042a_carrington_cloak[] = {
 	label(0x06)
 	stop_chr
 	set_stage_flag(STAGEFLAG_CLOAK_COMPLETE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2779,7 +2779,7 @@ u8 func100e_training_unlockables[] = {
 	label(0x2f)
 	disable_object(0x3a)
 	disable_object(0x3b)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2912,11 +2912,11 @@ u8 func1019_setup_carrington[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2f)
 	set_ailist(CHR_CARRINGTON, AILIST_INIT_CARRINGTON)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3203,7 +3203,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x06)
 	set_ailist(CHR_SELF, 0x041e)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3251,7 +3251,7 @@ u8 func1013_msg_hovercrate[] = {
 	endloop(0x04)
 #else
 	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x04)
 		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -3260,7 +3260,7 @@ u8 func1013_msg_hovercrate[] = {
 #endif
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2f)
 #if VERSION >= VERSION_PAL_BETA
@@ -3277,7 +3277,7 @@ u8 func1013_msg_hovercrate[] = {
 	label(0x06)
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_074) // "Press B Button when crate grabbed to release it."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3293,7 +3293,7 @@ u8 func1014_msg_hoverbike[] = {
 	endloop(0x04)
 #else
 	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x04)
 		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -3302,7 +3302,7 @@ u8 func1014_msg_hoverbike[] = {
 #endif
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2f)
 #if VERSION >= VERSION_PAL_BETA
@@ -3319,7 +3319,7 @@ u8 func1014_msg_hoverbike[] = {
 	label(0x06)
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_076) // "Double tap B Button when on Hovbike to dismount."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3334,7 +3334,7 @@ u8 func1015_msg_doors[] = {
 	endloop(0x04)
 #else
 	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x04)
 		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -3342,7 +3342,7 @@ u8 func1015_msg_doors[] = {
 #endif
 
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x2f)
 #if VERSION >= VERSION_PAL_BETA
@@ -3359,7 +3359,7 @@ u8 func1015_msg_doors[] = {
 	label(0x06)
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_078) // "B Button will also activate any object nearby."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3376,7 +3376,7 @@ u8 func1016_msg_elevators[] = {
 	endloop(0x04)
 #else
 	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x04)
 		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -3392,7 +3392,7 @@ u8 func1016_msg_elevators[] = {
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_079) // "ELEVATORS Press B Button next to door to call elevator."
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3414,7 +3414,7 @@ u8 func1017_msg_terminals[] = {
 	endloop(0x04)
 #else
 	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x04)
 		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -3435,7 +3435,7 @@ u8 func1017_msg_terminals[] = {
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_114) // "TERMINALS - Press B Button next to terminal to use it."
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3450,7 +3450,7 @@ u8 func1018_lightswitch[] = {
 		unset_object_flag2(OBJ_LIGHTSWITCH, OBJFLAG2_INVISIBLE)
 	endloop(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3584,7 +3584,7 @@ u8 func101c_holo1_main[] = {
 	remove_hudmsgs
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3812,7 +3812,7 @@ u8 func0430_holo1_check_done[] = {
 	label(0x2f)
 	return
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3920,7 +3920,7 @@ u8 func1022_holo2_main[] = {
 	remove_hudmsgs
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4025,7 +4025,7 @@ u8 func042f_holo2_part2[] = {
 	restart_timer
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_105) // "Training failed - you must face forward."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	set_object_image(0x54, 0, TVCMDLIST_12)
 	set_object_image(0x55, 0, TVCMDLIST_12)
 	set_object_image(0x56, 0, TVCMDLIST_12)
@@ -4249,7 +4249,7 @@ u8 func1027_holo3_main[] = {
 	remove_hudmsgs
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4275,7 +4275,7 @@ u8 func102a_holo3_part1[] = {
 	label(0x06)
 	goto_first(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4301,7 +4301,7 @@ u8 func102b_holo3_part2[] = {
 	label(0x06)
 	goto_first(0x04)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4360,7 +4360,7 @@ u8 func041c_holo3_check_done[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	label(0x06)
 	return
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4460,7 +4460,7 @@ u8 func1028_holo4_main[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4479,7 +4479,7 @@ u8 func0403_holo4_guard1[] = {
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_108) // "Now try against a moving target..."
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4498,7 +4498,7 @@ u8 func0404_holo4_guard2[] = {
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_109) // "And finally against a target that fights back."
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	label(0x06)
 	if_distance_to_target_lt(500, /*goto*/ 0x2f)
 	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x08)
@@ -4589,7 +4589,7 @@ u8 func1033_holo4_part1[] = {
 	label(0x2f)
 	goto_first(0x8f)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4736,7 +4736,7 @@ u8 func0407_holo5_guard1[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x0a)
 	set_self_chrflag(CHRCFLAG_00000040)
@@ -4755,8 +4755,7 @@ u8 func0407_holo5_guard1[] = {
 	label(0x2f)
 	set_shotlist(GAILIST_IDLE)
 
-	beginloop(0x0b)
-	endloop(0x0b)
+	terminate
 
 	label(0x06)
 	if_distance_to_target_lt(300, /*goto*/ 0x2f)
@@ -4830,7 +4829,7 @@ u8 func0409_holo5_guard2[] = {
 
 	label(0x06)
 	set_shotlist(GAILIST_IDLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4872,7 +4871,7 @@ u8 func040b_holo5_guard3[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -4935,7 +4934,7 @@ u8 func1034_holo5_part1[] = {
 	label(0x2f)
 	goto_first(0x8f)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5040,7 +5039,7 @@ u8 func102e_holo6_main[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5129,7 +5128,7 @@ u8 func0416_holo_guard_unarmed_alert[] = {
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_111) // "Training failed - you have been hit."
 	restart_timer
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x5e)
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x2f)
@@ -5139,7 +5138,7 @@ u8 func0416_holo_guard_unarmed_alert[] = {
 	label(0x2f)
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	label(0x0a)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5224,7 +5223,7 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_111) // "Training failed - you have been hit."
 	restart_timer
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x5e)
 		if_timer_gt(180, /*goto*/ 0x2f)
@@ -5233,7 +5232,7 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	label(0x2f)
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	label(0x0f)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x06)
 	label(0x57)
@@ -5329,7 +5328,7 @@ u8 func102f_holo1_part1[] = {
 	label(0x2f)
 	goto_first(0x8f)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5439,7 +5438,7 @@ u8 func1030_holo7_main[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5547,7 +5546,7 @@ u8 func0419_holo_guard_armed_alert[] = {
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_111) // "Training failed - you have been hit."
 	restart_timer
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	beginloop(0x5e)
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x2f)
@@ -5557,7 +5556,7 @@ u8 func0419_holo_guard_armed_alert[] = {
 	label(0x2f)
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	label(0x0d)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5641,7 +5640,7 @@ u8 func1031_holo7_part1[] = {
 	label(0x2f)
 	goto_first(0x8f)
 
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5720,7 +5719,7 @@ u8 func1000_jo_typing[] = {
 	yield
 	stop_cutscene_track
 	stop_ambient_track
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5787,7 +5786,7 @@ u8 func1032_setup_lifts[] = {
 	set_lights_state(0x0008, LIGHTOP_1, 0x32, 0x00, 0x00)
 	set_lights_state(0x0009, LIGHTOP_1, 0x32, 0x00, 0x00)
 	set_lights_state(0x000a, LIGHTOP_1, 0x19, 0x00, 0x00)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -5892,7 +5891,7 @@ u8 func1041_setup_environment[] = {
 	configure_environment(0x0048, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x0055, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	configure_environment(0x0056, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 

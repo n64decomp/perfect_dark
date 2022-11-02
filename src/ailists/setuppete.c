@@ -642,7 +642,7 @@ u8 func0405_3d50[] = {
 	stop_ambient_track
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
 	enter_firstperson
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -777,14 +777,14 @@ u8 func100f_check_mine[] = {
 	label(0x04)
 	set_stage_flag(STAGEFLAG_MINE_WASTED)
 	show_hudmsg(CHR_P1P2, L_PETE_072) // "Remote Mine has been wasted."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x07)
 	set_stage_flag(STAGEFLAG_MINE_WASTED)
 	show_hudmsg(CHR_P1P2, L_PETE_016) // "Mine placed incorrectly."
 
 	label(0x0a)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -825,7 +825,7 @@ u8 func1026_uplink[] = {
 		control_sound_from_object(CHANNEL_7, OBJ_TAXI, TRUE)
 		yield
 		set_stage_flag(STAGEFLAG_TAXI_REPROGRAMMED)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Moved away while uplinking
 		label(0x06)
@@ -868,7 +868,7 @@ u8 func040d_limo[] = {
 	// Wait for flag set, provided limo not destroyed
 	beginloop(0x05)
 		if_object_in_good_condition(OBJ_LIMO, /*goto*/ 0x03)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		label(0x03)
 		if_stage_flag_eq(STAGEFLAG_LIMO_READY_TO_LEAVE, TRUE, /*goto*/ 0x04)
@@ -898,7 +898,7 @@ u8 func040d_limo[] = {
 	set_stage_flag(STAGEFLAG_LIMO_ESCAPED)
 	show_hudmsg(CHR_BOND, L_PETE_028) // "DataDyne limo has escaped."
 	label(0x03)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -926,7 +926,7 @@ u8 func040c_taxi[] = {
 	// Check taxi healthy
 	label(0x04)
 	if_object_in_good_condition(OBJ_TAXI, /*goto*/ 0x03)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Take off
 	label(0x03)
@@ -943,7 +943,7 @@ u8 func040c_taxi[] = {
 	// Check taxi healthy
 	label(0x04)
 	if_object_in_good_condition(OBJ_TAXI, /*goto*/ 0x03)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x03)
 	set_stage_flag(STAGEFLAG_TAXI_READY_TO_CRASH)
@@ -960,7 +960,7 @@ u8 func040c_taxi[] = {
 	mute_channel(CHANNEL_0)
 	object_do_animation(ANIM_0169, OBJ_TAXI, 0x04, 0xffff)
 	label(0x0a)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -971,7 +971,7 @@ u8 func040c_taxi[] = {
  \
 	/* A or SA */ \
 	label(0x54) \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	/* PA */ \
 	label(0x04) \
@@ -1008,7 +1008,7 @@ u8 func040c_taxi[] = {
 	/* Check limo healthy */ \
 	label(0x04) \
 	if_object_in_good_condition(OBJ_LIMO, /*goto*/ 0x04) \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	label(0x04) \
 	restart_timer \
@@ -1030,18 +1030,18 @@ u8 func040c_taxi[] = {
  \
 	label(0x04) \
 	set_stage_flag(STAGEFLAG_TRACERBUG_SAFE) \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	/* Bug wasted */ \
 	label(0x07) \
 	if_stage_flag_eq(STAGEFLAG_ONE_BUG_REMAINING, TRUE, /*goto*/ 0x03) \
 	set_stage_flag(STAGEFLAG_ONE_BUG_REMAINING) \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	label(0x03) \
 	set_stage_flag(STAGEFLAG_TRACERBUG_WASTED) \
 	show_hudmsg(chr, 0x3218) /* "Tracer Bug placed incorrectly." */ \
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 u8 func1004_tracerbug_bond[] = {
 	tracerbug_logic(CHR_BOND, CHR_BOND)
@@ -1055,7 +1055,7 @@ u8 func1011_trackerbug_coop[] = {
 
 	label(0x03)
 	set_stage_flag(STAGEFLAG_ONE_BUG_REMAINING)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x04)
 	tracerbug_logic(CHR_COOP, CHR_PRESET)
@@ -1152,7 +1152,7 @@ u8 func1006_check_for_end[] = {
 
 	label(0x12)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	// Objectives complete
 	label(0x05)
@@ -1165,11 +1165,11 @@ u8 func1006_check_for_end[] = {
 
 	label(0x03)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x04)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1216,7 +1216,7 @@ u8 func040d_limo_timing[] = {
 
 	label(0x04)
 	set_stage_flag(STAGEFLAG_LIMO_READY_15SEC_AGO)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1250,7 +1250,7 @@ u8 func040c_taxi_timing[] = {
 	label(0x04)
 	set_stage_flag(STAGEFLAG_TAXI_ALMOST_READY_TO_CRASH)
 	unset_object_flag2(OBJ_TAXI, OBJFLAG2_04000000)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1261,7 +1261,7 @@ u8 func0412_cia[] = {
 	goto_next(0x03)
 
 	label(0x04)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x03)
 	if_chr_idle(/*goto*/ 0x43)
@@ -1526,7 +1526,7 @@ u8 func0413_bugspotter[] = {
 	goto_next(0x03)
 
 	label(0x04)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x03)
 
@@ -1673,7 +1673,7 @@ u8 func0413_bugspotter[] = {
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	yield
 	drop_gun_and_fade_out
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(LABEL_RUN_AWAY)
 	jog_to_pad(PAD_PETE_004F)
@@ -1684,7 +1684,7 @@ u8 func0413_bugspotter[] = {
 
 	label(0x04)
 	stop_chr
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -1700,8 +1700,7 @@ u8 func0413_bugspotter[] = {
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED) \
  \
-	beginloop(0x04) \
-	endloop(0x04)
+	terminate
 
 u8 func0414_start_path07[] = {
 	init_patroller(0x07)
@@ -1743,9 +1742,6 @@ u8 func0419_init_cia1[] = {
 	start_patrol
 	set_ailist(CHR_SELF, AILIST_CIA)
 
-	beginloop(0x04)
-	endloop(0x04)
-
 	endlist
 };
 
@@ -1755,7 +1751,7 @@ u8 func041d_fbi[] = {
 	goto_next(0x03)
 
 	label(0x04)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x03)
 	if_num_times_shot_lt(1, /*goto*/ 0x19)
@@ -1858,12 +1854,12 @@ u8 func041d_fbi[] = {
  \
 	/* Unreachable */ \
 	label(0x03) \
-	set_ailist(CHR_SELF, GAILIST_IDLE) \
+	terminate \
  \
 	label(0x05) \
 	set_stage_flag(STAGEFLAG_CIVILIAN_DEAD) \
 	show_hudmsg(CHR_BOND, 0x321d) /* "Mission failed - unacceptable civilian casualties." */ \
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 u8 func1009_check_cia1_dead[] = {
 	check_cia_dead(CHR_CIA1)
@@ -1881,12 +1877,12 @@ u8 func100a_check_cia2_dead[] = {
 
 	// Stop checking this chr
 	label(0x03)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x05)
 	set_stage_flag(STAGEFLAG_CIVILIAN_DEAD)
 	show_hudmsg(CHR_BOND, L_PETE_029) // "Mission failed - unacceptable civilian casualties."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2010,7 +2006,7 @@ u8 func041a_robot[] = {
 	label(0x0c)
 	assign_sound(MP3_ROBOT_ALERT_UNDER_ATTACK, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 
 	label(0x01)
 	label(0x04)
@@ -2031,7 +2027,7 @@ u8 func041a_robot[] = {
 	goto_first(0x2d)
 
 	label(0x04)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2287,7 +2283,7 @@ u8 func100d_spawn_alarm_responders[] = {
 		goto_next(0x03)
 
 		label(0x04)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 
 		// Wait 15 seconds
 		label(0x03)
@@ -2349,7 +2345,7 @@ u8 func0420_jog_to_accident[] = {
 
 u8 func040a_intro_from_gameplay[] = {
 	set_ailist(CHR_SELF, 0x040a)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2360,7 +2356,7 @@ u8 func101f_setup_robot_noise[] = {
 	play_sound(SFX_80B9, CHANNEL_2)
 	play_sound_from_object(CHANNEL_2, CHR_ROBOT, 0, 900, 1500)
 #endif
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2476,7 +2472,7 @@ u8 func1014_crash[] = {
 	move_object_to_pad(OBJ_MINE2, PAD_PETE_001C)
 	destroy_object(OBJ_MINE2)
 	set_stage_flag(STAGEFLAG_CRASH_FINISHED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2716,7 +2712,7 @@ u8 func040b_outro[] = {
 	mute_channel(CHANNEL_10)
 	label(0x04)
 	end_level
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2795,7 +2791,7 @@ u8 func1416_setup_rain[] = {
 u8 func041c_hiddenguy[] = {
 	set_chr_chrflag(CHR_HIDDENGUY, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_HIDDENGUY, CHRCFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2819,7 +2815,7 @@ u8 func1017_drain_guards[] = {
 	set_chr_hiddenflag(0x12, CHRHFLAG_00400000)
 	set_ailist(0x11, GAILIST_ALERTED)
 	set_ailist(0x12, GAILIST_ALERTED)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2837,7 +2833,7 @@ u8 func1018_keep_door_open[] = {
 
 u8 func1019_setup_topstairs_death_animation[] = {
 	set_chr_special_death_animation(CHR_TOPSTAIRS, SPECIALDIE_OVERRAILING)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2909,7 +2905,7 @@ u8 func101a_msg_onlyplace[] = {
 
 	label(0x03)
 	speak(CHR_P1P2, L_PETE_060, SFX_8179, CHANNEL_6, COLOR_09_BLUE) // "The only place we could secure the equipment was a..."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2930,7 +2926,7 @@ u8 func101b_msg_blockedupdoors[] = {
 	label(0x03)
 	speak(CHR_P1P2, L_PETE_061, MP3_03B1, CHANNEL_6, COLOR_09_BLUE) // "Either of those blocked-up doors will do as an esc..."
 	label(0x0a)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2955,7 +2951,7 @@ u8 func101c_msg_reprogramthattaxi[] = {
 	label(0x03)
 	speak(CHR_P1P2, L_PETE_062, SFX_817A, CHANNEL_6, COLOR_09_BLUE) // "Reprogram that taxi - it's a Mark 2 and should be ..."
 	label(0x0a)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -2967,7 +2963,7 @@ u8 func101d_msg_pointofingress[] = {
 
 	label(0x03)
 	speak(CHR_P1P2, L_PETE_063, SFX_817B, CHANNEL_6, COLOR_09_BLUE) // "That car park lift is your only point of ingress."
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3003,7 +2999,7 @@ u8 func101e_check_sealer_guards_dead[] = {
 	set_stage_flag(STAGEFLAG_DIVERSION_CREATED)
 	label(0x03)
 	label(0x06)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3021,7 +3017,7 @@ u8 func1020_elevator_doors[] = {
 	label(0x03)
 	close_door(0x10)
 	close_door(0x11)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3042,7 +3038,7 @@ u8 func1021_check_topstairs_guy[] = {
 	set_chr_special_death_animation(CHR_TOPSTAIRS, SPECIALDIE_NONE)
 	unset_chr_chrflag(CHR_TOPSTAIRS, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
 	unset_chr_flag_bankx(CHR_TOPSTAIRS, CHRFLAG1_NOHANDCOMBAT, BANK_1)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3068,7 +3064,7 @@ u8 func040d_limo_flags[] = {
 
 	beginloop(0x2d)
 		if_object_in_good_condition(OBJ_LIMO, /*goto*/ 0x03)
-		set_ailist(CHR_SELF, GAILIST_IDLE)
+		terminate
 		label(0x03)
 		if_timer_gt(596, /*goto*/ 0x03)
 	endloop(0x2d)
@@ -3077,7 +3073,7 @@ u8 func040d_limo_flags[] = {
 	disable_object(OBJ_LIMO)
 	set_object_flag(OBJ_LIMO, OBJFLAG_INVINCIBLE)
 	set_object_flag2(OBJ_LIMO, OBJFLAG2_INVISIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3145,7 +3141,7 @@ u8 func1423_setup_environment[] = {
 	configure_environment(0x0066, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0067, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	configure_environment(0x0068, AIENVCMD_ROOM_SETAMBIENT, TRUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3176,7 +3172,7 @@ u8 func0412_cia_invincibility[] = {
 	unset_chr_chrflag(CHR_CIA2, CHRCFLAG_INVINCIBLE)
 	unset_chr_chrflag(CHR_CIA3, CHRCFLAG_INVINCIBLE)
 	unset_chr_chrflag(CHR_CIA4, CHRCFLAG_INVINCIBLE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3187,7 +3183,7 @@ u8 func1025_rtracker[] = {
 	set_object_flag3(0x23, OBJFLAG3_RTRACKED_BLUE)
 	set_object_flag3(0x24, OBJFLAG3_RTRACKED_BLUE)
 #endif
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 
@@ -3203,7 +3199,7 @@ u8 func1027_untrack_dumpster[] = {
 
 	label(0x03)
 	unset_object_flag3(OBJ_DUMPSTER, OBJFLAG3_RTRACKED_BLUE)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
+	terminate
 	endlist
 };
 #endif
