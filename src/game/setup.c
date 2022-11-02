@@ -26,6 +26,7 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/args.h"
+#include "lib/dma.h"
 #include "lib/memp.h"
 #include "lib/model.h"
 #include "lib/path.h"
@@ -1277,6 +1278,27 @@ void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing 
 	}
 }
 
+extern u8 _setupdishasmSegmentStart;
+
+struct ailist *getStageAilists(void)
+{
+	if (g_StageIndex >= 0 && g_StageIndex < ARRAYCOUNT(g_Stages)) {
+		if (g_Stages[g_StageIndex].ailistsromstart) {
+			u8 *dst = &_setupdishasmSegmentStart;
+			u32 len = g_Stages[g_StageIndex].ailistsromend - g_Stages[g_StageIndex].ailistsromstart;
+
+			dmaExec(dst, (u32) g_Stages[g_StageIndex].ailistsromstart, len);
+
+			osInvalICache(0, ICACHE_SIZE);
+			osInvalDCache(0, DCACHE_SIZE);
+
+			return g_Stages[g_StageIndex].ailists;
+		}
+	}
+
+	return NULL;
+}
+
 void setupLoadFiles(s32 stagenum)
 {
 	s32 i;
@@ -1314,7 +1336,7 @@ void setupLoadFiles(s32 stagenum)
 		g_StageSetup.intro = (s32 *)((u32)setup + (u32)setup->intro);
 		g_StageSetup.props = (u32 *)((u32)setup + (u32)setup->props);
 		g_StageSetup.paths = (struct path *)((u32)setup + (u32)setup->paths);
-		g_StageSetup.ailists = (struct ailist *)((u32)setup + (u32)setup->ailists);
+		g_StageSetup.ailists = getStageAilists();
 
 		g_LoadType = LOADTYPE_PADS;
 
@@ -1323,13 +1345,6 @@ void setupLoadFiles(s32 stagenum)
 		g_StageSetup.waypoints = NULL;
 		g_StageSetup.waygroups = NULL;
 		g_StageSetup.cover = NULL;
-
-		// Convert ailist pointers from file-local to proper pointers
-		if (g_StageSetup.ailists) {
-			for (i = 0; g_StageSetup.ailists[i].list != NULL; i++) {
-				g_StageSetup.ailists[i].list = (u8 *)((u32)setup + (u32)g_StageSetup.ailists[i].list);
-			}
-		}
 
 		// Sort the global AI lists by ID asc
 		do {
@@ -1366,8 +1381,6 @@ void setupLoadFiles(s32 stagenum)
 		// Count the AI lists
 		for (g_NumGlobalAilists = 0; g_GlobalAilists[g_NumGlobalAilists].list != NULL; g_NumGlobalAilists++);
 		for (g_NumLvAilists = 0; g_StageSetup.ailists[g_NumLvAilists].list != NULL; g_NumLvAilists++);
-
-		ailistPreprocessFile(g_StageSetup.ailists, MEMPOOL_STAGE);
 
 		// Convert path pad pointers from file-local to proper pointers
 		// and calculate the path lengths

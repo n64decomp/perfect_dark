@@ -16,7 +16,7 @@ struct stagesetup setup = {
 	intro,
 	props,
 	paths,
-	ailists,
+	NULL,
 	NULL,
 };
 
@@ -35,8 +35,3 @@ s32 path00[] = {
 struct path paths[] = {
 	{ NULL, 0, 0 },
 };
-
-struct ailist ailists[] = {
-	{ NULL, 0 },
-};
-

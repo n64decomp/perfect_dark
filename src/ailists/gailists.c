@@ -15,6 +15,8 @@
  * guard combat.
  */
 
+struct ailist *tmp = g_GlobalAilists;
+
 /**
  * @ailist GAILIST_IDLE
  */
@@ -2778,7 +2780,7 @@ u8 func0007_alerted[] = {
 	label(LABEL_TARGETGONE)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00002000)
 	stop_chr
-	if_chr_deadish(CHR_SELF, /*goto*/ 0x16)
+	if_chr_deadish(CHR_SELF, /*goto*/ 0x0a)
 	if_can_see_target(/*goto*/ 0x13)
 	set_alertness(0)
 	set_self_flag_bankx(CHRFLAG1_SEARCHSAMEROOM, BANK_1)
@@ -3021,62 +3023,47 @@ u8 func000d_init_combat[] = {
  * @ailist GAILIST_COMBAT_WITH_TARGET
  */
 u8 func000c_combat_with_target_chr[] = {
+	label(0xbb)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x16)
 
 	label(0x13)
-#endif
 	if_target_is_player(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_WAR, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_DEEPSEA, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_DEFENSE, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_WAR, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_ESCAPE, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_ATTACKSHIP, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_CRASHSITE, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	// Solo mode, or co-op/counter-op on any other stage
@@ -3119,12 +3106,9 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x13)
 	if_num_times_shot_lt(1, /*goto*/ 0xb2)
 	if_just_injured(CHR_SELF, /*goto*/ 0x16)
-#if VERSION >= VERSION_NTSC_1_0
 	if_has_gun(CHR_SELF, /*goto*/ 0xb2)
 	set_self_flag_bankx(CHRFLAG1_HANDCOMBATONLY, BANK_1)
-#endif
 	goto_next(0xb2)
-
 
 	// Injured
 	label(0x16)
@@ -3140,9 +3124,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 		label(0x16)
 		if_chr_stopped(/*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 		if_timer_gt(180, /*goto*/ 0x13)
-#endif
 	endloop(0x1d)
 
 	label(0x13)
@@ -3179,59 +3161,43 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xb3)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 
-#if VERSION >= VERSION_NTSC_1_0
 	label(0x13)
-#endif
 	if_target_is_player(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_WAR, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_DEEPSEA, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_DEFENSE, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_WAR, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_ESCAPE, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_ATTACKSHIP, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_CRASHSITE, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
-#endif
 	goto_next(0x16)
 
 	label(0x13)
@@ -3306,6 +3272,9 @@ u8 func000c_combat_with_target_chr[] = {
 	if_chr_in_view(/*goto*/ 0xbb)
 	goto_first(0xb4)
 
+	label(0xbb)
+	goto_first(0xbb)
+
 	label(0xb5)
 	restart_timer
 	try_run_to_target(/*goto*/ 0xbc)
@@ -3316,14 +3285,10 @@ u8 func000c_combat_with_target_chr[] = {
 		goto_next(0xc0)
 
 		label(0x13)
-#if VERSION >= VERSION_NTSC_1_0
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x13)
-#endif
 		if_can_see_attack_target(/*goto*/ 0xbf)
 
-#if VERSION >= VERSION_NTSC_1_0
 		label(0x13)
-#endif
 		if_timer_gt(120, /*goto*/ 0xc0)
 	endloop(0xbc)
 
@@ -3438,7 +3403,6 @@ u8 func000c_combat_with_target_chr[] = {
 	say_quip(CHR_BOND, QUIP_ATTACK3, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	say_quip(CHR_BOND, QUIP_ATTACK4, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
-#if VERSION >= VERSION_NTSC_1_0
 	beginloop(0xe2)
 		if_chr_deadish(CHR_TARGET, /*goto*/ 0xc1)
 		if_chrpresets_target_is_different(/*goto*/ 0x16)
@@ -3447,15 +3411,6 @@ u8 func000c_combat_with_target_chr[] = {
 		label(0x16)
 		if_chr_stopped(/*goto*/ 0xc1)
 	endloop(0xe2)
-#else
-	if_chr_deadish(CHR_TARGET, /*goto*/ 0xc1)
-	if_chrpresets_target_is_different(/*goto*/ 0xe2)
-	goto_next(0xc1)
-
-	beginloop(0xe2)
-		if_chr_stopped(/*goto*/ 0xc1)
-	endloop(0xe2)
-#endif
 
 	label(0x13)
 	restart_timer
@@ -3538,39 +3493,25 @@ u8 func000c_combat_with_target_chr[] = {
 		goto_next(0xc5)
 
 		label(0x13)
-#if VERSION >= VERSION_NTSC_1_0
 		if_enemy_distance_lt_and_los(400, /*goto*/ 0x15)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x13)
-#else
-		if_enemy_distance_lt_and_los(400, /*goto*/ 0x13)
-#endif
 		if_can_see_attack_target(/*goto*/ 0xca)
 
-#if VERSION >= VERSION_NTSC_1_0
 		label(0x13)
-#endif
 		if_timer_gt(200, /*goto*/ 0x16)
 	endloop(0xc9)
 
 	label(0x16)
-#if VERSION >= VERSION_NTSC_1_0
-#endif
 	goto_first(0xb3)
 
-#if VERSION >= VERSION_NTSC_1_0
 	label(0x15)
-#else
-	label(0x13)
-#endif
 	goto_first(0xb5)
 
 	label(0xa3)
 	goto_first(0xc1)
 
 	label(0xca)
-#if VERSION >= VERSION_NTSC_1_0
 	restart_timer
-#endif
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 	goto_next(0x17)
 
@@ -3579,9 +3520,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x17)
 	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0xcb)
-#if VERSION >= VERSION_NTSC_1_0
 	goto_next(0x16)
-#endif
 
 	label(0xcb)
 	say_quip(CHR_BOND, QUIP_ATTACK3, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
@@ -3617,9 +3556,6 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x13)
-#if VERSION < VERSION_NTSC_1_0
-	set_target_to_enemy_on_same_floor(/*goto*/ 0x16)
-#endif
 
 	label(0x13)
 	goto_next(0xcf)
@@ -3670,12 +3606,10 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0xcf)
 	if_self_flag_bankx_eq(CHRFLAG0_CAMP, FALSE, BANK_0, /*goto*/ 0x13)
-#if VERSION >= VERSION_NTSC_1_0
 	if_target_is_player(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
-#endif
 	return
 
 	label(0x13)
@@ -4720,6 +4654,7 @@ u8 func001d_search_for_player[] = {
  * @ailist GAILIST_RELATED_TO_SPAWNING
  */
 u8 func001f_related_to_spawning[] = {
+	label(0x23)
 	if_chr_deadish(CHR_SELF, /*goto*/ 0x13)
 	goto_next(0x16)
 
@@ -4774,6 +4709,9 @@ u8 func001f_related_to_spawning[] = {
 
 	label(0x16)
 	goto_first(0x1a)
+
+	label(0x23)
+	goto_first(0x23)
 
 	label(0x1e)
 	say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)

@@ -30,6 +30,52 @@ Nintendo's library contains several dozen video mode configurations, but only fo
 
 Camdraw code contains mostly unused code. They are functions for editing Perfect Head photos. Removing them frees up more memory.
 
+## AI bytecode and interpreter replaced with ASM
+
+The retail game implements AI using a bytecode system as described:
+
+* Byte data representing AI commands is included in the stage's setup file (decomp implements this with C macros).
+* The game engine interprets the bytecode at runtime, using bitwise operations to read each command's type and then execute a handler function based on the type.
+* The handler function typically reads its parameters by doing further bitwise operations, before executing its action.
+* Each handler moves a global "aioffset" forward by the size of the command.
+
+PDHP does the following:
+
+* The AI list macros are separated from the setup files.
+* The AI list macros are compiled into the same bytecode as before.
+* A new Python script called ai2asm then reads the compiled bytecode and converts them into assembly statements.
+* The assembly statements are then compiled into machine code.
+* The stage's machine code file is loaded into memory during stage load.
+* When a character's AI is executed, the machine code is executed directly.
+
+Here's an example of original macros:
+
+    u8 ailist_0009[] = {
+        set_action(MA_NORMAL, FALSE)
+        set_returnlist(CHR_SELF, GAILIST_IDLE_0009)
+        stop_chr
+
+        label(0x0c)
+        yield
+        goto_first(0x0c)
+
+        endlist
+    };
+
+And here's the ASM of the same ailist that it now produces during the build process (prior to assembler reordering):
+
+    glabel ailist_0009
+        li        $a0, 0x01
+        li        $a1, 0
+        jal       aiSetAction
+        li        $a0, 0xfd
+        li        $a1, 0x0009
+        jal       aiSetReturnList
+        jal       aiStop
+    .L0009_0c_00:
+        jal       aiYield
+        b         .L0009_0c_00
+
 ## Room preloading
 
 The retail game loads room graphics data on the fly, based on rooms near the player and the direction they're looking. These rooms are then unloaded when not needed. When loading a room, the game uses a blocking DMA call which results in a lag frame (or a few if loading several rooms). There's extra processing associated with this as well, such as unzipping the graphics data and scanning the display lists.
@@ -48,93 +94,7 @@ Some stages have a bytecode script that overrides room visibility based on which
 
 PDHP removes the scripting entirely and implements the custom visibility logic directly in C.
 
-## AI: dprint command removed
-
-All AI commands have a fixed-length, with the exception of the dprint command. The dprint command takes a variable-length string and prints it to the developer's console.
-
-PDHP removes all uses of the command, which allows it to optimise the "how long is this command" function. In fact it's no longer a function at all, but a direct lookup into an array.
-
-## AI: Pointers for AI offsets
-
-Characters keep track of where they are in their AI processing by storing a pointer to their current AI "list", as well as an integer byte offset within that list. These have to be added together to read their current command, and then again for the next commnd and so on.
-
-PDHP changes the aioffset value to be a pointer as well so it can be read directly, thus skipping the addition on each command invocation.
-
-## AI: Preprocessing gotos and labels
-
-In the retail game, AI command lists have a "label" command which is just a marker in the command list. Other commands can conditionally or unconditionally jump to a label. To implement this, the C engine has to iterate through the commands to find the label.
-
-PDHP changes this so the goto statements specify a byte offset instead, and the labels are removed. When taking a branch, the C engine can now jump directly to the offset instead of searching for the label. This is achieved by preprocessing and rewriting each AI list during stage load.
-
-## AI: Excessive reads and writes to g_Vars properties removed
-
-In the retail game, the AI execution engine looks somewhat like this (simplified):
-
-    while (g_Vars.ailist) {
-    	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-    	s32 type = cmd[0] << 8 | cmd[1];
-
-    	yielding = g_CommandHandlers[type]();
-
-		if (yielding) {
-		    break;
-		}
-    }
-
-And a minimal handler looks like this:
-
-    bool aiSomeHandler(void)
-    {
-        u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-
-        // do something with cmd here
-
-        g_Vars.aioffset += 2; // or more if command has parameters
-
-        return false;
-    }
-
-PDHP does a few improvements in this area:
-
-* The handlers now accept an argument which is a pointer to the command being processed.
-* The handlers increment the given command pointer and return it without writing it back to g_Vars.
-    * Unless the handler wants to yield, in which case it returns NULL.
-* The loop code reuses the command pointer from the previous invocation.
-* The loop code removes the unnecessary test on `g_Vars.ailist`.
-
-The new loop runner code looks like this:
-
-    u8 *cmd = g_Vars.aioffset;
-
-    do {
-        s32 type = (cmd[0] << 8) | cmd[1];
-        cmd = g_CommandPointers[type](cmd);
-    } while (cmd);
-
-And a new handler looks like this:
-
-    u8 *aiSomeHandler(u8 *cmd)
-    {
-        // do something with cmd here
-
-        cmd += 2; // or more if command has parameters
-
-        return cmd;
-    }
-
-## AI: Single byte command IDs
-
-The AI loop typically has to load two bytes (two lbu instructions) from the command pointer and bitwise-or them together to get the command type/ID. It can't use a single load-half instruction because the data is not aligned.
-
-PDHP improves this by issuing new IDs to all the commands. All commands have been categorised into into critical and non-critical commands based on the number of usages and whether they occur during main gameplay (as opposed to during cutscenes or level startup). PDHP makes it so critical commands can be identified by the first byte only, while non-critical commands will have 0xff as the first byte and then use the second byte to identify them. What this means is that the vast majority of commands that are run during gameplay are identified and executed using a single lbu instruction, which is almost as good as having single-byte command IDs.
-
-Additionally, commands which are not used or are unreachable have been completely removed.
-
-## AI: Inlined handlers
-
-PDHP moves all AI command handler functions in the same file as the AI loop, adds the `static` keyword on all of the handler functions, and implements them as a switch rather than a lookup array. The compiler (gcc) inlines them into the main AI loop.
-
-## AI: Timer comparisons changed to integers
+## AI Timer comparisons changed to integers
 
 Each character maintains a timer which can be used for AI purposes. The timer is stored as an integer, where each unit is one 60th of a second. When AI scripting wants to set or check the timer, it specifies an integer value in 60ths of a second as well.
 

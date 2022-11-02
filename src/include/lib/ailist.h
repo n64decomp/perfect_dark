@@ -5,6 +5,5 @@
 #include "types.h"
 
 u8 *ailistFindById(s32 ailistid);
-void ailistPreprocessFile(struct ailist *ailist, s32 mempool);
 
 #endif

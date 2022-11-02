@@ -88,6 +88,8 @@
 	build/ROMID/game/body.o (section); \
 	build/ROMID/game/chraction.o (section); \
 	build/ROMID/game/chrai.o (section); \
+	build/ROMID/game/chraiasm.o (section); \
+	build/ROMID/game/chraicommands.o (section); \
 	build/ROMID/game/prop.o (section); \
 	build/ROMID/game/propobj.o (section); \
 	build/ROMID/game/propobjbss.o (section); \
@@ -147,7 +149,7 @@
 	build/ROMID/game/debug.o (section); \
 	build/ROMID/game/debug3.o (section); \
 	build/ROMID/game/stubs/game_11eff0.o (section); \
-	build/ROMID/game/gailists.o (section); \
+	build/ROMID/ailists/gailistsasm.o (section); \
 	build/ROMID/game/modeldata/general.o (section); \
 	build/ROMID/game/modeldata/basic.o (section); \
 	build/ROMID/game/modeldata/chrgun.o (section); \

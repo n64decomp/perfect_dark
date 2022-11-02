@@ -3083,6 +3083,9 @@ struct stagetableentry {
 	/*0x0c*/ u16 padsfileid;
 	/*0x0e*/ u16 setupfileid;
 	/*0x10*/ u16 mpsetupfileid;
+	u8 *ailistsromstart;
+	u8 *ailistsromend;
+	struct ailist *ailists;
 	/*0x14*/ f32 unk14;
 	/*0x18*/ f32 unk18;
 	/*0x1c*/ f32 unk1c;

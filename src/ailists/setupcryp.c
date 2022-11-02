@@ -1,0 +1,39 @@
+//
+// G5 Building (MP)
+//
+
+#include "stagesetup.h"
+
+extern s32 intro[];
+extern u32 props[];
+extern struct path paths[];
+extern struct ailist ailists[];
+
+struct stagesetup setup = {
+	NULL,
+	NULL,
+	NULL,
+	intro,
+	props,
+	paths,
+	ailists,
+	NULL,
+};
+
+u32 props[] = {
+	endprops
+};
+
+s32 intro[] = {
+	intro_weapon(WEAPON_FALCON2, -1)
+	endintro
+};
+
+struct path paths[] = {
+	{ NULL, 0, 0 },
+};
+
+struct ailist ailists[] = {
+	{ NULL, 0 },
+};
+

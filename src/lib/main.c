@@ -97,10 +97,10 @@ struct stageallocation g_StageAllocations8Mb[] = {
 	{ STAGE_AIRFORCEONE,   "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
 	{ STAGE_CRASHSITE,     "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
 	{ STAGE_PELAGIC,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_DEEPSEA,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
+	{ STAGE_DEEPSEA,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma200" },
 	{ STAGE_DEFENSE,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_ATTACKSHIP,    "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_SKEDARRUINS,   "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
+	{ STAGE_ATTACKSHIP,    "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma200" },
+	{ STAGE_SKEDARRUINS,   "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma200" },
 	{ STAGE_MP_SKEDAR,     "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
 	{ STAGE_MP_RAVINE,     "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
 	{ STAGE_MP_PIPES,      "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
@@ -170,7 +170,7 @@ extern u8 _accessingpakSegmentRomStart;
 extern u8 _accessingpakSegmentRomEnd;
 extern u8 _copyrightSegmentRomStart;
 extern u8 _copyrightSegmentRomEnd;
-extern u8 _gameSegmentEnd;
+extern u8 _setupdishasmSegmentEnd;
 
 #if VERSION >= VERSION_NTSC_1_0
 /**
@@ -392,14 +392,12 @@ void mainInit(void)
 		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
 	}
 
-	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_gameSegmentEnd));
+	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_setupdishasmSegmentEnd));
 	end = g_VmMarker;
 	mempSetHeap(start, end - start);
 
 	mempResetPool(MEMPOOL_8);
 	mempResetPool(MEMPOOL_PERMANENT);
-
-	ailistPreprocessFile(g_GlobalAilists, MEMPOOL_PERMANENT);
 
 	crashReset();
 	challengesInit();

@@ -16,7 +16,7 @@ struct stagesetup setup = {
 	intro,
 	props,
 	paths,
-	ailists,
+	NULL,
 	NULL,
 };
 
@@ -25,24 +25,10 @@ u32 props[] = {
 	endprops
 };
 
-u8 unregistered_func1[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	endlist
-};
-
-u8 unregistered_func2[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	endlist
-};
-
 s32 intro[] = {
 	endintro
 };
 
 struct path paths[] = {
 	{ NULL, 0, 0 },
-};
-
-struct ailist ailists[] = {
-	{ NULL, 0 },
 };

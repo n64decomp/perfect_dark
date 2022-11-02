@@ -58,6 +58,17 @@
 	} \
 	END_SEG(font##name)
 
+#define AILISTS_SEG(name) \
+	__rampos = _gameSegmentEnd; \
+	BEGIN_SEG(name) \
+	{ \
+		build/ROMID/ailists/name.o (.text); \
+		build/ROMID/ailists/name.o (.data); \
+		build/ROMID/ailists/name.o (.rodata); \
+		. = ALIGN(0x10); \
+	} \
+	END_SEG(name)
+
 /**
  * Placeholder segments are used to mark the
  * locations where zipped content will go.
@@ -281,6 +292,45 @@ SECTIONS
 	END_SEG(game)
 
 	__rompos = _inflateSegmentRomEnd + ROMALLOCATION_GAME;
+
+	AILISTS_SEG(setupdishasm)
+	AILISTS_SEG(setupameasm)
+	AILISTS_SEG(setupearasm)
+	AILISTS_SEG(setuparkasm)
+	AILISTS_SEG(setupeldasm)
+	AILISTS_SEG(setuppeteasm)
+	AILISTS_SEG(setupdepoasm)
+	AILISTS_SEG(setuplueasm)
+	AILISTS_SEG(setuplipasm)
+	AILISTS_SEG(setuptraasm)
+	AILISTS_SEG(setupcaveasm)
+	AILISTS_SEG(setupritasm)
+	AILISTS_SEG(setupaztasm)
+	AILISTS_SEG(setupdamasm)
+	AILISTS_SEG(setuppamasm)
+	AILISTS_SEG(setupimpasm)
+	AILISTS_SEG(setupleeasm)
+	AILISTS_SEG(setupshoasm)
+	AILISTS_SEG(setupwaxasm)
+	AILISTS_SEG(setupsevasm)
+	AILISTS_SEG(setupstatasm)
+	AILISTS_SEG(setupateasm)
+	AILISTS_SEG(mp_setuparecasm)
+	AILISTS_SEG(mp_setupcradasm)
+	AILISTS_SEG(mp_setupcrypasm)
+	AILISTS_SEG(mp_setupjunasm)
+	AILISTS_SEG(mp_setupmp1asm)
+	AILISTS_SEG(mp_setupmp3asm)
+	AILISTS_SEG(mp_setupmp4asm)
+	AILISTS_SEG(mp_setupmp5asm)
+	AILISTS_SEG(mp_setupmp9asm)
+	AILISTS_SEG(mp_setupmp10asm)
+	AILISTS_SEG(mp_setupmp11asm)
+	AILISTS_SEG(mp_setupmp12asm)
+	AILISTS_SEG(mp_setupmp13asm)
+	AILISTS_SEG(mp_setupmp15asm)
+	AILISTS_SEG(mp_setupoatasm)
+	AILISTS_SEG(mp_setuprefasm)
 
 	/***************************************************************************
 	 * garbage

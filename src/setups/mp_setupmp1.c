@@ -16,7 +16,7 @@ struct stagesetup setup = {
 	intro,
 	props,
 	paths,
-	ailists,
+	NULL,
 	NULL,
 };
 
@@ -142,30 +142,3 @@ s32 intro[] = {
 struct path paths[] = {
 	{ NULL, 0, 0 },
 };
-
-u8 func1001_start_lifts[] = {
-	activate_lift(1, 0x01)
-	activate_lift(2, 0x02)
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	endlist
-};
-
-u8 func1000_21d4[] = {
-	mp_init_simulants
-	rebuild_teams
-	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	endlist
-};
-
-struct ailist ailists[] = {
-	{ func1000_21d4,        0x1000 },
-	{ func1001_start_lifts, 0x1001 },
-	{ NULL, 0 },
-};
-
-
-
-
-
-

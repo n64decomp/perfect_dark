@@ -218,15 +218,6 @@ void memaReset(void *heapaddr, u32 heapsize)
 {
 	struct memaspace *space;
 
-#if VERSION != VERSION_NTSC_BETA && VERSION != VERSION_PAL_BETA
-	// Adding an amount to the heap size here means that mema can allocate past
-	// the end of its heap. This would overflow into the gun names language
-	// file. Maybe this code was intended to be temporary while a developer
-	// figured out how much memory was needed, but they forgot to remove it?
-	// @dangerous
-	heapsize += 0x8e0;
-#endif
-
 	g_MemaHeap.unk000 = 0;
 
 	g_MemaHeap.start.addr = 0;

@@ -16,7 +16,7 @@ struct stagesetup setup = {
 	intro,
 	props,
 	paths,
-	ailists,
+	NULL,
 	NULL,
 };
 
@@ -32,21 +32,3 @@ s32 intro[] = {
 struct path paths[] = {
 	{ NULL, 0, 0 },
 };
-
-u8 unregistered_func1[] = {
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	endlist
-};
-
-u8 unregistered_func2[] = {
-	mp_init_simulants
-	rebuild_teams
-	rebuild_squadrons
-	set_ailist(CHR_SELF, GAILIST_IDLE)
-	endlist
-};
-
-struct ailist ailists[] = {
-	{ NULL, 0 },
-};
-
