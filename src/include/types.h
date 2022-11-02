@@ -176,8 +176,6 @@ struct g_vars {
 	/*0x35e*/ u16 prevupdateframe;
 	/*0x360*/ struct propstate propstates[7];
 	/*0x424*/ struct chrdata *chrdata;
-	/*0x428*/ struct truckobj *truck;
-	/*0x42c*/ struct heliobj *heli;
 	/*0x430*/ struct chopperobj *hovercar;
 	/*0x434*/ u8 *ailist;
 	/*0x438*/ u8 *aioffset;
@@ -1339,7 +1337,6 @@ struct chrdata {
 	/*0x356*/ s16 aishootingatmelist;
 	/*0x358*/ s16 poisoncounter;
 	/*0x35a*/ s16 aidarkroomlist;
-	/*0x35c*/ s16 aiplayerdeadlist;
 	/*0x35e*/ u8 dodgerating;
 	/*0x35f*/ u8 maxdodgerating;
 	/*0x360*/ u8 unarmeddodgerating;
@@ -1743,39 +1740,6 @@ struct padlockeddoorobj { // objtype 0x26
 	struct doorobj *door;
 	struct defaultobj *lock;
 	struct padlockeddoorobj *next;
-};
-
-struct truckobj { // objtype 0x27
-	struct defaultobj base;
-	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u8 *aioffset;
-	/*0x62*/ s16 aireturnlist;
-	/*0x64*/ f32 speed;
-	/*0x68*/ f32 wheelxrot;
-	/*0x6c*/ f32 wheelyrot;
-	/*0x70*/ f32 speedaim;
-	/*0x74*/ f32 speedtime60;
-	/*0x78*/ f32 turnrot60;
-	/*0x7c*/ f32 roty;
-	/*0x80*/ struct path *path;
-	/*0x84*/ s32 nextstep;
-};
-
-struct heliobj { // objtype 0x28
-	struct defaultobj base;
-	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u8 *aioffset;
-	/*0x62*/ s16 aireturnlist;
-	/*0x64*/ f32 rotoryrot;
-	/*0x68*/ f32 rotoryspeed;
-	/*0x6c*/ f32 rotoryspeedaim;
-	/*0x70*/ f32 rotoryspeedtime;
-	/*0x74*/ f32 speed;
-	/*0x78*/ f32 speedaim;
-	/*0x7c*/ f32 speedtime60;
-	/*0x80*/ f32 yrot;
-	/*0x84*/ struct path *path;
-	/*0x88*/ s32 nextstep;
 };
 
 struct glassobj { // objtype 0x2a

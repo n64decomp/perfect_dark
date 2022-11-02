@@ -1816,35 +1816,6 @@ void setupCreateProps(s32 stagenum)
 						}
 					}
 					break;
-				case OBJTYPE_TRUCK:
-					if (withobjs && (obj->flags2 & diffflag) == 0) {
-						struct truckobj *truck = (struct truckobj *)obj;
-
-						setupCreateObject(obj, index);
-
-						if (obj->model) {
-							struct modelnode *node = modelGetPart(obj->model->filedata, 5);
-
-							if (node) {
-								union modelrwdata *rwdata = modelGetNodeRwData(obj->model, node);
-								rwdata->type05.unk00 = ((obj->flags & OBJFLAG_DEACTIVATED) == 0);
-							}
-						}
-
-						truck->speed = 0;
-						truck->wheelxrot = 0;
-						truck->wheelyrot = 0;
-						truck->speedaim = 0;
-						truck->speedtime60 = -1;
-						truck->turnrot60 = 0;
-						truck->roty = 0;
-						truck->ailist = ailistFindById((u32)truck->ailist);
-						truck->aioffset = truck->ailist;
-						truck->aireturnlist = -1;
-						truck->path = NULL;
-						truck->nextstep = 0;
-					}
-					break;
 				case OBJTYPE_HOVERCAR:
 					if (withhovercars && withobjs && (obj->flags2 & diffflag) == 0) {
 						struct hovercarobj *car = (struct hovercarobj *)obj;
@@ -1920,27 +1891,6 @@ void setupCreateProps(s32 stagenum)
 						chopper->fireslotthing->unk10 = 0.2f;
 						chopper->fireslotthing->unk14 = 0;
 						chopper->dead = false;
-					}
-					break;
-				case OBJTYPE_HELI:
-					if (withobjs && (obj->flags2 & diffflag) == 0) {
-						struct heliobj *heli = (struct heliobj *)obj;
-
-						setupCreateObject(obj, index);
-
-						heli->speed = 0;
-						heli->speedaim = 0;
-						heli->rotoryrot = 0;
-						heli->rotoryspeed = 0;
-						heli->rotoryspeedaim = 0;
-						heli->yrot = 0;
-						heli->speedtime60 = -1;
-						heli->rotoryspeedtime = -1;
-						heli->ailist = ailistFindById((u32)heli->ailist);
-						heli->aioffset = heli->ailist;
-						heli->aireturnlist = -1;
-						heli->path = NULL;
-						heli->nextstep = 0;
 					}
 					break;
 				case OBJTYPE_TAG:

@@ -57,8 +57,6 @@ u8 *aiTick(u8 *ptr);
 void chraiExecute(void *entity, s32 proptype)
 {
 	g_Vars.chrdata = NULL;
-	g_Vars.truck = NULL;
-	g_Vars.heli = NULL;
 	g_Vars.hovercar = NULL;
 	g_Vars.ailist = NULL;
 	g_Vars.aioffset = NULL;
@@ -68,11 +66,7 @@ void chraiExecute(void *entity, s32 proptype)
 	} else if (proptype == PROPTYPE_OBJ) {
 		struct defaultobj *obj = entity;
 
-		if (obj->type == OBJTYPE_TRUCK) {
-			g_Vars.truck = entity;
-		} else if (obj->type == OBJTYPE_HELI) {
-			g_Vars.heli = entity;
-		} else if (obj->type == OBJTYPE_HOVERCAR || obj->type == OBJTYPE_CHOPPER) {
+		if (obj->type == OBJTYPE_HOVERCAR || obj->type == OBJTYPE_CHOPPER) {
 			g_Vars.hovercar = entity;
 		}
 	}
@@ -80,12 +74,6 @@ void chraiExecute(void *entity, s32 proptype)
 	if (g_Vars.chrdata) {
 		g_Vars.ailist = g_Vars.chrdata->ailist;
 		g_Vars.aioffset = g_Vars.chrdata->aioffset;
-	} else if (g_Vars.truck) {
-		g_Vars.ailist = g_Vars.truck->ailist;
-		g_Vars.aioffset = g_Vars.truck->aioffset;
-	} else if (g_Vars.heli) {
-		g_Vars.ailist = g_Vars.heli->ailist;
-		g_Vars.aioffset = g_Vars.heli->aioffset;
 	} else if (g_Vars.hovercar) {
 		g_Vars.ailist = g_Vars.hovercar->ailist;
 		g_Vars.aioffset = g_Vars.hovercar->aioffset;
@@ -170,12 +158,6 @@ void chraiExecute(void *entity, s32 proptype)
 				if (g_Vars.chrdata) {
 					g_Vars.chrdata->ailist = g_Vars.ailist;
 					g_Vars.chrdata->aioffset = cmd;
-				} else if (g_Vars.truck) {
-					g_Vars.truck->ailist = g_Vars.ailist;
-					g_Vars.truck->aioffset = cmd;
-				} else if (g_Vars.heli) {
-					g_Vars.heli->ailist = g_Vars.ailist;
-					g_Vars.heli->aioffset = cmd;
 				} else if (g_Vars.hovercar) {
 					g_Vars.hovercar->ailist = g_Vars.ailist;
 					g_Vars.hovercar->aioffset = cmd;

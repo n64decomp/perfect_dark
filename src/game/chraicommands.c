@@ -2602,10 +2602,6 @@ u8 *aiReturn(void)
 
 	if (g_Vars.chrdata) {
 		ailist = ailistFindById(g_Vars.chrdata->aireturnlist);
-	} else if (g_Vars.truck) {
-		ailist = ailistFindById(g_Vars.truck->aireturnlist);
-	} else if (g_Vars.heli) {
-		ailist = ailistFindById(g_Vars.heli->aireturnlist);
 	} else if (g_Vars.hovercar) {
 		ailist = ailistFindById(g_Vars.hovercar->aireturnlist);
 	}
@@ -3583,8 +3579,6 @@ void aiSetPadPreset(s32 padnum)
 {
 	if (g_Vars.chrdata) {
 		chrSetPadPreset(g_Vars.chrdata, padnum);
-	} else if (g_Vars.heli) {
-		g_Vars.heli->base.pad = padnum;
 	}
 }
 
@@ -3663,10 +3657,6 @@ void aiSetReturnList(s32 chrref, s32 ailistid)
 				chr->aireturnlist = ailistid;
 			}
 		}
-	} else if (g_Vars.truck) {
-		g_Vars.truck->aireturnlist = ailistid;
-	} else if (g_Vars.heli) {
-		g_Vars.heli->aireturnlist = ailistid;
 	} else if (g_Vars.hovercar) {
 		g_Vars.hovercar->aireturnlist = ailistid;
 	}

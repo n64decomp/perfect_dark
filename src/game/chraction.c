@@ -13188,32 +13188,6 @@ void chraTick(struct chrdata *chr)
 			chr->darkroomthing = true;
 		}
 
-		// Consider setting playerdeadlist
-		if (chr->prop && chr->aiplayerdeadlist >= 0 && g_Vars.currentplayer->isdead) {
-			u32 prevplayernum = g_Vars.currentplayernum;
-			s32 i;
-			s32 playercount = PLAYERCOUNT();
-			bool alldead = true;
-
-			if (playercount >= 2) {
-				for (i = 0; i < playercount && alldead; i++) {
-					if (i != prevplayernum) {
-						setCurrentPlayerNum(i);
-
-						if (g_Vars.currentplayer->isdead == false) {
-							alldead = false;
-						}
-					}
-				}
-
-				setCurrentPlayerNum(prevplayernum);
-			}
-
-			if (alldead && ailistFindById(chr->aiplayerdeadlist) != chr->ailist) {
-				chr->playerdeadthing = true;
-			}
-		}
-
 		if (race == RACE_ROBOT) {
 			robotSetMuzzleFlash(chr, 0, false);
 			robotSetMuzzleFlash(chr, 1, false);
