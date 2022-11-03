@@ -68,6 +68,12 @@ ROMALLOCATION_GAME = 0x0d0000
 
 ROM_SIZE := 32
 
+# ANTIALIAS
+#
+# Enable (1) or disable (0) antialias
+
+ANTIALIAS = 0
+
 # PROFILING
 #
 # If enabled (1), press L to show frate stats followed by D-right to toggle
@@ -170,6 +176,10 @@ DEFINES := \
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 AS_DEFINES := $(foreach d,$(DEFINES),--defsym $(d)) --defsym _LANGUAGE_ASSEMBLY=1
+
+ifeq ($(ANTIALIAS),1)
+	C_DEFINES += -DANTIALIAS
+endif
 
 ifeq ($(PROFILING),1)
 	C_DEFINES += -DPROFILING

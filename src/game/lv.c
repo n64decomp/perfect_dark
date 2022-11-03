@@ -947,7 +947,6 @@ void lvFindThreats(void)
 
 u8 g_LvShowStats = 0;
 u8 g_LvStatsPage = 0;
-u8 g_LvAntialias = 1;
 u8 g_LvRateIndex = 59;
 u8 g_LvOom = 0;
 u32 g_LvOomSize = 0;
@@ -1066,9 +1065,6 @@ Gfx *lvPrintRateText(Gfx *gdl)
 		}
 
 		x = 10;
-		sprintf(buffer, "Antialias %s\n", g_LvAntialias ? "on" : "off");
-		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-
 		sprintf(buffer, "mema free %d KB\n", memaGetLongestFree() / 1024);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 
@@ -1088,11 +1084,6 @@ Gfx *lvPrint(Gfx *gdl)
 {
 	if (joyGetButtonsPressedThisFrame(0, L_TRIG)) {
 		g_LvShowStats = 1 - g_LvShowStats;
-	}
-
-	if (joyGetButtonsPressedThisFrame(0, U_JPAD)) {
-		g_LvAntialias = 1 - g_LvAntialias;
-		viUpdateMode();
 	}
 
 #ifdef PROFILING
