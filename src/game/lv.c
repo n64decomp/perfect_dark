@@ -1357,10 +1357,15 @@ Gfx *lvRender(Gfx *gdl)
 
 				// Calculate lookingatprop
 				profileStart(PROFILEMARKER_LVR_LOOKINGAT);
-				if (PLAYERCOUNT() == 1
-						|| g_Vars.coopplayernum >= 0
-						|| g_Vars.antiplayernum >= 0
-						|| (weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmoveIsInSightAimMode())) {
+
+				// Only calculate lookingatprop if:
+				// we are using the R-aimer in solo missions (including coop/anti), or
+				// we are using the R-aimer in 1 player combat simulator, or
+				// we are using the R-aimer in 2+ player combat simulator with a gun that uses prop tracking, or
+				// we are playing Holo 1 (Looking Around), which uses lookingatprop
+				if ((bmoveIsInSightAimMode() && (
+								PLAYERCOUNT() == 1 || !g_Vars.normmplayerisrunning || weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)))
+						|| (g_Vars.stagenum == STAGE_CITRAINING && (g_StageFlags & 0x00040000))) {
 					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(HAND_RIGHT, 0, 0);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
