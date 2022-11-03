@@ -10,7 +10,7 @@ void __scHandleRSP(OSSched *sc);
 void __scHandleRDP(OSSched *sc);
 void __scHandleTasks(OSSched *sc);
 void __scAppendList(OSSched *sc, OSScTask *t);
-void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
+void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp, s32 resuming);
 void __scMain(void *arg);
 void __scYield(OSSched *sc);
 void schedInitArtifacts(void);

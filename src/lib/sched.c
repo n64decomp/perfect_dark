@@ -56,7 +56,7 @@ void __scHandleRDP(OSSched *s);
 void __scAppendList(OSSched *s, OSScTask *t);
 OSScTask *__scTaskReady(OSScTask *t);
 s32 __scTaskComplete(OSSched *s,OSScTask *t);
-void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
+void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp, s32 resuming);
 void __scYield(OSSched *s);
 s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP);
 
@@ -279,7 +279,7 @@ void schedAppendTasks(OSSched *sc, OSScTask *t)
 		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
 
 		if (__scSchedule(sc, &sp, &dp, state) != state) {
-			__scExec(sc, sp, dp);
+			__scExec(sc, sp, dp, false);
 		}
 	}
 
@@ -360,7 +360,7 @@ void __scHandleTasks(OSSched *sc)
 		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
 
 		if (__scSchedule(sc, &sp, &dp, state) != state) {
-			__scExec(sc, sp, dp);
+			__scExec(sc, sp, dp, false);
 		}
 	}
 
@@ -411,12 +411,12 @@ void __scHandleRSP(OSSched *sc)
 		t = sc->curRSPTask;
 		sc->curRSPTask = 0;
 
-		profileSetMarker(PROFILE_RSP_END);
-
 		if ((t->state & OS_SC_YIELD) && osSpTaskYielded(&t->list)) {
 			t->state |= OS_SC_YIELDED;
 
 			if ((t->flags & OS_SC_TYPE_MASK) == OS_SC_XBUS) {
+				profileHandleRspEvent(RSPEVENT_GFX_PAUSE);
+
 				// Push the task back on the list
 				t->next = sc->gfxListHead;
 				sc->gfxListHead = t;
@@ -433,7 +433,7 @@ void __scHandleRSP(OSSched *sc)
 		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
 
 		if (__scSchedule(sc, &sp, &dp, state) != state) {
-			__scExec(sc, sp, dp);
+			__scExec(sc, sp, dp, true);
 		}
 	}
 }
@@ -555,7 +555,6 @@ void __scHandleRDP(OSSched *sc)
 			schedConsiderScreenshot();
 		}
 
-		profileSetMarker(PROFILE_RDP_END);
 		osDpGetCounters(g_SchedDpCounters);
 
 		t = sc->curRDPTask;
@@ -567,7 +566,7 @@ void __scHandleRDP(OSSched *sc)
 		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
 
 		if (__scSchedule(sc, &sp, &dp, state) != state) {
-			__scExec(sc, sp, dp);
+			__scExec(sc, sp, dp, false);
 		}
 	}
 }
@@ -603,6 +602,12 @@ extern u8 g_LvAntialias;
  */
 s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 {
+	if (t->list.t.type == M_AUDTASK) {
+		profileHandleRspEvent(RSPEVENT_AUD_FINISH);
+	} else {
+		profileHandleRspEvent(RSPEVENT_GFX_FINISH);
+	}
+
 	if ((t->state & OS_SC_RCP_MASK) == 0) {
 		if (t->list.t.type == 1
 				&& (t->flags & OS_SC_SWAPBUFFER)
@@ -693,7 +698,7 @@ void __scAppendList(OSSched *sc, OSScTask *t)
 	t->state = t->flags & OS_SC_RCP_MASK;
 }
 
-void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
+void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp, s32 resuming)
 {
 	if (sp) {
 		if (sp->list.t.type == M_AUDTASK) {
@@ -704,11 +709,16 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 			osDpSetStatus(DPC_STATUS_CMD_BUSY | DPC_STATUS_CBUF_READY | DPC_STATUS_DMA_BUSY | DPC_STATUS_END_VALID);
 		}
 
-		if (sp->list.t.type == M_AUDTASK) {
-			profileSetMarker(PROFILE_RSP_START);
+		if (resuming) {
+			if (sp->list.t.type != M_AUDTASK) {
+				profileHandleRspEvent(RSPEVENT_GFX_RESUME);
+			}
 		} else {
-			profileSetMarker(PROFILE_RDP_START1);
-			profileSetMarker(PROFILE_RDP_START2);
+			if (sp->list.t.type == M_AUDTASK) {
+				profileHandleRspEvent(RSPEVENT_AUD_START);
+			} else {
+				profileHandleRspEvent(RSPEVENT_GFX_START);
+			}
 		}
 
 		sp->state &= ~(OS_SC_YIELD | OS_SC_YIELDED);

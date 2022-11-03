@@ -193,12 +193,12 @@ void amgrMain(void *arg)
 		switch (*msg) {
 		case OS_SC_RSP_MSG:
 			var80091588 = osGetTime();
-			profileSetMarker(PROFILE_AUDIOFRAME_START);
+			profileStart(PROFILEMARKER_AUDIO);
 			amgrHandleFrameMsg(g_AudioManager.audioInfo[g_AdmaCurFrame % 3], info);
 			admaReceiveAll();
 
 			count++;
-			profileSetMarker(PROFILE_AUDIOFRAME_END);
+			profileEnd(PROFILEMARKER_AUDIO);
 
 			var80091590 = osGetTime();
 			var80091570 = var80091590 - var80091588;

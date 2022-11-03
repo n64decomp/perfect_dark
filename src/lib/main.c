@@ -71,6 +71,9 @@
 #include "data.h"
 #include "types.h"
 
+extern u8 g_LvShowStats;
+extern u8 g_LvStatsPage;
+
 bool var8005d9b0 = false;
 s32 g_StageNum = STAGE_TITLE;
 u32 g_MainMemaHeapSize = 1024 * 300;
@@ -1708,12 +1711,12 @@ void mainTick(void)
 		frametimeCalculate();
 		profile00009a98();
 		profileReset();
-		profileSetMarker(PROFILE_MAINTICK_START);
 		func000034d8();
 		joyDebugJoy();
 		schedSetCrashEnable2(false);
 
 		if (g_MainGameLogicEnabled) {
+			profileStart(PROFILEMARKER_CPU);
 			gdl = gdlstart = gfxGetMasterDisplayList();
 
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -1729,7 +1732,9 @@ void mainTick(void)
 			}
 #endif
 
-			lvTick();
+			PROFILE(PROFILEMARKER_LVTICK, lvTick());
+
+			profileStart(PROFILEMARKER_LVTICKPLAYERS);
 			playermgrShuffle();
 
 			if (g_StageNum < STAGE_TITLE) {
@@ -1747,7 +1752,10 @@ void mainTick(void)
 				}
 			}
 
-			gdl = lvRender(gdl);
+			profileEnd(PROFILEMARKER_LVTICKPLAYERS);
+
+			PROFILE(PROFILEMARKER_LVRENDER, gdl = lvRender(gdl));
+
 			func000034e0(&gdl);
 
 #if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
@@ -1765,9 +1773,13 @@ void mainTick(void)
 			dhudClear();
 #endif
 
-			if (debug0f11ed70() >= 2) {
+			profileEnd(PROFILEMARKER_CPU);
+
+#if PROFILING
+			if (g_LvShowStats && g_LvStatsPage == 1) {
 				gdl = profileRender(gdl);
 			}
+#endif
 
 #if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 			if (g_MainIsDebugMenuOpen) {
@@ -1789,7 +1801,6 @@ void mainTick(void)
 		g_MainNumGfxTasks++;
 		memaPrint();
 		func0f16cf94();
-		profileSetMarker(PROFILE_MAINTICK_END);
 
 #if VERSION == VERSION_PAL_BETA
 		debug0f119a80nb();

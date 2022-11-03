@@ -68,6 +68,13 @@ ROMALLOCATION_GAME = 0x0d0000
 
 ROM_SIZE := 32
 
+# PROFILING
+#
+# If enabled (1), press L to show frate stats followed by D-right to toggle
+# profiling information.
+
+PROFILING = 0
+
 ################################################################################
 
 # The VERSION constant is used in the source to handle version-specific code.
@@ -163,6 +170,10 @@ DEFINES := \
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 AS_DEFINES := $(foreach d,$(DEFINES),--defsym $(d)) --defsym _LANGUAGE_ASSEMBLY=1
+
+ifeq ($(PROFILING),1)
+	C_DEFINES += -DPROFILING
+endif
 
 A_DIR := src/assets/$(ROMID)
 B_DIR := build/$(ROMID)

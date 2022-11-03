@@ -8,7 +8,13 @@ void profileInit(void);
 void profileTick(void);
 void profileReset(void);
 void profile00009a98(void);
-void profileSetMarker(u32 arg0);
+
+#ifdef PROFILING
+void profileStart(s32 arg0);
+void profileEnd(s32 arg0);
+void profileHandleRspEvent(s32 event);
+#endif
+
 Gfx *profileRender(Gfx *gdl);
 
 #endif
