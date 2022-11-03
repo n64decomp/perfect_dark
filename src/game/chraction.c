@@ -13384,7 +13384,7 @@ void chraTickBg(void)
 	}
 
 	// Run BG scripts
-	for (i = 0; i < g_NumBgChrs; i++) {
+	for (i = g_NumBgChrs - 1; i >= 0; i--) {
 		if (!g_Vars.autocutplaying || (g_BgChrs[i].hidden2 & CHRH2FLAG_TICKDURINGAUTOCUT)) {
 			chraTick(&g_BgChrs[i]);
 		}

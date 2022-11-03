@@ -171,6 +171,8 @@ void aiTerminateCleanup(void)
 				}
 
 				g_NumBgChrs--;
+
+				g_Vars.chrdata = NULL;
 			}
 		}
 	}
