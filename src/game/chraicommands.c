@@ -11129,13 +11129,6 @@ bool aiChrToggleModelPart(void)
  */
 bool aiActivateLift(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct defaultobj *obj = objFindByTagId(cmd[3]);
-
-	if (obj && obj->prop) {
-		liftActivate(obj->prop, cmd[2]);
-	}
-
 	g_Vars.aioffset += 4;
 
 	return false;

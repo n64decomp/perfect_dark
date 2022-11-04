@@ -253,6 +253,9 @@ void botSpawn(struct chrdata *chr, u8 respawning)
 		chr->aibot->unk0b8 = 0;
 		func0f02e9a0(chr, 0);
 	}
+
+	chr->maxdamage = 8;
+	chr->speedrating = 100;
 }
 
 void botSpawnAll(void)

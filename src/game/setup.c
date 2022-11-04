@@ -1470,6 +1470,7 @@ void setupCreateProps(s32 stagenum)
 	struct defaultobj *obj;
 	s32 i;
 	s32 j;
+	s32 liftnum = 0;
 
 	withhovercars = !(stagenum == STAGE_EXTRACTION || stagenum == STAGE_DEFECTION)
 		|| !(g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0);
@@ -1685,6 +1686,9 @@ void setupCreateProps(s32 stagenum)
 
 							liftUpdateTiles(lift, true);
 						}
+
+						liftnum++;
+						liftActivate(prop, liftnum);
 					}
 					break;
 				case OBJTYPE_HOVERPROP:

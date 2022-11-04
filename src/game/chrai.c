@@ -775,7 +775,7 @@ void chraiExecute(void *entity, s32 proptype)
 		}
 
 		// Iterate and execute the ailist
-		while (g_Vars.ailist) {
+		while (0) {
 			u8 *cmd = g_Vars.aioffset + g_Vars.ailist;
 			s32 type = (cmd[0] << 8) + cmd[1];
 

@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/bot.h"
 #include "game/chraction.h"
 #include "game/dlights.h"
 #include "game/game_006900.h"
@@ -528,7 +529,26 @@ void scenarioCreateMatchStartHudmsgs(void)
 void scenarioTick(void)
 {
 	if (g_Vars.normmplayerisrunning) {
-		if (g_Vars.lvframenum == 5) {
+		if (g_Vars.lvframenum == 1) {
+			switch (g_Vars.stagenum) {
+			case STAGE_MP_CARPARK:
+				g_SkyWindSpeed = 0.8f;
+				break;
+			case STAGE_MP_G5BUILDING:
+				g_SkyWindSpeed = 1.1f;
+				break;
+			case STAGE_MP_AREA52:
+				g_SkyWindSpeed = 1.5f;
+				break;
+			case STAGE_MP_WAREHOUSE:
+				g_SkyWindSpeed = 2.2f;
+				break;
+			}
+
+			botSpawnAll();
+			rebuildTeams();
+			rebuildSquadrons();
+		} else if (g_Vars.lvframenum == 5) {
 			scenarioCreateMatchStartHudmsgs();
 		}
 
