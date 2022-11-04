@@ -4633,10 +4633,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 	{
 		gdl = bgunDrawSight(gdl);
 
-		if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_HORIZONSCANNER) {
-			gdl = bviewDrawHorizonScanner(gdl);
-		}
-
 		if (optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex)) {
 			gdl = bgunDrawHud(gdl);
 		}

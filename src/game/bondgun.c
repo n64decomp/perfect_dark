@@ -2938,23 +2938,6 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 #endif
 
 				switch (info->weaponnum) {
-				case WEAPON_HORIZONSCANNER:
-					speed1 = 3.5f;
-
-#if VERSION >= VERSION_NTSC_1_0
-					prevpri1 = osGetThreadPri(0);
-					osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-#endif
-					handle1 = sndStart(var80095200, SFX_EQUIP_HORIZONSCANNER, 0, -1, -1, -1, -1, -1);
-
-					if (handle1) {
-						audioPostEvent(handle1, 16, *(s32 *)&speed1);
-					}
-
-#if VERSION >= VERSION_NTSC_1_0
-					osSetThreadPri(0, prevpri1);
-#endif
-					break;
 				case WEAPON_LASER:
 					sndStart(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
 					break;
@@ -5349,10 +5332,6 @@ void bgunTickSwitch2(void)
 			bgunFreeWeapon(HAND_LEFT);
 			bgunFreeWeapon(HAND_RIGHT);
 
-			if (weaponnum == WEAPON_HORIZONSCANNER) {
-				g_Vars.currentplayer->insightaimmode = false;
-			}
-
 			if (weaponnum == WEAPON_RCP120) {
 				s32 amount = player->hands[HAND_RIGHT].matmot1;
 
@@ -5361,13 +5340,6 @@ void bgunTickSwitch2(void)
 				}
 
 				player->ammoheldarr[ctrl->ammotypes[0]] -= amount;
-			}
-
-			if (weaponnum == WEAPON_HORIZONSCANNER) {
-				g_Vars.currentplayer->zoomintimemax = 0;
-				g_Vars.currentplayer->zoomintime = g_Vars.currentplayer->zoomintimemax;
-				g_Vars.currentplayer->zoominfovynew = 60;
-				g_Vars.currentplayer->zoominfovy = g_Vars.currentplayer->zoominfovynew;
 			}
 
 			lefthand = &player->hands[HAND_LEFT];

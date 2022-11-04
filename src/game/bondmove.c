@@ -816,10 +816,6 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 						}
 					}
 
-					if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_HORIZONSCANNER) {
-						g_Vars.currentplayer->insightaimmode = true;
-					}
-
 					movedata.canswivelgun = !g_Vars.currentplayer->insightaimmode;
 					movedata.canmanualaim = g_Vars.currentplayer->insightaimmode;
 					movedata.canautoaim = !g_Vars.currentplayer->insightaimmode;
@@ -1117,10 +1113,6 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 							aimonhist[i] = g_Vars.currentplayer->insightaimmode;
 							aimoffhist[i] = !aimonhist[i];
 						}
-					}
-
-					if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_HORIZONSCANNER) {
-						g_Vars.currentplayer->insightaimmode = true;
 					}
 
 					movedata.canswivelgun = !g_Vars.currentplayer->insightaimmode;

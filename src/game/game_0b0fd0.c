@@ -195,9 +195,6 @@ f32 currentPlayerGetGunZoomFov(void)
 	case WEAPON_FARSIGHT:
 		index = 1;
 		break;
-	case WEAPON_HORIZONSCANNER:
-		index = 2;
-		break;
 	}
 
 	if (index >= 0) {
@@ -221,7 +218,6 @@ void currentPlayerZoomOut(f32 fovpersec)
 	switch (bgunGetWeaponNum2(0)) {
 	case WEAPON_SNIPERRIFLE:    index = 0; break;
 	case WEAPON_FARSIGHT:   index = 1; break;
-	case WEAPON_HORIZONSCANNER: index = 2; break;
 	}
 
 	if (index >= 0) {
@@ -246,7 +242,6 @@ void currentPlayerZoomIn(f32 fovpersec)
 	switch (bgunGetWeaponNum2(0)) {
 	case WEAPON_SNIPERRIFLE:    index = 0; break;
 	case WEAPON_FARSIGHT:   index = 1; break;
-	case WEAPON_HORIZONSCANNER: index = 2; break;
 	}
 
 	if (index >= 0) {
@@ -577,8 +572,6 @@ u32 currentPlayerGetSight(void)
 	}
 
 	switch (g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponnum) {
-	case WEAPON_HORIZONSCANNER:
-		return SIGHT_NONE;
 	case WEAPON_NONE:
 	case WEAPON_UNARMED:
 	case WEAPON_FALCON2:
