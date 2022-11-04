@@ -24,82 +24,6 @@
 #include "data.h"
 #include "types.h"
 
-void playerInitEyespy(void)
-{
-	struct prop *prop;
-	struct pad pad;
-	struct chrdata *propchr;
-	struct chrdata *playerchr;
-	static u8 nextpad = 0;
-
-	if (g_Vars.currentplayer->eyespy == NULL) {
-		/**
-		 * To create the eyespy's prop, a pad must be passed to bodyAllocateEyespy.
-		 * However the eyespy doesn't have a pad because it's held by the
-		 * player, so it needs to choose one from the stage. The method used
-		 * will increment the chosen pad number each time the stage is loaded
-		 * and wrap at 256.
-		 *
-		 * @bug: This method means if you play G5 Building enough times then
-		 * the camspy will start in a trigger point for the mid cutscene,
-		 * causing the mid cutscene to play instead of the intro.
-		 */
-		padUnpack(nextpad++, PADFIELD_ROOM | PADFIELD_POS, &pad);
-		prop = bodyAllocateEyespy(&pad, pad.room);
-
-		if (prop) {
-			g_Vars.currentplayer->eyespy = mempAlloc(sizeof(struct eyespy), MEMPOOL_STAGE);
-
-			if (g_Vars.currentplayer->eyespy) {
-				g_Vars.currentplayer->eyespy->prop = prop;
-				g_Vars.currentplayer->eyespy->look.x = 0;
-				g_Vars.currentplayer->eyespy->look.y = 0;
-				g_Vars.currentplayer->eyespy->look.z = 1;
-				g_Vars.currentplayer->eyespy->up.x = 0;
-				g_Vars.currentplayer->eyespy->up.y = 1;
-				g_Vars.currentplayer->eyespy->up.z = 0;
-				g_Vars.currentplayer->eyespy->theta = 0;
-				g_Vars.currentplayer->eyespy->costheta = 1;
-				g_Vars.currentplayer->eyespy->sintheta = 0;
-				g_Vars.currentplayer->eyespy->verta = 0;
-				g_Vars.currentplayer->eyespy->cosverta = 1;
-				g_Vars.currentplayer->eyespy->sinverta = 0;
-				g_Vars.currentplayer->eyespy->held = true;
-				g_Vars.currentplayer->eyespy->deployed = false;
-				g_Vars.currentplayer->eyespy->active = false;
-				g_Vars.currentplayer->eyespy->buttonheld = false;
-				g_Vars.currentplayer->eyespy->camerabuttonheld = false;
-				g_Vars.currentplayer->eyespy->bobdir = 1;
-				g_Vars.currentplayer->eyespy->bobtimer = 0;
-				g_Vars.currentplayer->eyespy->bobactive = true;
-				g_Vars.currentplayer->eyespy->vel.x = 0;
-				g_Vars.currentplayer->eyespy->vel.y = 0;
-				g_Vars.currentplayer->eyespy->vel.z = 0;
-				g_Vars.currentplayer->eyespy->speed = 0;
-				g_Vars.currentplayer->eyespy->oldground = 0;
-				g_Vars.currentplayer->eyespy->height = 0;
-				g_Vars.currentplayer->eyespy->gravity = 0;
-				g_Vars.currentplayer->eyespy->hit = EYESPYHIT_NONE;
-				g_Vars.currentplayer->eyespy->opendoor = false;
-				g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;
-				propchr = prop->chr;
-				playerchr = g_Vars.currentplayer->prop->chr;
-				propchr->team = playerchr->team;
-
-				if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
-					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_DRUGSPY;
-					g_Weapons[WEAPON_EYESPY]->name = L_GUN_061; // "DrugSpy"
-					g_Weapons[WEAPON_EYESPY]->shortname = L_GUN_061; // "DrugSpy"
-				} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR || stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO) {
-					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_BOMBSPY;
-				} else {
-					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;
-				}
-			}
-		}
-	}
-}
-
 struct cmd32 {
 	s32 type;
 	s32 param1;
@@ -115,7 +39,6 @@ void playerReset(void)
 	f32 groundy;
 	bool hasdefaultweapon = false;
 	struct cmd32 *cmd = (struct cmd32 *)g_StageSetup.intro;
-	u8 haseyespy = false;
 	s32 stack[7];
 	s32 i;
 	s32 numchrs;
@@ -198,10 +121,6 @@ void playerReset(void)
 						}
 
 						hasdefaultweapon = true;
-					}
-
-					if (cmd->param1 == WEAPON_EYESPY) {
-						haseyespy = true;
 					}
 				}
 				cmd = (struct cmd32 *)((u32)cmd + 16);
@@ -389,10 +308,6 @@ void playerReset(void)
 		} else {
 			g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
 		}
-	}
-
-	if (haseyespy) {
-		playerInitEyespy();
 	}
 
 	if (g_NumSpawnPoints > 0) {

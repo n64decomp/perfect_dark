@@ -46,7 +46,6 @@
 
 #define USINGDEVICE(device) (!g_Vars.currentplayer->isdead \
 		&& !g_InCutscene \
-		&& EYESPYINACTIVE() \
 		&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & (device)))
 
 #if VERSION >= VERSION_PAL_BETA
@@ -60,8 +59,6 @@
 #else
 #define VOLUME(volume)      (volume)
 #endif
-
-#define EYESPYINACTIVE()    (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 
 #define ERASERSQDIST(p) ( \
 		(p[0] - g_Vars.currentplayer->eraserpos.f[0]) * (p[0] - g_Vars.currentplayer->eraserpos.f[0]) + \
@@ -364,7 +361,6 @@
 
 #define CAMERAMODE_DEFAULT     0
 #define CAMERAMODE_THIRDPERSON 1
-#define CAMERAMODE_EYESPY      2
 
 #define CASING_NONE     -1
 #define CASING_STANDARD 0

@@ -120,7 +120,6 @@
 	build/ROMID/game/bondwalk.o (section); \
 	build/ROMID/game/bondmove.o (section); \
 	build/ROMID/game/bondgrab.o (section); \
-	build/ROMID/game/bondeyespy.o (section); \
 	build/ROMID/game/bondbike.o (section); \
 	build/ROMID/game/savebuffer.o (section); \
 	build/ROMID/game/healthbar.o (section); \

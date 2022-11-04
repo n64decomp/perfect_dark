@@ -722,7 +722,6 @@ void menuTick(void)
 				g_Vars.players[i]->devicesinhibit = 0
 					| DEVICE_NIGHTVISION
 					| DEVICE_XRAYSCANNER
-					| DEVICE_EYESPY
 					| DEVICE_IRSCANNER;
 			}
 		}

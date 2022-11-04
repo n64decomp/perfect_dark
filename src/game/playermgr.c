@@ -598,9 +598,6 @@ void playermgrAllocatePlayer(s32 index)
 
 	g_Vars.players[index]->model.anim = &g_Vars.players[index]->unk01c0;
 
-	g_Vars.players[index]->eyespy = NULL;
-	g_Vars.players[index]->eyespydarts = 8;
-
 	g_Vars.players[index]->autocontrol_aimpad = 0;
 	g_Vars.players[index]->autocontrol_lookup = 0;
 	g_Vars.players[index]->autocontrol_dist = 0;

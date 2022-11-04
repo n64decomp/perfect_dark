@@ -3899,16 +3899,6 @@ char *invMenuTextWeaponDescription(struct menuitem *item)
 	struct weapon *weapon = weaponFindById(g_InventoryWeapon);
 
 	if (weapon) {
-		if (g_InventoryWeapon == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
-			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
-				return langGet(L_GUN_237); // Drugspy description
-			}
-
-			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_BOMBSPY) {
-				return langGet(L_GUN_236); // Bombspy description
-			}
-		}
-
 		if (g_InventoryWeapon == WEAPON_NECKLACE
 				&& g_Vars.stagenum == (VERSION >= VERSION_NTSC_1_0 ? STAGE_ATTACKSHIP : STAGE_SKEDARRUINS)
 				&& lvGetDifficulty() >= DIFF_PA) {

@@ -3363,7 +3363,6 @@ void playerLaunchSlayerRocket(struct weaponobj *rocket)
 	g_Vars.currentplayer->devicesactive &= ~(
 			DEVICE_NIGHTVISION |
 			DEVICE_XRAYSCANNER |
-			DEVICE_EYESPY |
 			DEVICE_IRSCANNER);
 
 	g_Vars.currentplayer->badrockettime = 0;
@@ -3543,77 +3542,6 @@ void playerTick(bool arg0)
 	playerTickDamageAndHealth();
 	playerTickExplode();
 
-	if (g_Vars.currentplayer->eyespy) {
-		// The stage uses an eyespy
-		struct eyespy *eyespy = g_Vars.currentplayer->eyespy;
-		u32 playernum = g_Vars.currentplayernum;
-
-		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-			// Turn off the eyespy if active
-			struct chrdata *chr = eyespy->prop->chr;
-			eyespy->deployed = false;
-			eyespy->held = true;
-			eyespy->active = false;
-			func0f0926bc(eyespy->prop, 1, 0xffff);
-			chr->chrflags |= CHRCFLAG_HIDDEN;
-			chr->chrflags |= CHRCFLAG_INVINCIBLE;
-			g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;
-		} else {
-			if (eyespy->held == false) {
-				// Eyespy is deployed
-#if VERSION >= VERSION_NTSC_1_0
-				if (g_Vars.currentplayer->eyespy->active) {
-					// And is being controlled
-					s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
-					u16 buttons = arg0 ? joyGetButtons(contpad1, 0xffff) : 0;
-
-					if (g_Vars.currentplayer->isdead == false
-							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
-							&& (buttons & START_BUTTON)) {
-						if (g_Vars.mplayerisrunning == false) {
-							playerPause(MENUROOT_MAINMENU);
-						} else {
-							mpPushPauseDialog();
-						}
-					}
-				}
-#endif
-
-				if (g_Vars.lvupdate240) {
-					eyespyProcessInput(arg0);
-				}
-			} else {
-				// Eyespy is held
-				// If eyespy is activated, launch it
-				if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)
-						&& g_PlayersWithControl[playernum]
-						&& !eyespyTryLaunch()) {
-					// Launch failed
-					eyespy->held = true;
-					eyespy->active = false;
-					g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;
-				}
-			}
-
-			if (eyespy->deployed
-					&& g_PlayersWithControl[playernum]
-					&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)) {
-				// Eyespy is being controlled
-				if (eyespy->active == false) {
-					// Eyespy is being turned off
-					eyespy->active = true;
-					eyespy->buttonheld = eyespy->camerabuttonheld = false;
-					eyespy->camerashuttertime = 0;
-					eyespy->startuptimer60 = 0;
-					eyespy->prop->chr->soundtimer = TICKS(10);
-					sndStart(var80095200, SFX_DETONATE, NULL, -1, -1, -1, -1, -1);
-				}
-
-				g_Vars.currentplayer->invdowntime = TICKS(-40);
-			}
-		}
-	}
-
 	if (lvIsPaused()) {
 		playerStopAudioForPause();
 	}
@@ -3653,25 +3581,6 @@ void playerTick(bool arg0)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			g_Vars.players[i]->joybutinhibit = 0xffffffff;
 		}
-	} else if (g_Vars.currentplayer->eyespy
-			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)
-			&& g_Vars.currentplayer->eyespy->active) {
-		// Controlling an eyespy
-		struct coord sp308;
-		playermgrSetFovY(120);
-		viSetFovY(120);
-		sp308.x = g_Vars.currentplayer->eyespy->prop->pos.x;
-		sp308.y = g_Vars.currentplayer->eyespy->prop->pos.y;
-		sp308.z = g_Vars.currentplayer->eyespy->prop->pos.z;
-		playerTickChrBody();
-		bmoveTick(0, 0, 0, 1);
-		playerSetCameraMode(CAMERAMODE_EYESPY);
-#if VERSION >= VERSION_JPN_FINAL
-		player0f0c1840(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look,
-				&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms);
-#else
-		player0f0c1bd8(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look);
-#endif
 	} else if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_WHITE) {
 		// Deep Sea teleport
 		playerTickChrBody();
@@ -4525,7 +4434,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 		return gdl;
 	}
 
-	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY) {
+	{
 		bgunTickGameplay2();
 		gdl = boltbeamsRender(gdl);
 		bgunRender(&gdl);
@@ -4566,13 +4475,11 @@ Gfx *playerRenderHud(Gfx *gdl)
 
 		if (g_Vars.currentplayer->isdead == false
 				&& g_InCutscene == 0
-				&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_NIGHTVISION)) {
 			gdl = bviewDrawNvLens(gdl);
 			gdl = bviewDrawNvBinoculars(gdl);
 		} else if (g_Vars.currentplayer->isdead == false
 				&& g_InCutscene == 0
-				&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_IRSCANNER)) {
 			gdl = bviewDrawIrLens(gdl);
 			gdl = bviewDrawIrBinoculars(gdl);
@@ -4586,7 +4493,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 	gdl = player0f0baf84(gdl);
 
 	// Draw menu
-	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY && g_Vars.currentplayer->mpmenuon) {
+	if (g_Vars.currentplayer->mpmenuon) {
 		s32 a = viGetViewLeft();
 		s32 b = viGetViewTop();
 		s32 c = viGetViewLeft() + viGetViewWidth();
@@ -4597,9 +4504,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 		gdl = text0f153780(gdl);
 	}
 
-	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
-			&& playerIsHealthVisible()
-			&& func0f0f0c68()) {
+	if (playerIsHealthVisible() && func0f0f0c68()) {
 		gdl = playerRenderHealthBar(gdl);
 	}
 
@@ -4791,7 +4696,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 		}
 	}
 
-	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY) {
+	{
 		gdl = bgunDrawSight(gdl);
 
 		if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_HORIZONSCANNER) {
@@ -4810,44 +4715,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 		gdl = radarRender(gdl);
 #endif
 
-		gdl = playerDrawStoredFade(gdl);
-	} else {
-		gdl = bgRenderArtifacts(gdl);
-
-		if (g_Vars.currentplayer->eyespy) {
-			if (g_Vars.currentplayer->eyespy->startuptimer60 < TICKS(50)) {
-				gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, 0, g_Vars.currentplayer->eyespy->startuptimer60, g_Vars.currentplayer->eyespy->hit);
-			} else {
-				s32 time = g_Vars.currentplayer->eyespy->camerashuttertime;
-
-				if (time > 0) {
-					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-						gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, time, TICKS(50), g_Vars.currentplayer->eyespy->hit);
-					} else {
-						gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
-					}
-
-					g_Vars.currentplayer->eyespy->camerashuttertime -= g_Vars.lvupdate60;
-				} else {
-					gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
-				}
-			}
-
-			gdl = bviewDrawEyespyMetrics(gdl);
-		}
-
-		if (g_Vars.currentplayer->mpmenuon) {
-			s32 a = viGetViewLeft();
-			s32 b = viGetViewTop();
-			s32 c = viGetViewLeft() + viGetViewWidth();
-			s32 d = viGetViewTop() + viGetViewHeight();
-
-			gdl = text0f153628(gdl);
-			gdl = text0f153a34(gdl, a, b, c, d, 0x000000a0);
-			gdl = text0f153780(gdl);
-		}
-
-		gdl = hudmsgsRender(gdl);
 		gdl = playerDrawStoredFade(gdl);
 	}
 
@@ -5398,7 +5265,6 @@ s32 playerTickThirdPerson(struct prop *prop)
 	if (player->haschrbody
 			&& player->model00d4
 			&& ((g_Vars.mplayerisrunning && g_Vars.currentplayernum != playernum)
-				|| player->cameramode == CAMERAMODE_EYESPY
 				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
 		chr->actiontype = ACT_BONDMULTI;
 

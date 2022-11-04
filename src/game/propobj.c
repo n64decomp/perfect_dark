@@ -928,12 +928,6 @@ void func0f06803c(struct coord *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4
 	f32 aspect = viGetAspect();
 	f32 fovy = viGetFovY();
 
-	if (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY) {
-		if (g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active) {
-			fovy = 120.0f;
-		}
-	}
-
 	sp4c.x = arg1[0];
 	sp4c.y = arg0->y;
 	sp4c.z = arg0->z;
@@ -17645,8 +17639,6 @@ void weaponPlayPickupSound(s32 weaponnum)
 		sound = SFX_PICKUP_LASER;
 	} else if (weaponnum == WEAPON_BOLT) {
 		sound = SFX_PICKUP_GUN;
-	} else if (weaponnum == WEAPON_EYESPY) {
-		sound = SFX_PICKUP_KEYCARD;
 	} else if (weaponnum > WEAPON_PSYCHOSISGUN) {
 		sound = SFX_PICKUP_KEYCARD;
 	} else {
@@ -17843,24 +17835,6 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 
 void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 {
-#if VERSION >= VERSION_PAL_BETA
-	// PAL changes the implementation of this function to use a lookup table,
-	// with some fake weaponnums for the different eyespy types.
-	s32 playercount = PLAYERCOUNT();
-	s32 full = playercount <= 2
-		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
-
-	if (weaponnum == WEAPON_EYESPY) {
-		if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
-			weaponnum = 998;
-		} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR
-				|| stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO) {
-			weaponnum = 997;
-		}
-	}
-
-	func0f0878c8pf(buffer, weaponnum, 0, !full, dual, var8006aa94pf);
-#else
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
 		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
@@ -17874,9 +17848,7 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 			if (full) {
 				strcat(buffer, langGet(L_PROPOBJ_000)); // "Picked up"
 
-				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
-					textid = L_PROPOBJ_050; // "your"
-				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME)) {
+				if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME)) {
 					textid = L_PROPOBJ_002; // "some"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_AN)) {
 					textid = L_PROPOBJ_006; // "an"
@@ -17888,9 +17860,7 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 
 				strcat(buffer, langGet(textid));
 			} else {
-				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
-					textid = L_PROPOBJ_051; // "Your"
-				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME)) {
+				if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME)) {
 					textid = L_PROPOBJ_003; // "Some"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_AN)) {
 					textid = L_PROPOBJ_007; // "An"
@@ -17940,7 +17910,6 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 	}
 
 	strcat(buffer, ".\n");
-#endif
 }
 
 void currentPlayerQueuePickupWeaponHudmsg(u32 weaponnum, bool dual)
@@ -18137,10 +18106,6 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 						currentPlayerQueuePickupAmmoHudmsg(AMMOTYPE_DEVASTATOR, pickupqty);
 					}
 				}
-			}
-
-			if (weapon->weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy == NULL) {
-				playerInitEyespy();
 			}
 		}
 		break;
@@ -21112,14 +21077,7 @@ f32 func0f08f538(f32 x, f32 y)
 {
 	f32 angle = atan2f(x, y);
 
-	if (g_Vars.currentplayer->eyespy
-			&& g_Vars.currentplayer->eyespy->active
-			&& g_Vars.currentplayer->eyespy->prop
-			&& g_Vars.currentplayer->eyespy->prop->chr) {
-		angle -= chrGetInverseTheta(g_Vars.currentplayer->eyespy->prop->chr);
-	} else {
-		angle -= (360.0f - g_Vars.currentplayer->vv_theta) * M_BADTAU / 360.0f;
-	}
+	angle -= (360.0f - g_Vars.currentplayer->vv_theta) * M_BADTAU / 360.0f;
 
 	if (angle < 0) {
 		angle += M_BADTAU;
@@ -21159,11 +21117,7 @@ void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *ar
 	f32 cosine;
 	f32 sine;
 
-	if (g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active) {
-		playerprop = g_Vars.currentplayer->eyespy->prop;
-	} else {
-		playerprop = g_Vars.currentplayer->prop;
-	}
+	playerprop = g_Vars.currentplayer->prop;
 
 	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_BBOX, &pad);
 
@@ -21253,11 +21207,7 @@ bool func0f08f968(struct doorobj *door, bool arg1)
 	if (g_InteractProp == NULL) {
 		maybe = false;
 
-		if (g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active) {
-			playerprop = g_Vars.currentplayer->eyespy->prop;
-		} else {
-			playerprop = g_Vars.currentplayer->prop;
-		}
+		playerprop = g_Vars.currentplayer->prop;
 
 		if ((door->doorflags & (DOORFLAG_0080 | DOORFLAG_0100)) != DOORFLAG_0080) {
 			maybe = true;
@@ -21327,8 +21277,7 @@ bool doorTestForInteract(struct prop *prop)
 			&& door->maxfrac > 0
 			&& (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 		bool maybe = false;
-		bool usingeyespy = g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active;
-		struct prop *playerprop = usingeyespy ? g_Vars.currentplayer->eyespy->prop : g_Vars.currentplayer->prop;
+		struct prop *playerprop = g_Vars.currentplayer->prop;
 
 		f32 xdiff = door->startpos.x - playerprop->pos.x;
 		f32 ydiff = door->startpos.y - playerprop->pos.y;
@@ -21468,8 +21417,7 @@ void doorsChooseSwingDirection(struct prop *chrprop, struct doorobj *door)
 bool propdoorInteract(struct prop *doorprop)
 {
 	struct doorobj *door = doorprop->door;
-	bool usingeyespy = g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active;
-	struct prop *playerprop = usingeyespy ? g_Vars.currentplayer->eyespy->prop : g_Vars.currentplayer->prop;
+	struct prop *playerprop = g_Vars.currentplayer->prop;
 
 	if (doorIsUnlocked(playerprop, doorprop)) {
 		doorsChooseSwingDirection(playerprop, door);

@@ -2949,7 +2949,7 @@ Gfx *sky0f1274d8(Gfx *gdl)
 		? g_Vars.currentplayer->unk1c2c
 		: g_Vars.currentplayer->unk1c30;
 
-	if (!g_InCutscene && EYESPYINACTIVE() && value > 0) {
+	if (!g_InCutscene && value > 0) {
 		f32 r = g_Vars.currentplayer->unk1c28 * (255.0f / value);
 		f32 g = g_Vars.currentplayer->unk1c2c * (255.0f / value);
 		f32 b = g_Vars.currentplayer->unk1c30 * (255.0f / value);

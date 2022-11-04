@@ -1660,9 +1660,7 @@ void chrChooseStandAnimation(struct chrdata *chr, f32 mergetime)
 		return;
 	}
 
-	if (race == RACE_EYESPY) {
-		modelSetAnimation(chr->model, ANIM_013E, 0, 0, 0, mergetime);
-	} else if (race == RACE_HUMAN) {
+	if (race == RACE_HUMAN) {
 		if (prevanimnum == ANIM_SNIPING_GETDOWN
 				|| prevanimnum == ANIM_SNIPING_GETUP
 				|| prevanimnum == ANIM_SNIPING_ONGROUND) {
@@ -1728,7 +1726,7 @@ void chrStand(struct chrdata *chr)
 	s32 race = CHRRACE(chr);
 	f32 result;
 
-	if (race != RACE_EYESPY) {
+	{
 		chrStopFiring(chr);
 
 		if (race == RACE_HUMAN && chr->actiontype == ACT_KNEEL) {
@@ -2795,7 +2793,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 	s32 race = CHRRACE(chr);
 	u8 sniping = false;
 
-	if (race != RACE_DRCAROLL && race != RACE_EYESPY && race != RACE_ROBOT) {
+	{
 		chr->actiontype = ACT_ATTACK;
 
 		if (&animgroups[0] == &g_LieAttackAnims) {
@@ -2989,7 +2987,6 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 	s32 prevplayernum;
 	s32 i;
 	s32 buddyplayernum;
-	struct eyespy *eyespy;
 	s32 objectivenum;
 	f32 impactforce1;
 	f32 impactforce2;
@@ -3008,81 +3005,6 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 #endif
 
 		mpstatsDecrementTotalKnockoutCount();
-	}
-
-	// Handle eyespy then return early
-	if (race == RACE_EYESPY) {
-		prevplayernum = g_Vars.currentplayernum;
-		buddyplayernum = -1;
-		eyespy = chrToEyespy(chr);
-		objectivenum = -1;
-
-		// Figure out which playernum has the eyespy that's being destroyed,
-		// and the buddy's playernum if applicable. Note that the player count
-		// can only be 1 or 2 here.
-		for (i = 0; i < PLAYERCOUNT(); i++) {
-			if (eyespy == g_Vars.players[i]->eyespy) {
-				setCurrentPlayerNum(i);
-			} else {
-				buddyplayernum = i;
-			}
-		}
-
-		if (g_Vars.currentplayer->eyespy) {
-			// Stop using eyespy if active
-			if (g_Vars.currentplayer->eyespy->active) {
-				g_Vars.currentplayer->eyespy->active = false;
-				g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;
-			}
-
-			// Destroy the eyespy
-			chr->hidden |= CHRHFLAG_REAPED;
-
-			explosionCreateSimple(g_Vars.currentplayer->eyespy->prop,
-					&g_Vars.currentplayer->eyespy->prop->pos,
-					g_Vars.currentplayer->eyespy->prop->rooms, EXPLOSIONTYPE_EYESPY, 0);
-			invRemoveItemByNum(WEAPON_EYESPY);
-
-			func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
-			g_Vars.currentplayer->eyespy = NULL;
-			setCurrentPlayerNum(prevplayernum);
-
-			// For Investigation and G5 Building, set a stage flag to show that
-			// the eyespy is destroyed. The scripting in those stages checks for
-			// this flag and fails the objective if set.
-			switch (stageGetIndex(g_Vars.stagenum)) {
-			case STAGEINDEX_INVESTIGATION:
-				objectivenum = 0;
-				break;
-			case STAGEINDEX_G5BUILDING:
-				if (lvGetDifficulty() == DIFF_A) {
-					objectivenum = 2;
-				} else if (lvGetDifficulty() == DIFF_SA) {
-					objectivenum = 2;
-				} else {
-					objectivenum = 2;
-				}
-				break;
-			}
-
-			// But don't set the flag if the coop buddy still has an eyespy
-			if (objectivenum >= 0 && buddyplayernum >= 0) {
-				setCurrentPlayerNum(buddyplayernum);
-
-				if (g_Vars.currentplayer->eyespy) {
-					objectivenum = -1;
-				}
-
-				setCurrentPlayerNum(prevplayernum);
-			}
-
-			if (objectivenum >= 0 && objectiveCheck(objectivenum) != OBJECTIVE_COMPLETE) {
-				g_StageFlags |= STAGEFLAG_EYESPY_DESTROYED;
-			}
-		}
-
-		setCurrentPlayerNum(prevplayernum);
-		return;
 	}
 
 	// instant = whether to merge into death animation or switch to it instantly
@@ -3412,7 +3334,7 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
 		return;
 	}
 
-	if (race == RACE_EYESPY || chr->aibot) {
+	if (chr->aibot) {
 		return;
 	}
 
@@ -3540,53 +3462,12 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 		knockedout = true;
 	}
 
-	if (race == RACE_EYESPY) {
-		f32 strength = gsetGetImpactForce(gset);
-		struct eyespy *eyespy = chrToEyespy(chr);
-
-		if (eyespy) {
-			if (strength <= 0) {
-				strength = 6;
-			}
-
-			strength *= 4;
-
-			eyespy->hit = EYESPYHIT_DAMAGE;
-			eyespy->vel.x += vector->x * strength;
-			eyespy->vel.z += vector->z * strength;
-		}
-	}
-
 	if (chr->damage >= chr->maxdamage) {
 		chrBeginDeath(chr, vector, angle, hitpart, gset, false, aplayernum);
 	} else if (animnum == ANIM_SNIPING_GETDOWN
 			|| animnum == ANIM_SNIPING_GETUP
 			|| animnum == ANIM_SNIPING_ONGROUND) {
 		chrFlinchBody(chr);
-	} else if (race == RACE_EYESPY) {
-		// empty
-	} else if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
-		f32 strength = gsetGetImpactForce(gset);
-
-		if (race == RACE_DRCAROLL) {
-			strength *= 0.5f;
-		}
-
-		if (strength <= 0) {
-			strength = 6;
-		}
-
-		if (strength > 0) {
-			chr->elapseextra = 0;
-			chr->timeextra = strength * 15;
-			chr->extraspeed.x = vector->x * strength;
-			chr->extraspeed.y = vector->y * strength;
-			chr->extraspeed.z = vector->z * strength;
-		}
-
-		if (race == RACE_DRCAROLL) {
-			chrBeginArgh(chr, 0, 0);
-		}
 	} else if (!knockedout) {
 		chrBeginArgh(chr, angle, hitpart);
 	}
@@ -3612,7 +3493,7 @@ void chrYeetFromPos(struct chrdata *chr, struct coord *exppos, f32 force)
 	s32 subindex;
 	f32 angletoexplosion;
 
-	if (race != RACE_DRCAROLL && race != RACE_EYESPY && race != RACE_ROBOT) {
+	{
 		faceangle = chrGetInverseTheta(chr);
 		latangle = atan2f(prop->pos.x - exppos->x, prop->pos.z - exppos->z);
 
@@ -3744,7 +3625,7 @@ bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *dst)
 	bool result = false;
 	s32 race = CHRRACE(chr);
 
-	if (race == RACE_DRCAROLL || race == RACE_EYESPY || chr->aibot) {
+	if (chr->aibot) {
 		return false;
 	}
 
@@ -3806,10 +3687,6 @@ void chrChoke(struct chrdata *chr, s32 choketype)
 	static s32 nextindexshock = 0;
 	static s32 nextindexmale = 0;
 	static s32 nextindexfemale = 0;
-
-	if (race == RACE_EYESPY || race == RACE_ROBOT) {
-		return;
-	}
 
 	if (chr->prop->type == PROPTYPE_PLAYER) {
 		playernum = playermgrGetPlayerNumByProp(chr->prop);
@@ -4967,11 +4844,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 					if (chr->damage > 0) {
 						chr->damage = chr->maxdamage;
 
-						if (race == RACE_DRCAROLL || race == RACE_EYESPY || race == RACE_ROBOT) {
-							chrBeginDeath(chr, vector, angle, hitpart, gset, false, aplayernum);
-						} else {
-							chrYeetFromPos(chr, explosionpos, explosionforce);
-						}
+						chrYeetFromPos(chr, explosionpos, explosionforce);
 
 						if (canchoke) {
 							chrChoke(chr, choketype);
@@ -5820,7 +5693,7 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 		chr->act_gopos.flags &= ~GOPOSFLAG_WAITING;
 	}
 
-	if (race == RACE_EYESPY || chr->aibot) {
+	if (chr->aibot) {
 		return;
 	}
 
@@ -6200,9 +6073,7 @@ void chrPatrolChooseAnimation(struct chrdata *chr)
 	s32 ismale = g_HeadsAndBodies[chr->bodynum].ismale;
 	f32 speed;
 
-	if (race == RACE_EYESPY) {
-		// empty
-	} else if (race == RACE_HUMAN || race == RACE_SKEDAR) {
+	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 		if ((leftprop && rightprop) || (!leftprop && !rightprop)) {
 			// No weapon, or double weapons
 			heavy = false;
@@ -6258,7 +6129,7 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 	struct prop *prop = chr->prop;
 	s16 sp60[2];
 
-	if (CHRRACE(chr) != RACE_EYESPY) {
+	{
 		// Do some kind of collision test with the pad to resume from...
 		// maybe a line of sight check?
 		if (chr->patrolnextstep >= 0 && chr->patrolnextstep < path->len) {
@@ -6863,10 +6734,6 @@ bool chrTryAttackWalk(struct chrdata *chr)
 {
 	u32 race = CHRRACE(chr);
 
-	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
-		return false;
-	}
-
 	if (chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
@@ -6891,10 +6758,6 @@ bool chrTryAttackWalk(struct chrdata *chr)
 bool chrTryAttackRun(struct chrdata *chr)
 {
 	u32 race = CHRRACE(chr);
-
-	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
-		return false;
-	}
 
 	if (chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
@@ -7001,10 +6864,6 @@ bool chrTryAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
-	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
-		return false;
-	}
-
 	if (chrIsReadyForOrders(chr)) {
 		if (race == RACE_ROBOT) {
 			robotAttack(chr);
@@ -7054,10 +6913,6 @@ bool chrTryAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
 bool chrTryModifyAttack(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
-
-	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
-		return false;
-	}
 
 	if (chr->actiontype == ACT_ATTACK
 			&& (chr->act_attack.flags & (ATTACKFLAG_AIMONLY | ATTACKFLAG_DONTTURN))) {
@@ -7292,11 +7147,6 @@ s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2)
 
 bool chrTryStop(struct chrdata *chr)
 {
-	if (CHRRACE(chr) == RACE_EYESPY) {
-		func0f02e9a0(chr, 0);
-		return true;
-	}
-
 	if (chrIsReadyForOrders(chr)) {
 		chrStop(chr);
 		return true;
@@ -7816,7 +7666,7 @@ bool chrTryPunch(struct chrdata *chr, u8 reverse)
 	if (ok) {
 		struct prop *targetprop = chrGetTargetProp(chr);
 
-		if (targetprop->type == PROPTYPE_EYESPY || targetprop->type == PROPTYPE_PLAYER) {
+		if (targetprop->type == PROPTYPE_PLAYER) {
 			chr->act_anim.hitradius = playerhitradius;
 		} else {
 			chr->act_anim.hitradius = chrhitradius;
@@ -7847,34 +7697,6 @@ bool chrTryPunch(struct chrdata *chr, u8 reverse)
 void func0f03c03c(void)
 {
 	// empty
-}
-
-/**
- * Verifies that the given chr struct is actually an eyespy and returns the
- * eyespy struct.
- *
- * Eyespys have their own chr struct, even though they aren't a chr. Iterating
- * the player list is required because the only pointer to an eyespy is via the
- * player struct.
- */
-struct eyespy *chrToEyespy(struct chrdata *chr)
-{
-	if (chr && chr->prop) {
-		if (CHRRACE(chr) == RACE_EYESPY) {
-			s32 playercount = PLAYERCOUNT();
-			s32 i;
-
-			for (i = 0; i < playercount; i++) {
-				if (g_Vars.players[i]->eyespy && chr->prop == g_Vars.players[i]->eyespy->prop) {
-					return g_Vars.players[i]->eyespy;
-				}
-			}
-
-			return NULL;
-		}
-	}
-
-	return NULL;
 }
 
 void chrTickStand(struct chrdata *chr)
@@ -7917,10 +7739,6 @@ void chrTickStand(struct chrdata *chr)
 	}
 
 	race = CHRRACE(chr);
-
-	if (race == RACE_EYESPY) {
-		return;
-	}
 
 	if (chr->act_stand.prestand) {
 		if (modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model)) {
@@ -8322,10 +8140,6 @@ void chrTickDie(struct chrdata *chr)
 	};
 
 	static s32 thudindex = 0;
-
-	if (race == RACE_EYESPY) {
-		return;
-	}
 
 	if (race == RACE_ROBOT) {
 		struct prop *prop = chr->prop;
@@ -9332,7 +9146,7 @@ void chrStopFiring(struct chrdata *chr)
 {
 	u8 race = CHRRACE(chr);
 
-	if (race != RACE_DRCAROLL && race != RACE_EYESPY && chr->aibot == NULL) {
+	if (race != RACE_DRCAROLL && chr->aibot == NULL) {
 		chrSetFiring(chr, HAND_RIGHT, false);
 		chrSetFiring(chr, HAND_LEFT, false);
 
@@ -9962,27 +9776,16 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 					? CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG | CDTYPE_PLAYERS
 					: CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG;
 				u32 stack;
-				bool isshootingeyespy = CHRRACE(targetprop->chr) == RACE_EYESPY && chrGetDistanceToTarget(chr) > 150;
-				bool fudgeforeyespy = false;
 
-				if (isshootingeyespy) {
-					vector.x = targetprop->pos.x - gunpos.x;
-					vector.y = targetprop->pos.y - gunpos.y;
-					vector.z = targetprop->pos.z - gunpos.z;
+				vector.x = cosf(rotx) * sinf(roty);
+				vector.y = sinf(rotx);
+				vector.z = cosf(rotx) * cosf(roty);
 
-					guNormalize(&vector.x, &vector.y, &vector.z);
-					propSetPerimEnabled(targetprop, true);
-				} else {
-					vector.x = cosf(rotx) * sinf(roty);
-					vector.y = sinf(rotx);
-					vector.z = cosf(rotx) * cosf(roty);
-
-					if (isaibot) {
-						bgunCalculateBotShotSpread(&vector,
-								chr->aibot->weaponnum, chr->aibot->gunfunc,
-								chr->aibot->burstsdone[handnum], botGuessCrouchPos(chr),
-								chr->weapons_held[0] && chr->weapons_held[1]);
-					}
+				if (isaibot) {
+					bgunCalculateBotShotSpread(&vector,
+							chr->aibot->weaponnum, chr->aibot->gunfunc,
+							chr->aibot->burstsdone[handnum], botGuessCrouchPos(chr),
+							chr->weapons_held[0] && chr->weapons_held[1]);
 				}
 
 				// Handle Farsight shots by aibots specially
@@ -10025,19 +9828,6 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 				if (isaibot) {
 					g_Vars.useperimshoot = false;
-				}
-
-				// Eyespy is small and hard to hit, so make it a 50/50 chance
-				if (hitprop == NULL && isshootingeyespy) {
-					fudgeforeyespy = random() % 100 > 50;
-
-					if (fudgeforeyespy) {
-						hitprop = targetprop;
-
-						hitpos.x = hitprop->pos.x;
-						hitpos.y = hitprop->pos.y;
-						hitpos.z = hitprop->pos.z;
-					}
 				}
 
 				xdiff = hitpos.x - gunpos.x;
@@ -10315,7 +10105,6 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 								// Hit a player or chr other than the one they
 								// were aiming for
 								if (isaibot
-										|| fudgeforeyespy
 										|| ((chr->chrflags & CHRCFLAG_00000040) && chrCompareTeams(hitprop->chr, chr, COMPARE_ENEMIES))) {
 									struct modelnode *node = NULL;
 									struct model *model = NULL;
@@ -10388,10 +10177,6 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 							explosionCreateSimple(NULL, &hitpos, hitrooms, EXPLOSIONTYPE_PHOENIX, playernum);
 						}
 					}
-				}
-
-				if (isshootingeyespy) {
-					propSetPerimEnabled(targetprop, false);
 				}
 			}
 		}
@@ -13388,8 +13173,7 @@ void chraTickBg(void)
 				if (targetprop && (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER)) {
 					if ((targetprop->type == PROPTYPE_PLAYER
 								&& !(g_Vars.antiplayernum >= 0 && g_Vars.anti && g_Vars.anti->prop == targetprop)
-								&& chrCompareTeams(chr, targetprop->chr, COMPARE_ENEMIES))
-							|| CHRRACE(targetprop->chr) == RACE_EYESPY) {
+								&& chrCompareTeams(chr, targetprop->chr, COMPARE_ENEMIES))) {
 						s32 time60;
 						s32 lastsee;
 						s32 lastvis;

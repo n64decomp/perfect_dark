@@ -117,16 +117,6 @@ bool sightIsReactiveToProp(struct prop *prop)
 		if (objGetDestroyedLevel(obj) > 0) {
 			return false;
 		}
-	} else if (prop->type == PROPTYPE_CHR) {
-		struct chrdata *chr = prop->chr;
-
-		if (chr && chr->race == RACE_EYESPY) {
-			struct eyespy *eyespy = chrToEyespy(chr);
-
-			if (!eyespy || !eyespy->deployed) {
-				return false;
-			}
-		}
 	}
 
 	return true;

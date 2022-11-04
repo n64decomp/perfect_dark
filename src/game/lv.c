@@ -643,7 +643,6 @@ bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 			}
 			return false;
 		case PROPTYPE_DOOR:
-		case PROPTYPE_EYESPY:
 		case PROPTYPE_EXPLOSION:
 		case PROPTYPE_SMOKE:
 		default:
@@ -1309,7 +1308,6 @@ Gfx *lvRender(Gfx *gdl)
 			} else if (g_Vars.currentplayer->gunctrl.unk1583_06
 					&& var80075d60 == 2
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
-					&& g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
 					&& var8009dfc0 == 0) {
 				g_Vars.currentplayer->gunctrl.unk1583_06 = bgun0f09eae4();
 			}
@@ -1397,51 +1395,12 @@ Gfx *lvRender(Gfx *gdl)
 					}
 				}
 
-				// Handle eyespy Z presses
-				if (g_Vars.currentplayer->eyespy
-						&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)
-						&& g_Vars.currentplayer->eyespy->camerabuttonheld) {
-					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-						objectiveCheckHolograph(400);
-						sndStart(var80095200, SFX_CAMSPY_SHUTTER, 0, -1, -1, -1, -1, -1);
-					} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
-						if (g_Vars.currentplayer->eyespydarts) {
-							// Fire dart
-							struct coord direction;
-							sndStart(var80095200, SFX_DRUGSPY_FIREDART, 0, -1, -1, -1, -1, -1);
-							g_Vars.currentplayer->eyespydarts--;
-
-							direction.x = g_Vars.currentplayer->eyespy->look.x;
-							direction.y = g_Vars.currentplayer->eyespy->look.y;
-							direction.z = g_Vars.currentplayer->eyespy->look.z;
-
-							projectileCreate(g_Vars.currentplayer->eyespy->prop, 0,
-									&g_Vars.currentplayer->eyespy->prop->pos, &direction, WEAPON_TRANQUILIZER, NULL);
-						} else {
-							// No dart ammo
-							sndStart(var80095200, SFX_FIREEMPTY, 0, -1, -1, -1, -1, -1);
-						}
-					} else { // EYESPYMODE_BOMBSPY
-						struct coord vel = {0, 0, 0};
-						struct gset gset = {WEAPON_GRENADE, 0, 0, FUNC_PRIMARY};
-						explosionCreateSimple(g_Vars.currentplayer->eyespy->prop,
-								&g_Vars.currentplayer->eyespy->prop->pos,
-								g_Vars.currentplayer->eyespy->prop->rooms,
-								EXPLOSIONTYPE_DRAGONBOMBSPY, 0);
-						chrBeginDeath(g_Vars.currentplayer->eyespy->prop->chr, &vel, 0, 0, &gset, false, 0);
-					}
-				}
-
 				// Handle opening doors and reloading
 				if (g_Vars.currentplayer->bondactivateorreload) {
 					if (currentPlayerInteract(false)) {
 						bgunReloadIfPossible(HAND_RIGHT);
 						bgunReloadIfPossible(HAND_LEFT);
 					}
-				} else if (g_Vars.currentplayer->eyespy
-						&& g_Vars.currentplayer->eyespy->active
-						&& g_Vars.currentplayer->eyespy->opendoor) {
-					currentPlayerInteract(true);
 				}
 
 				propsTestForPickup();

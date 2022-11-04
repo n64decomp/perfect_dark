@@ -224,13 +224,6 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	s32 l;
 #endif
 
-	// The eyespy can't be pushed
-	if (CHRRACE(chr) == RACE_EYESPY) {
-		roomsCopy(prop->rooms, dstrooms);
-		chrSetPerimEnabled(chr, true);
-		return;
-	}
-
 	chrGetBbox(prop, &radius, &ymax, &ymin);
 	halfradius = radius * 0.5f;
 	chrSetPerimEnabled(chr, false);
@@ -696,15 +689,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		arg2->x += chr->fallspeed.x * VAR(lvupdate60freal);
 		arg2->z += chr->fallspeed.z * VAR(lvupdate60freal);
 
-		if (race == RACE_EYESPY) {
-			struct eyespy *eyespy = chrToEyespy(chr);
-
-			if (eyespy && eyespy->deployed) {
-				arg2->x = chr->prop->pos.x;
-				arg2->y = chr->prop->pos.y;
-				arg2->z = chr->prop->pos.z;
-			}
-		} else if (chr->actiontype == ACT_SKJUMP
+		if (chr->actiontype == ACT_SKJUMP
 				&& chr->act_skjump.state == SKJUMPSTATE_AIRBORNE
 				&& !chr->act_skjump.needsnewanim
 				&& g_Vars.lvupdate60 != 0) {
@@ -794,9 +779,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 				chr->ground = chr->manground;
 				arg2->y -= chr->manground;
 			} else {
-				if (race == RACE_EYESPY) {
-					ground = chr->manground;
-				} else if (prop->type == PROPTYPE_PLAYER) {
+				if (prop->type == PROPTYPE_PLAYER) {
 					struct player *player = g_Vars.players[playermgrGetPlayerNumByProp(prop)];
 					ground = player->vv_manground;
 					chr->floorcol = player->floorcol;
@@ -1853,22 +1836,6 @@ void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	struct coord upper;
 	f32 height = 110;
 
-	if (
-#if VERSION >= VERSION_NTSC_1_0
-			chr && chr->race == RACE_EYESPY
-#else
-			chr->race == RACE_EYESPY
-#endif
-			) {
-		struct eyespy *eyespy = chrToEyespy(chr);
-
-		if (eyespy) {
-			height = eyespy->height + 30.0f;
-		} else {
-			height = 230;
-		}
-	}
-
 	lower.x = pos->x - 50.0f;
 	lower.y = pos->y - height;
 	lower.z = pos->z - 50.0f;
@@ -2432,23 +2399,7 @@ s32 chrTick(struct prop *prop)
 		}
 	}
 
-	if (race == RACE_EYESPY) {
-		struct eyespy *eyespy = chrToEyespy(chr);
-
-		if (eyespy && eyespy->deployed) {
-			if (eyespy == g_Vars.currentplayer->eyespy && eyespy->active) {
-				onscreen = false;
-			} else {
-				onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
-			}
-
-			if (fulltick) {
-				chr0f0220ec(chr, lvupdate240, 1);
-			}
-		} else {
-			onscreen = false;
-		}
-	} else if (chr->chrflags & CHRCFLAG_HIDDEN) {
+	if (chr->chrflags & CHRCFLAG_HIDDEN) {
 		onscreen = false;
 	} else if ((chr->chrflags & CHRCFLAG_UNPLAYABLE)
 			|| (prop->type == PROPTYPE_PLAYER
@@ -2556,8 +2507,7 @@ s32 chrTick(struct prop *prop)
 		onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
 	} else if (prop->type == PROPTYPE_PLAYER
 			&& (g_Vars.mplayerisrunning
-				|| (player = g_Vars.players[playermgrGetPlayerNumByProp(prop)], player->cameramode == CAMERAMODE_EYESPY)
-				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
+				|| (player = g_Vars.players[playermgrGetPlayerNumByProp(prop)], player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
 		model->anim->average = false;
 		chr0f0220ec(chr, lvupdate240, 1);
 		onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
@@ -3265,20 +3215,6 @@ void chrGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
 			colour2[2] = 0x005611a0;
 		}
 		return;
-	case BODY_DRCAROLL:
-	case BODY_EYESPY:
-	case BODY_CHICROB:
-		if (colour1) {
-			colour1[0] = 10;
-			colour1[1] = 10;
-			colour1[2] = 10;
-		}
-		if (colour2) {
-			colour2[0] = 0xb0b030a0;
-			colour2[1] = 0xe0e030a0;
-			colour2[2] = 0xe0e050a0;
-		}
-		return;
 	case BODY_MRBLONDE:
 	case BODY_SKEDAR:
 	case BODY_MINISKEDAR:
@@ -3322,21 +3258,6 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	f32 xrayalphafrac;
 	u8 spec[4];
 	u8 speb = 0;
-
-	// Don't render the eyespy if we're the one controlling it
-	if (CHRRACE(chr) == RACE_EYESPY) {
-		eyespy = chrToEyespy(chr);
-
-		if (eyespy) {
-			if (!eyespy->deployed) {
-				return gdl;
-			}
-
-			if (eyespy == g_Vars.currentplayer->eyespy && eyespy->active) {
-				return gdl;
-			}
-		}
-	}
 
 	if (chr->chrflags & CHRCFLAG_UNPLAYABLE) {
 		alpha = 0xff;
@@ -3567,8 +3488,6 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 					if (gaptoground <= 400 && g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 						if (chr->bodynum == BODY_SKEDAR || chr->bodynum == BODY_SKEDARKING) {
 							radius = 80;
-						} else if (chr->bodynum == BODY_EYESPY) {
-							radius = 12;
 						} else {
 							radius = 35;
 						}
@@ -3634,11 +3553,6 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 	}
 
 	race = CHRRACE(chr);
-
-	if (race == RACE_DRCAROLL || race == RACE_ROBOT || race == RACE_EYESPY) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_ELECTRICAL);
-		return;
-	}
 
 	if (chr->noblood) {
 		return;
@@ -5286,12 +5200,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				mtx4TransformVec(&spb0, &sp98, &sp5c);
 
 #if VERSION >= VERSION_NTSC_1_0
-				if (!chr->noblood
-						&& race != RACE_DRCAROLL
-						&& race != RACE_ROBOT
-						&& race != RACE_EYESPY
-						&& !isclose
-						&& shotdata->gset.weaponnum != WEAPON_TRANQUILIZER) {
+				if (!chr->noblood && !isclose && shotdata->gset.weaponnum != WEAPON_TRANQUILIZER) {
 					u8 darker;
 
 					if (chr->bodynum == BODY_MRBLONDE || race == RACE_SKEDAR) {
@@ -5311,9 +5220,6 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				// If paintball is enabled, neither blood nor paint is created.
 				if (!chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)
 						&& !chr->noblood
-						&& race != RACE_DRCAROLL
-						&& race != RACE_ROBOT
-						&& race != RACE_EYESPY
 						&& !isclose
 						&& shotdata->gset.weaponnum != WEAPON_TRANQUILIZER) {
 					u8 darker;

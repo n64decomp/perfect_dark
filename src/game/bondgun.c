@@ -1554,12 +1554,6 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 				if (hand->triggeron) {
 					hand->unk0cc8_03 = false;
 				}
-
-#if VERSION >= VERSION_JPN_FINAL
-				if (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY) {
-					hand->unk0cc8_03 = false;
-				}
-#endif
 			} else {
 				if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
 					if (bgun0f098a44(hand, 1)) {
@@ -4178,14 +4172,6 @@ void bgunTickLoad(void)
 
 bool bgun0f09eae4(void)
 {
-	// PAL adds a check for the eyespy being used
-#if VERSION >= VERSION_PAL_BETA
-	if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)) {
-		g_Vars.currentplayer->gunctrl.unk1583_06 = false;
-		return false;
-	}
-#endif
-
 	bgun0f09df9c();
 
 	if (g_Vars.currentplayer->gunctrl.weaponnum != WEAPON_NONE) {
@@ -8071,12 +8057,6 @@ void bgunTickGameplay2(void)
 		// empty
 	} else {
 		bgunTickLoad();
-	}
-
-	// Return control to Jo if eyespy has been deselected
-	if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY) == 0
-			&& player->eyespy) {
-		player->eyespy->active = false;
 	}
 
 	if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_XRAYSCANNER)

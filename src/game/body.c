@@ -143,12 +143,6 @@ u32 bodyGetRace(s32 bodynum)
 	case BODY_MINISKEDAR:
 	case BODY_SKEDARKING:
 		return RACE_SKEDAR;
-	case BODY_DRCAROLL:
-		return RACE_DRCAROLL;
-	case BODY_EYESPY:
-		return RACE_EYESPY;
-	case BODY_CHICROB:
-		return RACE_ROBOT;
 	}
 
 	return RACE_HUMAN;
@@ -528,96 +522,6 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 			}
 		}
 	}
-}
-
-struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
-{
-	s16 rooms[2];
-	struct prop *prop;
-	struct chrdata *chr;
-	struct model *model;
-	s32 inlift;
-	struct prop *lift;
-	f32 ground;
-
-	rooms[0] = room;
-	rooms[1] = -1;
-
-#if PIRACYCHECKS
-	{
-		u32 stack[2];
-		u32 checksum = 0;
-		s32 *ptr = (s32 *)&lvReset;
-		s32 *end = (s32 *)&lvConfigureFade;
-
-		while (ptr < end) {
-			checksum <<= 1;
-			checksum ^= *ptr;
-			ptr++;
-		}
-
-		if (checksum != CHECKSUM_PLACEHOLDER) {
-			s32 *ptr2 = (s32 *)_memaFree;
-			s32 *end2 = (s32 *)memaInit;
-
-			while (ptr2 < end2) {
-				ptr2[0] = 0;
-				ptr2++;
-			}
-		}
-	}
-#endif
-
-	model = bodyAllocateModel(BODY_EYESPY, 0, 0);
-
-	if (model) {
-		prop = chrAllocate(model, &pad->pos, rooms, 0);
-
-		if (prop) {
-			propActivate(prop);
-			propEnable(prop);
-			chr = prop->chr;
-			chrSetChrnum(chr, chrsGetNextUnusedChrnum());
-			chr->bodynum = BODY_EYESPY;
-			chr->padpreset1 = 0;
-			chr->chrpreset1 = 0;
-			chr->headnum = 0;
-			chr->hearingscale = 0;
-			chr->visionrange = 0;
-			chr->race = bodyGetRace(chr->bodynum);
-
-			ground = cdFindGroundInfoAtCyl(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &inlift, &lift);
-			chr->ground = ground;
-			chr->manground = ground;
-
-			chr->flags = 0;
-			chr->flags2 = 0;
-			chr->team = 0;
-			chr->squadron = 0;
-			chr->maxdamage = 2;
-			chr->tude = random() & 3;
-			chr->voicebox = random() % 3;
-			chr->naturalanim = 0;
-			chr->myspecial = 0;
-			chr->yvisang = 0;
-			chr->teamscandist = 0;
-			chr->convtalk = 0;
-			chr->radius = 26;
-			chr->height = 200;
-			func0f02e9a0(chr, 0);
-			chr->chrflags |= CHRCFLAG_HIDDEN;
-
-#if VERSION >= VERSION_NTSC_1_0
-			chr->hidden2 |= CHRH2FLAG_0040;
-#else
-			chr->hidden |= CHRHFLAG_00000200;
-#endif
-
-			return prop;
-		}
-	}
-
-	return NULL;
 }
 
 void body0f02ddbf(void)

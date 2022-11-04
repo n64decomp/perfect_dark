@@ -357,18 +357,6 @@ char *mpMenuTextWeaponDescription(struct menuitem *item)
 	struct weapon *weapondef = weaponFindById(g_Menus[g_MpPlayerNum].training.weaponnum);
 
 	if (weapondef != NULL) {
-		if (g_Menus[g_MpPlayerNum].training.weaponnum == WEAPON_EYESPY) {
-			if (g_Vars.currentplayer->eyespy != NULL) {
-				if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
-					return langGet(L_GUN_237);
-				}
-
-				if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_BOMBSPY) {
-					return langGet(L_GUN_236);
-				}
-			}
-		}
-
 		if (g_Menus[g_MpPlayerNum].training.weaponnum == WEAPON_NECKLACE && g_Vars.stagenum == STAGE_ATTACKSHIP) {
 			if (lvGetDifficulty() >= DIFF_PA) {
 				u8 username[] = {

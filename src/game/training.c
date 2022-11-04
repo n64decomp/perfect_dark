@@ -2753,19 +2753,6 @@ void dtRestorePlayer(void)
 	if (dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot)) == WEAPON_ECMMINE) {
 		bgunSetAmmoQuantity(AMMOTYPE_ECM_MINE, 0);
 	}
-
-	if (g_Vars.currentplayer->eyespy) {
-		struct chrdata *chr = g_Vars.currentplayer->eyespy->prop->chr;
-		g_Vars.currentplayer->eyespy->deployed = false;
-		g_Vars.currentplayer->eyespy->held = true;
-		g_Vars.currentplayer->eyespy->active = false;
-
-		chr->chrflags |= CHRCFLAG_HIDDEN;
-
-		func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
-
-		g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;
-	}
 }
 
 void dtPushEndscreen(void)

@@ -1482,7 +1482,6 @@ bool currentPlayerInteract(bool eyespy)
 			op = propdoorInteract(prop);
 			break;
 		case PROPTYPE_CHR:
-		case PROPTYPE_EYESPY:
 		case PROPTYPE_PLAYER:
 		case PROPTYPE_EXPLOSION:
 		case PROPTYPE_SMOKE:
@@ -2337,7 +2336,6 @@ void propsTestForPickup(void)
 					break;
 				case PROPTYPE_DOOR:
 				case PROPTYPE_CHR:
-				case PROPTYPE_EYESPY:
 				case PROPTYPE_PLAYER:
 				case PROPTYPE_EXPLOSION:
 				case PROPTYPE_SMOKE:
@@ -2612,12 +2610,8 @@ void autoaimTick(void)
 					chr = bestprop->chr;
 					aimpos[0] = (trackedprop->x2 + trackedprop->x1) / 2;
 
-					if (chr && chr->race == RACE_EYESPY) {
-						aimpos[1] = (trackedprop->y2 + trackedprop->y1) >> 1;
-					} else {
-						// Aim 2/3 up the chr, so about their chest
-						aimpos[1] = (trackedprop->y2 + trackedprop->y1 * 2) / 3;
-					}
+					// Aim 2/3 up the chr, so about their chest
+					aimpos[1] = (trackedprop->y2 + trackedprop->y1 * 2) / 3;
 				}
 
 				// Constrain aimpos to the aim limits
@@ -2637,16 +2631,7 @@ void autoaimTick(void)
 					aimpos[1] = top;
 				}
 
-				// Don't use this prop if it's an undeployed eyespy, or if
-				// the trackedprop is outside of the aim limits
-				if (chr && chr->race == RACE_EYESPY) {
-					struct eyespy *eyespy = chrToEyespy(chr);
-
-					if (eyespy == NULL || !eyespy->deployed) {
-						bestprop = NULL;
-						aimpos[0] = aimpos[1] = 0;
-					}
-				} else if (aimpos[0] > trackedprop->x2
+				if (aimpos[0] > trackedprop->x2
 						|| aimpos[0] < trackedprop->x1
 						|| aimpos[1] > trackedprop->y2
 						|| aimpos[1] < trackedprop->y1) {

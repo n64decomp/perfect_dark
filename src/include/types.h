@@ -1948,40 +1948,6 @@ struct escalatorobj { // objtype 0x3b
 	/*0x60*/ struct coord prevpos;
 };
 
-struct eyespy {
-	/*0x00*/ struct prop *prop;
-	/*0x04*/ struct coord look;
-	/*0x10*/ struct coord up;
-	/*0x1c*/ f32 theta; // turn angle in degrees
-	/*0x20*/ f32 costheta;
-	/*0x24*/ f32 sintheta;
-	/*0x28*/ f32 verta;
-	/*0x2c*/ f32 cosverta;
-	/*0x30*/ f32 sinverta;
-	/*0x34*/ u8 held; // the eyespy is held by the player (opposite of deployed)
-	/*0x35*/ u8 deployed; // the eyespy is deployed in the stage somewhere
-	/*0x36*/ s8 startuptimer60;
-	/*0x37*/ s8 active; // player is currently controlling the eyespy
-	/*0x38*/ s8 buttonheld;
-	/*0x39*/ s8 camerabuttonheld;
-	/*0x3a*/ s16 bobdir;
-	/*0x3c*/ u8 bobtimer;
-	/*0x3d*/ u8 bobactive;
-	/*0x40*/ struct coord vel;
-	/*0x4c*/ struct coord unk4c;
-	/*0x58*/ f32 speed;
-	/*0x5c*/ f32 oldground;
-	/*0x60*/ f32 height; // height above ground - 30 to 160 on G5 and CI training, 80 to 160 elsewhere
-	/*0x64*/ f32 gravity;
-	/*0x68*/ s8 camerashuttertime;
-	/*0x69*/ u8 hit;
-	/*0x6a*/ u8 opendoor;
-	/*0x6b*/ u8 mode;
-	/*0x6c*/ f32 velf[2];
-	/*0x74*/ f32 vels[2];
-	/*0x7c*/ f32 pitch;
-};
-
 struct sndstate {
 	/*0x00*/ ALLink node;
 	/*0x08*/ ALSound *sound;
@@ -2533,7 +2499,7 @@ struct player {
 	/*0x0440*/ struct coord standup[2];
 	/*0x0458*/ s32 standcnt;
 	/*0x045c*/ struct model model;
-	/*0x0480*/ struct eyespy *eyespy;
+	/*0x0480*/ s32 eyespy;
 	/*0x0484*/ u8 *unk0484; // pointer to vtx buffer?
 	/*0x0488*/ u8 *unk0488; // pointer to vtx buffer?
 	/*0x048c*/ bool aborted;

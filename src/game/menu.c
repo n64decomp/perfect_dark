@@ -8410,12 +8410,6 @@ Gfx *menuRender(Gfx *gdl)
 			}
 		}
 
-		if (g_Vars.currentplayer->eyespy
-				&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)
-				&& g_Vars.currentplayer->eyespy->active) {
-			removepiece = true;
-		}
-
 		if (removepiece) {
 			if (g_MenuData.unk01c.unk580 == 0) {
 				g_MenuData.unk01c.unk5b1_04 = true;
@@ -8461,8 +8455,7 @@ Gfx *menuRender(Gfx *gdl)
 	}
 
 	// Render the health bar (playerRenderHealthBar may choose not to render)
-	if ((g_MenuData.bg || g_MenuData.nextbg != 255)
-			&& (!g_Vars.currentplayer->eyespy || !g_Vars.currentplayer->eyespy->active)) {
+	if (g_MenuData.bg || g_MenuData.nextbg != 255) {
 		gdl = func0f0d49c8(gdl);
 		gdl = playerRenderHealthBar(gdl);
 		gdl = func0f0d479c(gdl);
