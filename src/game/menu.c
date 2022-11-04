@@ -16,7 +16,6 @@
 #include "game/menu.h"
 #include "game/filelist.h"
 #include "game/filemgr.h"
-#include "game/credits.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
 #include "game/lv.h"
@@ -1737,7 +1736,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 	s32 bodynum;
 	s32 headnum;
 
-	if (g_Vars.stagenum != STAGE_CITRAINING && g_Vars.stagenum != STAGE_CREDITS) {
+	{
 		if (g_MenuData.unk5d5_01 && arg2 != 1 && arg2 < 3) {
 			return gdl;
 		}
@@ -2170,7 +2169,6 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			mtx4MultMtx4(&sp310, &sp350, &sp244);
 
 			if (arg2 == 3) {
-				credits0f13ae04(&sp1c4);
 				mtx4MultMtx4(&sp1c4, &sp244, &sp184);
 				mtx4MultMtx4(&sp184, &sp204, &thing->unk014);
 			} else {

@@ -14,7 +14,6 @@
 #include "game/casing.h"
 #include "game/chr.h"
 #include "game/chraction.h"
-#include "game/credits.h"
 #include "game/debug.h"
 #include "game/dlights.h"
 #include "game/explosions.h"
@@ -308,8 +307,6 @@ void lvReset(s32 stagenum)
 		titleReset();
 	} else if (stagenum == STAGE_BOOTPAKMENU) {
 		// empty
-	} else if (stagenum == STAGE_CREDITS) {
-		// empty
 	} else if (stagenum == STAGE_4MBMENU) {
 		// empty
 	} else {
@@ -404,8 +401,6 @@ void lvReset(s32 stagenum)
 	} else if (stagenum == STAGE_4MBMENU) {
 		setCurrentPlayerNum(0);
 		menuReset();
-	} else if (stagenum == STAGE_CREDITS) {
-		creditsReset();
 	} else {
 		s32 i;
 
@@ -1189,21 +1184,6 @@ Gfx *lvRender(Gfx *gdl)
 		if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
 			playerTickPauseMenu();
 		}
-	} else if (g_Vars.stagenum == STAGE_CREDITS) {
-		gSPClipRatio(gdl++, FRUSTRATIO_2);
-		gSPDisplayList(gdl++, &var800613a0);
-		gSPDisplayList(gdl++, &var80061380);
-
-		setCurrentPlayerNum(0);
-		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
-		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
-				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
-		mtx00016748(1);
-
-		gdl = vi0000b1a8(gdl);
-		gdl = vi0000b1d0(gdl);
-		gdl = viRenderViewportEdges(gdl);
-		gdl = creditsDraw(gdl);
 	} else {
 		// Normal stages
 		s32 i;
@@ -2059,7 +2039,6 @@ void lvTick(void)
 
 		if (g_Vars.stagenum == STAGE_TITLE
 				|| g_Vars.stagenum == STAGE_BOOTPAKMENU
-				|| g_Vars.stagenum == STAGE_CREDITS
 				|| g_Vars.stagenum == STAGE_4MBMENU) {
 			g_Vars.paksconnected2 = 0;
 		} else {
@@ -2302,9 +2281,6 @@ void lvTick(void)
 		musicTick();
 		langTick();
 		pakExecuteDebugOperations();
-	} else if (g_Vars.stagenum == STAGE_CREDITS) {
-		musicTick();
-		langTick();
 	} else {
 		lvUpdateCutsceneTime();
 		vtxstoreTick();

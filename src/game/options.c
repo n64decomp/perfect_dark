@@ -294,23 +294,10 @@ void optionsSetScreenSplit(u8 split)
 
 u16 optionsGetMusicVolume(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	return musicGetVolume();
-#else
-	if (g_Vars.stagenum == STAGE_CREDITS) {
-		return 0x7fff;
-	}
-
-	return var8008231cnb;
-#endif
 }
 
 void optionsSetMusicVolume(u16 volume)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	musicSetVolume(volume);
-#else
-	var8008231cnb = volume;
-	musicSetVolume(var8008231cnb);
-#endif
 }

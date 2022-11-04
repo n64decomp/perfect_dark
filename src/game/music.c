@@ -86,10 +86,6 @@ u16 musicGetVolume(void)
 #if VERSION >= VERSION_NTSC_1_0
 	u32 volume;
 
-	if (g_Vars.stagenum == STAGE_CREDITS) {
-		return 0x5000;
-	}
-
 	if (g_MusicVolume < 0x5000) {
 		volume = g_MusicVolume;
 	} else {

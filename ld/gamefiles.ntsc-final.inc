@@ -169,7 +169,6 @@
 	build/ROMID/game/sparks.o (section); \
 	build/ROMID/game/weather.o (section); \
 	build/ROMID/game/stars.o (section); \
-	build/ROMID/game/credits.o (section); \
 	build/ROMID/game/dyntex.o (section); \
 	build/ROMID/game/game_13c510.o (section); \
 	build/ROMID/game/wallhit.o (section); \
