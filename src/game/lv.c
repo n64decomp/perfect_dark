@@ -446,7 +446,6 @@ void lvReset(s32 stagenum)
 
 	modelmgrSetLvResetting(false);
 	var80084018 = 1;
-	schedResetArtifacts();
 	lvSetPaused(0);
 
 #if PIRACYCHECKS
@@ -1186,7 +1185,6 @@ Gfx *lvRender(Gfx *gdl)
 			gdl = vi0000b280(gdl);
 			gdl = vi0000b1d0(gdl);
 			gdl = currentPlayerScissorToViewport(gdl);
-			artifactsClear();
 
 			if ((g_Vars.stagenum != STAGE_CITRAINING || (var80087260 <= 0 && g_MenuData.root != MENUROOT_MPSETUP))
 					&& g_Vars.lvframenum <= 5
@@ -1532,8 +1530,6 @@ Gfx *lvRender(Gfx *gdl)
 					playerStartNewLife();
 				}
 			}
-
-			artifactsTick();
 
 			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 #if VERSION >= VERSION_NTSC_1_0

@@ -119,30 +119,8 @@ Gfx *mblur0f1763f4(Gfx *gdl)
 	return gdl;
 }
 
-u16 *mblur0f176668(s32 arg0)
-{
-	u16 *addr;
-
-	if (arg0 == 0) {
-		addr = var800ab7c8;
-	}
-
-	if (arg0 == 1) {
-		addr = var800abac8;
-	}
-
-	if (arg0 == 2) {
-		addr = var800abdc8;
-	}
-
-	addr = (u16 *)(((u32)addr + 0x3f) & ~0x3f);
-
-	return addr;
-}
-
 Gfx *mblurRender(Gfx *gdl)
 {
-	struct artifact *artifacts = schedGetWriteArtifacts();
 	u32 stack;
 	u16 *sp4c = var800844f0;
 	u32 s4 = 0;
@@ -150,10 +128,6 @@ Gfx *mblurRender(Gfx *gdl)
 	u16 *s2;
 	u16 *image;
 	s32 i;
-
-	viGetBackBuffer();
-	sp44 = mblur0f176668(g_SchedWriteArtifactsIndex);
-	g_SchedSpecialArtifactIndexes[g_SchedWriteArtifactsIndex] = 1;
 
 	gDPPipeSync(gdl++);
 	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_PHYSICAL_TO_K0(sp44));
@@ -179,31 +153,6 @@ Gfx *mblurRender(Gfx *gdl)
 	gSPClearGeometryMode(gdl++, G_ZBUFFER);
 	gDPTileSync(gdl++);
 
-	for (i = 0; i < MAX_ARTIFACTS; i++) {
-		if (1);
-
-		if (artifacts[i].type != ARTIFACTTYPE_FREE) {
-			s2 = &sp44[s4];
-			image = &sp4c[artifacts[i].unk0c.u16_1 * viGetWidth()];
-
-			gDPPipeSync(gdl++);
-			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
-			gDPLoadSync(gdl++);
-			gDPLoadBlock(gdl++, 5, 0, 0, viGetWidth() - 1, 0);
-			gDPPipeSync(gdl++);
-
-			gSPTextureRectangle(gdl++,
-					s4 << 2, 0,
-					(s4 + 3) << 2, 0,
-					G_TX_RENDERTILE, (artifacts[i].unk0c.u16_2 * 32) + 16, 0x0010, 0x1000, 0);
-
-			artifacts[i].unk0c.u16p = s2;
-			s4++;
-
-			if (s2);
-		}
-	}
-
 	gDPPipeSync(gdl++);
 	gDPLoadSync(gdl++);
 	gDPTileSync(gdl++);
@@ -213,8 +162,6 @@ Gfx *mblurRender(Gfx *gdl)
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 	gDPSetColorDither(gdl++, G_CD_BAYER);
-
-	if (sp44);
 
 	return gdl;
 }

@@ -4378,7 +4378,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->cameramode == CAMERAMODE_THIRDPERSON) {
 		gdl = boltbeamsRender(gdl);
-		gdl = bgRenderArtifacts(gdl);
 		gdl = hudmsgsRender(gdl);
 
 		if (g_Vars.currentplayer->isdead == false) {
@@ -4393,10 +4392,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 		gdl = boltbeamsRender(gdl);
 		bgunRender(&gdl);
 		gdl = lasersightRenderDot(gdl);
-
-		if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
-			gdl = bgRenderArtifacts(gdl);
-		}
 
 		if (g_NbombsActive) {
 			gdl = nbombRenderOverlay(gdl);

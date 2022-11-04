@@ -56,7 +56,6 @@ s32 g_NumActiveRooms;
 u16 g_BgUnloadDelay240;
 u16 g_BgUnloadDelay240_2;
 u32 var800a4bf4;
-s16 g_GlareRooms[100];
 u32 *g_BgPrimaryData2;
 struct bgroom *g_BgRooms;
 struct bgportal *g_BgPortals;
@@ -81,7 +80,6 @@ u32 var80082474nb = 0;
 
 s16 var8007fc0c = 0;
 s16 var8007fc10 = 0;
-s32 g_NumRoomsWithGlares = 0;
 u32 var8007fc18 = 0x01000100;
 u32 var8007fc1c = 0x00000000;
 s32 g_CamRoom = 0x00000001;
@@ -1350,8 +1348,6 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 		}
 	}
 
-	gdl = skyRenderSuns(gdl, true);
-
 	return gdl;
 }
 
@@ -1371,8 +1367,6 @@ Gfx *bgRenderScene(Gfx *gdl)
 	s16 *room;
 	s16 roomorder[60];
 	s16 roomnums[60];
-
-	g_NumRoomsWithGlares = 0;
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 		gdl = bgRenderSceneInXray(gdl);
@@ -1408,8 +1402,6 @@ Gfx *bgRenderScene(Gfx *gdl)
 	}
 
 	gdl = currentPlayerScissorToViewport(gdl);
-
-	gdl = skyRenderSuns(gdl, false);
 
 	// Build an array of room numbers per onscreen prop.
 	// For each onscreen prop there is exactly one entry in the roomnumsbyprop array.
@@ -1530,14 +1522,6 @@ Gfx *bgRenderScene(Gfx *gdl)
 			}
 
 			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
-		}
-
-		if (!g_Vars.mplayerisrunning) {
-			artifactsCalculateGlaresForRoom(thing->roomnum);
-
-			if (g_NumRoomsWithGlares < 100) {
-				g_GlareRooms[g_NumRoomsWithGlares++] = thing->roomnum;
-			}
 		}
 	}
 
@@ -2256,25 +2240,6 @@ glabel bgRenderScene
 /*  f155778:	27bd0338 */ 	addiu	$sp,$sp,0x338
 );
 #endif
-
-Gfx *bgRenderArtifacts(Gfx *gdl)
-{
-	s32 i;
-
-	if (g_Vars.mplayerisrunning == false && g_NumRoomsWithGlares > 0) {
-		gdl = artifactsConfigureForGlares(gdl);
-
-		for (i = 0; i < g_NumRoomsWithGlares; i++) {
-			gdl = artifactsRenderGlaresForRoom(gdl, g_GlareRooms[i]);
-		}
-
-		gdl = artifactsUnconfigureForGlares(gdl);
-	}
-
-	gdl = skyRenderArtifacts(gdl);
-
-	return gdl;
-}
 
 void bgLoadFile(void *memaddr, u32 offset, u32 len)
 {
