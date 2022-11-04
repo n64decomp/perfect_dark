@@ -2963,16 +2963,6 @@ Gfx *sky0f1274d8(Gfx *gdl)
 		gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
 		gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 
-		if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-			r *= 0.5f;
-			g *= 0.75f;
-			b *= 0.5f;
-		} else if (USINGDEVICE(DEVICE_IRSCANNER)) {
-			r *= 0.75f;
-			g *= 0.5f;
-			b *= 0.5f;
-		}
-
 		gDPSetPrimColor(gdl++, 0, 0, (s32)r, (s32)g, (s32)b, (s32)a);
 
 		gDPFillRectangle(gdl++,

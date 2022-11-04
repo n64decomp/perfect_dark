@@ -1240,7 +1240,7 @@ Gfx *lvRender(Gfx *gdl)
 								|| g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_PLAYER) {
 							chr = g_Vars.currentplayer->lookingatprop.prop->chr;
 
-							if ((chr->hidden & CHRHFLAG_CLOAKED) && !USINGDEVICE(DEVICE_IRSCANNER)) {
+							if (chr->hidden & CHRHFLAG_CLOAKED) {
 								g_Vars.currentplayer->lookingatprop.prop = NULL;
 							}
 						} else if (g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_OBJ

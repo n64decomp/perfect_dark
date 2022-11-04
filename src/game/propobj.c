@@ -14534,22 +14534,6 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 	func0f069750(colour, spe4, spe8);
 
-	if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-		if ((obj->flags & OBJFLAG_PATHBLOCKER) == 0) {
-			colour[0] = var8009caed;
-			colour[1] = var8009caed;
-			colour[2] = var8009caed;
-			colour[3] = var8009caee;
-		}
-	} else if (USINGDEVICE(DEVICE_IRSCANNER)) {
-		if ((obj->hidden & OBJHFLAG_CONDITIONALSCENERY) || (obj->flags3 & OBJFLAG3_INFRARED)) {
-			colour[0] = 0xff;
-			colour[1] = 0xff;
-			colour[2] = 0xff;
-			colour[3] = 0x46;
-		}
-	}
-
 	renderdata.fogcolour = colour[0] << 24 | colour[1] << 16 | colour[2] << 8 | colour[3];
 	objRenderProp(prop, &renderdata, xlupass);
 

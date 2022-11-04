@@ -125,11 +125,7 @@ u8 func0f000a10(s32 roomnum)
 {
 	s32 value = g_Rooms[roomnum].unk52;
 
-	if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-		value += var8009caec;
-	} else {
-		value += g_Rooms[roomnum].unk4b;
-	}
+	value += g_Rooms[roomnum].unk4b;
 
 	if (value > 255) {
 		value = 255;
@@ -150,10 +146,6 @@ u8 func0f000b18(u32 arg0)
 u8 func0f000b24(s32 roomnum)
 {
 	u32 value;
-
-	if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-		return var8009caec;
-	}
 
 	if (g_Rooms[roomnum].flags & ROOMFLAG_0040) {
 		value = g_Rooms[roomnum].unk4b;
@@ -2079,8 +2071,6 @@ void lightsTick(void)
 	struct hand *hand1 = &g_Vars.currentplayer->hands[0];
 	struct hand *hand2 = &g_Vars.currentplayer->hands[1];
 
-	func0f005bb0();
-
 	if (hand1->flashon || hand2->flashon) {
 		roomAdjustLighting(g_Vars.currentplayer->prop->rooms[0], 64, 80);
 	}
@@ -2198,15 +2188,9 @@ void roomHighlight(s32 roomnum)
 				dst[i].b = src[i].b;
 				dst[i].a = src[i].a * (1.0f / 255.0f * s2);
 			} else {
-				if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-					tmpr = tmpg = tmpb = (src[i].r > src[i].g && src[i].r > src[i].b)
-						? src[i].r
-						: src[i].g > src[i].b ? src[i].g : src[i].b;
-				} else {
-					tmpr = src[i].r;
-					tmpg = src[i].g;
-					tmpb = src[i].b;
-				}
+				tmpr = src[i].r;
+				tmpg = src[i].g;
+				tmpb = src[i].b;
 
 				alpha = src[i].a;
 				max = tmpr;
@@ -2230,9 +2214,7 @@ void roomHighlight(s32 roomnum)
 				blue = tmpb * mult;
 				max *= mult;
 
-				if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-					extra = 0;
-				} else if (extra + max > 285) {
+				if (extra + max > 285) {
 					extra = 285 - max;
 				}
 
@@ -2614,58 +2596,6 @@ void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
 
 			if (dist < *result) {
 				*result = dist;
-			}
-		}
-	}
-}
-
-/**
- * This function:
- * - Controls the sound effects for the night vision and IR scanner.
- * - Sets g_IsSwitchingGoggles if equipping or unequipping NV/IR on this frame.
- * - Updates the player's usinggoggles property.
- */
-void func0f005bb0(void)
-{
-	s32 brightness = func0f0009c0(g_Vars.currentplayer->prop->rooms[0]);
-
-	if (((USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) && !g_Vars.currentplayer->usinggoggles)
-			|| ((!USINGDEVICE(DEVICE_NIGHTVISION) && !USINGDEVICE(DEVICE_IRSCANNER)) && g_Vars.currentplayer->usinggoggles)) {
-		g_IsSwitchingGoggles = true;
-	}
-
-	g_Vars.currentplayer->usinggoggles = USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER);
-
-	if (USINGDEVICE(DEVICE_NIGHTVISION) && !lvIsPaused()) {
-		// Play the goggle's hum sound
-		if (g_Vars.currentplayer->nvhum == NULL) {
-			sndStart(var80095200, SFX_0505, &g_Vars.currentplayer->nvhum, -1, -1, -1.0f, -1, -1);
-		}
-
-		if (brightness > 128) {
-			// Room is too bright for night vision - play overload sound
-			if (g_Vars.currentplayer->nvoverload == NULL) {
-				sndStart(var80095200, SFX_01BE, &g_Vars.currentplayer->nvoverload, -1, -1, -1.0f, -1, -1);
-			}
-		} else {
-			// Room is dark enough for night vision - stop overload sound if active
-			if (g_Vars.currentplayer->nvoverload != NULL) {
-				if (sndGetState(g_Vars.currentplayer->nvoverload) != AL_STOPPED) {
-					audioStop(g_Vars.currentplayer->nvoverload);
-				}
-			}
-		}
-	} else {
-		// Paused or not wearing night vision - stop both sounds
-		if (g_Vars.currentplayer->nvhum != NULL) {
-			if (sndGetState(g_Vars.currentplayer->nvhum) != NULL) {
-				audioStop(g_Vars.currentplayer->nvhum);
-			}
-		}
-
-		if (g_Vars.currentplayer->nvoverload != NULL) {
-			if (sndGetState(g_Vars.currentplayer->nvoverload) != NULL) {
-				audioStop(g_Vars.currentplayer->nvoverload);
 			}
 		}
 	}

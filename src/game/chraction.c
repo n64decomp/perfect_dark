@@ -5160,7 +5160,7 @@ bool chrIsRoomOffScreen(struct chrdata *chr, struct coord *waypos, s16 *wayrooms
 	bool offscreen = true;
 	s16 sp50[8];
 
-	if ((chr->hidden & CHRHFLAG_CLOAKED) == 0 || USINGDEVICE(DEVICE_IRSCANNER)) {
+	if ((chr->hidden & CHRHFLAG_CLOAKED) == 0) {
 		func0f065dfc(&prop->pos, prop->rooms, waypos, sp64, sp7c, 20);
 
 		if (g_Vars.mplayerisrunning) {

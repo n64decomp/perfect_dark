@@ -398,10 +398,7 @@ Gfx *sparksRender(Gfx *gdl)
 					type = &g_SparkTypes[group->type];
 					colours = gfxAllocateColours(2);
 
-					if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-						colours[0].word = type->unk1c;
-						colours[1].word = type->unk20;
-					} else if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+					if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 						v1 = ((u32) (sp13c * 255.0f) << 24) | ((u32) ((1.0f - sp13c) * 255.0f) << 16);
 
 						// @bug? Second part also reads from type->unk1c

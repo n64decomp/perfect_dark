@@ -3248,10 +3248,6 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 	}
 
-	if (!USINGDEVICE(DEVICE_IRSCANNER)) {
-		alpha = chrGetCloakAlpha(chr) * alpha * 0.0039215688593686f;
-	}
-
 	if (alpha < 0xff) {
 		if (!xlupass) {
 			return gdl;
@@ -3293,18 +3289,10 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		renderdata.zbufferenabled = true;
 		renderdata.gdl = gdl;
 
-		// Configure colours for IR scanner or default
-		if (USINGDEVICE(DEVICE_IRSCANNER)) {
-			colour[0] = 0xff;
-			colour[1] = 0;
-			colour[2] = 0;
-			colour[3] = 0x80;
-		} else {
-			colour[0] = chr->shadecol[0];
-			colour[1] = chr->shadecol[1];
-			colour[2] = chr->shadecol[2];
-			colour[3] = chr->shadecol[3];
-		}
+		colour[0] = chr->shadecol[0];
+		colour[1] = chr->shadecol[1];
+		colour[2] = chr->shadecol[2];
+		colour[3] = chr->shadecol[3];
 
 		if (g_Vars.normmplayerisrunning) {
 			speb = scenarioHighlightProp(prop, colour);
@@ -3323,14 +3311,6 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		func0f069750(colour, sp104, sp108);
-
-		// Configure colours for night vision if in use
-		if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-			colour[0] = var8009caef;
-			colour[1] = var8009caef;
-			colour[2] = var8009caef;
-			colour[3] = var8009caf0;
-		}
 
 		// Configure colours for xray if in use
 		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
@@ -3464,11 +3444,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 			func0f0c33f0(model->matrices, model->filedata->nummatrices);
 
-			if (USINGDEVICE(DEVICE_IRSCANNER)) {
-				gdl = chrRenderShield(gdl, chr, 0x80);
-			} else {
-				gdl = chrRenderShield(gdl, chr, alpha);
-			}
+			gdl = chrRenderShield(gdl, chr, alpha);
 		}
 	}
 
@@ -5406,7 +5382,7 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 			&& chr->actiontype != ACT_DRUGGEDKO
 			&& chr->actiontype != ACT_DEAD
 			&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0
-			&& ((chr->hidden & CHRHFLAG_CLOAKED) == 0 || USINGDEVICE(DEVICE_IRSCANNER))
+			&& ((chr->hidden & CHRHFLAG_CLOAKED) == 0)
 			&& !(prop->type == PROPTYPE_PLAYER && g_Vars.players[playermgrGetPlayerNumByProp(prop)]->isdead)
 			&& !(g_Vars.coopplayernum >= 0 && (prop == g_Vars.bond->prop || prop == g_Vars.coop->prop))) {
 		struct model *model = chr->model;

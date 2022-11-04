@@ -355,10 +355,6 @@ void currentPlayerSetDeviceActive(s32 weaponnum, bool active)
 
 			if ((devicefunc->base.type & 0xff) == INVENTORYFUNCTYPE_DEVICE) {
 				if (active) {
-					if (devicefunc->device & (DEVICE_NIGHTVISION | DEVICE_XRAYSCANNER | DEVICE_IRSCANNER)) {
-						g_Vars.currentplayer->devicesactive &= ~(DEVICE_NIGHTVISION | DEVICE_XRAYSCANNER | DEVICE_IRSCANNER);
-					}
-
 					g_Vars.currentplayer->devicesactive |= devicefunc->device;
 					return;
 				}

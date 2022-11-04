@@ -6712,8 +6712,7 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 
 		mtx4TransformVecInPlace(camGetProjectionMtxF(), &beamnear);
 
-		if (hand->useposrot
-				|| (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_XRAYSCANNER)) {
+		if (hand->useposrot) {
 			beamfar.x = 0.0f;
 			beamfar.y = 0.0f;
 			beamfar.z = 1.0f;
@@ -8031,50 +8030,32 @@ void bgunTickGameplay2(void)
 		bgunTickLoad();
 	}
 
-	if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_XRAYSCANNER)
-			&& (bgunGetWeaponNum(HAND_RIGHT) != WEAPON_FARSIGHT || player->gunsightoff)) {
-		// Using normal xray scanner (not Farsight zoom)
-		if (player->visionmode != VISIONMODE_XRAY) {
-			player->erasertime = 0;
-		} else {
-			player->erasertime += g_Vars.lvupdate240;
-		}
-
-		player->visionmode = VISIONMODE_XRAY;
-		player->ecol_1 = 24;
-		player->ecol_2 = 8;
-		player->ecol_3 = 24;
-		player->epcol_0 = 2;
-		player->epcol_1 = 0;
-		player->epcol_2 = 1;
-	} else {
-		if (player->gunsightoff == 0) {
-			if (player->hands[HAND_RIGHT].gset.weaponnum == WEAPON_FARSIGHT) {
-				// Aiming with the Farsight
-				if (player->visionmode != VISIONMODE_XRAY) {
-					player->erasertime = 0;
-				} else {
-					player->erasertime += g_Vars.lvupdate240;
-				}
-
-				player->visionmode = VISIONMODE_XRAY;
-				player->ecol_1 = 16;
-				player->ecol_2 = 24;
-				player->ecol_3 = 8;
-				player->epcol_0 = 0;
-				player->epcol_1 = 1;
-				player->epcol_2 = 2;
+	if (player->gunsightoff == 0) {
+		if (player->hands[HAND_RIGHT].gset.weaponnum == WEAPON_FARSIGHT) {
+			// Aiming with the Farsight
+			if (player->visionmode != VISIONMODE_XRAY) {
+				player->erasertime = 0;
 			} else {
-				// Aiming with non-Farsight
-				if (player->visionmode != VISIONMODE_SLAYERROCKET) {
-					player->visionmode = VISIONMODE_NORMAL;
-				}
+				player->erasertime += g_Vars.lvupdate240;
 			}
+
+			player->visionmode = VISIONMODE_XRAY;
+			player->ecol_1 = 16;
+			player->ecol_2 = 24;
+			player->ecol_3 = 8;
+			player->epcol_0 = 0;
+			player->epcol_1 = 1;
+			player->epcol_2 = 2;
 		} else {
-			// Not aiming
+			// Aiming with non-Farsight
 			if (player->visionmode != VISIONMODE_SLAYERROCKET) {
 				player->visionmode = VISIONMODE_NORMAL;
 			}
+		}
+	} else {
+		// Not aiming
+		if (player->visionmode != VISIONMODE_SLAYERROCKET) {
+			player->visionmode = VISIONMODE_NORMAL;
 		}
 	}
 
@@ -10842,51 +10823,13 @@ void bgunRender(Gfx **gdlptr)
 			renderdata.gdl = gdl;
 			renderdata.unk30 = 4;
 
-			if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-				// 67c
-				u8 *col = player->gunshadecol;
-				u32 shade;
-				s32 spb0[4];
-				s32 spa0[4];
+			renderdata.envcolour = player->gunshadecol[0] << 24 | player->gunshadecol[1] << 16 | player->gunshadecol[2] << 8 | player->gunshadecol[3];
+			colour = renderdata.envcolour;
 
-				if (col[0] > col[1] && col[0] > col[2]) {
-					shade = col[0];
-				} else if (col[1] > col[2]) {
-					shade = col[1];
-				} else {
-					shade = col[2];
-				}
-
-				renderdata.envcolour = (shade << 24 | shade << 16 | shade << 8) + col[3];
-
-				if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-					spb0[0] = var8009caef;
-					spb0[1] = var8009caef;
-					spb0[2] = var8009caef;
-					spb0[3] = var8009caf0;
-
-					colour = (spb0[0] << 24 | spb0[1] << 16 | spb0[2] << 8) + spb0[3];
-				} else if (USINGDEVICE(DEVICE_IRSCANNER)) {
-					spa0[0] = 0xff;
-					spa0[1] = 0;
-					spa0[2] = 0;
-					spa0[3] = 0x80;
-
-					colour = (spa0[0] << 24 | spa0[1] << 16 | spa0[2] << 8) + spa0[3];
-				}
-
-				if (weaponnum == WEAPON_UNARMED) {
-					renderdata.envcolour = colour;
-				}
-			} else {
-				renderdata.envcolour = player->gunshadecol[0] << 24 | player->gunshadecol[1] << 16 | player->gunshadecol[2] << 8 | player->gunshadecol[3];
-				colour = renderdata.envcolour;
-
-				// 838
-				if (hand->gset.weaponnum == WEAPON_MAULER) {
-					u32 weight = hand->matmot1 * 50.0f;
-					renderdata.envcolour = colourBlend(0xff00007f, renderdata.envcolour, weight);
-				}
+			// 838
+			if (hand->gset.weaponnum == WEAPON_MAULER) {
+				u32 weight = hand->matmot1 * 50.0f;
+				renderdata.envcolour = colourBlend(0xff00007f, renderdata.envcolour, weight);
 			}
 
 			// Apply transparency based on player's cloak

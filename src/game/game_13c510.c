@@ -499,10 +499,6 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 						extra = true;
 					}
 
-					if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-						s3[2] *= (s32) (f30 * 7.0f);
-					}
-
 					f0 = s3[2] * (1.0f / 255.0f);
 
 					sky0f127334((s32) ((f32)f0 * r), (s32) ((f32)f0 * g), (s32) ((f32)f0 * b));
@@ -524,11 +520,6 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 					}
 
 					brightness *= s3[1] * (1.0f / 255.0f);
-
-					if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-						brightness *= 14.0f * f30;
-					}
-
 					brightness += add;
 					brightness *= 2.0f * func0f000dbc(roomnum);
 
@@ -552,10 +543,6 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 						alpha *= stageGetCurrent()->light_alpha / 255.0f;
 						alpha *= (s3[1] / 255.0f);
 						alpha *= (s3[0] / 8.0f);
-
-						if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-							alpha *= f30 * 7.0f;
-						}
 
 						if (alpha > 255.0f) {
 							alpha = 255.0f;

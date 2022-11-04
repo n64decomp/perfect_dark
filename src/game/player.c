@@ -3323,13 +3323,6 @@ void playerLaunchSlayerRocket(struct weaponobj *rocket)
 {
 	g_Vars.currentplayer->slayerrocket = rocket;
 	g_Vars.currentplayer->visionmode = VISIONMODE_SLAYERROCKET;
-
-	// Turn off these devices
-	g_Vars.currentplayer->devicesactive &= ~(
-			DEVICE_NIGHTVISION |
-			DEVICE_XRAYSCANNER |
-			DEVICE_IRSCANNER);
-
 	g_Vars.currentplayer->badrockettime = 0;
 }
 
@@ -4428,18 +4421,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 					g_Vars.currentplayer->eyesshutfrac = 0;
 				}
 			}
-		}
-
-		if (g_Vars.currentplayer->isdead == false
-				&& g_InCutscene == 0
-				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_NIGHTVISION)) {
-			gdl = bviewDrawNvLens(gdl);
-			gdl = bviewDrawNvBinoculars(gdl);
-		} else if (g_Vars.currentplayer->isdead == false
-				&& g_InCutscene == 0
-				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_IRSCANNER)) {
-			gdl = bviewDrawIrLens(gdl);
-			gdl = bviewDrawIrBinoculars(gdl);
 		}
 
 		if (g_Vars.currentplayer->eyesshutfrac > 0) {

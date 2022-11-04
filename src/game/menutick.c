@@ -659,10 +659,7 @@ void menuTick(void)
 			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 					&& PLAYERCOUNT() >= 2
 					&& g_Menus[mpindex].curdialog) {
-				g_Vars.players[i]->devicesinhibit = 0
-					| DEVICE_NIGHTVISION
-					| DEVICE_XRAYSCANNER
-					| DEVICE_IRSCANNER;
+				g_Vars.players[i]->devicesinhibit = 0;
 			}
 		}
 	}

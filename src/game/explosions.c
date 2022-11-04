@@ -1307,9 +1307,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 		colour = gfxAllocateColours(1);
 
-		if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-			*colour = 0xffffffff;
-		} else if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 			u32 alpha = 0x80;
 			u32 red;
 			u32 green;
