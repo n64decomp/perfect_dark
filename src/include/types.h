@@ -179,8 +179,6 @@ struct g_vars {
 	/*0x428*/ struct truckobj *truck;
 	/*0x42c*/ struct heliobj *heli;
 	/*0x430*/ struct chopperobj *hovercar;
-	/*0x434*/ u8 *ailist;
-	/*0x438*/ u32 aioffset;
 	/*0x43c*/ s32 hardfreeabletally;
 	/*0x440*/ s32 antiheadnum;
 	/*0x444*/ s32 antibodynum;
@@ -1200,10 +1198,6 @@ struct chrdata {
 	/*0x0fc*/ u8 nextcol[4];
 	/*0x100*/ f32 damage;
 	/*0x104*/ f32 maxdamage;
-	/*0x108*/ u8 *ailist;
-	/*0x10c*/ u16 aioffset;
-	/*0x10e*/ s16 aireturnlist;
-	/*0x110*/ s16 aishotlist;
 	/*0x112*/ u8 morale;
 	/*0x113*/ u8 alertness;
 	/*0x114*/ u32 flags;
@@ -1309,8 +1303,6 @@ struct chrdata {
 	u8 inlift : 1;
 	u8 pouncebits : 3;
 	u8 unk32c_12 : 2;
-	u8 darkroomthing : 1;
-	u8 playerdeadthing : 1;
 
 	u8 p1p2 : 2;
 	u8 unk32c_18 : 1;
@@ -1330,15 +1322,10 @@ struct chrdata {
 	/*0x338*/ u8 splatsdroppedhere;
 	/*0x339*/ u8 stdsplatsadded;
 	/*0x33a*/ u8 deaddropsplatsadded;
-	/*0x33b*/ s8 aimtesttimer60;
 	/*0x33c*/ struct coord lastdroppos;
 	/*0x348*/ struct fireslotthing *unk348[2];
 	/*0x350*/ struct chrdata *lastattacker;
-	/*0x354*/ s16 aipunchdodgelist;
-	/*0x356*/ s16 aishootingatmelist;
 	/*0x358*/ s16 poisoncounter;
-	/*0x35a*/ s16 aidarkroomlist;
-	/*0x35c*/ s16 aiplayerdeadlist;
 	/*0x35e*/ u8 dodgerating;
 	/*0x35f*/ u8 maxdodgerating;
 	/*0x360*/ u8 unarmeddodgerating;
@@ -2804,11 +2791,6 @@ struct player {
 	/*0x1c64*/ s32 unk1c64;
 	/*0x1c68*/ u32 unk1c68;
 	/*0x1c6c*/ u32 unk1c6c;
-};
-
-struct ailist {
-	u8 *list;
-	s32 id;
 };
 
 struct path {

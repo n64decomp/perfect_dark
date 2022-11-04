@@ -1,5 +1,4 @@
 #include <ultra64.h>
-#include "game/chraicommands.h"
 #include "game/prop.h"
 #include "game/inv.h"
 #include "stagesetup.h"

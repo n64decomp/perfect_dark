@@ -373,7 +373,7 @@ void playerReset(void)
 
 	propActivate(g_Vars.currentplayer->prop);
 	propEnable(g_Vars.currentplayer->prop);
-	chrInit(g_Vars.currentplayer->prop, NULL);
+	chrInit(g_Vars.currentplayer->prop);
 
 	if (g_Vars.coopplayernum >= 0) {
 		g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;

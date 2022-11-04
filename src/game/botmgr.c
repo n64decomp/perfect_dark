@@ -11,7 +11,6 @@
 #include "lib/memp.h"
 #include "lib/model.h"
 #include "lib/rng.h"
-#include "lib/ailist.h"
 #include "data.h"
 #include "types.h"
 
@@ -53,7 +52,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 		struct coord pos = {0.0f, 0.0f, 0.0f};
 		u32 stack;
 
-		prop = chrAllocate(model, &pos, rooms, 0.0f, ailistFindById(GAILIST_AIBOT_INIT));
+		prop = chrAllocate(model, &pos, rooms, 0.0f);
 
 		if (prop != NULL) {
 			propActivate(prop);

@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chraction.h"
-#include "game/chrai.h"
 #include "game/debug.h"
 #include "game/dlights.h"
 #include "game/footstep.h"
@@ -49,7 +48,6 @@
 #include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/ailist.h"
 #include "lib/anim.h"
 #include "lib/collision.h"
 #include "lib/vi.h"
@@ -5092,9 +5090,6 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 		chr->act_die.thudframe2 = -1;
 		chr->act_die.timeextra = 0;
 
-		chr->ailist = ailistFindById(GAILIST_AIBOT_DEAD);
-		chr->aioffset = 0;
-
 		mpstatsRecordDeath(aplayernum, mpPlayerGetIndex(chr));
 		botinvDropAll(chr, chr->aibot->weaponnum);
 
@@ -8222,10 +8217,6 @@ void chrTickDead(struct chrdata *chr)
 
 			chrDropItemsForOwnerReap(chr);
 		}
-	}
-
-	if (aibot == NULL) {
-		chr->ailist = NULL;
 	}
 }
 
@@ -13274,57 +13265,6 @@ void chraTick(struct chrdata *chr)
 		u8 pass = race == RACE_HUMAN || race == RACE_SKEDAR;
 		chr->sleep = 0;
 
-		chraiExecute(chr, PROPTYPE_CHR);
-
-		// Consider setting shootingatmelist
-		if (chr->prop) {
-			if (chr->aimtesttimer60 < 1) {
-				chr->aimtesttimer60 = TICKS(30);
-
-				if (chr->aishootingatmelist >= 0
-						&& ailistFindById(chr->aishootingatmelist) != chr->ailist
-						&& chrCanSeeTargetWithExtraCheck(chr)) {
-					chr->chrflags |= CHRCFLAG_CONSIDER_DODGE;
-				}
-			} else {
-				chr->aimtesttimer60 -= g_Vars.lvupdate60;
-			}
-		}
-
-		// Consider setting darkroomlist
-		if (chr->prop
-				&& chr->aidarkroomlist >= 0
-				&& roomGetBrightness(chr->prop->rooms[0]) < 25
-				&& ailistFindById(chr->aidarkroomlist) != chr->ailist) {
-			chr->darkroomthing = true;
-		}
-
-		// Consider setting playerdeadlist
-		if (chr->prop && chr->aiplayerdeadlist >= 0 && g_Vars.currentplayer->isdead) {
-			u32 prevplayernum = g_Vars.currentplayernum;
-			s32 i;
-			s32 playercount = PLAYERCOUNT();
-			bool alldead = true;
-
-			if (playercount >= 2) {
-				for (i = 0; i < playercount && alldead; i++) {
-					if (i != prevplayernum) {
-						setCurrentPlayerNum(i);
-
-						if (g_Vars.currentplayer->isdead == false) {
-							alldead = false;
-						}
-					}
-				}
-
-				setCurrentPlayerNum(prevplayernum);
-			}
-
-			if (alldead && ailistFindById(chr->aiplayerdeadlist) != chr->ailist) {
-				chr->playerdeadthing = true;
-			}
-		}
-
 		if (race == RACE_ROBOT) {
 			robotSetMuzzleFlash(chr, 0, false);
 			robotSetMuzzleFlash(chr, 1, false);
@@ -13382,33 +13322,6 @@ void chraTick(struct chrdata *chr)
 	} else {
 		footstepCheckMagic(chr);
 	}
-}
-
-void cutsceneStart(u32 ailistid)
-{
-	struct prop *prop;
-
-#if PAL
-	var8009e388pf = 0;
-#else
-	g_CutsceneFrameOverrun240 = 0;
-#endif
-	g_CutsceneSkipRequested = false;
-	g_CutsceneCurTotalFrame60f = 0;
-
-	prop = g_Vars.activeprops;
-
-	while (prop) {
-		prop->lastupdateframe = 0xffff;
-		prop->propupdate240 = 0;
-		prop->propupdate60err = 2;
-
-		prop = prop->next;
-	}
-
-	g_BgChrs[g_NumBgChrs - 1].ailist = ailistFindById(ailistid);
-	g_BgChrs[g_NumBgChrs - 1].aioffset = 0;
-	g_BgChrs[g_NumBgChrs - 1].aireturnlist = -1;
 }
 
 /**
@@ -13507,25 +13420,6 @@ void chraTickBg(void)
 		var80068454 = 0;
 	}
 #endif
-
-	// If enabled, print a list of dangerous props to the developer's console
-	if (debugDangerousProps()) {
-		propPrintDangerous();
-	}
-
-	// Handle switching to a new cutscene when using "Play All" from the menu
-	if (g_Vars.autocutnum >= 0) {
-		cutsceneStart(g_Vars.autocutnum + 0xc00);
-		g_Vars.autocutnum = -1;
-		g_Vars.autocutplaying = true;
-	}
-
-	// Run BG scripts
-	for (i = 0; i < g_NumBgChrs; i++) {
-		if (!g_Vars.autocutplaying || (g_BgChrs[i].hidden2 & CHRH2FLAG_TICKDURINGAUTOCUT)) {
-			chraTick(&g_BgChrs[i]);
-		}
-	}
 
 	// Calculate alive/dead counters. For *spawned* chrs that have died,
 	// allow 10 corpses and start fading if there's more.
@@ -15089,7 +14983,7 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
  * triggered, but the function will not attempt to spawn the chr until the next
  * time it's called.
  */
-struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *rooms, f32 angle, u8 *ailist, u32 spawnflags)
+struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *rooms, f32 angle, u32 spawnflags)
 {
 	struct prop *prop;
 	struct coord pos2;
@@ -15116,7 +15010,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 			struct chrdata *chr;
 
 			if (model) {
-				prop = chrAllocate(model, &pos2, rooms2, angle, ailist);
+				prop = chrAllocate(model, &pos2, rooms2, angle);
 
 				if (prop) {
 					propActivateThisFrame(prop);
@@ -15200,7 +15094,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 	return NULL;
 }
 
-struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 spawnflags)
+struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u32 spawnflags)
 {
 	s32 resolved_pad_id = chrResolvePadId(basechr, pad_id);
 	struct pad pad;
@@ -15211,10 +15105,10 @@ struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_
 	room[0] = pad.room;
 	room[1] = -1;
 
-	return chrSpawnAtCoord(body, head, &pad.pos, &room[0], fvalue, ailist, spawnflags);
+	return chrSpawnAtCoord(body, head, &pad.pos, &room[0], fvalue, spawnflags);
 }
 
-struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 spawnflags)
+struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u32 spawnflags)
 {
 	struct chrdata *chr = chrFindById(basechr, chrnum);
 	f32 fvalue;
@@ -15223,7 +15117,7 @@ struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrn
 		fvalue = chrGetInverseTheta(chr);
 	}
 
-	return chrSpawnAtCoord(body, head, &chr->prop->pos, chr->prop->rooms, fvalue, ailist, spawnflags);
+	return chrSpawnAtCoord(body, head, &chr->prop->pos, chr->prop->rooms, fvalue, spawnflags);
 }
 
 bool chrIsPropPresetBlockingSightToTarget(struct chrdata *chr)

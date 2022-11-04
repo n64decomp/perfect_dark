@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/chraicommands.h"
 #include "game/dlights.h"
 #include "game/propsnd.h"
 #include "game/atan2f.h"
@@ -82,6 +81,13 @@ u32 var8006ae48 = 0x00000001;
 u32 var8006ae4c = 0x00000000;
 s16 var8006ae50 = -1;
 u32 var8006ae54 = 0x000003e7;
+
+void propDecrementSoundCount(struct prop *prop)
+{
+	if (prop && prop->chr && prop->chr->model && prop->chr->propsoundcount > 0) {
+		prop->chr->propsoundcount--;
+	}
+}
 
 bool func0f092610(struct prop *prop, s32 arg1)
 {

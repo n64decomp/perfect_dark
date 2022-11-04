@@ -31,7 +31,6 @@
 #include "lib/path.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/ailist.h"
 #include "lib/anim.h"
 #include "lib/collision.h"
 #include "data.h"
@@ -1293,7 +1292,6 @@ void setupLoadFiles(s32 stagenum)
 {
 	s32 i;
 	s32 j;
-	struct ailist tmp;
 	s32 numchrs = 0;
 	s32 numobjs = 0;
 	s32 extra;
@@ -1326,7 +1324,6 @@ void setupLoadFiles(s32 stagenum)
 		g_StageSetup.intro = (s32 *)((u32)setup + (u32)setup->intro);
 		g_StageSetup.props = (u32 *)((u32)setup + (u32)setup->props);
 		g_StageSetup.paths = (struct path *)((u32)setup + (u32)setup->paths);
-		g_StageSetup.ailists = (struct ailist *)((u32)setup + (u32)setup->ailists);
 
 		g_LoadType = LOADTYPE_PADS;
 
@@ -1335,49 +1332,6 @@ void setupLoadFiles(s32 stagenum)
 		g_StageSetup.waypoints = NULL;
 		g_StageSetup.waygroups = NULL;
 		g_StageSetup.cover = NULL;
-
-		// Convert ailist pointers from file-local to proper pointers
-		if (g_StageSetup.ailists) {
-			for (i = 0; g_StageSetup.ailists[i].list != NULL; i++) {
-				g_StageSetup.ailists[i].list = (u8 *)((u32)setup + (u32)g_StageSetup.ailists[i].list);
-			}
-		}
-
-		// Sort the global AI lists by ID asc
-		do {
-			modified = false;
-
-			for (i = 0; g_GlobalAilists[i + 1].list != NULL; i++) {
-				if (g_GlobalAilists[i + 1].id < g_GlobalAilists[i].id) {
-					// Swap them
-					tmp = g_GlobalAilists[i];
-					g_GlobalAilists[i] = g_GlobalAilists[i + 1];
-					g_GlobalAilists[i + 1] = tmp;
-
-					modified = true;
-				}
-			}
-		} while (modified);
-
-		// Sort the stage AI lists by ID asc
-		do {
-			modified = false;
-
-			for (i = 0; g_StageSetup.ailists[i + 1].list != NULL; i++) {
-				if (g_StageSetup.ailists[i + 1].id < g_StageSetup.ailists[i].id) {
-					// Swap them
-					tmp = g_StageSetup.ailists[i];
-					g_StageSetup.ailists[i] = g_StageSetup.ailists[i + 1];
-					g_StageSetup.ailists[i + 1] = tmp;
-
-					modified = true;
-				}
-			}
-		} while (modified);
-
-		// Count the AI lists
-		for (g_NumGlobalAilists = 0; g_GlobalAilists[g_NumGlobalAilists].list != NULL; g_NumGlobalAilists++);
-		for (g_NumLvAilists = 0; g_StageSetup.ailists[g_NumLvAilists].list != NULL; g_NumLvAilists++);
 
 		// Convert path pad pointers from file-local to proper pointers
 		// and calculate the path lengths
@@ -1843,9 +1797,6 @@ void setupCreateProps(s32 stagenum)
 						truck->speedtime60 = -1;
 						truck->turnrot60 = 0;
 						truck->roty = 0;
-						truck->ailist = ailistFindById((u32)truck->ailist);
-						truck->aioffset = 0;
-						truck->aireturnlist = -1;
 						truck->path = NULL;
 						truck->nextstep = 0;
 					}
@@ -1865,9 +1816,6 @@ void setupCreateProps(s32 stagenum)
 						car->roty = 0;
 						car->rotx = 0;
 						car->speedtime60 = -1;
-						car->ailist = ailistFindById((s32)car->ailist);
-						car->aioffset = 0;
-						car->aireturnlist = -1;
 						car->path = NULL;
 						car->nextstep = 0;
 
@@ -1894,9 +1842,6 @@ void setupCreateProps(s32 stagenum)
 						chopper->gunrotx = 0;
 						chopper->barrelrot = 0;
 						chopper->barrelrotspeed = 0;
-						chopper->ailist = ailistFindById((u32)chopper->ailist);
-						chopper->aioffset = 0;
-						chopper->aireturnlist = -1;
 						chopper->path = NULL;
 						chopper->nextstep = 0;
 						chopper->target = -1;
@@ -1941,9 +1886,6 @@ void setupCreateProps(s32 stagenum)
 						heli->yrot = 0;
 						heli->speedtime60 = -1;
 						heli->rotoryspeedtime = -1;
-						heli->ailist = ailistFindById((u32)heli->ailist);
-						heli->aioffset = 0;
-						heli->aireturnlist = -1;
 						heli->path = NULL;
 						heli->nextstep = 0;
 					}

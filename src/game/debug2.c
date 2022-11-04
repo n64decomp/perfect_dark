@@ -4,7 +4,6 @@
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/gamefile.h"
-#include "lib/ailist.h"
 #include "lib/debughud.h"
 #include "lib/rmon.h"
 #include "lib/str.h"
@@ -453,31 +452,6 @@ void debugUpdateMenu(void)
 {
 	s32 i;
 
-	if (g_DebugCurMenu == DEBUGMENU_MAIN) {
-		dmenuSetMenu(g_DebugMenuLabels, g_DebugMenuPositions, g_DebugMenuOffsets);
-	} else if (g_DebugCurMenu == DEBUGMENU_CUTSCENE) {
-		for (i = 0; i < 10; i++) {
-			g_DebugCutsceneLabelPtrs[i] = g_DebugCutsceneLabelBuffers[i];
-		}
-
-		g_DebugCutsceneOffsets[0] = 0;
-
-		strcpy(g_DebugCutsceneLabelPtrs[0], "main");
-		g_DebugCutsceneOffsets[0]++;
-
-		for (i = 0; ; i++) {
-			if (ailistFindById(0xc00 + i) == NULL) {
-				break;
-			}
-
-			sprintf(g_DebugCutsceneLabelPtrs[i + 1], "scene %d", i);
-			g_DebugCutsceneOffsets[0]++;
-		}
-
-		dmenuSetMenu(g_DebugCutsceneLabelPtrs, g_DebugCutscenePositions, g_DebugCutsceneOffsets);
-	}
-
-	dmenuSetSelectedOption(g_DebugSelectedOptionsByMenu[g_DebugCurMenu]);
 }
 
 void debugSaveSelectedOption(void)

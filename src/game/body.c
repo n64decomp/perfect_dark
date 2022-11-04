@@ -18,7 +18,6 @@
 #include "lib/mema.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/ailist.h"
 #include "lib/anim.h"
 #include "lib/collision.h"
 #include "data.h"
@@ -412,7 +411,7 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 
 	if (model != NULL) {
 		angle = atan2f(pad.look.x, pad.look.z);
-		prop = chrAllocate(model, &pad.pos, rooms, angle, ailistFindById(packed->ailistnum));
+		prop = chrAllocate(model, &pad.pos, rooms, angle);
 
 		if (prop != NULL) {
 			propActivate(prop);
@@ -572,7 +571,7 @@ struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
 	model = bodyAllocateModel(BODY_EYESPY, 0, 0);
 
 	if (model) {
-		prop = chrAllocate(model, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
+		prop = chrAllocate(model, &pad->pos, rooms, 0);
 
 		if (prop) {
 			propActivate(prop);

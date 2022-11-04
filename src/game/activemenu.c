@@ -21,7 +21,6 @@
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/mtx.h"
-#include "lib/ailist.h"
 #include "lib/str.h"
 #include "data.h"
 #include "types.h"
@@ -257,30 +256,6 @@ void amSetAiBuddyTemperament(bool aggressive)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-void amSetAiBuddyStealth(void)
-{
-	s32 i;
-
-	for (i = 0; i < g_Vars.numaibuddies; i++) {
-		if (g_Vars.aibuddies[i]) {
-			struct chrdata *chr = g_Vars.aibuddies[i]->chr;
-
-			if (chr && chr->prop
-					&& !chrIsDead(chr)
-					&& chr->ailist != ailistFindById(GAILIST_BUDDY_STEALTH)
-					&& chr->actiontype != ACT_DRUGGEDDROP
-					&& chr->actiontype != ACT_DRUGGEDKO
-					&& chr->actiontype != ACT_DRUGGEDCOMINGUP) {
-				chrStopFiring(chr);
-				chr->ailist = ailistFindById(GAILIST_BUDDY_STEALTH);
-				chr->aioffset = 0;
-			}
-		}
-	}
-}
-#endif
-
 s32 amGetFirstBuddyIndex(void)
 {
 	s32 i;
@@ -386,26 +361,12 @@ void amApply(s32 slot)
 		}
 		break;
 	default:
-		if (g_MissionConfig.iscoop) {
-			if (amGetFirstBuddyIndex() > -1) {
-				if (slot == 1) {
-					amSetAiBuddyTemperament(true); // aggressive
-				} else if (slot == 7) {
-					amSetAiBuddyTemperament(false); // passive
-#if VERSION >= VERSION_NTSC_1_0
-				} else if (slot == 3) {
-					amSetAiBuddyStealth();
-#endif
-				}
+		if (g_AmMenus[g_AmIndex].allbots) {
+			for (i = 0; i < g_Vars.currentplayer->numaibuddies; i++) {
+				botcmdApply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[i]], g_AmBotCommands[slot]);
 			}
-		} else if (g_Vars.normmplayerisrunning) {
-			if (g_AmMenus[g_AmIndex].allbots) {
-				for (i = 0; i < g_Vars.currentplayer->numaibuddies; i++) {
-					botcmdApply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[i]], g_AmBotCommands[slot]);
-				}
-			} else {
-				botcmdApply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]], g_AmBotCommands[slot]);
-			}
+		} else {
+			botcmdApply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]], g_AmBotCommands[slot]);
 		}
 	}
 }

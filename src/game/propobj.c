@@ -4,7 +4,6 @@
 #include "game/bondwalk.h"
 #include "game/cheats.h"
 #include "game/chraction.h"
-#include "game/chrai.h"
 #include "game/debug.h"
 #include "game/dlights.h"
 #include "game/nbomb.h"
@@ -10962,8 +10961,6 @@ void chopperTickIdle(struct prop *prop)
 	f32 rotx = chopper->rotx;
 	struct coord coord;
 
-	chraiExecute(chopper, PROPTYPE_OBJ);
-
 	chopper->timer60 += g_Vars.lvupdate60;
 
 	coord.x = 0;
@@ -10983,8 +10980,6 @@ void chopperTickPatrol(struct prop *chopperprop)
 	struct pad pad;
 	f32 mult;
 	f32 zdiff;
-
-	chraiExecute(chopper, PROPTYPE_OBJ);
 
 	chopper->timer60 += g_Vars.lvupdate60;
 
@@ -11064,8 +11059,6 @@ void chopperTickCombat(struct prop *chopperprop)
 	struct coord sp6c;
 
 	dist = coordGetSquaredDistanceToCoord(&targetprop->pos, &chopperprop->pos);
-
-	chraiExecute(chopper, PROPTYPE_OBJ);
 
 	chopper->timer60 += g_Vars.lvupdate60;
 
@@ -11298,8 +11291,6 @@ void hovercarTick(struct prop *prop)
 
 		return;
 	}
-
-	chraiExecute(obj, PROPTYPE_OBJ);
 
 	stopping = false;
 

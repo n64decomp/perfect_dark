@@ -1062,7 +1062,7 @@ s16 chrsGetNextUnusedChrnum(void)
 	return chrnum;
 }
 
-void chrInit(struct prop *prop, u8 *ailist)
+void chrInit(struct prop *prop)
 {
 	s32 i;
 	struct chrdata *chr = NULL;
@@ -1125,15 +1125,6 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->actiontype = ACT_INIT;
 	chr->sleep = 0;
 
-	chr->ailist = ailist;
-	chr->aioffset = 0;
-	chr->aireturnlist = -1;
-	chr->aishotlist = -1;
-	chr->aipunchdodgelist = -1;
-	chr->aishootingatmelist = -1;
-	chr->aidarkroomlist = -1;
-	chr->aiplayerdeadlist = -1;
-
 	chr->radius = 20;
 	chr->height = 185;
 	chr->morale = 0;
@@ -1153,8 +1144,6 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->firecount[0] = 0;
 	chr->firecount[1] = 0;
 
-	chr->darkroomthing = 0;
-	chr->playerdeadthing = 0;
 	chr->unk32c_12 = 0;
 
 	chr->grenadeprob = 0;
@@ -1262,7 +1251,6 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->p1p2 = g_Vars.bondplayernum;
 	chr->lastattacker = NULL;
 	chr->race = RACE_HUMAN;
-	chr->aimtesttimer60 = random() % TICKS(30);
 	chr->lastfootsample = 0;
 	chr->poisoncounter = 0;
 	chr->poisonprop = NULL;
@@ -1278,8 +1266,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	splatResetChr(chr);
 }
 
-struct prop *chr0f020b14(struct prop *prop, struct model *model,
-		struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist)
+struct prop *chr0f020b14(struct prop *prop, struct model *model, struct coord *pos, s16 *rooms, f32 faceangle)
 {
 	struct chrdata *chr;
 	struct coord testpos;
@@ -1289,7 +1276,7 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	prop->type = PROPTYPE_CHR;
 
 	if (prop->chr == NULL) {
-		chrInit(prop, ailist);
+		chrInit(prop);
 	}
 
 	chr = prop->chr;
@@ -1334,12 +1321,12 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	return prop;
 }
 
-struct prop *chrAllocate(struct model *model, struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist)
+struct prop *chrAllocate(struct model *model, struct coord *pos, s16 *rooms, f32 faceangle)
 {
 	struct prop *prop = propAllocate();
 
 	if (prop) {
-		prop = chr0f020b14(prop, model, pos, rooms, faceangle, ailist);
+		prop = chr0f020b14(prop, model, pos, rooms, faceangle);
 
 		if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
 			chrSetShield(prop->chr, 8);

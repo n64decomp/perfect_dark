@@ -1,7 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/chrai.h"
-#include "game/chraicommands.h"
 #include "game/prop.h"
 #include "game/atan2f.h"
 #include "game/playermgr.h"
