@@ -58,14 +58,6 @@ void playermgrAllocatePlayers(s32 count)
 
 		setCurrentPlayerNum(0);
 		g_Vars.bond = g_Vars.players[g_Vars.bondplayernum];
-
-		if (g_Vars.coopplayernum >= 0) {
-			g_Vars.coop = g_Vars.players[g_Vars.coopplayernum];
-			g_Vars.anti = NULL;
-		} else if (g_Vars.antiplayernum >= 0) {
-			g_Vars.coop = NULL;
-			g_Vars.anti = g_Vars.players[g_Vars.antiplayernum];
-		}
 	} else {
 		playermgrAllocatePlayer(0);
 		setCurrentPlayerNum(0);
@@ -76,10 +68,11 @@ void playermgrAllocatePlayers(s32 count)
 			playermgrSetViewSize(playerGetFbWidth(), playerGetFbHeight());
 		}
 
-		g_Vars.coop = NULL;
-		g_Vars.anti = NULL;
 		g_Vars.bond = g_Vars.players[0];
 	}
+
+	g_Vars.coop = NULL;
+	g_Vars.anti = NULL;
 }
 
 void playermgrAllocatePlayer(s32 index)

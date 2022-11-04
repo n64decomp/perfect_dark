@@ -443,24 +443,10 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 	default: // Orders screen
 		strcpy(label, "");
 
-		if (g_MissionConfig.iscoop) {
-			if (slot == 4) {
-				strcpy(label, langGet(L_MISC_474)); // "Perfect Buddies"
-			} else if (slot == 1) {
-				strcpy(label, langGet(L_MISC_472)); // "Aggressive"
-			} else if (slot == 7) {
-				strcpy(label, langGet(L_MISC_473)); // "Passive"
-#if VERSION >= VERSION_NTSC_1_0
-			} else if (slot == 3) {
-				strcpy(label, langGet(L_MISC_475)); // "Stealth"
-#endif
-			}
+		if (slot == 4) {
+			strcpy(label, langGet(L_MISC_172)); // "Orders"
 		} else {
-			if (slot == 4) {
-				strcpy(label, langGet(L_MISC_172)); // "Orders"
-			} else {
-				strcpy(label, botGetCommandName(g_AmBotCommands[slot]));
-			}
+			strcpy(label, botGetCommandName(g_AmBotCommands[slot]));
 		}
 		break;
 	}
@@ -576,13 +562,8 @@ void amChangeScreen(s32 step)
 		}
 	} else {
 		// Solo missions, or MP with no teams
-		if (g_MissionConfig.iscoop && amGetFirstBuddyIndex() >= 0) {
-			// Weapon selection, second function and AI buddy commands
-			maxscreenindex = 2;
-		} else {
-			// Weapon selection and second function
-			maxscreenindex = 1;
-		}
+		// Weapon selection and second function
+		maxscreenindex = 1;
 	}
 
 	if (g_AmMenus[g_AmIndex].screenindex > maxscreenindex) {
@@ -1350,42 +1331,12 @@ Gfx *amRender(Gfx *gdl)
 					mode = AMSLOTMODE_FOCUSED;
 				}
 
-				if (g_MissionConfig.iscoop && (buddynum = amGetFirstBuddyIndex(), buddynum >= 0)) {
-					if (mode == AMSLOTMODE_DEFAULT && g_AmMenus[g_AmIndex].screenindex >= 2) {
-						struct chrdata *chr = g_Vars.aibuddies[buddynum]->chr;
+				if (mode == AMSLOTMODE_DEFAULT && g_AmMenus[g_AmIndex].screenindex >= 2) {
+					s32 slotcmd = g_AmBotCommands[var800719a0[row][column]];
+					s32 botcmd = g_MpAllChrPtrs[mpchrnum]->aibot->command;
 
-#if VERSION >= VERSION_NTSC_1_0
-						if (var800719a0[row][column] == 7) {
-							if (chr->hidden & CHRHFLAG_PASSIVE) {
-								mode = AMSLOTMODE_CURRENT;
-							}
-						} else if (var800719a0[row][column] == 1) {
-							if ((chr->hidden & CHRHFLAG_PASSIVE) == 0) {
-								mode = AMSLOTMODE_CURRENT;
-							}
-						}
-#else
-						if (chr->hidden & CHRHFLAG_PASSIVE) {
-							if (var800719a0[row][column] == 7) {
-								mode = AMSLOTMODE_CURRENT;
-							}
-						} else {
-							if (var800719a0[row][column] == 1) {
-								mode = AMSLOTMODE_CURRENT;
-							}
-						}
-#endif
-					}
-				} else {
-					if (g_Vars.normmplayerisrunning
-							&& mode == AMSLOTMODE_DEFAULT
-							&& g_AmMenus[g_AmIndex].screenindex >= 2) {
-						s32 slotcmd = g_AmBotCommands[var800719a0[row][column]];
-						s32 botcmd = g_MpAllChrPtrs[mpchrnum]->aibot->command;
-
-						if (slotcmd == botcmd) {
-							mode = AMSLOTMODE_CURRENT;
-						}
+					if (slotcmd == botcmd) {
+						mode = AMSLOTMODE_CURRENT;
 					}
 				}
 
@@ -1408,22 +1359,8 @@ Gfx *amRender(Gfx *gdl)
 		}
 
 		// Render AI bot name and weapon
-		{
-			struct g_vars *vars = &g_Vars;
-
-#if VERSION >= VERSION_JPN_FINAL
-			if (!(g_MissionConfig.iscoop && amGetFirstBuddyIndex() >= 0)
-					&& g_Vars.normmplayerisrunning
-					&& g_AmMenus[g_AmIndex].screenindex >= 2) {
-				gdl = amRenderAibotInfo(gdl, g_AmMenus[g_AmIndex].screenindex - 2);
-			}
-#else
-			if (!(g_MissionConfig.iscoop && amGetFirstBuddyIndex() >= 0)
-					&& vars->normmplayerisrunning
-					&& g_AmMenus[g_AmIndex].screenindex >= 2) {
-				gdl = amRenderAibotInfo(gdl, g_AmMenus[g_AmIndex].screenindex - 2);
-			}
-#endif
+		if (g_AmMenus[g_AmIndex].screenindex >= 2) {
+			gdl = amRenderAibotInfo(gdl, g_AmMenus[g_AmIndex].screenindex - 2);
 		}
 
 		// Note: the column and row values will never be 1 here, so this

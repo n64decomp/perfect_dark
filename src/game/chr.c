@@ -1352,16 +1352,6 @@ void chrRemove(struct prop *prop, bool delete)
 		chrClearReferences(prop - g_Vars.props);
 		projectilesUnrefOwner(prop);
 
-		if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
-			s32 i;
-
-			for (i = 0; i < g_Vars.numaibuddies && i < 4; i++) {
-				if (g_Vars.aibuddies[i] == prop) {
-					g_Vars.aibuddies[i] = NULL;
-				}
-			}
-		}
-
 		chr->chrnum = -1;
 
 		rebuildTeams();
@@ -2446,26 +2436,8 @@ s32 chrTick(struct prop *prop)
 		} else {
 			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
 
-			if (g_Vars.mplayerisrunning) {
-				if (fulltick) {
-					if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-						if (onscreen) {
-							chr0f0220ec(chr, lvupdate240, 1);
-						} else if (model->anim->animnum2 != 0) {
-							chr0f0220ec(chr, lvupdate240, 0);
-						}
-					} else {
-						chr0f0220ec(chr, lvupdate240, 1);
-					}
-				}
-			} else if (onscreen) {
-				if (chr->act_stand.playwalkanim == true) {
-					chr0f0220ec(chr, lvupdate240, 0);
-				} else {
-					chr0f0220ec(chr, lvupdate240, 1);
-				}
-			} else if (model->anim->animnum2 != 0) {
-				chr0f0220ec(chr, lvupdate240, 0);
+			if (fulltick) {
+				chr0f0220ec(chr, lvupdate240, 1);
 			}
 		}
 	} else if (chr->actiontype == ACT_DEAD) {
@@ -2542,10 +2514,6 @@ s32 chrTick(struct prop *prop)
 
 		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
 		chr->chrflags |= CHRCFLAG_EVERONSCREEN;
-
-		if (g_Vars.antiplayernum >= 0 && g_Vars.currentplayer == g_Vars.bond) {
-			chr->hidden |= CHRHFLAG_00800000;
-		}
 
 		g_ModelJointPositionedFunc = &chrHandleJointPositioned;
 		g_CurModelChr = chr;
@@ -2729,10 +2697,6 @@ s32 chrTick(struct prop *prop)
 	} else {
 		// Offscreen
 		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
-
-		if (g_Vars.antiplayernum >= 0 && g_Vars.currentplayer == g_Vars.bond) {
-			chr->hidden &= ~CHRHFLAG_00800000;
-		}
 
 		child = prop->child;
 
@@ -5014,22 +4978,6 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				g_Vars.currentplayer->prop, hit->hitpart, hit->prop, hit->node,
 				hit->model, hit->hitthing.unk28 / 2, sp90);
 
-		if (g_Vars.antiplayernum >= 0
-				&& g_Vars.currentplayer == g_Vars.anti
-				&& (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE)) {
-			return;
-		}
-
-		if (g_Vars.coopplayernum >= 0
-				&& g_Vars.coopfriendlyfire == 0
-				&& prop->type == PROPTYPE_PLAYER) {
-			return;
-		}
-
-		if (g_MissionConfig.iscoop && g_Vars.coopfriendlyfire == 0 && chr->team == TEAM_ALLY) {
-			return;
-		}
-
 		if (shield <= 0) {
 			if (hit->prop->type == PROPTYPE_WEAPON) {
 				// Shot a chr's weapon
@@ -5383,8 +5331,7 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 			&& chr->actiontype != ACT_DEAD
 			&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0
 			&& ((chr->hidden & CHRHFLAG_CLOAKED) == 0)
-			&& !(prop->type == PROPTYPE_PLAYER && g_Vars.players[playermgrGetPlayerNumByProp(prop)]->isdead)
-			&& !(g_Vars.coopplayernum >= 0 && (prop == g_Vars.bond->prop || prop == g_Vars.coop->prop))) {
+			&& !(prop->type == PROPTYPE_PLAYER && g_Vars.players[playermgrGetPlayerNumByProp(prop)]->isdead)) {
 		struct model *model = chr->model;
 		Mtxf *mtx1;
 		Mtxf *mtx2;

@@ -85,10 +85,7 @@ u8 hudmsgsAreActive(void)
 s32 hudmsgIsZoomRangeVisible(void)
 {
 	return optionsGetShowZoomRange(g_Vars.currentplayerstats->mpindex)
-		&& (PLAYERCOUNT() == 1
-				|| !g_Vars.mplayerisrunning
-				|| g_Vars.coopplayernum >= 0
-				|| g_Vars.antiplayernum >= 0)
+		&& PLAYERCOUNT() == 1
 		&& currentPlayerGetSight() == SIGHT_ZOOM
 		&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON;
 }
@@ -1492,13 +1489,6 @@ Gfx *hudmsgsRender(Gfx *gdl)
 #endif
 
 	gdl = text0f153628(gdl);
-
-	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& g_InCutscene
-			&& g_MainIsEndscreen == 0
-			&& g_Vars.currentplayernum == 0) {
-		spdc = false;
-	}
 
 	for (i = 0; i < g_NumHudMessages; i++) {
 		msg = &g_HudMessages[i];

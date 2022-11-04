@@ -1022,9 +1022,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 					// Handle shutting eyes in multiplayer
 					if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT
-							&& g_Vars.currentplayer->crouchoffset == -90
-							&& g_Vars.mplayerisrunning
-							&& g_Vars.coopplayernum < 0) {
+							&& g_Vars.currentplayer->crouchoffset == -90) {
 						movedata.eyesshut = g_Vars.currentplayer->insightaimmode
 							&& !canmanualzoom
 							&& joyGetStickY(contpad2) < -30;
@@ -1377,9 +1375,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 					// Handle shutting eyes in multiplayer
 					if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT
-							&& g_Vars.currentplayer->crouchoffset == -90
-							&& g_Vars.mplayerisrunning
-							&& g_Vars.coopplayernum <= -1) {
+							&& g_Vars.currentplayer->crouchoffset == -90) {
 						movedata.eyesshut = g_Vars.currentplayer->insightaimmode
 							&& !canmanualzoom
 							&& joyGetButtons(contpad1, c1allowedbuttons & (0 | D_CBUTTONS));

@@ -37,14 +37,6 @@ bool sightIsPropFriendly(struct prop *prop)
 		return false;
 	}
 
-	if (g_Vars.coopplayernum >= 0 && prop->type == PROPTYPE_PLAYER) {
-		return true;
-	}
-
-	if (g_Vars.antiplayernum >= 0 && prop->type == PROPTYPE_PLAYER) {
-		return false;
-	}
-
 	if (g_Vars.normmplayerisrunning == false
 			&& prop->chr
 			&& (prop->chr->hidden2 & CHRH2FLAG_BLUESIGHT)) {
@@ -1433,7 +1425,7 @@ Gfx *sightDraw(Gfx *gdl, bool sighton, s32 sight)
 	}
 #endif
 
-	if (PLAYERCOUNT() >= 2 && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
+	if (PLAYERCOUNT() >= 2) {
 		sight = SIGHT_DEFAULT;
 	}
 

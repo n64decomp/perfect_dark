@@ -181,34 +181,10 @@ void playerReset(void)
 	propEnable(g_Vars.currentplayer->prop);
 	chrInit(g_Vars.currentplayer->prop);
 
-	if (g_Vars.coopplayernum >= 0) {
-		g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
-	} else if (g_Vars.antiplayernum >= 0) {
-		if (g_Vars.currentplayer == g_Vars.bond) {
-			g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
-		} else {
-			g_Vars.currentplayer->prop->chr->team = TEAM_ENEMY;
-		}
-	} else {
-		if (g_Vars.mplayerisrunning) {
-			g_Vars.currentplayer->prop->chr->team = 1 << g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.team;
-		} else {
-			g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
-		}
-	}
+	g_Vars.currentplayer->prop->chr->team = 1 << g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.team;
 
 	if (g_NumSpawnPoints > 0) {
-		if (g_Vars.coopplayernum >= 0) {
-			turnanglerad = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop);
-		} else if (g_Vars.antiplayernum >= 0) {
-			turnanglerad = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop);
-		} else {
-			if (g_Vars.mplayerisrunning == 0) {
-				g_NumSpawnPoints = 1;
-			}
-
-			turnanglerad = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop);
-		}
+		turnanglerad = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop);
 	}
 
 	groundy = cdFindGroundInfoAtCyl(&pos, 30, rooms,

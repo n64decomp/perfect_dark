@@ -706,10 +706,6 @@ void setupCreateMine(struct mineobj *mine, s32 cmdindex)
 
 	setupCreateObject(&mine->base, cmdindex);
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mine->base.hidden = (mine->base.hidden & 0x0fffffff) | OBJHFLAG_20000000;
-	}
-
 	mine->base.prop->forcetick = true;
 }
 
@@ -1272,12 +1268,6 @@ void setupLoadFiles(s32 stagenum)
 		// Count the number of chrs and objects so enough model slots can be allocated
 		numchrs += setupCountCommandType(OBJTYPE_CHR);
 
-		if (!g_Vars.normmplayerisrunning && g_MissionConfig.iscoop && g_Vars.numaibuddies > 0) {
-			// @bug? The Hotshot buddy has two guns, but only one is counted here.
-			numchrs += g_Vars.numaibuddies;
-			numobjs += g_Vars.numaibuddies; // the buddy's weapon
-		}
-
 		numobjs += setupCountCommandType(OBJTYPE_WEAPON);
 		numobjs += setupCountCommandType(OBJTYPE_KEY);
 		numobjs += setupCountCommandType(OBJTYPE_HAT);
@@ -1350,8 +1340,7 @@ void setupCreateProps(s32 stagenum)
 	s32 j;
 	s32 liftnum = 0;
 
-	withhovercars = !(stagenum == STAGE_EXTRACTION || stagenum == STAGE_DEFECTION)
-		|| !(g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0);
+	withhovercars = true;
 
 	escstepx = 0;
 	escstepy = 0;
@@ -1375,12 +1364,6 @@ void setupCreateProps(s32 stagenum)
 			s32 numchrs = 0;
 
 			numchrs += setupCountCommandType(OBJTYPE_CHR);
-
-			if (g_Vars.normmplayerisrunning == false
-					&& g_MissionConfig.iscoop
-					&& g_Vars.numaibuddies > 0) {
-				numchrs += g_Vars.numaibuddies;
-			}
 
 			chrmgrConfigure(numchrs);
 		} else {

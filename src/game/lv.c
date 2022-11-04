@@ -1114,17 +1114,10 @@ Gfx *lvRender(Gfx *gdl)
 		s32 i;
 		s32 playercount;
 		Gfx *savedgdl;
-#if VERSION >= VERSION_NTSC_1_0
-		bool forcesingleplayer = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& playerHasSharedViewport();
-#else
-		bool forcesingleplayer = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& ((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE);
-#endif
 		struct player *player;
 		struct chrdata *chr;
 
-		playercount = forcesingleplayer ? 1 : PLAYERCOUNT();
+		playercount = PLAYERCOUNT();
 
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
 
@@ -1134,11 +1127,7 @@ Gfx *lvRender(Gfx *gdl)
 
 			savedgdl = gdl;
 
-			if (forcesingleplayer) {
-				setCurrentPlayerNum(0);
-				g_Vars.currentplayerindex = 0;
-				islastplayer = true;
-			} else {
+			{
 				s32 nextplayernum = i + 1;
 				setCurrentPlayerNum(playermgrGetPlayerAtOrder(i));
 				islastplayer = playercount == nextplayernum;
@@ -1225,10 +1214,7 @@ Gfx *lvRender(Gfx *gdl)
 				handsTickAttack();
 
 				// Calculate lookingatprop
-				if (PLAYERCOUNT() == 1
-						|| g_Vars.coopplayernum >= 0
-						|| g_Vars.antiplayernum >= 0
-						|| (weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmoveIsInSightAimMode())) {
+				if (bmoveIsInSightAimMode() && (PLAYERCOUNT() == 1 || weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK))) {
 					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(HAND_RIGHT, 0, 0);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
@@ -1530,16 +1516,6 @@ Gfx *lvRender(Gfx *gdl)
 					playerStartNewLife();
 				}
 			}
-
-			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-#if VERSION >= VERSION_NTSC_1_0
-					&& playerHasSharedViewport()
-#else
-					&& ((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
-#endif
-					&& g_Vars.currentplayernum != 0) {
-				gdl = savedgdl;
-			}
 		} // end of player loop
 	} // end of stage if-statements
 
@@ -1593,172 +1569,29 @@ u32 var800840bc = 0;
 
 void lvUpdateSoloHandicaps(void)
 {
-	if (g_Vars.antiplayernum >= 0) {
-		if (g_Difficulty == DIFF_A) {
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 2;
-			g_AutogunAccuracyScale = 0.5f;
-			g_AutogunDamageTxScale = 0.5f;
-			g_AutogunDamageRxScale = 2;
-			g_EnemyAccuracyScale = 0.5f;
-			g_PlayerDamageRxScale = 0.35f;
-			g_PlayerDamageTxScale = 4;
-			g_ExplosionDamageTxScale = 0.25f;
-			g_AutoAimScale = 1.5f;
-			g_AmmoQuantityScale = 3;
-			g_AttackWalkDurationScale = 0.2f;
-		} else if (g_Difficulty == DIFF_SA) {
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 1.5f;
-			g_AutogunAccuracyScale = 0.5f;
-			g_AutogunDamageTxScale = 0.5f;
-			g_AutogunDamageRxScale = 1.5f;
-			g_EnemyAccuracyScale = 0.6f;
-			g_PlayerDamageRxScale = 0.5f;
-			g_PlayerDamageTxScale = 3;
-			g_ExplosionDamageTxScale = 0.25f;
-			g_AutoAimScale = 1.1f;
-			g_AmmoQuantityScale = 2.5f;
-			g_AttackWalkDurationScale = 0.5f;
-		} else {
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 1;
-			g_AutogunAccuracyScale = 0.5f;
-			g_AutogunDamageTxScale = 0.5f;
-			g_AutogunDamageRxScale = 1;
-			g_EnemyAccuracyScale = 0.7f;
-			g_PlayerDamageRxScale = 0.65f;
-			g_PlayerDamageTxScale = 2;
-			g_ExplosionDamageTxScale = 0.25f;
-			g_AutoAimScale = 0.75f;
-			g_AmmoQuantityScale = 2;
-			g_AttackWalkDurationScale = 1;
-		}
-	} else if (g_Vars.coopplayernum >= 0) {
-		if (g_Difficulty == DIFF_A) {
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 2;
-			g_AutogunAccuracyScale = 0.5f;
-			g_AutogunDamageTxScale = 0.5f;
-			g_AutogunDamageRxScale = 2;
-			g_EnemyAccuracyScale = 0.6f;
-			g_PlayerDamageRxScale = 0.5f;
-			g_PlayerDamageTxScale = 2;
-			g_ExplosionDamageTxScale = 0.25f;
-			g_AutoAimScale = 1.5f;
-			g_AmmoQuantityScale = 2;
-			g_AttackWalkDurationScale = 0.2f;
-		} else if (g_Difficulty == DIFF_SA) {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
-			g_AutogunAccuracyScale = 0.75f;
-			g_AutogunDamageTxScale = 1;
-			g_AutogunDamageRxScale = 1;
-			g_EnemyAccuracyScale = 0.75f;
-			g_PlayerDamageRxScale = 1;
-			g_PlayerDamageTxScale = 1;
-			g_ExplosionDamageTxScale = 1;
-#if VERSION >= VERSION_JPN_FINAL
-			g_AutoAimScale = 0.75f;
-#else
-			g_AutoAimScale = g_Jpn ? 1.1f : 0.75f;
-#endif
-			g_AmmoQuantityScale = 1.5f;
-			g_AttackWalkDurationScale = 0.5f;
-		} else {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
-			g_AutogunAccuracyScale = 1;
-			g_AutogunDamageTxScale = 1.5f;
-			g_AutogunDamageRxScale = 1;
-			g_EnemyAccuracyScale = 1.5f;
-			g_PlayerDamageRxScale = 1.5f;
-			g_PlayerDamageTxScale = 1;
-			g_ExplosionDamageTxScale = 1.5f;
-#if VERSION >= VERSION_JPN_FINAL
-			g_AutoAimScale = 0.2f;
-#else
-			g_AutoAimScale = g_Jpn ? 0.75f : 0.2f;
-#endif
-			g_AmmoQuantityScale = 1;
-			g_AttackWalkDurationScale = 1;
-		}
-	} else {
-		if (g_Difficulty == DIFF_A) {
-			f32 totalhealth;
-			f32 frac = 1;
+	f32 totalhealth;
+	f32 frac = 1;
 
-			if (g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
-				totalhealth = playerGetHealthFrac() + playerGetShieldFrac();
+	totalhealth = playerGetHealthFrac() + playerGetShieldFrac();
 
-				if (totalhealth <= 0.125f) {
-					frac = 0.5f;
-				} else if (totalhealth <= 0.6f) {
-					frac = (totalhealth - 0.125f) * 0.5f / 0.47500002384186f + 0.5f;
-				}
-			}
-
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 2;
-			g_AutogunAccuracyScale = 0.5f * frac;
-			g_AutogunDamageTxScale = 0.5f * frac;
-			g_AutogunDamageRxScale = 2;
-			g_EnemyAccuracyScale = 0.6f;
-			g_PlayerDamageRxScale = 0.5f * frac;
-			g_PlayerDamageTxScale = 2;
-			g_ExplosionDamageTxScale = 0.25f * frac;
-			g_AutoAimScale = 1.5f;
-			g_AmmoQuantityScale = 2;
-			g_AttackWalkDurationScale = 0.2f;
-		} else if (g_Difficulty == DIFF_SA) {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
-			g_AutogunAccuracyScale = 0.75f;
-			g_AutogunDamageTxScale = 0.75f;
-			g_AutogunDamageRxScale = 1;
-			g_EnemyAccuracyScale = 0.8f;
-			g_PlayerDamageRxScale = 0.6f;
-			g_PlayerDamageTxScale = 1;
-			g_ExplosionDamageTxScale = 0.75f;
-#if VERSION >= VERSION_JPN_FINAL
-			g_AutoAimScale = 0.75f;
-#else
-			g_AutoAimScale = g_Jpn ? 1.1f : 0.75f;
-#endif
-			g_AmmoQuantityScale = 1.5f;
-			g_AttackWalkDurationScale = 0.5f;
-		} else if (g_Difficulty == DIFF_PA) {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
-			g_AutogunAccuracyScale = 1;
-			g_AutogunDamageTxScale = 1;
-			g_AutogunDamageRxScale = 1;
-			g_EnemyAccuracyScale = 1.175f;
-			g_PlayerDamageRxScale = 1;
-			g_PlayerDamageTxScale = 1;
-			g_ExplosionDamageTxScale = 1;
-#if VERSION >= VERSION_JPN_FINAL
-			g_AutoAimScale = 0.2f;
-#else
-			g_AutoAimScale = g_Jpn ? 0.75f : 0.2f;
-#endif
-			g_AmmoQuantityScale = 1;
-			g_AttackWalkDurationScale = 1;
-		} else if (g_Difficulty == DIFF_PD) {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
-			g_AutogunAccuracyScale = 1;
-			g_AutogunDamageTxScale = 1;
-			g_AutogunDamageRxScale = 1;
-			g_EnemyAccuracyScale = 1.1f;
-			g_PlayerDamageRxScale = 1;
-			g_PlayerDamageTxScale = 1;
-			g_ExplosionDamageTxScale = 1;
-			g_AutoAimScale = 1;
-			g_AmmoQuantityScale = 1;
-			g_AttackWalkDurationScale = 1;
-		}
+	if (totalhealth <= 0.125f) {
+		frac = 0.5f;
+	} else if (totalhealth <= 0.6f) {
+		frac = (totalhealth - 0.125f) * 0.5f / 0.47500002384186f + 0.5f;
 	}
+
+	g_CctvWaitScale = 2;
+	g_CctvDamageRxScale = 2;
+	g_AutogunAccuracyScale = 0.5f * frac;
+	g_AutogunDamageTxScale = 0.5f * frac;
+	g_AutogunDamageRxScale = 2;
+	g_EnemyAccuracyScale = 0.6f;
+	g_PlayerDamageRxScale = 0.5f * frac;
+	g_PlayerDamageTxScale = 2;
+	g_ExplosionDamageTxScale = 0.25f * frac;
+	g_AutoAimScale = 1.5f;
+	g_AmmoQuantityScale = 2;
+	g_AttackWalkDurationScale = 0.2f;
 }
 
 #if PIRACYCHECKS

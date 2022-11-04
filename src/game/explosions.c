@@ -840,11 +840,7 @@ void explosionInflictDamage(struct prop *expprop)
 
 						minfrac = (minfrac * 0.7f + 0.3f) * type->damage;
 
-						if (g_Vars.antiplayernum >= 0
-								&& g_Vars.antiplayernum == exp->owner
-								&& (obj->flags2 & OBJFLAG2_IMMUNETOANTI)) {
-							// anti cannot damage this obj
-						} else if (isfirstframe) {
+						if (isfirstframe) {
 							// Unblock path if this object is a path blocker
 							objUpdateLinkedScenery(obj, expprop);
 
@@ -981,18 +977,12 @@ void explosionInflictDamage(struct prop *expprop)
 						minfrac *= 0.05f * g_Vars.lvupdate60freal;
 					}
 
-					if (g_Vars.normmplayerisrunning) {
+					{
 						struct chrdata *ownerchr = mpGetChrFromPlayerIndex(exp->owner);
 
 						if (ownerchr) {
 							ownerprop = ownerchr->prop;
 						}
-					} else if (exp->owner == g_Vars.bondplayernum) {
-						ownerprop = g_Vars.bond->prop;
-					} else if (g_Vars.coopplayernum >= 0 && exp->owner == g_Vars.coopplayernum) {
-						ownerprop = g_Vars.coop->prop;
-					} else if (g_Vars.antiplayernum >= 0 && exp->owner == g_Vars.antiplayernum) {
-						ownerprop = g_Vars.anti->prop;
 					}
 
 					chrDamageByExplosion(chr, minfrac, &spa0, ownerprop, &expprop->pos);
@@ -1204,15 +1194,7 @@ u32 explosionTick(struct prop *prop)
 
 			scorchsize *= 0.8f + 0.2f * RANDOMFRAC();
 
-			if (g_Vars.normmplayerisrunning) {
-				chr = mpGetChrFromPlayerIndex(exp->owner);
-			} else if (g_Vars.antiplayernum >= 0 && exp->owner == g_Vars.antiplayernum) {
-				chr = g_Vars.anti->prop->chr;
-			} else if (g_Vars.coopplayernum >= 0 && exp->owner == g_Vars.coopplayernum) {
-				chr = g_Vars.coop->prop->chr;
-			} else {
-				chr = g_Vars.bond->prop->chr;
-			}
+			chr = mpGetChrFromPlayerIndex(exp->owner);
 
 			if (g_Rooms[exp->room].gfxdata) {
 				if (g_Rooms[exp->room].gfxdata->xlublocks && bgTestHitInRoom(&prop->pos, &exp->unk3d0, exp->room, &hitthing)) {

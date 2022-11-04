@@ -1505,34 +1505,7 @@ s32 func0f068fc8(struct prop *prop, bool arg1)
 	} else if (obj->type == OBJTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *)obj;
 
-		if (g_Vars.normmplayerisrunning) {
-			actual = 255;
-		} else {
-			actualptr = arg1 == 0 ? &actual : NULL;
-			extraptr = arg1 == 1 ? &extra : NULL;
-
-			door0f068c04(prop, actualptr, extraptr);
-
-			if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-				if (g_Vars.currentplayernum == 1) {
-					if (actualptr) {
-						door->actual1 = actual & 0xff;
-					}
-
-					if (extraptr) {
-						door->extra1 = extra & 0xff;
-					}
-				} else {
-					if (actualptr) {
-						door->actual2 = actual & 0xff;
-					}
-
-					if (extraptr) {
-						door->extra2 = extra & 0xff;
-					}
-				}
-			}
-		}
+		actual = 255;
 	} else {
 		actual = func0f068b14(prop->rooms, 0);
 		extra = func0f068b14(prop->rooms, 1);
@@ -1672,22 +1645,6 @@ void propCalculateShadeInfo(struct prop *prop, u8 *nextcol, u16 floorcol)
 	nextcol[0] >>= 1;
 	nextcol[1] >>= 1;
 	nextcol[2] >>= 1;
-
-	if (prop->type == PROPTYPE_DOOR && (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)) {
-		struct doorobj *door = prop->door;
-
-		if (g_Vars.currentplayernum == 0) {
-			door->shadeinfo1[0] = nextcol[0];
-			door->shadeinfo1[1] = nextcol[1];
-			door->shadeinfo1[2] = nextcol[2];
-			door->shadeinfo1[3] = nextcol[3];
-		} else {
-			door->shadeinfo2[0] = nextcol[0];
-			door->shadeinfo2[1] = nextcol[1];
-			door->shadeinfo2[2] = nextcol[2];
-			door->shadeinfo2[3] = nextcol[3];
-		}
-	}
 }
 
 /**
@@ -4396,27 +4353,7 @@ void weaponTick(struct prop *prop)
 			// If a player manages to throw a mine on themselves, it will not detonate.
 			// You can't throw a mine on yourself anyway, so this check always passes
 			if (prop->parent == NULL || parentchr == NULL || mpPlayerGetIndex(parentchr) != ownerplayernum) {
-				if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-					if (ownerplayernum == 2) {
-						u32 mask = 0;
-
-						if (g_Vars.coop && g_Vars.coop->prop) {
-							mask |= 1 << playermgrGetPlayerNumByProp(g_Vars.coop->prop);
-						}
-
-						if (g_Vars.bond && g_Vars.bond->prop) {
-							mask |= 1 << playermgrGetPlayerNumByProp(g_Vars.bond->prop);
-						}
-
-						g_PlayersDetonatingMines &= mask;
-
-						if (g_PlayersDetonatingMines != 0) {
-							weapon->timer240 = 0;
-						}
-					} else if (g_PlayersDetonatingMines & 1 << ownerplayernum) {
-						weapon->timer240 = 0;
-					}
-				} else if (g_PlayersDetonatingMines & 1 << ownerplayernum) {
+				if (g_PlayersDetonatingMines & 1 << ownerplayernum) {
 					weapon->timer240 = 0;
 				}
 			}
@@ -8984,16 +8921,7 @@ void cctvTick(struct prop *camprop)
 	f32 zdist;
 	bool canseeplayer = true;
 
-	// If playing in coop mode, cycle between players in alternating frames
-	if (g_Vars.coopplayernum >= 0) {
-		if (g_Vars.lvframenum & 1) {
-			playerprop = g_Vars.bond->prop;
-		} else {
-			playerprop = g_Vars.coop->prop;
-		}
-	} else {
-		playerprop = g_Vars.bond->prop;
-	}
+	playerprop = g_Vars.bond->prop;
 
 	// Check distance
 	xdist = playerprop->pos.x - camprop->pos.x;
@@ -9093,10 +9021,6 @@ void cctvTick(struct prop *camprop)
 	if (canseeplayer) {
 		obj->flags |= OBJFLAG_CAMERA_BONDINVIEW;
 		camera->seebondtime60 += g_Vars.lvupdate60;
-
-		if (g_Vars.coopplayernum >= 0) {
-			camera->seebondtime60 += g_Vars.lvupdate60;
-		}
 
 		if (camera->seebondtime60 >= (s32)(TICKS(300) * g_CctvWaitScale)) {
 			alarmActivate();
@@ -9439,15 +9363,7 @@ void autogunTick(struct prop *prop)
 			}
 		} else {
 			// Not configured for teams, so target a player
-			if (g_Vars.coopplayernum >= 0) {
-				if (g_Vars.lvframenum & 1) {
-					target = g_Vars.bond->prop;
-				} else {
-					target = g_Vars.coop->prop;
-				}
-			} else {
-				target = g_Vars.bond->prop;
-			}
+			target = g_Vars.bond->prop;
 		}
 	}
 
@@ -9884,169 +9800,47 @@ void autogunTickShoot(struct prop *autogunprop)
 
 				// If multiplayer, or targeting a bad guy in solo
 				// (ie. autogun is a Defense autogun or a thrown laptop)
-				if (g_Vars.normmplayerisrunning
-						|| (targetprop && (targetprop->type == PROPTYPE_CHR))
-						|| (g_Vars.antiplayernum >= 0 && targetprop && targetprop == g_Vars.anti->prop)) {
-					if (cdExamLos08(&gunpos, gunrooms, &hitpos, CDTYPE_ALL, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-#if VERSION >= VERSION_PAL_FINAL
-						cdGetPos(&hitpos, 11480, "prop/propobj.c");
-#elif VERSION >= VERSION_PAL_BETA
-						cdGetPos(&hitpos, 11480, "propobj.c");
-#elif VERSION >= VERSION_NTSC_1_0
-						cdGetPos(&hitpos, 11458, "propobj.c");
-#else
-						cdGetPos(&hitpos, 11296, "propobj.c");
-#endif
+				if (cdExamLos08(&gunpos, gunrooms, &hitpos, CDTYPE_ALL, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
+					cdGetPos(&hitpos, 11458, "propobj.c");
 
-						hitprop = cdGetObstacleProp();
+					hitprop = cdGetObstacleProp();
 
-						// SP: If the hit prop is a chr and it's our target
-						// MP: If the hit prop is a chr
-						if (hitprop
-								&& (hitprop->type == PROPTYPE_CHR || hitprop->type == PROPTYPE_PLAYER)
-								&& (g_Vars.normmplayerisrunning || targetprop == hitprop)) {
-							struct modelnode *hitnode = NULL;
-							struct model *hitmodel = NULL;
-							s32 hitside = -1;
-							s32 hitpart = HITPART_GENERAL;
-							f32 damage = gsetGetDamage(&gset);
-							struct chrdata *hitchr = hitprop->chr;
+					// SP: If the hit prop is a chr and it's our target
+					// MP: If the hit prop is a chr
+					if (hitprop
+							&& (hitprop->type == PROPTYPE_CHR || hitprop->type == PROPTYPE_PLAYER)
+							&& (g_Vars.normmplayerisrunning || targetprop == hitprop)) {
+						struct modelnode *hitnode = NULL;
+						struct model *hitmodel = NULL;
+						s32 hitside = -1;
+						s32 hitpart = HITPART_GENERAL;
+						f32 damage = gsetGetDamage(&gset);
+						struct chrdata *hitchr = hitprop->chr;
 
-							if (g_Vars.normmplayerisrunning) {
-								damage *= 0.5f;
-							}
-
-							if (ownerprop == hitprop || (ownerchr && chrCompareTeams(hitprop->chr, ownerchr, COMPARE_FRIENDS))) {
-								// A teammate entered the line of fire
-								makebeam = false;
-								fireleft = false;
-								fireright = false;
-								friendly = true;
-							}
-
-							if (fireleft || fireright) {
-								bgunPlayPropHitSound(&gset, hitprop, -1);
-
-								if (hitchr->model && chrGetShield(hitchr) > 0.0f) {
-									chrCalculateShieldHit(hitchr, &hitpos, &dir, &hitnode, &hitpart, &hitmodel, &hitside);
-								}
-
-								chrEmitSparks(hitchr, hitprop, hitpart, &hitpos, &dir, ownerchr);
-								func0f0341dc(hitchr, damage, &dir, &gset, ownerprop, HITPART_GENERAL, hitprop, hitnode, hitmodel, hitside, NULL);
-							}
-						} else {
-							missed = true;
+						if (g_Vars.normmplayerisrunning) {
+							damage *= 0.5f;
 						}
-					}
-				} else if (targetprop && targetprop->type == PROPTYPE_OBJ) {
-					// Laptop in firing range
-					struct prop *hitprop = NULL;
 
-					if (cdExamLos08(&gunpos, gunrooms, &hitpos,
-								CDTYPE_ALL & ~CDTYPE_PLAYERS,
-								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-#if VERSION >= VERSION_PAL_FINAL
-						cdGetPos(&hitpos, 11535, "prop/propobj.c");
-#elif VERSION >= VERSION_PAL_BETA
-						cdGetPos(&hitpos, 11535, "propobj.c");
-#elif VERSION >= VERSION_NTSC_1_0
-						cdGetPos(&hitpos, 11513, "propobj.c");
-#else
-						cdGetPos(&hitpos, 11351, "propobj.c");
-#endif
+						if (ownerprop == hitprop || (ownerchr && chrCompareTeams(hitprop->chr, ownerchr, COMPARE_FRIENDS))) {
+							// A teammate entered the line of fire
+							makebeam = false;
+							fireleft = false;
+							fireright = false;
+							friendly = true;
+						}
 
-						hitprop = cdGetObstacleProp();
+						if (fireleft || fireright) {
+							bgunPlayPropHitSound(&gset, hitprop, -1);
+
+							if (hitchr->model && chrGetShield(hitchr) > 0.0f) {
+								chrCalculateShieldHit(hitchr, &hitpos, &dir, &hitnode, &hitpart, &hitmodel, &hitside);
+							}
+
+							chrEmitSparks(hitchr, hitprop, hitpart, &hitpos, &dir, ownerchr);
+							func0f0341dc(hitchr, damage, &dir, &gset, ownerprop, HITPART_GENERAL, hitprop, hitnode, hitmodel, hitside, NULL);
+						}
+					} else {
 						missed = true;
-					}
-
-					if (hitprop && hitprop->type == PROPTYPE_OBJ) {
-						struct defaultobj *hitobj = hitprop->obj;
-
-						if (hitobj->modelnum == MODEL_TARGET) {
-							struct gset gset = { WEAPON_LAPTOPGUN, 0, 0, FUNC_SECONDARY };
-
-							missed = false;
-
-							if (chrIsUsingPaintball(ownerchr)) {
-								sparksCreate(hitprop->rooms[0], hitprop, &hitpos, 0, 0, SPARKTYPE_PAINT);
-							} else {
-								sparksCreate(hitprop->rooms[0], hitprop, &hitpos, 0, 0, SPARKTYPE_DEFAULT);
-							}
-
-							bgunPlayPropHitSound(&gset, hitprop, TEXTURE_00F2);
-						}
-					}
-				} else {
-					// Enemy autogun in solo
-					if (cdExamLos08(&gunpos, gunrooms, &hitpos,
-								CDTYPE_DOORS | CDTYPE_BG,
-								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-#if VERSION >= VERSION_PAL_FINAL
-						cdGetPos(&hitpos, 11561, "prop/propobj.c");
-#elif VERSION >= VERSION_PAL_BETA
-						cdGetPos(&hitpos, 11561, "propobj.c");
-#elif VERSION >= VERSION_NTSC_1_0
-						cdGetPos(&hitpos, 11539, "propobj.c");
-#else
-						cdGetPos(&hitpos, 11377, "propobj.c");
-#endif
-
-						missed = true;
-					}
-
-					if (g_Vars.lvframe60 == autogun->lastaimbond60
-							&& targetprop && targetprop->type == PROPTYPE_PLAYER) {
-						f32 x;
-						f32 y;
-						f32 z;
-						f32 sqguntotargetdist;
-						f32 sqguntohitdist;
-						f32 damage;
-
-						x = targetprop->pos.x - gunpos.x;
-						y = targetprop->pos.y - gunpos.y;
-						z = targetprop->pos.z - gunpos.z;
-
-						sqguntotargetdist = x * x + y * y + z * z;
-
-						x = hitpos.f[0] - gunpos.f[0];
-						y = hitpos.f[1] - gunpos.f[1];
-						z = hitpos.f[2] - gunpos.f[2];
-
-						sqguntohitdist = x * x + y * y + z * z;
-
-						if (sqguntohitdist >= sqguntotargetdist) {
-							f32 guntotargetdist = sqrtf(sqguntotargetdist);
-							f32 increment = 0.16f * g_Vars.lvupdate60freal * g_AutogunAccuracyScale;
-
-							if (guntotargetdist > 200.0f) {
-								increment *= 200.0f / guntotargetdist;
-							}
-
-							autogun->shotbondsum += increment;
-
-							if (autogun->shotbondsum >= 1.0f) {
-								hitpos.x = targetprop->pos.x;
-								hitpos.y = targetprop->pos.y;
-								hitpos.z = targetprop->pos.z;
-
-								missed = false;
-
-								if (random() % 2) {
-									hitpos.y += 2 + (random() % 10);
-								} else {
-									hitpos.y -= 2 + (random() % 10);
-								}
-
-								bgunPlayPropHitSound(&gset, targetprop, -1);
-
-								damage = 0.5f * g_AutogunDamageTxScale;
-
-								chrDamageByImpact(targetprop->chr, damage, &dir, &gset, 0, HITPART_GENERAL);
-
-								autogun->shotbondsum = 0.0f;
-							}
-						}
 					}
 				}
 
@@ -14472,31 +14266,12 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 	}
 
-	if (prop->type == PROPTYPE_DOOR
-			&& (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)) {
-		struct doorobj *door = prop->door;
+	colour[0] = obj->shadecol[0];
+	colour[1] = obj->shadecol[1];
+	colour[2] = obj->shadecol[2];
+	colour[3] = obj->shadecol[3];
 
-		if (g_Vars.currentplayernum == 0) {
-			colour[0] = door->shadeinfo1[0];
-			colour[1] = door->shadeinfo1[1];
-			colour[2] = door->shadeinfo1[2];
-			colour[3] = door->shadeinfo1[3];
-		} else {
-			colour[0] = door->shadeinfo2[0];
-			colour[1] = door->shadeinfo2[1];
-			colour[2] = door->shadeinfo2[2];
-			colour[3] = door->shadeinfo2[3];
-		}
-	} else {
-		colour[0] = obj->shadecol[0];
-		colour[1] = obj->shadecol[1];
-		colour[2] = obj->shadecol[2];
-		colour[3] = obj->shadecol[3];
-	}
-
-	if (g_Vars.normmplayerisrunning) {
-		scenarioHighlightProp(prop, colour);
-	}
+	scenarioHighlightProp(prop, colour);
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 		colour[g_Vars.currentplayer->epcol_0] = xrayalphafrac * 255.0f;
@@ -16563,88 +16338,86 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 		}
 	}
 
-	if (g_Vars.antiplayernum < 0 || g_Vars.currentplayer != g_Vars.anti || (obj->flags2 & OBJFLAG2_IMMUNETOANTI) == 0) {
-		if (hit->hitthing.texturenum != 10000) {
-			f32 damage = gsetGetDamage(&shotdata->gset);
+	if (hit->hitthing.texturenum != 10000) {
+		f32 damage = gsetGetDamage(&shotdata->gset);
 
-			if (obj->type == OBJTYPE_AUTOGUN) {
-				damage *= g_AutogunDamageRxScale;
-			} else if (obj->type == OBJTYPE_CCTV) {
-				// Leftover from GE: shots to a CCTV's lens is a one hit kill
-				if (obj->model->filedata->skel == &g_SkelCctv) {
-					if (modelGetPart(obj->model->filedata, MODELPART_CCTV_LENS) == hit->unk44) {
-						damage *= 100.0f;
-						cctvHandleLensShot(obj);
-					}
-				}
-
-				damage *= g_CctvDamageRxScale;
-			} else if (explosiveshells) {
-				if (obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS) {
+		if (obj->type == OBJTYPE_AUTOGUN) {
+			damage *= g_AutogunDamageRxScale;
+		} else if (obj->type == OBJTYPE_CCTV) {
+			// Leftover from GE: shots to a CCTV's lens is a one hit kill
+			if (obj->model->filedata->skel == &g_SkelCctv) {
+				if (modelGetPart(obj->model->filedata, MODELPART_CCTV_LENS) == hit->unk44) {
 					damage *= 100.0f;
-				} else {
-					damage *= 5.0f;
+					cctvHandleLensShot(obj);
 				}
 			}
 
-			objTakeGunfire(obj, damage, &sp110, shotdata->gset.weaponnum, g_Vars.currentplayernum);
-
-			if (obj->model->filedata->skel == &g_SkelWindowedDoor && !hit->unk4c) {
-				struct doorobj *door = (struct doorobj *)obj;
-				door->glasshits++;
-
-				if (door->glasshits >= 3) {
-					doorDestroyGlass(door);
-				}
+			damage *= g_CctvDamageRxScale;
+		} else if (explosiveshells) {
+			if (obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS) {
+				damage *= 100.0f;
+			} else {
+				damage *= 5.0f;
 			}
 		}
 
-		objDropRecursively(hit->prop, false);
+		objTakeGunfire(obj, damage, &sp110, shotdata->gset.weaponnum, g_Vars.currentplayernum);
 
-		// Handle pushing and bouncing
-		if ((obj->hidden & OBJHFLAG_MOUNTED) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
-			if (obj->flags3 & OBJFLAG3_PUSHABLE) {
-				struct coord spb0;
-				struct coord spa4;
-				struct coord pushdir;
-				Mtxf sp58;
+		if (obj->model->filedata->skel == &g_SkelWindowedDoor && !hit->unk4c) {
+			struct doorobj *door = (struct doorobj *)obj;
+			door->glasshits++;
 
-				spb0.x = shotdata->dir.x * 3.0f;
-				spb0.y = shotdata->dir.y * 3.0f;
-				spb0.z = shotdata->dir.z * 3.0f;
+			if (door->glasshits >= 3) {
+				doorDestroyGlass(door);
+			}
+		}
+	}
 
-				mtx4MultMtx4(camGetProjectionMtxF(), &obj->model->matrices[hit->mtxindex], &sp58);
-				mtx4TransformVec(&sp58, &hit->hitthing.unk00, &spa4);
+	objDropRecursively(hit->prop, false);
 
-				pushdir.x = shotdata->dir.x;
-				pushdir.y = shotdata->dir.y;
-				pushdir.z = shotdata->dir.z;
+	// Handle pushing and bouncing
+	if ((obj->hidden & OBJHFLAG_MOUNTED) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
+		if (obj->flags3 & OBJFLAG3_PUSHABLE) {
+			struct coord spb0;
+			struct coord spa4;
+			struct coord pushdir;
+			Mtxf sp58;
 
-				func0f082e84(obj, &spa4, &pushdir, &spb0, true);
-			} else {
-				bool bounce = false;
+			spb0.x = shotdata->dir.x * 3.0f;
+			spb0.y = shotdata->dir.y * 3.0f;
+			spb0.z = shotdata->dir.z * 3.0f;
 
-				if (func0f085194(obj)) {
-					if ((obj->flags & OBJFLAG_00400000) == 0) {
-						bounce = true;
-					}
-				} else if (obj->flags & OBJFLAG_BOUNCEIFSHOT) {
+			mtx4MultMtx4(camGetProjectionMtxF(), &obj->model->matrices[hit->mtxindex], &sp58);
+			mtx4TransformVec(&sp58, &hit->hitthing.unk00, &spa4);
+
+			pushdir.x = shotdata->dir.x;
+			pushdir.y = shotdata->dir.y;
+			pushdir.z = shotdata->dir.z;
+
+			func0f082e84(obj, &spa4, &pushdir, &spb0, true);
+		} else {
+			bool bounce = false;
+
+			if (func0f085194(obj)) {
+				if ((obj->flags & OBJFLAG_00400000) == 0) {
 					bounce = true;
 				}
+			} else if (obj->flags & OBJFLAG_BOUNCEIFSHOT) {
+				bounce = true;
+			}
 
-				if (obj->flags2 & OBJFLAG2_00000002) {
-					if (!objIsHealthy(obj)) {
-						bounce = true;
-					}
+			if (obj->flags2 & OBJFLAG2_00000002) {
+				if (!objIsHealthy(obj)) {
+					bounce = true;
 				}
+			}
 
-				if (obj->flags2 & OBJFLAG2_LINKEDTOSAFE) {
-					bounce = false;
-				}
+			if (obj->flags2 & OBJFLAG2_LINKEDTOSAFE) {
+				bounce = false;
+			}
 
-				if (bounce) {
-					objBounce(obj, &shotdata->unk0c);
-				}
+			if (bounce) {
+				objBounce(obj, &shotdata->unk0c);
 			}
 		}
 	}
@@ -16828,15 +16601,7 @@ bool propobjInteract(struct prop *prop)
 		bmoveGrabProp(prop);
 	}
 
-	if (g_Vars.normmplayerisrunning) {
-		scenarioHandleActivatedProp(g_Vars.currentplayer->prop->chr, prop);
-	} else {
-		if (g_Vars.currentplayernum == g_Vars.coopplayernum) {
-			obj->hidden |= OBJHFLAG_ACTIVATED_BY_COOP;
-		} else if (g_Vars.currentplayernum == g_Vars.bondplayernum) {
-			obj->hidden |= OBJHFLAG_ACTIVATED_BY_BOND;
-		}
-	}
+	scenarioHandleActivatedProp(g_Vars.currentplayer->prop->chr, prop);
 
 	doorCallLift(prop, false);
 
@@ -21177,9 +20942,7 @@ void doorsActivate(struct prop *doorprop, bool allowliftclose)
 		}
 	}
 
-	if (g_Vars.currentplayernum == g_Vars.coopplayernum) {
-		door->base.hidden |= OBJHFLAG_ACTIVATED_BY_COOP;
-	} else if (g_Vars.currentplayernum == g_Vars.bondplayernum) {
+	if (g_Vars.currentplayernum == g_Vars.bondplayernum) {
 		door->base.hidden |= OBJHFLAG_ACTIVATED_BY_BOND;
 	}
 
@@ -21265,9 +21028,7 @@ bool propdoorInteract(struct prop *doorprop)
 			}
 		}
 
-		if (g_Vars.currentplayernum == g_Vars.coopplayernum) {
-			door->base.hidden |= OBJHFLAG_ACTIVATED_BY_COOP;
-		} else if (g_Vars.currentplayernum == g_Vars.bondplayernum) {
+		if (g_Vars.currentplayernum == g_Vars.bondplayernum) {
 			door->base.hidden |= OBJHFLAG_ACTIVATED_BY_BOND;
 		}
 
@@ -21607,63 +21368,7 @@ void currentPlayerDropAllItems(void)
 					|| (g_Vars.normmplayerisrunning
 						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
 						&& i == WEAPON_DATAUPLINK)) {
-#if VERSION >= VERSION_NTSC_1_0
-				if (g_Vars.coopplayernum >= 0) {
-					bool canremove = true;
-					struct prop *child = g_Vars.currentplayer->prop->child;
-
-					while (child) {
-						struct defaultobj *obj = child->obj;
-
-						if (obj->type == OBJTYPE_WEAPON) {
-							struct weaponobj *weapon = child->weapon;
-
-							if (i == weapon->weaponnum && (obj->flags3 & OBJFLAG3_PLAYERUNDROPPABLE)) {
-								canremove = false;
-								break;
-							}
-						}
-
-						child = child->next;
-					}
-
-					if (canremove) {
-						invRemoveItemByNum(i);
-					}
-
-					if (!bgunIsMissionCritical(i)) {
-						weaponCreateForPlayerDrop(i);
-					}
-				} else {
-					weaponCreateForPlayerDrop(i);
-				}
-#else
-				if (g_Vars.coopplayernum >= 0) {
-					bool canremove = true;
-					struct prop *child = g_Vars.currentplayer->prop->child;
-
-					while (child) {
-						struct defaultobj *obj = child->obj;
-
-						if (obj->type == OBJTYPE_WEAPON) {
-							struct weaponobj *weapon = child->weapon;
-
-							if (i == weapon->weaponnum && (obj->flags3 & OBJFLAG3_PLAYERUNDROPPABLE)) {
-								canremove = false;
-								break;
-							}
-						}
-
-						child = child->next;
-					}
-
-					if (canremove) {
-						invRemoveItemByNum(i);
-					}
-				}
-
 				weaponCreateForPlayerDrop(i);
-#endif
 			}
 		}
 	}

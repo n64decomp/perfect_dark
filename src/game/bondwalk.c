@@ -402,11 +402,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 						canpush = true;
 					}
 				} else if (chr->chrflags & CHRCFLAG_PUSHABLE) {
-					if (g_Vars.antiplayernum < 0
-							|| g_Vars.currentplayer != g_Vars.anti
-							|| (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0) {
-						canpush = true;
-					}
+					canpush = true;
 				}
 
 				if (canpush) {
@@ -732,19 +728,6 @@ void bwalkUpdateVertical(void)
 #endif
 
 	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
-
-#if VERSION >= VERSION_NTSC_1_0
-	// Maybe reset counter-op's radius - not sure why
-	// Maybe it gets set to 0 when they die?
-	if (g_Vars.antiplayernum >= 0
-			&& g_Vars.currentplayer == g_Vars.anti
-			&& g_Vars.currentplayer->bond2.radius != 30
-			&& cdTestVolume(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
-		g_Vars.currentplayer->prop->chr->radius = 30;
-		g_Vars.currentplayer->bond2.radius = 30;
-		radius = 30;
-	}
-#endif
 
 	// Determine if player is on a ladder
 	// If this comes up false, a second check is done... maybe checking if the

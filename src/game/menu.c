@@ -4128,14 +4128,6 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 	bgx2 = dialog->x + dialog->width;
 	bgy2 = dialog->y + dialog->height;
 
-#if VERSION >= VERSION_NTSC_1_0
-	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& menuGetRoot() == MENUROOT_MPENDSCREEN
-			&& !var8009dfc0) {
-		return gdl;
-	}
-#endif
-
 	colour1 = MIXCOLOUR(dialog, unk28);
 
 	text0f156030(colour1);
@@ -4162,13 +4154,6 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 #endif
 
 		sp170 = 1.0f - g_MenuData.unk010;
-
-#if VERSION >= VERSION_NTSC_1_0
-		if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && menuGetRoot() == MENUROOT_MPENDSCREEN) {
-			sp170 = 1.0f - dialog->statefrac;
-		}
-#endif
-
 		sp170 = 1.0f - sp170 * sp170;
 		dialogheight *= sp170;
 		bgy2 = dialog->y + dialogheight;
@@ -5950,18 +5935,8 @@ void menuReset(void)
 
 	g_MenuData.unk01c.unk004 = NULL;
 
-	if (g_Vars.stagenum == STAGE_CITRAINING) {
-		g_MissionConfig.iscoop = false;
-		g_MissionConfig.isanti = false;
-		g_MissionConfig.pdmode = false;
-	}
-
 	if (!g_Vars.mplayerisrunning) {
 		s32 max = 0;
-
-		if (g_Vars.stagenum == STAGE_CITRAINING) {
-			max = 4;
-		}
 
 		if (g_Vars.stagenum == STAGE_4MBMENU) {
 			max = 4;
@@ -6281,20 +6256,6 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 				dialog->state = MENUDIALOGSTATE_OPENING;
 				dialog->redrawtimer = 0.0f;
 				dialog->statefrac = 0.5f;
-			}
-		} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && menuGetRoot() == MENUROOT_MPENDSCREEN) {
-			if (var8009dfc0) {
-#if VERSION >= VERSION_PAL_BETA
-				dialog->statefrac += g_Vars.diffframe240freal / 60.0f;
-#else
-				dialog->statefrac += g_Vars.diffframe240 / 60.0f;
-#endif
-
-				if (dialog->statefrac > 1.0f) {
-					dialog->state = MENUDIALOGSTATE_OPENING;
-					dialog->redrawtimer = 0.0f;
-					dialog->statefrac = 0.5f;
-				}
 			}
 		} else {
 			if (g_MenuData.nextbg == 255 || g_MenuData.bg != 0) {
@@ -9041,12 +9002,6 @@ u32 func0f0fd118(u32 playernum)
 	if (g_Vars.normmplayerisrunning) {
 		if (g_MpSetup.chrslots & (1 << playernum)) {
 			result = playernum;
-		}
-	} else {
-		if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-				&& PLAYERCOUNT() >= 2
-				&& playernum == 1) {
-			result = 1;
 		}
 	}
 

@@ -76,23 +76,6 @@ void gfxReset(void)
 
 		gfx = strtol(argFindByPrefix(1, "-mgfx"), NULL, 0) * 1024;
 
-		if (argFindByPrefix(1, "-mgfxtra")) {
-			// ******** Extra specified but are we in the correct game mode I wonder???\n
-			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
-				// ******** Extra Display List Memeory Required\n
-				// ******** Shall steal from video buffer\n
-				// ******** If you try and run hi-res then\n
-				// ******** you're gonna shafted up the arse\n
-				// ******** so don't blame me\n
-				gfxtra = strtol(argFindByPrefix(1, "-mgfxtra"), NULL, 0) * 1024;
-			} else {
-				// ******** No we're not so there\n
-			}
-		}
-
-		// ******** Original Amount required = %dK ber buffer\n
-		// ******** Extra Amount required = %dK ber buffer\n
-		// ******** Total of %dK (Double Buffered)\n
 		g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] = gfx + gfxtra;
 	}
 

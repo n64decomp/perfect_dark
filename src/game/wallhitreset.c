@@ -35,8 +35,6 @@ void wallhitReset(void)
 
 	if (IS4MB()) {
 		type = 0;
-	} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
-		type = 1;
 	} else if (PLAYERCOUNT() >= 2) {
 		type = 0;
 	}
@@ -53,18 +51,6 @@ void wallhitReset(void)
 		var8009cc70 = 5;
 		var8009cc74 = 15;
 		g_WallhitTargetBloodRatio = 0.3f;
-		break;
-	case 1:
-		// 2 player coop/anti
-		g_WallhitsMax = 200;
-		g_MinPropWallhits = 25;
-		g_MaxPropWallhits = 100;
-		g_MinBgWallhitsPerRoom = 4;
-		g_MaxBgWallhitsPerRoom = 40;
-		var8009cc6c = 80;
-		var8009cc70 = 20;
-		var8009cc74 = 30;
-		g_WallhitTargetBloodRatio = 0.4f;
 		break;
 	case 2:
 	default:

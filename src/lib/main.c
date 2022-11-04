@@ -1176,28 +1176,7 @@ void mainLoop(void)
 			g_Vars.lvmpbotlevel = 1;
 		}
 
-		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-			g_MpSetup.chrslots = 0x03;
-			mpReset();
-		} else if (g_Vars.perfectbuddynum) {
-			mpReset();
-		} else if (g_Vars.mplayerisrunning == false
-				&& (numplayers >= 2 || g_Vars.lvmpbotlevel || argFindByPrefix(1, "-play"))) {
-			g_MpSetup.chrslots = 1;
-
-			if (numplayers >= 2) {
-				g_MpSetup.chrslots |= 1 << 1;
-			}
-
-			if (numplayers >= 3) {
-				g_MpSetup.chrslots |= 1 << 2;
-			}
-
-			if (numplayers >= 4) {
-				g_MpSetup.chrslots |= 1 << 3;
-			}
-
-			g_MpSetup.stagenum = g_StageNum;
+		if (g_Vars.perfectbuddynum) {
 			mpReset();
 		}
 

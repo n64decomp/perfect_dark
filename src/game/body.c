@@ -483,10 +483,6 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 				chr->chrflags |= CHRCFLAG_CLONEABLE;
 			}
 
-			if (!g_Vars.normmplayerisrunning && g_MissionConfig.iscoop && g_Vars.numaibuddies > 0) {
-				chr->flags |= CHRFLAG0_AIVSAI;
-			}
-
 			if (random() % 5 == 0) {
 				// Make chr punch slower
 				chr->flags2 |= CHRFLAG1_ADJUSTPUNCHSPEED;

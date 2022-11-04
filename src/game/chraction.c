@@ -4144,46 +4144,6 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		return;
 	}
 
-	// Don't damage if attacker was anti and chr is non-interactable by anti
-	if (g_Vars.antiplayernum >= 0
-			&& aprop
-			&& aprop == g_Vars.anti->prop
-			&& (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE)) {
-		return;
-	}
-
-	// Don't damage if coop and friendly fire is off (human buddy)
-	if (g_Vars.coopplayernum >= 0
-			&& g_Vars.coopfriendlyfire == false
-			&& aprop
-			&& aprop != vprop
-			&& aprop->type == PROPTYPE_PLAYER
-			&& vprop->type == PROPTYPE_PLAYER) {
-		return;
-	}
-
-	// Don't damage if coop and friendly fire is off (AI buddy)
-	if (g_MissionConfig.iscoop
-			&& g_Vars.coopfriendlyfire == false
-			&& aprop
-			&& aprop != vprop
-			&& (aprop->type == PROPTYPE_PLAYER || aprop->type == PROPTYPE_CHR)
-			&& chr->team == TEAM_ALLY
-			&& aprop->chr->team == TEAM_ALLY) {
-		return;
-	}
-
-	// Don't allow coop AI to kill or destroy anything
-	// which anti wouldn't be able to
-	if (g_MissionConfig.iscoop
-			&& aprop
-			&& aprop != vprop
-			&& aprop->type == PROPTYPE_CHR
-			&& aprop->chr->team == TEAM_ALLY
-			&& (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE)) {
-		return;
-	}
-
 	if (gset == NULL) {
 		gset = &gset2;
 	}
@@ -4218,85 +4178,11 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		damage = 0;
 	}
 
-	// Apply damage scaling based on difficulty settings
-	if (g_Vars.mplayerisrunning == false) {
-		// Solo
-		if (explosion) {
-			if (vprop->type == PROPTYPE_PLAYER) {
-				damage *= g_ExplosionDamageTxScale;
-			}
-		} else if (aprop && aprop->type == PROPTYPE_PLAYER) {
-			// Player is attacking
-			damage *= g_PlayerDamageTxScale;
-			headshotdamagescale = 25;
-		} else if (aprop && aprop->type == PROPTYPE_CHR && vprop->type == PROPTYPE_PLAYER) {
-			// Chr is attacking player
-			damage *= g_PlayerDamageRxScale * pdmodeGetEnemyDamage();
-		}
-
-		if (vprop->type != PROPTYPE_PLAYER) {
-			damage /= pdmodeGetEnemyHealth();
-		}
-
-		if (vprop->type == PROPTYPE_PLAYER) {
-			healthscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->healthscale;
-			armourscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->armourscale;
-		}
-	} else if (g_Vars.coopplayernum >= 0) {
-		// Co-op
-		if (explosion) {
-			if (vprop->type == PROPTYPE_PLAYER) {
-				damage *= g_ExplosionDamageTxScale;
-			}
-		} else if (aprop && aprop->type == PROPTYPE_PLAYER && vprop->type != PROPTYPE_PLAYER) {
-			damage *= g_PlayerDamageTxScale;
-			headshotdamagescale = 25;
-		} else if (aprop && aprop->type == PROPTYPE_CHR && vprop->type == PROPTYPE_PLAYER) {
-			damage *= g_PlayerDamageRxScale * pdmodeGetEnemyDamage();
-		}
-
-		if (vprop->type != PROPTYPE_PLAYER) {
-			damage /= pdmodeGetEnemyHealth();
-		}
-
-		if (vprop->type == PROPTYPE_PLAYER) {
-			healthscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->healthscale;
-			armourscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->armourscale;
-		}
-	} else if (g_Vars.antiplayernum >= 0) {
-		// Anti
-		if (explosion) {
-			if (vprop == g_Vars.bond->prop) {
-				damage *= g_ExplosionDamageTxScale;
-			}
-		} else if (aprop && aprop == g_Vars.bond->prop) {
-			damage *= g_PlayerDamageTxScale;
-			headshotdamagescale = 25;
-		} else if (aprop && aprop != g_Vars.bond->prop && vprop == g_Vars.bond->prop) {
-			damage *= g_PlayerDamageRxScale * pdmodeGetEnemyDamage();
-		}
-
-		if (vprop != g_Vars.bond->prop) {
-			damage /= pdmodeGetEnemyHealth();
-		}
-
-		if (vprop == g_Vars.bond->prop) {
-			healthscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->healthscale;
-			armourscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->armourscale;
-		}
-
-		// Anti shooting other enemies is lethal
-		if (aprop && aprop == g_Vars.anti->prop && vprop != g_Vars.bond->prop) {
-			damage *= 100;
-		}
-	} else {
-		// Normal multiplayer
-		if (vprop->type == PROPTYPE_PLAYER) {
-			s32 prevplayernum = g_Vars.currentplayernum;
-			setCurrentPlayerNum(playermgrGetPlayerNumByProp(vprop));
-			damage *= g_Vars.currentplayerstats->damagescale;
-			setCurrentPlayerNum(prevplayernum);
-		}
+	if (vprop->type == PROPTYPE_PLAYER) {
+		s32 prevplayernum = g_Vars.currentplayernum;
+		setCurrentPlayerNum(playermgrGetPlayerNumByProp(vprop));
+		damage *= g_Vars.currentplayerstats->damagescale;
+		setCurrentPlayerNum(prevplayernum);
 	}
 
 	// Apply rumble
@@ -8032,10 +7918,6 @@ void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 	s32 numinrange = 0;
 	s32 numchrs = chrsGetNumSlots();
 
-	if (g_Vars.antiplayernum >= 0 && chr->prop == g_Vars.anti->prop) {
-		return;
-	}
-
 	if (chr->actiontype == ACT_ARGH) {
 		index = chr->act_argh.notifychrindex;
 	} else if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DRUGGEDDROP) {
@@ -10123,12 +10005,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_DEFAULT);
 								}
 
-								if (g_MissionConfig.iscoop && chr->team == TEAM_ALLY
-										&& (hitobj->flags2 & OBJFLAG2_IMMUNETOANTI)) {
-									// Co-op can't damage mission critical objects
-								} else {
-									objTakeGunfire(hitobj, gsetGetDamage(&gset), &hitpos, gset.weaponnum, playernum);
-								}
+								objTakeGunfire(hitobj, gsetGetDamage(&gset), &hitpos, gset.weaponnum, playernum);
 							}
 						} else if (hitsomething) {
 							// Hit the background
@@ -13149,7 +13026,6 @@ void chraTickBg(void)
 
 				if (targetprop && (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER)) {
 					if ((targetprop->type == PROPTYPE_PLAYER
-								&& !(g_Vars.antiplayernum >= 0 && g_Vars.anti && g_Vars.anti->prop == targetprop)
 								&& chrCompareTeams(chr, targetprop->chr, COMPARE_ENEMIES))) {
 						s32 time60;
 						s32 lastsee;
@@ -13758,39 +13634,6 @@ s32 chrResolvePadId(struct chrdata *chr, s32 pad_id)
 	return pad_id;
 }
 
-/**
- * For all chrs, clear their target and p1p2 values if set to the given player.
- *
- * This function is called when the given player has died. It causes all guards
- * to switch their focus to the remaining coop player.
- */
-void chrsClearRefsToPlayer(s32 playernum)
-{
-	s32 otherplayernum;
-	s32 playerpropnum;
-	s32 i;
-
-	if (g_Vars.coopplayernum >= 0) {
-		if (playernum == g_Vars.bondplayernum) {
-			otherplayernum = g_Vars.coopplayernum;
-			playerpropnum = g_Vars.bond->prop - g_Vars.props;
-		} else {
-			otherplayernum = g_Vars.bondplayernum;
-			playerpropnum = g_Vars.coop->prop - g_Vars.props;
-		}
-
-		for (i = 0; i < chrsGetNumSlots(); i++) {
-			if (g_ChrSlots[i].p1p2 == playernum) {
-				g_ChrSlots[i].p1p2 = otherplayernum;
-			}
-
-			if (g_ChrSlots[i].target == playerpropnum) {
-				g_ChrSlots[i].target = -1;
-			}
-		}
-	}
-}
-
 s32 chrResolveId(struct chrdata *ref, s32 id)
 {
 	if (ref) {
@@ -13815,28 +13658,10 @@ s32 chrResolveId(struct chrdata *ref, s32 id)
 				id = g_Vars.bond->prop->chr->chrnum;
 			}
 			break;
-		case CHR_COOP:
-			if (g_Vars.coop && g_Vars.coop->prop && g_Vars.coop->prop->chr) {
-				id = g_Vars.coop->prop->chr->chrnum;
-			}
-			break;
-		case CHR_ANTI:
-			if (g_Vars.anti && g_Vars.anti->prop && g_Vars.anti->prop->chr) {
-				id = g_Vars.anti->prop->chr->chrnum;
-			}
-			break;
 		case CHR_P1P2:
 			{
-				u32 index = g_Vars.coopplayernum >= 0 ? ref->p1p2 : g_Vars.bondplayernum;
+				u32 index = g_Vars.bondplayernum;
 				struct player *player = g_Vars.players[index];
-				if (player && player->prop && player->prop->chr) {
-					id = player->prop->chr->chrnum;
-				}
-			}
-			break;
-		case CHR_P1P2_OPPOSITE:
-			if (g_Vars.coopplayernum >= 0) {
-				struct player *player = g_Vars.players[1 - ref->p1p2];
 				if (player && player->prop && player->prop->chr) {
 					id = player->prop->chr->chrnum;
 				}
@@ -13858,27 +13683,9 @@ s32 chrResolveId(struct chrdata *ref, s32 id)
 				id = g_Vars.bond->prop->chr->chrnum;
 			}
 			break;
-		case CHR_COOP:
-			if (g_Vars.coop && g_Vars.coop->prop && g_Vars.coop->prop->chr) {
-				id = g_Vars.coop->prop->chr->chrnum;
-			}
-			break;
-		case CHR_ANTI:
-			if (g_Vars.anti && g_Vars.anti->prop && g_Vars.anti->prop->chr) {
-				id = g_Vars.anti->prop->chr->chrnum;
-			}
-			break;
 		case CHR_P1P2:
 			{
 				struct player *player = g_Vars.players[g_Vars.bondplayernum];
-				if (player && player->prop && player->prop->chr) {
-					id = player->prop->chr->chrnum;
-				}
-			}
-			break;
-		case CHR_P1P2_OPPOSITE:
-			if (g_Vars.coopplayernum >= 0) {
-				struct player *player = g_Vars.players[g_Vars.coopplayernum];
 				if (player && player->prop && player->prop->chr) {
 					id = player->prop->chr->chrnum;
 				}

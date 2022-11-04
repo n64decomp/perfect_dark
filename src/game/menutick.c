@@ -541,19 +541,7 @@ void menuTick(void)
 			case MENUROOT_MPPAUSE:
 				break;
 			case MENUROOT_MPENDSCREEN:
-				if (g_Vars.normmplayerisrunning) {
-					var80087260 = 3;
-				} else if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-					struct mpplayerconfig tmp;
-
-					tmp = g_PlayerConfigsArray[4];
-					g_PlayerConfigsArray[4] = g_PlayerConfigsArray[0];
-					g_PlayerConfigsArray[0] = tmp;
-
-					tmp = g_PlayerConfigsArray[5];
-					g_PlayerConfigsArray[5] = g_PlayerConfigsArray[1];
-					g_PlayerConfigsArray[1] = tmp;
-				}
+				var80087260 = 3;
 
 				if (g_Vars.restartlevel) {
 					mainChangeToStage(mainGetStageNum());
@@ -571,19 +559,6 @@ void menuTick(void)
 					setNumPlayers(1);
 					titleSetNextMode(TITLEMODE_SKIP);
 					mainChangeToStage(STAGE_4MBMENU);
-				}
-				break;
-			case MENUROOT_COOPCONTINUE:
-				if (g_Vars.coopplayernum >= 0) {
-					mpSetPaused(MPPAUSEMODE_UNPAUSED);
-					g_Vars.mplayerisrunning = false;
-					g_Vars.normmplayerisrunning = false;
-					g_Vars.lvmpbotlevel = 0;
-					titleSetNextStage(STAGE_CITRAINING);
-					setNumPlayers(1);
-					titleSetNextMode(TITLEMODE_SKIP);
-					mainChangeToStage(STAGE_CITRAINING);
-					g_MissionConfig.iscoop = false;
 				}
 				break;
 			}
@@ -655,12 +630,6 @@ void menuTick(void)
 			}
 
 			g_Vars.players[i]->devicesinhibit = 0;
-
-			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-					&& PLAYERCOUNT() >= 2
-					&& g_Menus[mpindex].curdialog) {
-				g_Vars.players[i]->devicesinhibit = 0;
-			}
 		}
 	}
 

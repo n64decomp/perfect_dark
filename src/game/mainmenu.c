@@ -53,10 +53,6 @@ s32 menuhandlerControlStyleImpl(s32 operation, struct menuitem *item, union hand
 		L_OPTIONS_238, // "Double"
 	};
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpindex = g_Vars.currentplayerstats->mpindex;
-	}
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->list.value = 8;
@@ -103,11 +99,7 @@ s32 menuhandlerReversePitch(s32 operation, struct menuitem *item, union handlerd
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_GET:
@@ -122,8 +114,7 @@ s32 menuhandlerReversePitch(s32 operation, struct menuitem *item, union handlerd
 
 s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u32 playernum = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-		? g_Vars.currentplayerstats->mpindex : item->param3;
+	u32 playernum = item->param3;
 
 #if VERSION >= VERSION_PAL_FINAL
 	s32 index = 0;
@@ -315,11 +306,7 @@ s32 menuhandlerLookAhead(s32 operation, struct menuitem *item, union handlerdata
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_GET:
@@ -336,11 +323,7 @@ s32 menuhandlerHeadRoll(s32 operation, struct menuitem *item, union handlerdata 
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_GET:
@@ -404,11 +387,6 @@ s32 menuhandlerHiRes(s32 operation, struct menuitem *item, union handlerdata *da
 		if (IS4MB()) {
 			return true;
 		}
-		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-			if (PLAYERCOUNT() >= 2) {
-				return true;
-			}
-		}
 		break;
 	case MENUOP_GET:
 		return g_HiResEnabled == true;
@@ -424,11 +402,7 @@ s32 menuhandlerAmmoOnScreen(s32 operation, struct menuitem *item, union handlerd
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_GET:
@@ -445,11 +419,7 @@ s32 menuhandlerShowGunFunction(s32 operation, struct menuitem *item, union handl
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
@@ -471,11 +441,7 @@ s32 menuhandlerShowMissionTime(s32 operation, struct menuitem *item, union handl
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_GET:
@@ -492,11 +458,7 @@ s32 menuhandlerAlwaysShowTarget(s32 operation, struct menuitem *item, union hand
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
@@ -518,11 +480,7 @@ s32 menuhandlerShowZoomRange(s32 operation, struct menuitem *item, union handler
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
@@ -544,11 +502,7 @@ s32 menuhandlerPaintball(s32 operation, struct menuitem *item, union handlerdata
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_GET:
@@ -565,11 +519,7 @@ s32 menuhandlerSightOnScreen(s32 operation, struct menuitem *item, union handler
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_GET:
@@ -586,11 +536,7 @@ s32 menuhandlerAutoAim(s32 operation, struct menuitem *item, union handlerdata *
 {
 	u32 mpchrnum;
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.currentplayerstats->mpindex;
-	} else {
-		mpchrnum = item->param3;
-	}
+	mpchrnum = item->param3;
 
 	switch (operation) {
 	case MENUOP_GET:
@@ -662,7 +608,7 @@ s32 menudialog0010559c(s32 operation, struct menudialogdef *dialogdef, union han
 	case MENUOP_OPEN:
 		break;
 	case MENUOP_CLOSE:
-		if ((g_Vars.modifiedfiles & MODFILE_GAME) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
+		if (g_Vars.modifiedfiles & MODFILE_GAME) {
 			if (filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_001, 0) == 0) {
 				data->dialog1.preventclose = true;
 			}

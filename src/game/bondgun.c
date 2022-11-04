@@ -6152,17 +6152,6 @@ void bgunDisarm(struct prop *attackerprop)
 	bool drop;
 
 	if (!weaponHasFlag(weaponnum, WEAPONFLAG_UNDROPPABLE) && weaponnum <= WEAPON_RCP45) {
-#if VERSION >= VERSION_NTSC_1_0
-		// Coop must not allow player to drop a mission critical weapon
-		// because AI lists can fail the mission if the player has zero
-		// quantity.
-		if (g_Vars.coopplayernum >= 0
-				&& (attackerprop == g_Vars.bond->prop || attackerprop == g_Vars.coop->prop)
-				&& bgunIsMissionCritical(weaponnum)) {
-			return;
-		}
-#endif
-
 		if (weaponnum <= WEAPON_UNARMED || player->gunctrl.switchtoweaponnum != -1) {
 			return;
 		}

@@ -179,12 +179,7 @@ void mpReset(void)
 
 	g_MpNumChrs = 0;
 	g_Vars.mplayerisrunning = true;
-
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		g_Vars.normmplayerisrunning = false;
-	} else {
-		g_Vars.normmplayerisrunning = true;
-	}
+	g_Vars.normmplayerisrunning = true;
 
 	g_Vars.perfectbuddynum = 0;
 
@@ -192,59 +187,19 @@ void mpReset(void)
 		g_Vars.lvmpbotlevel = true;
 	}
 
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		struct mpplayerconfig tmp;
+	for (i = 0; i < 4; i++) {
+		if (g_MpSetup.chrslots & (1 << i)) {
+			g_Vars.playerstats[mpindex].mpindex = i;
 
-		tmp = g_PlayerConfigsArray[4];
-		g_PlayerConfigsArray[4] = g_PlayerConfigsArray[0];
-		g_PlayerConfigsArray[0] = tmp;
+			g_PlayerConfigsArray[i].contpad1 = i;
+			g_PlayerConfigsArray[i].contpad2 = 0;
 
-		tmp = g_PlayerConfigsArray[5];
-		g_PlayerConfigsArray[5] = g_PlayerConfigsArray[1];
-		g_PlayerConfigsArray[1] = tmp;
-
-		// Player index 0
-		g_Vars.playerstats[0].mpindex = 0;
-
-		g_PlayerConfigsArray[0].contpad1 = 0;
-		g_PlayerConfigsArray[0].contpad2 = 2;
-
-		if ((g_Vars.coopplayernum >= 0 && g_Vars.coopradaron)
-				|| (g_Vars.antiplayernum >= 0 && g_Vars.antiradaron)) {
-			g_PlayerConfigsArray[0].base.displayoptions |= MPDISPLAYOPTION_RADAR;
-		} else {
-			g_PlayerConfigsArray[0].base.displayoptions &= ~MPDISPLAYOPTION_RADAR;
-		}
-
-		// Player index 1
-		g_Vars.playerstats[1].mpindexu32 = 1;
-
-		g_PlayerConfigsArray[1].contpad1 = 1;
-		g_PlayerConfigsArray[1].contpad2 = 3;
-
-		if ((g_Vars.coopplayernum >= 0 && g_Vars.coopradaron)
-				|| (g_Vars.antiplayernum >= 0 && g_Vars.antiradaron)) {
-			g_PlayerConfigsArray[1].base.displayoptions |= MPDISPLAYOPTION_RADAR;
-		} else {
-			g_PlayerConfigsArray[1].base.displayoptions &= ~MPDISPLAYOPTION_RADAR;
-		}
-
-		g_MpNumChrs = 2;
-	} else {
-		for (i = 0; i < 4; i++) {
-			if (g_MpSetup.chrslots & (1 << i)) {
-				g_Vars.playerstats[mpindex].mpindex = i;
-
-				g_PlayerConfigsArray[i].contpad1 = i;
-				g_PlayerConfigsArray[i].contpad2 = 0;
-
-				mpCalculatePlayerTitle(&g_PlayerConfigsArray[i]);
+			mpCalculatePlayerTitle(&g_PlayerConfigsArray[i]);
 
 
-				g_PlayerConfigsArray[i].newtitle = g_PlayerConfigsArray[i].title;
-				g_MpNumChrs++;
-				mpindex++;
-			}
+			g_PlayerConfigsArray[i].newtitle = g_PlayerConfigsArray[i].title;
+			g_MpNumChrs++;
+			mpindex++;
 		}
 	}
 
@@ -1258,8 +1213,6 @@ Gfx *mpRenderModalText(Gfx *gdl)
 			&& g_Vars.currentplayer->isdead
 			&& g_Vars.currentplayer->redbloodfinished
 			&& g_Vars.currentplayer->deathanimfinished
-			&& !(g_Vars.coopplayernum >= 0 && ((g_Vars.bond->isdead && g_Vars.coop->isdead) || !g_Vars.currentplayer->coopcanrestart || g_InCutscene))
-			&& !(g_Vars.antiplayernum >= 0 && ((g_Vars.currentplayer != g_Vars.anti || g_InCutscene)))
 			&& g_NumReasonsToEndMpMatch == 0) {
 		// Render "Press START" text
 		gdl = text0f153628(gdl);

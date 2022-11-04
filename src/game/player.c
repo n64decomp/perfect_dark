@@ -488,7 +488,7 @@ void playerStartNewLife(void)
 
 	g_Vars.currentplayer->dostartnewlife = false;
 
-	if (g_Vars.coopplayernum < 0) {
+	{
 		struct prop *prop = g_Vars.currentplayer->prop->child;
 
 		while (prop) {
@@ -545,36 +545,10 @@ void playerStartNewLife(void)
 	playerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->bond2.unk28,
 			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
 
-	if (g_Vars.coopplayernum >= 0) {
-		u32 stack;
-		bool ammotypesheld[33];
-		s32 stack2[2];
+	invClear();
 
-		for (i = 0; i != ARRAYCOUNT(ammotypesheld); i++) {
-			ammotypesheld[i] = false;
-		}
-
-		for (i = 1; i != ARRAYCOUNT(g_Weapons); i++) {
-			if (invHasSingleWeaponOrProp(i)) {
-				s32 ammotype = bgunGetAmmoTypeForWeapon(i, FUNC_PRIMARY);
-
-				if (ammotype >= 0 && ammotype <= AMMOTYPE_ECM_MINE) {
-					ammotypesheld[ammotype] = true;
-				}
-			}
-		}
-
-		for (i = 0; i != ARRAYCOUNT(ammotypesheld); i++) {
-			if (ammotypesheld[i] == false) {
-				g_Vars.currentplayer->ammoheldarr[i] = 0;
-			}
-		}
-	} else {
-		invClear();
-
-		for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->ammoheldarr); i++) {
-			g_Vars.currentplayer->ammoheldarr[i] = 0;
-		}
+	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->ammoheldarr); i++) {
+		g_Vars.currentplayer->ammoheldarr[i] = 0;
 	}
 
 	invGiveSingleWeapon(WEAPON_UNARMED);
@@ -587,61 +561,51 @@ void playerStartNewLife(void)
 		if (cmd);
 		if (cmd);
 
-		if (g_Vars.antiplayernum < 0 || g_Vars.currentplayer != g_Vars.anti) {
-			while (cmd[0] != INTROCMD_END) {
-				switch (cmd[0]) {
-				case INTROCMD_SPAWN:
-					cmd += 3;
-					break;
-				case INTROCMD_CASE:
-				case INTROCMD_CASERESPAWN:
-					cmd += 3;
-					break;
-				case INTROCMD_HILL:
-					cmd += 2;
-					break;
-				case INTROCMD_WEAPON:
-					if (cmd[3] == 0) {
-						if (cmd[2] >= 0) {
-							invGiveDoubleWeapon(cmd[1], cmd[2]);
-						} else {
-							invGiveSingleWeapon(cmd[1]);
-						}
+		while (cmd[0] != INTROCMD_END) {
+			switch (cmd[0]) {
+			case INTROCMD_SPAWN:
+				cmd += 3;
+				break;
+			case INTROCMD_CASE:
+			case INTROCMD_CASERESPAWN:
+				cmd += 3;
+				break;
+			case INTROCMD_HILL:
+				cmd += 2;
+				break;
+			case INTROCMD_WEAPON:
+				if (cmd[3] == 0) {
+					if (cmd[2] >= 0) {
+						invGiveDoubleWeapon(cmd[1], cmd[2]);
+					} else {
+						invGiveSingleWeapon(cmd[1]);
 					}
-					cmd += 4;
-					break;
-				case INTROCMD_AMMO:
-					if (cmd[3] == 0) {
-						bgunSetAmmoQuantity(cmd[1], cmd[2]);
-					}
-					cmd += 4;
-					break;
-				case INTROCMD_3:
-					cmd += 8;
-					break;
-				case INTROCMD_4:
-					cmd += 2;
-					break;
-				case INTROCMD_OUTFIT:
-					cmd += 2;
-					break;
-				case INTROCMD_6:
-					cmd += 10;
-					break;
-				default:
-					cmd++;
-					break;
 				}
+				cmd += 4;
+				break;
+			case INTROCMD_AMMO:
+				if (cmd[3] == 0) {
+					bgunSetAmmoQuantity(cmd[1], cmd[2]);
+				}
+				cmd += 4;
+				break;
+			case INTROCMD_3:
+				cmd += 8;
+				break;
+			case INTROCMD_4:
+				cmd += 2;
+				break;
+			case INTROCMD_OUTFIT:
+				cmd += 2;
+				break;
+			case INTROCMD_6:
+				cmd += 10;
+				break;
+			default:
+				cmd++;
+				break;
 			}
 		}
-	}
-
-	if (g_Vars.coopplayernum >= 0 && g_Vars.currentplayer->stealhealth > 0) {
-		g_Vars.currentplayer->bondhealth = g_Vars.currentplayer->stealhealth;
-		g_Vars.currentplayer->oldhealth = 0;
-		g_Vars.currentplayer->oldarmour = 0;
-		g_Vars.currentplayer->apparenthealth = 0;
-		g_Vars.currentplayer->apparentarmour = 0;
 	}
 
 	bmoveUpdateRooms(g_Vars.currentplayer);
@@ -802,123 +766,6 @@ void playerLoadDefaults(void)
 	g_Vars.currentplayer->unk1c3c = 0;
 }
 
-bool playerSpawnAnti(struct chrdata *hostchr, bool force)
-{
-	struct prop *hostprop;
-	union modelrwdata *chrrootrwdata;
-	struct chrdata *playerchr = g_Vars.currentplayer->prop->chr;
-	union modelrwdata *playerrootrwdata;
-
-	hostprop = hostchr->prop;
-
-	hostchr->chrflags |= CHRCFLAG_PERIMDISABLEDTMP;
-	playerchr->hidden |= CHRHFLAG_00100000;
-	playerchr->radius = hostchr->radius;
-
-	if (chrMoveToPos(playerchr, &hostchr->prop->pos, hostchr->prop->rooms, chrGetInverseTheta(hostchr), false) || force) {
-		if (hostchr->weapons_held[0] && hostchr->weapons_held[1]) {
-			// Dual wielding
-			struct weaponobj *weapon1 = hostchr->weapons_held[0]->weapon;
-			struct weaponobj *weapon2 = hostchr->weapons_held[1]->weapon;
-
-#if VERSION >= VERSION_NTSC_1_0
-			invGiveSingleWeapon(weapon1->weaponnum);
-			invGiveDoubleWeapon(weapon1->weaponnum, weapon1->weaponnum);
-			bgunEquipWeapon2(HAND_RIGHT, weapon1->weaponnum);
-			bgunEquipWeapon2(HAND_LEFT, weapon1->weaponnum);
-#else
-			invGiveDoubleWeapon(weapon1->weaponnum, weapon2->weaponnum);
-			bgunEquipWeapon2(HAND_RIGHT, weapon1->weaponnum);
-			bgunEquipWeapon2(HAND_LEFT, weapon2->weaponnum);
-#endif
-		} else if (hostchr->weapons_held[0]) {
-			// Right hand only
-			struct weaponobj *weapon = hostchr->weapons_held[0]->weapon;
-
-			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
-				invGiveSingleWeapon(WEAPON_DRAGON);
-				bgunEquipWeapon2(HAND_RIGHT, WEAPON_DRAGON);
-			} else {
-				invGiveSingleWeapon(weapon->weaponnum);
-				bgunEquipWeapon2(HAND_RIGHT, weapon->weaponnum);
-			}
-		} else if (hostchr->weapons_held[1]) {
-			// Left hand only
-			struct weaponobj *weapon = hostchr->weapons_held[1]->weapon;
-
-			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
-				invGiveSingleWeapon(WEAPON_DRAGON);
-				bgunEquipWeapon2(HAND_RIGHT, WEAPON_DRAGON);
-			} else {
-				invGiveSingleWeapon(weapon->weaponnum);
-				bgunEquipWeapon2(HAND_RIGHT, weapon->weaponnum);
-			}
-		} else {
-			// Unarmed
-			invGiveSingleWeapon(WEAPON_UNARMED);
-			bgunEquipWeapon2(HAND_RIGHT, WEAPON_UNARMED);
-		}
-
-		g_Vars.currentplayer->invdowntime = TICKS(-40);
-		g_Vars.currentplayer->usedowntime = TICKS(-40);
-
-		bgunGiveMaxAmmo(true);
-
-		g_Vars.currentplayer->bondhealth = (chrGetMaxDamage(hostchr) - hostchr->damage) * 0.125f;
-
-		if (g_Vars.currentplayer->bondhealth > 1) {
-			g_Vars.currentplayer->bondhealth = 1;
-		}
-
-		chrSetShield(playerchr, chrGetShield(hostchr));
-
-		g_Vars.currentplayer->haschrbody = false;
-		g_Vars.currentplayer->model00d4 = NULL;
-
-		chrRemove(g_Vars.currentplayer->prop, false);
-
-		if (hostchr->bodynum == BODY_SKEDAR) {
-			g_Vars.antiheadnum = HEAD_MRBLONDE;
-			g_Vars.antibodynum = BODY_MRBLONDE;
-		} else {
-			g_Vars.antiheadnum = hostchr->headnum;
-			g_Vars.antibodynum = hostchr->bodynum;
-		}
-
-		playerTickChrBody();
-		modelCopyAnimData(hostchr->model, playerchr->model);
-		func0f02e9a0(playerchr, 12);
-
-		chrrootrwdata = modelGetNodeRwData(hostchr->model, hostchr->model->filedata->rootnode);
-		playerrootrwdata = modelGetNodeRwData(playerchr->model, playerchr->model->filedata->rootnode);
-
-		playerrootrwdata->chrinfo = chrrootrwdata->chrinfo;
-
-		if (playerrootrwdata->chrinfo.unk34.y < 10) {
-			playerrootrwdata->chrinfo.unk34.y = 10;
-		}
-
-		if (playerrootrwdata->chrinfo.unk24.y < 10) {
-			playerrootrwdata->chrinfo.unk24.y = 10;
-		}
-
-		playerchr->radius = hostchr->radius;
-		g_Vars.currentplayer->bond2.radius = hostchr->radius;
-
-		chrRemove(hostprop, true);
-		propDeregisterRooms(hostprop);
-		propDelist(hostprop);
-		propDisable(hostprop);
-		propFree(hostprop);
-
-		return true;
-	}
-
-	hostchr->chrflags &= ~CHRCFLAG_PERIMDISABLEDTMP;
-
-	return false;
-}
-
 void playerSpawn(void)
 {
 	f32 xdiff;
@@ -949,145 +796,11 @@ void playerSpawn(void)
 	invGiveSingleWeapon(WEAPON_UNARMED);
 	playerSetShieldFrac(0);
 
-	if (g_Vars.mplayerisrunning) {
-		if (g_Vars.antiplayernum >= 0 && g_Vars.currentplayer == g_Vars.anti) {
-			numsqdists = 0;
-			force = false;
+	bgunEquipWeapon2(HAND_LEFT, g_DefaultWeapons[HAND_LEFT]);
+	bgunEquipWeapon2(HAND_RIGHT, g_DefaultWeapons[HAND_RIGHT]);
 
-			invGiveSingleWeapon(WEAPON_SUICIDEPILL);
-			bgunEquipWeapon2(HAND_LEFT, WEAPON_NONE);
-			bgunEquipWeapon2(HAND_RIGHT, WEAPON_UNARMED);
-
-			if (g_Vars.lvframenum > 0) {
-				s32 prevplayernum = g_Vars.currentplayernum;
-				setCurrentPlayerNum(g_Vars.bondplayernum);
-				bgun0f0a0c08(&sp84, &sp9c);
-				mtx4RotateVec(camGetProjectionMtxF(), &sp9c, &sp90);
-				mtx4TransformVec(camGetProjectionMtxF(), &sp84, &sp78);
-				setCurrentPlayerNum(prevplayernum);
-			}
-
-			if (g_Vars.currentplayer->model00d4 == NULL) {
-				playerTickChrBody();
-			}
-
-			for (i = 0; i < chrsGetNumSlots(); i++) {
-				if (g_ChrSlots[i].model
-						&& g_ChrSlots[i].prop
-						&& (g_ChrSlots[i].hidden & CHRHFLAG_00400000)
-						&& (g_ChrSlots[i].chrflags & CHRCFLAG_HIDDEN) == 0
-						&& g_ChrSlots[i].prop->type == PROPTYPE_CHR
-						&& !chrIsDead(&g_ChrSlots[i])
-						&& (g_ChrSlots[i].prop->flags & PROPFLAG_ENABLED)) {
-					if (g_Vars.bond->prop) {
-						xdiff = g_ChrSlots[i].prop->pos.x - g_Vars.bond->prop->pos.x;
-						ydiff = g_ChrSlots[i].prop->pos.y - g_Vars.bond->prop->pos.y;
-						zdiff = g_ChrSlots[i].prop->pos.z - g_Vars.bond->prop->pos.z;
-					} else {
-						xdiff = g_ChrSlots[i].prop->pos.x - g_Vars.currentplayer->prop->pos.x;
-						ydiff = g_ChrSlots[i].prop->pos.y - g_Vars.currentplayer->prop->pos.y;
-						zdiff = g_ChrSlots[i].prop->pos.z - g_Vars.currentplayer->prop->pos.z;
-					}
-
-					sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
-
-					if (g_Vars.lvframenum > 0
-							&& (g_ChrSlots[i].hidden & CHRHFLAG_00800000)
-							&& func0f06b39c(&sp78, &sp90, &g_ChrSlots[i].prop->pos, model0001af80(g_ChrSlots[i].model))
-							&& (random() % 8)) {
-						sqdist += 1000000;
-					}
-
-					// Insert sqdist to sorteddists, maintaining sort order,
-					// and mirror the changes into the sortedchrs array.
-
-					// Move j to the first sqdist that is further than the new one
-					for (j = 0; j < numsqdists; j++) {
-						if (sqdist < sorteddists[j]) {
-							break;
-						}
-					}
-
-					if (j < 10) {
-						// Move the higher sorteddists forward, removing the highest item
-						for (k = numsqdists; k > j; k--) {
-							if (k < 10) {
-								sortedchrs[k] = sortedchrs[k - 1];
-								sorteddists[k] = sorteddists[k - 1];
-							}
-						}
-
-						// Write new sqdist
-						sortedchrs[j] = &g_ChrSlots[i];
-						sorteddists[j] = sqdist;
-
-						if (numsqdists < 9) {
-							numsqdists++;
-						}
-					}
-				}
-			}
-
-			// Randomly swap some of the earlier elements so the player
-			// doesn't always spawn into the closest
-			if (numsqdists > 1 && (random() % 2) == 0) {
-				tmpchr = sortedchrs[0];
-				sqdist = sorteddists[0];
-				sortedchrs[0] = sortedchrs[1];
-				sorteddists[0] = sorteddists[1];
-				sortedchrs[1] = tmpchr;
-				sorteddists[1] = sqdist;
-			}
-
-			if (numsqdists > 2 && (random() % 4) == 0) {
-				tmpchr = sortedchrs[0];
-				sqdist = sorteddists[0];
-				sortedchrs[0] = sortedchrs[2];
-				sorteddists[0] = sorteddists[2];
-				sortedchrs[2] = tmpchr;
-				sorteddists[2] = sqdist;
-			}
-
-			// Iterate sortedchrs in order and try to spawn into any of them.
-			// The spawn may fail if the chr is on-screen, and potentially in
-			// some other conditions such as the chr being too close to a wall.
-			// If no chrs can be spawned into, iterate the list again but this
-			// time allowing the spawn to happen on-screen (force = true).
-			for (i = 0; i < numsqdists; i++) {
-				if (playerSpawnAnti(sortedchrs[i], force)) {
-					break;
-				}
-
-				if (i == numsqdists - 1) {
-					i = 0;
-
-					if (force) {
-						break;
-					}
-
-					force = true;
-				}
-			}
-
-			if (g_Vars.currentplayer->prop->chr) {
-				g_Vars.currentplayer->prop->chr->blurdrugamount = 0;
-				g_Vars.currentplayer->prop->chr->blurnumtimesdied = 0;
-			}
-		} else {
-			bgunEquipWeapon2(HAND_LEFT, g_DefaultWeapons[HAND_LEFT]);
-			bgunEquipWeapon2(HAND_RIGHT, g_DefaultWeapons[HAND_RIGHT]);
-
-#if VERSION >= VERSION_NTSC_1_0
-			if (g_Vars.currentplayer->model00d4 == NULL
-					&& (IS8MB() || g_Vars.fourmeg2player || g_MpAllChrPtrs[g_Vars.currentplayernum] == NULL)) {
-				playerTickChrBody();
-			}
-#else
-			if (g_Vars.currentplayer->model00d4 == NULL) {
-				playerTickChrBody();
-			}
-#endif
-		}
+	if (g_Vars.currentplayer->model00d4 == NULL) {
+		playerTickChrBody();
 	}
 
 	playerUpdatePerimInfo();
@@ -1129,110 +842,17 @@ void playersTickAllChrBodies(void)
 
 void playerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
 {
-	s32 outfit;
-	bool solo;
+	if (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum < mpGetNumHeads2()) {
+		*headnum = mpGetHeadId(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum);
+	} else {
+		*headnum = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum - mpGetNumHeads2();
 
-	if (g_Vars.antiplayernum >= 0
-			&& g_Vars.currentplayer == g_Vars.anti
-			&& g_Vars.antiheadnum >= 0
-			&& g_Vars.antibodynum >= 0) {
-		*headnum = g_Vars.antiheadnum;
-		*bodynum = g_Vars.antibodynum;
-		return;
-	}
-
-	if (g_Vars.normmplayerisrunning) {
-		if (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum < mpGetNumHeads2()) {
-			*headnum = mpGetHeadId(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum);
-		} else {
-			*headnum = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum - mpGetNumHeads2();
-
-			if (arg2) {
-				*arg2 = true;
-			}
-		}
-
-		*bodynum = mpGetBodyId(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpbodynum);
-		return;
-	}
-
-	outfit = g_Vars.currentplayer->bondtype;
-	solo = !(g_Vars.coopplayernum >= 0) || (g_Vars.currentplayer != g_Vars.coop);
-
-	if (g_Vars.stagenum == STAGE_VILLA && lvGetDifficulty() >= DIFF_PA) {
-		outfit = OUTFIT_NEGOTIATOR;
-	}
-
-	if (g_Vars.currentplayer->disguised) {
-		switch (g_Vars.stagenum) {
-		case STAGE_RESCUE:  outfit = OUTFIT_LAB; break;
-		case STAGE_AIRBASE: outfit = OUTFIT_STEWARDESS; break;
+		if (arg2) {
+			*arg2 = true;
 		}
 	}
 
-	switch (outfit) {
-	default:
-	case OUTFIT_DEFAULT:
-		*bodynum = BODY_DARK_COMBAT;
-		*headnum = solo ? HEAD_DARK_COMBAT : HEAD_VD;
-		break;
-	case OUTFIT_ELVIS:
-		*bodynum = BODY_THEKING;
-		*headnum = solo ? HEAD_ELVIS : HEAD_ELVIS;
-		break;
-	case OUTFIT_TRENT:
-		*bodynum = BODY_TRENT;
-		*headnum = solo ? HEAD_TRENT : HEAD_TRENT;
-		break;
-	case OUTFIT_TRENCH:
-		*bodynum = BODY_DARK_TRENCH;
-		*headnum = solo ? HEAD_DARK_COMBAT : HEAD_VD;
-		break;
-	case OUTFIT_FROCK_RIPPED:
-		*bodynum = BODY_DARK_RIPPED;
-		*headnum = solo ? HEAD_DARK_FROCK : HEAD_VD;
-		break;
-	case OUTFIT_FROCK:
-		*bodynum = BODY_DARK_FROCK;
-		*headnum = solo ? HEAD_DARK_FROCK : HEAD_VD;
-		break;
-	case OUTFIT_LEATHER:
-		*bodynum = BODY_DARK_LEATHER;
-		*headnum = solo ? HEAD_DARK_COMBAT : HEAD_VD;
-		break;
-	case OUTFIT_DEEPSEA:
-		*bodynum = BODY_DARKWET;
-		*headnum = solo ? HEAD_DARK_COMBAT : HEAD_VD;
-		break;
-	case OUTFIT_WETSUIT:
-		*bodynum = BODY_DARKAQUALUNG;
-		*headnum = solo ? HEAD_DARKAQUA : HEAD_VD;
-		break;
-	case OUTFIT_SNOW:
-		*bodynum = BODY_DARKSNOW;
-		*headnum = solo ? HEAD_DARK_SNOW : HEAD_VD;
-		break;
-	case OUTFIT_LAB:
-		*bodynum = BODY_DARKLAB;
-		*headnum = solo ? HEAD_DARK_COMBAT : HEAD_VD;
-		break;
-	case OUTFIT_STEWARDESS:
-		*bodynum = BODY_DARK_AF1;
-		*headnum = solo ? HEAD_DARK_FROCK : HEAD_VD;
-		break;
-	case OUTFIT_NEGOTIATOR:
-		*bodynum = BODY_DARK_NEGOTIATOR;
-		*headnum = solo ? HEAD_DARK_FROCK : HEAD_VD;
-		break;
-	case OUTFIT_MRBLONDE:
-		*bodynum = BODY_MRBLONDE;
-		*headnum = solo ? HEAD_MRBLONDE : HEAD_MRBLONDE;
-		break;
-	case OUTFIT_MAIAN:
-		*bodynum = BODY_ELVIS1;
-		*headnum = solo ? HEAD_MAIAN_S : HEAD_MAIAN_S;
-		break;
-	}
+	*bodynum = mpGetBodyId(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpbodynum);
 }
 
 /**
@@ -1456,15 +1076,6 @@ void playerTickChrBody(void)
 		chr->radius = g_Vars.currentplayer->bond2.radius;
 
 		g_Vars.currentplayer->vv_eyeheight = (s32)g_HeadsAndBodies[bodynum].height;
-
-#if VERSION >= VERSION_NTSC_1_0
-		if (g_Vars.antiplayernum >= 0
-				&& g_Vars.currentplayer == g_Vars.anti
-				&& g_Vars.currentplayer->vv_eyeheight > 159) {
-			g_Vars.currentplayer->vv_eyeheight = 159;
-		}
-#endif
-
 		g_Vars.currentplayer->vv_headheight = g_Vars.currentplayer->vv_eyeheight;
 
 		if (headnum >= 0) {
@@ -2733,54 +2344,31 @@ s16 playerGetFbHeight(void)
 	return height;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-bool playerHasSharedViewport(void)
-{
-	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& menuGetRoot() == MENUROOT_MPENDSCREEN
-			&& var8009dfc0 == 0) {
-		return true;
-	}
-
-	return (g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE;
-}
-#endif
-
 s16 playerGetViewportWidth(void)
 {
 	s16 width;
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (!playerHasSharedViewport())
-#else
-	if ((!g_InCutscene || g_MainIsEndscreen) && menuGetRoot() != MENUROOT_COOPCONTINUE)
-#endif
-	{
-		if (PLAYERCOUNT() >= 3) {
-			// 3/4 players
+	if (PLAYERCOUNT() >= 3) {
+		// 3/4 players
+		width = g_ViModes[g_ViRes].width / 2;
+
+		if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 2) {
+			width--;
+		}
+	} else if (PLAYERCOUNT() == 2) {
+		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player) {
+			// 2 players vsplit
 			width = g_ViModes[g_ViRes].width / 2;
 
-			if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 2) {
+			if (g_Vars.currentplayernum == 0) {
 				width--;
 			}
-		} else if (PLAYERCOUNT() == 2) {
-			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player) {
-				// 2 players vsplit
-				width = g_ViModes[g_ViRes].width / 2;
-
-				if (g_Vars.currentplayernum == 0) {
-					width--;
-				}
-			} else {
-				// 2 players full width
-				width = g_ViModes[g_ViRes].width;
-			}
 		} else {
-			// 1 player
+			// 2 players full width
 			width = g_ViModes[g_ViRes].width;
 		}
 	} else {
-		// Probably cutscene
+		// 1 player
 		width = g_ViModes[g_ViRes].width;
 	}
 
@@ -2789,11 +2377,7 @@ s16 playerGetViewportWidth(void)
 
 s16 playerGetViewportLeft(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
-	s32 something = !playerHasSharedViewport();
-#else
-	s32 something = !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE);
-#endif
+	s32 something = true;
 	s16 left;
 
 	if (PLAYERCOUNT() >= 3 && something != 0) {
@@ -2829,13 +2413,7 @@ s16 playerGetViewportHeight(void)
 {
 	s16 height;
 
-	if (PLAYERCOUNT() >= 2
-#if VERSION >= VERSION_NTSC_1_0
-			&& !playerHasSharedViewport()
-#else
-			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
-#endif
-			) {
+	if (PLAYERCOUNT() >= 2) {
 		s16 tmp = g_ViModes[g_ViRes].fullheight;
 
 		if (IS4MB() && !g_Vars.fourmeg2player) {
@@ -2881,13 +2459,7 @@ s16 playerGetViewportTop(void)
 {
 	s16 top;
 
-	if (PLAYERCOUNT() >= 2
-#if VERSION >= VERSION_NTSC_1_0
-			&& !playerHasSharedViewport()
-#else
-			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
-#endif
-			) {
+	if (PLAYERCOUNT() >= 2) {
 		top = g_ViModes[g_ViRes].fulltop;
 
 		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL || PLAYERCOUNT() != 2) {
@@ -3423,10 +2995,6 @@ void playerTick(bool arg0)
 	f32 f20;
 
 	g_ViRes = g_HiResEnabled;
-
-	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() > 1) {
-		g_ViRes = VIRES_LO;
-	}
 
 #if PAL
 	text0f1531dc(false);
@@ -4032,23 +3600,6 @@ void playerTick(bool arg0)
 		if (g_Vars.currentplayer->redbloodfinished == false) {
 			bgunHandlePlayerDead();
 		}
-
-		if (g_Vars.currentplayer->redbloodfinished && g_Vars.currentplayer->deathanimfinished) {
-			if (g_Vars.mplayerisrunning == false) {
-				mainEndStage();
-			} else if (g_Vars.coopplayernum >= 0) {
-				if (g_Vars.currentplayer == g_Vars.bond
-						&& g_Vars.coop->isdead
-						&& g_Vars.coop->redbloodfinished
-						&& g_Vars.coop->deathanimfinished) {
-					mainEndStage();
-				} else {
-					chrsClearRefsToPlayer(g_Vars.currentplayernum);
-				}
-			} else if (g_Vars.antiplayernum >= 0 && g_Vars.currentplayer == g_Vars.bond) {
-				mainEndStage();
-			}
-		}
 	}
 
 	if (g_Vars.tickmode == TICKMODE_GE_FADEOUT && playerIsFadeComplete()) {
@@ -4479,147 +4030,42 @@ Gfx *playerRenderHud(Gfx *gdl)
 			if (playerIsFadeComplete()) {
 				bool canrestart = false;
 
-				if (g_Vars.mplayerisrunning) {
-					if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-						// Coop or anti
-						struct chrdata *chr = g_Vars.currentplayer->prop->chr;
+				u32 playernum = g_Vars.currentplayernum;
+				s32 playercount = PLAYERCOUNT();
+				struct chrdata *chr = g_Vars.currentplayer->prop->chr;
+				s32 numdeaths = 0;
+				s32 i;
 
-						if (chr) {
-							chr->chrflags |= CHRCFLAG_HIDDEN;
-						}
+				if (chr) {
+					chr->chrflags |= CHRCFLAG_HIDDEN;
+				}
 
-						if (g_Vars.antiplayernum >= 0 && g_Vars.currentplayer == g_Vars.anti) {
-							// Anti
-							if (joyGetButtons(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000) && !mpIsPaused()) {
-								g_Vars.currentplayer->dostartnewlife = true;
-							}
-						} else {
-							// Coop
-							if (g_Vars.coopplayernum >= 0 &&
-									(!g_Vars.bond->isdead || !g_Vars.coop->isdead)) {
-								f32 totalhealth;
-								u32 buddyplayernum = g_Vars.bondplayernum;
-								u32 prevplayernum = g_Vars.currentplayernum;
-								f32 stealhealth;
-								f32 shield;
+				for (i = 0; i < playercount; i++) {
+					numdeaths += g_Vars.playerstats[i].kills[playernum];
+				}
 
-								canrestart = joyGetButtons(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000)
-									&& !mpIsPaused();
+				if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
+					if (g_Vars.currentplayer->deadtimer < 0) {
+						g_Vars.currentplayer->deadtimer = TICKS(600);
+					}
 
-								// Get ready to respawn.
-								// The other player's health will be halved.
-								buddyplayernum = g_Vars.currentplayer == g_Vars.coop ? g_Vars.bondplayernum : g_Vars.coopplayernum;
+					if (g_Vars.currentplayer->deadtimer >= 0) {
+						g_Vars.currentplayer->deadtimer -= g_Vars.lvupdate60;
 
-								setCurrentPlayerNum(buddyplayernum);
-								shield = chrGetShield(g_Vars.currentplayer->prop->chr) * 0.125f;
-								totalhealth = g_Vars.currentplayer->bondhealth + shield;
-
-#if VERSION >= VERSION_NTSC_FINAL
-								// NTSC final prevents coop from being able to respawn
-								// in Deep Sea after the mid cutscene. Without this condition,
-								// the player could respawn on the other side of the exit trigger.
-								// Additionally, the logic for coopcanrestart is different.
-								if (totalhealth > 0.125f
-										&& !(mainGetStageNum() == STAGE_DEEPSEA && chrHasStageFlag(NULL, 0x00000200))) {
-									if (canrestart) {
-										playerDisplayHealth();
-
-										stealhealth = totalhealth * 0.5f;
-
-										if (stealhealth < shield) {
-											chrSetShield(g_Vars.currentplayer->prop->chr, (shield - stealhealth) * 8.0f);
-										} else {
-											chrSetShield(g_Vars.currentplayer->prop->chr, 0);
-											g_Vars.currentplayer->bondhealth -= stealhealth - shield;
-										}
-
-										// Back to the player who died
-										setCurrentPlayerNum(prevplayernum);
-										g_Vars.currentplayer->dostartnewlife = true;
-										g_Vars.currentplayer->oldhealth = 0;
-										g_Vars.currentplayer->oldarmour = 0;
-										g_Vars.currentplayer->apparenthealth = 0;
-										g_Vars.currentplayer->apparentarmour = 0;
-										g_Vars.currentplayer->stealhealth = stealhealth;
-									} else {
-										setCurrentPlayerNum(prevplayernum);
-									}
-
-									g_Vars.currentplayer->coopcanrestart = true;
-								} else {
-									// Can't respawn
-									setCurrentPlayerNum(prevplayernum);
-								}
-#else
-								if (totalhealth > 0.125f && canrestart) {
-									playerDisplayHealth();
-
-									stealhealth = totalhealth * 0.5f;
-
-									if (stealhealth < shield) {
-										chrSetShield(g_Vars.currentplayer->prop->chr, (shield - stealhealth) * 8.0f);
-									} else {
-										chrSetShield(g_Vars.currentplayer->prop->chr, 0);
-										g_Vars.currentplayer->bondhealth -= stealhealth - shield;
-									}
-
-									// Back to the player who died
-									setCurrentPlayerNum(prevplayernum);
-									g_Vars.currentplayer->dostartnewlife = true;
-									g_Vars.currentplayer->oldhealth = 0;
-									g_Vars.currentplayer->oldarmour = 0;
-									g_Vars.currentplayer->apparenthealth = 0;
-									g_Vars.currentplayer->apparentarmour = 0;
-									g_Vars.currentplayer->stealhealth = stealhealth;
-								} else {
-									setCurrentPlayerNum(prevplayernum);
-								}
-
-								if (totalhealth > 0.125f) {
-									g_Vars.currentplayer->coopcanrestart = true;
-								}
-#endif
-							}
-						}
-					} else {
-						u32 playernum = g_Vars.currentplayernum;
-						s32 playercount = PLAYERCOUNT();
-						struct chrdata *chr = g_Vars.currentplayer->prop->chr;
-						s32 numdeaths = 0;
-						s32 i;
-
-						if (chr) {
-							chr->chrflags |= CHRCFLAG_HIDDEN;
-						}
-
-						for (i = 0; i < playercount; i++) {
-							numdeaths += g_Vars.playerstats[i].kills[playernum];
-						}
-
-						if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
-							if (g_Vars.currentplayer->deadtimer < 0) {
-								g_Vars.currentplayer->deadtimer = TICKS(600);
-							}
-
-							if (g_Vars.currentplayer->deadtimer >= 0) {
-								g_Vars.currentplayer->deadtimer -= g_Vars.lvupdate60;
-
-								if (g_Vars.currentplayer->deadtimer < 0) {
-									canrestart = true;
-								}
-							}
-						}
-
-						if (joyGetButtons(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000)
-								&& !mpIsPaused()
-								&& g_NumReasonsToEndMpMatch == 0) {
+						if (g_Vars.currentplayer->deadtimer < 0) {
 							canrestart = true;
 						}
-
-						if (canrestart) {
-							g_Vars.currentplayer->dostartnewlife = true;
-						}
 					}
+				}
+
+				if (joyGetButtons(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000)
+						&& !mpIsPaused()
+						&& g_NumReasonsToEndMpMatch == 0) {
+					canrestart = true;
+				}
+
+				if (canrestart) {
+					g_Vars.currentplayer->dostartnewlife = true;
 				}
 			}
 		}
@@ -4681,12 +4127,7 @@ void playerDieByShooter(u32 shooter, bool force)
 
 		chrUncloak(g_Vars.currentplayer->prop->chr, true);
 
-		if (g_Vars.mplayerisrunning &&
-				(g_Vars.antiplayernum < 0
-				 || g_Vars.currentplayernum != g_Vars.antiplayernum
-				 || shooter != g_Vars.antiplayernum)) {
-			currentPlayerDropAllItems();
-		}
+		currentPlayerDropAllItems();
 
 		g_Vars.currentplayer->isdead = true;
 		g_Vars.currentplayer->bonddie = g_Vars.currentplayer->bond2;

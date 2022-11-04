@@ -210,16 +210,6 @@ void viReset(s32 stagenum)
 			fbsize = 320 * 240;
 #endif
 			g_Vars.fourmeg2player = true;
-		} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
-#if VERSION >= VERSION_JPN_FINAL
-			fbsize = 320 * 220 * 2;
-#elif VERSION >= VERSION_PAL_FINAL
-			fbsize = 320 * 266 * 2;
-#elif VERSION >= VERSION_PAL_BETA
-			fbsize = 320 * 252 * 2;
-#else
-			fbsize = 320 * 220 * 2;
-#endif
 		}
 	}
 
@@ -2526,18 +2516,7 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
 	gDPSetFillColor(gdl++, GPACK_RGBA5551(0, 0, 0, 1) << 16 | GPACK_RGBA5551(0, 0, 0, 1));
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (PLAYERCOUNT() == 1
-			|| ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-				&& playerHasSharedViewport() && g_Vars.currentplayernum == 0))
-#else
-	if (PLAYERCOUNT() == 1
-			|| ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-				&& (
-					(g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE
-					) && g_Vars.currentplayernum == 0))
-#endif
-	{
+	if (PLAYERCOUNT() == 1) {
 		// Single viewport
 		if (viGetViewTop() > 0) {
 			// Fill above

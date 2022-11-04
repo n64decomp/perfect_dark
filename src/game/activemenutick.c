@@ -1225,24 +1225,15 @@ void amTick(void)
 
 				if (toggle) {
 					if (g_AmMenus[g_AmIndex].screenindex >= 2) {
-						if (g_Vars.numaibuddies && g_MissionConfig.iscoop) {
-							// Bot command screen, in coop with AI buddies
-							if (g_AmMenus[g_AmIndex].slotnum == 4) {
-								gotonextscreen = true;
-							} else {
-								amApply(g_AmMenus[g_AmIndex].slotnum);
-							}
-						} else {
-							// Bot command screen, in multiplayer
-							if (g_AmBotCommands[g_AmMenus[g_AmIndex].slotnum] == MPBOTCOMMAND_ATTACK) {
-								amOpenPickTarget();
-							} else if (g_AmMenus[g_AmIndex].allbots == false) {
-								gotonextscreen = true;
-							}
+						// Bot command screen, in multiplayer
+						if (g_AmBotCommands[g_AmMenus[g_AmIndex].slotnum] == MPBOTCOMMAND_ATTACK) {
+							amOpenPickTarget();
+						} else if (g_AmMenus[g_AmIndex].allbots == false) {
+							gotonextscreen = true;
+						}
 
-							if (g_AmMenus[g_AmIndex].slotnum != 4) {
-								amApply(g_AmMenus[g_AmIndex].slotnum);
-							}
+						if (g_AmMenus[g_AmIndex].slotnum != 4) {
+							amApply(g_AmMenus[g_AmIndex].slotnum);
 						}
 					} else {
 						// Weapon or function screen
