@@ -558,11 +558,7 @@ void filemgrHandleSuccess(void)
 		g_Vars.bossdeviceserial = g_Menus[g_MpPlayerNum].fm.deviceserial;
 		bossfileSave();
 
-		if (IS4MB()) {
-			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
-		} else {
-			func0f0f820c(&g_CiMenuViaPcMenuDialog, MENUROOT_MAINMENU);
-		}
+		func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		break;
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:

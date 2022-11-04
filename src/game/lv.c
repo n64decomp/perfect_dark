@@ -2270,35 +2270,7 @@ void lvTick(void)
 	bgunTickBoost();
 	hudmsgsTick();
 
-	if ((joyGetButtonsPressedThisFrame(0, 0xffff) != 0
-				|| joyGetStickX(0) > 10
-				|| joyGetStickX(0) < -10
-				|| joyGetStickY(0) > 10
-				|| joyGetStickY(0) < -10
-				|| joyGetButtonsPressedThisFrame(1, 0xffff) != 0
-				|| joyGetStickX(1) > 10
-				|| joyGetStickX(1) < -10
-				|| joyGetStickY(1) > 10
-				|| joyGetStickY(1) < -10
-				|| joyGetButtonsPressedThisFrame(2, 0xffff) != 0
-				|| joyGetStickX(2) > 10
-				|| joyGetStickX(2) < -10
-				|| joyGetStickY(2) > 10
-				|| joyGetStickY(2) < -10
-				|| joyGetButtonsPressedThisFrame(3, 0xffff) != 0
-				|| joyGetStickX(3) > 10
-				|| joyGetStickX(3) < -10
-				|| joyGetStickY(3) > 10
-				|| joyGetStickY(3) < -10) && g_IsTitleDemo) {
-		if (g_Vars.stagenum != STAGE_TITLE) {
-			titleSetNextMode(TITLEMODE_SKIP);
-			mainChangeToStage(STAGE_TITLE);
-		}
-
-		g_IsTitleDemo = false;
-	}
-
-	if (g_Vars.stagenum < STAGE_TITLE && !g_IsTitleDemo && !g_Vars.in_cutscene) {
+	if (g_Vars.stagenum < STAGE_TITLE && !g_Vars.in_cutscene) {
 		if (joyGetButtons(0, 0xffff) == 0
 				&& joyGetStickX(0) < 10
 				&& joyGetStickX(0) > -10

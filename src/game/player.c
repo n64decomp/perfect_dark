@@ -1655,9 +1655,7 @@ void player0f0b9a20(void)
 
 void playerEndCutscene(void)
 {
-	if (g_IsTitleDemo) {
-		mainChangeToStage(STAGE_TITLE);
-	} else if (g_Vars.autocutplaying) {
+	if (g_Vars.autocutplaying) {
 		g_Vars.autocutfinished = true;
 	} else {
 		playerSetTickMode(TICKMODE_NORMAL);
@@ -1817,9 +1815,7 @@ void playerStartCutscene2(void)
 
 void playerStartCutscene(s16 animnum)
 {
-	if ((!g_IsTitleDemo && !g_Vars.autocutplaying)
-			|| !g_Vars.in_cutscene
-			|| !g_CutsceneSkipRequested) {
+	if (!g_Vars.autocutplaying || !g_Vars.in_cutscene || !g_CutsceneSkipRequested) {
 		joyDisableTemporarily();
 
 		if (g_Vars.tickmode != TICKMODE_CUTSCENE) {

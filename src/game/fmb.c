@@ -42,7 +42,7 @@ s32 fmdHandleAbortGame(s32 operation, struct menuitem *item, union handlerdata *
 s32 fmbHandleAdvancedSetup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f0f820c(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
+		func0f0f820c(&g_MpAdvancedSetupMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;
@@ -52,7 +52,7 @@ s32 fmbHandleAcceptChallenge(s32 operation, struct menuitem *item, union handler
 {
 	if (operation == MENUOP_SET) {
 		challengeSetCurrentBySlot(g_Menus[g_MpPlayerNum].main4mb.slotindex);
-		func0f0f820c(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);
+		func0f0f820c(&g_MpQuickGoMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;
@@ -535,7 +535,7 @@ struct menuitem g_MainMenu4MbMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_BIGFONT,
 		L_MISC_441, // "Challenges"
 		0,
-		(void *)&g_MpChallenges4MbMenuDialog,
+		(void *)&g_MpChallengesMenuDialog,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -544,14 +544,6 @@ struct menuitem g_MainMenu4MbMenuItems[] = {
 		L_MISC_442, // "Load/Preset Games"
 		0x00000001,
 		(void *)&g_MpLoadPresetMenuDialog,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_BIGFONT,
-		L_MISC_443, // "Quick Start"
-		0x00000002,
-		(void *)&g_MpQuickTeamMenuDialog,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,

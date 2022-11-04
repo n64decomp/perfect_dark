@@ -4812,9 +4812,7 @@ bool aiNoOp00db(void)
 bool aiEndLevel(void)
 {
 	if (debugAllowEndLevel()) {
-		if (g_IsTitleDemo) {
-			mainChangeToStage(STAGE_TITLE);
-		} else if (g_Vars.autocutplaying) {
+		if (g_Vars.autocutplaying) {
 			g_Vars.autocutfinished = true;
 		} else {
 			func0000e990();

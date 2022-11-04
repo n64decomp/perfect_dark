@@ -44,7 +44,6 @@ f32 var8009d358jf[4];
 #endif
 
 s16 g_TitleViewHeight = 480;
-bool g_IsTitleDemo = false;
 bool g_TitleButtonPressed = false;
 bool g_TitleFastForward = false;
 u32 g_TitleIdleTime60 = 0;
@@ -702,22 +701,7 @@ void titleTickPdLogo(void)
 
 	if (g_PdLogoTriggerExit) {
 		// Exiting due to player not pressing anything
-		if (g_AltTitleEnabled && IS8MB()) {
-			g_TitleMode = TITLEMODE_SKIP;
-			creditsRequestAltTitle();
-			g_TitleNextStage = STAGE_CREDITS; // for alt title screen
-			setNumPlayers(1);
-			mainChangeToStage(g_TitleNextStage);
-
-			g_Vars.bondplayernum = 0;
-			g_Vars.coopplayernum = -1;
-			g_Vars.antiplayernum = -1;
-
-			lvSetDifficulty(DIFF_A);
-			viBlack(true);
-		} else {
-			titleSetNextMode(TITLEMODE_SKIP);
-		}
+		titleSetNextMode(TITLEMODE_SKIP);
 	}
 
 	if (g_TitleButtonPressed && g_TitleTimer > TICKS(666)) {
@@ -7726,10 +7710,6 @@ void titleInitRareLogo(void)
 
 		musicQueueStopAllEvent();
 		joy00014810(false);
-
-		if (!g_IsTitleDemo && IS8MB()) {
-			g_IsTitleDemo = true;
-		}
 	}
 }
 
@@ -7982,25 +7962,11 @@ void playerSetTeam(s32 playernum, s32 team)
 
 void titleInitSkip(void)
 {
-	g_TitleNextStage = STAGE_CITRAINING;
-
 	setNumPlayers(1);
 
-	if (g_IsTitleDemo) {
-		g_TitleNextStage = STAGE_DEFECTION;
-		g_IsTitleDemo++;
-	}
+	g_TitleNextStage = STAGE_4MBMENU;
 
-	if (IS4MB()) {
-		g_TitleNextStage = STAGE_4MBMENU;
-		viSetAspect(PAL ? 1.7316017150879f : 1.4545454978943f);
-		viSetSize(320, 220);
-		viSetBufSize(320, 220);
-		playermgrSetViewSize(320, 220);
-		viSetViewSize(320, 220);
-	}
-
-	mainChangeToStage(g_TitleNextStage);
+	mainChangeToStage(STAGE_4MBMENU);
 
 	g_Vars.bondplayernum = 0;
 	g_Vars.coopplayernum = -1;

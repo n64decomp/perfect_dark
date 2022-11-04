@@ -4649,7 +4649,7 @@ s32 menuhandler0017ec64(s32 operation, struct menuitem *item, union handlerdata 
 {
 	if (operation == MENUOP_SET) {
 		challengeSetCurrentBySlot(g_Menus[g_MpPlayerNum].mpsetup.slotindex);
-		func0f0f820c(&g_MpQuickGoMenuDialog, 3);
+		func0f0f820c(&g_MpQuickGoMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;
@@ -5836,18 +5836,13 @@ void func0f17fcb0(s32 silent)
 {
 	g_Menus[g_MpPlayerNum].playernum = g_MpPlayerNum;
 
-	if (IS4MB()) {
-		menuPushRootDialog(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
-		func0f0f8300();
+	if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
+		menuPushRootDialog(&g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog, MENUROOT_4MBMAINMENU);
 	} else {
-		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
-			menuPushRootDialog(&g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog, MENUROOT_MPSETUP);
-		} else {
-			menuPushRootDialog(&g_MpAdvancedSetupMenuDialog, MENUROOT_MPSETUP);
-		}
-
-		func0f0f8300();
+		menuPushRootDialog(&g_MpAdvancedSetupMenuDialog, MENUROOT_4MBMAINMENU);
 	}
+
+	func0f0f8300();
 
 	if (!silent) {
 		// Explosion sound
