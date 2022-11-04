@@ -87,6 +87,8 @@
 #include "lib/lib_06440.h"
 #include "lib/lib_317f0.h"
 #include "lib/main.h"
+#include "lib/mema.h"
+#include "lib/memp.h"
 #include "lib/mtx.h"
 #include "lib/music.h"
 #include "lib/rng.h"
@@ -951,7 +953,6 @@ void lvFindThreats(void)
 }
 
 u8 g_LvShowRates = 0;
-u8 g_LvAntialias = 1;
 u8 g_LvRateIndex = 59;
 u8 g_LvFrameRates[60];
 
@@ -1065,7 +1066,10 @@ Gfx *lvPrintRateText(Gfx *gdl)
 		}
 
 		x = 10;
-		sprintf(buffer, "Antialias %s\n", g_LvAntialias ? "on" : "off");
+		sprintf(buffer, "mema free %d KB\n", memaGetLongestFree() / 1024);
+		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+		sprintf(buffer, "memp free %d KB\n", mempGetStageFree() / 1024);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 	}
 
@@ -1076,11 +1080,6 @@ Gfx *lvPrint(Gfx *gdl)
 {
 	if (joyGetButtonsPressedThisFrame(0, L_TRIG)) {
 		g_LvShowRates = 1 - g_LvShowRates;
-	}
-
-	if (joyGetButtonsPressedThisFrame(0, U_JPAD)) {
-		g_LvAntialias = 1 - g_LvAntialias;
-		viUpdateMode();
 	}
 
 	lvRecordRate();
