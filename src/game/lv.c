@@ -74,7 +74,6 @@
 #include "game/utils.h"
 #include "game/vtxstore.h"
 #include "game/wallhit.h"
-#include "game/weather.h"
 #include "lib/anim.h"
 #include "lib/args.h"
 #include "lib/collision.h"
@@ -369,7 +368,6 @@ void lvReset(s32 stagenum)
 	explosionsReset();
 	smokeReset();
 	sparksReset();
-	weatherReset();
 	lvResetMiscSfx();
 
 	switch (g_Vars.stagenum) {
@@ -1295,7 +1293,6 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = propsRenderBeams(gdl);
 				gdl = shardsRender(gdl);
 				gdl = sparksRender(gdl);
-				gdl = weatherRender(gdl);
 
 				if (g_NbombsActive) {
 					gdl = nbombsRender(gdl);
@@ -2110,10 +2107,6 @@ void lvTick(void)
 		wallhitsTick();
 		splatsTick();
 
-		if (g_WeatherActive) {
-			weatherTick();
-		}
-
 		if (g_NbombsActive) {
 			nbombsTick();
 		}
@@ -2179,7 +2172,6 @@ void lvStop(void)
 	stub0f0153f0();
 	propsStop();
 	objsStop();
-	weatherStop();
 	stub0f015260();
 	bgunStop();
 	propsndStop();

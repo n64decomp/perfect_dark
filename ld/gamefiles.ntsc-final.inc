@@ -41,7 +41,6 @@
 	build/ROMID/game/explosionsreset.o (section); \
 	build/ROMID/game/smokereset.o (section); \
 	build/ROMID/game/sparksreset.o (section); \
-	build/ROMID/game/weatherreset.o (section); \
 	build/ROMID/game/stubs/game_013540.o (section); \
 	build/ROMID/game/wallhitreset.o (section); \
 	build/ROMID/game/shardsreset.o (section); \
@@ -74,7 +73,6 @@
 	build/ROMID/game/activemenutick.o (section); \
 	build/ROMID/game/menustop.o (section); \
 	build/ROMID/game/menutick.o (section); \
-	build/ROMID/game/weathertick.o (section); \
 	build/ROMID/game/langtick.o (section); \
 	build/ROMID/game/roomtick.o (section); \
 	build/ROMID/game/skytick.o (section); \
@@ -162,7 +160,6 @@
 	build/ROMID/game/explosions.o (section); \
 	build/ROMID/game/smoke.o (section); \
 	build/ROMID/game/sparks.o (section); \
-	build/ROMID/game/weather.o (section); \
 	build/ROMID/game/stars.o (section); \
 	build/ROMID/game/dyntex.o (section); \
 	build/ROMID/game/game_13c510.o (section); \
