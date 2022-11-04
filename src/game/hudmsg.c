@@ -89,7 +89,6 @@ s32 hudmsgIsZoomRangeVisible(void)
 				|| !g_Vars.mplayerisrunning
 				|| g_Vars.coopplayernum >= 0
 				|| g_Vars.antiplayernum >= 0)
-		&& var80075d60 == 2
 		&& currentPlayerGetSight() == SIGHT_ZOOM
 		&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON;
 }
@@ -1714,7 +1713,6 @@ Gfx *hudmsgsRender(Gfx *gdl)
 
 	if (timerthing) {
 		if (optionsGetShowMissionTime(g_Vars.currentplayerstats->mpindex)
-				&& var80075d60 == 2
 				&& g_Vars.normmplayerisrunning == false
 				&& g_Vars.stagenum != STAGE_CITRAINING
 				&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON) {

@@ -3,7 +3,6 @@
 #include "constants.h"
 #include "game/bondmove.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/chr.h"
 #include "game/env.h"
 #include "game/prop.h"
@@ -2625,18 +2624,10 @@ s32 chrTick(struct prop *prop)
 			f32 prevfrac2;
 			s32 prevframe2a;
 
-			if (g_Vars.normmplayerisrunning) {
-				if (g_MpSetup.options & (MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART)) {
-					limit = 2000 * 2000;
-				} else {
-					limit = 700 * 700;
-				}
+			if (g_MpSetup.options & (MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART)) {
+				limit = 2000 * 2000;
 			} else {
-				if (debugGetSlowMotion() != SLOWMOTION_OFF) {
-					limit = 2000 * 2000;
-				} else {
-					limit = 700 * 700;
-				}
+				limit = 700 * 700;
 			}
 
 			anim = model->anim;

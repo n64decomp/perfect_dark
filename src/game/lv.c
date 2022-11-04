@@ -14,7 +14,6 @@
 #include "game/casing.h"
 #include "game/chr.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/dlights.h"
 #include "game/explosions.h"
 #include "game/filemgr.h"
@@ -648,69 +647,6 @@ bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 	return true;
 }
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-Gfx *lvRenderManPosIfEnabled(Gfx *gdl)
-{
-	char bufroom[16];
-	char bufx[16];
-	char bufy[16];
-	char bufz[16];
-	char bufdir[16];
-	s32 x;
-	s32 y;
-	s32 y2;
-
-	if (debugIsManPosEnabled()) {
-		f32 xfrac = g_Vars.currentplayer->bond2.unk00.x;
-		f32 zfrac = g_Vars.currentplayer->bond2.unk00.z;
-
-		char directions[][3] = {
-			{'n', '\0', '\0'},
-			{'n', 'e',  '\0'},
-			{'e', '\0', '\0'},
-			{'s', 'e',  '\0'},
-			{'s', '\0', '\0'},
-			{'s', 'w',  '\0'},
-			{'w', '\0', '\0'},
-			{'n', 'w',  '\0'},
-			{'n', '\0', '\0'},
-		};
-
-		s32 degrees = atan2f(-xfrac, zfrac) * 180.0f / M_PI;
-
-		sprintf(bufroom, "R=%d(%d)", g_Vars.currentplayer->prop->rooms[0], g_Vars.currentplayer->cam_room);
-		sprintf(bufx, "%s%sx %4.0f", "", "", g_Vars.currentplayer->prop->pos.x);
-		sprintf(bufy, "%s%sy %4.0f", "", "", g_Vars.currentplayer->prop->pos.y);
-		sprintf(bufz, "%s%sz %4.0f", "", "", g_Vars.currentplayer->prop->pos.z);
-		sprintf(bufdir, "%s %3d", &directions[(degrees + 22) / 45], degrees);
-
-		x = viGetViewLeft() + 17;
-		y = viGetViewTop() + 17;
-		y2 = y + 10;
-		gdl = text0f153628(gdl);
-		gdl = text0f153a34(gdl, 0, y - 1, viGetWidth(), y2 + 1, 0x00000064);
-
-		gdl = textRenderProjected(gdl, &x, &y, bufroom, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
-
-		x = viGetViewLeft() + 87;
-		gdl = textRenderProjected(gdl, &x, &y, bufx, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
-
-		x = viGetViewLeft() + 141;
-		gdl = textRenderProjected(gdl, &x, &y, bufy, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
-
-		x = viGetViewLeft() + 195;
-		gdl = textRenderProjected(gdl, &x, &y, bufz, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
-
-		x = viGetViewLeft() + 249;
-		gdl = textRenderProjected(gdl, &x, &y, bufdir, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
-
-		gdl = text0f153780(gdl);
-	}
-
-	return gdl;
-}
-#endif
-
 void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
 {
 	bool condition = true;
@@ -1123,12 +1059,7 @@ Gfx *lvRender(Gfx *gdl)
 	if (g_Vars.stagenum == STAGE_TITLE
 			|| (g_Vars.stagenum == STAGE_TEST_OLD && titleIsKeepingMode())) {
 		gSPDisplayList(gdl++, &var800613a0);
-
-		if (debugIsZBufferDisabled()) {
-			gSPDisplayList(gdl++, &var80061360);
-		} else {
-			gSPDisplayList(gdl++, &var80061380);
-		}
+		gSPDisplayList(gdl++, &var80061380);
 
 		gdl = vi0000b280(gdl);
 		gdl = vi0000b1d0(gdl);
@@ -1249,12 +1180,7 @@ Gfx *lvRender(Gfx *gdl)
 			bviewSetMotionBlur(bluramount);
 
 			gSPDisplayList(gdl++, &var800613a0);
-
-			if (debugIsZBufferDisabled()) {
-				gSPDisplayList(gdl++, &var80061360);
-			} else {
-				gSPDisplayList(gdl++, &var80061380);
-			}
+			gSPDisplayList(gdl++, &var80061380);
 
 			viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 			viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
@@ -1277,7 +1203,6 @@ Gfx *lvRender(Gfx *gdl)
 
 				var80084050++;
 			} else if (g_Vars.currentplayer->gunctrl.unk1583_06
-					&& var80075d60 == 2
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
 					&& var8009dfc0 == 0) {
 				g_Vars.currentplayer->gunctrl.unk1583_06 = bgun0f09eae4();
@@ -1295,10 +1220,7 @@ Gfx *lvRender(Gfx *gdl)
 					gdl = menuRender(gdl);
 				}
 			} else {
-				if (var80075d60 == 2) {
-					gdl = playerUpdateShootRot(gdl);
-				}
-
+				gdl = playerUpdateShootRot(gdl);
 				gdl = viRenderViewportEdges(gdl);
 				gdl = skyRender(gdl);
 				bgTick();
@@ -1372,7 +1294,7 @@ Gfx *lvRender(Gfx *gdl)
 
 				propsTestForPickup();
 				gdl = bgRender(gdl);
-				chr0f028498(var80075d68 == 15 || g_AnimHostEnabled);
+				chr0f028498(false);
 				gdl = propsRenderBeams(gdl);
 				gdl = shardsRender(gdl);
 				gdl = sparksRender(gdl);
@@ -1382,21 +1304,9 @@ Gfx *lvRender(Gfx *gdl)
 					gdl = nbombsRender(gdl);
 				}
 
-				if (var80075d60 == 2) {
-					gdl = playerRenderHud(gdl);
+				gdl = playerRenderHud(gdl);
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-					gdl = lvRenderManPosIfEnabled(gdl);
-#endif
-				} else {
-					gdl = boltbeamsRender(gdl);
-
-					if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
-						gdl = bgRenderArtifacts(gdl);
-					}
-				}
-
-				if (g_DebugScreenshotRgb <= 0) {
+				{
 					static struct sndstate *g_CutsceneStaticAudioHandle = NULL;
 					static s32 g_CutsceneStaticTimer = 100;
 					static u8 g_CutsceneStaticActive = false;
@@ -1404,50 +1314,6 @@ Gfx *lvRender(Gfx *gdl)
 					u32 alpha;
 
 					if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-						// This chunk of code is unreachable
-						// (STAGE_TEST_OLD is not used)
-#if VERSION < VERSION_PAL_BETA
-						if (g_Vars.stagenum == STAGE_TEST_OLD) {
-							f32 frac = 0;
-							u32 colour;
-							s32 endframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
-
-							colour = 0;
-
-							if (g_CutsceneCurAnimFrame60 < 90) {
-								frac = 1.0f - (f32)g_CutsceneCurAnimFrame60 / 90.0f;
-							}
-
-							if (g_CutsceneAnimNum != ANIM_CUT_OLD_TITLE_CAM_04) {
-								if (g_CutsceneCurAnimFrame60 > endframe - 90) {
-									frac = (g_CutsceneCurAnimFrame60 - endframe + 90) / 90.0f;
-								}
-							} else {
-								if (g_CutsceneCurAnimFrame60 > endframe - 30) {
-									colour = 0xffffff00;
-									frac = (g_CutsceneCurAnimFrame60 - endframe + 30) / 30.0f;
-								}
-							}
-
-							if (frac > 0) {
-								alpha = 255 * frac;
-
-								gDPPipeSync(gdl++);
-								gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
-								gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
-								gDPSetPrimColorViaWord(gdl++, 0, 0, colour | alpha);
-
-								gDPFillRectangle(gdl++,
-									viGetViewLeft(),
-									viGetViewTop(),
-									viGetViewLeft() + viGetViewWidth(),
-									viGetViewTop() + viGetViewHeight());
-
-								gdl = text0f153838(gdl);
-							}
-						}
-#endif
-
 						// Handle visual effects in cutscenes
 						switch (g_CutsceneAnimNum) {
 						case ANIM_CUT_CAVE_INTRO_CAM:
@@ -1618,14 +1484,6 @@ Gfx *lvRender(Gfx *gdl)
 					if (bluramount);
 #endif
 
-					if (debugGetMotionBlur() == 1) {
-						gdl = bviewDrawMotionBlur(gdl, 0xffffff00, 128);
-					} else if (debugGetMotionBlur() == 2) {
-						gdl = bviewDrawMotionBlur(gdl, 0xffffff00, 192);
-					} else if (debugGetMotionBlur() == 3) {
-						gdl = bviewDrawMotionBlur(gdl, 0xffffff00, 230);
-					}
-
 					// Render white when teleporting
 					if (g_Vars.currentplayer->teleportstate > TELEPORTSTATE_INACTIVE) {
 						alpha = 0;
@@ -1667,38 +1525,6 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = lvRenderFade(gdl);
 				gdl = scenarioRenderHud(gdl);
 #endif
-
-				if (debugGetTilesDebugMode() != 0
-						|| debugGetPadsDebugMode() != 0
-						|| debug0f11eea8()
-						|| debug0f11ef80()
-						|| debugIsChrStatsEnabled()
-						|| debug0f11ee40()) {
-#if VERSION < VERSION_NTSC_1_0
-					s16 spc8[21];
-					s16 spb0[11];
-					s16 sp9c[10];
-					s32 j;
-
-					sp9c[0] = g_Vars.currentplayer->memcamroom;
-					sp9c[1] = -1;
-
-					for (j = 0; sp9c[j] != -1; j++) {
-						spc8[j] = sp9c[j];
-					}
-
-					spc8[j] = -1;
-
-					for (j = 0; sp9c[j] != -1; j++) {
-						roomGetNeighbours(sp9c[j], spb0, 10);
-						roomsAppend(spb0, spc8, 20);
-					}
-
-					if (debugIsChrStatsEnabled()) {
-						gdl = chrsRenderChrStats(gdl, spc8);
-					}
-#endif
-				}
 
 				gdl = sky0f1274d8(gdl);
 				gdl = amRender(gdl);
@@ -2331,13 +2157,7 @@ void lvTickPlayer(void)
 	f32 xdiff;
 	f32 zdiff;
 
-	if (var80075d64 == 2) {
-		if (var80075d68 == 2) {
-			playerTick(true);
-		} else {
-			playerTick(false);
-		}
-	}
+	playerTick(true);
 
 	xdiff = g_Vars.currentplayer->prop->pos.x - g_Vars.currentplayer->bondprevpos.x;
 	zdiff = g_Vars.currentplayer->prop->pos.z - g_Vars.currentplayer->bondprevpos.z;

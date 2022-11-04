@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/activemenu.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/chr.h"
 #include "game/ceil.h"
 #include "game/game_0b0fd0.h"

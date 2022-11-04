@@ -3,7 +3,6 @@
 #include "constants.h"
 #include "game/bondmove.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/chr.h"
 #include "game/prop.h"
 #include "game/propsnd.h"

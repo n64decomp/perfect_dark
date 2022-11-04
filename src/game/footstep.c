@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/debug.h"
 #include "game/game_006900.h"
 #include "game/propsnd.h"
 #include "game/bg.h"
@@ -154,7 +153,7 @@ s32 footstepChooseSound(struct chrdata *chr, s32 footstepindex)
  */
 void footstepCheckDefault(struct chrdata *chr)
 {
-	if (debugIsFootstepsEnabled() && PLAYERCOUNT() == 1 && chr) {
+	if (PLAYERCOUNT() == 1 && chr) {
 		chr->footstep = 0;
 		chr->magicanim = -1;
 		chr->magicframe = 0;
@@ -224,7 +223,7 @@ void footstepCheckMagic(struct chrdata *chr)
 	f32 zdiff;
 	s32 soundnum;
 
-	if (debugIsFootstepsEnabled() && PLAYERCOUNT() == 1 && chr->magicanim >= 0) {
+	if (PLAYERCOUNT() == 1 && chr->magicanim >= 0) {
 #if VERSION >= VERSION_PAL_BETA
 		chr->magicframe += g_Vars.lvupdate60freal * chr->magicspeed;
 #else

@@ -4,7 +4,6 @@
 #include "lib/vars.h"
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/debug.h"
 #include "game/file.h"
 #include "game/lang.h"
 #include "game/race.h"
@@ -1890,16 +1889,6 @@ void mainTick(void)
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-			if (g_MainIsDebugMenuOpen || joyGetButtons(0, U_CBUTTONS | D_CBUTTONS) == (U_CBUTTONS | D_CBUTTONS)) {
-				g_MainIsDebugMenuOpen = debugProcessInput(joyGetStickX(0), joyGetStickY(0), joyGetButtons(0, 0xffff), joyGetButtonsPressedThisFrame(0, 0xffff));
-			} else if (joyGetButtons(0, START_BUTTON) == 0) {
-				var80075d68 = var800786f4nb;
-			} else {
-				g_MainIsDebugMenuOpen = debugProcessInput(joyGetStickX(0), joyGetStickY(0), joyGetButtons(0, 0xffff), joyGetButtonsPressedThisFrame(0, 0xffff));
-			}
-#endif
-
 			lvTick();
 			playermgrShuffle();
 
@@ -1921,32 +1910,6 @@ void mainTick(void)
 			gdl = lvRender(gdl);
 			func000034e0(&gdl);
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-			if (debugIsLineModeEnabled()) {
-				gDPPipeSync(gdl++);
-				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-				gDPSetBlendColor(gdl++, 0xff, 0xff, 0xff, 0xff);
-				gDPSetPrimDepth(gdl++, 0xffff, 0xffff);
-				gDPSetDepthSource(gdl++, G_ZS_PRIM);
-				gDPSetRenderMode(gdl++, G_RM_VISCVG, G_RM_VISCVG2);
-				gDPFillRectangle(gdl++, 0, 0, viGetWidth() - 1, viGetHeight() - 1);
-			}
-
-			gdl = dhudRender(gdl);
-			dhudClear();
-#endif
-
-			if (debug0f11ed70() >= 2) {
-				gdl = profileRender(gdl);
-			}
-
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-			if (g_MainIsDebugMenuOpen) {
-				debugUpdateMenu();
-				gdl = dmenuRender(gdl);
-			}
-#endif
-
 			gDPFullSync(gdl++);
 			gSPEndDisplayList(gdl++);
 		}
@@ -1961,10 +1924,6 @@ void mainTick(void)
 		memaPrint();
 		func0f16cf94();
 		profileSetMarker(PROFILE_MAINTICK_END);
-
-#if VERSION == VERSION_PAL_BETA
-		debug0f119a80nb();
-#endif
 	}
 }
 

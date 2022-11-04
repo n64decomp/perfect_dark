@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/dlights.h"
 #include "game/footstep.h"
 #include "game/game_006900.h"

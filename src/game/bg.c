@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/debug.h"
 #include "game/dlights.h"
 #include "game/game_006900.h"
 #include "game/portal.h"
@@ -1375,7 +1374,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 
 				gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-				if (debugIsPropRenderingEnabled() && getVar80084040()) {
+				if (getVar80084040()) {
 					if (thing->roomnum == -1) {
 						gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
 					}
@@ -1554,7 +1553,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		gdl = envStopFog(gdl);
 
-		if (debugIsPropRenderingEnabled() && getVar80084040()) {
+		if (getVar80084040()) {
 			if (firstroomnum == thing->roomnum) {
 				gdl = propsRender(gdl, 0, RENDERPASS_OPA_PREBG, roomnumsbyprop);
 			}
@@ -1568,7 +1567,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 		gdl = envStartFog(gdl, false);
 
-		if (debugIsBgRenderingEnabled() && getVar80084040()) {
+		if (getVar80084040()) {
 			if (g_StageIndex != STAGEINDEX_TEST_OLD) {
 				gdl = bgRenderRoomOpaque(gdl, thing->roomnum);
 			}
@@ -1579,7 +1578,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 		gdl = envStopFog(gdl);
 
-		if (debugIsPropRenderingEnabled() && getVar80084040()) {
+		if (getVar80084040()) {
 			if (firstroomnum == thing->roomnum) {
 				gdl = propsRender(gdl, 0, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
 			}
@@ -1619,7 +1618,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 		gdl = envStartFog(gdl, true);
 
-		if (debugIsBgRenderingEnabled() && getVar80084040()) {
+		if (getVar80084040()) {
 			gdl = bgRenderRoomXlu(gdl, thing->roomnum);
 		}
 
@@ -1628,7 +1627,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gdl = envStopFog(gdl);
 
 		// Render prop translucent components
-		if (debugIsPropRenderingEnabled() && getVar80084040()) {
+		if (getVar80084040()) {
 			if (firstroomnum == thing->roomnum) {
 				gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
 			}
@@ -1644,10 +1643,6 @@ Gfx *bgRenderScene(Gfx *gdl)
 			}
 		}
 	}
-
-#if VERSION < VERSION_NTSC_1_0
-	debug0f119a80nb();
-#endif
 
 	return gdl;
 }
@@ -3876,43 +3871,6 @@ s32 portalFindNumByVertices(struct portalvertices *arg0)
 	return 0;
 }
 
-/**
- * Build a string showing the state of all rooms in the stage.
- *
- * The string contains "L" if a room is loaded, "." if not, and has line breaks
- * every 40 characters.
- *
- * Nothing is done with the string though. It's likely that debug versions of
- * the game would send the string to the host computer or display it on the HUD.
- */
-void roomsHandleStateDebugging(void)
-{
-	if (debugIsRoomStateDebugEnabled()) {
-		u8 string[704];
-		s32 len = 0;
-		s32 i;
-
-		for (i = 1; i < g_Vars.roomcount; i++) {
-			if ((i - 1) % 40 == 0) {
-				if (i != 1) {
-					string[len] = '\n';
-					len++;
-				}
-			}
-
-			if (g_Rooms[i].loaded240) {
-				string[len] = 'L';
-			} else {
-				string[len] = '.';
-			}
-
-			len++;
-		}
-
-		string[len] = '\0';
-	}
-}
-
 u32 bgInflate(u8 *src, u8 *dst, u32 len)
 {
 	u32 result;
@@ -5242,10 +5200,6 @@ void bgLoadRoom(s32 roomnum)
 	// It must be big enough to fit both the inflated and compressed room data.
 	if (g_Rooms[roomnum].gfxdatalen > 0) {
 		size = g_Rooms[roomnum].gfxdatalen;
-
-		if (debug0f11edb0()) {
-			size += 1024;
-		}
 	} else {
 		size = memaGetLongestFree();
 	}

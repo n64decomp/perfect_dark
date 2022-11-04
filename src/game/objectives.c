@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/prop.h"
 #include "game/setuputils.h"
 #include "game/objectives.h"
@@ -329,10 +328,6 @@ s32 objectiveCheck(s32 index)
 				cmd = cmd + setupGetCmdLength(cmd);
 			}
 		}
-	}
-
-	if (debugForceAllObjectivesComplete()) {
-		objstatus = OBJECTIVE_COMPLETE;
 	}
 
 	return objstatus;

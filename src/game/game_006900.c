@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/debug.h"
 #include "game/game_006900.h"
 #include "game/propsnd.h"
 #include "game/bg.h"
