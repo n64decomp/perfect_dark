@@ -447,7 +447,6 @@ void lvReset(s32 stagenum)
 	}
 
 	paksReset();
-	sndResetCurMp3();
 
 	if (stagenum == STAGE_BOOTPAKMENU) {
 		bootmenuReset();
@@ -2557,9 +2556,7 @@ void lvSetPaused(bool paused)
 {
 	if (paused) {
 		pakDisableRumbleForAllPlayers();
-		snd0000fe20();
 	} else {
-		snd0000fe50();
 		pakEnableRumbleForAllPlayers();
 	}
 

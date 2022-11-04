@@ -15,30 +15,15 @@
 #include "lib/str.h"
 #include "lib/lib_2fc60.h"
 #include "lib/lib_317f0.h"
-#include "lib/mp3.h"
 #include "lib/lib_39c80.h"
 #include "lib/speaker.h"
 #include "data.h"
 #include "types.h"
 
-struct curmp3 {
-	union soundnumhack sfxref;
-	u32 playing;
-	u32 unk08;
-	s32 responsetimer240;
-	s32 prevwhisper;
-	s32 prevacknowledge;
-	s32 prevgreeting;
-	u32 romaddr;
-	u32 romsize;
-	s32 responsetype;
-};
-
 s32 g_NumSounds;
 u32 *g_ALSoundRomOffsets;
 s32 g_SndMaxFxBusses;
 u32 var80094eac;
-struct curmp3 g_SndCurMp3;
 struct seqinstance g_SeqInstances[3];
 ALHeap g_SndHeap;
 u32 var80095200;
@@ -66,7 +51,6 @@ struct sndstate *g_SndUfoHandle = NULL;
 
 u16 g_SfxVolume = 32767;
 s32 g_SoundMode = (VERSION >= VERSION_NTSC_1_0 ? SOUNDMODE_STEREO : SOUNDMODE_SURROUND);
-bool g_SndMp3Enabled = false;
 
 #if VERSION >= VERSION_NTSC_1_0
 s32 var8005ddd4 = 0;
@@ -848,11 +832,6 @@ extern u8 _seqctlSegmentRomEnd;
 extern u8 _seqtblSegmentRomStart;
 extern u8 _sequencesSegmentRomStart;
 
-bool sndIsPlayingMp3(void)
-{
-	return g_SndCurMp3.playing;
-}
-
 u16 snd0000e9dc(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
@@ -900,20 +879,6 @@ void snd0000ea80(u16 volume)
 	for (i = 0; i < 9; i++) {
 		func00033f44(i, volume);
 	}
-}
-
-void sndResetCurMp3(void)
-{
-	g_SndCurMp3.sfxref.id = 0;
-	g_SndCurMp3.sfxref.mp3priority = 0;
-	g_SndCurMp3.sfxref.unk02 = 0;
-	g_SndCurMp3.sfxref.hasconfig = false;
-	g_SndCurMp3.playing = false;
-	g_SndCurMp3.unk08 = 0;
-	g_SndCurMp3.responsetimer240 = -1;
-	g_SndCurMp3.prevwhisper = -1;
-	g_SndCurMp3.prevacknowledge = -1;
-	g_SndCurMp3.prevgreeting = -1;
 }
 
 void sndLoadSfxCtl(void)
@@ -1300,10 +1265,6 @@ ALSound *sndLoadSound(s16 soundnum)
 	tmp.packed = soundnum;
 	sfxnum = tmp.id;
 
-	if (sndIsMp3(tmp.packed)) {
-		return NULL;
-	}
-
 	// If this sound doesn't exist in the cache
 	cacheindex = g_SndCache.indexes[sfxnum];
 
@@ -1437,15 +1398,8 @@ void sndInit(void)
 		heaplen -= 1024 * 137;
 		heaplen -= 1024 * 12;
 		heaplen -= 1024 * 23;
-
-		g_SndMp3Enabled = false;
 	} else {
-		g_SndMp3Enabled = true;
 		g_SndMaxFxBusses = 2;
-
-		if (argFindByPrefix(1, "-nomp3")) {
-			g_SndMp3Enabled = false;
-		}
 	}
 
 	if (!g_SndDisabled) {
@@ -1525,16 +1479,6 @@ void sndInit(void)
 		amgrCreate(&synconfig);
 #endif
 
-		if (g_SndMp3Enabled) {
-			osSyncPrintf("RWI : Initialising the new and improved MP3 player\n");
-
-			mp3Init(&g_SndHeap);
-			func00037f08(0x7fff, 1);
-			func00037f5c(0, true);
-
-			osSyncPrintf("RWI : MP3 player Initialising Done\n");
-		}
-
 		for (i = 0; i < 3; i++) {
 			seqInit(&g_SeqInstances[i]);
 		}
@@ -1554,27 +1498,8 @@ void sndInit(void)
 	}
 }
 
-bool sndIsMp3(s16 soundnum)
-{
-	union soundnumhack tmp;
-	tmp.packed = soundnum;
-
-	return tmp.mp3priority != 0;
-}
-
 bool snd0000fbc4(s16 arg0)
 {
-	if (!g_SndDisabled && g_SndMp3Enabled) {
-		if (func00037ea4() && g_SndCurMp3.unk08 != 0) {
-			return false;
-		}
-
-		func00037e1c();
-
-		g_SndCurMp3.playing = false;
-		g_SndCurMp3.responsetimer240 = -1;
-	}
-
 	return true;
 }
 
@@ -1794,20 +1719,6 @@ void snd0000fe18(void)
 	// empty
 }
 
-void snd0000fe20(void)
-{
-	if (g_SndMp3Enabled) {
-		func00037e38();
-	}
-}
-
-void snd0000fe50(void)
-{
-	if (g_SndMp3Enabled) {
-		func00037e68();
-	}
-}
-
 void snd0000fe80(void)
 {
 	// empty
@@ -1871,105 +1782,6 @@ void sndTick(void)
 		var8005edec = var8005ddd8;
 	}
 #endif
-
-	if (!g_SndDisabled && g_SndMp3Enabled) {
-		if (g_Vars.stagenum == STAGE_AIRFORCEONE) {
-			sndTickNosedive();
-		} else if (g_Vars.stagenum == STAGE_ESCAPE) {
-			sndTickUfo();
-		}
-
-		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-			s0 = musicGetVolume() > g_SfxVolume ? musicGetVolume() : g_SfxVolume;
-
-			if (s0 != snd0000e9dc()) {
-				snd0000ea80(s0);
-			}
-		} else {
-			if (g_SfxVolume != snd0000e9dc()) {
-				snd0000ea80(g_SfxVolume);
-			}
-		}
-
-		if (g_SndGuardStringPtr != NULL) {
-			if (strcmp(g_SndGuardStringPtr, g_SndGuardString) != 0) {
-#if VERSION < VERSION_NTSC_1_0
-				crashSetMessage("Snd Heap Check FAILED");
-				CRASH();
-#endif
-			}
-		}
-
-		if (func00037ea4() == 0 && g_SndCurMp3.playing) {
-			if (g_SndCurMp3.unk08) {
-				mp3PlayFile(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
-				return;
-			}
-
-			switch (g_SndCurMp3.responsetype) {
-			case MP3RESPONSETYPE_ACKNOWLEDGE:
-			case MP3RESPONSETYPE_WHISPER:
-				g_SndCurMp3.responsetimer240 = TICKS(60);
-				break;
-			case MP3RESPONSETYPE_GREETING:
-				g_SndCurMp3.responsetimer240 = 1;
-				break;
-			}
-
-			g_SndCurMp3.playing = false;
-			return;
-		}
-
-		if (g_SndCurMp3.responsetimer240 > 0) {
-			g_SndCurMp3.responsetimer240 -= g_Vars.lvupdate240;
-
-			if (g_SndCurMp3.responsetimer240 <= 0) {
-				if (g_SndCurMp3.responsetype == MP3RESPONSETYPE_WHISPER) {
-					do {
-						index = random() % 4;
-					} while (index == g_SndCurMp3.prevwhisper);
-
-					g_SndCurMp3.prevwhisper = index;
-
-					switch (index) {
-					case 0: sp50.packed = MP3_JO_WHISPER_RECEIVED; break;
-					case 1: sp50.packed = MP3_JO_WHISPER_UNDERSTOOD; break;
-					case 2: sp50.packed = MP3_JO_WHISPER_AFFIRMATIVE; break;
-					case 3: sp50.packed = MP3_JO_WHISPER_CONFIRMED; break;
-					}
-				} else if (g_SndCurMp3.responsetype == MP3RESPONSETYPE_ACKNOWLEDGE) {
-					do {
-						index = random() % 4;
-					} while (index == g_SndCurMp3.prevacknowledge);
-
-					g_SndCurMp3.prevacknowledge = index;
-
-					switch (index) {
-					case 0: sp50.packed = MP3_JO_ACKNOWLEDGE_CONFIRMED; break;
-					case 1: sp50.packed = MP3_JO_ACKNOWLEDGE_UNDERSTOOD; break;
-					case 2: sp50.packed = MP3_JO_ACKNOWLEDGE_AFFIRMATIVE; break;
-					case 3: sp50.packed = MP3_JO_ACKNOWLEDGE_RECEIVED; break;
-					}
-				} else if (g_SndCurMp3.responsetype == MP3RESPONSETYPE_GREETING) {
-					do {
-						index = random() % 4;
-					} while (index == g_SndCurMp3.prevgreeting);
-
-					g_SndCurMp3.prevgreeting = index;
-
-					switch (index) {
-					case 0: sp50.packed = MP3_JO_GREETING_HELLO; break;
-					case 1: sp50.packed = MP3_JO_GREETING_HI; break;
-					case 2: sp50.packed = MP3_JO_GREETING_HEY; break;
-					case 3: sp50.packed = MP3_JO_GREETING_HIYA; break;
-					}
-				}
-
-				g_SndCurMp3.responsetimer240 = -1;
-				sndStart(0, sp50.packed, 0, -1, -1, -1.0f, -1, -1);
-			}
-		}
-	}
 }
 
 s16 snd0001034c(s16 sfxnum)
@@ -1987,20 +1799,6 @@ s16 snd0001034c(s16 sfxnum)
 bool sndIsDisabled(void)
 {
 	return g_SndDisabled;
-}
-
-void sndStartMp3ByFilenum(u32 filenum)
-{
-	union soundnumhack sfxref;
-
-	if (!g_SndDisabled && g_SndMp3Enabled) {
-		sfxref.packed = 0;
-		sfxref.unk02 = 0;
-		sfxref.mp3priority = 1; // high priority
-		sfxref.id = filenum;
-
-		sndStart(0, sfxref.packed, NULL, -1, -1, -1, -1, -1);
-	}
 }
 
 /**
@@ -2092,11 +1890,6 @@ void sndAdjust(struct sndstate **handle, s32 arg1, s32 arg2, s32 pan, s32 soundn
 	if (arg1 != 0) {
 		if (arg2 != -1) {
 			arg2 = arg2 * snd0000e9dc() / 32767;
-			func00037f08(arg2, true);
-		}
-
-		if (pan != -1) {
-			func00037f5c(pan, true);
 		}
 	}
 
@@ -2212,16 +2005,6 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg
 		return NULL;
 	}
 
-	if (sndIsMp3(sp40.packed)) {
-		sndStartMp3(sp40.packed, sp3a, sp3d, 0);
-
-		if (handle != NULL) {
-			*handle = NULL;
-		}
-
-		return NULL;
-	}
-
 #if VERSION >= VERSION_NTSC_1_0
 	if (sp40.id < (u32)g_NumSounds) {
 		return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
@@ -2231,246 +2014,4 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg
 #else
 	return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
 #endif
-}
-
-const char var70053be0[] = "Snd_Play_Universal : Overriding -> Link = %d\n";
-
-#if VERSION < VERSION_NTSC_1_0
-const char var700552f0nb[] = "Snd_Play_Mpeg : sndId=%d, vol=%d, pan=%d\n";
-#endif
-
-const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
-const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
-const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
-
-void sndStartMp3(s16 soundnum, s32 arg1, s32 arg2, s32 arg3)
-{
-	union soundnumhack sp24;
-	union soundnumhack sp20;
-
-	sp24.packed = soundnum;
-
-	if (!g_SndDisabled) {
-		if (sp24.hasconfig) {
-			sp20.packed = g_AudioRussMappings[sp24.confignum].soundnum;
-			sp20.hasconfig = false;
-		} else {
-			sp20.packed = soundnum;
-		}
-
-		if (!g_SndCurMp3.playing
-				|| ((sp20.mp3priority != 1 || g_SndCurMp3.sfxref.mp3priority != 1)
-				 && sp20.mp3priority <= g_SndCurMp3.sfxref.mp3priority)) {
-			if (sp24.hasconfig) {
-				if (g_AudioConfigs[sp24.confignum].unk10 != -1) {
-					arg1 = g_AudioConfigs[sp24.confignum].unk10 * 32767 / 100;
-				}
-
-				if (g_AudioConfigs[sp24.confignum].unk14 != -1) {
-					arg2 = g_AudioConfigs[sp24.confignum].unk14;
-				}
-
-				// This is the same thing again
-				if (g_AudioConfigs[sp24.confignum].unk14 != -1) {
-					arg2 = g_AudioConfigs[sp24.confignum].unk14;
-				}
-
-				if (g_Vars.langfilteron && (g_AudioConfigs[sp24.confignum].flags & AUDIOCONFIGFLAG_OFFENSIVE)) {
-					arg1 = 0;
-				}
-			}
-
-			arg1 = arg1 * snd0000e9dc() / 0x7fff;
-
-			g_SndCurMp3.romaddr = fileGetRomAddress(sp20.id);
-			g_SndCurMp3.romsize = fileGetRomSize(sp20.id);
-
-			func00037f08(arg1, true);
-			func00037f5c(arg2, true);
-
-			mp3PlayFile(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
-
-			func00037f08(arg1, true);
-			func00037f5c(arg2, true);
-
-			g_SndCurMp3.sfxref.packed = sp20.packed;
-			g_SndCurMp3.playing = true;
-			g_SndCurMp3.responsetimer240 = -1;
-			g_SndCurMp3.responsetype = MP3RESPONSETYPE_NONE;
-
-			if (g_SndCurMp3.sfxref.unk02 == 2) {
-				g_SndCurMp3.responsetype = MP3RESPONSETYPE_ACKNOWLEDGE;
-			} else if (g_SndCurMp3.sfxref.unk02 == 1) {
-				g_SndCurMp3.responsetype = MP3RESPONSETYPE_WHISPER;
-			}
-
-			if ((sp24.hasconfig && (g_AudioConfigs[sp24.confignum].flags & AUDIOCONFIGFLAG_04)) || (arg3 & 1)) {
-				g_SndCurMp3.responsetype = MP3RESPONSETYPE_GREETING;
-			}
-		}
-	}
-}
-
-void sndPlayNosedive(s32 seconds)
-{
-	g_SndNosediveDuration240 = seconds * TICKS(240);
-	g_SndNosediveAge240 = 0;
-	g_SndNosediveVolume = 0;
-	g_SndNosediveHandle = NULL;
-}
-
-void sndStopNosedive(void)
-{
-	if (g_SndNosediveAge240 != -1) {
-		g_SndNosediveAge240 = g_SndNosediveDuration240 + 1;
-	}
-}
-
-void sndTickNosedive(void)
-{
-	f32 percentage;
-
-	if (g_SndNosediveAge240 != -1) {
-		g_SndNosediveAge240 += g_Vars.lvupdate240;
-
-		percentage = (f32)g_SndNosediveAge240 / (f32)g_SndNosediveDuration240;
-
-		if (percentage < 1.0f) { // less than 100% complete
-			percentage += 0.44f;
-
-			if (lvIsPaused()) {
-				// Fade out volume during pause instead of stopping abruptly
-				if (g_SndNosediveVolume > 0) {
-					g_SndNosediveVolume -= g_Vars.diffframe240 * PALUP(80);
-
-					if (g_SndNosediveVolume < 0) {
-						g_SndNosediveVolume = 0;
-					}
-				}
-
-				if (g_SndNosediveVolume) {
-					sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, 64, -1, percentage, 0, -1, 1);
-				} else if (g_SndNosediveHandle != NULL) {
-					audioStop(g_SndNosediveHandle);
-					g_SndNosediveHandle = NULL;
-				}
-			} else {
-				// Not paused
-				if (g_SndNosediveHandle == NULL) {
-					sndStart(var80095200, SFX_NOSEDIVE, &g_SndNosediveHandle, -1, -1, -1, -1, -1);
-				}
-
-				// Fade in over about 2 seconds
-				if (g_SndNosediveVolume < 20000) {
-					g_SndNosediveVolume += g_Vars.diffframe240 * PALUP(40);
-
-					if (g_SndNosediveVolume > 20000) {
-						g_SndNosediveVolume = 20000;
-					}
-				}
-
-				sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, 64, -1, percentage, 0, -1, 1);
-			}
-		} else {
-			// Reached the configured fade out point
-			if (g_SndNosediveVolume > 0) {
-				g_SndNosediveVolume -= g_Vars.diffframe240 * PALUP(80);
-
-				if (g_SndNosediveVolume < 0) {
-					g_SndNosediveVolume = 0;
-				}
-			}
-
-			if (g_SndNosediveVolume) {
-				sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, 64, -1, -1, 0, -1, 1);
-			} else if (g_SndNosediveHandle != NULL) {
-				audioStop(g_SndNosediveHandle);
-				g_SndNosediveHandle = NULL;
-			}
-		}
-	}
-}
-
-void sndPlayUfo(s32 seconds)
-{
-	g_SndUfoDuration240 = seconds * TICKS(240);
-	g_SndUfoAge240 = 0;
-	g_SndUfoVolume = 0;
-	g_SndUfoHandle = NULL;
-}
-
-void sndStopUfo(void)
-{
-	if (g_SndUfoAge240 != -1) {
-		g_SndUfoAge240 = g_SndUfoDuration240 + 1;
-	}
-}
-
-void sndTickUfo(void)
-{
-	f32 percentage;
-
-	if (g_SndUfoAge240 != -1) {
-		g_SndUfoAge240 += g_Vars.lvupdate240;
-
-		percentage = (f32)g_SndUfoAge240 / (f32)g_SndUfoDuration240;
-
-		if (percentage < 1.0f) { // less than 100% complete
-			if (percentage < 0.65f) {
-				percentage = percentage / 0.65f * 0.3f + 0.7f;
-			} else {
-				percentage = (percentage - 0.65f) / 0.35f * 0.8f + 1.0f;
-			}
-
-			if (lvIsPaused()) {
-				// Fade out volume during pause instead of stopping abruptly
-				if (g_SndUfoVolume > 0) {
-					g_SndUfoVolume -= g_Vars.diffframe240 * PALUP(120);
-
-					if (g_SndUfoVolume < 0) {
-						g_SndUfoVolume = 0;
-					}
-				}
-
-				if (g_SndUfoVolume) {
-					sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, 64, -1, percentage, 0, -1, 1);
-				} else if (g_SndUfoHandle != NULL) {
-					audioStop(g_SndUfoHandle);
-					g_SndUfoHandle = NULL;
-				}
-			} else {
-				// Not paused
-				if (g_SndUfoHandle == NULL) {
-					sndStart(var80095200, SFX_UFOHUM, &g_SndUfoHandle, -1, -1, -1, -1, -1);
-				}
-
-				// Fade in over about 2.4 seconds
-				if (g_SndUfoVolume < 32767) {
-					g_SndUfoVolume += g_Vars.diffframe240 * PALUP(40);
-
-					if (g_SndUfoVolume > 32767) {
-						g_SndUfoVolume = 32767;
-					}
-				}
-
-				sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, 64, -1, percentage, 0, -1, 1);
-			}
-		} else {
-			// Reached the configured fade out point
-			if (g_SndUfoVolume > 0) {
-				g_SndUfoVolume -= g_Vars.diffframe240 * PALUP(120);
-
-				if (g_SndUfoVolume < 0) {
-					g_SndUfoVolume = 0;
-				}
-			}
-
-			if (g_SndUfoVolume) {
-				sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, 64, -1, -1, 0, -1, 1);
-			} else if (g_SndUfoHandle != NULL) {
-				audioStop(g_SndUfoHandle);
-				g_SndUfoHandle = NULL;
-			}
-		}
-	}
 }

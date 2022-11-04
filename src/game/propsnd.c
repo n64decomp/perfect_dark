@@ -201,9 +201,7 @@ void func0f092a98(s32 channelnum)
 		propDecrementSoundCount(channel->prop);
 	}
 
-	if ((channel->flags & AUDIOCHANNELFLAG_ISMP3)) {
-		snd0000fbc4(channel->soundnum26);
-	} else if (channel->audiohandle && sndGetState(channel->audiohandle) != AL_STOPPED) {
+	if (channel->audiohandle && sndGetState(channel->audiohandle) != AL_STOPPED) {
 		audioStop(channel->audiohandle);
 	}
 
@@ -3441,13 +3439,11 @@ void propsndTickChannel(s32 channelnum)
 			&& channel->unk28 != 11
 			&& ((channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED)
 				|| (channel->flags & AUDIOCHANNELFLAG_0002)
-				|| (channel->flags & AUDIOCHANNELFLAG_1000)
-				|| ((channel->flags & AUDIOCHANNELFLAG_ISMP3) && sndIsPlayingMp3())))
+				|| (channel->flags & AUDIOCHANNELFLAG_1000)))
 #else
 	if ((channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED)
 			|| (channel->flags & AUDIOCHANNELFLAG_0002)
-			|| (channel->flags & AUDIOCHANNELFLAG_1000)
-			|| ((channel->flags & AUDIOCHANNELFLAG_ISMP3) && sndIsPlayingMp3()))
+			|| (channel->flags & AUDIOCHANNELFLAG_1000))
 #endif
 	{
 		struct coord *pos = NULL; // 50
@@ -3633,49 +3629,27 @@ void propsndTickChannel(s32 channelnum)
 
 		if ((channel->flags & AUDIOCHANNELFLAG_2000) == 0) {
 			if (channel->flags & AUDIOCHANNELFLAG_1000) {
-				if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
-					sndStartMp3(channel->soundnum26, sp48, sp44, (channel->flags2 & AUDIOCHANNELFLAG2_0001) ? 1 : 0);
-				} else {
-#if VERSION >= VERSION_NTSC_1_0
-					if (channel->flags & AUDIOCHANNELFLAG_0400) {
-						if (sp48) {
-							snd00010718(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
-									channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
-						}
-					} else {
-						if (sp48) {
-							snd00010718(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
-									channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
-						}
+				if (channel->flags & AUDIOCHANNELFLAG_0400) {
+					if (sp48) {
+						snd00010718(&channel->audiohandle, 0, sp48, sp44,
+								channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
 					}
-#else
-					snd00010718(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
-							channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
-#endif
+				} else {
+					if (sp48) {
+						snd00010718(&channel->audiohandle, 0, sp48, sp44,
+								channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
+					}
 				}
 
 				channel->flags &= ~AUDIOCHANNELFLAG_1000;
 			} else {
-				sndAdjust(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
+				sndAdjust(&channel->audiohandle, 0, sp48, sp44,
 						channel->soundnum26, sp3c, channel->unk1a, sp40, channel->flags & AUDIOCHANNELFLAG_4000);
 			}
 		}
 	} else {
-#if VERSION >= VERSION_NTSC_1_0
 		if (channel->unk28 != 11) {
-			if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
-				if (!sndIsPlayingMp3()) {
-					if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
-						propDecrementSoundCount(channel->prop);
-					}
-
-					if (channel->flags & AUDIOCHANNELFLAG_FORHUDMSG) {
-						hudmsgsHideByChannel(channelnum);
-					}
-				}
-
-				channel->flags = AUDIOCHANNELFLAG_IDLE;
-			} else if (channel->audiohandle == NULL) {
+			if (channel->audiohandle == NULL) {
 				if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
 					propDecrementSoundCount(channel->prop);
 				}
@@ -3683,25 +3657,6 @@ void propsndTickChannel(s32 channelnum)
 				channel->flags = AUDIOCHANNELFLAG_IDLE;
 			}
 		}
-#else
-		if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
-			if (!sndIsPlayingMp3()) {
-				if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
-					propDecrementSoundCount(channel->prop);
-				}
-
-				if (channel->flags & AUDIOCHANNELFLAG_FORHUDMSG) {
-					hudmsgsHideByChannel(channelnum);
-				}
-			}
-		} else if (channel->audiohandle == NULL) {
-			if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
-				propDecrementSoundCount(channel->prop);
-			}
-		}
-
-		channel->flags = AUDIOCHANNELFLAG_IDLE;
-#endif
 	}
 
 	if (var8006ae44 && (channel->flags2 & AUDIOCHANNELFLAG2_0004)) {
@@ -4095,23 +4050,10 @@ s16 propsnd0f0939f8(
 
 	channel->flags |= AUDIOCHANNELFLAG_1000;
 
-	if (sndIsMp3(soundnum)) {
-		channel->flags |= AUDIOCHANNELFLAG_ISMP3;
-
-#if VERSION >= VERSION_NTSC_1_0
-		prevpri = osGetThreadPri(0);
-		osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-		propsndTickChannel(channel->channelnum);
-		osSetThreadPri(0, prevpri);
-#else
-		propsndTickChannel(channel->channelnum);
-#endif
-	} else {
-		prevpri = osGetThreadPri(0);
-		osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-		propsndTickChannel(channel->channelnum);
-		osSetThreadPri(0, prevpri);
-	}
+	prevpri = osGetThreadPri(0);
+	osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
+	propsndTickChannel(channel->channelnum);
+	osSetThreadPri(0, prevpri);
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (channel->flags & AUDIOCHANNELFLAG_0400) {
@@ -4611,7 +4553,7 @@ void func0f09505c(struct sndstate *handle, struct coord *pos, f32 arg2, f32 arg3
 
 	sp4c = propsnd0f0946b0(pos, arg2, arg3, arg4, rooms, soundnum, arg7, arg8);
 	pan = propsnd0f094d78(pos, arg2, arg3, arg4, *arg8, sp50, 0);
-	sndAdjust(&handle, sndIsMp3(soundnum), sp4c, pan, soundnum, 1.0f, 1, -1, 1);
+	sndAdjust(&handle, false, sp4c, pan, soundnum, 1.0f, 1, -1, 1);
 }
 
 s32 propsndGetRandomSparkSound(void)

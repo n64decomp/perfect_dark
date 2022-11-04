@@ -12,7 +12,6 @@ void propsndStop(void)
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
 		if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_ISMP3) {
-			snd0000fbc4(g_AudioChannels[i].soundnum26);
 			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_ISMP3;
 			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0002;
 		} else if (g_AudioChannels[i].audiohandle && sndGetState(g_AudioChannels[i].audiohandle) != AL_STOPPED) {

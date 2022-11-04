@@ -1973,8 +1973,6 @@ void mainTick(void)
 
 void mainEndStage(void)
 {
-	sndStopNosedive();
-
 	if (!g_MainIsEndscreen) {
 #if VERSION >= VERSION_NTSC_1_0
 		pak0f11c6d0();
