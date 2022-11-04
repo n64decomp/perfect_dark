@@ -10,7 +10,6 @@
 #include "game/body.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
-#include "game/objectives.h"
 #include "game/atan2f.h"
 #include "game/quaternion.h"
 #include "game/bondgun.h"

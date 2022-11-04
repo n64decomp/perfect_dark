@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/game_00b820.h"
 #include "game/setup.h"
-#include "game/objectives.h"
 #include "game/playerreset.h"
 #include "game/botmgr.h"
 #include "game/chr.h"
@@ -1815,19 +1814,6 @@ void setupCreateProps(s32 stagenum)
 						heli->nextstep = 0;
 					}
 					break;
-				case OBJTYPE_TAG:
-					{
-						struct tag *tag = (struct tag *)obj;
-						struct defaultobj *taggedobj = setupGetObjByCmdIndex(index + tag->cmdoffset);
-						tag->obj = taggedobj;
-
-						if (taggedobj) {
-							taggedobj->hidden |= OBJHFLAG_TAGGED;
-						}
-
-						tagInsert(tag);
-					}
-					break;
 				case OBJTYPE_RENAMEOBJ:
 					{
 						struct textoverride *override = (struct textoverride *)obj;
@@ -1841,26 +1827,6 @@ void setupCreateProps(s32 stagenum)
 						invInsertTextOverride(override);
 					}
 					break;
-				case OBJTYPE_BRIEFING:
-					{
-						struct briefingobj *briefing = (struct briefingobj *)obj;
-						s32 wanttype = BRIEFINGTYPE_TEXT_PA;
-
-						briefingInsert(briefing);
-
-						if (lvGetDifficulty() == DIFF_A) {
-							wanttype = BRIEFINGTYPE_TEXT_A;
-						}
-
-						if (lvGetDifficulty() == DIFF_SA) {
-							wanttype = BRIEFINGTYPE_TEXT_SA;
-						}
-
-						if (briefing->type == wanttype) {
-							g_Briefing.briefingtextnum = briefing->text;
-						}
-					}
-					break;
 				case OBJTYPE_CAMERAPOS:
 					{
 						struct cameraposobj *camera = (struct cameraposobj *)obj;
@@ -1870,27 +1836,6 @@ void setupCreateProps(s32 stagenum)
 						camera->theta = *(s32 *)&camera->theta / 65536.0f;
 						camera->verta = *(s32 *)&camera->verta / 65536.0f;
 					}
-					break;
-				case OBJTYPE_BEGINOBJECTIVE:
-					{
-						struct objective *objective = (struct objective *)obj;
-
-						objectiveInsert(objective);
-
-						if ((u32)objective->index < 7) {
-							g_Briefing.objectivenames[objective->index] = objective->text;
-							g_Briefing.objectivedifficulties[objective->index] = objective->difficulties;
-						}
-					}
-					break;
-				case OBJECTIVETYPE_ENTERROOM:
-					objectiveAddRoomEnteredCriteria((struct criteria_roomentered *)obj);
-					break;
-				case OBJECTIVETYPE_THROWINROOM:
-					objectiveAddThrowInRoomCriteria((struct criteria_throwinroom *)obj);
-					break;
-				case OBJECTIVETYPE_HOLOGRAPH:
-					objectiveAddHolographCriteria((struct criteria_holograph *)obj);
 					break;
 				case OBJTYPE_PADEFFECT:
 					{

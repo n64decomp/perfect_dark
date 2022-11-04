@@ -30,7 +30,6 @@
 	build/ROMID/game/varsreset.o (section); \
 	build/ROMID/game/setup.o (section); \
 	build/ROMID/game/propsndreset.o (section); \
-	build/ROMID/game/objectivesreset.o (section); \
 	build/ROMID/game/casingreset.o (section); \
 	build/ROMID/game/bondgunreset.o (section); \
 	build/ROMID/game/modelmgrreset.o (section); \
@@ -59,7 +58,6 @@
 	build/ROMID/game/propsstop.o (section); \
 	build/ROMID/game/propobjstop.o (section); \
 	build/ROMID/game/propsndstop.o (section); \
-	build/ROMID/game/objectivesstop.o (section); \
 	build/ROMID/game/stubs/game_015260.o (section); \
 	build/ROMID/game/stubs/game_015270.o (section); \
 	build/ROMID/game/explosionsstop.o (section); \
@@ -92,7 +90,6 @@
 	build/ROMID/game/propobjbss.o (section); \
 	build/ROMID/game/setuputils.o (section); \
 	build/ROMID/game/propsnd.o (section); \
-	build/ROMID/game/objectives.o (section); \
 	build/ROMID/game/game_096360.o (section); \
 	build/ROMID/game/game_096700.o (section); \
 	build/ROMID/game/atan2f.o (section); \

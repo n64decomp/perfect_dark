@@ -3,7 +3,6 @@
 #include "game/camdraw.h"
 #include "game/game_006900.h"
 #include "game/body.h"
-#include "game/objectives.h"
 #include "game/quaternion.h"
 #include "game/bondgun.h"
 #include "game/tex.h"
@@ -8669,39 +8668,6 @@ const char var7f1b27a4[] = "Tune Selector - mode %d\n";
 u32 menuChooseMusic(void)
 {
 	s32 missionsuccess = MUSIC_MISSION_SUCCESS;
-
-	if (g_StageIndex == STAGEINDEX_DEFENSE) {
-		missionsuccess = MUSIC_MISSION_UNKNOWN;
-	}
-
-	if (g_MenuData.root == MENUROOT_ENDSCREEN) {
-		if (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()) {
-			return MUSIC_MISSION_FAILED;
-		}
-
-		return missionsuccess;
-	}
-
-	if (g_MenuData.root == MENUROOT_MPENDSCREEN) {
-		if (g_Vars.coopplayernum >= 0) {
-			if ((g_Vars.bond->isdead && g_Vars.coop->isdead)
-					|| g_Vars.bond->aborted
-					|| g_Vars.coop->aborted
-					|| !objectiveIsAllComplete()) {
-				return MUSIC_MISSION_FAILED;
-			}
-
-			return missionsuccess;
-		}
-
-		if (g_Vars.antiplayernum >= 0) {
-			if (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()) {
-				return MUSIC_MISSION_FAILED;
-			}
-
-			return missionsuccess;
-		}
-	}
 
 	if (g_MenuData.root == MENUROOT_FILEMGR) {
 		return MUSIC_MAINMENU;

@@ -10,7 +10,6 @@
 #include "game/prop.h"
 #include "game/setuputils.h"
 #include "game/propsnd.h"
-#include "game/objectives.h"
 #include "game/game_096360.h"
 #include "game/atan2f.h"
 #include "game/acosfasinf.h"
@@ -4100,8 +4099,6 @@ void objLand(struct prop *prop, struct coord *arg1, struct coord *arg2, bool *em
 			obj->flags |= OBJFLAG_00400000;
 			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE;
 		}
-
-		objectiveCheckThrowInRoom(weapon->weaponnum, prop->rooms);
 
 		if (weapon->weaponnum == WEAPON_BOLT) {
 			boltLand(weapon, arg1);
@@ -8360,11 +8357,6 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 				if (stop) {
 					objFreeProjectile(obj);
-
-					if (obj->type == OBJTYPE_WEAPON) {
-						struct weaponobj *weapon = (struct weaponobj *) obj;
-						objectiveCheckThrowInRoom(weapon->weaponnum, prop->rooms);
-					}
 				}
 
 				if (result) {
@@ -11959,17 +11951,6 @@ s32 objTickPlayer(struct prop *prop)
 					model->anim = NULL;
 					mtx00015be4(camGetProjectionMtxF(), model->matrices, &sp248);
 					mtx4ToMtx3(&sp248, obj->realrot);
-					tagnum = objGetTagNum(obj);
-
-					if (tagnum >= 0) {
-						numchrs = chrsGetNumSlots();
-
-						for (i = 0; i < numchrs; i++) {
-							if (g_ChrSlots[i].myspecial == tagnum) {
-								g_ChrSlots[i].myspecial = -1;
-							}
-						}
-					}
 				}
 
 				prop->pos.x = sp236.x;
@@ -16685,25 +16666,6 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	}
 }
 
-u32 propobjGetCiTagId(struct prop *prop)
-{
-	if (prop && g_Vars.stagenum == STAGE_CITRAINING) {
-		u8 tags[8] = { 0x0e, 0x0f, 0x10, 0x47, 0x46, 0x45, 0x1b, 0x7f };
-		struct defaultobj *obj = prop->obj;
-		u32 i;
-
-		for (i = 0; i != 8; i++) {
-			struct defaultobj *taggedobj = objFindByTagId(tags[i]);
-
-			if (obj == taggedobj) {
-				return tags[i];
-			}
-		}
-	}
-
-	return 0;
-}
-
 bool objIsHealthy(struct defaultobj *obj)
 {
 	return objGetDestroyedLevel(obj) == 0;
@@ -16715,9 +16677,7 @@ bool objTestForInteract(struct prop *prop)
 	struct defaultobj *obj = prop->obj;
 	bool maybe = false;
 
-	if (propobjGetCiTagId(prop)) {
-		maybe = true;
-	} else if (obj->type == OBJTYPE_ALARM
+	if (obj->type == OBJTYPE_ALARM
 			|| (obj->flags & OBJFLAG_THROWNLAPTOP)
 			|| (obj->flags3 & (OBJFLAG3_HTMTERMINAL | OBJFLAG3_INTERACTABLE))
 			|| (obj->hidden & (OBJHFLAG_LIFTDOOR | OBJHFLAG_00000002))) {

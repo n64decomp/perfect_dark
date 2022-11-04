@@ -7,7 +7,6 @@
 #include "game/env.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
-#include "game/objectives.h"
 #include "game/game_096360.h"
 #include "game/bondgun.h"
 #include "game/gunfx.h"
@@ -225,15 +224,6 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	chrGetBbox(prop, &radius, &ymax, &ymin);
 	halfradius = radius * 0.5f;
 	chrSetPerimEnabled(chr, false);
-
-	// myspecial is the chr's chair
-	if (chr->myspecial != -1) {
-		chair = objFindByTagId(chr->myspecial);
-
-		if (chair && chair->prop) {
-			objSetPerimEnabled(chair->prop, false);
-		}
-	}
 
 	func0f065dfc(&prop->pos, prop->rooms, dstpos, dstrooms, sp84, 20);
 
@@ -1315,7 +1305,6 @@ void chrRemove(struct prop *prop, bool delete)
 {
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
-	struct defaultobj *eyespyobj = NULL;
 	struct prop *child;
 	u32 stack[2];
 
@@ -1334,10 +1323,6 @@ void chrRemove(struct prop *prop, bool delete)
 	modelFreeVertices(VTXSTORETYPE_CHRVTX, model);
 	propDeregisterRooms(prop);
 
-	if (g_Vars.stagenum == STAGE_CITRAINING) {
-		eyespyobj = objFindByTagId(0x26);
-	}
-
 	child = prop->child;
 
 	while (child) {
@@ -1345,7 +1330,6 @@ void chrRemove(struct prop *prop, bool delete)
 		struct prop *next = child->next;
 
 		if ((obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) == 0
-				&& obj != eyespyobj
 				&& (prop->type != PROPTYPE_PLAYER || (obj->flags3 & OBJFLAG3_PLAYERUNDROPPABLE) == 0)) {
 			objDetach(child);
 			objFreePermanently(obj, true);

@@ -4,7 +4,6 @@
 #include "game/setup.h"
 #include "game/title.h"
 #include "game/pdmode.h"
-#include "game/objectives.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/tex.h"
@@ -2659,86 +2658,4 @@ struct menudialogdef g_2PMissionAbortVMenuDialog = {
 	menudialogAbortMission,
 	0,
 	NULL,
-};
-
-s32 soloMenuDialogPauseStatus(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
-{
-	if (operation == MENUOP_OPEN) {
-		struct briefingobj *briefing = g_BriefingObjs;
-		struct objective *objective;
-		s32 wanttype = BRIEFINGTYPE_TEXT_PA;
-		s32 i;
-
-		if (lvGetDifficulty() == DIFF_A) {
-			wanttype = BRIEFINGTYPE_TEXT_A;
-		}
-
-		if (lvGetDifficulty() == DIFF_SA) {
-			wanttype = BRIEFINGTYPE_TEXT_SA;
-		}
-
-		g_Briefing.briefingtextnum = L_MISC_042; // "No briefing for this mission"
-
-		while (briefing) {
-			if (briefing->type == BRIEFINGTYPE_TEXT_PA) {
-				g_Briefing.briefingtextnum = briefing->text;
-			}
-
-			if (briefing->type == wanttype) {
-				g_Briefing.briefingtextnum = briefing->text;
-				break;
-			}
-
-			briefing = briefing->next;
-		}
-
-		for (i = 0; i < objectiveGetCount(); i++) {
-			if (g_Objectives[i]) {
-				g_Briefing.objectivenames[i] = g_Objectives[i]->text;
-				g_Briefing.objectivedifficulties[i] = objectiveGetDifficultyBits(i);
-			}
-		}
-	}
-
-	return 0;
-}
-
-struct menuitem g_2PMissionPauseVMenuItems[] = {
-	{
-		MENUITEMTYPE_OBJECTIVES,
-		2,
-		0,
-		0,
-		0,
-		NULL,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
-		L_OPTIONS_173, // "Abort!"
-		0,
-		(void *)&g_2PMissionAbortVMenuDialog,
-	},
-	{ MENUITEMTYPE_END },
-};
-
-struct menuitem g_MissionPauseMenuItems[] = {
-	{
-		MENUITEMTYPE_OBJECTIVES,
-		0,
-		0,
-		0,
-		0,
-		NULL,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
-		L_OPTIONS_173, // "Abort!"
-		0,
-		(void *)&g_MissionAbortMenuDialog,
-	},
-	{ MENUITEMTYPE_END },
 };

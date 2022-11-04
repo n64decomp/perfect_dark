@@ -11,7 +11,6 @@
 #include "game/body.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
-#include "game/objectives.h"
 #include "game/atan2f.h"
 #include "game/quaternion.h"
 #include "game/bondgun.h"
@@ -4393,10 +4392,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 			gdl = playerDrawStoredFade(gdl);
 		}
 
-		if (g_Vars.stagenum == STAGE_ESCAPE) {
-			gdl = gasRender(gdl);
-		}
-
 		return gdl;
 	}
 
@@ -4412,10 +4407,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 
 		if (g_NbombsActive) {
 			gdl = nbombRenderOverlay(gdl);
-		}
-
-		if (g_Vars.stagenum == STAGE_ESCAPE) {
-			gdl = gasRender(gdl);
 		}
 
 		gdl = playerRenderShield(gdl);
@@ -4472,10 +4463,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 
 	if (playerIsHealthVisible() && func0f0f0c68()) {
 		gdl = playerRenderHealthBar(gdl);
-	}
-
-	if (g_Vars.normmplayerisrunning == false) {
-		objectivesCheckAll();
 	}
 
 	if (g_Vars.currentplayer->isdead) {

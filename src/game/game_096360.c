@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/objectives.h"
 #include "game/game_096360.h"
 #include "game/tex.h"
 #include "game/propobj.h"

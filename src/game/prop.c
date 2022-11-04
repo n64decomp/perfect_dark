@@ -7,7 +7,6 @@
 #include "game/chr.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
-#include "game/objectives.h"
 #include "game/floor.h"
 #include "game/ceil.h"
 #include "game/bondgun.h"
@@ -2248,13 +2247,6 @@ void propsTickPadEffects(void)
 						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 					break;
-				case PADEFFECT_OUTROSMOKE:
-					if (g_Vars.tickmode != TICKMODE_CUTSCENE || !objectiveIsAllComplete()) {
-						// @bug: This should be a break rather than a return.
-						// Because of this, subsequent pad effects won't tick.
-						return;
-					}
-					// fall-through
 				case PADEFFECT_SPLASH:
 				case PADEFFECT_SMOKE:
 					type = SMOKETYPE_WATER;

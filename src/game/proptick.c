@@ -6,7 +6,6 @@
 #include "game/chr.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
-#include "game/objectives.h"
 #include "game/game_096360.h"
 #include "game/bondgun.h"
 #include "game/gunfx.h"

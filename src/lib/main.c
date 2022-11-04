@@ -23,7 +23,6 @@
 #include "game/challenge.h"
 #include "game/title.h"
 #include "game/pdmode.h"
-#include "game/objectives.h"
 #include "game/playermgr.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
@@ -1960,8 +1959,6 @@ s32 mainGetStageNum(void)
 
 void func0000e990(void)
 {
-	objectivesCheckAll();
-	objectivesDisableChecking();
 	mainEndStage();
 }
 

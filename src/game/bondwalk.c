@@ -8,7 +8,6 @@
 #include "game/chr.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
-#include "game/objectives.h"
 #include "game/bondgun.h"
 #include "game/player.h"
 #include "game/inv.h"
@@ -1724,7 +1723,6 @@ void bwalkTick(void)
 #endif
 
 	bmoveUpdateRooms(g_Vars.currentplayer);
-	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 
 	if (g_Vars.currentplayer->walkinitmove) {
 		struct coord coord;

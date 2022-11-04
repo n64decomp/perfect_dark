@@ -9,7 +9,6 @@
 #include "game/body.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
-#include "game/objectives.h"
 #include "game/atan2f.h"
 #include "game/acosfasinf.h"
 #include "game/bondgun.h"
@@ -3181,23 +3180,6 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 						row = &g_AnimTablesByRace[race][index].deathanims[tmp];
 					} else if (chr->specialdie == SPECIALDIE_ONCHAIR) {
 						row = &g_SpecialDieAnims[chr->specialdie + random() % 2];
-
-						// chr->myspecial is the tag number of the chr's chair
-						if (chr->myspecial >= 0) {
-							struct defaultobj *obj = objFindByTagId(chr->myspecial);
-							obj->flags3 &= ~OBJFLAG3_PUSHABLE;
-							obj->flags |= OBJFLAG_INVINCIBLE;
-
-							// The original source likely didn't have the brackets here,
-							// but I'm including them to show the logic that's actually
-							// being used. There is no bug here, as obj and obj->prop
-							// are always set at this point so these checks are
-							// unnecessary.
-							if ((obj && obj->prop && obj->modelnum == MODEL_DD_REDARM)
-									|| obj->modelnum == MODEL_DD_REDSOFA) {
-								row = &g_SpecialDieAnims[chr->specialdie - 1];
-							}
-						}
 					} else {
 						row = &g_SpecialDieAnims[chr->specialdie - 1];
 					}

@@ -36,7 +36,6 @@
 #include "game/pak.h"
 #include "game/options.h"
 #include "game/propobj.h"
-#include "game/objectives.h"
 #include "bss.h"
 #include "lib/collision.h"
 #include "lib/vi.h"

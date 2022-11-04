@@ -43,7 +43,6 @@
 #include "game/mplayer/setup.h"
 #include "game/music.h"
 #include "game/nbomb.h"
-#include "game/objectives.h"
 #include "game/pak.h"
 #include "game/pdmode.h"
 #include "game/player.h"
@@ -357,7 +356,6 @@ void lvReset(s32 stagenum)
 
 	mpSetDefaultNamesIfEmpty();
 	animsReset();
-	objectivesReset();
 	vtxstoreReset();
 	modelmgrReset();
 	propsndReset();
@@ -368,7 +366,6 @@ void lvReset(s32 stagenum)
 	chrmgrReset();
 	bodiesReset(stagenum);
 	setupCreateProps(stagenum);
-	tagsReset();
 	explosionsReset();
 	smokeReset();
 	sparksReset();
@@ -2189,7 +2186,6 @@ void lvStop(void)
 	propsStop();
 	objsStop();
 	weatherStop();
-	objectivesStop();
 	stub0f015260();
 	bgunStop();
 	propsndStop();

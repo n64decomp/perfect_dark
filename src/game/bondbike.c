@@ -7,14 +7,12 @@
 #include "game/prop.h"
 #include "game/setuputils.h"
 #include "game/propsnd.h"
-#include "game/objectives.h"
 #include "game/quaternion.h"
 #include "game/bondgun.h"
 #include "game/tex.h"
 #include "game/player.h"
 #include "game/bondhead.h"
 #include "game/lv.h"
-#include "game/objectives.h"
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
@@ -1017,6 +1015,5 @@ void bbikeTick(void)
 	bgunSetAdjustPos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
 	playerUpdatePerimInfo();
 	bmoveUpdateRooms(g_Vars.currentplayer);
-	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 	doorsCheckAutomatic();
 }
