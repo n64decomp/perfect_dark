@@ -42,39 +42,6 @@
 #include "gbiex.h"
 #include "types.h"
 
-#define BGCMD_END                               0x00
-#define BGCMD_PUSH                              0x01
-#define BGCMD_POP                               0x02
-#define BGCMD_AND                               0x03
-#define BGCMD_OR                                0x04
-#define BGCMD_NOT                               0x05
-#define BGCMD_XOR                               0x06
-#define BGCMD_PUSH_CAMINROOMRANGE               0x14
-#define BGCMD_SETRESULT_TRUE                    0x1e
-#define BGCMD_SETRESULT_IFPORTALINFOV           0x1f
-#define BGCMD_IFRESULT_SHOWROOM                 0x20
-#define BGCMD_SETRESULT_FALSE                   0x21
-#define BGCMD_SETRESULT_TRUEIFTHROUGHPORTAL     0x22
-#define BGCMD_SETRESULT_FALSEIFNOTTHROUGHPORTAL 0x23
-#define BGCMD_DISABLEROOM                       0x24
-#define BGCMD_DISABLEROOMRANGE                  0x25
-#define BGCMD_LOADROOM                          0x26
-#define BGCMD_LOADROOMRANGE                     0x27
-#define BGCMD_SETROOMTESTSDISABLED              0x28
-#define BGCMD_PUSH_PORTALISOPEN                 0x29
-#define BGCMD_2A                                0x2a
-#define BGCMD_BRANCH                            0x50
-#define BGCMD_THROW                             0x51
-#define BGCMD_CATCH                             0x52
-#define BGCMD_IF                                0x5a
-#define BGCMD_ELSE                              0x5b
-#define BGCMD_ENDIF                             0x5c
-#define BGCMD_PORTALARG                         0x64
-#define BGCMD_ROOMARG                           0x65
-
-#define BGRESULT_TRUE  0
-#define BGRESULT_FALSE 1
-
 #define VTXBATCHTYPE_OPA 0x01
 #define VTXBATCHTYPE_XLU 0x02
 
@@ -95,7 +62,6 @@ struct bgroom *g_BgRooms;
 struct bgportal *g_BgPortals;
 struct var800a4ccc *var800a4ccc;
 u8 *var800a4cd0;
-struct bgcmd *g_BgCommands;
 u8 *g_BgLightsFileData;
 f32 *g_BgTable5;
 s16 *g_RoomPortals;
@@ -662,9 +628,6 @@ Gfx *func0f158d9c(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3[3],
 }
 
 u32 var8007fc54 = 0;
-bool g_BgCmdStack[20] = {0};
-s32 g_BgCmdStackIndex = 0;
-u32 g_BgCmdResult = BGRESULT_TRUE;
 
 #if MATCHING
 GLOBAL_ASM(
@@ -2650,12 +2613,6 @@ void bgReset(s32 stagenum)
 
 		g_BgPortals = (struct bgportal *)(g_BgPrimaryData2[2] + g_BgPrimaryData + 0xf1000000);
 
-		if (g_BgPrimaryData2[3] == 0) {
-			g_BgCommands = NULL;
-		} else {
-			g_BgCommands = (struct bgcmd *)(g_BgPrimaryData2[3] + g_BgPrimaryData + 0xf1000000);
-		}
-
 		if (g_BgPrimaryData2[4] == 0) {
 			g_BgLightsFileData = NULL;
 		} else {
@@ -3136,14 +3093,6 @@ void bgBuildTables(s32 stagenum)
 		}
 
 		portal0f0b65a8(numportals);
-
-		if (g_BgCommands != NULL) {
-			for (i = 0; g_BgCommands[i].type != BGCMD_END; i++) {
-				if (g_BgCommands[i].type == BGCMD_PORTALARG) {
-					g_BgCommands[i].param = portalFindNumByVertices((void *)(g_BgCommands[i].param + (u32)g_BgPrimaryData + 0xf1000000));
-				}
-			}
-		}
 
 		for (i = 0; i < g_Vars.roomcount; i++) {
 			g_Rooms[i].flags = 0;
@@ -7276,296 +7225,6 @@ void bgFindRoomsByPos(struct coord *posarg, s16 *inrooms, s16 *aboverooms, s32 m
 	}
 }
 
-bool bgPushValue(bool value)
-{
-	g_BgCmdStack[g_BgCmdStackIndex] = value;
-	g_BgCmdStackIndex = (g_BgCmdStackIndex + 1) % 20;
-
-	return value;
-}
-
-bool bgPopValue(void)
-{
-	bool val = g_BgCmdStack[g_BgCmdStackIndex = (g_BgCmdStackIndex + 19) % 20];
-	return val;
-}
-
-bool bgGetNthValueFromEnd(s32 n)
-{
-	return g_BgCmdStack[((g_BgCmdStackIndex - n) + 19) % 20];
-}
-
-/**
- * BG files contain bytecode that is used to override the default portal
- * behaviour. They can be used to check if the camera is in particular rooms
- * and then force other rooms to show or hide.
- *
- * Only six BG files use of this feature. They are Villa, Chicago, Area 51,
- * Pelagic II, Deep Sea and Skedar Ruins. All other BG files contain a single
- * "end" instruction in their bytecode.
- *
- * The scripting language supports if-statements with an infinite nesting level.
- * The interpreter maintains a stack of boolean values which can be pushed to
- * or popped from the end. This can be used to build complex conditions that
- * combine "AND" and "OR" operations.
- *
- * All commands are interpreted in order. There is no support for loops.
- *
- * When processing conditional code the function calls itself recursively for
- * that branch. The execute argument denotes whether the condition passed and
- * these statements should be executed, or whether the condition failed and
- * it's just passing over them to get to the endif command.
- */
-struct bgcmd *bgExecuteCommandsBranch(struct bgcmd *cmd, bool execute)
-{
-	s32 i;
-
-	g_BgCmdThrowing = false;
-
-	if (!cmd) {
-		return cmd;
-	}
-
-	while (true) {
-		switch (cmd->type) {
-		case BGCMD_END:
-			return cmd;
-		case BGCMD_PUSH:
-			if (execute) {
-				bgPushValue(cmd->param);
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_POP:
-			if (execute) {
-				bgPopValue();
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_AND:
-			if (execute) {
-				bgPushValue(bgPopValue() & bgPopValue());
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_OR:
-			if (execute) {
-				bgPushValue(bgPopValue() | bgPopValue());
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_NOT:
-			if (execute) {
-				bgPushValue(bgPopValue() == 0);
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_XOR:
-			if (execute) {
-				bgPushValue(bgPopValue() ^ bgPopValue());
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_PUSH_CAMINROOMRANGE:
-			if (execute) {
-				bgPushValue(g_CamRoom >= cmd[1].param && g_CamRoom <= cmd[2].param);
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_SETRESULT_TRUE:
-			if (execute) {
-				var800a65c0.xmin = g_Vars.currentplayer->screenxminf;
-				var800a65c0.ymin = g_Vars.currentplayer->screenyminf;
-				var800a65c0.xmax = g_Vars.currentplayer->screenxmaxf;
-				var800a65c0.ymax = g_Vars.currentplayer->screenymaxf;
-				g_BgCmdResult = BGRESULT_TRUE;
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_SETRESULT_IFPORTALINFOV:
-			if (execute) {
-				if (!PORTAL_IS_CLOSED(cmd[1].param)) {
-					if (g_PortalGetScreenBbox(cmd[1].param, &g_PortalScreenBbox) == 0) {
-						g_BgCmdResult = BGRESULT_FALSE;
-					} else if (boxGetIntersection(&var800a65c0, &g_PortalScreenBbox) == 0) {
-						g_BgCmdResult = BGRESULT_FALSE;
-					} else {
-						g_BgCmdResult = BGRESULT_TRUE;
-					}
-				}
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_SETRESULT_TRUEIFTHROUGHPORTAL:
-			if (execute) {
-				struct screenbox portalbox;
-
-				if (!PORTAL_IS_CLOSED(cmd[1].param)) {
-					if (g_PortalGetScreenBbox(cmd[1].param, &portalbox) && boxGetIntersection(&var800a65c0, &portalbox)) {
-						if (g_BgCmdResult != BGRESULT_TRUE) {
-							boxCopy(&var800a65c0, &portalbox);
-							g_BgCmdResult = BGRESULT_TRUE;
-						} else {
-							boxExpand(&var800a65c0, &portalbox);
-						}
-					}
-				}
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_SETRESULT_FALSEIFNOTTHROUGHPORTAL:
-			if (execute) {
-				if (g_BgCmdResult == BGRESULT_TRUE) {
-					struct screenbox portalbox;
-
-					if (PORTAL_IS_CLOSED(cmd[1].param)) {
-						g_BgCmdResult = BGRESULT_FALSE;
-					} else if (g_PortalGetScreenBbox(cmd[1].param, &portalbox) == 0) {
-						g_BgCmdResult = BGRESULT_FALSE;
-					} else if (boxGetIntersection(&portalbox, (struct screenbox *)&g_Vars.currentplayer->screenxminf) == 0) {
-						g_BgCmdResult = BGRESULT_FALSE;
-					} else if (boxGetIntersection(&g_PortalScreenBbox, &portalbox) == 0) {
-						g_BgCmdResult = BGRESULT_FALSE;
-					}
-				}
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_IFRESULT_SHOWROOM:
-			if (execute) {
-				if (g_BgCmdResult == BGRESULT_TRUE && func0f15cd90(cmd[1].param, &var800a65c0)) {
-					roomSetOnscreen(cmd[1].param, 0, &var800a65c0);
-					g_ActiveRoomNums[g_NumActiveRooms++] = cmd[1].param;
-				}
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_DISABLEROOM:
-			if (execute) {
-				g_Rooms[cmd[1].param].flags |= ROOMFLAG_DISABLEDBYSCRIPT;
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_DISABLEROOMRANGE:
-			if (execute) {
-				for (i = cmd[1].param; i <= cmd[2].param; i++) {
-					g_Rooms[i].flags |= ROOMFLAG_DISABLEDBYSCRIPT;
-				}
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_LOADROOM:
-			cmd += cmd->len;
-			break;
-		case BGCMD_LOADROOMRANGE:
-			cmd += cmd->len;
-			break;
-		case BGCMD_SETROOMTESTSDISABLED:
-			if (execute) {
-				g_BgRoomTestsDisabled = true;
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_PUSH_PORTALISOPEN:
-			if (execute) {
-				bgPushValue(!PORTAL_IS_CLOSED(cmd[1].param));
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_2A:
-			if (execute) {
-				g_Rooms[cmd[1].param].unk07 = 0;
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_SETRESULT_FALSE:
-			if (execute) {
-				g_BgCmdResult = BGRESULT_FALSE;
-			}
-			cmd += cmd->len;
-			break;
-		case BGCMD_BRANCH:
-			cmd = bgExecuteCommandsBranch(cmd + cmd->len, execute);
-			cmd += cmd->len;
-			break;
-		case BGCMD_CATCH:
-			cmd += cmd->len;
-			g_BgCmdThrowing = false;
-			return cmd;
-		case BGCMD_THROW:
-			cmd += cmd->len;
-			if (execute) {
-				g_BgCmdThrowing = true;
-			}
-			execute = false;
-			break;
-		case BGCMD_IF:
-			cmd = bgExecuteCommandsBranch(cmd + cmd->len, bgPopValue() & execute);
-			if (g_BgCmdThrowing) {
-				execute = false;
-			}
-			break;
-		case BGCMD_ELSE:
-			/**
-			 * Assuming this is indeed an else command, it's not safe to assume
-			 * that the execution state can be unconditionally toggled.
-			 * For example, given the following portal code:
-			 *
-			 * if (a false condition)
-			 *     if (any condition)
-			 *         branch 1
-			 *     else
-			 *         branch 2
-			 *     endif
-			 * endif
-			 *
-			 * ...when reaching the else, execution would be turned on.
-			 *
-			 * However, this command isn't even used.
-			 */
-			execute ^= 1;
-			cmd += cmd->len;
-			break;
-		case BGCMD_ENDIF:
-			/**
-			 * Note the return here rather than break.
-			 */
-			cmd += cmd->len;
-			return cmd;
-		default:
-			if (1);
-			if (1);
-			if (1);
-			if (1);
-			return cmd;
-		}
-	}
-
-	g_BgCmdThrowing = false;
-
-	return cmd;
-}
-
-struct bgcmd *bgExecuteCommands(struct bgcmd *cmd)
-{
-	struct player *player = g_Vars.currentplayer;
-	g_BgCmdResult = BGRESULT_TRUE;
-
-	if (!cmd) {
-		return cmd;
-	}
-
-	// This may have been used in an osSyncPrintf call
-	bgGetNthValueFromEnd(0);
-
-	var800a65c0.xmin = player->screenxminf;
-	var800a65c0.ymin = player->screenyminf;
-	var800a65c0.xmax = player->screenxmaxf;
-	var800a65c0.ymax = player->screenymaxf;
-
-	return bgExecuteCommandsBranch(cmd, true);
-}
-
 void bgTickPortalsXray(void)
 {
 	struct coord vismax;
@@ -8058,34 +7717,29 @@ void bgTickPortals(void)
 		var800a4cf0.unk00 = 0;
 		var800a4cf0.index = 0;
 		var800a4cf0.unk04 = 0;
-		g_BgRoomTestsDisabled = false;
 		var800a4640.unk2d0.box.xmin = box.xmin;
 		var800a4640.unk2d0.box.ymin = box.ymin;
 		var800a4640.unk2d0.box.xmax = box.xmax;
 		var800a4640.unk2d0.box.ymax = box.ymax;
 
-		bgExecuteCommands(g_BgCommands);
-
-		if (!g_BgRoomTestsDisabled) {
-			if (g_BgPortals[0].verticesoffset == 0) {
-				for (room = 1; room < g_Vars.roomcount; room++) {
-					if (func0f15cd90(room, &box)
-							&& ((g_StageIndex != STAGEINDEX_INFILTRATION && g_StageIndex != STAGEINDEX_RESCUE && g_StageIndex != STAGEINDEX_ESCAPE) || room != 0xf)
-							&& (g_StageIndex != STAGEINDEX_SKEDARRUINS || room != 0x02)
-							&& ((g_StageIndex != STAGEINDEX_DEFECTION && g_StageIndex != STAGEINDEX_EXTRACTION) || room != 0x01)
-							&& (g_StageIndex != STAGEINDEX_ATTACKSHIP || room != 0x71)) {
-						roomSetOnscreen(room, 0, &box);
-					}
+		if (g_BgPortals[0].verticesoffset == 0) {
+			for (room = 1; room < g_Vars.roomcount; room++) {
+				if (func0f15cd90(room, &box)
+						&& ((g_StageIndex != STAGEINDEX_INFILTRATION && g_StageIndex != STAGEINDEX_RESCUE && g_StageIndex != STAGEINDEX_ESCAPE) || room != 0xf)
+						&& (g_StageIndex != STAGEINDEX_SKEDARRUINS || room != 0x02)
+						&& ((g_StageIndex != STAGEINDEX_DEFECTION && g_StageIndex != STAGEINDEX_EXTRACTION) || room != 0x01)
+						&& (g_StageIndex != STAGEINDEX_ATTACKSHIP || room != 0x71)) {
+					roomSetOnscreen(room, 0, &box);
 				}
-			} else {
-				roomSetOnscreen(g_CamRoom, 0, &box);
-				var800a4cf0.unk00 = 0;
-				var800a4cf0.index = 0;
-				var800a4cf0.unk04 = 0;
-				func0f1632d4(g_CamRoom, g_CamRoom, 1, &box);
-
-				while (func0f163904());
 			}
+		} else {
+			roomSetOnscreen(g_CamRoom, 0, &box);
+			var800a4cf0.unk00 = 0;
+			var800a4cf0.index = 0;
+			var800a4cf0.unk04 = 0;
+			func0f1632d4(g_CamRoom, g_CamRoom, 1, &box);
+
+			while (func0f163904());
 		}
 
 		bgChooseRoomsToLoad();
