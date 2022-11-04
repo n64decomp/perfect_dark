@@ -75,7 +75,6 @@
 #include "game/texdecompress.h"
 #include "game/tiles.h"
 #include "game/title.h"
-#include "game/training.h"
 #include "game/utils.h"
 #include "game/vtxstore.h"
 #include "game/wallhit.h"
@@ -399,7 +398,6 @@ void lvReset(s32 stagenum)
 	lasersightsReset();
 	stub0f013540();
 	shardsReset();
-	frReset();
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
 		// empty
@@ -773,10 +771,6 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 				}
 				break;
 			}
-		}
-
-		if (obj->modelnum == MODEL_TARGET && frIsTargetOneHitExplodable(prop)) {
-			pass = true;
 		}
 
 		if (pass) {
@@ -1379,11 +1373,7 @@ Gfx *lvRender(Gfx *gdl)
 				} else if (weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
 					s32 j;
 
-					if (frIsInTraining()
-							&& g_Vars.currentplayer->lookingatprop.prop
-							&& bmoveIsInSightAimMode()) {
-						func0f1a0924(g_Vars.currentplayer->lookingatprop.prop);
-					} else if (lvUpdateTrackedProp(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
+					if (lvUpdateTrackedProp(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
 						g_Vars.currentplayer->lookingatprop.prop = NULL;
 					}
 
@@ -1701,10 +1691,6 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = scenarioRenderHud(gdl);
 #endif
 
-				if (g_FrIsValidWeapon) {
-					gdl = frRenderHud(gdl);
-				}
-
 				if (debugGetTilesDebugMode() != 0
 						|| debugGetPadsDebugMode() != 0
 						|| debug0f11eea8()
@@ -1781,42 +1767,6 @@ Gfx *lvRender(Gfx *gdl)
 
 		if (g_Vars.autocutgroupcur < 0 && g_Vars.autocutgroupleft <= 0) {
 			mainChangeToStage(STAGE_TITLE);
-		}
-	}
-
-	// Advance the cutscenes when autoplaying
-	if (!g_Vars.autocutplaying && g_Vars.autocutgroupcur >= 0 && g_Vars.autocutgroupleft > 0) {
-		hudmsgRemoveAll();
-
-		g_Vars.autocutnum = g_Cutscenes[g_Vars.autocutgroupcur].scene;
-
-#if VERSION < VERSION_NTSC_1_0
-		if (mainGetStageNum() != g_Cutscenes[g_Vars.autocutgroupcur].stage)
-#endif
-		{
-			g_MissionConfig.iscoop = false;
-			g_Vars.mplayerisrunning = false;
-			g_Vars.normmplayerisrunning = false;
-			g_Vars.bondplayernum = 0;
-			g_Vars.coopplayernum = -1;
-			g_Vars.antiplayernum = -1;
-			g_MissionConfig.isanti = false;
-			setNumPlayers(1);
-			titleSetNextMode(TITLEMODE_SKIP);
-			g_MissionConfig.difficulty = DIFF_A;
-			lvSetDifficulty(DIFF_A);
-			g_MissionConfig.stageindex = g_Cutscenes[g_Vars.autocutgroupcur].mission;
-			g_MissionConfig.stagenum = g_Cutscenes[g_Vars.autocutgroupcur].stage;
-			titleSetNextStage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
-			mainChangeToStage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
-		}
-
-		g_Vars.autocutgroupleft--;
-
-		if (g_Vars.autocutgroupleft > 0) {
-			g_Vars.autocutgroupcur++;
-		} else {
-			g_Vars.autocutgroupcur = -1;
 		}
 	}
 
@@ -2405,23 +2355,6 @@ void lvTick(void)
 		musicTick();
 		langTick();
 		propsTickPadEffects();
-
-		if (mainGetStageNum() == STAGE_CITRAINING) {
-			struct trainingdata *trainingdata = dtGetData();
-
-			if ((g_Vars.currentplayer->prop->rooms[0] < ROOM_DISH_HOLO1 || g_Vars.currentplayer->prop->rooms[0] > ROOM_DISH_HOLO4)
-					&& g_Vars.currentplayer->prop->rooms[0] != ROOM_DISH_FIRINGRANGE
-					&& (trainingdata == NULL || trainingdata->intraining == false)) {
-				chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
-			}
-
-			frTick();
-
-			if (g_Vars.lvupdate240 != 0) {
-				dtTick();
-				htTick();
-			}
-		}
 	}
 }
 

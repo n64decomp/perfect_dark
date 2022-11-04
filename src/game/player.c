@@ -45,7 +45,6 @@
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
-#include "game/training.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "game/pak.h"
@@ -2159,10 +2158,6 @@ void playerTickPauseMenu(void)
 	case PAUSEMODE_PAUSING:
 		// Pause menu is opening
 		switch (g_GlobalMenuRoot) {
-		case MENUROOT_TRAINING:
-		case MENUROOT_MAINMENU:
-			opened = soloChoosePauseDialog();
-			break;
 		case MENUROOT_FILEMGR:
 			opened = filemgrConsiderPushingFileSelectDialog();
 			break;
@@ -2173,21 +2168,8 @@ void playerTickPauseMenu(void)
 		}
 
 		if (opened) {
-			struct trainingdata *data = dtGetData();
 			lvSetPaused(true);
 			g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
-
-			if ((g_GlobalMenuRoot == MENUROOT_MAINMENU || g_GlobalMenuRoot == MENUROOT_TRAINING)
-					&& g_Vars.stagenum == STAGE_CITRAINING) {
-				s32 room = g_Vars.currentplayer->prop->rooms[0];
-
-				if ((room >= ROOM_DISH_HOLO1 && room <= ROOM_DISH_HOLO4)
-						|| room == ROOM_DISH_FIRINGRANGE
-						|| room == ROOM_DISH_DEVICELAB
-						|| (data && data->intraining)) {
-					return;
-				}
-			}
 
 			musicStartMenu();
 		}

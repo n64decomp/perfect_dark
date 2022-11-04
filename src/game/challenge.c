@@ -6,7 +6,6 @@
 #include "game/mplayer/setup.h"
 #include "game/bot.h"
 #include "game/challenge.h"
-#include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/mplayer/scenarios.h"
@@ -211,9 +210,7 @@ void challengeDetermineUnlockedFeatures(void)
 	for (j = 0; j < func0f188bcc(); j++) {
 		struct mpweapon *weapon = &g_MpWeapons[j];
 
-		if (weapon->unlockfeature > 0 && func0f19cbcc(weapon->weaponnum)) {
-			g_MpFeaturesUnlocked[weapon->unlockfeature] |= 1;
-		}
+		g_MpFeaturesUnlocked[weapon->unlockfeature] |= 1;
 	}
 
 	func0f1895e8();

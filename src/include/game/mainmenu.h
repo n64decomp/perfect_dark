@@ -11,15 +11,7 @@ extern struct menudialogdef g_PreAndPostMissionBriefingMenuDialog;
 extern struct menudialogdef g_RetryMissionMenuDialog;
 extern struct menudialogdef g_NextMissionMenuDialog;
 
-char *menuTextCurrentStageName(struct menuitem *item);
-char *soloMenuTextDifficulty(struct menuitem *item);
 s32 menuhandlerControlStyleImpl(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpindex);
-char *soloMenuTitleStageOverview(struct menudialogdef *dialogdef);
-f32 func0f1036ac(u8 value, s32 prop);
-bool isStageDifficultyUnlocked(s32 stageindex, s32 difficulty);
-char *soloMenuTextBestTime(struct menuitem *item);
-s32 getMaxAiBuddies(void);
-s32 getNumUnlockedSpecialStages(void);
 s32 func0f104720(s32 value);
 char *func0f105664(struct menuitem *item);
 char *func0f1056a0(struct menuitem *item);

@@ -12,7 +12,6 @@
 #include "game/game_1531a0.h"
 #include "game/lv.h"
 #include "game/challenge.h"
-#include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
@@ -3369,16 +3368,6 @@ char *menuitemScrollableGetText(u32 type)
 			challengeLoadAndStoreCurrent(g_Menus[g_MpPlayerNum].unk840.unk004, g_Menus[g_MpPlayerNum].unk840.unk008);
 		}
 		return challengeGetCurrentDescription();
-	case DESCRIPTION_CHRBIO:         return ciGetChrBioDescription();
-	case DESCRIPTION_MISCBIO:        return ciGetMiscBioDescription();
-	case DESCRIPTION_DEVICETRAINING: return dtGetDescription();
-	case DESCRIPTION_FRWEAPON:       return frGetWeaponDescription();
-	case DESCRIPTION_HANGARBIO:      return ciGetHangarBioDescription();
-	case DESCRIPTION_HOLOTRAINING:   return htGetDescription();
-	case DESCRIPTION_HOLOTIP1:       return htGetTip1();
-	case DESCRIPTION_HOLOTIP2:       return htGetTip2();
-	case DESCRIPTION_DEVICETIP1:     return dtGetTip1();
-	case DESCRIPTION_DEVICETIP2:     return dtGetTip2();
 	}
 
 	return langGet(g_Briefing.briefingtextnum);

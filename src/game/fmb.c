@@ -29,11 +29,7 @@ s32 fmbHandleDropOut(s32 operation, struct menuitem *item, union handlerdata *da
 s32 fmdHandleAbortGame(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (g_Vars.stagenum == STAGE_4MBMENU) {
-			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
-		} else {
-			func0f0f820c(&g_SoloMissionPauseMenuDialog, MENUROOT_MAINMENU);
-		}
+		func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;

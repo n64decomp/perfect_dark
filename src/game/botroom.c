@@ -6,7 +6,6 @@
 #include "game/mplayer/setup.h"
 #include "game/bot.h"
 #include "game/challenge.h"
-#include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/mplayer/scenarios.h"

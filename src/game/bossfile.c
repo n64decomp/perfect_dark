@@ -8,7 +8,6 @@
 #include "game/bossfile.h"
 #include "game/bg.h"
 #include "game/challenge.h"
-#include "game/training.h"
 #include "game/gamefile.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pak.h"

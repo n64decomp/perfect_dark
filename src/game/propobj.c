@@ -48,7 +48,6 @@
 #include "game/mpstats.h"
 #include "game/bot.h"
 #include "game/botact.h"
-#include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
@@ -7839,10 +7838,6 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 										shieldhitCreate(hitprop, shield, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, var8006993c);
 									}
-
-									if (hitobj->modelnum == MODEL_TARGET && var80069944 == TEXTURE_0B9E) {
-										frCalculateHit(hitobj, &sp5e8, 0.0f);
-									}
 								}
 							} else if (weapon->weaponnum == WEAPON_ROCKET || weapon->weaponnum == WEAPON_HOMINGROCKET) {
 								s32 ownerplayernum = (obj->hidden & 0xf0000000) >> 28;
@@ -9396,11 +9391,7 @@ void autogunTick(struct prop *prop)
 		target = autogun->target;
 	} else {
 		// Find new target
-		if (frIsInTraining()) {
-			// Laptop gun in firing range
-			target = frChooseAutogunTarget(&prop->pos);
-			if (1);
-		} else if (autogun->targetteam != 0) {
+		if (autogun->targetteam != 0) {
 			// Autogun (solo or MP) configured to attack specific teams
 			if (g_Vars.normmplayerisrunning) {
 				numchrs = g_MpNumChrs;
@@ -9478,7 +9469,7 @@ void autogunTick(struct prop *prop)
 	if (target) {
 		if (target->chr == NULL) {
 			target = NULL;
-		} else if (target->type != PROPTYPE_CHR && target->type != PROPTYPE_PLAYER && !frIsInTraining()) {
+		} else if (target->type != PROPTYPE_CHR && target->type != PROPTYPE_PLAYER) {
 			target = NULL;
 		}
 	}
@@ -9575,15 +9566,7 @@ void autogunTick(struct prop *prop)
 						track = false;
 					}
 				} else if (target->type == PROPTYPE_OBJ) {
-					struct defaultobj *obj = target->obj;
-
-					if (obj && obj->modelnum == MODEL_TARGET) {
-						if (!frIsTargetFacingPos(target, &prop->pos)) {
-							track = false;
-						}
-					} else {
-						track = false;
-					}
+					track = false;
 				}
 
 				propSetPerimEnabled(prop, false);
@@ -9998,8 +9981,6 @@ void autogunTickShoot(struct prop *autogunprop)
 							struct gset gset = { WEAPON_LAPTOPGUN, 0, 0, FUNC_SECONDARY };
 
 							missed = false;
-
-							frCalculateHit(hitobj, &hitpos, 0);
 
 							if (chrIsUsingPaintball(ownerchr)) {
 								sparksCreate(hitprop->rooms[0], hitprop, &hitpos, 0, 0, SPARKTYPE_PAINT);
@@ -16516,9 +16497,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	}
 
 	if (obj->modelnum == MODEL_TARGET) {
-		if (hit->hitthing.texturenum == TEXTURE_0B9E) {
-			frCalculateHit(obj, &sp110, shotdata->gset.unk063a);
-		} else if ((shotdata->gset.weaponnum != WEAPON_CALLISTO || shotdata->gset.weaponfunc != FUNC_SECONDARY)
+		if ((shotdata->gset.weaponnum != WEAPON_CALLISTO || shotdata->gset.weaponfunc != FUNC_SECONDARY)
 #if VERSION >= VERSION_NTSC_1_0
 				&& shotdata->gset.weaponnum != WEAPON_FARSIGHT
 #endif
@@ -16874,68 +16853,8 @@ bool propobjInteract(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 	bool result = false;
-	u32 tag_id = propobjGetCiTagId(prop);
 
-	if (tag_id) {
-		// CI object - terminals etc
-		u8 handled = false;
-
-		if (ciIsTourDone()) {
-			if (tag_id == 0x10) {
-				struct trainingdata *data = dtGetData();
-				handled = true;
-
-				if (data->intraining) {
-					func0f0f85e0(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
-				} else {
-					func0f0f85e0(&g_DtListMenuDialog, MENUROOT_TRAINING);
-				}
-			} else if (tag_id == 0x45) {
-				struct trainingdata *data = getHoloTrainingData();
-				handled = true;
-
-				if (data->intraining) {
-					func0f0f85e0(&g_HtDetailsMenuDialog, MENUROOT_TRAINING);
-				} else {
-					func0f0f85e0(&g_HtListMenuDialog, MENUROOT_TRAINING);
-				}
-			} else if (tag_id == 0x7f) {
-				handled = true;
-
-				if (frIsInTraining()) {
-					func0f0f85e0(&g_FrTrainingInfoInGameMenuDialog, MENUROOT_TRAINING);
-				} else {
-					func0f0f85e0(&g_FrWeaponListMenuDialog, MENUROOT_TRAINING);
-				}
-			}
-		}
-
-		if (!handled) {
-			if (tag_id == 0x0e) {
-				handled = true;
-				func0f0f85e0(&g_BioListMenuDialog, MENUROOT_TRAINING);
-			} else if (tag_id == 0x0f) {
-				handled = true;
-				func0f0f85e0(&g_CheatsMenuDialog, MENUROOT_TRAINING);
-			} else if (tag_id == 0x1b) {
-				handled = true;
-				func0f0f85e0(&g_FrWeaponsAvailableMenuDialog, MENUROOT_TRAINING);
-			} else if (tag_id == 0x47) {
-				handled = true;
-				func0f0f85e0(&g_CiMenuViaPcMenuDialog, MENUROOT_MAINMENU);
-			} else if (tag_id == 0x46) {
-				handled = true;
-				func0f0f85e0(&g_HangarListMenuDialog, MENUROOT_TRAINING);
-			}
-		}
-
-		if (handled) {
-			// Typing sound
-			sndStart(var80095200, SFX_TYPING_8118, NULL, -1, -1, -1, -1, -1);
-		}
-
-		func0f0fd494(&prop->pos);
-	} else if (obj->type == OBJTYPE_ALARM) {
+	if (obj->type == OBJTYPE_ALARM) {
 		// Button press sound
 		sndStart(var80095200, SFX_PRESS_SWITCH, NULL, -1, -1, -1, -1, -1);
 
@@ -21425,21 +21344,9 @@ bool propdoorInteract(struct prop *doorprop)
 	} else if (door->mode == DOORMODE_IDLE && door->frac < 0.5f * door->maxfrac) {
 		if ((door->base.flags2 & OBJFLAG2_SKIPDOORLOCKEDMSG) == 0) {
 			struct textoverride *override = invGetTextOverrideForObj(&door->base);
-			u8 intraining = false;
-
-			if (g_Vars.stagenum == STAGE_CITRAINING) {
-				struct trainingdata *devdata = dtGetData();
-				struct trainingdata *holodata = getHoloTrainingData();
-
-				intraining = (devdata && devdata->intraining)
-					|| (holodata && holodata->intraining)
-					|| g_Vars.currentplayer->prop->rooms[0] == 0x0a;
-			}
 
 			if (override && override->pickuptext) {
 				hudmsgCreateWithFlags(langGet(override->pickuptext), HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
-			} else if (intraining) {
-				hudmsgCreateWithFlags(langGet(L_DISH_080), HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE); // "Cannot exit while training is in progress."
 			} else {
 				hudmsgCreateWithFlags(langGet(L_PROPOBJ_044), HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE); // "This door is locked."
 			}

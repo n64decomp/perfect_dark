@@ -4739,15 +4739,7 @@ char *mpMenuTextSavePlayerOrCopy(struct menuitem *item)
 s32 menuhandler0017ef30(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (g_Vars.stagenum == STAGE_CITRAINING) {
-			if (IS4MB()) {
-				func0f0f820c(&g_CiMenuViaPauseMenuDialog, 2);
-			} else {
-				func0f0f820c(&g_CiMenuViaPcMenuDialog, 2);
-			}
-		} else {
-			func0f0f820c(&g_SoloMissionPauseMenuDialog, 2);
-		}
+		func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;

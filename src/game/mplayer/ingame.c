@@ -483,24 +483,6 @@ struct menudialogdef g_MpPauseInventoryMenuDialog = {
 	&g_MpPauseControlMenuDialog,
 };
 
-struct menudialogdef g_2PMissionInventoryHMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU_284, // "Inventory"
-	g_Mp2PMissionInventoryMenuItems,
-	NULL,
-	0,
-	&g_2PMissionOptionsHMenuDialog,
-};
-
-struct menudialogdef g_2PMissionInventoryVMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU_284, // "Inventory"
-	g_Mp2PMissionInventoryMenuItems,
-	NULL,
-	0,
-	&g_2PMissionOptionsVMenuDialog,
-};
-
 struct menuitem g_MpInGamePlayerStatsMenuItems[] = {
 	{
 		MENUITEMTYPE_PLAYERSTATS,
@@ -768,18 +750,10 @@ void mpPushPauseDialog(void)
 		if (g_Menus[g_MpPlayerNum].openinhibit == 0) {
 			g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
-			if (g_Vars.normmplayerisrunning) {
-				if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-					menuPushRootDialog(&g_MpPauseTeamRankingsMenuDialog, MENUROOT_MPPAUSE);
-				} else {
-					menuPushRootDialog(&g_MpPausePlayerRankingMenuDialog, MENUROOT_MPPAUSE);
-				}
+			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+				menuPushRootDialog(&g_MpPauseTeamRankingsMenuDialog, MENUROOT_MPPAUSE);
 			} else {
-				if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-					menuPushRootDialog(&g_2PMissionPauseVMenuDialog, MENUROOT_MPPAUSE);
-				} else {
-					menuPushRootDialog(&g_2PMissionPauseHMenuDialog, MENUROOT_MPPAUSE);
-				}
+				menuPushRootDialog(&g_MpPausePlayerRankingMenuDialog, MENUROOT_MPPAUSE);
 			}
 		}
 

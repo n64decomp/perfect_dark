@@ -40,7 +40,6 @@
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
-#include "game/training.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "game/pak.h"

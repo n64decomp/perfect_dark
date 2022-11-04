@@ -13,7 +13,6 @@
 #include "game/bot.h"
 #include "game/botcmd.h"
 #include "game/gfxmemory.h"
-#include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
@@ -314,14 +313,6 @@ void amApply(s32 slot)
 
 			if (pass) {
 				pass = true;
-
-				if (g_FrIsValidWeapon) {
-					s32 weaponnum = frGetWeaponBySlot(frGetSlot());
-
-					if (g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponnum == weaponnum) {
-						pass = false;
-					}
-				}
 
 				if (pass) {
 					invSetCurrentIndex(invindex);

@@ -32,7 +32,6 @@
 #include "game/lv.h"
 #include "game/texdecompress.h"
 #include "game/game_176080.h"
-#include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pak.h"
@@ -1026,10 +1025,6 @@ void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand
 			s32 amount = hand->clipsizes[ammoindex] - hand->loadedammo[ammoindex];
 
 			s32 reloadindex = bgunGetUnequippedReloadIndex(info->weaponnum);
-
-			if (g_FrIsValidWeapon) {
-				reloadindex = -1;
-			}
 
 			if (checkunequipped && reloadindex >= 0) {
 #if VERSION >= VERSION_PAL_BETA
@@ -2678,13 +2673,6 @@ s32 bgunTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *han
 bool bgunIsReadyToSwitch(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
-
-	// Dont switch if... something firing range related
-	if (g_FrIsValidWeapon
-			&& frGetWeaponBySlot(frGetSlot()) == player->hands[HAND_RIGHT].gset.weaponnum
-			&& g_Vars.currentplayer->gunctrl.unk1583_04 == false) {
-		return false;
-	}
 
 	// Don't switch right hand if left hand is about to auto switch
 	if (handnum == HAND_RIGHT
@@ -4539,12 +4527,6 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 				}
 
 				weapon->gunfunc = gset->weaponfunc;
-			} else if (gset->weaponnum == WEAPON_ECMMINE && g_Vars.stagenum == STAGE_CITRAINING) {
-				data = dtGetData();
-
-				if (data->intraining) {
-					data->obj = obj;
-				}
 			}
 		}
 

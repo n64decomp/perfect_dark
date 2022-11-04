@@ -4,7 +4,6 @@
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/inv.h"
-#include "game/training.h"
 #include "game/lang.h"
 #include "bss.h"
 #include "lib/main.h"
@@ -359,8 +358,6 @@ bool invHasDoubleWeaponIncAllGuns(s32 weapon1, s32 weapon2)
 
 bool invGiveSingleWeapon(s32 weaponnum)
 {
-	frSetWeaponFound(weaponnum);
-
 	if (invHasSingleWeaponExcAllGuns(weaponnum) == 0) {
 		struct invitem *item;
 

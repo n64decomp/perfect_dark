@@ -25,7 +25,6 @@
 #include "game/texdecompress.h"
 #include "game/mplayer/setup.h"
 #include "game/challenge.h"
-#include "game/training.h"
 #include "game/game_1a78b0.h"
 #include "game/gamefile.h"
 #include "game/gfxmemory.h"
@@ -5750,10 +5749,6 @@ void menuPushRootDialog(struct menudialogdef *dialogdef, s32 root)
 
 void func0f0f85e0(struct menudialogdef *dialogdef, s32 root)
 {
-	if (dialogdef == &g_CiMenuViaPcMenuDialog) {
-		musicStartMenu();
-	}
-
 	menuPushRootDialog(dialogdef, root);
 	lvSetPaused(true);
 	g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;

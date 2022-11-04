@@ -7,7 +7,6 @@
 #include "game/savebuffer.h"
 #include "game/bg.h"
 #include "game/challenge.h"
-#include "game/training.h"
 #include "game/gamefile.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pak.h"
@@ -345,20 +344,6 @@ s32 gamefileLoad(s32 device)
 				g_GameFile.weaponsfound[i] = savebufferReadBits(&buffer, 8);
 			}
 
-#if VERSION >= VERSION_NTSC_1_0
-			if (pakHasBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags)) {
-				frSetWeaponFound(WEAPON_TIMEDMINE);
-			}
-
-			if (pakHasBitflag(GAMEFILEFLAG_FOUNDPROXYMINE, g_GameFile.flags)) {
-				frSetWeaponFound(WEAPON_PROXIMITYMINE);
-			}
-
-			if (pakHasBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, g_GameFile.flags)) {
-				frSetWeaponFound(WEAPON_REMOTEMINE);
-			}
-#endif
-
 			func0f0d54c4(&buffer);
 			gamefileApplyOptions(&g_GameFile);
 
@@ -428,12 +413,6 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 	pakSetBitflag(GAMEFILEFLAG_INGAMESUBTITLES, g_GameFile.flags, optionsGetInGameSubtitles());
 	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, g_GameFile.flags, optionsGetCutsceneSubtitles());
 	pakSetBitflag(GAMEFILEFLAG_LANGFILTERON, g_GameFile.flags, g_Vars.langfilteron);
-
-#if VERSION >= VERSION_NTSC_1_0
-	pakSetBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_TIMEDMINE));
-	pakSetBitflag(GAMEFILEFLAG_FOUNDPROXYMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_PROXIMITYMINE));
-	pakSetBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_REMOTEMINE));
-#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 	switch (optionsGetScreenSize())

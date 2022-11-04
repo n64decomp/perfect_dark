@@ -10,14 +10,12 @@
 #include "game/menu.h"
 #include "game/filelist.h"
 #include "game/mainmenu.h"
-#include "game/endscreen.h"
 #include "game/playermgr.h"
 #include "game/lv.h"
 #include "game/music.h"
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/setup.h"
 #include "game/challenge.h"
-#include "game/training.h"
 #include "game/gamefile.h"
 #include "game/mplayer/mplayer.h"
 #include "bss.h"
@@ -429,19 +427,7 @@ void menuTick(void)
 						}
 
 						if (playernum >= 0) {
-							if (g_Vars.coopplayernum >= 0) {
-								s32 prevplayernum = g_Vars.currentplayernum;
-								setCurrentPlayerNum(playernum);
-								endscreenPushCoop();
-								setCurrentPlayerNum(prevplayernum);
-							} else if (g_Vars.antiplayernum >= 0) {
-								s32 prevplayernum = g_Vars.currentplayernum;
-								setCurrentPlayerNum(playernum);
-								endscreenPushAnti();
-								setCurrentPlayerNum(prevplayernum);
-							} else {
-								mpPushEndscreenDialog(playernum, i);
-							}
+							mpPushEndscreenDialog(playernum, i);
 						}
 					}
 				}
@@ -485,13 +471,8 @@ void menuTick(void)
 	if ((g_MenuData.unk5d5_06 || g_MenuData.unk008 != -1) && sp344 == false) {
 		if ((g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU)
 				&& g_MenuData.unk008 == -1) {
-			if (g_Vars.mpsetupmenu == MPSETUPMENU_GENERAL) {
-				g_MenuData.unk008 = MENUROOT_MAINMENU;
-				g_MenuData.unk00c = &g_CiMenuViaPauseMenuDialog;
-			} else {
-				g_MenuData.unk008 = MENUROOT_4MBMAINMENU;
-				g_MenuData.unk00c = &g_MainMenu4MbMenuDialog;
-			}
+			g_MenuData.unk008 = MENUROOT_4MBMAINMENU;
+			g_MenuData.unk00c = &g_MainMenu4MbMenuDialog;
 		}
 
 		if (g_MenuData.unk008 != -1) {
@@ -514,34 +495,11 @@ void menuTick(void)
 
 				for (i = 0; i < 4; i++) {
 					if (g_MpSetup.chrslots & (1 << i)) {
-						if (g_Vars.coopplayernum >= 0) {
-							if (g_Vars.stagenum == STAGE_DEEPSEA) {
-								g_MissionConfig.stageindex++;
-								g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
-								titleSetNextStage(g_MissionConfig.stagenum);
-								lvSetDifficulty(g_MissionConfig.difficulty);
-								titleSetNextMode(TITLEMODE_SKIP);
-								mainChangeToStage(g_MissionConfig.stagenum);
-							} else {
-								s32 prevplayernum = g_Vars.currentplayernum;
-								setCurrentPlayerNum(playernum);
-								endscreenPushCoop();
-								setCurrentPlayerNum(prevplayernum);
-								sp344 = true;
-							}
-						} else if (g_Vars.antiplayernum >= 0) {
-							s32 prevplayernum = g_Vars.currentplayernum;
-							setCurrentPlayerNum(playernum);
-							endscreenPushAnti();
-							setCurrentPlayerNum(prevplayernum);
-							sp344 = true;
-						} else {
-							mpPushEndscreenDialog(playernum, i);
-							sp344 = true;
+						mpPushEndscreenDialog(playernum, i);
+						sp344 = true;
 
-							if (g_PlayerConfigsArray[i].fileguid.fileid && g_PlayerConfigsArray[i].fileguid.deviceserial) {
-								func0f0fd548(i);
-							}
+						if (g_PlayerConfigsArray[i].fileguid.fileid && g_PlayerConfigsArray[i].fileguid.deviceserial) {
+							func0f0fd548(i);
 						}
 
 						playernum++;
@@ -562,20 +520,6 @@ void menuTick(void)
 				if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
 					startmusic = true;
 					sndStart(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
-				}
-
-				if (g_MenuData.root == MENUROOT_MAINMENU || g_MenuData.root == MENUROOT_TRAINING) {
-					struct trainingdata *dtdata = dtGetData();
-
-					if ((g_Vars.stagenum == STAGE_CITRAINING || g_Vars.stagenum == STAGE_4MBMENU)
-							&& ((g_Vars.currentplayer->prop->rooms[0] >= 0x16 && g_Vars.currentplayer->prop->rooms[0] <= 0x19)
-								|| g_Vars.currentplayer->prop->rooms[0] == 0x0a
-								|| g_Vars.currentplayer->prop->rooms[0] == 0x1e
-								|| (dtdata && dtdata->intraining))) {
-						startmusic = false;
-					} else {
-						startmusic = true;
-					}
 				}
 
 				if (startmusic) {
@@ -611,11 +555,7 @@ void menuTick(void)
 					g_PlayerConfigsArray[1] = tmp;
 				}
 
-				if (g_Vars.coopplayernum >= 0
-						&& g_MissionConfig.stageindex <= SOLOSTAGEINDEX_SKEDARRUINS
-						&& ((!g_CheatsActiveBank0 && !g_CheatsActiveBank1) || isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty))) {
-					endscreenPushSolo();
-				} else if (g_Vars.restartlevel) {
+				if (g_Vars.restartlevel) {
 					mainChangeToStage(mainGetStageNum());
 				} else {
 					mpSetPaused(MPPAUSEMODE_UNPAUSED);

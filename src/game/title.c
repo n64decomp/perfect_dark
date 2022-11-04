@@ -13,7 +13,6 @@
 #include "game/file.h"
 #include "game/lv.h"
 #include "game/music.h"
-#include "game/training.h"
 #include "game/modeldef.h"
 #include "game/lang.h"
 #include "game/propobj.h"

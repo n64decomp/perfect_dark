@@ -134,7 +134,6 @@
 	build/ROMID/game/cheats.o (section); \
 	build/ROMID/game/filemgr.o (section); \
 	build/ROMID/game/fmb.o (section); \
-	build/ROMID/game/endscreen.o (section); \
 	build/ROMID/game/gamefile.o (section); \
 	build/ROMID/game/bossfile.o (section); \
 	build/ROMID/game/filelist.o (section); \
@@ -218,7 +217,5 @@
 	build/ROMID/game/vmstats.o (section); \
 	build/ROMID/game/botroom.o (section); \
 	build/ROMID/game/challenge.o (section); \
-	build/ROMID/game/training.o (section); \
-	build/ROMID/game/trainingmenus.o (section); \
 	build/ROMID/game/modeldef.o (section); \
 	build/ROMID/game/game_1a78b0.o (section);

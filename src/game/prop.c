@@ -21,7 +21,6 @@
 #include "game/sparks.h"
 #include "game/bg.h"
 #include "game/bot.h"
-#include "game/training.h"
 #include "game/pad.h"
 #include "game/propobj.h"
 #include "game/splat.h"
@@ -1284,7 +1283,6 @@ void handTickAttack(s32 handnum)
 		g_Vars.currentplayer->hands[handnum].activatesecondary = false;
 
 		gsetPopulateFromCurrentPlayer(handnum, &gset);
-		frIncrementNumShots();
 
 		switch (type) {
 		case HANDATTACKTYPE_SHOOT:
@@ -2556,13 +2554,7 @@ void autoaimTick(void)
 		isclose = true;
 	}
 
-	if (frIsInTraining()) {
-		if (!frChooseFarsightTarget()) {
-			farsightChooseTarget();
-		}
-	} else {
-		farsightChooseTarget();
-	}
+	farsightChooseTarget();
 
 	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_CMP150
 			&& g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc == FUNC_SECONDARY) {

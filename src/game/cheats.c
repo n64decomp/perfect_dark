@@ -6,7 +6,6 @@
 #include "game/cheats.h"
 #include "game/inv.h"
 #include "game/playermgr.h"
-#include "game/training.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
 #include "game/pak.h"
@@ -107,9 +106,6 @@ u32 cheatIsUnlocked(s32 cheat_id)
 	u32 unlocked = 0;
 
 	if (cheat->flags & CHEATFLAG_FIRINGRANGE) {
-		if (frIsClassicWeaponUnlocked(cheat->time)) {
-			unlocked++;
-		}
 	} else if (cheat->flags & CHEATFLAG_COMPLETION) {
 		if (g_GameFile.besttimes[cheat->stage_index][0]) {
 			unlocked++;

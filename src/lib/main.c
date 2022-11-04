@@ -26,7 +26,6 @@
 #include "game/title.h"
 #include "game/pdmode.h"
 #include "game/objectives.h"
-#include "game/endscreen.h"
 #include "game/playermgr.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
@@ -1979,34 +1978,7 @@ void mainEndStage(void)
 #endif
 		joyDisableTemporarily();
 
-		if (g_Vars.coopplayernum >= 0) {
-			s32 prevplayernum = g_Vars.currentplayernum;
-			s32 i;
-
-			for (i = 0; i < PLAYERCOUNT(); i++) {
-				setCurrentPlayerNum(i);
-				endscreenPushCoop();
-			}
-
-			setCurrentPlayerNum(prevplayernum);
-			musicStartMenu();
-		} else if (g_Vars.antiplayernum >= 0) {
-			s32 prevplayernum = g_Vars.currentplayernum;
-			s32 i;
-
-			for (i = 0; i < PLAYERCOUNT(); i++) {
-				setCurrentPlayerNum(i);
-				endscreenPushAnti();
-			}
-
-			setCurrentPlayerNum(prevplayernum);
-			musicStartMenu();
-		} else if (g_Vars.normmplayerisrunning) {
-			mpEndMatch();
-		} else {
-			endscreenPrepare();
-			musicStartMenu();
-		}
+		mpEndMatch();
 	}
 
 	g_MainIsEndscreen = true;

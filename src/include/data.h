@@ -504,26 +504,6 @@ extern u8 g_BotCount;
 extern struct aibotweaponpreference g_AibotWeaponPreferences[];
 extern u32 var80087eb4;
 extern struct challenge g_MpChallenges[NUM_CHALLENGES];
-extern u8 g_FrIsValidWeapon;
-extern s32 g_FrWeaponNum;
-extern u8 g_ChrBioSlot;
-extern u8 g_HangarBioSlot;
-extern u8 g_DtSlot;
 extern u8 var80088bb4;
-extern struct menudialogdef g_FrWeaponListMenuDialog;
-extern struct menudialogdef g_FrTrainingInfoInGameMenuDialog;
-extern struct menudialogdef g_FrTrainingInfoPreGameMenuDialog;
-extern struct menudialogdef g_FrCompletedMenuDialog;
-extern struct menudialogdef g_FrFailedMenuDialog;
-extern struct menudialogdef g_BioListMenuDialog;
-extern struct menudialogdef g_DtListMenuDialog;
-extern struct menudialogdef g_DtDetailsMenuDialog;
-extern struct menudialogdef g_DtFailedMenuDialog;
-extern struct menudialogdef g_DtCompletedMenuDialog;
-extern struct menudialogdef g_HtListMenuDialog;
-extern struct menudialogdef g_HtDetailsMenuDialog;
-extern struct menudialogdef g_HtFailedMenuDialog;
-extern struct menudialogdef g_HtCompletedMenuDialog;
-extern struct menudialogdef g_HangarListMenuDialog;
 
 #endif

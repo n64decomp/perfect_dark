@@ -11,7 +11,6 @@
 #include "game/inv.h"
 #include "game/playermgr.h"
 #include "game/lv.h"
-#include "game/training.h"
 #include "game/lang.h"
 #include "game/propobj.h"
 #include "bss.h"
@@ -518,11 +517,6 @@ void objectiveCheckHolograph(f32 maxdist)
 							&& sp70[1] > camGetScreenTop()
 							&& sp70[1] < camGetScreenTop() + camGetScreenHeight()) {
 						criteria->status = OBJECTIVE_COMPLETE;
-
-						if (g_Vars.stagenum == STAGE_CITRAINING) {
-							struct trainingdata *data = dtGetData();
-							data->holographedpc = true;
-						}
 					}
 				}
 			}
