@@ -4,7 +4,6 @@
 #include "lib/vars.h"
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/cheats.h"
 #include "game/debug.h"
 #include "game/file.h"
 #include "game/lang.h"
@@ -540,7 +539,6 @@ void mainInit(void)
 	texInit();
 	langInit();
 	lvInit();
-	cheatsInit();
 	func0000e9c0();
 	textInit();
 	dhudInit();

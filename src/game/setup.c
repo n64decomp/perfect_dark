@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/cheats.h"
 #include "game/game_00b820.h"
 #include "game/setup.h"
 #include "game/objectives.h"
@@ -624,82 +623,8 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 		struct chrdata *chr = chrFindByLiteralId(weapon->base.pad);
 
 		if (chr && chr->prop && chr->model) {
-			if (cheatIsActive(CHEAT_MARQUIS)) {
-				// NTSC 1.0 and newer simplifies the Marquis logic
-#if VERSION >= VERSION_NTSC_1_0
-				weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
-				weapon->base.flags |= OBJFLAG_WEAPON_AICANNOTUSE;
-				modelmgrLoadProjectileModeldefs(weapon->weaponnum);
-				func0f08b25c(weapon, chr);
-#else
-				if (g_Vars.stagenum == STAGE_INVESTIGATION
-						&& lvGetDifficulty() == DIFF_PA
-						&& weapon->weaponnum == WEAPON_K7AVENGER) {
-					modelmgrLoadProjectileModeldefs(weapon->weaponnum);
-					func0f08b25c(weapon, chr);
-				} else if (g_Vars.stagenum == STAGE_ATTACKSHIP) {
-					weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
-					weapon->base.flags |= OBJFLAG_WEAPON_AICANNOTUSE;
-					modelmgrLoadProjectileModeldefs(weapon->weaponnum);
-					func0f08b25c(weapon, chr);
-				} else {
-					weapon->weaponnum = WEAPON_NONE;
-				}
-#endif
-			} else {
-				if (cheatIsActive(CHEAT_ENEMYROCKETS)) {
-					switch (weapon->weaponnum) {
-					case WEAPON_FALCON2:
-					case WEAPON_FALCON2_SILENCER:
-					case WEAPON_FALCON2_SCOPE:
-					case WEAPON_MAGSEC4:
-					case WEAPON_MAULER:
-					case WEAPON_PHOENIX:
-					case WEAPON_DY357MAGNUM:
-					case WEAPON_DY357LX:
-					case WEAPON_CMP150:
-					case WEAPON_CYCLONE:
-					case WEAPON_CALLISTO:
-					case WEAPON_RCP120:
-					case WEAPON_LAPTOPGUN:
-					case WEAPON_DRAGON:
-					case WEAPON_AR34:
-					case WEAPON_SUPERDRAGON:
-					case WEAPON_SHOTGUN:
-					case WEAPON_REAPER:
-					case WEAPON_SNIPERRIFLE:
-					case WEAPON_FARSIGHT:
-					case WEAPON_DEVASTATOR:
-					case WEAPON_ROCKETLAUNCHER:
-					case WEAPON_SLAYER:
-					case WEAPON_COMBATKNIFE:
-					case WEAPON_CROSSBOW:
-					case WEAPON_TRANQUILIZER:
-					case WEAPON_GRENADE:
-					case WEAPON_NBOMB:
-					case WEAPON_TIMEDMINE:
-					case WEAPON_PROXIMITYMINE:
-					case WEAPON_REMOTEMINE:
-						weapon->weaponnum = WEAPON_ROCKETLAUNCHER;
-						weapon->base.modelnum = MODEL_CHRDYROCKET;
-						weapon->base.extrascale = 256;
-						break;
-					case WEAPON_K7AVENGER:
-						// Don't replace the K7 guard's weapon in Investigation
-						// because it would make an objective impossible.
-						// @bug: It's still replaced on PD mode difficulty.
-						if (g_Vars.stagenum != STAGE_INVESTIGATION || lvGetDifficulty() != DIFF_PA) {
-							weapon->weaponnum = WEAPON_ROCKETLAUNCHER;
-							weapon->base.modelnum = MODEL_CHRDYROCKET;
-							weapon->base.extrascale = 256;
-						}
-						break;
-					}
-				}
-
-				modelmgrLoadProjectileModeldefs(weapon->weaponnum);
-				func0f08b25c(weapon, chr);
-			}
+			modelmgrLoadProjectileModeldefs(weapon->weaponnum);
+			func0f08b25c(weapon, chr);
 		}
 	} else {
 		bool giveweapon = true;

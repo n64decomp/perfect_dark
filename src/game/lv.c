@@ -12,7 +12,6 @@
 #include "game/bondview.h"
 #include "game/camdraw.h"
 #include "game/casing.h"
-#include "game/cheats.h"
 #include "game/chr.h"
 #include "game/chraction.h"
 #include "game/credits.h"
@@ -255,8 +254,6 @@ void lvReset(s32 stagenum)
 	g_Vars.paksconnected2 = 0;
 	g_Vars.paksconnected = 0;
 	g_Vars.stagenum = stagenum;
-
-	cheatsReset();
 
 	var80084040 = true;
 	g_Vars.lvframenum = 0;
@@ -2029,16 +2026,6 @@ s32 lvGetSlowMotionType(void)
 			return SLOWMOTION_ON;
 		}
 		if (g_MpSetup.options & MPOPTION_SLOWMOTION_SMART) {
-			return SLOWMOTION_SMART;
-		}
-	} else {
-		if (cheatIsActive(CHEAT_SLOMO)) {
-			return SLOWMOTION_ON;
-		}
-		if (debugGetSlowMotion() == SLOWMOTION_ON) {
-			return SLOWMOTION_ON;
-		}
-		if (debugGetSlowMotion() == SLOWMOTION_SMART) {
 			return SLOWMOTION_SMART;
 		}
 	}

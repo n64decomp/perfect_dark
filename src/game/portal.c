@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/bondeyespy.h"
 #include "game/bondmove.h"
-#include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/inv.h"
 #include "game/nbomb.h"

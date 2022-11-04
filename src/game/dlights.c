@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/cheats.h"
 #include "game/dlights.h"
 #include "game/gfxmemory.h"
 #include "game/propsnd.h"
@@ -412,26 +411,9 @@ void roomInitLights(s32 roomnum)
 
 	room->flags |= ROOMFLAG_DIRTY;
 
-#if VERSION < VERSION_NTSC_1_0
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS) && (room->flags & ROOMFLAG_RENDERALWAYS) == 0) {
-		room->lightop = LIGHTOP_1;
-		room->unk60 = 0.0f;
-	}
-#endif
-
 	light = (struct light *)&g_BgLightsFileData[(u32)g_Rooms[roomnum].lightindex * 0x22];
 
 	for (i = 0; i < room->numlights; i++) {
-#if VERSION < VERSION_NTSC_1_0
-		if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-			light->unk04 = 0;
-			light->unk05_00 = (random() % 2) ? true : false;
-			light->healthy = false;
-			light->on = false;
-			light->sparking = false;
-			light->vulnerable = false;
-		} else
-#endif
 		{
 			light->unk04 = g_Rooms[roomnum].unk4a;
 			light->unk05_00 = true;
@@ -919,7 +901,7 @@ void roomSetLightsOn(s32 roomnum, s32 enable)
 
 void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4)
 {
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS) == false) {
+	{
 		g_Rooms[roomnum].lightop = operation;
 
 		switch (operation) {
@@ -1826,11 +1808,6 @@ void func0f0037ac(void)
 	f32 average;
 	u32 stack;
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-		func0f00372c();
-	}
-#else
 	static s32 prevtickmode = 0;
 
 	if (prevtickmode != g_Vars.tickmode) {
@@ -1840,7 +1817,6 @@ void func0f0037ac(void)
 
 		prevtickmode = g_Vars.tickmode;
 	}
-#endif
 
 	if (var80061420 == NULL) {
 		return;

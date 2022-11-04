@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/cheats.h"
 #include "game/mainmenu.h"
 #include "game/music.h"
 #include "game/options.h"
@@ -252,22 +251,6 @@ s32 optionsGetEffectiveScreenSize(void)
 				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_SoloMissionControlStyleMenuDialog) {
 			return SCREENSIZE_FULL;
 		}
-
-#if VERSION >= VERSION_JPN_FINAL
-		if (g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsFunMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsGameplayMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsSoloWeaponsMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsClassicWeaponsMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsWeaponsMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsBuddiesMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_AcceptMissionMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_PreAndPostMissionBriefingMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_RetryMissionMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_NextMissionMenuDialog) {
-			return SCREENSIZE_FULL;
-		}
-#endif
 	}
 
 	if (PLAYERCOUNT() >= 2 || g_MenuData.root == MENUROOT_MPSETUP) {

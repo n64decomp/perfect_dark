@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/bondeyespy.h"
 #include "game/bondmove.h"
-#include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/floor.h"
 #include "game/inv.h"
@@ -951,15 +950,6 @@ void playerSpawn(void)
 	invGiveSingleWeapon(WEAPON_UNARMED);
 	playerSetShieldFrac(0);
 
-	if (cheatIsActive(CHEAT_JOSHIELD)) {
-		playerSetShieldFrac(1);
-	}
-
-	if (cheatIsActive(CHEAT_SUPERSHIELD)) {
-		playerSetShieldFrac(1);
-		g_Vars.currentplayer->armourscale = 2;
-	}
-
 	if (g_Vars.mplayerisrunning) {
 		if (g_Vars.antiplayernum >= 0 && g_Vars.currentplayer == g_Vars.anti) {
 			numsqdists = 0;
@@ -1169,12 +1159,6 @@ void playerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
 
 	outfit = g_Vars.currentplayer->bondtype;
 	solo = !(g_Vars.coopplayernum >= 0) || (g_Vars.currentplayer != g_Vars.coop);
-
-	if (cheatIsActive(CHEAT_PLAYASELVIS)) {
-		*bodynum = BODY_THEKING;
-		*headnum = HEAD_ELVIS;
-		return;
-	}
 
 	if (g_Vars.stagenum == STAGE_VILLA && lvGetDifficulty() >= DIFF_PA) {
 		outfit = OUTFIT_NEGOTIATOR;
@@ -4819,16 +4803,6 @@ f32 playerGetHealthBarHeightFrac(void)
 bool playerIsHealthVisible(void)
 {
 	return g_Vars.currentplayer->healthshowmode != HEALTHSHOWMODE_HIDDEN;
-}
-
-// Never called
-void playerSetInvincible(bool enable)
-{
-	if (enable) {
-		cheatActivate(CHEAT_INVINCIBLE);
-	} else {
-		cheatDeactivate(CHEAT_INVINCIBLE);
-	}
 }
 
 void playerSetBondVisible(bool visible)

@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/cheats.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/inv.h"
@@ -449,17 +448,6 @@ bool invGiveProp(struct prop *prop)
 {
 	struct invitem *item;
 
-	// Don't add duplicate night vision to inventory
-	// (night vision is already there when using perfect darkness)
-	// Note that this check doesn't work on Investigation because it uses the
-	// IR specs model. See bug note in Investigation's setup file (setupear.c).
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS)
-			&& prop->type == PROPTYPE_OBJ
-			&& prop->obj
-			&& prop->obj->modelnum == MODEL_CHRNIGHTSIGHT) {
-		return true;
-	}
-
 	item = invFindUnusedSlot();
 
 	if (item) {
@@ -507,10 +495,6 @@ s32 invGiveWeaponsByProp(struct prop *prop)
 			weapon = prop->weapon;
 			weaponnum = weapon->weaponnum;
 			otherweaponnum;
-
-			if (cheatIsActive(CHEAT_PERFECTDARKNESS) && weaponnum == WEAPON_NIGHTVISION) {
-				return 1;
-			}
 
 			if (invGiveSingleWeapon(weaponnum)) {
 				numgiven = 1;

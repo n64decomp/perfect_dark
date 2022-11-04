@@ -131,7 +131,6 @@
 	build/ROMID/game/activemenu.o (section); \
 	build/ROMID/game/stubs/game_102230.o (section); \
 	build/ROMID/game/mainmenu.o (section); \
-	build/ROMID/game/cheats.o (section); \
 	build/ROMID/game/filemgr.o (section); \
 	build/ROMID/game/fmb.o (section); \
 	build/ROMID/game/gamefile.o (section); \

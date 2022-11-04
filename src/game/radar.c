@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/atan2f.h"
 #include "game/game_0b2150.h"
@@ -435,8 +434,7 @@ Gfx *radarRenderRTrackedProps(Gfx *gdl)
 		case PROPTYPE_WEAPON:
 			obj = prop->obj;
 
-			if ((obj->flags3 & OBJFLAG3_RTRACKED_YELLOW) ||
-					(cheatIsActive(CHEAT_RTRACKER) && (obj->flags3 & OBJFLAG3_RTRACKED_BLUE))) {
+			if (obj->flags3 & OBJFLAG3_RTRACKED_YELLOW) {
 				dist1.x = prop->pos.x - playerpos->x;
 				dist1.y = prop->pos.y - playerpos->y;
 				dist1.z = prop->pos.z - playerpos->z;

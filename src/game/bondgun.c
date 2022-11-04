@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/bondmove.h"
-#include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/inv.h"
 #include "game/game_006900.h"
@@ -2404,19 +2403,11 @@ bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 			}
 		}
 
-		if (cheatIsActive(CHEAT_HURRICANEFISTS)) {
-			hand->stateminor = 2;
-		}
-
 		return false;
 	}
 
 	if (hand->stateminor == 2) {
 		if (!bgunIsAnimBusy(hand)) {
-			return true;
-		}
-
-		if (cheatIsActive(CHEAT_HURRICANEFISTS) && hand->gset.weaponnum == WEAPON_UNARMED) {
 			return true;
 		}
 
@@ -11788,27 +11779,6 @@ void bgunTickGameplay(bool triggeron)
 		bgunTickHand(HAND_RIGHT);
 		bgunTickHand(HAND_LEFT);
 		bgunTickSwitch();
-
-		if (cheatIsActive(CHEAT_UNLIMITEDAMMONORELOADS)) {
-			s32 i;
-			struct weapon *weapon;
-			struct hand *lhand = &g_Vars.currentplayer->hands[HAND_LEFT];
-			struct hand *rhand = &g_Vars.currentplayer->hands[HAND_RIGHT];
-
-			weapon = weaponFindById(rhand->gset.weaponnum);
-
-			for (i = 0; i != 2; i++) {
-				if (weapon && weapon->ammos[i] &&
-						bgunAmmotypeAllowsUnlimitedAmmo(weapon->ammos[i]->type)) {
-					rhand->loadedammo[i] = rhand->clipsizes[i];
-					lhand->loadedammo[i] = lhand->clipsizes[i];
-				}
-			}
-
-			bgunGiveMaxAmmo(false);
-		} else if (cheatIsActive(CHEAT_UNLIMITEDAMMO)) {
-			bgunGiveMaxAmmo(false);
-		}
 	}
 
 	bgunDecreaseNoiseRadius();

@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/cheats.h"
 #include "game/game_00b820.h"
 #include "game/playerreset.h"
 #include "game/body.h"

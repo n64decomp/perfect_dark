@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/cheats.h"
 #include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/bg.h"
@@ -284,7 +283,6 @@ s32 gamefileLoad(s32 device)
 		g_FilemgrLastPakError = ret;
 
 		if (ret == 0) {
-			cheatsInit();
 			savebufferReadString(&buffer, g_GameFile.name, 0);
 			g_GameFile.thumbnail = savebufferReadBits(&buffer, 5);
 			g_GameFile.totaltime = savebufferReadBits(&buffer, 32);

@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/cheats.h"
 #include "game/bondgun.h"
 #include "game/player.h"
 #include "game/playermgr.h"
@@ -539,7 +538,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->equipcuritem = 0;
 
 	g_Vars.players[index]->angleoffset = 0;
-	g_Vars.players[index]->invincible = cheatIsActive(CHEAT_INVINCIBLE);
+	g_Vars.players[index]->invincible = 0;
 	g_Vars.players[index]->healthdamagetype = 7;
 	g_Vars.players[index]->vv_height = 1;
 	g_Vars.players[index]->vv_eyeheight = 1;

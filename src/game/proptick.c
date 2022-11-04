@@ -2,7 +2,6 @@
 #include "lib/sched.h"
 #include "constants.h"
 #include "game/bondmove.h"
-#include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/chr.h"

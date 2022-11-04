@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/cheats.h"
 #include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/bossfile.h"

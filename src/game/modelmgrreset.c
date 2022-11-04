@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "constants.h"
 #include "game/bondmove.h"
-#include "game/cheats.h"
 #include "game/inv.h"
 #include "game/playerreset.h"
 #include "game/chr.h"

@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/bondmove.h"
 #include "game/bondwalk.h"
-#include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/footstep.h"
@@ -1152,13 +1151,8 @@ void bwalkUpdateCrouchOffsetReal(void)
 		g_Vars.currentplayer->crouchoffsetreal = g_Vars.currentplayer->crouchoffset * g_Vars.currentplayer->vv_eyeheight * (1.0f / 159.0f);
 	}
 
-	if (cheatIsActive(CHEAT_SMALLJO)) {
-		g_Vars.currentplayer->crouchoffsetsmall = 69.0f - g_Vars.currentplayer->vv_eyeheight;
-		g_Vars.currentplayer->crouchoffsetrealsmall = 69.0f - g_Vars.currentplayer->vv_eyeheight;
-	} else {
-		g_Vars.currentplayer->crouchoffsetsmall = g_Vars.currentplayer->crouchoffset;
-		g_Vars.currentplayer->crouchoffsetrealsmall = g_Vars.currentplayer->crouchoffsetreal;
-	}
+	g_Vars.currentplayer->crouchoffsetsmall = g_Vars.currentplayer->crouchoffset;
+	g_Vars.currentplayer->crouchoffsetrealsmall = g_Vars.currentplayer->crouchoffsetreal;
 }
 
 void bwalkUpdateCrouchOffset(void)
@@ -1426,12 +1420,6 @@ void bwalk0f0c69b8(void)
 		spc0 *= 1.25f;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (cheatIsActive(CHEAT_SMALLJO)) {
-		spc0 *= 0.4f;
-	}
-#endif
-
 	if (g_Vars.currentplayer->walkinitmove) {
 		g_Vars.currentplayer->walkinitt += g_Vars.lvupdate60freal * (1.0f / 60.0f);
 
@@ -1546,24 +1534,12 @@ void bwalk0f0c69b8(void)
 		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate60freal;
 		spe0 = (g_Vars.currentplayer->speedsideways * spc0 + spc4) * mult;
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (cheatIsActive(CHEAT_SMALLJO)) {
-			spe0 /= 0.4f;
-		}
-#endif
-
 		bmove0f0cc654(maxspeed, g_Vars.currentplayer->speedforwards * spc0 + spc8, spe0);
 
 		g_Vars.currentplayer->gunspeed = maxspeed;
 
 		spdc = g_Vars.currentplayer->headpos.x;
 		spd8 = g_Vars.currentplayer->headpos.z;
-
-#if VERSION >= VERSION_NTSC_1_0
-		if (cheatIsActive(CHEAT_SMALLJO)) {
-			spdc *= 0.4f;
-		}
-#endif
 
 		spcc.f[0] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[0] - spdc * g_Vars.currentplayer->bond2.unk00.f[2]) * g_Vars.lvupdate60freal;
 		spcc.f[2] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[2] + spdc * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate60freal;

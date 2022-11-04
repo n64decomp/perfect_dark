@@ -2,7 +2,6 @@
 #include "lib/sched.h"
 #include "constants.h"
 #include "game/bondmove.h"
-#include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/chr.h"
@@ -1070,11 +1069,6 @@ void chrInit(struct prop *prop)
 	chr->invalidmove = 0;
 	chr->lastmoveok60 = g_Vars.lvframe60;
 	chr->visionrange = 250;
-
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-		chr->visionrange = 4;
-	}
-
 	chr->shotbondsum = 0;
 	chr->damage = 0;
 	chr->sumground = 0;
@@ -1310,10 +1304,6 @@ struct prop *chrAllocate(struct model *model, struct coord *pos, s16 *rooms, f32
 
 	if (prop) {
 		prop = chr0f020b14(prop, model, pos, rooms, faceangle);
-
-		if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
-			chrSetShield(prop->chr, 8);
-		}
 	}
 
 	return prop;
@@ -1633,14 +1623,6 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			rshoulderjoint = -1;
 			waistjoint = -1;
 			neckjoint = -1;
-		}
-
-		if (cheatIsActive(CHEAT_DKMODE) && CHRRACE(g_CurModelChr) == RACE_HUMAN) {
-			if (joint == neckjoint) {
-				scale = 4.0f;
-			} else if (joint == lshoulderjoint || joint == rshoulderjoint) {
-				scale = 2.5f;
-			}
 		}
 
 		if (joint == lshoulderjoint || joint == rshoulderjoint || joint == waistjoint || joint == neckjoint) {
@@ -2582,10 +2564,6 @@ s32 chrTick(struct prop *prop)
 			chr->hidden |= CHRHFLAG_00800000;
 		}
 
-		if (cheatIsActive(CHEAT_DKMODE)) {
-			modelSetDistanceScale(0.3125f);
-		}
-
 		g_ModelJointPositionedFunc = &chrHandleJointPositioned;
 		g_CurModelChr = chr;
 
@@ -3502,10 +3480,6 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 						if (gaptoground >= 150.0f) {
 							shadowalpha = shadowalpha * (400 - gaptoground) * 0.004f;
-						}
-
-						if (cheatIsActive(CHEAT_SMALLCHARACTERS)) {
-							radius *= 0.4f;
 						}
 
 						gdl = gfxRenderRadialShadow(gdl, prop->pos.x, chr->ground, prop->pos.z, chrGetInverseTheta(chr), radius, 0xffffff00 | shadowalpha);

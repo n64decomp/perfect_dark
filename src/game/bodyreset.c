@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/body.h"
-#include "game/cheats.h"
 #include "game/game_00b820.h"
 #include "game/playerreset.h"
 #include "game/setuputils.h"
@@ -303,13 +302,8 @@ void bodiesReset(s32 stagenum)
 	}
 
 	// Male heads
-	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
-		headsavailablelist = g_MaleGuardTeamHeads;
-		headsavailablelen = g_NumMaleGuardTeamHeads;
-	} else {
-		headsavailablelist = g_MaleGuardHeads;
-		headsavailablelen = g_NumMaleGuardHeads;
-	}
+	headsavailablelist = g_MaleGuardHeads;
+	headsavailablelen = g_NumMaleGuardHeads;
 
 	for (i = 0; i < g_NumActiveHeadsPerGender; i++) {
 		do {
@@ -327,13 +321,8 @@ void bodiesReset(s32 stagenum)
 	}
 
 	// Female heads
-	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
-		headsavailablelist = g_FemaleGuardTeamHeads;
-		headsavailablelen = g_NumFemaleGuardTeamHeads;
-	} else {
-		headsavailablelist = g_FemaleGuardHeads;
-		headsavailablelen = g_NumFemaleGuardHeads;
-	}
+	headsavailablelist = g_FemaleGuardHeads;
+	headsavailablelen = g_NumFemaleGuardHeads;
 
 	for (i = 0; i < g_NumActiveHeadsPerGender; i++) {
 		do {

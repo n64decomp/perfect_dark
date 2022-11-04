@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/chr.h"
 #include "game/body.h"
@@ -165,10 +164,6 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 	struct modelnode *node = NULL;
 	u32 stack[2];
 
-	if (cheatIsActive(CHEAT_DKMODE)) {
-		scale *= 0.8f;
-	}
-
 	if (bodyfiledata == NULL) {
 		if (g_HeadsAndBodies[bodynum].filedata == NULL) {
 			g_HeadsAndBodies[bodynum].filedata = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
@@ -211,20 +206,6 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 						// Set height to between 95% and 115%
 						f32 frac = RANDOMFRAC() * 0.05f;
 						scale *= 2.0f * frac - 0.05f + 1.0f;
-					}
-				}
-
-				if (!isplayer) {
-					if (cheatIsActive(CHEAT_SMALLCHARACTERS)) {
-						scale *= 0.4f;
-					}
-
-					if (cheatIsActive(CHEAT_DKMODE)) {
-						scale *= 1.25f;
-					}
-				} else {
-					if (cheatIsActive(CHEAT_SMALLJO)) {
-						scale *= 0.4f;
 					}
 				}
 			}
@@ -473,12 +454,6 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 
 			chr->flags = packed->flags;
 			chr->flags2 = packed->flags2;
-
-			if (cheatIsActive(CHEAT_MARQUIS)) {
-				chr->flags2 &= ~CHRFLAG1_NOHANDCOMBAT;
-				chr->flags2 |= CHRFLAG1_HANDCOMBATONLY;
-			}
-
 			chr->team = packed->team;
 			chr->squadron = packed->squadron;
 			chr->aibot = NULL;

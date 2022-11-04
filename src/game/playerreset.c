@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "constants.h"
 #include "game/bondmove.h"
-#include "game/cheats.h"
 #include "game/inv.h"
 #include "game/playerreset.h"
 #include "game/chr.h"
@@ -169,118 +168,6 @@ void playerReset(void)
 	}
 
 	invGiveSingleWeapon(WEAPON_UNARMED);
-
-	if (cheatIsActive(CHEAT_TRENTSMAGNUM)) {
-		invGiveSingleWeapon(WEAPON_DY357LX);
-		bgunSetAmmoQuantity(AMMOTYPE_MAGNUM, 80);
-	}
-
-	if (cheatIsActive(CHEAT_FARSIGHT)) {
-		invGiveSingleWeapon(WEAPON_FARSIGHT);
-		bgunSetAmmoQuantity(AMMOTYPE_FARSIGHT, 80);
-	}
-
-	if (cheatIsActive(CHEAT_CLOAKINGDEVICE)) {
-		invGiveSingleWeapon(WEAPON_CLOAKINGDEVICE);
-#if VERSION >= VERSION_PAL_FINAL
-		bgunSetAmmoQuantity(AMMOTYPE_CLOAK, TICKS(7200));
-#else
-		bgunSetAmmoQuantity(AMMOTYPE_CLOAK, 7200);
-#endif
-	}
-
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-		invGiveSingleWeapon(WEAPON_NIGHTVISION);
-	}
-
-	if (cheatIsActive(CHEAT_RTRACKER)) {
-		invGiveSingleWeapon(WEAPON_RTRACKER);
-	}
-
-	if (cheatIsActive(CHEAT_ROCKETLAUNCHER)) {
-		invGiveSingleWeapon(WEAPON_ROCKETLAUNCHER);
-		bgunSetAmmoQuantity(AMMOTYPE_ROCKET, 10);
-	}
-
-	if (cheatIsActive(CHEAT_SNIPERRIFLE)) {
-		invGiveSingleWeapon(WEAPON_SNIPERRIFLE);
-		bgunSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
-	}
-
-	if (cheatIsActive(CHEAT_XRAYSCANNER)) {
-		invGiveSingleWeapon(WEAPON_XRAYSCANNER);
-	}
-
-	if (cheatIsActive(CHEAT_SUPERDRAGON)) {
-		invGiveSingleWeapon(WEAPON_SUPERDRAGON);
-		bgunSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
-		bgunSetAmmoQuantity(AMMOTYPE_DEVASTATOR, 20);
-	}
-
-	if (cheatIsActive(CHEAT_LAPTOPGUN)) {
-		invGiveSingleWeapon(WEAPON_LAPTOPGUN);
-		bgunSetAmmoQuantity(AMMOTYPE_SMG, 200);
-	}
-
-	if (cheatIsActive(CHEAT_PHOENIX)) {
-		invGiveSingleWeapon(WEAPON_PHOENIX);
-		bgunSetAmmoQuantity(AMMOTYPE_PISTOL, 200);
-	}
-
-#if VERSION >= VERSION_NTSC_1_0
-	if (cheatIsActive(CHEAT_PSYCHOSISGUN) || cheatIsActive(CHEAT_ALLGUNS)) {
-		bgunSetAmmoQuantity(AMMOTYPE_PSYCHOSIS, 4);
-
-		if (cheatIsActive(CHEAT_PSYCHOSISGUN)) {
-			invGiveSingleWeapon(WEAPON_PSYCHOSISGUN);
-		}
-	}
-#else
-	if (cheatIsActive(CHEAT_PSYCHOSISGUN)) {
-		invGiveSingleWeapon(WEAPON_PSYCHOSISGUN);
-		bgunSetAmmoQuantity(AMMOTYPE_PSYCHOSIS, 4);
-	}
-#endif
-
-	if (cheatIsActive(CHEAT_PP9I)) {
-		invGiveSingleWeapon(WEAPON_PP9I);
-		bgunSetAmmoQuantity(AMMOTYPE_PISTOL, 200);
-	}
-
-	if (cheatIsActive(CHEAT_CC13)) {
-		invGiveSingleWeapon(WEAPON_CC13);
-		bgunSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
-	}
-
-	if (cheatIsActive(CHEAT_KL01313)) {
-		invGiveSingleWeapon(WEAPON_KL01313);
-		bgunSetAmmoQuantity(AMMOTYPE_SMG, 200);
-	}
-
-	if (cheatIsActive(CHEAT_KF7SPECIAL)) {
-		invGiveSingleWeapon(WEAPON_KF7SPECIAL);
-		bgunSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
-	}
-
-	if (cheatIsActive(CHEAT_ZZT)) {
-		invGiveSingleWeapon(WEAPON_ZZT);
-		bgunSetAmmoQuantity(AMMOTYPE_SMG, 200);
-	}
-
-	if (cheatIsActive(CHEAT_DMC)) {
-		invGiveSingleWeapon(WEAPON_DMC);
-		bgunSetAmmoQuantity(AMMOTYPE_SMG, 200);
-	}
-
-	if (cheatIsActive(CHEAT_AR53)) {
-		invGiveSingleWeapon(WEAPON_AR53);
-		bgunSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
-	}
-
-	if (cheatIsActive(CHEAT_RCP45)) {
-		invGiveSingleWeapon(WEAPON_RCP45);
-		bgunSetAmmoQuantity(AMMOTYPE_SMG, 200);
-	}
 
 	if (!hasdefaultweapon) {
 		g_DefaultWeapons[HAND_RIGHT] = WEAPON_UNARMED;

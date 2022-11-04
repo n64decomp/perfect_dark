@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/cheats.h"
 #include "game/inv.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
@@ -579,10 +578,6 @@ u32 currentPlayerGetSight(void)
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
 		return SIGHT_NONE;
-	}
-
-	if (cheatIsActive(CHEAT_CLASSICSIGHT)) {
-		return SIGHT_CLASSIC;
 	}
 
 	switch (g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponnum) {

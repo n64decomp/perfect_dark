@@ -770,9 +770,7 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 
 	if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
-			if (g_CheatsActiveBank0 || g_CheatsActiveBank1) {
-				menuPushRootDialog(&g_MpEndscreenChallengeCheatedMenuDialog, MENUROOT_MPENDSCREEN);
-			} else if (challengeIsCompleteForEndscreen()) {
+			if (challengeIsCompleteForEndscreen()) {
 				menuPushRootDialog(&g_MpEndscreenChallengeCompletedMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
 				menuPushRootDialog(&g_MpEndscreenChallengeFailedMenuDialog, MENUROOT_MPENDSCREEN);

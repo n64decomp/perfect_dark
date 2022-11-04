@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/bossfile.h"
-#include "game/cheats.h"
 #include "game/setup.h"
 #include "game/title.h"
 #include "game/pdmode.h"
@@ -2110,58 +2109,6 @@ struct menuitem g_2PMissionOptionsVMenuItems[] = {
 	{ MENUITEMTYPE_END },
 };
 
-struct menuitem g_CiOptionsMenuItems[] = {
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_BIGFONT,
-		0x000056b5,
-		0x00000001,
-		(void *)&g_AudioOptionsMenuDialog,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_BIGFONT,
-		0x000056b6,
-		0x00000002,
-		(void *)&g_VideoOptionsMenuDialog,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_BIGFONT,
-		0x000056b7,
-		0x00000003,
-		(void *)&g_CiControlOptionsMenuDialog,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_BIGFONT,
-		0x000056b8,
-		0x00000004,
-		(void *)&g_CiDisplayMenuDialog,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_BIGFONT,
-		0x000056b9,
-		0x00000005,
-		(void *)&g_CheatsMenuDialog,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_BIGFONT,
-		0x00005679,
-		0x00000006,
-		(void *)&g_CinemaMenuDialog,
-	},
-	{ MENUITEMTYPE_END },
-};
-
 struct menudialogdef g_SoloMissionOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
@@ -2169,42 +2116,6 @@ struct menudialogdef g_SoloMissionOptionsMenuDialog = {
 	menudialog0010559c,
 	0,
 	&g_SoloMissionBriefingMenuDialog,
-};
-
-struct menudialogdef g_CiOptionsViaPcMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS_180, // "Options"
-	g_CiOptionsMenuItems,
-	menudialog0010559c,
-	0,
-	NULL,
-};
-
-struct menudialogdef g_CiOptionsViaPauseMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS_180, // "Options"
-	g_CiOptionsMenuItems,
-	menudialog0010559c,
-	0,
-	NULL,
-};
-
-struct menudialogdef g_2PMissionOptionsHMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS_180, // "Options"
-	g_2PMissionOptionsHMenuItems,
-	menudialog0010559c,
-	0,
-	&g_2PMissionBriefingHMenuDialog,
-};
-
-struct menudialogdef g_2PMissionOptionsVMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS_180, // "Options"
-	g_2PMissionOptionsVMenuItems,
-	menudialog0010559c,
-	0,
-	&g_2PMissionBriefingVMenuDialog,
 };
 
 u8 var80072d88 = 255;

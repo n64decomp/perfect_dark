@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/bondmove.h"
 #include "game/bondwalk.h"
-#include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/dlights.h"
@@ -1598,12 +1597,7 @@ void propCalculateShadeColour(struct prop *prop, u8 *nextcol, u16 floorcol)
 		nextcol[3] = 0xff;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (obj == NULL || (obj->flags & OBJFLAG_IGNOREROOMCOLOUR) == 0 || cheatIsActive(CHEAT_PERFECTDARKNESS))
-#else
-	if (obj == NULL || (obj->flags & OBJFLAG_IGNOREROOMCOLOUR) == 0)
-#endif
-	{
+	if (obj == NULL || (obj->flags & OBJFLAG_IGNOREROOMCOLOUR) == 0) {
 		s32 shade = func0f068fc8(prop, 0);
 
 		roomr = shade;
@@ -18185,11 +18179,7 @@ s32 objTestForPickup(struct prop *prop)
 		}
 
 		if (invHasSingleWeaponExcAllGuns(weapon->weaponnum) && bgunGetAmmoTypeForWeapon(weapon->weaponnum, FUNC_PRIMARY)) {
-			if (cheatIsActive(CHEAT_UNLIMITEDAMMO) || cheatIsActive(CHEAT_UNLIMITEDAMMONORELOADS)) {
-				maybe = false;
-			} else {
-				maybe = bgunGetAmmoQtyForWeapon(weapon->weaponnum, FUNC_PRIMARY) >= bgunGetAmmoCapacityForWeapon(weapon->weaponnum, FUNC_PRIMARY);
-			}
+			maybe = bgunGetAmmoQtyForWeapon(weapon->weaponnum, FUNC_PRIMARY) >= bgunGetAmmoCapacityForWeapon(weapon->weaponnum, FUNC_PRIMARY);
 
 			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
 				if (bgunGetAmmoQtyForWeapon(weapon->weaponnum, FUNC_SECONDARY) < bgunGetAmmoCapacityForWeapon(weapon->weaponnum, FUNC_SECONDARY)) {
@@ -18308,28 +18298,19 @@ s32 objTestForPickup(struct prop *prop)
 		f32 ydiff = prop->pos.y - playerprop->pos.y;
 		f32 zdiff = prop->pos.z - playerprop->pos.z;
 		f32 range;
-		bool usebigrange;
 		bool pickup;
 		u32 stack;
-
-		usebigrange = (obj->flags3 & OBJFLAG3_ONSHELF)
-			&& (cheatIsActive(CHEAT_SMALLJO) || cheatIsActive(CHEAT_PLAYASELVIS));
 
 		if (g_Vars.currentplayer->magnetattracttime >= 60) {
 			pickup = xdiff * xdiff + zdiff * zdiff <= 350 * 350 && ydiff >= -500 && ydiff <= 500;
 		} else {
-			if (usebigrange) {
-				range = 200 * 200;
-			} else {
-				range = 100 * 100;
-			}
+			range = 100 * 100;
 
 			pickup = xdiff * xdiff + zdiff * zdiff <= range && ydiff >= -200 && ydiff <= 200;
 		}
 
 		if (pickup
 				&& (obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
-				&& !usebigrange
 				&& cdTestLos05(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms,
 					CDTYPE_DOORS | CDTYPE_BG,
 					GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT) == false) {
@@ -19190,11 +19171,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 					laptop->ammoquantity = qty;
 				}
 
-				if (cheatIsActive(CHEAT_UNLIMITEDAMMOLAPTOP)) {
-					laptop->ammoquantity = 255;
-				} else {
-					qty -= laptop->ammoquantity;
-				}
+				qty -= laptop->ammoquantity;
 
 				bgunSetAmmoQtyForWeapon(WEAPON_LAPTOPGUN, FUNC_PRIMARY, qty);
 				setCurrentPlayerNum(prevplayernum);
