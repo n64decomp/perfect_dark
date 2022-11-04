@@ -1321,10 +1321,6 @@ struct attackanimgroup *g_LieAttackAnims = &var80067e48;
 
 u32 g_StageFlags = 0;
 
-struct chrdata *g_BgChrs = NULL;
-s16 *g_BgChrnums = NULL;
-s32 g_NumBgChrs = 0;
-
 s16 *g_TeamList = NULL;
 s16 *g_SquadronList = NULL;
 
@@ -13792,16 +13788,6 @@ void chrsClearRefsToPlayer(s32 playernum)
 				g_ChrSlots[i].target = -1;
 			}
 		}
-
-		for (i = 0; i < g_NumBgChrs; i++) {
-			if (g_BgChrs[i].p1p2 == playernum) {
-				g_BgChrs[i].p1p2 = otherplayernum;
-			}
-
-			if (g_BgChrs[i].target == playerpropnum) {
-				g_BgChrs[i].target = -1;
-			}
-		}
 	}
 }
 
@@ -13912,30 +13898,7 @@ struct chrdata *chrFindById(struct chrdata *basechr, s32 chrnum)
 	s32 i;
 
 	chrnum = chrResolveId(basechr, chrnum);
-	chr = chrFindByLiteralId(chrnum);
-
-	if (chr) {
-		return chr;
-	}
-
-	lower = 0;
-	upper = g_NumBgChrs;
-
-	while (upper >= lower) {
-		i = (lower + upper) / 2;
-
-		if (chrnum == g_BgChrnums[i]) {
-			return &g_BgChrs[i];
-		}
-
-		if (chrnum < g_BgChrnums[i]) {
-			upper = i - 1;
-		} else {
-			lower = i + 1;
-		}
-	}
-
-	return NULL;
+	return chrFindByLiteralId(chrnum);
 }
 
 s32 propGetIndexByChrId(struct chrdata *basechr, s32 chrnum)

@@ -2759,6 +2759,11 @@ struct player {
 	/*0x1c6c*/ u32 unk1c6c;
 };
 
+struct ailist {
+	u8 *list;
+	s32 id;
+};
+
 struct path {
 	/*0x00*/ s32 *pads;
 	/*0x04*/ u8 id;
