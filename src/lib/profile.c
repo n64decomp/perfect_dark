@@ -28,6 +28,7 @@ void profile00009a98(void)
 // [x][x][1] is the start time
 u32 g_ProfileMarkers[NUM_SAMPLES][NUM_PROFILEMARKERS][2];
 s32 g_ProfileIndex = 0;
+u32 g_ProfileAudStart = 0;
 u32 g_ProfileAudTicks[NUM_SAMPLES];
 u32 g_ProfileGfxTicks[NUM_SAMPLES];
 u32 g_ProfileGfxTally;
@@ -71,10 +72,10 @@ void profileHandleRspEvent(s32 event)
 {
 	switch (event) {
 	case RSPEVENT_AUD_START:
-		osDpSetStatus(DPC_CLR_CMD_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_TMEM_CTR);
+		g_ProfileAudStart = osGetCount();
 		break;
 	case RSPEVENT_AUD_FINISH:
-		g_ProfileAudTicks[g_ProfileIndex] = profileReadCounters();
+		g_ProfileMarkers[g_ProfileIndex][PROFILEMARKER_AUD][0] += osGetCount() - g_ProfileAudStart;
 		break;
 	case RSPEVENT_GFX_START:
 		osDpSetStatus(DPC_CLR_CMD_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_TMEM_CTR);
@@ -91,7 +92,7 @@ void profileHandleRspEvent(s32 event)
 	}
 }
 
-Gfx *profileRenderRspLine(Gfx *gdl, s32 x, s32 *y, char *label, u32 *ticksarray)
+Gfx *profileRenderRdpLine(Gfx *gdl, s32 x, s32 *y, char *label, u32 *ticksarray)
 {
 	char buffer[64];
 	s32 percent;
@@ -192,8 +193,8 @@ Gfx *profileRender(Gfx *gdl)
 		s32 y = 10;
 
 		gdl = text0f153628(gdl);
-		gdl = profileRenderRspLine(gdl, x, &y, "AUD", g_ProfileAudTicks);
-		gdl = profileRenderRspLine(gdl, x, &y, "GFX", g_ProfileGfxTicks);
+		gdl = profileRenderCpuLine(gdl, x, &y, "AUD", PROFILEMARKER_AUD);
+		gdl = profileRenderRdpLine(gdl, x, &y, "GFX", g_ProfileGfxTicks);
 		gdl = profileRenderCpuLine(gdl, x, &y, "CPU", PROFILEMARKER_CPU);
 		gdl = profileRenderCpuLine(gdl, x, &y, " audio", PROFILEMARKER_AUDIO);
 		gdl = profileRenderCpuLine(gdl, x, &y, " lvTick", PROFILEMARKER_LVTICK);
