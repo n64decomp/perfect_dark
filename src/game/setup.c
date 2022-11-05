@@ -1291,7 +1291,6 @@ void setupLoadFiles(s32 stagenum)
 		numobjs += setupCountCommandType(OBJTYPE_TRUCK);
 		numobjs += setupCountCommandType(OBJTYPE_TANK);
 		numobjs += setupCountCommandType(OBJTYPE_LIFT);
-		numobjs += setupCountCommandType(OBJTYPE_HOVERBIKE);
 		numobjs += setupCountCommandType(OBJTYPE_HOVERPROP);
 		numobjs += setupCountCommandType(OBJTYPE_FAN);
 		numobjs += setupCountCommandType(OBJTYPE_HOVERCAR);
@@ -1558,30 +1557,6 @@ void setupCreateProps(s32 stagenum)
 
 						setupCreateObject(obj, index);
 						setupCreateHov(obj, &hoverprop->hov);
-					}
-					break;
-				case OBJTYPE_HOVERBIKE:
-					if (withobjs && (obj->flags2 & diffflag) == 0) {
-						struct hoverbikeobj *bike = (struct hoverbikeobj *)obj;
-
-						setupCreateObject(obj, index);
-						setupCreateHov(obj, &bike->hov);
-
-						bike->speed[0] = 0;
-						bike->speed[1] = 0;
-						bike->w = 0;
-						bike->rels[0] = 0;
-						bike->rels[1] = 0;
-						bike->exreal = 0;
-						bike->ezreal = 0;
-						bike->ezreal2 = 0;
-						bike->leanspeed = 0;
-						bike->leandiff = 0;
-						bike->maxspeedtime240 = 0;
-						bike->speedabs[0] = 0;
-						bike->speedabs[1] = 0;
-						bike->speedrel[0] = 0;
-						bike->speedrel[1] = 0;
 					}
 					break;
 				case OBJTYPE_FAN:

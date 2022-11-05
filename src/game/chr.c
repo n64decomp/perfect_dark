@@ -2270,7 +2270,6 @@ s32 chrTick(struct prop *prop)
 	struct player *player;
 	struct coord sp17c;
 	f32 sp178;
-	struct hoverbikeobj *bike;
 	u8 stack[0x28];
 
 	if (prop->flags & PROPFLAG_NOTYETTICKED) {
@@ -2528,26 +2527,6 @@ s32 chrTick(struct prop *prop)
 			mtx4LoadTranslation(&sp190, &sp1a8);
 			mtx4MultMtx4InPlace(camGetWorldToScreenMtxf(), &sp1a8);
 			sp210.unk00 = &sp1a8;
-		} else if (prop->type == PROPTYPE_PLAYER) {
-			u8 stack[0x14];
-			f32 sp130;
-			player = g_Vars.players[playermgrGetPlayerNumByProp(prop)];
-
-			if (player->bondmovemode == MOVEMODE_BIKE) {
-				sp178 = chrGetInverseTheta(chr);
-				bike = (struct hoverbikeobj *)player->hoverbike->obj;
-				sp130 = bike->w * 1000;
-
-				sp17c.x = cosf(sp178) * sp130;
-				sp17c.y = ABS(bike->w) * 200 + 25;
-				sp17c.z = sinf(-sp178) * sp130;
-
-				mtx4LoadTranslation(&sp17c, &sp1a8);
-				mtx4MultMtx4InPlace(camGetWorldToScreenMtxf(), &sp1a8);
-				sp210.unk00 = &sp1a8;
-			} else {
-				sp210.unk00 = camGetWorldToScreenMtxf();
-			}
 		} else {
 			sp210.unk00 = camGetWorldToScreenMtxf();
 		}

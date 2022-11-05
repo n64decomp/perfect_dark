@@ -1693,7 +1693,6 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 	Mtxf mtx;
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 	struct modelrodata_type19 *rodata19 = NULL;
-	struct hoverbikeobj *hoverbike;
 	struct hoverpropobj *hoverprop;
 
 	mtx3ToMtx4(rot, &mtx);
@@ -1710,11 +1709,7 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 		cyl->header.type = GEOTYPE_CYL;
 		cyl->header.flags = GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT;
 
-		if (obj->type == OBJTYPE_HOVERBIKE) {
-			hoverbike = (struct hoverbikeobj *)obj;
-			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
-			cyl->ymin = hoverbike->hov.ground + 20.0f;
-		} else if (obj->type == OBJTYPE_HOVERPROP) {
+		if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
 			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverprop->hov.ground + 20.0f;
@@ -1733,11 +1728,7 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 			objCalculateGeoBlockFromBboxAndMtx(bbox, &mtx, (struct geoblock *)cyl);
 		}
 
-		if (obj->type == OBJTYPE_HOVERBIKE) {
-			hoverbike = (struct hoverbikeobj *)obj;
-			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
-			cyl->ymin = hoverbike->hov.ground + 20.0f;
-		} else if (obj->type == OBJTYPE_HOVERPROP) {
+		if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
 			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverprop->hov.ground + 20.0f;
@@ -2410,7 +2401,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			setCurrentPlayerNum(i);
 
-			if (obj->prop == bmoveGetGrabbedProp() || obj->prop == bmoveGetHoverbike()) {
+			if (obj->prop == bmoveGetGrabbedProp()) {
 				bmoveSetMode(MOVEMODE_WALK);
 			}
 
@@ -5894,9 +5885,6 @@ f32 objGetHov04(struct defaultobj *obj)
 	if (obj->type == OBJTYPE_HOVERPROP) {
 		struct hoverpropobj *tmp = (struct hoverpropobj *) obj;
 		hov = &tmp->hov;
-	} else if (obj->type == OBJTYPE_HOVERBIKE) {
-		struct hoverbikeobj *tmp = (struct hoverbikeobj *) obj;
-		hov = &tmp->hov;
 	}
 
 	if (hov) {
@@ -6051,10 +6039,6 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 			hov->unk04 = hov->unk08 = type->unk00;
 			hov->unk30 = spac;
 			hov->flags &= ~1;
-
-			if (obj->type == OBJTYPE_HOVERBIKE) {
-				propsnd0f0939f8(NULL, obj->prop, SFX_BIKE_PULSE, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-			}
 		}
 
 		applySpeed(&hov->unk04, hov->unk08, &hov->unk0c, type->unk0c, type->unk0c, type->unk10);
@@ -6124,18 +6108,10 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 			} else {
 				f0 *= f12;
 
-				if (obj->hidden & OBJHFLAG_MOUNTED) {
-					if (f0 > 10.0f) {
-						f0 = 10.0f;
-					} else if (f0 < -10.0f) {
-						f0 = -10.0f;
-					}
-				} else {
-					if (f0 > 5.0f) {
-						f0 = 5.0f;
-					} else if (f0 < -5.0f) {
-						f0 = -5.0f;
-					}
+				if (f0 > 5.0f) {
+					f0 = 5.0f;
+				} else if (f0 < -5.0f) {
+					f0 = -5.0f;
 				}
 			}
 
@@ -6173,31 +6149,13 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 		mtx4LoadYRotation(hov->unk10, &sp108);
 		mtx00015be0(&sp108, &sp148);
 		mtx00015f04(obj->model->scale, &sp148);
-
-		if (obj->type == OBJTYPE_HOVERBIKE) {
-			struct hoverbikeobj *bike = (struct hoverbikeobj *) obj;
-			f32 ezreal = bike->ezreal + bike->ezreal2;
-
-			if (bike->exreal != 0.0f) {
-				mtx4LoadXRotation(bike->exreal, &sp108);
-				mtx00015be4(&sp148, &sp108, &spc8);
-				mtx4Copy(&spc8, &sp148);
-			}
-
-			if (ezreal != 0.0f) {
-				mtx4LoadZRotation(ezreal, &sp108);
-				mtx00015be4(&sp148, &sp108, &spc8);
-				mtx4Copy(&spc8, &sp148);
-			}
-		}
-
 		mtx4ToMtx3(&sp148, obj->realrot);
 	}
 }
 
 s32 objIsHoverpropOrBike(struct defaultobj *obj)
 {
-	return obj->type == OBJTYPE_HOVERPROP || obj->type == OBJTYPE_HOVERBIKE;
+	return obj->type == OBJTYPE_HOVERPROP;
 }
 
 f32 hoverpropGetTurnAngle(struct defaultobj *obj)
@@ -6207,9 +6165,6 @@ f32 hoverpropGetTurnAngle(struct defaultobj *obj)
 	if (obj->type == OBJTYPE_HOVERPROP) {
 		struct hoverpropobj *hoverprop = (struct hoverpropobj *)obj;
 		angle = hoverprop->hov.unk10;
-	} else if (obj->type == OBJTYPE_HOVERBIKE) {
-		struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)obj;
-		angle = hoverbike->hov.unk10;
 	}
 
 	return angle;
@@ -6220,9 +6175,6 @@ void hoverpropSetTurnAngle(struct defaultobj *obj, f32 angle)
 	if (obj->type == OBJTYPE_HOVERPROP) {
 		struct hoverpropobj *hoverprop = (struct hoverpropobj *)obj;
 		hoverprop->hov.unk10 = angle;
-	} else if (obj->type == OBJTYPE_HOVERBIKE) {
-		struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)obj;
-		hoverbike->hov.unk10 = angle;
 	}
 }
 
@@ -6237,7 +6189,6 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 	struct hov *hov = NULL;
 	union geounion geounion;
 	struct prop *prop = obj->prop;
-	struct hoverbikeobj *hoverbike;
 	Mtxf spa4;
 	Mtxf sp64;
 	f32 sp40[3][3];
@@ -6289,10 +6240,7 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		func0f065e74(&prop->pos, prop->rooms, &pos, rooms);
 		setup0f09233c(obj, &pos, sp460, rooms);
 
-		if (obj->type == OBJTYPE_HOVERBIKE) {
-			hoverbike = (struct hoverbikeobj *) obj;
-			hov = &hoverbike->hov;
-		} else if (obj->type == OBJTYPE_HOVERPROP) {
+		if (obj->type == OBJTYPE_HOVERPROP) {
 			hov = &((struct hoverpropobj *) obj)->hov;
 		}
 
@@ -6438,9 +6386,7 @@ f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotati
 		} else if (obstacle->type == PROPTYPE_OBJ) {
 			struct defaultobj *obstacleobj = obstacle->obj;
 
-			if ((obstacleobj->hidden & OBJHFLAG_MOUNTED) == 0
-					&& (obstacleobj->hidden & OBJHFLAG_GRABBED) == 0
-					&& (obstacleobj->flags3 & OBJFLAG3_PUSHABLE)) {
+			if ((obstacleobj->hidden & OBJHFLAG_GRABBED) == 0 && (obstacleobj->flags3 & OBJFLAG3_PUSHABLE)) {
 				struct coord sp88;
 				struct coord obstaclevel = {0, 0, 0};
 				struct coord sp70;
@@ -6506,189 +6452,6 @@ f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotati
 	}
 
 	return force;
-}
-
-void hoverbikeUpdateMovement(struct hoverbikeobj *bike, f32 speedforwards, f32 speedsideways, f32 speedtheta)
-{
-	f32 f12;
-	f32 angle;
-	f32 sinangle;
-	f32 cosangle;
-	f32 f2;
-	f32 sp70 = 0;
-	f32 sp6c = 0;
-	f32 sp68 = 0;
-	s32 i;
-	u32 stack[6];
-	f32 tmp;
-
-	tmp = speedtheta * 0.04362628236413f;
-
-	if (speedforwards < 0) {
-		tmp *= 1.0f - speedforwards * 0.5f;
-	}
-
-	for (i = 0; i < g_Vars.lvupdate60; i++) {
-		bike->w += (tmp - bike->w) * (PAL ? 0.0893f : 0.075f);
-	}
-
-	sp6c += bike->w * 12;
-	angle = hoverpropGetTurnAngle(&bike->base);
-	sinangle = sinf(angle);
-	cosangle = cosf(angle);
-
-	if (speedforwards >= 0) {
-		f2 = (speedforwards + 0.1f) * 0.3f * g_Vars.lvupdate60freal;
-	} else {
-		f2 = (0.1f - speedforwards) * 0.3f * g_Vars.lvupdate60freal;
-	}
-
-	if (bike->rels[1] < speedforwards * 0.5f) {
-		bike->rels[1] += f2;
-
-		if (bike->rels[1] > speedforwards * 0.5f) {
-			bike->rels[1] = speedforwards * 0.5f;
-		}
-	} else {
-		bike->rels[1] -= f2;
-
-		if (bike->rels[1] < speedforwards * 0.5f) {
-			bike->rels[1] = speedforwards * 0.5f;
-		}
-	}
-
-	bike->leandiff *= 0.93f;
-	bike->leandiff += speedforwards - bike->leanspeed;
-	bike->leanspeed = speedforwards;
-
-	f2 = bike->leandiff * 5;
-
-	if (f2 > 1.0f) {
-		f2 = 1.0f;
-	} else if (f2 < -1.0f) {
-		f2 = -1.0f;
-	}
-
-	if (speedforwards >= 0) {
-		if (f2 > 0) {
-			f12 = speedforwards * 0.3f + speedforwards * 0.7f * f2;
-		} else {
-			f12 = speedforwards * 0.3f;
-		}
-	} else {
-		if (f2 < 0) {
-			f12 = speedforwards * 0.5f - speedforwards * 0.5f * f2;
-		} else {
-			f12 = speedforwards * 0.5f;
-		}
-	}
-
-	sp70 += f12 * 0.04f * M_BADTAU;
-
-	if (speedsideways >= 0) {
-		f12 = (speedsideways + 0.1f) * 0.3f * g_Vars.lvupdate60freal;
-	} else {
-		f12 = (0.1f - speedsideways) * 0.3f * g_Vars.lvupdate60freal;
-	}
-
-	if (bike->rels[0] < 0.4f * speedsideways) {
-		bike->rels[0] += f12;
-
-		if (bike->rels[0] > speedsideways * 0.4f) {
-			bike->rels[0] = speedsideways * 0.4f;
-		}
-	} else {
-		bike->rels[0] -= f12;
-
-		if (bike->rels[0] < speedsideways * 0.4f) {
-			bike->rels[0] = speedsideways * 0.4f;
-		}
-	}
-
-	sp68 += speedsideways * 0.2512874007225f;
-
-	for (i = 0; i < g_Vars.lvupdate60; i++) {
-		bike->speedabs[1] *= PAL ? 0.964f : 0.97f;
-		bike->speedabs[0] *= PAL ? 0.964f : 0.97f;
-		bike->speedabs[1] += bike->rels[1] * cosangle * PALUPF(1.08f);
-		bike->speedabs[0] += bike->rels[1] * sinangle * PALUPF(1.08f);
-		bike->speedabs[1] += bike->rels[0] * sinangle * PALUPF(0.72f);
-		bike->speedabs[0] += -bike->rels[0] * cosangle * PALUPF(0.72f);
-	}
-
-	for (i = 0; i < g_Vars.lvupdate60; i++) {
-		bike->exreal += (sp70 - bike->exreal) * (PAL ? 0.0478f : 0.04f);
-		bike->ezreal += (sp6c - bike->ezreal) * (PAL ? 0.177f : 0.15f);
-		bike->ezreal2 += (sp68 - bike->ezreal2) * (PAL ? 0.0478f : 0.04f);
-	}
-
-	if (speedforwards >= 0.99f) {
-		bike->maxspeedtime240 += g_Vars.lvupdate240;
-
-		if (bike->maxspeedtime240 > TICKS(2400)) {
-			bike->maxspeedtime240 = TICKS(2400);
-		}
-	} else if (bike->maxspeedtime240 > 0) {
-		if (speedforwards >= 0.8f) {
-			// empty
-		} else if (speedforwards >= -0.1f) {
-			bike->maxspeedtime240 -= g_Vars.lvupdate240;
-
-			if (bike->maxspeedtime240 < 0) {
-				bike->maxspeedtime240 = 0;
-			}
-		} else {
-			bike->maxspeedtime240 = 0;
-		}
-	}
-
-	bike->speedrel[1] = bike->maxspeedtime240 * 5000.0f / TICKS(2400000);
-
-	bike->speed[1] = bike->speedabs[1] + bike->speedrel[1] * cosangle + bike->speedrel[0] * sinangle;
-	bike->speed[0] = bike->speedabs[0] + bike->speedrel[1] * sinangle - bike->speedrel[0] * cosangle;
-
-	if (bike->base.flags & OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY) {
-		if (bike->speed[0] > 0.1f
-				|| bike->speed[1] > 0.1f
-				|| bike->w > 0.001f
-				|| bike->rels[0] > 0.001f
-				|| bike->rels[1] > 0.001f
-				|| bike->exreal > 0.001f
-				|| bike->ezreal > 0.001f
-				|| bike->ezreal2 > 0.001f
-				|| bike->leandiff > 0.1f
-				|| bike->speed[0] < -0.1f
-				|| bike->speed[1] < -0.1f
-				|| bike->w < -0.001f
-				|| bike->rels[0] < -0.001f
-				|| bike->rels[1] < -0.001f
-				|| bike->exreal < -0.001f
-				|| bike->ezreal < -0.001f
-				|| bike->ezreal2 < -0.001f
-				|| bike->leandiff < -0.1f) {
-			// still moving
-		} else {
-			bike->speed[0] = 0;
-			bike->speed[1] = 0;
-			bike->w = 0;
-			bike->rels[0] = 0;
-			bike->rels[1] = 0;
-			bike->exreal = 0;
-			bike->ezreal = 0;
-			bike->ezreal2 = 0;
-			bike->leanspeed = 0;
-			bike->leandiff = 0;
-			bike->maxspeedtime240 = 0;
-			bike->speedabs[0] = 0;
-			bike->speedabs[1] = 0;
-			bike->speedrel[0] = 0;
-			bike->speedrel[1] = 0;
-
-			if (1);
-
-			bike->base.flags &= ~OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY;
-		}
-	}
 }
 
 void platformDisplaceProps2(struct prop *platform, Mtxf *arg1)
@@ -8550,9 +8313,6 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 					if (obj->type == OBJTYPE_HOVERPROP) {
 						struct hoverpropobj *hoverobj = (struct hoverpropobj *)obj;
 						hov = &hoverobj->hov;
-					} else if (obj->type == OBJTYPE_HOVERBIKE) {
-						struct hoverbikeobj *bike = (struct hoverbikeobj *)obj;
-						hov = &bike->hov;
 					}
 
 					if (hov) {
@@ -8660,10 +8420,6 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 							playerUpdatePerimInfo();
 							bmoveUpdateRooms(g_Vars.players[playernum]);
 							setCurrentPlayerNum(prevplayernum);
-
-							if (g_Vars.players[playernum]->walkinitmove) {
-								g_Vars.players[playernum]->walkinitstart.y += ydist;
-							}
 						}
 					}
 				}
@@ -11271,22 +11027,6 @@ void hoverpropTick(struct prop *prop, bool arg1)
 	}
 }
 
-void hoverbikeTick(struct prop *prop, bool arg1)
-{
-	struct hoverbikeobj *obj = (struct hoverbikeobj *)prop->obj;
-
-	if ((obj->base.hidden & OBJHFLAG_MOUNTED) == 0) {
-		if ((obj->base.hidden & OBJHFLAG_GRABBED) == 0
-				&& (arg1 || (prop->flags & PROPFLAG_ONANYSCREENPREVTICK))) {
-			hovTick(&obj->base, &obj->hov);
-		}
-
-		if (obj->base.flags & OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY) {
-			hoverbikeUpdateMovement(obj, 0, 0, 0);
-		}
-	}
-}
-
 /**
  * Show or hide the CI dropship's interior features depending on whether the
  * dropship object's deactivated flag is set.
@@ -11654,8 +11394,6 @@ s32 objTickPlayer(struct prop *prop)
 
 						if (obj->type == OBJTYPE_HOVERPROP) {
 							hov = &((struct hoverpropobj *)obj)->hov;
-						} else if (obj->type == OBJTYPE_HOVERBIKE) {
-							hov = &((struct hoverbikeobj *)obj)->hov;
 						}
 
 						if (hov) {
@@ -11817,8 +11555,6 @@ s32 objTickPlayer(struct prop *prop)
 			}
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverpropTick(prop, sp592);
-		} else if (obj->type == OBJTYPE_HOVERBIKE) {
-			hoverbikeTick(prop, sp592);
 		}
 	}
 
@@ -11830,7 +11566,7 @@ s32 objTickPlayer(struct prop *prop)
 
 	if (sp552) {
 		pass2 = false;
-	} else if (prop == bmoveGetHoverbike() || prop == bmoveGetGrabbedProp()) {
+	} else if (prop == bmoveGetGrabbedProp()) {
 		pass2 = posIsInDrawDistance(&prop->pos);
 	} else if (obj->flags2 & OBJFLAG2_04000000) {
 		pass2 = posIsInDrawDistance(&prop->pos);
@@ -14316,7 +14052,6 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 	if (xlupass) {
 		if (obj->type == OBJTYPE_HOVERPROP
-				|| obj->type == OBJTYPE_HOVERBIKE
 				|| obj->modelnum == MODEL_HOOVERBOT
 				|| obj->modelnum == MODEL_TESTERBOT) {
 			gdl = objRenderShadow(obj, gdl);
@@ -14725,7 +14460,7 @@ void objApplyMomentum(struct defaultobj *obj, struct coord *speed, f32 rotation,
 			projectile->unk0dc = rotation;
 		}
 
-		if (obj->type == OBJTYPE_HOVERPROP || obj->type == OBJTYPE_HOVERBIKE) {
+		if (obj->type == OBJTYPE_HOVERPROP) {
 			if (obj->flags & OBJFLAG_20000000) {
 				projectile->unk08c = 0.8f;
 				projectile->unk098 = 0.0027777778f;
@@ -15757,7 +15492,6 @@ bool func0f085158(struct defaultobj *obj)
 	case OBJTYPE_SAFE:
 	case OBJTYPE_TINTEDGLASS:
 	case OBJTYPE_LIFT:
-	case OBJTYPE_HOVERBIKE:
 	case OBJTYPE_HOVERPROP:
 	case OBJTYPE_FAN:
 	case OBJTYPE_HOVERCAR:
@@ -16376,7 +16110,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	objDropRecursively(hit->prop, false);
 
 	// Handle pushing and bouncing
-	if ((obj->hidden & OBJHFLAG_MOUNTED) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
+	if ((obj->hidden & OBJHFLAG_GRABBED) == 0) {
 		if (obj->flags3 & OBJFLAG3_PUSHABLE) {
 			struct coord spb0;
 			struct coord spa4;
@@ -16439,23 +16173,11 @@ bool objTestForInteract(struct prop *prop)
 			|| (obj->flags3 & (OBJFLAG3_HTMTERMINAL | OBJFLAG3_INTERACTABLE))
 			|| (obj->hidden & (OBJHFLAG_LIFTDOOR | OBJHFLAG_00000002))) {
 		maybe = true;
-	} else if (obj->type == OBJTYPE_HOVERBIKE) {
-		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-			maybe = true;
-		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
-				&& bmoveGetCrouchPos() == CROUCHPOS_STAND
-				&& g_Vars.currentplayer->crouchoffset == 0.0f) {
-			maybe = true;
-		}
 	} else if ((obj->flags3 & OBJFLAG3_GRABBABLE)
 			&& g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
 			&& bmoveGetCrouchPos() == CROUCHPOS_STAND
 			&& g_Vars.currentplayer->crouchoffset == 0.0f) {
 		maybe = true;
-	}
-
-	if (maybe && (obj->hidden & OBJHFLAG_MOUNTED) && prop == bmoveGetHoverbike()) {
-		maybe = false;
 	}
 
 	if (maybe
@@ -16503,55 +16225,6 @@ bool objTestForInteract(struct prop *prop)
 	return true;
 }
 
-bool currentPlayerTryMountHoverbike(struct prop *prop)
-{
-	struct defaultobj *obj = prop->obj;
-	bool mount = false;
-	u32 stack[2];
-
-	if (obj->type == OBJTYPE_HOVERBIKE
-			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < TICKS(30)
-			&& (obj->hidden & OBJHFLAG_MOUNTED) == 0) {
-		if (obj->hidden & OBJHFLAG_GRABBED) {
-			if (bmoveGetGrabbedProp() == prop) {
-				mount = true;
-			} else {
-				mount = false;
-			}
-		} else {
-			mount = true;
-		}
-	}
-
-	if (mount && g_Vars.currentplayer->bondmovemode != MOVEMODE_GRAB) {
-		if (g_Vars.currentplayer->bondmovemode != MOVEMODE_WALK
-				|| bmoveGetCrouchPos() != CROUCHPOS_STAND
-				|| g_Vars.currentplayer->crouchoffset != 0) {
-			mount = false;
-		}
-	}
-
-	if (mount) {
-		f32 angle = atan2f(
-				prop->pos.x - g_Vars.currentplayer->prop->pos.x,
-				prop->pos.z - g_Vars.currentplayer->prop->pos.z);
-		angle -= hoverpropGetTurnAngle(obj);
-
-		if (angle < 0) {
-			angle += M_BADTAU;
-		}
-
-		if ((angle > 0.3926365673542f && angle < 2.3558194637299f)
-				|| (angle < 5.8895483016968f && angle > 3.9263656139374f)) {
-			g_Vars.currentplayer->hoverbike = prop;
-			bmoveSetMode(MOVEMODE_BIKE);
-			return true;
-		}
-	}
-
-	return false;
-}
-
 bool propobjInteract(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
@@ -16592,8 +16265,7 @@ bool propobjInteract(struct prop *prop)
 		} else {
 			result = propPickupByPlayer(prop, 1);
 		}
-	} else if (currentPlayerTryMountHoverbike(prop) == false
-			&& (obj->flags3 & OBJFLAG3_GRABBABLE)
+	} else if ((obj->flags3 & OBJFLAG3_GRABBABLE)
 			&& g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
 			&& bmoveGetCrouchPos() == CROUCHPOS_STAND
 			&& g_Vars.currentplayer->crouchoffset == 0
@@ -19249,11 +18921,11 @@ bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop)
 	return canopen;
 }
 
-bool doorIsPosInRange(struct doorobj *door, struct coord *pos, f32 distance, bool isbike)
+bool doorIsPosInRange(struct doorobj *door, struct coord *pos, f32 distance)
 {
 	struct coord range;
 
-	if ((door->doorflags & DOORFLAG_LONGRANGE) || isbike) {
+	if (door->doorflags & DOORFLAG_LONGRANGE) {
 		distance += 400;
 	} else {
 		distance += 200;
@@ -19274,7 +18946,7 @@ bool doorIsPosInRange(struct doorobj *door, struct coord *pos, f32 distance, boo
 	return false;
 }
 
-bool doorIsObjInRange(struct doorobj *door, struct defaultobj *obj, bool isbike)
+bool doorIsObjInRange(struct doorobj *door, struct defaultobj *obj)
 {
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 	f32 scale = 0;
@@ -19305,7 +18977,7 @@ bool doorIsObjInRange(struct doorobj *door, struct defaultobj *obj, bool isbike)
 
 	scale *= obj->model->scale;
 
-	return doorIsPosInRange(door, &obj->prop->pos, scale, isbike);
+	return doorIsPosInRange(door, &obj->prop->pos, scale);
 }
 
 /**
@@ -19345,12 +19017,11 @@ bool doorIsRangeEmpty(struct doorobj *door)
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
 		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
-			if (doorIsPosInRange(door, &prop->pos, 0, false)) {
+			if (doorIsPosInRange(door, &prop->pos, 0)) {
 				return false;
 			}
 		} else if (prop->type == PROPTYPE_OBJ) {
-			if (prop->obj->hidden & (OBJHFLAG_MOUNTED | OBJHFLAG_GRABBED)
-					&& doorIsObjInRange(door, prop->obj, (prop->obj->hidden & OBJHFLAG_MOUNTED) != 0)) {
+			if (prop->obj->hidden & (OBJHFLAG_GRABBED) && doorIsObjInRange(door, prop->obj)) {
 				return false;
 			}
 		}
@@ -19384,21 +19055,17 @@ void doorsCheckAutomatic(void)
 					&& (door->mode == DOORMODE_CLOSING || (door->mode == DOORMODE_IDLE && door->frac <= 0))) {
 				bool canopen = false;
 				struct defaultobj *obj = NULL;
-				bool isbike = false;
 				struct doorobj *sibling;
 
 				if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 					obj = bmoveGetGrabbedProp()->obj;
-				} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-					obj = bmoveGetHoverbike()->obj;
-					isbike = true;
 				}
 
 				if ((posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, door) != vectorIsInFrontOfDoor(door, &g_Vars.currentplayer->bond2.unk00)) != 0) {
-					canopen = doorIsPosInRange(door, &g_Vars.currentplayer->prop->pos, 0, isbike);
+					canopen = doorIsPosInRange(door, &g_Vars.currentplayer->prop->pos, 0);
 
 					if (!canopen && obj) {
-						canopen = doorIsObjInRange(door, obj, isbike);
+						canopen = doorIsObjInRange(door, obj);
 					}
 				}
 
@@ -19406,10 +19073,10 @@ void doorsCheckAutomatic(void)
 
 				while (sibling && sibling != door && !canopen) {
 					if ((posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, sibling) != vectorIsInFrontOfDoor(sibling, &g_Vars.currentplayer->bond2.unk00)) != 0) {
-						canopen = doorIsPosInRange(sibling, &g_Vars.currentplayer->prop->pos, 0, isbike);
+						canopen = doorIsPosInRange(sibling, &g_Vars.currentplayer->prop->pos, 0);
 
 						if (!canopen && obj) {
-							canopen = doorIsObjInRange(door, obj, isbike);
+							canopen = doorIsObjInRange(door, obj);
 						}
 					}
 

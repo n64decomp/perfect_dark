@@ -71,7 +71,6 @@ u32 setupGetCmdLength(u32 *cmd)
 	case OBJTYPE_LIFT:               return 37;
 	case OBJTYPE_CONDITIONALSCENERY: return 5;
 	case OBJTYPE_BLOCKEDPATH:        return 4;
-	case OBJTYPE_HOVERBIKE:          return 56;
 	case OBJTYPE_HOVERPROP:          return 39;
 	case OBJTYPE_FAN:                return 29;
 	case OBJTYPE_HOVERCAR:           return 38;
@@ -240,7 +239,6 @@ struct defaultobj *setupGetObjByCmdIndex(u32 cmdindex)
 		case OBJTYPE_TANK:
 		case OBJTYPE_TINTEDGLASS:
 		case OBJTYPE_LIFT:
-		case OBJTYPE_HOVERBIKE:
 		case OBJTYPE_HOVERPROP:
 		case OBJTYPE_FAN:
 		case OBJTYPE_HOVERCAR:

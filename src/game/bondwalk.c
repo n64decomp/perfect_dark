@@ -91,26 +91,7 @@ void bwalkInit(void)
 		g_Vars.currentplayer->speedthetacontrol = 0;
 	}
 
-	if (g_Vars.currentplayer->walkinitmove) {
-		struct coord delta;
-		mtx00016b58(&g_Vars.currentplayer->walkinitmtx,
-				0, 0, 0,
-				-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
-				g_Vars.currentplayer->bond2.unk28.x, g_Vars.currentplayer->bond2.unk28.y, g_Vars.currentplayer->bond2.unk28.z);
-		g_Vars.currentplayer->walkinitt = 0;
-		g_Vars.currentplayer->walkinitt2 = 0;
-		g_Vars.currentplayer->walkinitstart.x = g_Vars.currentplayer->prop->pos.x;
-		g_Vars.currentplayer->walkinitstart.y = g_Vars.currentplayer->prop->pos.y;
-		g_Vars.currentplayer->walkinitstart.z = g_Vars.currentplayer->prop->pos.z;
-
-		delta.x = g_Vars.currentplayer->walkinitpos.x - g_Vars.currentplayer->prop->pos.x;
-		delta.y = 0;
-		delta.z = g_Vars.currentplayer->walkinitpos.z - g_Vars.currentplayer->prop->pos.z;
-
-		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, false);
-		bwalkCalculateNewPositionWithPush(&delta, 0, true, 0, CDTYPE_ALL);
-		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, true);
-	} else if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
+	if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
 		g_Vars.currentplayer->moveinitspeed.x = 0;
 		g_Vars.currentplayer->moveinitspeed.y = 0;
 		g_Vars.currentplayer->moveinitspeed.z = 0;
@@ -448,7 +429,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 				struct defaultobj *obj = obstacle->obj;
 				bool dothething;
 
-				if ((obj->hidden & OBJHFLAG_MOUNTED) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
+				if ((obj->hidden & OBJHFLAG_GRABBED) == 0) {
 					if (g_Vars.currentplayer->unk1af0 == 0 && obj->type == OBJTYPE_TANK) {
 						g_Vars.currentplayer->tank = obstacle;
 					} else if (obj->flags3 & OBJFLAG3_PUSHABLE) {
@@ -804,10 +785,6 @@ void bwalkUpdateVertical(void)
 					}
 				}
 			}
-
-			if (g_Vars.currentplayer->walkinitmove) {
-				g_Vars.currentplayer->walkinitstart.y += moveamount;
-			}
 		}
 	} else {
 		lift = NULL;
@@ -868,24 +845,6 @@ void bwalkUpdateVertical(void)
 			if (bwalkTryMoveUpwards(sumground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
 				g_Vars.currentplayer->vv_manground = sumground;
 			}
-#if VERSION >= VERSION_NTSC_1_0
-			else {
-				// Not enough room above. If on a hoverbike, blow it up
-				prop = cdGetObstacleProp();
-
-				if (prop
-						&& g_Vars.currentplayer->prop->pos.y < prop->pos.y
-						&& prop->type == PROPTYPE_OBJ) {
-					obj = prop->obj;
-
-					if (obj->modelnum == MODEL_HOVBIKE) {
-						amount = (obj->maxdamage - obj->damage + 1) / 250.0f;
-						obj->flags &= ~OBJFLAG_INVINCIBLE;
-						objDamage(obj, amount, &obj->prop->pos, WEAPON_REMOTEMINE, -1);
-					}
-				}
-			}
-#endif
 		}
 
 		// Kill player if standing on tile with GEOFLAG_DIE
@@ -1241,92 +1200,83 @@ void bwalkUpdatePrevPos(void)
 	roomsCopy(g_Vars.currentplayer->prop->rooms, g_Vars.currentplayer->bondprevrooms);
 }
 
-void bwalkHandleActivate(void)
-{
-	if (g_Vars.currentplayer->walkinitmove) {
-		g_Vars.currentplayer->bondactivateorreload = 0;
-	}
-}
-
 void bwalkApplyMoveData(struct movedata *data)
 {
-	if (g_Vars.currentplayer->walkinitmove == false) {
-		// Sideways
-		if (data->digitalstepleft) {
-			bwalkUpdateSpeedSideways(-1, 0.2f, data->digitalstepleft);
-		} else if (data->digitalstepright) {
-			bwalkUpdateSpeedSideways(1, 0.2f, data->digitalstepright);
-		} else if (data->unk14 == false) {
-			bwalkUpdateSpeedSideways(0, 0.2f, g_Vars.lvupdate60);
-		}
+	// Sideways
+	if (data->digitalstepleft) {
+		bwalkUpdateSpeedSideways(-1, 0.2f, data->digitalstepleft);
+	} else if (data->digitalstepright) {
+		bwalkUpdateSpeedSideways(1, 0.2f, data->digitalstepright);
+	} else if (data->unk14 == false) {
+		bwalkUpdateSpeedSideways(0, 0.2f, g_Vars.lvupdate60);
+	}
 
-		if (data->unk14) {
-			bwalkUpdateSpeedSideways(data->analogstrafe * 0.014285714365542f, 0.2f, g_Vars.lvupdate60);
-		}
+	if (data->unk14) {
+		bwalkUpdateSpeedSideways(data->analogstrafe * 0.014285714365542f, 0.2f, g_Vars.lvupdate60);
+	}
 
-		// Forward/back
-		if (data->digitalstepforward) {
-			bwalkUpdateSpeedForwards(1, 1);
+	// Forward/back
+	if (data->digitalstepforward) {
+		bwalkUpdateSpeedForwards(1, 1);
+		g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate60;
+	} else if (data->digitalstepback) {
+		bwalkUpdateSpeedForwards(-1, 1);
+	} else if (data->canlookahead == false) {
+		bwalkUpdateSpeedForwards(0, 1);
+	}
+
+	if (data->canlookahead) {
+		bwalkUpdateSpeedForwards(data->analogwalk * 0.014285714365542f, 1);
+
+		if (data->analogwalk > 60) {
 			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate60;
-		} else if (data->digitalstepback) {
-			bwalkUpdateSpeedForwards(-1, 1);
-		} else if (data->canlookahead == false) {
-			bwalkUpdateSpeedForwards(0, 1);
-		}
-
-		if (data->canlookahead) {
-			bwalkUpdateSpeedForwards(data->analogwalk * 0.014285714365542f, 1);
-
-			if (data->analogwalk > 60) {
-				g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate60;
-			} else {
-				g_Vars.currentplayer->speedmaxtime60 = 0;
-			}
-		}
-
-		// Force speeds to range -1 to 1
-		if (g_Vars.currentplayer->speedforwards > 1) {
-			g_Vars.currentplayer->speedforwards = 1;
-		}
-
-		if (g_Vars.currentplayer->speedforwards < -1) {
-			g_Vars.currentplayer->speedforwards = -1;
-		}
-
-		if (g_Vars.currentplayer->speedsideways > 1) {
-			g_Vars.currentplayer->speedsideways = 1;
-		}
-
-		if (g_Vars.currentplayer->speedsideways < -1) {
-			g_Vars.currentplayer->speedsideways = -1;
-		}
-
-		g_Vars.currentplayer->speedforwards *= 1.08f;
-		g_Vars.currentplayer->speedforwards *= g_Vars.currentplayer->speedboost;
-
-		if ((data->canlookahead == false && data->digitalstepforward == false) ||
-				bmoveGetCrouchPos() != CROUCHPOS_STAND) {
+		} else {
 			g_Vars.currentplayer->speedmaxtime60 = 0;
 		}
-
-		if (data->rleanleft) {
-			bwalkSetSwayTarget(-1);
-		} else if (data->rleanright) {
-			bwalkSetSwayTarget(1);
-		} else {
-			bwalkSetSwayTarget(0);
-		}
-
-		while (data->crouchdown-- > 0) {
-			bwalkAdjustCrouchPos(-1);
-		}
-
-		while (data->crouchup-- > 0) {
-			bwalkAdjustCrouchPos(1);
-		}
-
-		g_Vars.currentplayer->eyesshut = data->eyesshut;
 	}
+
+	// Force speeds to range -1 to 1
+	if (g_Vars.currentplayer->speedforwards > 1) {
+		g_Vars.currentplayer->speedforwards = 1;
+	}
+
+	if (g_Vars.currentplayer->speedforwards < -1) {
+		g_Vars.currentplayer->speedforwards = -1;
+	}
+
+	if (g_Vars.currentplayer->speedsideways > 1) {
+		g_Vars.currentplayer->speedsideways = 1;
+	}
+
+	if (g_Vars.currentplayer->speedsideways < -1) {
+		g_Vars.currentplayer->speedsideways = -1;
+	}
+
+	g_Vars.currentplayer->speedforwards *= 1.08f;
+	g_Vars.currentplayer->speedforwards *= g_Vars.currentplayer->speedboost;
+
+	if ((data->canlookahead == false && data->digitalstepforward == false) ||
+			bmoveGetCrouchPos() != CROUCHPOS_STAND) {
+		g_Vars.currentplayer->speedmaxtime60 = 0;
+	}
+
+	if (data->rleanleft) {
+		bwalkSetSwayTarget(-1);
+	} else if (data->rleanright) {
+		bwalkSetSwayTarget(1);
+	} else {
+		bwalkSetSwayTarget(0);
+	}
+
+	while (data->crouchdown-- > 0) {
+		bwalkAdjustCrouchPos(-1);
+	}
+
+	while (data->crouchup-- > 0) {
+		bwalkAdjustCrouchPos(1);
+	}
+
+	g_Vars.currentplayer->eyesshut = data->eyesshut;
 }
 
 void bwalkUpdateSpeedTheta(void)
@@ -1395,272 +1345,254 @@ void bwalk0f0c69b8(void)
 		spc0 *= 1.25f;
 	}
 
-	if (g_Vars.currentplayer->walkinitmove) {
-		g_Vars.currentplayer->walkinitt += g_Vars.lvupdate60freal * (1.0f / 60.0f);
+	bwalkApplyCrouchSpeed();
+	bwalkUpdateCrouchOffset();
 
-		if (g_Vars.currentplayer->walkinitt >= 1.0f) {
-			g_Vars.currentplayer->walkinitt = 1.0f;
-			g_Vars.currentplayer->walkinitmove = false;
-		}
+	bmove0f0cba88(&spc8, &spc4,
+			&g_Vars.currentplayer->bondshotspeed,
+			g_Vars.currentplayer->vv_sintheta, g_Vars.currentplayer->vv_costheta);
 
-		g_Vars.currentplayer->walkinitt2 = 1.0f - (cosf(g_Vars.currentplayer->walkinitt * M_BADPI) + 1.0f) * 0.5f;
+	tmp1 = -g_Vars.currentplayer->swaytarget * g_Vars.currentplayer->bond2.unk00.f[2];
+	tmp2 = g_Vars.currentplayer->swaytarget * g_Vars.currentplayer->bond2.unk00.f[0];
+	tmp1 *= spc0;
+	tmp2 *= spc0;
+	spa8 = 0.0f;
 
-		bmoveUpdateHead(0.0f, 0.0f, 0.0f, &g_Vars.currentplayer->walkinitmtx, 1.0f - g_Vars.currentplayer->walkinitt2);
+	if (g_Vars.currentplayer->crouchoffset < -45.0f) {
+		tmp1 *= 0.35f;
+		tmp2 *= 0.35f;
+	} else if (g_Vars.currentplayer->crouchoffset < 0.0f) {
+		tmp1 *= 0.5f;
+		tmp2 *= 0.5f;
+	}
 
-		g_Vars.currentplayer->gunspeed = 0.0f;
+	spb4 = tmp1 - g_Vars.currentplayer->swayoffset0;
+	spb0 = tmp2 - g_Vars.currentplayer->swayoffset2;
 
-		bmoveUpdateMoveInitSpeed(&spcc);
-		bwalkCalculateNewPositionWithPush(&spcc, 0.0f, true, 0.0f, CDTYPE_ALL);
+	dist = sqrtf(spb4 * spb4 + spb0 * spb0);
+
+	if (g_Vars.lvupdate60freal > PALUPF(4)) {
+		lvupdate60f = PALUPF(4);
+		lvupdate240 = 4;
 	} else {
-		bwalkApplyCrouchSpeed();
-		bwalkUpdateCrouchOffset();
+		lvupdate60f = g_Vars.lvupdate60freal;
+		lvupdate240 = g_Vars.lvupdate60;
+	}
 
-		bmove0f0cba88(&spc8, &spc4,
-				&g_Vars.currentplayer->bondshotspeed,
-				g_Vars.currentplayer->vv_sintheta, g_Vars.currentplayer->vv_costheta);
+	for (i = 0; i < lvupdate240; i++) {
+		spa8 += (dist - spa8) * PALUPF(0.1f);
+	}
 
-		tmp1 = -g_Vars.currentplayer->swaytarget * g_Vars.currentplayer->bond2.unk00.f[2];
-		tmp2 = g_Vars.currentplayer->swaytarget * g_Vars.currentplayer->bond2.unk00.f[0];
-		tmp1 *= spc0;
-		tmp2 *= spc0;
-		spa8 = 0.0f;
+	spa8 += 3.75f * lvupdate60f;
 
-		if (g_Vars.currentplayer->crouchoffset < -45.0f) {
-			tmp1 *= 0.35f;
-			tmp2 *= 0.35f;
-		} else if (g_Vars.currentplayer->crouchoffset < 0.0f) {
-			tmp1 *= 0.5f;
-			tmp2 *= 0.5f;
-		}
+	if (g_Vars.currentplayer->crouchoffset < -45.0f) {
+		spa8 *= 0.35f;
+	} else if (g_Vars.currentplayer->crouchoffset < 0.0f) {
+		spa8 *= 0.5f;
+	}
 
-		spb4 = tmp1 - g_Vars.currentplayer->swayoffset0;
-		spb0 = tmp2 - g_Vars.currentplayer->swayoffset2;
+	if (spa8 < dist) {
+		spa8 /= dist;
+		spb4 *= spa8;
+		spb0 *= spa8;
+	}
 
-		dist = sqrtf(spb4 * spb4 + spb0 * spb0);
+	speedsideways = (g_Vars.currentplayer->speedsideways + spc4) * 0.8f;
+	speedforwards = g_Vars.currentplayer->speedforwards + spc8;
+	speedtheta = g_Vars.currentplayer->speedtheta * 0.8f;
 
-		if (g_Vars.lvupdate60freal > PALUPF(4)) {
-			lvupdate60f = PALUPF(4);
-			lvupdate240 = 4;
-		} else {
-			lvupdate60f = g_Vars.lvupdate60freal;
-			lvupdate240 = g_Vars.lvupdate60;
-		}
+	if (speedsideways < 0.0f) {
+		speedsideways = -speedsideways;
+	}
 
-		for (i = 0; i < lvupdate240; i++) {
-			spa8 += (dist - spa8) * PALUPF(0.1f);
-		}
+	if (speedforwards < 0.0f) {
+		speedforwards = -speedforwards;
+	}
 
-		spa8 += 3.75f * lvupdate60f;
+	if (speedtheta < 0.0f) {
+		speedtheta = -speedtheta;
+	}
 
-		if (g_Vars.currentplayer->crouchoffset < -45.0f) {
-			spa8 *= 0.35f;
-		} else if (g_Vars.currentplayer->crouchoffset < 0.0f) {
-			spa8 *= 0.5f;
-		}
+	maxspeed = speedforwards;
 
-		if (spa8 < dist) {
-			spa8 /= dist;
-			spb4 *= spa8;
-			spb0 *= spa8;
-		}
+	if (speedsideways > maxspeed) {
+		maxspeed = speedsideways;
+	}
 
-		speedsideways = (g_Vars.currentplayer->speedsideways + spc4) * 0.8f;
-		speedforwards = g_Vars.currentplayer->speedforwards + spc8;
-		speedtheta = g_Vars.currentplayer->speedtheta * 0.8f;
+	if (speedtheta > maxspeed) {
+		maxspeed = speedtheta;
+	}
 
-		if (speedsideways < 0.0f) {
-			speedsideways = -speedsideways;
-		}
+	if (dist >= 0.1f && maxspeed < 0.8f) {
+		maxspeed = 0.8f;
+	}
 
-		if (speedforwards < 0.0f) {
-			speedforwards = -speedforwards;
-		}
+	if (maxspeed >= 0.75f) {
+		g_Vars.currentplayer->bondbreathing += (maxspeed - 0.75f) * g_Vars.lvupdate60freal / 900;
+	} else {
+		g_Vars.currentplayer->bondbreathing -= (0.75f - maxspeed) * g_Vars.lvupdate60freal / 2700;
+	}
 
-		if (speedtheta < 0.0f) {
-			speedtheta = -speedtheta;
-		}
+	if (g_Vars.currentplayer->bondbreathing < 0.0f) {
+		g_Vars.currentplayer->bondbreathing = 0.0f;
+	} else if (g_Vars.currentplayer->bondbreathing > 1.0f) {
+		g_Vars.currentplayer->bondbreathing = 1.0f;
+	}
 
-		maxspeed = speedforwards;
+	mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate60freal;
+	spe0 = (g_Vars.currentplayer->speedsideways * spc0 + spc4) * mult;
 
-		if (speedsideways > maxspeed) {
-			maxspeed = speedsideways;
-		}
+	bmove0f0cc654(maxspeed, g_Vars.currentplayer->speedforwards * spc0 + spc8, spe0);
 
-		if (speedtheta > maxspeed) {
-			maxspeed = speedtheta;
-		}
+	g_Vars.currentplayer->gunspeed = maxspeed;
 
-		if (dist >= 0.1f && maxspeed < 0.8f) {
-			maxspeed = 0.8f;
-		}
+	spdc = g_Vars.currentplayer->headpos.x;
+	spd8 = g_Vars.currentplayer->headpos.z;
 
-		if (maxspeed >= 0.75f) {
-			g_Vars.currentplayer->bondbreathing += (maxspeed - 0.75f) * g_Vars.lvupdate60freal / 900;
-		} else {
-			g_Vars.currentplayer->bondbreathing -= (0.75f - maxspeed) * g_Vars.lvupdate60freal / 2700;
-		}
+	spcc.f[0] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[0] - spdc * g_Vars.currentplayer->bond2.unk00.f[2]) * g_Vars.lvupdate60freal;
+	spcc.f[2] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[2] + spdc * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate60freal;
+	spcc.f[0] += spb4;
+	spcc.f[2] += spb0;
 
-		if (g_Vars.currentplayer->bondbreathing < 0.0f) {
-			g_Vars.currentplayer->bondbreathing = 0.0f;
-		} else if (g_Vars.currentplayer->bondbreathing > 1.0f) {
-			g_Vars.currentplayer->bondbreathing = 1.0f;
-		}
+	bmoveUpdateMoveInitSpeed(&spcc);
 
-		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate60freal;
-		spe0 = (g_Vars.currentplayer->speedsideways * spc0 + spc4) * mult;
+	if (g_Vars.currentplayer->bondforcespeed.f[0] != 0.0f || g_Vars.currentplayer->bondforcespeed.f[2] != 0.0f) {
+		spcc.f[0] += g_Vars.currentplayer->bondforcespeed.f[0] * g_Vars.lvupdate60freal;
+		spcc.f[2] += g_Vars.currentplayer->bondforcespeed.f[2] * g_Vars.lvupdate60freal;
+	}
 
-		bmove0f0cc654(maxspeed, g_Vars.currentplayer->speedforwards * spc0 + spc8, spe0);
+	if (g_Vars.currentplayer->onladder) {
+		guNormalize(&g_Vars.currentplayer->laddernormal.x, &g_Vars.currentplayer->laddernormal.y, &g_Vars.currentplayer->laddernormal.z);
 
-		g_Vars.currentplayer->gunspeed = maxspeed;
+		sp74 = -(spcc.f[0] * g_Vars.currentplayer->laddernormal.f[0] + spcc.f[2] * g_Vars.currentplayer->laddernormal.f[2]);
 
-		spdc = g_Vars.currentplayer->headpos.x;
-		spd8 = g_Vars.currentplayer->headpos.z;
+		if (-4.0f * g_Vars.lvupdate60freal < sp74) {
+			if (sp74 < 0.0f) {
+				spcc.f[0] += sp74 * g_Vars.currentplayer->laddernormal.f[0];
+				spcc.f[2] += sp74 * g_Vars.currentplayer->laddernormal.f[2];
+				g_Vars.currentplayer->ladderupdown = sp74 * 0.3f;
+			} else {
+				playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
-		spcc.f[0] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[0] - spdc * g_Vars.currentplayer->bond2.unk00.f[2]) * g_Vars.lvupdate60freal;
-		spcc.f[2] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[2] + spdc * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate60freal;
-		spcc.f[0] += spb4;
-		spcc.f[2] += spb0;
-
-		bmoveUpdateMoveInitSpeed(&spcc);
-
-		if (g_Vars.currentplayer->bondforcespeed.f[0] != 0.0f || g_Vars.currentplayer->bondforcespeed.f[2] != 0.0f) {
-			spcc.f[0] += g_Vars.currentplayer->bondforcespeed.f[0] * g_Vars.lvupdate60freal;
-			spcc.f[2] += g_Vars.currentplayer->bondforcespeed.f[2] * g_Vars.lvupdate60freal;
-		}
-
-		if (g_Vars.currentplayer->onladder) {
-			guNormalize(&g_Vars.currentplayer->laddernormal.x, &g_Vars.currentplayer->laddernormal.y, &g_Vars.currentplayer->laddernormal.z);
-
-			sp74 = -(spcc.f[0] * g_Vars.currentplayer->laddernormal.f[0] + spcc.f[2] * g_Vars.currentplayer->laddernormal.f[2]);
-
-			if (-4.0f * g_Vars.lvupdate60freal < sp74) {
-				if (sp74 < 0.0f) {
+				if (!cd0002a13c(&g_Vars.currentplayer->prop->pos,
+						radius * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
+						(g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y) + 1.0f,
+						g_Vars.currentplayer->prop->rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY)) {
+					g_Vars.currentplayer->ladderupdown = 0.0f;
+				} else {
 					spcc.f[0] += sp74 * g_Vars.currentplayer->laddernormal.f[0];
 					spcc.f[2] += sp74 * g_Vars.currentplayer->laddernormal.f[2];
 					g_Vars.currentplayer->ladderupdown = sp74 * 0.3f;
-				} else {
-					playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
-
-					if (!cd0002a13c(&g_Vars.currentplayer->prop->pos,
-							radius * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
-							(g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y) + 1.0f,
-							g_Vars.currentplayer->prop->rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY)) {
-						g_Vars.currentplayer->ladderupdown = 0.0f;
-					} else {
-						spcc.f[0] += sp74 * g_Vars.currentplayer->laddernormal.f[0];
-						spcc.f[2] += sp74 * g_Vars.currentplayer->laddernormal.f[2];
-						g_Vars.currentplayer->ladderupdown = sp74 * 0.3f;
-					}
-				}
-
-				spcc.x *= 0.3f;
-				spcc.z *= 0.3f;
-			} else {
-				g_Vars.currentplayer->ladderupdown = 0.0f;
-			}
-		}
-
-		if (g_Vars.currentplayer->lift) {
-			esc = (struct escalatorobj *) g_Vars.currentplayer->lift->obj;
-
-			if (esc->base.type == OBJTYPE_ESCASTEP) {
-				spcc.x += esc->base.prop->pos.x - esc->prevpos.x;
-				spcc.z += esc->base.prop->pos.z - esc->prevpos.z;
-			}
-		}
-
-		sp8c = g_Vars.currentplayer->prop->pos.x;
-		sp88 = g_Vars.currentplayer->prop->pos.z;
-
-		bwalk0f0c63bc(&spcc, g_Vars.currentplayer->swaytarget == 0.0f, CDTYPE_ALL);
-
-		xdelta = g_Vars.currentplayer->prop->pos.x - g_Vars.currentplayer->bondprevpos.x;
-		zdelta = g_Vars.currentplayer->prop->pos.z - g_Vars.currentplayer->bondprevpos.z;
-
-		sp54 = -xdelta * g_Vars.currentplayer->bond2.unk00.f[2] + zdelta * g_Vars.currentplayer->bond2.unk00.f[0];
-		sp50 = xdelta * g_Vars.currentplayer->bond2.unk00.f[0] + zdelta * g_Vars.currentplayer->bond2.unk00.f[2];
-
-		sp4c = -spcc.f[0] * g_Vars.currentplayer->bond2.unk00.f[2] + spcc.f[2] * g_Vars.currentplayer->bond2.unk00.f[0];
-		sp48 = spcc.f[0] * g_Vars.currentplayer->bond2.unk00.f[0] + spcc.f[2] * g_Vars.currentplayer->bond2.unk00.f[2];
-
-		if (xdelta >= 0.0f) {
-			if (g_Vars.currentplayer->bondshotspeed.f[0] > 0.0f) {
-				if (spcc.f[0] >= 0.0f && xdelta < spcc.f[0]) {
-					g_Vars.currentplayer->bondshotspeed.f[0] *= xdelta / spcc.f[0];
-				}
-			} else {
-				if (spcc.f[0] < 0.0f) {
-					g_Vars.currentplayer->bondshotspeed.f[0] = 0.0f;
 				}
 			}
+
+			spcc.x *= 0.3f;
+			spcc.z *= 0.3f;
 		} else {
-			if (g_Vars.currentplayer->bondshotspeed.f[0] < 0.0f) {
-				if (spcc.f[0] <= 0.0f && spcc.f[0] < xdelta) {
-					g_Vars.currentplayer->bondshotspeed.f[0] *= xdelta / spcc.f[0];
-				}
-			} else {
-				if (spcc.f[0] > 0.0f) {
-					g_Vars.currentplayer->bondshotspeed.f[0] = 0.0f;
-				}
-			}
+			g_Vars.currentplayer->ladderupdown = 0.0f;
 		}
-
-		if (zdelta >= 0.0f) {
-			if (g_Vars.currentplayer->bondshotspeed.f[2] > 0.0f) {
-				if (spcc.f[2] >= 0.0f && zdelta < spcc.f[2]) {
-					g_Vars.currentplayer->bondshotspeed.f[2] *= zdelta / spcc.f[2];
-				}
-			} else {
-				if (spcc.f[2] < 0.0f) {
-					g_Vars.currentplayer->bondshotspeed.f[2] = 0.0f;
-				}
-			}
-		} else {
-			if (g_Vars.currentplayer->bondshotspeed.f[2] < 0.0f) {
-				if (spcc.f[2] <= 0.0f && spcc.f[2] < zdelta) {
-					g_Vars.currentplayer->bondshotspeed.f[2] *= zdelta / spcc.f[2];
-				}
-			} else {
-				if (spcc.f[2] > 0.0f) {
-					g_Vars.currentplayer->bondshotspeed.f[2] = 0.0f;
-				}
-			}
-		}
-
-		if (sp4c != 0.0f && g_Vars.currentplayer->speedstrafe * sp4c > 0.0f) {
-			sp54 /= sp4c;
-
-			if (sp54 <= 0.0f) {
-				g_Vars.currentplayer->speedstrafe = 0.0f;
-			} else if (sp54 < 1.0f) {
-				g_Vars.currentplayer->speedstrafe *= sp54;
-			}
-		}
-
-		if (sp48 != 0.0f) {
-			if (g_Vars.currentplayer->speedgo * sp48 > 0.0f) {
-				sp50 /= sp48;
-
-				if (sp50 <= 0.0f) {
-					g_Vars.currentplayer->speedgo = 0.0f;
-				} else if (sp50 < 1.0f) {
-					g_Vars.currentplayer->speedgo *= sp50;
-				}
-			}
-		}
-
-		xdiff = g_Vars.currentplayer->prop->pos.x - sp8c;
-		zdiff = g_Vars.currentplayer->prop->pos.z - sp88;
-		f0 = spcc.f[0] * spcc.f[0] + spcc.f[2] * spcc.f[2];
-
-		if (f0 != 0.0f) {
-			f0 = (xdiff * xdiff + zdiff * zdiff) / f0;
-		}
-
-		f0 = sqrtf(f0);
-		g_Vars.currentplayer->swayoffset0 += f0 * spb4;
-		g_Vars.currentplayer->swayoffset2 += f0 * spb0;
 	}
+
+	if (g_Vars.currentplayer->lift) {
+		esc = (struct escalatorobj *) g_Vars.currentplayer->lift->obj;
+
+		if (esc->base.type == OBJTYPE_ESCASTEP) {
+			spcc.x += esc->base.prop->pos.x - esc->prevpos.x;
+			spcc.z += esc->base.prop->pos.z - esc->prevpos.z;
+		}
+	}
+
+	sp8c = g_Vars.currentplayer->prop->pos.x;
+	sp88 = g_Vars.currentplayer->prop->pos.z;
+
+	bwalk0f0c63bc(&spcc, g_Vars.currentplayer->swaytarget == 0.0f, CDTYPE_ALL);
+
+	xdelta = g_Vars.currentplayer->prop->pos.x - g_Vars.currentplayer->bondprevpos.x;
+	zdelta = g_Vars.currentplayer->prop->pos.z - g_Vars.currentplayer->bondprevpos.z;
+
+	sp54 = -xdelta * g_Vars.currentplayer->bond2.unk00.f[2] + zdelta * g_Vars.currentplayer->bond2.unk00.f[0];
+	sp50 = xdelta * g_Vars.currentplayer->bond2.unk00.f[0] + zdelta * g_Vars.currentplayer->bond2.unk00.f[2];
+
+	sp4c = -spcc.f[0] * g_Vars.currentplayer->bond2.unk00.f[2] + spcc.f[2] * g_Vars.currentplayer->bond2.unk00.f[0];
+	sp48 = spcc.f[0] * g_Vars.currentplayer->bond2.unk00.f[0] + spcc.f[2] * g_Vars.currentplayer->bond2.unk00.f[2];
+
+	if (xdelta >= 0.0f) {
+		if (g_Vars.currentplayer->bondshotspeed.f[0] > 0.0f) {
+			if (spcc.f[0] >= 0.0f && xdelta < spcc.f[0]) {
+				g_Vars.currentplayer->bondshotspeed.f[0] *= xdelta / spcc.f[0];
+			}
+		} else {
+			if (spcc.f[0] < 0.0f) {
+				g_Vars.currentplayer->bondshotspeed.f[0] = 0.0f;
+			}
+		}
+	} else {
+		if (g_Vars.currentplayer->bondshotspeed.f[0] < 0.0f) {
+			if (spcc.f[0] <= 0.0f && spcc.f[0] < xdelta) {
+				g_Vars.currentplayer->bondshotspeed.f[0] *= xdelta / spcc.f[0];
+			}
+		} else {
+			if (spcc.f[0] > 0.0f) {
+				g_Vars.currentplayer->bondshotspeed.f[0] = 0.0f;
+			}
+		}
+	}
+
+	if (zdelta >= 0.0f) {
+		if (g_Vars.currentplayer->bondshotspeed.f[2] > 0.0f) {
+			if (spcc.f[2] >= 0.0f && zdelta < spcc.f[2]) {
+				g_Vars.currentplayer->bondshotspeed.f[2] *= zdelta / spcc.f[2];
+			}
+		} else {
+			if (spcc.f[2] < 0.0f) {
+				g_Vars.currentplayer->bondshotspeed.f[2] = 0.0f;
+			}
+		}
+	} else {
+		if (g_Vars.currentplayer->bondshotspeed.f[2] < 0.0f) {
+			if (spcc.f[2] <= 0.0f && spcc.f[2] < zdelta) {
+				g_Vars.currentplayer->bondshotspeed.f[2] *= zdelta / spcc.f[2];
+			}
+		} else {
+			if (spcc.f[2] > 0.0f) {
+				g_Vars.currentplayer->bondshotspeed.f[2] = 0.0f;
+			}
+		}
+	}
+
+	if (sp4c != 0.0f && g_Vars.currentplayer->speedstrafe * sp4c > 0.0f) {
+		sp54 /= sp4c;
+
+		if (sp54 <= 0.0f) {
+			g_Vars.currentplayer->speedstrafe = 0.0f;
+		} else if (sp54 < 1.0f) {
+			g_Vars.currentplayer->speedstrafe *= sp54;
+		}
+	}
+
+	if (sp48 != 0.0f) {
+		if (g_Vars.currentplayer->speedgo * sp48 > 0.0f) {
+			sp50 /= sp48;
+
+			if (sp50 <= 0.0f) {
+				g_Vars.currentplayer->speedgo = 0.0f;
+			} else if (sp50 < 1.0f) {
+				g_Vars.currentplayer->speedgo *= sp50;
+			}
+		}
+	}
+
+	xdiff = g_Vars.currentplayer->prop->pos.x - sp8c;
+	zdiff = g_Vars.currentplayer->prop->pos.z - sp88;
+	f0 = spcc.f[0] * spcc.f[0] + spcc.f[2] * spcc.f[2];
+
+	if (f0 != 0.0f) {
+		f0 = (xdiff * xdiff + zdiff * zdiff) / f0;
+	}
+
+	f0 = sqrtf(f0);
+	g_Vars.currentplayer->swayoffset0 += f0 * spb4;
+	g_Vars.currentplayer->swayoffset2 += f0 * spb0;
 
 	sp44 = g_Vars.currentplayer->speedtheta;
 	sp40 = g_Vars.currentplayer->speedverta / 0.7f + g_Vars.currentplayer->crouchspeed / PALUPF(5.0f);
@@ -1707,21 +1639,7 @@ void bwalkTick(void)
 
 	bmoveUpdateRooms(g_Vars.currentplayer);
 
-	if (g_Vars.currentplayer->walkinitmove) {
-		struct coord coord;
-		coord.x = (g_Vars.currentplayer->walkinitstart.x - g_Vars.currentplayer->walkinitpos.x)
-			* (1.0f - g_Vars.currentplayer->walkinitt2) + g_Vars.currentplayer->prop->pos.x;
-
-		coord.y = (g_Vars.currentplayer->walkinitstart.y - g_Vars.currentplayer->prop->pos.y)
-			* (1.0f - g_Vars.currentplayer->walkinitt2) + g_Vars.currentplayer->prop->pos.y;
-
-		coord.z = (g_Vars.currentplayer->walkinitstart.z - g_Vars.currentplayer->walkinitpos.z)
-			* (1.0f - g_Vars.currentplayer->walkinitt2) + g_Vars.currentplayer->prop->pos.z;
-
-		bmove0f0cc19c(&coord);
-	} else {
-		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
-	}
+	bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
 
 	playerUpdatePerimInfo();
 	doorsCheckAutomatic();

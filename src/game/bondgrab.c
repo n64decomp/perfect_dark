@@ -74,9 +74,6 @@ void bgrabInit(void)
 		if (obj->type == OBJTYPE_HOVERPROP) {
 			struct hoverpropobj *hoverprop = (struct hoverpropobj *)prop->obj;
 			hov = &hoverprop->hov;
-		} else if (obj->type == OBJTYPE_HOVERBIKE) {
-			struct hoverbikeobj *hoverprop = (struct hoverbikeobj *)prop->obj;
-			hov = &hoverprop->hov;
 		}
 
 		if (hov) {
@@ -435,9 +432,6 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 		if (obj->type == OBJTYPE_HOVERPROP) {
 			struct hoverpropobj *tmp = (struct hoverpropobj *)g_Vars.currentplayer->grabbedprop->obj;
 			hov = &tmp->hov;
-		} else if (obj->type == OBJTYPE_HOVERBIKE) {
-			struct hoverbikeobj *tmp = (struct hoverbikeobj *)g_Vars.currentplayer->grabbedprop->obj;
-			hov = &tmp->hov;
 		}
 
 		if (hov != NULL) {
@@ -550,9 +544,7 @@ bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg
 			} else if (obstacle->type == PROPTYPE_OBJ) {
 				struct defaultobj *obj = obstacle->obj;
 
-				if ((obj->hidden & OBJHFLAG_MOUNTED) == 0
-						&& (obj->hidden & OBJHFLAG_GRABBED) == 0
-						&& (obj->flags3 & OBJFLAG3_PUSHABLE)) {
+				if ((obj->hidden & OBJHFLAG_GRABBED) == 0 && (obj->flags3 & OBJFLAG3_PUSHABLE)) {
 					bool canpush = true;
 
 					g_Vars.currentplayer->speedmaxtime60 = 0;
@@ -887,12 +879,8 @@ void bgrabUpdateVertical(void)
 
 void bgrabHandleActivate(void)
 {
-	if (currentPlayerTryMountHoverbike(g_Vars.currentplayer->grabbedprop)) {
-		g_Vars.currentplayer->bondactivateorreload = 0;
-	} else {
-		g_Vars.currentplayer->bondactivateorreload = 0;
-		bmoveSetMode(MOVEMODE_WALK);
-	}
+	g_Vars.currentplayer->bondactivateorreload = 0;
+	bmoveSetMode(MOVEMODE_WALK);
 }
 
 void bgrabUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
@@ -1174,9 +1162,6 @@ void bgrabTick(void)
 		if (obj->type == OBJTYPE_HOVERPROP) {
 			struct hoverpropobj *hoverprop = (struct hoverpropobj *)g_Vars.currentplayer->grabbedprop->obj;
 			hov = &hoverprop->hov;
-		} else if (obj->type == OBJTYPE_HOVERBIKE) {
-			struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)g_Vars.currentplayer->grabbedprop->obj;
-			hov = &hoverbike->hov;
 		}
 
 		if (hov) {

@@ -851,9 +851,7 @@ void explosionInflictDamage(struct prop *expprop)
 							}
 
 							// Give object momentum if it's a hover obj
-							if ((obj->hidden & OBJHFLAG_MOUNTED) == 0
-									&& (obj->hidden & OBJHFLAG_GRABBED) == 0
-									&& (obj->flags3 & OBJFLAG3_PUSHABLE)) {
+							if ((obj->hidden & OBJHFLAG_GRABBED) == 0 && (obj->flags3 & OBJFLAG3_PUSHABLE)) {
 								f32 dist;
 								struct coord spf4;
 								spf4.x = prop->pos.x - expprop->pos.x;

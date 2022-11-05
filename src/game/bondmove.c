@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/activemenu.h"
-#include "game/bondbike.h"
 #include "game/bondgrab.h"
 #include "game/bondmove.h"
 #include "game/bondwalk.h"
@@ -164,15 +163,6 @@ void bmoveUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
 	g_Vars.currentplayer->autoaimx = autoaimx;
 }
 
-struct prop *bmoveGetHoverbike(void)
-{
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		return g_Vars.currentplayer->hoverbike;
-	}
-
-	return NULL;
-}
-
 struct prop *bmoveGetGrabbedProp(void)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
@@ -186,7 +176,7 @@ void bmoveGrabProp(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if ((obj->hidden & OBJHFLAG_MOUNTED) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
+	if ((obj->hidden & OBJHFLAG_GRABBED) == 0) {
 		g_Vars.currentplayer->grabbedprop = prop;
 		bgrabInit();
 	}
@@ -196,13 +186,9 @@ void bmoveSetMode(u32 movemode)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		bgrabExit();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		bbikeExit();
 	}
 
-	if (movemode == MOVEMODE_BIKE) {
-		bbikeInit();
-	} else if (movemode == MOVEMODE_GRAB) {
+	if (movemode == MOVEMODE_GRAB) {
 		bgrabInit();
 	} else if (movemode == MOVEMODE_CUTSCENE) {
 		bcutsceneInit();
@@ -226,20 +212,14 @@ void bmoveSetModeForAllPlayers(u32 movemode)
 
 void bmoveHandleActivate(void)
 {
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		bbikeHandleActivate();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		bgrabHandleActivate();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
-		bwalkHandleActivate();
 	}
 }
 
 void bmoveApplyMoveData(struct movedata *data)
 {
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		bbikeApplyMoveData(data);
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		bgrabApplyMoveData(data);
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 		bwalkApplyMoveData(data);
@@ -248,9 +228,7 @@ void bmoveApplyMoveData(struct movedata *data)
 
 void bmoveUpdateSpeedTheta(void)
 {
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		// empty
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		bgrabUpdateSpeedTheta();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 		bwalkUpdateSpeedTheta();
@@ -1603,12 +1581,6 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			}
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-			g_Vars.currentplayer->docentreupdown = false;
-		}
-#endif
-
 		if (g_Vars.currentplayer->docentreupdown) {
 			if (offbike) {
 				// Determine direction for lookahead increment
@@ -1906,9 +1878,7 @@ void bmoveTick(bool allowc1x, bool allowc1y, bool allowc1buttons, bool ignorec2)
 
 	bmoveProcessInput(allowc1x, allowc1y, allowc1buttons, ignorec2);
 
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		bbikeTick();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		bgrabTick();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_CUTSCENE) {
 		bcutsceneTick();

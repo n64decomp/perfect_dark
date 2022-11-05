@@ -4141,8 +4141,6 @@ void playerDieByShooter(u32 shooter, bool force)
 			if (g_Vars.currentplayer->unk1af0) {
 				g_Vars.currentplayer->bondtankexplode = true;
 			}
-		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-			g_Vars.currentplayer->bondtankexplode = true;
 		}
 
 		bmoveSetMode(MOVEMODE_WALK);
@@ -4399,8 +4397,6 @@ void playerSetPerimEnabled(struct prop *prop, bool enable)
 		if (g_Vars.currentplayer->unk1af0) {
 			objSetPerimEnabled(g_Vars.currentplayer->unk1af0, enable);
 		}
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		objSetPerimEnabled(g_Vars.currentplayer->hoverbike, enable);
 	}
 
 	g_Vars.players[playernum]->bondperimenabled = enable;
@@ -4795,149 +4791,120 @@ void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 sp
 	} else {
 		struct prop *chrprop = chr->prop;
 
-		if (chrprop->type == PROPTYPE_PLAYER
-				&& g_Vars.players[playermgrGetPlayerNumByProp(chrprop)]->bondmovemode == MOVEMODE_BIKE) {
-			// Player on a hoverbike
-			if (leftprop && rightprop) {
-				wieldmode = WIELDMODE_DUALGUNS;
-			} else if (!leftprop && !rightprop) {
-				wieldmode = WIELDMODE_UNARMED;
-			} else if (leftgun && weaponHasFlag(leftgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
-				wieldmode = WIELDMODE_PISTOL;
-			} else if (rightgun && weaponHasFlag(rightgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
-				wieldmode = WIELDMODE_PISTOL;
-			} else {
-				wieldmode = WIELDMODE_HEAVY;
-			}
-
-			if (wieldmode == WIELDMODE_PISTOL) {
-				animnum = ANIM_ONBIKE_PISTOL;
-			} else if (wieldmode == WIELDMODE_DUALGUNS) {
-				animnum = ANIM_ONBIKE_DUALGUNS;
-			} else if (wieldmode == WIELDMODE_HEAVY) {
-				animnum = ANIM_ONBIKE_HEAVYGUN;
-			} else {
-				animnum = ANIM_ONBIKE_UNARMED;
-			}
-
-			speed = 0.5f;
-			animcfg = NULL;
+		// Player or bot on foot
+		if (leftprop && rightprop) {
+			wieldmode = WIELDMODE_DUALGUNS;
+		} else if (!leftprop && !rightprop) {
+			wieldmode = WIELDMODE_UNARMED;
+		} else if (leftgun && !weaponHasFlag(leftgun->weaponnum, WEAPONFLAG_AICANUSE)) {
+			wieldmode = WIELDMODE_UNARMED;
+		} else if (rightgun && !weaponHasFlag(rightgun->weaponnum, WEAPONFLAG_AICANUSE)) {
+			wieldmode = WIELDMODE_UNARMED;
+		} else if (leftgun && weaponHasFlag(leftgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
+			wieldmode = WIELDMODE_PISTOL;
+		} else if (rightgun && weaponHasFlag(rightgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
+			wieldmode = WIELDMODE_PISTOL;
 		} else {
-			// Player or bot on foot
-			if (leftprop && rightprop) {
-				wieldmode = WIELDMODE_DUALGUNS;
-			} else if (!leftprop && !rightprop) {
-				wieldmode = WIELDMODE_UNARMED;
-			} else if (leftgun && !weaponHasFlag(leftgun->weaponnum, WEAPONFLAG_AICANUSE)) {
-				wieldmode = WIELDMODE_UNARMED;
-			} else if (rightgun && !weaponHasFlag(rightgun->weaponnum, WEAPONFLAG_AICANUSE)) {
-				wieldmode = WIELDMODE_UNARMED;
-			} else if (leftgun && weaponHasFlag(leftgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
-				wieldmode = WIELDMODE_PISTOL;
-			} else if (rightgun && weaponHasFlag(rightgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
-				wieldmode = WIELDMODE_PISTOL;
-			} else {
-				wieldmode = WIELDMODE_HEAVY;
-			}
-
-			turnspeed = sqrtf(speedsideways * speedsideways + speedforwards * speedforwards);
-
-			if (speedtheta < 0) {
-				speedtheta = -speedtheta;
-			}
-
-			if (turnspeed < speedtheta) {
-				turnspeed = speedtheta;
-			}
-
-			if (turnspeed < 0.05f) {
-				if (crouchpos == CROUCHPOS_SQUAT) {
-					turnmode = TURNMODE_SQUAT_NOTURN;
-				} else if (crouchpos == CROUCHPOS_DUCK) {
-					turnmode = TURNMODE_DUCK_NOTURN;
-				} else {
-					turnmode = TURNMODE_STAND_NOTURN;
-				}
-
-				row = &var80070ba4[wieldmode][turnmode];
-				speed = 1.0f;
-				angle = 0.0f;
-			} else {
-				angle = atan2f(speedsideways, speedforwards);
-
-				if (angle >= M_BADPI) {
-					angle -= M_BADTAU;
-				}
-
-				if (crouchpos == CROUCHPOS_SQUAT) {
-					turnmode = TURNMODE_SQUAT_TURN;
-					speed = turnspeed * 2.8571429252625f;
-
-					if (speed > 1.2f) {
-						speed = 1.2f;
-					}
-				} else if (crouchpos == CROUCHPOS_DUCK) {
-					turnmode = TURNMODE_DUCK_TURN;
-					speed = turnspeed * 2;
-
-					if (speed > 1.2f) {
-						speed = 1.2f;
-					}
-				} else if (turnspeed < 0.4f
-						|| (chr->prop->type == PROPTYPE_PLAYER
-							&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->headanim == 0)) {
-					turnmode = TURNMODE_STAND_SOFTTURN;
-					speed = 2.0f * turnspeed;
-
-					if (speed > 1.2f) {
-						speed = 1.2f;
-					}
-				} else {
-					turnmode = TURNMODE_STAND_HARDTURN;
-					speed = turnspeed;
-
-					if (speed > 1.2f) {
-						speed = 1.2f;
-					}
-				}
-
-				if (angle < -1.6333680152893f) {
-					angle += M_BADPI;
-					speed = -speed;
-				} else if (angle > 1.6333680152893f) {
-					angle -= M_BADPI;
-					speed = -speed;
-				}
-
-				row = &var80070ba4[wieldmode][turnmode];
-
-				if (angle < -row->unk14) {
-					angle = -row->unk14;
-				} else if (angle > row->unk14) {
-					angle = row->unk14;
-				}
-			}
-
-			limit = g_Vars.lvupdate60freal * 0.10470308363438f;
-
-			if (angle - *angleoffset > limit) {
-				*angleoffset += limit;
-			} else if (angle - *angleoffset < -limit) {
-				*angleoffset -= limit;
-			} else {
-				*angleoffset = angle;
-			}
-
-			animcfg = row->animcfg;
-
-			if (row->animnum) {
-				animnum = row->animnum;
-			}
-
-			speed *= row->speed;
-			startframe = row->startframe;
-			endframe = row->endframe;
+			wieldmode = WIELDMODE_HEAVY;
 		}
+
+		turnspeed = sqrtf(speedsideways * speedsideways + speedforwards * speedforwards);
+
+		if (speedtheta < 0) {
+			speedtheta = -speedtheta;
+		}
+
+		if (turnspeed < speedtheta) {
+			turnspeed = speedtheta;
+		}
+
+		if (turnspeed < 0.05f) {
+			if (crouchpos == CROUCHPOS_SQUAT) {
+				turnmode = TURNMODE_SQUAT_NOTURN;
+			} else if (crouchpos == CROUCHPOS_DUCK) {
+				turnmode = TURNMODE_DUCK_NOTURN;
+			} else {
+				turnmode = TURNMODE_STAND_NOTURN;
+			}
+
+			row = &var80070ba4[wieldmode][turnmode];
+			speed = 1.0f;
+			angle = 0.0f;
+		} else {
+			angle = atan2f(speedsideways, speedforwards);
+
+			if (angle >= M_BADPI) {
+				angle -= M_BADTAU;
+			}
+
+			if (crouchpos == CROUCHPOS_SQUAT) {
+				turnmode = TURNMODE_SQUAT_TURN;
+				speed = turnspeed * 2.8571429252625f;
+
+				if (speed > 1.2f) {
+					speed = 1.2f;
+				}
+			} else if (crouchpos == CROUCHPOS_DUCK) {
+				turnmode = TURNMODE_DUCK_TURN;
+				speed = turnspeed * 2;
+
+				if (speed > 1.2f) {
+					speed = 1.2f;
+				}
+			} else if (turnspeed < 0.4f
+					|| (chr->prop->type == PROPTYPE_PLAYER
+						&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->headanim == 0)) {
+				turnmode = TURNMODE_STAND_SOFTTURN;
+				speed = 2.0f * turnspeed;
+
+				if (speed > 1.2f) {
+					speed = 1.2f;
+				}
+			} else {
+				turnmode = TURNMODE_STAND_HARDTURN;
+				speed = turnspeed;
+
+				if (speed > 1.2f) {
+					speed = 1.2f;
+				}
+			}
+
+			if (angle < -1.6333680152893f) {
+				angle += M_BADPI;
+				speed = -speed;
+			} else if (angle > 1.6333680152893f) {
+				angle -= M_BADPI;
+				speed = -speed;
+			}
+
+			row = &var80070ba4[wieldmode][turnmode];
+
+			if (angle < -row->unk14) {
+				angle = -row->unk14;
+			} else if (angle > row->unk14) {
+				angle = row->unk14;
+			}
+		}
+
+		limit = g_Vars.lvupdate60freal * 0.10470308363438f;
+
+		if (angle - *angleoffset > limit) {
+			*angleoffset += limit;
+		} else if (angle - *angleoffset < -limit) {
+			*angleoffset -= limit;
+		} else {
+			*angleoffset = angle;
+		}
+
+		animcfg = row->animcfg;
+
+		if (row->animnum) {
+			animnum = row->animnum;
+		}
+
+		speed *= row->speed;
+		startframe = row->startframe;
+		endframe = row->endframe;
 	}
 
 	if (animcfg != NULL && animnum == 0) {

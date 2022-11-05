@@ -36,7 +36,6 @@ void objsStop(void)
 			case OBJTYPE_TANK:
 			case OBJTYPE_TINTEDGLASS:
 			case OBJTYPE_LIFT:
-			case OBJTYPE_HOVERBIKE:
 			case OBJTYPE_HOVERPROP:
 			case OBJTYPE_FAN:
 			case OBJTYPE_HOVERCAR:
