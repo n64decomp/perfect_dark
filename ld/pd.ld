@@ -167,7 +167,7 @@ SECTIONS
 	PLACEHOLDER_SEGMENT(libzip, ROMALLOCATION_LIB)
 
 	__rompos = ROM_SIZE * 1024 * 1024;
-	__rampos = 0x70001050;
+	__rampos = 0x80001050;
 
 	BEGIN_SEG(lib) SUBALIGN(0x10)
 	{
@@ -244,7 +244,8 @@ SECTIONS
 	 */
 
 	__savedrompos = __rompos;
-	__rampos = 0x70200000;
+	__savedrampos = __rampos;
+	__rampos = 0x80200000;
 	__rompos = _datazipSegmentRomEnd;
 
 	BEGIN_SEG(inflate)
@@ -268,7 +269,7 @@ SECTIONS
 	PLACEHOLDER_SEGMENT(gamezip, ROMALLOCATION_GAME)
 
 	__rompos = __savedrompos;
-	__rampos = 0x7f000000;
+	__rampos = __savedrampos;
 
 	BEGIN_SEG(game)
 	{

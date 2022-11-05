@@ -53,22 +53,6 @@ glabel var8008d268
  * Sets up TLB index 0 (0x70000000), then calls bootPhase1.
  */
 glabel tlbInit
-	li     $t0, OS_PM_4M
-	mtc0   $t0, C0_PAGEMASK
-	lui    $t0, 0x7000
-	mtc0   $t0, C0_ENTRYHI
-	addiu  $t0, $zero, 0x1f
-	mtc0   $t0, C0_ENTRYLO0
-	lui    $t0, 0x1
-	ori    $t0, $t0, 0x1f
-	mtc0   $t0, C0_ENTRYLO1
-	addiu  $t0, $zero, 0
-	mtc0   $t0, C0_INX
- 	nop
- 	tlbwi
- 	nop
- 	nop
- 	nop
 	lui    $t0, %hi(bootPhase1)
 	addiu  $t0, $t0, %lo(bootPhase1)
 	jr     $t0
