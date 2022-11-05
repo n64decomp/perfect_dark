@@ -121,11 +121,7 @@ u32 mempGetStageFree(void)
 {
 	u32 free;
 
-	if (IS4MB()) {
-		free = g_MempOnboardPools[MEMPOOL_STAGE].rightpos - g_MempOnboardPools[MEMPOOL_STAGE].leftpos;
-	} else {
-		free = g_MempExpansionPools[MEMPOOL_STAGE].rightpos - g_MempExpansionPools[MEMPOOL_STAGE].leftpos;
-	}
+	free = g_MempExpansionPools[MEMPOOL_STAGE].rightpos - g_MempExpansionPools[MEMPOOL_STAGE].leftpos;
 
 	return free;
 }
@@ -134,11 +130,7 @@ void *mempGetNextStageAllocation(void)
 {
 	void *next;
 
-	if (IS4MB()) {
-		next = g_MempOnboardPools[MEMPOOL_STAGE].leftpos;
-	} else {
-		next = g_MempExpansionPools[MEMPOOL_STAGE].leftpos;
-	}
+	next = g_MempExpansionPools[MEMPOOL_STAGE].leftpos;
 
 	return next;
 }

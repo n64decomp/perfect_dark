@@ -197,12 +197,6 @@ void menuTick(void)
 			if (g_MenuData.nextbg == MENUBG_FAILURE) {
 				var8009dfc0 = true;
 			}
-
-			if (var8009dfc0 && g_Vars.currentplayer->gunmem2) {
-				playerRemoveChrBody();
-
-				if (g_Vars.currentplayer->gunmem2);
-			}
 		}
 	} else {
 		g_MenuData.unk010 = 0;

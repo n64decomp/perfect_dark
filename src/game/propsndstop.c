@@ -6,11 +6,13 @@
 #include "data.h"
 #include "types.h"
 
+#define NUM_CHANNELS 40
+
 void propsndStop(void)
 {
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < NUM_CHANNELS; i++) {
 		if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_ISMP3) {
 			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_ISMP3;
 			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0002;

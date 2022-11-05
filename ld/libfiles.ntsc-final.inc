@@ -123,7 +123,6 @@
 	build/ROMID/lib/ultra/os/stoptimer.o (section); \
 	build/ROMID/lib/ultra/os/settimer.o (section); \
 	build/ROMID/lib/ultra/io/sptaskyielded.o (section); \
-	build/ROMID/lib/ultra/io/dpctr.o (section); \
 	build/ROMID/lib/ultra/io/dpgetstat.o (section); \
 	build/ROMID/lib/ultra/io/viblack.o (section); \
 	build/ROMID/lib/ultra/io/visetmode.o (section); \

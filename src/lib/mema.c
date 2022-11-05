@@ -541,12 +541,7 @@ void *memaAlloc(u32 size)
 				best = curr;
 
 				// Stop looking if the space is small enough
-#if VERSION >= VERSION_NTSC_1_0
-				if (diff < 64 || (IS8MB() && diff < size / 4))
-#else
-				if (diff < 64 || diff < size / 4)
-#endif
-				{
+				if (diff < 64 || diff < size / 4) {
 					break;
 				}
 			}

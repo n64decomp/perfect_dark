@@ -65,7 +65,6 @@ s32 var8008de0c;
 s32 var8008de10;
 u32 var8008de14;
 OSTimer g_SchedRspTimer;
-u32 g_SchedDpCounters[4];
 
 s32 var8005ce74 = 0;
 f32 g_ViXScalesBySlot[2] = {1, 1};
@@ -244,17 +243,10 @@ void __scHandleRetrace(OSSched *sc)
 {
 	sc->frameCount++;
 
-#if PAL
 	if (!g_Resetting && (sc->frameCount & 1)) {
 		osStopTimer(&g_SchedRspTimer);
 		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), &g_SchedRspMsg);
 	}
-#else
-	if (!g_Resetting && ((sc->frameCount & 1) || IS4MB())) {
-		osStopTimer(&g_SchedRspTimer);
-		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), &g_SchedRspMsg);
-	}
-#endif
 
 	if (!g_Resetting) {
 		vi00009ed4();
@@ -382,12 +374,6 @@ void __scHandleRDP(OSSched *sc)
 	s32 state;
 
 	if (sc->curRDPTask != NULL) {
-		if (var8005dd18 == 0) {
-			schedConsiderScreenshot();
-		}
-
-		osDpGetCounters(g_SchedDpCounters);
-
 		t = sc->curRDPTask;
 		sc->curRDPTask = NULL;
 		t->state &= ~OS_SC_NEEDS_RDP;
@@ -642,19 +628,4 @@ s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)
 	}
 
 	return avail;
-}
-
-void schedConsiderScreenshot(void)
-{
-	if (g_MenuData.screenshottimer == 1) {
-		if (IS8MB()) {
-			menugfxCreateBlur();
-		}
-
-		g_MenuData.screenshottimer = 0;
-	}
-
-	if (g_MenuData.screenshottimer >= 2) {
-		g_MenuData.screenshottimer--;
-	}
 }

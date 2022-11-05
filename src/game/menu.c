@@ -53,7 +53,6 @@ char g_StringPointer[104];
 char g_StringPointer2[100];
 #endif
 
-u8 *g_BlurBuffer;
 s32 var8009dfc0;
 u32 var8009dfc4;
 struct briefing g_Briefing;
@@ -1923,61 +1922,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 		mtx4LoadIdentity(&sp350);
 
-		if (arg2 == 1) {
-			if (IS8MB()) {
-				s32 i;
-
-				if (thing->unk510 != thing->unk538) {
-					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk510 = (thing->unk538 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk510);
-					}
-				}
-
-				if (thing->unk514 != thing->unk53c) {
-					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk514 = (thing->unk53c * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk514);
-					}
-				}
-
-				if (thing->unk518 != thing->unk540) {
-					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk518 = (thing->unk540 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk518);
-					}
-				}
-
-				if (thing->unk51c != thing->unk544) {
-					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk51c = (thing->unk544 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk51c);
-					}
-				}
-
-				sp430 = thing->unk510;
-
-#if !PAL
-				if (g_ViRes == VIRES_HI) {
-					sp430 *= 2.0f;
-				}
-#endif
-
-				sp42c = thing->unk514;
-				sp428 = thing->unk518;
-				sp424 = thing->unk51c;
-
-				a = thing->unk548;
-				b = thing->unk54c;
-				c = thing->unk550;
-
-				thing->unk520 = a;
-				thing->unk524 = b;
-				thing->unk528 = c;
-
-				sp398.x = a;
-				sp398.y = b;
-				sp398.z = c;
-
-				mtx4LoadRotation(&sp398, &sp350);
-			}
-		} else {
+		{
 			if (thing->unk5b1_05) {
 #if VERSION >= VERSION_PAL_BETA
 				thing->unk564 += g_Vars.diffframe60freal / 40.0f;
@@ -2073,15 +2018,8 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 		sp30c[0] = -100.0f + sp428;
 
-		if (arg2 == 1) {
-			if (IS8MB()) {
-				sp390[0] = thing->unk510 * g_ScaleX;
-				sp390[1] = thing->unk514;
-			}
-		} else {
-			sp390[0] = sp430 * g_ScaleX + viGetViewLeft() + viGetViewWidth() * 0.5f;
-			sp390[1] = sp42c + viGetViewTop() + viGetViewHeight() * 0.5f;
-		}
+		sp390[0] = sp430 * g_ScaleX + viGetViewLeft() + viGetViewWidth() * 0.5f;
+		sp390[1] = sp42c + viGetViewTop() + viGetViewHeight() * 0.5f;
 
 		cam0f0b4c3c(sp390, &sp398, 1.0f);
 		mtx4LoadIdentity(&sp310);
@@ -5464,12 +5402,7 @@ void menuFindAvailableSize(s32 *leftptr, s32 *topptr, s32 *rightptr, s32 *bottom
 			}
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))
-#else
-		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)
-#endif
-		{
+		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			if (g_Menus[g_MpPlayerNum].playernum == 0) {
 				*leftptr += 22;
 			} else {
@@ -5671,17 +5604,6 @@ void menuPushRootDialog(struct menudialogdef *dialogdef, s32 root)
 	g_MenuData.root = root;
 	g_MenuData.unk008 = -1;
 	g_MenuData.unk5d5_02 = false;
-
-	if (root == MENUROOT_MAINMENU
-			|| root == MENUROOT_MPSETUP
-			|| root == MENUROOT_TRAINING
-			|| root == MENUROOT_FILEMGR) {
-		if (IS8MB() && (g_MenuData.unk5d4 == 0 || g_MenuData.unk01c.unk5b1_04)) {
-			if (!g_MenuData.unk5d5_04) {
-				g_MenuData.unk5d5_05 = true;
-			}
-		}
-	}
 
 	menuPushDialog(dialogdef);
 
@@ -5886,10 +5808,6 @@ void menuReset(void)
 
 	var8009dfc0 = 0;
 
-	if (IS8MB()) {
-		g_BlurBuffer = mempAlloc(0x4b00, MEMPOOL_STAGE);
-	}
-
 	g_MenuData.unk5d5_01 = false;
 
 	texLoadFromConfig(&g_TexGeneralConfigs[1]);
@@ -5929,10 +5847,6 @@ void menuReset(void)
 
 		for (i = 0; i < max; i++) {
 			func0f0f8bb4(&g_Menus[i].unk840, IS4MB() ? 0xb400 : 0x25800, 1);
-		}
-
-		if (IS8MB()) {
-			func0f0f8bb4(&g_MenuData.unk01c, 0xc800, 1);
 		}
 
 		g_MenuData.unk01c.unk00c = 0x259;
@@ -6488,11 +6402,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 
 		if (inputs->back) {
 			if ((dialog->definition->flags & MENUDIALOGFLAG_DROPOUTONCLOSE) && g_Vars.unk000498) {
-				if (IS4MB()) {
-					menuPushDialog(&g_MpDropOut4MbMenuDialog);
-				} else {
-					menuPushDialog(&g_MpDropOutMenuDialog);
-				}
+				menuPushDialog(&g_MpDropOutMenuDialog);
 			} else if ((dialog->definition->flags & MENUDIALOGFLAG_IGNOREBACK) == 0) {
 				menuPopDialog();
 			}
@@ -7169,21 +7079,7 @@ Gfx *menugfxRenderBgFailureAlt(Gfx *gdl);
  */
 Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 {
-	static u32 bblur = 1;
-
 	switch (bg) {
-	case MENUBG_BLUR:
-		{
-			u32 alpha = 255 * frac;
-
-			// Render the blurred background texture with full alpha
-			gdl = menugfxRenderBgBlur(gdl, 0xffffff00 | alpha, 0, 0);
-
-			// Render it twice more with half alpha and offset
-			gdl = menugfxRenderBgBlur(gdl, 0xffffff00 | alpha >> 1, -30, -30);
-			gdl = menugfxRenderBgBlur(gdl, 0xffffff00 | alpha >> 1, 30, 30);
-		}
-		break;
 	case MENUBG_BLACK:
 	case MENUBG_8:
 		{
@@ -7194,66 +7090,9 @@ Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 			gdl = text0f153838(gdl);
 		}
 		break;
-	case MENUBG_SUCCESS:
-		{
-			// Fill with black
-			gSPDisplayList(gdl++, var800613a0);
-			gdl = textSetPrimColour(gdl, 0x000000ff);
-			gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
-			gdl = text0f153838(gdl);
-
-			// Render the success BG
-			gdl = menugfxRenderBgSuccess(gdl);
-
-			// Render alpha black if fading in
-			{
-				u32 alpha = (1.0f - frac) * 255;
-
-				if (alpha) {
-					gSPDisplayList(gdl++, var800613a0);
-					gdl = textSetPrimColour(gdl, alpha);
-					gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
-					gdl = text0f153838(gdl);
-				}
-			}
-		}
-		break;
-	case MENUBG_FAILURE:
-		{
-			// Fill with white -> black while fading in
-			u32 stack;
-			u32 channel = (1.0f - frac) * 255;
-			gSPDisplayList(gdl++, var800613a0);
-			gdl = textSetPrimColour(gdl, channel << 24 | channel << 16 | channel << 8 | 0xff);
-			gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
-			gdl = text0f153838(gdl);
-
-			// Render the failure BG
-			gdl = menugfxRenderBgFailure(gdl);
-		}
-		break;
 	case MENUBG_CONEALPHA:
-		mainOverrideVariable("bblur", &bblur);
-
 		if (g_MenuData.screenshottimer) {
 			return gdl;
-		}
-
-		if (bblur) {
-			// Render the blurred background
-			gdl = menugfxRenderBgBlur(gdl, 0xffffffff, 0, 0);
-
-			// While fading, render red
-			if (frac < 1.0f) {
-				u32 alpha;
-				u32 stack;
-
-				gSPDisplayList(gdl++, var800613a0);
-				alpha = (1.0f - frac) * 255;
-				gdl = textSetPrimColour(gdl, 0xff000000 | alpha);
-				gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
-				gdl = text0f153838(gdl);
-			}
 		}
 		break;
 	case MENUBG_GRADIENT:
@@ -8312,64 +8151,7 @@ Gfx *menuRender(Gfx *gdl)
 		g_MenuData.unk5d5_05 = false;
 	}
 
-	if (IS8MB() && g_MenuData.unk5d4) {
-		bool removepiece = false;
-
-		gSPSetGeometryMode(gdl++, G_ZBUFFER);
-
-		// Everyone 1 in 100 frames on average, calculate a new X/Y for the hudpiece
-		// Note: unintentional 64-bit float comparison done here
-		if (RANDOMFRAC() < 0.01) {
-			g_MenuData.unk01c.unk538 = RANDOMFRAC() * 80.0f + -205.5f - 40.0f;
-			g_MenuData.unk01c.unk53c = RANDOMFRAC() * 80.0f + 244.7f - 40.0f;
-		}
-
-		var8009de98 = var8009de9c = 0;
-
-		if (g_MenuData.root == MENUROOT_MPSETUP) {
-			if (g_MenuData.count <= 0) {
-				removepiece = true;
-			}
-		}
-
-		if (g_MenuData.root != MENUROOT_MAINMENU
-				&& g_MenuData.root != MENUROOT_MPSETUP
-				&& g_MenuData.root != MENUROOT_FILEMGR
-				&& g_MenuData.root != MENUROOT_TRAINING) {
-			removepiece = true;
-		}
-
-		if (g_Menus[g_MpPlayerNum].curdialog == NULL) {
-			if (g_MenuData.root != MENUROOT_MPSETUP) {
-				removepiece = true;
-			}
-		}
-
-		if (removepiece) {
-			if (g_MenuData.unk01c.unk580 == 0) {
-				g_MenuData.unk01c.unk5b1_04 = true;
-				g_MenuData.unk01c.unk05e = 0;
-				g_MenuData.unk01c.unk05c = 0x40d;
-				g_MenuData.unk01c.unk580 = 1;
-			} else if (g_MenuData.unk01c.unk05e == 0) {
-				g_MenuData.unk01c.unk580 = 0;
-				g_MenuData.unk5d4 = 0;
-			}
-		}
-
-		mainOverrideVariable("usePiece", &usepiece);
-
-		if (usepiece) {
-			g_MenuData.unk5d5_03 = false;
-
-			gdl = menuRenderModels(gdl, &g_MenuData.unk01c, 1);
-			gSPClearGeometryMode(gdl++, G_ZBUFFER);
-
-			g_MenuData.unk5d5_03 = true;
-		}
-	} else {
-		var8009de98 = var8009de9c = 0;
-	}
+	var8009de98 = var8009de9c = 0;
 
 	if (g_MenuData.unk5d5_04) {
 		var8009de98 = g_MenuData.unk670;
@@ -8568,7 +8350,7 @@ Gfx *menuRender(Gfx *gdl)
 			}
 		}
 
-		if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) {
+		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			if (g_Vars.currentplayernum == 1) {
 				right = 15;
 			} else {
@@ -8586,7 +8368,7 @@ Gfx *menuRender(Gfx *gdl)
 			}
 		}
 
-		if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) {
+		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			if (g_Vars.currentplayernum == 1) {
 				x2 -= 10;
 			} else {

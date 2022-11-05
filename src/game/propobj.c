@@ -79,7 +79,6 @@ bool g_GasEnableDamage;
 s32 g_MaxWeaponSlots;
 s32 g_MaxHatSlots;
 s32 g_MaxAmmoCrates;
-s32 g_MaxDebrisSlots;
 s32 g_MaxProjectiles;
 s32 g_MaxEmbedments;
 struct weaponobj *g_WeaponSlots;
@@ -250,35 +249,6 @@ bool objCanPickupFromSafe(struct defaultobj *obj)
 	}
 
 	return true;
-}
-
-void objUpdateLinkedScenery(struct defaultobj *obj, struct prop *prop)
-{
-	if ((obj->hidden & OBJHFLAG_CONDITIONALSCENERY) && (obj->flags & OBJFLAG_INVINCIBLE) == 0) {
-		struct linksceneryobj *link = g_LinkedScenery;
-
-		while (link) {
-			if (link->trigger == obj) {
-				objCreateDebris(obj, prop);
-
-				link->trigger->flags2 |= OBJFLAG2_INVISIBLE;
-				link->trigger->hidden |= OBJHFLAG_REAPABLE;
-
-				if (link->unexp) {
-					link->unexp->flags2 |= OBJFLAG2_INVISIBLE;
-				}
-
-				if (link->exp) {
-					link->exp->flags2 &= ~OBJFLAG2_INVISIBLE;
-				}
-
-				objSetBlockedPathUnblocked(obj, true);
-				return;
-			}
-
-			link = link->next;
-		}
-	}
 }
 
 f32 objGetLocalXMin(struct modelrodata_bbox *bbox)
@@ -1678,126 +1648,6 @@ void objInitToggleNodes(struct defaultobj *obj)
 
 		rwdata = modelGetNodeRwData(model, node);
 		rwdata->toggle.visible = false;
-	}
-}
-
-void objCreateOneDebris(struct defaultobj *obj, s32 partindex, struct prop *prop)
-{
-	struct defaultobj *debris = debrisAllocate();
-
-	if (debris) {
-		struct defaultobj tmp = {
-			256,                    // extrascale
-			0,                      // hidden2
-			OBJTYPE_DEBRIS,         // type
-			0,                      // modelnum
-			-1,                     // pad
-			OBJFLAG_00000001,       // flags
-			0,                      // flags2
-			0,                      // flags3
-			NULL,                   // prop
-			NULL,                   // model
-			1, 0, 0,                // realrot
-			0, 1, 0,
-			0, 0, 1,
-			0,                      // hidden
-			NULL,                   // geo
-			NULL,                   // projectile
-			0,                      // damage
-			1000,                   // maxdamage
-			0xff, 0xff, 0xff, 0x00, // shadecol
-			0xff, 0xff, 0xff, 0x00, // nextcol
-			0x0fff,                 // floorcol
-			0,                      // tiles
-		};
-
-		struct modelnode *node;
-
-		*debris = tmp;
-		debris->modelnum = obj->modelnum;
-
-		if (objInitWithModelDef(debris, g_ModelStates[debris->modelnum].filedata)) {
-			propReparent(debris->prop, obj->prop);
-			objSetDropped(debris->prop, DROPTYPE_5);
-
-			if (debris->hidden & OBJHFLAG_PROJECTILE) {
-				f32 distance;
-				struct projectile *projectile = debris->projectile;
-				struct coord rot = {0, 0, 0};
-				struct coord dist;
-
-				dist.x = obj->prop->pos.x - prop->pos.x;
-				dist.y = 0.0f;
-				dist.z = obj->prop->pos.z - prop->pos.z;
-
-				distance = sqrtf(dist.f[0] * dist.f[0] + dist.f[2] * dist.f[2]);
-
-				if (distance > 0.0f) {
-					distance = 1.0f / distance;
-					dist.x *= distance;
-					dist.z *= distance;
-				} else {
-					dist.x = RANDOMFRAC() * 0.5f;
-					dist.z = RANDOMFRAC() * 0.5f;
-				}
-
-				projectile->speed.x = dist.x * 3.3333333f;
-				projectile->speed.y = RANDOMFRAC() * 6.6666665f;
-				projectile->speed.z = dist.z * 3.3333333f;
-
-#if PAL
-				rot.x = RANDOMFRAC() * 0.058895487f - 0.029447744f;
-				rot.y = RANDOMFRAC() * 0.058895487f - 0.029447744f;
-				rot.z = RANDOMFRAC() * 0.058895487f - 0.029447744f;
-#else
-				rot.x = RANDOMFRAC() * 0.04907957f - 0.024539785f;
-				rot.y = RANDOMFRAC() * 0.04907957f - 0.024539785f;
-				rot.z = RANDOMFRAC() * 0.04907957f - 0.024539785f;
-#endif
-
-				mtx4LoadRotation(&rot, &projectile->mtx);
-			}
-
-			debris->model->scale = obj->model->scale;
-
-			debris->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_BOUNCEIFSHOT | OBJFLAG_01000000;
-			debris->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000;
-			debris->flags3 |= OBJFLAG3_00000008;
-
-			node = modelGetPart(debris->model->filedata, MODELPART_BASIC_00C8);
-
-			{
-				struct modelrwdata_toggle *rodata;
-
-				if (node) {
-					rodata = modelGetNodeRwData(debris->model, node);
-					rodata->visible = false;
-				}
-
-				node = modelGetPart(debris->model->filedata, MODELPART_BASIC_00C9 + partindex);
-
-				if (node) {
-					rodata = modelGetNodeRwData(debris->model, node);
-					rodata->visible = true;
-				}
-			}
-		}
-	}
-}
-
-void objCreateDebris(struct defaultobj *obj, struct prop *prop)
-{
-	struct model *model = obj->model;
-	s32 i;
-
-	if (prop);
-
-	for (i = 0; i < 20; i++) {
-		if (modelGetPart(model->filedata, 201 + i) == NULL) {
-			break;
-		}
-
-		objCreateOneDebris(obj, i, prop);
 	}
 }
 
@@ -14121,10 +13971,6 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 				tvscreenSetCmdlist(&monitor->screens[2], g_TvCmdlist14);
 				tvscreenSetCmdlist(&monitor->screens[3], g_TvCmdlist14);
 			}
-		} else if (obj->type == OBJTYPE_GASBOTTLE) {
-			if (objGetDestroyedLevel(obj) == 1) {
-				gasReleaseFromPos(&obj->prop->pos);
-			}
 		} else if (obj->type == OBJTYPE_SHIELD) {
 			struct shieldobj *shield = (struct shieldobj *) obj;
 
@@ -15057,7 +14903,7 @@ void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty)
 
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
-		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
+		&& !(playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
 
 	switch (ammotype) {
 	case AMMOTYPE_CLOAK:
@@ -15300,7 +15146,7 @@ void ammotypeGetPickupMessage(char *dst, s32 ammotype, s32 qty)
 {
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
-		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
+		&& !(playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
 
 	*dst = '\0';
 
@@ -15485,7 +15331,7 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 {
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
-		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
+		&& !(playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
 	s32 textid;
 	bool plural = false;
 
@@ -15763,7 +15609,7 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 				if (text == NULL) {
 					s32 playercount = PLAYERCOUNT();
 
-					if (playercount <= 2 && !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))) {
+					if (playercount <= 2 && !(playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)) {
 						text = langGet(L_PROPOBJ_041); // "Picked up a shield."
 					} else {
 						text = langGet(L_PROPOBJ_042); // "A shield."
@@ -16284,41 +16130,6 @@ struct ammocrateobj *ammocrateAllocate(void)
 				&& g_AmmoCrates[i].base.prop->parent == NULL) {
 			objFreePermanently(&g_AmmoCrates[i].base, true);
 			return &g_AmmoCrates[i];
-		}
-	}
-
-	return NULL;
-}
-
-struct defaultobj *debrisAllocate(void)
-{
-	s32 i;
-
-	// Try to find an unused slot
-	for (i = 0; i < g_MaxDebrisSlots; i++) {
-		if (g_DebrisSlots[i].prop == NULL) {
-			return &g_DebrisSlots[i];
-		}
-	}
-
-	// Try to find one that's landed and offscreen
-	for (i = 0; i < g_MaxDebrisSlots; i++) {
-		if ((g_DebrisSlots[i].hidden & OBJHFLAG_PROJECTILE) == 0
-				&& (g_DebrisSlots[i].hidden2 & OBJH2FLAG_CANREGEN) == 0
-				&& g_DebrisSlots[i].prop->parent == NULL
-				&& (g_DebrisSlots[i].prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0) {
-			objFreePermanently(&g_DebrisSlots[i], true);
-			return &g_DebrisSlots[i];
-		}
-	}
-
-	// Same as above but onscreen
-	for (i = 0; i < g_MaxDebrisSlots; i++) {
-		if ((g_DebrisSlots[i].hidden & OBJHFLAG_PROJECTILE) == 0
-				&& (g_DebrisSlots[i].hidden2 & OBJH2FLAG_CANREGEN) == 0
-				&& g_DebrisSlots[i].prop->parent == NULL) {
-			objFreePermanently(&g_DebrisSlots[i], true);
-			return &g_DebrisSlots[i];
 		}
 	}
 
@@ -18813,241 +18624,8 @@ bool alarmIsActive(void)
 	return g_AlarmTimer > 0;
 }
 
-void gasReleaseFromPos(struct coord *pos)
-{
-	g_GasReleasing = true;
-	g_GasSoundTimer240 = 0;
-
-	g_GasPos.x = pos->x;
-	g_GasPos.y = pos->y;
-	g_GasPos.z = pos->z;
-
-	// Gas objects don't exist in PD, so this stage number was likely carried
-	// over from GoldenEye. It maps to GE's Egypt stage, which uses gas for a
-	// visual effect only.
-	if (mainGetStageNum() == STAGE_MP_G5BUILDING) {
-		g_GasReleaseTimerMax240 = 120;
-		g_GasEnableDamage = false;
-	} else {
-		g_GasReleaseTimerMax240 = 3600;
-		g_GasEnableDamage = true;
-	}
-}
-
-void gasStopAudio(void)
-{
-	if (g_GasAudioHandle && sndGetState(g_GasAudioHandle)) {
-		audioStop(g_GasAudioHandle);
-	}
-}
-
-void gasTick(void)
-{
-	u32 stack;
-
-	if (g_GasReleasing) {
-		g_GasReleaseTimer240 += g_Vars.lvupdate60freal;
-
-		if (g_GasReleaseTimer240 >= g_GasReleaseTimerMax240) {
-			g_GasReleaseTimer240 = g_GasReleaseTimerMax240;
-			g_GasReleasing = false;
-		}
-	}
-
-	if (g_GasReleaseTimer240 > 0 && !g_PlayerInvincible) {
-		envApplyTransitionFrac(g_GasReleaseTimer240 / g_GasReleaseTimerMax240);
-
-		if (g_GasEnableDamage) {
-			if (g_GasLastCough60 < g_Vars.lvframe60 - TICKS(225)) {
-				g_GasLastCough60 = g_Vars.lvframe60;
-
-				if (g_GasReleaseTimer240 >= 600) {
-					sndStart(var80095200, SFX_0037, 0, -1, -1, -1, -1, -1);
-				}
-
-				if (g_GasReleaseTimer240 >= 1800) {
-					struct coord dir = {0, 0, 0};
-
-					chrDamageByMisc(g_Vars.currentplayer->prop->chr, 0.125f, &dir, NULL, NULL);
-				}
-			}
-
-			if (g_GasSoundTimer240 < g_GasReleaseTimerMax240) {
-				s16 soundnum = -1;
-
-				g_GasSoundTimer240 += g_Vars.lvupdate60freal;
-
-				if (!g_GasAudioHandle && !lvIsPaused()) {
-					soundnum = SFX_0037;
-					sndStart(var80095200, soundnum, &g_GasAudioHandle, -1, -1, -1, -1, -1);
-				}
-
-				if (g_GasAudioHandle) {
-					func0f09505c(g_GasAudioHandle, &g_GasPos, 400, 2500, 3000, g_Vars.currentplayer->prop->rooms, soundnum, 0x7fff, 0);
-				}
-			} else if (g_GasAudioHandle && sndGetState(g_GasAudioHandle)) {
-				audioStop(g_GasAudioHandle);
-			}
-		}
-	}
-}
-
-bool countdownTimerIsVisible(void)
-{
-	return !g_CountdownTimerOff;
-}
-
-void countdownTimerTick(void)
-{
-	if (g_CountdownTimerRunning) {
-		g_CountdownTimerValue60 -= g_Vars.lvupdate60freal;
-	}
-}
-
-Gfx *countdownTimerRender(Gfx *gdl)
-{
-	s32 mins;
-	s32 secs;
-	s32 ms;
-	s32 y;
-
-	if (!g_CountdownTimerOff) {
-		f32 value60 = g_CountdownTimerValue60;
-		u32 stack;
-		s32 viewright = viGetViewLeft() + (viGetViewWidth() >> 1);
-		s32 y = viGetViewTop() + viGetViewHeight() - 18;
-		s32 playercount = PLAYERCOUNT();
-		char *fmt = ":\n";
-
-		if (playercount == 2) {
-			if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0)) {
-				y += 10;
-			} else {
-				y += 2;
-			}
-		} else if (playercount >= 3) {
-			if (g_Vars.currentplayernum <= 1) {
-				y += 10;
-			} else {
-				y += 2;
-			}
-		} else {
-			if (optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
-				y += 8;
-			}
-		}
-
-#if !PAL
-		if (g_ViRes == VIRES_HI) {
-			viewright = viewright / 2;
-		}
-#endif
-
-		if (value60 < 0) {
-			value60 = -value60;
-		}
-
-		mins = floorf(value60 * (1.0f / 3600.0f));
-		secs = (s32)floorf(value60 * (1.0f / 60.0f)) - mins * 60;
-		ms = (s32)floorf(value60 * 1.6666666269302f) - mins * 6000 - secs * 100;
-
-		gdl = text0f153628(gdl);
-		gdl = bgunDrawHudInteger(gdl, (mins % 100) / 10, viewright - 18, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, mins % 10, viewright - 14, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudString(gdl, fmt, viewright - 8, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, (secs % 60) / 10, viewright - 2, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, secs % 10, viewright + 2, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudString(gdl, fmt, viewright + 8, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, (ms % 100) / 10, viewright + 14, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, ms % 10, viewright + 18, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = text0f153780(gdl);
-	}
-
-	return gdl;
-}
-
-#if VERSION >= VERSION_NTSC_1_0
-void projectilesDebug(void)
-{
-	s32 i;
-
-	for (i = 0; i < g_MaxProjectiles; i++) {
-		if (g_Projectiles[i].flags) {
-			// empty
-		}
-	}
-
-	for (i = 0; i < g_MaxWeaponSlots; i++) {
-		if (g_WeaponSlots[i].weaponnum) {
-			// empty
-		}
-	}
-}
-#endif
-
-const char var7f1aa16c[] = "ALARM : PAN 1 = %d (%s%f)";
-const char var7f1aa188[] = "";
-const char var7f1aa18c[] = "ALARM : DIR 1 = %d";
-const char var7f1aa1a0[] = "ALARM : ADD 1 = %d (%s%f)";
-const char var7f1aa1bc[] = "";
-
 void alarmTick(void)
 {
-	if (alarmIsActive()) {
-		s16 sound;
-
-		// These sounds are alarm sounds.
-		// They go for a fraction of a second and are repeated by this function.
-		switch (g_Vars.stagenum) {
-		case STAGE_CHICAGO:      sound = SFX_ALARM_CHICAGO; break;
-		case STAGE_G5BUILDING:   sound = SFX_ALARM_2; break;
-		case STAGE_AIRBASE:      sound = SFX_ALARM_AIRBASE; break;
-		case STAGE_PELAGIC:      sound = SFX_ALARM_2; break;
-		case STAGE_ATTACKSHIP:   sound = SFX_ALARM_ATTACKSHIP; break;
-		case STAGE_INFILTRATION: sound = SFX_ALARM_INFILTRATION; break;
-		default:                 sound = SFX_ALARM_DEFAULT; break;
-		}
-
-		if (!lvIsPaused()) {
-			if (g_AlarmAudioHandle) {
-				// The sound is currently playing. Cycle between the left/right
-				// speaker for stereo or headphone mode.
-				f32 increment = g_Vars.lvupdate240 / 15.0f;
-
-				if (increment > 10) {
-					increment = 10;
-				}
-
-				g_AlarmSpeakerWeight += g_AlarmSpeakerDirection * increment;
-
-				if (g_AlarmSpeakerWeight < 30) {
-					g_AlarmSpeakerWeight = 30;
-					g_AlarmSpeakerDirection *= -1;
-				} else if (g_AlarmSpeakerWeight > 98) {
-					g_AlarmSpeakerWeight = 98;
-					g_AlarmSpeakerDirection *= -1;
-				}
-
-				sndAdjust(&g_AlarmAudioHandle, 0, 0x7fff, g_AlarmSpeakerWeight, -1, -1, 0, -1, 1);
-			} else {
-				// The alarm finished, or this is the first one.
-				// Start the sound again.
-				sndStart(var80095200, sound, &g_AlarmAudioHandle, -1, -1, -1, -1, -1);
-			}
-		}
-
-		g_AlarmTimer += g_Vars.lvupdate60;
-	}
-
-	// For G5, stop alarm after 55 seconds.
-	// For all other levels, stop alarm after 30 seconds.
-	if ((g_AlarmTimer > TICKS(1800) && mainGetStageNum() != STAGE_G5BUILDING)
-			|| (g_AlarmTimer > TICKS(3300) && mainGetStageNum() == STAGE_G5BUILDING)) {
-		alarmDeactivate();
-	}
-
-	gasTick();
-	countdownTimerTick();
 	chrsTriggerProxies();
 
 	g_PlayersDetonatingMines = 0;

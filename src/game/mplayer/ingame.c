@@ -775,19 +775,12 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 		menuPushRootDialog(&g_MpEndscreenIndGameOverMenuDialog, MENUROOT_MPENDSCREEN);
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
-#if VERSION >= VERSION_JPN_FINAL
-	if (IS8MB())
-#endif
-	{
-		if ((g_PlayerConfigsArray[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
-				&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.fileid == 0
-				&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.deviceserial == 0) {
-			g_PlayerConfigsArray[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
-			menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
-		}
+	if ((g_PlayerConfigsArray[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
+			&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.fileid == 0
+			&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.deviceserial == 0) {
+		g_PlayerConfigsArray[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
+		menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
 	}
-#endif
 
 	g_MpPlayerNum = prevplayernum;
 }

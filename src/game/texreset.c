@@ -89,7 +89,7 @@ void texReset(void)
 
 	stage = mainGetStageNum();
 
-	if (IS4MB() && stage != STAGE_TITLE && stage != STAGE_CITRAINING && stage != STAGE_4MBMENU) {
+	if (stage != STAGE_TITLE && stage != STAGE_4MBMENU) {
 		for (i = 0; i < ARRAYCOUNT(g_TcWallhitConfigs); i++) {
 			texLoadFromConfig(&g_TexWallhitConfigs[i]);
 		}

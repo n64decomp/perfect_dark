@@ -42,7 +42,6 @@
 	build/ROMID/game/botmgr.o (section); \
 	build/ROMID/game/botinvinit.o (section); \
 	build/ROMID/game/chrmgrstop.o (section); \
-	build/ROMID/game/propsstop.o (section); \
 	build/ROMID/game/propobjstop.o (section); \
 	build/ROMID/game/propsndstop.o (section); \
 	build/ROMID/game/explosionsstop.o (section); \

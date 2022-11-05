@@ -16,6 +16,8 @@
 #include "data.h"
 #include "types.h"
 
+#define NUM_CHANNELS 40
+
 #if VERSION < VERSION_NTSC_1_0
 const char var7f1a5720nb[] = "SND : Stop -> Prop=%x, Id=%d\n";
 #endif
@@ -93,7 +95,7 @@ bool func0f092610(struct prop *prop, s32 arg1)
 {
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < NUM_CHANNELS; i++) {
 		if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0
 				&& prop == g_AudioChannels[i].prop
 				&& (arg1 == g_AudioChannels[i].unk28 || arg1 == 1)) {
@@ -108,7 +110,7 @@ void func0f0926bc(struct prop *prop, s32 arg1, u16 arg2)
 {
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < NUM_CHANNELS; i++) {
 		struct audiochannel *channel = &g_AudioChannels[i];
 
 		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0 && channel->prop == prop) {
@@ -3649,35 +3651,16 @@ void propsndTickChannel(s32 channelnum)
 
 void propsndTick(void)
 {
-	static s32 g_PropsndMaxActiveChannels = 0;
 	s32 count = 0;
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < NUM_CHANNELS; i++) {
 		struct audiochannel *channel = &g_AudioChannels[i];
 
 		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0) {
 			propsndTickChannel(i);
 			count++;
-
-#if VERSION >= VERSION_NTSC_1_0
-			if (g_PropsndPrintChannels) {
-				propsndPrintChannel(&g_AudioChannels[i]);
-			}
-#endif
 		}
-	}
-
-#if VERSION >= VERSION_NTSC_1_0
-	if (g_PropsndPrintChannels) {
-		g_PropsndPrintChannels = false;
-	}
-
-	if (IS4MB());
-#endif
-
-	if (g_PropsndMaxActiveChannels < count) {
-		g_PropsndMaxActiveChannels = count;
 	}
 }
 
@@ -3689,7 +3672,7 @@ void func0f0938ec(struct prop *prop)
 	s32 bestindex = -1;
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < NUM_CHANNELS; i++) {
 		struct audiochannel *channel = &g_AudioChannels[i];
 
 		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0
@@ -3735,7 +3718,6 @@ s16 propsnd0f0939f8(
 	u32 stack[2];
 	s32 tmp;
 
-#if VERSION >= VERSION_NTSC_1_0
 	struct pad pad;
 	s32 i;
 	s32 j;
@@ -3751,7 +3733,7 @@ s16 propsnd0f0939f8(
 			return -1;
 		}
 
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
+		for (i = 8; i < NUM_CHANNELS; i++) {
 			if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) {
 				channel = &g_AudioChannels[i];
 				channel->channelnum = i;
@@ -3759,48 +3741,6 @@ s16 propsnd0f0939f8(
 			}
 		}
 	}
-#else
-	s32 t4 = -1;
-	struct pad pad;
-	s32 i;
-	s32 j;
-	s32 count = 0;
-
-	spac.packed = soundnum;
-
-	if (channel == NULL) {
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
-			if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) {
-				channel = &g_AudioChannels[i];
-				if (i);
-
-				if (arg7 != 16) {
-					channel->channelnum = i;
-				} else {
-					t4 = i;
-				}
-				break;
-			}
-
-			if (arg7 == 16) {
-				count++;
-			}
-		}
-	}
-
-	if (arg7 == 16) {
-		if (count >= 12) {
-			return -1;
-		}
-
-		if (t4 != -1) {
-			channel = &g_AudioChannels[t4];
-			channel->channelnum = t4;
-		} else {
-			return -1;
-		}
-	}
-#endif
 
 	if (padnum >= 0) {
 		padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
@@ -4005,7 +3945,7 @@ bool audioIsChannelIdle(s32 channelnum)
 	if (channelnum == 10) {
 		s32 i;
 
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
+		for (i = 8; i < NUM_CHANNELS; i++) {
 			if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_0080) {
 				return false;
 			}
@@ -4377,7 +4317,7 @@ s32 propsndGetDuration60(s32 channelnum)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 
-	if (channelnum >= 0 && channelnum < (IS4MB() ? 30 : 40)
+	if (channelnum >= 0 && channelnum < NUM_CHANNELS
 			&& (channel->flags & AUDIOCHANNELFLAG_IDLE) == 0
 			&& (channel->flags & AUDIOCHANNELFLAG_ISMP3)) {
 		union soundnumhack soundnum;

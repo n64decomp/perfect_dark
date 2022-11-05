@@ -744,10 +744,6 @@ void func0f002a98(void)
 	}
 
 	var80061420 = 0;
-
-	if (IS4MB()) {
-		var80061444 = 0;
-	}
 }
 
 void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4)

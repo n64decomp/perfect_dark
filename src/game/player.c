@@ -900,118 +900,21 @@ void playerTickChrBody(void)
 
 		weaponmodelnum = playermgrGetModelOfWeapon(weaponnum);
 
-		if (IS4MB()) {
-			bodynum = BODY_DARK_COMBAT;
-			headnum = HEAD_DARK_COMBAT;
+		if (g_HeadsAndBodies[bodynum].filedata == NULL) {
+			g_HeadsAndBodies[bodynum].filedata = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
 		}
 
-		if (!g_Vars.mplayerisrunning || (IS4MB() && PLAYERCOUNT() == 1)) {
-			// 1 player
-			if (g_Vars.currentplayer->gunmem2 == NULL) {
-				if (!var8009dfc0 && bgun0f09e004(2)) {
-					g_Vars.currentplayer->gunmem2 = bgunGetGunMem();
-				} else {
-					if (var8009dfc0);
+		bodyfiledata = g_HeadsAndBodies[bodynum].filedata;
 
-					g_Vars.currentplayer->haschrbody = false;
-
-					if (!var8009dfc0) {
-						g_Vars.lockscreen = true;
-					}
-					return;
-				}
-			}
-
-			offset1 = 0;
-			var8007fc0c = 8;
-			osSyncPrintf("Gunmem: 0x%08x\n", bgunGetGunMem());
-
-			allocation = g_Vars.currentplayer->gunmem2;
-			model = (struct model *)(allocation + offset1);
-			osSyncPrintf("Gunmem: bondsub 0x%08x\n", (u32)model);
-			offset1 += ALIGN64(sizeof(struct model));
-
-			model->anim = (struct anim *)(allocation + offset1);
-			osSyncPrintf("Gunmem: bondsub->anim 0x%08x\n", model->anim);
-			offset1 += sizeof(struct anim);
-			offset1 = ALIGN64(offset1);
-
-			rwdatas = (union modelrwdata **)(allocation + offset1);
-			osSyncPrintf("Gunmem: savedata 0x%08x\n", (u32)rwdatas);
-			offset1 += 0x400;
-			offset1 = ALIGN64(offset1);
-
-			weaponobj = (struct weaponobj *)(allocation + offset1);
-			osSyncPrintf("Gunmem: wo 0x%08x\n", (u32)weaponobj);
-			offset1 += sizeof(struct weaponobj);
-			offset1 = ALIGN64(offset1);
-
-			offset2 = offset1 + ALIGN64(fileGetInflatedSize(g_HeadsAndBodies[bodynum].filenum));
-
-			if (headnum >= 0) {
-				offset2 += ALIGN64(fileGetInflatedSize(g_HeadsAndBodies[headnum].filenum));
-			}
-
-			if (weaponmodelnum >= 0) {
-				offset2 += ALIGN64(fileGetInflatedSize(g_ModelStates[weaponmodelnum].fileid));
-			}
-
-			offset2 += 0x4000;
-			bgunCalculateGunMemCapacity();
-			spe8 = g_Vars.currentplayer->gunmem2 + offset2;
-			texInitPool(&texpool, spe8, bgunCalculateGunMemCapacity() - offset2);
-			bodyfiledata = modeldefLoad(g_HeadsAndBodies[bodynum].filenum, allocation + offset1, offset2 - offset1, &texpool);
-			offset1 = ALIGN64(fileGetLoadedSize(g_HeadsAndBodies[bodynum].filenum) + offset1);
-
-			if (headnum >= 0) {
-				headfiledata = modeldefLoad(g_HeadsAndBodies[headnum].filenum, allocation + offset1, offset2 - offset1, &texpool);
-				offset1 = ALIGN64(fileGetLoadedSize(g_HeadsAndBodies[headnum].filenum) + offset1);
-			}
-
-			modelCalculateRwDataLen(bodyfiledata);
-
-			if (headfiledata != NULL) {
-				modelCalculateRwDataLen(headfiledata);
-			}
-
-			modelInit(model, bodyfiledata, rwdatas, false);
-			animInit(model->anim);
-
-			model->rwdatalen = 256;
-
-			texGetPoolLeftPos(&texpool);
-
-			// @TODO: Figure out these arguments
-			osSyncPrintf("Jo using %d bytes gunmem (gunmemsize %d)\n");
-			osSyncPrintf("Gunmem: bondmeml 0x%08x size 0x%08x\n", bgunGetGunMem(), bgunCalculateGunMemCapacity());
-			osSyncPrintf("Gunmem: tex block free 0x%08x\n");
-			osSyncPrintf("Gunmem: Free at end %d\n");
-
-			texGetPoolLeftPos(&texpool);
+		if (g_HeadsAndBodies[bodynum].unk00_01) {
+			headnum = -1;
+		} else if (sp60) {
+			headfiledata = func0f18e57c(headnum, &headnum);
 		} else {
-			// 2-4 players
-			if (g_HeadsAndBodies[bodynum].filedata == NULL) {
-				g_HeadsAndBodies[bodynum].filedata = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
-			}
-
-			bodyfiledata = g_HeadsAndBodies[bodynum].filedata;
-
-			if (g_HeadsAndBodies[bodynum].unk00_01) {
-				headnum = -1;
-			} else if (sp60) {
-				headfiledata = func0f18e57c(headnum, &headnum);
-			} else if (g_Vars.normmplayerisrunning && IS8MB()) {
-				g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
-				headfiledata = g_HeadsAndBodies[headnum].filedata;
-				g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;
-				bodyCalculateHeadOffset(headfiledata, headnum, bodynum);
-			} else {
-				if (g_HeadsAndBodies[headnum].filedata == NULL) {
-					g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
-				}
-
-				headfiledata = g_HeadsAndBodies[headnum].filedata;
-			}
+			g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
+			headfiledata = g_HeadsAndBodies[headnum].filedata;
+			g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;
+			bodyCalculateHeadOffset(headfiledata, headnum, bodynum);
 		}
 
 		g_Vars.currentplayer->model00d4 = body0f02ce8c(bodynum, headnum, bodyfiledata, headfiledata, false, model, true, true);
@@ -1076,20 +979,6 @@ void playerTickChrBody(void)
 			modelSetRootPosition(g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos);
 			chrSetLookAngle(g_Vars.currentplayer->prop->chr, turnangle);
 			bmoveUpdateRooms(g_Vars.currentplayer);
-		}
-	}
-}
-
-void playerRemoveChrBody(void)
-{
-	if (g_Vars.currentplayer->haschrbody) {
-		if (!g_Vars.mplayerisrunning || (IS4MB() && PLAYERCOUNT() == 1)) {
-			g_Vars.currentplayer->haschrbody = false;
-			chrRemove(g_Vars.currentplayer->prop, false);
-			g_Vars.currentplayer->model00d4 = NULL;
-			bmoveUpdateRooms(g_Vars.currentplayer);
-			bgunFreeGunMem();
-			g_Vars.currentplayer->gunmem2 = NULL;
 		}
 	}
 }
@@ -1400,9 +1289,6 @@ void playerStopAudioForPause(void)
 {
 	struct hand *hand;
 	s32 i;
-
-	alarmStopAudio();
-	gasStopAudio();
 
 	for (i = 0; i < 2; i++) {
 		hand = &g_Vars.currentplayer->hands[i];
@@ -1960,30 +1846,6 @@ void playerTickExplode(void)
 	}
 }
 
-void playerResetLoResIf4Mb(void)
-{
-	if (IS4MB()) {
-#if VERSION >= VERSION_PAL_BETA
-		g_ViModes[VIRES_LO].fbwidth = 320;
-		g_ViModes[VIRES_LO].fbheight = 220;
-		g_ViModes[VIRES_LO].width = 320;
-		g_ViModes[VIRES_LO].yscale = 1;
-		g_ViModes[VIRES_LO].xscale = 1;
-		g_ViModes[VIRES_LO].fullheight = 220;
-		g_ViModes[VIRES_LO].fulltop = 0;
-#else
-		g_ViModes[VIRES_LO].fbheight = 220;
-		g_ViModes[VIRES_LO].fulltop = 0;
-		g_ViModes[VIRES_LO].fullheight = 220;
-#endif
-
-		g_ViModes[VIRES_LO].wideheight = 180;
-		g_ViModes[VIRES_LO].widetop = 20;
-		g_ViModes[VIRES_LO].cinemaheight = 136;
-		g_ViModes[VIRES_LO].cinematop = 42;
-	}
-}
-
 void playerSetHiResEnabled(bool enable)
 {
 	g_HiResEnabled = enable;
@@ -2078,16 +1940,12 @@ s16 playerGetViewportHeight(void)
 	if (PLAYERCOUNT() >= 2) {
 		s16 tmp = g_ViModes[g_ViRes].fullheight;
 
-		if (IS4MB() && !g_Vars.fourmeg2player) {
-			height = tmp;
-		} else {
-			height = tmp / 2;
-		}
+		height = tmp / 2;
 
 		if (PLAYERCOUNT() == 2) {
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 				height = tmp;
-			} else if (g_Vars.currentplayernum == 0 && IS8MB()) {
+			} else if (g_Vars.currentplayernum == 0) {
 				height--;
 			}
 		} else if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 1) {
@@ -3001,8 +2859,6 @@ void playerTick(bool arg0)
 		struct chrdata *chr;
 		s32 i;
 
-		playerRemoveChrBody();
-
 		if (g_PlayersWithControl[g_Vars.currentplayernum]) {
 			bmoveTick(1, 1, arg0, 0);
 		} else {
@@ -3025,129 +2881,11 @@ void playerTick(bool arg0)
 				&g_Vars.currentplayer->bond2.unk1c,
 				&g_Vars.currentplayer->prop->pos,
 				g_Vars.currentplayer->prop->rooms);
-	} else if (g_Vars.tickmode == TICKMODE_GE_FADEIN || g_Vars.tickmode == TICKMODE_GE_FADEOUT) {
-		playerRemoveChrBody();
-		bmoveTick(1, 1, arg0, 0);
-		playerUpdateShake();
-		playerSetCameraMode(CAMERAMODE_DEFAULT);
-		player0f0c1840(&g_Vars.currentplayer->bond2.unk10,
-				&g_Vars.currentplayer->bond2.unk28,
-				&g_Vars.currentplayer->bond2.unk1c,
-				&g_Vars.currentplayer->prop->pos,
-				g_Vars.currentplayer->prop->rooms);
 	} else if (g_Vars.tickmode == TICKMODE_MPSWIRL) {
 		// Start of an MP match where the camera circles around the player
 		playerTickChrBody();
 		bmoveTick(0, 0, 0, 1);
 		playerTickMpSwirl();
-	} else if (g_Vars.tickmode == TICKMODE_WARP) {
-		// Eg. In CI training, warping from device hallways
-		// to device room at the end of a training session
-		playerTickChrBody();
-		bmoveTick(0, 0, 0, 1);
-		playerExecutePreparedWarp();
-	} else if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
-		// Extraction bodyguard room and Duel
-		f32 targetangle;
-		f32 autodist;
-		f32 oldangle;
-		f32 xdist;
-		f32 zdist;
-		f32 diffangle;
-		f32 direction;
-		struct pad pad;
-		f32 speedfrac;
-
-		playerRemoveChrBody();
-		padUnpack(g_Vars.currentplayer->autocontrol_aimpad, PADFIELD_POS, &pad);
-
-		if (mainGetStageNum() == g_Stages[STAGEINDEX_EXTRACTION].id
-				&& g_Vars.currentplayer->autocontrol_aimpad == 0x19) {
-			pad.pos.x -= 100;
-		}
-
-		xdist = pad.pos.x - g_Vars.currentplayer->bond2.unk10.x;
-		zdist = pad.pos.z - g_Vars.currentplayer->bond2.unk10.z;
-		targetangle = atan2f(xdist, zdist);
-
-		if (targetangle > M_BADTAU) {
-			targetangle -= M_BADTAU;
-		}
-
-		if (targetangle < 0) {
-			targetangle += M_BADTAU;
-		}
-
-		oldangle = atan2f(g_Vars.currentplayer->bond2.unk00.x, g_Vars.currentplayer->bond2.unk00.z);
-
-		if (oldangle > M_BADTAU) {
-			oldangle -= M_BADTAU;
-		}
-
-		if (oldangle < 0) {
-			oldangle += M_BADTAU;
-		}
-
-		diffangle = oldangle - targetangle;
-
-		if (diffangle > M_PI) {
-			diffangle -= M_BADTAU;
-		}
-
-		if (diffangle < -M_PI) {
-			diffangle += M_BADTAU;
-		}
-
-		direction = (diffangle / M_PI < 0) ? -1 : 1;
-
-		g_Vars.currentplayer->autocontrol_x = (f32)direction * g_Vars.currentplayer->autocontrol_turnspeed;
-
-		if (!(diffangle < -0.09f || diffangle > 0.09f)) {
-			// Facing the target
-			g_Vars.currentplayer->autocontrol_x = 0;
-
-			if (g_Vars.currentplayer->autocontrol_walkspeed == 0) {
-				g_Vars.currentplayer->autocontrol_turnspeed = 0;
-			}
-		}
-
-		if (g_Vars.currentplayer->vv_verta <= 30) {
-			g_Vars.currentplayer->vv_verta += g_Vars.currentplayer->autocontrol_lookup / 360.0f * M_BADTAU;
-		}
-
-		if (g_Vars.currentplayer->autocontrol_walkspeed) {
-			xdist = sqrtf(xdist * xdist + zdist * zdist);
-
-			if (xdist < g_Vars.currentplayer->autocontrol_dist) {
-				playerSetTickMode(TICKMODE_NORMAL);
-			}
-		} else {
-			if (diffangle >= -0.2f && diffangle <= 0.2f) {
-				playerSetTickMode(TICKMODE_NORMAL);
-			}
-		}
-
-		autodist = g_Vars.currentplayer->autocontrol_dist;
-
-		speedfrac = 1;
-
-		if (xdist < autodist + autodist) {
-			if (xdist < autodist) {
-				speedfrac = 0;
-			} else {
-				speedfrac = 0.5f + (xdist - autodist) / autodist * 0.5f;
-			}
-		}
-
-		g_Vars.currentplayer->autocontrol_y = g_Vars.currentplayer->autocontrol_walkspeed * speedfrac;
-		bmoveTick(1, 1, 0, 1);
-		playerUpdateShake();
-		playerSetCameraMode(CAMERAMODE_DEFAULT);
-		player0f0c1840(&g_Vars.currentplayer->bond2.unk10,
-				&g_Vars.currentplayer->bond2.unk28,
-				&g_Vars.currentplayer->bond2.unk1c,
-				&g_Vars.currentplayer->prop->pos,
-				g_Vars.currentplayer->prop->rooms);
 	}
 
 #if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA

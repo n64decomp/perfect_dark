@@ -180,17 +180,13 @@ void propsReset(void)
 	}
 
 	g_MaxWeaponSlots = 50;
-	g_MaxHatSlots = 10;
 	g_MaxAmmoCrates = 20;
-	g_MaxDebrisSlots = 15;
-	g_MaxProjectiles = IS4MB() ? 20 : 100;
-	g_MaxEmbedments = IS4MB() ? 40 : 80;
+	g_MaxProjectiles = 20;
+	g_MaxEmbedments = 40;
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
 		g_MaxWeaponSlots = 0;
-		g_MaxHatSlots = 0;
 		g_MaxAmmoCrates = 0;
-		g_MaxDebrisSlots = 0;
 		g_MaxProjectiles = 0;
 		g_MaxEmbedments = 0;
 	}
@@ -230,18 +226,6 @@ void propsReset(void)
 		g_NextWeaponSlot = 0;
 	}
 
-	if (g_MaxHatSlots == 0) {
-		g_HatSlots = NULL;
-	} else {
-		g_HatSlots = mempAlloc(ALIGN16(g_MaxHatSlots * sizeof(struct hatobj)), MEMPOOL_STAGE);
-
-		for (i = 0; i < g_MaxHatSlots; i++) {
-			g_HatSlots[i].base.prop = NULL;
-		}
-
-		g_NextHatSlot = 0;
-	}
-
 	if (g_MaxAmmoCrates == 0) {
 		g_AmmoCrates = NULL;
 	} else {
@@ -249,16 +233,6 @@ void propsReset(void)
 
 		for (i = 0; i < g_MaxAmmoCrates; i++) {
 			g_AmmoCrates[i].base.prop = NULL;
-		}
-	}
-
-	if (g_MaxDebrisSlots == 0) {
-		g_DebrisSlots = NULL;
-	} else {
-		g_DebrisSlots = mempAlloc(ALIGN16(g_MaxDebrisSlots * sizeof(struct defaultobj)), MEMPOOL_STAGE);
-
-		for (i = 0; i < g_MaxDebrisSlots; i++) {
-			g_DebrisSlots[i].prop = NULL;
 		}
 	}
 
@@ -1232,13 +1206,7 @@ void setupLoadFiles(s32 stagenum)
 		modelmgrAllocateSlots(0, 0);
 	}
 
-	if (IS4MB()) {
-		extra = 40;
-	} else {
-		extra = 60;
-	}
-
-	if (IS4MB());
+	extra = 40;
 
 	g_Vars.maxprops = numobjs + numchrs + extra + 40;
 }

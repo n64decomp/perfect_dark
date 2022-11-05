@@ -167,18 +167,10 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 					bodyfiledata->rwdatalen += headfiledata->rwdatalen;
 				} else if (headnum > 0) {
 					if (headfiledata == NULL) {
-						if (g_Vars.normmplayerisrunning && !IS4MB()) {
-							headfiledata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
-							g_HeadsAndBodies[headnum].filedata = headfiledata;
-							g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;
-							bodyCalculateHeadOffset(headfiledata, headnum, bodynum);
-						} else {
-							if (g_HeadsAndBodies[headnum].filedata == NULL) {
-								g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
-							}
-
-							headfiledata = g_HeadsAndBodies[headnum].filedata;
-						}
+						headfiledata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
+						g_HeadsAndBodies[headnum].filedata = headfiledata;
+						g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;
+						bodyCalculateHeadOffset(headfiledata, headnum, bodynum);
 					}
 
 					modelCalculateRwDataLen(headfiledata);

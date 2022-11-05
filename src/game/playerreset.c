@@ -46,7 +46,6 @@ void playerReset(void)
 	s32 bodynum;
 	s32 headnum;
 
-	playerResetLoResIf4Mb();
 	func0f18e558();
 
 	var8007072c = 1;

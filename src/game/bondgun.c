@@ -1337,10 +1337,7 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 		hand->shotremainder = 0;
 
 		if (bgunIsReadyToSwitch(handnum) && bgunSetState(handnum, HANDSTATE_CHANGEGUN)) {
-			if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-				playermgrDeleteWeapon(handnum);
-			}
-
+			playermgrDeleteWeapon(handnum);
 			bgunFreeHeldRocket(handnum);
 
 			hand->mode = HANDMODE_6;
@@ -2802,10 +2799,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 
 		if (hand->stateframes >= delay) {
 			if (!somebool) {
-				if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-					playermgrDeleteWeapon(handnum);
-				}
-
+				playermgrDeleteWeapon(handnum);
 				bgunFreeHeldRocket(handnum);
 				hand->mode = HANDMODE_6;
 				hand->stateminor++;
@@ -2871,10 +2865,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 		}
 
 		if (hand->count == 0) {
-			if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-				playermgrCreateWeapon(handnum);
-			}
-
+			playermgrCreateWeapon(handnum);
 			bgun0f098f8c(info, hand);
 
 			if (weaponHasFlag(info->weaponnum, WEAPONFLAG_THROWABLE)
@@ -3602,7 +3593,6 @@ bool bgun0f09e004(s32 newowner)
 
 			if (newowner == GUNMEMOWNER_INVMENU && var8009dfc0 != 0) {
 				unlock = true;
-				playerRemoveChrBody();
 			}
 			break;
 		case GUNMEMOWNER_3:
@@ -5243,9 +5233,7 @@ void bgunFreeWeapon(s32 handnum)
 		}
 	}
 
-	if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-		playermgrDeleteWeapon(handnum);
-	}
+	playermgrDeleteWeapon(handnum);
 
 	bgunFreeHeldRocket(handnum);
 }
@@ -7376,7 +7364,7 @@ void bgun0f0a5550(s32 handnum)
 
 	mtx4LoadIdentity(&sp234);
 
-	if (PLAYERCOUNT() == 1 && IS8MB() && weaponHasFlag(weaponnum, WEAPONFLAG_GANGSTA)) {
+	if (PLAYERCOUNT() == 1 && weaponHasFlag(weaponnum, WEAPONFLAG_GANGSTA)) {
 		bgunUpdateGangsta(hand, handnum, &sp274, funcdef, &sp284, &sp234);
 	}
 
@@ -7756,7 +7744,7 @@ void bgun0f0a5550(s32 handnum)
 		bgunCreateFx(hand, handnum, funcdef, weaponnum, modeldef, mtxallocation);
 	}
 
-	if (PLAYERCOUNT() == 1 && IS8MB() && g_Vars.lvupdate240 != 0) {
+	if (PLAYERCOUNT() == 1 && g_Vars.lvupdate240 != 0) {
 		bgunUpdateSmoke(hand, handnum, weaponnum, funcdef);
 	}
 
@@ -7764,7 +7752,7 @@ void bgun0f0a5550(s32 handnum)
 		bgunTickEject(hand, modeldef, isdetonator);
 	}
 
-	if (PLAYERCOUNT() == 1 && IS8MB() && hand->visible
+	if (PLAYERCOUNT() == 1 && hand->visible
 			&& weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_FALCON2_SCOPE) {
 		bgunUpdateLasersight(hand, modeldef, handnum, mtxallocation);
 	} else {
@@ -7861,12 +7849,6 @@ void bgunTickGameplay2(void)
 	struct hand *hand;
 	u32 stack[3];
 	s32 i;
-
-#if VERSION >= VERSION_NTSC_1_0
-	if (g_Vars.currentplayernum == 0) {
-		projectilesDebug();
-	}
-#endif
 
 	if (player->gunctrl.unk1583_06) {
 		// empty
@@ -10624,7 +10606,7 @@ void bgunRender(Gfx **gdlptr)
 		gdl = vi0000b0e8(gdl, 60, f2);
 	}
 
-	if (PLAYERCOUNT() == 1 && IS8MB()) {
+	if (PLAYERCOUNT() == 1) {
 		gdl = lasersightRenderBeam(gdl);
 	}
 

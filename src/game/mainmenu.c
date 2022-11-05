@@ -383,11 +383,6 @@ s32 menuhandlerAlternativeTitle(s32 operation, struct menuitem *item, union hand
 s32 menuhandlerHiRes(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_CHECKHIDDEN:
-		if (IS4MB()) {
-			return true;
-		}
-		break;
 	case MENUOP_GET:
 		return g_HiResEnabled == true;
 	case MENUOP_SET:

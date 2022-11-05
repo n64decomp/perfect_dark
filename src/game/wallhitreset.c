@@ -29,43 +29,17 @@ f32 g_WallhitTargetBloodRatio;
  */
 void wallhitReset(void)
 {
-	s32 stack;
-	s32 type = 2;
 	s32 i;
 
-	if (IS4MB()) {
-		type = 0;
-	} else if (PLAYERCOUNT() >= 2) {
-		type = 0;
-	}
-
-	switch (type) {
-	case 0:
-		// 4MB or MP with 2+ players
-		g_WallhitsMax = 80;
-		g_MinPropWallhits = 10;
-		g_MaxPropWallhits = 40;
-		g_MinBgWallhitsPerRoom = 1;
-		g_MaxBgWallhitsPerRoom = 25;
-		var8009cc6c = 20;
-		var8009cc70 = 5;
-		var8009cc74 = 15;
-		g_WallhitTargetBloodRatio = 0.3f;
-		break;
-	case 2:
-	default:
-		// 1 player 8MB
-		g_WallhitsMax = 360;
-		g_MinPropWallhits = 50;
-		g_MaxPropWallhits = 120;
-		g_MinBgWallhitsPerRoom = 10;
-		g_MaxBgWallhitsPerRoom = 60;
-		var8009cc6c = 180;
-		var8009cc70 = 25;
-		var8009cc74 = 40;
-		g_WallhitTargetBloodRatio = 0.5f;
-		break;
-	}
+	g_WallhitsMax = 80;
+	g_MinPropWallhits = 10;
+	g_MaxPropWallhits = 40;
+	g_MinBgWallhitsPerRoom = 1;
+	g_MaxBgWallhitsPerRoom = 25;
+	var8009cc6c = 20;
+	var8009cc70 = 5;
+	var8009cc74 = 15;
+	g_WallhitTargetBloodRatio = 0.3f;
 
 	g_WallhitCountsPerRoom = NULL;
 	var8009cc48 = 0;

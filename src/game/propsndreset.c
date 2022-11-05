@@ -5,13 +5,15 @@
 #include "data.h"
 #include "types.h"
 
+#define NUM_CHANNELS 40
+
 void propsndReset(void)
 {
 	s32 i;
 
-	g_AudioChannels = mempAlloc(ALIGN16((IS4MB() ? 30 : 40) * sizeof(struct audiochannel)), MEMPOOL_STAGE);
+	g_AudioChannels = mempAlloc(ALIGN16(NUM_CHANNELS * sizeof(struct audiochannel)), MEMPOOL_STAGE);
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < NUM_CHANNELS; i++) {
 		g_AudioChannels[i].flags = AUDIOCHANNELFLAG_IDLE;
 		g_AudioChannels[i].audiohandle = NULL;
 		g_AudioChannels[i].unk4c = -1;

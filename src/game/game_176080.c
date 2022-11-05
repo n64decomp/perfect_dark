@@ -30,29 +30,19 @@ void mblurReset(s32 stagenum)
 	var800844f0 = 0;
 	var800844f4 = 0;
 
-	if (stagenum != STAGE_TITLE) {
+	if (stagenum != STAGE_TITLE && stagenum != STAGE_4MBMENU) {
 		mblurAllocate();
 	}
 }
 
 void mblurAllocate(void)
 {
-	if (IS4MB()) {
+	if (g_ViRes == VIRES_LO) {
 		var800ab7c0 = 320;
-
-		if (g_Vars.normmplayerisrunning && PLAYERCOUNT() >= 2) {
-			var800ab7c4 = 110;
-		} else {
-			var800ab7c4 = 220;
-		}
+		var800ab7c4 = 220;
 	} else {
 		var800ab7c0 = 640;
-
-		if (g_Vars.normmplayerisrunning && PLAYERCOUNT() >= 2) {
-			var800ab7c4 = 220;
-		} else {
-			var800ab7c4 = 220;
-		}
+		var800ab7c4 = 220;
 	}
 
 	var800844f0 = mempAlloc(var800ab7c0 * var800ab7c4 * 2 + 0x40, MEMPOOL_STAGE);
@@ -70,11 +60,10 @@ Gfx *mblur0f1762ac(Gfx *gdl)
 	u32 subamount;
 	u32 addr;
 
-	if (g_Vars.normmplayerisrunning
-			&& (g_Vars.currentplayernum >= 2 || (PLAYERCOUNT() == 2 && g_Vars.currentplayernum == 1))) {
+	if (g_Vars.currentplayernum >= 2 || (PLAYERCOUNT() == 2 && g_Vars.currentplayernum == 1)) {
 		subamount = playerGetFbWidth() * playerGetFbHeight();
 
-		if (IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			subamount = 0;
 		}
 	} else {

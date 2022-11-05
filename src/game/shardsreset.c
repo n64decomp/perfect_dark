@@ -9,11 +9,7 @@ void shardsReset(void)
 {
 	s32 i;
 
-	g_MaxShards = 200 / PLAYERCOUNT();
-
-	if (IS4MB()) {
-		g_MaxShards = g_MaxShards / 2;
-	}
+	g_MaxShards = 200 / PLAYERCOUNT() / 2;
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
 		g_MaxShards = 0;

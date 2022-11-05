@@ -830,9 +830,6 @@ void explosionInflictDamage(struct prop *expprop)
 						minfrac = (minfrac * 0.7f + 0.3f) * type->damage;
 
 						if (isfirstframe) {
-							// Unblock path if this object is a path blocker
-							objUpdateLinkedScenery(obj, expprop);
-
 							// Damage the object
 							if ((obj->hidden & OBJHFLAG_00001000) == 0
 									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_00200000)) == 0) {

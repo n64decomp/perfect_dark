@@ -108,23 +108,6 @@ f32 menuGetCosOscFrac(f32 freq)
 }
 
 /**
- * Return a float that represents a linear frac, based on a global timer.
- *
- * A full interval goes from 0 to 1 at a constant speed,
- * then snaps back to 0 for the next interval.
- *
- * freq is the amount of intervals per 20 seconds.
- */
-f32 menuGetLinearIntervalFrac(f32 freq)
-{
-	f32 tmp = g_20SecIntervalFrac * freq;
-
-	tmp -= (s32)tmp;
-
-	return tmp;
-}
-
-/**
  * Return a float that oscillates between 0 and 1, with a pause at each end.
  *
  * frac 0.00 to 0.25 -> result will be a scale from 0 to 1

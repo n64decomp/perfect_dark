@@ -1821,7 +1821,6 @@ void lvStop(void)
 	explosionsStop();
 	smokeStop();
 	shardsStop();
-	propsStop();
 	objsStop();
 	bgunStop();
 	propsndStop();

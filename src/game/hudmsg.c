@@ -97,88 +97,6 @@ s32 hudmsgIsZoomRangeVisible(void)
  */
 extern s32 viGetHeight_hack(void);
 
-Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
-{
-	s32 x;
-	s32 y;
-	s32 viewleft;
-	s32 timery;
-	char buffer[24];
-	u32 textcolour;
-	s32 is4mb;
-	s32 playercount;
-	s32 playernum;
-	s16 viewtop;
-	s16 viewheight;
-
-	textcolour = alpha;
-
-	viewleft = viGetViewLeft() / g_ScaleX;
-	viewtop = viGetViewTop();
-	viewheight = viGetViewHeight();
-	playercount = PLAYERCOUNT();
-	playernum = g_Vars.currentplayernum;
-
-	timery = viewheight;
-	timery += viewtop;
-	timery -= g_HudPaddingY;
-	timery -= 8;
-
-	is4mb = IS4MB();
-
-	// @bug: There is no check for playercount >= 2 in the next two statements.
-	// Because of this, in 1 player the timer is drawn out of place when the
-	// screen split option is vertical and either the countdown timer is visible
-	// or a zoomable weapon is in use.
-	if ((is4mb || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) && countdownTimerIsVisible()) {
-		timery -= 8;
-	}
-
-	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3) && hudmsgIsZoomRangeVisible()) {
-		timery -= 8;
-	}
-
-	if (playercount == 2) {
-		if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0)) {
-			timery += 10;
-		} else {
-			timery += 2;
-		}
-	} else if (playercount >= 3) {
-		if (playernum < 2) {
-			timery += 10;
-		} else {
-			timery += 2;
-		}
-	} else {
-		if (optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
-			timery += 8;
-		}
-	}
-
-	// If this is a second player with their viewport on the right side of the
-	// screen, move the timer left a bit as the safe zone doesn't need to be
-	// considered.
-	if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 1) {
-		viewleft -= 14;
-	} else if (playercount >= 3 && (playernum & 1) == 1) {
-		viewleft -= 14;
-	}
-
-	textcolour = textcolour * 160 / 255;
-	if (g_Is4Mb);
-	textcolour |= 0x00ff0000;
-
-	formatTime(buffer, playerGetMissionTime(), TIMEPRECISION_HUNDREDTHS);
-
-	x = viewleft + g_HudPaddingX + 3;
-	y = timery;
-
-	gdl = textRender(gdl, &x, &y, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, viGetWidth(), viGetHeight_hack(), 0, 0);
-
-	return gdl;
-}
-
 Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 {
 	s32 viewtop;
@@ -213,12 +131,8 @@ Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 
 	texty -= 17;
 
-	if (countdownTimerIsVisible()) {
-		texty -= 8;
-	}
-
 	if (playercount == 2) {
-		if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0)) {
+		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0) {
 			texty += 10;
 		} else {
 			texty += 2;
@@ -715,7 +629,7 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 		}
 	}
 
-	if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) {
+	if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 		viewwidth -= offset;
 
 		if (g_Vars.currentplayernum == 0) {
@@ -733,19 +647,11 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 
 		x = viewleft + v0 + msg->xmargin + 3;
 
-		if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) {
-			if (IS4MB()) {
-				if (msg->playernum == 0) {
-					x--;
-				} else if (msg->playernum == 1) {
-					x -= 16;
-				}
-			} else {
-				if (msg->playernum == 0) {
-					x += 15;
-				} else if (msg->playernum == 1) {
-					x += 4;
-				}
+		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			if (msg->playernum == 0) {
+				x += 15;
+			} else if (msg->playernum == 1) {
+				x += 4;
 			}
 		} else if (PLAYERCOUNT() >= 3) {
 			if ((msg->playernum % 2) == 0) {
@@ -777,7 +683,7 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 		y = viewtop + viewheight - msg->height - msg->ymargin - 14;
 
 		if (PLAYERCOUNT() == 2) {
-			if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && msg->playernum == 0)) {
+			if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && msg->playernum == 0) {
 				y += 8;
 			} else {
 				y += 3;
@@ -1431,18 +1337,9 @@ Gfx *hudmsgsRender(Gfx *gdl)
 	}
 
 	if (timerthing) {
-		if (optionsGetShowMissionTime(g_Vars.currentplayerstats->mpindex)
-				&& g_Vars.normmplayerisrunning == false
-				&& g_Vars.stagenum != STAGE_CITRAINING
-				&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON) {
-			gdl = hudmsgRenderMissionTimer(gdl, timerthing);
-		}
-
 		if (hudmsgIsZoomRangeVisible()) {
 			gdl = hudmsgRenderZoomRange(gdl, timerthing);
 		}
-
-		gdl = countdownTimerRender(gdl);
 	}
 
 	gdl = text0f153780(gdl);

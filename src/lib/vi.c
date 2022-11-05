@@ -71,36 +71,8 @@ void viConfigureForLogos(void)
 	g_ViFrontData = g_ViDataArray + g_ViFrontIndex;
 	g_ViBackData = g_ViDataArray + g_ViBackIndex;
 
-#if VERSION >= VERSION_PAL_FINAL
-	if (IS4MB()) {
-		g_ViDataArray[0].y = 220;
-		g_ViDataArray[0].bufy = 220;
-		g_ViDataArray[0].viewy = 220;
-
-		g_ViDataArray[1].y = 220;
-		g_ViDataArray[1].bufy = 220;
-		g_ViDataArray[1].viewy = 220;
-
-		var8005d588 = 0;
-		var8005d58c = 0;
-	} else {
-		var8005d588 = 0;
-		var8005d58c = VERSION >= VERSION_JPN_FINAL ? 0 : 12;
-	}
-#else
 	var8005d588 = 0;
 	var8005d58c = 0;
-
-	if (IS4MB()) {
-		g_ViDataArray[0].y = 220;
-		g_ViDataArray[0].bufy = 220;
-		g_ViDataArray[0].viewy = 220;
-
-		g_ViDataArray[1].y = 220;
-		g_ViDataArray[1].bufy = 220;
-		g_ViDataArray[1].viewy = 220;
-	}
-#endif
 }
 
 /**
@@ -189,28 +161,11 @@ void viReset(s32 stagenum)
 	g_Vars.fourmeg2player = false;
 
 	if (stagenum == STAGE_TITLE || stagenum == STAGE_TEST_OLD) {
-		if (IS4MB()) {
-			viSetMode(VIMODE_HI);
-			fbsize = 640 * 440 * 2;
-		} else {
-			viSetMode(VIMODE_HI);
-			fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * 2;
-		}
+		viSetMode(VIMODE_HI);
+		fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * 2;
 	} else {
 		viSetMode(VIMODE_LO);
-
-		if (1);
-
-		fbsize = IS4MB() ? 320 * 220 * 2 : 320 * 220 * 4;
-
-		if (IS4MB() && PLAYERCOUNT() == 2) {
-#if VERSION >= VERSION_NTSC_1_0
-			fbsize = 320 * 220;
-#else
-			fbsize = 320 * 240;
-#endif
-			g_Vars.fourmeg2player = true;
-		}
+		fbsize = 320 * 220 * 4;
 	}
 
 	ptr = mempAlloc(fbsize * 2 + 0x40, MEMPOOL_STAGE);
@@ -2201,13 +2156,8 @@ void viUpdateMode(void)
 		var8008dcc0[g_ViSlot].fldRegs[1].origin = g_ViBackData->bufx * 2;
 
 		// 324
-		if (IS4MB()) {
-			var8008dcc0[g_ViSlot].fldRegs[0].yScale = 1024;
-			var8008dcc0[g_ViSlot].fldRegs[1].yScale = 1024;
-		} else {
-			var8008dcc0[g_ViSlot].fldRegs[0].yScale = g_ViBackData->bufy * 2048 / 440;
-			var8008dcc0[g_ViSlot].fldRegs[1].yScale = g_ViBackData->bufy * 2048 / 440;
-		}
+		var8008dcc0[g_ViSlot].fldRegs[0].yScale = g_ViBackData->bufy * 2048 / 440;
+		var8008dcc0[g_ViSlot].fldRegs[1].yScale = g_ViBackData->bufy * 2048 / 440;
 
 		// 3ac
 		reg = var8008dcc0[g_ViSlot].comRegs.hStart;
