@@ -63,9 +63,7 @@ void splatTickChr(struct prop *prop)
 		return;
 	}
 
-	race = CHRRACE(chr);
-
-	if (race != RACE_DRCAROLL && race != RACE_ROBOT) {
+	{
 		u8 isskedar = false;
 
 		if (chr->bodynum == BODY_MRBLONDE) {

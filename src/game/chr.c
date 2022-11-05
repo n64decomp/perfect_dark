@@ -1519,264 +1519,196 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 	f32 yrot; // eg. twist left/right or shaking head
 	f32 zrot; // eg. cartwheeling
 
-	if (g_CurModelChr->model->filedata->skel == &g_SkelRobot) {
-		// Handle Chicago robot guns
-		theta = chrGetInverseTheta(g_CurModelChr);
-
-		if (joint == 1) {
-			gunrotx = g_CurModelChr->gunrotx[0];
-			gunroty = g_CurModelChr->gunroty[0];
-		} else if (joint == 2) {
-			gunrotx = g_CurModelChr->gunrotx[1];
-			gunroty = g_CurModelChr->gunroty[1];
-		} else {
-			return;
-		}
-
-		mtx00015be0(camGetProjectionMtxF(), mtx);
-
-		sp138.x = mtx->m[3][0];
-		sp138.y = mtx->m[3][1];
-		sp138.z = mtx->m[3][2];
-
-		mtx->m[3][0] = 0.0f;
-		mtx->m[3][1] = 0.0f;
-		mtx->m[3][2] = 0.0f;
-
-		if (gunrotx < 0.0f) {
-			gunrotx += M_BADTAU;
-		}
-
-		if (gunroty < 0.0f) {
-			gunroty += M_BADTAU;
-		}
-
-		gunrot = M_BADTAU - theta + 1.5707963705063f;
-
-		if (gunrot >= M_BADTAU) {
-			gunrot -= M_BADTAU;
-		}
-
-		mtx4LoadYRotation(gunrot, &spb8);
-		mtx00015be0(&spb8, mtx);
-		mtx4LoadXRotation(gunrotx, &spf8);
-		mtx00015be0(&spf8, mtx);
-
-		gunrot = gunroty + theta;
-
-		if (gunrot >= M_BADTAU) {
-			gunrot -= M_BADTAU;
-		}
-
-		mtx4LoadYRotation(gunrot, &spb8);
-		mtx00015be0(&spb8, mtx);
-
-		if (scale != 1.0f) {
-			mtx00015f04(scale, mtx);
-		}
-
-		mtx->m[3][0] = sp138.x;
-		mtx->m[3][1] = sp138.y;
-		mtx->m[3][2] = sp138.z;
-
-		mtx00015be0(camGetWorldToScreenMtxf(), mtx);
+	if (g_CurModelChr->model->filedata->skel == &g_SkelChr) {
+		lshoulderjoint = 2;
+		rshoulderjoint = 3;
+		waistjoint = 1;
+		neckjoint = 0;
 	} else {
-		if (g_CurModelChr->model->filedata->skel == &g_SkelChr) {
-			lshoulderjoint = 2;
-			rshoulderjoint = 3;
-			waistjoint = 1;
-			neckjoint = 0;
-		} else if (g_CurModelChr->model->filedata->skel == &g_SkelSkedar) {
-			lshoulderjoint = 3;
-			rshoulderjoint = 4;
-			waistjoint = 2;
-			neckjoint = 1;
-		} else {
-			lshoulderjoint = -1;
-			rshoulderjoint = -1;
-			waistjoint = -1;
-			neckjoint = -1;
-		}
+		lshoulderjoint = -1;
+		rshoulderjoint = -1;
+		waistjoint = -1;
+		neckjoint = -1;
+	}
 
-		if (joint == lshoulderjoint || joint == rshoulderjoint || joint == waistjoint || joint == neckjoint) {
-			xrot = 0.0f;
-			yrot = 0.0f;
-			zrot = 0.0f;
+	if (joint == lshoulderjoint || joint == rshoulderjoint || joint == waistjoint || joint == neckjoint) {
+		xrot = 0.0f;
+		yrot = 0.0f;
+		zrot = 0.0f;
 
-			// Apply rotation based on chr's aiming properties
-			if (joint == rshoulderjoint) {
-				xrot = g_CurModelChr->aimuprshoulder;
-			} else if (joint == lshoulderjoint) {
-				xrot = g_CurModelChr->aimuplshoulder;
-			} else if (joint == waistjoint) {
-				// Up/down at the waist
+		// Apply rotation based on chr's aiming properties
+		if (joint == rshoulderjoint) {
+			xrot = g_CurModelChr->aimuprshoulder;
+		} else if (joint == lshoulderjoint) {
+			xrot = g_CurModelChr->aimuplshoulder;
+		} else if (joint == waistjoint) {
+			// Up/down at the waist
+			xrot = g_CurModelChr->aimupback;
+
+			if (g_CurModelChr->hidden2 & CHRH2FLAG_0004) {
+				if (xrot > 1.0470308065414f) {
+					xrot -= 1.0470308065414f;
+				} else if (xrot < -0.87252569198608f) {
+					xrot += 0.87252569198608f;
+				} else {
+					xrot = 0.0f;
+				}
+			}
+
+			// Left/right at the waist
+			yrot = g_CurModelChr->aimsideback;
+
+			if (g_CurModelChr->aibot) {
+				yrot += g_CurModelChr->aibot->angleoffset;
+			} else if (g_CurModelChr->prop->type == PROPTYPE_PLAYER) {
+				yrot += g_Vars.players[playermgrGetPlayerNumByProp(g_CurModelChr->prop)]->angleoffset;
+			}
+		} else if (joint == neckjoint) {
+			// Head up/down
+			if (g_CurModelChr->hidden2 & CHRH2FLAG_0004) {
 				xrot = g_CurModelChr->aimupback;
 
-				if (g_CurModelChr->hidden2 & CHRH2FLAG_0004) {
-					if (xrot > 1.0470308065414f) {
-						xrot -= 1.0470308065414f;
-					} else if (xrot < -0.87252569198608f) {
-						xrot += 0.87252569198608f;
-					} else {
-						xrot = 0.0f;
-					}
+				if (xrot > 1.0470308065414f) {
+					xrot = 1.0470308065414f;
+				} else if (xrot < -0.87252569198608f) {
+					xrot = -0.87252569198608f;
 				}
-
-				// Left/right at the waist
-				yrot = g_CurModelChr->aimsideback;
-
-				if (g_CurModelChr->aibot) {
-					yrot += g_CurModelChr->aibot->angleoffset;
-				} else if (g_CurModelChr->prop->type == PROPTYPE_PLAYER) {
-					yrot += g_Vars.players[playermgrGetPlayerNumByProp(g_CurModelChr->prop)]->angleoffset;
-				}
-			} else if (joint == neckjoint) {
-				// Head up/down
-				if (g_CurModelChr->hidden2 & CHRH2FLAG_0004) {
-					xrot = g_CurModelChr->aimupback;
-
-					if (xrot > 1.0470308065414f) {
-						xrot = 1.0470308065414f;
-					} else if (xrot < -0.87252569198608f) {
-						xrot = -0.87252569198608f;
-					}
-				} else if (g_CurModelChr->model->anim->flip) {
-					xrot = g_CurModelChr->aimuplshoulder;
-				} else {
-					xrot = g_CurModelChr->aimuprshoulder;
-				}
-
-				// Apply head bobbing when dizzy
-				if (g_CurModelChr->blurdrugamount > TICKS(1000)
-						&& g_CurModelChr->actiontype != ACT_DEAD
-						&& g_CurModelChr->actiontype != ACT_DIE) {
-					zrot = g_CurModelChr->drugheadsway / 360.0f * M_BADTAU;
-					xrot -= (28.0f - ABS(g_CurModelChr->drugheadsway)) / 250.0f * M_BADTAU;
-				}
+			} else if (g_CurModelChr->model->anim->flip) {
+				xrot = g_CurModelChr->aimuplshoulder;
+			} else {
+				xrot = g_CurModelChr->aimuprshoulder;
 			}
 
-			// Apply flinch when chr is shot
-			if (g_CurModelChr->flinchcnt >= 0 && (CHRRACE(g_CurModelChr) == RACE_HUMAN)) {
-				if (g_CurModelChr->hidden2 & CHRH2FLAG_HEADSHOTTED) {
-					if (joint == neckjoint) {
-						f32 flinchamount = chrGetFlinchAmount(g_CurModelChr);
-						s32 flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
-						f32 mult = 60.0f;
+			// Apply head bobbing when dizzy
+			if (g_CurModelChr->blurdrugamount > TICKS(1000)
+					&& g_CurModelChr->actiontype != ACT_DEAD
+					&& g_CurModelChr->actiontype != ACT_DIE) {
+				zrot = g_CurModelChr->drugheadsway / 360.0f * M_BADTAU;
+				xrot -= (28.0f - ABS(g_CurModelChr->drugheadsway)) / 250.0f * M_BADTAU;
+			}
+		}
 
-						if ((flinchtype & 1) == 0) {
-							mult = 85.0f;
-						}
-
-						if (flinchtype >= 5 && flinchtype < 8) {
-							zrot -= flinchamount * (M_BADTAU * mult / 360.0f);
-						} else if (flinchtype > 0 && flinchtype < 4) {
-							zrot += flinchamount * (M_BADTAU * mult / 360.0f);
-						}
-
-						if (flinchtype == 7 || flinchtype == 0 || flinchtype == 1) {
-							xrot += flinchamount * (M_BADTAU * mult / 360.0f);
-						} else if (flinchtype >= 3 && flinchtype < 6) {
-							xrot -= flinchamount * (M_BADTAU * mult / 360.0f);
-						}
-					}
-				} else if (joint == rshoulderjoint || joint == lshoulderjoint) {
+		// Apply flinch when chr is shot
+		if (g_CurModelChr->flinchcnt >= 0 && (CHRRACE(g_CurModelChr) == RACE_HUMAN)) {
+			if (g_CurModelChr->hidden2 & CHRH2FLAG_HEADSHOTTED) {
+				if (joint == neckjoint) {
+					f32 flinchamount = chrGetFlinchAmount(g_CurModelChr);
 					s32 flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
-					f32 flinchamount = chrGetFlinchAmount(g_CurModelChr) * 0.26175770163536f;
+					f32 mult = 60.0f;
 
-					xrot -= flinchamount;
+					if ((flinchtype & 1) == 0) {
+						mult = 85.0f;
+					}
 
-					if (flinchtype < 3) {
-						yrot -= flinchamount;
+					if (flinchtype >= 5 && flinchtype < 8) {
+						zrot -= flinchamount * (M_BADTAU * mult / 360.0f);
+					} else if (flinchtype > 0 && flinchtype < 4) {
+						zrot += flinchamount * (M_BADTAU * mult / 360.0f);
+					}
+
+					if (flinchtype == 7 || flinchtype == 0 || flinchtype == 1) {
+						xrot += flinchamount * (M_BADTAU * mult / 360.0f);
 					} else if (flinchtype >= 3 && flinchtype < 6) {
-						yrot += flinchamount;
+						xrot -= flinchamount * (M_BADTAU * mult / 360.0f);
 					}
-				} else if (joint == waistjoint) {
-					f32 flinchamount;
-					s32 flinchtype;
+				}
+			} else if (joint == rshoulderjoint || joint == lshoulderjoint) {
+				s32 flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
+				f32 flinchamount = chrGetFlinchAmount(g_CurModelChr) * 0.26175770163536f;
 
-					flinchamount = chrGetFlinchAmount(g_CurModelChr);
-					flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
+				xrot -= flinchamount;
 
-					xrot += flinchamount * 0.26175770163536f;
+				if (flinchtype < 3) {
+					yrot -= flinchamount;
+				} else if (flinchtype >= 3 && flinchtype < 6) {
+					yrot += flinchamount;
+				}
+			} else if (joint == waistjoint) {
+				f32 flinchamount;
+				s32 flinchtype;
 
-					if (flinchtype < 3) {
-						yrot += flinchamount * 0.26175770163536f;
-					} else if (flinchtype >= 3 && flinchtype < 6) {
-						yrot -= flinchamount * 0.26175770163536f;
-					}
+				flinchamount = chrGetFlinchAmount(g_CurModelChr);
+				flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
 
-					if (flinchtype == 2 || flinchtype == 5 || flinchtype == 7) {
-						zrot += flinchamount * 0.17450514435768f;
-					} else if (flinchtype == 1 || flinchtype == 4 || flinchtype == 6) {
-						zrot -= flinchamount * 0.17450514435768f;
-					}
+				xrot += flinchamount * 0.26175770163536f;
+
+				if (flinchtype < 3) {
+					yrot += flinchamount * 0.26175770163536f;
+				} else if (flinchtype >= 3 && flinchtype < 6) {
+					yrot -= flinchamount * 0.26175770163536f;
+				}
+
+				if (flinchtype == 2 || flinchtype == 5 || flinchtype == 7) {
+					zrot += flinchamount * 0.17450514435768f;
+				} else if (flinchtype == 1 || flinchtype == 4 || flinchtype == 6) {
+					zrot -= flinchamount * 0.17450514435768f;
 				}
 			}
+		}
 
-			if (xrot != 0.0f || yrot != 0.0f || zrot != 0.0f || scale != 1.0f) {
-				struct coord sp70;
-				f32 aimangle;
-				Mtxf tmpmtx;
+		if (xrot != 0.0f || yrot != 0.0f || zrot != 0.0f || scale != 1.0f) {
+			struct coord sp70;
+			f32 aimangle;
+			Mtxf tmpmtx;
 
-				aimangle = chrGetAimAngle(g_CurModelChr);
+			aimangle = chrGetAimAngle(g_CurModelChr);
 
-				if (xrot < 0.0f) {
-					xrot = -xrot;
-				} else {
-					xrot = M_BADTAU - xrot;
-				}
+			if (xrot < 0.0f) {
+				xrot = -xrot;
+			} else {
+				xrot = M_BADTAU - xrot;
+			}
+
+			if (yrot < 0.0f) {
+				yrot += M_BADTAU;
+			}
+
+			mtx00015be0(camGetProjectionMtxF(), mtx);
+
+			sp70.x = mtx->m[3][0];
+			sp70.y = mtx->m[3][1];
+			sp70.z = mtx->m[3][2];
+
+			mtx->m[3][0] = 0.0f;
+			mtx->m[3][1] = 0.0f;
+			mtx->m[3][2] = 0.0f;
+
+			if (xrot != 0.0f || zrot != 0.0f) {
+				yrot -= aimangle;
 
 				if (yrot < 0.0f) {
 					yrot += M_BADTAU;
 				}
 
-				mtx00015be0(camGetProjectionMtxF(), mtx);
+				mtx4LoadYRotation(yrot, &tmpmtx);
+				mtx00015be0(&tmpmtx, mtx);
 
-				sp70.x = mtx->m[3][0];
-				sp70.y = mtx->m[3][1];
-				sp70.z = mtx->m[3][2];
-
-				mtx->m[3][0] = 0.0f;
-				mtx->m[3][1] = 0.0f;
-				mtx->m[3][2] = 0.0f;
-
-				if (xrot != 0.0f || zrot != 0.0f) {
-					yrot -= aimangle;
-
-					if (yrot < 0.0f) {
-						yrot += M_BADTAU;
-					}
-
-					mtx4LoadYRotation(yrot, &tmpmtx);
-					mtx00015be0(&tmpmtx, mtx);
-
-					if (xrot != 0.0f) {
-						mtx4LoadXRotation(xrot, &tmpmtx);
-						mtx00015be0(&tmpmtx, mtx);
-					}
-
-					if (zrot != 0.0f) {
-						mtx4LoadZRotation(zrot, &tmpmtx);
-						mtx00015be0(&tmpmtx, mtx);
-					}
-
-					mtx4LoadYRotation(aimangle, &tmpmtx);
-					mtx00015be0(&tmpmtx, mtx);
-				} else {
-					mtx4LoadYRotation(yrot, &tmpmtx);
+				if (xrot != 0.0f) {
+					mtx4LoadXRotation(xrot, &tmpmtx);
 					mtx00015be0(&tmpmtx, mtx);
 				}
 
-				if (scale != 1.0f) {
-					mtx00015f04(scale, mtx);
+				if (zrot != 0.0f) {
+					mtx4LoadZRotation(zrot, &tmpmtx);
+					mtx00015be0(&tmpmtx, mtx);
 				}
 
-				mtx->m[3][0] = sp70.x;
-				mtx->m[3][1] = sp70.y;
-				mtx->m[3][2] = sp70.z;
-
-				mtx00015be0(camGetWorldToScreenMtxf(), mtx);
+				mtx4LoadYRotation(aimangle, &tmpmtx);
+				mtx00015be0(&tmpmtx, mtx);
+			} else {
+				mtx4LoadYRotation(yrot, &tmpmtx);
+				mtx00015be0(&tmpmtx, mtx);
 			}
+
+			if (scale != 1.0f) {
+				mtx00015f04(scale, mtx);
+			}
+
+			mtx->m[3][0] = sp70.x;
+			mtx->m[3][1] = sp70.y;
+			mtx->m[3][2] = sp70.z;
+
+			mtx00015be0(camGetWorldToScreenMtxf(), mtx);
 		}
 	}
 }
@@ -2493,19 +2425,7 @@ s32 chrTick(struct prop *prop)
 		g_ModelJointPositionedFunc = &chrHandleJointPositioned;
 		g_CurModelChr = chr;
 
-		if (CHRRACE(chr) == RACE_DRCAROLL) {
-			angle = chrGetInverseTheta(chr);
-
-			sp190.x = sinf(angle) * 19;
-			sp190.y = 0.0f;
-			sp190.z = cosf(angle) * 19;
-
-			mtx4LoadTranslation(&sp190, &sp1a8);
-			mtx4MultMtx4InPlace(camGetWorldToScreenMtxf(), &sp1a8);
-			sp210.unk00 = &sp1a8;
-		} else {
-			sp210.unk00 = camGetWorldToScreenMtxf();
-		}
+		sp210.unk00 = camGetWorldToScreenMtxf();
 
 		sp210.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
 
@@ -3271,10 +3191,6 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 					}
 				}
 			}
-		}
-
-		if (chr->race == RACE_DRCAROLL) {
-			chrSetDrCarollImages(chr, chr->drcarollimage_left, chr->drcarollimage_right);
 		}
 
 		g_Vars.currentplayerstats->drawplayercount++;
@@ -5260,9 +5176,6 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 		} else if (model->filedata->skel == &g_SkelSkedar) {
 			mtx2 = &model->matrices[0];
 			arg1->z = mtx2->m[3][2];
-		} else if (model->filedata->skel == &g_SkelDrCaroll) {
-			mtx2 = &model->matrices[0];
-			arg1->z = mtx2->m[3][2];
 		} else {
 			arg1->z = model->matrices[0].m[3][2];
 		}
@@ -5272,9 +5185,6 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 				arg1->x = mtx2->m[3][0] + (mtx1->m[3][0] - mtx2->m[3][0]) * 0.5f;
 				arg1->y = mtx2->m[3][1] + (mtx1->m[3][1] - mtx2->m[3][1]) * 0.5f;
 			} else if (model->filedata->skel == &g_SkelSkedar) {
-				arg1->x = mtx2->m[3][0];
-				arg1->y = mtx2->m[3][1];
-			} else if (model->filedata->skel == &g_SkelDrCaroll) {
 				arg1->x = mtx2->m[3][0];
 				arg1->y = mtx2->m[3][1];
 			} else {
@@ -6825,38 +6735,6 @@ void shieldhitsTick(void)
 
 				if (!changed) {
 					shieldhitRemove(&g_ShieldHits[i]);
-				}
-			}
-		}
-	}
-}
-
-void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright)
-{
-	if (drcaroll && imageleft >= 0 && imageleft < 6 && imageright >= 0 && imageright < 6) {
-		struct model *model = drcaroll->model;
-		struct modelnode *nodes[2];
-		union modelrwdata *rwdata;
-		s32 i;
-		s32 j;
-		u32 stack;
-
-		// Iterate model parts relating to images
-		// Parts 0-5 are the left image
-		// Parts 6-11 are the right image
-		for (i = 0; i < 6; i++) {
-			nodes[0] = modelGetPart(model->filedata, i);
-			nodes[1] = modelGetPart(model->filedata, i + 6);
-
-			for (j = 0; j < 2; j++) {
-				if (nodes[j]) {
-					rwdata = modelGetNodeRwData(model, nodes[j]);
-
-					if (j == 0) {
-						rwdata->toggle.visible = (imageleft == i) ? true : false;
-					} else {
-						rwdata->toggle.visible = (imageright == i) ? true : false;
-					}
 				}
 			}
 		}

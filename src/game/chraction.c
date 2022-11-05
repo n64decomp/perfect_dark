@@ -1669,8 +1669,6 @@ void chrChooseStandAnimation(struct chrdata *chr, f32 mergetime)
 			modelSetAnimLooping(chr->model, 0, 16);
 			modelSetAnimEndFrame(chr->model, 120);
 		}
-	} else if (race == RACE_DRCAROLL) {
-		modelSetAnimation(chr->model, ANIM_013E, 0, 0, 0.5, mergetime);
 	} else if (race == RACE_ROBOT) {
 		modelSetAnimation(chr->model, ANIM_0237, 0, 0, 0.5, mergetime);
 	}
@@ -1748,19 +1746,6 @@ void chrStand(struct chrdata *chr)
 					modelSetAnimEndFrame(chr->model, 151);
 				}
 			}
-		} else if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
-			chr->actiontype = ACT_STAND;
-			chr->act_stand.prestand = true;
-			chr->act_stand.flags = 0;
-			chr->act_stand.entityid = 0;
-			chr->act_stand.reaim = 0;
-			chr->act_stand.turning = TURNSTATE_OFF;
-			chr->act_stand.checkfacingwall = false;
-			chr->act_stand.wallcount = random() % 120 + 180;
-			chr->sleep = 0;
-			chr->act_stand.playwalkanim = false;
-
-			func0f02e9a0(chr, 16);
 		} else {
 			func0f02e9a0(chr, 16);
 		}
@@ -2660,9 +2645,7 @@ void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe
 			speed = -speed;
 		}
 
-		if (CHRRACE(chr) != RACE_DRCAROLL) {
-			chrStopFiring(chr);
-		}
+		chrStopFiring(chr);
 
 		chr->actiontype = ACT_ANIM;
 
@@ -2712,11 +2695,6 @@ void chrBeginDead(struct chrdata *chr)
 		chr->act_dead.invistimer60 = 0;
 		chr->act_dead.notifychrindex = 0;
 		chr->sleep = 0;
-
-		if (chr->race == RACE_DRCAROLL) {
-			chr->drcarollimage_left = DRCAROLLIMAGE_STATIC;
-			chr->drcarollimage_right = DRCAROLLIMAGE_STATIC;
-		}
 	}
 }
 
@@ -2929,12 +2907,6 @@ void chrAttackAmount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 max
 	chr->act_attack.dooneburst = false;
 }
 
-#if PAL
-s32 g_DrCarollDyingTimer = 8;
-#else
-s32 g_DrCarollDyingTimer = 10;
-#endif
-
 u8 var80068080 = 50;
 
 /**
@@ -3007,44 +2979,10 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 
 	chr->act_die.notifychrindex = 0;
 	chr->act_die.timeextra = 0;
-	chr->act_die.drcarollimagedelay = TICKS(45);
 	chr->act_die.thudframe1 = -1;
 	chr->act_die.thudframe2 = -1;
 
-	if (chr->race == RACE_DRCAROLL) {
-		chr->drcarollimage_left = (s32)((random() % 400) * 0.01f) + 1;
-		chr->drcarollimage_right = (s32)((random() % 400) * 0.01f) + 1;
-	}
-
 	chr->sleep = 0;
-
-	// Handle robots and Dr Caroll then return early
-	if (race == RACE_ROBOT || race == RACE_DRCAROLL) {
-		impactforce1 = gsetGetImpactForce(gset) * 0.5f;
-
-		if (impactforce1 <= 0) {
-			impactforce1 = 3;
-		}
-
-		if (impactforce1 != 0.0f) {
-			chr->elapseextra = 0;
-			chr->timeextra = impactforce1 * 15;
-			chr->extraspeed.x = dir->x * impactforce1;
-			chr->extraspeed.y = dir->y * impactforce1;
-			chr->extraspeed.z = dir->z * impactforce1;
-		}
-
-		if (race == RACE_DRCAROLL) {
-			g_DrCarollDyingTimer = 0;
-
-			chr->soundtimer = 0;
-			chr->voicebox = VOICEBOX_MALE1;
-
-			modelSetAnimation(chr->model, ANIM_0164, false, 0, 0.5f, 16);
-		}
-
-		return;
-	}
 
 	// Handle humans and Skedar
 	if (race == RACE_HUMAN) {
@@ -3246,20 +3184,6 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
 		return;
 	}
 
-	if (race == RACE_DRCAROLL) {
-		chr->actiontype = ACT_ARGH;
-		chr->act_argh.notifychrindex = 0;
-		chr->act_argh.lvframe60 = g_Vars.lvframe60;
-
-		chr->sleep = 0;
-
-		modelSetAnimation(chr->model, ANIM_0163, false, 0, 0.5f, 16);
-
-		chr->drcarollimage_left = DRCAROLLIMAGE_X;
-		chr->drcarollimage_right = DRCAROLLIMAGE_X;
-		return;
-	}
-
 	instant = chr->actiontype == ACT_ARGH && chr->act_argh.lvframe60 == g_Vars.lvframe60;
 
 	for (i = 0; g_AnimTablesByRace[race][i].hitpart != -1; i++) {
@@ -3453,14 +3377,9 @@ void chrYeetFromPos(struct chrdata *chr, struct coord *exppos, f32 force)
 		chr->act_die.thudframe1 = row->thudframe;
 		chr->act_die.thudframe2 = -1;
 		chr->act_die.timeextra = 0;
-		chr->act_die.drcarollimagedelay = TICKS(45);
-
-		if (chr->race == RACE_DRCAROLL) {
-			chr->drcarollimage_left = 1 + (s32)((random() % 400) * 0.01f);
-			chr->drcarollimage_right = 1 + (s32)((random() % 400) * 0.01f);
-		}
 
 		chr->sleep = 0;
+
 		modelSetAnimation(model, row->animnum, row->flip, row->startframe, row->speed, 8);
 
 		if (row->endframe >= 0.0f) {
@@ -3587,9 +3506,7 @@ void chrChoke(struct chrdata *chr, s32 choketype)
 	s32 playernum;
 	s32 allowoverride = false;
 
-	static s32 nextindexdrcaroll = 0;
 	static s32 nextindexmaian = 0;
-	static s32 nextindexskedar = 0;
 	static s32 nextindexshock = 0;
 	static s32 nextindexmale = 0;
 	static s32 nextindexfemale = 0;
@@ -3606,27 +3523,7 @@ void chrChoke(struct chrdata *chr, s32 choketype)
 		male = true;
 	}
 
-	if (race == RACE_DRCAROLL) {
-		s16 sounds[] = {
-			SFX_ARGH_DRCAROLL_0240,
-			SFX_ARGH_DRCAROLL_024C,
-			SFX_ARGH_DRCAROLL_0250,
-			SFX_ARGH_DRCAROLL_0251,
-			SFX_ARGH_DRCAROLL_0259,
-			SFX_ARGH_DRCAROLL_025A,
-		};
-
-		if (g_DrCarollDyingTimer > TICKS(10)) {
-			g_DrCarollDyingTimer = 0;
-
-			soundnum = sounds[nextindexdrcaroll];
-			nextindexdrcaroll++;
-
-			if (nextindexdrcaroll >= ARRAYCOUNT(sounds)) {
-				nextindexdrcaroll = 0;
-			}
-		}
-	} else if (chr->headnum == HEAD_THEKING
+	if (chr->headnum == HEAD_THEKING
 			|| chr->headnum == HEAD_ELVIS
 			|| chr->headnum == HEAD_MAIAN_S
 			|| chr->headnum == HEAD_ELVIS_GOGS) {
@@ -4049,7 +3946,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 	func = gsetGetWeaponFunction(gset);
 	isclose = func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE;
-	makedizzy = race != RACE_DRCAROLL && gsetHasFunctionFlags(gset, FUNCFLAG_MAKEDIZZY);
+	makedizzy = gsetHasFunctionFlags(gset, FUNCFLAG_MAKEDIZZY);
 
 	if (chr->prop == g_Vars.currentplayer->prop && g_Vars.currentplayer->invincible) {
 		return;
@@ -4499,7 +4396,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			chr->numarghs++;
 
 			// Handle chr dizziness and psychosis
-			if (makedizzy && race != RACE_DRCAROLL && race != RACE_ROBOT) {
+			if (makedizzy) {
 				if (gsetHasFunctionFlags(gset, FUNCFLAG_PSYCHOSIS)) {
 					chr->hidden |= CHRHFLAG_PSYCHOSISED;
 				} else {
@@ -5664,16 +5561,6 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 				}
 			}
 		}
-	} else if (race == RACE_DRCAROLL) {
-		if (gospeed == GOPOSFLAG_RUN) {
-			anim = ANIM_0160;
-		} else if (gospeed == GOPOSFLAG_WALK) {
-			anim = ANIM_015F;
-		} else {
-			anim = ANIM_015F;
-		}
-	} else if (race == RACE_ROBOT) {
-		anim = ANIM_0238;
 	}
 
 	if (anim >= 0) {
@@ -5839,10 +5726,6 @@ void chrPatrolChooseAnimation(struct chrdata *chr)
 		} else {
 			modelSetAnimation(chr->model, random() % 2 ? ANIM_005C : ANIM_0072, flip, 0, speed, 16);
 		}
-	} else if (race == RACE_DRCAROLL) {
-		modelSetAnimation(chr->model, ANIM_015F, false, 0, 0.5f, 16);
-	} else if (race == RACE_ROBOT) {
-		modelSetAnimation(chr->model, ANIM_0238, false, 0, 0.5f, 16);
 	}
 }
 
@@ -7239,10 +7122,6 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 	struct weaponobj *weapon;
 	u8 race = CHRRACE(chr);
 
-	if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
-		return false;
-	}
-
 	weapon = weaponCreateProjectileFromWeaponNum(modelnum, (u8)weaponnum, chr);
 
 	if (weapon && weapon->base.prop) {
@@ -7843,51 +7722,6 @@ void chrTickDie(struct chrdata *chr)
 		return;
 	}
 
-	if (race == RACE_DRCAROLL) {
-		struct prop *prop = chr->prop;
-
-		if (g_DrCarollDyingTimer > TICKS(120) && chr->voicebox) {
-			// Play speech
-			u16 phrases[] = {
-				SFX_DRCAROLL_SYSTEMS_FAILURE,
-				SFX_DRCAROLL_YOU_GO_ON,
-				SFX_DRCAROLL_I_CANT_MAKE_IT,
-				SFX_DRCAROLL_IM_DYING,
-				SFX_DRCAROLL_GOODBYE,
-				SFX_DRCAROLL_YOU_WERE_SUPPOSED,
-			};
-
-			propsnd0f0939f8(NULL, chr->prop, phrases[random() % 5], -1,
-					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-			chr->voicebox = 0;
-		}
-
-		// Change images randomly
-		if (chr->act_die.drcarollimagedelay > 0) {
-			chr->act_die.drcarollimagedelay -= g_Vars.lvupdate60;
-		} else {
-			chr->act_die.drcarollimagedelay = (random() % TICKS(1000)) * 0.01f + 5.0f;
-			chr->drcarollimage_left = 1 + (s32)((random() % 400) * 0.01f);
-			chr->drcarollimage_right = 1 + (s32)((random() % 400) * 0.01f);
-		}
-
-		if (g_DrCarollDyingTimer > TICKS(310)) {
-			// Explode
-			func0f0926bc(prop, 1, 0xffff);
-			explosionCreateSimple(prop, &prop->pos, prop->rooms, EXPLOSIONTYPE_8, g_Vars.currentplayernum);
-			chrBeginDead(chr);
-		} else if (chr->soundtimer > (s32)var80068080) {
-			// Play shield damage sound
-			chr->soundtimer = 0;
-			var80068080 -= 5;
-			propsnd0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
-					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-			sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_ELECTRICAL);
-		}
-
-		return;
-	}
-
 	// Human or Skedar
 	// If due, play thud 1 sound
 	if (chr->act_die.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe1) {
@@ -8125,11 +7959,6 @@ void chrTickArgh(struct chrdata *chr)
 		if (CHRRACE(chr) == RACE_HUMAN && modelGetAnimNum(model) == ANIM_DEATH_STOMACH_LONG) {
 			func0f02ed28(chr, 26);
 		} else {
-			if (chr->race == RACE_DRCAROLL) {
-				chr->drcarollimage_left = DRCAROLLIMAGE_EYESDEFAULT;
-				chr->drcarollimage_right = DRCAROLLIMAGE_EYESDEFAULT;
-			}
-
 			chrStop(chr);
 		}
 	}
@@ -8840,7 +8669,7 @@ void chrStopFiring(struct chrdata *chr)
 {
 	u8 race = CHRRACE(chr);
 
-	if (race != RACE_DRCAROLL && chr->aibot == NULL) {
+	if (chr->aibot == NULL) {
 		chrSetFiring(chr, HAND_RIGHT, false);
 		chrSetFiring(chr, HAND_LEFT, false);
 
@@ -10332,143 +10161,12 @@ void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 
 void chrTickRobotAttack(struct chrdata *chr)
 {
-	s32 i;
-	f32 roty = 0.0f;
-	f32 rotx = 0.0f;
-	struct prop *targetprop = chrGetTargetProp(chr);
-	bool firing;
-	bool empty;
 	f32 invtheta = chrGetInverseTheta(chr);
 	struct act_robotattack *act = &chr->act_robotattack;
 
 	func0f0429d8(chr, 0.085f, invtheta);
 
-	if (chr->model->filedata->skel != &g_SkelRobot) {
-		act->finished = true;
-		return;
-	}
-
-	for (i = 0; i < 2; i++) {
-		empty = false;
-
-		if (act->numshots[i] > 0) {
-			chr->unk348[i]->unk01 = !(chr->unk348[i]->unk00 % 3);
-			firing = !(chr->unk348[i]->unk00 % 2);
-		} else {
-			chr->unk348[i]->unk01 = 0;
-			firing = false;
-		}
-
-		act->firing[i] = firing;
-
-		if (act->numshots[0] <= 0 && act->numshots[1] <= 0) {
-			empty = true;
-
-			if (ABS(chr->gunroty[0]) < 0.03f
-					&& ABS(chr->gunrotx[0]) < 0.03f
-					&& ABS(chr->gunroty[1]) < 0.03f
-					&& ABS(chr->gunrotx[1]) < 0.03f) {
-				act->finished = true;
-			}
-		}
-
-		if (empty);
-		if ((f32)empty);
-
-		if (!empty) {
-			f32 aimy;
-			union modelrodata *rodata;
-			struct coord spe4;
-			Mtxf spa4;
-
-			aimy = targetprop->pos.y - 20.0f;
-			rodata = modelGetPartRodata(chr->model->filedata, (i ? MODELPART_ROBOT_0000 : MODELPART_ROBOT_0001));
-
-			act->pos[i].x = rodata->position.pos.x;
-			act->pos[i].y = rodata->position.pos.y - 300.0f;
-			act->pos[i].z = rodata->position.pos.z;
-
-			mtx4LoadYRotation(invtheta, &spa4);
-			mtx4RotateVec(&spa4, &act->pos[i], &spe4);
-
-			spe4.x *= chr->model->scale;
-			spe4.y *= chr->model->scale;
-			spe4.z *= chr->model->scale;
-
-			act->pos[i].x = spe4.x + chr->prop->pos.x;
-			act->pos[i].y = spe4.y + chr->prop->pos.y;
-			act->pos[i].z = spe4.z + chr->prop->pos.z;
-
-			roty = atan2f(targetprop->pos.x - act->pos[i].x, targetprop->pos.z - act->pos[i].z) - invtheta;
-
-			if (roty < 0.0f) {
-				roty += M_BADTAU;
-			}
-
-			if (roty > M_BADPI) {
-				roty -= M_BADTAU;
-			}
-
-			if (roty < -0.524f) {
-				roty = -0.524f;
-			}
-
-			if (roty > 0.524f) {
-				roty = 0.524f;
-			}
-
-#define X() (targetprop->pos.x - act->pos[i].x)
-#define Z() (targetprop->pos.z - act->pos[i].z)
-
-			rotx = M_BADTAU - atan2f(aimy - act->pos[i].y, sqrtf(Z() * Z() + X() * X()));
-
-			if (rotx > M_BADPI) {
-				rotx -= M_BADTAU;
-			}
-
-			if (rotx < -0.524f) {
-				rotx = -0.524f;
-			}
-
-			if (rotx > 0.524f) {
-				rotx = 0.524f;
-			}
-		}
-
-		chr->gunroty[i] += (roty - chr->gunroty[i]) * 0.15f;
-		chr->gunrotx[i] += (rotx - chr->gunrotx[i]) * 0.15f;
-
-		if (!empty) {
-			if (firing) {
-				f32 gunrotx = chr->gunrotx[i];
-				f32 gunroty = chr->gunroty[i];
-
-				if (gunrotx < 0.0f) {
-					gunrotx += M_BADTAU;
-				}
-
-				if (gunroty < 0.0f) {
-					gunroty += M_BADTAU;
-				}
-
-				gunroty += invtheta;
-
-				if (gunroty >= M_BADTAU) {
-					gunroty -= M_BADTAU;
-				}
-
-				act->dir[i].x = sinf(gunroty) * cosf(gunrotx);
-				act->dir[i].y = -sinf(gunrotx);
-				act->dir[i].z = cosf(gunroty) * cosf(gunrotx);
-
-				robotSetMuzzleFlash(chr, i, true);
-
-				act->numshots[i]--;
-			}
-
-			chr->unk348[i]->unk00++;
-		}
-	}
+	act->finished = true;
 }
 
 void chrTickAttack(struct chrdata *chr)
@@ -12707,10 +12405,6 @@ void chraTick(struct chrdata *chr)
 		chr->chrflags |= CHRCFLAG_00000001;
 		func0f02e9a0(chr, 0);
 		chr->sleep = 0;
-	}
-
-	if (race == RACE_DRCAROLL) {
-		g_DrCarollDyingTimer += g_Vars.lvupdate60;
 	}
 
 	chr->soundtimer += g_Vars.lvupdate60;
@@ -15481,12 +15175,4 @@ bool chrIsAvoiding(struct chrdata *chr)
 	}
 
 	return false;
-}
-
-void chrDrCarollEmitSparks(struct chrdata *chr)
-{
-	if (chr && chr->prop) {
-		propsnd0f0939f8(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-		sparksCreate(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, SPARKTYPE_ELECTRICAL);
-	}
 }
