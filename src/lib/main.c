@@ -839,8 +839,6 @@ void mainLoop(void)
 		titleSetNextStage(g_StageNum);
 
 		if (g_StageNum < STAGE_TITLE) {
-			func0f01b148(0);
-
 			if (argFindByPrefix(1, "-hard")) {
 				lvSetDifficulty(argFindByPrefix(1, "-hard")[0] - '0');
 			}

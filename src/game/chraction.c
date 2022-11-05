@@ -4,7 +4,6 @@
 #include "game/dlights.h"
 #include "game/footstep.h"
 #include "game/game_006900.h"
-#include "game/pdmode.h"
 #include "game/chr.h"
 #include "game/body.h"
 #include "game/prop.h"
@@ -1324,8 +1323,6 @@ f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max)
 {
 	f32 speedrating = chr->speedrating;
 
-	speedrating = pdmodeGetEnemyReactionSpeed() * (100.0f - speedrating) + speedrating;
-
 	return (max - min) * speedrating * 0.01f + min;
 }
 
@@ -1344,9 +1341,6 @@ f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max)
 s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage)
 {
 	s32 speedrating = chr->speedrating;
-	s32 extra = pdmodeGetEnemyReactionSpeed() * (100 - speedrating);
-
-	speedrating = extra + speedrating;
 
 	return (100 - speedrating) * percentage / 100;
 }
@@ -4708,13 +4702,6 @@ void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gs
 			} else {
 				accuracy *= (chr->accuracyrating + 100) * 0.01f;
 			}
-		}
-
-		// Apply PD mode enemy accuracy setting (default 1 which is no op)
-		if (pdmodeGetEnemyAccuracy() <= 1) {
-			accuracy *= pdmodeGetEnemyAccuracy();
-		} else {
-			accuracy *= 9 / (10.001f - pdmodeGetEnemyAccuracy());
 		}
 
 		// Apply difficulty multiplier (solo A = 0.6, SA = 0.8, PA = 1.175)

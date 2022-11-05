@@ -10,25 +10,6 @@
 #include "data.h"
 #include "types.h"
 
-f32 pdmodeGetEnemyReactionSpeed(void)
-{
-	return 0;
-}
-
-f32 pdmodeGetEnemyAccuracy(void)
-{
-	if (g_MissionConfig.pdmode) {
-		return g_MissionConfig.pdmodeaccuracyf;
-	}
-
-	return 1;
-}
-
-void func0f01b148(u32 arg0)
-{
-	var800624e0 = arg0;
-}
-
 void titleSetNextStage(s32 stagenum)
 {
 	g_TitleNextStage = stagenum;
