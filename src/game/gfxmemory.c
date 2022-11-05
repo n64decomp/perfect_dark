@@ -163,3 +163,13 @@ void gfxSwapBuffers(void)
 		g_GfxNumSwaps = 2;
 	}
 }
+
+s32 gfxGetFreeGfx(Gfx *gdl)
+{
+	return (s32) g_GfxBuffers[g_GfxActiveBufferIndex + 1] - (s32) gdl;
+}
+
+s32 gfxGetFreeVtx(void)
+{
+	return g_VtxBuffers[g_GfxActiveBufferIndex + 1] - g_GfxMemPos;
+}

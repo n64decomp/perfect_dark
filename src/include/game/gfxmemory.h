@@ -15,5 +15,6 @@ void *gfxAllocateColours(s32 count);
 void *gfxAllocate(u32 size);
 void gfxSwapBuffers(void);
 s32 gfxGetFreeGfx(Gfx *gdl);
+s32 gfxGetFreeVtx(void);
 
 #endif

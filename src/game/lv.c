@@ -948,6 +948,12 @@ Gfx *lvPrintRateText(Gfx *gdl)
 		x = 10;
 		sprintf(buffer, "memp free %d KB\n", mempGetStageFree() / 1024);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+		sprintf(buffer, "gfx free %d KB\n", gfxGetFreeGfx(gdl) / 1024);
+		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+		sprintf(buffer, "vtx free %d KB\n", gfxGetFreeVtx() / 1024);
+		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 	}
 
 	return gdl;
