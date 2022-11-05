@@ -113,27 +113,6 @@ s32 footstepChooseSound(struct chrdata *chr, s32 footstepindex)
 		return 0;
 	}
 
-	if (CHRRACE(chr) == RACE_SKEDAR && chr->bodynum != BODY_MINISKEDAR) {
-		u32 result;
-		chr->lastfootsample ^= 1;
-
-		if (floortype == FLOORTYPE_METAL) {
-			if (chr->lastfootsample) {
-				result = SFX_FOOTSTEP_8191;
-			} else {
-				result = SFX_FOOTSTEP_8192;
-			}
-		} else {
-			if (chr->lastfootsample) {
-				result = SFX_FOOTSTEP_818F;
-			} else {
-				result = SFX_FOOTSTEP_8190;
-			}
-		}
-
-		return result;
-	}
-
 	running = footstepIsRunning(g_FootstepAnims[footstepindex].animnum);
 
 	do {
@@ -168,18 +147,10 @@ void footstepCheckDefault(struct chrdata *chr)
 
 			for (i = 0; i < ARRAYCOUNT(g_FootstepAnims); i++) {
 				if (modelGetAnimNum(chr->model) == g_FootstepAnims[i].animnum) {
-					if (CHRRACE(chr) == RACE_SKEDAR && g_FootstepAnims[i].animnum == ANIM_SKEDAR_RUNNING) {
-						if ((frame >= 2 && prevframe < 2) || (frame >= 17 && prevframe < 17)) { \
-							chr->footstep = 1;
-						} else if ((frame >= 10 && prevframe < 10) || (frame >= 25 && prevframe < 25)) {
-							chr->footstep = 2;
-						}
-					} else {
-						if (frame >= g_FootstepAnims[i].frame1 && prevframe < g_FootstepAnims[i].frame1) {
-							chr->footstep = 1;
-						} else if (frame >= g_FootstepAnims[i].frame2 && prevframe < g_FootstepAnims[i].frame2) {
-							chr->footstep = 2;
-						}
+					if (frame >= g_FootstepAnims[i].frame1 && prevframe < g_FootstepAnims[i].frame1) {
+						chr->footstep = 1;
+					} else if (frame >= g_FootstepAnims[i].frame2 && prevframe < g_FootstepAnims[i].frame2) {
+						chr->footstep = 2;
 					}
 
 					soundnum = footstepChooseSound(chr, i);
@@ -248,18 +219,10 @@ void footstepCheckMagic(struct chrdata *chr)
 			chr->oldframe = frame;
 
 			if (ydiff < 250 && xdiff * xdiff + zdiff * zdiff < 3000000) {
-				if (CHRRACE(chr) == RACE_SKEDAR && g_FootstepAnims[index].animnum == ANIM_SKEDAR_RUNNING) {
-					if ((frame >= 2 && prevframe < 2) || (frame >= 17 && prevframe < 17)) {
-						chr->footstep = 1;
-					} else if ((frame >= 10 && prevframe < 10) || (frame >= 25 && prevframe < 25)) {
-						chr->footstep = 2;
-					}
-				} else {
-					if (frame >= g_FootstepAnims[index].frame1 && prevframe < g_FootstepAnims[index].frame1) {
-						chr->footstep = 1;
-					} else if (frame >= g_FootstepAnims[index].frame2 && prevframe < g_FootstepAnims[index].frame2) {
-						chr->footstep = 2;
-					}
+				if (frame >= g_FootstepAnims[index].frame1 && prevframe < g_FootstepAnims[index].frame1) {
+					chr->footstep = 1;
+				} else if (frame >= g_FootstepAnims[index].frame2 && prevframe < g_FootstepAnims[index].frame2) {
+					chr->footstep = 2;
 				}
 
 				soundnum = footstepChooseSound(chr, index);

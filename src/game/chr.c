@@ -1656,18 +1656,15 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			}
 
 			// Apply flinch when chr is shot
-			if (g_CurModelChr->flinchcnt >= 0
-					&& (CHRRACE(g_CurModelChr) == RACE_HUMAN || CHRRACE(g_CurModelChr) == RACE_SKEDAR)) {
-				bool isskedar = CHRRACE(g_CurModelChr) == RACE_SKEDAR;
-
+			if (g_CurModelChr->flinchcnt >= 0 && (CHRRACE(g_CurModelChr) == RACE_HUMAN)) {
 				if (g_CurModelChr->hidden2 & CHRH2FLAG_HEADSHOTTED) {
 					if (joint == neckjoint) {
 						f32 flinchamount = chrGetFlinchAmount(g_CurModelChr);
 						s32 flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
-						f32 mult = isskedar ? 25.0f : 60.0f;
+						f32 mult = 60.0f;
 
 						if ((flinchtype & 1) == 0) {
-							mult = isskedar ? 37.5f : 85.0f;
+							mult = 85.0f;
 						}
 
 						if (flinchtype >= 5 && flinchtype < 8) {
@@ -1855,13 +1852,6 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 
 		if (obj->hidden & OBJHFLAG_EMBEDDED) {
 			mtx00015be4(sp104, &obj->embedment->matrix, &sp80);
-			thing.unk00 = &sp80;
-		} else if (CHRRACE(chr) == RACE_SKEDAR) {
-			// The skedar hand position is rotated weirdly, so compensate for it
-			mtx4LoadYRotation(1.3192588090897f, &sp80);
-			mtx4LoadZRotation(1.5705462694168f, &sp40);
-			mtx4MultMtx4InPlace(&sp40, &sp80);
-			mtx4MultMtx4InPlace(sp104, &sp80);
 			thing.unk00 = &sp80;
 		} else if (prop == chr->weapons_held[HAND_LEFT]) {
 			// Flip the model
@@ -3098,9 +3088,6 @@ void chrGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
 		}
 		return;
 	case BODY_MRBLONDE:
-	case BODY_SKEDAR:
-	case BODY_MINISKEDAR:
-	case BODY_SKEDARKING:
 		if (colour1) {
 			colour1[0] = 0x40;
 			colour1[1] = 0x19;
@@ -3259,20 +3246,6 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			renderdata.unk30 = 7;
 		}
 
-		// Set Skedar eyes open or closed
-		if (model->filedata->skel == &g_SkelSkedar) {
-			struct modelnode *node1 = modelGetPart(model->filedata, MODELPART_SKEDAR_EYESOPEN);
-			struct modelnode *node2 = modelGetPart(model->filedata, MODELPART_SKEDAR_EYESCLOSED);
-
-			if (node1 && node2) {
-				union modelrwdata *data1 = modelGetNodeRwData(model, node1);
-				union modelrwdata *data2 = modelGetNodeRwData(model, node2);
-
-				data2->toggle.visible = chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD;
-				data1->toggle.visible = !data2->toggle.visible;
-			}
-		}
-
 		// Set Maian eyes open or closed
 		if (chr->headnum == HEAD_THEKING
 				|| chr->headnum == HEAD_ELVIS
@@ -3348,11 +3321,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 					f32 radius;
 
 					if (gaptoground <= 400 && g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
-						if (chr->bodynum == BODY_SKEDAR || chr->bodynum == BODY_SKEDARKING) {
-							radius = 80;
-						} else {
-							radius = 35;
-						}
+						radius = 35;
 
 						if (chr->chrflags & CHRCFLAG_NOSHADOW) {
 							shadowalpha = 0;
@@ -5041,7 +5010,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				if (!chr->noblood && !isclose && shotdata->gset.weaponnum != WEAPON_TRANQUILIZER) {
 					u8 darker;
 
-					if (chr->bodynum == BODY_MRBLONDE || race == RACE_SKEDAR) {
+					if (chr->bodynum == BODY_MRBLONDE) {
 						darker = true;
 					} else {
 						darker = false;
@@ -5062,7 +5031,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						&& shotdata->gset.weaponnum != WEAPON_TRANQUILIZER) {
 					u8 darker;
 
-					if (chr->bodynum == BODY_MRBLONDE || race == RACE_SKEDAR) {
+					if (chr->bodynum == BODY_MRBLONDE) {
 						darker = true;
 					} else {
 						darker = false;
@@ -5141,23 +5110,6 @@ void chrsCheckForNoise(f32 noiseradius)
 
 				if (distance > 1.0f) {
 					chrRecordLastHearTargetTime(&g_ChrSlots[i]);
-#if PIRACYCHECKS
-					{
-						s32 *i = (s32 *)&__scHandleRetrace;
-						s32 *end = (s32 *)&__scHandleTasks;
-						u32 checksum = 0;
-
-						while (i < end) {
-							checksum *= 2;
-							checksum += *i;
-							i++;
-						}
-
-						if (checksum != CHECKSUM_PLACEHOLDER) {
-							g_HeadsAndBodies[BODY_SKEDARKING].filenum = 0;
-						}
-					}
-#endif
 				}
 			}
 		}

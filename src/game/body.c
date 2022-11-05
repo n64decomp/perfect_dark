@@ -137,13 +137,6 @@ s32 g_FemGuardHeads[3] = {
 
 u32 bodyGetRace(s32 bodynum)
 {
-	switch (bodynum) {
-	case BODY_SKEDAR:
-	case BODY_MINISKEDAR:
-	case BODY_SKEDARKING:
-		return RACE_SKEDAR;
-	}
-
 	return RACE_HUMAN;
 }
 
@@ -209,14 +202,6 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 					}
 				}
 			}
-		} else if (bodyfiledata->skel == &g_SkelSkedar) {
-			if (g_HeadsAndBodies[bodynum].canvaryheight && varyheight && bodynum == BODY_SKEDAR) {
-				// Set height to between 65% and 85%
-				f32 frac = RANDOMFRAC();
-				scale *= 2.0f * (0.1f * frac) - 0.1f + 0.75f;
-			}
-
-			if (1);
 		}
 	}
 
@@ -486,10 +471,6 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 			if (random() % 5 == 0) {
 				// Make chr punch slower
 				chr->flags2 |= CHRFLAG1_ADJUSTPUNCHSPEED;
-			}
-
-			if (CHRRACE(chr) == RACE_SKEDAR) {
-				chr->chrflags |= CHRCFLAG_FORCEAUTOAIM;
 			}
 		}
 	}

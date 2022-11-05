@@ -1669,8 +1669,6 @@ void chrChooseStandAnimation(struct chrdata *chr, f32 mergetime)
 			modelSetAnimLooping(chr->model, 0, 16);
 			modelSetAnimEndFrame(chr->model, 120);
 		}
-	} else if (race == RACE_SKEDAR) {
-		modelSetAnimation(chr->model, ANIM_00C0, random() % 2, 0, 0.5, mergetime);
 	} else if (race == RACE_DRCAROLL) {
 		modelSetAnimation(chr->model, ANIM_013E, 0, 0, 0.5, mergetime);
 	} else if (race == RACE_ROBOT) {
@@ -2073,14 +2071,6 @@ void chrSidestepChooseAnimation(struct chrdata *chr)
 				modelSetAnimEndFrame(chr->model, 32);
 			}
 		}
-	} else if (race == RACE_SKEDAR) {
-		if (chr->act_sidestep.side) {
-			modelSetAnimation(chr->model, ANIM_0328, false, 5, chrGetRangedSpeed(chr, 0.55, 0.88000005), 16);
-			modelSetAnimEndFrame(chr->model, 27);
-		} else {
-			modelSetAnimation(chr->model, ANIM_0328, true, 5, chrGetRangedSpeed(chr, 0.55, 0.88000005), 16);
-			modelSetAnimEndFrame(chr->model, 27);
-		}
 	}
 }
 
@@ -2176,14 +2166,6 @@ void chrRunPosChooseAnimation(struct chrdata *chr)
 #endif
 			modelSetAnimation(chr->model, ANIM_RUNNING_ONEHANDGUN, flip, 0, mult, 16);
 		}
-	} else if (race == RACE_SKEDAR) {
-		f32 mult = 0.5;
-#if PAL
-		chr->act_runpos.eta60 = 1.0f / (func0f02dff0(ANIM_SKEDAR_RUNNING) * mult) * distance * 0.83333331346512f;
-#else
-		chr->act_runpos.eta60 = 1.0f / (func0f02dff0(ANIM_SKEDAR_RUNNING) * mult) * distance;
-#endif
-		modelSetAnimation(chr->model, ANIM_SKEDAR_RUNNING, flip, 0, mult, 16);
 	}
 }
 
@@ -3211,57 +3193,6 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 				}
 			}
 		}
-	} else if (race == RACE_SKEDAR) {
-		struct animtablerow *row;
-
-		if (relangle > 2.3558194637299f && relangle < 3.9263656139374f) {
-			// Player is behind the Skedar - use specific set of anims
-			row = &g_AnimTablesByRace[race][1 + (random() % 6)].deathanims[random() % 3];
-
-			chr->act_die.thudframe1 = row->thudframe1;
-			chr->act_die.thudframe2 = row->thudframe2;
-
-			modelSetAnimationWithMerge(model, row->animnum, row->flip, 0, row->speed, 16, !instant);
-
-			if (row->endframe >= 0) {
-				modelSetAnimEndFrame(model, row->endframe);
-			}
-		} else {
-			// Normal Skedar death
-			if (index >= 0
-					&& g_AnimTablesByRace[race][index].deathanims != NULL
-					&& g_AnimTablesByRace[race][index].deathanimcount > 0) {
-				s32 tmp = random() % g_AnimTablesByRace[race][index].deathanimcount;
-				row = &g_AnimTablesByRace[race][index].deathanims[tmp];
-			} else {
-				row = &g_AnimTablesByRace[race][0].deathanims[0];
-			}
-
-			chr->act_die.thudframe1 = row->thudframe1;
-			chr->act_die.thudframe2 = row->thudframe2;
-
-			modelSetAnimationWithMerge(model, row->animnum, row->flip, 0, row->speed, 16, !instant);
-
-			if (row->endframe >= 0) {
-				modelSetAnimEndFrame(model, row->endframe);
-			}
-
-			impactforce3 = gsetGetImpactForce(gset);
-
-			if (impactforce3 <= 0 && (chr->chrflags & CHRCFLAG_DIEWITHFORCE)) {
-				impactforce3 = 6;
-			}
-
-			if (row->unk10 != 0 && impactforce3 > 0) {
-				chr->act_die.timeextra = impactforce3 * 15;
-				chr->act_die.elapseextra = 0;
-				chr->act_die.extraspeed.x = dir->x * impactforce3;
-				chr->act_die.extraspeed.y = dir->y * impactforce3;
-				chr->act_die.extraspeed.z = dir->z * impactforce3;
-			}
-		}
-	} else if (race == RACE_DRCAROLL) {
-		// empty
 	}
 
 	// Handle multiplayer stats and kill count
@@ -3279,7 +3210,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 	}
 
 	// Drop items
-	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
+	if (race == RACE_HUMAN) {
 		if (chr->weapons_held[0] && (chr->weapons_held[0]->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
 			objSetDropped(chr->weapons_held[0], DROPTYPE_DEFAULT);
 			chr->hidden |= CHRHFLAG_00000001;
@@ -3507,8 +3438,6 @@ void chrYeetFromPos(struct chrdata *chr, struct coord *exppos, f32 force)
 
 		if (race == RACE_HUMAN) {
 			row = &g_YeetAnimsHuman[g_YeetAnimIndexesByRaceAngle[race][angleindex].indexes[subindex]];
-		} else if (race == RACE_SKEDAR) {
-			row = &g_YeetAnimsSkedar[g_YeetAnimIndexesByRaceAngle[race][angleindex].indexes[subindex]];
 		}
 
 		chrStopFiring(chr);
@@ -3712,36 +3641,6 @@ void chrChoke(struct chrdata *chr, s32 choketype)
 
 		if (nextindexmaian >= ARRAYCOUNT(sounds)) {
 			nextindexmaian = 0;
-		}
-	} else if (race == RACE_SKEDAR) {
-		if (chr->bodynum == BODY_MINISKEDAR) {
-			s16 sounds[] = {
-				SFX_SKEDAR_ROAR_0536,
-				SFX_SKEDAR_ROAR_0537,
-				SFX_SKEDAR_ROAR_0538,
-				SFX_SKEDAR_ROAR_0539,
-				SFX_SKEDAR_ROAR_053A,
-			};
-
-			soundnum = sounds[random() % 5];
-			nextindexskedar++;
-
-			if (nextindexskedar >= ARRAYCOUNT(sounds)) {
-				nextindexskedar = 0;
-			}
-		} else {
-			s16 sounds[] = {
-				SFX_SKEDAR_ROAR_052D,
-				SFX_SKEDAR_ROAR_052E,
-				SFX_SKEDAR_ROAR_052F,
-			};
-
-			soundnum = sounds[random() % 3];
-			nextindexskedar++;
-
-			if (nextindexskedar >= ARRAYCOUNT(sounds)) {
-				nextindexskedar = 0;
-			}
 		}
 	} else if (chr->headnum == HEAD_DDSHOCK) {
 		s16 sounds[] = {
@@ -4370,7 +4269,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	// If chr is dying or already dead, consider making their head flinch
 	// then we're done
 	if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD) {
-		if (hitpart == HITPART_HEAD && chr->actiontype == ACT_DIE && race != RACE_SKEDAR && isfar) {
+		if (hitpart == HITPART_HEAD && chr->actiontype == ACT_DIE && isfar) {
 			struct coord pos;
 			pos.x = vprop->pos.x - vector->x;
 			pos.y = vprop->pos.y - vector->y;
@@ -4431,27 +4330,17 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			damage *= 0.25f;
 		}
 
-		// Hits to a Skedar's tail are 10x more lethal
-		if (race == RACE_SKEDAR && hitpart == HITPART_TAIL) {
-			damage *= 10;
-		}
-
 		// Apply damage multipliers based on which body parts were hit,
 		// and flinch head if shot in the head
 		if (hitpart == HITPART_HEAD) {
-			if (race == RACE_SKEDAR) {
-				damage += damage;
+			damage *= 4;
+
+			if (isfar && !usedshield) {
 				chrFlinchHead(chr, angle);
-			} else {
-				damage *= 4;
+				damage *= headshotdamagescale;
 
-				if (isfar && !usedshield) {
-					chrFlinchHead(chr, angle);
-					damage *= headshotdamagescale;
-
-					if (gset->weaponnum == WEAPON_COMBATKNIFE && gset->weaponfunc != FUNC_POISON) {
-						damage += damage;
-					}
+				if (gset->weaponnum == WEAPON_COMBATKNIFE && gset->weaponfunc != FUNC_POISON) {
+					damage += damage;
 				}
 			}
 		} else if (hitpart == HITPART_TORSO) {
@@ -4491,10 +4380,6 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 					if (aprop) {
 						achr = aprop->chr;
-
-						if (achr && achr->bodynum == BODY_MINISKEDAR) {
-							blurscale = 4;
-						}
 					}
 
 					if (!achr
@@ -5461,7 +5346,7 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
 							chrSetLookAngle(chr, atan2f(prop->pos.x - pad.pos.x, prop->pos.z - pad.pos.z));
 						}
 
-						if (CHRRACE(chr) == RACE_HUMAN || CHRRACE(chr) == RACE_SKEDAR) {
+						if (CHRRACE(chr) == RACE_HUMAN) {
 							chrStop(chr);
 						}
 					}
@@ -5560,7 +5445,7 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 		return;
 	}
 
-	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
+	if (race == RACE_HUMAN) {
 		if ((gun1 && gun2) || (!gun1 && !gun2)) {
 			heavy = false;
 			flip = random() % 2;
@@ -5574,15 +5459,7 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 			}
 		}
 
-		if (race == RACE_SKEDAR) {
-			if (gospeed == GOPOSFLAG_RUN) {
-				anim = ANIM_SKEDAR_RUNNING;
-			} else if (gospeed == GOPOSFLAG_JOG) {
-				anim = ANIM_0393;
-			} else if (gospeed == GOPOSFLAG_WALK) {
-				anim = ANIM_0392;
-			}
-		} else {
+		{
 			if (heavy) {
 				if (gospeed == GOPOSFLAG_RUN) {
 					// Human, heavy weapon, running
@@ -5936,7 +5813,7 @@ void chrPatrolChooseAnimation(struct chrdata *chr)
 	s32 ismale = g_HeadsAndBodies[chr->bodynum].ismale;
 	f32 speed;
 
-	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
+	if (race == RACE_HUMAN) {
 		if ((leftprop && rightprop) || (!leftprop && !rightprop)) {
 			// No weapon, or double weapons
 			heavy = false;
@@ -5952,19 +5829,15 @@ void chrPatrolChooseAnimation(struct chrdata *chr)
 			}
 		}
 
-		if (race == RACE_SKEDAR) {
-			modelSetAnimation(chr->model, ANIM_0392, flip, 0, 0.25f, 16);
-		} else {
-			speed = 0.5f * func0f02dff0(ANIM_0028) / func0f02dff0(ANIM_006B);
+		speed = 0.5f * func0f02dff0(ANIM_0028) / func0f02dff0(ANIM_006B);
 
-			if (heavy) {
-				modelSetAnimation(chr->model, random() % 2 ? ANIM_0018 : ANIM_0028, flip, 0, speed, 16);
-			} else if (ismale) {
-				s32 anims[] = { ANIM_006B, ANIM_001B, ANIM_0016 };
-				modelSetAnimation(chr->model, anims[random() % 3], flip, 0, speed, 16);
-			} else {
-				modelSetAnimation(chr->model, random() % 2 ? ANIM_005C : ANIM_0072, flip, 0, speed, 16);
-			}
+		if (heavy) {
+			modelSetAnimation(chr->model, random() % 2 ? ANIM_0018 : ANIM_0028, flip, 0, speed, 16);
+		} else if (ismale) {
+			s32 anims[] = { ANIM_006B, ANIM_001B, ANIM_0016 };
+			modelSetAnimation(chr->model, anims[random() % 3], flip, 0, speed, 16);
+		} else {
+			modelSetAnimation(chr->model, random() % 2 ? ANIM_005C : ANIM_0072, flip, 0, speed, 16);
 		}
 	} else if (race == RACE_DRCAROLL) {
 		modelSetAnimation(chr->model, ANIM_015F, false, 0, 0.5f, 16);
@@ -6484,7 +6357,7 @@ bool chrTrySidestep(struct chrdata *chr)
 {
 	u8 race = CHRRACE(chr);
 
-	if ((race == RACE_HUMAN || race == RACE_SKEDAR)
+	if ((race == RACE_HUMAN)
 			&& chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 		struct prop *target = chrGetTargetProp(chr);
@@ -6558,9 +6431,7 @@ bool chrTryRunSideways(struct chrdata *chr)
 {
 	u32 race = CHRRACE(chr);
 
-	if ((race == RACE_HUMAN || race == RACE_SKEDAR)
-			&& chrIsReadyForOrders(chr)
-			&& g_Vars.lvframe60 - chr->lastwalk60 > TICKS(180)) {
+	if (race == RACE_HUMAN && chrIsReadyForOrders(chr) && g_Vars.lvframe60 - chr->lastwalk60 > TICKS(180)) {
 		struct prop *prop = chr->prop;
 		f32 distance = 200.0f + RANDOMFRAC() * 200.0f;
 		struct coord vector;
@@ -6679,9 +6550,7 @@ bool chrTryAttackAmount(struct chrdata *chr, u32 arg1, u32 arg2, u8 lower, u8 up
 {
 	u8 race = CHRRACE(chr);
 
-	if ((race == RACE_HUMAN || race == RACE_SKEDAR)
-			&& chrIsReadyForOrders(chr)
-			&& chr->weapons_held[0]) {
+	if (race == RACE_HUMAN && chrIsReadyForOrders(chr) && chr->weapons_held[0]) {
 		s32 quantity;
 		f32 percentage;
 		struct weaponobj *weapon = chr->weapons_held[0]->weapon;
@@ -6733,7 +6602,7 @@ bool chrTryAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 			return true;
 		}
 
-		if (race == RACE_HUMAN || race == RACE_SKEDAR) {
+		if (race == RACE_HUMAN) {
 			if (chrGetHeldUsableProp(chr, 0) ||
 					(chrGetHeldUsableProp(chr, 1))) {
 				chrAttackStand(chr, attackflags, entityid);
@@ -6749,7 +6618,7 @@ bool chrTryAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
-	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
+	if (race == RACE_HUMAN) {
 		if (chrIsReadyForOrders(chr) && (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))) {
 			chrAttackKneel(chr, attackflags, entityid);
 			return true;
@@ -6763,7 +6632,7 @@ bool chrTryAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
-	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
+	if (race == RACE_HUMAN) {
 		if (chrIsReadyForOrders(chr) && (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))) {
 			chrAttackLie(chr, attackflags, entityid);
 			return true;
@@ -7477,37 +7346,6 @@ bool chrTryPunch(struct chrdata *chr, u8 reverse)
 		chrhitradius = 120;
 		playerhitradius = 120;
 		animindex = random() % 11;
-	} else if (race == RACE_SKEDAR) {
-		anims = g_SkedarPunchAnims;
-		chrhitradius = 200;
-#if VERSION >= VERSION_NTSC_1_0
-		playerhitradius = 200;
-#else
-		playerhitradius = 350;
-#endif
-		startframe = 20;
-
-		if (reverse) {
-			// Skedar kick behind
-			animindex = 5;
-		} else if (!chr->weapons_held[HAND_RIGHT] && !chr->weapons_held[HAND_LEFT]) {
-			// Unarmed: Only use indexes 0 or 1
-			animindex = random() % 2;
-		} else {
-			// Allow indexes 0-4, but if 3 or 4 then flip the anim based on
-			// which hand is holding the gun
-			animindex = random() % 5;
-
-			if (animindex >= 3) {
-				if (!chr->weapons_held[HAND_RIGHT] || !chr->weapons_held[HAND_LEFT]) {
-					if (chr->weapons_held[HAND_RIGHT]) {
-						chranimflags = 0;
-					} else if (chr->weapons_held[HAND_LEFT]) {
-						chranimflags = CHRANIMFLAG_FLIP;
-					}
-				}
-			}
-		}
 	}
 
 	if (chrHasFlag(chr, CHRFLAG1_ADJUSTPUNCHSPEED, BANK_1)) {
@@ -7613,7 +7451,7 @@ void chrTickStand(struct chrdata *chr)
 		return;
 	}
 
-	if (!chr->aibot && (race == RACE_HUMAN || race == RACE_SKEDAR) && chr->act_stand.flags > 0) {
+	if (!chr->aibot && race == RACE_HUMAN && chr->act_stand.flags > 0) {
 		if (chr->act_stand.reaim) {
 			chr->act_stand.turning = chrTurn(chr, chr->act_stand.turning, modelGetNumAnimFrames(chr->model) - 1, 1, 0);
 
@@ -7649,9 +7487,6 @@ void chrTickStand(struct chrdata *chr)
 							modelSetAnimEndFrame(chr->model, animGetNumFrames(ANIM_0028) - 1);
 						}
 					}
-				} else if (race == RACE_SKEDAR) {
-					modelSetAnimation(chr->model, ANIM_0392, random() % 2, 0, 0.5f, 16);
-					modelSetAnimEndFrame(chr->model, animGetNumFrames(ANIM_0392) - 1);
 				}
 			} else if (chr->act_stand.flags & ATTACKFLAG_AIMATDIRECTION) {
 				chr->act_stand.flags = 0;
@@ -11343,8 +11178,6 @@ void chrTickRunPos(struct chrdata *chr)
 			} else {
 				fVar7 = func0f02dff0(ANIM_RUNNING_TWOHANDGUN);
 			}
-		} else if (race == RACE_SKEDAR) {
-			fVar7 = func0f02dff0(ANIM_SKEDAR_RUNNING);
 		}
 
 		chr->act_runpos.neardist += fVar7 * g_Vars.lvupdate60freal * modelGetAbsAnimSpeed(model);
@@ -12718,9 +12551,7 @@ void chrTickPatrol(struct chrdata *chr)
 
 bool chrTrySkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 {
-	if (chr && chr->actiontype != ACT_SKJUMP
-			&& chrIsReadyForOrders(chr)
-			&& CHRRACE(chr) == RACE_SKEDAR) {
+	if (chr && chr->actiontype != ACT_SKJUMP && chrIsReadyForOrders(chr)) {
 		return chrStartSkJump(chr, arg1, arg2, arg3, arg4);
 	}
 
@@ -12901,7 +12732,7 @@ void chraTick(struct chrdata *chr)
 			|| (chr->chrflags & CHRCFLAG_00040000)
 			|| chr->alertness >= 65
 			|| (chr->aibot && (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD))) {
-		u8 pass = race == RACE_HUMAN || race == RACE_SKEDAR;
+		u8 pass = race == RACE_HUMAN;
 		chr->sleep = 0;
 
 		if (race == RACE_ROBOT) {
