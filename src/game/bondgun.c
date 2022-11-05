@@ -12666,7 +12666,7 @@ void bgunRevertBoost(void)
  */
 void bgunTickBoost(void)
 {
-	if (g_Vars.speedpillon && g_Vars.speedpilltime > 0 && !g_Vars.in_cutscene) {
+	if (g_Vars.speedpillon && g_Vars.speedpilltime > 0) {
 		g_Vars.speedpilltime -= g_Vars.lvupdate60;
 
 		if (g_Vars.speedpilltime <= 0) {

@@ -577,15 +577,7 @@ void model0001b0e8(struct model *model, struct modelnode *node)
 
 	rwdata->chrinfo.unk14 = rwdata->chrinfo.unk30;
 
-	if (g_Vars.in_cutscene && anim->speed > 0.0f) {
-#if VERSION >= VERSION_PAL_BETA
-		frac = floorf(anim->frac / anim->speed + 0.01f) * anim->speed;
-#else
-		frac = floorf(anim->frac / anim->speed) * anim->speed;
-#endif
-	} else {
-		frac = anim->frac;
-	}
+	frac = anim->frac;
 
 	if (frac != 0.0f && rwdata->chrinfo.unk01) {
 		model0001af98(&sp34, &rwdata->chrinfo.unk24, frac);
@@ -695,15 +687,7 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 
 	anim00024050(sp240, anim->flip, skel, anim->animnum, anim->unk04, &sp230, &sp224, &sp218);
 
-	if (g_Vars.in_cutscene && anim->speed > 0) {
-#if VERSION >= VERSION_PAL_BETA
-		sp154 = floorf(anim->frac / anim->speed + 0.01f) * anim->speed;
-#else
-		sp154 = floorf(anim->frac / anim->speed) * anim->speed;
-#endif
-	} else {
-		sp154 = anim->frac;
-	}
+	sp154 = anim->frac;
 
 	if (sp154 != 0.0f) {
 		anim00024050(sp240, anim->flip, skel, anim->animnum, anim->unk05, &sp148, &sp13c, &sp130);
@@ -1013,15 +997,7 @@ void model0001bfa8(struct modelrenderdata *renderdata, struct model *model, stru
 
 			anim00024050(partnum, anim->flip, skel, anim->animnum, anim->unk04, &sp144, &sp138, &sp12c);
 
-			if (g_Vars.in_cutscene && anim->speed > 0.0f) {
-#if VERSION >= VERSION_PAL_BETA
-				spe0 = floorf(anim->frac / anim->speed + 0.0099999997764826f) * anim->speed;
-#else
-				spe0 = floorf(anim->frac / anim->speed) * anim->speed;
-#endif
-			} else {
-				spe0 = anim->frac;
-			}
+			spe0 = anim->frac;
 
 			if (spe0 != 0.0f) {
 				anim00024050(partnum, anim->flip, skel, anim->animnum, anim->unk05, &spd4, &spc8, &spbc);
@@ -1937,25 +1913,6 @@ void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe)
 			anim->speed = speed;
 			anim->timespeed = 0;
 		}
-	}
-}
-
-void modelSetAnimSpeedAuto(struct model *model, f32 arg1, f32 startframe)
-{
-	struct anim *anim = model->anim;
-	f32 tmp;
-	f32 speed;
-
-	if (anim) {
-		if (anim->frame <= arg1) {
-			tmp = arg1 - anim->frame;
-		} else {
-			tmp = animGetNumFrames(anim->animnum) - anim->frame + arg1;
-		}
-
-		speed = anim->speed + (tmp + tmp) / startframe;
-
-		modelSetAnimSpeed(model, speed, startframe);
 	}
 }
 

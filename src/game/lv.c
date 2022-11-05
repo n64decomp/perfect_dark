@@ -198,9 +198,7 @@ void lvUpdateMiscSfx(void)
 			lvSetMiscSfxState(i, false);
 		}
 	} else {
-		bool usingboost = g_Vars.speedpillon
-			&& lvGetSlowMotionType() == SLOWMOTION_OFF
-			&& g_Vars.in_cutscene == false;
+		bool usingboost = g_Vars.speedpillon && lvGetSlowMotionType() == SLOWMOTION_OFF;
 		bool usingrocket;
 
 		lvSetMiscSfxState(MISCSFX_BOOSTHEARTBEAT, usingboost);
@@ -1572,14 +1570,14 @@ void lvTick(void)
 		g_Vars.lvupdate240 = g_Vars.diffframe240;
 
 		if (slowmo == SLOWMOTION_ON) {
-			if (g_Vars.speedpillon == false || g_Vars.in_cutscene) {
+			if (g_Vars.speedpillon == false) {
 				if (g_Vars.lvupdate240 > 4) {
 					g_Vars.lvupdate240 = 4;
 				}
 			}
 		} else if (slowmo == SLOWMOTION_SMART) {
 			// Smart slow motion - activates if an enemy chr is nearby
-			if (g_Vars.speedpillon == false || g_Vars.in_cutscene) {
+			if (g_Vars.speedpillon == false) {
 				if (g_Vars.mplayerisrunning) {
 					bool foundnearbychr = false;
 					s32 playernum;
@@ -1620,7 +1618,7 @@ void lvTick(void)
 			}
 		} else {
 			// Slow motion settings are off
-			if (g_Vars.speedpillon && g_Vars.in_cutscene == false) {
+			if (g_Vars.speedpillon) {
 				if (g_Vars.lvupdate240 > 4) {
 					g_Vars.lvupdate240 = 4;
 				}
@@ -1644,35 +1642,6 @@ void lvTick(void)
 
 	bgunTickBoost();
 	hudmsgsTick();
-
-	if (g_Vars.stagenum < STAGE_TITLE && !g_Vars.in_cutscene) {
-		if (joyGetButtons(0, 0xffff) == 0
-				&& joyGetStickX(0) < 10
-				&& joyGetStickX(0) > -10
-				&& joyGetStickY(0) < 10
-				&& joyGetStickY(0) > -10
-				&& joyGetButtons(1, 0xffff) == 0
-				&& joyGetStickX(1) < 10
-				&& joyGetStickX(1) > -10
-				&& joyGetStickY(1) < 10
-				&& joyGetStickY(1) > -10
-				&& joyGetButtons(2, 0xffff) == 0
-				&& joyGetStickX(2) < 10
-				&& joyGetStickX(2) > -10
-				&& joyGetStickY(2) < 10
-				&& joyGetStickY(2) > -10
-				&& joyGetButtons(3, 0xffff) == 0
-				&& joyGetStickX(3) < 10
-				&& joyGetStickX(3) > -10
-				&& joyGetStickY(3) < 10
-				&& joyGetStickY(3) > -10) {
-			g_TitleIdleTime60 += g_Vars.diffframe60;
-		} else {
-			g_TitleIdleTime60 = 0;
-		}
-	} else {
-		g_TitleIdleTime60 = 0;
-	}
 
 	g_NumReasonsToEndMpMatch = 0;
 

@@ -1221,27 +1221,25 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 							s32 side = -1;
 							s32 hitpart = HITPART_TORSO;
 
-							if (!chrIsAvoiding(chr)) {
-								bgunCalculatePlayerShotSpread(&spb8, &vector, handnum, true);
-								skipthething = true;
-								mtx4RotateVecInPlace(camGetProjectionMtxF(), &vector);
-								bgunPlayPropHitSound(gset, prop, -1);
+							bgunCalculatePlayerShotSpread(&spb8, &vector, handnum, true);
+							skipthething = true;
+							mtx4RotateVecInPlace(camGetProjectionMtxF(), &vector);
+							bgunPlayPropHitSound(gset, prop, -1);
 
-								if (chr->model && chrGetShield(chr) > 0) {
-									chrCalculateShieldHit(chr, &playerprop->pos, &vector, &node, &hitpart, &model, &side);
-								}
-
-								if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
-									hitpart = HITPART_GENERAL;
-								} else if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
-									hitpart = HITPART_GENERALHALF;
-								} else {
-									hitpart = HITPART_TORSO;
-								}
-
-								func0f0341dc(chr, gsetGetDamage(gset), &vector, gset,
-										g_Vars.currentplayer->prop, hitpart, chr->prop, node, model, side, 0);
+							if (chr->model && chrGetShield(chr) > 0) {
+								chrCalculateShieldHit(chr, &playerprop->pos, &vector, &node, &hitpart, &model, &side);
 							}
+
+							if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
+								hitpart = HITPART_GENERAL;
+							} else if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
+								hitpart = HITPART_GENERALHALF;
+							} else {
+								hitpart = HITPART_TORSO;
+							}
+
+							func0f0341dc(chr, gsetGetDamage(gset), &vector, gset,
+									g_Vars.currentplayer->prop, hitpart, chr->prop, node, model, side, 0);
 						}
 					}
 				}

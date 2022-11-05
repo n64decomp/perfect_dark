@@ -894,34 +894,6 @@ void bwalkUpdateVertical(void)
 			}
 		} else {
 			// Not falling
-#if VERSION >= VERSION_NTSC_1_0
-			if (g_Vars.normmplayerisrunning == false
-					&& g_Vars.currentplayer->vv_ground < g_Vars.currentplayer->vv_manground - 30) {
-				// Not falling - but still at least 30 units off the ground.
-				// Must be something in the way...
-				prop = cdGetObstacleProp();
-
-				if (prop) {
-					if (prop->type == PROPTYPE_CHR) {
-						// Landed on top of a chr
-						if (prop->chr->inlift) {
-							chrYeetFromPos(prop->chr, &g_Vars.currentplayer->prop->pos, 0);
-						}
-					} else if (prop->type == PROPTYPE_PLAYER) {
-						// Landed on top of a player
-						u32 prevplayernum = g_Vars.currentplayernum;
-						setCurrentPlayerNum(playermgrGetPlayerNumByProp(prop));
-
-						if (g_Vars.currentplayer->inlift) {
-							playerDieByShooter(prevplayernum, true);
-						}
-
-						setCurrentPlayerNum(prevplayernum);
-					}
-				}
-			}
-#endif
-
 			g_Vars.currentplayer->bdeltapos.y = VERSION >= VERSION_NTSC_1_0 ? 0.0f : 0;
 
 			if (g_Vars.currentplayer->isfalling) {

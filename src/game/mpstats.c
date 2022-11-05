@@ -53,26 +53,6 @@ s32 mpstatsGetPlayerShotCountByRegion(u32 type)
 	return g_Vars.currentplayerstats->shotcount[type];
 }
 
-void mpstatsIncrementTotalKillCount(void)
-{
-	g_Vars.killcount++;
-}
-
-void mpstatsIncrementTotalKnockoutCount(void)
-{
-	g_Vars.knockoutcount++;
-}
-
-void mpstatsDecrementTotalKnockoutCount(void)
-{
-	g_Vars.knockoutcount--;
-}
-
-u8 mpstatsGetTotalKnockoutCount(void)
-{
-	return g_Vars.knockoutcount;
-}
-
 void mpstatsRecordPlayerKill(void)
 {
 	char text[256];

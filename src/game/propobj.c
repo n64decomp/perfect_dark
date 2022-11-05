@@ -10085,17 +10085,12 @@ Gfx *propsRenderBeams(Gfx *gdl)
 		if (prop->type == PROPTYPE_CHR) {
 			struct chrdata *chr = prop->chr;
 
-			if (CHRRACE(chr) == RACE_ROBOT) {
-				gdl = beamRender(gdl, chr->unk348[0]->beam, true, true);
-				gdl = beamRender(gdl, chr->unk348[1]->beam, true, true);
-			} else {
-				if (chr->fireslots[0] >= 0) {
-					gdl = beamRender(gdl, &g_Fireslots[chr->fireslots[0]].beam, true, false);
-				}
+			if (chr->fireslots[0] >= 0) {
+				gdl = beamRender(gdl, &g_Fireslots[chr->fireslots[0]].beam, true, false);
+			}
 
-				if (chr->fireslots[1] >= 0) {
-					gdl = beamRender(gdl, &g_Fireslots[chr->fireslots[1]].beam, true, false);
-				}
+			if (chr->fireslots[1] >= 0) {
+				gdl = beamRender(gdl, &g_Fireslots[chr->fireslots[1]].beam, true, false);
 			}
 		} else if (prop->type == PROPTYPE_OBJ) {
 			struct defaultobj *obj = prop->obj;
@@ -15587,9 +15582,7 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 
 	switch (obj->type) {
 	case OBJTYPE_KEY:
-		if (g_Vars.in_cutscene == false) {
-			sndStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
-		}
+		sndStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
 
 		if (showhudmsg) {
 			char *text = invGetPickupTextByObj(obj);
@@ -15607,7 +15600,7 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 		{
 			struct ammocrateobj *crate = (struct ammocrateobj *) prop->obj;
 			s32 quantity = ammocrateGetPickupAmmoQty(crate);
-			ammoHandlePickup(crate->ammotype, quantity, !g_Vars.in_cutscene, showhudmsg);
+			ammoHandlePickup(crate->ammotype, quantity, true, showhudmsg);
 			result = TICKOP_FREE;
 		}
 		break;
@@ -15627,9 +15620,7 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 				ammoHandlePickup(i + 1, qty, false, showhudmsg);
 			}
 
-			if (g_Vars.in_cutscene == false) {
-				sndStart(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
-			}
+			sndStart(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
 
 			result = TICKOP_FREE;
 		}
@@ -15664,9 +15655,7 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 				}
 			}
 
-			if (g_Vars.in_cutscene == false) {
-				weaponPlayPickupSound(weapon->weaponnum);
-			}
+			weaponPlayPickupSound(weapon->weaponnum);
 
 			if (obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) {
 				if (weapon->weaponnum <= WEAPON_PSYCHOSISGUN) {
@@ -15691,7 +15680,7 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 				if (weapon->weaponnum == WEAPON_BOLT) {
 					count = 1;
 					given = true;
-					ammoHandlePickup(AMMOTYPE_CROSSBOW, 1, !g_Vars.in_cutscene, true);
+					ammoHandlePickup(AMMOTYPE_CROSSBOW, 1, true, true);
 					result = TICKOP_FREE;
 					showhudmsg = false;
 					sp70 = true;
@@ -15766,9 +15755,7 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 		{
 			playerSetShieldFrac(((struct shieldobj *) prop->obj)->amount);
 
-			if (!g_Vars.in_cutscene) {
-				sndStart(var80095200, SFX_PICKUP_SHIELD, NULL, -1, -1, -1, -1, -1);
-			}
+			sndStart(var80095200, SFX_PICKUP_SHIELD, NULL, -1, -1, -1, -1, -1);
 
 			if (showhudmsg) {
 				char *text = invGetPickupTextByObj(obj);
@@ -15803,9 +15790,7 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 	case OBJTYPE_SAFE:
 	case OBJTYPE_TINTEDGLASS:
 	default:
-		if (g_Vars.in_cutscene == false) {
-			sndStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
-		}
+		sndStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
 
 		if (showhudmsg) {
 			char *text = invGetPickupTextByObj(obj);
@@ -17562,12 +17547,6 @@ void doorPlayOpeningSound(s32 soundtype, struct prop *prop)
 
 	func0f0926bc(prop, 12, 0xffff);
 
-	if (g_Vars.in_cutscene
-			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
-			&& (prop->obj->flags3 & OBJFLAG3_AUTOCUTSCENESOUNDS) == 0) {
-		return;
-	}
-
 	switch (soundtype) {
 	case 28: sound1 = SFX_DOOR_8007; break;
 	case 1:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801B; break;
@@ -17639,12 +17618,6 @@ void doorPlayClosingSound(s32 soundtype, struct prop *prop)
 
 	func0f0926bc(prop, 12, 0xffff);
 
-	if (g_Vars.in_cutscene
-			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
-			&& (prop->obj->flags3 & OBJFLAG3_AUTOCUTSCENESOUNDS) == 0) {
-		return;
-	}
-
 	switch (soundtype) {
 	case 28: sound1 = SFX_DOOR_8007; break;
 	case 1:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801B; break;
@@ -17698,12 +17671,6 @@ void doorPlayOpenedSound(s32 soundtype, struct prop *prop)
 
 	func0f0926bc(prop, 12, 0xffff);
 
-	if (g_Vars.in_cutscene
-			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
-			&& (prop->obj->flags3 & OBJFLAG3_AUTOCUTSCENESOUNDS) == 0) {
-		return;
-	}
-
 	switch (soundtype) {
 	case 28: sound = SFX_DOOR_801A; break;
 	case 1:  sound = SFX_DOOR_801A; break;
@@ -17750,12 +17717,6 @@ void doorPlayClosedSound(s32 soundtype, struct prop *prop)
 	s32 sound = 0;
 
 	func0f0926bc(prop, 12, 0xffff);
-
-	if (g_Vars.in_cutscene
-			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
-			&& (prop->obj->flags3 & OBJFLAG3_AUTOCUTSCENESOUNDS) == 0) {
-		return;
-	}
 
 	switch (soundtype) {
 	case 28: sound = SFX_DOOR_801A; break;
@@ -19145,212 +19106,6 @@ void weaponCreateForPlayerDrop(s32 weaponnum)
 
 		if (weaponnum == WEAPON_BRIEFCASE2) {
 			scenarioHandleDroppedToken(chr, prop);
-		}
-	}
-}
-
-void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct coord *pos, struct coord *dir, u8 weaponnum, struct prop *targetprop)
-{
-	if (!lvIsPaused()) {
-		bool blocked = false;
-		struct coord endpos;
-		u32 stack;
-		f32 x;
-		f32 y;
-		f32 z;
-		f32 sqdist;
-		struct prop *obstacle = NULL;
-		s16 sp1c8[8];
-		u8 forcebeam = false;
-		struct beam beam;
-		struct coord frompos;
-		u32 stack2;
-		u8 drug = false;
-		u32 stack3;
-
-		frompos.x = pos->x;
-		frompos.y = pos->y;
-		frompos.z = pos->z;
-
-		if (weaponnum == WEAPON_TRANQUILIZER) {
-			forcebeam = true;
-			beam.age = -1;
-			drug = true;
-			frompos.y -= 40.0f;
-		}
-
-		if (arg1 && arg1->unk08 < g_Vars.lvframe60) {
-			switch (weaponnum) {
-			case WEAPON_CHOPPERGUN:
-				func0f0926bc(fromprop, 7, 0xffff);
-				propsnd0f0939f8(0, fromprop, SFX_810E, -1, -1, 0, 0, 7, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-				arg1->unk08 = g_Vars.lvframe60 + 4;
-				break;
-			case WEAPON_RCP45:
-				func0f0926bc(fromprop, 1, 0xffff);
-				propsnd0f0939f8(0, fromprop, SFX_805A, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-				arg1->unk08 = g_Vars.lvframe60 + 2;
-				break;
-			case WEAPON_WATCHLASER:
-				func0f0926bc(fromprop, 1, 0xffff);
-				propsnd0f0939f8(0, fromprop, SFX_8043, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-				arg1->unk08 = g_Vars.lvframe60 + 8;
-				break;
-			default:
-				func0f0926bc(fromprop, 1, 0xffff);
-				propsnd0f0939f8(0, fromprop, SFX_8045, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-				arg1->unk08 = g_Vars.lvframe60 + 2;
-				break;
-			}
-		}
-
-		if (targetprop) {
-			x = targetprop->pos.f[0] - pos->f[0] - dir->f[0] * 15.0f;
-			y = targetprop->pos.f[1] - pos->f[1] - dir->f[1] * 15.0f;
-			z = targetprop->pos.f[2] - pos->f[2] - dir->f[2] * 15.0f;
-
-			sqdist = x * x + y * y + z * z;
-		} else {
-			sqdist = 0x20000000;
-		}
-
-		if (weaponnum != WEAPON_ROCKETLAUNCHER) {
-			struct gset gset = {0};
-
-			gset.weaponnum = weaponnum;
-
-			endpos.x = pos->x + dir->f[0] * 65536.0f;
-			endpos.y = pos->y + dir->f[1] * 65536.0f;
-			endpos.z = pos->z + dir->f[2] * 65536.0f;
-
-			propSetPerimEnabled(fromprop, false);
-
-			if (cdExamLos08(pos, fromprop->rooms, &endpos,
-						CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER| CDTYPE_BG,
-						GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-				blocked = true;
-#if VERSION >= VERSION_JPN_FINAL
-				cdGetPos(&endpos, 24883, "prop/propobj.c");
-#elif VERSION >= VERSION_PAL_FINAL
-				cdGetPos(&endpos, 24873, "prop/propobj.c");
-#elif VERSION >= VERSION_PAL_BETA
-				cdGetPos(&endpos, 24873, "propobj.c");
-#elif VERSION >= VERSION_NTSC_1_0
-				cdGetPos(&endpos, 24482, "propobj.c");
-#else
-				cdGetPos(&endpos, 24137, "propobj.c");
-#endif
-				obstacle = cdGetObstacleProp();
-			}
-
-			propSetPerimEnabled(fromprop, true);
-
-			x = endpos.x - pos->x;
-			y = endpos.y - pos->y;
-			z = endpos.z - pos->z;
-
-			if (targetprop && sqdist <= x * x + y * y + z * z) {
-				f32 dist = sqrtf(sqdist);
-				struct coord aimpos;
-
-				aimpos.x = targetprop->pos.x;
-				aimpos.y = targetprop->pos.y - 20.0f;
-				aimpos.z = targetprop->pos.z;
-
-				if (func0f06b39c(pos, dir, &aimpos, 30)) {
-					f32 f0 = 0.16f * g_Vars.lvupdate60freal * arg1->unk0c;
-
-					if (dist > 200.0f) {
-						f0 *= 200.0f / dist;
-					}
-
-					arg1->unk14 += f0;
-
-					if (arg1->unk14 >= 1.0f) {
-						blocked = false;
-
-						endpos.x = targetprop->pos.x;
-						endpos.y = targetprop->pos.y;
-						endpos.z = targetprop->pos.z;
-
-						if (random() % 2) {
-							endpos.y += (random() % 10) + 2;
-						} else {
-							endpos.y -= (random() % 10) + 2;
-						}
-
-						bgunPlayPropHitSound(&gset, targetprop, -1);
-						chrDamageByImpact(targetprop->chr, gsetGetDamage(&gset) * arg1->unk10, dir, &gset, 0, 200);
-						arg1->unk14 = 0.0f;
-					}
-				}
-			}
-
-			if (blocked) {
-				if (obstacle) {
-					if (obstacle->type == PROPTYPE_CHR || obstacle->type == PROPTYPE_PLAYER) {
-						struct modelnode *node = NULL;
-						struct model *model = NULL;
-						s32 side = -1;
-						s32 hitpart = HITPART_GENERAL;
-						struct chrdata *chr = obstacle->chr;
-
-						if (weaponnum != WEAPON_CHOPPERGUN) {
-							bgunPlayPropHitSound(&gset, obstacle, -1);
-						}
-
-						if (chr->model) {
-							chrCalculateShieldHit(chr, &endpos, dir, &node, &hitpart, &model, &side);
-						}
-
-						chrEmitSparks(chr, obstacle, hitpart, &endpos, dir, NULL);
-
-						if (drug) {
-							chr->blurdrugamount = TICKS(5000);
-						}
-
-						func0f0341dc(chr, gsetGetDamage(&gset), dir, &gset, 0, hitpart, obstacle, node, model, side, NULL);
-					} else if (obstacle->type == PROPTYPE_OBJ || obstacle->type == PROPTYPE_WEAPON || obstacle->type == PROPTYPE_DOOR) {
-						struct defaultobj *obj = obstacle->obj;
-
-						if (weaponnum != WEAPON_CHOPPERGUN) {
-							bgunPlayPropHitSound(&gset, obstacle, -1);
-						}
-
-						func0f065e74(pos, fromprop->rooms, &endpos, sp1c8);
-						sparksCreate(sp1c8[0], obstacle, &endpos, NULL, NULL, SPARKTYPE_DEFAULT);
-						objTakeGunfire(obstacle->obj, gsetGetDamage(&gset), &endpos, weaponnum, -1);
-
-						if (obj->type == OBJTYPE_WEAPON) {
-							struct weaponobj *weapon = (struct weaponobj *)obj;
-
-							if (weapon->weaponnum == WEAPON_DRAGON && weapon->gunfunc == FUNC_SECONDARY) {
-								weapon->timer240 = 0;
-							}
-						}
-					}
-				} else {
-					func0f065e74(pos, fromprop->rooms, &endpos, sp1c8);
-
-					if (weaponnum != WEAPON_CHOPPERGUN) {
-						bgunPlayBgHitSound(&gset, &endpos, -1, sp1c8);
-					}
-
-					sparksCreate(sp1c8[0], NULL, &endpos, NULL, NULL, SPARKTYPE_DEFAULT);
-				}
-			}
-
-			if (forcebeam || (arg1 && arg1->unk01)) {
-				struct beam *beamptr;
-
-				if (forcebeam) {
-					beamptr = &beam;
-				} else {
-					beamptr = arg1->beam;
-				}
-
-				beamCreate(beamptr, forcebeam ? WEAPON_FALCON2 : weaponnum, &frompos, &endpos);
-			}
 		}
 	}
 }

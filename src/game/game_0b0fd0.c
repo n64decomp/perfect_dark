@@ -363,19 +363,6 @@ u8 gsetGetSinglePenetration(struct gset *gset)
 	return 0;
 }
 
-f32 gsetGetImpactForce(struct gset *gset)
-{
-	struct weaponfunc *func = gsetGetWeaponFunction(gset);
-	f32 result = 0;
-
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
-		result = funcshoot->impactforce;
-	}
-
-	return result;
-}
-
 f32 gsetGetDamage(struct gset *gset)
 {
 	struct weaponfunc *func = gsetGetWeaponFunction(gset);

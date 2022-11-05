@@ -565,7 +565,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			arg2->z = arg1->z + move[1];
 		}
 
-		if (chr->actiontype == ACT_PATROL || chr->actiontype == ACT_GOPOS) {
+		if (chr->actiontype == ACT_GOPOS) {
 			chr->onladder = cdFindLadder(&chr->prop->pos, chr->radius * 2.5f,
 					chr->manground + chr->height - chr->prop->pos.y,
 					chr->manground + 1.0f - chr->prop->pos.y,
@@ -657,14 +657,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		arg2->x += chr->fallspeed.x * VAR(lvupdate60freal);
 		arg2->z += chr->fallspeed.z * VAR(lvupdate60freal);
 
-		if (chr->actiontype == ACT_SKJUMP
-				&& chr->act_skjump.state == SKJUMPSTATE_AIRBORNE
-				&& !chr->act_skjump.needsnewanim
-				&& g_Vars.lvupdate60 != 0) {
-			arg2->x = chr->act_skjump.pos.x;
-			yincrement = chr->act_skjump.pos.y;
-			arg2->z = chr->act_skjump.pos.z;
-		} else if (chr->onladder) {
+		if (chr->onladder) {
 			f32 dist;
 			f32 xdiff = arg2->x - arg1->x;
 			f32 zdiff = arg2->z - arg1->z;
@@ -702,25 +695,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			chrCalculatePushPos(chr, arg2, spfc, true);
 		}
 
-		if (chr->actiontype == ACT_SKJUMP
-				&& chr->act_skjump.state == SKJUMPSTATE_AIRBORNE
-				&& !chr->act_skjump.needsnewanim
-				&& g_Vars.lvupdate60 != 0) {
-#if VERSION >= VERSION_NTSC_1_0
-			if (chr0f01f264(chr, arg2, spfc, yincrement, true)) {
-				chr->manground += yincrement;
-			}
-#else
-			if (chr0f01f264(chr, arg2, spfc, yincrement)) {
-				chr->manground += yincrement;
-				arg2->y += yincrement;
-			}
-#endif
-
-			chr->sumground = chr->manground * (PAL ? 8.4175090789795f : 9.999998f);
-			chr->ground = chr->manground;
-			arg2->y -= chr->manground;
-		} else {
+		{
 			struct coord *sp98;
 			s16 *sp94;
 			struct coord sp88;
@@ -920,20 +895,6 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	prop->pos.x = arg2->x;
 	prop->pos.y = arg2->y + chr->manground;
 	prop->pos.z = arg2->z;
-
-	if (chr->actiontype == ACT_SKJUMP) {
-#if VERSION >= VERSION_NTSC_1_0
-		f32 ground;
-#endif
-
-		ground = chr->act_skjump.ground;
-
-		if (prop->pos.y < ground) {
-			prop->pos.y = ground;
-			chr->manground = chr->act_skjump.ground;
-			*mangroundptr = chr->act_skjump.ground;
-		}
-	}
 
 	propDeregisterRooms(prop);
 	roomsCopy(spfc, prop->rooms);
@@ -2116,10 +2077,7 @@ s32 chrTick(struct prop *prop)
 		}
 #endif
 
-		if (g_Vars.in_cutscene) {
-			chr->drugheadcount = 0;
-			chr->drugheadsway = 0;
-		} else if (chr->blurdrugamount > TICKS(1000) && chr->actiontype != ACT_DRUGGEDKO) {
+		if (chr->blurdrugamount > TICKS(1000) && chr->actiontype != ACT_DRUGGEDKO) {
 			chr->drugheadcount += g_Vars.lvupdate240 >> 1;
 			chr->drugheadsway = cosf(chr->drugheadcount / 255.0f * M_BADTAU) * 20.0f;
 		} else if (chr->drugheadsway != 0.0f) {
@@ -2198,11 +2156,7 @@ s32 chrTick(struct prop *prop)
 		if (fulltick) {
 			model->anim->average = false;
 
-			if (chr->actiontype == ACT_ANIM && !chr->act_anim.movewheninvis && chr->act_anim.lockpos) {
-				chr0f0220ec(chr, lvupdate240, 0);
-			} else {
-				chr0f0220ec(chr, lvupdate240, 1);
-			}
+			chr0f0220ec(chr, lvupdate240, 1);
 		}
 
 		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_04)) {
@@ -2218,9 +2172,8 @@ s32 chrTick(struct prop *prop)
 		} else {
 			onscreen = posIsInDrawDistance(&prop->pos);
 		}
-	} else if (chr->actiontype == ACT_PATROL || chr->actiontype == ACT_GOPOS) {
-		if ((chr->actiontype == ACT_PATROL && chr->act_patrol.waydata.mode == WAYMODE_MAGIC)
-				|| (chr->actiontype == ACT_GOPOS && chr->act_gopos.waydata.mode == WAYMODE_MAGIC)) {
+	} else if (chr->actiontype == ACT_GOPOS) {
+		if (chr->act_gopos.waydata.mode == WAYMODE_MAGIC) {
 			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
 
 			if (onscreen) {
@@ -2236,27 +2189,13 @@ s32 chrTick(struct prop *prop)
 			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
 
 			if (onscreen) {
-				if (chr->actiontype == ACT_PATROL) {
-					chr->act_patrol.waydata.lastvisible60 = g_Vars.lvframe60;
-				} else if (chr->actiontype == ACT_GOPOS) {
+				if (chr->actiontype == ACT_GOPOS) {
 					chr->act_gopos.waydata.lastvisible60 = g_Vars.lvframe60;
 				}
 			}
 
 			model->anim->average = !onscreen
 				&& !((prop->flags & (PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) != 0);
-		}
-	} else if (chr->actiontype == ACT_ANIM && !chr->act_anim.movewheninvis) {
-		onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
-
-		if (fulltick) {
-			model->anim->average = false;
-
-			if (onscreen && !chr->act_anim.lockpos) {
-				chr0f0220ec(chr, lvupdate240, 1);
-			} else {
-				chr0f0220ec(chr, lvupdate240, 0);
-			}
 		}
 	} else if (chr->actiontype == ACT_STAND) {
 		model->anim->average = false;
@@ -3111,7 +3050,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 		// Render shadow
 		if (xlupass) {
-			if (!chr->onladder && chr->actiontype != ACT_SKJUMP) {
+			if (!chr->onladder) {
 				s32 shadowalpha = 0;
 
 				if (chr->ground == 0) {
@@ -4925,21 +4864,6 @@ struct prop *chrGetHeldProp(struct chrdata *chr, s32 hand)
 	return chr->weapons_held[hand];
 }
 
-struct prop *chrGetHeldUsableProp(struct chrdata *chr, s32 hand)
-{
-	struct prop *prop = chr->weapons_held[hand];
-
-	if (prop) {
-		struct weaponobj *weapon = prop->weapon;
-
-		if (!weaponHasFlag(weapon->weaponnum, WEAPONFLAG_AICANUSE)) {
-			prop = NULL;
-		}
-	}
-
-	return prop;
-}
-
 struct prop *chrGetTargetProp(struct chrdata *chr)
 {
 	struct prop *ret;
@@ -4971,13 +4895,6 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 
 		chr->geo.ymin = chr->manground;
 		chr->geo.ymax = chr->manground + chr->height;
-
-		if (chr->actiontype == ACT_SKJUMP) {
-			if (chr->manground > chr->act_skjump.ground) {
-				chr->geo.ymin = chr->act_skjump.ground;
-			}
-		}
-
 		chr->geo.x = prop->pos.x;
 		chr->geo.z = prop->pos.z;
 		chr->geo.radius = chr->radius;
@@ -5005,10 +4922,6 @@ void chrGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 	*radius = chr->radius;
 	*ymax = chr->manground + chr->height;
 	*ymin = chr->manground + 20;
-
-	if (chr->actiontype == ACT_SKJUMP && chr->act_skjump.ground < chr->manground) {
-		*ymin = chr->act_skjump.ground + 20;
-	}
 }
 
 bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
