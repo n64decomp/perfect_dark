@@ -4819,8 +4819,7 @@ const char var7f1ae9ccnb[] = "Pak -> osGbpakReadId - Failed";
 
 void pak0f11ca30(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
-	if (g_Vars.tickmode != TICKMODE_CUTSCENE || g_MenuData.count > 0) {
+	if (g_MenuData.count > 0) {
 		u8 oldvalue = var80075d10;
 		u8 newvalue = var80075d10;
 		u8 thing = 0xff;
@@ -4849,32 +4848,6 @@ void pak0f11ca30(void)
 			var80075d10 = newvalue;
 		}
 	}
-#else
-	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		u32 thing = joy00013980();
-		u8 oldvalue = var80075d10;
-		u8 newvalue = var80075d10;
-		s32 i;
-
-		for (i = 0; i < 5; i++) {
-			u32 thisbit = 1 << i;
-
-			if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & thisbit) {
-				if ((thing & thisbit) != (oldvalue & thisbit)) {
-					if (thing & thisbit) {
-						g_Paks[i].unk010 = PAK010_02;
-						newvalue |= thisbit;
-					} else {
-						g_Paks[i].unk010 = PAK010_01;
-						newvalue &= ~thisbit;
-					}
-				}
-			}
-		}
-
-		var80075d10 = newvalue;
-	}
-#endif
 }
 
 void gbpakHandleError(u32 err)

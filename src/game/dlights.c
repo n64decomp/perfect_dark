@@ -1771,9 +1771,7 @@ void func0f0035c0(void)
 void func0f00372c(void)
 {
 	if (g_Vars.tickmode != var80061458) {
-		if (TICKMODE_CUTSCENE == g_Vars.tickmode && TICKMODE_CUTSCENE != var80061458) {
-			func0f003444();
-		} else if (TICKMODE_NORMAL == g_Vars.tickmode && TICKMODE_NORMAL != var80061458) {
+		if (TICKMODE_NORMAL == g_Vars.tickmode && TICKMODE_NORMAL != var80061458) {
 			func0f0035c0();
 		}
 
@@ -1799,16 +1797,6 @@ void func0f0037ac(void)
 	f32 angle;
 	f32 average;
 	u32 stack;
-
-	static s32 prevtickmode = 0;
-
-	if (prevtickmode != g_Vars.tickmode) {
-		if (prevtickmode == TICKMODE_CUTSCENE && g_Vars.tickmode == TICKMODE_NORMAL) {
-			g_IsSwitchingGoggles = 2;
-		}
-
-		prevtickmode = g_Vars.tickmode;
-	}
 
 	if (var80061420 == NULL) {
 		return;

@@ -1648,7 +1648,6 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 
 				// Apply head bobbing when dizzy
 				if (g_CurModelChr->blurdrugamount > TICKS(1000)
-						&& g_Vars.tickmode != TICKMODE_CUTSCENE
 						&& g_CurModelChr->actiontype != ACT_DEAD
 						&& g_CurModelChr->actiontype != ACT_DIE) {
 					zrot = g_CurModelChr->drugheadsway / 360.0f * M_BADTAU;
@@ -1817,19 +1816,6 @@ void chr0f0220ac(struct chrdata *chr)
 void chr0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 {
 	struct model *model = chr->model;
-
-	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-		if (chr->prop->type == PROPTYPE_PLAYER) {
-			chr->hidden &= ~CHRHFLAG_00000800;
-		}
-
-		if (model->anim
-				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
-				&& arg1 > 0
-				&& g_Vars.cutsceneskip60ths > 0) {
-			arg1 += g_Vars.cutsceneskip60ths * 4;
-		}
-	}
 
 	if (chr->chrflags & CHRCFLAG_20000000) {
 		chr->chrflags &= ~CHRCFLAG_20000000;
@@ -2517,7 +2503,7 @@ s32 chrTick(struct prop *prop)
 		g_ModelJointPositionedFunc = &chrHandleJointPositioned;
 		g_CurModelChr = chr;
 
-		if (CHRRACE(chr) == RACE_DRCAROLL && g_Vars.tickmode != TICKMODE_CUTSCENE) {
+		if (CHRRACE(chr) == RACE_DRCAROLL) {
 			angle = chrGetInverseTheta(chr);
 
 			sp190.x = sinf(angle) * 19;

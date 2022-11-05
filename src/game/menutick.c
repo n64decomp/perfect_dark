@@ -262,7 +262,7 @@ void menuTick(void)
 	if (g_FileState == FILESTATE_UNSELECTED && g_Vars.stagenum == STAGE_CITRAINING) {
 		g_PlayersWithControl[0] = false;
 
-		if (g_Vars.lvframenum > 30 && g_Vars.tickmode != TICKMODE_CUTSCENE) {
+		if (g_Vars.lvframenum > 30) {
 			g_Menus[0].openinhibit = 0;
 			g_Menus[1].openinhibit = 0;
 			g_Menus[2].openinhibit = 0;

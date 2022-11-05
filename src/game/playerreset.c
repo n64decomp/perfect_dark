@@ -49,14 +49,6 @@ void playerReset(void)
 	playerResetLoResIf4Mb();
 	func0f18e558();
 
-	g_InCutscene = false;
-
-#if PAL
-	var8009e388pf = 0;
-#else
-	g_CutsceneFrameOverrun240 = 0;
-#endif
-
 	var8007072c = 1;
 	var80070738 = 0;
 	var8007073c = 0;

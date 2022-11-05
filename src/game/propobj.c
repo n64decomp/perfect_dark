@@ -11334,8 +11334,7 @@ s32 objTickPlayer(struct prop *prop)
 
 	if (model->anim) {
 		if (g_Anims[model->anim->animnum].flags & 0x02) {
-			if (g_Vars.tickmode != TICKMODE_CUTSCENE
-					&& modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
+			if (modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 				modelmgrFreeAnim(model->anim);
 				model->anim = NULL;
 			} else {
@@ -11347,13 +11346,7 @@ s32 objTickPlayer(struct prop *prop)
 				struct hov *hov = NULL;
 
 				if (fulltick) {
-					s32 iVar10 = g_Vars.lvupdate240;
-
-					if (g_Vars.tickmode == TICKMODE_CUTSCENE && iVar10 > 0 && g_Vars.cutsceneskip60ths > 0) {
-						iVar10 += g_Vars.cutsceneskip60ths * 4;
-					}
-
-					model0001ee18(model, iVar10, true);
+					model0001ee18(model, g_Vars.lvupdate240, true);
 				}
 
 				anim00023d38(model->anim->animnum);
@@ -14964,11 +14957,6 @@ void objCheckDestroyed(struct defaultobj *obj, struct coord *pos, s32 playernum)
 		struct prop *rootprop = prop;
 		s16 exptype = g_PropExplosionTypes[8 + obj->modelnum];
 		s16 rooms[8];
-
-		// If in Deep Sea outro
-		if (g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneAnimNum == ANIM_CUT_PAM_OUTRO_CAM) {
-			exptype = EXPLOSIONTYPE_24;
-		}
 
 		while (rootprop->parent) {
 			rootprop = rootprop->parent;

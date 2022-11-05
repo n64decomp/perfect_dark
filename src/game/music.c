@@ -293,7 +293,7 @@ void musicStartAmbient(f32 arg0)
 		if (g_TemporaryAmbientTrack != -1) {
 			pass = true;
 		} else if (musicIsAnyPlayerInAmbientRoom()) {
-			if (g_Vars.tickmode != TICKMODE_CUTSCENE && AMBIENTTRACK() != stageGetAmbientTrack(g_MusicStageNum)) {
+			if (AMBIENTTRACK() != stageGetAmbientTrack(g_MusicStageNum)) {
 				musicQueueStopEvent(TRACKTYPE_AMBIENT);
 				musicStartTemporaryAmbient(stageGetAmbientTrack(g_MusicStageNum));
 				return;
@@ -419,10 +419,6 @@ glabel musicStartAmbient
 bool musicIsAnyPlayerInAmbientRoom(void)
 {
 	s32 i;
-
-	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-		return false;
-	}
 
 	if (lvIsPaused()) {
 		return false;

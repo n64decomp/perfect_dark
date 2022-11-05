@@ -7157,9 +7157,6 @@ void menuProcessInput(void)
 			}
 			break;
 		case MENUROOT_MPPAUSE:
-			if (g_InCutscene) {
-				func0f0f8120();
-			}
 			g_Menus[g_MpPlayerNum].openinhibit = 10;
 			// fall-through
 		case MENUROOT_ENDSCREEN:

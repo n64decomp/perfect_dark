@@ -1134,29 +1134,27 @@ Gfx *lvRender(Gfx *gdl)
 			}
 
 			// Calculate bluramount - this will be used later
-			if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-				player = g_Vars.currentplayer;
-				chr = player->prop->chr;
+			player = g_Vars.currentplayer;
+			chr = player->prop->chr;
 
-				if (chr->blurdrugamount > 0
-						&& !g_Vars.currentplayer->invincible
-						&& !g_Vars.currentplayer->training) {
-					bluramount = (chr->blurdrugamount * 130) / TICKS(5000) + 100;
+			if (chr->blurdrugamount > 0
+					&& !g_Vars.currentplayer->invincible
+					&& !g_Vars.currentplayer->training) {
+				bluramount = (chr->blurdrugamount * 130) / TICKS(5000) + 100;
 
-					if (bluramount > 230) {
-						bluramount = 230;
-					}
+				if (bluramount > 230) {
+					bluramount = 230;
+				}
 
-					if (chr->blurdrugamount > TICKS(5000)) {
-						chr->blurdrugamount = TICKS(5000);
-					}
+				if (chr->blurdrugamount > TICKS(5000)) {
+					chr->blurdrugamount = TICKS(5000);
+				}
 
-					chr->blurdrugamount -= g_Vars.lvupdate60 * (chr->blurnumtimesdied + 1);
+				chr->blurdrugamount -= g_Vars.lvupdate60 * (chr->blurnumtimesdied + 1);
 
-					if (chr->blurdrugamount < 1) {
-						chr->blurdrugamount = 0;
-						chr->blurnumtimesdied = 0;
-					}
+				if (chr->blurdrugamount < 1) {
+					chr->blurdrugamount = 0;
+					chr->blurnumtimesdied = 0;
 				}
 			}
 
@@ -1175,16 +1173,7 @@ Gfx *lvRender(Gfx *gdl)
 			gdl = vi0000b1d0(gdl);
 			gdl = currentPlayerScissorToViewport(gdl);
 
-			if ((g_Vars.stagenum != STAGE_CITRAINING || (var80087260 <= 0 && g_MenuData.root != MENUROOT_MPSETUP))
-					&& g_Vars.lvframenum <= 5
-					&& !g_Vars.normmplayerisrunning
-					&& g_Vars.tickmode != TICKMODE_CUTSCENE) {
-				if (var80084050 < 6) {
-					g_Vars.lockscreen = 1;
-				}
-
-				var80084050++;
-			} else if (g_Vars.currentplayer->gunctrl.unk1583_06
+			if (g_Vars.currentplayer->gunctrl.unk1583_06
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
 					&& var8009dfc0 == 0) {
 				g_Vars.currentplayer->gunctrl.unk1583_06 = bgun0f09eae4();
@@ -1285,67 +1274,10 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = playerRenderHud(gdl);
 
 				{
-					static struct sndstate *g_CutsceneStaticAudioHandle = NULL;
-					static s32 g_CutsceneStaticTimer = 100;
-					static u8 g_CutsceneStaticActive = false;
-					bool cutscenehasstatic = false;
 					u32 alpha;
 
-					if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-						// Handle visual effects in cutscenes
-						switch (g_CutsceneAnimNum) {
-						case ANIM_CUT_LUE_INTRO_CAM_01:
-						case ANIM_CUT_LUE_INTRO_CAM_02:
-						case ANIM_CUT_LUE_INTRO_CAM_03:
-							{
-								// Show static randomly in Infiltration intro
-								s32 cutscenestatic = 0;
-								cutscenehasstatic = true;
-
-								if (g_CutsceneStaticAudioHandle == NULL) {
-									sndStart(var80095200, SFX_INFIL_STATIC_LONG, &g_CutsceneStaticAudioHandle, -1, -1, -1, -1, -1);
-								}
-
-								g_CutsceneStaticTimer -= g_Vars.diffframe60;
-
-								if (g_CutsceneStaticTimer < 0) {
-									g_CutsceneStaticTimer = random() % TICKS(200) + TICKS(40);
-									g_CutsceneStaticActive = false;
-								}
-
-								gdl = bviewDrawFilmInterlace(gdl, 0xffffffff, 0xffffffff);
-
-								if (g_CutsceneStaticTimer < TICKS(15)) {
-									if (g_CutsceneStaticActive == false) {
-										g_CutsceneStaticActive = true;
-										sndStart(var80095200, SFX_INFIL_STATIC_MEDIUM, NULL, -1, -1, -1, -1, -1);
-									}
-
-									cutscenestatic = 225 - g_CutsceneStaticTimer * PALUP(10);
-								}
-
-								// Consider a single frame of static, separate
-								// to the main static above
-								if (random() % 60 == 1) {
-									cutscenestatic = 255;
-									sndStart(var80095200, SFX_INFIL_STATIC_SHORT, NULL, -1, -1, -1, -1, -1);
-								}
-
-								if (cutscenestatic) {
-									gdl = bviewDrawStatic(gdl, 0xffffffff, cutscenestatic);
-								}
-							}
-							break;
-						}
-					}
-
-					if (g_CutsceneStaticAudioHandle && !cutscenehasstatic) {
-						audioStop(g_CutsceneStaticAudioHandle);
-					}
-
 					// Slayer rocket shows static when flying out of bounds
-					if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKET
-							&& g_Vars.tickmode != TICKMODE_CUTSCENE) {
+					if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKET) {
 						gdl = bviewDrawSlayerRocketInterlace(gdl, 0xffffffff, 0xffffffff);
 
 						if (g_Vars.currentplayer->badrockettime > 0) {
@@ -1366,8 +1298,7 @@ Gfx *lvRender(Gfx *gdl)
 					}
 #endif
 
-					if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY
-							&& g_Vars.tickmode != TICKMODE_CUTSCENE) {
+					if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 						s32 xraything = 99;
 
 						if (g_Vars.currentplayer->erasertime < TICKS(200)) {
@@ -1430,31 +1361,6 @@ Gfx *lvRender(Gfx *gdl)
 						bviewClearMotionBlur();
 						gdl = bviewDrawMotionBlur(gdl, 0xffffffff, bluramount);
 					}
-
-					// Handle blur effect in cutscenes (Extraction intro?)
-					if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-						f32 cutsceneblurfrac = playerGetCutsceneBlurFrac();
-
-						if (cutsceneblurfrac > 0) {
-#if VERSION < VERSION_PAL_BETA
-							u32 stack;
-#endif
-							gdl = bviewDrawMotionBlur(gdl, 0xffffff00, cutsceneblurfrac * 255);
-						}
-					}
-
-#if VERSION >= VERSION_PAL_FINAL
-					if (bluramount);
-					if (bluramount);
-					if (bluramount);
-#elif VERSION >= VERSION_NTSC_1_0
-					if (bluramount);
-					if (bluramount);
-#else
-					if (bluramount);
-					if (bluramount);
-					if (bluramount);
-#endif
 
 					// Render white when teleporting
 					if (g_Vars.currentplayer->teleportstate > TELEPORTSTATE_INACTIVE) {
@@ -1550,8 +1456,6 @@ Gfx *lvRender(Gfx *gdl)
 
 const char var7f1b7730[] = "fr: %d\n";
 
-u32 g_CutsceneTime240_60 = 0;
-
 #if VERSION >= VERSION_NTSC_1_0
 u32 var800840a8 = 0;
 u32 var800840ac = 0;
@@ -1607,16 +1511,6 @@ s32 sub54321(s32 value)
 	return value - SUBAMOUNT;
 }
 #endif
-
-void lvUpdateCutsceneTime(void)
-{
-	if (g_Vars.in_cutscene) {
-		g_CutsceneTime240_60 += g_Vars.lvupdate60;
-		return;
-	}
-
-	g_CutsceneTime240_60 = 0;
-}
 
 s32 lvGetSlowMotionType(void)
 {
@@ -1925,7 +1819,6 @@ void lvTick(void)
 		langTick();
 		pakExecuteDebugOperations();
 	} else {
-		lvUpdateCutsceneTime();
 		vtxstoreTick();
 		lvUpdateSoloHandicaps();
 		roomsTick();

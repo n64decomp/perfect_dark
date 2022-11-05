@@ -344,9 +344,7 @@ s32 hudmsg0f0ddb1c(s32 *arg0, s32 arg1)
 
 	*arg0 = 24;
 
-	if (PLAYERCOUNT() == 2
-			&& optionsGetScreenSplit() == SCREENSPLIT_VERTICAL
-			&& (!g_InCutscene || g_MainIsEndscreen)) {
+	if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 		result -= *arg0 * 2 / 3;
 
 		if (g_Vars.currentplayernum == 0) {
@@ -358,7 +356,7 @@ s32 hudmsg0f0ddb1c(s32 *arg0, s32 arg1)
 
 	result = result + viewwidth - *arg0 - arg1 - 11;
 
-	if (PLAYERCOUNT() == 1 || (PLAYERCOUNT() == 2 && g_InCutscene && !g_MainIsEndscreen)) {
+	if (PLAYERCOUNT() == 1) {
 		result -= 16;
 
 #if VERSION < VERSION_JPN_FINAL
@@ -715,13 +713,7 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 	audioduration60 = propsndGetDuration60(audiochannelnum);
 
 	if (type == HUDMSGTYPE_INGAMESUBTITLE) {
-		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-			if (!optionsGetCutsceneSubtitles()) {
-				return;
-			}
-
-			type = HUDMSGTYPE_CUTSCENESUBTITLE;
-		} else if (!optionsGetInGameSubtitles()) {
+		if (!optionsGetInGameSubtitles()) {
 			return;
 		}
 	}
@@ -729,200 +721,9 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 	config = &g_HudmsgTypes[type];
 	config->colour = g_HudmsgColours[colourindex];
 
-	if (g_Vars.tickmode == TICKMODE_CUTSCENE && audioduration60 >= 0) {
-		char puncchars[] = { '.', ';', '!', '?', ',' };
-		u16 srclen;
-		s32 sp4a8;
-		s32 wrapwidth;
-		char accum[250];
-		char prewrap[250];
-		char postwrap[250];
-		char msg[250];
-		s32 msglen;
-		bool split;
-		s32 accumlen;
-		s32 linecount;
-		f32 time60perchar;
-		s32 i;
-		s32 j;
-		bool append;
-		bool foundpunctuation;
-
-		srclen = strlen(srctext);
-		wrapwidth = hudmsg0f0ddb1c(&sp4a8, config->unk16);
-
-		accumlen = 0;
-		i = 0;
-		time60perchar = (f32)audioduration60 / srclen;
-
-		// These two loops both work with the i iterator.
-		// The inner loop increments i and is looking for places to split the
-		// text, while the outer loop iterates once per split until the srctext
-		// has been completely scanned.
-		while (srctext[i] != '\0') {
-			msglen = 0;
-			foundpunctuation = false;
-			split = false;
-
-			while (srctext[i] != '\0' && (!foundpunctuation || !split || i > srclen - 10)) {
-				// Check if the current char is punctuation
-				for (j = 0; j < ARRAYCOUNT(puncchars); j++) {
-					if (puncchars[j] == srctext[i]) {
-						foundpunctuation = true;
-					}
-				}
-
-				// Avoid splitting in the middle of trailing dots,
-				// and also avoid splitting after "Dr." or "Mr."
-				if (foundpunctuation && srctext[i] == '.') {
-					if (srctext[i + 1] == '.') {
-						foundpunctuation = false;
-					}
-
-					if (i >= 2) {
-						if ((srctext[i - 2] == 'D' || srctext[i - 2] == 'd')
-								&& (srctext[i - 1] == 'r' || srctext[i - 1] == 'R')) {
-							foundpunctuation = false;
-						}
-
-						if ((srctext[i - 2] == 'M' || srctext[i - 2] == 'm')
-								&& (srctext[i - 1] == 'r' || srctext[i - 1] == 'R')) {
-							foundpunctuation = false;
-						}
-					}
-				}
-
-				// Copy the character from srctext to msg, except:
-				// - if it's a space at the start of the string
-				// - if it's a consecutive space
-				// - if it's a line break (sometimes copy a space instead)
-				if (msglen < 249) {
-					bool ignore = false;
-
-					if (srctext[i] == ' ') {
-						if (msglen == 0) {
-							ignore = true;
-						} else if (msg[msglen - 1] == ' ') {
-							ignore = true;
-						}
-					}
-
-					if (srctext[i] == '\n') {
-						ignore = true;
-
-						if (msglen != 0 && msg[msglen - 1] != ' ' && srctext[i + 1] != ' ') {
-							msg[msglen] = ' ';
-							msglen++;
-						}
-					}
-
-					if (foundpunctuation && srctext[i] == ' ') {
-						split = true;
-					}
-
-					if (!ignore) {
-						msg[msglen] = srctext[i];
-						msglen++;
-					}
-				}
-
-				if (1);
-
-				i++;
-			} // end of inner loop
-
-			// At this point the string in msg is a single sentence,
-			// free of line breaks. It still needs to be wrapped.
-
-			// Make sure msg ends in a space
-			if (msglen > 0 && msg[msglen - 1] != ' ') {
-				msg[msglen] = ' ';
-				msglen++;
-			}
-
-			// Rebuild prewrap by concatenating the accumulator and msg.
-			// prewrap will be everything that's been read so far and has yet to
-			// be queued.
-			for (j = 0; j < accumlen; j++) {
-				prewrap[j] = accum[j];
-			}
-
-			for (j = 0; j < msglen; j++) {
-				prewrap[j + accumlen] = msg[j];
-			}
-
-			prewrap[accumlen + msglen] = '\n';
-			prewrap[accumlen + msglen + 1] = '\0';
-
-			// Apply text wrapping to prewrap
-			textWrap(wrapwidth, prewrap, postwrap, g_CharsHandelGothicSm, g_FontHandelGothicSm);
-
-			// Next, count the number of lines in the wrapped message.
-			// If it's more than two, send the accumulator out as a hudmsg and
-			// then put msg in the accumulator. Otherwise, just append msg to
-			// the accumulator.
-
-			// Note that these strings always end in a line break, so counting
-			// the line breaks is the same as counting visual lines
-			linecount = 0;
-
-			for (j = 0; postwrap[j] != '\0'; j++) {
-				if (postwrap[j] == '\n') {
-					linecount++;
-				}
-			}
-
-			append = true;
-
-			if (linecount >= 3) {
-				if (accumlen == 0) {
-					// Nothing is in the accumulator, so just queue the message
-					msg[msglen] = '\n';
-					msglen++;
-
-					msg[msglen] = '\0';
-
-					hudmsgCreateWithDuration(msg, type, config, msglen * time60perchar);
-					append = false;
-				} else {
-					// Queue the accumulator and then clear it.
-					// The current message will be copied into the accumulator
-					// for the next iteration.
-					accum[accumlen] = '\n';
-					accumlen++;
-
-					accum[accumlen] = '\0';
-
-					hudmsgCreateWithDuration(accum, type, config, accumlen * time60perchar);
-					accumlen = 0;
-				}
-			}
-
-			if (append) {
-				for (j = 0; j < msglen; j++) {
-					accum[accumlen + j] = msg[j];
-				}
-
-				accumlen += msglen;
-			}
-
-			msg[msglen] = '\0';
-		} // end of outer loop
-
-		// If there's anything remaining in the accumulator, queue it
-		if (accumlen != 0) {
-			accum[accumlen] = '\n';
-			accumlen++;
-
-			accum[accumlen] = '\0';
-
-			hudmsgCreateWithDuration(accum, type, config, accumlen * time60perchar);
-		}
-	} else {
-		hudmsgCreateFromArgs(srctext, type, config->unk00, config->unk01, config->unk02,
-				config->unk04, config->unk08, config->colour, config->unk10, config->alignh,
-				config->unk16, config->alignv, config->unk18, audiochannelnum, 0);
-	}
+	hudmsgCreateFromArgs(srctext, type, config->unk00, config->unk01, config->unk02,
+			config->unk04, config->unk08, config->colour, config->unk10, config->alignh,
+			config->unk16, config->alignv, config->unk18, audiochannelnum, 0);
 }
 #endif
 
@@ -965,15 +766,10 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 	}
 
 	if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) {
-#if VERSION >= VERSION_PAL_FINAL
-		if (!g_InCutscene || g_MainIsEndscreen)
-#endif
-		{
-			viewwidth -= offset;
+		viewwidth -= offset;
 
-			if (g_Vars.currentplayernum == 0) {
-				viewleft += offset;
-			}
+		if (g_Vars.currentplayernum == 0) {
+			viewleft += offset;
 		}
 	}
 #endif
@@ -983,13 +779,11 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 		x = msg->xmargin;
 		break;
 	case HUDMSGALIGN_LEFT:
-		v0 = (g_InCutscene && !g_MainIsEndscreen) ? 24 : msg->xmarginextra;
+		v0 = msg->xmarginextra;
 
 		x = viewleft + v0 + msg->xmargin + 3;
 
-		if (PLAYERCOUNT() == 2
-				&& (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())
-				&& (!g_InCutscene || g_MainIsEndscreen)) {
+		if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) {
 			if (IS4MB()) {
 				if (msg->playernum == 0) {
 					x--;
@@ -1032,7 +826,7 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 	case HUDMSGALIGN_BOTTOM:
 		y = viewtop + viewheight - msg->height - msg->ymargin - 14;
 
-		if (PLAYERCOUNT() == 2 && (g_InCutscene == 0 || g_MainIsEndscreen)) {
+		if (PLAYERCOUNT() == 2) {
 			if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && msg->playernum == 0)) {
 				y += 8;
 			} else {
@@ -1248,16 +1042,6 @@ void hudmsgsTick(void)
 
 	for (k = 0; k < g_NumHudMessages; k++) {
 		if (g_HudMessages[k].state != HUDMSGSTATE_FREE) {
-			if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-				for (j = 0; j < g_NumHudMessages; j++) {
-					if (k != j
-							&& g_HudMessages[j].state != HUDMSGSTATE_FREE
-							&& g_HudMessages[j].hash == g_HudMessages[k].hash) {
-						g_HudMessages[j].state = HUDMSGSTATE_FREE;
-					}
-				}
-			}
-
 			setCurrentPlayerNum(g_HudMessages[k].playernum);
 			hudmsgCalculatePosition(&g_HudMessages[k]);
 		}
@@ -1289,7 +1073,7 @@ void hudmsgsTick(void)
 			msg->opacity = 0xff;
 		}
 
-		if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE && g_Vars.tickmode != TICKMODE_CUTSCENE) {
+		if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
 			msg->state = HUDMSGSTATE_FREE;
 			msg->timer = 0;
 		}

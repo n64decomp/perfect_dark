@@ -81,29 +81,8 @@ f32 g_WarpType3MoreHeight;
 u32 g_WarpType3Pad;
 s32 g_WarpType2HasDirection;
 u32 g_WarpType2Arg2;
-s32 g_CutsceneCurAnimFrame60;
 
-#if VERSION == VERSION_JPN_FINAL
-s32 g_CutsceneCurAnimFrame240;
-s32 g_CutsceneFrameOverrun240;
-s16 g_CutsceneAnimNum;
-f32 g_CutsceneBlurFrac;
-#elif PAL
-f32 g_CutsceneCurAnimFrame240;
-f32 var8009e388pf;
-s16 g_CutsceneAnimNum;
-f32 g_CutsceneBlurFrac;
-#else
-s32 g_CutsceneCurAnimFrame240;
-s16 g_CutsceneAnimNum;
-f32 g_CutsceneBlurFrac;
-s32 g_CutsceneFrameOverrun240;
-#endif
-
-bool g_CutsceneSkipRequested;
-f32 g_CutsceneCurTotalFrame60f;
 s32 var8009de2c;
-f32 g_CutsceneBarFrac; // 0 when bars across the top and bottom, 1 when fullscreen
 u32 var8009de34;
 s16 g_SpawnPoints[MAX_SPAWNPOINTS];
 s32 g_NumSpawnPoints;
@@ -180,7 +159,6 @@ bool g_PlayersWithControl[] = {
 };
 
 bool g_PlayerInvincible = false;
-s32 g_InCutscene = 0x00000000;
 
 s16 g_DeathAnimations[] = {
 	ANIM_DEATH_001A,
@@ -933,10 +911,6 @@ void playerTickChrBody(void)
 		g_Vars.currentplayer->haschrbody = true;
 		playerChooseBodyAndHead(&bodynum, &headnum, &sp60);
 
-		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-			weaponnum = g_DefaultWeapons[0];
-		}
-
 		weaponmodelnum = playermgrGetModelOfWeapon(weaponnum);
 
 		if (IS4MB()) {
@@ -1379,250 +1353,6 @@ void playerExecutePreparedWarp(void)
 	}
 
 	player0f0c1ba4(&pos, &up, &look, &memcampos, room);
-}
-
-void playerStartCutscene2(void)
-{
-	playerSetTickMode(TICKMODE_CUTSCENE);
-	g_PlayerTriggerGeFadeIn = false;
-	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	playersClearMemCamRoom();
-
-#if PAL
-	g_CutsceneCurAnimFrame240 = var8009e388pf;
-	g_CutsceneCurAnimFrame60 = floorf(g_CutsceneCurAnimFrame240 + 0.01f);
-#else
-	g_CutsceneCurAnimFrame240 = g_CutsceneFrameOverrun240;
-	g_CutsceneCurAnimFrame60 = g_CutsceneFrameOverrun240 >> 2;
-#endif
-
-	g_CutsceneBlurFrac = 0;
-	var8009de2c = -1;
-	g_InCutscene = 1;
-
-	paksStop(true);
-	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneCurAnimFrame60 < animGetNumFrames(g_CutsceneAnimNum) - 1;
-	g_Vars.cutsceneskip60ths = 0;
-}
-
-void playerStartCutscene(s16 animnum)
-{
-	if (!g_Vars.autocutplaying || !g_Vars.in_cutscene || !g_CutsceneSkipRequested) {
-		joyDisableTemporarily();
-
-		if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-			g_CutsceneSkipRequested = false;
-			g_CutsceneCurTotalFrame60f = 0;
-		}
-
-		if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-			playersTickAllChrBodies();
-		}
-
-		g_CutsceneAnimNum = animnum;
-
-		if (g_Vars.currentplayer->haschrbody) {
-			playerStartCutscene2();
-		}
-	}
-}
-
-void playerReorientForCutsceneStop(u32 arg0)
-{
-	struct coord sp94;
-	struct coord sp88;
-	struct coord sp7c;
-	u8 sp7f;
-	Mtxf sp38;
-	s32 lastframe;
-	f32 theta;
-	u32 stack;
-
-	var8009de2c = arg0;
-	lastframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
-	anim00023d38(g_CutsceneAnimNum);
-	sp7f = anim00023ab0(g_CutsceneAnimNum, lastframe);
-	anim00023d0c();
-	anim00024050(0, 0, &g_Skel20, g_CutsceneAnimNum, sp7f, &sp94, &sp88, &sp7c);
-	mtx4LoadRotation(&sp94, &sp38);
-
-	theta = atan2f(-sp38.m[2][0], -sp38.m[2][2]);
-	theta = (M_BADTAU - theta) * 57.304901123047f;
-	g_Vars.bond->vv_theta = theta;
-
-	chrSetLookAngle(g_Vars.bond->prop->chr, (360 - theta) * 0.017450513318181f);
-}
-
-void playerTickCutscene(bool arg0)
-{
-	struct coord pos;
-	struct coord up;
-	struct coord look;
-	struct coord sp178;
-	struct coord sp16c;
-	struct coord sp160;
-	u8 sp15f;
-	Mtxf sp11c;
-	f32 sp118 = func0f15c888();
-	f32 fovy;
-	s32 endframe;
-	s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
-	u16 buttons;
-#if PAL
-	u8 stack3[0x2c];
-#endif
-	f32 barfrac;
-	f32 sp104;
-	Mtxf spc4;
-	Mtxf sp84;
-	f32 sp74[4];
-	f32 sp64[4];
-	f32 sp54[4];
-
-	if (arg0) {
-		buttons = joyGetButtons(contpadnum, 0xffff);
-	} else {
-		buttons = 0;
-	}
-
-	anim00023d38(g_CutsceneAnimNum);
-
-	endframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
-
-	if (g_Vars.currentplayerindex == 0) {
-		g_Vars.cutsceneskip60ths = 0;
-
-		if (g_CutsceneCurAnimFrame60 < endframe) {
-#if PAL
-			g_CutsceneCurAnimFrame240 += g_Vars.lvupdate60freal;
-			g_CutsceneCurAnimFrame60 = floorf(g_CutsceneCurAnimFrame240 + 0.01f);
-#else
-			g_CutsceneCurAnimFrame240 += g_Vars.lvupdate240;
-			g_CutsceneCurAnimFrame60 = g_CutsceneCurAnimFrame240 >> 2;
-#endif
-
-			if (g_Anims[g_CutsceneAnimNum].flags & ANIMFLAG_08) {
-				while (g_CutsceneCurAnimFrame60 < endframe && anim000239e0(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60)) {
-#if PAL
-					g_CutsceneCurAnimFrame240 += 1.2f;
-					g_CutsceneCurAnimFrame60 = floorf(g_CutsceneCurAnimFrame240 + 0.01f);
-#else
-					g_CutsceneCurAnimFrame60++;
-					g_CutsceneCurAnimFrame240 += 4;
-#endif
-
-					g_Vars.cutsceneskip60ths++;
-				}
-			}
-
-			if (g_CutsceneCurAnimFrame60 >= endframe) {
-#if PAL
-				var8009e388pf = g_CutsceneCurAnimFrame240 - endframe;
-#else
-				g_CutsceneFrameOverrun240 = g_CutsceneCurAnimFrame240 - endframe * 4;
-#endif
-			}
-
-			if (g_CutsceneCurAnimFrame60 > endframe) {
-				g_CutsceneCurAnimFrame60 = endframe;
-			}
-		}
-	}
-
-	g_Vars.in_cutscene = (g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneCurAnimFrame60 < endframe);
-	sp15f = anim00023ab0(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60);
-	anim00023d0c();
-	anim00024050(0, 0, &g_Skel20, g_CutsceneAnimNum, sp15f, &sp178, &sp16c, &sp160);
-
-	pos.x = sp16c.x * sp118;
-	pos.y = sp16c.y * sp118;
-	pos.z = sp16c.z * sp118;
-
-	mtx4LoadRotation(&sp178, &sp11c);
-
-	up.x = sp11c.m[1][0];
-	up.y = sp11c.m[1][1];
-	up.z = sp11c.m[1][2];
-
-	look.x = -sp11c.m[2][0];
-	look.y = -sp11c.m[2][1];
-	look.z = -sp11c.m[2][2];
-
-	fovy = anim00024c14(1, g_CutsceneAnimNum, sp15f);
-	g_CutsceneBlurFrac = anim00024c14(2, g_CutsceneAnimNum, sp15f);
-	g_CutsceneBarFrac = 0;
-
-	if (var8009de2c > 0 && var8009de2c >= endframe - g_CutsceneCurAnimFrame60) {
-		barfrac = 1 - (f32)(endframe - g_CutsceneCurAnimFrame60) / (f32)var8009de2c;
-
-		g_CutsceneBarFrac = barfrac;
-		sp104 = 1 - cosf(1.5705462694168f * barfrac);
-
-		bmoveSetMode(MOVEMODE_WALK);
-
-		pos.x += sp104 * (g_Vars.bond->bond2.unk10.x - pos.x);
-		pos.y += sp104 * (g_Vars.bond->bond2.unk10.y - pos.y);
-		pos.z += sp104 * (g_Vars.bond->bond2.unk10.z - pos.z);
-
-		mtx00016d58(&spc4, 0, 0, 0, -look.x, -look.y, -look.z, up.x, up.y, up.z);
-		mtx00016d58(&sp84, 0, 0, 0,
-				-g_Vars.bond->bond2.unk1c.x, -g_Vars.bond->bond2.unk1c.y, -g_Vars.bond->bond2.unk1c.z,
-				g_Vars.bond->bond2.unk28.x, g_Vars.bond->bond2.unk28.y, g_Vars.bond->bond2.unk28.z);
-		quaternion0f097044(&spc4, sp74);
-		quaternion0f097044(&sp84, sp64);
-		quaternion0f0976c0(sp64, sp74);
-		quaternionSlerp(sp74, sp64, sp104, sp54);
-		quaternionToMtx(sp54, &sp11c);
-
-		up.x = sp11c.m[1][0];
-		up.y = sp11c.m[1][1];
-		up.z = sp11c.m[1][2];
-
-		look.x = sp11c.m[2][0];
-		look.y = sp11c.m[2][1];
-		look.z = sp11c.m[2][2];
-
-		g_CutsceneBlurFrac += barfrac * (0 - g_CutsceneBlurFrac);
-		fovy += barfrac * (60 - fovy);
-	}
-
-	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
-	player0f0c1bd8(&pos, &up, &look);
-	playermgrSetFovY(fovy);
-	viSetFovY(fovy);
-
-	if (g_Vars.currentplayerindex == 0) {
-		g_CutsceneCurTotalFrame60f += g_Vars.lvupdate60freal;
-	}
-
-#if VERSION >= VERSION_NTSC_1_0
-	if (g_CutsceneCurTotalFrame60f > 30 && (buttons & 0xffff)) {
-		g_CutsceneSkipRequested = true;
-
-		if (g_Vars.autocutplaying) {
-			if (buttons & (B_BUTTON | START_BUTTON)) {
-				g_Vars.autocutgroupskip = true;
-			} else {
-				g_Vars.autocutfinished = true;
-			}
-		}
-	}
-#else
-	if (g_CutsceneCurTotalFrame60f > 30) {
-		if (buttons & 0xffff) {
-			g_CutsceneSkipRequested = true;
-		}
-
-		if ((buttons & (B_BUTTON | START_BUTTON)) && g_Vars.autocutplaying) {
-			g_Vars.autocutgroupskip = true;
-		}
-	}
-#endif
-}
-
-f32 playerGetCutsceneBlurFrac(void)
-{
-	return g_CutsceneBlurFrac;
 }
 
 void playerSetZoomFovY(f32 fovy, f32 timemax)
@@ -2436,16 +2166,6 @@ s16 playerGetViewportHeight(void)
 			height = g_ViModes[g_ViRes].wideheight;
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
 			height = g_ViModes[g_ViRes].cinemaheight;
-		} else if (g_InCutscene && !var8009dfc0) {
-			if (var8009de2c >= 1) {
-				f32 a = g_ViModes[g_ViRes].wideheight;
-				f32 b = g_ViModes[g_ViRes].fullheight;
-				a = a * (1.0f - g_CutsceneBarFrac);
-				b = b * g_CutsceneBarFrac;
-				height = a + b;
-			} else {
-				height = g_ViModes[g_ViRes].wideheight;
-			}
 		} else {
 			height = g_ViModes[g_ViRes].fullheight;
 		}
@@ -2476,36 +2196,11 @@ s16 playerGetViewportTop(void)
 		}
 	} else {
 		if (optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE) {
-			if (g_InCutscene && optionsGetCutsceneSubtitles() && g_Vars.stagenum != STAGE_CITRAINING) {
-				if (var8009de2c >= 1) {
-					f32 a = g_ViModes[g_ViRes].fulltop;
-					f32 b = g_ViModes[g_ViRes].widetop;
-					a = a * (1.0f - g_CutsceneBarFrac);
-					b = b * g_CutsceneBarFrac;
-					top = a + b;
-				} else {
-					top = g_ViModes[g_ViRes].fulltop;
-				}
-			} else {
-				top = g_ViModes[g_ViRes].widetop;
-			}
+			top = g_ViModes[g_ViRes].widetop;
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
 			top = g_ViModes[g_ViRes].cinematop;
 		} else {
-			if (g_InCutscene && !var8009dfc0
-					&& (!optionsGetCutsceneSubtitles() || g_Vars.stagenum == STAGE_CITRAINING)) {
-				if (var8009de2c >= 1) {
-					f32 a = g_ViModes[g_ViRes].widetop;
-					f32 b = g_ViModes[g_ViRes].fulltop;
-					a = a * (1.0f - g_CutsceneBarFrac);
-					b = b * g_CutsceneBarFrac;
-					top = a + b;
-				} else {
-					top = g_ViModes[g_ViRes].widetop;
-				}
-			} else {
-				return g_ViModes[g_ViRes].fulltop;
-			}
+			top = g_ViModes[g_ViRes].fulltop;
 		}
 	}
 
@@ -3057,7 +2752,7 @@ void playerTick(bool arg0)
 	bgunSetGunAmmoVisible(GUNAMMOREASON_OPTION, optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex));
 	bgunSetSightVisible(GUNSIGHTREASON_1, true);
 
-	if ((g_Vars.tickmode == TICKMODE_GE_FADEIN || g_Vars.tickmode == TICKMODE_NORMAL) && !g_InCutscene && !g_MainIsEndscreen) {
+	if ((g_Vars.tickmode == TICKMODE_GE_FADEIN || g_Vars.tickmode == TICKMODE_NORMAL) && !g_MainIsEndscreen) {
 		g_Vars.currentplayer->bondviewlevtime60 += g_Vars.lvupdate60;
 	}
 
@@ -3087,27 +2782,7 @@ void playerTick(bool arg0)
 		}
 	}
 
-	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		g_InCutscene = false;
-	}
-
-	if (g_Vars.tickmode == (u32)TICKMODE_CUTSCENE) {
-		// In a cutscene
-		s32 i;
-
-		playerTickChrBody();
-
-		if (g_Vars.currentplayer->haschrbody) {
-			g_Vars.currentplayer->invdowntime = TICKS(-40);
-			bmoveTick(0, 0, 0, 1);
-			playerTickCutscene(arg0);
-			g_Vars.currentplayer->invdowntime = TICKS(-40);
-		}
-
-		for (i = 0; i < PLAYERCOUNT(); i++) {
-			g_Vars.players[i]->joybutinhibit = 0xffffffff;
-		}
-	} else if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_WHITE) {
+	if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_WHITE) {
 		// Deep Sea teleport
 		playerTickChrBody();
 		g_WarpType1Pad = g_Vars.currentplayer->teleportcamerapad;

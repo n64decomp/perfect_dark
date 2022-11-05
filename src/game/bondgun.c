@@ -5497,24 +5497,17 @@ s32 bgunGetSwitchToWeapon(s32 handnum)
 
 void bgunSwitchToPrevious(void)
 {
-	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		struct player *player = g_Vars.currentplayer;
-		s32 dualweaponnum;
+	struct player *player = g_Vars.currentplayer;
+	s32 dualweaponnum;
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (invHasSingleWeaponIncAllGuns(player->gunctrl.prevweaponnum)) {
-			bgunEquipWeapon2(HAND_RIGHT, player->gunctrl.prevweaponnum);
-
-			dualweaponnum = invHasDoubleWeaponIncAllGuns(player->gunctrl.prevweaponnum, player->gunctrl.prevweaponnum)
-				* player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
-			bgunEquipWeapon2(HAND_LEFT, dualweaponnum);
-		} else {
-			bgunAutoSwitchWeapon();
-		}
-#else
+	if (invHasSingleWeaponIncAllGuns(player->gunctrl.prevweaponnum)) {
 		bgunEquipWeapon2(HAND_RIGHT, player->gunctrl.prevweaponnum);
-		bgunEquipWeapon2(HAND_LEFT, player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01);
-#endif
+
+		dualweaponnum = invHasDoubleWeaponIncAllGuns(player->gunctrl.prevweaponnum, player->gunctrl.prevweaponnum)
+			* player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
+		bgunEquipWeapon2(HAND_LEFT, dualweaponnum);
+	} else {
+		bgunAutoSwitchWeapon();
 	}
 }
 
@@ -5524,25 +5517,23 @@ void bgunCycleForward(void)
 	s32 weaponnum2;
 	struct player *player = g_Vars.currentplayer;
 
-	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		weaponnum1 = bgunGetSwitchToWeapon(HAND_RIGHT);
-		weaponnum2 = bgunGetSwitchToWeapon(HAND_LEFT);
+	weaponnum1 = bgunGetSwitchToWeapon(HAND_RIGHT);
+	weaponnum2 = bgunGetSwitchToWeapon(HAND_LEFT);
 
-		if (weaponnum1 > WEAPON_PSYCHOSISGUN || weaponnum2 > WEAPON_PSYCHOSISGUN) {
-			weaponnum1 = player->gunctrl.prevweaponnum;
-			weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
-		} else {
-			invChooseCycleForwardWeapon(&weaponnum1, &weaponnum2, false);
-		}
-
-		if (weaponnum2 != weaponnum1) {
-			player->gunctrl.dualwielding = false;
-		} else {
-			player->gunctrl.dualwielding = true;
-		}
-
-		bgunEquipWeapon(weaponnum1);
+	if (weaponnum1 > WEAPON_PSYCHOSISGUN || weaponnum2 > WEAPON_PSYCHOSISGUN) {
+		weaponnum1 = player->gunctrl.prevweaponnum;
+		weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
+	} else {
+		invChooseCycleForwardWeapon(&weaponnum1, &weaponnum2, false);
 	}
+
+	if (weaponnum2 != weaponnum1) {
+		player->gunctrl.dualwielding = false;
+	} else {
+		player->gunctrl.dualwielding = true;
+	}
+
+	bgunEquipWeapon(weaponnum1);
 }
 
 void bgunCycleBack(void)
@@ -5551,29 +5542,27 @@ void bgunCycleBack(void)
 	s32 weaponnum2;
 	struct player *player = g_Vars.currentplayer;
 
-	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		weaponnum1 = bgunGetSwitchToWeapon(HAND_RIGHT);
-		weaponnum2 = bgunGetSwitchToWeapon(HAND_LEFT);
+	weaponnum1 = bgunGetSwitchToWeapon(HAND_RIGHT);
+	weaponnum2 = bgunGetSwitchToWeapon(HAND_LEFT);
 
-		if (weaponnum2 == WEAPON_REMOTEMINE) {
-			weaponnum2 = WEAPON_NONE;
-		}
-
-		if (weaponnum1 > WEAPON_PSYCHOSISGUN || weaponnum2 > WEAPON_PSYCHOSISGUN) {
-			weaponnum1 = player->gunctrl.prevweaponnum;
-			weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
-		} else {
-			invChooseCycleBackWeapon(&weaponnum1, &weaponnum2, false);
-		}
-
-		if (weaponnum2 == WEAPON_NONE) {
-			player->gunctrl.dualwielding = false;
-		} else {
-			player->gunctrl.dualwielding = true;
-		}
-
-		bgunEquipWeapon(weaponnum1);
+	if (weaponnum2 == WEAPON_REMOTEMINE) {
+		weaponnum2 = WEAPON_NONE;
 	}
+
+	if (weaponnum1 > WEAPON_PSYCHOSISGUN || weaponnum2 > WEAPON_PSYCHOSISGUN) {
+		weaponnum1 = player->gunctrl.prevweaponnum;
+		weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
+	} else {
+		invChooseCycleBackWeapon(&weaponnum1, &weaponnum2, false);
+	}
+
+	if (weaponnum2 == WEAPON_NONE) {
+		player->gunctrl.dualwielding = false;
+	} else {
+		player->gunctrl.dualwielding = true;
+	}
+
+	bgunEquipWeapon(weaponnum1);
 }
 
 /**
@@ -5705,10 +5694,6 @@ void bgunAutoSwitchWeapon(void)
 	bool foundcurrent = false;
 	s32 curweaponnum = g_Vars.currentplayer->gunctrl.weaponnum;
 	bool wantammo = false;
-
-	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-		return;
-	}
 
 	// Loop through g_AutoSwitchWeaponsPrimary, checking which weapons the
 	// player has which are usable. Stop when both a usable weapon is found
@@ -11618,12 +11603,6 @@ void bgunTickGameplay(bool triggeron)
 				}
 			}
 		}
-	}
-
-	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-		triggeron = false;
-		g_Vars.currentplayer->hands[HAND_LEFT].firing = false;
-		g_Vars.currentplayer->hands[HAND_RIGHT].firing = false;
 	}
 
 	player->playertriggerprev = player->playertriggeron;

@@ -1684,10 +1684,6 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 	cancycleweapons = true;
 
-	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-		cancycleweapons = false;
-	}
-
 	if (g_Vars.lvframenum < 10) {
 		cancycleweapons = false;
 	}

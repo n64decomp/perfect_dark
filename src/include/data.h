@@ -260,7 +260,6 @@ extern u32 var80070748;
 extern u32 var8007074c;
 extern bool g_PlayersWithControl[];
 extern bool g_PlayerInvincible;
-extern s32 g_InCutscene;
 extern s16 g_DeathAnimations[];
 extern s32 g_NumDeathAnimations;
 extern s32 g_ScissorX1;
