@@ -120,19 +120,9 @@ struct envtype2 g_EnvironmentsType2[] = {
 	{ 0 },
 };
 
-void env0f1657c0(s32 arg0, s32 arg1)
-{
-	// empty
-}
-
 struct environment *envGetCurrent(void)
 {
 	return &g_Env;
-}
-
-f32 env0f1657d8(void)
-{
-	return var80081050;
 }
 
 f32 env0f1657e4(void)
@@ -270,17 +260,6 @@ void envApplyType2(struct envtype2 *env)
 	g_FogEnabled = false;
 
 	var800a65e4 = env->unk34;
-}
-
-void envDisableSky(void)
-{
-	g_Env.sky_r = 0;
-	g_Env.sky_g = 0;
-	g_Env.sky_b = 0;
-
-	g_Env.skyredfrac = 0;
-	g_Env.skygreenfrac = 0;
-	g_Env.skybluefrac = 0;
 }
 
 void envSetStageNum(s32 stagenum)

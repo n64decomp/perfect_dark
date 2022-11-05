@@ -17,7 +17,6 @@
 #include "game/propobj.h"
 #include "game/savebuffer.h"
 #include "bss.h"
-#include "lib/crash.h"
 #include "lib/joy.h"
 #include "lib/vi.h"
 #include "lib/main.h"
@@ -236,26 +235,6 @@ Gfx *titleRenderCheckControllers(Gfx *gdl)
 	if (g_TitleTimer > 2 && g_TitleTimer < 6) {
 		gdl = titleClear(gdl);
 	}
-
-	return gdl;
-}
-
-Gfx *title0f0165f0(Gfx *gdl, s32 xcentre, s32 ycentre, s32 xscale, s32 yscale, char *text, struct fontchar *font1, struct font *font2, s32 colour)
-{
-	s32 textheight;
-	s32 textwidth;
-	s32 x;
-	s32 y;
-
-	textwidth = 0;
-	textheight = 0;
-
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-
-	x = xcentre - xscale * textwidth / 2;
-	y = ycentre - yscale * textheight / 2;
-
-	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
 
 	return gdl;
 }
@@ -7392,23 +7371,6 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 struct sndstate *g_TitleAudioHandle = NULL;
 bool g_TitleTypewriterFinishing = false;
 
-void titleInitRarePresents(void)
-{
-	g_TitleTimer = 0;
-	joy00014810(false);
-	g_TitleAudioHandle = NULL;
-}
-
-void titleExitRarePresents(void)
-{
-	if (g_TitleAudioHandle) {
-		audioStop(g_TitleAudioHandle);
-	}
-
-	g_TitleAudioHandle = NULL;
-	joy00014810(true);
-}
-
 void titleTickRarePresents(void)
 {
 	viSetFovY(60);
@@ -7948,16 +7910,6 @@ void setNumPlayers(s32 numplayers)
 	g_NumPlayers = numplayers;
 }
 
-s32 playerGetTeam(s32 playernum)
-{
-	return g_PlayerConfigsArray[g_Vars.playerstats[playernum].mpindex].base.team;
-}
-
-void playerSetTeam(s32 playernum, s32 team)
-{
-	g_PlayerConfigsArray[g_Vars.playerstats[playernum].mpindex].base.team = team;
-}
-
 void titleInitSkip(void)
 {
 	setNumPlayers(1);
@@ -8182,11 +8134,6 @@ void titleSetNextMode(s32 mode)
 	}
 }
 
-s32 titleGetMode(void)
-{
-	return g_TitleMode;
-}
-
 void titleTick(void)
 {
 #if PAL
@@ -8326,11 +8273,6 @@ void titleTick(void)
 	}
 }
 
-bool titleIsChangingMode(void)
-{
-	return g_TitleNextMode >= 0;
-}
-
 bool titleIsKeepingMode(void)
 {
 	if (g_TitleNextMode >= 0) {
@@ -8342,70 +8284,6 @@ bool titleIsKeepingMode(void)
 	}
 
 	return true;
-}
-
-void titleExit(void)
-{
-	switch (g_TitleMode) {
-	case TITLEMODE_LEGAL:
-		titleExitLegal();
-		break;
-	case TITLEMODE_CHECKCONTROLLERS:
-		titleExitCheckControllers();
-		break;
-	case TITLEMODE_PDLOGO:
-		titleExitPdLogo();
-		break;
-	case TITLEMODE_NINTENDOLOGO:
-		titleExitNintendoLogo();
-		break;
-	case TITLEMODE_RARELOGO:
-		titleExitRareLogo();
-		break;
-	case TITLEMODE_NOCONTROLLER:
-		titleExitNoController();
-		break;
-#if VERSION >= VERSION_JPN_FINAL
-	case TITLEMODE_NOEXPANSION:
-		titleExitNoExpansion();
-		break;
-#endif
-	case TITLEMODE_RAREPRESENTS1:
-	case TITLEMODE_RAREPRESENTS2:
-		titleExitRarePresents();
-		break;
-	}
-
-	g_TitleNextMode = -1;
-	g_TitleMode = -1;
-}
-
-void titleInitFromAiCmd(u32 value)
-{
-	switch (value) {
-	case TITLEAIMODE_RAREPRESENTS1:
-		g_TitleMode = TITLEMODE_RAREPRESENTS1;
-		titleInitRarePresents();
-		break;
-	case TITLEAIMODE_RARELOGO:
-		g_TitleMode = TITLEMODE_RARELOGO;
-		titleInitRareLogo();
-		break;
-	case TITLEAIMODE_RAREPRESENTS2:
-		g_TitleMode = TITLEMODE_RAREPRESENTS2;
-		titleInitRarePresents();
-		break;
-	case TITLEAIMODE_NINTENDOLOGO:
-		g_TitleMode = TITLEMODE_NINTENDOLOGO;
-		titleInitNintendoLogo();
-		break;
-	case TITLEAIMODE_PDLOGO:
-		g_TitleMode = TITLEMODE_PDLOGO;
-		titleInitPdLogo();
-		break;
-	}
-
-	g_TitleNextMode = -1;
 }
 
 bool func0f01ad5c(void)

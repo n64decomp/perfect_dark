@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/camdraw.h"
 #include "game/tex.h"
 #include "game/savebuffer.h"
 #include "game/menu.h"
@@ -486,66 +485,6 @@ char *mpMenuTextSetupName(struct menuitem *item)
 	return g_MpSetup.name;
 }
 #endif
-
-s32 func0f179b68(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	switch (operation) {
-	case MENUOP_GETSLIDER:
-		data->slider.value = g_PlayerConfigsArray[g_MpPlayerNum].base.unk18;
-		break;
-	case MENUOP_SET:
-		g_PlayerConfigsArray[g_MpPlayerNum].base.unk18 = (u8) data->slider.value;
-		break;
-	case MENUOP_GETSLIDERLABEL:
-		sprintf(data->slider.label, "%d%%\n", data->slider.value + 20);
-		break;
-	}
-
-	return 0;
-}
-
-s32 func0f179c14(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	switch (operation) {
-	case MENUOP_GETSLIDER:
-		data->slider.value = g_PlayerConfigsArray[g_MpPlayerNum].base.unk1a;
-		break;
-	case MENUOP_SET:
-		g_PlayerConfigsArray[g_MpPlayerNum].base.unk1a = (u8) data->slider.value;
-		break;
-	case MENUOP_GETSLIDERLABEL:
-		sprintf(data->slider.label, "%d%%\n", data->slider.value + 20);
-		break;
-	}
-
-	return 0;
-}
-
-s32 func0f179cc0(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	switch (operation) {
-	case MENUOP_GETSLIDER:
-		data->slider.value = g_PlayerConfigsArray[g_MpPlayerNum].base.unk1c;
-		break;
-	case MENUOP_SET:
-		g_PlayerConfigsArray[g_MpPlayerNum].base.unk1c = data->slider.value;
-		break;
-	case MENUOP_GETSLIDERLABEL:
-		sprintf(data->slider.label, "%d%%\n", data->slider.value + 25);
-		break;
-	}
-
-	return 0;
-}
-
-s32 func0f179d6c(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (operation == MENUOP_SET) {
-		func0f187fbc(g_MpPlayerNum);
-	}
-
-	return 0;
-}
 
 /**
  * This function is used by both player body selection and bot body selection.
@@ -1887,19 +1826,10 @@ s32 mpCharacterHeadMenuHandler(s32 operation, struct menuitem *item, union handl
 		g_Menus[g_MpPlayerNum].unk840.unk54c = diffframe;
 		g_Menus[g_MpPlayerNum].unk840.unk524 = diffframe;
 
-		if (mpheadnum < mpGetNumHeads2()) {
-			headnum = mpGetHeadId(mpheadnum);
+		headnum = mpGetHeadId(mpheadnum);
 
-			g_Menus[g_MpPlayerNum].unk840.unk00c = g_HeadsAndBodies[headnum].filenum;
-			g_Menus[g_MpPlayerNum].unk840.unk5b1_01 = false;
-		} else {
-			headnum = mpGetBeauHeadId(func0f14a9f8(mpheadnum - mpGetNumHeads2()));
-
-			g_Menus[g_MpPlayerNum].unk840.unk00c = g_HeadsAndBodies[headnum].filenum;
-			g_Menus[g_MpPlayerNum].unk840.unk5b1_01 = true;
-			g_Menus[g_MpPlayerNum].unk840.unk5b0 = mpheadnum - mpGetNumHeads2();
-		}
-
+		g_Menus[g_MpPlayerNum].unk840.unk00c = g_HeadsAndBodies[headnum].filenum;
+		g_Menus[g_MpPlayerNum].unk840.unk5b1_01 = false;
 		g_Menus[g_MpPlayerNum].unk840.unk574 = 0;
 		g_Menus[g_MpPlayerNum].unk840.partvisibility = visibility;
 		g_Menus[g_MpPlayerNum].unk840.unk554 = 30;
@@ -2955,19 +2885,6 @@ char *mpMenuTextSimulantName(struct menuitem *item)
 	}
 
 	return g_BotConfigsArray[index].base.name;
-}
-
-char *func0f17d3dc(struct menuitem *item)
-{
-	s32 index = item->param;
-
-	if (g_BotConfigsArray[index].base.name[0] == '\0'
-			|| ((g_MpSetup.chrslots & 1 << (index + 4)) == 0)) {
-		return "";
-	}
-
-	sprintf(g_StringPointer, "%d:\n", index + 1);
-	return g_StringPointer;
 }
 
 s32 menudialogMpSimulants(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)

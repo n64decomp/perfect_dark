@@ -7,19 +7,6 @@ void _bnkfPatchInst(ALInstrument *inst, s32 offset, s32 table);
 void _bnkfPatchSound(ALSound *s, s32 offset, s32 table);
 void _bnkfPatchWaveTable(ALWaveTable *w, s32 offset, s32 table);
 
-void alSeqFileNew(ALSeqFile *file, u8 *base)
-{
-	s32 offset = (s32) base;
-	s32 i;
-
-	/*
-	 * patch the file so that offsets are pointers
-	 */
-	for (i = 0; i < file->seqCount; i++) {
-		file->seqArray[i].offset = (u8 *)((u8 *)file->seqArray[i].offset + offset);
-	}
-}
-
 void alBnkfNew(ALBankFile *file, u8 *table)
 {
 	s32 offset = (s32) file;

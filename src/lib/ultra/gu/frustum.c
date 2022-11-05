@@ -21,12 +21,3 @@ void guFrustumF(float mf[4][4], float l, float r, float b, float t, float n, flo
 		}
 	}
 }
-
-void guFrustum(Mtx *m, float l, float r, float b, float t, float n, float f, float scale)
-{
-	float mf[4][4];
-
-	guFrustumF(mf, l, r, b, t, n, f, scale);
-
-	guMtxF2L(mf, m);
-}

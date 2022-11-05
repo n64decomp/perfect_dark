@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/getitle.h"
 #include "game/title.h"
 #include "bss.h"
 #include "lib/memp.h"
@@ -22,6 +21,4 @@ void titleReset(void)
 	}
 
 	var8009cca0 = mempAlloc(0x47800, MEMPOOL_STAGE);
-
-	getitleReset();
 }

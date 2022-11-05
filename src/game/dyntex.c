@@ -418,11 +418,6 @@ u32 var8007f728 = 0x000002f7;
 u32 var8007f72c = 0x00000012;
 u32 var8007f730 = 0x00000012;
 
-void dyntex0f13c4e8(void)
-{
-	// empty
-}
-
 bool dyntexHasRoom(void)
 {
 	return g_DyntexCurRoom >= 0;

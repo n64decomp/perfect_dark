@@ -199,8 +199,3 @@ struct modelfiledata *modeldefLoadToNew(u16 fileid)
 {
 	return modeldefLoad(fileid, NULL, 0, NULL);
 }
-
-struct modelfiledata *modeldefLoadToAddr(u16 fileid, u8 *dst, s32 size)
-{
-	return modeldefLoad(fileid, dst, size, NULL);
-}

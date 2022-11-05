@@ -77,11 +77,6 @@ struct hudmsgtype g_HudmsgTypes[] = {
 #endif
 };
 
-u8 hudmsgsAreActive(void)
-{
-	return g_HudmsgsActive;
-}
-
 s32 hudmsgIsZoomRangeVisible(void)
 {
 	return optionsGetShowZoomRange(g_Vars.currentplayerstats->mpindex)
@@ -421,15 +416,6 @@ void hudmsgsReset(void)
 #endif
 }
 
-void hudmsgRemoveAll(void)
-{
-	s32 i;
-
-	for (i = 0; i < g_NumHudMessages; i++) {
-		g_HudMessages[i].state = HUDMSGSTATE_FREE;
-	}
-}
-
 s32 hudmsgGetNext(s32 refid)
 {
 	s32 bestid = -1;
@@ -481,25 +467,6 @@ void hudmsgCreateWithFlags(char *text, s32 type, u32 flags)
 			g_HudmsgTypes[type].alignv,
 			g_HudmsgTypes[type].unk18,
 			-1, flags);
-}
-
-void hudmsgCreateWithColour(char *text, s32 type, u8 colournum)
-{
-	g_HudmsgTypes[type].colour = g_HudmsgColours[colournum];
-
-	hudmsgCreateFromArgs(text, type,
-			g_HudmsgTypes[type].unk00,
-			g_HudmsgTypes[type].unk01,
-			g_HudmsgTypes[type].unk02,
-			g_HudmsgTypes[type].unk04,
-			g_HudmsgTypes[type].unk08,
-			g_HudmsgTypes[type].colour,
-			g_HudmsgTypes[type].unk10,
-			g_HudmsgTypes[type].alignh,
-			g_HudmsgTypes[type].unk16,
-			g_HudmsgTypes[type].alignv,
-			g_HudmsgTypes[type].unk18,
-			-1, 0);
 }
 
 void hudmsgCreateWithDuration(char *text, s32 type, struct hudmsgtype *config, s32 duration60)
@@ -726,23 +693,6 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 			config->unk16, config->alignv, config->unk18, audiochannelnum, 0);
 }
 #endif
-
-void hudmsgCreateFromArgsWithoutFlags(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02, struct fontchar **conf04, struct font **conf08, u32 textcolour, u32 shadowcolour, u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14)
-{
-	hudmsgCreateFromArgs(text, type,
-			conf00,
-			conf01,
-			conf02,
-			conf04,
-			conf08,
-			textcolour,
-			shadowcolour,
-			alignh,
-			conf16,
-			alignv,
-			conf18,
-			arg14, 0);
-}
 
 void hudmsgCalculatePosition(struct hudmessage *msg)
 {
@@ -1233,11 +1183,6 @@ void hudmsgsTick(void)
 void hudmsgsSetOn(u32 reason)
 {
 	g_Vars.currentplayer->hudmessoff &= ~reason;
-}
-
-void hudmsgsSetOff(u32 reason)
-{
-	g_Vars.currentplayer->hudmessoff |= reason;
 }
 
 void hudmsgsRemoveForDeadPlayer(s32 playernum)

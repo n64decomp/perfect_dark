@@ -96,7 +96,6 @@ SECTIONS
 	osMemSize = 0x80000318;
 	osAppNMIBuffer = 0x8000031c;
 
-	getitle0f0155f0_hack = getitle0f0155f0;
 	nbombCreateStorm_hack = nbombCreateStorm;
 	viGetHeight_hack = viGetHeight;
 

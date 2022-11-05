@@ -156,26 +156,6 @@ struct gfxvtx *chrAllocateVertices(s32 numvertices)
 	return (struct gfxvtx *) gfxAllocate(numvertices * sizeof(struct gfxvtx));
 }
 
-void chrsSetVar8006297c(u32 arg0)
-{
-	var8006297c = arg0;
-}
-
-u32 chrsGetVar8006297c(void)
-{
-	return var8006297c;
-}
-
-void chrsSetVar80062980(u32 arg0)
-{
-	var80062980 = arg0;
-}
-
-u32 chrsGetVar80062980(void)
-{
-	return var80062980;
-}
-
 void chrSetPerimEnabled(struct chrdata *chr, bool enable)
 {
 	if (chr) {
@@ -977,44 +957,6 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	return true;
 }
 
-s32 chrsGetNumFree(void)
-{
-	s32 count = 0;
-	s32 i;
-
-	for (i = 0; i < g_NumChrSlots; i++) {
-		if (g_ChrSlots[i].chrnum < 0) {
-			count++;
-		}
-	}
-
-	return count;
-}
-
-void chrSetMaxDamage(struct chrdata *chr, f32 maxdamage)
-{
-	chr->maxdamage = maxdamage;
-}
-
-f32 chrGetMaxDamage(struct chrdata *chr)
-{
-	return chr->maxdamage;
-}
-
-void chrAddHealth(struct chrdata *chr, f32 health)
-{
-	chr->damage -= health;
-}
-
-f32 chrGetArmor(struct chrdata *chr)
-{
-	if (chr->damage < 0) {
-		return -chr->damage;
-	}
-
-	return 0;
-}
-
 s16 chrsGetNextUnusedChrnum(void)
 {
 	s32 chrnum;
@@ -1386,24 +1328,6 @@ void chrClearReferences(s32 propnum)
 			}
 		}
 	}
-}
-
-void chr0f0211a8(f32 arg0)
-{
-	s32 i;
-
-	var80062968 = arg0;
-
-	for (i = 0; i < g_NumChrSlots; i++) {
-		if (g_ChrSlots[i].model) {
-			modelSetAnimPlaySpeed(g_ChrSlots[i].model, PALUPF(var80062968), 600);
-		}
-	}
-}
-
-f32 chr0f02124c(void)
-{
-	return var80062968;
 }
 
 void chrUpdateAimProperties(struct chrdata *chr)
@@ -2618,28 +2542,6 @@ void chrDropConcealedItems(struct chrdata *chr)
 	chr->hidden |= CHRHFLAG_00000001;
 }
 
-void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
-{
-	struct modelfiledata *modelfiledata = chr->model->filedata;
-
-	if (modelfiledata->skel == &g_SkelChr) {
-		struct modelnode *headspotnode = modelGetPart(modelfiledata, MODELPART_CHR_HEADSPOT);
-
-		if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
-			union modelrwdata *rwdata = modelGetNodeRwData(chr->model, headspotnode);
-
-			if (rwdata->headspot.modelfiledata) {
-				struct modelnode *hudpiecenode = modelGetPart(rwdata->headspot.modelfiledata, MODELPART_HEAD_HUDPIECE);
-
-				if (hudpiecenode) {
-					union modelrwdata *rwdata2 = modelGetNodeRwData(chr->model, hudpiecenode);
-					rwdata2->toggle.visible = visible;
-				}
-			}
-		}
-	}
-}
-
 void chrDropItemsForOwnerReap(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop->child;
@@ -2667,13 +2569,6 @@ void chr0f0246e4(u8 *arg0)
 	var80062a48[0] = arg0[0];
 	var80062a48[1] = arg0[1];
 	var80062a48[2] = arg0[2];
-}
-
-void chr0f024708(u8 *arg0)
-{
-	arg0[0] = var80062a48[0];
-	arg0[1] = var80062a48[1];
-	arg0[2] = var80062a48[2];
 }
 
 void chr0f02472c(void)
@@ -4974,36 +4869,6 @@ void chr0f028498(bool value)
 	var8005efbc = value;
 }
 
-void chr0f0284ac(s32 arg0)
-{
-	g_SelectedAnimNum -= arg0;
-
-	if (g_SelectedAnimNum <= 0) {
-		g_SelectedAnimNum = animGetNumAnimations() - 1;
-	}
-}
-
-void chr0f0284f4(s32 arg0)
-{
-	g_SelectedAnimNum += arg0;
-
-	if (g_SelectedAnimNum >= animGetNumAnimations()) {
-		g_SelectedAnimNum = 1;
-	}
-}
-
-void chr0f028544(void)
-{
-	var80062974 = !var80062974;
-}
-
-void chr0f02855c(s32 arg0)
-{
-	var80062978 = arg0;
-
-	mainOverrideVariable("selectanimnum", &g_SelectedAnimNum);
-}
-
 void chrsCheckForNoise(f32 noiseradius)
 {
 	s32 i;
@@ -5144,12 +5009,6 @@ void chrGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 	if (chr->actiontype == ACT_SKJUMP && chr->act_skjump.ground < chr->manground) {
 		*ymin = chr->act_skjump.ground + 20;
 	}
-}
-
-f32 chrGetGround(struct prop *prop)
-{
-	struct chrdata *chr = prop->chr;
-	return chr->ground;
 }
 
 bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)

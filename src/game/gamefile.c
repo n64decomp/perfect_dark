@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "constants.h"
-#include "game/camdraw.h"
 #include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/bg.h"
@@ -12,41 +11,10 @@
 #include "game/options.h"
 #include "game/utils.h"
 #include "bss.h"
-#include "lib/fault.h"
 #include "lib/snd.h"
 #include "lib/str.h"
 #include "data.h"
 #include "types.h"
-
-u8 *gamefileGetFlags(void)
-{
-	return g_GameFile.flags;
-}
-
-void gamefileSetFlag(u32 value)
-{
-	pakSetBitflag(value, g_GameFile.flags, true);
-}
-
-void gamefileUnsetFlag(u32 value)
-{
-	pakSetBitflag(value, g_GameFile.flags, false);
-}
-
-u32 gamefileHasFlag(u32 value)
-{
-	return pakHasBitflag(value, g_GameFile.flags);
-}
-
-void gamefilePrintFlags(void)
-{
-	s32 i;
-
-	for (i = 0x23; i != 0x4f; i++) {
-		osSyncPrintf("Flag %d = %s", i,
-				pakHasBitflag(i, g_GameFile.flags) ? "TRUE" : "FALSE");
-	}
-}
 
 void gamefileApplyOptions(struct gamefile *file)
 {

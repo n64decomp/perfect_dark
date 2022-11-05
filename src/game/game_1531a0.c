@@ -163,24 +163,9 @@ void textInit(void)
 	// empty
 }
 
-void text0f1531a8(s32 arg0)
-{
-	var8007fac4 = -arg0;
-}
-
 void textSetRotation90(bool rotated)
 {
 	g_TextRotated90 = rotated;
-}
-
-void textSetWrapIndent(s32 count)
-{
-	g_WrapIndentCount = count;
-}
-
-void text0f1531d0(s32 arg0)
-{
-	var8007fad4 = arg0;
 }
 
 void text0f1531dc(bool arg0)
@@ -766,30 +751,12 @@ void textRestoreDiagonalBlendSettings(void)
 	g_Blend.types |= g_Blend.backupdiagtypes;
 }
 
-void textSetVerticalBlend(s32 y1, s32 y2, u32 arg2)
-{
-	g_Blend.types |= BLENDTYPE_VERTICAL;
-	g_Blend.vertrefy1 = y1;
-	g_Blend.vertrefy2 = y2;
-	g_Blend.vert34 = arg2;
-}
-
 void textSetHorizontalBlend(s32 x1, s32 x2, u32 arg2)
 {
 	g_Blend.types |= BLENDTYPE_HORIZONTAL;
 	g_Blend.horizrefx1 = x1;
 	g_Blend.horizrefx2 = x2;
 	g_Blend.horiz40 = arg2;
-}
-
-void textResetBlends2(void)
-{
-	g_Blend.types = 0;
-}
-
-void textResetBlends3(void)
-{
-	g_Blend.types = 0;
 }
 
 void textBackupAndResetBlends(void)
@@ -1997,141 +1964,6 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 	return gdl;
 }
 #endif
-
-Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
-		char *text, struct fontchar *chars, struct font *font, u32 colour, s32 hdir, s32 vdir)
-{
-	s32 totalheight;
-	u8 prevchar;
-	s32 textwidth;
-	s32 textheight;
-	s32 lineheight;
-	s32 relx;
-	f32 *ptr;
-	f32 fx;
-	f32 fy;
-
-	totalheight = 0;
-	prevchar = 'H';
-	relx = 0;
-
-#if VERSION >= VERSION_JPN_FINAL
-	if (1);
-	lineheight = 13;
-#else
-	lineheight = chars['['].height + chars['['].baseline;
-
-	if (g_Jpn && lineheight < 14) {
-		lineheight = 14;
-	}
-#endif
-
-	textMeasure(&textheight, &textwidth, text, chars, font, 0);
-
-	ptr = &x;
-	fx = *ptr - (widthscale - 1.0f) * textwidth * 0.5f * hdir;
-	fy = y - (heightscale - 1.0f) * lineheight * 0.5f * vdir;
-
-	if (fx);
-	if (fy);
-
-	gDPPipeSync(gdl++);
-	gDPSetTextureLUT(gdl++, G_TT_IA16);
-
-#if VERSION >= VERSION_JPN_FINAL
-	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var800801d8jf));
-	var80080104jf = true;
-#else
-	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var8007fb3c));
-#endif
-
-	gDPLoadSync(gdl++);
-	gDPLoadTLUTCmd(gdl++, 6, 15);
-	gDPSetTile(gdl++, G_IM_FMT_CI, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-	gDPSetTileSize(gdl++, G_TX_RENDERTILE, 0, 0, 0x007c, 0x007c);
-	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
-	gDPPipeSync(gdl++);
-
-#if VERSION >= VERSION_PAL_BETA
-	if (text != NULL) {
-		while (*text != '\0') {
-			if (*text == ' ') {
-				relx = relx + var8007fad0 * 5;
-				prevchar = 'H';
-				text += 1;
-			} else if (*text == '\n') {
-				if (var8007fad4 >= 0 && relx == 0) {
-					totalheight += var8007fad4;
-					relx = 0;
-				} else {
-					relx = 0;
-#if VERSION >= VERSION_JPN_FINAL
-					totalheight = totalheight + lineheight * var80080108jf;
-#else
-					totalheight += lineheight;
-#endif
-				}
-
-				prevchar = 'H';
-				text += 1;
-			} else {
-				struct fontchar *sp84;
-				struct fontchar *sp80;
-
-				textMapCodeUnitToChar(&text, &sp84, &sp80, chars, &prevchar);
-				gdl = text0f154f38(gdl, &relx, sp84, sp80, font, widthscale, heightscale, fx, fy);
-			}
-		}
-	}
-#else
-	if (text != NULL) {
-		while (*text != '\0') {
-			if (*text == ' ') {
-				prevchar = 'H';
-				text += 1;
-				relx = relx + var8007fad0 * 5;
-			} else if (*text == '\n') {
-				prevchar = 'H';
-				text += 1;
-
-				if (var8007fad4 >= 0 && relx == 0) {
-					totalheight += var8007fad4;
-					relx = 0;
-				} else {
-					totalheight += lineheight;
-					relx = 0;
-				}
-			} else if (*text < 0x80) {
-				gdl = text0f154f38(gdl, &relx, &chars[*text - 0x21], &chars[prevchar - 0x21], font,
-						widthscale, heightscale, fx, fy);
-				prevchar = *text;
-				text += 1;
-			} else {
-				u16 codepoint = (text[0] & 0x7f) << 7 | (text[1] & 0x7f);
-				struct fontchar tmpchar = {0, 0, 12, 11};
-
-				if (1);
-
-				if (codepoint & 0x2000) {
-					tmpchar.width = 15;
-					tmpchar.height = 16;
-				}
-
-				if ((codepoint & 0x1fff) >= 0x3c8) {
-					codepoint = 2;
-				}
-
-				tmpchar.index = codepoint + 0x80;
-				tmpchar.pixeldata = (void *) lang0f16e3fc(codepoint);
-
-				text += 2;
-			}
-		}
-	}
-#endif
-
-	return gdl;
-}
 
 Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fontchar *prevchar,
 		struct font *font, s32 savedx, s32 savedy, s32 width, s32 height, s32 arg10)

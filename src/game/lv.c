@@ -10,7 +10,6 @@
 #include "game/bondhead.h"
 #include "game/bondmove.h"
 #include "game/bondview.h"
-#include "game/camdraw.h"
 #include "game/casing.h"
 #include "game/chr.h"
 #include "game/chraction.h"
@@ -129,11 +128,6 @@ s16 g_FadeDelay = 0;
 u32 getVar80084040(void)
 {
 	return var80084040;
-}
-
-void setVar80084040(u32 value)
-{
-	var80084040 = value;
 }
 
 void lvInit(void)
@@ -384,7 +378,6 @@ void lvReset(s32 stagenum)
 	func0f0099a4();
 	boltbeamsReset();
 	lasersightsReset();
-	stub0f013540();
 	shardsReset();
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
@@ -440,10 +433,6 @@ void lvReset(s32 stagenum)
 		fmbReset();
 	}
 
-	if (IS8MB()) {
-		pheadReset();
-	}
-
 	modelmgrSetLvResetting(false);
 	var80084018 = 1;
 	lvSetPaused(0);
@@ -475,22 +464,6 @@ void lvReset(s32 stagenum)
 		}
 	}
 #endif
-}
-
-void lvConfigureFade(u32 color, s16 num_frames)
-{
-	g_FadeNumFrames = num_frames;
-	g_FadePrevColour = g_FadeColour;
-
-	if (g_FadeNumFrames == 0) {
-		g_FadeColour = color;
-		g_FadeFrac = -1;
-		return;
-	}
-
-	g_FadeFrac = 0;
-	g_FadeColour = color;
-	g_FadeDelay = 2;
 }
 
 Gfx *lvRenderFade(Gfx *gdl)
@@ -542,11 +515,6 @@ Gfx *lvRenderFade(Gfx *gdl)
 			viGetViewTop() + viGetViewHeight() - inset + 2);
 
 	return text0f153838(gdl);
-}
-
-bool lvIsFadeActive(void)
-{
-	return g_FadeFrac >= 0;
 }
 
 void lvFadeReset(void)
@@ -1586,10 +1554,6 @@ void lvTick(void)
 		g_Vars.joydisableframestogo = -1;
 	}
 
-	if (IS4MB()) {
-		vmPrintStatsIfEnabled();
-	}
-
 	for (j = 0; j < PLAYERCOUNT(); j++) {
 		g_Vars.players[j]->hands[HAND_LEFT].hasdotinfo = false;
 		g_Vars.players[j]->hands[HAND_RIGHT].hasdotinfo = false;
@@ -1882,19 +1846,14 @@ void lvStop(void)
 	if (g_Vars.stagenum < NUM_STAGES) {
 		s32 bank = langGetLangBankIndexFromStagenum(g_Vars.stagenum);
 		langClearBank(bank);
-		stub0f015270();
 	}
 
 	chrmgrStop();
 	explosionsStop();
 	smokeStop();
-	stub0f015400();
-	stub0f015410();
 	shardsStop();
-	stub0f0153f0();
 	propsStop();
 	objsStop();
-	stub0f015260();
 	bgunStop();
 	propsndStop();
 	musicStop();
@@ -1976,17 +1935,7 @@ void lvSetMpTeamScoreLimit(u32 limit)
 	g_MpTeamScoreLimit = limit;
 }
 
-f32 lvGetStageTimeInSeconds(void)
-{
-	return g_StageTimeElapsed1f;
-}
-
 s32 lvGetStageTime60(void)
 {
 	return g_StageTimeElapsed60;
-}
-
-u32 func0f16ce04(u32 arg0)
-{
-	return arg0;
 }

@@ -37,11 +37,6 @@ bool var8005efd8_2 = false;
 struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices) = NULL;
 void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx) = NULL;
 
-void modelSetDistanceChecksDisabled(bool disabled)
-{
-	g_ModelDistanceDisabled = disabled;
-}
-
 void modelSetDistanceScale(f32 scale)
 {
 	g_ModelDistanceScale = scale;
@@ -1617,15 +1612,6 @@ f32 modelGetAbsAnimSpeed(struct model *model)
 	return 1;
 }
 
-f32 modelGetEffectiveAnimSpeed(struct model *model)
-{
-	if (model->anim) {
-		return modelGetAnimSpeed(model) * model->anim->playspeed;
-	}
-
-	return 1;
-}
-
 /**
  * Constrain the given frame number to the bounds of the animation, unless the
  * animation is looping in which case wrap it to the other side.
@@ -1896,13 +1882,6 @@ void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startfram
 
 		modelCopyAnimForMerge(model, merge);
 		model0001d62c(model, animnum, flip, startframe, speed, merge);
-	}
-}
-
-void modelCopyAnimData(struct model *src, struct model *dst)
-{
-	if (src->anim && dst->anim) {
-		*dst->anim = *src->anim;
 	}
 }
 

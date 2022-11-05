@@ -55,9 +55,3 @@ Acmd *n_alResamplePull(N_PVoice *e, s16 *outp, Acmd *p)
 
 	return ptr;
 }
-
-s32 n_alResampleParam(N_PVoice *filter, s32 paramID, void *param)
-{
-	n_alLoadParam(filter,  paramID, param);
-	return 0;
-}

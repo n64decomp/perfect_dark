@@ -15,24 +15,6 @@ f32 pdmodeGetEnemyReactionSpeed(void)
 	return 0;
 }
 
-f32 pdmodeGetEnemyHealth(void)
-{
-	if (g_MissionConfig.pdmode) {
-		return g_MissionConfig.pdmodehealthf;
-	}
-
-	return 1;
-}
-
-f32 pdmodeGetEnemyDamage(void)
-{
-	if (g_MissionConfig.pdmode) {
-		return g_MissionConfig.pdmodedamagef;
-	}
-
-	return 1;
-}
-
 f32 pdmodeGetEnemyAccuracy(void)
 {
 	if (g_MissionConfig.pdmode) {

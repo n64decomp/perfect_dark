@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "constants.h"
-#include "game/camdraw.h"
 #include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/bossfile.h"
@@ -13,7 +12,6 @@
 #include "game/options.h"
 #include "game/utils.h"
 #include "bss.h"
-#include "lib/fault.h"
 #include "lib/snd.h"
 #include "data.h"
 #include "types.h"
@@ -21,17 +19,6 @@
 u8 var800a22d0[0x5b];
 u8 g_AltTitleUnlocked;
 u8 g_AltTitleEnabled;
-
-void bossfileSetDefaults2(void)
-{
-	bossfileSetDefaults();
-}
-
-void bossfileSetAndSaveDefaults(void)
-{
-	bossfileSetDefaults();
-	bossfileSave();
-}
 
 bool bossfileLoadFull(void)
 {
@@ -42,16 +29,6 @@ bool bossfileLoadFull(void)
 #endif
 
 	return true;
-}
-
-void func0f1106ec(void)
-{
-	// empty
-}
-
-void func0f1106f4(u8 *dst)
-{
-	bcopy(var800a22d0, dst, sizeof(var800a22d0));
 }
 
 u32 bossfileFindFileId(void)
@@ -185,10 +162,6 @@ void bossfileSave(void)
 	func0f0d54c4(&buffer);
 
 	fileid = bossfileFindFileId();
-
-	if (fileid == 0) {
-		faultAssert("fileGuid", "bossfile.c", VERSION >= VERSION_PAL_BETA ? 377 : 375);
-	}
 
 	if (pakSaveAtGuid(SAVEDEVICE_GAMEPAK, fileid, PAKFILETYPE_BOSS, buffer.bytes, NULL, 0) != 0) {
 		sp12c = true;

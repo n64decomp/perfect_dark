@@ -571,12 +571,6 @@ void langLoad(s32 bank)
 #endif
 }
 
-void langLoadToAddr(s32 bank, u8 *dst, s32 size)
-{
-	s32 file_id = langGetFileId(bank);
-	g_LangBanks[bank] = fileLoadToAddr(file_id, FILELOADMETHOD_DEFAULT, dst, size);
-}
-
 void langClearBank(s32 bank)
 {
 	g_LangBanks[bank] = NULL;

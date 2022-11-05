@@ -30,7 +30,7 @@ u32 var80095200;
 ALBank *var80095204;
 struct seqtable *g_SeqTable;
 u32 g_SeqBufferSize;
-struct sndcache g_SndCache;
+ALIGNED16 struct sndcache g_SndCache;
 
 const char g_SndGuardString[] = "RUSSES SOUND GUARD STRING";
 const char var70053b3c[] = "Snd: SoundHeaderCacheInit\n";
@@ -866,21 +866,6 @@ void sndSetSfxVolume(u16 volume)
 	g_SfxVolume = volume;
 }
 
-void snd0000ea80(u16 volume)
-{
-	u8 i;
-
-#if VERSION >= VERSION_NTSC_1_0
-	if (volume > 0x5000) {
-		volume = 0x5000;
-	}
-#endif
-
-	for (i = 0; i < 9; i++) {
-		func00033f44(i, volume);
-	}
-}
-
 void sndLoadSfxCtl(void)
 {
 	s32 i;
@@ -1498,16 +1483,6 @@ void sndInit(void)
 	}
 }
 
-bool snd0000fbc4(s16 arg0)
-{
-	return true;
-}
-
-void snd0000fc40(s32 arg0)
-{
-	// empty
-}
-
 #if VERSION >= VERSION_NTSC_1_0
 bool seqPlay(struct seqinstance *seq, s32 tracknum)
 {
@@ -1719,11 +1694,6 @@ void snd0000fe18(void)
 	// empty
 }
 
-void snd0000fe80(void)
-{
-	// empty
-}
-
 void sndTick(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
@@ -1782,18 +1752,6 @@ void sndTick(void)
 		var8005edec = var8005ddd8;
 	}
 #endif
-}
-
-s16 snd0001034c(s16 sfxnum)
-{
-	union soundnumhack sfxref;
-
-	sfxref.packed = sfxnum;
-	sfxnum = sfxref.id;
-
-	if (sfxref.id);
-
-	return sfxnum;
 }
 
 bool sndIsDisabled(void)

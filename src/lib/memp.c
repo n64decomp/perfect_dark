@@ -246,11 +246,6 @@ s32 mempRealloc(void *allocation, s32 newsize, u8 poolnum)
 	return 1;
 }
 
-void memp000124cc(void)
-{
-	// empty
-}
-
 /**
  * Return the amount of free space in the given pool and bank.
  */

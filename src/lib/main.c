@@ -3,7 +3,6 @@
 #include "lib/sched.h"
 #include "lib/vars.h"
 #include "constants.h"
-#include "game/camdraw.h"
 #include "game/file.h"
 #include "game/lang.h"
 #include "game/race.h"
@@ -45,22 +44,16 @@
 #include "lib/vm.h"
 #include "lib/rzip.h"
 #include "lib/vi.h"
-#include "lib/fault.h"
-#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/joy.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/memp.h"
 #include "lib/mema.h"
-#include "lib/profile.h"
-#include "lib/videbug.h"
-#include "lib/debughud.h"
 #include "lib/anim.h"
 #include "lib/rdp.h"
 #include "lib/lib_34d0.h"
 #include "lib/lib_2f490.h"
-#include "lib/rmon.h"
 #include "lib/rng.h"
 #include "lib/str.h"
 #include "data.h"
@@ -323,15 +316,13 @@ void mainInit(void)
 	u8 *start;
 	u8 *end;
 
-	faultInit();
 	dmaInit();
 	amgrInit();
 	varsInit();
 	mempInit();
 	memaInit();
-	videbugInit();
 	viConfigureForLogos();
-	var8005d9b0 = rmonIsDisabled();
+	var8005d9b0 = true;
 	joyInit();
 	osCreateMesgQueue(&queue, &msg, 1);
 
@@ -363,20 +354,6 @@ void mainInit(void)
 	} else {
 		g_DoBootPakMenu = true;
 	}
-
-#if VERSION == VERSION_PAL_BETA
-	// In PAL beta, pressing all C buttons during poweron sets g_CrashHasMessage.
-	// If it's set, a sound effect is played on the legal screen.
-	// It's likely some debug code to see how far the game got before crashing.
-#define BUTTON_MASK (U_CBUTTONS | D_CBUTTONS | L_CBUTTONS | R_CBUTTONS)
-
-	if (joyGetButtons(0, BUTTON_MASK) == BUTTON_MASK
-			|| joyGetButtons(1, BUTTON_MASK) == BUTTON_MASK
-			|| joyGetButtons(2, BUTTON_MASK) == BUTTON_MASK
-			|| joyGetButtons(3, BUTTON_MASK) == BUTTON_MASK) {
-		g_CrashHasMessage = true;
-	}
-#endif
 
 	{
 		OSMesg receivedmsg = NULL;
@@ -517,7 +494,6 @@ void mainInit(void)
 	vmInit();
 	func0f1a78b0();
 	filesInit();
-	stub0f175f50();
 	func0f175f90();
 
 	if (var8005d9b0) {
@@ -530,7 +506,6 @@ void mainInit(void)
 
 	mempResetPool(MEMPOOL_8);
 	mempResetPool(MEMPOOL_PERMANENT);
-	crashReset();
 	challengesInit();
 	utilsInit();
 	func000034d0();
@@ -539,28 +514,14 @@ void mainInit(void)
 	lvInit();
 	func0000e9c0();
 	textInit();
-	dhudInit();
 	playermgrInit();
 	frametimeInit();
-	stub0f00b200();
-	profileInit();
-	stub0f000870();
 	smokesInit();
-	stub0f0008e0();
-	stub0f0008f0();
-	stub0f000900();
-	stub0f00b180();
-	stub0f000910();
-	stub0f000840();
 	mpInit();
-	pheadInit();
 	paksInit();
-	pheadInit2();
 	animsInit();
 	racesInit();
 	bodiesInit();
-	stub0f000850();
-	stub0f000860();
 	titleInit();
 	viConfigureForLegal();
 	viBlack(true);
@@ -1182,12 +1143,10 @@ void mainLoop(void)
 
 		gfxReset();
 		joyReset();
-		dhudReset();
 		mblurReset(g_StageNum);
 		lvReset(g_StageNum);
 		viReset(g_StageNum);
 		frametimeCalculate();
-		profileReset();
 
 		while (osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_NOBLOCK) != -1) {
 			// empty
@@ -1854,12 +1813,8 @@ void mainTick(void)
 
 	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
 		frametimeCalculate();
-		profile00009a98();
-		profileReset();
-		profileSetMarker(PROFILE_MAINTICK_START);
 		func000034d8();
 		joyDebugJoy();
-		schedSetCrashEnable2(false);
 
 		if (g_MainGameLogicEnabled) {
 			gdl = gdlstart = gfxGetMasterDisplayList();
@@ -1901,7 +1856,6 @@ void mainTick(void)
 		g_MainNumGfxTasks++;
 		memaPrint();
 		func0f16cf94();
-		profileSetMarker(PROFILE_MAINTICK_END);
 	}
 }
 

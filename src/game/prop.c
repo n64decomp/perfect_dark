@@ -3222,11 +3222,6 @@ void propsDefragRoomProps(void)
 	}
 }
 
-void func0f0661fc(void)
-{
-	// empty
-}
-
 void propGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 {
 	if (prop->type == PROPTYPE_CHR) {

@@ -106,21 +106,6 @@ struct light *roomGetLight(s32 roomnum, s32 lightnum)
 	return (struct light *)&g_BgLightsFileData[(g_Rooms[roomnum].lightindex + lightnum) * 0x22];
 }
 
-u8 func0f0009c0(s32 roomnum)
-{
-	s32 value = g_Rooms[roomnum].unk52 + g_Rooms[roomnum].unk4b;
-
-	if (value > 255) {
-		value = 255;
-	}
-
-	if (value < 0) {
-		value = 0;
-	}
-
-	return value;
-}
-
 u8 func0f000a10(s32 roomnum)
 {
 	s32 value = g_Rooms[roomnum].unk52;
@@ -138,11 +123,6 @@ u8 func0f000a10(s32 roomnum)
 	return value;
 }
 
-u8 func0f000b18(u32 arg0)
-{
-	return 255;
-}
-
 u8 func0f000b24(s32 roomnum)
 {
 	u32 value;
@@ -156,11 +136,6 @@ u8 func0f000b24(s32 roomnum)
 	return value;
 }
 
-u8 roomGetBrightness(s32 room)
-{
-	return g_Rooms[room].brightness & 0xff;
-}
-
 s32 func0f000c54(s32 roomnum)
 {
 	if (g_Rooms[roomnum].unk52 > 255) {
@@ -172,36 +147,6 @@ s32 func0f000c54(s32 roomnum)
 	}
 
 	return (g_Rooms[roomnum].flags & ROOMFLAG_0040) ? g_Rooms[roomnum].unk52 : 0;
-}
-
-f32 roomGetUnk5c(s32 roomnum)
-{
-	return g_Rooms[roomnum].unk5c;
-}
-
-f32 func0f000cec(s32 roomnum)
-{
-	f32 value = (g_Rooms[roomnum].unk52 + g_Rooms[roomnum].unk4b) / 0.0039215688593686f;
-
-	if (value > 1) {
-		value = 1;
-	}
-
-	if (value < 0) {
-		value = 0;
-	}
-
-	return value;
-}
-
-f32 func0f000d6c(s32 roomnum)
-{
-	return g_Rooms[roomnum].unk4b / 255.0f;
-}
-
-f32 func0f000dbc(s32 roomnum)
-{
-	return g_Rooms[roomnum].brightness / 255.0f;
 }
 
 /**
@@ -248,43 +193,6 @@ bool lightIsVulnerable(s32 roomnum, s32 lightnum)
 	struct light *light = roomGetLight(roomnum, lightnum);
 
 	return light->vulnerable;
-}
-
-bool lightIsOn(s32 roomnum, s32 lightnum)
-{
-	bool on;
-
-	if (roomnum && roomGetLight(roomnum, lightnum)->on) {
-		on = true;
-	} else {
-		on = false;
-	}
-
-	return on;
-}
-
-void roomSetUnk52(s32 roomnum, s32 value)
-{
-	g_Rooms[roomnum].unk52 = value;
-}
-
-void lightGetUnk07(s32 roomnum, u32 lightnum, struct coord *coord)
-{
-	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
-	light += lightnum;
-
-	coord->x = light->unk07;
-	coord->y = light->unk08;
-	coord->z = light->unk09;
-}
-
-void func0f0010b4(void)
-{
-	if (var80061424) {
-		var80061424 = 0;
-	}
-
-	var80061424 = 1;
 }
 
 void roomSetDefaults(struct room *room)
@@ -491,31 +399,6 @@ bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
 	}
 
 	return false;
-}
-
-void roomSetLightsFaulty(s32 roomnum, s32 chance)
-{
-	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
-	s32 i;
-
-	if (g_Rooms[roomnum].numlights) {
-		for (i = 0; i < g_Rooms[roomnum].numlights; i++) {
-			if ((random() % 100) < chance) {
-				light->healthy = false;
-				light->on = false;
-			}
-
-			light++;
-		}
-	}
-
-#if VERSION >= VERSION_NTSC_1_0
-	g_Rooms[roomnum].unk4c = 50;
-#else
-	g_Rooms[roomnum].unk4c = 15;
-#endif
-
-	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 }
 
 void roomSetLightBroken(s32 roomnum, s32 lightnum)
@@ -865,30 +748,6 @@ void func0f002a98(void)
 	if (IS4MB()) {
 		var80061444 = 0;
 	}
-}
-
-void roomSetLightsOn(s32 roomnum, s32 enable)
-{
-	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
-	s32 i;
-
-	if (g_Rooms[roomnum].numlights) {
-		for (i = 0; i < g_Rooms[roomnum].numlights; i++) {
-			if (light->healthy) {
-				light->on = enable;
-			}
-
-			light++;
-		}
-	}
-
-	if (enable) {
-		g_Rooms[roomnum].flags &= ~ROOMFLAG_LIGHTSOFF;
-	} else {
-		g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTSOFF;
-	}
-
-	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 }
 
 void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4)
@@ -1717,69 +1576,6 @@ void lightingTick(void)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-void func0f003444(void)
-{
-	s32 i;
-	s32 j;
-
-	for (i = 0; i < g_Vars.roomcount; i++) {
-		struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[i].lightindex * 0x22];
-		g_Rooms[i].lightop = LIGHTOP_1;
-		g_Rooms[i].unk60 = 0.5f;
-
-		for (j = 0; j < g_Rooms[i].numlights; j++) {
-			light->unk05_00 = random() % 2 ? true : false;
-			light->healthy = true;
-			light->on = true;
-			light->sparking = false;
-			light->vulnerable = true;
-			light->unk04 = g_Rooms[i].unk4a;
-
-			light++;
-		}
-	}
-}
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-void func0f0035c0(void)
-{
-	s32 i;
-	s32 j;
-
-	for (i = 0; i < g_Vars.roomcount; i++) {
-		struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[i].lightindex * 0x22];
-		g_Rooms[i].lightop = LIGHTOP_1;
-		g_Rooms[i].unk60 = 0;
-
-		for (j = 0; j < g_Rooms[i].numlights; j++) {
-			light->unk05_00 = random() % 2 ? true : false;
-			light->healthy = false;
-			light->on = false;
-			light->sparking = false;
-			light->vulnerable = false;
-			light->unk04 = 0;
-
-			light++;
-		}
-	}
-}
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-void func0f00372c(void)
-{
-	if (g_Vars.tickmode != var80061458) {
-		if (TICKMODE_NORMAL == g_Vars.tickmode && TICKMODE_NORMAL != var80061458) {
-			func0f0035c0();
-		}
-
-		var80061458 = g_Vars.tickmode;
-	}
-}
-#endif
-
 void func0f0037ac(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
@@ -2062,11 +1858,6 @@ void lightsTick(void)
 	if (hand1->flashon || hand2->flashon) {
 		roomAdjustLighting(g_Vars.currentplayer->prop->rooms[0], 64, 80);
 	}
-}
-
-void func0f004384(void)
-{
-	// empty
 }
 
 void roomAdjustLighting(s32 roomnum, s32 start, s32 limit)
@@ -2551,39 +2342,6 @@ void func0f0056f4(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
 				if (dist < *result) {
 					*result = dist;
 				}
-			}
-		}
-	}
-}
-
-void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *pos2, s32 arg4, f32 *result)
-{
-	s32 portalnum1;
-	s32 portalnum2;
-	s32 i;
-	s32 j;
-	f32 dist;
-
-	*result = 32767;
-
-	if (roomnum1 == roomnum2) {
-		*result = coordsGetDistance(pos1, pos2);
-		return;
-	}
-
-	for (i = 0; i < g_Rooms[roomnum1].numportals; i++) {
-		portalnum1 = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + i];
-		if (1);
-
-		for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
-			portalnum2 = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
-			if (j);
-			if (j);
-
-			dist = func0f0053d0(roomnum1, pos1, portalnum1, roomnum2, pos2, portalnum2, NULL);
-
-			if (dist < *result) {
-				*result = dist;
 			}
 		}
 	}

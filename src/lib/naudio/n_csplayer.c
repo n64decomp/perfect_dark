@@ -1236,8 +1236,3 @@ void __n_CSPPostNextSeqEvent(N_ALCSPlayer *seqp)
 	evt.type = AL_SEQ_REF_EVT;
 	n_alEvtqPostEvent(&seqp->evtq, &evt, deltaTicks * seqp->uspt, 0);
 }
-
-void func00037634(N_ALCSPlayer *seqp, u8 value)
-{
-	seqp->unk88 = value;
-}

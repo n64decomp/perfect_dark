@@ -110,11 +110,6 @@ s32 g_TexFormatLutModes[] = {
 	G_TT_IA16,
 };
 
-void func0f16e810(u32 arg0)
-{
-	// empty
-}
-
 /**
  * Inflate images (levels of detail) from a zlib-compressed texture.
  *
@@ -2300,9 +2295,4 @@ void texLoadFromTextureNum(u32 texturenum, struct texpool *pool)
 	s32 texturenumcopy = texturenum;
 
 	texLoad(&texturenumcopy, pool, true);
-}
-
-s32 func0f173510(s32 arg0, s32 arg1, s32 arg3)
-{
-	return arg0;
 }

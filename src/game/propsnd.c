@@ -162,29 +162,6 @@ s32 func0f0927d4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4)
 	return result;
 }
 
-s32 channelGetUnk06(s32 channelnum)
-{
-	return (channelnum >= 0 && channelnum <= 7) ? g_AudioChannels[channelnum].unk06 : 0;
-}
-
-void propsnd0f09294c(struct prop *prop, s16 soundnum, s32 arg2)
-{
-	s32 i;
-
-	if (propsnd0f0946b0(&prop->pos, 400, 2500, 3000, prop->rooms, soundnum, 0x7fff, 0)) {
-		// Return if this prop is already playing a sound
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
-			if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0
-					&& g_AudioChannels[i].prop == prop
-					&& g_AudioChannels[i].unk28 == arg2) {
-				return;
-			}
-		}
-
-		propsnd0f0939f8(NULL, prop, soundnum, -1, -1, 2, 0, arg2, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-	}
-}
-
 void func0f092a98(s32 channelnum)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
@@ -3704,60 +3681,6 @@ void propsndTick(void)
 	}
 }
 
-void func0f093630(struct prop *prop, f32 arg1, s32 arg2)
-{
-	OSPri prevpri;
-	s32 i;
-
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
-		if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0 && g_AudioChannels[i].prop == prop) {
-			g_AudioChannels[i].unk44 = arg1;
-
-			if (arg2 > 0) {
-				g_AudioChannels[i].unk20 = arg2 * 4;
-			} else {
-				g_AudioChannels[i].unk20 = -1;
-			}
-
-#if VERSION >= VERSION_NTSC_1_0
-			prevpri = osGetThreadPri(0);
-			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-			propsndTickChannel(i);
-			osSetThreadPri(0, prevpri);
-#else
-			propsndTickChannel(i);
-#endif
-		}
-	}
-}
-
-void func0f093790(struct prop *prop, s32 arg1)
-{
-	OSPri prevpri;
-	s32 i;
-
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
-		if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0 && prop == g_AudioChannels[i].prop) {
-#if VERSION >= VERSION_NTSC_1_0
-			if (arg1 > 100) {
-				arg1 = 100;
-			}
-
-			prevpri = osGetThreadPri(0);
-			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-
-			g_AudioChannels[i].unk10 = arg1 * 32767 / 100;
-			propsndTickChannel(i);
-
-			osSetThreadPri(0, prevpri);
-#else
-			g_AudioChannels[i].unk10 = arg1 * 32767 / 100;
-			propsndTickChannel(i);
-#endif
-		}
-	}
-}
-
 #if VERSION >= VERSION_NTSC_1_0
 void func0f0938ec(struct prop *prop)
 {
@@ -4073,80 +3996,6 @@ s16 propsnd0f0939f8(
 	return channel->channelnum;
 }
 
-s32 audioPlayFromProp(s32 channelnum, s16 soundnum, s32 arg2, struct prop *prop, s16 arg4, u16 arg5)
-{
-	s32 retchannelnum = -1;
-
-	if (arg4 == 11) {
-		if (channelnum >= 0 && channelnum <= 7) {
-#if VERSION >= VERSION_NTSC_1_0
-			if (g_AudioChannels[channelnum].flags & AUDIOCHANNELFLAG_IDLE) {
-				g_AudioChannels[channelnum].soundnum26 = soundnum;
-				g_AudioChannels[channelnum].unk28 = 11;
-				g_AudioChannels[channelnum].flags &= ~AUDIOCHANNELFLAG_IDLE;
-				retchannelnum = channelnum;
-			} else {
-				g_AudioChannels[channelnum].soundnum26 = soundnum;
-				g_AudioChannels[channelnum].unk28 = 11;
-				g_AudioChannels[channelnum].flags &= ~AUDIOCHANNELFLAG_IDLE;
-				retchannelnum = channelnum;
-			}
-#else
-			g_AudioChannels[channelnum].soundnum26 = soundnum;
-			g_AudioChannels[channelnum].unk28 = 11;
-			g_AudioChannels[channelnum].flags &= ~AUDIOCHANNELFLAG_IDLE;
-			retchannelnum = channelnum;
-#endif
-		} else {
-			// empty
-		}
-	} else if (channelnum == 10) {
-		retchannelnum = propsnd0f0939f8(NULL, prop, soundnum, -1,
-				(arg2 ? 0 : -1), arg5 | 0x0080, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
-#if VERSION >= VERSION_NTSC_1_0
-	} else if (channelnum < 0 || channelnum >= 8 || channelnum == 9) {
-		retchannelnum = propsnd0f0939f8(NULL, prop, soundnum, -1,
-			(arg2 ? 0 : -1), arg5, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
-#else
-	} else if (channelnum == 9) {
-		retchannelnum = propsnd0f0939f8(NULL, prop, soundnum, -1,
-			(arg2 ? 0 : -1), arg5, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
-	} else if (channelnum < 0 || channelnum >= 8) {
-		retchannelnum = propsnd0f0939f8(NULL, prop, soundnum, -1,
-			(arg2 ? 0 : -1), arg5, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
-#endif
-	} else {
-		if ((g_AudioChannels[channelnum].flags & AUDIOCHANNELFLAG_IDLE) == 0) {
-			func0f092a98(channelnum);
-		}
-
-		g_AudioChannels[channelnum].channelnum = channelnum;
-
-		propsnd0f0939f8(&g_AudioChannels[channelnum], prop, soundnum, -1,
-			(arg2 ? 0 : -1), arg5, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
-
-		retchannelnum = channelnum;
-	}
-
-	return retchannelnum;
-}
-
-void audioMuteChannel(s32 channelnum)
-{
-	if (channelnum == 10) {
-		s32 i;
-
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
-			if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0
-					&& (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_0080)) {
-				func0f092a98(i);
-			}
-		}
-	} else if (channelnum >= 0 && channelnum <= 7) {
-		func0f092a98(channelnum);
-	}
-}
-
 bool audioIsChannelIdle(s32 channelnum)
 {
 	if (channelnum >= 0 && channelnum <= 7) {
@@ -4164,60 +4013,6 @@ bool audioIsChannelIdle(s32 channelnum)
 	}
 
 	return true;
-}
-
-void audioPlayFromProp2(s32 channelnum, s32 arg1, s16 padnum, struct prop *prop, s32 arg4, s32 arg5, s32 arg6, u16 arg7)
-{
-	struct audiochannel *channel = &g_AudioChannels[channelnum];
-	bool a1 = (arg4 >= 6) ? true : false;
-	bool a0 = (arg7 & 2) ? true : false;
-
-	if (channelnum >= 0 && channelnum <= 7) {
-		if (channel->unk28 == 11) {
-			g_AudioChannels[channelnum].channelnum = (u16)channelnum;
-
-			propsnd0f0939f8(&g_AudioChannels[channelnum], prop, channel->soundnum26, -1,
-					-1, arg7, 0, 0, 0, -1, 0, -1, 400, arg5, arg6);
-		} else {
-			if ((channel->flags & AUDIOCHANNELFLAG_2000) == 0 && arg1 >= 0) {
-				channel->unk04 = arg1;
-			}
-
-			if (a1) {
-				channel->unk1c = TICKS(arg4);
-			}
-
-			if (padnum != -1) {
-				channel->padnum = padnum;
-			}
-
-			if (prop) {
-				channel->prop = prop;
-			}
-
-			if (a0) {
-				channel->flags |= AUDIOCHANNELFLAG_0002;
-			}
-
-			if ((channel->flags & AUDIOCHANNELFLAG_0040) == 0) {
-				channel->unk34 = 400;
-				channel->unk38 = arg5;
-				channel->unk3c = arg6;
-				channel->unk18 = 0;
-			}
-
-			if (!a1 || channel->unk1c == 0) {
-#if VERSION >= VERSION_NTSC_1_0
-				OSPri prevpri = osGetThreadPri(0);
-				osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-				propsndTickChannel(channelnum);
-				osSetThreadPri(0, prevpri);
-#else
-				propsndTickChannel(channelnum);
-#endif
-			}
-		}
-	}
 }
 
 s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 *rooms, s16 soundnum, s32 arg6, f32 *arg7)
@@ -4570,21 +4365,6 @@ s32 propsndGetRandomSparkSound(void)
 	};
 
 	return sounds[index];
-}
-
-u32 propsnd0f095258(u32 arg0, u32 arg1)
-{
-	return arg0;
-}
-
-u32 propsnd0f095264(u32 arg0, u32 arg1)
-{
-	return arg0;
-}
-
-void propsnd0f095270(void)
-{
-	// empty
 }
 
 /**

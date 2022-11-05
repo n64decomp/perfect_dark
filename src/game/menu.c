@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/camdraw.h"
 #include "game/game_006900.h"
 #include "game/body.h"
 #include "game/quaternion.h"
@@ -1779,14 +1778,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 						s32 mpheadnum = (thing->unk00c >> 16) & 0xff;
 						s32 mpbodynum = (thing->unk00c >> 24) & 0xff;
 						bodynum = mpGetBodyId(mpbodynum);
-
-						if (mpheadnum < mpGetNumHeads2()) {
-							headnum = mpGetHeadId(mpheadnum);
-						} else {
-							headnum = func0f14a9f8(mpheadnum - mpGetNumHeads2());
-							headnum = mpGetBeauHeadId(headnum);
-							thing->unk5b0 = (mpheadnum - mpGetNumHeads2()) & 0xff;
-						}
+						headnum = mpGetHeadId(mpheadnum);
 					}
 
 					bodyfilenum = g_HeadsAndBodies[bodynum].filenum;
@@ -5729,13 +5721,6 @@ void menuPushRootDialog(struct menudialogdef *dialogdef, s32 root)
 	}
 }
 
-void func0f0f85e0(struct menudialogdef *dialogdef, s32 root)
-{
-	menuPushRootDialog(dialogdef, root);
-	lvSetPaused(true);
-	g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
-}
-
 u32 g_MenuCThresh = 120;
 
 Gfx *menuRenderDialog(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool lightweight)
@@ -8654,20 +8639,6 @@ u32 menuChooseMusic(void)
 	return MUSIC_PAUSEMENU;
 }
 
-bool func0f0fcbcc(void)
-{
-	if (g_FileState == FILESTATE_UNSELECTED && g_Vars.stagenum == STAGE_CITRAINING) {
-		return true;
-	}
-
-	return false;
-}
-
-bool func0f0fcc04(void)
-{
-	return false;
-}
-
 u32 menuGetRoot(void)
 {
 	if (g_MenuData.count == 0) {
@@ -8718,17 +8689,6 @@ s32 menudialog000fcd48(s32 operation, struct menudialogdef *dialogdef, union han
 
 	return 0;
 }
-
-#if VERSION >= VERSION_NTSC_1_0
-s32 func0f0fcdd0(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (operation == MENUOP_SET) {
-		func0f0f3704(&g_PakDamagedMenuDialog);
-	}
-
-	return 0;
-}
-#endif
 
 s32 menuhandlerRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -9082,25 +9042,6 @@ void func0f0fd320(s32 arg0, s32 arg1)
 	}
 
 	g_MpPlayerNum = prevplayernum;
-}
-
-void func0f0fd494(struct coord *pos)
-{
-	f32 xy[2];
-	struct coord coord;
-	Mtxf *matrix;
-
-	g_MenuData.unk5d5_04 = true;
-
-	matrix = camGetWorldToScreenMtxf();
-
-	mtx4TransformVec(matrix, pos, &coord);
-	cam0f0b4d04(&coord, xy);
-
-	g_MenuData.unk670 = (s32)xy[0] - viGetWidth() / 2;
-	g_MenuData.unk674 = (s32)xy[1] - viGetHeight() / 2;
-
-	g_MenuData.unk5d5_05 = false;
 }
 
 void func0f0fd548(s32 arg0)

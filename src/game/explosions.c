@@ -547,17 +547,6 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 	return exp != NULL;
 }
 
-/**
- * Start a shake without any explosion.
- *
- * This function is unused.
- */
-void explosionShake(void)
-{
-	g_ExplosionShakeTotalTimer = 6;
-	g_ExplosionShakeIntensityTimer = 6;
-}
-
 void explosionsUpdateShake(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	u32 stack[4];

@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/camdraw.h"
 #include "game/game_006900.h"
 #include "game/tex.h"
 #include "game/menugfx.h"
@@ -40,21 +39,6 @@ u8 g_KeyboardKeys[5][10] = {
 	{ 'U','V','W','X','Y','Z',' ','?','!','.' },
 	{ '1','2','1','2','1','2','3','1','2','3' },
 };
-
-s32 func0f0e5ce0(s32 value)
-{
-	if (value < var800711a4) {
-		var800711a0++;
-
-		if (var800711a0 > 320) {
-			var800711a0 = 0;
-		}
-	}
-
-	var800711a4 = value;
-
-	return var800711a0;
-}
 
 s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
 {
@@ -2288,25 +2272,6 @@ Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
 
 	// Right arrow
 	gdl = menugfxDrawCarouselChevron(gdl, context->x + context->width, context->y + context->height / 2, 8, 3, -1, colour);
-
-	// This part of the function is unused because param2 is always zero.
-	// Setting it to 0x7b causes a crash.
-	// 0x7c and 0x7d don't do anything with the option value, so it's probable
-	// that the original source has a commented function call in that block.
-	if (context->item->param2 == 0x7b && context->item->handler) {
-		union handlerdata data;
-		s32 headorbodynum = 0;
-
-		context->item->handler(MENUOP_GETSELECTEDINDEX, context->item, &data);
-		headorbodynum += data.carousel.value;
-
-		gdl = func0f14f07c(gdl, headorbodynum,
-				context->x + context->width / 2 - 32, context->y,
-				context->x + context->width / 2 + 32, context->y + 64);
-	} else if ((context->item->param2 == 0x7c || context->item->param2 == 0x7d) && context->item->handler) {
-		union handlerdata data;
-		context->item->handler(MENUOP_GETSELECTEDINDEX, context->item, &data);
-	}
 
 	return gdl;
 }

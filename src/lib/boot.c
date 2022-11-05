@@ -8,12 +8,9 @@
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/rzip.h"
-#include "lib/crash.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/pimgr.h"
-#include "lib/videbug.h"
-#include "lib/rmon.h"
 #include "lib/lib_48150.h"
 #include "data.h"
 #include "types.h"
@@ -246,12 +243,6 @@ void bootCreateIdleThread(void)
 	osStartThread(&g_IdleThread);
 }
 
-void bootCreateRmonThread(void)
-{
-	osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, bootAllocateStack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
-	osStartThread(&g_RmonThread);
-}
-
 void bootCreateSchedThread(void)
 {
 	osCreateMesgQueue(&g_SchedMesgQueue, var8008db48, ARRAYCOUNT(var8008db48));
@@ -269,9 +260,7 @@ void bootCreateSchedThread(void)
 void bootPhase2(void *arg)
 {
 	bootCreateIdleThread();
-	videbugCreate();
 	pimgrCreate();
-	bootCreateRmonThread();
 
 	if (argsParseDebugArgs()) {
 		osStopThread(NULL);

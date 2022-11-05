@@ -27,30 +27,6 @@ void quaternion0f096ca0(struct coord *angle, f32 quat[4])
 	quat[3] = cosx_cosy * sinz - sinx_siny * cosz;
 }
 
-void quaternionSetRotationAroundX(f32 angle, f32 quat[4])
-{
-	quat[0] = cosf(angle * 0.5f);
-	quat[1] = sinf(angle * 0.5f);
-	quat[2] = 0.0f;
-	quat[3] = 0.0f;
-}
-
-void quaternionSetRotationAroundY(f32 angle, f32 quat[4])
-{
-	quat[0] = cosf(angle * 0.5f);
-	quat[1] = 0.0f;
-	quat[2] = sinf(angle * 0.5f);
-	quat[3] = 0.0f;
-}
-
-void quaternionSetRotationAroundZ(f32 angle, f32 quat[4])
-{
-	quat[0] = cosf(angle * 0.5f);
-	quat[1] = 0.0f;
-	quat[2] = 0.0f;
-	quat[3] = sinf(angle * 0.5f);
-}
-
 void quaternionToMtx(f32 quat[4], Mtxf *mtx)
 {
 	f32 mult = 2.0f / (quat[0] * quat[0] + quat[1] * quat[1] + quat[2] * quat[2] + quat[3] * quat[3]);
@@ -237,16 +213,4 @@ void quaternionMultQuaternion(f32 a[4], f32 b[4], f32 result[4])
 	result[1] = a[0] * b[1] + b[0] * a[1] + a[2] * b[3] - a[3] * b[2];
 	result[2] = a[0] * b[2] + b[0] * a[2] + a[3] * b[1] - a[1] * b[3];
 	result[3] = a[0] * b[3] + b[0] * a[3] + a[1] * b[2] - a[2] * b[1];
-}
-
-void quaternionMultQuaternionInPlace(f32 a[4], f32 dst[4])
-{
-	f32 tmp[4];
-
-	quaternionMultQuaternion(a, dst, tmp);
-
-	dst[0] = tmp[0];
-	dst[1] = tmp[1];
-	dst[2] = tmp[2];
-	dst[3] = tmp[3];
 }

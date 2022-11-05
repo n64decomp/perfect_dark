@@ -935,18 +935,6 @@ s32 scenarioGetMaxTeams(void)
 }
 
 /**
- * This callback is unused.
- */
-bool scenarioIsRoomHighlighted(s16 room)
-{
-	if (g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc) {
-		return g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc(room);
-	}
-
-	return false;
-}
-
-/**
  * Override the colour for the given room.
  *
  * Used in CTC for the team bases and in KOH for the hill.

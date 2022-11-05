@@ -805,19 +805,6 @@ void playerResetBond(struct playerbond *pb, struct coord *pos)
 	pb->radius = 30;
 }
 
-void playersTickAllChrBodies(void)
-{
-	s32 prevplayernum = g_Vars.currentplayernum;
-	s32 i;
-
-	for (i = 0; i < PLAYERCOUNT(); i++) {
-		setCurrentPlayerNum(i);
-		playerTickChrBody();
-	}
-
-	setCurrentPlayerNum(prevplayernum);
-}
-
 void playerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
 {
 	if (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum < mpGetNumHeads2()) {
@@ -1228,49 +1215,6 @@ void playerEndCutscene(void)
 		g_PlayerTriggerGeFadeIn = false;
 		bmoveSetModeForAllPlayers(MOVEMODE_WALK);
 	}
-}
-
-void playerPrepareWarpType1(s16 pad)
-{
-	playerSetTickMode(TICKMODE_WARP);
-	g_PlayerTriggerGeFadeIn = false;
-	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	playersClearMemCamRoom();
-
-	g_WarpType1Pad = pad;
-}
-
-void playerPrepareWarpType2(struct warpparams *cmd, bool hasdir, s32 arg2)
-{
-	playerSetTickMode(TICKMODE_WARP);
-	g_PlayerTriggerGeFadeIn = false;
-	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	playersClearMemCamRoom();
-
-	g_WarpType1Pad = -1;
-
-	g_WarpType2Params = cmd;
-	g_WarpType2HasDirection = hasdir;
-	g_WarpType2Arg2 = arg2;
-}
-
-void playerPrepareWarpType3(f32 posangle, f32 rotangle, f32 range, f32 height1, f32 height2, s32 padnum)
-{
-	playerSetTickMode(TICKMODE_WARP);
-	g_PlayerTriggerGeFadeIn = false;
-	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	playersClearMemCamRoom();
-
-	g_WarpType1Pad = -1;
-
-	g_WarpType2Params = NULL;
-
-	g_WarpType3PosAngle = posangle;
-	g_WarpType3RotAngle = rotangle;
-	g_WarpType3Range = range;
-	g_WarpType3Height = height1;
-	g_WarpType3MoreHeight = height2;
-	g_WarpType3Pad = padnum;
 }
 
 void playerExecutePreparedWarp(void)
@@ -1942,11 +1886,6 @@ void playerTickDamageAndHealth(void)
 	}
 }
 
-bool playerIsDamageVisible(void)
-{
-	return g_Vars.currentplayer->damageshowtime >= 0;
-}
-
 /**
  * Trigger the red flash when the player is damaged.
  *
@@ -1992,13 +1931,6 @@ Gfx *playerRenderHealthBar(Gfx *gdl)
 	gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	return gdl;
-}
-
-void playerSurroundWithExplosions(s32 arg0)
-{
-	g_Vars.currentplayer->bondexploding = true;
-	g_Vars.currentplayer->bondnextexplode = arg0 + g_Vars.lvframe60;
-	g_Vars.currentplayer->bondcurexplode = 0;
 }
 
 void playerTickExplode(void)
@@ -2573,17 +2505,6 @@ void playerUpdateShake(void)
 	} else {
 		viShake(0);
 	}
-}
-
-void playerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8 dist)
-{
-	playerSetTickMode(TICKMODE_AUTOWALK);
-
-	g_Vars.currentplayer->autocontrol_aimpad = aimpad;
-	g_Vars.currentplayer->autocontrol_walkspeed = walkspeed;
-	g_Vars.currentplayer->autocontrol_turnspeed = turnspeed;
-	g_Vars.currentplayer->autocontrol_lookup = lookup;
-	g_Vars.currentplayer->autocontrol_dist = dist;
 }
 
 void playerLaunchSlayerRocket(struct weaponobj *rocket)
@@ -3878,16 +3799,6 @@ bool playerIsHealthVisible(void)
 	return g_Vars.currentplayer->healthshowmode != HEALTHSHOWMODE_HIDDEN;
 }
 
-void playerSetBondVisible(bool visible)
-{
-	g_Vars.bondvisible = visible;
-}
-
-void playerSetBondCollisionsEnabled(bool enabled)
-{
-	g_Vars.bondcollisions = enabled;
-}
-
 void playerSetCameraMode(s32 mode)
 {
 	g_Vars.currentplayer->cameramode = mode;
@@ -4001,15 +3912,6 @@ void player0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, str
 	player0f0c1840(pos, up, look, memcampos, rooms);
 }
 
-void player0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look)
-{
-	if (g_Vars.currentplayer->memcamroom >= 0) {
-		player0f0c1ba4(pos, up, look, &g_Vars.currentplayer->memcampos, g_Vars.currentplayer->memcamroom);
-	} else {
-		player0f0c1840(pos, up, look, NULL, NULL);
-	}
-}
-
 void playerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
 	g_Vars.currentplayer->memcampos.x = pos->x;
@@ -4045,19 +3947,6 @@ void playerSetCamProperties(struct coord *pos, struct coord *up, struct coord *l
 void playerClearMemCamRoom(void)
 {
 	g_Vars.currentplayer->memcamroom = -1;
-}
-
-void playersClearMemCamRoom(void)
-{
-	s32 prevplayernum = g_Vars.currentplayernum;
-	s32 i;
-
-	for (i = 0; i < PLAYERCOUNT(); i++) {
-		setCurrentPlayerNum(i);
-		playerClearMemCamRoom();
-	}
-
-	setCurrentPlayerNum(prevplayernum);
 }
 
 void playerSetPerimEnabled(struct prop *prop, bool enable)

@@ -909,32 +909,6 @@ bool bgun0f098a44(struct hand *hand, s32 time)
 	return true;
 }
 
-s32 bgun0f098b80(struct hand *hand, s32 arg1)
-{
-	struct guncmd *cmd = hand->unk0ce8;
-	s32 keyframe = -1;
-
-	if (hand->animmode == HANDANIMMODE_IDLE) {
-		return 0;
-	}
-
-	while (cmd->type != GUNCMD_END && keyframe == -1) {
-		if (cmd->type == GUNCMD_WAITTIME) {
-			if (cmd->unk04 == arg1) {
-				keyframe = cmd->unk02;
-			}
-		}
-
-		cmd++;
-	}
-
-	if (keyframe == -1) {
-		keyframe = 0;
-	}
-
-	return keyframe;
-}
-
 bool bgunIsAnimBusy(struct hand *hand)
 {
 	return hand->animmode != HANDANIMMODE_IDLE;
@@ -3519,11 +3493,6 @@ u32 bgunGetGunMemType(void)
 	return g_Vars.currentplayer->gunctrl.gunmemtype;
 }
 
-struct modelfiledata *bgun0f09dddc(void)
-{
-	return g_Vars.currentplayer->gunctrl.gunmodeldef;
-}
-
 u8 *bgunGetGunMem(void)
 {
 	return g_Vars.currentplayer->gunctrl.gunmem;
@@ -5222,25 +5191,6 @@ void bgunCalculateBotShotSpread(struct coord *arg0, s32 weaponnum, s32 funcnum, 
 	mtx4RotateVec(&mtx, &sp48, arg0);
 }
 
-bool bgunGetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
-{
-	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
-
-	if (!hand->lastdirvalid) {
-		return false;
-	}
-
-	pos->x = hand->lastshootpos.x;
-	pos->y = hand->lastshootpos.y;
-	pos->z = hand->lastshootpos.z;
-
-	dir->x = hand->lastshootdir.x;
-	dir->y = hand->lastshootdir.y;
-	dir->z = hand->lastshootdir.z;
-
-	return true;
-}
-
 void bgunSetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
@@ -6045,44 +5995,6 @@ bool bgun0f0a27c8(void)
 	return false;
 }
 
-/**
- * This function is the same as above but it doesn't call bgun0f098a44().
- *
- * This function is unused.
- */
-bool bgun0f0a28d8(void)
-{
-	struct hand *hand;
-	struct weaponfunc *func;
-
-	hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
-	func = gsetGetWeaponFunction2(&hand->gset);
-
-	if (func
-			&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
-			&& hand->state == HANDSTATE_ATTACK
-			&& hand->unk0ce8 != NULL
-			&& hand->animmode == HANDANIMMODE_BUSY) {
-		return true;
-	}
-
-	hand = &g_Vars.currentplayer->hands[HAND_LEFT];
-
-	if (hand->inuse) {
-		func = gsetGetWeaponFunction2(&hand->gset);
-
-		if (func
-				&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
-				&& hand->state == HANDSTATE_ATTACK
-				&& hand->unk0ce8 != NULL
-				&& hand->animmode == HANDANIMMODE_BUSY) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
 void bgunHandlePlayerDead(void)
 {
 	struct player *player = g_Vars.currentplayer;
@@ -6112,20 +6024,6 @@ void bgunHandlePlayerDead(void)
 		bgunEquipWeapon2(HAND_RIGHT, WEAPON_NONE);
 	}
 }
-
-#if VERSION >= VERSION_NTSC_1_0
-bool bgunIsMissionCritical(s32 weaponnum)
-{
-	if (weaponnum == WEAPON_TIMEDMINE
-			|| weaponnum == WEAPON_REMOTEMINE
-			|| weaponnum == WEAPON_ECMMINE
-			|| weaponnum == WEAPON_TRACERBUG) {
-		return true;
-	}
-
-	return false;
-}
-#endif
 
 void bgunDisarm(struct prop *attackerprop)
 {
@@ -11677,15 +11575,6 @@ void bgunTickGameplay(bool triggeron)
 	invIncrementHeldTime(bgunGetWeaponNum(HAND_RIGHT), bgunGetWeaponNum(HAND_LEFT));
 }
 
-void bgunSetPassiveMode(bool enable)
-{
-	s32 i;
-
-	for (i = 0; i < PLAYERCOUNT(); i++) {
-		g_Vars.players[i]->gunctrl.passivemode = enable;
-	}
-}
-
 void bgunSetAimType(u32 aimtype)
 {
 	g_Vars.currentplayer->aimtype = aimtype;
@@ -11883,53 +11772,6 @@ s32 bgunGetAmmoCount(s32 ammotype)
 s32 bgunGetCapacityByAmmotype(s32 ammotype)
 {
 	return g_AmmoTypes[ammotype].capacity;
-}
-
-bool bgunAmmotypeAllowsUnlimitedAmmo(u32 ammotype)
-{
-	switch (ammotype) {
-	case AMMOTYPE_REMOTE_MINE:
-		if (g_Vars.stagenum == STAGE_CHICAGO) {
-			return false;
-		}
-		break;
-	case AMMOTYPE_TIMED_MINE:
-		if (g_Vars.stagenum == STAGE_AIRFORCEONE) {
-			return false;
-		}
-		break;
-	case AMMOTYPE_PSYCHOSIS:
-	case AMMOTYPE_17:
-	case AMMOTYPE_BUG:
-	case AMMOTYPE_MICROCAMERA:
-	case AMMOTYPE_PLASTIQUE:
-	case AMMOTYPE_1B:
-	case AMMOTYPE_1C:
-	case AMMOTYPE_1D:
-	case AMMOTYPE_TOKEN:
-	case AMMOTYPE_1F:
-	case AMMOTYPE_ECM_MINE:
-		return false;
-	}
-
-	return true;
-}
-
-void bgunGiveMaxAmmo(bool force)
-{
-	s32 i;
-
-	for (i = 0; i < ARRAYCOUNT(g_AmmoTypes); i++) {
-		bool give = true;
-
-		if (!force) {
-			give = bgunAmmotypeAllowsUnlimitedAmmo(i);
-		}
-
-		if (give) {
-			bgunSetAmmoQuantity(i, g_AmmoTypes[i].capacity);
-		}
-	}
 }
 
 u32 bgunGetAmmoTypeForWeapon(u32 weaponnum, u32 func)

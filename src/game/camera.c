@@ -22,11 +22,6 @@ f32 var8009dd5c;
 struct coord var8009dd60;
 f32 var8009dd6c;
 
-void cam0f0b4950(void)
-{
-	// empty
-}
-
 void camSetScreenSize(f32 width, f32 height)
 {
 	struct player *player = g_Vars.currentplayer;
@@ -187,11 +182,6 @@ void camSetMtxL1738(Mtx *mtx)
 	g_Vars.currentplayer->mtxl1738 = mtx;
 }
 
-Mtx *camGetMtxL1738(void)
-{
-	return g_Vars.currentplayer->mtxl1738;
-}
-
 void camSetMtxL173c(Mtx *mtx)
 {
 	g_Vars.currentplayer->mtxl173c = mtx;
@@ -205,11 +195,6 @@ Mtx *camGetMtxL173c(void)
 void camSetMtxF006c(Mtxf *mtx)
 {
 	g_Vars.currentplayer->mtxf006c = mtx;
-}
-
-Mtxf *camGetMtxF006c(void)
-{
-	return g_Vars.currentplayer->mtxf006c;
 }
 
 void camSetPerspectiveMtxL(Mtx *mtx)
@@ -330,21 +315,6 @@ Mtxf *camGetMtxF1754(void)
 	return g_Vars.currentplayer->mtxf1754;
 }
 
-Mtxf *camGetPrevWorldToScreenMtxf(void)
-{
-	return g_Vars.currentplayer->prevworldtoscreenmtx;
-}
-
-void camSetMtxF1748(Mtxf *mtx)
-{
-	g_Vars.currentplayer->mtxf1748 = mtx;
-}
-
-Mtxf *camGetMtxF1748(void)
-{
-	return g_Vars.currentplayer->mtxf1748;
-}
-
 void camSetProjectionMtxF(Mtxf *mtx)
 {
 	struct player *player = g_Vars.currentplayer;
@@ -357,11 +327,6 @@ void camSetProjectionMtxF(Mtxf *mtx)
 Mtxf *camGetProjectionMtxF(void)
 {
 	return g_Vars.currentplayer->projectionmtx;
-}
-
-Mtxf *camGetPrevProjectionMtxF(void)
-{
-	return g_Vars.currentplayer->prevprojectionmtx;
 }
 
 void camSetLookAt(LookAt *lookat)
@@ -377,11 +342,6 @@ LookAt *camGetLookAt(void)
 f32 camGetLodScaleZ(void)
 {
 	return g_Vars.currentplayer->c_lodscalez;
-}
-
-u32 camGetLodScaleZU32(void)
-{
-	return g_Vars.currentplayer->c_lodscalezu32;
 }
 
 f32 camGetScreenWidth(void)
@@ -402,11 +362,6 @@ f32 camGetScreenLeft(void)
 f32 camGetScreenTop(void)
 {
 	return g_Vars.currentplayer->c_screentop;
-}
-
-f32 camGetPerspFovY(void)
-{
-	return g_Vars.currentplayer->c_perspfovy;
 }
 
 f32 camGetPerspAspect(void)
@@ -468,33 +423,6 @@ void cam0f0b5838(void)
 	var8009dd60.f[2] = -mtx->m[3][2];
 
 	var8009dd6c = mtx->m[2][0] * mtx->m[3][0] + mtx->m[2][1] * mtx->m[3][1] + mtx->m[2][2] * mtx->m[3][2];
-}
-
-bool cam0f0b5b9c(struct coord *arg0, f32 arg1)
-{
-	Mtxf *mtx = g_Vars.currentplayer->projectionmtx;
-
-	if (var8009dd6c + arg1 < mtx->m[2][0] * arg0->f[0] + mtx->m[2][1] * arg0->f[1] + mtx->m[2][2] * arg0->f[2]) {
-		return false;
-	}
-
-	if (var8009dd4c + arg1 < var8009dd40.f[0] * arg0->f[0] + var8009dd40.f[1] * arg0->f[1] + var8009dd40.f[2] * arg0->f[2]) {
-		return false;
-	}
-
-	if (var8009dd5c + arg1 < var8009dd50.f[0] * arg0->f[0] + var8009dd50.f[1] * arg0->f[1] + var8009dd50.f[2] * arg0->f[2]) {
-		return false;
-	}
-
-	if (var8009dd2c + arg1 < var8009dd20.f[0] * arg0->f[0] + var8009dd20.f[1] * arg0->f[1] + var8009dd20.f[2] * arg0->f[2]) {
-		return false;
-	}
-
-	if (var8009dd3c + arg1 < var8009dd30.f[0] * arg0->f[0] + var8009dd30.f[1] * arg0->f[1] + var8009dd30.f[2] * arg0->f[2]) {
-		return false;
-	}
-
-	return true;
 }
 
 bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg2)

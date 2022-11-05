@@ -172,21 +172,6 @@ struct invitem *invFindUnusedSlot(void)
 	return NULL;
 }
 
-void invSetAllGuns(bool enable)
-{
-	s32 weaponnum;
-
-	g_Vars.currentplayer->equipallguns = enable;
-	invCalculateCurrentIndex();
-	weaponnum = invGetWeaponNumByIndex(g_Vars.currentplayer->equipcuritem);
-	bgunEquipWeapon(weaponnum);
-}
-
-bool invHasAllGuns(void)
-{
-	return g_Vars.currentplayer->equipallguns;
-}
-
 struct invitem *invFindSingleWeapon(s32 weaponnum)
 {
 	struct invitem *first = g_Vars.currentplayer->weapons;
@@ -237,41 +222,6 @@ struct invitem *invFindDoubleWeapon(s32 weapon1, s32 weapon2)
 bool invHasDoubleWeaponExcAllGuns(s32 weapon1, s32 weapon2)
 {
 	return invFindDoubleWeapon(weapon1, weapon2) != NULL;
-}
-
-bool invHasSingleWeaponOrProp(s32 weaponnum)
-{
-	struct invitem *item = g_Vars.currentplayer->weapons;
-
-	while (item) {
-		if (item->type == INVITEMTYPE_WEAP) {
-			if (weaponnum == item->type_weap.weapon1) {
-				return true;
-			}
-		} else if (item->type == INVITEMTYPE_PROP) {
-			struct prop *prop = item->type_prop.prop;
-
-			if (prop && prop->type == PROPTYPE_WEAPON) {
-				struct defaultobj *obj = prop->obj;
-
-				if (obj && obj->type == OBJTYPE_WEAPON) {
-					struct weaponobj *weapon = (struct weaponobj *)prop->obj;
-
-					if (weapon->weaponnum == weaponnum) {
-						return true;
-					}
-				}
-			}
-		}
-
-		item = item->next;
-
-		if (item == g_Vars.currentplayer->weapons) {
-			break;
-		}
-	}
-
-	return false;
 }
 
 s32 invAddOneIfCantHaveSlayer(s32 index)
@@ -726,11 +676,6 @@ bool invHasKeyFlags(u32 wantkeyflags)
 	return false;
 }
 
-bool func0f11283c(void)
-{
-	return false;
-}
-
 bool invHasBriefcase(void)
 {
 	if (g_Vars.currentplayer->isdead == false) {
@@ -744,41 +689,6 @@ bool invHasDataUplink(void)
 {
 	if (g_Vars.currentplayer->isdead == false) {
 		return invHasSingleWeaponExcAllGuns(WEAPON_DATAUPLINK);
-	}
-
-	return false;
-}
-
-bool func0f1128c4(void)
-{
-	return false;
-}
-
-bool invHasProp(struct prop *prop)
-{
-	struct invitem *item = g_Vars.currentplayer->weapons;
-	struct prop *child;
-
-	while (item) {
-		if (item->type == INVITEMTYPE_PROP && item->type_prop.prop == prop) {
-			return true;
-		}
-
-		item = item->next;
-
-		if (item == g_Vars.currentplayer->weapons) {
-			break;
-		}
-	}
-
-	child = g_Vars.currentplayer->prop->child;
-
-	while (child) {
-		if (child == prop) {
-			return true;
-		}
-
-		child = child->next;
 	}
 
 	return false;

@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/camdraw.h"
 #include "game/title.h"
 #include "game/pdmode.h"
 #include "game/bondgun.h"
@@ -3986,11 +3985,6 @@ s32 mpGetBeauHeadId(u8 headnum)
 	return g_MpBeauHeads[headnum].headnum;
 }
 
-s32 mpGetNumBeauHeads(void)
-{
-	return NUM_MPBEAUHEADS;
-}
-
 u32 mpGetNumBodies(void)
 {
 	return NUM_MPBODIES;
@@ -4007,24 +4001,6 @@ s32 mpGetBodyId(u8 bodynum)
 	}
 
 	return g_MpBodies[bodynum].bodynum;
-}
-
-s32 mpGetMpbodynumByBodynum(u16 bodynum)
-{
-	s32 i;
-
-	if (bodynum == BODY_DRCAROLL) {
-		return 62; // NUM_MPBODIES + 1
-	}
-
-	for (i = 0; i != NUM_MPBODIES; i++) {
-		if (g_MpBodies[i].bodynum == bodynum) {
-			return i;
-		}
-	}
-
-	// @bug: Should return 0 as a fallback, not the first body's bodynum
-	return g_MpBodies[0].bodynum;
 }
 
 char *mpGetBodyName(u8 mpbodynum)
@@ -4074,40 +4050,6 @@ s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
 	}
 
 	return index;
-}
-
-void mpFindUnusedHeadAndBody(u8 *mpheadnum, u8 *mpbodynum)
-{
-	struct mpchrconfig *mpchr;
-	bool available;
-	u8 trympheadnum;
-	u8 trympbodynum;
-	s32 i;
-
-	do {
-		available = true;
-		trympheadnum = random() % NUM_MPHEADS;
-		trympbodynum = random() % NUM_MPBODIES;
-
-		for (i = 0; i < MAX_MPCHRS; i++) {
-			if (g_MpSetup.chrslots & (1 << i)) {
-				mpchr = MPCHR(i);
-
-				if (mpchr->mpheadnum == trympheadnum) {
-					available = false;
-				}
-
-				if (mpchr->mpbodynum == trympbodynum) {
-					available = false;
-				}
-			}
-		}
-	} while (!available);
-
-	if (1);
-
-	*mpheadnum = trympheadnum;
-	*mpbodynum = trympbodynum;
 }
 
 s32 mpChooseRandomLockPlayer(void)
@@ -4932,11 +4874,7 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.mpheadnum, 7);
 	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.mpbodynum, 7);
 
-	if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mpGetNumHeads2()) {
-		struct fileguid guid;
-		phGetGuid(g_PlayerConfigsArray[playernum].base.mpheadnum - mpGetNumHeads2(), &guid);
-		savebufferWriteGuid(buffer, &guid);
-	} else {
+	{
 		struct fileguid guid;
 		guid.deviceserial = 0;
 		guid.fileid = 0;

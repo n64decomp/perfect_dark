@@ -123,11 +123,6 @@ bool animHasFrames(s16 animnum)
 	return animnum < g_NumAnimations && g_Anims[animnum].numframes > 0;
 }
 
-s32 animGetNumAnimations(void)
-{
-	return g_NumAnimations;
-}
-
 extern u8 _animationsSegmentRomStart;
 
 u8 *animDma(u8 *dst, u32 segoffset, u32 len)
@@ -200,41 +195,6 @@ bool anim00023908(s16 animnum, s32 frame, s32 *frameptr)
 	*frameptr = result;
 
 	return ret;
-}
-
-bool anim000239e0(s16 animnum, s32 frame)
-{
-	u8 *ptr = (u8 *)(var8009a888[var8005f010[animnum]] + g_Anims[animnum].headerlen - 2);
-
-	if (g_Anims[animnum].flags & ANIMFLAG_04) {
-		while (true) {
-			s16 value1 = ptr[0] << 8 | ptr[1];
-
-			if (value1 < 0) {
-				break;
-			}
-
-			ptr -= 4;
-		}
-
-		ptr -= 2;
-	}
-
-	while (true) {
-		s16 value2 = ptr[0] << 8 | ptr[1];
-
-		if (value2 < 0) {
-			break;
-		}
-
-		if (value2 == frame) {
-			return true;
-		}
-
-		ptr -= 2;
-	}
-
-	return false;
 }
 
 u8 anim00023ab0(s16 animnum, s32 framenum)
@@ -690,59 +650,4 @@ f32 anim00024b64(u32 arg0, u32 arg1, struct skeleton *arg2, s16 animnum, u32 arg
 	coord->z = sp30[2];
 
 	return value * M_BADTAU / 65536.0f;
-}
-
-f32 anim00024c14(s32 arg0, s16 animnum, u8 arg2)
-{
-	u32 stack[2];
-	u8 *sp24 = var8009a874[arg2];
-	u8 *ptr = var8009a888[var8005f010[animnum]];
-	f32 result = 0;
-	s32 total = 0;
-	s32 i;
-	u8 *end = ptr + g_Anims[animnum].headerlen;
-
-	for (i = 0; i < arg0 && ptr < end; i++) {
-		u8 flags = ptr[0];
-		ptr++;
-
-		if (flags & ANIMHEADERFLAG_08) {
-			total += ptr[2] + ptr[5] + ptr[8] + ptr[11];
-			ptr += 12;
-		} else if (flags & ANIMHEADERFLAG_02) {
-			total += ptr[2] + ptr[5] + ptr[8];
-			ptr += 9;
-		} else if (flags & ANIMHEADERFLAG_20) {
-			total += ptr[0] + ptr[5] + ptr[10];
-			ptr += 15;
-		}
-
-		if (flags & ANIMHEADERFLAG_01) {
-			total += ptr[2] + ptr[5] + ptr[8];
-			ptr += 9;
-		} else if (flags & ANIMHEADERFLAG_10) {
-			total += 0x60;
-		}
-
-		if (flags & ANIMHEADERFLAG_40) {
-			total += ptr[0];
-			ptr += 5;
-		}
-
-		if (flags & ANIMHEADERFLAG_80) {
-			total += 0x60;
-		}
-	}
-
-	if (ptr < end) {
-		u8 flags = ptr[0];
-		ptr++;
-
-		if (flags & ANIMHEADERFLAG_40) {
-			total = anim00023f50(sp24, ptr[0], total);
-			result = (total + ptr[1] * 0x1000000 + ptr[2] * 0x10000 + ptr[3] * 0x100 + ptr[4]) * 0.001f;
-		}
-	}
-
-	return result;
 }

@@ -155,19 +155,6 @@ s32 func0f16d124(s32 tracktype)
 	return 0;
 }
 
-s32 musicGetChannelByTrackType(s32 tracktype)
-{
-	s32 i;
-
-	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].tracktype == tracktype) {
-			return i;
-		}
-	}
-
-	return -1;
-}
-
 void musicQueueStartEvent(u32 tracktype, u32 tracknum, f32 arg2, u16 volume)
 {
 	if (!g_SndDisabled) {
@@ -647,45 +634,6 @@ void musicEndDeath(void)
 }
 
 /**
- * Stop all other music and play the given track.
- *
- * It's used by the AI scripting language, specifically for CI training and
- * the Skedar King battle.
- *
- * The track type used is primary.
- */
-void musicPlayTrackIsolated(s32 tracknum)
-{
-#if VERSION >= VERSION_NTSC_1_0
-	func0f16d430();
-#endif
-
-	musicQueueStopEvent(TRACKTYPE_MENU);
-	musicQueueStopEvent(TRACKTYPE_DEATH);
-	musicUnsetXReason(-1);
-	musicQueueStopEvent(TRACKTYPE_NRG);
-	musicQueueStopEvent(TRACKTYPE_PRIMARY);
-	musicQueueStopEvent(TRACKTYPE_AMBIENT);
-	musicQueueStartEvent(TRACKTYPE_PRIMARY, tracknum, 0, musicGetVolume());
-
-#if VERSION >= VERSION_NTSC_1_0
-	musicQueueType5Event();
-#endif
-}
-
-/**
- * Restart the level's default tracks after using the isolated track above.
- *
- * It's used by the AI scripting language, specifically when ending CI training.
- */
-void musicPlayDefaultTracks(void)
-{
-	musicQueueStopEvent(TRACKTYPE_PRIMARY);
-	musicQueueStopEvent(TRACKTYPE_AMBIENT);
-	musicStartPrimary(0.5f);
-}
-
-/**
  * Used by the title screen, as well as AF1's NRG theme which never ends.
  */
 void musicStartTemporaryPrimary(s32 tracknum)
@@ -749,21 +697,6 @@ void musicStartTemporaryAmbient(s32 tracknum)
 	musicQueueStartEvent(TRACKTYPE_AMBIENT, tracknum, 0, VOLUME(g_SfxVolume));
 }
 
-void musicEndTemporaryAmbient(void)
-{
-	g_TemporaryAmbientTrack = -1;
-	musicQueueStopEvent(TRACKTYPE_AMBIENT);
-}
-
-void musicSetXReason(s32 reason, u32 minsecs, u32 maxsecs)
-{
-	if (g_AudioXReasonsActive[reason] == false) {
-		g_AudioXReasonsActive[reason] = true;
-		g_MusicXReasonMinDurations[reason] = minsecs * TICKS(240);
-		g_MusicXReasonMaxDurations[reason] = maxsecs * TICKS(240);
-	}
-}
-
 void musicUnsetXReason(s32 reason)
 {
 	s32 i;
@@ -799,9 +732,4 @@ void musicTickAmbient(void)
 	} else if (stageGetAmbientTrack(g_MusicStageNum) >= 0) {
 		musicStartAmbient(1);
 	}
-}
-
-void func0f16e1cc(void)
-{
-	// empty
 }

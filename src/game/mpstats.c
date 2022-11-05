@@ -73,11 +73,6 @@ u8 mpstatsGetTotalKnockoutCount(void)
 	return g_Vars.knockoutcount;
 }
 
-u32 mpstatsGetTotalKillCount(void)
-{
-	return g_Vars.killcount;
-}
-
 void mpstatsRecordPlayerKill(void)
 {
 	char text[256];
@@ -133,16 +128,6 @@ void mpstatsRecordPlayerKill(void)
 			g_Vars.currentplayerstats->maxsimulkills = simulkills;
 		}
 	}
-}
-
-s32 mpstatsGetPlayerKillCount(void)
-{
-	return g_Vars.currentplayerstats->killcount;
-}
-
-void mpstatsIncrementPlayerGgKillCount(void)
-{
-	g_Vars.currentplayerstats->ggkillcount++;
 }
 
 void mpstatsRecordPlayerDeath(void)

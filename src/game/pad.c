@@ -278,11 +278,6 @@ void padUnsetFlag(s32 padnum, u32 flag)
 	*header = *header ^ ((*header >> 14) ^ ((*header >> 14) & ~flag)) << 14;
 }
 
-bool func0f1162c4(s32 padnum, s32 arg1)
-{
-	return padnum;
-}
-
 s32 coverGetCount(void)
 {
 	return g_PadsFile->numcovers;
@@ -313,52 +308,6 @@ bool coverUnpack(s32 covernum, struct cover *cover)
 	return true;
 }
 
-u16 getNumSpecialCovers(void)
-{
-	return g_NumSpecialCovers;
-}
-
-bool coverUnpackBySpecialNum(s32 index, struct cover *cover)
-{
-	// Probable @bug: last check should be index >= g_NumSpecialCovers
-	// This function is never called though.
-	if (!g_SpecialCoverNums || index < 0 || index > g_NumSpecialCovers) {
-		return false;
-	}
-
-	if (coverUnpack(g_SpecialCoverNums[index], cover)) {
-		return true;
-	}
-
-	return false;
-}
-
-s32 coverGetNumBySpecialNum(s32 index)
-{
-	// Probable @bug: last check should be index >= g_NumSpecialCovers
-	// This function is never called though.
-	if (!g_SpecialCoverNums || index < 0 || index > g_NumSpecialCovers) {
-		return -1;
-	}
-
-	return g_SpecialCoverNums[index];
-}
-
-s32 func0f116450(s32 arg0, s32 arg1)
-{
-	return arg0;
-}
-
-bool coverIsInUse(s32 covernum)
-{
-	// @bug: Second condition should be >=
-	if (covernum < 0 || covernum > g_PadsFile->numcovers) {
-		return false;
-	}
-
-	return g_CoverFlags[covernum] & COVERFLAG_INUSE;
-}
-
 void coverSetInUse(s32 covernum, bool enable)
 {
 	if (covernum >= 0 && covernum < g_PadsFile->numcovers) {
@@ -380,23 +329,7 @@ void coverUnsetFlag(s32 covernum, u32 flag)
 	g_CoverFlags[covernum] &= ~flag;
 }
 
-void coverSetFlag0001(s32 covernum, bool enable)
-{
-	if (covernum >= 0 && covernum < g_PadsFile->numcovers) {
-		if (enable) {
-			g_CoverFlags[covernum] |= COVERFLAG_0001;
-		} else {
-			g_CoverFlags[covernum] &= ~COVERFLAG_0001;
-		}
-	}
-}
-
 bool coverIsSpecial(struct cover *cover)
 {
 	return (cover->flags & (COVERFLAG_0080 | COVERFLAG_0040 | COVERFLAG_0020)) != 0;
-}
-
-s32 func0f1165c0(s32 arg0, s32 arg1)
-{
-	return arg0;
 }

@@ -236,25 +236,6 @@ struct menudialogdef g_AmPickTargetMenuDialog = {
 	NULL,
 };
 
-void amSetAiBuddyTemperament(bool aggressive)
-{
-	s32 i;
-
-	for (i = 0; i < g_Vars.numaibuddies; i++) {
-		if (g_Vars.aibuddies[i]) {
-			struct chrdata *chr = g_Vars.aibuddies[i]->chr;
-
-			if (chr) {
-				if (aggressive) {
-					chr->hidden &= ~CHRHFLAG_PASSIVE;
-				} else {
-					chr->hidden |= CHRHFLAG_PASSIVE;
-				}
-			}
-		}
-	}
-}
-
 s32 amGetFirstBuddyIndex(void)
 {
 	s32 i;

@@ -37,19 +37,9 @@
 #include "data.h"
 #include "types.h"
 
-void bmoveSetControlDef(u32 controldef)
-{
-	g_Vars.currentplayer->controldef = controldef;
-}
-
 void bmoveSetAutoMoveCentreEnabled(bool enabled)
 {
 	g_Vars.currentplayer->automovecentreenabled = enabled;
-}
-
-bool bmoveIsAutoMoveCentreEnabled(void)
-{
-	return g_Vars.currentplayer->automovecentreenabled;
 }
 
 void bmoveSetAutoAimY(bool enabled)

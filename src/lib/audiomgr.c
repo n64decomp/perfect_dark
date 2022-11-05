@@ -5,7 +5,6 @@
 #include "bss.h"
 #include "lib/audiodma.h"
 #include "lib/lib_2fc60.h"
-#include "lib/profile.h"
 #include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"
@@ -193,12 +192,10 @@ void amgrMain(void *arg)
 		switch (*msg) {
 		case OS_SC_RSP_MSG:
 			var80091588 = osGetTime();
-			profileSetMarker(PROFILE_AUDIOFRAME_START);
 			amgrHandleFrameMsg(g_AudioManager.audioInfo[g_AdmaCurFrame % 3], info);
 			admaReceiveAll();
 
 			count++;
-			profileSetMarker(PROFILE_AUDIOFRAME_END);
 
 			var80091590 = osGetTime();
 			var80091570 = var80091590 - var80091588;

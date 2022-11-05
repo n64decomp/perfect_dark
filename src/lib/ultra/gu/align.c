@@ -38,12 +38,3 @@ void guAlignF(float mf[4][4], float a, float x, float y, float z)
 		mf[3][3] = 1;
 	}
 }
-
-void guAlign(Mtx *m, float a, float x, float y, float z)
-{
-	f32 mf[4][4];
-
-	guAlignF(mf, a, x, y, z);
-
-	guMtxF2L(mf, m);
-}

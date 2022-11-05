@@ -4099,11 +4099,6 @@ u32 g_FileTable[] = {
 	(u32) &_filenamesSegmentRomStart,
 };
 
-u32 fileGetRomAddress(s32 filenum)
-{
-	return (u32)g_FileTable[filenum];
-}
-
 u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)
 {
 	u32 size;
@@ -4216,7 +4211,7 @@ u32 fileGetInflatedSize(s32 filenum)
 	ptr = (u8 *) ((u32) &buffer[0x10] & ~0xf);
 
 	if (romaddr == 0) {
-		stub0f175f58(file0f166ea8(&g_FileTable[filenum]), ptr, 16);
+		file0f166ea8(&g_FileTable[filenum]);
 	} else {
 		dmaExec(ptr, romaddr, 0x40);
 	}
@@ -4266,11 +4261,6 @@ void *fileLoadToNew(s32 filenum, u32 method)
 	}
 
 	return ptr;
-}
-
-void fileRemove(s32 filenum)
-{
-	g_FileTable[filenum] = 0;
 }
 
 void *fileLoadToAddr(s32 filenum, s32 method, u8 *ptr, u32 size)
