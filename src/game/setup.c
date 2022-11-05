@@ -873,6 +873,11 @@ void setupCreateProps(s32 stagenum)
 						setupCreateDoor((struct doorobj *)obj, index);
 					}
 					break;
+				case OBJTYPE_WEAPON:
+					if (withchrs && (obj->flags2 & diffflag) == 0) {
+						setupPlaceWeapon((struct weaponobj *)obj, index);
+					}
+					break;
 				case OBJTYPE_TINTEDGLASS:
 					if (withobjs && (obj->flags2 & diffflag) == 0) {
 						if (obj->flags & OBJFLAG_GLASS_HASPORTAL) {

@@ -403,6 +403,7 @@ void lvReset(s32 stagenum)
 			playerReset();
 			playerSpawn();
 			bheadReset();
+			bgunPreload();
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
 				playermgrCalculateAiBuddyNums();

@@ -8,6 +8,7 @@ void bgunReset(void);
 
 void bgunStop(void);
 
+void bgunPreload(void);
 void bgunRumble(s32 handnum, s32 weaponnum);
 s32 bgunGetUnequippedReloadIndex(s32 weaponnum);
 void bgunTickUnequippedReload(void);
