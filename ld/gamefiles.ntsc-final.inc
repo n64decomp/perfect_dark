@@ -33,7 +33,6 @@
 	build/ROMID/game/wallhitreset.o (section); \
 	build/ROMID/game/shardsreset.o (section); \
 	build/ROMID/game/surfacereset.o (section); \
-	build/ROMID/game/vtxstorereset.o (section); \
 	build/ROMID/game/tilesreset.o (section); \
 	build/ROMID/game/roomreset.o (section); \
 	build/ROMID/game/setupcover.o (section); \
@@ -133,7 +132,6 @@
 	build/ROMID/game/playermgr.o (section); \
 	build/ROMID/game/crc.o (section); \
 	build/ROMID/game/rng2.o (section); \
-	build/ROMID/game/vtxstore.o (section); \
 	build/ROMID/game/explosions.o (section); \
 	build/ROMID/game/smoke.o (section); \
 	build/ROMID/game/sparks.o (section); \

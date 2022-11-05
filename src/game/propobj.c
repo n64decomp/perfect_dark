@@ -30,7 +30,6 @@
 #include "game/inv.h"
 #include "game/playermgr.h"
 #include "game/game_1291b0.h"
-#include "game/vtxstore.h"
 #include "game/explosions.h"
 #include "game/smoke.h"
 #include "game/sparks.h"
@@ -2144,10 +2143,6 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 			}
 
 			propDeregisterRooms(obj->prop);
-
-			if (obj->prop->type != PROPTYPE_DOOR) {
-				modelFreeVertices(1, obj->model);
-			}
 
 			modelmgrFreeModel(obj->model);
 
@@ -9546,7 +9541,6 @@ u32 objTick(struct prop *prop)
 
 				obj->damage = 0;
 				obj->hidden2 &= ~OBJH2FLAG_DESTROYED;
-				modelFreeVertices(1, obj->model);
 			}
 
 			if (obj->type == OBJTYPE_SHIELD) {
@@ -12490,113 +12484,6 @@ void objDeform(struct defaultobj *obj, s32 level)
 
 				parent = parent->parent;
 			}
-
-			if (modelIsNodeNotTvscreen(modeldef, node) && parentbbox == bbox) {
-				struct modelrodata_dl *rodata = &node->rodata->dl;
-				struct modelrwdata_dl *rwdata = (struct modelrwdata_dl *)&model->rwdatas[rodata->rwdataindex];
-				struct gfxvtx *vertices = vtxstoreAllocate(rodata->numvertices, VTXSTORETYPE_OBJVTX, node, objGetDestroyedLevel(obj));
-
-				if (vertices) {
-					if (rwdata->vertices != rodata->vertices) {
-						// Replacing modified vertices with a new set
-						for (i = 0; i < rodata->numvertices; i++) {
-							vertices[i] = rwdata->vertices[i];
-						}
-
-						vtxstoreFree(VTXSTORETYPE_OBJVTX, rwdata->vertices);
-					} else {
-						// Replacing original vertices with modified vertices
-						for (i = 0; i < rodata->numvertices; i++) {
-							vertices[i] = rodata->vertices[i];
-						}
-					}
-
-					rwdata->vertices = vertices;
-				} else {
-					ok = false;
-				}
-
-				if ((u32)rwdata->colours == ALIGN8((u32)&rodata->vertices[rodata->numvertices])) {
-					struct colour *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_OBJCOL, NULL, 0);
-
-					if (colours) {
-						for (i = 0; i < rodata->numcolours; i++) {
-							colours[i] = rwdata->colours[i];
-						}
-
-						rwdata->colours = colours;
-					} else {
-						ok = false;
-					}
-				}
-
-				if (ok) {
-					for (i = 0; i < rodata->numcolours; i++) {
-						if (i > 0) {
-							rwdata->colours[i].a = 0;
-						}
-					}
-
-					for (i = 0; i < rodata->numvertices; i++) {
-						s16 tmp = average;
-
-						rng2SetSeed(rodata->vertices[i].x + rodata->vertices[i].y + rodata->vertices[i].z + salt);
-
-#if VERSION < VERSION_NTSC_1_0
-						if (uninitialisedvariable)
-#endif
-						{
-							if (swap) {
-								if (rwdata->vertices[i].v[axis] >= tmp) {
-									chance = 20;
-								} else {
-									chance = 90;
-								}
-							} else {
-								if (rwdata->vertices[i].v[axis] <= tmp) {
-									chance = 20;
-								} else {
-									chance = 90;
-								}
-							}
-
-							if ((s32)(random2() % 100) < chance) {
-								rwdata->vertices[i].colour = 0;
-							}
-						}
-
-						rwdata->vertices[i].x += (s32)(((s32)(random2() % 20) - 10) * spb0[0]);
-						rwdata->vertices[i].y += (s32)(((s32)(random2() % 20) - 10) * spb0[1]);
-						rwdata->vertices[i].z += (s32)(((s32)(random2() % 20) - 10) * spb0[2]);
-
-						if (parentbbox != NULL) {
-							if (rwdata->vertices[i].x < (s16)parentbbox->xmin) {
-								rwdata->vertices[i].x = (s16)parentbbox->xmin;
-							}
-
-							if (rwdata->vertices[i].x > (s16)parentbbox->xmax) {
-								rwdata->vertices[i].x = (s16)parentbbox->xmax;
-							}
-
-							if (rwdata->vertices[i].y < (s16)parentbbox->ymin) {
-								rwdata->vertices[i].y = (s16)parentbbox->ymin;
-							}
-
-							if (rwdata->vertices[i].y > (s16)parentbbox->ymax) {
-								rwdata->vertices[i].y = (s16)parentbbox->ymax;
-							}
-
-							if (rwdata->vertices[i].z < (s16)parentbbox->zmin) {
-								rwdata->vertices[i].z = (s16)parentbbox->zmin;
-							}
-
-							if (rwdata->vertices[i].z > (s16)parentbbox->zmax) {
-								rwdata->vertices[i].z = (s16)parentbbox->zmax;
-							}
-						}
-					}
-				}
-			}
 			break;
 		case MODELNODETYPE_DISTANCE:
 			model0001c784(obj->model, node);
@@ -12620,14 +12507,6 @@ void objDeform(struct defaultobj *obj, s32 level)
 
 				node = node->parent;
 			}
-		}
-	}
-
-	if ((obj->hidden2 & OBJH2FLAG_80) == 0) {
-		if (!ok) {
-			modelFreeVertices(VTXSTORETYPE_OBJVTX, model);
-		} else {
-			obj->hidden2 |= OBJH2FLAG_80;
 		}
 	}
 }
@@ -15894,67 +15773,6 @@ s32 objTestForPickup(struct prop *prop)
 	}
 
 	return TICKOP_NONE;
-}
-
-void modelFreeVertices(s32 vtxstoretype, struct model *model)
-{
-	struct modelfiledata *modeldef = model->filedata;
-	struct modelnode *node = modeldef->rootnode;
-
-	while (node) {
-		u32 type = node->type & 0xff;
-		union modelrodata *rodata;
-		union modelrwdata *rwdata;
-		s32 newtype;
-
-		switch (type) {
-		case MODELNODETYPE_DL:
-			rodata = node->rodata;
-			rwdata = modelGetNodeRwData(model, node);
-
-			if (modelIsNodeNotTvscreen(modeldef, node)) {
-				if (rwdata->dl.vertices != rodata->dl.vertices) {
-					vtxstoreFree(vtxstoretype, rwdata->dl.vertices);
-					rwdata->dl.vertices = rodata->dl.vertices;
-				}
-
-				if ((u32)rwdata->dl.colours != ALIGN8((u32)rodata->dl.vertices + rodata->dl.numvertices * sizeof(struct gfxvtx))) {
-					if (vtxstoretype == VTXSTORETYPE_OBJVTX) {
-						newtype = VTXSTORETYPE_OBJCOL;
-					} else {
-						newtype = VTXSTORETYPE_CHRCOL;
-					}
-
-					vtxstoreFree(newtype, rwdata->dl.colours);
-
-					rwdata->dl.colours = (struct colour *)ALIGN8((u32)rodata->dl.vertices + rodata->dl.numvertices * sizeof(struct gfxvtx));
-				}
-			}
-			break;
-		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, node);
-			break;
-		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, node);
-			break;
-		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, node);
-			break;
-		}
-
-		if (node->child) {
-			node = node->child;
-		} else {
-			while (node) {
-				if (node->next) {
-					node = node->next;
-					break;
-				}
-
-				node = node->parent;
-			}
-		}
-	}
 }
 
 struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model)

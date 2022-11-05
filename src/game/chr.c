@@ -18,7 +18,6 @@
 #include "game/game_0c33f0.h"
 #include "game/playermgr.h"
 #include "game/game_1291b0.h"
-#include "game/vtxstore.h"
 #include "game/gfxmemory.h"
 #include "game/explosions.h"
 #include "game/smoke.h"
@@ -1223,7 +1222,6 @@ void chrRemove(struct prop *prop, bool delete)
 	wallhitFadeSplatsForRemovedChr(prop);
 	func0f0926bc(prop, 1, 0xffff);
 	shieldhitsRemoveByProp(prop);
-	modelFreeVertices(VTXSTORETYPE_CHRVTX, model);
 	propDeregisterRooms(prop);
 
 	child = prop->child;
@@ -3922,23 +3920,6 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 								if (x == bestcoords[0] && y == bestcoords[1] && z == bestcoords[2]) {
 									u32 tmp = ALIGN8((u32)&rodata->vertices[(u32)rodata->numvertices]); // u32 0xc
 
-									if ((u32)rwdata->colours == tmp) {
-										struct colour *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
-										s32 j;
-
-										if (colours) {
-											for (j = 0; j < rodata->numcolours; j++) {
-												colours[j] = rwdata->colours[j];
-											}
-
-											rwdata->colours = colours;
-
-											tmp = ALIGN8((s32)&rodata->vertices[rodata->numvertices]); // s32 0xc
-										} else {
-											tmp = ALIGN8((s32)&rodata->vertices[rodata->numvertices]); // s32 0xc
-										}
-									}
-
 									if ((u32)rwdata->colours != tmp) {
 										u32 offset = rwdata->vertices[word / 12u + i].colour >> 2; // u32 0xc (both divide and mult)
 										struct colour *colours = (struct colour *) ((u32)rwdata->colours + spac);
@@ -4223,19 +4204,6 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 											coordinate = vertices[i].z + (s32)spd4.f[2];
 
 											if (coordinate == bestcoords[2]) {
-												if ((u32)rwdata->colours == ALIGN8((u32)rodata->vertices + rodata->numvertices * sizeof(struct gfxvtx))) {
-													struct colour *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
-													s32 j;
-
-													if (colours) {
-														for (j = 0; j < rodata->numcolours; j++) {
-															colours[j] = rwdata->colours[j];
-														}
-
-														rwdata->colours = colours;
-													}
-												}
-
 												if ((u32)rwdata->colours != ALIGN8((u32)rodata->vertices + rodata->numvertices * sizeof(struct gfxvtx))) {
 													s32 offset = rwdata->vertices[word / sizeof(struct gfxvtx) + i].colour >> 2;
 													struct colour *colours = (struct colour *) ((u32)rwdata->colours + spac);
@@ -4339,32 +4307,6 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 			// Check that the node is using the modeldef's vertices
 			// (ie. we haven't disfigured this node already)
 			if (rwdata->vertices == rodata->vertices) {
-				// Copy the vertices from the modeldef to the vtxstore
-				if (rwdata->vertices == rodata->vertices) {
-					struct gfxvtx *vertices = vtxstoreAllocate(rodata->numvertices, VTXSTORETYPE_CHRVTX, 0, 0);
-
-					if (vertices) {
-						for (i = 0; i < rodata->numvertices; i++) {
-							vertices[i] = rwdata->vertices[i];
-						}
-
-						rwdata->vertices = vertices;
-					}
-				}
-
-				// Copy the colours from the modeldef to the vtxstore
-				if ((u32)rwdata->colours == ALIGN8((u32)&rodata->vertices[rodata->numvertices])) {
-					colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
-
-					if (colours) {
-						for (i = 0; i < rodata->numcolours; i++) {
-							colours[i] = rwdata->colours[i];
-						}
-
-						rwdata->colours = colours;
-					}
-				}
-
 				// Iterate the node's primary and secondary DLs, looking for
 				// MTX and VTX pointers
 				if (rwdata->vertices != rodata->vertices

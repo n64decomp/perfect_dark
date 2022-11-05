@@ -71,7 +71,6 @@
 #include "game/tiles.h"
 #include "game/title.h"
 #include "game/utils.h"
-#include "game/vtxstore.h"
 #include "game/wallhit.h"
 #include "lib/anim.h"
 #include "lib/args.h"
@@ -347,7 +346,6 @@ void lvReset(s32 stagenum)
 
 	mpSetDefaultNamesIfEmpty();
 	animsReset();
-	vtxstoreReset();
 	modelmgrReset();
 	propsndReset();
 	setupLoadFiles(stagenum);
@@ -1752,7 +1750,6 @@ void lvTick(void)
 		langTick();
 		pakExecuteDebugOperations();
 	} else {
-		vtxstoreTick();
 		lvUpdateSoloHandicaps();
 		roomsTick();
 		skyTick();
