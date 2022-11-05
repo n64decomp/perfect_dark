@@ -2164,28 +2164,6 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		}
 	}
 
-	// Handle hat shots. This is left over from GE, as hats don't exist in PD
-	if (damage > 0 && hitpart == HITPART_HAT && chr->weapons_held[2]) {
-		s32 type = hatGetType(chr->weapons_held[2]);
-
-		if (type == HATTYPE_CLOTH) {
-			// Hat remains on head and damages the chr (eg. Moonraker Elite)
-			hitpart = HITPART_HEAD;
-		} else if (type != HATTYPE_METAL) {
-			// Normal hat
-			damage = 0;
-			objSetDropped(chr->weapons_held[2], DROPTYPE_HAT);
-			chr->hidden |= CHRHFLAG_00000001;
-		} else {
-			// Metal helmets don't fall off and make a metallic chink noise when shot
-			u16 sounds[] = { SFX_HIT_METAL_807B, SFX_HIT_METAL_8079, SFX_HATHIT_807C };
-			damage = 0;
-
-			propsnd0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
-					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
-		}
-	}
-
 	// Handle incrementing player shot count
 	if (aprop && aprop->type == PROPTYPE_PLAYER && !explosion) {
 		bool alreadydead = false;

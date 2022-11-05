@@ -46,7 +46,6 @@
 	build/ROMID/lib/mtxasm.o (section); \
 	build/ROMID/lib/mtx.o (section); \
 	build/ROMID/lib/lib_17ce0.o (section); \
-	build/ROMID/lib/path.o (section); \
 	build/ROMID/lib/modelasm.o (section); \
 	build/ROMID/lib/model.o (section); \
 	build/ROMID/lib/anim.o (section); \

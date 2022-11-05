@@ -1448,8 +1448,6 @@ void lvUpdateSoloHandicaps(void)
 		frac = (totalhealth - 0.125f) * 0.5f / 0.47500002384186f + 0.5f;
 	}
 
-	g_CctvWaitScale = 2;
-	g_CctvDamageRxScale = 2;
 	g_AutogunAccuracyScale = 0.5f * frac;
 	g_AutogunDamageTxScale = 0.5f * frac;
 	g_AutogunDamageRxScale = 2;
@@ -1779,7 +1777,6 @@ void lvTick(void)
 
 		musicTick();
 		langTick();
-		propsTickPadEffects();
 	}
 }
 

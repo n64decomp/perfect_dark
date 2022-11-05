@@ -479,12 +479,6 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 		return false;
 	}
 
-	if (!objCanPickupFromSafe(obj)) {
-		return false;
-	}
-
-	if (1);
-
 	if (obj->type == OBJTYPE_WEAPON) {
 		weaponobj = prop->weapon;
 		itemtype = botinvGetItemType(chr, weaponobj->weaponnum);

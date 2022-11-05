@@ -415,11 +415,6 @@ void smokeCreateAtProp(struct prop *prop, s16 type)
 	smokeCreateWithSource(prop, &prop->pos, prop->rooms, type, false);
 }
 
-void smokeCreateAtPadEffect(struct padeffectobj *effect, struct coord *pos, s16 *rooms, s16 type)
-{
-	smokeCreateWithSource(effect, pos, rooms, type, true);
-}
-
 void smokeClearForProp(struct prop *prop)
 {
 	s32 i;

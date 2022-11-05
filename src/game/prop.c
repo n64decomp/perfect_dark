@@ -2199,80 +2199,6 @@ void propsTickPlayer(bool islastplayer)
 	chr0f02472c();
 }
 
-void propsTickPadEffects(void)
-{
-	s32 i;
-	struct pad pad;
-	u32 stack;
-	struct coord up;
-	s16 rooms[2];
-	s16 rooms2[2];
-	s32 type;
-
-	if (g_LastPadEffectIndex >= 0) {
-		for (i = 0; i <= g_LastPadEffectIndex; i++) {
-			struct padeffectobj *effect = &g_PadEffects[i];
-
-			padUnpack(effect->pad, PADFIELD_ROOM, &pad);
-
-			if (roomIsOnscreen(pad.room)) {
-				switch (effect->effect) {
-				case PADEFFECT_SPARKS:
-				case PADEFFECT_SPARKS2:
-					rooms[0] = pad.room;
-					rooms[1] = -1;
-
-					padUnpack(effect->pad, PADFIELD_POS | PADFIELD_UP, &pad);
-
-					up.x = -pad.up.x;
-					up.y = -pad.up.y;
-					up.z = -pad.up.z;
-
-					if ((random() % 2048) <= 50) {
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
-						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
-					}
-
-					if ((random() % 2048) <= 15) {
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL2);
-						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
-					}
-
-					if ((random() % 2048) <= 5) {
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
-						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL3);
-						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
-					}
-					break;
-				case PADEFFECT_SPLASH:
-				case PADEFFECT_SMOKE:
-					type = SMOKETYPE_WATER;
-
-					switch (effect->effect) {
-					case PADEFFECT_SPLASH:
-						type = SMOKETYPE_WATER;
-						break;
-					case PADEFFECT_SMOKE:
-					case PADEFFECT_OUTROSMOKE:
-						type = SMOKETYPE_DEBRIS;
-						break;
-					}
-
-					rooms2[0] = pad.room;
-					rooms2[1] = -1;
-
-					padUnpack(effect->pad, PADFIELD_POS | PADFIELD_UP, &pad);
-					smokeCreateAtPadEffect(effect, &pad.pos, rooms2, type);
-					break;
-				case PADEFFECT_01:
-					break;
-				}
-			}
-		}
-	}
-}
-
 void propSetPerimEnabled(struct prop *prop, s32 enable)
 {
 	if (prop->type == PROPTYPE_CHR) {
@@ -2793,11 +2719,6 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 			if ((types & CDTYPE_OBJSWITHFLAG2)
 					&& (obj->flags & OBJFLAG_INVINCIBLE) == 0
 					&& (obj->flags2 & OBJFLAG2_00200000) == 0) {
-				result = false;
-			}
-
-			if ((types & CDTYPE_OBJSNOTSAFEORHELI)
-					&& (obj->type == OBJTYPE_SAFE || obj->type == OBJTYPE_HELI)) {
 				result = false;
 			}
 

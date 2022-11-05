@@ -10632,20 +10632,6 @@ void bgunRender(Gfx **gdlptr)
 
 			gSPPerspNormalize(gdl++, mtx00016dcc(0, 300));
 
-			// There is support for guns having a TV screen on them
-			// but no guns have this model part so it's not used.
-			node = modelGetPart(hand->gunmodel.filedata, MODELPART_0010);
-
-			if (node) {
-				union modelrwdata *rwdata = modelGetNodeRwData(&hand->gunmodel, modelGetPart(hand->gunmodel.filedata, MODELPART_0011));
-
-				if (rwdata) {
-					rwdata->toggle.visible = true;
-				}
-
-				gdl = tvscreenRender(&hand->gunmodel, node, &var8009cf88, gdl, 0, 1);
-			}
-
 			renderdata.gdl = gdl;
 			renderdata.unk30 = 4;
 

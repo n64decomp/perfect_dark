@@ -938,12 +938,6 @@ char *invGetShortNameByIndex(s32 index)
 	return bgunGetShortName(weaponnum);
 }
 
-void invInsertTextOverride(struct textoverride *override)
-{
-	override->next = g_Vars.textoverrides;
-	g_Vars.textoverrides = override;
-}
-
 u32 invGetCurrentIndex(void)
 {
 	return g_Vars.currentplayer->equipcuritem;

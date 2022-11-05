@@ -2375,44 +2375,6 @@ s32 chrTick(struct prop *prop)
 				child = next;
 			}
 
-			if (chr->weapons_held[2] != NULL) {
-				s32 index;
-				struct defaultobj *obj = chr->weapons_held[2]->obj;
-				struct model *hatmodel = obj->model;
-
-				if (chr->headnum >= HEAD_SHAUN && chr->headnum <= HEAD_SHAUN) {
-					struct coord hatpos = {0, 0, 0};
-					f32 spe4;
-					f32 spe0;
-					f32 spdc;
-					Mtxf sp9c;
-					Mtxf sp5c;
-					s32 hattype = hatGetType(chr->weapons_held[2]);
-					u8 stack[0x0c];
-
-					index = chr->headnum - HEAD_SHAUN;
-
-					hatpos.x = var8007dae4[index][hattype].x * 21.3f;
-					hatpos.y = var8007dae4[index][hattype].y * 21.3f;
-					hatpos.z = var8007dae4[index][hattype].z * 21.3f;
-
-					spe4 = var8007dae4[index][hattype].unk0c;
-					spe0 = var8007dae4[index][hattype].unk10;
-					spdc = var8007dae4[index][hattype].unk14;
-
-					mtx4LoadTranslation(&hatpos, &sp9c);
-					mtx00015e24(spe4, &sp9c);
-					mtx00015e80(spe0, &sp9c);
-					mtx00015edc(spdc, &sp9c);
-					mtx00015be4(hatmodel->matrices, &sp9c, &sp5c);
-					mtx4Copy(&sp5c, hatmodel->matrices);
-
-					if (hattype == HATTYPE_2) {
-						hatvisible = false;
-					}
-				}
-			}
-
 			if (model->filedata->skel == &g_SkelChr) {
 				struct modelnode *headspotnode = modelGetPart(model->filedata, MODELPART_CHR_HEADSPOT);
 
