@@ -102,5 +102,6 @@ s32 bg0f164e8c(struct coord *arg0, struct coord *arg1);
 bool bgIsBboxOverlapping(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3);
 void portalFindBbox(s32 portalnum, struct coord *bbmin, struct coord *bbmax);
 void bgFindEnteredRooms(struct coord *bbmin, struct coord *upper, s16 *rooms, s32 maxlen, bool arg4);
+void bgPreload(void);
 
 #endif

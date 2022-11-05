@@ -413,6 +413,7 @@ void lvReset(s32 stagenum)
 		portalsReset();
 		lightsReset();
 		setCurrentPlayerNum(0);
+		bgPreload();
 	}
 
 	if (g_Vars.lvmpbotlevel) {
@@ -944,9 +945,6 @@ Gfx *lvPrintRateText(Gfx *gdl)
 		}
 
 		x = 10;
-		sprintf(buffer, "mema free %d KB\n", memaGetLongestFree() / 1024);
-		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-
 		sprintf(buffer, "memp free %d KB\n", mempGetStageFree() / 1024);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 	}
