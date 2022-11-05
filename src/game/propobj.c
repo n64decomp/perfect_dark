@@ -12338,26 +12338,6 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	return gdl;
 }
 
-bool modelIsNodeNotTvscreen(struct modelfiledata *filedata, struct modelnode *node)
-{
-	if (filedata->skel == &g_SkelTerminal) {
-		if (modelGetPart(filedata, MODELPART_TERMINAL_0000) == node) {
-			return false;
-		}
-	}
-
-	if (filedata->skel == &g_SkelCiHub) {
-		if (modelGetPart(filedata, MODELPART_CIHUB_0000) == node
-				|| modelGetPart(filedata, MODELPART_CIHUB_0001) == node
-				|| modelGetPart(filedata, MODELPART_CIHUB_0002) == node
-				|| modelGetPart(filedata, MODELPART_CIHUB_0003) == node) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
 /**
  * Deform an object due to it being destroyed.
  */
@@ -18447,23 +18427,6 @@ void alarmTick(void)
 	chrsTriggerProxies();
 
 	g_PlayersDetonatingMines = 0;
-}
-
-void func0f091030(void)
-{
-	struct prop *prop = g_Vars.activeprops;
-
-	while (prop) {
-		if (prop->type == PROPTYPE_OBJ
-				&& (prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0
-				&& (prop->obj->hidden2 & OBJH2FLAG_DESTROYED)
-				&& (prop->obj->hidden2 & OBJH2FLAG_80)) {
-			objFreePermanently(prop->obj, true);
-			return;
-		}
-
-		prop = prop->next;
-	}
 }
 
 void currentPlayerDropAllItems(void)

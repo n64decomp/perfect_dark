@@ -9,7 +9,7 @@ extern struct invaimsettings invaimsettings_default;
 extern struct weapon *g_Weapons[WEAPON_SUICIDEPILL + 1];
 
 void invReset(void);
-void invInit(s32 numdoubles);
+void invInit(void);
 
 void invClear(void);
 void invSortItem(struct invitem *item);

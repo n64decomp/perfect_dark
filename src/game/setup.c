@@ -1255,7 +1255,7 @@ void setupCreateProps(s32 stagenum)
 
 		for (j = 0; j < PLAYERCOUNT(); j++) {
 			setCurrentPlayerNum(j);
-			invInit(setupCountCommandType(OBJTYPE_LINKGUNS));
+			invInit();
 		}
 
 		if (g_StageSetup.props) {
@@ -1765,19 +1765,6 @@ void setupCreateProps(s32 stagenum)
 							obj->hidden |= OBJHFLAG_HASOWNER;
 							modelSetScale(obj->model, obj->model->scale);
 							propReparent(obj->prop, owner->prop);
-						}
-					}
-					break;
-				case OBJTYPE_LINKGUNS:
-					{
-						struct linkgunsobj *link = (struct linkgunsobj *)obj;
-						struct weaponobj *gun1 = (struct weaponobj *)setupGetCmdByIndex(link->offset1 + index);
-						struct weaponobj *gun2 = (struct weaponobj *)setupGetCmdByIndex(link->offset2 + index);
-
-						if (gun1 && gun2
-								&& gun1->base.type == OBJTYPE_WEAPON
-								&& gun2->base.type == OBJTYPE_WEAPON) {
-							propweaponSetDual(gun1, gun2);
 						}
 					}
 					break;

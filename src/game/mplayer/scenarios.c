@@ -745,7 +745,6 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 			switch (obj->type) {
 			case OBJTYPE_AMMOCRATE:
 			case OBJTYPE_WEAPON:
-			case OBJTYPE_LINKGUNS:
 			case OBJTYPE_MULTIAMMOCRATE:
 			case OBJTYPE_SHIELD:
 				colour[0] = 0;
