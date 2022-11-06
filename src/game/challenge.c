@@ -242,7 +242,7 @@ void challengePerformSanityChecks(void)
 		// for this number of players
 		g_MpSetup.chrslots &= 0x000f;
 
-		for (i = 0; i != MAX_BOTS; i++) {
+		for (i = 0; i != 8; i++) {
 			g_BotConfigsArray[i].difficulty = g_MpSimulantDifficultiesPerNumPlayers[i][numplayers - 1];
 
 			if (g_BotConfigsArray[i].difficulty != BOTDIFF_DISABLED) {

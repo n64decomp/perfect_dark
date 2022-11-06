@@ -34,7 +34,7 @@ struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
 s32 g_MpNumChrs;
 u32 var800ac534;
 struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
-u8 g_MpSimulantDifficultiesPerNumPlayers[MAX_BOTS][4];
+u8 g_MpSimulantDifficultiesPerNumPlayers[8][4];
 struct mpplayerconfig g_PlayerConfigsArray[6];
 u8 g_AmBotCommands[16];
 struct mpsetup g_MpSetup;
@@ -4496,8 +4496,10 @@ void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
 	g_BotConfigsArray[botnum].type = g_BotProfiles[profilenum].type;
 	g_BotConfigsArray[botnum].difficulty = g_BotProfiles[profilenum].difficulty;
 
-	for (i = 0; i < 4; i++) {
-		g_MpSimulantDifficultiesPerNumPlayers[botnum][i] = g_BotConfigsArray[botnum].difficulty;
+	if (botnum < 8) {
+		for (i = 0; i < 4; i++) {
+			g_MpSimulantDifficultiesPerNumPlayers[botnum][i] = g_BotConfigsArray[botnum].difficulty;
+		}
 	}
 
 	g_MpSetup.chrslots |= 1 << (botnum + 4);
@@ -4529,8 +4531,10 @@ void mpSetBotDifficulty(s32 botnum, s32 difficulty)
 
 	g_BotConfigsArray[botnum].difficulty = difficulty;
 
-	for (i = 0; i < 4; i++) {
-		g_MpSimulantDifficultiesPerNumPlayers[botnum][i] = g_BotConfigsArray[botnum].difficulty;
+	if (botnum < 8) {
+		for (i = 0; i < 4; i++) {
+			g_MpSimulantDifficultiesPerNumPlayers[botnum][i] = g_BotConfigsArray[botnum].difficulty;
+		}
 	}
 }
 
@@ -5163,7 +5167,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 	g_MpSetup.chrslots = chrslots;
 #endif
 
-	for (i = 0; i < MAX_BOTS; i++) {
+	for (i = 0; i < 8; i++) {
 		g_BotConfigsArray[i].type = config->config.simulants[i].type;
 
 		for (j = 0; j < 4; j++) {
@@ -5241,7 +5245,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 	g_MpSetup.options = savebufferReadBits(buffer, 21);
 	g_MpSetup.chrslots &= 0x000f;
 
-	for (i = 0; i < MAX_BOTS; i++) {
+	for (i = 0; i < 8; i++) {
 		g_BotConfigsArray[i].base.name[0] = '\0';
 		g_BotConfigsArray[i].type = savebufferReadBits(buffer, 5);
 		g_BotConfigsArray[i].difficulty = savebufferReadBits(buffer, 3);

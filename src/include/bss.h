@@ -277,7 +277,7 @@ extern struct chrdata *g_MpAllChrPtrs[MAX_MPCHRS];
 extern struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
 extern s32 g_MpNumChrs;
 extern struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
-extern u8 g_MpSimulantDifficultiesPerNumPlayers[MAX_BOTS][4];
+extern u8 g_MpSimulantDifficultiesPerNumPlayers[8][4];
 extern struct mpplayerconfig g_PlayerConfigsArray[6];
 extern u8 g_AmBotCommands[16];
 extern struct mpsetup g_MpSetup;
