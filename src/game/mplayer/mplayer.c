@@ -4573,7 +4573,7 @@ bool mpHasSimulants(void)
 
 bool mpHasUnusedBotSlots(void)
 {
-	s32 numvacant = challengeIsFeatureUnlocked(MPFEATURE_8BOTS) ? MAX_BOTS : 4;
+	s32 numvacant = MAX_BOTS;
 	s32 i;
 
 	for (i = 4; i < MAX_MPCHRS; i++) {

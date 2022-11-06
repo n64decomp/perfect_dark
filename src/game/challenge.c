@@ -209,19 +209,6 @@ void challengeDetermineUnlockedFeatures(void)
 	}
 
 	func0f1895e8();
-
-	// If the ability to have 8 simulants hasn't been unlocked, limit them to 4
-	if (!challengeIsFeatureUnlocked(MPFEATURE_8BOTS)) {
-		for (k = 4; k < MAX_BOTS; k++) {
-			if (g_MpSetup.chrslots & (1 << (4 + k))) {
-				mpRemoveSimulant(k);
-			}
-		}
-
-		if (g_Vars.mpquickteamnumsims > 4) {
-			g_Vars.mpquickteamnumsims = 4;
-		}
-	}
 }
 
 void challengePerformSanityChecks(void)
@@ -253,9 +240,6 @@ void challengePerformSanityChecks(void)
 		if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
 			g_Vars.mphilltime = 10;
 		}
-	} else if (!challengeIsFeatureUnlocked(MPFEATURE_8BOTS)) {
-		// Limit to 4 players and 4 simulants
-		g_MpSetup.chrslots &= 0x00ff;
 	}
 }
 
