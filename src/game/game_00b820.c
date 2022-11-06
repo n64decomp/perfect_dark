@@ -29,9 +29,3 @@ void resetSomeStageThings(void)
 
 	g_NumChrsSeenPlayerRecently2 = 0;
 }
-
-void stageAllocateBgChrs(void)
-{
-	g_TeamList = mempAlloc(0x210, MEMPOOL_STAGE);
-	g_SquadronList = mempAlloc(0x220, MEMPOOL_STAGE);
-}

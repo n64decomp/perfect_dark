@@ -1510,6 +1510,8 @@
 #define MAX_SQUADRONS      16
 #define MAX_TEAMS          8
 
+#define MAX_DROPPED_ITEMS 80
+
 #define MEDAL_KILLMASTER 0x01
 #define MEDAL_HEADSHOT   0x02
 #define MEDAL_ACCURACY   0x04

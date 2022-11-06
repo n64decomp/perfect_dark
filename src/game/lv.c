@@ -350,9 +350,6 @@ void lvReset(s32 stagenum)
 	propsndReset();
 	setupLoadFiles(stagenum);
 	scenarioReset();
-	varsReset();
-	propsReset();
-	chrmgrReset();
 	bodiesReset(stagenum);
 	setupCreateProps(stagenum);
 	explosionsReset();

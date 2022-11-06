@@ -8,7 +8,6 @@ void setupPreparePads(void);
 void setupLoadWaypoints(void);
 void setupPrepareCover(void);
 
-void propsReset(void);
 void setupCreateLiftDoor(struct linkliftdoorobj *link);
 void setupCreatePadlockedDoor(struct padlockeddoorobj *link);
 void setupCreateSafeItem(struct safeitemobj *link);

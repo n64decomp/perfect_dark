@@ -1173,9 +1173,6 @@ struct attackanimgroup *g_LieAttackAnims = &var80067e48;
 
 u32 g_StageFlags = 0;
 
-s16 *g_TeamList = NULL;
-s16 *g_SquadronList = NULL;
-
 struct var80067e6c var80067e6c[] = {
 	{ ANIM_0028, 0 },
 	{ ANIM_RUNNING_TWOHANDGUN, 0 },
@@ -8161,92 +8158,4 @@ bool chrRunFromPos(struct chrdata *chr, u32 goposflags, f32 rundist, struct coor
 	}
 
 	return false;
-}
-
-/**
- * Chrs are assigned to teams, and they can be assigned to more than one.
- * The team assignments determine if a chr considers another chr to be friendly
- * or not.
- *
- * The chr->team value is a bitmask of which teams they belong to. There are 8
- * teams total.
- *
- * The team list is an array of 264 shorts. The first 7 are indexes into
- * the same list which mark the start of each team. Team 0 does not have
- * an entry in this list because it always starts at offset 7.
- *
- * Elements 7 onwards are chrnums. Each team is terminated with -2.
- */
-void rebuildTeams(void)
-{
-	s32 numchrs = chrsGetNumSlots();
-	s16 index = 7;
-	s32 team;
-	s32 i;
-	struct chrdata *chr;
-	u8 teammasks[] = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
-
-	for (team = 0; team < 8; team++) {
-		if (team != 0) {
-			g_TeamList[team - 1] = index;
-		}
-
-		for (i = 0; i < numchrs; i++) {
-			chr = &g_ChrSlots[i];
-
-			if (chr->chrnum >= 0 && (chr->team & teammasks[team])) {
-				g_TeamList[index] = chr->chrnum;
-				index++;
-			}
-		}
-
-		g_TeamList[index] = -2;
-		index++;
-
-		if (index >= 264) {
-			break;
-		}
-	}
-}
-
-/**
- * Chrs are partitioned into squadrons for AI scripting purposes, where their
- * squadron number is in the range 0-15.
- *
- * The squadron list is an array of 272 shorts. The first 15 are indexes into
- * the same list which mark the start of each squadron. Squadron 0 does not have
- * an entry in this list because it always starts at offset 15.
- *
- * Elements 15 onwards are chrnums. Each squadron is terminated with -2.
- */
-void rebuildSquadrons(void)
-{
-	s32 numchrs = chrsGetNumSlots();
-	s16 index = 15;
-	s32 squadron;
-	s32 i;
-
-	for (squadron = 0; squadron < 16; squadron++) {
-		if (squadron != 0) {
-			g_SquadronList[squadron - 1] = index;
-		}
-
-		for (i = 0; i < numchrs; i++) {
-			struct chrdata *chr = &g_ChrSlots[i];
-
-			if (chr->chrnum >= 0 && chr->squadron == squadron) {
-				if (chr->prop == NULL || chr->prop->type != PROPTYPE_PLAYER) {
-					g_SquadronList[index] = chr->chrnum;
-					index++;
-				}
-			}
-		}
-
-		g_SquadronList[index] = -2;
-		index++;
-
-		if (index >= 272) {
-			break;
-		}
-	}
 }

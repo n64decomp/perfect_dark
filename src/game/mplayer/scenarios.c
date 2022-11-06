@@ -546,8 +546,6 @@ void scenarioTick(void)
 			}
 
 			botSpawnAll();
-			rebuildTeams();
-			rebuildSquadrons();
 		} else if (g_Vars.lvframenum == 5) {
 			scenarioCreateMatchStartHudmsgs();
 		}

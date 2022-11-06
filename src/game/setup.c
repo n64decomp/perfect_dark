@@ -31,6 +31,7 @@
 #include "lib/mtx.h"
 #include "lib/anim.h"
 #include "lib/collision.h"
+#include "lib/vars.h"
 #include "data.h"
 #include "types.h"
 
@@ -39,13 +40,15 @@ u32 var8009cc34;
 u32 var8009cc38;
 u32 var8009cc3c;
 
+s32 g_NumBots = 0;
+
 u32 var80061bdc = 0x00000000;
 f32 g_DoorScale = 1;
 u32 var80061be4 = 0x00000000;
 u32 var80061be8 = 0x00000000;
 u32 var80061bec = 0x00000000;
 
-void propsReset(void)
+void propsReset(bool withlaptops)
 {
 	s32 i;
 
@@ -121,13 +124,18 @@ void propsReset(void)
 	g_AutogunDamageRxScale = 1;
 	g_AmmoQuantityScale = 1;
 
-	g_MaxThrownLaptops = g_Vars.normmplayerisrunning ? 12 : PLAYERCOUNT();
+	if (withlaptops) {
+		g_MaxThrownLaptops = PLAYERCOUNT() + g_NumBots;
+		g_ThrownLaptops = mempAlloc(ALIGN16(g_MaxThrownLaptops * sizeof(struct autogunobj)), MEMPOOL_STAGE);
+		g_ThrownLaptopBeams = mempAlloc(ALIGN16(g_MaxThrownLaptops * sizeof(struct beam)), MEMPOOL_STAGE);
 
-	g_ThrownLaptops = mempAlloc(ALIGN16(g_MaxThrownLaptops * sizeof(struct autogunobj)), MEMPOOL_STAGE);
-	g_ThrownLaptopBeams = mempAlloc(ALIGN16(g_MaxThrownLaptops * sizeof(struct beam)), MEMPOOL_STAGE);
-
-	for (i = 0; i < g_MaxThrownLaptops; i++) {
-		g_ThrownLaptops[i].base.prop = NULL;
+		for (i = 0; i < g_MaxThrownLaptops; i++) {
+			g_ThrownLaptops[i].base.prop = NULL;
+		}
+	} else {
+		g_MaxThrownLaptops = 0;
+		g_ThrownLaptops = NULL;
+		g_ThrownLaptopBeams = NULL;
 	}
 }
 
@@ -742,7 +750,7 @@ void setupLoadFiles(s32 stagenum)
 			}
 		}
 
-		// Count the number of chrs and objects so enough model slots can be allocated
+		// Count the number of objects so enough model slots can be allocated
 		numchrs += setupCountCommandType(OBJTYPE_CHR);
 
 		numobjs += setupCountCommandType(OBJTYPE_WEAPON);
@@ -778,8 +786,6 @@ void setupLoadFiles(s32 stagenum)
 		if (g_Vars.normmplayerisrunning) {
 			numobjs += scenarioNumProps();
 		}
-
-		modelmgrAllocateSlots(numobjs, numchrs);
 	} else {
 		// cover isn't set to NULL here... I guess it's not important
 		g_StageSetup.waypoints = NULL;
@@ -789,13 +795,82 @@ void setupLoadFiles(s32 stagenum)
 		g_StageSetup.paths = NULL;
 		g_StageSetup.ailists = NULL;
 		g_StageSetup.padfiledata = NULL;
-
-		modelmgrAllocateSlots(0, 0);
 	}
 
-	extra = 40;
+	g_ModelNumObjs = numobjs;
+	g_Vars.maxprops = numobjs + MAX_DROPPED_ITEMS;
+}
 
-	g_Vars.maxprops = numobjs + numchrs + extra + 40;
+s32 setupGetNumRequestedBots(void)
+{
+	s32 i;
+	s32 numbots = 0;
+
+	if (g_Vars.normmplayerisrunning && mpHasSimulants()) {
+		for (i = 0; i < MAX_BOTS; i++) {
+			if ((g_MpSetup.chrslots & (1 << (i + 4))) && mpIsSimSlotEnabled(i)) {
+				numbots++;
+			}
+		}
+	}
+
+	return numbots;
+}
+
+s32 setupCalculateMaxBots(s32 numrequested, bool haslaptops)
+{
+	return numrequested;
+}
+
+void setupAllocateEverything(void)
+{
+	s32 numbotsrequested;
+	bool haslaptops = false;
+	s32 i;
+
+	// Count how many bots were requested
+	numbotsrequested = setupGetNumRequestedBots();
+
+	// Check if we have laptop guns in our setup
+	haslaptops = false;
+
+	for (i = 0; i < 6; i++) {
+		if (g_MpSetup.weapons[i] == MPWEAPON_LAPTOPGUN) {
+			haslaptops = true;
+			break;
+		}
+	}
+
+	// Figure out how many we can allocate based on available memory
+	g_NumBots = setupCalculateMaxBots(numbotsrequested, haslaptops);
+
+	// Allocate everything
+	modelmgrAllocateSlots(g_ModelNumObjs, PLAYERCOUNT() + g_NumBots);
+
+	g_Vars.maxprops += PLAYERCOUNT() + g_NumBots;
+
+	varsReset();
+	propsReset(haslaptops);
+
+	chrmgrReset();
+	chrmgrConfigure(g_NumBots);
+
+	botmgrRemoveAll();
+
+	if (g_Vars.normmplayerisrunning && mpHasSimulants()) {
+		s32 chrnum = 0;
+
+		for (i = 0; i < MAX_BOTS; i++) {
+			if ((g_MpSetup.chrslots & (1 << (i + 4))) && mpIsSimSlotEnabled(i)) {
+				botmgrAllocateBot(chrnum, i);
+				chrnum++;
+			}
+		}
+	}
+
+	if (g_Vars.normmplayerisrunning) {
+		scenarioInitProps();
+	}
 }
 
 void setupCreateProps(s32 stagenum)
@@ -830,16 +905,6 @@ void setupCreateProps(s32 stagenum)
 
 		setupLoadWaypoints();
 
-		if (withchrs) {
-			s32 numchrs = 0;
-
-			numchrs += setupCountCommandType(OBJTYPE_CHR);
-
-			chrmgrConfigure(numchrs);
-		} else {
-			chrmgrConfigure(0);
-		}
-
 		for (j = 0; j < PLAYERCOUNT(); j++) {
 			setCurrentPlayerNum(j);
 			invInit();
@@ -861,7 +926,8 @@ void setupCreateProps(s32 stagenum)
 				}
 			}
 
-			botmgrRemoveAll();
+			setupAllocateEverything();
+
 			index = 0;
 
 			obj = (struct defaultobj *)g_StageSetup.props;
@@ -1012,45 +1078,6 @@ void setupCreateProps(s32 stagenum)
 
 			index = 0;
 
-			if (g_Vars.normmplayerisrunning && mpHasSimulants()) {
-				u32 stack[4];
-				s32 i;
-				s32 slotsdone[MAX_BOTS];
-				s32 chrnum = 0;
-				s32 maxsimulants;
-				s32 slotnum;
-
-				if (challengeIsFeatureUnlocked(MPFEATURE_8BOTS)) {
-					maxsimulants = MAX_BOTS;
-				} else {
-					maxsimulants = 4;
-				}
-
-				for (i = 0; i < MAX_BOTS; i++) {
-					slotsdone[i] = false;
-				}
-
-				for (i = 0; i < maxsimulants; i++) {
-					slotnum = random() % maxsimulants;
-
-					while (slotsdone[slotnum]) {
-						slotnum = (slotnum + 1) % maxsimulants;
-					}
-
-					if ((g_MpSetup.chrslots & (1 << (slotnum + 4)))
-							&& mpIsSimSlotEnabled(slotnum)) {
-						botmgrAllocateBot(chrnum, slotnum);
-						chrnum++;
-					}
-
-					slotsdone[slotnum] = true;
-				}
-			}
-
-			if (g_Vars.normmplayerisrunning) {
-				scenarioInitProps();
-			}
-
 			obj = (struct defaultobj *)g_StageSetup.props;
 
 			while (obj->type != OBJTYPE_END) {
@@ -1103,8 +1130,6 @@ void setupCreateProps(s32 stagenum)
 			}
 		}
 	} else {
-		chrmgrConfigure(0);
+		setupAllocateEverything();
 	}
-
-	stageAllocateBgChrs();
 }

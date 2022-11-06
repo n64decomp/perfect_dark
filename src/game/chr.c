@@ -1254,9 +1254,6 @@ void chrRemove(struct prop *prop, bool delete)
 		projectilesUnrefOwner(prop);
 
 		chr->chrnum = -1;
-
-		rebuildTeams();
-		rebuildSquadrons();
 	}
 }
 
