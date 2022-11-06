@@ -713,8 +713,8 @@ class App():
 
     def ai_if_chr_same_floor_distance_to_pad_lt(self, params):
         self.emit('li', ['$a0', '0x%02x' % params[0]])
-        self.emit('li', ['$a1', '0x%04x' % self.u16(params, 1)])
-        self.emit('li.s', ['$a2', self.u16(params, 3) * 10])
+        self.emit('li', ['$a1', '0x%04x' % self.u16(params, 3)])
+        self.emit('li.s', ['$a2', self.u16(params, 1) * 10])
         self.emit('jal', ['aiIfChrSameFloorDistanceToPadLessThan'])
         self.emit_bnez_label(params[5])
 

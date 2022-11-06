@@ -3495,8 +3495,8 @@
 #define if_chr_same_floor_distance_to_pad_lt(chr, pad, distance, label) \
 	mkshort(0x01df), \
 	chr, \
-	mkshort(pad), \
 	mkshort(distance / 10), \
+	mkshort(pad), \
 	label,
 
 /**
