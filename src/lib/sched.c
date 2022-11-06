@@ -374,6 +374,10 @@ void __scHandleRDP(OSSched *sc)
 	s32 state;
 
 	if (sc->curRDPTask != NULL) {
+		if (var8005dd18 == 0) {
+			schedConsiderScreenshot();
+		}
+
 		t = sc->curRDPTask;
 		sc->curRDPTask = NULL;
 		t->state &= ~OS_SC_NEEDS_RDP;
@@ -628,4 +632,19 @@ s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)
 	}
 
 	return avail;
+}
+
+void schedConsiderScreenshot(void)
+{
+	if (g_MenuData.screenshottimer == 1) {
+		if (IS8MB()) {
+			menugfxCreateBlur();
+		}
+
+		g_MenuData.screenshottimer = 0;
+	}
+
+	if (g_MenuData.screenshottimer >= 2) {
+		g_MenuData.screenshottimer--;
+	}
 }

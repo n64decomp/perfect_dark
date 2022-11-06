@@ -53,6 +53,7 @@ char g_StringPointer[104];
 char g_StringPointer2[100];
 #endif
 
+u8 *g_BlurBuffer;
 s32 var8009dfc0;
 u32 var8009dfc4;
 struct briefing g_Briefing;
@@ -5808,6 +5809,8 @@ void menuReset(void)
 
 	var8009dfc0 = 0;
 
+	g_BlurBuffer = mempAlloc(0x4b00, MEMPOOL_STAGE);
+
 	g_MenuData.unk5d5_01 = false;
 
 	texLoadFromConfig(&g_TexGeneralConfigs[1]);
@@ -7079,7 +7082,21 @@ Gfx *menugfxRenderBgFailureAlt(Gfx *gdl);
  */
 Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 {
+	static u32 bblur = 1;
+
 	switch (bg) {
+	case MENUBG_BLUR:
+		{
+			u32 alpha = 255 * frac;
+
+			// Render the blurred background texture with full alpha
+			gdl = menugfxRenderBgBlur(gdl, 0xffffff00 | alpha, 0, 0);
+
+			// Render it twice more with half alpha and offset
+			gdl = menugfxRenderBgBlur(gdl, 0xffffff00 | alpha >> 1, -30, -30);
+			gdl = menugfxRenderBgBlur(gdl, 0xffffff00 | alpha >> 1, 30, 30);
+		}
+		break;
 	case MENUBG_BLACK:
 	case MENUBG_8:
 		{

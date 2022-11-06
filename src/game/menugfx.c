@@ -26,6 +26,197 @@
 #define SAMPLE_HEIGHT 8
 #define PXTOBYTES(val) ((val) * 2)
 
+/**
+ * Blur the gameplay background for the pause menu.
+ *
+ * The blurred image is 30x40 pixels at 16 bits per pixel. At standard
+ * resolution this is 1/8th the size of the framebuffer.
+ *
+ * This function reads the framebuffer in blocks of 8x8 pixels. Each block's
+ * R/G/B components are averaged and used to set a pixel in the blurred buffer.
+ *
+ * If hi-res is being used, every second horizontal pixel on the framebuffer is
+ * read instead. The blurred image is the same size regardless of hi-res.
+ *
+ * The transition effect when pausing and unpausing is implemented elsewhere.
+ * It's a simple fade between the source framebuffer and the blurred image.
+ * Only one blurred image is made.
+ */
+void menugfxCreateBlur(void)
+{
+	u8 *fb = (u8 *) viGetFrontBuffer();
+	s32 dstx;
+	s32 dsty;
+#if PAL
+	s32 fbwidthinbytes = viGetWidth() * 2;
+	f32 scale = viGetWidth() / 320.0f;
+#else
+	s32 fbwidthinbytes = PXTOBYTES(viGetWidth());
+#endif
+	s32 srcx;
+	s32 srcy;
+	u32 r;
+	u32 g;
+	u32 b;
+	u16 colour;
+
+	static u32 cccc = 1;
+
+#if PAL
+	g_ScaleX = 1;
+#else
+	g_ScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
+#endif
+
+	if (cccc == 1) {
+		fb = (u8 *) viGetFrontBuffer();
+	}
+
+	mainOverrideVariable("cccc", &cccc);
+
+	for (dsty = 0; dsty < BLURIMG_HEIGHT; dsty++) {
+
+		for (dstx = 0; dstx < BLURIMG_WIDTH; dstx++) {
+			s32 dstindex = PXTOBYTES(dsty * BLURIMG_WIDTH) + PXTOBYTES(dstx);
+
+#if PAL
+			s32 samplestartindex = (((s32) ((f32) dstx * 2 * 4 * 2 * scale) + (s32) (dsty * fbwidthinbytes * 8)) & 0xfffffffe);
+#else
+			s32 samplestartindex = PXTOBYTES(dstx * SAMPLE_WIDTH) * g_ScaleX + dsty * fbwidthinbytes * SAMPLE_HEIGHT;
+#endif
+
+			r = g = b = 0;
+
+			for (srcx = 0; srcx < SAMPLE_WIDTH; srcx++) {
+				for (srcy = 0; srcy < SAMPLE_HEIGHT; srcy++) {
+#if PAL
+					s32 index = (samplestartindex + (s32) (PXTOBYTES((f32) srcx) * scale) + srcy * fbwidthinbytes) & 0xfffffffe;
+#else
+					s32 index = samplestartindex + PXTOBYTES(srcx) * g_ScaleX + srcy * fbwidthinbytes;
+#endif
+
+					colour = fb[index] << 8 | fb[index + 1];
+
+					r = r + (colour >> 11 & 0x1f);
+					g = g + (colour >> 6 & 0x1f);
+					b = b + (colour >> 1 & 0x1f);
+				}
+			}
+
+			r /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+			g /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+			b /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+
+			g_BlurBuffer[dstindex + 0] = ((r << 3) | (g >> 2)) & 0xffff;
+			g_BlurBuffer[dstindex + 1] = ((g << 6) | ((b & 0x1f) << 1)) & 0xffff;
+		}
+	}
+
+	g_ScaleX = 1;
+}
+
+Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
+{
+	u32 *colours;
+	struct gfxvtx *vertices;
+#if VERSION >= VERSION_PAL_BETA
+	s32 width;
+	s32 height;
+#endif
+
+	if (IS4MB()) {
+		return menugfxRenderGradient(gdl, 0, 0, viGetWidth(), viGetHeight(), 0xff, 0xff, 0xff);
+	}
+
+	colours = gfxAllocateColours(1);
+	vertices = gfxAllocateVertices(4);
+
+	gDPPipeSync(gdl++);
+	gSPTexture(gdl++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+
+	gDPLoadTextureBlock(gdl++, g_BlurBuffer, G_IM_FMT_RGBA, G_IM_SIZ_16b, 40, 30, 0,
+			G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP,
+			G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+
+	gDPPipeSync(gdl++);
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
+	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+
+	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+
+#if VERSION >= VERSION_JPN_FINAL
+	width = viGetWidth() * 10;
+	height = viGetHeight() * 10;
+
+	*(u16 *)&vertices[0].x = arg2;
+	*(u16 *)&vertices[0].y = arg3;
+	vertices[0].z = -10;
+	*(u16 *)&vertices[1].x = arg2 + 320 * 10u + 40;
+	*(u16 *)&vertices[1].y = arg3;
+	vertices[1].z = -10;
+	*(u16 *)&vertices[2].x = arg2 + 320 * 10u + 40;
+	*(u16 *)&vertices[2].y = arg3 + 240 * 10u + 50;
+	vertices[2].z = -10;
+	*(u16 *)&vertices[3].x = arg2;
+	*(u16 *)&vertices[3].y = arg3 + 240 * 10u + 50;
+	vertices[3].z = -10;
+#elif PAL
+	width = viGetWidth() * 10;
+	height = viGetHeight() * 10;
+
+	*(u16 *)&vertices[0].x = arg2;
+	*(u16 *)&vertices[0].y = arg3;
+	vertices[0].z = -10;
+	*(u16 *)&vertices[1].x = (s32)width + arg2 + 40;
+	*(u16 *)&vertices[1].y = arg3;
+	vertices[1].z = -10;
+	*(u16 *)&vertices[2].x = (s32)width + arg2 + 40;
+	*(u16 *)&vertices[2].y = (s32)height + arg3 + 50;
+	vertices[2].z = -10;
+	*(u16 *)&vertices[3].x = arg2;
+	*(u16 *)&vertices[3].y = (s32)height + arg3 + 50;
+	vertices[3].z = -10;
+#else
+	*(u16 *)&vertices[0].x = arg2;
+	*(u16 *)&vertices[0].y = arg3;
+	vertices[0].z = -10;
+	*(u16 *)&vertices[1].x = arg2 + 320 * 10u + 40;
+	*(u16 *)&vertices[1].y = arg3;
+	vertices[1].z = -10;
+	*(u16 *)&vertices[2].x = arg2 + 320 * 10u + 40;
+	*(u16 *)&vertices[2].y = arg3 + 240 * 10u + 50;
+	vertices[2].z = -10;
+	*(u16 *)&vertices[3].x = arg2;
+	*(u16 *)&vertices[3].y = arg3 + 240 * 10u + 50;
+	vertices[3].z = -10;
+#endif
+
+	vertices[0].s = 0;
+	vertices[0].t = 0;
+	vertices[1].s = 1280;
+	vertices[1].t = 0;
+	vertices[2].s = 1280;
+	vertices[2].t = 960;
+	vertices[3].s = 0;
+	vertices[3].t = 960;
+
+	vertices[0].colour = 0;
+	vertices[1].colour = 0;
+	vertices[2].colour = 0;
+	vertices[3].colour = 0;
+
+	colours[0] = colour;
+
+	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
+	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+
+	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+
+	return gdl;
+}
 Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct menudialog *dialog, u32 colour1, u32 colour2, f32 arg8)
 {
 	u32 stack[1];
