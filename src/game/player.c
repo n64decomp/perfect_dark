@@ -2369,6 +2369,13 @@ void playerLaunchSlayerRocket(struct weaponobj *rocket)
 {
 	g_Vars.currentplayer->slayerrocket = rocket;
 	g_Vars.currentplayer->visionmode = VISIONMODE_SLAYERROCKET;
+
+	// Turn off these devices
+	g_Vars.currentplayer->devicesactive &= ~(
+			DEVICE_NIGHTVISION |
+			DEVICE_XRAYSCANNER |
+			DEVICE_IRSCANNER);
+
 	g_Vars.currentplayer->badrockettime = 0;
 }
 

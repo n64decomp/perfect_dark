@@ -6546,7 +6546,8 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 
 		mtx4TransformVecInPlace(camGetProjectionMtxF(), &beamnear);
 
-		if (hand->useposrot) {
+		if (hand->useposrot
+				|| (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_XRAYSCANNER)) {
 			beamfar.x = 0.0f;
 			beamfar.y = 0.0f;
 			beamfar.z = 1.0f;
@@ -7858,32 +7859,50 @@ void bgunTickGameplay2(void)
 		bgunTickLoad();
 	}
 
-	if (player->gunsightoff == 0) {
-		if (player->hands[HAND_RIGHT].gset.weaponnum == WEAPON_FARSIGHT) {
-			// Aiming with the Farsight
-			if (player->visionmode != VISIONMODE_XRAY) {
-				player->erasertime = 0;
-			} else {
-				player->erasertime += g_Vars.lvupdate240;
-			}
-
-			player->visionmode = VISIONMODE_XRAY;
-			player->ecol_1 = 16;
-			player->ecol_2 = 24;
-			player->ecol_3 = 8;
-			player->epcol_0 = 0;
-			player->epcol_1 = 1;
-			player->epcol_2 = 2;
+	if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_XRAYSCANNER)
+			&& (bgunGetWeaponNum(HAND_RIGHT) != WEAPON_FARSIGHT || player->gunsightoff)) {
+		// Using normal xray scanner (not Farsight zoom)
+		if (player->visionmode != VISIONMODE_XRAY) {
+			player->erasertime = 0;
 		} else {
-			// Aiming with non-Farsight
+			player->erasertime += g_Vars.lvupdate240;
+		}
+
+		player->visionmode = VISIONMODE_XRAY;
+		player->ecol_1 = 24;
+		player->ecol_2 = 8;
+		player->ecol_3 = 24;
+		player->epcol_0 = 2;
+		player->epcol_1 = 0;
+		player->epcol_2 = 1;
+	} else {
+		if (player->gunsightoff == 0) {
+			if (player->hands[HAND_RIGHT].gset.weaponnum == WEAPON_FARSIGHT) {
+				// Aiming with the Farsight
+				if (player->visionmode != VISIONMODE_XRAY) {
+					player->erasertime = 0;
+				} else {
+					player->erasertime += g_Vars.lvupdate240;
+				}
+
+				player->visionmode = VISIONMODE_XRAY;
+				player->ecol_1 = 16;
+				player->ecol_2 = 24;
+				player->ecol_3 = 8;
+				player->epcol_0 = 0;
+				player->epcol_1 = 1;
+				player->epcol_2 = 2;
+			} else {
+				// Aiming with non-Farsight
+				if (player->visionmode != VISIONMODE_SLAYERROCKET) {
+					player->visionmode = VISIONMODE_NORMAL;
+				}
+			}
+		} else {
+			// Not aiming
 			if (player->visionmode != VISIONMODE_SLAYERROCKET) {
 				player->visionmode = VISIONMODE_NORMAL;
 			}
-		}
-	} else {
-		// Not aiming
-		if (player->visionmode != VISIONMODE_SLAYERROCKET) {
-			player->visionmode = VISIONMODE_NORMAL;
 		}
 	}
 
