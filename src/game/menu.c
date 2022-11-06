@@ -272,17 +272,17 @@ Gfx *menuRenderBanner(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool big, s32 ms
 	struct font *font;
 
 	static u16 msgs[] = {
-		L_MPMENU_484, // "Searching for Camera!"
-		L_MPMENU_485, // "Calibrating Camera"
-		L_MPMENU_486, // "Downloading Image"
-		L_MPMENU_487, // "Loading Image"
-		L_MPMENU_488, // "Saving Image"
-		L_MPMENU_489, // "Transferring Image"
-		L_MPMENU_490, // "Uploading Segment"
+		0, // "Searching for Camera!"
+		0, // "Calibrating Camera"
+		0, // "Downloading Image"
+		0, // "Loading Image"
+		0, // "Saving Image"
+		0, // "Transferring Image"
+		0, // "Uploading Segment"
 		L_MPMENU_491, // "Checking Controller Pak"
-		L_MPMENU_492, // "Getting PerfectHead"
-		L_MPMENU_493, // "Saving PerfectHead"
-		L_MPMENU_494, // "Auto Camera Adjustment"
+		0, // "Getting PerfectHead"
+		0, // "Saving PerfectHead"
+		0, // "Auto Camera Adjustment"
 	};
 
 	chars = g_CharsHandelGothicSm;

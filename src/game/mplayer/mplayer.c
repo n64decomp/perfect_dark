@@ -409,6 +409,7 @@ void func0f1881d4(s32 index)
 	g_BotConfigsArray[index].base.mpbodynum = MPBODY_DARK_COMBAT;
 	g_BotConfigsArray[index].type = BOTTYPE_GENERAL;
 	g_BotConfigsArray[index].difficulty = BOTDIFF_DISABLED;
+	g_BotConfigsArray[index].quantity = 1;
 }
 
 void mpInit(void)
@@ -4495,6 +4496,7 @@ void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
 
 	g_BotConfigsArray[botnum].type = g_BotProfiles[profilenum].type;
 	g_BotConfigsArray[botnum].difficulty = g_BotProfiles[profilenum].difficulty;
+	g_BotConfigsArray[botnum].quantity = g_BotQuantity;
 
 	if (botnum < 8) {
 		for (i = 0; i < 4; i++) {
@@ -5169,6 +5171,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 
 	for (i = 0; i < 8; i++) {
 		g_BotConfigsArray[i].type = config->config.simulants[i].type;
+		g_BotConfigsArray[i].quantity = 1;
 
 		for (j = 0; j < 4; j++) {
 			g_MpSimulantDifficultiesPerNumPlayers[i][j] = config->config.simulants[i].difficulties[j];
@@ -5249,6 +5252,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 		g_BotConfigsArray[i].base.name[0] = '\0';
 		g_BotConfigsArray[i].type = savebufferReadBits(buffer, 5);
 		g_BotConfigsArray[i].difficulty = savebufferReadBits(buffer, 3);
+		g_BotConfigsArray[i].quantity = 1;
 
 		for (j = 0; j < 4; j++) {
 			g_MpSimulantDifficultiesPerNumPlayers[i][j] = g_BotConfigsArray[i].difficulty;

@@ -4201,6 +4201,7 @@ struct mpbotconfig {
 	/*0x44*/ u8 unk44[3];
 	/*0x47*/ u8 type;
 	/*0x48*/ u8 difficulty;
+	/*0x4a*/ u16 quantity;
 };
 
 struct missionconfig {

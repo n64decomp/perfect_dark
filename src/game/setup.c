@@ -809,7 +809,7 @@ s32 setupGetNumRequestedBots(void)
 	if (g_Vars.normmplayerisrunning && mpHasSimulants()) {
 		for (i = 0; i < MAX_BOTS; i++) {
 			if ((g_MpSetup.chrslots & (1 << (i + 4))) && mpIsSimSlotEnabled(i)) {
-				numbots++;
+				numbots += g_BotConfigsArray[i].quantity;
 			}
 		}
 	}
@@ -827,6 +827,7 @@ void setupAllocateEverything(void)
 	s32 numbotsrequested;
 	bool haslaptops = false;
 	s32 i;
+	s32 j;
 
 	// Count how many bots were requested
 	numbotsrequested = setupGetNumRequestedBots();
@@ -862,8 +863,10 @@ void setupAllocateEverything(void)
 
 		for (i = 0; i < MAX_BOTS; i++) {
 			if ((g_MpSetup.chrslots & (1 << (i + 4))) && mpIsSimSlotEnabled(i)) {
-				botmgrAllocateBot(chrnum, i);
-				chrnum++;
+				for (j = 0; j < g_BotConfigsArray[i].quantity; j++) {
+					botmgrAllocateBot(chrnum, i);
+					chrnum++;
+				}
 			}
 		}
 	}

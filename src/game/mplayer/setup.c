@@ -23,6 +23,8 @@
 #include "gbiex.h"
 #include "types.h"
 
+s32 g_BotQuantity = 1;
+
 struct menuitem g_MpCharacterMenuItems[];
 struct menudialogdef g_MpAddSimulantMenuDialog;
 struct menudialogdef g_MpChangeSimulantMenuDialog;
@@ -2824,6 +2826,42 @@ s32 menuhandlerMpClearAllSimulants(s32 operation, struct menuitem *item, union h
 	return 0;
 }
 
+s32 menuhandlerIndividualBotQuantity(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	s32 botnum = g_Menus[g_MpPlayerNum].mpsetup.slotindex;
+
+	switch (operation) {
+	case MENUOP_GETSLIDER:
+		data->slider.value = g_BotConfigsArray[botnum].quantity;
+		break;
+	case MENUOP_SET:
+		g_BotConfigsArray[botnum].quantity = data->slider.value > 0 ? data->slider.value : 1;
+		break;
+	case MENUOP_GETSLIDERLABEL:
+		sprintf(data->slider.label, "%d\n", g_BotConfigsArray[botnum].quantity);
+		break;
+	}
+
+	return 0;
+}
+
+s32 menuhandlerBotQuantity(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_GETSLIDER:
+		data->slider.value = g_BotQuantity;
+		break;
+	case MENUOP_SET:
+		g_BotQuantity = data->slider.value > 0 ? data->slider.value : 1;
+		break;
+	case MENUOP_GETSLIDERLABEL:
+		sprintf(data->slider.label, "%d\n", g_BotQuantity);
+		break;
+	}
+
+	return 0;
+}
+
 s32 menuhandlerMpAddSimulant(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
@@ -2861,6 +2899,17 @@ s32 menuhandlerMpSimulantSlot(s32 operation, struct menuitem *item, union handle
 	return 0;
 }
 
+char *mpMenuTextAddSimulantsLabel(struct menuitem *item)
+{
+	if (g_BotQuantity == 1) {
+		return "Add Simulant...\n";
+	}
+
+	sprintf(g_StringPointer, "Add %d Simulants...\n", g_BotQuantity);
+
+	return g_StringPointer;
+}
+
 char *mpMenuTextSimulantName(struct menuitem *item)
 {
 	s32 index = item->param;
@@ -2869,7 +2918,9 @@ char *mpMenuTextSimulantName(struct menuitem *item)
 		return "";
 	}
 
-	return g_BotConfigsArray[index].base.name;
+	sprintf(g_StringPointer, "%dx %s", g_BotConfigsArray[index].quantity, g_BotConfigsArray[index].base.name);
+
+	return g_StringPointer;
 }
 
 s32 menudialogMpSimulants(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
@@ -2974,6 +3025,14 @@ struct menuitem g_MpEditSimulantMenuItems[] = {
 		(void *)&g_MpSimulantCharacterMenuDialog,
 	},
 	{
+		MENUITEMTYPE_SLIDER,
+		0,
+		MENUITEMFLAG_LOCKABLEMINOR,
+		L_MPMENU_QUANTITY,
+		1000,
+		menuhandlerIndividualBotQuantity,
+	},
+	{
 		MENUITEMTYPE_SEPARATOR,
 		0,
 		0,
@@ -3011,10 +3070,18 @@ struct menudialogdef g_MpEditSimulantMenuDialog = {
 
 struct menuitem g_MpSimulantsMenuItems[] = {
 	{
+		MENUITEMTYPE_SLIDER,
+		0,
+		MENUITEMFLAG_LOCKABLEMINOR,
+		L_MPMENU_QUANTITY,
+		1000,
+		menuhandlerBotQuantity,
+	},
+	{
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_LOCKABLEMINOR,
-		L_MPMENU_084, // "Add Simulant..."
+		(u32)&mpMenuTextAddSimulantsLabel,
 		0,
 		menuhandlerMpAddSimulant,
 	},
@@ -3297,6 +3364,12 @@ char *mpMenuTextChrNameForTeamSetup(struct menuitem *item)
 	struct mpchrconfig *mpchr = mpGetChrConfigBySlotNum(item->param);
 
 	if (mpchr) {
+		if (mpchr >= &g_BotConfigsArray[0].base && mpchr < &g_BotConfigsArray[MAX_BOTS].base) {
+			struct mpbotconfig *botconfig = (struct mpbotconfig *) mpchr;
+			sprintf(g_StringPointer, "%dx %s\n", botconfig->quantity, mpchr->name);
+			return g_StringPointer;
+		}
+
 		return mpchr->name;
 	}
 
