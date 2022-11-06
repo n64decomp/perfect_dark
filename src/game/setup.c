@@ -845,7 +845,7 @@ void setupAllocateEverything(void)
 	g_NumBots = setupCalculateMaxBots(numbotsrequested, haslaptops);
 
 	// Allocate everything
-	modelmgrAllocateSlots(g_ModelNumObjs, PLAYERCOUNT() + g_NumBots);
+	modelmgrAllocateSlots(g_ModelNumObjs, PLAYERCOUNT() + g_NumBots, haslaptops);
 
 	g_Vars.maxprops += PLAYERCOUNT() + g_NumBots;
 

@@ -15,6 +15,12 @@ struct modelrwdatabinding *g_ModelRwdataBindings[3];
 
 s32 g_MaxModels = 0;
 s32 g_MaxAnims = 0;
+s32 g_MaxRwdataType1 = 0;
+s32 g_MaxRwdataType2 = 0;
+s32 g_MaxRwdataType3 = 0;
+s32 g_Rwdata1EntrySizeInWords = 0;
+s32 g_Rwdata2EntrySizeInWords = 0;
+s32 g_Rwdata3EntrySizeInWords = 0;
 bool g_ModelIsLvResetting = false;
 s32 g_ModelMostType1 = 0;
 s32 g_ModelMostType2 = 0;
@@ -22,84 +28,10 @@ s32 g_ModelMostType3 = 0;
 s32 g_ModelMostModels = 0;
 s32 g_ModelMostAnims = 0;
 
-#define NUMTYPE1() (IS4MB() ? 0 : 35)
-#define NUMTYPE2() (IS4MB() ? 24 : 25)
-#define NUMTYPE3() (IS4MB() ? 0 : 20)
-
 bool modelmgrCanSlotFitRwdata(struct model *modelslot, struct modelfiledata *modeldef)
 {
 	return modeldef->rwdatalen <= 0
 		|| (modelslot->rwdatas != NULL && modelslot->rwdatalen >= modeldef->rwdatalen);
-}
-
-void modelmgrPrintCounts(void)
-{
-	s32 i;
-	s32 numtype1 = 0;
-	s32 numtype2 = 0;
-	s32 numtype3 = 0;
-	s32 nummodels = 0;
-	s32 numanims = 0;
-
-	for (i = 0; i < NUMTYPE1(); i++) {
-		if (g_ModelRwdataBindings[0][i].model) {
-			numtype1++;
-		}
-	}
-
-	for (i = 0; i < NUMTYPE2(); i++) {
-		if (g_ModelRwdataBindings[1][i].model) {
-			numtype2++;
-		}
-	}
-
-	for (i = 0; i < NUMTYPE3(); i++) {
-		if (g_ModelRwdataBindings[2][i].model) {
-			numtype3++;
-		}
-	}
-
-	for (i = 0; i < g_MaxModels; i++) {
-		if (g_ModelSlots[i].filedata) {
-			nummodels++;
-		}
-	}
-
-	for (i = 0; i < g_MaxAnims; i++) {
-		if (g_AnimSlots[i].animnum != -1) {
-			numanims++;
-		}
-	}
-
-	if (numtype1 > g_ModelMostType1) {
-		g_ModelMostType1 = numtype1;
-	}
-
-	if (numtype2 > g_ModelMostType2) {
-		g_ModelMostType2 = numtype2;
-	}
-
-	if (numtype3 > g_ModelMostType3) {
-		g_ModelMostType3 = numtype3;
-	}
-
-	if (nummodels > g_ModelMostModels) {
-		g_ModelMostModels = nummodels;
-	}
-
-	if (numanims > g_ModelMostAnims) {
-		g_ModelMostAnims = numanims;
-	}
-
-	osSyncPrintf("MOT : Type 1  = %d/%d (%d)");
-	osSyncPrintf("MOT : Type 2  = %d/%d (%d)");
-	osSyncPrintf("MOT : Type 3  = %d/%d (%d)");
-	osSyncPrintf("MOT : Type OI = %d/%d/%d/%d");
-	osSyncPrintf("MOT : Type OA = %d/%d/%d/%d");
-	osSyncPrintf("MOT : g_ObjCount = %d");
-	osSyncPrintf("MOT : g_AnimCount = %d");
-
-	if (IS4MB());
 }
 
 struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool withanim)
@@ -146,13 +78,13 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 		} else {
 			// At this point, it's during gameplay. A model instance slot has
 			// been found or allocated, but rwdata needs to be allocated.
-			if (modeldef->rwdatalen < 256) {
+			if (modeldef->rwdatalen < g_Rwdata3EntrySizeInWords) {
 				bool done = false;
 				u32 stack;
 
-				// 4 words (0x10 bytes) or less -> try type 1
-				if (modeldef->rwdatalen <= 4) {
-					for (i = 0; i < NUMTYPE1(); i++) {
+				// Try type 1
+				if (modeldef->rwdatalen <= g_Rwdata1EntrySizeInWords) {
+					for (i = 0; i < g_MaxRwdataType1; i++) {
 						if (g_ModelRwdataBindings[0][i].model == NULL) {
 							osSyncPrintf("MotInst: Using cache entry type 1 %d (0x%08x) - Bytes=%d\n");
 							rwdatas = g_ModelRwdataBindings[0][i].rwdata;
@@ -163,12 +95,11 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 					}
 				}
 
-				// 52 words (0xd0 bytes) or less -> try type 2
-				if (!done && modeldef->rwdatalen <= 52) {
-					for (i = 0; i < NUMTYPE2(); i++) {
+				// Try type 2
+				if (!done && modeldef->rwdatalen <= g_Rwdata2EntrySizeInWords) {
+					for (i = 0; i < g_MaxRwdataType2; i++) {
 						if (g_ModelRwdataBindings[1][i].model == NULL) {
 							osSyncPrintf("MotInst: Using cache entry type 2 %d (0x%08x) - Bytes=%d\n");
-							if (IS4MB());
 							rwdatas = g_ModelRwdataBindings[1][i].rwdata;
 							g_ModelRwdataBindings[1][i].model = model;
 							done = true;
@@ -177,13 +108,12 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 					}
 				}
 
-				// 256 words (0x400 bytes) or less -> try type 3
+				// Try type 3
 				// First looking for unused slots with an existing rwdata allocation
-				if (!done && modeldef->rwdatalen <= 256) {
-					for (i = 0; i < NUMTYPE3(); i++) {
+				if (!done && modeldef->rwdatalen <= g_Rwdata3EntrySizeInWords) {
+					for (i = 0; i < g_MaxRwdataType3; i++) {
 						if (g_ModelRwdataBindings[2][i].model == NULL && g_ModelRwdataBindings[2][i].rwdata != NULL) {
 							osSyncPrintf("MotInst: Using cache entry type 3 %d (0x%08x) - Bytes=%d\n");
-							if (IS4MB());
 							rwdatas = g_ModelRwdataBindings[2][i].rwdata;
 							g_ModelRwdataBindings[2][i].model = model;
 							done = true;
@@ -193,10 +123,10 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 				}
 
 				// Type 3 again, but looking for null rwdata allocations
-				if (!done && modeldef->rwdatalen <= 256) {
-					for (i = 0; i < NUMTYPE3(); i++) {
+				if (!done && modeldef->rwdatalen <= g_Rwdata3EntrySizeInWords) {
+					for (i = 0; i < g_MaxRwdataType3; i++) {
 						if (g_ModelRwdataBindings[2][i].model == NULL && g_ModelRwdataBindings[2][i].rwdata == NULL) {
-							g_ModelRwdataBindings[2][i].rwdata = mempAlloc(256 * 4, MEMPOOL_STAGE);
+							g_ModelRwdataBindings[2][i].rwdata = mempAlloc(g_Rwdata3EntrySizeInWords * 4, MEMPOOL_STAGE);
 							rwdatas = g_ModelRwdataBindings[2][i].rwdata;
 							g_ModelRwdataBindings[2][i].model = model;
 							break;
@@ -207,11 +137,7 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 				// empty
 			}
 
-			if (withanim) {
-				datalen = 256;
-			} else {
-				datalen = IS4MB() ? 52 : 256;
-			}
+			datalen = 256;
 
 			if (datalen < modeldef->rwdatalen) {
 				datalen = modeldef->rwdatalen;
@@ -259,7 +185,7 @@ void modelmgrFreeModel(struct model *model)
 	bool done = false;
 	s32 i;
 
-	for (i = 0; i < NUMTYPE1(); i++) {
+	for (i = 0; i < g_MaxRwdataType1; i++) {
 		if (g_ModelRwdataBindings[0][i].model == model) {
 			g_ModelRwdataBindings[0][i].model = NULL;
 
@@ -272,12 +198,11 @@ void modelmgrFreeModel(struct model *model)
 	}
 
 	if (!done) {
-		for (i = 0; i < NUMTYPE2(); i++) {
+		for (i = 0; i < g_MaxRwdataType2; i++) {
 			if (g_ModelRwdataBindings[1][i].model == model) {
 				osSyncPrintf("\nMotInst: Freeing type 2 cache entry %d (0x%08x)\n\n");
 
 				g_ModelRwdataBindings[1][i].model = NULL;
-
 				model->rwdatas = NULL;
 				model->rwdatalen = -1;
 
@@ -288,7 +213,7 @@ void modelmgrFreeModel(struct model *model)
 	}
 
 	if (!done) {
-		for (i = 0; i < NUMTYPE3(); i++) {
+		for (i = 0; i < g_MaxRwdataType3; i++) {
 			if (g_ModelRwdataBindings[2][i].model == model) {
 				osSyncPrintf("\nMotInst: Freeing type 3 cache entry %d (0x%08x)\n\n");
 				g_ModelRwdataBindings[2][i].model = NULL;

@@ -23,10 +23,12 @@
 #include "data.h"
 #include "types.h"
 
-#define NUMTYPE1() (IS4MB() ? 0 : 35)
-#define NUMTYPE2() (IS4MB() ? 24 : 25)
-#define NUMTYPE3() (IS4MB() ? 0 : 20)
-#define NUMSPARE() (IS4MB() ? 40 : 60)
+extern s32 g_MaxRwdataType1;
+extern s32 g_MaxRwdataType2;
+extern s32 g_MaxRwdataType3;
+extern s32 g_Rwdata1EntrySizeInWords;
+extern s32 g_Rwdata2EntrySizeInWords;
+extern s32 g_Rwdata3EntrySizeInWords;
 
 void modelmgrReset(void)
 {
@@ -56,7 +58,7 @@ void modelmgrSetLvResetting(bool value)
  * (eg. for thrown weapons), and a further 20 model and 20 anim slots are
  * allocated for animated objects.
  */
-void modelmgrAllocateSlots(s32 numobjs, s32 numchrs)
+void modelmgrAllocateSlots(s32 numobjs, s32 numchrs, bool haslaptops)
 {
 	s32 rwdata2sizetotal;
 	s32 rwdata1sizetotal;
@@ -67,25 +69,47 @@ void modelmgrAllocateSlots(s32 numobjs, s32 numchrs)
 	s32 totalsize;
 	s32 modelssize;
 	s32 animssize;
-	s32 rwdata1sizeeach = 0x10;
-	s32 rwdata2sizeeach = 0xd0;
-	s32 rwdata3sizeeach = 0;
-	s32 maxanimatedobjs = 20;
-	s32 numspare;
 
 	g_ModelNumObjs = numobjs;
 	g_ModelNumChrs = numchrs;
 
-	numspare = NUMSPARE();
-	g_MaxModels = numobjs + numspare + numchrs + maxanimatedobjs;
-	g_MaxAnims = numchrs + maxanimatedobjs;
+	if (g_Vars.stagenum == STAGE_TITLE) {
+		g_MaxRwdataType1 = 35;
+		g_MaxRwdataType2 = 25;
+		g_MaxRwdataType3 = 20;
+		g_Rwdata1EntrySizeInWords = 4;
+		g_Rwdata2EntrySizeInWords = 52;
+		g_Rwdata3EntrySizeInWords = 0;
 
-	i = NUMTYPE2();
-	bindingssize = (NUMTYPE1() + i + NUMTYPE3()) * sizeof(struct modelrwdatabinding);
+		g_MaxModels = 60;
+		g_MaxAnims = 20;
+	} else {
+		g_Rwdata1EntrySizeInWords = 3;
+		g_Rwdata2EntrySizeInWords = 10;
+		g_Rwdata3EntrySizeInWords = 0;
 
-	rwdata1sizetotal = NUMTYPE1() * rwdata1sizeeach;
-	rwdata2sizetotal = NUMTYPE2() * rwdata2sizeeach;
-	rwdata3sizetotal = NUMTYPE3() * rwdata3sizeeach;
+		// Type 1 will be used for third person gun models.
+		// Chrs can equip two guns, and we need to consider dropped items too.
+		// Guns that spawn on the ground store their rwdata elsewhere.
+		g_MaxRwdataType1 = numchrs * 2 + MAX_DROPPED_ITEMS;
+
+		// Each deployed laptop uses 10 slots of rwdata
+		g_MaxRwdataType2 = haslaptops ? numchrs : 0;
+
+		// Type 3 is allocated on the fly and shouldn't happen,
+		// but if it does these slots will track the model-rwdata bindings
+		// and hopefully prevent any memory leaks.
+		g_MaxRwdataType3 = 20;
+
+		g_MaxModels = numobjs + numchrs + MAX_DROPPED_ITEMS;
+		g_MaxAnims = numchrs;
+	}
+
+	bindingssize = (g_MaxRwdataType1 + g_MaxRwdataType2 + g_MaxRwdataType3) * sizeof(struct modelrwdatabinding);
+
+	rwdata1sizetotal = g_MaxRwdataType1 * g_Rwdata1EntrySizeInWords * 4;
+	rwdata2sizetotal = g_MaxRwdataType2 * g_Rwdata2EntrySizeInWords * 4;
+	rwdata3sizetotal = g_MaxRwdataType3 * g_Rwdata3EntrySizeInWords * 4;
 
 	modelssize = ALIGN16(g_MaxModels * sizeof(struct model));
 	animssize = ALIGN16(g_MaxAnims * sizeof(struct anim));
@@ -98,19 +122,19 @@ void modelmgrAllocateSlots(s32 numobjs, s32 numchrs)
 
 	ptr = mempAlloc(totalsize, MEMPOOL_STAGE);
 
-	if (NUMTYPE1()) {
+	if (g_MaxRwdataType1) {
 		g_ModelRwdataBindings[0] = (struct modelrwdatabinding *) ptr;
-		ptr += NUMTYPE1() * 8;
+		ptr += g_MaxRwdataType1 * 8;
 	}
 
-	if (NUMTYPE2()) {
+	if (g_MaxRwdataType2) {
 		g_ModelRwdataBindings[1] = (struct modelrwdatabinding *) ptr;
-		ptr += NUMTYPE2() * 8;
+		ptr += g_MaxRwdataType2 * 8;
 	}
 
-	if (NUMTYPE3()) {
+	if (g_MaxRwdataType3) {
 		g_ModelRwdataBindings[2] = (struct modelrwdatabinding *) ptr;
-		ptr += NUMTYPE3() * 8;
+		ptr += g_MaxRwdataType3 * 8;
 	}
 
 	g_ModelSlots = (struct model *) ptr;
@@ -118,25 +142,25 @@ void modelmgrAllocateSlots(s32 numobjs, s32 numchrs)
 	g_AnimSlots = (struct anim *) ptr;
 	ptr += animssize;
 
-	for (i = 0; i < NUMTYPE1(); i++) {
+	for (i = 0; i < g_MaxRwdataType1; i++) {
 		g_ModelRwdataBindings[0][i].rwdata = ptr;
 		g_ModelRwdataBindings[0][i].model = NULL;
 
-		ptr += rwdata1sizeeach;
+		ptr += g_Rwdata1EntrySizeInWords * 4;
 	}
 
-	for (i = 0; i < NUMTYPE2(); i++) {
+	for (i = 0; i < g_MaxRwdataType2; i++) {
 		g_ModelRwdataBindings[1][i].rwdata = ptr;
 		g_ModelRwdataBindings[1][i].model = NULL;
 
-		ptr += rwdata2sizeeach;
+		ptr += g_Rwdata2EntrySizeInWords * 4;
 	}
 
-	for (i = 0; i < NUMTYPE3(); i++) {
+	for (i = 0; i < g_MaxRwdataType3; i++) {
 		g_ModelRwdataBindings[2][i].rwdata = NULL;
 		g_ModelRwdataBindings[2][i].model = NULL;
 
-		ptr += rwdata3sizeeach;
+		ptr += g_Rwdata3EntrySizeInWords * 4;
 	}
 
 	for (i = 0; i < g_MaxModels; i++) {

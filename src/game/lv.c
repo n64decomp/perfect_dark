@@ -1767,7 +1767,6 @@ void lvTick(void)
 		sndTick();
 		pakExecuteDebugOperations();
 		lightingTick();
-		modelmgrPrintCounts();
 		boltbeamsTick();
 		amTick();
 		menuTick();
