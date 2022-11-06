@@ -794,7 +794,7 @@ struct aibot {
 	/*0x124*/ s32 lastseenanytarget60;
 	/*0x128*/ bool targetinsight;
 	/*0x12c*/ s32 queryplayernum;
-	/*0x130*/ s8 chrnumsbydistanceasc[MAX_MPCHRS];
+	/*0x130*/ s8 chrnumsbydistanceasc[12];
 	/*0x13c*/ f32 chrdistances[MAX_MPCHRS];
 	/*0x16c*/ u8 chrsinsight[MAX_MPCHRS];
 	/*0x178*/ s32 chrslastseen60[MAX_MPCHRS];

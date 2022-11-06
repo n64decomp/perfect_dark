@@ -1479,8 +1479,8 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 {
 	struct aibot *aibot = botchr->aibot;
 	s32 i;
-	s32 j;
-	bool distancesdone[MAX_MPCHRS];
+	s32 chrnum;
+	s16 donechrnums[ARRAYCOUNT(aibot->chrnumsbydistanceasc)];
 	s16 room = -1;
 	struct chrdata *trychr;
 	s32 playernum;
@@ -1516,23 +1516,33 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 
 	// Update chrnumsbydistanceasc
 	for (i = 0; i < g_MpNumChrs; i++) {
-		distancesdone[i] = false;
+		donechrnums[i] = -1;
 	}
 
-	for (i = 0; i < g_MpNumChrs; i++) {
+	for (i = 0; i < ARRAYCOUNT(aibot->chrnumsbydistanceasc); i++) {
 		s32 closestplayernum = -1;
 		f32 closestdistance = 0;
 
-		for (j = 0; j < g_MpNumChrs; j++) {
-			if (!distancesdone[j] && (closestplayernum < 0 || aibot->chrdistances[j] < closestdistance)) {
-				closestplayernum = j;
-				closestdistance = aibot->chrdistances[j];
+		for (chrnum = 0; chrnum < g_MpNumChrs; chrnum++) {
+			bool alreadydone = false;
+			s32 k;
+
+			for (k = 0; k < ARRAYCOUNT(donechrnums) && donechrnums[k] != -1; k++) {
+				if (donechrnums[k] == chrnum) {
+					alreadydone = true;
+					break;
+				}
+			}
+
+			if (!alreadydone && (closestplayernum < 0 || aibot->chrdistances[chrnum] < closestdistance)) {
+				closestplayernum = chrnum;
+				closestdistance = aibot->chrdistances[chrnum];
 			}
 		}
 
 		if (closestplayernum >= 0) {
 			aibot->chrnumsbydistanceasc[i] = closestplayernum;
-			distancesdone[closestplayernum] = true;
+			donechrnums[closestplayernum] = true;
 		}
 	}
 
@@ -1584,7 +1594,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 		s32 tmp;
 		s32 stack;
 
-		for (tmp = 0; tmp < g_MpNumChrs; tmp++) {
+		for (tmp = 0; tmp < ARRAYCOUNT(aibot->chrnumsbydistanceasc); tmp++) {
 			s32 i = aibot->chrnumsbydistanceasc[tmp];
 			trychr = mpGetChrFromPlayerIndex(i);
 
@@ -1638,7 +1648,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 
 	// Target is no longer in sight
 	// Check for other chrs who are in sight, by distance
-	for (i = 0; i < g_MpNumChrs; i++) {
+	for (i = 0; i < ARRAYCOUNT(aibot->chrnumsbydistanceasc); i++) {
 		if (aibot->chrsinsight[aibot->chrnumsbydistanceasc[i]]) {
 			trychr = mpGetChrFromPlayerIndex(aibot->chrnumsbydistanceasc[i]);
 
