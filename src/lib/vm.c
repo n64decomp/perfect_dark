@@ -813,7 +813,7 @@ void vmInit(void)
 		s7 = (u8 *)(STACK_START - 8);
 		gameseg = &_gameSegmentStart;
 
-		s5 = (u32 *) (((u32) gameseg - ((t8 + 5) << 2)) & ~0xf);
+		s5 = (u32 *) 0x80600000;
 		g_VmMarker = s7;
 		sp1474 = t8 + 1;
 
