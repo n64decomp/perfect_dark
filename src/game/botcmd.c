@@ -59,7 +59,7 @@ void botcmdTickDistMode(struct chrdata *chr)
 
 	if (chr->myaction == MA_AIBOTFOLLOW && aibot->followingplayernum >= 0) {
 		limits = g_BotDistConfigs[BOTDISTCFG_FOLLOW];
-		targetprop = g_MpAllChrPtrs[aibot->followingplayernum]->prop;
+		targetprop = g_MpChrs[aibot->followingplayernum].chr->prop;
 		insight = aibot->chrsinsight[aibot->followingplayernum];
 
 		if (chr->target != -1 && (confignum == BOTDISTCFG_CLOSE || confignum == BOTDISTCFG_KAZE)) {
@@ -78,7 +78,7 @@ void botcmdTickDistMode(struct chrdata *chr)
 		limits = g_BotDistConfigs[confignum];
 
 		if (chr->myaction == MA_AIBOTATTACK && aibot->attackingplayernum >= 0) {
-			targetprop = g_MpAllChrPtrs[aibot->attackingplayernum]->prop;
+			targetprop = g_MpChrs[aibot->attackingplayernum].chr->prop;
 			insight = aibot->chrsinsight[aibot->attackingplayernum];
 		} else if (chr->target != -1) {
 			targetprop = chrGetTargetProp(chr);

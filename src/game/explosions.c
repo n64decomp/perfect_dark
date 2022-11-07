@@ -962,7 +962,7 @@ void explosionInflictDamage(struct prop *expprop)
 					}
 
 					{
-						struct chrdata *ownerchr = mpGetChrFromPlayerIndex(exp->owner);
+						struct chrdata *ownerchr = g_MpChrs[exp->owner].chr;
 
 						if (ownerchr) {
 							ownerprop = ownerchr->prop;
@@ -1178,7 +1178,7 @@ u32 explosionTick(struct prop *prop)
 
 			scorchsize *= 0.8f + 0.2f * RANDOMFRAC();
 
-			chr = mpGetChrFromPlayerIndex(exp->owner);
+			chr = g_MpChrs[exp->owner].chr;
 
 			if (g_Rooms[exp->room].gfxdata) {
 				if (g_Rooms[exp->room].gfxdata->xlublocks && bgTestHitInRoom(&prop->pos, &exp->unk3d0, exp->room, &hitthing)) {

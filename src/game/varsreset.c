@@ -34,7 +34,7 @@ void varsReset(void)
 		g_Vars.props[i].next = &g_Vars.props[i + 1];
 	}
 
-	varsResetRoomProps();
+	g_Vars.props[i].next = NULL;
 
 	if (g_Vars.normmplayerisrunning) {
 		g_Vars.numpropstates = 4;

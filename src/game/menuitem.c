@@ -3480,7 +3480,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 			gdl = textRenderProjected(gdl, &x, &y, g_BossFile.teamnames[ranking->teamnum],
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		} else {
-			gdl = textRenderProjected(gdl, &x, &y, ranking->mpchr->name,
+			gdl = textRenderProjected(gdl, &x, &y, ranking->mpchr->config->name,
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		}
 
@@ -3563,7 +3563,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	s32 y;
 	u32 maincolour;
 	s32 playernum = g_MpSelectedPlayersForStats[g_MpPlayerNum];
-	struct mpchrconfig *mpchr;
+	struct mpchr *mpchr;
 	u32 selectioncolour;
 	s32 textheight;
 	s32 textwidth;
@@ -3594,7 +3594,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 2;
 	y = context->y + 1;
 
-	gdl = textRenderProjected(gdl, &x, &y, mpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = textRenderProjected(gdl, &x, &y, mpchr->config->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			selectioncolour, context->width, context->height, 0, 0);
 
 	// "Suicides" heading
@@ -3765,45 +3765,43 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 
 		ypos -= data->scrolloffset;
 
-		for (i = 0; i < MAX_MPCHRS; i++) {
-			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *loopmpchr = MPCHR(i);
+		for (i = 0; i < g_MpNumChrs; i++) {
+			struct mpchr *loopmpchr = MPCHR(i);
 
-				if (i != playernum) {
-					// Name
-					x = context->x + 29;
-					y = context->y + ypos;
-					gdl = textRenderProjected(gdl, &x, &y, loopmpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-							0x00ffffff, context->width, context->height, 0, 0);
+			if (i != playernum) {
+				// Name
+				x = context->x + 29;
+				y = context->y + ypos;
+				gdl = textRenderProjected(gdl, &x, &y, loopmpchr->config->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+						0x00ffffff, context->width, context->height, 0, 0);
 
-					// Num deaths
-					sprintf(buffer, "%d\n", loopmpchr->killcounts[playernum]);
-					textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-					x = context->x - textwidth + 120;
-					y = context->y + ypos;
-					gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-							0xff4040ff, context->width, context->height, 0, 0);
+				// Num deaths
+				sprintf(buffer, "%d\n", loopmpchr->killcounts[playernum]);
+				textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+				x = context->x - textwidth + 120;
+				y = context->y + ypos;
+				gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+						0xff4040ff, context->width, context->height, 0, 0);
 
-					// Num kills
-					sprintf(buffer, "%d\n", mpchr->killcounts[i]);
-					textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-
-#if VERSION == VERSION_JPN_FINAL
-					x = context->x + 4;
-#else
-					x = context->x - textwidth + 25;
-#endif
-
-					y = context->y + ypos;
-					gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-							0x00ff00ff, context->width, context->height, 0, 0);
+				// Num kills
+				sprintf(buffer, "%d\n", mpchr->killcounts[i]);
+				textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 #if VERSION == VERSION_JPN_FINAL
-					ypos += 13;
+				x = context->x + 4;
 #else
-					ypos += 10;
+				x = context->x - textwidth + 25;
 #endif
-				}
+
+				y = context->y + ypos;
+				gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+						0x00ff00ff, context->width, context->height, 0, 0);
+
+#if VERSION == VERSION_JPN_FINAL
+				ypos += 13;
+#else
+				ypos += 10;
+#endif
 			}
 		}
 	}

@@ -381,8 +381,8 @@ void htmTick(void)
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htm.uplink == NULL) {
 		for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
-			if (g_MpAllChrPtrs[i]->aibot->hasuplink) {
-				g_ScenarioData.htm.uplink = g_MpAllChrPtrs[i]->prop;
+			if (g_MpChrs[i].chr->aibot->hasuplink) {
+				g_ScenarioData.htm.uplink = g_MpChrs[i].chr->prop;
 				break;
 			}
 		}
@@ -403,7 +403,7 @@ void htmTickChr(struct chrdata *chr)
 
 	if (chr) {
 		hasuplink = chr->aibot->hasuplink;
-		playernum = mpPlayerGetIndex(chr);
+		playernum = chr->chrnum;
 	} else {
 		hasuplink = invHasDataUplink() && bgunGetWeaponNum(HAND_RIGHT) == WEAPON_DATAUPLINK;
 		playernum = g_Vars.currentplayernum;
@@ -616,14 +616,14 @@ Gfx *htmRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void htmCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+void htmCalculatePlayerScore(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
-	struct mpchrconfig *loopmpchr;
+	struct mpchr *loopmpchr;
 	s32 i;
 	s32 index;
 
 	*score = 0;
-	index = func0f18d0e8(mpchrnum);
+	index = mpchrnum;
 
 	if (index >= 0) {
 		*score += g_ScenarioData.htm.numpoints[index] * 2;
@@ -691,7 +691,7 @@ Gfx *htmRadarExtra(Gfx *gdl)
 					bf = 0;
 					af = 0;
 				} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-					u32 colour = g_TeamColours[radarGetTeamIndex(data->terminals[i].team)];
+					u32 colour = g_TeamColours[data->terminals[i].team];
 					rf = (colour >> 24) & 0xff;
 					gf = ((colour >> 16) & 0xff);
 					bf = ((colour >> 8) & 0xff);
@@ -745,7 +745,7 @@ bool htmRadarChr(Gfx **gdl, struct prop *prop)
 			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
 			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
+				u32 colour = g_TeamColours[prop->chr->team];
 				*gdl = radarDrawDot(*gdl, g_ScenarioData.htm.uplink, &dist, colour, 0, 1);
 			} else {
 				*gdl = radarDrawDot(*gdl, g_ScenarioData.htm.uplink, &dist, 0x00ff0000, 0, 1);

@@ -350,6 +350,7 @@ void lvReset(s32 stagenum)
 	propsndReset();
 	setupLoadFiles(stagenum);
 	scenarioReset();
+	varsResetRoomProps();
 	bodiesReset(stagenum);
 	setupCreateProps(stagenum);
 	explosionsReset();
@@ -1688,7 +1689,7 @@ void lvTick(void)
 			}
 
 			for (i = 0; i < g_MpNumChrs; i++) {
-				if (g_MpAllChrPtrs[i]->actiontype == ACT_DIE) {
+				if (g_MpChrs[i].chr->actiontype == ACT_DIE) {
 					numdying++;
 				}
 			}

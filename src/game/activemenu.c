@@ -94,7 +94,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 			struct chrdata *playerchr = g_Vars.currentplayer->prop->chr;
 
 			for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
-				if (g_MpAllChrPtrs[i]->team != playerchr->team) {
+				if (g_MpChrs[i].team != playerchr->team) {
 					count++;
 				}
 			}
@@ -116,18 +116,18 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 
 			chrindex = -1;
 			numremaining = data->list.value;
-			botchr = g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]];
+			botchr = g_MpChrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]].chr;
 			playerchr = g_Vars.currentplayer->prop->chr;
 
 			do {
 				chrindex++;
 
 				if (g_AmMenus[g_AmIndex].prevallbots) {
-					if (playerchr == g_MpAllChrPtrs[chrindex] || playerchr->team != g_MpAllChrPtrs[chrindex]->team) {
+					if (playerchr == g_MpChrs[chrindex].chr || playerchr->team != g_MpChrs[chrindex].team) {
 						numremaining--;
 					}
 				} else {
-					if (botchr != g_MpAllChrPtrs[chrindex]) {
+					if (botchr != g_MpChrs[chrindex].chr) {
 						numremaining--;
 					}
 				}
@@ -137,10 +137,10 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 				g_AmMenus[g_AmIndex].prevallbots = false;
 
 				for (i = 0; i < g_Vars.currentplayer->numaibuddies; i++) {
-					botApplyAttack(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[i]], g_MpAllChrPtrs[chrindex]->prop);
+					botApplyAttack(g_MpChrs[g_Vars.currentplayer->aibuddynums[i]].chr, g_MpChrs[chrindex].chr->prop);
 				}
 			} else {
-				botApplyAttack(botchr, g_MpAllChrPtrs[chrindex]->prop);
+				botApplyAttack(botchr, g_MpChrs[chrindex].chr->prop);
 			}
 
 			menuPopDialog();
@@ -158,24 +158,24 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 			u32 colour;
 			s32 numremaining = (s32)data->type19.unk04;
 			s32 chrindex = -1;
-			struct chrdata *botchr = g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]];
+			struct chrdata *botchr = g_MpChrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]].chr;
 			struct chrdata *playerchr = g_Vars.currentplayer->prop->chr;
 
 			do {
 				chrindex++;
 
 				if (g_AmMenus[g_AmIndex].prevallbots) {
-					if (playerchr == g_MpAllChrPtrs[chrindex] || playerchr->team != g_MpAllChrPtrs[chrindex]->team) {
+					if (playerchr == g_MpChrs[chrindex].chr || playerchr->team != g_MpChrs[chrindex].team) {
 						numremaining--;
 					}
 				} else {
-					if (botchr != g_MpAllChrPtrs[chrindex]) {
+					if (botchr != g_MpChrs[chrindex].chr) {
 						numremaining--;
 					}
 				}
 			} while (numremaining >= 0);
 
-			colour = teamcolours[g_MpAllChrConfigPtrs[chrindex]->team] | (renderdata->colour & 0xff);
+			colour = teamcolours[g_MpChrs[chrindex].team] | (renderdata->colour & 0xff);
 
 			if (renderdata->unk10) {
 				u32 weight = menuGetSinOscFrac(40) * 255;
@@ -186,7 +186,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 			y = renderdata->y + 1;
 
 			gdl = text0f153628(gdl);
-			gdl = textRenderProjected(gdl, &x, &y, g_MpAllChrConfigPtrs[chrindex]->name, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRenderProjected(gdl, &x, &y, g_MpChrs[chrindex].config->name, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
 			gdl = text0f153780(gdl);
 			return (s32)gdl;
 		}
@@ -335,10 +335,10 @@ void amApply(s32 slot)
 	default:
 		if (g_AmMenus[g_AmIndex].allbots) {
 			for (i = 0; i < g_Vars.currentplayer->numaibuddies; i++) {
-				botcmdApply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[i]], g_AmBotCommands[slot]);
+				botcmdApply(g_MpChrs[g_Vars.currentplayer->aibuddynums[i]].chr, g_AmBotCommands[slot]);
 			}
 		} else {
-			botcmdApply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]], g_AmBotCommands[slot]);
+			botcmdApply(g_MpChrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]].chr, g_AmBotCommands[slot]);
 		}
 	}
 }
@@ -897,10 +897,10 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 	if (!g_AmMenus[g_AmIndex].allbots) {
 		buddynum = g_Vars.currentplayer->aibuddynums[buddynum];
-		aibotname = g_MpAllChrConfigPtrs[buddynum]->name;
+		aibotname = g_MpChrs[buddynum].config->name;
 
-		if (g_MpAllChrPtrs[buddynum]->aibot) {
-			weaponnum = g_MpAllChrPtrs[buddynum]->aibot->weaponnum;
+		if (g_MpChrs[buddynum].chr->aibot) {
+			weaponnum = g_MpChrs[buddynum].chr->aibot->weaponnum;
 		} else {
 			weaponnum = 0;
 		}
@@ -957,7 +957,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 				0x000000ff, 320, 240, 0, 0);
 #endif
 
-		g_Vars.currentplayer->commandingaibot = g_MpAllChrPtrs[buddynum];
+		g_Vars.currentplayer->commandingaibot = g_MpChrs[buddynum].chr;
 	} else {
 		char *title = langGet(L_MISC_215); // "All Simulants"
 
@@ -1295,7 +1295,7 @@ Gfx *amRender(Gfx *gdl)
 
 				if (mode == AMSLOTMODE_DEFAULT && g_AmMenus[g_AmIndex].screenindex >= 2) {
 					s32 slotcmd = g_AmBotCommands[var800719a0[row][column]];
-					s32 botcmd = g_MpAllChrPtrs[mpchrnum]->aibot->command;
+					s32 botcmd = g_MpChrs[mpchrnum].chr->aibot->command;
 
 					if (slotcmd == botcmd) {
 						mode = AMSLOTMODE_CURRENT;

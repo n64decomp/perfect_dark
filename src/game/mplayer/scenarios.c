@@ -61,7 +61,7 @@ struct mpscenario {
 	void (*tickfunc)(void);
 	void (*tickchrfunc)(struct chrdata *chr);
 	Gfx *(*hudfunc)(Gfx *gdl);
-	void (*calcscorefunc)(struct mpchrconfig *mpchr, s32 chrnum, s32 *score, s32 *deaths);
+	void (*calcscorefunc)(struct mpchr *mpchr, s32 chrnum, s32 *score, s32 *deaths);
 	Gfx *(*radarextrafunc)(Gfx *gdl);
 	bool (*radarchrfunc)(Gfx **gdl, struct prop *prop);
 	bool (*highlightpropfunc)(struct prop *prop, s32 *colour);
@@ -501,7 +501,7 @@ void scenarioCreateMatchStartHudmsgs(void)
 	sprintf(scenarioname, "%s\n", langGet(g_MpScenarioOverviews[g_MpSetup.scenario].name));
 
 	for (i = 0; i < g_MpNumChrs; i++) {
-		if (g_MpAllChrPtrs[i]->aibot == NULL) {
+		if (!g_MpChrs[i].isbot) {
 			setCurrentPlayerNum(i);
 
 			if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
@@ -620,7 +620,7 @@ Gfx *scenarioRenderHud(Gfx *gdl)
 			gDPSetRenderMode(gdl++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 			gDPPipelineMode(gdl++, G_PM_1PRIMITIVE);
 
-			colour = var80087ce4[radarGetTeamIndex(chr->team)];
+			colour = var80087ce4[chr->team];
 			gDPSetFillColor(gdl++, colour);
 
 			viewleft = viGetViewLeft();
@@ -666,9 +666,9 @@ Gfx *scenarioRenderHud(Gfx *gdl)
  *
  * If no callback is registered, the default calculation below will apply.
  */
-void scenarioCalculatePlayerScore(struct mpchrconfig *mpchr, s32 chrnum, s32 *score, s32 *deaths)
+void scenarioCalculatePlayerScore(struct mpchr *mpchr, s32 chrnum, s32 *score, s32 *deaths)
 {
-	struct mpchrconfig *othermpchr;
+	struct mpchr *othermpchr;
 	s32 i;
 
 	if (g_MpScenarios[g_MpSetup.scenario].calcscorefunc) {
@@ -676,7 +676,7 @@ void scenarioCalculatePlayerScore(struct mpchrconfig *mpchr, s32 chrnum, s32 *sc
 	} else {
 		*score = 0;
 
-		for (i = 0; i < MAX_MPCHRS; i++) {
+		for (i = 0; i < g_MpNumChrs; i++) {
 			if (i == chrnum) {
 				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -739,7 +739,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 		struct defaultobj *obj = prop->obj;
 
 		if ((g_MpSetup.scenario != MPSCENARIO_COMBAT || (g_MpSetup.options & MPOPTION_NOPICKUPHIGHLIGHT) == 0)
-				&& (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.displayoptions & MPDISPLAYOPTION_HIGHLIGHTPICKUPS)) {
+				&& (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].displayoptions & MPDISPLAYOPTION_HIGHLIGHTPICKUPS)) {
 			switch (obj->type) {
 			case OBJTYPE_AMMOCRATE:
 			case OBJTYPE_WEAPON:
@@ -774,15 +774,15 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 		if (!pulse && !isunselectedbot
 				&& (g_MpSetup.scenario != MPSCENARIO_COMBAT || (g_MpSetup.options & MPOPTION_NOPLAYERHIGHLIGHT) == 0)) {
 			if ((g_MpSetup.options & MPOPTION_TEAMSENABLED)
-					&& (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.displayoptions & MPDISPLAYOPTION_HIGHLIGHTTEAMS)) {
+					&& (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].displayoptions & MPDISPLAYOPTION_HIGHLIGHTTEAMS)) {
 				useteamcolour = true;
-			} else if (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.displayoptions & MPDISPLAYOPTION_HIGHLIGHTPLAYERS) {
+			} else if (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].displayoptions & MPDISPLAYOPTION_HIGHLIGHTPLAYERS) {
 				useblue = true;
 			}
 		}
 
 		if (useteamcolour) {
-			u32 tmp = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
+			u32 tmp = g_TeamColours[prop->chr->team];
 
 			colour[0] = tmp >> 24 & 0xff;
 			colour[1] = tmp >> 16 & 0xff;
@@ -1062,12 +1062,12 @@ void scenarioCreateHudmsg(s32 playernum, char *message)
  */
 bool scenarioChrsAreSameTeam(s32 playernum1, s32 playernum2)
 {
-	struct mpchrconfig *achr;
-	struct mpchrconfig *bchr;
+	struct mpchr *achr;
+	struct mpchr *bchr;
 
 	if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && playernum1 >= 0 && playernum2 >= 0) {
-		s32 a = func0f18d074(playernum1);
-		s32 b = func0f18d074(playernum2);
+		s32 a = playernum1;
+		s32 b = playernum2;
 
 		if (a >= 0 && b >= 0) {
 			achr = MPCHR(a);
@@ -1096,14 +1096,14 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 	char text1[64];
 	char text2[64];
 	char text3[64];
-	struct mpchrconfig *mpchr;
+	struct mpchr *mpchr;
 
 	if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE) {
 		// Player or bot has picked up the briefcase
 		g_ScenarioData.htb.token = chr->prop;
 
 		if (chr->aibot) {
-			mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
+			mpchr = &g_MpChrs[chr->chrnum];
 			propPlayPickupSound(prop, weapon->weaponnum);
 			chr->aibot->hasbriefcase = true;
 			botinvGiveSingleWeapon(chr, WEAPON_BRIEFCASE2);
@@ -1115,16 +1115,8 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 			weaponPlayPickupSound(WEAPON_BRIEFCASE2);
 		}
 
-#if VERSION >= VERSION_JPN_FINAL
-		// "%shas the Briefcase"
-		sprintf(text1, langGet(L_MPWEAPONS_000_2), scenarioRemoveLineBreaks(mpchr->name, 0), bgunGetShortName(WEAPON_BRIEFCASE2));
-#elif VERSION >= VERSION_PAL_BETA
-		// "%shas the Briefcase"
-		sprintf(text1, langGet(L_MPWEAPONS_000_2), mpchr->name, bgunGetShortName(WEAPON_BRIEFCASE2));
-#else
 		// "%shas the\n%s"
-		sprintf(text1, langGet(L_MPWEAPONS_000), mpchr->name, bgunGetShortName(WEAPON_BRIEFCASE2));
-#endif
+		sprintf(text1, langGet(L_MPWEAPONS_000), mpchr->config->name, bgunGetShortName(WEAPON_BRIEFCASE2));
 
 		prevplayernum = g_Vars.currentplayernum;
 
@@ -1154,7 +1146,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 #endif
 	} else if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
 		if (chr->aibot) {
-			mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
+			mpchr = &g_MpChrs[chr->chrnum];
 		} else {
 			mpchr = MPCHR(g_Vars.playerstats[g_Vars.currentplayernum].mpindex);
 		}
@@ -1180,34 +1172,14 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 					invRemoveItemByNum(WEAPON_BRIEFCASE2);
 				}
 
-#if VERSION >= VERSION_JPN_FINAL
-				// "You captured the %s Briefcase"
-				sprintf(text1, langGet(L_MPWEAPONS_004), scenarioRemoveLineBreaks(g_BossFile.teamnames[i], 0));
-
-				// "%scaptured our Briefcase"
-				sprintf(text2, langGet(L_MPWEAPONS_005), scenarioRemoveLineBreaks(mpchr->name, 0));
-
-				// "%scaptured the %s Briefcase"
-				sprintf(text3, langGet(L_MPWEAPONS_006), scenarioRemoveLineBreaks(mpchr->name, 0), scenarioRemoveLineBreaks(g_BossFile.teamnames[i], 1));
-#elif VERSION >= VERSION_PAL_BETA
-				// "You captured the %s Briefcase"
-				sprintf(text1, langGet(L_MPWEAPONS_004), g_BossFile.teamnames[i]);
-
-				// "%scaptured our Briefcase"
-				sprintf(text2, langGet(L_MPWEAPONS_005), mpchr->name);
-
-				// "%scaptured the %s Briefcase"
-				sprintf(text3, langGet(L_MPWEAPONS_006), mpchr->name, g_BossFile.teamnames[i]);
-#else
 				// "You captured the %s%s"
 				sprintf(text1, langGet(L_MPWEAPONS_004), g_BossFile.teamnames[i], bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				// "%scaptured our %s"
-				sprintf(text2, langGet(L_MPWEAPONS_005), mpchr->name, bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text2, langGet(L_MPWEAPONS_005), mpchr->config->name, bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				// "%scaptured the %s%s"
-				sprintf(text3, langGet(L_MPWEAPONS_006), mpchr->name, g_BossFile.teamnames[i], bgunGetShortName(WEAPON_BRIEFCASE2));
-#endif
+				sprintf(text3, langGet(L_MPWEAPONS_006), mpchr->config->name, g_BossFile.teamnames[i], bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				prevplayernum = g_Vars.currentplayernum;
 
@@ -1218,23 +1190,13 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 				for (i = 0; i < PLAYERCOUNT(); i++) {
 					setCurrentPlayerNum(i);
 
-#if VERSION >= VERSION_JPN_FINAL
-					if (!chr->aibot && i == prevplayernum) {
-						hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
-					} else if (caseteam == g_MpAllChrConfigPtrs[i]->team) {
-						hudmsgCreateWithFlags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
-					} else {
-						hudmsgCreateWithFlags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
-					}
-#else
 					if (!chr->aibot && i == prevplayernum) {
 						hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
-					} else if (caseteam == g_MpAllChrConfigPtrs[i]->team) {
+					} else if (caseteam == g_MpChrs[i].team) {
 						hudmsgCreateWithFlags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					} else {
 						hudmsgCreateWithFlags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					}
-#endif
 				}
 
 				setCurrentPlayerNum(prevplayernum);
@@ -1256,57 +1218,27 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 
 				g_ScenarioData.ctc.tokens[weapon->team] = chr->prop;
 
-#if VERSION >= VERSION_JPN_FINAL
-				// "%shas the %s Briefcase"
-				sprintf(text1, langGet(L_MPWEAPONS_000_3), scenarioRemoveLineBreaks(mpchr->name, 0), scenarioRemoveLineBreaks(g_BossFile.teamnames[weapon->team], 1));
-
-				// "%shas our\nBriefcase"
-				sprintf(text2, langGet(L_MPWEAPONS_002), scenarioRemoveLineBreaks(mpchr->name, 0));
-
-				// "Got the %s Briefcase"
-				sprintf(text3, langGet(L_MPWEAPONS_003), scenarioRemoveLineBreaks(g_BossFile.teamnames[weapon->team], 0));
-#elif VERSION >= VERSION_PAL_BETA
-				// "%shas the %s Briefcase"
-				sprintf(text1, langGet(L_MPWEAPONS_000_3), mpchr->name, g_BossFile.teamnames[weapon->team]);
-
-				// "%shas our\nBriefcase"
-				sprintf(text2, langGet(L_MPWEAPONS_002), mpchr->name);
-
-				// "Got the %s Briefcase"
-				sprintf(text3, langGet(L_MPWEAPONS_003), g_BossFile.teamnames[weapon->team]);
-#else
 				// "%shas the %s%s"
-				sprintf(text1, langGet(L_MPWEAPONS_001), mpchr->name, g_BossFile.teamnames[weapon->team], bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text1, langGet(L_MPWEAPONS_001), mpchr->config->name, g_BossFile.teamnames[weapon->team], bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				// "%shas our %s"
-				sprintf(text2, langGet(L_MPWEAPONS_002), mpchr->name, bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text2, langGet(L_MPWEAPONS_002), mpchr->config->name, bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				// "Got the %s%s"
 				sprintf(text3, langGet(L_MPWEAPONS_003), g_BossFile.teamnames[weapon->team], bgunGetShortName(WEAPON_BRIEFCASE2));
-#endif
 
 				prevplayernum = g_Vars.currentplayernum;
 
 				for (i = 0; i < PLAYERCOUNT(); i++) {
 					setCurrentPlayerNum(i);
 
-#if VERSION >= VERSION_JPN_FINAL
-					if (!chr->aibot && i == prevplayernum) {
-						hudmsgCreateWithFlags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
-					} else if (weapon->team == g_MpAllChrConfigPtrs[i]->team) {
-						hudmsgCreateWithFlags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
-					} else {
-						hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
-					}
-#else
 					if (!chr->aibot && i == prevplayernum) {
 						hudmsgCreateWithFlags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
-					} else if (weapon->team == g_MpAllChrConfigPtrs[i]->team) {
+					} else if (weapon->team == g_MpChrs[i].team) {
 						hudmsgCreateWithFlags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					} else {
 						hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					}
-#endif
 				}
 
 				setCurrentPlayerNum(prevplayernum);
@@ -1394,7 +1326,7 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 {
 	s32 i;
 	char message[64];
-	struct mpchrconfig *mpchr;
+	struct mpchr *mpchr;
 	u32 playernum;
 
 	if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
@@ -1405,21 +1337,14 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 		g_ScenarioData.htm.uplink = chr->prop;
 
 		if (chr->aibot) {
-			mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
+			mpchr = &g_MpChrs[chr->chrnum];
 		} else {
 			mpchr = MPCHR(g_Vars.playerstats[g_Vars.currentplayernum].mpindex);
 		}
 
-#if VERSION >= VERSION_JPN_FINAL
-		// "%shas the\nData Uplink%s"
-		sprintf(message, langGet(L_MPWEAPONS_000), scenarioRemoveLineBreaks(mpchr->name, 0));
-#elif VERSION >= VERSION_PAL_BETA
-		// "%shas the\nData Uplink%s"
-		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name);
-#else
 		// "%shas the\n%s"
-		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name, bgunGetShortName(WEAPON_DATAUPLINK));
-#endif
+		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->config->name, bgunGetShortName(WEAPON_DATAUPLINK));
+
 		playernum = g_Vars.currentplayernum;
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
@@ -1477,7 +1402,7 @@ void scenarioHandleActivatedProp(struct chrdata *chr, struct prop *prop)
 		struct defaultobj *obj = prop->obj;
 
 		if (obj->flags3 & OBJFLAG3_HTMTERMINAL) {
-			u32 mpindex = mpPlayerGetIndex(chr);
+			u32 mpindex = chr->chrnum;
 
 			if ((obj->hidden & OBJHFLAG_ACTIVATED_BY_BOND) == 0) {
 				obj->hidden &= 0x0fffffff;

@@ -139,7 +139,7 @@ void ctcInit(void)
 
 	for (k = 0; k < MAX_MPCHRS; k++) {
 		if (g_MpSetup.chrslots & (1 << k)) {
-			struct mpchrconfig *mpchr = MPCHR(k);
+			struct mpchr *mpchr = MPCHR(k);
 
 			while (mpchr->team >= scenarioGetMaxTeams()) {
 				mpchr->team -= scenarioGetMaxTeams();
@@ -228,31 +228,21 @@ void ctcInitProps(void)
 
 	for (k = 0; k < MAX_MPCHRS; k++) {
 		if (g_MpSetup.chrslots & (1 << k)) {
-			mpchr = MPCHR(k);
+			mpchr = MPCHRCONFIG(k);
 
 			while (mpchr->team >= scenarioGetMaxTeams()) {
 				mpchr->team -= scenarioGetMaxTeams();
 			}
 
-#if VERSION >= VERSION_NTSC_1_0
-			mpindex = func0f18d0e8(k);
+			mpindex = k;
 
 			if (mpindex >= 0) {
-				struct chrdata *chr = mpGetChrFromPlayerIndex(mpindex);
+				struct chrdata *chr = g_MpChrs[mpindex].chr;
 
 				if (chr) {
-					chr->team = 1 << mpchr->team;
+					chr->team = mpchr->team;
 				}
 			}
-#else
-			if (func0f18d0e8(k) >= 0) {
-				struct chrdata *chr = mpGetChrFromPlayerIndex(func0f18d0e8(k));
-
-				if (chr) {
-					chr->team = 1 << mpchr->team;
-				}
-			}
-#endif
 
 			g_ScenarioData.ctc.playercountsperteam[mpchr->team]++;
 		}
@@ -343,9 +333,9 @@ void ctcInitProps(void)
 	}
 }
 
-void ctcCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+void ctcCalculatePlayerScore(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
-	struct mpchrconfig *loopmpchr;
+	struct mpchr *loopmpchr;
 	s32 i;
 
 	*score = 0;
@@ -400,7 +390,7 @@ bool ctcRadarChr(Gfx **gdl, struct prop *prop)
 			if (prop == g_ScenarioData.ctc.tokens[i] &&
 					(g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_CHR || g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_PLAYER)) {
 				struct coord dist;
-				s32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
+				s32 colour = g_TeamColours[prop->chr->team];
 				dist.x = g_ScenarioData.ctc.tokens[i]->pos.x - g_Vars.currentplayer->prop->pos.x;
 				dist.y = g_ScenarioData.ctc.tokens[i]->pos.y - g_Vars.currentplayer->prop->pos.y;
 				dist.z = g_ScenarioData.ctc.tokens[i]->pos.z - g_Vars.currentplayer->prop->pos.z;
@@ -460,7 +450,7 @@ void ctcAddPad(s32 *cmd)
 bool ctcChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4)
 {
 	struct chrdata *chr = prop->chr;
-	s32 index = radarGetTeamIndex(chr->team);
+	s32 index = chr->team;
 
 	if (g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[index]].numspawnpads > 0) {
 		*arg4 = playerChooseSpawnLocation(arg0, pos, rooms, prop,

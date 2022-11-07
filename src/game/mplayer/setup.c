@@ -416,15 +416,15 @@ s32 menuhandlerMpDisplayOptionCheckbox(s32 operation, struct menuitem *item, uni
 {
 	switch (operation) {
 	case MENUOP_GET:
-		if ((g_PlayerConfigsArray[g_MpPlayerNum].base.displayoptions & item->param3) == 0) {
+		if ((g_PlayerConfigsArray[g_MpPlayerNum].displayoptions & item->param3) == 0) {
 			return false;
 		}
 		return true;
 	case MENUOP_SET:
-		g_PlayerConfigsArray[g_MpPlayerNum].base.displayoptions &= ~(u8)item->param3;
+		g_PlayerConfigsArray[g_MpPlayerNum].displayoptions &= ~(u8)item->param3;
 
 		if (data->checkbox.value) {
-			g_PlayerConfigsArray[g_MpPlayerNum].base.displayoptions |= (u8)item->param3;
+			g_PlayerConfigsArray[g_MpPlayerNum].displayoptions |= (u8)item->param3;
 		}
 		break;
 	}
@@ -3196,43 +3196,35 @@ struct menudialogdef g_MpSimulantsMenuDialog = {
 s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handlerdata *data, s32 numteams)
 {
 	if (operation == MENUOP_SET) {
-		s32 numchrs = mpGetNumChrs();
+		s32 numconfigs = mpGetNumConfigs();
 		s32 array[] = {0, 0, 0, 0};
-		s32 somevalue = (numchrs + numteams - 1) / numteams;
+		s32 somevalue = (numconfigs + numteams - 1) / numteams;
 		s32 teamsremaining = numteams;
-		s32 chrsremaining = numchrs;
-		s32 start = random() % numchrs;
+		s32 configsremaining = numconfigs;
+		s32 start = random() % numconfigs;
 
 		s32 i;
 		s32 teamnum;
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (!numchrs) {
+		if (!numconfigs) {
 			return 0;
 		}
-#endif
 
-		i = (start + 1) % numchrs;
+		i = (start + 1) % numconfigs;
 
 		do {
-			struct mpchrconfig *mpchr = mpGetChrConfigBySlotNum(i);
+			struct mpchrconfig *mpcfg = mpGetChrConfigBySlotNum(i);
 
-#if VERSION >= VERSION_NTSC_1_0
-			if (teamsremaining);
-#else
-			if (start);
-#endif
-
-			if (teamsremaining >= chrsremaining) {
+			if (teamsremaining >= configsremaining) {
 				teamnum = random() % numteams;
 
 				while (true) {
 					if (array[teamnum] == 0) {
-						mpchr->team = teamnum;
+						mpcfg->team = teamnum;
 
 						array[teamnum]++;
 						teamsremaining--;
-						chrsremaining--;
+						configsremaining--;
 						break;
 					} else {
 						teamnum = (teamnum + 1) % numteams;
@@ -3243,14 +3235,14 @@ s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handlerdata 
 
 				while (true) {
 					if (array[teamnum] < somevalue) {
-						mpchr->team = teamnum;
+						mpcfg->team = teamnum;
 
 						if (array[teamnum] == 0) {
 							teamsremaining--;
 						}
 
 						array[teamnum]++;
-						chrsremaining--;
+						configsremaining--;
 						break;
 					} else {
 						teamnum = (teamnum + 1) % numteams;
@@ -3262,7 +3254,7 @@ s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handlerdata 
 				break;
 			}
 
-			i = (i + 1) % numchrs;
+			i = (i + 1) % numconfigs;
 		} while (true);
 
 		menuPopDialog();
@@ -3294,9 +3286,9 @@ s32 menuhandlerMpMaximumTeams(s32 operation, struct menuitem *item, union handle
 
 		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr = MPCHR(i);
+				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
 
-				mpchr->team = team++;
+				mpcfg->team = team++;
 
 				if (team >= scenarioGetMaxTeams()) {
 					team = 0;
@@ -3317,9 +3309,9 @@ s32 menuhandlerMpHumansVsSimulants(s32 operation, struct menuitem *item, union h
 
 		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr = MPCHR(i);
+				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
 
-				mpchr->team = i < 4 ? 0 : 1;
+				mpcfg->team = i < 4 ? 0 : 1;
 			}
 		}
 
@@ -3339,12 +3331,12 @@ s32 menuhandlerMpHumanSimulantPairs(s32 operation, struct menuitem *item, union 
 
 		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr = MPCHR(i);
+				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
 
 				if (i < 4) {
-					mpchr->team = team_ids[playerindex++];
+					mpcfg->team = team_ids[playerindex++];
 				} else {
-					mpchr->team = team_ids[simindex++];
+					mpcfg->team = team_ids[simindex++];
 
 					if (simindex >= playerindex) {
 						simindex = 0;
@@ -3361,16 +3353,10 @@ s32 menuhandlerMpHumanSimulantPairs(s32 operation, struct menuitem *item, union 
 
 char *mpMenuTextChrNameForTeamSetup(struct menuitem *item)
 {
-	struct mpchrconfig *mpchr = mpGetChrConfigBySlotNum(item->param);
+	struct mpchrconfig *mpcfg = mpGetChrConfigBySlotNum(item->param);
 
-	if (mpchr) {
-		if (mpchr >= &g_BotConfigsArray[0].base && mpchr < &g_BotConfigsArray[MAX_BOTS].base) {
-			struct mpbotconfig *botconfig = (struct mpbotconfig *) mpchr;
-			sprintf(g_StringPointer, "%dx %s\n", botconfig->quantity, mpchr->name);
-			return g_StringPointer;
-		}
-
-		return mpchr->name;
+	if (mpcfg) {
+		return mpcfg->name;
 	}
 
 	return "";
@@ -3395,27 +3381,27 @@ s32 func0f17dac4(s32 operation, struct menuitem *item, union handlerdata *data)
 
 s32 menuhandlerMpTeamSlot(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	struct mpchrconfig *mpchr;
+	struct mpchrconfig *mpcfg;
 
 	switch (operation) {
 	case MENUOP_SET:
-		mpchr = mpGetChrConfigBySlotNum(item->param);
-		mpchr->team = data->dropdown.value;
+		mpcfg = mpGetChrConfigBySlotNum(item->param);
+		mpcfg->team = data->dropdown.value;
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-		mpchr = mpGetChrConfigBySlotNum(item->param);
+		mpcfg = mpGetChrConfigBySlotNum(item->param);
 
-		if (!mpchr) {
+		if (!mpcfg) {
 			data->dropdown.value = 0xff;
 		} else {
-			data->dropdown.value = mpchr->team;
+			data->dropdown.value = mpcfg->team;
 		}
 
 		break;
 	case MENUOP_CHECKDISABLED:
-		mpchr = mpGetChrConfigBySlotNum(item->param);
+		mpcfg = mpGetChrConfigBySlotNum(item->param);
 
-		if (!mpchr) {
+		if (!mpcfg) {
 			return 1;
 		}
 
@@ -4814,7 +4800,7 @@ void mpConfigureQuickTeamPlayers(void)
 
 void mpConfigureQuickTeamSimulants(void)
 {
-	struct mpchrconfig *mpchr;
+	struct mpchrconfig *mpcfg;
 	s32 numchrs;
 	s32 botnum;
 	s32 i;
@@ -4851,14 +4837,14 @@ void mpConfigureQuickTeamSimulants(void)
 			break;
 		case MPQUICKTEAM_PLAYERSIMTEAMS:
 			for (i = mpGetNumChrs() - 1; i >= 0; i--) {
-				mpchr = mpGetChrConfigBySlotNum(i);
+				mpcfg = mpGetChrConfigBySlotNum(i);
 
 				for (j = 0; j < g_Vars.unk0004a0; j++) {
 					botnum = mpGetSlotForNewBot();
 
 					if (botnum >= 0) {
 						mpCreateBotFromProfile(botnum, g_Vars.mpsimdifficulty);
-						g_BotConfigsArray[botnum].base.team = mpchr->team;
+						g_BotConfigsArray[botnum].base.team = mpcfg->team;
 					}
 				}
 			}

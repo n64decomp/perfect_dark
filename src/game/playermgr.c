@@ -605,10 +605,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->lookaheadframe = 0;
 
 	g_Vars.players[index]->numaibuddies = 0;
-
-	for (i = 0; i < MAX_BOTS; i++) {
-		g_Vars.players[index]->aibuddynums[i] = 0;
-	}
+	g_Vars.players[index]->aibuddynums = NULL;
 
 	g_Vars.players[index]->teleportstate = TELEPORTSTATE_INACTIVE;
 	g_Vars.players[index]->teleporttime = 0;
@@ -635,13 +632,23 @@ void playermgrAllocatePlayer(s32 index)
 
 void playermgrCalculateAiBuddyNums(void)
 {
-	s32 i;
+	s32 chrnum;
 	s32 playernum = g_Vars.currentplayernum;
 	s32 playercount = PLAYERCOUNT();
+	s32 numbuddies = 0;
 
-	for (i = playercount; i < g_MpNumChrs; i++) {
-		if (g_MpAllChrConfigPtrs[i]->team == g_MpAllChrConfigPtrs[playernum]->team) {
-			g_Vars.players[playernum]->aibuddynums[g_Vars.players[playernum]->numaibuddies] = i;
+	for (chrnum = playercount; chrnum < g_MpNumChrs; chrnum++) {
+		if (g_MpChrs[chrnum].team == g_MpChrs[playernum].team) {
+			numbuddies++;
+		}
+	}
+
+	g_Vars.players[playernum]->aibuddynums = mempAlloc(numbuddies * sizeof(s16), MEMPOOL_STAGE);
+	g_Vars.players[playernum]->numaibuddies = 0;
+
+	for (chrnum = playercount; chrnum < g_MpNumChrs; chrnum++) {
+		if (g_MpChrs[chrnum].team == g_MpChrs[playernum].team) {
+			g_Vars.players[playernum]->aibuddynums[g_Vars.players[playernum]->numaibuddies] = chrnum;
 			g_Vars.players[playernum]->numaibuddies++;
 		}
 	}

@@ -87,7 +87,7 @@ struct stageallocation g_StageAllocations8Mb[] = {
 	{ STAGE_MP_RUINS,      "-ml0 -me0 -mgfx200 -mvtx200 -ma0"              },
 	{ STAGE_MP_FORTRESS,   "-ml0 -me0 -mgfx200 -mvtx200 -ma0"              },
 	{ STAGE_MP_VILLA,      "-ml0 -me0 -mgfx200 -mvtx200 -ma0"              },
-	{ STAGE_4MBMENU,       "-mgfx100 -mvtx50 -ma50"                        },
+	{ STAGE_4MBMENU,       "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
 	{ STAGE_TITLE,         "-ml0 -me0 -mgfx80 -mvtx20 -ma001"              },
 	{ 0,                   "-ml0 -me0 -mgfx120 -mvtx98 -ma300"             },
 };

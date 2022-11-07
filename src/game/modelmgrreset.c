@@ -73,7 +73,7 @@ void modelmgrAllocateSlots(s32 numobjs, s32 numchrs, bool haslaptops)
 	g_ModelNumObjs = numobjs;
 	g_ModelNumChrs = numchrs;
 
-	if (g_Vars.stagenum == STAGE_TITLE) {
+	if (g_Vars.stagenum >= STAGE_TITLE) {
 		g_MaxRwdataType1 = 35;
 		g_MaxRwdataType2 = 25;
 		g_MaxRwdataType3 = 20;

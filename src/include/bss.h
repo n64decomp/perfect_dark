@@ -273,15 +273,13 @@ extern struct textureconfig *g_TexGeneralConfigs;
 extern struct textureconfig *g_TexRadarConfigs;
 extern struct scenariodata g_ScenarioData;
 extern u32 var800ac4cc;
-extern struct chrdata *g_MpAllChrPtrs[MAX_MPCHRS];
-extern struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
 extern s32 g_MpNumChrs;
+extern struct mpchr *g_MpChrs;
 extern struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
 extern u8 g_MpSimulantDifficultiesPerNumPlayers[8][4];
 extern struct mpplayerconfig g_PlayerConfigsArray[6];
 extern u8 g_AmBotCommands[16];
 extern struct mpsetup g_MpSetup;
 extern struct bossfile g_BossFile;
-extern struct chrdata *g_MpBotChrPtrs[MAX_BOTS];
 
 #endif

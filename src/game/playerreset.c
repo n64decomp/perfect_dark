@@ -172,7 +172,12 @@ void playerReset(void)
 	propEnable(g_Vars.currentplayer->prop);
 	chrInit(g_Vars.currentplayer->prop);
 
-	g_Vars.currentplayer->prop->chr->team = 1 << g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.team;
+	g_MpChrs[g_Vars.currentplayernum].chr = g_Vars.currentplayer->prop->chr;
+
+	chrSetChrnum(g_Vars.currentplayer->prop->chr, g_Vars.currentplayernum);
+	g_Vars.currentplayer->prop->chr->chrnum = g_Vars.currentplayernum;
+
+	g_Vars.currentplayer->prop->chr->team = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.team;
 
 	if (g_NumSpawnPoints > 0) {
 		turnanglerad = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop);

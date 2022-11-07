@@ -634,7 +634,7 @@ void bwalk0f0c4d98(void)
 void bwalkUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 {
 	if (g_Vars.normmplayerisrunning) {
-		targetspeed = (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
+		targetspeed = (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].unk1c + 25.0f) / 100 * targetspeed;
 	}
 
 	if (g_Vars.currentplayer->speedstrafe > targetspeed) {
@@ -657,7 +657,7 @@ void bwalkUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 void bwalkUpdateSpeedForwards(f32 targetspeed, f32 accelspeed)
 {
 	if (g_Vars.normmplayerisrunning) {
-		targetspeed = (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
+		targetspeed = (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].unk1c + 25.0f) / 100 * targetspeed;
 	}
 
 	if (g_Vars.currentplayer->speedgo < targetspeed) {

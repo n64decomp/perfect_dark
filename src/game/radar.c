@@ -86,31 +86,6 @@ Gfx *radarRenderBackground(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s3
 	return gdl;
 }
 
-s32 radarGetTeamIndex(s32 team)
-{
-	s32 index = 0;
-
-	if (team & 1) {
-		index = 0;
-	} else if (team & 0x02) {
-		index = 1;
-	} else if (team & 0x04) {
-		index = 2;
-	} else if (team & 0x08) {
-		index = 3;
-	} else if (team & 0x10) {
-		index = 4;
-	} else if (team & 0x20) {
-		index = 5;
-	} else if (team & 0x40) {
-		index = 6;
-	} else if (team & 0x80) {
-		index = 7;
-	}
-
-	return index;
-}
-
 Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour1, u32 colour2, bool swapcolours)
 {
 	s32 x;
@@ -250,7 +225,7 @@ Gfx *radarRender(Gfx *gdl)
 		return gdl;
 	}
 
-	if ((g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.displayoptions & 0x00000004) == 0) {
+	if ((g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].displayoptions & 0x00000004) == 0) {
 		return gdl;
 	}
 
@@ -317,7 +292,7 @@ Gfx *radarRender(Gfx *gdl)
 				pos.y = g_Vars.players[i]->prop->pos.y - g_Vars.currentplayer->prop->pos.y;
 				pos.z = g_Vars.players[i]->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
-				if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
+				if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 					s32 index = g_PlayerConfigsArray[g_Vars.playerstats[i].mpindex].base.team;
 					colour = g_TeamColours[index];
 				} else {
@@ -330,21 +305,23 @@ Gfx *radarRender(Gfx *gdl)
 	}
 
 	// Draw dots for MP simulants
-	for (i = 0; i < g_BotCount; i++) {
-		if (!chrIsDead(g_MpBotChrPtrs[i])
-				&& (g_MpBotChrPtrs[i]->hidden & CHRHFLAG_CLOAKED) == 0
-				&& scenarioRadarChr(&gdl, g_MpBotChrPtrs[i]->prop) == false) {
-			pos.x = g_MpBotChrPtrs[i]->prop->pos.x - g_Vars.currentplayer->prop->pos.x;
-			pos.y = g_MpBotChrPtrs[i]->prop->pos.y - g_Vars.currentplayer->prop->pos.y;
-			pos.z = g_MpBotChrPtrs[i]->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
+	for (i = playercount; i < g_MpNumChrs; i++) {
+		struct chrdata *chr = g_MpChrs[i].chr;
 
-			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
-				colour = g_TeamColours[radarGetTeamIndex(g_MpBotChrPtrs[i]->team)];
+		if (!chrIsDead(chr)
+				&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
+				&& scenarioRadarChr(&gdl, chr->prop) == false) {
+			pos.x = chr->prop->pos.x - g_Vars.currentplayer->prop->pos.x;
+			pos.y = chr->prop->pos.y - g_Vars.currentplayer->prop->pos.y;
+			pos.z = chr->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
+
+			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+				colour = g_TeamColours[chr->team];
 			} else {
 				colour = 0x00ff0000;
 			}
 
-			gdl = radarDrawDot(gdl, g_MpBotChrPtrs[i]->prop, &pos, colour, 0, 0);
+			gdl = radarDrawDot(gdl, chr->prop, &pos, colour, 0, 0);
 		}
 	}
 

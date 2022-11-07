@@ -223,8 +223,8 @@ bool botactShootFarsight(struct chrdata *chr, s32 arg1, struct coord *vector, st
 			s32 value = fallback;
 
 			for (i = 0; i < g_MpNumChrs; i++) {
-				oppchr = g_MpAllChrPtrs[i];
-				oppprop = g_MpAllChrPtrs[i]->prop;
+				oppchr = g_MpChrs[i].chr;
+				oppprop = oppchr->prop;
 
 				if (oppprop->type == PROPTYPE_PLAYER) {
 					struct player *player = g_Vars.players[playermgrGetPlayerNumByProp(oppprop)];

@@ -29,10 +29,9 @@
 #include "types.h"
 
 // bss
-struct chrdata *g_MpAllChrPtrs[MAX_MPCHRS];
-struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
-s32 g_MpNumChrs;
 u32 var800ac534;
+s32 g_MpNumChrs;
+struct mpchr *g_MpChrs;
 struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
 u8 g_MpSimulantDifficultiesPerNumPlayers[8][4];
 struct mpplayerconfig g_PlayerConfigsArray[6];
@@ -122,19 +121,6 @@ f32 mpHandicapToDamageScale(u8 value)
 	return tmp * tmp * 3 - 2;
 }
 
-void func0f187838(struct mpchrconfig *mpchr)
-{
-	s32 i = 0;
-
-	while (i < ARRAYCOUNT(mpchr->killcounts)) {
-		mpchr->killcounts[i++] = 0;
-	}
-
-	mpchr->numdeaths = 0;
-	mpchr->numpoints = 0;
-	mpchr->unk40 = 0;
-}
-
 void mpStartMatch(void)
 {
 	s32 i;
@@ -195,22 +181,12 @@ void mpReset(void)
 
 			mpCalculatePlayerTitle(&g_PlayerConfigsArray[i]);
 
-
 			g_PlayerConfigsArray[i].newtitle = g_PlayerConfigsArray[i].title;
-			g_MpNumChrs++;
 			mpindex++;
 		}
 	}
 
-	for (i = 0; i != MAX_MPCHRS; i++) {
-		struct mpchrconfig *mpchr = MPCHR(i);
-
-		func0f187838(mpchr);
-
-#if VERSION >= VERSION_NTSC_1_0
-		g_MpAllChrPtrs[i] = NULL;
-#endif
-	}
+	g_MpChrs = NULL;
 
 	g_MpSetup.paused = false;
 
@@ -286,19 +262,15 @@ void mpCalculateTeamIsOnlyAi(void)
 	s32 i;
 	s32 j;
 
-	// Iterate simulants, which go after players in the g_MpAllChrPtrs array
+	// Iterate simulants
 	for (i = playercount; i < g_MpNumChrs; i++) {
-		if (!g_MpAllChrPtrs[i]) {
-			continue;
-		}
-
-		g_MpAllChrPtrs[i]->aibot->teamisonlyai = true;
+		g_MpChrs[i].chr->aibot->teamisonlyai = true;
 
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 			// Iterate human players
 			for (j = 0; j < playercount; j++) {
-				if (g_MpAllChrPtrs[i]->team == g_MpAllChrPtrs[j]->team) {
-					g_MpAllChrPtrs[i]->aibot->teamisonlyai = false;
+				if (g_MpChrs[i].team == g_MpChrs[j].team) {
+					g_MpChrs[i].chr->aibot->teamisonlyai = false;
 					break;
 				}
 			}
@@ -308,9 +280,7 @@ void mpCalculateTeamIsOnlyAi(void)
 
 void func0f187fbc(s32 playernum)
 {
-	g_PlayerConfigsArray[playernum].base.unk18 = 80;
-	g_PlayerConfigsArray[playernum].base.unk1a = 80;
-	g_PlayerConfigsArray[playernum].base.unk1c = 75;
+	g_PlayerConfigsArray[playernum].unk1c = 75;
 }
 
 void func0f187fec(void)
@@ -358,7 +328,7 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 	}
 
 	g_PlayerConfigsArray[playernum].base.mpheadnum = mpGetMpheadnumByMpbodynum(g_PlayerConfigsArray[playernum].base.mpbodynum);
-	g_PlayerConfigsArray[playernum].base.displayoptions = MPDISPLAYOPTION_RADAR | MPDISPLAYOPTION_HIGHLIGHTTEAMS;
+	g_PlayerConfigsArray[playernum].displayoptions = MPDISPLAYOPTION_RADAR | MPDISPLAYOPTION_HIGHLIGHTTEAMS;
 	g_PlayerConfigsArray[playernum].fileguid.fileid = 0;
 	g_PlayerConfigsArray[playernum].fileguid.deviceserial = 0;
 
@@ -596,7 +566,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 	s32 i;
 	s32 scores[MAX_MPCHRS];
 	u32 rankablescores[MAX_MPCHRS];
-	struct mpchrconfig *mpchrs[MAX_MPCHRS];
+	struct mpchr *mpchrs[MAX_MPCHRS];
 	s32 chrnums[MAX_MPCHRS];
 	s32 count = 0;
 	s32 numteams;
@@ -605,7 +575,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 	s32 loser;
 	s32 score;
 	s32 deaths;
-	struct mpchrconfig *mpchr;
+	struct mpchr *mpchr;
 	s32 dstindex;
 	bool found;
 	u32 rankablescore;
@@ -616,44 +586,42 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 	}
 
 	// Populate 4 arrays with player info, sorted by highest score descending
-	for (i = 0; i < MAX_MPCHRS; i++) {
-		if (g_MpSetup.chrslots & (1 << i)) {
-			mpchr = MPCHR(i);
+	for (i = 0; i < g_MpNumChrs; i++) {
+		mpchr = MPCHR(i);
 
-			scenarioCalculatePlayerScore(mpchr, i, &score, &deaths);
+		scenarioCalculatePlayerScore(mpchr, i, &score, &deaths);
 
-			rankablescore = (score + 0x8000) << 16 | (0xffff - deaths);
-			dstindex = 0;
-			found = false;
+		rankablescore = (score + 0x8000) << 16 | (0xffff - deaths);
+		dstindex = 0;
+		found = false;
 
-			// Find where this player should be placed in the sorted arrays
-			for (j = 0; j < count && !found; j++) {
-				if (rankablescore > rankablescores[j]) {
-					dstindex = j;
-					found = true;
-				}
+		// Find where this player should be placed in the sorted arrays
+		for (j = 0; j < count && !found; j++) {
+			if (rankablescore > rankablescores[j]) {
+				dstindex = j;
+				found = true;
 			}
-
-			if (!found) {
-				dstindex = count;
-			}
-
-			// Shuffle everything forward after dstindex to create a gap
-			for (j = count; j > dstindex; j--) {
-				rankablescores[j] = rankablescores[j - 1];
-				scores[j] = scores[j - 1];
-				mpchrs[j] = mpchrs[j - 1];
-				chrnums[j] = chrnums[j - 1];
-			}
-
-			count++;
-
-			// Write the new figures
-			rankablescores[dstindex] = (score + 0x8000) << 16 | (0xffff - deaths);
-			scores[dstindex] = score;
-			mpchrs[dstindex] = mpchr;
-			chrnums[dstindex] = i;
 		}
+
+		if (!found) {
+			dstindex = count;
+		}
+
+		// Shuffle everything forward after dstindex to create a gap
+		for (j = count; j > dstindex; j--) {
+			rankablescores[j] = rankablescores[j - 1];
+			scores[j] = scores[j - 1];
+			mpchrs[j] = mpchrs[j - 1];
+			chrnums[j] = chrnums[j - 1];
+		}
+
+		count++;
+
+		// Write the new figures
+		rankablescores[dstindex] = (score + 0x8000) << 16 | (0xffff - deaths);
+		scores[dstindex] = score;
+		mpchrs[dstindex] = mpchr;
+		chrnums[dstindex] = i;
 	}
 
 	// Populate the rankings array, copy some values into the mpchr structs
@@ -726,7 +694,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
  */
 s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
 {
-	struct mpchrconfig *mpchr;
+	struct mpchr *mpchr;
 	s32 teamscore = 0;
 	s32 teamdeaths = 0;
 	bool teamexists = false;
@@ -735,16 +703,14 @@ s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
 	s32 score;
 	s32 deaths;
 
-	for (i = 0; i < MAX_MPCHRS; i++) {
-		if (g_MpSetup.chrslots & (1 << i)) {
-			mpchr = MPCHR(i);
+	for (i = 0; i < g_MpNumChrs; i++) {
+		mpchr = MPCHR(i);
 
-			if (mpchr->team == teamnum) {
-				scenarioCalculatePlayerScore(mpchr, i, &score, &deaths);
-				teamexists = true;
-				teamscore += score;
-				teamdeaths += deaths;
-			}
+		if (mpchr->team == teamnum) {
+			scenarioCalculatePlayerScore(mpchr, i, &score, &deaths);
+			teamexists = true;
+			teamscore += score;
+			teamdeaths += deaths;
 		}
 	}
 
@@ -2177,8 +2143,8 @@ void mpCalculateAwards(void)
 	// At the same time, populate the metrics array
 	// which is a temporary array for award calculation.
 	for (i = 0; i < playercount; i++) {
-		struct mpchrconfig *mpchr = mpGetChrConfigBySlotNum(i);
-		struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)mpchr;
+		struct mpchr *mpchr = MPCHR(i);
+		struct mpplayerconfig *mpplayer = mpchr->playerconfig;
 		s32 chrnum = mpGetChrIndexBySlotNum(i);
 		s32 sum;
 
@@ -2193,7 +2159,7 @@ void mpCalculateAwards(void)
 		metrics[i].numdeaths = 0;
 		metrics[i].numsuicides = 0;
 
-		for (j = 0; j < MAX_MPCHRS; j++) {
+		for (j = 0; j < g_MpNumChrs; j++) {
 			if (chrnum == j) {
 				metrics[i].numsuicides += mpchr->killcounts[j];
 			} else {
@@ -2201,8 +2167,8 @@ void mpCalculateAwards(void)
 			}
 		}
 
-		for (j = 0; j < MAX_MPCHRS; j++) {
-			struct mpchrconfig *othermpchr = MPCHR(j);
+		for (j = 0; j < g_MpNumChrs; j++) {
+			struct mpchr *othermpchr = MPCHR(j);
 			metrics[i].numdeaths += othermpchr->killcounts[chrnum];
 		}
 
@@ -2258,16 +2224,14 @@ void mpCalculateAwards(void)
 			if ((numchrs >= 2 && (g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0) || numteams >= 2) {
 				bool lost = false;
 
-				if (mpplayer->base.placement == 0) {
-					for (j = 0; j < MAX_MPCHRS; j++) {
-						if (g_MpSetup.chrslots & (1 << j)) {
-							struct mpchrconfig *othermpchr = MPCHR(j);
+				if (mpchr->placement == 0) {
+					for (j = 0; j < g_MpNumChrs; j++) {
+						struct mpchr *othermpchr = MPCHR(j);
 
-							if (othermpchr->rankablescore == mpplayer->base.rankablescore
-									&& othermpchr != &mpplayer->base
-									&& !((g_MpSetup.options & MPOPTION_TEAMSENABLED) && othermpchr->team == mpplayer->base.team)) {
-								lost = true;
-							}
+						if (othermpchr->rankablescore == mpchr->rankablescore
+								&& othermpchr != mpchr
+								&& !((g_MpSetup.options & MPOPTION_TEAMSENABLED) && othermpchr->team == mpchr->team)) {
+							lost = true;
 						}
 					}
 
@@ -2276,19 +2240,17 @@ void mpCalculateAwards(void)
 					}
 				}
 
-				if (((g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0 && numchrs == mpplayer->base.placement + 1)
-						|| ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && numteams == mpplayer->base.placement + 1)) {
+				if (((g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0 && numchrs == mpchr->placement + 1)
+						|| ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && numteams == mpchr->placement + 1)) {
 					bool won = false;
 
-					for (j = 0; j < MAX_MPCHRS; j++) {
-						if (g_MpSetup.chrslots & (1 << j)) {
-							struct mpchrconfig *othermpchr = MPCHR(j);
+					for (j = 0; j < g_MpNumChrs; j++) {
+						struct mpchr *othermpchr = MPCHR(j);
 
-							if (othermpchr->rankablescore == mpplayer->base.rankablescore
-									&& &mpplayer->base != othermpchr
-									&& !((g_MpSetup.options & MPOPTION_TEAMSENABLED) && othermpchr->team == mpplayer->base.team)) {
-								won = true;
-							}
+						if (othermpchr->rankablescore == mpchr->rankablescore
+								&& mpchr != othermpchr
+								&& !((g_MpSetup.options & MPOPTION_TEAMSENABLED) && othermpchr->team == mpchr->team)) {
+							won = true;
 						}
 					}
 
@@ -2462,43 +2424,41 @@ void mpCalculateAwards(void)
 		s32 leastdeathsplayer = -1;
 		s32 k;
 
-		for (k = 0; k < MAX_MPCHRS; k++) {
-			if (g_MpSetup.chrslots & (1 << k)) {
-				s32 totalkills = 0;
-				struct mpchrconfig *mpchr = MPCHR(k);
+		for (k = 0; k < g_MpNumChrs; k++) {
+			s32 totalkills = 0;
+			struct mpchr *mpchr = MPCHR(k);
 
-				for (j = 0; j < MAX_MPCHRS; j++) {
-					// @bug: i should be k. The value of i was incremented after
-					// the last iteration of its loop above so it'll be between
-					// 1 and 4 inclusively depending on the number of players.
-					// The bot nums start from 4 regardless of how many players
-					// there are. So in a game with 4 humans, the kills on the
-					// first bot will not be considered for the killmaster medal
-					// which means the medal could go to a player who got fewer
-					// total kills. Additionally, suicides are counted as kills
-					// while the intention here was to omit them.
-					if (i != j) {
-						totalkills += mpchr->killcounts[j];
-					}
+			for (j = 0; j < g_MpNumChrs; j++) {
+				// @bug: i should be k. The value of i was incremented after
+				// the last iteration of its loop above so it'll be between
+				// 1 and 4 inclusively depending on the number of players.
+				// The bot nums start from 4 regardless of how many players
+				// there are. So in a game with 4 humans, the kills on the
+				// first bot will not be considered for the killmaster medal
+				// which means the medal could go to a player who got fewer
+				// total kills. Additionally, suicides are counted as kills
+				// while the intention here was to omit them.
+				if (i != j) {
+					totalkills += mpchr->killcounts[j];
 				}
+			}
 
-				if (totalkills == mostkillsvalue) {
-					mostkillsplayer = -1;
-				}
+			if (totalkills == mostkillsvalue) {
+				mostkillsplayer = -1;
+			}
 
-				if (totalkills > mostkillsvalue) {
-					mostkillsplayer = k;
-					mostkillsvalue = totalkills;
-				}
+			if (totalkills > mostkillsvalue) {
+				mostkillsplayer = k;
+				mostkillsvalue = totalkills;
+			}
 
-				if (mpchr->numdeaths == leastdeathsvalue) {
-					leastdeathsplayer = -1;
-				}
+			if (mpchr->numdeaths == leastdeathsvalue) {
+				leastdeathsplayer = -1;
+			}
 
-				if (mpchr->numdeaths < leastdeathsvalue) {
-					leastdeathsplayer = k;
-					leastdeathsvalue = mpchr->numdeaths;
-				}
+			if (mpchr->numdeaths < leastdeathsvalue) {
+				leastdeathsplayer = k;
+				leastdeathsvalue = mpchr->numdeaths;
 			}
 		}
 
@@ -2555,8 +2515,8 @@ void mpCalculateAwards(void)
 
 	// Recalculate title for all players
 	for (i = 0; i < playercount; i++) {
-		struct mpplayerconfig *mpchr = (struct mpplayerconfig *)mpGetChrConfigBySlotNum(i);
-		mpCalculatePlayerTitle(mpchr);
+		struct mpplayerconfig *mpcfg = (struct mpplayerconfig *)mpGetChrConfigBySlotNum(i);
+		mpCalculatePlayerTitle(mpcfg);
 	}
 }
 #else
@@ -4409,7 +4369,7 @@ struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot)
 	for (i = 0; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			if (count == slot) {
-				result = MPCHR(i);
+				result = MPCHRCONFIG(i);
 				break;
 			}
 
@@ -4442,7 +4402,7 @@ s32 mpGetChrIndexBySlotNum(s32 slot)
 }
 #endif
 
-s32 mpGetNumChrs(void)
+s32 mpGetNumConfigs(void)
 {
 	s32 count = 0;
 	s32 i;
@@ -4456,6 +4416,11 @@ s32 mpGetNumChrs(void)
 	return count;
 }
 
+s32 mpGetNumChrs(void)
+{
+	return g_MpNumChrs;
+}
+
 u8 mpFindUnusedTeamNum(void)
 {
 	u8 teamnum = 0;
@@ -4467,7 +4432,7 @@ u8 mpFindUnusedTeamNum(void)
 
 		for (i = 0; i < MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr = MPCHR(i);
+				struct mpchrconfig *mpchr = MPCHRCONFIG(i);
 
 				if (mpchr->team == teamnum) {
 					available = false;
@@ -4514,9 +4479,9 @@ void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
 
 		for (i = 0; i < MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr = MPCHR(i);
+				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
 
-				if (mpchr->mpheadnum == headnum) {
+				if (mpcfg->mpheadnum == headnum) {
 					available = false;
 				}
 			}
@@ -4699,68 +4664,6 @@ const char var7f1b8c04[] = "PakId for player %d: %d\n";
 const char var7f1b8c20[] = "Load Player - Result: %d\n";
 #endif
 
-s32 mpPlayerGetIndex(struct chrdata *chr)
-{
-	s32 i;
-
-	for (i = 0; i < g_MpNumChrs; i++) {
-		if (g_MpAllChrPtrs[i] == chr) {
-			return i;
-		}
-	}
-
-	return -1;
-}
-
-struct chrdata *mpGetChrFromPlayerIndex(s32 index)
-{
-	if (index >= 0 && index < g_MpNumChrs) {
-		return g_MpAllChrPtrs[index];
-	}
-
-	return NULL;
-}
-
-s32 func0f18d074(s32 index)
-{
-	s32 i;
-
-	for (i = 0; i < 4; i++) {
-		if (&g_PlayerConfigsArray[i].base == g_MpAllChrConfigPtrs[index]) {
-			return i;
-		}
-	}
-
-	for (i = 0; i < MAX_BOTS; i++) {
-		if (&g_BotConfigsArray[i].base == g_MpAllChrConfigPtrs[index]) {
-			return i + 4;
-		}
-	}
-
-	return -1;
-}
-
-s32 func0f18d0e8(s32 arg0)
-{
-	s32 i;
-
-	if (arg0 < 4) {
-		for (i = 0; i < g_MpNumChrs; i++) {
-			if (g_MpAllChrConfigPtrs[i] == &g_PlayerConfigsArray[arg0].base) {
-				return i;
-			}
-		}
-	} else {
-		for (i = 0; i < g_MpNumChrs; i++) {
-			if (g_MpAllChrConfigPtrs[i] == &g_BotConfigsArray[arg0 - 4].base) {
-				return i;
-			}
-		}
-	}
-
-	return -1;
-}
-
 void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
 {
 	s32 bitsremaining = 35;
@@ -4834,7 +4737,7 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 		savebufferReadGuid(buffer, &guid);
 	}
 
-	g_PlayerConfigsArray[playernum].base.displayoptions = savebufferReadBits(buffer, 8);
+	g_PlayerConfigsArray[playernum].displayoptions = savebufferReadBits(buffer, 8);
 	g_PlayerConfigsArray[playernum].kills = savebufferReadBits(buffer, 20);
 	g_PlayerConfigsArray[playernum].deaths = savebufferReadBits(buffer, 20);
 	g_PlayerConfigsArray[playernum].gamesplayed = savebufferReadBits(buffer, 19);
@@ -4887,7 +4790,7 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 		savebufferWriteGuid(buffer, &guid);
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.displayoptions, 8);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].displayoptions, 8);
 
 	if (g_PlayerConfigsArray[playernum].kills > 0xfffff) { // 1,048,575
 		g_PlayerConfigsArray[playernum].kills = 0xfffff;

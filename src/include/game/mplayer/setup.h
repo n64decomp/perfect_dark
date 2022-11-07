@@ -106,7 +106,7 @@ char *mpMenuTextScenarioName(struct menuitem *item);
 s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 void scenarioCreateMatchStartHudmsgs(void);
 Gfx *scenarioRenderHud(Gfx *gdl);
-void scenarioCalculatePlayerScore(struct mpchrconfig *mpchr, s32 chrnum, s32 *arg2, s32 *arg3);
+void scenarioCalculatePlayerScore(struct mpchr *mpchr, s32 chrnum, s32 *arg2, s32 *arg3);
 bool scenarioHighlightProp(struct prop *prop, s32 *colour);
 void scenarioReset(void);
 struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u32 flags2, u32 flags3);

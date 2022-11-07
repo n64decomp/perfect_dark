@@ -177,7 +177,7 @@ bool pacHighlightProp(struct prop *prop, s32 *colour)
 	if (g_MpSetup.options & MPOPTION_PAC_HIGHLIGHTTARGET
 			&& (prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR)
 			&& data->victimindex != -1
-			&& prop->chr == g_MpAllChrPtrs[data->victims[data->victimindex]]) {
+			&& prop->chr == g_MpChrs[data->victims[data->victimindex]].chr) {
 		colour[0] = 0;
 		colour[1] = 0xff;
 		colour[2] = 0;
@@ -209,17 +209,9 @@ void pacApplyNextVictim(void)
 		if (vplayernum == i) {
 			sprintf(text, langGet(L_MPWEAPONS_013)); // "You are the victim!"
 		} else if (scenarioChrsAreSameTeam(vplayernum, i)) {
-#if VERSION >= VERSION_JPN_FINAL
-			sprintf(text, langGet(L_MPWEAPONS_014), scenarioRemoveLineBreaks(g_MpAllChrConfigPtrs[vplayernum]->name, 0)); // "Protect %s!"
-#else
-			sprintf(text, langGet(L_MPWEAPONS_014), g_MpAllChrConfigPtrs[vplayernum]->name); // "Protect %s!"
-#endif
+			sprintf(text, langGet(L_MPWEAPONS_014), g_MpChrs[vplayernum].config->name); // "Protect %s!"
 		} else {
-#if VERSION >= VERSION_JPN_FINAL
-			sprintf(text, langGet(L_MPWEAPONS_015), scenarioRemoveLineBreaks(g_MpAllChrConfigPtrs[vplayernum]->name, 0)); // "Get %s!"
-#else
-			sprintf(text, langGet(L_MPWEAPONS_015), g_MpAllChrConfigPtrs[vplayernum]->name); // "Get %s!"
-#endif
+			sprintf(text, langGet(L_MPWEAPONS_015), g_MpChrs[vplayernum].config->name); // "Get %s!"
 		}
 
 		scenarioCreateHudmsg(i, text);
@@ -331,14 +323,14 @@ Gfx *pacRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void pacCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void pacCalculatePlayerScore(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
-	struct mpchrconfig *loopmpchr;
+	struct mpchr *loopmpchr;
 	s32 i;
 	s32 index;
 
 	*score = 0;
-	index = func0f18d0e8(mpchrnum);
+	index = mpchrnum;
 
 	if (index >= 0) {
 		*score += g_ScenarioData.pac.killcounts[index] * 2;
@@ -377,7 +369,7 @@ bool pacRadarChr(Gfx **gdl, struct prop *prop)
 	struct coord dist;
 
 	if ((g_MpSetup.options & MPOPTION_PAC_SHOWONRADAR) && data->victimindex >= 0) {
-		struct prop *vprop = g_MpAllChrPtrs[data->victims[data->victimindex]]->prop;
+		struct prop *vprop = g_MpChrs[data->victims[data->victimindex]].chr->prop;
 
 		if (vprop == prop) {
 			dist.x = prop->pos.x - g_Vars.currentplayer->prop->pos.x;
@@ -385,7 +377,7 @@ bool pacRadarChr(Gfx **gdl, struct prop *prop)
 			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
 			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
+				u32 colour = g_TeamColours[prop->chr->team];
 				*gdl = radarDrawDot(*gdl, vprop, &dist, colour, 0, 1);
 			} else {
 				*gdl = radarDrawDot(*gdl, vprop, &dist, 0x00ff0000, 0, 1);

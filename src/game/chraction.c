@@ -2077,7 +2077,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	// (includes MP aibots, not applicable for solo chrs)
 	if (g_Vars.mplayerisrunning) {
 		if (aprop && (aprop->type == PROPTYPE_PLAYER || aprop->type == PROPTYPE_CHR)) {
-			aplayernum = mpPlayerGetIndex(aprop->chr);
+			aplayernum = aprop->chr->chrnum;
 		}
 	} else {
 		if (aprop && aprop->type == PROPTYPE_PLAYER) {
@@ -2510,7 +2510,7 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 		chr->act_die.thudframe2 = -1;
 		chr->act_die.timeextra = 0;
 
-		mpstatsRecordDeath(aplayernum, mpPlayerGetIndex(chr));
+		mpstatsRecordDeath(aplayernum, chr->chrnum);
 		botinvDropAll(chr, chr->aibot->weaponnum);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -5491,7 +5491,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 								s32 playernum = -1;
 
 								if (g_Vars.mplayerisrunning) {
-									playernum = mpPlayerGetIndex(chr);
+									playernum = chr->chrnum;
 								}
 
 								bgunPlayPropHitSound(&gset, hitprop, -1);
@@ -5521,7 +5521,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 						// Create explosion if using Phoenix
 						if (gset.weaponnum == WEAPON_PHOENIX && gset.weaponfunc == FUNC_SECONDARY) {
-							s32 playernum = chr->aibot ? mpPlayerGetIndex(chr) : g_Vars.currentplayernum;
+							s32 playernum = chr->aibot ? chr->chrnum : g_Vars.currentplayernum;
 
 							if (!queriedhitrooms) {
 								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);

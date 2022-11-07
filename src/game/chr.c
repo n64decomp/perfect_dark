@@ -835,7 +835,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 								if (chr->lastshooter >= 0 && chr->timeshooter > 0) {
 									shooter = chr->lastshooter;
 								} else {
-									shooter = mpPlayerGetIndex(chr);
+									shooter = chr->chrnum;
 								}
 
 								chrDie(chr, shooter);

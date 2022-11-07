@@ -2705,7 +2705,7 @@ struct player {
 	/*0x1be0*/ f32 cachedlookahead;
 	/*0x1be4*/ u16 lookaheadframe;
 	/*0x1be6*/ u8 numaibuddies;
-	/*0x1be7*/ u8 aibuddynums[MAX_BOTS];
+	/*0x1be7*/ u16 *aibuddynums;
 	/*0x1bf0*/ bool bondexploding;
 	/*0x1bf4*/ s32 bondnextexplode; // lvframe60 of next explosion
 	/*0x1bf8*/ s32 bondcurexplode;  // Increases by 1 on each tick even when not exploding
@@ -4146,62 +4146,69 @@ struct gamefile {
 	/*0xb5*/ u8 weaponsfound[6];
 };
 
+// Allocated during setup - contains configuration common to both players and bots
 struct mpchrconfig {
-	/*0x00*/ char name[12]; // up to 10 visible chars plus line break plus null byte
-	/*0x0c*/ u8 unk0c;
-	/*0x0d*/ u8 unk0d;
-	/*0x0e*/ u8 unk0e;
-	/*0x0f*/ u8 mpheadnum;
-	/*0x10*/ u8 mpbodynum;
-	/*0x11*/ u8 team;
-	/*0x14*/ u32 displayoptions;
-	/*0x18*/ u16 unk18;
-	/*0x1a*/ u16 unk1a;
-	/*0x1c*/ u16 unk1c;
-	/*0x1e*/ s8 placement; // 0 = winner, 1 = second place etc
-	/*0x20*/ s32 rankablescore;
-	/*0x24*/ s16 killcounts[MAX_MPCHRS]; // per player - each index is a chrslot
-	/*0x3c*/ s16 numdeaths;
-	/*0x3e*/ s16 numpoints;
-	/*0x40*/ s16 unk40;
+	char name[15]; // up to 10 visible chars plus line break plus null byte
+	u8 mpheadnum;
+	u8 mpbodynum;
+	u8 team;
 };
 
+// Allocated during setup - extension of mpchrconfig
 struct mpplayerconfig {
-	/*0x00*/ struct mpchrconfig base;
-	/*0x44*/ u8 controlmode;
-	/*0x45*/ s8 contpad1;
-	/*0x46*/ s8 contpad2;
-	/*0x48*/ u16 options;
-	/*0x4c*/ struct fileguid fileguid;
-	/*0x54*/ u32 kills;
-	/*0x58*/ u32 deaths;
-	/*0x5c*/ u32 gamesplayed;
-	/*0x60*/ u32 gameswon;
-	/*0x64*/ u32 gameslost;
-	/*0x68*/ u32 time;
-	/*0x6c*/ u32 distance; // 1 unit = 100 metres
-	/*0x70*/ u32 accuracy;
-	/*0x74*/ u32 damagedealt;
-	/*0x78*/ u32 painreceived;
-	/*0x7c*/ u32 headshots;
-	/*0x80*/ u32 ammoused;
-	/*0x84*/ u32 accuracymedals;
-	/*0x88*/ u32 headshotmedals;
-	/*0x8c*/ u32 killmastermedals;
-	/*0x90*/ u32 survivormedals;
-	/*0x94*/ u8 medals;
-	/*0x95*/ u8 title;
-	/*0x96*/ u8 newtitle;
-	/*0x97*/ u8 gunfuncs[6];
-	/*0x9d*/ u8 handicap;
+	struct mpchrconfig base;
+	u32 displayoptions;
+	u16 unk1c;
+	u8 controlmode;
+	s8 contpad1;
+	s8 contpad2;
+	u16 options;
+	struct fileguid fileguid;
+	u32 kills;
+	u32 deaths;
+	u32 gamesplayed;
+	u32 gameswon;
+	u32 gameslost;
+	u32 time;
+	u32 distance; // 1 unit = 100 metres
+	u32 accuracy;
+	u32 damagedealt;
+	u32 painreceived;
+	u32 headshots;
+	u32 ammoused;
+	u32 accuracymedals;
+	u32 headshotmedals;
+	u32 killmastermedals;
+	u32 survivormedals;
+	u8 medals;
+	u8 title;
+	u8 newtitle;
+	u8 gunfuncs[6];
+	u8 handicap;
 };
 
 struct mpbotconfig {
-	/*0x00*/ struct mpchrconfig base;
-	/*0x44*/ u8 unk44[3];
-	/*0x47*/ u8 type;
-	/*0x48*/ u8 difficulty;
-	/*0x4a*/ u16 quantity;
+	struct mpchrconfig base;
+	u8 type;
+	u8 difficulty;
+	u16 quantity;
+};
+
+// Allocated at match start - one per chr
+struct mpchr {
+	u8 isbot;
+	u8 team;
+	u16 placement; // 0 = winner, 1 = second place etc
+	union {
+		struct mpchrconfig *config;
+		struct mpplayerconfig *playerconfig;
+		struct mpbotconfig *botconfig;
+	};
+	struct chrdata *chr;
+	s32 rankablescore;
+	s16 *killcounts;
+	s16 numdeaths;
+	s16 numpoints;
 };
 
 struct missionconfig {
@@ -4788,7 +4795,7 @@ struct chrbio {
 };
 
 struct ranking {
-	struct mpchrconfig *mpchr;
+	struct mpchr *mpchr;
 	union {
 		u32 teamnum;
 		u32 chrnum;

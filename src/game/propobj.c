@@ -1991,8 +1991,8 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 			s32 i;
 
 			for (i = 0; i < g_MpNumChrs; i++) {
-				if (g_MpAllChrPtrs[i]->aibot && g_MpAllChrPtrs[i]->aibot->skrocket == obj->prop) {
-					g_MpAllChrPtrs[i]->aibot->skrocket = NULL;
+				if (g_MpChrs[i].chr->aibot && g_MpChrs[i].chr->aibot->skrocket == obj->prop) {
+					g_MpChrs[i].chr->aibot->skrocket = NULL;
 				}
 			}
 		}
@@ -2062,8 +2062,8 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 			s32 i;
 
 			for (i = 0; i < g_MpNumChrs; i++) {
-				if (g_MpAllChrPtrs[i]->aibot && g_MpAllChrPtrs[i]->aibot->gotoprop == obj->prop) {
-					g_MpAllChrPtrs[i]->aibot->gotoprop = NULL;
+				if (g_MpChrs[i].chr->aibot && g_MpChrs[i].chr->aibot->gotoprop == obj->prop) {
+					g_MpChrs[i].chr->aibot->gotoprop = NULL;
 				}
 			}
 		}
@@ -3905,7 +3905,7 @@ void weaponTick(struct prop *prop)
 				s32 i;
 
 				if (g_Vars.normmplayerisrunning) {
-					struct chrdata *chr = mpGetChrFromPlayerIndex(ownerplayernum);
+					struct chrdata *chr = g_MpChrs[ownerplayernum].chr;
 
 					if (chr) {
 						ownerprop = chr->prop;
@@ -3965,7 +3965,7 @@ void weaponTick(struct prop *prop)
 
 			// If a player manages to throw a mine on themselves, it will not detonate.
 			// You can't throw a mine on yourself anyway, so this check always passes
-			if (prop->parent == NULL || parentchr == NULL || mpPlayerGetIndex(parentchr) != ownerplayernum) {
+			if (prop->parent == NULL || parentchr == NULL || parentchr->chrnum != ownerplayernum) {
 				if (g_PlayersDetonatingMines & 1 << ownerplayernum) {
 					weapon->timer240 = 0;
 				}
@@ -4025,7 +4025,7 @@ void weaponTick(struct prop *prop)
 				s32 ownerplayernum = (obj->hidden & 0xf0000000) >> 28;
 
 				if (g_Vars.normmplayerisrunning) {
-					struct chrdata *chr = mpGetChrFromPlayerIndex(ownerplayernum);
+					struct chrdata *chr = g_MpChrs[ownerplayernum].chr;
 
 					if (chr) {
 						ownerprop = chr->prop;
@@ -4401,7 +4401,7 @@ glabel var7f1aa2c4
 /*  f06ea90:	13200008 */ 	beqz	$t9,.NB0f06eab4
 /*  f06ea94:	000f2702 */ 	srl	$a0,$t7,0x1c
 /*  f06ea98:	afa00158 */ 	sw	$zero,0x158($sp)
-/*  f06ea9c:	0fc61c91 */ 	jal	mpGetChrFromPlayerIndex
+/*  f06ea9c:	0fc61c91 */ 	jal	mpGetChrFromPlayernum
 /*  f06eaa0:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06eaa4:	8fa50158 */ 	lw	$a1,0x158($sp)
 /*  f06eaa8:	10400002 */ 	beqz	$v0,.NB0f06eab4
@@ -4526,7 +4526,7 @@ glabel var7f1aa2c4
 /*  f06ec60:	10800009 */ 	beqz	$a0,.NB0f06ec88
 /*  f06ec64:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06ec68:	afa3014c */ 	sw	$v1,0x14c($sp)
-/*  f06ec6c:	0fc61c7f */ 	jal	mpPlayerGetIndex
+/*  f06ec6c:	0fc61c7f */ 	jal	mpGetPlayernumFromChr
 /*  f06ec70:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06ec74:	8fa3014c */ 	lw	$v1,0x14c($sp)
 /*  f06ec78:	3c058007 */ 	lui	$a1,0x8007
@@ -4733,7 +4733,7 @@ glabel var7f1aa2c4
 /*  f06ef58:	11200008 */ 	beqz	$t1,.NB0f06ef7c
 /*  f06ef5c:	000d2702 */ 	srl	$a0,$t5,0x1c
 /*  f06ef60:	afa00128 */ 	sw	$zero,0x128($sp)
-/*  f06ef64:	0fc61c91 */ 	jal	mpGetChrFromPlayerIndex
+/*  f06ef64:	0fc61c91 */ 	jal	mpGetChrFromPlayernum
 /*  f06ef68:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06ef6c:	8fa50128 */ 	lw	$a1,0x128($sp)
 /*  f06ef70:	10400002 */ 	beqz	$v0,.NB0f06ef7c
@@ -6191,7 +6191,7 @@ bool rocketTickFbw(struct weaponobj *rocket)
 	// Check if close to an enemy
 	if (ownerchr && rocket->timer240) {
 		for (i = 0; i < g_MpNumChrs; i++) {
-			struct chrdata *chr = mpGetChrFromPlayerIndex(i);
+			struct chrdata *chr = g_MpChrs[i].chr;
 
 			if (chr != ownerchr
 					&& !chrIsDead(chr)
@@ -6209,7 +6209,7 @@ bool rocketTickFbw(struct weaponobj *rocket)
 
 				// Check if rocket can fly directly to target
 				if (chrGetTargetProp(ownerchr) == chr->prop
-						&& mpPlayerGetIndex(ownerchr) == g_Vars.lvframenum % g_MpNumChrs
+						&& ownerchr->chrnum == g_Vars.lvframenum % g_MpNumChrs
 						&& cdTestLos05(&rocketprop->pos, rocketprop->rooms, &chr->prop->pos, chr->prop->rooms,
 							CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
 							GEOFLAG_BLOCK_SIGHT)) {
@@ -7099,7 +7099,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 									struct prop *ownerprop2 = NULL;
 
 									if (g_Vars.normmplayerisrunning) {
-										struct chrdata *ownerchr = mpGetChrFromPlayerIndex(ownerplayernum);
+										struct chrdata *ownerchr = g_MpChrs[ownerplayernum].chr;
 
 										if (ownerchr != NULL) {
 											ownerprop2 = ownerchr->prop;
@@ -8359,7 +8359,7 @@ void autogunTick(struct prop *prop)
 						continue;
 					}
 
-					chr = g_MpAllChrPtrs[autogun->nextchrtest];
+					chr = g_MpChrs[autogun->nextchrtest].chr;
 
 					if (!chr->prop) {
 						continue;
@@ -8770,7 +8770,7 @@ void autogunTickShoot(struct prop *autogunprop)
 
 				if (g_Vars.normmplayerisrunning) {
 					// Multiplayer - it must be a laptop gun
-					ownerchr = mpGetChrFromPlayerIndex(ownerplayernum);
+					ownerchr = g_MpChrs[ownerplayernum].chr;
 
 					if (ownerchr) {
 						ownerprop = ownerchr->prop;
@@ -11896,7 +11896,7 @@ bool propobjInteract(struct prop *prop)
 			s32 playernum;
 
 			if (g_Vars.normmplayerisrunning) {
-				playernum = mpPlayerGetIndex(g_Vars.currentplayer->prop->chr);
+				playernum = g_Vars.currentplayer->prop->chr->chrnum;
 			} else {
 				playernum = g_Vars.currentplayernum;
 			}
@@ -13628,7 +13628,7 @@ bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
 
 	if (weapon->base.prop && weapon->base.model) {
 		if (g_Vars.mplayerisrunning) {
-			s32 playernum = mpPlayerGetIndex(chr);
+			s32 playernum = chr->chrnum;
 
 			weapon->base.hidden &= 0x0fffffff;
 			weapon->base.hidden |= (playernum << 28) & 0xf0000000;
@@ -13743,7 +13743,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 	s32 index;
 
 	if (g_Vars.normmplayerisrunning) {
-		index = mpPlayerGetIndex(chr);
+		index = chr->chrnum;
 	} else {
 		index = playermgrGetPlayerNumByProp(chr->prop);
 	}
@@ -13958,7 +13958,7 @@ struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset
 			prop = func0f08adc8(weapon, modeldef, prop, model);
 
 			if (g_Vars.mplayerisrunning) {
-				s32 index = mpPlayerGetIndex(chr);
+				s32 index = chr->chrnum;
 
 				weapon->base.hidden &= 0x0fffffff;
 				weapon->base.hidden |= ((index << 28) & 0xf0000000);

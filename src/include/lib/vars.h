@@ -7,5 +7,6 @@
 void varsInit(void);
 
 void varsReset(void);
+void varsResetRoomProps(void);
 
 #endif

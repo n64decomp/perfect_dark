@@ -320,13 +320,8 @@ void htbTick(void)
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htb.token == NULL) {
 		for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
-#if VERSION >= VERSION_NTSC_1_0
-			if (g_MpAllChrPtrs[i]->prop && g_MpAllChrPtrs[i]->aibot->hasbriefcase)
-#else
-			if (g_MpAllChrPtrs[i]->aibot->hasbriefcase)
-#endif
-			{
-				g_ScenarioData.htb.token = g_MpAllChrPtrs[i]->prop;
+			if (g_MpChrs[i].chr->prop && g_MpChrs[i].chr->aibot->hasbriefcase) {
+				g_ScenarioData.htb.token = g_MpChrs[i].chr->prop;
 				break;
 			}
 		}
@@ -356,7 +351,7 @@ void htbTickChr(struct chrdata *chr)
 
 			if (chr->aibot->unk0a0 >= TICKS(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
-				g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)]->numpoints++;
+				g_MpChrs[chr->chrnum].numpoints++;
 				chr->aibot->unk0a0 = 0;
 			}
 		} else {
@@ -368,7 +363,7 @@ void htbTickChr(struct chrdata *chr)
 
 			if (g_Vars.currentplayerstats->tokenheldtime >= TICKS(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
-				g_MpAllChrConfigPtrs[g_Vars.currentplayernum]->numpoints++;
+				g_MpChrs[g_Vars.currentplayernum].numpoints++;
 #if VERSION >= VERSION_JPN_FINAL
 				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP); // "1 Point!"
 #else
@@ -437,9 +432,9 @@ Gfx *htbRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void htbCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+void htbCalculatePlayerScore(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
-	struct mpchrconfig *loopmpchr;
+	struct mpchr *loopmpchr;
 	s32 i;
 
 	*score = 0;
@@ -494,7 +489,7 @@ bool htbRadarChr(Gfx **gdl, struct prop *prop)
 			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
 			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
+				u32 colour = g_TeamColours[prop->chr->team];
 				*gdl = radarDrawDot(*gdl, g_ScenarioData.htb.token, &dist, colour, 0, 1);
 			} else {
 				*gdl = radarDrawDot(*gdl, g_ScenarioData.htb.token, &dist, 0x00ff0000, 0, 1);

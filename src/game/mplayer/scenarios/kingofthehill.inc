@@ -337,7 +337,7 @@ void kohTick(void)
 
 		for (s0 = 0, numteamsinhill = 0; s0 < numchrsinhill; s0++) {
 			chr = chrsinhill[s0]->chr;
-			teamindex = radarGetTeamIndex(chr->team);
+			teamindex = chr->team;
 
 			if (teamsinhill[teamindex] == 0) {
 				numteamsinhill++;
@@ -428,14 +428,14 @@ void kohTick(void)
 					chr = g_Vars.currentplayer->prop->chr;
 
 #if VERSION >= VERSION_JPN_FINAL
-					if (radarGetTeamIndex(chr->team) == g_ScenarioData.koh.occupiedteam) {
+					if (chr->team == g_ScenarioData.koh.occupiedteam) {
 						// "We have the Hill!"
 						hudmsgCreateWithFlags(langGet(L_MPWEAPONS_021), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 					} else {
 						hudmsgCreateWithFlags(text, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 					}
 #else
-					if (radarGetTeamIndex(chr->team) == g_ScenarioData.koh.occupiedteam) {
+					if (chr->team == g_ScenarioData.koh.occupiedteam) {
 						// "We have the Hill!"
 						hudmsgCreateWithFlags(langGet(L_MPWEAPONS_021), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					} else {
@@ -460,11 +460,11 @@ void kohTick(void)
 						// "press start" screen while their team mate scores the
 						// hill, the dead player will always be awarded a point.
 						for (playernum2 = 0; playernum2 < g_MpNumChrs; playernum2++) {
-							if (radarGetTeamIndex(g_MpAllChrPtrs[playernum2]->team) == g_ScenarioData.koh.occupiedteam) {
-								prop = g_MpAllChrPtrs[playernum2]->prop;
+							if (g_MpChrs[playernum2].team == g_ScenarioData.koh.occupiedteam) {
+								prop = g_MpChrs[playernum2].chr->prop;
 
 								if (prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
-									g_MpAllChrConfigPtrs[playernum2]->numpoints++;
+									g_MpChrs[playernum2].numpoints++;
 								}
 							}
 						}
@@ -472,8 +472,8 @@ void kohTick(void)
 						prevplayernum1 = g_Vars.currentplayernum;
 
 						for (playernum2 = 0; playernum2 < g_MpNumChrs; playernum2++) {
-							if (g_MpAllChrPtrs[playernum2]->aibot == NULL
-									&& radarGetTeamIndex(g_MpAllChrPtrs[playernum2]->team) == g_ScenarioData.koh.occupiedteam) {
+							if (g_MpChrs[playernum2].chr->aibot == NULL
+									&& g_MpChrs[playernum2].team == g_ScenarioData.koh.occupiedteam) {
 								setCurrentPlayerNum(playernum2);
 
 								// "King of the Hill!"
@@ -559,7 +559,7 @@ Gfx *kohRenderHud(Gfx *gdl)
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 	char text[64];
 
-	if (radarGetTeamIndex(chr->team) == g_ScenarioData.koh.occupiedteam && !g_ScenarioData.koh.movehill) {
+	if (chr->team == g_ScenarioData.koh.occupiedteam && !g_ScenarioData.koh.movehill) {
 		x = viGetViewLeft() + viGetViewWidth() / 2;
 		y = viGetViewTop() + 10;
 
@@ -600,9 +600,9 @@ Gfx *kohRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void kohCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+void kohCalculatePlayerScore(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
-	struct mpchrconfig *loopmpchr;
+	struct mpchr *loopmpchr;
 	s32 i;
 
 	*score = 0;

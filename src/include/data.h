@@ -497,6 +497,7 @@ extern struct mpbody g_MpBodies[NUM_MPBODIES];
 extern struct mppreset g_MpPresets[NUM_MPPRESETS];
 extern u32 g_TeamColours[];
 extern u32 var80087ce4[];
+extern s32 g_NumBots;
 extern u8 g_BotCount;
 extern struct aibotweaponpreference g_AibotWeaponPreferences[];
 extern u32 var80087eb4;

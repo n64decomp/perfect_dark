@@ -5,7 +5,7 @@
 #include "types.h"
 
 f32 mpHandicapToDamageScale(u8 value);
-void func0f187838(struct mpchrconfig *mpchr);
+void func0f187838(struct mpchr *mpchr);
 void mpStartMatch(void);
 void mpReset(void);
 void mpCalculateTeamIsOnlyAi(void);
@@ -82,6 +82,7 @@ s32 mpGetCurrentTrackSlotNum(void);
 s32 mpChooseTrack(void);
 struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot);
 s32 mpGetChrIndexBySlotNum(s32 slot);
+s32 mpGetNumConfigs(void);
 s32 mpGetNumChrs(void);
 u8 mpFindUnusedTeamNum(void);
 void mpCreateBotFromProfile(s32 botnum, u8 difficulty);
@@ -93,10 +94,7 @@ bool mpHasUnusedBotSlots(void);
 bool mpIsSimSlotEnabled(s32 slot);
 s32 mpFindBotProfile(s32 type, s32 difficulty);
 void mpGenerateBotNames(void);
-s32 mpPlayerGetIndex(struct chrdata *chr);
-struct chrdata *mpGetChrFromPlayerIndex(s32 index);
 s32 func0f18d074(s32 index);
-s32 func0f18d0e8(s32 arg0);
 void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum);
 void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum);
 void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2);

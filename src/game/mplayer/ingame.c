@@ -30,68 +30,17 @@ struct menudialogdef g_MpEndscreenSavePlayerMenuDialog;
 
 s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	struct mpchrconfig *mpchr;
-	s32 v0;
-	s32 v1;
-	s32 a1;
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->list.value = 0;
-
-		for (v0 = 0; v0 < MAX_MPCHRS; v0++) {
-			if (g_MpSetup.chrslots & (1 << v0)) {
-				data->list.value++;
-			}
-		}
+		data->list.value = g_MpNumChrs;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		v0 = 0;
-
-		for (a1 = 0; a1 < MAX_MPCHRS; a1++) {
-			if (g_MpSetup.chrslots & (1 << a1)) {
-				mpchr = MPCHR(a1);
-
-				if (v0 == data->list.value) {
-					return (s32) mpchr->name;
-				}
-
-				v0++;
-			}
-		}
-
-		return (s32) "";
+		return (s32) g_MpChrs[data->list.value].config->name;
 	case MENUOP_SET:
-		v0 = 0;
-
-		for (a1 = 0; a1 < MAX_MPCHRS; a1++) {
-			if (g_MpSetup.chrslots & (1 << a1)) {
-				if (v0);
-
-				if (data->list.value == v0) {
-					g_MpSelectedPlayersForStats[g_MpPlayerNum] = a1;
-				}
-
-				v0++;
-			}
-		}
-
+		g_MpSelectedPlayersForStats[g_MpPlayerNum] = data->list.value;
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-		v0 = 0;
-
-		for (v1 = 0; v1 < MAX_MPCHRS; v1++) {
-			if (g_MpSetup.chrslots & (1 << v1)) {
-				if (v0);
-
-				if (g_MpSelectedPlayersForStats[g_MpPlayerNum] == v1) {
-					data->list.value = v0;
-				}
-
-				v0++;
-			}
-		}
-
+		data->list.value = g_MpSelectedPlayersForStats[g_MpPlayerNum];
 		break;
 	}
 
@@ -425,10 +374,10 @@ char *mpMenuTextWeaponDescription(struct menuitem *item)
 
 char *mpMenuTitleStatsFor(struct menudialogdef *dialogdef)
 {
-	struct mpchrconfig *mpchr = MPCHR(g_MpSelectedPlayersForStats[g_MpPlayerNum]);
+	struct mpchr *mpchr = MPCHR(g_MpSelectedPlayersForStats[g_MpPlayerNum]);
 
 	// "Stats for %s"
-	sprintf(g_StringPointer, langGet(L_MPMENU_280), mpchr->name);
+	sprintf(g_StringPointer, langGet(L_MPMENU_280), mpchr->config->name);
 	return g_StringPointer;
 }
 
@@ -583,13 +532,13 @@ char *mpMenuTextPlacementWithSuffix(struct menuitem *item)
 		L_MPMENU_275, // "12th"
 	};
 
-	return langGet(suffixes[g_PlayerConfigsArray[g_MpPlayerNum].base.placement]);
+	return langGet(suffixes[g_MpChrs[g_MpPlayerNum].placement]);
 }
 
 s32 mpPlacementMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_GETCOLOUR) {
-		if (g_PlayerConfigsArray[g_MpPlayerNum].base.placement == 0) { // winner
+		if (g_MpChrs[g_MpPlayerNum].placement == 0) { // winner
 			data->label.colour2 = colourBlend(data->label.colour2, 0xffff00ff, menuGetSinOscFrac(40) * 255);
 		}
 	}

@@ -257,13 +257,15 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 
 		roomGetNeighbours(pad.room, neighbours, 20);
 
-		for (i = 0; i < g_BotCount; i++) {
-			if (g_MpBotChrPtrs[i]->prop
-					&& g_MpBotChrPtrs[i]->prop != prop
-					&& (!prop || chrCompareTeams(prop->chr, g_MpBotChrPtrs[i], COMPARE_ENEMIES))) {
-				xdiff = g_MpBotChrPtrs[i]->prop->pos.x - pad.pos.x;
-				ydiff = g_MpBotChrPtrs[i]->prop->pos.y - pad.pos.y;
-				zdiff = g_MpBotChrPtrs[i]->prop->pos.z - pad.pos.z;
+		for (i = playercount; i < g_MpNumChrs; i++) {
+			struct chrdata *chr = g_MpChrs[i].chr;
+
+			if (chr->prop
+					&& chr->prop != prop
+					&& (!prop || chrCompareTeams(prop->chr, chr, COMPARE_ENEMIES))) {
+				xdiff = chr->prop->pos.x - pad.pos.x;
+				ydiff = chr->prop->pos.y - pad.pos.y;
+				zdiff = chr->prop->pos.z - pad.pos.z;
 
 				sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 
@@ -271,11 +273,11 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 					bestsqdist = sqdist;
 				}
 
-				if (arrayIntersects(tmppadrooms, g_MpBotChrPtrs[i]->prop->rooms)) {
+				if (arrayIntersects(tmppadrooms, chr->prop->rooms)) {
 					verybadpads[p] = true;
 				}
 
-				if (verybadpads[p] || arrayIntersects(neighbours, g_MpBotChrPtrs[i]->prop->rooms)) {
+				if (verybadpads[p] || arrayIntersects(neighbours, chr->prop->rooms)) {
 					badpads[p] = true;
 				}
 			}
@@ -923,11 +925,6 @@ void playerTickChrBody(void)
 				g_Vars.currentplayer->prop->rooms, turnangle);
 		g_Vars.currentplayer->prop->type = PROPTYPE_PLAYER;
 		chr = g_Vars.currentplayer->prop->chr;
-
-		if (g_Vars.mplayerisrunning) {
-			g_MpAllChrPtrs[g_Vars.currentplayernum] = chr;
-			g_MpAllChrConfigPtrs[g_Vars.currentplayernum] = &g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base;
-		}
 
 		chr->chrflags |= CHRCFLAG_00000001;
 

@@ -165,7 +165,11 @@ void *mempAllocFromBank(struct memorypool *pool, u32 size, u8 poolnum)
 
 void *mempAlloc(u32 len, u8 pool)
 {
-	void *allocation = mempAllocFromBank(g_MempOnboardPools, len, pool);
+	void *allocation;
+
+	len = ALIGN8(len);
+
+	allocation = mempAllocFromBank(g_MempOnboardPools, len, pool);
 
 	if (allocation) {
 		return allocation;

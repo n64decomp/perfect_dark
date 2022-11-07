@@ -819,15 +819,22 @@ s32 setupGetNumRequestedBots(void)
 
 s32 setupCalculateMaxBots(s32 numrequested, bool haslaptops)
 {
-	return numrequested;
+	return numrequested > 8 ? 8 : numrequested;
 }
+
+bool g_DebugEnable = false;
 
 void setupAllocateEverything(void)
 {
+	s32 numhumans;
 	s32 numbotsrequested;
 	bool haslaptops = false;
+	s32 botcfgnum;
 	s32 i;
-	s32 j;
+	s16 *killcounts;
+	s32 chrnum = 0;
+
+	numhumans = PLAYERCOUNT();
 
 	// Count how many bots were requested
 	numbotsrequested = setupGetNumRequestedBots();
@@ -856,24 +863,58 @@ void setupAllocateEverything(void)
 	chrmgrReset();
 	chrmgrConfigure(g_NumBots);
 
-	botmgrRemoveAll();
+	g_MpNumChrs = numhumans + g_NumBots;
 
-	if (g_Vars.normmplayerisrunning && mpHasSimulants()) {
-		s32 chrnum = 0;
+	g_MpChrs = mempAlloc(g_MpNumChrs * sizeof(struct mpchr), MEMPOOL_STAGE);
 
-		for (i = 0; i < MAX_BOTS; i++) {
-			if ((g_MpSetup.chrslots & (1 << (i + 4))) && mpIsSimSlotEnabled(i)) {
-				for (j = 0; j < g_BotConfigsArray[i].quantity; j++) {
-					botmgrAllocateBot(chrnum, i);
+	killcounts = mempAlloc(g_MpNumChrs * g_MpNumChrs * sizeof(s16), MEMPOOL_STAGE);
+
+	for (i = 0; i < g_MpNumChrs * g_MpNumChrs; i++) {
+		killcounts[i] = 0;
+	}
+
+	for (i = 0; i < 4; i++) {
+		if (g_MpSetup.chrslots & (1 << i)) {
+			// player->prop is null here, so chr gets copied later on in playerReset
+			g_MpChrs[chrnum].isbot = false;
+			g_MpChrs[chrnum].team = g_PlayerConfigsArray[i].base.team;
+			g_MpChrs[chrnum].playerconfig = &g_PlayerConfigsArray[i];
+			g_MpChrs[chrnum].placement = 0;
+			g_MpChrs[chrnum].rankablescore = 0;
+			g_MpChrs[chrnum].killcounts = &killcounts[chrnum * g_MpNumChrs];
+			g_MpChrs[chrnum].numdeaths = 0;
+			g_MpChrs[chrnum].numpoints = 0;
+
+			chrnum++;
+		}
+	}
+
+	if (mpHasSimulants()) {
+		s32 botnum = 0;
+		s32 botconfignum;
+
+		for (botcfgnum = 0; botcfgnum < MAX_BOTS; botcfgnum++) {
+			if ((g_MpSetup.chrslots & (1 << (botcfgnum + 4))) && mpIsSimSlotEnabled(botcfgnum)) {
+				for (i = 0; i < g_BotConfigsArray[botcfgnum].quantity; i++) {
+					g_MpChrs[chrnum].isbot = true;
+					g_MpChrs[chrnum].team = g_BotConfigsArray[botcfgnum].base.team;
+					g_MpChrs[chrnum].botconfig = &g_BotConfigsArray[botcfgnum];
+					g_MpChrs[chrnum].chr = NULL;
+					g_MpChrs[chrnum].placement = 0;
+					g_MpChrs[chrnum].rankablescore = 0;
+					g_MpChrs[chrnum].killcounts = &killcounts[chrnum * g_MpNumChrs];
+					g_MpChrs[chrnum].numdeaths = 0;
+					g_MpChrs[chrnum].numpoints = 0;
+
+					botmgrAllocateBot(chrnum, botcfgnum, botnum);
+					botnum++;
 					chrnum++;
 				}
 			}
 		}
 	}
 
-	if (g_Vars.normmplayerisrunning) {
-		scenarioInitProps();
-	}
+	scenarioInitProps();
 }
 
 void setupCreateProps(s32 stagenum)
@@ -1133,6 +1174,6 @@ void setupCreateProps(s32 stagenum)
 			}
 		}
 	} else {
-		setupAllocateEverything();
+		modelmgrAllocateSlots(0, 0, 0);
 	}
 }
