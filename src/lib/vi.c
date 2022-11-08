@@ -165,7 +165,7 @@ void viReset(s32 stagenum)
 		fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * 2;
 	} else {
 		viSetMode(VIMODE_LO);
-		fbsize = 320 * 220 * 4;
+		fbsize = 320 * 220 * 2;
 	}
 
 	ptr = mempAlloc(fbsize * 2 + 0x40, MEMPOOL_STAGE);
