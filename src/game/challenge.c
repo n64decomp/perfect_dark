@@ -787,9 +787,5 @@ void challengeConsiderMarkingComplete(void)
 
 bool challengeIsFeatureUnlocked(s32 featurenum)
 {
-	if (featurenum == 0) {
-		return true;
-	}
-
-	return (g_MpFeaturesUnlocked[featurenum] & 1) != 0;
+	return true;
 }
