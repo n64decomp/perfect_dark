@@ -569,11 +569,10 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 	s32 i;
 	s32 scores[MAX_MPCHRS];
 	u32 rankablescores[MAX_MPCHRS];
-	struct mpchr *mpchrs[MAX_MPCHRS];
-	s32 chrnums[MAX_MPCHRS];
+	s16 chrnums[MAX_MPCHRS];
 	s32 count = 0;
 	s32 numteams;
-	struct ranking teamrankings[MAX_MPCHRS];
+	struct ranking teamrankings[8];
 	s32 winner;
 	s32 loser;
 	s32 score;
@@ -614,7 +613,6 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 		for (j = count; j > dstindex; j--) {
 			rankablescores[j] = rankablescores[j - 1];
 			scores[j] = scores[j - 1];
-			mpchrs[j] = mpchrs[j - 1];
 			chrnums[j] = chrnums[j - 1];
 		}
 
@@ -623,7 +621,6 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 		// Write the new figures
 		rankablescores[dstindex] = (score + 0x8000) << 16 | (0xffff - deaths);
 		scores[dstindex] = score;
-		mpchrs[dstindex] = mpchr;
 		chrnums[dstindex] = i;
 	}
 
@@ -633,10 +630,11 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 	loser = -1;
 
 	for (j = 0; j < count; j++) {
-		rankings[j].mpchr = mpchrs[j];
+		struct mpchr *mpchr = &g_MpChrs[chrnums[j]];
+
+		rankings[j].mpchr = mpchr;
 		rankings[j].teamnum = chrnums[j];
 		rankings[j].positionindex = j;
-		rankings[j].unk0c = 0;
 		rankings[j].score = scores[j];
 
 		// For a team game, the mpchr's placement has to be the team's placement
@@ -646,32 +644,23 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 			s32 i;
 
 			for (i = 0; i < numteams; i++) {
-				if (teamrankings[i].teamnum == mpchrs[j]->team) {
+				if (teamrankings[i].teamnum == mpchr->team) {
 					placement = i;
 				}
 			}
 
-			mpchrs[j]->placement = placement;
-#if VERSION >= VERSION_NTSC_1_0
-			mpchrs[j]->rankablescore = 255 - placement;
-#endif
+			mpchr->placement = placement;
+			mpchr->rankablescore = 255 - placement;
 		} else {
-			mpchrs[j]->placement = j;
-#if VERSION >= VERSION_NTSC_1_0
-			mpchrs[j]->rankablescore = rankablescores[j];
-#endif
+			mpchr->placement = j;
+			mpchr->rankablescore = rankablescores[j];
 		}
-
-#if VERSION < VERSION_NTSC_1_0
-		mpchrs[j]->rankablescore = rankablescores[j];
-#endif
 
 		if (chrnums[j] < 4) {
 			loser = chrnums[j];
 
 			if (winner == -1) {
 				winner = chrnums[j];
-				if (1);
 			}
 		}
 	}
@@ -767,7 +756,6 @@ s32 mpGetTeamRankings(struct ranking *rankings)
 			rankings[count].mpchr = NULL;
 			rankings[count].teamnum = thisteamnum;
 			rankings[count].positionindex = count + 1;
-			rankings[count].unk0c = 0;
 			rankings[count].score = apparentscores[thisteamnum];
 
 			apparentscores[thisteamnum] = -8000;

@@ -4797,11 +4797,10 @@ struct chrbio {
 struct ranking {
 	struct mpchr *mpchr;
 	union {
-		u32 teamnum;
-		u32 chrnum;
+		u16 teamnum;
+		u16 chrnum;
 	};
-	u32 positionindex;
-	u8 unk0c;
+	u16 positionindex;
 	s32 score;
 };
 
