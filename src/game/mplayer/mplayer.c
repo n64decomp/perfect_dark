@@ -26,6 +26,7 @@
 #include "lib/str.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
+#include "string.h"
 #include "types.h"
 
 // bss
@@ -4421,6 +4422,24 @@ s32 mpGetNumChrs(void)
 	return g_MpNumChrs;
 }
 
+void mpGetChrName(char *buffer, struct mpchr *mpchr)
+{
+	if (mpchr->isbot) {
+		char basename[16];
+		s32 len;
+
+		// mpchr->config->name is something like "MeatSim\n"
+		// The line break must be removed
+		strcpy(basename, mpchr->config->name);
+		len = strlen(basename);
+		basename[len - 1] = '\0';
+
+		sprintf(buffer, "%s:%d\n", basename, mpchr->chr->aibot->aibotnum + 1);
+	} else {
+		strcpy(buffer, mpchr->config->name);
+	}
+}
+
 u8 mpFindUnusedTeamNum(void)
 {
 	u8 teamnum = 0;
@@ -4605,52 +4624,17 @@ s32 mpFindBotProfile(s32 type, s32 difficulty)
 
 void mpGenerateBotNames(void)
 {
-	s32 counts[ARRAYCOUNT(g_BotProfiles)];
 	s32 profilenum;
 	s32 i;
 	char name[16];
 
-	for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
-		counts[i] = 0;
-	}
-
-	// Count the number of bots using each profile (MeatSim, TurtleSim etc)
 	for (i = 4; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			profilenum = mpFindBotProfile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
 
 			if (profilenum >= 0 && profilenum < ARRAYCOUNT(g_BotProfiles)) {
-				counts[profilenum]++;
-			}
-		}
-	}
-
-	// Profiles with only one bot don't need to have to number appended to the
-	// name, so mark those as -1. For profiles with multiple bots, reset them
-	// to 0 because they'll be a counter for the final loop.
-	for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
-		if (counts[i] <= 1) {
-			counts[i] = -1;
-		} else {
-			counts[i] = 0;
-		}
-	}
-
-	for (i = 4; i < MAX_MPCHRS; i++) {
-		if (g_MpSetup.chrslots & (1 << i)) {
-			profilenum = mpFindBotProfile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
-
-			if (profilenum >= 0 && profilenum < ARRAYCOUNT(g_BotProfiles)) {
-				if (counts[profilenum] >= 0) {
-					// Multiple bots using this profile - append the number
-					counts[profilenum]++;
-					sprintf(name, "%s:%d\n", langGet(g_BotProfiles[profilenum].name), counts[profilenum]);
-					strcpy(g_BotConfigsArray[i - 4].base.name, name);
-				} else {
-					// One bots using this profile - just use the profile name
-					sprintf(name, "%s\n", langGet(g_BotProfiles[profilenum].name));
-					strcpy(g_BotConfigsArray[i - 4].base.name, name);
-				}
+				sprintf(name, "%s\n", langGet(g_BotProfiles[profilenum].name));
+				strcpy(g_BotConfigsArray[i - 4].base.name, name);
 			}
 		}
 	}

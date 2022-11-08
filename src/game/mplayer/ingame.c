@@ -30,12 +30,15 @@ struct menudialogdef g_MpEndscreenSavePlayerMenuDialog;
 
 s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
+	char buffer[32];
+
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->list.value = g_MpNumChrs;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) g_MpChrs[data->list.value].config->name;
+		mpGetChrName(g_StringPointer, &g_MpChrs[data->list.value]);
+		return (s32) g_StringPointer;
 	case MENUOP_SET:
 		g_MpSelectedPlayersForStats[g_MpPlayerNum] = data->list.value;
 		break;
@@ -375,9 +378,11 @@ char *mpMenuTextWeaponDescription(struct menuitem *item)
 char *mpMenuTitleStatsFor(struct menudialogdef *dialogdef)
 {
 	struct mpchr *mpchr = MPCHR(g_MpSelectedPlayersForStats[g_MpPlayerNum]);
+	char namebuffer[32];
 
 	// "Stats for %s"
-	sprintf(g_StringPointer, langGet(L_MPMENU_280), mpchr->config->name);
+	mpGetChrName(namebuffer, mpchr);
+	sprintf(g_StringPointer, langGet(L_MPMENU_280), namebuffer);
 	return g_StringPointer;
 }
 

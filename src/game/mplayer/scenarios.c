@@ -1096,6 +1096,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 	char text1[64];
 	char text2[64];
 	char text3[64];
+	char namebuffer[32];
 	struct mpchr *mpchr;
 
 	if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE) {
@@ -1116,7 +1117,9 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 		}
 
 		// "%shas the\n%s"
-		sprintf(text1, langGet(L_MPWEAPONS_000), mpchr->config->name, bgunGetShortName(WEAPON_BRIEFCASE2));
+		mpGetChrName(namebuffer, mpchr);
+
+		sprintf(text1, langGet(L_MPWEAPONS_000), namebuffer, bgunGetShortName(WEAPON_BRIEFCASE2));
 
 		prevplayernum = g_Vars.currentplayernum;
 
@@ -1172,14 +1175,16 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 					invRemoveItemByNum(WEAPON_BRIEFCASE2);
 				}
 
+				mpGetChrName(namebuffer, mpchr);
+
 				// "You captured the %s%s"
 				sprintf(text1, langGet(L_MPWEAPONS_004), g_BossFile.teamnames[i], bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				// "%scaptured our %s"
-				sprintf(text2, langGet(L_MPWEAPONS_005), mpchr->config->name, bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text2, langGet(L_MPWEAPONS_005), namebuffer, bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				// "%scaptured the %s%s"
-				sprintf(text3, langGet(L_MPWEAPONS_006), mpchr->config->name, g_BossFile.teamnames[i], bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text3, langGet(L_MPWEAPONS_006), namebuffer, g_BossFile.teamnames[i], bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				prevplayernum = g_Vars.currentplayernum;
 
@@ -1218,11 +1223,13 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 
 				g_ScenarioData.ctc.tokens[weapon->team] = chr->prop;
 
+				mpGetChrName(namebuffer, mpchr);
+
 				// "%shas the %s%s"
-				sprintf(text1, langGet(L_MPWEAPONS_001), mpchr->config->name, g_BossFile.teamnames[weapon->team], bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text1, langGet(L_MPWEAPONS_001), namebuffer, g_BossFile.teamnames[weapon->team], bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				// "%shas our %s"
-				sprintf(text2, langGet(L_MPWEAPONS_002), mpchr->config->name, bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text2, langGet(L_MPWEAPONS_002), namebuffer, bgunGetShortName(WEAPON_BRIEFCASE2));
 
 				// "Got the %s%s"
 				sprintf(text3, langGet(L_MPWEAPONS_003), g_BossFile.teamnames[weapon->team], bgunGetShortName(WEAPON_BRIEFCASE2));
@@ -1326,6 +1333,7 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 {
 	s32 i;
 	char message[64];
+	char namebuffer[32];
 	struct mpchr *mpchr;
 	u32 playernum;
 
@@ -1342,8 +1350,10 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 			mpchr = MPCHR(g_Vars.playerstats[g_Vars.currentplayernum].mpindex);
 		}
 
+		mpGetChrName(namebuffer, mpchr);
+
 		// "%shas the\n%s"
-		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->config->name, bgunGetShortName(WEAPON_DATAUPLINK));
+		sprintf(message, langGet(L_MPWEAPONS_000), namebuffer, bgunGetShortName(WEAPON_DATAUPLINK));
 
 		playernum = g_Vars.currentplayernum;
 

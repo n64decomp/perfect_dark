@@ -84,6 +84,7 @@ struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot);
 s32 mpGetChrIndexBySlotNum(s32 slot);
 s32 mpGetNumConfigs(void);
 s32 mpGetNumChrs(void);
+void mpGetChrName(char *buffer, struct mpchr *mpchr);
 u8 mpFindUnusedTeamNum(void);
 void mpCreateBotFromProfile(s32 botnum, u8 difficulty);
 void mpSetBotDifficulty(s32 botnum, s32 difficulty);

@@ -193,6 +193,7 @@ void pacApplyNextVictim(void)
 	struct scenariodata_pac *data = &g_ScenarioData.pac;
 	s32 vplayernum;
 	char text[64];
+	char namebuffer[32];
 	s32 i;
 
 	data->victimindex++;
@@ -209,9 +210,11 @@ void pacApplyNextVictim(void)
 		if (vplayernum == i) {
 			sprintf(text, langGet(L_MPWEAPONS_013)); // "You are the victim!"
 		} else if (scenarioChrsAreSameTeam(vplayernum, i)) {
-			sprintf(text, langGet(L_MPWEAPONS_014), g_MpChrs[vplayernum].config->name); // "Protect %s!"
+			mpGetChrName(namebuffer, &g_MpChrs[vplayernum]);
+			sprintf(text, langGet(L_MPWEAPONS_014), namebuffer); // "Protect %s!"
 		} else {
-			sprintf(text, langGet(L_MPWEAPONS_015), g_MpChrs[vplayernum].config->name); // "Get %s!"
+			mpGetChrName(namebuffer, &g_MpChrs[vplayernum]);
+			sprintf(text, langGet(L_MPWEAPONS_015), namebuffer); // "Get %s!"
 		}
 
 		scenarioCreateHudmsg(i, text);

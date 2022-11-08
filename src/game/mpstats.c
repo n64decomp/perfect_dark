@@ -197,6 +197,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 	struct mpchr *ampchr = NULL;
 	s32 prevplayernum;
 	char text[256];
+	char namebuffer[32];
 
 	if (g_Vars.normmplayerisrunning && g_MpSetup.scenario == MPSCENARIO_POPACAP) {
 		pacHandleDeath(aplayernum, vplayernum);
@@ -246,7 +247,8 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 
 				if (g_Vars.normmplayerisrunning && aplayernum >= 0) {
 					// "Killed by %s"
-					sprintf(text, "%s %s", langGet(L_MISC_183), g_MpChrs[aplayernum].config->name);
+					mpGetChrName(namebuffer, &g_MpChrs[aplayernum]);
+					sprintf(text, "%s %s", langGet(L_MISC_183), namebuffer);
 					hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 				}
 
@@ -266,7 +268,8 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 
 			if (g_Vars.normmplayerisrunning && vplayernum >= 0) {
 				// "Killed %s"
-				sprintf(text, "%s %s", langGet(L_MISC_184), g_MpChrs[vplayernum].config->name);
+				mpGetChrName(namebuffer, &g_MpChrs[vplayernum]);
+				sprintf(text, "%s %s", langGet(L_MISC_184), namebuffer);
 				hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 			}
 

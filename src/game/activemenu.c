@@ -160,6 +160,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 			s32 chrindex = -1;
 			struct chrdata *botchr = g_MpChrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]].chr;
 			struct chrdata *playerchr = g_Vars.currentplayer->prop->chr;
+			char namebuffer[32];
 
 			do {
 				chrindex++;
@@ -185,8 +186,10 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 			x = renderdata->x + 10;
 			y = renderdata->y + 1;
 
+			mpGetChrName(namebuffer, &g_MpChrs[chrindex]);
+
 			gdl = text0f153628(gdl);
-			gdl = textRenderProjected(gdl, &x, &y, g_MpChrs[chrindex].config->name, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRenderProjected(gdl, &x, &y, namebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
 			gdl = text0f153780(gdl);
 			return (s32)gdl;
 		}
@@ -870,7 +873,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 	s32 textheight;
 	s32 weaponnum;
 	char *weaponname;
-	char *aibotname;
+	char namebuffer[32];
 	s32 offset = 0;
 #if VERSION >= VERSION_NTSC_1_0
 	bool wide = false;
@@ -897,7 +900,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 	if (!g_AmMenus[g_AmIndex].allbots) {
 		buddynum = g_Vars.currentplayer->aibuddynums[buddynum];
-		aibotname = g_MpChrs[buddynum].config->name;
+		mpGetChrName(namebuffer, &g_MpChrs[buddynum]);
 
 		if (g_MpChrs[buddynum].chr->aibot) {
 			weaponnum = g_MpChrs[buddynum].chr->aibot->weaponnum;
@@ -911,7 +914,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 			weaponname = bgunGetShortName(weaponnum);
 		}
 
-		textMeasure(&textheight, &textwidth, aibotname, g_AmFont1, g_AmFont2, 0);
+		textMeasure(&textheight, &textwidth, namebuffer, g_AmFont1, g_AmFont2, 0);
 
 		x = viGetViewLeft() / g_ScaleX
 			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
@@ -931,12 +934,12 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
+		gdl = func0f1574d0jf(gdl, &x, &y, namebuffer, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, 320, 240, 0, 0);
 
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
 #else
-		gdl = textRender(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
+		gdl = textRender(gdl, &x, &y, namebuffer, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, 320, 240, 0, 0);
 
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);

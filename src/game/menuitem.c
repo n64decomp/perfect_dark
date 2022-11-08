@@ -3480,7 +3480,9 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 			gdl = textRenderProjected(gdl, &x, &y, g_BossFile.teamnames[ranking->teamnum],
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		} else {
-			gdl = textRenderProjected(gdl, &x, &y, ranking->mpchr->config->name,
+			char namebuffer[32];
+			mpGetChrName(namebuffer, ranking->mpchr);
+			gdl = textRenderProjected(gdl, &x, &y, namebuffer,
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		}
 
@@ -3573,6 +3575,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	u32 weight;
 	s32 gap;
 	s32 ypos = 0;
+	char namebuffer[32];
 
 	mpchr = MPCHR(playernum);
 
@@ -3594,7 +3597,8 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 2;
 	y = context->y + 1;
 
-	gdl = textRenderProjected(gdl, &x, &y, mpchr->config->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	mpGetChrName(namebuffer, mpchr);
+	gdl = textRenderProjected(gdl, &x, &y, namebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			selectioncolour, context->width, context->height, 0, 0);
 
 	// "Suicides" heading
@@ -3772,7 +3776,8 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 				// Name
 				x = context->x + 29;
 				y = context->y + ypos;
-				gdl = textRenderProjected(gdl, &x, &y, loopmpchr->config->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+				mpGetChrName(namebuffer, loopmpchr);
+				gdl = textRenderProjected(gdl, &x, &y, namebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 						0x00ffffff, context->width, context->height, 0, 0);
 
 				// Num deaths
