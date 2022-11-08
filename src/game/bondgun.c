@@ -225,6 +225,16 @@ void bgunPreload(void)
 		bgunPreloadGun(weaponnum);
 	}
 
+	switch (g_MpSetup.scenario) {
+	case MPSCENARIO_HACKERCENTRAL:
+		bgunPreloadGun(WEAPON_DATAUPLINK);
+		break;
+	case MPSCENARIO_CAPTURETHECASE:
+	case MPSCENARIO_HOLDTHEBRIEFCASE:
+		bgunPreloadGun(WEAPON_BRIEFCASE2);
+		break;
+	}
+
 	// Hands
 	prevplayernum = g_Vars.currentplayernum;
 

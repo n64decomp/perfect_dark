@@ -4342,8 +4342,8 @@ struct scenariodata_htm {
 	/*0x800ac1e0*/ s16 dlplayernum;
 	/*0x800ac1e2*/ s16 playernuminrange;
 	/*0x800ac1e4*/ s32 dlterminalnum;
-	/*0x800ac1e8*/ s32 numpoints[MAX_MPCHRS];
-	/*0x800ac218*/ s32 dltime240[MAX_MPCHRS];
+	/*0x800ac1e8*/ s32 *numpoints;
+	/*0x800ac218*/ s32 dltime240;
 	/*0x800ac248*/ u32 unk138;
 	/*0x800ac24c*/ struct prop *uplink;
 	/*0x800ac250*/ u32 unk140;
@@ -4354,9 +4354,9 @@ struct scenariodata_pac {
 	s16 unk00;
 	u16 age240;
 	s32 victimindex;
-	s16 victims[MAX_MPCHRS]; // shuffled list of player numbers
-	s16 killcounts[MAX_MPCHRS]; // indexed by player num
-	s16 survivalcounts[MAX_MPCHRS]; // indexed by player num
+	s16 *victims; // shuffled list of player numbers
+	s16 *killcounts; // indexed by player num
+	s16 *survivalcounts; // indexed by player num
 };
 
 struct scenariodata_koh {

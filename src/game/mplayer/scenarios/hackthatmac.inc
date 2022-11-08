@@ -161,10 +161,10 @@ void htmReset(void)
 	g_ScenarioData.htm.playernuminrange = -1;
 	g_ScenarioData.htm.dlterminalnum = -1;
 	g_ScenarioData.htm.unk140 = 0;
+	g_ScenarioData.htm.dltime240 = 0;
 
-	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.htm.numpoints); i++) {
+	for (i = 0; i < g_MpNumChrs; i++) {
 		g_ScenarioData.htm.numpoints[i] = 0;
-		g_ScenarioData.htm.dltime240[i] = 0;
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.htm.padnums); i++) {
@@ -269,6 +269,13 @@ void htmInitProps(void)
 	struct prop *prop = g_Vars.activeprops;
 	s32 i = 0;
 	s32 rand;
+	s32 size;
+
+	size = g_MpNumChrs * sizeof(data->numpoints[0]);
+
+	data->numpoints = mempAlloc(size, MEMPOOL_STAGE);
+
+	bzero(data->numpoints, size);
 
 	osSyncPrintf("HackThatMacInitProps -> Start : %d Bank Pads\n", data->numterminals);
 
@@ -409,7 +416,7 @@ void htmTickChr(struct chrdata *chr)
 		playernum = g_Vars.currentplayernum;
 	}
 
-	time = &data->dltime240[playernum];
+	time = &data->dltime240;
 
 	for (i = 0; i < HTM_NUM_TERMINALS; i++) {
 		if (data->terminals[i].prop) {
@@ -580,7 +587,7 @@ Gfx *htmRenderHud(Gfx *gdl)
 	s32 v1;
 	s32 s1;
 
-	dltime = data->dltime240[g_Vars.currentplayernum];
+	dltime = data->dltime240;
 
 	if (data->dlterminalnum != -1 && g_Vars.currentplayernum == data->dlplayernum) {
 		viewleft = viGetViewLeft();

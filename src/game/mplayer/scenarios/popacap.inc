@@ -167,6 +167,16 @@ void pacInit(void)
 
 void pacInitProps(void)
 {
+	s32 size = g_MpNumChrs * sizeof(s16);
+
+	g_ScenarioData.pac.victims = mempAlloc(size, MEMPOOL_STAGE);
+	g_ScenarioData.pac.killcounts = mempAlloc(size, MEMPOOL_STAGE);
+	g_ScenarioData.pac.survivalcounts = mempAlloc(size, MEMPOOL_STAGE);
+
+	bzero(g_ScenarioData.pac.victims, size);
+	bzero(g_ScenarioData.pac.killcounts, size);
+	bzero(g_ScenarioData.pac.survivalcounts, size);
+
 	pacReset();
 }
 
