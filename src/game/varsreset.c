@@ -14,7 +14,7 @@ void varsReset(void)
 	s32 i;
 
 	g_Vars.props = mempAlloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), MEMPOOL_STAGE);
-	g_Vars.onscreenprops = mempAlloc(ALIGN64(200 * sizeof(void *)), MEMPOOL_STAGE);
+	g_Vars.onscreenprops = mempAlloc(ALIGN64(g_Vars.maxprops * sizeof(void *)), MEMPOOL_STAGE);
 
 	g_AutoAimScale = 1;
 

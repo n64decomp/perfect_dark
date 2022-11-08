@@ -2899,17 +2899,6 @@ s32 menuhandlerMpSimulantSlot(s32 operation, struct menuitem *item, union handle
 	return 0;
 }
 
-char *mpMenuTextAddSimulantsLabel(struct menuitem *item)
-{
-	if (g_BotQuantity == 1) {
-		return "Add Simulant...\n";
-	}
-
-	sprintf(g_StringPointer, "Add %d Simulants...\n", g_BotQuantity);
-
-	return g_StringPointer;
-}
-
 char *mpMenuTextSimulantName(struct menuitem *item)
 {
 	s32 index = item->param;
@@ -3029,7 +3018,7 @@ struct menuitem g_MpEditSimulantMenuItems[] = {
 		0,
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_QUANTITY,
-		1000,
+		100,
 		menuhandlerIndividualBotQuantity,
 	},
 	{
@@ -3074,14 +3063,14 @@ struct menuitem g_MpSimulantsMenuItems[] = {
 		0,
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_QUANTITY,
-		1000,
+		100,
 		menuhandlerBotQuantity,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextAddSimulantsLabel,
+		L_MPMENU_084,
 		0,
 		menuhandlerMpAddSimulant,
 	},

@@ -37,6 +37,8 @@
 #define PICKUPCRITERIA_CRITICAL 1
 #define PICKUPCRITERIA_ANY      2
 
+bool g_IsMatchStart = false;
+
 struct botdifficulty g_BotDifficulties[] = {
 	//           shootdelay
 	//           |            unk04
@@ -166,8 +168,11 @@ void botReset(struct chrdata *chr, u8 respawning)
 			aibot->shotspeed.y = 0;
 			aibot->shotspeed.z = 0;
 
-			for (i = 0; i != g_MpNumChrs; i++) {
+			for (i = 0; i < ARRAYCOUNT(aibot->chrnumsbydistanceasc); i++) {
 				aibot->chrnumsbydistanceasc[i] = -1;
+			}
+
+			for (i = 0; i != g_MpNumChrs; i++) {
 				aibot->chrdistances[i] = U32_MAX;
 				aibot->chrsinsight[i] = false;
 				aibot->chrslastseen60[i] = -1;
@@ -257,9 +262,13 @@ void botSpawnAll(void)
 {
 	s32 i;
 
+	g_IsMatchStart = true;
+
 	for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
 		botSpawn(g_MpChrs[i].chr, false);
 	}
+
+	g_IsMatchStart = false;
 }
 
 #if PIRACYCHECKS
@@ -1511,7 +1520,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 	}
 
 	// Update chrnumsbydistanceasc
-	for (i = 0; i < g_MpNumChrs; i++) {
+	for (i = 0; i < ARRAYCOUNT(donechrnums); i++) {
 		donechrnums[i] = -1;
 	}
 
@@ -1538,7 +1547,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 
 		if (closestplayernum >= 0) {
 			aibot->chrnumsbydistanceasc[i] = closestplayernum;
-			donechrnums[closestplayernum] = true;
+			donechrnums[i] = closestplayernum;
 		}
 	}
 

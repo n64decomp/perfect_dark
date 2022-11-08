@@ -2125,7 +2125,7 @@ void mpCalculateAwards(void)
 	for (i = 0; i < playercount; i++) {
 		struct mpchr *mpchr = MPCHR(i);
 		struct mpplayerconfig *mpplayer = mpchr->playerconfig;
-		s32 chrnum = mpGetChrIndexBySlotNum(i);
+		s32 chrnum = i;
 		s32 sum;
 
 		setCurrentPlayerNum(i);

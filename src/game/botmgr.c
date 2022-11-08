@@ -255,7 +255,7 @@ void botmgrAllocateBot(s32 chrnum, s32 botcfgnum, s32 botnum)
 			aibot->unk050 = 0;
 			aibot->unk09d = 0;
 
-			botinvInit(chr, 10);
+			botinvInit(chr, 8);
 		}
 	}
 }

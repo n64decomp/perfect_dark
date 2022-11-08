@@ -174,6 +174,8 @@ s16 g_DeathAnimations[] = {
 
 s32 g_NumDeathAnimations = 0;
 
+extern bool g_IsMatchStart;
+
 /**
  * Choose which location to spawn into from the given pads. Write the position
  * and rooms to the dstpos and dstrooms pointers and return the angle that the
@@ -216,6 +218,22 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 	s16 tmppadrooms[2];
 	f32 bestsqdist;
 	s16 neighbours[20];
+
+	// During the initial spawn, when there's more bots than spawn points they'll
+	// consider all spawn pads to be "verybad" and end up spawning next to the
+	// player. So for match start spawns, we'll use *any* pad in the map at random.
+	if (g_IsMatchStart && g_MpNumChrs > numpads) {
+		padUnpack(random() % g_PadsFile->numpads, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
+
+		dstrooms[0] = pad.room;
+		dstrooms[1] = -1;
+
+		dstpos->x = pad.pos.x;
+		dstpos->y = pad.pos.y;
+		dstpos->z = pad.pos.z;
+
+		return atan2f(pad.look.x, pad.look.z);
+	}
 
 	// Iterate all spawn pads and populate the category arrays
 	for (p = 0; p < numpads; p++) {

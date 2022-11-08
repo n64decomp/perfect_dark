@@ -22,6 +22,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "game/propobj.h"
+#include "game/modeldef.h"
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/memp.h"
@@ -801,6 +802,37 @@ void setupLoadFiles(s32 stagenum)
 	g_Vars.maxprops = numobjs + MAX_DROPPED_ITEMS;
 }
 
+s32 setupCalculateHeadsAndBodies(void)
+{
+	s32 i;
+	u8 seen[0x97];
+	s32 sum = 0;
+
+	for (i = 0; i < ARRAYCOUNT(seen); i++) {
+		seen[i] = 0;
+	}
+
+	for (i = 0; i < MAX_MPCHRCONFIGS; i++) {
+		if (g_MpSetup.chrslots & (i << 1)) {
+			struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
+			s32 headnum = mpGetHeadId(mpcfg->mpheadnum);
+			s32 bodynum = mpGetBodyId(mpcfg->mpbodynum);
+
+			if (!seen[bodynum]) {
+				sum += fileGetInflatedSize(g_HeadsAndBodies[bodynum].filenum);
+				seen[bodynum] = 1;
+			}
+
+			if (!seen[headnum]) {
+				sum += fileGetInflatedSize(g_HeadsAndBodies[headnum].filenum);
+				seen[headnum] = 1;
+			}
+		}
+	}
+
+	return sum;
+}
+
 s32 setupGetNumRequestedBots(void)
 {
 	s32 i;
@@ -817,9 +849,187 @@ s32 setupGetNumRequestedBots(void)
 	return numbots;
 }
 
+s32 setupGetBaseBytesPerPlayer(bool haslaptops)
+{
+	s32 sum = 0;
+
+	sum += sizeof(struct prop);
+	sum += sizeof(void *); // g_Vars.onscreenprops
+	sum += sizeof(struct chrdata);
+	sum += sizeof(struct mpchr);
+	sum += sizeof(struct ranking);
+	sum += sizeof(struct model);
+	sum += sizeof(struct anim);
+	sum += sizeof(struct modelrwdatabinding);
+	sum += 256 * sizeof(u32); // 256 rwdata words
+
+	if (haslaptops) {
+		sum += sizeof(struct autogunobj);
+		sum += sizeof(struct beam);
+		sum += sizeof(struct model);
+		sum += 10 * sizeof(u32); // 10 rwdata words
+		sum += sizeof(struct modelrwdatabinding);
+	}
+
+	return sum;
+}
+
+s32 setupGetBaseBytesPerBot(bool haslaptops)
+{
+	s32 sum = 0;
+
+	sum += sizeof(struct prop);
+	sum += sizeof(void *); // g_Vars.onscreenprops
+	sum += sizeof(struct chrdata);
+	sum += sizeof(struct aibot);
+	sum += sizeof(struct mpchr);
+	sum += sizeof(struct ranking);
+	sum += sizeof(struct model);
+	sum += sizeof(struct anim);
+	sum += sizeof(struct modelrwdatabinding);
+	sum += 256 * sizeof(u32); // 256 rwdata words
+	sum += ALIGN8(3 * sizeof(u32) * 2); // 3 rwdata words * 2 held guns
+	sum += ALIGN8(36 * sizeof(s32)); // aibot.ammoheld
+	sum += ALIGN16(8 * sizeof(struct invitem)); // aibot.items
+
+	if (haslaptops) {
+		sum += sizeof(struct autogunobj);
+		sum += sizeof(struct beam);
+		sum += sizeof(struct model);
+		sum += 10 * sizeof(u32); // 10 rwdata words
+		sum += sizeof(struct modelrwdatabinding);
+	}
+
+	return sum;
+}
+
+extern s32 g_LvEstimatedFreeBytes;
+extern s32 g_NumPortals;
+
+/**
+ * The general idea here is that we take the current amount of free memory and
+ * subtract everything that we know is going to be allocated by lvReset
+ * (framebuffers etc). Then with what's left, we start iterating through the
+ * requested number of bots and keep subtracting until it either reaches 0 or we
+ * reached the requested number of bots.
+ *
+ * A loop is used for the bots because each bot is not a fixed size.
+ * Each bot maintains a few lists of all other chrs, so the more bots there are
+ * the more memory is needed per bot.
+ */
 s32 setupCalculateMaxBots(s32 numrequested, bool haslaptops)
 {
-	return numrequested > 8 ? 8 : numrequested;
+	s32 freebytes = mempGetStageFree();
+	s32 numplayers = PLAYERCOUNT();
+	s32 numbots = 0;
+	s32 numchrs = numplayers;
+	s32 scenariobytesperchr;
+	s32 basebytesperbot;
+	s32 i;
+
+	freebytes -= setupCalculateHeadsAndBodies();
+
+	freebytes -= ALIGN16(g_MaxExplosions * sizeof(struct explosion));
+	freebytes -= ALIGN16(g_MaxSmokes * sizeof(struct smoke));
+	freebytes -= ALIGN16(g_MaxShards * sizeof(struct shard));
+	freebytes -= 0x4b00 * numplayers; // for blurbg
+	freebytes -= 150 * 1024 * numplayers; // for gunmem
+	freebytes -= 18984 * 7; // for 6 gun preload slots + unarmed
+	freebytes -= 4392; // for data uplink
+	freebytes -= 12288 * numplayers; // for hands
+	freebytes -= 34880; // for carts
+	freebytes -= ALIGN16(g_Vars.roomcount * sizeof(struct roomacousticdata));
+	freebytes -= g_NumPortals * 4; // from func0f004c6c
+	freebytes -= ALIGN16(g_Vars.roomcount * sizeof(s16)); // g_RoomPropListChunkIndexes
+	freebytes -= 256 * sizeof(struct roomproplistchunk); // g_RoomPropListChunks
+
+	for (i = 1; i < g_Vars.roomcount; i++) {
+		freebytes -= g_Rooms[i].gfxdatalen;
+	}
+
+	// Room vtxbatches cannot be calculated until BG is loaded so I've precalculated these
+	switch (g_Vars.stagenum) {
+	case STAGE_MP_SKEDAR:     freebytes -= 0x2540; break;
+	case STAGE_MP_RAVINE:     freebytes -= 0x0e60; break;
+	case STAGE_MP_PIPES:      freebytes -= 0x26a0; break;
+	case STAGE_MP_G5BUILDING: freebytes -= 0x2840; break;
+	case STAGE_MP_SEWERS:     freebytes -= 0x2d80; break;
+	case STAGE_MP_WAREHOUSE:  freebytes -= 0x2be0; break;
+	case STAGE_MP_BASE:       freebytes -= 0x2860; break;
+	case STAGE_MP_COMPLEX:    freebytes -= 0x2c20; break;
+	case STAGE_MP_TEMPLE:     freebytes -= 0x1300; break;
+	case STAGE_MP_FELICITY:   freebytes -= 0x4820; break;
+	case STAGE_MP_AREA52:     freebytes -= 0x2700; break;
+	case STAGE_MP_GRID:       freebytes -= 0x1980; break;
+	case STAGE_MP_CARPARK:    freebytes -= 0x2600; break;
+	case STAGE_MP_RUINS:      freebytes -= 0x25c0; break;
+	case STAGE_MP_FORTRESS:   freebytes -= 0x5ea0; break;
+	case STAGE_MP_VILLA:      freebytes -= 0x30a0; break;
+	}
+
+	freebytes -= 320 * 220 * 2 * 2 + 0x40; // framebuffers
+
+	// These are already configured in g_Vars.maxprops (pickups)
+	freebytes -= g_Vars.maxprops * sizeof(struct prop); // g_Vars.props
+	freebytes -= g_Vars.maxprops * sizeof(void *); // g_Vars.onscreenprops
+	freebytes -= g_Vars.maxprops * sizeof(struct model);
+
+	if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
+		scenariobytesperchr = sizeof(s32); // numpoints array
+	} else if (g_MpSetup.scenario == MPSCENARIO_POPACAP) {
+		scenariobytesperchr = sizeof(s16) * 3; // victims, killcounts and survivalcounts arrays
+	} else {
+		scenariobytesperchr = 0;
+	}
+
+	// Subtract allocations for players
+	freebytes -= numplayers * setupGetBaseBytesPerPlayer(haslaptops);
+	freebytes -= numplayers * scenariobytesperchr;
+	freebytes -= numplayers * numplayers * sizeof(s16); // mpchr.killcounts
+
+	basebytesperbot = setupGetBaseBytesPerBot(haslaptops);
+
+	// Figure out how many bots can fit in what's left
+	while (numbots < numrequested) {
+		s32 origfreebytes = freebytes;
+
+		freebytes -= basebytesperbot;
+		freebytes -= scenariobytesperchr;
+
+		// For each bot added, annother element is added to player->aibuddynums
+		freebytes -= numplayers * sizeof(u16);
+
+		// For each bot added, all exsting mpchrs have another killcounts element
+		freebytes -= numchrs * sizeof(s16); // mpchr.killcounts
+
+		// Bot's own killcounts array
+		freebytes -= (numchrs + 1) * sizeof(s16); // mpchr.killcounts
+
+		// For each bot added, all existing bots add one element to these arrays
+		freebytes -= numbots * sizeof(f32); // aibot.chrdistances
+		freebytes -= numbots * sizeof(u8); // aibot.chrsinsight
+		freebytes -= numbots * sizeof(s32); // aibot.chrslastseen60
+		freebytes -= numbots * sizeof(s8); // aibot.chrrooms
+
+		// Bot's own arrays
+		freebytes -= (numchrs + 1) * sizeof(f32); // aibot.chrdistances
+		freebytes -= (numchrs + 1) * sizeof(u8); // aibot.chrsinsight
+		freebytes -= (numchrs + 1) * sizeof(s32); // aibot.chrslastseen60
+		freebytes -= (numchrs + 1) * sizeof(s8); // aibot.chrrooms
+
+		// Stop when there's less than 100 KB free, just in case my math is wrong
+		if (freebytes < 100 * 1024) {
+			freebytes = origfreebytes;
+			break;
+		}
+
+		numbots++;
+		numchrs++;
+	}
+
+	g_LvEstimatedFreeBytes = freebytes;
+
+	return numbots;
 }
 
 void setupSanitiseTeams(void)

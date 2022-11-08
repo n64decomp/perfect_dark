@@ -119,9 +119,10 @@ void mempSetHeap(u8 *heapstart, u32 heaplen)
  */
 u32 mempGetStageFree(void)
 {
-	u32 free;
+	u32 free = 0;
 
-	free = g_MempExpansionPools[MEMPOOL_STAGE].rightpos - g_MempExpansionPools[MEMPOOL_STAGE].leftpos;
+	free += g_MempOnboardPools[MEMPOOL_STAGE].rightpos - g_MempOnboardPools[MEMPOOL_STAGE].leftpos;
+	free += g_MempExpansionPools[MEMPOOL_STAGE].rightpos - g_MempExpansionPools[MEMPOOL_STAGE].leftpos;
 
 	return free;
 }
