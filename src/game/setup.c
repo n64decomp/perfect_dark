@@ -869,6 +869,8 @@ void setupAllocateEverything(void)
 
 	killcounts = mempAlloc(g_MpNumChrs * g_MpNumChrs * sizeof(s16), MEMPOOL_STAGE);
 
+	g_MpRankings = mempAlloc(MAX(8, g_MpNumChrs) * sizeof(struct ranking), MEMPOOL_STAGE);
+
 	for (i = 0; i < g_MpNumChrs * g_MpNumChrs; i++) {
 		killcounts[i] = 0;
 	}

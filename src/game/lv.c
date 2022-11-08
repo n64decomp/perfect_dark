@@ -1695,22 +1695,20 @@ void lvTick(void)
 			}
 
 			if (g_MpScoreLimit > 0) {
-				struct ranking rankings[MAX_MPCHRS];
-				s32 count = mpGetPlayerRankings(rankings);
+				s32 count = mpGetPlayerRankings(g_MpRankings);
 
 				for (i = 0; i < count; i++) {
-					if (rankings[i].score >= g_MpScoreLimit) {
+					if (g_MpRankings[i].score >= g_MpScoreLimit) {
 						g_NumReasonsToEndMpMatch++;
 					}
 				}
 			}
 
 			if (g_MpTeamScoreLimit > 0) {
-				struct ranking rankings[MAX_MPCHRS];
-				s32 count = mpGetTeamRankings(rankings);
+				s32 count = mpGetTeamRankings(g_MpRankings);
 
 				for (i = 0; i < count; i++) {
-					if (rankings[i].score >= g_MpTeamScoreLimit) {
+					if (g_MpRankings[i].score >= g_MpTeamScoreLimit) {
 						g_NumReasonsToEndMpMatch++;
 					}
 				}

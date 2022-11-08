@@ -753,10 +753,9 @@ bool challengeIsCompleteForEndscreen(void)
 	setCurrentPlayerNum(prevplayernum);
 
 	if (!aborted) {
-		struct ranking rankings[12];
-		mpGetTeamRankings(rankings);
+		mpGetTeamRankings(g_MpRankings);
 
-		if (rankings[0].teamnum == 0) {
+		if (g_MpRankings[0].teamnum == 0) {
 			result = true;
 		}
 	}

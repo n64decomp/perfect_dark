@@ -3289,7 +3289,6 @@ Gfx *menuitem07Render(Gfx *gdl)
 
 Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 {
-	struct ranking rankings[MAX_MPCHRS];
 	s32 numrows;
 	u32 textcolour;
 	s32 x;
@@ -3306,9 +3305,9 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 
 	if (context->item->param2 == 1) {
 		team = true;
-		numrows = mpGetTeamRankings(rankings);
+		numrows = mpGetTeamRankings(g_MpRankings);
 	} else {
-		numrows = mpGetPlayerRankings(rankings);
+		numrows = mpGetPlayerRankings(g_MpRankings);
 	}
 
 	gdl = text0f153628(gdl);
@@ -3456,7 +3455,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = text0f153628(gdl);
 
 	for (i = 0; i < numrows; i++) {
-		struct ranking *ranking = &rankings[i];
+		struct ranking *ranking = &g_MpRankings[i];
 		u32 weight = 0;
 		char valuebuffer[8];
 

@@ -33,6 +33,7 @@
 u32 var800ac534;
 s32 g_MpNumChrs;
 struct mpchr *g_MpChrs;
+struct ranking *g_MpRankings;
 struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
 u8 g_MpSimulantDifficultiesPerNumPlayers[8][4];
 struct mpplayerconfig g_PlayerConfigsArray[6];
@@ -188,6 +189,7 @@ void mpReset(void)
 	}
 
 	g_MpChrs = NULL;
+	g_MpRankings = NULL;
 
 	g_MpSetup.paused = false;
 
@@ -2113,20 +2115,9 @@ void mpCalculateAwards(void)
 	s32 prevplayernum;
 	s32 duration60;
 	struct awardmetrics metrics[4];
-
-	// @bug: playerrankings should have 12 elements. Because it's too small,
-	// overflow occurs in mpGetPlayerRankings. The overflow writes into the
-	// metrics array (above) which is yet to be initialised, so this bug has
-	// no effect on IDO.
-#ifdef AVOID_UB
-	struct ranking playerrankings[MAX_MPCHRS];
-#else
-	struct ranking playerrankings[1];
-#endif
-
 	s32 numchrs;
 	s32 numteams;
-	struct ranking teamrankings[MAX_MPCHRS];
+	struct ranking teamrankings[8];
 	u32 stack[4];
 
 	playercount = PLAYERCOUNT();
@@ -2135,7 +2126,7 @@ void mpCalculateAwards(void)
 
 	func00033dd8();
 
-	numchrs = mpGetPlayerRankings(playerrankings);
+	numchrs = mpGetPlayerRankings(g_MpRankings);
 	numteams = (g_MpSetup.options & MPOPTION_TEAMSENABLED) ? mpGetTeamRankings(teamrankings) : 0;
 
 	prevplayernum = g_Vars.currentplayernum;
