@@ -3356,7 +3356,15 @@ char *mpMenuTextChrNameForTeamSetup(struct menuitem *item)
 	struct mpchrconfig *mpcfg = mpGetChrConfigBySlotNum(item->param);
 
 	if (mpcfg) {
-		return mpcfg->name;
+		if (mpcfg >= &g_BotConfigsArray[0].base && mpcfg < &g_BotConfigsArray[MAX_BOTS].base) {
+			// Bot
+			struct mpbotconfig *botcfg = (struct mpbotconfig *) mpcfg;
+			sprintf(g_StringPointer, "%dx %s\n", botcfg->quantity, botcfg->base.name);
+			return g_StringPointer;
+		} else {
+			// Player
+			return mpcfg->name;
+		}
 	}
 
 	return "";
