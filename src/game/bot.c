@@ -166,7 +166,7 @@ void botReset(struct chrdata *chr, u8 respawning)
 			aibot->shotspeed.y = 0;
 			aibot->shotspeed.z = 0;
 
-			for (i = 0; i != MAX_MPCHRS; i++) {
+			for (i = 0; i != g_MpNumChrs; i++) {
 				aibot->chrnumsbydistanceasc[i] = -1;
 				aibot->chrdistances[i] = U32_MAX;
 				aibot->chrsinsight[i] = false;

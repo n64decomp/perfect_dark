@@ -2031,7 +2031,7 @@ char *mpMenuTextMpconfigMarquee(struct menuitem *item)
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (scenarionum <= 5 && arenanum != -1 && numsims >= 0 && filename[0] != '\0' && numsims <= MAX_BOTS) {
+		if (scenarionum <= 5 && arenanum != -1 && numsims >= 0 && filename[0] != '\0' && numsims <= MAX_BOTCONFIGS) {
 			// "%s:  Scenario: %s   Arena: %s    Simulants: %d"
 			sprintf(g_StringPointer, langGet(L_MPMENU_140),
 					filename,
@@ -2818,7 +2818,7 @@ s32 menuhandlerMpClearAllSimulants(s32 operation, struct menuitem *item, union h
 {
 	if (operation == MENUOP_SET) {
 		s32 i;
-		for (i = 0; i < MAX_BOTS; i++) {
+		for (i = 0; i < MAX_BOTCONFIGS; i++) {
 			mpRemoveSimulant(i);
 		}
 	}
@@ -3284,7 +3284,7 @@ s32 menuhandlerMpMaximumTeams(s32 operation, struct menuitem *item, union handle
 		s32 i;
 		u8 team = 0;
 
-		for (i = 0; i != MAX_MPCHRS; i++) {
+		for (i = 0; i != MAX_MPCHRCONFIGS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
 
@@ -3307,7 +3307,7 @@ s32 menuhandlerMpHumansVsSimulants(s32 operation, struct menuitem *item, union h
 	if (operation == MENUOP_SET) {
 		s32 i;
 
-		for (i = 0; i != MAX_MPCHRS; i++) {
+		for (i = 0; i != MAX_MPCHRCONFIGS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
 
@@ -3329,7 +3329,7 @@ s32 menuhandlerMpHumanSimulantPairs(s32 operation, struct menuitem *item, union 
 		s32 playerindex = 0;
 		s32 simindex = 0;
 
-		for (i = 0; i != MAX_MPCHRS; i++) {
+		for (i = 0; i != MAX_MPCHRCONFIGS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
 
@@ -3356,7 +3356,7 @@ char *mpMenuTextChrNameForTeamSetup(struct menuitem *item)
 	struct mpchrconfig *mpcfg = mpGetChrConfigBySlotNum(item->param);
 
 	if (mpcfg) {
-		if (mpcfg >= &g_BotConfigsArray[0].base && mpcfg < &g_BotConfigsArray[MAX_BOTS].base) {
+		if (mpcfg >= &g_BotConfigsArray[0].base && mpcfg < &g_BotConfigsArray[MAX_BOTCONFIGS].base) {
 			// Bot
 			struct mpbotconfig *botcfg = (struct mpbotconfig *) mpcfg;
 			sprintf(g_StringPointer, "%dx %s\n", botcfg->quantity, botcfg->base.name);
@@ -4767,7 +4767,7 @@ void mpConfigureQuickTeamPlayers(void)
 	s32 i;
 
 	if (g_Vars.mpquickteam != MPQUICKTEAM_NONE) {
-		for (i = 0; i < MAX_BOTS; i++) {
+		for (i = 0; i < MAX_BOTCONFIGS; i++) {
 			mpRemoveSimulant(i);
 		}
 
@@ -4936,7 +4936,7 @@ s32 menuhandlerMpNumberOfSimulants(s32 operation, struct menuitem *item, union h
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->dropdown.value = MAX_BOTS;
+		data->dropdown.value = MAX_BOTCONFIGS;
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		sprintf(g_StringPointer, "%d\n", data->dropdown.value + 1);

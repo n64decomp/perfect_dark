@@ -276,7 +276,7 @@ extern u32 var800ac4cc;
 extern s32 g_MpNumChrs;
 extern struct mpchr *g_MpChrs;
 extern struct ranking *g_MpRankings;
-extern struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
+extern struct mpbotconfig g_BotConfigsArray[MAX_BOTCONFIGS];
 extern u8 g_MpSimulantDifficultiesPerNumPlayers[8][4];
 extern struct mpplayerconfig g_PlayerConfigsArray[6];
 extern u8 g_AmBotCommands[16];

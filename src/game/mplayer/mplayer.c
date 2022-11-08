@@ -34,7 +34,7 @@ u32 var800ac534;
 s32 g_MpNumChrs;
 struct mpchr *g_MpChrs;
 struct ranking *g_MpRankings;
-struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
+struct mpbotconfig g_BotConfigsArray[MAX_BOTCONFIGS];
 u8 g_MpSimulantDifficultiesPerNumPlayers[8][4];
 struct mpplayerconfig g_PlayerConfigsArray[6];
 u8 g_AmBotCommands[16];
@@ -418,7 +418,7 @@ void mpInit(void)
 		mpPlayerSetDefaults(i, false);
 	}
 
-	for (i = 0; i < MAX_BOTS; i++) {
+	for (i = 0; i < MAX_BOTCONFIGS; i++) {
 		func0f1881d4(i);
 	}
 
@@ -4358,7 +4358,7 @@ struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot)
 	struct mpchrconfig *result = NULL;
 	s32 i;
 
-	for (i = 0; i < MAX_MPCHRS; i++) {
+	for (i = 0; i < MAX_MPCHRCONFIGS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			if (count == slot) {
 				result = MPCHRCONFIG(i);
@@ -4379,7 +4379,7 @@ s32 mpGetChrIndexBySlotNum(s32 slot)
 	s32 result = 0;
 	s32 i;
 
-	for (i = 0; i < MAX_MPCHRS; i++) {
+	for (i = 0; i < MAX_MPCHRCONFIGS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			if (count == slot) {
 				result = i;
@@ -4399,7 +4399,7 @@ s32 mpGetNumConfigs(void)
 	s32 count = 0;
 	s32 i;
 
-	for (i = 0; i != MAX_MPCHRS; i++) {
+	for (i = 0; i != MAX_MPCHRCONFIGS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			count++;
 		}
@@ -4440,11 +4440,11 @@ u8 mpFindUnusedTeamNum(void)
 	while (teamnum < 7 && !available) {
 		available = true;
 
-		for (i = 0; i < MAX_MPCHRS; i++) {
+		for (i = 0; i < MAX_MPCHRCONFIGS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr = MPCHRCONFIG(i);
+				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
 
-				if (mpchr->team == teamnum) {
+				if (mpcfg->team == teamnum) {
 					available = false;
 				}
 			}
@@ -4487,7 +4487,7 @@ void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
 		headnum = g_BotHeads[random() % ARRAYCOUNT(g_BotHeads)];
 		available = true;
 
-		for (i = 0; i < MAX_MPCHRS; i++) {
+		for (i = 0; i < MAX_MPCHRCONFIGS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
 
@@ -4524,7 +4524,7 @@ s32 mpGetSlotForNewBot(void)
 {
 	s32 i = 0;
 
-	while (i < MAX_BOTS - 1 && g_MpSetup.chrslots & (1 << (i + 4))) {
+	while (i < MAX_BOTCONFIGS - 1 && g_MpSetup.chrslots & (1 << (i + 4))) {
 		i++;
 	}
 
@@ -4550,10 +4550,10 @@ bool mpHasSimulants(void)
 
 bool mpHasUnusedBotSlots(void)
 {
-	s32 numvacant = MAX_BOTS;
+	s32 numvacant = MAX_BOTCONFIGS;
 	s32 i;
 
-	for (i = 4; i < MAX_MPCHRS; i++) {
+	for (i = 4; i < MAX_MPCHRCONFIGS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			numvacant--;
 		}
@@ -4568,11 +4568,11 @@ bool mpHasUnusedBotSlots(void)
 
 bool mpIsSimSlotEnabled(s32 slot)
 {
-	s32 numfree = MAX_BOTS;
+	s32 numfree = MAX_BOTCONFIGS;
 	s32 i;
 
 	if ((g_MpSetup.chrslots & (1 << (slot + 4))) == 0) {
-		for (i = 0; i < MAX_BOTS; i++) {
+		for (i = 0; i < MAX_BOTCONFIGS; i++) {
 			if (g_MpSetup.chrslots & (1 << (i + 4))) {
 				numfree--;
 			}
@@ -4619,7 +4619,7 @@ void mpGenerateBotNames(void)
 	s32 i;
 	char name[16];
 
-	for (i = 4; i < MAX_MPCHRS; i++) {
+	for (i = 4; i < MAX_MPCHRCONFIGS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			profilenum = mpFindBotProfile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
 
@@ -5101,7 +5101,7 @@ void mp0f18dec4(s32 slot)
 #if VERSION >= VERSION_JPN_FINAL
 	g_MpSetup.chrslots &= 0x0f;
 
-	for (i = 0; i < MAX_BOTS; i++) {
+	for (i = 0; i < MAX_BOTCONFIGS; i++) {
 		if (g_BotConfigsArray[i].difficulty != BOTDIFF_DISABLED) {
 			g_MpSetup.chrslots |= 1 << (i + 4);
 		}
@@ -5172,7 +5172,7 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 
 	func0f0d55a4(buffer, g_MpSetup.name);
 
-	for (i = 0; i < MAX_BOTS; i++) {
+	for (i = 0; i < MAX_BOTCONFIGS; i++) {
 		if (g_MpSetup.chrslots & (1 << (i + 4))) {
 			numsims++;
 		}
@@ -5186,7 +5186,7 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 
 	savebufferOr(buffer, g_MpSetup.options, 21);
 
-	for (i = 0; i < MAX_BOTS; i++) {
+	for (i = 0; i < MAX_BOTCONFIGS; i++) {
 		savebufferOr(buffer, g_BotConfigsArray[i].type, 5);
 
 		if (g_MpSetup.chrslots & (1 << (i + 4))) {

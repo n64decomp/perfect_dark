@@ -136,16 +136,6 @@ void ctcInit(void)
 		g_ScenarioData.ctc.playercountsperteam[i] = 0;
 		g_ScenarioData.ctc.teamindexes[i] = -1;
 	}
-
-	for (k = 0; k < MAX_MPCHRS; k++) {
-		if (g_MpSetup.chrslots & (1 << k)) {
-			struct mpchr *mpchr = MPCHR(k);
-
-			while (mpchr->team >= scenarioGetMaxTeams()) {
-				mpchr->team -= scenarioGetMaxTeams();
-			}
-		}
-	}
 }
 
 s32 ctcNumProps(void)
@@ -226,23 +216,9 @@ void ctcInitProps(void)
 		teamsdone[g_ScenarioData.ctc.teamindexes[i]] = true;
 	}
 
-	for (k = 0; k < MAX_MPCHRS; k++) {
+	for (k = 0; k < MAX_MPCHRCONFIGS; k++) {
 		if (g_MpSetup.chrslots & (1 << k)) {
 			mpchr = MPCHRCONFIG(k);
-
-			while (mpchr->team >= scenarioGetMaxTeams()) {
-				mpchr->team -= scenarioGetMaxTeams();
-			}
-
-			mpindex = k;
-
-			if (mpindex >= 0) {
-				struct chrdata *chr = g_MpChrs[mpindex].chr;
-
-				if (chr) {
-					chr->team = mpchr->team;
-				}
-			}
 
 			g_ScenarioData.ctc.playercountsperteam[mpchr->team]++;
 		}
@@ -342,7 +318,7 @@ void ctcCalculatePlayerScore(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 
 	*score += mpchr->numpoints * 3;
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
-		for (i = 0; i != MAX_MPCHRS; i++) {
+		for (i = 0; i != g_MpNumChrs; i++) {
 			if (i == mpchrnum) {
 				*score -= mpchr->killcounts[i];
 			} else {

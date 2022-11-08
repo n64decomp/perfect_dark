@@ -807,7 +807,7 @@ s32 setupGetNumRequestedBots(void)
 	s32 numbots = 0;
 
 	if (g_Vars.normmplayerisrunning && mpHasSimulants()) {
-		for (i = 0; i < MAX_BOTS; i++) {
+		for (i = 0; i < MAX_BOTCONFIGS; i++) {
 			if ((g_MpSetup.chrslots & (1 << (i + 4))) && mpIsSimSlotEnabled(i)) {
 				numbots += g_BotConfigsArray[i].quantity;
 			}
@@ -822,7 +822,22 @@ s32 setupCalculateMaxBots(s32 numrequested, bool haslaptops)
 	return numrequested > 8 ? 8 : numrequested;
 }
 
-bool g_DebugEnable = false;
+void setupSanitiseTeams(void)
+{
+	s32 i;
+
+	if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
+		for (i = 0; i < MAX_MPCHRCONFIGS; i++) {
+			if (g_MpSetup.chrslots & (1 << i)) {
+				struct mpchrconfig *mpcfg = MPCHRCONFIG(i);
+
+				while (mpcfg->team >= scenarioGetMaxTeams()) {
+					mpcfg->team -= scenarioGetMaxTeams();
+				}
+			}
+		}
+	}
+}
 
 void setupAllocateEverything(void)
 {
@@ -895,7 +910,7 @@ void setupAllocateEverything(void)
 		s32 botnum = 0;
 		s32 botconfignum;
 
-		for (botcfgnum = 0; botcfgnum < MAX_BOTS; botcfgnum++) {
+		for (botcfgnum = 0; botcfgnum < MAX_BOTCONFIGS; botcfgnum++) {
 			if ((g_MpSetup.chrslots & (1 << (botcfgnum + 4))) && mpIsSimSlotEnabled(botcfgnum)) {
 				for (i = 0; i < g_BotConfigsArray[botcfgnum].quantity; i++) {
 					g_MpChrs[chrnum].isbot = true;
@@ -972,6 +987,7 @@ void setupCreateProps(s32 stagenum)
 				}
 			}
 
+			setupSanitiseTeams();
 			setupAllocateEverything();
 
 			index = 0;

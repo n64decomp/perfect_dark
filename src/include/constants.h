@@ -1506,8 +1506,10 @@
 #define MAX_DANGEROUSPROPS 12
 #define MAX_LIFTS          10
 #define MAX_MPCHRS         (4 + MAX_BOTS)
+#define MAX_MPCHRCONFIGS   (4 + MAX_BOTCONFIGS)
 #define MAX_OBJECTIVES     10
 #define MAX_BOTS           8
+#define MAX_BOTCONFIGS     8
 #define MAX_SPAWNPOINTS    24
 #define MAX_SQUADRONS      16
 #define MAX_TEAMS          8

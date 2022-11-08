@@ -127,7 +127,7 @@ void pacReset(void)
 
 	osSyncPrintf("PopACapReset -> num_mplayers=%d : Working\n", g_MpNumChrs);
 
-	for (i = 0; i != MAX_MPCHRS; i++) {
+	for (i = 0; i != g_MpNumChrs; i++) {
 		data->killcounts[i] = 0;
 		data->survivalcounts[i] = 0;
 	}
@@ -341,7 +341,7 @@ void pacCalculatePlayerScore(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 
 	}
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
-		for (i = 0; i != MAX_MPCHRS; i++) {
+		for (i = 0; i != g_MpNumChrs; i++) {
 			if (i == mpchrnum) {
 				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {

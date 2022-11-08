@@ -630,7 +630,7 @@ void htmCalculatePlayerScore(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 
 	}
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
-		for (i = 0; i != MAX_MPCHRS; i++) {
+		for (i = 0; i != g_MpNumChrs; i++) {
 			if (i == mpchrnum) {
 				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
