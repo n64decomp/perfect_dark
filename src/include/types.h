@@ -174,7 +174,7 @@ struct g_vars {
 	/*0x35b*/ u8 alwaystick;
 	/*0x35c*/ u16 updateframe;
 	/*0x35e*/ u16 prevupdateframe;
-	/*0x360*/ struct propstate propstates[7];
+	/*0x360*/ struct propstate propstates[150];
 	/*0x424*/ struct chrdata *chrdata;
 	/*0x428*/ struct truckobj *truck;
 	/*0x42c*/ struct heliobj *heli;

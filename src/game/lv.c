@@ -898,6 +898,28 @@ Gfx *lvPrintRateGraph(Gfx *gdl)
 	return gdl;
 }
 
+void lvGetNumPropsByActiveState(s32 *foreground, s32 *background)
+{
+	struct prop *prop = g_Vars.activeprops;
+
+	*foreground = 0;
+	*background = 0;
+
+	while (prop) {
+		if (prop->backgrounded) {
+			*background += 1;
+		} else {
+			*foreground += 1;
+		}
+
+		if (prop == g_Vars.activepropstail) {
+			break;
+		}
+
+		prop = prop->next;
+	}
+}
+
 s32 lvGetNumFreeProps(void)
 {
 	s32 count = 0;
@@ -970,6 +992,19 @@ Gfx *lvPrintRateText(Gfx *gdl)
 
 		sprintf(buffer, "est free %d KB\n", g_LvEstimatedFreeBytes / 1024);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+		{
+			s32 foreground;
+			s32 background;
+
+			lvGetNumPropsByActiveState(&foreground, &background);
+
+			sprintf(buffer, "props fg %d\n", foreground);
+			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+			sprintf(buffer, "props bg %d\n", background);
+			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		}
 
 		sprintf(buffer, "props free %d\n", lvGetNumFreeProps());
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);

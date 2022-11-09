@@ -36,12 +36,7 @@ void varsReset(void)
 
 	g_Vars.props[i].next = NULL;
 
-	if (g_Vars.normmplayerisrunning) {
-		g_Vars.numpropstates = 4;
-	} else {
-		g_Vars.numpropstates = 7;
-	}
-
+	g_Vars.numpropstates = MIN(g_NumBots, ARRAYCOUNT(g_Vars.propstates));
 	g_Vars.allocstateindex = 0;
 	g_Vars.runstateindex = 0;
 	g_Vars.alwaystick = 0;
