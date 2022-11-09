@@ -305,23 +305,25 @@ Gfx *radarRender(Gfx *gdl)
 	}
 
 	// Draw dots for MP simulants
-	for (i = playercount; i < g_MpNumChrs; i++) {
-		struct chrdata *chr = g_MpChrs[i].chr;
+	if (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].displayoptions & MPDISPLAYOPTION_BOTSONRADAR) {
+		for (i = playercount; i < g_MpNumChrs; i++) {
+			struct chrdata *chr = g_MpChrs[i].chr;
 
-		if (!chrIsDead(chr)
-				&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
-				&& scenarioRadarChr(&gdl, chr->prop) == false) {
-			pos.x = chr->prop->pos.x - g_Vars.currentplayer->prop->pos.x;
-			pos.y = chr->prop->pos.y - g_Vars.currentplayer->prop->pos.y;
-			pos.z = chr->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
+			if (!chrIsDead(chr)
+					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
+					&& scenarioRadarChr(&gdl, chr->prop) == false) {
+				pos.x = chr->prop->pos.x - g_Vars.currentplayer->prop->pos.x;
+				pos.y = chr->prop->pos.y - g_Vars.currentplayer->prop->pos.y;
+				pos.z = chr->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
-			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-				colour = g_TeamColours[chr->team];
-			} else {
-				colour = 0x00ff0000;
+				if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+					colour = g_TeamColours[chr->team];
+				} else {
+					colour = 0x00ff0000;
+				}
+
+				gdl = radarDrawDot(gdl, chr->prop, &pos, colour, 0, 0);
 			}
-
-			gdl = radarDrawDot(gdl, chr->prop, &pos, colour, 0, 0);
 		}
 	}
 

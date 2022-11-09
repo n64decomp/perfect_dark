@@ -331,7 +331,7 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 	}
 
 	g_PlayerConfigsArray[playernum].base.mpheadnum = mpGetMpheadnumByMpbodynum(g_PlayerConfigsArray[playernum].base.mpbodynum);
-	g_PlayerConfigsArray[playernum].displayoptions = MPDISPLAYOPTION_RADAR | MPDISPLAYOPTION_HIGHLIGHTTEAMS;
+	g_PlayerConfigsArray[playernum].displayoptions = MPDISPLAYOPTION_RADAR | MPDISPLAYOPTION_BOTSONRADAR | MPDISPLAYOPTION_HIGHLIGHTTEAMS;
 	g_PlayerConfigsArray[playernum].fileguid.fileid = 0;
 	g_PlayerConfigsArray[playernum].fileguid.deviceserial = 0;
 

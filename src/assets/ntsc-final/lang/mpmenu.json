@@ -4850,8 +4850,8 @@
         "es": "Searching for Camera!\n"
     },
     {
-        "id": "L_MPMENU_485",
-        "en": "Calibrating Camera\n",
+        "id": "L_MPMENU_BOTSONRADAR",
+        "en": "Show Bots on Radar\n",
         "gb": "Calibrating Camera\n",
         "jp": "Downloading Image\n",
         "it": "Calibrating Camera\n",

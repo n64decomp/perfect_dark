@@ -1309,6 +1309,14 @@ struct menuitem g_MpPlayerOptionsMenuItems[] = {
 		menuhandlerMpDisplayOptionCheckbox,
 	},
 	{
+		MENUITEMTYPE_CHECKBOX,
+		0,
+		0,
+		L_MPMENU_BOTSONRADAR, // "Show Bots on Radar"
+		MPDISPLAYOPTION_BOTSONRADAR,
+		menuhandlerMpDisplayOptionCheckbox,
+	},
+	{
 		MENUITEMTYPE_SEPARATOR,
 		0,
 		0,
