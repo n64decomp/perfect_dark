@@ -2444,13 +2444,15 @@ void mpCalculateAwards(void)
 
 		{
 			if (mostkillsplayer < 4 && mostkillsplayer >= 0) {
-				struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)MPCHR(mostkillsplayer);
+				struct mpchr *mpchr = MPCHR(mostkillsplayer);
+				struct mpplayerconfig *mpplayer = mpchr->playerconfig;
 				mpplayer->medals |= MEDAL_KILLMASTER;
 				mpplayer->killmastermedals++;
 			}
 
 			if (leastdeathsplayer < 4 && leastdeathsplayer >= 0) {
-				struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)MPCHR(leastdeathsplayer);
+				struct mpchr *mpchr = MPCHR(leastdeathsplayer);
+				struct mpplayerconfig *mpplayer = mpchr->playerconfig;
 				mpplayer->medals |= MEDAL_SURVIVOR;
 				mpplayer->survivormedals++;
 			}
@@ -2481,13 +2483,15 @@ void mpCalculateAwards(void)
 		}
 
 		if (mostheadshotplayer >= 0) {
-			struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)mpGetChrConfigBySlotNum(mostheadshotplayer);
+			struct mpchr *mpchr = MPCHR(mostheadshotplayer);
+			struct mpplayerconfig *mpplayer = mpchr->playerconfig;
 			mpplayer->medals |= MEDAL_HEADSHOT;
 			mpplayer->headshotmedals++;
 		}
 
 		if (mostaccurateplayer >= 0) {
-			struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)mpGetChrConfigBySlotNum(mostaccurateplayer);
+			struct mpchr *mpchr = MPCHR(mostaccurateplayer);
+			struct mpplayerconfig *mpplayer = mpchr->playerconfig;
 			mpplayer->medals |= MEDAL_ACCURACY;
 			mpplayer->accuracymedals++;
 		}
@@ -2495,7 +2499,8 @@ void mpCalculateAwards(void)
 
 	// Recalculate title for all players
 	for (i = 0; i < playercount; i++) {
-		struct mpplayerconfig *mpcfg = (struct mpplayerconfig *)mpGetChrConfigBySlotNum(i);
+		struct mpchr *mpchr = MPCHR(i);
+		struct mpplayerconfig *mpcfg = mpchr->playerconfig;
 		mpCalculatePlayerTitle(mpcfg);
 	}
 }
