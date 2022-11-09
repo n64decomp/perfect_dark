@@ -135,7 +135,6 @@
 	build/ROMID/game/explosions.o (section); \
 	build/ROMID/game/smoke.o (section); \
 	build/ROMID/game/sparks.o (section); \
-	build/ROMID/game/stars.o (section); \
 	build/ROMID/game/dyntex.o (section); \
 	build/ROMID/game/game_13c510.o (section); \
 	build/ROMID/game/wallhit.o (section); \

@@ -59,7 +59,6 @@
 #include "game/smoke.h"
 #include "game/sparks.h"
 #include "game/splat.h"
-#include "game/stars.h"
 #include "game/stubs/game_013540.h"
 #include "game/stubs/game_015260.h"
 #include "game/stubs/game_015270.h"
@@ -357,18 +356,6 @@ void lvReset(s32 stagenum)
 	smokeReset();
 	sparksReset();
 	lvResetMiscSfx();
-
-	switch (g_Vars.stagenum) {
-	case STAGE_ESCAPE:
-	case STAGE_EXTRACTION:
-	case STAGE_INFILTRATION:
-	case STAGE_DEFECTION:
-	case STAGE_ATTACKSHIP:
-	case STAGE_TEST_OLD:
-		starsReset();
-		break;
-	}
-
 	func0f0099a4();
 	boltbeamsReset();
 	lasersightsReset();
