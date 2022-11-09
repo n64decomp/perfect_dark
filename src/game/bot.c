@@ -1484,8 +1484,6 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 {
 	struct aibot *aibot = botchr->aibot;
 	s32 i;
-	s32 chrnum;
-	s16 donechrnums[ARRAYCOUNT(aibot->chrnumsbydistanceasc)];
 	s16 room = -1;
 	struct chrdata *trychr;
 	s32 playernum;
@@ -1509,6 +1507,32 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 		aibot->chrsinsight[aibot->queryplayernum] = chrCanSeeChr(botchr, trychr, &room);
 		aibot->chrrooms[aibot->queryplayernum] = room;
 
+		// Check if it'll go in the closest distances list
+		{
+			s32 maxchrnums = MIN(g_MpNumChrs - 1, ARRAYCOUNT(aibot->chrnumsbydistanceasc));
+			f32 distance = aibot->chrdistances[aibot->queryplayernum];
+			s32 index = -1;
+
+			for (i = maxchrnums - 1; i >= 0; i--) {
+				if (aibot->chrnumsbydistanceasc[i] == -1 || distance < aibot->chrdistances[aibot->chrnumsbydistanceasc[i]]) {
+					// It will - keep iterating to see where
+					index = i;
+				} else {
+					break;
+				}
+			}
+
+			if (index >= 0) {
+				// Shuffle elements forward
+				for (i = maxchrnums - 2; i >= index; i--) {
+					aibot->chrnumsbydistanceasc[i + 1] = aibot->chrnumsbydistanceasc[i];
+				}
+
+				// Write new entry
+				aibot->chrnumsbydistanceasc[index] = aibot->queryplayernum;
+			}
+		}
+
 		aibot->canseecloaked = false;
 	}
 
@@ -1516,38 +1540,6 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 	for (i = 0; i < g_MpNumChrs; i++) {
 		if (aibot->chrsinsight[i]) {
 			aibot->chrslastseen60[i] = g_Vars.lvframe60;
-		}
-	}
-
-	// Update chrnumsbydistanceasc
-	for (i = 0; i < ARRAYCOUNT(donechrnums); i++) {
-		donechrnums[i] = -1;
-	}
-
-	for (i = 0; i < ARRAYCOUNT(aibot->chrnumsbydistanceasc); i++) {
-		s32 closestplayernum = -1;
-		f32 closestdistance = 0;
-
-		for (chrnum = 0; chrnum < g_MpNumChrs; chrnum++) {
-			bool alreadydone = false;
-			s32 k;
-
-			for (k = 0; k < ARRAYCOUNT(donechrnums) && donechrnums[k] != -1; k++) {
-				if (donechrnums[k] == chrnum) {
-					alreadydone = true;
-					break;
-				}
-			}
-
-			if (!alreadydone && (closestplayernum < 0 || aibot->chrdistances[chrnum] < closestdistance)) {
-				closestplayernum = chrnum;
-				closestdistance = aibot->chrdistances[chrnum];
-			}
-		}
-
-		if (closestplayernum >= 0) {
-			aibot->chrnumsbydistanceasc[i] = closestplayernum;
-			donechrnums[i] = closestplayernum;
 		}
 	}
 
@@ -1601,31 +1593,34 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 
 		for (tmp = 0; tmp < ARRAYCOUNT(aibot->chrnumsbydistanceasc); tmp++) {
 			s32 i = aibot->chrnumsbydistanceasc[tmp];
-			trychr = g_MpChrs[i].chr;
 
-			if (trychr != botchr
-					&& !chrIsDead(trychr)
-					&& chrCompareTeams(botchr, trychr, COMPARE_ENEMIES)
-					&& botPassesPeaceCheck(botchr, trychr)) {
-				// If the chr is in sight, that's it
-				if (aibot->chrsinsight[i]) {
-					botSetTarget(botchr, trychr->prop - g_Vars.props);
-					return;
-				}
+			if (i >= 0) {
+				trychr = g_MpChrs[i].chr;
 
-				// Meat and easy sims will target the closest chr, even if that
-				// chr isn't in sight and when there are other chrs in sight who
-				// are further away
-				if (!botIsTargetInvisible(botchr, trychr)
-						&& (aibot->config->difficulty == BOTDIFF_MEAT || aibot->config->difficulty == BOTDIFF_EASY)) {
-					botSetTarget(botchr, trychr->prop - g_Vars.props);
-					return;
-				}
+				if (trychr != botchr
+						&& !chrIsDead(trychr)
+						&& chrCompareTeams(botchr, trychr, COMPARE_ENEMIES)
+						&& botPassesPeaceCheck(botchr, trychr)) {
+					// If the chr is in sight, that's it
+					if (aibot->chrsinsight[i]) {
+						botSetTarget(botchr, trychr->prop - g_Vars.props);
+						return;
+					}
 
-				// Other sim types will prioritise chrs in sight, which means
-				// the closest out of sight chrnum must be stored for later
-				if (!botIsTargetInvisible(botchr, trychr) && closestavailablechrnum < 0) {
-					closestavailablechrnum = i;
+					// Meat and easy sims will target the closest chr, even if that
+					// chr isn't in sight and when there are other chrs in sight who
+					// are further away
+					if (!botIsTargetInvisible(botchr, trychr)
+							&& (aibot->config->difficulty == BOTDIFF_MEAT || aibot->config->difficulty == BOTDIFF_EASY)) {
+						botSetTarget(botchr, trychr->prop - g_Vars.props);
+						return;
+					}
+
+					// Other sim types will prioritise chrs in sight, which means
+					// the closest out of sight chrnum must be stored for later
+					if (!botIsTargetInvisible(botchr, trychr) && closestavailablechrnum < 0) {
+						closestavailablechrnum = i;
+					}
 				}
 			}
 		}
@@ -1654,8 +1649,10 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 	// Target is no longer in sight
 	// Check for other chrs who are in sight, by distance
 	for (i = 0; i < ARRAYCOUNT(aibot->chrnumsbydistanceasc); i++) {
-		if (aibot->chrsinsight[aibot->chrnumsbydistanceasc[i]]) {
-			trychr = g_MpChrs[aibot->chrnumsbydistanceasc[i]].chr;
+		s32 chrnum = aibot->chrnumsbydistanceasc[i];
+
+		if (chrnum >= 0 && aibot->chrsinsight[chrnum]) {
+			trychr = g_MpChrs[chrnum].chr;
 
 			if (trychr != botchr
 					&& !chrIsDead(trychr)
