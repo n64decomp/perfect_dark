@@ -2284,7 +2284,8 @@ void propsTestForPickup(void)
 
 	if (g_Vars.currentplayer->bondmovemode != MOVEMODE_CUTSCENE
 			&& !g_PlayerInvincible
-			&& g_Vars.currentplayer != g_Vars.anti) {
+			&& g_Vars.currentplayer != g_Vars.anti
+			&& g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f >= -0.7852731347084f) {
 		roomsCopy(g_Vars.currentplayer->prop->rooms, allrooms);
 
 		for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
@@ -2299,12 +2300,7 @@ void propsTestForPickup(void)
 			struct prop *prop = &g_Vars.props[*propnumptr];
 			s32 op = TICKOP_NONE;
 
-#if VERSION >= VERSION_NTSC_1_0
-			if (prop->timetoregen <= 0 && prop->obj)
-#else
-			if (prop->timetoregen <= 0)
-#endif
-			{
+			if (prop->timetoregen <= 0 && prop->obj) {
 				switch (prop->type) {
 				case PROPTYPE_OBJ:
 					op = objTestForPickup(prop);

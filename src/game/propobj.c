@@ -17688,8 +17688,26 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 s32 objTestForPickup(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
+	struct prop *playerprop = g_Vars.currentplayer->prop;
+	f32 xdiff = prop->pos.x - playerprop->pos.x;
+	f32 ydiff = prop->pos.y - playerprop->pos.y;
+	f32 zdiff = prop->pos.z - playerprop->pos.z;
+	f32 range;
+	bool usebigrange;
+	bool pickup;
 
-	if (obj->hidden & OBJHFLAG_REAPABLE) {
+	usebigrange = (obj->flags3 & OBJFLAG3_ONSHELF)
+		&& (cheatIsActive(CHEAT_SMALLJO) || cheatIsActive(CHEAT_PLAYASELVIS));
+
+	if (usebigrange) {
+		range = 200 * 200;
+	} else {
+		range = 100 * 100;
+	}
+
+	pickup = xdiff * xdiff + zdiff * zdiff <= range && ydiff >= -200 && ydiff <= 200;
+
+	if (!pickup) {
 		return TICKOP_NONE;
 	}
 
@@ -17703,26 +17721,8 @@ s32 objTestForPickup(struct prop *prop)
 		}
 	}
 
-	if (obj->flags & OBJFLAG_THROWNLAPTOP) {
+	if (obj->hidden & OBJHFLAG_REAPABLE) {
 		return TICKOP_NONE;
-	}
-
-	// For disarmed weapons that are falling, picktimer timer is 1 second and
-	// pickupby is set to the chr who disarmed. This makes it so only the
-	// disarmer can pick up the weapon within the first second.
-	// For thrown projectiles, the pickup timer is also 1 second but there is no
-	// pickupby. This prevents the thrower from picking up their own projectile
-	// within the first second, unless it's immediately bounced or landed.
-	if ((obj->hidden & OBJHFLAG_PROJECTILE) && obj->projectile->pickuptimer240 > 0) {
-		if (obj->projectile->pickupby == NULL) {
-			if (obj->projectile->bouncecount == 0) {
-				return TICKOP_NONE;
-			}
-		} else {
-			if (obj->projectile->pickupby != g_Vars.currentplayer->prop) {
-				return TICKOP_NONE;
-			}
-		}
 	}
 
 	if (obj->type == OBJTYPE_WEAPON) {
@@ -17872,48 +17872,40 @@ s32 objTestForPickup(struct prop *prop)
 		if (ignore) {
 			return TICKOP_NONE;
 		}
+	} else {
+		if (obj->flags & OBJFLAG_THROWNLAPTOP) {
+			return TICKOP_NONE;
+		}
 	}
 
-	if (g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f < -0.7852731347084f) {
+
+	// For disarmed weapons that are falling, picktimer timer is 1 second and
+	// pickupby is set to the chr who disarmed. This makes it so only the
+	// disarmer can pick up the weapon within the first second.
+	// For thrown projectiles, the pickup timer is also 1 second but there is no
+	// pickupby. This prevents the thrower from picking up their own projectile
+	// within the first second, unless it's immediately bounced or landed.
+	if ((obj->hidden & OBJHFLAG_PROJECTILE) && obj->projectile->pickuptimer240 > 0) {
+		if (obj->projectile->pickupby == NULL) {
+			if (obj->projectile->bouncecount == 0) {
+				return TICKOP_NONE;
+			}
+		} else {
+			if (obj->projectile->pickupby != g_Vars.currentplayer->prop) {
+				return TICKOP_NONE;
+			}
+		}
+	}
+
+	if ((obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
+			&& !usebigrange
+			&& cdTestLos05(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms,
+				CDTYPE_DOORS | CDTYPE_BG,
+				GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT) == false) {
 		return TICKOP_NONE;
 	}
 
-	{
-		struct prop *playerprop = g_Vars.currentplayer->prop;
-		f32 xdiff = prop->pos.x - playerprop->pos.x;
-		f32 ydiff = prop->pos.y - playerprop->pos.y;
-		f32 zdiff = prop->pos.z - playerprop->pos.z;
-		f32 range;
-		bool usebigrange;
-		bool pickup;
-		u32 stack;
-
-		usebigrange = (obj->flags3 & OBJFLAG3_ONSHELF)
-			&& (cheatIsActive(CHEAT_SMALLJO) || cheatIsActive(CHEAT_PLAYASELVIS));
-
-		if (usebigrange) {
-			range = 200 * 200;
-		} else {
-			range = 100 * 100;
-		}
-
-		pickup = xdiff * xdiff + zdiff * zdiff <= range && ydiff >= -200 && ydiff <= 200;
-
-		if (pickup
-				&& (obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
-				&& !usebigrange
-				&& cdTestLos05(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms,
-					CDTYPE_DOORS | CDTYPE_BG,
-					GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT) == false) {
-			pickup = false;
-		}
-
-		if (pickup) {
-			return propPickupByPlayer(prop, true);
-		}
-	}
-
-	return TICKOP_NONE;
+	return propPickupByPlayer(prop, true);
 }
 
 bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
