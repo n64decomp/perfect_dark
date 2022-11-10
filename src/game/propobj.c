@@ -17875,9 +17875,7 @@ s32 objTestForPickup(struct prop *prop)
 	}
 
 	if (g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f < -0.7852731347084f) {
-		if (g_Vars.currentplayer->magnetattracttime < 0) {
-			return TICKOP_NONE;
-		}
+		return TICKOP_NONE;
 	}
 
 	{
@@ -17893,17 +17891,13 @@ s32 objTestForPickup(struct prop *prop)
 		usebigrange = (obj->flags3 & OBJFLAG3_ONSHELF)
 			&& (cheatIsActive(CHEAT_SMALLJO) || cheatIsActive(CHEAT_PLAYASELVIS));
 
-		if (g_Vars.currentplayer->magnetattracttime >= 60) {
-			pickup = xdiff * xdiff + zdiff * zdiff <= 350 * 350 && ydiff >= -500 && ydiff <= 500;
+		if (usebigrange) {
+			range = 200 * 200;
 		} else {
-			if (usebigrange) {
-				range = 200 * 200;
-			} else {
-				range = 100 * 100;
-			}
-
-			pickup = xdiff * xdiff + zdiff * zdiff <= range && ydiff >= -200 && ydiff <= 200;
+			range = 100 * 100;
 		}
+
+		pickup = xdiff * xdiff + zdiff * zdiff <= range && ydiff >= -200 && ydiff <= 200;
 
 		if (pickup
 				&& (obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
