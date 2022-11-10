@@ -45,7 +45,7 @@ u32 var80095200;
 ALBank *var80095204;
 struct seqtable *g_SeqTable;
 u32 g_SeqBufferSize;
-struct sndcache g_SndCache;
+ALIGNED16 struct sndcache g_SndCache;
 
 const char g_SndGuardString[] = "RUSSES SOUND GUARD STRING";
 const char var70053b3c[] = "Snd: SoundHeaderCacheInit\n";
