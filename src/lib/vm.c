@@ -815,7 +815,7 @@ void vmInit(void)
 		// 0x803c0000 - (_gameSegmentLen aligned to 0x20000)
 		gameseg = (u8 *) &_gameSegmentStart;
 
-		s5 = (u32 *) (((u32) gameseg - ((t8 + 5) << 2)) & ~0xf);
+		s5 = (u32 *) 0x80600000;
 		g_VmMarker = (u8 *) s7;
 		sp1474 = t8 + 1;
 
