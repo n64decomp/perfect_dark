@@ -1334,7 +1334,7 @@ bool sky0f122ce8(struct skything38 *arg0, struct skything38 *arg1)
 	f32 f0 = arg0->unk28 - arg1->unk28;
 	f32 f2 = arg0->unk2c - arg1->unk2c;
 
-	return sqrtf(f0 * f0 + f2 * f2) < 1.0f ? true : false;
+	return f0 * f0 + f2 * f2 < 1.0f ? true : false;
 }
 
 Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, f32 arg4, bool textured)
