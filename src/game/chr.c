@@ -4,7 +4,6 @@
 #include "game/bondmove.h"
 #include "game/cheats.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/chr.h"
 #include "game/chrmgr.h"
 #include "game/env.h"
@@ -2648,11 +2647,7 @@ s32 chrTick(struct prop *prop)
 					limit = 700 * 700;
 				}
 			} else {
-				if (debugGetSlowMotion() != SLOWMOTION_OFF) {
-					limit = 2000 * 2000;
-				} else {
-					limit = 700 * 700;
-				}
+				limit = 700 * 700;
 			}
 
 			anim = model->anim;

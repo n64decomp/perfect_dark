@@ -4,7 +4,6 @@
 #include "game/bondwalk.h"
 #include "game/cheats.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/footstep.h"
 #include "game/game_006900.h"
 #include "game/chr.h"
@@ -912,13 +911,7 @@ void bwalkUpdateVertical(void)
 		fallspeed = g_Vars.currentplayer->bdeltapos.y;
 		newmanground = g_Vars.currentplayer->vv_manground;
 
-		if (debugIsTurboModeEnabled()
-				&& g_Vars.currentplayer->bondforcespeed.x == 0
-				&& g_Vars.currentplayer->bondforcespeed.z == 0) {
-			multiplier = 0.277777777f * 5;
-		} else {
-			multiplier = 0.277777777f;
-		}
+		multiplier = 0.277777777f;
 
 		newfallspeed = fallspeed - g_Vars.lvupdate60freal * multiplier;
 		newmanground += g_Vars.lvupdate60freal * (fallspeed + newfallspeed) * 0.5f;
@@ -1557,11 +1550,6 @@ void bwalk0f0c69b8(void)
 		spcc.f[2] += spb0;
 
 		bmoveUpdateMoveInitSpeed(&spcc);
-
-		if (debugIsTurboModeEnabled()) {
-			spcc.f[0] += (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedforwards - g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
-			spcc.f[2] += (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedforwards + g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
-		}
 
 		if (g_Vars.currentplayer->bondforcespeed.f[0] != 0.0f || g_Vars.currentplayer->bondforcespeed.f[2] != 0.0f) {
 			spcc.f[0] += g_Vars.currentplayer->bondforcespeed.f[0] * g_Vars.lvupdate60freal;

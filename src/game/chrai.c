@@ -12,7 +12,6 @@
 #include "game/chraction.h"
 #include "game/chrai.h"
 #include "game/chraicommands.h"
-#include "game/debug.h"
 #include "game/dlights.h"
 #include "game/env.h"
 #include "game/explosions.h"

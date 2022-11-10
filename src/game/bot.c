@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/chr.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
@@ -278,8 +277,6 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 		return 0;
 	}
 
-	dprint();
-
 	if (1);
 
 	obj->flags3 &= ~OBJFLAG3_ISFETCHTARGET;
@@ -294,7 +291,6 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 
 			if (1);
 			qty = ammocrateGetPickupAmmoQty(crate);
-			dprint();
 
 			if (qty) {
 				botactGiveAmmoByType(chr->aibot, crate->ammotype, qty);
@@ -305,10 +301,6 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
-
-			if (qty) {
-				dprint();
-			}
 		}
 		return 2;
 	case OBJTYPE_MULTIAMMOCRATE:
@@ -337,14 +329,9 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 				}
 			}
 #endif
-			dprint();
 
 			for (i = 0; i != 19; i++) {
 				qty = crate->slots[i].quantity;
-
-				if (qty) {
-					dprint();
-				}
 
 				if (qty) {
 					botactGiveAmmoByType(chr->aibot, i + 1, qty);
@@ -456,8 +443,6 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 		return false;
 	}
 
-	dprint();
-
 	if (prop->timetoregen != 0) {
 		return false;
 	}
@@ -472,8 +457,6 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 		}
 	}
 
-	dprint();
-
 	if (1);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -486,18 +469,12 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 	}
 #endif
 
-	dprint();
-
 	if ((obj->hidden & OBJHFLAG_PROJECTILE)
 			&& obj->projectile
 			&& obj->projectile->pickuptimer240 > 0
 			&& obj->projectile->bouncecount == 0) {
 		return false;
 	}
-
-	dprint();
-
-	dprint();
 
 	if (1);
 
@@ -534,7 +511,6 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 		ignore1 = true;
 
 		if (objGetDestroyedLevel(obj)) {
-			dprint();
 			return false;
 		}
 
@@ -546,7 +522,6 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 					ignore1 = false;
 
 					if (weaponnum && !botinvGetItemType(chr, weaponnum)) {
-						dprint();
 						botinvGiveProp(chr, prop);
 					}
 
@@ -579,8 +554,6 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 	ydist = prop->pos.y - chrprop->pos.y;
 	zdist = prop->pos.z - chrprop->pos.z;
 
-	dprint();
-
 	if (chr->aibot->cheap) {
 		if (1);
 		if (1);
@@ -595,8 +568,6 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 	sp3c = xdist * xdist + zdist * zdist <= sqrange && ydist >= -200 && ydist <= 200;
 
 	if (sp3c) {
-		dprint();
-
 		if ((obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
 				&& !cdTestLos06(&chrprop->pos, chrprop->rooms, &prop->pos, prop->rooms, CDTYPE_DOORS | CDTYPE_BG)) {
 			sp3c = false;
@@ -604,7 +575,6 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 	}
 
 	if (sp3c) {
-		dprint();
 		return botPickupProp(prop, chr);
 	}
 
@@ -682,8 +652,6 @@ void botCheckPickups(struct chrdata *chr)
 						if (botIsObjCollectable(obj)) {
 							if (botTestPropForPickup(prop, chr)) {
 								propExecuteTickOperation(prop, TICKOP_FREE);
-							} else {
-								dprint();
 							}
 						}
 					}

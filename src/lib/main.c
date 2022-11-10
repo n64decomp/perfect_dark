@@ -6,7 +6,6 @@
 #include "constants.h"
 #include "game/camdraw.h"
 #include "game/cheats.h"
-#include "game/debug.h"
 #include "game/file.h"
 #include "game/lang.h"
 #include "game/race.h"

@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/chr.h"
 #include "game/propsnd.h"
 #include "game/bondgun.h"
@@ -144,19 +143,13 @@ s32 botactTryRemoveAmmoFromReserve(struct aibot *aibot, s32 weaponnum, s32 funcn
 		return tryqty;
 	}
 
-	dprint();
 	*ammoheld -= tryqty;
 
 	if (*ammoheld < 0) {
 		amountremoved = tryqty + *ammoheld;
 		*ammoheld = 0;
-
-		if (dprint()) {
-			return amountremoved;
-		}
 	} else {
 		amountremoved = tryqty;
-		dprint();
 	}
 
 	return amountremoved;
@@ -168,7 +161,6 @@ void botactGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32
 	s32 *heldquantity = &aibot->ammoheld[botactGetAmmoTypeByFunction(weaponnum, funcnum)];
 
 	if (aibot && (aibot->unk064 & 1) == 0 && qty > 0) {
-		dprint();
 		*heldquantity += qty;
 
 		if (heldquantity);
@@ -178,8 +170,6 @@ void botactGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32
 		if (*heldquantity > max) {
 			*heldquantity = max;
 		}
-
-		dprint();
 	}
 }
 
@@ -192,8 +182,6 @@ void botactGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity)
 		return;
 	}
 
-	dprint();
-
 	*heldquantity += quantity;
 
 	if (heldquantity);
@@ -203,8 +191,6 @@ void botactGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity)
 	if (*heldquantity > max) {
 		*heldquantity = max;
 	}
-
-	dprint();
 }
 
 bool botactShootFarsight(struct chrdata *chr, s32 arg1, struct coord *vector, struct coord *arg3)

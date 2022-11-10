@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/chraction.h"
 #include "game/chrai.h"
-#include "game/debug.h"
 #include "game/dlights.h"
 #include "game/footstep.h"
 #include "game/game_006900.h"
@@ -11157,29 +11156,6 @@ void chrTickAttackRoll(struct chrdata *chr)
 	chrTickFire(chr);
 }
 
-void propPrintDangerous(void)
-{
-	u8 i;
-
-	osSyncPrintf("Current dangerous items:");
-
-	for (i = 0; i < MAX_DANGEROUSPROPS; i++) {
-		struct prop *prop = g_DangerousProps[i];
-
-		if (prop) {
-			if (prop->weapon
-					&& prop->weapon->weaponnum == WEAPON_GRENADE
-					&& prop->type == PROPTYPE_WEAPON) {
-				osSyncPrintf("    Grenade %x", prop);
-			} else if (prop->type == PROPTYPE_EXPLOSION) {
-				osSyncPrintf("    Explosion %x", prop);
-			} else {
-				osSyncPrintf("misc dangerous prop");
-			}
-		}
-	}
-}
-
 void propUnsetDangerous(struct prop *prop)
 {
 	s32 i;
@@ -13348,11 +13324,6 @@ void chraTickBg(void)
 		var80068454 = 0;
 	}
 #endif
-
-	// If enabled, print a list of dangerous props to the developer's console
-	if (debugDangerousProps()) {
-		propPrintDangerous();
-	}
 
 	// Handle switching to a new cutscene when using "Play All" from the menu
 	if (g_Vars.autocutnum >= 0) {

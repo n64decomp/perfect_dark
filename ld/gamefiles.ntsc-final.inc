@@ -146,8 +146,6 @@
 	build/ROMID/game/padhalllv.o (section); \
 	build/ROMID/game/pad.o (section); \
 	build/ROMID/game/pak.o (section); \
-	build/ROMID/game/debug.o (section); \
-	build/ROMID/game/debug3.o (section); \
 	build/ROMID/game/stubs/game_11eff0.o (section); \
 	build/ROMID/ailists/gailistsasm.o (section); \
 	build/ROMID/game/modeldata/general.o (section); \

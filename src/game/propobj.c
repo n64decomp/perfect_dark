@@ -5,7 +5,6 @@
 #include "game/cheats.h"
 #include "game/chraction.h"
 #include "game/chrai.h"
-#include "game/debug.h"
 #include "game/dlights.h"
 #include "game/nbomb.h"
 #include "game/playerreset.h"
@@ -14223,14 +14222,7 @@ void objDeform(struct defaultobj *obj, s32 level)
 
 	salt = 0;
 
-	if (debugIsObjDeformDebugEnabled());
-	if (debugIsObjDeformDebugEnabled());
-
 	salt = random();
-
-	if (debugIsObjDeformDebugEnabled()) {
-		salt &= 0xffff;
-	}
 
 	wallhitsFreeByProp(obj->prop, 1);
 

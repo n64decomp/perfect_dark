@@ -4,7 +4,6 @@
 #include "game/bondmove.h"
 #include "game/cheats.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/prop.h"
 #include "game/objectives.h"
 #include "game/bondgun.h"
@@ -1079,11 +1078,6 @@ void bgrab0f0ce924(void)
 		sp74.z += (sp80 * g_Vars.currentplayer->bond2.unk00.f[2] + sp84 * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate60freal;
 
 		bmoveUpdateMoveInitSpeed(&sp74);
-
-		if (debugIsTurboModeEnabled()) {
-			sp74.x += (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedforwards - (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedsideways)) * g_Vars.lvupdate60freal * 10.0f;
-			sp74.z += (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedforwards + (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedsideways)) * g_Vars.lvupdate60freal * 10.0f;
-		}
 
 		bgrab0f0ce0bc(&sp74);
 

@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chraction.h"
-#include "game/debug.h"
 #include "game/chr.h"
 #include "game/ceil.h"
 #include "game/game_0b0fd0.h"
@@ -147,8 +146,6 @@ void botinvClear(struct chrdata *chr)
 		for (i = 0; i < chr->aibot->maxitems; i++) {
 			chr->aibot->items[i].type = -1;
 		}
-
-		dprint();
 	}
 }
 
@@ -172,8 +169,6 @@ struct invitem *botinvGetFreeSlot(struct chrdata *chr)
 			return &chr->aibot->items[i];
 		}
 	}
-
-	dprint();
 
 	return NULL;
 }
