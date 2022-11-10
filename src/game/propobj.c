@@ -17696,6 +17696,16 @@ s32 objTestForPickup(struct prop *prop)
 	bool usebigrange;
 	bool pickup;
 
+	if (func0f085194(obj)) {
+		if (obj->flags & OBJFLAG_UNCOLLECTABLE) {
+			return TICKOP_NONE;
+		}
+	} else {
+		if ((obj->flags & OBJFLAG_COLLECTABLE) == 0) {
+			return TICKOP_NONE;
+		}
+	}
+
 	usebigrange = (obj->flags3 & OBJFLAG3_ONSHELF)
 		&& (cheatIsActive(CHEAT_SMALLJO) || cheatIsActive(CHEAT_PLAYASELVIS));
 
@@ -17709,16 +17719,6 @@ s32 objTestForPickup(struct prop *prop)
 
 	if (!pickup) {
 		return TICKOP_NONE;
-	}
-
-	if (func0f085194(obj)) {
-		if (obj->flags & OBJFLAG_UNCOLLECTABLE) {
-			return TICKOP_NONE;
-		}
-	} else {
-		if ((obj->flags & OBJFLAG_COLLECTABLE) == 0) {
-			return TICKOP_NONE;
-		}
 	}
 
 	if (obj->hidden & OBJHFLAG_REAPABLE) {
