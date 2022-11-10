@@ -3160,10 +3160,10 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 			dist.y = pos->y - prop->pos.y;
 			dist.z = pos->z - prop->pos.z;
 
-			distance = sqrtf(dist.f[0] * dist.f[0] + dist.f[1] * dist.f[1] + dist.f[2] * dist.f[2]);
+			distance = dist.f[0] * dist.f[0] + dist.f[1] * dist.f[1] + dist.f[2] * dist.f[2];
 
-			if (distance > 0.1f) {
-				mult = 0.1f / distance;
+			if (distance > 0.01f) {
+				mult = 0.1f / sqrtf(distance);
 			} else {
 				mult = 0.5f;
 			}
@@ -8489,11 +8489,10 @@ void autogunTickShoot(struct prop *autogunprop)
 						sqguntohitdist = x * x + y * y + z * z;
 
 						if (sqguntohitdist >= sqguntotargetdist) {
-							f32 guntotargetdist = sqrtf(sqguntotargetdist);
 							f32 increment = 0.16f * g_Vars.lvupdate60freal * g_AutogunAccuracyScale;
 
-							if (guntotargetdist > 200.0f) {
-								increment *= 200.0f / guntotargetdist;
+							if (sqguntotargetdist > 40000.0f) {
+								increment *= 200.0f / sqrtf(sqguntotargetdist);
 							}
 
 							autogun->shotbondsum += increment;
@@ -18274,7 +18273,6 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 			z = endpos.z - pos->z;
 
 			if (targetprop && sqdist <= x * x + y * y + z * z) {
-				f32 dist = sqrtf(sqdist);
 				struct coord aimpos;
 
 				aimpos.x = targetprop->pos.x;
@@ -18284,8 +18282,8 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 				if (func0f06b39c(pos, dir, &aimpos, 30)) {
 					f32 f0 = 0.16f * g_Vars.lvupdate60freal * arg1->unk0c;
 
-					if (dist > 200.0f) {
-						f0 *= 200.0f / dist;
+					if (sqdist > 40000.0f) {
+						f0 *= 200.0f / sqrtf(sqdist);
 					}
 
 					arg1->unk14 += f0;
