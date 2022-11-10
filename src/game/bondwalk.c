@@ -382,8 +382,6 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 				}
 
 				if (canpush) {
-					movingdist = sqrtf(delta->f[0] * delta->f[0] + delta->f[2] * delta->f[2]) / LVUPDATE60FREAL();
-
 					xdist = obstacle->pos.x - g_Vars.currentplayer->prop->pos.x;
 					zdist = obstacle->pos.z - g_Vars.currentplayer->prop->pos.z;
 
@@ -391,6 +389,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 						disttochr = sqrtf(xdist * xdist + zdist * zdist);
 
 						if (disttochr > 0) {
+							movingdist = sqrtf(delta->f[0] * delta->f[0] + delta->f[2] * delta->f[2]) / LVUPDATE60FREAL();
 							disttochr = movingdist / disttochr;
 
 							xdist *= disttochr;
