@@ -585,10 +585,6 @@ void textReset(void)
 #else
 		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
 #endif
-
-		if (g_Vars.stagenum == STAGE_TEST_OLD) {
-			textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
-		}
 	}
 }
 #endif

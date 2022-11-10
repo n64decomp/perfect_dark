@@ -188,7 +188,7 @@ void viReset(s32 stagenum)
 
 	g_Vars.fourmeg2player = false;
 
-	if (stagenum == STAGE_TITLE || stagenum == STAGE_TEST_OLD) {
+	if (stagenum == STAGE_TITLE) {
 		if (IS4MB()) {
 			viSetMode(VIMODE_HI);
 			fbsize = 640 * 440 * 2;

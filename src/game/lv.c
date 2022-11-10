@@ -305,10 +305,6 @@ void lvReset(s32 stagenum)
 	textReset();
 	hudmsgsReset();
 
-	if (stagenum == STAGE_TEST_OLD) {
-		titleReset();
-	}
-
 	if (stagenum == STAGE_TITLE) {
 		titleReset();
 	} else if (stagenum == STAGE_BOOTPAKMENU) {
@@ -390,7 +386,6 @@ void lvReset(s32 stagenum)
 	case STAGE_INFILTRATION:
 	case STAGE_DEFECTION:
 	case STAGE_ATTACKSHIP:
-	case STAGE_TEST_OLD:
 		starsReset();
 		break;
 	}
@@ -510,10 +505,6 @@ Gfx *lvRenderFade(Gfx *gdl)
 {
 	u32 colour = g_FadeColour;
 	u32 inset = 0;
-
-	if (g_Vars.stagenum == STAGE_TEST_OLD) {
-		inset = 61;
-	}
 
 	if (g_FadeFrac >= 0) {
 		if (g_FadeDelay > 0) {
@@ -1146,8 +1137,7 @@ Gfx *lvRender(Gfx *gdl)
 	func0f0d5a7c();
 #endif
 
-	if (g_Vars.stagenum == STAGE_TITLE
-			|| (g_Vars.stagenum == STAGE_TEST_OLD && titleIsKeepingMode())) {
+	if (g_Vars.stagenum == STAGE_TITLE) {
 		gSPDisplayList(gdl++, &var800613a0);
 
 		if (debugIsZBufferDisabled()) {
@@ -1500,50 +1490,6 @@ Gfx *lvRender(Gfx *gdl)
 					u32 alpha;
 
 					if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-						// This chunk of code is unreachable
-						// (STAGE_TEST_OLD is not used)
-#if VERSION < VERSION_PAL_BETA
-						if (g_Vars.stagenum == STAGE_TEST_OLD) {
-							f32 frac = 0;
-							u32 colour;
-							s32 endframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
-
-							colour = 0;
-
-							if (g_CutsceneCurAnimFrame60 < 90) {
-								frac = 1.0f - (f32)g_CutsceneCurAnimFrame60 / 90.0f;
-							}
-
-							if (g_CutsceneAnimNum != ANIM_CUT_OLD_TITLE_CAM_04) {
-								if (g_CutsceneCurAnimFrame60 > endframe - 90) {
-									frac = (g_CutsceneCurAnimFrame60 - endframe + 90) / 90.0f;
-								}
-							} else {
-								if (g_CutsceneCurAnimFrame60 > endframe - 30) {
-									colour = 0xffffff00;
-									frac = (g_CutsceneCurAnimFrame60 - endframe + 30) / 30.0f;
-								}
-							}
-
-							if (frac > 0) {
-								alpha = 255 * frac;
-
-								gDPPipeSync(gdl++);
-								gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
-								gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
-								gDPSetPrimColorViaWord(gdl++, 0, 0, colour | alpha);
-
-								gDPFillRectangle(gdl++,
-									viGetViewLeft(),
-									viGetViewTop(),
-									viGetViewLeft() + viGetViewWidth(),
-									viGetViewTop() + viGetViewHeight());
-
-								gdl = text0f153838(gdl);
-							}
-						}
-#endif
-
 						// Handle visual effects in cutscenes
 						switch (g_CutsceneAnimNum) {
 						case ANIM_CUT_CAVE_INTRO_CAM:
@@ -2403,11 +2349,6 @@ void lvTick(void)
 	g_StageTimeElapsed1f = g_StageTimeElapsed60 / TICKS(60.0f);
 
 	viSetUseZBuf(true);
-
-	if (g_Vars.stagenum == STAGE_TEST_OLD) {
-		titleTickOld();
-		musicTick();
-	}
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
 		titleTick();
