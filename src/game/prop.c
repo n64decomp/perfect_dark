@@ -2806,11 +2806,6 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 				result = false;
 			}
 
-			if ((types & CDTYPE_OBJSNOTSAFEORHELI)
-					&& (obj->type == OBJTYPE_SAFE || obj->type == OBJTYPE_HELI)) {
-				result = false;
-			}
-
 			if ((obj->flags & OBJFLAG_PATHBLOCKER)) {
 				if ((types & CDTYPE_PATHBLOCKER) == 0) {
 					result = false;

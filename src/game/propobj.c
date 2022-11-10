@@ -79,8 +79,6 @@
 #include "string.h"
 
 struct weaponobj *g_Proxies[30];
-f32 g_GasReleaseTimerMax240;
-bool g_GasEnableDamage;
 s32 g_MaxWeaponSlots;
 s32 g_MaxAmmoCrates;
 s32 g_MaxDebrisSlots;
@@ -97,20 +95,12 @@ s32 g_AlarmTimer = 0;
 struct sndstate *g_AlarmAudioHandle = NULL;
 f32 g_AlarmSpeakerWeight = 64;
 f32 g_AlarmSpeakerDirection = 1;
-f32 g_GasReleaseTimer240 = 0;
-bool g_GasReleasing = false;
-struct coord g_GasPos = {0};
-s32 g_GasLastCough60 = 0;
-f32 g_GasSoundTimer240 = 0;
-struct sndstate *g_GasAudioHandle = NULL;
 u32 g_CountdownTimerOff = COUNTDOWNTIMERREASON_AI;
 bool g_CountdownTimerRunning = false;
 f32 g_CountdownTimerValue60 = 0;
 u32 g_PlayersDetonatingMines = 0x00000000;
 s32 g_NextWeaponSlot = 0;
 struct linkliftdoorobj *g_LiftDoors = NULL;
-struct padlockeddoorobj *g_PadlockedDoors = NULL;
-struct safeitemobj *g_SafeItems = NULL;
 struct linksceneryobj *g_LinkedScenery = NULL;
 struct blockedpathobj *g_BlockedPaths = NULL;
 struct prop *g_EmbedProp = NULL;
@@ -118,8 +108,6 @@ s32 g_EmbedHitPart = 0;
 u32 g_EmbedSide = 0x00000000;
 s16 var8006993c[3] = {0};
 u32 var80069944 = 0x00000000;
-f32 g_CctvWaitScale = 1;
-f32 g_CctvDamageRxScale = 1;
 f32 g_AutogunAccuracyScale = 1;
 f32 g_AutogunDamageTxScale = 1;
 f32 g_AutogunDamageRxScale = 1;
@@ -211,47 +199,6 @@ bool doorCallLift(struct prop *doorprop, bool allowclose)
 	}
 
 	return handled;
-}
-
-bool doorIsPadlockFree(struct doorobj *door)
-{
-	if (door->base.hidden & OBJHFLAG_PADLOCKEDDOOR) {
-		struct padlockeddoorobj *padlockeddoor = g_PadlockedDoors;
-
-		while (padlockeddoor) {
-			if (door == padlockeddoor->door
-					&& padlockeddoor->lock
-					&& padlockeddoor->lock->prop
-					&& objIsHealthy(padlockeddoor->lock)) {
-				return false;
-			}
-
-			padlockeddoor = padlockeddoor->next;
-		}
-	}
-
-	return true;
-}
-
-bool objCanPickupFromSafe(struct defaultobj *obj)
-{
-	if (obj->flags2 & OBJFLAG2_LINKEDTOSAFE) {
-		struct safeitemobj *link = g_SafeItems;
-
-		while (link) {
-			struct defaultobj *loopobj = link->item;
-
-			if (obj == link->item && link->door && link->door->base.prop) {
-				if (link->door->frac <= 0.5f * link->door->maxfrac) {
-					return false;
-				}
-			}
-
-			link = link->next;
-		}
-	}
-
-	return true;
 }
 
 void objUpdateLinkedScenery(struct defaultobj *obj, struct prop *prop)
@@ -8388,11 +8335,6 @@ void doorTick(struct prop *doorprop)
 		}
 	}
 
-	// Open fall-away doors if padlock free (GE only)
-	if (door->doortype == DOORTYPE_FALLAWAY && doorIsClosed(door) && doorIsPadlockFree(door)) {
-		doorsActivate(doorprop, false);
-	}
-
 	// Update frac
 	if (door->lastcalc60 < g_Vars.lvframe60 || g_Vars.lvupdate240 == 0) {
 		doorsCalcFrac(door);
@@ -8890,225 +8832,6 @@ void escastepTick(struct prop *prop)
 	if (!resetting) {
 		platformDisplaceProps(prop, propnums, &oldpos, &prop->pos);
 	}
-}
-
-void cctvTick(struct prop *camprop)
-{
-	struct cctvobj *camera = (struct cctvobj *)camprop->obj;
-	struct defaultobj *obj = camprop->obj;
-	f32 yaw;
-	struct prop *playerprop;
-	f32 xdist;
-	f32 ydist;
-	f32 zdist;
-	bool canseeplayer = true;
-
-	// If playing in coop mode, cycle between players in alternating frames
-	if (g_Vars.coopplayernum >= 0) {
-		if (g_Vars.lvframenum & 1) {
-			playerprop = g_Vars.bond->prop;
-		} else {
-			playerprop = g_Vars.coop->prop;
-		}
-	} else {
-		playerprop = g_Vars.bond->prop;
-	}
-
-	// Check distance
-	xdist = playerprop->pos.x - camprop->pos.x;
-	ydist = playerprop->pos.y - camprop->pos.y;
-	zdist = playerprop->pos.z - camprop->pos.z;
-
-	yaw = camera->toleft ? camera->yleft : camera->yright;
-
-	if (camera->maxdist > 0) {
-		if (xdist * xdist + ydist * ydist + zdist * zdist > camera->maxdist * camera->maxdist) {
-			canseeplayer = false;
-		}
-	}
-
-	if (g_Vars.bondvisible == false
-			|| (obj->flags & OBJFLAG_CAMERA_DISABLED)
-			|| (playerprop->chr->hidden & CHRHFLAG_CLOAKED)) {
-		canseeplayer = false;
-	}
-
-	// Check horizontal angle
-	if (canseeplayer) {
-		f32 angle = atan2f(xdist, zdist);
-		f32 yrot = camera->yrot;
-		f32 finalangle;
-
-		if (yrot < 0) {
-			yrot += M_BADTAU;
-		} else if (yrot >= M_BADTAU) {
-			yrot -= M_BADTAU;
-		}
-
-		yrot += camera->yzero;
-
-		if (yrot >= M_BADTAU) {
-			yrot -= M_BADTAU;
-		}
-
-		finalangle = angle - yrot;
-
-		if (angle < yrot) {
-			finalangle += M_BADTAU;
-		}
-
-		finalangle -= M_BADPI;
-
-		if (finalangle < 0) {
-			finalangle += M_BADTAU;
-		}
-
-		if (finalangle > M_BADPI) {
-			finalangle -= M_BADTAU;
-		}
-
-		if (finalangle > 0.7852731347084f || finalangle < -0.7852731347084f) {
-			canseeplayer = false;
-		}
-	}
-
-	// Check vertical angle
-	if (canseeplayer) {
-		f32 angle = atan2f(ydist, sqrtf(xdist * xdist + zdist * zdist));
-		f32 finalangle = angle - camera->xzero;
-
-		if (angle < camera->xzero) {
-			finalangle = angle - camera->xzero + M_BADTAU;
-		}
-
-		if (finalangle > M_BADTAU) {
-			finalangle -= M_BADTAU;
-		}
-
-		if (finalangle > M_BADPI) {
-			finalangle -= M_BADTAU;
-		}
-
-		if (finalangle);
-
-		if (finalangle > 0.7852731347084f || finalangle < -0.7852731347084f) {
-			canseeplayer = false;
-		}
-	}
-
-	// Check line of sight
-	if (canseeplayer) {
-		playerSetPerimEnabled(playerprop, false);
-
-		if (!cdTestLos05(&camprop->pos, camprop->rooms, &playerprop->pos, playerprop->rooms,
-					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
-					GEOFLAG_BLOCK_SIGHT)) {
-			canseeplayer = false;
-		}
-
-		playerSetPerimEnabled(playerprop, true);
-	}
-
-	if (canseeplayer) {
-		obj->flags |= OBJFLAG_CAMERA_BONDINVIEW;
-		camera->seebondtime60 += g_Vars.lvupdate60;
-
-		if (g_Vars.coopplayernum >= 0) {
-			camera->seebondtime60 += g_Vars.lvupdate60;
-		}
-
-		if (camera->seebondtime60 >= (s32)(TICKS(300) * g_CctvWaitScale)) {
-			alarmActivate();
-			camera->seebondtime60 = 0;
-		}
-	} else {
-		obj->flags &= ~OBJFLAG_CAMERA_BONDINVIEW;
-	}
-
-	// Update yaw
-	if (camera->yrot < yaw) {
-		f32 tmp = camera->yspeed * camera->yspeed * 764.06536865234f;
-
-		if (camera->yrot >= yaw - tmp) {
-			camera->yspeed -= 0.00065439427271485f * g_Vars.lvupdate60freal;
-
-			if (camera->yspeed < 0.00065439427271485f) {
-				camera->yspeed = 0.00065439427271485f;
-			}
-		} else if (camera->yspeed < camera->ymaxspeed) {
-			f32 newspeed = camera->yspeed + 0.00065439427271485f * g_Vars.lvupdate60freal;
-
-			if (newspeed > camera->ymaxspeed) {
-				newspeed = camera->ymaxspeed;
-			}
-
-			if (camera->yrot < yaw - newspeed * newspeed * 764.06536865234f) {
-				camera->yspeed = newspeed;
-			}
-		}
-
-		camera->yrot += camera->yspeed * g_Vars.lvupdate60freal;
-
-		if (camera->yrot >= yaw) {
-			camera->yrot = yaw;
-			camera->toleft = false;
-			camera->yspeed = 0;
-		}
-	} else {
-		f32 tmp = camera->yspeed * camera->yspeed * 764.06536865234f;
-
-		if (camera->yrot <= yaw + tmp) {
-			camera->yspeed -= 0.00065439427271485f * g_Vars.lvupdate60freal;
-
-			if (camera->yspeed < 0.00065439427271485f) {
-				camera->yspeed = 0.00065439427271485f;
-			}
-		} else if (camera->yspeed < camera->ymaxspeed) {
-			f32 newspeed = camera->yspeed + 0.00065439427271485f * g_Vars.lvupdate60freal;
-
-			if (newspeed > camera->ymaxspeed) {
-				newspeed = camera->ymaxspeed;
-			}
-
-			if (camera->yrot > yaw + newspeed * newspeed * 764.06536865234f) {
-				camera->yspeed = newspeed;
-			}
-		}
-
-		camera->yrot -= camera->yspeed * g_Vars.lvupdate60freal;
-
-		if (camera->yrot <= yaw) {
-			camera->yrot = yaw;
-			camera->toleft = true;
-			camera->yspeed = 0;
-		}
-	}
-}
-
-void cctvInitMatrices(struct prop *prop, Mtxf *mtx)
-{
-	struct cctvobj *cctv = (struct cctvobj *)prop->obj;
-	struct model *model = cctv->base.model;
-	Mtxf *matrices = model->matrices;
-	union modelrodata *rodata = modelGetPartRodata(model->filedata, MODELPART_CCTV_CASING);
-	struct coord sp64;
-	Mtxf sp24;
-	f32 yrot = cctv->yrot;
-
-	if (yrot < 0) {
-		yrot += M_BADTAU;
-	} else if (yrot >= M_BADTAU) {
-		yrot -= M_BADTAU;
-	}
-
-	mtx4LoadYRotation(yrot, &sp24);
-	mtx4MultMtx4(&sp24, &cctv->camrotm, &matrices[1]);
-
-	sp64 = rodata->position.pos;
-
-	mtx4TransformVecInPlace(mtx, &sp64);
-	mtx4SetTranslation(&sp64, &matrices[1]);
-	mtx00015be0(camGetWorldToScreenMtxf(), &matrices[1]);
 }
 
 void fanTick(struct prop *prop)
@@ -11454,39 +11177,6 @@ void weaponInitMatrices(struct prop *prop)
 	}
 }
 
-/**
- * This function relates to hanging monitor objects, but PD has none of these.
- * There is no hanging monitor model in the ROM either, so it's impossible to
- * know which model node types the below part numbers refer to. The only clue is
- * that the rodata starts with a coordinate. There's at least 3 node types that
- * fit this criteria.
- *
- * An assumption has been made these are position node types.
- */
-void hangingmonitorInitMatrices(struct prop *prop)
-{
-	struct defaultobj *obj = prop->obj;
-	struct model *model = obj->model;
-	Mtxf *matrices = model->matrices;
-	union modelrodata *rodata;
-
-	rodata = modelGetPartRodata(model->filedata, MODELPART_0000);
-	mtx4LoadTranslation(&rodata->position.pos, &matrices[1]);
-	mtx00015be0(matrices, &matrices[1]);
-
-	rodata = modelGetPartRodata(model->filedata, MODELPART_0001);
-	mtx4LoadTranslation(&rodata->position.pos, &matrices[2]);
-	mtx00015be0(matrices, &matrices[2]);
-
-	rodata = modelGetPartRodata(model->filedata, MODELPART_0002);
-	mtx4LoadTranslation(&rodata->position.pos, &matrices[3]);
-	mtx00015be0(matrices, &matrices[3]);
-
-	rodata = modelGetPartRodata(model->filedata, MODELPART_0003);
-	mtx4LoadTranslation(&rodata->position.pos, &matrices[4]);
-	mtx00015be0(matrices, &matrices[4]);
-}
-
 void objInitMatrices(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
@@ -11499,16 +11189,12 @@ void objInitMatrices(struct prop *prop)
 		mtx4SetTranslation(&prop->pos, &mtx);
 		mtx00015be4(camGetWorldToScreenMtxf(), &mtx, obj->model->matrices);
 
-		if (obj->type == OBJTYPE_CCTV) {
-			cctvInitMatrices(prop, &mtx);
-		} else if (obj->type == OBJTYPE_AUTOGUN) {
+		if (obj->type == OBJTYPE_AUTOGUN) {
 			autogunInitMatrices(prop, &mtx);
 		} else if (obj->type == OBJTYPE_CHOPPER) {
 			chopperInitMatrices(prop);
 		} else if (obj->type == OBJTYPE_WEAPON) {
 			weaponInitMatrices(prop);
-		} else if (obj->type == OBJTYPE_HANGINGMONITORS) {
-			hangingmonitorInitMatrices(prop);
 		} else {
 			if (obj->model->filedata->nummatrices >= 2) {
 				struct modelrenderdata thing = {NULL, 1, 3};
@@ -11905,8 +11591,6 @@ s32 objTickPlayer(struct prop *prop)
 
 		if (obj->type == OBJTYPE_DOOR) {
 			doorTick(prop);
-		} else if (obj->type == OBJTYPE_CCTV && (obj->flags & OBJFLAG_DEACTIVATED) == 0) {
-			cctvTick(prop);
 		} else if (obj->type == OBJTYPE_FAN) {
 			fanTick(prop);
 		} else if (obj->type == OBJTYPE_AUTOGUN && (obj->flags & OBJFLAG_DEACTIVATED) == 0) {
@@ -15832,30 +15516,6 @@ void doorDestroyGlass(struct doorobj *door)
 	rwdata->toggle.visible = false;
 }
 
-void cctvHandleLensShot(struct defaultobj *obj)
-{
-	struct prop *prop = obj->prop;
-	struct model *model = obj->model;
-	union modelrodata *rodata;
-	union modelrwdata *rwdata;
-	Mtxf *sp7c;
-	Mtxf matrix;
-
-	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-		rodata = modelGetPartRodata(model->filedata, MODELPART_CCTV_0002);
-		sp7c = model0001a5cc(model, modelGetPart(model->filedata, MODELPART_CCTV_LENS), 0);
-		mtx00015be4(camGetProjectionMtxF(), sp7c, &matrix);
-
-		shardsCreate((struct coord *) matrix.m[3], matrix.m[0], matrix.m[1], matrix.m[2],
-				rodata->bbox.xmin, rodata->bbox.xmax, rodata->bbox.ymin, rodata->bbox.ymax,
-				SHARDTYPE_GLASS, prop);
-	}
-
-	wallhitsFreeByProp(prop, 1);
-	rwdata = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_CCTV_0003));
-	rwdata->toggle.visible = false;
-}
-
 void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s32 playernum)
 {
 	struct defaultobj *obj = prop->obj;
@@ -15893,16 +15553,11 @@ bool func0f085158(struct defaultobj *obj)
 	case OBJTYPE_DOOR:
 	case OBJTYPE_BASIC:
 	case OBJTYPE_ALARM:
-	case OBJTYPE_CCTV:
 	case OBJTYPE_SINGLEMONITOR:
 	case OBJTYPE_MULTIMONITOR:
-	case OBJTYPE_HANGINGMONITORS:
 	case OBJTYPE_AUTOGUN:
 	case OBJTYPE_DEBRIS:
-	case OBJTYPE_GASBOTTLE:
-	case OBJTYPE_29:
 	case OBJTYPE_GLASS:
-	case OBJTYPE_SAFE:
 	case OBJTYPE_TINTEDGLASS:
 	case OBJTYPE_LIFT:
 	case OBJTYPE_HOVERBIKE:
@@ -15970,10 +15625,6 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 	obj->hidden &= 0x0fffffff;
 	obj->hidden |= (playernum << 28) & 0xf0000000;
 #endif
-
-	if (obj->type == OBJTYPE_GASBOTTLE && objGetDestroyedLevel(obj) == 1) {
-		return;
-	}
 
 	if (weaponnum == WEAPON_NONE) {
 		if (func0f085194(obj)) {
@@ -16154,10 +15805,6 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 			if (objGetDestroyedLevel(obj) == 1) {
 				obj->flags |= OBJFLAG_DEACTIVATED;
 			}
-		} else if (obj->type == OBJTYPE_CCTV) {
-			if (objGetDestroyedLevel(obj) == 1) {
-				obj->flags |= OBJFLAG_DEACTIVATED;
-			}
 		} else if (obj->type == OBJTYPE_SINGLEMONITOR) {
 			struct singlemonitorobj *monitor = (struct singlemonitorobj *) obj;
 
@@ -16172,10 +15819,6 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 				tvscreenSetCmdlist(&monitor->screens[1], g_TvCmdlist14);
 				tvscreenSetCmdlist(&monitor->screens[2], g_TvCmdlist14);
 				tvscreenSetCmdlist(&monitor->screens[3], g_TvCmdlist14);
-			}
-		} else if (obj->type == OBJTYPE_GASBOTTLE) {
-			if (objGetDestroyedLevel(obj) == 1) {
-				gasReleaseFromPos(&obj->prop->pos);
 			}
 		} else if (obj->type == OBJTYPE_SHIELD) {
 			struct shieldobj *shield = (struct shieldobj *) obj;
@@ -16464,8 +16107,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				spc4 = false;
 				spcc = random() % surfacetype->numwallhittexes;
 
-				if ((obj->model->filedata->skel == &g_SkelWindowedDoor && hit->unk44 == modelGetPart(obj->model->filedata, MODELPART_WINDOWEDDOOR_0003))
-						|| (obj->model->filedata->skel == &g_SkelCctv && hit->unk44 == modelGetPart(obj->model->filedata, MODELPART_CCTV_LENS))) {
+				if (obj->model->filedata->skel == &g_SkelWindowedDoor && hit->unk44 == modelGetPart(obj->model->filedata, MODELPART_WINDOWEDDOOR_0003)) {
 					spcb = true;
 				}
 
@@ -16494,16 +16136,6 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 
 			if (obj->type == OBJTYPE_AUTOGUN) {
 				damage *= g_AutogunDamageRxScale;
-			} else if (obj->type == OBJTYPE_CCTV) {
-				// Leftover from GE: shots to a CCTV's lens is a one hit kill
-				if (obj->model->filedata->skel == &g_SkelCctv) {
-					if (modelGetPart(obj->model->filedata, MODELPART_CCTV_LENS) == hit->unk44) {
-						damage *= 100.0f;
-						cctvHandleLensShot(obj);
-					}
-				}
-
-				damage *= g_CctvDamageRxScale;
 			} else if (explosiveshells) {
 				if (obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS) {
 					damage *= 100.0f;
@@ -18020,16 +17652,11 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 		break;
 	case OBJTYPE_BASIC:
 	case OBJTYPE_ALARM:
-	case OBJTYPE_CCTV:
 	case OBJTYPE_SINGLEMONITOR:
 	case OBJTYPE_MULTIMONITOR:
-	case OBJTYPE_HANGINGMONITORS:
 	case OBJTYPE_AUTOGUN:
 	case OBJTYPE_DEBRIS:
-	case OBJTYPE_HAT:
-	case OBJTYPE_GASBOTTLE:
 	case OBJTYPE_GLASS:
-	case OBJTYPE_SAFE:
 	case OBJTYPE_TINTEDGLASS:
 	default:
 		if (g_Vars.in_cutscene == false) {
@@ -18104,10 +17731,6 @@ s32 objTestForPickup(struct prop *prop)
 				return TICKOP_NONE;
 			}
 		}
-	}
-
-	if (!objCanPickupFromSafe(obj)) {
-		return TICKOP_NONE;
 	}
 
 	if (obj->type == OBJTYPE_WEAPON) {
@@ -19325,10 +18948,6 @@ bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop)
 				canopen = true;
 			}
 		}
-	}
-
-	if (!doorIsPadlockFree(door)) {
-		canopen = false;
 	}
 
 	return canopen;
@@ -21167,88 +20786,6 @@ bool alarmIsActive(void)
 	return g_AlarmTimer > 0;
 }
 
-void gasReleaseFromPos(struct coord *pos)
-{
-	g_GasReleasing = true;
-	g_GasSoundTimer240 = 0;
-
-	g_GasPos = *pos;
-
-	// Gas objects don't exist in PD, so this stage number was likely carried
-	// over from GoldenEye. It maps to GE's Egypt stage, which uses gas for a
-	// visual effect only.
-	if (mainGetStageNum() == STAGE_MP_G5BUILDING) {
-		g_GasReleaseTimerMax240 = 120;
-		g_GasEnableDamage = false;
-	} else {
-		g_GasReleaseTimerMax240 = 3600;
-		g_GasEnableDamage = true;
-	}
-}
-
-void gasStopAudio(void)
-{
-	if (g_GasAudioHandle && sndGetState(g_GasAudioHandle)) {
-		audioStop(g_GasAudioHandle);
-	}
-}
-
-bool gasIsActive(void)
-{
-	return g_GasReleaseTimer240 > 0;
-}
-
-void gasTick(void)
-{
-	u32 stack;
-
-	if (g_GasReleasing) {
-		g_GasReleaseTimer240 += g_Vars.lvupdate60freal;
-
-		if (g_GasReleaseTimer240 >= g_GasReleaseTimerMax240) {
-			g_GasReleaseTimer240 = g_GasReleaseTimerMax240;
-			g_GasReleasing = false;
-		}
-	}
-
-	if (g_GasReleaseTimer240 > 0 && !g_PlayerInvincible) {
-		envApplyTransitionFrac(g_GasReleaseTimer240 / g_GasReleaseTimerMax240);
-
-		if (g_GasEnableDamage) {
-			if (g_GasLastCough60 < g_Vars.lvframe60 - TICKS(225)) {
-				g_GasLastCough60 = g_Vars.lvframe60;
-
-				if (g_GasReleaseTimer240 >= 600) {
-					sndStart(var80095200, SFX_0037, 0, -1, -1, -1, -1, -1);
-				}
-
-				if (g_GasReleaseTimer240 >= 1800) {
-					struct coord dir = {0, 0, 0};
-
-					chrDamageByMisc(g_Vars.currentplayer->prop->chr, 0.125f, &dir, NULL, NULL);
-				}
-			}
-
-			if (g_GasSoundTimer240 < g_GasReleaseTimerMax240) {
-				s16 soundnum = -1;
-
-				g_GasSoundTimer240 += g_Vars.lvupdate60freal;
-
-				if (!g_GasAudioHandle && !lvIsPaused()) {
-					soundnum = SFX_0037;
-					sndStart(var80095200, soundnum, &g_GasAudioHandle, -1, -1, -1, -1, -1);
-				}
-
-				if (g_GasAudioHandle) {
-					func0f09505c(g_GasAudioHandle, &g_GasPos, 400, 2500, 3000, g_Vars.currentplayer->prop->rooms, soundnum, 0x7fff, 0);
-				}
-			} else if (g_GasAudioHandle && sndGetState(g_GasAudioHandle)) {
-				audioStop(g_GasAudioHandle);
-			}
-		}
-	}
-}
-
 void countdownTimerSetVisible(u32 reason, bool visible)
 {
 	if (visible) {
@@ -21432,7 +20969,6 @@ void alarmTick(void)
 		alarmDeactivate();
 	}
 
-	gasTick();
 	countdownTimerTick();
 	chrsTriggerProxies();
 

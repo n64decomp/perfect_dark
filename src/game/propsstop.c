@@ -10,5 +10,4 @@
 void propsStop(void)
 {
 	alarmDeactivate();
-	gasStopAudio();
 }

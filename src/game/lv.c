@@ -1867,8 +1867,6 @@ void lvUpdateSoloHandicaps(void)
 {
 	if (g_Vars.antiplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 2;
 			g_AutogunAccuracyScale = 0.5f;
 			g_AutogunDamageTxScale = 0.5f;
 			g_AutogunDamageRxScale = 2;
@@ -1880,8 +1878,6 @@ void lvUpdateSoloHandicaps(void)
 			g_AmmoQuantityScale = 3;
 			g_AttackWalkDurationScale = 0.2f;
 		} else if (g_Difficulty == DIFF_SA) {
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 1.5f;
 			g_AutogunAccuracyScale = 0.5f;
 			g_AutogunDamageTxScale = 0.5f;
 			g_AutogunDamageRxScale = 1.5f;
@@ -1893,8 +1889,6 @@ void lvUpdateSoloHandicaps(void)
 			g_AmmoQuantityScale = 2.5f;
 			g_AttackWalkDurationScale = 0.5f;
 		} else {
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 1;
 			g_AutogunAccuracyScale = 0.5f;
 			g_AutogunDamageTxScale = 0.5f;
 			g_AutogunDamageRxScale = 1;
@@ -1908,8 +1902,6 @@ void lvUpdateSoloHandicaps(void)
 		}
 	} else if (g_Vars.coopplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 2;
 			g_AutogunAccuracyScale = 0.5f;
 			g_AutogunDamageTxScale = 0.5f;
 			g_AutogunDamageRxScale = 2;
@@ -1921,8 +1913,6 @@ void lvUpdateSoloHandicaps(void)
 			g_AmmoQuantityScale = 2;
 			g_AttackWalkDurationScale = 0.2f;
 		} else if (g_Difficulty == DIFF_SA) {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
 			g_AutogunAccuracyScale = 0.75f;
 			g_AutogunDamageTxScale = 1;
 			g_AutogunDamageRxScale = 1;
@@ -1938,8 +1928,6 @@ void lvUpdateSoloHandicaps(void)
 			g_AmmoQuantityScale = 1.5f;
 			g_AttackWalkDurationScale = 0.5f;
 		} else {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
 			g_AutogunAccuracyScale = 1;
 			g_AutogunDamageTxScale = 1.5f;
 			g_AutogunDamageRxScale = 1;
@@ -1970,8 +1958,6 @@ void lvUpdateSoloHandicaps(void)
 				}
 			}
 
-			g_CctvWaitScale = 2;
-			g_CctvDamageRxScale = 2;
 			g_AutogunAccuracyScale = 0.5f * frac;
 			g_AutogunDamageTxScale = 0.5f * frac;
 			g_AutogunDamageRxScale = 2;
@@ -1983,8 +1969,6 @@ void lvUpdateSoloHandicaps(void)
 			g_AmmoQuantityScale = 2;
 			g_AttackWalkDurationScale = 0.2f;
 		} else if (g_Difficulty == DIFF_SA) {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
 			g_AutogunAccuracyScale = 0.75f;
 			g_AutogunDamageTxScale = 0.75f;
 			g_AutogunDamageRxScale = 1;
@@ -2000,8 +1984,6 @@ void lvUpdateSoloHandicaps(void)
 			g_AmmoQuantityScale = 1.5f;
 			g_AttackWalkDurationScale = 0.5f;
 		} else if (g_Difficulty == DIFF_PA) {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
 			g_AutogunAccuracyScale = 1;
 			g_AutogunDamageTxScale = 1;
 			g_AutogunDamageRxScale = 1;
@@ -2017,8 +1999,6 @@ void lvUpdateSoloHandicaps(void)
 			g_AmmoQuantityScale = 1;
 			g_AttackWalkDurationScale = 1;
 		} else if (g_Difficulty == DIFF_PD) {
-			g_CctvWaitScale = 1;
-			g_CctvDamageRxScale = 1;
 			g_AutogunAccuracyScale = 1;
 			g_AutogunDamageTxScale = 1;
 			g_AutogunDamageRxScale = 1;

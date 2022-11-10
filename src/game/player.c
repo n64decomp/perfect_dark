@@ -2113,7 +2113,6 @@ void playerStopAudioForPause(void)
 	s32 i;
 
 	alarmStopAudio();
-	gasStopAudio();
 
 	for (i = 0; i < 2; i++) {
 		hand = &g_Vars.currentplayer->hands[i];

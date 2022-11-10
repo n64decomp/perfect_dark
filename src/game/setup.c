@@ -204,15 +204,6 @@ void propsReset(void)
 	g_AlarmAudioHandle = NULL;
 	g_AlarmSpeakerWeight = 64;
 
-	g_GasReleaseTimer240 = 0;
-	g_GasReleasing = false;
-	g_GasPos.x = 0;
-	g_GasPos.y = 0;
-	g_GasPos.z = 0;
-	g_GasLastCough60 = 0;
-	g_GasSoundTimer240 = 0;
-	g_GasAudioHandle = NULL;
-
 	g_CountdownTimerOff = COUNTDOWNTIMERREASON_AI;
 	g_CountdownTimerRunning = false;
 	g_CountdownTimerValue60 = 0;
@@ -273,15 +264,11 @@ void propsReset(void)
 	}
 
 	g_LiftDoors = NULL;
-	g_PadlockedDoors = NULL;
-	g_SafeItems = NULL;
 	g_LinkedScenery = NULL;
 	g_BlockedPaths = NULL;
 
 	g_EmbedProp = NULL;
 	g_EmbedHitPart = -1;
-	g_CctvWaitScale = 1;
-	g_CctvDamageRxScale = 1;
 	g_AutogunAccuracyScale = 1;
 	g_AutogunDamageTxScale = 1;
 	g_AutogunDamageRxScale = 1;
@@ -301,18 +288,6 @@ void setupCreateLiftDoor(struct linkliftdoorobj *link)
 {
 	link->next = g_LiftDoors;
 	g_LiftDoors = link;
-}
-
-void setupCreatePadlockedDoor(struct padlockeddoorobj *link)
-{
-	link->next = g_PadlockedDoors;
-	g_PadlockedDoors = link;
-}
-
-void setupCreateSafeItem(struct safeitemobj *link)
-{
-	link->next = g_SafeItems;
-	g_SafeItems = link;
 }
 
 void setupCreateConditionalScenery(struct linksceneryobj *link)
@@ -758,60 +733,6 @@ void setupCreateMine(struct mineobj *mine, s32 cmdindex)
 	mine->base.prop->forcetick = true;
 }
 
-void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
-{
-	struct defaultobj *obj = &cctv->base;
-
-	setupCreateObject(obj, cmdindex);
-
-	if (cctv->lookatpadnum >= 0) {
-		struct coord lenspos;
-		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_CCTV_CASING);
-		struct pad *pad;
-		f32 xdiff;
-		f32 ydiff;
-		f32 zdiff;
-
-		pad = &g_Pads[cctv->lookatpadnum];
-
-		lenspos = lens->position.pos;
-
-		mtx00016208(obj->realrot, &lenspos);
-
-		lenspos.x += obj->prop->pos.x;
-		lenspos.y += obj->prop->pos.y;
-		lenspos.z += obj->prop->pos.z;
-
-		xdiff = lenspos.x - pad->pos.x;
-		ydiff = lenspos.y - pad->pos.y;
-		zdiff = lenspos.z - pad->pos.z;
-
-		if (ydiff) {
-			// empty
-		}
-
-		mtx00016d58(&cctv->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
-		mtx00015f04(obj->model->scale, &cctv->camrotm);
-
-		cctv->toleft = 0;
-		cctv->yleft = *(s32 *)&cctv->yleft * M_BADTAU / 65536.0f;
-		cctv->yright = *(s32 *)&cctv->yright * M_BADTAU / 65536.0f;
-		cctv->yspeed = 0.0f;
-		cctv->ymaxspeed = *(s32 *)&cctv->ymaxspeed * M_BADTAU / 65536.0f;
-		cctv->maxdist = *(s32 *)&cctv->maxdist;
-		cctv->yrot = cctv->yleft;
-
-		cctv->yzero = atan2f(xdiff, zdiff);
-		cctv->xzero = M_BADTAU - atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
-
-		if (xdiff || zdiff) {
-			// empty
-		}
-
-		cctv->seebondtime60 = 0;
-	}
-}
-
 void setupCreateAutogun(struct autogunobj *autogun, s32 cmdindex)
 {
 	setupCreateObject(&autogun->base, cmdindex);
@@ -859,11 +780,6 @@ void setupCreateAutogun(struct autogunobj *autogun, s32 cmdindex)
 		// Deep Sea roofgun
 		autogun->xzero = -1.5705462694168f;
 	}
-}
-
-void setupCreateHangingMonitors(struct hangingmonitorsobj *monitors, s32 cmdindex)
-{
-	setupCreateObject(&monitors->base, cmdindex);
 }
 
 void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
@@ -1512,17 +1428,6 @@ void setupCreateProps(s32 stagenum)
 
 			while (obj->type != OBJTYPE_END) {
 				switch (obj->type) {
-				case OBJTYPE_GRENADEPROB:
-					{
-						struct grenadeprobobj *grenadeprob = (struct grenadeprobobj *)obj;
-						u8 probability = grenadeprob->probability;
-						struct chrdata *chr = chrFindByLiteralId(grenadeprob->chrnum);
-
-						if (chr && chr->prop && chr->model) {
-							chr->grenadeprob = probability;
-						}
-					}
-					break;
 				case OBJTYPE_CHR:
 					if (withchrs) {
 						bodyAllocateChr(stagenum, (struct packedchr *) obj, index);
@@ -1549,19 +1454,9 @@ void setupCreateProps(s32 stagenum)
 						setupCreateKey((struct keyobj *)obj, index);
 					}
 					break;
-				case OBJTYPE_CCTV:
-					if (withobjs && (obj->flags2 & diffflag) == 0) {
-						setupCreateCctv((struct cctvobj *)obj, index);
-					}
-					break;
 				case OBJTYPE_AUTOGUN:
 					if (withobjs && (obj->flags2 & diffflag) == 0) {
 						setupCreateAutogun((struct autogunobj *)obj, index);
-					}
-					break;
-				case OBJTYPE_HANGINGMONITORS:
-					if (withobjs && (obj->flags2 & diffflag) == 0) {
-						setupCreateHangingMonitors((struct hangingmonitorsobj *)obj, index);
 					}
 					break;
 				case OBJTYPE_SINGLEMONITOR:
@@ -1728,14 +1623,14 @@ void setupCreateProps(s32 stagenum)
 						if (obj->flags & OBJFLAG_ESCSTEP_ZALIGNED) {
 							step->frame = escstepy;
 							escstepy += 40;
-							mtx4LoadYRotation(4.7116389274597f, sp1a8);
-							mtx4ToMtx3(sp1a8, sp184);
+							mtx4LoadYRotation(4.7116389274597f, &sp1a8);
+							mtx4ToMtx3(&sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						} else {
 							step->frame = escstepx;
 							escstepx += 40;
-							mtx4LoadYRotation(M_BADPI, sp1a8);
-							mtx4ToMtx3(sp1a8, sp184);
+							mtx4LoadYRotation(M_BADPI, &sp1a8);
+							mtx4ToMtx3(&sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						}
 					}
@@ -1744,9 +1639,6 @@ void setupCreateProps(s32 stagenum)
 				case OBJTYPE_ALARM:
 				case OBJTYPE_AMMOCRATE:
 				case OBJTYPE_DEBRIS:
-				case OBJTYPE_GASBOTTLE:
-				case OBJTYPE_29:
-				case OBJTYPE_SAFE:
 					if (withobjs && (obj->flags2 & diffflag) == 0) {
 						setupCreateObject(obj, index);
 					}
@@ -2006,10 +1898,7 @@ void setupCreateProps(s32 stagenum)
 				case OBJTYPE_DEBRIS:
 				case OBJTYPE_MULTIAMMOCRATE:
 				case OBJTYPE_SHIELD:
-				case OBJTYPE_GASBOTTLE:
-				case OBJTYPE_29:
 				case OBJTYPE_GLASS:
-				case OBJTYPE_SAFE:
 				case OBJTYPE_TINTEDGLASS:
 					if (obj->prop && (obj->flags & OBJFLAG_INSIDEANOTHEROBJ)) {
 						s32 offset = obj->pad;
@@ -2050,49 +1939,6 @@ void setupCreateProps(s32 stagenum)
 							setupCreateLiftDoor(link);
 
 							door->hidden |= OBJHFLAG_LIFTDOOR;
-						}
-					}
-					break;
-				case OBJTYPE_SAFEITEM:
-					{
-						struct safeitemobj *link = (struct safeitemobj *)obj;
-						s32 itemoffset = (s32)link->item;
-						s32 safeoffset = (s32)link->safe;
-						s32 dooroffset = (s32)link->door;
-						struct defaultobj *item = setupGetObjByCmdIndex(index + itemoffset);
-						struct defaultobj *safe = setupGetObjByCmdIndex(index + safeoffset);
-						struct defaultobj *door = setupGetObjByCmdIndex(index + dooroffset);
-
-						if (item && item->prop
-								&& safe && safe->prop && safe->type == OBJTYPE_SAFE
-								&& door && door->prop && door->type == OBJTYPE_DOOR) {
-							link->item = item;
-							link->safe = (struct safeobj *)safe;
-							link->door = (struct doorobj *)door;
-
-							setupCreateSafeItem(link);
-
-							item->flags2 |= OBJFLAG2_LINKEDTOSAFE;
-							door->flags2 |= OBJFLAG2_LINKEDTOSAFE;
-						}
-					}
-					break;
-				case OBJTYPE_PADLOCKEDDOOR:
-					{
-						struct padlockeddoorobj *link = (struct padlockeddoorobj *)obj;
-						s32 dooroffset = (s32)link->door;
-						s32 lockoffset = (s32)link->lock;
-						struct defaultobj *door = setupGetObjByCmdIndex(index + dooroffset);
-						struct defaultobj *lock = setupGetObjByCmdIndex(index + lockoffset);
-
-						if (door && door->prop && lock && lock->prop
-								&& door->type == OBJTYPE_DOOR) {
-							link->door = (struct doorobj *)door;
-							link->lock = lock;
-
-							setupCreatePadlockedDoor(link);
-
-							door->hidden |= OBJHFLAG_PADLOCKEDDOOR;
 						}
 					}
 					break;

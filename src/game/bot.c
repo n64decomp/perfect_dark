@@ -497,10 +497,6 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 
 	dprint();
 
-	if (!objCanPickupFromSafe(obj)) {
-		return false;
-	}
-
 	dprint();
 
 	if (1);
