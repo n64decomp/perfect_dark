@@ -369,9 +369,9 @@ void nbombInflictDamage(struct nbomb *nbomb)
 				f32 ydiff = prop->pos.f[1] - nbomb->pos.f[1];
 				f32 zdiff = prop->pos.f[2] - nbomb->pos.f[2];
 
-				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+				f32 dist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 
-				if (dist < nbomb->radius) {
+				if (dist < nbomb->radius * nbomb->radius) {
 					struct chrdata *chr = prop->chr;
 
 					if (chr) {
@@ -629,7 +629,7 @@ Gfx *nbombRenderOverlay(Gfx *gdl)
 			f32 ydiff = campos.f[1] - g_Nbombs[i].pos.f[1];
 			f32 zdiff = campos.f[2] - g_Nbombs[i].pos.f[2];
 
-			if (sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff) < g_Nbombs[i].radius) {
+			if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff < g_Nbombs[i].radius * g_Nbombs[i].radius) {
 				u32 alpha = nbombCalculateAlpha(&g_Nbombs[i]);
 
 				inside = true;
