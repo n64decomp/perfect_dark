@@ -861,7 +861,7 @@ s32 setupGetBaseBytesPerPlayer(bool haslaptops)
 	sum += sizeof(struct model);
 	sum += sizeof(struct anim);
 	sum += sizeof(struct modelrwdatabinding);
-	sum += 256 * sizeof(u32); // 256 rwdata words
+	sum += 172 * sizeof(u32); // 172 rwdata words
 
 	if (haslaptops) {
 		sum += sizeof(struct autogunobj);
@@ -887,7 +887,7 @@ s32 setupGetBaseBytesPerBot(bool haslaptops)
 	sum += sizeof(struct model);
 	sum += sizeof(struct anim);
 	sum += sizeof(struct modelrwdatabinding);
-	sum += 256 * sizeof(u32); // 256 rwdata words
+	sum += 172 * sizeof(u32); // 172 rwdata words
 	sum += ALIGN8(3 * sizeof(u32) * 2); // 3 rwdata words * 2 held guns
 	sum += ALIGN8(36 * sizeof(s32)); // aibot.ammoheld
 	sum += ALIGN16(8 * sizeof(struct invitem)); // aibot.items
@@ -939,10 +939,19 @@ s32 setupCalculateMaxBots(s32 numrequested, bool haslaptops)
 	freebytes -= 12288 * numplayers; // for hands
 	freebytes -= 34880; // for carts
 	freebytes -= ALIGN16(g_Vars.roomcount * sizeof(struct roomacousticdata));
-	freebytes -= g_NumPortals * 4; // from func0f004c6c
 	freebytes -= ALIGN16(g_Vars.roomcount * sizeof(s16)); // g_RoomPropListChunkIndexes
 	freebytes -= 256 * sizeof(struct roomproplistchunk); // g_RoomPropListChunks
 
+	// Portal math from func0f004c6c
+	freebytes -= g_NumPortals * 4;
+
+	for (i = 0; i < g_NumPortals; i++) {
+		if (i != 0) {
+			freebytes -= i * 2;
+		}
+	}
+
+	// Room graphics data
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		freebytes -= g_Rooms[i].gfxdatalen;
 	}
@@ -973,6 +982,7 @@ s32 setupCalculateMaxBots(s32 numrequested, bool haslaptops)
 	freebytes -= g_Vars.maxprops * sizeof(struct prop); // g_Vars.props
 	freebytes -= g_Vars.maxprops * sizeof(void *); // g_Vars.onscreenprops
 	freebytes -= g_Vars.maxprops * sizeof(struct model);
+	freebytes -= g_ModelNumObjs * 4 * sizeof(u32); // object rwdata
 
 	if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
 		scenariobytesperchr = sizeof(s32); // numpoints array
@@ -1017,8 +1027,8 @@ s32 setupCalculateMaxBots(s32 numrequested, bool haslaptops)
 		freebytes -= (numchrs + 1) * sizeof(s32); // aibot.chrslastseen60
 		freebytes -= (numchrs + 1) * sizeof(s8); // aibot.chrrooms
 
-		// Stop when there's less than 100 KB free, just in case my math is wrong
-		if (freebytes < 100 * 1024) {
+		// Stop when there's less than 300 KB free, because my math is wrong
+		if (freebytes < 300 * 1024) {
 			freebytes = origfreebytes;
 			break;
 		}
@@ -1134,6 +1144,7 @@ void setupAllocateEverything(void)
 					g_MpChrs[chrnum].numpoints = 0;
 
 					botmgrAllocateBot(chrnum, botcfgnum, botnum);
+
 					botnum++;
 					chrnum++;
 				}
