@@ -1714,10 +1714,7 @@ void setupCreateProps(s32 stagenum)
 						struct escalatorobj *step = (struct escalatorobj *)obj;
 						struct prop *prop;
 
-						// TODO: There is a stack problem here that should be
-						// resolved. sp1a8 is really an Mtxf which doesn't fit
-						// in its current location in the stack.
-						f32 sp1a8[12];
+						Mtxf sp1a8;
 						f32 sp184[3][3];
 
 						setupCreateObject(obj, index);
@@ -1731,14 +1728,14 @@ void setupCreateProps(s32 stagenum)
 						if (obj->flags & OBJFLAG_ESCSTEP_ZALIGNED) {
 							step->frame = escstepy;
 							escstepy += 40;
-							mtx4LoadYRotation(4.7116389274597f, (Mtxf *)sp1a8);
-							mtx4ToMtx3((Mtxf *)sp1a8, sp184);
+							mtx4LoadYRotation(4.7116389274597f, sp1a8);
+							mtx4ToMtx3(sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						} else {
 							step->frame = escstepx;
 							escstepx += 40;
-							mtx4LoadYRotation(M_BADPI, (Mtxf *)sp1a8);
-							mtx4ToMtx3((Mtxf *)sp1a8, sp184);
+							mtx4LoadYRotation(M_BADPI, sp1a8);
+							mtx4ToMtx3(sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						}
 					}
