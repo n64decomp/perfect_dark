@@ -1756,64 +1756,26 @@ void propsTickPlayer(bool islastplayer)
 		// If the score is non-zero, the prop is a foreground prop.
 		i = 0;
 
-		// During normal gameplay, all props would be put in the foreground
-		// if g_Vars.alwaystick is set. But it never is.
-		// For other modes such as cutscenes, everything is in the foreground.
-		if (g_Vars.tickmode != TICKMODE_NORMAL) {
-			i++;
-		} else {
-			i += g_Vars.alwaystick;
+		if ((prop->flags & (PROPFLAG_ENABLED | PROPFLAG_ONANYSCREENPREVTICK)) == (PROPFLAG_ENABLED | PROPFLAG_ONANYSCREENPREVTICK)
+				|| prop->type == PROPTYPE_PLAYER
+				|| prop->forcetick
+				|| prop->forceonetick
+				|| ((prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) && (prop->obj->hidden & OBJHFLAG_PROJECTILE))
+				|| g_Vars.tickmode != TICKMODE_NORMAL) {
+			i = 1;
+			prop->forceonetick = false;
 		}
 
-		// If the prop is in an on-screen room, it's in the foreground
-		rooms = prop->rooms;
+		if (!i) {
+			rooms = prop->rooms;
 
-		while (*rooms != -1) {
-			if (g_Rooms[*rooms].flags & ROOMFLAG_ONSCREEN) {
-				i++;
-			}
-
-			rooms++;
-		}
-
-		if (i == 0) {
-			// The player and projectiles must always be in the foreground
-			if (prop->type == PROPTYPE_PLAYER) {
-				i++;
-			} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
-				obj = prop->obj;
-
-				if (obj->hidden & OBJHFLAG_PROJECTILE) {
-					i++;
+			while (*rooms != -1) {
+				if (g_Rooms[*rooms].flags & (ROOMFLAG_ONSCREEN | ROOMFLAG_STANDBY)) {
+					i = 1;
+					break;
 				}
-			}
 
-			if (i == 0) {
-				// The prop will be in the foreground if it was on-screen on the
-				// previous tick, or if it explicitly needs to be ticked, or if
-				// it's in a standby room.
-				if ((prop->flags & (PROPFLAG_ENABLED | PROPFLAG_ONANYSCREENPREVTICK)) == (PROPFLAG_ENABLED | PROPFLAG_ONANYSCREENPREVTICK)) {
-					i++;
-				} else if (prop->forceonetick) {
-					i++;
-					prop->forceonetick = false;
-				} else if (prop->forcetick) {
-					i++;
-				} else {
-					rooms = prop->rooms;
-
-					while (*rooms != -1) {
-						if (g_Rooms[*rooms].flags & ROOMFLAG_STANDBY) {
-							break;
-						}
-
-						rooms++;
-					}
-
-					if (*rooms != -1) {
-						i++;
-					}
-				}
+				rooms++;
 			}
 		}
 
