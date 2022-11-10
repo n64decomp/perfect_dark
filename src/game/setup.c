@@ -184,7 +184,6 @@ void propsReset(void)
 	}
 
 	g_MaxWeaponSlots = 50;
-	g_MaxHatSlots = 10;
 	g_MaxAmmoCrates = 20;
 	g_MaxDebrisSlots = 15;
 	g_MaxProjectiles = IS4MB() ? 20 : 100;
@@ -192,7 +191,6 @@ void propsReset(void)
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
 		g_MaxWeaponSlots = 0;
-		g_MaxHatSlots = 0;
 		g_MaxAmmoCrates = 0;
 		g_MaxDebrisSlots = 0;
 		g_MaxProjectiles = 0;
@@ -232,18 +230,6 @@ void propsReset(void)
 		}
 
 		g_NextWeaponSlot = 0;
-	}
-
-	if (g_MaxHatSlots == 0) {
-		g_HatSlots = NULL;
-	} else {
-		g_HatSlots = mempAlloc(ALIGN16(g_MaxHatSlots * sizeof(struct hatobj)), MEMPOOL_STAGE);
-
-		for (i = 0; i < g_MaxHatSlots; i++) {
-			g_HatSlots[i].base.prop = NULL;
-		}
-
-		g_NextHatSlot = 0;
 	}
 
 	if (g_MaxAmmoCrates == 0) {
@@ -751,19 +737,6 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 			modelmgrLoadProjectileModeldefs(weapon->weaponnum);
 			setupCreateObject(&weapon->base, cmdindex);
 		}
-	}
-}
-
-void setupCreateHat(struct hatobj *hat, s32 cmdindex)
-{
-	if (hat->base.flags & OBJFLAG_ASSIGNEDTOCHR) {
-		struct chrdata *chr = chrFindByLiteralId(hat->base.pad);
-
-		if (chr && chr->prop && chr->model) {
-			hatAssignToChr(hat, chr);
-		}
-	} else {
-		setupCreateObject(&hat->base, cmdindex);
 	}
 }
 
@@ -1574,11 +1547,6 @@ void setupCreateProps(s32 stagenum)
 				case OBJTYPE_KEY:
 					if (withchrs && (obj->flags2 & diffflag) == 0) {
 						setupCreateKey((struct keyobj *)obj, index);
-					}
-					break;
-				case OBJTYPE_HAT:
-					if (withchrs && (obj->flags2 & diffflag) == 0) {
-						setupCreateHat((struct hatobj *)obj, index);
 					}
 					break;
 				case OBJTYPE_CCTV:

@@ -1103,7 +1103,6 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->aimendcount = 0;
 	chr->weapons_held[0] = NULL;
 	chr->weapons_held[1] = NULL;
-	chr->weapons_held[2] = NULL;
 	chr->gunprop = NULL;
 	chr->fireslots[0] = -1;
 	chr->fireslots[1] = -1;
@@ -2278,7 +2277,6 @@ s32 chrTick(struct prop *prop)
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
 	bool onscreen;
-	bool hatvisible = true;
 	s32 lvupdate240 = g_Vars.lvupdate240;
 	struct prop *child;
 	struct prop *next;
@@ -2713,61 +2711,6 @@ s32 chrTick(struct prop *prop)
 				chr0f022214(chr, child, fulltick);
 				child = next;
 			}
-
-			if (chr->weapons_held[2] != NULL) {
-				s32 index;
-				struct defaultobj *obj = chr->weapons_held[2]->obj;
-				struct model *hatmodel = obj->model;
-
-				if (chr->headnum >= HEAD_SHAUN && chr->headnum <= HEAD_SHAUN) {
-					struct coord hatpos = {0, 0, 0};
-					f32 spe4;
-					f32 spe0;
-					f32 spdc;
-					Mtxf sp9c;
-					Mtxf sp5c;
-					s32 hattype = hatGetType(chr->weapons_held[2]);
-					u8 stack[0x0c];
-
-					index = chr->headnum - HEAD_SHAUN;
-
-					hatpos.x = var8007dae4[index][hattype].x * 21.3f;
-					hatpos.y = var8007dae4[index][hattype].y * 21.3f;
-					hatpos.z = var8007dae4[index][hattype].z * 21.3f;
-
-					spe4 = var8007dae4[index][hattype].unk0c;
-					spe0 = var8007dae4[index][hattype].unk10;
-					spdc = var8007dae4[index][hattype].unk14;
-
-					mtx4LoadTranslation(&hatpos, &sp9c);
-					mtx00015e24(spe4, &sp9c);
-					mtx00015e80(spe0, &sp9c);
-					mtx00015edc(spdc, &sp9c);
-					mtx00015be4(hatmodel->matrices, &sp9c, &sp5c);
-					mtx4Copy(&sp5c, hatmodel->matrices);
-
-					if (hattype == HATTYPE_2) {
-						hatvisible = false;
-					}
-				}
-			}
-
-			if (model->filedata->skel == &g_SkelChr) {
-				struct modelnode *headspotnode = modelGetPart(model->filedata, MODELPART_CHR_HEADSPOT);
-
-				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
-					union modelrwdata *rwdata = modelGetNodeRwData(model, headspotnode);
-
-					if (rwdata->headspot.modelfiledata != NULL) {
-						struct modelnode *hatnode = modelGetPart(rwdata->headspot.modelfiledata, MODELPART_HEAD_HAT);
-
-						if (hatnode != NULL) {
-							union modelrwdata *hatrwdata = modelGetNodeRwData(model, hatnode);
-							hatrwdata->toggle.visible = hatvisible;
-						}
-					}
-				}
-			}
 		}
 	} else {
 		// Offscreen
@@ -2808,8 +2751,7 @@ void chrDropConcealedItems(struct chrdata *chr)
 	struct prop *prop = chr->prop->child;
 
 	while (prop) {
-		if (prop != chr->weapons_held[2]
-				&& prop != chr->weapons_held[1]
+		if (prop != chr->weapons_held[1]
 				&& prop != chr->weapons_held[0]
 				&& (prop->obj->hidden & OBJHFLAG_EMBEDDED) == 0
 				&& (prop->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
@@ -2849,13 +2791,10 @@ void chrDropItemsForOwnerReap(struct chrdata *chr)
 	struct prop *prop = chr->prop->child;
 
 	while (prop)  {
-		// If prop is not hat
-		if (prop != chr->weapons_held[2]) {
-			struct defaultobj *obj = prop->obj;
+		struct defaultobj *obj = prop->obj;
 
-			if ((obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-				objSetDropped(prop, DROPTYPE_OWNERREAP);
-			}
+		if ((obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+			objSetDropped(prop, DROPTYPE_OWNERREAP);
 		}
 
 		prop = prop->next;
@@ -5194,33 +5133,6 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 					objSetDropped(hit->prop, DROPTYPE_DEFAULT);
 					chr->hidden |= CHRHFLAG_00000001;
 				}
-			} else if (hit->hitpart == HITPART_HAT) {
-				// Shot a chr's hat
-				struct surfacetype *type;
-				s32 index;
-
-				// Create decal depending on the hat's surface type
-				if (hit->hitthing.texturenum < 0) {
-					type = g_SurfaceTypes[0];
-				} else {
-					type = g_SurfaceTypes[g_Textures[hit->hitthing.texturenum].surfacetype];
-				}
-
-				index = random() % type->numwallhittexes;
-
-				wallhitCreate(
-						&hit->hitthing.unk00,
-						&hit->hitthing.unk0c,
-						&shotdata->gunpos,
-						0,
-						0,
-						type->wallhittexes[index],
-						1,
-						chr->weapons_held[2],
-						hit->mtxindex,
-						0,
-						g_Vars.currentplayer->prop->chr,
-						0);
 			} else {
 				// Shot a chr in the flesh
 				s32 race = CHRRACE(chr);

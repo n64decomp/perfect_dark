@@ -1033,11 +1033,6 @@ bool aiDuplicateChr(s32 chrref, u8 *ailist, u32 spawnflags)
 				propweaponSetDual(cloneweapon1, cloneweapon0);
 			}
 
-			if (chr->weapons_held[2]) {
-				struct defaultobj *obj = chr->weapons_held[2]->obj;
-				hatCreateForChr(clone, obj->modelnum, 0);
-			}
-
 			clone->flags = chr->flags;
 			clone->flags2 = chr->flags2;
 			clone->padpreset1 = chr->padpreset1;

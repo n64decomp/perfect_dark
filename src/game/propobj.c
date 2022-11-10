@@ -82,13 +82,11 @@ struct weaponobj *g_Proxies[30];
 f32 g_GasReleaseTimerMax240;
 bool g_GasEnableDamage;
 s32 g_MaxWeaponSlots;
-s32 g_MaxHatSlots;
 s32 g_MaxAmmoCrates;
 s32 g_MaxDebrisSlots;
 s32 g_MaxProjectiles;
 s32 g_MaxEmbedments;
 struct weaponobj *g_WeaponSlots;
-struct hatobj *g_HatSlots;
 struct ammocrateobj *g_AmmoCrates;
 struct defaultobj *g_DebrisSlots;
 struct projectile *g_Projectiles;
@@ -110,7 +108,6 @@ bool g_CountdownTimerRunning = false;
 f32 g_CountdownTimerValue60 = 0;
 u32 g_PlayersDetonatingMines = 0x00000000;
 s32 g_NextWeaponSlot = 0;
-s32 g_NextHatSlot = 0;
 struct linkliftdoorobj *g_LiftDoors = NULL;
 struct padlockeddoorobj *g_PadlockedDoors = NULL;
 struct safeitemobj *g_SafeItems = NULL;
@@ -15048,10 +15045,6 @@ void objDetach(struct prop *prop)
 			struct chrdata *chr = parent->chr;
 
 			if (chr) {
-				if (prop == chr->weapons_held[2]) {
-					chr->weapons_held[2] = NULL;
-				}
-
 				if (prop == chr->weapons_held[HAND_RIGHT]) {
 					chrSetFiring(chr, HAND_RIGHT, false);
 					chr->weapons_held[HAND_RIGHT] = NULL;
@@ -18081,7 +18074,7 @@ s32 objTestForPickup(struct prop *prop)
 		return TICKOP_NONE;
 	}
 
-	if (func0f085194(obj) && obj->type != OBJTYPE_HAT) {
+	if (func0f085194(obj)) {
 		if (obj->flags & OBJFLAG_UNCOLLECTABLE) {
 			return TICKOP_NONE;
 		}
@@ -18402,118 +18395,6 @@ void modelFreeVertices(s32 vtxstoretype, struct model *model)
 	}
 }
 
-struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model)
-{
-	if (chr->model->filedata->skel == &g_SkelChr) {
-		prop = objInit(&hat->base, filedata, prop, model);
-
-		if (prop && hat->base.model) {
-			f32 scale = hat->base.extrascale * (1.0f / 256.0f);
-
-			modelSetScale(hat->base.model, scale * hat->base.model->scale);
-
-			hat->base.model->attachedtomodel = chr->model;
-			hat->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_CHR_0006);
-
-			propReparent(prop, chr->prop);
-
-			chr->weapons_held[2] = prop;
-		}
-	}
-
-	if (hat);
-
-	return prop;
-}
-
-void hatLoadAndApplyToChr(struct hatobj *hat, struct chrdata *chr)
-{
-	u32 stack;
-	s32 modelnum = hat->base.modelnum;
-
-	setupLoadModeldef(modelnum);
-
-	hatApplyToChr(hat, chr, g_ModelStates[modelnum].filedata, NULL, NULL);
-}
-
-void hatAssignToChr(struct hatobj *hat, struct chrdata *chr)
-{
-	hatLoadAndApplyToChr(hat, chr);
-}
-
-struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
-{
-	struct modelfiledata *filedata;
-	struct prop *prop;
-	struct model *model;
-	struct hatobj *obj;
-
-	setupLoadModeldef(modelnum);
-	filedata = g_ModelStates[modelnum].filedata;
-	prop = propAllocate();
-	model = modelmgrInstantiateModelWithoutAnim(filedata);
-	obj = hatCreate(prop == NULL, model == NULL, filedata);
-
-	if (prop == NULL) {
-		prop = propAllocate();
-	}
-
-	if (model == NULL) {
-		model = modelmgrInstantiateModelWithoutAnim(filedata);
-	}
-
-	if (obj && prop && model) {
-		struct hatobj tmp = {
-			256,                    // extrascale
-			0,                      // hidden2
-			OBJTYPE_HAT,            // type
-			0,                      // modelnum
-			0,                      // pad
-			OBJFLAG_ASSIGNEDTOCHR,  // flags
-			0,                      // flags2
-			0,                      // flags3
-			NULL,                   // prop
-			NULL,                   // model
-			1, 0, 0,                // realrot
-			0, 1, 0,
-			0, 0, 1,
-			0,                      // hidden
-			NULL,                   // geo
-			NULL,                   // projectile
-			0,                      // damage
-			1000,                   // maxdamage
-			0xff, 0xff, 0xff, 0x00, // shadecol
-			0xff, 0xff, 0xff, 0x00, // nextcol
-			0x0fff,                 // floorcol
-			0,                      // tiles
-		};
-
-		*obj = tmp;
-
-		obj->base.modelnum = modelnum;
-		obj->base.flags = flags | OBJFLAG_ASSIGNEDTOCHR;
-		obj->base.pad = chr->chrnum;
-
-		prop = hatApplyToChr(obj, chr, filedata, prop, model);
-	} else {
-		if (model) {
-			modelmgrFreeModel(model);
-		}
-
-		if (prop) {
-			propFree(prop);
-			prop = NULL;
-		}
-
-		if (obj) {
-			obj->base.prop = NULL;
-			obj->base.model = NULL;
-		}
-	}
-
-	return prop;
-}
-
 struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct modelfiledata *filedata)
 {
 	s32 i;
@@ -18622,94 +18503,6 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 struct weaponobj *func0f08a364(void)
 {
 	return weaponCreate(false, false, NULL);
-}
-
-struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modelfiledata *filedata)
-{
-	s32 i;
-	struct hatobj *tmp;
-	struct hatobj *sp4c = NULL;
-	struct hatobj *sp48 = NULL;
-	s32 sp44 = -1;
-	s32 sp40 = -1;
-	s32 sp3c = -1;
-
-	for (i = g_NextHatSlot; true; ) {
-		if (g_HatSlots[i].base.prop == NULL) {
-			if (!musthaveprop && !musthavemodel) {
-				sp44 = i;
-				break;
-			}
-		} else if ((g_HatSlots[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
-				&& g_HatSlots[i].base.prop->parent == NULL
-				&& (!musthavemodel || modelmgrCanSlotFitRwdata(g_HatSlots[i].base.model, filedata))) {
-			if ((g_HatSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && sp40 < 0) {
-				sp40 = i;
-			}
-
-			if (sp3c < 0) {
-				sp3c = i;
-			}
-		}
-
-		i = (i + 1) % g_MaxHatSlots;
-
-		if (i == g_NextHatSlot) {
-			break;
-		}
-	}
-
-	if (sp44 >= 0) {
-		g_NextHatSlot = (sp44 + 1) % g_MaxHatSlots;
-		return &g_HatSlots[sp44];
-	}
-
-	tmp = (struct hatobj *)setupFindObjForReuse(OBJTYPE_HAT, (struct defaultobj **)&sp4c, (struct defaultobj **)&sp48, musthaveprop, musthavemodel, filedata);
-
-	if (tmp) {
-		return tmp;
-	}
-
-	if (sp40 >= 0) {
-		if (g_HatSlots[sp40].base.prop) {
-			objFreePermanently(&g_HatSlots[sp40].base, true);
-		}
-
-		g_NextHatSlot = (sp40 + 1) % g_MaxHatSlots;
-		return &g_HatSlots[sp40];
-	}
-
-	if (sp4c) {
-		if (sp4c->base.prop) {
-			objFreePermanently(&sp4c->base, true);
-		}
-
-		return sp4c;
-	}
-
-	if (sp3c >= 0) {
-		if (g_HatSlots[sp3c].base.prop) {
-			objFreePermanently(&g_HatSlots[sp3c].base, true);
-		}
-
-		g_NextHatSlot = (sp3c + 1) % g_MaxHatSlots;
-		return &g_HatSlots[sp3c];
-	}
-
-	if (sp48) {
-		if (sp48->base.prop) {
-			objFreePermanently(&sp48->base, true);
-		}
-
-		return sp48;
-	}
-
-	return NULL;
-}
-
-struct hatobj *func0f08a6fc(void)
-{
-	return hatCreate(false, false, NULL);
 }
 
 struct ammocrateobj *ammocrateAllocate(void)

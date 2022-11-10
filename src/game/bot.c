@@ -101,7 +101,6 @@ void botReset(struct chrdata *chr, u8 respawning)
 			chr->firecount[1] = 0;
 			chr->weapons_held[0] = NULL;
 			chr->weapons_held[1] = NULL;
-			chr->weapons_held[2] = NULL;
 			chr->liftaction = 0;
 			chr->inlift = 0;
 			chr->lift = NULL;
@@ -463,7 +462,7 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 		return false;
 	}
 
-	if (func0f085194(obj) && obj->type != OBJTYPE_HAT) {
+	if (func0f085194(obj)) {
 		if (obj->flags & OBJFLAG_UNCOLLECTABLE) {
 			return false;
 		}
