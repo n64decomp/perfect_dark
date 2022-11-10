@@ -2291,7 +2291,7 @@ void lvTick(void)
 	bgunTickBoost();
 	PROFILE(PROFILEMARKER_LVT_HUDMSGS, hudmsgsTick());
 
-	if ((joyGetButtonsPressedThisFrame(0, 0xffff) != 0
+	if (g_IsTitleDemo && (joyGetButtonsPressedThisFrame(0, 0xffff) != 0
 				|| joyGetStickX(0) > 10
 				|| joyGetStickX(0) < -10
 				|| joyGetStickY(0) > 10
@@ -2310,42 +2310,13 @@ void lvTick(void)
 				|| joyGetStickX(3) > 10
 				|| joyGetStickX(3) < -10
 				|| joyGetStickY(3) > 10
-				|| joyGetStickY(3) < -10) && g_IsTitleDemo) {
+				|| joyGetStickY(3) < -10)) {
 		if (g_Vars.stagenum != STAGE_TITLE) {
 			titleSetNextMode(TITLEMODE_SKIP);
 			mainChangeToStage(STAGE_TITLE);
 		}
 
 		g_IsTitleDemo = false;
-	}
-
-	if (g_Vars.stagenum < STAGE_TITLE && !g_IsTitleDemo && !g_Vars.in_cutscene) {
-		if (joyGetButtons(0, 0xffff) == 0
-				&& joyGetStickX(0) < 10
-				&& joyGetStickX(0) > -10
-				&& joyGetStickY(0) < 10
-				&& joyGetStickY(0) > -10
-				&& joyGetButtons(1, 0xffff) == 0
-				&& joyGetStickX(1) < 10
-				&& joyGetStickX(1) > -10
-				&& joyGetStickY(1) < 10
-				&& joyGetStickY(1) > -10
-				&& joyGetButtons(2, 0xffff) == 0
-				&& joyGetStickX(2) < 10
-				&& joyGetStickX(2) > -10
-				&& joyGetStickY(2) < 10
-				&& joyGetStickY(2) > -10
-				&& joyGetButtons(3, 0xffff) == 0
-				&& joyGetStickX(3) < 10
-				&& joyGetStickX(3) > -10
-				&& joyGetStickY(3) < 10
-				&& joyGetStickY(3) > -10) {
-			g_TitleIdleTime60 += g_Vars.diffframe60;
-		} else {
-			g_TitleIdleTime60 = 0;
-		}
-	} else {
-		g_TitleIdleTime60 = 0;
 	}
 
 	g_NumReasonsToEndMpMatch = 0;

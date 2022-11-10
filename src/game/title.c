@@ -47,7 +47,6 @@ s16 g_TitleViewHeight = 480;
 bool g_IsTitleDemo = false;
 bool g_TitleButtonPressed = false;
 bool g_TitleFastForward = false;
-u32 g_TitleIdleTime60 = 0;
 s32 g_TitleMode = -1;
 s32 g_TitleNextMode = -1;
 u32 g_TitleDelayedTimer = 2;
