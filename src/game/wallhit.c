@@ -229,7 +229,7 @@ bool chrIsUsingPaintball(struct chrdata *chr)
 
 void wallhitChooseBloodColour(struct prop *prop)
 {
-	if (prop && prop->chr && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER)) {
+	if (prop && prop->chr && (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))) {
 		struct chrdata *chr = prop->chr;
 		chrGetBloodColour(chr->bodynum, g_WallhitBloodColour, NULL);
 	} else {

@@ -717,7 +717,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 		}
 	}
 
-	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
+	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR | PROPTYPE_WEAPON)) {
 		struct defaultobj *obj = prop->obj;
 
 		if ((g_MpSetup.scenario != MPSCENARIO_COMBAT || (g_MpSetup.options & MPOPTION_NOPICKUPHIGHLIGHT) == 0)
@@ -735,7 +735,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 				return true;
 			}
 		}
-	} else if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+	} else if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 		bool pulse = false;
 		bool isunselectedbot = false;
 		bool useblue = false;

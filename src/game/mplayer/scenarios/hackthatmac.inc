@@ -670,7 +670,7 @@ Gfx *htmRadarExtra(Gfx *gdl)
 
 	if (g_MpSetup.options & MPOPTION_HTM_SHOWONRADAR) {
 		// Show the uplink
-		if (data->uplink && data->uplink->type != PROPTYPE_PLAYER && data->uplink->type != PROPTYPE_CHR) {
+		if (data->uplink && (data->uplink->type & (PROPTYPE_PLAYER | PROPTYPE_CHR)) == 0) {
 			dist.x = data->uplink->pos.x - g_Vars.currentplayer->prop->pos.x;
 			dist.y = data->uplink->pos.y - g_Vars.currentplayer->prop->pos.y;
 			dist.z = data->uplink->pos.z - g_Vars.currentplayer->prop->pos.z;
@@ -738,7 +738,7 @@ bool htmRadarChr(Gfx **gdl, struct prop *prop)
 {
 	if ((g_MpSetup.options & MPOPTION_HTM_SHOWONRADAR) && g_ScenarioData.htm.uplink) {
 		if (prop == g_ScenarioData.htm.uplink &&
-				(prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR)) {
+				(prop->type & (PROPTYPE_PLAYER | PROPTYPE_CHR))) {
 			struct coord dist;
 			dist.x = prop->pos.x - g_Vars.currentplayer->prop->pos.x;
 			dist.y = prop->pos.y - g_Vars.currentplayer->prop->pos.y;

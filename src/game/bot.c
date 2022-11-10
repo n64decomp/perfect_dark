@@ -637,7 +637,7 @@ void botCheckPickups(struct chrdata *chr)
 	while (*propnumptr >= 0) {
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
-		if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+		if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 			if (prop->timetoregen == 0) {
 				struct defaultobj *obj = prop->obj;
 
@@ -2237,7 +2237,7 @@ s32 botIsChrsCtcTokenHeld(struct chrdata *chr)
 	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
 	struct prop *prop = g_ScenarioData.ctc.tokens[mpchr->team];
 
-	return prop && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER);
+	return prop && (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER));
 }
 
 /**
@@ -2634,12 +2634,10 @@ void botTickUnpaused(struct chrdata *chr)
 
 						for (i = 0; i != 4; i++) {
 							if (i != botteamindex && g_ScenarioData.ctc.playercountsperteam[i]) {
-								if (g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_WEAPON
-										|| g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_OBJ) {
+								if (g_ScenarioData.ctc.tokens[i]->type & (PROPTYPE_WEAPON | PROPTYPE_OBJ)) {
 									// Token is not held
 									tokens[numtokens++] = g_ScenarioData.ctc.tokens[i];
-								} else if (g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_CHR
-										|| g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_PLAYER) {
+								} else if (g_ScenarioData.ctc.tokens[i]->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 									// Token is held
 									struct chrdata *tokenchr = g_ScenarioData.ctc.tokens[i]->chr;
 
@@ -2679,7 +2677,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 							// If the chosen token is not held then collect it,
 							// otherwise it's held by a teammate so go protect them
-							if (tokens[index]->type == PROPTYPE_WEAPON || tokens[index]->type == PROPTYPE_OBJ) {
+							if (tokens[index]->type & (PROPTYPE_WEAPON | PROPTYPE_OBJ)) {
 								newaction = MA_AIBOTGETITEM;
 								aibot->gotoprop = tokens[index];
 							} else if (botCanFollow(chr, tokens[index]->chr)) {
@@ -2695,7 +2693,7 @@ void botTickUnpaused(struct chrdata *chr)
 						// Find out where the bot's token is
 						struct prop *token = g_ScenarioData.ctc.tokens[radarGetTeamIndex(chr->team)];
 
-						if (token->type == PROPTYPE_CHR || token->type == PROPTYPE_PLAYER) {
+						if (token->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 							struct chrdata *tokenchr = token->chr;
 
 							if (tokenchr->team == chr->team) {
@@ -2778,8 +2776,7 @@ void botTickUnpaused(struct chrdata *chr)
 							&& g_ScenarioData.htm.uplink
 							&& g_ScenarioData.htm.uplink != chr->prop) {
 						// Uplink is not held by current bot
-						if (g_ScenarioData.htm.uplink->type == PROPTYPE_CHR
-								|| g_ScenarioData.htm.uplink->type == PROPTYPE_PLAYER) {
+						if (g_ScenarioData.htm.uplink->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 							struct chrdata *uplinkchr = g_ScenarioData.htm.uplink->chr;
 
 							if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && uplinkchr->team == chr->team) {
@@ -2809,8 +2806,7 @@ void botTickUnpaused(struct chrdata *chr)
 							&& g_ScenarioData.htb.token
 							&& g_ScenarioData.htb.token != chr->prop) {
 						// Briefcase is not held by current bot
-						if (g_ScenarioData.htb.token->type == PROPTYPE_CHR
-								|| g_ScenarioData.htb.token->type == PROPTYPE_PLAYER) {
+						if (g_ScenarioData.htb.token->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 							struct chrdata *tokenchr = g_ScenarioData.htb.token->chr;
 
 							if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && tokenchr->team == chr->team) {
@@ -3563,20 +3559,11 @@ void botCheckFetch(struct chrdata *chr)
 		if (chr->act_gopos.waypoints[chr->act_gopos.curindex] == 0) {
 			struct prop *prop = aibot->gotoprop;
 
-#if VERSION >= VERSION_PAL_FINAL
-			// pal-final adds a check for prop->obj
-			if (prop && prop->obj && !prop->parent && prop->timetoregen == 0) {
-				if (prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ) {
-					prop->obj->flags3 |= OBJFLAG3_ISFETCHTARGET;
-				}
-			}
-#else
 			if (prop && !prop->parent && prop->timetoregen == 0) {
-				if (prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ) {
+				if (prop->type & (PROPTYPE_WEAPON | PROPTYPE_OBJ)) {
 					prop->obj->flags3 |= OBJFLAG3_ISFETCHTARGET;
 				}
 			}
-#endif
 		}
 
 		aibot->forcemainloop = true;

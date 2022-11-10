@@ -1762,7 +1762,7 @@ bool aiIfChrYGreaterThan(s32 chrref, f32 limit)
 		if (chopper) {
 			struct prop *target = chopperGetTargetProp(chopper);
 
-			if (target && (target->type == PROPTYPE_CHR || target->type == PROPTYPE_PLAYER)) {
+			if (target && (target->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))) {
 				chr = target->chr;
 			}
 		}
@@ -1783,7 +1783,7 @@ bool aiIfChrYLessThan(s32 chrref, f32 limit)
 		if (chopper) {
 			struct prop *target = chopperGetTargetProp(chopper);
 
-			if (target && (target->type == PROPTYPE_CHR || target->type == PROPTYPE_PLAYER)) {
+			if (target && (target->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))) {
 				chr = target->chr;
 			}
 		}
@@ -2300,7 +2300,7 @@ bool aiIfTargetIsPlayer(void)
 {
 	struct prop *target = chrGetTargetProp(g_Vars.chrdata);
 
-	return target->type == PROPTYPE_EYESPY || target->type == PROPTYPE_PLAYER;
+	return target->type & (PROPTYPE_EYESPY | PROPTYPE_PLAYER);
 }
 
 bool aiIfTargetMovingAway(void)

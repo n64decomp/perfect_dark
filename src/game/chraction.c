@@ -4306,7 +4306,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			&& g_Vars.coopfriendlyfire == false
 			&& aprop
 			&& aprop != vprop
-			&& (aprop->type == PROPTYPE_PLAYER || aprop->type == PROPTYPE_CHR)
+			&& (aprop->type & (PROPTYPE_PLAYER | PROPTYPE_CHR))
 			&& chr->team == TEAM_ALLY
 			&& aprop->chr->team == TEAM_ALLY) {
 		return;
@@ -4470,33 +4470,35 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	// Find the attacker's player number if possible
-	// (includes MP aibots, not applicable for solo chrs)
-	if (g_Vars.mplayerisrunning) {
-		if (aprop && (aprop->type == PROPTYPE_PLAYER || aprop->type == PROPTYPE_CHR)) {
-			aplayernum = mpPlayerGetIndex(aprop->chr);
+	if (aprop) {
+		// Find the attacker's player number if possible
+		// (includes MP aibots, not applicable for solo chrs)
+		if (g_Vars.mplayerisrunning) {
+			if (aprop->type & (PROPTYPE_PLAYER | PROPTYPE_CHR)) {
+				aplayernum = mpPlayerGetIndex(aprop->chr);
+			}
+		} else {
+			if (aprop->type == PROPTYPE_PLAYER) {
+				aplayernum = playermgrGetPlayerNumByProp(aprop);
+			}
 		}
-	} else {
-		if (aprop && aprop->type == PROPTYPE_PLAYER) {
-			aplayernum = playermgrGetPlayerNumByProp(aprop);
-		}
-	}
 
-	// If using the shotgun, scale the damage based on distance
-	if (aprop && aprop->type == PROPTYPE_CHR && gset->weaponnum == WEAPON_SHOTGUN) {
-		f32 xdiff = aprop->pos.x - vprop->pos.x;
-		f32 ydiff = aprop->pos.y - vprop->pos.y;
-		f32 zdiff = aprop->pos.z - vprop->pos.z;
-		f32 sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+		// If using the shotgun, scale the damage based on distance
+		if (aprop->type == PROPTYPE_CHR && gset->weaponnum == WEAPON_SHOTGUN) {
+			f32 xdiff = aprop->pos.x - vprop->pos.x;
+			f32 ydiff = aprop->pos.y - vprop->pos.y;
+			f32 zdiff = aprop->pos.z - vprop->pos.z;
+			f32 sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 
-		if (sqdist < 200 * 200) {
-			damage *= 4.0f + (s32)(random() % 3); // 4, 5 or 6
-		} else if (sqdist < 400 * 400) {
-			damage *= 3.0f + (s32)(random() % 2); // 3 or 4
-		} else if (sqdist < 800 * 800) {
-			damage *= 2.0f + (s32)(random() % 2); // 2 or 3
-		} else if (sqdist < 1600 * 1600) {
-			damage *= 1.0f + (s32)(random() % 2); // 1 or 2
+			if (sqdist < 200 * 200) {
+				damage *= 4.0f + (s32)(random() % 3); // 4, 5 or 6
+			} else if (sqdist < 400 * 400) {
+				damage *= 3.0f + (s32)(random() % 2); // 3 or 4
+			} else if (sqdist < 800 * 800) {
+				damage *= 2.0f + (s32)(random() % 2); // 2 or 3
+			} else if (sqdist < 1600 * 1600) {
+				damage *= 1.0f + (s32)(random() % 2); // 1 or 2
+			}
 		}
 	}
 
@@ -7648,7 +7650,7 @@ void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 revers
 
 		bgunPlayPropHitSound(&gset, targetprop, -1);
 
-		if (targetprop->type == PROPTYPE_PLAYER || targetprop->type == PROPTYPE_CHR) {
+		if (targetprop->type & (PROPTYPE_PLAYER | PROPTYPE_CHR)) {
 			chrDamageByImpact(targetprop->chr, gsetGetDamage(&gset) * damage, &vector, &gset, chr->prop, 200);
 		}
 	}
@@ -7765,7 +7767,7 @@ bool chrTryPunch(struct chrdata *chr, u8 reverse)
 	if (ok) {
 		struct prop *targetprop = chrGetTargetProp(chr);
 
-		if (targetprop->type == PROPTYPE_EYESPY || targetprop->type == PROPTYPE_PLAYER) {
+		if (targetprop->type & (PROPTYPE_EYESPY | PROPTYPE_PLAYER)) {
 			chr->act_anim.hitradius = playerhitradius;
 		} else {
 			chr->act_anim.hitradius = chrhitradius;
@@ -10061,7 +10063,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 										(gset.weaponnum == WEAPON_ROCKETLAUNCHER
 										 || gset.weaponnum == WEAPON_ROCKETLAUNCHER_34
 										 || gset.weaponnum == WEAPON_SLAYER)) {
-									if (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER) {
+									if (targetprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 										// Rockets - aim at target's feet
 										aimpos.x = targetprop->pos.x;
 										aimpos.y = targetprop->chr->manground;
@@ -10076,7 +10078,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 									}
 								} else if ((gset.weaponnum == WEAPON_DEVASTATOR && gset.weaponfunc == FUNC_PRIMARY)
 										|| gset.weaponnum == WEAPON_SUPERDRAGON) {
-									if (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER) {
+									if (targetprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 										// Grenades - aim at target's feet
 										aimpos.x = targetprop->pos.x;
 										aimpos.y = targetprop->chr->manground;
@@ -10238,7 +10240,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 							}
 
 							func0f0341dc(targetchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, targetprop, node, model, side, NULL);
-						} else if ((hitprop == NULL || (hitprop->type != PROPTYPE_CHR && hitprop->type != PROPTYPE_PLAYER))
+						} else if ((hitprop == NULL || (hitprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) == 0)
 								&& sqshotdist < 100.0f * 100.0f) {
 							// Hit the background or something other than a
 							// player or chr, and the shot distance was less
@@ -10249,7 +10251,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 					if (effective) {
 						if (hitprop) {
-							if (hitprop->type == PROPTYPE_PLAYER || hitprop->type == PROPTYPE_CHR) {
+							if (hitprop->type & (PROPTYPE_PLAYER | PROPTYPE_CHR)) {
 								// Hit a player or chr other than the one they
 								// were aiming for
 								if (isaibot
@@ -10274,9 +10276,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 									makebeam = false;
 									firingthisframe = false;
 								}
-							} else if (hitprop->type == PROPTYPE_OBJ
-									|| hitprop->type == PROPTYPE_WEAPON
-									|| hitprop->type == PROPTYPE_DOOR) {
+							} else if (hitprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 								// Hit an object
 								struct defaultobj *hitobj = hitprop->obj;
 								s32 playernum = -1;
@@ -13289,7 +13289,7 @@ void chraTickBg(void)
 			if (chr->model && chr->prop && !chrIsDead(chr)) {
 				struct prop *targetprop = chrGetTargetProp(chr);
 
-				if (targetprop && (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER)) {
+				if (targetprop && (targetprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))) {
 					if ((targetprop->type == PROPTYPE_PLAYER
 								&& !(g_Vars.antiplayernum >= 0 && g_Vars.anti && g_Vars.anti->prop == targetprop)
 								&& chrCompareTeams(chr, targetprop->chr, COMPARE_ENEMIES))
@@ -13982,7 +13982,7 @@ s32 chrResolveId(struct chrdata *ref, s32 id)
 		case CHR_TARGET:
 			{
 				struct prop *target = chrGetTargetProp(ref);
-				if ((target->type == PROPTYPE_CHR || target->type == PROPTYPE_PLAYER) && target->chr) {
+				if ((target->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) && target->chr) {
 					id = target->chr->chrnum;
 				}
 			}
@@ -14533,7 +14533,7 @@ bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance
 	while (*propnumptr >= 0) {
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
-		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+		if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			struct chrdata *loopchr = prop->chr;
 
 			if (loopchr->chrnum != chr->chrnum

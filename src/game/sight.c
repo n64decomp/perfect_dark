@@ -33,7 +33,7 @@ bool sightIsPropFriendly(struct prop *prop)
 		return false;
 	}
 
-	if (prop->type != PROPTYPE_CHR && prop->type != PROPTYPE_PLAYER) {
+	if ((prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) == 0) {
 		return false;
 	}
 
@@ -85,7 +85,7 @@ bool sightCanTargetProp(struct prop *prop, s32 max)
 		return true;
 	}
 
-	if ((prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR)
+	if ((prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR))
 			&& prop->obj && (prop->obj->flags3 & OBJFLAG3_REACTTOSIGHT)) {
 		return true;
 	}
@@ -106,7 +106,7 @@ bool sightIsReactiveToProp(struct prop *prop)
 		return false;
 	}
 
-	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 		struct defaultobj *obj = prop->obj;
 
 		if (g_Vars.stagenum == STAGE_CITRAINING

@@ -479,7 +479,7 @@ void nbombInflictDamage(struct nbomb *nbomb)
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
 		if (prop->timetoregen == 0) {
-			if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+			if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 				f32 xdiff = prop->pos.f[0] - nbomb->pos.f[0];
 				f32 ydiff = prop->pos.f[1] - nbomb->pos.f[1];
 				f32 zdiff = prop->pos.f[2] - nbomb->pos.f[2];

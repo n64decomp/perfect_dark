@@ -470,8 +470,7 @@ Gfx *htbRadarExtra(Gfx *gdl)
 {
 	if ((g_MpSetup.options & MPOPTION_HTB_SHOWONRADAR) &&
 			g_ScenarioData.htb.token != NULL &&
-			g_ScenarioData.htb.token->type != PROPTYPE_PLAYER &&
-			g_ScenarioData.htb.token->type != PROPTYPE_CHR) {
+			(g_ScenarioData.htb.token->type & (PROPTYPE_PLAYER | PROPTYPE_CHR)) == 0) {
 		struct coord dist;
 		dist.x = g_ScenarioData.htb.pos.x - g_Vars.currentplayer->prop->pos.x;
 		dist.y = g_ScenarioData.htb.pos.y - g_Vars.currentplayer->prop->pos.y;
@@ -487,7 +486,7 @@ bool htbRadarChr(Gfx **gdl, struct prop *prop)
 	if ((g_MpSetup.options & MPOPTION_HTB_SHOWONRADAR) &&
 			g_ScenarioData.htb.token &&
 			prop == g_ScenarioData.htb.token) {
-		if (prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR) {
+		if (prop->type & (PROPTYPE_PLAYER | PROPTYPE_CHR)) {
 			struct coord dist;
 			dist.x = prop->pos.x - g_Vars.currentplayer->prop->pos.x;
 			dist.y = prop->pos.y - g_Vars.currentplayer->prop->pos.y;

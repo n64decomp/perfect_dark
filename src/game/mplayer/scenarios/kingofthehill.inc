@@ -303,7 +303,7 @@ void kohTick(void)
 		prop = g_Vars.activeprops;
 
 		while (prop) {
-			if (prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR) {
+			if (prop->type & (PROPTYPE_PLAYER | PROPTYPE_CHR)) {
 				inhill = false;
 
 				if (prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {

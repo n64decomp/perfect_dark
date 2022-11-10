@@ -1544,11 +1544,13 @@ bool frIsAmmoWasted(void)
 				prop = &g_Vars.props[*propnumptr];
 				child = prop->child;
 
-				if ((child && child->type == PROPTYPE_WEAPON && child->weapon->weaponnum == WEAPON_TIMEDMINE)
-						|| (child && child->type == PROPTYPE_WEAPON && child->weapon->weaponnum == WEAPON_REMOTEMINE)
-						|| (child && child->type == PROPTYPE_WEAPON && child->weapon->weaponnum == WEAPON_PROXIMITYMINE)
-						|| (child && child->type == PROPTYPE_WEAPON && child->weapon->weaponnum == WEAPON_GRENADEROUND)) {
-					return false;
+				if (child && child->type == PROPTYPE_WEAPON) {
+					if (child->weapon->weaponnum == WEAPON_TIMEDMINE
+							|| child->weapon->weaponnum == WEAPON_REMOTEMINE
+							|| child->weapon->weaponnum == WEAPON_PROXIMITYMINE
+							|| child->weapon->weaponnum == WEAPON_GRENADEROUND) {
+						return false;
+					}
 				}
 
 				if (prop->type == PROPTYPE_WEAPON) {

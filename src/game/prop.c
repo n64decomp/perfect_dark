@@ -347,26 +347,16 @@ void propDetach(struct prop *prop)
 
 Gfx *propRender(Gfx *gdl, struct prop *prop, bool xlupass)
 {
-	switch (prop->type) {
-	case 0:
-		break;
-	case PROPTYPE_OBJ:
-	case PROPTYPE_DOOR:
-	case PROPTYPE_WEAPON:
+	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR | PROPTYPE_WEAPON)) {
 		gdl = objRender(prop, gdl, xlupass);
-		break;
-	case PROPTYPE_CHR:
+	} else if (prop->type == PROPTYPE_CHR) {
 		gdl = chrRender(prop, gdl, xlupass);
-		break;
-	case PROPTYPE_PLAYER:
-		gdl = playerRender(prop, gdl, xlupass);
-		break;
-	case PROPTYPE_EXPLOSION:
-		gdl = explosionRender(prop, gdl, xlupass);
-		break;
-	case PROPTYPE_SMOKE:
+	} else if (prop->type == PROPTYPE_SMOKE) {
 		gdl = smokeRender(prop, gdl, xlupass);
-		break;
+	} else if (prop->type == PROPTYPE_EXPLOSION) {
+		gdl = explosionRender(prop, gdl, xlupass);
+	} else if (prop->type == PROPTYPE_PLAYER) {
+		gdl = playerRender(prop, gdl, xlupass);
 	}
 
 	return gdl;
@@ -725,7 +715,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 				if (!shortrange) {
 					chr0f027994(prop, &shotdata, arg1, arg8);
 				}
-			} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+			} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 				func0f085e00(prop, &shotdata);
 			}
 		}
@@ -761,9 +751,9 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 					root = root->parent;
 				}
 
-				if (root->type == PROPTYPE_CHR || root->type == PROPTYPE_PLAYER) {
+				if (root->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 					chrHit(&shotdata, &shotdata.hits[i]);
-				} else if (hitprop->type == PROPTYPE_OBJ || hitprop->type == PROPTYPE_WEAPON || hitprop->type == PROPTYPE_DOOR) {
+				} else if (hitprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 					objHit(&shotdata, &shotdata.hits[i]);
 				}
 
@@ -928,13 +918,10 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 				if (laserstream && shotdata.hits[i].distance > 300) {
 					done = true;
 				} else {
-					if (hitprop->type == PROPTYPE_CHR
-							|| hitprop->type == PROPTYPE_PLAYER) {
+					if (hitprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 						result = hitprop;
 						done = true;
-					} else if (hitprop->type == PROPTYPE_OBJ
-							|| hitprop->type == PROPTYPE_WEAPON
-							|| hitprop->type == PROPTYPE_DOOR) {
+					} else if (hitprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 						result = hitprop;
 						done = true;
 					}
@@ -1346,7 +1333,7 @@ void handsTickAttack(void)
 void propExecuteTickOperation(struct prop *prop, s32 op)
 {
 	if (op == TICKOP_FREE) {
-		if ((prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ)
+		if ((prop->type & (PROPTYPE_WEAPON | PROPTYPE_OBJ))
 				&& prop->obj && (prop->obj->hidden2 & OBJH2FLAG_CANREGEN)) {
 			struct defaultobj *obj = prop->obj;
 
@@ -1395,18 +1382,12 @@ struct prop *propFindForInteract(bool usingeyespy)
 		struct prop *prop = *ptr;
 
 		if (prop) {
-			if (prop->type == PROPTYPE_CHR) {
-				// empty
-			} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+			if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 				if (!usingeyespy) {
 					checkmore = objTestForInteract(prop);
 				}
 			} else if (prop->type == PROPTYPE_DOOR) {
 				checkmore = doorTestForInteract(prop);
-			} else if (prop->type == PROPTYPE_EXPLOSION) {
-				// empty
-			} else if (prop->type == PROPTYPE_SMOKE) {
-				// empty
 			}
 
 			if (!checkmore) {
@@ -1432,7 +1413,7 @@ void propFindForUplink(void)
 		struct prop *prop = *ptr;
 
 		if (prop) {
-			if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+			if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 				checkmore = objTestForInteract(prop);
 			}
 
@@ -1453,20 +1434,10 @@ bool currentPlayerInteract(bool eyespy)
 	prop = propFindForInteract(eyespy);
 
 	if (prop) {
-		switch (prop->type) {
-		case PROPTYPE_OBJ:
-		case PROPTYPE_WEAPON:
+		if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 			op = propobjInteract(prop);
-			break;
-		case PROPTYPE_DOOR:
+		} else if (prop->type == PROPTYPE_DOOR) {
 			op = propdoorInteract(prop);
-			break;
-		case PROPTYPE_CHR:
-		case PROPTYPE_EYESPY:
-		case PROPTYPE_PLAYER:
-		case PROPTYPE_EXPLOSION:
-		case PROPTYPE_SMOKE:
-			break;
 		}
 
 		propExecuteTickOperation(prop, op);
@@ -1809,7 +1780,7 @@ void propsTickPlayer(bool islastplayer)
 			// The player and projectiles must always be in the foreground
 			if (prop->type == PROPTYPE_PLAYER) {
 				i++;
-			} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+			} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 				obj = prop->obj;
 
 				if (obj->hidden & OBJHFLAG_PROJECTILE) {
@@ -1882,7 +1853,7 @@ void propsTickPlayer(bool islastplayer)
 			} else {
 				g_Vars.propstates[prop->propstateindex].foregroundpropcount++;
 
-				if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+				if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 					op = objTickPlayer(prop);
 				} else if (prop->type == PROPTYPE_EXPLOSION) {
 					op = explosionTickPlayer(prop);
@@ -1939,7 +1910,7 @@ void propsTickPlayer(bool islastplayer)
 					} else {
 						op = chrTick(prop);
 					}
-				} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+				} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 					obj = prop->obj;
 
 					if (!g_PausableObjs[obj->type]) {
@@ -2269,7 +2240,7 @@ void propSetPerimEnabled(struct prop *prop, s32 enable)
 		chrSetPerimEnabled(prop->chr, enable);
 	} else if (prop->type == PROPTYPE_PLAYER) {
 		playerSetPerimEnabled(prop, enable);
-	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
+	} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR | PROPTYPE_WEAPON)) {
 		objSetPerimEnabled(prop, enable);
 	}
 }
@@ -2301,20 +2272,8 @@ void propsTestForPickup(void)
 			s32 op = TICKOP_NONE;
 
 			if (prop->timetoregen <= 0 && prop->obj) {
-				switch (prop->type) {
-				case PROPTYPE_OBJ:
+				if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 					op = objTestForPickup(prop);
-					break;
-				case PROPTYPE_WEAPON:
-					op = weaponTestForPickup(prop);
-					break;
-				case PROPTYPE_DOOR:
-				case PROPTYPE_CHR:
-				case PROPTYPE_EYESPY:
-				case PROPTYPE_PLAYER:
-				case PROPTYPE_EXPLOSION:
-				case PROPTYPE_SMOKE:
-					break;
 				}
 			}
 
@@ -2561,9 +2520,7 @@ void autoaimTick(void)
 
 				bestprop = trackedprop->prop;
 
-				if (bestprop->type == PROPTYPE_OBJ
-						|| bestprop->type == PROPTYPE_WEAPON
-						|| bestprop->type == PROPTYPE_DOOR) {
+				if (bestprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 					// trackedprop is an object
 					aimpos[0] = (trackedprop->x2 + trackedprop->x1) / 2;
 					aimpos[1] = (trackedprop->y2 + trackedprop->y1) / 2;
@@ -2780,7 +2737,7 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 				result = false;
 			}
 		}
-	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+	} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 		struct defaultobj *obj = prop->obj;
 
 		if (obj->unkgeo == NULL) {
@@ -3232,7 +3189,7 @@ void propGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 		chrGetBbox(prop, radius, ymax, ymin);
 	} else if (prop->type == PROPTYPE_PLAYER) {
 		playerGetBbox(prop, radius, ymax, ymin);
-	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {
+	} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR)) {
 		objGetBbox(prop, radius, ymax, ymin);
 	} else {
 		*radius = 0;
@@ -3249,7 +3206,7 @@ bool propUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 		result = playerUpdateGeometry(prop, start, end);
 	} else if (prop->type == PROPTYPE_CHR) {
 		result = chrUpdateGeometry(prop, start, end);
-	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {
+	} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR)) {
 		result = objUpdateGeometry(prop, start, end);
 	}
 

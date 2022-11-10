@@ -429,10 +429,7 @@ Gfx *radarRenderRTrackedProps(Gfx *gdl)
 	struct coord dist2;
 
 	while (prop) {
-		switch (prop->type) {
-		case PROPTYPE_OBJ:
-		case PROPTYPE_DOOR:
-		case PROPTYPE_WEAPON:
+		if (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR | PROPTYPE_WEAPON)) {
 			obj = prop->obj;
 
 			if ((obj->flags3 & OBJFLAG3_RTRACKED_YELLOW) ||
@@ -445,8 +442,7 @@ Gfx *radarRenderRTrackedProps(Gfx *gdl)
 						(obj->flags3 & OBJFLAG3_RTRACKED_YELLOW) ? 0xffff0000 : 0x0000ff00,
 						0, 0);
 			}
-			break;
-		case PROPTYPE_CHR:
+		} else if (prop->type == PROPTYPE_CHR) {
 			chr = prop->chr;
 
 			if (chr && chr->rtracked
@@ -458,7 +454,6 @@ Gfx *radarRenderRTrackedProps(Gfx *gdl)
 				dist2.z = prop->pos.z - playerpos->z;
 				gdl = radarDrawDot(gdl, prop, &dist2, 0xff000000, 0, 0);
 			}
-			break;
 		}
 
 		prop = prop->next;

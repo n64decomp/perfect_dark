@@ -749,7 +749,7 @@ void explosionInflictDamage(struct prop *expprop)
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
 		if (prop != exp->source && prop->timetoregen == 0) {
-			if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+			if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 				f32 xdist;
 				f32 ydist;
 				f32 zdist;
@@ -880,7 +880,7 @@ void explosionInflictDamage(struct prop *expprop)
 						}
 					}
 				}
-			} else if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+			} else if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 				f32 xdist = prop->pos.f[0] - expprop->pos.f[0];
 				f32 ydist = prop->pos.f[1] - expprop->pos.f[1];
 				f32 zdist = prop->pos.f[2] - expprop->pos.f[2];

@@ -72,7 +72,7 @@ void propsTick(void)
 
 		if (prop->type == PROPTYPE_CHR) {
 			tickop = chrTickBeams(prop);
-		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+		} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 			tickop = objTick(prop);
 		} else if (prop->type == PROPTYPE_EXPLOSION) {
 			tickop = explosionTick(prop);

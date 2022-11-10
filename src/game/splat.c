@@ -327,7 +327,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 			struct prop *prop = *propptr;
 
 			if (prop) {
-				if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
+				if (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR | PROPTYPE_WEAPON)) {
 					func0f085e00(prop, &stackshotdata);
 					if (1);
 				}

@@ -175,7 +175,7 @@ bool pacHighlightProp(struct prop *prop, s32 *colour)
 	struct scenariodata_pac *data = &g_ScenarioData.pac;
 
 	if (g_MpSetup.options & MPOPTION_PAC_HIGHLIGHTTARGET
-			&& (prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR)
+			&& (prop->type & (PROPTYPE_PLAYER | PROPTYPE_CHR))
 			&& data->victimindex != -1
 			&& prop->chr == g_MpAllChrPtrs[data->victims[data->victimindex]]) {
 		colour[0] = 0;

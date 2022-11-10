@@ -11177,7 +11177,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 	handle = bgunAllocateAudioHandle();
 
 	if (handle) {
-		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+		if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			struct chrdata *chr = prop->chr;
 			s16 soundnum = -1;
 			bool overridden = false;
@@ -11322,7 +11322,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 	handle = bgunAllocateAudioHandle();
 
 	if (handle) {
-		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+		if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			struct chrdata *chr = prop->chr;
 			s16 soundnum;
 			bool overridden = false;

@@ -142,7 +142,7 @@ bool doorCallLift(struct prop *doorprop, bool allowclose)
 
 		while (link) {
 			if (doorprop == link->door && link->lift
-					&& (link->lift->type == PROPTYPE_OBJ || link->lift->type == PROPTYPE_DOOR)) {
+					&& (link->lift->type & (PROPTYPE_OBJ | PROPTYPE_DOOR))) {
 				bool type = link->lift->obj->type;
 				handled = true;
 
@@ -1519,7 +1519,7 @@ void propCalculateShadeColour(struct prop *prop, u8 *nextcol, u16 floorcol)
 	mainOverrideVariable("scol", &scol);
 	mainOverrideVariable("salp", &salp);
 
-	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 		obj = prop->obj;
 	} else {
 		obj = NULL;
@@ -3091,9 +3091,7 @@ bool projectileFindCollidingProp(struct prop *prop, struct coord *pos1, struct c
 			if (*propnumptr);
 
 			if (iterprop != prop) {
-				if (iterprop->type == PROPTYPE_OBJ
-						|| iterprop->type == PROPTYPE_WEAPON
-						|| iterprop->type == PROPTYPE_DOOR) {
+				if (iterprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 					struct defaultobj *obj = iterprop->obj;
 
 					if ((obj->hidden & OBJHFLAG_ISRETICK) == 0 && (obj->flags2 & OBJFLAG2_THROWTHROUGH) == 0) {
@@ -4057,7 +4055,7 @@ void objLand(struct prop *prop, struct coord *arg1, struct coord *arg2, bool *em
 			bgunPlayPropHitSound(&weapon->gset, g_EmbedProp, -1);
 
 			if (weapon->weaponnum == WEAPON_COMBATKNIFE
-					&& (g_EmbedProp->type == PROPTYPE_CHR || g_EmbedProp->type == PROPTYPE_PLAYER)) {
+					&& (g_EmbedProp->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))) {
 				chrSetPoisoned(g_EmbedProp->chr, ownerprop);
 			}
 		}
@@ -4198,7 +4196,7 @@ void weaponTick(struct prop *prop)
 							parent = parent->parent;
 						}
 
-						if (parent && (parent->type == PROPTYPE_CHR || parent->type == PROPTYPE_PLAYER)) {
+						if (parent && (parent->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))) {
 							parent->chr->hidden |= CHRHFLAG_00000001;
 						} else {
 							projectile->ownerprop = NULL;
@@ -6406,7 +6404,7 @@ f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotati
 	struct prop *obstacle = cdGetObstacleProp();
 
 	if (obstacle && g_Vars.lvupdate240 > 0) {
-		if (obstacle->type == PROPTYPE_CHR || obstacle->type == PROPTYPE_PLAYER) {
+		if (obstacle->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			if (1);
 		} else if (obstacle->type == PROPTYPE_OBJ) {
 			struct defaultobj *obstacleobj = obstacle->obj;
@@ -6679,7 +6677,7 @@ void platformDisplaceProps2(struct prop *platform, Mtxf *arg1)
 		while (*propnumptr >= 0) {
 			prop = &g_Vars.props[*propnumptr];
 
-			if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+			if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 				struct defaultobj *obj = prop->obj;
 
 				if (prop->pos.y > platform->pos.y
@@ -7622,7 +7620,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							}
 
 #if VERSION >= VERSION_NTSC_1_0
-							if (g_EmbedProp && (g_EmbedProp->type == PROPTYPE_OBJ || g_EmbedProp->type == PROPTYPE_WEAPON || g_EmbedProp->type == PROPTYPE_DOOR)) {
+							if (g_EmbedProp && (g_EmbedProp->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR))) {
 								struct defaultobj *embedobj = g_EmbedProp->obj;
 
 								if (weapon
@@ -7634,7 +7632,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 #endif
 
 							if (hitprop != NULL) {
-								if (hitprop->type == PROPTYPE_OBJ || hitprop->type == PROPTYPE_WEAPON || hitprop->type == PROPTYPE_DOOR) {
+								if (hitprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 									struct defaultobj *hitobj = hitprop->obj;
 
 									if ((hitobj->hidden & OBJHFLAG_PROJECTILE)
@@ -7663,7 +7661,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 											}
 										}
 									}
-								} else if ((hitprop->type == PROPTYPE_CHR || hitprop->type == PROPTYPE_PLAYER)
+								} else if ((hitprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))
 										&& chrGetShield(hitprop->chr) > 0.0f) {
 									stick = false;
 								}
@@ -7738,7 +7736,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 									func0f0341dc(g_EmbedProp->chr, 2.0f, &var8009ce78, &weapon->gset, ownerprop2,
 											g_EmbedHitPart, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, var8006993c);
-								} else if (g_EmbedProp->type == PROPTYPE_OBJ || g_EmbedProp->type == PROPTYPE_WEAPON) {
+								} else if (g_EmbedProp->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 									if (var80069944 == 10000) {
 										f32 shield = (g_EmbedProp->obj->flags3 & OBJFLAG3_SHOWSHIELD) ? 4 : 8;
 
@@ -7755,7 +7753,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 								if (hitprop->type == PROPTYPE_CHR || (hitprop->type == PROPTYPE_PLAYER && hitprop->chr)) {
 									struct chrdata *chr = hitprop->chr;
 									func0f034080(chr, g_EmbedNode, g_EmbedProp, g_EmbedModel, g_EmbedSide, var8006993c);
-								} else if ((hitprop->type == PROPTYPE_OBJ || hitprop->type == PROPTYPE_WEAPON) && var80069944 == 10000) {
+								} else if ((hitprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) && var80069944 == 10000) {
 									shield = (hitprop->obj->flags3 & OBJFLAG3_SHOWSHIELD) ? 4 : 8;
 
 									shieldhitCreate(hitprop, shield, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, var8006993c);
@@ -7782,7 +7780,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 												if (objIsHealthy(g_EmbedProp->obj)) {
 													mpstatsIncrementPlayerShotCount(&weapon->gset, SHOTREGION_OBJECT);
 												}
-											} else if (g_EmbedProp->type == PROPTYPE_CHR || g_EmbedProp->type == PROPTYPE_PLAYER) {
+											} else if (g_EmbedProp->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 												struct chrdata *embedchr = g_EmbedProp->chr;
 												bool dead = false;
 
@@ -7822,7 +7820,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 										setCurrentPlayerNum(prevplayernum);
 									}
 
-									if (hitprop == NULL || hitprop->type == PROPTYPE_OBJ || hitprop->type == PROPTYPE_WEAPON || hitprop->type == PROPTYPE_DOOR) {
+									if (hitprop == NULL || (hitprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR))) {
 										struct coord dir;
 										struct prop *ownerprop = obj->projectile->ownerprop;
 
@@ -7856,7 +7854,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						} else {
 							s16 rooms[8];
 
-							if (g_EmbedProp && (g_EmbedProp->type == PROPTYPE_CHR || g_EmbedProp->type == PROPTYPE_PLAYER)) {
+							if (g_EmbedProp && (g_EmbedProp->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))) {
 								sp5dc.x = prop->pos.x;
 								sp5dc.z = prop->pos.z;
 							} else {
@@ -8477,7 +8475,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 	while (*propnumptr >= 0) {
 		prop = &g_Vars.props[*propnumptr];
 
-		if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+		if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 			struct defaultobj *obj = prop->obj;
 			if ((obj->hidden & OBJHFLAG_00020000) == 0) {
 				if ((obj->hidden & OBJHFLAG_PROJECTILE) == 0
@@ -9097,7 +9095,7 @@ void autogunTick(struct prop *prop)
 	if (target) {
 		if (target->chr == NULL) {
 			target = NULL;
-		} else if (target->type != PROPTYPE_CHR && target->type != PROPTYPE_PLAYER && !frIsInTraining()) {
+		} else if ((target->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) == 0 && !frIsInTraining()) {
 			target = NULL;
 		}
 	}
@@ -9546,7 +9544,7 @@ void autogunTickShoot(struct prop *autogunprop)
 						// SP: If the hit prop is a chr and it's our target
 						// MP: If the hit prop is a chr
 						if (hitprop
-								&& (hitprop->type == PROPTYPE_CHR || hitprop->type == PROPTYPE_PLAYER)
+								&& (hitprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))
 								&& (g_Vars.normmplayerisrunning || targetprop == hitprop)) {
 							struct modelnode *hitnode = NULL;
 							struct model *hitmodel = NULL;
@@ -14717,7 +14715,7 @@ void objDetach(struct prop *prop)
 
 		obj->hidden &= ~OBJHFLAG_HASOWNER;
 
-		if (parent->type == PROPTYPE_CHR || parent->type == PROPTYPE_PLAYER) {
+		if (parent->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			struct chrdata *chr = parent->chr;
 
 			if (chr) {
@@ -15034,7 +15032,7 @@ void objDestroySupportedObjects(struct prop *tableprop, s32 playernum)
 		while (*propnumptr >= 0) {
 			prop = &g_Vars.props[*propnumptr];
 
-			if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+			if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 				struct defaultobj *obj = prop->obj;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -19020,7 +19018,7 @@ bool doorIsRangeEmpty(struct doorobj *door)
 	while (*propnumptr >= 0) {
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
-		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+		if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			if (doorIsPosInRange(door, &prop->pos, 0, false)) {
 				return false;
 			}
@@ -19437,7 +19435,7 @@ void doorPlayOpeningSound(s32 soundtype, struct prop *prop)
 	func0f0926bc(prop, 12, 0xffff);
 
 	if (g_Vars.in_cutscene
-			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
+			&& (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR))
 			&& (prop->obj->flags3 & OBJFLAG3_AUTOCUTSCENESOUNDS) == 0) {
 		return;
 	}
@@ -19514,7 +19512,7 @@ void doorPlayClosingSound(s32 soundtype, struct prop *prop)
 	func0f0926bc(prop, 12, 0xffff);
 
 	if (g_Vars.in_cutscene
-			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
+			&& (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR))
 			&& (prop->obj->flags3 & OBJFLAG3_AUTOCUTSCENESOUNDS) == 0) {
 		return;
 	}
@@ -19573,7 +19571,7 @@ void doorPlayOpenedSound(s32 soundtype, struct prop *prop)
 	func0f0926bc(prop, 12, 0xffff);
 
 	if (g_Vars.in_cutscene
-			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
+			&& (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR))
 			&& (prop->obj->flags3 & OBJFLAG3_AUTOCUTSCENESOUNDS) == 0) {
 		return;
 	}
@@ -19626,7 +19624,7 @@ void doorPlayClosedSound(s32 soundtype, struct prop *prop)
 	func0f0926bc(prop, 12, 0xffff);
 
 	if (g_Vars.in_cutscene
-			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
+			&& (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR))
 			&& (prop->obj->flags3 & OBJFLAG3_AUTOCUTSCENESOUNDS) == 0) {
 		return;
 	}
@@ -21243,7 +21241,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 
 			if (blocked) {
 				if (obstacle) {
-					if (obstacle->type == PROPTYPE_CHR || obstacle->type == PROPTYPE_PLAYER) {
+					if (obstacle->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 						struct modelnode *node = NULL;
 						struct model *model = NULL;
 						s32 side = -1;
@@ -21265,7 +21263,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 						}
 
 						func0f0341dc(chr, gsetGetDamage(&gset), dir, &gset, 0, hitpart, obstacle, node, model, side, NULL);
-					} else if (obstacle->type == PROPTYPE_OBJ || obstacle->type == PROPTYPE_WEAPON || obstacle->type == PROPTYPE_DOOR) {
+					} else if (obstacle->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 						struct defaultobj *obj = obstacle->obj;
 
 						if (weaponnum != WEAPON_CHOPPERGUN) {

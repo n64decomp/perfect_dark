@@ -59,7 +59,7 @@ void bgrabInit(void)
 
 	g_Vars.currentplayer->bondprevtheta = g_Vars.currentplayer->vv_theta;
 
-	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
+	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR | PROPTYPE_WEAPON)) {
 		struct defaultobj *obj = prop->obj;
 		struct hov *hov = NULL;
 		s32 cdresult;

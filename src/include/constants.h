@@ -3541,14 +3541,14 @@ enum rspevent {
 #define PROPFLAG_ONANYSCREENTHISTICK  0x40
 #define PROPFLAG_ONANYSCREENPREVTICK  0x80
 
-#define PROPTYPE_OBJ       1
-#define PROPTYPE_DOOR      2
-#define PROPTYPE_CHR       3
-#define PROPTYPE_WEAPON    4
-#define PROPTYPE_EYESPY    5
-#define PROPTYPE_PLAYER    6
-#define PROPTYPE_EXPLOSION 7
-#define PROPTYPE_SMOKE     8
+#define PROPTYPE_OBJ       0x01
+#define PROPTYPE_DOOR      0x02
+#define PROPTYPE_CHR       0x04
+#define PROPTYPE_WEAPON    0x08
+#define PROPTYPE_EYESPY    0x10
+#define PROPTYPE_PLAYER    0x20
+#define PROPTYPE_EXPLOSION 0x40
+#define PROPTYPE_SMOKE     0x80
 
 #define QUADRANT_BACK          0x01
 #define QUADRANT_SIDE1         0x02

@@ -377,8 +377,7 @@ Gfx *ctcRadarExtra(Gfx *gdl)
 
 		for (i = 0; i < scenarioGetMaxTeams(); i++) {
 			if (g_ScenarioData.ctc.tokens[i] &&
-					g_ScenarioData.ctc.tokens[i]->type != PROPTYPE_CHR &&
-					g_ScenarioData.ctc.tokens[i]->type != PROPTYPE_PLAYER) {
+					(g_ScenarioData.ctc.tokens[i]->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) == 0) {
 				struct coord dist;
 				dist.x = g_ScenarioData.ctc.tokens[i]->pos.x - g_Vars.currentplayer->prop->pos.x;
 				dist.y = g_ScenarioData.ctc.tokens[i]->pos.y - g_Vars.currentplayer->prop->pos.y;
@@ -398,7 +397,7 @@ bool ctcRadarChr(Gfx **gdl, struct prop *prop)
 	if (g_MpSetup.options & MPOPTION_CTC_SHOWONRADAR) {
 		for (i = 0; i < scenarioGetMaxTeams(); i++) {
 			if (prop == g_ScenarioData.ctc.tokens[i] &&
-					(g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_CHR || g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_PLAYER)) {
+					(g_ScenarioData.ctc.tokens[i]->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))) {
 				struct coord dist;
 				s32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
 				dist.x = g_ScenarioData.ctc.tokens[i]->pos.x - g_Vars.currentplayer->prop->pos.x;
@@ -418,7 +417,7 @@ bool ctcHighlightProp(struct prop *prop, s32 *colour)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 		if (obj->type == OBJTYPE_WEAPON) {
 			struct weaponobj *weapon = prop->weapon;
 

@@ -3504,9 +3504,7 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 		return;
 	}
 
-	if (prop->type == PROPTYPE_OBJ
-			|| prop->type == PROPTYPE_WEAPON
-			|| prop->type == PROPTYPE_DOOR
+	if ((prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR))
 			|| hitpart == HITPART_GUN
 			|| hitpart == HITPART_HAT) {
 		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_DEFAULT);
@@ -5476,7 +5474,7 @@ bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct mode
 		struct model *model;
 		s32 stack;
 
-		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+		if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			model = prop->chr->model;
 		} else {
 			model = prop->obj->model;
@@ -5585,9 +5583,9 @@ void shieldhitCreate(struct prop *prop, f32 shield, struct prop *arg2, struct mo
 			}
 		}
 
-		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+		if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			prop->chr->hidden2 |= CHRH2FLAG_SHIELDHIT;
-		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+		} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 			prop->obj->flags3 |= OBJFLAG3_SHIELDHIT;
 		}
 	}
@@ -5622,12 +5620,10 @@ void shieldhitRemove(struct shieldhit *shieldhit)
 
 	if (!exists) {
 		// Mark prop as shield no longer visible
-		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+		if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			struct chrdata *chr = prop->chr;
 			chr->hidden2 &= ~CHRH2FLAG_SHIELDHIT;
-		} else if (prop->type == PROPTYPE_OBJ
-				|| prop->type == PROPTYPE_WEAPON
-				|| prop->type == PROPTYPE_DOOR) {
+		} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 			struct defaultobj *obj = prop->obj;
 			obj->flags3 &= ~OBJFLAG3_SHIELDHIT;
 		}
@@ -5781,13 +5777,11 @@ f32 propGetShieldThing(struct prop **propptr)
 {
 	struct prop *prop = *propptr;
 
-	if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+	if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 		return chrGetShield(prop->chr);
 	}
 
-	if (prop->type == PROPTYPE_OBJ
-			|| prop->type == PROPTYPE_WEAPON
-			|| prop->type == PROPTYPE_DOOR) {
+	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 		if (prop->obj->flags3 & OBJFLAG3_SHOWSHIELD) {
 			return 4;
 		}
@@ -5851,7 +5845,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 	s32 blue3;
 	s32 mtxindex;
 
-	if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+	if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))  {
 		struct chrdata *chr = prop->chr;
 		gap = 10.0f / chr->model->scale;
 		shieldamount = chrGetShield(chr);
@@ -6038,7 +6032,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 
 			vertices = gfxAllocateVertices(24);
 
-			if ((prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR)
+			if ((prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR))
 					&& (prop->obj->flags3 & OBJFLAG3_SHOWSHIELD)) {
 				f32 mult = (sinf((g_Vars.thisframestart240 % TICKS(350)) * (PAL ? 0.021588264033198f : 0.0179491f)) + 1.0f) * 0.5f;
 
@@ -6261,7 +6255,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 						sp104[j][0], sp104[j][2], sp104[j][3]);
 			}
 		} else {
-			if ((prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR)
+			if ((prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR))
 					&& (prop->obj->flags3 & OBJFLAG3_SHOWSHIELD)) {
 				alpha1 = 0xff;
 				alpha2 = 0xff;
@@ -6540,7 +6534,7 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 
 	if (prop2->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		// Find the model and specific node if any
-		if (prop2->type == PROPTYPE_CHR || prop2->type == PROPTYPE_PLAYER) {
+		if (prop2->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			struct chrdata *chr = prop2->chr;
 			model = chr->model;
 		} else {
@@ -6666,7 +6660,7 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 	struct modelnode *node;
 
 	if (thisprop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-		if (thisprop->type == PROPTYPE_CHR || thisprop->type == PROPTYPE_PLAYER) {
+		if (thisprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 			model = thisprop->chr->model;
 		} else {
 			model = thisprop->obj->model;

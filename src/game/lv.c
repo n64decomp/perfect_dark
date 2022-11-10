@@ -628,10 +628,6 @@ bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 				return false;
 			}
 			return false;
-		case PROPTYPE_DOOR:
-		case PROPTYPE_EYESPY:
-		case PROPTYPE_EXPLOSION:
-		case PROPTYPE_SMOKE:
 		default:
 			return false;
 		}
@@ -664,7 +660,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 
 	if (prop->obj
 			&& (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)
-			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON)
+			&& (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON))
 			&& condition) {
 		pass = false;
 		obj = prop->obj;
@@ -787,9 +783,7 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 				&& (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 			model = NULL;
 
-			if (prop->type == PROPTYPE_OBJ
-					|| prop->type == PROPTYPE_WEAPON
-					|| prop->type == PROPTYPE_DOOR) {
+			if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 				model = g_Vars.currentplayer->trackedprops[i].prop->obj->model;
 			} else {
 				if (prop->type == PROPTYPE_CHR
@@ -1282,16 +1276,13 @@ Gfx *lvRender(Gfx *gdl)
 					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(HAND_RIGHT, 0, 0);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
-						if (g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_CHR
-								|| g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_PLAYER) {
+						if (g_Vars.currentplayer->lookingatprop.prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
 							chr = g_Vars.currentplayer->lookingatprop.prop->chr;
 
 							if ((chr->hidden & CHRHFLAG_CLOAKED) && !USINGDEVICE(DEVICE_IRSCANNER)) {
 								g_Vars.currentplayer->lookingatprop.prop = NULL;
 							}
-						} else if (g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_OBJ
-								|| g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_WEAPON
-								|| g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_DOOR) {
+						} else if (g_Vars.currentplayer->lookingatprop.prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 							struct defaultobj *obj = g_Vars.currentplayer->lookingatprop.prop->obj;
 
 							if ((obj->flags3 & OBJFLAG3_REACTTOSIGHT) == 0) {
