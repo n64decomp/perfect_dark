@@ -817,7 +817,8 @@ void lvFindThreats(void)
 	}
 }
 
-u8 g_LvShowRates = 0;
+u8 g_LvDebug = 0;
+u8 g_LvPage = 0;
 u8 g_LvRateIndex = 59;
 u8 g_LvFrameRates[60];
 
@@ -966,9 +967,24 @@ Gfx *lvPrintRateText(Gfx *gdl)
 			sprintf(buffer, "cur %d\n\n", (s32) (OS_CPU_COUNTER / g_Vars.diffframet));
 			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 		}
+	}
 
-		x = 10;
+	return gdl;
+}
+
+Gfx *lvPrintFigures(Gfx *gdl)
+{
+	if (g_FontHandelGothicXs) {
+		char buffer[64];
+		s32 x = 10;
+		s32 y = 10;
+		s32 foreground;
+		s32 background;
+
 		sprintf(buffer, "memp free %d KB\n", mempGetStageFree() / 1024);
+		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+		sprintf(buffer, "est free %d KB\n", g_LvEstimatedFreeBytes / 1024);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 
 		sprintf(buffer, "gfx free %d KB\n", gfxGetFreeGfx(gdl) / 1024);
@@ -977,21 +993,13 @@ Gfx *lvPrintRateText(Gfx *gdl)
 		sprintf(buffer, "vtx free %d KB\n", gfxGetFreeVtx() / 1024);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 
-		sprintf(buffer, "est free %d KB\n", g_LvEstimatedFreeBytes / 1024);
+		lvGetNumPropsByActiveState(&foreground, &background);
+
+		sprintf(buffer, "props fg %d\n", foreground);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 
-		{
-			s32 foreground;
-			s32 background;
-
-			lvGetNumPropsByActiveState(&foreground, &background);
-
-			sprintf(buffer, "props fg %d\n", foreground);
-			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-
-			sprintf(buffer, "props bg %d\n", background);
-			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-		}
+		sprintf(buffer, "props bg %d\n", background);
+		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 
 		sprintf(buffer, "props free %d\n", lvGetNumFreeProps());
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
@@ -1003,17 +1011,27 @@ Gfx *lvPrintRateText(Gfx *gdl)
 Gfx *lvPrint(Gfx *gdl)
 {
 	if (joyGetButtonsPressedThisFrame(0, L_TRIG)) {
-		g_LvShowRates = 1 - g_LvShowRates;
+		g_LvDebug = 1 - g_LvDebug;
+	}
+
+	if (joyGetButtonsPressedThisFrame(0, U_JPAD)) {
+		g_LvPage = 1 - g_LvPage;
 	}
 
 	lvRecordRate();
 
-	if (g_LvShowRates) {
+	if (g_LvDebug) {
 		g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 
 		gdl = text0f153628(gdl);
-		gdl = lvPrintRateGraph(gdl);
-		gdl = lvPrintRateText(gdl);
+
+		if (g_LvPage == 0) {
+			gdl = lvPrintRateGraph(gdl);
+			gdl = lvPrintRateText(gdl);
+		} else {
+			gdl = lvPrintFigures(gdl);
+		}
+
 		gdl = text0f153780(gdl);
 
 		g_ScaleX = 1;
