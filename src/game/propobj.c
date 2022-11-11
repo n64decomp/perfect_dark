@@ -16679,12 +16679,6 @@ void func0f0878c8pf(char *dst, s32 id, bool plural, bool full, bool dual, struct
 		languageid = LANGUAGE_PAL_EN;
 	}
 
-#if VERSION == VERSION_JPN_FINAL
-	if (g_Jpn) {
-		languageid = LANGUAGE_NTSC_EN;
-	}
-#endif
-
 	*dst = '\0';
 
 	info = func0f087888pf(id, table);
@@ -17090,41 +17084,13 @@ void ammotypeGetPickupMessage(char *dst, s32 ammotype, s32 qty)
 
 	*dst = '\0';
 
-#if VERSION >= VERSION_JPN_FINAL
-	if (ammotype == AMMOTYPE_PISTOL || ammotype == AMMOTYPE_SMG || ammotype == AMMOTYPE_RIFLE) {
-		ammotype = 999;
+	if (full) {
+		ammotypeGetPickedUpText(dst); // "Picked up"
 	}
 
-	func0f0878c8pf(dst, ammotype, qty > 1, !full, 0, var8006a944pf);
-#elif VERSION >= VERSION_PAL_BETA
-	if (g_Jpn) {
-		strcat(dst, "\n");
-	} else {
-		if (ammotype == AMMOTYPE_PISTOL || ammotype == AMMOTYPE_SMG || ammotype == AMMOTYPE_RIFLE) {
-			ammotype = 999;
-		}
-
-		func0f0878c8pf(dst, ammotype, qty > 1, !full, 0, var8006a944pf);
-	}
-#else
-	if (g_Jpn) {
-		ammotypeGetPickupName(dst, ammotype, qty);
-
-		if (full) {
-			ammotypeGetPickedUpText(dst);
-		}
-
-		strcat(dst, "\n");
-	} else {
-		if (full) {
-			ammotypeGetPickedUpText(dst); // "Picked up"
-		}
-
-		ammotypeGetDeterminer(dst, ammotype, qty); // "a", "an", "some" or "the"
-		ammotypeGetPickupName(dst, ammotype, qty); // name of ammo type
-		strcat(dst, ".\n");
-	}
-#endif
+	ammotypeGetDeterminer(dst, ammotype, qty); // "a", "an", "some" or "the"
+	ammotypeGetPickupName(dst, ammotype, qty); // name of ammo type
+	strcat(dst, ".\n");
 }
 
 void currentPlayerQueuePickupAmmoHudmsg(s32 ammotype, s32 pickupqty)
@@ -17296,38 +17262,36 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 	if (dual) {
 		strcat(buffer, langGet(L_PROPOBJ_001)); // "Double"
 	} else {
-		if (!g_Jpn) {
-			if (full) {
-				strcat(buffer, langGet(L_PROPOBJ_000)); // "Picked up"
+		if (full) {
+			strcat(buffer, langGet(L_PROPOBJ_000)); // "Picked up"
 
-				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
-					textid = L_PROPOBJ_050; // "your"
-				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME)) {
-					textid = L_PROPOBJ_002; // "some"
-				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_AN)) {
-					textid = L_PROPOBJ_006; // "an"
-				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_THE)) {
-					textid = L_PROPOBJ_008; // "the"
-				} else {
-					textid = L_PROPOBJ_004; // "a"
-				}
-
-				strcat(buffer, langGet(textid));
+			if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
+				textid = L_PROPOBJ_050; // "your"
+			} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME)) {
+				textid = L_PROPOBJ_002; // "some"
+			} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_AN)) {
+				textid = L_PROPOBJ_006; // "an"
+			} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_THE)) {
+				textid = L_PROPOBJ_008; // "the"
 			} else {
-				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
-					textid = L_PROPOBJ_051; // "Your"
-				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME)) {
-					textid = L_PROPOBJ_003; // "Some"
-				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_AN)) {
-					textid = L_PROPOBJ_007; // "An"
-				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_THE)) {
-					textid = L_PROPOBJ_009; // "The"
-				} else {
-					textid = L_PROPOBJ_005; // "A"
-				}
-
-				strcat(buffer, langGet(textid));
+				textid = L_PROPOBJ_004; // "a"
 			}
+
+			strcat(buffer, langGet(textid));
+		} else {
+			if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
+				textid = L_PROPOBJ_051; // "Your"
+			} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME)) {
+				textid = L_PROPOBJ_003; // "Some"
+			} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_AN)) {
+				textid = L_PROPOBJ_007; // "An"
+			} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_THE)) {
+				textid = L_PROPOBJ_009; // "The"
+			} else {
+				textid = L_PROPOBJ_005; // "A"
+			}
+
+			strcat(buffer, langGet(textid));
 		}
 	}
 
@@ -17349,16 +17313,6 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 		}
 
 		strcat(buffer, "s");
-	}
-
-	// For JPN, their translation of "picked up" comes after the weapon name
-	if (g_Jpn && full) {
-		if (buffer[strlen(buffer) - 1] == '\n') {
-			buffer[strlen(buffer) - 1] = '\0';
-		}
-
-		strcat(buffer, langGet(L_PROPOBJ_000)); // "Picked up"
-		strcat(buffer, "\n"); // This just gets removed immediately below
 	}
 
 	if (buffer[strlen(buffer) - 1] == '\n') {

@@ -92,12 +92,6 @@ bool argsParseDebugArgs(void)
 		g_SndDisabled = true;
 	}
 
-#if VERSION < VERSION_JPN_FINAL
-	if (argFindByPrefix(1, "-j")) {
-		g_Jpn = true;
-	}
-#endif
-
 	return ret;
 }
 

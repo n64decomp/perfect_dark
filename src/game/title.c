@@ -8098,13 +8098,8 @@ Gfx *titleRenderNoController(Gfx *gdl)
 	x = 288 - (textwidth >> 1);
 	y = (g_TitleViewHeight / 2) - (textheight >> 1) - 12;
 
-	if (g_Jpn) {
-		width = viGetWidth();
-		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, viGetHeight(), 0, 0);
-	} else {
-		width = viGetWidth();
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
-	}
+	width = viGetWidth();
+	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
 
 	// Line 2
 	text = langGet(L_OPTIONS_072); // "please power off and attach a controller"
@@ -8113,13 +8108,8 @@ Gfx *titleRenderNoController(Gfx *gdl)
 	x = 288 - (textwidth >> 1);
 	y = (g_TitleViewHeight / 2) - (textheight >> 1) + 12;
 
-	if (g_Jpn) {
-		width = viGetWidth();
-		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, viGetHeight(), 0, 0);
-	} else {
-		width = viGetWidth();
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
-	}
+	width = viGetWidth();
+	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
 #endif
 
 	gdl = text0f153780(gdl);

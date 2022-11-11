@@ -1761,11 +1761,7 @@ void lvUpdateSoloHandicaps(void)
 			g_PlayerDamageRxScale = 1;
 			g_PlayerDamageTxScale = 1;
 			g_ExplosionDamageTxScale = 1;
-#if VERSION >= VERSION_JPN_FINAL
 			g_AutoAimScale = 0.75f;
-#else
-			g_AutoAimScale = g_Jpn ? 1.1f : 0.75f;
-#endif
 			g_AmmoQuantityScale = 1.5f;
 			g_AttackWalkDurationScale = 0.5f;
 		} else {
@@ -1776,11 +1772,7 @@ void lvUpdateSoloHandicaps(void)
 			g_PlayerDamageRxScale = 1.5f;
 			g_PlayerDamageTxScale = 1;
 			g_ExplosionDamageTxScale = 1.5f;
-#if VERSION >= VERSION_JPN_FINAL
 			g_AutoAimScale = 0.2f;
-#else
-			g_AutoAimScale = g_Jpn ? 0.75f : 0.2f;
-#endif
 			g_AmmoQuantityScale = 1;
 			g_AttackWalkDurationScale = 1;
 		}
@@ -1817,11 +1809,7 @@ void lvUpdateSoloHandicaps(void)
 			g_PlayerDamageRxScale = 0.6f;
 			g_PlayerDamageTxScale = 1;
 			g_ExplosionDamageTxScale = 0.75f;
-#if VERSION >= VERSION_JPN_FINAL
 			g_AutoAimScale = 0.75f;
-#else
-			g_AutoAimScale = g_Jpn ? 1.1f : 0.75f;
-#endif
 			g_AmmoQuantityScale = 1.5f;
 			g_AttackWalkDurationScale = 0.5f;
 		} else if (g_Difficulty == DIFF_PA) {
@@ -1832,11 +1820,7 @@ void lvUpdateSoloHandicaps(void)
 			g_PlayerDamageRxScale = 1;
 			g_PlayerDamageTxScale = 1;
 			g_ExplosionDamageTxScale = 1;
-#if VERSION >= VERSION_JPN_FINAL
 			g_AutoAimScale = 0.2f;
-#else
-			g_AutoAimScale = g_Jpn ? 0.75f : 0.2f;
-#endif
 			g_AmmoQuantityScale = 1;
 			g_AttackWalkDurationScale = 1;
 		} else if (g_Difficulty == DIFF_PD) {
@@ -2167,7 +2151,6 @@ void lvTick(void)
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
 		titleTick();
-		langTick();
 		musicTick();
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		setCurrentPlayerNum(0);
@@ -2176,16 +2159,13 @@ void lvTick(void)
 #endif
 		menuTick();
 		musicTick();
-		langTick();
 		pakExecuteDebugOperations();
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
 		menuTick();
 		musicTick();
-		langTick();
 		pakExecuteDebugOperations();
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
 		musicTick();
-		langTick();
 	} else {
 		lvUpdateCutsceneTime();
 		PROFILE(PROFILEMARKER_LVT_VTXSTORE, vtxstoreTick());
@@ -2227,7 +2207,6 @@ void lvTick(void)
 		profileEnd(PROFILEMARKER_LVT_PROPS);
 
 		PROFILE(PROFILEMARKER_LVT_MUSIC, musicTick());
-		langTick();
 		PROFILE(PROFILEMARKER_LVT_PADEFFECTS, propsTickPadEffects());
 
 		if (mainGetStageNum() == STAGE_CITRAINING) {

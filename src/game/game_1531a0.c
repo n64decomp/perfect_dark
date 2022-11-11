@@ -1264,21 +1264,6 @@ void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar 
 	u8 c;
 	u8 index;
 
-	if (g_Jpn) {
-		if (**text < 0x80) {
-			*arg1 = &chars[**text - 0x21];
-			*arg2 = &chars[*prevchar - 0x21];
-
-			*prevchar = **text;
-			*text += 1;
-			return;
-		}
-
-		*arg1 = &chars[*prevchar - 0x21];
-		*arg2 = &chars[*prevchar - 0x21];
-		return;
-	}
-
 	index = 0;
 	c = **text;
 
@@ -1796,10 +1781,6 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 	lineheight = 13;
 #else
 	lineheight = chars['['].height + chars['['].baseline;
-
-	if (g_Jpn && lineheight < 14) {
-		lineheight = 14;
-	}
 #endif
 
 	textMeasure(&textheight, &textwidth, text, chars, font, 0);
@@ -2241,10 +2222,6 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 	if (lineheight == 0) {
 		lineheight = chars['['].height + chars['['].baseline;
 	}
-
-	if (g_Jpn && lineheight < 14) {
-		lineheight = 14;
-	}
 #endif
 
 	gDPPipeSync(gdl++);
@@ -2499,10 +2476,6 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 #else
 	if (lineheight == 0) {
 		lineheight = chars['['].height + chars['['].baseline;
-	}
-
-	if (g_Jpn && lineheight < 14) {
-		lineheight = 14;
 	}
 #endif
 
@@ -2801,10 +2774,6 @@ void textMeasure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *f
 #else
 	if (lineheight == 0) {
 		lineheight = font1['['].baseline + font1['['].height;
-	}
-
-	if (g_Jpn && lineheight < 14) {
-		lineheight = 14;
 	}
 #endif
 
@@ -3473,16 +3442,11 @@ void textWrap(s32 wrapwidth, char *src, char *dst, struct fontchar *chars, struc
 			src++;
 			wordlen++;
 
-#if VERSION >= VERSION_PAL_FINAL
-			if (g_Jpn)
-#endif
-			{
-				if (curword[wordlen - 1] >= 0x80) {
-					curword[wordlen] = *src;
-					v1 += chars[*src - 0x21].width;
-					src++;
-					wordlen++;
-				}
+			if (curword[wordlen - 1] >= 0x80) {
+				curword[wordlen] = *src;
+				v1 += chars[*src - 0x21].width;
+				src++;
+				wordlen++;
 			}
 		}
 

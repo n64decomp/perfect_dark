@@ -1,5 +1,4 @@
 #define GAMEFILES(section) \
-	build/ROMID/game/langinit.o (section); \
 	build/ROMID/game/titleinit.o (section); \
 	build/ROMID/game/raceinit.o (section); \
 	build/ROMID/game/bodyinit.o (section); \
@@ -77,7 +76,6 @@
 	build/ROMID/game/menustop.o (section); \
 	build/ROMID/game/menutick.o (section); \
 	build/ROMID/game/weathertick.o (section); \
-	build/ROMID/game/langtick.o (section); \
 	build/ROMID/game/roomtick.o (section); \
 	build/ROMID/game/skytick.o (section); \
 	build/ROMID/game/casingtick.o (section); \

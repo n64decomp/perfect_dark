@@ -47,21 +47,9 @@
  * relevant offsets within that buffer.
  */
 
-#if VERSION >= VERSION_PAL_BETA
-bool g_Jpn = VERSION == VERSION_JPN_FINAL ? true : false;
-u8 *g_LangBuffer = NULL;
-u8 *g_LangBufferPos = NULL;
-s32 g_LangBufferSize = 0;
 u32 *g_LangBanks[69];
 struct var800aabb4 *var800aabb4;
 struct var800aabb8 *var800aabb8;
-s32 g_LanguageId = LANGUAGE_NTSC_EN;
-#else
-u32 *g_LangBanks[69];
-struct var800aabb4 *var800aabb4;
-struct var800aabb8 *var800aabb8;
-bool g_Jpn = false;
-#endif
 
 u16 g_LangFiles[] = {
 	/* 0*/ 0,
@@ -539,10 +527,6 @@ s32 langGetFileNumOffset(void)
 #else
 	s32 offset = 0;
 
-	if (g_Jpn) {
-		offset = 1;
-	}
-
 	return offset;
 #endif
 }
@@ -663,14 +647,5 @@ void langSetEuropean(u32 arg0)
 	if (hasoptionslang) {
 		mpSetTeamNamesToDefault(teams);
 	}
-}
-#endif
-
-#if VERSION == VERSION_JPN_FINAL
-void langSetJpnEnabled(bool enable)
-{
-	g_Jpn = enable ? true : false;
-
-	langReload();
 }
 #endif
