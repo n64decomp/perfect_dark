@@ -1,18 +1,10 @@
 #include <ultra64.h>
-#include "lib/fault.h"
+#include "types.h"
 
 char *strcpy(char *dst, const char *src)
 {
 	char *ptr = dst;
 	char c;
-
-	if (dst == NULL) {
-		faultAssert("s1", "str.c", 44);
-	}
-
-	if (src == NULL) {
-		faultAssert("s2", "str.c", 45);
-	}
 
 	*ptr = c = *src;
 	ptr++;

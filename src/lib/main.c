@@ -49,8 +49,6 @@
 #include "lib/vm.h"
 #include "lib/rzip.h"
 #include "lib/vi.h"
-#include "lib/fault.h"
-#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/joy.h"
 #include "lib/main.h"
@@ -58,13 +56,10 @@
 #include "lib/memp.h"
 #include "lib/mema.h"
 #include "lib/profile.h"
-#include "lib/videbug.h"
-#include "lib/debughud.h"
 #include "lib/anim.h"
 #include "lib/rdp.h"
 #include "lib/lib_34d0.h"
 #include "lib/lib_2f490.h"
-#include "lib/rmon.h"
 #include "lib/rng.h"
 #include "lib/str.h"
 #include "data.h"
@@ -198,9 +193,8 @@ void mainInit(void)
 	varsInit();
 	mempInit();
 	memaInit();
-	videbugInit();
 	viConfigureForLogos();
-	var8005d9b0 = rmonIsDisabled();
+	var8005d9b0 = 1;
 	joyInit();
 	osCreateMesgQueue(&queue, &msg, 1);
 
@@ -366,7 +360,6 @@ void mainInit(void)
 	mempResetPool(MEMPOOL_8);
 	mempResetPool(MEMPOOL_PERMANENT);
 
-	crashReset();
 	challengesInit();
 	utilsInit();
 	func000034d0();
@@ -375,7 +368,6 @@ void mainInit(void)
 	cheatsInit();
 	func0000e9c0();
 	textInit();
-	dhudInit();
 	playermgrInit();
 	frametimeInit();
 	stub0f00b200();
@@ -575,7 +567,6 @@ void mainLoop(void)
 
 		gfxReset();
 		joyReset();
-		dhudReset();
 		mblurReset(g_StageNum);
 		lvReset(g_StageNum);
 		viReset(g_StageNum);
@@ -638,7 +629,6 @@ void mainTick(void)
 		profileReset();
 		func000034d8();
 		joyDebugJoy();
-		schedSetCrashEnable2(false);
 
 		if (g_MainGameLogicEnabled) {
 			profileStart(PROFILEMARKER_CPU);

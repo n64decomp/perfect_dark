@@ -19,7 +19,6 @@
 #include "game/propobj.h"
 #include "game/savebuffer.h"
 #include "bss.h"
-#include "lib/crash.h"
 #include "lib/joy.h"
 #include "lib/vi.h"
 #include "lib/main.h"

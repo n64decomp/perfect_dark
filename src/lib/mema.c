@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/debughud.h"
 #include "lib/mema.h"
 #include "lib/memp.h"
 #include "data.h"

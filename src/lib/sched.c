@@ -8,12 +8,10 @@
 #include "lib/audiomgr.h"
 #include "lib/reset.h"
 #include "lib/rzip.h"
-#include "lib/crash.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/pimgr.h"
 #include "lib/profile.h"
-#include "lib/rmon.h"
 #include "lib/lib_48150.h"
 #include "lib/vi.h"
 #include "lib/joy.h"
@@ -75,12 +73,6 @@ s32 g_SchedWriteArtifactsIndex;
 s32 g_SchedFrontArtifactsIndex;
 s32 g_SchedPendingArtifactsIndex;
 
-bool g_SchedCrashedUnexpectedly = false;
-bool g_SchedCrashEnable1 = false;
-bool g_SchedCrashEnable2 = false;
-u32 g_SchedCrashRenderInterval = 45000000;
-u32 g_SchedCrashLastRendered = 0;
-
 s32 var8005ce74 = 0;
 f32 g_ViXScalesBySlot[2] = {1, 1};
 f32 g_ViYScalesBySlot[2] = {1, 1};
@@ -93,49 +85,6 @@ u32 var8005cea0 = 0;
 u32 var8005cea4 = 0;
 OSScMsg g_SchedRspMsg = {OS_SC_RSP_MSG};
 bool g_SchedIsFirstTask = true;
-
-void schedSetCrashEnable1(bool enable)
-{
-	g_SchedCrashEnable1 = enable;
-}
-
-void schedSetCrashedUnexpectedly(bool enable)
-{
-	g_SchedCrashedUnexpectedly = enable;
-}
-
-void schedSetCrashEnable2(bool enable)
-{
-	g_SchedCrashEnable2 = enable;
-}
-
-void schedSetCrashRenderInterval(u32 cycles)
-{
-	g_SchedCrashRenderInterval = cycles;
-}
-
-void schedRenderCrashOnBuffer(void *framebuffer)
-{
-	if ((g_SchedCrashEnable2 && g_SchedCrashEnable1) || g_SchedCrashedUnexpectedly) {
-		crashRenderFrame(framebuffer);
-		g_SchedCrashLastRendered = osGetCount();
-	}
-}
-
-void schedRenderCrashPeriodically(u32 framecount)
-{
-	if ((framecount & 0xf) == 0 && ((g_SchedCrashEnable2 && g_SchedCrashEnable1) || g_SchedCrashedUnexpectedly)) {
-		if (osGetCount() - g_SchedCrashLastRendered > g_SchedCrashRenderInterval) {
-			crashRenderFrame(g_FrameBuffers[0]);
-			crashRenderFrame(g_FrameBuffers[1]);
-		}
-	}
-}
-
-void schedInitCrashLastRendered(void)
-{
-	g_SchedCrashLastRendered = osGetCount();
-}
 
 void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 {
@@ -172,7 +121,6 @@ void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 	osSetEventMesg(OS_EVENT_DP, &sc->interruptQ, (OSMesg)RDP_DONE_MSG);
 
 	osViSetEvent(&sc->interruptQ, (OSMesg)VIDEO_MSG, numFields);
-	schedInitCrashLastRendered();
 	osCreateThread(sc->thread, THREAD_SCHED, &__scMain, sc, bootAllocateStack(THREAD_SCHED, STACKSIZE_SCHED), THREADPRI_SCHED);
 	osStartThread(sc->thread);
 }
@@ -294,7 +242,6 @@ void __scHandleRetrace(OSSched *sc)
 
 	joysTick();
 	snd0000fe18();
-	schedRenderCrashPeriodically(sc->frameCount);
 }
 
 extern struct sndcache g_SndCache;
@@ -599,7 +546,6 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 				g_ViUnblackTimer--;
 			}
 
-			schedRenderCrashOnBuffer(t->framebuffer);
 			osViSwapBuffer(t->framebuffer);
 		}
 

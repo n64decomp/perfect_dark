@@ -8,17 +8,13 @@
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/rzip.h"
-#include "lib/crash.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/pimgr.h"
-#include "lib/videbug.h"
-#include "lib/rmon.h"
 #include "lib/lib_48150.h"
 #include "data.h"
 #include "types.h"
 
-OSThread g_RmonThread;
 OSThread g_IdleThread;
 OSThread g_MainThread;
 OSThread g_SchedThread;
@@ -214,7 +210,6 @@ void bootCreateSchedThread(void)
 void bootPhase2(void *arg)
 {
 	bootCreateIdleThread();
-	videbugCreate();
 	pimgrCreate();
 
 	if (argsParseDebugArgs()) {

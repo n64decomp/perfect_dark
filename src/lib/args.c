@@ -3,7 +3,6 @@
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/str.h"
-#include "lib/rmon.h"
 #include "string.h"
 #include "data.h"
 #include "types.h"
@@ -71,14 +70,7 @@ bool argsParseDebugArgs(void)
 
 	devaddr = 0x1ffff00;
 
-	if (rmonIsDisabled()) {
-		g_ArgBuffer[0] = 0;
-	} else {
-		for (i = 0; i < 30; i++) {
-			osPiReadIo(devaddr, &g_ArgBuffer[i]);
-			devaddr += 4;
-		}
-	}
+	g_ArgBuffer[0] = 0;
 
 	argParseString((char *) g_ArgBuffer);
 

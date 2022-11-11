@@ -15,7 +15,6 @@
 #include "game/options.h"
 #include "game/utils.h"
 #include "bss.h"
-#include "lib/fault.h"
 #include "lib/joy.h"
 #include "lib/snd.h"
 #include "lib/mema.h"
