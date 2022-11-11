@@ -1251,11 +1251,7 @@ void seqInit(struct seqinstance *seq)
 
 	func00030c98(&config);
 
-	if (IS4MB()) {
-		g_SeqBufferSize = 0x3800;
-	} else {
-		g_SeqBufferSize = 0x4800;
-	}
+	g_SeqBufferSize = 0x4800;
 
 	seq->data = alHeapAlloc(&g_SndHeap, 1, g_SeqBufferSize);
 	seq->seqp = alHeapAlloc(&g_SndHeap, 1, sizeof(N_ALCSPlayer));
@@ -1290,22 +1286,11 @@ void sndInit(void)
 
 	g_Vars.langfilteron = false;
 
-	if (IS4MB()) {
-		g_SndMaxFxBusses = 1;
+	g_SndMp3Enabled = true;
+	g_SndMaxFxBusses = 2;
 
-		heaplen -= 1024 * (PAL ? 6 : 38);
-		heaplen -= 1024 * 137;
-		heaplen -= 1024 * 12;
-		heaplen -= 1024 * 23;
-
+	if (argFindByPrefix(1, "-nomp3")) {
 		g_SndMp3Enabled = false;
-	} else {
-		g_SndMp3Enabled = true;
-		g_SndMaxFxBusses = 2;
-
-		if (argFindByPrefix(1, "-nomp3")) {
-			g_SndMp3Enabled = false;
-		}
 	}
 
 	if (!g_SndDisabled) {
@@ -1911,7 +1896,7 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg
 	}
 
 	if (sp40.id < (u32)g_NumSounds) {
-		return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
+		return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, sp3e, handle);
 	}
 
 	return NULL;

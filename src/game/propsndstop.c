@@ -10,7 +10,7 @@ void propsndStop(void)
 {
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < 40; i++) {
 		if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_ISMP3) {
 			snd0000fbc4(g_AudioChannels[i].soundnum26);
 			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_ISMP3;

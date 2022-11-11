@@ -8,11 +8,4 @@
 
 void vmPrintStatsIfEnabled(void)
 {
-	char buffer[80];
-
-	if (g_Is4Mb) {
-		g_VmNumTlbMisses = 0;
-		g_VmNumPageMisses = 0;
-		g_VmNumPageReplaces = 0;
-	}
 }

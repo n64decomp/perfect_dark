@@ -196,7 +196,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 					bodyfiledata->rwdatalen += headfiledata->rwdatalen;
 				} else if (headnum > 0) {
 					if (headfiledata == NULL) {
-						if (g_Vars.normmplayerisrunning && !IS4MB()) {
+						if (g_Vars.normmplayerisrunning) {
 							headfiledata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
 							g_HeadsAndBodies[headnum].filedata = headfiledata;
 							g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;

@@ -230,10 +230,6 @@ void optionsSetHeadRoll(s32 mpchrnum, bool enable)
 
 s32 optionsGetEffectiveScreenSize(void)
 {
-	if (IS4MB()) {
-		return SCREENSIZE_FULL;
-	}
-
 	if (g_MenuData.root == MENUROOT_TRAINING) {
 		g_MpPlayerNum = 0;
 

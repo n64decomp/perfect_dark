@@ -1775,59 +1775,57 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		mtx4LoadIdentity(&sp350);
 
 		if (arg2 == 1) {
-			if (IS8MB()) {
-				s32 i;
+			s32 i;
 
-				if (thing->unk510 != thing->unk538) {
-					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk510 = (thing->unk538 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk510);
-					}
+			if (thing->unk510 != thing->unk538) {
+				for (i = 0; i < g_Vars.diffframe60; i++) {
+					thing->unk510 = (thing->unk538 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk510);
 				}
+			}
 
-				if (thing->unk514 != thing->unk53c) {
-					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk514 = (thing->unk53c * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk514);
-					}
+			if (thing->unk514 != thing->unk53c) {
+				for (i = 0; i < g_Vars.diffframe60; i++) {
+					thing->unk514 = (thing->unk53c * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk514);
 				}
+			}
 
-				if (thing->unk518 != thing->unk540) {
-					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk518 = (thing->unk540 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk518);
-					}
+			if (thing->unk518 != thing->unk540) {
+				for (i = 0; i < g_Vars.diffframe60; i++) {
+					thing->unk518 = (thing->unk540 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk518);
 				}
+			}
 
-				if (thing->unk51c != thing->unk544) {
-					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk51c = (thing->unk544 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk51c);
-					}
+			if (thing->unk51c != thing->unk544) {
+				for (i = 0; i < g_Vars.diffframe60; i++) {
+					thing->unk51c = (thing->unk544 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk51c);
 				}
+			}
 
-				sp430 = thing->unk510;
+			sp430 = thing->unk510;
 
 #if !PAL
-				if (g_ViRes == VIRES_HI) {
-					sp430 *= 2.0f;
-				}
+			if (g_ViRes == VIRES_HI) {
+				sp430 *= 2.0f;
+			}
 #endif
 
-				sp42c = thing->unk514;
-				sp428 = thing->unk518;
-				sp424 = thing->unk51c;
+			sp42c = thing->unk514;
+			sp428 = thing->unk518;
+			sp424 = thing->unk51c;
 
-				a = thing->unk548;
-				b = thing->unk54c;
-				c = thing->unk550;
+			a = thing->unk548;
+			b = thing->unk54c;
+			c = thing->unk550;
 
-				thing->unk520 = a;
-				thing->unk524 = b;
-				thing->unk528 = c;
+			thing->unk520 = a;
+			thing->unk524 = b;
+			thing->unk528 = c;
 
-				sp398.x = a;
-				sp398.y = b;
-				sp398.z = c;
+			sp398.x = a;
+			sp398.y = b;
+			sp398.z = c;
 
-				mtx4LoadRotation(&sp398, &sp350);
-			}
+			mtx4LoadRotation(&sp398, &sp350);
 		} else {
 			if (thing->unk5b1_05) {
 				thing->unk564 += g_Vars.diffframe60f / 40.0f;
@@ -1921,10 +1919,8 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		sp30c[0] = -100.0f + sp428;
 
 		if (arg2 == 1) {
-			if (IS8MB()) {
-				sp390[0] = thing->unk510 * g_ScaleX;
-				sp390[1] = thing->unk514;
-			}
+			sp390[0] = thing->unk510 * g_ScaleX;
+			sp390[1] = thing->unk514;
 		} else {
 			sp390[0] = sp430 * g_ScaleX + viGetViewLeft() + viGetViewWidth() * 0.5f;
 			sp390[1] = sp42c + viGetViewTop() + viGetViewHeight() * 0.5f;
@@ -3054,7 +3050,7 @@ void menuFindAvailableSize(s32 *leftptr, s32 *topptr, s32 *rightptr, s32 *bottom
 			}
 		}
 
-		if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) {
+		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			if (g_Menus[g_MpPlayerNum].playernum == 0) {
 				*leftptr += 22;
 			} else {
@@ -3256,7 +3252,7 @@ void menuPushRootDialog(struct menudialogdef *dialogdef, s32 root)
 			|| root == MENUROOT_MPSETUP
 			|| root == MENUROOT_TRAINING
 			|| root == MENUROOT_FILEMGR) {
-		if (IS8MB() && (g_MenuData.unk5d4 == 0 || g_MenuData.unk01c.unk5b1_04)) {
+		if (g_MenuData.unk5d4 == 0 || g_MenuData.unk01c.unk5b1_04) {
 			if (!g_MenuData.unk5d5_04) {
 				g_MenuData.unk5d5_05 = true;
 			}
@@ -3450,9 +3446,7 @@ void menuReset(void)
 
 	var8009dfc0 = 0;
 
-	if (IS8MB()) {
-		g_BlurBuffer = mempAlloc(0x4b00, MEMPOOL_STAGE);
-	}
+	g_BlurBuffer = mempAlloc(0x4b00, MEMPOOL_STAGE);
 
 	g_MenuData.unk5d5_01 = false;
 
@@ -3502,12 +3496,10 @@ void menuReset(void)
 		}
 
 		for (i = 0; i < max; i++) {
-			func0f0f8bb4(&g_Menus[i].unk840, IS4MB() ? 0xb400 : 0x25800, 1);
+			func0f0f8bb4(&g_Menus[i].unk840, 0x25800, 1);
 		}
 
-		if (IS8MB()) {
-			func0f0f8bb4(&g_MenuData.unk01c, 0xc800, 1);
-		}
+		func0f0f8bb4(&g_MenuData.unk01c, 0xc800, 1);
 
 		g_MenuData.unk01c.unk00c = 0x259;
 		g_MenuData.unk01c.unk524 = g_MenuData.unk01c.unk54c = -M_PI;
@@ -4030,11 +4022,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 
 		if (inputs->back) {
 			if ((dialog->definition->flags & MENUDIALOGFLAG_DROPOUTONCLOSE) && g_Vars.unk000498) {
-				if (IS4MB()) {
-					menuPushDialog(&g_MpDropOut4MbMenuDialog);
-				} else {
-					menuPushDialog(&g_MpDropOutMenuDialog);
-				}
+				menuPushDialog(&g_MpDropOutMenuDialog);
 			} else if ((dialog->definition->flags & MENUDIALOGFLAG_IGNOREBACK) == 0) {
 				menuPopDialog();
 			}
@@ -4831,7 +4819,7 @@ Gfx *menuRender(Gfx *gdl)
 		g_MenuData.unk5d5_05 = false;
 	}
 
-	if (IS8MB() && g_MenuData.unk5d4) {
+	if (g_MenuData.unk5d4) {
 		bool removepiece = false;
 
 		gSPSetGeometryMode(gdl++, G_ZBUFFER);
@@ -5081,7 +5069,7 @@ Gfx *menuRender(Gfx *gdl)
 			}
 		}
 
-		if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) {
+		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			if (g_Vars.currentplayernum == 1) {
 				right = 15;
 			} else {

@@ -285,13 +285,9 @@ Gfx *radarRender(Gfx *gdl)
 	g_RadarX = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - 41;
 
 	if (playercount == 2) {
-		if (IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			if (playernum == 0) {
 				g_RadarX += 16;
-			}
-
-			if (IS4MB()) {
-				g_RadarX -= 4;
 			}
 		} else {
 			g_RadarX -= 7;
@@ -307,9 +303,7 @@ Gfx *radarRender(Gfx *gdl)
 	g_RadarY = viGetViewTop() + (PAL ? 29 : 26);
 
 	if (playercount == 2) {
-		if (IS4MB()) {
-			g_RadarY -= 6;
-		} else if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 1) {
+		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 1) {
 			g_RadarY -= 8;
 		}
 	} else if (playercount >= 3) {

@@ -67,7 +67,6 @@
  * mappings in the TLB are static.
  */
 
-u8 g_Is4Mb;
 u32 g_VmNumTlbMisses;
 u32 g_VmNumPageMisses;
 u32 g_VmNumPageReplaces;
@@ -179,8 +178,6 @@ void vmInit(void)
 		while (1);
 	} else {
 		// Expansion pak is being used
-		g_Is4Mb = false;
-
 		t8 = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
 		s7 = (u8 *)(STACK_START - 8);
 

@@ -457,10 +457,6 @@ void mainLoop(void)
 		}
 	}
 
-	if (g_StageNum == STAGE_CITRAINING && IS4MB()) {
-		g_StageNum = STAGE_4MBMENU;
-	}
-
 	rngSetSeed(osGetCount());
 
 	// Outer loop - this is infinite because ending is never changed

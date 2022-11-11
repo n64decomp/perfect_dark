@@ -307,11 +307,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				colour = 0xffffffff;
 
 				if (elem->textid == L_OPTIONS_074 || elem->textid == L_OPTIONS_073) {
-					if (IS4MB()) {
-						elem->textid = L_OPTIONS_074;
-					} else {
-						elem->textid = L_OPTIONS_073;
-					}
+					elem->textid = L_OPTIONS_073;
 				}
 				break;
 			case LEGALELEMENTTYPE_WHITETEXTSM:
@@ -509,7 +505,7 @@ void titleTickPdLogo(void)
 
 	if (g_PdLogoTriggerExit) {
 		// Exiting due to player not pressing anything
-		if (g_AltTitleEnabled && IS8MB()) {
+		if (g_AltTitleEnabled) {
 			g_TitleMode = TITLEMODE_SKIP;
 			creditsRequestAltTitle();
 			g_TitleNextStage = STAGE_CREDITS; // for alt title screen
@@ -1524,7 +1520,7 @@ void titleInitRareLogo(void)
 		musicQueueStopAllEvent();
 		joy00014810(false);
 
-		if (!g_IsTitleDemo && IS8MB()) {
+		if (!g_IsTitleDemo) {
 			g_IsTitleDemo = true;
 		}
 	}
@@ -1786,15 +1782,6 @@ void titleInitSkip(void)
 	if (g_IsTitleDemo) {
 		g_TitleNextStage = STAGE_DEFECTION;
 		g_IsTitleDemo++;
-	}
-
-	if (IS4MB()) {
-		g_TitleNextStage = STAGE_4MBMENU;
-		viSetAspect(PAL ? 1.7316017150879f : 1.4545454978943f);
-		viSetSize(320, 220);
-		viSetBufSize(320, 220);
-		playermgrSetViewSize(320, 220);
-		viSetViewSize(320, 220);
 	}
 
 	mainChangeToStage(g_TitleNextStage);

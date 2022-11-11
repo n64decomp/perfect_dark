@@ -67,10 +67,6 @@ void rdpInit(void)
 {
 	s32 size = 0x10000;
 
-	if (IS4MB()) {
-		size = 0x8000;
-	}
-
 	g_RdpOutBufferStart = mempAlloc(size, MEMPOOL_PERMANENT);
 	g_RdpOutBufferEnd = (u16 *)((u32)g_RdpOutBufferStart + size);
 }

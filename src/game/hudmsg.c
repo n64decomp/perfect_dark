@@ -114,22 +114,20 @@ Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 	timery -= g_HudPaddingY;
 	timery -= 8;
 
-	is4mb = IS4MB();
-
 	// @bug: There is no check for playercount >= 2 in the next two statements.
 	// Because of this, in 1 player the timer is drawn out of place when the
 	// screen split option is vertical and either the countdown timer is visible
 	// or a zoomable weapon is in use.
-	if ((is4mb || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) && countdownTimerIsVisible()) {
+	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && countdownTimerIsVisible()) {
 		timery -= 8;
 	}
 
-	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3) && hudmsgIsZoomRangeVisible()) {
+	if ((optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3) && hudmsgIsZoomRangeVisible()) {
 		timery -= 8;
 	}
 
 	if (playercount == 2) {
-		if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0)) {
+		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0) {
 			timery += 10;
 		} else {
 			timery += 2;
@@ -149,14 +147,13 @@ Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 	// If this is a second player with their viewport on the right side of the
 	// screen, move the timer left a bit as the safe zone doesn't need to be
 	// considered.
-	if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 1) {
+	if (playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && playernum == 1) {
 		viewleft -= 14;
 	} else if (playercount >= 3 && (playernum & 1) == 1) {
 		viewleft -= 14;
 	}
 
 	textcolour = textcolour * 160 / 255;
-	if (g_Is4Mb);
 	textcolour |= 0x00ff0000;
 
 	formatTime(buffer, playerGetMissionTime(), TIMEPRECISION_HUNDREDTHS);
@@ -208,7 +205,7 @@ Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 	}
 
 	if (playercount == 2) {
-		if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0)) {
+		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0) {
 			texty += 10;
 		} else {
 			texty += 2;
@@ -749,7 +746,7 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 		}
 	}
 
-	if (PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) {
+	if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 		{
 			viewwidth -= offset;
 
@@ -769,20 +766,12 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 		x = viewleft + v0 + msg->xmargin + 3;
 
 		if (PLAYERCOUNT() == 2
-				&& (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())
+				&& optionsGetScreenSplit() == SCREENSPLIT_VERTICAL
 				&& (!g_InCutscene || g_MainIsEndscreen)) {
-			if (IS4MB()) {
-				if (msg->playernum == 0) {
-					x--;
-				} else if (msg->playernum == 1) {
-					x -= 16;
-				}
-			} else {
-				if (msg->playernum == 0) {
-					x += 15;
-				} else if (msg->playernum == 1) {
-					x += 4;
-				}
+			if (msg->playernum == 0) {
+				x += 15;
+			} else if (msg->playernum == 1) {
+				x += 4;
 			}
 		} else if (PLAYERCOUNT() >= 3) {
 			if ((msg->playernum % 2) == 0) {
@@ -814,7 +803,7 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 		y = viewtop + viewheight - msg->height - msg->ymargin - 14;
 
 		if (PLAYERCOUNT() == 2 && (g_InCutscene == 0 || g_MainIsEndscreen)) {
-			if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && msg->playernum == 0)) {
+			if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && msg->playernum == 0) {
 				y += 8;
 			} else {
 				y += 3;

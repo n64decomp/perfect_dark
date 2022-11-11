@@ -282,7 +282,7 @@ void __scHandleRetrace(OSSched *sc)
 		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), &g_SchedRspMsg);
 	}
 #else
-	if (!g_Resetting && ((sc->frameCount & 1) || IS4MB())) {
+	if (!g_Resetting && (sc->frameCount & 1)) {
 		osStopTimer(&g_SchedRspTimer);
 		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), &g_SchedRspMsg);
 	}
@@ -778,9 +778,7 @@ s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)
 void schedConsiderScreenshot(void)
 {
 	if (g_MenuData.screenshottimer == 1) {
-		if (IS8MB()) {
-			menugfxCreateBlur();
-		}
+		menugfxCreateBlur();
 
 		g_MenuData.screenshottimer = 0;
 	}

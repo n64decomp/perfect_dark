@@ -1358,13 +1358,8 @@ void bgReset(s32 stagenum)
 
 	var8007fc0c = 8;
 
-	if (IS4MB()) {
-		g_BgUnloadDelay240 = 6;
-		g_BgUnloadDelay240_2 = 6;
-	} else {
-		g_BgUnloadDelay240 = 120;
-		g_BgUnloadDelay240_2 = 120;
-	}
+	g_BgUnloadDelay240 = 120;
+	g_BgUnloadDelay240_2 = 120;
 
 	switch (g_Vars.stagenum) {
 	case STAGE_INFILTRATION:
@@ -1918,7 +1913,7 @@ void bgTick(void)
 	if (tickmode == TICKMODE_NORMAL) {
 		var8007fc10 = 4;
 
-		if (IS8MB() && var8007fc0c) {
+		if (var8007fc0c) {
 			var8007fc0c--;
 			var8007fc10 = 200;
 		}
@@ -5670,7 +5665,7 @@ Gfx *func0f164150(Gfx *gdl)
 	}
 
 	// Consider loading one room by finding the load candidate that is closest to the player
-	if (var8007fc28 == 0 && var8007fc10 == 4 && g_Vars.tickmode == TICKMODE_NORMAL && IS8MB()) {
+	if (var8007fc28 == 0 && var8007fc10 == 4 && g_Vars.tickmode == TICKMODE_NORMAL) {
 		struct player *player = g_Vars.currentplayer;
 		s32 i;
 		f32 value;

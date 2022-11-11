@@ -90,22 +90,13 @@ void gamefileApplyOptions(struct gamefile *file)
 	g_Vars.langfilteron = pakHasBitflag(GAMEFILEFLAG_LANGFILTERON, file->flags);
 
 	if (pakHasBitflag(GAMEFILEFLAG_HIRES, file->flags)) {
-		if (IS4MB()) {
-			playerSetHiResEnabled(false);
-		} else {
-			playerSetHiResEnabled(true);
-		}
+		playerSetHiResEnabled(true);
 	} else {
 		playerSetHiResEnabled(false);
 	}
 
-	if (IS4MB()) {
-		optionsSetScreenSplit(SCREENSPLIT_HORIZONTAL);
-		optionsSetScreenRatio(SCREENRATIO_NORMAL);
-	} else {
-		optionsSetScreenSplit(pakHasBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags));
-		optionsSetScreenRatio(pakHasBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags));
-	}
+	optionsSetScreenSplit(pakHasBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags));
+	optionsSetScreenRatio(pakHasBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags));
 
 	if (pakHasBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, file->flags)) {
 		optionsSetScreenSize(SCREENSIZE_CINEMA);

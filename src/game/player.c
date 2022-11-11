@@ -1030,8 +1030,7 @@ void playerSpawn(void)
 			bgunEquipWeapon2(HAND_LEFT, g_DefaultWeapons[HAND_LEFT]);
 			bgunEquipWeapon2(HAND_RIGHT, g_DefaultWeapons[HAND_RIGHT]);
 
-			if (g_Vars.currentplayer->model00d4 == NULL
-					&& (IS8MB() || g_Vars.fourmeg2player || g_MpAllChrPtrs[g_Vars.currentplayernum] == NULL)) {
+			if (g_Vars.currentplayer->model00d4 == NULL) {
 				playerTickChrBody();
 			}
 		}
@@ -1270,12 +1269,7 @@ void playerTickChrBody(void)
 
 		weaponmodelnum = playermgrGetModelOfWeapon(weaponnum);
 
-		if (IS4MB()) {
-			bodynum = BODY_DARK_COMBAT;
-			headnum = HEAD_DARK_COMBAT;
-		}
-
-		if (!g_Vars.mplayerisrunning || (IS4MB() && PLAYERCOUNT() == 1)) {
+		if (!g_Vars.mplayerisrunning) {
 			// 1 player
 			if (g_Vars.currentplayer->gunmem2 == NULL) {
 				if (!var8009dfc0 && bgun0f09e004(2)) {
@@ -1370,7 +1364,7 @@ void playerTickChrBody(void)
 				headnum = -1;
 			} else if (sp60) {
 				headfiledata = func0f18e57c(headnum, &headnum);
-			} else if (g_Vars.normmplayerisrunning && IS8MB()) {
+			} else if (g_Vars.normmplayerisrunning) {
 				g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
 				headfiledata = g_HeadsAndBodies[headnum].filedata;
 				g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;
@@ -1460,7 +1454,7 @@ void playerTickChrBody(void)
 void playerRemoveChrBody(void)
 {
 	if (g_Vars.currentplayer->haschrbody) {
-		if (!g_Vars.mplayerisrunning || (IS4MB() && PLAYERCOUNT() == 1)) {
+		if (!g_Vars.mplayerisrunning) {
 			g_Vars.currentplayer->haschrbody = false;
 			chrRemove(g_Vars.currentplayer->prop, false);
 			g_Vars.currentplayer->model00d4 = NULL;
@@ -2626,19 +2620,6 @@ void playerTickExplode(void)
 	}
 }
 
-void playerResetLoResIf4Mb(void)
-{
-	if (IS4MB()) {
-		g_ViModes[VIRES_LO].fbheight = 220;
-		g_ViModes[VIRES_LO].fulltop = 0;
-		g_ViModes[VIRES_LO].fullheight = 220;
-		g_ViModes[VIRES_LO].wideheight = 180;
-		g_ViModes[VIRES_LO].widetop = 20;
-		g_ViModes[VIRES_LO].cinemaheight = 136;
-		g_ViModes[VIRES_LO].cinematop = 42;
-	}
-}
-
 void playerSetHiResEnabled(bool enable)
 {
 	g_HiResEnabled = enable;
@@ -2749,16 +2730,12 @@ s16 playerGetViewportHeight(void)
 	if (PLAYERCOUNT() >= 2 && !playerHasSharedViewport()) {
 		s16 tmp = g_ViModes[g_ViRes].fullheight;
 
-		if (IS4MB() && !g_Vars.fourmeg2player) {
-			height = tmp;
-		} else {
-			height = tmp / 2;
-		}
+		height = tmp / 2;
 
 		if (PLAYERCOUNT() == 2) {
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 				height = tmp;
-			} else if (g_Vars.currentplayernum == 0 && IS8MB()) {
+			} else if (g_Vars.currentplayernum == 0) {
 				height--;
 			}
 		} else if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 1) {

@@ -33,9 +33,7 @@ void wallhitReset(void)
 	s32 type = 2;
 	s32 i;
 
-	if (IS4MB()) {
-		type = 0;
-	} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
+	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
 		type = 1;
 	} else if (PLAYERCOUNT() >= 2) {
 		type = 0;

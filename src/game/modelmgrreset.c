@@ -24,10 +24,10 @@
 #include "data.h"
 #include "types.h"
 
-#define NUMTYPE1() (IS4MB() ? 0 : 35)
-#define NUMTYPE2() (IS4MB() ? 24 : 25)
-#define NUMTYPE3() (IS4MB() ? 0 : 20)
-#define NUMSPARE() (IS4MB() ? 40 : 60)
+#define NUMTYPE1() 35
+#define NUMTYPE2() 25
+#define NUMTYPE3() 20
+#define NUMSPARE() 60
 
 void modelmgrReset(void)
 {

@@ -756,7 +756,6 @@ void amClose(void)
 bool amIsCramped(void)
 {
 	return (g_AmMenus[g_AmIndex].screenindex == 0 && PLAYERCOUNT() >= 3)
-		|| (IS4MB() && PLAYERCOUNT() == 2)
 		|| (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
 }
 
@@ -805,8 +804,7 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 	*x += viGetViewLeft() / g_ScaleX + viGetViewWidth() / (g_ScaleX * 2);
 	*y += viGetViewTop() + viGetViewHeight() / 2;
 
-	if ((playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))
-			|| playercount >= 3) {
+	if ((playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || playercount >= 3) {
 		if ((g_Vars.currentplayernum % 2) == 0) {
 			*x += 8;
 		} else {
@@ -847,7 +845,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		wide = true;
 	}
 
-	if ((PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) || PLAYERCOUNT() >= 3) {
+	if ((PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3) {
 		if ((g_Vars.currentplayernum % 2) == 0) {
 			offset = 8;
 		} else {
@@ -1373,7 +1371,7 @@ Gfx *amRender(Gfx *gdl)
 		barheight = PLAYERCOUNT() >= 2 ? 7 : 11;
 		xoffset = 0;
 
-		if ((PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) || PLAYERCOUNT() >= 3) {
+		if ((PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3) {
 			xoffset = (g_Vars.currentplayernum & 1) == 0 ? 8 : -8;
 		}
 

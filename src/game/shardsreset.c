@@ -11,10 +11,6 @@ void shardsReset(void)
 
 	g_MaxShards = 200 / PLAYERCOUNT();
 
-	if (IS4MB()) {
-		g_MaxShards = g_MaxShards / 2;
-	}
-
 	if (g_Vars.stagenum >= STAGE_TITLE) {
 		g_MaxShards = 0;
 	}

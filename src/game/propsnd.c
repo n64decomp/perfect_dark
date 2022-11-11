@@ -43,7 +43,7 @@ bool func0f092610(struct prop *prop, s32 arg1)
 {
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < 40; i++) {
 		if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0
 				&& prop == g_AudioChannels[i].prop
 				&& (arg1 == g_AudioChannels[i].unk28 || arg1 == 1)) {
@@ -58,7 +58,7 @@ void func0f0926bc(struct prop *prop, s32 arg1, u16 arg2)
 {
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < 40; i++) {
 		struct audiochannel *channel = &g_AudioChannels[i];
 
 		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0 && channel->prop == prop) {
@@ -121,7 +121,7 @@ void propsnd0f09294c(struct prop *prop, s16 soundnum, s32 arg2)
 
 	if (propsnd0f0946b0(&prop->pos, 400, 2500, 3000, prop->rooms, soundnum, 0x7fff, 0)) {
 		// Return if this prop is already playing a sound
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
+		for (i = 8; i < 40; i++) {
 			if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0
 					&& g_AudioChannels[i].prop == prop
 					&& g_AudioChannels[i].unk28 == arg2) {
@@ -422,7 +422,7 @@ void propsndTick(void)
 	s32 count = 0;
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < 40; i++) {
 		struct audiochannel *channel = &g_AudioChannels[i];
 
 		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0) {
@@ -441,7 +441,7 @@ void func0f093630(struct prop *prop, f32 arg1, s32 arg2)
 	OSPri prevpri;
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < 40; i++) {
 		if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0 && g_AudioChannels[i].prop == prop) {
 			g_AudioChannels[i].unk44 = arg1;
 
@@ -464,7 +464,7 @@ void func0f093790(struct prop *prop, s32 arg1)
 	OSPri prevpri;
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < 40; i++) {
 		if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0 && prop == g_AudioChannels[i].prop) {
 			if (arg1 > 100) {
 				arg1 = 100;
@@ -488,7 +488,7 @@ void func0f0938ec(struct prop *prop)
 	s32 bestindex = -1;
 	s32 i;
 
-	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+	for (i = 0; i < 40; i++) {
 		struct audiochannel *channel = &g_AudioChannels[i];
 
 		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0
@@ -548,7 +548,7 @@ s16 propsnd0f0939f8(
 			return -1;
 		}
 
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
+		for (i = 8; i < 40; i++) {
 			if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) {
 				channel = &g_AudioChannels[i];
 				channel->channelnum = i;
@@ -776,7 +776,7 @@ void audioMuteChannel(s32 channelnum)
 	if (channelnum == 10) {
 		s32 i;
 
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
+		for (i = 8; i < 40; i++) {
 			if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0
 					&& (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_0080)) {
 				func0f092a98(i);
@@ -796,7 +796,7 @@ bool audioIsChannelIdle(s32 channelnum)
 	if (channelnum == 10) {
 		s32 i;
 
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
+		for (i = 8; i < 40; i++) {
 			if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_0080) {
 				return false;
 			}
@@ -1225,7 +1225,7 @@ s32 propsndGetDuration60(s32 channelnum)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 
-	if (channelnum >= 0 && channelnum < (IS4MB() ? 30 : 40)
+	if (channelnum >= 0 && channelnum < 40
 			&& (channel->flags & AUDIOCHANNELFLAG_IDLE) == 0
 			&& (channel->flags & AUDIOCHANNELFLAG_ISMP3)) {
 		union soundnumhack soundnum;

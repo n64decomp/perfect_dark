@@ -300,7 +300,7 @@ void *memaAlloc(u32 size)
 				best = curr;
 
 				// Stop looking if the space is small enough
-				if (diff < 64 || (IS8MB() && diff < size / 4)) {
+				if (diff < 64 || diff < size / 4) {
 					break;
 				}
 			}

@@ -114,10 +114,6 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	u32 *colours;
 	struct gfxvtx *vertices;
 
-	if (IS4MB()) {
-		return menugfxRenderGradient(gdl, 0, 0, viGetWidth(), viGetHeight(), 0xff, 0xff, 0xff);
-	}
-
 	colours = gfxAllocateColours(1);
 	vertices = gfxAllocateVertices(4);
 

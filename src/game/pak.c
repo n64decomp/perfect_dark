@@ -2423,15 +2423,10 @@ bool pakProbe(s8 device)
 				ret = osGbpakInit(&g_PiMesgQueue, PFS(device), device);
 
 				if (pakHandleResult(ret, device, false, LINE_3889)) {
-					if (IS4MB()) {
-						g_Paks[device].type = PAKTYPE_NONE;
-						g_Paks[device].unk010 = PAK010_22;
-					} else {
-						g_Paks[device].type = PAKTYPE_GAMEBOY;
-						g_Paks[device].unk010 = PAK010_08;
-						g_Paks[device].unk2b8_01 = false;
-						g_Paks[device].unk264++;
-					}
+					g_Paks[device].type = PAKTYPE_GAMEBOY;
+					g_Paks[device].unk010 = PAK010_08;
+					g_Paks[device].unk2b8_01 = false;
+					g_Paks[device].unk264++;
 
 					plugged = true;
 				} else if (ret == PAK_ERR1_NOPAK) {

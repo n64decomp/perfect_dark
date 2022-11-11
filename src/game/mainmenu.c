@@ -410,9 +410,6 @@ s32 menuhandlerHiRes(s32 operation, struct menuitem *item, union handlerdata *da
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
-		if (IS4MB()) {
-			return true;
-		}
 		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 			if (PLAYERCOUNT() >= 2) {
 				return true;

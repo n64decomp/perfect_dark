@@ -141,11 +141,7 @@ void bgunReset(void)
 		{-1}, // beam
 	};
 
-	if (IS4MB() && PLAYERCOUNT() == 2) {
-		i = ALIGN16(var800700ac);
-	} else {
-		i = ALIGN16(bgunCalculateGunMemCapacity());
-	}
+	i = ALIGN16(bgunCalculateGunMemCapacity());
 
 	g_Vars.currentplayer->gunctrl.gunmem = mempAlloc(i, MEMPOOL_STAGE);
 	g_Vars.currentplayer->gunctrl.handfilenum = 0;

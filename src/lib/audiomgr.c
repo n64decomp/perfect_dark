@@ -61,10 +61,6 @@ void amgrCreate(ALSynConfig *config)
 
 	freqpertick = config->outputRate / 30.0f;
 
-	if (IS4MB()) {
-		freqpertick *= 0.5f;
-	}
-
 	g_AmgrFreqPerTick = (s32)freqpertick;
 
 	if ((f32)g_AmgrFreqPerTick < freqpertick) {
@@ -82,10 +78,6 @@ void amgrCreate(ALSynConfig *config)
 	osCreateMesgQueue(&g_AudioManager.audioFrameMsgQ, g_AudioManager.audioFrameMsgBuf, ARRAYCOUNT(g_AudioManager.audioFrameMsgBuf));
 
 	var800918ec = 2000;
-
-	if (IS4MB()) {
-		var800918ec >>= 1;
-	}
 
 	for (i = 0; i < ARRAYCOUNT(g_AudioManager.ACMDList); i++) {
 		g_AudioManager.ACMDList[i] = alHeapAlloc(&g_SndHeap, 1, var800918ec * sizeof(Acmd));
@@ -115,11 +107,11 @@ void amgrCreate(ALSynConfig *config)
 		s32 sp068[] = { 0x00000001, 0x00000a50, 0x00000000, 0x00000898, 0x00003334, 0x00000000, 0x00007335, 0x00000000, 0x00000000, 0x00000000 };
 		s32 sp040[] = { 0x00000001, 0x00000148, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000 };
 
-		config->params[0] = (s32 *) (IS4MB() ? sp1c0 : sp090);
+		config->params[0] = (s32 *) sp090;
 
 		if (g_SndMaxFxBusses >= 2) {
 			for (i = 1; i < g_SndMaxFxBusses; i++) {
-				config->params[i] = (s32 *) (IS4MB() ? sp198 : sp068);
+				config->params[i] = (s32 *) sp068;
 			}
 		}
 	}
@@ -165,11 +157,7 @@ void amgrMain(void *arg)
 
 	static u32 var8005d514 = 1;
 
-#if PAL
 	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, true);
-#else
-	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, !IS4MB());
-#endif
 
 	while (!done) {
 		osRecvMesg(&g_AudioManager.audioFrameMsgQ, (OSMesg *) &msg, OS_MESG_BLOCK);
