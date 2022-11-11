@@ -373,7 +373,6 @@ void lvReset(s32 stagenum)
 	func0f0099a4();
 	boltbeamsReset();
 	lasersightsReset();
-	stub0f013540();
 	shardsReset();
 	frReset();
 
@@ -2118,21 +2117,16 @@ void lvStop(void)
 	if (g_Vars.stagenum < NUM_STAGES) {
 		s32 bank = langGetLangBankIndexFromStagenum(g_Vars.stagenum);
 		langClearBank(bank);
-		stub0f015270();
 	}
 
 	chrmgrStop();
 	explosionsStop();
 	smokeStop();
-	stub0f015400();
-	stub0f015410();
 	shardsStop();
-	stub0f0153f0();
 	propsStop();
 	objsStop();
 	weatherStop();
 	objectivesStop();
-	stub0f015260();
 	bgunStop();
 	propsndStop();
 	musicStop();

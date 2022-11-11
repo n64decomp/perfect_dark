@@ -346,8 +346,6 @@ void mainInit(void)
 	vmInit();
 	func0f1a78b0();
 	filesInit();
-	stub0f175f50();
-	func0f175f90();
 
 	if (var8005d9b0) {
 		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
@@ -370,23 +368,13 @@ void mainInit(void)
 	textInit();
 	playermgrInit();
 	frametimeInit();
-	stub0f00b200();
 	profileInit();
-	stub0f000870();
 	smokesInit();
-	stub0f0008e0();
-	stub0f0008f0();
-	stub0f000900();
-	stub0f00b180();
-	stub0f000910();
-	stub0f000840();
 	mpInit();
 	paksInit();
 	animsInit();
 	racesInit();
 	bodiesInit();
-	stub0f000850();
-	stub0f000860();
 	titleInit();
 	viConfigureForLegal();
 	viBlack(true);

@@ -4184,11 +4184,7 @@ u32 fileGetInflatedSize(s32 filenum)
 	romaddr = *romaddrptr;
 	ptr = (u8 *) ((u32) &buffer[0x10] & ~0xf);
 
-	if (romaddr == 0) {
-		stub0f175f58(file0f166ea8(&g_FileTable[filenum]), ptr, 16);
-	} else {
-		dmaExec(ptr, romaddr, 0x40);
-	}
+	dmaExec(ptr, romaddr, 0x40);
 
 	if (rzipIs1173(ptr)) {
 		return (ptr[2] << 16) | (ptr[3] << 8) | ptr[4];
