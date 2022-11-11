@@ -41,11 +41,7 @@ u32 colourBlend(u32 a, u32 b, u32 aweight)
 
 void menuTickTimers(void)
 {
-#if VERSION >= VERSION_PAL_BETA
-	g_20SecIntervalFrac = g_20SecIntervalFrac + g_Vars.diffframe240freal / 4800.0f;
-#else
 	g_20SecIntervalFrac = g_20SecIntervalFrac + g_Vars.diffframe240f / 4800.0f;
-#endif
 
 	if (g_20SecIntervalFrac > 1.0f) {
 		g_20SecIntervalFrac -= 1.0f;

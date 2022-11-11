@@ -83,10 +83,8 @@ bool g_IsSwitchingGoggles = false;
 u32 var80061450 = 0x00000000;
 u32 var80061454 = 0xffffffff;
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 var80061458 = 0x00000000;
 u32 var8006145c = 0x00000000;
-#endif
 
 Lights1 var80061460 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0x4d, 0x4d, 0x2e);
 
@@ -412,26 +410,9 @@ void roomInitLights(s32 roomnum)
 
 	room->flags |= ROOMFLAG_DIRTY;
 
-#if VERSION < VERSION_NTSC_1_0
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS) && (room->flags & ROOMFLAG_RENDERALWAYS) == 0) {
-		room->lightop = LIGHTOP_1;
-		room->unk60 = 0.0f;
-	}
-#endif
-
 	light = (struct light *)&g_BgLightsFileData[(u32)g_Rooms[roomnum].lightindex * 0x22];
 
 	for (i = 0; i < room->numlights; i++) {
-#if VERSION < VERSION_NTSC_1_0
-		if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-			light->unk04 = 0;
-			light->unk05_00 = (random() % 2) ? true : false;
-			light->healthy = false;
-			light->on = false;
-			light->sparking = false;
-			light->vulnerable = false;
-		} else
-#endif
 		{
 			light->unk04 = g_Rooms[roomnum].unk4a;
 			light->unk05_00 = true;
@@ -535,11 +516,7 @@ void roomSetLightsFaulty(s32 roomnum, s32 chance)
 		}
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	g_Rooms[roomnum].unk4c = 50;
-#else
-	g_Rooms[roomnum].unk4c = 15;
-#endif
 
 	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 }
@@ -876,9 +853,7 @@ void func0f002a98(void)
 	s32 i;
 
 	var8009cae0 = align4(g_Vars.roomcount);
-#if VERSION >= VERSION_NTSC_1_0
 	var80061458 = 0;
-#endif
 	g_Vars.remakewallhitvtx = 0;
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
@@ -1006,13 +981,13 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 			sp80.y = -sp8c.f[1];
 			sp80.z = -sp8c.f[2];
 
-			func0f177164(&sp98, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1546 : 1570, "dlights.c");
+			func0f177164(&sp98, &spa4, 0, "dlights.c");
 
 			spa4.x += sp80.x;
 			spa4.y += sp80.y;
 			spa4.z += sp80.z;
 
-			func0f177164(&spa4, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1548 : 1572, "dlights.c");
+			func0f177164(&spa4, &spa4, 0, "dlights.c");
 
 			// Mismatch: Goal loads roomnum * 0x14 into sp58 here but doesn't
 			// use it until after lightGetBboxCentre. The below statement does
@@ -1097,7 +1072,6 @@ void lightingTick(void)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void func0f003444(void)
 {
 	s32 i;
@@ -1120,9 +1094,7 @@ void func0f003444(void)
 		}
 	}
 }
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 void func0f0035c0(void)
 {
 	s32 i;
@@ -1145,9 +1117,7 @@ void func0f0035c0(void)
 		}
 	}
 }
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 void func0f00372c(void)
 {
 	if (g_Vars.tickmode != var80061458) {
@@ -1160,17 +1130,11 @@ void func0f00372c(void)
 		var80061458 = g_Vars.tickmode;
 	}
 }
-#endif
 
 void func0f0037ac(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	s32 i;
 	s32 numprocessed = 0;
-#else
-	s32 numprocessed = 0;
-	s32 i;
-#endif
 	s32 j;
 	bool wasdirty = false;
 	struct light *light;
@@ -1180,21 +1144,9 @@ void func0f0037ac(void)
 	f32 average;
 	u32 stack;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
 		func0f00372c();
 	}
-#else
-	static s32 prevtickmode = 0;
-
-	if (prevtickmode != g_Vars.tickmode) {
-		if (prevtickmode == TICKMODE_CUTSCENE && g_Vars.tickmode == TICKMODE_NORMAL) {
-			g_IsSwitchingGoggles = 2;
-		}
-
-		prevtickmode = g_Vars.tickmode;
-	}
-#endif
 
 	if (var80061420 == NULL) {
 		return;

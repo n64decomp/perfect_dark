@@ -20,10 +20,6 @@ s32 g_ScreenSize = SCREENSIZE_FULL;
 s32 g_ScreenRatio = SCREENRATIO_NORMAL;
 u8 g_ScreenSplit = SCREENSPLIT_HORIZONTAL;
 
-#if VERSION < VERSION_NTSC_1_0
-u16 var8008231cnb = 0x7fff;
-#endif
-
 s32 optionsGetControlMode(s32 mpchrnum)
 {
 	return g_PlayerConfigsArray[mpchrnum].controlmode;
@@ -252,22 +248,6 @@ s32 optionsGetEffectiveScreenSize(void)
 				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_SoloMissionControlStyleMenuDialog) {
 			return SCREENSIZE_FULL;
 		}
-
-#if VERSION >= VERSION_JPN_FINAL
-		if (g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsFunMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsGameplayMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsSoloWeaponsMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsClassicWeaponsMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsWeaponsMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsBuddiesMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_AcceptMissionMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_PreAndPostMissionBriefingMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_RetryMissionMenuDialog
-				|| g_Menus[g_MpPlayerNum].curdialog->definition == &g_NextMissionMenuDialog) {
-			return SCREENSIZE_FULL;
-		}
-#endif
 	}
 
 	if (PLAYERCOUNT() >= 2 || g_MenuData.root == MENUROOT_MPSETUP) {
@@ -277,12 +257,10 @@ s32 optionsGetEffectiveScreenSize(void)
 	return g_ScreenSize;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 optionsGetScreenSize(void)
 {
 	return g_ScreenSize;
 }
-#endif
 
 void optionsSetScreenSize(s32 size)
 {
@@ -311,23 +289,10 @@ void optionsSetScreenSplit(u8 split)
 
 u16 optionsGetMusicVolume(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	return musicGetVolume();
-#else
-	if (g_Vars.stagenum == STAGE_CREDITS) {
-		return 0x7fff;
-	}
-
-	return var8008231cnb;
-#endif
 }
 
 void optionsSetMusicVolume(u16 volume)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	musicSetVolume(volume);
-#else
-	var8008231cnb = volume;
-	musicSetVolume(var8008231cnb);
-#endif
 }

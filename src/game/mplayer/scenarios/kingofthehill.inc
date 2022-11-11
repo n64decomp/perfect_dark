@@ -410,11 +410,7 @@ void kohTick(void)
 				g_ScenarioData.koh.elapsed240 = 0;
 
 				// "%has captured the Hill!"
-#if VERSION >= VERSION_JPN_FINAL
-				sprintf(text, langGet(L_MPWEAPONS_022), scenarioRemoveLineBreaks(g_BossFile.teamnames[hillteam], 0));
-#else
 				sprintf(text, langGet(L_MPWEAPONS_022), &g_BossFile.teamnames[hillteam]);
-#endif
 
 				prevplayernum2 = g_Vars.currentplayernum;
 
@@ -423,21 +419,12 @@ void kohTick(void)
 
 					chr = g_Vars.currentplayer->prop->chr;
 
-#if VERSION >= VERSION_JPN_FINAL
-					if (radarGetTeamIndex(chr->team) == g_ScenarioData.koh.occupiedteam) {
-						// "We have the Hill!"
-						hudmsgCreateWithFlags(langGet(L_MPWEAPONS_021), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
-					} else {
-						hudmsgCreateWithFlags(text, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
-					}
-#else
 					if (radarGetTeamIndex(chr->team) == g_ScenarioData.koh.occupiedteam) {
 						// "We have the Hill!"
 						hudmsgCreateWithFlags(langGet(L_MPWEAPONS_021), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					} else {
 						hudmsgCreateWithFlags(text, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					}
-#endif
 				}
 
 				setCurrentPlayerNum(prevplayernum2);
@@ -473,11 +460,7 @@ void kohTick(void)
 								setCurrentPlayerNum(playernum2);
 
 								// "King of the Hill!"
-#if VERSION >= VERSION_JPN_FINAL
-								hudmsgCreateWithFlags(langGet(L_MPWEAPONS_020), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
-#else
 								hudmsgCreateWithFlags(langGet(L_MPWEAPONS_020), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
-#endif
 							}
 						}
 
@@ -560,15 +543,11 @@ Gfx *kohRenderHud(Gfx *gdl)
 		y = viGetViewTop() + 10;
 
 		time240 = g_Vars.mphilltime * TICKS(240) - g_ScenarioData.koh.elapsed240;
-		time240 += VERSION >= VERSION_PAL_BETA ? TICKS(2640) - 1 : 2400;
+		time240 += 2400;
 		mins = time240 / TICKS(60 * 240);
 		time240 -= TICKS(60 * 240) * mins;
 
-#if VERSION >= VERSION_PAL_BETA
-		secs = time240 / TICKS(240);
-#else
 		secs = (time240 + (TICKS(240) - 1)) / TICKS(240);
-#endif
 
 		if ((g_Vars.mphilltime * 60 + 600) / 3600) {
 			sprintf(text, "%d:%02d", mins, secs);
@@ -583,13 +562,8 @@ Gfx *kohRenderHud(Gfx *gdl)
 		textwidth += x;
 		textheight += y;
 
-#if VERSION >= VERSION_NTSC_1_0
 		gdl = text0f153990(gdl, x, y, textwidth, textheight);
 		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, viGetWidth(), viGetHeight(), 0, 0);
-#else
-		gdl = text0f153858(gdl, &x, &y, &textwidth, &textheight);
-		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x88, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 		gdl = text0f153780(gdl);
 	}
 

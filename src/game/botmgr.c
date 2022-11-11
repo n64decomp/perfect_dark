@@ -146,9 +146,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->unk059 = 0;
 					aibot->nextbullettimer60[0] = 0;
 					aibot->nextbullettimer60[1] = 0;
-#if VERSION < VERSION_PAL_BETA
 					aibot->unk030 = 301;
-#endif
 					aibot->unk038 = 0;
 					aibot->punchtimer60[HAND_LEFT] = -1;
 					aibot->punchtimer60[HAND_RIGHT] = 0;
@@ -259,11 +257,9 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->random2 = random();
 					aibot->randomfrac = RANDOMFRAC();
 					aibot->cheap = false;
-#if VERSION >= VERSION_NTSC_1_0
 					aibot->unk078 = 0;
 					aibot->unk050 = 0;
 					aibot->unk09d = 0;
-#endif
 				} else {
 					g_MpBotChrPtrs[--g_BotCount] = NULL;
 					return;

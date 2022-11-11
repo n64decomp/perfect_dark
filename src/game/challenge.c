@@ -117,11 +117,6 @@ void challengeDetermineUnlockedFeatures(void)
 			flag = 1;
 			numgifted++;
 		}
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-		else if (debugIsAllChallengesEnabled()) {
-			flag = 1;
-		}
-#endif
 
 		g_MpChallenges[challengeindex].availability |= flag;
 	}
@@ -553,7 +548,6 @@ void challengeForceUnlockConfigFeatures(struct mpconfig *config, u8 *array, s32 
 		}
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (challengeindex >= 25) {
 		index = challengeForceUnlockFeature(MPFEATURE_BOTDIFF_DARK, array, index, len);
 	} else if (challengeindex >= 20) {
@@ -565,19 +559,6 @@ void challengeForceUnlockConfigFeatures(struct mpconfig *config, u8 *array, s32 
 	if (challengeindex >= 10) {
 		index = challengeForceUnlockFeature(MPFEATURE_8BOTS, array, index, len);
 	}
-#else
-	if (challengeindex >= 10) {
-		index = challengeForceUnlockFeature(MPFEATURE_8BOTS, array, index, len);
-	}
-
-	if (challengeindex >= 15) {
-		index = challengeForceUnlockFeature(MPFEATURE_SCENARIO_PAC, array, index, len);
-	}
-
-	if (challengeindex >= 20) {
-		index = challengeForceUnlockFeature(MPFEATURE_STAGE_CARPARK, array, index, len);
-	}
-#endif
 
 	// Clear the remainder of the array
 	for (i = index; i < len; i++) {
@@ -812,14 +793,7 @@ void challengeConsiderMarkingComplete(void)
 {
 	bool result = challengeIsCompleteForEndscreen();
 
-#if VERSION == VERSION_PAL_BETA
-	if ((g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0) && (result || debugIsSetCompleteEnabled()))
-#elif VERSION >= VERSION_NTSC_1_0
-	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0 && result)
-#else
-	if (result && g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0)
-#endif
-	{
+	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0 && result) {
 		u32 prevplayernum;
 		s32 i;
 

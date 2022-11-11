@@ -6,11 +6,7 @@
 s32 __osPfsCheckRamArea(OSPfs* pfs);
 s32 func00007084(OSPfs *pfs);
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel, s32 *arg3)
-#else
-s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
-#endif
 {
 	s32 ret;
 	u16 sum;
@@ -77,7 +73,6 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 	pfs->minode_table = pfs->banks * PFS_ONE_PAGE + 8;
 	pfs->dir_table = pfs->minode_table + pfs->banks * PFS_ONE_PAGE;
 
-#if VERSION >= VERSION_NTSC_1_0
 	ERRCK(__osContRamRead(pfs->queue, pfs->channel, 7, pfs->label));
 	ret = osPfsChecker(pfs);
 	pfs->status |= PFS_INITIALIZED;
@@ -85,18 +80,6 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 	if (arg3 != NULL) {
 		*arg3 = func00007084(pfs);
 	}
-#else
-
-	ret = __osContRamRead(pfs->queue, pfs->channel, 7, pfs->label);
-
-	if (ret != 0) {
-		return ret;
-	}
-
-	rmonPrintf("pfsinitpak.c -> ret = %d\n", ret);
-	ret = osPfsChecker(pfs);
-	pfs->status |= PFS_INITIALIZED;
-#endif
 
 	return ret;
 }
@@ -136,7 +119,6 @@ s32 __osPfsCheckRamArea(OSPfs* pfs)
 	return __osContRamWrite(pfs->queue, pfs->channel, 0, saveReg, 0);
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 func00007084(OSPfs *pfs)
 {
 	s32 ret;
@@ -150,9 +132,3 @@ s32 func00007084(OSPfs *pfs)
 
 	return buffer[1];
 }
-#else
-void func000071a0nb(void)
-{
-	// empty
-}
-#endif

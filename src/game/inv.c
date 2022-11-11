@@ -286,18 +286,12 @@ s32 invAddOneIfCantHaveSlayer(s32 index)
 		index++;
 	}
 
-#if VERSION >= VERSION_JPN_FINAL
-	if (index >= 26) {
-		index++;
-	}
-#endif
-
 	return index;
 }
 
 s32 currentStageForbidsSlayer(void)
 {
-	bool value = VERSION >= VERSION_JPN_FINAL ? 1 : 0;
+	bool value = 0;
 
 	if (mainGetStageNum() != STAGE_ATTACKSHIP && mainGetStageNum() != STAGE_SKEDARRUINS) {
 		value++;
@@ -309,12 +303,6 @@ s32 currentStageForbidsSlayer(void)
 bool invCanHaveAllGunsWeapon(s32 weaponnum)
 {
 	bool canhave = true;
-
-#if VERSION == VERSION_JPN_FINAL
-	if (weaponnum == WEAPON_COMBATKNIFE) {
-		canhave = false;
-	}
-#endif
 
 	if (weaponnum == WEAPON_SLAYER) {
 		canhave = false;
@@ -1019,23 +1007,19 @@ char *invGetShortNameByIndex(s32 index)
 			override = invGetTextOverrideForObj(prop->obj);
 
 			if (override) {
-#if VERSION < VERSION_JPN_FINAL
 				if (override->inventorytext) {
 					return langGet(override->inventorytext);
 				}
-#endif
 
 				weaponnum = override->weapon;
 			}
 		} else if (item->type == INVITEMTYPE_WEAP) {
 			weaponnum = item->type_weap.weapon1;
-#if VERSION < VERSION_JPN_FINAL
 			override = invGetTextOverrideForWeapon(weaponnum);
 
 			if (override && override->inventorytext) {
 				return langGet(override->inventorytext);
 			}
-#endif
 		}
 	} else if (g_Vars.currentplayer->equipallguns) {
 		if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {

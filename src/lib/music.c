@@ -202,13 +202,11 @@ s32 musicHandleStopAllEvent(s32 result)
 	return RESULT_OK_NEXT;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 musicHandleEvent5(struct musicevent *event, s32 result)
 {
 	var800840e0 = event->tracknum;
 	return RESULT_OK_NEXT;
 }
-#endif
 
 void musicTickEvents(void)
 {
@@ -440,7 +438,6 @@ void musicTick(void)
 			}
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (g_Vars.lvupdate240 != 0) {
 			if (g_MusicNrgIsActive) {
 				if (!playnrg) {
@@ -452,19 +449,6 @@ void musicTick(void)
 				}
 			}
 		}
-#else
-		if (g_Vars.lvupdate240 != 0) {
-			if (func0f16d0a8(TRACKTYPE_NRG, 1)) {
-				if (!playnrg) {
-					musicDeactivateNrg();
-				}
-			} else {
-				if (playnrg && !g_Vars.dontplaynrg) {
-					musicActivateNrg();
-				}
-			}
-		}
-#endif
 
 		// Check if the player is in an ambient room every 0.25 seconds
 		if (g_Vars.lvupdate240 > g_MusicNextAmbientTick240) {
@@ -490,30 +474,3 @@ bool musicIsTrackTypePlaying(s32 tracktype)
 
 	return false;
 }
-
-#if VERSION < VERSION_NTSC_1_0
-bool musicAreTracksPlaying(u8 bits)
-{
-	if ((bits & 0x01) && !musicIsTrackTypePlaying(TRACKTYPE_PRIMARY)) {
-		return false;
-	}
-
-	if ((bits & 0x02) && !musicIsTrackTypePlaying(TRACKTYPE_NRG)) {
-		return false;
-	}
-
-	if ((bits & 0x04) && !musicIsTrackTypePlaying(TRACKTYPE_MENU)) {
-		return false;
-	}
-
-	if ((bits & 0x08) && !musicIsTrackTypePlaying(TRACKTYPE_DEATH)) {
-		return false;
-	}
-
-	if ((bits & 0x10) && !musicIsTrackTypePlaying(TRACKTYPE_AMBIENT)) {
-		return false;
-	}
-
-	return true;
-}
-#endif

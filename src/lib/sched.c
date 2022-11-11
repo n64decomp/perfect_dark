@@ -191,34 +191,6 @@ void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, int is8mb)
 	osSetIntMask(mask);
 }
 
-#if VERSION < VERSION_NTSC_1_0
-void osScRemoveClient(OSSched *sc, OSScClient *c)
-{
-	OSScClient *client = sc->clientList;
-	OSScClient *prev   = 0;
-	OSIntMask  mask;
-
-	mask = osSetIntMask(OS_IM_NONE);
-
-	while (client) {
-		if (client == c) {
-			if (prev) {
-				prev->next = c->next;
-			} else {
-				sc->clientList = c->next;
-			}
-
-			break;
-		}
-
-		prev = client;
-		client = client->next;
-	}
-
-	osSetIntMask(mask);
-}
-#endif
-
 OSMesgQueue *osScGetCmdQ(OSSched *sc)
 {
 	return &sc->cmdQ;
@@ -704,17 +676,6 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp, s32 resuming)
 		}
 	}
 }
-
-#if VERSION < VERSION_NTSC_1_0
-bool schedIsCurTaskAudio(OSSched *sc)
-{
-	if (sc->curRSPTask) {
-		return sc->curRSPTask->list.t.type == M_AUDTASK;
-	}
-
-	return false;
-}
-#endif
 
 void __scYield(OSSched *sc)
 {

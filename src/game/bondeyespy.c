@@ -654,13 +654,8 @@ bool eyespyTryLaunch(void)
 		chr->chrflags &= ~CHRCFLAG_HIDDEN;
 		chr->chrflags &= ~CHRCFLAG_INVINCIBLE;
 
-#if VERSION >= VERSION_NTSC_1_0
 		propsnd0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
 				-1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-#else
-		propsnd0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
-				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-#endif
 	}
 
 	playerSetPerimEnabled(g_Vars.currentplayer->prop, true);
@@ -842,15 +837,9 @@ void eyespyProcessInput(bool allowbuttons)
 
 	g_EyespyPickup = false;
 
-#if VERSION >= VERSION_PAL_BETA
-	for (f = 1; f < g_Vars.lvupdate60; f++) {
-		spe0 *= PAL ? 0.952f : 0.96f;
-	}
-#else
 	for (f = 1; f < g_Vars.lvupdate60freal; f++) {
 		spe0 *= 0.96f;
 	}
-#endif
 
 	if (g_Vars.currentplayer->eyespy->startuptimer60 < TICKS(50)) {
 		g_Vars.currentplayer->eyespy->startuptimer60 += g_Vars.lvupdate60;
@@ -874,18 +863,6 @@ void eyespyProcessInput(bool allowbuttons)
 
 	if (g_Vars.currentplayer->eyespy->active && g_PlayersWithControl[g_Vars.currentplayernum]) {
 		g_Vars.currentplayer->joybutinhibit = 0xffffffff;
-
-#if VERSION < VERSION_NTSC_1_0
-		if (g_Vars.currentplayer->isdead == false
-				&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
-				&& (c1buttons & START_BUTTON)) {
-			if (!g_Vars.mplayerisrunning) {
-				playerPause(MENUROOT_MAINMENU);
-			} else {
-				mpPushPauseDialog();
-			}
-		}
-#endif
 
 		// Update theta
 		g_Vars.currentplayer->eyespy->theta += c1stickx * 0.0625f * g_Vars.lvupdate60freal;

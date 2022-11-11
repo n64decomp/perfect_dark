@@ -67,11 +67,7 @@ glabel tlb000010a4
 	addiu  $t1, $zero, 0x1ff
 	lui    $at, %hi(var8008d264+0x2)
 	sh     $t1, %lo(var8008d264+0x2)($at)
-#if VERSION >= VERSION_NTSC_1_0
 	addiu  $a0, $zero, 268
-#else
-	addiu  $a0, $zero, 266
-#endif
 	lui    $at, %hi(g_VmInitialised+0x2)
 	sh     $a0, %lo(g_VmInitialised+0x2)($at)
 	lui    $at, %hi(var8008d258+0x2)
@@ -112,11 +108,7 @@ glabel tlb0000113c
 	sb     $t0, 0x0($v0)
 	bne    $v0, $v1, .L00001150
 	addiu  $v0, $v0, 1
-#if VERSION >= VERSION_NTSC_1_0
 	addiu  $a0, $zero, 4
-#else
-	addiu  $a0, $zero, 2
-#endif
 	beqz   $a0, .L00001178
 	addiu  $a0, $a0, -1
 	addiu  $t0, $zero, 2
@@ -146,13 +138,6 @@ glabel tlbHandleMiss
 	slt    $at, $s5, $t1
 	beqz   $at, .L0000162c
  	nop
-#if VERSION < VERSION_NTSC_1_0
-	lui    $t2, %hi(g_VmNumTlbMisses)
-	addiu  $t2, $t2, %lo(g_VmNumTlbMisses)
-	lw     $t6, 0($t2)
-	addiu  $t6, $t6, 1
-	sw     $t6, 0($t2)
-#endif
 	mfc0   $t9, C0_BADVADDR
 	srl    $t9, $t9, 0xc
 	andi   $t9, $t9, 0x1
@@ -199,13 +184,6 @@ glabel tlbHandleMiss
 	sll    $t0, $t0, 0xc
 	addu   $s1, $s1, $t0
 .L00001268:
-#if VERSION < VERSION_NTSC_1_0
-	lui    $t2, %hi(g_VmNumPageMisses)
-	addiu  $t2, $t2, %lo(g_VmNumPageMisses)
-	lw     $t0, 0($t2)
-	addiu  $t0, $t0, 1
-	sw     $t0, 0($t2)
-#endif
 	mfc0   $t2, C0_BADVADDR
 	lui    $t0, 0xff
 	ori    $t0, $t0, 0xf000
@@ -416,13 +394,6 @@ glabel tlbHandleMiss
 	jr     $ra
  	nop
 .L00001570:
-#if VERSION < VERSION_NTSC_1_0
-	lui    $t0, %hi(g_VmNumPageReplaces)
-	addiu  $t0, $t0, %lo(g_VmNumPageReplaces)
-	lw     $t1, 0($t0)
-	addiu  $t1, $t1, 1
-	sw     $t1, 0($t0)
-#endif
 .L00001570_2:
 	lui    $s4, %hi(g_VmStateTable)
 	lw     $s4, %lo(g_VmStateTable)($s4)
@@ -496,16 +467,3 @@ glabel tlbUnmapRange
 	mtc0   $t0, C0_ENTRYHI
 	jr     $ra
  	nop
-
-#if VERSION < VERSION_NTSC_1_0
-glabel tlb000016acnb
-	lui    $t0, 0x8000
-	addiu  $t1, $t0, 0x1ff0
-.L000016b4:
-	cache  0x1, 0x0($t0)
-	sltu   $at, $t0, $t1
-	bnez   $at, .L000016b4
-	addiu  $t0, $t0, 0x10
-	jr     $ra
- 	nop
-#endif

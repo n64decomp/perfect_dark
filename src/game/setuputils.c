@@ -307,9 +307,7 @@ struct defaultobj *setupFindObjForReuse(s32 wanttype, struct defaultobj **offscr
 				} else if (wanttype != OBJTYPE_WEAPON
 						&& (obj->hidden & OBJHFLAG_PROJECTILE) == 0
 						&& (obj->hidden2 & OBJH2FLAG_CANREGEN) == 0
-#if VERSION >= VERSION_NTSC_1_0
 						&& (obj->flags & OBJFLAG_00800000) == 0
-#endif
 						&& obj->prop->parent == NULL
 						&& (!musthavemodel || modelmgrCanSlotFitRwdata(obj->model, filedata))) {
 					if (offscreenobj == NULL && (obj->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0) {

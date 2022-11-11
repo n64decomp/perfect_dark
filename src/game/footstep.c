@@ -185,19 +185,11 @@ void footstepCheckDefault(struct chrdata *chr)
 					soundnum = footstepChooseSound(chr, i);
 
 					if (soundnum != -1 && chr->footstep != 0) {
-#if VERSION >= VERSION_NTSC_1_0
-						propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 1024, 0, 16, NULL, -1, NULL, -1, -1, -1, -1);
-#else
 						propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
-#endif
 					}
 
 					chr->magicanim = i;
-#if VERSION >= VERSION_PAL_BETA
-					chr->magicspeed = chr->model->anim->speed;
-#else
 					chr->magicspeed = chr->model->anim->speed * 0.25f;
-#endif
 					return;
 				}
 			}
@@ -224,11 +216,7 @@ void footstepCheckMagic(struct chrdata *chr)
 	s32 soundnum;
 
 	if (PLAYERCOUNT() == 1 && chr->magicanim >= 0) {
-#if VERSION >= VERSION_PAL_BETA
-		chr->magicframe += g_Vars.lvupdate60freal * chr->magicspeed;
-#else
 		chr->magicframe += g_Vars.lvupdate240 * chr->magicspeed;
-#endif
 
 		if (chr->prop) {
 			xdiff = playerprop->pos.x - chr->prop->pos.x;
@@ -265,13 +253,8 @@ void footstepCheckMagic(struct chrdata *chr)
 				soundnum = footstepChooseSound(chr, index);
 
 				if (soundnum != -1 && chr->footstep != 0) {
-#if VERSION >= VERSION_NTSC_1_0
 					propsnd0f0939f8(NULL, chr->prop, soundnum, -1,
 							-1, 1024, 0, 16, NULL, -1, NULL, -1, -1, -1, -1);
-#else
-					propsnd0f0939f8(NULL, chr->prop, soundnum, -1,
-							-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
-#endif
 				}
 			}
 

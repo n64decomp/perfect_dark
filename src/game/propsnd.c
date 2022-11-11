@@ -17,53 +17,9 @@
 #include "data.h"
 #include "types.h"
 
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1a5720nb[] = "SND : Stop -> Prop=%x, Id=%d\n";
-#endif
-
-const char var7f1ab400[] = "Propsnd : USING TIME 60\n";
-const char var7f1ab41c[] = "PS_AUTO : Un-Pausing %d\n";
-
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1a5778nb[] = "PS_AUTO : Pausing %d\n";
-const char var7f1a5790nb[] = "SND : Propsound needs play : Id %d is flaged g\n";
-const char var7f1a57c0nb[] = "AISND : Channel %d - %s";
-const char var7f1a57d8nb[] = "FREE";
-const char var7f1a57e0nb[] = "IN USE";
-#endif
-
-const char var7f1ab438[] = "Propsnd : Using %d of %d (Peek = %d of %d)";
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1ab464[] = "AISOUND: aisoundnewtypeflags - Channel %d -> Playing sound number id=%d(%x)\n";
-const char var7f1ab4b4[] = "AISOUND: PSTYPE_MARKER - Channel %d -> Playing sound number id=%d(%x)\n";
-const char var7f1ab4fc[] = "AISOUND: PSTYPE_MARKER - Channel %d -> Playing sound number id=%d(%x)\n";
-#else
-const char var7f1a5814nb[] = "SND : Start -> Prop=%x, Id=%d, Vol=%d, Flags=%d, Type=%d\n";
-const char var7f1a5850nb[] = "AISOUND: Channel %d -> Playing sound number id=%d(%x))\n";
-#endif
-
-const char var7f1ab544[] = "AISOUND: CUTSCENE -> Playing sound number id=%d(%x))\n";
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1ab57c[] = "AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x, Flags=%x, Type=%d, Zero=%d\n";
-const char var7f1ab5d8[] = "AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x, Flags=%x, Type=%d\n";
-#else
-const char var7f1ab58c0nb[] = "AISOUND: DONTCARE -> Playing sound number id=%d(%x))\n";
-const char var7f1ab58f8nb[] = "AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x\n";
-const char var7f1ab5938nb[] = "SERIOUS: Existing ai sound number %d (Sound id=%d(%x)) : KILLING\n";
-#endif
-
-const char var7f1ab62c[] = "AISOUND: CUTSCENE -> Stopping all cutscene sounds\n";
-const char var7f1ab660[] = "AISOUND: Stop sound channel %d\n";
-const char var7f1ab680[] = "AISOUND: Channel %d -> Setting params : Vol=%d, Pad=%d, Prop=%x, Time=%d, Far=%d, Silence=%d, Flags=%u\n";
-const char var7f1ab6e8[] = "AISOUND : This channel has a marker -> Shall start and use ID = %d(%x)\n";
-
 struct audiochannel *g_AudioChannels = NULL;
 
-#if VERSION >= VERSION_NTSC_1_0
 u32 g_AudioPrevUuid = 0x00000000;
-#endif
 
 s8 var8006ae18 = 0;
 s8 var8006ae1c = 0;
@@ -147,11 +103,9 @@ s32 func0f0927d4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4)
 		result = 0x7fff;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (result < 40) {
 		result = 0;
 	}
-#endif
 
 	return result;
 }
@@ -183,9 +137,7 @@ void func0f092a98(s32 channelnum)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 
-#if VERSION >= VERSION_NTSC_1_0
 	channel->flags2 |= 0x80;
-#endif
 
 	if (channel->flags & AUDIOCHANNELFLAG_FORHUDMSG) {
 		hudmsgsHideByChannel(channelnum);
@@ -200,10 +152,6 @@ void func0f092a98(s32 channelnum)
 	} else if (channel->audiohandle && sndGetState(channel->audiohandle) != AL_STOPPED) {
 		audioStop(channel->audiohandle);
 	}
-
-#if VERSION < VERSION_NTSC_1_0
-	channel->flags = AUDIOCHANNELFLAG_IDLE;
-#endif
 }
 
 void propsndPrintChannel(struct audiochannel *channel)
@@ -243,20 +191,12 @@ void propsndTickChannel(s32 channelnum)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 
-#if VERSION >= VERSION_NTSC_1_0
 	if ((channel->flags2 & AUDIOCHANNELFLAG2_0080) == 0
 			&& channel->unk28 != 11
 			&& ((channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED)
 				|| (channel->flags & AUDIOCHANNELFLAG_0002)
 				|| (channel->flags & AUDIOCHANNELFLAG_1000)
-				|| ((channel->flags & AUDIOCHANNELFLAG_ISMP3) && sndIsPlayingMp3())))
-#else
-	if ((channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED)
-			|| (channel->flags & AUDIOCHANNELFLAG_0002)
-			|| (channel->flags & AUDIOCHANNELFLAG_1000)
-			|| ((channel->flags & AUDIOCHANNELFLAG_ISMP3) && sndIsPlayingMp3()))
-#endif
-	{
+				|| ((channel->flags & AUDIOCHANNELFLAG_ISMP3) && sndIsPlayingMp3()))) {
 		struct coord *pos = NULL; // 50
 		s16 *rooms = NULL; // 4c
 		s32 sp48;
@@ -341,11 +281,7 @@ void propsndTickChannel(s32 channelnum)
 			channel->unk1c -= g_Vars.lvupdate60;
 		} else if (channel->unk18 && channel->unk06 != channel->unk04) {
 			f32 f12 = channel->unk04 - channel->unk06;
-#if VERSION >= VERSION_PAL_BETA
-			f32 f14 = g_Vars.lvupdate60freal * (1.0f / 6000.0f) * channel->unk18;
-#else
 			f32 f14 = g_Vars.lvupdate60 * (1.0f / 6000.0f) * channel->unk18;
-#endif
 
 			if (ABS(f12) > 1.0f) {
 				if (f14 > 1.0f) {
@@ -373,7 +309,6 @@ void propsndTickChannel(s32 channelnum)
 			sp48 = -1;
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (channel->unk0a != channel->unk08) {
 			if (channel->flags & AUDIOCHANNELFLAG_1000) {
 				channel->unk08 = channel->unk0a;
@@ -393,14 +328,6 @@ void propsndTickChannel(s32 channelnum)
 		} else {
 			sp44 = -1;
 		}
-#else
-		if (sp44 != channel->unk08) {
-			channel->flags |= AUDIOCHANNELFLAG_4000;
-			channel->unk08 = sp44;
-		} else {
-			sp44 = -1;
-		}
-#endif
 
 		if (sp40 != channel->unk0e) {
 			channel->unk0e = sp40;
@@ -424,17 +351,12 @@ void propsndTickChannel(s32 channelnum)
 				if ((channel->flags & AUDIOCHANNELFLAG_2000) == 0) {
 					if (channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED) {
 						audioStop(channel->audiohandle);
-#if VERSION < VERSION_NTSC_1_0
-						channel->audiohandle = NULL;
-#endif
 					}
 
 					channel->flags |= AUDIOCHANNELFLAG_2000;
 				}
 
-#if VERSION >= VERSION_NTSC_1_0
 				channel->flags &= ~AUDIOCHANNELFLAG_1000;
-#endif
 			}
 		}
 
@@ -443,7 +365,6 @@ void propsndTickChannel(s32 channelnum)
 				if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
 					sndStartMp3(channel->soundnum26, sp48, sp44, (channel->flags2 & AUDIOCHANNELFLAG2_0001) ? 1 : 0);
 				} else {
-#if VERSION >= VERSION_NTSC_1_0
 					if (channel->flags & AUDIOCHANNELFLAG_0400) {
 						if (sp48) {
 							snd00010718(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
@@ -455,10 +376,6 @@ void propsndTickChannel(s32 channelnum)
 									channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
 						}
 					}
-#else
-					snd00010718(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
-							channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
-#endif
 				}
 
 				channel->flags &= ~AUDIOCHANNELFLAG_1000;
@@ -468,7 +385,6 @@ void propsndTickChannel(s32 channelnum)
 			}
 		}
 	} else {
-#if VERSION >= VERSION_NTSC_1_0
 		if (channel->unk28 != 11) {
 			if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
 				if (!sndIsPlayingMp3()) {
@@ -490,34 +406,13 @@ void propsndTickChannel(s32 channelnum)
 				channel->flags = AUDIOCHANNELFLAG_IDLE;
 			}
 		}
-#else
-		if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
-			if (!sndIsPlayingMp3()) {
-				if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
-					propDecrementSoundCount(channel->prop);
-				}
-
-				if (channel->flags & AUDIOCHANNELFLAG_FORHUDMSG) {
-					hudmsgsHideByChannel(channelnum);
-				}
-			}
-		} else if (channel->audiohandle == NULL) {
-			if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
-				propDecrementSoundCount(channel->prop);
-			}
-		}
-
-		channel->flags = AUDIOCHANNELFLAG_IDLE;
-#endif
 	}
 
 	if (var8006ae44 && (channel->flags2 & AUDIOCHANNELFLAG2_0004)) {
 		propsndPrintChannel(channel);
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	channel->flags &= ~AUDIOCHANNELFLAG_1000;
-#endif
 	channel->flags &= ~AUDIOCHANNELFLAG_4000;
 }
 
@@ -533,22 +428,8 @@ void propsndTick(void)
 		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0) {
 			propsndTickChannel(i);
 			count++;
-
-#if VERSION >= VERSION_NTSC_1_0
-			if (g_PropsndPrintChannels) {
-				propsndPrintChannel(&g_AudioChannels[i]);
-			}
-#endif
 		}
 	}
-
-#if VERSION >= VERSION_NTSC_1_0
-	if (g_PropsndPrintChannels) {
-		g_PropsndPrintChannels = false;
-	}
-
-	if (IS4MB());
-#endif
 
 	if (g_PropsndMaxActiveChannels < count) {
 		g_PropsndMaxActiveChannels = count;
@@ -570,14 +451,10 @@ void func0f093630(struct prop *prop, f32 arg1, s32 arg2)
 				g_AudioChannels[i].unk20 = -1;
 			}
 
-#if VERSION >= VERSION_NTSC_1_0
 			prevpri = osGetThreadPri(0);
 			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 			propsndTickChannel(i);
 			osSetThreadPri(0, prevpri);
-#else
-			propsndTickChannel(i);
-#endif
 		}
 	}
 }
@@ -589,7 +466,6 @@ void func0f093790(struct prop *prop, s32 arg1)
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
 		if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0 && prop == g_AudioChannels[i].prop) {
-#if VERSION >= VERSION_NTSC_1_0
 			if (arg1 > 100) {
 				arg1 = 100;
 			}
@@ -601,15 +477,10 @@ void func0f093790(struct prop *prop, s32 arg1)
 			propsndTickChannel(i);
 
 			osSetThreadPri(0, prevpri);
-#else
-			g_AudioChannels[i].unk10 = arg1 * 32767 / 100;
-			propsndTickChannel(i);
-#endif
 		}
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void func0f0938ec(struct prop *prop)
 {
 	s32 lowestuuid = -1;
@@ -639,7 +510,6 @@ void func0f0938ec(struct prop *prop)
 		func0f092a98(bestindex);
 	}
 }
-#endif
 
 s16 propsnd0f0939f8(
 		struct audiochannel *channel,
@@ -663,7 +533,6 @@ s16 propsnd0f0939f8(
 	u32 stack[2];
 	s32 tmp;
 
-#if VERSION >= VERSION_NTSC_1_0
 	struct pad pad;
 	s32 i;
 	s32 j;
@@ -687,48 +556,6 @@ s16 propsnd0f0939f8(
 			}
 		}
 	}
-#else
-	s32 t4 = -1;
-	struct pad pad;
-	s32 i;
-	s32 j;
-	s32 count = 0;
-
-	spac.packed = soundnum;
-
-	if (channel == NULL) {
-		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
-			if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) {
-				channel = &g_AudioChannels[i];
-				if (i);
-
-				if (arg7 != 16) {
-					channel->channelnum = i;
-				} else {
-					t4 = i;
-				}
-				break;
-			}
-
-			if (arg7 == 16) {
-				count++;
-			}
-		}
-	}
-
-	if (arg7 == 16) {
-		if (count >= 12) {
-			return -1;
-		}
-
-		if (t4 != -1) {
-			channel = &g_AudioChannels[t4];
-			channel->channelnum = t4;
-		} else {
-			return -1;
-		}
-	}
-#endif
 
 	if (padnum >= 0) {
 		pos = &g_Pads[padnum].pos;
@@ -740,13 +567,11 @@ s16 propsnd0f0939f8(
 		return -1;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_AudioPrevUuid < 0xffffffff) {
 		g_AudioPrevUuid++;
 	} else {
 		g_AudioPrevUuid = 0;
 	}
-#endif
 
 	channel->flags = flags;
 	channel->flags2 = flags2;
@@ -772,9 +597,7 @@ s16 propsnd0f0939f8(
 	channel->unk38 = (arg13 > 0) ? arg13 : 2500;
 	channel->unk3c = (arg14 > 0) ? arg14 : 3000;
 	channel->unk18 = 0;
-#if VERSION >= VERSION_NTSC_1_0
 	channel->uuid = g_AudioPrevUuid;
-#endif
 
 	if (spac.hasconfig) {
 		s32 id = spac.confignum;
@@ -825,11 +648,9 @@ s16 propsnd0f0939f8(
 			channel->flags2 |= AUDIOCHANNELFLAG2_0010;
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_40) {
 			channel->flags2 |= AUDIOCHANNELFLAG2_0040;
 		}
-#endif
 
 		channel->flags |= AUDIOCHANNELFLAG_0040;
 
@@ -838,32 +659,20 @@ s16 propsnd0f0939f8(
 		soundnum = spac.packed;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (channel->unk18) {
 		channel->flags |= AUDIOCHANNELFLAG_0002;
 	}
-#endif
 
 	channel->soundnum26 = spac.packed;
 	channel->unk2c = spac.id;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (sndIsFiltered(channel->unk2c)) {
 		channel->flags2 |= AUDIOCHANNELFLAG2_OFFENSIVE;
 	}
-#endif
 
 	if (spac.unk02) {
 		channel->flags2 |= AUDIOCHANNELFLAG2_0010;
 	}
-
-#if VERSION < VERSION_NTSC_1_0
-	if (channel->flags2 & AUDIOCHANNELFLAG2_0010) {
-		if (channel->unk04 == -1) {
-			channel->unk04 = channel->unk10;
-		}
-	}
-#endif
 
 	if (pos) {
 		channel->pos = *pos;
@@ -886,7 +695,6 @@ s16 propsnd0f0939f8(
 		channel->rooms[0] = -1;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (!pos && !channel->prop) {
 		channel->flags2 |= AUDIOCHANNELFLAG2_0010;
 	}
@@ -894,21 +702,16 @@ s16 propsnd0f0939f8(
 	if ((channel->flags2 & AUDIOCHANNELFLAG2_0010) && channel->unk04 == -1) {
 		channel->unk04 = channel->unk10;
 	}
-#endif
 
 	channel->flags |= AUDIOCHANNELFLAG_1000;
 
 	if (sndIsMp3(soundnum)) {
 		channel->flags |= AUDIOCHANNELFLAG_ISMP3;
 
-#if VERSION >= VERSION_NTSC_1_0
 		prevpri = osGetThreadPri(0);
 		osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 		propsndTickChannel(channel->channelnum);
 		osSetThreadPri(0, prevpri);
-#else
-		propsndTickChannel(channel->channelnum);
-#endif
 	} else {
 		prevpri = osGetThreadPri(0);
 		osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
@@ -916,20 +719,12 @@ s16 propsnd0f0939f8(
 		osSetThreadPri(0, prevpri);
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (channel->flags & AUDIOCHANNELFLAG_0400) {
 		channel->flags &= ~AUDIOCHANNELFLAG_0400;
 		channel->flags2 |= AUDIOCHANNELFLAG2_0010;
 	}
 
 	channel->flags &= ~AUDIOCHANNELFLAG_1000;
-#else
-	if (channel->flags & AUDIOCHANNELFLAG_0400) {
-		channel->flags = AUDIOCHANNELFLAG_IDLE;
-	} else {
-		channel->flags &= ~AUDIOCHANNELFLAG_1000;
-	}
-#endif
 
 	return channel->channelnum;
 }
@@ -940,7 +735,6 @@ s32 audioPlayFromProp(s32 channelnum, s16 soundnum, s32 arg2, struct prop *prop,
 
 	if (arg4 == 11) {
 		if (channelnum >= 0 && channelnum <= 7) {
-#if VERSION >= VERSION_NTSC_1_0
 			if (g_AudioChannels[channelnum].flags & AUDIOCHANNELFLAG_IDLE) {
 				g_AudioChannels[channelnum].soundnum26 = soundnum;
 				g_AudioChannels[channelnum].unk28 = 11;
@@ -952,30 +746,15 @@ s32 audioPlayFromProp(s32 channelnum, s16 soundnum, s32 arg2, struct prop *prop,
 				g_AudioChannels[channelnum].flags &= ~AUDIOCHANNELFLAG_IDLE;
 				retchannelnum = channelnum;
 			}
-#else
-			g_AudioChannels[channelnum].soundnum26 = soundnum;
-			g_AudioChannels[channelnum].unk28 = 11;
-			g_AudioChannels[channelnum].flags &= ~AUDIOCHANNELFLAG_IDLE;
-			retchannelnum = channelnum;
-#endif
 		} else {
 			// empty
 		}
 	} else if (channelnum == 10) {
 		retchannelnum = propsnd0f0939f8(NULL, prop, soundnum, -1,
 				(arg2 ? 0 : -1), arg5 | 0x0080, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
-#if VERSION >= VERSION_NTSC_1_0
 	} else if (channelnum < 0 || channelnum >= 8 || channelnum == 9) {
 		retchannelnum = propsnd0f0939f8(NULL, prop, soundnum, -1,
 			(arg2 ? 0 : -1), arg5, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
-#else
-	} else if (channelnum == 9) {
-		retchannelnum = propsnd0f0939f8(NULL, prop, soundnum, -1,
-			(arg2 ? 0 : -1), arg5, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
-	} else if (channelnum < 0 || channelnum >= 8) {
-		retchannelnum = propsnd0f0939f8(NULL, prop, soundnum, -1,
-			(arg2 ? 0 : -1), arg5, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
-#endif
 	} else {
 		if ((g_AudioChannels[channelnum].flags & AUDIOCHANNELFLAG_IDLE) == 0) {
 			func0f092a98(channelnum);
@@ -1068,14 +847,10 @@ void audioPlayFromProp2(s32 channelnum, s32 arg1, s16 padnum, struct prop *prop,
 			}
 
 			if (!a1 || channel->unk1c == 0) {
-#if VERSION >= VERSION_NTSC_1_0
 				OSPri prevpri = osGetThreadPri(0);
 				osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 				propsndTickChannel(channelnum);
 				osSetThreadPri(0, prevpri);
-#else
-				propsndTickChannel(channelnum);
-#endif
 			}
 		}
 	}
@@ -1100,12 +875,6 @@ s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 *rooms,
 
 	sp68.packed = soundnum;
 	sp6c.packed = soundnum;
-
-#if VERSION < VERSION_NTSC_1_0
-	if (g_PropsndPrintChannels) {
-		sp64 = 9999999;
-	}
-#endif
 
 	if (sp68.hasconfig) {
 		s32 confignum = sp68.confignum;
@@ -1314,7 +1083,6 @@ s32 propsnd0f094d78(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, f32 arg4, b
 	return result;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void propsnd0f094ef4(struct coord *pos, s16 *rooms, s16 soundnum, s32 *arg3, s32 *arg4)
 {
 	f32 sp5c;
@@ -1372,7 +1140,6 @@ void propsnd0f094ef4(struct coord *pos, s16 *rooms, s16 soundnum, s32 *arg3, s32
 	*arg3 = propsnd0f0946b0(pos, sp5c, sp58, sp54, rooms, soundnum, 0x7fff, &sp40);
 	*arg4 = propsnd0f094d78(pos, sp5c, sp58, sp54, sp40, sp3c, 0);
 }
-#endif
 
 void func0f09505c(struct sndstate *handle, struct coord *pos, f32 arg2, f32 arg3, f32 arg4, s16 *rooms, s16 soundnum, s32 arg7, f32 *arg8)
 {

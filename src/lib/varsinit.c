@@ -4,10 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-#if VERSION < VERSION_NTSC_1_0
-u32 var8009e6b0[4];
-#endif
-
 struct g_vars g_Vars;
 
 void varsInit(void)

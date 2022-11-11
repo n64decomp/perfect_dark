@@ -150,20 +150,12 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	struct defaultobj *chair = NULL;
 	s32 cdresult;
 	s16 sp84[20];
-#if VERSION < VERSION_NTSC_1_0
-	s32 i;
-#endif
 	struct coord sp78;
 	struct coord sp6c;
 	struct coord sp60;
 	struct coord sp54;
 	f32 value;
 	struct coord sp44;
-#if VERSION < VERSION_NTSC_1_0
-	s32 j;
-	s32 k;
-	s32 l;
-#endif
 
 	// The eyespy can't be pushed
 	if (CHRRACE(chr) == RACE_EYESPY) {
@@ -186,16 +178,6 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	}
 
 	func0f065dfc(&prop->pos, prop->rooms, dstpos, dstrooms, sp84, 20);
-
-#if VERSION < VERSION_NTSC_1_0
-	for (i = 0; dstrooms[i] != -1; i++) {
-		if (dstrooms[i] == chr->floorroom) {
-			dstrooms[0] = chr->floorroom;
-			dstrooms[1] = -1;
-			break;
-		}
-	}
-#endif
 
 	chr0f021fa8(chr, dstpos, dstrooms);
 
@@ -222,15 +204,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 
 			moveok = true;
 		} else {
-#if VERSION >= VERSION_PAL_FINAL
 			cdGetEdge(&sp78, &sp6c, 453, "chr/chr.c");
-#elif VERSION >= VERSION_PAL_BETA
-			cdGetEdge(&sp78, &sp6c, 453, "chr.c");
-#elif VERSION >= VERSION_NTSC_1_0
-			cdGetEdge(&sp78, &sp6c, 453, "chr/chr.c");
-#else
-			cdGetEdge(&sp78, &sp6c, 451, "chr.c");
-#endif
 
 			// Attempt to find a valid position - method #1
 			sp60.x = dstpos->x - prop->pos.x;
@@ -252,16 +226,6 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 				sp44.z = sp54.z * value + prop->pos.z;
 
 				func0f065dfc(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
-
-#if VERSION < VERSION_NTSC_1_0
-				for (j = 0; dstrooms[j] != -1; j++) {
-					if (dstrooms[j] == chr->floorroom) {
-						dstrooms[0] = chr->floorroom;
-						dstrooms[1] = -1;
-						break;
-					}
-				}
-#endif
 
 				chr0f021fa8(chr, &sp44, dstrooms);
 
@@ -309,16 +273,6 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 
 						func0f065dfc(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
 
-#if VERSION < VERSION_NTSC_1_0
-						for (k = 0; dstrooms[k] != -1; k++) {
-							if (dstrooms[k] == chr->floorroom) {
-								dstrooms[0] = chr->floorroom;
-								dstrooms[1] = -1;
-								break;
-							}
-						}
-#endif
-
 						chr0f021fa8(chr, &sp44, dstrooms);
 
 						movex = sp44.x - prop->pos.x;
@@ -363,16 +317,6 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 
 							func0f065dfc(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
 
-#if VERSION < VERSION_NTSC_1_0
-							for (l = 0; dstrooms[l] != -1; l++) {
-								if (dstrooms[l] == chr->floorroom) {
-									dstrooms[0] = chr->floorroom;
-									dstrooms[1] = -1;
-									break;
-								}
-							}
-#endif
-
 							chr0f021fa8(chr, &sp44, dstrooms);
 
 							movex = sp44.x - prop->pos.x;
@@ -416,11 +360,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, bool arg4)
-#else
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3)
-#endif
 {
 	bool result;
 	struct coord newpos;
@@ -442,12 +382,10 @@ bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3)
 			ymin - chr->prop->pos.y);
 	chrSetPerimEnabled(chr, true);
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (result == true && arg4) {
 		pos->y = newpos.y;
 		roomsCopy(newrooms, rooms);
 	}
-#endif
 
 	return result == CDRESULT_NOCOLLISION;
 }
@@ -465,26 +403,20 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	f32 yincrement = 0.0f;
 	bool inlift;
 	u16 floorflags = 0;
-#if VERSION >= VERSION_NTSC_1_0
 	s32 lvupdate240;
 	f32 lvupdate60f;
 	f32 lvupdate60freal;
 	struct coord spd0;
 	s16 spc0[8];
-#endif
 
 	// NTSC beta reads g_Vars lvupdate properties throughout this function,
 	// while NTSC 1.0 and newer copy them into stack variables at the start.
 	// A macro is used here for readability
-#if VERSION >= VERSION_NTSC_1_0
 	lvupdate240 = g_Vars.lvupdate240;
 	lvupdate60f = g_Vars.lvupdate60f;
 	lvupdate60freal = g_Vars.lvupdate60freal;
 
 #define VAR(property) property
-#else
-#define VAR(property) g_Vars.property
-#endif
 
 	if (g_Anims[model->anim->animnum].flags & ANIMFLAG_02) {
 		if (chr->hidden & CHRHFLAG_00020000) {
@@ -514,7 +446,6 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			f32 move[2] = {0, 0};
 
 			if (VAR(lvupdate240) > 0) {
-#if VERSION >= VERSION_NTSC_1_0
 				if (chr->aibot->unk078 != 0) {
 					if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 						chr->aibot->unk078 = 0;
@@ -536,9 +467,6 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 				}
 
 				bot0f1921f8(chr, move, lvupdate240, lvupdate60freal);
-#else
-				bot0f1921f8(chr, move);
-#endif
 			}
 
 			arg2->x = arg1->x + move[0];
@@ -660,11 +588,9 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 			dist = sqrtf(xdiff * xdiff + zdiff * zdiff);
 
-#if VERSION >= VERSION_NTSC_1_0
 			if (dist > 100.0f) {
 				dist = 100.0f;
 			}
-#endif
 
 			yincrement += dist;
 
@@ -692,16 +618,9 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 				&& chr->act_skjump.state == SKJUMPSTATE_AIRBORNE
 				&& !chr->act_skjump.needsnewanim
 				&& g_Vars.lvupdate60 != 0) {
-#if VERSION >= VERSION_NTSC_1_0
 			if (chr0f01f264(chr, arg2, spfc, yincrement, true)) {
 				chr->manground += yincrement;
 			}
-#else
-			if (chr0f01f264(chr, arg2, spfc, yincrement)) {
-				chr->manground += yincrement;
-				arg2->y += yincrement;
-			}
-#endif
 
 			chr->sumground = chr->manground * (PAL ? 8.4175090789795f : 9.999998f);
 			chr->ground = chr->manground;
@@ -718,16 +637,9 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			u8 die;
 
 			if (chr->onladder) {
-#if VERSION >= VERSION_NTSC_1_0
 				if (chr0f01f264(chr, arg2, spfc, yincrement, true)) {
 					chr->manground += yincrement;
 				}
-#else
-				if (chr0f01f264(chr, arg2, spfc, yincrement)) {
-					chr->manground += yincrement;
-					arg2->y += yincrement;
-				}
-#endif
 
 				chr->sumground = chr->manground * (PAL ? 8.4175090789795f : 9.999998f);
 				chr->ground = chr->manground;
@@ -759,7 +671,6 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 					ground = cdFindGroundInfoAtCyl(sp98, chr->radius, sp94,
 							&chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 
-#if VERSION >= VERSION_NTSC_1_0
 					if (chr->aibot
 							&& chr->aibot->unk078 == 0
 							&& ground < -100000
@@ -775,7 +686,6 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 						ground = cdFindGroundInfoAtCyl(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 					}
-#endif
 
 					if (inlift) {
 						chr->inlift = true;
@@ -820,12 +730,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 						func0f0965e4(&yincrement, &sp68, VAR(lvupdate60freal));
 
-#if VERSION >= VERSION_NTSC_1_0
-						if (chr0f01f264(chr, arg2, spfc, yincrement, false))
-#else
-						if (chr0f01f264(chr, arg2, spfc, yincrement))
-#endif
-						{
+						if (chr0f01f264(chr, arg2, spfc, yincrement, false)) {
 							chr->manground += yincrement;
 							chr->fallspeed.y = sp68;
 						}
@@ -877,7 +782,6 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 						}
 					}
 
-#if VERSION >= VERSION_NTSC_1_0
 					if (manground != chr->manground) {
 						spd0 = *arg2;
 
@@ -888,12 +792,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 						func0f065e74(&spd0, spc0, arg2, spfc);
 						chr0f021fa8(chr, arg2, spfc);
 					}
-#endif
 				}
 
-#if VERSION < VERSION_NTSC_1_0
-				arg2->y += chr->manground - manground;
-#endif
 				arg2->y -= chr->manground;
 			}
 		}
@@ -906,9 +806,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	prop->pos.z = arg2->z;
 
 	if (chr->actiontype == ACT_SKJUMP) {
-#if VERSION >= VERSION_NTSC_1_0
 		f32 ground;
-#endif
 
 		ground = chr->act_skjump.ground;
 
@@ -922,7 +820,6 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	propDeregisterRooms(prop);
 	roomsCopy(spfc, prop->rooms);
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (prop->type == PROPTYPE_CHR) {
 		for (i = 0; prop->rooms[i] != -1; i++) {
 			if (chr->floorroom == prop->rooms[i]) {
@@ -933,7 +830,6 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			}
 		}
 	}
-#endif
 
 	chr0f0220ac(chr);
 	propCalculateShadeColour(prop, chr->nextcol, chr->floorcol);
@@ -1135,7 +1031,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->bdstart = 0;
 	chr->oldframe = 0;
 	chr->magicframe = 0;
-	chr->magicspeed = VERSION >= VERSION_PAL_BETA ? 1 : 0.25;
+	chr->magicspeed = 0.25;
 
 	i = 0;
 
@@ -1204,9 +1100,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->noblood = false;
 	chr->rtracked = false;
 
-#if VERSION >= VERSION_NTSC_1_0
 	chr->goposhitcount = 0;
-#endif
 
 	splatResetChr(chr);
 }
@@ -1797,13 +1691,7 @@ void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	struct coord upper;
 	f32 height = 110;
 
-	if (
-#if VERSION >= VERSION_NTSC_1_0
-			chr && chr->race == RACE_EYESPY
-#else
-			chr->race == RACE_EYESPY
-#endif
-			) {
+	if (chr && chr->race == RACE_EYESPY) {
 		struct eyespy *eyespy = chrToEyespy(chr);
 
 		if (eyespy) {
@@ -2283,11 +2171,9 @@ s32 chrTick(struct prop *prop)
 	}
 
 	if (fulltick) {
-#if VERSION >= VERSION_NTSC_1_0
 		if (chr->goposhitcount > 0 && (chr->hidden & CHRHFLAG_BLOCKINGDOOR) == 0) {
 			chr->goposhitcount--;
 		}
-#endif
 
 		if (g_Vars.in_cutscene) {
 			chr->drugheadcount = 0;
@@ -2299,21 +2185,13 @@ s32 chrTick(struct prop *prop)
 			chr->drugheadcount = 0;
 
 			if (chr->drugheadsway > 0.0f) {
-#if VERSION >= VERSION_PAL_BETA
-				chr->drugheadsway -= 0.175f * g_Vars.lvupdate60freal;
-#else
 				chr->drugheadsway -= 0.04375f * g_Vars.lvupdate240;
-#endif
 
 				if (chr->drugheadsway < 0.0f) {
 					chr->drugheadsway = 0.0f;
 				}
 			} else if (chr->drugheadsway < 0.0f) {
-#if VERSION >= VERSION_PAL_BETA
-				chr->drugheadsway += 0.175f * g_Vars.lvupdate60freal;
-#else
 				chr->drugheadsway += 0.04375f * g_Vars.lvupdate240;
-#endif
 
 				if (chr->drugheadsway > 0.0f) {
 					chr->drugheadsway = 0.0f;
@@ -2511,11 +2389,7 @@ s32 chrTick(struct prop *prop)
 
 	if (fulltick) {
 		if (chr->actiontype != ACT_STAND || model->anim->animnum2 != 0 || prop->type == PROPTYPE_PLAYER) {
-#if VERSION >= VERSION_NTSC_1_0
 			chr->hidden2 |= CHRH2FLAG_0040;
-#else
-			chr->hidden |= CHRHFLAG_00000200;
-#endif
 		}
 
 		chrUpdateAimProperties(chr);
@@ -2525,7 +2399,6 @@ s32 chrTick(struct prop *prop)
 		onscreen = false;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (!g_Vars.normmplayerisrunning && onscreen) {
 		if (chr->actiontype == ACT_DEAD
 				|| (chr->actiontype == ACT_DRUGGEDKO && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
@@ -2544,13 +2417,8 @@ s32 chrTick(struct prop *prop)
 			onscreen = false;
 		}
 	}
-#endif
 
 	if (onscreen) {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-		debug0f1199f0nb();
-#endif
-
 		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
 		chr->chrflags |= CHRCFLAG_EVERONSCREEN;
 
@@ -3514,10 +3382,8 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 		sparksCreate(chrprop->rooms[0], chrprop, &coord3, coord2, 0, SPARKTYPE_FLESH_LARGE);
 	}
 
-#if VERSION < VERSION_JPN_FINAL
 	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_BLOOD);
 	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_FLESH);
-#endif
 }
 
 void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3)
@@ -4550,7 +4416,6 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				mtx0001719c(sp58->m, spb0.m);
 				mtx4TransformVec(&spb0, &sp98, &sp5c);
 
-#if VERSION >= VERSION_NTSC_1_0
 				if (!chr->noblood
 						&& race != RACE_DRCAROLL
 						&& race != RACE_ROBOT
@@ -4571,29 +4436,6 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 
 					splatsCreateForChrHit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
 				}
-#else
-				// NTSC beta wraps all the blood logic in this paintball check.
-				// If paintball is enabled, neither blood nor paint is created.
-				if (!chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)
-						&& !chr->noblood
-						&& race != RACE_DRCAROLL
-						&& race != RACE_ROBOT
-						&& race != RACE_EYESPY
-						&& !isclose
-						&& shotdata->gset.weaponnum != WEAPON_TRANQUILIZER) {
-					u8 darker;
-
-					if (chr->bodynum == BODY_MRBLONDE || race == RACE_SKEDAR) {
-						darker = true;
-					} else {
-						darker = false;
-					}
-
-					chrBruise(hit->model, hit->hitpart, hit->node, &sp5c);
-
-					splatsCreateForChrHit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
-				}
-#endif
 			}
 		}
 	}

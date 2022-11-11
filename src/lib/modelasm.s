@@ -1728,59 +1728,6 @@ glabel model00019d1c
 	jr     $ra
 	addiu  $sp, $sp, 0x20
 
-#if VERSION < VERSION_NTSC_1_0
-/**
- * NTSC beta uses a simple version of this function, implemented here in ASM.
- * NTSC 1.0 and newer reimplements the function in C and adds more to it.
- */
-glabel modelGetNodeRwData
-	addiu  $sp, $sp, -16
-	sw     $t0, 0x0($sp)
-	sw     $t1, 0x4($sp)
-	sw     $t3, 0x8($sp)
-	sw     $ra, 0xc($sp)
-	lw     $t4, 0x4($a1)
-	lui    $t2, 0x8006
-	addiu  $t2, $t2, 0x1360
-	lhu    $t1, 0x0($a1)
-	andi   $t1, $t1, 0xff
-	or     $t0, $zero, $zero
-	slti   $at, $t1, 0x1a
-	beqz   $at, .NB0001aefc
-	lw     $t3, 0x10($a0)
-	add    $t2, $t2, $t1
-	lbu    $t2, 0x0($t2)
-	addiu  $at, $zero, 0xff
-	beq    $t2, $at, .NB0001aefc
-	add    $t2, $t4, $t2
-	lhu    $t0, 0x0($t2)
-.NB0001aefc:
-	lbu    $t1, 0x0($a0)
-	beqz   $t1, .NB0001af34
-	sll    $zero, $zero, 0x0
-.NB0001af08:
-	lw     $t1, 0x8($a1)
-	beqz   $t1, .NB0001af34
-	or     $a1, $t1, $zero
-	lhu    $t1, 0x0($a1)
-	andi   $t1, $t1, 0xff
-	addiu  $at, $zero, 0x17
-	bne    $t1, $at, .NB0001af08
-	sll    $zero, $zero, 0x0
-	jal    modelGetNodeRwData
-	sll    $zero, $zero, 0x0
-	lw     $t3, 0x4($v0)
-.NB0001af34:
-	sll    $t0, $t0, 0x2
-	add    $v0, $t3, $t0
-	lw     $t0, 0x0($sp)
-	lw     $t1, 0x4($sp)
-	lw     $t3, 0x8($sp)
-	lw     $ra, 0xc($sp)
-	jr     $ra
-	addiu  $sp, $sp, 0x10
-#endif
-
 glabel model00019ddc
 	sw     $ra, 0x7ac($sp)
 .L00019de0:

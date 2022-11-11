@@ -35,10 +35,6 @@ struct splatdata {
 	s32 timerspeed;
 };
 
-#if VERSION < VERSION_NTSC_1_0
-u32 var80082100nb = 0;
-#endif
-
 f32 var8007f8a0 = 0.15;
 f32 var8007f8a4 = 3;
 f32 var8007f8a8 = 12;
@@ -47,11 +43,8 @@ f32 g_SplatMaxDistance = 180;
 f32 var8007f8b4 = 5;
 f32 var8007f8b8 = 50;
 
-#if VERSION == VERSION_JPN_FINAL
-#else
 bool splat0f149274(f32 arg0, struct prop *prop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 arg5, s32 arg6, struct chrdata *chr, s32 arg8);
 void splat0f14986c(struct splatdata *splatdata);
-#endif
 
 void splatTickChr(struct prop *prop)
 {
@@ -126,7 +119,6 @@ void splatTickChr(struct prop *prop)
 
 void splatsCreateForChrHit(struct prop *prop, struct shotdata *shotdata, struct coord *arg2, struct coord *arg3, bool isskedar, s32 splattype, struct chrdata *chr2)
 {
-#if VERSION != VERSION_JPN_FINAL
 	struct chrdata *chr = prop->chr;
 
 	if (chr->bulletstaken < 7) {
@@ -140,16 +132,12 @@ void splatsCreateForChrHit(struct prop *prop, struct shotdata *shotdata, struct 
 			chr->stdsplatsadded += splatsCreate(qty, 0.8f, prop, shotdata, arg2, arg3, isskedar, splattype, TICKS(50), chr2, 0);
 		}
 	}
-#endif
 }
 
 s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg,
 		struct coord *arg4, struct coord *arg5, bool isskedar, s32 splattype,
 		s32 timermax, struct chrdata *chr, s32 timerspeed)
 {
-#if VERSION == VERSION_JPN_FINAL
-	return 0;
-#else
 	struct shotdata stackshotdata;
 	struct shotdata *shotdata = splattype == 0 ? shotdataarg : &stackshotdata;
 	struct coord spfc;
@@ -207,13 +195,8 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdata
 		mtx4RotateVec(&spa4, &spfc, &shotdata->dir);
 		mtx4RotateVec(&spa4, &spf0, &shotdata->unk0c);
 
-#if VERSION >= VERSION_NTSC_1_0
 		func0f177164(&shotdata->dir, &shotdata->dir, 403, "splat.c");
 		func0f177164(&shotdata->unk0c, &shotdata->unk0c, 404, "splat.c");
-#else
-		func0f177164(&shotdata->dir, &shotdata->dir, 405, "splat.c");
-		func0f177164(&shotdata->unk0c, &shotdata->unk0c, 406, "splat.c");
-#endif
 
 		if (splat0f149274(arg1, prop, shotdata, /*reused var*/ dist, isskedar, splattype, timermax, chr, timerspeed)) {
 			numdropped++;
@@ -228,15 +211,8 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdata
 	}
 
 	return numdropped;
-#endif
 }
 
-#if VERSION == VERSION_JPN_FINAL
-void splat0f149274(void)
-{
-	osSyncPrintf("Splat : Out of range\n");
-}
-#else
 bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 splattype, s32 timermax, struct chrdata *chr, s32 timerspeed)
 {
 	struct prop **propptr;
@@ -389,19 +365,12 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 
 	return false;
 }
-#endif
 
 void splatsTick(void)
 {
 	// empty
 }
 
-#if VERSION == VERSION_JPN_FINAL
-void splat0f14986c(void)
-{
-	// empty
-}
-#else
 void splat0f14986c(struct splatdata *splat)
 {
 	f32 spac;
@@ -506,7 +475,6 @@ void splat0f14986c(struct splatdata *splat)
 		smokeCreateSimple(&splat->unk0c, smokerooms, sp88 ? SMOKETYPE_SKCORPSE : SMOKETYPE_14);
 	}
 }
-#endif
 
 void splatResetChr(struct chrdata *chr)
 {

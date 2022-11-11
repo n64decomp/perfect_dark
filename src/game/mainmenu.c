@@ -46,11 +46,9 @@ char *menuTextCurrentStageName(struct menuitem *item)
 
 char *soloMenuTextDifficulty(struct menuitem *item)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_MissionConfig.pdmode) {
 		return langGet(L_MPWEAPONS_221);
 	}
-#endif
 
 	switch (g_MissionConfig.difficulty) {
 	case DIFF_SA:
@@ -153,34 +151,17 @@ s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union handlerdat
 	u32 playernum = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 		? g_Vars.currentplayerstats->mpindex : item->param3;
 
-#if VERSION >= VERSION_PAL_FINAL
-	s32 index = 0;
-
-	u16 options[2][2] = {
-		{ L_OPTIONS_201,   L_OPTIONS_202   }, // "Hold", "Toggle"
-		{ L_MPWEAPONS_276, L_MPWEAPONS_277 }, // "Hold", "Toggle"
-	};
-
-	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
-		index = 1;
-	}
-#else
 	u16 options[] = {
 		L_OPTIONS_201, // "Hold"
 		L_OPTIONS_202, // "Toggle"
 	};
-#endif
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-#if VERSION >= VERSION_PAL_FINAL
-		return (s32) langGet(options[index][data->dropdown.value]);
-#else
 		return (s32) langGet(options[data->dropdown.value]);
-#endif
 	case MENUOP_SET:
 		optionsSetAimControl(playernum, data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
@@ -746,9 +727,7 @@ s32 menuhandlerAcceptMission(s32 operation, struct menuitem *item, union handler
 		titleSetNextMode(TITLEMODE_SKIP);
 		mainChangeToStage(g_MissionConfig.stagenum);
 
-#if VERSION >= VERSION_NTSC_1_0
 		viBlack(true);
-#endif
 	}
 
 	return 0;
@@ -962,7 +941,6 @@ bool isStageDifficultyUnlocked(s32 stageindex, s32 difficulty)
 
 	// Handle special missions
 	if (stageindex > SOLOSTAGEINDEX_SKEDARRUINS) {
-#if VERSION >= VERSION_NTSC_1_0
 		// If the player has completed Skedar Ruins on the same difficulty as
 		// the one that's being queried, then they have access to this
 		// difficulty for all special missions. Agent is gifted here, so if the
@@ -978,7 +956,6 @@ bool isStageDifficultyUnlocked(s32 stageindex, s32 difficulty)
 		if (difficulty <= maxcompleteddiff) {
 			return true;
 		}
-#endif
 
 		// Otherwise, grant them the difficulty if they've completed all prior
 		// difficulties on this stage.
@@ -1100,7 +1077,6 @@ s32 menuhandlerSoloDifficulty(s32 operation, struct menuitem *item, union handle
 {
 	switch (operation) {
 	case MENUOP_CHECKPREFOCUSED:
-#if VERSION >= VERSION_NTSC_1_0
 		if (isStageDifficultyUnlocked(g_MissionConfig.stageindex, item->param)) {
 			if (item->param3 == 0) {
 				return true;
@@ -1109,14 +1085,6 @@ s32 menuhandlerSoloDifficulty(s32 operation, struct menuitem *item, union handle
 				return true;
 			}
 		}
-#else
-		if (item->param3 == 0) {
-			return true;
-		}
-		if (item->param <= (u32)g_GameFile.autodifficulty) {
-			return true;
-		}
-#endif
 		break;
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
@@ -1256,7 +1224,6 @@ s32 menuhandlerBuddyOptionsContinue(s32 operation, struct menuitem *item, union 
 	return 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 getMaxAiBuddies(void)
 {
 	u32 stack;
@@ -1280,19 +1247,11 @@ s32 getMaxAiBuddies(void)
 		max = 1;
 	}
 
-#if VERSION == VERSION_PAL_BETA
-	if (debugIsAllBuddiesEnabled()) {
-		max = 4;
-	}
-#endif
-
 	return max;
 }
-#endif
 
 s32 menudialogCoopAntiOptions(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	if (operation == MENUOP_OPEN) {
 		s32 max = getMaxAiBuddies();
 
@@ -1300,7 +1259,6 @@ s32 menudialogCoopAntiOptions(s32 operation, struct menudialogdef *dialogdef, un
 			g_Vars.numaibuddies = max;
 		}
 	}
-#endif
 
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
@@ -1355,7 +1313,6 @@ s32 menuhandlerCoopBuddy(s32 operation, struct menuitem *item, union handlerdata
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-#if VERSION >= VERSION_NTSC_1_0
 		{
 			s32 maxaibuddies = getMaxAiBuddies();
 			s32 human = 0;
@@ -1366,40 +1323,6 @@ s32 menuhandlerCoopBuddy(s32 operation, struct menuitem *item, union handlerdata
 
 			data->dropdown.value = human + maxaibuddies;
 		}
-#else
-		{
-			s32 extrabuddies = 0;
-			s32 i;
-			s32 maxbuddies = 1 - g_MissionConfig.difficulty;
-			s32 human = 0;
-
-			if (joyGetConnectedControllers() & 2) {
-				human = 1;
-			}
-
-			for (i = 0; i < 3; i++) {
-				if ((g_GameFile.coopcompletions[i] | 0xfffe0000) == 0xffffffff) {
-					extrabuddies = i + 1;
-				}
-			}
-
-			maxbuddies += extrabuddies;
-
-			if (maxbuddies > 4) {
-				maxbuddies = 4;
-			}
-
-			if (maxbuddies < 1) {
-				maxbuddies = 1;
-			}
-
-			if (debugIsAllBuddiesEnabled()) {
-				maxbuddies = 4;
-			}
-
-			data->dropdown.value = human + maxbuddies;
-		}
-#endif
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		{
@@ -1771,7 +1694,7 @@ s32 getNumUnlockedSpecialStages(void)
 	if (g_MissionConfig.iscoop || g_MissionConfig.isanti) {
 		offsetforduel = 0;
 	} else {
-		for (i = 0; i < (VERSION >= VERSION_NTSC_1_0 ? 32 : 33); i++) {
+		for (i = 0; i < 32; i++) {
 			if (ciGetFiringRangeScore(i) <= 0) {
 				offsetforduel = 0;
 			}
@@ -1972,18 +1895,11 @@ s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerda
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-#if VERSION >= VERSION_NTSC_1_0
 		texSelect(&gdl, g_TexGeneralConfigs + 13 + stageindex, 2, 0, 2, true, NULL);
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineLERP(gdl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 		gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 255 / 256));
-#else
-		texSelect(&gdl, g_TexGeneralConfigs + 13 + stageindex, 1, 0, 2, true, NULL);
-		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
-		gDPSetTextureFilter(gdl++, G_TF_POINT);
-#endif
 
 		gSPTextureRectangle(gdl++,
 				((renderdata->x + 4) << 2) * g_ScaleX, (renderdata->y + 3) << 2,
@@ -2002,20 +1918,12 @@ s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerda
 				s32 relx = 63 + k * 17;
 
 				if ((g_GameFile.coopcompletions[k] & (1 << stageindex)) == 0) {
-#if VERSION >= VERSION_NTSC_1_0
 					gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 63 / 256));
-#else
-					gDPSetEnvColorViaWord(gdl++, 0xffffff3f);
-#endif
 					gDPSetCombineLERP(gdl++,
 							TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0,
 							TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
 				} else {
-#if VERSION >= VERSION_NTSC_1_0
 					gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 207 / 256));
-#else
-					gDPSetEnvColorViaWord(gdl++, 0xffffffcf);
-#endif
 					gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 				}
 
@@ -2031,11 +1939,7 @@ s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerda
 			gDPSetTextureFilter(gdl++, G_TF_POINT);
 			gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 
-#if VERSION >= VERSION_NTSC_1_0
 			gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 175 / 256));
-#else
-			gDPSetEnvColorViaWord(gdl++, 0xffffffaf);
-#endif
 
 			for (k = 0; k < 3; k++) {
 				if (g_GameFile.besttimes[stageindex][k] != 0) {
@@ -2048,11 +1952,7 @@ s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerda
 
 				if (k == incompleteindex) {
 					// Set transparency
-#if VERSION >= VERSION_NTSC_1_0
 					gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 63 / 256));
-#else
-					gDPSetEnvColorViaWord(gdl++, 0xffffff3f);
-#endif
 					gDPSetCombineLERP(gdl++,
 							TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0,
 							TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
@@ -2258,13 +2158,7 @@ struct menuitem g_SoloMissionControlStyleMenuItems[] = {
 		0,
 		MENUITEMFLAG_LIST_AUTOWIDTH,
 		0x00000028,
-#if VERSION == VERSION_JPN_FINAL
-		0xbe,
-#elif PAL
-		0x9c,
-#else
 		0x96,
-#endif
 		menuhandler001024dc,
 	},
 	{
@@ -2293,13 +2187,7 @@ struct menuitem g_CiControlStyleMenuItems[] = {
 		0,
 		MENUITEMFLAG_LIST_AUTOWIDTH,
 		0x00000028,
-#if VERSION == VERSION_JPN_FINAL
-		0xbe,
-#elif PAL
-		0x9c,
-#else
 		0x96,
-#endif
 		menuhandler001024dc,
 	},
 	{
@@ -2328,13 +2216,7 @@ struct menuitem g_CiControlStylePlayer2MenuItems[] = {
 		0,
 		MENUITEMFLAG_LIST_AUTOWIDTH,
 		0x00000028,
-#if VERSION == VERSION_JPN_FINAL
-		0xbe,
-#elif PAL
-		0x9c,
-#else
 		0x96,
-#endif
 		menuhandler001024fc,
 	},
 	{
@@ -2363,11 +2245,7 @@ struct menuitem g_AudioOptionsMenuItems[] = {
 		0,
 		MENUITEMFLAG_SLIDER_FAST | MENUITEMFLAG_SLIDER_HIDEVALUE,
 		L_OPTIONS_228, // "Sound"
-#if VERSION >= VERSION_NTSC_1_0
 		L_MPMENU_000, // ""
-#else
-		0x7fff,
-#endif
 		menuhandlerSfxVolume,
 	},
 	{
@@ -2375,11 +2253,7 @@ struct menuitem g_AudioOptionsMenuItems[] = {
 		0,
 		MENUITEMFLAG_SLIDER_FAST | MENUITEMFLAG_SLIDER_HIDEVALUE,
 		L_OPTIONS_229, // "Music"
-#if VERSION >= VERSION_NTSC_1_0
 		L_MPMENU_000, // ""
-#else
-		0x7fff,
-#endif
 		menuhandlerMusicVolume,
 	},
 	{
@@ -2390,7 +2264,6 @@ struct menuitem g_AudioOptionsMenuItems[] = {
 		0,
 		menuhandlerSoundMode,
 	},
-#if VERSION != VERSION_JPN_FINAL
 	{
 		MENUITEMTYPE_CHECKBOX,
 		0,
@@ -2399,12 +2272,11 @@ struct menuitem g_AudioOptionsMenuItems[] = {
 		0,
 		menuhandlerLangFilter,
 	},
-#endif
 	{
 		MENUITEMTYPE_SEPARATOR,
 		0,
 		0,
-		(VERSION >= VERSION_PAL_FINAL ? 200 : 0),
+		0,
 		0,
 		NULL,
 	},
@@ -2434,11 +2306,7 @@ struct menuitem g_2PMissionAudioOptionsVMenuItems[] = {
 		0,
 		MENUITEMFLAG_SLIDER_FAST | MENUITEMFLAG_SLIDER_HIDEVALUE | MENUITEMFLAG_SLIDER_ALTSIZE,
 		L_OPTIONS_228, // "Sound"
-#if VERSION >= VERSION_NTSC_1_0
 		L_MPMENU_000, // ""
-#else
-		0x7fff,
-#endif
 		menuhandlerSfxVolume,
 	},
 	{
@@ -2446,11 +2314,7 @@ struct menuitem g_2PMissionAudioOptionsVMenuItems[] = {
 		0,
 		MENUITEMFLAG_SLIDER_FAST | MENUITEMFLAG_SLIDER_HIDEVALUE | MENUITEMFLAG_SLIDER_ALTSIZE,
 		L_OPTIONS_229, // "Music"
-#if VERSION >= VERSION_NTSC_1_0
 		L_MPMENU_000, // ""
-#else
-		0x7fff,
-#endif
 		menuhandlerMusicVolume,
 	},
 	{
@@ -2461,7 +2325,6 @@ struct menuitem g_2PMissionAudioOptionsVMenuItems[] = {
 		0,
 		menuhandlerSoundMode,
 	},
-#if VERSION != VERSION_JPN_FINAL
 	{
 		MENUITEMTYPE_CHECKBOX,
 		0,
@@ -2470,7 +2333,6 @@ struct menuitem g_2PMissionAudioOptionsVMenuItems[] = {
 		0,
 		menuhandlerLangFilter,
 	},
-#endif
 	{
 		MENUITEMTYPE_SEPARATOR,
 		0,
@@ -2795,11 +2657,7 @@ struct menuitem g_2PMissionDisplayOptionsVMenuItems[] = {
 		MENUITEMTYPE_CHECKBOX,
 		0,
 		0,
-#if VERSION >= VERSION_PAL_FINAL
-		L_MPWEAPONS_279, // "In-Game Subtitles"
-#else
 		L_MPWEAPONS_169, // "In-Game Subtitles"
-#endif
 		0x00000004,
 		menuhandlerInGameSubtitles,
 	},
@@ -2807,11 +2665,7 @@ struct menuitem g_2PMissionDisplayOptionsVMenuItems[] = {
 		MENUITEMTYPE_CHECKBOX,
 		0,
 		0,
-#if VERSION >= VERSION_PAL_FINAL
-		L_MPWEAPONS_278, // "Cutscene Subtitles"
-#else
 		L_MPWEAPONS_168, // "Cutscene Subtitles"
-#endif
 		0x00000004,
 		menuhandlerCutsceneSubtitles,
 	},
@@ -3132,85 +2986,6 @@ struct menudialogdef g_MissionControlOptionsMenuDialog = {
 	NULL,
 };
 
-#if VERSION >= VERSION_PAL_FINAL
-struct menuitem g_CiControlOptionsMenuItems2[] = {
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		0,
-		L_MPWEAPONS_270, // ""
-		(u32)&func0f105664,
-		menuhandlerControlStyle,
-	},
-	{
-		MENUITEMTYPE_CHECKBOX,
-		0,
-		0,
-		L_MPWEAPONS_271, // ""
-		0x00000004,
-		menuhandlerReversePitch,
-	},
-	{
-		MENUITEMTYPE_CHECKBOX,
-		0,
-		0,
-		L_MPWEAPONS_272, // ""
-		0x00000004,
-		menuhandlerLookAhead,
-	},
-	{
-		MENUITEMTYPE_CHECKBOX,
-		0,
-		0,
-		L_MPWEAPONS_273, // ""
-		0x00000004,
-		menuhandlerHeadRoll,
-	},
-	{
-		MENUITEMTYPE_CHECKBOX,
-		0,
-		0,
-		L_MPWEAPONS_274, // ""
-		0x00000004,
-		menuhandlerAutoAim,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		0,
-		0,
-		L_MPWEAPONS_275, // ""
-		0x00000004,
-		menuhandlerAimControl,
-	},
-	{
-		MENUITEMTYPE_SEPARATOR,
-		0,
-		0,
-		0,
-		0,
-		NULL,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		L_OPTIONS_200, // "Back"
-		0,
-		NULL,
-	},
-	{ MENUITEMTYPE_END },
-};
-
-struct menudialogdef g_CiControlOptionsMenuDialog2 = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS_192, // "Control Options"
-	g_CiControlOptionsMenuItems2,
-	NULL,
-	0,
-	NULL,
-};
-#endif
-
 struct menuitem g_CiControlOptionsMenuItems[] = {
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -3513,11 +3288,7 @@ struct menuitem g_2PMissionOptionsVMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
 		L_OPTIONS_183, // "Control"
 		0,
-#if VERSION >= VERSION_PAL_FINAL
-		(void *)&g_CiControlOptionsMenuDialog2,
-#else
 		(void *)&g_MissionControlOptionsMenuDialog,
-#endif
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -3753,9 +3524,7 @@ void func0f105948(s32 weaponnum)
 		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
 		{ 281.89999389648f,   0.89999997615814f,  8.3999996185303f,   5.0027899742126f, 0.18402999639511f },
 		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
-#if VERSION >= VERSION_NTSC_1_0
 		{ -3.7999999523163f,  6.1999998092651f,   1.0f,               5.6747899055481f, 0.29199999570847f },
-#endif
 		{ -3.7999999523163f,  6.1999998092651f,   1.0f,               5.8997898101807f, 2.0506100654602f  },
 	};
 
@@ -3910,9 +3679,8 @@ char *invMenuTextWeaponDescription(struct menuitem *item)
 		}
 
 		if (g_InventoryWeapon == WEAPON_NECKLACE
-				&& g_Vars.stagenum == (VERSION >= VERSION_NTSC_1_0 ? STAGE_ATTACKSHIP : STAGE_SKEDARRUINS)
+				&& g_Vars.stagenum == STAGE_ATTACKSHIP
 				&& lvGetDifficulty() >= DIFF_PA) {
-#if VERSION >= VERSION_NTSC_1_0
 			// Phrases included here to assist people searching the code for them:
 			// CDV780322
 			// I8MOZYM8NDI85
@@ -3960,10 +3728,6 @@ char *invMenuTextWeaponDescription(struct menuitem *item)
 			// "Cassandra De Vries' replacement necklace.  Username: %s  Password: %s"
 			sprintf(g_StringPointer, langGet(L_GUN_239), &username, &password);
 			return g_StringPointer;
-#else
-			// ntsc-beta stores the whole thing as a single plain text string
-			return langGet(L_GUN_239);
-#endif
 		}
 
 		return langGet(weapon->description);
@@ -3978,7 +3742,7 @@ struct menuitem g_SoloMissionInventoryMenuItems[] = {
 		0,
 		0,
 		0x0000006e,
-		(VERSION >= VERSION_JPN_FINAL ? 0x54 : 0x63),
+		0x63,
 		menuhandlerInventoryList,
 	},
 	{
@@ -4002,7 +3766,7 @@ struct menuitem g_SoloMissionInventoryMenuItems[] = {
 		0,
 		0,
 		0x0000008c,
-		(VERSION >= VERSION_JPN_FINAL ? 0x14 : 0x37),
+		0x37,
 		NULL,
 	},
 	{
@@ -4097,11 +3861,7 @@ struct menudialogdef g_SoloMissionInventoryMenuDialog = {
 	L_OPTIONS_178, // "Inventory"
 	g_SoloMissionInventoryMenuItems,
 	inventoryMenuDialog,
-#if VERSION >= VERSION_JPN_FINAL
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400 | MENUDIALOGFLAG_1000,
-#else
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
-#endif
 	&g_SoloMissionOptionsMenuDialog,
 };
 
@@ -4453,9 +4213,6 @@ struct cutscene g_Cutscenes[] = {
 	{ /* 4*/ STAGE_EXTRACTION,     2, 0, L_OPTIONS_454 },
 	{ /* 5*/ STAGE_EXTRACTION,     2, 1, L_OPTIONS_455 },
 	{ /* 6*/ STAGE_VILLA,          3, 0, L_OPTIONS_456 },
-#if VERSION < VERSION_NTSC_1_0
-	{ /* 7*/ STAGE_VILLA,          3, 1, L_OPTIONS_457 },
-#endif
 	{ /* 7*/ STAGE_VILLA,          3, 2, L_OPTIONS_458 },
 	{ /* 8*/ STAGE_CHICAGO,        4, 0, L_OPTIONS_459 },
 	{ /* 9*/ STAGE_CHICAGO,        4, 1, L_OPTIONS_460 },
@@ -4494,9 +4251,6 @@ u32 g_CutsceneCountsByMission[] = {
 	/* 1*/ 3,  // 1 mission completed => 3 cutscenes available (Def intro, outro, Invest intro)
 	/* 2*/ 5,
 	/* 3*/ 7,
-#if VERSION >= VERSION_NTSC_1_0
-	// NTSC beta has an extra Villa cutscene
-	// so the numbers are bumped forward in that version
 	/* 4*/ 9,
 	/* 5*/ 11,
 	/* 6*/ 14,
@@ -4511,22 +4265,6 @@ u32 g_CutsceneCountsByMission[] = {
 	/*15*/ 35,
 	/*16*/ 37,
 	/*17*/ 38,
-#else
-	/* 4*/ 10,
-	/* 5*/ 12,
-	/* 6*/ 15,
-	/* 7*/ 17,
-	/* 8*/ 19,
-	/* 9*/ 22,
-	/*10*/ 24,
-	/*11*/ 27,
-	/*12*/ 29,
-	/*13*/ 31,
-	/*14*/ 34,
-	/*15*/ 36,
-	/*16*/ 38,
-	/*17*/ 39,
-#endif
 };
 
 s32 getNumCompletedMissions(void)
@@ -4565,7 +4303,6 @@ s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *d
 		{ /* 0*/  0, L_OPTIONS_436 }, // "Special"
 		{ /* 1*/  1, L_OPTIONS_438 }, // "Mission 1 - dataDyne Central"
 		{ /* 2*/  7, L_OPTIONS_439 },
-#if VERSION >= VERSION_NTSC_1_0
 		{ /* 3*/  9, L_OPTIONS_440 },
 		{ /* 4*/ 14, L_OPTIONS_441 },
 		{ /* 5*/ 21, L_OPTIONS_442 },
@@ -4574,16 +4311,6 @@ s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *d
 		{ /* 8*/ 35, L_OPTIONS_445 },
 		{ /* 9*/ 37, L_OPTIONS_446 }, // "Mission 9 - Skedar Ruins"
 		{ /*10*/ 39, L_OPTIONS_447 }, // "Finale"
-#else
-		{ /* 3*/ 10, L_OPTIONS_440 },
-		{ /* 4*/ 15, L_OPTIONS_441 },
-		{ /* 5*/ 22, L_OPTIONS_442 },
-		{ /* 6*/ 29, L_OPTIONS_443 },
-		{ /* 7*/ 34, L_OPTIONS_444 },
-		{ /* 8*/ 36, L_OPTIONS_445 },
-		{ /* 9*/ 38, L_OPTIONS_446 }, // "Mission 9 - Skedar Ruins"
-		{ /*10*/ 40, L_OPTIONS_447 }, // "Finale"
-#endif
 	};
 
 	switch (operation) {

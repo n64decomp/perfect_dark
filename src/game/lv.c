@@ -179,12 +179,7 @@ void lvSetMiscSfxState(u32 type, bool play)
 		if (lvGetMiscSfxIndex(type) == -1) {
 			s32 index = lvGetMiscSfxIndex(-1);
 
-#if VERSION >= VERSION_NTSC_1_0
-			if (index != -1 && g_MiscSfxAudioHandles[index] == NULL)
-#else
-			if (index != -1)
-#endif
-			{
+			if (index != -1 && g_MiscSfxAudioHandles[index] == NULL) {
 				sndStart(var80095200, g_MiscSfxSounds[type], &g_MiscSfxAudioHandles[index], -1, -1, -1, -1, -1);
 				g_MiscSfxActiveTypes[index] = type;
 			}
@@ -195,9 +190,6 @@ void lvSetMiscSfxState(u32 type, bool play)
 
 		if (index != -1) {
 			audioStop(g_MiscSfxAudioHandles[index]);
-#if VERSION < VERSION_NTSC_1_0
-			g_MiscSfxAudioHandles[index] = 0;
-#endif
 			g_MiscSfxActiveTypes[index] = -1;
 		}
 	}
@@ -243,17 +235,9 @@ void lvReset(s32 stagenum)
 	var80084014 = false;
 	var80084010 = 0;
 
-#if VERSION >= VERSION_NTSC_1_0
 	joy00013900();
 
 	g_Vars.joydisableframestogo = 10;
-#else
-	if (joyIsCyclicPollingEnabled()) {
-		joyDisableCyclicPolling(760, "lv.c");
-
-		g_Vars.joydisableframestogo = 10;
-	}
-#endif
 
 	g_Vars.paksconnected2 = 0;
 	g_Vars.paksconnected = 0;
@@ -267,14 +251,8 @@ void lvReset(s32 stagenum)
 
 	g_Vars.lvframe60 = 0;
 	g_Vars.lvupdate240 = 4;
-
-#if VERSION >= VERSION_NTSC_1_0
 	g_Vars.lvupdate60f = 1.0f;
 	g_Vars.lvupdate60frealprev = PALUPF(1);
-#else
-	g_Vars.lvupdate60frealprev = PALUPF(1);
-	g_Vars.lvupdate60f = 1.0f;
-#endif
 
 	g_Vars.lvupdate60freal = g_Vars.lvupdate60frealprev;
 
@@ -484,11 +462,7 @@ Gfx *lvRenderFade(Gfx *gdl)
 		if (g_FadeDelay > 0) {
 			g_FadeDelay--;
 		} else {
-#if VERSION >= VERSION_PAL_BETA
-			g_FadeFrac += g_Vars.diffframe60freal / g_FadeNumFrames;
-#else
 			g_FadeFrac += g_Vars.diffframe60f / g_FadeNumFrames;
-#endif
 
 			if (g_FadeFrac >= 1) {
 				g_FadeFrac = -1;
@@ -1038,9 +1012,7 @@ Gfx *lvRender(Gfx *gdl)
 {
 	gSPSegment(gdl++, SPSEGMENT_PHYSICAL, 0x00000000);
 
-#if VERSION >= VERSION_NTSC_1_0
 	func0f0d5a7c();
-#endif
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
 		gSPDisplayList(gdl++, &var800613a0);
@@ -1078,15 +1050,7 @@ Gfx *lvRender(Gfx *gdl)
 
 		setCurrentPlayerNum(0);
 
-#if VERSION >= VERSION_PAL_BETA
-		viSetMode(VIMODE_LO);
 		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
-		viSetSize(playerGetFbWidth(), playerGetFbHeight());
-		viSetBufSize(playerGetFbWidth(), playerGetFbHeight());
-		viSetViewSize(playerGetFbWidth(), playerGetFbHeight());
-#else
-		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
-#endif
 
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
@@ -1120,13 +1084,8 @@ Gfx *lvRender(Gfx *gdl)
 		s32 i;
 		s32 playercount;
 		Gfx *savedgdl;
-#if VERSION >= VERSION_NTSC_1_0
 		bool forcesingleplayer = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 			&& playerHasSharedViewport();
-#else
-		bool forcesingleplayer = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& ((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE);
-#endif
 		struct player *player;
 		struct chrdata *chr;
 
@@ -1440,23 +1399,17 @@ Gfx *lvRender(Gfx *gdl)
 						}
 					}
 
-#if VERSION >= VERSION_NTSC_1_0
 					if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKETSTATIC) {
 						gdl = bviewDrawStatic(gdl, 0x4fffffff, 255);
 						g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
 					}
-#endif
 
 					if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY
 							&& g_Vars.tickmode != TICKMODE_CUTSCENE) {
 						s32 xraything = 99;
 
 						if (g_Vars.currentplayer->erasertime < TICKS(200)) {
-#if PAL
-							xraything = 249 - ((g_Vars.currentplayer->erasertime * 180 / 50) >> 2);
-#else
 							xraything = 249 - (g_Vars.currentplayer->erasertime * 3 >> 2);
-#endif
 						}
 
 						gdl = bviewDrawZoomBlur(gdl, 0xffffffff, xraything, 1.05f, 1.05f);
@@ -1584,11 +1537,7 @@ Gfx *lvRender(Gfx *gdl)
 			PROFILE(PROFILEMARKER_LVR_ARTIFACTS, artifactsTick());
 
 			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-#if VERSION >= VERSION_NTSC_1_0
 					&& playerHasSharedViewport()
-#else
-					&& ((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
-#endif
 					&& g_Vars.currentplayernum != 0) {
 				gdl = savedgdl;
 			}
@@ -1615,9 +1564,6 @@ Gfx *lvRender(Gfx *gdl)
 
 		g_Vars.autocutnum = g_Cutscenes[g_Vars.autocutgroupcur].scene;
 
-#if VERSION < VERSION_NTSC_1_0
-		if (mainGetStageNum() != g_Cutscenes[g_Vars.autocutgroupcur].stage)
-#endif
 		{
 			g_MissionConfig.iscoop = false;
 			g_Vars.mplayerisrunning = false;
@@ -1647,14 +1593,6 @@ Gfx *lvRender(Gfx *gdl)
 
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
 
-#if VERSION < VERSION_NTSC_1_0
-	if ((u32)gdl < (u32)g_GfxBuffers[g_GfxActiveBufferIndex]
-			|| (u32)gdl > (u32)g_GfxBuffers[g_GfxActiveBufferIndex + 1]) {
-		crashSetMessage("lv.c Master DL overrun!");
-		CRASH();
-	}
-#endif
-
 	gdl = lvPrint(gdl);
 
 	return gdl;
@@ -1664,16 +1602,9 @@ const char var7f1b7730[] = "fr: %d\n";
 
 u32 g_CutsceneTime240_60 = 0;
 
-#if VERSION >= VERSION_NTSC_1_0
 u32 var800840a8 = 0;
 u32 var800840ac = 0;
 u32 var800840b0 = 0;
-#else
-u32 var80086930nb = 0;
-u32 var800840a8 = 0;
-u32 var800840ac = 0;
-u32 var800840b0 = 0;
-#endif
 
 u32 var800840b4 = 0;
 u32 var800840b8 = 0;
@@ -1856,22 +1787,14 @@ void lvTick(void)
 
 	lvCheckPauseStateChanged();
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.unk0004e4) {
 		paksTick();
 	}
-#endif
 
 	if (g_Vars.joydisableframestogo > 0) {
 		g_Vars.joydisableframestogo--;
 	} else if (g_Vars.joydisableframestogo == 0) {
-#if VERSION >= VERSION_NTSC_1_0
 		joy00013938();
-#else
-		if (!joyIsCyclicPollingEnabled()) {
-			joyEnableCyclicPolling(3278, "lv.c");
-		}
-#endif
 
 		if (g_Vars.stagenum == STAGE_TITLE
 				|| g_Vars.stagenum == STAGE_BOOTPAKMENU
@@ -2099,9 +2022,6 @@ void lvTick(void)
 		musicTick();
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		setCurrentPlayerNum(0);
-#if VERSION >= VERSION_PAL_BETA
-		playerConfigureVi();
-#endif
 		menuTick();
 		musicTick();
 		pakExecuteDebugOperations();
@@ -2233,9 +2153,7 @@ void lvStop(void)
 		g_FileState = FILESTATE_UNSELECTED;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	menuStop();
-#endif
 }
 
 void lvCheckPauseStateChanged(void)

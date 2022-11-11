@@ -72,23 +72,6 @@ void viConfigureForLogos(void)
 	g_ViFrontData = g_ViDataArray + g_ViFrontIndex;
 	g_ViBackData = g_ViDataArray + g_ViBackIndex;
 
-#if VERSION >= VERSION_PAL_FINAL
-	if (IS4MB()) {
-		g_ViDataArray[0].y = 220;
-		g_ViDataArray[0].bufy = 220;
-		g_ViDataArray[0].viewy = 220;
-
-		g_ViDataArray[1].y = 220;
-		g_ViDataArray[1].bufy = 220;
-		g_ViDataArray[1].viewy = 220;
-
-		var8005d588 = 0;
-		var8005d58c = 0;
-	} else {
-		var8005d588 = 0;
-		var8005d58c = VERSION >= VERSION_JPN_FINAL ? 0 : 12;
-	}
-#else
 	var8005d588 = 0;
 	var8005d58c = 0;
 
@@ -101,7 +84,6 @@ void viConfigureForLogos(void)
 		g_ViDataArray[1].bufy = 220;
 		g_ViDataArray[1].viewy = 220;
 	}
-#endif
 }
 
 /**
@@ -120,7 +102,7 @@ void viConfigureForCopyright(u16 *texturedata)
 
 		g_ViDataArray[i].x = 576;
 		g_ViDataArray[i].bufx = 576;
-		g_ViDataArray[i].viewx = (VERSION >= VERSION_NTSC_1_0 ? 576 : 480);
+		g_ViDataArray[i].viewx = 576;
 
 		g_ViDataArray[i].y = 48;
 		g_ViDataArray[i].bufy = 48;
@@ -205,22 +187,10 @@ void viReset(s32 stagenum)
 		fbsize = IS4MB() ? 320 * 220 * 2 : 320 * 220 * 4;
 
 		if (IS4MB() && PLAYERCOUNT() == 2) {
-#if VERSION >= VERSION_NTSC_1_0
 			fbsize = 320 * 220;
-#else
-			fbsize = 320 * 240;
-#endif
 			g_Vars.fourmeg2player = true;
 		} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
-#if VERSION >= VERSION_JPN_FINAL
 			fbsize = 320 * 220 * 2;
-#elif VERSION >= VERSION_PAL_FINAL
-			fbsize = 320 * 266 * 2;
-#elif VERSION >= VERSION_PAL_BETA
-			fbsize = 320 * 252 * 2;
-#else
-			fbsize = 320 * 220 * 2;
-#endif
 		}
 	}
 
@@ -276,9 +246,7 @@ void vi00009ed4(void)
 	offset = g_ViShakeDirection * g_ViShakeIntensity;
 	g_ViShakeDirection = -g_ViShakeDirection;
 
-#if VERSION >= VERSION_NTSC_1_0
 	prevmask = osSetIntMask(1);
-#endif
 
 	reg = var8008de0c;
 	var8008dd60[1 - var8005ce74]->fldRegs[0].vStart = ADD_LOW_AND_HI_16_TRUNCATE(reg, offset);
@@ -286,9 +254,7 @@ void vi00009ed4(void)
 	reg = var8008de10;
 	var8008dd60[1 - var8005ce74]->fldRegs[1].vStart = ADD_LOW_AND_HI_16_TRUNCATE(reg, offset);
 
-#if VERSION >= VERSION_NTSC_1_0
 	osSetIntMask(prevmask);
-#endif
 
 	osViSetMode(var8008dd60[1 - var8005ce74]);
 	osViBlack(g_ViUnblackTimer);
@@ -662,18 +628,9 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
 	gDPSetFillColor(gdl++, GPACK_RGBA5551(0, 0, 0, 1) << 16 | GPACK_RGBA5551(0, 0, 0, 1));
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (PLAYERCOUNT() == 1
 			|| ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-				&& playerHasSharedViewport() && g_Vars.currentplayernum == 0))
-#else
-	if (PLAYERCOUNT() == 1
-			|| ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-				&& (
-					(g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE
-					) && g_Vars.currentplayernum == 0))
-#endif
-	{
+				&& playerHasSharedViewport() && g_Vars.currentplayernum == 0)) {
 		// Single viewport
 		if (viGetViewTop() > 0) {
 			// Fill above
@@ -747,28 +704,6 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 
 	return gdl;
 }
-
-#if VERSION < VERSION_NTSC_1_0
-void vi0000bd44nb(s32 arg0)
-{
-	var8005d58c = arg0;
-}
-
-s32 vi0000bd50nb(void)
-{
-	return var8005d58c;
-}
-
-void vi0000bd5cnb(s32 arg0)
-{
-	var8005d588 = arg0;
-}
-
-s32 vi0000bd68nb(void)
-{
-	return var8005d588;
-}
-#endif
 
 void viSetBufSize(s16 width, s16 height)
 {

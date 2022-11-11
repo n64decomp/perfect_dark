@@ -2060,20 +2060,12 @@ extern void *_file_CheadphelpsZ;
 extern void *_file_Ap29_15_joM;
 extern void *_file_Ap16_03_joM;
 extern void *_file_Acarrbye02M;
-#if VERSION >= VERSION_NTSC_1_0
 extern void *_file_Asaucerexp1M;
-#endif
-#if VERSION >= VERSION_JPN_FINAL
-extern void *_file_PjaplogoZ;
-extern void *_file_PjappdZ;
-#endif
 extern void *_filenamesSegmentRomStart;
 
 struct fileinfo g_FileInfo[NUM_FILES];
 
-#if VERSION >= VERSION_NTSC_1_0
 u32 var800aa570;
-#endif
 
 u32 g_FileTable[] = {
 	/*0x0000*/ 0,
@@ -4089,13 +4081,7 @@ u32 g_FileTable[] = {
 	/*0x07da*/ (u32) &_file_Ap29_15_joM,
 	/*0x07db*/ (u32) &_file_Ap16_03_joM,
 	/*0x07dc*/ (u32) &_file_Acarrbye02M,
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x07dd*/ (u32) &_file_Asaucerexp1M,
-#endif
-#if VERSION == VERSION_JPN_FINAL
-	/*0x07de*/ (u32) &_file_PjaplogoZ,
-	/*0x07df*/ (u32) &_file_PjappdZ,
-#endif
 	(u32) &_filenamesSegmentRomStart,
 };
 
@@ -4143,23 +4129,9 @@ void fileLoad(u8 *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info
 			info->loadedsize = 0;
 		} else {
 			s32 result;
-#if VERSION < VERSION_NTSC_1_0
-			char sp54[128];
-			u32 stack[2];
-#endif
 
 			dmaExec(scratch, *romaddrptr, romsize);
 			result = rzipInflate(scratch, dst, buffer);
-
-#if VERSION < VERSION_NTSC_1_0
-			if (result == 0) {
-				sprintf(sp54, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x", "ob.c", 204,
-						scratch[0], scratch[1], scratch[2], scratch[3],
-						scratch[4], scratch[5], scratch[6], scratch[7]);
-				crashSetMessage(sp54);
-				CRASH();
-			}
-#endif
 
 			result = ALIGN16(result);
 
@@ -4203,9 +4175,6 @@ u32 fileGetInflatedSize(s32 filenum)
 	u8 *ptr;
 	u8 buffer[0x50];
 	u32 *romaddrptr;
-#if VERSION < VERSION_NTSC_1_0
-	char message[128];
-#endif
 	u32 romaddr;
 
 	romaddrptr = &g_FileTable[filenum];
@@ -4224,17 +4193,6 @@ u32 fileGetInflatedSize(s32 filenum)
 	if (rzipIs1173(ptr)) {
 		return (ptr[2] << 16) | (ptr[3] << 8) | ptr[4];
 	}
-
-#if VERSION < VERSION_NTSC_1_0
-	sprintf(message, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-			"ob.c", 446,
-			ptr[0x00], ptr[0x01], ptr[0x02], ptr[0x03],
-			ptr[0x04], ptr[0x05], ptr[0x06], ptr[0x07],
-			ptr[0x08], ptr[0x09], ptr[0x0a], ptr[0x0b],
-			ptr[0x0c], ptr[0x0d], ptr[0x0e], ptr[0x0f]);
-	crashSetMessage(message);
-	CRASH();
-#endif
 
 	return 0;
 }

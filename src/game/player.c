@@ -87,22 +87,10 @@ s32 g_WarpType2HasDirection;
 u32 g_WarpType2Arg2;
 s32 g_CutsceneCurAnimFrame60;
 
-#if VERSION == VERSION_JPN_FINAL
-s32 g_CutsceneCurAnimFrame240;
-s32 g_CutsceneFrameOverrun240;
-s16 g_CutsceneAnimNum;
-f32 g_CutsceneBlurFrac;
-#elif PAL
-f32 g_CutsceneCurAnimFrame240;
-f32 var8009e388pf;
-s16 g_CutsceneAnimNum;
-f32 g_CutsceneBlurFrac;
-#else
 s32 g_CutsceneCurAnimFrame240;
 s16 g_CutsceneAnimNum;
 f32 g_CutsceneBlurFrac;
 s32 g_CutsceneFrameOverrun240;
-#endif
 
 bool g_CutsceneSkipRequested;
 f32 g_CutsceneCurTotalFrame60f;
@@ -125,23 +113,12 @@ struct vimode g_ViModes[] = {
 	//  |    |    |  |                 |    |  |     |  |     cinemaheight
 	//  |    |    |  |                 |    |  |     |  |     |  cinematop
 	//  |    |    |  |                 |    |  |     |  |     |  |
-#if VERSION >= VERSION_JPN_FINAL
-	{ 320, 220, 320, 1,                1, 220, 0,  180, 20, 136, 42  }, // default
-	{ 640, 220, 640, 0.5,              1, 220, 0,  180, 20, 136, 42  }, // hi-res
-#elif VERSION >= VERSION_PAL_FINAL
-	{ 320, 266, 320, 1,                1, 266, 0,  212, 20, 168, 42 }, // default
-	{ 448, 266, 448, 0.71428567171097, 1, 266, 0,  212, 20, 168, 42 }, // hi-res
-#elif VERSION >= VERSION_PAL_BETA
-	{ 320, 252, 320, 1,                1, 252, 0,  212, 20, 168, 42 }, // default
-	{ 448, 252, 448, 0.71428567171097, 1, 252, 0,  212, 20, 168, 42 }, // hi-res
-#else
 	{ 320, 220, 320, 1,                1, 220, 0,  180, 20, 136, 42  }, // default
 	{ 640, 220, 640, 0.5,              1, 220, 0,  180, 20, 136, 42  }, // hi-res
 	{ 320, 480, 320, 2,                2, 440, 20, 360, 60, 272, 104 }, // unused
 	{ 440, 330, 440, 1,                1, 330, 0,  330, 0,  330, 0   }, // unused
 	{ 440, 240, 440, 0.72727274894714, 1, 220, 0,  180, 0,  136, 0   }, // unused
 	{ 400, 300, 400, 1,                2, 300, 0,  300, 0,  300, 0   }, // unused
-#endif
 };
 
 s32 g_ViRes = VIRES_LO;
@@ -329,17 +306,10 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 
 			slangles[sllen] = atan2f(pad->look.x, pad->look.z);
 
-#if VERSION >= VERSION_NTSC_1_0
 			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
-#else
-			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
-				slpadindexes[sllen] = p;
-				sllen++;
-			}
-#endif
 
 			padsqdists[p] = -1.0f;
 		}
@@ -366,17 +336,10 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 
 			slangles[sllen] = atan2f(pad->look.x, pad->look.z);
 
-#if VERSION >= VERSION_NTSC_1_0
 			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
-#else
-			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
-				slpadindexes[sllen] = p;
-				sllen++;
-			}
-#endif
 
 			padsqdists[p] = -1.0f;
 		}
@@ -425,17 +388,10 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 
 		slangles[sllen] = atan2f(pad->look.x, pad->look.z);
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 			slpadindexes[sllen] = i;
 			sllen++;
 		}
-#else
-		if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
-			slpadindexes[sllen] = i;
-			sllen++;
-		}
-#endif
 
 		padsqdists[i] = -1.0f;
 	}
@@ -815,16 +771,10 @@ bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 			struct weaponobj *weapon1 = hostchr->weapons_held[0]->weapon;
 			struct weaponobj *weapon2 = hostchr->weapons_held[1]->weapon;
 
-#if VERSION >= VERSION_NTSC_1_0
 			invGiveSingleWeapon(weapon1->weaponnum);
 			invGiveDoubleWeapon(weapon1->weaponnum, weapon1->weaponnum);
 			bgunEquipWeapon2(HAND_RIGHT, weapon1->weaponnum);
 			bgunEquipWeapon2(HAND_LEFT, weapon1->weaponnum);
-#else
-			invGiveDoubleWeapon(weapon1->weaponnum, weapon2->weaponnum);
-			bgunEquipWeapon2(HAND_RIGHT, weapon1->weaponnum);
-			bgunEquipWeapon2(HAND_LEFT, weapon2->weaponnum);
-#endif
 		} else if (hostchr->weapons_held[0]) {
 			// Right hand only
 			struct weaponobj *weapon = hostchr->weapons_held[0]->weapon;
@@ -1080,16 +1030,10 @@ void playerSpawn(void)
 			bgunEquipWeapon2(HAND_LEFT, g_DefaultWeapons[HAND_LEFT]);
 			bgunEquipWeapon2(HAND_RIGHT, g_DefaultWeapons[HAND_RIGHT]);
 
-#if VERSION >= VERSION_NTSC_1_0
 			if (g_Vars.currentplayer->model00d4 == NULL
 					&& (IS8MB() || g_Vars.fourmeg2player || g_MpAllChrPtrs[g_Vars.currentplayernum] == NULL)) {
 				playerTickChrBody();
 			}
-#else
-			if (g_Vars.currentplayer->model00d4 == NULL) {
-				playerTickChrBody();
-			}
-#endif
 		}
 	}
 
@@ -1464,13 +1408,11 @@ void playerTickChrBody(void)
 
 		g_Vars.currentplayer->vv_eyeheight = (s32)g_HeadsAndBodies[bodynum].height;
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (g_Vars.antiplayernum >= 0
 				&& g_Vars.currentplayer == g_Vars.anti
 				&& g_Vars.currentplayer->vv_eyeheight > 159) {
 			g_Vars.currentplayer->vv_eyeheight = 159;
 		}
-#endif
 
 		g_Vars.currentplayer->vv_headheight = g_Vars.currentplayer->vv_eyeheight;
 
@@ -1980,7 +1922,6 @@ void playerTickCutscene(bool arg0)
 		g_CutsceneCurTotalFrame60f += g_Vars.lvupdate60freal;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_CutsceneCurTotalFrame60f > 30 && (buttons & 0xffff)) {
 		g_CutsceneSkipRequested = true;
 
@@ -1992,17 +1933,6 @@ void playerTickCutscene(bool arg0)
 			}
 		}
 	}
-#else
-	if (g_CutsceneCurTotalFrame60f > 30) {
-		if (buttons & 0xffff) {
-			g_CutsceneSkipRequested = true;
-		}
-
-		if ((buttons & (B_BUTTON | START_BUTTON)) && g_Vars.autocutplaying) {
-			g_Vars.autocutgroupskip = true;
-		}
-	}
-#endif
 }
 
 f32 playerGetCutsceneBlurFrac(void)
@@ -2699,20 +2629,9 @@ void playerTickExplode(void)
 void playerResetLoResIf4Mb(void)
 {
 	if (IS4MB()) {
-#if VERSION >= VERSION_PAL_BETA
-		g_ViModes[VIRES_LO].fbwidth = 320;
-		g_ViModes[VIRES_LO].fbheight = 220;
-		g_ViModes[VIRES_LO].width = 320;
-		g_ViModes[VIRES_LO].yscale = 1;
-		g_ViModes[VIRES_LO].xscale = 1;
-		g_ViModes[VIRES_LO].fullheight = 220;
-		g_ViModes[VIRES_LO].fulltop = 0;
-#else
 		g_ViModes[VIRES_LO].fbheight = 220;
 		g_ViModes[VIRES_LO].fulltop = 0;
 		g_ViModes[VIRES_LO].fullheight = 220;
-#endif
-
 		g_ViModes[VIRES_LO].wideheight = 180;
 		g_ViModes[VIRES_LO].widetop = 20;
 		g_ViModes[VIRES_LO].cinemaheight = 136;
@@ -2742,7 +2661,6 @@ s16 playerGetFbHeight(void)
 	return height;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 bool playerHasSharedViewport(void)
 {
 	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
@@ -2753,18 +2671,12 @@ bool playerHasSharedViewport(void)
 
 	return (g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE;
 }
-#endif
 
 s16 playerGetViewportWidth(void)
 {
 	s16 width;
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (!playerHasSharedViewport())
-#else
-	if ((!g_InCutscene || g_MainIsEndscreen) && menuGetRoot() != MENUROOT_COOPCONTINUE)
-#endif
-	{
+	if (!playerHasSharedViewport()) {
 		if (PLAYERCOUNT() >= 3) {
 			// 3/4 players
 			width = g_ViModes[g_ViRes].width / 2;
@@ -2798,11 +2710,7 @@ s16 playerGetViewportWidth(void)
 
 s16 playerGetViewportLeft(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	s32 something = !playerHasSharedViewport();
-#else
-	s32 something = !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE);
-#endif
 	s16 left;
 
 	if (PLAYERCOUNT() >= 3 && something != 0) {
@@ -2838,13 +2746,7 @@ s16 playerGetViewportHeight(void)
 {
 	s16 height;
 
-	if (PLAYERCOUNT() >= 2
-#if VERSION >= VERSION_NTSC_1_0
-			&& !playerHasSharedViewport()
-#else
-			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
-#endif
-			) {
+	if (PLAYERCOUNT() >= 2 && !playerHasSharedViewport()) {
 		s16 tmp = g_ViModes[g_ViRes].fullheight;
 
 		if (IS4MB() && !g_Vars.fourmeg2player) {
@@ -2885,18 +2787,11 @@ s16 playerGetViewportHeight(void)
 	return height;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 s16 playerGetViewportTop(void)
 {
 	s16 top;
 
-	if (PLAYERCOUNT() >= 2
-#if VERSION >= VERSION_NTSC_1_0
-			&& !playerHasSharedViewport()
-#else
-			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
-#endif
-			) {
+	if (PLAYERCOUNT() >= 2 && !playerHasSharedViewport()) {
 		top = g_ViModes[g_ViRes].fulltop;
 
 		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL || PLAYERCOUNT() != 2) {
@@ -2948,350 +2843,6 @@ s16 playerGetViewportTop(void)
 
 	return top;
 }
-#else
-GLOBAL_ASM(
-glabel playerGetViewportTop
-/*  f0baad4:	3c07800a */ 	lui	$a3,0x800a
-/*  f0baad8:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
-/*  f0baadc:	8cee006c */ 	lw	$t6,0x6c($a3)
-/*  f0baae0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0baae4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0baae8:	11c00003 */ 	beqz	$t6,.NB0f0baaf8
-/*  f0baaec:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0baaf0:	10000001 */ 	beqz	$zero,.NB0f0baaf8
-/*  f0baaf4:	24060001 */ 	addiu	$a2,$zero,0x1
-.NB0f0baaf8:
-/*  f0baaf8:	8cef0068 */ 	lw	$t7,0x68($a3)
-/*  f0baafc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0bab00:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0bab04:	11e00003 */ 	beqz	$t7,.NB0f0bab14
-/*  f0bab08:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0bab0c:	10000001 */ 	beqz	$zero,.NB0f0bab14
-/*  f0bab10:	24040001 */ 	addiu	$a0,$zero,0x1
-.NB0f0bab14:
-/*  f0bab14:	8cf80064 */ 	lw	$t8,0x64($a3)
-/*  f0bab18:	3c0c8007 */ 	lui	$t4,0x8007
-/*  f0bab1c:	13000003 */ 	beqz	$t8,.NB0f0bab2c
-/*  f0bab20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bab24:	10000001 */ 	beqz	$zero,.NB0f0bab2c
-/*  f0bab28:	24030001 */ 	addiu	$v1,$zero,0x1
-.NB0f0bab2c:
-/*  f0bab2c:	8cf90070 */ 	lw	$t9,0x70($a3)
-/*  f0bab30:	13200003 */ 	beqz	$t9,.NB0f0bab40
-/*  f0bab34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bab38:	10000001 */ 	beqz	$zero,.NB0f0bab40
-/*  f0bab3c:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f0bab40:
-/*  f0bab40:	00434821 */ 	addu	$t1,$v0,$v1
-/*  f0bab44:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f0bab48:	01465821 */ 	addu	$t3,$t2,$a2
-/*  f0bab4c:	29610002 */ 	slti	$at,$t3,0x2
-/*  f0bab50:	14200074 */ 	bnez	$at,.NB0f0bad24
-/*  f0bab54:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bab58:	8d8c2e24 */ 	lw	$t4,0x2e24($t4)
-/*  f0bab5c:	3c0d8006 */ 	lui	$t5,0x8006
-/*  f0bab60:	11800004 */ 	beqz	$t4,.NB0f0bab74
-/*  f0bab64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bab68:	8dadf2f0 */ 	lw	$t5,-0xd10($t5)
-/*  f0bab6c:	11a0006d */ 	beqz	$t5,.NB0f0bad24
-/*  f0bab70:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f0bab74:
-/*  f0bab74:	0fc3e4d2 */ 	jal	menuGetRoot
-/*  f0bab78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bab7c:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f0bab80:	10410068 */ 	beq	$v0,$at,.NB0f0bad24
-/*  f0bab84:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f0bab88:	8dce2d88 */ 	lw	$t6,0x2d88($t6)
-/*  f0bab8c:	3c058007 */ 	lui	$a1,0x8007
-/*  f0bab90:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0bab94:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0bab98:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0bab9c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0baba0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0baba4:	00af2821 */ 	addu	$a1,$a1,$t7
-/*  f0baba8:	84a52c9a */ 	lh	$a1,0x2c9a($a1)
-/*  f0babac:	0fc53588 */ 	jal	optionsGetScreenSplit
-/*  f0babb0:	a7a5001e */ 	sh	$a1,0x1e($sp)
-/*  f0babb4:	3c07800a */ 	lui	$a3,0x800a
-/*  f0babb8:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0babbc:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
-/*  f0babc0:	110200fa */ 	beq	$t0,$v0,.NB0f0bafac
-/*  f0babc4:	87a5001e */ 	lh	$a1,0x1e($sp)
-/*  f0babc8:	8cf8006c */ 	lw	$t8,0x6c($a3)
-/*  f0babcc:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0babd0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0babd4:	13000003 */ 	beqz	$t8,.NB0f0babe4
-/*  f0babd8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0babdc:	10000001 */ 	beqz	$zero,.NB0f0babe4
-/*  f0babe0:	01003025 */ 	or	$a2,$t0,$zero
-.NB0f0babe4:
-/*  f0babe4:	8cf90068 */ 	lw	$t9,0x68($a3)
-/*  f0babe8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0babec:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0babf0:	13200003 */ 	beqz	$t9,.NB0f0bac00
-/*  f0babf4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0babf8:	10000001 */ 	beqz	$zero,.NB0f0bac00
-/*  f0babfc:	01002025 */ 	or	$a0,$t0,$zero
-.NB0f0bac00:
-/*  f0bac00:	8ce90064 */ 	lw	$t1,0x64($a3)
-/*  f0bac04:	11200003 */ 	beqz	$t1,.NB0f0bac14
-/*  f0bac08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bac0c:	10000001 */ 	beqz	$zero,.NB0f0bac14
-/*  f0bac10:	01001825 */ 	or	$v1,$t0,$zero
-.NB0f0bac14:
-/*  f0bac14:	8cea0070 */ 	lw	$t2,0x70($a3)
-/*  f0bac18:	11400003 */ 	beqz	$t2,.NB0f0bac28
-/*  f0bac1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bac20:	10000001 */ 	beqz	$zero,.NB0f0bac28
-/*  f0bac24:	01001025 */ 	or	$v0,$t0,$zero
-.NB0f0bac28:
-/*  f0bac28:	00435821 */ 	addu	$t3,$v0,$v1
-/*  f0bac2c:	01646021 */ 	addu	$t4,$t3,$a0
-/*  f0bac30:	01866821 */ 	addu	$t5,$t4,$a2
-/*  f0bac34:	55a10023 */ 	bnel	$t5,$at,.NB0f0bacc4
-/*  f0bac38:	8ce2028c */ 	lw	$v0,0x28c($a3)
-/*  f0bac3c:	8cee028c */ 	lw	$t6,0x28c($a3)
-/*  f0bac40:	550e0020 */ 	bnel	$t0,$t6,.NB0f0bacc4
-/*  f0bac44:	8ce2028c */ 	lw	$v0,0x28c($a3)
-/*  f0bac48:	0fc53588 */ 	jal	optionsGetScreenSplit
-/*  f0bac4c:	a7a5001e */ 	sh	$a1,0x1e($sp)
-/*  f0bac50:	3c07800a */ 	lui	$a3,0x800a
-/*  f0bac54:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0bac58:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
-/*  f0bac5c:	11020018 */ 	beq	$t0,$v0,.NB0f0bacc0
-/*  f0bac60:	87a5001e */ 	lh	$a1,0x1e($sp)
-/*  f0bac64:	90ef04e0 */ 	lbu	$t7,0x4e0($a3)
-/*  f0bac68:	3c188007 */ 	lui	$t8,0x8007
-/*  f0bac6c:	55e00015 */ 	bnezl	$t7,.NB0f0bacc4
-/*  f0bac70:	8ce2028c */ 	lw	$v0,0x28c($a3)
-/*  f0bac74:	8f182d88 */ 	lw	$t8,0x2d88($t8)
-/*  f0bac78:	3c098007 */ 	lui	$t1,0x8007
-/*  f0bac7c:	25292c80 */ 	addiu	$t1,$t1,0x2c80
-/*  f0bac80:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0bac84:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0bac88:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0bac8c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0bac90:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0bac94:	03291021 */ 	addu	$v0,$t9,$t1
-/*  f0bac98:	8c4a0014 */ 	lw	$t2,0x14($v0)
-/*  f0bac9c:	8c4c0018 */ 	lw	$t4,0x18($v0)
-/*  f0baca0:	05410003 */ 	bgez	$t2,.NB0f0bacb0
-/*  f0baca4:	000a5843 */ 	sra	$t3,$t2,0x1
-/*  f0baca8:	25410001 */ 	addiu	$at,$t2,0x1
-/*  f0bacac:	00015843 */ 	sra	$t3,$at,0x1
-.NB0f0bacb0:
-/*  f0bacb0:	016c2821 */ 	addu	$a1,$t3,$t4
-/*  f0bacb4:	00056c00 */ 	sll	$t5,$a1,0x10
-/*  f0bacb8:	100000bc */ 	beqz	$zero,.NB0f0bafac
-/*  f0bacbc:	000d2c03 */ 	sra	$a1,$t5,0x10
-.NB0f0bacc0:
-/*  f0bacc0:	8ce2028c */ 	lw	$v0,0x28c($a3)
-.NB0f0bacc4:
-/*  f0bacc4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0bacc8:	10410002 */ 	beq	$v0,$at,.NB0f0bacd4
-/*  f0baccc:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0bacd0:	144100b6 */ 	bne	$v0,$at,.NB0f0bafac
-.NB0f0bacd4:
-/*  f0bacd4:	3c0f8007 */ 	lui	$t7,0x8007
-/*  f0bacd8:	8def2d88 */ 	lw	$t7,0x2d88($t7)
-/*  f0bacdc:	3c198007 */ 	lui	$t9,0x8007
-/*  f0bace0:	27392c80 */ 	addiu	$t9,$t9,0x2c80
-/*  f0bace4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f0bace8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f0bacec:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0bacf0:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f0bacf4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0bacf8:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f0bacfc:	8c490014 */ 	lw	$t1,0x14($v0)
-/*  f0bad00:	8c4b0018 */ 	lw	$t3,0x18($v0)
-/*  f0bad04:	05210003 */ 	bgez	$t1,.NB0f0bad14
-/*  f0bad08:	00095043 */ 	sra	$t2,$t1,0x1
-/*  f0bad0c:	25210001 */ 	addiu	$at,$t1,0x1
-/*  f0bad10:	00015043 */ 	sra	$t2,$at,0x1
-.NB0f0bad14:
-/*  f0bad14:	014b2821 */ 	addu	$a1,$t2,$t3
-/*  f0bad18:	00056400 */ 	sll	$t4,$a1,0x10
-/*  f0bad1c:	100000a3 */ 	beqz	$zero,.NB0f0bafac
-/*  f0bad20:	000c2c03 */ 	sra	$a1,$t4,0x10
-.NB0f0bad24:
-/*  f0bad24:	0fc5351c */ 	jal	optionsGetEffectiveScreenSize
-/*  f0bad28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bad2c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0bad30:	14480046 */ 	bne	$v0,$t0,.NB0f0bae4c
-/*  f0bad34:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f0bad38:	8dce2e24 */ 	lw	$t6,0x2e24($t6)
-/*  f0bad3c:	11c00038 */ 	beqz	$t6,.NB0f0bae20
-/*  f0bad40:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bad44:	0fc53402 */ 	jal	optionsGetCutsceneSubtitles
-/*  f0bad48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bad4c:	3c07800a */ 	lui	$a3,0x800a
-/*  f0bad50:	10400033 */ 	beqz	$v0,.NB0f0bae20
-/*  f0bad54:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
-/*  f0bad58:	8cef04b4 */ 	lw	$t7,0x4b4($a3)
-/*  f0bad5c:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f0bad60:	3c18800a */ 	lui	$t8,0x800a
-/*  f0bad64:	11e1002e */ 	beq	$t7,$at,.NB0f0bae20
-/*  f0bad68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bad6c:	8f18260c */ 	lw	$t8,0x260c($t8)
-/*  f0bad70:	3c198007 */ 	lui	$t9,0x8007
-/*  f0bad74:	3c0a8007 */ 	lui	$t2,0x8007
-/*  f0bad78:	1b00001e */ 	blez	$t8,.NB0f0badf4
-/*  f0bad7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bad80:	8f392d88 */ 	lw	$t9,0x2d88($t9)
-/*  f0bad84:	254a2c80 */ 	addiu	$t2,$t2,0x2c80
-/*  f0bad88:	3c01800a */ 	lui	$at,0x800a
-/*  f0bad8c:	00194880 */ 	sll	$t1,$t9,0x2
-/*  f0bad90:	01394823 */ 	subu	$t1,$t1,$t9
-/*  f0bad94:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f0bad98:	01394823 */ 	subu	$t1,$t1,$t9
-/*  f0bad9c:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f0bada0:	012a1021 */ 	addu	$v0,$t1,$t2
-/*  f0bada4:	8c4b0018 */ 	lw	$t3,0x18($v0)
-/*  f0bada8:	8c4c0020 */ 	lw	$t4,0x20($v0)
-/*  f0badac:	c42c2610 */ 	lwc1	$f12,0x2610($at)
-/*  f0badb0:	448b2000 */ 	mtc1	$t3,$f4
-/*  f0badb4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0badb8:	44814000 */ 	mtc1	$at,$f8
-/*  f0badbc:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f0badc0:	448c3000 */ 	mtc1	$t4,$f6
-/*  f0badc4:	460c4281 */ 	sub.s	$f10,$f8,$f12
-/*  f0badc8:	468030a0 */ 	cvt.s.w	$f2,$f6
-/*  f0badcc:	46005002 */ 	mul.s	$f0,$f10,$f0
-/*  f0badd0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0badd4:	460c1082 */ 	mul.s	$f2,$f2,$f12
-/*  f0badd8:	46020400 */ 	add.s	$f16,$f0,$f2
-/*  f0baddc:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f0bade0:	44059000 */ 	mfc1	$a1,$f18
-/*  f0bade4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bade8:	00057400 */ 	sll	$t6,$a1,0x10
-/*  f0badec:	1000006f */ 	beqz	$zero,.NB0f0bafac
-/*  f0badf0:	000e2c03 */ 	sra	$a1,$t6,0x10
-.NB0f0badf4:
-/*  f0badf4:	3c188007 */ 	lui	$t8,0x8007
-/*  f0badf8:	8f182d88 */ 	lw	$t8,0x2d88($t8)
-/*  f0badfc:	3c058007 */ 	lui	$a1,0x8007
-/*  f0bae00:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0bae04:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0bae08:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0bae0c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0bae10:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0bae14:	00b92821 */ 	addu	$a1,$a1,$t9
-/*  f0bae18:	10000064 */ 	beqz	$zero,.NB0f0bafac
-/*  f0bae1c:	84a52c9a */ 	lh	$a1,0x2c9a($a1)
-.NB0f0bae20:
-/*  f0bae20:	3c098007 */ 	lui	$t1,0x8007
-/*  f0bae24:	8d292d88 */ 	lw	$t1,0x2d88($t1)
-/*  f0bae28:	3c058007 */ 	lui	$a1,0x8007
-/*  f0bae2c:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f0bae30:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f0bae34:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0bae38:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f0bae3c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0bae40:	00aa2821 */ 	addu	$a1,$a1,$t2
-/*  f0bae44:	10000059 */ 	beqz	$zero,.NB0f0bafac
-/*  f0bae48:	84a52ca2 */ 	lh	$a1,0x2ca2($a1)
-.NB0f0bae4c:
-/*  f0bae4c:	0fc5351c */ 	jal	optionsGetEffectiveScreenSize
-/*  f0bae50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bae54:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0bae58:	1441000c */ 	bne	$v0,$at,.NB0f0bae8c
-/*  f0bae5c:	3c0d8007 */ 	lui	$t5,0x8007
-/*  f0bae60:	3c0b8007 */ 	lui	$t3,0x8007
-/*  f0bae64:	8d6b2d88 */ 	lw	$t3,0x2d88($t3)
-/*  f0bae68:	3c058007 */ 	lui	$a1,0x8007
-/*  f0bae6c:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f0bae70:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f0bae74:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f0bae78:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f0bae7c:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f0bae80:	00ac2821 */ 	addu	$a1,$a1,$t4
-/*  f0bae84:	10000049 */ 	beqz	$zero,.NB0f0bafac
-/*  f0bae88:	84a52caa */ 	lh	$a1,0x2caa($a1)
-.NB0f0bae8c:
-/*  f0bae8c:	8dad2e24 */ 	lw	$t5,0x2e24($t5)
-/*  f0bae90:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0bae94:	11a0003a */ 	beqz	$t5,.NB0f0baf80
-/*  f0bae98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bae9c:	8dce2780 */ 	lw	$t6,0x2780($t6)
-/*  f0baea0:	15c00037 */ 	bnez	$t6,.NB0f0baf80
-/*  f0baea4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0baea8:	0fc53402 */ 	jal	optionsGetCutsceneSubtitles
-/*  f0baeac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0baeb0:	3c07800a */ 	lui	$a3,0x800a
-/*  f0baeb4:	10400004 */ 	beqz	$v0,.NB0f0baec8
-/*  f0baeb8:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
-/*  f0baebc:	8cef04b4 */ 	lw	$t7,0x4b4($a3)
-/*  f0baec0:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f0baec4:	15e1002e */ 	bne	$t7,$at,.NB0f0baf80
-.NB0f0baec8:
-/*  f0baec8:	3c18800a */ 	lui	$t8,0x800a
-/*  f0baecc:	8f18260c */ 	lw	$t8,0x260c($t8)
-/*  f0baed0:	3c198007 */ 	lui	$t9,0x8007
-/*  f0baed4:	3c0a8007 */ 	lui	$t2,0x8007
-/*  f0baed8:	1b00001e */ 	blez	$t8,.NB0f0baf54
-/*  f0baedc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0baee0:	8f392d88 */ 	lw	$t9,0x2d88($t9)
-/*  f0baee4:	254a2c80 */ 	addiu	$t2,$t2,0x2c80
-/*  f0baee8:	3c01800a */ 	lui	$at,0x800a
-/*  f0baeec:	00194880 */ 	sll	$t1,$t9,0x2
-/*  f0baef0:	01394823 */ 	subu	$t1,$t1,$t9
-/*  f0baef4:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f0baef8:	01394823 */ 	subu	$t1,$t1,$t9
-/*  f0baefc:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f0baf00:	012a1021 */ 	addu	$v0,$t1,$t2
-/*  f0baf04:	8c4b0020 */ 	lw	$t3,0x20($v0)
-/*  f0baf08:	8c4c0018 */ 	lw	$t4,0x18($v0)
-/*  f0baf0c:	c42c2610 */ 	lwc1	$f12,0x2610($at)
-/*  f0baf10:	448b2000 */ 	mtc1	$t3,$f4
-/*  f0baf14:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0baf18:	44814000 */ 	mtc1	$at,$f8
-/*  f0baf1c:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f0baf20:	448c3000 */ 	mtc1	$t4,$f6
-/*  f0baf24:	460c4281 */ 	sub.s	$f10,$f8,$f12
-/*  f0baf28:	468030a0 */ 	cvt.s.w	$f2,$f6
-/*  f0baf2c:	46005002 */ 	mul.s	$f0,$f10,$f0
-/*  f0baf30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0baf34:	460c1082 */ 	mul.s	$f2,$f2,$f12
-/*  f0baf38:	46020400 */ 	add.s	$f16,$f0,$f2
-/*  f0baf3c:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f0baf40:	44059000 */ 	mfc1	$a1,$f18
-/*  f0baf44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0baf48:	00057400 */ 	sll	$t6,$a1,0x10
-/*  f0baf4c:	10000017 */ 	beqz	$zero,.NB0f0bafac
-/*  f0baf50:	000e2c03 */ 	sra	$a1,$t6,0x10
-.NB0f0baf54:
-/*  f0baf54:	3c188007 */ 	lui	$t8,0x8007
-/*  f0baf58:	8f182d88 */ 	lw	$t8,0x2d88($t8)
-/*  f0baf5c:	3c058007 */ 	lui	$a1,0x8007
-/*  f0baf60:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0baf64:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0baf68:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0baf6c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0baf70:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0baf74:	00b92821 */ 	addu	$a1,$a1,$t9
-/*  f0baf78:	1000000c */ 	beqz	$zero,.NB0f0bafac
-/*  f0baf7c:	84a52ca2 */ 	lh	$a1,0x2ca2($a1)
-.NB0f0baf80:
-/*  f0baf80:	3c098007 */ 	lui	$t1,0x8007
-/*  f0baf84:	8d292d88 */ 	lw	$t1,0x2d88($t1)
-/*  f0baf88:	3c028007 */ 	lui	$v0,0x8007
-/*  f0baf8c:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f0baf90:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f0baf94:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0baf98:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f0baf9c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0bafa0:	004a1021 */ 	addu	$v0,$v0,$t2
-/*  f0bafa4:	10000002 */ 	beqz	$zero,.NB0f0bafb0
-/*  f0bafa8:	84422c9a */ 	lh	$v0,0x2c9a($v0)
-.NB0f0bafac:
-/*  f0bafac:	00a01025 */ 	or	$v0,$a1,$zero
-.NB0f0bafb0:
-/*  f0bafb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bafb4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0bafb8:	03e00008 */ 	jr	$ra
-/*  f0bafbc:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 f32 player0f0bd358(void)
 {
@@ -3416,10 +2967,6 @@ void playerConfigureVi(void)
 
 	text0f1531dc(false);
 
-#if VERSION >= VERSION_JPN_FINAL
-	var800800f0jf = 0;
-#endif
-
 	playermgrSetFovY(60);
 	playermgrSetAspectRatio(ratio);
 	playermgrSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
@@ -3453,10 +3000,6 @@ void playerTick(bool arg0)
 	} else {
 		text0f1531dc(false);
 	}
-#endif
-
-#if VERSION >= VERSION_JPN_FINAL
-	var800800f0jf = 0;
 #endif
 
 	if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
@@ -3522,7 +3065,6 @@ void playerTick(bool arg0)
 		} else {
 			if (eyespy->held == false) {
 				// Eyespy is deployed
-#if VERSION >= VERSION_NTSC_1_0
 				if (g_Vars.currentplayer->eyespy->active) {
 					// And is being controlled
 					s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
@@ -3538,7 +3080,6 @@ void playerTick(bool arg0)
 						}
 					}
 				}
-#endif
 
 				if (g_Vars.lvupdate240) {
 					eyespyProcessInput(arg0);
@@ -3586,11 +3127,7 @@ void playerTick(bool arg0)
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKET) {
 		if (g_Vars.currentplayer->slayerrocket == NULL || g_Vars.currentplayer->isdead) {
 			g_Vars.currentplayer->slayerrocket = NULL;
-#if VERSION >= VERSION_NTSC_1_0
 			g_Vars.currentplayer->visionmode = VISIONMODE_SLAYERROCKETSTATIC;
-#else
-			g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
-#endif
 		}
 	}
 
@@ -3625,12 +3162,7 @@ void playerTick(bool arg0)
 		playerTickChrBody();
 		bmoveTick(0, 0, 0, 1);
 		playerSetCameraMode(CAMERAMODE_EYESPY);
-#if VERSION >= VERSION_JPN_FINAL
-		player0f0c1840(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look,
-				&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms);
-#else
 		player0f0c1bd8(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look);
-#endif
 	} else if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_WHITE) {
 		// Deep Sea teleport
 		playerTickChrBody();
@@ -3687,11 +3219,7 @@ void playerTick(bool arg0)
 				g_Vars.currentplayer->badrockettime += g_Vars.lvupdate60;
 
 				if (g_Vars.currentplayer->badrockettime > TICKS(120)) {
-#if VERSION >= VERSION_NTSC_1_0
 					g_Vars.currentplayer->visionmode = VISIONMODE_SLAYERROCKETSTATIC;
-#else
-					g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
-#endif
 				}
 			} else if (g_Vars.currentplayer->badrockettime > 0) {
 				// Slayer rocket is in bounds, but was recently out
@@ -3903,11 +3431,7 @@ void playerTick(bool arg0)
 
 		if (!rocketok) {
 			g_Vars.currentplayer->slayerrocket = NULL;
-#if VERSION >= VERSION_NTSC_1_0
 			g_Vars.currentplayer->visionmode = VISIONMODE_SLAYERROCKETSTATIC;
-#else
-			g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
-#endif
 		}
 
 		g_Vars.currentplayer->waitforzrelease = true;
@@ -4331,12 +3855,6 @@ void playerTick(bool arg0)
 				&g_Vars.currentplayer->prop->pos,
 				g_Vars.currentplayer->prop->rooms);
 	}
-
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-	if (debug0f11990cnb()) {
-		debug0f119a14nb();
-	}
-#endif
 
 	// Increment the time on Bond's watch (leftover from GE)
 	g_Vars.currentplayer->bondwatchtime60 += g_Vars.diffframe60freal;
@@ -4889,7 +4407,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 								shield = chrGetShield(g_Vars.currentplayer->prop->chr) * 0.125f;
 								totalhealth = g_Vars.currentplayer->bondhealth + shield;
 
-#if VERSION >= VERSION_NTSC_FINAL
 								// NTSC final prevents coop from being able to respawn
 								// in Deep Sea after the mid cutscene. Without this condition,
 								// the player could respawn on the other side of the exit trigger.
@@ -4925,35 +4442,6 @@ Gfx *playerRenderHud(Gfx *gdl)
 									// Can't respawn
 									setCurrentPlayerNum(prevplayernum);
 								}
-#else
-								if (totalhealth > 0.125f && canrestart) {
-									playerDisplayHealth();
-
-									stealhealth = totalhealth * 0.5f;
-
-									if (stealhealth < shield) {
-										chrSetShield(g_Vars.currentplayer->prop->chr, (shield - stealhealth) * 8.0f);
-									} else {
-										chrSetShield(g_Vars.currentplayer->prop->chr, 0);
-										g_Vars.currentplayer->bondhealth -= stealhealth - shield;
-									}
-
-									// Back to the player who died
-									setCurrentPlayerNum(prevplayernum);
-									g_Vars.currentplayer->dostartnewlife = true;
-									g_Vars.currentplayer->oldhealth = 0;
-									g_Vars.currentplayer->oldarmour = 0;
-									g_Vars.currentplayer->apparenthealth = 0;
-									g_Vars.currentplayer->apparentarmour = 0;
-									g_Vars.currentplayer->stealhealth = stealhealth;
-								} else {
-									setCurrentPlayerNum(prevplayernum);
-								}
-
-								if (totalhealth > 0.125f) {
-									g_Vars.currentplayer->coopcanrestart = true;
-								}
-#endif
 							}
 						}
 					} else {
@@ -5011,13 +4499,8 @@ Gfx *playerRenderHud(Gfx *gdl)
 			gdl = bgunDrawHud(gdl);
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		gdl = radarRender(gdl);
 		gdl = hudmsgsRender(gdl);
-#else
-		gdl = hudmsgsRender(gdl);
-		gdl = radarRender(gdl);
-#endif
 
 		gdl = playerDrawStoredFade(gdl);
 	} else {
@@ -5079,12 +4562,7 @@ void playerDie(bool force)
 
 void playerDieByShooter(u32 shooter, bool force)
 {
-#if VERSION >= VERSION_NTSC_1_0
-	if (!g_Vars.currentplayer->isdead && (force || !g_Vars.currentplayer->invincible))
-#else
-	if (!g_Vars.currentplayer->isdead && (force || !g_Vars.currentplayer->invincible || !g_Vars.currentplayer->training))
-#endif
-	{
+	if (!g_Vars.currentplayer->isdead && (force || !g_Vars.currentplayer->invincible)) {
 		u32 prevplayernum = g_MpPlayerNum;
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 		func0f0f8120();
@@ -5224,22 +4702,12 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 			if (!roomContainsCoord(pos, sp54[i])) {
 				s32 j;
 
-#if VERSION >= VERSION_NTSC_1_0
 				for (j = i + 1; sp54[j] != -1; j++) {
 					sp54[j - 1] = sp54[j];
 				}
 
 				sp54[j - 1] = -1;
 				i--;
-#else
-				// ntsc-beta corrupts the array by overwriting the first shifted
-				// value with -1, and leaving a duplicate at the end.
-				for (j = i + 1; sp54[j] != -1; j++) {
-					sp54[j - 1] = sp54[j];
-				}
-
-				sp54[i] = -1;
-#endif
 			}
 		}
 

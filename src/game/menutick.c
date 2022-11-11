@@ -153,11 +153,7 @@ void menuTick(void)
 			}
 
 			if (g_MenuData.screenshottimer == 0 || g_MenuData.bg != 0) {
-#if VERSION >= VERSION_PAL_BETA
-				f32 diffframe = g_Vars.diffframe60freal;
-#else
 				f32 diffframe = g_Vars.diffframe60f;
-#endif
 
 				if (diffframe > 4) {
 					diffframe = 4;
@@ -366,16 +362,11 @@ void menuTick(void)
 							// Joining from a general area such as the Combat
 							// Simulator menu. We can't open dialogs for other
 							// players here, so they are waiting to join.
-#if VERSION >= VERSION_NTSC_1_0
 							if (!g_Vars.waitingtojoin[i]) {
 								sndStart(var80095200, SFX_EXPLOSION_809A, 0, -1, -1, -1, -1, -1);
 							}
-							g_Vars.waitingtojoin[i] = true;
-#else
-							g_Vars.waitingtojoin[i] = true;
-							sndStart(var80095200, SFX_EXPLOSION_809A, 0, -1, -1, -1, -1, -1);
-#endif
 
+							g_Vars.waitingtojoin[i] = true;
 						} else if (g_Vars.mpsetupmenu == MPSETUPMENU_QUICKGO) {
 							// Joining from quick go - open Quick Go dialog
 							g_MpNumJoined++;

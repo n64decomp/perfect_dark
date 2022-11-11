@@ -44,12 +44,10 @@ struct roomproplistchunk *g_RoomPropListChunks;
 struct prop *g_InteractProp;
 s32 var8009cdac;
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 var8009cdb0;
 u32 var8009cdb4;
 u32 var8009cdb8;
 u32 var8009cdbc;
-#endif
 
 f32 g_AutoAimScale = 1;
 
@@ -457,7 +455,6 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
 	if (soundnum != -1) {
 		if (prop == g_Vars.currentplayer->prop) {
 			struct sndstate *handle;
-#if VERSION >= VERSION_NTSC_1_0
 			u32 stack;
 			OSPri prevpri = osGetThreadPri(0);
 			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
@@ -469,13 +466,6 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
 			}
 
 			osSetThreadPri(0, prevpri);
-#else
-			handle = sndStart(var80095200, soundnum, NULL, -1, -1, -1, -1, -1);
-
-			if (handle) {
-				audioPostEvent(handle, 0x10, *(s32 *)&speed);
-			}
-#endif
 		} else {
 			propsnd0f0939f8(NULL, prop, soundnum, -1,
 					-1, 0, 0, 0, NULL, speed, NULL, -1, -1, -1, -1);
@@ -505,23 +495,12 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
 		soundnum = SFX_RELOAD_04FB;
 		speed = 2.78f;
 	} else {
-#if VERSION >= VERSION_NTSC_1_0
 		soundnum = SFX_HIT_METAL_8079;
 		speed = 1.0f - RANDOMFRAC() * 0.1f;
-#else
-		soundnum = SFX_HIT_METAL_8079;
-
-		if (weaponnum != WEAPON_COMBATKNIFE && (random() % 2) == 1) {
-			soundnum = SFX_HATHIT_807C;
-		}
-
-		speed = 1.0f - RANDOMFRAC() * 0.1f;
-#endif
 	}
 
 	if (soundnum != -1) {
 		if (prop == g_Vars.currentplayer->prop) {
-#if VERSION >= VERSION_NTSC_1_0
 			OSPri prevpri = osGetThreadPri(0);
 			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 
@@ -532,13 +511,6 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
 			}
 
 			osSetThreadPri(0, prevpri);
-#else
-			handle = sndStart(var80095200, soundnum, 0, -1, -1, -1, -1, -1);
-
-			if (handle) {
-				audioPostEvent(handle, 0x10, *(s32 *)&speed);
-			}
-#endif
 		} else {
 			propsnd0f0939f8(NULL, prop, soundnum, -1, -1, 0, 0, 0, NULL, speed, NULL, -1, -1, -1, -1);
 		}
@@ -1653,10 +1625,8 @@ void propsTickPlayer(bool islastplayer)
 
 	g_Vars.hardfreeabletally = 0;
 
-#if VERSION >= VERSION_NTSC_1_0
 	var8009cdac = 0;
 	var8009cdb0 = 0;
-#endif
 
 	if (islastplayer) {
 		g_Vars.prevupdateframe = g_Vars.updateframe;

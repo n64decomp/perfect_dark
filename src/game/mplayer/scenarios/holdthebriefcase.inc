@@ -131,10 +131,7 @@ void htbAddPad(s16 padnum)
 {
 	struct scenariodata_htb *data = &g_ScenarioData.htb;
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (data->nextindex < ARRAYCOUNT(data->padnums))
-#endif
-	{
+	if (data->nextindex < ARRAYCOUNT(data->padnums)) {
 		osSyncPrintf("CaptureTheBriefcaseAddBankPad -> Adding New Pad %d  - Pad Id = %d-> Saving Pad\n", data->nextindex, padnum);
 
 		data->padnums[data->nextindex] = padnum;
@@ -223,10 +220,7 @@ void htbCreateToken(void)
 	// NTSC beta doesn't check the prop type, so it could potentially replace a
 	// player, bot, explosion or smoke.
 	while (prop && count < 20) {
-#if VERSION >= VERSION_NTSC_1_0
-		if (prop->type == PROPTYPE_OBJ)
-#endif
-		{
+		if (prop->type == PROPTYPE_OBJ) {
 			obj = prop->obj;
 
 			if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
@@ -320,12 +314,7 @@ void htbTick(void)
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htb.token == NULL) {
 		for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
-#if VERSION >= VERSION_NTSC_1_0
-			if (g_MpAllChrPtrs[i]->prop && g_MpAllChrPtrs[i]->aibot->hasbriefcase)
-#else
-			if (g_MpAllChrPtrs[i]->aibot->hasbriefcase)
-#endif
-			{
+			if (g_MpAllChrPtrs[i]->prop && g_MpAllChrPtrs[i]->aibot->hasbriefcase) {
 				g_ScenarioData.htb.token = g_MpAllChrPtrs[i]->prop;
 				break;
 			}
@@ -369,11 +358,7 @@ void htbTickChr(struct chrdata *chr)
 			if (g_Vars.currentplayerstats->tokenheldtime >= TICKS(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				g_MpAllChrConfigPtrs[g_Vars.currentplayernum]->numpoints++;
-#if VERSION >= VERSION_JPN_FINAL
-				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP); // "1 Point!"
-#else
 				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "1 Point!"
-#endif
 				g_Vars.currentplayerstats->tokenheldtime = 0;
 			}
 		} else {
@@ -406,15 +391,10 @@ Gfx *htbRenderHud(Gfx *gdl)
 
 		time240 = TICKS(7200) - g_Vars.currentplayerstats->tokenheldtime;
 
-#if VERSION >= VERSION_PAL_BETA
-		secs = (time240 + TICKS(240) - 1) / TICKS(240);
-		sprintf(text, "%d:%02d", 0, secs);
-#else
 		mins = time240 / TICKS(7200);
 		time240 -= TICKS(7200) * mins;
 		secs = (time240 + TICKS(240) - 1) / TICKS(240);
 		sprintf(text, "%d:%02d", mins, secs);
-#endif
 
 		gdl = text0f153628(gdl);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
@@ -423,14 +403,8 @@ Gfx *htbRenderHud(Gfx *gdl)
 		textwidth += x;
 		textheight += y;
 
-#if VERSION >= VERSION_NTSC_1_0
 		gdl = text0f153990(gdl, x, y, textwidth, textheight);
 		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, viGetWidth(), viGetHeight(), 0, 0);
-#else
-		gdl = text0f153858(gdl, &x, &y, &textwidth, &textheight);
-		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x88, viGetWidth(), viGetHeight(), 0, 0);
-#endif
-
 		gdl = text0f153780(gdl);
 	}
 

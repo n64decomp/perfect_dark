@@ -125,7 +125,6 @@ void botcmdTickDistMode(struct chrdata *chr)
 		newmode = BOTDISTMODE_GOTO;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (newmode != BOTDISTMODE_BACKUP || !insight || aibot->unk050 != targetprop) {
 		aibot->unk050 = NULL;
 		aibot->unk09d = 0;
@@ -150,11 +149,6 @@ void botcmdTickDistMode(struct chrdata *chr)
 			}
 		}
 	}
-#else
-	if (newmode == BOTDISTMODE_OK && !insight) {
-		newmode = BOTDISTMODE_ADVANCE;
-	}
-#endif
 
 	aibot->distmode = newmode;
 

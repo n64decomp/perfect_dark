@@ -202,7 +202,6 @@ void _n_handleEvent(N_ALSndpEvent *event)
 				return;
 			}
 
-#if VERSION >= VERSION_NTSC_1_0
 			delta = sound->envelope->attackTime / state->pitch / state->basepitch;
 
 			if (state->flags & SNDSTATEFLAG_02) {
@@ -230,14 +229,6 @@ void _n_handleEvent(N_ALSndpEvent *event)
 			state->envvol = sound->envelope->attackVolume;
 			state->fxbus = config.fxBus;
 			state->endtime = g_SndPlayer->curTime + delta;
-#else
-			// This is the same as above, but delta is calculated later
-			state->flags |= SNDSTATEFLAG_04;
-			state->envvol = sound->envelope->attackVolume;
-			state->fxbus = config.fxBus;
-			delta = sound->envelope->attackTime / state->pitch / state->basepitch;
-			state->endtime = g_SndPlayer->curTime + delta;
-#endif
 
 			vol = MAX(0, (var8009c334[keymap->keyMin & 0x1f] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01)) / 0x7fff - 1);
 			tmppan = state->pan + sound->samplePan - AL_PAN_CENTER;
@@ -259,12 +250,10 @@ void _n_handleEvent(N_ALSndpEvent *event)
 
 					delta = sound->envelope->decayTime / state->basepitch / state->pitch;
 
-#if VERSION >= VERSION_NTSC_1_0
 					if (delta > 5500000) {
 						func00033090(state);
 						return;
 					}
-#endif
 
 					state->endtime = g_SndPlayer->curTime + delta;
 
@@ -283,12 +272,10 @@ void _n_handleEvent(N_ALSndpEvent *event)
 					sp94.common.state = (N_ALSoundState *)state;
 					delta = sound->envelope->attackTime / state->pitch / state->basepitch;
 
-#if VERSION >= VERSION_NTSC_1_0
 					if (delta > 5500000) {
 						func00033090(state);
 						return;
 					}
-#endif
 
 					n_alEvtqPostEvent(&g_SndPlayer->evtq, &sp94.msg, delta, 0);
 				}
@@ -303,12 +290,10 @@ void _n_handleEvent(N_ALSndpEvent *event)
 					_removeEvents(&g_SndPlayer->evtq, (N_ALSoundState *)state, AL_SNDP_DECAY_EVT);
 					delta = sound->envelope->releaseTime / state->basepitch / state->pitch;
 
-#if VERSION >= VERSION_NTSC_1_0
 					if (delta > 5500000) {
 						func00033090(state);
 						break;
 					}
-#endif
 
 					n_alSynSetVol(&state->voice, 0, delta);
 
@@ -401,12 +386,10 @@ void _n_handleEvent(N_ALSndpEvent *event)
 			if (state->state == AL_PLAYING) {
 				delta = sound->envelope->releaseTime / state->basepitch / state->pitch;
 
-#if VERSION >= VERSION_NTSC_1_0
 				if (delta > 5500000) {
 					func00033090(state);
 					break;
 				}
-#endif
 
 				vol = MAX(0, var8009c334[keymap->keyMin & 0x1f] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01) / 0x7fff - 1);
 
@@ -419,12 +402,10 @@ void _n_handleEvent(N_ALSndpEvent *event)
 				vol = MAX(0, var8009c334[keymap->keyMin & 0x1f] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01) / 0x7fff - 1);
 				delta = sound->envelope->decayTime / state->basepitch / state->pitch;
 
-#if VERSION >= VERSION_NTSC_1_0
 				if (delta > 5500000) {
 					func00033090(state);
 					break;
 				}
-#endif
 
 				state->endtime = g_SndPlayer->curTime + delta;
 
@@ -727,10 +708,8 @@ struct sndstate *func00033820(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32 pi
 				state->pitch *= pitch;
 				state->fxmix = fxmix;
 				state->fxbus = fxbus;
-#if VERSION >= VERSION_NTSC_1_0
 				state->soundnum = soundnum;
 				state->unk48 = 0;
-#endif
 
 				sp44 = sound->keyMap->velocityMax * 33333;
 
@@ -779,7 +758,6 @@ void audioStop(struct sndstate *state)
 {
 	N_ALEvent evt;
 
-#if VERSION >= VERSION_NTSC_FINAL
 	if (state && (state->flags & SNDSTATEFLAG_02)) {
 		func00033bc0(state);
 	} else {
@@ -792,33 +770,8 @@ void audioStop(struct sndstate *state)
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
 	}
-#elif VERSION >= VERSION_NTSC_1_0
-	// NTSC 1.0 lacks the null state check
-	if (state->flags & SNDSTATEFLAG_02) {
-		func00033bc0(state);
-	} else {
-		evt.type = AL_SNDP_0400_EVT;
-		evt.msg.generic.sndstate = state;
-
-		if (state != NULL) {
-			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
-
-			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
-		}
-	}
-#else
-	evt.type = AL_SNDP_0400_EVT;
-	evt.msg.generic.sndstate = state;
-
-	if (state != NULL) {
-		evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
-
-		n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
-	}
-#endif
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void func00033bc0(struct sndstate *state)
 {
 	N_ALEvent evt;
@@ -832,7 +785,6 @@ void func00033bc0(struct sndstate *state)
 		n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 	}
 }
-#endif
 
 void func00033c30(u8 flags)
 {
@@ -855,7 +807,6 @@ void func00033c30(u8 flags)
 	osSetIntMask(mask);
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void func00033cf0(u8 flags)
 {
 	OSIntMask mask = osSetIntMask(1);
@@ -876,14 +827,11 @@ void func00033cf0(u8 flags)
 
 	osSetIntMask(mask);
 }
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 void func00033db0(void)
 {
 	func00033cf0(SNDSTATEFLAG_01);
 }
-#endif
 
 void func00033dd8(void)
 {
@@ -920,19 +868,15 @@ u16 func00033ec4(u8 index)
 	return var8009c334 ? var8009c334[index] : 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 struct sndstate *sndpGetHeadState(void)
 {
 	return g_SndpAllocStatesHead;
 }
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 ALMicroTime sndpGetCurTime(void)
 {
 	return g_SndPlayer->curTime;
 }
-#endif
 
 void func00033f44(u8 index, u16 volume)
 {

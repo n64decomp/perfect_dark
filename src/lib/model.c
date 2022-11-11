@@ -18,10 +18,6 @@
 #include "data.h"
 #include "types.h"
 
-#if VERSION >= VERSION_PAL_BETA
-u8 var8005efb0_2 = 0;
-#endif
-
 u32 var8005efb0 = 0;
 
 bool g_ModelDistanceDisabled = false;
@@ -29,10 +25,6 @@ f32 g_ModelDistanceScale = 1;
 bool var8005efbc = false;
 f32 var8005efc0 = 0;
 bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
-
-#if VERSION >= VERSION_PAL_BETA
-bool var8005efd8_2 = false;
-#endif
 
 struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices) = NULL;
 void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx) = NULL;
@@ -310,8 +302,6 @@ f32 model0001a9e8(struct model *model)
 	return 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-// ntsc-beta has this function in another file
 void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 {
 	u32 index = 0;
@@ -356,7 +346,6 @@ void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 
 	return &rwdatas[index];
 }
-#endif
 
 void modelNodeGetPosition(struct model *model, struct modelnode *node, struct coord *pos)
 {
@@ -569,11 +558,7 @@ void model0001b0e8(struct model *model, struct modelnode *node)
 	rwdata->chrinfo.unk14 = rwdata->chrinfo.unk30;
 
 	if (g_Vars.in_cutscene && anim->speed > 0.0f) {
-#if VERSION >= VERSION_PAL_BETA
-		frac = floorf(anim->frac / anim->speed + 0.01f) * anim->speed;
-#else
 		frac = floorf(anim->frac / anim->speed) * anim->speed;
-#endif
 	} else {
 		frac = anim->frac;
 	}
@@ -685,11 +670,7 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 	anim00024050(sp240, anim->flip, skel, anim->animnum, anim->unk04, &sp230, &sp224, &sp218);
 
 	if (g_Vars.in_cutscene && anim->speed > 0) {
-#if VERSION >= VERSION_PAL_BETA
-		sp154 = floorf(anim->frac / anim->speed + 0.01f) * anim->speed;
-#else
 		sp154 = floorf(anim->frac / anim->speed) * anim->speed;
-#endif
 	} else {
 		sp154 = anim->frac;
 	}
@@ -1003,11 +984,7 @@ void model0001bfa8(struct modelrenderdata *renderdata, struct model *model, stru
 			anim00024050(partnum, anim->flip, skel, anim->animnum, anim->unk04, &sp144, &sp138, &sp12c);
 
 			if (g_Vars.in_cutscene && anim->speed > 0.0f) {
-#if VERSION >= VERSION_PAL_BETA
-				spe0 = floorf(anim->frac / anim->speed + 0.0099999997764826f) * anim->speed;
-#else
 				spe0 = floorf(anim->frac / anim->speed) * anim->speed;
-#endif
 			} else {
 				spe0 = anim->frac;
 			}
@@ -1016,12 +993,7 @@ void model0001bfa8(struct modelrenderdata *renderdata, struct model *model, stru
 				anim00024050(partnum, anim->flip, skel, anim->animnum, anim->unk05, &spd4, &spc8, &spbc);
 				model0001b07c(&sp144, &spd4, spe0);
 
-#if VERSION >= VERSION_PAL_BETA
-				if (sp128 || var8005efd8_2)
-#else
-				if (sp128)
-#endif
-				{
+				if (sp128) {
 					model0001af98(&sp138, &spc8, spe0);
 				}
 			}
@@ -1459,15 +1431,9 @@ void model0001ce64(struct modelrenderdata *arg0, struct model *model)
 
 	arg0->unk10 += model->filedata->nummatrices;
 
-#if VERSION >= VERSION_PAL_BETA
-	if (var8005efb0_2 || !model00018680()) {
-		model0001cd18(arg0, model);
-	}
-#else
 	if (!model00018680()) {
 		model0001cd18(arg0, model);
 	}
-#endif
 }
 
 void model0001cebc(struct modelrenderdata *arg0, struct model *model)
@@ -1914,15 +1880,6 @@ void modelSetAnimFlipFunction(struct model *model, void *callback)
 		model->anim->flipfunc = callback;
 	}
 }
-
-#if VERSION < VERSION_NTSC_1_0
-void modelSetAnimUnk6c(struct model *model, s32 value)
-{
-	if (model->anim) {
-		model->anim->unk6c = value;
-	}
-}
-#endif
 
 void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe)
 {
@@ -2543,7 +2500,6 @@ void model0001ee18(struct model *model, s32 lvupdate240, bool arg2)
 	}
 }
 
-#if VERSION < VERSION_PAL_BETA
 /**
  * This is identical to the above function but removes the 0.25f multipliers.
  */
@@ -2686,7 +2642,6 @@ void model0001f314(struct model *model, s32 lvupdate240, bool arg2)
 		}
 	}
 }
-#endif
 
 void model0001f7e0(struct modelrenderdata *renderdata)
 {

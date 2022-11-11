@@ -33,13 +33,6 @@ void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
 	u32 remainder;
 	s32 i;
 
-#if VERSION < VERSION_NTSC_1_0
-	if (romaddr >= ROM_SIZE * 1024 * 1024) {
-		crashSetMessage("DMA : Off the end of the rom");
-		CRASH();
-	}
-#endif
-
 	if (g_DmaNumSlotsBusy) {
 		dmaWait();
 	}

@@ -26,9 +26,7 @@ s32 g_MusicEventQueueLength = 0;
 s32 g_TemporaryPrimaryTrack = -1;
 s32 g_TemporaryAmbientTrack = -1;
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 var800840d0 = -1;
-#endif
 
 u32 g_MusicNextEventId = 0;
 bool g_MusicNrgIsActive = false;
@@ -37,33 +35,12 @@ s32 var800840e0 = 15;
 s32 var800840e4 = 0;
 bool g_MusicSoloDeathIsPlaying = false;
 
-#if VERSION >= VERSION_NTSC_1_0
 u16 g_MusicVolume = 0x5000;
-#endif
 
 s32 g_MusicDeathTimer240 = 0;     // Counts down 5 seconds while death music plays
 s32 g_MusicAge60 = 0;             // The current age of the MP track being played
 s32 g_MusicLife60 = TICKS(120); // The max age of any MP track (this value is changed in MP code)
 s32 g_MusicSilenceTimer60 = 0;    // Counts down the 2 second silence between MP track changes
-
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1b2030nb[] = "MUSIC : musicPlayLevel\n";
-const char var7f1b2048nb[] = "MUSIC : SWITCHING TO CORRECT AMBIENT TUNE\n";
-const char var7f1b2074nb[] = "musicStartLevel\n";
-const char var7f1b2088nb[] = "musicEndLevel\n";
-const char var7f1b2098nb[] = "musicStartNRG\n";
-const char var7f1b20a8nb[] = "musicEndNRG\n";
-const char var7f1b20b8nb[] = "musicStartWatch start\n";
-const char var7f1b20d0nb[] = "musicEndWatch start\n";
-const char var7f1b20e8nb[] = "musicEndWatch end\n";
-const char var7f1b20fcnb[] = "musicStartDead\n";
-const char var7f1b210cnb[] = "musicStartTemporary\n";
-const char var7f1b2124nb[] = "musicEndTemporary\n";
-const char var7f1b2138nb[] = "musicStartCutscene\n";
-const char var7f1b214cnb[] = "musicEndCutscene\n";
-const char var7f1b2160nb[] = "musicStartAmbient : Tune=%d\n";
-const char var7f1b2180nb[] = "musicEndAmbient\n";
-#endif
 
 char *var80084100[] = {
 	"null",
@@ -75,15 +52,10 @@ char *var80084100[] = {
 	"paused",
 };
 
-#if VERSION >= VERSION_PAL_FINAL
-u32 var8008465cpf = 0;
-#endif
-
 const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
 
 u16 musicGetVolume(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	u32 volume;
 
 	if (g_Vars.stagenum == STAGE_CREDITS) {
@@ -97,20 +69,15 @@ u16 musicGetVolume(void)
 	}
 
 	return volume;
-#else
-	return optionsGetMusicVolume();
-#endif
 }
 
 void musicSetVolume(u16 volume)
 {
 	s32 i;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (volume > 0x5000) {
 		volume = 0x5000;
 	}
-#endif
 
 	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
 		if (var800aaa38[i].tracktype != TRACKTYPE_NONE && var800aaa38[i].tracktype != TRACKTYPE_AMBIENT) {
@@ -118,9 +85,7 @@ void musicSetVolume(u16 volume)
 		}
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	g_MusicVolume = volume;
-#endif
 }
 
 bool func0f16d0a8(s32 tracktype, s32 arg1)
@@ -224,13 +189,9 @@ void musicReset(void)
 			g_MusicXReasonMaxDurations[i] = 0;
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		func0f16d430();
 		musicQueueStopAllEvent();
 		musicQueueType5Event();
-#else
-		musicQueueStopAllEvent();
-#endif
 
 		g_MusicSoloDeathIsPlaying = false;
 		g_MusicDeathTimer240 = 0;
@@ -243,9 +204,7 @@ void musicReset(void)
 
 void musicQueueStopAllEvent(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	g_MusicEventQueue[0].tracktype = TRACKTYPE_6;
-#endif
 
 	g_MusicEventQueue[0].eventtype = MUSICEVENTTYPE_STOPALL;
 	g_MusicEventQueue[0].id = g_MusicNextEventId++;
@@ -257,7 +216,6 @@ void musicQueueStopAllEvent(void)
 	musicTickEvents();
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void func0f16d430(void)
 {
 	var800840d0 = var800840e0;
@@ -275,7 +233,6 @@ void musicQueueType5Event(void)
 	g_MusicEventQueue[0].numattempts = 0;
 	g_MusicEventQueue[0].failcount = 0;
 }
-#endif
 
 #define PRIMARYTRACK() (g_TemporaryPrimaryTrack != -1 ? g_TemporaryPrimaryTrack : stageGetPrimaryTrack(g_MusicStageNum))
 
@@ -288,7 +245,6 @@ void musicStartPrimary(f32 arg0)
 
 #define AMBIENTTRACK() (g_TemporaryAmbientTrack != -1 ? g_TemporaryAmbientTrack : stageGetAmbientTrack(g_MusicStageNum))
 
-#if VERSION >= VERSION_NTSC_1_0
 void musicStartAmbient(f32 arg0)
 {
 	s32 pass = false;
@@ -315,110 +271,6 @@ void musicStartAmbient(f32 arg0)
 		}
 	}
 }
-#else
-GLOBAL_ASM(
-glabel musicStartAmbient
-/*  f16821c:	3c028008 */ 	lui	$v0,0x8008
-/*  f168220:	8c42694c */ 	lw	$v0,0x694c($v0)
-/*  f168224:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f168228:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16822c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f168230:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f168234:	10410003 */ 	beq	$v0,$at,.NB0f168244
-/*  f168238:	00002825 */ 	or	$a1,$zero,$zero
-/*  f16823c:	10000007 */ 	beqz	$zero,.NB0f16825c
-/*  f168240:	00401825 */ 	or	$v1,$v0,$zero
-.NB0f168244:
-/*  f168244:	3c04800b */ 	lui	$a0,0x800b
-/*  f168248:	8c84ee80 */ 	lw	$a0,-0x1180($a0)
-/*  f16824c:	0fc5c65e */ 	jal	stageGetAmbientTrack
-/*  f168250:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f168254:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f168258:	00401825 */ 	or	$v1,$v0,$zero
-.NB0f16825c:
-/*  f16825c:	0460002c */ 	bltz	$v1,.NB0f168310
-/*  f168260:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f168264:	8dce694c */ 	lw	$t6,0x694c($t6)
-/*  f168268:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16826c:	11c10003 */ 	beq	$t6,$at,.NB0f16827c
-/*  f168270:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f168274:	10000026 */ 	beqz	$zero,.NB0f168310
-/*  f168278:	24050001 */ 	addiu	$a1,$zero,0x1
-.NB0f16827c:
-/*  f16827c:	0fc5a0df */ 	jal	musicIsAnyPlayerInAmbientRoom
-/*  f168280:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f168284:	10400022 */ 	beqz	$v0,.NB0f168310
-/*  f168288:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f16828c:	3c0f800a */ 	lui	$t7,0x800a
-/*  f168290:	8defe96c */ 	lw	$t7,-0x1694($t7)
-/*  f168294:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f168298:	3c028008 */ 	lui	$v0,0x8008
-/*  f16829c:	51e1001c */ 	beql	$t7,$at,.NB0f168310
-/*  f1682a0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1682a4:	8c42694c */ 	lw	$v0,0x694c($v0)
-/*  f1682a8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1682ac:	3c04800b */ 	lui	$a0,0x800b
-/*  f1682b0:	10410003 */ 	beq	$v0,$at,.NB0f1682c0
-/*  f1682b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1682b8:	10000004 */ 	beqz	$zero,.NB0f1682cc
-/*  f1682bc:	00401825 */ 	or	$v1,$v0,$zero
-.NB0f1682c0:
-/*  f1682c0:	0fc5c65e */ 	jal	stageGetAmbientTrack
-/*  f1682c4:	8c84ee80 */ 	lw	$a0,-0x1180($a0)
-/*  f1682c8:	00401825 */ 	or	$v1,$v0,$zero
-.NB0f1682cc:
-/*  f1682cc:	3c04800b */ 	lui	$a0,0x800b
-/*  f1682d0:	8c84ee80 */ 	lw	$a0,-0x1180($a0)
-/*  f1682d4:	0fc5c65e */ 	jal	stageGetAmbientTrack
-/*  f1682d8:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f1682dc:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f1682e0:	5043000b */ 	beql	$v0,$v1,.NB0f168310
-/*  f1682e4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1682e8:	0fc59fed */ 	jal	musicQueueStopEvent
-/*  f1682ec:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f1682f0:	3c04800b */ 	lui	$a0,0x800b
-/*  f1682f4:	0fc5c65e */ 	jal	stageGetAmbientTrack
-/*  f1682f8:	8c84ee80 */ 	lw	$a0,-0x1180($a0)
-/*  f1682fc:	0fc5a2f1 */ 	jal	musicStartTemporaryAmbient
-/*  f168300:	00402025 */ 	or	$a0,$v0,$zero
-/*  f168304:	1000001a */ 	beqz	$zero,.NB0f168370
-/*  f168308:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16830c:	24050001 */ 	addiu	$a1,$zero,0x1
-.NB0f168310:
-/*  f168310:	50a00017 */ 	beqzl	$a1,.NB0f168370
-/*  f168314:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f168318:	0fc59fa6 */ 	jal	func0f16d124
-/*  f16831c:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f168320:	10400002 */ 	beqz	$v0,.NB0f16832c
-/*  f168324:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f168328:	14410010 */ 	bne	$v0,$at,.NB0f16836c
-.NB0f16832c:
-/*  f16832c:	3c028008 */ 	lui	$v0,0x8008
-/*  f168330:	8c42694c */ 	lw	$v0,0x694c($v0)
-/*  f168334:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f168338:	3c04800b */ 	lui	$a0,0x800b
-/*  f16833c:	10410003 */ 	beq	$v0,$at,.NB0f16834c
-/*  f168340:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f168344:	10000004 */ 	beqz	$zero,.NB0f168358
-/*  f168348:	00402825 */ 	or	$a1,$v0,$zero
-.NB0f16834c:
-/*  f16834c:	0fc5c65e */ 	jal	stageGetAmbientTrack
-/*  f168350:	8c84ee80 */ 	lw	$a0,-0x1180($a0)
-/*  f168354:	00402825 */ 	or	$a1,$v0,$zero
-.NB0f168358:
-/*  f168358:	3c078006 */ 	lui	$a3,0x8006
-/*  f16835c:	94e7f6e8 */ 	lhu	$a3,-0x918($a3)
-/*  f168360:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f168364:	0fc59fcc */ 	jal	musicQueueStartEvent
-/*  f168368:	8fa60020 */ 	lw	$a2,0x20($sp)
-.NB0f16836c:
-/*  f16836c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f168370:
-/*  f168370:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f168374:	03e00008 */ 	jr	$ra
-/*  f168378:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 bool musicIsAnyPlayerInAmbientRoom(void)
 {
@@ -517,21 +369,14 @@ void musicSetStage(s32 stagenum)
 
 void musicStop(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	func0f16d430();
 	musicQueueStopAllEvent();
 	musicQueueType5Event();
-#else
-	musicQueueStopAllEvent();
-#endif
 }
 
 void musicActivateNrg(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
-	if (!g_MusicNrgIsActive)
-#endif
-	{
+	if (!g_MusicNrgIsActive) {
 		if (stageGetNrgTrack(g_MusicStageNum) >= 0) {
 			musicQueueStopEvent(TRACKTYPE_NRG);
 			musicQueueStopEvent(TRACKTYPE_MENU);
@@ -546,10 +391,7 @@ void musicActivateNrg(void)
 
 void musicDeactivateNrg(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
-	if (g_MusicNrgIsActive)
-#endif
-	{
+	if (g_MusicNrgIsActive) {
 		musicQueueStopEvent(TRACKTYPE_MENU);
 		musicQueueStopEvent(TRACKTYPE_DEATH);
 		musicQueueFadeEvent(TRACKTYPE_NRG, 1, FADETYPE_STOP);
@@ -587,9 +429,7 @@ void musicStartSoloDeath(void)
 {
 	g_MusicSoloDeathIsPlaying = true;
 
-#if VERSION >= VERSION_NTSC_1_0
 	func0f16d430();
-#endif
 
 	musicQueueStopEvent(TRACKTYPE_MENU);
 	musicQueueStopEvent(TRACKTYPE_DEATH);
@@ -599,27 +439,19 @@ void musicStartSoloDeath(void)
 	musicQueueStopEvent(TRACKTYPE_AMBIENT);
 	musicQueueStartEvent(TRACKTYPE_PRIMARY, MUSIC_DEATH_SOLO, 0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
 
-#if VERSION >= VERSION_NTSC_1_0
 	musicQueueType5Event();
-#endif
 }
 
 void _musicStartMpDeath(f32 arg0)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	func0f16d430();
 	musicQueueStartEvent(TRACKTYPE_DEATH, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
 	musicQueueType5Event();
-#else
-	musicQueueStartEvent(TRACKTYPE_DEATH, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
-#endif
 }
 
 void musicStartMpDeath(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	func0f16d430();
-#endif
 
 	musicQueueStopEvent(TRACKTYPE_MENU);
 	musicQueueStopEvent(TRACKTYPE_DEATH);
@@ -636,9 +468,7 @@ void musicStartMpDeath(void)
 	g_MusicDeathTimer240 = TICKS(1200);
 	g_MusicMpDeathIsPlaying = true;
 
-#if VERSION >= VERSION_NTSC_1_0
 	musicQueueType5Event();
-#endif
 }
 
 void musicEndDeath(void)
@@ -664,9 +494,7 @@ void musicEndDeath(void)
  */
 void musicPlayTrackIsolated(s32 tracknum)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	func0f16d430();
-#endif
 
 	musicQueueStopEvent(TRACKTYPE_MENU);
 	musicQueueStopEvent(TRACKTYPE_DEATH);
@@ -676,9 +504,7 @@ void musicPlayTrackIsolated(s32 tracknum)
 	musicQueueStopEvent(TRACKTYPE_AMBIENT);
 	musicQueueStartEvent(TRACKTYPE_PRIMARY, tracknum, 0, musicGetVolume());
 
-#if VERSION >= VERSION_NTSC_1_0
 	musicQueueType5Event();
-#endif
 }
 
 /**
@@ -787,11 +613,9 @@ void musicUnsetXReason(s32 reason)
 			g_MusicXReasonMaxDurations[i] = 0;
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (g_MusicNrgIsActive) {
 			musicDeactivateNrg();
 		}
-#endif
 	}
 }
 

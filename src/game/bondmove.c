@@ -458,12 +458,7 @@ f32 bmoveCalculateLookahead(void)
 
 			portal00018148(&spbc, &spb0, spa0, sp90, sp80, 7);
 
-			if (
-#if VERSION >= VERSION_NTSC_1_0
-					cdFindFloorRoomYColourFlagsAtPos(&spbc, sp80, &sp78, NULL, NULL) > 0
-#else
-					cdFindFloorRoomYColourFlagsAtPos(&spbc, sp80, &sp78, NULL) > 0
-#endif
+			if (cdFindFloorRoomYColourFlagsAtPos(&spbc, sp80, &sp78, NULL, NULL) > 0
 					&& sp78 - ground < 200
 					&& sp78 - ground > -200) {
 				angle = atan2f(sp78 - g_Vars.currentplayer->vv_ground, value);
@@ -1611,11 +1606,9 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			}
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 			g_Vars.currentplayer->docentreupdown = false;
 		}
-#endif
 
 		if (g_Vars.currentplayer->docentreupdown) {
 			if (offbike) {
@@ -2041,23 +2034,14 @@ void bmove0f0cc19c(struct coord *arg)
 		}
 
 		g_Vars.currentplayer->bond2.unk10.y = (g_Vars.currentplayer->bond2.unk10.y - g_Vars.currentplayer->vv_manground) * mult;
-
-#if VERSION < VERSION_NTSC_1_0
-		if (g_Vars.currentplayer->bond2.unk10.y < 30) {
-			g_Vars.currentplayer->bond2.unk10.y = 30;
-		}
-#endif
-
 		g_Vars.currentplayer->bond2.unk10.y += g_Vars.currentplayer->vv_manground;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	min = g_Vars.currentplayer->vv_ground + 10;
 
 	if (g_Vars.currentplayer->bond2.unk10.y < min) {
 		g_Vars.currentplayer->bond2.unk10.y = min;
 	}
-#endif
 }
 
 void bmoveUpdateHead(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)

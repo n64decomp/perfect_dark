@@ -499,21 +499,6 @@ f32 gsetGetDamage(struct gset *gset)
 
 u8 gsetGetFireslotDuration(struct gset *gset)
 {
-#if VERSION >= VERSION_PAL_FINAL
-	struct weaponfunc *func = gsetGetWeaponFunction(gset);
-	u8 result = 0;
-
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
-		result = funcshoot->duration60;
-	}
-
-	if (result >= 4) {
-		result = TICKS(result);
-	}
-
-	return result;
-#else
 	struct weaponfunc *func = gsetGetWeaponFunction(gset);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
@@ -522,7 +507,6 @@ u8 gsetGetFireslotDuration(struct gset *gset)
 	}
 
 	return 0;
-#endif
 }
 
 u16 gsetGetSingleShootSound(struct gset *gset)
@@ -561,12 +545,9 @@ s8 weaponGetNumTicksPerShot(u32 weaponnum, u32 funcindex)
 		result = 3600.0f / autofunc->maxrpm;
 	}
 
-#if VERSION != VERSION_PAL_BETA
-	// PAL beta removes this check, only for it to be added back in PAL final
 	if (result > 3) {
 		result = TICKS(result);
 	}
-#endif
 
 	return result;
 }

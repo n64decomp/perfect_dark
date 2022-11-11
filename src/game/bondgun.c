@@ -66,37 +66,6 @@
 #define MASTERLOADSTATE_CARTS  3
 #define MASTERLOADSTATE_LOADED 4
 
-#if VERSION >= VERSION_PAL_BETA
-struct sndstate *g_CasingAudioHandles[2];
-s32 var8009d0d8;
-u32 fill2;
-struct sndstate *g_BgunAudioHandles[4];
-s32 var8009d0dc;
-u32 fill2_2;
-s32 var8009d0f0[3];
-u32 var8009d0fc;
-u32 var8009d100;
-u32 var8009d104;
-u32 var8009d108;
-u32 var8009d10c;
-u32 var8009d110;
-u32 var8009d114;
-u32 var8009d118;
-u32 var8009d11c;
-u32 var8009d120;
-u32 var8009d124;
-u32 var8009d128;
-u32 var8009d12c;
-u32 var8009d130;
-u32 var8009d134;
-u32 var8009d138;
-u32 var8009d13c;
-f32 var8009d140;
-struct hand *var8009d144;
-s32 var8009d148;
-u32 var8009d14c;
-struct fireslot g_Fireslots[NUM_FIRESLOTS];
-#elif VERSION >= VERSION_NTSC_1_0
 struct sndstate *g_CasingAudioHandles[2];
 s32 var8009d0d8;
 s32 var8009d0dc;
@@ -124,37 +93,6 @@ struct hand *var8009d144;
 s32 var8009d148;
 u32 var8009d14c;
 struct fireslot g_Fireslots[NUM_FIRESLOTS];
-#else
-s32 var8009d0dc;
-u32 var800a1800nb;
-s32 var8009d0f0[3];
-u32 var8009d0fc;
-u32 var8009d100;
-u32 var8009d104;
-u32 var8009d108;
-u32 var8009d10c;
-u32 var8009d110;
-u32 var8009d114;
-u32 var8009d118;
-u32 var8009d11c;
-u32 var8009d120;
-u32 var8009d124;
-u32 var8009d128;
-u32 var8009d12c;
-u32 var8009d130;
-u32 var8009d134;
-u32 var8009d138;
-u32 var8009d13c;
-f32 var8009d140;
-struct hand *var8009d144;
-s32 var8009d148;
-u32 var8009d14c;
-struct sndstate *g_CasingAudioHandles[2];
-s32 var8009d0d8;
-struct sndstate *g_BgunAudioHandles[4];
-struct fireslot g_Fireslots[NUM_FIRESLOTS];
-u32 fill2[1];
-#endif
 
 Lights1 var80070090 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0xb2, 0x4d, 0x2e);
 
@@ -339,7 +277,6 @@ void bgunPreload(void)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void bgunRumble(s32 handnum, s32 weaponnum)
 {
 	u32 stack;
@@ -390,175 +327,6 @@ void bgunRumble(s32 handnum, s32 weaponnum)
 		}
 	}
 }
-#else
-GLOBAL_ASM(
-glabel bgunRumble
-/*  f095b30:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f095b34:	3c08800a */ 	lui	$t0,0x800a
-/*  f095b38:	2508e6c0 */ 	addiu	$t0,$t0,-6464
-/*  f095b3c:	8d0e0288 */ 	lw	$t6,0x288($t0)
-/*  f095b40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f095b44:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f095b48:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f095b4c:	0fc53380 */ 	jal	optionsGetControlMode
-/*  f095b50:	8dc40070 */ 	lw	$a0,0x70($t6)
-/*  f095b54:	3c08800a */ 	lui	$t0,0x800a
-/*  f095b58:	28410004 */ 	slti	$at,$v0,0x4
-/*  f095b5c:	1420007c */ 	bnez	$at,.NB0f095d50
-/*  f095b60:	2508e6c0 */ 	addiu	$t0,$t0,-6464
-/*  f095b64:	0fc44336 */ 	jal	pakGetType
-/*  f095b68:	8104028f */ 	lb	$a0,0x28f($t0)
-/*  f095b6c:	3c08800a */ 	lui	$t0,0x800a
-/*  f095b70:	2508e6c0 */ 	addiu	$t0,$t0,-6464
-/*  f095b74:	8d0f006c */ 	lw	$t7,0x6c($t0)
-/*  f095b78:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f095b7c:	00453026 */ 	xor	$a2,$v0,$a1
-/*  f095b80:	11e00003 */ 	beqz	$t7,.NB0f095b90
-/*  f095b84:	2cc60001 */ 	sltiu	$a2,$a2,0x1
-/*  f095b88:	10000002 */ 	beqz	$zero,.NB0f095b94
-/*  f095b8c:	00a05025 */ 	or	$t2,$a1,$zero
-.NB0f095b90:
-/*  f095b90:	00005025 */ 	or	$t2,$zero,$zero
-.NB0f095b94:
-/*  f095b94:	8d180068 */ 	lw	$t8,0x68($t0)
-/*  f095b98:	00004825 */ 	or	$t1,$zero,$zero
-/*  f095b9c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f095ba0:	13000003 */ 	beqz	$t8,.NB0f095bb0
-/*  f095ba4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095ba8:	10000001 */ 	beqz	$zero,.NB0f095bb0
-/*  f095bac:	00a04825 */ 	or	$t1,$a1,$zero
-.NB0f095bb0:
-/*  f095bb0:	8d190064 */ 	lw	$t9,0x64($t0)
-/*  f095bb4:	13200003 */ 	beqz	$t9,.NB0f095bc4
-/*  f095bb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095bbc:	10000001 */ 	beqz	$zero,.NB0f095bc4
-/*  f095bc0:	00a01825 */ 	or	$v1,$a1,$zero
-.NB0f095bc4:
-/*  f095bc4:	8d0c0070 */ 	lw	$t4,0x70($t0)
-/*  f095bc8:	11800003 */ 	beqz	$t4,.NB0f095bd8
-/*  f095bcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095bd0:	10000001 */ 	beqz	$zero,.NB0f095bd8
-/*  f095bd4:	00a01025 */ 	or	$v0,$a1,$zero
-.NB0f095bd8:
-/*  f095bd8:	8d18028c */ 	lw	$t8,0x28c($t0)
-/*  f095bdc:	00436821 */ 	addu	$t5,$v0,$v1
-/*  f095be0:	01a97021 */ 	addu	$t6,$t5,$t1
-/*  f095be4:	01ca7821 */ 	addu	$t7,$t6,$t2
-/*  f095be8:	01f82021 */ 	addu	$a0,$t7,$t8
-/*  f095bec:	0004ce00 */ 	sll	$t9,$a0,0x18
-/*  f095bf0:	00192603 */ 	sra	$a0,$t9,0x18
-/*  f095bf4:	0fc44336 */ 	jal	pakGetType
-/*  f095bf8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f095bfc:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f095c00:	3c08800a */ 	lui	$t0,0x800a
-/*  f095c04:	2508e6c0 */ 	addiu	$t0,$t0,-6464
-/*  f095c08:	10c0002a */ 	beqz	$a2,.NB0f095cb4
-/*  f095c0c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f095c10:	14450028 */ 	bne	$v0,$a1,.NB0f095cb4
-/*  f095c14:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f095c18:	15c5001c */ 	bne	$t6,$a1,.NB0f095c8c
-/*  f095c1c:	8d0b028c */ 	lw	$t3,0x28c($t0)
-/*  f095c20:	8d0f0070 */ 	lw	$t7,0x70($t0)
-/*  f095c24:	00005025 */ 	or	$t2,$zero,$zero
-/*  f095c28:	00004825 */ 	or	$t1,$zero,$zero
-/*  f095c2c:	11e00003 */ 	beqz	$t7,.NB0f095c3c
-/*  f095c30:	00001825 */ 	or	$v1,$zero,$zero
-/*  f095c34:	10000001 */ 	beqz	$zero,.NB0f095c3c
-/*  f095c38:	240a0001 */ 	addiu	$t2,$zero,0x1
-.NB0f095c3c:
-/*  f095c3c:	8d18006c */ 	lw	$t8,0x6c($t0)
-/*  f095c40:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095c44:	13000003 */ 	beqz	$t8,.NB0f095c54
-/*  f095c48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095c4c:	10000001 */ 	beqz	$zero,.NB0f095c54
-/*  f095c50:	24090001 */ 	addiu	$t1,$zero,0x1
-.NB0f095c54:
-/*  f095c54:	8d190068 */ 	lw	$t9,0x68($t0)
-/*  f095c58:	13200003 */ 	beqz	$t9,.NB0f095c68
-/*  f095c5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095c60:	10000001 */ 	beqz	$zero,.NB0f095c68
-/*  f095c64:	24030001 */ 	addiu	$v1,$zero,0x1
-.NB0f095c68:
-/*  f095c68:	8d0c0064 */ 	lw	$t4,0x64($t0)
-/*  f095c6c:	11800003 */ 	beqz	$t4,.NB0f095c7c
-/*  f095c70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095c74:	10000001 */ 	beqz	$zero,.NB0f095c7c
-/*  f095c78:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f095c7c:
-/*  f095c7c:	01626821 */ 	addu	$t5,$t3,$v0
-/*  f095c80:	01a37021 */ 	addu	$t6,$t5,$v1
-/*  f095c84:	01c97821 */ 	addu	$t7,$t6,$t1
-/*  f095c88:	01ea5821 */ 	addu	$t3,$t7,$t2
-.NB0f095c8c:
-/*  f095c8c:	000b2600 */ 	sll	$a0,$t3,0x18
-/*  f095c90:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f095c94:	3c053e4c */ 	lui	$a1,0x3e4c
-/*  f095c98:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f095c9c:	03002025 */ 	or	$a0,$t8,$zero
-/*  f095ca0:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f095ca4:	0fc45e2f */ 	jal	pakRumble
-/*  f095ca8:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f095cac:	1000002f */ 	beqz	$zero,.NB0f095d6c
-/*  f095cb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f095cb4:
-/*  f095cb4:	1445001c */ 	bne	$v0,$a1,.NB0f095d28
-/*  f095cb8:	8d0b028c */ 	lw	$t3,0x28c($t0)
-/*  f095cbc:	8d0c0070 */ 	lw	$t4,0x70($t0)
-/*  f095cc0:	00005025 */ 	or	$t2,$zero,$zero
-/*  f095cc4:	00004825 */ 	or	$t1,$zero,$zero
-/*  f095cc8:	11800003 */ 	beqz	$t4,.NB0f095cd8
-/*  f095ccc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f095cd0:	10000001 */ 	beqz	$zero,.NB0f095cd8
-/*  f095cd4:	240a0001 */ 	addiu	$t2,$zero,0x1
-.NB0f095cd8:
-/*  f095cd8:	8d0d006c */ 	lw	$t5,0x6c($t0)
-/*  f095cdc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095ce0:	11a00003 */ 	beqz	$t5,.NB0f095cf0
-/*  f095ce4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095ce8:	10000001 */ 	beqz	$zero,.NB0f095cf0
-/*  f095cec:	24090001 */ 	addiu	$t1,$zero,0x1
-.NB0f095cf0:
-/*  f095cf0:	8d0e0068 */ 	lw	$t6,0x68($t0)
-/*  f095cf4:	11c00003 */ 	beqz	$t6,.NB0f095d04
-/*  f095cf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095cfc:	10000001 */ 	beqz	$zero,.NB0f095d04
-/*  f095d00:	24030001 */ 	addiu	$v1,$zero,0x1
-.NB0f095d04:
-/*  f095d04:	8d0f0064 */ 	lw	$t7,0x64($t0)
-/*  f095d08:	11e00003 */ 	beqz	$t7,.NB0f095d18
-/*  f095d0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095d10:	10000001 */ 	beqz	$zero,.NB0f095d18
-/*  f095d14:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f095d18:
-/*  f095d18:	0162c021 */ 	addu	$t8,$t3,$v0
-/*  f095d1c:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f095d20:	03296021 */ 	addu	$t4,$t9,$t1
-/*  f095d24:	018a5821 */ 	addu	$t3,$t4,$t2
-.NB0f095d28:
-/*  f095d28:	000b2600 */ 	sll	$a0,$t3,0x18
-/*  f095d2c:	00046e03 */ 	sra	$t5,$a0,0x18
-/*  f095d30:	3c053e4c */ 	lui	$a1,0x3e4c
-/*  f095d34:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f095d38:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f095d3c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f095d40:	0fc45e2f */ 	jal	pakRumble
-/*  f095d44:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f095d48:	10000008 */ 	beqz	$zero,.NB0f095d6c
-/*  f095d4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f095d50:
-/*  f095d50:	3c053e4c */ 	lui	$a1,0x3e4c
-/*  f095d54:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f095d58:	8104028f */ 	lb	$a0,0x28f($t0)
-/*  f095d5c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f095d60:	0fc45e2f */ 	jal	pakRumble
-/*  f095d64:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f095d68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f095d6c:
-/*  f095d6c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f095d70:	03e00008 */ 	jr	$ra
-/*  f095d74:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 s32 bgunGetUnequippedReloadIndex(s32 weaponnum)
 {
@@ -733,13 +501,8 @@ f32 bgun0f09815c(struct hand *hand)
 
 void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 {
-#if VERSION >= VERSION_PAL_BETA
-	f32 s4;
-	f32 s2;
-#else
 	s32 s2;
 	s32 s4;
-#endif
 	struct guncmd *cmd;
 	f32 animspeed;
 	bool done;
@@ -761,9 +524,6 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 	if ((hand->animmode == (u32)HANDANIMMODE_BUSY) | (hand->animload >= 0)) {
 		if (hand->gangstarot > 0.0f) {
 			hand->animframeinc = 0;
-#if VERSION >= VERSION_PAL_BETA
-			hand->animframeincfreal = 0.0f;
-#endif
 		}
 
 		if (hand->animload >= 0) {
@@ -783,25 +543,15 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 
 			hand->animload = -1;
 			hand->animmode = HANDANIMMODE_BUSY;
-#if VERSION >= VERSION_PAL_BETA
-			hand->animframeincfreal = modelGetAbsAnimSpeed(&hand->gunmodel) * PALUPF(hand->animframeinc);
-#endif
 		}
 
 		if (hand->unk0cc8_02) {
 			hand->animframeinc = 0;
-#if VERSION >= VERSION_PAL_BETA
-			hand->animframeincfreal = 0.0f;
-#endif
 		}
 
 		s4 = bgun0f09815c(hand);
 
-#if VERSION >= VERSION_PAL_BETA
-		s2 = hand->animframeincfreal + s4;
-#else
 		s2 = hand->animframeinc + s4;
-#endif
 
 		if (s4 == 0 && s2 > 0) {
 			s4--;
@@ -848,21 +598,6 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 						case GUNCMD_WAITFORZRELEASED:
 							if (hand->unk0cc8_01) {
 								if (s2 >= cmd->unk02 && s4 < cmd->unk02 && s4 < s2) {
-#if VERSION >= VERSION_PAL_BETA
-									f32 tmp = cmd->unk02 - bgun0f09815c(hand);
-									tmp /= 2;
-
-									if (hand->animframeincfreal > tmp) {
-#if PAL
-										hand->animframeinc = tmp * 0.83333333f / modelGetAbsAnimSpeed(&hand->gunmodel);
-#else
-										hand->animframeinc = tmp / modelGetAbsAnimSpeed(&hand->gunmodel);
-#endif
-										hand->animframeincfreal = modelGetAbsAnimSpeed(&hand->gunmodel) * PALUPF(hand->animframeinc);
-									}
-
-									s2 = hand->animframeincfreal + s4;
-#else
 									s32 tmp = cmd->unk02 - (s32) bgun0f09815c(hand);
 									tmp /= 2;
 
@@ -871,27 +606,14 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 									}
 
 									s2 = hand->animframeinc + s4;
-#endif
 								}
 							}
 							break;
 						case GUNCMD_REPEATUNTILFULL:
 							if (hand->unk0cc8_03 && s2 >= cmd->unk02 && s4 < cmd->unk02 && s4 < s2) {
-#if VERSION >= VERSION_PAL_BETA
-								f32 sp78 = s2;
-
-								while (sp78 >= cmd->unk02) {
-									sp78 += cmd->unk04 - cmd->unk02;
-								}
-
-								s4 = sp78;
-								hand->animframeinc = 0;
-								hand->animframeincfreal = 0;
-#else
 								s32 sp78 = cmd->unk04 + (((s32)s2 - cmd->unk02) % ((cmd->unk02 - cmd->unk04) + 1));
 								s4 = sp78;
 								hand->animframeinc = 0;
-#endif
 
 								model0001e018(&hand->gunmodel, sp78);
 								hand->animloopcount++;
@@ -914,12 +636,7 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 			}
 		}
 
-#if VERSION >= VERSION_PAL_BETA
-		modelSetAnimPlaySpeed(&hand->gunmodel, PALUPF(4.0f), 0);
-		model0001ee18(&hand->gunmodel, hand->animframeinc, true);
-#else
 		model0001f314(&hand->gunmodel, hand->animframeinc, true);
-#endif
 
 		s2 = bgun0f09815c(hand);
 
@@ -928,9 +645,6 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 			struct guncmd *cmd = hand->unk0ce8;
 			f32 speed = 1.0f;
 			bool hasspeed = false;
-#if VERSION < VERSION_NTSC_1_0
-			struct sndstate *audiohandle;
-#endif
 
 			if (cmd) {
 				do {
@@ -940,21 +654,12 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 						if (s2 >= cmd->unk02 && s4 < cmd->unk02 && s4 < s2) {
 							switch (cmd->type) {
 							case GUNCMD_PLAYSOUND:
-#if VERSION >= VERSION_NTSC_1_0
 								if (hasspeed) {
 									snd00010718(0, 0, 0x7fff, 0x40, cmd->unk04, speed, 1, -1, 1);
 									hasspeed = false;
 								} else {
 									snd00010718(0, 0, 0x7fff, 0x40, cmd->unk04, 1.0f, 1, -1, 1);
 								}
-#else
-								audiohandle = sndStart(var80095200, cmd->unk04, NULL, -1, -1, -1, -1, -1);
-
-								if (hasspeed && audiohandle) {
-									hasspeed = false;
-									audioPostEvent(audiohandle, 16, *(s32 *)&speed);
-								}
-#endif
 								break;
 							case GUNCMD_SETSOUNDSPEED:
 								speed = cmd->unk04 / 1000.0f;
@@ -1051,19 +756,11 @@ bool bgun0f098a44(struct hand *hand, s32 time)
 	}
 
 	if (waittimekeyframe >= 0) {
-#if VERSION >= VERSION_PAL_BETA
-		if (hand->unk0cc8_01 && bgun0f09815c(hand) <= zreleasekeyframe) {
-			return false;
-		}
-
-		return (bgun0f09815c(hand) + hand->animframeincfreal >= waittimekeyframe);
-#else
 		if (hand->unk0cc8_01 && (s32)bgun0f09815c(hand) <= zreleasekeyframe) {
 			return false;
 		}
 
 		return (bgun0f09815c(hand) + hand->animframeinc >= waittimekeyframe);
-#endif
 	}
 
 	return true;
@@ -1189,11 +886,7 @@ void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand
 			}
 
 			if (checkunequipped && reloadindex >= 0) {
-#if VERSION >= VERSION_PAL_BETA
-				amount -= hand->gunroundsspent[reloadindex] / TICKS(256);
-#else
 				amount -= hand->gunroundsspent[reloadindex] >> 8;
-#endif
 			}
 
 			if (onebullet) {
@@ -1203,15 +896,6 @@ void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand
 			if (amount > g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]]) {
 				amount = g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]];
 			}
-
-#if VERSION >= VERSION_JPN_FINAL
-			// In most versions of the game, reloading the shotgun while going
-			// through a teleport in Deep Sea will cause the shotgun to load
-			// more ammo than its capacity. JPN Final fixes this here.
-			if (amount > hand->clipsizes[ammoindex] - hand->loadedammo[ammoindex]) {
-				amount = hand->clipsizes[ammoindex] - hand->loadedammo[ammoindex];
-			}
-#endif
 
 			hand->loadedammo[ammoindex] += amount;
 			g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]] -= amount;
@@ -1317,9 +1001,7 @@ s32 bgunTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand,
 
 	hand->lastdirvalid = false;
 	hand->burstbullets = 0;
-#if VERSION < VERSION_PAL_BETA
 	hand->animframeincfreal = hand->animframeinc;
-#endif
 	hand->shotremainder = 0;
 
 	// If ready to change gun due to manual switch, just do that
@@ -1521,9 +1203,7 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 
 	if (hand->stateminor == 1) {
 		hand->lastdirvalid = false;
-#if VERSION < VERSION_PAL_BETA
 		hand->animframeincfreal = hand->animframeinc;
-#endif
 		hand->shotremainder = 0;
 
 		if (bgunIsReadyToSwitch(handnum) && bgunSetState(handnum, HANDSTATE_CHANGEGUN)) {
@@ -1711,12 +1391,6 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 				if (hand->triggeron) {
 					hand->unk0cc8_03 = false;
 				}
-
-#if VERSION >= VERSION_JPN_FINAL
-				if (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY) {
-					hand->unk0cc8_03 = false;
-				}
-#endif
 			} else {
 				if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
 					if (bgun0f098a44(hand, 1)) {
@@ -2067,10 +1741,8 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 		}
 
 		if (playsound) {
-#if VERSION >= VERSION_NTSC_1_0
 			OSPri prevpri = osGetThreadPri(0);
 			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-#endif
 
 			if (hand->audiohandle2 && sndGetState(hand->audiohandle2) != AL_STOPPED) {
 				audioStop(hand->audiohandle2);
@@ -2107,9 +1779,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 
 			}
 
-#if VERSION >= VERSION_NTSC_1_0
 			osSetThreadPri(0, prevpri);
-#endif
 		}
 	}
 }
@@ -2130,44 +1800,6 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	f32 mult2;
 	u32 stack;
 
-#if PAL
-	unk24 = func->unk24;
-	unk25 = func->unk25;
-	unk26 = func->unk26;
-	unk27 = func->unk27;
-	recoverytime60 = func->recoverytime60;
-	weapondef = info->definition;
-
-	if (unk24 >= 4) {
-		unk24 = TICKS(unk24);
-	}
-
-	if (unk25 >= 4) {
-		unk25 = TICKS(unk25);
-	}
-
-	if (unk26 >= 4) {
-		unk26 = TICKS(unk26);
-	}
-
-	if (unk27 >= 4) {
-		unk27 = TICKS(unk27);
-	}
-
-	if (recoverytime60 >= 4) {
-		recoverytime60 = TICKS(recoverytime60);
-	}
-
-	sum = unk24 + unk25;
-#elif VERSION >= VERSION_JPN_FINAL
-	unk24 = func->unk24;
-	unk25 = func->unk25;
-	unk26 = func->unk26;
-	unk27 = func->unk27;
-	recoverytime60 = func->recoverytime60;
-	weapondef = info->definition;
-	sum = unk24 + unk25;
-#else
 	unk24 = func->unk24;
 	unk25 = func->unk25;
 	sum = unk24 + unk25;
@@ -2175,7 +1807,6 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	unk27 = func->unk27;
 	recoverytime60 = func->recoverytime60;
 	weapondef = info->definition;
-#endif
 
 	frames = hand->stateframes - hand->statevar1;
 
@@ -2377,11 +2008,7 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 			if (func->base.flags & FUNCFLAG_DISCARDWEAPON) {
 				invRemoveItemByNum(hand->gset.weaponnum);
 				g_Vars.currentplayer->gunctrl.unk1583_04 = true;
-#if VERSION >= VERSION_NTSC_1_0
 				bgunSwitchToPrevious();
-#else
-				bgunAutoSwitchWeapon();
-#endif
 				hand->primetimer60 = 0;
 				return true;
 			}
@@ -2701,13 +2328,9 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				// Maian weapons have a wet sounding click effect
 				f32 speed = 2.07f;
 
-#if VERSION >= VERSION_NTSC_1_0
 				OSPri prevpri = osGetThreadPri(0);
 				struct sndstate *handle;
 				osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-#else
-				struct sndstate *handle;
-#endif
 
 				handle = sndStart(var80095200, SFX_HIT_WATER, NULL, -1, -1, -1, -1, -1);
 
@@ -2715,9 +2338,7 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 					audioPostEvent(handle, 16, *(s32 *)&speed);
 				}
 
-#if VERSION >= VERSION_NTSC_1_0
 				osSetThreadPri(0, prevpri);
-#endif
 			}
 			// fall-through - unsure if intentional
 		case WEAPON_TRANQUILIZER:
@@ -2727,13 +2348,9 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				// effect but slightly faster.
 				f32 speed = 1.5f;
 
-#if VERSION >= VERSION_NTSC_1_0
 				OSPri prevpri = osGetThreadPri(0);
 				struct sndstate *handle;
 				osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-#else
-				struct sndstate *handle;
-#endif
 
 				handle = sndStart(var80095200, SFX_FIREEMPTY, NULL, -1, -1, -1, -1, -1);
 
@@ -2741,9 +2358,7 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 					audioPostEvent(handle, 16, *(s32 *)&speed);
 				}
 
-#if VERSION >= VERSION_NTSC_1_0
 				osSetThreadPri(0, prevpri);
-#endif
 			}
 			break;
 		case WEAPON_UNARMED:
@@ -3089,7 +2704,6 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					&& bgun0f09dd7c()
 					&& !g_PlayerInvincible
 					&& !g_Vars.currentplayer->isdead) {
-#if VERSION >= VERSION_NTSC_1_0
 				struct sndstate *handle1;
 				f32 speed1;
 				struct sndstate *handle2;
@@ -3099,32 +2713,20 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 				struct sndstate *handle3;
 				f32 speed3;
 				OSPri prevpri3;
-#else
-				struct sndstate *handle1;
-				f32 speed1;
-				struct sndstate *handle2;
-				f32 speed2;
-				struct sndstate *handle3;
-				f32 speed3;
-#endif
 
 				switch (info->weaponnum) {
 				case WEAPON_HORIZONSCANNER:
 					speed1 = 3.5f;
 
-#if VERSION >= VERSION_NTSC_1_0
 					prevpri1 = osGetThreadPri(0);
 					osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-#endif
 					handle1 = sndStart(var80095200, SFX_EQUIP_HORIZONSCANNER, 0, -1, -1, -1, -1, -1);
 
 					if (handle1) {
 						audioPostEvent(handle1, 16, *(s32 *)&speed1);
 					}
 
-#if VERSION >= VERSION_NTSC_1_0
 					osSetThreadPri(0, prevpri1);
-#endif
 					break;
 				case WEAPON_LASER:
 					sndStart(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
@@ -3154,10 +2756,8 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 				case WEAPON_PSYCHOSISGUN:
 					speed2 = 1.5f;
 
-#if VERSION >= VERSION_NTSC_1_0
 					prevpri2 = osGetThreadPri(0);
 					osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-#endif
 
 					handle2 = sndStart(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
@@ -3165,17 +2765,13 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 						audioPostEvent(handle2, 16, *(s32 *)&speed2);
 					}
 
-#if VERSION >= VERSION_NTSC_1_0
 					osSetThreadPri(0, prevpri2);
-#endif
 					break;
 				case WEAPON_REAPER:
 					speed3 = 0.85f;
 
-#if VERSION >= VERSION_NTSC_1_0
 					prevpri3 = osGetThreadPri(0);
 					osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
-#endif
 
 					handle3 = sndStart(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
@@ -3183,9 +2779,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 						audioPostEvent(handle3, 16, *(s32 *)&speed3);
 					}
 
-#if VERSION >= VERSION_NTSC_1_0
 					osSetThreadPri(0, prevpri3);
-#endif
 					break;
 				case WEAPON_NONE:
 				case WEAPON_UNARMED:
@@ -3359,20 +2953,12 @@ void bgunTickHand(s32 handnum)
 	if (handnum);
 	if (handnum);
 
-#if VERSION >= VERSION_PAL_BETA
-	if (handnum);
-#endif
-
 	bgunGetWeaponInfo(&info, handnum);
 
 	lvupdate = g_Vars.lvupdate60;
 
 	hand->animframeinc = g_Vars.lvupdate60;
-#if VERSION >= VERSION_PAL_BETA
-	hand->animframeincfreal = modelGetAbsAnimSpeed(&hand->gunmodel) * PALUPF(hand->animframeinc);
-#else
 	hand->animframeincfreal += PALUPF(g_Vars.lvupdate60);
-#endif
 
 	while (i >= 0) {
 		lvupdate = bgunTickInc(&info, handnum, lvupdate);
@@ -3877,9 +3463,6 @@ void bgunTickGunLoad(void)
 	s32 newvalue;
 	u32 end;
 	u32 stack;
-#if VERSION >= VERSION_NTSC_1_0
-	u32 stack2;
-#endif
 
 	if (player->gunctrl.gunloadstate == GUNLOADSTATE_MODEL) {
 		osSyncPrintf("BriGun:  BriGunLoadTick process GUN_LOADSTATE_LOAD_OBJ\n");
@@ -4261,14 +3844,6 @@ void bgunTickLoad(void)
 
 bool bgun0f09eae4(void)
 {
-	// PAL adds a check for the eyespy being used
-#if VERSION >= VERSION_PAL_BETA
-	if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)) {
-		g_Vars.currentplayer->gunctrl.unk1583_06 = false;
-		return false;
-	}
-#endif
-
 	bgun0f09df9c();
 
 	if (g_Vars.currentplayer->gunctrl.weaponnum != WEAPON_NONE) {
@@ -4691,9 +4266,7 @@ void bgunCreateHeldRocket(s32 handnum, struct weaponfunc_shootprojectile *func)
 	struct weaponobj *obj;
 
 	if (hand->rocket == NULL) {
-#if VERSION >= VERSION_NTSC_1_0
 		hand->firedrocket = false;
-#endif
 
 		obj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_ROCKET, g_Vars.currentplayer->prop->chr);
 
@@ -4702,9 +4275,7 @@ void bgunCreateHeldRocket(s32 handnum, struct weaponfunc_shootprojectile *func)
 			hand->firedrocket = false;
 
 			obj->timer240 = 1;
-#if VERSION >= VERSION_NTSC_1_0
 			obj->base.flags |= OBJFLAG_00800000;
-#endif
 			obj->base.flags2 |= OBJFLAG2_THROWTHROUGH;
 		}
 	}
@@ -4840,9 +4411,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 
 				weapon = hand->rocket;
 				weapon->base.flags2 &= ~OBJFLAG2_THROWTHROUGH;
-#if VERSION >= VERSION_NTSC_1_0
 				weapon->base.flags &= ~OBJFLAG_00800000;
-#endif
 
 				if (funcdef->base.base.flags & FUNCFLAG_HOMINGROCKET) {
 					weapon->weaponnum = WEAPON_HOMINGROCKET;
@@ -4879,7 +4448,6 @@ void bgunCreateFiredProjectile(s32 handnum)
 			}
 
 			if (weapon) {
-#if VERSION >= VERSION_NTSC_1_0
 				bool failed = false;
 				Mtxf sp78;
 				struct coord sp6c;
@@ -4956,63 +4524,6 @@ void bgunCreateFiredProjectile(s32 handnum)
 					weapon->base.prop = NULL;
 					weapon->base.model = NULL;
 				}
-#else
-				// NTSC beta doesn't have any of the failure checks
-				Mtxf sp78;
-				struct coord sp6c;
-				struct coord sp60;
-
-				weapon->timer240 = funcdef->timer60;
-
-				if (weapon->timer240 != -1) {
-					weapon->timer240 = TICKS(weapon->timer240 * 4);
-				}
-
-				weapon->base.hidden &= 0x0fffffff;
-				weapon->base.hidden |= g_Vars.currentplayernum << 28;
-
-				bgun0f09ed2c(&weapon->base, &spawnpos, &sp210, &sp264, &sp270);
-
-				if (weapon->base.hidden & OBJHFLAG_PROJECTILE) {
-					if (funcdef->base.base.flags & FUNCFLAG_PROJECTILE_LIGHTWEIGHT) {
-						weapon->base.projectile->flags |= PROJECTILEFLAG_LIGHTWEIGHT;
-					} else if (funcdef->base.base.flags & FUNCFLAG_PROJECTILE_POWERED) {
-						weapon->base.projectile->flags |= PROJECTILEFLAG_POWERED;
-					}
-
-					weapon->base.projectile->targetprop = g_Vars.currentplayer->trackedprops[0].prop;
-
-					if (funcdef->scale != 1.0f) {
-						weapon->base.model->scale *= funcdef->scale;
-
-						mtx3ToMtx4(weapon->base.realrot, &sp78);
-						mtx00015f04(funcdef->scale, &sp78);
-						mtx4ToMtx3(&sp78, weapon->base.realrot);
-					}
-
-					weapon->base.projectile->powerlimit240 = TICKS(1200);
-					weapon->base.projectile->unk0a8 = weapon->base.prop->pos.y;
-					weapon->base.projectile->unk0ac = weapon->base.projectile->speed.y;
-					weapon->base.projectile->unk010 = sp250.x;
-					weapon->base.projectile->unk014 = sp250.y;
-					weapon->base.projectile->unk018 = sp250.z;
-					weapon->base.projectile->pickuptimer240 = TICKS(240);
-					weapon->base.projectile->unk08c = funcdef->reflectangle;
-					weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
-
-					if (funcdef->soundnum > 0) {
-						propsnd0f0939f8(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-					}
-
-					if (funcdef->base.base.flags & FUNCFLAG_FLYBYWIRE) {
-						playerLaunchSlayerRocket(weapon);
-					}
-
-					if (weapon->base.projectile->flags & PROJECTILEFLAG_LAUNCHING) {
-						projectileLaunch(&weapon->base, weapon->base.projectile, &sp6c, &sp60);
-					}
-				}
-#endif
 			}
 		}
 	}
@@ -5383,13 +4894,7 @@ void bgunFreeWeapon(s32 handnum)
 				s32 index = bgunGetUnequippedReloadIndex(player->gunctrl.weaponnum);
 
 				if (index != -1) {
-#if VERSION >= VERSION_JPN_FINAL
-					player->hands[handnum].gunroundsspent[index] = (spaceinclip << 8) + 0xff;
-#elif VERSION >= VERSION_PAL_BETA
-					player->hands[handnum].gunroundsspent[index] = spaceinclip * 213 + 212;
-#else
 					player->hands[handnum].gunroundsspent[index] = (spaceinclip << 8) | 0xff;
-#endif
 				}
 
 				if (player->hands[handnum].loadedammo[i] > 0) {
@@ -5424,12 +4929,6 @@ void bgunTickSwitch2(void)
 			if (currentPlayerGetDeviceState(ctrl->switchtoweaponnum) != DEVICESTATE_UNEQUIPPED) {
 				ctrl->switchtoweaponnum = WEAPON_UNARMED;
 			}
-
-#if VERSION == VERSION_JPN_FINAL
-			if (ctrl->switchtoweaponnum == WEAPON_COMBATKNIFE) {
-				ctrl->switchtoweaponnum = WEAPON_UNARMED;
-			}
-#endif
 
 			if (ctrl->dualwielding && !invHasDoubleWeaponIncAllGuns(ctrl->switchtoweaponnum, ctrl->switchtoweaponnum)) {
 				ctrl->dualwielding = false;
@@ -5620,7 +5119,6 @@ void bgunSwitchToPrevious(void)
 		struct player *player = g_Vars.currentplayer;
 		s32 dualweaponnum;
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (invHasSingleWeaponIncAllGuns(player->gunctrl.prevweaponnum)) {
 			bgunEquipWeapon2(HAND_RIGHT, player->gunctrl.prevweaponnum);
 
@@ -5630,10 +5128,6 @@ void bgunSwitchToPrevious(void)
 		} else {
 			bgunAutoSwitchWeapon();
 		}
-#else
-		bgunEquipWeapon2(HAND_RIGHT, player->gunctrl.prevweaponnum);
-		bgunEquipWeapon2(HAND_LEFT, player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01);
-#endif
 	}
 }
 
@@ -6245,7 +5739,6 @@ void bgunHandlePlayerDead(void)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 bool bgunIsMissionCritical(s32 weaponnum)
 {
 	if (weaponnum == WEAPON_TIMEDMINE
@@ -6257,7 +5750,6 @@ bool bgunIsMissionCritical(s32 weaponnum)
 
 	return false;
 }
-#endif
 
 void bgunDisarm(struct prop *attackerprop)
 {
@@ -6269,7 +5761,6 @@ void bgunDisarm(struct prop *attackerprop)
 	bool drop;
 
 	if (!weaponHasFlag(weaponnum, WEAPONFLAG_UNDROPPABLE) && weaponnum <= WEAPON_RCP45) {
-#if VERSION >= VERSION_NTSC_1_0
 		// Coop must not allow player to drop a mission critical weapon
 		// because AI lists can fail the mission if the player has zero
 		// quantity.
@@ -6278,7 +5769,6 @@ void bgunDisarm(struct prop *attackerprop)
 				&& bgunIsMissionCritical(weaponnum)) {
 			return;
 		}
-#endif
 
 		if (weaponnum <= WEAPON_UNARMED || player->gunctrl.switchtoweaponnum != -1) {
 			return;
@@ -7183,41 +6673,25 @@ void bgunTickEject(struct hand *hand, struct modelfiledata *modeldef, bool isdet
 			hand->unk0d20.f[0] = (RANDOMFRAC() - 0.5f) * 0.5333333f * 0.0625f + 0.5333333f;
 			hand->unk0d20.f[1] = RANDOMFRAC() * 2.5f * 0.0625f + 2.5f;
 			hand->unk0d20.f[2] = 0.0f;
-#if VERSION >= VERSION_PAL_BETA
-			spd0.f[0] = RANDOMFRAC() * PALUPF(2.0f * M_BADTAU) / 184.0f - 0.03414231f;
-			spd0.f[1] = RANDOMFRAC() * PALUPF(2.0f * M_BADTAU) / 184.0f - 0.03414231f;
-			spd0.f[2] = RANDOMFRAC() * PALUPF(2.0f * M_BADTAU) / 184.0f - 0.03414231f;
-#else
 			spd0.f[0] = RANDOMFRAC() * 2.0f * M_BADTAU / 184.0f - 0.03414231f;
 			spd0.f[1] = RANDOMFRAC() * 2.0f * M_BADTAU / 184.0f - 0.03414231f;
 			spd0.f[2] = RANDOMFRAC() * 2.0f * M_BADTAU / 184.0f - 0.03414231f;
-#endif
 			break;
 		case EJECTTYPE_GRENADEPIN:
 			hand->unk0d20.f[0] = -((RANDOMFRAC() - 0.5f) * 0.5333333f * 0.0625f + mult * 0.5333333f);
 			hand->unk0d20.f[1] = RANDOMFRAC() * 2.5f * 0.125f + 2.5f;
 			hand->unk0d20.f[2] = -(RANDOMFRAC() + 1.0f);
 			spd0.f[0] = (RANDOMFRAC() + 3.0f) * PALUPF(M_BADTAU) / 208.0f;
-#if VERSION >= VERSION_PAL_BETA
-			spd0.f[1] = RANDOMFRAC() * PALUPF(2.0f * M_BADTAU) / 544.0f - 0.0115481345f;
-			spd0.f[2] = RANDOMFRAC() * PALUPF(2.0f * M_BADTAU) / 544.0f - 0.0115481345f;
-#else
 			spd0.f[1] = RANDOMFRAC() * 2.0f * M_BADTAU / 544.0f - 0.0115481345f;
 			spd0.f[2] = RANDOMFRAC() * 2.0f * M_BADTAU / 544.0f - 0.0115481345f;
-#endif
 			break;
 		case EJECTTYPE_TRANQCASE:
 			hand->unk0d20.f[0] = 0.0f;
 			hand->unk0d20.f[1] = RANDOMFRAC() * 2.5f * 0.125f + 2.5f;
 			hand->unk0d20.f[2] = (RANDOMFRAC() + 1.0f) * 0.25f;
 			spd0.f[0] = (RANDOMFRAC() + 3.0f) * PALUPF(M_BADTAU) / 368.0f;
-#if VERSION >= VERSION_PAL_BETA
-			spd0.f[1] = RANDOMFRAC() * PALUPF(2.0f * M_BADTAU) / 944.0f - 0.006654857f;
-			spd0.f[2] = RANDOMFRAC() * PALUPF(2.0f * M_BADTAU) / 944.0f - 0.006654857f;
-#else
 			spd0.f[1] = RANDOMFRAC() * 2.0f * M_BADTAU / 944.0f - 0.006654857f;
 			spd0.f[2] = RANDOMFRAC() * 2.0f * M_BADTAU / 944.0f - 0.006654857f;
-#endif
 			break;
 		}
 
@@ -7723,9 +7197,6 @@ void bgun0f0a5550(s32 handnum)
 		{
 			bool a0 = true;
 			struct modelrenderdata renderdata = {NULL, true, 3};
-#if VERSION >= VERSION_PAL_BETA
-			bool a3 = false;
-#endif
 			s32 spcc;
 			Mtxf *spc8;
 			Mtxf *spc4;
@@ -7781,28 +7252,6 @@ void bgun0f0a5550(s32 handnum)
 				a0 = false;
 			}
 
-#if VERSION >= VERSION_PAL_BETA
-			switch (modelGetAnimNum(&hand->gunmodel)) {
-			case ANIM_GUN_CROSSBOW_EQUIP:
-			case ANIM_GUN_LAPTOP_EQUIP:
-			case ANIM_GUN_LAPTOP_UNEQUIP:
-			case ANIM_GUN_LAPTOP_RELOAD:
-			case ANIM_GUN_FALCON2_RELOAD:
-			case ANIM_GUN_CMP150_RELOAD:
-			case ANIM_GUN_FARSIGHT_SHOOT:
-			case ANIM_GUN_SHOTGUN_SHOOT_SINGLE:
-			case ANIM_GUN_REAPER_SHOOT:
-			case ANIM_GUN_MAGSEC4_RELOAD:
-			case ANIM_GUN_CYCLONE_RELOAD:
-			case ANIM_GUN_SNIPER_RELOAD:
-			case ANIM_GUN_PHOENIX_RELOAD:
-			case ANIM_GUN_FALCON2_RELOAD_SCOPE:
-			case ANIM_GUN_REMOTEMINE_EQUIP:
-				a3 = 1;
-				break;
-			}
-#endif
-
 			if (a0) {
 				if (player->hands[HAND_RIGHT].unk0dd4 == -1) {
 					mtx4LoadIdentity(&sp84);
@@ -7812,23 +7261,7 @@ void bgun0f0a5550(s32 handnum)
 					renderdata.unk00 = &sp84;
 					renderdata.unk10 = player->hands[HAND_RIGHT].unk0dd8;
 
-#if VERSION >= VERSION_PAL_BETA
-					var8005efd8_2 = true;
-
-					if (a3) {
-						var8005efb0_2 = true;
-					}
-
 					model0001cebc(&renderdata, &hand->gunmodel);
-
-					var8005efd8_2 = false;
-
-					if (a3) {
-						var8005efb0_2 = false;
-					}
-#else
-					model0001cebc(&renderdata, &hand->gunmodel);
-#endif
 
 					player->hands[HAND_RIGHT].unk0dd4 = 1;
 
@@ -7844,23 +7277,7 @@ void bgun0f0a5550(s32 handnum)
 					spc4++;
 				}
 			} else {
-#if VERSION >= VERSION_PAL_BETA
-				var8005efd8_2 = true;
-
-				if (a3) {
-					var8005efb0_2 = true;
-				}
-
 				model0001cebc(&renderdata, &hand->gunmodel);
-
-				var8005efd8_2 = false;
-
-				if (a3) {
-					var8005efb0_2 = false;
-				}
-#else
-				model0001cebc(&renderdata, &hand->gunmodel);
-#endif
 			}
 
 			g_ModelJointPositionedFunc = 0;
@@ -8008,10 +7425,6 @@ void bgun0f0a5550(s32 handnum)
 	}
 
 	hand->animframeinc = 0;
-
-#if VERSION >= VERSION_PAL_BETA
-	hand->animframeincfreal = 0;
-#endif
 }
 
 void bgunTickMaulerCharge(void)
@@ -8098,11 +7511,9 @@ void bgunTickGameplay2(void)
 	u32 stack[3];
 	s32 i;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.currentplayernum == 0) {
 		projectilesDebug();
 	}
-#endif
 
 	if (player->gunctrl.unk1583_06) {
 		// empty
@@ -8254,32 +7665,14 @@ void bgunTickGameplay2(void)
 
 s8 bgunFreeFireslotWrapper(s32 slotnum)
 {
-#if VERSION < VERSION_NTSC_1_0
-	if (slotnum >= 0) {
-		if (g_Fireslots[slotnum].unk04nb && sndGetState(g_Fireslots[slotnum].unk04nb) != AL_STOPPED) {
-			audioStop(g_Fireslots[slotnum].unk04nb);
-		}
-
-		if (g_Fireslots[slotnum].unk08nb && sndGetState(g_Fireslots[slotnum].unk08nb) != AL_STOPPED) {
-			audioStop(g_Fireslots[slotnum].unk08nb);
-		}
-	}
-#endif
-
 	return bgunFreeFireslot(slotnum);
 }
 
 s8 bgunFreeFireslot(s32 fireslot_id)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	if (fireslot_id >= 0 && fireslot_id < NUM_FIRESLOTS) {
 		g_Fireslots[fireslot_id].endlvframe = -1;
 	}
-#else
-	if (fireslot_id >= 0) {
-		g_Fireslots[fireslot_id].endlvframe = -1;
-	}
-#endif
 
 	return -1;
 }
@@ -8292,12 +7685,6 @@ s32 bgunAllocateFireslot(void)
 	for (i = 0; i < ARRAYCOUNT(g_Fireslots); i++) {
 		if (g_Fireslots[i].endlvframe < 0) {
 			g_Fireslots[i].endlvframe = 0;
-
-#if VERSION < VERSION_NTSC_1_0
-			g_Fireslots[i].unk04nb = 0;
-			g_Fireslots[i].unk08nb = 0;
-#endif
-
 			g_Fireslots[i].beam.age = -1;
 			index = i;
 			break;
@@ -8475,7 +7862,6 @@ void bgunRender(Gfx **gdlptr)
 				struct model *rocketmodel = hand->rocket->base.model; // 98
 				bool sp94 = false;
 
-#if VERSION >= VERSION_NTSC_1_0
 				if (rocketmodel && rocketmodel->filedata) {
 					sp94 = true;
 
@@ -8487,17 +7873,6 @@ void bgunRender(Gfx **gdlptr)
 						hand->rocket = NULL;
 					}
 				}
-
-				if (sp94);
-#else
-				modelRender(&renderdata, rocketmodel);
-
-				func0f0c33f0(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
-
-				if (hand->firedrocket) {
-					hand->rocket = NULL;
-				}
-#endif
 			}
 
 			if (weaponHasFlag(weaponnum, WEAPONFLAG_DUALFLIP)) {
@@ -8595,7 +7970,6 @@ struct sndstate **bgunAllocateAudioHandle(void)
 
 void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	u32 rand1 = random();
 	u32 rand2 = random();
 	struct sndstate **handle;
@@ -8740,138 +8114,6 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			}
 		}
 	}
-#else
-	u32 rand1 = random();
-	u32 rand2 = random();
-	struct sndstate **handle;
-
-	if (g_Vars.lvupdate240 <= 0) {
-		return;
-	}
-
-	if (texturenum >= 0 && texturenum < NUM_TEXTURES
-			&& g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]->numsounds == 0) {
-		return;
-	}
-
-	if (gset->weaponnum == WEAPON_REMOTEMINE
-			|| gset->weaponnum == WEAPON_PROXIMITYMINE
-			|| gset->weaponnum == WEAPON_TIMEDMINE
-			|| gset->weaponnum == WEAPON_COMMSRIDER
-			|| gset->weaponnum == WEAPON_TRACERBUG
-			|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
-			|| gset->weaponnum == WEAPON_ECMMINE) {
-		propsnd0f0939f8(NULL, prop, SFX_80AA, -1, -1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
-		return;
-	}
-
-	handle = bgunAllocateAudioHandle();
-
-	if (handle) {
-		if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
-			struct chrdata *chr = prop->chr;
-			s16 soundnum;
-			bool overridden = false;
-
-			if (chrGetShield(chr) > 0) {
-				sndStart(var80095200, SFX_SHIELD_DAMAGE, handle, -1, -1, -1, -1, -1);
-				soundnum = SFX_SHIELD_DAMAGE;
-			} else if (gset->weaponnum == WEAPON_COMBATKNIFE
-					|| gset->weaponnum == WEAPON_COMBATKNIFE // duplicate
-					|| gset->weaponnum == WEAPON_BOLT) {
-				sndStart(var80095200, SFX_05F6, handle, -1, -1, -1, -1, -1);
-				soundnum = SFX_05F6;
-				overridden = true;
-			} else if (gset->weaponnum == WEAPON_UNARMED
-					|| (gset->weaponfunc == FUNC_SECONDARY
-						&& (gset->weaponnum == WEAPON_FALCON2
-							|| gset->weaponnum == WEAPON_FALCON2_SILENCER
-							|| gset->weaponnum == WEAPON_FALCON2_SCOPE
-							|| gset->weaponnum == WEAPON_DY357MAGNUM
-							|| gset->weaponnum == WEAPON_DY357LX))) {
-				s16 sounds[] = { SFX_002F, SFX_0030, SFX_0031 };
-				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
-				sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-			} else {
-				s16 sounds[] = { SFX_HIT_CHR, SFX_HIT_CHR };
-				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
-				sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-			}
-
-			if (*handle) {
-				func0f09505c(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, 0x7fff, 0);
-			}
-
-			if (overridden) {
-				return;
-			}
-		} else {
-			s16 soundnum;
-			bool overridden = false;
-			u32 stack;
-
-			if (texturenum == 10000) {
-				sndStart(var80095200, SFX_SHIELD_DAMAGE, handle, -1, -1, -1, -1, -1);
-				soundnum = SFX_SHIELD_DAMAGE;
-			} else if (gset->weaponnum == WEAPON_LASER) {
-				if (gset->weaponfunc == FUNC_PRIMARY || (gset->unk063a % 8) == 0) {
-					if ((random() % 2) == 0) {
-						soundnum = SFX_CLOAK_ON;
-					} else {
-						soundnum = SFX_CLOAK_OFF;
-					}
-
-					sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-					overridden = true;
-				}
-			} else {
-				if (gset->weaponnum == WEAPON_COMBATKNIFE || gset->weaponnum == WEAPON_BOLT) {
-					soundnum = SFX_HIT_METAL_8079;
-					sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-					overridden = true;
-				} else {
-					s16 sounds[] = {
-						SFX_001B, SFX_001C, SFX_001D, SFX_001E,
-						SFX_001B, SFX_001C, SFX_001D, SFX_001E,
-						SFX_001B, SFX_001C, SFX_001D, SFX_001E,
-						SFX_0023, SFX_0024, SFX_0025, SFX_0026,
-						SFX_0027, SFX_0028, SFX_0029, SFX_002A,
-					};
-
-					soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
-					sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-				}
-			}
-
-			if (*handle) {
-				func0f09505c(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, 0x7fff, 0);
-			}
-
-			if (overridden) {
-				return;
-			}
-		}
-	}
-
-	if (texturenum >= 0 && texturenum < NUM_TEXTURES && g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]) {
-		s16 soundnum = -1;
-
-		handle = bgunAllocateAudioHandle();
-
-		if (handle) {
-			if (g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]->numsounds > 0) {
-				s32 index = rand2 % g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]->numsounds;
-				soundnum = g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]->sounds[index];
-
-				sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-			}
-
-			if (*handle) {
-				func0f09505c(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, 0x7fff, 0);
-			}
-		}
-	}
-#endif
 }
 
 void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 texturenum)
@@ -8891,7 +8133,6 @@ void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 texturenum)
 
 void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s16 *arg3)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	struct sndstate **handle;
 	u32 rand1 = random();
 	u32 rand2 = random();
@@ -8990,99 +8231,6 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 			}
 		}
 	}
-#else
-	struct sndstate **handle;
-	u32 rand1 = random();
-	u32 rand2 = random();
-	s16 soundnum;
-	bool overridden;
-
-	if (g_Vars.lvupdate240 <= 0) {
-		return;
-	}
-
-	if (texturenum >= 0 && texturenum < NUM_TEXTURES && g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]->numsounds == 0) {
-		return;
-	}
-
-	handle = bgunAllocateAudioHandle();
-
-	if (handle) {
-		overridden = false;
-
-		if (gset->weaponnum == WEAPON_LASER) {
-			if (gset->weaponfunc == FUNC_PRIMARY || (gset->unk063a % 8) == 0) {
-				// Laser sounds
-				s16 sounds[] = {SFX_CLOAK_ON, SFX_CLOAK_OFF};
-				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
-				sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-				overridden = true;
-			}
-		} else if (gset->weaponnum == WEAPON_COMBATKNIFE || gset->weaponnum == WEAPON_BOLT) {
-			// Knives and bolts make a metal sound
-			soundnum = SFX_HIT_METAL_8079;
-			sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-			overridden = true;
-		} else if (gset->weaponnum == WEAPON_REMOTEMINE
-				|| gset->weaponnum == WEAPON_PROXIMITYMINE
-				|| gset->weaponnum == WEAPON_TIMEDMINE
-				|| gset->weaponnum == WEAPON_COMMSRIDER
-				|| gset->weaponnum == WEAPON_TRACERBUG
-				|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
-				|| gset->weaponnum == WEAPON_ECMMINE) {
-			// Mine landing/activation sound
-			sndStart(var80095200, SFX_80AA, handle, -1, -1, -1, -1, -1);
-			overridden = true;
-		} else {
-			// Ricochet sounds
-			s16 sounds[] = {
-				SFX_0013, SFX_0014, SFX_0015, SFX_0016,
-				SFX_0017, SFX_0018, SFX_0019, SFX_001A,
-				SFX_0017, SFX_0018, SFX_0019, SFX_001A,
-				SFX_0017, SFX_0018, SFX_0019, SFX_001A,
-				SFX_001F, SFX_0020, SFX_0020, SFX_0021,
-				SFX_001F, SFX_0020, SFX_0020, SFX_0021,
-				SFX_001F, SFX_0020, SFX_0020, SFX_0021,
-				SFX_0023, SFX_0024, SFX_0025, SFX_0026,
-				SFX_0027, SFX_0028, SFX_0029, SFX_002A,
-			};
-
-			soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
-			sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-			overridden = false;
-		}
-
-		if (*handle != NULL) {
-			func0f09505c(*handle, arg1, 400, 2500, 3000, arg3, soundnum, 0x7fff, 0);
-		}
-
-		if (overridden) {
-			return;
-		}
-	}
-
-	// Play default surface hit sound
-	handle = bgunAllocateAudioHandle();
-
-	if (handle != NULL && texturenum >= 0 && texturenum < NUM_TEXTURES) {
-		s16 soundnum;
-		struct surfacetype *type = g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype];
-
-		if (type->numsounds > 0) {
-			soundnum = -1;
-
-			if (type != NULL) {
-				s32 index = rand2 % type->numsounds;
-				soundnum = type->sounds[index];
-				sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
-			}
-
-			if (*handle != NULL) {
-				func0f09505c(*handle, arg1, 400, 2500, 3000, arg3, soundnum, 0x7fff, 0);
-			}
-		}
-	}
-#endif
 }
 
 void bgunSetTriggerOn(s32 handnum, bool on)
@@ -9703,11 +8851,7 @@ Gfx *bgunDrawHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 vali
 	textwidth = 0;
 	textheight = 0;
 
-#if VERSION >= VERSION_JPN_FINAL
-	textMeasure(&textheight, &textwidth, text, g_CharsNumeric, g_FontNumeric, -1);
-#else
 	textMeasure(&textheight, &textwidth, text, g_CharsNumeric, g_FontNumeric, 0);
-#endif
 
 	if (halign == HUDHALIGN_LEFT) { // left
 		x2 = x + textwidth;
@@ -9969,12 +9113,6 @@ Gfx *bgunDrawHudGauge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct abmag *ab
 							weight = fadeamount * 4;
 							weight = PALUP(weight);
 
-#if VERSION >= VERSION_PAL_BETA
-							if (weight > 255) {
-								weight = 255;
-							}
-#endif
-
 							colour = colourBlend(0xffffffbf, emptycolour, weight);
 						}
 
@@ -10098,10 +9236,8 @@ Gfx *bgunDrawHud(Gfx *gdl)
 	u32 fncolour;
 	s32 funcnum;
 	s32 fnfaderinc;
-#if VERSION >= VERSION_NTSC_1_0
 	s32 tmpfuncnum;
 	struct handweaponinfo info;
-#endif
 	struct hand *hand = &player->hands[HAND_RIGHT];
 	char *str;
 	u32 colour;
@@ -10161,14 +9297,12 @@ Gfx *bgunDrawHud(Gfx *gdl)
 	funcnum = hand->gset.weaponfunc;
 	fnfaderinc = PALUP(g_Vars.lvupdate240 * 2);
 
-#if VERSION >= VERSION_NTSC_1_0
 	bgunGetWeaponInfo(&info, HAND_RIGHT);
 	tmpfuncnum = bgunIsUsingSecondaryFunction();
 
 	if (bgun0f098ca0(tmpfuncnum, &info, hand) >= 0) {
 		funcnum = tmpfuncnum;
 	}
-#endif
 
 	xpos = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - barwidth - 24;
 
@@ -10211,11 +9345,7 @@ Gfx *bgunDrawHud(Gfx *gdl)
 
 	// Draw weapon name and function name
 	if (optionsGetShowGunFunction(g_Vars.currentplayerstats->mpindex)) {
-#if VERSION >= VERSION_NTSC_1_0
 		func = weaponGetFunctionById(hand->gset.weaponnum, funcnum);
-#else
-		func = weaponGetFunctionById(hand->gset.weaponnum, hand->gset.weaponfunc);
-#endif
 		nameid = invGetNameIdByIndex(invGetCurrentIndex());
 		str = langGet(nameid);
 
@@ -10248,11 +9378,7 @@ Gfx *bgunDrawHud(Gfx *gdl)
 				x = xpos - textwidth - 2;
 			}
 
-#if VERSION == VERSION_JPN_FINAL
-			y = bottom - textheight - 10;
-#else
 			y = bottom - textheight - 15;
-#endif
 
 			if (ctrl->guntypetimer > 192) {
 				alpha = 255 - (ctrl->guntypetimer - 192) * 255 / 63U;
@@ -10290,7 +9416,6 @@ Gfx *bgunDrawHud(Gfx *gdl)
 					ctrl->fnstrtimer += (u16) g_Vars.lvupdate60;
 				}
 
-#if VERSION >= VERSION_NTSC_1_0
 				if (funcnum == FUNC_SECONDARY && func->name == ctrl->curfnstr) {
 					colour |= 0x00ff0000;
 				}
@@ -10298,15 +9423,6 @@ Gfx *bgunDrawHud(Gfx *gdl)
 				if (funcnum == FUNC_PRIMARY && func->name != ctrl->curfnstr) {
 					colour |= 0x00ff0000;
 				}
-#else
-				if (hand->gset.weaponfunc == FUNC_SECONDARY && func->name == ctrl->curfnstr) {
-					colour |= 0x00ff0000;
-				}
-
-				if (hand->gset.weaponfunc == FUNC_PRIMARY && func->name != ctrl->curfnstr) {
-					colour |= 0x00ff0000;
-				}
-#endif
 
 				textMeasure(&textheight, &textwidth, str, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 				textwidth += 2;
@@ -10316,11 +9432,7 @@ Gfx *bgunDrawHud(Gfx *gdl)
 				}
 
 				x = xpos - textwidth - 13;
-#if VERSION == VERSION_JPN_FINAL
-				y = bottom - textheight + 3;
-#else
 				y = bottom - textheight - 1;
-#endif
 
 				if (ctrl->fnstrtimer > 192) {
 					alpha = 255 - (ctrl->fnstrtimer - 192) * 255 / 63U;
@@ -10398,15 +9510,7 @@ Gfx *bgunDrawHud(Gfx *gdl)
 
 		ammotype = player->gunctrl.ammotypes[ammoindex];
 
-#if VERSION >= VERSION_NTSC_1_0
 		xpos = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - barwidth - 24;
-#else
-		// NTSC Beta omits the brackets here. This would normally cause the
-		// ammo info to be misaligned for players on the right side of the
-		// screen and when using hi-res, but I'm not sure if hi-res can even be
-		// active when using multiple players...
-		xpos = viGetViewLeft() + viGetViewWidth() / g_ScaleX - barwidth - 24;
-#endif
 
 		if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 0) {
 			xpos += 15;

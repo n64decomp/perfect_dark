@@ -353,13 +353,8 @@ s32 menuhandlerMpControlCheckbox(s32 operation, struct menuitem *item, union han
 s32 menuhandlerMpAimControl(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 labels[] = {
-#if VERSION >= VERSION_PAL_FINAL
-		L_MPWEAPONS_276, // "Hold"
-		L_MPWEAPONS_277, // "Toggle"
-#else
 		L_MPMENU_213, // "Hold"
 		L_MPMENU_214, // "Toggle"
-#endif
 	};
 
 	switch (operation) {
@@ -480,12 +475,10 @@ s32 menuhandlerMpSaveSetupCopy(s32 operation, struct menuitem *item, union handl
 	return 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 char *mpMenuTextSetupName(struct menuitem *item)
 {
 	return g_MpSetup.name;
 }
-#endif
 
 s32 func0f179b68(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -568,11 +561,7 @@ s32 mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handl
 		if (g_Menus[g_MpPlayerNum].unk840.unk578 > 0) {
 			g_Menus[g_MpPlayerNum].unk840.unk578 -= g_Vars.diffframe60;
 		} else {
-#if VERSION >= VERSION_PAL_BETA
-			f32 value = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
-#else
 			f32 value = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
-#endif
 			g_Menus[g_MpPlayerNum].unk840.unk54c = value;
 			g_Menus[g_MpPlayerNum].unk840.unk524 = value;
 		}
@@ -585,11 +574,9 @@ s32 mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handl
 			return 1;
 		}
 		break;
-#if VERSION >= VERSION_NTSC_1_0
 	case MENUOP_FOCUS:
 		g_Menus[g_MpPlayerNum].unk840.unk000 = 3;
 		break;
-#endif
 	case MENUOP_GETSELECTEDINDEX:
 		data->carousel.value = mpheadnum;
 		break;
@@ -612,11 +599,9 @@ s32 mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handl
 		g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
 		g_Menus[g_MpPlayerNum].unk840.unk000 = 8;
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (operation == MENUOP_CHECKPREFOCUSED) {
 			g_Menus[g_MpPlayerNum].unk840.unk000 = 16;
 		}
-#endif
 
 		break;
 	}
@@ -629,10 +614,7 @@ s32 menuhandlerMpCharacterBody(s32 operation, struct menuitem *item, union handl
 	switch (operation) {
 	case MENUOP_SET:
 		if (g_PlayerConfigsArray[g_MpPlayerNum].base.mpheadnum < mpGetNumHeads()) {
-#if VERSION >= VERSION_NTSC_1_0
-			if (!data->carousel.unk04)
-#endif
-			{
+			if (!data->carousel.unk04) {
 				g_PlayerConfigsArray[g_MpPlayerNum].base.mpheadnum = mpGetMpheadnumByMpbodynum(data->carousel.value);
 			}
 		}
@@ -640,11 +622,9 @@ s32 menuhandlerMpCharacterBody(s32 operation, struct menuitem *item, union handl
 		func0f17b8f0();
 		break;
 	case MENUOP_CHECKPREFOCUSED:
-#if VERSION >= VERSION_NTSC_1_0
 		mpCharacterBodyMenuHandler(operation, item, data,
 				g_PlayerConfigsArray[g_MpPlayerNum].base.mpbodynum,
 				g_PlayerConfigsArray[g_MpPlayerNum].base.mpheadnum, true);
-#endif
 		return true;
 	}
 
@@ -724,19 +704,11 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
 		for (i = 0, loopx = 10; i < maxplayers; i++) {
-#if VERSION >= VERSION_NTSC_1_0
 			if (challengeIsCompletedByPlayerWithNumPlayers2(g_MpPlayerNum, challengeindex, i + 1)) {
 				gDPSetEnvColorViaWord(gdl++, 0xb2efff00 | (renderdata->colour & 0xff) * 255 / 256);
 			} else {
 				gDPSetEnvColorViaWord(gdl++, 0x30407000 | (renderdata->colour & 0xff) * 255 / 256);
 			}
-#else
-			if (challengeIsCompletedByPlayerWithNumPlayers2(g_MpPlayerNum, challengeindex, i + 1)) {
-				gDPSetEnvColorViaWord(gdl++, 0xb2efffff);
-			} else {
-				gDPSetEnvColorViaWord(gdl++, 0x304070ff);
-			}
-#endif
 
 			gDPSetCombineLERP(gdl++,
 					TEXEL0, 0, ENVIRONMENT, 0,
@@ -883,19 +855,12 @@ char *mpMenuTextTime(struct menuitem *item)
 
 char *mpMenuTextAccuracy(struct menuitem *item)
 {
-#if VERSION < VERSION_NTSC_1_0
-	if (g_PlayerConfigsArray[g_MpPlayerNum].gamesplayed < 8) {
-		return "-\n";
-	}
-#endif
-
 	sprintf(g_StringPointer, "%s%s%.1f%%", "", "", g_PlayerConfigsArray[g_MpPlayerNum].accuracy / 10.0f);
 	return g_StringPointer;
 }
 
 void mpFormatDamageValue(char *dst, f32 damage)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	if (damage < 1000) {
 		sprintf(dst, "%s%s%.1f", "", "", damage);
 	} else if (damage < 10000) {
@@ -915,14 +880,6 @@ void mpFormatDamageValue(char *dst, f32 damage)
 		damage = damage / 1000;
 		sprintf(dst, "%s%s%.0fM", "", "", damage);
 	}
-#else
-	if (damage > 100000) {
-		damage = damage / 1000;
-		sprintf(dst, "%s%s%.1fKL", "", "", damage);
-	} else {
-		sprintf(dst, "%s%s%.1fL", "", "", damage);
-	}
-#endif
 }
 
 char *mpMenuTextPainReceived(struct menuitem *item)
@@ -972,9 +929,7 @@ s32 mpMedalMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 			break;
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		colour = (colour & 0xffffff00) | (colour & 0xff) * (renderdata->colour & 0xff) >> 8;
-#endif
 
 		gDPSetEnvColorViaWord(gdl++, colour);
 
@@ -1059,7 +1014,6 @@ struct menudialogdef g_MpSavePlayerMenuDialog = {
 };
 
 struct menuitem g_MpSaveSetupNameMenuItems[] = {
-#if VERSION != VERSION_JPN_FINAL
 	{
 		MENUITEMTYPE_LABEL,
 		0,
@@ -1068,7 +1022,6 @@ struct menuitem g_MpSaveSetupNameMenuItems[] = {
 		0,
 		NULL,
 	},
-#endif
 	{
 		MENUITEMTYPE_KEYBOARD,
 		0,
@@ -1090,7 +1043,6 @@ struct menudialogdef g_MpSaveSetupNameMenuDialog = {
 };
 
 struct menuitem g_MpSaveSetupExistsMenuItems[] = {
-#if VERSION >= VERSION_NTSC_1_0
 	{
 		MENUITEMTYPE_LABEL,
 		0,
@@ -1107,7 +1059,6 @@ struct menuitem g_MpSaveSetupExistsMenuItems[] = {
 		0,
 		NULL,
 	},
-#endif
 	{
 		MENUITEMTYPE_LABEL,
 		0,
@@ -1553,7 +1504,6 @@ struct menudialogdef g_MpCompletedChallengesMenuDialog = {
 	NULL,
 };
 
-#if VERSION >= VERSION_NTSC_1_0
 char *mpMenuTextUsernamePassword(struct menuitem *item)
 {
 	// Phrases included here to assist people searching the code for them:
@@ -1606,7 +1556,6 @@ char *mpMenuTextUsernamePassword(struct menuitem *item)
 
 	return g_StringPointer;
 }
-#endif
 
 struct menuitem g_MpPlayerStatsMenuItems[] = {
 	{
@@ -1805,11 +1754,7 @@ struct menuitem g_MpPlayerStatsMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_SMALLFONT,
-#if VERSION >= VERSION_NTSC_1_0
 		(u32)&mpMenuTextUsernamePassword,
-#else
-		0x51f0,
-#endif
 		0,
 		menuhandlerMpUsernamePassword,
 	},
@@ -1823,13 +1768,9 @@ struct menuitem g_MpPlayerStatsMenuItems[] = {
 	},
 	{
 		MENUITEMTYPE_LABEL,
-		(VERSION >= VERSION_NTSC_1_0 ? 1 : 0),
+		1,
 		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_SMALLFONT,
-#if VERSION >= VERSION_NTSC_1_0
 		(u32)&mpMenuTextUsernamePassword,
-#else
-		0x51f1,
-#endif
 		0,
 		menuhandlerMpUsernamePassword,
 	},
@@ -1878,11 +1819,7 @@ s32 mpCharacterHeadMenuHandler(s32 operation, struct menuitem *item, union handl
 		data->carousel.value = mpGetNumHeads2();
 		break;
 	case MENUOP_11:
-#if VERSION >= VERSION_PAL_BETA
-		diffframe = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
-#else
 		diffframe = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
-#endif
 
 		g_Menus[g_MpPlayerNum].unk840.unk54c = diffframe;
 		g_Menus[g_MpPlayerNum].unk840.unk524 = diffframe;
@@ -1908,9 +1845,7 @@ s32 mpCharacterHeadMenuHandler(s32 operation, struct menuitem *item, union handl
 		break;
 	case MENUOP_SET:
 	case MENUOP_FOCUS:
-#if VERSION >= VERSION_NTSC_1_0
 		g_Menus[g_MpPlayerNum].unk840.unk000 = 3;
-#endif
 
 		mpGetNumHeads2();
 
@@ -2085,11 +2020,7 @@ char *mpMenuTextMpconfigMarquee(struct menuitem *item)
 	s32 i;
 
 	if (g_Menus[g_MpPlayerNum].mpsetup.slotindex < 0xffff && g_FileLists[1]) {
-#if VERSION >= VERSION_NTSC_1_0
 		arenanum = -1;
-#else
-		arenanum = 0;
-#endif
 
 		mpsetupfileGetOverview(g_FileLists[1]->files[g_Menus[g_MpPlayerNum].mpsetup.slotindex].name,
 				filename, &numsims, &stagenum, &scenarionum);
@@ -2100,7 +2031,6 @@ char *mpMenuTextMpconfigMarquee(struct menuitem *item)
 			}
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (scenarionum <= 5 && arenanum != -1 && numsims >= 0 && filename[0] != '\0' && numsims <= MAX_BOTS) {
 			// "%s:  Scenario: %s   Arena: %s    Simulants: %d"
 			sprintf(g_StringPointer, langGet(L_MPMENU_140),
@@ -2111,14 +2041,6 @@ char *mpMenuTextMpconfigMarquee(struct menuitem *item)
 		} else {
 			return "";
 		}
-#else
-		// "%s:  Scenario: %s   Arena: %s    Simulants: %d"
-		sprintf(g_StringPointer, langGet(L_MPMENU_140),
-				filename,
-				langGet(g_MpScenarioOverviews[scenarionum].name),
-				langGet(g_MpArenas[arenanum].name),
-				numsims);
-#endif
 
 		return g_StringPointer;
 	}
@@ -3231,22 +3153,14 @@ s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handlerdata 
 		s32 i;
 		s32 teamnum;
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (!numchrs) {
 			return 0;
 		}
-#endif
 
 		i = (start + 1) % numchrs;
 
 		do {
 			struct mpchrconfig *mpchr = mpGetChrConfigBySlotNum(i);
-
-#if VERSION >= VERSION_NTSC_1_0
-			if (teamsremaining);
-#else
-			if (start);
-#endif
 
 			if (teamsremaining >= chrsremaining) {
 				teamnum = random() % numteams;
@@ -3539,120 +3453,6 @@ struct menuitem g_MpTeamsMenuItems[] = {
 		0x00000002,
 		menuhandlerMpTeamsEnabled,
 	},
-#if VERSION >= VERSION_PAL_FINAL
-	{
-		MENUITEMTYPE_SEPARATOR,
-		0,
-		0,
-		0x85,
-		0,
-		NULL,
-	},
-	{
-		MENUITEMTYPE_LABEL,
-		0,
-		MENUITEMFLAG_LESSLEFTPADDING,
-		L_MPMENU_072, // "Teams:"
-		0,
-		menuhandlerMpTeamsLabel,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		0,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		1,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		2,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		3,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		4,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		5,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		6,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		7,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		8,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		9,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		10,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-	{
-		MENUITEMTYPE_DROPDOWN,
-		11,
-		MENUITEMFLAG_ADJUSTWIDTH | MENUITEMFLAG_LOCKABLEMINOR,
-		(u32)&mpMenuTextChrNameForTeamSetup,
-		0,
-		menuhandlerMpTeamSlot,
-	},
-#else
 	{
 		MENUITEMTYPE_SEPARATOR,
 		0,
@@ -3765,7 +3565,6 @@ struct menuitem g_MpTeamsMenuItems[] = {
 		0,
 		menuhandlerMpTeamSlot,
 	},
-#endif
 	{
 		MENUITEMTYPE_SEPARATOR,
 		0,
@@ -4030,9 +3829,7 @@ char *func0f17e318(struct menudialogdef *dialogdef)
 s32 menuhandler0017e38c(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-#if VERSION >= VERSION_NTSC_1_0
 		challengeUnsetCurrent();
-#endif
 
 		menuPopDialog();
 		challengeSetCurrentBySlot(g_Menus[g_MpPlayerNum].mpsetup.slotindex);
@@ -4322,16 +4119,6 @@ struct menuitem g_MpChallengesListOrDetailsMenuItems[] = {
 		0x0000004d,
 		mpChallengesListMenuHandler,
 	},
-#if VERSION < VERSION_NTSC_1_0
-	{
-		MENUITEMTYPE_LABEL,
-		2,
-		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_LABEL_ALTCOLOUR,
-		0x7f179198,
-		0,
-		(void *)0x7f1790a8,
-	},
-#endif
 	{
 		MENUITEMTYPE_SCROLLABLE,
 		DESCRIPTION_MPCHALLENGE,
@@ -4369,18 +4156,10 @@ struct menuitem g_MpChallengesListOrDetailsMenuItems[] = {
 
 struct menudialogdef g_MpChallengeListOrDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-#if VERSION >= VERSION_NTSC_1_0
 	(u32)&mpMenuTextChallengeName,
-#else
-	0x5032,
-#endif
 	g_MpChallengesListOrDetailsMenuItems,
 	mpCombatChallengesMenuDialog,
-#if VERSION >= VERSION_NTSC_1_0
 	0x00000808,
-#else
-	MENUDIALOGFLAG_DROPOUTONCLOSE,
-#endif
 	NULL,
 };
 
@@ -4388,20 +4167,11 @@ struct menudialogdef g_MpAdvancedSetupViaAdvChallengeMenuDialog;
 
 struct menudialogdef g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-#if VERSION >= VERSION_NTSC_1_0
 	(u32)&mpMenuTextChallengeName,
-#else
-	0x5032,
-#endif
 	g_MpChallengesListOrDetailsMenuItems,
 	mpCombatChallengesMenuDialog,
-#if VERSION >= VERSION_NTSC_1_0
 	0x00000808,
 	&g_MpAdvancedSetupViaAdvChallengeMenuDialog,
-#else
-	MENUDIALOGFLAG_DROPOUTONCLOSE,
-	&g_MpAdvancedSetupMenuDialog,
-#endif
 };
 
 struct menuitem g_MpConfirmChallengeMenuItems[] = {
@@ -4523,19 +4293,11 @@ s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union hand
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
 		for (i = 0; i < maxchrs; i++) {
-#if VERSION >= VERSION_NTSC_1_0
 			if (challengeIsCompletedByAnyChrWithNumPlayersBySlot(data->type19.unk04, i + 1)) {
 				gDPSetEnvColorViaWord(gdl++, (renderdata->colour & 0xff) * 0xff >> 8 | 0xffe56500);
 			} else {
 				gDPSetEnvColorViaWord(gdl++, (renderdata->colour & 0xff) * 0xff >> 8 | 0x43430000);
 			}
-#else
-			if (challengeIsCompletedByAnyChrWithNumPlayersBySlot(data->type19.unk04, i + 1)) {
-				gDPSetEnvColorViaWord(gdl++, 0xffe565ff);
-			} else {
-				gDPSetEnvColorViaWord(gdl++, 0x434300ff);
-			}
-#endif
 
 			gDPSetCombineLERP(gdl++,
 				TEXEL0, 0, ENVIRONMENT, 0,
@@ -4605,11 +4367,9 @@ s32 menuhandlerMpStartChallenge(s32 operation, struct menuitem *item, union hand
 
 char *mpMenuTextChallengeName(struct menuitem *item)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
 		return langGet(L_MPMENU_050); // "Combat Challenges"
 	}
-#endif
 
 	sprintf(g_StringPointer, "%s:\n", challengeGetName(challengeGetCurrent()));
 	return g_StringPointer;
@@ -4753,9 +4513,7 @@ s32 menuhandlerMpSaveSettings(s32 operation, struct menuitem *item, union handle
 		if (g_MpSetup.fileguid.fileid == 0) {
 			menuPushDialog(&g_MpSaveSetupNameMenuDialog);
 		} else {
-#if VERSION >= VERSION_NTSC_1_0
 			filemgrSetDevice1BySerial(g_MpSetup.fileguid.deviceserial);
-#endif
 
 			menuPushDialog(&g_MpSaveSetupExistsMenuDialog);
 		}
@@ -4918,11 +4676,9 @@ void func0f17f428(void)
 
 s32 menuhandlerMpFinishedSetup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	if (operation == MENUOP_CHECKPREFOCUSED) {
 		return true;
 	}
-#endif
 
 	if (operation == MENUOP_SET) {
 		func0f17f428();
@@ -4946,11 +4702,7 @@ s32 menuhandlerPlayerTeam(s32 operation, struct menuitem *item, union handlerdat
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-#if VERSION >= VERSION_JPN_FINAL
-		data->dropdown.value = scenarioGetMaxTeams();
-#else
 		data->dropdown.value = MAX_TEAMS;
-#endif
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		return (s32) &g_BossFile.teamnames[data->dropdown.value];
@@ -4958,11 +4710,6 @@ s32 menuhandlerPlayerTeam(s32 operation, struct menuitem *item, union handlerdat
 		g_Vars.mpplayerteams[item->param] = data->dropdown.value;
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-#if VERSION >= VERSION_JPN_FINAL
-		if (g_Vars.mpplayerteams[item->param] >= scenarioGetMaxTeams()) {
-			g_Vars.mpplayerteams[item->param] %= scenarioGetMaxTeams();
-		}
-#endif
 		data->dropdown.value = g_Vars.mpplayerteams[item->param];
 		break;
 	case MENUOP_CHECKHIDDEN:
@@ -5533,7 +5280,6 @@ struct menuitem g_MpQuickGoMenuItems[] = {
 		0,
 		(void *)&g_MpReadyMenuDialog,
 	},
-#if VERSION >= VERSION_NTSC_1_0
 	{
 		MENUITEMTYPE_SELECTABLE,
 		0,
@@ -5542,7 +5288,6 @@ struct menuitem g_MpQuickGoMenuItems[] = {
 		0,
 		(void *)&g_MpLoadPlayerMenuDialog,
 	},
-#endif
 	{
 		MENUITEMTYPE_SELECTABLE,
 		0,

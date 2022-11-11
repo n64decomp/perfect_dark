@@ -119,13 +119,6 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 		weaponnum = frGetWeaponBySlot(data->list.value);
 		score = ciGetFiringRangeScore(frGetWeaponIndexByWeapon(weaponnum));
 
-#if VERSION < VERSION_NTSC_1_0
-		if (g_Menus[g_MpPlayerNum].layers[g_Menus[g_MpPlayerNum].depth - 1].numsiblings > 1) {
-			menuCloseDialog();
-			menuPushDialog(&g_FrWeaponListMenuDialog);
-		}
-#endif
-
 		frLoadData();
 		frSetSlot(data->list.value);
 
@@ -149,10 +142,6 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 		// Render weapon name
 		x = renderdata->x + 10;
 		y = renderdata->y;
-
-#if VERSION == VERSION_JPN_FINAL
-		y++;
-#endif
 
 		gdl = text0f153628(gdl);
 		gdl = textRenderProjected(gdl, &x, &y, bgunGetName(weaponnum2), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
@@ -190,9 +179,7 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 				colour = 0x99999944;
 			}
 
-#if VERSION >= VERSION_NTSC_1_0
 			colour = (colour & 0xffffff00) | (((colour & 0xff) * (renderdata->colour & 0xff)) >> 8);
-#endif
 
 			gDPSetEnvColorViaWord(gdl++, colour);
 
@@ -583,25 +570,15 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		struct frdata *frdata = frGetData();
 		char text[128];
 		bool failed = frdata->menutype == FRMENUTYPE_FAILED;
-#if VERSION >= VERSION_JPN_FINAL
-		u32 linecolourmid = failed ? 0xff644477 : 0x00ff0077; // line gradient colour in middle
-		u32 linecolourfig = failed ? 0xff664400 : 0x00ff0000; // line gradient colour at figures
-		u32 linecolourtex = failed ? 0xff664433 : 0x00ff0033; // line gradient colour at target texture
-#else
 		u32 linecolourmid = failed ? 0xff000077 : 0x00ff0077; // line gradient colour in middle
 		u32 linecolourfig = failed ? 0xff000000 : 0x00ff0000; // line gradient colour at figures
 		u32 linecolourtex = failed ? 0xff000033 : 0x00ff0033; // line gradient colour at target texture
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 		u32 colour;
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 		linecolourmid = (linecolourmid & 0xffffff00) | ((linecolourmid & 0xff) * (renderdata->colour & 0xff) >> 8);
 		linecolourfig = (linecolourfig & 0xffffff00) | ((linecolourfig & 0xff) * (renderdata->colour & 0xff) >> 8);
 		linecolourtex = (linecolourtex & 0xffffff00) | ((linecolourtex & 0xff) * (renderdata->colour & 0xff) >> 8);
-#endif
 
 		gDPPipeSync(gdl++);
 		gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -616,12 +593,8 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-#if VERSION >= VERSION_NTSC_1_0
 		colour = ((failed ? 0xff777799 : 0x55ff5588) & 0xffffff00) | (((failed ? 0xff777799 : 0x55ff5588) & 0xff) * (renderdata->colour & 0xff) >> 8);
 		gDPSetEnvColorViaWord(gdl++, colour);
-#else
-		gDPSetEnvColorViaWord(gdl++, failed ? 0xff777799 : 0x55ff5588);
-#endif
 
 		gDPSetCombineLERP(gdl++,
 				TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0,
@@ -651,30 +624,21 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 				((renderdata->x + 73) << 2) * g_ScaleX, (renderdata->y + 68) << 2,
 				G_TX_RENDERTILE, 16, 1024, -1024 / g_ScaleX, 1024);
 
-#if VERSION >= VERSION_NTSC_1_0
 		gdl = textSetPrimColour(gdl, ((failed ? 0xff000055 : 0x00ff0055) & 0xffffff00) | (((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8));
 		colour = ((failed ? 0xff6969aa : renderdata->colour) & 0xffffff00) | ((((failed ? 0xff6969aa : renderdata->colour) & 0xff) * (renderdata->colour & 0xff)) >> 8);
-#else
-		gdl = textSetPrimColour(gdl, failed ? 0xff000055 : 0x00ff0055);
-#endif
 
 		// NTSC beta uses a static alpha channel, while newer versions take the
 		// alpha from the menu item's renderdata. Additionally, NTSC beta
 		// repeats its colour calculation throughout this function while newer
 		// versions store it in a variable. To prevent having version checks
 		// everywhere, this has been implemented here using macros.
-#if VERSION >= VERSION_NTSC_1_0
 #define COLOUR() (colour)
 #define COLOURWHITE() (0xffffff00 | (((renderdata->colour & 0xff) * 0xff) >> 8))
-#else
-#define COLOUR() (failed ? 0xff6969aa : renderdata->colour)
-#define COLOURWHITE() 0xffffffff
-#endif
 
 		// Bull's-eye count
 		sprintf(text, "%d\n", frdata->numhitsbullseye);
 		x = renderdata->x + 93;
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
+		y = renderdata->y + 14;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
@@ -688,59 +652,59 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		// Bull's-eye score
 		sprintf(text, "%d\n", frdata->numhitsbullseye * 10);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
+		x = renderdata->x - textheight + 182;
+		y = renderdata->y + 14;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 1 count
 		sprintf(text, "%d\n", frdata->numhitsring1);
 		x = renderdata->x + 93;
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
+		y = renderdata->y + 25;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Zone 1"
 		sprintf(text, langGet(L_MPMENU_462));
 		x = renderdata->x + 122;
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 26 : 25);
+		y = renderdata->y + 25;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 1 score
 		sprintf(text, "%d\n", frdata->numhitsring1 * 5);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
+		x = renderdata->x - textheight + 182;
+		y = renderdata->y + 25;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 2 count
 		sprintf(text, "%d\n", frdata->numhitsring2);
 		x = renderdata->x + 93;
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
+		y = renderdata->y + 36;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Zone 2"
 		sprintf(text, langGet(L_MPMENU_463));
 		x = renderdata->x + 122;
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 38 : 36);
+		y = renderdata->y + 36;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 2 score
 		sprintf(text, "%d\n", frdata->numhitsring2 * 2);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
+		x = renderdata->x - textheight + 182;
+		y = renderdata->y + 36;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 3 count
 		sprintf(text, "%d\n", frdata->numhitsring3);
 		x = renderdata->x + 93;
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
+		y = renderdata->y + 47;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
@@ -748,15 +712,15 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		// Note: developers forgot to remove last argument when copy/pasting
 		sprintf(text, langGet(L_MPMENU_464), frdata->numhitsring3);
 		x = renderdata->x + 122;
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 50 : 47);
+		y = renderdata->y + 47;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 3 score
 		sprintf(text, "%d\n", frdata->numhitsring3);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
+		x = renderdata->x - textheight + 182;
+		y = renderdata->y + 47;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
@@ -765,11 +729,6 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		x = renderdata->x + 133;
 		y = renderdata->y + 63;
 
-#if VERSION >= VERSION_JPN_FINAL
-		x -= 44;
-		y += 3;
-#endif
-
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
@@ -777,12 +736,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		sprintf(text, "%d\n", frdata->numhitsring3 + frdata->numhitsbullseye + frdata->numhitsring1 + frdata->numhitsring2);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + 188;
-		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 64 : 63);
-
-#if VERSION >= VERSION_JPN_FINAL
-		x -= 27;
-		y += 3;
-#endif
+		y = renderdata->y + 63;
 
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
@@ -832,19 +786,6 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 62, renderdata->y + 50, renderdata->x + 87, renderdata->y + 51, linecolourtex, linecolourmid);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 70, renderdata->y + 60, renderdata->x + 90, renderdata->y + 61, linecolourtex, linecolourmid);
 
-#if VERSION >= VERSION_JPN_FINAL
-		// Vertical lines
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 82, renderdata->y + 37, linecolourmid, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 29, renderdata->x + 85, renderdata->y + 45, linecolourmid, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 41, renderdata->x + 88, renderdata->y + 51, linecolourmid, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 53, renderdata->x + 91, renderdata->y + 61, linecolourmid, linecolourmid);
-
-		// Horizontal lines - top right
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 96, renderdata->y + 18, linecolourmid, linecolourfig);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 29, renderdata->x + 96, renderdata->y + 30, linecolourmid, linecolourfig);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 41, renderdata->x + 96, renderdata->y + 42, linecolourmid, linecolourfig);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 53, renderdata->x + 96, renderdata->y + 54, linecolourmid, linecolourfig);
-#else
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 82, renderdata->y + 37, linecolourmid, linecolourmid);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 28, renderdata->x + 85, renderdata->y + 45, linecolourmid, linecolourmid);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 39, renderdata->x + 88, renderdata->y + 51, linecolourmid, linecolourmid);
@@ -855,7 +796,6 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 28, renderdata->x + 96, renderdata->y + 29, linecolourmid, linecolourfig);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 39, renderdata->x + 96, renderdata->y + 40, linecolourmid, linecolourfig);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 50, renderdata->x + 96, renderdata->y + 51, linecolourmid, linecolourfig);
-#endif
 
 		return (s32)gdl;
 	}
@@ -863,7 +803,6 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 	return 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 menuhandlerFrFailedContinue(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
@@ -876,7 +815,6 @@ s32 menuhandlerFrFailedContinue(s32 operation, struct menuitem *item, union hand
 
 	return 0;
 }
-#endif
 
 struct menuitem g_FrDifficultyMenuItems[] = {
 	{
@@ -1155,16 +1093,6 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		NULL,
 	},
-#if VERSION < VERSION_NTSC_1_0
-	{
-		MENUITEMTYPE_SEPARATOR,
-		0,
-		0,
-		0,
-		0,
-		NULL,
-	},
-#endif
 	{
 		MENUITEMTYPE_LABEL,
 		0,
@@ -1245,7 +1173,6 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0x00000050,
 		frScoringMenuHandler,
 	},
-#if VERSION >= VERSION_NTSC_1_0
 	{
 		MENUITEMTYPE_SELECTABLE,
 		0,
@@ -1254,7 +1181,6 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		menuhandlerFrFailedContinue,
 	},
-#endif
 	{ MENUITEMTYPE_END },
 };
 
@@ -1263,13 +1189,8 @@ struct menudialogdef g_FrCompletedMenuDialog = {
 	L_MPMENU_448, // "Training Stats"
 	g_FrCompletedMenuItems,
 	frTrainingStatsMenuDialog,
-#if VERSION >= VERSION_NTSC_1_0
 	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
-#else
-	0,
-	&g_FrWeaponListMenuDialog,
-#endif
 };
 
 struct menuitem g_FrFailedMenuItems[] = {
@@ -1281,16 +1202,6 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		NULL,
 	},
-#if VERSION < VERSION_NTSC_1_0
-	{
-		MENUITEMTYPE_SEPARATOR,
-		0,
-		0,
-		0,
-		0,
-		NULL,
-	},
-#endif
 	{
 		MENUITEMTYPE_LABEL,
 		0,
@@ -1371,7 +1282,6 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0x00000050,
 		frScoringMenuHandler,
 	},
-#if VERSION >= VERSION_NTSC_1_0
 	{
 		MENUITEMTYPE_SELECTABLE,
 		0,
@@ -1380,7 +1290,6 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		menuhandlerFrFailedContinue,
 	},
-#endif
 	{ MENUITEMTYPE_END },
 };
 
@@ -1389,13 +1298,8 @@ struct menudialogdef g_FrFailedMenuDialog = {
 	L_MPMENU_448, // "Training Stats"
 	g_FrFailedMenuItems,
 	frTrainingStatsMenuDialog,
-#if VERSION >= VERSION_NTSC_1_0
 	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
-#else
-	0,
-	&g_FrWeaponListMenuDialog,
-#endif
 };
 
 s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
@@ -1529,33 +1433,11 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 		g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
 		g_Menus[g_MpPlayerNum].unk840.unk580 = 0;
 
-#if VERSION == VERSION_PAL_FINAL
-		if (g_ViRes != VIRES_HI) {
-			x = -117;
-
-			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-				x = -87;
-			}
-		} else {
-			x = -177;
-
-			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-				x = -127;
-			}
-		}
-#elif VERSION == VERSION_PAL_BETA
-		x = -117;
-
-		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-			x = -87;
-		}
-#else
 		x = -130;
 
 		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 			x = -100;
 		}
-#endif
 
 		y = -15;
 
@@ -1616,11 +1498,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 		if (g_Menus[g_MpPlayerNum].unk840.unk578 > 0) {
 			g_Menus[g_MpPlayerNum].unk840.unk578 -= g_Vars.diffframe60;
 		} else {
-#if VERSION >= VERSION_PAL_BETA
-			f32 tmp = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
-#else
 			f32 tmp = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
-#endif
 			g_Menus[g_MpPlayerNum].unk840.unk54c = tmp;
 			g_Menus[g_MpPlayerNum].unk840.unk524 = tmp;
 		}
@@ -1866,33 +1744,6 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, 
 			g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
 			func0f105948(weaponnum);
 
-#if VERSION == VERSION_PAL_FINAL
-			if (g_ViRes == VIRES_HI) {
-				if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
-				} else {
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 104;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 104;
-				}
-			} else {
-				if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 64;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 64;
-				} else {
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
-				}
-			}
-#elif VERSION == VERSION_PAL_BETA
-			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-				g_Menus[g_MpPlayerNum].unk840.unk538 = 64;
-				g_Menus[g_MpPlayerNum].unk840.unk510 = 64;
-			} else {
-				g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
-				g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
-			}
-#else
 			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 				g_Menus[g_MpPlayerNum].unk840.unk538 = 70;
 				g_Menus[g_MpPlayerNum].unk840.unk510 = 70;
@@ -1900,7 +1751,6 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, 
 				g_Menus[g_MpPlayerNum].unk840.unk538 = 90;
 				g_Menus[g_MpPlayerNum].unk840.unk510 = 90;
 			}
-#endif
 
 			g_Menus[g_MpPlayerNum].unk840.unk544 /= 2.5f;
 		}
@@ -2396,13 +2246,7 @@ struct menuitem g_HtFailedMenuItems[] = {
 		DESCRIPTION_HOLOTIP1,
 		0,
 		0x00000082,
-#if VERSION >= VERSION_JPN_FINAL
-		120,
-#elif PAL
-		110,
-#else
 		100,
-#endif
 		NULL,
 	},
 	{ MENUITEMTYPE_END },
@@ -2455,13 +2299,7 @@ struct menuitem g_HtCompletedMenuItems[] = {
 		DESCRIPTION_HOLOTIP2,
 		0,
 		0x00000082,
-#if VERSION >= VERSION_JPN_FINAL
-		120,
-#elif PAL
-		110,
-#else
 		100,
-#endif
 		NULL,
 	},
 	{ MENUITEMTYPE_END },
@@ -2549,9 +2387,7 @@ s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 			gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 			gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-#if VERSION >= VERSION_NTSC_1_0
 			gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 255) >> 8);
-#endif
 
 			gSPTextureRectangle(gdl++,
 					((renderdata->x + 6) << 2) * g_ScaleX, (renderdata->y + 3) << 2,
@@ -2647,41 +2483,6 @@ s32 ciHangarHolographMenuDialog(s32 operation, struct menudialogdef *dialogdef, 
 			break;
 		case MENUOP_TICK:
 			if (g_Menus[g_MpPlayerNum].curdialog) {
-#if VERSION >= VERSION_JPN_FINAL
-				if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
-					f32 offset;
-					f32 size;
-
-					index -= NUM_BIO_LOCATIONS;
-
-					offset = items[index].y_offset;
-					size = items[index].size * 0.001f;
-
-					g_Menus[g_MpPlayerNum].unk840.unk544 = size;
-					g_Menus[g_MpPlayerNum].unk840.unk514 = offset;
-					g_Menus[g_MpPlayerNum].unk840.unk53c = offset;
-
-					if (g_Menus[g_MpPlayerNum].unk840.unk00c != items[index].fileid) {
-						g_Menus[g_MpPlayerNum].unk840.unk000 = 8;
-					}
-
-					g_Menus[g_MpPlayerNum].unk840.unk00c = items[index].fileid;
-					g_Menus[g_MpPlayerNum].unk840.unk54c = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
-					g_Menus[g_MpPlayerNum].unk840.unk524 += 0.01f * g_Vars.diffframe60freal;
-					g_Menus[g_MpPlayerNum].unk840.partvisibility = g_BioPartVisibility;
-				} else {
-					g_Menus[g_MpPlayerNum].unk840.unk548 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk520 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk54c = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk524 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk53c = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk514 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk544 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk51c = 0;
-				}
-#else
 				if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
 					f32 offset;
 					f32 size;
@@ -2695,16 +2496,10 @@ s32 ciHangarHolographMenuDialog(s32 operation, struct menudialogdef *dialogdef, 
 					g_Menus[g_MpPlayerNum].unk840.unk514 = offset;
 					g_Menus[g_MpPlayerNum].unk840.unk53c = offset;
 					g_Menus[g_MpPlayerNum].unk840.unk00c = items[index].fileid;
-#if VERSION >= VERSION_PAL_BETA
-					g_Menus[g_MpPlayerNum].unk840.unk54c = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
-					g_Menus[g_MpPlayerNum].unk840.unk524 += 0.01f * g_Vars.diffframe60freal;
-#else
 					g_Menus[g_MpPlayerNum].unk840.unk54c = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
 					g_Menus[g_MpPlayerNum].unk840.unk524 += 0.01f * g_Vars.diffframe60f;
-#endif
 					g_Menus[g_MpPlayerNum].unk840.partvisibility = g_BioPartVisibility;
 				}
-#endif
 			}
 			break;
 		}

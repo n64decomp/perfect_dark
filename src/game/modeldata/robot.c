@@ -65,17 +65,10 @@ struct headorbody g_HeadsAndBodies[] = {
 	//           ismale
 	//           |                                  height
 	//           |                                  |
-#if VERSION >= VERSION_NTSC_1_0
 	{ /*0x0000*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     167, FILE_CDJBOND,          1,    1.0446009635925,  0, FILE_GHAND_DDSECURITY      },
 	{ /*0x0001*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     167, FILE_CCONNERY,         1,    1.0300469398499,  0, FILE_GHAND_MRBLONDE        },
 	{ /*0x0002*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     165, FILE_CDALTON,          1,    1.0572769641876,  0, FILE_GHAND_DDSECURITY      },
 	{ /*0x0003*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     167, FILE_CMOORE,           1,    1.0399061441422,  0, FILE_GHAND_DDSECURITY      },
-#else
-	{ /*0x0000*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     169, FILE_CDJBOND,          1,    1.0446009635925,  0, FILE_GHAND_DDSECURITY      },
-	{ /*0x0001*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     169, FILE_CCONNERY,         1,    1.0300469398499,  0, FILE_GHAND_MRBLONDE        },
-	{ /*0x0002*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     167, FILE_CDALTON,          1,    1.0572769641876,  0, FILE_GHAND_DDSECURITY      },
-	{ /*0x0003*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     169, FILE_CMOORE,           1,    1.0399061441422,  0, FILE_GHAND_DDSECURITY      },
-#endif
 	{ /*0x0004*/ 0, 1, 0, HEADBODYTYPE_FEMALE,      13,  FILE_CHEADDARK_COMBAT, 1,    1,                0, 0                          },
 	{ /*0x0005*/ 1, 1, 0, HEADBODYTYPE_MAIAN,       27,  FILE_CHEADELVIS,       1,    1,                0, 0                          },
 	{ /*0x0006*/ 1, 1, 0, HEADBODYTYPE_DEFAULT,     13,  FILE_CHEADROSS,        1,    1,                0, 0                          },
@@ -163,11 +156,7 @@ struct headorbody g_HeadsAndBodies[] = {
 	{ /*0x0058*/ 1, 0, 1, HEADBODYTYPE_DEFAULT,     157, FILE_CAREA51GUARD,     1,    0.92769956588745, 0, FILE_GHAND_A51GUARD        },
 	{ /*0x0059*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     159, FILE_COVERALL,         1,    0.92769956588745, 0, FILE_GHAND_A51GUARD        },
 	{ /*0x005a*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     154, FILE_CCARRINGTON,      1,    0.85915493965149, 0, FILE_GHAND_CARRINGTON      },
-#if VERSION >= VERSION_NTSC_1_0
 	{ /*0x005b*/ 1, 0, 0, HEADBODYTYPE_MRBLONDE,    169, FILE_CMRBLONDE,        1,    1.1032863855362,  0, FILE_GHAND_MRBLONDE        },
-#else
-	{ /*0x005b*/ 1, 0, 0, HEADBODYTYPE_MRBLONDE,    175, FILE_CMRBLONDE,        1,    1.1032863855362,  0, FILE_GHAND_MRBLONDE        },
-#endif
 	{ /*0x005c*/ 1, 0, 1, HEADBODYTYPE_DEFAULT,     159, FILE_CSKEDAR,          1,    1,                0, 0                          },
 	{ /*0x005d*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     161, FILE_CTRENT,           1,    0.93896716833115, 0, FILE_GHAND_TRENT           },
 	{ /*0x005e*/ 1, 0, 1, HEADBODYTYPE_DEFAULT,     157, FILE_CDDSHOCK,         1,    0.93896716833115, 0, FILE_GHAND_DDFODDER        },
@@ -178,11 +167,7 @@ struct headorbody g_HeadsAndBodies[] = {
 	{ /*0x0063*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     157, FILE_COFFICEWORKER,    1,    0.93896716833115, 0, FILE_GHAND_JOFROCK         },
 	{ /*0x0064*/ 1, 0, 0, HEADBODYTYPE_DEFAULT,     157, FILE_COFFICEWORKER2,   1,    0.93896716833115, 0, FILE_GHAND_JOFROCK         },
 	{ /*0x0065*/ 0, 0, 0, HEADBODYTYPE_FEMALE,      140, FILE_CSECRETARY,       1,    0.87323945760727, 0, FILE_GHAND_JOFROCK         },
-#if VERSION >= VERSION_NTSC_1_0
 	{ /*0x0066*/ 0, 0, 0, HEADBODYTYPE_CASS,        167, FILE_CCASSANDRA,       1,    0.98591554164886, 0, FILE_GHAND_VRIES           },
-#else
-	{ /*0x0066*/ 0, 0, 0, HEADBODYTYPE_CASS,        169, FILE_CCASSANDRA,       1,    0.98591554164886, 0, FILE_GHAND_VRIES           },
-#endif
 	{ /*0x0067*/ 1, 0, 0, HEADBODYTYPE_MAIAN,       106, FILE_CTHEKING,         1,    0.57276993989944, 0, FILE_GHAND_ELVIS           },
 	{ /*0x0068*/ 0, 0, 1, HEADBODYTYPE_FEMALEGUARD, 160, FILE_CFEM_GUARD,       1,    0.96713620424271, 0, FILE_GHAND_JOTRENCH        },
 	{ /*0x0069*/ 1, 0, 1, HEADBODYTYPE_DEFAULT,     157, FILE_CDD_LABTECH,      1,    0.93896716833115, 0, FILE_GHAND_DDLABTECH       },

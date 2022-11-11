@@ -88,10 +88,8 @@ void botReset(struct chrdata *chr, u8 respawning)
 			chr->cmnum = 0;
 			chr->cmnum2 = 0;
 
-#if VERSION >= VERSION_NTSC_1_0
 			bgunFreeFireslot(chr->fireslots[0]);
 			bgunFreeFireslot(chr->fireslots[1]);
-#endif
 
 			chr->unk32c_12 = 0;
 			chr->fireslots[0] = -1;
@@ -122,11 +120,7 @@ void botReset(struct chrdata *chr, u8 respawning)
 			aibot->nextbullettimer60[0] = 0;
 			aibot->nextbullettimer60[1] = 0;
 			aibot->distmode = -1;
-
-#if VERSION < VERSION_PAL_BETA
 			aibot->unk030 = 301;
-#endif
-
 			aibot->throwtimer60 = 0;
 			aibot->burstsdone[0] = 0;
 			aibot->burstsdone[1] = 0;
@@ -189,12 +183,9 @@ void botReset(struct chrdata *chr, u8 respawning)
 			aibot->random2 = random();
 			aibot->randomfrac = RANDOMFRAC();
 			aibot->cheap = 0;
-
-#if VERSION >= VERSION_NTSC_1_0
 			aibot->unk078 = 0;
 			aibot->unk050 = 0;
 			aibot->unk09d = 0;
-#endif
 		}
 
 		if (aibot->config->type == BOTTYPE_TURTLE || aibot->config->type == BOTTYPE_SHIELD) {
@@ -432,15 +423,9 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 
 	if (1);
 
-#if VERSION >= VERSION_NTSC_1_0
 	if ((obj->hidden & OBJHFLAG_REAPABLE) || (obj->flags & OBJFLAG_THROWNLAPTOP)) {
 		return false;
 	}
-#else
-	if (obj->flags & OBJFLAG_THROWNLAPTOP) {
-		return false;
-	}
-#endif
 
 	if ((obj->hidden & OBJHFLAG_PROJECTILE)
 			&& obj->projectile
@@ -614,10 +599,7 @@ void botCheckPickups(struct chrdata *chr)
 			if (prop->timetoregen == 0) {
 				struct defaultobj *obj = prop->obj;
 
-#if VERSION >= VERSION_NTSC_1_0
-				if (obj)
-#endif
-				{
+				if (obj) {
 					if ((obj->hidden & OBJHFLAG_PROJECTILE) == 0
 							|| obj->projectile == NULL
 							|| obj->projectile->pickuptimer240 <= 0
@@ -1023,11 +1005,7 @@ f32 botCalculateMaxSpeed(struct chrdata *chr)
 	return speed;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void bot0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3)
-#else
-void bot0f1921f8(struct chrdata *chr, f32 *move)
-#endif
 {
 	s32 i;
 	f32 sp50;
@@ -1070,7 +1048,6 @@ void bot0f1921f8(struct chrdata *chr, f32 *move)
 	move[1] = 0;
 
 
-#if VERSION >= VERSION_NTSC_1_0
 	tmp = (PAL ? 0.065f : 0.055000007152557f) * arg3 / numupdates;
 
 	for (i = 0; i < numupdates; i++) {
@@ -1080,17 +1057,6 @@ void bot0f1921f8(struct chrdata *chr, f32 *move)
 		move[0] += chr->aibot->unk0b4 * tmp;
 		move[1] += chr->aibot->unk0b8 * tmp;
 	}
-#else
-	tmp = (PAL ? 0.065f : 0.055000007152557f) * g_Vars.lvupdate60freal / g_Vars.lvupdate240;
-
-	for (i = 0; i < g_Vars.lvupdate240; i++) {
-		chr->aibot->unk0b4 = (PAL ? 0.935f : 0.945f) * chr->aibot->unk0b4 + sp30[0];
-		chr->aibot->unk0b8 = (PAL ? 0.935f : 0.945f) * chr->aibot->unk0b8 + sp30[1];
-
-		move[0] += chr->aibot->unk0b4 * tmp;
-		move[1] += chr->aibot->unk0b8 * tmp;
-	}
-#endif
 }
 
 u32 g_MpBotCommands[NUM_MPBOTCOMMANDS] = {
@@ -2387,19 +2353,11 @@ void botTickUnpaused(struct chrdata *chr)
 				&& (botIsAboutToAttack(chr, true) || chr->myaction == MA_AIBOTDOWNLOAD)) {
 			aibot->cloakdeviceenabled = true;
 		} else {
-#if VERSION >= VERSION_PAL_FINAL
-			if (aibot->ammoheld[AMMOTYPE_CLOAK] > TICKS(1200) + (aibot->random1 >> 5) % TICKS(1200)) {
-				aibot->cloakdeviceenabled = true;
-			} else if (aibot->ammoheld[AMMOTYPE_CLOAK] <= (aibot->random1 >> 17) % TICKS(1200)) {
-				aibot->cloakdeviceenabled = false;
-			}
-#else
 			if (aibot->ammoheld[AMMOTYPE_CLOAK] > 1200 + (aibot->random1 >> 5) % 1200) {
 				aibot->cloakdeviceenabled = true;
 			} else if (aibot->ammoheld[AMMOTYPE_CLOAK] <= (aibot->random1 >> 17) % 1200) {
 				aibot->cloakdeviceenabled = false;
 			}
-#endif
 		}
 
 		// Consider starting or stopping RC-P120 cloak

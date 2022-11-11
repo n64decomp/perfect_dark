@@ -844,10 +844,6 @@ struct modelstate g_ModelStates[NUM_MODELS] = {
 	/*0x01b6*/ { NULL, FILE_PDD_DR_NONREF,          0x1000 },
 	/*0x01b7*/ { NULL, FILE_PCETANDOORSIDE,         0x1000 },
 	/*0x01b8*/ { NULL, FILE_PBUDDYBRIDGE,           0x0199 },
-#if VERSION == VERSION_JPN_FINAL
-	/*0x01b9*/ { NULL, FILE_PJPNLOGO,               0x1000 },
-	/*0x01ba*/ { NULL, FILE_PJPNPD,                 0x1000 },
-#endif
 };
 
 s8 g_PropExplosionTypes[] = {
@@ -1301,10 +1297,6 @@ s8 g_PropExplosionTypes[] = {
 	/*0x01bf*/ EXPLOSIONTYPE_NONE,
 	/*0x01c0*/ EXPLOSIONTYPE_NONE,
 	/*0x01c1*/ EXPLOSIONTYPE_NONE,
-#if VERSION >= VERSION_JPN_FINAL
-	/*0x01c2*/ EXPLOSIONTYPE_NONE,
-	/*0x01c3*/ EXPLOSIONTYPE_NONE,
-#endif
 	0xff,
 };
 

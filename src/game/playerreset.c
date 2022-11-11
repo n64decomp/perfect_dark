@@ -263,11 +263,7 @@ void playerReset(void)
 
 	if (cheatIsActive(CHEAT_CLOAKINGDEVICE)) {
 		invGiveSingleWeapon(WEAPON_CLOAKINGDEVICE);
-#if VERSION >= VERSION_PAL_FINAL
-		bgunSetAmmoQuantity(AMMOTYPE_CLOAK, TICKS(7200));
-#else
 		bgunSetAmmoQuantity(AMMOTYPE_CLOAK, 7200);
-#endif
 	}
 
 	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
@@ -308,7 +304,6 @@ void playerReset(void)
 		bgunSetAmmoQuantity(AMMOTYPE_PISTOL, 200);
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (cheatIsActive(CHEAT_PSYCHOSISGUN) || cheatIsActive(CHEAT_ALLGUNS)) {
 		bgunSetAmmoQuantity(AMMOTYPE_PSYCHOSIS, 4);
 
@@ -316,12 +311,6 @@ void playerReset(void)
 			invGiveSingleWeapon(WEAPON_PSYCHOSISGUN);
 		}
 	}
-#else
-	if (cheatIsActive(CHEAT_PSYCHOSISGUN)) {
-		invGiveSingleWeapon(WEAPON_PSYCHOSISGUN);
-		bgunSetAmmoQuantity(AMMOTYPE_PSYCHOSIS, 4);
-	}
-#endif
 
 	if (cheatIsActive(CHEAT_PP9I)) {
 		invGiveSingleWeapon(WEAPON_PP9I);

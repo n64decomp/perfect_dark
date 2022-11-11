@@ -583,11 +583,7 @@ struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
 			func0f02e9a0(chr, 0);
 			chr->chrflags |= CHRCFLAG_HIDDEN;
 
-#if VERSION >= VERSION_NTSC_1_0
 			chr->hidden2 |= CHRH2FLAG_0040;
-#else
-			chr->hidden |= CHRHFLAG_00000200;
-#endif
 
 			return prop;
 		}
@@ -617,70 +613,11 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 	struct modelrodata_bbox *bbox;
 	s32 i;
 
-#if VERSION >= VERSION_JPN_FINAL
-	offset = 0;
-
-	switch (headnum) {
-	case HEAD_DARK_COMBAT:
-	case HEAD_DARK_FROCK:
-	case HEAD_DARKAQUA:
-	case HEAD_DARK_SNOW:
-		switch (bodynum) {
-		case BODY_DARK_COMBAT:
-		case BODY_DARK_FROCK:
-		case BODY_DARK_TRENCH:
-		case BODY_DARK_RIPPED:
-		case BODY_DARK_AF1:
-		case BODY_DARKWET:
-		case BODY_DARKAQUALUNG:
-		case BODY_DARKSNOW:
-		case BODY_DARKLAB:
-		case BODY_DARK_LEATHER:
-		case BODY_DARK_NEGOTIATOR:
-			break;
-		default:
-			offset = -12;
-			break;
-		}
-		break;
-	}
-#endif
-
 	if ((s16)(*(s32 *)&headfiledata->skel) == SKEL_HEAD) {
-#if VERSION >= VERSION_JPN_FINAL
-		if (g_HeadsAndBodies[headnum].type == g_HeadsAndBodies[bodynum].type && offset == 0) {
-			return;
-		}
-#else
 		if (g_HeadsAndBodies[headnum].type == g_HeadsAndBodies[bodynum].type) {
 			return;
 		}
-#endif
 
-#if VERSION >= VERSION_JPN_FINAL
-		switch (g_HeadsAndBodies[headnum].type) {
-		default:
-		case HEADBODYTYPE_FEMALE:
-			offset += 0;
-			break;
-		case HEADBODYTYPE_MAIAN:
-			offset += 0;
-			break;
-		case HEADBODYTYPE_DEFAULT:
-			offset -= 35;
-			break;
-		case HEADBODYTYPE_MRBLONDE:
-			offset += 0;
-			break;
-		case HEADBODYTYPE_CASS:
-			offset -= 20;
-			break;
-		case HEADBODYTYPE_FEMALEGUARD:
-			offset -= 40;
-			break;
-		}
-#else
-		// Same as JPN, but sets the value rather than adjusts
 		switch (g_HeadsAndBodies[headnum].type) {
 		default:
 		case HEADBODYTYPE_FEMALE:
@@ -702,7 +639,6 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 			offset = -40;
 			break;
 		}
-#endif
 
 		switch (g_HeadsAndBodies[bodynum].type) {
 		case HEADBODYTYPE_FEMALE:

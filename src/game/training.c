@@ -69,14 +69,6 @@ u8 ciGetFiringRangeScore(s32 weaponindex)
 {
 	// Data at firingrangescores is a u8 array where each score uses 2 bits
 
-#if VERSION == VERSION_JPN_FINAL
-	if (weaponindex == frGetWeaponIndexByWeapon(WEAPON_COMBATKNIFE)) {
-		// The knife doesn't exist in the JPN version.
-		// Treat it as completed so unlockables still work.
-		return 3;
-	}
-#endif
-
 	return (g_GameFile.firingrangescores[weaponindex >> 2] >> (weaponindex % 4) * 2) & 3;
 }
 
@@ -153,17 +145,12 @@ u8 frIsWeaponFound(s32 weaponnum)
 		return true;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (weaponnum < (s32)sizeof(g_GameFile.weaponsfound) * 8) {
 		byteindex = weaponnum >> 3;
 		return g_GameFile.weaponsfound[byteindex] & (1 << (weaponnum % 8));
 	}
 
 	return false;
-#else
-	byteindex = weaponnum >> 3;
-	return g_GameFile.weaponsfound[byteindex] & (1 << (weaponnum % 8));
-#endif
 }
 
 void frSetWeaponFound(s32 weaponnum)
@@ -204,12 +191,6 @@ bool func0f19cbcc(s32 weapon)
 
 bool frIsWeaponAvailable(s32 weapon)
 {
-#if VERSION == VERSION_JPN_FINAL
-	if (weapon == WEAPON_COMBATKNIFE) {
-		return false;
-	}
-#endif
-
 	if (weapon < WEAPON_FALCON2 || weapon > WEAPON_REMOTEMINE
 			|| weapon == WEAPON_PSYCHOSISGUN
 			|| weapon == WEAPON_COMBATBOOST
@@ -220,12 +201,6 @@ bool frIsWeaponAvailable(s32 weapon)
 	if (weapon == WEAPON_FALCON2 || weapon == WEAPON_CMP150) {
 		return true;
 	}
-
-#if VERSION < VERSION_NTSC_1_0
-	if (debugIsAllTrainingEnabled() && weapon <= WEAPON_XRAYSCANNER) {
-		return true;
-	}
-#endif
 
 	return frIsWeaponFound(weapon);
 }
@@ -340,17 +315,9 @@ s32 frIsClassicWeaponUnlocked(u32 weapon)
 			&& ciGetFiringRangeScore(24) == 3
 			&& ciGetFiringRangeScore(25) == 3;
 	case WEAPON_DMC:
-#if VERSION >= VERSION_NTSC_1_0
 		return ciGetFiringRangeScore(29) == 3
 			&& ciGetFiringRangeScore(30) == 3
 			&& ciGetFiringRangeScore(31) == 3;
-#else
-		return ciGetFiringRangeScore(29) == 3
-			&& ciGetFiringRangeScore(30) == 3
-			&& ciGetFiringRangeScore(32) == 3
-			&& ciGetFiringRangeScore(33) == 3
-			&& ciGetFiringRangeScore(34) == 3;
-#endif
 	case WEAPON_AR53:
 		return ciGetFiringRangeScore(19) == 3
 			&& ciGetFiringRangeScore(20) == 3
@@ -447,9 +414,7 @@ void frReset(void)
 {
 	s32 i;
 
-#if VERSION >= VERSION_NTSC_1_0
 	g_FrScriptOffsets = NULL;
-#endif
 
 	g_FrDataLoaded = false;
 	g_FrIsValidWeapon = false;
@@ -460,7 +425,6 @@ void frReset(void)
 	g_FrData.helpscriptenabled = false;
 	g_FrData.helpscriptsleep = 0;
 
-#if VERSION >= VERSION_NTSC_1_0
 	g_FrData.menucountdown = 0;
 	g_FrData.maxactivetargets = 0;
 
@@ -470,7 +434,6 @@ void frReset(void)
 	}
 
 	g_FrNumSounds = 0;
-#endif
 }
 
 void *frLoadRomData(u32 len)
@@ -523,9 +486,7 @@ void frInitDefaults(void)
 	for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
 		g_FrData.targets[i].dstpos = pad->pos;
 
-#if VERSION >= VERSION_NTSC_1_0
 		g_FrData.targets[i].dstpos.z += 6.0f * i;
-#endif
 
 		g_FrData.targets[i].inuse = false;
 		g_FrData.targets[i].rotateoncloak = false;
@@ -878,9 +839,7 @@ bool frExecuteTargetScript(s32 targetnum)
 
 			g_FrData.targets[targetnum].dstpos = g_Pads[g_FrPads[frpadnum]].pos;
 
-#if VERSION >= VERSION_NTSC_1_0
 			g_FrData.targets[targetnum].dstpos.z += 6.0f * targetnum;
-#endif
 
 			if (script[offset + 2] == 0xff) {
 				g_FrData.targets[targetnum].travelspeed = -1;
@@ -959,10 +918,7 @@ void frInitTargets(void)
 	for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
 		prop = g_FrData.targets[i].prop;
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (prop)
-#endif
-		{
+		if (prop) {
 			obj = prop->obj;
 
 			objFree(obj, false, true);
@@ -984,11 +940,7 @@ void frInitTargets(void)
 
 				pos.f[0] = g_Pads[g_FrPads[g_FrData.targets[i].frpadindex]].pos.f[0];
 				pos.f[1] = g_Pads[g_FrPads[g_FrData.targets[i].frpadindex]].pos.f[1];
-#if VERSION >= VERSION_NTSC_1_0
 				pos.f[2] = g_Pads[g_FrPads[g_FrData.targets[i].frpadindex]].pos.f[2] + 6.0f * i;
-#else
-				pos.f[2] = g_Pads[g_FrPads[g_FrData.targets[i].frpadindex]].pos.f[2];
-#endif
 
 				frExecuteTargetScript(i);
 
@@ -1144,41 +1096,6 @@ char *frGetWeaponDescription(void)
 	u32 weapon = frGetWeaponBySlot(g_FrData.slot);
 
 	switch (weapon) {
-#if VERSION >= VERSION_PAL_BETA
-	case WEAPON_FALCON2:          return langGet(L_DISH_283);
-	case WEAPON_FALCON2_SCOPE:    return langGet(L_DISH_284);
-	case WEAPON_FALCON2_SILENCER: return langGet(L_DISH_285);
-	case WEAPON_MAGSEC4:          return langGet(L_DISH_286);
-	case WEAPON_MAULER:           return langGet(L_DISH_287);
-	case WEAPON_PHOENIX:          return langGet(L_DISH_288);
-	case WEAPON_DY357MAGNUM:      return langGet(L_DISH_289);
-	case WEAPON_DY357LX:          return langGet(L_DISH_290);
-	case WEAPON_CMP150:           return langGet(L_DISH_291);
-	case WEAPON_CYCLONE:          return langGet(L_DISH_292);
-	case WEAPON_CALLISTO:         return langGet(L_DISH_293);
-	case WEAPON_RCP120:           return langGet(L_DISH_294);
-	case WEAPON_LAPTOPGUN:        return langGet(L_DISH_295);
-	case WEAPON_DRAGON:           return langGet(L_DISH_296);
-	case WEAPON_K7AVENGER:        return langGet(L_DISH_297);
-	case WEAPON_AR34:             return langGet(L_DISH_298);
-	case WEAPON_SUPERDRAGON:      return langGet(L_DISH_299);
-	case WEAPON_SHOTGUN:          return langGet(L_DISH_300);
-	case WEAPON_SNIPERRIFLE:      return langGet(L_DISH_301);
-	case WEAPON_FARSIGHT:         return langGet(L_DISH_302);
-	case WEAPON_CROSSBOW:         return langGet(L_DISH_303);
-	case WEAPON_TRANQUILIZER:     return langGet(L_DISH_304);
-	case WEAPON_REAPER:           return langGet(L_DISH_305);
-	case WEAPON_DEVASTATOR:       return langGet(L_DISH_306);
-	case WEAPON_ROCKETLAUNCHER:   return langGet(L_DISH_307);
-	case WEAPON_SLAYER:           return langGet(L_DISH_308);
-	case WEAPON_COMBATKNIFE:      return langGet(L_DISH_309);
-	case WEAPON_LASER:            return langGet(L_DISH_310);
-	case WEAPON_GRENADE:          return langGet(L_DISH_311);
-	case WEAPON_NBOMB:            return langGet(L_DISH_312);
-	case WEAPON_TIMEDMINE:        return langGet(L_DISH_313);
-	case WEAPON_PROXIMITYMINE:    return langGet(L_DISH_314);
-	case WEAPON_REMOTEMINE:       return langGet(L_DISH_315);
-#else
 	case WEAPON_FALCON2:          return langGet(L_MISC_377);
 	case WEAPON_FALCON2_SCOPE:    return langGet(L_MISC_378);
 	case WEAPON_FALCON2_SILENCER: return langGet(L_MISC_379);
@@ -1212,7 +1129,6 @@ char *frGetWeaponDescription(void)
 	case WEAPON_TIMEDMINE:        return langGet(L_MISC_407);
 	case WEAPON_PROXIMITYMINE:    return langGet(L_MISC_408);
 	case WEAPON_REMOTEMINE:       return langGet(L_MISC_409);
-#endif
 	}
 
 	return NULL;
@@ -1635,9 +1551,7 @@ void frTick(void)
 	bool oldside;
 	struct modelrodata_bbox *bbox;
 	s32 tmp;
-#if VERSION >= VERSION_NTSC_1_0
 	f32 mult;
-#endif
 	bool newside;
 	struct chrdata *chr;
 	bool cloaked;
@@ -1651,31 +1565,6 @@ void frTick(void)
 			&& invHasSingleWeaponIncAllGuns(frGetWeaponBySlot(g_FrData.slot))) {
 		bgunEquipWeapon(frGetWeaponBySlot(g_FrData.slot));
 	}
-
-	// NTSC beta does the room code then menu code,
-	// while everything else does the menu code then room code
-#if VERSION < VERSION_NTSC_1_0
-	// End the session if the player slipped through the door before it closed
-	if (g_Vars.currentplayer->prop->rooms[0] != ROOM_DISH_FIRINGRANGE) {
-		if (g_FrIsValidWeapon) {
-			for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
-				if (g_FrData.targets[i].inuse
-						&& g_FrData.targets[i].destroyed == false
-						&& g_FrData.targets[i].silent == false
-						&& g_FrData.targets[i].travelling) {
-					g_FrData.targets[i].silent = true;
-					func0f0926bc(g_FrData.targets[i].prop, 1, 0xffff);
-				}
-			}
-
-			g_Vars.currentplayer->training = false;
-			frEndSession(true);
-			g_FrData.menucountdown = 0; // This assignment is in NTSC beta only
-			chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
-		}
-		return;
-	}
-#endif
 
 	// Handle the menu countdown
 	if (g_FrData.menucountdown != 0) {
@@ -1719,7 +1608,6 @@ void frTick(void)
 		return;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	// End the session if the player slipped through the door before it closed
 	if (g_Vars.currentplayer->prop->rooms[0] != ROOM_DISH_FIRINGRANGE) {
 		if (g_FrIsValidWeapon) {
@@ -1739,7 +1627,6 @@ void frTick(void)
 		}
 		return;
 	}
-#endif
 
 	if (!g_FrIsValidWeapon) {
 		return;
@@ -1972,9 +1859,7 @@ void frTick(void)
 				if (g_FrData.targets[i].travelspeed == -1) {
 					g_FrData.targets[i].donestopsound = true;
 					g_FrData.targets[i].travelling = false;
-#if VERSION >= VERSION_NTSC_1_0
 					mult = 1;
-#endif
 					dist = -2;
 				} else {
 					diff.x = g_FrData.targets[i].dstpos.x - prop->pos.x;
@@ -1982,43 +1867,22 @@ void frTick(void)
 					diff.z = g_FrData.targets[i].dstpos.z - prop->pos.z;
 
 					dist = sqrtf(diff.f[0] * diff.f[0] + diff.f[1] * diff.f[1] + diff.f[2] * diff.f[2]);
-#if VERSION >= VERSION_NTSC_1_0
 					mult = 1;
-#endif
 
 					if (dist != 0) {
-#if VERSION >= VERSION_NTSC_1_0
-
-#if VERSION >= VERSION_PAL_BETA
-						mult = g_FrData.targets[i].travelspeed * g_Vars.lvupdate60freal;
-#else
 						mult = (g_FrData.targets[i].travelspeed * g_Vars.lvupdate240) * 0.25f;
-#endif
 						diff.x *= 1.0f / dist;
 						diff.y *= 1.0f / dist;
 						diff.z *= 1.0f / dist;
 						newpos.x = diff.x * mult + prop->pos.x;
 						newpos.y = diff.y * mult + prop->pos.y;
 						newpos.z = diff.z * mult + prop->pos.z;
-#else
-						diff.x *= 1.0f / dist;
-						diff.y *= 1.0f / dist;
-						diff.z *= 1.0f / dist;
-						newpos.x = diff.x * g_FrData.targets[i].travelspeed * g_Vars.lvupdate240 * 0.25f + prop->pos.x;
-						newpos.y = diff.y * g_FrData.targets[i].travelspeed * g_Vars.lvupdate240 * 0.25f + prop->pos.y;
-						newpos.z = diff.z * g_FrData.targets[i].travelspeed * g_Vars.lvupdate240 * 0.25f + prop->pos.z;
-#endif
 					} else {
 						dist = -2;
 					}
 				}
 
-#if VERSION >= VERSION_NTSC_1_0
-				if (mult >= dist)
-#else
-				if (dist < g_FrData.targets[i].travelspeed)
-#endif
-				{
+				if (mult >= dist) {
 					// Target is stopping
 					newpos = g_FrData.targets[i].dstpos;
 
@@ -2085,11 +1949,7 @@ void frTick(void)
 
 				oldside = (u8)oldside;
 
-#if VERSION >= VERSION_PAL_BETA
-				g_FrData.targets[i].angle += speed * g_Vars.lvupdate60freal;
-#else
 				g_FrData.targets[i].angle += speed * g_Vars.lvupdate240 * 0.25f;
-#endif
 
 				newside = 0;
 
@@ -2320,18 +2180,6 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 #endif
 	struct chrbio bios[] = {
 		// name, race, age, profile
-#if VERSION >= VERSION_PAL_BETA
-		/*0*/ { L_DISH_125, L_DISH_126, L_DISH_127, L_DISH_128 }, // Joanna Dark
-		/*1*/ { L_DISH_129, L_DISH_130, L_DISH_131, L_DISH_132 }, // Jonathan
-		/*2*/ { L_DISH_133, L_DISH_134, L_DISH_135, L_DISH_136 }, // Daniel Carrington
-		/*3*/ { L_DISH_137, L_DISH_138, L_DISH_139, L_DISH_140 }, // Cassandra De Vries
-		/*4*/ { L_DISH_141, L_DISH_142, L_DISH_143, L_DISH_144 }, // Trent Easton
-		/*5*/ { L_DISH_145, L_DISH_146, L_DISH_147, L_DISH_148 }, // Dr. Caroll
-		/*6*/ { L_DISH_149, L_DISH_150, L_DISH_151, L_DISH_152 }, // Elvis
-		/*7*/ { L_DISH_153, L_DISH_154, L_DISH_155, L_DISH_156 }, // Mr. Blonde
-		/*8*/ { L_DISH_157, L_DISH_158, L_DISH_159, L_DISH_160 }, // Mr. Blonde (repeat)
-		/*9*/ { L_DISH_161, L_DISH_162, L_DISH_163, L_DISH_164 }, // The U.S. President
-#else
 		/*0*/ { L_MISC_219, L_MISC_220, L_MISC_221, L_MISC_222 }, // Joanna Dark
 		/*1*/ { L_MISC_223, L_MISC_224, L_MISC_225, L_MISC_226 }, // Jonathan
 		/*2*/ { L_MISC_227, L_MISC_228, L_MISC_229, L_MISC_230 }, // Daniel Carrington
@@ -2342,7 +2190,6 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 		/*7*/ { L_MISC_247, L_MISC_248, L_MISC_249, L_MISC_250 }, // Mr. Blonde
 		/*8*/ { L_MISC_251, L_MISC_252, L_MISC_253, L_MISC_254 }, // Mr. Blonde (repeat)
 		/*9*/ { L_MISC_255, L_MISC_256, L_MISC_257, L_MISC_258 }, // The U.S. President
-#endif
 	};
 
 	switch (bodynum) {
@@ -2417,17 +2264,10 @@ struct miscbio *ciGetMiscBio(s32 index)
 #endif
 	struct miscbio bios[] = {
 		// name, description
-#if VERSION >= VERSION_PAL_BETA
-		{ L_DISH_165, L_DISH_166 },
-		{ L_DISH_167, L_DISH_168 },
-		{ L_DISH_169, L_DISH_170 },
-		{ L_DISH_171, L_DISH_172 },
-#else
 		{ L_MISC_259, L_MISC_260 },
 		{ L_MISC_261, L_MISC_262 },
 		{ L_MISC_263, L_MISC_264 },
 		{ L_MISC_265, L_MISC_266 },
-#endif
 	};
 
 	switch (index) {
@@ -2509,31 +2349,6 @@ struct hangarbio *ciGetHangarBio(s32 index)
 #endif
 	struct hangarbio bios[] = {
 		// name, description
-#if VERSION >= VERSION_PAL_BETA
-		{ L_DISH_196, L_DISH_219 }, // Carrington Institute
-		{ L_DISH_197, L_DISH_220 }, // Lucerne Tower
-		{ L_DISH_198, L_DISH_221 }, // Laboratory Basement
-		{ L_DISH_199, L_DISH_222 }, // Carrington Villa
-		{ L_DISH_200, L_DISH_223 }, // Chicago
-		{ L_DISH_201, L_DISH_224 }, // G5 Building
-		{ L_DISH_202, L_DISH_225 }, // Area 51
-		{ L_DISH_203, L_DISH_226 }, // Alaskan Air Base
-		{ L_DISH_204, L_DISH_227 }, // Air Force One
-		{ L_DISH_205, L_DISH_228 }, // Crash Site
-		{ L_DISH_206, L_DISH_229 }, // Pelagic II
-		{ L_DISH_207, L_DISH_230 }, // Cetan Ship
-		{ L_DISH_208, L_DISH_231 }, // Skedar Assault Ship
-		{ L_DISH_209, L_DISH_232 }, // Skedar Homeworld
-		{ L_DISH_210, L_DISH_233 }, // Jumpship
-		{ L_DISH_211, L_DISH_234 }, // HoverCrate
-		{ L_DISH_212, L_DISH_235 }, // HoverBike
-		{ L_DISH_213, L_DISH_236 }, // Cleaning Hovbot
-		{ L_DISH_214, L_DISH_237 }, // Hovercopter
-		{ L_DISH_215, L_DISH_238 }, // G5 Robot
-		{ L_DISH_216, L_DISH_239 }, // A51 Interceptor
-		{ L_DISH_217, L_DISH_240 }, // Maian Vessel
-		{ L_DISH_218, L_DISH_241 }, // Skedar Shuttle
-#else
 		{ L_MISC_290, L_MISC_313 }, // Carrington Institute
 		{ L_MISC_291, L_MISC_314 }, // Lucerne Tower
 		{ L_MISC_292, L_MISC_315 }, // Laboratory Basement
@@ -2557,7 +2372,6 @@ struct hangarbio *ciGetHangarBio(s32 index)
 		{ L_MISC_310, L_MISC_333 }, // A51 Interceptor
 		{ L_MISC_311, L_MISC_334 }, // Maian Vessel
 		{ L_MISC_312, L_MISC_335 }, // Skedar Shuttle
-#endif
 	};
 
 	switch (index) {
@@ -2935,18 +2749,6 @@ u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
 char *dtGetDescription(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_BETA
-		/*0*/ L_DISH_186, // Data uplink
-		/*1*/ L_DISH_185, // ECM mine
-		/*2*/ L_DISH_177, // CamSpy
-		/*3*/ L_DISH_178, // Night vision
-		/*4*/ L_DISH_179, // Door decoder
-		/*5*/ L_DISH_183, // R-tracker
-		/*6*/ L_DISH_182, // IR scanner
-		/*7*/ L_DISH_180, // X-ray scanner
-		/*8*/ L_DISH_181, // Disguise
-		/*9*/ L_DISH_184, // Cloak
-#else
 		/*0*/ L_MISC_280, // Data uplink
 		/*1*/ L_MISC_279, // ECM mine
 		/*2*/ L_MISC_271, // CamSpy
@@ -2957,7 +2759,6 @@ char *dtGetDescription(void)
 		/*7*/ L_MISC_274, // X-ray scanner
 		/*8*/ L_MISC_275, // Disguise
 		/*9*/ L_MISC_278, // Cloak
-#endif
 	};
 
 	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
@@ -2966,18 +2767,6 @@ char *dtGetDescription(void)
 char *dtGetTip1(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_BETA
-		/*0*/ L_DISH_263,
-		/*1*/ L_DISH_264,
-		/*2*/ L_DISH_265,
-		/*3*/ L_DISH_266,
-		/*4*/ L_DISH_267,
-		/*5*/ L_DISH_268,
-		/*6*/ L_DISH_269,
-		/*7*/ L_DISH_270,
-		/*8*/ L_DISH_271,
-		/*9*/ L_DISH_272,
-#else
 		/*0*/ L_MISC_357,
 		/*1*/ L_MISC_358,
 		/*2*/ L_MISC_359,
@@ -2988,7 +2777,6 @@ char *dtGetTip1(void)
 		/*7*/ L_MISC_364,
 		/*8*/ L_MISC_365,
 		/*9*/ L_MISC_366,
-#endif
 	};
 
 	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
@@ -2997,18 +2785,6 @@ char *dtGetTip1(void)
 char *dtGetTip2(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_BETA
-		/*0*/ L_DISH_273,
-		/*1*/ L_DISH_274,
-		/*2*/ L_DISH_275,
-		/*3*/ L_DISH_276,
-		/*4*/ L_DISH_277,
-		/*5*/ L_DISH_278,
-		/*6*/ L_DISH_279,
-		/*7*/ L_DISH_280,
-		/*8*/ L_DISH_281,
-		/*9*/ L_DISH_282,
-#else
 		/*0*/ L_MISC_367,
 		/*1*/ L_MISC_368,
 		/*2*/ L_MISC_369,
@@ -3019,7 +2795,6 @@ char *dtGetTip2(void)
 		/*7*/ L_MISC_374,
 		/*8*/ L_MISC_375,
 		/*9*/ L_MISC_376,
-#endif
 	};
 
 	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
@@ -3205,15 +2980,6 @@ s32 htGetIndexBySlot(s32 slot)
 char *htGetName(s32 index)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_BETA
-		L_DISH_316, // "Holo 1 - Looking Around"
-		L_DISH_317, // "Holo 2 - Movement 1"
-		L_DISH_318, // "Holo 3 - Movement 2"
-		L_DISH_319, // "Holo 4 - Unarmed Combat 1"
-		L_DISH_320, // "Holo 5 - Unarmed Combat 2"
-		L_DISH_321, // "Holo 6 - Live Combat 1"
-		L_DISH_322, // "Holo 7 - Live Combat 2"
-#else
 		L_MISC_410, // "Holo 1 - Looking Around"
 		L_MISC_411, // "Holo 2 - Movement 1"
 		L_MISC_412, // "Holo 3 - Movement 2"
@@ -3221,7 +2987,6 @@ char *htGetName(s32 index)
 		L_MISC_414, // "Holo 5 - Unarmed Combat 2"
 		L_MISC_415, // "Holo 6 - Live Combat 1"
 		L_MISC_416, // "Holo 7 - Live Combat 2"
-#endif
 	};
 
 	return langGet(texts[index]);
@@ -3246,15 +3011,6 @@ u32 func0f1a25c0(s32 index)
 char *htGetDescription(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_BETA
-		L_DISH_242,
-		L_DISH_243,
-		L_DISH_244,
-		L_DISH_245,
-		L_DISH_246,
-		L_DISH_247,
-		L_DISH_248,
-#else
 		L_MISC_336,
 		L_MISC_337,
 		L_MISC_338,
@@ -3262,7 +3018,6 @@ char *htGetDescription(void)
 		L_MISC_340,
 		L_MISC_341,
 		L_MISC_342,
-#endif
 	};
 
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
@@ -3271,15 +3026,6 @@ char *htGetDescription(void)
 char *htGetTip1(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_BETA
-		L_DISH_249, // "For greater precision..."
-		L_DISH_250, // "Think about where you want to go..."
-		L_DISH_251, // "Ducking enables you to..."
-		L_DISH_252, // "Attacking opponents from behind..."
-		L_DISH_253, // "Only stay close long enough..."
-		L_DISH_254, // "Don't hang around and wait..."
-		L_DISH_255, // "Go for the armed opponents..."
-#else
 		L_MISC_343, // "For greater precision..."
 		L_MISC_344, // "Think about where you want to go..."
 		L_MISC_345, // "Ducking enables you to..."
@@ -3287,7 +3033,6 @@ char *htGetTip1(void)
 		L_MISC_347, // "Only stay close long enough..."
 		L_MISC_348, // "Don't hang around and wait..."
 		L_MISC_349, // "Go for the armed opponents..."
-#endif
 	};
 
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
@@ -3296,15 +3041,6 @@ char *htGetTip1(void)
 char *htGetTip2(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_BETA
-		L_DISH_256, // "For greater precision..."
-		L_DISH_257, // "Sidestepping and strafing..."
-		L_DISH_258, // "Ducking enables you to..."
-		L_DISH_259, // "Attacking opponents from behind..."
-		L_DISH_260, // "Only stay close long enough..."
-		L_DISH_261, // "Don't hang around and wait..."
-		L_DISH_262, // "Go for the armed opponents..."
-#else
 		L_MISC_350, // "For greater precision..."
 		L_MISC_351, // "Sidestepping and strafing..."
 		L_MISC_352, // "Ducking enables you to..."
@@ -3312,25 +3048,16 @@ char *htGetTip2(void)
 		L_MISC_354, // "Only stay close long enough..."
 		L_MISC_355, // "Don't hang around and wait..."
 		L_MISC_356, // "Go for the armed opponents..."
-#endif
 	};
 
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-void frGetGoalTargetsText(char *buffer, char *buffer2)
-{
-	sprintf(buffer, "%s", langGet(L_MISC_417));
-	sprintf(buffer2, "%d\n", g_FrData.goaltargets);
-}
-#else
 void frGetGoalTargetsText(char *buffer)
 {
 	// "GOAL TARGETS:"
 	sprintf(buffer, "%s %d\n", langGet(L_MISC_417), g_FrData.goaltargets);
 }
-#endif
 
 void frGetTargetsDestroyedValue(char *buffer)
 {
@@ -3342,18 +3069,6 @@ void frGetScoreValue(char *buffer)
 	sprintf(buffer, "%03d\n", g_FrData.score);
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-void frGetGoalScoreText(char *buffer1, char *buffer2)
-{
-	if (g_FrData.goalscore) {
-		sprintf(buffer1, "%s", langGet(L_MISC_418));
-		sprintf(buffer2, "%d\n", g_FrData.goalscore);
-	} else {
-		sprintf(buffer1, "");
-		sprintf(buffer2, "");
-	}
-}
-#else
 void frGetGoalScoreText(char *buffer)
 {
 	if (g_FrData.goalscore) {
@@ -3363,7 +3078,6 @@ void frGetGoalScoreText(char *buffer)
 		sprintf(buffer, "");
 	}
 }
-#endif
 
 f32 frGetAccuracy(char *buffer)
 {
@@ -3386,15 +3100,6 @@ f32 frGetAccuracy(char *buffer)
 	return accuracy;
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-bool frGetMinAccuracy(char *buffer1, f32 accuracy, char *buffer2)
-{
-	sprintf(buffer1, "%s", langGet(L_MISC_419));
-	sprintf(buffer2, "%d%%\n", g_FrData.goalaccuracy);
-
-	return accuracy < g_FrData.goalaccuracy;
-}
-#else
 bool frGetMinAccuracy(char *buffer, f32 accuracy)
 {
 	// "MIN ACCURACY:"
@@ -3402,7 +3107,6 @@ bool frGetMinAccuracy(char *buffer, f32 accuracy)
 
 	return accuracy < g_FrData.goalaccuracy;
 }
-#endif
 
 /**
  * Formats either the time taken or time limit into buffer, and returns true if
@@ -3445,43 +3149,6 @@ bool frFormatTime(char *buffer)
 	return failed;
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-bool frGetHudMiddleSubtext(char *buffer1, char *buffer2)
-{
-	s32 secs;
-	s32 mins;
-
-	sprintf(buffer2, "");
-
-	if (g_FrData.timetaken < TICKS(-180)) {
-		sprintf(buffer1, "%s", langGet(L_MISC_420)); // "FIRE TO START"
-		return false;
-	}
-
-	if (g_FrData.timetaken < 0) {
-		sprintf(buffer1, "%s", langGet(L_MISC_421)); // "GET READY!"
-		return true;
-	}
-
-	if (g_FrData.timelimit == 255) {
-		return false;
-	}
-
-	secs = g_FrData.timelimit;
-	mins = 0;
-
-	if (secs >= 60) {
-		while (secs >= 60) {
-			secs -= 60;
-			mins++;
-		}
-	}
-
-	sprintf(buffer1, "%s", langGet(L_MISC_422)); // "LIMIT:"
-	sprintf(buffer2, "%02d:%02d\n", mins, secs);
-	return true;
-}
-#else
 bool frGetHudMiddleSubtext(char *buffer)
 {
 	s32 secs;
@@ -3514,61 +3181,7 @@ bool frGetHudMiddleSubtext(char *buffer)
 	sprintf(buffer, "%s %02d:%02d\n", langGet(L_MISC_422), mins, secs); // "LIMIT:"
 	return true;
 }
-#endif
 
-#if VERSION >= VERSION_JPN_FINAL
-bool frGetFeedback(char *scorebuffer, char *zonebuffer, char *extrabuffer)
-{
-	u32 texts[] = {
-		L_MISC_423, // "ZONE 3"
-		L_MISC_424, // "ZONE 2"
-		L_MISC_425, // "ZONE 1"
-		L_MISC_426, // "BULL'S-EYE"
-		L_MISC_427, // "EXPLODED"
-	};
-
-	sprintf(extrabuffer, "");
-
-	if (g_FrData.feedbackzone) {
-		g_FrData.feedbackttl -= g_Vars.lvupdate60;
-
-		if (g_FrData.feedbackttl <= 0) {
-			g_FrData.feedbackzone = 0;
-			g_FrData.feedbackttl = 0;
-			return false;
-		}
-
-		if (g_FrData.feedbackzone == FRZONE_EXPLODE) {
-			sprintf(scorebuffer, "010\n");
-		} else {
-			sprintf(scorebuffer, "%03d\n", g_FrData.feedbackzone);
-		}
-
-		switch (g_FrData.feedbackzone) {
-		case FRZONE_RING3:
-			sprintf(zonebuffer, "%s", langGet(texts[0]));
-			return true;
-		case FRZONE_RING2:
-			sprintf(zonebuffer, "%s", langGet(texts[1]));
-			return true;
-		case FRZONE_RING1:
-			sprintf(zonebuffer, "%s", langGet(texts[2]));
-			return true;
-		case FRZONE_BULLSEYE:
-			sprintf(zonebuffer, "%s", langGet(texts[3]));
-			return true;
-		case FRZONE_EXPLODE:
-			sprintf(zonebuffer, "%s", langGet(texts[4]));
-			return true;
-		}
-
-		sprintf(zonebuffer, "\n");
-		return true;
-	}
-
-	return false;
-}
-#else
 bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 {
 	u32 texts[] = {
@@ -3618,231 +3231,7 @@ bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 
 	return false;
 }
-#endif
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel frRenderHudElement
-/*  f1a3788:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f1a378c:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f1a3790:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f1a3794:	8dce0150 */ 	lw	$t6,0x150($t6)
-/*  f1a3798:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f1a379c:	afa70084 */ 	sw	$a3,0x84($sp)
-/*  f1a37a0:	00e03025 */ 	move	$a2,$a3
-/*  f1a37a4:	00808025 */ 	move	$s0,$a0
-/*  f1a37a8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f1a37ac:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f1a37b0:	3c078008 */ 	lui	$a3,0x8008
-/*  f1a37b4:	afb10038 */ 	sw	$s1,0x38($sp)
-/*  f1a37b8:	8ce70154 */ 	lw	$a3,0x154($a3)
-/*  f1a37bc:	27a50070 */ 	addiu	$a1,$sp,0x70
-/*  f1a37c0:	27a40074 */ 	addiu	$a0,$sp,0x74
-/*  f1a37c4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f1a37c8:	0fc55d49 */ 	jal	textMeasure
-/*  f1a37cc:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f1a37d0:	8fa80070 */ 	lw	$t0,0x70($sp)
-/*  f1a37d4:	8faf007c */ 	lw	$t7,0x7c($sp)
-/*  f1a37d8:	8fa30080 */ 	lw	$v1,0x80($sp)
-/*  f1a37dc:	0008c043 */ 	sra	$t8,$t0,0x1
-/*  f1a37e0:	27aa0074 */ 	addiu	$t2,$sp,0x74
-/*  f1a37e4:	01f8c823 */ 	subu	$t9,$t7,$t8
-/*  f1a37e8:	afb9006c */ 	sw	$t9,0x6c($sp)
-/*  f1a37ec:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f1a37f0:	02002025 */ 	move	$a0,$s0
-/*  f1a37f4:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f1a37f8:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f1a37fc:	27a70070 */ 	addiu	$a3,$sp,0x70
-/*  f1a3800:	0fc54bed */ 	jal	text0f153858
-/*  f1a3804:	afa30068 */ 	sw	$v1,0x68($sp)
-/*  f1a3808:	0c002eeb */ 	jal	viGetWidth
-/*  f1a380c:	00408025 */ 	move	$s0,$v0
-/*  f1a3810:	00028c00 */ 	sll	$s1,$v0,0x10
-/*  f1a3814:	00115c03 */ 	sra	$t3,$s1,0x10
-/*  f1a3818:	0c002eef */ 	jal	viGetHeight
-/*  f1a381c:	01608825 */ 	move	$s1,$t3
-/*  f1a3820:	93a30097 */ 	lbu	$v1,0x97($sp)
-/*  f1a3824:	8fae0090 */ 	lw	$t6,0x90($sp)
-/*  f1a3828:	3c0c8008 */ 	lui	$t4,0x8008
-/*  f1a382c:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f1a3830:	2401ff00 */ 	li	$at,-256
-/*  f1a3834:	8dad0150 */ 	lw	$t5,0x150($t5)
-/*  f1a3838:	8d8c0154 */ 	lw	$t4,0x154($t4)
-/*  f1a383c:	01c17824 */ 	and	$t7,$t6,$at
-/*  f1a3840:	01e34825 */ 	or	$t1,$t7,$v1
-/*  f1a3844:	00034043 */ 	sra	$t0,$v1,0x1
-/*  f1a3848:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f1a384c:	afa80048 */ 	sw	$t0,0x48($sp)
-/*  f1a3850:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f1a3854:	afa90044 */ 	sw	$t1,0x44($sp)
-/*  f1a3858:	02002025 */ 	move	$a0,$s0
-/*  f1a385c:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f1a3860:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f1a3864:	8fa70084 */ 	lw	$a3,0x84($sp)
-/*  f1a3868:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f1a386c:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f1a3870:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f1a3874:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f1a3878:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f1a387c:	0fc55d34 */ 	jal	func0f1574d0jf
-/*  f1a3880:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f1a3884:	8fa60088 */ 	lw	$a2,0x88($sp)
-/*  f1a3888:	00408025 */ 	move	$s0,$v0
-/*  f1a388c:	27a4005c */ 	addiu	$a0,$sp,0x5c
-/*  f1a3890:	10c00060 */ 	beqz	$a2,.JF0f1a3a14
-/*  f1a3894:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f1a3898:	3c188008 */ 	lui	$t8,0x8008
-/*  f1a389c:	8f180148 */ 	lw	$t8,0x148($t8)
-/*  f1a38a0:	3c078008 */ 	lui	$a3,0x8008
-/*  f1a38a4:	8ce7014c */ 	lw	$a3,0x14c($a3)
-/*  f1a38a8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f1a38ac:	0fc55d49 */ 	jal	textMeasure
-/*  f1a38b0:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f1a38b4:	3c198008 */ 	lui	$t9,0x8008
-/*  f1a38b8:	8f390148 */ 	lw	$t9,0x148($t9)
-/*  f1a38bc:	3c078008 */ 	lui	$a3,0x8008
-/*  f1a38c0:	8ce7014c */ 	lw	$a3,0x14c($a3)
-/*  f1a38c4:	27a40054 */ 	addiu	$a0,$sp,0x54
-/*  f1a38c8:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*  f1a38cc:	8fa6008c */ 	lw	$a2,0x8c($sp)
-/*  f1a38d0:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f1a38d4:	0fc55d49 */ 	jal	textMeasure
-/*  f1a38d8:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f1a38dc:	8fab0058 */ 	lw	$t3,0x58($sp)
-/*  f1a38e0:	8fac0050 */ 	lw	$t4,0x50($sp)
-/*  f1a38e4:	8fad007c */ 	lw	$t5,0x7c($sp)
-/*  f1a38e8:	8fa20080 */ 	lw	$v0,0x80($sp)
-/*  f1a38ec:	016c4021 */ 	addu	$t0,$t3,$t4
-/*  f1a38f0:	8faa005c */ 	lw	$t2,0x5c($sp)
-/*  f1a38f4:	00087043 */ 	sra	$t6,$t0,0x1
-/*  f1a38f8:	27b80074 */ 	addiu	$t8,$sp,0x74
-/*  f1a38fc:	01ae7823 */ 	subu	$t7,$t5,$t6
-/*  f1a3900:	24420011 */ 	addiu	$v0,$v0,0x11
-/*  f1a3904:	afaf006c */ 	sw	$t7,0x6c($sp)
-/*  f1a3908:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f1a390c:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f1a3910:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f1a3914:	afa80070 */ 	sw	$t0,0x70($sp)
-/*  f1a3918:	02002025 */ 	move	$a0,$s0
-/*  f1a391c:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f1a3920:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f1a3924:	27a70070 */ 	addiu	$a3,$sp,0x70
-/*  f1a3928:	0fc54bed */ 	jal	text0f153858
-/*  f1a392c:	afaa0074 */ 	sw	$t2,0x74($sp)
-/*  f1a3930:	0c002eeb */ 	jal	viGetWidth
-/*  f1a3934:	00408025 */ 	move	$s0,$v0
-/*  f1a3938:	00028c00 */ 	sll	$s1,$v0,0x10
-/*  f1a393c:	0011cc03 */ 	sra	$t9,$s1,0x10
-/*  f1a3940:	0c002eef */ 	jal	viGetHeight
-/*  f1a3944:	03208825 */ 	move	$s1,$t9
-/*  f1a3948:	3c0a8008 */ 	lui	$t2,0x8008
-/*  f1a394c:	3c0b8008 */ 	lui	$t3,0x8008
-/*  f1a3950:	8d6b0148 */ 	lw	$t3,0x148($t3)
-/*  f1a3954:	8d4a014c */ 	lw	$t2,0x14c($t2)
-/*  f1a3958:	8fac0044 */ 	lw	$t4,0x44($sp)
-/*  f1a395c:	8fad0048 */ 	lw	$t5,0x48($sp)
-/*  f1a3960:	02002025 */ 	move	$a0,$s0
-/*  f1a3964:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f1a3968:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f1a396c:	8fa70088 */ 	lw	$a3,0x88($sp)
-/*  f1a3970:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f1a3974:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f1a3978:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f1a397c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f1a3980:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f1a3984:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f1a3988:	afac0018 */ 	sw	$t4,0x18($sp)
-/*  f1a398c:	0fc55d34 */ 	jal	func0f1574d0jf
-/*  f1a3990:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f1a3994:	8fa30040 */ 	lw	$v1,0x40($sp)
-/*  f1a3998:	8fae006c */ 	lw	$t6,0x6c($sp)
-/*  f1a399c:	00408025 */ 	move	$s0,$v0
-/*  f1a39a0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f1a39a4:	25cffffc */ 	addiu	$t7,$t6,-4
-/*  f1a39a8:	afaf006c */ 	sw	$t7,0x6c($sp)
-/*  f1a39ac:	0c002eeb */ 	jal	viGetWidth
-/*  f1a39b0:	afa30068 */ 	sw	$v1,0x68($sp)
-/*  f1a39b4:	00028c00 */ 	sll	$s1,$v0,0x10
-/*  f1a39b8:	0011c403 */ 	sra	$t8,$s1,0x10
-/*  f1a39bc:	0c002eef */ 	jal	viGetHeight
-/*  f1a39c0:	03008825 */ 	move	$s1,$t8
-/*  f1a39c4:	3c198008 */ 	lui	$t9,0x8008
-/*  f1a39c8:	3c0a8008 */ 	lui	$t2,0x8008
-/*  f1a39cc:	8d4a0148 */ 	lw	$t2,0x148($t2)
-/*  f1a39d0:	8f39014c */ 	lw	$t9,0x14c($t9)
-/*  f1a39d4:	8fab0044 */ 	lw	$t3,0x44($sp)
-/*  f1a39d8:	8fac0048 */ 	lw	$t4,0x48($sp)
-/*  f1a39dc:	02002025 */ 	move	$a0,$s0
-/*  f1a39e0:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f1a39e4:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f1a39e8:	8fa7008c */ 	lw	$a3,0x8c($sp)
-/*  f1a39ec:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f1a39f0:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f1a39f4:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f1a39f8:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f1a39fc:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f1a3a00:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f1a3a04:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f1a3a08:	0fc55d34 */ 	jal	func0f1574d0jf
-/*  f1a3a0c:	afac001c */ 	sw	$t4,0x1c($sp)
-/*  f1a3a10:	00408025 */ 	move	$s0,$v0
-.JF0f1a3a14:
-/*  f1a3a14:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f1a3a18:	02001025 */ 	move	$v0,$s0
-/*  f1a3a1c:	8fb00034 */ 	lw	$s0,0x34($sp)
-/*  f1a3a20:	8fb10038 */ 	lw	$s1,0x38($sp)
-/*  f1a3a24:	03e00008 */ 	jr	$ra
-/*  f1a3a28:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
-
-//Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, char *string3, u32 colour, u8 alpha)
-//{
-//	s32 textheight; // 74
-//	s32 textwidth; // 70
-//	s32 x2; // 6c
-//	s32 y2; // 68
-//
-//	u32 halfalpha = alpha >> 1;
-//	u32 fullcolour = (colour & 0xffffff00) | alpha;
-//
-//	textMeasure(&textheight, &textwidth, string1, g_CharsHandelGothicMd, g_FontHandelGothicMd, 0);
-//
-//	x2 = x - (textwidth >> 1);
-//	y2 = y;
-//	gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
-//
-//	gdl = textRender(gdl, &x2, &y2, string1,
-//			g_CharsHandelGothicMd, g_FontHandelGothicMd, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
-//
-//	if (string2) {
-//		s32 textheight2; // 5c
-//		s32 textwidth2; // 58
-//		s32 textheight3; // 54
-//		s32 textwidth3; // 50
-//
-//		textMeasure(&textheight2, &textwidth2, string2, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
-//		textMeasure(&textheight3, &textwidth3, string3, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
-//
-//		textwidth = textwidth2 + textwidth3;
-//		textheight = textheight3;
-//		x2 = x - (textwidth >> 1);
-//		y2 = y + 17;
-//
-//		gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
-//
-//		gdl = func0f1574d0jf(gdl, &x2, &y2, string2,
-//			g_CharsHandelGothicXs, g_FontHandelGothicXs, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
-//
-//		x2 -= 4;
-//		y2 = y + 18;
-//
-//		gdl = func0f1574d0jf(gdl, &x2, &y2, string3,
-//			g_CharsHandelGothicXs, g_FontHandelGothicXs, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
-//	}
-//
-//	return gdl;
-//}
-#else
 Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u32 colour, u8 alpha)
 {
 	s32 textheight;
@@ -3875,91 +3264,18 @@ Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u3
 
 	return gdl;
 }
-#endif
 
-#if VERSION >= VERSION_JPN_FINAL
 Gfx *frRenderHud(Gfx *gdl)
 {
 	char string1[128];
 	char string2[128];
-	char string3[128];
 	bool red;
 	bool exists;
 	s32 alpha = 0xa0;
 	f32 mult;
 
 	if (viGetViewWidth() > 400) {
-		mult = 1.7f;
-	} else {
-		mult = 1;
-	}
-
-	if (!g_FrIsValidWeapon && g_FrData.menucountdown <= 0) {
-		return gdl;
-	}
-
-	if (g_FrData.menucountdown != 0) {
-		alpha = (f32)(g_FrData.menucountdown * 160) / TICKS(60.0f);
-	}
-
-	gdl = text0f153628(gdl);
-
-	// Time
-	red = frFormatTime(string1);
-	exists = frGetHudMiddleSubtext(string2, string3);
-
-	gdl = frRenderHudElement(gdl, viGetViewWidth() >> 1, viGetViewTop() + 12,
-			string1,
-			exists ? string2 : NULL,
-			exists ? string3 : NULL,
-			red ? 0xff4444ff : 0x00ff00a0,
-			alpha);
-
-	// Score
-	frGetScoreValue(string1);
-	frGetGoalScoreText(string2, string3);
-	gdl = frRenderHudElement(gdl, viGetViewLeft() + 65.0f * mult, viGetViewTop() + 12,
-			string1, string2, string3, 0x00ff00a0, alpha);
-
-	// Feedback
-	if (frGetFeedback(string1, string2, string3)) {
-		gdl = frRenderHudElement(gdl,viGetViewLeft() + 65.0f * mult, viGetViewTop() + 48,
-				string1, string2, string3, 0x00ff00a0, alpha);
-	}
-
-	if (g_FrData.goalaccuracy > 0) {
-		red = frGetMinAccuracy(string2, frGetAccuracy(string1), string3);
-
-		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewWidth() - 70.0f * mult, viGetViewTop() + 12,
-				string1, string2, string3,
-				red ? 0xff4444ff : 0x00ff00a0,
-				alpha);
-	} else if (g_FrData.goaltargets != 255) {
-		frGetTargetsDestroyedValue(string1);
-		frGetGoalTargetsText(string2, string3);
-
-		if (mult == 2) {
-			mult = 2.4;
-		}
-
-		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewWidth() - 70.0f * mult, viGetViewTop() + 12,
-				string1, string2, string3, 0x00ff00a0, alpha);
-	}
-
-	return text0f153780(gdl);
-}
-#else
-Gfx *frRenderHud(Gfx *gdl)
-{
-	char string1[128];
-	char string2[128];
-	bool red;
-	bool exists;
-	s32 alpha = 0xa0;
-	f32 mult;
-
-	if (viGetViewWidth() > (VERSION >= VERSION_PAL_FINAL ? 330 : 400)) {
-		mult = VERSION >= VERSION_PAL_FINAL ? 1.5f : 2;
+		mult = 2;
 	} else {
 		mult = 1;
 	}
@@ -4016,4 +3332,3 @@ Gfx *frRenderHud(Gfx *gdl)
 
 	return text0f153780(gdl);
 }
-#endif

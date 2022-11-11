@@ -68,160 +68,11 @@ f32 g_PlayerDamageRxScale = 1;
 f32 g_PlayerDamageTxScale = 1;
 f32 g_AttackWalkDurationScale = 1;
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 g_NumChrsWithPlayerTarget = 0;
 s32 g_NumChrsSeenPlayer = 0;
 s32 g_NumChrsSeenPlayerRecently = 0;
-#endif
 
 s32 g_NumChrsSeenPlayerRecently2 = 0;
-
-#if VERSION < VERSION_NTSC_1_0
-const char *g_ChrActionNames[] = {
-	"ACT_INIT",
-	"ACT_STAND",
-	"ACT_KNEEL",
-	"ACT_ANIM",
-	"ACT_DIE",
-	"ACT_DEAD",
-	"ACT_ARGH",
-	"ACT_PREARGH",
-	"ACT_ATTACK",
-	"ACT_ATTACKWALK",
-	"ACT_ATTACKROLL",
-	"ACT_SIDESTEP",
-	"ACT_JUMPOUT",
-	"ACT_RUNPOS",
-	"ACT_PATROL",
-	"ACT_GOPOS",
-	"ACT_SURRENDER",
-	"ACT_LOOKATTARGET",
-	"ACT_SURPRISED",
-	"ACT_STARTALARM",
-	"ACT_THROWGRENADE",
-	"ACT_TURNDIR",
-	"ACT_TEST",
-	"ACT_BONDINTRO",
-	"ACT_BONDDIE",
-	"ACT_BONDMULTI",
-	"ACT_NULL",
-	"ACT_BOT_ATTACKSTAND",
-	"ACT_BOT_ATTACKKNEEL",
-	"ACT_BOT_ATTACKSTRAFE",
-	"ACT_DRUGGEDDROP",
-	"ACT_DRUGGEDKO",
-	"ACT_DRUGGEDCOMINGUP",
-	"ACT_ATTACKAMOUNT",
-	"ACT_ROBOTATTACK",
-	"ACT_SKJUMP",
-	"ACT_PUNCH",
-	"ACT_CUTFIRE",
-};
-
-const char *g_ChrMyActionNames[] = {
-	"NONE",
-	"NORMAL",
-	"COVERWAIT",
-	"GRENADEWAIT",
-	"WAITING",
-	"COVERGOTO",
-	"COVERBREAK",
-	"COVERSEEN",
-	"FLANKLEFT",
-	"FLANKRIGHT",
-	"DODGE",
-	"GRENADE",
-	"WAITSEEN",
-	"WITHDRAW",
-	"SHOOTING",
-	"SYNCSHOOT",
-	"WAITTIMEOUT",
-	"COVERTIMEOUT",
-	"TRACKING",
-	"RETREAT",
-	"SURRENDER",
-	"TALKING",
-	"LISTENING",
-	"GOTOALARM",
-	"BOTFRIENDFOLLOW",
-	"BOTHIDE",
-	"BOTPATH",
-	"BOTINJURED",
-	"BOTNORMAL",
-	"BOTSHOOTING",
-	"DRUGGED",
-	"PANIC",
-	"RUNFROMGRENADE",
-	"UNARMEDATTACK",
-	"MA_SKJUMP_START",
-	"MA_SKJUMP_AIR",
-	"MA_SKJUMP_LAND",
-	"MA_SKJUMP_LANDLOOP",
-	"MA_SKJUMP_SHOT",
-	"AIBOTDEADLIST",
-	"AIBOTINIT",
-	"AIBOTMAINLOOP",
-	"AIBOTGETITEM",
-	"AIBOTGOTOPOS",
-	"AIBOTGOTOPROP",
-	"AIBOTRUNAWAY",
-	"AIBOTDOWNLOAD",
-	"AIBOTATTACK",
-	"unused1",
-	"unused2",
-	"AIBOTFOLLOW",
-	"AIBOTDEFEND",
-	"FLANKBEST",
-	"FACING",
-	"PUNCHING",
-};
-
-const char *g_ChrActionNames2[] = {
-	"ACT_INIT",
-	"ACT_STAND",
-	"ACT_KNEEL",
-	"ACT_ANIM",
-	"ACT_DIE",
-	"ACT_DEAD",
-	"ACT_ARGH",
-	"ACT_PREARGH",
-	"ACT_ATTACK",
-	"ACT_ATTACKWALK",
-	"ACT_ATTACKROLL",
-	"ACT_SIDESTEP",
-	"ACT_JUMPOUT",
-	"ACT_RUNPOS",
-	"ACT_PATROL",
-	"ACT_GOPOS",
-	"ACT_SURRENDER",
-	"ACT_LOOKATTARGET",
-	"ACT_SURPRISED",
-	"ACT_STARTALARM",
-	"ACT_THROWGRENADE",
-	"ACT_TURNDIR",
-	"ACT_TEST",
-	"ACT_BONDINTRO",
-	"ACT_BONDDIE",
-	"ACT_BONDMULTI",
-	"ACT_NULL",
-	"ACT_BOT_ATTACKSTAND",
-	"ACT_BOT_ATTACKKNEEL",
-	"ACT_BOT_ATTACKSTRAFE",
-	"ACT_DRUGGEDDROP",
-	"ACT_DRUGGEDKO",
-	"ACT_DRUGGEDCOMINGUP",
-	"ACT_ATTACKAMOUNT",
-	"ACT_ROBOTATTACK",
-	"ACT_SKJUMP",
-};
-
-const char *g_ChrLiftActionNames[] = {
-	"NOTUSINGLIFT",
-	"WAITINGFORLIFT",
-	"ONLIFT",
-	"WAITINGONLIFT",
-};
-#endif
 
 struct animtablerow g_DeathAnimsHumanLfoot[] = {
 	{ ANIM_DEATH_0020, 0, -1, 0.5, 0, 26, -1 },
@@ -1578,13 +1429,7 @@ void func0f02e4f8(struct coord *arg0, struct coord *arg1, struct coord *dst)
 	struct coord sp2c;
 	struct coord sp20;
 
-#if VERSION >= VERSION_PAL_FINAL
-	cdGetEdge(&sp2c, &sp20, 2298, "chr/chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 	cdGetEdge(&sp2c, &sp20, 2298, "chraction.c");
-#else
-	cdGetEdge(&sp2c, &sp20, 2338, "chraction.c");
-#endif
 
 	func0f02e3dc(&sp2c, &sp20, arg0, arg1, dst);
 }
@@ -1612,13 +1457,7 @@ f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 ymax, f
 	if (cdExamCylMove03(&prop->pos, prop->rooms, &sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 		result = arg2;
 	} else {
-#if VERSION >= VERSION_PAL_FINAL
-		cdGetPos(&sp3c, 2377, "chr/chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 		cdGetPos(&sp3c, 2377, "chraction.c");
-#else
-		cdGetPos(&sp3c, 2417, "chraction.c");
-#endif
 
 		xdiff = sp3c.x - prop->pos.x;
 		zdiff = sp3c.z - prop->pos.z;
@@ -2994,13 +2833,9 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 	if (chr->actiontype == ACT_DRUGGEDCOMINGUP
 			|| chr->actiontype == ACT_DRUGGEDDROP
 			|| chr->actiontype == ACT_DRUGGEDKO) {
-#if VERSION >= VERSION_NTSC_1_0
 		if (chr->actiontype == ACT_DRUGGEDKO) {
 			wasknockedout = true;
 		}
-#else
-		wasknockedout = true;
-#endif
 
 		mpstatsDecrementTotalKnockoutCount();
 	}
@@ -3096,9 +2931,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 	chrStopFiring(chr);
 	chrUncloak(chr, true);
 
-#if VERSION >= VERSION_NTSC_1_0
 	chr->chrflags &= ~CHRCFLAG_HIDDEN;
-#endif
 
 	chr->actiontype = (knockout == true ? ACT_DRUGGEDDROP : ACT_DIE);
 
@@ -3524,14 +3357,7 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 	bool knockedout = false;
 	s32 animnum = modelGetAnimNum(chr->model);
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (chr->actiontype == ACT_DRUGGEDKO)
-#else
-	if (chr->actiontype == ACT_DRUGGEDCOMINGUP
-			|| chr->actiontype == ACT_DRUGGEDDROP
-			|| chr->actiontype == ACT_DRUGGEDKO)
-#endif
-	{
+	if (chr->actiontype == ACT_DRUGGEDKO) {
 		knockedout = true;
 	}
 
@@ -3649,9 +3475,7 @@ void chrYeetFromPos(struct chrdata *chr, struct coord *exppos, f32 force)
 		chrStopFiring(chr);
 		chrUncloak(chr, true);
 
-#if VERSION >= VERSION_NTSC_1_0
 		chr->chrflags &= ~CHRCFLAG_HIDDEN;
-#endif
 
 		chr->actiontype = ACT_DIE;
 
@@ -3703,19 +3527,9 @@ void chrKnockOut(struct chrdata *chr, f32 angle, s32 hitpart, struct gset *gset)
 	if (chr->actiontype != ACT_DRUGGEDCOMINGUP
 			&& chr->actiontype != ACT_DRUGGEDDROP
 			&& chr->actiontype != ACT_DRUGGEDKO) {
-#if VERSION >= VERSION_PAL_FINAL
-		if (mpstatsGetTotalKnockoutCount() < 2) {
-			chr->chrflags |= CHRCFLAG_KEEPCORPSEKO;
-
-			if (mainGetStageNum() == STAGE_VILLA) {
-				chr->hidden |= CHRHFLAG_ANTINONINTERACTABLE;
-			}
-		}
-#elif VERSION >= VERSION_NTSC_1_0
 		if (mpstatsGetTotalKnockoutCount() < 2) {
 			chr->chrflags |= CHRCFLAG_KEEPCORPSEKO;
 		}
-#endif
 
 		mpstatsIncrementTotalKnockoutCount();
 
@@ -4442,7 +4256,6 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	if (vprop->type == PROPTYPE_PLAYER) {
 		s32 prevplayernum = g_Vars.currentplayernum;
 
-#if VERSION >= VERSION_NTSC_1_0
 		s32 contpad1;
 		s32 contpad2;
 
@@ -4457,15 +4270,6 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		if (contpad2 >= 0) {
 			pakRumble(contpad2, 0.25f, -1, -1);
 		}
-#else
-		setCurrentPlayerNum(playermgrGetPlayerNumByProp(vprop));
-
-		pakRumble((s8)g_Vars.currentplayernum, 0.25f, -1, -1);
-
-		if (optionsGetControlMode(g_Vars.currentplayerstats->mpindex) >= CONTROLMODE_21) {
-			pakRumble((s8)(PLAYERCOUNT() + g_Vars.currentplayernum), 0.25f, -1, -1);
-		}
-#endif
 
 		setCurrentPlayerNum(prevplayernum);
 	}
@@ -4519,12 +4323,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 		if (shield > 0) {
 			if (g_Vars.normmplayerisrunning) {
-#if VERSION >= VERSION_PAL_FINAL
-				// Fixing a @bug?
-				damage = damage * mpHandicapToDamageScale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
-#else
 				damage /= mpHandicapToDamageScale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
-#endif
 			}
 
 			chr->chrflags |= CHRCFLAG_SHIELDDAMAGED;
@@ -5067,13 +4866,11 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 		mpstatsRecordDeath(aplayernum, mpPlayerGetIndex(chr));
 		botinvDropAll(chr, chr->aibot->weaponnum);
 
-#if VERSION >= VERSION_NTSC_1_0
 		chr->aibot->hasbriefcase = false;
 		chr->aibot->hascase = false;
 		chr->aibot->unk04c_04 = false;
 		chr->aibot->unk04c_03 = false;
 		chr->aibot->hasuplink = false;
-#endif
 	}
 }
 
@@ -6100,9 +5897,7 @@ bool chrGoToRoomPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 gopos
 		}
 
 		chrGoPosInitExpensive(chr);
-#if VERSION >= VERSION_NTSC_1_0
 		chr->goposforce = -1;
-#endif
 		chr->sleep = 0;
 		chr->liftaction = 0;
 		chr->act_gopos.flags &= ~(GOPOSFLAG_WALKDIRECT | GOPOSFLAG_DUCK | GOPOSFLAG_WAITING);
@@ -6461,25 +6256,12 @@ bool chrCanSeeTarget(struct chrdata *chr)
 	bool cansee;
 	struct prop *prop;
 
-#if VERSION >= VERSION_JPN_FINAL
-	cansee = false;
-	prop = chrGetTargetProp(chr);
-
-	if (prop && prop->chr) {
-		cansee = chrCanSeeChr(chr, prop->chr, NULL);
-
-		if (cansee) {
-			chrRecordLastVisibleTargetTime(chr);
-		}
-	}
-#else
 	prop = chrGetTargetProp(chr);
 	cansee = chrCanSeeChr(chr, prop->chr, NULL);
 
 	if (cansee) {
 		chrRecordLastVisibleTargetTime(chr);
 	}
-#endif
 
 	return cansee;
 }
@@ -6663,18 +6445,12 @@ bool chrIsReadyForOrders(struct chrdata *chr)
 	case ACT_DRUGGEDDROP:
 	case ACT_DRUGGEDKO:
 	case ACT_DRUGGEDCOMINGUP:
-#if VERSION < VERSION_NTSC_1_0
-	case ACT_ARGH:
-	case 0x200:
-#endif
 		return false;
-#if VERSION >= VERSION_NTSC_1_0
 	case ACT_ARGH:
 		if ((chr->chrflags & CHRCFLAG_00000200) == 0) {
 			return false;
 		}
 		break;
-#endif
 	case ACT_ROBOTATTACK:
 		if (!chr->act_robotattack.finished) {
 			return false;
@@ -7055,20 +6831,13 @@ bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 goposflags)
 {
 	if (padnum >= 0
 			&& chrIsReadyForOrders(chr)
-#if VERSION >= VERSION_NTSC_1_0
 			&& (g_NumChrsSeenPlayerRecently2 <= 8
 				|| (chr->hidden & CHRHFLAG_00400000) == 0
 				|| (chr->flags & CHRFLAG0_ACTIVATEALARM))
-#else
-			&& g_NumChrsSeenPlayerRecently2 <= 9
-#endif
 				) {
 		padnum = chrResolvePadId(chr, padnum);
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (padnum >= 0)
-#endif
-		{
+		if (padnum >= 0) {
 			s16 rooms[2];
 
 			rooms[0] = g_Pads[padnum].room;
@@ -7122,15 +6891,9 @@ bool chrFadeOut(struct chrdata *chr)
 bool chrGoToTarget(struct chrdata *chr, u32 goposflags)
 {
 	if (chrIsReadyForOrders(chr)) {
-		if (
-#if VERSION >= VERSION_NTSC_1_0
-				g_NumChrsSeenPlayerRecently2 <= 8
+		if (g_NumChrsSeenPlayerRecently2 <= 8
 				|| (chr->hidden & CHRHFLAG_00400000) == 0
-				|| (chr->flags & CHRFLAG0_ACTIVATEALARM)
-#else
-				g_NumChrsSeenPlayerRecently2 <= 9
-#endif
-				) {
+				|| (chr->flags & CHRFLAG0_ACTIVATEALARM)) {
 			struct prop *prop = chrGetTargetProp(chr);
 
 			if (chrGoToRoomPos(chr, &prop->pos, prop->rooms, goposflags)) {
@@ -7145,15 +6908,9 @@ bool chrGoToTarget(struct chrdata *chr, u32 goposflags)
 bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 goposflags)
 {
 	if (chrIsReadyForOrders(chr)) {
-		if (
-#if VERSION >= VERSION_NTSC_1_0
-				g_NumChrsSeenPlayerRecently2 <= 8
+		if (g_NumChrsSeenPlayerRecently2 <= 8
 				|| (chr->hidden & CHRHFLAG_00400000) == 0
-				|| (chr->flags & CHRFLAG0_ACTIVATEALARM)
-#else
-				g_NumChrsSeenPlayerRecently2 <= 9
-#endif
-				) {
+				|| (chr->flags & CHRFLAG0_ACTIVATEALARM)) {
 			struct chrdata *dstchr = chrFindById(chr, dst_chrnum);
 
 			if (dstchr && dstchr->prop && chrGoToRoomPos(chr, &dstchr->prop->pos, dstchr->prop->rooms, goposflags)) {
@@ -7182,14 +6939,9 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, u32 goposflags)
 	s16 aboverooms[21];
 
 	if (chrIsReadyForOrders(chr)) {
-#if VERSION >= VERSION_NTSC_1_0
 		if (g_NumChrsSeenPlayerRecently2 < 9
 				|| (chr->hidden & CHRHFLAG_00400000) == 0
-				|| (chr->flags & CHRCFLAG_00040000))
-#else
-		if (g_NumChrsSeenPlayerRecently2 < 10)
-#endif
-		{
+				|| (chr->flags & CHRCFLAG_00040000)) {
 			s16 *rooms = NULL;
 
 			bgFindRoomsByPos(pos, inrooms, aboverooms, 20, NULL);
@@ -7346,15 +7098,7 @@ bool chrTryRunFromTarget(struct chrdata *chr)
 		if (cdExamCylMove03(&prop->pos, prop->rooms, &dst,
 					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
 					1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
-#if VERSION >= VERSION_JPN_FINAL
-			cdGetPos(&dst, 8796, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-			cdGetPos(&dst, 8793, "chr/chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 			cdGetPos(&dst, 8788, "chraction.c");
-#else
-			cdGetPos(&dst, 8782, "chraction.c");
-#endif
 		}
 
 		// Adjust dst to be two chr widths closer to avoid collision with wall
@@ -7490,10 +7234,7 @@ bool chrTryStartAlarm(struct chrdata *chr, s32 pad_id)
 	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		pad_id = chrResolvePadId(chr, pad_id);
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (pad_id >= 0)
-#endif
-		{
+		if (pad_id >= 0) {
 			struct defaultobj *obj = objFindByPadNum(pad_id);
 
 			if (obj && objIsHealthy(obj)) {
@@ -7696,11 +7437,7 @@ bool chrTryPunch(struct chrdata *chr, u8 reverse)
 	} else if (race == RACE_SKEDAR) {
 		anims = g_SkedarPunchAnims;
 		chrhitradius = 200;
-#if VERSION >= VERSION_NTSC_1_0
 		playerhitradius = 200;
-#else
-		playerhitradius = 350;
-#endif
 		startframe = 20;
 
 		if (reverse) {
@@ -8234,19 +7971,11 @@ void chrTickDie(struct chrdata *chr)
 	};
 
 	u16 specialdiesounds[] = {
-#if VERSION >= VERSION_NTSC_1_0
 		SFX_M1_NOOO, // "Noooo!"
 		SFX_M1_SCREAM, // Death scream
 		SFX_M2_NOOO, // "Noooo!"
 		SFX_M2_NOOO, // "Noooo!"
 		SFX_M1_SCREAM, // Death scream
-#else
-		SFX_0313,
-		SFX_034C,
-		SFX_0411,
-		SFX_0411,
-		SFX_034C,
-#endif
 		SFX_THUD_8092,
 		SFX_THUD_8093,
 		SFX_THUD_8094,
@@ -8700,12 +8429,7 @@ void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool wi
 
 			if (withsound) {
 				if (duration > 0) {
-#if VERSION >= VERSION_NTSC_1_0
-					if (chr->hidden2 & CHRH2FLAG_0020)
-#else
-					if (chr->hidden & CHRHFLAG_00000080)
-#endif
-					{
+					if (chr->hidden2 & CHRH2FLAG_0020) {
 						playsound = false;
 					} else {
 						if (g_Vars.lvframe60 > fireslot->endlvframe) {
@@ -8720,17 +8444,9 @@ void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool wi
 			}
 
 			if (playsound) {
-#if VERSION >= VERSION_NTSC_1_0
 				propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0x11, NULL, -1, NULL, -1, -1, -1, -1);
 				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
 				chr->hidden2 |= CHRH2FLAG_0020;
-#else
-				propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0, NULL, -1, NULL, -1, -1, -1, -1);
-				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
-				chr->hidden |= CHRHFLAG_00000080;
-
-				if (chr);
-#endif
 			}
 
 			if (withbeam) {
@@ -9614,10 +9330,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 
 				if (bestvolume);
 
-#if VERSION >= VERSION_NTSC_1_0
-				if (bestnode != NULL)
-#endif
-				{
+				if (bestnode != NULL) {
 					Mtxf sp48;
 					struct modelrodata_bbox *rodata = &bestnode->rodata->bbox;
 
@@ -9933,15 +9646,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 				if (cdExamLos08(&gunpos, gunrooms, &hitpos, cdtypes, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 					hitsomething = true;
-#if VERSION >= VERSION_JPN_FINAL
-					cdGetPos(&hitpos, 12080, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-					cdGetPos(&hitpos, 12077, "chr/chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 					cdGetPos(&hitpos, 12072, "chraction.c");
-#else
-					cdGetPos(&hitpos, 12086, "chraction.c");
-#endif
 					hitprop = cdGetObstacleProp();
 				}
 
@@ -10157,10 +9862,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 						if ((attackflags & ATTACKFLAG_AIMATTARGET)
 								&& targetprop->type == PROPTYPE_PLAYER
 								&& chrCanSeeAttackTarget(chr, &gunpos, gunrooms, false)
-#if VERSION >= VERSION_NTSC_1_0
-								&& chrCompareTeams(targetprop->chr, chr, COMPARE_ENEMIES)
-#endif
-								) {
+								&& chrCompareTeams(targetprop->chr, chr, COMPARE_ENEMIES)) {
 							// Solo chr shooting at a player
 							xdiff = targetprop->pos.x - gunpos.x - vector.x * 15.0f;
 							ydiff = targetprop->pos.y - gunpos.y - vector.y * 15.0f;
@@ -10382,11 +10084,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 void func0f041a74(struct chrdata *chr)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	chr->hidden2 &= ~CHRH2FLAG_0020;
-#else
-	chr->hidden &= ~CHRHFLAG_00000080;
-#endif
 
 	if (chr->actiontype == ACT_ROBOTATTACK) {
 		if (chr->act_robotattack.firing[0]) {
@@ -11694,17 +11392,7 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, sp50, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spbc = true;
-#if VERSION >= VERSION_JPN_FINAL
-		cdGetEdge(&spac, &spa0, 14154, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-		cdGetEdge(&spac, &spa0, 14151, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_BETA
-		cdGetEdge(&spac, &spa0, 14146, "chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 		cdGetEdge(&spac, &spa0, 14145, "chraction.c");
-#else
-		cdGetEdge(&spac, &spa0, 14158, "chraction.c");
-#endif
 		func0f044b68(&spac, &spa0, &spd4);
 	}
 
@@ -11719,17 +11407,7 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, chrrooms, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spb8 = true;
-#if VERSION >= VERSION_JPN_FINAL
-		cdGetEdge(&sp94, &sp88, 14169, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-		cdGetEdge(&sp94, &sp88, 14166, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_BETA
-		cdGetEdge(&sp94, &sp88, 14161, "chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 		cdGetEdge(&sp94, &sp88, 14160, "chraction.c");
-#else
-		cdGetEdge(&sp94, &sp88, 14173, "chraction.c");
-#endif
 		func0f044b68(&sp94, &sp88, &spd4);
 	}
 
@@ -11752,17 +11430,7 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
 			&& (!arg9 || cdExamCylMove01(chrpos, aimpos, chrradius, sp40, cdtypes, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
 		result = true;
 	} else {
-#if VERSION >= VERSION_JPN_FINAL
-		cdGetEdge(leftpos, rightpos, 14239, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-		cdGetEdge(leftpos, rightpos, 14236, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_BETA
-		cdGetEdge(leftpos, rightpos, 14231, "chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 		cdGetEdge(leftpos, rightpos, 14230, "chraction.c");
-#else
-		cdGetEdge(leftpos, rightpos, 14243, "chraction.c");
-#endif
 		func0f044b68(leftpos, rightpos, &spd4);
 	}
 
@@ -11841,17 +11509,7 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, sp50, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spbc = true;
-#if VERSION >= VERSION_JPN_FINAL
-		cdGetEdge(&spac, &spa0, 14319, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-		cdGetEdge(&spac, &spa0, 14316, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_BETA
-		cdGetEdge(&spac, &spa0, 14311, "chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 		cdGetEdge(&spac, &spa0, 14310, "chraction.c");
-#else
-		cdGetEdge(&spac, &spa0, 14323, "chraction.c");
-#endif
 		func0f044b68(&spac, &spa0, &spd4);
 		value1 = cd00024e40();
 	}
@@ -11867,17 +11525,7 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, chrrooms, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spb8 = true;
-#if VERSION >= VERSION_JPN_FINAL
-		cdGetEdge(&sp94, &sp88, 14334, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-		cdGetEdge(&sp94, &sp88, 14331, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_BETA
-		cdGetEdge(&sp94, &sp88, 14326, "chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 		cdGetEdge(&sp94, &sp88, 14325, "chraction.c");
-#else
-		cdGetEdge(&sp94, &sp88, 14338, "chraction.c");
-#endif
 		func0f044b68(&sp94, &sp88, &spd4);
 		value2 = cd00024e40();
 	}
@@ -11904,17 +11552,7 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 			&& (!hasobstacle || cdExamCylMove01(chrpos, aimpos, chrradius, sp40, cdtypes, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
 		result = true;
 	} else {
-#if VERSION >= VERSION_JPN_FINAL
-		cdGetEdge(leftpos, rightpos, 14404, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-		cdGetEdge(leftpos, rightpos, 14401, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_BETA
-		cdGetEdge(leftpos, rightpos, 14396, "chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 		cdGetEdge(leftpos, rightpos, 14395, "chraction.c");
-#else
-		cdGetEdge(leftpos, rightpos, 14408, "chraction.c");
-#endif
 		func0f044b68(leftpos, rightpos, &spd4);
 	}
 
@@ -11997,17 +11635,6 @@ bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struc
 	return false;
 }
 
-#if VERSION >=  VERSION_NTSC_1_0
-const char var7f1a8be8[] = "CHARS -> FRAMETIMESCALEI(240)  = %d";
-const char var7f1a8c0c[] = "CHARS -> numseenbond1      \t= %d/%d";
-const char var7f1a8c30[] = "CHARS -> numseenbond2      \t= %d/%d";
-const char var7f1a8c54[] = "CHARS -> numseenbond3      \t= %d/%d";
-const char var7f1a8c78[] = "CHARS -> numseenbond       \t= %d/%d";
-#endif
-
-const char var7f1a8c9c[] = "CHARS -> DEAD = %d/%d";
-const char var7f1a8cb4[] = "chrdisttopad : %x -> %d : Dist=%f";
-
 /**
  * Check for doors in front of the chr and open them if possible.
  *
@@ -12033,14 +11660,7 @@ struct prop *chrOpenDoor(struct chrdata *chr, struct coord *rangepos)
 	if (doorprop) {
 		struct doorobj *door = doorprop->door;
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (chr->aibot || (door->base.flags2 & OBJFLAG2_AICANNOTUSE) == 0)
-#else
-		if (chr->aibot
-				|| (door->base.flags2 & OBJFLAG2_AICANNOTUSE) == 0
-				|| (door->doorflags & DOORFLAG_DAMAGEONCONTACT))
-#endif
-		{
+		if (chr->aibot || (door->base.flags2 & OBJFLAG2_AICANNOTUSE) == 0) {
 			f32 xdiff = doorprop->pos.x - chr->prop->pos.x;
 			f32 zdiff = doorprop->pos.z - chr->prop->pos.z;
 
@@ -12579,7 +12199,6 @@ void chrTickGoPos(struct chrdata *chr)
 
 	// If stuck for 1 second
 	if (chr->lastmoveok60 < g_Vars.lvframe60 - TICKS(60)) {
-#if VERSION >= VERSION_NTSC_1_0
 		if (chr->goposforce >= 0) {
 			// Try and warp the chr past whatever obstacle is blocking them?
 			struct coord sp196 = {0, 0, 0};
@@ -12589,7 +12208,6 @@ void chrTickGoPos(struct chrdata *chr)
 			chr->lastmoveok60 = g_Vars.lvframe60;
 			return;
 		}
-#endif
 
 		// Goposforce was not set - restart the action to try and find a new route
 		chrGoToRoomPos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
@@ -12611,24 +12229,16 @@ void chrTickGoPos(struct chrdata *chr)
 		chrGoPosInitMagic(chr, &chr->act_gopos.waydata, &curwppos, &prop->pos);
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_NumChrsSeenPlayerRecently2 >= 9
 			&& (chr->hidden & CHRHFLAG_00400000)
 			&& (chr->flags & CHRFLAG0_ACTIVATEALARM) == 0) {
 		chrStop(chr);
 		return;
 	}
-#else
-	if (g_NumChrsSeenPlayerRecently2 >= 10) {
-		chrStop(chr);
-		return;
-	}
-#endif
 
 	// If goposforce is set then decrease it on each tick. If it's reached -1
 	// then stop the chr. I guess goposforce is not only used to warp past
 	// obstacles, but is also used as a run countdown timer.
-#if VERSION >= VERSION_NTSC_1_0
 	if (chr->goposforce >= 0) {
 		chr->goposforce -= g_Vars.lvupdate60;
 
@@ -12637,7 +12247,6 @@ void chrTickGoPos(struct chrdata *chr)
 			return;
 		}
 	}
-#endif
 
 	// Check if chr needs to exit magic mode
 	if (chr->act_gopos.waydata.mode == WAYMODE_MAGIC) {
@@ -13076,11 +12685,9 @@ void chraTick(struct chrdata *chr)
 	chr->soundtimer += g_Vars.lvupdate60;
 	chr->talktimer += g_Vars.lvupdate60;
 
-#if VERSION < VERSION_PAL_BETA
 	if (chr->aibot) {
 		chr->aibot->unk030 += g_Vars.lvupdate60;
 	}
-#endif
 
 	if (chr->hidden & CHRHFLAG_TIMER_RUNNING) {
 		chr->timer60 += g_Vars.lvupdate60;
@@ -13164,12 +12771,8 @@ void chraTick(struct chrdata *chr)
 			}
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		chr->hidden &= ~CHRHFLAG_IS_HEARING_TARGET;
 		chr->hidden2 &= ~CHRH2FLAG_0040;
-#else
-		chr->hidden &= ~(CHRHFLAG_IS_HEARING_TARGET | CHRHFLAG_00000200);
-#endif
 
 		if (pass) {
 			footstepCheckDefault(chr);
@@ -13222,35 +12825,22 @@ void chraTickBg(void)
 	s32 numdeadonscreen;
 	s32 onscreenlen;
 	s32 offscreenlen;
-#if VERSION >= VERSION_NTSC_1_0
 	s32 spawnslen;
-#endif
 	struct chrdata *onscreen[5];
 	struct chrdata *offscreen[5];
-#if VERSION >= VERSION_NTSC_1_0
 	struct chrdata *spawns[10];
-#endif
 	s32 writeindex;
 	s32 maxdeadonscreen;
 
-#if VERSION >= VERSION_NTSC_1_0
 	static u32 var80068454 = 0;
-#endif
 
 	static s32 mosteveralive = 0;
 
 	numaliveonscreen = 0;
 
-#if VERSION >= VERSION_NTSC_1_0
 	spawnslen = 0;
 	numdeadonscreen = 0;
-#else
-	numdeadonscreen = 0;
-	onscreenlen = 0;
-	offscreenlen = 0;
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 	// Count the number of chrs who are engaged with the player.
 	// When these numbers are high, chrs can ignore gopos commands.
 	// NTSC beta has a simple version of this logic in a loop
@@ -13301,7 +12891,6 @@ void chraTickBg(void)
 	if (var80068454 > 10) {
 		var80068454 = 0;
 	}
-#endif
 
 	// Handle switching to a new cutscene when using "Play All" from the menu
 	if (g_Vars.autocutnum >= 0) {
@@ -13342,7 +12931,6 @@ void chraTickBg(void)
 					}
 				}
 
-#if VERSION >= VERSION_NTSC_1_0
 				if (chr->actiontype == ACT_DEAD
 						|| (chr->actiontype == ACT_DRUGGEDKO && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
 					if (chr->hidden2 & CHRH2FLAG_SPAWNED) {
@@ -13357,7 +12945,6 @@ void chraTickBg(void)
 						}
 					}
 				}
-#endif
 			}
 		}
 
@@ -13383,46 +12970,17 @@ void chraTickBg(void)
 		maxdeadonscreen = 0;
 	}
 
-#if VERSION >= VERSION_JPN_FINAL
-	// JPN fades corpses immediately
-	if (numdeadonscreen && g_Vars.stagenum != STAGE_CITRAINING) {
-		for (i = 0; i < numchrs; i++) {
-			struct chrdata *chr = &g_ChrSlots[i];
-
-			if (chr->model
-					&& (chr->actiontype == ACT_DEAD || (chr->actiontype == ACT_DRUGGEDKO
-							&& chr->prop && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0))
-					&& chr->act_dead.fadetimer60 < 0
-					&& !chr->act_dead.fadenow) {
-				chrFadeCorpse(chr);
-			}
-		}
-	}
-#else
 	// Decide which corpses to fade.
 	// NTSC Beta implements its engagement counter here.
 	if (numdeadonscreen) {
 		numdeadonscreen = 0;
-#if VERSION >= VERSION_NTSC_1_0
 		onscreenlen = 0;
 		offscreenlen = 0;
-#else
-		g_NumChrsSeenPlayerRecently2 = 0;
-#endif
 
 		for (i = 0; i < numchrs; i++) {
 			struct chrdata *chr = &g_ChrSlots[i];
 
 			if (chr->model) {
-#if VERSION < VERSION_NTSC_1_0
-				if (!g_Vars.mplayerisrunning
-						&& chrGetTargetProp(chr)->type == PROPTYPE_PLAYER
-						&& chr->lastseetarget60 > 0
-						&& g_Vars.lvframe60 - chr->lastseetarget60 < TICKS(120)) {
-					g_NumChrsSeenPlayerRecently2++;
-				}
-#endif
-
 				if (chr->actiontype == ACT_DEAD
 						|| (chr->actiontype == ACT_DRUGGEDKO && chr->prop && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
 					if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
@@ -13440,7 +12998,7 @@ void chraTickBg(void)
 								onscreen[onscreenlen] = chr;
 								onscreenlen++;
 
-								if (onscreenlen >= (VERSION >= VERSION_NTSC_1_0 ? 2 : 3)) {
+								if (onscreenlen >= 2) {
 									writeindex = random() % onscreenlen;
 									chrFadeCorpseWhenOffScreen(onscreen[writeindex]);
 									onscreen[writeindex] = onscreen[onscreenlen - 1];
@@ -13455,7 +13013,7 @@ void chraTickBg(void)
 							offscreenlen++;
 
 							// Allow up to 5 corpses off-screen
-							if (offscreenlen >= (VERSION >= VERSION_NTSC_1_0 ? 5 : 6)) {
+							if (offscreenlen >= 5) {
 								writeindex = random() % offscreenlen;
 
 								if (offscreen[writeindex]->actiontype != ACT_DEAD) {
@@ -13472,9 +13030,6 @@ void chraTickBg(void)
 			}
 		}
 	}
-#endif
-
-	if (1);
 }
 
 bool chrSawTargetRecently(struct chrdata *chr)
@@ -13755,7 +13310,6 @@ f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
 	return distance;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 f32 chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct prop *prop = chr->prop;
@@ -13782,7 +13336,6 @@ f32 chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id)
 
 	return ret;
 }
-#endif
 
 f32 chrGetDistanceToCoord(struct chrdata *chr, struct coord *pos)
 {
@@ -14700,7 +14253,6 @@ bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
  *
  * If the spawn cannot happen, the function return false.
  */
-#if VERSION >= VERSION_NTSC_1_0
 bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg, bool arg6)
 {
 	struct coord testpos;
@@ -14781,54 +14333,6 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
 
 	return false;
 }
-#else
-/**
- * ntsc-beta's version of this function doesn't have the arg6 argument
- * nor out of bounds checking, and lacks the reduction for the volume test.
- */
-bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg)
-{
-	struct coord testpos;
-	s32 i;
-	u32 types;
-	s16 testrooms[8];
-	f32 curangle = angle;
-
-	if (ignorebg) {
-		types = CDTYPE_ALL & ~CDTYPE_BG;
-		allowonscreen = true;
-	} else {
-		types = CDTYPE_ALL;
-	}
-
-	if (cdTestVolume(pos, chrradius, rooms, types, CHECKVERTICAL_YES, 200, -200) != CDRESULT_COLLISION
-			&& (allowonscreen || chrIsPosOffScreen(pos, rooms))) {
-		return true;
-	}
-
-	for (i = 0; i < 8; i++) {
-		testpos.x = sinf(curangle) * 60 + pos->x;
-		testpos.y = pos->y;
-		testpos.z = cosf(curangle) * 60 + pos->z;
-
-		if (cdTestLos11(pos, rooms, &testpos, testrooms, CDTYPE_BG)
-				&& cdTestVolume(&testpos, chrradius, testrooms, CDTYPE_ALL, CHECKVERTICAL_YES, 200, -200.0f) != CDRESULT_COLLISION
-				&& (allowonscreen || chrIsPosOffScreen(&testpos, testrooms))) {
-			*pos = testpos;
-			roomsCopy(testrooms, rooms);
-			return true;
-		}
-
-		curangle += 0.7852731347084f;
-
-		if (curangle >= M_BADTAU) {
-			curangle -= M_BADTAU;
-		}
-	}
-
-	return false;
-}
-#endif
 
 /**
  * Attempts to spawn a chr at the given coordinates.
@@ -14853,12 +14357,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 		pos2 = *pos;
 		roomsCopy(rooms, rooms2);
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0, 0))
-#else
-		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0))
-#endif
-		{
+		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0, 0)) {
 			struct model *model = bodyAllocateModel(bodynum, headnum, spawnflags);
 			struct chrdata *chr;
 
@@ -14875,9 +14374,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 					chr->race = bodyGetRace(chr->bodynum);
 					chr->flags = 0;
 					chr->flags2 = 0;
-#if VERSION >= VERSION_NTSC_1_0
 					chr->hidden2 |= CHRH2FLAG_SPAWNED;
-#endif
 
 					if (spawnflags & SPAWNFLAG_NOBLOOD) {
 						chr->noblood = true;
@@ -14893,32 +14390,19 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 
 	// Low memory - find a corpse to reap
 	if (chrsGetNumFree() < 4) {
-#if VERSION >= VERSION_NTSC_1_0
 		s32 stack2;
 		struct chrdata *replacechr;
 		s32 startindex;
 		s32 index;
-#else
-		s32 startindex;
-		struct chrdata *replacechr;
-		s32 index;
-#endif
 
 		replacechr = NULL;
 		startindex = random() % g_NumChrSlots;
 		index = startindex;
 
-#if VERSION < VERSION_NTSC_1_0
-		if (startindex);
-#endif
-
 		do {
 			if (g_ChrSlots[index].chrnum >= 0 && g_ChrSlots[index].model && g_ChrSlots[index].prop) {
 				if (g_ChrSlots[index].actiontype == ACT_DEAD
-#if VERSION >= VERSION_NTSC_1_0
-						|| (g_ChrSlots[index].actiontype == ACT_DRUGGEDKO && (g_ChrSlots[index].chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)
-#endif
-						) {
+						|| (g_ChrSlots[index].actiontype == ACT_DRUGGEDKO && (g_ChrSlots[index].chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
 					// If we've found a chr that's ready to be reaped, great.
 					// Bail out of the loop.
 					if (g_ChrSlots[index].act_dead.invistimer60 >= TICKS(120)) {
@@ -15023,12 +14507,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 	roomsCopy(rooms, rooms2);
 	propSetPerimEnabled(chr->prop, false);
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (chrAdjustPosForSpawn(chr->radius, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0))
-#else
-	if (chrAdjustPosForSpawn(chr->radius, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen))
-#endif
-	{
+	if (chrAdjustPosForSpawn(chr->radius, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0)) {
 		ground = cdFindGroundInfoAtCyl(&pos2, chr->radius, rooms2, &chr->floorcol,
 				&chr->floortype, NULL, &chr->floorroom, NULL, NULL);
 
@@ -15391,17 +14870,7 @@ bool chrRunFromPos(struct chrdata *chr, u32 goposflags, f32 rundist, struct coor
 		chrSetPerimEnabled(chr, false);
 
 		if (cdExamLos08(&chr->prop->pos, chr->prop->rooms, &delta, CDTYPE_ALL, GEOFLAG_WALL) == CDRESULT_COLLISION) {
-#if VERSION >= VERSION_JPN_FINAL
-			cdGetPos(&delta, 18592, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-			cdGetPos(&delta, 18555, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_BETA
-			cdGetPos(&delta, 18550, "chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 			cdGetPos(&delta, 18547, "chraction.c");
-#else
-			cdGetPos(&delta, 18277, "chraction.c");
-#endif
 		}
 
 		chrSetPerimEnabled(chr, true);
@@ -15542,17 +15011,7 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
 			f32 zdiff;
 			f32 tmp;
 
-#if VERSION >= VERSION_JPN_FINAL
-			cdGetPos(pos, 18731, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_FINAL
-			cdGetPos(pos, 18694, "chr/chraction.c");
-#elif VERSION >= VERSION_PAL_BETA
-			cdGetPos(pos, 18689, "chraction.c");
-#elif VERSION >= VERSION_NTSC_1_0
 			cdGetPos(pos, 18686, "chraction.c");
-#else
-			cdGetPos(pos, 18416, "chraction.c");
-#endif
 
 			xdiff = pos->x - chrpos.x;
 			zdiff = pos->z - chrpos.z;
@@ -15754,76 +15213,10 @@ bool audioWasNotPlayedRecently(s16 audioid)
 	return true;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 {
 	return gdl;
 }
-#else
-Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
-{
-	s32 x;
-	s32 y;
-	s32 textwidth = 0;
-	s32 textheight = 0;
-	s32 x2;
-	s32 y2;
-	struct coord sp20c;
-	f32 sp204[2];
-	char fullbuffer[256];
-	char aibotbuffer[120];
-	u8 aibot = 0;
-	s32 i;
-	s32 numchrs = chrsGetNumSlots();
-
-	gdl = text0f153628(gdl);
-
-	for (i = 0; i < numchrs; i++) {
-		struct chrdata *chr = &g_ChrSlots[i];
-
-		if (chr && chr->prop && arrayIntersects(chr->prop->rooms, rooms)) {
-			sp20c.x = chr->prop->pos.x;
-			sp20c.y = chr->ground + chr->height - 30;
-			sp20c.z = chr->prop->pos.z;
-
-			mtx4TransformVecInPlace(g_Vars.currentplayer->worldtoscreenmtx, &sp20c);
-
-			if (sp20c.z < -100 && sp20c.z > -1000) {
-				cam0f0b4eb8(&sp20c, sp204, g_Vars.currentplayer->c_perspfovy, g_Vars.currentplayer->c_perspaspect);
-				x = sp204[0];
-				y = sp204[1];
-
-				if (chr->aibot) {
-					if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-						aibot = 1;
-						sprintf(aibotbuffer, "\nTEAM %d: Cmd: %s", chr->team, botGetCommandName(chr->aibot->command));
-					}
-				}
-
-				sprintf(fullbuffer, "CHR[%d]\n%s\n%s\n%s%s", chr->chrnum,
-						chr->myaction >= ARRAYCOUNT(g_ChrMyActionNames) ? "myaction?" : g_ChrMyActionNames[chr->myaction],
-						chr->actiontype >= ARRAYCOUNT(g_ChrActionNames) || chr->actiontype < 0 ? "ACT_?" : g_ChrActionNames2[chr->actiontype],
-						chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL ? g_ChrLiftActionNames[chr->liftaction] : g_ChrLiftActionNames[0],
-						aibot ? aibotbuffer : "");
-
-				textMeasure(&textheight, &textwidth, fullbuffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
-
-				x2 = x + textwidth;
-				y2 = y + textheight;
-
-				gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-				gdl = textRender(gdl, &x, &y, fullbuffer,
-						g_CharsHandelGothicXs, g_FontHandelGothicXs,
-						0xff8800aa, 0x00000088, viGetWidth(), viGetHeight(), 0, 0);
-			}
-		}
-	}
-
-	gdl = text0f153780(gdl);
-
-	return gdl;
-}
-#endif
 
 void chrToggleModelPart(struct chrdata *chr, s32 partnum)
 {

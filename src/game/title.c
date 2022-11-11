@@ -37,12 +37,6 @@ struct gfxvtx *var8009cca8[2];
 u32 *var8009ccb0[2];
 u32 var8009ccb8;
 
-#if VERSION == VERSION_JPN_FINAL
-f32 var8009d34cjf;
-f32 var8009d350jf;
-f32 var8009d358jf[4];
-#endif
-
 s16 g_TitleViewHeight = 480;
 bool g_IsTitleDemo = false;
 bool g_TitleButtonPressed = false;
@@ -71,13 +65,6 @@ u32 var80062504 = 0x00000000;
 struct model *g_TitleModelPdTwo = NULL;
 struct model *g_TitleModelPdThree = NULL;
 
-#if VERSION == VERSION_JPN_FINAL
-u32 var800623f0jf = 0;
-struct model *g_TitleModelJpnLogo1 = NULL;
-struct model *g_TitleModelJpnLogo2 = NULL;
-struct model *g_TitleModelJpnPd = NULL;
-#endif
-
 u32 var80062510 = 0x00000000;
 u32 var80062514 = 0x00000000;
 u32 var80062518 = 0x96969600;
@@ -90,10 +77,6 @@ u32 var8006252c = 0x00000000;
 Lights1 var80062530 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 Lights1 var80062548 = gdSPDefLights1(0x3f, 0xff, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 Lights1 var80062560 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-
-#if VERSION == VERSION_JPN_FINAL
-u32 var80062468jf[6] = {0xffffff00, 0xffffff00 };
-#endif
 
 Lights1 var80062578 = gdSPDefLights1(0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x7f);
 Lights1 var80062590 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
@@ -111,21 +94,6 @@ u32 var800625e0 = 0xffffff00;
 u32 var800625e4 = 0xffffff00;
 u32 var800625e8 = 0x00007f00;
 u32 var800625ec = 0x00000000;
-
-#if VERSION == VERSION_JPN_FINAL
-u32 var800624f8jf = 0;
-u32 var800624fcjf = 0;
-u32 var80062500jf = 0;
-u32 var80062504jf = 0;
-u32 var80062508jf = 0x00007f00;
-u32 var8006250cjf = 0;
-u32 var80062510jf = 0;
-u32 var80062514jf = 0;
-u32 var80062518jf = 0;
-u32 var8006251cjf = 0;
-u32 var80062520jf = 0x00007f00;
-u32 var80062524jf = 0;
-#endif
 
 char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
 {
@@ -177,12 +145,6 @@ void titleInitLegal(void)
 	g_TitleTimer = 0;
 	g_TitleButtonPressed = false;
 	g_TitleFastForward = false;
-
-#if VERSION == VERSION_PAL_BETA
-	if (g_CrashHasMessage) {
-		sndStart(var80095200, SFX_8113, 0, -1, -1, -1.0f, -1, -1);
-	}
-#endif
 }
 
 void titleExitLegal(void)
@@ -283,29 +245,6 @@ struct legalelement {
 };
 
 struct legalelement g_LegalElements[] = {
-#if VERSION == VERSION_JPN_FINAL
-	{ 49,  163, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_077   }, // "Nintendo 64 Product Identification"
-	{ 49,  184, 1, 1, LEGALELEMENTTYPE_LINE,        0               },
-	{ 69,  191, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_078   }, // "Product ID:"
-	{ 69,  211, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_079   }, // "Product Code:"
-	{ 69,  231, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_080   }, // "Variant:"
-	{ 69,  251, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_081   }, // "Developer:"
-	{ 249, 191, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_082   }, // "Perfect Dark"
-	{ 249, 211, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_083   }, // "NUS-NPDE-USA"
-	{ 249, 231, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_084   }, // "NTSC version 8.7 final"
-	{ 249, 251, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_085   }, // "Rare Ltd. (twycross)"
-	{ 69,  274, 1, 1, LEGALELEMENTTYPE_LINE,        0               },
-	{ 69,  283, 0, 1, LEGALELEMENTTYPE_WHITETEXTLG, L_OPTIONS_076   }, // "N64 EXPANSION PAK"
-	{ -1,  283, 0, 1, LEGALELEMENTTYPE_WHITETEXTLG, L_OPTIONS_074   }, // "NOT DETECTED"
-	{ 69,  304, 1, 1, LEGALELEMENTTYPE_LINE,        0               },
-	{ 69,  312, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_OPTIONS_087   }, // "The Rarewere Logo and Perfect Dark are ..."
-	{ 69,  328, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_MPWEAPONS_280 }, // "Perfect Dark Registered Trademark No..."
-	{ 138, 343, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_OPTIONS_088   }, // "Presented in Dolby Surround. Dolby and ..."
-	{ 69,  372, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_OPTIONS_089   }, // "Uses Miles Sound System ..."
-	{ 69,  428, 1, 1, LEGALELEMENTTYPE_LINE,        0               },
-	{ 69,  433, 0, 1, LEGALELEMENTTYPE_BLUETEXTSM,  L_OPTIONS_093   }, // "rare designs on the future <<<"
-	{ 69,  343, 0, 1, LEGALELEMENTTYPE_DOLBYLOGO,   0               },
-#else
 	{ 49,  179, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_077 }, // "Nintendo 64 Product Identification"
 	{ 49,  200, 1, 1, LEGALELEMENTTYPE_LINE,        0             },
 	{ 69,  207, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_078 }, // "Product ID:"
@@ -318,13 +257,8 @@ struct legalelement g_LegalElements[] = {
 	{ 249, 267, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_085 }, // "Rare Ltd. (twycross)"
 	{ 69,  290, 1, 1, LEGALELEMENTTYPE_LINE,        0             },
 	{ 69,  299, 0, 1, LEGALELEMENTTYPE_WHITETEXTLG, L_OPTIONS_076 }, // "N64 EXPANSION PAK"
-#if VERSION >= VERSION_PAL_BETA
-	{ -1,  296, 0, 1, LEGALELEMENTTYPE_WHITETEXTSM, L_OPTIONS_075 }, // "tm"
-	{ -1,  299, 0, 1, LEGALELEMENTTYPE_WHITETEXTLG, L_OPTIONS_074 }, // "NOT DETECTED"
-#else
 	{ 266, 296, 0, 1, LEGALELEMENTTYPE_WHITETEXTSM, L_OPTIONS_075 }, // "tm"
 	{ 286, 299, 0, 1, LEGALELEMENTTYPE_WHITETEXTLG, L_OPTIONS_074 }, // "NOT DETECTED"
-#endif
 	{ 69,  320, 1, 1, LEGALELEMENTTYPE_LINE,        0             },
 	{ 69,  328, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_OPTIONS_087 }, // "The Rarewere Logo and Perfect Dark are ..."
 	{ 138, 343, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_OPTIONS_088 }, // "Presented in Dolby Surround. Dolby and ..."
@@ -332,14 +266,10 @@ struct legalelement g_LegalElements[] = {
 	{ 69,  428, 1, 1, LEGALELEMENTTYPE_LINE,        0             },
 	{ 69,  433, 0, 1, LEGALELEMENTTYPE_BLUETEXTSM,  L_OPTIONS_093 }, // "rare designs on the future <<<"
 	{ 69,  344, 0, 1, LEGALELEMENTTYPE_DOLBYLOGO,   0             },
-#endif
 };
 
 Gfx *titleRenderLegal(Gfx *gdl)
 {
-#if VERSION >= VERSION_PAL_BETA
-	s32 prevx = 0;
-#endif
 	struct legalelement *elem;
 	struct legalelement *end;
 	struct modelrenderdata renderdata = { NULL, true, 3 };
@@ -350,9 +280,6 @@ Gfx *titleRenderLegal(Gfx *gdl)
 
 	if (g_LegalEnabled) {
 		gdl = titleClear(gdl);
-#if VERSION == VERSION_JPN_FINAL
-		gdl = func0f0d479c(gdl);
-#endif
 		gdl = text0f153628(gdl);
 
 		elem = g_LegalElements;
@@ -380,10 +307,6 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				colour = 0xffffffff;
 
 				if (elem->textid == L_OPTIONS_074 || elem->textid == L_OPTIONS_073) {
-#if VERSION >= VERSION_PAL_BETA
-					prevx += 10;
-#endif
-
 					if (IS4MB()) {
 						elem->textid = L_OPTIONS_074;
 					} else {
@@ -404,11 +327,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 
 			if (elem->type == LEGALELEMENTTYPE_LINE) {
 				gdl = text0f153780(gdl);
-#if VERSION == VERSION_JPN_FINAL
-				gdl = text0f153a34(gdl, elem->x, elem->y - 1, viGetWidth(), elem->y + 1, 0x7f7fff7f);
-#else
 				gdl = text0f153a34(gdl, elem->x, elem->y, viGetWidth(), elem->y + 2, 0x7f7fff7f);
-#endif
 				gdl = text0f153628(gdl);
 			} else if (elem->type == LEGALELEMENTTYPE_DOLBYLOGO) {
 				gdl = text0f153780(gdl);
@@ -457,57 +376,9 @@ Gfx *titleRenderLegal(Gfx *gdl)
 
 				gdl = text0f153628(gdl);
 			} else {
-#if VERSION == VERSION_JPN_FINAL
-				u32 stack;
-				x = elem->x == -1 ? prevx : elem->x;
-				y = elem->y - 1;
-
-				if (elem->type == LEGALELEMENTTYPE_WHITETEXTLG || elem->type == LEGALELEMENTTYPE_WHITETEXTSM) {
-					y -= 3;
-
-					var8007fad0 = 2;
-					var80080108jf = 2;
-
-					if (elem->x == -1) {
-						x += 24;
-					}
-
-					gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
-
-					var8007fad0 = 1;
-					var80080108jf = 1;
-				} else {
-					gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), viGetWidth(), viGetHeight(), 0, 0);
-
-					x = elem->x == -1 ? prevx : elem->x;
-					y = elem->y;
-					gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
-
-					prevx = x;
-				}
-#elif VERSION >= VERSION_PAL_FINAL
-				u32 stack;
-				// Render a darker copy of the text one pixel above
-				x = elem->x == -1 ? prevx : elem->x;
-				y = elem->y - 1;
-				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), viGetWidth(), viGetHeight(), 0, 0);
-
-				// Render the text properly
-				x = elem->x == -1 ? prevx : elem->x;
-				y = elem->y;
-				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
-
-				prevx = x;
-#elif VERSION >= VERSION_PAL_BETA
-				x = elem->x == -1 ? prevx : elem->x;
-				y = elem->y;
-				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
-				prevx = x;
-#else
 				x = elem->x;
 				y = elem->y;
 				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 			}
 		}
 
@@ -528,29 +399,6 @@ void titleInitPdLogo(void)
 	u32 size;
 
 	g_TitleTimer = 0;
-
-#if VERSION == VERSION_JPN_FINAL
-	{
-		s32 i;
-		s32 j;
-
-		var8009d34cjf = var8009d350jf = 9.0f;
-
-		for (i = 0; i < 4; i++) {
-			for (j = 0; j < 20; j++) {
-				var8009d34cjf = 0.99f * var8009d34cjf + 0.01f;
-			}
-
-			for (j = 0; j < 3; j++) {
-				var8009d358jf[j] = var8009d358jf[j + 1];
-			}
-
-			var8009d358jf[3] = var8009d34cjf;
-		}
-
-		var8009d350jf = var8009d358jf[1];
-	}
-#endif
 
 	{
 		struct coord coord = {0, 0, 0};
@@ -590,34 +438,6 @@ void titleInitPdLogo(void)
 		modelSetScale(g_TitleModelPdTwo, 1);
 		modelSetRootPosition(g_TitleModelPdTwo, &coord);
 	}
-
-#if VERSION == VERSION_JPN_FINAL
-	{
-		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_JPNLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_JPNLOGO].fileid, nextaddr, remaining, 0);
-		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNLOGO].fileid));
-		nextaddr += size;
-		remaining -= size;
-		modelCalculateRwDataLen(g_ModelStates[MODEL_JPNLOGO].filedata);
-
-		g_TitleModelJpnLogo1 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
-		g_TitleModelJpnLogo2 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
-		modelSetScale(g_TitleModelJpnLogo1, 1);
-		modelSetScale(g_TitleModelJpnLogo2, 1);
-		modelSetRootPosition(g_TitleModelJpnLogo1, &coord);
-		modelSetRootPosition(g_TitleModelJpnLogo2, &coord);
-
-		g_ModelStates[MODEL_JPNPD].filedata = modeldefLoad(g_ModelStates[MODEL_JPNPD].fileid, nextaddr, remaining, 0);
-		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNPD].fileid));
-		nextaddr += size;
-		remaining -= size;
-		modelCalculateRwDataLen(g_ModelStates[MODEL_JPNPD].filedata);
-
-		g_TitleModelJpnPd = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNPD].filedata);
-		modelSetScale(g_TitleModelJpnPd, 1);
-		modelSetRootPosition(g_TitleModelJpnPd, &coord);
-	}
-#endif
 
 	{
 		struct coord coord = {0, 0, 0};
@@ -674,12 +494,6 @@ void titleExitPdLogo(void)
 	modelmgrFreeModel(g_TitleModelPdTwo);
 	modelmgrFreeModel(g_TitleModelPdThree);
 
-#if VERSION == VERSION_JPN_FINAL
-	modelmgrFreeModel(g_TitleModelJpnLogo1);
-	modelmgrFreeModel(g_TitleModelJpnLogo2);
-	modelmgrFreeModel(g_TitleModelJpnPd);
-#endif
-
 	joy00014810(true);
 }
 
@@ -692,12 +506,6 @@ void titleTickPdLogo(void)
 
 	g_TitleTimer += g_Vars.lvupdate60;
 	var8009ccb8 = 1 - var8009ccb8;
-
-#if VERSION == VERSION_JPN_FINAL
-	if (g_TitleTimer > 950) {
-		g_PdLogoTriggerExit = true;
-	}
-#endif
 
 	if (g_PdLogoTriggerExit) {
 		// Exiting due to player not pressing anything
@@ -1542,7 +1350,7 @@ void titleInitNintendoLogo(void)
 	g_TitleFastForward = false;
 
 	if (g_TitleButtonPressed) {
-		g_TitleTimer = VERSION == VERSION_PAL_FINAL ? TICKS(160) : TICKS(180);
+		g_TitleTimer = TICKS(180);
 	} else {
 		g_TitleTimer = 0;
 	}
@@ -1601,12 +1409,7 @@ void titleTickNintendoLogo(void)
 		titleSetNextMode(TITLEMODE_PDLOGO);
 	}
 
-#if VERSION == VERSION_PAL_FINAL
-	if (g_TitleTimer > TICKS(220))
-#else
-	if (g_TitleTimer > TICKS(240))
-#endif
-	{
+	if (g_TitleTimer > TICKS(240)) {
 		titleSetNextMode(TITLEMODE_PDLOGO);
 	}
 }
@@ -1617,7 +1420,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 	s32 i;
 	s32 j;
 	Mtxf sp108;
-	f32 fracdone = g_TitleTimer / (VERSION == VERSION_PAL_FINAL ? 183.0f : TICKS(240.0f));
+	f32 fracdone = g_TitleTimer / TICKS(240.0f);
 	struct coord lightdir = {0, 0, 0};
 	s32 v0;
 
@@ -2045,47 +1848,6 @@ Gfx *titleRenderNoController(Gfx *gdl)
 	gdl = titleClear(gdl);
 	gdl = text0f153628(gdl);
 
-#if VERSION >= VERSION_JPN_FINAL
-	y = g_TitleViewHeight / 2 - 50;
-
-	var8007fad0 = 2;
-	var80080108jf = 2;
-
-	// Line 1
-	text = langGet(L_MPWEAPONS_285);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-
-	x = 288 - textwidth;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
-	y += 18;
-
-	// Line 2
-	text = langGet(L_MPWEAPONS_286);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-
-	x = 288 - textwidth;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
-	y += 28;
-
-	// Line 3
-	text = langGet(L_MPWEAPONS_287);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-
-	x = 288 - textwidth;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
-	y += 18;
-
-	// Line 4
-	text = langGet(L_MPWEAPONS_288);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-
-	x = 288 - textwidth;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
-	y += 18;
-
-	var8007fad0 = 1;
-	var80080108jf = 1;
-#else
 	// Line 1
 	text = langGet(L_OPTIONS_071); // "- no controller in controller socket 1 -"
 	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
@@ -2105,95 +1867,11 @@ Gfx *titleRenderNoController(Gfx *gdl)
 
 	width = viGetWidth();
 	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
-#endif
 
 	gdl = text0f153780(gdl);
 
 	return gdl;
 }
-
-#if VERSION >= VERSION_JPN_FINAL
-void titleInitNoExpansion(void)
-{
-	g_TitleTimer = 0;
-}
-#endif
-
-#if VERSION >= VERSION_JPN_FINAL
-void titleExitNoExpansion(void)
-{
-	// empty
-}
-#endif
-
-#if VERSION >= VERSION_JPN_FINAL
-void titleTickNoExpansion(void)
-{
-	viSetFovY(60);
-	viSetAspect(1.33333333f);
-	viSetZRange(100, 10000);
-	viSetUseZBuf(0);
-
-	g_TitleTimer += g_Vars.lvupdate60;
-}
-#endif
-
-#if VERSION >= VERSION_JPN_FINAL
-Gfx *titleRenderNoExpansion(Gfx *gdl)
-{
-	s32 textheight;
-	s32 textwidth;
-	s32 x;
-	s32 y;
-	char *text;
-	u32 stack[2];
-	s16 tmp;
-	s16 width;
-
-	if (1);
-	if (1);
-	if (1);
-
-	joyGetConnectedControllers();
-
-	gdl = titleClear(gdl);
-	gdl = text0f153628(gdl);
-
-	x = 50;
-	y = g_TitleViewHeight / 2 - 36;
-
-	var8007fad0 = 2;
-	var80080108jf = 2;
-
-	text = langGet(L_MPWEAPONS_281);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-	x = 288 - textwidth;
-	width = viGetWidth();
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
-	y += 18;
-
-	text = langGet(L_MPWEAPONS_282);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-	x = 288 - textwidth;
-	width = viGetWidth();
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
-	y += 18;
-
-	text = langGet(L_MPWEAPONS_284);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-	x = 288 - textwidth;
-	width = viGetWidth();
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
-	y += 18;
-
-	var8007fad0 = 1;
-	var80080108jf = 1;
-
-	gdl = text0f153780(gdl);
-
-	return gdl;
-}
-#endif
 
 void titleSetNextMode(s32 mode)
 {
@@ -2246,11 +1924,6 @@ void titleTick(void)
 		case TITLEMODE_NOCONTROLLER:
 			titleExitNoController();
 			break;
-#if VERSION >= VERSION_JPN_FINAL
-		case TITLEMODE_NOEXPANSION:
-			titleExitNoExpansion();
-			break;
-#endif
 		}
 
 		if (g_TitleMode != TITLEMODE_CHECKCONTROLLERS) {
@@ -2302,11 +1975,6 @@ void titleTick(void)
 		case TITLEMODE_NOCONTROLLER:
 			titleInitNoController();
 			break;
-#if VERSION >= VERSION_JPN_FINAL
-		case TITLEMODE_NOEXPANSION:
-			titleInitNoExpansion();
-			break;
-#endif
 		}
 
 		if (g_TitleMode != TITLEMODE_CHECKCONTROLLERS && g_TitleMode != TITLEMODE_SKIP) {
@@ -2334,11 +2002,6 @@ void titleTick(void)
 	case TITLEMODE_NOCONTROLLER:
 		titleTickNoController();
 		break;
-#if VERSION >= VERSION_JPN_FINAL
-	case TITLEMODE_NOEXPANSION:
-		titleTickNoExpansion();
-		break;
-#endif
 	case TITLEMODE_SKIP:
 		viSetUseZBuf(false);
 		titleSetNextMode(TITLEMODE_RARELOGO);
@@ -2385,11 +2048,6 @@ void titleExit(void)
 	case TITLEMODE_NOCONTROLLER:
 		titleExitNoController();
 		break;
-#if VERSION >= VERSION_JPN_FINAL
-	case TITLEMODE_NOEXPANSION:
-		titleExitNoExpansion();
-		break;
-#endif
 	case TITLEMODE_RAREPRESENTS1:
 	case TITLEMODE_RAREPRESENTS2:
 		titleExitRarePresents();
@@ -2513,11 +2171,6 @@ Gfx *titleRender(Gfx *gdl)
 		case TITLEMODE_NOCONTROLLER:
 			gdl = titleRenderNoController(gdl);
 			break;
-#if VERSION >= VERSION_JPN_FINAL
-		case TITLEMODE_NOEXPANSION:
-			gdl = titleRenderNoExpansion(gdl);
-			break;
-#endif
 		}
 	}
 

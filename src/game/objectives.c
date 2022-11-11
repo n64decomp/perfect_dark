@@ -304,7 +304,6 @@ void objectivesDisableChecking(void)
 	g_ObjectiveChecksDisabled = true;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void objectivesShowHudmsg(char *buffer, s32 hudmsgtype)
 {
 	s32 prevplayernum = g_Vars.currentplayernum;
@@ -320,7 +319,6 @@ void objectivesShowHudmsg(char *buffer, s32 hudmsgtype)
 
 	setCurrentPlayerNum(prevplayernum);
 }
-#endif
 
 void objectivesCheckAll(void)
 {
@@ -336,16 +334,8 @@ void objectivesCheckAll(void)
 				g_ObjectiveStatuses[i] = status;
 
 				if (objectiveGetDifficultyBits(i) & (1 << lvGetDifficulty())) {
-#if VERSION >= VERSION_JPN_FINAL
-					u8 jpnstr[] = {0, 0, 0};
-					jpnstr[0] = 0x80;
-					jpnstr[1] = 0x80 | (0x11 + availableindex);
-					sprintf(buffer, "%s %s: ", langGet(L_MISC_044), jpnstr); // "Objective"
-#else
 					sprintf(buffer, "%s %d: ", langGet(L_MISC_044), availableindex + 1); // "Objective"
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 					// NTSC 1.0 and above shows objective messages to everyone,
 					// while beta only shows them to the current player.
 					if (status == OBJECTIVE_COMPLETE) {
@@ -358,18 +348,6 @@ void objectivesCheckAll(void)
 						strcat(buffer, langGet(L_MISC_047)); // "Failed"
 						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVEFAILED);
 					}
-#else
-					if (status == OBJECTIVE_COMPLETE) {
-						strcat(buffer, langGet(L_MISC_045)); // "Completed"
-						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_ALLOWDUPES);
-					} else if (status == OBJECTIVE_INCOMPLETE) {
-						strcat(buffer, langGet(L_MISC_046)); // "Incomplete"
-						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_ALLOWDUPES);
-					} else if (status == OBJECTIVE_FAILED) {
-						strcat(buffer, langGet(L_MISC_047)); // "Failed"
-						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVEFAILED, HUDMSGFLAG_ALLOWDUPES);
-					}
-#endif
 				}
 			}
 

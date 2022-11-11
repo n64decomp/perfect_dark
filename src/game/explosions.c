@@ -735,10 +735,7 @@ void explosionInflictDamage(struct prop *expprop)
 
 				if (candamage);
 
-#if VERSION >= VERSION_NTSC_1_0
-				if (obj)
-#endif
-				{
+				if (obj) {
 					if (xdist <= damageradius && xdist >= -damageradius
 							&& ydist <= damageradius && ydist >= -damageradius
 							&& zdist <= damageradius && zdist >= -damageradius) {

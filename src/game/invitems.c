@@ -403,11 +403,7 @@ struct guncmd invanim_falcon2_reload_singlewield[] = {
 	gunscript_playsound(10, SFX_01D8)
 	gunscript_hidepart(19, 42)
 	gunscript_waittime(24, 1)
-#if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(24, SFX_80F6)
-#else
-	gunscript_playsound(24, SFX_01D9)
-#endif
 	gunscript_hidepart(24, 43)
 	gunscript_playsound(53, SFX_01DB)
 	gunscript_waittime(53, 3)
@@ -422,11 +418,7 @@ struct guncmd invanim_falcon2scope_reload_singlewield[] = {
 	gunscript_playsound(10, SFX_01D8)
 	gunscript_hidepart(19, 42)
 	gunscript_waittime(24, 1)
-#if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(24, SFX_80F6)
-#else
-	gunscript_playsound(24, SFX_01D9)
-#endif
 	gunscript_hidepart(24, 43)
 	gunscript_playsound(53, SFX_01DB)
 	gunscript_waittime(53, 3)
@@ -439,11 +431,7 @@ struct guncmd invanim_falcon2_reload_dualwield[] = {
 	gunscript_showpart(1, 42)
 	gunscript_playsound(6, SFX_01D8)
 	gunscript_waittime(50, 1)
-#if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(50, SFX_80F6)
-#else
-	gunscript_playsound(50, SFX_01D9)
-#endif
 	gunscript_playsound(71, SFX_01DB)
 	gunscript_end
 };
@@ -584,11 +572,7 @@ struct weapon invitem_falcon2 = {
 	1, // sway
 	gunviscmds_falcon2, // gunviscmds
 	invpartvisibility_falcon2, // part visibility
-#if VERSION == VERSION_JPN_FINAL
-	L_GUN_257, // short name
-#else
 	L_GUN_007, // short name
-#endif
 	L_GUN_007, // name
 	L_GUN_150, // manufacturer
 	L_GUN_156, // description
@@ -670,11 +654,7 @@ struct guncmd invanim_magsec_reload_singlewield[] = {
 	gunscript_hidepart(22, 42)
 	gunscript_showpart(22, 41)
 	gunscript_setsoundspeed(27, 1300)
-#if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(27, SFX_80F6)
-#else
-	gunscript_playsound(27, SFX_01D9)
-#endif
 	gunscript_waittime(30, 1)
 	gunscript_waittime(56, 3)
 	gunscript_setsoundspeed(58, 1300)
@@ -689,11 +669,7 @@ struct guncmd invanim_magsec_reload_dualwield[] = {
 	gunscript_playsound(5, SFX_01D8)
 	gunscript_hidepart(25, 41)
 	gunscript_setsoundspeed(47, 1300)
-#if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(47, SFX_80F6)
-#else
-	gunscript_playsound(47, SFX_01D9)
-#endif
 	gunscript_waittime(49, 1)
 	gunscript_setsoundspeed(69, 1300)
 	gunscript_playsound(69, SFX_01DB)
@@ -1298,11 +1274,7 @@ struct guncmd invanim_cmp150_reload_singlewield[] = {
 	gunscript_setsoundspeed(9, 950)
 	gunscript_playsound(9, SFX_01D8)
 	gunscript_setsoundspeed(44, 950)
-#if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(44, SFX_80F6)
-#else
-	gunscript_playsound(44, SFX_01D9)
-#endif
 	gunscript_hidepart(45, 43)
 	gunscript_showpart(45, 42)
 	gunscript_waittime(45, 1)
@@ -1318,11 +1290,7 @@ struct guncmd invanim_cmp150_reload_dualwield[] = {
 	gunscript_setsoundspeed(20, 950)
 	gunscript_playsound(20, SFX_01D8)
 	gunscript_setsoundspeed(61, 950)
-#if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(61, SFX_80F6)
-#else
-	gunscript_playsound(61, SFX_01D9)
-#endif
 	gunscript_hidepart(61, 43)
 	gunscript_showpart(61, 42)
 	gunscript_waittime(61, 1)
@@ -2321,12 +2289,7 @@ struct weapon invitem_k7avenger = {
 	L_GUN_019, // name
 	L_GUN_149, // manufacturer
 	L_GUN_168, // description
-#if VERSION >= VERSION_NTSC_1_0
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS,
-#else
-	// NTSC beta uses "an" in "Picked up an K7 Avenger"
-	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN,
-#endif
 };
 
 struct gunviscmd gunviscmds_laptopgun[] = {
@@ -2456,11 +2419,7 @@ struct weapon invitem_laptopgun = {
 	1, // sway
 	gunviscmds_laptopgun, // gunviscmds
 	invpartvisibility_laptopgun, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_251, // short name
-#else
 	L_GUN_024, // short name
-#endif
 	L_GUN_024, // name
 	L_GUN_150, // manufacturer
 	L_GUN_172, // description
@@ -2573,11 +2532,7 @@ struct weapon invitem_shotgun = {
 	1, // sway
 	gunviscmds_shotgun, // gunviscmds
 	invpartvisibility_shotgun, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_253, // short name
-#else
 	L_GUN_025, // short name
-#endif
 	L_GUN_025, // name
 	L_GUN_149, // manufacturer
 	L_GUN_173, // description
@@ -3153,11 +3108,7 @@ struct weapon invitem_timedmine = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_255, // short name
-#else
 	L_GUN_038, // short name
-#endif
 	L_GUN_038, // name
 	L_GUN_000, // manufacturer
 	L_GUN_185, // description
@@ -3247,11 +3198,7 @@ struct weapon invitem_remotemine = {
 	1, // sway
 	gunviscmds_remotemine,
 	invpartvisibility_remotemine, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_252, // short name
-#else
 	L_GUN_040, // short name
-#endif
 	L_GUN_040, // name
 	L_GUN_000, // manufacturer
 	L_GUN_187, // description
@@ -3361,11 +3308,7 @@ struct weapon invitem_ecmmine = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_JPN_FINAL
-	L_GUN_256, // short name
-#else
 	L_GUN_041, // short name
-#endif
 	L_GUN_041, // name
 	L_GUN_000, // manufacturer
 	L_GUN_188, // description
@@ -3915,11 +3858,7 @@ struct weapon invitem_tranquilizer = {
 	1, // sway
 	gunviscmds_tranquilizer, // gunviscmds
 	invpartvisibility_tranquilizer, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_247, // short name
-#else
 	L_GUN_034, // short name
-#endif
 	L_GUN_034, // name
 	L_GUN_000, // manufacturer
 	L_GUN_181, // description
@@ -3998,11 +3937,7 @@ struct guncmd invanim_sniperrifle_reload[] = {
 	gunscript_showpart(42, 41)
 	gunscript_hidepart(42, 40)
 	gunscript_setsoundspeed(72, 850)
-#if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(72, SFX_80F6)
-#else
-	gunscript_playsound(72, SFX_01D9)
-#endif
 	gunscript_hidepart(72, 41)
 	gunscript_showpart(72, 40)
 	gunscript_waittime(72, 1)
@@ -4087,11 +4022,7 @@ struct weapon invitem_sniperrifle = {
 	1, // sway
 	gunviscmds_sniperrifle, // gunviscmds
 	invpartvisibility_sniperrifle, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_254, // short name
-#else
 	L_GUN_032, // short name
-#endif
 	L_GUN_032, // name
 	L_GUN_000, // manufacturer
 	L_GUN_179, // description
@@ -5110,11 +5041,7 @@ struct weapon invitem_nightvision = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_244, // short name
-#else
 	L_GUN_059, // short name
-#endif
 	L_GUN_059, // name
 	L_GUN_000, // manufacturer
 	L_GUN_191, // description
@@ -5300,11 +5227,7 @@ struct weapon invitem_suicidepill = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_246, // short name
-#else
 	L_GUN_072, // short name
-#endif
 	L_GUN_072, // name
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description
@@ -5375,11 +5298,7 @@ struct weapon invitem_disguise40 = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_250, // short name
-#else
 	L_GUN_043, // short name
-#endif
 	L_GUN_043, // name
 	L_GUN_000, // manufacturer
 	L_GUN_211, // description
@@ -5404,11 +5323,7 @@ struct weapon invitem_disguise41 = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_250, // short name
-#else
 	L_GUN_043, // short name
-#endif
 	L_GUN_043, // name
 	L_GUN_000, // manufacturer
 	L_GUN_211, // description
@@ -5520,12 +5435,7 @@ struct weapon invitem_xrayscanner = {
 	L_GUN_065, // name
 	L_GUN_000, // manufacturer
 	L_GUN_193, // description
-#if VERSION >= VERSION_NTSC_1_0
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_UNDROPPABLE,
-#else
-	// NTSC beta uses "a" in "Picked up a X-ray scanner"
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_UNDROPPABLE,
-#endif
 };
 
 struct guncmd invanim_datauplink_equip[] = {
@@ -5574,11 +5484,7 @@ struct weapon invitem_datauplink = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_243, // short name
-#else
 	L_GUN_075, // short name
-#endif
 	L_GUN_075, // name
 	L_GUN_000, // manufacturer
 	L_GUN_197, // description
@@ -5604,11 +5510,7 @@ struct weapon invitem_doordecoder = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_245, // short name
-#else
 	L_GUN_063, // short name
-#endif
 	L_GUN_063, // name
 	L_GUN_000, // manufacturer
 	L_GUN_200, // description
@@ -5749,11 +5651,7 @@ struct weapon invitem_skedarbomb = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_JPN_FINAL
-	L_GUN_259, // short name
-#else
 	L_GUN_221, // short name
-#endif
 	L_GUN_221, // name
 	L_GUN_000, // manufacturer
 	L_GUN_203, // description
@@ -5841,11 +5739,7 @@ struct weapon invitem_autosurgeon = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_248, // short name
-#else
 	L_GUN_220, // short name
-#endif
 	L_GUN_220, // name
 	L_GUN_000, // manufacturer
 	L_GUN_201, // description
@@ -5923,11 +5817,7 @@ struct weapon invitem_backupdisk = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_PAL_FINAL
-	L_GUN_249, // short name
-#else
 	L_GUN_227, // short name
-#endif
 	L_GUN_227, // name
 	L_GUN_000, // manufacturer
 	L_GUN_209, // description
@@ -5979,11 +5869,7 @@ struct weapon invitem_suitcase = {
 	1, // sway
 	NULL, // gunviscmds
 	NULL, // part visibility
-#if VERSION >= VERSION_JPN_FINAL
-	L_GUN_258, // short name
-#else
 	L_GUN_067, // short name
-#endif
 	L_GUN_067, // name
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description
@@ -6016,7 +5902,6 @@ struct weapon invitem_necklace = {
 	WEAPONFLAG_UNDROPPABLE,
 };
 
-#if VERSION >= VERSION_NTSC_1_0
 struct weapon invitem_shieldtechitem = {
 	FILE_PCHRSHIELD, // hi model
 	FILE_PCHRSHIELD, // lo model
@@ -6042,7 +5927,6 @@ struct weapon invitem_shieldtechitem = {
 	L_GUN_241, // description
 	WEAPONFLAG_UNDROPPABLE,
 };
-#endif
 
 struct weapon invitem_keycard = {
 	FILE_PKEYCARD, // hi model
@@ -6274,9 +6158,7 @@ struct weapon *g_Weapons[] = {
 	&invitem_keycard,
 	&invitem_suitcase,
 	&invitem_briefcase,
-#if VERSION >= VERSION_NTSC_1_0
 	&invitem_shieldtechitem,
-#endif
 	&invitem_necklace,
 	&invitem_hammer,
 	&invitem_hammer,

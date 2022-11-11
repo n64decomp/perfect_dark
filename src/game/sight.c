@@ -168,13 +168,13 @@ void sightTick(bool sighton)
 
 	for (i = 0; i < 4; i++) {
 		if (g_Vars.currentplayer->targetset[i] > TICKS(512)) {
-			if (g_Vars.currentplayer->targetset[i] < (VERSION >= VERSION_PAL_BETA ? TICKS(1020) : 1024) - g_Vars.lvupdate240) {
+			if (g_Vars.currentplayer->targetset[i] < 1024 - g_Vars.lvupdate240) {
 				g_Vars.currentplayer->targetset[i] += g_Vars.lvupdate240;
 			} else {
 				g_Vars.currentplayer->targetset[i] = TICKS(1020);
 			}
 		} else {
-			if (g_Vars.currentplayer->targetset[i] < (VERSION >= VERSION_PAL_BETA ? TICKS(512) : 516) - g_Vars.lvupdate240) {
+			if (g_Vars.currentplayer->targetset[i] < 516 - g_Vars.lvupdate240) {
 				g_Vars.currentplayer->targetset[i] += g_Vars.lvupdate240;
 			} else {
 				g_Vars.currentplayer->targetset[i] = TICKS(512);
@@ -417,11 +417,7 @@ Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s
 				gdl = textRender(gdl, &x, &y, label, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 			} else {
 				char *text = langGet(textid);
-#if VERSION >= VERSION_JPN_FINAL
-				gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-#else
 				gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 			}
 		}
 	}
@@ -683,15 +679,9 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 
 			if (identifytimer & 0x80) {
 				// "Identify"
-#if VERSION == VERSION_JPN_FINAL
-				gdl = func0f1574d0jf(gdl, &textx, &texty, langGet(L_MISC_439),
-						g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0,
-						viGetWidth(), viGetHeight(), 0, 0);
-#else
 				gdl = textRender(gdl, &textx, &texty, langGet(L_MISC_439),
 						g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0,
 						viGetWidth(), viGetHeight(), 0, 0);
-#endif
 			}
 
 			gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);

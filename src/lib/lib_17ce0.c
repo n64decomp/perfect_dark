@@ -32,23 +32,6 @@ void portalGetAvgVertexPos(s32 portalnum, struct coord *avg)
 	avg->z *= f0;
 }
 
-#if VERSION < VERSION_NTSC_1_0
-bool portal00018e34nb(s32 portalnum)
-{
-	return g_BgPortals[portalnum].flags & PORTALFLAG_02;
-}
-
-void portal00018e54nb(s32 portalnum)
-{
-	g_BgPortals[portalnum].flags |= PORTALFLAG_02;
-}
-
-void portal00018e74nb(s32 portalnum)
-{
-	g_BgPortals[portalnum].flags &= (~PORTALFLAG_02 & 0xff);
-}
-#endif
-
 /**
  * Add roomnum to the rooms list, provided it's not already there and there's
  * space available at the end of the list.

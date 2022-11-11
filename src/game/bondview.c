@@ -29,10 +29,6 @@ char var800a41c0[24];
 
 u8 g_IrScanlines[2][480];
 
-#if VERSION < VERSION_NTSC_1_0
-u8 var800a8b58nb[0x1c0];
-#endif
-
 s32 var8007f840 = 0;
 u8 var8007f844 = 0;
 u8 var8007f848 = 0;
@@ -480,49 +476,8 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
 	s32 spec;
 	u8 alpha2;
 
-#if VERSION >= VERSION_PAL_FINAL && PAL
-	s32 vpadding;
-#endif
-
 	f32 tmp;
 
-#if VERSION >= VERSION_PAL_FINAL
-	viewtop = viGetViewTop();
-	viewheight = viGetViewHeight();
-	viewwidth = viGetViewWidth();
-	viewleft = viGetViewLeft();
-
-	startupfrac = 1.0f;
-	s2 = 0;
-
-#if PAL
-	if (PLAYERCOUNT() >= 2
-			|| optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE
-			|| optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-		vpadding = 16;
-		viewtop += vpadding;
-		viewheight -= vpadding * 2;
-	} else {
-		vpadding = 23;
-		viewtop += vpadding;
-		viewheight -= vpadding * 2;
-	}
-#endif
-
-	halfheight = viewheight * 0.5f;
-	sqhalfheight = halfheight * halfheight;
-	f26 = -(halfheight + halfheight) / viewheight;
-#elif VERSION >= VERSION_PAL_BETA
-	viewtop = viGetViewTop() + 16;
-	viewheight = viGetViewHeight() - 32;
-	halfheight = viewheight * 0.5f;
-	sqhalfheight = halfheight * halfheight;
-	f26 = -(halfheight + halfheight) / viewheight;
-	viewwidth = viGetViewWidth();
-	viewleft = viGetViewLeft();
-	startupfrac = 1.0f;
-	s2 = 0;
-#else
 	viewtop = viGetViewTop();
 	viewheight = viGetViewHeight();
 	halfheight = viewheight * 0.5f;
@@ -532,7 +487,6 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
 	viewleft = viGetViewLeft();
 	startupfrac = 1.0f;
 	s2 = 0;
-#endif
 
 	starting = (startuptimer60 < TICKS(50));
 
@@ -685,28 +639,6 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
 		}
 	}
 
-#if PAL
-	s3 = viGetViewTop();
-#if VERSION >= VERSION_PAL_FINAL
-	s2 = s3 + viGetViewHeight() - vpadding;
-#else
-	s2 = s3 + viGetViewHeight() - 16;
-#endif
-
-#if VERSION >= VERSION_PAL_FINAL
-	for (i = 0; i < vpadding; i++)
-#else
-	for (i = 0; i < 16; i++)
-#endif
-	{
-		gDPFillRectangle(gdl++, viewleft, s3 , viewleft + viewwidth, s3 + 1);
-		gDPFillRectangle(gdl++, viewleft, s2, viewleft + viewwidth, s2 + 1);
-
-		s3++;
-		s2++;
-	}
-#endif
-
 	return gdl;
 }
 
@@ -776,19 +708,9 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 {
 	char text[256];
 	s32 viewleft = viGetViewLeft();
-#if VERSION >= VERSION_PAL_FINAL
-	s32 viewwidth = viGetViewWidth();
-	s32 viewtop = viGetViewTop();
-	s32 viewheight = viGetViewHeight();
-#elif VERSION >= VERSION_PAL_BETA
-	s32 viewwidth = viGetViewWidth();
-	s32 viewtop = viGetViewTop() + 16;
-	s32 viewheight = viGetViewHeight() - 32;
-#else
 	s32 viewtop = viGetViewTop();
 	s32 viewwidth = viGetViewWidth();
 	s32 viewheight = viGetViewHeight();
-#endif
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 	s32 x;
@@ -813,24 +735,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 #else
 	s32 scale = viewwidth > 320 ? 2 : 1;
 #endif
-#if VERSION >= VERSION_NTSC_1_0
 	bool vsplit = false;
-#endif
-
-#if VERSION >= VERSION_PAL_FINAL
-#if PAL
-	if (PLAYERCOUNT() >= 2
-			|| optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE
-			|| optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-		viewtop += 16;
-		viewheight -= 32;
-	} else {
-		viewtop += 23;
-		viewheight -= 46;
-	}
-#endif
-	viewbottom = viewtop + viewheight - 1;
-#endif
 
 	if (g_Vars.currentplayer->eyespy == NULL
 			|| g_Vars.currentplayer->eyespy->prop == NULL
@@ -840,13 +745,10 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 
 	chr = g_Vars.currentplayer->eyespy->prop->chr;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
 		vsplit = true;
 	}
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 	movex = chr->prop->pos.x - chr->prevpos.x;
 	movey = chr->prop->pos.y - chr->prevpos.y;
 	movez = chr->prop->pos.z - chr->prevpos.z;
@@ -860,25 +762,6 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	} else {
 		movedist = 0.0f;
 	}
-#else
-	if (g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
-		movex = chr->prop->pos.x - chr->prevpos.x;
-		movey = chr->prop->pos.y - chr->prevpos.y;
-		movez = chr->prop->pos.z - chr->prevpos.z;
-
-		if (movex != 0.0f || movey != 0.0f || movez != 0.0f) {
-			sqmovedist = movex * movex + movey * movey + movez * movez;
-		}
-
-		if (sqmovedist > 0.001f) {
-			movedist = sqrtf(sqmovedist);
-		} else {
-			movedist = 0.0f;
-		}
-	} else {
-		movedist = 0.0f;
-	}
-#endif
 
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 		gdl = textSetPrimColour(gdl, 0x00ff0028);
@@ -888,10 +771,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 		gdl = textSetPrimColour(gdl, 0xff3300a0);
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (!vsplit)
-#endif
-	{
+	if (!vsplit) {
 		// Render borders/lines in background
 		gDPFillRectangle(gdl++, viewleft + 25, viewtop + 55, viewleft + 26, viewbottom - 24);
 		gDPFillRectangle(gdl++, viewleft + 31, viewtop + 55, viewleft + 32, viewbottom - 42);
@@ -944,13 +824,8 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 
 	// "H/M"
 	sprintf(text, "%s %s%4.2f", langGet(L_MISC_074), "", g_Vars.currentplayer->eyespy->height * 0.01f);
@@ -961,13 +836,8 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 
 	// "Y/D"
 	sprintf(text, "%s %d", langGet(L_MISC_075), (s32)g_Vars.currentplayer->eyespy->theta);
@@ -978,13 +848,8 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 
 	// "P/D"
 	sprintf(text, "%s %d", langGet(L_MISC_076), (s32)g_Vars.currentplayer->eyespy->verta);
@@ -995,35 +860,20 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 
 	// "CI 2023"
 	sprintf(text, "%s", langGet(L_MISC_077));
 	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
-#if VERSION >= VERSION_NTSC_1_0
 	x = (vsplit ? -3 : 0) + viewleft + 25 * scale + 5;
 	y = (vsplit ? 18 : 0) + viewbottom - 41;
-#else
-	x = viewleft + 25 * scale + 5;
-	y = viewbottom - 41;
-#endif
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 		sprintf(text, "%s", langGet(L_MISC_078)); // "YKK: 95935"
@@ -1035,100 +885,51 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 
 	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
-#if VERSION >= VERSION_NTSC_1_0
 	x = viewleft + 25 * scale + (vsplit ? -3 : 0) + 5;
 	y = viewbottom + (vsplit ? 20 : 0) - 34;
-#else
-	x = viewleft + 25 * scale + 5;
-	y = viewbottom - 34;
-#endif
 
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 		// "CAMSPY"
 		sprintf(text, "   %s", langGet(L_MISC_079));
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
-#if VERSION >= VERSION_PAL_FINAL
-		x = viewright - textwidth - 27;
-#else
 		x = viewright - scale * 53 - 25;
-#endif
-#if VERSION >= VERSION_NTSC_1_0
 		y = (vsplit ? -13 : 0) + viewtop + 27;
-#else
-		y = viewtop + 27;
-#endif
 		x2 = x + textwidth; \
 		y2 = y + textheight; \
 		gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-				colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
 		// "DRUGSPY"
 		sprintf(text, "   %s", langGet(L_MISC_468));
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
-#if VERSION >= VERSION_PAL_FINAL
-		x = viewright - textwidth - 27;
-#else
 		x = viewright - scale * 53 - 25;
-#endif
-#if VERSION >= VERSION_NTSC_1_0
 		y = (vsplit ? -13 : 0) + viewtop + 27;
-#else
-		y = viewtop + 27;
-#endif
 		x2 = x + textwidth; \
 		y2 = y + textheight; \
 		gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-				colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 	} else {
 		// "BOMBSPY"
 		sprintf(text, "   %s", langGet(L_MISC_469));
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
-#if VERSION >= VERSION_PAL_FINAL
-		x = viewright - textwidth - 27;
-#else
 		x = viewright - scale * 59 - 25;
-#endif
-#if VERSION >= VERSION_NTSC_1_0
 		y = (vsplit ? -13 : 0) + viewtop + 27;
-#else
-		y = viewtop + 27;
-#endif
 		x2 = x + textwidth; \
 		y2 = y + textheight; \
 		gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-				colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 	}
 
 	// Model number
@@ -1141,26 +942,13 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	}
 
 	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
-#if VERSION >= VERSION_PAL_FINAL
-	x = (vsplit ? 3 : 0) + viewright - textwidth - 27;
-	y = (vsplit ? -11 : 0) + viewtop + 34;
-#elif VERSION >= VERSION_NTSC_1_0
 	x = (vsplit ? 3 : 0) + viewright - scale * 46 - 25;
 	y = (vsplit ? -11 : 0) + viewtop + 34;
-#else
-	x = viewright - scale * 46 - 25;
-	y = viewtop + 34;
-#endif
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 
 	// Gyrostat/dartammo text
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY
@@ -1171,27 +959,13 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	}
 
 	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
-#if VERSION >= VERSION_PAL_FINAL
-	x = viewright - textwidth - 27;
-	y = (vsplit ? -2 : 0) + viewbottom - 12;
-#elif VERSION >= VERSION_NTSC_1_0
 	x = (vsplit ? -35 : 0) + (viewright - viewwidth / 5.0f - 3 - (scale * 5 - 5));
 	y = (vsplit ? -2 : 0) + viewbottom - 12;
-#else
-	x = viewright - viewwidth / 5.0f - 3 - (scale * 5 - 5);
-	y = viewbottom - 12;
-#endif
-	if (1);
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#else
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 
 	gdl = text0f153838(gdl);
 
@@ -1222,10 +996,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 		gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2); \
 		gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (!vsplit)
-#endif
-		{
+		if (!vsplit) {
 			xpos = (scale == 2) ? -76 : -85;
 
 			// Up
@@ -1487,10 +1258,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 			gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (!vsplit)
-#endif
-		{
+		if (!vsplit) {
 			tmpval = cstickx * 28.0f / 80.0f;
 
 			if (cstickx > 0) {
@@ -1523,10 +1291,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 			gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (!vsplit)
-#endif
-		{
+		if (!vsplit) {
 			tmpval = csticky * 28.0f / 80.0f;
 
 			if (csticky > 0) {
@@ -1545,10 +1310,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 		}
 
 		if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-#if VERSION >= VERSION_NTSC_1_0
-			if (!vsplit)
-#endif
-			{
+			if (!vsplit) {
 				// Camspy gyrobar 1
 				x = viewright - viewwidth / 5.0f;
 				y = viewbottom - 13;
@@ -1612,10 +1374,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 				x += scale * 2 + scale * 5;
 			}
 		} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_BOMBSPY) {
-#if VERSION >= VERSION_NTSC_1_0
-			if (!vsplit)
-#endif
-			{
+			if (!vsplit) {
 				// Bombspy gyrobar 1
 				x = viewright - viewwidth / 5.0f;
 				y = viewbottom - 13;
@@ -1682,25 +1441,19 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 		} else {
 			// Drugspy ammo
 			s32 i;
-#if VERSION >= VERSION_NTSC_1_0
 			s32 width;
-#endif
 
 			brightness2 = 255;
-#if VERSION >= VERSION_NTSC_1_0
 			width = scale * 30;
-#endif
 
 			y = viewbottom - 13;
 			x = viewright - viewwidth / 5.0f + 5;
 
-#if VERSION >= VERSION_NTSC_1_0
 			if (vsplit) {
 				x -= 12;
 				y -= 3;
 				width = 15;
 			}
-#endif
 
 			for (i = 0; i < 8; i++) {
 				if (i >= g_Vars.currentplayer->eyespydarts) {
@@ -1708,11 +1461,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 				}
 
 				gDPSetPrimColor(gdl++, 0, 0, 0x10, 0x20, brightness2, 0xff);
-#if VERSION >= VERSION_NTSC_1_0
 				gDPFillRectangle(gdl++, x, y - 4, x + width, y);
-#else
-				gDPFillRectangle(gdl++, x, y - 4, x + 30 * scale, y);
-#endif
 
 				y -= 5;
 			}
@@ -1734,10 +1483,6 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 			s8 yoffset;
 			s32 value;
 			s32 i;
-
-#if VERSION == VERSION_PAL_BETA
-			if (centrey);
-#endif
 
 			value = 17.0f * movedist / 25.0f;
 
@@ -1773,20 +1518,6 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 			}
 
 			ypos = centrey - y + 10;
-
-#if VERSION == VERSION_PAL_BETA
-			ypos += 16;
-#endif
-
-#if VERSION == VERSION_PAL_FINAL
-			if (PLAYERCOUNT() >= 2
-					|| optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE
-					|| optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-				ypos += 16;
-			} else {
-				ypos += 23;
-			}
-#endif
 
 			for (i = 0; i < 17; i++) {
 				brightness = i < value ? 40 : 80;
@@ -1842,20 +1573,6 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 			}
 
 			ypos = centrey - y + 10;
-
-#if VERSION == VERSION_PAL_BETA
-			ypos += 16;
-#endif
-
-#if VERSION == VERSION_PAL_FINAL
-			if (PLAYERCOUNT() >= 2
-					|| optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE
-					|| optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-				ypos += 16;
-			} else {
-				ypos += 23;
-			}
-#endif
 
 			for (i = 0; i < 17; i++) {
 				brightness = i < value ? 40 : 80;
@@ -2002,11 +1719,6 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 	f32 viewheightf;
 	s32 a0;
 
-#if VERSION < VERSION_NTSC_1_0
-	static s32 fsscanline = 0;
-	static s32 fslastradius = -1;
-#endif
-
 	viewright = viewleft + viewwidth;
 	viewcentrex = (viewleft + viewright) / 2;
 
@@ -2021,11 +1733,6 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 
 	strcpy(var800a41c0, "Fullscreen_DrawFaultScope");
 
-#if VERSION < VERSION_NTSC_1_0
-	osSyncPrintf("Fault Scope is active\n");
-	func0f13c2d0nb();
-#endif
-
 	viewbottom = viewtop + viewheight;
 	viewcentrey = (viewtop + viewbottom) / 2;
 	scantop = viewcentrey - outerradius;
@@ -2036,15 +1743,9 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 		scantop = viewbottom;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (scanbottom > viewbottom) {
 		scanbottom = viewbottom;
 	}
-#else
-	if (scantop > viewbottom) {
-		scantop = viewbottom;
-	}
-#endif
 
 	if (scantop < viewtop) {
 		scantop = viewtop;
@@ -2057,9 +1758,6 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 	scanincrement = (f32) scanrate * i / 240.0f;
 	fadeincrement = (f32) faderate * i / 240.0f;
 
-	// This code runs on the first frame of IR use (90 != 0),
-	// and in debug versions developers could change the radius at runtime.
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.currentplayer->fslastradius != outerradius) {
 		for (i = 0; i < 480; i++) {
 			g_IrScanlines[g_Vars.currentplayernum][i] = 0xff;
@@ -2068,19 +1766,8 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 		g_Vars.currentplayer->fsscanline = 0;
 		g_Vars.currentplayer->fslastradius = outerradius;
 	}
-#else
-	if (fslastradius != outerradius) {
-		for (i = 0; i < 480; i++) {
-			g_IrScanlines[0][i] = 0xff;
-		}
-
-		fsscanline = 0;
-		fslastradius = outerradius;
-	}
-#endif
 
 	// Increment the scanline
-#if VERSION >= VERSION_NTSC_1_0
 	for (i = 0; i < scanincrement; i++) {
 		if (g_Vars.currentplayer->fsscanline >= scanbottom) {
 			g_Vars.currentplayer->fsscanline = scantop;
@@ -2090,15 +1777,6 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 
 		g_Vars.currentplayer->fsscanline++;
 	}
-#else
-	for (i = 0; i < scanincrement; i++, fsscanline++) {
-		if (fsscanline == scanbottom) {
-			fsscanline = scantop;
-		}
-
-		g_IrScanlines[0][fsscanline] = 0xff - i;
-	}
-#endif
 
 	var8009caec = 0xff;
 	var8009caef = 0xde;
@@ -2111,19 +1789,11 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 	sqinnerradius = innerradius * innerradius;
 
 	for (i = scantop; i < scanbottom; i++) {
-#if VERSION >= VERSION_NTSC_1_0
 		if (i & 1) {
 			red = g_IrScanlines[g_Vars.currentplayernum][i];
 		} else {
 			red = g_IrScanlines[g_Vars.currentplayernum][i] * 2 / 3;
 		}
-#else
-		if (i & 1) {
-			red = g_IrScanlines[0][i];
-		} else {
-			red = g_IrScanlines[0][i] * 2 / 3;
-		}
-#endif
 
 		red += random() % 8;
 
@@ -2154,15 +1824,9 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 			gdl = bviewCopyPixels(gdl, fb, i, 5, i, 1.0f, viewleft, viewwidth);
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (g_IrScanlines[g_Vars.currentplayernum][i] > fadeincrement) {
 			g_IrScanlines[g_Vars.currentplayernum][i] -= fadeincrement;
 		}
-#else
-		if (g_IrScanlines[0][i] > fadeincrement) {
-			g_IrScanlines[0][i] -= fadeincrement;
-		}
-#endif
 	}
 
 	if (g_Menus[g_Vars.currentplayerstats->mpindex].curdialog == NULL) {
@@ -2266,9 +1930,7 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 	char directiontext[32];
 	char hertztext[24];
 	char zoomtext[24];
-#if VERSION >= VERSION_NTSC_1_0
 	char nametext[52];
-#endif
 	f32 lookx = g_Vars.currentplayer->cam_look.x;
 	f32 lookz = g_Vars.currentplayer->cam_look.z;
 	s32 x;
@@ -2363,7 +2025,6 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, viGetWidth(), viGetHeight(), 0, 0);
 
 	// Product name
-#if VERSION >= VERSION_NTSC_1_0
 	strcpy(nametext, " JMBC");
 
 	if (!vsplit) {
@@ -2374,10 +2035,6 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 
 	gdl = textRenderProjected(gdl, &x, &y, nametext,
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, viGetWidth(), viGetHeight(), 0, 0);
-#else
-	gdl = textRenderProjected(gdl, &x, &y, " JMBC WIDE BAND SCANNER\n",
-			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 
 	// Hertz
 	x = viewleft + 75 * scale;
@@ -2524,11 +2181,7 @@ Gfx *bviewDrawIrBinoculars(Gfx *gdl)
 			}
 		} else {
 			// Very top or bottom - whole line is black
-#if VERSION >= VERSION_NTSC_1_0
 			gdl = bviewDrawIrRect(gdl, viewleft, y, viewright, y + 1);
-#else
-			gdl = bviewDrawIrRect(gdl, viewleft, y, viewright - 1, y + 1);
-#endif
 		}
 	}
 

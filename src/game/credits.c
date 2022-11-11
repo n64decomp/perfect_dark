@@ -672,41 +672,23 @@ void creditsTickParticles(void)
 	f32 zspeed = 30.0f;
 
 	if (g_CreditsData->particlecolourindex1 >= 0) {
-#if VERSION >= VERSION_PAL_BETA
-		g_CreditsData->particlecolourweight += g_Vars.diffframe240freal / 720.0f;
-#else
 		g_CreditsData->particlecolourweight += g_Vars.diffframe240f / 720.0f;
-#endif
 
 		if (g_CreditsData->particlecolourweight > 1.0f) {
 			g_CreditsData->particlecolourindex2 = g_CreditsData->particlecolourindex1;
 			g_CreditsData->particlecolourindex1 = -1;
 		}
 	} else {
-#if VERSION >= VERSION_NTSC_1_0
 		if (RANDOMFRAC() < 0.007f && joyGetButtons(0, 0 | R_TRIG) == 0) {
 			g_CreditsData->particlecolourindex1 = random() % 4;
 			g_CreditsData->particlecolourweight = 0;
 		}
-#else
-		if (RANDOMFRAC() < 0.007f) {
-			g_CreditsData->particlecolourindex1 = random() % 4;
-			g_CreditsData->particlecolourweight = 0;
-		}
-#endif
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (RANDOMFRAC() < 0.002f && joyGetButtons(0, 0 | R_TRIG) == 0) {
 		g_CreditsData->particlemovetype = random() % 5;
 	}
-#else
-	if (RANDOMFRAC() < 0.002f) {
-		g_CreditsData->particlemovetype = random() % 5;
-	}
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (joyGetButtonsPressedThisFrame(0, R_TRIG)) {
 		g_CreditsData->particlemovetype = random() % 5;
 
@@ -715,7 +697,6 @@ void creditsTickParticles(void)
 			g_CreditsData->particlecolourweight = 0;
 		}
 	}
-#endif
 
 	if (RANDOMFRAC() < 0.007f) {
 		g_CreditsData->particleconfignum1 = random() % 2;
@@ -733,11 +714,7 @@ void creditsTickParticles(void)
 		g_CreditsData->particles[i].rotation += amount;
 
 		// Move the particle closer to the camera
-#if VERSION >= VERSION_PAL_BETA
-		amount = g_Vars.diffframe240freal * zspeed * 0.25f;
-#else
 		amount = g_Vars.diffframe240f * zspeed * 0.25f;
-#endif
 		g_CreditsData->particles[i].z += amount;
 
 		// If the particle has gone behind the camera, reset it
@@ -1197,53 +1174,8 @@ struct credit g_Credits[] = {
 	{ 1, RETAIN_NONE, 0, CREDITSTYLE_NAME2,       L_TITLE_131, L_TITLE_132 }, // "armond williams junior", "henry sterchi"
 	{ 0, RETAIN_NONE, 0, CREDITSTYLE_NAME2,       L_TITLE_133, L_TITLE_000 }, // "ed ridgeway", ""
 
-#if VERSION == VERSION_JPN_FINAL
-	{ 1, RETAIN_OUT,  0, CREDITSTYLE_HEADING1,    L_TITLE_184, L_TITLE_000 }, // "ncl staff", ""
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_NAME1,       L_TITLE_185, L_TITLE_186 }, // "s. miyamoto", "k. miki"
-	{ 0, RETAIN_NONE, 0, CREDITSTYLE_NAME1,       L_TITLE_187, L_TITLE_188 }, // "s. kojoh", "y. nakano"
-
-	{ 1, RETAIN_IN,   0, CREDITSTYLE_HEADING1,    L_TITLE_184, L_TITLE_000 }, // "ncl staff", ""
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_NAME1,       L_TITLE_189, L_TITLE_190 }, // "k.yamaguchi", "k. terasaki"
-	{ 0, RETAIN_NONE, 0, CREDITSTYLE_NAME1,       L_TITLE_191, L_TITLE_192 }, // "m. goto", "super mario club"
-#endif
-
-#if VERSION == VERSION_PAL_FINAL
-	{ 1, RETAIN_OUT,  0, CREDITSTYLE_HEADING2,    L_TITLE_151, L_TITLE_000 }, // "testing (noe)"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_SUPERVISOR,  L_TITLE_152, L_TITLE_153 }, // "supervisor", "kai 'jellybean' neumann"
-	{ 0, RETAIN_NONE, 0, CREDITSTYLE_SUPERVISOR,  L_TITLE_154, L_TITLE_155 }, // "deputy supervisor", "maurice 'pathfinder' tisdale"
-
-	{ 1, RETAIN_IN,   0, CREDITSTYLE_HEADING2,    L_TITLE_151, L_TITLE_000 }, // "testing (noe)"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_SUPERVISOR,  L_TITLE_156, L_TITLE_157 }, // "coordinators", "patrick 'capricorn' thieret"
-	{ 0, RETAIN_NONE, 0, CREDITSTYLE_NAME2,       L_TITLE_158, L_TITLE_001 }, // "andreas 'brennero' dietz", "\n"
-
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_HEADING2,    L_TITLE_162, L_TITLE_000 }, // "localization (french)"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_EDITOR,      L_TITLE_159, L_TITLE_163 }, // "editor", "julien 'sexy boy' bardakoff"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_ASSISTANT,   L_TITLE_161, L_TITLE_164 }, // "assistant editors", "jean-baptiste 'ours noir' fleury"
-	{ 0, RETAIN_NONE, 0, CREDITSTYLE_ASSISTANT,   L_TITLE_165, L_TITLE_166 }, // "nicolas 'darth lapinou' gourio", "nicolas 'el betal' robert"
-
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_HEADING2,    L_TITLE_167, L_TITLE_000 }, // "localization (german)"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_EDITOR,      L_TITLE_159, L_TITLE_168 }, // "editor", "micky 'scorpio's movement' auer"
-	{ 0, RETAIN_NONE, 0, CREDITSTYLE_ASSISTANT,   L_TITLE_160, L_TITLE_169 }, // "assistant editor", "jan 'ian' peitzmeier"
-
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_HEADING2,    L_TITLE_170, L_TITLE_000 }, // "localization (italian)"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_EDITOR,      L_TITLE_159, L_TITLE_171 }, // "editor", "elenor isbitish"
-	{ 0, RETAIN_NONE, 0, CREDITSTYLE_ASSISTANT,   L_TITLE_160, L_TITLE_172 }, // "assistant editor", "calimero tiiiun"
-
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_HEADING2,    L_TITLE_173, L_TITLE_000 }, // "localization (spanish)"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_EDITOR,      L_TITLE_159, L_TITLE_174 }, // "editor", "antonio 'toro' greppi"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_ASSISTANT,   L_TITLE_161, L_TITLE_175 }, // "assistant editors", "carlos 'yoshio' montilla"
-	{ 0, RETAIN_NONE, 0, CREDITSTYLE_ASSISTANT,   L_TITLE_176, L_TITLE_000 }, // "susa & natalia"
-
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_HEADING2,    L_TITLE_177, L_TITLE_000 }, // "localization"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_EDITOR,      L_TITLE_178, L_TITLE_179 }, // "product coordinator", "andy 'fiedl' fey"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_EDITOR,      L_TITLE_180, L_TITLE_181 }, // "product supervisor", "tanja 'personalized sarcasm' baar"
-	{ 1, RETAIN_NONE, 0, CREDITSTYLE_ASSISTANT,   L_TITLE_182, L_TITLE_183 }, // "product localization manager", "kai '0 to 100' zeh"
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
 	{ 1, RETAIN_NONE, 0, CREDITSTYLE_HEADING2,    L_TITLE_134, L_TITLE_000 }, // "perfect spelling", ""
 	{ 0, RETAIN_NONE, 0, CREDITSTYLE_NAME2,       L_TITLE_135, L_TITLE_000 }, // "teresa lillygren", ""
-#endif
 
 	{ 1, RETAIN_OUT,  0, CREDITSTYLE_HEADING1,    L_TITLE_136, L_TITLE_000 }, // "nintendo", ""
 	{ 1, RETAIN_NONE, 0, CREDITSTYLE_NAME1,       L_TITLE_137, L_TITLE_138 }, // "mr arakawa", ""
@@ -1295,11 +1227,7 @@ void creditsTickSlide(void)
 	f32 seconds;
 
 	g_CreditsData->slidelifetime = durations[credit->durationindex] + 1.0f;
-#if VERSION >= VERSION_PAL_BETA
-	seconds = g_Vars.diffframe240freal / 240.0f;
-#else
 	seconds = g_Vars.diffframe240f / 240.0f;
-#endif
 	g_CreditsData->slideage += seconds;
 
 	if (g_CreditsData->slideage > loadat) {
@@ -1392,9 +1320,6 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 		case CREDITSTYLE_UNUSED_06:
 		case CREDITSTYLE_NAME2:
 		case CREDITSTYLE_SUPERVISOR:
-#if VERSION >= VERSION_PAL_FINAL
-		case CREDITSTYLE_EDITOR:
-#endif
 			chars[index + 0] = g_CharsHandelGothicMd;
 			fonts[index + 0] = g_FontHandelGothicMd;
 			break;
@@ -1430,13 +1355,8 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 
 		prevstyle = credits[i]->style;
 
-#if VERSION >= VERSION_JPN_FINAL
-		textMeasure(&textheights[index + 0], &textwidths[index + 0], texts[index + 0], chars[index + 0], fonts[index + 0], -1);
-		textMeasure(&textheights[index + 1], &textwidths[index + 1], texts[index + 1], chars[index + 1], fonts[index + 1], -1);
-#else
 		textMeasure(&textheights[index + 0], &textwidths[index + 0], texts[index + 0], chars[index + 0], fonts[index + 0], 0);
 		textMeasure(&textheights[index + 1], &textwidths[index + 1], texts[index + 1], chars[index + 1], fonts[index + 1], 0);
-#endif
 
 		// Choose first position
 		switch (credits[i]->style) {
@@ -1447,9 +1367,6 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 		case CREDITSTYLE_COPYRIGHT:
 		case CREDITSTYLE_UNUSED_06:
 		case CREDITSTYLE_RAREDESIGNS:
-#if VERSION >= VERSION_PAL_FINAL
-		case CREDITSTYLE_EDITOR:
-#endif
 			x[index + 0] = 160 - textwidths[index + 0] / 2;
 			break;
 		case CREDITSTYLE_UNUSED_08:
@@ -1476,9 +1393,6 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 		case CREDITSTYLE_COPYRIGHT:
 		case CREDITSTYLE_UNUSED_06:
 		case CREDITSTYLE_RAREDESIGNS:
-#if VERSION >= VERSION_PAL_FINAL
-		case CREDITSTYLE_EDITOR:
-#endif
 			x[index + 1] = 160 - textwidths[index + 1] / 2;
 			break;
 		case CREDITSTYLE_UNUSED_08:
@@ -1493,12 +1407,6 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 
 		y[index + 1] = cury;
 		cury += textheights[index + 1];
-
-#if VERSION >= VERSION_PAL_FINAL
-		if (credits[i]->style == CREDITSTYLE_EDITOR) {
-			cury += 10;
-		}
-#endif
 	}
 
 	gdl = text0f153628(gdl);
@@ -1562,11 +1470,7 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 
 	// Draw text properly
 	for (i = 0; i < g_CreditsData->numthisslide * 2; i++) {
-#if VERSION >= VERSION_PAL_FINAL
-		f32 transfrac = 0;
-#else
 		f32 transfrac = 0.0f;
-#endif
 
 		age = g_CreditsData->slideage - i * 0.142f;
 
@@ -1668,11 +1572,9 @@ void creditsTick(void)
 {
 	s32 i;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (joyGetButtonsPressedThisFrame(0, 0)) {
 		creditsCreatePendingBgLayers(0xffffffff);
 	}
-#endif
 
 	if (g_CreditsCurFrame2 == 0) {
 		if (g_CreditsUsingAltTitle) {
@@ -1684,7 +1586,6 @@ void creditsTick(void)
 		}
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	g_CreditsPrevFrame = g_CreditsCurFrame;
 	g_CreditsCurFrame += g_Vars.diffframe240;
 	g_CreditsCurFrame2 += g_Vars.diffframe240;
@@ -1701,31 +1602,6 @@ void creditsTick(void)
 	if (!g_CreditsData->slidesenabled && g_CreditsData->blacktimer60 < (PAL ? 1150 : 1360)) {
 		g_CreditsData->blacktimer60 += g_Vars.diffframe60;
 	}
-#else
-	if (joyGetButtons(0, R_TRIG) == 0) {
-		g_CreditsPrevFrame = g_CreditsCurFrame;
-		g_CreditsCurFrame += g_Vars.diffframe240;
-		g_CreditsCurFrame2 += g_Vars.diffframe240;
-	}
-
-	joyGetButtonsPressedThisFrame(0, Z_TRIG);
-
-	g_CreditsParticleRotationFrac = (g_CreditsCurFrame2 % TICKS(4800)) / TICKS(4800.0f);
-
-	if (joyGetButtons(0, R_TRIG) == 0) {
-		creditsTickParticles();
-
-		if (g_CreditsData->slidesenabled) {
-			creditsTickSlide();
-		} else if (RANDOMFRAC() < 0.01f) {
-			creditsCreatePendingBgLayers(0xffffffff);
-		}
-
-		if (!g_CreditsData->slidesenabled && g_CreditsData->blacktimer60 < TICKS(1360)) {
-			g_CreditsData->blacktimer60 += g_Vars.diffframe60;
-		}
-	}
-#endif
 }
 
 Gfx *creditsDraw(Gfx *gdl)
@@ -1738,10 +1614,6 @@ Gfx *creditsDraw(Gfx *gdl)
 	static u32 scrolltimer240 = 0;
 
 	text0f1531dc(false);
-
-#if VERSION >= VERSION_JPN_FINAL
-	var800800f0jf = 0;
-#endif
 
 	g_ScaleX = 1;
 
@@ -1783,7 +1655,7 @@ Gfx *creditsDraw(Gfx *gdl)
 			g_CreditsData->unk2ef0.unk520 = g_CreditsData->unk2ef0.unk548 = -0.26175770163536;
 			g_CreditsData->unk2ef0.unk528 = g_CreditsData->unk2ef0.unk550 = 0;
 			g_CreditsData->unk2ef0.unk538 = 833.0f - (scrolltimer240 / TICKS(14400.0f)) * 2413.0f;
-			g_CreditsData->unk2ef0.unk53c = VERSION == VERSION_PAL_FINAL ? 65.86 : 70.86;
+			g_CreditsData->unk2ef0.unk53c = 70.86;
 			g_CreditsData->unk2ef0.unk540 = -2050;
 			g_CreditsData->unk2ef0.unk544 = 1.467;
 			g_CreditsData->unk2ef0.unk00c = 1200;
@@ -1838,12 +1710,7 @@ Gfx *creditsDraw(Gfx *gdl)
 	}
 
 	// Exit the alternative title if a button is pressed (other than L or R)
-#if VERSION >= VERSION_NTSC_1_0
-	if (g_CreditsUsingAltTitle && joyGetButtonsPressedThisFrame(0, 0xffcf))
-#else
-	if (g_CreditsUsingAltTitle && joyGetButtons(0, 0xffff))
-#endif
-	{
+	if (g_CreditsUsingAltTitle && joyGetButtonsPressedThisFrame(0, 0xffcf)) {
 		g_TitleNextStage = STAGE_CITRAINING;
 
 		setNumPlayers(1);

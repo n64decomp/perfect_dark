@@ -73,34 +73,6 @@ void mtx4LoadYRotationWithTranslation(struct coord *coord, f32 angle, Mtxf *mtx)
 	mtx->m[3][3] = 1;
 }
 
-#if VERSION < VERSION_NTSC_1_0
-void mtx4LoadXRotationWithTranslation(struct coord *coord, f32 angle, Mtxf *mtx)
-{
-	f32 cos = cosf(angle);
-	f32 sin = sinf(angle);
-
-	mtx->m[0][0] = 1;
-	mtx->m[0][1] = 0;
-	mtx->m[0][2] = 0;
-	mtx->m[0][3] = 0;
-
-	mtx->m[1][0] = 0;
-	mtx->m[1][1] = cos;
-	mtx->m[1][2] = sin;
-	mtx->m[1][3] = 0;
-
-	mtx->m[2][0] = 0;
-	mtx->m[2][1] = -sin;
-	mtx->m[2][2] = cos;
-	mtx->m[2][3] = 0;
-
-	mtx->m[3][0] = coord->x;
-	mtx->m[3][1] = coord->y;
-	mtx->m[3][2] = coord->z;
-	mtx->m[3][3] = 1;
-}
-#endif
-
 void mtx4LoadXRotation(f32 angle, Mtxf *mtx)
 {
 	f32 cos = cosf(angle);
@@ -487,24 +459,6 @@ void mtx4Align(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
 	angle = RAD2DEG(angle);
 	guAlignF(mtx, angle, x, y, z);
 }
-
-#if VERSION < VERSION_NTSC_1_0
-void mtx4Print(f32 mtx[4][4])
-{
-	s32 i;
-	s32 j;
-
-	for (i = 0; i < 4; i++) {
-		rmonPrintf("(");
-
-		for (j = 0; j < 4; j++) {
-			rmonPrintf("%s%s %9f", "", "", mtx[i][j]);
-		}
-
-		rmonPrintf(" )\n");
-	}
-}
-#endif
 
 void mtx4LoadRotationFrom(f32 src[4][4], f32 dst[4][4])
 {

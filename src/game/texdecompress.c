@@ -208,19 +208,7 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
 			g_TexCacheItems[g_TexCacheCount].heights[j - 1] = height;
 		}
 
-		if (rzipInflate(var800ab540, scratch2, scratch) == 0) {
-#if VERSION < VERSION_NTSC_1_0
-			char message[128];
-			sprintf(message, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-					"texdecompress.c", 357,
-					var800ab540[0], var800ab540[1], var800ab540[2], var800ab540[3],
-					var800ab540[4], var800ab540[5], var800ab540[6], var800ab540[7],
-					var800ab540[8], var800ab540[9], var800ab540[10], var800ab540[11],
-					var800ab540[12], var800ab540[13], var800ab540[14], var800ab540[15]);
-			crashSetMessage(message);
-			CRASH();
-#endif
-		}
+		rzipInflate(var800ab540, scratch2, scratch);
 
 		imagebytesout = texAlignIndices(scratch2, width, height, format, &dst[totalbytesout]);
 		texSetBitstring(rzipGetSomething());
@@ -300,10 +288,6 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
 	}
 
 	if (numcolours & 1) {
-#if VERSION < VERSION_NTSC_1_0
-		u32 stack;
-#endif
-
 		dst[totalbytesout + 0] = dst[totalbytesout - 2];
 		dst[totalbytesout + 1] = dst[totalbytesout - 1];
 		totalbytesout += 2;

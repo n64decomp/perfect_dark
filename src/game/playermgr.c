@@ -399,10 +399,6 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->slayerrocket = NULL;
 	g_Vars.players[index]->badrockettime = 0;
 
-#if VERSION >= VERSION_JPN_FINAL
-	g_Vars.players[index]->visionmode = VISIONMODE_NORMAL;
-#endif
-
 	g_Vars.players[index]->gunctrl.gunmemtype = 0;
 	g_Vars.players[index]->gunctrl.gunmem = NULL;
 	g_Vars.players[index]->gunctrl.gunmodeldef = NULL;

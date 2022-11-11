@@ -21,10 +21,6 @@ const char var7f1b5354[] = "vtx buffer low, need to delete objects\n";
 const char var7f1b537c[] = "getfreevertices : %d of type %d -> ref1=%x, ref2=%x\n";
 const char var7f1b53b4[] = "vtxstore: 1st mema alloc of %u bytes\n";
 
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1af8ecnb[] = "vtxstore: Trying to free %d from mema (bgRooms)\n";
-#endif
-
 const char var7f1b53dc[] = "getfreevertices : Return ptr = %x\n";
 const char var7f1b5400[] = "vtxstore: Out of mema (returning NULL)\n";
 const char var7f1b5428[] = "vtxstore: GROSS! CorspeCount > MAX_CORPSES corpses! Freeing corpse %x\n";
@@ -134,12 +130,6 @@ void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
 	s32 rand;
 	u32 size;
 	struct chrdata *chrs[6];
-
-#if VERSION >= VERSION_NTSC_1_0
-	if (IS4MB()) {
-		return NULL;
-	}
-#endif
 
 	if (count <= g_VtxstoreTypes[index].val2) {
 		for (i = 0; i < g_VtxstoreTypes[index].numallocated; i++) {

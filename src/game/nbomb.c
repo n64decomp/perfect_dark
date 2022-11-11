@@ -277,9 +277,6 @@ void nbomb0f0093c4(f32 *arg0)
 void nbombReset(struct nbomb *nbomb)
 {
 	nbomb->age240 = 0;
-#if VERSION >= VERSION_PAL_BETA
-	nbomb->radius = 0;
-#endif
 }
 
 /**
@@ -416,10 +413,8 @@ void func0f0099a4(void)
 	for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
 		g_Nbombs[i].age240 = -1;
 
-#if VERSION >= VERSION_NTSC_1_0
 		g_Nbombs[i].audiohandle20 = NULL;
 		g_Nbombs[i].audiohandle24 = NULL;
-#endif
 	}
 }
 
@@ -489,18 +484,11 @@ void nbombInflictDamage(struct nbomb *nbomb)
 				if (dist < nbomb->radius) {
 					struct chrdata *chr = prop->chr;
 
-#if VERSION >= VERSION_NTSC_1_0
-					if (chr)
-#endif
-					{
+					if (chr) {
 						struct coord vector = {0, 0, 0};
 						f32 damage = 0.01f * g_Vars.lvupdate60freal;
 
 						chrDamageByMisc(chr, damage, &vector, &gset, nbomb->ownerprop);
-
-#if VERSION >= VERSION_NTSC_1_0
-						if (chr->actiontype);
-#endif
 
 						chr->chrflags |= CHRCFLAG_TRIGGERSHOTLIST;
 
@@ -625,16 +613,10 @@ void nbombsTick(void)
 			if (g_Nbombs[i].age240 >= 0) {
 				if (g_Nbombs[i].audiohandle20 && sndGetState(g_Nbombs[i].audiohandle20) != AL_STOPPED) {
 					audioStop(g_Nbombs[i].audiohandle20);
-#if VERSION < VERSION_NTSC_1_0
-					g_Nbombs[i].audiohandle20 = NULL;
-#endif
 				}
 
 				if (g_Nbombs[i].audiohandle24 && sndGetState(g_Nbombs[i].audiohandle24) != AL_STOPPED) {
 					audioStop(g_Nbombs[i].audiohandle24);
-#if VERSION < VERSION_NTSC_1_0
-					g_Nbombs[i].audiohandle24 = NULL;
-#endif
 				}
 			}
 		}
@@ -673,11 +655,8 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 
 	for (i = 0; i < 6; i++) {
 		if (g_Nbombs[i].age240 == -1
-#if VERSION >= VERSION_NTSC_1_0
 				&& g_Nbombs[i].audiohandle20 == NULL
-				&& g_Nbombs[i].audiohandle24 == NULL
-#endif
-				) {
+				&& g_Nbombs[i].audiohandle24 == NULL) {
 			index = i;
 			break;
 		}
@@ -694,7 +673,6 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 	g_Nbombs[index].age240 = 0;
 	g_Nbombs[index].ownerprop = ownerprop;
 
-#if VERSION >= VERSION_NTSC_1_0
 	// Newer versions only play audio if the handles are null,
 	// while ntsc-beta clears the handles then plays them unconditionally.
 	if (g_Nbombs[index].audiohandle20 == NULL) {
@@ -716,26 +694,6 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 			audioPostEvent(g_Nbombs[index].audiohandle24, 16, param.s32);
 		}
 	}
-#else
-	g_Nbombs[index].audiohandle20 = NULL;
-	g_Nbombs[index].audiohandle24 = NULL;
-
-	sndStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
-
-	if (g_Nbombs[index].audiohandle20) {
-		union audioparam param;
-		param.f32 = 0.4f;
-		audioPostEvent(g_Nbombs[index].audiohandle20, 16, param.s32);
-	}
-
-	sndStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
-
-	if (g_Nbombs[index].audiohandle24) {
-		union audioparam param;
-		param.f32 = 0.4f;
-		audioPostEvent(g_Nbombs[index].audiohandle24, 16, param.s32);
-	}
-#endif
 }
 
 bool doorIsOpenOrOpening(s32 tagnum)

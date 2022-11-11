@@ -91,12 +91,10 @@ s32 filelistFindOrCreate(u8 filetype)
 	return -1;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void func0f110d90(s32 device)
 {
 	var800a2330[device] = -1;
 }
-#endif
 
 void filelistsTick(void)
 {
@@ -113,29 +111,12 @@ void filelistsTick(void)
 		var80075bf4 = true;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	for (i = 0, updateall = false; i < 5; i++) {
 		if (pak0f1167d8(i) && var800a2330[i] != pakGetUnk264(i)) {
 			updateall = true;
 			var800a2330[i] = pakGetUnk264(i);
 		}
 	}
-#else
-	for (i = 0, updateall = false; i < 5; i++) {
-		s32 tmp = pakGetUnk264(i);
-
-		pak0f11698c(i);
-
-		if (pak0f1167d8(i)) {
-			tmp = 0;
-		}
-
-		if (var800a2330[i] != tmp) {
-			updateall = true;
-			var800a2330[i] = tmp;
-		}
-	}
-#endif
 
 	for (i = 0; i < 4; i++) {
 		if (g_FileLists[i] != NULL) {
@@ -288,14 +269,6 @@ void pheadAllocateTextures(s32 playernum, struct perfectheadtexturelist *texture
 			g_Menus[playernum].fm.headtextures = textures;
 			g_Menus[playernum].fm.unke40_01 = false;
 		}
-	}
-
-	if (g_Menus[playernum].fm.headtextures == NULL) {
-#if VERSION >= VERSION_NTSC_1_0
-		faultAssert("tc != NULL", "gamefile.c", 458);
-#else
-		faultAssert("tc != NULL", "gamefile.c", 450);
-#endif
 	}
 
 	for (i = 0; i != ARRAYCOUNT(g_Menus[playernum].fm.headtextures->fileguids); i++) {

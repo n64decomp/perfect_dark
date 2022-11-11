@@ -51,11 +51,7 @@ void amgrInit(void)
 	g_AudioSp = bootAllocateStack(THREAD_AUDIO, STACKSIZE_AUDIO);
 }
 
-#if VERSION >= VERSION_PAL_BETA
-void amgrCreate(ALSynConfig *config, u32 *settings)
-#else
 void amgrCreate(ALSynConfig *config)
-#endif
 {
 	f32 freqpertick;
 	s32 i;
@@ -63,21 +59,11 @@ void amgrCreate(ALSynConfig *config)
 	config->outputRate = osAiSetFrequency(22020);
 	config->dmaproc = admaNew;
 
-#if VERSION >= VERSION_JPN_FINAL
-	freqpertick = settings[1] * (f32)config->outputRate / 30.0f;
-
-	if (IS4MB()) {
-		freqpertick *= 0.5f;
-	}
-#elif VERSION >= VERSION_PAL_BETA
-	freqpertick = settings[1] * (f32)config->outputRate / 25.0f;
-#else
 	freqpertick = config->outputRate / 30.0f;
 
 	if (IS4MB()) {
 		freqpertick *= 0.5f;
 	}
-#endif
 
 	g_AmgrFreqPerTick = (s32)freqpertick;
 
@@ -97,11 +83,9 @@ void amgrCreate(ALSynConfig *config)
 
 	var800918ec = 2000;
 
-#if !PAL
 	if (IS4MB()) {
 		var800918ec >>= 1;
 	}
-#endif
 
 	for (i = 0; i < ARRAYCOUNT(g_AudioManager.ACMDList); i++) {
 		g_AudioManager.ACMDList[i] = alHeapAlloc(&g_SndHeap, 1, var800918ec * sizeof(Acmd));

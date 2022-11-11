@@ -531,20 +531,6 @@ void bbikeUpdateVertical(struct coord *pos)
 
 	func0f065e74(&bike->prop->pos, bike->prop->rooms, pos, newrooms);
 
-#if VERSION < VERSION_NTSC_1_0
-	{
-		s32 i;
-
-		for (i = 0; newrooms[i] != -1; i++) {
-			if (g_Vars.currentplayer->floorroom == newrooms[i]) {
-				newrooms[0] = g_Vars.currentplayer->floorroom;
-				newrooms[1] = -1;
-				break;
-			}
-		}
-	}
-#endif
-
 	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, pos, newrooms);
 	propDeregisterRooms(g_Vars.currentplayer->prop);
 	roomsCopy(newrooms, g_Vars.currentplayer->prop->rooms);
@@ -607,11 +593,7 @@ s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	s32 result = bbikeCalculateNewPositionWithPush(arg0, 0);
 
 	if (!result) {
-#if VERSION >= VERSION_NTSC_1_0
 		cdGetEdge(arg1, arg2, 659, "bondbike.c");
-#else
-		cdGetEdge(arg1, arg2, 656, "bondbike.c");
-#endif
 	}
 
 	return result;
@@ -635,11 +617,7 @@ s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, st
 		}
 
 		if (someint == 0) {
-#if VERSION >= VERSION_NTSC_1_0
 			cdGetEdge(arg3, arg4, 685, "bondbike.c");
-#else
-			cdGetEdge(arg3, arg4, 682, "bondbike.c");
-#endif
 
 			if (arg3->f[0] != arg1->f[0]
 					|| arg3->f[1] != arg1->f[1]
@@ -802,9 +780,7 @@ void bbikeTick(void)
 	f32 sp1f4;
 	struct coord sp1e8;
 	Mtxf sp1a8;
-#if VERSION >= VERSION_NTSC_1_0
 	s32 j;
-#endif
 	Mtxf sp164;
 	Mtxf sp124;
 	Mtxf spe4;
@@ -913,7 +889,6 @@ void bbikeTick(void)
 
 		prop = g_Vars.currentplayer->prop;
 
-#if VERSION >= VERSION_NTSC_1_0
 		for (j = 0; prop->rooms[j] != -1; j++) {
 			if (prop->rooms[j] == g_Vars.currentplayer->floorroom) {
 				propDeregisterRooms(prop);
@@ -922,7 +897,6 @@ void bbikeTick(void)
 				break;
 			}
 		}
-#endif
 	}
 
 	bheadAdjustAnimation(0);

@@ -96,16 +96,16 @@ void bgrabInit(void)
 			cdresult = cd000276c8Cyl(obj->geocyl,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z,
-					VERSION >= VERSION_NTSC_1_0 ? 45 : 40, 0, 0);
+					45, 0, 0);
 		} else {
 			cdresult = cd000274e0Block(obj->geoblock,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z,
-					VERSION >= VERSION_NTSC_1_0 ? 45 : 40, 0, 0);
+					45, 0, 0);
 		}
 
 		if (cdresult != CDRESULT_COLLISION) {
-			g_Vars.currentplayer->grabbedforcez = VERSION >= VERSION_NTSC_1_0 ? 15 : 10;
+			g_Vars.currentplayer->grabbedforcez = 15;
 		}
 	}
 
@@ -181,11 +181,7 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 			sp98.y = g_Vars.currentplayer->prop->pos.y;
 			sp98.z = delta->z + g_Vars.currentplayer->prop->pos.z;
 
-#if VERSION >= VERSION_NTSC_1_0
 			cdGetEdge(&spb0, &spa4, 201, "bondgrab.c");
-#else
-			cdGetEdge(&spb0, &spa4, 200, "bondgrab.c");
-#endif
 
 			spc8.x = spa4.z - spb0.z;
 			spc8.y = 0.0f;
@@ -213,11 +209,7 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 			struct coord sp50;
 			struct coord sp44;
 
-#if VERSION >= VERSION_NTSC_1_0
 			cdGetEdge(&sp68, &sp5c, 228, "bondgrab.c");
-#else
-			cdGetEdge(&sp68, &sp5c, 227, "bondgrab.c");
-#endif
 
 			if (cdGetSavedPos(&sp50, &sp44)) {
 				sp44.x -= sp50.x;
@@ -343,20 +335,6 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 		pos.z += delta->z;
 
 		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
-
-#if VERSION < VERSION_NTSC_1_0
-		{
-			s32 i;
-
-			for (i = 0; rooms[i] != -1; i++) {
-				if (rooms[i] == g_Vars.currentplayer->floorroom) {
-					rooms[0] = g_Vars.currentplayer->floorroom;
-					rooms[1] = -1;
-					break;
-				}
-			}
-		}
-#endif
 
 		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &pos, rooms);
 
@@ -614,11 +592,7 @@ bool bgrab0f0cdb68(f32 angle)
 	f32 ymax;
 	f32 ymin;
 
-#if VERSION >= VERSION_NTSC_1_0
 	cdGetEdge(&spa4, &sp98, 678, "bondgrab.c");
-#else
-	cdGetEdge(&spa4, &sp98, 674, "bondgrab.c");
-#endif
 
 	sp7c = sp98.f[0] - spa4.f[0];
 	sp78 = sp98.f[2] - spa4.f[2];
@@ -718,11 +692,7 @@ bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
 	bool result = bgrabCalculateNewPositiontWithPush(delta, 0, true);
 
 	if (!result) {
-#if VERSION >= VERSION_NTSC_1_0
 		cdGetEdge(arg1, arg2, 815, "bondgrab.c");
-#else
-		cdGetEdge(arg1, arg2, 811, "bondgrab.c");
-#endif
 	}
 
 	return result;
@@ -852,11 +822,9 @@ void bgrabUpdateVertical(void)
 
 	tmp = fVar3 * (PAL ? 0.054400026798248f : 0.045499980449677f) + f0 - g_Vars.currentplayer->prop->pos.y;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.currentplayer->prop->pos.y + tmp < g_Vars.currentplayer->vv_ground + 10.0f) {
 		tmp = g_Vars.currentplayer->vv_ground + 10.0f - g_Vars.currentplayer->prop->pos.y;
 	}
-#endif
 
 	if (bgrabTryMoveUpwards(tmp)) {
 		g_Vars.currentplayer->sumground = fVar3;
@@ -1067,12 +1035,10 @@ void bgrab0f0ce924(void)
 		sp84 = g_Vars.currentplayer->headpos.x;
 		sp80 = g_Vars.currentplayer->headpos.z;
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (cheatIsActive(CHEAT_SMALLJO)) {
 			sp84 *= 0.4f;
 			sp80 *= 0.4f;
 		}
-#endif
 
 		sp74.x += (sp80 * g_Vars.currentplayer->bond2.unk00.f[0] - sp84 * g_Vars.currentplayer->bond2.unk00.f[2]) * g_Vars.lvupdate60freal;
 		sp74.z += (sp80 * g_Vars.currentplayer->bond2.unk00.f[2] + sp84 * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate60freal;
@@ -1143,7 +1109,6 @@ void bgrabTick(void)
 	bgrab0f0ce178();
 	bgrabUpdateVertical();
 
-#if VERSION >= VERSION_NTSC_1_0
 	{
 		s32 i;
 
@@ -1156,7 +1121,6 @@ void bgrabTick(void)
 			}
 		}
 	}
-#endif
 
 	{
 		struct defaultobj *obj = g_Vars.currentplayer->grabbedprop->obj;

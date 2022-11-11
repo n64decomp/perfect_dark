@@ -119,24 +119,6 @@ void gamefileApplyOptions(struct gamefile *file)
 	g_Vars.coopradaron = pakHasBitflag(GAMEFILEFLAG_COOPRADARON, file->flags) ? 1 : 0;
 	g_Vars.coopfriendlyfire = pakHasBitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, file->flags) ? 1 : 0;
 	g_Vars.antiradaron = pakHasBitflag(GAMEFILEFLAG_ANTIRADARON, file->flags) ? 1 : 0;
-
-#if VERSION >= VERSION_PAL_BETA
-	g_Vars.language = 0;
-
-	if (pakHasBitflag(GAMEFILEFLAG_LANGBIT1, file->flags)) {
-		g_Vars.language |= 0x01;
-	}
-
-	if (pakHasBitflag(GAMEFILEFLAG_LANGBIT2, file->flags)) {
-		g_Vars.language |= 0x02;
-	}
-
-	if (pakHasBitflag(GAMEFILEFLAG_LANGBIT3, file->flags)) {
-		g_Vars.language |= 0x04;
-	}
-
-	langSetEuropean(g_Vars.language);
-#endif
 }
 
 void gamefileLoadDefaults(struct gamefile *file)
@@ -151,13 +133,8 @@ void gamefileLoadDefaults(struct gamefile *file)
 	file->autodifficulty = 0;
 	file->autostageindex = 0;
 	file->totaltime = 0;
-#if VERSION >= VERSION_NTSC_1_0
 	sndSetSfxVolume(0x5000);
 	optionsSetMusicVolume(0x5000);
-#else
-	sndSetSfxVolume(0x7f80);
-	optionsSetMusicVolume(0x7f80);
-#endif
 	sndSetSoundMode(SOUNDMODE_STEREO);
 	optionsSetControlMode(player1, CONTROLMODE_11);
 	optionsSetControlMode(player2, CONTROLMODE_11);
@@ -186,11 +163,7 @@ void gamefileLoadDefaults(struct gamefile *file)
 	pakSetBitflag(GAMEFILEFLAG_P2_HEADROLL, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags, true);
 
-#if VERSION >= VERSION_JPN_FINAL
-	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags, true);
-#else
 	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags, false);
-#endif
 
 	pakSetBitflag(GAMEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_P2_SHOWZOOMRANGE, file->flags, true);
@@ -205,22 +178,14 @@ void gamefileLoadDefaults(struct gamefile *file)
 	pakSetBitflag(GAMEFILEFLAG_HIRES, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_LANGFILTERON, file->flags, false);
 
-#if VERSION >= VERSION_NTSC_1_0
 	pakSetBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_FOUNDPROXYMINE, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, file->flags, false);
-#endif
 
 	pakSetBitflag(GAMEFILEFLAG_COOPRADARON, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_ANTIRADARON, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags, 1);
-
-#if VERSION >= VERSION_PAL_BETA
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT1, g_GameFile.flags, ((g_Vars.language & 0x01) == 0x01));
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT2, g_GameFile.flags, ((g_Vars.language & 0x02) == 0x02));
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT3, g_GameFile.flags, ((g_Vars.language & 0x04) == 0x04));
-#endif
 
 	file->unk1e = 0;
 
@@ -246,12 +211,7 @@ void gamefileLoadDefaults(struct gamefile *file)
 		g_GameFile.firingrangescores[i] = 0;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
-	for (i = 0; i < ARRAYCOUNT(g_GameFile.weaponsfound); i++)
-#else
-	for (i = 0; i < ARRAYCOUNT(g_GameFile.weaponsfound) - 2; i++)
-#endif
-	{
+	for (i = 0; i < ARRAYCOUNT(g_GameFile.weaponsfound); i++) {
 		g_GameFile.weaponsfound[i] = 0;
 	}
 
@@ -345,7 +305,6 @@ s32 gamefileLoad(s32 device)
 				g_GameFile.weaponsfound[i] = savebufferReadBits(&buffer, 8);
 			}
 
-#if VERSION >= VERSION_NTSC_1_0
 			if (pakHasBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags)) {
 				frSetWeaponFound(WEAPON_TIMEDMINE);
 			}
@@ -357,7 +316,6 @@ s32 gamefileLoad(s32 device)
 			if (pakHasBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, g_GameFile.flags)) {
 				frSetWeaponFound(WEAPON_REMOTEMINE);
 			}
-#endif
 
 			func0f0d54c4(&buffer);
 			gamefileApplyOptions(&g_GameFile);
@@ -416,49 +374,22 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 	pakSetBitflag(GAMEFILEFLAG_SCREENSPLIT, g_GameFile.flags, optionsGetScreenSplit());
 	pakSetBitflag(GAMEFILEFLAG_SCREENRATIO, g_GameFile.flags, optionsGetScreenRatio());
 
-#if VERSION >= VERSION_NTSC_1_0
 	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, g_GameFile.flags, optionsGetScreenSize() == SCREENSIZE_WIDE);
 	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, g_GameFile.flags, optionsGetScreenSize() == SCREENSIZE_CINEMA);
-#else
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, g_GameFile.flags, optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE);
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, g_GameFile.flags, optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA);
-#endif
 
 	pakSetBitflag(GAMEFILEFLAG_HIRES, g_GameFile.flags, g_ViRes == VIRES_HI);
 	pakSetBitflag(GAMEFILEFLAG_INGAMESUBTITLES, g_GameFile.flags, optionsGetInGameSubtitles());
 	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, g_GameFile.flags, optionsGetCutsceneSubtitles());
 	pakSetBitflag(GAMEFILEFLAG_LANGFILTERON, g_GameFile.flags, g_Vars.langfilteron);
 
-#if VERSION >= VERSION_NTSC_1_0
 	pakSetBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_TIMEDMINE));
 	pakSetBitflag(GAMEFILEFLAG_FOUNDPROXYMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_PROXIMITYMINE));
 	pakSetBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_REMOTEMINE));
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-	switch (optionsGetScreenSize())
-#else
-	switch (optionsGetEffectiveScreenSize())
-#endif
-	{
-	case SCREENSIZE_FULL:
-		break;
-	case SCREENSIZE_WIDE:
-		break;
-	case SCREENSIZE_CINEMA:
-		break;
-	}
 
 	pakSetBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, g_GameFile.flags, g_Vars.pendingantiplayernum == 1);
 	pakSetBitflag(GAMEFILEFLAG_COOPRADARON, g_GameFile.flags, g_Vars.coopradaron == 1);
 	pakSetBitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, g_GameFile.flags, g_Vars.coopfriendlyfire == 1);
 	pakSetBitflag(GAMEFILEFLAG_ANTIRADARON, g_GameFile.flags, g_Vars.antiradaron == 1);
-
-#if VERSION >= VERSION_PAL_BETA
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT1, g_GameFile.flags, (g_Vars.language & 0x01) == 0x01);
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT2, g_GameFile.flags, (g_Vars.language & 0x02) == 0x02);
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT3, g_GameFile.flags, (g_Vars.language & 0x04) == 0x04);
-#endif
 
 	if (device >= 0) {
 		savebufferClear(&buffer);
@@ -538,11 +469,7 @@ void gamefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 
 
 	*stage = savebufferReadBits(&buffer, 5);
 
-#if VERSION >= VERSION_NTSC_1_0
 	*time = savebufferReadBits(&buffer, 32);
-#else
-	*time = (u16) savebufferReadBits(&buffer, 32);
-#endif
 
 	*difficulty = savebufferReadBits(&buffer, 2);
 }

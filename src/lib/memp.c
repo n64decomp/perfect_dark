@@ -89,18 +89,9 @@ void mempSetHeap(u8 *heapstart, u32 heaplen)
 	g_MempOnboardPools[MEMPOOL_STAGE].rightpos = heapstart + heaplen;
 
 	// If 8MB, reserve the entire expansion pak for the stage pool
-#if VERSION >= VERSION_NTSC_1_0
 	extraend = (u8 *) K0BASE + bootGetMemSize();
-#else
-	extraend = (u8 *) K0BASE + osGetMemSize();
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (bootGetMemSize() > 4 * 1024 * 1024)
-#else
-	if (osGetMemSize() > 4 * 1024 * 1024)
-#endif
-	{
+	if (bootGetMemSize() > 4 * 1024 * 1024) {
 		g_MempExpansionPools[MEMPOOL_STAGE].start = (u8 *) K0BASE + 4 * 1024 * 1024;
 		g_MempExpansionPools[MEMPOOL_STAGE].rightpos = extraend;
 	}
@@ -193,28 +184,6 @@ void *mempAlloc(u32 len, u8 pool)
 		g_LvOomSize = len;
 	}
 
-#if VERSION < VERSION_NTSC_1_0
-	if (pool != MEMPOOL_8 && pool != MEMPOOL_7 && len) {
-		char buffer[80];
-		u32 stack;
-		u32 size;
-		u32 free;
-
-		if (pool == MEMPOOL_STAGE) {
-			free = mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_ONBOARD);
-			size = mempGetPoolSize(MEMPOOL_STAGE, MEMBANK_ONBOARD);
-			sprintf(buffer, "Out of mem - LEV: %d f %d s %d", len, free, size);
-		} else {
-			free = mempGetPoolFree(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
-			size = mempGetPoolSize(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
-			sprintf(buffer, "Out of mem - ETR: %d f %d s %d", len, free, size);
-		}
-
-		crashSetMessage(buffer);
-		CRASH();
-	}
-#endif
-
 	return allocation;
 }
 
@@ -274,28 +243,6 @@ u32 mempGetPoolFree(u8 poolnum, u32 bank)
 
 	return pool->rightpos - pool->leftpos;
 }
-
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-u32 mempGetPoolSize(u8 poolnum, u32 bank)
-{
-	struct memorypool *pool;
-
-	if (bank == MEMBANK_ONBOARD) {
-		pool = &g_MempOnboardPools[poolnum];
-	} else {
-		pool = &g_MempExpansionPools[poolnum];
-	}
-
-	return pool->rightpos - pool->start;
-}
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-void *mempAllocFromPackedWord(u32 word)
-{
-	return mempAlloc(word >> 4, word & 0x0f);
-}
-#endif
 
 /**
  * Reset the pool's left side to its start address, effectively freeing the left

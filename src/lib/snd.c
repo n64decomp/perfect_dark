@@ -65,14 +65,12 @@ struct sndstate *g_SndNosediveHandle = NULL;
 struct sndstate *g_SndUfoHandle = NULL;
 
 u16 g_SfxVolume = 32767;
-s32 g_SoundMode = (VERSION >= VERSION_NTSC_1_0 ? SOUNDMODE_STEREO : SOUNDMODE_SURROUND);
+s32 g_SoundMode = SOUNDMODE_STEREO;
 bool g_SndMp3Enabled = false;
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 var8005ddd4 = 0;
 s32 var8005ddd8 = 0;
 s32 var8005dddc = 0;
-#endif
 
 u8 *g_SndGuardStringPtr = NULL;
 
@@ -131,22 +129,16 @@ enum audioconfig_e {
 	AUDIOCONFIG_51,
 	AUDIOCONFIG_52,
 	AUDIOCONFIG_53,
-#if VERSION >= VERSION_NTSC_1_0
 	AUDIOCONFIG_54,
-#endif
 	AUDIOCONFIG_55,
 	AUDIOCONFIG_56,
 	AUDIOCONFIG_57,
 	AUDIOCONFIG_58,
 	AUDIOCONFIG_59,
-#if VERSION >= VERSION_NTSC_1_0
 	AUDIOCONFIG_60,
 	AUDIOCONFIG_61,
 	AUDIOCONFIG_62,
 	AUDIOCONFIG_63
-#else
-	AUDIOCONFIG_60
-#endif
 };
 
 struct audiorussmapping g_AudioRussMappings[] = {
@@ -315,7 +307,7 @@ struct audiorussmapping g_AudioRussMappings[] = {
 	/*0x00a2*/ { 0x80b2, AUDIOCONFIG_18 },
 	/*0x00a3*/ { 0x80b3, AUDIOCONFIG_18 },
 	/*0x00a4*/ { 0x818a, AUDIOCONFIG_19 },
-	/*0x00a5*/ { VERSION >= VERSION_NTSC_1_0 ? 0xefdd : 0x8190, AUDIOCONFIG_19 },
+	/*0x00a5*/ { 0xefdd, AUDIOCONFIG_19 },
 	/*0x00a6*/ { 0x805f, AUDIOCONFIG_32 },
 	/*0x00a7*/ { 0x8060, AUDIOCONFIG_32 },
 	/*0x00a8*/ { 0x8061, AUDIOCONFIG_32 },
@@ -396,9 +388,7 @@ struct audiorussmapping g_AudioRussMappings[] = {
 	/*0x00f3*/ { 0x8605, AUDIOCONFIG_04 },
 	/*0x00f4*/ { 0x8606, AUDIOCONFIG_04 },
 	/*0x00f5*/ { 0x8606, AUDIOCONFIG_04 },
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x00f6*/ { 0x81d9, AUDIOCONFIG_61 },
-#endif
 	/*0x00f7*/ { 0x8267, AUDIOCONFIG_02 },
 	/*0x00f8*/ { 0x8268, AUDIOCONFIG_02 },
 	/*0x00f9*/ { 0x8286, AUDIOCONFIG_02 },
@@ -406,15 +396,9 @@ struct audiorussmapping g_AudioRussMappings[] = {
 	/*0x00fb*/ { 0x8291, AUDIOCONFIG_02 },
 	/*0x00fc*/ { 0x829f, AUDIOCONFIG_02 },
 	/*0x00fd*/ { 0x82a1, AUDIOCONFIG_02 },
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x00fe*/ { 0x8af9, AUDIOCONFIG_47 }, // Cass: "You've become quite an annoyance"
 	/*0x00ff*/ { 0x8afa, AUDIOCONFIG_47 }, // Cass: "We meet again, girl"
 	/*0x0100*/ { 0x8afb, AUDIOCONFIG_47 }, // Cass: "Good night, Miss Dark"
-#else
-	/*0x00fe*/ { 0x92f9, AUDIOCONFIG_47 }, // Cass: "You've become quite an annoyance"
-	/*0x00ff*/ { 0x92fa, AUDIOCONFIG_47 }, // Cass: "We meet again, girl"
-	/*0x0100*/ { 0x92fb, AUDIOCONFIG_47 }, // Cass: "Good night, Miss Dark"
-#endif
 	/*0x0101*/ { 0x92fc, AUDIOCONFIG_47 }, // Cass: "Get her!"
 	/*0x0102*/ { 0x92fd, AUDIOCONFIG_47 }, // Cass: (laughing)
 	/*0x0103*/ { 0x9285, AUDIOCONFIG_02 }, // Scientist: "Who the hell are you?"
@@ -442,11 +426,7 @@ struct audiorussmapping g_AudioRussMappings[] = {
 	/*0x0119*/ { 0x81cb, AUDIOCONFIG_36 },
 	/*0x011a*/ { 0x81cb, AUDIOCONFIG_37 },
 	/*0x011b*/ { 0x81cb, AUDIOCONFIG_38 },
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x011c*/ { 0x81c6, AUDIOCONFIG_55 },
-#else
-	/*0x011c*/ { 0x81c6, AUDIOCONFIG_55 },
-#endif
 	/*0x011d*/ { 0x9278, AUDIOCONFIG_47 }, // "That's not how it goes"
 	/*0x011e*/ { 0x9279, AUDIOCONFIG_47 }, // "Give it to me. You're doing it wrong"
 	/*0x011f*/ { 0x927a, AUDIOCONFIG_47 }, // "Oh no, we're too late"
@@ -459,17 +439,13 @@ struct audiorussmapping g_AudioRussMappings[] = {
 	/*0x0126*/ { 0x8300, AUDIOCONFIG_02 }, // "Oh my god"
 	/*0x0127*/ { 0x8303, AUDIOCONFIG_02 }, // "Oh god I'm hit"
 	/*0x0128*/ { 0x830a, AUDIOCONFIG_02 }, // "Oh my god"
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x0129*/ { 0x8313, AUDIOCONFIG_62 }, // "Noooo!"
-#endif
 	/*0x012a*/ { 0x8314, AUDIOCONFIG_02 }, // "Oh god he's dead!"
 	/*0x012b*/ { 0x832e, AUDIOCONFIG_02 }, // "Bloody stupid gun"
 	/*0x012c*/ { 0x8330, AUDIOCONFIG_02 }, // "Damn it"
 	/*0x012d*/ { 0x8333, AUDIOCONFIG_02 }, // "Damn, she's good"
 	/*0x012e*/ { 0x8334, AUDIOCONFIG_02 }, // "Cover my ass"
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x012f*/ { 0x834c, AUDIOCONFIG_62 }, // Death scream
-#endif
 	/*0x0130*/ { 0x83a3, AUDIOCONFIG_02 }, // Female: "Damn she's good"
 	/*0x0131*/ { 0x83b9, AUDIOCONFIG_02 }, // Female: "My god"
 	/*0x0132*/ { 0x83c7, AUDIOCONFIG_02 }, // "Geez, that hurt"
@@ -480,9 +456,7 @@ struct audiorussmapping g_AudioRussMappings[] = {
 	/*0x0137*/ { 0x83f5, AUDIOCONFIG_02 }, // "Damn"
 	/*0x0138*/ { 0x83f6, AUDIOCONFIG_02 }, // "Hell, she's good"
 	/*0x0139*/ { 0x8400, AUDIOCONFIG_02 }, // "Let's get the hell out of here"
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x013a*/ { 0x8411, AUDIOCONFIG_62 }, // "Noooo!"
-#endif
 	/*0x013b*/ { 0x8413, AUDIOCONFIG_02 }, // "Shoot, damn it"
 	/*0x013c*/ { 0x8414, AUDIOCONFIG_02 }, // "Oh god, I'm dying"
 	/*0x013d*/ { 0x8422, AUDIOCONFIG_02 }, // "God, run!"
@@ -494,24 +468,15 @@ struct audiorussmapping g_AudioRussMappings[] = {
 	/*0x0143*/ { 0x81b7, AUDIOCONFIG_58 },
 	/*0x0144*/ { 0x8477, AUDIOCONFIG_57 },
 	/*0x0145*/ { 0x8478, AUDIOCONFIG_57 },
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x0146*/ { 0x81c2, AUDIOCONFIG_54 },
 	/*0x0147*/ { 0x8479, AUDIOCONFIG_54 },
 	/*0x0148*/ { 0x81c3, AUDIOCONFIG_54 },
 	/*0x0149*/ { 0x81c4, AUDIOCONFIG_54 },
-#else
-	/*0x0146*/ { 0x81c2, AUDIOCONFIG_55 },
-	/*0x0147*/ { 0x8479, AUDIOCONFIG_55 },
-	/*0x0148*/ { 0x81c3, AUDIOCONFIG_55 },
-	/*0x0149*/ { 0x81c4, AUDIOCONFIG_55 },
-#endif
 	/*0x014a*/ { 0x8443, AUDIOCONFIG_02 }, // Civilian: "Oh my god"
 	/*0x014b*/ { 0x844e, AUDIOCONFIG_02 }, // "What the hell was that?"
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x014c*/ { 0x843c, AUDIOCONFIG_63 },
 	/*0x014d*/ { 0x847c, AUDIOCONFIG_63 },
 	/*0x014e*/ { 0x843d, AUDIOCONFIG_63 },
-#endif
 	/*0x014f*/ { 0xf2ad, AUDIOCONFIG_01 }, // "Joanna, this is Jonathan. You're in grave danger"
 	/*0x0150*/ { 0xf2ae, AUDIOCONFIG_01 }, // "They've flooded the area with nerge gas"
 	/*0x0151*/ { 0xf2af, AUDIOCONFIG_01 }, // "Get our friend to the containment lab. There's a hiding place there"
@@ -596,7 +561,7 @@ struct audiorussmapping g_AudioRussMappings[] = {
 	/*0x01a0*/ { 0xf2df, AUDIOCONFIG_01 }, // Elvis: "We're outside, Joanna. Get the shields down and we can help you"
 	/*0x01a1*/ { 0xf2e0, AUDIOCONFIG_01 }, // Elvis: "You've got to open the hanger doors so we can dock"
 	/*0x01a2*/ { 0xd4ea, AUDIOCONFIG_01 }, // Carrington: "Stand back Joanna. We'll create your escape route"
-	/*0x01a3*/ { VERSION >= VERSION_NTSC_1_0 ? 0x8d24 : 0x9524, AUDIOCONFIG_02 }, // Cass: "Get the hell out of my office"
+	/*0x01a3*/ { 0x8d24, AUDIOCONFIG_02 }, // Cass: "Get the hell out of my office"
 	/*0x01a4*/ { 0x9d62, AUDIOCONFIG_47 }, // Elvis: "Joanna, what took you so long? Follow me. Let's get off this old tub"
 	/*0x01a5*/ { 0x84aa, AUDIOCONFIG_43 },
 	/*0x01a6*/ { 0x81cf, AUDIOCONFIG_41 },
@@ -679,20 +644,16 @@ struct audioconfig g_AudioConfigs[] = {
 	{ /*51*/  400, 2500, 3000, -1,  75, -1,   0, 0 },
 	{ /*52*/  200,  500,  800, -1, 100, -1, 100, 0 },
 	{ /*53*/ 1000, 1100, 1600, -1, 100, -1,   0, 0 },
-#if VERSION >= VERSION_NTSC_1_0
 	{ /*54*/  300, 1300, 1500, -1, 100, -1,   0, AUDIOCONFIGFLAG_01 },
-#endif
 	{ /*55*/  300, 1300, 1500, -1, 100, -1, 200, AUDIOCONFIGFLAG_01 },
 	{ /*56*/  250,  600,  900, -1, 100, -1, 200, AUDIOCONFIGFLAG_01 },
 	{ /*57*/   50,  180,  250, -1, 100, -1, 200, AUDIOCONFIGFLAG_01 },
 	{ /*58*/  100,  400,  600, -1, 100, -1, 200, AUDIOCONFIGFLAG_01 },
 	{ /*59*/  700, 1100, 1400, -1, 100, -1, 200, AUDIOCONFIGFLAG_01 },
 	{ /*60*/  400, 2500, 3000, -1, 100, -1,   0, AUDIOCONFIGFLAG_04 },
-#if VERSION >= VERSION_NTSC_1_0
 	{ /*61*/  300,  900, 1100, -1, 100, -1,   0, 0 },
 	{ /*62*/ 1000, 2500, 3000, -1, 100, -1,   0, AUDIOCONFIGFLAG_08 },
 	{ /*63*/  400, 1000, 1200, -1, 100, -1,   0, 0 },
-#endif
 };
 
 u32 var8005ecd8 = 0x00000000;
@@ -734,22 +695,13 @@ s16 var8005ecf8[] = {
 	0x5fff,
 	0x6665,
 	0x5fff,
-#if VERSION >= VERSION_NTSC_1_0
 	0x5998,
 	0x5998,
-#else
-	0x5fff,
-	0x5fff,
-#endif
 	0x5332,
 	0x5332,
 	0x5fff,
 	0x3332,
-#if VERSION >= VERSION_NTSC_1_0
 	0x4ccc,
-#else
-	0x3fff,
-#endif
 	0x5fff,
 	0x4ccc,
 	0x3fff,
@@ -789,11 +741,7 @@ s16 var8005ecf8[] = {
 	0x7332,
 	0x7332,
 	0x4ccc,
-#if VERSION >= VERSION_NTSC_1_0
 	0x3c28,
-#else
-	0x4ccc,
-#endif
 	0x4ccc,
 	0x4ccc,
 	0x4ccc,
@@ -855,7 +803,6 @@ bool sndIsPlayingMp3(void)
 
 u16 snd0000e9dc(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	s32 result;
 
 	if (func00033ec4(0) < 0x5000) {
@@ -865,20 +812,15 @@ u16 snd0000e9dc(void)
 	}
 
 	return result;
-#else
-	return func00033ec4(0);
-#endif
 }
 
 void sndSetSfxVolume(u16 volume)
 {
 	u8 i;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (volume > 0x5000) {
 		volume = 0x5000;
 	}
-#endif
 
 	for (i = 0; i < 9; i++) {
 		func00033f44(i, volume);
@@ -891,11 +833,9 @@ void snd0000ea80(u16 volume)
 {
 	u8 i;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (volume > 0x5000) {
 		volume = 0x5000;
 	}
-#endif
 
 	for (i = 0; i < 9; i++) {
 		func00033f44(i, volume);
@@ -975,17 +915,12 @@ void sndLoadSfxCtl(void)
 	}
 
 	for (i = 0; i < 45; i++) {
-#if VERSION >= VERSION_NTSC_1_0
 		g_SndCache.ages[i] = 1;
-#else
-		g_SndCache.ages[i] = g_Vars.updateframe;
-#endif
 
 		g_SndCache.refcounts[i] = 0;
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void sndIncrementAges(void)
 {
 	s32 i;
@@ -996,11 +931,9 @@ void sndIncrementAges(void)
 		}
 	}
 }
-#endif
 
 ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
 	ALEnvelope *s2 = (ALEnvelope *)ALIGN16((u32)spaf);
@@ -1028,14 +961,6 @@ ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 
 		if (1);
 	} while (sum1 != sum2);
-#else
-	u8 sp5f[0x50];
-	ALEnvelope *s1 = (ALEnvelope *)ALIGN16((u32)sp5f);
-
-	offset += (u32)&_sfxctlSegmentRomStart;
-
-	dmaExecHighPriority(s1, offset, 0x40);
-#endif
 
 	g_SndCache.envelopes[cacheindex] = *s1;
 
@@ -1047,7 +972,6 @@ ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 
 ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
 	ALKeyMap *s2 = (ALKeyMap *)ALIGN16((u32)spaf);
@@ -1075,14 +999,6 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 
 		if (1);
 	} while (sum1 != sum2);
-#else
-	u8 sp5f[0x50];
-	ALKeyMap *s1 = (ALKeyMap *)ALIGN16((u32)sp5f);
-
-	offset += (u32)&_sfxctlSegmentRomStart;
-
-	dmaExecHighPriority(s1, offset, 0x40);
-#endif
 
 	g_SndCache.keymaps[cacheindex] = *s1;
 
@@ -1094,7 +1010,6 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 
 ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x150];
 	u8 sp5f[0x150];
 	ALADPCMBook *s2 = (ALADPCMBook *)ALIGN16((u32)spaf);
@@ -1122,14 +1037,6 @@ ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 
 		if (1);
 	} while (sum1 != sum2);
-#else
-	u8 sp5f[0x150];
-	ALADPCMBook *s1 = (ALADPCMBook *)ALIGN16((u32)sp5f);
-
-	offset += (u32)&_sfxctlSegmentRomStart;
-
-	dmaExecHighPriority(s1, offset, 0x140);
-#endif
 
 	g_SndCache.books[cacheindex] = *s1;
 
@@ -1141,7 +1048,6 @@ ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 
 ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
 	ALADPCMloop *s2 = (ALADPCMloop *)ALIGN16((u32)spaf);
@@ -1173,18 +1079,6 @@ ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 
 		if (1);
 	} while (sum1 != sum2);
-#else
-	u8 sp5f[0x50];
-	ALADPCMloop *s1 = (ALADPCMloop *)ALIGN16((u32)sp5f);
-
-	if (offset == 0) {
-		return NULL;
-	}
-
-	offset += (u32)&_sfxctlSegmentRomStart;
-
-	dmaExecHighPriority(s1, offset, 0x40);
-#endif
 
 	g_SndCache.loops[cacheindex] = *s1;
 
@@ -1196,7 +1090,6 @@ ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 
 ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
 	ALWaveTable *s2 = (ALWaveTable *)ALIGN16((u32)spaf);
@@ -1225,15 +1118,6 @@ ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
 
 		if (1);
 	} while (sum1 != sum2);
-#else
-	u8 sp5f[0x50];
-	ALWaveTable *s1 = (ALWaveTable *)ALIGN16((u32)sp5f);
-	ALWaveTable *tmp;
-
-	offset += (u32)&_sfxctlSegmentRomStart;
-
-	dmaExecHighPriority(s1, offset, 0x40);
-#endif
 
 	tmp = &g_SndCache.wavetables[cacheindex];
 
@@ -1314,19 +1198,10 @@ ALSound *sndLoadSound(s16 soundnum)
 
 		for (i = 0; i < 45; i++) {
 			if (g_SndCache.refcounts[i] == 0) {
-#if VERSION >= VERSION_NTSC_1_0
 				if (g_SndCache.ages[i] > oldestage) {
 					oldestage = g_SndCache.ages[i];
 					oldestindex = i;
 				}
-#else
-				s32 age = g_Vars.updateframe - g_SndCache.ages[i] + 1;
-
-				if (age > oldestage) {
-					oldestage = age;
-					oldestindex = i;
-				}
-#endif
 			}
 		}
 
@@ -1358,11 +1233,7 @@ ALSound *sndLoadSound(s16 soundnum)
 	}
 
 	// Reset this cache item's age, even if it already existed in the cache
-#if VERSION >= VERSION_NTSC_1_0
 	g_SndCache.ages[cacheindex] = 1;
-#else
-	g_SndCache.ages[cacheindex] = g_Vars.updateframe;
-#endif
 
 	return &g_SndCache.sounds[cacheindex];
 }
@@ -1414,19 +1285,8 @@ void sndInit(void)
 {
 	ALSndpConfig sndpconfig;
 	ALSynConfig synconfig;
-#if VERSION >= VERSION_PAL_BETA
-		u32 settings[3];
-#endif
 
-#if VERSION >= VERSION_JPN_FINAL
 	u32 heaplen = 1024 * 441;
-#elif VERSION >= VERSION_PAL_BETA
-	u32 heaplen = 1024 * 446;
-#elif VERSION >= VERSION_NTSC_1_0
-	u32 heaplen = 1024 * 441;
-#else
-	u32 heaplen = 1024 * 438;
-#endif
 
 	g_Vars.langfilteron = false;
 
@@ -1515,15 +1375,7 @@ void sndInit(void)
 		sndpconfig.unk10 = 9;
 		sndpconfig.heap = &g_SndHeap;
 
-#if VERSION >= VERSION_PAL_BETA
-		settings[0] = 22020;
-		settings[1] = 1;
-		settings[2] = 2000;
-
-		amgrCreate(&synconfig, settings);
-#else
 		amgrCreate(&synconfig);
-#endif
 
 		if (g_SndMp3Enabled) {
 			osSyncPrintf("RWI : Initialising the new and improved MP3 player\n");
@@ -1583,7 +1435,6 @@ void snd0000fc40(s32 arg0)
 	// empty
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 bool seqPlay(struct seqinstance *seq, s32 tracknum)
 {
 	u32 stack;
@@ -1632,141 +1483,6 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 
 	return true;
 }
-#else
-const char var70055250nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
-const char var700552a8nb[] = "snd.c";
-
-GLOBAL_ASM(
-glabel seqPlay
-/*    100e0:	27bdeaf8 */ 	addiu	$sp,$sp,-5384
-/*    100e4:	afb00058 */ 	sw	$s0,0x58($sp)
-/*    100e8:	00808025 */ 	or	$s0,$a0,$zero
-/*    100ec:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*    100f0:	afa5150c */ 	sw	$a1,0x150c($sp)
-/*    100f4:	0c00e838 */ 	jal	n_alCSPGetState
-/*    100f8:	8c8400f8 */ 	lw	$a0,0xf8($a0)
-/*    100fc:	3c0e8006 */ 	lui	$t6,0x8006
-/*    10100:	8dcef6c0 */ 	lw	$t6,-0x940($t6)
-/*    10104:	8fa4150c */ 	lw	$a0,0x150c($sp)
-/*    10108:	3c03800a */ 	lui	$v1,0x800a
-/*    1010c:	51c00004 */ 	beqzl	$t6,.NB00010120
-/*    10110:	ae040104 */ 	sw	$a0,0x104($s0)
-/*    10114:	10000066 */ 	beqz	$zero,.NB000102b0
-/*    10118:	00001025 */ 	or	$v0,$zero,$zero
-/*    1011c:	ae040104 */ 	sw	$a0,0x104($s0)
-.NB00010120:
-/*    10120:	10400003 */ 	beqz	$v0,.NB00010130
-/*    10124:	8c638188 */ 	lw	$v1,-0x7e78($v1)
-/*    10128:	10000061 */ 	beqz	$zero,.NB000102b0
-/*    1012c:	00001025 */ 	or	$v0,$zero,$zero
-.NB00010130:
-/*    10130:	8e0f0104 */ 	lw	$t7,0x104($s0)
-/*    10134:	3c010001 */ 	lui	$at,0x1
-/*    10138:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*    1013c:	00781021 */ 	addu	$v0,$v1,$t8
-/*    10140:	8c450004 */ 	lw	$a1,0x4($v0)
-/*    10144:	00a1082b */ 	sltu	$at,$a1,$at
-/*    10148:	50200004 */ 	beqzl	$at,.NB0001015c
-/*    1014c:	94470008 */ 	lhu	$a3,0x8($v0)
-/*    10150:	10000057 */ 	beqz	$zero,.NB000102b0
-/*    10154:	00001025 */ 	or	$v0,$zero,$zero
-/*    10158:	94470008 */ 	lhu	$a3,0x8($v0)
-.NB0001015c:
-/*    1015c:	3c0a800a */ 	lui	$t2,0x800a
-/*    10160:	8d4a818c */ 	lw	$t2,-0x7e74($t2)
-/*    10164:	24e7000f */ 	addiu	$a3,$a3,0xf
-/*    10168:	34f9000f */ 	ori	$t9,$a3,0xf
-/*    1016c:	3b29000f */ 	xori	$t1,$t9,0xf
-/*    10170:	25270040 */ 	addiu	$a3,$t1,0x40
-/*    10174:	00ea082b */ 	sltu	$at,$a3,$t2
-/*    10178:	54200004 */ 	bnezl	$at,.NB0001018c
-/*    1017c:	9446000a */ 	lhu	$a2,0xa($v0)
-/*    10180:	1000004b */ 	beqz	$zero,.NB000102b0
-/*    10184:	00001025 */ 	or	$v0,$zero,$zero
-/*    10188:	9446000a */ 	lhu	$a2,0xa($v0)
-.NB0001018c:
-/*    1018c:	8e0800fc */ 	lw	$t0,0xfc($s0)
-/*    10190:	24c6000f */ 	addiu	$a2,$a2,0xf
-/*    10194:	34cb000f */ 	ori	$t3,$a2,0xf
-/*    10198:	3966000f */ 	xori	$a2,$t3,0xf
-/*    1019c:	01076821 */ 	addu	$t5,$t0,$a3
-/*    101a0:	01a62023 */ 	subu	$a0,$t5,$a2
-/*    101a4:	afa414f8 */ 	sw	$a0,0x14f8($sp)
-/*    101a8:	afa40064 */ 	sw	$a0,0x64($sp)
-/*    101ac:	0c003664 */ 	jal	dmaExec
-/*    101b0:	afa814fc */ 	sw	$t0,0x14fc($sp)
-/*    101b4:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*    101b8:	8fa514fc */ 	lw	$a1,0x14fc($sp)
-/*    101bc:	0c001da4 */ 	jal	rzipInflate
-/*    101c0:	27a600f4 */ 	addiu	$a2,$sp,0xf4
-/*    101c4:	1440002c */ 	bnez	$v0,.NB00010278
-/*    101c8:	8fa314f8 */ 	lw	$v1,0x14f8($sp)
-/*    101cc:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*    101d0:	3c057005 */ 	lui	$a1,0x7005
-/*    101d4:	3c067005 */ 	lui	$a2,0x7005
-/*    101d8:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    101dc:	906f0001 */ 	lbu	$t7,0x1($v1)
-/*    101e0:	24c652a8 */ 	addiu	$a2,$a2,0x52a8
-/*    101e4:	24a55250 */ 	addiu	$a1,$a1,0x5250
-/*    101e8:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    101ec:	90780002 */ 	lbu	$t8,0x2($v1)
-/*    101f0:	27a40070 */ 	addiu	$a0,$sp,0x70
-/*    101f4:	2407068c */ 	addiu	$a3,$zero,0x68c
-/*    101f8:	afb80018 */ 	sw	$t8,0x18($sp)
-/*    101fc:	90790003 */ 	lbu	$t9,0x3($v1)
-/*    10200:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*    10204:	90690004 */ 	lbu	$t1,0x4($v1)
-/*    10208:	afa90020 */ 	sw	$t1,0x20($sp)
-/*    1020c:	906a0005 */ 	lbu	$t2,0x5($v1)
-/*    10210:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*    10214:	906b0006 */ 	lbu	$t3,0x6($v1)
-/*    10218:	afab0028 */ 	sw	$t3,0x28($sp)
-/*    1021c:	906c0007 */ 	lbu	$t4,0x7($v1)
-/*    10220:	afac002c */ 	sw	$t4,0x2c($sp)
-/*    10224:	906d0008 */ 	lbu	$t5,0x8($v1)
-/*    10228:	afad0030 */ 	sw	$t5,0x30($sp)
-/*    1022c:	906e0009 */ 	lbu	$t6,0x9($v1)
-/*    10230:	afae0034 */ 	sw	$t6,0x34($sp)
-/*    10234:	906f000a */ 	lbu	$t7,0xa($v1)
-/*    10238:	afaf0038 */ 	sw	$t7,0x38($sp)
-/*    1023c:	9078000b */ 	lbu	$t8,0xb($v1)
-/*    10240:	afb8003c */ 	sw	$t8,0x3c($sp)
-/*    10244:	9079000c */ 	lbu	$t9,0xc($v1)
-/*    10248:	afb90040 */ 	sw	$t9,0x40($sp)
-/*    1024c:	9069000d */ 	lbu	$t1,0xd($v1)
-/*    10250:	afa90044 */ 	sw	$t1,0x44($sp)
-/*    10254:	906a000e */ 	lbu	$t2,0xe($v1)
-/*    10258:	afaa0048 */ 	sw	$t2,0x48($sp)
-/*    1025c:	906b000f */ 	lbu	$t3,0xf($v1)
-/*    10260:	0c004fc1 */ 	jal	sprintf
-/*    10264:	afab004c */ 	sw	$t3,0x4c($sp)
-/*    10268:	0c003074 */ 	jal	crashSetMessage
-/*    1026c:	27a40070 */ 	addiu	$a0,$sp,0x70
-/*    10270:	240c0045 */ 	addiu	$t4,$zero,0x45
-/*    10274:	a00c0000 */ 	sb	$t4,0x0($zero)
-.NB00010278:
-/*    10278:	02002025 */ 	or	$a0,$s0,$zero
-/*    1027c:	0c00e840 */ 	jal	n_alCSeqNew
-/*    10280:	8e0500fc */ 	lw	$a1,0xfc($s0)
-/*    10284:	8e0400f8 */ 	lw	$a0,0xf8($s0)
-/*    10288:	0c00ebec */ 	jal	n_alCSPSetSeq
-/*    1028c:	02002825 */ 	or	$a1,$s0,$zero
-/*    10290:	0c0040b1 */ 	jal	seqGetVolume
-/*    10294:	02002025 */ 	or	$a0,$s0,$zero
-/*    10298:	02002025 */ 	or	$a0,$s0,$zero
-/*    1029c:	0c0040bb */ 	jal	seqSetVolume
-/*    102a0:	3045ffff */ 	andi	$a1,$v0,0xffff
-/*    102a4:	0c00ec00 */ 	jal	n_alCSPPlay
-/*    102a8:	8e0400f8 */ 	lw	$a0,0xf8($s0)
-/*    102ac:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB000102b0:
-/*    102b0:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*    102b4:	8fb00058 */ 	lw	$s0,0x58($sp)
-/*    102b8:	27bd1508 */ 	addiu	$sp,$sp,0x1508
-/*    102bc:	03e00008 */ 	jr	$ra
-/*    102c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 u16 seqGetVolume(struct seqinstance *seq)
 {
@@ -1815,20 +1531,17 @@ void snd0000fe80(void)
 
 void sndTick(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	struct sndstate *stateptrs[64];
 	struct sndstate states[64];
 	s32 i;
 	s32 curtime;
 	struct sndstate *state;
-#endif
 	OSPri prevpri;
 	s32 s0;
 	union soundnumhack sp50;
 	s32 index;
 	s32 stack;
 
-#if VERSION >= VERSION_NTSC_1_0
 	static s32 var8005edec = -1;
 
 	sndIncrementAges();
@@ -1870,7 +1583,6 @@ void sndTick(void)
 	if (var8005edec != var8005ddd8) {
 		var8005edec = var8005ddd8;
 	}
-#endif
 
 	if (!g_SndDisabled && g_SndMp3Enabled) {
 		if (g_Vars.stagenum == STAGE_AIRFORCEONE) {
@@ -1888,15 +1600,6 @@ void sndTick(void)
 		} else {
 			if (g_SfxVolume != snd0000e9dc()) {
 				snd0000ea80(g_SfxVolume);
-			}
-		}
-
-		if (g_SndGuardStringPtr != NULL) {
-			if (strcmp(g_SndGuardStringPtr, g_SndGuardString) != 0) {
-#if VERSION < VERSION_NTSC_1_0
-				crashSetMessage("Snd Heap Check FAILED");
-				CRASH();
-#endif
 			}
 		}
 
@@ -2017,9 +1720,7 @@ bool sndIsFiltered(s32 audio_id)
 			if (g_AudioConfigs[g_AudioRussMappings[sfxref.confignum].audioconfig_index].flags & AUDIOCONFIGFLAG_OFFENSIVE) {
 				return true;
 			}
-		}
-#if VERSION >= VERSION_NTSC_1_0
-		else {
+		} else {
 			// @bug: The masking here makes it impossible to match hangar guy's
 			// audio ID, so his phrase can be said even with the lang filter on.
 			// The switch value resolves to sfxref & 0x7ff, while hangar guy's
@@ -2031,7 +1732,6 @@ bool sndIsFiltered(s32 audio_id)
 				return true;
 			}
 		}
-#endif
 	}
 
 	return false;
@@ -2051,15 +1751,9 @@ void sndAdjust(struct sndstate **handle, s32 arg1, s32 arg2, s32 pan, s32 soundn
 			sp24 = 0;
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (pan != -1 && g_SoundMode == SOUNDMODE_SURROUND && (pan & 0x80)) {
 			sp24 += 128;
 		}
-#else
-		if (g_SoundMode == SOUNDMODE_SURROUND && (pan & 0x80)) {
-			sp24 += 128;
-		}
-#endif
 	}
 
 	if (soundnum > 0) {
@@ -2137,15 +1831,9 @@ struct sndstate *snd00010718(struct sndstate **handle, s32 arg1, s32 arg2, s32 a
 			t0 = 0;
 		}
 
-#if VERSION >= VERSION_NTSC_1_0
 		if (arg3 != -1 && g_SoundMode == SOUNDMODE_SURROUND && (arg3 & 0x80)) {
 			t0 += 128;
 		}
-#else
-		if (g_SoundMode == SOUNDMODE_SURROUND && (arg3 & 0x80)) {
-			t0 += 128;
-		}
-#endif
 	}
 
 	if (arg4) {
@@ -2222,23 +1910,14 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg
 		return NULL;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (sp40.id < (u32)g_NumSounds) {
 		return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
 	}
 
 	return NULL;
-#else
-	return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
-#endif
 }
 
 const char var70053be0[] = "Snd_Play_Universal : Overriding -> Link = %d\n";
-
-#if VERSION < VERSION_NTSC_1_0
-const char var700552f0nb[] = "Snd_Play_Mpeg : sndId=%d, vol=%d, pan=%d\n";
-#endif
-
 const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
 const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
 const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";

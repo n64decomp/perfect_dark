@@ -19,18 +19,14 @@ u32 __osFinalRom;
 
 OSTime osClockRate = 62500000;
 
-#if VERSION < VERSION_PAL_BETA
 s32 osViClock = VI_NTSC_CLOCK;
-#endif
 
 u32 _osShutdown = 0;
 u32 __osGlobalIntMask = OS_IM_ALL;
 
-#if VERSION >= VERSION_NTSC_1_0 && VERSION < VERSION_PAL_BETA
 u32 var8005cf74 = 0;
 u32 var8005cf78 = 0;
 u32 var8005cf7c = 0;
-#endif
 
 void osInitialize(void)
 {
@@ -54,17 +50,12 @@ void osInitialize(void)
 	osCartRomInit();
 	osMapTLBRdb();
 
-#if VERSION < VERSION_PAL_BETA
 	osClockRate = osClockRate * 3 / 4;
-#endif
 
 	if (osResetType == RESETTYPE_COLD) {
 		bzero(&osAppNMIBuffer, 0x40);
 	}
 
-#if VERSION >= VERSION_PAL_BETA
-	// empty
-#elif VERSION >= VERSION_NTSC_1_0
 	if (osTvType == OS_TV_PAL) {
 		osViClock = VI_PAL_CLOCK;
 	} else if (osTvType == OS_TV_MPAL) {
@@ -72,15 +63,6 @@ void osInitialize(void)
 	} else {
 		osViClock = VI_NTSC_CLOCK;
 	}
-#else
-	if (osTvType == OS_TV_PAL) {
-		osViClock = VI_PAL_CLOCK;
-	} else if (osTvType == OS_TV_MPAL) {
-		osViClock = VI_MPAL_CLOCK;
-	} else {
-		osViClock = VI_NTSC_CLOCK;
-	}
-#endif
 
 	if (__osGetCause() & CAUSE_IP5) {
 		while (1);

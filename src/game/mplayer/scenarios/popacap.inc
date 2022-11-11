@@ -209,17 +209,9 @@ void pacApplyNextVictim(void)
 		if (vplayernum == i) {
 			sprintf(text, langGet(L_MPWEAPONS_013)); // "You are the victim!"
 		} else if (scenarioChrsAreSameTeam(vplayernum, i)) {
-#if VERSION >= VERSION_JPN_FINAL
-			sprintf(text, langGet(L_MPWEAPONS_014), scenarioRemoveLineBreaks(g_MpAllChrConfigPtrs[vplayernum]->name, 0)); // "Protect %s!"
-#else
 			sprintf(text, langGet(L_MPWEAPONS_014), g_MpAllChrConfigPtrs[vplayernum]->name); // "Protect %s!"
-#endif
 		} else {
-#if VERSION >= VERSION_JPN_FINAL
-			sprintf(text, langGet(L_MPWEAPONS_015), scenarioRemoveLineBreaks(g_MpAllChrConfigPtrs[vplayernum]->name, 0)); // "Get %s!"
-#else
 			sprintf(text, langGet(L_MPWEAPONS_015), g_MpAllChrConfigPtrs[vplayernum]->name); // "Get %s!"
-#endif
 		}
 
 		scenarioCreateHudmsg(i, text);
@@ -246,9 +238,7 @@ void pacHandleDeath(s32 aplayernum, s32 vplayernum)
 
 			pacApplyNextVictim();
 		} else {
-#if VERSION >= VERSION_NTSC_1_0
 			data->age240 = 0;
-#endif
 		}
 	}
 }
@@ -264,11 +254,8 @@ void pacTick(void)
 	}
 
 	if (data->victimindex >= 0) {
-#if VERSION >= VERSION_NTSC_1_0
 		if (data->victims[data->victimindex] >= PLAYERCOUNT() ||
-				g_Vars.players[data->victims[data->victimindex]]->isdead == false)
-#endif
-		{
+				g_Vars.players[data->victims[data->victimindex]]->isdead == false) {
 			data->age240 += g_Vars.lvupdate240;
 
 			if (data->age240 > (u32)TICKS(240 * 60)) {
@@ -292,12 +279,7 @@ Gfx *pacRenderHud(Gfx *gdl)
 	s32 y;
 	char text[64];
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (g_Vars.currentplayernum == data->victims[data->victimindex] && !g_Vars.currentplayer->isdead)
-#else
-	if (g_Vars.currentplayernum == data->victims[data->victimindex])
-#endif
-	{
+	if (g_Vars.currentplayernum == data->victims[data->victimindex] && !g_Vars.currentplayer->isdead) {
 		time240 = TICKS(60 * 240) - data->age240;
 		x = viGetViewLeft() + viGetViewWidth() / 2;
 		y = viGetViewTop() + 10;
@@ -318,13 +300,8 @@ Gfx *pacRenderHud(Gfx *gdl)
 		textwidth += x;
 		textheight += y;
 
-#if VERSION >= VERSION_NTSC_1_0
 		gdl = text0f153990(gdl, x, y, textwidth, textheight);
 		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, viGetWidth(), viGetHeight(), 0, 0);
-#else
-		gdl = text0f153858(gdl, &x, &y, &textwidth, &textheight);
-		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x88, viGetWidth(), viGetHeight(), 0, 0);
-#endif
 		gdl = text0f153780(gdl);
 	}
 
