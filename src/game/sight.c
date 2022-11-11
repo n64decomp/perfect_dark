@@ -626,7 +626,6 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 	struct trackedprop *trackedprop;
 	s32 i;
 
-	static s32 sight = 0;
 	static s32 identifytimer = 0;
 
 	gdl = text0f153628(gdl);
@@ -657,16 +656,7 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 				cornergap = 3;
 			}
 
-			mainOverrideVariable("sight", &sight);
-
-			switch (sight) {
-			case 0:
-				gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
-				break;
-			case 1:
-				gdl = sightDrawDelayedAimer(gdl, x, y, radius * 2, cornergap * 2, colour);
-				break;
-			}
+			gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
 		}
 		break;
 	case SIGHTTRACKTYPE_BETASCANNER:
@@ -1386,12 +1376,6 @@ Gfx *sightDrawTarget(Gfx *gdl)
 {
 	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX;
 	s32 y = g_Vars.currentplayer->crosspos[1];
-
-	static u32 var80070f9c = 0x00ff00ff;
-	static u32 var80070fa0 = 0x00ff0011;
-
-	mainOverrideVariable("sout", &var80070f9c);
-	mainOverrideVariable("sin", &var80070fa0);
 
 	gdl = textSetPrimColour(gdl, 0x00ff0028);
 

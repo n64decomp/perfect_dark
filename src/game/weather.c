@@ -256,8 +256,6 @@ void weatherSetIntensity(s32 intensity)
 	g_WeatherData->intensity = intensity;
 }
 
-u32 g_RainSpeedExtra;
-u32 g_SnowSpeed;
 u32 g_SnowSpeedExtra;
 
 void weatherTickRain(struct weatherdata *weather)
@@ -269,8 +267,6 @@ void weatherTickRain(struct weatherdata *weather)
 	s32 iVar10;
 	f32 rand;
 	s32 lvupdate;
-
-	mainOverrideVariable("rainspeedxtra", &g_RainSpeedExtra);
 
 	if (weather->unk90 > 0) {
 		weather->unk88 += (weather->unk8c - weather->unk88) / weather->unk90;
@@ -390,7 +386,7 @@ void weatherTickRain(struct weatherdata *weather)
 
 			particle->unk1c = RANDOMFRAC() + 0.7f;
 
-			particle->inc.y = -(RANDOMFRAC() * g_RainSpeedExtra + weather->unkc8);
+			particle->inc.y = -(RANDOMFRAC() * 20 + weather->unkc8);
 
 			if (ABS(relativetotal) < 2 && weather->unkd0 != weather->unkd4) {
 				if (weather->unkd0 < weather->unkd4) {
@@ -420,10 +416,6 @@ void weatherTickRain(struct weatherdata *weather)
 	}
 }
 
-u32 g_RainSpeedExtra = 20;
-u32 g_SnowSpeed = 15;
-u32 g_SnowSpeedExtra = 10;
-
 void weatherTickSnow(struct weatherdata *weather)
 { \
 	s32 lVar7 = 0;
@@ -432,9 +424,6 @@ void weatherTickSnow(struct weatherdata *weather)
 	s32 lvupdate;
 	s32 i;
 	struct weatherparticledata *data;
-
-	mainOverrideVariable("snowspeed", &g_SnowSpeed);
-	mainOverrideVariable("snowspeedxtra", &g_SnowSpeedExtra);
 
 	if (g_StageIndex == STAGEINDEX_AIRBASE) {
 		weather->windanglerad = 1.5707963705063f;
@@ -573,7 +562,7 @@ void weatherTickSnow(struct weatherdata *weather)
 
 			particle->unk1c = RANDOMFRAC() + 0.7f;
 
-			particle->inc.y = -(g_SnowSpeed / 10.0f) - (RANDOMFRAC() * g_SnowSpeedExtra) / 10.0f;
+			particle->inc.y = -(15 / 10.0f) - (RANDOMFRAC() * 10) / 10.0f;
 			particle->inc.x = weather->windspeedx * particle->unk1c;
 			particle->inc.z = weather->windspeedz * particle->unk1c;
 
@@ -2550,26 +2539,17 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	struct coord spe4;
 	struct coord spd4;
 
-	static u32 var8007f0e4 = 0xaaaaaa1f;
-	static u32 var8007f0e8 = 0x11111844;
-	static u32 var8007f0ec = 50;
-	static u32 var8007f0f0 = 2500;
-	static u32 var8007f0f4 = 1;
-	static u32 var8007f0f8 = 1;
-	static u32 var8007f0fc = 22000;
+	u32 var8007f0e4 = 0xaaaaaa1f;
+	u32 var8007f0e8 = 0x11111844;
+	u32 var8007f0ec = 50;
+	u32 var8007f0f0 = 2500;
+	u32 var8007f0f4 = 1;
+	u32 var8007f0f8 = 1;
+	u32 var8007f0fc = 22000;
 
 	spd80 = 1;
 	s4 = 0;
 	sp708 = 0;
-
-	mainOverrideVariable("raincol1", &var8007f0e4);
-	mainOverrideVariable("raincol2", &var8007f0e8);
-	mainOverrideVariable("rainwidth", &var8007f0e0);
-	mainOverrideVariable("rainout", &var8007f0ec);
-	mainOverrideVariable("cddiv", &var8007f0f0);
-	mainOverrideVariable("wetclip", &var8007f0f4);
-	mainOverrideVariable("bounder", &var8007f0f8);
-	mainOverrideVariable("trypitch", &var8007f0fc);
 
 	if (g_Vars.lvupdate240 <= 0) {
 		spd80 = 0;
@@ -4621,11 +4601,11 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	s32 index;
 	s32 stack2[2];
 
-	static u32 var8007f100 = 50;
-	static u32 var8007f104 = 5;
-	static u32 var8007f108 = 10;
-	static u32 var8007f10c = 0x8888aaff;
-	static u32 var8007f110 = 0xffffff7f;
+	u32 var8007f100 = 50;
+	u32 var8007f104 = 5;
+	u32 var8007f108 = 10;
+	u32 var8007f10c = 0x8888aaff;
+	u32 var8007f110 = 0xffffff7f;
 
 	s7 = 0;
 	sp1268 = 0;
@@ -4641,11 +4621,6 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	gDPSetCombineLERP(gdl++,
 			0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0,
 			0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
-
-	mainOverrideVariable("snowwidth", &var8007f104);
-	mainOverrideVariable("snowheight", &var8007f108);
-	mainOverrideVariable("snowcol1", &var8007f10c);
-	mainOverrideVariable("snowcol2", &var8007f110);
 
 	particledata = weather->particledata[arg2];
 

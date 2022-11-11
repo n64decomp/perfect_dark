@@ -2183,11 +2183,8 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 				gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 			} else {
 				f32 aspect = (f32) (g_MenuScissorX2 - g_MenuScissorX1) / (f32) (g_MenuScissorY2 - g_MenuScissorY1);
-				static u32 znear = 10;
-				static u32 zfar = 300;
-
-				mainOverrideVariable("mzn", &znear);
-				mainOverrideVariable("mzf", &zfar);
+				u32 znear = 10;
+				u32 zfar = 300;
 
 				gdl = func0f0d49c8(gdl);
 
@@ -5755,13 +5752,9 @@ void func0f0f85e0(struct menudialogdef *dialogdef, s32 root)
 	g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 }
 
-u32 g_MenuCThresh = 120;
-
 Gfx *menuRenderDialog(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool lightweight)
 {
-	mainOverrideVariable("cthresh", &g_MenuCThresh);
-
-	textSetWaveBlend(dialog->unk54, dialog->unk58, g_MenuCThresh);
+	textSetWaveBlend(dialog->unk54, dialog->unk58, 120);
 
 	gdl = dialogRender(gdl, dialog, menu, lightweight);
 
@@ -6140,7 +6133,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 	dialog->unk5c += g_Vars.diffframe60;
 	dialog->unk54 += dialog->unk5c / 9;
 	dialog->unk5c %= 9;
-	dialog->unk54 %= g_MenuCThresh;
+	dialog->unk54 %= 120;
 
 	// For endscreens, handle transitioning of background and dialog type
 	if (dialog->transitionfrac < 0.0f) {
@@ -7294,27 +7287,23 @@ Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 		}
 		break;
 	case MENUBG_CONEALPHA:
-		mainOverrideVariable("bblur", &bblur);
-
 		if (g_MenuData.screenshottimer) {
 			return gdl;
 		}
 
-		if (bblur) {
-			// Render the blurred background
-			gdl = menugfxRenderBgBlur(gdl, 0xffffffff, 0, 0);
+		// Render the blurred background
+		gdl = menugfxRenderBgBlur(gdl, 0xffffffff, 0, 0);
 
-			// While fading, render red
-			if (frac < 1.0f) {
-				u32 alpha;
-				u32 stack;
+		// While fading, render red
+		if (frac < 1.0f) {
+			u32 alpha;
+			u32 stack;
 
-				gSPDisplayList(gdl++, var800613a0);
-				alpha = (1.0f - frac) * 255;
-				gdl = textSetPrimColour(gdl, 0xff000000 | alpha);
-				gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
-				gdl = text0f153838(gdl);
-			}
+			gSPDisplayList(gdl++, var800613a0);
+			alpha = (1.0f - frac) * 255;
+			gdl = textSetPrimColour(gdl, 0xff000000 | alpha);
+			gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
+			gdl = text0f153838(gdl);
 		}
 		break;
 	case MENUBG_GRADIENT:
@@ -7330,15 +7319,10 @@ Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 	return gdl;
 }
 
-u32 var800714f0 = 1;
-
 Gfx *menuRenderBackgroundLayer2(Gfx *gdl, u8 bg, f32 frac)
 {
 	if (bg == MENUBG_CONEALPHA || bg == MENUBG_CONEOPAQUE) {
-		mainOverrideVariable("cone", &var800714f0);
-
-		if (var800714f0
-				&& (g_MenuData.nextbg == MENUBG_CONEALPHA || g_MenuData.nextbg == 0 || g_MenuData.nextbg == 255)) {
+		if (g_MenuData.nextbg == MENUBG_CONEALPHA || g_MenuData.nextbg == 0 || g_MenuData.nextbg == 255) {
 			gdl = menugfxRenderBgCone(gdl);
 		}
 	}
@@ -8337,8 +8321,6 @@ glabel var7f1b381cjf
 #else
 Gfx *menuRender(Gfx *gdl)
 {
-	static u32 usepiece = 1;
-
 	g_MpPlayerNum = 0;
 
 #if PAL
@@ -8424,16 +8406,12 @@ Gfx *menuRender(Gfx *gdl)
 			}
 		}
 
-		mainOverrideVariable("usePiece", &usepiece);
+		g_MenuData.unk5d5_03 = false;
 
-		if (usepiece) {
-			g_MenuData.unk5d5_03 = false;
+		gdl = menuRenderModels(gdl, &g_MenuData.unk01c, 1);
+		gSPClearGeometryMode(gdl++, G_ZBUFFER);
 
-			gdl = menuRenderModels(gdl, &g_MenuData.unk01c, 1);
-			gSPClearGeometryMode(gdl++, G_ZBUFFER);
-
-			g_MenuData.unk5d5_03 = true;
-		}
+		g_MenuData.unk5d5_03 = true;
 	} else {
 		var8009de98 = var8009de9c = 0;
 	}

@@ -523,14 +523,6 @@ void joy00014238(void)
 void joyDebugJoy(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	static u32 var8005ef08 = 0;
-
-	mainOverrideVariable("debugjoy", &var8005ef08);
-#else
-	mainOverrideVariable("joyforce", &var800612c8nb);
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.paksconnected) {
 		joyCheckPfs(1);
 	}

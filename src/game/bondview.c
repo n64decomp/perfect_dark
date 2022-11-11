@@ -42,14 +42,6 @@ u32 var8007f854 = 0x00000000;
 u32 var8007f858 = 0xb8000000;
 u32 var8007f85c = 0x00000000;
 
-#if VERSION < VERSION_NTSC_1_0
-void func0f13c2d0nb(void)
-{
-	mainOverrideVariable("fsrad", (u32 *)&g_IrBinocularRadius);
-	mainOverrideVariable("fscs", (u32 *)&var8007f850);
-}
-#endif
-
 Gfx *bviewDrawIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	gDPFillRectangle(gdl++, x1, y1, x2, y2);
@@ -179,12 +171,6 @@ Gfx *bviewDrawFisheyeRect(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)
 
 Gfx *bviewPrepareStaticRgba16(Gfx *gdl, u32 colour, u32 alpha)
 {
-	static u32 envcol = 0xffffffff;
-	static u32 primcol = 0x7f7f7fff;
-
-	mainOverrideVariable("envcol", &envcol);
-	mainOverrideVariable("primcol", &primcol);
-
 	gDPPipeSync(gdl++);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0,
 			G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
@@ -213,12 +199,6 @@ Gfx *bviewPrepareStaticRgba16(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
 {
-	static u32 envcol = 0xffffffff;
-	static u32 primcol = 0x7f7f7fff;
-
-	mainOverrideVariable("envcol", &envcol);
-	mainOverrideVariable("primcol", &primcol);
-
 	gDPPipeSync(gdl++);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_8b, 0, 0x0000, 5, 0,
 			G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
@@ -258,9 +238,6 @@ Gfx *bviewDrawMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 	s32 newalpha;
 	s32 i;
 
-	static u32 sfyyy = 1000;
-	static u32 sfxxx = 1000;
-
 	if (var8007f848) {
 		return gdl;
 	}
@@ -276,19 +253,14 @@ Gfx *bviewDrawMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 
 	var8007f844 = 0;
 
-	mainOverrideVariable("sfxxx", &sfxxx);
-	fxxx = sfxxx / 1000.0f;
-	mainOverrideVariable("sfyyy", &sfyyy);
-	fyyy = sfyyy / 1000.0f;
-
 	gDPPipeSync(gdl++);
 
-	somefloat = (viewheight - viewheight / fyyy) * 0.5f;
+	somefloat = (viewheight - viewheight / 1) * 0.5f;
 	gdl = bviewPrepareStaticRgba16(gdl, colour, newalpha);
 
 	for (i = viewtop; i < viewtop + viewheight; i++) {
-		gdl = bviewCopyPixels(gdl, fb, viewtop + (s32)somefloat, 5, i, fxxx, viewleft, viewwidth);
-		somefloat += 1.0f / fyyy;
+		gdl = bviewCopyPixels(gdl, fb, viewtop + (s32)somefloat, 5, i, 1, viewleft, viewwidth);
+		somefloat += 1.0f;
 	}
 
 	return gdl;

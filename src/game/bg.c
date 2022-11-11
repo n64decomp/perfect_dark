@@ -7905,8 +7905,6 @@ void bgTickPortalsXray(void)
 	s32 i;
 	struct var800a4640 *thing;
 
-	static u32 edist = 400;
-
 	currentPlayerCalculateScreenProperties();
 
 	if (var800a4640.unk000);
@@ -7935,8 +7933,6 @@ void bgTickPortalsXray(void)
 	player->eraserpos.f[0] = eraserpos.f[0];
 	player->eraserpos.f[1] = eraserpos.f[1];
 	player->eraserpos.f[2] = eraserpos.f[2];
-
-	mainOverrideVariable("edist", &edist);
 
 	stage = stageGetCurrent();
 

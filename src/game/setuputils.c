@@ -16,12 +16,6 @@ u8 *g_GeCreditsData;
 
 u32 setupGetCmdLength(u32 *cmd)
 {
-#if VERSION < VERSION_NTSC_1_0
-	static u32 crash1 = 0;
-
-	mainOverrideVariable("crash1", &crash1);
-#endif
-
 	switch ((u8)cmd[0]) {
 	case OBJTYPE_CHR:                return 11;
 	case OBJTYPE_DOOR:               return 55;
@@ -80,12 +74,6 @@ u32 setupGetCmdLength(u32 *cmd)
 	case OBJTYPE_MINE:               return 26;
 	case OBJTYPE_ESCASTEP:           return 27;
 	}
-
-#if VERSION < VERSION_NTSC_1_0
-	if (crash1) {
-		CRASH();
-	}
-#endif
 
 	return 1;
 }

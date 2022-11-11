@@ -117,20 +117,14 @@ void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type)
 	f32 angle;
 	s32 i;
 
-	static u32 ripsize = 65;
-	static u32 modula = 22;
-
-	mainOverrideVariable("modula", &modula);
-	mainOverrideVariable("ripsize", &ripsize);
-
 	for (i = 0; i < type->numvertices; i++) {
 		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
 
-		angle = ((g_DyntexVertices[type->vertexlistoffset + i].t % modula) / (f32) modula + f24) * M_BADTAU;
-		vertex->t = g_DyntexVertices[type->vertexlistoffset + i].t + (s16) (sinf(angle) * ripsize);
+		angle = ((g_DyntexVertices[type->vertexlistoffset + i].t % 22) / (f32) 22 + f24) * M_BADTAU;
+		vertex->t = g_DyntexVertices[type->vertexlistoffset + i].t + (s16) (sinf(angle) * 65);
 
-		angle = (((g_DyntexVertices[type->vertexlistoffset + i].s + 22) % modula) / (f32) modula + f24) * M_BADTAU;
-		vertex->s = g_DyntexVertices[type->vertexlistoffset + i].s + (s16) (cosf(angle) * ripsize);
+		angle = (((g_DyntexVertices[type->vertexlistoffset + i].s + 22) % 22) / (f32) 22 + f24) * M_BADTAU;
+		vertex->s = g_DyntexVertices[type->vertexlistoffset + i].s + (s16) (cosf(angle) * 65);
 	}
 }
 

@@ -997,28 +997,24 @@ struct menuitem g_2PMissionEndscreenVMenuItems[] = {
  */
 s32 endscreenHandleCheatInfo(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	static u32 cheatcolour = 0xff7f7fff;
-
 	if (operation == MENUOP_GETCOLOUR
 			&& ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x200) || item->param == 5)) {
 		// Timed cheat just got unlocked, and this item is the timed cheat name
 		u32 weight = menuGetSinOscFrac(40) * 255;
-
-		mainOverrideVariable("ctcol", &cheatcolour);
 
 		if (item->param == 0
 				&& cheatGetTime(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff) == 0) {
 			return 0;
 		}
 
-		data->label.colour2 = colourBlend(data->label.colour2, cheatcolour, weight);
+		data->label.colour2 = colourBlend(data->label.colour2, 0xff7f7fff, weight);
 
 		if (item->param == 3) { // completion cheat name
-			data->label.colour1 = colourBlend(data->label.colour1, cheatcolour, weight);
+			data->label.colour1 = colourBlend(data->label.colour1, 0xff7f7fff, weight);
 		}
 
 		if (item->param == 5) { // timed cheat name
-			data->label.colour1 = colourBlend(data->label.colour1, cheatcolour, weight);
+			data->label.colour1 = colourBlend(data->label.colour1, 0xff7f7fff, weight);
 		}
 	}
 

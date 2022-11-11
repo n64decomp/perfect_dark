@@ -2123,7 +2123,6 @@ void playerStopAudioForPause(void)
 	}
 }
 
-u32 var8007083c = 0;
 u32 g_GlobalMenuRoot = 0;
 
 void playerTickPauseMenu(void)
@@ -3469,14 +3468,6 @@ void playerTick(bool arg0)
 #if PAL
 	aspectratio *= 1.1904761791229f;
 #endif
-
-	mainOverrideVariable("tps", &var8007083c);
-
-	if (var8007083c != TELEPORTSTATE_INACTIVE) {
-		var8007083c = TELEPORTSTATE_INACTIVE;
-		g_Vars.currentplayer->teleporttime = 0;
-		g_Vars.currentplayer->teleportstate = TELEPORTSTATE_PREENTER;
-	}
 
 	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
 		playerTickTeleport(&aspectratio);

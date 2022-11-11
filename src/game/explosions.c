@@ -1318,10 +1318,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 			*colour = red << 24 | green << 16 | alpha | 0x80800000;
 		} else {
-			static u32 var8007e93c = 0xffffffff;
-			mainOverrideVariable("ecol", &var8007e93c);
 			*colour = 0xffffffff;
-			*colour = var8007e93c;
 		}
 
 		gDPSetColorArray(gdl++, osVirtualToPhysical(colour), 1);

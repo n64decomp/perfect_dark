@@ -1056,8 +1056,6 @@ void wallhitsTick(void)
 	sp12c = (g_Vars.lvupdate240 + 2.0f) * 0.25f;
 	fov = currentPlayerGetGunZoomFov();
 
-	mainOverrideVariable("wallhit", &var8007f750);
-
 	var8007f740 = 0;
 
 	if (fov == 0.0f || fov == 60.0f) {

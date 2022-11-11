@@ -31,8 +31,6 @@ u8 g_EyespyPrevHit = EYESPYHIT_NONE;
 u8 var80070ecc = 0;
 f32 g_EyespyMaxHeight = 160;
 f32 g_EyespyMinHeight = 80;
-u32 g_EyespyFallAccel = 100;
-u32 g_EyespyMaxFallSpeed = 3000;
 
 /**
  * Determines the eyespy's ground Y value by doing a collision check for a
@@ -453,11 +451,8 @@ void eyespyUpdateVertical(void)
 	}
 
 	// Handle gravity
-	mainOverrideVariable("g", &g_EyespyFallAccel);
-	mainOverrideVariable("l", &g_EyespyMaxFallSpeed);
-
-	accel = g_EyespyFallAccel * 0.01; // always 1
-	maxfallspeed = g_EyespyMaxFallSpeed * 0.01f; // always 30
+	accel = 100 * 0.01; // always 1
+	maxfallspeed = 3000 * 0.01f; // always 30
 
 	newy = chr->manground;
 	newground = eyespyFindGround(NULL);

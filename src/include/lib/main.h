@@ -8,7 +8,6 @@ extern s32 var8005dd18;
 
 void mainInit(void);
 void mainProc(void);
-void mainOverrideVariable(char *name, void *value);
 void mainLoop(void);
 void mainTick(void);
 void mainEndStage(void);

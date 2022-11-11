@@ -199,17 +199,11 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 	s16 scale = 10;
 	f32 tmp2;
 
-	static u32 depthsub = 1000;
-	static u32 txmul = 20;
-	static u32 rsub = 5;
-
 	colours = gfxAllocateColours(2);
 	vertices = gfxAllocateVertices(4);
 
 	sp34 = 1.0f;
 	sp30 = 1.0f;
-
-	mainOverrideVariable("txmul", &txmul);
 
 	if (y1 < var8009de90 && y2 < var8009de90) {
 		return gdl;
@@ -235,16 +229,14 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 		y2 = var8009de94;
 	}
 
-	sp2e = (x1 + y1) * txmul;
-	sp2c = (x2 + y2) * txmul;
+	sp2e = (x1 + y1) * 20;
+	sp2c = (x2 + y2) * 20;
 	sp2a = 0;
 	sp28 = 16384;
 
 	if (type == MENUPLANE_01) {
 		sp30 = 2.0f;
 	}
-
-	mainOverrideVariable("depthsub", &depthsub);
 
 	a1 = 200;
 
@@ -300,9 +292,7 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 	}
 
 	if (type == MENUPLANE_07) {
-		mainOverrideVariable("rsub", &rsub);
-
-		a1 = -rsub;
+		a1 = -5;
 
 		sp30 = 8.0f;
 		sp2a = 256;

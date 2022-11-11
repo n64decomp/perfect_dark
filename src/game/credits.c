@@ -862,12 +862,6 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 	f32 invsine;
 	f32 invcosine;
 
-	static u32 tload = 0x25;
-	static u32 dump = 0;
-
-	mainOverrideVariable("tload", &tload);
-	mainOverrideVariable("dump", &dump);
-
 	colours = gfxAllocateColours(60);
 
 	for (i = 0; i < 4; i++) {
@@ -876,10 +870,6 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 			colour = colourBlend(g_CreditColourPalette[g_CreditsData->particlecolourindex1][i], g_CreditColourPalette[g_CreditsData->particlecolourindex2][i], weight);
 		} else {
 			colour = g_CreditColourPalette[g_CreditsData->particlecolourindex2][i];
-		}
-
-		if (tload == 0x28) {
-			colour = 0xffffffff;
 		}
 
 		for (j = 0; j < 15; j++) {
@@ -1677,29 +1667,12 @@ void credits0f13ae04(Mtxf *mtx)
 void creditsTick(void)
 {
 	s32 i;
-	static bool flick = false;
-	static u32 type = 0xffff;
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (joyGetButtonsPressedThisFrame(0, 0)) {
 		creditsCreatePendingBgLayers(0xffffffff);
 	}
 #endif
-
-	mainOverrideVariable("for", &type);
-
-	if (type < 0xffff) {
-		for (i = 0; i < ARRAYCOUNT(g_CreditsData->bglayers); i++) {
-			g_CreditsData->bglayers[i].type = type;
-		}
-	}
-
-	mainOverrideVariable("flick", &flick);
-
-	if (flick) {
-		creditsCreatePendingBgLayers(0xffffffff);
-		flick = false;
-	}
 
 	if (g_CreditsCurFrame2 == 0) {
 		if (g_CreditsUsingAltTitle) {

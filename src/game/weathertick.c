@@ -6,9 +6,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 var80062950 = 100;
-bool g_WeatherTickEnabled = true;
-
 void weatherTick(void)
 {
 	if (!g_WeatherData
@@ -17,17 +14,12 @@ void weatherTick(void)
 		return;
 	}
 
-	mainOverrideVariable("wettick", (u32 *)&g_WeatherTickEnabled);
-	mainOverrideVariable("windspeed", &var80062950);
-
-	if (g_WeatherTickEnabled) {
-		switch (g_WeatherData->type) {
-		case WEATHERTYPE_RAIN:
-			weatherTickRain(g_WeatherData);
-			break;
-		case WEATHERTYPE_SNOW:
-			weatherTickSnow(g_WeatherData);
-			break;
-		}
+	switch (g_WeatherData->type) {
+	case WEATHERTYPE_RAIN:
+		weatherTickRain(g_WeatherData);
+		break;
+	case WEATHERTYPE_SNOW:
+		weatherTickSnow(g_WeatherData);
+		break;
 	}
 }

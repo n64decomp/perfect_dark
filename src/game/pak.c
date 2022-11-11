@@ -279,14 +279,8 @@ u32 var80075cd4 = 0x00000000;
 u32 var80075cd8 = 0x00000000;
 u32 g_PakDebugForceCrc = 0;
 u32 g_PakDebugForceScrub = 0;
-u32 g_PakDebugPakDump = 0;
 u32 g_PakDebugPakCache = 1;
 u32 g_PakDebugPakInit = 0;
-
-#if VERSION >= VERSION_NTSC_1_0
-u32 g_PakDebugWipeEeprom = 0;
-u32 g_PakDebugCorruptMe = 0;
-#endif
 
 char g_PakNoteGameName[] = {
 	N64CHAR('P'),
@@ -4649,53 +4643,8 @@ void pak0f11c6d0(void)
 
 void pakExecuteDebugOperations(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
-	static u32 g_PakDebugDumpEeprom = 0;
 	s32 pass = false;
 	s8 i;
-
-	mainOverrideVariable("forcescrub", &g_PakDebugForceScrub);
-	mainOverrideVariable("pakdump", &g_PakDebugPakDump);
-	mainOverrideVariable("pakcache", &g_PakDebugPakCache);
-	mainOverrideVariable("pakinit", &g_PakDebugPakInit);
-	mainOverrideVariable("corruptme", &g_PakDebugCorruptMe);
-	mainOverrideVariable("wipeeeprom", &g_PakDebugWipeEeprom);
-	mainOverrideVariable("dumpeeprom", &g_PakDebugDumpEeprom);
-
-	if (g_PakDebugCorruptMe) {
-		g_PakDebugCorruptMe = false;
-		pakCorrupt();
-	}
-
-	if (g_PakDebugPakDump) {
-		pakDumpPak();
-		g_PakDebugPakDump = false;
-	}
-
-	if (g_PakDebugDumpEeprom) {
-		g_PakDebugDumpEeprom = false;
-		pakDumpEeprom();
-	}
-
-	if (g_PakDebugWipeEeprom) {
-		pakWipe(SAVEDEVICE_GAMEPAK, 0, 0x80);
-		g_PakDebugWipeEeprom = false;
-	}
-
-	if (g_PakDebugPakInit) {
-		s32 device = g_PakDebugPakInit - 1;
-
-		joyDisableCyclicPolling();
-		pakInitPak(&g_PiMesgQueue, PFS(device), device, 0);
-		joyEnableCyclicPolling();
-
-		g_PakDebugPakInit = false;
-	}
-
-	if (g_PakDebugForceScrub) {
-		pakCreateFilesystem(SAVEDEVICE_GAMEPAK);
-		g_PakDebugForceScrub = false;
-	}
 
 	pak0f11ca30();
 
@@ -4722,55 +4671,6 @@ void pakExecuteDebugOperations(void)
 	} else {
 		var8005eedc = true;
 	}
-#else
-	static u32 g_PakDebugDumpEeprom = 0;
-	s8 i;
-
-	osSyncPrintf("lvGetPause    = %s", lvIsPaused() ? "TRUE" : "FALSE");
-	osSyncPrintf("MP_GetPause   = %s", mpIsPaused() ? "TRUE" : "FALSE");
-	osSyncPrintf("getnumplayers = %d", PLAYERCOUNT());
-
-	mainOverrideVariable("forcecrc", &g_PakDebugForceCrc);
-	mainOverrideVariable("forcescrub", &g_PakDebugForceScrub);
-	mainOverrideVariable("dumph", &g_PakDebugPakDump);
-	mainOverrideVariable("pakcache", &g_PakDebugPakCache);
-	mainOverrideVariable("pakinit", &g_PakDebugPakInit);
-	mainOverrideVariable("dumpeeprom", &g_PakDebugDumpEeprom);
-
-	if (g_PakDebugDumpEeprom) {
-		g_PakDebugDumpEeprom = false;
-		pakDumpEeprom();
-	}
-
-	if (g_PakDebugPakInit) {
-		s32 device = g_PakDebugPakInit - 1;
-
-		joyDisableCyclicPolling(4558, "pak.c");
-		pakInitPak(&g_PiMesgQueue, PFS(device), device);
-		joyEnableCyclicPolling(4560, "pak.c");
-
-		g_PakDebugPakInit = false;
-	}
-
-	if (g_PakDebugForceCrc) {
-		pakWipe(SAVEDEVICE_GAMEPAK, 0x4d, 0x4e);
-		g_PakDebugForceCrc = false;
-	}
-
-	if (g_PakDebugForceScrub) {
-		pakCreateFilesystem(SAVEDEVICE_GAMEPAK);
-		g_PakDebugForceScrub = false;
-	}
-
-	pak0f11ca30();
-	pakDumpPak();
-
-	for (i = 0; i < 5; i++) {
-		if (g_Paks[i].unk014) {
-			pak0f11df94(i);
-		}
-	}
-#endif
 }
 
 const char var7f1b46a8[] = "\nOS_GBPAK_GBCART_ON       - ";

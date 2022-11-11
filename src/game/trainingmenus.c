@@ -597,29 +597,11 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		u32 colour;
 #endif
 
-		static u32 x1 = 0;
-		static u32 x2 = 0;
-		static u32 y1 = 0;
-		static u32 y2 = 0;
-		static u32 x3 = 0;
-		static u32 x4 = 0;
-		static u32 y3 = 0;
-		static u32 y4 = 0;
-
 #if VERSION >= VERSION_NTSC_1_0
 		linecolourmid = (linecolourmid & 0xffffff00) | ((linecolourmid & 0xff) * (renderdata->colour & 0xff) >> 8);
 		linecolourfig = (linecolourfig & 0xffffff00) | ((linecolourfig & 0xff) * (renderdata->colour & 0xff) >> 8);
 		linecolourtex = (linecolourtex & 0xffffff00) | ((linecolourtex & 0xff) * (renderdata->colour & 0xff) >> 8);
 #endif
-
-		mainOverrideVariable("x1", &x1);
-		mainOverrideVariable("x2", &x2);
-		mainOverrideVariable("y1", &y1);
-		mainOverrideVariable("y2", &y2);
-		mainOverrideVariable("x3", &x3);
-		mainOverrideVariable("x4", &x4);
-		mainOverrideVariable("y3", &y3);
-		mainOverrideVariable("y4", &y4);
 
 		gDPPipeSync(gdl++);
 		gDPSetTexturePersp(gdl++, G_TP_NONE);

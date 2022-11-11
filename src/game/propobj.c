@@ -1333,12 +1333,6 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 	struct prop *loopprop;
 	struct pad *pad;
 
-#if VERSION < VERSION_PAL_BETA
-	static u32 debugdoors = 0;
-
-	mainOverrideVariable("debugdoors", &debugdoors);
-#endif
-
 	sibling = door;
 
 	while (sibling && sibling->base.prop) {
@@ -1513,12 +1507,6 @@ void propCalculateShadeColour(struct prop *prop, u8 *nextcol, u16 floorcol)
 	s32 roomb;
 	s32 tmp;
 
-	static u32 scol = 0x00;
-	static u32 salp = 0x00;
-
-	mainOverrideVariable("scol", &scol);
-	mainOverrideVariable("salp", &salp);
-
 	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
 		obj = prop->obj;
 	} else {
@@ -1615,11 +1603,6 @@ void propCalculateShadeColour(struct prop *prop, u8 *nextcol, u16 floorcol)
 	nextcol[0] >>= 1;
 	nextcol[1] >>= 1;
 	nextcol[2] >>= 1;
-
-	if (scol || salp) {
-		nextcol[0] = nextcol[1] = nextcol[2] = scol;
-		nextcol[3] = salp;
-	}
 }
 
 void propCalculateShadeInfo(struct prop *prop, u8 *nextcol, u16 floorcol)
@@ -7470,15 +7453,8 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							u32 stack[2];
 
 							static f32 var80069bc4 = 0;
-							static u32 kkg = 3;
-							static u32 kkd = 20;
-							static u32 kkp = 120;
 
-							mainOverrideVariable("kkg", &kkg);
-							mainOverrideVariable("kkd", &kkd);
-							mainOverrideVariable("kkp", &kkp);
-
-							tmp = ((kkd / 100.0f * var80069bc4 / LVUPDATE60FREAL()) + (kkp / 100.00f * sp28c * LVUPDATE60FREAL())) * (kkg / 100.000f);
+							tmp = ((20 / 100.0f * var80069bc4 / LVUPDATE60FREAL()) + (120 / 100.00f * sp28c * LVUPDATE60FREAL())) * (3 / 100.000f);
 
 							var80069bc4 = sp28c;
 
@@ -8252,25 +8228,6 @@ void doorTick(struct prop *doorprop)
 	struct model *model = door->base.model;
 	f32 prevfrac = door->frac;
 	u32 stack[2];
-
-#if VERSION < VERSION_PAL_BETA
-	static u32 debugdoor = 0;
-
-	mainOverrideVariable("debugdoor", &debugdoor);
-
-	// If debugdoor is set to 1 or to the address of this door,
-	// print the distance to the door to console
-	if (debugdoor) {
-		u32 addr = (u32)doorprop;
-
-		if (debugdoor == 1 || debugdoor == addr) {
-			f32 xdiff = doorprop->pos.x - g_Vars.players[0]->cam_pos.x;
-			f32 zdiff = doorprop->pos.z - g_Vars.players[0]->cam_pos.z;
-
-			sqrtf(xdiff * xdiff + zdiff * zdiff);
-		}
-	}
-#endif
 
 	// If door should autoclose this tick
 	if (door->lastopen60 > 0

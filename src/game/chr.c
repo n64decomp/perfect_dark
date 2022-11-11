@@ -5222,8 +5222,6 @@ void chr0f028544(void)
 void chr0f02855c(s32 arg0)
 {
 	var80062978 = arg0;
-
-	mainOverrideVariable("selectanimnum", &g_SelectedAnimNum);
 }
 
 void chrsCheckForNoise(f32 noiseradius)

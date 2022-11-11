@@ -1593,8 +1593,6 @@ Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 #endif
 }
 
-u32 var800711e8 = 0x00000000;
-
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel menuitemObjectivesRenderOne
@@ -2272,7 +2270,6 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 #endif
 	}
 
-	mainOverrideVariable("brcol", &var800711e8);
 	sp120 = langGet(g_Briefing.objectivenames[index]);
 	y = objy;
 	sp12c = MIXCOLOUR(dialog, unfocused);
@@ -2322,10 +2319,6 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 		}
 
 		textMeasure(&textheight, &textwidth, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
-
-		if (var800711e8 != 0) {
-			spc8 = var800711e8;
-		}
 
 		x = objx + width - textwidth - 10;
 		y = objy + spbc + 9;

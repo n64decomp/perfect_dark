@@ -60,19 +60,13 @@ void menugfxCreateBlur(void)
 	u32 b;
 	u16 colour;
 
-	static u32 cccc = 1;
-
 #if PAL
 	g_ScaleX = 1;
 #else
 	g_ScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
 #endif
 
-	if (cccc == 1) {
-		fb = (u8 *) viGetFrontBuffer();
-	}
-
-	mainOverrideVariable("cccc", &cccc);
+	fb = (u8 *) viGetFrontBuffer();
 
 	for (dsty = 0; dsty < BLURIMG_HEIGHT; dsty++) {
 

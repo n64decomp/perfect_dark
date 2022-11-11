@@ -1983,12 +1983,6 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 {
 	bool usesammo = true;
 
-	static u32 rontime = 2;
-	static u32 rofftime = 4;
-
-	mainOverrideVariable("rontime", &rontime);
-	mainOverrideVariable("rofftime", &rofftime);
-
 	hand->firing = true;
 
 	if ((func->type & 0xff00) == 0x100) {
@@ -2275,8 +2269,6 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 
 bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct hand *hand)
 {
-	static u32 var80070128 = 99;
-
 	struct weaponfunc *func = gsetGetWeaponFunction(&hand->gset);
 	bool sp68;
 	s32 sp64;
@@ -2288,8 +2280,6 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 
 	if (hand->stateminor == 0) {
 		sp64 = 1;
-
-		mainOverrideVariable("gkef", &var80070128);
 
 		if (hand->statecycles == 0) {
 			hand->gs_float1 = 0;
