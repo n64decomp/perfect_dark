@@ -423,7 +423,6 @@ void lvReset(s32 stagenum)
 		mpCalculateTeamIsOnlyAi();
 	}
 
-	paksReset();
 	sndResetCurMp3();
 
 	if (stagenum == STAGE_BOOTPAKMENU) {
@@ -2036,7 +2035,6 @@ void lvTick(void)
 		PROFILE(PROFILEMARKER_LVT_SHARDS, shardsTick());
 		PROFILE(PROFILEMARKER_LVT_SPARKS, sparksTick());
 		PROFILE(PROFILEMARKER_LVT_WALLHITS, wallhitsTick());
-		PROFILE(PROFILEMARKER_LVT_SPLATS, splatsTick());
 
 		profileStart(PROFILEMARKER_LVT_WEATHER);
 		if (g_WeatherActive) {

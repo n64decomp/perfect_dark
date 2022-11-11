@@ -420,11 +420,6 @@ void func0f1779f0(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 	}
 }
 
-void func0f177a10(u32 arg0)
-{
-	// empty
-}
-
 void func0f177a14(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 {
 	u32 stack[2];
@@ -432,11 +427,6 @@ void func0f177a14(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 	if (stack[0]) {
 		// empty
 	}
-}
-
-void func0f177a30(u32 arg0)
-{
-	// empty
 }
 
 void func0f177a38(u32 arg0, u32 arg1, u32 arg2, u32 arg3)

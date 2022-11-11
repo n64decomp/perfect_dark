@@ -305,16 +305,6 @@ bool weaponHasAmmoFlag(s32 weaponnum, s32 funcnum, u32 flag)
 	return false;
 }
 
-void func0f0b18ac(s32 arg0)
-{
-	// empty
-}
-
-void func0f0b18b4(s32 arg0)
-{
-	// empty
-}
-
 s32 currentPlayerGetDeviceState(s32 weaponnum)
 {
 	struct weapon *weapon = weaponFindById(weaponnum);

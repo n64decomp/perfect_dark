@@ -191,8 +191,6 @@ void mainInit(void)
 	dmaInit();
 	amgrInit();
 	varsInit();
-	mempInit();
-	memaInit();
 	viConfigureForLogos();
 	var8005d9b0 = 1;
 	joyInit();
@@ -360,15 +358,11 @@ void mainInit(void)
 
 	challengesInit();
 	utilsInit();
-	func000034d0();
 	texInit();
 	lvInit();
 	cheatsInit();
-	func0000e9c0();
-	textInit();
 	playermgrInit();
 	frametimeInit();
-	profileInit();
 	smokesInit();
 	mpInit();
 	paksInit();
@@ -613,9 +607,7 @@ void mainTick(void)
 
 	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
 		frametimeCalculate();
-		profile00009a98();
 		profileReset();
-		func000034d8();
 		joyDebugJoy();
 
 		if (g_MainGameLogicEnabled) {
@@ -647,8 +639,6 @@ void mainTick(void)
 
 			PROFILE(PROFILEMARKER_LVRENDER, gdl = lvRender(gdl));
 
-			func000034e0(&gdl);
-
 			profileEnd(PROFILEMARKER_CPU);
 
 #if PROFILING
@@ -668,8 +658,6 @@ void mainTick(void)
 
 		rdpCreateTask(gdlstart, gdl, 0, &msg);
 		g_MainNumGfxTasks++;
-		memaPrint();
-		func0f16cf94();
 	}
 }
 
@@ -734,9 +722,4 @@ void func0000e990(void)
 	objectivesCheckAll();
 	objectivesDisableChecking();
 	mainEndStage();
-}
-
-void func0000e9c0(void)
-{
-	// empty
 }

@@ -7507,10 +7507,6 @@ void bgunTickGameplay2(void)
 	u32 stack[3];
 	s32 i;
 
-	if (g_Vars.currentplayernum == 0) {
-		projectilesDebug();
-	}
-
 	if (player->gunctrl.unk1583_06) {
 		// empty
 	} else {

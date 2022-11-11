@@ -611,11 +611,6 @@ s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s3
 	return false;
 }
 
-void bwalk0f0c4d98(void)
-{
-	// empty
-}
-
 void bwalkUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 {
 	if (g_Vars.normmplayerisrunning) {
@@ -1151,8 +1146,6 @@ void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 	g_Vars.currentplayer->bondonturret = false;
 	g_Vars.currentplayer->autocrouchpos = CROUCHPOS_STAND;
 
-	bwalk0f0c4d98();
-
 	if (bwalk0f0c4764(arg0, &sp100, &sp88, types) == CDRESULT_COLLISION) {
 		struct coord sp76;
 		struct coord sp64;
@@ -1160,10 +1153,6 @@ void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 		s32 result = bwalk0f0c47d0(arg0, &sp100, &sp88, &sp76, &sp64, types);
 
 		if (result >= CDRESULT_NOCOLLISION || result <= CDRESULT_ERROR) {
-			if (result >= CDRESULT_NOCOLLISION) {
-				bwalk0f0c4d98();
-			}
-
 			if (arg1
 					&& bwalk0f0c494c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION
 					&& bwalk0f0c4a5c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION) {
@@ -1173,9 +1162,7 @@ void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 			struct coord sp48;
 			struct coord sp36;
 
-			if (bwalk0f0c47d0(arg0, &sp76, &sp64, &sp48, &sp36, types) >= CDRESULT_NOCOLLISION) {
-				bwalk0f0c4d98();
-			}
+			bwalk0f0c47d0(arg0, &sp76, &sp64, &sp48, &sp36, types);
 
 			if (arg1
 					&& bwalk0f0c494c(arg0, &sp76, &sp64, types) <= CDRESULT_COLLISION
@@ -1185,8 +1172,6 @@ void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 			}
 		}
 	}
-
-	bwalk0f0c4d98();
 }
 
 void bwalkUpdatePrevPos(void)

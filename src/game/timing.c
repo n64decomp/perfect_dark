@@ -50,13 +50,3 @@ void frametimeCalculate(void)
 
 	frametimeApply(diffframe60, diffframe240, count);
 }
-
-void func0f16cf8c(s32 arg0)
-{
-	// empty
-}
-
-void func0f16cf94(void)
-{
-	// empty
-}

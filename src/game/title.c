@@ -146,11 +146,6 @@ void titleInitLegal(void)
 	g_TitleFastForward = false;
 }
 
-void titleExitLegal(void)
-{
-	// empty
-}
-
 void titleTickLegal(void)
 {
 	viSetFovY(60);
@@ -1798,11 +1793,6 @@ void titleInitNoController(void)
 	g_TitleTimer = 0;
 }
 
-void titleExitNoController(void)
-{
-	// empty
-}
-
 void titleTickNoController(void)
 {
 	viSetFovY(60);
@@ -1892,9 +1882,6 @@ void titleTick(void)
 		g_TitleDelayedMode = g_TitleNextMode;
 
 		switch (g_TitleMode) {
-		case TITLEMODE_LEGAL:
-			titleExitLegal();
-			break;
 		case TITLEMODE_CHECKCONTROLLERS:
 			titleExitCheckControllers();
 			break;
@@ -1906,9 +1893,6 @@ void titleTick(void)
 			break;
 		case TITLEMODE_RARELOGO:
 			titleExitRareLogo();
-			break;
-		case TITLEMODE_NOCONTROLLER:
-			titleExitNoController();
 			break;
 		}
 
@@ -2016,9 +2000,6 @@ bool titleIsKeepingMode(void)
 void titleExit(void)
 {
 	switch (g_TitleMode) {
-	case TITLEMODE_LEGAL:
-		titleExitLegal();
-		break;
 	case TITLEMODE_CHECKCONTROLLERS:
 		titleExitCheckControllers();
 		break;
@@ -2030,9 +2011,6 @@ void titleExit(void)
 		break;
 	case TITLEMODE_RARELOGO:
 		titleExitRareLogo();
-		break;
-	case TITLEMODE_NOCONTROLLER:
-		titleExitNoController();
 		break;
 	case TITLEMODE_RAREPRESENTS1:
 	case TITLEMODE_RAREPRESENTS2:

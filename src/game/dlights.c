@@ -1412,11 +1412,6 @@ void lightsTick(void)
 	}
 }
 
-void func0f004384(void)
-{
-	// empty
-}
-
 void roomAdjustLighting(s32 roomnum, s32 start, s32 limit)
 {
 	if (var80061420 && !(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {

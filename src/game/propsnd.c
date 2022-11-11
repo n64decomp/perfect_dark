@@ -30,7 +30,6 @@ u32 var8006ae2c = 0x00000000;
 u32 var8006ae30 = 0x00000000;
 u32 var8006ae34 = 0x00000000;
 u32 var8006ae38 = 0x00000000;
-bool g_PropsndPrintChannels = false;
 
 u32 var8006ae40 = 0x00000000;
 bool var8006ae44 = false;
@@ -151,15 +150,6 @@ void func0f092a98(s32 channelnum)
 		snd0000fbc4(channel->soundnum26);
 	} else if (channel->audiohandle && sndGetState(channel->audiohandle) != AL_STOPPED) {
 		audioStop(channel->audiohandle);
-	}
-}
-
-void propsndPrintChannel(struct audiochannel *channel)
-{
-	s32 i;
-
-	for (i = 0; channel->rooms[i] != -1; i++) {
-		// empty
 	}
 }
 
@@ -406,10 +396,6 @@ void propsndTickChannel(s32 channelnum)
 				channel->flags = AUDIOCHANNELFLAG_IDLE;
 			}
 		}
-	}
-
-	if (var8006ae44 && (channel->flags2 & AUDIOCHANNELFLAG2_0004)) {
-		propsndPrintChannel(channel);
 	}
 
 	channel->flags &= ~AUDIOCHANNELFLAG_1000;
@@ -1208,11 +1194,6 @@ u32 propsnd0f095258(u32 arg0, u32 arg1)
 u32 propsnd0f095264(u32 arg0, u32 arg1)
 {
 	return arg0;
-}
-
-void propsnd0f095270(void)
-{
-	// empty
 }
 
 /**

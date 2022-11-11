@@ -54,16 +54,6 @@ bool sightIsPropFriendly(struct prop *prop)
 	return chrCompareTeams(g_Vars.currentplayer->prop->chr, prop->chr, COMPARE_FRIENDS);
 }
 
-void sight0f0d715c(void)
-{
-	// empty
-}
-
-Gfx *sight0f0d7164(Gfx *gdl)
-{
-	return gdl;
-}
-
 /**
  * Return true if the given prop can be added to the target list.
  */

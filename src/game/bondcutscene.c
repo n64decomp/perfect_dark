@@ -28,8 +28,3 @@ void bcutsceneInit(void)
 		}
 	}
 }
-
-void bcutsceneTick(void)
-{
-	// empty
-}

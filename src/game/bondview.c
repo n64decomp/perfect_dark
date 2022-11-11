@@ -1619,11 +1619,6 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	return gdl;
 }
 
-void bview0f1572f8(void)
-{
-	// empty
-}
-
 u8 var8007f878 = 0;
 
 Gfx *bviewDrawNvLens(Gfx *gdl)
@@ -1682,14 +1677,6 @@ Gfx *bviewDrawNvLens(Gfx *gdl)
 		gdl = bviewCopyPixels(gdl, fb, y, 5, y, 1, viewleft, viewwidth);
 	}
 
-	return gdl;
-}
-
-/**
- * Night vision doesn't have binoculars.
- */
-Gfx *bviewDrawNvBinoculars(Gfx *gdl)
-{
 	return gdl;
 }
 
@@ -2185,11 +2172,6 @@ Gfx *bviewDrawIrBinoculars(Gfx *gdl)
 		}
 	}
 
-	return gdl;
-}
-
-Gfx *bview0f148b38(Gfx *gdl)
-{
 	return gdl;
 }
 

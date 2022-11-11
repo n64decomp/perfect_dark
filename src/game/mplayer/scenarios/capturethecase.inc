@@ -153,16 +153,6 @@ s32 ctcNumProps(void)
 	return 4;
 }
 
-void ctcTick(void)
-{
-	// empty
-}
-
-void ctcTickChr(struct chrdata *chr)
-{
-	if (chr);
-}
-
 void ctcInitProps(void)
 {
 	struct mpchrconfig *mpchr;

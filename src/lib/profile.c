@@ -8,21 +8,6 @@
 
 #define NUM_SAMPLES 32
 
-void profileInit(void)
-{
-	// empty
-}
-
-void profileTick(void)
-{
-	// empty
-}
-
-void profile00009a98(void)
-{
-	// empty
-}
-
 #ifdef PROFILING
 // [x][x][0] is the current ticks tally (for multiple start + stops within one frame)
 // [x][x][1] is the start time
@@ -258,16 +243,6 @@ Gfx *profileRender(Gfx *gdl)
 
 	g_ProfileGfxTally = 0;
 
-	return gdl;
-}
-#else
-void profileReset(void)
-{
-	// empty
-}
-
-Gfx *profileRender(Gfx *gdl)
-{
 	return gdl;
 }
 #endif

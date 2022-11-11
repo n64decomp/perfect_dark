@@ -113,11 +113,6 @@ s32 var8007fba4 = -1;
 u32 var8007fba8 = 0x00000000;
 u32 var8007fbb0 = 0x00000064;
 
-void textInit(void)
-{
-	// empty
-}
-
 void text0f1531a8(s32 arg0)
 {
 	var8007fac4 = -arg0;

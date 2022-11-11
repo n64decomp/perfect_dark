@@ -7,11 +7,6 @@
 #include "data.h"
 #include "types.h"
 
-void func0f175f90(void)
-{
-	// empty
-}
-
 void func0f175f98(void)
 {
 	func0f167330();

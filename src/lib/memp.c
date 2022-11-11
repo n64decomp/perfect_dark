@@ -53,11 +53,6 @@ struct memorypool {
 struct memorypool g_MempOnboardPools[9];
 struct memorypool g_MempExpansionPools[9];
 
-void mempInit(void)
-{
-	// empty
-}
-
 /**
  * Initialise memp by initialising the banks and pools.
  *
@@ -213,11 +208,6 @@ s32 mempRealloc(void *allocation, s32 newsize, u8 poolnum)
 
 	pool->leftpos += growsize;
 	return 1;
-}
-
-void memp000124cc(void)
-{
-	// empty
 }
 
 /**

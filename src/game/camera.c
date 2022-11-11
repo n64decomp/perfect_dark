@@ -22,11 +22,6 @@ f32 var8009dd5c;
 struct coord var8009dd60;
 f32 var8009dd6c;
 
-void cam0f0b4950(void)
-{
-	// empty
-}
-
 void camSetScreenSize(f32 width, f32 height)
 {
 	struct player *player = g_Vars.currentplayer;

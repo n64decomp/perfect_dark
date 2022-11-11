@@ -152,11 +152,6 @@ void func00037f5c(s32 arg0, bool arg1)
 	}
 }
 
-void func00037fa8(s32 arg0, s32 arg1)
-{
-	// empty
-}
-
 s32 func00037fc0(s32 arg0, Acmd **cmd)
 {
 	s32 i;

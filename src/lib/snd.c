@@ -1415,11 +1415,6 @@ bool snd0000fbc4(s16 arg0)
 	return true;
 }
 
-void snd0000fc40(s32 arg0)
-{
-	// empty
-}
-
 bool seqPlay(struct seqinstance *seq, s32 tracknum)
 {
 	u32 stack;
@@ -1490,11 +1485,6 @@ void seqSetVolume(struct seqinstance *seq, u16 volume)
 	}
 }
 
-void snd0000fe18(void)
-{
-	// empty
-}
-
 void snd0000fe20(void)
 {
 	if (g_SndMp3Enabled) {
@@ -1507,11 +1497,6 @@ void snd0000fe50(void)
 	if (g_SndMp3Enabled) {
 		func00037e68();
 	}
-}
-
-void snd0000fe80(void)
-{
-	// empty
 }
 
 void sndTick(void)

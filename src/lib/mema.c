@@ -204,11 +204,6 @@ void _memaFree(s32 addr, s32 size)
 	curr->size = size;
 }
 
-void memaInit(void)
-{
-	// empty
-}
-
 void memaReset(void *heapaddr, u32 heapsize)
 {
 	struct memaspace *space;
@@ -230,45 +225,6 @@ void memaReset(void *heapaddr, u32 heapsize)
 
 	g_MemaHeap.spaces[0].addr = g_MemaHeapStart = (u32)heapaddr;
 	g_MemaHeap.spaces[0].size = g_MemaHeapSize = heapsize;
-}
-
-/**
- * Example printout of figures:
- *
- *     Mem Info
- *     memp: MP_LF_LEV
- *      F: 0 722352
- *      S: 972080 3668704
- *      Over: 2946352
- *     memp: MP_LF_ETER
- *      F: 0 0
- *      S: 601728 0
- *     mema:
- *      LF: 391728
- *     Audio Free: 13184
- *
- * Where two figures are shown in one line, the left refers to onboard memory
- * and the right refers to expansion pak memory.
- *
- * F means free.
- * S means size.
- *
- * "Over" shows how much it's over 4MB, if they were to try to fit the game into
- * onboard memory only. This shows "Free" if under 4MB.
- *
- * The ETER (permanent) pool has 0 free space because it's shrunk to fit once
- * the permanent allocations are done during startup. This pool fits entirely
- * in onboard memory, so the expansion size is 0.
- */
-void memaPrint(void)
-{
-	s32 onboard;
-	s32 expansion;
-	s32 line = 1;
-	s32 over;
-	char buffer[124];
-
-	memaDefragPass(&g_MemaHeap);
 }
 
 extern u8 g_LvOom;
@@ -380,11 +336,6 @@ found:
 void memaFree(void *addr, s32 size)
 {
 	_memaFree((u32)addr, size);
-}
-
-void mema00012cd4(void)
-{
-	// empty
 }
 
 /**

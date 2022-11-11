@@ -814,23 +814,3 @@ Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b)
 
 	return gdl;
 }
-
-void viGrabJpg16(void)
-{
-	// empty
-}
-
-void viGrabJpg32(void)
-{
-	// empty
-}
-
-void viGrabRgb16(void)
-{
-	// empty
-}
-
-void viGrabRgb32(void)
-{
-	// empty
-}

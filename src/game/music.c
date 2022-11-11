@@ -634,8 +634,3 @@ void musicTickAmbient(void)
 		musicStartAmbient(1);
 	}
 }
-
-void func0f16e1cc(void)
-{
-	// empty
-}

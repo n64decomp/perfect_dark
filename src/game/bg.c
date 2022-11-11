@@ -1528,9 +1528,6 @@ void bgBuildTables(s32 stagenum)
 		g_Rooms[i].unk4e_04 = 0;
 	}
 
-	func0f15c880(g_Stages[g_StageIndex].unk14);
-	chr0f028490(g_Stages[g_StageIndex].unk14);
-
 	for (i = 0; i < 4; i++) {
 		g_Vars.playerstats[i].scale_bg2gfx = g_Stages[g_StageIndex].unk18;
 	}
@@ -1850,8 +1847,6 @@ void bgBuildTables(s32 stagenum)
 		}
 	}
 
-	envSetStageNum(stagenum);
-
 	var8007fc10 = 200;
 
 	wallhitReset();
@@ -1863,11 +1858,6 @@ void bgStop(void)
 {
 	bgUnloadAllRooms();
 	mtx00016748(1);
-}
-
-void func0f15c880(f32 arg0)
-{
-	// empty
 }
 
 f32 func0f15c888(void)
@@ -6019,11 +6009,6 @@ void portalSetOpen(s32 portal, bool open)
 s32 func0f164e70(s32 arg0, s32 arg1, s32 arg2)
 {
 	return arg0;
-}
-
-void func0f164e80(s32 arg0, s32 arg1)
-{
-	// empty
 }
 
 f32 var8007fcb4 = 0;

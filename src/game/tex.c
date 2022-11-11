@@ -180,11 +180,6 @@ u32 var800844e4 = 0x00000000;
 u32 var800844e8 = 0x00000000;
 u32 var800844ec = 0x00000000;
 
-void tex0f173a00(void)
-{
-	// empty
-}
-
 void tex0f173a08(void)
 {
 	s32 i;

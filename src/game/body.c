@@ -592,11 +592,6 @@ struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
 	return NULL;
 }
 
-void body0f02ddbf(void)
-{
-	// empty
-}
-
 /**
  * Tweak the head's Y offset to suit the body.
  *

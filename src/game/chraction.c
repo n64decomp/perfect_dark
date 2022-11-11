@@ -7510,11 +7510,6 @@ bool chrTryPunch(struct chrdata *chr, u8 reverse)
 	return false;
 }
 
-void func0f03c03c(void)
-{
-	// empty
-}
-
 /**
  * Verifies that the given chr struct is actually an eyespy and returns the
  * eyespy struct.
@@ -10950,11 +10945,6 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 	return false;
 }
 
-void chrTickBondDie(struct chrdata *chr)
-{
-	// empty
-}
-
 bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turnspeed)
 {
 	struct prop *prop = chr->prop;
@@ -12760,7 +12750,6 @@ void chraTick(struct chrdata *chr)
 				case ACT_SURPRISED:       chrTickSurprised(chr);       break;
 				case ACT_STARTALARM:      chrTickStartAlarm(chr);      break;
 				case ACT_THROWGRENADE:    chrTickThrowGrenade(chr);    break;
-				case ACT_BONDDIE:         chrTickBondDie(chr);         break;
 				case ACT_DRUGGEDCOMINGUP: chrTickDruggedComingUp(chr); break;
 				case ACT_DRUGGEDDROP:     chrTickDruggedDrop(chr);     break;
 				case ACT_DRUGGEDKO:       chrTickDruggedKo(chr);       break;
@@ -14487,11 +14476,6 @@ bool chrIsPropPresetBlockingSightToTarget(struct chrdata *chr)
 	return result;
 }
 
-void func0f04b740(void)
-{
-	// empty
-}
-
 bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen)
 {
 	struct coord pos2;
@@ -15211,11 +15195,6 @@ bool audioWasNotPlayedRecently(s16 audioid)
 	}
 
 	return true;
-}
-
-Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
-{
-	return gdl;
 }
 
 void chrToggleModelPart(struct chrdata *chr, s32 partnum)

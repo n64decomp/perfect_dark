@@ -195,7 +195,6 @@
 	build/ROMID/game/botinv.o (section); \
 	build/ROMID/game/botact.o (section); \
 	build/ROMID/game/mplayer/mpaicommands.o (section); \
-	build/ROMID/game/vmstats.o (section); \
 	build/ROMID/game/botroom.o (section); \
 	build/ROMID/game/challenge.o (section); \
 	build/ROMID/game/training.o (section); \

@@ -18148,23 +18148,6 @@ Gfx *countdownTimerRender(Gfx *gdl)
 	return gdl;
 }
 
-void projectilesDebug(void)
-{
-	s32 i;
-
-	for (i = 0; i < g_MaxProjectiles; i++) {
-		if (g_Projectiles[i].flags) {
-			// empty
-		}
-	}
-
-	for (i = 0; i < g_MaxWeaponSlots; i++) {
-		if (g_WeaponSlots[i].weaponnum) {
-			// empty
-		}
-	}
-}
-
 const char var7f1aa16c[] = "ALARM : PAN 1 = %d (%s%f)";
 const char var7f1aa188[] = "";
 const char var7f1aa18c[] = "ALARM : DIR 1 = %d";
@@ -18570,9 +18553,4 @@ void objSetModelPartVisible(struct defaultobj *obj, s32 partnum, bool visible)
 			}
 		}
 	}
-}
-
-Gfx *func0f091e04(Gfx *gdl, u32 arg1)
-{
-	return gdl;
 }

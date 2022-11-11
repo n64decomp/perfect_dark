@@ -3956,16 +3956,6 @@ bool cd0002f02c(struct geoblock *block, s16 *rooms, s32 types)
 	return result;
 }
 
-Gfx *cdRender(Gfx *gdl, u32 arg1, u32 arg2, u32 arg3)
-{
-	return gdl;
-}
-
-void cd0002f2fc(u32 arg0, u32 arg1)
-{
-	// empty
-}
-
 bool cdIsNearlyInSightWithFlags(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 types, u16 geoflags)
 {
 	struct coord diff;

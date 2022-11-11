@@ -221,11 +221,6 @@ u32 pakAlign(s8 device, u32 size)
 	return pakGetBlockSize(device) == 0x20 ? align32(size) : align16(size);
 }
 
-void pak0f116650(void)
-{
-	// empty
-}
-
 s32 pakGetAlignedFileLenByBodyLen(s8 device, u32 bodylen)
 {
 	return pakAlign(device, sizeof(struct pakfileheader) + bodylen);
@@ -326,21 +321,11 @@ void pak0f116984(s8 arg0, u8 *arg1, u8 *arg2)
 	pak0f116bdc(arg0, arg1, arg2);
 }
 
-void pak0f11698c(s8 device)
-{
-	// empty
-}
-
 void pak0f116994(void)
 {
 	if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		g_Vars.unk0004e4 = 0xf8;
 	}
-}
-
-void pak0f1169bc(u32 arg0, u32 arg1)
-{
-	// empty
 }
 
 void pak0f1169c8(s8 device, s32 arg1)
@@ -1258,11 +1243,6 @@ u32 pak0f118674(s8 device, u32 filetype, s32 *outfileid)
 	return 4;
 }
 
-void pak0f1189d0(void)
-{
-	// empty
-}
-
 void paksInit(void)
 {
 	u8 prevvalue = g_Vars.paksconnected;
@@ -2115,11 +2095,6 @@ void pakMergeBlanks(s8 device)
 
 		offset = nextoffset;
 	}
-}
-
-void paksReset(void)
-{
-	// empty
 }
 
 s32 pakGetUnk014(s8 device)
@@ -3135,16 +3110,6 @@ void gbpakHandleError(u32 err)
 	}
 }
 
-void pak0f11cbc8(void)
-{
-	// empty
-}
-
-void pak0f11cbd0(void)
-{
-	// empty
-}
-
 bool gbpakRead(s8 device, u16 address, u8 *buffer, u16 size)
 {
 	s32 result = osGbpakReadWrite(PFS(device), OS_READ, address, buffer, size);
@@ -3292,7 +3257,6 @@ bool gbpak0f11cef8(s8 device)
 		if (pak->unk2b9);
 
 		pak0f11d118(sp2c, pak->unk2b9, 0);
-		pak0f11d174(device, sp2c);
 
 		sp2c[0] |= 1;
 
@@ -3306,11 +3270,6 @@ bool gbpak0f11cef8(s8 device)
 	return true;
 }
 
-void pak0f11d110(void)
-{
-	// empty
-}
-
 void pak0f11d118(u8 *arg0, u8 arg1, u32 arg2)
 {
 	arg0[0] = 2;
@@ -3321,10 +3280,6 @@ void pak0f11d118(u8 *arg0, u8 arg1, u32 arg2)
 	arg0[5] = (arg1 & 0x3f) + 0x80;
 
 	pak0f11d214(&arg0[6], arg2);
-}
-
-void pak0f11d174(s8 device, u8 *arg1)
-{
 }
 
 void pak0f11d214(u8 *arg0, u32 arg1)
@@ -3438,11 +3393,6 @@ void pak0f11d620(s8 device)
 	if (g_Paks[device].unk010 == PAK010_11) {
 		g_Paks[device].unk010 = PAK010_12;
 	}
-}
-
-void pak0f11d678(void)
-{
-	// empty
 }
 
 bool gbpak0f11d680(s8 device, bool arg1)
@@ -3727,11 +3677,6 @@ s32 pak0f11df84(s32 arg0)
 	return arg0;
 }
 
-void pakDumpPak(void)
-{
-	// empty
-}
-
 void pak0f117f94nb(s8 device);
 
 void pak0f11df94(s8 device)
@@ -3894,11 +3839,6 @@ void pak0f11df94(s8 device)
 			g_Paks[device].unk2b8_07 = false;
 		}
 	}
-}
-
-void pak0f11e3b4(void)
-{
-	// empty
 }
 
 void pak0f11e3bc(s8 device)

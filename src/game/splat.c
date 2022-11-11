@@ -366,11 +366,6 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	return false;
 }
 
-void splatsTick(void)
-{
-	// empty
-}
-
 void splat0f14986c(struct splatdata *splat)
 {
 	f32 spac;

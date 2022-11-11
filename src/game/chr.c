@@ -4441,11 +4441,6 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 	}
 }
 
-void chr0f028490(f32 arg1)
-{
-	// empty
-}
-
 void chr0f028498(bool value)
 {
 	var8006296c = value;

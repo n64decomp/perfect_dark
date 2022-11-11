@@ -348,11 +348,6 @@ bool botinvGiveProp(struct chrdata *chr, struct prop *prop)
 	return result;
 }
 
-void botinv0f198060(u32 arg0)
-{
-	// empty
-}
-
 /**
  * Score all weapons in the match's weaponset by themselves and write them to
  * the 3 array pointers, ordered by score1 descending.

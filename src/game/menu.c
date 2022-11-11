@@ -1988,7 +1988,6 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			mtx4MultMtx4(&sp310, &sp350, &sp244);
 
 			if (arg2 == 3) {
-				credits0f13ae04(&sp1c4);
 				mtx4MultMtx4(&sp1c4, &sp244, &sp184);
 				mtx4MultMtx4(&sp184, &sp204, &thing->unk014);
 			} else {
@@ -3441,8 +3440,6 @@ void func0f0f8bb4(struct menu840 *arg0, u32 arg1, u32 arg2)
 void menuReset(void)
 {
 	s32 i;
-
-	func0f110bf0();
 
 	var8009dfc0 = 0;
 

@@ -1563,11 +1563,6 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 	return gdl;
 }
 
-void credits0f13ae04(Mtxf *mtx)
-{
-	// empty
-}
-
 void creditsTick(void)
 {
 	s32 i;

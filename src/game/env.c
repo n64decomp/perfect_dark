@@ -120,11 +120,6 @@ struct envtype2 g_EnvironmentsType2[] = {
 	{ 0 },
 };
 
-void env0f1657c0(s32 arg0, s32 arg1)
-{
-	// empty
-}
-
 struct environment *envGetCurrent(void)
 {
 	return &g_Env;
@@ -281,11 +276,6 @@ void envDisableSky(void)
 	g_Env.skyredfrac = 0;
 	g_Env.skygreenfrac = 0;
 	g_Env.skybluefrac = 0;
-}
-
-void envSetStageNum(s32 stagenum)
-{
-	// empty
 }
 
 void envChooseAndApply(s32 stagenum, bool allowoverride)

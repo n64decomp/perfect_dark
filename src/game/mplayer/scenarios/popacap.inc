@@ -343,11 +343,6 @@ void pacCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score
 	*arg3 = mpchr->numdeaths;
 }
 
-Gfx *pacRadarExtra(Gfx *gdl)
-{
-	return gdl;
-}
-
 bool pacRadarChr(Gfx **gdl, struct prop *prop)
 {
 	struct scenariodata_pac *data = &g_ScenarioData.pac;

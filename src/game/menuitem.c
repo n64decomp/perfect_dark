@@ -3055,11 +3055,6 @@ void menuitemMarqueeInit(union menuitemdata *data)
 	data->marquee.unk06 = 0;
 }
 
-Gfx *menuitem07Render(Gfx *gdl)
-{
-	return gdl;
-}
-
 Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 {
 	struct ranking rankings[MAX_MPCHRS];
@@ -3971,7 +3966,6 @@ Gfx *menuitemRender(Gfx *gdl, struct menurendercontext *context)
 	case MENUITEMTYPE_METER:       return menuitemMeterRender(gdl, context);
 	case MENUITEMTYPE_SEPARATOR:   return menuitemSeparatorRender(gdl, context);
 	case MENUITEMTYPE_OBJECTIVES:  return menuitemObjectivesRender(gdl, context);
-	case MENUITEMTYPE_07:          return menuitem07Render(gdl);
 	case MENUITEMTYPE_DROPDOWN:    return menuitemDropdownRender(gdl, context);
 	case MENUITEMTYPE_KEYBOARD:    return menuitemKeyboardRender(gdl, context);
 	case MENUITEMTYPE_RANKING:     return menuitemRankingRender(gdl, context);

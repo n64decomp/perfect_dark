@@ -1455,8 +1455,3 @@ void wallhitRemoveOldestWoundedSplatByChr(struct prop *chrprop)
 		wallhitFade(&g_Wallhits[oldestindex], TICKS(120));
 	}
 }
-
-Gfx *wallhit0f141814(Gfx *gdl, s32 arg1)
-{
-	return gdl;
-}

@@ -241,7 +241,6 @@ void __scHandleRetrace(OSSched *sc)
 	}
 
 	joysTick();
-	snd0000fe18();
 }
 
 extern struct sndcache g_SndCache;
@@ -256,8 +255,6 @@ void __scHandleTasks(OSSched *sc)
 	OSScClient  *client;
 	OSScTask    *sp = 0;
 	OSScTask    *dp = 0;
-
-	profileTick();
 
 	/**
 	 * Read the task command queue and schedule tasks
