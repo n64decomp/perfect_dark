@@ -132,6 +132,8 @@ u32 g_FadePrevColour = 0;
 u32 g_FadeColour = 0;
 s16 g_FadeDelay = 0;
 
+void lvResetSoloHandicaps(void);
+
 u32 getVar80084040(void)
 {
 	return var80084040;
@@ -363,6 +365,7 @@ void lvReset(s32 stagenum)
 	animsReset();
 	objectivesReset();
 	vtxstoreReset();
+	lvResetSoloHandicaps();
 	modelmgrReset();
 	propsndReset();
 	setupLoadFiles(stagenum);
@@ -1704,7 +1707,7 @@ u32 var800840b4 = 0;
 u32 var800840b8 = 0;
 u32 var800840bc = 0;
 
-void lvUpdateSoloHandicaps(void)
+void lvResetSoloHandicaps(void)
 {
 	if (g_Vars.antiplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
@@ -1778,26 +1781,13 @@ void lvUpdateSoloHandicaps(void)
 		}
 	} else {
 		if (g_Difficulty == DIFF_A) {
-			f32 totalhealth;
-			f32 frac = 1;
-
-			if (g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
-				totalhealth = playerGetHealthFrac() + playerGetShieldFrac();
-
-				if (totalhealth <= 0.125f) {
-					frac = 0.5f;
-				} else if (totalhealth <= 0.6f) {
-					frac = (totalhealth - 0.125f) * 0.5f / 0.47500002384186f + 0.5f;
-				}
-			}
-
-			g_AutogunAccuracyScale = 0.5f * frac;
-			g_AutogunDamageTxScale = 0.5f * frac;
+			g_AutogunAccuracyScale = 0.5f;
+			g_AutogunDamageTxScale = 0.5f;
 			g_AutogunDamageRxScale = 2;
 			g_EnemyAccuracyScale = 0.6f;
-			g_PlayerDamageRxScale = 0.5f * frac;
+			g_PlayerDamageRxScale = 0.5f;
 			g_PlayerDamageTxScale = 2;
-			g_ExplosionDamageTxScale = 0.25f * frac;
+			g_ExplosionDamageTxScale = 0.25f;
 			g_AutoAimScale = 1.5f;
 			g_AmmoQuantityScale = 2;
 			g_AttackWalkDurationScale = 0.2f;
@@ -1835,6 +1825,27 @@ void lvUpdateSoloHandicaps(void)
 			g_AmmoQuantityScale = 1;
 			g_AttackWalkDurationScale = 1;
 		}
+	}
+}
+
+void lvUpdateSoloHandicaps(void)
+{
+	if (g_Difficulty == DIFF_A && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
+		f32 totalhealth;
+		f32 frac = 1;
+
+		totalhealth = playerGetHealthFrac() + playerGetShieldFrac();
+
+		if (totalhealth <= 0.125f) {
+			frac = 0.5f;
+		} else if (totalhealth <= 0.6f) {
+			frac = (totalhealth - 0.125f) * 0.5f / 0.47500002384186f + 0.5f;
+		}
+
+		g_AutogunAccuracyScale = 0.5f * frac;
+		g_AutogunDamageTxScale = 0.5f * frac;
+		g_PlayerDamageRxScale = 0.5f * frac;
+		g_ExplosionDamageTxScale = 0.25f * frac;
 	}
 }
 
