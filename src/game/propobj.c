@@ -3153,17 +3153,17 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 
 		if (cdresult != CDRESULT_NOCOLLISION) {
 			struct coord dist;
-			f32 distance;
+			f32 sqdist;
 			f32 mult;
 
 			dist.x = pos->x - prop->pos.x;
 			dist.y = pos->y - prop->pos.y;
 			dist.z = pos->z - prop->pos.z;
 
-			distance = dist.f[0] * dist.f[0] + dist.f[1] * dist.f[1] + dist.f[2] * dist.f[2];
+			sqdist = dist.f[0] * dist.f[0] + dist.f[1] * dist.f[1] + dist.f[2] * dist.f[2];
 
-			if (distance > 0.01f) {
-				mult = 0.1f / sqrtf(distance);
+			if (sqdist > 0.01f) {
+				mult = 0.1f / sqrtf(sqdist);
 			} else {
 				mult = 0.5f;
 			}

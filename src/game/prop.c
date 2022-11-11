@@ -2582,9 +2582,9 @@ void autoaimTick(void)
 			f32 xdist = g_Vars.currentplayer->bond2.unk10.x - bestprop->pos.x;
 			f32 ydist = g_Vars.currentplayer->bond2.unk10.y - bestprop->pos.y;
 			f32 zdist = g_Vars.currentplayer->bond2.unk10.z - bestprop->pos.z;
-			f32 dist = xdist * xdist + ydist * ydist + zdist * zdist;
+			f32 sqdist = xdist * xdist + ydist * ydist + zdist * zdist;
 
-			if (dist < 40000) {
+			if (sqdist < 40000) {
 				g_Vars.currentplayer->gunctrl.gangsta = true;
 			} else {
 				g_Vars.currentplayer->gunctrl.gangsta = false;

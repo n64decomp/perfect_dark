@@ -369,9 +369,9 @@ void nbombInflictDamage(struct nbomb *nbomb)
 				f32 ydiff = prop->pos.f[1] - nbomb->pos.f[1];
 				f32 zdiff = prop->pos.f[2] - nbomb->pos.f[2];
 
-				f32 dist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+				f32 sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 
-				if (dist < nbomb->radius * nbomb->radius) {
+				if (sqdist < nbomb->radius * nbomb->radius) {
 					struct chrdata *chr = prop->chr;
 
 					if (chr) {
