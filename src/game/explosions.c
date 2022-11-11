@@ -201,35 +201,6 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 			}
 		}
 	}
-
-#if PIRACYCHECKS
-	{
-		u32 checksum = 0;
-		s32 *ptr = (s32 *)&glassDestroy;
-
-		while (ptr < end) {
-			checksum ^= *ptr;
-			checksum <<= 1;
-			ptr++;
-		}
-
-		if (checksum != CHECKSUM_PLACEHOLDER) {
-			struct explosiontype *type = &g_ExplosionTypes[0];
-			s32 i;
-
-			for (i = 0; i != NUM_EXPLOSIONTYPES - 1; i++) {
-				type->rangeh = 80;
-				type->rangev = 60;
-				type->changerateh = 15;
-				type->changeratev = 5;
-				type->innersize = 1500;
-				type->blastradius = 200;
-				type->damageradius = 3600;
-				type++;
-			}
-		}
-	}
-#endif
 }
 
 bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exprooms,

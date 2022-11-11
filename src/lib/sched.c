@@ -374,28 +374,6 @@ void __scHandleTasks(OSSched *sc)
 			osSendMesg(client->msgQ, (OSMesg) &sc->retraceMsg, OS_MESG_NOBLOCK);
 		}
 	}
-
-#if PIRACYCHECKS
-	{
-		u32 checksum = 0;
-		s32 *end = (s32 *)&bootAllocateStack;
-		s32 *ptr = (s32 *)&bootPhase1;
-		s32 i;
-
-		while (ptr < end) {
-			checksum ^= *ptr;
-			ptr++;
-		}
-
-		if (checksum != CHECKSUM_PLACEHOLDER) {
-			u8 *addr = (u8 *) &g_SndCache;
-
-			for (i = 0; i < 40; i++) {
-				addr[4 + i] = 0xff;
-			}
-		}
-	}
-#endif
 }
 
 /**

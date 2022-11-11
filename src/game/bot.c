@@ -262,13 +262,6 @@ void botSpawnAll(void)
 	}
 }
 
-#if PIRACYCHECKS
-u32 add87654321(u32 value)
-{
-	return value + 0x87654321;
-}
-#endif
-
 u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 {
 	struct defaultobj *obj = prop->obj;
@@ -309,26 +302,6 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 			u32 padding[1];
 			s32 qty;
 			s32 i;
-#if PIRACYCHECKS
-			{
-				u32 *ptr = (u32 *)&doorFinishClose;
-				u32 *end = (u32 *)&doorSetMode;
-				u32 checksum = 0;
-
-				while (ptr < end) {
-					checksum += *ptr;
-					checksum *= 2;
-					ptr++;
-				}
-
-				if (checksum != CHECKSUM_PLACEHOLDER) {
-					u32 *ptr = (u32 *)chrCheckTargetInSight;
-					ptr[0] = add87654321(0x24020001 - 0x87654321); // li v0, 1
-					ptr[1] = add87654321(0x03e00008 - 0x87654321); // jr ra
-					ptr[2] = add87654321(0x00000000 - 0x87654321); // nop
-				}
-			}
-#endif
 
 			for (i = 0; i != 19; i++) {
 				qty = crate->slots[i].quantity;

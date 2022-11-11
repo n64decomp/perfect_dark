@@ -14565,84 +14565,6 @@ void objApplyMomentum(struct defaultobj *obj, struct coord *speed, f32 rotation,
 	}
 }
 
-#if PIRACYCHECKS
-extern u8 _blankSegmentRomStart;
-
-/**
- * This function is called whenever a player exits a lift as well as on tick
- * whenever a player is running at max speed. Each time it is called, it
- * attempts to DMA a payload from the ROM into a location in RAM. However, in
- * all versions of the game the payload list is empty so it effectively does
- * nothing.
- *
- * It is likely that this function would have been used to restore piracy checks
- * in the event that a player had disabled them using memory editing or a hacked
- * ROM. The feature may have been abandoned because it would have revealed where
- * all the piracy checks are, or perhaps they never got around to implementing
- * the generation of the payload list into their build system.
- *
- * The segment being read is expected to start with a table of word-pairs for
- * the destination RAM address and copy length. 0x40 bytes are reserved for the
- * table but it can be terminated early with a zero RAM address.
- *
- * From 0x40 onwards are the payloads in order. To calculate the read offset for
- * a particular payload, the function must sum the lengths of the payloads
- * before it.
- */
-void piracyRestore(void)
-{
-	s32 i;
-	u32 writeaddr;
-	s32 copylen;
-	s32 readoffset;
-	u32 *ptr;
-	u32 *tmp;
-	u8 buffer[0x4c];
-
-	static s8 index = 0;
-
-	ptr = (u32 *)buffer;
-
-	// Align ptr to an 8 byte boundary
-	while ((u32)ptr % 8) {
-		ptr++;
-	}
-
-	// Copy the writeaddr/copylen pairs from ROM to the buffer
-	dmaExec(ptr, (u32) &_blankSegmentRomStart, 0x40);
-
-	// Calculate what needs to be copied and where
-	i = 0;
-	readoffset = 0x40;
-	copylen = 0;
-
-	while (i <= index) {
-		tmp = ptr;
-		tmp += i << 1;
-		readoffset += copylen;
-		writeaddr = tmp[0];
-		copylen = tmp[1];
-		i++;
-	}
-
-	// Copy it
-	if (copylen != 0) {
-		dmaExec((void *) writeaddr, (u32) &_blankSegmentRomStart + readoffset, copylen);
-	}
-
-	// Increment the index, so the next time the function is called
-	// it copies the next payload. To do this, calculate the number
-	// of payloads so it can wrap.
-	for (i = 0; i < 8 && ptr[i * 2]; i++);
-
-	index++;
-
-	if (index >= i) {
-		index = 0;
-	}
-}
-#endif
-
 void func0f082e84(struct defaultobj *obj, struct coord *pos, struct coord *dir, struct coord *tween, bool addrotation)
 {
 	struct coord speed = {0, 0, 0};
@@ -15375,13 +15297,6 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 	return done;
 }
 
-#if PIRACYCHECKS
-u32 add43214321(u32 value)
-{
-	return value + 0x43214321;
-}
-#endif
-
 void glassDestroy(struct defaultobj *obj)
 {
 	struct prop *prop = obj->prop;
@@ -15399,24 +15314,6 @@ void glassDestroy(struct defaultobj *obj)
 		shardsCreate(&prop->pos, &obj->realrot[0][0], &obj->realrot[1][0], &obj->realrot[2][0],
 				bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, SHARDTYPE_GLASS, prop);
 	}
-
-#if PIRACYCHECKS
-	{
-		/**
-		 * Check two words at 0xdc0 in the ROM. If they're not right, set the
-		 * audio frequency high so everyone sounds like chipmunks.
-		 */
-		u8 buffer[0x20];
-		u32 *ptr;
-		u32 romaddr = add43214321(0x00000dc0 - 0x43214321);
-		ptr = (u32 *) ALIGN16((u32)buffer);
-		dmaExec(ptr, romaddr, 0x10);
-
-		if (ptr[1] + ptr[0] != add43214321(0x10a78f00e - 0x43214321)) {
-			osAiSetFrequency(80000);
-		}
-	}
-#endif
 
 	obj->damage = 0;
 	obj->hidden |= OBJHFLAG_REAPABLE;
@@ -19625,13 +19522,6 @@ void doorStartClose(struct doorobj *door)
 	}
 }
 
-#if PIRACYCHECKS
-u32 decodeXorAaaaaaaa(u32 value)
-{
-	return value ^ (PAL ? 0x18743082 : 0xaaaaaaaa);
-}
-#endif
-
 void doorFinishOpen(struct doorobj *door)
 {
 	doorPlayOpenedSound(door->soundtype, door->base.prop);
@@ -19684,15 +19574,6 @@ void doorFinishClose(struct doorobj *door)
 #else
 	if (door->doortype == DOORTYPE_LASER) {
 		door->laserfade = 0;
-	}
-#endif
-
-#if PIRACYCHECKS
-	if (osCicId != decodeXorAaaaaaaa(PAL ? (6105 ^ 0x18743082) : (6105 ^ 0xaaaaaaaa))) {
-		u32 *ptr = (u32 *)func0f08f968;
-		ptr[0] = 0x00001025; // li v0, 0
-		ptr[1] = 0x03e00008; // jr ra
-		ptr[2] = 0x00000000; // nop
 	}
 #endif
 }

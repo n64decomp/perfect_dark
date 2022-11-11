@@ -129,12 +129,6 @@ void bootPhase1(void)
 	// Inflate .data
 	segInflate((void *) datazipram, (void *) dataram, (void *) 0x80300000);
 
-#if PIRACYCHECKS
-	if (IO_READ(0xa00002e8) != 0xc86e2000) {
-		while (1);
-	}
-#endif
-
 	tlbUnmapRange(1, NTLBENTRIES);
 
 	// Clear the stack allocation pointers

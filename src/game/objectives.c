@@ -36,43 +36,6 @@ u32 var8009d0cc;
 s32 g_ObjectiveLastIndex = -1;
 bool g_ObjectiveChecksDisabled = false;
 
-#if PIRACYCHECKS
-u32 xorBaffbeff(u32 value)
-{
-	return value ^ 0xbaffbeff;
-}
-
-u32 xorBabeffff(u32 value)
-{
-	return value ^ 0xbabeffff;
-}
-
-u32 xorBoobless(u32 value)
-{
-	return value ^ 0xb00b1e55;
-}
-
-void func0f095350(u32 arg0, u32 *arg1)
-{
-	volatile u32 *ptr;
-	u32 value;
-
-	__osPiGetAccess();
-
-	ptr = (u32 *)(xorBoobless(0x04600010 ^ 0xb00b1e55) | 0xa0000000);
-
-	value = *ptr;
-
-	while (value & 3) {
-		value = *ptr;
-	}
-
-	*arg1 = *(u32 *)((u32)osRomBase | arg0 | 0xa0000000);
-
-	__osPiRelAccess();
-}
-#endif
-
 void tagsReset(void)
 {
 	s32 index = 0;
@@ -103,20 +66,6 @@ void tagsReset(void)
 		g_TagPtrs[tag->tagnum] = tag;
 		tag = tag->next;
 	}
-
-#if PIRACYCHECKS
-	{
-		u32 a = xorBaffbeff(0xb0000a5c ^ 0xbaffbeff);
-		u32 b = xorBabeffff(0x1740fff9 ^ 0xbabeffff);
-
-		if (mtxGetObfuscatedRomBase() != b) {
-			// Read 4KB from a random ROM location within 128KB from the start of
-			// the ROM, and write it to a random memory location between 0x80010000
-			// and 0x80030ff8. This will corrupt instructions in the lib segment.
-			dmaExec((u8 *)((random() & 0x1fff8) + 0x80010000), random() & 0x1fffe, 0x1000);
-		}
-	}
-#endif
 }
 
 struct tag *tagFindById(s32 tag_id)

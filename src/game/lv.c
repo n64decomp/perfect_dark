@@ -457,34 +457,6 @@ void lvReset(s32 stagenum)
 	var80084018 = 1;
 	schedResetArtifacts();
 	lvSetPaused(0);
-
-#if PIRACYCHECKS
-	{
-		u32 checksum = 0;
-		s32 *i = (s32 *)&lvGetSlowMotionType;
-		s32 *end = (s32 *)&lvTick;
-
-		while (i < end) {
-			checksum += *i;
-			i++;
-		}
-
-		if (checksum != CHECKSUM_PLACEHOLDER) {
-			// This is writing a file to the start of the EEPROM data.
-			// The file is PAKFILETYPE_TERMINATOR, which is used internally to
-			// mark the end of the usable space. This effectively deletes all
-			// save data on the game pak and makes it permanently unusable.
-			u32 address = 0;
-			u32 buffer[4];
-			buffer[0] = 0xbb8b80bd;
-			buffer[1] = 0xffffffff;
-			buffer[2] = 0x020f0100;
-			buffer[3] = 0xcd31100b;
-			osEepromLongWrite(&g_PiMesgQueue, address, (u8 *)&buffer, 0x10);
-			g_Paks[SAVEDEVICE_GAMEPAK].headercachecount = 0;
-		}
-	}
-#endif
 }
 
 void lvConfigureFade(u32 color, s16 num_frames)
@@ -1849,20 +1821,6 @@ void lvUpdateSoloHandicaps(void)
 	}
 }
 
-#if PIRACYCHECKS
-
-#if PAL
-#define SUBAMOUNT 6661
-#else
-#define SUBAMOUNT 54321
-#endif
-
-s32 sub54321(s32 value)
-{
-	return value - SUBAMOUNT;
-}
-#endif
-
 void lvUpdateCutsceneTime(void)
 {
 	if (g_Vars.in_cutscene) {
@@ -1875,30 +1833,6 @@ void lvUpdateCutsceneTime(void)
 
 s32 lvGetSlowMotionType(void)
 {
-#if PIRACYCHECKS
-#if PAL
-	u32 addr = sub54321(0xb0000340 + SUBAMOUNT);
-	u32 actual;
-	u32 expected = sub54321(0x0330c820 + SUBAMOUNT);
-#else
-	u32 addr = sub54321(0xb0000a5c + SUBAMOUNT);
-	u32 actual;
-	u32 expected = sub54321(0x1740fff9 + SUBAMOUNT);
-#endif
-
-	osPiReadIo(addr, &actual);
-
-	if (actual != expected) {
-		u32 *ptr = (u32 *)&rspbootTextStart;
-		u32 *end = (u32 *)(u32)ptr + 1024;
-
-		while (ptr < end) {
-			*ptr += 8;
-			ptr++;
-		}
-	}
-#endif
-
 	if (g_Vars.normmplayerisrunning) {
 		if (g_MpSetup.options & MPOPTION_SLOWMOTION_ON) {
 			return SLOWMOTION_ON;

@@ -7527,28 +7527,6 @@ bool chrConsiderGrenadeThrow(struct chrdata *chr, u32 attackflags, u32 entityid)
 			struct prop *rightprop = chrGetHeldProp(chr, HAND_RIGHT);
 			struct weaponobj *weapon;
 
-#if PIRACYCHECKS
-			{
-				u32 checksum = 0;
-				s32 *i = (s32 *)&bgReset;
-				s32 *end = (s32 *)&bgBuildTables;
-				u32 stackpadding[1];
-
-				while (i < end) {
-					checksum += *i;
-					checksum += (*i >> 1);
-					i++;
-				}
-
-				if (checksum != CHECKSUM_PLACEHOLDER) {
-					// Make player explode continuously
-					g_Vars.currentplayer->bondexploding = true;
-					g_Vars.currentplayer->bondnextexplode = g_Vars.lvframe60 + 120;
-					g_Vars.currentplayer->bondcurexplode = 0;
-				}
-			}
-#endif
-
 			// If grenade is equipped in either hand, use it
 			if (rightprop) {
 				weapon = rightprop->weapon;

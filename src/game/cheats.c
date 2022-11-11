@@ -400,30 +400,6 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialogdef *dialogdef, union 
 		if (gbpakIsAnyPerfectDark()) {
 			gamefileSetFlag(GAMEFILEFLAG_USED_TRANSFERPAK);
 		}
-
-#if PIRACYCHECKS
-		{
-			u32 *ptr = (u32 *)&__scHandleTasks;
-			u32 *end = (u32 *)&__scHandleRSP;
-			u32 checksum = 0;
-
-			while (ptr < end) {
-				checksum ^= ~*ptr;
-				ptr++;
-			}
-
-			if (checksum != CHECKSUM_PLACEHOLDER) {
-				ptr = (u32 *)&__scHandleTasks + 20;
-				if (1);
-				end = &ptr[4];
-
-				while (ptr < end) {
-					*ptr = 0x00000012;
-					ptr++;
-				}
-			}
-		}
-#endif
 	}
 
 	if (operation == MENUOP_CLOSE) {

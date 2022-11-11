@@ -1548,9 +1548,6 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 		}
 
 		if (g_Vars.currentplayer->speedboost > 1.25f) {
-#if PIRACYCHECKS
-			piracyRestore();
-#endif
 			g_Vars.currentplayer->speedboost = 1.25f;
 		}
 	} else {

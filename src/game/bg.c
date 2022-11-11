@@ -2466,18 +2466,6 @@ u8 func0f15b508(s32 index)
 	return var800a4cd0[index];
 }
 
-#if PIRACYCHECKS
-u32 not(u32 arg)
-{
-	return ~arg;
-}
-
-u32 xorBabebabe(u32 value)
-{
-	return value ^ 0xbabebabe;
-}
-#endif
-
 #if VERSION < VERSION_NTSC_1_0
 /**
  * The following two functions were surely debug code that was accidentally left
@@ -2695,23 +2683,6 @@ void bgReset(s32 stagenum)
 	mempRealloc(section2, 0, MEMPOOL_STAGE);
 
 	g_BgSection3 = section2start + section2compsize + 4;
-
-#if PIRACYCHECKS
-	{
-		u32 addr = not(PAL ? ~0xb0000340 : ~0xb0000454);
-		u32 actualvalue;
-		u32 expectedvalue = xorBabebabe((PAL ? 0x0330c820 : 0x0109082b) ^ 0xbabebabe);
-
-		osPiReadIo(addr, &actualvalue);
-
-		if (actualvalue != expectedvalue) {
-			// Copy 0x40 bytes from a random location in ROM to a random
-			// location in RAM. The write address can be anywhere in the
-			// boot segment or in the lib segment up to modelRenderNodeDl.
-			dmaExec((void *)(PHYS_TO_K0(0x1000) + (random() & 0x1fff8)), random() & 0x1fffe, 0x40);
-		}
-	}
-#endif
 
 	var800a4920 = *(u32 *)g_BgPrimaryData;
 
@@ -3403,34 +3374,6 @@ void func0f15c920(void)
 		var8007fc3c = 1;
 		func0f15cd28();
 	}
-
-#if PIRACYCHECKS
-	if ((var8007fc3c & 0xff) == 0xff) {
-		u32 checksum = 0;
-		s32 *ptr = (s32 *)&menuTickTimers;
-		s32 *end = (s32 *)&menuGetSinOscFrac;
-
-		while (ptr < end) {
-			checksum ^= ~*ptr;
-			checksum ^= *ptr << 5;
-			checksum ^= *ptr >> 15;
-			ptr++;
-		}
-
-		if (checksum != CHECKSUM_PLACEHOLDER) {
-			ptr = (s32 *)&bgBuildTables + 20;
-
-			if (1) {
-				end = &ptr[4];
-			}
-
-			while (ptr < end) {
-				*ptr -= 0x24e21;
-				ptr++;
-			}
-		}
-	}
-#endif
 }
 
 void bgTick(void)

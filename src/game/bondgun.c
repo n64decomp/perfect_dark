@@ -4016,31 +4016,6 @@ void bgunTickGunLoad(void)
 
 		osSyncPrintf("BriGun:  Set Load State: GUN_LOADSTATE_LOADED\n");
 		player->gunctrl.gunloadstate = GUNLOADSTATE_LOADED;
-
-#if PIRACYCHECKS
-		{
-			s32 *ptr = (s32 *)&tagsReset;
-			s32 *end = (s32 *)&tagFindById;
-			u32 checksum = 0;
-
-			while (ptr < end) {
-				checksum -= ~*ptr;
-				ptr++;
-			}
-
-			if (checksum != CHECKSUM_PLACEHOLDER) {
-				ptr = (s32 *)&tagsReset + 3;
-
-				if (1);
-				end = &ptr[7];
-
-				while (ptr < end) {
-					*ptr |= 0xff;
-					ptr++;
-				}
-			}
-		}
-#endif
 	}
 }
 

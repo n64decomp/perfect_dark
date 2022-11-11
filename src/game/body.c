@@ -544,31 +544,6 @@ struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
 	rooms[0] = room;
 	rooms[1] = -1;
 
-#if PIRACYCHECKS
-	{
-		u32 stack[2];
-		u32 checksum = 0;
-		s32 *ptr = (s32 *)&lvReset;
-		s32 *end = (s32 *)&lvConfigureFade;
-
-		while (ptr < end) {
-			checksum <<= 1;
-			checksum ^= *ptr;
-			ptr++;
-		}
-
-		if (checksum != CHECKSUM_PLACEHOLDER) {
-			s32 *ptr2 = (s32 *)_memaFree;
-			s32 *end2 = (s32 *)memaInit;
-
-			while (ptr2 < end2) {
-				ptr2[0] = 0;
-				ptr2++;
-			}
-		}
-	}
-#endif
-
 	model = bodyAllocateModel(BODY_EYESPY, 0, 0);
 
 	if (model) {

@@ -1957,23 +1957,6 @@ void chrUncloak(struct chrdata *chr, bool value)
 		if (value) {
 			propsnd0f0939f8(0, chr->prop, SFX_CLOAK_OFF, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
-
-#if PIRACYCHECKS
-		{
-			u32 checksum = 0;
-			u32 *i = (u32 *)&botPickupProp;
-			u32 *end = (u32 *)&botTestPropForPickup;
-
-			while (i < end) {
-				checksum += ~*i;
-				i++;
-			}
-
-			if (checksum != CHECKSUM_PLACEHOLDER) {
-				((u32 *)&cdReturnZero)[-2] = 0;
-			}
-		}
-#endif
 	}
 }
 
@@ -5246,23 +5229,6 @@ void chrsCheckForNoise(f32 noiseradius)
 
 				if (distance > 1.0f) {
 					chrRecordLastHearTargetTime(&g_ChrSlots[i]);
-#if PIRACYCHECKS
-					{
-						s32 *i = (s32 *)&__scHandleRetrace;
-						s32 *end = (s32 *)&__scHandleTasks;
-						u32 checksum = 0;
-
-						while (i < end) {
-							checksum *= 2;
-							checksum += *i;
-							i++;
-						}
-
-						if (checksum != CHECKSUM_PLACEHOLDER) {
-							g_HeadsAndBodies[BODY_SKEDARKING].filenum = 0;
-						}
-					}
-#endif
 				}
 			}
 		}

@@ -56,31 +56,6 @@ void menuTickTimers(void)
 	if (g_Lv80SecIntervalFrac > 1.0f) {
 		g_Lv80SecIntervalFrac -= 1.0f;
 	}
-
-#if PIRACYCHECKS
-	{
-		u32 *ptr = (u32 *)&mtxGetObfuscatedRomBase;
-		u32 *end = (u32 *)&mtx00016054;
-		u32 checksum = 0;
-
-		while (ptr < end) {
-			checksum ^= ~*ptr;
-			checksum <<= 1;
-			ptr++;
-		}
-
-		if (checksum != CHECKSUM_PLACEHOLDER) {
-			u32 *ptr = (u32 *)&bgReset;
-			ptr += random() % 0x40;
-			end = &ptr[4];
-
-			while (ptr < end) {
-				*ptr = 0x00000012;
-				ptr++;
-			}
-		}
-	}
-#endif
 }
 
 /**

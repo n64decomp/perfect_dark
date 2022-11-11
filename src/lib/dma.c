@@ -74,50 +74,6 @@ void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-u32 xorDeadbeef(u32 value)
-{
-	return value ^ 0xdeadbeef;
-}
-
-u32 xorDeadbabe(u32 value)
-{
-	return value ^ 0xdeadbabe;
-}
-
-/**
- * This is executed after a DMA transfer. It xors the first 8 words with
- * 0x0330c820, then reads a value from the boot loader (0x340 in ROM) which
- * should be the same value, and xors the memory again with that value.
- */
-void dmaCheckPiracy(void *memaddr, u32 len)
-{
-	if (g_LoadType != LOADTYPE_NONE && len > 128) {
-#if PIRACYCHECKS
-		u32 value = xorDeadbeef((PAL ? 0x0109082b : 0x0330c820) ^ 0xdeadbeef);
-		u32 *ptr = (u32 *)memaddr;
-		u32 data;
-		u32 devaddr;
-		s32 i;
-
-		for (i = 0; i < 8; i++) {
-			ptr[i] ^= value;
-		}
-
-		devaddr = xorDeadbabe((PAL ? 0xb0000454 : 0xb0000340) ^ 0xdeadbabe);
-
-		osPiReadIo(devaddr, &data);
-
-		for (i = 0; i < 8; i++) {
-			ptr[i] ^= data;
-		}
-#endif
-
-		g_LoadType = LOADTYPE_NONE;
-	}
-}
-#endif
-
 void dmaWait(void)
 {
 	u32 stack;
@@ -142,18 +98,12 @@ void dmaExec(void *memaddr, u32 romaddr, u32 len)
 {
 	dmaStart(memaddr, romaddr, len, false);
 	dmaWait();
-#if VERSION >= VERSION_NTSC_1_0
-	dmaCheckPiracy(memaddr, len);
-#endif
 }
 
 void dmaExecHighPriority(void *memaddr, u32 romaddr, u32 len)
 {
 	dmaStart(memaddr, romaddr, len, true);
 	dmaWait();
-#if VERSION >= VERSION_NTSC_1_0
-	dmaCheckPiracy(memaddr, len);
-#endif
 }
 
 /**
