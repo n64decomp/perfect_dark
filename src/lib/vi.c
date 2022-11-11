@@ -103,7 +103,6 @@ void viConfigureForCopyright(u16 *texturedata)
 	g_ViBackData->fb = g_FrameBuffers[g_ViBackIndex];
 
 	g_ViReconfigured = true;
-	g_Vars.fourmeg2player = false;
 }
 
 /**
@@ -125,8 +124,6 @@ void viConfigureForLegal(void)
 		g_ViDataArray[i].bufy = 220;
 		g_ViDataArray[i].viewy = 220;
 	}
-
-	g_Vars.fourmeg2player = false;
 
 #if PAL
 	playerResetLoResIf4Mb();
@@ -158,8 +155,6 @@ void viReset(s32 stagenum)
 	u8 *ptr;
 	u8 *fb0;
 	u8 *fb1;
-
-	g_Vars.fourmeg2player = false;
 
 	if (stagenum == STAGE_TITLE) {
 		viSetMode(VIMODE_HI);
@@ -657,7 +652,7 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 			gDPPipeSync(gdl++);
 
 			if (PLAYERCOUNT() >= 3 ||
-					(PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player))) {
+					(PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)) {
 				if (PLAYERCOUNT() == 2) {
 					tmpplayernum = 0;
 				}

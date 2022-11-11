@@ -2635,10 +2635,6 @@ s16 playerGetFbHeight(void)
 {
 	s16 height = g_ViModes[g_ViRes].fbheight;
 
-	if (g_Vars.fourmeg2player) {
-		height = height >> 1;
-	}
-
 	return height;
 }
 
@@ -2666,7 +2662,7 @@ s16 playerGetViewportWidth(void)
 				width--;
 			}
 		} else if (PLAYERCOUNT() == 2) {
-			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player) {
+			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 				// 2 players vsplit
 				width = g_ViModes[g_ViRes].width / 2;
 
@@ -2703,7 +2699,7 @@ s16 playerGetViewportLeft(void)
 			left = g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
 		}
 	} else if (PLAYERCOUNT() == 2 && something != 0) {
-		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player) {
+		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			if (g_Vars.currentplayernum == 1) {
 				// 2 players vsplit - right side
 				left = (g_ViModes[g_ViRes].width / 2) + g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
@@ -2774,8 +2770,7 @@ s16 playerGetViewportTop(void)
 		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL || PLAYERCOUNT() != 2) {
 			if (PLAYERCOUNT() == 2
 					&& g_Vars.currentplayernum == 1
-					&& optionsGetScreenSplit() != SCREENSPLIT_VERTICAL
-					&& !g_Vars.fourmeg2player) {
+					&& optionsGetScreenSplit() != SCREENSPLIT_VERTICAL) {
 				// 2 players hsplit - bottom side
 				top = g_ViModes[g_ViRes].fulltop + g_ViModes[g_ViRes].fullheight / 2;
 			} else if (g_Vars.currentplayernum == 2 || g_Vars.currentplayernum == 3) {

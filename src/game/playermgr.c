@@ -74,11 +74,7 @@ void playermgrAllocatePlayers(s32 count)
 		playermgrAllocatePlayer(0);
 		setCurrentPlayerNum(0);
 
-		if (g_Vars.fourmeg2player) {
-			playermgrSetViewSize(playerGetFbWidth(), playerGetFbHeight() * 2);
-		} else {
-			playermgrSetViewSize(playerGetFbWidth(), playerGetFbHeight());
-		}
+		playermgrSetViewSize(playerGetFbWidth(), playerGetFbHeight());
 
 		g_Vars.coop = NULL;
 		g_Vars.anti = NULL;

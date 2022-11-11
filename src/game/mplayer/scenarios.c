@@ -582,9 +582,6 @@ Gfx *scenarioRenderHud(Gfx *gdl)
 					// Player on bottom quarter - draw line at top of viewport
 					gDPFillRectangle(gdl++, viewleft, viewtop, viewright - 1, viewtop);
 				}
-			} else if (g_Vars.fourmeg2player) {
-				// Draw line at bottom of viewport
-				gDPFillRectangle(gdl++, viewleft, viewheight + viewtop - 2, viewright - 1, viewheight + viewtop - 2);
 			} else {
 				// @bug: No consideration is made for vertical splits here,
 				// however when using a vertical split neither line is visible.
