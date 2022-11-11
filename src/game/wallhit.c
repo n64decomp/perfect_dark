@@ -26,7 +26,6 @@
 
 #define IS_BLOOD_DROP(texnum) (texnum >= WALLHITTEX_BLOOD4 && texnum <= WALLHITTEX_BLOOD4)
 
-const char var7f1b5a10[] = "WallHit_MakeSpaceRoom : ERROR - Couldn't find any space in room %d\n";
 
 struct wallhit *g_Wallhits;
 struct wallhit *g_FreeWallhits;
@@ -604,35 +603,6 @@ void wallhitsTick(void)
 	}
 }
 
-const char var7f1b5a5c[] = "g_MaxRound = %s%s%f";
-const char var7f1b5a70[] = "";
-const char var7f1b5a74[] = "";
-const char var7f1b5a78[] = "g_MinRound = %s%s%f";
-const char var7f1b5a8c[] = "";
-const char var7f1b5a90[] = "";
-const char var7f1b5a94[] = "Done %d Z buffer calcs";
-const char var7f1b5aac[] = "ZOOM : g_ZoomFactor=%s%s%f";
-const char var7f1b5ac8[] = "";
-const char var7f1b5acc[] = "";
-const char var7f1b5ad0[] = "ZOOM : g_ZoomScalar=%s%s%f";
-const char var7f1b5aec[] = "";
-const char var7f1b5af0[] = "";
-const char var7f1b5af4[] = "ZOOM : scale=%s%s%f";
-const char var7f1b5b08[] = "";
-const char var7f1b5b0c[] = "";
-const char var7f1b5b10[] = "WallHit_Tick : Status - RED";
-const char var7f1b5b2c[] = "WallHit_Tick : Status - YELLOW (%u)";
-const char var7f1b5b50[] = "WallHit_Tick : Status - GREEN";
-const char var7f1b5b70[] = "WallHit_Tick : %d Used";
-const char var7f1b5b88[] = "WallHit_Tick : %d Free";
-const char var7f1b5ba0[] = "WallHit_Tick : %d Pending";
-const char var7f1b5bbc[] = "WallHit_Tick : %d Blood";
-const char var7f1b5bd4[] = "WallHit_Tick : %d Other";
-const char var7f1b5bec[] = "WallHit_Tick : %d Ratio";
-const char var7f1b5c04[] = "WallHit_Tick : %d(%d) Prop Hits";
-const char var7f1b5c24[] = "tLifeTime=%s%s%f, tScalarGbl=%f";
-const char var7f1b5c44[] = "";
-const char var7f1b5c48[] = "";
 
 void wallhitCreate(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
 		s16 arg4[3], s16 texnum, s16 room, struct prop *objprop,
@@ -852,8 +822,6 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 			sp1e8.z = sp1b8.y * zvalue;
 		}
 
-		osSyncPrintf("AFT : tVecU (along) = (%s%s%f,%f,%f)\n", "", "", sp1f4.x, sp1f4.y, sp1f4.z);
-		osSyncPrintf("AFT : tVecV (up)    = (%s%s%f,%f,%f)\n", "", "", sp1e8.x, sp1e8.y, sp1e8.z);
 
 		if (rotdeg != 0) {
 			u32 stack[6];
@@ -1056,7 +1024,6 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 					a = alpha ? alpha : 255;
 					break;
 				default:
-					osSyncPrintf("Wallhit colour %d not implemented, substituting black\n", type);
 					r = g = b = 0;
 					a = alpha ? alpha : 255;
 					break;

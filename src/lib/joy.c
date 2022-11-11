@@ -48,8 +48,6 @@ u8 g_JoyPfsStates[100];
 u32 var80099fac;
 u32 var80099fb0;
 
-const char var70054080[] = "joyReset\n";
-const char var7005408c[] = "joyReset: doing nothing\n";
 
 struct joydata *g_JoyDataPtr = &g_JoyData[0];
 bool g_JoyBusy = false;
@@ -465,15 +463,7 @@ void joyDebugJoy(void)
 	}
 }
 
-const char var700540b4[] = "JOY : g_EnableCyclicPolling=%d";
-const char var700540d4[] = "JOY : g_JoyReCheckInterval=%d";
-const char var700540f4[] = "JOY : g_JoyReCheckEventIn=%d";
-const char var70054114[] = "JOY : g_JoyRecheckDone=%d";
 
-const char var70054130[] = "osContStartReadData -> Failed - CONT_NO_RESPONSE_ERROR\n";
-const char var70054168[] = "osContStartReadData -> Failed - CONT_OVERRUN_ERROR\n";
-const char var7005419c[] = "joyTickRetrace:joy%derrno%d->%d\n";
-const char var700541c0[] = "joyTickRetrace:joy%derrno%d->%d\n";
 
 s32 joyStartReadData(OSMesgQueue *mq)
 {

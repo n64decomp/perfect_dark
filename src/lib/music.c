@@ -28,26 +28,19 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 
 	switch (event->tracktype) {
 	case TRACKTYPE_NONE:
-		osSyncPrintf("OFF");
 		break;
 	case TRACKTYPE_PRIMARY:
-		osSyncPrintf("LEVELTUNE");
 		break;
 	case TRACKTYPE_NRG:
-		osSyncPrintf("NRGTUNE");
 		break;
 	case TRACKTYPE_MENU:
-		osSyncPrintf("WATCHTUNE");
 		break;
 	case TRACKTYPE_DEATH:
-		osSyncPrintf("MPDEATHTUNE");
 		break;
 	case TRACKTYPE_AMBIENT:
-		osSyncPrintf("AMBIENCE");
 		break;
 	}
 
-	osSyncPrintf(" after %d %s\n", event->failcount, event->failcount != 1 ? "Attempts" : "Attempt");
 
 	// Check if this tracktype is currently in use. If it is then that's
 	// an error - the caller should have stopped the existing track first.
@@ -57,7 +50,6 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 
 			for (j = 0; j < 16; j++) {
 				func00039e5c(g_SeqInstances[i].seqp, j, 0xff, value);
-				osSyncPrintf("MUSIC(Play) : Unpaused midi channel %d for state %d\n", j, event->tracktype);
 			}
 
 			var800aaa38[i].unk08 = 0;
@@ -73,7 +65,6 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 		// Find an unused channel
 		for (i = 0; i < 3; i++) {
 			if (n_alCSPGetState(g_SeqInstances[i].seqp) == AL_STOPPED) {
-				osSyncPrintf("MUSIC(Play) : Starting, Guid=%u, Midi=%d, Tune=%d\n", event->id, 0, event->tracktype);
 
 				if (seqPlay(&g_SeqInstances[i], event->tracknum)) {
 					seqSetVolume(&g_SeqInstances[i], event->volume);
@@ -83,7 +74,6 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 					var800aaa38[i].unk08 = 0;
 					var800aaa38[i].unk0c = 0;
 
-					osSyncPrintf("MUSIC(Play) : Done\n");
 
 					result = RESULT_OK_BREAK;
 				}
@@ -98,7 +88,6 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 				if ((var800aaa38[i].tracktype == TRACKTYPE_NONE || event->tracktype == var800aaa38[i].tracktype)
 						&& n_alCSPGetState(g_SeqInstances[i].seqp) != AL_STOPPED) {
 					index = i;
-					osSyncPrintf("MUSIC(Play) : About to dump the fading channel %d as a same state play request is waiting\n", index);
 					break;
 				}
 			}
@@ -109,8 +98,6 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 						if (var800aaa38[i].tracktype == TRACKTYPE_AMBIENT
 								&& n_alCSPGetState(g_SeqInstances[i].seqp) != AL_STOPPED) {
 							index = i;
-							osSyncPrintf("MUSIC(Play) : About to dump the ambience channel %d\n", index);
-							osSyncPrintf("MUSIC(Play) : Reason : A play request is waiting - State = %d\n", event->tracktype);
 							break;
 						}
 					}
@@ -126,10 +113,8 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 				var800aaa38[index].unk0c = 0;
 			} else {
 				event->failcount++;
-				osSyncPrintf("MUSIC(Play) : SERIOUS -> Out of MIDI channels - Attempt = %d\n", event->failcount);
 
 				if (event->failcount >= 6) {
-					osSyncPrintf("MUSIC(Play) : SERIOUS -> Tried %d times to play tune : Giving up\n", event->failcount);
 					result = RESULT_OK_BREAK;
 				}
 			}
@@ -139,12 +124,6 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 	return result;
 }
 
-const char var70053ee0[] = "MUSIC : Fading to pause\n";
-const char var70053efc[] = "Music : Update Rate = %d";
-const char var70053f18[] = "MUSIC TICK : Queue size = %d\n";
-const char var70053f38[] = "MUSIC : Tick -> Channel %d (State=%d) has faded to stop : Dumping\n";
-const char var70053f7c[] = "MUSIC : WARNING -> Force fade termination\n";
-const char var70053fa8[] = "MUSIC TICK : Job Guid = %u\n";
 
 s32 musicHandleStopEvent(struct musicevent *event, s32 result)
 {

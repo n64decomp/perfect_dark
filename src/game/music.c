@@ -52,7 +52,6 @@ char *var80084100[] = {
 	"paused",
 };
 
-const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
 
 u16 musicGetVolume(void)
 {

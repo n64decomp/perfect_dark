@@ -724,19 +724,6 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 	}
 }
 
-const char var7f1b2400[] = "(BNC:Menu) findItem Warning: Item not found\n";
-const char var7f1b2430[] = "(BNC:Menu) menuFirstFocus - Menu %s does not have any focusable item!\n";
-const char var7f1b2478[] = "(BNC:Menu) menuLastFocus - Menu %s does not have any focusable item!\n";
-const char var7f1b24c0[] = "Init menu %x\n";
-const char var7f1b24d0[] = "[]-[] Added Main menu to ctl slot %d\n";
-const char var7f1b24f8[] = "[]-[] Added Slide menu to ctl slot %d\n";
-const char var7f1b2520[] = "[]-[] StackStart Stats: slides %d, ctlPtr %d slidePtr %d\n";
-const char var7f1b255c[] = "$-$-$avePtr: %d\n";
-const char var7f1b2570[] = "[]-[] Menu End: now %d slides\n";
-const char var7f1b2590[] = "Freeing challenge mem\n";
-const char var7f1b25a8[] = "IG:) style %d gbHead:%d\n";
-const char var7f1b25c4[] = "GRABBED GUN MEM!\n";
-const char var7f1b25d8[] = "Freeing challenge mem\n";
 
 void func0f0f1d6c(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu)
 {
@@ -2828,11 +2815,6 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 	return gdl;
 }
 
-const char var7f1b2668[] = "[]-[] Terminate Complete\n";
-const char var7f1b2684[] = "Enabling control %d\n";
-const char var7f1b269c[] = "NOT IN MODE MULTIINGAME!\n";
-const char var7f1b26b8[] = "Numactive now:%d\n";
-const char var7f1b26cc[] = "[]-[] SwitchMenuMode called, context %d\n";
 
 void menuGetContPads(s8 *contpadnum1, s8 *contpadnum2)
 {
@@ -3318,11 +3300,6 @@ Gfx *menuRenderDialog(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bo
 	return gdl;
 }
 
-const char var7f1b2700[] = "[]-[] slide from %d";
-const char var7f1b2714[] = " to %d\n";
-const char var7f1b271c[] = "UNPAUSE: enabling control 0\n";
-const char var7f1b273c[] = "file: type %d guid %x-%x data %x err %d\n";
-const char var7f1b2768[] = "StartSelects\n";
 
 /**
  * Render all dialogs for the current player.
@@ -5084,7 +5061,6 @@ Gfx *menuRender(Gfx *gdl)
 	return gdl;
 }
 
-const char var7f1b27a4[] = "Tune Selector - mode %d\n";
 
 u32 menuChooseMusic(void)
 {

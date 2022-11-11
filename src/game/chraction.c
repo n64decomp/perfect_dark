@@ -9453,7 +9453,6 @@ void chrCalculateTrajectory(struct coord *frompos, f32 arg1, struct coord *aimpo
 	arg3->z = zvel / latvel * sp28;
 }
 
-const char var7f1a8ae4[] = "aimadjust=%d";
 
 /**
  * Fire the chr's gun, check what was hit and do all the appropriate things
@@ -10049,25 +10048,19 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 			}
 		}
 
-		// osSyncPrintf is defined to nothing, so these print statements
 		// get optimised out but leave their strings in rodata.
 		// The on/off strings are surely used in a ternary statement in the
 		// previous string, but making this a ternary creates a mismatch.
-		osSyncPrintf("firing(%d) %d, beam(%d) %s", handnum, firingthisframe, handnum);
-		osSyncPrintf("on");
-		osSyncPrintf("off");
 
 		chrCreateFireslot(chr, handnum, firingthisframe, firingthisframe && makebeam, &gunpos, &hitpos);
 
 		if (isaibot) {
 			if (firingthisframe) {
-				osSyncPrintf("firecount(%d) = %d", handnum, chr->aibot->loadedammo[handnum]);
 
 				if (chr->aibot->loadedammo[handnum] > 0) {
 					chr->aibot->loadedammo[handnum]--;
 				}
 
-				osSyncPrintf("numshots(%d) = %d", handnum, chr->aibot->loadedammo[handnum]);
 			}
 
 			chrSetFiring(chr, handnum, firingthisframe && normalshoot);

@@ -1288,25 +1288,20 @@ void playerTickChrBody(void)
 
 			offset1 = 0;
 			var8007fc0c = 8;
-			osSyncPrintf("Gunmem: 0x%08x\n", bgunGetGunMem());
 
 			allocation = g_Vars.currentplayer->gunmem2;
 			model = (struct model *)(allocation + offset1);
-			osSyncPrintf("Gunmem: bondsub 0x%08x\n", (u32)model);
 			offset1 += ALIGN64(sizeof(struct model));
 
 			model->anim = (struct anim *)(allocation + offset1);
-			osSyncPrintf("Gunmem: bondsub->anim 0x%08x\n", model->anim);
 			offset1 += sizeof(struct anim);
 			offset1 = ALIGN64(offset1);
 
 			rwdatas = (union modelrwdata **)(allocation + offset1);
-			osSyncPrintf("Gunmem: savedata 0x%08x\n", (u32)rwdatas);
 			offset1 += 0x400;
 			offset1 = ALIGN64(offset1);
 
 			weaponobj = (struct weaponobj *)(allocation + offset1);
-			osSyncPrintf("Gunmem: wo 0x%08x\n", (u32)weaponobj);
 			offset1 += sizeof(struct weaponobj);
 			offset1 = ALIGN64(offset1);
 
@@ -1346,10 +1341,6 @@ void playerTickChrBody(void)
 			texGetPoolLeftPos(&texpool);
 
 			// @TODO: Figure out these arguments
-			osSyncPrintf("Jo using %d bytes gunmem (gunmemsize %d)\n");
-			osSyncPrintf("Gunmem: bondmeml 0x%08x size 0x%08x\n", bgunGetGunMem(), bgunCalculateGunMemCapacity());
-			osSyncPrintf("Gunmem: tex block free 0x%08x\n");
-			osSyncPrintf("Gunmem: Free at end %d\n");
 
 			texGetPoolLeftPos(&texpool);
 		} else {

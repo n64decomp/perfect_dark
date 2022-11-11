@@ -1596,7 +1596,6 @@ Gfx *lvRender(Gfx *gdl)
 	return gdl;
 }
 
-const char var7f1b7730[] = "fr: %d\n";
 
 u32 g_CutsceneTime240_60 = 0;
 
@@ -2086,10 +2085,6 @@ void lvTick(void)
 	}
 }
 
-const char var7f1b7738[] = "cutsceneframe: %d\n";
-const char var7f1b774c[] = "pos:%s%s %.2f %.2f %.2f\n";
-const char var7f1b7768[] = "";
-const char var7f1b776c[] = "";
 
 void lvTickPlayer(void)
 {

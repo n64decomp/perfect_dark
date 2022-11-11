@@ -29,31 +29,6 @@
 #include "data.h"
 #include "types.h"
 
-const char var7f1a78e0[] = "LIGHTS : Hit occured on light %d in room %d\n";
-const char var7f1a7910[] = "L2(%d) -> ";
-const char var7f1a791c[] = "L2 -> BUILD LIGHTS TRANSFER TABLE - Starting\n";
-const char var7f1a794c[] = "L2(%d) -> ";
-const char var7f1a7958[] = "L2_BuildTransferTables -> Found %d portals\n";
-const char var7f1a7984[] = "L2(%d) -> ";
-const char var7f1a7990[] = "L2_BuildTransferTables -> Found %d rooms\n";
-const char var7f1a79bc[] = "L2(%d) -> ";
-const char var7f1a79c8[] = "L2_BuildTransferTables -> Alloc %u bytes of free memory\n";
-const char var7f1a7a04[] = "L2(%d) -> ";
-const char var7f1a7a10[] = "L2_BuildTransferTables -> Alloc %u bytes for scratch\n";
-const char var7f1a7a48[] = "L2(%d) -> ";
-const char var7f1a7a54[] = "L2 -> Building room based light transmission table\n";
-const char var7f1a7a88[] = "L2(%d) -> ";
-const char var7f1a7a94[] = "L2 -> Finished\n";
-const char var7f1a7aa4[] = "L2(%d) -> ";
-const char var7f1a7ab0[] = "L2 -> Generating room parameters from BG data\n";
-const char var7f1a7ae0[] = "L2(%d) -> ";
-const char var7f1a7aec[] = "L2 -> Light2_ProcessBgParams room %d does not have a 3D bounding box => Room Volume is bodged!\n";
-const char var7f1a7b4c[] = "L2(%d) -> ";
-const char var7f1a7b58[] = "%s%sL2 -> Surface area bodged for room %d - using %f\n";
-const char var7f1a7b90[] = "";
-const char var7f1a7b94[] = "";
-const char var7f1a7b98[] = "L2(%d) -> ";
-const char var7f1a7ba4[] = "L2 -> Finished\n";
 
 s32 *var8009cad0;
 u32 var8009cad4;
@@ -1036,20 +1011,6 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 	return false;
 }
 
-const char var7f1a7bcc[] = "L2 - g_bfGlobalLightRebuild = %d";
-const char var7f1a7bf0[] = "Acoustic Shadowing is %s";
-const char var7f1a7c0c[] = "Enabled";
-const char var7f1a7c14[] = "Disabled";
-const char var7f1a7c20[] = "L2 - Fading Rm%d - Mode=%d%%";
-const char var7f1a7c40[] = "RWI : Re-light all affected char props : g_bfGlobalLightRebuild";
-const char var7f1a7c80[] = "L2 - %d Rooms have been processed";
-const char var7f1a7ca4[] = "L2 - %d Chars need lighting";
-const char var7f1a7cc0[] = "L2(%d) -> ";
-const char var7f1a7ccc[] = "L2 -> Building portal range table (Num Portals = %d)\n";
-const char var7f1a7d04[] = "L2(%d) -> ";
-const char var7f1a7d10[] = "L2 -> Allocated %uK for the compressed acoustic shadow table\n";
-const char var7f1a7d50[] = "L2(%d) -> ";
-const char var7f1a7d5c[] = "L2 -> Finished building portal range table\n";
 
 void lightingTick(void)
 {

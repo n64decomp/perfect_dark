@@ -138,7 +138,6 @@ void htmAddPad(s16 padnum)
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 
 	if (data->numpads < ARRAYCOUNT(g_ScenarioData.htm.padnums)) {
-		osSyncPrintf("HackThatMacAddBankPad -> Adding New Pad %d  - Pad Id = %d-> Saving Pad\n", data->numpads, padnum);
 
 		data->padnums[data->numpads] = padnum;
 		data->numpads++;
@@ -149,7 +148,6 @@ void htmReset(void)
 {
 	s32 i;
 
-	osSyncPrintf("HackThatMacReset -> Working\n");
 
 	g_ScenarioData.htm.numpads = 0;
 	g_ScenarioData.htm.numterminals = 0;
@@ -264,7 +262,6 @@ void htmInitProps(void)
 	s32 i = 0;
 	s32 rand;
 
-	osSyncPrintf("HackThatMacInitProps -> Start : %d Bank Pads\n", data->numterminals);
 
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ) {
@@ -272,7 +269,6 @@ void htmInitProps(void)
 
 			if (obj->type == OBJTYPE_AMMOCRATE || obj->type == OBJTYPE_MULTIAMMOCRATE) {
 				if (obj->modelnum == MODEL_MULTI_AMMO_CRATE) {
-					osSyncPrintf("HackThatMacInitProps -> Adding prop %d (%x)\n", i, obj->pad);
 					htmAddPad(obj->pad);
 				}
 			}
@@ -282,8 +278,6 @@ void htmInitProps(void)
 		i++;
 	}
 
-	osSyncPrintf("HackThatMacInitProps -> Mid : %d Bank Pads\n", data->numpads);
-	osSyncPrintf("HackThatMacInitProps -> Generating %d random box pads from %d in the bank\n", htmNumProps(), data->numpads);
 
 	data->numterminals = 0;
 
@@ -303,10 +297,8 @@ void htmInitProps(void)
 		data->padnums[rand] = -1;
 	}
 
-	osSyncPrintf("HackThatMacInitProps -> %d/%d Random box pads generated - Listing\n", data->numterminals, htmNumProps());
 
 	for (i = 0; i < data->numterminals; i++) {
-		osSyncPrintf("Pad %d -> Pad Id = %d\n", i, data->terminals[i].padnum);
 	}
 
 	for (i = 0; i < HTM_NUM_TERMINALS; i++) {
@@ -314,8 +306,6 @@ void htmInitProps(void)
 				OBJFLAG_00000001 | OBJFLAG_INVINCIBLE | OBJFLAG_00400000,
 				OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000,
 				OBJFLAG3_HTMTERMINAL | OBJFLAG3_INTERACTABLE);
-		osSyncPrintf("HackThatMacInitProps -> Building and adding custom prop %d - Pad=%d, Ptr=%08x\n",
-				i, data->terminals[i].padnum, data->terminals[i].prop);
 		htbRemoveAmmoCrateAtPad(data->terminals[i].padnum);
 	}
 
@@ -323,7 +313,6 @@ void htmInitProps(void)
 
 	htbCreateUplink();
 
-	osSyncPrintf("HackThatMacInitProps -> End\n");
 }
 
 void htmTick(void)
@@ -492,13 +481,7 @@ void htmTickChr(struct chrdata *chr)
 			relangle = -relangle;
 		}
 
-		osSyncPrintf("HTM : Player %d - Term Pos = (%d,%d,%d)", playernum, (s32)terminalpos->x, (s32)terminalpos->y, (s32)terminalpos->z);
-		osSyncPrintf("HTM : Player %d - Play Pos = (%d,%d,%d)", playernum, (s32)chrpos->x, (s32)chrpos->y, (s32)chrpos->z);
-		osSyncPrintf("HTM : Player %d - T/P  Rel = (%d,%d,%d)", playernum, (s32)dist.x, (s32)dist.y, (s32)dist.z);
 
-		osSyncPrintf("HTM : Player %d - Range XZ = %d", playernum, rangexz);
-		osSyncPrintf("HTM : Player %d - Range Y  = %d", playernum, rangey);
-		osSyncPrintf("HTM : Player %d - Angle XZ = %d", playernum, relangle);
 
 		if (rangexz > 250 || rangey > 200 || relangle > 45 || !holdinguplink) {
 			if (rangexz < 250 && rangey < 200) {
@@ -537,8 +520,6 @@ void htmTickChr(struct chrdata *chr)
 			}
 		}
 
-		osSyncPrintf("HTM : Player %d - Dwnld Plr=%d, Dwnld Prop=%d\n", playernum, data->playernuminrange, data->terminals[data->dlterminalnum].prop);
-		osSyncPrintf("HTM : Player %d - Download Time = %d", playernum, *time);
 	}
 }
 

@@ -132,7 +132,6 @@ void htbAddPad(s16 padnum)
 	struct scenariodata_htb *data = &g_ScenarioData.htb;
 
 	if (data->nextindex < ARRAYCOUNT(data->padnums)) {
-		osSyncPrintf("CaptureTheBriefcaseAddBankPad -> Adding New Pad %d  - Pad Id = %d-> Saving Pad\n", data->nextindex, padnum);
 
 		data->padnums[data->nextindex] = padnum;
 		data->nextindex++;

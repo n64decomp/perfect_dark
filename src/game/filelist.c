@@ -131,7 +131,6 @@ void filelistsTick(void)
 			}
 
 			if (update) {
-				osSyncPrintf("Rebuilding pakWad %d:\n", i);
 				filelistUpdate(g_FileLists[i]);
 				g_FileLists[i]->updatedthisframe = true;
 			}

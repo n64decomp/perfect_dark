@@ -48,7 +48,6 @@ struct modelfiledata *var800acc28[18];
 struct mpweaponset g_MpWeaponSets[12];
 s32 g_MpWeaponSetNum;
 
-const char var7f1b8a00[] = "||||||||||||| Starting game... players %d\n";
 
 s32 var80087260 = 0x00000000;
 bool g_MpEnableMusicSwitching = false;
@@ -861,8 +860,6 @@ char *mpGetWeaponLabel(s32 weaponnum)
 	return "";
 }
 
-const char var7f1b8a5c[] = "Gun index %d -> slot %d = gun %d\n\n";
-const char var7f1b8a80[] = "HOLDER: selecting weapon set %d\n";
 
 void mpSetWeaponSlot(s32 slot, s32 mpweaponnum)
 {
@@ -1498,14 +1495,6 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 	}
 }
 
-const char var7f1b8ad0[] = "%s%sAccuracy Peak! real value: %f (*100)\n";
-const char var7f1b8afc[] = "";
-const char var7f1b8b00[] = "";
-const char var7f1b8b04[] = "%splayer %d Accuracy :%f\n";
-const char var7f1b8b20[] = "";
-const char var7f1b8b24[] = "%splayer %d dist:%f -> %f = %d\n";
-const char var7f1b8b44[] = "";
-const char var7f1b8b48[] = "Player %d TitleCalc ============\n";
 
 struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
 	// head, require feature

@@ -2095,10 +2095,6 @@ s32 bgunGetMinClipQty(s32 weaponnum, s32 funcnum)
 	return 1;
 }
 
-const char var7f1ab8ac[] = "changegunmem type %d CurrentPlayer->gunctrl.gunmemtype %d\n";
-const char var7f1ab8e8[] = "LockTimer: %d\n";
-const char var7f1ab8f8[] = "BriGun: Releasing gunmem - current gunmemtype %d gunmemnew %d\n";
-const char var7f1ab938[] = "GiveMem: %d\n";
 
 u32 var8007012c = 0x00000000;
 u32 var80070130 = 0x00000000;
@@ -3461,7 +3457,6 @@ void bgunTickGunLoad(void)
 	u32 stack;
 
 	if (player->gunctrl.gunloadstate == GUNLOADSTATE_MODEL) {
-		osSyncPrintf("BriGun:  BriGunLoadTick process GUN_LOADSTATE_LOAD_OBJ\n");
 
 		ptr = *player->gunctrl.loadmemptr;
 		remaining = *player->gunctrl.loadmemremaining;
@@ -3478,27 +3473,20 @@ void bgunTickGunLoad(void)
 
 		loadsize = ALIGN64(fileGetInflatedSize(player->gunctrl.loadfilenum)) + 0x8000;
 
-		osSyncPrintf("BriGun:  Loading - %s, pMem 0x%08x Size %d\n");
 
 		if (loadsize > remaining) {
-			osSyncPrintf("BriGun:  Warning: LoadSize > MemSize, clamping decomp. buffer from %d to %d (%d Bytes)\n", allocsize, remaining, remaining);
 			loadsize = remaining;
 		}
 
 		// Load the model file to ptr
 		g_LoadType = LOADTYPE_GUN;
 
-		osSyncPrintf("BriGun:  obLoadto at 0x%08x, size %d\n", ptr, loadsize);
 
 		modeldef = fileLoadToAddr(player->gunctrl.loadfilenum, FILELOADMETHOD_EXTRAMEM, (u8 *)ptr, loadsize);
 
 		// Reserve some space for textures
 		allocsize = fileGetLoadedSize(player->gunctrl.loadfilenum) + 0xe00;
 
-		osSyncPrintf("BriGun:  Used size %d (Ob Size %d)\n");
-		osSyncPrintf("BriGun:  block len %d usedsize %d\n");
-		osSyncPrintf("BriGun:  obln ram_len %d block_len %d\n");
-		osSyncPrintf("BriGun:  new used size %d\n");
 
 		fileGetLoadedSize(player->gunctrl.loadfilenum);
 
@@ -3509,7 +3497,6 @@ void bgunTickGunLoad(void)
 		if (1);
 		remaining -= allocsize;
 
-		osSyncPrintf("BriGun:  Texture Block at 0x%08x size %d, endp 0x%08x\n");
 
 		texInitPool(&player->gunctrl.unk15c0, (u8 *)end, remaining);
 
@@ -3522,13 +3509,11 @@ void bgunTickGunLoad(void)
 		player->gunctrl.nexttexturetoload = 0;
 		player->gunctrl.fileinfo = *fileinfo;
 
-		osSyncPrintf("BriGun:  Set Load State: GUN_LOADSTATE_DECOMPRESS_TEXTURES\n");
 		player->gunctrl.gunloadstate = GUNLOADSTATE_TEXTURES;
 		return;
 	}
 
 	if (player->gunctrl.gunloadstate == GUNLOADSTATE_TEXTURES) {
-		osSyncPrintf("BriGun:  BriGunLoadTick process GUN_LOADSTATE_DECOMPRESS_TEXTURES\n");
 
 		gunfileinfo = &player->gunctrl.fileinfo;
 		fileinfo = &g_FileInfo[player->gunctrl.loadfilenum];
@@ -3539,10 +3524,8 @@ void bgunTickGunLoad(void)
 		numthistick = 0;
 
 		for (i = player->gunctrl.nexttexturetoload; i < modeldef->numtexconfigs; i++) {
-			osSyncPrintf("BriGun:  at texture %d\n", i);
 
 			if (modeldef->texconfigs[i].texturenum < NUM_TEXTURES) {
-				osSyncPrintf("BriGun:  Uncompress %d of %d\n", i, modeldef->numtexconfigs);
 				texLoad(&modeldef->texconfigs[i].texturenum, &player->gunctrl.unk15c0, true);
 				modeldef->texconfigs[i].unk0b = 1;
 			}
@@ -3561,13 +3544,11 @@ void bgunTickGunLoad(void)
 
 		*gunfileinfo = *fileinfo;
 
-		osSyncPrintf("BriGun:  Set Load State: GUN_LOADSTATE_DECOMPRESS_DLS\n");
 		player->gunctrl.gunloadstate = GUNLOADSTATE_DLS;
 		return;
 	}
 
 	if (player->gunctrl.gunloadstate == GUNLOADSTATE_DLS) {
-		osSyncPrintf("BriGun:  BriGunLoadTick process GUN_LOADSTATE_DECOMPRESS_DLS\n");
 
 		fileinfo = &g_FileInfo[player->gunctrl.loadfilenum];
 		*fileinfo = player->gunctrl.fileinfo;
@@ -3582,9 +3563,6 @@ void bgunTickGunLoad(void)
 
 		modelCalculateRwDataLen(modeldef);
 
-		osSyncPrintf("BriGun:  propgfx_decompress 0x%08x\n");
-		osSyncPrintf("BriGun:  DL waste space %d from %d (Used %d, Ramlen %d, ObSize %d)\n");
-		osSyncPrintf("Increase GUNSAVESIZE to %d!!!\n");
 
 		newvalue = ALIGN64(texGetPoolLeftPos(&player->gunctrl.unk15c0));
 		remaining = *player->gunctrl.loadmemremaining;
@@ -3593,40 +3571,10 @@ void bgunTickGunLoad(void)
 		*player->gunctrl.loadmemptr = newvalue;
 		*player->gunctrl.loadmemremaining = remaining;
 
-		osSyncPrintf("BriGun:  Set Load State: GUN_LOADSTATE_LOADED\n");
 		player->gunctrl.gunloadstate = GUNLOADSTATE_LOADED;
 	}
 }
 
-const char var7f1abcd8[] = "need a new gun loading (lock %d gunmemnew %d)\n";
-const char var7f1abd08[] = "loading gun file: %d type: %d\n";
-const char var7f1abd28[] = "BriGun: Process MASTER_GUN_LOADSTATE_FLUX\n";
-const char var7f1abd54[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_HANDS\n";
-const char var7f1abd8c[] = "BriGun: Process MASTER_GUN_LOADSTATE_HANDS\n";
-const char var7f1abdb8[] = "BriGun: Setup Hand Load\n";
-const char var7f1abdd4[] = "Hand  : Using cached hands\n";
-const char var7f1abdf0[] = "Hand  : Look ma no hands!\n";
-const char var7f1abe0c[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_GUN\n";
-const char var7f1abe40[] = "BriGun: Process MASTER_GUN_LOADSTATE_GUN\n";
-const char var7f1abe6c[] = "BriGun: Setup Gun Load\n";
-const char var7f1abe84[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_CARTS\n";
-const char var7f1abebc[] = "BriGun: Process MASTER_GUN_LOADSTATE_CARTS\n";
-const char var7f1abee8[] = "BriGun: Cart Loaded setting GUN_LOADSTATE_FLUX\n";
-const char var7f1abf18[] = "BriGun: Cart loading - looking for carts\n";
-const char var7f1abf44[] = "BriGun: Loading cart %d\n";
-const char var7f1abf60[] = "BriGun: Request for cart %d ignored - cart already loaded\n";
-const char var7f1abf9c[] = "BriGun: Compile Hand 0x%08x Gun 0x%0x8\n";
-const char var7f1abfc4[] = "Gun   : Compiled Gun 0x%08x\n";
-const char var7f1abfe4[] = "Gun   : Compiled Size %d\n";
-const char var7f1ac000[] = "Hand  : Compiled Hand 0x%08x\n";
-const char var7f1ac020[] = "Hand  : Compiled Size %d\n";
-const char var7f1ac03c[] = "Gun   : Compile overhead %d bytes\n";
-const char var7f1ac060[] = "Hand  : Hand Obj 0x%08x Gun Obj 0x%08x \n";
-const char var7f1ac08c[] = "Gun   : After Comp : Base 0x%08x Free %d\n";
-const char var7f1ac0b8[] = "Gun   : After Cached Setup : Base 0x%08x Free %d\n";
-const char var7f1ac0ec[] = "Gun   : TotalUsed %d, Free %d\n";
-const char var7f1ac10c[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_LOADED\n";
-const char var7f1ac144[] = "GunLockTimer: %d\n";
 
 void bgunTickMasterLoad(void)
 {
@@ -5481,7 +5429,6 @@ char *bgunGetShortName(s32 weaponnum)
 	return "** error\n";
 }
 
-const char var7f1ac170[] = "wantedfn %d tiggle %d\n";
 
 void bgunReloadIfPossible(s32 handnum)
 {

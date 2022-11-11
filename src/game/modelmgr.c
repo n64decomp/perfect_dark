@@ -91,13 +91,6 @@ void modelmgrPrintCounts(void)
 		g_ModelMostAnims = numanims;
 	}
 
-	osSyncPrintf("MOT : Type 1  = %d/%d (%d)");
-	osSyncPrintf("MOT : Type 2  = %d/%d (%d)");
-	osSyncPrintf("MOT : Type 3  = %d/%d (%d)");
-	osSyncPrintf("MOT : Type OI = %d/%d/%d/%d");
-	osSyncPrintf("MOT : Type OA = %d/%d/%d/%d");
-	osSyncPrintf("MOT : g_ObjCount = %d");
-	osSyncPrintf("MOT : g_AnimCount = %d");
 }
 
 struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool withanim)
@@ -132,7 +125,6 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 		}
 
 		if (model == NULL) {
-			osSyncPrintf("Allocating %d bytes for objinst structure\n", ALIGN16(sizeof(struct model)));
 			model = mempAlloc(ALIGN16(sizeof(struct model)), MEMPOOL_STAGE);
 		}
 
@@ -152,7 +144,6 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 				if (modeldef->rwdatalen <= 4) {
 					for (i = 0; i < NUMTYPE1(); i++) {
 						if (g_ModelRwdataBindings[0][i].model == NULL) {
-							osSyncPrintf("MotInst: Using cache entry type 1 %d (0x%08x) - Bytes=%d\n");
 							rwdatas = g_ModelRwdataBindings[0][i].rwdata;
 							g_ModelRwdataBindings[0][i].model = model;
 							done = true;
@@ -165,7 +156,6 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 				if (!done && modeldef->rwdatalen <= 52) {
 					for (i = 0; i < NUMTYPE2(); i++) {
 						if (g_ModelRwdataBindings[1][i].model == NULL) {
-							osSyncPrintf("MotInst: Using cache entry type 2 %d (0x%08x) - Bytes=%d\n");
 							rwdatas = g_ModelRwdataBindings[1][i].rwdata;
 							g_ModelRwdataBindings[1][i].model = model;
 							done = true;
@@ -179,7 +169,6 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 				if (!done && modeldef->rwdatalen <= 256) {
 					for (i = 0; i < NUMTYPE3(); i++) {
 						if (g_ModelRwdataBindings[2][i].model == NULL && g_ModelRwdataBindings[2][i].rwdata != NULL) {
-							osSyncPrintf("MotInst: Using cache entry type 3 %d (0x%08x) - Bytes=%d\n");
 							rwdatas = g_ModelRwdataBindings[2][i].rwdata;
 							g_ModelRwdataBindings[2][i].model = model;
 							done = true;
@@ -235,8 +224,6 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 		model->rwdatalen = datalen;
 	}
 
-	osSyncPrintf("***************************************\n");
-	osSyncPrintf("***************************************\n");
 
 	return model;
 }
@@ -266,7 +253,6 @@ void modelmgrFreeModel(struct model *model)
 	if (!done) {
 		for (i = 0; i < NUMTYPE2(); i++) {
 			if (g_ModelRwdataBindings[1][i].model == model) {
-				osSyncPrintf("\nMotInst: Freeing type 2 cache entry %d (0x%08x)\n\n");
 
 				g_ModelRwdataBindings[1][i].model = NULL;
 
@@ -282,7 +268,6 @@ void modelmgrFreeModel(struct model *model)
 	if (!done) {
 		for (i = 0; i < NUMTYPE3(); i++) {
 			if (g_ModelRwdataBindings[2][i].model == model) {
-				osSyncPrintf("\nMotInst: Freeing type 3 cache entry %d (0x%08x)\n\n");
 				g_ModelRwdataBindings[2][i].model = NULL;
 
 				model->rwdatas = NULL;
@@ -295,7 +280,6 @@ void modelmgrFreeModel(struct model *model)
 	}
 
 	if (!done) {
-		osSyncPrintf("MotInst -> Attempt to free item not in cache\n");
 	}
 
 	if (model->anim) {

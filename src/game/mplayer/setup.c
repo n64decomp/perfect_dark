@@ -732,8 +732,6 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-const char var7f1b7ea8[] = "Menu99 -> Calling Camera Module Start\n";
-const char var7f1b7ed0[] = "Menu99 -> Calling Camera Module Finish\n";
 
 char *mpMenuTextKills(struct menuitem *item)
 { \

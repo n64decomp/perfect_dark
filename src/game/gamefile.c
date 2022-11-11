@@ -39,16 +39,6 @@ u32 gamefileHasFlag(u32 value)
 	return pakHasBitflag(value, g_GameFile.flags);
 }
 
-void gamefilePrintFlags(void)
-{
-	s32 i;
-
-	for (i = 0x23; i != 0x4f; i++) {
-		osSyncPrintf("Flag %d = %s", i,
-				pakHasBitflag(i, g_GameFile.flags) ? "TRUE" : "FALSE");
-	}
-}
-
 void gamefileApplyOptions(struct gamefile *file)
 {
 	s32 player1 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 0 : 4;
@@ -208,12 +198,6 @@ void gamefileLoadDefaults(struct gamefile *file)
 	gamefileApplyOptions(file);
 }
 
-const char var7f1b38e8[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
-const char var7f1b391c[] = "pdoptions.c";
-const char var7f1b3928[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
-const char var7f1b395c[] = "pdoptions.c";
-const char var7f1b3968[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
-const char var7f1b399c[] = "pdoptions.c";
 
 s32 gamefileLoad(s32 device)
 {

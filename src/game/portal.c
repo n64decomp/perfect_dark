@@ -59,13 +59,6 @@
 #include "data.h"
 #include "types.h"
 
-const char var7f1ad160[] = "ACOUSTIC -> Allocating %d bytes for %d portal AV structures\n";
-const char var7f1ad1a0[] = "ACOUSTIC -> DGD WARNING: portalAVInit no portals!\n";
-const char var7f1ad1d4[] = "ACOUSTIC -> portalAVReset: checking propobj type %d\n";
-const char var7f1ad20c[] = "ACOUSTIC -> portalAVReset: found PROPDEF_WINDOWFADE for portal %d\n";
-const char var7f1ad250[] = "ACOUSTIC -> portalAVReset: found PROPDEF_WINDOW for portal %d\n";
-const char var7f1ad290[] = "ACOUSTIC -> Portal %3d - A=%.2f, V=%.2f\n";
-const char var7f1ad2bc[] = "ACOUSTIC -> DGD WARNING: portalAVReset no portals!\n";
 
 struct roomacousticdata *g_RoomAcousticData;
 u32 var8009dd74;
@@ -169,7 +162,6 @@ void acousticReset(void)
 	f32 depth;
 	f32 halfsurfacearea;
 
-	osSyncPrintf("Acoustic Reset -> Allocating %d bytes for %d roomacousticdata structures\n", size, g_Vars.roomcount);
 
 	g_RoomAcousticData = mempAlloc(size, MEMPOOL_STAGE);
 
@@ -180,14 +172,12 @@ void acousticReset(void)
 		g_RoomAcousticData[i].surfacearea = 1;
 
 		for (j = 0; j < 3; j++) {
-			osSyncPrintf("ACOUSTIC ->    room %d bb %f %f\n", i, g_Rooms[i].bbmin[j], g_Rooms[i].bbmax[j]);
 
 			range = g_Rooms[i].bbmax[j] - g_Rooms[i].bbmin[j];
 
 			if (range > 0) {
 				g_RoomAcousticData[i].roomvolume *= (g_Rooms[i].bbmax[j] - g_Rooms[i].bbmin[j]) / 100;
 			} else {
-				osSyncPrintf("ACOUSTIC -> DGD: acousticReset room %d does not have a 3D bounding box => radata[room].roomvolume is bodged!\n", i);
 				allgood = false;
 			}
 		}
@@ -215,7 +205,6 @@ void acousticReset(void)
 
 			g_RoomAcousticData[i].surfacearea = halfsurfacearea + halfsurfacearea;
 		} else {
-			osSyncPrintf("%s%sL2 -> Surface area bodged for room %d - using %f\n", "", "", i, 20000000);
 			g_RoomAcousticData[i].surfacearea = 20000000;
 		}
 	}

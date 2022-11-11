@@ -167,9 +167,6 @@ char *var80084494[] = {
 	"deep water",
 };
 
-const char var7f1b7c24[] = "";
-const char var7f1b7c28[] = "";
-const char var7f1b7c2c[] = "";
 
 bool var800844d0 = false;
 u32 var800844d4 = 0x00000000;

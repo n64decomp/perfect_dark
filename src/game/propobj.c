@@ -7326,7 +7326,6 @@ struct escastepkeyframe g_EscaStepKeyframesZ[] = {
 	{ -1,  { 0,        0,       0        } },
 };
 
-const char var7f1a9fe8[] = "************** RWI : Door Stuck Mate -> Sort it out\n";
 
 void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 {
@@ -9536,7 +9535,6 @@ void chopperTickCombat(struct prop *chopperprop)
 
 	if ((chopper->targetvisible && dist < 2000000.0f) || chopper->path == NULL) {
 		// Stay put
-		osSyncPrintf("HC: %x - visible\n", chopper);
 
 		goalpos = chopperprop->pos;
 	} else {
@@ -14768,7 +14766,6 @@ void currentPlayerQueuePickupWeaponHudmsg(u32 weaponnum, bool dual)
 	hudmsgCreateWithFlags(buffer, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);
 }
 
-const char var7f1aa140[] = "autodoorcanclose:      blocking door\n\n";
 
 s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 {
@@ -18148,11 +18145,6 @@ Gfx *countdownTimerRender(Gfx *gdl)
 	return gdl;
 }
 
-const char var7f1aa16c[] = "ALARM : PAN 1 = %d (%s%f)";
-const char var7f1aa188[] = "";
-const char var7f1aa18c[] = "ALARM : DIR 1 = %d";
-const char var7f1aa1a0[] = "ALARM : ADD 1 = %d (%s%f)";
-const char var7f1aa1bc[] = "";
 
 void alarmTick(void)
 {

@@ -79,7 +79,7 @@ ANTIALIAS = 0
 # If enabled (1), press L to show frate stats followed by D-right to toggle
 # profiling information.
 
-PROFILING = 1
+PROFILING = 0
 
 ################################################################################
 

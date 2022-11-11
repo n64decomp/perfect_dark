@@ -65,7 +65,6 @@ void splatTickChr(struct prop *prop)
 			isskedar = true;
 		}
 
-		osSyncPrintf("Splat Tick - P=%x, B=%d, T=%d, S=%d, W=%d, D=%d, H=%d\n");
 
 		if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DIE) {
 			u32 stack;
@@ -80,7 +79,6 @@ void splatTickChr(struct prop *prop)
 			}
 
 			if (thudframe != -1.0f && modelGetCurAnimFrame(chr->model) < thudframe) {
-				osSyncPrintf("SPLAT : Not Dead Enough %s%s%f", "", "", modelGetCurAnimFrame(chr->model));
 			} else if (chr->tickssincesplat > TICKS(30) && chr->deaddropsplatsadded < 6) {
 				chr->deaddropsplatsadded += splatsCreate(1, 1.1f, prop, NULL, 0, 0, isskedar, SPLATTYPE_PUDDLE, TICKS(150), attacker, random() & 8);
 			}
@@ -280,7 +278,6 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 			room = bestroom;
 			translucent = hitthing.unk2c == 2;
 		} else {
-			osSyncPrintf("Splat : Out of range\n");
 			hasresult = false;
 		}
 	} else {
@@ -473,7 +470,6 @@ void splat0f14986c(struct splatdata *splat)
 
 void splatResetChr(struct chrdata *chr)
 {
-	osSyncPrintf("Splat_ResetChr : Reset One Char : chrdata = %x\n", (u32)chr);
 
 	chr->bulletstaken = 0;
 	chr->tickssincesplat = 0;

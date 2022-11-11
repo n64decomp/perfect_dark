@@ -2651,29 +2651,6 @@ void bgLoadRoom(s32 roomnum)
 	}
 }
 
-const char var7f1b7420[] = "Checking Convex Room %d";
-const char var7f1b7438[] = " Portal %d %s%s%.1f < %.1f";
-const char var7f1b7454[] = "";
-const char var7f1b7458[] = "";
-const char var7f1b745c[] = " Convex Room Failed (1)";
-const char var7f1b7474[] = " Portal %d %s%s%.1f > %.1f";
-const char var7f1b7490[] = "";
-const char var7f1b7494[] = "";
-const char var7f1b7498[] = " Convex Room Failed (0)";
-const char var7f1b74b0[] = "Checking Concave Room %d";
-const char var7f1b74cc[] = " Checking Portal %d";
-const char var7f1b74e0[] = "Reject P:%d (%s%s%.1f %.1f n3=%.1f)";
-const char var7f1b7504[] = "";
-const char var7f1b7508[] = "";
-const char var7f1b750c[] = "Reject P:%d (%s%s%.1f %.1f n4=%.1f)";
-const char var7f1b7530[] = "";
-const char var7f1b7534[] = "";
-const char var7f1b7538[] = " Full %d%s%s %.1f %.1f (%.1f %.1f)";
-const char var7f1b755c[] = "";
-const char var7f1b7560[] = "";
-const char var7f1b7564[] = " Failed 2 - Crossed portal %d";
-const char var7f1b7584[] = " Failed 1 - Crossed portal %d";
-const char var7f1b75a4[] = " Passed";
 
 void bgUnloadRoom(s32 roomnum)
 {

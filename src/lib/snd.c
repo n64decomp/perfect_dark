@@ -48,7 +48,6 @@ u32 g_SeqBufferSize;
 ALIGNED16 struct sndcache g_SndCache;
 
 const char g_SndGuardString[] = "RUSSES SOUND GUARD STRING";
-const char var70053b3c[] = "Snd: SoundHeaderCacheInit\n";
 
 bool g_SndDisabled = false;
 u32 var8005dda4 = 0x00000000;
@@ -1363,24 +1362,20 @@ void sndInit(void)
 		amgrCreate(&synconfig);
 
 		if (g_SndMp3Enabled) {
-			osSyncPrintf("RWI : Initialising the new and improved MP3 player\n");
 
 			mp3Init(&g_SndHeap);
 			func00037f08(0x7fff, 1);
 			func00037f5c(0, true);
 
-			osSyncPrintf("RWI : MP3 player Initialising Done\n");
 		}
 
 		for (i = 0; i < 3; i++) {
 			seqInit(&g_SeqInstances[i]);
 		}
 
-		osSyncPrintf("gsSndpNew\n");
 
 		n_alSndpNew(&sndpconfig);
 
-		osSyncPrintf("Set the sample callbacks\n");
 
 		sndpSetAddRefCallback(sndAddRef);
 		sndpSetRemoveRefCallback(sndRemoveRef);
@@ -1887,10 +1882,6 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg
 	return NULL;
 }
 
-const char var70053be0[] = "Snd_Play_Universal : Overriding -> Link = %d\n";
-const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
-const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
-const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
 
 void sndStartMp3(s16 soundnum, s32 arg1, s32 arg2, s32 arg3)
 {

@@ -1083,7 +1083,6 @@ void filemgrGetFileName(char *dst, struct filelistfile *file)
 	sprintf(dst, "%s", localbuffer);
 }
 
-const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
 
 void filemgrGetRenameName(char *buffer)
 {
@@ -1158,7 +1157,6 @@ void filemgrSetRenameName(char *name)
 	}
 }
 
-const char var7f1b32dc[] = "SetFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
 
 bool filemgrIsNameAvailable(s32 device)
 {
@@ -1214,7 +1212,6 @@ bool filemgrIsNameAvailable(s32 device)
 		}
 	}
 
-	osSyncPrintf("CheckFileName: Comparing range %d-%d\n", startindex, endindex);
 
 	// Iterate files
 	for (i = startindex; i < endindex; i++) {
@@ -1235,10 +1232,8 @@ bool filemgrIsNameAvailable(s32 device)
 		}
 
 		// Compare names
-		osSyncPrintf("Compare '%s' to '%s' = %d\n", findname, loopname, strcmp(findname, loopname));
 
 		if (strcmp(findname, loopname) == 0) {
-			osSyncPrintf("OI! DUPLICATE FILE NAME! NO!\n");
 			return false;
 		}
 	}
@@ -1246,10 +1241,6 @@ bool filemgrIsNameAvailable(s32 device)
 	return true;
 }
 
-const char var7f1b3384[] = "()()()()()() Writing MPLAYER\n";
-const char var7f1b33a4[] = "()()()()()() Writing MGAME\n";
-const char var7f1b33c0[] = "Write Attempt Made...\n";
-const char var7f1b33d8[] = "decided location: %d\n";
 
 /**
  * Used for both saving new files and copying files.

@@ -7,13 +7,6 @@
 #include "data.h"
 #include "types.h"
 
-const char var7f1b7cb0[] = "UM_Make : In\n";
-const char var7f1b7cc0[] = "UM_Make : Out\n";
-const char var7f1b7cd0[] = "Utils -> ERROR at Line %d of %s\n";
-const char var7f1b7cf4[] = "Utils -> UM_fVec3_NormaliseTo - Vec = %s%s (%f,%f,%f)\n";
-const char var7f1b7d2c[] = "";
-const char var7f1b7d30[] = "";
-const char var7f1b7d34[] = "Utils -> Attempt to normalise zeo length vector\n";
 
 void *var800ac0d0;
 u32 var800ac0d4;
@@ -261,12 +254,10 @@ bool func0f1774b4(struct coord *arg0, struct coord *arg1, struct coord *out)
 	f32 mult;
 
 	if (!func0f177164(arg1, &a, 702, "utils.c")) {
-		osSyncPrintf("UTILS -> DEBUG ERROR - UM_fVec3_MakeNormalTo - Cant normalise\n");
 		return false;
 	}
 
 	if (!func0f177164(arg0, &b, 710, "utils.c")) {
-		osSyncPrintf("UTILS -> DEBUG ERROR - UM_fVec3_MakeNormalTo - Cant normalise\n");
 		return false;
 	}
 
@@ -321,7 +312,6 @@ void func0f177624(struct coord *arg0, struct coord *arg1, struct coord *arg2, st
 	arg3->z = arg1->y * arg2->z;
 }
 
-const char var7f1b7e00[] = "WARNING - UTILS -> DEBUG - Triangle passed to Planar Poly Test\n";
 
 f32 func0f1776cc(struct coord *a, struct coord *b, struct coord *c)
 {
@@ -502,7 +492,6 @@ u8 func0f177b44(u8 *arg0, s32 *arg1)
 	return arg0[var800ac108++];
 }
 
-const char var7f1b7e50[] = "UM_ZeroRunVerify_U8 - FAILED on item %d\n";
 
 s32 func0f177bb4(u8 *arg0, s32 *arg1, s32 *arg2)
 {

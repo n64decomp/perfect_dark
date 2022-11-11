@@ -932,13 +932,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 	return gdl;
 }
 
-const char var7f1b2b34[] = "Here is where the activemenu sets favourites\n";
-const char var7f1b2b64[] = "slot %d = guntype %d\n";
-const char var7f1b2b7c[] = "put it in %d\n";
 
-const char var7f1b2be0[] = "Put guntype %d in slot %d\n";
-const char var7f1b2bfc[] = "ActiveMenu: Two or more equipped items of guntype %d\n";
-const char var7f1b2c34[] = "FAV: Added gun %d to slot %d\n";
 
 u8 var800719a0[][3] = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8} };
 

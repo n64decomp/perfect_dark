@@ -128,8 +128,6 @@
 #define JOYARGS(line)
 
 const char g_N64FontCodeMap[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
-const char var7f1b3ad4[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorPakFatal\n";
-const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorNoPakPresent\n";
 
 struct pak g_Paks[5];
 
@@ -656,12 +654,10 @@ void pakDumpBuffer(u8 *buffer, u32 len, char *name)
 	char line[256];
 	char tmp[256];
 
-	osSyncPrintf(name);
 	sprintf(line, "\n");
 
 	for (i = 0; i != len; i++) {
 		if ((i % 16) == 0) {
-			osSyncPrintf(line);
 			sprintf(line, "\nAddress = %u : ", i);
 		}
 
@@ -671,7 +667,6 @@ void pakDumpBuffer(u8 *buffer, u32 len, char *name)
 
 	strcat(line, "\n");
 
-	osSyncPrintf(line);
 }
 
 void pakDumpEeprom(void)
@@ -768,7 +763,6 @@ s32 _pakSaveAtGuid(s8 device, s32 fileid, s32 filetype, u8 *newdata, s32 *outfil
 	}
 
 	if (outfileid) {
-		osSyncPrintf("PakSaveAtGuid: new guid = %x\n", outfileid);
 	}
 
 	// NTSC Beta skips marking the old file as vacant if the file wasn't found
@@ -901,7 +895,6 @@ PakErr1 pakQueryNoteState(OSPfs *pfs, s32 file_no, OSPfsState *note)
 	return PAK_ERR1_OK;
 }
 
-const char var7f1b3c08[] = "Call to osPfsReSizeFile -> pfs=%x, cc=%u, gc=%u, gn=%s, en=%s, l=%d\n";
 
 PakErr1 pakAllocateNote(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 size, s32 *file_no)
 {
@@ -1648,13 +1641,11 @@ bool pakRepairAsBlank(s8 device, u32 *offsetptr, struct pakfileheader *header)
 
 	bodylen = pakGetBodyLenByFileLen(offset - start);
 
-	osSyncPrintf("Pak %d -> Pak_RepairAsBlank - St=%u, Ed=%u, Gap=%u, Blank Size=%u\n", device, start, offset, offset - start, bodylen);
 
 	// Write the blank file ranging from to the start to the current offset
 	result = pakWriteFileAtOffset(device, start, PAKFILETYPE_BLANK, NULL, bodylen, NULL, NULL, 0, 1);
 
 	if (result != 0) {
-		osSyncPrintf("Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset %u\n", device, offset);
 		*offsetptr = offset;
 		return false;
 	}
@@ -2081,7 +2072,6 @@ void pakMergeBlanks(s8 device)
 				u32 filelen = offset - mergestartoffset + header.filelen - sizeof(struct pakfileheader);
 
 				if (pakWriteFileAtOffset(device, mergestartoffset, PAKFILETYPE_BLANK, NULL, filelen, NULL, NULL, 0, 1) != 0) {
-					osSyncPrintf("> Pak_DefragPak_Level1 - Merge of two blanks failed");
 				}
 
 				nextoffset = 0;
@@ -2111,7 +2101,6 @@ void pak0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 			g_Paks[device].headercachecount = 0;
 			g_Paks[device].headercache = mempAlloc(align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES), MEMPOOL_PERMANENT);
 
-			// This would have been used in an osSyncPrintf call.
 			// Perhaps using the strings at var7f1b4318 through var7f1b43ac?
 			align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES);
 		}
@@ -2584,7 +2573,6 @@ bool pakGetFilesystemLength(s8 device, u32 *outlen)
 	return false;
 }
 
-const char var7f1b4508[] = "RWI : Warning : tOffset > gPakObj[PakNum].GameFileSize\n";
 
 /**
  * Read a file from cache or from the pak and write it to *data.
