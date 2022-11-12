@@ -11609,7 +11609,7 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum)
 {
 	bool advance = false;
-	struct pad *nextpad;
+	struct pad *nextpad = NULL;
 	u32 nextpadflags = 0;
 	f32 nextground;
 	f32 lifty;
@@ -11626,6 +11626,7 @@ bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, b
 	lifty = liftGetY(lift);
 
 	if (nextpadnum >= 0) {
+		nextpad = &g_Pads[nextpadnum];
 		nextpadflags = nextpad->flags;
 	}
 
@@ -11656,7 +11657,7 @@ bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, b
 
 					chrChooseStandAnimation(chr, 16);
 
-					if (nextpadnum >= 0) {
+					if (nextpad) {
 						// Call the lift
 						chrOpenDoor(chr, &nextpad->pos);
 					}
