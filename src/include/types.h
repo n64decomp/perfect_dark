@@ -5715,6 +5715,7 @@ struct wallhit {
 	/*0x70*/ u32 timerspeed : 4;
 	/*0x74*/ struct wallhit *globalnext; // for the used/free linked lists
 	/*0x78*/ struct wallhit *localnext; // for the room/prop specific linked list
+	/*0x78*/ struct wallhit *busynext; // for a linked list of wallhits expanding or fading
 };
 
 /**

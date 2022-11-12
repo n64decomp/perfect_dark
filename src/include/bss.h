@@ -208,6 +208,7 @@ extern u8 *var800a41a0;
 extern struct wallhit *g_Wallhits;
 extern struct wallhit *g_FreeWallhits;
 extern struct wallhit *g_ActiveWallhits;
+extern struct wallhit *g_BusyWallhits;
 extern s32 g_MaxShards;
 extern struct shard *g_Shards;
 extern Gfx *var800a4634;

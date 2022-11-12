@@ -112,6 +112,7 @@ void wallhitReset(void)
 		g_Wallhits = (struct wallhit *)((u32)ptr + numberssize);
 		g_FreeWallhits = NULL;
 		g_ActiveWallhits = 0;
+		g_BusyWallhits = NULL;
 
 		// Initialise structs
 		for (i = 0; i < g_WallhitsMax; i++) {

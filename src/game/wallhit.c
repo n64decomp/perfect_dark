@@ -30,6 +30,7 @@
 struct wallhit *g_Wallhits;
 struct wallhit *g_FreeWallhits;
 struct wallhit *g_ActiveWallhits;
+struct wallhit *g_BusyWallhits;
 
 s32 var8007f740 = 0;
 u8 g_WallhitBloodColour[4] = {0x40, 0x0a, 0x0a, 0x00};
@@ -87,6 +88,23 @@ s16 wallhitFinaliseAxis(f32 value)
 	}
 
 	return value;
+}
+
+void wallhitUnsetBusy(struct wallhit *wallhit)
+{
+	if (wallhit == g_BusyWallhits) {
+		g_BusyWallhits = wallhit->busynext;
+		wallhit->busynext = NULL;
+	} else {
+		struct wallhit *iter = g_BusyWallhits;
+
+		while (wallhit != iter->busynext) {
+			iter = iter->busynext;
+		}
+
+		iter->busynext = wallhit->busynext;
+		wallhit->busynext = NULL;
+	}
 }
 
 void wallhitFree(struct wallhit *wallhit)
@@ -180,6 +198,11 @@ void wallhitFree(struct wallhit *wallhit)
 		}
 	}
 
+	// Remove from the busy list
+	if (wallhit->expanding || wallhit->fading) {
+		wallhitUnsetBusy(wallhit);
+	}
+
 	wallhit->objprop = NULL;
 
 	g_WallhitsNumUsed--;
@@ -263,7 +286,12 @@ void wallhitFade(struct wallhit *wallhit, u32 arg1)
 			var8009cc58--;
 		}
 
-		wallhit->expanding = false;
+		if (wallhit->expanding) {
+			wallhit->expanding = false;
+		} else {
+			wallhit->busynext = g_BusyWallhits;
+			g_BusyWallhits = wallhit;
+		}
 	}
 }
 
@@ -457,149 +485,149 @@ void wallhitsTick(void)
 		}
 	}
 
-	wallhit = g_Wallhits;
+	wallhit = g_BusyWallhits;
 
-	for (i = 0; i < g_WallhitsMax; i++) {
+	while (wallhit) {
+		struct wallhit *next = wallhit->busynext;
 		f32 f0 = sp12c;
 
-		if (wallhit->inuse) {
-			if (wallhit->timerspeed != 8) {
-				f0 *= 0.6f * ((wallhit->timerspeed - 8.0f) * 0.125f);
+		if (wallhit->timerspeed != 8) {
+			f0 *= 0.6f * ((wallhit->timerspeed - 8.0f) * 0.125f);
+		}
+
+		{
+			u32 amount = (u32)(f0 + 0.5f);
+
+			if (wallhit->expanding) {
+				if (wallhit->timercur > wallhit->timermax) {
+					wallhit->timermax = 0;
+					wallhit->timercur = 0;
+					wallhit->inuse = true;
+					wallhit->expanding = false;
+
+					wallhitUnsetBusy(wallhit);
+				}
+
+				wallhit->timercur += amount;
+			} else {
+				if (amount < wallhit->timercur) {
+					wallhit->timercur -= amount;
+				} else {
+					wallhitFree(wallhit);
+				}
 			}
 
 			if (wallhit->timermax) {
-				u32 amount = (u32)(f0 + 0.5f);
+				f24 = (f32) wallhit->timercur / wallhit->timermax;
 
-				if (wallhit->expanding) {
-					if (wallhit->timercur > wallhit->timermax) {
-						wallhit->timermax = 0;
-						wallhit->timercur = 0;
-						wallhit->inuse = true;
-					}
-
-					wallhit->timercur += amount;
-				} else {
-					if (amount < wallhit->timercur) {
-						wallhit->timercur -= amount;
-					} else {
-						wallhitFree(wallhit);
-					}
+				if (f24 > 1.0f) {
+					f24 = 1.0f;
 				}
 
-				if (wallhit->timermax) {
-					f24 = (f32) wallhit->timercur / wallhit->timermax;
+				f22 = f24;
+
+				if (wallhit->expanding) {
+					f32 frac = 0.2f;
+					f32 sizefrac;
+					f32 f30;
+					s32 minindex;
+					f32 tmp;
+					s32 j;
+
+					tmp = 1.5707964f * f24;
+					f30 = (1.0f - frac) * sinf(tmp);
+					f22 = 1.0f - tmp + 0.6f;
+
+					wallhit->vertices2 = gfxAllocateVertices(4);
+
+					midx = var800845dc.x; \
+					midy = var800845dc.y; \
+					midz = var800845dc.z;
+
+					// Copy the vertices into a float array
+					for (j = 0; j < 4; j++) {
+						spc8[j].x = wallhit->vertices[j].x;
+						spc8[j].y = wallhit->vertices[j].y;
+						spc8[j].z = wallhit->vertices[j].z;
+					}
+
+					// Sum the vertices and divide them by 4 to get the centre
+					minindex = 0;
+
+					for (j = 0; j < 4; j++) {
+						midx = midx + spc8[j].x;
+						midy = midy + spc8[j].y;
+						midz = midz + spc8[j].z;
+
+						// This should be j != 0, but minindex is unused
+						// so it doesn't affect anything
+						if (minindex != 0 && spc8[j].y < spc8[minindex].y) {
+							minindex = j;
+						}
+					}
+
+					midx = 0.25f * midx;
+					midy = 0.25f * midy;
+					midz = 0.25f * midz;
+
+					sizefrac = frac + f30;
+
+					// Calculate and apply the new size
+					for (j = 0; j < 4; j++) {
+						f32 xradius = spc8[j].x - midx;
+						f32 yradius = spc8[j].y - midy;
+						f32 zradius = spc8[j].z - midz;
+
+						wallhit->vertices2[j].x = midx + xradius * sizefrac;
+						wallhit->vertices2[j].y = midy + yradius * sizefrac;
+						wallhit->vertices2[j].z = midz + zradius * sizefrac;
+						wallhit->vertices2[j].s = wallhit->vertices[j].s;
+						wallhit->vertices2[j].t = wallhit->vertices[j].t;
+						wallhit->vertices2[j].colour = wallhit->vertices[j].colour;
+					}
+
+					if (1);
+
+					f24 *= 2.0f;
 
 					if (f24 > 1.0f) {
 						f24 = 1.0f;
 					}
 
-					f22 = f24;
+					if (1);
+				}
 
-					if (wallhit->expanding) {
-						f32 frac = 0.2f;
-						f32 sizefrac;
-						f32 f30;
-						s32 minindex;
-						f32 tmp;
-						s32 j;
+				for (j = 0; j < 4; j++) {
+					u32 alpha;
 
-						tmp = 1.5707964f * f24;
-						f30 = (1.0f - frac) * sinf(tmp);
-						f22 = 1.0f - tmp + 0.6f;
-
-						wallhit->vertices2 = gfxAllocateVertices(4);
-
-						midx = var800845dc.x; \
-						midy = var800845dc.y; \
-						midz = var800845dc.z;
-
-						// Copy the vertices into a float array
-						for (j = 0; j < 4; j++) {
-							spc8[j].x = wallhit->vertices[j].x;
-							spc8[j].y = wallhit->vertices[j].y;
-							spc8[j].z = wallhit->vertices[j].z;
-						}
-
-						// Sum the vertices and divide them by 4 to get the centre
-						minindex = 0;
-
-						for (j = 0; j < 4; j++) {
-							midx = midx + spc8[j].x;
-							midy = midy + spc8[j].y;
-							midz = midz + spc8[j].z;
-
-							// This should be j != 0, but minindex is unused
-							// so it doesn't affect anything
-							if (minindex != 0 && spc8[j].y < spc8[minindex].y) {
-								minindex = j;
-							}
-						}
-
-						midx = 0.25f * midx;
-						midy = 0.25f * midy;
-						midz = 0.25f * midz;
-
-						sizefrac = frac + f30;
-
-						// Calculate and apply the new size
-						for (j = 0; j < 4; j++) {
-							f32 xradius = spc8[j].x - midx;
-							f32 yradius = spc8[j].y - midy;
-							f32 zradius = spc8[j].z - midz;
-
-							wallhit->vertices2[j].x = midx + xradius * sizefrac;
-							wallhit->vertices2[j].y = midy + yradius * sizefrac;
-							wallhit->vertices2[j].z = midz + zradius * sizefrac;
-							wallhit->vertices2[j].s = wallhit->vertices[j].s;
-							wallhit->vertices2[j].t = wallhit->vertices[j].t;
-							wallhit->vertices2[j].colour = wallhit->vertices[j].colour;
-						}
-
-						if (1);
-
-						f24 *= 2.0f;
-
-						if (f24 > 1.0f) {
-							f24 = 1.0f;
-						}
-
-						if (1);
+					if (f22 > 1.0f) {
+						f22 = 1.0f;
 					}
+
+					alpha = wallhit->basecolours[j].a * f24;
+
+					if (alpha > 255) {
+						alpha = 255;
+					}
+
+					wallhit->finalcolours[j].a = alpha;
+				}
+			} else {
+				if (wallhit->inuse) {
+					wallhit->vertices2 = NULL;
 
 					for (j = 0; j < 4; j++) {
-						u32 alpha;
-
-						if (f22 > 1.0f) {
-							f22 = 1.0f;
-						}
-
-						alpha = wallhit->basecolours[j].a * f24;
-
-						if (alpha > 255) {
-							alpha = 255;
-						}
-
-						wallhit->finalcolours[j].a = alpha;
+						wallhit->finalcolours[j].a = wallhit->basecolours[j].a;
 					}
 				} else {
-					if (wallhit->inuse) {
-						wallhit->vertices2 = NULL;
-
-						for (j = 0; j < 4; j++) {
-							wallhit->finalcolours[j].a = wallhit->basecolours[j].a;
-						}
-					} else {
-						wallhit->vertices2 = NULL;
-					}
+					wallhit->vertices2 = NULL;
 				}
 			}
-
-			wallhit->unk6f_05 = true;
 		}
 
-		wallhit++;
+		wallhit->unk6f_05 = true;
 
-		if (1);
+		wallhit = next;
 	}
 }
 
@@ -939,6 +967,9 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 		wallhit->timerspeed = timerspeed ? timerspeed : 8;
 		wallhit->createdframe = g_Vars.lvframenum;
 		wallhit->unk6f_05 = false;
+
+		wallhit->busynext = g_BusyWallhits;
+		g_BusyWallhits = wallhit;
 
 		for (i = 0; i < 4; i++) {
 			struct coord sp58;
