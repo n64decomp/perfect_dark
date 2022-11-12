@@ -1504,7 +1504,11 @@ Gfx *lvRender(Gfx *gdl)
 				}
 
 				PROFILE(PROFILEMARKER_LVR_SKY2, gdl = sky0f1274d8(gdl));
-				PROFILE(PROFILEMARKER_LVR_ACTIVEMENU, gdl = amRender(gdl));
+
+				if (g_AmActive) {
+					PROFILE(PROFILEMARKER_LVR_ACTIVEMENU, gdl = amRender(gdl));
+				}
+
 				mtx00016748(1);
 
 				if (g_Vars.currentplayer->menuisactive) {
@@ -2047,7 +2051,11 @@ void lvTick(void)
 		PROFILE(PROFILEMARKER_LVT_LIGHTING, lightingTick());
 		PROFILE(PROFILEMARKER_LVT_MODELMGR, modelmgrPrintCounts());
 		PROFILE(PROFILEMARKER_LVT_BOLTBEAMS, boltbeamsTick());
-		PROFILE(PROFILEMARKER_LVT_ACTIVEMENU, amTick());
+
+		if (g_AmActive) {
+			PROFILE(PROFILEMARKER_LVT_ACTIVEMENU, amTick());
+		}
+
 		PROFILE(PROFILEMARKER_LVT_MENU, menuTick());
 		PROFILE(PROFILEMARKER_LVT_SCENARIO, scenarioTick());
 

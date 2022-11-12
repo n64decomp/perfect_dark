@@ -30,6 +30,7 @@ struct activemenu g_AmMenus[4];
 struct fontchar *g_AmFont1;
 struct font *g_AmFont2;
 s32 g_AmIndex;
+s32 g_AmActive;
 
 struct menudialogdef g_AmPickTargetMenuDialog;
 
@@ -555,6 +556,7 @@ void amReset(void)
 	}
 
 	g_AmIndex = 0;
+	g_AmActive = false;
 }
 
 s16 amCalculateSlotWidth(void)
@@ -739,6 +741,7 @@ void amOpen(void)
 		g_AmMenus[g_AmIndex].origscreennum = 0;
 		g_AmMenus[g_AmIndex].prevallbots = 0;
 		g_AmMenus[g_AmIndex].allbots = false;
+		g_AmActive = true;
 	}
 }
 

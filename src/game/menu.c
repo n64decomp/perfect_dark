@@ -3114,10 +3114,6 @@ void menuClose(void)
 
 	g_MenuData.count--;
 
-	if (g_MenuData.root == MENUROOT_MPPAUSE && g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
-		g_Vars.currentplayer->activemenumode = AMMODE_VIEW;
-	}
-
 	if (g_MenuData.root == MENUROOT_BOOTPAKMGR) {
 		mainChangeToStage(STAGE_TITLE);
 	}

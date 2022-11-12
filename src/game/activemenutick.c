@@ -15,6 +15,7 @@
 
 void amTick(void)
 {
+	bool anyopen = false;
 	s32 prevplayernum = g_Vars.currentplayernum;
 	s32 i;
 
@@ -40,6 +41,8 @@ void amTick(void)
 			s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 			s32 numsamples = joyGetNumSamples();
 			s32 j;
+
+			anyopen = true;
 
 			for (j = 0; j < numsamples; j++) {
 				s8 gotonextscreen = false;
@@ -402,4 +405,6 @@ void amTick(void)
 	}
 
 	setCurrentPlayerNum(prevplayernum);
+
+	g_AmActive = anyopen;
 }
