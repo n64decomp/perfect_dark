@@ -17,6 +17,19 @@ u32 g_ProfileAudStart = 0;
 u32 g_ProfileAudTicks[NUM_SAMPLES];
 u32 g_ProfileGfxTicks[NUM_SAMPLES];
 u32 g_ProfileGfxTally;
+struct profileslot *g_ProfileCurrentSlot;
+
+struct profileslot {
+	char *file;
+	s32 line;
+	s32 ticks;
+	s32 startticks;
+	s32 numiterations;
+	struct profileslot *parent;
+	bool recursion;
+};
+
+struct profileslot g_ProfileSlots[30];
 
 void profileReset(void)
 {
@@ -27,6 +40,74 @@ void profileReset(void)
 	for (i = 0; i < NUM_PROFILEMARKERS; i++) {
 		g_ProfileMarkers[g_ProfileIndex][i][0] = 0;
 		g_ProfileMarkers[g_ProfileIndex][i][1] = 0;
+	}
+
+	for (i = 0; i < ARRAYCOUNT(g_ProfileSlots); i++) {
+		g_ProfileSlots[i].file = NULL;
+		g_ProfileSlots[i].parent = NULL;
+	}
+
+	g_ProfileCurrentSlot = NULL;
+}
+
+void profileStartDynamic(char *file, s32 line)
+{
+	s32 i;
+	struct profileslot *emptyslot = NULL;
+	struct profileslot *slot = NULL;
+
+	for (i = 0; i < ARRAYCOUNT(g_ProfileSlots); i++) {
+		if (!emptyslot && g_ProfileSlots[i].file == NULL) {
+			emptyslot = &g_ProfileSlots[i];
+		} else if (g_ProfileSlots[i].file == file && g_ProfileSlots[i].line == line) {
+			slot = &g_ProfileSlots[i];
+			break;
+		}
+	}
+
+	if (slot) {
+		// Another iteration on an existing slot
+		if (slot->startticks) {
+			slot->recursion = true;
+		} else {
+			slot->numiterations++;
+			slot->startticks = osGetCount();
+		}
+
+		g_ProfileCurrentSlot = slot;
+	} else if (emptyslot) {
+		// New slot
+		slot = emptyslot;
+
+		slot->file = file;
+		slot->line = line;
+		slot->parent = g_ProfileCurrentSlot;
+		slot->ticks = 0;
+		slot->numiterations = 1;
+		slot->recursion = false;
+		slot->startticks = osGetCount();
+
+		g_ProfileCurrentSlot = slot;
+	}
+}
+
+void profileEndDynamic(char *file, s32 line)
+{
+	s32 i;
+	struct profileslot *slot = NULL;
+
+	for (i = 0; i < ARRAYCOUNT(g_ProfileSlots); i++) {
+		if (g_ProfileSlots[i].file == file && g_ProfileSlots[i].line == line) {
+			slot = &g_ProfileSlots[i];
+			break;
+		}
+	}
+
+	if (slot) {
+		slot->ticks = osGetCount() - slot->startticks;
+		slot->startticks = 0;
+
+		g_ProfileCurrentSlot = slot->parent;
 	}
 }
 
@@ -242,6 +323,79 @@ Gfx *profileRender(Gfx *gdl)
 	}
 
 	g_ProfileGfxTally = 0;
+
+	return gdl;
+}
+
+Gfx *profileRenderDynamicSlot(Gfx *gdl, s32 x, s32 *y, s32 index)
+{
+	char buffer[64];
+	struct profileslot *slot = &g_ProfileSlots[index];
+	s32 childticks = 0;
+	s32 textwidth;
+	s32 textheight;
+	s32 x2 = x;
+	s32 i;
+
+	if (slot->recursion) {
+		sprintf(buffer, "%s:%d  *RECURSION*\n", slot->file, slot->line);
+		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	} else {
+		// Render this slot
+		sprintf(buffer, "%s:%d", slot->file, slot->line);
+		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+		sprintf(buffer, "%dus", (u32) OS_CYCLES_TO_USEC(slot->ticks));
+		textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+
+		x2 = 160 - textwidth;
+		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+		sprintf(buffer, "%d\n", slot->numiterations);
+		x2 = 170;
+		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+		// Render child slots
+		for (i = 0; i < ARRAYCOUNT(g_ProfileSlots); i++) {
+			if (g_ProfileSlots[i].file && g_ProfileSlots[i].parent == slot) {
+				gdl = profileRenderDynamicSlot(gdl, x + 5, y, i);
+				childticks += g_ProfileSlots[i].ticks;
+			}
+		}
+
+		// Render child "other" slot
+		if (childticks > 0) {
+			x2 = x + 5;
+			gdl = textRender(gdl, &x2, y, "other", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+			sprintf(buffer, "%dus\n", (u32) OS_CYCLES_TO_USEC(slot->ticks - childticks));
+			textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+
+			x2 = 160 - textwidth;
+			gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		}
+	}
+
+	return gdl;
+}
+
+Gfx *profileRenderDynamic(Gfx *gdl)
+{
+	if (g_FontHandelGothicXs) {
+		s32 x = 10;
+		s32 y = 10;
+		s32 i;
+
+		gdl = text0f153628(gdl);
+
+		for (i = 0; i < ARRAYCOUNT(g_ProfileSlots); i++) {
+			if (g_ProfileSlots[i].file && g_ProfileSlots[i].parent == NULL) {
+				gdl = profileRenderDynamicSlot(gdl, x, &y, i);
+			}
+		}
+
+		gdl = text0f153780(gdl);
+	}
 
 	return gdl;
 }

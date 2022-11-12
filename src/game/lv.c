@@ -946,7 +946,7 @@ Gfx *lvPrint(Gfx *gdl)
 
 #ifdef PROFILING
 	if (joyGetButtonsPressedThisFrame(0, R_JPAD)) {
-		g_LvStatsPage = (g_LvStatsPage + 1) % 2;
+		g_LvStatsPage = (g_LvStatsPage + 1) % 3;
 	}
 #endif
 

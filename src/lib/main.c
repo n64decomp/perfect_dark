@@ -646,8 +646,12 @@ void mainTick(void)
 			profileEnd(PROFILEMARKER_CPU);
 
 #if PROFILING
-			if (g_LvShowStats && g_LvStatsPage == 1) {
-				gdl = profileRender(gdl);
+			if (g_LvShowStats) {
+				if (g_LvStatsPage == 1) {
+					gdl = profileRender(gdl);
+				} else if (g_LvStatsPage == 2) {
+					gdl = profileRenderDynamic(gdl);
+				}
 			}
 #endif
 

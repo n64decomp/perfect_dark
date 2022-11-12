@@ -3424,9 +3424,22 @@
 
 #ifdef PROFILING
 #define PROFILE(marker, code) \
+	void profileStart(s32 arg0); \
+	void profileEnd(s32 arg0); \
 	profileStart(marker); \
 	code; \
 	profileEnd(marker);
+
+#define PROFILESTART() \
+	{ \
+		s32 _line = __LINE__; \
+		void profileStartDynamic(char *file, s32 line); \
+		profileStartDynamic(__FILE__, _line)
+
+#define PROFILEEND() \
+		void profileEndDynamic(char *file, s32 line); \
+		profileEndDynamic(__FILE__, _line); \
+	}
 
 #define PROFILE_MAINTICK_END     0x10000
 #define PROFILE_RSP_END          0x10001

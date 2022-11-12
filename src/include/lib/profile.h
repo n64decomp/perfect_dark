@@ -16,5 +16,6 @@ void profileHandleRspEvent(s32 event);
 #endif
 
 Gfx *profileRender(Gfx *gdl);
+Gfx *profileRenderDynamic(Gfx *gdl);
 
 #endif
