@@ -690,31 +690,6 @@ s32 endscreenHandle2PCompleted(s32 operation, struct menudialogdef *dialogdef, u
 
 					if (g_Menus[g_MpPlayerNum].endscreen.unke1c == 0) {
 						endscreenContinue(0);
-
-						if (g_Vars.stagenum == STAGE_DEEPSEA) {
-							if (g_Vars.antiplayernum >= 0 || (g_Vars.coopplayernum >= 0 && PLAYERCOUNT() >= 2)) {
-								menuPopDialog();
-							} else {
-								g_MissionConfig.stageindex++;
-								g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
-
-								titleSetNextStage(g_MissionConfig.stagenum);
-								lvSetDifficulty(g_MissionConfig.difficulty);
-								titleSetNextMode(TITLEMODE_SKIP);
-								mainChangeToStage(g_MissionConfig.stagenum);
-							}
-						} else if (g_Vars.antiplayernum >= 0
-								|| (g_Vars.coopplayernum >= 0 && PLAYERCOUNT() >= 2)
-								|| (stageGetIndex(g_MissionConfig.stagenum) < 0
-									|| g_Vars.stagenum == STAGE_CITRAINING
-									|| g_MissionConfig.stageindex > SOLOSTAGEINDEX_SKEDARRUINS
-									|| ((g_CheatsActiveBank0 || g_CheatsActiveBank1)
-										&& !isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty)))) {
-							menuPopDialog();
-						} else {
-							endscreen0f10d770();
-							menuPushDialog(endscreenAdvance());
-						}
 					}
 				}
 
