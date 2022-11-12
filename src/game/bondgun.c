@@ -2823,16 +2823,6 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 	return 0;
 }
 
-/**
- * This function may have implemented an early beta feature where the gun could
- * be held at the side of the screen, pointed upwards. The feature was shown in
- * a demo video but doesn't exist in any public version of the game.
- */
-s32 bgunTickIncState2(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
-{
-	return 0;
-}
-
 s32 bgunTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 {
 	s32 result = 0;
@@ -2861,7 +2851,7 @@ s32 bgunTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 		result = bgunTickIncAttack(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_2:
-		result = bgunTickIncState2(info, handnum, hand, lvupdate);
+		result = 0;
 		break;
 	case HANDSTATE_CHANGEGUN:
 		result = bgunTickIncChangeGun(info, handnum, hand, lvupdate);

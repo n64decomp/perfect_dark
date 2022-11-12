@@ -1329,8 +1329,6 @@ f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max)
 {
 	f32 speedrating = chr->speedrating;
 
-	speedrating = pdmodeGetEnemyReactionSpeed() * (100.0f - speedrating) + speedrating;
-
 	return (max - min) * speedrating * 0.01f + min;
 }
 
@@ -1349,9 +1347,6 @@ f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max)
 s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage)
 {
 	s32 speedrating = chr->speedrating;
-	s32 extra = pdmodeGetEnemyReactionSpeed() * (100 - speedrating);
-
-	speedrating = extra + speedrating;
 
 	return (100 - speedrating) * percentage / 100;
 }
@@ -1359,8 +1354,6 @@ s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage)
 f32 chrGetRangedArghSpeed(struct chrdata *chr, f32 min, f32 max)
 {
 	f32 arghrating = chr->arghrating;
-
-	arghrating = pdmodeGetEnemyReactionSpeed() * (100.0f - arghrating) + arghrating;
 
 	return (max - min) * arghrating * 0.01f + min;
 }

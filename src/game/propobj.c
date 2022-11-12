@@ -10018,11 +10018,6 @@ void objInitMatrices(struct prop *prop)
 	}
 }
 
-bool propCanRegen(struct prop *prop)
-{
-	return true;
-}
-
 u32 objTick(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
@@ -10041,13 +10036,6 @@ u32 objTick(struct prop *prop)
 		}
 
 		prop->timetoregen -= g_Vars.lvupdate60;
-
-		// If ready to start fading in but propCanRegen returns false, wait
-		// another second and try again. In practice propCanRegen will always
-		// return true so this condition will never pass.
-		if (prop->timetoregen < TICKS(60) && !regenning && !propCanRegen(prop)) {
-			prop->timetoregen += TICKS(60);
-		}
 
 		if (prop->timetoregen <= 0) {
 			// Prop has finished fading in

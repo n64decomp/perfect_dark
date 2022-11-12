@@ -246,8 +246,3 @@ void filelistUpdate(struct filelist *list)
 		}
 	}
 }
-
-struct textureconfig *pheadGetTexture(s32 playernum, s32 fileid, u16 deviceserial)
-{
-	return NULL;
-}

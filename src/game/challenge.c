@@ -447,7 +447,7 @@ s32 challengeForceUnlockSetupFeatures(struct mpsetup *setup, u8 *array, s32 len)
 	}
 
 	// Force unlock the stage
-	for (i = 0; i < mpGetNumStages(); i++) {
+	for (i = 0; i < 17; i++) {
 		if (g_MpArenas[i].stagenum == setup->stagenum) {
 			s32 featurenum = g_MpArenas[i].requirefeature;
 

@@ -1525,61 +1525,6 @@ char *filemgrMenuTextFileInUseDescription(struct menuitem *item)
 	return langGet(L_MPWEAPONS_160); // "Cannot delete file as it is being used."
 }
 
-/**
- * This is a dirty decomp hack where we intentionally declare
- * an incorrect function signature in order to get a match.
- * pheadGetTexture uses u16 as its last argument
- * but filemgrRenderPerfectHeadThumbnail will only match if
- * it's an s32 with a 0xffff mask.
- */
-struct textureconfig *pheadGetTexture(s32 playernum, s32 fileid, s32 deviceserial);
-
-Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, s32 fileid, s32 deviceserial)
-{
-	struct textureconfig *texture = pheadGetTexture(g_MpPlayerNum, fileid, deviceserial & 0xffff);
-
-	if (texture) {
-		gSPDisplayList(gdl++, &var800613a0);
-		gSPDisplayList(gdl++, &var80061360);
-
-		gDPPipeSync(gdl++);
-		gDPSetTexturePersp(gdl++, G_TP_NONE);
-		gDPSetAlphaCompare(gdl++, G_AC_NONE);
-		gDPSetTextureLOD(gdl++, G_TL_TILE);
-		gDPSetTextureConvert(gdl++, G_TC_FILT);
-
-		texSelect(&gdl, texture, 1, 0, 2, 1, NULL);
-
-		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-		gDPSetTextureFilter(gdl++, G_TF_POINT);
-		gDPSetEnvColor(gdl++, 0xff, 0xff, 0xff, renderdata->colour);
-
-		gDPSetCombineLERP(gdl++,
-				TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0,
-				TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
-
-		gDPLoadSync(gdl++);
-		gDPTileSync(gdl++);
-
-		gSPTextureRectangle(gdl++,
-				((renderdata->x + 4) << 2) * g_ScaleX,
-				(renderdata->y + 2) << 2,
-				((renderdata->x + 20) << 2) * g_ScaleX,
-				(renderdata->y + 18) << 2,
-				G_TX_RENDERTILE, 0, 512, 1024 / g_ScaleX, -1024);
-
-		gDPLoadSync(gdl++);
-		gDPTileSync(gdl++);
-		gDPPipeSync(gdl++);
-
-		if (deviceserial) {
-			// empty
-		}
-	}
-
-	return gdl;
-}
-
 bool filemgrIsFileInUse(struct filelistfile *file)
 {
 	s32 i;
@@ -1645,9 +1590,7 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *ite
 			struct menuitemrenderdata *renderdata = data->type19.renderdata2;
 			struct filelistfile *file = &list->files[data->list.unk04];
 
-			if (g_Menus[g_MpPlayerNum].fm.filetypeplusone == 4) {
-				gdl = filemgrRenderPerfectHeadThumbnail(gdl, renderdata, file->fileid, file->deviceserial);
-			} else {
+			if (g_Menus[g_MpPlayerNum].fm.filetypeplusone != 4) {
 				u32 colour = renderdata->colour;
 				char text[32];
 

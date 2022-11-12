@@ -10,11 +10,6 @@
 #include "data.h"
 #include "types.h"
 
-f32 pdmodeGetEnemyReactionSpeed(void)
-{
-	return 0;
-}
-
 f32 pdmodeGetEnemyHealth(void)
 {
 	if (g_MissionConfig.pdmode) {

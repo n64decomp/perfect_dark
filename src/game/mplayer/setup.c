@@ -115,11 +115,6 @@ struct mparena g_MpArenas[] = {
 	{ 1,                   0,                          L_MPMENU_136 }, // "Random"
 };
 
-s32 mpGetNumStages(void)
-{
-	return 17;
-}
-
 s16 mpChooseRandomStage(void)
 {
 	s32 i;
