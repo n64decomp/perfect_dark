@@ -98,26 +98,6 @@ u32 *setupGetCmdByIndex(s32 wantindex)
 	return NULL;
 }
 
-s32 setupGetCmdIndexByTag(struct tag *tag)
-{
-	u32 *cmd = g_StageSetup.props;
-
-	if (cmd) {
-		s32 cmdindex = 0;
-
-		while ((u8)cmd[0] != OBJTYPE_END) {
-			if ((struct tag *)cmd == tag) {
-				return cmdindex;
-			}
-
-			cmd = cmd + setupGetCmdLength(cmd);
-			cmdindex++;
-		}
-	}
-
-	return -1;
-}
-
 u32 setupGetCmdIndexByProp(struct prop *prop)
 {
 	u32 *cmd = g_StageSetup.props;

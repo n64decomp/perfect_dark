@@ -38,14 +38,6 @@ void func0f0965e4(f32 *arg0, f32 *arg1, f32 arg2)
 	arg1[0] = tmp;
 }
 
-void func0f096628(f32 *arg0, f32 *arg1, f32 arg2)
-{
-	func0f0965e4(&arg0[1], &arg1[1], arg2);
-
-	arg0[0] += arg2 * arg1[0];
-	arg0[2] += arg2 * arg1[2];
-}
-
 void func0f096698(Mtxf *arg0, Mtxf *arg1, s32 count)
 {
 	s32 i;

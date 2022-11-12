@@ -11,7 +11,6 @@
 	build/ROMID/lib/ultra/os/exceptvars.o (section); \
 	build/ROMID/lib/ultra/os/exceptasm.o (section); \
 	build/ROMID/lib/ultra/os/createthread.o (section); \
-	build/ROMID/lib/ultra/gu/lookat.o (section); \
 	build/ROMID/lib/ultra/gu/lookatref.o (section); \
 	build/ROMID/lib/ultra/gu/normalize.o (section); \
 	build/ROMID/lib/ultra/gu/perspective.o (section); \
@@ -24,7 +23,6 @@
 	build/ROMID/lib/ultra/io/gbpakinit.o (section); \
 	build/ROMID/lib/ultra/io/gbpakpower.o (section); \
 	build/ROMID/lib/ultra/io/conteeplongwrite.o (section); \
-	build/ROMID/lib/ultra/io/pfsresizefile.o (section); \
 	build/ROMID/lib/ultra/io/pfsinitpak.o (section); \
 	build/ROMID/lib/vm.o (section); \
 	build/ROMID/lib/rzip.o (section); \
@@ -43,7 +41,6 @@
 	build/ROMID/lib/str.o (section); \
 	build/ROMID/lib/ultra/libc/sprintf.o (section); \
 	build/ROMID/lib/pimgr.o (section); \
-	build/ROMID/lib/base.o (section); \
 	build/ROMID/lib/joy.o (section); \
 	build/ROMID/lib/lib_15850.o (section); \
 	build/ROMID/lib/varsinit.o (section); \
@@ -191,14 +188,11 @@
 	build/ROMID/lib/ultra/io/pfsdeletefile.o (section); \
 	build/ROMID/lib/ultra/io/pfschecker.o (section); \
 	build/ROMID/lib/ultra/libc/bcmp.o (section); \
-	build/ROMID/lib/ultra/os/maptlb.o (section); \
 	build/ROMID/lib/ultra/io/aisetfreq.o (section); \
 	build/ROMID/lib/ultra/io/aisetnextbuf.o (section); \
 	build/ROMID/lib/ultra/io/aigetlen.o (section); \
 	build/ROMID/lib/ultra/os/invaldcache.o (section); \
 	build/ROMID/lib/ultra/io/pidma.o (section); \
-	build/ROMID/lib/ultra/os/getcurrfaultthread.o (section); \
-	build/ROMID/lib/ultra/io/piread.o (section); \
 	build/ROMID/lib/ultra/libc/xprintf.o (section); \
 	build/ROMID/lib/ultra/io/contquery.o (section); \
 	build/ROMID/lib/ultra/io/contreaddata.o (section); \
@@ -206,9 +200,7 @@
 	build/ROMID/lib/ultra/gu/align.o (section); \
 	build/ROMID/lib/ultra/gu/coss.o (section); \
 	build/ROMID/lib/ultra/gu/sins.o (section); \
-	build/ROMID/lib/ultra/gu/ortho.o (section); \
 	build/ROMID/lib/ultra/gu/frustum.o (section); \
-	build/ROMID/lib/ultra/gu/translate.o (section); \
 	build/ROMID/lib/ultra/gu/scale.o (section); \
 	build/ROMID/lib/ultra/io/conteepprobe.o (section); \
 	build/ROMID/lib/ultra/io/conteepread.o (section); \
@@ -218,9 +210,7 @@
 	build/ROMID/lib/ultra/io/pfsfilestate.o (section); \
 	build/ROMID/lib/ultra/io/gbpakgetstatus.o (section); \
 	build/ROMID/lib/ultra/io/gbpakreadid.o (section); \
-	build/ROMID/lib/ultra/io/gbpakcheckconnector.o (section); \
 	build/ROMID/lib/ultra/io/gbpakreadwrite.o (section); \
-	build/ROMID/lib/ultra/io/pfsinitpak2.o (section); \
 	build/ROMID/lib/ultra/io/vimodepallan1.o (section); \
 	build/ROMID/lib/ultra/io/vimodempallan1.o (section); \
 	build/ROMID/lib/ultra/io/vimodentsclan1.o (section); \
@@ -237,6 +227,5 @@
 	build/ROMID/lib/ultra/io/ai.o (section); \
 	build/ROMID/lib/ultra/os/jammesg.o (section); \
 	build/ROMID/lib/ultra/io/pigetcmdq.o (section); \
-	build/ROMID/lib/ultra/io/pirawread.o (section); \
 	build/ROMID/lib/ultra/libc/xlitob.o (section); \
 	build/ROMID/lib/ultra/io/gbpakselectbank.o (section);

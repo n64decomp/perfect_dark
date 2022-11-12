@@ -299,11 +299,6 @@ s32 pak0f1168c4(s8 device, struct pakdata **arg1)
 	return pak0f116df0(device, arg1);
 }
 
-s32 pakCreateCameraFile(s8 device, s32 *outfileid)
-{
-	return _pakCreateCameraFile(device, outfileid);
-}
-
 u32 pakGetType(s8 device)
 {
 	return _pakGetType(device);
@@ -312,11 +307,6 @@ u32 pakGetType(s8 device)
 s32 pakGetSerial(s8 device)
 {
 	return _pakGetSerial(device);
-}
-
-void pak0f116984(s8 arg0, u8 *arg1, u8 *arg2)
-{
-	pak0f116bdc(arg0, arg1, arg2);
 }
 
 void pak0f116994(void)
@@ -377,17 +367,6 @@ bool pak0f116b5c(s8 device)
 	return false;
 }
 
-void pak0f116bdc(s8 device, u8 *arg1, u8 *arg2)
-{
-	*arg1 = g_Paks[device].unk2ba;
-	*arg2 = g_Paks[device].unk2bb;
-}
-
-void pak0f116c2c(s8 index)
-{
-	joySetPfsTemporarilyPlugged(index);
-}
-
 u16 _pakGetSerial(s8 device)
 {
 	return g_Paks[device].serial;
@@ -396,18 +375,6 @@ u16 _pakGetSerial(s8 device)
 u32 _pakGetType(s8 device)
 {
 	return g_Paks[device].type;
-}
-
-ubool pak0f116cd4(s8 device)
-{
-	pak0f11d620(device);
-
-	return g_Paks[device].unk2b8_05 && g_Paks[device].isgbcamera;
-}
-
-ubool pak0f116d4c(s8 device)
-{
-	return g_Paks[device].unk2b8_05 && !g_Paks[device].isgbcamera;
 }
 
 void pakSetUnk010(s8 device, s32 value)
@@ -514,63 +481,6 @@ s32 pakGetBodyLenByType(s8 device, u32 filetype)
 	return len;
 }
 
-void pak0f117150(s8 device, u8 *ptr)
-{
-	s32 i;
-
-	g_Paks[device].unk2c4 = ptr;
-
-	for (i = 0; i < 4096; i++) {
-		g_Paks[device].unk2c4[i] = 0;
-	}
-}
-
-void pak0f1171b4(s8 device, s32 arg1, s32 arg2)
-{
-	g_Paks[device].unk00c = arg1;
-	g_Paks[device].unk2b8_06 = arg2;
-}
-
-s32 pakGetUnk008(s8 device)
-{
-	return g_Paks[device].unk008;
-}
-
-void pakSetUnk008(s8 device, s32 value)
-{
-	g_Paks[device].unk008 = value;
-}
-
-s32 pakGetUnk270(s8 device)
-{
-	return g_Paks[device].unk270;
-}
-
-s32 pakGetRumbleState(s8 device)
-{
-	return g_Paks[device].rumblestate;
-}
-
-void pakSetRumbleState(s8 device, s32 state)
-{
-	g_Paks[device].rumblestate = state;
-}
-
-s32 pak0f117350(s8 device)
-{
-	return g_Paks[device].unk2b8_01;
-}
-
-void pak0f117398(s8 device)
-{
-	g_Paks[device].unk2b8_01 = 1;
-}
-
-void pak0f1173e4(s8 device)
-{
-	g_Paks[device].unk2b8_01 = 0;
-}
-
 bool pakRetrieveBlockFromCache(s8 device, u32 offset, u8 *dst)
 {
 	u32 blocksize = pakGetBlockSize(device);
@@ -646,38 +556,6 @@ PakErr2 pakReadHeaderAtOffset(s8 device, u32 offset, struct pakfileheader *heade
 	}
 
 	return PAK_ERR2_OK;
-}
-
-void pakDumpBuffer(u8 *buffer, u32 len, char *name)
-{
-	s32 i;
-	char line[256];
-	char tmp[256];
-
-	sprintf(line, "\n");
-
-	for (i = 0; i != len; i++) {
-		if ((i % 16) == 0) {
-			sprintf(line, "\nAddress = %u : ", i);
-		}
-
-		sprintf(tmp, "%2x ", buffer[i]);
-		strcat(line, tmp);
-	}
-
-	strcat(line, "\n");
-
-}
-
-void pakDumpEeprom(void)
-{
-	u8 buffer[2048];
-
-	joyDisableCyclicPolling(JOYARGS(1098));
-	osEepromLongRead(&g_PiMesgQueue, 0, buffer, 2048);
-	joyEnableCyclicPolling(JOYARGS(1100));
-
-	pakDumpBuffer(buffer, 2048, "EEPROM DUMP");
 }
 
 /**
@@ -938,80 +816,9 @@ PakErr1 pakFindNote(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name
 	return PAK_ERR1_EEPROMMISSING;
 }
 
-PakErr1 _pakResizeNote(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, u32 numbytes)
-{
-	if (pfs) {
-		s32 result;
-
-		joyDisableCyclicPolling(JOYARGS(1496));
-		result = osPfsReSizeFile(pfs, company_code, game_code, game_name, ext_name, numbytes);
-		joyEnableCyclicPolling(JOYARGS(1498));
-
-		return result;
-	}
-
-	if (!g_PakHasEeprom) {
-		return PAK_ERR1_EEPROMMISSING;
-	}
-
-	return PAK_ERR1_OK;
-}
-
-s32 pakGetPdNumBlocks(s8 device)
-{
-	return g_Paks[device].pdnumblocks;
-}
-
-s32 pakGetPdNumPages(s8 device)
-{
-	return g_Paks[device].pdnumpages;
-}
-
 u32 pakGetPdNumBytes(s8 device)
 {
 	return g_Paks[device].pdnumbytes;
-}
-
-s32 pakQueryNumFreePages(s8 device)
-{
-	s32 bytesfree;
-
-	pakQueryNumFreeBytes(PFS(device), &bytesfree);
-
-	return bytesfree / 256;
-}
-
-s32 pakGetNumPagesRequired(void)
-{
-	return NUM_PAGES;
-}
-
-/**
- * Determine if the pak could accommodate a new camera file,
- * considering the possibility of resizing the game note to make it larger.
- */
-bool pakCanFitCameraFileInPak(s8 device)
-{
-	if (device != SAVEDEVICE_GAMEPAK) {
-		s32 pagesneeded;
-		u32 bytesneeded = pakGetMaxFileSize(device);
-
-		if (pakCheckFileCanFitInNote(device, PAKFILETYPE_CAMERA, NULL) == 0) {
-			return true;
-		}
-
-		pagesneeded = bytesneeded / 256;
-
-		if (bytesneeded & 0xff) {
-			pagesneeded++;
-		}
-
-		if (g_Paks[device].pakdata.pagesused + pagesneeded < 128) {
-			return (g_Paks[device].pakdata.pagesfree >= pagesneeded);
-		}
-	}
-
-	return false;
 }
 
 /**
@@ -1040,103 +847,6 @@ s32 pakGetNumFreeCameraSpacesInPak(s8 device)
 	}
 
 	return 0;
-}
-
-s32 _pakCreateCameraFile(s8 device, s32 *outfileid)
-{
-	if (device != SAVEDEVICE_GAMEPAK && pakCanFitCameraFileInPak(device)) {
-		s32 result;
-		u32 bytesneeded = pakGetMaxFileSize(device);
-
-		if (pakCheckFileCanFitInNote(device, PAKFILETYPE_CAMERA, NULL) != 0) {
-			s32 pages = pakGetPdNumPages(device);
-			s32 pagesneeded = bytesneeded / 256;
-
-			if (bytesneeded & 0xff) {
-				pagesneeded++;
-			}
-
-			pages += pagesneeded;
-
-			if (!pakResizeNote(device, pages)) {
-				return 4;
-			}
-		}
-
-		result = pak0f118674(device, PAKFILETYPE_CAMERA, outfileid);
-
-		if (result) {
-			return result;
-		}
-
-		return 0;
-	}
-
-	return 14;
-}
-
-bool pakResizeNote(s8 device, s32 numpages)
-{
-	s32 stack1[2];
-	s32 errno;
-	struct pak *devicedata;
-	s32 stack2[2];
-	OSPfsState *note;
-	u32 numbytes;
-
-	pakGetPdNumPages(device);
-	pakQueryNumFreePages(device);
-
-	numbytes = numpages * 256;
-	errno = _pakResizeNote(PFS(device), ROM_COMPANYCODE, ROM_GAMECODE, g_PakNoteGameName, g_PakNoteExtName, numbytes);
-	pakHandleResult(errno, device, true, LINE_1802);
-
-	if (errno == PAK_ERR1_OK) {
-		devicedata = &g_Paks[device];
-		note = &devicedata->pakdata.notes[devicedata->pdnoteindex];
-
-		devicedata->pakdata.pagesfree -= numpages - devicedata->pdnumpages;
-		devicedata->pakdata.pagesused += numpages - devicedata->pdnumpages;
-
-		note->file_size = devicedata->pakdata.pagesused * 256;
-
-		devicedata->pdnumbytes = numbytes;
-		devicedata->pdnumblocks = devicedata->pdnumbytes / pakGetBlockSize(device);
-		devicedata->pdnumpages = devicedata->pdnumbytes / 256;
-
-		return true;
-	}
-
-	return false;
-}
-
-void pak0f1184d8(s8 device, u32 *arg1, bool *arg2)
-{
-	if (device != SAVEDEVICE_GAMEPAK) {
-		if (g_Paks[device].type != PAKTYPE_MEMORY || g_Paks[device].unk010 != PAK010_11) {
-			pak0f1185e0(device, g_Paks[SAVEDEVICE_GAMEPAK].unk2bd & 0x0f, 1);
-			device = SAVEDEVICE_GAMEPAK;
-		}
-	}
-
-	if (g_Paks[device].unk2bd & 0x80) {
-		*arg2 = true;
-	} else {
-		*arg2 = false;
-	}
-
-	*arg1 = g_Paks[device].unk2bd & 0x0f;
-}
-
-void pak0f1185e0(s8 device, s32 arg1, s32 arg2)
-{
-	if (arg2) {
-		g_Paks[device].unk2bd = 0x80;
-	} else {
-		g_Paks[device].unk2bd = 0;
-	}
-
-	g_Paks[device].unk2bd += arg1;
 }
 
 /**
@@ -1272,32 +982,6 @@ void pakCalculateChecksum(u8 *start, u8 *end, u16 *checksum)
 	crcCalculateU16Pair(start, end, checksum);
 }
 
-s32 pak0f118b04(s8 device, u32 fileid)
-{
-	s32 offset;
-	s32 result = pak0f1167d8(device);
-
-	if (result == 0) {
-		offset = pakFindFile(device, fileid, 0);
-
-		if (offset == -1) {
-			return 1;
-		}
-
-		if (offset == 0 || (offset != 0 && offset < pakGetPdNumBytes(device) && ((pakGetBlockSize(device) - 1) & offset) == 0)) {
-			if (!pakReplaceFileAtOffsetWithBlank(device, offset)) {
-				return 4;
-			}
-		} else {
-			return 3;
-		}
-	} else {
-		return 6;
-	}
-
-	return 0;
-}
-
 s32 _pakReadBodyAtGuid(s8 device, s32 fileid, u8 *body, s32 arg3)
 {
 	s32 offset;
@@ -1394,50 +1078,6 @@ s32 _pakGetFileIdsByType(s8 device, u32 filetype, u32 *fileids)
 	if (result == PAK_ERR2_NOPAK) {
 		return 1;
 	}
-
-	return 0;
-}
-
-/**
- * This function makes no sense. If it's trying to get a usage percentage then
- * it should be adding the number of blank blocks, not number of blank files.
- *
- * It's not called anyway - likely a broken debug function.
- */
-s32 pak0f118eb0(s8 device, u32 *dst)
-{
-	struct pakfileheader header;
-	f32 numblanks = 0; // This was probably supposed to be an s32
-	u32 offset = 0;
-
-	s32 ret = pak0f1167d8(device);
-
-	if (ret != 0) {
-		return ret;
-	}
-
-	while (pakReadHeaderAtOffset(device, offset, &header) == 0) {
-		if (PAKFILETYPE_BLANK == header.filetype) {
-			numblanks++;
-		}
-
-		offset += header.filelen;
-	}
-
-	*dst = 100.0f / g_Paks[device].pdnumblocks * numblanks;
-
-	return 0;
-}
-
-s32 pakDefrag(s8 device)
-{
-	s32 result = pak0f1167d8(device);
-
-	if (result != 0) {
-		return result;
-	}
-
-	pakMergeBlanks(device);
 
 	return 0;
 }
@@ -1930,36 +1570,6 @@ s32 pakRepairFilesystem(s8 device)
 }
 
 /**
- * Find all game files on the game pak and write random data into them.
- * This should cause a checksum mismatch the next time the file is read.
- */
-void pakCorrupt(void)
-{
-	struct pakfileheader header;
-	u32 fileids[1025];
-	s32 address;
-	s32 i;
-	s32 j;
-	u8 payload[8];
-
-	pakGetFileIdsByType(SAVEDEVICE_GAMEPAK, PAKFILETYPE_GAME, fileids);
-
-	for (i = 0; fileids[i] != 0; i++) {
-		for (j = 0; j < 8; j++) {
-			payload[j] = random() & 0xff;
-		}
-
-		address = pakFindFile(SAVEDEVICE_GAMEPAK, fileids[i], &header);
-		address += i * 8;
-		address += 0x30;
-
-		joyDisableCyclicPolling();
-		osEepromLongWrite(&g_PiMesgQueue, address, payload, sizeof(payload));
-		joyEnableCyclicPolling();
-	}
-}
-
-/**
  * Create the initial files on a pak. Return true if all good.
  *
  * NTSC Beta forgets to include return values.
@@ -2055,43 +1665,6 @@ s32 pakFindMaxFileId(s8 device)
 	return max;
 }
 
-void pakMergeBlanks(s8 device)
-{
-	struct pakfileheader header;
-	u32 offset = 0;
-	u32 nextoffset;
-	s32 mergestartoffset = 0xffff;
-
-	while (pakReadHeaderAtOffset(device, offset, &header) == PAK_ERR2_OK) {
-		nextoffset = offset + header.filelen;
-
-		if (offset);
-
-		if (PAKFILETYPE_BLANK == header.filetype) {
-			if (mergestartoffset != 0xffff) {
-				u32 filelen = offset - mergestartoffset + header.filelen - sizeof(struct pakfileheader);
-
-				if (pakWriteFileAtOffset(device, mergestartoffset, PAKFILETYPE_BLANK, NULL, filelen, NULL, NULL, 0, 1) != 0) {
-				}
-
-				nextoffset = 0;
-				mergestartoffset = 0xffff;
-			} else {
-				mergestartoffset = offset;
-			}
-		} else {
-			mergestartoffset = 0xffff;
-		}
-
-		offset = nextoffset;
-	}
-}
-
-s32 pakGetUnk014(s8 device)
-{
-	return g_Paks[device].unk014;
-}
-
 void pak0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 {
 	if (g_Paks[device].unk014 == 0) {
@@ -2104,17 +1677,6 @@ void pak0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 			// Perhaps using the strings at var7f1b4318 through var7f1b43ac?
 			align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES);
 		}
-	}
-}
-
-void pak0f11a3dc(s8 device, u32 arg1, u32 arg2)
-{
-	if (g_Paks[device].unk014) {
-		g_Paks[device].unk014 = 0;
-	}
-
-	if (g_Paks[device].unk014) {
-		// empty
 	}
 }
 
@@ -2405,30 +1967,6 @@ bool pakProbe(s8 device)
 	return plugged;
 }
 
-/**
- * Replace data between the given blocks with '!'.
- */
-void pakWipe(s8 device, u32 blocknumstart, u32 blocknumend)
-{
-	u8 buffer[128];
-	u32 i;
-
-	for (i = 0; i < pakGetBlockSize(device); i++) {
-		buffer[i] = '!';
-	}
-
-	for (i = blocknumstart; i < blocknumend; i++) {
-		s32 result = pakReadWriteBlock(device, PFS(device), g_Paks[device].pdnoteindex, PFS_WRITE, i * pakGetBlockSize(device), pakGetBlockSize(device), buffer);
-
-		g_Paks[device].headercachecount = 0;
-
-		if (!pakHandleResult(result, device, true, LINE_3948)) {
-			g_Paks[device].pdnoteindex = -1;
-			break;
-		}
-	}
-}
-
 void pakSaveHeaderToCache(s8 device, s32 blocknum, struct pakfileheader *header)
 {
 	struct pak *pak = &g_Paks[device];
@@ -2535,15 +2073,6 @@ s32 pakCreateFilesystem(s8 device)
 	}
 
 	return g_Paks[device].serial;
-}
-
-s32 pak0f11b6ec(s8 device)
-{
-	if (g_Paks[device].unk010 == PAK010_11 && g_Paks[device].type == PAKTYPE_MEMORY) {
-		return 3;
-	}
-
-	return 0;
 }
 
 bool pakGetFilesystemLength(s8 device, u32 *outlen)
@@ -2675,24 +2204,6 @@ s32 pak0f11b86c(s8 device, u32 offset, u8 *data, struct pakfileheader *header, s
 	joyEnableCyclicPolling(JOYARGS(4054));
 
 	return 0;
-}
-
-bool pakReplaceFileAtOffsetWithBlank(s8 device, u32 offset)
-{
-	struct pakfileheader header;
-	s32 result;
-
-	result = pakReadHeaderAtOffset(device, offset, &header);
-
-	if (result == PAK_ERR2_OK) {
-		result = pakWriteFileAtOffset(device, offset, PAKFILETYPE_BLANK, NULL, header.filelen - sizeof(struct pakfileheader), NULL, NULL, 0, 1);
-
-		if (result == 0) {
-			return true;
-		}
-	}
-
-	return false;
 }
 
 s32 pakWriteFileAtOffset(s8 device, u32 offset, u32 filetype, u8 *newdata, s32 bodylenarg, s32 *outfileid, u8 *olddata, u32 fileid, u32 generation)
@@ -3192,387 +2703,8 @@ bool pak0f11ce00(s8 device, u16 arg1, char *arg2, s32 arg3, bool arg4)
 	return result;
 }
 
-bool gbpak0f11cef8(s8 device)
-{
-	struct pak *pak = &g_Paks[device];
-	u8 spac[32];
-	u8 sp8c[32];
-	u8 sp6c[32];
-	u8 sp2c[64];
-	s32 i;
-
-	if (pak->type == PAKTYPE_GAMEBOY) {
-		for (i = 0; i < (s32)sizeof(spac); i++) {
-			spac[i] = 2;
-		}
-
-		if (!gbpakWrite(device, 0x4000, spac, sizeof(spac))) {
-			return false;
-		}
-
-		if (!gbpakRead(device, 0xafe0, sp8c, sizeof(sp8c))) {
-			return false;
-		}
-
-		for (i = 0; i < (s32)sizeof(spac); i++) {
-			spac[i] = 8;
-		}
-
-		if (!gbpakWrite(device, 0x4000, spac, sizeof(spac))) {
-			return false;
-		}
-
-		if (!gbpakRead(device, 0xbfe0, sp6c, sizeof(sp6c))) {
-			return false;
-		}
-
-		for (i = 0; i < (s32)sizeof(spac); i++) {
-			spac[i] = 16;
-		}
-
-		if (!gbpakWrite(device, 0x4000, spac, sizeof(spac))) {
-			return false;
-		}
-
-		for (i = 0; i < sizeof(sp2c); i++) {
-			sp2c[i] = 0;
-		}
-
-		pak->unk2ba = sp8c[26];
-		pak->unk2bb = sp6c[26];
-		pak->unk2b9 = (pak->unk2ba == pak->unk2bb ? pak->unk2ba : pak->unk2bb);
-
-		if (pak->unk2b9);
-
-		pak0f11d118(sp2c, pak->unk2b9, 0);
-
-		sp2c[0] |= 1;
-
-		if (!gbpakWrite(device, 0xa000, sp2c, sizeof(sp2c))) {
-			return false;
-		}
-	}
-
-	pak->unk008 = 1;
-
-	return true;
-}
-
-void pak0f11d118(u8 *arg0, u8 arg1, u32 arg2)
-{
-	arg0[0] = 2;
-	arg0[1] = 0xe4;
-	arg0[2] = 0x10;
-	arg0[3] = 0;
-	arg0[4] = arg1 & 7;
-	arg0[5] = (arg1 & 0x3f) + 0x80;
-
-	pak0f11d214(&arg0[6], arg2);
-}
-
-void pak0f11d214(u8 *arg0, u32 arg1)
-{
-	const f32 spa8[][4] = {
-		{ 128, 148, 220, 255 },
-		{ 130, 149, 210, 255 },
-		{ 132, 150, 202, 255 },
-		{ 134, 150, 196, 255 },
-		{ 136, 151, 190, 255 },
-		{ 138, 151, 184, 255 },
-		{ 139, 152, 178, 245 },
-		{ 140, 152, 172, 235 },
-		{ 141, 152, 170, 221 },
-		{ 142, 152, 168, 208 },
-		{ 143, 152, 166, 196 },
-		{ 144, 152, 164, 186 },
-		{ 146, 152, 161, 177 },
-		{ 148, 152, 157, 168 },
-		{ 150, 152, 153, 160 },
-		{ 152, 152, 152, 152 },
-		{ 0,   0,   0,   0   },
-	};
-
-	const f32 sp68[][4] = {
-		{ 0,  8,  2,  10 },
-		{ 12, 4,  14, 6  },
-		{ 3,  11, 1,  9  },
-		{ 15, 7,  13, 5  },
-	};
-
-	const f32 sp28[][4] = {
-		{ 0,  14, 3,  13 },
-		{ 11, 5,  8,  6  },
-		{ 12, 2,  15, 1  },
-		{ 7,  9,  4,  10 },
-	};
-
-	s32 i;
-	s32 j;
-	s32 k;
-
-	for (i = 0; i < 3; i++) {
-		f32 mult = (spa8[arg1][i + 1] - spa8[arg1][i]) * (1.0f / 16.0f);
-
-		for (j = 0; j < 4; j++) {
-			for (k = 0; k < 4; k++) {
-				arg0[j * 12 + k * 3 + i] = 0.5f + spa8[arg1][i] + sp28[j][k] * mult;
-			}
-		}
-	}
-}
-
 u32 var80075d58 = 0x00000000;
 u32 var80075d5c = 0x00000000;
-
-s32 pak0f11d3f8(s8 device)
-{
-	if (g_Paks[device].type == PAKTYPE_GAMEBOY
-			&& (g_Paks[device].unk010 == PAK010_11 || g_Paks[device].unk010 == PAK010_12 || g_Paks[device].unk010 == PAK010_13)) {
-		return true;
-	}
-
-	return false;
-}
-
-bool pak0f11d478(s8 device)
-{
-	if (g_Paks[device].unk008 == 11) {
-		g_Paks[device].unk008 = 1;
-		return true;
-	}
-
-	return false;
-}
-
-bool pak0f11d4dc(s8 device)
-{
-	if (g_Paks[device].unk008 == 1 || g_Paks[device].unk008 == 0) {
-		g_Paks[device].unk008 = 2;
-		g_Paks[device].unk270 = 0;
-	}
-
-	return false;
-}
-
-s32 pak0f11d540(s8 device, s32 arg1)
-{
-	if (g_Paks[device].unk008 == 1 || g_Paks[device].unk008 == 0) {
-		g_Paks[device].unk008 = 4;
-		g_Paks[device].unk270 = arg1;
-		return true;
-	}
-
-	return false;
-}
-
-s32 pak0f11d5b0(s8 device)
-{
-	if (g_Paks[device].unk008 == 1 || g_Paks[device].unk008 == 0) {
-		g_Paks[device].unk008 = 4;
-		g_Paks[device].unk270 = 1;
-		return true;
-	}
-
-	return false;
-}
-
-void pak0f11d620(s8 device)
-{
-	if (g_Paks[device].unk010 == PAK010_11) {
-		g_Paks[device].unk010 = PAK010_12;
-	}
-}
-
-bool gbpak0f11d680(s8 device, bool arg1)
-{
-	u32 offset = 0;
-	u16 addr;
-	u16 size;
-
-	switch (g_Paks[device].unk00c) {
-	case 0:
-		offset = 0x1a0;
-		size = 0x40;
-		arg1 = true;
-		break;
-	case 1:
-		offset = g_Paks[device].unk278 * 0x100 + 0x660;
-		size = 0x40;
-		break;
-	case 2:
-		offset = g_Paks[device].unk278 * 0x100 + 0x440;
-		size = 0x80;
-		break;
-	case 3:
-		offset = g_Paks[device].unk278 * var80075ccc;
-		size = var80075ccc;
-		break;
-	}
-
-	addr = 0xa000 + (arg1 & 1 ? 0x1000 : 0) + offset;
-
-	if (gbpakRead(device, addr, &g_Paks[device].unk2c4[offset], size) == 0) {
-		return false;
-	}
-
-	g_Paks[device].unk278++;
-	return true;
-}
-
-bool pak0f11d7c4(s8 device)
-{
-	switch (g_Paks[device].unk00c) {
-	case 0:
-		if (g_Paks[device].unk278 == 1) {
-			return true;
-		}
-		break;
-	case 1:
-		if (g_Paks[device].unk278 == 4) {
-			return true;
-		}
-		break;
-	case 2:
-		if (g_Paks[device].unk278 == 8) {
-			return true;
-		}
-		break;
-	case 3:
-		if (g_Paks[device].unk278 == 0x1000 / var80075ccc) {
-			return true;
-		}
-		break;
-	}
-
-	return false;
-}
-
-/**
- * Convert camera pixel data from the Game Boy Camera's format and write it to
- * a 128x128 byte array.
- *
- * The GBC's format is 128x112 pixels at 2 bits per pixel. The bits are not
- * linear; the two bits for each pixel are in neighbouring bytes using the same
- * bit index. It also appears that the GBC format is column major.
- */
-void pakConvertFromGbcImage(u8 *src, u8 *dst)
-{
-	s32 i;
-	s32 j;
-	s32 byte;
-	s32 bit;
-	s32 a0;
-	s32 a3;
-
-	for (i = 0; i < 16; i++) {
-		byte = (i * 16) << 4;
-		a0 = byte;
-
-		for (j = 0; j < 16; j++) {
-			for (byte = 0; byte < 8; byte++) {
-				s32 srcindex = a0 + byte * 2;
-				s32 tmp = j * 8;
-
-				for (bit = 0, a3 = tmp; bit < 8; bit++) {
-					s32 t2 = (i * 8 + byte) << 7;
-
-					dst[t2 + a3] = 0;
-
-					if ((src[srcindex + 0] & (0x80 >> bit)) == 0) {
-						dst[t2 + a3] += 0x40;
-					}
-
-					if ((src[srcindex + 1] & (0x80 >> bit)) == 0) {
-						dst[t2 + a3] += 0x80;
-					}
-
-					a3++;
-				}
-			}
-
-			a0 += 16;
-		}
-	}
-}
-
-/**
- * Perform operations on a 128 x 128 image.
- */
-void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
-{
-	u8 sp60[0x4000];
-	u32 i;
-	u32 j;
-
-	switch (g_Paks[device].unk00c) {
-	case 0:
-		if (arg2 != NULL) {
-			u8 *src = &g_Paks[device].unk2c4[0x1b2];
-			s32 i;
-
-			for (i = 0; i < 30; i++) {
-				arg2[i] = src[i];
-			}
-		}
-		break;
-	case 1:
-		if (arg1 != NULL) {
-			pakConvertFromGbcImage(g_Paks[device].unk2c4, sp60);
-
-			for (i = 0; i < 128; i++) {
-				for (j = 0; j < 128; j++) {
-					arg1[j * 128 + i] = sp60[0x1830 + (j / 4) * 128 + (i / 4)];
-				}
-			}
-		}
-		break;
-	case 2:
-		if (arg1 != NULL) {
-			pakConvertFromGbcImage(g_Paks[device].unk2c4, sp60);
-
-			for (i = 0; i < 128; i++) {
-				for (j = 0; j < 128; j++) {
-					arg1[j * 128 + i] = sp60[0x1020 + (j / 2) * 128 + (i / 2)];
-				}
-			}
-		}
-		break;
-	case 3:
-		if (arg1 != NULL) {
-			pakConvertFromGbcImage(g_Paks[device].unk2c4, arg1);
-		}
-		break;
-	}
-
-	if (arg1 && arg3) {
-		s32 i;
-		s32 j;
-		s32 innertop = 120;
-		s32 innerbottom = 8;
-		u32 stack[4];
-
-		// Move the image down by 8 rows
-		for (i = innertop; i > innerbottom; i--) {
-			for (j = 0; j < 128; j++) {
-				arg1[i * 128 + j] = arg1[(i - 8) * 128 + j];
-			}
-		}
-
-		// Fill the bottom 8 rows with black
-		for (i = 0; i < innerbottom; i++) {
-			for (j = 0; j < 128; j++) {
-				arg1[i * 128 + j] = 0;
-			}
-		}
-
-		// Fill the top 8 rows with black
-		for (i = innertop; i < 128; i++) {
-			for (j = 0; j < 128; j++) {
-				arg1[i * 128 + j] = 0;
-			}
-		}
-	}
-}
 
 void pakRumble(s32 device, f32 numsecs, s32 onduration, s32 offduration)
 {
@@ -3658,11 +2790,6 @@ void pakEnableRumbleForAllPlayers(void)
 			g_Paks[i].rumblestate = RUMBLESTATE_ENABLING;
 		}
 	}
-}
-
-s32 pak0f11df84(s32 arg0)
-{
-	return arg0;
 }
 
 void pak0f117f94nb(s8 device);
@@ -3829,11 +2956,6 @@ void pak0f11df94(s8 device)
 	}
 }
 
-void pak0f11e3bc(s8 device)
-{
-	g_Paks[device].unk008 = 0;
-}
-
 void pakProbeEeprom(void)
 {
 	s32 type;
@@ -3904,11 +3026,6 @@ void pakClearAllBitflags(u8 *flags)
 	}
 }
 
-u32 pak0f11e610(u32 arg0)
-{
-	return arg0;
-}
-
 /**
  * The note name and note extension are stored on the pak using N64 font code.
  * This is different to ASCII.
@@ -3974,14 +3091,6 @@ s8 pakFindBySerial(s32 findserial)
 	}
 
 	return device;
-}
-
-s32 pak0f11e750(s8 device)
-{
-	u8 buffer[32];
-	buffer[0] = 0x0a;
-
-	return gbpakWrite(device, 0, buffer, sizeof(buffer));
 }
 
 bool gbpakIsAnyPerfectDark(void)
@@ -4138,30 +3247,4 @@ bool pak0f11eaec(s8 device)
 	}
 
 	return result;
-}
-
-/**
- * This function isn't called.
- *
- * It reads data from the game boy pak, unsets a bit, writes it, reads it back,
- * sets the bit, writes it and then reads it back.
- */
-void gbpakFiddle(s8 device)
-{
-	u8 buffer[32];
-
-	if (gbpakRead(device, 0xa000, buffer, sizeof(buffer))) {
-		pak0f11e750(device);
-		buffer[0] &= 0x7f;
-
-		if (gbpakWrite(device, 0xa000, buffer, sizeof(buffer))) {
-			if (gbpakRead(device, 0xa000, buffer, sizeof(buffer))) {
-				buffer[0] |= 0x80;
-
-				if (gbpakWrite(device, 0xa000, buffer, sizeof(buffer))) {
-					gbpakRead(device, 0xa000, buffer, sizeof(buffer));
-				}
-			}
-		}
-	}
 }

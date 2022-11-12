@@ -87,56 +87,6 @@ void frSaveScoreIfBest(s32 weaponindex, s32 difficulty)
 	}
 }
 
-s32 func0f19ca78(u32 weaponnum)
-{
-	s32 slot = -1;
-	s32 i;
-
-	for (i = 0; i <= WEAPON_HORIZONSCANNER; i++) {
-		switch (i) {
-		case WEAPON_FALCON2:
-		case WEAPON_FALCON2_SCOPE:
-		case WEAPON_FALCON2_SILENCER:
-		case WEAPON_MAGSEC4:
-		case WEAPON_MAULER:
-		case WEAPON_PHOENIX:
-		case WEAPON_DY357MAGNUM:
-		case WEAPON_DY357LX:
-		case WEAPON_CMP150:
-		case WEAPON_CYCLONE:
-		case WEAPON_CALLISTO:
-		case WEAPON_RCP120:
-		case WEAPON_LAPTOPGUN:
-		case WEAPON_DRAGON:
-		case WEAPON_K7AVENGER:
-		case WEAPON_AR34:
-		case WEAPON_SUPERDRAGON:
-		case WEAPON_SHOTGUN:
-		case WEAPON_SNIPERRIFLE:
-		case WEAPON_FARSIGHT:
-		case WEAPON_CROSSBOW:
-		case WEAPON_TRANQUILIZER:
-		case WEAPON_REAPER:
-		case WEAPON_DEVASTATOR:
-		case WEAPON_ROCKETLAUNCHER:
-		case WEAPON_SLAYER:
-		case WEAPON_COMBATKNIFE:
-		case WEAPON_LASER:
-		case WEAPON_GRENADE:
-		case WEAPON_TIMEDMINE:
-		case WEAPON_PROXIMITYMINE:
-		case WEAPON_REMOTEMINE:
-			slot++;
-		}
-
-		if (i == weaponnum) {
-			return slot;
-		}
-	}
-
-	return -1;
-}
-
 u8 frIsWeaponFound(s32 weaponnum)
 {
 	u32 byteindex;
@@ -458,11 +408,6 @@ void frSetDifficulty(s32 difficulty)
 	}
 
 	g_FrData.difficulty = difficulty;
-}
-
-u32 frGetDifficulty(void)
-{
-	return g_FrData.difficulty;
 }
 
 void frInitDefaults(void)

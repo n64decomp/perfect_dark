@@ -378,8 +378,3 @@ bool memaRealloc(s32 addr, u32 oldsize, u32 newsize)
 
 	return true;
 }
-
-u32 memaGetSize(void)
-{
-	return g_MemaHeapSize;
-}

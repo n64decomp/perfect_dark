@@ -19,11 +19,6 @@
 #include "data.h"
 #include "types.h"
 
-u8 *gamefileGetFlags(void)
-{
-	return g_GameFile.flags;
-}
-
 void gamefileSetFlag(u32 value)
 {
 	pakSetBitflag(value, g_GameFile.flags, true);

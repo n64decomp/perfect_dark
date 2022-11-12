@@ -113,24 +113,9 @@ s32 var8007fba4 = -1;
 u32 var8007fba8 = 0x00000000;
 u32 var8007fbb0 = 0x00000064;
 
-void text0f1531a8(s32 arg0)
-{
-	var8007fac4 = -arg0;
-}
-
 void textSetRotation90(bool rotated)
 {
 	g_TextRotated90 = rotated;
-}
-
-void textSetWrapIndent(s32 count)
-{
-	g_WrapIndentCount = count;
-}
-
-void text0f1531d0(s32 arg0)
-{
-	var8007fad4 = arg0;
 }
 
 void text0f1531dc(bool arg0)
@@ -428,30 +413,12 @@ void textRestoreDiagonalBlendSettings(void)
 	g_Blend.types |= g_Blend.backupdiagtypes;
 }
 
-void textSetVerticalBlend(s32 y1, s32 y2, u32 arg2)
-{
-	g_Blend.types |= BLENDTYPE_VERTICAL;
-	g_Blend.vertrefy1 = y1;
-	g_Blend.vertrefy2 = y2;
-	g_Blend.vert34 = arg2;
-}
-
 void textSetHorizontalBlend(s32 x1, s32 x2, u32 arg2)
 {
 	g_Blend.types |= BLENDTYPE_HORIZONTAL;
 	g_Blend.horizrefx1 = x1;
 	g_Blend.horizrefx2 = x2;
 	g_Blend.horiz40 = arg2;
-}
-
-void textResetBlends2(void)
-{
-	g_Blend.types = 0;
-}
-
-void textResetBlends3(void)
-{
-	g_Blend.types = 0;
 }
 
 void textBackupAndResetBlends(void)

@@ -198,26 +198,6 @@ Gfx *titleRenderCheckControllers(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *title0f0165f0(Gfx *gdl, s32 xcentre, s32 ycentre, s32 xscale, s32 yscale, char *text, struct fontchar *font1, struct font *font2, s32 colour)
-{
-	s32 textheight;
-	s32 textwidth;
-	s32 x;
-	s32 y;
-
-	textwidth = 0;
-	textheight = 0;
-
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-
-	x = xcentre - xscale * textwidth / 2;
-	y = ycentre - yscale * textheight / 2;
-
-	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
-
-	return gdl;
-}
-
 bool g_LegalEnabled;
 
 #define LEGALELEMENTTYPE_BLUETEXTSM  0
@@ -1200,138 +1180,6 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 }
 
 struct sndstate *g_TitleAudioHandle = NULL;
-bool g_TitleTypewriterFinishing = false;
-
-void titleInitRarePresents(void)
-{
-	g_TitleTimer = 0;
-	joy00014810(false);
-	g_TitleAudioHandle = NULL;
-}
-
-void titleExitRarePresents(void)
-{
-	if (g_TitleAudioHandle) {
-		audioStop(g_TitleAudioHandle);
-	}
-
-	g_TitleAudioHandle = NULL;
-	joy00014810(true);
-}
-
-void titleTickRarePresents(void)
-{
-	viSetFovY(60);
-	viSetAspect(1.33333333f);
-	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
-
-	g_TitleTimer += g_Vars.lvupdate60;
-
-	if (g_TitleTimer > TICKS(300)) {
-		titleSetNextMode(TITLEMODE_PDLOGO);
-	} else if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
-		titleSetNextMode(TITLEMODE_SKIP);
-	}
-}
-
-Gfx *titleRenderTypewriterText(Gfx *gdl, s32 *x, s32 *y, u16 textnum, s32 timer, s32 *colourcomponent)
-{
-	s32 lentoprint = timer / 3;
-	char *text = langGet(textnum);
-	s32 i;
-	u8 buffer[] = {'\0', '\0'};
-	s32 fulllen = strlen(text);
-
-	if (lentoprint <= 0) {
-		return gdl;
-	}
-
-	if (lentoprint > fulllen) {
-		lentoprint = fulllen;
-	}
-
-	for (i = 0; i < lentoprint; i++) {
-		s32 remaining = timer - 3 * i;
-		s32 tmp;
-
-		if (remaining > 60) {
-			remaining = 60;
-		}
-
-		if (remaining < 10) {
-			g_TitleTypewriterFinishing = true;
-		}
-
-		*colourcomponent = tmp = (60 - remaining) * 255 / 60;
-
-		buffer[0] = text[i];
-		gdl = textRenderProjected(gdl, x, y, buffer, g_CharsHandelGothicLg, g_FontHandelGothicLg,
-				0x7f7fffff | (tmp << 8) | (tmp << 16), viGetWidth(), viGetHeight(), 0, 0);
-	}
-
-	return gdl;
-}
-
-Gfx *titleRenderRarePresents(Gfx *gdl)
-{
-	s32 x;
-	s32 y;
-	s32 colourcomponent = 255;
-
-	gdl = titleClear(gdl);
-	gdl = text0f153628(gdl);
-
-	x = viGetViewLeft() + 50;
-	y = viGetViewTop() + viGetViewHeight() - 80;
-
-	g_TitleTypewriterFinishing = false;
-
-	if (g_TitleMode == TITLEMODE_RAREPRESENTS1) {
-		gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_005, g_TitleTimer, &colourcomponent); // "earth:"
-
-		if (g_TitleTimer > 70) {
-			x = viGetViewLeft() + 50;
-			y = viGetViewTop() + viGetViewHeight() - 60;
-			gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_006, g_TitleTimer - 100, &colourcomponent); // "   prehistory"
-		}
-	} else {
-		gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_007, g_TitleTimer - 35, &colourcomponent); // "rare presents"
-	}
-
-	gdl = text0f153780(gdl);
-
-	if (g_TitleTypewriterFinishing) {
-		if (g_TitleAudioHandle == NULL) {
-			sndStart(var80095200, SFX_HUDMSG, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
-		}
-	} else {
-		if (g_TitleAudioHandle) {
-			audioStop(g_TitleAudioHandle);
-		}
-
-		g_TitleAudioHandle = NULL;
-	}
-
-	if (((s32)(g_20SecIntervalFrac * 80.0f) % 2) == 0) {
-		u32 colour = (colourcomponent << 8) | 0x7f7fffff | (colourcomponent << 16);
-		gdl = text0f153a34(gdl, x + 2, y, x + 12, y + 20, colour);
-	}
-
-	gdl = bviewDrawIntroText(gdl);
-
-	if (g_TitleTimer > TICKS(222)) {
-		f32 alpha = ((g_TitleTimer - TICKS(222.0f)) / TICKS(78.0f));
-		u32 stack;
-
-		gdl = text0f153a34(gdl, viGetViewLeft(), viGetViewTop(),
-				viGetViewLeft() + viGetViewWidth(),
-				viGetViewTop() + viGetViewHeight(),
-				255.0f * alpha);
-	}
-
-	return gdl;
-}
 
 void titleInitNintendoLogo(void)
 {
@@ -1757,16 +1605,6 @@ void setNumPlayers(s32 numplayers)
 	g_NumPlayers = numplayers;
 }
 
-s32 playerGetTeam(s32 playernum)
-{
-	return g_PlayerConfigsArray[g_Vars.playerstats[playernum].mpindex].base.team;
-}
-
-void playerSetTeam(s32 playernum, s32 team)
-{
-	g_PlayerConfigsArray[g_Vars.playerstats[playernum].mpindex].base.team = team;
-}
-
 void titleInitSkip(void)
 {
 	g_TitleNextStage = STAGE_CITRAINING;
@@ -1854,11 +1692,6 @@ void titleSetNextMode(s32 mode)
 	if (g_TitleDelayedMode != mode) {
 		g_TitleNextMode = mode;
 	}
-}
-
-s32 titleGetMode(void)
-{
-	return g_TitleMode;
 }
 
 void titleTick(void)
@@ -1979,136 +1812,6 @@ void titleTick(void)
 	}
 }
 
-bool titleIsChangingMode(void)
-{
-	return g_TitleNextMode >= 0;
-}
-
-bool titleIsKeepingMode(void)
-{
-	if (g_TitleNextMode >= 0) {
-		return false;
-	}
-
-	if (g_TitleMode == -1 || g_TitleMode == TITLEMODE_SKIP) {
-		return false;
-	}
-
-	return true;
-}
-
-void titleExit(void)
-{
-	switch (g_TitleMode) {
-	case TITLEMODE_CHECKCONTROLLERS:
-		titleExitCheckControllers();
-		break;
-	case TITLEMODE_PDLOGO:
-		titleExitPdLogo();
-		break;
-	case TITLEMODE_NINTENDOLOGO:
-		titleExitNintendoLogo();
-		break;
-	case TITLEMODE_RARELOGO:
-		titleExitRareLogo();
-		break;
-	case TITLEMODE_RAREPRESENTS1:
-	case TITLEMODE_RAREPRESENTS2:
-		titleExitRarePresents();
-		break;
-	}
-
-	g_TitleNextMode = -1;
-	g_TitleMode = -1;
-}
-
-void titleInitFromAiCmd(u32 value)
-{
-	switch (value) {
-	case TITLEAIMODE_RAREPRESENTS1:
-		g_TitleMode = TITLEMODE_RAREPRESENTS1;
-		titleInitRarePresents();
-		break;
-	case TITLEAIMODE_RARELOGO:
-		g_TitleMode = TITLEMODE_RARELOGO;
-		titleInitRareLogo();
-		break;
-	case TITLEAIMODE_RAREPRESENTS2:
-		g_TitleMode = TITLEMODE_RAREPRESENTS2;
-		titleInitRarePresents();
-		break;
-	case TITLEAIMODE_NINTENDOLOGO:
-		g_TitleMode = TITLEMODE_NINTENDOLOGO;
-		titleInitNintendoLogo();
-		break;
-	case TITLEAIMODE_PDLOGO:
-		g_TitleMode = TITLEMODE_PDLOGO;
-		titleInitPdLogo();
-		break;
-	}
-
-	g_TitleNextMode = -1;
-}
-
-bool func0f01ad5c(void)
-{
-	if (!titleIsKeepingMode()) {
-		return false;
-	}
-
-	if (g_TitleMode == TITLEMODE_RAREPRESENTS2) {
-		return false;
-	}
-
-	if (g_TitleMode == TITLEMODE_RAREPRESENTS1) {
-		return false;
-	}
-
-	return true;
-}
-
-void func0f01adb8(void)
-{
-	viSetMode(VIMODE_HI);
-	viSetSize(576, g_TitleViewHeight);
-	viSetBufSize(576, g_TitleViewHeight);
-	playermgrSetViewSize(576, g_TitleViewHeight);
-	viSetViewSize(576, g_TitleViewHeight);
-	playermgrSetViewPosition(0, 0);
-	viSetViewPosition(0, 0);
-}
-
-void titleTickOld(void)
-{
-	if (titleIsKeepingMode()) {
-		joy00014810(false);
-
-		if (g_TitleDelayedTimer == 0) {
-			switch (g_TitleMode) {
-			case TITLEMODE_LEGAL:
-				titleTickLegal();
-				break;
-			case TITLEMODE_CHECKCONTROLLERS:
-				titleTickCheckControllers();
-				break;
-			case TITLEMODE_PDLOGO:
-				titleTickPdLogo();
-				break;
-			case TITLEMODE_NINTENDOLOGO:
-				titleTickNintendoLogo();
-				break;
-			case TITLEMODE_RAREPRESENTS1:
-			case TITLEMODE_RAREPRESENTS2:
-				titleTickRarePresents();
-				break;
-			case TITLEMODE_RARELOGO:
-				titleTickRareLogo();
-				break;
-			}
-		}
-	}
-}
-
 Gfx *titleRender(Gfx *gdl)
 {
 	if (g_TitleDelayedTimer == 0) {
@@ -2124,10 +1827,6 @@ Gfx *titleRender(Gfx *gdl)
 			break;
 		case TITLEMODE_NINTENDOLOGO:
 			gdl = titleRenderNintendoLogo(gdl);
-			break;
-		case TITLEMODE_RAREPRESENTS1:
-		case TITLEMODE_RAREPRESENTS2:
-			gdl = titleRenderRarePresents(gdl);
 			break;
 		case TITLEMODE_RARELOGO:
 			gdl = titleRenderRareLogo(gdl);

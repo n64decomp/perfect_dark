@@ -155,16 +155,6 @@ u32 bodyGetRace(s32 bodynum)
 	return RACE_HUMAN;
 }
 
-bool bodyLoad(s32 bodynum)
-{
-	if (!g_HeadsAndBodies[bodynum].filedata) {
-		g_HeadsAndBodies[bodynum].filedata = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
-		return true;
-	}
-
-	return false;
-}
-
 struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyfiledata, struct modelfiledata *headfiledata, bool sunglasses, struct model *model, bool isplayer, u8 varyheight)
 {
 	f32 scale = g_HeadsAndBodies[bodynum].scale * 0.10000001f;

@@ -553,7 +553,9 @@ void mainLoop(void)
 		lvReset(g_StageNum);
 		viReset(g_StageNum);
 		frametimeCalculate();
+#if PROFILING
 		profileReset();
+#endif
 
 		while (osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_NOBLOCK) != -1) {
 			// empty
@@ -607,7 +609,9 @@ void mainTick(void)
 
 	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
 		frametimeCalculate();
+#if PROFILING
 		profileReset();
+#endif
 		joyDebugJoy();
 
 		if (g_MainGameLogicEnabled) {

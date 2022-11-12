@@ -58,11 +58,6 @@ struct challenge g_MpChallenges[NUM_CHALLENGES] = {
 	{ L_OPTIONS_435, MPCONFIG_CHALLENGE30 }, // "Challenge 30"
 };
 
-bool challengeIsAvailable(s32 challengeindex)
-{
-	return (g_MpChallenges[challengeindex].availability & 1) != 0;
-}
-
 bool ChallengeIsAvailableToPlayer(s32 chrnum, s32 challengeindex)
 {
 	if ((g_MpSetup.chrslots & (1 << chrnum)) == 0) {
@@ -334,24 +329,6 @@ bool challengeIsCompletedByAnyChrWithNumPlayersBySlot(s32 slot, s32 numplayers)
 		if (challengeIsAvailableToAnyPlayer(i)) {
 			if (availableindex == slot) {
 				return challengeIsCompletedByAnyPlayerWithNumPlayers(i, numplayers);
-			}
-
-			availableindex++;
-		}
-	}
-
-	return false;
-}
-
-bool challengeIsCompletedByChrWithNumPlayersBySlot(s32 mpchrnum, s32 slot, s32 numplayers)
-{
-	s32 availableindex = 0;
-	s32 i;
-
-	for (i = 0; i < 30; i++) {
-		if (challengeIsAvailableToAnyPlayer(i)) {
-			if (availableindex == slot) {
-				return challengeIsCompletedByPlayerWithNumPlayers(mpchrnum, i, numplayers);
 			}
 
 			availableindex++;
@@ -817,22 +794,4 @@ bool challengeIsFeatureUnlocked(s32 featurenum)
 	}
 
 	return (g_MpFeaturesUnlocked[featurenum] & 1) != 0;
-}
-
-bool challengeIsFeatureUnlockedByPlayer(u32 numplayers, s32 featurenum)
-{
-	if (featurenum == 0) {
-		return true;
-	}
-
-	return (g_MpFeaturesUnlocked[featurenum] & (2 << numplayers)) != 0;
-}
-
-bool challengeIsFeatureUnlockedByDefault(s32 featurenum)
-{
-	if (featurenum) {
-		return false;
-	}
-
-	return true;
 }

@@ -5126,20 +5126,6 @@ u32 menuChooseMusic(void)
 	return MUSIC_PAUSEMENU;
 }
 
-bool func0f0fcbcc(void)
-{
-	if (g_FileState == FILESTATE_UNSELECTED && g_Vars.stagenum == STAGE_CITRAINING) {
-		return true;
-	}
-
-	return false;
-}
-
-bool func0f0fcc04(void)
-{
-	return false;
-}
-
 u32 menuGetRoot(void)
 {
 	if (g_MenuData.count == 0) {
@@ -5184,15 +5170,6 @@ s32 menudialog000fcd48(s32 operation, struct menudialogdef *dialogdef, union han
 				&& joy000155b4(g_Menus[g_MpPlayerNum].fm.device3) == 0) {
 			func0f0f3704(&g_PakRemovedMenuDialog);
 		}
-	}
-
-	return 0;
-}
-
-s32 func0f0fcdd0(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (operation == MENUOP_SET) {
-		func0f0f3704(&g_PakDamagedMenuDialog);
 	}
 
 	return 0;

@@ -409,16 +409,6 @@ void viSetMode(s32 mode)
 	g_ViBackData->y = g_ViBackData->bufy = g_ViModeHeights[mode];
 }
 
-void viSet16Bit(void)
-{
-	g_ViIs16Bit = true;
-}
-
-void viSet32Bit(void)
-{
-	g_ViIs16Bit = false;
-}
-
 u16 *viGetBackBuffer(void)
 {
 	return g_ViBackData->fb;
@@ -427,11 +417,6 @@ u16 *viGetBackBuffer(void)
 u16 *viGetFrontBuffer(void)
 {
 	return g_ViFrontData->fb;
-}
-
-void viSetBackBuffer(u16 *fb)
-{
-	g_ViBackData->fb = fb;
 }
 
 Vp *viGetCurrentPlayerViewport(void)

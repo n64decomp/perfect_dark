@@ -152,43 +152,6 @@ void cheatActivate(s32 cheat_id)
 	}
 }
 
-void cheatDeactivate(s32 cheat_id)
-{
-	u32 prevplayernum;
-	s32 playernum;
-
-	switch (cheat_id) {
-	case CHEAT_INVINCIBLE:
-		prevplayernum = g_Vars.currentplayernum;
-
-		for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
-			setCurrentPlayerNum(playernum);
-			g_Vars.currentplayer->invincible = 1; // @bug?
-		}
-
-		setCurrentPlayerNum(prevplayernum);
-		break;
-	case CHEAT_ALLGUNS:
-		if (PLAYERCOUNT() == 1 && g_Vars.normmplayerisrunning == false) {
-			prevplayernum = g_Vars.currentplayernum;
-
-			for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
-				setCurrentPlayerNum(playernum);
-				invSetAllGuns(false);
-			}
-
-			setCurrentPlayerNum(prevplayernum);
-		}
-		break;
-	}
-
-	if (cheat_id < 32) {
-		g_CheatsActiveBank0 = g_CheatsActiveBank0 & ~(1 << cheat_id);
-	} else {
-		g_CheatsActiveBank1 = g_CheatsActiveBank1 & ~(1 << cheat_id);
-	}
-}
-
 void cheatsInit(void)
 {
 	g_CheatsActiveBank0 = 0;

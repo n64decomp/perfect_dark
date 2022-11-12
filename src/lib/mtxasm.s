@@ -458,53 +458,6 @@ glabel mtx00015f88
 	jr     $ra
  	nop
 
-/**
- * Wait for the PI to be idle, then read the osRomBase variable, obfuscate its
- * value and return it.
- *
- * The returned value is (osRomBase | 0xb764b4fd) ^ 0x0764bea1.
- *
- * The source of this is definitely ASM:
- * - Minimal use of temporary registers
- * - The load of a1 for osRecvMesg and osSendMesg should be li, not addiu
- * - The load of a2 for osRecvMesg and osSendMesg use lui instead of li
- */
-glabel mtxGetObfuscatedRomBase
-	addiu  $sp, $sp, -0x20
-	sw     $ra, 0x14($sp)
-	lui    $a0, %hi(__osPiAccessQueue)
-	addiu  $a0, $a0, %lo(__osPiAccessQueue)
-	addiu  $a1, $zero, 0
-	jal    osRecvMesg
-	lui    $a2, 1
-	lui    $a0, 0xa45f
-	ori    $a0, $a0, 0xffff
-	addiu  $a0, $a0, 0x11
-.L00015ff8:
-	lw     $t0, 0x0($a0)
-	andi   $t0, $t0, 3
-	bnez   $t0, .L00015ff8
- 	nop
-	lui    $a1, %hi(osRomBase)
-	lw     $a1, %lo(osRomBase)($a1)
-	lui    $a0, 0xb764
-	ori    $a0, $a0, 0xb4fd
-	or     $a0, $a0, $a1
-	lui    $a1, 0x764
-	ori    $a1, $a1, 0xbea1
-	xor    $a0, $a0, $a1
-	lw     $v0, 0x0($a0)
-	sw     $v0, 0x18($sp)
-	lui    $a0, %hi(__osPiAccessQueue)
-	addiu  $a0, $a0, %lo(__osPiAccessQueue)
-	addiu  $a1, $zero, 0
-	jal    osSendMesg
-	lui    $a2, 0
-	lw     $v0, 0x18($sp)
-	lw     $ra, 0x14($sp)
-	jr     $ra
-	addiu  $sp, $sp, 0x20
-
 glabel mtx00016054
 	lui    $t2, %hi(var8005ef10)
 	addiu  $t2, $t2, %lo(var8005ef10)

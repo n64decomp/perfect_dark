@@ -123,19 +123,6 @@ s32 func0f16d124(s32 tracktype)
 	return 0;
 }
 
-s32 musicGetChannelByTrackType(s32 tracktype)
-{
-	s32 i;
-
-	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].tracktype == tracktype) {
-			return i;
-		}
-	}
-
-	return -1;
-}
-
 void musicQueueStartEvent(u32 tracktype, u32 tracknum, f32 arg2, u16 volume)
 {
 	if (!g_SndDisabled) {
@@ -315,14 +302,6 @@ bool musicIsAnyPlayerInAmbientRoom(void)
 void musicStartNrg(f32 arg0)
 {
 	musicQueueStartEvent(TRACKTYPE_NRG, stageGetNrgTrack(g_MusicStageNum), arg0, musicGetVolume());
-}
-
-/**
- * Not called.
- */
-void musicStartWatch(f32 arg0)
-{
-	musicQueueStartEvent(TRACKTYPE_MENU, menuChooseMusic(), arg0, musicGetVolume());
 }
 
 /**

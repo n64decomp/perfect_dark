@@ -906,25 +906,6 @@ void func0f06803c(struct coord *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4
 	arg4[1] = sp44[1];
 }
 
-struct defaultobj *objFindByPadNum(s32 padnum)
-{
-	struct prop *prop = g_Vars.activeprops;
-
-	while (prop) {
-		if (prop->type == PROPTYPE_OBJ) {
-			struct defaultobj *obj = prop->obj;
-
-			if (obj->pad == (s16)padnum) {
-				return obj;
-			}
-		}
-
-		prop = prop->next;
-	}
-
-	return NULL;
-}
-
 struct defaultobj *objFindByPos(struct coord *pos, s16 *rooms)
 {
 	struct prop *prop = g_Vars.activeprops;
@@ -2081,32 +2062,6 @@ f32 func0f06a620(struct defaultobj *obj)
 	}
 
 	return 4;
-}
-
-void func0f06a650(struct defaultobj *obj, struct coord *pos, Mtxf *arg2, s16 *rooms)
-{
-	struct modelrodata_bbox *bbox;
-	s16 room;
-	f32 sp3c;
-	struct coord newpos;
-	s16 newrooms[2];
-
-	bbox = modelFindBboxRodata(obj->model);
-
-	room = cdFindFloorRoomYColourFlagsAtPos(pos, rooms, &sp3c, &obj->floorcol, NULL);
-
-	if (room > 0) {
-		newpos.x = pos->x;
-		newpos.y = (sp3c + func0f06a620(obj)) - objGetRotatedLocalYMinByMtx4(bbox, arg2);
-		newpos.z = pos->z;
-
-		newrooms[0] = room;
-		newrooms[1] = -1;
-
-		func0f06a580(obj, &newpos, arg2, newrooms);
-	} else {
-		func0f06a580(obj, pos, arg2, rooms);
-	}
 }
 
 void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, s16 *rooms, struct coord *centre)
@@ -4077,14 +4032,6 @@ void ammocrateTick(struct prop *prop)
 }
 
 /**
- * weaponTick only matches if it passes a third argument to nbombCreateStorm,
- * but nbombCreateStorm doesn't have a third argument. So we declare a new
- * function with the third argument and link it to the same address as
- * nbombCreateStorm via the linker config.
- */
-void nbombCreateStorm_hack(struct coord *pos, struct prop *ownerprop, struct prop *nbombprop);
-
-/**
  * Handles the following:
  *
  * - Grenade timers
@@ -4205,7 +4152,7 @@ void weaponTick(struct prop *prop)
 					}
 				}
 
-				nbombCreateStorm_hack(&prop->pos, ownerprop, prop);
+				nbombCreateStorm(&prop->pos, ownerprop);
 				propUnsetDangerous(prop);
 
 				obj->hidden |= OBJHFLAG_REAPABLE;
@@ -4345,7 +4292,7 @@ void weaponTick(struct prop *prop)
 					}
 				}
 
-				nbombCreateStorm_hack(&prop->pos, ownerprop, prop);
+				nbombCreateStorm(&prop->pos, ownerprop);
 				propUnsetDangerous(prop);
 
 				obj->hidden |= OBJHFLAG_REAPABLE;
@@ -13279,30 +13226,6 @@ void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s3
 	}
 }
 
-bool func0f085158(struct defaultobj *obj)
-{
-	switch (obj->type) {
-	case OBJTYPE_DOOR:
-	case OBJTYPE_BASIC:
-	case OBJTYPE_ALARM:
-	case OBJTYPE_SINGLEMONITOR:
-	case OBJTYPE_MULTIMONITOR:
-	case OBJTYPE_AUTOGUN:
-	case OBJTYPE_DEBRIS:
-	case OBJTYPE_GLASS:
-	case OBJTYPE_TINTEDGLASS:
-	case OBJTYPE_LIFT:
-	case OBJTYPE_HOVERBIKE:
-	case OBJTYPE_HOVERPROP:
-	case OBJTYPE_FAN:
-	case OBJTYPE_HOVERCAR:
-	case OBJTYPE_CHOPPER:
-		return true;
-	}
-
-	return false;
-}
-
 bool func0f085194(struct defaultobj *obj)
 {
 	switch (obj->type) {
@@ -15438,11 +15361,6 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 	return NULL;
 }
 
-struct weaponobj *func0f08a364(void)
-{
-	return weaponCreate(false, false, NULL);
-}
-
 struct ammocrateobj *ammocrateAllocate(void)
 {
 	s32 i;
@@ -16149,16 +16067,6 @@ struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 fl
 	return weaponCreateForChr(chr, model, weaponnum, flags, NULL, NULL);
 }
 
-struct prop *chrGiveWeaponWithAutoModel(struct chrdata *chr, s32 weaponnum, u32 flags)
-{
-	return weaponCreateForChr(chr, playermgrGetModelOfWeapon(weaponnum), weaponnum, flags, NULL, NULL);
-}
-
-s32 weaponTestForPickup(struct prop *prop)
-{
-	return objTestForPickup(prop);
-}
-
 void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
 {
 	u32 stack[4];
@@ -16200,36 +16108,6 @@ void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
 	if (flash && room != -1) {
 		roomAdjustLighting(room, 48, 128);
 	}
-}
-
-bool weaponIsGunfireVisible(struct prop *prop)
-{
-	struct defaultobj *obj = prop->obj;
-	struct model *model = obj->model;
-	struct modelnode *node;
-
-	if (model && model->filedata->skel == &g_SkelChrGun) {
-		node = modelGetPart(model->filedata, MODELPART_CHRGUN_GUNFIRE);
-
-		if (node) {
-			struct modelrwdata_chrgunfire *rwdata = modelGetNodeRwData(model, node);
-			return rwdata->visible;
-		}
-
-		node = modelGetPart(model->filedata, MODELPART_CHRGUN_0002);
-
-		if (node) {
-			struct modelrwdata_toggle *rwdata = modelGetNodeRwData(model, node);
-			return rwdata->visible;
-		}
-	}
-
-	return false;
-}
-
-s32 hatGetType(struct prop *prop)
-{
-	return -1;
 }
 
 bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop)
@@ -18061,19 +17939,9 @@ void countdownTimerSetValue60(f32 value)
 	g_CountdownTimerValue60 = value;
 }
 
-f32 countdownTimerGetValue60(void)
-{
-	return g_CountdownTimerValue60;
-}
-
 void countdownTimerSetRunning(bool running)
 {
 	g_CountdownTimerRunning = running;
-}
-
-bool countdownTimerIsRunning(void)
-{
-	return g_CountdownTimerRunning;
 }
 
 void countdownTimerTick(void)

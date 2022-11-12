@@ -197,15 +197,6 @@ char *filemgrMenuTextFailReason(struct menuitem *item)
 	return langGet(reasons[g_Menus[g_MpPlayerNum].fm.errno]);
 }
 
-/**
- * Unused.
- */
-char *filemgr0f108484(struct menuitem *item)
-{
-	sprintf(g_StringPointer, "location: controller pak 1\n");
-	return g_StringPointer;
-}
-
 s32 filemgrDeviceNameForErrorMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
@@ -510,18 +501,6 @@ s32 filemgrCancelSave2MenuHandler(s32 operation, struct menuitem *item, union ha
 		menuCloseDialog();
 		func0f10898c();
 		menuUpdateCurFrame();
-	}
-
-	return 0;
-}
-
-/**
- * Unused.
- */
-s32 filemgr0f108d14(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (operation == MENUOP_SET) {
-		filemgrRetrySave(2);
 	}
 
 	return 0;

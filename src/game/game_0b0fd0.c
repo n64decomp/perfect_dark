@@ -84,24 +84,6 @@ struct weaponfunc *currentPlayerGetWeaponFunction(u32 hand)
 	return NULL;
 }
 
-u32 weaponGetNumFunctions(u32 weaponnum)
-{
-	struct weapon *weapon = weaponFindById(weaponnum);
-	s32 i;
-
-	if (!weapon) {
-		return 0;
-	}
-
-	for (i = 0; i < 2; i++) {
-		if (weapon->functions[i] == NULL) {
-			return i;
-		}
-	}
-
-	return 2;
-}
-
 struct invaimsettings *gsetGetAimSettings(struct gset *gset)
 {
 	struct weapon *weapon = weaponFindById(gset->weaponnum);
@@ -123,28 +105,6 @@ struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum)
 	}
 
 	return NULL;
-}
-
-void currentPlayerGetWeaponPos(struct coord *pos)
-{
-	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
-
-	if (weapon) {
-		pos->x = weapon->posx;
-		pos->y = weapon->posy;
-		pos->z = weapon->posz;
-	}
-}
-
-void currentPlayerSetWeaponPos(struct coord *pos)
-{
-	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
-
-	if (weapon) {
-		weapon->posx = pos->x;
-		weapon->posy = pos->y;
-		weapon->posz = pos->z;
-	}
 }
 
 f32 handGetXShift(s32 handnum)
@@ -401,18 +361,6 @@ void gsetPopulateFromCurrentPlayer(s32 handnum, struct gset *gset)
 	}
 }
 
-struct inventory_ammo *gsetGetAmmoDefinition(struct gset *gset)
-{
-	struct weaponfunc *func = gsetGetWeaponFunction(gset);
-	struct weapon *weapon = weaponFindById(gset->weaponnum);
-
-	if (func && func->ammoindex >= 0) {
-		return weapon->ammos[func->ammoindex];
-	}
-
-	return NULL;
-}
-
 u8 gsetGetSinglePenetration(struct gset *gset)
 {
 	struct weaponfunc *func = gsetGetWeaponFunction(gset);
@@ -423,18 +371,6 @@ u8 gsetGetSinglePenetration(struct gset *gset)
 	}
 
 	return 0;
-}
-
-s32 handGetCasingEject(struct gset *gset)
-{
-	s32 result = 0;
-	struct inventory_ammo *ammo = gsetGetAmmoDefinition(gset);
-
-	if (ammo) {
-		result = ammo->casingeject;
-	}
-
-	return result;
 }
 
 f32 gsetGetImpactForce(struct gset *gset)
@@ -631,28 +567,6 @@ void gsetGetNoiseSettings(struct gset *gset, struct noisesettings *dst)
 	dst->incradius = settings->incradius;
 	dst->decbasespeed = settings->decbasespeed;
 	dst->decremspeed = settings->decremspeed;
-}
-
-struct guncmd *handGetEquipAnim(struct gset *gset)
-{
-	struct weapon *weapon = g_Weapons[gset->weaponnum];
-
-	if (weapon) {
-		return weapon->equip_animation;
-	}
-
-	return NULL;
-}
-
-struct guncmd *handGetUnequipAnim(struct gset *gset)
-{
-	struct weapon *weapon = g_Weapons[gset->weaponnum];
-
-	if (weapon) {
-		return weapon->unequip_animation;
-	}
-
-	return NULL;
 }
 
 struct guncmd *gsetGetPriToSecAnim(struct gset *gset)

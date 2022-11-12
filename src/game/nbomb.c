@@ -111,106 +111,6 @@ Gfx *func0f006c80(Gfx *gdl, struct coord *arg1, struct coord *arg2, struct coord
 	return gdl;
 }
 
-Gfx *func0f0073ac(Gfx *gdl, struct coord *pos, f32 arg2)
-{
-	Mtxf *modelmtx = gfxAllocateMatrix();
-	struct gfxvtx *vertices;
-	u32 *colours;
-	Mtxf sp104;
-	struct coord spf8[1];
-	struct coord spb0[] = {
-		{ 0,  0,  1  },
-		{ 1,  0,  0  },
-		{ 0,  0,  -1 },
-		{ -1, 0,  0  },
-		{ 0,  1,  0  },
-		{ 0,  -1, 0  },
-	};
-
-	var80061644 = arg2;
-
-	spf8[0].x = 0.0f;
-	spf8[0].y = 0.0f;
-	spf8[0].z = -100.0f;
-
-	mtx4LoadIdentity(&sp104);
-	mtx4LoadTranslation(pos, &sp104);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp104);
-	mtx00016054(&sp104, modelmtx);
-
-	gSPMatrix(gdl++, osVirtualToPhysical(modelmtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-
-	texSelect(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, true, NULL);
-
-	gDPPipeSync(gdl++);
-	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-	gDPSetAlphaCompare(gdl++, G_AC_NONE);
-	gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
-	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
-	gDPSetColorDither(gdl++, G_CD_DISABLE);
-	gDPSetTextureFilter(gdl++, G_TF_BILERP);
-	gDPSetRenderMode(gdl++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
-	gDPSetTexturePersp(gdl++, G_TP_PERSP);
-
-	gDPPipeSync(gdl++);
-	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-	gDPSetAlphaCompare(gdl++, G_AC_NONE);
-	gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
-	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
-	gDPSetColorDither(gdl++, G_CD_DISABLE);
-	gDPSetTextureFilter(gdl++, G_TF_BILERP);
-	gDPSetRenderMode(gdl++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
-	gDPSetTexturePersp(gdl++, G_TP_PERSP);
-
-	texSelect(&gdl, NULL, 2, 1, 2, true, NULL);
-
-	gDPSetRenderMode(gdl++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
-
-	var8009cb00 = 2048.0f * g_20SecIntervalFrac;
-	var8009cb04 = 0;
-
-	vertices = gfxAllocateVertices(6);
-
-	MAKEVERTEX(0, spb0[0]);
-	MAKEVERTEX(1, spb0[1]);
-	MAKEVERTEX(2, spb0[2]);
-	MAKEVERTEX(3, spb0[3]);
-	MAKEVERTEX(4, spb0[4]);
-	MAKEVERTEX(5, spb0[5]);
-
-	colours = gfxAllocateColours(1);
-
-	colours[0] = 0xff00007f;
-
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
-
-	gdl = func0f006c80(gdl, &spb0[0], &spb0[4], &spb0[1], 0, 4, 1, 6, 2);
-	gdl = func0f006c80(gdl, &spb0[1], &spb0[4], &spb0[2], 1, 4, 2, 6, 2);
-	gdl = func0f006c80(gdl, &spb0[1], &spb0[5], &spb0[0], 1, 5, 0, 6, 2);
-	gdl = func0f006c80(gdl, &spb0[2], &spb0[5], &spb0[1], 2, 5, 1, 6, 2);
-
-	var8009cb04 = 1;
-
-	vertices = gfxAllocateVertices(6);
-
-	MAKEVERTEX(0, spb0[0]);
-	MAKEVERTEX(1, spb0[1]);
-	MAKEVERTEX(2, spb0[2]);
-	MAKEVERTEX(3, spb0[3]);
-	MAKEVERTEX(4, spb0[4]);
-	MAKEVERTEX(5, spb0[5]);
-
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
-
-	gdl = func0f006c80(gdl, &spb0[2], &spb0[4], &spb0[3], 2, 4, 3, 6, 2);
-	gdl = func0f006c80(gdl, &spb0[3], &spb0[4], &spb0[0], 3, 4, 0, 6, 2);
-	gdl = func0f006c80(gdl, &spb0[3], &spb0[5], &spb0[2], 3, 5, 2, 6, 2);
-	gdl = func0f006c80(gdl, &spb0[0], &spb0[5], &spb0[3], 0, 5, 3, 6, 2);
-
-	return gdl;
-}
-
 Gfx *func0f008558(Gfx *gdl, s32 depth)
 {
 	struct gfxvtx *vertices;
@@ -262,16 +162,6 @@ Gfx *func0f008558(Gfx *gdl, s32 depth)
 	gdl = func0f006c80(gdl, &sp5c[0], &sp5c[5], &sp5c[3], 0, 5, 3, 6, depth);
 
 	return gdl;
-}
-
-void nbomb0f0093c4(f32 *arg0)
-{
-	arg0[0] = 0.0f;
-	arg0[1] = RANDOMFRAC() - 0.5f;
-	arg0[2] = RANDOMFRAC() - 0.5f;
-	arg0[3] = RANDOMFRAC() - 0.5f;
-
-	guNormalize(&arg0[1], &arg0[2], &arg0[3]);
 }
 
 void nbombReset(struct nbomb *nbomb)
@@ -694,30 +584,6 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 			audioPostEvent(g_Nbombs[index].audiohandle24, 16, param.s32);
 		}
 	}
-}
-
-bool doorIsOpenOrOpening(s32 tagnum)
-{
-	struct defaultobj *obj = objFindByTagId(tagnum);
-
-	if (obj && obj->prop && obj->type == OBJTYPE_DOOR) {
-		struct doorobj *door = (struct doorobj *)obj;
-
-		if (door->mode == DOORMODE_IDLE) {
-			if (door->frac <= 0) {
-				return false;
-			}
-			return true;
-		} else if (door->mode == DOORMODE_OPENING) {
-			return true;
-		} else if (door->mode == DOORMODE_CLOSING) {
-			return false;
-		} else {
-			return false;
-		}
-	}
-
-	return false;
 }
 
 f32 gasGetDoorFrac(s32 tagnum)

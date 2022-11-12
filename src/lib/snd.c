@@ -1640,18 +1640,6 @@ void sndTick(void)
 	}
 }
 
-s16 snd0001034c(s16 sfxnum)
-{
-	union soundnumhack sfxref;
-
-	sfxref.packed = sfxnum;
-	sfxnum = sfxref.id;
-
-	if (sfxref.id);
-
-	return sfxnum;
-}
-
 bool sndIsDisabled(void)
 {
 	return g_SndDisabled;

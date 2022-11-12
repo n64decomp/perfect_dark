@@ -247,57 +247,6 @@ void filelistUpdate(struct filelist *list)
 	}
 }
 
-void pheadAllocateTextures(s32 playernum, struct perfectheadtexturelist *textures)
-{
-	s32 i;
-	s32 j;
-	s32 k;
-
-	if (g_Menus[playernum].fm.headtextures == NULL) {
-		if (textures == NULL) {
-			g_Menus[playernum].fm.unke40_01 = true;
-			bgGarbageCollectRooms(align16(sizeof(struct perfectheadtexturelist)), 1);
-			g_Menus[playernum].fm.headtextures = memaAlloc(align16(sizeof(struct perfectheadtexturelist)));
-		} else {
-			g_Menus[playernum].fm.headtextures = textures;
-			g_Menus[playernum].fm.unke40_01 = false;
-		}
-	}
-
-	for (i = 0; i != ARRAYCOUNT(g_Menus[playernum].fm.headtextures->fileguids); i++) {
-		g_Menus[playernum].fm.headtextures->fileguids[i].fileid = 0;
-		g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial = 0;
-	}
-
-	g_Menus[playernum].fm.headtextures->lastupdated240 = 0;
-
-	g_Menus[playernum].fm.headtextures->selectedtexture.width = 16;
-	g_Menus[playernum].fm.headtextures->selectedtexture.height = 16;
-	g_Menus[playernum].fm.headtextures->selectedtexture.level = 0;
-	g_Menus[playernum].fm.headtextures->selectedtexture.format = G_IM_FMT_I;
-	g_Menus[playernum].fm.headtextures->selectedtexture.depth = 0;
-	g_Menus[playernum].fm.headtextures->selectedtexture.s = 0;
-	g_Menus[playernum].fm.headtextures->selectedtexture.t = 1;
-	g_Menus[playernum].fm.headtextures->selectedtexture.unk0b = 0;
-
-	for (j = 0; j < 16; j++) {
-		for (k = 0; k < 0x80; k++) {
-			g_Menus[playernum].fm.headtextures->unk000[j][k] = k & 0xff;
-		}
-	}
-}
-
-void pheadFreeTextures(s32 playernum)
-{
-	if (g_Menus[playernum].fm.headtextures != NULL) {
-		if (g_Menus[playernum].fm.unke40_01) {
-			memaFree(g_Menus[playernum].fm.headtextures, align16(sizeof(struct perfectheadtexturelist)));
-		}
-
-		g_Menus[playernum].fm.headtextures = NULL;
-	}
-}
-
 struct textureconfig *pheadGetTexture(s32 playernum, s32 fileid, u16 deviceserial)
 {
 	return NULL;

@@ -58,67 +58,6 @@ glabel tlbInit
 	jr     $t0
  	nop
 
-glabel tlb000010a4
-	addiu  $sp, $sp, -8
-	sw     $ra, 0x0($sp)
-	mtc0   $zero, C0_CONTEXT
-	addiu  $t0, $zero, 0x2
-	mtc0   $t0, C0_WIRED
-	addiu  $t1, $zero, 0x1ff
-	lui    $at, %hi(var8008d264+0x2)
-	sh     $t1, %lo(var8008d264+0x2)($at)
-	addiu  $a0, $zero, 268
-	lui    $at, %hi(g_VmInitialised+0x2)
-	sh     $a0, %lo(g_VmInitialised+0x2)($at)
-	lui    $at, %hi(var8008d258+0x2)
-	sh     $a0, %lo(var8008d258+0x2)($at)
-	sll    $a0, $a0, 0xc
-	lui    $v0, %hi(var8008ae20)
-	lw     $v0, %lo(var8008ae20)($v0)
-	lui    $t1, %hi(_gameSegmentEnd)
-	addiu  $t1, $t1, %lo(_gameSegmentEnd)
-	lui    $t2, %hi(_gameSegmentStart)
-	addiu  $t2, $t2, %lo(_gameSegmentStart)
-	subu   $t1, $t1, $t2
-	lui    $t0, 0xfff
-	ori    $t0, $t0, 0xffff
-	and    $v0, $v0, $t0
-	lui    $at, %hi(var8008d268)
-	sw     $v0, %lo(var8008d268)($at)
-	lui    $v0, %hi(var8008d238)
-	addiu  $v0, $v0, %lo(var8008d238)
-	addiu  $a0, $zero, 0x21
-	lui    $at, %hi(var8008d25c)
-	sw     $v0, %lo(var8008d25c)($at)
-	addu   $v1, $v0, $a0
-	lui    $at, %hi(var8008d260)
-	sw     $v1, %lo(var8008d260)($at)
-	lw     $ra, 0x0($sp)
-	addiu  $sp, $sp, 0x8
-	jr     $ra
- 	nop
-
-glabel tlb0000113c
-	addiu  $t0, $zero, 0xff
-	lui    $v0, %hi(var8008d25c)
-	lw     $v0, %lo(var8008d25c)($v0)
-	lui    $v1, %hi(var8008d260)
-	lw     $v1, %lo(var8008d260)($v1)
-.L00001150:
-	sb     $t0, 0x0($v0)
-	bne    $v0, $v1, .L00001150
-	addiu  $v0, $v0, 1
-	addiu  $a0, $zero, 4
-	beqz   $a0, .L00001178
-	addiu  $a0, $a0, -1
-	addiu  $t0, $zero, 2
-	sllv   $t0, $t0, $a0
-	addiu  $t0, $t0, -1
-	sb     $t0, 0x0($v1)
-.L00001178:
-	jr     $ra
- 	nop
-
 glabel tlbHandleMiss
 	mfc0   $t0, C0_CONTEXT
 	sll    $s5, $t0, 0x9

@@ -213,20 +213,6 @@ void joyCheckPfs(s32 arg0)
 	}
 }
 
-/**
- * "Temporarily" because the next time joyCheckPfs runs, the true state will be
- * recorded.
- *
- * Note that var8005eed8 is always zero, so this record will suggest that this
- * pak is the only one connected.
- */
-void joySetPfsTemporarilyPlugged(s8 index)
-{
-	u8 bitpattern = var8005eed8 & ~(1 << index);
-
-	joyRecordPfsState(bitpattern);
-}
-
 void joyInit(void)
 {
 	s32 i;
@@ -344,23 +330,6 @@ void joy00013e84(void)
 
 		var8005ef00 = g_JoyConnectedControllers;
 	}
-}
-
-s8 contGetFreeSlot(void)
-{
-	s32 i;
-
-	if (g_JoyDataPtr->unk200 >= 0) {
-		return g_JoyDataPtr->unk200;
-	}
-
-	for (i = 0; i < 4; i++) {
-		if ((g_JoyConnectedControllers & (1 << i)) == 0) {
-			return i;
-		}
-	}
-
-	return 4;
 }
 
 u32 joyGetConnectedControllers(void)

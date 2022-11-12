@@ -42,21 +42,6 @@ u8 g_KeyboardKeys[5][10] = {
 	{ '1','2','1','2','1','2','3','1','2','3' },
 };
 
-s32 func0f0e5ce0(s32 value)
-{
-	if (value < var800711a4) {
-		var800711a0++;
-
-		if (var800711a0 > 320) {
-			var800711a0 = 0;
-		}
-	}
-
-	var800711a4 = value;
-
-	return var800711a0;
-}
-
 s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
 {
 	union handlerdata data;

@@ -206,7 +206,7 @@ struct mpscenario g_MpScenarios[] = {
 		NULL,
 		NULL,
 		NULL,
-		kohIsRoomHighlighted,
+		NULL,
 		kohHighlightRoom,
 		NULL,
 		kohReadSave,
@@ -225,7 +225,7 @@ struct mpscenario g_MpScenarios[] = {
 		ctcHighlightProp,
 		ctcChooseSpawnLocation,
 		ctcGetMaxTeams,
-		ctcIsRoomHighlighted,
+		NULL,
 		ctcHighlightRoom,
 	},
 };
@@ -869,18 +869,6 @@ s32 scenarioGetMaxTeams(void)
 	}
 
 	return MAX_TEAMS;
-}
-
-/**
- * This callback is unused.
- */
-bool scenarioIsRoomHighlighted(s16 room)
-{
-	if (g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc) {
-		return g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc(room);
-	}
-
-	return false;
 }
 
 /**

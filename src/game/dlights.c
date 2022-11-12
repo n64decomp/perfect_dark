@@ -116,11 +116,6 @@ u8 func0f000a10(s32 roomnum)
 	return value;
 }
 
-u8 func0f000b18(u32 arg0)
-{
-	return 255;
-}
-
 u8 func0f000b24(s32 roomnum)
 {
 	u32 value;
@@ -159,26 +154,6 @@ s32 func0f000c54(s32 roomnum)
 f32 roomGetUnk5c(s32 roomnum)
 {
 	return g_Rooms[roomnum].unk5c;
-}
-
-f32 func0f000cec(s32 roomnum)
-{
-	f32 value = (g_Rooms[roomnum].unk52 + g_Rooms[roomnum].unk4b) / 0.0039215688593686f;
-
-	if (value > 1) {
-		value = 1;
-	}
-
-	if (value < 0) {
-		value = 0;
-	}
-
-	return value;
-}
-
-f32 func0f000d6c(s32 roomnum)
-{
-	return g_Rooms[roomnum].unk4b / 255.0f;
 }
 
 f32 func0f000dbc(s32 roomnum)
@@ -248,25 +223,6 @@ bool lightIsOn(s32 roomnum, s32 lightnum)
 void roomSetUnk52(s32 roomnum, s32 value)
 {
 	g_Rooms[roomnum].unk52 = value;
-}
-
-void lightGetUnk07(s32 roomnum, u32 lightnum, struct coord *coord)
-{
-	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
-	light += lightnum;
-
-	coord->x = light->unk07;
-	coord->y = light->unk08;
-	coord->z = light->unk09;
-}
-
-void func0f0010b4(void)
-{
-	if (var80061424) {
-		var80061424 = 0;
-	}
-
-	var80061424 = 1;
 }
 
 void roomSetDefaults(struct room *room)
@@ -1863,39 +1819,6 @@ void func0f0056f4(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
 				if (dist < *result) {
 					*result = dist;
 				}
-			}
-		}
-	}
-}
-
-void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *pos2, s32 arg4, f32 *result)
-{
-	s32 portalnum1;
-	s32 portalnum2;
-	s32 i;
-	s32 j;
-	f32 dist;
-
-	*result = 32767;
-
-	if (roomnum1 == roomnum2) {
-		*result = coordsGetDistance(pos1, pos2);
-		return;
-	}
-
-	for (i = 0; i < g_Rooms[roomnum1].numportals; i++) {
-		portalnum1 = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + i];
-		if (1);
-
-		for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
-			portalnum2 = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
-			if (j);
-			if (j);
-
-			dist = func0f0053d0(roomnum1, pos1, portalnum1, roomnum2, pos2, portalnum2, NULL);
-
-			if (dist < *result) {
-				*result = dist;
 			}
 		}
 	}

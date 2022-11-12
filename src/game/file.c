@@ -4108,11 +4108,6 @@ s32 fileGetRomSize(s32 filenum)
 	return fileGetRomSizeByTableAddress((u32 *)&g_FileTable[filenum]);
 }
 
-u32 file0f166ea8(u32 *filetableaddr)
-{
-	return 0;
-}
-
 void fileLoad(u8 *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info)
 {
 	u32 romsize = fileGetRomSizeByTableAddress(romaddrptr);
@@ -4220,11 +4215,6 @@ void *fileLoadToNew(s32 filenum, u32 method)
 	}
 
 	return ptr;
-}
-
-void fileRemove(s32 filenum)
-{
-	g_FileTable[filenum] = 0;
 }
 
 void *fileLoadToAddr(s32 filenum, s32 method, u8 *ptr, u32 size)

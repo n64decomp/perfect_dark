@@ -626,11 +626,6 @@ void kohAddHill(s32 *cmd)
 	}
 }
 
-bool kohIsRoomHighlighted(s16 room)
-{
-	return room == g_ScenarioData.koh.hillrooms[0];
-}
-
 void kohHighlightRoom(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
 {
 	if (roomnum == g_ScenarioData.koh.hillrooms[0]) {

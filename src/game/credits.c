@@ -184,24 +184,6 @@ bool g_CreditsScrollStarted = false;
 bool g_CreditsAltTitleRequested = false;
 bool g_CreditsUsingAltTitle = false;
 
-void creditsMap4BgVertices(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
-{
-	f32 a = arg2 * sinf(arg1) + arg3 * cosf(arg1);
-	f32 b = arg2 * cosf(arg1) - arg3 * sinf(arg1);
-
-	vertices[0].s = (sinf(arg4) + cosf(arg4)) * arg5 + a;
-	vertices[0].t = (cosf(arg4) - sinf(arg4)) * arg6 + b;
-
-	vertices[1].s = (sinf(arg4 + 1.5707963705063f) + cosf(arg4 + 1.5707963705063f)) * arg5 + a;
-	vertices[1].t = (cosf(arg4 + 1.5707963705063f) - sinf(arg4 + 1.5707963705063f)) * arg6 + b;
-
-	vertices[2].s = (sinf(arg4 + 3.1415927410126f) + cosf(arg4 + 3.1415927410126f)) * arg5 + a;
-	vertices[2].t = (cosf(arg4 + 3.1415927410126f) - sinf(arg4 + 3.1415927410126f)) * arg6 + b;
-
-	vertices[3].s = (sinf(arg4 + 4.7123889923096f) + cosf(arg4 + 4.7123889923096f)) * arg5 + a;
-	vertices[3].t = (cosf(arg4 + 4.7123889923096f) - sinf(arg4 + 4.7123889923096f)) * arg6 + b;
-}
-
 void creditsMap9BgVertices(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
 {
 	f32 a = arg2 * sinf(arg1) + arg3 * cosf(arg1);
@@ -574,50 +556,6 @@ Gfx *creditsFillFramebuffer(Gfx *gdl, u32 colour)
 	gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
 
 	gdl = text0f153838(gdl);
-
-	return gdl;
-}
-
-/**
- * An unused function. Renders a white line between two 3D coordinates.
- * The line would be 10 units high, though I'm not sure if that's big or not.
- */
-Gfx *creditsRenderLine(Gfx *gdl, struct coord *from, struct coord *to)
-{
-	struct gfxvtx *vertices;
-	u32 *colours;
-
-	colours = gfxAllocateColours(2);
-	vertices = gfxAllocateVertices(4);
-
-	vertices[0].x = from->x;
-	vertices[0].y = from->y;
-	vertices[0].z = from->z;
-
-	vertices[1].x = from->x;
-	vertices[1].y = from->y + 10.0f;
-	vertices[1].z = from->z;
-
-	vertices[2].x = to->x;
-	vertices[2].y = to->y + 10.0f;
-	vertices[2].z = to->z;
-
-	vertices[3].x = to->x;
-	vertices[3].y = to->y;
-	vertices[3].z = to->z;
-
-	vertices[0].colour = 0;
-	vertices[1].colour = 4;
-	vertices[2].colour = 4;
-	vertices[3].colour = 0;
-
-	colours[0] = 0xffffffff;
-	colours[1] = 0xffffffff;
-
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
-
-	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 
 	return gdl;
 }

@@ -440,16 +440,3 @@ void musicTick(void)
 		musicTickEvents();
 	}
 }
-
-bool musicIsTrackTypePlaying(s32 tracktype)
-{
-	s32 i;
-
-	for (i = 0; i < 3; i++) {
-		if (tracktype == var800aaa38[i].tracktype && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
-			return true;
-		}
-	}
-
-	return false;
-}

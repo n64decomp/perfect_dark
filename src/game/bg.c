@@ -1265,26 +1265,6 @@ f32 portal0f15b274(s32 portalnum)
 	return sum;
 }
 
-void func0f15b3e4(s32 portalnum, struct coord *a, struct coord *b, struct coord *c, struct coord *d)
-{
-	struct portalvertices *pvertices;
-	pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
-
-	*a = pvertices->vertices[0];
-
-	b->x = pvertices->vertices[1].x - pvertices->vertices[0].x;
-	b->y = pvertices->vertices[1].y - pvertices->vertices[0].y;
-	b->z = pvertices->vertices[1].z - pvertices->vertices[0].z;
-
-	c->x = pvertices->vertices[1].x - pvertices->vertices[0].x;
-	c->y = pvertices->vertices[1].y - pvertices->vertices[0].y;
-	c->z = pvertices->vertices[1].z - pvertices->vertices[0].z;
-
-	d->x = (var800a4ccc + portalnum)->coord.x;
-	d->y = (var800a4ccc + portalnum)->coord.y;
-	d->z = (var800a4ccc + portalnum)->coord.z;
-}
-
 u8 func0f15b4c0(s32 portal)
 {
 	s32 uVar2 = portal0f15b274(portal) / 10000.0f;
@@ -1294,11 +1274,6 @@ u8 func0f15b4c0(s32 portal)
 	}
 
 	return uVar2;
-}
-
-u8 func0f15b508(s32 index)
-{
-	return var800a4cd0[index];
 }
 
 /**
@@ -1939,11 +1914,6 @@ Gfx *bgRender(Gfx *gdl)
 	return gdl;
 }
 
-f32 func0f15cb5c(s32 arg0)
-{
-	return g_BgTable5[arg0 + 1];
-}
-
 Gfx *currentPlayerScissorToViewport(Gfx *gdl)
 {
 	return currentPlayerScissorWithinViewport(gdl,
@@ -2197,23 +2167,6 @@ bool g_PortalGetScreenBbox(s32 portalnum, struct screenbox *box)
 	return sp2ec;
 }
 
-Gfx *boxRenderBorder(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
-{
-	gDPFillRectangle(gdl++, x1, y1, x2 + 1, y2 + 1);
-
-	return gdl;
-}
-
-Gfx *boxRender(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
-{
-	gdl = boxRenderBorder(gdl, x1, y1, x2, y1); // top
-	gdl = boxRenderBorder(gdl, x2, y1, x2, y2); // right
-	gdl = boxRenderBorder(gdl, x1, y2, x2, y2); // bottom
-	gdl = boxRenderBorder(gdl, x1, y1, x1, y2); // left
-
-	return gdl;
-}
-
 bool boxGetIntersection(struct screenbox *a, struct screenbox *b)
 {
 	a->xmin = a->xmin > b->xmin ? a->xmin : b->xmin;
@@ -2240,14 +2193,6 @@ void boxExpand(struct screenbox *a, struct screenbox *b)
 	a->ymin = a->ymin < b->ymin ? a->ymin : b->ymin;
 	a->xmax = a->xmax > b->xmax ? a->xmax : b->xmax;
 	a->ymax = a->ymax > b->ymax ? a->ymax : b->ymax;
-}
-
-void boxCopy(struct screenbox *dst, struct screenbox *src)
-{
-	dst->xmin = src->xmin;
-	dst->ymin = src->ymin;
-	dst->xmax = src->xmax;
-	dst->ymax = src->ymax;
 }
 
 bool roomIsOnscreen(s32 room)
@@ -2284,22 +2229,6 @@ bool roomIsOnPlayerStandby(s32 room, u32 playernum)
 	}
 
 	return g_Rooms[room].flags & ROOMFLAG_STANDBY;
-}
-
-s32 portalFindNumByVertices(struct portalvertices *arg0)
-{
-	s32 i;
-	struct bgportal *portal = g_BgPortals;
-
-	for (i = 0; portal[i].verticesoffset != 0; i++) {
-		struct portalvertices *pvertices = (struct portalvertices *)((u32)portal + portal[i].verticesoffset);
-
-		if (pvertices == arg0) {
-			return i;
-		}
-	}
-
-	return 0;
 }
 
 u32 bgInflate(u8 *src, u8 *dst, u32 len)
@@ -5851,19 +5780,6 @@ void bgExpandRoomToPortals(s32 roomnum)
 	if (count);
 }
 
-bool portalExists(s32 portalnum)
-{
-	s32 i;
-
-	for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
-		if (i == portalnum) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
 void portalSwapRooms(s32 portal)
 {
 	s16 tmp = g_BgPortals[portal].roomnum1;
@@ -5981,11 +5897,6 @@ void room0f164c64(s32 roomnum)
 void portalSetOpen(s32 portal, bool open)
 {
 	g_BgPortals[portal].flags = (g_BgPortals[portal].flags | PORTALFLAG_CLOSED) ^ (open != false);
-}
-
-s32 func0f164e70(s32 arg0, s32 arg1, s32 arg2)
-{
-	return arg0;
 }
 
 f32 var8007fcb4 = 0;

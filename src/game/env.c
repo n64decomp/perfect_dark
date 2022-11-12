@@ -125,11 +125,6 @@ struct environment *envGetCurrent(void)
 	return &g_Env;
 }
 
-f32 env0f1657d8(void)
-{
-	return var80081050;
-}
-
 f32 env0f1657e4(void)
 {
 	return var80081050 * var80081050;
@@ -267,17 +262,6 @@ void envApplyType2(struct envtype2 *env)
 	var800a65e4 = env->unk34;
 }
 
-void envDisableSky(void)
-{
-	g_Env.sky_r = 0;
-	g_Env.sky_g = 0;
-	g_Env.sky_b = 0;
-
-	g_Env.skyredfrac = 0;
-	g_Env.skygreenfrac = 0;
-	g_Env.skybluefrac = 0;
-}
-
 void envChooseAndApply(s32 stagenum, bool allowoverride)
 {
 	struct envtype2 *finalenv = NULL;
@@ -326,28 +310,6 @@ void envChooseAndApply(s32 stagenum, bool allowoverride)
 	envApplyType2(finalenv);
 
 	var800a6620 = NULL;
-}
-
-void envApplyTransitionFrac(f32 frac)
-{
-	static struct envtype1 tmp;
-
-	tmp = *g_EnvTransitionFrom;
-
-	tmp.near = g_EnvTransitionFrom->near + frac * ((f32)g_EnvTransitionTo->near - (f32)g_EnvTransitionFrom->near);
-	tmp.far = g_EnvTransitionFrom->far + frac * ((f32)g_EnvTransitionTo->far - (f32)g_EnvTransitionFrom->far);
-	tmp.fogmin = g_EnvTransitionFrom->fogmin + frac * ((f32)g_EnvTransitionTo->fogmin - (f32)g_EnvTransitionFrom->fogmin);
-	tmp.fogmax = g_EnvTransitionFrom->fogmax + frac * ((f32)g_EnvTransitionTo->fogmax - (f32)g_EnvTransitionFrom->fogmax);
-
-	tmp.sky_r = g_EnvTransitionFrom->sky_r + frac * ((f32)g_EnvTransitionTo->sky_r - (f32)g_EnvTransitionFrom->sky_r);
-	tmp.sky_g = g_EnvTransitionFrom->sky_g + frac * ((f32)g_EnvTransitionTo->sky_g - (f32)g_EnvTransitionFrom->sky_g);
-	tmp.sky_b = g_EnvTransitionFrom->sky_b + frac * ((f32)g_EnvTransitionTo->sky_b - (f32)g_EnvTransitionFrom->sky_b);
-
-	tmp.sky_r &= 0xf8;
-	tmp.sky_g &= 0xf8;
-	tmp.sky_b &= 0xf8;
-
-	envApplyType1(&tmp);
 }
 
 Gfx *envStartFog(Gfx *gdl, bool xlupass)

@@ -38,12 +38,6 @@ struct menudialogdef g_2PMissionControlStyleMenuDialog;
 struct menudialogdef g_CiControlPlayer2MenuDialog;
 struct menudialogdef g_CinemaMenuDialog;
 
-char *menuTextCurrentStageName(struct menuitem *item)
-{
-	sprintf(g_StringPointer, "%s\n", langGet(g_StageNames[g_MissionConfig.stageindex].name3));
-	return g_StringPointer;
-}
-
 char *soloMenuTextDifficulty(struct menuitem *item)
 {
 	if (g_MissionConfig.pdmode) {
@@ -2105,15 +2099,6 @@ s32 menuhandlerControlStyle(s32 operation, struct menuitem *item, union handlerd
 		} else {
 			menuPushDialog(&g_SoloMissionControlStyleMenuDialog);
 		}
-	}
-
-	return 0;
-}
-
-s32 menuhandler001057ec(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (operation == MENUOP_SET) {
-		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_002, 0);
 	}
 
 	return 0;

@@ -546,15 +546,6 @@ void aiChrSetHiddenFlag(s32 chrref, u32 flag)
 	}
 }
 
-void aiChrSetInvincible(s32 chrref)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
-
-	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		g_PlayerInvincible = true;
-	}
-}
-
 void aiChrSetTeam(s32 chrref, s32 team)
 {
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
@@ -1609,16 +1600,6 @@ bool aiIfChrSameFloorDistanceToPadLessThan(s32 chrref, s32 padnum, f32 distance)
 	}
 
 	return chr && chrGetSameFloorDistanceToPad(chr, padnum) < distance;
-}
-
-bool aiIfChrSawDeath(s32 chrref)
-{
-	return chrSawDeath(g_Vars.chrdata, chrref);
-}
-
-bool aiIfChrSawInjury(s32 chrref)
-{
-	return chrSawInjury(g_Vars.chrdata, chrref);
 }
 
 bool aiIfShieldDamaged(s32 chrref)
@@ -4256,11 +4237,6 @@ bool aiTryRunToTarget(void)
 bool aiTrySidestep(void)
 {
 	return chrTrySidestep(g_Vars.chrdata);
-}
-
-struct prop *aiSpawnChrAtChr(s32 bodynum, s32 headnum, s32 chrref, u8 *ailist, u32 spawnflags)
-{
-	return chrSpawnAtChr(g_Vars.chrdata, bodynum, headnum, chrref, ailist, spawnflags);
 }
 
 struct prop *aiSpawnChrAtPad(s32 bodynum, s32 headnum, s32 padnum, u8 *ailist, u32 spawnflags)

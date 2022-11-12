@@ -23,27 +23,11 @@ u8 var800a22d0[0x5b];
 u8 g_AltTitleUnlocked;
 u8 g_AltTitleEnabled;
 
-void bossfileSetDefaults2(void)
-{
-	bossfileSetDefaults();
-}
-
-void bossfileSetAndSaveDefaults(void)
-{
-	bossfileSetDefaults();
-	bossfileSave();
-}
-
 bool bossfileLoadFull(void)
 {
 	bossfileLoad();
 
 	return true;
-}
-
-void func0f1106f4(u8 *dst)
-{
-	bcopy(var800a22d0, dst, sizeof(var800a22d0));
 }
 
 u32 bossfileFindFileId(void)

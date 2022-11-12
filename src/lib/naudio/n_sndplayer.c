@@ -652,13 +652,6 @@ void sndpFreeState(struct sndstate *state)
 	}
 }
 
-void sndSetPriority(struct sndstate *state, u8 priority)
-{
-	if (state) {
-		state->priority = (s16)priority;
-	}
-}
-
 s32 sndGetState(struct sndstate *state)
 {
 	if (state) {
@@ -836,16 +829,6 @@ void func00033db0(void)
 void func00033dd8(void)
 {
 	func00033c30(SNDSTATEFLAG_01);
-}
-
-void func00033e00(void)
-{
-	func00033c30(SNDSTATEFLAG_01 | SNDSTATEFLAG_10);
-}
-
-void func00033e28(void)
-{
-	func00033c30(SNDSTATEFLAG_01 | SNDSTATEFLAG_02);
 }
 
 void audioPostEvent(struct sndstate *state, s16 type, s32 data)

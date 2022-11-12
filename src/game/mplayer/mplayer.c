@@ -2264,16 +2264,6 @@ s32 mpGetHeadRequiredFeature(u8 headnum)
 	return g_MpHeads[headnum].requirefeature;
 }
 
-s32 mpGetBeauHeadId(u8 headnum)
-{
-	return g_MpBeauHeads[headnum].headnum;
-}
-
-s32 mpGetNumBeauHeads(void)
-{
-	return NUM_MPBEAUHEADS;
-}
-
 u32 mpGetNumBodies(void)
 {
 	return NUM_MPBODIES;
@@ -2357,40 +2347,6 @@ s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
 	}
 
 	return index;
-}
-
-void mpFindUnusedHeadAndBody(u8 *mpheadnum, u8 *mpbodynum)
-{
-	struct mpchrconfig *mpchr;
-	bool available;
-	u8 trympheadnum;
-	u8 trympbodynum;
-	s32 i;
-
-	do {
-		available = true;
-		trympheadnum = random() % NUM_MPHEADS;
-		trympbodynum = random() % NUM_MPBODIES;
-
-		for (i = 0; i < MAX_MPCHRS; i++) {
-			if (g_MpSetup.chrslots & (1 << i)) {
-				mpchr = MPCHR(i);
-
-				if (mpchr->mpheadnum == trympheadnum) {
-					available = false;
-				}
-
-				if (mpchr->mpbodynum == trympbodynum) {
-					available = false;
-				}
-			}
-		}
-	} while (!available);
-
-	if (1);
-
-	*mpheadnum = trympheadnum;
-	*mpbodynum = trympbodynum;
 }
 
 s32 mpChooseRandomLockPlayer(void)

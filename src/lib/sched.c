@@ -332,11 +332,6 @@ void __scHandleRSP(OSSched *sc)
 	}
 }
 
-u32 *schedGetDpCounters(void)
-{
-	return g_SchedDpCounters;
-}
-
 void schedInitArtifacts(void)
 {
 	s32 i;

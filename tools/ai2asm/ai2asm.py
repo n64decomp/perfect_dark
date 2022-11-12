@@ -745,7 +745,7 @@ class App():
     def ai_if_chr_target_eq(self, params):
         self.emit('li', ['$a0', '0x%02x' % params[0]])
         self.emit('li', ['$a1', '0x%02x' % params[1]])
-        self.emit('jal', ['aiIfStopped'])
+        self.emit('jal', ['aiIfChrTarget'])
         self.emit_bnez_label(params[3])
 
     def ai_if_chr_weapon_equipped(self, params):

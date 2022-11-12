@@ -244,40 +244,6 @@ s32 frTrainingStatsMenuDialog(s32 operation, struct menudialogdef *dialogdef, un
 	return 0;
 }
 
-/**
- * This is an unused menu handler which implements the difficulty selection
- * using a dropdown.
- */
-s32 frDifficultyDropdownMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	u16 names[] = {
-		L_MPMENU_439, // "Bronze"
-		L_MPMENU_440, // "Silver"
-		L_MPMENU_441, // "Gold"
-	};
-
-	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
-		data->dropdown.value = ciGetFiringRangeScore(frGetSlot()) + 1;
-
-		if (data->dropdown.value > 3) {
-			data->dropdown.value = 3;
-		}
-		break;
-	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(names[data->dropdown.value]);
-	case MENUOP_SET:
-		frSetDifficulty(data->dropdown.value);
-		menuPushDialog(&g_FrTrainingInfoPreGameMenuDialog);
-		break;
-	case MENUOP_GETSELECTEDINDEX:
-		data->dropdown.value = frGetDifficulty();
-		break;
-	}
-
-	return 0;
-}
-
 s32 frDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
@@ -298,28 +264,6 @@ s32 frDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerd
 	}
 
 	return 0;
-}
-
-char *frPrimaryFunctionMenuText(struct menuitem *item)
-{
-	struct weaponfunc *func = weaponGetFunctionById(frGetWeaponBySlot(frGetSlot()), FUNC_PRIMARY);
-
-	if (func) {
-		return langGet(func->name);
-	}
-
-	return "\n";
-}
-
-char *frSecondaryFunctionMenuText(struct menuitem *item)
-{
-	struct weaponfunc *func = weaponGetFunctionById(frGetWeaponBySlot(frGetSlot()), FUNC_SECONDARY);
-
-	if (func) {
-		return langGet(func->name);
-	}
-
-	return "\n";
 }
 
 char *frMenuTextFailReason(struct menuitem *item)
@@ -381,13 +325,6 @@ char *frMenuTextScoreValue(struct menuitem *item)
 	struct frdata *frdata = frGetData();
 
 	sprintf(g_StringPointer, "%d\n", frdata->score);
-	return g_StringPointer;
-}
-
-char *frMenuTextGoalScoreValueUnconditional(struct menuitem *item)
-{
-	struct frdata *frdata = frGetData();
-	sprintf(g_StringPointer, "%d\n", frdata->goalscore);
 	return g_StringPointer;
 }
 

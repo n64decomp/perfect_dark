@@ -29,11 +29,6 @@ bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
 struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices) = NULL;
 void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx) = NULL;
 
-void modelSetDistanceChecksDisabled(bool disabled)
-{
-	g_ModelDistanceDisabled = disabled;
-}
-
 void modelSetDistanceScale(f32 scale)
 {
 	g_ModelDistanceScale = scale;
@@ -1562,15 +1557,6 @@ f32 modelGetAbsAnimSpeed(struct model *model)
 		}
 
 		return speed;
-	}
-
-	return 1;
-}
-
-f32 modelGetEffectiveAnimSpeed(struct model *model)
-{
-	if (model->anim) {
-		return modelGetAnimSpeed(model) * model->anim->playspeed;
 	}
 
 	return 1;

@@ -20,8 +20,6 @@
 u32 g_RadarX;
 u32 g_RadarY;
 
-bool g_RadarYIndicatorsEnabled = true;
-
 u32 g_TeamColours[] = {
 	0xff000000, // Red
 	0xffff0000, // Yellow
@@ -43,11 +41,6 @@ u32 var80087ce4[] = {
 	0xfc63fc63,
 	0x8a158a15,
 };
-
-void radarSetYIndicatorsEnabled(bool enable)
-{
-	g_RadarYIndicatorsEnabled = enable;
-}
 
 Gfx *radarRenderBackground(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s32 arg3, s32 arg4)
 {
@@ -155,7 +148,7 @@ Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour1, 
 			gDPFillRectangleScaled(gdl++, x - 2, y + 0, x + 1, y + 1);
 			gDPFillRectangleScaled(gdl++, x - 1, y - 1, x + 0, y + 0);
 			gdl = text0f153838(gdl);
-		} else if (g_RadarYIndicatorsEnabled && dist->y > 250) {
+		} else if (dist->y > 250) {
 			// Up triangle
 			gdl = textSetPrimColour(gdl, (0xff >> shiftamount) + colour1);
 			gDPFillRectangleScaled(gdl++, x - 3, y - 1, x + 2, y + 2);
@@ -166,7 +159,7 @@ Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour1, 
 			gDPFillRectangleScaled(gdl++, x - 2, y + 0, x + 1, y + 1);
 			gDPFillRectangleScaled(gdl++, x - 1, y - 1, x + 0, y + 0);
 			gdl = text0f153838(gdl);
-		} else if (g_RadarYIndicatorsEnabled && dist->y < -250) {
+		} else if (dist->y < -250) {
 			// Down triangle
 			gdl = textSetPrimColour(gdl, (0xff >> shiftamount) + colour1);
 			gDPFillRectangleScaled(gdl++, x - 3, y - 2, x + 2, y + 1);
@@ -201,7 +194,7 @@ Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour1, 
 			gDPFillRectangleScaled(gdl++, x - 2, y + 0, x + 1, y + 1);
 			gDPFillRectangleScaled(gdl++, x - 1, y - 1, x + 0, y + 0);
 			gdl = text0f153838(gdl);
-		} else if (g_RadarYIndicatorsEnabled && dist->y > 250) {
+		} else if (dist->y > 250) {
 			// Up triangle
 			gdl = textSetPrimColour(gdl, (0xff >> shiftamount) + colour2);
 			gDPFillRectangleScaled(gdl++, x - 3, y - 1, x + 2, y + 2);
@@ -212,7 +205,7 @@ Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour1, 
 			gDPFillRectangleScaled(gdl++, x - 2, y + 0, x + 1, y + 1);
 			gDPFillRectangleScaled(gdl++, x - 1, y - 1, x + 0, y + 0);
 			gdl = text0f153838(gdl);
-		} else if (g_RadarYIndicatorsEnabled && dist->y < -250) {
+		} else if (dist->y < -250) {
 			// Down triangle
 			gdl = textSetPrimColour(gdl, (0xff >> shiftamount) + colour2);
 			gDPFillRectangleScaled(gdl++, x - 3, y - 2, x + 2, y + 1);

@@ -15,11 +15,6 @@ struct covercandidate *g_CoverCandidates;
 u16 g_NumSpecialCovers;
 u16 *g_SpecialCoverNums;
 
-void padUnpack(s32 padnum, u32 fields, struct pad *pad)
-{
-	*pad = g_Pads[padnum];
-}
-
 bool padHasBboxData(s32 padnum)
 {
 	return (g_Pads[padnum].flags & PADFLAG_HASBBOXDATA) != 0;
@@ -81,13 +76,6 @@ void padRotateForDoor(s32 padnum)
 	}
 }
 
-void padCopyBboxFromPad(s32 padnum, struct pad *src)
-{
-	if (g_Pads[padnum].flags & PADFLAG_HASBBOXDATA) {
-		g_Pads[padnum].bbox = src->bbox;
-	}
-}
-
 void padSetFlag(s32 padnum, u32 flag)
 {
 	g_Pads[padnum].flags |= flag;
@@ -96,11 +84,6 @@ void padSetFlag(s32 padnum, u32 flag)
 void padUnsetFlag(s32 padnum, u32 flag)
 {
 	g_Pads[padnum].flags &= ~flag;
-}
-
-bool func0f1162c4(s32 padnum, s32 arg1)
-{
-	return padnum;
 }
 
 s32 coverGetCount(void)
@@ -131,42 +114,6 @@ bool coverUnpack(s32 covernum, struct cover *cover)
 	cover->rooms[1] = -1;
 
 	return true;
-}
-
-u16 getNumSpecialCovers(void)
-{
-	return g_NumSpecialCovers;
-}
-
-bool coverUnpackBySpecialNum(s32 index, struct cover *cover)
-{
-	// Probable @bug: last check should be index >= g_NumSpecialCovers
-	// This function is never called though.
-	if (!g_SpecialCoverNums || index < 0 || index > g_NumSpecialCovers) {
-		return false;
-	}
-
-	if (coverUnpack(g_SpecialCoverNums[index], cover)) {
-		return true;
-	}
-
-	return false;
-}
-
-s32 coverGetNumBySpecialNum(s32 index)
-{
-	// Probable @bug: last check should be index >= g_NumSpecialCovers
-	// This function is never called though.
-	if (!g_SpecialCoverNums || index < 0 || index > g_NumSpecialCovers) {
-		return -1;
-	}
-
-	return g_SpecialCoverNums[index];
-}
-
-s32 func0f116450(s32 arg0, s32 arg1)
-{
-	return arg0;
 }
 
 bool coverIsInUse(s32 covernum)
@@ -214,9 +161,4 @@ void coverSetFlag0001(s32 covernum, bool enable)
 bool coverIsSpecial(struct cover *cover)
 {
 	return (cover->flags & (COVERFLAG_0080 | COVERFLAG_0040 | COVERFLAG_0020)) != 0;
-}
-
-s32 func0f1165c0(s32 arg0, s32 arg1)
-{
-	return arg0;
 }

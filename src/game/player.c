@@ -1591,39 +1591,6 @@ void playerPrepareWarpType1(s16 pad)
 	g_WarpType1Pad = pad;
 }
 
-void playerPrepareWarpType2(struct warpparams *cmd, bool hasdir, s32 arg2)
-{
-	playerSetTickMode(TICKMODE_WARP);
-	g_PlayerTriggerGeFadeIn = false;
-	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	playersClearMemCamRoom();
-
-	g_WarpType1Pad = -1;
-
-	g_WarpType2Params = cmd;
-	g_WarpType2HasDirection = hasdir;
-	g_WarpType2Arg2 = arg2;
-}
-
-void playerPrepareWarpType3(f32 posangle, f32 rotangle, f32 range, f32 height1, f32 height2, s32 padnum)
-{
-	playerSetTickMode(TICKMODE_WARP);
-	g_PlayerTriggerGeFadeIn = false;
-	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	playersClearMemCamRoom();
-
-	g_WarpType1Pad = -1;
-
-	g_WarpType2Params = NULL;
-
-	g_WarpType3PosAngle = posangle;
-	g_WarpType3RotAngle = rotangle;
-	g_WarpType3Range = range;
-	g_WarpType3Height = height1;
-	g_WarpType3MoreHeight = height2;
-	g_WarpType3Pad = padnum;
-}
-
 void playerExecutePreparedWarp(void)
 {
 	struct coord pos = {0, 0, 0};
@@ -2525,11 +2492,6 @@ void playerTickDamageAndHealth(void)
 			g_Vars.currentplayer->healthshowmode = 0;
 		}
 	}
-}
-
-bool playerIsDamageVisible(void)
-{
-	return g_Vars.currentplayer->damageshowtime >= 0;
 }
 
 /**
@@ -4617,26 +4579,6 @@ f32 playerGetHealthBarHeightFrac(void)
 bool playerIsHealthVisible(void)
 {
 	return g_Vars.currentplayer->healthshowmode != HEALTHSHOWMODE_HIDDEN;
-}
-
-// Never called
-void playerSetInvincible(bool enable)
-{
-	if (enable) {
-		cheatActivate(CHEAT_INVINCIBLE);
-	} else {
-		cheatDeactivate(CHEAT_INVINCIBLE);
-	}
-}
-
-void playerSetBondVisible(bool visible)
-{
-	g_Vars.bondvisible = visible;
-}
-
-void playerSetBondCollisionsEnabled(bool enabled)
-{
-	g_Vars.bondcollisions = enabled;
 }
 
 void playerSetCameraMode(s32 mode)

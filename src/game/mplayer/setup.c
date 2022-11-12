@@ -480,66 +480,6 @@ char *mpMenuTextSetupName(struct menuitem *item)
 	return g_MpSetup.name;
 }
 
-s32 func0f179b68(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	switch (operation) {
-	case MENUOP_GETSLIDER:
-		data->slider.value = g_PlayerConfigsArray[g_MpPlayerNum].base.unk18;
-		break;
-	case MENUOP_SET:
-		g_PlayerConfigsArray[g_MpPlayerNum].base.unk18 = (u8) data->slider.value;
-		break;
-	case MENUOP_GETSLIDERLABEL:
-		sprintf(data->slider.label, "%d%%\n", data->slider.value + 20);
-		break;
-	}
-
-	return 0;
-}
-
-s32 func0f179c14(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	switch (operation) {
-	case MENUOP_GETSLIDER:
-		data->slider.value = g_PlayerConfigsArray[g_MpPlayerNum].base.unk1a;
-		break;
-	case MENUOP_SET:
-		g_PlayerConfigsArray[g_MpPlayerNum].base.unk1a = (u8) data->slider.value;
-		break;
-	case MENUOP_GETSLIDERLABEL:
-		sprintf(data->slider.label, "%d%%\n", data->slider.value + 20);
-		break;
-	}
-
-	return 0;
-}
-
-s32 func0f179cc0(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	switch (operation) {
-	case MENUOP_GETSLIDER:
-		data->slider.value = g_PlayerConfigsArray[g_MpPlayerNum].base.unk1c;
-		break;
-	case MENUOP_SET:
-		g_PlayerConfigsArray[g_MpPlayerNum].base.unk1c = data->slider.value;
-		break;
-	case MENUOP_GETSLIDERLABEL:
-		sprintf(data->slider.label, "%d%%\n", data->slider.value + 25);
-		break;
-	}
-
-	return 0;
-}
-
-s32 func0f179d6c(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (operation == MENUOP_SET) {
-		func0f187fbc(g_MpPlayerNum);
-	}
-
-	return 0;
-}
-
 /**
  * This function is used by both player body selection and bot body selection.
  */
@@ -2859,19 +2799,6 @@ char *mpMenuTextSimulantName(struct menuitem *item)
 	}
 
 	return g_BotConfigsArray[index].base.name;
-}
-
-char *func0f17d3dc(struct menuitem *item)
-{
-	s32 index = item->param;
-
-	if (g_BotConfigsArray[index].base.name[0] == '\0'
-			|| ((g_MpSetup.chrslots & 1 << (index + 4)) == 0)) {
-		return "";
-	}
-
-	sprintf(g_StringPointer, "%d:\n", index + 1);
-	return g_StringPointer;
 }
 
 s32 menudialogMpSimulants(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)

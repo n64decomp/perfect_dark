@@ -11,7 +11,6 @@
 	build/ROMID/game/texinit.o (section); \
 	build/ROMID/game/challengeinit.o (section); \
 	build/ROMID/game/langreset.o (section); \
-	build/ROMID/game/getitlereset.o (section); \
 	build/ROMID/game/titlereset.o (section); \
 	build/ROMID/game/chrmgr.o (section); \
 	build/ROMID/game/bodyreset.o (section); \
@@ -52,7 +51,6 @@
 	build/ROMID/game/smokestop.o (section); \
 	build/ROMID/game/shardsstop.o (section); \
 	build/ROMID/game/bondgunstop.o (section); \
-	build/ROMID/game/getitle.o (section); \
 	build/ROMID/game/title.o (section); \
 	build/ROMID/game/titleclear.o (section); \
 	build/ROMID/game/pdmode.o (section); \
@@ -87,7 +85,6 @@
 	build/ROMID/game/quaternion.o (section); \
 	build/ROMID/game/floor.o (section); \
 	build/ROMID/game/ceil.o (section); \
-	build/ROMID/game/game_097a50.o (section); \
 	build/ROMID/game/game_097aa0.o (section); \
 	build/ROMID/game/invitems.o (section); \
 	build/ROMID/game/bondgun.o (section); \
@@ -181,7 +178,6 @@
 	build/ROMID/game/texreset.o (section); \
 	build/ROMID/game/tex.o (section); \
 	build/ROMID/game/game_175f90.o (section); \
-	build/ROMID/game/buildtime.o (section); \
 	build/ROMID/game/game_176080.o (section); \
 	build/ROMID/game/stagemusic.o (section); \
 	build/ROMID/game/utils.o (section); \

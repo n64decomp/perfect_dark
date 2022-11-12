@@ -456,19 +456,6 @@ s32 ctcGetMaxTeams(void)
 	return 4;
 }
 
-bool ctcIsRoomHighlighted(s16 room)
-{
-	s32 i;
-
-	for (i = 0; i < 4; i++) {
-		if (g_ScenarioData.ctc.baserooms[i] == room && g_ScenarioData.ctc.teamindexes[i] != -1) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
 void ctcHighlightRoom(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
 {
 	s32 i;

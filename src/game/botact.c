@@ -266,11 +266,6 @@ bool botactShootFarsight(struct chrdata *chr, s32 arg1, struct coord *vector, st
 	return true;
 }
 
-s32 botactGetWeaponModel(s32 weapon)
-{
-	return playermgrGetModelOfWeapon(weapon);
-}
-
 bool botactIsWeaponThrowable(s32 weaponnum, bool is_secondary)
 {
 	switch (weaponnum) {

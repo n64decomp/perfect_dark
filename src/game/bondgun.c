@@ -766,32 +766,6 @@ bool bgun0f098a44(struct hand *hand, s32 time)
 	return true;
 }
 
-s32 bgun0f098b80(struct hand *hand, s32 arg1)
-{
-	struct guncmd *cmd = hand->unk0ce8;
-	s32 keyframe = -1;
-
-	if (hand->animmode == HANDANIMMODE_IDLE) {
-		return 0;
-	}
-
-	while (cmd->type != GUNCMD_END && keyframe == -1) {
-		if (cmd->type == GUNCMD_WAITTIME) {
-			if (cmd->unk04 == arg1) {
-				keyframe = cmd->unk02;
-			}
-		}
-
-		cmd++;
-	}
-
-	if (keyframe == -1) {
-		keyframe = 0;
-	}
-
-	return keyframe;
-}
-
 bool bgunIsAnimBusy(struct hand *hand)
 {
 	return hand->animmode != HANDANIMMODE_IDLE;
@@ -3289,11 +3263,6 @@ u32 bgunGetGunMemType(void)
 	return g_Vars.currentplayer->gunctrl.gunmemtype;
 }
 
-struct modelfiledata *bgun0f09dddc(void)
-{
-	return g_Vars.currentplayer->gunctrl.gunmodeldef;
-}
-
 u8 *bgunGetGunMem(void)
 {
 	return g_Vars.currentplayer->gunctrl.gunmem;
@@ -4793,21 +4762,6 @@ void bgunCalculateBotShotSpread(struct coord *arg0, s32 weaponnum, s32 funcnum, 
 	mtx4RotateVec(&mtx, &sp48, arg0);
 }
 
-bool bgunGetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
-{
-	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
-
-	if (!hand->lastdirvalid) {
-		return false;
-	}
-
-	*pos = hand->lastshootpos;
-
-	*dir = hand->lastshootdir;
-
-	return true;
-}
-
 void bgunSetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
@@ -5607,44 +5561,6 @@ bool bgun0f0a27c8(void)
 				&& hand->unk0ce8 != NULL
 				&& hand->animmode == HANDANIMMODE_BUSY
 				&& !bgun0f098a44(hand, 2)) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-/**
- * This function is the same as above but it doesn't call bgun0f098a44().
- *
- * This function is unused.
- */
-bool bgun0f0a28d8(void)
-{
-	struct hand *hand;
-	struct weaponfunc *func;
-
-	hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
-	func = gsetGetWeaponFunction2(&hand->gset);
-
-	if (func
-			&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
-			&& hand->state == HANDSTATE_ATTACK
-			&& hand->unk0ce8 != NULL
-			&& hand->animmode == HANDANIMMODE_BUSY) {
-		return true;
-	}
-
-	hand = &g_Vars.currentplayer->hands[HAND_LEFT];
-
-	if (hand->inuse) {
-		func = gsetGetWeaponFunction2(&hand->gset);
-
-		if (func
-				&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
-				&& hand->state == HANDSTATE_ATTACK
-				&& hand->unk0ce8 != NULL
-				&& hand->animmode == HANDANIMMODE_BUSY) {
 			return true;
 		}
 	}

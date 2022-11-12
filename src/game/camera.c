@@ -182,11 +182,6 @@ void camSetMtxL1738(Mtx *mtx)
 	g_Vars.currentplayer->mtxl1738 = mtx;
 }
 
-Mtx *camGetMtxL1738(void)
-{
-	return g_Vars.currentplayer->mtxl1738;
-}
-
 void camSetMtxL173c(Mtx *mtx)
 {
 	g_Vars.currentplayer->mtxl173c = mtx;
@@ -325,21 +320,6 @@ Mtxf *camGetMtxF1754(void)
 	return g_Vars.currentplayer->mtxf1754;
 }
 
-Mtxf *camGetPrevWorldToScreenMtxf(void)
-{
-	return g_Vars.currentplayer->prevworldtoscreenmtx;
-}
-
-void camSetMtxF1748(Mtxf *mtx)
-{
-	g_Vars.currentplayer->mtxf1748 = mtx;
-}
-
-Mtxf *camGetMtxF1748(void)
-{
-	return g_Vars.currentplayer->mtxf1748;
-}
-
 void camSetProjectionMtxF(Mtxf *mtx)
 {
 	struct player *player = g_Vars.currentplayer;
@@ -352,11 +332,6 @@ void camSetProjectionMtxF(Mtxf *mtx)
 Mtxf *camGetProjectionMtxF(void)
 {
 	return g_Vars.currentplayer->projectionmtx;
-}
-
-Mtxf *camGetPrevProjectionMtxF(void)
-{
-	return g_Vars.currentplayer->prevprojectionmtx;
 }
 
 void camSetLookAt(LookAt *lookat)
@@ -372,11 +347,6 @@ LookAt *camGetLookAt(void)
 f32 camGetLodScaleZ(void)
 {
 	return g_Vars.currentplayer->c_lodscalez;
-}
-
-u32 camGetLodScaleZU32(void)
-{
-	return g_Vars.currentplayer->c_lodscalezu32;
 }
 
 f32 camGetScreenWidth(void)
@@ -397,11 +367,6 @@ f32 camGetScreenLeft(void)
 f32 camGetScreenTop(void)
 {
 	return g_Vars.currentplayer->c_screentop;
-}
-
-f32 camGetPerspFovY(void)
-{
-	return g_Vars.currentplayer->c_perspfovy;
 }
 
 f32 camGetPerspAspect(void)

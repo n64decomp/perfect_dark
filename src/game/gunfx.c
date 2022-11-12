@@ -926,15 +926,6 @@ s32 boltbeamCreate(struct prop *prop)
 	return beamnum;
 }
 
-void boltbeamFree(struct prop *prop)
-{
-	s32 beamnum = boltbeamFindByProp(prop);
-
-	if (beamnum != -1) {
-		g_BoltBeams[beamnum].unk00 = -1;
-	}
-}
-
 void boltbeamSetHeadPos(s32 beamnum, struct coord *pos)
 {
 	g_BoltBeams[beamnum].headpos = *pos;

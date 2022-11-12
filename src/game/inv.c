@@ -184,11 +184,6 @@ void invSetAllGuns(bool enable)
 	bgunEquipWeapon(weaponnum);
 }
 
-bool invHasAllGuns(void)
-{
-	return g_Vars.currentplayer->equipallguns;
-}
-
 struct invitem *invFindSingleWeapon(s32 weaponnum)
 {
 	struct invitem *first = g_Vars.currentplayer->weapons;
@@ -733,11 +728,6 @@ bool invHasKeyFlags(u32 wantkeyflags)
 	return false;
 }
 
-bool func0f11283c(void)
-{
-	return false;
-}
-
 bool invHasBriefcase(void)
 {
 	if (g_Vars.currentplayer->isdead == false) {
@@ -753,11 +743,6 @@ bool invHasDataUplink(void)
 		return invHasSingleWeaponExcAllGuns(WEAPON_DATAUPLINK);
 	}
 
-	return false;
-}
-
-bool func0f1128c4(void)
-{
 	return false;
 }
 

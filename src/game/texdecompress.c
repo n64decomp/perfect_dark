@@ -2270,8 +2270,3 @@ void texLoadFromTextureNum(u32 texturenum, struct texpool *pool)
 
 	texLoad(&texturenumcopy, pool, true);
 }
-
-s32 func0f173510(s32 arg0, s32 arg1, s32 arg3)
-{
-	return arg0;
-}

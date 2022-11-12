@@ -33,12 +33,3 @@ void guRotateF(float mf[4][4], float a, float x, float y, float z)
 	mf[1][0] = ab - z * sine;
 	mf[0][1] = ab + z * sine;
 }
-
-void guRotate(Mtx *m, float a, float x, float y, float z)
-{
-	f32 mf[4][4];
-
-	guRotateF(mf, a, x, y, z);
-
-	guMtxF2L(mf, m);
-}

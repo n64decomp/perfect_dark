@@ -346,13 +346,6 @@ char *mpMenuTitleStatsFor(struct menudialogdef *dialogdef)
 	return g_StringPointer;
 }
 
-s32 func0f178440(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (operation);
-
-	return 0;
-}
-
 char *mpMenuTextWeaponOfChoiceName(struct menuitem *item)
 {
 	return mpPlayerGetWeaponOfChoiceName(g_Menus[g_MpPlayerNum].playernum, 0);

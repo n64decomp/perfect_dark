@@ -1613,24 +1613,6 @@ void chrStand(struct chrdata *chr)
 	}
 }
 
-bool chrFaceCover(struct chrdata *chr)
-{
-	struct cover cover;
-
-	if (!coverUnpack(chr->cover, &cover)) {
-		return false;
-	}
-
-	chrStand(chr);
-	chr->act_stand.reaim = 0;
-	chr->act_stand.flags = ATTACKFLAG_AIMATDIRECTION;
-	chr->act_stand.turning = TURNSTATE_TURNING;
-	//chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * (0x4000 / BADDEG2RAD(90));
-	chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * 10432.039f;
-
-	return true;
-}
-
 void func0f02ed28(struct chrdata *chr, f32 mergetime)
 {
 	func0f02e9a0(chr, mergetime);
@@ -1693,20 +1675,6 @@ void chrStartAlarmChooseAnimation(struct chrdata *chr)
 
 	modelSetAnimation(chr->model, ANIM_TALKING_003D, flip, 40, 1, 16);
 	modelSetAnimEndFrame(chr->model, 82);
-}
-
-void chrStartAlarm(struct chrdata *chr)
-{
-	chrStopFiring(chr);
-	chr->actiontype = ACT_STARTALARM;
-	chr->sleep = 0;
-
-	if (modelIsAnimMerging(chr->model)) {
-		chr->hidden |= CHRHFLAG_NEEDANIM;
-	} else {
-		chrStartAlarmChooseAnimation(chr);
-		chr->hidden &= ~CHRHFLAG_NEEDANIM;
-	}
 }
 
 void chrThrowGrenadeChooseAnimation(struct chrdata *chr)
@@ -1779,59 +1747,6 @@ void chrSurprisedChooseAnimation(struct chrdata *chr)
 		} else {
 			modelSetAnimEndFrame(chr->model, chrGetRangedSpeed(chr, 96, 8));
 		}
-	}
-}
-
-void chrDoSurprisedOneHand(struct chrdata *chr)
-{
-	struct prop *prop = chrGetTargetProp(chr);
-	f32 angle = chrGetAngleToPos(chr, &prop->pos);
-
-	// BADDEG2RAD(10) doesn't match due to float precision :(
-	if (angle < 0.17450514435768f || angle > BADDEG2RAD(350)) {
-		chrStopFiring(chr);
-		chr->actiontype = ACT_SURPRISED;
-		chr->act_surprised.type = 1;
-		chr->sleep = 0;
-
-		if (modelIsAnimMerging(chr->model)) {
-			chr->hidden |= CHRHFLAG_NEEDANIM;
-		} else {
-			chrSurprisedChooseAnimation(chr);
-			chr->hidden &= ~CHRHFLAG_NEEDANIM;
-		}
-	} else if (!chrIsStopped(chr)) {
-		chrStand(chr);
-	}
-}
-
-void chrDoSurprisedSurrender(struct chrdata *chr)
-{
-	chrStopFiring(chr);
-	chr->actiontype = ACT_SURPRISED;
-	chr->act_surprised.type = 2;
-	chr->sleep = 0;
-
-	if (modelIsAnimMerging(chr->model)) {
-		chr->hidden |= CHRHFLAG_NEEDANIM;
-	} else {
-		chrSurprisedChooseAnimation(chr);
-		chr->hidden &= ~CHRHFLAG_NEEDANIM;
-	}
-}
-
-void chrDoSurprisedLookAround(struct chrdata *chr)
-{
-	chrStopFiring(chr);
-	chr->actiontype = ACT_SURPRISED;
-	chr->act_surprised.type = 3;
-	chr->sleep = 0;
-
-	if (modelIsAnimMerging(chr->model)) {
-		chr->hidden |= CHRHFLAG_NEEDANIM;
-	} else {
-		chrSurprisedChooseAnimation(chr);
-		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
 
@@ -3937,31 +3852,6 @@ void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 }
 
 /**
- * Unused, and same as chrDamageByImpact but sets hitpart to HITPART_GENERAL instead of argument.
- */
-void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop)
-{
-	struct modelnode *node = NULL;
-	struct model *model = NULL;
-	s32 side = 0;
-	s32 hitpart = HITPART_GENERAL;
-
-	if (chrGetShield(chr) >= 0 && chr->model) {
-		chrCalculateShieldHit(chr, &chr->prop->pos, vector, &node, &hitpart, &model, &side);
-	}
-
-	chrDamage(chr, damage, vector, gset, prop, HITPART_GENERAL,
-			true,      // damageshield
-			chr->prop, // prop2
-			node,      // node
-			model,     // model
-			side,      // side
-			NULL,      // arg11
-			false,     // explosion
-			NULL);     // explosionpos
-}
-
-/**
  * Used for punching, but also used by AI commands to make chrs take damage.
  */
 void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 hitpart)
@@ -4984,11 +4874,6 @@ bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mu
 	dstpos.z = vector->z * mult + prop->pos.z;
 
 	return propchrHasClearLineToPos(prop, &dstpos, vector);
-}
-
-bool func0f036974(struct prop *prop, struct coord *pos)
-{
-	return func0f03654c(prop->chr, &prop->pos, prop->rooms, pos, NULL, NULL, prop->chr->radius * 1.2f, CDTYPE_ALL);
 }
 
 void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector)
@@ -6620,35 +6505,6 @@ bool chrTryAttackWalk(struct chrdata *chr)
 	return false;
 }
 
-bool chrTryAttackRun(struct chrdata *chr)
-{
-	u32 race = CHRRACE(chr);
-
-	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
-		return false;
-	}
-
-	if (chrIsReadyForOrders(chr)) {
-		struct prop *prop = chr->prop;
-
-		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false)
-				&& (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))
-				&& g_Vars.lvframe60 - chr->lastwalk60 > TICKS(180)) {
-			struct prop *target = chrGetTargetProp(chr);
-			f32 x = target->pos.x - prop->pos.x;
-			f32 y = target->pos.y - prop->pos.y;
-			f32 z = target->pos.z - prop->pos.z;
-
-			if (race == RACE_HUMAN && x * x + y * y + z * z >= 1000 * 1000) {
-				chrAttackWalk(chr, true);
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
 bool chrTryAttackRoll(struct chrdata *chr)
 {
 	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
@@ -7010,36 +6866,6 @@ bool chrTryStop(struct chrdata *chr)
 	return false;
 }
 
-bool chrTrySurprisedOneHand(struct chrdata *chr)
-{
-	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
-		chrDoSurprisedOneHand(chr);
-		return true;
-	}
-
-	return false;
-}
-
-bool chrTrySurprisedSurrender(struct chrdata *chr)
-{
-	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
-		chrDoSurprisedSurrender(chr);
-		return true;
-	}
-
-	return false;
-}
-
-bool chrTrySurprisedLookAround(struct chrdata *chr)
-{
-	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
-		chrDoSurprisedLookAround(chr);
-		return true;
-	}
-
-	return false;
-}
-
 bool chrTryKneel(struct chrdata *chr)
 {
 	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
@@ -7055,193 +6881,6 @@ bool chrTryStartAnim(struct chrdata *chr, s32 animfnum, f32 startframe, f32 endf
 	if (chrIsReadyForOrders(chr)) {
 		chrStartAnim(chr, animfnum, startframe, endframe, chranimflags, merge, speed);
 		return true;
-	}
-
-	return false;
-}
-
-bool chrTryRunFromTarget(struct chrdata *chr)
-{
-	struct prop *target = chrGetTargetProp(chr);
-	struct prop *prop = chr->prop;
-	f32 ymax;
-	f32 ymin;
-	f32 radius;
-	struct coord dst;
-	s16 rooms[8];
-	struct coord diff;
-	f32 distance;
-
-	if (chrIsReadyForOrders(chr)) {
-		if (!target) {
-			return false;
-		}
-
-		diff.x = target->pos.x - prop->pos.x;
-		diff.z = target->pos.z - prop->pos.z;
-		diff.y = 0;
-
-		distance = sqrtf(diff.f[0] * diff.f[0] + diff.f[2] * diff.f[2]);
-
-		// Scale diff into range -1 to +1
-		diff.x *= (1 / distance);
-		diff.z *= (1 / distance);
-
-		// Set dst to 1000 units in the opposite direction
-		dst.x = prop->pos.x - diff.x * 1000;
-		dst.z = prop->pos.z - diff.z * 1000;
-		dst.y = prop->pos.y;
-
-		propGetBbox(prop, &radius, &ymax, &ymin);
-
-		// If dst runs into a wall, set it to closest valid spot
-		if (cdExamCylMove03(&prop->pos, prop->rooms, &dst,
-					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
-					1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
-			cdGetPos(&dst, 8788, "chraction.c");
-		}
-
-		// Adjust dst to be two chr widths closer to avoid collision with wall
-		dst.x = dst.x + (diff.x * radius + diff.x * radius);
-		dst.z = dst.z + (diff.z * radius + diff.z * radius);
-
-		if (func0f036974(prop, &dst)) {
-			u32 speed = GOPOSFLAG_RUN;
-
-			if (CHRRACE(chr) == RACE_HUMAN) {
-				f32 dist = chrGetDistanceToCoord(chr, &dst);
-
-				if (dist > 100) {
-					speed = GOPOSFLAG_RUN;
-				} else if (dist < 50) {
-					speed = GOPOSFLAG_WALK;
-				} else {
-					speed = GOPOSFLAG_JOG;
-				}
-			}
-
-			func0f065e74(&prop->pos, prop->rooms, &dst, rooms);
-			chrGoToRoomPos(chr, &dst, rooms, speed);
-
-			return true;
-		}
-	}
-
-	return false;
-}
-
-/**
- * Attempt to make the chr find a suitable prop in their current room to use as
- * cover and run to it. However, a bug prevents this from working.
- */
-bool chrGoToCoverProp(struct chrdata *chr)
-{
-	struct prop *targetprop = chrGetTargetProp(chr);
-	struct prop *chrprop = chr->prop;
-	s16 i;
-	s16 propnums[258];
-	struct defaultobj *obj;
-	s16 numprops;
-	s16 startindex;
-
-	if (targetprop == NULL) {
-		return false;
-	}
-
-	if (chrIsReadyForOrders(chr)) {
-		roomGetProps(chrprop->rooms, propnums, 256);
-
-		for (numprops = 0; propnums[numprops] >= 0; numprops++);
-
-		if (numprops > 0) {
-			startindex = random() % numprops;
-		}
-
-		for (i = 0; i < numprops; i++) {
-			struct prop *prop = &g_Vars.props[propnums[(i + startindex) % numprops]];
-			obj = prop->obj;
-
-			if (prop->type == PROPTYPE_OBJ
-					&& (obj->hidden2 & OBJH2FLAG_DESTROYED) == 0
-					&& (obj->hidden & OBJHFLAG_00008000) == 0
-					&& (obj->hidden & OBJHFLAG_OCCUPIEDCHAIR) == 0) {
-				f32 targetdist = propGetDistanceToProp(targetprop, prop);
-				f32 chrdist = propGetDistanceToProp(chrprop, prop);
-
-				// @bug: This condition cannot pass
-				// (should be chrdist < targetdist + targetdist)
-				if (chrdist < 300 && chrdist > targetdist + targetdist && targetdist > 800) {
-					f32 propymax;
-					f32 propymin;
-					f32 propradius;
-					f32 chrymax;
-					f32 chrymin;
-					f32 chrradius;
-					f32 propheight;
-					f32 chrheight;
-					struct coord dstpos;
-					s16 dstrooms[8];
-
-					propGetBbox(prop, &propradius, &propymax, &propymin);
-					propGetBbox(chrprop, &chrradius, &chrymax, &chrymin);
-
-					propheight = propymax - propymin;
-					chrheight = chrymax - chrymin;
-
-					if (propheight > chrheight * 0.4f && propheight < chrheight * 0.9f) {
-						propSetPerimEnabled(prop, false);
-
-						if (cdTestLos04(&chrprop->pos, chrprop->rooms, &prop->pos, CDTYPE_DOORS | CDTYPE_BG)) {
-							propSetPerimEnabled(prop, true);
-
-							dstpos.x = prop->pos.x - (targetprop->pos.x - prop->pos.x) / targetdist * (propradius * 1.25f + chrradius);
-							dstpos.z = prop->pos.z - (targetprop->pos.z - prop->pos.z) / targetdist * (propradius * 1.25f + chrradius);
-							dstpos.y = prop->pos.y;
-
-							if (func0f036974(chrprop, &dstpos)) {
-								u32 speed = GOPOSFLAG_JOG;
-
-								if (CHRRACE(chr) == RACE_HUMAN) {
-									if (chrdist > 1500) {
-										speed = GOPOSFLAG_RUN;
-									} else if (chrdist < 100) {
-										speed = GOPOSFLAG_WALK;
-									}
-								}
-
-								func0f065e74(&chrprop->pos, chrprop->rooms, &dstpos, dstrooms);
-								chrGoToRoomPos(chr, &dstpos, dstrooms, speed);
-
-								chr->proppreset1 = prop - g_Vars.props;
-								obj->hidden |= OBJHFLAG_OCCUPIEDCHAIR;
-
-								return true;
-							}
-						}
-					}
-
-					propSetPerimEnabled(prop, true);
-				}
-			}
-		}
-	}
-
-	return false;
-}
-
-bool chrTryStartAlarm(struct chrdata *chr, s32 pad_id)
-{
-	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
-		pad_id = chrResolvePadId(chr, pad_id);
-
-		if (pad_id >= 0) {
-			struct defaultobj *obj = objFindByPadNum(pad_id);
-
-			if (obj && objIsHealthy(obj)) {
-				chrStartAlarm(chr);
-				return true;
-			}
-		}
 	}
 
 	return false;
@@ -7320,30 +6959,6 @@ bool chrConsiderGrenadeThrow(struct chrdata *chr, u32 attackflags, u32 entityid)
 	}
 
 	return done;
-}
-
-bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
-{
-	struct weaponobj *weapon;
-	u8 race = CHRRACE(chr);
-
-	if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
-		return false;
-	}
-
-	weapon = weaponCreateProjectileFromWeaponNum(modelnum, (u8)weaponnum, chr);
-
-	if (weapon && weapon->base.prop) {
-		modelSetScale(weapon->base.model, weapon->base.model->scale);
-		propReparent(weapon->base.prop, chr->prop);
-		weapon->timer240 = TICKS(720);
-		objSetDropped(weapon->base.prop, DROPTYPE_DEFAULT);
-		chr->hidden |= CHRHFLAG_00000001;
-
-		return true;
-	}
-
-	return false;
 }
 
 void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 reverse)
@@ -8952,17 +8567,6 @@ void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
 	if (prop) {
 		weaponSetGunfireVisible(prop, firing, chr->prop->rooms[0]);
 	}
-}
-
-bool chrIsGunfireVisible(struct chrdata *chr, s32 hand)
-{
-	struct prop *prop = chrGetHeldProp(chr, hand);
-
-	if (prop) {
-		return weaponIsGunfireVisible(prop);
-	}
-
-	return false;
 }
 
 void chrStopFiring(struct chrdata *chr)
@@ -12139,11 +11743,6 @@ bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, b
 	return advance;
 }
 
-s32 chrIsUsingLift(struct chrdata *chr)
-{
-	return (chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL) && chr->liftaction > 0;
-}
-
 s16 chrGoPosGetNextPadNum(struct chrdata *chr)
 {
 	if (chr->act_gopos.waypoints[chr->act_gopos.curindex + 1]) {
@@ -13014,15 +12613,6 @@ void chraTickBg(void)
 	}
 }
 
-bool chrSawTargetRecently(struct chrdata *chr)
-{
-	if (chr->lastseetarget60 > 0 && g_Vars.lvframe60 - chr->lastseetarget60 < TICKS(600)) {
-		return true;
-	}
-
-	return false;
-}
-
 bool chrHeardTargetRecently(struct chrdata *chr)
 {
 	if (chr->lastheartarget60 > 0 && g_Vars.lvframe60 - chr->lastheartarget60 < TICKS(600)) {
@@ -13246,13 +12836,6 @@ f32 chrGetDistanceToTarget(struct chrdata *chr)
 	return propGetDistanceToProp(chr->prop, prop);
 }
 
-// Redundant function - it's the same as above
-f32 chrGetDistanceToTarget2(struct chrdata *chr)
-{
-	struct prop *prop = chrGetTargetProp(chr);
-	return propGetDistanceToProp(chr->prop, prop);
-}
-
 f32 chrGetDistanceToCurrentPlayer(struct chrdata *chr)
 {
 	return propGetDistanceToProp(chr->prop, g_Vars.currentplayer->prop);
@@ -13265,14 +12848,6 @@ f32 propGetDistanceToProp(struct prop *a, struct prop *b)
 	f32 zdiff = a->pos.z - b->pos.z;
 
 	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
-}
-
-f32 propGetLateralDistanceToProp(struct prop *a, struct prop *b)
-{
-	f32 xdiff = a->pos.x - b->pos.x;
-	f32 zdiff = a->pos.z - b->pos.z;
-
-	return sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
 f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
@@ -13334,23 +12909,6 @@ f32 chrGetLateralDistanceToCoord(struct chrdata *chr, struct coord *pos)
 	f32 zdiff = pos->z - chr->prop->pos.z;
 
 	return sqrtf(xdiff * xdiff + zdiff * zdiff);
-}
-
-f32 chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
-{
-	struct prop *prop = chr->prop;
-	f32 xdiff, zdiff;
-	f32 distance = 0;
-
-	pad_id = chrResolvePadId(chr, pad_id);
-
-	if (pad_id >= 0) {
-		xdiff = g_Pads[pad_id].pos.x - prop->pos.x;
-		zdiff = g_Pads[pad_id].pos.z - prop->pos.z;
-		distance = sqrtf(xdiff * xdiff + zdiff * zdiff);
-	}
-
-	return distance;
 }
 
 f32 chrGetSquaredDistanceToCoord(struct chrdata *chr, struct coord *pos)
@@ -13764,11 +13322,6 @@ s32 chrGetNumArghs(struct chrdata *chr)
 	return chr->numarghs;
 }
 
-s32 chrGetNumCloseArghs(struct chrdata *chr)
-{
-	return chr->numclosearghs;
-}
-
 bool chrSawInjury(struct chrdata *chr, u8 arg1)
 {
 	bool saw_injury = chr->chrseeshot >= 0;
@@ -13996,79 +13549,6 @@ bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 quadr
 	return false;
 }
 
-bool chrSetChrPresetToAnyChrNearSelf(struct chrdata *chr, f32 distance)
-{
-	return chrSetChrPresetToChrNearSelf(COMPARE_ANY, chr, distance);
-}
-
-bool chrSetChrPresetToChrNearSelf(u8 checktype, struct chrdata *chr, f32 distance)
-{
-	return chrSetChrPresetToChrNearPos(checktype, chr, distance, &chr->prop->pos, chr->prop->rooms);
-}
-
-bool chrSetChrPresetToChrNearPad(u32 checktype, struct chrdata *chr, f32 distance, s32 padnum)
-{
-	s16 rooms[2];
-
-	padnum = chrResolvePadId(chr, padnum);
-
-	rooms[0] = g_Pads[padnum].room;
-	rooms[1] = -1;
-
-	return chrSetChrPresetToChrNearPos(checktype, chr, distance, &g_Pads[padnum].pos, rooms);
-}
-
-bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, s16 *rooms)
-{
-	s32 i;
-	s16 *propnumptr;
-	s16 propnums[256];
-	s16 allrooms[21];
-	f32 xmin = pos->x - distance;
-	f32 xmax = pos->x + distance;
-	f32 ymin = pos->y - distance;
-	f32 ymax = pos->y + distance;
-	f32 zmin = pos->z - distance;
-	f32 zmax = pos->z + distance;
-	s16 neighbours[11];
-
-	roomsCopy(rooms, allrooms);
-
-	for (i = 0; rooms[i] != -1; i++) {
-		roomGetNeighbours(rooms[i], neighbours, 10);
-		roomsAppend(neighbours, allrooms, 20);
-	}
-
-	roomGetProps(allrooms, propnums, 256);
-
-	propnumptr = propnums;
-
-	while (*propnumptr >= 0) {
-		struct prop *prop = &g_Vars.props[*propnumptr];
-
-		if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
-			struct chrdata *loopchr = prop->chr;
-
-			if (loopchr->chrnum != chr->chrnum
-					&& !chrIsDead(loopchr)
-					&& prop->pos.x >= xmin
-					&& prop->pos.x <= xmax
-					&& prop->pos.y >= ymin
-					&& prop->pos.y <= ymax
-					&& prop->pos.z >= zmin
-					&& prop->pos.z <= zmax
-					&& chrCompareTeams(loopchr, chr, checktype)) {
-				chr->chrpreset1 = loopchr->chrnum;
-				return true;
-			}
-		}
-
-		*propnumptr++;
-	}
-
-	return false;
-}
-
 bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 {
 	if (chr1 && chr1->prop) {
@@ -14141,68 +13621,6 @@ void chrSetChrPresetByChrnum(struct chrdata *basechr, s32 chrnum, s32 chrpreset)
 void chrSetPadPreset(struct chrdata *chr, s32 pad_id)
 {
 	chr->padpreset1 = chrResolvePadId(chr, pad_id);
-}
-
-void chrSetPadPresetByChrnum(struct chrdata *basechr, s32 chrnum, s32 pad_id)
-{
-	struct chrdata *chr = chrFindById(basechr, chrnum);
-
-	if (chr) {
-		chr->padpreset1 = chrResolvePadId(basechr, pad_id);
-	}
-}
-
-/**
- * Check if chr has line of sight to their target. If not, find a route
- * to them then iterate the route backwards (from target to chr).
- * Find the first waypoint in view of both the chr and their target
- * and store it as the chr's pad preset.
- */
-bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr)
-{
-	struct prop *target = chrGetTargetProp(chr);
-	struct prop *prop = chr->prop;
-	struct waypoint *fromwp;
-	struct waypoint *towp;
-	struct waypoint *waypoints[5];
-	s32 numwaypoints;
-	s32 i;
-	struct pad *pad;
-
-	if (target->type != PROPTYPE_PLAYER || g_Vars.bondvisible) {
-		if (cdTestLos04(&prop->pos, prop->rooms, &target->pos, CDTYPE_BG)) {
-			return false;
-		}
-
-		fromwp = waypointFindClosestToPos(&prop->pos, prop->rooms);
-		towp = waypointFindClosestToPos(&target->pos, target->rooms);
-
-		if (fromwp && towp) {
-			u32 hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
-
-			// Note from/to are swapped here, so the route is from target to chr
-			waypointSetHashThing(hash, hash);
-			numwaypoints = waypointFindRoute(towp, fromwp, waypoints, 5);
-			waypointSetHashThing(0, 0);
-
-			if (numwaypoints >= 3) {
-				for (i = 0; waypoints[i] != NULL; i++) {
-					struct waypoint *wp = waypoints[i];
-
-					pad = &g_Pads[wp->padnum];
-
-					if (cdTestLos04(&target->pos, target->rooms, &pad->pos, CDTYPE_BG)) {
-						if (cdTestLos04(&prop->pos, prop->rooms, &pad->pos, CDTYPE_BG)) {
-							chr->padpreset1 = wp->padnum;
-							return true;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	return false;
 }
 
 bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
@@ -14440,33 +13858,6 @@ struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrn
 	}
 
 	return chrSpawnAtCoord(body, head, &chr->prop->pos, chr->prop->rooms, fvalue, ailist, spawnflags);
-}
-
-bool chrIsPropPresetBlockingSightToTarget(struct chrdata *chr)
-{
-	bool result = false;
-	struct prop *prop = chr->prop;
-	struct prop *target = chrGetTargetProp(chr);
-
-	if (chr->proppreset1 >= 0) {
-		chrSetPerimEnabled(chr, false);
-		propSetPerimEnabled(target, false);
-
-		if (!cdTestLos04(&prop->pos, prop->rooms, &target->pos,
-					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
-			struct prop *obstacle = cdGetObstacleProp();
-
-			if (obstacle && obstacle->type == PROPTYPE_OBJ
-					&& chr->proppreset1 == (s16)(obstacle - g_Vars.props)) {
-				result = true;
-			}
-		}
-
-		chrSetPerimEnabled(chr, true);
-		propSetPerimEnabled(target, true);
-	}
-
-	return result;
 }
 
 bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen)
@@ -14897,13 +14288,6 @@ s32 chrGetDistanceLostToTargetInLastSecond(struct chrdata *chr)
 	return curdist - olddist;
 }
 
-bool chrIsTargetNearlyInSight(struct chrdata *chr, u32 distance)
-{
-	struct prop *target = chrGetTargetProp(chr);
-
-	return cdIsNearlyInSight(&chr->prop->pos, chr->prop->rooms, &target->pos, distance, CDTYPE_BG);
-}
-
 bool chrIsNearlyInTargetsSight(struct chrdata *chr, u32 distance)
 {
 	struct prop *target = chrGetTargetProp(chr);
@@ -15204,102 +14588,6 @@ void chrToggleModelPart(struct chrdata *chr, s32 partnum)
 			bool visible = rwdata->toggle.visible;
 			rwdata->toggle.visible = !visible;
 		}
-	}
-}
-
-/**
- * Make the chr do an avoiding animation, as if they are avoiding some object
- * being thrown at them.
- *
- * The chosen animation is based on the chr's relative angle to their target.
- *
- * Collision checks are done, and no animation will be done if there would be a
- * collision.
- */
-void chrAvoid(struct chrdata *chr)
-{
-	// The first 4 items here are animation numbers
-	// and the second 4 are their corresponding end frames.
-	s32 anims[] = {
-		ANIM_0064, ANIM_0065, ANIM_0066, ANIM_0067,
-		48, 58, 35, 35
-	};
-
-	s32 animindex;
-	struct prop *target = chrGetTargetProp(chr);
-	f32 relangle = chrGetAngleToPos(chr, &target->pos) / M_BADTAU * 360;
-	u32 chranimflags = 0;
-	f32 ymax;
-	f32 ymin;
-	f32 radius;
-	s32 cdresult = CDRESULT_NOCOLLISION;
-	f32 xdiff;
-	f32 zdiff;
-	f32 halfchrradius;
-	f32 chrangle = model0001ae44(chr->model);
-	s16 dstrooms[8];
-	struct coord dstpos;
-
-	// @bug: This shouldn't be here, and the perim is not enabled again
-	// if the chr is not ready for orders.
-	chrSetPerimEnabled(chr, false);
-
-	if (chrIsReadyForOrders(chr)) {
-		chrSetPerimEnabled(chr, false);
-
-		if (relangle > 45 && relangle <= 135) {
-			animindex = 3;
-			chranimflags = CHRANIMFLAG_FLIP;
-			chrangle += M_PI;
-		} else if (relangle > 135 && relangle < 225) {
-			animindex = 2;
-
-			if ((random() % 255) >= 2) {
-				cdresult = CDRESULT_COLLISION;
-				chr->chrflags &= ~CHRCFLAG_10000000;
-			}
-		} else if (relangle > 225 && relangle < 315) {
-			animindex = 3;
-			chrangle += M_PI;
-		} else {
-			animindex = (random() % 100 < 50) ? 0 : 1;
-
-			if (animindex == 0) {
-				chrangle -= 1.5707963705063f;
-			} else {
-				chrangle += 1.5707963705063f;
-			}
-		}
-
-		if (cdresult != CDRESULT_COLLISION) {
-			dstpos.x = chr->prop->pos.x - sinf(chrangle) * 100;
-			dstpos.y = chr->prop->pos.y;
-			dstpos.z = chr->prop->pos.z + cosf(chrangle) * 100;
-
-			chrGetBbox(chr->prop, &radius, &ymax, &ymin);
-
-			halfchrradius = radius * 0.5f;
-
-			func0f065e74(&chr->prop->pos, chr->prop->rooms, &dstpos, dstrooms);
-			chr0f021fa8(chr, &dstpos, dstrooms);
-
-			xdiff = dstpos.x - chr->prop->pos.x;
-			zdiff = dstpos.z - chr->prop->pos.z;
-
-			if (xdiff > halfchrradius || zdiff > halfchrradius || xdiff < -halfchrradius || zdiff < -halfchrradius) {
-				cdresult = cdExamCylMove05(&chr->prop->pos, chr->prop->rooms, &dstpos, dstrooms, CDTYPE_ALL, true, ymax - chr->prop->pos.y, ymin - chr->prop->pos.y);
-			}
-
-			if (cdresult == CDRESULT_ERROR) {
-				chr->chrflags &= ~CHRCFLAG_10000000;
-			} else if (cdresult == CDRESULT_NOCOLLISION) {
-				chrStartAnim(chr, anims[animindex], 0, anims[4 + animindex], chranimflags, 2, 0.6f);
-			} else {
-				chr->chrflags &= ~CHRCFLAG_10000000;
-			}
-		}
-
-		chrSetPerimEnabled(chr, true);
 	}
 }
 

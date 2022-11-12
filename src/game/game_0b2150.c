@@ -126,11 +126,6 @@ void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, s32
 	}
 }
 
-void func0f0b26f0(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool arg5, bool arg6, bool arg7, bool arg8, s32 tile)
-{
-	func0f0b2150(gdl, arg1, arg2, width, height, arg5, arg6, arg7, arg8, tile, false);
-}
-
 void func0f0b2740(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool arg5, bool arg6, bool arg7, u32 arg8)
 {
 	func0f0b2150(gdl, arg1, arg2, width, height, arg5, arg6, arg7, arg8, G_TX_RENDERTILE, false);

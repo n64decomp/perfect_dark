@@ -117,15 +117,6 @@ s32 objectiveGetCount(void)
 	return g_ObjectiveLastIndex + 1;
 }
 
-char *objectiveGetText(s32 index)
-{
-	if (index < 10 && g_Objectives[index]) {
-		return langGet(g_Objectives[index]->text);
-	}
-
-	return NULL;
-}
-
 u32 objectiveGetDifficultyBits(s32 index)
 {
 	if (index < 10 && g_Objectives[index]) {

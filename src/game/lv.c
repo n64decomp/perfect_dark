@@ -139,11 +139,6 @@ u32 getVar80084040(void)
 	return var80084040;
 }
 
-void setVar80084040(u32 value)
-{
-	var80084040 = value;
-}
-
 void lvInit(void)
 {
 	g_Vars.lockscreen = 0;
@@ -492,11 +487,6 @@ Gfx *lvRenderFade(Gfx *gdl)
 			viGetViewTop() + viGetViewHeight() - inset + 2);
 
 	return text0f153838(gdl);
-}
-
-bool lvIsFadeActive(void)
-{
-	return g_FadeFrac >= 0;
 }
 
 void lvFadeReset(void)
@@ -2201,17 +2191,7 @@ void lvSetMpTeamScoreLimit(u32 limit)
 	g_MpTeamScoreLimit = limit;
 }
 
-f32 lvGetStageTimeInSeconds(void)
-{
-	return g_StageTimeElapsed1f;
-}
-
 s32 lvGetStageTime60(void)
 {
 	return g_StageTimeElapsed60;
-}
-
-u32 func0f16ce04(u32 arg0)
-{
-	return arg0;
 }

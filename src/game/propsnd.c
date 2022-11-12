@@ -109,11 +109,6 @@ s32 func0f0927d4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4)
 	return result;
 }
 
-s32 channelGetUnk06(s32 channelnum)
-{
-	return (channelnum >= 0 && channelnum <= 7) ? g_AudioChannels[channelnum].unk06 : 0;
-}
-
 void propsnd0f09294c(struct prop *prop, s16 soundnum, s32 arg2)
 {
 	s32 i;
@@ -1184,16 +1179,6 @@ s32 propsndGetRandomSparkSound(void)
 	};
 
 	return sounds[index];
-}
-
-u32 propsnd0f095258(u32 arg0, u32 arg1)
-{
-	return arg0;
-}
-
-u32 propsnd0f095264(u32 arg0, u32 arg1)
-{
-	return arg0;
 }
 
 /**

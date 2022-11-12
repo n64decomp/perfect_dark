@@ -61,11 +61,6 @@ struct hudmsgtype g_HudmsgTypes[] = {
 	/*11*/ { 0, 0, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BELOWVIEWPORT, 0, 0, 120 },
 };
 
-u8 hudmsgsAreActive(void)
-{
-	return g_HudmsgsActive;
-}
-
 s32 hudmsgIsZoomRangeVisible(void)
 {
 	return optionsGetShowZoomRange(g_Vars.currentplayerstats->mpindex)
@@ -707,23 +702,6 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 				config->unk04, config->unk08, config->colour, config->unk10, config->alignh,
 				config->unk16, config->alignv, config->unk18, audiochannelnum, 0);
 	}
-}
-
-void hudmsgCreateFromArgsWithoutFlags(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02, struct fontchar **conf04, struct font **conf08, u32 textcolour, u32 shadowcolour, u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14)
-{
-	hudmsgCreateFromArgs(text, type,
-			conf00,
-			conf01,
-			conf02,
-			conf04,
-			conf08,
-			textcolour,
-			shadowcolour,
-			alignh,
-			conf16,
-			alignv,
-			conf18,
-			arg14, 0);
 }
 
 void hudmsgCalculatePosition(struct hudmessage *msg)
