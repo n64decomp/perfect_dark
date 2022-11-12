@@ -17943,59 +17943,56 @@ Gfx *countdownTimerRender(Gfx *gdl)
 	s32 mins;
 	s32 secs;
 	s32 ms;
-	s32 y;
 
-	if (!g_CountdownTimerOff) {
-		f32 value60 = g_CountdownTimerValue60;
-		u32 stack;
-		s32 viewright = viGetViewLeft() + (viGetViewWidth() >> 1);
-		s32 y = viGetViewTop() + viGetViewHeight() - 18;
-		s32 playercount = PLAYERCOUNT();
-		char *fmt = ":\n";
+	f32 value60 = g_CountdownTimerValue60;
+	u32 stack;
+	s32 viewright = viGetViewLeft() + (viGetViewWidth() >> 1);
+	s32 y = viGetViewTop() + viGetViewHeight() - 18;
+	s32 playercount = PLAYERCOUNT();
+	char *fmt = ":\n";
 
-		if (playercount == 2) {
-			if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0) {
-				y += 10;
-			} else {
-				y += 2;
-			}
-		} else if (playercount >= 3) {
-			if (g_Vars.currentplayernum <= 1) {
-				y += 10;
-			} else {
-				y += 2;
-			}
+	if (playercount == 2) {
+		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0) {
+			y += 10;
 		} else {
-			if (optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
-				y += 8;
-			}
+			y += 2;
 		}
+	} else if (playercount >= 3) {
+		if (g_Vars.currentplayernum <= 1) {
+			y += 10;
+		} else {
+			y += 2;
+		}
+	} else {
+		if (optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
+			y += 8;
+		}
+	}
 
 #if !PAL
-		if (g_ViRes == VIRES_HI) {
-			viewright = viewright / 2;
-		}
+	if (g_ViRes == VIRES_HI) {
+		viewright = viewright / 2;
+	}
 #endif
 
-		if (value60 < 0) {
-			value60 = -value60;
-		}
-
-		mins = floorf(value60 * (1.0f / 3600.0f));
-		secs = (s32)floorf(value60 * (1.0f / 60.0f)) - mins * 60;
-		ms = (s32)floorf(value60 * 1.6666666269302f) - mins * 6000 - secs * 100;
-
-		gdl = text0f153628(gdl);
-		gdl = bgunDrawHudInteger(gdl, (mins % 100) / 10, viewright - 18, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, mins % 10, viewright - 14, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudString(gdl, fmt, viewright - 8, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, (secs % 60) / 10, viewright - 2, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, secs % 10, viewright + 2, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudString(gdl, fmt, viewright + 8, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, (ms % 100) / 10, viewright + 14, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = bgunDrawHudInteger(gdl, ms % 10, viewright + 18, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = text0f153780(gdl);
+	if (value60 < 0) {
+		value60 = -value60;
 	}
+
+	mins = floorf(value60 * (1.0f / 3600.0f));
+	secs = (s32)floorf(value60 * (1.0f / 60.0f)) - mins * 60;
+	ms = (s32)floorf(value60 * 1.6666666269302f) - mins * 6000 - secs * 100;
+
+	gdl = text0f153628(gdl);
+	gdl = bgunDrawHudInteger(gdl, (mins % 100) / 10, viewright - 18, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
+	gdl = bgunDrawHudInteger(gdl, mins % 10, viewright - 14, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
+	gdl = bgunDrawHudString(gdl, fmt, viewright - 8, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
+	gdl = bgunDrawHudInteger(gdl, (secs % 60) / 10, viewright - 2, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
+	gdl = bgunDrawHudInteger(gdl, secs % 10, viewright + 2, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
+	gdl = bgunDrawHudString(gdl, fmt, viewright + 8, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
+	gdl = bgunDrawHudInteger(gdl, (ms % 100) / 10, viewright + 14, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
+	gdl = bgunDrawHudInteger(gdl, ms % 10, viewright + 18, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
+	gdl = text0f153780(gdl);
 
 	return gdl;
 }

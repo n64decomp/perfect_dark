@@ -24,8 +24,7 @@
 #include "string.h"
 
 u32 g_NextHudMessageId;
-
-u8 g_HudmsgsActive = 0;
+u8 g_HudmsgsActive;
 
 u32 g_HudmsgColours[] = {
 	/* 0*/ 0x00ff0000, // green
@@ -276,8 +275,6 @@ Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u3
 
 	if (x1);
 
-	g_HudmsgsActive = true;
-
 	f0 = sinf(90 * bgopacity * M_PI / 180.0f);
 	f22 = (x2 - x1) * 0.5f;
 	f20 = (y2 - y1) * 0.5f;
@@ -363,6 +360,7 @@ void hudmsgsReset(void)
 	}
 
 	g_NextHudMessageId = 0;
+	g_HudmsgsActive = false;
 }
 
 void hudmsgRemoveAll(void)
@@ -372,6 +370,8 @@ void hudmsgRemoveAll(void)
 	for (i = 0; i < g_NumHudMessages; i++) {
 		g_HudMessages[i].state = HUDMSGSTATE_FREE;
 	}
+
+	g_HudmsgsActive = false;
 }
 
 s32 hudmsgGetNext(s32 refid)
@@ -951,6 +951,8 @@ void hudmsgCreateFromArgs(char *text, s32 type, s32 conf00, s32 conf01, s32 conf
 				msg->showduration = TICKS(g_HudmsgTypes[type].duration);
 				msg->channelnum = arg14;
 			}
+
+			g_HudmsgsActive = true;
 		}
 
 		g_ScaleX = 1;
@@ -970,8 +972,7 @@ void hudmsgsTick(void)
 	bool hide;
 	f32 fadeintime;
 	f32 fadeouttime;
-
-	g_HudmsgsActive = false;
+	bool anyactive = false;
 
 	g_ScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
 
@@ -991,8 +992,12 @@ void hudmsgsTick(void)
 
 			setCurrentPlayerNum(g_HudMessages[k].playernum);
 			hudmsgCalculatePosition(&g_HudMessages[k]);
+
+			anyactive = true;
 		}
 	}
+
+	g_HudmsgsActive = anyactive;
 
 	setCurrentPlayerNum(prevplayernum);
 
@@ -1203,172 +1208,132 @@ Gfx *hudmsgsRender(Gfx *gdl)
 	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
-	gdl = text0f153628(gdl);
+	if (g_HudmsgsActive) {
+		gdl = text0f153628(gdl);
 
-	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& g_InCutscene
-			&& g_MainIsEndscreen == 0
-			&& g_Vars.currentplayernum == 0) {
-		spdc = false;
-	}
-
-	for (i = 0; i < g_NumHudMessages; i++) {
-		msg = &g_HudMessages[i];
-
-		if (!msg->opacity) {
-			continue;
+		if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
+				&& g_InCutscene
+				&& g_MainIsEndscreen == 0
+				&& g_Vars.currentplayernum == 0) {
+			spdc = false;
 		}
 
-		if (msg->state == HUDMSGSTATE_FREE
-				|| msg->state == HUDMSGSTATE_QUEUED
-				|| (spdc && g_Vars.currentplayernum != msg->playernum)) {
-			continue;
-		}
+		for (i = 0; i < g_NumHudMessages; i++) {
+			msg = &g_HudMessages[i];
 
-		if (msg->flash) {
-			s32 alpha;
-			sin = sinf((msg->timer * M_PI) / 60.0f);
-
-			if (sin < 0.0f) {
-				sin = -sin;
+			if (!msg->opacity) {
+				continue;
 			}
 
-			alpha = 192.0f * sin;
-
-			textcolour = (msg->textcolour & 0xffffff00) + alpha;
-			glowcolour = msg->glowcolour;
-		} else {
-			textcolour = msg->textcolour | 0xa0;
-			glowcolour = msg->glowcolour;
-		}
-
-		if (msg->opacity != 255) {
-			u32 textalpha = textcolour & 0xff;
-			u32 glowalpha = glowcolour & 0xff;
-
-			textalpha = (msg->opacity * textalpha) / 255;
-			glowalpha = (msg->opacity * glowalpha) / 255;
-
-			textcolour = (textcolour & 0xffffff00) + (textalpha & 0xff);
-			glowcolour = (glowcolour & 0xffffff00) + (glowalpha & 0xff);
-		}
-
-		x = msg->x;
-		y = msg->y;
-
-		if (msg->type == HUDMSGTYPE_INGAMESUBTITLE && playerIsHealthVisible()) {
-			y += (s32)(16.0f * playerGetHealthBarHeightFrac());
-		}
-
-		if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
-			gDPSetScissor(gdl++, 0,
-					(x - 4) * g_ScaleX, 0,
-					(x + msg->width + 3) * g_ScaleX, viGetBufHeight());
-		}
-
-		switch (msg->state) {
-		case HUDMSGSTATE_FREE:
-		case HUDMSGSTATE_QUEUED:
-			break;
-		case HUDMSGSTATE_FADINGIN:
-			{
-				u32 bordercolour = msg->textcolour | 0x40;
-				f32 tmp;
-				f32 spc0;
-
-				if (msg->opacity != 255) {
-					u32 alpha = (msg->opacity * (bordercolour & 0xff)) / 255;
-					bordercolour = (bordercolour & 0xffffff00) + (alpha & 0xff);
-				}
-
-				spc0 = (sqrtf(msg->width * msg->width + msg->height * msg->height) + 132.0f) / PALUPF(7.0f);
-
-				if (spc0 > 30.0f) {
-					spc0 = 30.0f;
-				}
-
-				spc0 = msg->timer / spc0;
-
-				if (spc0 > 1.0f) {
-					spc0 = 1.0f;
-				}
-
-				if (spc0 < 0.0f) {
-					spc0 = 0.0f;
-				}
-
-				tmp = msg->timer * PALUPF(7.0f);
-
-				textSetDiagonalBlend(x, y, tmp, DIAGMODE_FADEIN);
-
-				if (msg->boxed) {
-					gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, spc0);
-
-					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
-				} else {
-					gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
-
-					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
-				}
-
-				if (msg->alignv == 6) {
-					timerthing = 0;
-				}
-
-				textResetBlends();
+			if (msg->state == HUDMSGSTATE_FREE
+					|| msg->state == HUDMSGSTATE_QUEUED
+					|| (spdc && g_Vars.currentplayernum != msg->playernum)) {
+				continue;
 			}
-			break;
-		case HUDMSGSTATE_ONSCREEN:
-			if (msg->boxed) {
-				u32 bordercolour = msg->textcolour | 0x40;
 
-				if (msg->opacity != 255) {
-					u32 alpha = (msg->opacity * (bordercolour & 0xff)) / 255;
-					bordercolour = (bordercolour & 0xffffff00) + (alpha & 0xff);
+			if (msg->flash) {
+				s32 alpha;
+				sin = sinf((msg->timer * M_PI) / 60.0f);
+
+				if (sin < 0.0f) {
+					sin = -sin;
 				}
 
-				gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f);
+				alpha = 192.0f * sin;
 
-				gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
+				textcolour = (msg->textcolour & 0xffffff00) + alpha;
+				glowcolour = msg->glowcolour;
 			} else {
-				gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
-
-				gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
+				textcolour = msg->textcolour | 0xa0;
+				glowcolour = msg->glowcolour;
 			}
-			if (msg->alignv == 6) {
-				timerthing = 0;
+
+			if (msg->opacity != 255) {
+				u32 textalpha = textcolour & 0xff;
+				u32 glowalpha = glowcolour & 0xff;
+
+				textalpha = (msg->opacity * textalpha) / 255;
+				glowalpha = (msg->opacity * glowalpha) / 255;
+
+				textcolour = (textcolour & 0xffffff00) + (textalpha & 0xff);
+				glowcolour = (glowcolour & 0xffffff00) + (glowalpha & 0xff);
 			}
-			break;
-		case HUDMSGSTATE_FADINGOUT:
-			{
-				u32 bordercolour;
-				u32 stack;
-				f32 spa8 = (sqrtf(msg->width * msg->width + msg->height * msg->height) + 92.0f) / PALUPF(7.0f);
-				f32 tmp;
 
-				bordercolour = msg->textcolour | 0x40;
+			x = msg->x;
+			y = msg->y;
 
-				if (msg->opacity != 255) {
-					u32 alpha = (msg->opacity * (bordercolour & 0xff)) / 255;
-					bordercolour = (bordercolour & 0xffffff00) + (alpha & 0xff);
+			if (msg->type == HUDMSGTYPE_INGAMESUBTITLE && playerIsHealthVisible()) {
+				y += (s32)(16.0f * playerGetHealthBarHeightFrac());
+			}
+
+			if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
+				gDPSetScissor(gdl++, 0,
+						(x - 4) * g_ScaleX, 0,
+						(x + msg->width + 3) * g_ScaleX, viGetBufHeight());
+			}
+
+			switch (msg->state) {
+			case HUDMSGSTATE_FREE:
+			case HUDMSGSTATE_QUEUED:
+				break;
+			case HUDMSGSTATE_FADINGIN:
+				{
+					u32 bordercolour = msg->textcolour | 0x40;
+					f32 tmp;
+					f32 spc0;
+
+					if (msg->opacity != 255) {
+						u32 alpha = (msg->opacity * (bordercolour & 0xff)) / 255;
+						bordercolour = (bordercolour & 0xffffff00) + (alpha & 0xff);
+					}
+
+					spc0 = (sqrtf(msg->width * msg->width + msg->height * msg->height) + 132.0f) / PALUPF(7.0f);
+
+					if (spc0 > 30.0f) {
+						spc0 = 30.0f;
+					}
+
+					spc0 = msg->timer / spc0;
+
+					if (spc0 > 1.0f) {
+						spc0 = 1.0f;
+					}
+
+					if (spc0 < 0.0f) {
+						spc0 = 0.0f;
+					}
+
+					tmp = msg->timer * PALUPF(7.0f);
+
+					textSetDiagonalBlend(x, y, tmp, DIAGMODE_FADEIN);
+
+					if (msg->boxed) {
+						gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, spc0);
+
+						gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
+					} else {
+						gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
+
+						gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
+					}
+
+					if (msg->alignv == 6) {
+						timerthing = 0;
+					}
+
+					textResetBlends();
 				}
-
-				tmp = (spa8 - msg->timer) * PALUPF(7.0f);
-
-				textSetDiagonalBlend(x + msg->width, y + msg->height, tmp, DIAGMODE_FADEOUT);
-
-				if (spa8 > 30.0f) {
-					spa8 = 30.0f;
-				}
-
-				spa8 = msg->timer / spa8;
-
-				if (spa8 > 1.0f) {
-					spa8 = 1.0f;
-				}
-
+				break;
+			case HUDMSGSTATE_ONSCREEN:
 				if (msg->boxed) {
-					gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f - spa8);
+					u32 bordercolour = msg->textcolour | 0x40;
+
+					if (msg->opacity != 255) {
+						u32 alpha = (msg->opacity * (bordercolour & 0xff)) / 255;
+						bordercolour = (bordercolour & 0xffffff00) + (alpha & 0xff);
+					}
+
+					gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f);
 
 					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 				} else {
@@ -1376,24 +1341,70 @@ Gfx *hudmsgsRender(Gfx *gdl)
 
 					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
 				}
-
 				if (msg->alignv == 6) {
 					timerthing = 0;
 				}
+				break;
+			case HUDMSGSTATE_FADINGOUT:
+				{
+					u32 bordercolour;
+					u32 stack;
+					f32 spa8 = (sqrtf(msg->width * msg->width + msg->height * msg->height) + 92.0f) / PALUPF(7.0f);
+					f32 tmp;
 
-				textResetBlends();
+					bordercolour = msg->textcolour | 0x40;
+
+					if (msg->opacity != 255) {
+						u32 alpha = (msg->opacity * (bordercolour & 0xff)) / 255;
+						bordercolour = (bordercolour & 0xffffff00) + (alpha & 0xff);
+					}
+
+					tmp = (spa8 - msg->timer) * PALUPF(7.0f);
+
+					textSetDiagonalBlend(x + msg->width, y + msg->height, tmp, DIAGMODE_FADEOUT);
+
+					if (spa8 > 30.0f) {
+						spa8 = 30.0f;
+					}
+
+					spa8 = msg->timer / spa8;
+
+					if (spa8 > 1.0f) {
+						spa8 = 1.0f;
+					}
+
+					if (msg->boxed) {
+						gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f - spa8);
+
+						gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
+					} else {
+						gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
+
+						gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
+					}
+
+					if (msg->alignv == 6) {
+						timerthing = 0;
+					}
+
+					textResetBlends();
+				}
+				break;
 			}
-			break;
+
+			if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
+				gDPSetScissor(gdl++, 0,
+						viGetViewLeft(), viGetViewTop(),
+						viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+			}
 		}
 
-		if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
-			gDPSetScissor(gdl++, 0,
-					viGetViewLeft(), viGetViewTop(),
-					viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
-		}
+		gdl = text0f153780(gdl);
 	}
 
 	if (timerthing) {
+		gdl = text0f153628(gdl);
+
 		if (optionsGetShowMissionTime(g_Vars.currentplayerstats->mpindex)
 				&& g_Vars.normmplayerisrunning == false
 				&& g_Vars.stagenum != STAGE_CITRAINING
@@ -1406,10 +1417,12 @@ Gfx *hudmsgsRender(Gfx *gdl)
 			gdl = hudmsgRenderZoomRange(gdl, timerthing);
 		}
 
-		gdl = countdownTimerRender(gdl);
-	}
+		if (!g_CountdownTimerOff) {
+			gdl = countdownTimerRender(gdl);
+		}
 
-	gdl = text0f153780(gdl);
+		gdl = text0f153780(gdl);
+	}
 
 	g_ScaleX = 1;
 

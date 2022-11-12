@@ -1889,7 +1889,10 @@ void lvTick(void)
 	g_Vars.lvupdate60freal = PALUPF(g_Vars.lvupdate60f);
 
 	bgunTickBoost();
-	PROFILE(PROFILEMARKER_LVT_HUDMSGS, hudmsgsTick());
+
+	if (g_HudmsgsActive) {
+		PROFILE(PROFILEMARKER_LVT_HUDMSGS, hudmsgsTick());
+	}
 
 	if (g_IsTitleDemo && (joyGetButtonsPressedThisFrame(0, 0xffff) != 0
 				|| joyGetStickX(0) > 10
