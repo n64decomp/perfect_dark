@@ -12916,12 +12916,12 @@ f32 chrGetDistanceToCoord(struct chrdata *chr, struct coord *pos)
 	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 }
 
-f32 chrGetLateralDistanceToCoord(struct chrdata *chr, struct coord *pos)
+f32 chrGetSquaredLateralDistanceToCoord(struct chrdata *chr, struct coord *pos)
 {
 	f32 xdiff = pos->x - chr->prop->pos.x;
 	f32 zdiff = pos->z - chr->prop->pos.z;
 
-	return sqrtf(xdiff * xdiff + zdiff * zdiff);
+	return xdiff * xdiff + zdiff * zdiff;
 }
 
 f32 chrGetSquaredDistanceToCoord(struct chrdata *chr, struct coord *pos)

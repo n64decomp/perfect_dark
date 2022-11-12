@@ -998,7 +998,7 @@ f32 botCalculateMaxSpeed(struct chrdata *chr)
 		speed *= 0.5f;
 	} else if (chr->actiontype == ACT_GOPOS
 			&& chr->act_gopos.waypoints[chr->act_gopos.curindex] == NULL
-			&& chrGetLateralDistanceToCoord(chr, &chr->act_gopos.endpos) < 200) {
+			&& chrGetSquaredLateralDistanceToCoord(chr, &chr->act_gopos.endpos) < 40000) {
 		speed *= 0.5f;
 	}
 
