@@ -1495,7 +1495,7 @@ bool aiIfChrDistanceToPadGreaterThan(s32 chrref, s32 padnum, f32 distance)
 		padnum = g_Vars.chrdata->padpreset1;
 	}
 
-	return chr && padnum < 9000 && chrGetDistanceToPad(chr, padnum) > distance;
+	return chr && padnum < 9000 && chrGetSquaredDistanceToPad(chr, padnum) > distance * distance;
 }
 
 bool aiIfChrDistanceToPadLessThan(s32 chrref, s32 padnum, f32 distance)
@@ -1506,7 +1506,7 @@ bool aiIfChrDistanceToPadLessThan(s32 chrref, s32 padnum, f32 distance)
 		padnum = g_Vars.chrdata->padpreset1;
 	}
 
-	return chr && padnum < 9000 && chrGetDistanceToPad(chr, padnum) < distance;
+	return chr && padnum < 9000 && chrGetSquaredDistanceToPad(chr, padnum) < distance * distance;
 }
 
 bool aiIfChrInjuredTarget(s32 chrref)
@@ -1554,7 +1554,7 @@ bool aiIfEyespyNearG5Pad(s32 padnum)
 	if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_G5BUILDING) {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (g_Vars.players[i]->eyespy && g_Vars.players[i]->eyespy->prop
-					&& chrGetDistanceToPad(g_Vars.players[i]->eyespy->prop->chr, padnum) < 150.0f) {
+					&& chrGetSquaredDistanceToPad(g_Vars.players[i]->eyespy->prop->chr, padnum) < 22500.0f) {
 				return true;
 			}
 		}

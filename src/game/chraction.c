@@ -12863,6 +12863,23 @@ f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
 	return distance;
 }
 
+f32 chrGetSquaredDistanceToPad(struct chrdata *chr, s32 pad_id)
+{
+	struct prop *prop = chr->prop;
+	f32 xdiff, ydiff, zdiff;
+	f32 distance = 0;
+	pad_id = chrResolvePadId(chr, pad_id);
+
+	if (pad_id >= 0) {
+		xdiff = g_Pads[pad_id].pos.x - prop->pos.x;
+		ydiff = g_Pads[pad_id].pos.y - prop->pos.y;
+		zdiff = g_Pads[pad_id].pos.z - prop->pos.z;
+		distance = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+	}
+
+	return distance;
+}
+
 f32 chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct prop *prop = chr->prop;
