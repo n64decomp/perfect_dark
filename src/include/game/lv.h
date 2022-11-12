@@ -4,7 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 getVar80084040(void);
 void lvInit(void);
 void lvResetMiscSfx(void);
 s32 lvGetMiscSfxIndex(u32 arg0);

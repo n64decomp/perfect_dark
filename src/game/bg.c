@@ -928,15 +928,11 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 
 				gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-				if (getVar80084040()) {
-					if (thing->roomnum == -1) {
-						gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
-					}
-
-					gdl = propsRender(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
+				if (thing->roomnum == -1) {
+					gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
 				}
 
-				if (1);
+				gdl = propsRender(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
 			}
 		}
 	}
@@ -1105,13 +1101,11 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		gdl = envStopFog(gdl);
 
-		if (getVar80084040()) {
-			if (firstroomnum == thing->roomnum) {
-				gdl = propsRender(gdl, 0, RENDERPASS_OPA_PREBG, roomnumsbyprop);
-			}
-
-			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPA_PREBG, roomnumsbyprop);
+		if (firstroomnum == thing->roomnum) {
+			gdl = propsRender(gdl, 0, RENDERPASS_OPA_PREBG, roomnumsbyprop);
 		}
+
+		gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPA_PREBG, roomnumsbyprop);
 
 		// Render BG opaque components
 		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -1119,10 +1113,8 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 		gdl = envStartFog(gdl, false);
 
-		if (getVar80084040()) {
-			if (g_StageIndex != STAGEINDEX_TEST_OLD) {
-				gdl = bgRenderRoomOpaque(gdl, thing->roomnum);
-			}
+		if (g_StageIndex != STAGEINDEX_TEST_OLD) {
+			gdl = bgRenderRoomOpaque(gdl, thing->roomnum);
 		}
 
 		// Render prop opaque components - post BG pass
@@ -1130,13 +1122,11 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 		gdl = envStopFog(gdl);
 
-		if (getVar80084040()) {
-			if (firstroomnum == thing->roomnum) {
-				gdl = propsRender(gdl, 0, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
-			}
-
-			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
+		if (firstroomnum == thing->roomnum) {
+			gdl = propsRender(gdl, 0, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
 		}
+
+		gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
 	}
 
 	gdl = envStopFog(gdl);
@@ -1145,7 +1135,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 	// Render wall hits
 	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-	if (getVar80084040() && g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
+	if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 		for (i = 0; i < var8007fc2c; i++) {
 			roomnum = roomnums[i];
 			gdl = wallhitRenderBgHits(var800a4640.unk000[roomnum].roomnum, gdl);
@@ -1167,22 +1157,18 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 		gdl = envStartFog(gdl, true);
 
-		if (getVar80084040()) {
-			gdl = bgRenderRoomXlu(gdl, thing->roomnum);
-		}
+		gdl = bgRenderRoomXlu(gdl, thing->roomnum);
 
 		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = envStopFog(gdl);
 
 		// Render prop translucent components
-		if (getVar80084040()) {
-			if (firstroomnum == thing->roomnum) {
-				gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
-			}
-
-			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
+		if (firstroomnum == thing->roomnum) {
+			gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
 		}
+
+		gdl = propsRender(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
 
 		if (!g_Vars.mplayerisrunning) {
 			artifactsCalculateGlaresForRoom(thing->roomnum);
