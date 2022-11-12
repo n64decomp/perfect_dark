@@ -26,4 +26,8 @@ void shardsReset(void)
 	}
 
 	g_NextShardNum = 0;
+
+	g_ShardsActive = false;
+	g_WoodShardsActive = false;
+	g_GlassShardsActive = false;
 }

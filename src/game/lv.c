@@ -1293,7 +1293,10 @@ Gfx *lvRender(Gfx *gdl)
 					PROFILE(PROFILEMARKER_LVR_BEAMS, gdl = propsRenderBeams(gdl));
 				}
 
-				PROFILE(PROFILEMARKER_LVR_SHARDS, gdl = shardsRender(gdl));
+				if (g_ShardsActive) {
+					PROFILE(PROFILEMARKER_LVR_SHARDS, gdl = shardsRender(gdl));
+				}
+
 				PROFILE(PROFILEMARKER_LVR_SPARKS, gdl = sparksRender(gdl));
 				PROFILE(PROFILEMARKER_LVR_WEATHER, gdl = weatherRender(gdl));
 
@@ -2018,7 +2021,11 @@ void lvTick(void)
 		PROFILE(PROFILEMARKER_LVT_ROOMS, roomsTick());
 		skyTick();
 		PROFILE(PROFILEMARKER_LVT_CASINGS, casingsTick());
-		PROFILE(PROFILEMARKER_LVT_SHARDS, shardsTick());
+
+		if (g_ShardsActive) {
+			PROFILE(PROFILEMARKER_LVT_SHARDS, shardsTick());
+		}
+
 		PROFILE(PROFILEMARKER_LVT_SPARKS, sparksTick());
 		PROFILE(PROFILEMARKER_LVT_WALLHITS, wallhitsTick());
 

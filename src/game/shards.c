@@ -18,6 +18,8 @@ struct shard *g_Shards;
 
 s32 g_NextShardNum = 0;
 bool g_ShardsActive = false;
+bool g_GlassShardsActive = false;
+bool g_WoodShardsActive = false;
 
 void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type);
 
@@ -452,8 +454,13 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 
 Gfx *shardsRender(Gfx *gdl)
 {
-	gdl = shardsRenderWood(gdl);
-	gdl = shardsRenderGlass(gdl);
+	if (g_WoodShardsActive) {
+		gdl = shardsRenderWood(gdl);
+	}
+
+	if (g_GlassShardsActive) {
+		gdl = shardsRenderGlass(gdl);
+	}
 
 	return gdl;
 }

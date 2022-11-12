@@ -463,6 +463,8 @@ extern bool g_SparksAreActive;
 extern struct weatherdata *g_WeatherData;
 extern s32 g_NextShardNum;
 extern bool g_ShardsActive;
+extern bool g_WoodShardsActive;
+extern bool g_GlassShardsActive;
 extern s32 var800800f0jf;
 extern s32 g_ScaleX;
 extern s32 var80080108jf;
