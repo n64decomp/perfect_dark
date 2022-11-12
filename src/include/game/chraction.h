@@ -295,7 +295,6 @@ f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id);
 f32 chrGetSquaredDistanceToPad(struct chrdata *chr, s32 pad_id);
 f32 chrGetDistanceToCoord(struct chrdata *chr, struct coord *pos);
 f32 chrGetSquaredLateralDistanceToCoord(struct chrdata *chr, struct coord *pos);
-f32 chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id);
 f32 chrGetSquaredDistanceToCoord(struct chrdata *chr, struct coord *pos);
 f32 coordGetSquaredDistanceToCoord(struct coord *a, struct coord *b);
 s32 chrGetPadRoom(struct chrdata *chr, s32 pad_id);
