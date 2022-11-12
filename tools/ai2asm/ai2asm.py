@@ -210,7 +210,7 @@ class App():
         self.emit('jal', ['aiSetPath'])
 
     def ai_assign_sound(self, params):
-        self.emit('li', ['$a0', '0x%04x' % self.u16(params, 0)])
+        self.emit('li', ['$a0', self.s16(params, 0)])
         self.emit('li', ['$a1', self.s8(params[2])])
         self.emit('jal', ['aiAssignSound'])
 
@@ -1298,7 +1298,7 @@ class App():
 
     def ai_play_sound(self, params):
         self.emit('li', ['$a0', self.s8(params[2])])
-        self.emit('li', ['$a1', self.u16(params, 0)])
+        self.emit('li', ['$a1', self.s16(params, 0)])
         self.emit('li', ['$a2', '0'])
         self.emit('li', ['$a3', '0'])
         self.emit_store_to_stack(0x10, 0)
@@ -1769,8 +1769,8 @@ class App():
 
     def ai_speak(self, params):
         self.emit('li', ['$a0', '0x%02x' % params[0]])
-        self.emit('li', ['$a1', '0x%04x' % self.s16(params, 1)])
-        self.emit('li', ['$a2', '0x%04x' % self.u16(params, 3)])
+        self.emit('li', ['$a1', self.s16(params, 1)])
+        self.emit('li', ['$a2', self.s16(params, 3)])
         self.emit('li', ['$a3', params[5]])
         self.emit_store_to_stack(0x10, params[6])
         self.emit('jal', ['aiSpeak'])
