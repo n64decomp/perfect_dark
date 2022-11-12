@@ -24,6 +24,8 @@ struct casing g_Casings[20];
 struct boltbeam g_BoltBeams[8];
 struct lasersight g_LaserSights[4];
 
+s32 g_BeamsActive;
+
 void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to)
 {
 	f32 distance;
@@ -96,6 +98,8 @@ void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coo
 
 	if (beam->dist >= beam->maxdist) {
 		beam->age = -1;
+	} else {
+		g_BeamsActive++;
 	}
 }
 
@@ -120,6 +124,12 @@ void beamCreateForHand(s32 handnum)
 		}
 
 		beam = &hand->beam;
+
+		if (beam->age >= 0) {
+			beam->age = -1;
+			g_BeamsActive--;
+		}
+
 		beamCreate(beam, weaponnum, &hand->muzzlepos, &hand->hitpos);
 
 		if (beam->weaponnum == WEAPON_MAULER) {
@@ -611,6 +621,7 @@ void beamTick(struct beam *beam)
 
 			if (beam->age > 1) {
 				beam->age = -1;
+				g_BeamsActive--;
 			}
 		} else {
 			if (g_Vars.lvupdate240 <= 8) {
@@ -623,6 +634,7 @@ void beamTick(struct beam *beam)
 
 			if (beam->dist >= beam->maxdist) {
 				beam->age = -1;
+				g_BeamsActive--;
 			}
 		}
 	}

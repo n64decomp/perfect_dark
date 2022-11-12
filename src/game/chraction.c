@@ -8572,8 +8572,11 @@ void chrStopFiring(struct chrdata *chr)
 
 		chrResetAimEndProperties(chr);
 
-		chr->fireslots[0] = bgunFreeFireslot(chr->fireslots[0]);
-		chr->fireslots[1] = bgunFreeFireslot(chr->fireslots[1]);
+		bgunFreeFireslot(chr->fireslots[0]);
+		bgunFreeFireslot(chr->fireslots[1]);
+
+		chr->fireslots[0] = -1;
+		chr->fireslots[1] = -1;
 	}
 }
 

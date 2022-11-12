@@ -19,6 +19,8 @@ void boltbeamsReset(void)
 	for (i = 0; i < 8; i++) {
 		g_BoltBeams[i].unk00 = -1;
 	}
+
+	g_BeamsActive = 0;
 }
 
 void lasersightsReset(void)

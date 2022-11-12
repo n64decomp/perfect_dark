@@ -286,5 +286,6 @@ extern u8 g_AmBotCommands[16];
 extern struct mpsetup g_MpSetup;
 extern struct bossfile g_BossFile;
 extern struct chrdata *g_MpBotChrPtrs[MAX_BOTS];
+extern s32 g_BeamsActive;
 
 #endif

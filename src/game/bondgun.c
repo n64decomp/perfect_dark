@@ -7508,18 +7508,21 @@ void bgunTickGameplay2(void)
 	bgunIsUsingSecondaryFunction();
 }
 
-s8 bgunFreeFireslotWrapper(s32 slotnum)
+void bgunFreeFireslotWrapper(s32 slotnum)
 {
-	return bgunFreeFireslot(slotnum);
+	bgunFreeFireslot(slotnum);
 }
 
-s8 bgunFreeFireslot(s32 fireslot_id)
+void bgunFreeFireslot(s32 fireslot_id)
 {
 	if (fireslot_id >= 0 && fireslot_id < NUM_FIRESLOTS) {
+		if (g_Fireslots[fireslot_id].endlvframe >= 0 && g_Fireslots[fireslot_id].beam.age >= 0) {
+			g_Fireslots[fireslot_id].beam.age = -1;
+			g_BeamsActive--;
+		}
+
 		g_Fireslots[fireslot_id].endlvframe = -1;
 	}
-
-	return -1;
 }
 
 s32 bgunAllocateFireslot(void)

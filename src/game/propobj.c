@@ -18160,8 +18160,6 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 		f32 sqdist;
 		struct prop *obstacle = NULL;
 		s16 sp1c8[8];
-		u8 forcebeam = false;
-		struct beam beam;
 		struct coord frompos;
 		u32 stack2;
 		u8 drug = false;
@@ -18170,10 +18168,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 		frompos = *pos;
 
 		if (weaponnum == WEAPON_TRANQUILIZER) {
-			forcebeam = true;
-			beam.age = -1;
 			drug = true;
-			frompos.y -= 40.0f;
 		}
 
 		if (arg1 && arg1->unk08 < g_Vars.lvframe60) {
@@ -18367,16 +18362,8 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 				}
 			}
 
-			if (forcebeam || (arg1 && arg1->unk01)) {
-				struct beam *beamptr;
-
-				if (forcebeam) {
-					beamptr = &beam;
-				} else {
-					beamptr = arg1->beam;
-				}
-
-				beamCreate(beamptr, forcebeam ? WEAPON_FALCON2 : weaponnum, &frompos, &endpos);
+			if (arg1 && arg1->unk01) {
+				beamCreate(arg1->beam, weaponnum, &frompos, &endpos);
 			}
 		}
 	}

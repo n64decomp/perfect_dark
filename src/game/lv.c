@@ -1288,7 +1288,11 @@ Gfx *lvRender(Gfx *gdl)
 				PROFILE(PROFILEMARKER_LVR_PICKUP, propsTestForPickup());
 				PROFILE(PROFILEMARKER_LVR_BG, gdl = bgRender(gdl));
 				chr0f028498(false);
-				PROFILE(PROFILEMARKER_LVR_BEAMS, gdl = propsRenderBeams(gdl));
+
+				if (g_BeamsActive > 0) {
+					PROFILE(PROFILEMARKER_LVR_BEAMS, gdl = propsRenderBeams(gdl));
+				}
+
 				PROFILE(PROFILEMARKER_LVR_SHARDS, gdl = shardsRender(gdl));
 				PROFILE(PROFILEMARKER_LVR_SPARKS, gdl = sparksRender(gdl));
 				PROFILE(PROFILEMARKER_LVR_WEATHER, gdl = weatherRender(gdl));
