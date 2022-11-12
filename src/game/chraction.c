@@ -12113,12 +12113,12 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 	struct prop *prop = chr->prop;
 	struct prop *target = chrGetTargetProp(chr);
 	bool iVar2;
-	f32 distance = chrGetDistanceToCoord(chr, &target->pos);
+	f32 distance = chrGetSquaredDistanceToCoord(chr, &target->pos);
 	f32 diffs[2];
 	f32 thing;
 	s32 time60;
 
-	if (distance < 200 || distance > 550 || !target) {
+	if (distance < 40000 || distance > 302500 || !target) {
 		return false;
 	}
 
