@@ -66,13 +66,17 @@ bool bmoveIsAutoAimEnabledForCurrentWeapon(void)
 {
 	struct weaponfunc *func = currentPlayerGetWeaponFunction(0);
 
+	if (!func) {
+		return false;
+	}
+
 	if (func) {
 		if (func->flags & FUNCFLAG_NOAUTOAIM) {
 			return false;
 		}
 
 		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
-			return true;
+			return false;
 		}
 	}
 

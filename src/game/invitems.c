@@ -1358,7 +1358,7 @@ struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
 	0, // ammoindex
 	&invnoisesettings_loud,
 	invanim_cmp150_shoot, // fire animation
-	0, // flags
+	FUNCFLAG_NOAUTOAIM, // flags
 	&invrecoilsettings_default,
 	0, // recoverytime60
 	1, // damage
@@ -3521,7 +3521,7 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	0, // ammoindex
 	&invnoisesettings_louder,
 	invanim_farsight_shoot, // fire animation
-	0, // flags
+	FUNCFLAG_NOAUTOAIM, // flags
 	&invrecoilsettings_default,
 	0, // recoverytime60
 	100, // damage
@@ -3543,7 +3543,7 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	0, // ammoindex
 	&invnoisesettings_louder,
 	invanim_farsight_shoot, // fire animation
-	0, // flags
+	FUNCFLAG_NOAUTOAIM, // flags
 	&invrecoilsettings_default,
 	0, // recoverytime60
 	100, // damage

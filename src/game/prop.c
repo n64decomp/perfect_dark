@@ -2216,7 +2216,7 @@ void propsTestForPickup(void)
 	}
 }
 
-f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool throughobjects, bool cangangsta, s32 arg7)
+f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
 {
 	f32 spa0[2];
 	struct coord sp94;
@@ -2232,7 +2232,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 	f32 right;
 	f32 result = -2;
 	struct weaponfunc *func = currentPlayerGetWeaponFunction(HAND_RIGHT);
-	bool sp50 = arg7;
+	bool sp50 = false;
 	bool sp4c;
 	f32 sp48;
 	struct prop *playerprop;
@@ -2282,21 +2282,17 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 		sp8c[0] = floorf(sp8c[0]);
 		sp84[0] = ceilf(sp84[0]);
 
-		if (bmoveIsAutoAimEnabledForCurrentWeapon() || cangangsta) {
-			if (sp8c[0] <= right && left <= sp84[0]) {
-				sp48 = (sp84[0] - sp8c[0]) * 1.5f;
+		if (sp8c[0] <= right && left <= sp84[0]) {
+			sp48 = (sp84[0] - sp8c[0]) * 1.5f;
 
-				if (!g_Vars.normmplayerisrunning) {
-					sp48 = sp48 * g_AutoAimScale;
-				}
-
-				sp4c = camGetScreenLeft() + 0.5f * camGetScreenWidth() >= (sp8c[0] + sp84[0]) * 0.5f - sp48
-					&& camGetScreenLeft() + 0.5f * camGetScreenWidth() <= (sp8c[0] + sp84[0]) * 0.5f + sp48
-					&& left <= spa0[0]
-					&& right >= spa0[0];
+			if (!g_Vars.normmplayerisrunning) {
+				sp48 = sp48 * g_AutoAimScale;
 			}
-		} else {
-			sp4c = sp8c[0] <= sp70 && sp70 <= sp84[0];
+
+			sp4c = camGetScreenLeft() + 0.5f * camGetScreenWidth() >= (sp8c[0] + sp84[0]) * 0.5f - sp48
+				&& camGetScreenLeft() + 0.5f * camGetScreenWidth() <= (sp8c[0] + sp84[0]) * 0.5f + sp48
+				&& left <= spa0[0]
+				&& right >= spa0[0];
 		}
 
 		if (sp4c) {
@@ -2304,15 +2300,9 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 
 			playerSetPerimEnabled(playerprop, false);
 
-			if (throughobjects) {
-				ok = cdTestLos03(&playerprop->pos, playerprop->rooms, &prop->pos,
-						CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
-						GEOFLAG_BLOCK_SHOOT);
-			} else {
-				ok = cdTestLos03(&playerprop->pos, playerprop->rooms, &prop->pos,
-						CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
-						GEOFLAG_BLOCK_SHOOT);
-			}
+			ok = cdTestLos03(&playerprop->pos, playerprop->rooms, &prop->pos,
+					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
+					GEOFLAG_BLOCK_SHOOT);
 
 			if (ok) {
 				f32 value = spa0[1];
@@ -2325,7 +2315,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 
 				arg4[1] = value;
 
-				if (bmoveIsAutoAimEnabledForCurrentWeapon() || cangangsta) {
+				{
 					f32 value = spa0[0];
 
 					if (value < left) {
@@ -2408,173 +2398,174 @@ void farsightChooseTarget(void)
 	g_Vars.currentplayer->autoerasertarget = besttarget;
 }
 
-void autoaimTick(void)
+struct prop *autoaimFindBestCmpProp(f32 aimpos[2])
 {
 	struct prop *bestprop = NULL;
-	f32 aimpos[2] = {0, 0};
-	bool isclose = false;
-	bool cangangsta = weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_GANGSTA);
-	bool iscmpsec = false;
-	struct weaponfunc *func = currentPlayerGetWeaponFunction(HAND_RIGHT);
 	s32 i;
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
-		isclose = true;
-	}
+	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
+		struct trackedprop *trackedprop = &g_Vars.currentplayer->trackedprops[i];
 
-	if (frIsInTraining()) {
-		if (!frChooseFarsightTarget()) {
-			farsightChooseTarget();
-		}
-	} else {
-		farsightChooseTarget();
-	}
+		if (trackedprop->prop
+				&& (trackedprop->x1 >= 0 || trackedprop->x2 >= 0)
+				&& (trackedprop->y1 >= 0 || trackedprop->y2 >= 0)) {
+			// Define the aim limits
+			f32 top = camGetScreenTop() + camGetScreenHeight() * 0.125f;
+			f32 bottom = camGetScreenTop() + camGetScreenHeight() * 0.875f;
+			f32 left = camGetScreenLeft() + camGetScreenWidth() * 0.125f;
+			f32 right = camGetScreenLeft() + camGetScreenWidth() * 0.875f;
+			struct chrdata *chr = NULL;
 
-	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_CMP150
-			&& g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc == FUNC_SECONDARY) {
-		iscmpsec = true;
-	}
+			bestprop = trackedprop->prop;
 
-	if (iscmpsec) {
-		// For CMP on secondary mode, find the first prop that is within the aim limits
-		for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
-			struct trackedprop *trackedprop = &g_Vars.currentplayer->trackedprops[i];
+			if (bestprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
+				// trackedprop is an object
+				aimpos[0] = (trackedprop->x2 + trackedprop->x1) / 2;
+				aimpos[1] = (trackedprop->y2 + trackedprop->y1) / 2;
 
-			if (trackedprop->prop
-					&& (trackedprop->x1 >= 0 || trackedprop->x2 >= 0)
-					&& (trackedprop->y1 >= 0 || trackedprop->y2 >= 0)) {
-				// Define the aim limits
-				f32 top = camGetScreenTop() + camGetScreenHeight() * 0.125f;
-				f32 bottom = camGetScreenTop() + camGetScreenHeight() * 0.875f;
-				f32 left = camGetScreenLeft() + camGetScreenWidth() * 0.125f;
-				f32 right = camGetScreenLeft() + camGetScreenWidth() * 0.875f;
-				struct chrdata *chr = NULL;
+				if (bestprop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
+					struct defaultobj *obj = bestprop->obj;
+					Mtxf *mtx = model0001a60c(obj->model);
+					struct coord spac;
+					spac.z = mtx->m[3][2];
 
-				bestprop = trackedprop->prop;
-
-				if (bestprop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
-					// trackedprop is an object
-					aimpos[0] = (trackedprop->x2 + trackedprop->x1) / 2;
-					aimpos[1] = (trackedprop->y2 + trackedprop->y1) / 2;
-
-					if (bestprop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-						struct defaultobj *obj = bestprop->obj;
-						Mtxf *mtx = model0001a60c(obj->model);
-						struct coord spac;
-						spac.z = mtx->m[3][2];
-
-						if (spac.z < 0) {
-							spac.x = mtx->m[3][0];
-							spac.y = mtx->m[3][1];
-							cam0f0b4d04(&spac, aimpos);
-						}
-					}
-				} else {
-					// trackedprop is a chr
-					chr = bestprop->chr;
-					aimpos[0] = (trackedprop->x2 + trackedprop->x1) / 2;
-
-					if (chr && chr->race == RACE_EYESPY) {
-						aimpos[1] = (trackedprop->y2 + trackedprop->y1) >> 1;
-					} else {
-						// Aim 2/3 up the chr, so about their chest
-						aimpos[1] = (trackedprop->y2 + trackedprop->y1 * 2) / 3;
+					if (spac.z < 0) {
+						spac.x = mtx->m[3][0];
+						spac.y = mtx->m[3][1];
+						cam0f0b4d04(&spac, aimpos);
 					}
 				}
+			} else {
+				// trackedprop is a chr
+				chr = bestprop->chr;
+				aimpos[0] = (trackedprop->x2 + trackedprop->x1) / 2;
 
-				// Constrain aimpos to the aim limits
-				if (aimpos[0] > right) {
-					aimpos[0] = right;
-				}
-
-				if (aimpos[0] < left) {
-					aimpos[0] = left;
-				}
-
-				if (aimpos[1] > bottom) {
-					aimpos[1] = bottom;
-				}
-
-				if (aimpos[1] < top) {
-					aimpos[1] = top;
-				}
-
-				// Don't use this prop if it's an undeployed eyespy, or if
-				// the trackedprop is outside of the aim limits
 				if (chr && chr->race == RACE_EYESPY) {
-					struct eyespy *eyespy = chrToEyespy(chr);
+					aimpos[1] = (trackedprop->y2 + trackedprop->y1) >> 1;
+				} else {
+					// Aim 2/3 up the chr, so about their chest
+					aimpos[1] = (trackedprop->y2 + trackedprop->y1 * 2) / 3;
+				}
+			}
 
-					if (eyespy == NULL || !eyespy->deployed) {
-						bestprop = NULL;
-						aimpos[0] = aimpos[1] = 0;
-					}
-				} else if (aimpos[0] > trackedprop->x2
-						|| aimpos[0] < trackedprop->x1
-						|| aimpos[1] > trackedprop->y2
-						|| aimpos[1] < trackedprop->y1) {
+			// Constrain aimpos to the aim limits
+			if (aimpos[0] > right) {
+				aimpos[0] = right;
+			}
+
+			if (aimpos[0] < left) {
+				aimpos[0] = left;
+			}
+
+			if (aimpos[1] > bottom) {
+				aimpos[1] = bottom;
+			}
+
+			if (aimpos[1] < top) {
+				aimpos[1] = top;
+			}
+
+			// Don't use this prop if it's an undeployed eyespy, or if
+			// the trackedprop is outside of the aim limits
+			if (chr && chr->race == RACE_EYESPY) {
+				struct eyespy *eyespy = chrToEyespy(chr);
+
+				if (eyespy == NULL || !eyespy->deployed) {
 					bestprop = NULL;
 					aimpos[0] = aimpos[1] = 0;
 				}
-			}
-
-			if (bestprop) {
-				break;
+			} else if (aimpos[0] > trackedprop->x2
+					|| aimpos[0] < trackedprop->x1
+					|| aimpos[1] > trackedprop->y2
+					|| aimpos[1] < trackedprop->y1) {
+				bestprop = NULL;
+				aimpos[0] = aimpos[1] = 0;
 			}
 		}
-	} else if ((bmoveIsAutoAimEnabledForCurrentWeapon() || cangangsta) && !isclose) {
-		// Standard auto aim
-		f32 bestthing = -1;
-		struct prop *prop;
-		struct coord sp94;
-		f32 sp8c[2];
-		f32 sp84[2];
-		struct chrdata *chr;
-		f32 sp78[2];
-		struct prop **ptr = g_Vars.endonscreenprops - 1;
 
-		// Iterate onscreen props near to far
-		while (ptr >= g_Vars.onscreenprops) {
-			prop = *ptr;
+		if (bestprop) {
+			break;
+		}
+	}
 
-			if (prop && prop->chr) {
-				if (prop->type == PROPTYPE_CHR
-						|| (prop->type == PROPTYPE_PLAYER && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
-					chr = prop->chr;
+	return bestprop;
+}
 
-					if (!chrCompareTeams(g_Vars.currentplayer->prop->chr, chr, COMPARE_FRIENDS)
-							&& (chrGetHeldProp(chr, HAND_RIGHT)
-								|| chrGetHeldProp(chr, HAND_LEFT)
-								|| (chr->chrflags & CHRCFLAG_FORCEAUTOAIM)
-								|| chr->gunprop)
-							&& chrCalculateAutoAim(prop, &sp94, sp8c, sp84)) {
-						f32 thing = func0f06438c(prop, &sp94, sp8c, sp84, sp78, false, cangangsta, 0);
+struct prop *autoaimFindGeneralProp(f32 aimpos[2])
+{
+	struct prop *bestprop = NULL;
+	f32 bestthing = -1;
+	struct prop *prop;
+	struct coord sp94;
+	f32 sp8c[2];
+	f32 sp84[2];
+	struct chrdata *chr;
+	f32 sp78[2];
+	struct prop **ptr = g_Vars.endonscreenprops - 1;
 
-						if (thing > bestthing) {
-							bestthing = thing;
-							aimpos[0] = sp78[0];
-							aimpos[1] = sp78[1];
-							bestprop = prop;
+	// Iterate onscreen props near to far
+	while (ptr >= g_Vars.onscreenprops) {
+		prop = *ptr;
 
-							if (thing >= 1) {
-								break;
-							}
+		if (prop && prop->chr) {
+			if (prop->type == PROPTYPE_CHR
+					|| (prop->type == PROPTYPE_PLAYER && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
+				chr = prop->chr;
+
+				if (!chrCompareTeams(g_Vars.currentplayer->prop->chr, chr, COMPARE_FRIENDS)
+						&& (chrGetHeldProp(chr, HAND_RIGHT)
+							|| chrGetHeldProp(chr, HAND_LEFT)
+							|| (chr->chrflags & CHRCFLAG_FORCEAUTOAIM)
+							|| chr->gunprop)
+						&& chrCalculateAutoAim(prop, &sp94, sp8c, sp84)) {
+					f32 thing = func0f06438c(prop, &sp94, sp8c, sp84, sp78);
+
+					if (thing > bestthing) {
+						bestthing = thing;
+						aimpos[0] = sp78[0];
+						aimpos[1] = sp78[1];
+						bestprop = prop;
+
+						if (thing >= 1) {
+							break;
 						}
 					}
 				}
 			}
-
-			ptr--;
 		}
+
+		ptr--;
 	}
 
-	if (bestprop) {
-		if (bmoveIsAutoAimEnabledForCurrentWeapon() || iscmpsec) {
-			f32 x = (aimpos[0] - camGetScreenLeft()) / (camGetScreenWidth() * 0.5f) - 1;
-			f32 y = (aimpos[1] - camGetScreenTop()) / (camGetScreenHeight() * 0.5f) - 1;
-			bmoveUpdateAutoAimProp(bestprop, x, y);
-		}
+	return bestprop;
+}
 
-		if (cangangsta) {
+void autoaimSetProp(struct prop *prop, f32 aimpos[2])
+{
+	if (prop) {
+		f32 x = (aimpos[0] - camGetScreenLeft()) / (camGetScreenWidth() * 0.5f) - 1;
+		f32 y = (aimpos[1] - camGetScreenTop()) / (camGetScreenHeight() * 0.5f) - 1;
+		bmoveUpdateAutoAimProp(prop, x, y);
+	} else {
+		bmoveUpdateAutoAimProp(NULL, 0, 0);
+	}
+}
+
+void autoaimTick(void)
+{
+	struct prop *bestprop;
+	f32 aimpos[2] = {0, 0};
+	s32 weaponnum = bgunGetWeaponNum(HAND_RIGHT);
+	bool cangangsta = weaponHasFlag(weaponnum, WEAPONFLAG_GANGSTA);
+
+	g_Vars.currentplayer->gunctrl.gangsta = false;
+
+	if (bmoveIsAutoAimEnabledForCurrentWeapon() || cangangsta) {
+		// Standard auto aim
+		bestprop = autoaimFindGeneralProp(aimpos);
+		autoaimSetProp(bestprop, aimpos);
+
+		if (bestprop && cangangsta) {
 			f32 xdist = g_Vars.currentplayer->bond2.unk10.x - bestprop->pos.x;
 			f32 ydist = g_Vars.currentplayer->bond2.unk10.y - bestprop->pos.y;
 			f32 zdist = g_Vars.currentplayer->bond2.unk10.z - bestprop->pos.z;
@@ -2582,17 +2573,22 @@ void autoaimTick(void)
 
 			if (sqdist < 40000) {
 				g_Vars.currentplayer->gunctrl.gangsta = true;
-			} else {
-				g_Vars.currentplayer->gunctrl.gangsta = false;
 			}
-		} else {
-			g_Vars.currentplayer->gunctrl.gangsta = false;
 		}
-	} else {
-		u32 stack;
-		bmoveUpdateAutoAimProp(NULL, 0, 0);
+	} else if (weaponnum == WEAPON_CMP150 && g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc == FUNC_SECONDARY) {
+		// For CMP on secondary mode, find the first prop that is within the aim limits
+		bestprop = autoaimFindBestCmpProp(aimpos);
+		autoaimSetProp(bestprop, aimpos);
+	} else if (weaponnum == WEAPON_FARSIGHT) {
+		if (frIsInTraining()) {
+			frChooseFarsightTarget();
+		} else {
+			farsightChooseTarget();
+		}
 
-		g_Vars.currentplayer->gunctrl.gangsta = false;
+		bmoveUpdateAutoAimProp(NULL, 0, 0);
+	} else {
+		bmoveUpdateAutoAimProp(NULL, 0, 0);
 	}
 }
 
