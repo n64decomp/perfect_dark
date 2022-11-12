@@ -113,7 +113,6 @@ bool chrTryAttackAmount(struct chrdata *chr, u32 arg1, u32 arg2, u8 arg3, u8 arg
 bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 goposflags);
 bool chrGoToPos(struct chrdata *chr, struct coord *pos, u32 goposflags);
 s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2);
-bool chrTryRunFromTarget(struct chrdata *chr);
 bool chrGoToCoverProp(struct chrdata *chr);
 bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum);
 void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 reverse);
