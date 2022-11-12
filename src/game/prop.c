@@ -2282,7 +2282,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 		sp8c[0] = floorf(sp8c[0]);
 		sp84[0] = ceilf(sp84[0]);
 
-		if (bmoveIsAutoAimXEnabledForCurrentWeapon() || cangangsta) {
+		if (bmoveIsAutoAimEnabledForCurrentWeapon() || cangangsta) {
 			if (sp8c[0] <= right && left <= sp84[0]) {
 				sp48 = (sp84[0] - sp8c[0]) * 1.5f;
 
@@ -2325,7 +2325,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 
 				arg4[1] = value;
 
-				if (bmoveIsAutoAimXEnabledForCurrentWeapon() || cangangsta) {
+				if (bmoveIsAutoAimEnabledForCurrentWeapon() || cangangsta) {
 					f32 value = spa0[0];
 
 					if (value < left) {
@@ -2521,9 +2521,7 @@ void autoaimTick(void)
 				break;
 			}
 		}
-	} else if ((bmoveIsAutoAimYEnabledForCurrentWeapon()
-				|| bmoveIsAutoAimXEnabledForCurrentWeapon()
-				|| cangangsta) && !isclose) {
+	} else if ((bmoveIsAutoAimEnabledForCurrentWeapon() || cangangsta) && !isclose) {
 		// Standard auto aim
 		f32 bestthing = -1;
 		struct prop *prop;
@@ -2570,12 +2568,10 @@ void autoaimTick(void)
 	}
 
 	if (bestprop) {
-		if (bmoveIsAutoAimYEnabledForCurrentWeapon() || iscmpsec) {
-			bmoveUpdateAutoAimYProp(bestprop, (aimpos[1] - camGetScreenTop()) / (camGetScreenHeight() * 0.5f) - 1);
-		}
-
-		if (bmoveIsAutoAimXEnabledForCurrentWeapon() || iscmpsec) {
-			bmoveUpdateAutoAimXProp(bestprop, (aimpos[0] - camGetScreenLeft()) / (camGetScreenWidth() * 0.5f) - 1);
+		if (bmoveIsAutoAimEnabledForCurrentWeapon() || iscmpsec) {
+			f32 x = (aimpos[0] - camGetScreenLeft()) / (camGetScreenWidth() * 0.5f) - 1;
+			f32 y = (aimpos[1] - camGetScreenTop()) / (camGetScreenHeight() * 0.5f) - 1;
+			bmoveUpdateAutoAimProp(bestprop, x, y);
 		}
 
 		if (cangangsta) {
@@ -2594,8 +2590,7 @@ void autoaimTick(void)
 		}
 	} else {
 		u32 stack;
-		bmoveUpdateAutoAimYProp(NULL, 0);
-		bmoveUpdateAutoAimXProp(NULL, 0);
+		bmoveUpdateAutoAimProp(NULL, 0, 0);
 
 		g_Vars.currentplayer->gunctrl.gangsta = false;
 	}

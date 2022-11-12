@@ -692,15 +692,11 @@ void playerLoadDefaults(void)
 	g_Vars.currentplayer->automovecentre = true;
 	g_Vars.currentplayer->insightaimmode = false;
 
-	g_Vars.currentplayer->autoyaimenabled = true;
-	g_Vars.currentplayer->autoaimy = 0;
-	g_Vars.currentplayer->autoyaimprop = NULL;
-	g_Vars.currentplayer->autoyaimtime60 = -1;
-
-	g_Vars.currentplayer->autoxaimenabled = true;
+	g_Vars.currentplayer->autoaimenabled = true;
 	g_Vars.currentplayer->autoaimx = 0;
-	g_Vars.currentplayer->autoxaimprop = NULL;
-	g_Vars.currentplayer->autoxaimtime60 = -1;
+	g_Vars.currentplayer->autoaimy = 0;
+	g_Vars.currentplayer->autoaimprop = NULL;
+	g_Vars.currentplayer->autoaimtime60 = -1;
 
 	g_Vars.currentplayer->autoaimdamp = (PAL ? 0.974f : 0.979f);
 
@@ -2955,8 +2951,7 @@ void playerTick(bool arg0)
 	playerUpdateColourScreenProperties();
 	playerTickChrFade();
 
-	bmoveSetAutoAimY(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
-	bmoveSetAutoAimX(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
+	bmoveSetAutoAim(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
 	bmoveSetAutoMoveCentreEnabled(optionsGetLookAhead(g_Vars.currentplayerstats->mpindex));
 	bgunSetGunAmmoVisible(GUNAMMOREASON_OPTION, optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex));
 	bgunSetSightVisible(GUNSIGHTREASON_1, true);

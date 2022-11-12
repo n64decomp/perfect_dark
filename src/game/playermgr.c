@@ -270,15 +270,11 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->automovecentre = true;
 	g_Vars.players[index]->insightaimmode = false;
 
-	g_Vars.players[index]->autoyaimenabled = true;
-	g_Vars.players[index]->autoaimy = 0;
-	g_Vars.players[index]->autoyaimprop = NULL;
-	g_Vars.players[index]->autoyaimtime60 = -1;
-
-	g_Vars.players[index]->autoxaimenabled = true;
+	g_Vars.players[index]->autoaimenabled = true;
 	g_Vars.players[index]->autoaimx = 0;
-	g_Vars.players[index]->autoxaimprop = NULL;
-	g_Vars.players[index]->autoxaimtime60 = -1;
+	g_Vars.players[index]->autoaimy = 0;
+	g_Vars.players[index]->autoaimprop = NULL;
+	g_Vars.players[index]->autoaimtime60 = -1;
 
 	g_Vars.players[index]->vv_theta = 0;
 	g_Vars.players[index]->speedtheta = 0;

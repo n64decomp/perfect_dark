@@ -2390,15 +2390,15 @@ struct player {
 	/*0x011c*/ bool automovecentre;
 	/*0x0120*/ bool insightaimmode;
 
-	/*0x0124*/ bool autoyaimenabled;
+	/*0x0124*/ bool autoaimenabled;
+	/*0x0128*/ f32 autoaimx;
 	/*0x0128*/ f32 autoaimy;
-	/*0x012c*/ struct prop *autoyaimprop;
-	/*0x0130*/ s32 autoyaimtime60;
+	/*0x012c*/ struct prop *autoaimprop;
+	/*0x0130*/ s32 autoaimtime60;
 
-	/*0x0134*/ bool autoxaimenabled;
-	/*0x0138*/ f32 autoaimx;
-	/*0x013c*/ struct prop *autoxaimprop;
-	/*0x0140*/ s32 autoxaimtime60;
+	/*0x0124*/ bool autoxaimenabled;
+	/*0x012c*/ struct prop *autoaimxprop;
+	/*0x0130*/ s32 autoaimxtime60;
 
 	/*0x0144*/ f32 vv_theta;   // turn angle in degrees
 	/*0x0148*/ f32 speedtheta; // turn speed
