@@ -10,10 +10,10 @@ void roomsTick(void)
 	s32 i;
 
 	for (i = 0; i < var80082050; i++) {
-		if (var800a6668[i] >= 0) {
-			var800a6660[i]++;
+		if (g_RoomMtxes[i].room2 >= 0) {
+			g_RoomMtxes[i].count++;
 
-			if (var800a6660[i] > 1) {
+			if (g_RoomMtxes[i].count > 1) {
 				room0f16696c(i);
 			}
 		}

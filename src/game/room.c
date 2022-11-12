@@ -6,11 +6,7 @@
 #include "data.h"
 #include "types.h"
 
-u8 *var800a6660;
-s16 *var800a6664; // room numbers
-s16 *var800a6668;
-f32 *var800a666c;
-Mtxf *var800a6670;
+struct roommtx *g_RoomMtxes;
 
 s32 var80082050 = 0;
 
@@ -22,24 +18,24 @@ void roomSetLastForOffset(s32 room)
 void room0f1668f0(s32 index, s32 roomnum)
 {
 	g_Rooms[roomnum].unk10 = index;
-	var800a6664[index] = roomnum;
+	g_RoomMtxes[index].room1 = roomnum;
 }
 
 void room0f16692c(s32 index, s32 roomnum)
 {
 	g_Rooms[roomnum].unk10 = -1;
-	var800a6664[index] = -1;
+	g_RoomMtxes[index].room1 = -1;
 }
 
 void room0f16696c(s32 index)
 {
-	if (var800a6664[index] != -1) {
-		room0f16692c(index, var800a6664[index]);
+	if (g_RoomMtxes[index].room1 != -1) {
+		room0f16692c(index, g_RoomMtxes[index].room1);
 	}
 
-	var800a6660[index] = 2;
-	var800a6668[index] = -1;
-	var800a666c[index] = 1;
+	g_RoomMtxes[index].count = 2;
+	g_RoomMtxes[index].room2 = -1;
+	g_RoomMtxes[index].somefloat = 1;
 }
 
 s32 room0f1669fc(void)
@@ -47,7 +43,7 @@ s32 room0f1669fc(void)
 	s32 i;
 
 	for (i = 0; i < var80082050; i++) {
-		if (var800a6660[i] > 1 && var800a6668[i] == -1) {
+		if (g_RoomMtxes[i].count > 1 && g_RoomMtxes[i].room2 == -1) {
 			return i;
 		}
 	}
@@ -94,8 +90,8 @@ s32 room0f166c20(s32 roomnum)
 	Mtxf mtx;
 
 	if (index == -1
-			|| g_Vars.currentplayer->lastroomforoffset != var800a6668[index]
-			|| var800a666c[index] != var8005ef10[0]) {
+			|| g_Vars.currentplayer->lastroomforoffset != g_RoomMtxes[index].room2
+			|| g_RoomMtxes[index].somefloat != var8005ef10[0]) {
 		if (index != -1) {
 			room0f16692c(index, roomnum);
 		}
@@ -103,17 +99,17 @@ s32 room0f166c20(s32 roomnum)
 		index = room0f1669fc();
 
 		room0f1668f0(index, roomnum);
-		var800a6660[index] = 0;
+		g_RoomMtxes[index].count = 0;
 	} else {
-		var800a6660[index] = 0;
+		g_RoomMtxes[index].count = 0;
 		return index;
 	}
 
-	var800a6668[index] = g_Vars.currentplayer->lastroomforoffset;
-	var800a666c[index] = var8005ef10[0];
+	g_RoomMtxes[index].room2 = g_Vars.currentplayer->lastroomforoffset;
+	g_RoomMtxes[index].somefloat = var8005ef10[0];
 
 	room0f166a6c(&mtx, roomnum);
-	mtx00016054(&mtx, &var800a6670[index]);
+	mtx00016054(&mtx, &g_RoomMtxes[index].mtx);
 
 	return index;
 }
@@ -122,7 +118,7 @@ Gfx *roomPushMtx(Gfx *gdl, s32 roomnum)
 {
 	s32 index = room0f166c20(roomnum);
 
-	gSPMatrix(gdl++, &var800a6670[index], G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(gdl++, &g_RoomMtxes[index].mtx, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	return gdl;
 }

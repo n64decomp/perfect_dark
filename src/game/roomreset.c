@@ -14,21 +14,17 @@ void roomsReset(void)
 
 	var80082050 = PLAYERCOUNT() >= 2 ? 200 : 120;
 
-	var800a6660 = mempAlloc(ALIGN16(var80082050), MEMPOOL_STAGE);
-	var800a6664 = mempAlloc(ALIGN16(var80082050 * sizeof(s16)), MEMPOOL_STAGE);
-	var800a6668 = mempAlloc(ALIGN16(var80082050 * sizeof(s16)), MEMPOOL_STAGE);
-	var800a666c = mempAlloc(ALIGN16(var80082050 * sizeof(f32)), MEMPOOL_STAGE);
-	var800a6670 = mempAlloc(ALIGN16(var80082050 * sizeof(Mtxf)), MEMPOOL_STAGE);
+	g_RoomMtxes = mempAlloc(ALIGN16(var80082050 * sizeof(struct roommtx)), MEMPOOL_STAGE);
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		g_Vars.players[i]->lastroomforoffset = -1;
 	}
 
 	for (i = 0; i < var80082050; i++) {
-		var800a6664[i] = -1;
-		var800a6660[i] = 2;
-		var800a6668[i] = -1;
-		var800a666c[i] = 1;
+		g_RoomMtxes[i].count = 2;
+		g_RoomMtxes[i].room1 = -1;
+		g_RoomMtxes[i].room2 = -1;
+		g_RoomMtxes[i].somefloat = 1;
 	}
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
