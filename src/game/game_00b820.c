@@ -24,11 +24,6 @@ void resetSomeStageThings(void)
 
 	g_StageFlags = 0;
 
-	g_EnemyAccuracyScale = 1;
-	g_PlayerDamageRxScale = 1;
-	g_PlayerDamageTxScale = 1;
-	g_AttackWalkDurationScale = 1;
-
 	g_NumChrsSeenPlayerRecently2 = 0;
 }
 
