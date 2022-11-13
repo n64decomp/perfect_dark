@@ -2052,7 +2052,6 @@ void lvTick(void)
 		PROFILE(PROFILEMARKER_LVT_SND, sndTick());
 		PROFILE(PROFILEMARKER_LVT_PAK, pakExecuteDebugOperations());
 		PROFILE(PROFILEMARKER_LVT_LIGHTING, lightingTick());
-		PROFILE(PROFILEMARKER_LVT_MODELMGR, modelmgrPrintCounts());
 		PROFILE(PROFILEMARKER_LVT_BOLTBEAMS, boltbeamsTick());
 
 		if (g_AmActive) {

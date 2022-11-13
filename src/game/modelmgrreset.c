@@ -148,12 +148,6 @@ void modelmgrAllocateSlots(s32 numobjs, s32 numchrs)
 	for (i = 0; i < g_MaxAnims; i++) {
 		g_AnimSlots[i].animnum = -1;
 	}
-
-	g_ModelMostType1 = 0;
-	g_ModelMostType2 = 0;
-	g_ModelMostType3 = 0;
-	g_ModelMostModels = 0;
-	g_ModelMostAnims = 0;
 }
 
 bool modelmgrLoadProjectileModeldefs(s32 weaponnum)

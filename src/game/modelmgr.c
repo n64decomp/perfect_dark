@@ -16,11 +16,6 @@ struct modelrwdatabinding *g_ModelRwdataBindings[3];
 s32 g_MaxModels = 0;
 s32 g_MaxAnims = 0;
 bool g_ModelIsLvResetting = false;
-s32 g_ModelMostType1 = 0;
-s32 g_ModelMostType2 = 0;
-s32 g_ModelMostType3 = 0;
-s32 g_ModelMostModels = 0;
-s32 g_ModelMostAnims = 0;
 
 #define NUMTYPE1() 35
 #define NUMTYPE2() 25
@@ -30,67 +25,6 @@ bool modelmgrCanSlotFitRwdata(struct model *modelslot, struct modelfiledata *mod
 {
 	return modeldef->rwdatalen <= 0
 		|| (modelslot->rwdatas != NULL && modelslot->rwdatalen >= modeldef->rwdatalen);
-}
-
-void modelmgrPrintCounts(void)
-{
-	s32 i;
-	s32 numtype1 = 0;
-	s32 numtype2 = 0;
-	s32 numtype3 = 0;
-	s32 nummodels = 0;
-	s32 numanims = 0;
-
-	for (i = 0; i < NUMTYPE1(); i++) {
-		if (g_ModelRwdataBindings[0][i].model) {
-			numtype1++;
-		}
-	}
-
-	for (i = 0; i < NUMTYPE2(); i++) {
-		if (g_ModelRwdataBindings[1][i].model) {
-			numtype2++;
-		}
-	}
-
-	for (i = 0; i < NUMTYPE3(); i++) {
-		if (g_ModelRwdataBindings[2][i].model) {
-			numtype3++;
-		}
-	}
-
-	for (i = 0; i < g_MaxModels; i++) {
-		if (g_ModelSlots[i].filedata) {
-			nummodels++;
-		}
-	}
-
-	for (i = 0; i < g_MaxAnims; i++) {
-		if (g_AnimSlots[i].animnum != -1) {
-			numanims++;
-		}
-	}
-
-	if (numtype1 > g_ModelMostType1) {
-		g_ModelMostType1 = numtype1;
-	}
-
-	if (numtype2 > g_ModelMostType2) {
-		g_ModelMostType2 = numtype2;
-	}
-
-	if (numtype3 > g_ModelMostType3) {
-		g_ModelMostType3 = numtype3;
-	}
-
-	if (nummodels > g_ModelMostModels) {
-		g_ModelMostModels = nummodels;
-	}
-
-	if (numanims > g_ModelMostAnims) {
-		g_ModelMostAnims = numanims;
-	}
-
 }
 
 struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool withanim)
