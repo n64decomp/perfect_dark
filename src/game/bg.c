@@ -1076,9 +1076,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 		gdl = envStartFog(gdl, false);
 
-		if (g_StageIndex != STAGEINDEX_TEST_OLD) {
-			gdl = bgRenderRoomOpaque(gdl, thing->roomnum);
-		}
+		gdl = bgRenderRoomOpaque(gdl, thing->roomnum);
 
 		// Render prop opaque components - post BG pass
 		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -5491,11 +5489,7 @@ void bgTickPortals(void)
 		if (!g_BgRoomTestsDisabled) {
 			if (g_BgPortals[0].verticesoffset == 0) {
 				for (room = 1; room < g_Vars.roomcount; room++) {
-					if (func0f15cd90(room, &box)
-							&& ((g_StageIndex != STAGEINDEX_INFILTRATION && g_StageIndex != STAGEINDEX_RESCUE && g_StageIndex != STAGEINDEX_ESCAPE) || room != 0xf)
-							&& (g_StageIndex != STAGEINDEX_SKEDARRUINS || room != 0x02)
-							&& ((g_StageIndex != STAGEINDEX_DEFECTION && g_StageIndex != STAGEINDEX_EXTRACTION) || room != 0x01)
-							&& (g_StageIndex != STAGEINDEX_ATTACKSHIP || room != 0x71)) {
+					if (func0f15cd90(room, &box) && room != g_BgAlwaysRoom) {
 						roomSetOnscreen(room, 0, &box);
 					}
 				}
@@ -5528,7 +5522,7 @@ Gfx *func0f164150(Gfx *gdl)
 	}
 
 	// Consider loading one room by finding the load candidate that is closest to the player
-	if (var8007fc28 == 0 && var8007fc10 == 4 && g_Vars.tickmode == TICKMODE_NORMAL) {
+	if (g_BgNumRoomLoadCandidates && var8007fc28 == 0 && var8007fc10 == 4 && g_Vars.tickmode == TICKMODE_NORMAL) {
 		struct player *player = g_Vars.currentplayer;
 		s32 i;
 		f32 value;
@@ -5537,51 +5531,49 @@ Gfx *func0f164150(Gfx *gdl)
 		s32 bestroomnum = 0;
 		f32 radius;
 
-		if (g_BgNumRoomLoadCandidates) {
-			for (i = 1; i < g_Vars.roomcount; i++) {
-				if (!g_Rooms[i].loaded240 && (g_Rooms[i].flags & ROOMFLAG_LOADCANDIDATE)) {
-					dist.x = g_Vars.currentplayer->prop->pos.x - g_Rooms[i].centre.x;
-					dist.y = g_Vars.currentplayer->prop->pos.y - g_Rooms[i].centre.y;
-					dist.z = g_Vars.currentplayer->prop->pos.z - g_Rooms[i].centre.z;
+		for (i = 1; i < g_Vars.roomcount; i++) {
+			if (!g_Rooms[i].loaded240 && (g_Rooms[i].flags & ROOMFLAG_LOADCANDIDATE)) {
+				dist.x = g_Vars.currentplayer->prop->pos.x - g_Rooms[i].centre.x;
+				dist.y = g_Vars.currentplayer->prop->pos.y - g_Rooms[i].centre.y;
+				dist.z = g_Vars.currentplayer->prop->pos.z - g_Rooms[i].centre.z;
 
-					value = dist.f[0] * dist.f[0] + dist.f[1] * dist.f[1] + dist.f[2] * dist.f[2];
+				value = dist.f[0] * dist.f[0] + dist.f[1] * dist.f[1] + dist.f[2] * dist.f[2];
 
-					radius = g_Rooms[i].radius;
+				radius = g_Rooms[i].radius;
 
-					if (var8009dd6c + radius < player->projectionmtx->m[2][0] * g_Rooms[i].centre.f[0]
-							+ player->projectionmtx->m[2][1] * g_Rooms[i].centre.f[1]
-							+ player->projectionmtx->m[2][2] * g_Rooms[i].centre.f[2]) {
-						value *= 3.0f;
-					}
+				if (var8009dd6c + radius < player->projectionmtx->m[2][0] * g_Rooms[i].centre.f[0]
+						+ player->projectionmtx->m[2][1] * g_Rooms[i].centre.f[1]
+						+ player->projectionmtx->m[2][2] * g_Rooms[i].centre.f[2]) {
+					value *= 3.0f;
+				}
 
-					if (var8009dd4c + radius < var8009dd40.f[0] * g_Rooms[i].centre.f[0]
-							+ var8009dd40.f[1] * g_Rooms[i].centre.f[1]
-							+ var8009dd40.f[2] * g_Rooms[i].centre.f[2]) {
-						value *= 1.5f;
-					}
+				if (var8009dd4c + radius < var8009dd40.f[0] * g_Rooms[i].centre.f[0]
+						+ var8009dd40.f[1] * g_Rooms[i].centre.f[1]
+						+ var8009dd40.f[2] * g_Rooms[i].centre.f[2]) {
+					value *= 1.5f;
+				}
 
-					if (var8009dd5c + radius < var8009dd50.f[0] * g_Rooms[i].centre.f[0]
-							+ var8009dd50.f[1] * g_Rooms[i].centre.f[1]
-							+ var8009dd50.f[2] * g_Rooms[i].centre.f[2]) {
-						value *= 1.5f;
-					}
+				if (var8009dd5c + radius < var8009dd50.f[0] * g_Rooms[i].centre.f[0]
+						+ var8009dd50.f[1] * g_Rooms[i].centre.f[1]
+						+ var8009dd50.f[2] * g_Rooms[i].centre.f[2]) {
+					value *= 1.5f;
+				}
 
-					if (var8009dd2c + radius < var8009dd20.f[0] * g_Rooms[i].centre.f[0]
-							+ var8009dd20.f[1] * g_Rooms[i].centre.f[1]
-							+ var8009dd20.f[2] * g_Rooms[i].centre.f[2]) {
-						value *= 2.0f;
-					}
+				if (var8009dd2c + radius < var8009dd20.f[0] * g_Rooms[i].centre.f[0]
+						+ var8009dd20.f[1] * g_Rooms[i].centre.f[1]
+						+ var8009dd20.f[2] * g_Rooms[i].centre.f[2]) {
+					value *= 2.0f;
+				}
 
-					if (var8009dd3c + radius < var8009dd30.f[0] * g_Rooms[i].centre.f[0]
-							+ var8009dd30.f[1] * g_Rooms[i].centre.f[1]
-							+ var8009dd30.f[2] * g_Rooms[i].centre.f[2]) {
-						value *= 2.0f;
-					}
+				if (var8009dd3c + radius < var8009dd30.f[0] * g_Rooms[i].centre.f[0]
+						+ var8009dd30.f[1] * g_Rooms[i].centre.f[1]
+						+ var8009dd30.f[2] * g_Rooms[i].centre.f[2]) {
+					value *= 2.0f;
+				}
 
-					if (value < bestvalue) {
-						bestvalue = value;
-						bestroomnum = i;
-					}
+				if (value < bestvalue) {
+					bestvalue = value;
+					bestroomnum = i;
 				}
 			}
 		}
