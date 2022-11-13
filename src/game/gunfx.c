@@ -25,6 +25,7 @@ struct boltbeam g_BoltBeams[8];
 struct lasersight g_LaserSights[4];
 
 s32 g_BeamsActive;
+s32 g_LasersightsActive;
 
 void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to)
 {
@@ -1391,6 +1392,7 @@ void lasersightSetBeam(s32 id, s32 arg1, struct coord *near, struct coord *far)
 		}
 
 		g_LaserSights[i].id = id;
+		g_LasersightsActive++;
 	}
 
 	g_LaserSights[i].unk04 = *near;
@@ -1422,5 +1424,6 @@ void lasersightFree(s32 arg0)
 
 	if (lasersightExists(arg0, &i)) {
 		g_LaserSights[i].id = -1;
+		g_LasersightsActive--;
 	}
 }

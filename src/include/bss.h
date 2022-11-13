@@ -289,6 +289,7 @@ extern struct bossfile g_BossFile;
 extern struct chrdata *g_MpBotChrPtrs[MAX_BOTS];
 extern bool g_AmActive;
 extern s32 g_BeamsActive;
+extern s32 g_LasersightsActive;
 extern bool g_StarsActive;
 extern u8 g_HudmsgsActive;
 extern struct roommtx *g_RoomMtxes;

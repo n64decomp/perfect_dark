@@ -30,4 +30,6 @@ void lasersightsReset(void)
 	for (i = 0; i < 4; i++) {
 		g_LaserSights[i].id = -1;
 	}
+
+	g_LasersightsActive = 0;
 }

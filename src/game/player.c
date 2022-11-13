@@ -4176,7 +4176,10 @@ Gfx *playerRenderHud(Gfx *gdl)
 		bgunTickGameplay2();
 		gdl = boltbeamsRender(gdl);
 		bgunRender(&gdl);
-		gdl = lasersightRenderDot(gdl);
+
+		if (g_LasersightsActive) {
+			gdl = lasersightRenderDot(gdl);
+		}
 
 		if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 			gdl = bgRenderArtifacts(gdl);

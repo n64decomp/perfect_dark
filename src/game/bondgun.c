@@ -7601,7 +7601,7 @@ void bgunRender(Gfx **gdlptr)
 		gdl = vi0000b0e8(gdl, 60, f2);
 	}
 
-	if (PLAYERCOUNT() == 1) {
+	if (g_LasersightsActive && PLAYERCOUNT() == 1) {
 		gdl = lasersightRenderBeam(gdl);
 	}
 
