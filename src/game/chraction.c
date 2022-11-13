@@ -68,12 +68,6 @@ f32 g_PlayerDamageRxScale = 1;
 f32 g_PlayerDamageTxScale = 1;
 f32 g_AttackWalkDurationScale = 1;
 
-s32 g_NumChrsWithPlayerTarget = 0;
-s32 g_NumChrsSeenPlayer = 0;
-s32 g_NumChrsSeenPlayerRecently = 0;
-
-s32 g_NumChrsSeenPlayerRecently2 = 0;
-
 struct animtablerow g_DeathAnimsHumanLfoot[] = {
 	{ ANIM_DEATH_0020, 0, -1, 0.5, 0, 26, -1 },
 	{ 0,      0,  0, 0.5, 0, -1, -1 },
@@ -6678,12 +6672,7 @@ bool chrFaceEntity(struct chrdata *chr, u32 attackflags, s32 entityid)
 
 bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 goposflags)
 {
-	if (padnum >= 0
-			&& chrIsReadyForOrders(chr)
-			&& (g_NumChrsSeenPlayerRecently2 <= 8
-				|| (chr->hidden & CHRHFLAG_00400000) == 0
-				|| (chr->flags & CHRFLAG0_ACTIVATEALARM))
-				) {
+	if (padnum >= 0 && chrIsReadyForOrders(chr)) {
 		padnum = chrResolvePadId(chr, padnum);
 
 		if (padnum >= 0) {
@@ -6740,14 +6729,10 @@ bool chrFadeOut(struct chrdata *chr)
 bool chrGoToTarget(struct chrdata *chr, u32 goposflags)
 {
 	if (chrIsReadyForOrders(chr)) {
-		if (g_NumChrsSeenPlayerRecently2 <= 8
-				|| (chr->hidden & CHRHFLAG_00400000) == 0
-				|| (chr->flags & CHRFLAG0_ACTIVATEALARM)) {
-			struct prop *prop = chrGetTargetProp(chr);
+		struct prop *prop = chrGetTargetProp(chr);
 
-			if (chrGoToRoomPos(chr, &prop->pos, prop->rooms, goposflags)) {
-				return true;
-			}
+		if (chrGoToRoomPos(chr, &prop->pos, prop->rooms, goposflags)) {
+			return true;
 		}
 	}
 
@@ -6757,14 +6742,10 @@ bool chrGoToTarget(struct chrdata *chr, u32 goposflags)
 bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 goposflags)
 {
 	if (chrIsReadyForOrders(chr)) {
-		if (g_NumChrsSeenPlayerRecently2 <= 8
-				|| (chr->hidden & CHRHFLAG_00400000) == 0
-				|| (chr->flags & CHRFLAG0_ACTIVATEALARM)) {
-			struct chrdata *dstchr = chrFindById(chr, dst_chrnum);
+		struct chrdata *dstchr = chrFindById(chr, dst_chrnum);
 
-			if (dstchr && dstchr->prop && chrGoToRoomPos(chr, &dstchr->prop->pos, dstchr->prop->rooms, goposflags)) {
-				return true;
-			}
+		if (dstchr && dstchr->prop && chrGoToRoomPos(chr, &dstchr->prop->pos, dstchr->prop->rooms, goposflags)) {
+			return true;
 		}
 	}
 
@@ -6788,22 +6769,18 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, u32 goposflags)
 	s16 aboverooms[21];
 
 	if (chrIsReadyForOrders(chr)) {
-		if (g_NumChrsSeenPlayerRecently2 < 9
-				|| (chr->hidden & CHRHFLAG_00400000) == 0
-				|| (chr->flags & CHRCFLAG_00040000)) {
-			s16 *rooms = NULL;
+		s16 *rooms = NULL;
 
-			bgFindRoomsByPos(pos, inrooms, aboverooms, 20, NULL);
+		bgFindRoomsByPos(pos, inrooms, aboverooms, 20, NULL);
 
-			if (inrooms[0] != -1) {
-				rooms = inrooms;
-			} else if (aboverooms[0] != -1) {
-				rooms = aboverooms;
-			}
+		if (inrooms[0] != -1) {
+			rooms = inrooms;
+		} else if (aboverooms[0] != -1) {
+			rooms = aboverooms;
+		}
 
-			if (rooms != NULL && chrGoToRoomPos(chr, pos, rooms, goposflags)) {
-				return true;
-			}
+		if (rooms != NULL && chrGoToRoomPos(chr, pos, rooms, goposflags)) {
+			return true;
 		}
 	}
 
@@ -11808,13 +11785,6 @@ void chrTickGoPos(struct chrdata *chr)
 		chrGoPosInitMagic(chr, &chr->act_gopos.waydata, &curwppos, &prop->pos);
 	}
 
-	if (g_NumChrsSeenPlayerRecently2 >= 9
-			&& (chr->hidden & CHRHFLAG_00400000)
-			&& (chr->flags & CHRFLAG0_ACTIVATEALARM) == 0) {
-		chrStop(chr);
-		return;
-	}
-
 	// If goposforce is set then decrease it on each tick. If it's reached -1
 	// then stop the chr. I guess goposforce is not only used to warp past
 	// obstacles, but is also used as a run countdown timer.
@@ -12418,51 +12388,6 @@ void chraTickBg(void)
 
 	spawnslen = 0;
 	numdeadonscreen = 0;
-
-	// Count the number of chrs who are engaged with the player.
-	// When these numbers are high, chrs can ignore gopos commands.
-	// NTSC beta has a simple version of this logic in a loop
-	// near the end of this function.
-	g_NumChrsWithPlayerTarget = 0;
-	g_NumChrsSeenPlayer = 0;
-	g_NumChrsSeenPlayerRecently = 0;
-	g_NumChrsSeenPlayerRecently2 = 0;
-
-	if (g_Vars.normmplayerisrunning == false) {
-		for (i = 0; i < numchrs; i++) {
-			struct chrdata *chr = &g_ChrSlots[i];
-
-			if (chr->model && chr->prop && !chrIsDead(chr)) {
-				struct prop *targetprop = chrGetTargetProp(chr);
-
-				if (targetprop && (targetprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))) {
-					if ((targetprop->type == PROPTYPE_PLAYER
-								&& !(g_Vars.antiplayernum >= 0 && g_Vars.anti && g_Vars.anti->prop == targetprop)
-								&& chrCompareTeams(chr, targetprop->chr, COMPARE_ENEMIES))
-							|| CHRRACE(targetprop->chr) == RACE_EYESPY) {
-						s32 time60;
-						s32 lastsee;
-						s32 lastvis;
-
-						g_NumChrsWithPlayerTarget++;
-
-						lastsee = chr->lastseetarget60;
-						lastvis = chr->lastvisibletarget60;
-						time60 = lastsee > lastvis ? lastsee : lastvis;
-
-						if (time60) {
-							g_NumChrsSeenPlayer++;
-
-							if (g_Vars.lvframe60 - time60 < TICKS(240)) {
-								g_NumChrsSeenPlayerRecently++;
-								g_NumChrsSeenPlayerRecently2++;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
 
 	var80068454++;
 

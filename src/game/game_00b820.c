@@ -23,8 +23,6 @@ void resetSomeStageThings(void)
 	}
 
 	g_StageFlags = 0;
-
-	g_NumChrsSeenPlayerRecently2 = 0;
 }
 
 void stageAllocateBgChrs(void)
