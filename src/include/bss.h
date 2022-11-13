@@ -291,5 +291,7 @@ extern s32 g_AmActive;
 extern s32 g_BeamsActive;
 extern u8 g_HudmsgsActive;
 extern struct roommtx *g_RoomMtxes;
+extern struct roommtx *g_RoomMtxesUsed;
+extern struct roommtx *g_RoomMtxesFree;
 
 #endif

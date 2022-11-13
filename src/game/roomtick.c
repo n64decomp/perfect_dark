@@ -7,15 +7,17 @@
 
 void roomsTick(void)
 {
-	s32 i;
+	struct roommtx *roommtx = g_RoomMtxesUsed;
 
-	for (i = 0; i < var80082050; i++) {
-		if (g_RoomMtxes[i].room2 >= 0) {
-			g_RoomMtxes[i].count++;
+	while (roommtx) {
+		struct roommtx *next = roommtx->next;
 
-			if (g_RoomMtxes[i].count > 1) {
-				room0f16696c(i);
-			}
+		roommtx->count++;
+
+		if (roommtx->count > 1) {
+			room0f16696c(roommtx);
 		}
+
+		roommtx = next;
 	}
 }

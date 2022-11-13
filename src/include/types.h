@@ -6361,12 +6361,13 @@ struct xz {
 };
 
 struct roommtx {
-	s32 padding;
+	Mtxf mtx;
+	u8 index;
 	u8 count;
 	s16 room1;
 	s16 room2;
 	f32 somefloat;
-	Mtxf mtx;
+	struct roommtx *next;
 };
 
 #endif

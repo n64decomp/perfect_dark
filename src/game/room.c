@@ -7,6 +7,8 @@
 #include "types.h"
 
 struct roommtx *g_RoomMtxes;
+struct roommtx *g_RoomMtxesUsed;
+struct roommtx *g_RoomMtxesFree;
 
 s32 var80082050 = 0;
 
@@ -15,40 +17,65 @@ void roomSetLastForOffset(s32 room)
 	g_Vars.currentplayer->lastroomforoffset = room;
 }
 
-void room0f1668f0(s32 index, s32 roomnum)
+void room0f1668f0(struct roommtx *roommtx, s32 roomnum)
 {
-	g_Rooms[roomnum].unk10 = index;
-	g_RoomMtxes[index].room1 = roomnum;
+	g_Rooms[roomnum].unk10 = roommtx->index;
+	roommtx->room1 = roomnum;
 }
 
-void room0f16692c(s32 index, s32 roomnum)
+void room0f16692c(struct roommtx *roommtx, s32 roomnum)
 {
 	g_Rooms[roomnum].unk10 = -1;
-	g_RoomMtxes[index].room1 = -1;
+	roommtx->room1 = -1;
 }
 
-void room0f16696c(s32 index)
+void room0f16696c(struct roommtx *roommtx)
 {
-	if (g_RoomMtxes[index].room1 != -1) {
-		room0f16692c(index, g_RoomMtxes[index].room1);
+	if (roommtx->room1 != -1) {
+		room0f16692c(roommtx, roommtx->room1);
 	}
 
-	g_RoomMtxes[index].count = 2;
-	g_RoomMtxes[index].room2 = -1;
-	g_RoomMtxes[index].somefloat = 1;
-}
+	roommtx->count = 2;
+	roommtx->room2 = -1;
+	roommtx->somefloat = 1;
 
-s32 room0f1669fc(void)
-{
-	s32 i;
+	// Move from used to free
+	if (roommtx == g_RoomMtxesUsed) {
+		g_RoomMtxesUsed = roommtx->next;
+	} else {
+		struct roommtx *iter = g_RoomMtxesUsed;
 
-	for (i = 0; i < var80082050; i++) {
-		if (g_RoomMtxes[i].count > 1 && g_RoomMtxes[i].room2 == -1) {
-			return i;
+		while (iter) {
+			if (iter->next == roommtx) {
+				iter->next = roommtx->next;
+				break;
+			}
+
+			iter = iter->next;
 		}
 	}
 
-	return 0;
+	roommtx->next = g_RoomMtxesFree;
+	g_RoomMtxesFree = roommtx;
+}
+
+/**
+ * Find a free mtx and return it.
+ */
+struct roommtx *room0f1669fc(void)
+{
+	struct roommtx *roommtx = g_RoomMtxesFree;
+
+	if (!roommtx) {
+		return g_RoomMtxesUsed;
+	}
+
+	g_RoomMtxesFree = roommtx->next;
+
+	roommtx->next = g_RoomMtxesUsed;
+	g_RoomMtxesUsed = roommtx;
+
+	return roommtx;
 }
 
 void room0f166a6c(Mtxf *mtx, s32 roomnum)
@@ -84,41 +111,43 @@ void room0f166a6c(Mtxf *mtx, s32 roomnum)
 	}
 }
 
-s32 room0f166c20(s32 roomnum)
+struct roommtx *room0f166c20(s32 roomnum)
 {
 	s32 index = g_Rooms[roomnum].unk10;
+	struct roommtx *roommtx;
 	Mtxf mtx;
 
 	if (index == -1
 			|| g_Vars.currentplayer->lastroomforoffset != g_RoomMtxes[index].room2
 			|| g_RoomMtxes[index].somefloat != var8005ef10[0]) {
-		if (index != -1) {
-			room0f16692c(index, roomnum);
+		if (index == -1) {
+			roommtx = room0f1669fc();
+		} else {
+			roommtx = &g_RoomMtxes[index];
+			room0f16692c(roommtx, roomnum);
 		}
 
-		index = room0f1669fc();
-
-		room0f1668f0(index, roomnum);
-		g_RoomMtxes[index].count = 0;
+		room0f1668f0(roommtx, roomnum);
+		roommtx->count = 0;
 	} else {
-		g_RoomMtxes[index].count = 0;
-		return index;
+		roommtx->count = 0;
+		return roommtx;
 	}
 
-	g_RoomMtxes[index].room2 = g_Vars.currentplayer->lastroomforoffset;
-	g_RoomMtxes[index].somefloat = var8005ef10[0];
+	roommtx->room2 = g_Vars.currentplayer->lastroomforoffset;
+	roommtx->somefloat = var8005ef10[0];
 
 	room0f166a6c(&mtx, roomnum);
-	mtx00016054(&mtx, &g_RoomMtxes[index].mtx);
+	mtx00016054(&mtx, &roommtx->mtx);
 
-	return index;
+	return roommtx;
 }
 
 Gfx *roomPushMtx(Gfx *gdl, s32 roomnum)
 {
-	s32 index = room0f166c20(roomnum);
+	struct roommtx *roommtx = room0f166c20(roomnum);
 
-	gSPMatrix(gdl++, &g_RoomMtxes[index].mtx, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(gdl++, &roommtx->mtx, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	return gdl;
 }
