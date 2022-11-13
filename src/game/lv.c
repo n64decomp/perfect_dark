@@ -1203,6 +1203,13 @@ Gfx *lvRender(Gfx *gdl)
 						}
 					}
 				} else {
+					s32 weaponnum = bgunGetWeaponNum(HAND_RIGHT);
+
+					if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_FALCON2_SCOPE) {
+						// Have to call this to make the laser dot appear
+						func0f061d54(HAND_RIGHT, 0, 0);
+					}
+
 					g_Vars.currentplayer->lookingatprop.prop = NULL;
 				}
 				profileEnd(PROFILEMARKER_LVR_LOOKINGAT);
