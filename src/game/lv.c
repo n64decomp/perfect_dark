@@ -347,17 +347,7 @@ void lvReset(s32 stagenum)
 	sparksReset();
 	weatherReset();
 	lvResetMiscSfx();
-
-	switch (g_Vars.stagenum) {
-	case STAGE_ESCAPE:
-	case STAGE_EXTRACTION:
-	case STAGE_INFILTRATION:
-	case STAGE_DEFECTION:
-	case STAGE_ATTACKSHIP:
-		starsReset();
-		break;
-	}
-
+	starsReset();
 	func0f0099a4();
 	boltbeamsReset();
 	lasersightsReset();

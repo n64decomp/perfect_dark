@@ -287,11 +287,13 @@ extern u8 g_AmBotCommands[16];
 extern struct mpsetup g_MpSetup;
 extern struct bossfile g_BossFile;
 extern struct chrdata *g_MpBotChrPtrs[MAX_BOTS];
-extern s32 g_AmActive;
+extern bool g_AmActive;
 extern s32 g_BeamsActive;
+extern bool g_StarsActive;
 extern u8 g_HudmsgsActive;
 extern struct roommtx *g_RoomMtxes;
 extern struct roommtx *g_RoomMtxesUsed;
 extern struct roommtx *g_RoomMtxesFree;
+extern s32 g_BgAlwaysRoom;
 
 #endif

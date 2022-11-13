@@ -88,19 +88,7 @@ void room0f166a6c(Mtxf *mtx, s32 roomnum)
 	mtx->m[1][1] = 1;
 	mtx->m[2][2] = 1;
 
-	// These are rooms that are always active, such as the moon in Defection.
-	// This is probably making those rooms always drawn a certain distance away
-	// relative to the camera, so the moon never gets bigger as you go closer.
-	if (((stagenum == g_Stages[STAGEINDEX_INFILTRATION].id
-					|| stagenum == g_Stages[STAGEINDEX_RESCUE].id
-					|| stagenum == g_Stages[STAGEINDEX_ESCAPE].id
-					|| stagenum == g_Stages[STAGEINDEX_MAIANSOS].id) && roomnum == 0x0f)
-			|| ((stagenum == g_Stages[STAGEINDEX_SKEDARRUINS].id
-					|| stagenum == g_Stages[STAGEINDEX_WAR].id) && roomnum == 0x02)
-			|| ((stagenum == g_Stages[STAGEINDEX_DEFECTION].id
-					|| stagenum == g_Stages[STAGEINDEX_EXTRACTION].id
-					|| stagenum == g_Stages[STAGEINDEX_MBR].id) && roomnum == 0x01)
-			|| (stagenum == g_Stages[STAGEINDEX_ATTACKSHIP].id && roomnum == 0x71)) {
+	if (roomnum == g_BgAlwaysRoom) {
 		mtx->m[3][0] = g_BgRooms[roomnum].pos.x;
 		mtx->m[3][1] = g_BgRooms[roomnum].pos.y;
 		mtx->m[3][2] = g_BgRooms[roomnum].pos.z;

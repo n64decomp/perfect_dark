@@ -18,6 +18,7 @@ s8 *g_StarPositions = NULL;
 f32 *g_StarData3;
 s32 g_StarGridSize;
 s32 *g_StarPosIndexes;
+bool g_StarsActive;
 
 bool g_StarsBelowHorizon = false;
 
@@ -111,84 +112,96 @@ void starsReset(void)
 	s32 tmp1;
 	s32 tmp2;
 
+	g_StarsActive = false;
+
+	if (PLAYERCOUNT() >= 2) {
+		return;
+	}
+
+	if (g_Vars.stagenum != STAGE_ESCAPE
+			&& g_Vars.stagenum != STAGE_EXTRACTION
+			&& g_Vars.stagenum != STAGE_INFILTRATION
+			&& g_Vars.stagenum != STAGE_DEFECTION
+			&& g_Vars.stagenum != STAGE_ATTACKSHIP) {
+		return;
+	}
+
+	g_StarsActive = true;
 	g_StarPositions = NULL;
+	g_StarsBelowHorizon = false;
+	g_StarGridSize = 3;
 
-	if (PLAYERCOUNT() < 2) {
-		g_StarsBelowHorizon = false;
-		g_StarGridSize = 3;
+	if (g_Vars.stagenum == STAGE_DEFECTION || g_Vars.stagenum == STAGE_EXTRACTION) {
+		g_StarCount = 200;
+		g_StarGridSize = 2;
+	} else if (g_Vars.stagenum == STAGE_ATTACKSHIP) {
+		g_StarsBelowHorizon = true;
+		g_StarCount = 1200;
+	} else {
+		g_StarCount = 200;
+		g_StarGridSize = 2;
+	}
 
-		if (g_Vars.stagenum == STAGE_DEFECTION || g_Vars.stagenum == STAGE_EXTRACTION) {
-			g_StarCount = 200;
-			g_StarGridSize = 2;
-		} else if (g_Vars.stagenum == STAGE_ATTACKSHIP) {
-			g_StarsBelowHorizon = true;
-			g_StarCount = 1200;
-		} else {
-			g_StarCount = 200;
-			g_StarGridSize = 2;
+	tmp = g_StarGridSize + 1;
+	g_StarPositions = mempAlloc(ALIGN64(g_StarCount * 3U + tmp * 72 * tmp + 6 * g_StarGridSize * g_StarGridSize * 4U + 4), MEMPOOL_STAGE);
+
+	if (g_StarPositions != NULL) {
+		g_StarPosIndexes = (s32 *)(g_StarPositions + g_StarCount * 3);
+
+		for (i = 0; i < (6 * g_StarGridSize * g_StarGridSize + 1); i++) {
+			g_StarPosIndexes[i] = 0;
 		}
 
-		tmp = g_StarGridSize + 1;
-		g_StarPositions = mempAlloc(ALIGN64(g_StarCount * 3U + tmp * 72 * tmp + 6 * g_StarGridSize * g_StarGridSize * 4U + 4), MEMPOOL_STAGE);
+		count = 6 * g_StarGridSize * g_StarGridSize + 1;
+		g_StarData3 = (f32 *)(count * sizeof(f32) + (s32)g_StarPosIndexes);
 
-		if (g_StarPositions != NULL) {
-			g_StarPosIndexes = (s32 *)(g_StarPositions + g_StarCount * 3);
+		stars0f135c70();
 
-			for (i = 0; i < (6 * g_StarGridSize * g_StarGridSize + 1); i++) {
-				g_StarPosIndexes[i] = 0;
+		for (i = 0; i < g_StarCount; i++) {
+			spd4.f[0] = 2.0f * RANDOMFRAC() - 1.0f;
+			spd4.f[1] = g_StarsBelowHorizon ? 2.0f * RANDOMFRAC() - 1.0f : RANDOMFRAC();
+			spd4.f[2] = 2.0f * RANDOMFRAC() - 1.0f;
+
+			guNormalize(&spd4.f[0], &spd4.f[1], &spd4.f[2]);
+
+			f0 = (ABS2(spd4.f[0]) > ABS2(spd4.f[1])) ? (ABS2(spd4.f[0]) > ABS2(spd4.f[2]) ? ABS2(spd4.f[0]) : ABS2(spd4.f[2])) : (ABS2(spd4.f[1]) > ABS2(spd4.f[2]) ? ABS2(spd4.f[1]) : ABS2(spd4.f[2]));
+
+			spc8.f[0] = spd4.f[0] / f0;
+			spc8.f[1] = spd4.f[1] / f0;
+			spc8.f[2] = spd4.f[2] / f0;
+
+			tmp1 = g_StarGridSize * g_StarGridSize;
+
+			if (spc8.f[0] == 1 || spc8.f[0] == -1) {
+				spb0 = spc8.f[0] == -1 ? 0 : 1;
+				spc0 = spc8.f[1];
+				spbc = spc8.f[2];
+			} else if (spc8.f[1] == 1 || spc8.f[1] == -1) {
+				spb0 = spc8.f[1] == -1 ? 2 : 3;
+				spc0 = spc8.f[2];
+				spbc = spc8.f[0];
+			} else if (spc8.f[2] == 1 || spc8.f[2] == -1) {
+				spb0 = spc8.f[2] == -1 ? 4 : 5;
+				spc0 = spc8.f[0];
+				spbc = spc8.f[1];
+			} else {
+				// empty
 			}
 
-			count = 6 * g_StarGridSize * g_StarGridSize + 1;
-			g_StarData3 = (f32 *)(count * sizeof(f32) + (s32)g_StarPosIndexes);
+			v0 = (spc0 + 1) / 2 * g_StarGridSize;
+			v1 = (spbc + 1) / 2 * g_StarGridSize;
 
-			stars0f135c70();
-
-			for (i = 0; i < g_StarCount; i++) {
-				spd4.f[0] = 2.0f * RANDOMFRAC() - 1.0f;
-				spd4.f[1] = g_StarsBelowHorizon ? 2.0f * RANDOMFRAC() - 1.0f : RANDOMFRAC();
-				spd4.f[2] = 2.0f * RANDOMFRAC() - 1.0f;
-
-				guNormalize(&spd4.f[0], &spd4.f[1], &spd4.f[2]);
-
-				f0 = (ABS2(spd4.f[0]) > ABS2(spd4.f[1])) ? (ABS2(spd4.f[0]) > ABS2(spd4.f[2]) ? ABS2(spd4.f[0]) : ABS2(spd4.f[2])) : (ABS2(spd4.f[1]) > ABS2(spd4.f[2]) ? ABS2(spd4.f[1]) : ABS2(spd4.f[2]));
-
-				spc8.f[0] = spd4.f[0] / f0;
-				spc8.f[1] = spd4.f[1] / f0;
-				spc8.f[2] = spd4.f[2] / f0;
-
-				tmp1 = g_StarGridSize * g_StarGridSize;
-
-				if (spc8.f[0] == 1 || spc8.f[0] == -1) {
-					spb0 = spc8.f[0] == -1 ? 0 : 1;
-					spc0 = spc8.f[1];
-					spbc = spc8.f[2];
-				} else if (spc8.f[1] == 1 || spc8.f[1] == -1) {
-					spb0 = spc8.f[1] == -1 ? 2 : 3;
-					spc0 = spc8.f[2];
-					spbc = spc8.f[0];
-				} else if (spc8.f[2] == 1 || spc8.f[2] == -1) {
-					spb0 = spc8.f[2] == -1 ? 4 : 5;
-					spc0 = spc8.f[0];
-					spbc = spc8.f[1];
-				} else {
-					// empty
-				}
-
-				v0 = (spc0 + 1) / 2 * g_StarGridSize;
-				v1 = (spbc + 1) / 2 * g_StarGridSize;
-
-				if (v0 == g_StarGridSize) {
-					v0--;
-				}
-
-				if (v1 == g_StarGridSize) {
-					v1--;
-				}
-
-				tmp2 = v0 + g_StarGridSize * v1;
-
-				starInsert(spb0 * tmp1 + tmp2, &spd4);
+			if (v0 == g_StarGridSize) {
+				v0--;
 			}
+
+			if (v1 == g_StarGridSize) {
+				v1--;
+			}
+
+			tmp2 = v0 + g_StarGridSize * v1;
+
+			starInsert(spb0 * tmp1 + tmp2, &spd4);
 		}
 	}
 }

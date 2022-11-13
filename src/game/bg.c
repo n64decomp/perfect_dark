@@ -103,6 +103,7 @@ s16 var800a4ce6;
 struct var800a4ce8 *var800a4ce8;
 struct portalthing *g_PortalThings;
 struct var800a4cf0 var800a4cf0;
+s32 g_BgAlwaysRoom;
 
 bool g_BgPreload = false;
 s32 g_StageIndex = 1;
@@ -997,47 +998,11 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 	// Render special "always on" rooms, such as the Defection moon,
 	// Attack Ship planet, and other sky tricks that are implemented as rooms
-	if (!USINGDEVICE(DEVICE_NIGHTVISION) && !USINGDEVICE(DEVICE_IRSCANNER)
-			&& (stagenum == g_Stages[STAGEINDEX_INFILTRATION].id
-				|| stagenum == g_Stages[STAGEINDEX_RESCUE].id
-				|| stagenum == g_Stages[STAGEINDEX_ESCAPE].id
-				|| stagenum == g_Stages[STAGEINDEX_MAIANSOS].id
-				|| stagenum == g_Stages[STAGEINDEX_SKEDARRUINS].id
-				|| stagenum == g_Stages[STAGEINDEX_WAR].id
-				|| stagenum == g_Stages[STAGEINDEX_DEFECTION].id
-				|| stagenum == g_Stages[STAGEINDEX_EXTRACTION].id
-				|| stagenum == g_Stages[STAGEINDEX_MBR].id
-				|| stagenum == g_Stages[STAGEINDEX_TEST_OLD].id
-				|| stagenum == g_Stages[STAGEINDEX_ATTACKSHIP].id)) {
+	if (g_BgAlwaysRoom >= 0 && !USINGDEVICE(DEVICE_NIGHTVISION) && !USINGDEVICE(DEVICE_IRSCANNER)) {
 		gdl = envStopFog(gdl);
 		gdl = vi0000ab78(gdl);
 
-		roomnum = -1;
-
-		if (stagenum == g_Stages[STAGEINDEX_INFILTRATION].id
-				|| stagenum == g_Stages[STAGEINDEX_RESCUE].id
-				|| stagenum == g_Stages[STAGEINDEX_ESCAPE].id
-				|| stagenum == g_Stages[STAGEINDEX_MAIANSOS].id) {
-			roomnum = 0x0f;
-		} else if (stagenum == g_Stages[STAGEINDEX_SKEDARRUINS].id
-				|| stagenum == g_Stages[STAGEINDEX_WAR].id) {
-			roomnum = 0x02;
-		} else if (stagenum == g_Stages[STAGEINDEX_DEFECTION].id
-				|| stagenum == g_Stages[STAGEINDEX_EXTRACTION].id
-				|| stagenum == g_Stages[STAGEINDEX_MBR].id) {
-			roomnum = 0x01;
-		} else if (stagenum == g_Stages[STAGEINDEX_TEST_OLD].id) {
-			roomnum = 0x01;
-		} else if (stagenum == g_Stages[STAGEINDEX_ATTACKSHIP].id) {
-			roomnum = 0x71;
-		}
-
-		if (PLAYERCOUNT() == 1
-				&& (stagenum == STAGE_DEFECTION
-					|| stagenum == STAGE_EXTRACTION
-					|| stagenum == STAGE_INFILTRATION
-					|| stagenum == STAGE_ESCAPE
-					|| stagenum == STAGE_ATTACKSHIP)) {
+		if (g_StarsActive) {
 			gdl = text0f153628(gdl);
 
 			gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -1049,13 +1014,11 @@ Gfx *bgRenderScene(Gfx *gdl)
 			gdl = vi0000ab78(gdl);
 		}
 
-		if (roomnum != -1) {
-			if (!g_Rooms[roomnum].loaded240) {
-				bgLoadRoom(roomnum);
-			}
-
-			gdl = bgRenderRoomOpaque(gdl, roomnum);
+		if (!g_Rooms[g_BgAlwaysRoom].loaded240) {
+			bgLoadRoom(g_BgAlwaysRoom);
 		}
+
+		gdl = bgRenderRoomOpaque(gdl, g_BgAlwaysRoom);
 
 		gSPPerspNormalize(gdl++, viGetPerspScale());
 	}
@@ -1431,6 +1394,24 @@ void bgReset(s32 stagenum)
 		} else {
 			g_BgTable5 = (f32 *)(g_BgPrimaryData2[5] + g_BgPrimaryData + 0xf1000000);
 		}
+	}
+
+	g_BgAlwaysRoom = -1;
+
+	if (stagenum == STAGE_INFILTRATION
+			|| stagenum == STAGE_RESCUE
+			|| stagenum == STAGE_ESCAPE
+			|| stagenum == STAGE_MAIANSOS) {
+		g_BgAlwaysRoom = 0x0f;
+	} else if (stagenum == STAGE_SKEDARRUINS
+			|| stagenum == STAGE_WAR) {
+		g_BgAlwaysRoom = 0x02;
+	} else if (stagenum == STAGE_DEFECTION
+			|| stagenum == STAGE_EXTRACTION
+			|| stagenum == STAGE_MBR) {
+		g_BgAlwaysRoom = 0x01;
+	} else if (stagenum == STAGE_ATTACKSHIP) {
+		g_BgAlwaysRoom = 0x71;
 	}
 }
 
