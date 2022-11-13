@@ -1403,25 +1403,32 @@ Gfx *hudmsgsRender(Gfx *gdl)
 	}
 
 	if (timerthing) {
-		gdl = text0f153628(gdl);
-
-		if (optionsGetShowMissionTime(g_Vars.currentplayerstats->mpindex)
+		bool showtimer = optionsGetShowMissionTime(g_Vars.currentplayerstats->mpindex)
 				&& g_Vars.normmplayerisrunning == false
 				&& g_Vars.stagenum != STAGE_CITRAINING
 				&& g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
-				&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON) {
-			gdl = hudmsgRenderMissionTimer(gdl, timerthing);
-		}
+				&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON;
 
-		if (hudmsgIsZoomRangeVisible()) {
-			gdl = hudmsgRenderZoomRange(gdl, timerthing);
-		}
+		bool showzoom = hudmsgIsZoomRangeVisible();
+		bool showcountdown = !g_CountdownTimerOff;
 
-		if (!g_CountdownTimerOff) {
-			gdl = countdownTimerRender(gdl);
-		}
+		if (showtimer || showzoom || showcountdown) {
+			gdl = text0f153628(gdl);
 
-		gdl = text0f153780(gdl);
+			if (showtimer) {
+				gdl = hudmsgRenderMissionTimer(gdl, timerthing);
+			}
+
+			if (showzoom) {
+				gdl = hudmsgRenderZoomRange(gdl, timerthing);
+			}
+
+			if (showcountdown) {
+				gdl = countdownTimerRender(gdl);
+			}
+
+			gdl = text0f153780(gdl);
+		}
 	}
 
 	g_ScaleX = 1;
