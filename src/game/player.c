@@ -152,9 +152,6 @@ u32 var80070734 = 0xffffffff;
 u32 var80070738 = 0;
 u32 var8007073c = 0;
 struct gecreditsdata *g_CurrentGeCreditsData = NULL;
-bool g_PlayerTriggerGeFadeIn = false;
-u32 var80070748 = 0;
-u32 var8007074c = 0;
 
 bool g_PlayersWithControl[] = {
 	true, true, true, true
@@ -1458,16 +1455,9 @@ void playerSetTickMode(s32 tickmode)
 	g_Vars.in_cutscene = false;
 }
 
-void playerBeginGeFadeIn(void)
-{
-	playerSetTickMode(TICKMODE_GE_FADEIN);
-	g_PlayerTriggerGeFadeIn = false;
-}
-
 void playersBeginMpSwirl(void)
 {
 	playerSetTickMode(TICKMODE_MPSWIRL);
-	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetMode(MOVEMODE_WALK);
 
 	g_MpSwirlRotateSpeed = 0;
@@ -1547,21 +1537,11 @@ void playerTickMpSwirl(void)
 void player0f0b9a20(void)
 {
 	playerSetTickMode(TICKMODE_NORMAL);
-	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetMode(MOVEMODE_WALK);
-
-	if (mainGetStageNum() == STAGE_TEST_LEN) {
-		playerSetFadeColour(0, 0, 0, 1);
-		playerSetFadeFrac(0, 1);
-	} else if (var80070748 != 0) {
-		playerSetFadeColour(0, 0, 0, 1);
-		playerSetFadeFrac(60, 0);
-	}
 
 	envChooseAndApply(mainGetStageNum(), false);
 	bgunEquipWeapon2(HAND_LEFT, g_DefaultWeapons[HAND_LEFT]);
 	bgunEquipWeapon2(HAND_RIGHT, g_DefaultWeapons[HAND_RIGHT]);
-	var8007074c = 0;
 }
 
 void playerEndCutscene(void)
@@ -1572,7 +1552,6 @@ void playerEndCutscene(void)
 		g_Vars.autocutfinished = true;
 	} else {
 		playerSetTickMode(TICKMODE_NORMAL);
-		g_PlayerTriggerGeFadeIn = false;
 		bmoveSetModeForAllPlayers(MOVEMODE_WALK);
 	}
 }
@@ -1580,7 +1559,6 @@ void playerEndCutscene(void)
 void playerPrepareWarpType1(s16 pad)
 {
 	playerSetTickMode(TICKMODE_WARP);
-	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
 	playersClearMemCamRoom();
 
@@ -1657,7 +1635,6 @@ void playerExecutePreparedWarp(void)
 void playerStartCutscene2(void)
 {
 	playerSetTickMode(TICKMODE_CUTSCENE);
-	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
 	playersClearMemCamRoom();
 
@@ -2956,7 +2933,7 @@ void playerTick(bool arg0)
 	bgunSetGunAmmoVisible(GUNAMMOREASON_OPTION, optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex));
 	bgunSetSightVisible(GUNSIGHTREASON_1, true);
 
-	if ((g_Vars.tickmode == TICKMODE_GE_FADEIN || g_Vars.tickmode == TICKMODE_NORMAL) && !g_InCutscene && !g_MainIsEndscreen) {
+	if (g_Vars.tickmode == TICKMODE_NORMAL && !g_InCutscene && !g_MainIsEndscreen) {
 		g_Vars.currentplayer->bondviewlevtime60 += g_Vars.lvupdate60;
 	}
 
@@ -3394,10 +3371,10 @@ void playerTick(bool arg0)
 				&g_Vars.currentplayer->prop->pos,
 				g_Vars.currentplayer->prop->rooms);
 
-		if (g_Vars.normmplayerisrunning == false
-				&& g_MissionConfig.iscoop
-				&& g_Vars.numaibuddies > 0
+		if (g_Vars.numaibuddies > 0
 				&& !g_Vars.aibuddiesspawned
+				&& g_Vars.normmplayerisrunning == false
+				&& g_MissionConfig.iscoop
 				&& g_Vars.stagenum != STAGE_CITRAINING
 				&& g_Vars.lvframenum > 20) {
 			g_Vars.aibuddiesspawned = true;
@@ -3650,16 +3627,6 @@ void playerTick(bool arg0)
 				g_Vars.aibuddies[i] = prop;
 			}
 		}
-	} else if (g_Vars.tickmode == TICKMODE_GE_FADEIN || g_Vars.tickmode == TICKMODE_GE_FADEOUT) {
-		playerRemoveChrBody();
-		bmoveTick(1, 1, arg0, 0);
-		playerUpdateShake();
-		playerSetCameraMode(CAMERAMODE_DEFAULT);
-		player0f0c1840(&g_Vars.currentplayer->bond2.unk10,
-				&g_Vars.currentplayer->bond2.unk28,
-				&g_Vars.currentplayer->bond2.unk1c,
-				&g_Vars.currentplayer->prop->pos,
-				g_Vars.currentplayer->prop->rooms);
 	} else if (g_Vars.tickmode == TICKMODE_MPSWIRL) {
 		// Start of an MP match where the camera circles around the player
 		playerTickChrBody();
@@ -3776,41 +3743,6 @@ void playerTick(bool arg0)
 				g_Vars.currentplayer->prop->rooms);
 	}
 
-	// Increment the time on Bond's watch (leftover from GE)
-	g_Vars.currentplayer->bondwatchtime60 += g_Vars.diffframe60freal;
-
-	// Also a leftover from GE? Maybe cancelling fade in mission intros?
-	if (var8007074c) {
-		s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
-
-		if (!lvIsPaused()
-				&& arg0
-				&& joyGetButtonsPressedThisFrame(contpad1, A_BUTTON | B_BUTTON | Z_TRIG | START_BUTTON | 0 | R_TRIG)) {
-			var8007074c = 2;
-
-			if (playerIsFadeComplete()) {
-				if (g_Vars.currentplayer->colourscreenfrac == 0) {
-					playerSetFadeColour(0, 0, 0, 0);
-					playerSetFadeFrac(60, 1);
-				}
-			} else {
-				if (g_Vars.currentplayer->colourfadefracnew == 0) {
-					playerSetFadeFrac(g_Vars.currentplayer->colourfadetime60, 1);
-				}
-			}
-		}
-
-		if (var8007074c == 2
-				&& playerIsFadeComplete()
-				&& g_Vars.currentplayer->colourscreenfrac == 1) {
-			func0000e990();
-		}
-	}
-
-	if (g_PlayerTriggerGeFadeIn) {
-		playerBeginGeFadeIn();
-	}
-
 	// Handle mission exit on death
 	if (g_Vars.currentplayer->isdead) {
 		if (g_Vars.currentplayer->redbloodfinished == false) {
@@ -3833,10 +3765,6 @@ void playerTick(bool arg0)
 				mainEndStage();
 			}
 		}
-	}
-
-	if (g_Vars.tickmode == TICKMODE_GE_FADEOUT && playerIsFadeComplete()) {
-		mainEndStage();
 	}
 }
 

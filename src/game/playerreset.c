@@ -151,10 +151,6 @@ void playerReset(void)
 
 	playerSetTickMode(TICKMODE_GE_FADEIN);
 
-	g_PlayerTriggerGeFadeIn = 0;
-	var80070748 = 0;
-	var8007074c = 0;
-
 	g_Vars.currentplayer->bondviewlevtime60 = 0;
 	g_Vars.currentplayer->bondwatchtime60 = 0;
 	g_Vars.currentplayer->introanimnum = 0;
