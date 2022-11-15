@@ -11,12 +11,6 @@ void chrmgrReset(void)
 {
 	s32 i;
 
-	var80062968 = 1;
-	var8006296c = 0;
-	g_SelectedAnimNum = 0;
-	var80062974 = 0;
-	var80062978 = 0;
-	var8006297c = 0;
 	g_NextChrnum = 200;
 	g_ChrSlots = NULL;
 	g_NumChrSlots = 0;

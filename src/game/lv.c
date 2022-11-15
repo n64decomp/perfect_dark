@@ -1284,7 +1284,6 @@ Gfx *lvRender(Gfx *gdl)
 
 				PROFILE(PROFILEMARKER_LVR_PICKUP, propsTestForPickup());
 				PROFILE(PROFILEMARKER_LVR_BG, gdl = bgRender(gdl));
-				chr0f028498(false);
 
 				if (g_BeamsActive > 0) {
 					PROFILE(PROFILEMARKER_LVR_BEAMS, gdl = propsRenderBeams(gdl));

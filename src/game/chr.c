@@ -55,10 +55,7 @@ struct chrdata *g_CurModelChr;
 
 struct var80062960 *var80062960 = NULL;
 s32 var80062964 = 0;
-f32 var80062968 = 0;
-bool var8006296c = false;
 s32 g_SelectedAnimNum = 0;
-u32 var80062974 = 0x00000000;
 u32 var80062978 = 0x00000000;
 u32 var8006297c = 0;
 u32 var80062980 = 0;
@@ -1096,7 +1093,7 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	model->unk01 = 1;
 	chr->model = model;
 	chrSetLookAngle(chr, faceangle);
-	modelSetAnimPlaySpeed(model, PALUPF(var80062968), 0);
+	modelSetAnimPlaySpeed(model, 1, 0);
 
 	testpos.x = pos->x;
 	testpos.y = pos->y + 100;
@@ -2155,26 +2152,10 @@ s32 chrTick(struct prop *prop)
 		chrTickPoisoned(chr);
 
 		if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 || (chr->chrflags & CHRCFLAG_00040000)) {
-			if (var8006296c) {
-				if (animHasFrames(g_SelectedAnimNum)) {
-					if (modelGetAnimNum(model) != g_SelectedAnimNum || !animHasFrames(modelGetAnimNum(model))) {
-						modelSetAnimation(model, g_SelectedAnimNum, 0, 0.0f, 0.5f, 0.0f);
-					}
-				}
-			} else {
-				chraTick(chr);
+			chraTick(chr);
 
-				if (chr->model == NULL) {
-					return TICKOP_FREE;
-				}
-			}
-
-			if (var80062974) {
-				lvupdate240 = 0;
-
-				if (var80062978) {
-					lvupdate240 = 1;
-				}
+			if (chr->model == NULL) {
+				return TICKOP_FREE;
 			}
 		}
 
@@ -2347,7 +2328,7 @@ s32 chrTick(struct prop *prop)
 		onscreen = false;
 	}
 
-	if (!g_Vars.normmplayerisrunning && onscreen) {
+	if (onscreen && !g_Vars.normmplayerisrunning) {
 		if (chr->actiontype == ACT_DEAD
 				|| (chr->actiontype == ACT_DRUGGEDKO && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
 			var8009cdac++;
@@ -2381,7 +2362,7 @@ s32 chrTick(struct prop *prop)
 		g_ModelJointPositionedFunc = &chrHandleJointPositioned;
 		g_CurModelChr = chr;
 
-		if (CHRRACE(chr) == RACE_DRCAROLL && g_Vars.tickmode != TICKMODE_CUTSCENE) {
+		if (race == RACE_DRCAROLL && g_Vars.tickmode != TICKMODE_CUTSCENE) {
 			angle = chrGetInverseTheta(chr);
 
 			sp190.x = sinf(angle) * 19;
@@ -4380,12 +4361,6 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 			}
 		}
 	}
-}
-
-void chr0f028498(bool value)
-{
-	var8006296c = value;
-	var8005efbc = value;
 }
 
 void chrsCheckForNoise(f32 noiseradius)
