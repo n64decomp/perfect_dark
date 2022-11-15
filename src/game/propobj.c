@@ -15532,7 +15532,6 @@ void chrsTriggerProxies(void)
 		struct coord pos;
 
 		if (chr->model
-				&& (chr->hidden2 & CHRH2FLAG_0040)
 				&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
 				&& chr->prop
 				&& (chr->prop->flags & PROPFLAG_ENABLED)

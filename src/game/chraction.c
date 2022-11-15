@@ -7353,8 +7353,8 @@ void chrTickAnim(struct chrdata *chr)
 	}
 
 	// Play sneezing sound
-	if (CHRRACE(chr) == RACE_HUMAN
-			&& modelGetAnimNum(chr->model) == ANIM_SNEEZE
+	if (modelGetAnimNum(chr->model) == ANIM_SNEEZE
+			&& CHRRACE(chr) == RACE_HUMAN
 			&& modelGetCurAnimFrame(chr->model) >= 42
 			&& (g_Vars.lvframenum % 2) == 0
 			&& chrGetDistanceToCurrentPlayer(chr) < 800) {
@@ -12232,11 +12232,6 @@ void chraTick(struct chrdata *chr)
 	}
 
 	chr->soundtimer += g_Vars.lvupdate60;
-	chr->talktimer += g_Vars.lvupdate60;
-
-	if (chr->aibot) {
-		chr->aibot->unk030 += g_Vars.lvupdate60;
-	}
 
 	if (chr->hidden & CHRHFLAG_TIMER_RUNNING) {
 		chr->timer60 += g_Vars.lvupdate60;
@@ -12254,13 +12249,11 @@ void chraTick(struct chrdata *chr)
 		chraiExecute(chr, PROPTYPE_CHR);
 
 		// Consider setting shootingatmelist
-		if (chr->prop) {
+		if (chr->aishootingatmelist != NULL && chr->ailist != chr->aishootingatmelist && chr->dodgerating > 0) {
 			if (chr->aimtesttimer60 < 1) {
 				chr->aimtesttimer60 = TICKS(30);
 
-				if (chr->aishootingatmelist != NULL
-						&& chr->ailist != chr->aishootingatmelist
-						&& chrCanSeeTargetWithExtraCheck(chr)) {
+				if (chrCanSeeTargetWithExtraCheck(chr)) {
 					chr->chrflags |= CHRCFLAG_CONSIDER_DODGE;
 				}
 			} else {
@@ -12269,8 +12262,7 @@ void chraTick(struct chrdata *chr)
 		}
 
 		// Consider setting darkroomlist
-		if (chr->prop
-				&& chr->aidarkroomlist != NULL
+		if (chr->aidarkroomlist != NULL
 				&& roomGetBrightness(chr->prop->rooms[0]) < 25
 				&& chr->ailist != chr->aidarkroomlist) {
 			chr->darkroomthing = true;
@@ -12281,46 +12273,43 @@ void chraTick(struct chrdata *chr)
 			robotSetMuzzleFlash(chr, 1, false);
 		}
 
-		if (chr->prop) {
-			if (g_Vars.in_cutscene) {
-				switch (chr->actiontype) {
-				case ACT_ANIM:   chrTickAnim(chr);   break;
-				case ACT_PATROL: chrTickPatrol(chr); pass = false; break;
-				}
-			} else {
-				switch (chr->actiontype) {
-				case ACT_STAND:           chrTickStand(chr);           break;
-				case ACT_KNEEL:           chrTickKneel(chr);           break;
-				case ACT_ANIM:            chrTickAnim(chr);            break;
-				case ACT_DIE:             chrTickDie(chr);             break;
-				case ACT_ARGH:            chrTickArgh(chr);            break;
-				case ACT_PREARGH:         chrTickPreArgh(chr);         break;
-				case ACT_SIDESTEP:        chrTickSidestep(chr);        break;
-				case ACT_JUMPOUT:         chrTickJumpOut(chr);         break;
-				case ACT_DEAD:            chrTickDead(chr);            break;
-				case ACT_ATTACK:          chrTickAttack(chr);          break;
-				case ACT_ATTACKWALK:      chrTickAttackWalk(chr);      break;
-				case ACT_ATTACKROLL:      chrTickAttackRoll(chr);      break;
-				case ACT_RUNPOS:          chrTickRunPos(chr);          break;
-				case ACT_PATROL:          chrTickPatrol(chr);          pass = false; break;
-				case ACT_GOPOS:           chrTickGoPos(chr);           break;
-				case ACT_SURRENDER:       chrTickSurrender(chr);       break;
-				case ACT_TEST:            chrTickTest(chr);            break;
-				case ACT_SURPRISED:       chrTickSurprised(chr);       break;
-				case ACT_STARTALARM:      chrTickStartAlarm(chr);      break;
-				case ACT_THROWGRENADE:    chrTickThrowGrenade(chr);    break;
-				case ACT_DRUGGEDCOMINGUP: chrTickDruggedComingUp(chr); break;
-				case ACT_DRUGGEDDROP:     chrTickDruggedDrop(chr);     break;
-				case ACT_DRUGGEDKO:       chrTickDruggedKo(chr);       break;
-				case ACT_ATTACKAMOUNT:    chrTickAttackAmount(chr);    break;
-				case ACT_ROBOTATTACK:     chrTickRobotAttack(chr);     break;
-				case ACT_SKJUMP:          chrTickSkJump(chr);          break;
-				}
+		if (g_Vars.in_cutscene) {
+			switch (chr->actiontype) {
+			case ACT_ANIM:   chrTickAnim(chr);   break;
+			case ACT_PATROL: chrTickPatrol(chr); pass = false; break;
+			}
+		} else {
+			switch (chr->actiontype) {
+			case ACT_STAND:           chrTickStand(chr);           break;
+			case ACT_KNEEL:           chrTickKneel(chr);           break;
+			case ACT_ANIM:            chrTickAnim(chr);            break;
+			case ACT_DIE:             chrTickDie(chr);             break;
+			case ACT_ARGH:            chrTickArgh(chr);            break;
+			case ACT_PREARGH:         chrTickPreArgh(chr);         break;
+			case ACT_SIDESTEP:        chrTickSidestep(chr);        break;
+			case ACT_JUMPOUT:         chrTickJumpOut(chr);         break;
+			case ACT_DEAD:            chrTickDead(chr);            break;
+			case ACT_ATTACK:          chrTickAttack(chr);          break;
+			case ACT_ATTACKWALK:      chrTickAttackWalk(chr);      break;
+			case ACT_ATTACKROLL:      chrTickAttackRoll(chr);      break;
+			case ACT_RUNPOS:          chrTickRunPos(chr);          break;
+			case ACT_PATROL:          chrTickPatrol(chr);          pass = false; break;
+			case ACT_GOPOS:           chrTickGoPos(chr);           break;
+			case ACT_SURRENDER:       chrTickSurrender(chr);       break;
+			case ACT_TEST:            chrTickTest(chr);            break;
+			case ACT_SURPRISED:       chrTickSurprised(chr);       break;
+			case ACT_STARTALARM:      chrTickStartAlarm(chr);      break;
+			case ACT_THROWGRENADE:    chrTickThrowGrenade(chr);    break;
+			case ACT_DRUGGEDCOMINGUP: chrTickDruggedComingUp(chr); break;
+			case ACT_DRUGGEDDROP:     chrTickDruggedDrop(chr);     break;
+			case ACT_DRUGGEDKO:       chrTickDruggedKo(chr);       break;
+			case ACT_ATTACKAMOUNT:    chrTickAttackAmount(chr);    break;
+			case ACT_ROBOTATTACK:     chrTickRobotAttack(chr);     break;
+			case ACT_SKJUMP:          chrTickSkJump(chr);          break;
 			}
 		}
 
 		chr->hidden &= ~CHRHFLAG_IS_HEARING_TARGET;
-		chr->hidden2 &= ~CHRH2FLAG_0040;
 
 		if (pass) {
 			footstepCheckDefault(chr);
@@ -12368,7 +12357,7 @@ void cutsceneStart(u32 ailistid)
 void chraTickBg(void)
 {
 	s32 i;
-	s32 numchrs = chrsGetNumSlots();
+	s32 numchrs;
 	s32 numaliveonscreen;
 	s32 numdeadonscreen;
 	s32 onscreenlen;
@@ -12381,8 +12370,6 @@ void chraTickBg(void)
 	s32 maxdeadonscreen;
 
 	static u32 var80068454 = 0;
-
-	static s32 mosteveralive = 0;
 
 	numaliveonscreen = 0;
 
@@ -12403,56 +12390,59 @@ void chraTickBg(void)
 	}
 
 	// Run BG scripts
-	for (i = g_NumBgChrs - 1; i >= 0; i--) {
-		if (!g_Vars.autocutplaying || (g_BgChrs[i].hidden2 & CHRH2FLAG_TICKDURINGAUTOCUT)) {
-			chraTick(&g_BgChrs[i]);
+	if (g_Vars.lvupdate240 > 0) {
+		for (i = g_NumBgChrs - 1; i >= 0; i--) {
+			struct chrdata *chr = &g_BgChrs[i];
+
+			if (!g_Vars.autocutplaying || (chr->hidden2 & CHRH2FLAG_TICKDURINGAUTOCUT)) {
+				if (chr->hidden & CHRHFLAG_TIMER_RUNNING) {
+					chr->timer60 += g_Vars.lvupdate60;
+				}
+
+				chraiExecute(chr, PROPTYPE_CHR);
+			}
 		}
 	}
 
+	// This is 0 on every 10th frame, so do the below corpse checks every 10 frames
+	if (var80068454) {
+		return;
+	}
+
+	numchrs = chrsGetNumSlots();
+
 	// Calculate alive/dead counters. For *spawned* chrs that have died,
 	// allow 10 corpses and start fading if there's more.
-	{
-		s32 numalive = 0;
+	for (i = 0; i < numchrs; i++) {
+		struct chrdata *chr = &g_ChrSlots[i];
 
-		for (i = 0; i < numchrs; i++) {
-			struct chrdata *chr = &g_ChrSlots[i];
-
-			if (chr->model && chr->prop) {
+		if (chr->model && chr->prop) {
+			if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 				if (chr->actiontype != ACT_DEAD && chr->actiontype != ACT_DRUGGEDKO) {
-					numalive++;
-				}
-
-				if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
-					if (chr->actiontype != ACT_DEAD && chr->actiontype != ACT_DRUGGEDKO) {
-						numaliveonscreen++;
-					} else if (chr->actiontype == ACT_DRUGGEDKO) {
-						if ((chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0) {
-							numdeadonscreen++;
-						}
-					} else {
+					numaliveonscreen++;
+				} else if (chr->actiontype == ACT_DRUGGEDKO) {
+					if ((chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0) {
 						numdeadonscreen++;
 					}
+				} else {
+					numdeadonscreen++;
 				}
+			}
 
-				if (chr->actiontype == ACT_DEAD
-						|| (chr->actiontype == ACT_DRUGGEDKO && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
-					if (chr->hidden2 & CHRH2FLAG_SPAWNED) {
-						spawns[spawnslen] = chr;
-						spawnslen++;
+			if (chr->actiontype == ACT_DEAD
+					|| (chr->actiontype == ACT_DRUGGEDKO && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
+				if (chr->hidden2 & CHRH2FLAG_SPAWNED) {
+					spawns[spawnslen] = chr;
+					spawnslen++;
 
-						if (spawnslen >= 10) {
-							writeindex = random() % spawnslen;
-							chrFadeCorpse(spawns[writeindex]);
-							spawns[writeindex] = spawns[spawnslen - 1];
-							spawnslen--;
-						}
+					if (spawnslen >= 10) {
+						writeindex = random() % spawnslen;
+						chrFadeCorpse(spawns[writeindex]);
+						spawns[writeindex] = spawns[spawnslen - 1];
+						spawnslen--;
 					}
 				}
 			}
-		}
-
-		if (numalive > mosteveralive) {
-			mosteveralive = numalive;
 		}
 	}
 

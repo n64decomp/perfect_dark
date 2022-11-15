@@ -3294,10 +3294,6 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 	s16 candidate_chrnum = -1;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 
-	if (g_Vars.chrdata->talktimer > TICKS(480) && g_Vars.chrdata->listening) {
-		g_Vars.chrdata->listening = 0;
-	}
-
 	for (; *chrnums != -2; chrnums++) {
 		struct chrdata *chr = chrFindByLiteralId(*chrnums);
 

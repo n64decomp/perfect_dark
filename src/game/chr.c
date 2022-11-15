@@ -1010,7 +1010,6 @@ void chrInit(struct prop *prop, u8 *ailist)
 		chr->bdlist[i++] = 0;
 	}
 
-	chr->talktimer = TICKS(3600);
 	chr->cloakfadefrac = 0;
 	chr->cloakfadefinished = false;
 	chr->inlift = false;
@@ -2341,10 +2340,6 @@ s32 chrTick(struct prop *prop)
 	}
 
 	if (fulltick) {
-		if (chr->actiontype != ACT_STAND || model->anim->animnum2 != 0 || prop->type == PROPTYPE_PLAYER) {
-			chr->hidden2 |= CHRH2FLAG_0040;
-		}
-
 		chrUpdateAimProperties(chr);
 	}
 

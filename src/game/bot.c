@@ -120,7 +120,6 @@ void botReset(struct chrdata *chr, u8 respawning)
 			aibot->nextbullettimer60[0] = 0;
 			aibot->nextbullettimer60[1] = 0;
 			aibot->distmode = -1;
-			aibot->unk030 = 301;
 			aibot->throwtimer60 = 0;
 			aibot->burstsdone[0] = 0;
 			aibot->burstsdone[1] = 0;

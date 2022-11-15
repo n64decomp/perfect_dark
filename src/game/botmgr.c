@@ -141,7 +141,6 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->unk059 = 0;
 					aibot->nextbullettimer60[0] = 0;
 					aibot->nextbullettimer60[1] = 0;
-					aibot->unk030 = 301;
 					aibot->unk038 = 0;
 					aibot->punchtimer60[HAND_LEFT] = -1;
 					aibot->punchtimer60[HAND_RIGHT] = 0;

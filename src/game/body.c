@@ -573,8 +573,6 @@ struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
 			func0f02e9a0(chr, 0);
 			chr->chrflags |= CHRCFLAG_HIDDEN;
 
-			chr->hidden2 |= CHRH2FLAG_0040;
-
 			return prop;
 		}
 	}
