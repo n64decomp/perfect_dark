@@ -18000,6 +18000,7 @@ Gfx *countdownTimerRender(Gfx *gdl)
 void alarmTick(void)
 {
 	if (alarmIsActive()) {
+		s32 limit;
 		s16 sound;
 
 		// These sounds are alarm sounds.
@@ -18043,13 +18044,14 @@ void alarmTick(void)
 		}
 
 		g_AlarmTimer += g_Vars.lvupdate60;
-	}
 
-	// For G5, stop alarm after 55 seconds.
-	// For all other levels, stop alarm after 30 seconds.
-	if ((g_AlarmTimer > TICKS(1800) && mainGetStageNum() != STAGE_G5BUILDING)
-			|| (g_AlarmTimer > TICKS(3300) && mainGetStageNum() == STAGE_G5BUILDING)) {
-		alarmDeactivate();
+		// For G5, stop alarm after 55 seconds.
+		// For all other levels, stop alarm after 30 seconds.
+		limit = g_Vars.stagenum == STAGE_G5BUILDING ? 3300 : 1800;
+
+		if (g_AlarmTimer > limit) {
+			alarmDeactivate();
+		}
 	}
 
 	countdownTimerTick();
