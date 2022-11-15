@@ -2082,7 +2082,10 @@ void propsTickPlayer(bool islastplayer)
 	if (islastplayer) {
 		alarmTick();
 		propsndTick();
-		propsDefragRoomProps();
+
+		if (g_Vars.tickmode != TICKMODE_NORMAL || g_Vars.lvupdate240 == 0) {
+			propsDefragRoomProps();
+		}
 	}
 
 	chr0f02472c();
@@ -2799,26 +2802,33 @@ void propRegisterRoom(struct prop *prop, s16 room)
 {
 	s32 prev = -1;
 	s32 i;
+	s32 j;
 
 	if (room >= 0 && room < g_Vars.roomcount) {
-		// Find which chunk to start at
-		s32 chunkindex = g_RoomPropListChunkIndexes[room];
-		s16 propnum = prop - g_Vars.props;
+		for (j = 0; j < 2; j++) {
+			// Find which chunk to start at
+			s32 chunkindex = g_RoomPropListChunkIndexes[room];
+			s16 propnum = prop - g_Vars.props;
 
-		for (i = 0; chunkindex >= 0; i++) {
-			if (propTryAddToChunk(propnum, chunkindex)) {
+			for (i = 0; chunkindex >= 0; i++) {
+				if (propTryAddToChunk(propnum, chunkindex)) {
+					return;
+				}
+
+				prev = chunkindex;
+				chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
+			}
+
+			// Allocate a new chunk
+			chunkindex = roomAllocatePropListChunk(room, prev);
+
+			if (chunkindex >= 0) {
+				propTryAddToChunk(propnum, chunkindex);
 				return;
 			}
 
-			prev = chunkindex;
-			chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
-		}
-
-		// Allocate a new chunk
-		chunkindex = roomAllocatePropListChunk(room, prev);
-
-		if (chunkindex >= 0) {
-			propTryAddToChunk(propnum, chunkindex);
+			// Out of chunks - defrag and try again
+			propsDefragRoomProps();
 		}
 	}
 }
