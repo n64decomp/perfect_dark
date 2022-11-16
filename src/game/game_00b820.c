@@ -13,6 +13,7 @@
 #include "types.h"
 
 struct prop *g_DangerousProps[MAX_DANGEROUSPROPS];
+s32 g_NumDangerousProps;
 
 void resetSomeStageThings(void)
 {
@@ -22,6 +23,7 @@ void resetSomeStageThings(void)
 		g_DangerousProps[i] = NULL;
 	}
 
+	g_NumDangerousProps = 0;
 	g_StageFlags = 0;
 }
 

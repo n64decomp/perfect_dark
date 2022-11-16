@@ -67,6 +67,7 @@ extern u8 var8009caee;
 extern u8 var8009caef;
 extern u8 var8009caf0;
 extern struct prop *g_DangerousProps[MAX_DANGEROUSPROPS];
+extern s32 g_NumDangerousProps;
 extern u16 *g_WallhitCountsPerRoom;
 extern s32 g_WallhitsMax;
 extern u32 var8009cc48;

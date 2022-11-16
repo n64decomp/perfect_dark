@@ -280,7 +280,7 @@ void chrSetHandFiring(struct chrdata *chr, s32 hand, bool arg2);
 void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2);
 void propUnsetDangerous(struct prop *prop);
 void propSetDangerous(struct prop *prop);
-bool chrDetectDangerousObject(struct chrdata *chr, u8 flags);
+bool chrDetectDangerousObject(struct chrdata *chr);
 void chrTickBondDie(struct chrdata *chr);
 s32 chrIsUsingLift(struct chrdata *chr);
 bool chrTrySkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4);

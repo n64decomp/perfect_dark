@@ -10401,9 +10401,10 @@ void propUnsetDangerous(struct prop *prop)
 {
 	s32 i;
 
-	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
+	for (i = 0; i < g_NumDangerousProps; i++) {
 		if (g_DangerousProps[i] == prop) {
-			g_DangerousProps[i] = NULL;
+			g_DangerousProps[i] = g_DangerousProps[g_NumDangerousProps - 1];
+			g_NumDangerousProps--;
 			return;
 		}
 	}
@@ -10413,11 +10414,9 @@ void propSetDangerous(struct prop *prop)
 {
 	s32 i;
 
-	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
-		if (g_DangerousProps[i] == NULL) {
-			g_DangerousProps[i] = prop;
-			return;
-		}
+	if (g_NumDangerousProps < ARRAYCOUNT(g_DangerousProps)) {
+		g_DangerousProps[g_NumDangerousProps] = prop;
+		g_NumDangerousProps++;
 	}
 }
 
@@ -10475,41 +10474,20 @@ void chrTickThrowGrenade(struct chrdata *chr)
 	}
 }
 
-bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
+bool chrDetectDangerousObject(struct chrdata *chr)
 {
 	s32 i;
 
-	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
+	for (i = 0; i < g_NumDangerousProps; i++) {
 		struct prop *prop = g_DangerousProps[i];
-		bool pass = false;
 
-		if (prop) {
-			if ((flags & 1) && prop->weapon &&
-					prop->weapon->weaponnum == WEAPON_GRENADE &&
-					prop->weapon->timer240 < TICKS(480)) {
-				pass = true;
-			}
-
-			if ((flags & 2) && prop->type == PROPTYPE_EXPLOSION) {
-				pass = true;
-			}
-
-			if (pass && chrGetSquaredDistanceToCoord(chr, &prop->pos) < 1600) {
+		if (prop->type == PROPTYPE_EXPLOSION
+				|| (prop->weapon->weaponnum == WEAPON_GRENADE && prop->weapon->timer240 < TICKS(480))) {
+			if (chrGetSquaredDistanceToCoord(chr, &prop->pos) < 1600) {
 				chr->runfrompos = g_DangerousProps[i]->pos;
-
-				if (chr->aibot) {
-					chr->aibot->unk064 |= 0x0004;
-					chr->aibot->dangerouspropnum = i;
-				}
-
 				return true;
 			}
 		}
-	}
-
-	if (chr->aibot) {
-		chr->aibot->unk064 &= ~0x0004;
-		chr->aibot->dangerouspropnum = -1;
 	}
 
 	return false;

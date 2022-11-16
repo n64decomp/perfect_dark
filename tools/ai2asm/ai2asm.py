@@ -781,7 +781,6 @@ class App():
         self.emit_bnez_label(params[2])
 
     def ai_if_dangerous_object_nearby(self, params):
-        self.emit('li', ['$a0', params[0]])
         self.emit('jal', ['aiIfDangerousObjectNearby'])
         self.emit_bnez_label(params[1])
 

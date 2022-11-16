@@ -1780,9 +1780,9 @@ bool aiIfCoopMode(void)
 	return !g_Vars.normmplayerisrunning && g_MissionConfig.iscoop;
 }
 
-bool aiIfDangerousObjectNearby(u32 flags)
+bool aiIfDangerousObjectNearby(void)
 {
-	return chrDetectDangerousObject(g_Vars.chrdata, flags);
+	return chrDetectDangerousObject(g_Vars.chrdata);
 }
 
 bool aiIfDistanceToGunLessThan(f32 distance)
