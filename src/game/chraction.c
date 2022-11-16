@@ -12391,7 +12391,7 @@ void chraTickBg(void)
 
 	// Run BG scripts
 	if (g_Vars.lvupdate240 > 0) {
-		for (i = g_NumBgChrs - 1; i >= 0; i--) {
+		for (i = 0; i < g_NumBgChrs; i++) {
 			struct chrdata *chr = &g_BgChrs[i];
 
 			if (!g_Vars.autocutplaying || (chr->hidden2 & CHRH2FLAG_TICKDURINGAUTOCUT)) {
@@ -12400,6 +12400,11 @@ void chraTickBg(void)
 				}
 
 				chraiExecute(chr, PROPTYPE_CHR);
+
+				if (!g_Vars.chrdata) {
+					// Ailist has terminated and the current bgchr has been removed
+					i--;
+				}
 			}
 		}
 	}
