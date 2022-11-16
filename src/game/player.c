@@ -4105,6 +4105,17 @@ Gfx *playerRenderHud(Gfx *gdl)
 		gdl = boltbeamsRender(gdl);
 		bgunRender(&gdl);
 
+		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+		gDPSetTextureFilter(gdl++, G_TF_BILERP);
+		gDPSetTexturePersp(gdl++, G_TP_PERSP);
+		gDPSetColorDither(gdl++, G_CD_DISABLE);
+		gDPSetRenderMode(gdl++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
+		gDPSetAlphaCompare(gdl++, G_AC_NONE);
+		gDPSetTextureLOD(gdl++, G_TL_TILE);
+		gDPSetTextureConvert(gdl++, G_TC_FILT);
+		gDPSetTextureLUT(gdl++, G_TT_NONE);
+		gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
+
 		if (g_LasersightsActive) {
 			gdl = lasersightRenderDot(gdl);
 		}
