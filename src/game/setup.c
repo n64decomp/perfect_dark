@@ -325,6 +325,8 @@ void setupResetProxyMines(void)
 	for (i = 0; i < ARRAYCOUNT(g_Proxies); i++) {
 		g_Proxies[i] = NULL;
 	}
+
+	g_NumProxies = 0;
 }
 
 s32 setupCountCommandType(u32 type)

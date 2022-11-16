@@ -78,6 +78,7 @@
 #include "string.h"
 
 struct weaponobj *g_Proxies[30];
+s32 g_NumProxies;
 s32 g_MaxWeaponSlots;
 s32 g_MaxAmmoCrates;
 s32 g_MaxDebrisSlots;
@@ -15468,11 +15469,9 @@ void weaponRegisterProxy(struct weaponobj *weapon)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(g_Proxies); i++) {
-		if (g_Proxies[i] == NULL) {
-			g_Proxies[i] = weapon;
-			return;
-		}
+	if (g_NumProxies < ARRAYCOUNT(g_Proxies)) {
+		g_Proxies[g_NumProxies] = weapon;
+		g_NumProxies++;
 	}
 }
 
@@ -15482,7 +15481,8 @@ void weaponUnregisterProxy(struct weaponobj *weapon)
 
 	for (i = 0; i < ARRAYCOUNT(g_Proxies); i++) {
 		if (g_Proxies[i] == weapon) {
-			g_Proxies[i] = NULL;
+			g_Proxies[i] = g_Proxies[g_NumProxies - 1];
+			g_NumProxies--;
 			return;
 		}
 	}
@@ -15492,25 +15492,25 @@ void coordTriggerProxies(struct coord *pos, bool arg1)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(g_Proxies); i++) {
+	for (i = 0; i < g_NumProxies; i++) {
 		struct weaponobj *weapon = g_Proxies[i];
 
-		if (weapon && weapon->timer240 == 1) {
-			f32 xdiff;
-			f32 ydiff;
-			f32 zdiff;
-			f32 range = 250 * 250;
+		if (weapon->timer240 == 1) {
+			if (weapon->weaponnum != WEAPON_GRENADE || arg1 == true) {
+				f32 xdiff;
+				f32 ydiff;
+				f32 zdiff;
+				f32 range = 250 * 250;
 
-			if (weapon->weaponnum == WEAPON_DRAGON) {
-				range += range;
-			}
+				if (weapon->weaponnum == WEAPON_DRAGON) {
+					range += range;
+				}
 
-			xdiff = pos->x - weapon->base.prop->pos.x;
-			ydiff = pos->y - weapon->base.prop->pos.y;
-			zdiff = pos->z - weapon->base.prop->pos.z;
+				xdiff = pos->x - weapon->base.prop->pos.x;
+				ydiff = pos->y - weapon->base.prop->pos.y;
+				zdiff = pos->z - weapon->base.prop->pos.z;
 
-			if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff < range) {
-				if (weapon->weaponnum != WEAPON_GRENADE || arg1 == true) {
+				if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff < range) {
 					weapon->timer240 = 0;
 				}
 			}
@@ -15527,16 +15527,14 @@ void chrsTriggerProxies(void)
 		struct chrdata *chr = &g_ChrSlots[i];
 		struct coord pos;
 
-		if (chr->model
+		if (chr->prop
+				&& !chrIsDead(chr)
 				&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
-				&& chr->prop
 				&& (chr->prop->flags & PROPFLAG_ENABLED)
-				&& !chrIsDead(chr)) {
+				&& chr->model) {
 			chrCalculatePosition(chr, &pos);
 			coordTriggerProxies(&pos, true);
 		}
-
-		if (chr);
 	}
 }
 
@@ -18055,7 +18053,10 @@ void alarmTick(void)
 	}
 
 	countdownTimerTick();
-	chrsTriggerProxies();
+
+	if (g_NumProxies) {
+		chrsTriggerProxies();
+	}
 
 	g_PlayersDetonatingMines = 0;
 }

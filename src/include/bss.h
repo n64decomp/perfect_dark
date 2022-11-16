@@ -98,6 +98,7 @@ extern struct prop *g_InteractProp;
 extern s32 var8009cdac;
 extern s32 var8009cdb0;
 extern struct weaponobj *g_Proxies[30];
+extern s32 g_NumProxies;
 extern s32 g_MaxWeaponSlots;
 extern s32 g_MaxHatSlots;
 extern s32 g_MaxAmmoCrates;
