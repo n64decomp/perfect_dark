@@ -49,10 +49,6 @@ void propsTick(void)
 {
 	s32 i;
 	struct prop *prop;
-	struct prop *next;
-	struct prop *next2;
-	s32 done;
-	s32 tickop;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		g_Vars.players[i]->bondextrapos.x = 0;
@@ -63,44 +59,29 @@ void propsTick(void)
 	shieldhitsTick();
 	chraTickBg();
 
-	prop = g_Vars.activeprops;
+	for (i = 0; g_Lifts[i] != NULL; i++) {
+		liftTick(g_Lifts[i]);
+	}
 
-	do {
-		next = prop->next;
-		done = next == g_Vars.pausedprops;
-		tickop = TICKOP_NONE;
+	if (g_Vars.stagenum == STAGE_AIRBASE) {
+		prop = g_Vars.activeprops;
 
-		if (prop->type == PROPTYPE_CHR) {
-			tickop = chrTickBeams(prop);
-		} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
-			tickop = objTick(prop);
-		} else if (prop->type == PROPTYPE_EXPLOSION) {
-			tickop = explosionTick(prop);
-		} else if (prop->type == PROPTYPE_SMOKE) {
-			tickop = smokeTick(prop);
-		} else if (prop->type == PROPTYPE_PLAYER) {
-			tickop = playerTickBeams(prop);
-		}
-
-		if (tickop == TICKOP_CHANGEDLIST) {
-			next2 = next;
-		} else {
-			next2 = prop->next;
-			done = next2 == g_Vars.pausedprops;
-
-			if (tickop == TICKOP_RETICK) {
-				propDelist(prop);
-				propActivateThisFrame(prop);
-
-				if (done) {
-					next2 = prop;
-					done = false;
-				}
-			} else {
-				propExecuteTickOperation(prop, tickop);
+		do {
+			if (prop->type == PROPTYPE_OBJ && prop->obj->type == OBJTYPE_ESCASTEP) {
+				escastepTick(prop);
 			}
-		}
 
-		prop = next2;
-	} while (!done);
+			prop = prop->next;
+		} while (prop != g_Vars.pausedprops);
+	} else if (g_Vars.normmplayerisrunning) {
+		prop = g_Vars.activeprops;
+
+		do {
+			if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
+				objTick(prop);
+			}
+
+			prop = prop->next;
+		} while (prop != g_Vars.pausedprops);
+	}
 }

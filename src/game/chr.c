@@ -2071,14 +2071,6 @@ bool chrTickBeams(struct prop *prop)
 		beamTick(&g_Fireslots[chr->fireslots[1]].beam);
 	}
 
-	if (chr->aibot && chr->aibot->unk058 > 0) {
-		if (chr->aibot->unk058 > g_Vars.lvupdate60) {
-			chr->aibot->unk058 -= g_Vars.lvupdate60;
-		} else {
-			chr->aibot->unk058 = 0;
-		}
-	}
-
 	return false;
 }
 

@@ -197,7 +197,7 @@ void weaponInitMatrices(struct prop *weapon);
 void hangingmonitorInitMatrices(struct prop *hangingmonitors);
 void objInitMatrices(struct prop *prop);
 bool propCanRegen(struct prop *prop);
-u32 objTick(struct prop *prop);
+void objTick(struct prop *prop);
 s32 objTickPlayer(struct prop *prop);
 Gfx *propsRenderBeams(Gfx *gdl);
 void tvscreenSetCmdlist(struct tvscreen *screen, u32 *cmdlist);

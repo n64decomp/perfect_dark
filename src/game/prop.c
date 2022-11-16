@@ -1775,6 +1775,10 @@ void propsTickPlayer(bool islastplayer)
 
 				splatTickChr(prop);
 
+				if (prop->flags & PROPFLAG_NOTYETTICKED) {
+					chrTickBeams(prop);
+				}
+
 				if (chr1 && chr1->aibot) {
 					op = botTick(prop);
 				} else {
@@ -1792,6 +1796,10 @@ void propsTickPlayer(bool islastplayer)
 				} else if (prop->type == PROPTYPE_SMOKE) {
 					op = smokeTickPlayer(prop);
 				} else if (prop->type == PROPTYPE_PLAYER) {
+					if (prop->flags & PROPFLAG_NOTYETTICKED) {
+						playerTickBeams(prop);
+					}
+
 					splatTickChr(prop);
 					op = playerTickThirdPerson(prop);
 				}
@@ -1837,6 +1845,10 @@ void propsTickPlayer(bool islastplayer)
 
 					splatTickChr(prop);
 
+					if (prop->flags & PROPFLAG_NOTYETTICKED) {
+						chrTickBeams(prop);
+					}
+
 					if (chr2 && chr2->aibot) {
 						op = botTick(prop);
 					} else {
@@ -1863,6 +1875,10 @@ void propsTickPlayer(bool islastplayer)
 				} else if (prop->type == PROPTYPE_SMOKE) {
 					op = smokeTickPlayer(prop);
 				} else if (prop->type == PROPTYPE_PLAYER) {
+					if (prop->flags & PROPFLAG_NOTYETTICKED) {
+						playerTickBeams(prop);
+					}
+
 					splatTickChr(prop);
 					op = playerTickThirdPerson(prop);
 				}

@@ -10017,7 +10017,7 @@ void objInitMatrices(struct prop *prop)
 	}
 }
 
-u32 objTick(struct prop *prop)
+void objTick(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 	bool silent = false;
@@ -10093,23 +10093,6 @@ u32 objTick(struct prop *prop)
 			}
 		}
 	}
-
-	if (obj->type == OBJTYPE_AUTOGUN) {
-		struct autogunobj *autogun = (struct autogunobj *)prop->obj;
-
-		if (autogun->beam) {
-			beamTick(autogun->beam);
-		}
-	} else if (obj->type == OBJTYPE_CHOPPER) {
-		struct chopperobj *chopper = (struct chopperobj *)prop->obj;
-		beamTick(chopper->fireslotthing->beam);
-	} else if (obj->type == OBJTYPE_LIFT) {
-		liftTick(prop);
-	} else if (obj->type == OBJTYPE_ESCASTEP) {
-		escastepTick(prop);
-	}
-
-	return TICKOP_NONE;
 }
 
 /**
@@ -10174,6 +10157,19 @@ s32 objTickPlayer(struct prop *prop)
 	if (prop->flags & PROPFLAG_NOTYETTICKED) {
 		fulltick = true;
 		prop->flags &= ~PROPFLAG_NOTYETTICKED;
+	}
+
+	if (fulltick) {
+		if (obj->type == OBJTYPE_AUTOGUN) {
+			struct autogunobj *autogun = (struct autogunobj *)prop->obj;
+
+			if (autogun->beam) {
+				beamTick(autogun->beam);
+			}
+		} else if (obj->type == OBJTYPE_CHOPPER) {
+			struct chopperobj *chopper = (struct chopperobj *)prop->obj;
+			beamTick(chopper->fireslotthing->beam);
+		}
 	}
 
 	if (obj->hidden & OBJHFLAG_PROJECTILE) {

@@ -580,17 +580,31 @@ u32 smokeTick(struct prop *prop)
 
 u32 smokeTickPlayer(struct prop *prop)
 {
-	Mtxf *matrix = camGetWorldToScreenMtxf();
+	s32 tickop;
 
-	prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
+	if (prop->flags & PROPFLAG_NOTYETTICKED) {
+		prop->flags &= ~PROPFLAG_NOTYETTICKED;
 
-	if (prop->z < 100) {
-		prop->z *= 0.5f;
-	} else {
-		prop->z -= 100;
+		tickop = smokeTick(prop);
+
+		if (tickop == TICKOP_FREE) {
+			return tickop;
+		}
 	}
 
-	prop->flags |= PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK;
+	{
+		Mtxf *matrix = camGetWorldToScreenMtxf();
+
+		prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
+
+		if (prop->z < 100) {
+			prop->z *= 0.5f;
+		} else {
+			prop->z -= 100;
+		}
+
+		prop->flags |= PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK;
+	}
 
 	return TICKOP_NONE;
 }

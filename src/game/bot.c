@@ -780,6 +780,14 @@ s32 botTick(struct prop *prop)
 	updateable = (prop->flags & PROPFLAG_NOTYETTICKED) && g_Vars.lvupdate240;
 
 	if (aibot) {
+		if (updateable && aibot->unk058 > 0) {
+			if (aibot->unk058 > g_Vars.lvupdate60) {
+				aibot->unk058 -= g_Vars.lvupdate60;
+			} else {
+				aibot->unk058 = 0;
+			}
+		}
+
 		if (updateable && g_Vars.lvframe60 >= 145) {
 			botTickUnpaused(chr);
 
