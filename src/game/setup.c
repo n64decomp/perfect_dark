@@ -712,8 +712,6 @@ void setupCreateMine(struct mineobj *mine, s32 cmdindex)
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 		mine->base.hidden = (mine->base.hidden & 0x0fffffff) | OBJHFLAG_20000000;
 	}
-
-	mine->base.prop->forcetick = true;
 }
 
 void setupCreateAutogun(struct autogunobj *autogun, s32 cmdindex)
