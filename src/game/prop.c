@@ -1631,11 +1631,6 @@ void propsTickPlayer(bool islastplayer)
 	if (islastplayer) {
 		g_Vars.prevupdateframe = g_Vars.updateframe;
 		g_Vars.updateframe++;
-
-		// This condition never passes because g_Vars.updateframe is a u16
-		if (g_Vars.updateframe == 0xffffffff) {
-			g_Vars.updateframe = 0;
-		}
 	}
 
 	// Save these global timing values because we'll be modifying them
@@ -1675,40 +1670,31 @@ void propsTickPlayer(bool islastplayer)
 	// Update the onscreen flags for all props
 	if (g_Vars.currentplayerindex == 0) {
 		// This is the first time propsTickPlayer has been called on this frame
-		prop = g_Vars.props;
-		end = &g_Vars.props[g_Vars.maxprops];
+		prop = g_Vars.activeprops;
 
-		for (; prop < end; prop++) {
+		while (prop != g_Vars.pausedprops) {
 			flags = prop->flags;
-
-			if (flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-				flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
-			}
 
 			if (flags & PROPFLAG_ONANYSCREENTHISTICK) {
 				flags |= PROPFLAG_ONANYSCREENPREVTICK;
-				flags &= ~PROPFLAG_ONANYSCREENTHISTICK;
-			} else if (flags & PROPFLAG_ONANYSCREENPREVTICK) {
-				flags &= ~PROPFLAG_ONANYSCREENPREVTICK;
+				flags &= ~(PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK);
+			} else {
+				flags &= ~(PROPFLAG_ONANYSCREENPREVTICK | PROPFLAG_ONTHISSCREENTHISTICK);
 			}
 
 			flags |= PROPFLAG_NOTYETTICKED;
 
 			prop->flags = flags;
+
+			prop = prop->next;
 		}
 	} else {
 		// This is a subsequent call of propsTickPlayer on this frame
-		prop = g_Vars.props;
-		end = &g_Vars.props[g_Vars.maxprops];
+		prop = g_Vars.activeprops;
 
-		for (; prop < end; prop++) {
-			flags = prop->flags;
-
-			if (flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-				flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
-			}
-
-			prop->flags = flags;
+		while (prop != g_Vars.pausedprops) {
+			prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
+			prop = prop->next;
 		}
 	}
 
