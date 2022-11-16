@@ -1854,7 +1854,7 @@ void propsTickPlayer(bool islastplayer)
 					} else {
 						op = chrTick(prop);
 					}
-				} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
+				} else if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
 					obj = prop->obj;
 
 					if (!g_PausableObjs[obj->type]) {
@@ -1869,6 +1869,15 @@ void propsTickPlayer(bool islastplayer)
 							propPause(prop);
 							op = TICKOP_CHANGEDLIST;
 						}
+					}
+				} else if (prop->type == PROPTYPE_DOOR) {
+					struct doorobj *door = prop->door;
+
+					op = objTickPlayer(prop);
+
+					if (op == TICKOP_NONE && door->mode == DOORMODE_IDLE && door->frac <= 0) {
+						propPause(prop);
+						op = TICKOP_CHANGEDLIST;
 					}
 				} else if (prop->type == PROPTYPE_EXPLOSION) {
 					op = explosionTickPlayer(prop);

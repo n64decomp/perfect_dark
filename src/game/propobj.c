@@ -16942,6 +16942,10 @@ void doorSetMode(struct doorobj *door, s32 newmode)
 {
 	if (newmode == DOORMODE_OPENING) {
 		if (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) {
+			if (!door->base.prop->active) {
+				propUnpause(door->base.prop);
+			}
+
 			doorStartOpen(door);
 		}
 
