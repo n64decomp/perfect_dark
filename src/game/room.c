@@ -108,16 +108,16 @@ struct roommtx *room0f166c20(s32 roomnum)
 	if (index == -1
 			|| g_Vars.currentplayer->lastroomforoffset != g_RoomMtxes[index].room2
 			|| g_RoomMtxes[index].somefloat != var8005ef10[0]) {
-		if (index == -1) {
-			roommtx = room0f1669fc();
-		} else {
-			roommtx = &g_RoomMtxes[index];
-			room0f16692c(roommtx, roomnum);
+		if (index != -1) {
+			room0f16692c(&g_RoomMtxes[index], roomnum);
 		}
+
+		roommtx = room0f1669fc();
 
 		room0f1668f0(roommtx, roomnum);
 		roommtx->count = 0;
 	} else {
+		roommtx = &g_RoomMtxes[index];
 		roommtx->count = 0;
 		return roommtx;
 	}
