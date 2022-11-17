@@ -164,11 +164,8 @@ u32 props[] = {
 	briefing(BRIEFINGTYPE_TEXT_A,   L_IMP_003)
 
 	beginobjective(0, L_IMP_005, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Reactivate automatic defenses"
-		complete_flags(STAGEFLAG_AUTOGUN1_ACTIVE)
-		complete_flags(STAGEFLAG_AUTOGUN2_ACTIVE)
-		complete_flags(STAGEFLAG_AUTOGUN3_ACTIVE)
-		fail_flags(STAGEFLAG_AUTOGUN_SWITCH_DESTROYED)
-		fail_flags(STAGEFLAG_00000001)
+		complete_flags(STAGEFLAG_AUTOGUN1_ACTIVE | STAGEFLAG_AUTOGUN2_ACTIVE | STAGEFLAG_AUTOGUN3_ACTIVE)
+		fail_flags(STAGEFLAG_AUTOGUN_SWITCH_DESTROYED | STAGEFLAG_00000001)
 	endobjective
 
 	beginobjective(1, L_IMP_006, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Release hostages"
@@ -187,8 +184,7 @@ u32 props[] = {
 
 	beginobjective(4, L_IMP_009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Deactivate bomb"
 		complete_flags(STAGEFLAG_BOMB_AIRBORNE)
-		fail_flags(STAGEFLAG_BOMB_EXPLODING_ON_GROUND)
-		fail_flags(STAGEFLAG_CARRINGTON_DEAD)
+		fail_flags(STAGEFLAG_BOMB_EXPLODING_ON_GROUND | STAGEFLAG_CARRINGTON_DEAD)
 	endobjective
 
 	tag(0x23, 2)

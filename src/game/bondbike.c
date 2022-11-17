@@ -979,6 +979,5 @@ void bbikeTick(void)
 	bgunSetAdjustPos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
 	playerUpdatePerimInfo();
 	bmoveUpdateRooms(g_Vars.currentplayer);
-	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 	doorsCheckAutomatic();
 }

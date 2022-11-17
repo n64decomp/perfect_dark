@@ -452,6 +452,8 @@ bool invGiveProp(struct prop *prop)
 		item->type = INVITEMTYPE_PROP;
 		item->type_prop.prop = prop;
 		invInsertItem(item);
+
+		g_ObjectivesDirty = true;
 	}
 
 	return true;
@@ -467,6 +469,7 @@ void invRemoveProp(struct prop *prop)
 
 			if (item->type == INVITEMTYPE_PROP && item->type_prop.prop == prop) {
 				invRemoveItem(item);
+				g_ObjectivesDirty = true;
 			}
 
 			if (item == g_Vars.currentplayer->weapons || !g_Vars.currentplayer->weapons) {

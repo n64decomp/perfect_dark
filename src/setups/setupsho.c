@@ -124,9 +124,7 @@ u32 props[] = {
 	briefing(BRIEFINGTYPE_TEXT_A,   L_SHO_003)
 
 	beginobjective(0, L_SHO_005, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Identify temple targets"
-		complete_flags(STAGEFLAG_PILLAR1_MARKED)
-		complete_flags(STAGEFLAG_PILLAR2_MARKED)
-		complete_flags(STAGEFLAG_PILLAR3_MARKED)
+		complete_flags(STAGEFLAG_PILLAR1_MARKED | STAGEFLAG_PILLAR2_MARKED | STAGEFLAG_PILLAR3_MARKED)
 		fail_flags(STAGEFLAG_BUG_WASTED)
 	endobjective
 
@@ -143,11 +141,7 @@ u32 props[] = {
 	endobjective
 
 	beginobjective(4, L_SHO_009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Assassinate Skedar leader"
-		complete_flags(STAGEFLAG_SPIKE1_DESTROYED)
-		complete_flags(STAGEFLAG_SPIKE2_DESTROYED)
-		complete_flags(STAGEFLAG_SPIKE3_DESTROYED)
-		complete_flags(STAGEFLAG_SPIKE4_DESTROYED)
-		complete_flags(STAGEFLAG_SPIKE5_DESTROYED)
+		complete_flags(STAGEFLAG_SPIKE1_DESTROYED | STAGEFLAG_SPIKE2_DESTROYED | STAGEFLAG_SPIKE3_DESTROYED | STAGEFLAG_SPIKE4_DESTROYED | STAGEFLAG_SPIKE5_DESTROYED)
 		fail_flags(STAGEFLAG_GRENADES_WASTED)
 	endobjective
 

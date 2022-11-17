@@ -119,11 +119,8 @@ u32 props[] = {
 	endobjective
 
 	beginobjective(2, L_DAM_005, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Deactivate GPS and autopilot"
-		complete_flags(STAGEFLAG_GPS_DISABLED)
-		complete_flags(STAGEFLAG_AUTOPILOT_DISABLED)
-		fail_flags(STAGEFLAG_00000400)
-		fail_flags(STAGEFLAG_PILOT_DEAD)
-		fail_flags(STAGEFLAG_JO_KILLED_A_PILOT)
+		complete_flags(STAGEFLAG_GPS_DISABLED | STAGEFLAG_AUTOPILOT_DISABLED)
+		fail_flags(STAGEFLAG_00000400 | STAGEFLAG_PILOT_DEAD | STAGEFLAG_JO_KILLED_A_PILOT)
 	endobjective
 
 	beginobjective(3, L_DAM_008, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate Moon Pool lift"

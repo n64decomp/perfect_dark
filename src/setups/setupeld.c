@@ -123,8 +123,7 @@ u32 props[] = {
 
 	beginobjective(3, L_ELD_008, (DIFFBIT_PA | DIFFBIT_PD)) // "Locate and eliminate dataDyne hackers"
 		complete_flags(STAGEFLAG_HACKERS_DEAD)
-		fail_flags(STAGEFLAG_HACKERS_SUCCEEDED)
-		fail_flags(STAGEFLAG_HACKER_PC_DESTROYED)
+		fail_flags(STAGEFLAG_HACKERS_SUCCEEDED | STAGEFLAG_HACKER_PC_DESTROYED)
 	endobjective
 
 	beginobjective(4, L_ELD_010, (DIFFBIT_PA | DIFFBIT_PD)) // "Capture dataDyne guard"

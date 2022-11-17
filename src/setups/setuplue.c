@@ -104,14 +104,11 @@ u32 props[] = {
 
 	beginobjective(1, L_LUE_010, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Plant comms device on antenna"
 		complete_flags(STAGEFLAG_COMMSBUG_PLACED)
-		fail_flags(STAGEFLAG_COMMSBUG_MISPLACED)
-		fail_flags(STAGEFLAG_ANTENNA_DESTROYED)
+		fail_flags(STAGEFLAG_COMMSBUG_MISPLACED | STAGEFLAG_ANTENNA_DESTROYED)
 	endobjective
 
 	beginobjective(2, L_LUE_011, (DIFFBIT_PA | DIFFBIT_PD)) // "Disable all robot interceptors"
-		complete_flags(STAGEFLAG_INTERCEPTOR1_DESTROYED)
-		complete_flags(STAGEFLAG_INTERCEPTOR2_DESTROYED)
-		complete_flags(STAGEFLAG_INTERCEPTOR3_DESTROYED)
+		complete_flags(STAGEFLAG_INTERCEPTOR1_DESTROYED | STAGEFLAG_INTERCEPTOR2_DESTROYED | STAGEFLAG_INTERCEPTOR3_DESTROYED)
 	endobjective
 
 	beginobjective(3, L_LUE_012, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain access to hangar lift"

@@ -1139,7 +1139,6 @@ void bgrabTick(void)
 		}
 
 		bmoveUpdateRooms(g_Vars.currentplayer);
-		objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
 		playerUpdatePerimInfo();
 		doorsCheckAutomatic();

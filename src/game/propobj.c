@@ -3922,8 +3922,6 @@ void objLand(struct prop *prop, struct coord *arg1, struct coord *arg2, bool *em
 			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE;
 		}
 
-		objectiveCheckThrowInRoom(weapon->weaponnum, prop->rooms);
-
 		if (weapon->weaponnum == WEAPON_BOLT) {
 			boltLand(weapon, arg1);
 		} else if (weapon->weaponnum == WEAPON_COMBATKNIFE) {
@@ -7145,11 +7143,6 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 				if (stop) {
 					objFreeProjectile(obj);
-
-					if (obj->type == OBJTYPE_WEAPON) {
-						struct weaponobj *weapon = (struct weaponobj *) obj;
-						objectiveCheckThrowInRoom(weapon->weaponnum, prop->rooms);
-					}
 				}
 
 				if (result) {

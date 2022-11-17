@@ -563,7 +563,8 @@ class App():
         self.emit_bnez_label(params[3])
 
     def ai_if_any_objective_failed(self, params):
-        self.emit('jal', ['aiIfAnyObjectiveFailed'])
+        self.emit('lui', ['$a0', '%hi(g_AnyObjectiveFailed)'])
+        self.emit('lw', ['$v0', '%lo(g_AnyObjectiveFailed)($a0)'])
         self.emit_bnez_label(params[0])
 
     def ai_if_calculated_safety2_lt(self, params):
@@ -1665,15 +1666,8 @@ class App():
         self.emit('jal', ['aiSetSquadron'])
 
     def ai_set_stage_flag(self, params):
-        flag = self.u32(params, 0)
-        self.emit('lui', ['$a0', '%hi(g_StageFlags)'])
-        self.emit('lw', ['$v0', '%lo(g_StageFlags)($a0)'])
-        if flag & 0xffff0000:
-            self.emit('li', ['$v1', '0x%08x' % flag])
-            self.emit('or', ['$v0', '$v0', '$v1'])
-        else:
-            self.emit('ori', ['$v0', '$v0', '0x%04x' % flag])
-        self.emit('sw', ['$v0', '%lo(g_StageFlags)($a0)'])
+        self.emit('li', ['$a0', self.u32(params, 0)])
+        self.emit('jal', ['aiSetStageFlag'])
 
     def ai_set_target_chr(self, params):
         self.emit('li', ['$a0', '0x%02x' % params[0]])
@@ -1997,11 +1991,8 @@ class App():
 
     def ai_unset_stage_flag(self, params):
         flag = self.u32(params, 0)
-        self.emit('lui', ['$a0', '%hi(g_StageFlags)'])
-        self.emit('lw', ['$v0', '%lo(g_StageFlags)($a0)'])
-        self.emit('li', ['$v1', '0x%08x' % (~flag & 0xffffffff)])
-        self.emit('and', ['$v0', '$v0', '$v1'])
-        self.emit('sw', ['$v0', '%lo(g_StageFlags)($a0)'])
+        self.emit('li', ['$a0', (~flag & 0xffffffff)])
+        self.emit('jal', ['aiUnsetStageFlag'])
 
     def ai_walk_to_pad(self, params):
         self.emit('li', ['$a0', '0x%04x' % self.u16(params, 0)])

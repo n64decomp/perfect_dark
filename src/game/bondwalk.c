@@ -1655,7 +1655,6 @@ void bwalkTick(void)
 	}
 
 	bmoveUpdateRooms(g_Vars.currentplayer);
-	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 
 	if (g_Vars.currentplayer->walkinitmove) {
 		struct coord coord;

@@ -14,7 +14,7 @@ void objectivesReset(void)
 		g_ObjectiveLastIndex = -1;
 
 		for (i = 0; i < ARRAYCOUNT(g_ObjectiveStatuses); i++) {
-			g_ObjectiveStatuses[i] = 0;
+			g_ObjectiveStatuses[i] = OBJECTIVE_INCOMPLETE;
 		}
 	}
 
@@ -26,9 +26,10 @@ void objectivesReset(void)
 
 	g_TagsLinkedList = NULL;
 	g_BriefingObjs = NULL;
-	g_RoomEnteredCriterias = NULL;
-	g_ThrowInRoomCriterias = NULL;
 	g_HolographCriterias = NULL;
+
+	g_ObjectivesDirty = true;
+	g_AnyObjectiveFailed = false;
 }
 
 void tagInsert(struct tag *tag)
@@ -50,18 +51,6 @@ void objectiveInsert(struct objective *objective)
 	if (g_ObjectiveLastIndex < objective->index) {
 		g_ObjectiveLastIndex = objective->index;
 	}
-}
-
-void objectiveAddRoomEnteredCriteria(struct criteria_roomentered *criteria)
-{
-	criteria->next = g_RoomEnteredCriterias;
-	g_RoomEnteredCriterias = criteria;
-}
-
-void objectiveAddThrowInRoomCriteria(struct criteria_throwinroom *criteria)
-{
-	criteria->next = g_ThrowInRoomCriterias;
-	g_ThrowInRoomCriterias = criteria;
 }
 
 void objectiveAddHolographCriteria(struct criteria_holograph *criteria)

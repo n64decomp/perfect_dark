@@ -157,27 +157,22 @@ u32 props[] = {
 
 	beginobjective(0, L_AME_016, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable internal security hub"
 		complete_flags(STAGEFLAG_SECURITYHUB_COMPLETE)
-		fail_flags(STAGEFLAG_SECURITYHUB_MINES_WASTED)
-		fail_flags(STAGEFLAG_SECURITYHUB_DESTROYED)
+		fail_flags(STAGEFLAG_SECURITYHUB_MINES_WASTED | STAGEFLAG_SECURITYHUB_DESTROYED)
 	endobjective
 
 	beginobjective(1, L_AME_017, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Obtain keycode necklace"
 		require_object_collected(OBJ_NECKLACE)
-		fail_flags(STAGEFLAG_DOORSWITCH_DESTROYED)
-		fail_flags(STAGEFLAG_CIVILIANS_KILLED)
+		fail_flags(STAGEFLAG_DOORSWITCH_DESTROYED | STAGEFLAG_CIVILIANS_KILLED)
 	endobjective
 
 	beginobjective(2, L_AME_018, (DIFFBIT_PA | DIFFBIT_PD)) // "Download project files"
 		complete_flags(STAGEFLAG_DOWNLOAD_COMPLETE)
-		fail_flags(STAGEFLAG_PROGRAMMER_DEAD)
-		fail_flags(STAGEFLAG_DELETED_WITHOUT_DOWNLOAD)
-		fail_flags(STAGEFLAG_PC_DESTROYED)
+		fail_flags(STAGEFLAG_PROGRAMMER_DEAD | STAGEFLAG_DELETED_WITHOUT_DOWNLOAD | STAGEFLAG_PC_DESTROYED)
 	endobjective
 
 	beginobjective(3, L_AME_019, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable external comms hub"
 		complete_flags(STAGEFLAG_EXTCOMMSHUB_COMPLETE)
-		fail_flags(STAGEFLAG_EXTCOMMSHUB_MINES_WASTED)
-		fail_flags(STAGEFLAG_EXTCOMMSHUB_DESTROYED)
+		fail_flags(STAGEFLAG_EXTCOMMSHUB_MINES_WASTED | STAGEFLAG_EXTCOMMSHUB_DESTROYED)
 	endobjective
 
 	beginobjective(4, L_AME_020, DIFFBIT_A) // "Gain entrance to laboratory"

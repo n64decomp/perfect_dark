@@ -116,7 +116,7 @@
 	0x1d, object,
 
 #define require_object_holographed(object) \
-	0x1e, object, 0, 0,
+	0x1e, object, OBJECTIVE_INCOMPLETE, 0,
 
 #define require_room_entered(room) \
 	0x20, room,

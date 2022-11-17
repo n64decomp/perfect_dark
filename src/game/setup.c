@@ -1788,12 +1788,6 @@ void setupCreateProps(s32 stagenum)
 						}
 					}
 					break;
-				case OBJECTIVETYPE_ENTERROOM:
-					objectiveAddRoomEnteredCriteria((struct criteria_roomentered *)obj);
-					break;
-				case OBJECTIVETYPE_THROWINROOM:
-					objectiveAddThrowInRoomCriteria((struct criteria_throwinroom *)obj);
-					break;
 				case OBJECTIVETYPE_HOLOGRAPH:
 					objectiveAddHolographCriteria((struct criteria_holograph *)obj);
 					break;

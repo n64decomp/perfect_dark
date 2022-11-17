@@ -1967,22 +1967,6 @@ bool aiIfObjectiveFailed(s32 index)
 		&& objectiveGetDifficultyBits(index) & (1 << lvGetDifficulty());
 }
 
-bool aiIfAnyObjectiveFailed(void)
-{
-	s32 numobjectives = objectiveGetCount();
-	s32 mask = 1 << lvGetDifficulty();
-	s32 i;
-
-	for (i = 0; i < numobjectives; i++) {
-		if (g_ObjectiveStatuses[i] == OBJECTIVE_FAILED
-				&& objectiveGetDifficultyBits(i) & mask) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
 bool aiIfObjectDistanceToPadLessThan(s32 tagnum, s32 padnum, f32 distance)
 {
 	f32 xdiff;
@@ -3657,6 +3641,12 @@ void aiSetShotList(u8 *ailist)
 	}
 }
 
+void aiSetStageFlag(u32 flag)
+{
+	g_StageFlags |= flag;
+	g_ObjectivesDirty = true;
+}
+
 void aiSetSquadron(s32 squadron)
 {
 	g_Vars.chrdata->squadron = squadron;
@@ -4309,6 +4299,12 @@ void aiUnsetObjFlag3(s32 tagnum, u32 flag)
 void aiUnsetRoomFlag(s32 roomnum, u32 flag)
 {
 	g_Rooms[roomnum].flags &= ~flag;
+}
+
+void aiUnsetStageFlag(u32 flag)
+{
+	g_StageFlags &= flag;
+	g_ObjectivesDirty = true;
 }
 
 void aiWalkToPad(s32 padnum)

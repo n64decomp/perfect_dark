@@ -67,8 +67,7 @@ u32 props[] = {
 
 	beginobjective(0, L_WAX_005, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Plant explosive device in lab lift"
 		complete_flags(STAGEFLAG_BOMB_PLANTED)
-		fail_flags(STAGEFLAG_BOMB_EXPIRED)
-		fail_flags(STAGEFLAG_BOMB_UNPLANTABLE)
+		fail_flags(STAGEFLAG_BOMB_EXPIRED | STAGEFLAG_BOMB_UNPLANTABLE)
 	endobjective
 
 	beginobjective(1, L_WAX_006, (DIFFBIT_PA | DIFFBIT_PD)) // "Eliminate dataDyne Captain"

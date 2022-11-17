@@ -26,8 +26,6 @@ bool objectiveIsAllComplete(void);
 void objectivesDisableChecking(void);
 void objectivesShowHudmsg(char *buffer, s32 hudmsgtype);
 void objectivesCheckAll(void);
-void objectiveCheckRoomEntered(s32 currentroom);
-void objectiveCheckThrowInRoom(s32 arg0, s16 *requiredrooms);
 void objectiveCheckHolograph(f32 sqdist);
 struct prop *chopperGetTargetProp(struct chopperobj *heli);
 struct defaultobj *objFindByTagId(s32 tag_id);

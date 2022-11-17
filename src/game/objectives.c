@@ -26,12 +26,12 @@ struct objective *g_Objectives[MAX_OBJECTIVES];
 u32 g_ObjectiveStatuses[MAX_OBJECTIVES];
 struct tag *g_TagsLinkedList;
 struct briefingobj *g_BriefingObjs;
-struct criteria_roomentered *g_RoomEnteredCriterias;
-struct criteria_throwinroom *g_ThrowInRoomCriterias;
 struct criteria_holograph *g_HolographCriterias;
 s32 g_NumTags;
 struct tag **g_TagPtrs;
 u32 var8009d0cc;
+bool g_ObjectivesDirty;
+bool g_AnyObjectiveFailed;
 
 s32 g_ObjectiveLastIndex = -1;
 bool g_ObjectiveChecksDisabled = false;
@@ -142,31 +142,23 @@ s32 objectiveCheck(s32 index)
 		if (g_Objectives[index] == NULL) {
 			objstatus = g_ObjectiveStatuses[index];
 		} else {
-			// Note: This is setting the cmd pointer to the start of the
-			// beginobjective macro in the stage's setup file. The first
-			// iteration of the while loop below will skip past it.
 			u32 *cmd = (u32 *)g_Objectives[index];
+
+			// Move past beginobjective
+			cmd = cmd + setupGetCmdLength(cmd);
 
 			while ((u8)cmd[0] != OBJTYPE_ENDOBJECTIVE) {
 				// The status of this requirement
 				s32 reqstatus = OBJECTIVE_COMPLETE;
 
 				switch ((u8)cmd[0]) {
-				case OBJECTIVETYPE_DESTROYOBJ:
-					{
-						struct defaultobj *obj = objFindByTagId(cmd[1]);
-						if (obj && obj->prop && objIsHealthy(obj)) {
-							reqstatus = OBJECTIVE_INCOMPLETE;
-						}
-					}
-					break;
 				case OBJECTIVETYPE_COMPFLAGS:
-					if (!chrHasStageFlag(NULL, cmd[1])) {
+					if ((g_StageFlags & cmd[1]) != cmd[1]) {
 						reqstatus = OBJECTIVE_INCOMPLETE;
 					}
 					break;
 				case OBJECTIVETYPE_FAILFLAGS:
-					if (chrHasStageFlag(NULL, cmd[1])) {
+					if (g_StageFlags & cmd[1]) {
 						reqstatus = OBJECTIVE_FAILED;
 					}
 					break;
@@ -196,74 +188,26 @@ s32 objectiveCheck(s32 index)
 							setCurrentPlayerNum(prevplayernum);
 
 							if (!collected) {
-								reqstatus = OBJECTIVE_INCOMPLETE;
+						  	reqstatus = OBJECTIVE_INCOMPLETE;
 							}
-						}
-					}
-					break;
-				case OBJECTIVETYPE_THROWOBJ:
-					{
-						struct defaultobj *obj = objFindByTagId(cmd[1]);
-
-						if (obj && obj->prop) {
-							s32 i;
-							s32 prevplayernum = g_Vars.currentplayernum;
-
-							for (i = 0; i < PLAYERCOUNT(); i++) {
-								if (g_Vars.players[i] == g_Vars.bond || g_Vars.players[i] == g_Vars.coop) {
-									setCurrentPlayerNum(i);
-
-									if (invHasProp(obj->prop)) {
-										reqstatus = OBJECTIVE_INCOMPLETE;
-										break;
-									}
-								}
-							}
-
-							setCurrentPlayerNum(prevplayernum);
 						}
 					}
 					break;
 				case OBJECTIVETYPE_HOLOGRAPH:
-					{
+					if (cmd[2] == OBJECTIVE_INCOMPLETE) {
 						struct defaultobj *obj = objFindByTagId(cmd[1]);
 
-						if (cmd[2] == 0) {
-							if (!obj || !obj->prop || !objIsHealthy(obj)) {
-								reqstatus = OBJECTIVE_FAILED;
-							} else {
-								reqstatus = OBJECTIVE_INCOMPLETE;
-							}
+						if (!obj || !obj->prop || !objIsHealthy(obj)) {
+							reqstatus = OBJECTIVE_FAILED;
+						} else {
+							reqstatus = OBJECTIVE_INCOMPLETE;
 						}
 					}
 					break;
-				case OBJECTIVETYPE_ENTERROOM:
-					if (cmd[2] == 0) {
-						reqstatus = OBJECTIVE_INCOMPLETE;
-					}
-					break;
-				case OBJECTIVETYPE_THROWINROOM:
-					if (cmd[3] == 0) {
-						reqstatus = OBJECTIVE_INCOMPLETE;
-					}
-					break;
-				case OBJTYPE_BEGINOBJECTIVE:
-				case OBJTYPE_ENDOBJECTIVE:
-					break;
 				}
 
-				if (objstatus == OBJECTIVE_COMPLETE) {
-					if (reqstatus != OBJECTIVE_COMPLETE) {
-						// This is the first requirement that is causing the
-						// objective to not be complete, so apply it.
-						objstatus = reqstatus;
-					}
-				} else if (objstatus == OBJECTIVE_INCOMPLETE) {
-					if (reqstatus == OBJECTIVE_FAILED) {
-						// An earlier requirement was incomplete,
-						// and this requirement is failed.
-						objstatus = reqstatus;
-					}
+				if (reqstatus < objstatus) {
+					objstatus = reqstatus;
 				}
 
 				cmd = cmd + setupGetCmdLength(cmd);
@@ -315,9 +259,10 @@ void objectivesCheckAll(void)
 {
 	s32 availableindex = 0;
 	s32 i;
-	char buffer[50] = "";
+	char buffer[50];
+	bool anyfailed = false;
 
-	if (!g_ObjectiveChecksDisabled) {
+	if (g_ObjectivesDirty && !g_ObjectiveChecksDisabled) {
 		for (i = 0; i <= g_ObjectiveLastIndex; i++) {
 			s32 status = objectiveCheck(i);
 
@@ -342,50 +287,17 @@ void objectivesCheckAll(void)
 				}
 			}
 
+			if (status == OBJECTIVE_FAILED) {
+				anyfailed = true;
+			}
+
 			if (objectiveGetDifficultyBits(i) & (1 << lvGetDifficulty())) {
 				availableindex++;
 			}
 		}
-	}
-}
 
-void objectiveCheckRoomEntered(s32 currentroom)
-{
-	struct criteria_roomentered *criteria = g_RoomEnteredCriterias;
-
-	while (criteria) {
-		if (criteria->status == OBJECTIVE_INCOMPLETE) {
-			s32 room = chrGetPadRoom(NULL, criteria->pad);
-
-			if (room >= 0 && room == currentroom) {
-				criteria->status = OBJECTIVE_COMPLETE;
-			}
-		}
-
-		criteria = criteria->next;
-	}
-}
-
-void objectiveCheckThrowInRoom(s32 arg0, s16 *inrooms)
-{
-	struct criteria_throwinroom *criteria = g_ThrowInRoomCriterias;
-
-	while (criteria) {
-		if (criteria->status == OBJECTIVE_INCOMPLETE && criteria->unk04 == arg0) {
-			s32 room = chrGetPadRoom(NULL, criteria->pad);
-
-			if (room >= 0) {
-				s16 requirerooms[2];
-				requirerooms[0] = room;
-				requirerooms[1] = -1;
-
-				if (arrayIntersects(requirerooms, inrooms)) {
-					criteria->status = OBJECTIVE_COMPLETE;
-				}
-			}
-		}
-
-		criteria = criteria->next;
+		g_AnyObjectiveFailed = anyfailed;
+		g_ObjectivesDirty = false;
 	}
 }
 
@@ -436,6 +348,8 @@ void objectiveCheckHolograph(f32 maxdist)
 							struct trainingdata *data = dtGetData();
 							data->holographedpc = true;
 						}
+
+						g_ObjectivesDirty = true;
 					}
 				}
 			}
