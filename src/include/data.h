@@ -272,6 +272,8 @@ extern struct autogunobj *g_ThrownLaptops;
 extern struct beam *g_ThrownLaptopBeams;
 extern s32 g_MaxThrownLaptops;
 extern struct prop *g_Lifts[MAX_LIFTS];
+extern s32 g_NumLifts;
+extern u8 g_LiftnumToIndex[MAX_LIFTS];
 extern u32 g_TvCmdlist00[];
 extern u32 var8006aaa0[];
 extern u32 var8006aae4[];

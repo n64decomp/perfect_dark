@@ -181,7 +181,10 @@ void propsReset(void)
 
 	for (i = 0; i < ARRAYCOUNT(g_Lifts); i++) {
 		g_Lifts[i] = NULL;
+		g_LiftnumToIndex[i] = 0;
 	}
+
+	g_NumLifts = 0;
 
 	g_MaxWeaponSlots = 50;
 	g_MaxAmmoCrates = 20;

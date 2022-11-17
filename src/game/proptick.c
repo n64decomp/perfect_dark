@@ -59,7 +59,7 @@ void propsTick(void)
 	shieldhitsTick();
 	chraTickBg();
 
-	for (i = 0; g_Lifts[i] != NULL; i++) {
+	for (i = 0; i < g_NumLifts; i++) {
 		liftTick(g_Lifts[i]);
 	}
 

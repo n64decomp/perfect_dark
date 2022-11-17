@@ -4563,7 +4563,9 @@ s32 glassCalculateOpacity(struct coord *pos, f32 xludist, f32 opadist, f32 arg3)
 	return opacity;
 }
 
-struct prop *g_Lifts[MAX_LIFTS] = {NULL};
+struct prop *g_Lifts[MAX_LIFTS];
+s32 g_NumLifts;
+u8 g_LiftnumToIndex[MAX_LIFTS];
 
 struct hovtype g_HovTypes[] = {
 #if PAL
@@ -4673,9 +4675,9 @@ void func0f070ca0(struct defaultobj *obj, struct geotilef *tile, u32 flags, stru
 
 void liftActivate(struct prop *prop, u8 liftnum)
 {
-	if (liftnum > 0 && liftnum <= MAX_LIFTS) {
-		g_Lifts[liftnum - 1] = prop;
-	}
+	g_Lifts[g_NumLifts] = prop;
+	g_LiftnumToIndex[liftnum] = g_NumLifts;
+	g_NumLifts++;
 }
 
 struct prop *liftFindByPad(s16 padnum)
@@ -4684,7 +4686,7 @@ struct prop *liftFindByPad(s16 padnum)
 		return NULL;
 	}
 
-	return g_Lifts[g_Pads[padnum].liftnum - 1];
+	return g_Lifts[g_LiftnumToIndex[g_Pads[padnum].liftnum]];
 }
 
 f32 liftGetY(struct liftobj *lift)
