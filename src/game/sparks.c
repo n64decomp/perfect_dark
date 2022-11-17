@@ -88,6 +88,7 @@ struct sparktype g_SparkTypes[] = {
 	/*0x18*/ { 100, 28,  100,  1,   0,  0, 2,                60,  60,  15, 1, 0xffff7f7f, 0xffffffff, 0.02 },
 	/*0x19*/ { 40,  -1,  30,   10,  0,  0, 2,                50,  35,  10, 1, 0x301010ff, 0x401010ff, 0.02 },
 	/*0x1a*/ { 70,  0,   150,  15,  0,  0, 6,                40,  10,  3,  0, 0x1111a880, 0xaaaaff40, 0.02 },
+	/*0x1b*/ { 40,  -1,  120,  120, 0,  0, 2,                60,  1,  100,  1, 0x301010ff, 0x401010ff, 0.02 },
 #endif
 };
 
@@ -181,14 +182,14 @@ void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *
 	struct coord grouppos;
 	s32 i;
 
-	if ((typenum == SPARKTYPE_BLOOD || typenum == SPARKTYPE_FLESH) && prop && prop->type == PROPTYPE_CHR) {
+	if ((typenum == SPARKTYPE_BLOOD || typenum == SPARKTYPE_HEADEXP_BLOOD || typenum == SPARKTYPE_FLESH) && prop && prop->type == PROPTYPE_CHR) {
 		struct chrdata *chr = prop->chr;
 		u32 colours[3];
 		u32 stack;
 
 		chrGetBloodColour(chr->bodynum, NULL, colours);
 
-		if (typenum == SPARKTYPE_BLOOD) {
+		if (typenum == SPARKTYPE_BLOOD || typenum == SPARKTYPE_HEADEXP_BLOOD) {
 			type->unk1c = colours[0];
 			type->unk20 = colours[1];
 		} else if (typenum == SPARKTYPE_FLESH) {

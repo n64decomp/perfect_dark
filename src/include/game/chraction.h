@@ -344,5 +344,6 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms);
 void chrToggleModelPart(struct chrdata *chr, s32 partnum);
 bool chrIsAvoiding(struct chrdata *chr);
 void chrDrCarollEmitSparks(struct chrdata *chr);
+void chrDecapitate(struct chrdata *chr);
 
 #endif

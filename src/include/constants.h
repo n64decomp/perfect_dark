@@ -435,9 +435,10 @@
 
 #define CHECKSUM_PLACEHOLDER 0x99aabbcc
 
-#define CHOKETYPE_NONE   0
-#define CHOKETYPE_GURGLE 1
-#define CHOKETYPE_COUGH  2
+#define CHOKETYPE_NONE         0
+#define CHOKETYPE_GURGLE       1
+#define CHOKETYPE_COUGH        2
+#define CHOKETYPE_FORCE_GURGLE 3
 
 #define CHR_P1P2_OPPOSITE 0xf1
 #define CHR_P1P2          0xf2
@@ -3771,6 +3772,7 @@
 #define SPARKTYPE_BGHIT_TRANQULIZER 0x18
 #define SPARKTYPE_PAINT             0x19
 #define SPARKTYPE_DEEPWATER         0x1a
+#define SPARKTYPE_HEADEXP_BLOOD     0x1b
 
 #define SPAWNFLAG_FORCESUNGLASSES     0x00000001 // 100% chance of wearing sunglasses if head model supports it
 #define SPAWNFLAG_MAYBESUNGLASSES     0x00000002 // 50% chance of wearing sunglasses if head model supports it

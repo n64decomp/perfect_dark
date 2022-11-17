@@ -63,6 +63,7 @@ u32 var8009cd8c;
 u32 var8009cd90;
 u32 var8009cd94;
 u8 g_RecentQuipsIndex;
+bool g_Decapitate;
 
 f32 g_EnemyAccuracyScale = 1;
 f32 g_PlayerDamageRxScale = 1;
@@ -3525,6 +3526,18 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
 	}
 }
 
+void chrDecapitate(struct chrdata *chr)
+{
+	struct modelnode *headspotnode = modelGetPart(chr->model->filedata, MODELPART_CHR_HEADSPOT);
+	struct modelnode *child;
+
+	if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
+		struct modelrwdata_headspot *rwdata = modelGetNodeRwData(chr->model, headspotnode);
+		rwdata->modelfiledata = NULL;
+		rwdata->rwdatas = NULL;
+	}
+}
+
 void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 hitpart, struct gset *gset, s32 aplayernum)
 {
 	s32 race = CHRRACE(chr);
@@ -3991,14 +4004,14 @@ void chrChoke(struct chrdata *chr, s32 choketype)
 	}
 
 	if (allowoverride) {
-		if (choketype == CHOKETYPE_GURGLE) {
+		if (choketype == CHOKETYPE_GURGLE || choketype == CHOKETYPE_FORCE_GURGLE) {
 			s32 sounds[] = {
 				SFX_M1_CHOKING,
 				SFX_GURGLE_05B1,
 				SFX_GURGLE_05B2,
 			};
 
-			if ((random() % 8) == 0) {
+			if (choketype == CHOKETYPE_FORCE_GURGLE || (random() % 8) == 0) {
 				soundnum = sounds[random() % 3];
 			}
 
@@ -4632,12 +4645,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	// If chr is dying or already dead, consider making their head flinch
 	// then we're done
 	if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD) {
-		if (hitpart == HITPART_HEAD && chr->actiontype == ACT_DIE && race != RACE_SKEDAR && isfar) {
-			struct coord pos;
-			pos.x = vprop->pos.x - vector->x;
-			pos.y = vprop->pos.y - vector->y;
-			pos.z = vprop->pos.z - vector->z;
-			chrFlinchHead(chr, chrGetAngleToPos(chr, &pos));
+		if (hitpart == HITPART_HEAD && race != RACE_SKEDAR && isfar) {
+			g_Decapitate = true;
 		}
 
 		return;
@@ -5014,6 +5023,11 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 					}
 				} else {
 					// Non-explosion damage to solo mode chr
+					if (hitpart == HITPART_HEAD && chr->damage >= chr->maxdamage && !makedizzy && race != RACE_SKEDAR) {
+						g_Decapitate = true;
+						choketype = CHOKETYPE_FORCE_GURGLE;
+					}
+
 					if (chr->actiontype != ACT_DRUGGEDKO && canchoke) {
 						chrChoke(chr, choketype);
 					}

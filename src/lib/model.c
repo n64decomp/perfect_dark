@@ -1216,6 +1216,8 @@ void modelAttachHead(struct model *model, struct modelnode *bodynode)
 			headnode->parent = bodynode;
 			headnode = headnode->next;
 		}
+	} else {
+		bodynode->child = NULL;
 	}
 }
 
@@ -3456,6 +3458,8 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 					loopnode->parent = node;
 					loopnode = loopnode->next;
 				}
+			} else {
+				node->child = NULL;
 			}
 			break;
 		case MODELNODETYPE_REORDER:
@@ -3753,6 +3757,8 @@ s32 model000225d4(struct model *model, struct coord *arg1, struct coord *arg2, s
 					loopnode->parent = node;
 					loopnode = loopnode->next;
 				}
+			} else {
+				node->child = NULL;
 			}
 			break;
 		case MODELNODETYPE_CHRINFO:
@@ -4049,6 +4055,7 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 			rwdata = modelGetNodeRwData(model, node);
 			rwdata->headspot.modelfiledata = NULL;
 			rwdata->headspot.rwdatas = NULL;
+			node->child = NULL;
 			break;
 		case MODELNODETYPE_REORDER:
 			rwdata = modelGetNodeRwData(model, node);
