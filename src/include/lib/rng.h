@@ -5,7 +5,6 @@
 #include "types.h"
 
 u32 random(void);
-void rngSetSeed(u32 seed);
 u32 rngRotateSeed(u64 *value);
 
 #endif

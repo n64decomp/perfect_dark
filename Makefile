@@ -318,6 +318,7 @@ ifeq ($(COMPILER), ido)
         src/lib/ultra/io/pfsinitpak2.c
 
     MIPS3_C_FILES := \
+        src/lib/rng.c \
         src/lib/ultra/libc/ll.c \
         src/lib/ultra/libc/llcvt.c
 
@@ -750,6 +751,11 @@ $(B_DIR)/rsp/%.o: $(B_DIR)/rsp/%.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 ifeq ($(COMPILER), ido)
+$(B_DIR)/lib/rng.o: src/lib/rng.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
+	@mkdir -p $(dir $@)
+	$(CC) -c $(CFLAGS) $(OPT_LVL) -o $@ $<
+	tools/patchmips3 $@ || rm $@
+
 $(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) $(OPT_LVL) -o $@ $<

@@ -36,7 +36,7 @@ glabel random
 	dsra32  $v0, $v0, 0
 
 /**
- * void rngSetSeed(u32 seed)
+ * void rngSetSeed(u64 seed)
  *
  * Set the given seed as the RNG seed. Add 1 to make sure it isn't 0.
  */
