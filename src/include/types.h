@@ -6357,7 +6357,7 @@ struct modelrwdatabinding {
 
 struct portalthing2 {
 	struct coord coord;
-	u32 unk0c;
+	bool behind;
 };
 
 struct var800a6538 {

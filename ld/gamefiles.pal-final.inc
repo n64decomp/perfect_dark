@@ -189,7 +189,7 @@
 	build/ROMID/game/collisionutils.o (section); \
 	build/ROMID/game/bg.o (section); \
 	build/ROMID/game/bgbss.o (section); \
-	build/ROMID/game/game_165360.o (section); \
+	build/ROMID/game/portalconvasm.o (section); \
 	build/ROMID/game/stagetable.o (section); \
 	build/ROMID/game/gfxreplace.o (section); \
 	build/ROMID/game/env.o (section); \

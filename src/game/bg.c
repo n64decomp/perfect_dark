@@ -20,7 +20,7 @@
 #include "game/gfxmemory.h"
 #include "game/gfxreplace.h"
 #include "game/bg.h"
-#include "game/game_165360.h"
+#include "game/portalconv.h"
 #include "game/stagetable.h"
 #include "game/env.h"
 #include "game/room.h"
@@ -3689,7 +3689,7 @@ bool g_PortalGetScreenBbox(s32 portalnum, struct screenbox *box)
 		return g_PortalThings[portalnum].unk06;
 	}
 
-	len = func0f165360(portalnum, &start, things);
+	len = portalConvertCoordinates(portalnum, &start, things);
 
 	sp2ec = 0;
 	thing = &things[start];
