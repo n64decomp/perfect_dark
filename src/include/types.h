@@ -21,6 +21,7 @@ typedef s32 PakErr2;
 // aligned but still use the union for consistency with Mtx.
 typedef union {
 	f32 m[4][4];
+	u32 l[4][4];
 	s32 unused;
 } Mtxf;
 

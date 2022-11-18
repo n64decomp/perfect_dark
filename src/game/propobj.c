@@ -28,7 +28,7 @@
 #include "game/camera.h"
 #include "game/portal.h"
 #include "game/player.h"
-#include "game/game_0c33f0.h"
+#include "game/mtxf2lbulk.h"
 #include "game/hudmsg.h"
 #include "game/menu.h"
 #include "game/inv.h"
@@ -14279,7 +14279,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 			if (sp6c) {
 				player0f0c3320(model->matrices, model->filedata->nummatrices);
 			} else {
-				func0f0c33f0(model->matrices, model->filedata->nummatrices);
+				mtxF2LBulk(model->matrices, model->filedata->nummatrices);
 			}
 
 			if ((obj->flags3 & (OBJFLAG3_SHOWSHIELD | OBJFLAG3_SHIELDHIT)) && objIsHealthy(obj)) {

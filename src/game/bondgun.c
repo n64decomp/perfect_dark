@@ -21,7 +21,7 @@
 #include "game/tex.h"
 #include "game/camera.h"
 #include "game/player.h"
-#include "game/game_0c33f0.h"
+#include "game/mtxf2lbulk.h"
 #include "game/gfxmemory.h"
 #include "game/sight.h"
 #include "game/inv.h"
@@ -8866,7 +8866,7 @@ glabel var7f1aca90
 /*  f0a7978:	8fa60098 */ 	lw	$a2,0x98($sp)
 /*  f0a797c:	8ccb0008 */ 	lw	$t3,0x8($a2)
 /*  f0a7980:	8cc4000c */ 	lw	$a0,0xc($a2)
-/*  f0a7984:	0fc30cfc */ 	jal	func0f0c33f0
+/*  f0a7984:	0fc30cfc */ 	jal	mtxF2LBulk
 /*  f0a7988:	8565000e */ 	lh	$a1,0xe($t3)
 /*  f0a798c:	8e0d021c */ 	lw	$t5,0x21c($s0)
 /*  f0a7990:	51a00003 */ 	beqzl	$t5,.L0f0a79a0
@@ -9025,7 +9025,7 @@ glabel var7f1aca90
 .L0f0a7bbc:
 /*  f0a7bbc:	8e18038c */ 	lw	$t8,0x38c($s0)
 /*  f0a7bc0:	8e040390 */ 	lw	$a0,0x390($s0)
-/*  f0a7bc4:	0fc30cfc */ 	jal	func0f0c33f0
+/*  f0a7bc4:	0fc30cfc */ 	jal	mtxF2LBulk
 /*  f0a7bc8:	8705000e */ 	lh	$a1,0xe($t8)
 /*  f0a7bcc:	0c0059e1 */ 	jal	mtx00016784
 /*  f0a7bd0:	00000000 */ 	nop
@@ -9707,7 +9707,7 @@ glabel var7f1aca90
 /*  f0a7978:	8fa60098 */ 	lw	$a2,0x98($sp)
 /*  f0a797c:	8ccb0008 */ 	lw	$t3,0x8($a2)
 /*  f0a7980:	8cc4000c */ 	lw	$a0,0xc($a2)
-/*  f0a7984:	0fc30cfc */ 	jal	func0f0c33f0
+/*  f0a7984:	0fc30cfc */ 	jal	mtxF2LBulk
 /*  f0a7988:	8565000e */ 	lh	$a1,0xe($t3)
 /*  f0a798c:	8e0d021c */ 	lw	$t5,0x21c($s0)
 /*  f0a7990:	51a00003 */ 	beqzl	$t5,.L0f0a79a0
@@ -9866,7 +9866,7 @@ glabel var7f1aca90
 .L0f0a7bbc:
 /*  f0a7bbc:	8e18038c */ 	lw	$t8,0x38c($s0)
 /*  f0a7bc0:	8e040390 */ 	lw	$a0,0x390($s0)
-/*  f0a7bc4:	0fc30cfc */ 	jal	func0f0c33f0
+/*  f0a7bc4:	0fc30cfc */ 	jal	mtxF2LBulk
 /*  f0a7bc8:	8705000e */ 	lh	$a1,0xe($t8)
 /*  f0a7bcc:	0c0059e1 */ 	jal	mtx00016784
 /*  f0a7bd0:	00000000 */ 	nop
@@ -10540,7 +10540,7 @@ glabel var7f1aca90
 /*  f0a56a4:	8fa60090 */ 	lw	$a2,0x90($sp)
 /*  f0a56a8:	8cc80008 */ 	lw	$t0,0x8($a2)
 /*  f0a56ac:	8cc4000c */ 	lw	$a0,0xc($a2)
-/*  f0a56b0:	0fc303f0 */ 	jal	func0f0c33f0
+/*  f0a56b0:	0fc303f0 */ 	jal	mtxF2LBulk
 /*  f0a56b4:	8505000e */ 	lh	$a1,0xe($t0)
 /*  f0a56b8:	8e0a021c */ 	lw	$t2,0x21c($s0)
 /*  f0a56bc:	51400003 */ 	beqzl	$t2,.NB0f0a56cc
@@ -10698,7 +10698,7 @@ glabel var7f1aca90
 .NB0f0a58e8:
 /*  f0a58e8:	8e0b038c */ 	lw	$t3,0x38c($s0)
 /*  f0a58ec:	8e040390 */ 	lw	$a0,0x390($s0)
-/*  f0a58f0:	0fc303f0 */ 	jal	func0f0c33f0
+/*  f0a58f0:	0fc303f0 */ 	jal	mtxF2LBulk
 /*  f0a58f4:	8565000e */ 	lh	$a1,0xe($t3)
 /*  f0a58f8:	0c005dc5 */ 	jal	mtx00016784
 /*  f0a58fc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -10962,7 +10962,7 @@ void bgunRender(Gfx **gdlptr)
 
 					modelRender(&renderdata, rocketmodel);
 
-					func0f0c33f0(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
+					mtxF2LBulk(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
 
 					if (hand->firedrocket) {
 						hand->rocket = NULL;
@@ -10973,7 +10973,7 @@ void bgunRender(Gfx **gdlptr)
 #else
 				modelRender(&renderdata, rocketmodel);
 
-				func0f0c33f0(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
+				mtxF2LBulk(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
 
 				if (hand->firedrocket) {
 					hand->rocket = NULL;
@@ -11039,7 +11039,7 @@ void bgunRender(Gfx **gdlptr)
 				gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 			}
 
-			func0f0c33f0(hand->gunmodel.matrices, hand->gunmodel.filedata->nummatrices);
+			mtxF2LBulk(hand->gunmodel.matrices, hand->gunmodel.filedata->nummatrices);
 			mtx00016784();
 
 			gSPPerspNormalize(gdl++, viGetPerspScale());

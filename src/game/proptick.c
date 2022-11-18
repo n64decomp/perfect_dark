@@ -17,7 +17,6 @@
 #include "game/tex.h"
 #include "game/camera.h"
 #include "game/player.h"
-#include "game/game_0c33f0.h"
 #include "game/playermgr.h"
 #include "game/vtxstore.h"
 #include "game/gfxmemory.h"

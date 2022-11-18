@@ -18,7 +18,7 @@
 #include "game/tex.h"
 #include "game/camera.h"
 #include "game/player.h"
-#include "game/game_0c33f0.h"
+#include "game/mtxf2lbulk.h"
 #include "game/playermgr.h"
 #include "game/rng2.h"
 #include "game/vtxstore.h"
@@ -3258,7 +3258,7 @@ void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderda
 		}
 
 		if (xlupass) {
-			func0f0c33f0(model->matrices, model->filedata->nummatrices);
+			mtxF2LBulk(model->matrices, model->filedata->nummatrices);
 		}
 	}
 }
@@ -3609,7 +3609,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 				}
 			}
 
-			func0f0c33f0(model->matrices, model->filedata->nummatrices);
+			mtxF2LBulk(model->matrices, model->filedata->nummatrices);
 
 			if (USINGDEVICE(DEVICE_IRSCANNER)) {
 				gdl = chrRenderShield(gdl, chr, 0x80);

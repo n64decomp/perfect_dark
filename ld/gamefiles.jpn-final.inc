@@ -117,7 +117,7 @@
 	build/ROMID/game/camera.o (section); \
 	build/ROMID/game/portal.o (section); \
 	build/ROMID/game/player.o (section); \
-	build/ROMID/game/game_0c33f0.o (section); \
+	build/ROMID/game/mtxf2lbulkasm.o (section); \
 	build/ROMID/game/bondcutscene.o (section); \
 	build/ROMID/game/bondwalk.o (section); \
 	build/ROMID/game/bondmove.o (section); \

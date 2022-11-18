@@ -6,7 +6,7 @@
 #include "game/game_0b0fd0.h"
 #include "game/tex.h"
 #include "game/camera.h"
-#include "game/game_0c33f0.h"
+#include "game/mtxf2lbulk.h"
 #include "game/gfxmemory.h"
 #include "game/file.h"
 #include "bss.h"
@@ -2015,7 +2015,7 @@ void casingRender(struct casing *casing, Gfx **gdlptr)
 
 		*gdlptr = renderdata.gdl;
 
-		func0f0c33f0(matrices, modeldef->nummatrices);
+		mtxF2LBulk(matrices, modeldef->nummatrices);
 	}
 }
 
