@@ -33,7 +33,7 @@
 #include "game/menu.h"
 #include "game/inv.h"
 #include "game/playermgr.h"
-#include "game/game_1291b0.h"
+#include "game/rng2.h"
 #include "game/vtxstore.h"
 #include "game/explosions.h"
 #include "game/smoke.h"
@@ -77,6 +77,8 @@
 #include "textures.h"
 #include "types.h"
 #include "string.h"
+
+void rng2SetSeed(u32 seed);
 
 struct weaponobj *g_Proxies[30];
 f32 g_GasReleaseTimerMax240;

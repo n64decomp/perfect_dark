@@ -169,7 +169,7 @@
 	build/ROMID/game/sky.o (section); \
 	build/ROMID/game/playermgr.o (section); \
 	build/ROMID/game/crc.o (section); \
-	build/ROMID/game/rng2.o (section); \
+	build/ROMID/game/rng2asm.o (section); \
 	build/ROMID/game/vtxstore.o (section); \
 	build/ROMID/game/explosions.o (section); \
 	build/ROMID/game/smoke.o (section); \

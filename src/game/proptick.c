@@ -19,7 +19,6 @@
 #include "game/player.h"
 #include "game/game_0c33f0.h"
 #include "game/playermgr.h"
-#include "game/game_1291b0.h"
 #include "game/vtxstore.h"
 #include "game/gfxmemory.h"
 #include "game/explosions.h"

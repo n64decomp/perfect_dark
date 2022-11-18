@@ -11,7 +11,7 @@ glabel g_Rng2Seed
 .text
 
 /**
- * u32 random(void)
+ * u32 random2(void)
  *
  * Generate a random number between 0 and 4294967295.
  */
@@ -36,7 +36,7 @@ glabel random2
 	dsra32  $v0, $v0, 0
 
 /**
- * void rngSetSeed(u32 seed)
+ * void rng2SetSeed(u64 seed)
  *
  * Set the given seed as the RNG seed. Add 1 to make sure it isn't 0.
  */

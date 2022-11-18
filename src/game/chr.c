@@ -20,7 +20,7 @@
 #include "game/player.h"
 #include "game/game_0c33f0.h"
 #include "game/playermgr.h"
-#include "game/game_1291b0.h"
+#include "game/rng2.h"
 #include "game/vtxstore.h"
 #include "game/gfxmemory.h"
 #include "game/explosions.h"
@@ -47,6 +47,8 @@
 #include "data.h"
 #include "gbiex.h"
 #include "types.h"
+
+void rng2SetSeed(u32 seed);
 
 void *var8009ccc0[20];
 s32 g_NumChrs;
