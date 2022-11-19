@@ -107,10 +107,12 @@ void tagsReset(void)
 
 #if PIRACYCHECKS
 	{
-		u32 a = xorBaffbeff(0xb0000a5c ^ 0xbaffbeff);
-		u32 b = xorBabeffff(0x1740fff9 ^ 0xbabeffff);
+		// mtxGetObfuscatedRomBase() returns the value at ROM offset 0xa5c.
+		// This value should be 0x1740fff9.
+		u32 dummy = xorBaffbeff(0xb0000a5c ^ 0xbaffbeff);
+		u32 expected = xorBabeffff(0x1740fff9 ^ 0xbabeffff);
 
-		if (mtxGetObfuscatedRomBase() != b) {
+		if (mtxGetObfuscatedRomBase() != expected) {
 			// Read 4KB from a random ROM location within 128KB from the start of
 			// the ROM, and write it to a random memory location between 0x80010000
 			// and 0x80030ff8. This will corrupt instructions in the lib segment.

@@ -461,15 +461,8 @@ glabel mtx00015f88
  	nop
 
 /**
- * Wait for the PI to be idle, then read the osRomBase variable, obfuscate its
- * value and return it.
- *
- * The returned value is (osRomBase | 0xb764b4fd) ^ 0x0764bea1.
- *
- * The source of this is definitely ASM:
- * - Minimal use of temporary registers
- * - The load of a1 for osRecvMesg and osSendMesg should be li, not addiu
- * - The load of a2 for osRecvMesg and osSendMesg use lui instead of li
+ * Wait for the PI to be idle, then read the osRomBase variable, use it to read
+ * the word at ROM offset 0xa5c and return it.
  */
 glabel mtxGetObfuscatedRomBase
 	addiu  $sp, $sp, -0x20
