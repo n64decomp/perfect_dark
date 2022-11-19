@@ -1469,19 +1469,19 @@ void model0001cd18(struct modelrenderdata *arg0, struct model *model)
 	}
 }
 
-void model0001ce64(struct modelrenderdata *arg0, struct model *model)
+void model0001ce64(struct modelrenderdata *renderdata, struct model *model)
 {
-	model->matrices = arg0->unk10;
+	model->matrices = renderdata->unk10;
 
-	arg0->unk10 += model->filedata->nummatrices;
+	renderdata->unk10 += model->filedata->nummatrices;
 
 #if VERSION >= VERSION_PAL_BETA
-	if (var8005efb0_2 || !model00018680()) {
-		model0001cd18(arg0, model);
+	if (var8005efb0_2 || !model00018680(renderdata, model)) {
+		model0001cd18(renderdata, model);
 	}
 #else
-	if (!model00018680()) {
-		model0001cd18(arg0, model);
+	if (!model00018680(renderdata, model)) {
+		model0001cd18(renderdata, model);
 	}
 #endif
 }
