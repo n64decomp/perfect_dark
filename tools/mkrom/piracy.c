@@ -160,7 +160,7 @@ static void patch(Algo algo, char *patchfunc, char *sumfunc)
 /**
  * Patch all the piracy functions in the game.
  */
-void piracy_patch(void)
+void piracy_patch_checksums(void)
 {
 	// algorithm, patch function, sum function
 	patch(algo01, "__scHandleTasks", "bootPhase1");
@@ -175,4 +175,51 @@ void piracy_patch(void)
 	patch(algo10, "explosionAlertChrs", "glassDestroy");
 	patch(algo11, "menuTickTimers", "mtxGetObfuscatedRomBase");
 	patch(algo12, "func0f15c920", "menuTickTimers");
+}
+
+/**
+ * NTSC Beta's original mainLoop function reads from a hardware device and
+ * refuses to run if it doesn't exist. Because of this, the reads must be
+ * patched to allow a ROM to work without this hardware.
+ *
+ * Decomp's target ROM is the patched one, so we apply the patch here.
+ */
+void piracy_patch_mainloop(void)
+{
+	uint32_t start;
+	uint32_t end;
+	uint32_t offset;
+	bool done_first = false;
+
+	if (!map_get_function_rompos("mainLoop", &start, &end)) {
+		return;
+	}
+
+	for (offset = start; offset < end; offset += 4) {
+		uint32_t word = 0;
+		word |= state.rom[offset] << 24;
+		word |= state.rom[offset + 1] << 16;
+		word |= state.rom[offset + 2] << 8;
+		word |= state.rom[offset + 3];
+
+		if (!done_first) {
+			if (word == 0x84820000) { // lh $v0, 0($a0)
+				// Replace with: li $v0, 0x4f4a
+				state.rom[offset + 0] = 0x24;
+				state.rom[offset + 1] = 0x02;
+				state.rom[offset + 2] = 0x4f;
+				state.rom[offset + 3] = 0x4a;
+				done_first = true;
+			}
+		} else {
+			if (word == 0x84820002) { // lh $v0, 2($a0)
+				// Replace with: li $v0, 0x4653
+				state.rom[offset + 0] = 0x24;
+				state.rom[offset + 1] = 0x02;
+				state.rom[offset + 2] = 0x46;
+				state.rom[offset + 3] = 0x53;
+				break;
+			}
+		}
+	}
 }

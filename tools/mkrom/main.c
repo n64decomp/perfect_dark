@@ -59,7 +59,11 @@ int main(int argc, char **argv)
 
 	// Compute piracy checksums if requested
 	if (state.piracychecks) {
-		piracy_patch();
+		piracy_patch_checksums();
+	}
+
+	if (state.is_ntscbeta) {
+		piracy_patch_mainloop();
 	}
 
 	// Slice the game segment into chunks and zip each of them to create the

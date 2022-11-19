@@ -77,7 +77,8 @@ void pack_lib(void);
 void pack_data(void);
 void pack_game(void);
 
-void piracy_patch(void);
+void piracy_patch_checksums(void);
+void piracy_patch_mainloop(void);
 
 void rarezip(uint8_t *outbuffer, size_t *outlen, uint8_t *inbuffer, size_t inlen, uint32_t magic);
 
