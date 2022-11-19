@@ -1583,14 +1583,13 @@ void snd0000fc40(s32 arg0)
 	// empty
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 bool seqPlay(struct seqinstance *seq, s32 tracknum)
 {
 	u32 stack;
 	s32 binlen;
 	u8 *binstart;
-	s32 ziplen;
 	u8 *zipstart;
+	s32 ziplen;
 	u8 scratch[1024 * 5];
 
 	s32 state = n_alCSPGetState(seq->seqp);
@@ -1618,12 +1617,29 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 	}
 
 	ziplen = ALIGN16(g_SeqTable->entries[seq->tracknum].ziplen);
+#if VERSION < VERSION_NTSC_1_0
+	if (seq->data);
+#endif
 	binstart = seq->data;
 	zipstart = binstart + binlen - ziplen;
 
 	dmaExec(zipstart, g_SeqTable->entries[seq->tracknum].romaddr, ziplen);
 
-	rzipInflate(zipstart, binstart, scratch);
+	ziplen = rzipInflate(zipstart, binstart, scratch);
+
+#if VERSION < VERSION_NTSC_1_0
+	if (ziplen == 0) {
+		char message[128];
+		sprintf(message, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+				"snd.c", 1676,
+				zipstart[0], zipstart[1], zipstart[2], zipstart[3],
+				zipstart[4], zipstart[5], zipstart[6], zipstart[7],
+				zipstart[8], zipstart[9], zipstart[10], zipstart[11],
+				zipstart[12], zipstart[13], zipstart[14], zipstart[15]);
+		crashSetMessage(message);
+		CRASH();
+	}
+#endif
 
 	n_alCSeqNew(&seq->seq, seq->data);
 	n_alCSPSetSeq(seq->seqp, &seq->seq);
@@ -1632,141 +1648,6 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 
 	return true;
 }
-#else
-const char var70055250nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
-const char var700552a8nb[] = "snd.c";
-
-GLOBAL_ASM(
-glabel seqPlay
-/*    100e0:	27bdeaf8 */ 	addiu	$sp,$sp,-5384
-/*    100e4:	afb00058 */ 	sw	$s0,0x58($sp)
-/*    100e8:	00808025 */ 	or	$s0,$a0,$zero
-/*    100ec:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*    100f0:	afa5150c */ 	sw	$a1,0x150c($sp)
-/*    100f4:	0c00e838 */ 	jal	n_alCSPGetState
-/*    100f8:	8c8400f8 */ 	lw	$a0,0xf8($a0)
-/*    100fc:	3c0e8006 */ 	lui	$t6,0x8006
-/*    10100:	8dcef6c0 */ 	lw	$t6,-0x940($t6)
-/*    10104:	8fa4150c */ 	lw	$a0,0x150c($sp)
-/*    10108:	3c03800a */ 	lui	$v1,0x800a
-/*    1010c:	51c00004 */ 	beqzl	$t6,.NB00010120
-/*    10110:	ae040104 */ 	sw	$a0,0x104($s0)
-/*    10114:	10000066 */ 	beqz	$zero,.NB000102b0
-/*    10118:	00001025 */ 	or	$v0,$zero,$zero
-/*    1011c:	ae040104 */ 	sw	$a0,0x104($s0)
-.NB00010120:
-/*    10120:	10400003 */ 	beqz	$v0,.NB00010130
-/*    10124:	8c638188 */ 	lw	$v1,-0x7e78($v1)
-/*    10128:	10000061 */ 	beqz	$zero,.NB000102b0
-/*    1012c:	00001025 */ 	or	$v0,$zero,$zero
-.NB00010130:
-/*    10130:	8e0f0104 */ 	lw	$t7,0x104($s0)
-/*    10134:	3c010001 */ 	lui	$at,0x1
-/*    10138:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*    1013c:	00781021 */ 	addu	$v0,$v1,$t8
-/*    10140:	8c450004 */ 	lw	$a1,0x4($v0)
-/*    10144:	00a1082b */ 	sltu	$at,$a1,$at
-/*    10148:	50200004 */ 	beqzl	$at,.NB0001015c
-/*    1014c:	94470008 */ 	lhu	$a3,0x8($v0)
-/*    10150:	10000057 */ 	beqz	$zero,.NB000102b0
-/*    10154:	00001025 */ 	or	$v0,$zero,$zero
-/*    10158:	94470008 */ 	lhu	$a3,0x8($v0)
-.NB0001015c:
-/*    1015c:	3c0a800a */ 	lui	$t2,0x800a
-/*    10160:	8d4a818c */ 	lw	$t2,-0x7e74($t2)
-/*    10164:	24e7000f */ 	addiu	$a3,$a3,0xf
-/*    10168:	34f9000f */ 	ori	$t9,$a3,0xf
-/*    1016c:	3b29000f */ 	xori	$t1,$t9,0xf
-/*    10170:	25270040 */ 	addiu	$a3,$t1,0x40
-/*    10174:	00ea082b */ 	sltu	$at,$a3,$t2
-/*    10178:	54200004 */ 	bnezl	$at,.NB0001018c
-/*    1017c:	9446000a */ 	lhu	$a2,0xa($v0)
-/*    10180:	1000004b */ 	beqz	$zero,.NB000102b0
-/*    10184:	00001025 */ 	or	$v0,$zero,$zero
-/*    10188:	9446000a */ 	lhu	$a2,0xa($v0)
-.NB0001018c:
-/*    1018c:	8e0800fc */ 	lw	$t0,0xfc($s0)
-/*    10190:	24c6000f */ 	addiu	$a2,$a2,0xf
-/*    10194:	34cb000f */ 	ori	$t3,$a2,0xf
-/*    10198:	3966000f */ 	xori	$a2,$t3,0xf
-/*    1019c:	01076821 */ 	addu	$t5,$t0,$a3
-/*    101a0:	01a62023 */ 	subu	$a0,$t5,$a2
-/*    101a4:	afa414f8 */ 	sw	$a0,0x14f8($sp)
-/*    101a8:	afa40064 */ 	sw	$a0,0x64($sp)
-/*    101ac:	0c003664 */ 	jal	dmaExec
-/*    101b0:	afa814fc */ 	sw	$t0,0x14fc($sp)
-/*    101b4:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*    101b8:	8fa514fc */ 	lw	$a1,0x14fc($sp)
-/*    101bc:	0c001da4 */ 	jal	rzipInflate
-/*    101c0:	27a600f4 */ 	addiu	$a2,$sp,0xf4
-/*    101c4:	1440002c */ 	bnez	$v0,.NB00010278
-/*    101c8:	8fa314f8 */ 	lw	$v1,0x14f8($sp)
-/*    101cc:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*    101d0:	3c057005 */ 	lui	$a1,0x7005
-/*    101d4:	3c067005 */ 	lui	$a2,0x7005
-/*    101d8:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    101dc:	906f0001 */ 	lbu	$t7,0x1($v1)
-/*    101e0:	24c652a8 */ 	addiu	$a2,$a2,0x52a8
-/*    101e4:	24a55250 */ 	addiu	$a1,$a1,0x5250
-/*    101e8:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    101ec:	90780002 */ 	lbu	$t8,0x2($v1)
-/*    101f0:	27a40070 */ 	addiu	$a0,$sp,0x70
-/*    101f4:	2407068c */ 	addiu	$a3,$zero,0x68c
-/*    101f8:	afb80018 */ 	sw	$t8,0x18($sp)
-/*    101fc:	90790003 */ 	lbu	$t9,0x3($v1)
-/*    10200:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*    10204:	90690004 */ 	lbu	$t1,0x4($v1)
-/*    10208:	afa90020 */ 	sw	$t1,0x20($sp)
-/*    1020c:	906a0005 */ 	lbu	$t2,0x5($v1)
-/*    10210:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*    10214:	906b0006 */ 	lbu	$t3,0x6($v1)
-/*    10218:	afab0028 */ 	sw	$t3,0x28($sp)
-/*    1021c:	906c0007 */ 	lbu	$t4,0x7($v1)
-/*    10220:	afac002c */ 	sw	$t4,0x2c($sp)
-/*    10224:	906d0008 */ 	lbu	$t5,0x8($v1)
-/*    10228:	afad0030 */ 	sw	$t5,0x30($sp)
-/*    1022c:	906e0009 */ 	lbu	$t6,0x9($v1)
-/*    10230:	afae0034 */ 	sw	$t6,0x34($sp)
-/*    10234:	906f000a */ 	lbu	$t7,0xa($v1)
-/*    10238:	afaf0038 */ 	sw	$t7,0x38($sp)
-/*    1023c:	9078000b */ 	lbu	$t8,0xb($v1)
-/*    10240:	afb8003c */ 	sw	$t8,0x3c($sp)
-/*    10244:	9079000c */ 	lbu	$t9,0xc($v1)
-/*    10248:	afb90040 */ 	sw	$t9,0x40($sp)
-/*    1024c:	9069000d */ 	lbu	$t1,0xd($v1)
-/*    10250:	afa90044 */ 	sw	$t1,0x44($sp)
-/*    10254:	906a000e */ 	lbu	$t2,0xe($v1)
-/*    10258:	afaa0048 */ 	sw	$t2,0x48($sp)
-/*    1025c:	906b000f */ 	lbu	$t3,0xf($v1)
-/*    10260:	0c004fc1 */ 	jal	sprintf
-/*    10264:	afab004c */ 	sw	$t3,0x4c($sp)
-/*    10268:	0c003074 */ 	jal	crashSetMessage
-/*    1026c:	27a40070 */ 	addiu	$a0,$sp,0x70
-/*    10270:	240c0045 */ 	addiu	$t4,$zero,0x45
-/*    10274:	a00c0000 */ 	sb	$t4,0x0($zero)
-.NB00010278:
-/*    10278:	02002025 */ 	or	$a0,$s0,$zero
-/*    1027c:	0c00e840 */ 	jal	n_alCSeqNew
-/*    10280:	8e0500fc */ 	lw	$a1,0xfc($s0)
-/*    10284:	8e0400f8 */ 	lw	$a0,0xf8($s0)
-/*    10288:	0c00ebec */ 	jal	n_alCSPSetSeq
-/*    1028c:	02002825 */ 	or	$a1,$s0,$zero
-/*    10290:	0c0040b1 */ 	jal	seqGetVolume
-/*    10294:	02002025 */ 	or	$a0,$s0,$zero
-/*    10298:	02002025 */ 	or	$a0,$s0,$zero
-/*    1029c:	0c0040bb */ 	jal	seqSetVolume
-/*    102a0:	3045ffff */ 	andi	$a1,$v0,0xffff
-/*    102a4:	0c00ec00 */ 	jal	n_alCSPPlay
-/*    102a8:	8e0400f8 */ 	lw	$a0,0xf8($s0)
-/*    102ac:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB000102b0:
-/*    102b0:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*    102b4:	8fb00058 */ 	lw	$s0,0x58($sp)
-/*    102b8:	27bd1508 */ 	addiu	$sp,$sp,0x1508
-/*    102bc:	03e00008 */ 	jr	$ra
-/*    102c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 u16 seqGetVolume(struct seqinstance *seq)
 {
