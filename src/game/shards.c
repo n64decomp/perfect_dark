@@ -254,19 +254,9 @@ Gfx *shardsRenderWood(Gfx *gdl)
 				}
 
 				if (render) {
-					/**
-					 * The following function call is really just this:
-					 *
-					 * mtx4LoadRotationAndTranslation(&g_Shards[i].pos, &g_Shards[i].rot, &shardmtx);
-					 *
-					 * ... but that causes a mismatch, so I'm using a hacky but
-					 * matching alternative. This hack is @dangerous because it
-					 * assumes the offsets of pos and rot in the shard struct.
-					 */
-					mtx4LoadRotationAndTranslation(
-							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x08),
-							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x14),
-							&shardmtx);
+					struct shard *shard = (struct shard *) ((u8 *)g_Shards + i * sizeof(struct shard));
+
+					mtx4LoadRotationAndTranslation(&shard->pos, &shard->rot, &shardmtx);
 
 					shardmtx.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
 					shardmtx.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;
@@ -854,13 +844,9 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 				}
 
 				if (render) {
-					/**
-					 * @dangerous: See comment for similar code in shardsRenderWood.
-					 */
-					mtx4LoadRotationAndTranslation(
-							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x08),
-							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x14),
-							&shardmtx);
+					struct shard *shard = (struct shard *) ((u8 *)g_Shards + i * sizeof(struct shard));
+
+					mtx4LoadRotationAndTranslation(&shard->pos, &shard->rot, &shardmtx);
 
 					shardmtx.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
 					shardmtx.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;
