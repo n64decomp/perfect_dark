@@ -2967,24 +2967,35 @@ const char var7f1b44bc[] = "Pak %d -> Searching for the game file\n";
 const char var7f1b44bc[] = "Pak %d -> Searching for the game file";
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
 /**
  * Prepare a controller pak for use by making sure a note is allocated and that
  * the filesystem is good, among other things.
  */
 bool mempakPrepare(s8 device)
 {
-	u32 stack[2];
-	bool isnewnote = false;
-	bool error = false;
-#if VERSION < VERSION_NTSC_FINAL
-	u32 stack2;
+	u32 stack1;
+	struct pak *pak;
+	bool error1 = false;
+#if VERSION >= VERSION_NTSC_1_0
+	bool error2 = false;
+#endif
+#if VERSION == VERSION_NTSC_1_0
+	u32 stack3;
 #endif
 	u32 fileids[1024];
+#if VERSION >= VERSION_NTSC_1_0
 	s32 serial;
+#endif
 	s32 sp48;
 	s32 notesize;
+#if VERSION >= VERSION_NTSC_1_0
 	s32 maxfileid;
+	u32 stack2;
+#endif
+
+	if (1);
+	if (1);
+	if (1);
 
 	g_Paks[device].type = PAKTYPE_MEMORY;
 	g_Paks[device].unk2b8_02 = true;
@@ -3004,7 +3015,7 @@ bool mempakPrepare(s8 device)
 
 	// If it doesn't exist, allocate it
 	if (sp48 != PAK_ERR1_OK) {
-		struct pak *pak = &g_Paks[device];
+		pak = &g_Paks[device];
 
 		pakHandleResult(sp48, device, false, LINE_3654);
 
@@ -3019,7 +3030,7 @@ bool mempakPrepare(s8 device)
 		g_Paks[device].unk2b8_02 = true;
 
 		if (pakHandleResult(sp48, device, true, LINE_3668)) {
-			isnewnote = true;
+			error1 = true;
 		} else {
 			return false;
 		}
@@ -3035,29 +3046,29 @@ bool mempakPrepare(s8 device)
 	g_Paks[device].headercachecount = 0;
 	g_Paks[device].unk010 = PAK010_11;
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (device && device && device);
 
+#if VERSION >= VERSION_NTSC_1_0
 	// If it's a new note, create the filesystem
-	if (isnewnote) {
+	if (error1) {
 		serial = pakCreateFilesystem(device);
 
 		if (serial != -1) {
 			g_Paks[device].serial = serial;
 		} else {
-			error = true;
+			error2 = true;
 		}
 	}
 
 	// Check the filesystem for errors and try to recreate it if broken
-	if (!error) {
+	if (!error2) {
 		if (pakRepairFilesystem(device) == -1) {
 			serial = pakCreateFilesystem(device);
 
 			if (serial != -1) {
 				g_Paks[device].serial = serial;
 			} else {
-				error = true;
+				error2 = true;
 			}
 
 			if (device != SAVEDEVICE_GAMEPAK) {
@@ -3066,7 +3077,7 @@ bool mempakPrepare(s8 device)
 		}
 	}
 
-	if (!error) {
+	if (!error2) {
 		maxfileid = pakFindMaxFileId(device);
 
 		if (maxfileid != -1) {
@@ -3088,15 +3099,15 @@ bool mempakPrepare(s8 device)
 
 	return false;
 #else
-	if (!isnewnote) {
+	if (!error1) {
 		if (!pakRepairFilesystem(device)) {
-			isnewnote = true;
+			error1 = true;
 		}
 	}
 
 	if (argFindByPrefix(1, "-forcewipe")) {
 		pakWipe(device, 0, g_Paks[device].pdnumblocks);
-	} else if (isnewnote || argFindByPrefix(1, "-forcescrub")) {
+	} else if (error1 || argFindByPrefix(1, "-forcescrub")) {
 		g_Paks[device].serial = pakCreateFilesystem(device);
 	}
 
@@ -3110,241 +3121,6 @@ bool mempakPrepare(s8 device)
 	return true;
 #endif
 }
-#else
-const char var7f1ae3d4nb[] = "pak.c";
-const char var7f1ae3dcnb[] = "pak.c";
-const char var7f1ae3e4nb[] = "pak.c";
-const char var7f1ae3ecnb[] = "pak.c";
-const char var7f1ae3f4nb[] = "-forcewipe";
-const char var7f1ae400nb[] = "-forcescrub";
-
-GLOBAL_ASM(
-glabel mempakPrepare
-/*  f1148c8:	27bdefb0 */ 	addiu	$sp,$sp,-4176
-/*  f1148cc:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f1148d0:	00048e00 */ 	sll	$s1,$a0,0x18
-/*  f1148d4:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f1148d8:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f1148dc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1148e0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1148e4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1148e8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1148ec:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1148f0:	3c18800a */ 	lui	$t8,0x800a
-/*  f1148f4:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f1148f8:	27186870 */ 	addiu	$t8,$t8,0x6870
-/*  f1148fc:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f114900:	01f88021 */ 	addu	$s0,$t7,$t8
-/*  f114904:	920902b8 */ 	lbu	$t1,0x2b8($s0)
-/*  f114908:	afa41050 */ 	sw	$a0,0x1050($sp)
-/*  f11490c:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f114910:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f114914:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f114918:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f11491c:	352a0040 */ 	ori	$t2,$t1,0x40
-/*  f114920:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f114924:	afa01044 */ 	sw	$zero,0x1044($sp)
-/*  f114928:	ae190000 */ 	sw	$t9,0x0($s0)
-/*  f11492c:	a20a02b8 */ 	sb	$t2,0x2b8($s0)
-/*  f114930:	0fc4510c */ 	jal	pakQueryTotalUsage
-/*  f114934:	01602025 */ 	or	$a0,$t3,$zero
-/*  f114938:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f11493c:	24a5e3d4 */ 	addiu	$a1,$a1,-7212
-/*  f114940:	0c00581b */ 	jal	joyDisableCyclicPolling
-/*  f114944:	24040cf7 */ 	addiu	$a0,$zero,0xcf7
-/*  f114948:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11494c:	16210003 */ 	bne	$s1,$at,.NB0f11495c
-/*  f114950:	24053031 */ 	addiu	$a1,$zero,0x3031
-/*  f114954:	10000009 */ 	beqz	$zero,.NB0f11497c
-/*  f114958:	00002025 */ 	or	$a0,$zero,$zero
-.NB0f11495c:
-/*  f11495c:	00116080 */ 	sll	$t4,$s1,0x2
-/*  f114960:	01916023 */ 	subu	$t4,$t4,$s1
-/*  f114964:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f114968:	01916021 */ 	addu	$t4,$t4,$s1
-/*  f11496c:	3c0d800a */ 	lui	$t5,0x800a
-/*  f114970:	25ad7658 */ 	addiu	$t5,$t5,0x7658
-/*  f114974:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f114978:	018d2021 */ 	addu	$a0,$t4,$t5
-.NB0f11497c:
-/*  f11497c:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f114980:	25ce80c8 */ 	addiu	$t6,$t6,-32568
-/*  f114984:	3c064e50 */ 	lui	$a2,0x4e50
-/*  f114988:	3c078008 */ 	lui	$a3,0x8008
-/*  f11498c:	2602029c */ 	addiu	$v0,$s0,0x29c
-/*  f114990:	afa20014 */ 	sw	$v0,0x14($sp)
-/*  f114994:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f114998:	24e780b8 */ 	addiu	$a3,$a3,-32584
-/*  f11499c:	34c64445 */ 	ori	$a2,$a2,0x4445
-/*  f1149a0:	0fc4487f */ 	jal	pakFindNote
-/*  f1149a4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f1149a8:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f1149ac:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f1149b0:	24a5e3dc */ 	addiu	$a1,$a1,-7204
-/*  f1149b4:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*  f1149b8:	24040cf9 */ 	addiu	$a0,$zero,0xcf9
-/*  f1149bc:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f1149c0:	00112e00 */ 	sll	$a1,$s1,0x18
-/*  f1149c4:	00057e03 */ 	sra	$t7,$a1,0x18
-/*  f1149c8:	10800043 */ 	beqz	$a0,.NB0f114ad8
-/*  f1149cc:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f1149d0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1149d4:	0fc458cb */ 	jal	pakHandleResult
-/*  f1149d8:	24070d00 */ 	addiu	$a3,$zero,0xd00
-/*  f1149dc:	9618025a */ 	lhu	$t8,0x25a($s0)
-/*  f1149e0:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f1149e4:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f1149e8:	2b010081 */ 	slti	$at,$t8,0x81
-/*  f1149ec:	14200003 */ 	bnez	$at,.NB0f1149fc
-/*  f1149f0:	24040d08 */ 	addiu	$a0,$zero,0xd08
-/*  f1149f4:	10000002 */ 	beqz	$zero,.NB0f114a00
-/*  f1149f8:	a21902bc */ 	sb	$t9,0x2bc($s0)
-.NB0f1149fc:
-/*  f1149fc:	a20802bc */ 	sb	$t0,0x2bc($s0)
-.NB0f114a00:
-/*  f114a00:	920902bc */ 	lbu	$t1,0x2bc($s0)
-/*  f114a04:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114a08:	24a5e3e4 */ 	addiu	$a1,$a1,-7196
-/*  f114a0c:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f114a10:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f114a14:	000a5280 */ 	sll	$t2,$t2,0xa
-/*  f114a18:	0c00581b */ 	jal	joyDisableCyclicPolling
-/*  f114a1c:	afaa003c */ 	sw	$t2,0x3c($sp)
-/*  f114a20:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f114a24:	16210003 */ 	bne	$s1,$at,.NB0f114a34
-/*  f114a28:	24053031 */ 	addiu	$a1,$zero,0x3031
-/*  f114a2c:	10000009 */ 	beqz	$zero,.NB0f114a54
-/*  f114a30:	00002025 */ 	or	$a0,$zero,$zero
-.NB0f114a34:
-/*  f114a34:	00115880 */ 	sll	$t3,$s1,0x2
-/*  f114a38:	01715823 */ 	subu	$t3,$t3,$s1
-/*  f114a3c:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f114a40:	01715821 */ 	addu	$t3,$t3,$s1
-/*  f114a44:	3c0c800a */ 	lui	$t4,0x800a
-/*  f114a48:	258c7658 */ 	addiu	$t4,$t4,0x7658
-/*  f114a4c:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f114a50:	016c2021 */ 	addu	$a0,$t3,$t4
-.NB0f114a54:
-/*  f114a54:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*  f114a58:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*  f114a5c:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f114a60:	25ad80c8 */ 	addiu	$t5,$t5,-32568
-/*  f114a64:	3c064e50 */ 	lui	$a2,0x4e50
-/*  f114a68:	3c078008 */ 	lui	$a3,0x8008
-/*  f114a6c:	24e780b8 */ 	addiu	$a3,$a3,-32584
-/*  f114a70:	34c64445 */ 	ori	$a2,$a2,0x4445
-/*  f114a74:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f114a78:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f114a7c:	0fc4484d */ 	jal	pakAllocateNote
-/*  f114a80:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f114a84:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114a88:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f114a8c:	24a5e3ec */ 	addiu	$a1,$a1,-7188
-/*  f114a90:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*  f114a94:	24040d0a */ 	addiu	$a0,$zero,0xd0a
-/*  f114a98:	921902b8 */ 	lbu	$t9,0x2b8($s0)
-/*  f114a9c:	00112e00 */ 	sll	$a1,$s1,0x18
-/*  f114aa0:	00054e03 */ 	sra	$t1,$a1,0x18
-/*  f114aa4:	37280040 */ 	ori	$t0,$t9,0x40
-/*  f114aa8:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f114aac:	a20802b8 */ 	sb	$t0,0x2b8($s0)
-/*  f114ab0:	01202825 */ 	or	$a1,$t1,$zero
-/*  f114ab4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f114ab8:	0fc458cb */ 	jal	pakHandleResult
-/*  f114abc:	24070d0e */ 	addiu	$a3,$zero,0xd0e
-/*  f114ac0:	10400003 */ 	beqz	$v0,.NB0f114ad0
-/*  f114ac4:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f114ac8:	10000003 */ 	beqz	$zero,.NB0f114ad8
-/*  f114acc:	afaa1044 */ 	sw	$t2,0x1044($sp)
-.NB0f114ad0:
-/*  f114ad0:	10000048 */ 	beqz	$zero,.NB0f114bf4
-/*  f114ad4:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f114ad8:
-/*  f114ad8:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f114adc:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f114ae0:	0fc4510c */ 	jal	pakQueryTotalUsage
-/*  f114ae4:	01602025 */ 	or	$a0,$t3,$zero
-/*  f114ae8:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f114aec:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f114af0:	0fc451a4 */ 	jal	pakQueryPdSize
-/*  f114af4:	01802025 */ 	or	$a0,$t4,$zero
-/*  f114af8:	240d000b */ 	addiu	$t5,$zero,0xb
-/*  f114afc:	a20002be */ 	sb	$zero,0x2be($s0)
-/*  f114b00:	ae0d0010 */ 	sw	$t5,0x10($s0)
-/*  f114b04:	8fae1044 */ 	lw	$t6,0x1044($sp)
-/*  f114b08:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f114b0c:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f114b10:	15c00006 */ 	bnez	$t6,.NB0f114b2c
-/*  f114b14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f114b18:	0fc44e4b */ 	jal	pakRepairFilesystem
-/*  f114b1c:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f114b20:	14400002 */ 	bnez	$v0,.NB0f114b2c
-/*  f114b24:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f114b28:	afb81044 */ 	sw	$t8,0x1044($sp)
-.NB0f114b2c:
-/*  f114b2c:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114b30:	24a5e3f4 */ 	addiu	$a1,$a1,-7180
-/*  f114b34:	0c004e18 */ 	jal	argFindByPrefix
-/*  f114b38:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f114b3c:	10400009 */ 	beqz	$v0,.NB0f114b64
-/*  f114b40:	8fa81044 */ 	lw	$t0,0x1044($sp)
-/*  f114b44:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f114b48:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f114b4c:	03202025 */ 	or	$a0,$t9,$zero
-/*  f114b50:	00002825 */ 	or	$a1,$zero,$zero
-/*  f114b54:	0fc453e4 */ 	jal	pakWipe
-/*  f114b58:	8e0602a4 */ 	lw	$a2,0x2a4($s0)
-/*  f114b5c:	1000000d */ 	beqz	$zero,.NB0f114b94
-/*  f114b60:	00112600 */ 	sll	$a0,$s1,0x18
-.NB0f114b64:
-/*  f114b64:	15000005 */ 	bnez	$t0,.NB0f114b7c
-/*  f114b68:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f114b6c:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114b70:	0c004e18 */ 	jal	argFindByPrefix
-/*  f114b74:	24a5e400 */ 	addiu	$a1,$a1,-7168
-/*  f114b78:	10400005 */ 	beqz	$v0,.NB0f114b90
-.NB0f114b7c:
-/*  f114b7c:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f114b80:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f114b84:	0fc45544 */ 	jal	pakCreateFilesystem
-/*  f114b88:	01202025 */ 	or	$a0,$t1,$zero
-/*  f114b8c:	ae020260 */ 	sw	$v0,0x260($s0)
-.NB0f114b90:
-/*  f114b90:	00112600 */ 	sll	$a0,$s1,0x18
-.NB0f114b94:
-/*  f114b94:	00045603 */ 	sra	$t2,$a0,0x18
-/*  f114b98:	0fc44ff9 */ 	jal	pakFindMaxFileId
-/*  f114b9c:	01402025 */ 	or	$a0,$t2,$zero
-/*  f114ba0:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f114ba4:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f114ba8:	ae02025c */ 	sw	$v0,0x25c($s0)
-/*  f114bac:	01602025 */ 	or	$a0,$t3,$zero
-/*  f114bb0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f114bb4:	0fc442dd */ 	jal	pakGetFileIdsByType
-/*  f114bb8:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f114bbc:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f114bc0:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f114bc4:	0fc44f6e */ 	jal	pakCreateInitialFiles
-/*  f114bc8:	01802025 */ 	or	$a0,$t4,$zero
-/*  f114bcc:	8fad0030 */ 	lw	$t5,0x30($sp)
-/*  f114bd0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f114bd4:	25ce762c */ 	addiu	$t6,$t6,0x762c
-/*  f114bd8:	15ae0004 */ 	bne	$t5,$t6,.NB0f114bec
-/*  f114bdc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f114be0:	240f000b */ 	addiu	$t7,$zero,0xb
-/*  f114be4:	10000003 */ 	beqz	$zero,.NB0f114bf4
-/*  f114be8:	ae0f0010 */ 	sw	$t7,0x10($s0)
-.NB0f114bec:
-/*  f114bec:	24180006 */ 	addiu	$t8,$zero,0x6
-/*  f114bf0:	ae180010 */ 	sw	$t8,0x10($s0)
-.NB0f114bf4:
-/*  f114bf4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f114bf8:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f114bfc:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f114c00:	03e00008 */ 	jr	$ra
-/*  f114c04:	27bd1050 */ 	addiu	$sp,$sp,0x1050
-);
-#endif
 
 #if VERSION < VERSION_NTSC_1_0
 const char var7f1ae40cnb[] = "Pak %d -> Initialisation - No swap file";
