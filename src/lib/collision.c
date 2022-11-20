@@ -4206,214 +4206,6 @@ bool cdTestAToB(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, 
 	return true;
 }
 
-s32 cdExamAToB(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin);
-
-#if MATCHING
-GLOBAL_ASM(
-glabel cdExamAToB
-/*    2d3b0:	27bdfd20 */ 	addiu	$sp,$sp,-736
-/*    2d3b4:	3c014f80 */ 	lui	$at,0x4f80
-/*    2d3b8:	44812000 */ 	mtc1	$at,$f4
-/*    2d3bc:	afbf007c */ 	sw	$ra,0x7c($sp)
-/*    2d3c0:	afbe0078 */ 	sw	$s8,0x78($sp)
-/*    2d3c4:	afb70074 */ 	sw	$s7,0x74($sp)
-/*    2d3c8:	afb60070 */ 	sw	$s6,0x70($sp)
-/*    2d3cc:	afb5006c */ 	sw	$s5,0x6c($sp)
-/*    2d3d0:	afb40068 */ 	sw	$s4,0x68($sp)
-/*    2d3d4:	afb30064 */ 	sw	$s3,0x64($sp)
-/*    2d3d8:	afb20060 */ 	sw	$s2,0x60($sp)
-/*    2d3dc:	afb1005c */ 	sw	$s1,0x5c($sp)
-/*    2d3e0:	afb00058 */ 	sw	$s0,0x58($sp)
-/*    2d3e4:	f7b60050 */ 	sdc1	$f22,0x50($sp)
-/*    2d3e8:	f7b40048 */ 	sdc1	$f20,0x48($sp)
-/*    2d3ec:	afa402e0 */ 	sw	$a0,0x2e0($sp)
-/*    2d3f0:	afa502e4 */ 	sw	$a1,0x2e4($sp)
-/*    2d3f4:	afa702ec */ 	sw	$a3,0x2ec($sp)
-/*    2d3f8:	afa002c0 */ 	sw	$zero,0x2c0($sp)
-/*    2d3fc:	e7a40298 */ 	swc1	$f4,0x298($sp)
-/*    2d400:	c4880000 */ 	lwc1	$f8,0x0($a0)
-/*    2d404:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*    2d408:	30f90020 */ 	andi	$t9,$a3,0x20
-/*    2d40c:	00c0f025 */ 	or	$s8,$a2,$zero
-/*    2d410:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*    2d414:	e7aa02c4 */ 	swc1	$f10,0x2c4($sp)
-/*    2d418:	c4920004 */ 	lwc1	$f18,0x4($a0)
-/*    2d41c:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*    2d420:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*    2d424:	e7a402c8 */ 	swc1	$f4,0x2c8($sp)
-/*    2d428:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    2d42c:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*    2d430:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*    2d434:	13200043 */ 	beqz	$t9,.L0002d544
-/*    2d438:	e7aa02cc */ 	swc1	$f10,0x2cc($sp)
-/*    2d43c:	84c80000 */ 	lh	$t0,0x0($a2)
-/*    2d440:	2411ffff */ 	addiu	$s1,$zero,-1
-/*    2d444:	00c08025 */ 	or	$s0,$a2,$zero
-/*    2d448:	1111003e */ 	beq	$t0,$s1,.L0002d544
-/*    2d44c:	c7b60300 */ 	lwc1	$f22,0x300($sp)
-/*    2d450:	3c17800a */ 	lui	$s7,%hi(g_TileFileData)
-/*    2d454:	3c16800a */ 	lui	$s6,%hi(g_TileRooms)
-/*    2d458:	3c15800a */ 	lui	$s5,%hi(g_TileNumRooms)
-/*    2d45c:	26b5a8a4 */ 	addiu	$s5,$s5,%lo(g_TileNumRooms)
-/*    2d460:	26d6a8a8 */ 	addiu	$s6,$s6,%lo(g_TileRooms)
-/*    2d464:	26f7a8a0 */ 	addiu	$s7,$s7,%lo(g_TileFileData)
-/*    2d468:	c7b402fc */ 	lwc1	$f20,0x2fc($sp)
-/*    2d46c:	27b4029c */ 	addiu	$s4,$sp,0x29c
-/*    2d470:	27b302a8 */ 	addiu	$s3,$sp,0x2a8
-/*    2d474:	27b202b4 */ 	addiu	$s2,$sp,0x2b4
-/*    2d478:	8ea90000 */ 	lw	$t1,0x0($s5)
-.L0002d47c:
-/*    2d47c:	00085080 */ 	sll	$t2,$t0,0x2
-/*    2d480:	27b802c4 */ 	addiu	$t8,$sp,0x2c4
-/*    2d484:	0109082a */ 	slt	$at,$t0,$t1
-/*    2d488:	5020002b */ 	beqzl	$at,.L0002d538
-/*    2d48c:	86080002 */ 	lh	$t0,0x2($s0)
-/*    2d490:	8ecb0000 */ 	lw	$t3,0x0($s6)
-/*    2d494:	8ee30000 */ 	lw	$v1,0x0($s7)
-/*    2d498:	97b902f2 */ 	lhu	$t9,0x2f2($sp)
-/*    2d49c:	014b1021 */ 	addu	$v0,$t2,$t3
-/*    2d4a0:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*    2d4a4:	8faa02f8 */ 	lw	$t2,0x2f8($sp)
-/*    2d4a8:	8fa902f4 */ 	lw	$t1,0x2f4($sp)
-/*    2d4ac:	01832021 */ 	addu	$a0,$t4,$v1
-/*    2d4b0:	afa402d4 */ 	sw	$a0,0x2d4($sp)
-/*    2d4b4:	8c4e0004 */ 	lw	$t6,0x4($v0)
-/*    2d4b8:	27ac0294 */ 	addiu	$t4,$sp,0x294
-/*    2d4bc:	27ab0298 */ 	addiu	$t3,$sp,0x298
-/*    2d4c0:	01c32821 */ 	addu	$a1,$t6,$v1
-/*    2d4c4:	afa502d0 */ 	sw	$a1,0x2d0($sp)
-/*    2d4c8:	afab0028 */ 	sw	$t3,0x28($sp)
-/*    2d4cc:	afac0038 */ 	sw	$t4,0x38($sp)
-/*    2d4d0:	afa8003c */ 	sw	$t0,0x3c($sp)
-/*    2d4d4:	afb40034 */ 	sw	$s4,0x34($sp)
-/*    2d4d8:	afb30030 */ 	sw	$s3,0x30($sp)
-/*    2d4dc:	afb2002c */ 	sw	$s2,0x2c($sp)
-/*    2d4e0:	e7b60024 */ 	swc1	$f22,0x24($sp)
-/*    2d4e4:	e7b40020 */ 	swc1	$f20,0x20($sp)
-/*    2d4e8:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2d4ec:	8fa602e0 */ 	lw	$a2,0x2e0($sp)
-/*    2d4f0:	8fa702e4 */ 	lw	$a3,0x2e4($sp)
-/*    2d4f4:	afb90014 */ 	sw	$t9,0x14($sp)
-/*    2d4f8:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*    2d4fc:	0c00b1c5 */ 	jal	cdExamAToBGeolist
-/*    2d500:	afa90018 */ 	sw	$t1,0x18($sp)
-/*    2d504:	1440000b */ 	bnez	$v0,.L0002d534
-/*    2d508:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*    2d50c:	c7b00298 */ 	lwc1	$f16,0x298($sp)
-/*    2d510:	8fae0294 */ 	lw	$t6,0x294($sp)
-/*    2d514:	afad02c0 */ 	sw	$t5,0x2c0($sp)
-/*    2d518:	02602025 */ 	or	$a0,$s3,$zero
-/*    2d51c:	02802825 */ 	or	$a1,$s4,$zero
-/*    2d520:	02403025 */ 	or	$a2,$s2,$zero
-/*    2d524:	00003825 */ 	or	$a3,$zero,$zero
-/*    2d528:	e7b00010 */ 	swc1	$f16,0x10($sp)
-/*    2d52c:	0c009495 */ 	jal	cdSetObstacleVtxColPropFltGeo
-/*    2d530:	afae0014 */ 	sw	$t6,0x14($sp)
-.L0002d534:
-/*    2d534:	86080002 */ 	lh	$t0,0x2($s0)
-.L0002d538:
-/*    2d538:	26100002 */ 	addiu	$s0,$s0,0x2
-/*    2d53c:	5511ffcf */ 	bnel	$t0,$s1,.L0002d47c
-/*    2d540:	8ea90000 */ 	lw	$t1,0x0($s5)
-.L0002d544:
-/*    2d544:	27b00090 */ 	addiu	$s0,$sp,0x90
-/*    2d548:	27b202b4 */ 	addiu	$s2,$sp,0x2b4
-/*    2d54c:	27b302a8 */ 	addiu	$s3,$sp,0x2a8
-/*    2d550:	27b4029c */ 	addiu	$s4,$sp,0x29c
-/*    2d554:	c7b402fc */ 	lwc1	$f20,0x2fc($sp)
-/*    2d558:	c7b60300 */ 	lwc1	$f22,0x300($sp)
-/*    2d55c:	02002825 */ 	or	$a1,$s0,$zero
-/*    2d560:	03c02025 */ 	or	$a0,$s8,$zero
-/*    2d564:	0fc197e0 */ 	jal	roomGetProps
-/*    2d568:	24060100 */ 	addiu	$a2,$zero,0x100
-/*    2d56c:	87af0090 */ 	lh	$t7,0x90($sp)
-/*    2d570:	02008825 */ 	or	$s1,$s0,$zero
-/*    2d574:	27b80090 */ 	addiu	$t8,$sp,0x90
-/*    2d578:	05e0003b */ 	bltz	$t7,.L0002d668
-/*    2d57c:	27be02d0 */ 	addiu	$s8,$sp,0x2d0
-/*    2d580:	3c16800a */ 	lui	$s6,%hi(g_Vars)
-/*    2d584:	26d69fc0 */ 	addiu	$s6,$s6,%lo(g_Vars)
-/*    2d588:	87020000 */ 	lh	$v0,0x0($t8)
-/*    2d58c:	27b702d4 */ 	addiu	$s7,$sp,0x2d4
-/*    2d590:	24150048 */ 	addiu	$s5,$zero,0x48
-.L0002d594:
-/*    2d594:	00550019 */ 	multu	$v0,$s5
-/*    2d598:	8ec90338 */ 	lw	$t1,0x338($s6)
-/*    2d59c:	8fa502ec */ 	lw	$a1,0x2ec($sp)
-/*    2d5a0:	0000c812 */ 	mflo	$t9
-/*    2d5a4:	03298021 */ 	addu	$s0,$t9,$t1
-/*    2d5a8:	0fc19553 */ 	jal	propIsOfCdType
-/*    2d5ac:	02002025 */ 	or	$a0,$s0,$zero
-/*    2d5b0:	10400029 */ 	beqz	$v0,.L0002d658
-/*    2d5b4:	02002025 */ 	or	$a0,$s0,$zero
-/*    2d5b8:	02e02825 */ 	or	$a1,$s7,$zero
-/*    2d5bc:	0fc198a4 */ 	jal	propUpdateGeometry
-/*    2d5c0:	03c03025 */ 	or	$a2,$s8,$zero
-/*    2d5c4:	10400024 */ 	beqz	$v0,.L0002d658
-/*    2d5c8:	8fa402d4 */ 	lw	$a0,0x2d4($sp)
-/*    2d5cc:	97ab02f2 */ 	lhu	$t3,0x2f2($sp)
-/*    2d5d0:	8fac02f4 */ 	lw	$t4,0x2f4($sp)
-/*    2d5d4:	8fad02f8 */ 	lw	$t5,0x2f8($sp)
-/*    2d5d8:	27aa02c4 */ 	addiu	$t2,$sp,0x2c4
-/*    2d5dc:	27ae0298 */ 	addiu	$t6,$sp,0x298
-/*    2d5e0:	27af0294 */ 	addiu	$t7,$sp,0x294
-/*    2d5e4:	2418fc19 */ 	addiu	$t8,$zero,-999
-/*    2d5e8:	afb8003c */ 	sw	$t8,0x3c($sp)
-/*    2d5ec:	afaf0038 */ 	sw	$t7,0x38($sp)
-/*    2d5f0:	afae0028 */ 	sw	$t6,0x28($sp)
-/*    2d5f4:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*    2d5f8:	8fa502d0 */ 	lw	$a1,0x2d0($sp)
-/*    2d5fc:	8fa602e0 */ 	lw	$a2,0x2e0($sp)
-/*    2d600:	8fa702e4 */ 	lw	$a3,0x2e4($sp)
-/*    2d604:	e7b40020 */ 	swc1	$f20,0x20($sp)
-/*    2d608:	e7b60024 */ 	swc1	$f22,0x24($sp)
-/*    2d60c:	afb2002c */ 	sw	$s2,0x2c($sp)
-/*    2d610:	afb30030 */ 	sw	$s3,0x30($sp)
-/*    2d614:	afb40034 */ 	sw	$s4,0x34($sp)
-/*    2d618:	afab0014 */ 	sw	$t3,0x14($sp)
-/*    2d61c:	afac0018 */ 	sw	$t4,0x18($sp)
-/*    2d620:	0c00b1c5 */ 	jal	cdExamAToBGeolist
-/*    2d624:	afad001c */ 	sw	$t5,0x1c($sp)
-/*    2d628:	1440000b */ 	bnez	$v0,.L0002d658
-/*    2d62c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    2d630:	c7b20298 */ 	lwc1	$f18,0x298($sp)
-/*    2d634:	8fa90294 */ 	lw	$t1,0x294($sp)
-/*    2d638:	afb902c0 */ 	sw	$t9,0x2c0($sp)
-/*    2d63c:	02602025 */ 	or	$a0,$s3,$zero
-/*    2d640:	02802825 */ 	or	$a1,$s4,$zero
-/*    2d644:	02403025 */ 	or	$a2,$s2,$zero
-/*    2d648:	02003825 */ 	or	$a3,$s0,$zero
-/*    2d64c:	e7b20010 */ 	swc1	$f18,0x10($sp)
-/*    2d650:	0c009495 */ 	jal	cdSetObstacleVtxColPropFltGeo
-/*    2d654:	afa90014 */ 	sw	$t1,0x14($sp)
-.L0002d658:
-/*    2d658:	86220002 */ 	lh	$v0,0x2($s1)
-/*    2d65c:	26310002 */ 	addiu	$s1,$s1,0x2
-/*    2d660:	0441ffcc */ 	bgez	$v0,.L0002d594
-/*    2d664:	00000000 */ 	nop
-.L0002d668:
-/*    2d668:	8fa202c0 */ 	lw	$v0,0x2c0($sp)
-/*    2d66c:	8fbf007c */ 	lw	$ra,0x7c($sp)
-/*    2d670:	d7b40048 */ 	ldc1	$f20,0x48($sp)
-/*    2d674:	d7b60050 */ 	ldc1	$f22,0x50($sp)
-/*    2d678:	8fb00058 */ 	lw	$s0,0x58($sp)
-/*    2d67c:	8fb1005c */ 	lw	$s1,0x5c($sp)
-/*    2d680:	8fb20060 */ 	lw	$s2,0x60($sp)
-/*    2d684:	8fb30064 */ 	lw	$s3,0x64($sp)
-/*    2d688:	8fb40068 */ 	lw	$s4,0x68($sp)
-/*    2d68c:	8fb5006c */ 	lw	$s5,0x6c($sp)
-/*    2d690:	8fb60070 */ 	lw	$s6,0x70($sp)
-/*    2d694:	8fb70074 */ 	lw	$s7,0x74($sp)
-/*    2d698:	8fbe0078 */ 	lw	$s8,0x78($sp)
-/*    2d69c:	2c4a0001 */ 	sltiu	$t2,$v0,0x1
-/*    2d6a0:	01401025 */ 	or	$v0,$t2,$zero
-/*    2d6a4:	03e00008 */ 	jr	$ra
-/*    2d6a8:	27bd02e0 */ 	addiu	$sp,$sp,0x2e0
-);
-#else
-// Mismatch: Calculation of g_TileRooms[roomnum] is different
-// Other functions and the below use t3 as the offset, t2 as the base, then t2 + t3
-// But goal for this function uses t2 as the offset, t3 as the base, then t2 + t3
 s32 cdExamAToB(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin)
 {
 	s32 roomnum;
@@ -4440,8 +4232,9 @@ s32 cdExamAToB(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u1
 
 		while (roomnum != -1) {
 			if (roomnum < g_TileNumRooms) {
-				start = g_TileFileData.u8 + g_TileRooms[roomnum];
-				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
+				u32 *ptr = &g_TileRooms[roomnum];
+				start = g_TileFileData.u8 + ptr[0];
+				end = g_TileFileData.u8 + ptr[1];
 
 				if (!cdExamAToBGeolist(start, end, arg0, arg1, &sp2c4, geoflags, checkvertical, arg6, ymax, ymin, &sp298, &sp2b4, &sp2a8, &sp29c, &sp294, roomnum)) {
 					sp2c0 = true;
@@ -4472,7 +4265,6 @@ s32 cdExamAToB(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u1
 
 	return !sp2c0;
 }
-#endif
 
 bool cdTestCylMove01(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 ymax, f32 ymin)
 {
