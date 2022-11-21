@@ -393,8 +393,7 @@ void memaPrint(void)
 #endif
 }
 
-#if MATCHING
-#if VERSION >= VERSION_NTSC_1_0
+#if MATCHING && VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel memaAlloc
 /*    12ab0:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -510,125 +509,21 @@ glabel memaAlloc
 /*    12c38:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 #else
-GLOBAL_ASM(
-glabel memaAlloc
-/*    13324:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    13328:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    1332c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    13330:	00809025 */ 	or	$s2,$a0,$zero
-/*    13334:	afb50028 */ 	sw	$s5,0x28($sp)
-/*    13338:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    1333c:	3c11800a */ 	lui	$s1,0x800a
-/*    13340:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    13344:	afb40024 */ 	sw	$s4,0x24($sp)
-/*    13348:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    1334c:	2631c404 */ 	addiu	$s1,$s1,-15356
-/*    13350:	2404ffff */ 	addiu	$a0,$zero,-1
-/*    13354:	00002825 */ 	or	$a1,$zero,$zero
-/*    13358:	00008025 */ 	or	$s0,$zero,$zero
-/*    1335c:	2415ffff */ 	addiu	$s5,$zero,-1
-/*    13360:	24060010 */ 	addiu	$a2,$zero,0x10
-.NB00013364:
-/*    13364:	8e230004 */ 	lw	$v1,0x4($s1)
-/*    13368:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    1336c:	0072082b */ 	sltu	$at,$v1,$s2
-/*    13370:	1420000e */ 	bnez	$at,.NB000133ac
-/*    13374:	00721023 */ 	subu	$v0,$v1,$s2
-/*    13378:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*    1337c:	0044082b */ 	sltu	$at,$v0,$a0
-/*    13380:	00127882 */ 	srl	$t7,$s2,0x2
-/*    13384:	12ae000b */ 	beq	$s5,$t6,.NB000133b4
-/*    13388:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1338c:	10200007 */ 	beqz	$at,.NB000133ac
-/*    13390:	2c410040 */ 	sltiu	$at,$v0,0x40
-/*    13394:	00402025 */ 	or	$a0,$v0,$zero
-/*    13398:	14200006 */ 	bnez	$at,.NB000133b4
-/*    1339c:	02202825 */ 	or	$a1,$s1,$zero
-/*    133a0:	004f082b */ 	sltu	$at,$v0,$t7
-/*    133a4:	14200003 */ 	bnez	$at,.NB000133b4
-/*    133a8:	00000000 */ 	sll	$zero,$zero,0x0
-.NB000133ac:
-/*    133ac:	1606ffed */ 	bne	$s0,$a2,.NB00013364
-/*    133b0:	26310008 */ 	addiu	$s1,$s1,0x8
-.NB000133b4:
-/*    133b4:	54a00027 */ 	bnezl	$a1,.NB00013454
-/*    133b8:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*    133bc:	8e380004 */ 	lw	$t8,0x4($s1)
-/*    133c0:	00008025 */ 	or	$s0,$zero,$zero
-/*    133c4:	24140008 */ 	addiu	$s4,$zero,0x8
-/*    133c8:	0312082b */ 	sltu	$at,$t8,$s2
-/*    133cc:	10200006 */ 	beqz	$at,.NB000133e8
-/*    133d0:	3c13800a */ 	lui	$s3,0x800a
-/*    133d4:	8e39000c */ 	lw	$t9,0xc($s1)
-.NB000133d8:
-/*    133d8:	26310008 */ 	addiu	$s1,$s1,0x8
-/*    133dc:	0332082b */ 	sltu	$at,$t9,$s2
-/*    133e0:	5420fffd */ 	bnezl	$at,.NB000133d8
-/*    133e4:	8e39000c */ 	lw	$t9,0xc($s1)
-.NB000133e8:
-/*    133e8:	8e280000 */ 	lw	$t0,0x0($s1)
-/*    133ec:	2673c3f8 */ 	addiu	$s3,$s3,-15368
-/*    133f0:	56a80017 */ 	bnel	$s5,$t0,.NB00013450
-/*    133f4:	02202825 */ 	or	$a1,$s1,$zero
-/*    133f8:	3c11800a */ 	lui	$s1,0x800a
-/*    133fc:	2631c404 */ 	addiu	$s1,$s1,-15356
-.NB00013400:
-/*    13400:	0c004b24 */ 	jal	memaDefragPass
-/*    13404:	02602025 */ 	or	$a0,$s3,$zero
-/*    13408:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    1340c:	1614fffc */ 	bne	$s0,$s4,.NB00013400
-/*    13410:	00000000 */ 	sll	$zero,$zero,0x0
-/*    13414:	8e690010 */ 	lw	$t1,0x10($s3)
-/*    13418:	0132082b */ 	sltu	$at,$t1,$s2
-/*    1341c:	50200007 */ 	beqzl	$at,.NB0001343c
-/*    13420:	8e2b0000 */ 	lw	$t3,0x0($s1)
-/*    13424:	8e2a000c */ 	lw	$t2,0xc($s1)
-.NB00013428:
-/*    13428:	26310008 */ 	addiu	$s1,$s1,0x8
-/*    1342c:	0152082b */ 	sltu	$at,$t2,$s2
-/*    13430:	5420fffd */ 	bnezl	$at,.NB00013428
-/*    13434:	8e2a000c */ 	lw	$t2,0xc($s1)
-/*    13438:	8e2b0000 */ 	lw	$t3,0x0($s1)
-.NB0001343c:
-/*    1343c:	56ab0004 */ 	bnel	$s5,$t3,.NB00013450
-/*    13440:	02202825 */ 	or	$a1,$s1,$zero
-/*    13444:	1000000b */ 	beqz	$zero,.NB00013474
-/*    13448:	00001025 */ 	or	$v0,$zero,$zero
-/*    1344c:	02202825 */ 	or	$a1,$s1,$zero
-.NB00013450:
-/*    13450:	8ca30000 */ 	lw	$v1,0x0($a1)
-.NB00013454:
-/*    13454:	8cad0004 */ 	lw	$t5,0x4($a1)
-/*    13458:	00726021 */ 	addu	$t4,$v1,$s2
-/*    1345c:	01b27023 */ 	subu	$t6,$t5,$s2
-/*    13460:	acac0000 */ 	sw	$t4,0x0($a1)
-/*    13464:	15c00002 */ 	bnez	$t6,.NB00013470
-/*    13468:	acae0004 */ 	sw	$t6,0x4($a1)
-/*    1346c:	aca00000 */ 	sw	$zero,0x0($a1)
-.NB00013470:
-/*    13470:	00601025 */ 	or	$v0,$v1,$zero
-.NB00013474:
-/*    13474:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    13478:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    1347c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    13480:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    13484:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    13488:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*    1348c:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*    13490:	03e00008 */ 	jr	$ra
-/*    13494:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
-#endif
-#else
 void *memaAlloc(u32 size)
 {
 	u32 addr;
 	u32 diff;
 	s32 i;
 
-	struct memaspace *curr = &g_MemaHeap.spaces[0];
-	u32 bestdiff = 0xffffffff;
-	struct memaspace *best = NULL;
+	struct memaspace *curr;
+	u32 bestdiff;
+	struct memaspace *best;
+
+	if (1);
+
+	curr = &g_MemaHeap.spaces[0];
+	bestdiff = 0xffffffff;
+	best = NULL;
 
 	// Iterate up to the first 16 spaces, looking for the
 	// smallest space that will accommodate the requested size.
