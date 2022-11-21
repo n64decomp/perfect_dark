@@ -53,7 +53,7 @@ struct blendsettings {
 };
 
 #if VERSION == VERSION_JPN_FINAL
-u8 jpnfill5[0x2a8];
+s32 g_JpnKerning[13 * 13];
 #endif
 
 struct blendsettings g_Blend;
@@ -276,244 +276,6 @@ void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontch
 #endif
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel textReset
-/*  f1529d4:	3c018008 */ 	lui	$at,0x8008
-/*  f1529d8:	ac200128 */ 	sw	$zero,0x128($at)
-/*  f1529dc:	3c018008 */ 	lui	$at,0x8008
-/*  f1529e0:	3c068008 */ 	lui	$a2,0x8008
-/*  f1529e4:	ac200130 */ 	sw	$zero,0x130($at)
-/*  f1529e8:	24c60138 */ 	addiu	$a2,$a2,0x138
-/*  f1529ec:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f1529f0:	3c018008 */ 	lui	$at,0x8008
-/*  f1529f4:	ac200140 */ 	sw	$zero,0x140($at)
-/*  f1529f8:	3c018008 */ 	lui	$at,0x8008
-/*  f1529fc:	ac200148 */ 	sw	$zero,0x148($at)
-/*  f152a00:	3c018008 */ 	lui	$at,0x8008
-/*  f152a04:	ac200150 */ 	sw	$zero,0x150($at)
-/*  f152a08:	3c018008 */ 	lui	$at,0x8008
-/*  f152a0c:	ac200158 */ 	sw	$zero,0x158($at)
-/*  f152a10:	3c018008 */ 	lui	$at,0x8008
-/*  f152a14:	ac200160 */ 	sw	$zero,0x160($at)
-/*  f152a18:	3c018008 */ 	lui	$at,0x8008
-/*  f152a1c:	ac200168 */ 	sw	$zero,0x168($at)
-/*  f152a20:	3c018008 */ 	lui	$at,0x8008
-/*  f152a24:	ac200170 */ 	sw	$zero,0x170($at)
-/*  f152a28:	3c018008 */ 	lui	$at,0x8008
-/*  f152a2c:	ac20012c */ 	sw	$zero,0x12c($at)
-/*  f152a30:	3c018008 */ 	lui	$at,0x8008
-/*  f152a34:	3c078008 */ 	lui	$a3,0x8008
-/*  f152a38:	ac200134 */ 	sw	$zero,0x134($at)
-/*  f152a3c:	24e7013c */ 	addiu	$a3,$a3,0x13c
-/*  f152a40:	ace00000 */ 	sw	$zero,0x0($a3)
-/*  f152a44:	3c018008 */ 	lui	$at,0x8008
-/*  f152a48:	ac200144 */ 	sw	$zero,0x144($at)
-/*  f152a4c:	3c018008 */ 	lui	$at,0x8008
-/*  f152a50:	ac20014c */ 	sw	$zero,0x14c($at)
-/*  f152a54:	3c018008 */ 	lui	$at,0x8008
-/*  f152a58:	ac200154 */ 	sw	$zero,0x154($at)
-/*  f152a5c:	3c018008 */ 	lui	$at,0x8008
-/*  f152a60:	ac20015c */ 	sw	$zero,0x15c($at)
-/*  f152a64:	3c018008 */ 	lui	$at,0x8008
-/*  f152a68:	ac200164 */ 	sw	$zero,0x164($at)
-/*  f152a6c:	3c018008 */ 	lui	$at,0x8008
-/*  f152a70:	ac20016c */ 	sw	$zero,0x16c($at)
-/*  f152a74:	3c018008 */ 	lui	$at,0x8008
-/*  f152a78:	ac200174 */ 	sw	$zero,0x174($at)
-/*  f152a7c:	3c018008 */ 	lui	$at,0x8008
-/*  f152a80:	ac2000fc */ 	sw	$zero,0xfc($at)
-/*  f152a84:	3c018008 */ 	lui	$at,0x8008
-/*  f152a88:	ac200100 */ 	sw	$zero,0x100($at)
-/*  f152a8c:	3c018008 */ 	lui	$at,0x8008
-/*  f152a90:	ac200104 */ 	sw	$zero,0x104($at)
-/*  f152a94:	3c018008 */ 	lui	$at,0x8008
-/*  f152a98:	240effff */ 	li	$t6,-1
-/*  f152a9c:	ac2e0110 */ 	sw	$t6,0x110($at)
-/*  f152aa0:	3c018008 */ 	lui	$at,0x8008
-/*  f152aa4:	ac200114 */ 	sw	$zero,0x114($at)
-/*  f152aa8:	3c018008 */ 	lui	$at,0x8008
-/*  f152aac:	ac200118 */ 	sw	$zero,0x118($at)
-/*  f152ab0:	3c018008 */ 	lui	$at,0x8008
-/*  f152ab4:	ac20011c */ 	sw	$zero,0x11c($at)
-/*  f152ab8:	3c018008 */ 	lui	$at,0x8008
-/*  f152abc:	ac200120 */ 	sw	$zero,0x120($at)
-/*  f152ac0:	3c02800a */ 	lui	$v0,0x800a
-/*  f152ac4:	8c42aae4 */ 	lw	$v0,-0x551c($v0)
-/*  f152ac8:	3c018008 */ 	lui	$at,0x8008
-/*  f152acc:	ac200124 */ 	sw	$zero,0x124($at)
-/*  f152ad0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f152ad4:	2401005a */ 	li	$at,0x5a
-/*  f152ad8:	14410021 */ 	bne	$v0,$at,.JF0f152b60
-/*  f152adc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f152ae0:	3c04007f */ 	lui	$a0,0x7f
-/*  f152ae4:	3c05007f */ 	lui	$a1,0x7f
-/*  f152ae8:	3c068008 */ 	lui	$a2,0x8008
-/*  f152aec:	3c078008 */ 	lui	$a3,0x8008
-/*  f152af0:	24e7014c */ 	addiu	$a3,$a3,0x14c
-/*  f152af4:	24c60148 */ 	addiu	$a2,$a2,0x148
-/*  f152af8:	24a5c640 */ 	addiu	$a1,$a1,-14784
-/*  f152afc:	248493c0 */ 	addiu	$a0,$a0,-27712
-/*  f152b00:	0fc54a2f */ 	jal	textLoadFont
-/*  f152b04:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f152b08:	3c04007f */ 	lui	$a0,0x7f
-/*  f152b0c:	3c05007f */ 	lui	$a1,0x7f
-/*  f152b10:	3c068008 */ 	lui	$a2,0x8008
-/*  f152b14:	3c078008 */ 	lui	$a3,0x8008
-/*  f152b18:	24e70154 */ 	addiu	$a3,$a3,0x154
-/*  f152b1c:	24c60150 */ 	addiu	$a2,$a2,0x150
-/*  f152b20:	24a52d00 */ 	addiu	$a1,$a1,0x2d00
-/*  f152b24:	2484ecb0 */ 	addiu	$a0,$a0,-4944
-/*  f152b28:	0fc54a2f */ 	jal	textLoadFont
-/*  f152b2c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f152b30:	3c04007f */ 	lui	$a0,0x7f
-/*  f152b34:	3c05007f */ 	lui	$a1,0x7f
-/*  f152b38:	3c068008 */ 	lui	$a2,0x8008
-/*  f152b3c:	3c078008 */ 	lui	$a3,0x8008
-/*  f152b40:	24e7015c */ 	addiu	$a3,$a3,0x15c
-/*  f152b44:	24c60158 */ 	addiu	$a2,$a2,0x158
-/*  f152b48:	24a561c0 */ 	addiu	$a1,$a1,0x61c0
-/*  f152b4c:	24842d00 */ 	addiu	$a0,$a0,0x2d00
-/*  f152b50:	0fc54a2f */ 	jal	textLoadFont
-/*  f152b54:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f152b58:	1000007b */ 	b	.JF0f152d48
-/*  f152b5c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.JF0f152b60:
-/*  f152b60:	2401005c */ 	li	$at,0x5c
-/*  f152b64:	1441002b */ 	bne	$v0,$at,.JF0f152c14
-/*  f152b68:	3c04007f */ 	lui	$a0,0x7f
-/*  f152b6c:	3c04007f */ 	lui	$a0,0x7f
-/*  f152b70:	3c05007f */ 	lui	$a1,0x7f
-/*  f152b74:	3c068008 */ 	lui	$a2,0x8008
-/*  f152b78:	3c078008 */ 	lui	$a3,0x8008
-/*  f152b7c:	24e70144 */ 	addiu	$a3,$a3,0x144
-/*  f152b80:	24c60140 */ 	addiu	$a2,$a2,0x140
-/*  f152b84:	24a5ecb0 */ 	addiu	$a1,$a1,-4944
-/*  f152b88:	2484c640 */ 	addiu	$a0,$a0,-14784
-/*  f152b8c:	0fc54a2f */ 	jal	textLoadFont
-/*  f152b90:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f152b94:	3c068008 */ 	lui	$a2,0x8008
-/*  f152b98:	3c04007f */ 	lui	$a0,0x7f
-/*  f152b9c:	3c05007f */ 	lui	$a1,0x7f
-/*  f152ba0:	3c078008 */ 	lui	$a3,0x8008
-/*  f152ba4:	24c60148 */ 	addiu	$a2,$a2,0x148
-/*  f152ba8:	24e7014c */ 	addiu	$a3,$a3,0x14c
-/*  f152bac:	24a5c640 */ 	addiu	$a1,$a1,-14784
-/*  f152bb0:	248493c0 */ 	addiu	$a0,$a0,-27712
-/*  f152bb4:	0fc54a2f */ 	jal	textLoadFont
-/*  f152bb8:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f152bbc:	3c04007f */ 	lui	$a0,0x7f
-/*  f152bc0:	3c05007f */ 	lui	$a1,0x7f
-/*  f152bc4:	3c068008 */ 	lui	$a2,0x8008
-/*  f152bc8:	3c078008 */ 	lui	$a3,0x8008
-/*  f152bcc:	24e70154 */ 	addiu	$a3,$a3,0x154
-/*  f152bd0:	24c60150 */ 	addiu	$a2,$a2,0x150
-/*  f152bd4:	24a52d00 */ 	addiu	$a1,$a1,0x2d00
-/*  f152bd8:	2484ecb0 */ 	addiu	$a0,$a0,-4944
-/*  f152bdc:	0fc54a2f */ 	jal	textLoadFont
-/*  f152be0:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f152be4:	3c04007f */ 	lui	$a0,0x7f
-/*  f152be8:	3c05007f */ 	lui	$a1,0x7f
-/*  f152bec:	3c068008 */ 	lui	$a2,0x8008
-/*  f152bf0:	3c078008 */ 	lui	$a3,0x8008
-/*  f152bf4:	24e7015c */ 	addiu	$a3,$a3,0x15c
-/*  f152bf8:	24c60158 */ 	addiu	$a2,$a2,0x158
-/*  f152bfc:	24a561c0 */ 	addiu	$a1,$a1,0x61c0
-/*  f152c00:	24842d00 */ 	addiu	$a0,$a0,0x2d00
-/*  f152c04:	0fc54a2f */ 	jal	textLoadFont
-/*  f152c08:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f152c0c:	1000004e */ 	b	.JF0f152d48
-/*  f152c10:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.JF0f152c14:
-/*  f152c14:	3c05007f */ 	lui	$a1,0x7f
-/*  f152c18:	24a593c0 */ 	addiu	$a1,$a1,-27712
-/*  f152c1c:	248481b0 */ 	addiu	$a0,$a0,-32336
-/*  f152c20:	0fc54a2f */ 	jal	textLoadFont
-/*  f152c24:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f152c28:	3c0f800a */ 	lui	$t7,0x800a
-/*  f152c2c:	8defa948 */ 	lw	$t7,-0x56b8($t7)
-/*  f152c30:	3c068008 */ 	lui	$a2,0x8008
-/*  f152c34:	24c60148 */ 	addiu	$a2,$a2,0x148
-/*  f152c38:	11e00011 */ 	beqz	$t7,.JF0f152c80
-/*  f152c3c:	3c188009 */ 	lui	$t8,0x8009
-/*  f152c40:	93181160 */ 	lbu	$t8,0x1160($t8)
-/*  f152c44:	24010001 */ 	li	$at,0x1
-/*  f152c48:	3c02800a */ 	lui	$v0,0x800a
-/*  f152c4c:	1701000c */ 	bne	$t8,$at,.JF0f152c80
-/*  f152c50:	24424cf0 */ 	addiu	$v0,$v0,0x4cf0
-/*  f152c54:	3c03800a */ 	lui	$v1,0x800a
-/*  f152c58:	24634f94 */ 	addiu	$v1,$v1,0x4f94
-.JF0f152c5c:
-/*  f152c5c:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f152c60:	1443fffe */ 	bne	$v0,$v1,.JF0f152c5c
-/*  f152c64:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*  f152c68:	3c19800a */ 	lui	$t9,0x800a
-/*  f152c6c:	27394cf0 */ 	addiu	$t9,$t9,0x4cf0
-/*  f152c70:	acd90000 */ 	sw	$t9,0x0($a2)
-/*  f152c74:	3c018008 */ 	lui	$at,0x8008
-/*  f152c78:	10000032 */ 	b	.JF0f152d44
-/*  f152c7c:	ac390140 */ 	sw	$t9,0x140($at)
-.JF0f152c80:
-/*  f152c80:	3c04007f */ 	lui	$a0,0x7f
-/*  f152c84:	3c05007f */ 	lui	$a1,0x7f
-/*  f152c88:	3c078008 */ 	lui	$a3,0x8008
-/*  f152c8c:	24e7014c */ 	addiu	$a3,$a3,0x14c
-/*  f152c90:	24a5c640 */ 	addiu	$a1,$a1,-14784
-/*  f152c94:	248493c0 */ 	addiu	$a0,$a0,-27712
-/*  f152c98:	0fc54a2f */ 	jal	textLoadFont
-/*  f152c9c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f152ca0:	3c09800a */ 	lui	$t1,0x800a
-/*  f152ca4:	8d29a948 */ 	lw	$t1,-0x56b8($t1)
-/*  f152ca8:	3c04007f */ 	lui	$a0,0x7f
-/*  f152cac:	3c0a8009 */ 	lui	$t2,0x8009
-/*  f152cb0:	11200004 */ 	beqz	$t1,.JF0f152cc4
-/*  f152cb4:	2484ecb0 */ 	addiu	$a0,$a0,-4944
-/*  f152cb8:	914a1160 */ 	lbu	$t2,0x1160($t2)
-/*  f152cbc:	24010001 */ 	li	$at,0x1
-/*  f152cc0:	11410008 */ 	beq	$t2,$at,.JF0f152ce4
-.JF0f152cc4:
-/*  f152cc4:	3c05007f */ 	lui	$a1,0x7f
-/*  f152cc8:	3c068008 */ 	lui	$a2,0x8008
-/*  f152ccc:	3c078008 */ 	lui	$a3,0x8008
-/*  f152cd0:	24e70154 */ 	addiu	$a3,$a3,0x154
-/*  f152cd4:	24c60150 */ 	addiu	$a2,$a2,0x150
-/*  f152cd8:	24a52d00 */ 	addiu	$a1,$a1,0x2d00
-/*  f152cdc:	0fc54a2f */ 	jal	textLoadFont
-/*  f152ce0:	afa00010 */ 	sw	$zero,0x10($sp)
-.JF0f152ce4:
-/*  f152ce4:	3c0b800a */ 	lui	$t3,0x800a
-/*  f152ce8:	8d6baae4 */ 	lw	$t3,-0x551c($t3)
-/*  f152cec:	2401004e */ 	li	$at,0x4e
-/*  f152cf0:	3c04007f */ 	lui	$a0,0x7f
-/*  f152cf4:	15610009 */ 	bne	$t3,$at,.JF0f152d1c
-/*  f152cf8:	24842d00 */ 	addiu	$a0,$a0,0x2d00
-/*  f152cfc:	3c05007f */ 	lui	$a1,0x7f
-/*  f152d00:	3c068008 */ 	lui	$a2,0x8008
-/*  f152d04:	3c078008 */ 	lui	$a3,0x8008
-/*  f152d08:	24e7015c */ 	addiu	$a3,$a3,0x15c
-/*  f152d0c:	24c60158 */ 	addiu	$a2,$a2,0x158
-/*  f152d10:	24a561c0 */ 	addiu	$a1,$a1,0x61c0
-/*  f152d14:	0fc54a2f */ 	jal	textLoadFont
-/*  f152d18:	afa00010 */ 	sw	$zero,0x10($sp)
-.JF0f152d1c:
-/*  f152d1c:	3c04007f */ 	lui	$a0,0x7f
-/*  f152d20:	3c05007f */ 	lui	$a1,0x7f
-/*  f152d24:	3c068008 */ 	lui	$a2,0x8008
-/*  f152d28:	3c078008 */ 	lui	$a3,0x8008
-/*  f152d2c:	24e70144 */ 	addiu	$a3,$a3,0x144
-/*  f152d30:	24c60140 */ 	addiu	$a2,$a2,0x140
-/*  f152d34:	24a5ecb0 */ 	addiu	$a1,$a1,-4944
-/*  f152d38:	2484c640 */ 	addiu	$a0,$a0,-14784
-/*  f152d3c:	0fc54a2f */ 	jal	textLoadFont
-/*  f152d40:	afa00010 */ 	sw	$zero,0x10($sp)
-.JF0f152d44:
-/*  f152d44:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.JF0f152d48:
-/*  f152d48:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f152d4c:	03e00008 */ 	jr	$ra
-/*  f152d50:	00000000 */ 	nop
-);
-#else
 void textReset(void)
 {
 	extern u8 _fontbankgothicSegmentRomStart,     _fontbankgothicSegmentRomEnd;
@@ -569,29 +331,60 @@ void textReset(void)
 		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
 		textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 	} else {
-#if !PAL
-		// This unused GE font exists in NTSC but was removed in the PAL version
-		textLoadFont(&_fonttahomaSegmentRomStart, &_fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
-#endif
-
+#if VERSION >= VERSION_JPN_FINAL
 		textLoadFont(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
-		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+
+		if (g_Vars.normmplayerisrunning) {
+			if (IS4MB()) {
+				s32 i;
+
+				for (i = 0; i < 169; i++) {
+					g_JpnKerning[i] = 0;
+				}
+
+				g_FontHandelGothicXs = g_FontHandelGothicSm = (struct font *) g_JpnKerning;
+				return;
+			}
+		}
+
 		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
 
-#if PAL
-		if (!g_Vars.normmplayerisrunning) {
+		if (!g_Vars.normmplayerisrunning || IS8MB()) {
 			textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
 		}
-#else
-		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
-#endif
 
 		if (g_Vars.stagenum == STAGE_TEST_OLD) {
 			textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 		}
+
+		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+#elif VERSION >= VERSION_PAL_BETA
+		textLoadFont(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
+		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+
+		if (!g_Vars.normmplayerisrunning) {
+			textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		}
+
+		if (g_Vars.stagenum == STAGE_TEST_OLD) {
+			textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+		}
+#else
+		// This unused GE font exists in NTSC but was removed in the PAL version
+		textLoadFont(&_fonttahomaSegmentRomStart, &_fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
+
+		textLoadFont(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
+		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+
+		if (g_Vars.stagenum == STAGE_TEST_OLD) {
+			textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+		}
+#endif
 	}
 }
-#endif
 
 Gfx *text0f153628(Gfx *gdl)
 {
