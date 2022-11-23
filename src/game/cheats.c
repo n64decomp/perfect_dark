@@ -140,7 +140,7 @@ bool cheatIsActive(s32 cheat_id)
 		return g_CheatsActiveBank0 & (1 << cheat_id);
 	}
 
-	return g_CheatsActiveBank1 & (1 << cheat_id);
+	return g_CheatsActiveBank1 & (1 << (cheat_id - 32));
 }
 
 void cheatActivate(s32 cheat_id)
@@ -178,7 +178,7 @@ void cheatActivate(s32 cheat_id)
 	if (cheat_id < 32) {
 		g_CheatsActiveBank0 = g_CheatsActiveBank0 | (1 << cheat_id);
 	} else {
-		g_CheatsActiveBank1 = g_CheatsActiveBank1 | (1 << cheat_id);
+		g_CheatsActiveBank1 = g_CheatsActiveBank1 | (1 << (cheat_id - 32));
 	}
 }
 
@@ -215,7 +215,7 @@ void cheatDeactivate(s32 cheat_id)
 	if (cheat_id < 32) {
 		g_CheatsActiveBank0 = g_CheatsActiveBank0 & ~(1 << cheat_id);
 	} else {
-		g_CheatsActiveBank1 = g_CheatsActiveBank1 & ~(1 << cheat_id);
+		g_CheatsActiveBank1 = g_CheatsActiveBank1 & ~(1 << (cheat_id - 32));
 	}
 }
 
@@ -276,13 +276,13 @@ void cheatsReset(void)
 				if (cheat_id < 32) {
 					g_CheatsActiveBank0 = g_CheatsActiveBank0 | (1 << cheat_id);
 				} else {
-					g_CheatsActiveBank1 = g_CheatsActiveBank1 | (1 << cheat_id);
+					g_CheatsActiveBank1 = g_CheatsActiveBank1 | (1 << (cheat_id - 32));
 				}
 			} else {
 				if (cheat_id < 32) {
 					g_CheatsActiveBank0 = g_CheatsActiveBank0 & ~(1 << cheat_id);
 				} else {
-					g_CheatsActiveBank1 = g_CheatsActiveBank1 & ~(1 << cheat_id);
+					g_CheatsActiveBank1 = g_CheatsActiveBank1 & ~(1 << (cheat_id - 32));
 				}
 			}
 		}
