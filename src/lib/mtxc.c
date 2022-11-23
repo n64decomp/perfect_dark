@@ -333,21 +333,21 @@ void mtx00016054(Mtxf *src, Mtxf *dst)
 	u32 src32 = (s32) (src->m[3][2] * var8005ef10[0]);
 	u32 src33 = (s32) (src->m[3][3] * var8005ef10[1]);
 
-	dst->l[0][0] = src00 & 0xffff0000 | src01 >> 16;
-	dst->l[0][1] = src02 & 0xffff0000 | src03 >> 16;
-	dst->l[0][2] = src10 & 0xffff0000 | src11 >> 16;
-	dst->l[0][3] = src12 & 0xffff0000 | src13 >> 16;
-	dst->l[1][0] = src20 & 0xffff0000 | src21 >> 16;
-	dst->l[1][1] = src22 & 0xffff0000 | src23 >> 16;
-	dst->l[1][2] = src30 & 0xffff0000 | src31 >> 16;
-	dst->l[1][3] = src32 & 0xffff0000 | src33 >> 16;
+	dst->l[0][0] = (src00 & 0xffff0000) | src01 >> 16;
+	dst->l[0][1] = (src02 & 0xffff0000) | src03 >> 16;
+	dst->l[0][2] = (src10 & 0xffff0000) | src11 >> 16;
+	dst->l[0][3] = (src12 & 0xffff0000) | src13 >> 16;
+	dst->l[1][0] = (src20 & 0xffff0000) | src21 >> 16;
+	dst->l[1][1] = (src22 & 0xffff0000) | src23 >> 16;
+	dst->l[1][2] = (src30 & 0xffff0000) | src31 >> 16;
+	dst->l[1][3] = (src32 & 0xffff0000) | src33 >> 16;
 
-	dst->l[2][0] = src00 << 16 | src01 & 0xffff;
-	dst->l[2][1] = src02 << 16 | src03 & 0xffff;
-	dst->l[2][2] = src10 << 16 | src11 & 0xffff;
-	dst->l[2][3] = src12 << 16 | src13 & 0xffff;
-	dst->l[3][0] = src20 << 16 | src21 & 0xffff;
-	dst->l[3][1] = src22 << 16 | src23 & 0xffff;
-	dst->l[3][2] = src30 << 16 | src31 & 0xffff;
-	dst->l[3][3] = src32 << 16 | src33 & 0xffff;
+	dst->l[2][0] = src00 << 16 | (src01 & 0xffff);
+	dst->l[2][1] = src02 << 16 | (src03 & 0xffff);
+	dst->l[2][2] = src10 << 16 | (src11 & 0xffff);
+	dst->l[2][3] = src12 << 16 | (src13 & 0xffff);
+	dst->l[3][0] = src20 << 16 | (src21 & 0xffff);
+	dst->l[3][1] = src22 << 16 | (src23 & 0xffff);
+	dst->l[3][2] = src30 << 16 | (src31 & 0xffff);
+	dst->l[3][3] = src32 << 16 | (src33 & 0xffff);
 }
