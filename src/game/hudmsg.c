@@ -526,169 +526,6 @@ void hudmsgCreateWithDuration(char *text, s32 type, struct hudmsgtype *config, s
 			duration60, HUDMSGFLAG_NOCHANNEL);
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel hudmsgCreateAsSubtitle
-/*  f0df2b4:	27bdfe38 */ 	addiu	$sp,$sp,-456
-/*  f0df2b8:	afb3005c */ 	sw	$s3,0x5c($sp)
-/*  f0df2bc:	00809825 */ 	move	$s3,$a0
-/*  f0df2c0:	afbf006c */ 	sw	$ra,0x6c($sp)
-/*  f0df2c4:	afb60068 */ 	sw	$s6,0x68($sp)
-/*  f0df2c8:	afb40060 */ 	sw	$s4,0x60($sp)
-/*  f0df2cc:	afb20058 */ 	sw	$s2,0x58($sp)
-/*  f0df2d0:	00e09025 */ 	move	$s2,$a3
-/*  f0df2d4:	30d400ff */ 	andi	$s4,$a2,0xff
-/*  f0df2d8:	00a0b025 */ 	move	$s6,$a1
-/*  f0df2dc:	afb50064 */ 	sw	$s5,0x64($sp)
-/*  f0df2e0:	afb10054 */ 	sw	$s1,0x54($sp)
-/*  f0df2e4:	afb00050 */ 	sw	$s0,0x50($sp)
-/*  f0df2e8:	f7b40048 */ 	sdc1	$f20,0x48($sp)
-/*  f0df2ec:	afa601d0 */ 	sw	$a2,0x1d0($sp)
-/*  f0df2f0:	0fc257fe */ 	jal	propsndGetDuration60
-/*  f0df2f4:	00e02025 */ 	move	$a0,$a3
-/*  f0df2f8:	24100006 */ 	li	$s0,0x6
-/*  f0df2fc:	16d0000e */ 	bne	$s6,$s0,.JF0f0df338
-/*  f0df300:	00408825 */ 	move	$s1,$v0
-/*  f0df304:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0df308:	8dcea8dc */ 	lw	$t6,-0x5724($t6)
-/*  f0df30c:	160e0007 */ 	bne	$s0,$t6,.JF0f0df32c
-/*  f0df310:	00000000 */ 	nop
-/*  f0df314:	0fc547ce */ 	jal	optionsGetCutsceneSubtitles
-/*  f0df318:	00000000 */ 	nop
-/*  f0df31c:	5040006b */ 	beqzl	$v0,.JF0f0df4cc
-/*  f0df320:	8fbf006c */ 	lw	$ra,0x6c($sp)
-/*  f0df324:	10000004 */ 	b	.JF0f0df338
-/*  f0df328:	2416000b */ 	li	$s6,0xb
-.JF0f0df32c:
-/*  f0df32c:	0fc547cb */ 	jal	optionsGetInGameSubtitles
-/*  f0df330:	00000000 */ 	nop
-/*  f0df334:	10400064 */ 	beqz	$v0,.JF0f0df4c8
-.JF0f0df338:
-/*  f0df338:	0014c880 */ 	sll	$t9,$s4,0x2
-/*  f0df33c:	3c098007 */ 	lui	$t1,0x8007
-/*  f0df340:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f0df344:	8d291504 */ 	lw	$t1,0x1504($t1)
-/*  f0df348:	3c188007 */ 	lui	$t8,0x8007
-/*  f0df34c:	27181540 */ 	addiu	$t8,$t8,0x1540
-/*  f0df350:	00167940 */ 	sll	$t7,$s6,0x5
-/*  f0df354:	01f8a821 */ 	addu	$s5,$t7,$t8
-/*  f0df358:	3c0a800a */ 	lui	$t2,0x800a
-/*  f0df35c:	aea9000c */ 	sw	$t1,0xc($s5)
-/*  f0df360:	8d4aa8dc */ 	lw	$t2,-0x5724($t2)
-/*  f0df364:	560a0040 */ 	bnel	$s0,$t2,.JF0f0df468
-/*  f0df368:	92b80002 */ 	lbu	$t8,0x2($s5)
-/*  f0df36c:	0622003e */ 	bltzl	$s1,.JF0f0df468
-/*  f0df370:	92b80002 */ 	lbu	$t8,0x2($s5)
-/*  f0df374:	0c012847 */ 	jal	strlen
-/*  f0df378:	02602025 */ 	move	$a0,$s3
-/*  f0df37c:	304bffff */ 	andi	$t3,$v0,0xffff
-/*  f0df380:	448b4000 */ 	mtc1	$t3,$f8
-/*  f0df384:	44912000 */ 	mtc1	$s1,$f4
-/*  f0df388:	00009025 */ 	move	$s2,$zero
-/*  f0df38c:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0df390:	05610005 */ 	bgez	$t3,.JF0f0df3a8
-/*  f0df394:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0df398:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0df39c:	44818000 */ 	mtc1	$at,$f16
-/*  f0df3a0:	00000000 */ 	nop
-/*  f0df3a4:	46105280 */ 	add.s	$f10,$f10,$f16
-.JF0f0df3a8:
-/*  f0df3a8:	02608025 */ 	move	$s0,$s3
-/*  f0df3ac:	460a3503 */ 	div.s	$f20,$f6,$f10
-/*  f0df3b0:	24130050 */ 	li	$s3,0x50
-/*  f0df3b4:	24140070 */ 	li	$s4,0x70
-/*  f0df3b8:	27b10088 */ 	addiu	$s1,$sp,0x88
-/*  f0df3bc:	00004025 */ 	move	$t0,$zero
-.JF0f0df3c0:
-/*  f0df3c0:	00002025 */ 	move	$a0,$zero
-/*  f0df3c4:	92030000 */ 	lbu	$v1,0x0($s0)
-.JF0f0df3c8:
-/*  f0df3c8:	14600004 */ 	bnez	$v1,.JF0f0df3dc
-/*  f0df3cc:	00601025 */ 	move	$v0,$v1
-/*  f0df3d0:	24120001 */ 	li	$s2,0x1
-/*  f0df3d4:	1000000b */ 	b	.JF0f0df404
-/*  f0df3d8:	24040001 */ 	li	$a0,0x1
-.JF0f0df3dc:
-/*  f0df3dc:	12620003 */ 	beq	$s3,$v0,.JF0f0df3ec
-/*  f0df3e0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0df3e4:	16820003 */ 	bne	$s4,$v0,.JF0f0df3f4
-/*  f0df3e8:	02286021 */ 	addu	$t4,$s1,$t0
-.JF0f0df3ec:
-/*  f0df3ec:	10000005 */ 	b	.JF0f0df404
-/*  f0df3f0:	24040001 */ 	li	$a0,0x1
-.JF0f0df3f4:
-/*  f0df3f4:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f0df3f8:	310d00ff */ 	andi	$t5,$t0,0xff
-/*  f0df3fc:	a1830000 */ 	sb	$v1,0x0($t4)
-/*  f0df400:	01a04025 */ 	move	$t0,$t5
-.JF0f0df404:
-/*  f0df404:	5080fff0 */ 	beqzl	$a0,.JF0f0df3c8
-/*  f0df408:	92030000 */ 	lbu	$v1,0x0($s0)
-/*  f0df40c:	02287021 */ 	addu	$t6,$s1,$t0
-/*  f0df410:	11000010 */ 	beqz	$t0,.JF0f0df454
-/*  f0df414:	a1c00000 */ 	sb	$zero,0x0($t6)
-/*  f0df418:	44889000 */ 	mtc1	$t0,$f18
-/*  f0df41c:	02202025 */ 	move	$a0,$s1
-/*  f0df420:	02c02825 */ 	move	$a1,$s6
-/*  f0df424:	02a03025 */ 	move	$a2,$s5
-/*  f0df428:	05010005 */ 	bgez	$t0,.JF0f0df440
-/*  f0df42c:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f0df430:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0df434:	44814000 */ 	mtc1	$at,$f8
-/*  f0df438:	00000000 */ 	nop
-/*  f0df43c:	46082100 */ 	add.s	$f4,$f4,$f8
-.JF0f0df440:
-/*  f0df440:	46142402 */ 	mul.s	$f16,$f4,$f20
-/*  f0df444:	4600818d */ 	trunc.w.s	$f6,$f16
-/*  f0df448:	44073000 */ 	mfc1	$a3,$f6
-/*  f0df44c:	0fc37c8a */ 	jal	hudmsgCreateWithDuration
-/*  f0df450:	00000000 */ 	nop
-.JF0f0df454:
-/*  f0df454:	5240ffda */ 	beqzl	$s2,.JF0f0df3c0
-/*  f0df458:	00004025 */ 	move	$t0,$zero
-/*  f0df45c:	1000001b */ 	b	.JF0f0df4cc
-/*  f0df460:	8fbf006c */ 	lw	$ra,0x6c($sp)
-/*  f0df464:	92b80002 */ 	lbu	$t8,0x2($s5)
-.JF0f0df468:
-/*  f0df468:	92a60000 */ 	lbu	$a2,0x0($s5)
-/*  f0df46c:	92a70001 */ 	lbu	$a3,0x1($s5)
-/*  f0df470:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0df474:	8eb90004 */ 	lw	$t9,0x4($s5)
-/*  f0df478:	02602025 */ 	move	$a0,$s3
-/*  f0df47c:	02c02825 */ 	move	$a1,$s6
-/*  f0df480:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f0df484:	8ea90008 */ 	lw	$t1,0x8($s5)
-/*  f0df488:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f0df48c:	8eaa000c */ 	lw	$t2,0xc($s5)
-/*  f0df490:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f0df494:	8eab0010 */ 	lw	$t3,0x10($s5)
-/*  f0df498:	afab0020 */ 	sw	$t3,0x20($sp)
-/*  f0df49c:	92ac0014 */ 	lbu	$t4,0x14($s5)
-/*  f0df4a0:	afac0024 */ 	sw	$t4,0x24($sp)
-/*  f0df4a4:	86ad0016 */ 	lh	$t5,0x16($s5)
-/*  f0df4a8:	afad0028 */ 	sw	$t5,0x28($sp)
-/*  f0df4ac:	92ae0015 */ 	lbu	$t6,0x15($s5)
-/*  f0df4b0:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f0df4b4:	86af0018 */ 	lh	$t7,0x18($s5)
-/*  f0df4b8:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f0df4bc:	afb20034 */ 	sw	$s2,0x34($sp)
-/*  f0df4c0:	0fc37f11 */ 	jal	hudmsgCreateFromArgs
-/*  f0df4c4:	afaf0030 */ 	sw	$t7,0x30($sp)
-.JF0f0df4c8:
-/*  f0df4c8:	8fbf006c */ 	lw	$ra,0x6c($sp)
-.JF0f0df4cc:
-/*  f0df4cc:	d7b40048 */ 	ldc1	$f20,0x48($sp)
-/*  f0df4d0:	8fb00050 */ 	lw	$s0,0x50($sp)
-/*  f0df4d4:	8fb10054 */ 	lw	$s1,0x54($sp)
-/*  f0df4d8:	8fb20058 */ 	lw	$s2,0x58($sp)
-/*  f0df4dc:	8fb3005c */ 	lw	$s3,0x5c($sp)
-/*  f0df4e0:	8fb40060 */ 	lw	$s4,0x60($sp)
-/*  f0df4e4:	8fb50064 */ 	lw	$s5,0x64($sp)
-/*  f0df4e8:	8fb60068 */ 	lw	$s6,0x68($sp)
-/*  f0df4ec:	03e00008 */ 	jr	$ra
-/*  f0df4f0:	27bd01c8 */ 	addiu	$sp,$sp,0x1c8
-);
-#else
 /**
  * Create a hudmsg that is tied to the given audio channel. When the audio
  * finishes the hudmsg is removed.
@@ -735,6 +572,40 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 	config->colour = g_HudmsgColours[colourindex];
 
 	if (g_Vars.tickmode == TICKMODE_CUTSCENE && audioduration60 >= 0) {
+#if VERSION == VERSION_JPN_FINAL
+		u16 totallen = strlen(srctext);
+		bool alldone = false;
+		f32 time60perchar = audioduration60 / (f32) totallen;
+		char buffer[300];
+		char *ptr = srctext;
+
+		while (!alldone) {
+			u8 len = 0;
+			bool paragraphdone = false;
+
+			while (!paragraphdone) {
+				if (*ptr == '\0') {
+					alldone = true;
+					paragraphdone = true;
+				} else {
+					if (*ptr == 'P' || *ptr == 'p') {
+						paragraphdone = true;
+					} else {
+						buffer[len] = *ptr;
+						len++;
+					}
+
+					ptr++;
+				}
+			}
+
+			buffer[len] = '\0';
+
+			if (len != 0) {
+				hudmsgCreateWithDuration(buffer, type, config, len * time60perchar);
+			}
+		}
+#else
 		char puncchars[] = { '.', ';', '!', '?', ',' };
 		u16 srclen;
 		s32 sp4a8;
@@ -923,13 +794,13 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 
 			hudmsgCreateWithDuration(accum, type, config, accumlen * time60perchar);
 		}
+#endif
 	} else {
 		hudmsgCreateFromArgs(srctext, type, config->unk00, config->unk01, config->unk02,
 				config->unk04, config->unk08, config->colour, config->unk10, config->alignh,
 				config->unk16, config->alignv, config->unk18, audiochannelnum, 0);
 	}
 }
-#endif
 
 void hudmsgCreateFromArgsWithoutFlags(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02, struct fontchar **conf04, struct font **conf08, u32 textcolour, u32 shadowcolour, u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14)
 {
