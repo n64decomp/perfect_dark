@@ -1740,8 +1740,8 @@ glabel modelGetNodeRwData
 	sw     $t3, 0x8($sp)
 	sw     $ra, 0xc($sp)
 	lw     $t4, 0x4($a1)
-	lui    $t2, 0x8006
-	addiu  $t2, $t2, 0x1360
+	lui    $t2, %hi(var8005ef90)
+	addiu  $t2, $t2, %lo(var8005ef90)
 	lhu    $t1, 0x0($a1)
 	andi   $t1, $t1, 0xff
 	or     $t0, $zero, $zero
