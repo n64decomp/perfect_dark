@@ -13,7 +13,7 @@ extern u8 *g_StackAllocatedPos;
 extern s32 var8005ce74;
 extern f32 g_ViXScalesBySlot[2];
 extern f32 g_ViYScalesBySlot[2];
-extern u32 g_SchedViModesPending[2];
+extern bool g_SchedViModesPending[2];
 extern s32 g_ViUnblackTimer;
 extern s32 g_ViShakeDirection;
 extern s32 g_ViShakeIntensity;
