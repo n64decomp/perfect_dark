@@ -12,6 +12,7 @@
 #include "game/pak.h"
 #include "bss.h"
 #include "data.h"
+#include "string.h"
 #include "types.h"
 
 u32 g_CheatsActiveBank0;

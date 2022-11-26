@@ -3,6 +3,7 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/boot.h"
+#include "lib/crash.h"
 #include "lib/rzip.h"
 #include "lib/dma.h"
 #include "lib/lib_48150.h"
@@ -105,7 +106,11 @@ extern u32 *g_VmZipTable;
 
 #define PAGE_SIZE (1024 * 4)
 
+#if VERSION >= VERSION_NTSC_1_0
 #define MAX_LOADED_PAGES 268
+#else
+#define MAX_LOADED_PAGES 266
+#endif
 
 #if MATCHING
 #if VERSION >= VERSION_NTSC_1_0
@@ -671,7 +676,7 @@ glabel vmInit
 /*     75c4:	3c01803f */ 	lui	$at,0x803f
 /*     75c8:	342150c1 */ 	ori	$at,$at,0x50c1
 /*     75cc:	0301082b */ 	sltu	$at,$t8,$at
-/*     75d0:	3c117f00 */ 	lui	$s1,%hi(_gameSegmentStart)
+/*     75d0:	3c117f00 */ 	lui	$s1,0x7f00
 /*     75d4:	10200018 */ 	beqz	$at,.NB00007638
 /*     75d8:	24100002 */ 	addiu	$s0,$zero,0x2
 /*     75dc:	3c160001 */ 	lui	$s6,0x1
@@ -707,7 +712,7 @@ glabel vmInit
 /*     764c:	ac2030ec */ 	sw	$zero,%lo(g_VmNumPageReplaces)($at)
 /*     7650:	00002025 */ 	or	$a0,$zero,$zero
 /*     7654:	0c012548 */ 	jal	osInvalICache
-/*     7658:	24054000 */ 	addiu	$a1,$zero,%lo(_gameSegmentEnd)
+/*     7658:	24054000 */ 	addiu	$a1,$zero,0x4000
 /*     765c:	8fbf0074 */ 	lw	$ra,0x74($sp)
 /*     7660:	8fb00054 */ 	lw	$s0,0x54($sp)
 /*     7664:	8fb10058 */ 	lw	$s1,0x58($sp)
@@ -803,7 +808,12 @@ void vmInit(void)
 
 	rzipInit();
 
-	if (bootGetMemSize() <= 0x400000) {
+#if VERSION >= VERSION_NTSC_1_0
+	if (bootGetMemSize() <= 0x400000)
+#else
+	if (osGetMemSize() <= 0x400000)
+#endif
+	{
 		u32 t8;
 		u32 sp1474;
 		u32 stackstart;
@@ -811,7 +821,11 @@ void vmInit(void)
 
 		g_Is4Mb = true;
 
+#if VERSION >= VERSION_NTSC_1_0
 		stackstart = STACK_START - 8;
+#else
+		stackstart = STACK_START;
+#endif
 
 		g_VmNumPages = (s32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
 
@@ -857,8 +871,14 @@ void vmInit(void)
 		ptr = g_VmStateTable;
 		statetablelen = (g_VmNumPages * 8) >> 2;
 
-		for (i = 0; i < statetablelen; i++) { // s1
-			ptr[i] = 0;
+		{
+#if VERSION < VERSION_NTSC_1_0
+			s32 i;
+#endif
+
+			for (i = 0; i < statetablelen; i++) { // s1
+				ptr[i] = 0;
+			}
 		}
 
 		tlb0000113c();
@@ -867,7 +887,11 @@ void vmInit(void)
 		g_Is4Mb = false;
 
 		t8 = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
-		s7 = (u8 *)(STACK_START - 8);
+#if VERSION >= VERSION_NTSC_1_0
+		s7 = (u8 *) (STACK_START - 8);
+#else
+		s7 = (u8 *) STACK_START;
+#endif
 		gameseg = (u8 *) ((u32) (s7 - (u8 *) ALIGN64((u32) &_gameSegmentEnd - (u32) &_gameSegmentStart)) & 0xfffe0000);
 
 		s5 = (u32 *) (((u32) gameseg - ((t8 + 5) << 2)) & ~0xf);
@@ -887,10 +911,34 @@ void vmInit(void)
 		chunkbuffer = (u8 *) ((u32)s5 - PAGE_SIZE * 2);
 		zip = chunkbuffer + 2;
 
+#if VERSION >= VERSION_NTSC_1_0
 		for (i = 0; i < sp1474 - 1; i++) { \
 			dmaExec(chunkbuffer, s5[i], ALIGN16(s5[i + 1] - s5[i])); \
 			s2 += rzipInflate(zip, s2, sp68);
 		}
+#else
+		for (i = 0; i < sp1474 - 1; i++) {
+			s32 len;
+			char spa8[128];
+
+			dmaExec(chunkbuffer, s5[i], ALIGN16(s5[i + 1] - s5[i]));
+
+			len = rzipInflate(zip, s2, sp68);
+
+			if (len == 0) {
+				sprintf(spa8, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+						"vm_m.c", 298,
+						chunkbuffer[0], chunkbuffer[1], chunkbuffer[2], chunkbuffer[3],
+						chunkbuffer[4], chunkbuffer[5], chunkbuffer[6], chunkbuffer[7],
+						chunkbuffer[8], chunkbuffer[9], chunkbuffer[10], chunkbuffer[11],
+						chunkbuffer[12], chunkbuffer[13], chunkbuffer[14], chunkbuffer[15]);
+				crashSetMessage(spa8);
+				CRASH();
+			}
+
+			s2 += len;
+		}
+#endif
 
 		// This loop sets the following TLB entries:
 		// entry 2: 0x7f000000 to 0x7f010000 and 0x7f010000 to 0x7f020000

@@ -6,6 +6,8 @@
 #include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/rmon.h"
+#include "lib/sched.h"
+#include "lib/str.h"
 #include "lib/vi.h"
 #include "data.h"
 #include "types.h"
@@ -231,9 +233,9 @@ u32 var8009710cnb;
 char *var80097110nb;
 char *var80097114nb;
 u32 var80097118nb[24];
-u8 var80097178nb[MAX_LINES + 1][71];
+char var80097178nb[MAX_LINES + 1][71];
 #elif VERSION == VERSION_PAL_BETA
-u8 var80097178nb[MAX_LINES + 1][71];
+char var80097178nb[MAX_LINES + 1][71];
 #endif
 
 /**

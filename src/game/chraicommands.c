@@ -8527,7 +8527,7 @@ glabel var7f1a9d64
 /*  f059bac:	8e0e0424 */ 	lw	$t6,0x424($s0)
 /*  f059bb0:	3406ffff */ 	dli	$a2,0xffff
 /*  f059bb4:	0fc2433d */ 	jal	func0f0926bc
-/*  f059bb8:	8dc4001c */ 	lw	$a0,%lo(invanim_devastator_reload+0x58)($t6)
+/*  f059bb8:	8dc4001c */ 	lw	$a0,0x1c($t6)
 /*  f059bbc:	8e0f0424 */ 	lw	$t7,0x424($s0)
 /*  f059bc0:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f059bc4:	44810000 */ 	mtc1	$at,$f0
@@ -8848,7 +8848,11 @@ bool aiSayQuip(void)
 	s32 distance; // 116 - not referenced
 	s32 row = cmd[3]; // 112
 	u32 playernum; // 108 - not referenced
+#ifdef __sgi
+	u8 headshotted = (g_Vars.chrdata->hidden2 & CHRH2FLAG_HEADSHOTTED); // 107
+#else
 	u8 headshotted = (g_Vars.chrdata->hidden2 & CHRH2FLAG_HEADSHOTTED) & 0xff; // 107
+#endif
 	struct chrdata *loopchr; // 100
 
 	// Choose bank
@@ -8922,7 +8926,7 @@ bool aiSayQuip(void)
 
 	// If soundgap permits talking at this time and probability passes
 	// 494
-	if ((g_Vars.chrdata->soundgap == 0 || g_Vars.chrdata->soundgap * 60 < g_Vars.chrdata->soundtimer)
+	if ((g_Vars.chrdata->soundgap == 0 || g_Vars.chrdata->soundgap * TICKS(60) < g_Vars.chrdata->soundtimer)
 			&& probability > (u8)random()) {
 		// Try and find a chr in the same squadron who is currently talking
 		// 4dc
@@ -8940,7 +8944,7 @@ bool aiSayQuip(void)
 				numnearbychrs++;
 
 				// 594
-				if (loopchr->soundtimer < 60 && cmd[6] != 0 && cmd[6] != 255) {
+				if (loopchr->soundtimer < TICKS(60) && cmd[6] != 0 && cmd[6] != 255) {
 					issomeonetalking = true;
 				}
 			}
@@ -9006,14 +9010,20 @@ bool aiSayQuip(void)
 
 					text = langGet(g_QuipTexts[cmd[8] - 1][1 + column]);
 
-					if (!sndIsFiltered(audioid)) {
+#if VERSION >= VERSION_NTSC_1_0
+					if (!sndIsFiltered(audioid))
+#endif
+					{
 						// 8ac
 						hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
 					}
 				} else if (cmd[8]) {
 					text = langGet(g_QuipTexts[cmd[8] - 1][1 + g_Vars.chrdata->tude]);
 
-					if (!sndIsFiltered(audioid)) {
+#if VERSION >= VERSION_NTSC_1_0
+					if (!sndIsFiltered(audioid))
+#endif
+					{
 						// 904
 						hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
 					}
@@ -9067,7 +9077,10 @@ bool aiSayQuip(void)
 					if (cmd[8]) {
 						text = langGet(g_QuipTexts[cmd[8] - 1][i]);
 
-						if (!sndIsFiltered(audioid)) {
+#if VERSION >= VERSION_NTSC_1_0
+						if (!sndIsFiltered(audioid))
+#endif
+						{
 							// b78
 							hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
 						}

@@ -10,7 +10,7 @@ To build the project, you must already have a Perfect Dark ROM. The project can 
 
 See the [Perfect Dark Decompilation Status Page](https://ryandwyer.gitlab.io/pdstatus/).
 
-The ntsc-1.0 and ntsc-final versions are fully decompiled, but a small handful of functions are not yet byte-matching even though they are functionally the same. The status page doesn't show these as 100% because it counts matching functions only.
+With the exception of jpn-final, all other versions are fully decompiled but a small handful of functions are not yet byte-matching even though they are functionally the same. The status page doesn't show these as 100% because it counts matching functions only.
 
 ## Installation Requirements
 

@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/debughud.h"
+#include "lib/vi.h"
 #include "game/gfxmemory.h"
 #include "data.h"
 #include "types.h"

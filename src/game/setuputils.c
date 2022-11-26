@@ -6,6 +6,7 @@
 #include "game/bg.h"
 #include "game/modeldef.h"
 #include "game/propobj.h"
+#include "lib/main.h"
 #include "lib/model.h"
 #include "bss.h"
 #include "data.h"

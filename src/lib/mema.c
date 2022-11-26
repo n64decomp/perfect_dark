@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
+#include "game/debug.h"
 #include "lib/debughud.h"
 #include "lib/mema.h"
 #include "lib/memp.h"

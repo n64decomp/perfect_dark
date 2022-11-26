@@ -7,10 +7,13 @@
 #include "game/menu.h"
 #include "game/crc.h"
 #include "game/gamefile.h"
+#include "game/lv.h"
+#include "game/mplayer/mplayer.h"
 #include "game/pak.h"
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/args.h"
+#include "lib/crash.h"
 #include "lib/joy.h"
 #include "lib/lib_06440.h"
 #include "lib/main.h"
@@ -195,7 +198,7 @@
 #define LINE_3948 3573
 #define LINE_4140 3779
 #define LINE_4394 4029
-#define LINE_4742 4347
+#define LINE_4742 4377
 #define LINE_4801 4436
 #endif
 
@@ -418,7 +421,7 @@ s32 pakCreateCameraFile(s8 device, s32 *outfileid)
 	return _pakCreateCameraFile(device, outfileid);
 }
 
-u32 pakGetType(s8 device)
+s32 pakGetType(s8 device)
 {
 	return _pakGetType(device);
 }
@@ -640,7 +643,7 @@ s32 _pakDeleteFile(s8 device, s32 fileid)
 	u32 result;
 	u32 tmp = pakFindFile(device, fileid, &header);
 
-	if (tmp && (!tmp || tmp >= pakGetPdNumBytes(device) || (pakGetBlockSize(device) - 1U & tmp))) {
+	if (tmp && (!tmp || tmp >= pakGetPdNumBytes(device) || ((pakGetBlockSize(device) - 1U) & tmp))) {
 		return 3;
 	}
 
@@ -1219,19 +1222,17 @@ PakErr1 pakFindNote(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name
 		*file_no = 0;
 		return PAK_ERR1_OK;
 #else
-		u8 sp64[8];
+		struct pakfileheader header;
 		u32 ret;
-		u16 sp56[2];
-		u32 b;
-		u16 sp44[4];
+		u16 calcedsum[4];
 
 		*file_no = 0;
-		ret = pakReadWriteBlock(SAVEDEVICE_GAMEPAK, 0, 0, 0, 0, align16(0x10), (u8 *)sp56);
+		ret = pakReadWriteBlock(SAVEDEVICE_GAMEPAK, 0, 0, 0, 0, align16(0x10), (u8 *) &header);
 
 		if (pakHandleResult(ret, SAVEDEVICE_GAMEPAK, true, LINE_1551)) {
-			pakCalculateChecksum(sp64, sp64 + sizeof(sp64), sp44);
+			pakCalculateChecksum((u8 *) &header + 8, (u8 *) (&header + 1), calcedsum);
 
-			if (sp56[0] == sp44[0] && sp56[1] == sp44[1]) {
+			if (header.headersum[0] == calcedsum[0] && header.headersum[1] == calcedsum[1]) {
 				return PAK_ERR1_OK;
 			}
 
@@ -2576,7 +2577,11 @@ void pakCorrupt(void)
  *
  * NTSC Beta forgets to include return values.
  */
+#if VERSION >= VERSION_NTSC_1_0
 bool pakCreateInitialFiles(s8 device)
+#else
+void pakCreateInitialFiles(s8 device)
+#endif
 {
 	struct pakfileheader header;
 	s32 i;
@@ -3626,7 +3631,7 @@ bool pakReplaceFileAtOffsetWithBlank(s8 device, u32 offset)
 	return false;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
+#if !MATCHING || VERSION >= VERSION_NTSC_1_0
 s32 pakWriteFileAtOffset(s8 device, u32 offset, u32 filetype, u8 *newdata, s32 bodylenarg, s32 *outfileid, u8 *olddata, u32 fileid, u32 generation)
 {
 	u8 headerbytes[sizeof(struct pakfileheader)];
@@ -3657,6 +3662,10 @@ s32 pakWriteFileAtOffset(s8 device, u32 offset, u32 filetype, u8 *newdata, s32 b
 
 	// Build the header bytes on the stack
 	headerptr = (struct pakfileheader *) headerbytes;
+
+#if VERSION < VERSION_NTSC_1_0
+	if (headerptr);
+#endif
 
 	headerptr->fileid = fileid ? fileid : ++g_Paks[device].maxfileid;
 	headerptr->deviceserial = g_Paks[device].serial;

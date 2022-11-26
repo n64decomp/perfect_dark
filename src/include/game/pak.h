@@ -17,7 +17,7 @@ s32 pakSaveAtGuid(s8 device, s32 fileid, s32 filetype, u8 *body, s32 *outfileid,
 bool pakDeleteFile(s8 device, s32 fileid);
 s32 pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 s32 pak0f1168c4(s8 device, struct pakdata **arg1);
-u32 pakGetType(s8 device);
+s32 pakGetType(s8 device);
 s32 pakGetSerial(s8 device);
 void pak0f11698c(s8 device);
 void pak0f116994(void);
@@ -66,6 +66,7 @@ s32 _pakCreateCameraFile(s8 device, s32 *outfileid);
 bool pakResizeNote(s8 device, s32 numpages);
 void pak0f1185e0(s8 device, s32 arg1, s32 arg2);
 u32 pak0f118674(s8 device, u32 filetype, s32 *outfileid);
+void pak0f1189d0(void);
 void paksInit(void);
 void pakCalculateChecksum(u8 *arg0, u8 *arg1, u16 *arg2);
 s32 _pakReadBodyAtGuid(s8 device, s32 fileid, u8 *body, s32 arg3);
@@ -80,7 +81,13 @@ bool pakWriteBlankFile(s8 device, u32 offset, struct pakfileheader *header);
 bool pakRepairAsBlank(s8 device, u32 *offset, struct pakfileheader *header);
 s32 pakRepairFilesystem(s8 device);
 void pakCorrupt(void);
+
+#if VERSION >= VERSION_NTSC_1_0
 bool pakCreateInitialFiles(s8 device);
+#else
+void pakCreateInitialFiles(s8 device);
+#endif
+
 s32 pakFindMaxFileId(s8 device);
 void pakMergeBlanks(s8 device);
 void paksReset(void);

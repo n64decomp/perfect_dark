@@ -7002,7 +7002,11 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 	// b74
 	if (g_PdLogoIsFirstTick) {
 		g_PdLogoYRotCur = 4.2404751777649f;
+#if VERSION >= VERSION_PAL_FINAL
+		g_PdLogoYRotSpeed = PALUPF(0.018846554681659f);
+#else
 		g_PdLogoYRotSpeed = 0.018846554681659f;
+#endif
 		g_PdLogoXRotCur = 0.47116386890411f;
 		g_PdLogoXRotSpeed = 0.0f;
 		g_PdLogoScale = 0.35f;
@@ -7065,7 +7069,11 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			g_PdLogoYRotStopping = false;
 		}
 	} else /*e18*/ if (g_PdLogoYRotEnabled) {
+#if VERSION >= VERSION_PAL_FINAL
+		g_PdLogoYRotCur += g_PdLogoYRotSpeed * g_Vars.lvupdate60;
+#else
 		g_PdLogoYRotCur += g_PdLogoYRotSpeed * g_Vars.lvupdate60freal;
+#endif
 
 		if (g_PdLogoYRotCur >= M_BADTAU) {
 			g_PdLogoYRotCur -= M_BADTAU;
@@ -7076,7 +7084,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 	// e90
 	if (g_PdLogoPreMorphTimer != 0) {
-		s32 duration = 80;
+		s32 duration = TICKS(80);
 
 		g_PdLogoPreMorphTimer += g_Vars.lvupdate60;
 
@@ -7125,14 +7133,14 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			}
 		}
 
-		if (g_PdLogoMorphEndTimer > 30 && g_PdLogoMorphEndTimer - g_Vars.lvupdate60 <= 30) {
+		if (g_PdLogoMorphEndTimer > TICKS(30) && g_PdLogoMorphEndTimer - g_Vars.lvupdate60 <= TICKS(30)) {
 			// Start slowing the spinning rotation
 			g_PdLogoYRotEnabled = false;
 			g_PdLogoYRotStopping = true;
 			g_PdLogoEndYRot = ((s32) (g_PdLogoYRotCur * 4.0f / M_BADTAU) + 2) * M_BADTAU * 0.25f;
 		}
 
-		if (g_PdLogoMorphEndTimer > 100 && g_PdLogoMorphEndTimer - g_Vars.lvupdate60 <= 100) {
+		if (g_PdLogoMorphEndTimer > TICKS(100) && g_PdLogoMorphEndTimer - g_Vars.lvupdate60 <= TICKS(100)) {
 			g_PdLogoDarkenEnabled = true;
 		}
 
@@ -7161,7 +7169,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 	if (g_PdLogoPreTitleTimer != 0) {
 		g_PdLogoPreTitleTimer += g_Vars.lvupdate60;
 
-		if (g_PdLogoPreTitleTimer > 20) {
+		if (g_PdLogoPreTitleTimer > TICKS(20)) {
 			g_PdLogoPreTitleTimer = 0;
 			g_PdLogoPointlessTimerEnabled = true;
 		}
@@ -7233,7 +7241,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 	if (g_PdLogoExitTimer != 0) {
 		g_PdLogoExitTimer += g_Vars.lvupdate60;
 
-		if (g_PdLogoExitTimer > 60) {
+		if (g_PdLogoExitTimer > TICKS(60)) {
 			g_PdLogoExitTimer = 0;
 			g_PdLogoTriggerExit = true;
 		}

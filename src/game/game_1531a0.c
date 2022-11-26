@@ -67,7 +67,7 @@ u32 var800a463c;
 #if VERSION == VERSION_JPN_FINAL
 s32 var800800f0jf = 0;
 s32 g_ScaleX = 1;
-u32 var80080104jf = 0;
+bool var80080104jf = false;
 s32 var8007fac4 = 0;
 bool g_TextRotated90 = false;
 s32 g_WrapIndentCount = 0;
@@ -1063,6 +1063,7 @@ u16 func0f154968jf(u8 value)
 void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar);
 
 #if VERSION == VERSION_JPN_FINAL
+#if MATCHING
 GLOBAL_ASM(
 glabel textMapCodeUnitToChar
 /*  f154b00:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -1211,75 +1212,78 @@ glabel textMapCodeUnitToChar
 u32 ope = 0;
 
 const char var7f1b8068jf[] = "ope";
+#else
+void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
+{
+	u16 c;
+	u8 c1;
+	u8 c2;
+	u16 sp2a;
+	u8 sp29;
 
-//void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
-//{
-//	u16 c;
-//	u8 c1;
-//	u8 c2;
-//	u16 sp2a;
-//	u8 sp29;
-//
-//	c = **text;
-//
-//	if (c < 0x80) {
-//		if (chars == NULL || var800800f0jf) {
-//			g_TmpJpnChar.index = 0;
-//			g_TmpJpnChar.baseline = 0;
-//			g_TmpJpnChar.height = 12;
-//			g_TmpJpnChar.width = 12;
-//			g_TmpJpnChar.unk06 = 0;
-//			g_TmpJpnChar.pixeldata = NULL;
-//
-//			g_TmpJpnChar.index = 0x80 + func0f154968jf(c);
-//
-//			*arg1 = &g_TmpJpnChar;
-//			*arg2 = &g_TmpJpnChar;
-//		} else {
-//			*arg1 = &chars[c - 0x21];
-//			*arg2 = &chars[*prevchar - 0x21];
-//		}
-//
-//		*prevchar = **text;
-//		*text += 1;
-//		return;
-//	}
-//
-//	g_TmpJpnChar.index = 0;
-//	g_TmpJpnChar.baseline = 0;
-//	g_TmpJpnChar.height = 11;
-//	g_TmpJpnChar.width = 11;
-//	g_TmpJpnChar.unk06 = 0;
-//	g_TmpJpnChar.pixeldata = NULL;
-//
-//	c1 = **text;
-//	*text = *text + 1;
-//	c2 = **text;
-//	*text = *text + 1;
-//
-//	sp2a = ((c1 & 0x7f) << 7) | (c2 & 0x7f);
-//	sp29 = 0;
-//
-//	mainOverrideVariable("ope", &ope);
-//
-//	if (ope) {
-//		sp29 = func0f154784jf(sp2a);
-//	}
-//
-//	if (sp29 == 0 || chars == NULL) {
-//		if ((sp2a & 0x1fff) >= 0x400) {
-//			sp2a = 2;
-//		}
-//
-//		g_TmpJpnChar.index = sp2a + 0x80;
-//
-//		*arg1 = &g_TmpJpnChar;
-//		*arg2 = &g_TmpJpnChar;
-//	} else {
-//		*arg1 = &chars[sp29 - 0x21];
-//		*arg2 = &g_TmpJpnChar;
-//	}
-//}
+	static u32 ope = 0;
+
+	c = **text;
+
+	if (c < 0x80) {
+		if (chars == NULL || var800800f0jf) {
+			g_TmpJpnChar.index = 0;
+			g_TmpJpnChar.baseline = 0;
+			g_TmpJpnChar.height = 12;
+			g_TmpJpnChar.width = 12;
+			g_TmpJpnChar.kerningindex = 0;
+			g_TmpJpnChar.pixeldata = NULL;
+
+			g_TmpJpnChar.index = 0x80 + func0f154968jf(c);
+
+			*arg1 = &g_TmpJpnChar;
+			*arg2 = &g_TmpJpnChar;
+		} else {
+			*arg1 = &chars[c - 0x21];
+			*arg2 = &chars[*prevchar - 0x21];
+		}
+
+		*prevchar = **text;
+		*text += 1;
+		return;
+	}
+
+	g_TmpJpnChar.index = 0;
+	g_TmpJpnChar.baseline = 0;
+	g_TmpJpnChar.height = 11;
+	g_TmpJpnChar.width = 11;
+	g_TmpJpnChar.kerningindex = 0;
+	g_TmpJpnChar.pixeldata = NULL;
+
+	c1 = **text;
+	*text = *text + 1;
+	c2 = **text;
+	*text = *text + 1;
+
+	sp2a = ((c1 & 0x7f) << 7) | (c2 & 0x7f);
+	sp29 = 0;
+
+	mainOverrideVariable("ope", &ope);
+
+	if (ope) {
+		sp29 = func0f154784jf(sp2a);
+	}
+
+	if (sp29 == 0 || chars == NULL) {
+		if ((sp2a & 0x1fff) >= 0x400) {
+			sp2a = 2;
+		}
+
+		g_TmpJpnChar.index = sp2a + 0x80;
+
+		*arg1 = &g_TmpJpnChar;
+		*arg2 = &g_TmpJpnChar;
+	} else {
+		*arg1 = &chars[sp29 - 0x21];
+		*arg2 = &g_TmpJpnChar;
+	}
+}
+#endif
 #elif VERSION >= VERSION_PAL_BETA
 void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
 {
@@ -1377,7 +1381,7 @@ void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar 
 }
 #endif
 
-#if VERSION >= VERSION_JPN_FINAL
+#if MATCHING && VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel text0f154f38
 /*  f154d10:	27bdffb0 */ 	addiu	$sp,$sp,-80
@@ -1719,14 +1723,14 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 	if (curchar->index >= 0x80) {
 		if (!var80080104jf) {
 			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var800801d8jf));
-			var80080104jf = 1;
+			var80080104jf = true;
 			gDPLoadSync(gdl++);
 			gDPLoadTLUTCmd(gdl++, 6, 15);
 		}
 	} else {
 		if (var80080104jf) {
 			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var8007fb3c));
-			var80080104jf = 0;
+			var80080104jf = false;
 			gDPLoadSync(gdl++);
 			gDPLoadTLUTCmd(gdl++, 6, 15);
 		}
@@ -2340,7 +2344,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 
 #if VERSION >= VERSION_JPN_FINAL
 	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var800801d8jf));
-	var80080104jf = 1;
+	var80080104jf = true;
 #else
 	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(var8007fb3c));
 #endif
@@ -2996,7 +3000,7 @@ bool func0f157768jf(s32 arg0, s32 arg1)
 }
 #endif
 
-#if VERSION >= VERSION_JPN_FINAL
+#if MATCHING && VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel textWrap
 /*  f157778:	27bdff48 */ 	addiu	$sp,$sp,-184

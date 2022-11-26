@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/bg.h"
 #include "game/chraction.h"
 #include "game/chr.h"
 #include "game/vtxstore.h"

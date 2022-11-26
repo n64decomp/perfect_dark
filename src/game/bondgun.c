@@ -182,9 +182,10 @@ char var800700bc[][10] = {
 	{ 'x','x','x'                         }, // "xxx"
 };
 
-#if VERSION >= VERSION_NTSC_1_0
+#if !MATCHING || VERSION >= VERSION_NTSC_1_0
 void bgunRumble(s32 handnum, s32 weaponnum)
 {
+#if VERSION >= VERSION_NTSC_1_0
 	u32 stack;
 	s32 contpadtouse1;
 	s32 contpadtouse2;
@@ -232,6 +233,41 @@ void bgunRumble(s32 handnum, s32 weaponnum)
 			pakRumble(contpad1, 0.2f, 2, 4);
 		}
 	}
+#else
+	s32 stack1;
+	s32 stack2;
+	s8 contpad1;
+	s8 contpad2;
+	bool contpad1hasrumble;
+	bool contpad2hasrumble;
+	s32 contpadtouse1;
+	s32 contpadtouse2;
+
+	if (optionsGetControlMode(g_Vars.currentplayerstats->mpindex) >= CONTROLMODE_21) {
+		contpad1hasrumble = pakGetType(g_Vars.currentplayernum) == PAKTYPE_RUMBLE;
+		contpad2hasrumble = pakGetType(g_Vars.currentplayernum + PLAYERCOUNT()) == PAKTYPE_RUMBLE;
+
+		if (contpad1hasrumble && contpad2hasrumble) {
+			contpadtouse1 = g_Vars.currentplayernum;
+
+			if (handnum == HAND_LEFT) {
+				contpadtouse1 += PLAYERCOUNT();
+			}
+
+			pakRumble(contpadtouse1, 0.2f, 2, 4);
+		} else {
+			contpadtouse2 = g_Vars.currentplayernum;
+
+			if (contpad2hasrumble) {
+				contpadtouse2 += PLAYERCOUNT();
+			}
+
+			pakRumble(contpadtouse2, 0.2f, 2, 4);
+		}
+	} else {
+		pakRumble(g_Vars.currentplayernum, 0.2f, 2, 4);
+	}
+#endif
 }
 #else
 GLOBAL_ASM(

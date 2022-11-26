@@ -2,6 +2,7 @@
 #define _IN_BOOT_SCHED_H
 #include <ultra64.h>
 #include <sched.h>
+#include "types.h"
 
 void schedSetCrashEnable2(s32 enable);
 void schedAppendTasks(OSSched *sc, OSScTask *t);
@@ -21,5 +22,6 @@ void schedIncrementWriteArtifacts(void);
 void schedIncrementFrontArtifacts(void);
 void schedUpdatePendingArtifacts(void);
 void schedConsiderScreenshot(void);
+void schedSetCrashedUnexpectedly(bool enable);
 
 #endif

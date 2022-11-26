@@ -3,10 +3,11 @@
 #include "game/tex.h"
 #include "game/texdecompress.h"
 #include "bss.h"
-#include "lib/rzip.h"
+#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/memp.h"
+#include "lib/rzip.h"
 #include "data.h"
 #include "types.h"
 

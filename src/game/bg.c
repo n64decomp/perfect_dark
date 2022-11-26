@@ -29,16 +29,17 @@
 #include "game/texdecompress.h"
 #include "game/wallhit.h"
 #include "bss.h"
+#include "lib/crash.h"
+#include "lib/dma.h"
 #include "lib/lib_17ce0.h"
+#include "lib/lib_2f490.h"
+#include "lib/main.h"
+#include "lib/mema.h"
+#include "lib/memp.h"
+#include "lib/mtx.h"
+#include "lib/rng.h"
 #include "lib/rzip.h"
 #include "lib/vi.h"
-#include "lib/dma.h"
-#include "lib/main.h"
-#include "lib/memp.h"
-#include "lib/mema.h"
-#include "lib/rng.h"
-#include "lib/mtx.h"
-#include "lib/lib_2f490.h"
 #include "data.h"
 #include "gbiex.h"
 #include "types.h"
@@ -2997,7 +2998,7 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 					src[8], src[9], src[10], src[11],
 					src[12], src[13], src[14], src[15]);
 
-			crashSetMessage(&message);
+			crashSetMessage(message);
 			CRASH();
 		}
 #endif
@@ -4518,11 +4519,11 @@ void bgLoadRoom(s32 roomnum)
 		g_Rooms[roomnum].colours = NULL;
 
 		dyntexSetCurrentRoom(-1);
-	}
 
 #if VERSION < VERSION_NTSC_1_0
-	bgVerifyLightSums("bg.c", 7474);
+		bgVerifyLightSums("bg.c", 7474);
 #endif
+	}
 }
 #endif
 

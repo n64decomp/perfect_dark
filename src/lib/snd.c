@@ -8,6 +8,7 @@
 #include "lib/rzip.h"
 #include "lib/args.h"
 #include "lib/audiomgr.h"
+#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/snd.h"
 #include "lib/memp.h"
@@ -1639,6 +1640,14 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 		crashSetMessage(message);
 		CRASH();
 	}
+#endif
+
+#if AVOID_UB
+	// To avoid undefined behaviour, we must change the sequence player's state
+	// from AL_STOPPED to something else. Otherwise a race condition can occur
+	// where the same sequence player is used for two sequences if the audio
+	// thread hasn't run between the two calls and updated its state.
+	seq->seqp->state = AL_STARTING;
 #endif
 
 	n_alCSeqNew(&seq->seq, seq->data);

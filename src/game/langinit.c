@@ -16,7 +16,7 @@ void langInit(void)
 #if VERSION >= VERSION_JPN_FINAL
 	var8009d140jf = IS4MB() ? 124 : 174;
 
-	var800aabb4 = mempAlloc(var8009d140jf * sizeof(struct var800aabb4), MEMPOOL_PERMANENT);
+	var800aabb4 = mempAlloc(var8009d140jf * (sizeof(struct var800aabb4) * 8), MEMPOOL_PERMANENT);
 	var800aabb8 = mempAlloc(ALIGN16(var8009d140jf * sizeof(struct var800aabb8)), MEMPOOL_PERMANENT);
 
 	for (i = 0; i < var8009d140jf; i++) {
@@ -25,7 +25,7 @@ void langInit(void)
 	}
 #else
 	if (g_Jpn) {
-		var800aabb4 = mempAlloc(124 * sizeof(struct var800aabb4), MEMPOOL_PERMANENT);
+		var800aabb4 = mempAlloc(124 * (sizeof(struct var800aabb4) * 8), MEMPOOL_PERMANENT);
 		var800aabb8 = mempAlloc(ALIGN16(124 * sizeof(struct var800aabb8)), MEMPOOL_PERMANENT);
 
 		for (i = 0; i < 124; i++) {

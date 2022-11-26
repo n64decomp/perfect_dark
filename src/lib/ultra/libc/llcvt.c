@@ -15,6 +15,7 @@ long long __f_to_ll(float f)
 }
 
 #if VERSION < VERSION_NTSC_1_0
+#if MATCHING
 GLOBAL_ASM(
 glabel __d_to_ull
 /*     5ad8:	444ef800 */ 	cfc1	$t6,$31
@@ -60,11 +61,12 @@ glabel __d_to_ull
 /*     5b6c:	03e00008 */ 	jr	$ra
 /*     5b70:	0002103f */ 	dsra32	$v0,$v0,0x0
 );
-
-//unsigned long long __d_to_ull(double d)
-//{
-//	return d;
-//}
+#else
+unsigned long long __d_to_ull(double d)
+{
+	return d;
+}
+#endif
 #endif
 
 #if MATCHING
@@ -135,6 +137,7 @@ float __ll_to_f(long long s)
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
+#if MATCHING
 GLOBAL_ASM(
 glabel __ull_to_d
 /*     5c40:	afa40000 */ 	sw	$a0,0x0($sp)
@@ -151,11 +154,12 @@ glabel __ull_to_d
 /*     5c68:	03e00008 */ 	jr	$ra
 /*     5c6c:	00000000 */ 	sll	$zero,$zero,0x0
 );
-
-//double __ull_to_d(unsigned long long u)
-//{
-//	return u;
-//}
+#else
+double __ull_to_d(unsigned long long u)
+{
+	return u;
+}
+#endif
 #endif
 
 float __ull_to_f(unsigned long long u)

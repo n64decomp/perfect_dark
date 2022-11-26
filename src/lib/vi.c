@@ -6,6 +6,7 @@
 #include "game/file.h"
 #include "game/game_176080.h"
 #include "game/gfxmemory.h"
+#include "game/menu.h"
 #include "game/options.h"
 #include "bss.h"
 #include "lib/vi.h"

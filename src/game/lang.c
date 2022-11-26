@@ -2,6 +2,8 @@
 #include "constants.h"
 #include "game/file.h"
 #include "game/lang.h"
+#include "game/mplayer/mplayer.h"
+#include "game/utils.h"
 #include "bss.h"
 #include "lib/dma.h"
 #include "data.h"
@@ -210,7 +212,7 @@ u32 langGetLangBankIndexFromStagenum(s32 stagenum)
 	return bank;
 }
 
-#if VERSION == VERSION_JPN_FINAL
+#if MATCHING && VERSION == VERSION_JPN_FINAL
 const char var7f1b8850jf[] = "tmul";
 const char var7f1b8858jf[] = "tload";
 u32 var80084810jf = 0;
@@ -460,6 +462,82 @@ extern u8 _jpndata2;
 
 struct var800aabb4 *lang0f16e3fc(s32 arg0)
 {
+#if VERSION == VERSION_JPN_FINAL
+	s32 i;
+	s32 t2 = -1;
+	s32 t3 = -1;
+	bool t0 = false;
+
+	static u32 var80084810jf = 0;
+	static u32 var80084814jf = 8;
+
+	if (arg0 & 0x2000) {
+		if (1);
+		t0 = true;
+	}
+
+	mainOverrideVariable("tmul", &var80084814jf);
+	mainOverrideVariable("tload", &var80084810jf);
+
+	if (var80084810jf) {
+		arg0 = var80084810jf;
+	}
+
+	if (arg0 && arg0);
+
+	for (i = 0; i < var8009d140jf; i++) {
+		if ((t0 || arg0 != var800aabb8[i].unk00_02)
+				&& (!t0 || i + 1 >= var8009d140jf
+					|| arg0 != var800aabb8[i].unk00_02
+					|| arg0 != var800aabb8[i + 1].unk00_02)) {
+			if (var800aabb8[i].unk00_00 == 0) {
+				if (1);
+				t2 = i;
+			}
+
+			if (var800aabb8[i].unk00_00 == 0 && var800aabb8[i + 1].unk00_00 == 0 && i + 1 < var8009d140jf) {
+				t3 = i;
+			}
+		} else {
+			break;
+		}
+	}
+
+	if (i < var8009d140jf) {
+		if (!t0) {
+			var800aabb8[i].unk00_00 = 2;
+
+			return &var800aabb4[i * var80084814jf];
+		} else {
+			var800aabb8[i + 0].unk00_00 = 2;
+			var800aabb8[i + 1].unk00_00 = 2;
+
+			return &var800aabb4[var80084814jf * i];
+		}
+	}
+
+	if (!t0 && t2 >= 0) {
+		var800aabb8[t2].unk00_00 = 2;
+		var800aabb8[t2].unk00_02 = arg0;
+
+		dmaExec((u8 *) (t2 * (var80084814jf * 0x0c) + (u32)&var800aabb4[0]),
+				(u32) &_jpndata1 + ((arg0 * var80084814jf) * 0xc + var80084814jf * (24 * 0xc)),
+				var80084814jf * 0x0c);
+
+		return &var800aabb4[var80084814jf * t2];
+	}
+
+	if (t0 && t3 >= 0) {
+		var800aabb8[t3 + 0].unk00_00 = 2;
+		var800aabb8[t3 + 1].unk00_00 = 2;
+		var800aabb8[t3 + 0].unk00_02 = arg0;
+		var800aabb8[t3 + 1].unk00_02 = arg0;
+		return &var800aabb4[0];
+	} else {
+		var8009d370jf++;
+		return &var800aabb4[0];
+	}
+#else
 	s32 i;
 	s32 t2 = -1;
 	s32 t3 = -1;
@@ -494,12 +572,12 @@ struct var800aabb4 *lang0f16e3fc(s32 arg0)
 		if (!t0) {
 			var800aabb8[i].unk00_00 = 2;
 
-			return &var800aabb4[i];
+			return &var800aabb4[i * 8];
 		} else {
 			var800aabb8[i + 0].unk00_00 = 2;
 			var800aabb8[i + 1].unk00_00 = 2;
 
-			return &var800aabb4[i];
+			return &var800aabb4[i * 8];
 		}
 	}
 
@@ -507,9 +585,9 @@ struct var800aabb4 *lang0f16e3fc(s32 arg0)
 		var800aabb8[t2].unk00_00 = 2;
 		var800aabb8[t2].unk00_02 = arg0 >> 1;
 
-		dmaExec(&var800aabb4[t2], (u32)&_jpndata1 + (arg0 >> 1) * 0x60, 0x60);
+		dmaExec(&var800aabb4[t2 * 8], (u32)&_jpndata1 + (arg0 >> 1) * 0x60, 0x60);
 
-		return &var800aabb4[t2];
+		return &var800aabb4[t2 * 8];
 	}
 
 	if (t0 && t3 >= 0) {
@@ -518,12 +596,13 @@ struct var800aabb4 *lang0f16e3fc(s32 arg0)
 		var800aabb8[t3 + 0].unk00_02 = arg0 >> 1;
 		var800aabb8[t3 + 1].unk00_02 = arg0 >> 1;
 
-		dmaExec(&var800aabb4[t3], (u32)&_jpndata2 + ((arg0 & 0x1fff) >> 1) * 0x80, 0x80);
+		dmaExec(&var800aabb4[t3 * 8], (u32)&_jpndata2 + ((arg0 & 0x1fff) >> 1) * 0x80, 0x80);
 
-		return &var800aabb4[t3];
+		return &var800aabb4[t3 * 8];
 	}
 
 	return &var800aabb4[0];
+#endif
 }
 #endif
 
@@ -613,7 +692,7 @@ void langReload(void)
 {
 	s32 i;
 
-	g_LangBufferPos = (u8 *)align32(g_LangBuffer);
+	g_LangBufferPos = (u8 *) align32((u32) g_LangBuffer);
 
 	for (i = 0; i < ARRAYCOUNT(g_LangBanks); i++) {
 		if (g_LangBanks[i] != NULL) {

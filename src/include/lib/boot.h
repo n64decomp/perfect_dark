@@ -6,5 +6,6 @@ void bootPhase1(void);
 s32 bootGetMemSize(void);
 void *bootAllocateStack(s32 threadid, s32 size);
 void bootPhase2(void *arg);
+void bootCheckStackOverflow(void);
 
 #endif

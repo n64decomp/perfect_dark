@@ -7,6 +7,7 @@
 #include "game/savebuffer.h"
 #include "game/bg.h"
 #include "game/challenge.h"
+#include "game/lang.h"
 #include "game/training.h"
 #include "game/gamefile.h"
 #include "game/mplayer/mplayer.h"

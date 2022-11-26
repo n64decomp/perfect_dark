@@ -406,6 +406,7 @@ Acmd    *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen);
 #define AL_STATE3   3
 #define AL_STATE4   4
 #define AL_STATE5   5
+#define AL_STARTING 6
 
 #define AL_DEFAULT_PRIORITY     5
 #define AL_DEFAULT_VOICE        0

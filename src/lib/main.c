@@ -311,7 +311,7 @@ extern u8 _copyrightSegmentRomStart;
 extern u8 _copyrightSegmentRomEnd;
 extern u8 _bssSegmentEnd;
 
-#if VERSION >= VERSION_NTSC_1_0
+#if !MATCHING || VERSION >= VERSION_NTSC_1_0
 /**
  * Initialise various subsystems, display the copyright or accessing pak texture,
  * then initialise more subsystems.
@@ -354,14 +354,17 @@ void mainInit(void)
 			joyDebugJoy();
 		}
 
+#if VERSION >= VERSION_NTSC_1_0
 		if (1);
 		if (1);
+#endif
 	}
 
 	if (argFindByPrefix(1, "-level_") == NULL) {
 		var8005d9b0 = true;
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 	// If holding start on any controller, open boot pak menu
 	if (joyGetButtons(0, START_BUTTON) == 0
 			&& joyGetButtons(1, START_BUTTON) == 0
@@ -519,6 +522,115 @@ void mainInit(void)
 #else
 	if (osTvType == OS_TV_PAL) {
 		while (1);
+	}
+#endif
+
+#else
+	// NTSC beta
+	if (osTvType != OS_TV_NTSC) {
+		var8005d9b0 = true;
+
+		while (1);
+	}
+
+	if (joyGetButtons(0, START_BUTTON) == 0
+			&& joyGetButtons(1, START_BUTTON) == 0
+			&& joyGetButtons(2, START_BUTTON) == 0
+			&& joyGetButtons(3, START_BUTTON) == 0) {
+		OSMesg receivedmsg = NULL;
+		OSScMsg scdonemsg = { OS_SC_DONE_MSG };
+		u8 scratch[1024 * 5];
+		u16 *texture;
+		s32 numpages;
+
+		g_DoBootPakMenu = false;
+
+		// Choose where to place the temporary framebuffer.
+		// In 4MB mode, place it close to the end of memory,
+		// but before the thread stacks and VM system.
+		// In 8MB mode, put it at the end of the expansion pak.
+		if (osGetMemSize() <= 4 * 1024 * 1024) {
+			addr = K0BASE + 4 * 1024 * 1024;
+			addr -= STACKSIZE_MAIN;
+			addr -= STACKSIZE_IDLE;
+			addr -= STACKSIZE_RMON;
+			addr -= STACKSIZE_SCHED;
+			addr -= STACKSIZE_AUDIO;
+			addr -= g_VmNumPages * 8; // vm state table
+			addr -= 266 * 4096; // vm loaded pages buffer
+			addr -= addr % 0x2000; // align down to a multiple of 0x2000
+			addr -= 0x1c80; // buffer for single biggest game zip
+		} else {
+			addr = K0BASE + 8 * 1024 * 1024;
+		}
+
+		addr -= 640 * 480 * 2; // the framebuffer itself
+		addr -= 0x40; // align down to a multiple of 0x40
+
+		fb = (u16 *) ALIGN64(PHYS_TO_K0(addr));
+
+		// Prepare space for the unzipped texture immediately before the framebuffer.
+		// Both textures are 507x48.
+		texture = fb - 507 * 48;
+
+		// DMA the compressed texture from the ROM to the framebuffer.
+		// It's using the framebuffer as a temporary data buffer.
+		start = &_copyrightSegmentRomStart;
+		end = &_copyrightSegmentRomEnd;
+		dmaExec(fb, (u32) start, end - start);
+
+		// Unzip the compressed texture from fb to texture
+		rzipInflate(fb, texture, scratch);
+
+		// Clear the framebuffer except for the bottom 48 rows,
+		// because that's where the texture will go.
+		// The increment here is too small, so some pixels are zeroed twice.
+		for (dsty = 0; dsty < (480 - 48) * 640; dsty += 576) {
+			for (x = 0; x < 640; x++) {
+				fb[dsty + x] = 0;
+			}
+
+			if (1);
+		}
+
+		// Copy the texture to the framebuffer.
+		// The framebuffer will be displayed at 576 wide,
+		// and the texture is right aligned.
+		dsty = 0;
+
+		for (srcy = 0; srcy < 507 * 48; srcy += 507) {
+			for (x = 0; x < 507; x++) {
+				fb[dsty + (576 - 507) + x] = texture[srcy + x];
+			}
+
+			dsty += 576;
+		}
+
+		viSetMode(VIMODE_HI);
+		viConfigureForCopyright(fb);
+
+		g_RdpOutBufferStart = texture;
+		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
+
+		while (osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0) {
+			if (i);
+		}
+
+		i = 0;
+
+		while (i < 6) {
+			osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_BLOCK);
+
+			j = (s32) &scdonemsg;
+
+			if (*(s16 *) receivedmsg == 1) {
+				viUpdateMode();
+				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (void *) j);
+				i++;
+			}
+		}
+	} else {
+		g_DoBootPakMenu = true;
 	}
 #endif
 
@@ -1040,7 +1152,7 @@ void mainLoop(void)
 	s32 numplayers;
 	u32 stack;
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION < VERSION_NTSC_1_0 && MATCHING
 	if ((ptr[0] != 'OJ' && ptr[0] != 'LS' && ptr[0] != 'PM' && ptr[0] != 'MP')
 			|| (ptr[1] != 'FS' && ptr[1] != 'RE')) {
 		fail = true;

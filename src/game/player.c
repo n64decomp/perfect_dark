@@ -9,6 +9,7 @@
 #include "game/nbomb.h"
 #include "game/title.h"
 #include "game/chr.h"
+#include "game/debug.h"
 #include "game/body.h"
 #include "game/prop.h"
 #include "game/propsnd.h"

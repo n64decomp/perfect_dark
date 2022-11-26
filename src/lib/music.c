@@ -72,6 +72,21 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 	if (result == RESULT_FAIL) {
 		// Find an unused channel
 		for (i = 0; i < 3; i++) {
+			/**
+			 * @bug: When adding a new track, the seqp's state remains at AL_STOPPED
+			 * and is only changed to AL_PLAYING once the audio thread has run.
+			 * Scheduling two sequences in quick succession will cause it to choose
+			 * the same sequence player if the audio thread hasn't run between
+			 * the two calls and updated the state.
+			 *
+			 * With IDO, the compiled code is so inefficient that the audio thread
+			 * is likely to run between two consecutive calls. However it does
+			 * still happen occasionally. Eg. sometimes when unpausing the stage's
+			 * main theme does not resume.
+			 *
+			 * For GCC, it's more likely to occur, so we introduce a new state:
+			 * AL_STARTING. This is assigned to the sequence player in seqPlay.
+			 */
 			if (n_alCSPGetState(g_SeqInstances[i].seqp) == AL_STOPPED) {
 				osSyncPrintf("MUSIC(Play) : Starting, Guid=%u, Midi=%d, Tune=%d\n", event->id, 0, event->tracktype);
 
@@ -905,9 +920,11 @@ void musicTickEvents(void)
 		for (i = g_MusicEventQueueLength - 1; i >= 0; i--) {
 			event = &g_MusicEventQueue[i];
 
+#if VERSION >= VERSION_NTSC_1_0
 			if (event->eventtype == MUSICEVENTTYPE_5) {
 				continue;
 			}
+#endif
 
 			if (event->tracktype == TRACKTYPE_NONE) {
 				continue;
@@ -921,9 +938,11 @@ void musicTickEvents(void)
 					continue;
 				}
 
+#if VERSION >= VERSION_NTSC_1_0
 				if (earlier->eventtype == MUSICEVENTTYPE_5) {
 					continue;
 				}
+#endif
 
 				if (earlier->tracktype == TRACKTYPE_NONE) {
 					continue;
@@ -977,21 +996,25 @@ void musicTickEvents(void)
 
 				switch (event->eventtype) {
 				case MUSICEVENTTYPE_PLAY:
-					result = musicHandlePlayEvent(event, 0);
+					result = musicHandlePlayEvent(event, result);
 					break;
 				case MUSICEVENTTYPE_STOP:
-					result = musicHandleStopEvent(event, 0);
+					result = musicHandleStopEvent(event, result);
 					break;
 				case MUSICEVENTTYPE_FADE:
-					result = musicHandleFadeEvent(event, 0);
+					result = musicHandleFadeEvent(event, result);
 					break;
 				case MUSICEVENTTYPE_STOPALL:
-					result = musicHandleStopAllEvent(0);
+					result = musicHandleStopAllEvent(result);
 					break;
+#if VERSION >= VERSION_NTSC_1_0
 				case MUSICEVENTTYPE_5:
-					result = musicHandleEvent5(event, 0);
+					result = musicHandleEvent5(event, result);
 					break;
+#endif
 				}
+
+				if (result);
 
 				if (result != RESULT_FAIL) {
 					// Remove the item from the queue
