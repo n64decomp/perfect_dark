@@ -74,7 +74,7 @@ OUTPUT_ARCH (mips)
 SECTIONS
 {
 #if VERSION >= VERSION_JPN_FINAL
-	_jpndata1 = 0x17fc40;
+	_jpndata1 = 0x178c40;
 	_jpndata2 = 0x18b340;
 #elif VERSION >= VERSION_PAL_BETA
 	_jpndata1 = 0x17fc40;

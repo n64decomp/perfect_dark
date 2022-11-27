@@ -11,7 +11,7 @@ void langReset(s32 stagenum);
 void langTick(void);
 
 u32 langGetLangBankIndexFromStagenum(s32 stagenum);
-struct var800aabb4 *lang0f16e3fc(s32 arg0);
+struct jpncharpixels *langGetJpnCharPixels(s32 codepoint);
 s32 langGetFileNumOffset(void);
 s32 langGetFileId(s32 bank);
 void langLoad(s32 bank);

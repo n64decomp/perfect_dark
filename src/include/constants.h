@@ -106,6 +106,12 @@
 #define ROM_GAMECODE    'NPDE'
 #endif
 
+#if VERSION == VERSION_JPN_FINAL
+#define MAX_JPN_CACHE_ITEMS() g_JpnMaxCacheItems
+#else
+#define MAX_JPN_CACHE_ITEMS() 124
+#endif
+
 // These actions are assigned to chr->actiontype
 #define ACT_INIT             0
 #define ACT_STAND            1

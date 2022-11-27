@@ -11,7 +11,7 @@
 s32 var8009d370jf;
 #endif
 
-extern s32 var8009d140jf;
+extern s32 g_JpnMaxCacheItems;
 
 void langTick(void)
 {
@@ -29,9 +29,9 @@ void langTick(void)
 		language = 99;
 	}
 
-	for (i = 0; i < var8009d140jf; i++) {
-		if (var800aabb8[i].unk00_00) {
-			var800aabb8[i].unk00_00--;
+	for (i = 0; i < MAX_JPN_CACHE_ITEMS(); i++) {
+		if (g_JpnCacheCacheItems[i].ttl) {
+			g_JpnCacheCacheItems[i].ttl--;
 		}
 	}
 #elif VERSION >= VERSION_PAL_BETA
@@ -45,17 +45,17 @@ void langTick(void)
 	}
 
 	if (g_Jpn) {
-		for (i = 0; i != 124; i++) {
-			if (var800aabb8[i].unk00_00) {
-				var800aabb8[i].unk00_00--;
+		for (i = 0; i != MAX_JPN_CACHE_ITEMS(); i++) {
+			if (g_JpnCacheCacheItems[i].ttl) {
+				g_JpnCacheCacheItems[i].ttl--;
 			}
 		}
 	}
 #else
 	if (g_Jpn) {
-		for (i = 0; i != 124; i++) {
-			if (var800aabb8[i].unk00_00) {
-				var800aabb8[i].unk00_00--;
+		for (i = 0; i != MAX_JPN_CACHE_ITEMS(); i++) {
+			if (g_JpnCacheCacheItems[i].ttl) {
+				g_JpnCacheCacheItems[i].ttl--;
 			}
 		}
 	}

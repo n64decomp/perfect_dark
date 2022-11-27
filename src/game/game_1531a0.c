@@ -1414,7 +1414,7 @@ glabel text0f154f38
 /*  f154d7c:	55c00006 */ 	bnezl	$t6,.JF0f154d98
 /*  f154d80:	96390000 */ 	lhu	$t9,0x0($s1)
 /*  f154d84:	94c40000 */ 	lhu	$a0,0x0($a2)
-/*  f154d88:	0fc5b967 */ 	jal	lang0f16e3fc
+/*  f154d88:	0fc5b967 */ 	jal	langGetJpnCharPixels
 /*  f154d8c:	2484ff80 */ 	addiu	$a0,$a0,-128
 /*  f154d90:	ae220008 */ 	sw	$v0,0x8($s1)
 /*  f154d94:	96390000 */ 	lhu	$t9,0x0($s1)
@@ -1717,7 +1717,7 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 
 #if VERSION >= VERSION_JPN_FINAL
 	if (curchar->pixeldata == NULL) {
-		curchar->pixeldata = (void *) lang0f16e3fc(curchar->index - 0x80);
+		curchar->pixeldata = (void *) langGetJpnCharPixels(curchar->index - 0x80);
 	}
 
 	if (curchar->index >= 0x80) {
@@ -1924,7 +1924,7 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 				}
 
 				tmpchar.index = codepoint + 0x80;
-				tmpchar.pixeldata = (void *) lang0f16e3fc(codepoint);
+				tmpchar.pixeldata = (void *) langGetJpnCharPixels(codepoint);
 
 				text += 2;
 			}
@@ -1962,7 +1962,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 				&& *x >= savedx
 				&& curchar->baseline + sp90 + curchar->height >= savedy) {
 			if (curchar->pixeldata == NULL) {
-				curchar->pixeldata = (void *)lang0f16e3fc(curchar->index - 0x80);
+				curchar->pixeldata = (void *)langGetJpnCharPixels(curchar->index - 0x80);
 			}
 
 			if (curchar->index >= 0x80) {
@@ -2422,7 +2422,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 				}
 
 				tmpchar.index = codepoint + 0x80;
-				tmpchar.pixeldata = (void *)lang0f16e3fc(codepoint);
+				tmpchar.pixeldata = (void *)langGetJpnCharPixels(codepoint);
 
 				gdl = text0f15568c(gdl, x, y, &tmpchar, &tmpchar, font, savedx, savedy, width, height, arg9);
 
@@ -2482,7 +2482,7 @@ Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fon
 			&& sp38 + char1->baseline + char1->height >= arg7) {
 #if VERSION >= VERSION_JPN_FINAL
 		if (char1->pixeldata == NULL) {
-			char1->pixeldata = (void *)lang0f16e3fc(char1->index - 0x80);
+			char1->pixeldata = (void *)langGetJpnCharPixels(char1->index - 0x80);
 		}
 #else
 		if (g_Blend.types) {
@@ -2681,7 +2681,7 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 			}
 
 			sp74.index = codepoint + 0x80;
-			sp74.pixeldata = (void *)lang0f16e3fc(codepoint);
+			sp74.pixeldata = (void *)langGetJpnCharPixels(codepoint);
 
 			gdl = textRenderChar(gdl, x, y, &sp74, &sp74, font, savedx, savedy, width * var8007fad0, height, arg10);
 

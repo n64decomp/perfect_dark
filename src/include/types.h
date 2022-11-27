@@ -5116,15 +5116,15 @@ struct texture {
 	u32 unk04_0c : 4;
 };
 
-struct var800aabb4 {
+struct jpncharpixels {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 };
 
-struct var800aabb8 {
-	u16 unk00_00 : 2;
-	u16 unk00_02 : 14;
+struct jpncacheitem {
+	u16 ttl : 2;
+	u16 codepoint : 14;
 };
 
 struct bgcmd {
