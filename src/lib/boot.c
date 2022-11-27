@@ -88,9 +88,9 @@ void bootPhase1(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (osResetType == RESETTYPE_WARM) {
-		g_OsMemSize = *(u32 *)(STACK_START - 8);
+		g_OsMemSize = *(u32 *) STACK_START;
 	} else {
-		*(u32 *)(STACK_START - 8) = g_OsMemSize = osMemSize;
+		*(u32 *) STACK_START = g_OsMemSize = osMemSize;
 	}
 #endif
 
