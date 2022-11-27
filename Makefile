@@ -461,6 +461,7 @@ else ifeq ($(COMPILER), gcc)
         -fno-merge-constants \
         -fno-strict-aliasing \
         -fno-zero-initialized-in-bss \
+        -funsigned-char \
         -fwrapv \
         -Wall \
         -Werror \

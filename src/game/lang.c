@@ -6,6 +6,7 @@
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/dma.h"
+#include "lib/main.h"
 #include "data.h"
 #include "types.h"
 

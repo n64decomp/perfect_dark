@@ -6,6 +6,7 @@
 #include "game/tex.h"
 #include "game/inv.h"
 #include "game/playermgr.h"
+#include "game/game_006900.h"
 #include "game/gfxmemory.h"
 #include "game/credits.h"
 #include "game/bondview.h"

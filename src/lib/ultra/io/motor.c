@@ -1,8 +1,9 @@
 #include <os_internal.h>
 #include "controller.h"
 #include "siint.h"
+#include "constants.h"
 
-OSPifRam osPifBuffers[MAXCONTROLLERS];
+ALIGNED16 OSPifRam osPifBuffers[MAXCONTROLLERS];
 
 s32 __osMotorAccess(OSPfs *pfs, s32 vibrate)
 {

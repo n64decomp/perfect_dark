@@ -2,8 +2,9 @@
 #include <os_internal.h>
 #include "controller.h"
 #include "siint.h"
+#include "constants.h"
 
-OSPifRam __osPfsPifRam;
+ALIGNED16 OSPifRam __osPfsPifRam;
 
 void __osPfsRequestData(u8 cmd);
 void __osPfsGetInitData(u8 *pattern, OSContStatus *data);

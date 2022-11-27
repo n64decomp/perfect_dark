@@ -20,5 +20,6 @@ void langClearBank(s32 bank);
 char *langGet(s32 textid);
 void langReload(void);
 void langSetEuropean(u32 arg0);
+void langSetJpnEnabled(bool enable);
 
 #endif

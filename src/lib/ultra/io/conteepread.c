@@ -2,8 +2,9 @@
 #include <rcp.h>
 #include "controller.h"
 #include "siint.h"
+#include "constants.h"
 
-OSPifRam __osEepPifRam;
+ALIGNED16 OSPifRam __osEepPifRam;
 
 #if VERSION >= VERSION_JPN_FINAL
 u32 var8009d010pf[4];
