@@ -73,20 +73,6 @@ OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-#if VERSION >= VERSION_JPN_FINAL
-	_jpndata1 = 0x178c40;
-	_jpndata2 = 0x18b340;
-#elif VERSION >= VERSION_PAL_BETA
-	_jpndata1 = 0x17fc40;
-	_jpndata2 = 0x18b340;
-#elif VERSION >= VERSION_NTSC_1_0
-	_jpndata1 = 0x194440;
-	_jpndata2 = 0x19fb40;
-#else
-	_jpndata1 = 0x148c40;
-	_jpndata2 = 0x154340;
-#endif
-
 	osTvType = 0x80000300;
 	osRomType = 0x80000304;
 	osRomBase = 0x80000308;
@@ -282,19 +268,42 @@ SECTIONS
 	__rompos = _inflateSegmentRomEnd + ROMALLOCATION_GAME;
 
 	/***************************************************************************
-	 * garbage
+	 * jpnfonts
 	 * -------------------------------------------------------------------------
-	 * ROM range: 0x00194b30 - 0x001a15c0
+	 * ROM range: 0x00178c40 - 0x00190c50 (jpn-final)
 	 * RAM range: N/A
 	 * -------------------------------------------------------------------------
-	 * On NTSC, this contains unused JPN fonts. On PAL, not sure what this is.
+	 * On all versions of the game, the start of this segment overlaps with the
+	 * end of the gamezips segment, and the start is overwritten with data from
+	 * gamezips. This isn't a problem because the early character codes are
+	 * non-visual characters and therefore not used. However the SegmentRomStart
+	 * linker variable points at the original start. To avoid issues with
+	 * overlapping segments, the segment we extracted from the base ROM is just
+	 * the non-overlapping part, which means we have to subtract an amount to
+	 * get the SegmentRomStart value.
+	 *
+	 * Note that all versions of the game have this segment. There is basic
+	 * support for Japanese characters even in the NTSC beta version.
+	 *
+	 * In most versions the fonts are split into two font segments: single-byte
+	 * and multi-byte. jpn-final combines them into one segment.
 	 */
 
-	BEGIN_SEG(garbage)
-	{
-		build/ROMID/garbage.o (.data);
-	}
-	END_SEG(garbage)
+#if VERSION == VERSION_JPN_FINAL
+	FONT(jpn)
+#else
+	FONT(jpnsingle)
+	FONT(jpnmulti)
+#endif
+
+	/* Subtract based on how much overlap there is */
+#if VERSION == VERSION_JPN_FINAL
+	_fontjpnSegmentRomStart = _fontjpnSegmentRomStart - 0x6f0;
+#elif VERSION >= VERSION_PAL_BETA
+	_fontjpnsingleSegmentRomStart = _fontjpnsingleSegmentRomStart - 0x6f0;
+#elif VERSION >= VERSION_NTSC_1_0
+	_fontjpnsingleSegmentRomStart = _fontjpnsingleSegmentRomStart - 0x6e0;
+#endif
 
 	/***************************************************************************
 	 * animations

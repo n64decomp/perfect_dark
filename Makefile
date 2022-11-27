@@ -255,7 +255,6 @@ O_FILES := \
 	$(B_DIR)/assets/textureslist.o \
 	$(B_DIR)/bootloader.o \
 	$(B_DIR)/firingrange.o \
-	$(B_DIR)/garbage.o \
 	$(B_DIR)/getitle.o \
 	$(B_DIR)/mpconfigs.o \
 	$(B_DIR)/romheader.o \
@@ -269,6 +268,14 @@ O_FILES := \
 # ntsc-beta doesn't have this segment
 ifneq ($(ROMID), ntsc-beta)
     O_FILES := $(O_FILES) $(B_DIR)/assets/accessingpakZ.o
+endif
+
+ifeq ($(ROMID), jpn-final)
+    O_FILES := $(O_FILES) $(B_DIR)/assets/fonts/jpn.o
+else
+    O_FILES := $(O_FILES) \
+        $(B_DIR)/assets/fonts/jpnsingle.o \
+        $(B_DIR)/assets/fonts/jpnmulti.o
 endif
 
 INCLUDES = \
@@ -572,9 +579,6 @@ $(B_DIR)/segments/%.bin: $(B_DIR)/pd.z64
 
 $(B_DIR)/assets/fonts/%.o: $(A_DIR)/fonts/%.bin
 	mkdir -p $(B_DIR)/assets/fonts
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
-
-$(B_DIR)/garbage.o: $(E_DIR)/garbage.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/getitle.o: $(E_DIR)/getitle.bin

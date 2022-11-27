@@ -26,8 +26,8 @@ class Extractor:
         self.extract_firingrange()
         self.extract_fonts()
         self.extract_game()
-        self.extract_garbage()
         self.extract_getitle()
+        self.extract_jpnfonts()
         self.extract_lib()
         self.extract_mpconfigs()
         self.extract_mpstrings()
@@ -235,6 +235,13 @@ class Extractor:
         self.extract_font('font7', 'font8', 'handelgothiclg')
         self.extract_font('font8', 'font9', 'ocramd')
         self.extract_font('font9', 'sfxctl', 'ocralg')
+
+    def extract_jpnfonts(self):
+        if self.romid == 'jpn-final':
+            self.extract_font('jpnfontcombined', 'animations', 'jpn')
+        else:
+            self.extract_font('jpnfontsingle', 'jpnfontmulti', 'jpnsingle')
+            self.extract_font('jpnfontmulti', 'animations', 'jpnmulti')
 
     def extract_bootloader(self):
         self.write_extracted('bootloader.bin', self.rom[0x40:0x1000])
@@ -451,28 +458,30 @@ class Extractor:
     ]
 
     vals = {
-        #                 ntsc-beta  ntsc-1.0   ntsc-final pal-beta   pal-final  jpn-final
-        'files':         [0x29160,   0x28080,   0x28080,   0x29b90,   0x28910,   0x28800,   ],
-        'data':          [0x30850,   0x39850,   0x39850,   0x39850,   0x39850,   0x39850,   ],
-        'game':          [0x43c40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   ],
-        'garbage':       [0x148c40,  0x194b20,  0x194b20,  0x180330,  0x180330,  0x179330,  ],
-        'animations':    [0x155dc0,  0x1a15c0,  0x1a15c0,  0x18cdc0,  0x18cdc0,  0x190c50,  ],
-        'mpconfigs':     [0x785130,  0x7d0a40,  0x7d0a40,  0x7bc240,  0x7bc240,  0x7c00d0,  ],
-        'firingrange':   [0x79e410,  0x7e9d20,  0x7e9d20,  0x7d5520,  0x7d5520,  0x7d93b0,  ],
-        'textureconfig': [0x79f960,  0x7eb270,  0x7eb270,  0x7d6a70,  0x7d6a70,  0x7da900,  ],
-        'font0':         [0x7a6a80,  0x7f2390,  0x7f2390,  0x7ddb90,  0x7ddb90,  0x7e1a20,  ],
-        'font1':         [0x7a9020,  0x7f4930,  0x7f4930,  0x7e0130,  0x7e0130,  0x7e3fc0,  ],
-        'font2':         [0x7abf50,  0x7f7860,  0x7f7860,  0x7e3060,  0x7e3060,  0x7e6ef0,  ],
-        'font3':         [0x7ad210,  0x7f8b20,  0x7f8b20,  0x7e4320,  0x7e4320,  0x7e81b0,  ],
-        'font4':         [0x7ae420,  0x7f9d30,  0x7f9d30,  0x7e5530,  0x7e5530,  0x7e93c0,  ],
-        'font5':         [0x7b06a0,  0x7fbfb0,  0x7fbfb0,  0x7e87b0,  0x7e87b0,  0x7ec640,  ],
-        'font6':         [0x7b2470,  0x7fdd80,  0x7fdd80,  0x7eae20,  0x7eae20,  0x7eecb0,  ],
-        'font7':         [0x7b4fd0,  0x8008e0,  0x8008e0,  0x7eee70,  0x7eee70,  0x7f2d00,  ],
-        'font8':         [0x7b8490,  0x803da0,  0x803da0,  0x7f2330,  0x7f2330,  0x7f61c0,  ],
-        'font9':         [0x7bb1b0,  0x806ac0,  0x806ac0,  0x7f5050,  0x7f5050,  0x7f8ee0,  ],
-        'sfxctl':        [0x7be940,  0x80a250,  0x80a250,  0x7f87e0,  0x7f87e0,  0x7fc670,  ],
-        'textures':      [0x1d12fe0, 0x1d65f40, 0x1d65f40, 0x1d5bb50, 0x1d5ca20, 0x1d61f90, ],
-        'copyright':     [0x1fabac0, 0x1ffea20, 0x1ffea20, 0x1ff4630, 0x1ff5500, 0x1ffd6b0, ],
+        #                   ntsc-beta  ntsc-1.0   ntsc-final pal-beta   pal-final  jpn-final
+        'files':           [0x29160,   0x28080,   0x28080,   0x29b90,   0x28910,   0x28800,   ],
+        'data':            [0x30850,   0x39850,   0x39850,   0x39850,   0x39850,   0x39850,   ],
+        'game':            [0x43c40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   ],
+        'jpnfontsingle':   [0x148c40,  0x194b20,  0x194b20,  0x180330,  0x180330,  0,         ],
+        'jpnfontmulti':    [0x154340,  0x19fb40,  0x19fb40,  0x18b340,  0x18b340,  0,         ],
+        'jpnfontcombined': [0,         0,         0,         0,         0,         0x179330,  ],
+        'animations':      [0x155dc0,  0x1a15c0,  0x1a15c0,  0x18cdc0,  0x18cdc0,  0x190c50,  ],
+        'mpconfigs':       [0x785130,  0x7d0a40,  0x7d0a40,  0x7bc240,  0x7bc240,  0x7c00d0,  ],
+        'firingrange':     [0x79e410,  0x7e9d20,  0x7e9d20,  0x7d5520,  0x7d5520,  0x7d93b0,  ],
+        'textureconfig':   [0x79f960,  0x7eb270,  0x7eb270,  0x7d6a70,  0x7d6a70,  0x7da900,  ],
+        'font0':           [0x7a6a80,  0x7f2390,  0x7f2390,  0x7ddb90,  0x7ddb90,  0x7e1a20,  ],
+        'font1':           [0x7a9020,  0x7f4930,  0x7f4930,  0x7e0130,  0x7e0130,  0x7e3fc0,  ],
+        'font2':           [0x7abf50,  0x7f7860,  0x7f7860,  0x7e3060,  0x7e3060,  0x7e6ef0,  ],
+        'font3':           [0x7ad210,  0x7f8b20,  0x7f8b20,  0x7e4320,  0x7e4320,  0x7e81b0,  ],
+        'font4':           [0x7ae420,  0x7f9d30,  0x7f9d30,  0x7e5530,  0x7e5530,  0x7e93c0,  ],
+        'font5':           [0x7b06a0,  0x7fbfb0,  0x7fbfb0,  0x7e87b0,  0x7e87b0,  0x7ec640,  ],
+        'font6':           [0x7b2470,  0x7fdd80,  0x7fdd80,  0x7eae20,  0x7eae20,  0x7eecb0,  ],
+        'font7':           [0x7b4fd0,  0x8008e0,  0x8008e0,  0x7eee70,  0x7eee70,  0x7f2d00,  ],
+        'font8':           [0x7b8490,  0x803da0,  0x803da0,  0x7f2330,  0x7f2330,  0x7f61c0,  ],
+        'font9':           [0x7bb1b0,  0x806ac0,  0x806ac0,  0x7f5050,  0x7f5050,  0x7f8ee0,  ],
+        'sfxctl':          [0x7be940,  0x80a250,  0x80a250,  0x7f87e0,  0x7f87e0,  0x7fc670,  ],
+        'textures':        [0x1d12fe0, 0x1d65f40, 0x1d65f40, 0x1d5bb50, 0x1d5ca20, 0x1d61f90, ],
+        'copyright':       [0x1fabac0, 0x1ffea20, 0x1ffea20, 0x1ff4630, 0x1ff5500, 0x1ffd6b0, ],
     }
 
 extractor = Extractor()
