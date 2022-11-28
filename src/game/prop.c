@@ -1206,7 +1206,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 
 							bgunCalculatePlayerShotSpread(&spd8, &spcc, handnum, true);
 
-							if (model000225d4(model, &spd8, &spcc, &node) > 0) {
+							if (modelTestForHit(model, &spd8, &spcc, &node) > 0) {
 								f32 damage = gsetGetDamage(gset) * 2.5f;
 								skipthething = true;
 								bgunPlayGlassHitSound(&playerprop->pos, playerprop->rooms, -1);
@@ -2597,7 +2597,7 @@ void autoaimTick(void)
 
 					if (bestprop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 						struct defaultobj *obj = bestprop->obj;
-						Mtxf *mtx = model0001a60c(obj->model);
+						Mtxf *mtx = modelGetRootMtx(obj->model);
 						struct coord spac;
 						spac.z = mtx->m[3][2];
 

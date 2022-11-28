@@ -144,19 +144,19 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			struct modelrenderdata sp80 = {NULL, 1, 3};
 			Mtxf sp40;
 			struct coord modelpos = {0, 0, 0};
-			bool somebool = model0001e2a8();
+			bool mergeenabled = modelIsAnimMergingEnabled();
 
 			g_Vars.currentplayer->resetheadtick = false;
 
-			model0001e29c(false);
-			model0001ee18(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
-			model0001e29c(somebool);
-			model0001b3bc(&g_Vars.currentplayer->model);
+			modelSetAnimMergingEnabled(false);
+			modelTickAnimQuarterSpeed(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
+			modelSetAnimMergingEnabled(mergeenabled);
+			modelUpdateInfo(&g_Vars.currentplayer->model);
 			mtx4LoadIdentity(&sp40);
 
 			sp80.unk00 = &sp40;
 			sp80.unk10 = g_Vars.currentplayer->bondheadmatrices;
-			model0001cebc(&sp80, &g_Vars.currentplayer->model);
+			modelSetMatricesWithAnim(&sp80, &g_Vars.currentplayer->model);
 
 			g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
 			g_Vars.currentplayer->headbodyoffset.y = g_Vars.currentplayer->standbodyoffset.y;

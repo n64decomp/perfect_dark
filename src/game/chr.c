@@ -1907,7 +1907,7 @@ void chr0f0220ac(struct chrdata *chr)
 	propRegisterRooms(chr->prop);
 }
 
-void chr0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
+void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, bool arg2)
 {
 	struct model *model = chr->model;
 
@@ -1918,9 +1918,9 @@ void chr0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 
 		if (model->anim
 				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
-				&& arg1 > 0
+				&& lvupdate240 > 0
 				&& g_Vars.cutsceneskip60ths > 0) {
-			arg1 += g_Vars.cutsceneskip60ths * 4;
+			lvupdate240 += g_Vars.cutsceneskip60ths * 4;
 		}
 	}
 
@@ -1929,11 +1929,11 @@ void chr0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 	} else if (arg2) {
 		if ((chr->hidden & CHRHFLAG_00000800) == 0) {
 			modelGetRootPosition(model, &chr->prevpos);
-			model0001ee18(model, arg1, 1);
-			model0001b3bc(model);
+			modelTickAnimQuarterSpeed(model, lvupdate240, true);
+			modelUpdateInfo(model);
 		}
 	} else {
-		model0001ee18(model, arg1, 0);
+		modelTickAnimQuarterSpeed(model, lvupdate240, false);
 	}
 }
 
@@ -1952,7 +1952,7 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 	if (model->attachedtomodel && model->attachedtonode
 			&& (obj->hidden & OBJHFLAG_00000800) == 0
 			&& (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
-		Mtxf *sp104 = model0001a5cc(model->attachedtomodel, model->attachedtonode, 0);
+		Mtxf *sp104 = modelFindNodeMtx(model->attachedtomodel, model->attachedtonode, 0);
 		struct modelrenderdata thing = {NULL, 1, 3};
 		u32 stack;
 		Mtxf sp80;
@@ -1980,7 +1980,7 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 		}
 
 		thing.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
-		model0001ce64(&thing, model);
+		modelSetMatrices(&thing, model);
 
 		func0f07063c(prop, fulltick);
 
@@ -2454,11 +2454,11 @@ s32 chrTick(struct prop *prop)
 			if (eyespy == g_Vars.currentplayer->eyespy && eyespy->active) {
 				onscreen = false;
 			} else {
-				onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
+				onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 			}
 
 			if (fulltick) {
-				chr0f0220ec(chr, lvupdate240, 1);
+				chr0f0220ec(chr, lvupdate240, true);
 			}
 		} else {
 			onscreen = false;
@@ -2477,9 +2477,9 @@ s32 chrTick(struct prop *prop)
 			model->anim->average = false;
 
 			if (chr->actiontype == ACT_ANIM && !chr->act_anim.movewheninvis && chr->act_anim.lockpos) {
-				chr0f0220ec(chr, lvupdate240, 0);
+				chr0f0220ec(chr, lvupdate240, false);
 			} else {
-				chr0f0220ec(chr, lvupdate240, 1);
+				chr0f0220ec(chr, lvupdate240, true);
 			}
 		}
 
@@ -2499,19 +2499,19 @@ s32 chrTick(struct prop *prop)
 	} else if (chr->actiontype == ACT_PATROL || chr->actiontype == ACT_GOPOS) {
 		if ((chr->actiontype == ACT_PATROL && chr->act_patrol.waydata.mode == WAYMODE_MAGIC)
 				|| (chr->actiontype == ACT_GOPOS && chr->act_gopos.waydata.mode == WAYMODE_MAGIC)) {
-			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
+			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 
 			if (onscreen) {
 				model->anim->average = false;
 				modelGetRootPosition(model, &chr->prevpos);
-				model0001b3bc(model);
+				modelUpdateInfo(model);
 			}
 		} else {
 			if (fulltick) {
-				chr0f0220ec(chr, lvupdate240, 1);
+				chr0f0220ec(chr, lvupdate240, true);
 			}
 
-			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
+			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 
 			if (onscreen) {
 				if (chr->actiontype == ACT_PATROL) {
@@ -2525,63 +2525,63 @@ s32 chrTick(struct prop *prop)
 				&& !((prop->flags & (PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) != 0);
 		}
 	} else if (chr->actiontype == ACT_ANIM && !chr->act_anim.movewheninvis) {
-		onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
+		onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 
 		if (fulltick) {
 			model->anim->average = false;
 
 			if (onscreen && !chr->act_anim.lockpos) {
-				chr0f0220ec(chr, lvupdate240, 1);
+				chr0f0220ec(chr, lvupdate240, true);
 			} else {
-				chr0f0220ec(chr, lvupdate240, 0);
+				chr0f0220ec(chr, lvupdate240, false);
 			}
 		}
 	} else if (chr->actiontype == ACT_STAND) {
 		model->anim->average = false;
 
 		if (chr->chrflags & CHRCFLAG_00000001) {
-			chr0f0220ec(chr, lvupdate240, 1);
-			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
+			chr0f0220ec(chr, lvupdate240, true);
+			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 		} else {
-			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
+			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 
 			if (g_Vars.mplayerisrunning) {
 				if (fulltick) {
 					if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 						if (onscreen) {
-							chr0f0220ec(chr, lvupdate240, 1);
+							chr0f0220ec(chr, lvupdate240, true);
 						} else if (model->anim->animnum2 != 0) {
-							chr0f0220ec(chr, lvupdate240, 0);
+							chr0f0220ec(chr, lvupdate240, false);
 						}
 					} else {
-						chr0f0220ec(chr, lvupdate240, 1);
+						chr0f0220ec(chr, lvupdate240, true);
 					}
 				}
 			} else if (onscreen) {
 				if (chr->act_stand.playwalkanim == true) {
-					chr0f0220ec(chr, lvupdate240, 0);
+					chr0f0220ec(chr, lvupdate240, false);
 				} else {
-					chr0f0220ec(chr, lvupdate240, 1);
+					chr0f0220ec(chr, lvupdate240, true);
 				}
 			} else if (model->anim->animnum2 != 0) {
-				chr0f0220ec(chr, lvupdate240, 0);
+				chr0f0220ec(chr, lvupdate240, false);
 			}
 		}
 	} else if (chr->actiontype == ACT_DEAD) {
-		onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
+		onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 	} else if (prop->type == PROPTYPE_PLAYER
 			&& (g_Vars.mplayerisrunning
 				|| (player = g_Vars.players[playermgrGetPlayerNumByProp(prop)], player->cameramode == CAMERAMODE_EYESPY)
 				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
 		model->anim->average = false;
-		chr0f0220ec(chr, lvupdate240, 1);
-		onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
+		chr0f0220ec(chr, lvupdate240, true);
+		onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 	} else {
 		offscreen2 = false;
 
 		if (fulltick) {
 			model->anim->average = false;
-			chr0f0220ec(chr, lvupdate240, 1);
+			chr0f0220ec(chr, lvupdate240, true);
 		}
 
 		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_04)) {
@@ -2594,7 +2594,7 @@ s32 chrTick(struct prop *prop)
 		if (offscreen2) {
 			onscreen = false;
 		} else {
-			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
+			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 		}
 	}
 
@@ -2758,7 +2758,7 @@ s32 chrTick(struct prop *prop)
 				}
 			}
 
-			model0001cebc(&sp210, model);
+			modelSetMatricesWithAnim(&sp210, model);
 
 			if (restore) {
 				anim->frac = prevfrac;
@@ -2774,7 +2774,7 @@ s32 chrTick(struct prop *prop)
 				colourTween(chr->shadecol, chr->nextcol);
 			}
 
-			prop->z = model0001a9e8(model);
+			prop->z = modelGetScreenDistance(model);
 			child = prop->child;
 
 			while (child) {
@@ -2827,8 +2827,8 @@ s32 chrTick(struct prop *prop)
 				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
 					union modelrwdata *rwdata = modelGetNodeRwData(model, headspotnode);
 
-					if (rwdata->headspot.modelfiledata != NULL) {
-						struct modelnode *hatnode = modelGetPart(rwdata->headspot.modelfiledata, MODELPART_HEAD_HAT);
+					if (rwdata->headspot.headmodeldef != NULL) {
+						struct modelnode *hatnode = modelGetPart(rwdata->headspot.headmodeldef, MODELPART_HEAD_HAT);
 
 						if (hatnode != NULL) {
 							union modelrwdata *hatrwdata = modelGetNodeRwData(model, hatnode);
@@ -2901,8 +2901,8 @@ void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
 		if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
 			union modelrwdata *rwdata = modelGetNodeRwData(chr->model, headspotnode);
 
-			if (rwdata->headspot.modelfiledata) {
-				struct modelnode *hudpiecenode = modelGetPart(rwdata->headspot.modelfiledata, MODELPART_HEAD_HUDPIECE);
+			if (rwdata->headspot.headmodeldef) {
+				struct modelnode *hudpiecenode = modelGetPart(rwdata->headspot.headmodeldef, MODELPART_HEAD_HUDPIECE);
 
 				if (hudpiecenode) {
 					union modelrwdata *rwdata2 = modelGetNodeRwData(chr->model, hudpiecenode);
@@ -3094,7 +3094,7 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 
 		if (bboxnode) {
 			bbox = &bboxnode->rodata->bbox;
-			mtx = model0001a5cc(model, node, 0);
+			mtx = modelFindNodeMtx(model, node, 0);
 
 			for (i = 0; i < var80062964; i++) {
 				if (var80062960[i].unk004) {
@@ -3365,7 +3365,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 	chrGetBloodColour(chr->bodynum, spec, NULL);
 	chr0f0246e4(spec);
-	alpha *= func0f08e6bc(prop, model0001af80(model));
+	alpha *= func0f08e6bc(prop, modelGetEffectiveScale(model));
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 		f32 fadedist;
@@ -3516,9 +3516,9 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
 					union modelrwdata *headrwdata = modelGetNodeRwData(model, headspotnode);
 
-					if (headrwdata->headspot.modelfiledata) {
-						struct modelnode *node1 = modelGetPart(headrwdata->headspot.modelfiledata, MODELPART_HEAD_EYESOPEN);
-						struct modelnode *node2 = modelGetPart(headrwdata->headspot.modelfiledata, MODELPART_HEAD_EYESCLOSED);
+					if (headrwdata->headspot.headmodeldef) {
+						struct modelnode *node1 = modelGetPart(headrwdata->headspot.headmodeldef, MODELPART_HEAD_EYESOPEN);
+						struct modelnode *node2 = modelGetPart(headrwdata->headspot.headmodeldef, MODELPART_HEAD_EYESCLOSED);
 
 						if (node1 && node2) {
 							union modelrwdata *data1 = modelGetNodeRwData(model, node1);
@@ -3703,7 +3703,7 @@ glabel chr0f0260c4
 /*  f026120:	25cf0014 */ 	addiu	$t7,$t6,0x14
 /*  f026124:	afaf00cc */ 	sw	$t7,0xcc($sp)
 /*  f026128:	afa000c0 */ 	sw	$zero,0xc0($sp)
-/*  f02612c:	0c0069d0 */ 	jal	model0001a740
+/*  f02612c:	0c0069d0 */ 	jal	modelNodeFindMtxNode
 /*  f026130:	02602025 */ 	or	$a0,$s3,$zero
 /*  f026134:	8fa40128 */ 	lw	$a0,0x128($sp)
 /*  f026138:	00402825 */ 	or	$a1,$v0,$zero
@@ -3865,7 +3865,7 @@ glabel chr0f0260c4
 /*  f026380:	3c0100ff */ 	lui	$at,0xff
 /*  f026384:	3421ffff */ 	ori	$at,$at,0xffff
 /*  f026388:	0041c824 */ 	and	$t9,$v0,$at
-/*  f02638c:	0c00698d */ 	jal	model0001a634
+/*  f02638c:	0c00698d */ 	jal	modelFindNodeByMtxIndex
 /*  f026390:	00192982 */ 	srl	$a1,$t9,0x6
 /*  f026394:	afa20100 */ 	sw	$v0,0x100($sp)
 /*  f026398:	8fa40128 */ 	lw	$a0,0x128($sp)
@@ -3895,19 +3895,19 @@ glabel chr0f0260c4
 /*  f0263f4:	1000ff91 */ 	b	.L0f02623c
 /*  f0263f8:	27de0008 */ 	addiu	$s8,$s8,0x8
 .L0f0263fc:
-/*  f0263fc:	0c0071e1 */ 	jal	model0001c784
+/*  f0263fc:	0c0071e1 */ 	jal	modelApplyDistanceRelations
 /*  f026400:	afa50110 */ 	sw	$a1,0x110($sp)
 /*  f026404:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f026408:	1000000a */ 	b	.L0f026434
 /*  f02640c:	8ca20014 */ 	lw	$v0,0x14($a1)
 .L0f026410:
-/*  f026410:	0c0071f4 */ 	jal	model0001c7d0
+/*  f026410:	0c0071f4 */ 	jal	modelApplyToggleRelations
 /*  f026414:	afa50110 */ 	sw	$a1,0x110($sp)
 /*  f026418:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f02641c:	10000005 */ 	b	.L0f026434
 /*  f026420:	8ca20014 */ 	lw	$v0,0x14($a1)
 .L0f026424:
-/*  f026424:	0c007207 */ 	jal	modelAttachHead
+/*  f026424:	0c007207 */ 	jal	modelApplyHeadRelations
 /*  f026428:	afa50110 */ 	sw	$a1,0x110($sp)
 /*  f02642c:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f026430:	8ca20014 */ 	lw	$v0,0x14($a1)
@@ -4159,7 +4159,7 @@ glabel chr0f0260c4
 /*  f0267a8:	3c0100ff */ 	lui	$at,0xff
 /*  f0267ac:	3421ffff */ 	ori	$at,$at,0xffff
 /*  f0267b0:	00417024 */ 	and	$t6,$v0,$at
-/*  f0267b4:	0c00698d */ 	jal	model0001a634
+/*  f0267b4:	0c00698d */ 	jal	modelFindNodeByMtxIndex
 /*  f0267b8:	000e2982 */ 	srl	$a1,$t6,0x6
 /*  f0267bc:	afa20100 */ 	sw	$v0,0x100($sp)
 /*  f0267c0:	8fa40128 */ 	lw	$a0,0x128($sp)
@@ -4181,21 +4181,21 @@ glabel chr0f0260c4
 /*  f0267f8:	1000ff5b */ 	b	.L0f026568
 /*  f0267fc:	27de0008 */ 	addiu	$s8,$s8,0x8
 .L0f026800:
-/*  f026800:	0c0071e1 */ 	jal	model0001c784
+/*  f026800:	0c0071e1 */ 	jal	modelApplyDistanceRelations
 /*  f026804:	afa50110 */ 	sw	$a1,0x110($sp)
 /*  f026808:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f02680c:	8fa40128 */ 	lw	$a0,0x128($sp)
 /*  f026810:	1000000c */ 	b	.L0f026844
 /*  f026814:	8ca20014 */ 	lw	$v0,0x14($a1)
 .L0f026818:
-/*  f026818:	0c0071f4 */ 	jal	model0001c7d0
+/*  f026818:	0c0071f4 */ 	jal	modelApplyToggleRelations
 /*  f02681c:	afa50110 */ 	sw	$a1,0x110($sp)
 /*  f026820:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f026824:	8fa40128 */ 	lw	$a0,0x128($sp)
 /*  f026828:	10000006 */ 	b	.L0f026844
 /*  f02682c:	8ca20014 */ 	lw	$v0,0x14($a1)
 .L0f026830:
-/*  f026830:	0c007207 */ 	jal	modelAttachHead
+/*  f026830:	0c007207 */ 	jal	modelApplyHeadRelations
 /*  f026834:	afa50110 */ 	sw	$a1,0x110($sp)
 /*  f026838:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f02683c:	8fa40128 */ 	lw	$a0,0x128($sp)
@@ -4263,7 +4263,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 	s32 op;
 	s32 nodetype;
 
-	modelNodeGetModelRelativePosition(model, model0001a740(node), &relpos);
+	modelNodeGetModelRelativePosition(model, modelNodeFindMtxNode(node), &relpos);
 
 	spc8.f[0] = arg3->x - relpos.x;
 	spc8.f[1] = arg3->y - relpos.y;
@@ -4288,14 +4288,14 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			// one in the model definition. If it hasn't been changed we'll
 			// use the space... after the model definition's colour table?
 			// Let's hope that's not being used by other instances...
-			if (rwdata->gdl == rodata->primary) {
-				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->primary & 0xffffff));
+			if (rwdata->gdl == rodata->opagdl) {
+				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
 			} else {
 				gdlptr = rwdata->gdl;
 			}
 
-			if (rodata->secondary) {
-				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->secondary & 0xffffff));
+			if (rodata->xlugdl) {
+				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
 			} else {
 				gdlptr2 = NULL;
 			}
@@ -4344,7 +4344,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 						}
 					} else if (op == G_MTX) {
 						u32 addr = gdlptr->words.w1 & 0xffffff;
-						posnode = model0001a634(model, addr / sizeof(Mtxf));
+						posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 						modelNodeGetModelRelativePosition(model, posnode, &spd4);
 
 						spbc[0] = spd4.x + spc8.x;
@@ -4357,13 +4357,13 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, curnode);
+			modelApplyDistanceRelations(model, curnode);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, curnode);
+			modelApplyToggleRelations(model, curnode);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, curnode);
+			modelApplyHeadRelations(model, curnode);
 			break;
 		}
 
@@ -4407,14 +4407,14 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 				break;
 			}
 
-			if (rwdata->gdl == rodata->primary) {
-				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->primary & 0xffffff));
+			if (rwdata->gdl == rodata->opagdl) {
+				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
 			} else {
 				gdlptr = rwdata->gdl;
 			}
 
-			if (rodata->secondary) {
-				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->secondary & 0xffffff));
+			if (rodata->xlugdl) {
+				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
 			} else {
 				gdlptr2 = NULL;
 			}
@@ -4478,7 +4478,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 						}
 					} else if (op == G_MTX) {
 						u32 addr = gdlptr->words.w1 & 0xffffff;
-						posnode = model0001a634(model, addr / sizeof(Mtxf));
+						posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 						modelNodeGetModelRelativePosition(model, posnode, &spd4);
 					} else if (op == G_SETCOLOR) {
 						spac = gdlptr->words.w1 & 0xffffff;
@@ -4489,13 +4489,13 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, curnode);
+			modelApplyDistanceRelations(model, curnode);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, curnode);
+			modelApplyToggleRelations(model, curnode);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, curnode);
+			modelApplyHeadRelations(model, curnode);
 			break;
 		}
 
@@ -4543,7 +4543,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 	struct modelrwdata_dl *rwdata;
 	s32 spac = 0;
 
-	modelNodeGetModelRelativePosition(model, model0001a740(node), &relpos);
+	modelNodeGetModelRelativePosition(model, modelNodeFindMtxNode(node), &relpos);
 
 	spc8.f[0] = arg3->f[0] - relpos.f[0];
 	spc8.f[1] = arg3->f[1] - relpos.f[1];
@@ -4568,14 +4568,14 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 			// one in the model definition. If it hasn't been changed we'll
 			// use the space... after the model definition's colour table?
 			// Let's hope that's not being used by other instances...
-			if (rwdata->gdl == rodata->primary) {
-				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->primary & 0xffffff));
+			if (rwdata->gdl == rodata->opagdl) {
+				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
 			} else {
 				gdlptr = rwdata->gdl;
 			}
 
-			if (rodata->secondary) {
-				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->secondary & 0xffffff));
+			if (rodata->xlugdl) {
+				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
 			} else {
 				gdlptr2 = NULL;
 			}
@@ -4624,7 +4624,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 						}
 					} else if (op == G_MTX) {
 						u32 addr = gdlptr->words.w1 & 0xffffff;
-						posnode = model0001a634(model, addr / sizeof(Mtxf));
+						posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 						modelNodeGetModelRelativePosition(model, posnode, &spd4);
 
 						spbc[0] = spd4.x + spc8.x;
@@ -4637,13 +4637,13 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, curnode);
+			modelApplyDistanceRelations(model, curnode);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, curnode);
+			modelApplyToggleRelations(model, curnode);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, curnode);
+			modelApplyHeadRelations(model, curnode);
 			break;
 		}
 
@@ -4706,14 +4706,14 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 					break;
 				}
 
-				if (rwdata->gdl == rodata->primary) {
-					gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->primary & 0xffffff));
+				if (rwdata->gdl == rodata->opagdl) {
+					gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
 				} else {
 					gdlptr = rwdata->gdl;
 				}
 
-				if (rodata->secondary) {
-					gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->secondary & 0xffffff));
+				if (rodata->xlugdl) {
+					gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
 				} else {
 					gdlptr2 = NULL;
 				}
@@ -4777,7 +4777,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 							}
 						} else if (op == G_MTX) {
 							u32 addr = gdlptr->words.w1 & 0xffffff;
-							posnode = model0001a634(model, addr / sizeof(Mtxf));
+							posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 							modelNodeGetModelRelativePosition(model, posnode, &spd4);
 						} else if (op == G_SETCOLOR) {
 							spac = gdlptr->words.w1 & 0xffffff;
@@ -4789,13 +4789,13 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, curnode);
+			modelApplyDistanceRelations(model, curnode);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, curnode);
+			modelApplyToggleRelations(model, curnode);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, curnode);
+			modelApplyHeadRelations(model, curnode);
 			break;
 		}
 
@@ -4897,14 +4897,14 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 				// MTX and VTX pointers
 				if (rwdata->vertices != rodata->vertices
 						&& (u32)rwdata->colours != ALIGN8((u32)&rodata->vertices[rodata->numvertices])) {
-					if (rwdata->gdl == rodata->primary) {
-						gdlptr = (Gfx *)((u32)rodata->colourtable + ((s32)rodata->primary & 0xffffff));
+					if (rwdata->gdl == rodata->opagdl) {
+						gdlptr = (Gfx *)((u32)rodata->colourtable + ((s32)rodata->opagdl & 0xffffff));
 					} else {
 						gdlptr = rwdata->gdl;
 					}
 
-					if (rodata->secondary) {
-						gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((s32)rodata->secondary & 0xffffff));
+					if (rodata->xlugdl) {
+						gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((s32)rodata->xlugdl & 0xffffff));
 					} else {
 						gdlptr2 = NULL;
 					}
@@ -4961,7 +4961,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 							} else if (op == G_MTX) {
 								// Get the position of the node relative to the model
 								u32 addr = gdlptr->words.w1 & 0xffffff;
-								posnode = model0001a634(model, addr / sizeof(Mtxf));
+								posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 								modelNodeGetModelRelativePosition(model, posnode, &pos);
 							}
 
@@ -4986,13 +4986,13 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, node);
+			modelApplyDistanceRelations(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, node);
+			modelApplyToggleRelations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, node);
+			modelApplyHeadRelations(model, node);
 			break;
 		}
 
@@ -5019,12 +5019,12 @@ f32 chr0f0278a4(struct chrdata *chr)
 	f32 highest = 0;
 
 	if (chr->model) {
-		result = model0001af80(chr->model);
+		result = modelGetEffectiveScale(chr->model);
 
 		for (i = 0; i < 2; i++) {
 			if (chr->weapons_held[i]) {
 				struct defaultobj *obj = chr->weapons_held[i]->obj;
-				f32 value = model0001af80(obj->model) * chr->model->scale;
+				f32 value = modelGetEffectiveScale(obj->model) * chr->model->scale;
 
 				if (value > highest) {
 					highest = value;
@@ -5055,13 +5055,13 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 
 		if (prop->z - fStack32 < shotdata->unk34) {
 			struct model *model = chr->model;
-			s32 spc0 = 0;
+			s32 hitpart = 0;
 			struct modelnode *node = NULL;
 			s32 spb8 = 0;
 			struct hitthing sp88;
 			s32 sp84 = 0;
 			struct modelnode *sp80 = NULL;
-			Mtxf *iVar5 = model0001a60c(model);
+			Mtxf *iVar5 = modelGetRootMtx(model);
 			struct prop *next;
 			struct prop *child;
 			f32 sp70;
@@ -5070,10 +5070,10 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 
 			if (func0f06b39c(&shotdata->unk00, &shotdata->unk0c, (struct coord *)iVar5->m[3], fStack32)) {
 				spb8 = 1;
-				spc0 = 1;
+				hitpart = 1;
 			}
 
-			if (spc0) {
+			if (hitpart) {
 				if (chrGetShield(chr) > 0.0f) {
 					var8005efc0 = 10.0f / model->scale;
 				}
@@ -5087,9 +5087,9 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 				}
 
 				if (arg3 || var8005efc0 > 0.0f) {
-					spc0 = model000225d4(model, &shotdata->unk00, &shotdata->unk0c, &node);
+					hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node);
 
-					while (spc0 > 0) {
+					while (hitpart > 0) {
 						if (func0f084594(model, node, &shotdata->unk00, &shotdata->unk0c, &sp88, &sp84, &sp80)) {
 							mtx4TransformVec(&model->matrices[sp84], &sp88.unk00, &spdc);
 							mtx4TransformVecInPlace(camGetProjectionMtxF(), &spdc);
@@ -5098,18 +5098,18 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 							break;
 						}
 
-						spc0 = model000225d4(model, &shotdata->unk00, &shotdata->unk0c, &node);
+						hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node);
 					}
 				} else {
-					spc0 = model000225d4(model, &shotdata->unk00, &shotdata->unk0c, &node);
+					hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node);
 
-					if (spc0 > 0) {
+					if (hitpart > 0) {
 						if (func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, &shotdata->unk00,
-									&shotdata->unk0c, &sp88.unk00, &sp70, &node, &spc0, &sp84, &sp80)) {
+									&shotdata->unk0c, &sp88.unk00, &sp70, &node, &hitpart, &sp84, &sp80)) {
 							mtx4TransformVec(camGetProjectionMtxF(), &sp88.unk00, &spdc);
 							mtx4RotateVec(camGetProjectionMtxF(), &sp88.unk0c, &spd0);
 						} else {
-							spc0 = 0;
+							hitpart = 0;
 						}
 					}
 				}
@@ -5119,17 +5119,17 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 				}
 			}
 
-			if (spc0 > 0) {
+			if (hitpart > 0) {
 				mtx = camGetWorldToScreenMtxf();
 				sp68 = spdc.x * mtx->m[0][2] + spdc.y * mtx->m[1][2] + spdc.z * mtx->m[2][2] + mtx->m[3][2];
 				sp68 = -sp68;
 
 				if (sp68 < shotdata->unk34) {
-					func0f061fa8(shotdata, prop, sp68, spc0, node, &sp88, sp84, sp80, model, 1, chrGetShield(chr) > 0.0f, &spdc, &spd0);
+					func0f061fa8(shotdata, prop, sp68, hitpart, node, &sp88, sp84, sp80, model, 1, chrGetShield(chr) > 0.0f, &spdc, &spd0);
 				}
 			}
 
-			if (spb8 && spc0 <= 0 && prop->z <= shotdata->unk34 && arg2) {
+			if (spb8 && hitpart <= 0 && prop->z <= shotdata->unk34 && arg2) {
 				if (chrGetTargetProp(chr) == g_Vars.currentplayer->prop) {
 					chr->chrflags |= CHRCFLAG_NEAR_MISS;
 				}
@@ -5294,7 +5294,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				// Shot a chr in the flesh
 				s32 race = CHRRACE(chr);
 				struct coord sp5c;
-				Mtxf *sp58 = model0001a5cc(hit->model, hit->node, 0);
+				Mtxf *sp58 = modelFindNodeMtx(hit->model, hit->node, 0);
 
 				// Create blood
 				mtx0001719c(sp58->m, spb0.m);
@@ -5617,7 +5617,7 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 bool chr0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *total)
 {
 	if (arg1 == arg0) {
-		*total += model0001a524(node, 0);
+		*total += modelFindNodeMtxIndex(node, 0);
 		return true;
 	}
 
@@ -5673,7 +5673,7 @@ bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct mode
 			}
 		} else {
 			*propptr = prop;
-			*nodeptr = model0001a634(model, arg0);
+			*nodeptr = modelFindNodeByMtxIndex(model, arg0);
 			*modelptr = model;
 			result = true;
 		}
@@ -5830,7 +5830,7 @@ s32 chr0f02932c(struct prop *prop, s32 arg1)
 	struct model *model;
 
 	if (chr0f028e6c(arg1, prop, &prop2, &node, &model) && node) {
-		node2 = model0001a784(node);
+		node2 = modelNodeFindParentMtxNode(node);
 
 		if (node2) {
 			result = chr0f028e18(prop2, node2, model, prop);
@@ -5851,7 +5851,7 @@ s32 chr0f0293ec(struct prop *prop, s32 cmnum)
 	struct model *model;
 
 	if (chr0f028e6c(cmnum, prop, &prop2, &node, &model) && node) {
-		node2 = model0001a7cc(node);
+		node2 = modelNodeFindChildMtxNode(node);
 
 		if (node2) {
 			result = chr0f028e18(prop2, node2, model, prop);
@@ -5885,11 +5885,11 @@ s32 chr0f0294cc(struct prop *prop, s32 arg1)
 	struct model *model2;
 
 	if (chr0f028e6c(arg1, prop, &prop2, &node2, &model2) && node2) {
-		struct modelnode *node3 = model0001a85c(node2);
+		struct modelnode *node3 = modelNodeFindChildOrParentMtxNode(node2);
 
 		if (node3) {
 			result = chr0f028e18(prop2, node3, model2, prop);
-		} else if (model0001a784(node2) == NULL && prop2->parent) {
+		} else if (modelNodeFindParentMtxNode(node2) == NULL && prop2->parent) {
 			child = prop2->parent->child;
 
 			while (child && child != prop2) {
@@ -6041,7 +6041,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 		shieldamount = (obj->flags3 & OBJFLAG3_SHOWSHIELD) ? 4.0f : 8.0f;
 	}
 
-	mtxindex = model0001a524(node, 0);
+	mtxindex = modelFindNodeMtxIndex(node, 0);
 	modelmtx = &model->matrices[mtxindex];
 
 	xmin = bbox->xmin - gap;
@@ -6887,7 +6887,7 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 					}
 
 					if (index <= 19) {
-						Mtxf *mtx = model0001a5cc(model, model0001a740(node), 0);
+						Mtxf *mtx = modelFindNodeMtx(model, modelNodeFindMtxNode(node), 0);
 						s32 uls; // upper left s coordinate
 						s32 ult; // upper left t coordinate
 						struct coord coord;

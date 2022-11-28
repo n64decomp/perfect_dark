@@ -245,10 +245,10 @@ void botSpawn(struct chrdata *chr, u8 respawning)
 		thing = scenarioChooseSpawnLocation(chr->radius, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_00100000;
 		chrMoveToPos(chr, &pos, rooms, thing, true);
-		chr->aibot->unk0a4 = model0001ae44(chr->model);
+		chr->aibot->unk0a4 = modelGetChrRotY(chr->model);
 		chr->aibot->angleoffset = 0;
 		chr->aibot->speedtheta = 0;
-		chr->aibot->unk0b0 = model0001ae44(chr->model);
+		chr->aibot->unk0b0 = modelGetChrRotY(chr->model);
 		chr->aibot->unk0b4 = 0;
 		chr->aibot->unk0b8 = 0;
 		func0f02e9a0(chr, 0);
@@ -751,7 +751,7 @@ bool botApplyMovement(struct chrdata *chr)
 		angle2 -= M_BADTAU;
 	}
 
-	model0001ae90(chr->model, angle2);
+	modelSetChrRotY(chr->model, angle2);
 
 	return true;
 }

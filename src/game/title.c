@@ -560,7 +560,7 @@ void titleInitPdLogo(void)
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO].fileid));
 		nextaddr += size;
 		remaining = 0x47800 - size;
-		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_NLOGO].filedata);
 
 		g_TitleModel = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
@@ -573,7 +573,7 @@ void titleInitPdLogo(void)
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO2].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO2].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_NLOGO2].filedata);
 
 		g_TitleModelNLogo2 = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO2].filedata);
 		modelSetScale(g_TitleModelNLogo2, 1);
@@ -586,7 +586,7 @@ void titleInitPdLogo(void)
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTWO].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTWO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_PDTWO].filedata);
 
 		g_TitleModelPdTwo = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTWO].filedata);
 		modelSetScale(g_TitleModelPdTwo, 1);
@@ -600,7 +600,7 @@ void titleInitPdLogo(void)
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNLOGO].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelCalculateRwDataLen(g_ModelStates[MODEL_JPNLOGO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_JPNLOGO].filedata);
 
 		g_TitleModelJpnLogo1 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
 		g_TitleModelJpnLogo2 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
@@ -613,7 +613,7 @@ void titleInitPdLogo(void)
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNPD].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelCalculateRwDataLen(g_ModelStates[MODEL_JPNPD].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_JPNPD].filedata);
 
 		g_TitleModelJpnPd = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNPD].filedata);
 		modelSetScale(g_TitleModelJpnPd, 1);
@@ -627,7 +627,7 @@ void titleInitPdLogo(void)
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTHREE].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTHREE].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_PDTHREE].filedata);
 
 		g_TitleModelPdThree = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTHREE].filedata);
 		modelSetScale(g_TitleModelPdThree, 1);
@@ -886,7 +886,7 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 
 	model->matrices = renderdata.unk10;
 
-	model0001cc20(model);
+	modelUpdateRelations(model);
 
 	renderdata.flags = 3;
 	renderdata.zbufferenabled = false;
@@ -2518,7 +2518,7 @@ glabel var7f1a8ff4jf
 /*  f019488:	8c4f0000 */ 	lw	$t7,0x0($v0)
 /*  f01948c:	8fb804b0 */ 	lw	$t8,0x4b0($sp)
 /*  f019490:	adf8000c */ 	sw	$t8,0xc($t7)
-/*  f019494:	0c0072fc */ 	jal	model0001cc20
+/*  f019494:	0c0072fc */ 	jal	modelUpdateRelations
 /*  f019498:	8c440000 */ 	lw	$a0,0x0($v0)
 /*  f01949c:	8fb80198 */ 	lw	$t8,0x198($sp)
 /*  f0194a0:	240e0005 */ 	li	$t6,0x5
@@ -2812,7 +2812,7 @@ glabel var7f1a8ff4jf
 /*  f0198e4:	8c590000 */ 	lw	$t9,0x0($v0)
 /*  f0198e8:	8fae04b0 */ 	lw	$t6,0x4b0($sp)
 /*  f0198ec:	af2e000c */ 	sw	$t6,0xc($t9)
-/*  f0198f0:	0c0072fc */ 	jal	model0001cc20
+/*  f0198f0:	0c0072fc */ 	jal	modelUpdateRelations
 /*  f0198f4:	8c440000 */ 	lw	$a0,0x0($v0)
 /*  f0198f8:	8fa80154 */ 	lw	$t0,0x154($sp)
 /*  f0198fc:	24180005 */ 	li	$t8,0x5
@@ -2928,7 +2928,7 @@ glabel var7f1a8ff4jf
 /*  f019aa4:	8c580000 */ 	lw	$t8,0x0($v0)
 /*  f019aa8:	8fb904b0 */ 	lw	$t9,0x4b0($sp)
 /*  f019aac:	af19000c */ 	sw	$t9,0xc($t8)
-/*  f019ab0:	0c0072fc */ 	jal	model0001cc20
+/*  f019ab0:	0c0072fc */ 	jal	modelUpdateRelations
 /*  f019ab4:	8c440000 */ 	lw	$a0,0x0($v0)
 /*  f019ab8:	8fb804e0 */ 	lw	$t8,0x4e0($sp)
 /*  f019abc:	240f0005 */ 	li	$t7,0x5
@@ -7572,7 +7572,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 				g_TitleModelJpnLogo2->matrices = renderdata.unk10;
 
-				model0001cc20(g_TitleModelJpnLogo2);
+				modelUpdateRelations(g_TitleModelJpnLogo2);
 
 				renderdata.unk30 = 5;
 				renderdata.zbufferenabled = false;
@@ -7630,7 +7630,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 			g_TitleModelJpnPd->matrices = renderdata.unk10;
 
-			model0001cc20(g_TitleModelJpnPd);
+			modelUpdateRelations(g_TitleModelJpnPd);
 
 			renderdata.zbufferenabled = false;
 			renderdata.unk30 = 5;
@@ -7667,7 +7667,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 			g_TitleModelJpnLogo1->matrices = renderdata.unk10;
 
-			model0001cc20(g_TitleModelJpnLogo1);
+			modelUpdateRelations(g_TitleModelJpnLogo1);
 
 			renderdata.zbufferenabled = false;
 			renderdata.unk30 = 5;
@@ -7869,7 +7869,7 @@ void titleInitNintendoLogo(void)
 
 		g_ModelStates[MODEL_NINTENDOLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
 
-		modelCalculateRwDataLen(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
@@ -7998,7 +7998,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 		mtx4Copy(&sp108, renderdata.unk10);
 		g_TitleModel->matrices = renderdata.unk10;
 
-		model0001cc20(g_TitleModel);
+		modelUpdateRelations(g_TitleModel);
 
 		renderdata.flags = 3;
 		renderdata.zbufferenabled = false;
@@ -8028,7 +8028,7 @@ void titleInitRareLogo(void)
 
 		g_ModelStates[MODEL_RARELOGO].filedata = modeldefLoad(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
 
-		modelCalculateRwDataLen(g_ModelStates[MODEL_RARELOGO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_RARELOGO].filedata);
 		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_RARELOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
@@ -8196,7 +8196,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 
 		g_TitleModel->matrices = renderdata.unk10;
 
-		model0001cc20(g_TitleModel);
+		modelUpdateRelations(g_TitleModel);
 
 		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->filedata, MODELPART_RARELOGO_000B));
 

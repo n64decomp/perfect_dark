@@ -99,11 +99,11 @@ void bheadReset(void)
 
 		modelSetAnimation(&g_Vars.currentplayer->model, 1, 0, 0, 0.5f, 0);
 
-		model0001b3bc(&g_Vars.currentplayer->model);
+		modelUpdateInfo(&g_Vars.currentplayer->model);
 		mtx4LoadIdentity(&sp48);
 		sp88.unk00 = &sp48;
 		sp88.unk10 = g_Vars.currentplayer->bondheadmatrices;
-		model0001cebc(&sp88, &g_Vars.currentplayer->model);
+		modelSetMatricesWithAnim(&sp88, &g_Vars.currentplayer->model);
 
 		g_Vars.currentplayer->standheight = g_Vars.currentplayer->bondheadmatrices[0].m[3][1];
 

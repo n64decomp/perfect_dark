@@ -655,7 +655,7 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 
 			if (hand->unk0ce8 && animspeed < 0.0f) {
 				modelSetAnimation(&hand->gunmodel, hand->animload, false, 0.0f, animspeedmult * animspeed, 0.0f);
-				model0001e018(&hand->gunmodel, modelGetNumAnimFrames(&hand->gunmodel));
+				modelSetAnimFrame(&hand->gunmodel, modelGetNumAnimFrames(&hand->gunmodel));
 			} else {
 				modelSetAnimation(&hand->gunmodel, hand->animload, false, 0.0f, animspeedmult * animspeed, 0.0f);
 			}
@@ -772,7 +772,7 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 								hand->animframeinc = 0;
 #endif
 
-								model0001e018(&hand->gunmodel, sp78);
+								modelSetAnimFrame(&hand->gunmodel, sp78);
 								hand->animloopcount++;
 								s2 = sp78;
 							}
@@ -795,9 +795,9 @@ void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
 
 #if VERSION >= VERSION_PAL_BETA
 		modelSetAnimPlaySpeed(&hand->gunmodel, PALUPF(4.0f), 0);
-		model0001ee18(&hand->gunmodel, hand->animframeinc, true);
+		modelTickAnimQuarterSpeed(&hand->gunmodel, hand->animframeinc, true);
 #else
-		model0001f314(&hand->gunmodel, hand->animframeinc, true);
+		modelTickAnim(&hand->gunmodel, hand->animframeinc, true);
 #endif
 
 		s2 = bgun0f09815c(hand);
@@ -2093,7 +2093,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 			if (unk27 > frames - hand->statevar1) {
 				mult1 = cosf((f32)(unk27 - frames + hand->statevar1) * 1.5707963705063f / (f32)unk27) * 0.5f + 0.5f;
 
-				hand->rotxoffset = model0001afe8(hand->rotxstart, hand->rotxend, mult1);
+				hand->rotxoffset = modelTweenRotAxis(hand->rotxstart, hand->rotxend, mult1);
 				hand->useposrot = true;
 
 				hand->posoffset.x = (hand->posend.x - hand->posstart.x) * mult1 + hand->posstart.x;
@@ -2133,7 +2133,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 				mult2 = cosf((f32)(frames - unk24) * M_PI / (f32)unk25) * 0.5f + 0.5f;
 			}
 
-			hand->rotxoffset = model0001afe8(hand->rotxstart, hand->rotxend, mult2);
+			hand->rotxoffset = modelTweenRotAxis(hand->rotxstart, hand->rotxend, mult2);
 			hand->useposrot = true;
 
 			hand->posoffset.x = (hand->posend.x - hand->posstart.x) * mult2 + hand->posstart.x;
@@ -3894,7 +3894,7 @@ void bgunTickGunLoad(void)
 		fileGetLoadedSize(player->gunctrl.loadfilenum);
 		fileGetLoadedSize(player->gunctrl.loadfilenum);
 
-		modelCalculateRwDataLen(modeldef);
+		modelAllocateRwData(modeldef);
 
 		osSyncPrintf("BriGun:  propgfx_decompress 0x%08x\n");
 		osSyncPrintf("BriGun:  DL waste space %d from %d (Used %d, Ramlen %d, ObSize %d)\n");
@@ -4648,7 +4648,7 @@ void bgunUpdateHeldRocket(s32 handnum)
 			model->matrices = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
 
 			mtx4Copy(&hand->muzzlemat, &model->matrices[0]);
-			model0001cb0c(model, model->filedata->rootnode);
+			modelUpdateRelationsQuick(model, model->filedata->rootnode);
 
 			objprop->flags |= PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK;
 			objprop->z = -model->matrices[0].m[3][2];
@@ -6376,7 +6376,7 @@ void bgunExecuteModelCmdList(s32 *ptr)
 				break;
 			case 2:
 				rwdata = (union modelrwdata *)ptr[1];
-				rwdata->headspot.modelfiledata = NULL;
+				rwdata->headspot.headmodeldef = NULL;
 				rwdata->headspot.rwdatas = NULL;
 				ptr += 2;
 				break;
@@ -6446,7 +6446,7 @@ s32 bgunCreateModelCmdList(struct model *model, struct modelnode *nodearg, s32 *
 			break;
 		case MODELNODETYPE_HEADSPOT:
 			rwdata = modelGetNodeRwData(model, node);
-			rwdata->headspot.modelfiledata = NULL;
+			rwdata->headspot.headmodeldef = NULL;
 			rwdata->headspot.rwdatas = NULL;
 			ptr[0] = 2;
 			ptr[1] = (s32)rwdata;
@@ -6473,7 +6473,7 @@ s32 bgunCreateModelCmdList(struct model *model, struct modelnode *nodearg, s32 *
 			rodata = node->rodata;
 			rwdata = modelGetNodeRwData(model, node);
 			rwdata->dl.vertices = rodata->dl.vertices;
-			rwdata->dl.gdl = rodata->dl.primary;
+			rwdata->dl.gdl = rodata->dl.opagdl;
 			rwdata->dl.colours = (void *)ALIGN8((u32)&rodata->dl.vertices[rodata->dl.numvertices]);
 			ptr[0] = 5;
 			ptr[1] = (s32)rwdata;
@@ -6782,7 +6782,7 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 	node = modelGetPart(modeldef, MODELPART_FALCON2_0034);
 
 	if (node) {
-		mtxindex = model0001a524(node, 0);
+		mtxindex = modelFindNodeMtxIndex(node, 0);
 
 		beamnear.x = ((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][0];
 		beamnear.y = ((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][1];
@@ -6830,7 +6830,7 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 		}
 
 		if (busy) {
-			mtxindex = model0001a524(node, 0);
+			mtxindex = modelFindNodeMtxIndex(node, 0);
 
 			beamfar.x = 0.0f;
 			beamfar.y = 0.0f;
@@ -6935,7 +6935,7 @@ void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef)
 	}
 
 	if (node) {
-		var8009d0dc = model0001a524(node, 0);
+		var8009d0dc = modelFindNodeMtxIndex(node, 0);
 		g_ModelJointPositionedFunc = bgun0f0a256c;
 		var8009d0f0[0] = var8009d0f0[1] = var8009d0f0[2] = -1;
 	}
@@ -6943,19 +6943,19 @@ void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef)
 	node = modelGetPart(modeldef, MODELPART_REAPER_002D);
 
 	if (node) {
-		var8009d0f0[0] = model0001a524(node, 0);
+		var8009d0f0[0] = modelFindNodeMtxIndex(node, 0);
 	}
 
 	node = modelGetPart(modeldef, MODELPART_REAPER_002E);
 
 	if (node) {
-		var8009d0f0[1] = model0001a524(node, 0);
+		var8009d0f0[1] = modelFindNodeMtxIndex(node, 0);
 	}
 
 	node = modelGetPart(modeldef, MODELPART_REAPER_002F);
 
 	if (node) {
-		var8009d0f0[2] = model0001a524(node, 0);
+		var8009d0f0[2] = modelFindNodeMtxIndex(node, 0);
 	}
 }
 
@@ -6981,7 +6981,7 @@ void bgunUpdateSniperRifle(struct modelfiledata *modeldef, u8 *allocation)
 	for (i = 0; i < 4; i++) {
 		if (nodes[i]) {
 			f32 f20 = f26 * 4.0f;
-			mtxindex = model0001a524(nodes[i], 0);
+			mtxindex = modelFindNodeMtxIndex(nodes[i], 0);
 			sp88[i] = f20 - i;
 
 			if (f20 < i) {
@@ -7011,7 +7011,7 @@ void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledat
 	struct modelnode *node = modelGetPart(modeldef, MODELPART_DEVASTATOR_0028);
 
 	if (node) {
-		s32 mtxindex = model0001a524(node, 0);
+		s32 mtxindex = modelFindNodeMtxIndex(node, 0);
 		struct coord sp24;
 
 		hand->loadslide += 0.01f * LVUPDATE60FREAL();
@@ -7061,7 +7061,7 @@ void bgunUpdateShotgun(struct hand *hand, u8 *allocation, bool *arg2, struct mod
 		*arg2 = true;
 
 		if (node) {
-			sp34 = model0001a524(node, 0);
+			sp34 = modelFindNodeMtxIndex(node, 0);
 
 			mtx00015ea8((1.0f - hand->matmot1) * 8.0f + 0.5f, (Mtxf *)((u32)allocation + sp34 * sizeof(Mtxf)));
 			mtx00015df0((1.0f - hand->matmot1) * 3.0f + 1.0f, (Mtxf *)((u32)allocation + sp34 * sizeof(Mtxf)));
@@ -7101,7 +7101,7 @@ void bgunUpdateMagnum(struct hand *hand, s32 handnum, struct modelfiledata *mode
 			struct modelnode *node = modelGetPart(modeldef, 0x0a + random() % 6);
 
 			if (node) {
-				s32 index = model0001a524(node, 0);
+				s32 index = modelFindNodeMtxIndex(node, 0);
 				Mtxf *tmp = mtx;
 				Mtxf sp4c;
 
@@ -7152,7 +7152,7 @@ void bgun0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool isdeto
 	}
 
 	if (node) {
-		var8009d148 = model0001a524(node, 0);
+		var8009d148 = modelFindNodeMtxIndex(node, 0);
 		g_ModelJointPositionedFunc = bgun0f0a256c;
 	} else {
 		var8009d148 = -1;
@@ -7330,7 +7330,7 @@ void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiled
 
 		if (node && weaponnum != WEAPON_REAPER && weaponnum != WEAPON_SHOTGUN) {
 			struct modelrodata_position *rodata = &node->rodata->position;
-			s32 mtxindex = model0001a524(node, 0);
+			s32 mtxindex = modelFindNodeMtxIndex(node, 0);
 
 			sp60.x = rodata->pos.x * spd8.m[0][0] + rodata->pos.y * spd8.m[1][0] + rodata->pos.z * spd8.m[2][0] + spd8.m[3][0];
 			sp60.y = rodata->pos.x * spd8.m[0][1] + rodata->pos.y * spd8.m[1][1] + rodata->pos.z * spd8.m[2][1] + spd8.m[3][1];
@@ -7384,7 +7384,7 @@ void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s3
 				Mtxf *mtx = (Mtxf *)allocation;
 				Mtxf sp24;
 
-				mtx += model0001a524(node, 0);
+				mtx += modelFindNodeMtxIndex(node, 0);
 
 				mtx4Copy(mtx, &sp24);
 				mtx00015f04(9.999999f, &sp24);
@@ -7818,7 +7818,7 @@ void bgun0f0a5550(s32 handnum)
 						var8005efb0_2 = true;
 					}
 
-					model0001cebc(&renderdata, &hand->gunmodel);
+					modelSetMatricesWithAnim(&renderdata, &hand->gunmodel);
 
 					var8005efd8_2 = false;
 
@@ -7826,7 +7826,7 @@ void bgun0f0a5550(s32 handnum)
 						var8005efb0_2 = false;
 					}
 #else
-					model0001cebc(&renderdata, &hand->gunmodel);
+					modelSetMatricesWithAnim(&renderdata, &hand->gunmodel);
 #endif
 
 					player->hands[HAND_RIGHT].unk0dd4 = 1;
@@ -7850,7 +7850,7 @@ void bgun0f0a5550(s32 handnum)
 					var8005efb0_2 = true;
 				}
 
-				model0001cebc(&renderdata, &hand->gunmodel);
+				modelSetMatricesWithAnim(&renderdata, &hand->gunmodel);
 
 				var8005efd8_2 = false;
 
@@ -7858,7 +7858,7 @@ void bgun0f0a5550(s32 handnum)
 					var8005efb0_2 = false;
 				}
 #else
-				model0001cebc(&renderdata, &hand->gunmodel);
+				modelSetMatricesWithAnim(&renderdata, &hand->gunmodel);
 #endif
 			}
 
@@ -7867,7 +7867,7 @@ void bgun0f0a5550(s32 handnum)
 			node = modelGetPart(modeldef, MODELPART_PISTOL_0033);
 
 			if (node) {
-				sp80 = model0001a524(node, 0);
+				sp80 = modelFindNodeMtxIndex(node, 0);
 
 				bgunUpdateSlide(handnum);
 
@@ -7920,7 +7920,7 @@ void bgun0f0a5550(s32 handnum)
 			}
 
 			if (node) {
-				sp6c = model0001a524(node, 0);
+				sp6c = modelFindNodeMtxIndex(node, 0);
 
 				mtx = (Mtxf *)mtxallocation;
 				mtx += sp6c;
@@ -7942,7 +7942,7 @@ void bgun0f0a5550(s32 handnum)
 					|| weaponnum == WEAPON_REMOTEMINE
 					|| weaponnum == WEAPON_PROXIMITYMINE
 					|| weaponnum == WEAPON_NBOMB) {
-				sp6c = model0001a524(modelGetPart(modeldef, 0x37), 0);
+				sp6c = modelFindNodeMtxIndex(modelGetPart(modeldef, 0x37), 0);
 
 				mtx = (Mtxf *)mtxallocation;
 				mtx += sp6c;
@@ -9036,7 +9036,7 @@ glabel var7f1aca90
 /*  f0a7b5c:	26050534 */ 	addiu	$a1,$s0,0x534
 /*  f0a7b60:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f0a7b64:	ae0e0540 */ 	sw	$t6,0x540($s0)
-/*  f0a7b68:	0c007308 */ 	jal	model0001cc20
+/*  f0a7b68:	0c007308 */ 	jal	modelUpdateRelations
 /*  f0a7b6c:	afa50054 */ 	sw	$a1,0x54($sp)
 /*  f0a7b70:	8fa50054 */ 	lw	$a1,0x54($sp)
 /*  f0a7b74:	afb50140 */ 	sw	$s5,0x140($sp)
@@ -9877,7 +9877,7 @@ glabel var7f1aca90
 /*  f0a7b5c:	26050534 */ 	addiu	$a1,$s0,0x534
 /*  f0a7b60:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f0a7b64:	ae0e0540 */ 	sw	$t6,0x540($s0)
-/*  f0a7b68:	0c007308 */ 	jal	model0001cc20
+/*  f0a7b68:	0c007308 */ 	jal	modelUpdateRelations
 /*  f0a7b6c:	afa50054 */ 	sw	$a1,0x54($sp)
 /*  f0a7b70:	8fa50054 */ 	lw	$a1,0x54($sp)
 /*  f0a7b74:	afb50140 */ 	sw	$s5,0x140($sp)
@@ -10709,7 +10709,7 @@ glabel var7f1aca90
 /*  f0a5888:	26050534 */ 	addiu	$a1,$s0,0x534
 /*  f0a588c:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f0a5890:	ae0f0540 */ 	sw	$t7,0x540($s0)
-/*  f0a5894:	0c007728 */ 	jal	model0001cc20
+/*  f0a5894:	0c007728 */ 	jal	modelUpdateRelations
 /*  f0a5898:	afa50050 */ 	sw	$a1,0x50($sp)
 /*  f0a589c:	8fa50050 */ 	lw	$a1,0x50($sp)
 /*  f0a58a0:	afb50138 */ 	sw	$s5,0x138($sp)
@@ -11061,7 +11061,7 @@ void bgunRender(Gfx **gdlptr)
 
 				hand->handmodel.matrices = hand->gunmodel.matrices;
 
-				model0001cc20(&hand->handmodel);
+				modelUpdateRelations(&hand->handmodel);
 
 				renderdata.envcolour = colour;
 				modelRender(&renderdata, &hand->handmodel);

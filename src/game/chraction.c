@@ -8840,7 +8840,7 @@ f32 chrGetInverseTheta(struct chrdata *chr)
 		return angle;
 	}
 
-	return model0001ae44(chr->model);
+	return modelGetChrRotY(chr->model);
 }
 
 void chrSetLookAngle(struct chrdata *chr, f32 angle)
@@ -8848,7 +8848,7 @@ void chrSetLookAngle(struct chrdata *chr, f32 angle)
 	if (chr->aibot) {
 		chr->aibot->unk0b0 = angle;
 	} else {
-		model0001ae90(chr->model, angle);
+		modelSetChrRotY(chr->model, angle);
 	}
 }
 
@@ -8858,7 +8858,7 @@ f32 func0f03e578(struct chrdata *chr)
 		return chr->aibot->unk0a4;
 	}
 
-	return model0001ae44(chr->model);
+	return modelGetChrRotY(chr->model);
 }
 
 void func0f03e5b0(struct chrdata *chr, f32 arg1)
@@ -8866,7 +8866,7 @@ void func0f03e5b0(struct chrdata *chr, f32 arg1)
 	if (chr->aibot) {
 		chr->aibot->unk0a4 = arg1;
 	} else {
-		model0001ae90(chr->model, arg1);
+		modelSetChrRotY(chr->model, arg1);
 	}
 }
 
@@ -9141,7 +9141,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 					burstnode = modelGetPart(gunmodel->filedata, MODELPART_CHRGUN_GUNFIRE);
 
 					if (burstnode) {
-						sp108 = model0001a5cc(gunmodel, burstnode, 0);
+						sp108 = modelFindNodeMtx(gunmodel, burstnode, 0);
 						burstrodata = &burstnode->rodata->chrgunfire;
 						spb4 = cam0f0b53a4((u8 *)sp108);
 
@@ -9164,7 +9164,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 						posnode = modelGetPart(gunmodel->filedata, MODELPART_CHRGUN_0001);
 
 						if (posnode) {
-							spb0 = model0001a5cc(gunmodel, posnode, 0);
+							spb0 = modelFindNodeMtx(gunmodel, posnode, 0);
 							sp6c = cam0f0b53a4((u8 *)spb0);
 
 							if (sp6c) {
@@ -9584,7 +9584,7 @@ bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 
 		if ((chr->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) && (weaponprop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 			if ((part0 = modelGetPart(model->filedata, MODELPART_0000))) {
-				spac = model0001a5cc(model, part0, 0);
+				spac = modelFindNodeMtx(model, part0, 0);
 				rodata = &part0->rodata->chrgunfire;
 
 				gunpos->x = rodata->pos.x;
@@ -9595,7 +9595,7 @@ bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 				mtx4TransformVecInPlace(&sp6c, gunpos);
 				result = true;
 			} else if ((part1 = modelGetPart(model->filedata, MODELPART_0001))) {
-				sp64 = model0001a5cc(model, part1, 0);
+				sp64 = modelFindNodeMtx(model, part1, 0);
 
 				mtx00015be4(camGetProjectionMtxF(), sp64, &sp24);
 
@@ -9664,7 +9664,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 
 				while (node) {
 					if ((node->type & 0xff) == MODELNODETYPE_BBOX) {
-						mtxptr1 = model0001a5cc(chr->model, node, 0);
+						mtxptr1 = modelFindNodeMtx(chr->model, node, 0);
 
 						if (isdifferentmtx) {
 							mtx00016798(mtxptr1, &spc8);
@@ -9712,7 +9712,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 					*modelptr = chr->model;
 					*sideptr = 0;
 
-					mtxptr2 = model0001a5cc(chr->model, bestnode, 0);
+					mtxptr2 = modelFindNodeMtx(chr->model, bestnode, 0);
 
 					if (isdifferentmtx) {
 						mtx00016798(mtxptr2, &sp48);
@@ -10862,7 +10862,7 @@ void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 {
 	struct prop *prop = chrGetTargetProp(chr);
 	f32 distance = atan2f(prop->pos.x - chr->prop->pos.x, prop->pos.z - chr->prop->pos.z);
-	f32 value = model0001afe8(arg2, distance, arg1);
+	f32 value = modelTweenRotAxis(arg2, distance, arg1);
 	chrSetLookAngle(chr, value);
 }
 
@@ -13192,7 +13192,7 @@ void chrTickSkJump(struct chrdata *chr)
 		switch (chr->act_skjump.state) {
 		case SKJUMPSTATE_TAKEOFF:
 			fVar6 = chrGetInverseTheta(chr);
-			fVar5 = model0001afe8(fVar6, chr->act_skjump.roty, 0.35);
+			fVar5 = modelTweenRotAxis(fVar6, chr->act_skjump.roty, 0.35);
 			chrSetLookAngle(chr, fVar5);
 			frame = modelGetCurAnimFrame(chr->model);
 
@@ -14446,7 +14446,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 				struct coord sp68;
 				struct coord sp56;
 				struct coord sp44;
-				f32 somefloat = model0001af80(model) * 0.8f;
+				f32 somefloat = modelGetEffectiveScale(model) * 0.8f;
 
 				bgun0f0a0c08(&sp68, &sp56);
 				modelGetRootPosition(model, &sp44);
@@ -16132,7 +16132,7 @@ void chrAvoid(struct chrdata *chr)
 	f32 xdiff;
 	f32 zdiff;
 	f32 halfchrradius;
-	f32 chrangle = model0001ae44(chr->model);
+	f32 chrangle = modelGetChrRotY(chr->model);
 	s16 dstrooms[8];
 	struct coord dstpos;
 

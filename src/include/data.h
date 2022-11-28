@@ -53,7 +53,7 @@ extern f32 var8005efc0;
 extern u8 var8005efb0_2;
 extern u32 var8005efd0;
 extern bool var8005efd8_2;
-extern bool var8005efdc;
+extern bool g_ModelAnimMergingEnabled;
 extern u32 var8005efe0;
 extern u32 var8005efec;
 extern u32 var8005eff8;

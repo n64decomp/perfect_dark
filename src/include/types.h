@@ -422,8 +422,8 @@ struct modelrodata_position { // type 0x02
 };
 
 struct modelrodata_gundl { // type 0x04
-	Gfx *primary;
-	Gfx *secondary;
+	Gfx *opagdl;
+	Gfx *xlugdl;
 	void *baseaddr;
 	struct gfxvtx *vertices;
 	s16 numvertices;
@@ -444,7 +444,7 @@ struct modelrodata_reorder { // type 0x09
 	f32 unk0c[3];
 	struct modelnode *unk18;
 	struct modelnode *unk1c;
-	s16 unk20;
+	s16 side;
 	u16 rwdataindex;
 };
 
@@ -531,8 +531,8 @@ struct modelrodata_headspot { // type 0x17
 };
 
 struct modelrodata_dl { // type 0x18
-	/*0x00*/ Gfx *primary;
-	/*0x04*/ Gfx *secondary;
+	/*0x00*/ Gfx *opagdl;
+	/*0x04*/ Gfx *xlugdl;
 	/*0x08*/ u32 *colourtable;
 	/*0x0c*/ struct gfxvtx *vertices; // colours follow this array
 	/*0x10*/ s16 numvertices;
@@ -584,7 +584,7 @@ struct modelfiledata {
 
 	s16 numparts;
 	s16 nummatrices;
-	f32 unk10;
+	f32 scale;
 	s16 rwdatalen; // in words
 	s16 numtexconfigs;
 	struct textureconfig *texconfigs;
@@ -614,7 +614,7 @@ struct modelrwdata_chrinfo { // type 0x01
 	s8 unk02;
 	f32 ground;
 	struct coord pos;
-	f32 unk14; // angle
+	f32 yrot; // angle
 	f32 unk18;
 	f32 unk1c;
 	f32 unk20; // angle
@@ -636,7 +636,7 @@ struct modelrwdata_distance { // type 0x08
 };
 
 struct modelrwdata_reorder { // type 0x09
-	bool visible;
+	bool reverse;
 };
 
 struct modelrwdata_0b { // type 0x0b
@@ -654,7 +654,7 @@ struct modelrwdata_toggle { // type 0x12
 };
 
 struct modelrwdata_headspot { // type 0x17
-	struct modelfiledata *modelfiledata;
+	struct modelfiledata *headmodeldef;
 	void *rwdatas;
 };
 

@@ -184,7 +184,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 		bodyfiledata = g_HeadsAndBodies[bodynum].filedata;
 	}
 
-	modelCalculateRwDataLen(bodyfiledata);
+	modelAllocateRwData(bodyfiledata);
 
 	if (!g_HeadsAndBodies[bodynum].unk00_01) {
 		if (bodyfiledata->skel == &g_SkelChr) {
@@ -210,7 +210,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 						}
 					}
 
-					modelCalculateRwDataLen(headfiledata);
+					modelAllocateRwData(headfiledata);
 
 					bodyfiledata->rwdatalen += headfiledata->rwdatalen;
 
@@ -259,7 +259,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 		if (headfiledata && !g_HeadsAndBodies[bodynum].unk00_01) {
 			bodyfiledata->rwdatalen -= headfiledata->rwdatalen;
 
-			modelmgr0f0b32a0(model, node, headfiledata);
+			modelmgrAttachHead(model, node, headfiledata);
 
 			if ((s16)*(s32 *)&headfiledata->skel == SKEL_HEAD) {
 				struct modelnode *node2;

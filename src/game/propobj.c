@@ -737,7 +737,7 @@ bool func0f0679ac(struct model *model, f32 *max, f32 *min, f32 arg3[2], f32 arg4
 
 		if (type == MODELNODETYPE_BBOX) {
 			struct modelrodata_bbox *bbox = &node->rodata->bbox;
-			Mtxf *mtx = model0001a5cc(model, node, 0);
+			Mtxf *mtx = modelFindNodeMtx(model, node, 0);
 			f32 dist1;
 			f32 dist2;
 
@@ -794,7 +794,7 @@ void func0f067bc4(struct model *model, f32 *max, f32 *min, s32 axis)
 
 		if (type == MODELNODETYPE_BBOX) {
 			struct modelrodata_bbox *bbox = &node->rodata->bbox;
-			Mtxf *mtx = model0001a5cc(model, node, 0);
+			Mtxf *mtx = modelFindNodeMtx(model, node, 0);
 			f32 dist1;
 			f32 dist2;
 
@@ -863,7 +863,7 @@ bool modelGetScreenCoords2(struct model *model, f32 *x2, f32 *x1, f32 *y2, f32 *
 					f32 sp64[2];
 					f32 sp5c[2];
 					struct coord sp50;
-					Mtxf *mtx = model0001a5cc(model, node, 0);
+					Mtxf *mtx = modelFindNodeMtx(model, node, 0);
 
 					if (mtx->m[3][2] < 0.0f) {
 						sp50.x = mtx->m[3][0];
@@ -1230,13 +1230,13 @@ struct modelnode *func0f0687e4(struct model *model)
 		case MODELNODETYPE_DL:
 			return node;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, node);
+			modelApplyDistanceRelations(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, node);
+			modelApplyToggleRelations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, node);
+			modelApplyHeadRelations(model, node);
 			break;
 		}
 
@@ -1305,13 +1305,13 @@ struct modelnode *modelFindBboxNode(struct model *model)
 		case MODELNODETYPE_BBOX:
 			return node;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, node);
+			modelApplyDistanceRelations(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, node);
+			modelApplyToggleRelations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, node);
+			modelApplyHeadRelations(model, node);
 			break;
 		}
 
@@ -2652,7 +2652,7 @@ bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, str
 bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3, f32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8, f32 *arg9)
 {
 	struct model *model = obj->model;
-	f32 f0 = model0001af80(model);
+	f32 f0 = modelGetEffectiveScale(model);
 	f32 xdiff;
 	f32 ydiff;
 	f32 zdiff;
@@ -2685,7 +2685,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	if (sum1 >= -f0 && sum1 <= arg4 + f0) {
 		if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 			if (var8005efc0 > 0.0f) {
-				hitpart = model000225d4(model, arg5, arg6, &spe4);
+				hitpart = modelTestForHit(model, arg5, arg6, &spe4);
 
 				while (hitpart > 0) {
 					if (func0f084594(model, spe4, arg5, arg6, &thing1, &mtxindex1, &node1)) {
@@ -2723,11 +2723,11 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 						}
 					}
 
-					hitpart = model000225d4(model, arg5, arg6, &spe4);
+					hitpart = modelTestForHit(model, arg5, arg6, &spe4);
 				}
 			} else {
 				do {
-					hitpart = model000225d4(model, arg5, arg6, &spe4);
+					hitpart = modelTestForHit(model, arg5, arg6, &spe4);
 
 					if (hitpart > 0) {
 						if (func0f0849dc(model, spe4, arg5, arg6, &thing1, &mtxindex1, &node1)) {
@@ -2806,7 +2806,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 				}
 			}
 		} else {
-			if (func0f06b39c(arg1, arg3, &prop->pos, model0001af80(model))
+			if (func0f06b39c(arg1, arg3, &prop->pos, modelGetEffectiveScale(model))
 					&& func0f06b488(prop, arg1, arg2, arg3, arg7, arg8, arg9)) {
 				g_EmbedModel = model;
 				g_EmbedNode = model->filedata->rootnode;
@@ -2885,7 +2885,7 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 		case MODELNODETYPE_BBOX:
 			rodata = node->rodata;
 
-			if (model000220fc(&rodata->bbox, model0001a5cc(model, node, 0), arg3, arg4)) {
+			if (modelTestBboxNodeForHit(&rodata->bbox, modelFindNodeMtx(model, node, 0), arg3, arg4)) {
 				s7 = true;
 				sp84 = node;
 
@@ -2897,7 +2897,7 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 				s7 = false;
 				var8005efc0 = 10.0f / model->scale;
 
-				if (model000220fc(&rodata->bbox, model0001a5cc(model, node, 0), arg3, arg4)) {
+				if (modelTestBboxNodeForHit(&rodata->bbox, modelFindNodeMtx(model, node, 0), arg3, arg4)) {
 					if (g_Vars.hitboundscount < ARRAYCOUNT(g_Vars.hitnodes)) {
 						g_Vars.hitnodes[g_Vars.hitboundscount] = node;
 						g_Vars.hitboundscount++;
@@ -2913,14 +2913,14 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 				rwdata = modelGetNodeRwData(model, node);
 
 				if (rwdata->gdl != NULL) {
-					if (rwdata->gdl == rodata->dl.primary) {
-						s4 = (Gfx *)((u32)rodata->dl.colourtable + ((u32)rodata->dl.primary & 0xffffff));
+					if (rwdata->gdl == rodata->dl.opagdl) {
+						s4 = (Gfx *)((u32)rodata->dl.colourtable + ((u32)rodata->dl.opagdl & 0xffffff));
 					} else {
 						s4 = rwdata->gdl;
 					}
 
-					if (rodata->dl.secondary != NULL) {
-						s6 = (Gfx *)((u32)rodata->dl.colourtable + ((u32)rodata->dl.secondary & 0xffffff));
+					if (rodata->dl.xlugdl != NULL) {
+						s6 = (Gfx *)((u32)rodata->dl.colourtable + ((u32)rodata->dl.xlugdl & 0xffffff));
 					}
 
 					vertices = rwdata->vertices;
@@ -2929,13 +2929,13 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 			break;
 		case MODELNODETYPE_GUNDL:
 			if (s7) {
-				if (node->rodata->gundl.primary != NULL) {
+				if (node->rodata->gundl.opagdl != NULL) {
 					s32 base = (s32)node->rodata->gundl.baseaddr;
 
-					s4 = (Gfx *)(base + ((u32)node->rodata->gundl.primary & 0xffffff));
+					s4 = (Gfx *)(base + ((u32)node->rodata->gundl.opagdl & 0xffffff));
 
-					if (node->rodata->gundl.secondary != NULL) {
-						s6 = (Gfx *)(base + ((u32)node->rodata->gundl.secondary & 0xffffff));
+					if (node->rodata->gundl.xlugdl != NULL) {
+						s6 = (Gfx *)(base + ((u32)node->rodata->gundl.xlugdl & 0xffffff));
 					}
 
 					vertices = (struct gfxvtx *)base;
@@ -2943,13 +2943,13 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, node);
+			modelApplyDistanceRelations(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, node);
+			modelApplyToggleRelations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, node);
+			modelApplyHeadRelations(model, node);
 			break;
 		}
 
@@ -2982,7 +2982,7 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 	if (ok) {
 		*arg6 = sqrtf(sp98);
 		*arg10 = sp88;
-		*arg9 = model0001a524(sp88, 0);
+		*arg9 = modelFindNodeMtxIndex(sp88, 0);
 	}
 
 	var8005efc0 = 0.0f;
@@ -3017,7 +3017,7 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 	if (-spe4 <= spd4 && spd4 <= arg4 + spe4 && func0f06b39c(arg1, arg3, &prop->pos, spe4)) {
 		if ((prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 			if (var8005efc0 > 0.0f) {
-				hitpart = model000225d4(model, arg5, arg6, &spcc);
+				hitpart = modelTestForHit(model, arg5, arg6, &spcc);
 
 				while (hitpart > 0) {
 					if (func0f084594(model, spcc, arg5, arg6, &sp7c, &sp78, &sp74)) {
@@ -3055,10 +3055,10 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 						}
 					}
 
-					hitpart = model000225d4(model, arg5, arg6, &spcc);
+					hitpart = modelTestForHit(model, arg5, arg6, &spcc);
 				}
 			} else {
-				hitpart = model000225d4(model, arg5, arg6, &spcc);
+				hitpart = modelTestForHit(model, arg5, arg6, &spcc);
 
 				if (hitpart > 0
 						&& func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, arg5, arg6, &sp7c.unk00, &spec, &spcc, &hitpart, &sp78, &sp74)
@@ -4061,7 +4061,7 @@ bool objEmbed(struct prop *prop, struct prop *parent, struct model *model, struc
 		obj->embedment = embedmentAllocate();
 
 		if (obj->embedment) {
-			sp24 = model0001a5cc(model, node, 0);
+			sp24 = modelFindNodeMtx(model, node, 0);
 
 			obj->hidden |= OBJHFLAG_EMBEDDED;
 
@@ -4181,7 +4181,7 @@ bool propExplode(struct prop *prop, s32 exptype)
 		}
 
 		if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-			Mtxf *mtx = model0001a60c(obj->model);
+			Mtxf *mtx = modelGetRootMtx(obj->model);
 
 			pos.x = mtx->m[3][0];
 			pos.y = mtx->m[3][1];
@@ -4757,7 +4757,7 @@ void func0f07079c(struct prop *prop, bool fulltick)
 	}
 
 	if (model->attachedtonode && (obj->hidden & OBJHFLAG_EMBEDDED)) {
-		Mtxf *mtx = model0001a5cc(model->attachedtomodel, model->attachedtonode, 0);
+		Mtxf *mtx = modelFindNodeMtx(model->attachedtomodel, model->attachedtonode, 0);
 		struct modelrenderdata renderdata = {NULL, true, 3};
 		u32 stack;
 		Mtxf sp30;
@@ -4768,7 +4768,7 @@ void func0f07079c(struct prop *prop, bool fulltick)
 		renderdata.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
 		renderdata.unk00 = &sp30;
 
-		model0001ce64(&renderdata, model);
+		modelSetMatrices(&renderdata, model);
 		func0f07063c(prop, fulltick);
 
 		child = prop->child;
@@ -6040,8 +6040,8 @@ bool rocketTickFbw(struct weaponobj *rocket)
 		yrot = atan2f(ydist, sqrtf(xdist * xdist + zdist * zdist));
 
 		for (i = 0; i < g_Vars.lvupdate240; i++) {
-			projectile->unk018 = model0001afe8(projectile->unk018, xrot, PAL ? 0.02246f : 0.01875f);
-			projectile->unk014 = model0001afe8(projectile->unk014, yrot, PAL ? 0.02246f : 0.01875f);
+			projectile->unk018 = modelTweenRotAxis(projectile->unk018, xrot, PAL ? 0.02246f : 0.01875f);
+			projectile->unk014 = modelTweenRotAxis(projectile->unk014, yrot, PAL ? 0.02246f : 0.01875f);
 		}
 
 		mtx4LoadXRotation(M_BADTAU - projectile->unk014, &sp118);
@@ -6995,7 +6995,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 													Mtxf sp188;
 													Mtxf *sp184;
 
-													sp184 = model0001a5cc(g_EmbedModel, g_EmbedNode, 0);
+													sp184 = modelFindNodeMtx(g_EmbedModel, g_EmbedNode, 0);
 													mtx4TransformVec(camGetWorldToScreenMtxf(), &sp5e8, &sp1c8);
 													mtx0001719c(sp184->m, sp188.m);
 													mtx4TransformVecInPlace(&sp188, &sp1c8);
@@ -8946,7 +8946,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	mtx4SetTranslation(&rodata->position.pos, &matrices[2]);
 	mtx00015be0(&matrices[1], &matrices[2]);
 
-	tmp = model0001a5cc(model, node2, 0x100);
+	tmp = modelFindNodeMtx(model, node2, 0x100);
 
 	if (tmp != NULL) {
 		mtx4LoadZRotation(xrot * 0.5f, tmp);
@@ -8957,7 +8957,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	node3 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0003);
 
 	if (node3 != NULL) {
-		tmp = model0001a5cc(model, node3, 0);
+		tmp = modelFindNodeMtx(model, node3, 0);
 		rodata = node3->rodata;
 		mtx4LoadXRotation(autogun->barrelrot, tmp);
 		mtx4SetTranslation(&rodata->position.pos, tmp);
@@ -8967,7 +8967,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	node4 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0004);
 
 	if (node4 != NULL) {
-		tmp = model0001a5cc(model, node4, 0);
+		tmp = modelFindNodeMtx(model, node4, 0);
 		rodata = node4->rodata;
 		mtx4LoadTranslation(&rodata->position.pos, tmp);
 		mtx00015be0(&matrices[2], tmp);
@@ -8976,7 +8976,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	node6 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0006);
 
 	if (node6 != NULL) {
-		tmp = model0001a5cc(model, node6, 0);
+		tmp = modelFindNodeMtx(model, node6, 0);
 		rodata = node6->rodata;
 		mtx4LoadXRotation(autogun->barrelrot, tmp);
 		mtx4SetTranslation(&rodata->position.pos, tmp);
@@ -9048,14 +9048,14 @@ void autogunTickShoot(struct prop *autogunprop)
 					union modelrodata *rodata;
 
 					if (flashnode) {
-						sp108 = model0001a5cc(model, flashnode, 0);
+						sp108 = modelFindNodeMtx(model, flashnode, 0);
 						rodata = flashnode->rodata;
 
 						gunpos.x = rodata->chrgunfire.pos.x;
 						gunpos.y = rodata->chrgunfire.pos.y;
 						gunpos.z = rodata->chrgunfire.pos.z;
 					} else {
-						sp108 = model0001a5cc(model, posnode, 0);
+						sp108 = modelFindNodeMtx(model, posnode, 0);
 
 						gunpos.x = 0.0f;
 						gunpos.y = 0.0f;
@@ -10829,7 +10829,7 @@ void objInitMatrices(struct prop *prop)
 				thing.unk10 = obj->model->matrices;
 				thing.unk00 = &sp28;
 
-				model0001ce64(&thing, obj->model);
+				modelSetMatrices(&thing, obj->model);
 			}
 		}
 	}
@@ -11029,13 +11029,13 @@ s32 objTickPlayer(struct prop *prop)
 				struct hov *hov = NULL;
 
 				if (fulltick) {
-					s32 iVar10 = g_Vars.lvupdate240;
+					s32 lvupdate240 = g_Vars.lvupdate240;
 
-					if (g_Vars.tickmode == TICKMODE_CUTSCENE && iVar10 > 0 && g_Vars.cutsceneskip60ths > 0) {
-						iVar10 += g_Vars.cutsceneskip60ths * 4;
+					if (g_Vars.tickmode == TICKMODE_CUTSCENE && lvupdate240 > 0 && g_Vars.cutsceneskip60ths > 0) {
+						lvupdate240 += g_Vars.cutsceneskip60ths * 4;
 					}
 
-					model0001ee18(model, iVar10, true);
+					modelTickAnimQuarterSpeed(model, lvupdate240, true);
 				}
 
 				anim00023d38(model->anim->animnum);
@@ -11045,13 +11045,13 @@ s32 objTickPlayer(struct prop *prop)
 					sp552 = true;
 				} else {
 					if (fulltick) {
-						model0001b3bc(model);
+						modelUpdateInfo(model);
 					}
 
 					sp556 = true;
 					sp476.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
 					sp476.unk00 = camGetWorldToScreenMtxf();
-					model0001cebc(&sp476, model);
+					modelSetMatricesWithAnim(&sp476, model);
 
 					if (fulltick) {
 						mtx00015be4(camGetProjectionMtxF(), model->matrices, &sp412);
@@ -11128,7 +11128,7 @@ s32 objTickPlayer(struct prop *prop)
 			if (fulltick) {
 				sp148 = floorf(model->anim->frame);
 				sp148++;
-				model0001ee18(model, g_Vars.lvupdate240, 1);
+				modelTickAnimQuarterSpeed(model, g_Vars.lvupdate240, true);
 				sp144 = floorf(model->anim->frame);
 
 				for (i = sp148; i <= sp144; i++) {
@@ -11149,7 +11149,7 @@ s32 objTickPlayer(struct prop *prop)
 			sp556 = true;
 			sp312.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
 			sp312.unk00 = &sp152;
-			model0001cebc(&sp312, model);
+			modelSetMatricesWithAnim(&sp312, model);
 
 			if (fulltick) {
 				sp236.x = (f32)sp116.x + prop->pos.x;
@@ -11268,7 +11268,7 @@ s32 objTickPlayer(struct prop *prop)
 	} else if (obj->flags2 & OBJFLAG2_04000000) {
 		pass2 = posIsInDrawDistance(&prop->pos);
 	} else if ((obj->hidden & OBJHFLAG_00000800) == 0 && (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
-		pass2 = func0f08e8ac(prop, &prop->pos, model0001af80(model), sp564);
+		pass2 = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), sp564);
 	} else {
 		pass2 = false;
 	}
@@ -11300,7 +11300,7 @@ s32 objTickPlayer(struct prop *prop)
 		if (sp556 == false) {
 			model->matrices = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
 			objInitMatrices(prop);
-			model0001cb0c(model, model->filedata->rootnode);
+			modelUpdateRelationsQuick(model, model->filedata->rootnode);
 		}
 
 		prop->z = -model->matrices[0].m[3][2];
@@ -13582,7 +13582,7 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	}
 
 	if (obj->type != OBJTYPE_TINTEDGLASS) {
-		frac = func0f08e6bc(prop, model0001af80(obj->model));
+		frac = func0f08e6bc(prop, modelGetEffectiveScale(obj->model));
 
 		if (prop->timetoregen > 0 && prop->timetoregen < TICKS(60)) {
 			frac *= (TICKS(60.0f) - prop->timetoregen) * (PAL ? 0.019999999552965f : 0.016666667535901f);
@@ -14060,13 +14060,13 @@ void objDeform(struct defaultobj *obj, s32 level)
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(obj->model, node);
+			modelApplyDistanceRelations(obj->model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(obj->model, node);
+			modelApplyToggleRelations(obj->model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(obj->model, node);
+			modelApplyHeadRelations(obj->model, node);
 			break;
 		}
 
@@ -14422,10 +14422,10 @@ bool objDrop(struct prop *prop, bool lazy)
 			f32 spa0;
 
 			node1 = objFindBboxNode(obj);
-			modelNodeGetPosition(obj->model, model0001a740(node1), &spb8);
+			modelNodeGetPosition(obj->model, modelNodeFindMtxNode(node1), &spb8);
 
 			node2 = objFindBboxNode(rootobj);
-			modelNodeGetPosition(rootobj->model, model0001a740(node2), &spa8);
+			modelNodeGetPosition(rootobj->model, modelNodeFindMtxNode(node2), &spa8);
 
 			spe4.x = spb8.x - spa8.x;
 			spe4.y = spb8.y - spa8.y;
@@ -14530,7 +14530,7 @@ bool objDrop(struct prop *prop, bool lazy)
 
 			if (!lazy && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 				// Do collision checks
-				Mtxf *sp48 = model0001a60c(model);
+				Mtxf *sp48 = modelGetRootMtx(model);
 				mtx00015be4(camGetProjectionMtxF(), sp48, &spf0);
 				propSetPerimEnabled(root, false);
 
@@ -14828,7 +14828,7 @@ bool func0f084594(struct model *model, struct modelnode *node, struct coord *arg
 
 	rodata = &node->rodata->bbox;
 
-	mtxindex = model0001a524(node, 0);
+	mtxindex = modelFindNodeMtxIndex(node, 0);
 	mtx000172f0(model->matrices[mtxindex].m, mtx.m);
 
 	spb8.x = arg2->x;
@@ -14971,14 +14971,14 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 				struct modelrwdata_dl *rwdata = modelGetNodeRwData(model, node);
 
 				if (rwdata->gdl != NULL) {
-					if (rwdata->gdl == rodata->primary) {
-						s3 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->primary & 0xffffff));
+					if (rwdata->gdl == rodata->opagdl) {
+						s3 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
 					} else {
 						s3 = rwdata->gdl;
 					}
 
-					if (rodata->secondary != NULL) {
-						s5 = (void *)((u32)rodata->colourtable + ((u32)rodata->secondary & 0xffffff));
+					if (rodata->xlugdl != NULL) {
+						s5 = (void *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
 					}
 
 					vertices = rwdata->vertices;
@@ -14989,11 +14989,11 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 			{
 				struct modelrodata_gundl *rodata = &node->rodata->gundl;
 
-				if (rodata->primary != NULL) {
-					s3 = (Gfx *)((u32)rodata->baseaddr + ((u32)rodata->primary & 0xffffff));
+				if (rodata->opagdl != NULL) {
+					s3 = (Gfx *)((u32)rodata->baseaddr + ((u32)rodata->opagdl & 0xffffff));
 
-					if (rodata->secondary != NULL) {
-						s5 = (Gfx *)((u32)rodata->baseaddr + ((u32)rodata->secondary & 0xffffff));
+					if (rodata->xlugdl != NULL) {
+						s5 = (Gfx *)((u32)rodata->baseaddr + ((u32)rodata->xlugdl & 0xffffff));
 					}
 
 					vertices = (void *)(u32)rodata->baseaddr;
@@ -15001,18 +15001,18 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, node);
+			modelApplyDistanceRelations(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, node);
+			modelApplyToggleRelations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, node);
+			modelApplyHeadRelations(model, node);
 			break;
 		}
 
 		if (s3 != NULL) {
-			s32 mtxindex = model0001a524(node, 0);
+			s32 mtxindex = modelFindNodeMtxIndex(node, 0);
 			Mtxf *mtx = NULL;
 			Mtxf sp64;
 
@@ -15170,7 +15170,7 @@ void cctvHandleLensShot(struct defaultobj *obj)
 
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		rodata = modelGetPartRodata(model->filedata, MODELPART_CCTV_0002);
-		sp7c = model0001a5cc(model, modelGetPart(model->filedata, MODELPART_CCTV_LENS), 0);
+		sp7c = modelFindNodeMtx(model, modelGetPart(model->filedata, MODELPART_CCTV_LENS), 0);
 		mtx00015be4(camGetProjectionMtxF(), sp7c, &matrix);
 
 		shardsCreate((struct coord *) matrix.m[3], matrix.m[0], matrix.m[1], matrix.m[2],
@@ -15564,18 +15564,18 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	}
 
 	if (var8005efc0 > 0.0f) {
-		lVar3 = model000225d4(model, &shotdata->unk00, &shotdata->unk0c, &node1);
+		lVar3 = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
 
 		while (lVar3 > 0) {
 			if (func0f084594(model, node1, &shotdata->unk00, &shotdata->unk0c, &hitthing1, &spe4, &node2)) {
 				break;
 			}
 
-			lVar3 = model000225d4(model, &shotdata->unk00, &shotdata->unk0c, &node1);
+			lVar3 = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
 		}
 	} else {
 		do {
-			lVar3 = model000225d4(model, &shotdata->unk00, &shotdata->unk0c, &node1);
+			lVar3 = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
 
 			if (lVar3 > 0 && func0f0849dc(model, node1, &shotdata->unk00, &shotdata->unk0c, &hitthing1, &spe4, &node2)) {
 				break;
@@ -16240,7 +16240,7 @@ void objGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 			*ymin = obj->geocyl->ymin;
 			*ymax = obj->geocyl->ymax;
 		} else {
-			*radius = model0001af80(obj->model);
+			*radius = modelGetEffectiveScale(obj->model);
 			*ymin = obj->geoblock->ymin;
 			*ymax = obj->geoblock->ymax;
 		}
@@ -17640,7 +17640,7 @@ bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
 {
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		struct defaultobj *obj = prop->obj;
-		Mtxf *matrix = model0001a60c(obj->model);
+		Mtxf *matrix = modelGetRootMtx(obj->model);
 
 		arg1->z = matrix->m[3][2];
 
@@ -17699,13 +17699,13 @@ void modelFreeVertices(s32 vtxstoretype, struct model *model)
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			model0001c784(model, node);
+			modelApplyDistanceRelations(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			model0001c7d0(model, node);
+			modelApplyToggleRelations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelAttachHead(model, node);
+			modelApplyHeadRelations(model, node);
 			break;
 		}
 

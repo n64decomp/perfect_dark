@@ -319,9 +319,9 @@ struct model *modelmgrInstantiateModelWithAnim(struct modelfiledata *modelfileda
 	return modelmgrInstantiateModel(modelfiledata, true);
 }
 
-void modelmgr0f0b32a0(struct model *model, struct modelnode *node, struct modelfiledata *headmodeldef)
+void modelmgrAttachHead(struct model *model, struct modelnode *node, struct modelfiledata *headmodeldef)
 {
-	model00023108(model, model->filedata, node, headmodeldef);
+	modelAttachHead(model, model->filedata, node, headmodeldef);
 	modelInitRwData(model, headmodeldef->rootnode);
 }
 

@@ -155,7 +155,7 @@ bool setupLoadModeldef(s32 modelnum)
 {
 	if (g_ModelStates[modelnum].filedata == NULL) {
 		g_ModelStates[modelnum].filedata = modeldefLoadToNew(g_ModelStates[modelnum].fileid);
-		modelCalculateRwDataLen(g_ModelStates[modelnum].filedata);
+		modelAllocateRwData(g_ModelStates[modelnum].filedata);
 		return true;
 	}
 

@@ -1968,7 +1968,7 @@ void casingRender(struct casing *casing, Gfx **gdlptr)
 	s32 j;
 	bool render = true;
 
-	modelCalculateRwDataLen(modeldef);
+	modelAllocateRwData(modeldef);
 	modelInit(&model, modeldef, NULL, true);
 
 	model.matrices = matrices;

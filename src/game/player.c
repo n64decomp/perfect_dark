@@ -1007,7 +1007,7 @@ void playerSpawn(void)
 
 					if (g_Vars.lvframenum > 0
 							&& (g_ChrSlots[i].hidden & CHRHFLAG_00800000)
-							&& func0f06b39c(&sp78, &sp90, &g_ChrSlots[i].prop->pos, model0001af80(g_ChrSlots[i].model))
+							&& func0f06b39c(&sp78, &sp90, &g_ChrSlots[i].prop->pos, modelGetEffectiveScale(g_ChrSlots[i].model))
 							&& (random() % 8)) {
 						sqdist += 1000000;
 					}
@@ -1407,10 +1407,10 @@ void playerTickChrBody(void)
 				offset1 = ALIGN64(fileGetLoadedSize(g_HeadsAndBodies[headnum].filenum) + offset1);
 			}
 
-			modelCalculateRwDataLen(bodyfiledata);
+			modelAllocateRwData(bodyfiledata);
 
 			if (headfiledata != NULL) {
-				modelCalculateRwDataLen(headfiledata);
+				modelAllocateRwData(headfiledata);
 			}
 
 			modelInit(model, bodyfiledata, rwdatas, false);
@@ -1503,7 +1503,7 @@ void playerTickChrBody(void)
 			if (g_Vars.mplayerisrunning == false) {
 				weaponfiledata = modeldefLoad(g_ModelStates[weaponmodelnum].fileid, allocation + offset1, offset2 - offset1, &texpool);
 				fileGetLoadedSize(g_ModelStates[weaponmodelnum].fileid);
-				modelCalculateRwDataLen(weaponfiledata);
+				modelAllocateRwData(weaponfiledata);
 			} else {
 				weaponobj = NULL;
 				weaponfiledata = NULL;

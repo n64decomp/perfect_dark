@@ -433,7 +433,7 @@ bool aiChrDoAnimation(void)
 		chrTryStartAnim(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], speed);
 
 		if (startframe == 0xfffe) {
-			chr0f0220ec(chr, 1, 1);
+			chr0f0220ec(chr, 1, true);
 
 			if (chr->prop->type == PROPTYPE_PLAYER) {
 				u32 playernum = playermgrGetPlayerNumByProp(chr->prop);

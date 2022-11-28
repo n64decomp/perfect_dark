@@ -1812,7 +1812,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 					thing->bodynum = bodynum;
 					thing->bodymodeldef = modeldefLoad(bodyfilenum, thing->unk004, totalfilelen, &texpool);
 					bodyfilelen2 = ALIGN64(fileGetLoadedSize(bodyfilenum));
-					modelCalculateRwDataLen(thing->bodymodeldef);
+					modelAllocateRwData(thing->bodymodeldef);
 
 					if (headnum < 0) {
 						thing->headmodeldef = NULL;
@@ -1820,7 +1820,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 						thing->headmodeldef = modeldefLoad(headfilenum, thing->unk004 + bodyfilelen2, totalfilelen - bodyfilelen2, &texpool);
 						fileGetLoadedSize(headfilenum);
 						bodyCalculateHeadOffset(thing->headmodeldef, headnum, bodynum);
-						modelCalculateRwDataLen(thing->headmodeldef);
+						modelAllocateRwData(thing->headmodeldef);
 					}
 
 					modelInit(&thing->bodymodel, thing->bodymodeldef, &thing->unk110, true);
@@ -1841,7 +1841,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 					thing->bodymodeldef = modeldefLoad(thing->unk00c, thing->unk004, totalfilelen, &texpool);
 
 					fileGetLoadedSize(thing->unk00c);
-					modelCalculateRwDataLen(thing->bodymodeldef);
+					modelAllocateRwData(thing->bodymodeldef);
 					modelInit(&thing->bodymodel, thing->bodymodeldef, &thing->unk110, true);
 					animInit(&thing->bodyanim);
 
@@ -2135,7 +2135,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			struct coord newpos = {0, 0, 0};
 			u32 stack[3];
 
-			model0001b3bc(&thing->bodymodel);
+			modelUpdateInfo(&thing->bodymodel);
 
 			modelGetRootPosition(&thing->bodymodel, &oldpos);
 
@@ -2214,7 +2214,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		if (thing->unk05c && thing->unk05e != thing->unk05c) {
 			if (thing->unk5b1_04) {
 				modelSetAnimation(&thing->bodymodel, thing->unk05c, false, 0, PALUPF(-0.5f), 0.0f);
-				model0001e018(&thing->bodymodel, modelGetNumAnimFrames(&thing->bodymodel));
+				modelSetAnimFrame(&thing->bodymodel, modelGetNumAnimFrames(&thing->bodymodel));
 			} else {
 				modelSetAnimation(&thing->bodymodel, thing->unk05c, false, 0, PALUPF(0.5f), 0.0f);
 			}
@@ -2228,7 +2228,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			f32 sp178;
 			u32 stack;
 
-			model0001ee18(&thing->bodymodel, g_Vars.diffframe240, true);
+			modelTickAnimQuarterSpeed(&thing->bodymodel, g_Vars.diffframe240, true);
 
 			if (thing->unk5b1_04) {
 				sp178 = modelGetNumAnimFrames(&thing->bodymodel) - modelGetCurAnimFrame(&thing->bodymodel);
@@ -2246,7 +2246,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		renderdata.unk00 = &thing->unk014;
 		renderdata.unk10 = thing->bodymodel.matrices;
 
-		model0001cebc(&renderdata, &thing->bodymodel);
+		modelSetMatricesWithAnim(&renderdata, &thing->bodymodel);
 
 		if (thing->bodymodeldef->skel == &g_SkelHudPiece) {
 			struct modelnode *node = modelGetPart(thing->bodymodeldef, MODELPART_HUDPIECE_0000);
@@ -2277,7 +2277,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 				s32 sp160;
 				Mtxf sp120;
 				Mtxf spe0;
-				sp160 = model0001a524(node, 0);
+				sp160 = modelFindNodeMtxIndex(node, 0);
 				mtx4LoadIdentity(&sp120);
 				mtx4LoadXRotation(menuGetCosOscFrac(4), &sp120);
 				mtx4MultMtx4((Mtxf *)((u32)sp3b4 + sp160 * sizeof(Mtxf)), &sp120, &spe0);
@@ -2291,7 +2291,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 						|| g_MenuData.root == MENUROOT_FILEMGR
 						|| g_MenuData.root == MENUROOT_MPSETUP
 						|| g_MenuData.root == MENUROOT_TRAINING) {
-					s32 index = model0001a524(node, 0);
+					s32 index = modelFindNodeMtxIndex(node, 0);
 					struct coord spd0;
 					f32 spc8[2];
 

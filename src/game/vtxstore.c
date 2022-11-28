@@ -69,13 +69,13 @@ void vtxstoreFixRefs(union modelrwdata *find, union modelrwdata *replacement)
 					}
 					break;
 				case MODELNODETYPE_DISTANCE:
-					model0001c784(obj->model, node);
+					modelApplyDistanceRelations(obj->model, node);
 					break;
 				case MODELNODETYPE_TOGGLE:
-					model0001c7d0(obj->model, node);
+					modelApplyToggleRelations(obj->model, node);
 					break;
 				case MODELNODETYPE_HEADSPOT:
-					modelAttachHead(obj->model, node);
+					modelApplyHeadRelations(obj->model, node);
 					break;
 				}
 

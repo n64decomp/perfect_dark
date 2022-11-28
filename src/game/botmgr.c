@@ -201,10 +201,10 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->reaperspeed[HAND_RIGHT] = 0;
 					aibot->maulercharge[HAND_LEFT] = 0.0f;
 					aibot->maulercharge[HAND_RIGHT] = 0.0f;
-					aibot->unk0a4 = model0001ae44(chr->model);
+					aibot->unk0a4 = modelGetChrRotY(chr->model);
 					aibot->angleoffset = 0.0f;
 					aibot->speedtheta = 0.0f;
-					aibot->unk0b0 = model0001ae44(chr->model);
+					aibot->unk0b0 = modelGetChrRotY(chr->model);
 
 					aibot->unk0b4 = 0.0f;
 					aibot->unk0b8 = 0.0f;
