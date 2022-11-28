@@ -1279,7 +1279,7 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 		return gdl;
 	}
 
-	room0f166df0(roomnum, &globaldrawworldoffset);
+	roomGetPos(roomnum, &globaldrawworldoffset);
 
 	sp54.x = player->eraserpos.x - globaldrawworldoffset.x;
 	sp54.y = player->eraserpos.y - globaldrawworldoffset.y;
@@ -1289,7 +1289,7 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 	sp40[1] = sp54.f[1];
 	sp40[2] = sp54.f[2];
 
-	gdl = roomPushMtx(gdl, roomnum);
+	gdl = roomApplyMtx(gdl, roomnum);
 	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true, sp40);
 	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true, sp40);
 
@@ -4764,7 +4764,7 @@ Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
 		return gdl;
 	}
 
-	gdl = roomPushMtx(gdl, roomnum);
+	gdl = roomApplyMtx(gdl, roomnum);
 
 	gdl = lightsSetForRoom(gdl, roomnum);
 	gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true);
@@ -4796,7 +4796,7 @@ Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 		if (g_Rooms[roomnum].gfxdata);
 		if (g_Rooms[roomnum].gfxdata);
 
-		gdl = roomPushMtx(gdl, roomnum);
+		gdl = roomApplyMtx(gdl, roomnum);
 		gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true);
 
 		g_Rooms[roomnum].loaded240 = 1;

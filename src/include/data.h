@@ -440,7 +440,7 @@ extern u16 var8007fc3c;
 extern s32 g_NumPortalThings;
 extern f32 var8007fcb4;
 extern struct stagetableentry g_Stages[61];
-extern s32 var80082050;
+extern s32 g_RoomMtxNumSlots;
 extern u32 g_GfxNumSwaps;
 extern s32 g_NumReasonsToEndMpMatch;
 extern s32 g_MusicEventQueueLength;

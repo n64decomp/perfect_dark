@@ -3597,7 +3597,7 @@ struct room {
 	/*0x0a*/ u16 lightindex; // index of start of this room's lights in data file
 	/*0x0c*/ u16 firstwaypoint; // offset into g_Vars.waypoints
 	/*0x0e*/ s16 roomportallistoffset;
-	/*0x10*/ s16 unk10;
+	/*0x10*/ s16 roommtxindex;
 	/*0x14*/ struct roomgfxdata *gfxdata;
 	/*0x18*/ f32 bbmin[3];
 	/*0x24*/ f32 bbmax[3];

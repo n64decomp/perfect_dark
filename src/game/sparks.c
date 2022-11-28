@@ -437,7 +437,7 @@ Gfx *sparksRender(Gfx *gdl)
 					mtx00015be0(camGetWorldToScreenMtxf(), &spd4);
 
 					mtx = gfxAllocateMatrix();
-					mtx00016054(&spd4, mtx);
+					mtxF2L(&spd4, mtx);
 
 					gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

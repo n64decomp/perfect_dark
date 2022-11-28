@@ -13487,7 +13487,7 @@ Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius,
 	mtx = gfxAllocateMatrix();
 	mtx4LoadYRotationWithTranslation(&pos, angle, &spc0);
 	mtx4MultMtx4(camGetWorldToScreenMtxf(), &spc0, &sp80);
-	mtx00016054(&sp80, mtx);
+	mtxF2L(&sp80, mtx);
 
 	for (i = 0; i < 4; i++) {
 		vertices[i].y = 0;

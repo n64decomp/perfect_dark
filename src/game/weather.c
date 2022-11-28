@@ -967,7 +967,7 @@ glabel var7f1b5780
 /*  f1330a4:	e7b40200 */ 	swc1	$f20,0x200($sp)
 /*  f1330a8:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1330ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1330b0:	0c005815 */ 	jal	mtx00016054
+/*  f1330b0:	0c005815 */ 	jal	mtxF2L
 /*  f1330b4:	00402825 */ 	or	$a1,$v0,$zero
 /*  f1330b8:	8fb00de8 */ 	lw	$s0,0xde8($sp)
 /*  f1330bc:	3c0d0102 */ 	lui	$t5,0x102
@@ -2605,7 +2605,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	mtx = gfxAllocateMatrix();
 
-	mtx00016054(&sp1c8, mtx);
+	mtxF2L(&sp1c8, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -3240,7 +3240,7 @@ glabel var7f1b5790
 /*  f1348ac:	e7b40204 */ 	swc1	$f20,0x204($sp)
 /*  f1348b0:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1348b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1348b8:	0c005815 */ 	jal	mtx00016054
+/*  f1348b8:	0c005815 */ 	jal	mtxF2L
 /*  f1348bc:	00402825 */ 	or	$a1,$v0,$zero
 /*  f1348c0:	8fb01398 */ 	lw	$s0,0x1398($sp)
 /*  f1348c4:	3c190102 */ 	lui	$t9,0x102
@@ -4660,7 +4660,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	mtx = gfxAllocateMatrix();
 
-	mtx00016054(&sp1cc, mtx);
+	mtxF2L(&sp1cc, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

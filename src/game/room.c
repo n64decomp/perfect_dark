@@ -6,48 +6,88 @@
 #include "data.h"
 #include "types.h"
 
-u8 *var800a6660;
-s16 *var800a6664; // room numbers
-s16 *var800a6668;
-f32 *var800a666c;
-Mtxf *var800a6670;
+/**
+ * Room matrices
+ *
+ * Each room that is rendered needs to have a modelview matrix. The matrix can
+ * be pushed onto the displaylist multiple times per frame, even in single player.
+ *
+ * A simple approach would be to allocate these matrices out of graphics memory
+ * as needed, populating and converting them to the RSP's matrix format each time.
+ *
+ * The solution used here keeps a cache of these matrices. This allows the same
+ * matrix to be reused instead of having to allocate, calculate and convert them
+ * each time which saves CPU time and memory. However, the game has to spend
+ * CPU time keeping track of cache usage so it can free slots, and the cache
+ * allocation uses more total memory than on-demand allocations would require,
+ * so this system is perhaps not as beneficial as it seems.
+ *
+ * The cache is implemented using 5 parallel arrays:
+ *
+ * g_RoomMtxAges
+ *  - The number of frames since each cache slot was last used.
+ *  - When it reaches 2 the slot is freed.
+ * g_RoomMtxLinkedRooms
+ *  - The linked room number per cache slot, or -1 if free.
+ * g_RoomMtxBaseRooms
+ *  - The room that each matrix's position is relative to.
+ *  - This is the player's room, as the world is drawn relative to this.
+ * g_RoomMtxScales
+ *  - The scale that is applied to the matrix. Usually 1.
+ * g_RoomMtxMatrices
+ *  - The matrices themselves, in the RSP's matrix format.
+ *
+ * Each room can have at most one matrix slot. When multiplayer is in use, the
+ * same room matrix can be used for both players, but only if they have the same
+ * global draw offset (ie. are in the same room).
+ *
+ * When players are not in the same room but can see the same rooms, each
+ * player's matrix cache invalidates the other's until they move into the same
+ * room or stop looking at each other's rooms.
+ */
 
-s32 var80082050 = 0;
+u8 *g_RoomMtxAges;
+s16 *g_RoomMtxLinkedRooms;
+s16 *g_RoomMtxBaseRooms;
+f32 *g_RoomMtxScales;
+Mtxf *g_RoomMtxMatrices;
+
+s32 g_RoomMtxNumSlots = 0;
 
 void roomSetLastForOffset(s32 room)
 {
 	g_Vars.currentplayer->lastroomforoffset = room;
 }
 
-void room0f1668f0(s32 index, s32 roomnum)
+void roomLinkMtx(s32 index, s32 roomnum)
 {
-	g_Rooms[roomnum].unk10 = index;
-	var800a6664[index] = roomnum;
+	g_Rooms[roomnum].roommtxindex = index;
+	g_RoomMtxLinkedRooms[index] = roomnum;
 }
 
-void room0f16692c(s32 index, s32 roomnum)
+void roomUnlinkMtx(s32 index, s32 roomnum)
 {
-	g_Rooms[roomnum].unk10 = -1;
-	var800a6664[index] = -1;
+	g_Rooms[roomnum].roommtxindex = -1;
+	g_RoomMtxLinkedRooms[index] = -1;
 }
 
-void room0f16696c(s32 index)
+void roomFreeMtx(s32 index)
 {
-	if (var800a6664[index] != -1) {
-		room0f16692c(index, var800a6664[index]);
+	if (g_RoomMtxLinkedRooms[index] != -1) {
+		roomUnlinkMtx(index, g_RoomMtxLinkedRooms[index]);
 	}
 
-	var800a6660[index] = 2;
-	var800a6668[index] = -1;
-	var800a666c[index] = 1;
+	g_RoomMtxAges[index] = 2;
+	g_RoomMtxBaseRooms[index] = -1;
+	g_RoomMtxScales[index] = 1;
 }
 
-s32 room0f1669fc(void)
+s32 roomAllocateMtx(void)
 {
 	s32 i;
 
-	for (i = 0; i < var80082050; i++) {
-		if (var800a6660[i] > 1 && var800a6668[i] == -1) {
+	for (i = 0; i < g_RoomMtxNumSlots; i++) {
+		if (g_RoomMtxAges[i] >= 2 && g_RoomMtxBaseRooms[i] == -1) {
 			return i;
 		}
 	}
@@ -55,7 +95,7 @@ s32 room0f1669fc(void)
 	return 0;
 }
 
-void room0f166a6c(Mtxf *mtx, s32 roomnum)
+void roomPopulateMtx(Mtxf *mtx, s32 roomnum)
 {
 	s32 stagenum = g_Vars.stagenum;
 
@@ -88,53 +128,67 @@ void room0f166a6c(Mtxf *mtx, s32 roomnum)
 	}
 }
 
-s32 room0f166c20(s32 roomnum)
+/**
+ * "Touch" a room's modelview matrix in the cache.
+ *
+ * The function is named after Unix's touch command, which creates a file if
+ * missing and updates the modification time. The function creates the cache
+ * entry if missing and resets the cache entry's age to 0.
+ */
+s32 roomTouchMtx(s32 roomnum)
 {
-	s32 index = g_Rooms[roomnum].unk10;
+	s32 index = g_Rooms[roomnum].roommtxindex;
 	Mtxf mtx;
 
 	if (index == -1
-			|| g_Vars.currentplayer->lastroomforoffset != var800a6668[index]
-			|| var800a666c[index] != var8005ef10[0]) {
+			|| g_Vars.currentplayer->lastroomforoffset != g_RoomMtxBaseRooms[index]
+			|| g_RoomMtxScales[index] != var8005ef10[0]) {
+		// There's no cache for this room or it's invalid.
+		// Unlink the old cache item if any and create a new one.
 		if (index != -1) {
-			room0f16692c(index, roomnum);
+			roomUnlinkMtx(index, roomnum);
 		}
 
-		index = room0f1669fc();
+		index = roomAllocateMtx();
 
-		room0f1668f0(index, roomnum);
-		var800a6660[index] = 0;
+		roomLinkMtx(index, roomnum);
+		g_RoomMtxAges[index] = 0;
 	} else {
-		var800a6660[index] = 0;
+		// The room has an existing, valid cache entry.
+		g_RoomMtxAges[index] = 0;
 		return index;
 	}
 
-	var800a6668[index] = g_Vars.currentplayer->lastroomforoffset;
-	var800a666c[index] = var8005ef10[0];
+	g_RoomMtxBaseRooms[index] = g_Vars.currentplayer->lastroomforoffset;
+	g_RoomMtxScales[index] = var8005ef10[0];
 
-	room0f166a6c(&mtx, roomnum);
-	mtx00016054(&mtx, &var800a6670[index]);
+	roomPopulateMtx(&mtx, roomnum);
+	mtxF2L(&mtx, &g_RoomMtxMatrices[index]);
 
 	return index;
 }
 
-Gfx *roomPushMtx(Gfx *gdl, s32 roomnum)
+/**
+ * Retrieve a room's modelview matrix from cache, or create a new one and cache
+ * it, and apply it to the displaylist.
+ */
+Gfx *roomApplyMtx(Gfx *gdl, s32 roomnum)
 {
-	s32 index = room0f166c20(roomnum);
+	s32 index = roomTouchMtx(roomnum);
 
-	gSPMatrix(gdl++, &var800a6670[index], G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(gdl++, &g_RoomMtxMatrices[index], G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	return gdl;
 }
 
-struct coord *roomGetPos(s32 room)
+struct coord *roomGetPosPtr(s32 room)
 {
 	return &g_BgRooms[room].pos;
 }
 
-void room0f166df0(s32 room, struct coord *globaldrawworldoffset)
+void roomGetPos(s32 room, struct coord *pos)
 {
-	globaldrawworldoffset->x = g_BgRooms[room].pos.x;
-	globaldrawworldoffset->y = g_BgRooms[room].pos.y;
-	globaldrawworldoffset->z = g_BgRooms[room].pos.z;
+	pos->x = g_BgRooms[room].pos.x;
+	pos->y = g_BgRooms[room].pos.y;
+	pos->z = g_BgRooms[room].pos.z;
 }

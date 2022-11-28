@@ -314,7 +314,7 @@ u32 mtxGetObfuscatedRomBase(void)
 	return value;
 }
 
-void mtx00016054(Mtxf *src, Mtxf *dst)
+void mtxF2L(Mtxf *src, Mtxf *dst)
 {
 	u32 src00 = (s32) (src->m[0][0] * var8005ef10[0]);
 	u32 src01 = (s32) (src->m[0][1] * var8005ef10[0]);

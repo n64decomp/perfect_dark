@@ -1587,7 +1587,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 				obj->hidden2 |= OBJH2FLAG_HASOPA;
 			}
 		} else {
-			struct coord *roompos = roomGetPos(room);
+			struct coord *roompos = roomGetPosPtr(room);
 
 			if (arg2 != NULL) {
 				f32 xdist = arg2->x - relpos->x;
@@ -1841,7 +1841,7 @@ Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 	prevtexturenum = -1;
 	prev6b = -1;
 
-	gdl = roomPushMtx(gdl, roomnum);
+	gdl = roomApplyMtx(gdl, roomnum);
 
 	wallhit = g_Rooms[roomnum].opawallhits;
 
@@ -1903,7 +1903,7 @@ Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
 	prevtexturenum = -1;
 	prev6b = -1;
 
-	gdl = roomPushMtx(gdl, roomnum);
+	gdl = roomApplyMtx(gdl, roomnum);
 
 	wallhit = g_Rooms[roomnum].xluwallhits;
 

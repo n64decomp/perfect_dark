@@ -9,12 +9,12 @@ void roomsTick(void)
 {
 	s32 i;
 
-	for (i = 0; i < var80082050; i++) {
-		if (var800a6668[i] >= 0) {
-			var800a6660[i]++;
+	for (i = 0; i < g_RoomMtxNumSlots; i++) {
+		if (g_RoomMtxBaseRooms[i] >= 0) {
+			g_RoomMtxAges[i]++;
 
-			if (var800a6660[i] > 1) {
-				room0f16696c(i);
+			if (g_RoomMtxAges[i] > 1) {
+				roomFreeMtx(i);
 			}
 		}
 	}

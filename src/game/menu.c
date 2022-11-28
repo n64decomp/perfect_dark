@@ -2326,7 +2326,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		for (i = 0; i < thing->bodymodeldef->nummatrices; i++) {
 			Mtxf sp70;
 			mtx4Copy((Mtxf *)((u32)thing->bodymodel.matrices + i * sizeof(Mtxf)), &sp70);
-			mtx00016054(&sp70, &thing->bodymodel.matrices[i]);
+			mtxF2L(&sp70, &thing->bodymodel.matrices[i]);
 		}
 
 		mtx00016784();

@@ -1845,7 +1845,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 
 	modelmtx = gfxAllocateMatrix();
 
-	mtx00016054(&sp110, modelmtx);
+	mtxF2L(&sp110, modelmtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(modelmtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

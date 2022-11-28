@@ -64,7 +64,7 @@ Gfx *func0f0d479c(Gfx *gdl)
 
 	mtx00016760();
 	func0f0d475c(&mtx);
-	mtx00016054(&mtx, mtx2);
+	mtxF2L(&mtx, mtx2);
 	mtx4LoadIdentity(&mtx);
 
 	guFrustumF(mtx.m,
@@ -72,7 +72,7 @@ Gfx *func0f0d479c(Gfx *gdl)
 			-(f32) viGetHeight() * 0.5f, viGetHeight() * 0.5f,
 			10, 10000, 1);
 
-	mtx00016054(&mtx, mtx1);
+	mtxF2L(&mtx, mtx1);
 	mtx00016784();
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx2), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -160,7 +160,7 @@ Gfx *func0f0d4a3c(Gfx *gdl, s32 arg1)
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 
 	func0f0d4690(&mtx);
-	mtx00016054(&mtx, mtxptr);
+	mtxF2L(&mtx, mtxptr);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtxptr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -175,7 +175,7 @@ Gfx *func0f0d4c80(Gfx *gdl)
 	func0f0d4690(&mtx);
 	mtx00015df0(0.1f, &mtx);
 	mtx00015e4c(0.1f, &mtx);
-	mtx00016054(&mtx, mtxptr);
+	mtxF2L(&mtx, mtxptr);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtxptr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

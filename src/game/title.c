@@ -898,7 +898,7 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 
 	for (j = 0, k = 0; j < model->filedata->nummatrices; j++, k += sizeof(Mtxf)) {
 		mtx4Copy((Mtxf *)((u32)model->matrices + k), &sp6c);
-		mtx00016054(&sp6c, model->matrices + j);
+		mtxF2L(&sp6c, model->matrices + j);
 	}
 
 	return gdl;
@@ -2560,7 +2560,7 @@ glabel var7f1a8ff4jf
 /*  f01952c:	27a40158 */ 	addiu	$a0,$sp,0x158
 /*  f019530:	8dd9000c */ 	lw	$t9,0xc($t6)
 /*  f019534:	0002c180 */ 	sll	$t8,$v0,0x6
-/*  f019538:	0c0057fd */ 	jal	mtx00016054
+/*  f019538:	0c0057fd */ 	jal	mtxF2L
 /*  f01953c:	03382821 */ 	addu	$a1,$t9,$t8
 /*  f019540:	3c038006 */ 	lui	$v1,%hi(g_TitleModelJpnLogo2)
 /*  f019544:	8c6323f8 */ 	lw	$v1,%lo(g_TitleModelJpnLogo2)($v1)
@@ -2862,7 +2862,7 @@ glabel var7f1a8ff4jf
 /*  f0199a0:	27a400f4 */ 	addiu	$a0,$sp,0xf4
 /*  f0199a4:	8dd9000c */ 	lw	$t9,0xc($t6)
 /*  f0199a8:	0002c180 */ 	sll	$t8,$v0,0x6
-/*  f0199ac:	0c0057fd */ 	jal	mtx00016054
+/*  f0199ac:	0c0057fd */ 	jal	mtxF2L
 /*  f0199b0:	03382821 */ 	addu	$a1,$t9,$t8
 /*  f0199b4:	3c038006 */ 	lui	$v1,%hi(g_TitleModelJpnPd)
 /*  f0199b8:	8c6323fc */ 	lw	$v1,%lo(g_TitleModelJpnPd)($v1)
@@ -2966,7 +2966,7 @@ glabel var7f1a8ff4jf
 /*  f019b38:	27a4005c */ 	addiu	$a0,$sp,0x5c
 /*  f019b3c:	8dee000c */ 	lw	$t6,0xc($t7)
 /*  f019b40:	0002c980 */ 	sll	$t9,$v0,0x6
-/*  f019b44:	0c0057fd */ 	jal	mtx00016054
+/*  f019b44:	0c0057fd */ 	jal	mtxF2L
 /*  f019b48:	01d92821 */ 	addu	$a1,$t6,$t9
 /*  f019b4c:	3c038006 */ 	lui	$v1,%hi(g_TitleModelJpnLogo1)
 /*  f019b50:	8c6323f4 */ 	lw	$v1,%lo(g_TitleModelJpnLogo1)($v1)
@@ -7589,7 +7589,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 					for (sp19c = 0, j = 0; sp19c < g_TitleModelJpnLogo2->filedata->nummatrices; sp19c++, j += sizeof(Mtxf)) {
 						mtx4Copy((Mtxf *)((u32)g_TitleModelJpnLogo2->matrices + j), &sp158);
-						mtx00016054(&sp158, g_TitleModelJpnLogo2->matrices + sp19c);
+						mtxF2L(&sp158, g_TitleModelJpnLogo2->matrices + sp19c);
 					}
 				}
 
@@ -7650,7 +7650,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 				for (sp14c = 0, j = 0; sp14c < g_TitleModelJpnPd->filedata->nummatrices; sp14c++, j += sizeof(Mtxf)) {
 					mtx4Copy((Mtxf *)((u32)g_TitleModelJpnPd->matrices + j), &spf4);
-					mtx00016054(&spf4, g_TitleModelJpnPd->matrices + sp14c);
+					mtxF2L(&spf4, g_TitleModelJpnPd->matrices + sp14c);
 				}
 			}
 
@@ -7684,7 +7684,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 				for (sp9c = 0, j = 0; sp9c < g_TitleModelJpnLogo1->filedata->nummatrices; sp9c++, j += sizeof(Mtxf)) {
 					mtx4Copy((Mtxf *)((u32)g_TitleModelJpnLogo1->matrices + j), &sp5c);
-					mtx00016054(&sp5c, g_TitleModelJpnLogo1->matrices + sp9c);
+					mtxF2L(&sp5c, g_TitleModelJpnLogo1->matrices + sp9c);
 				}
 			}
 		}
@@ -8010,7 +8010,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 
 		for (i = 0, j = 0; i < g_TitleModel->filedata->nummatrices; i++, j += sizeof(Mtxf)) {
 			mtx4Copy((Mtxf *)((u32)g_TitleModel->matrices + j), &sp54);
-			mtx00016054(&sp54, g_TitleModel->matrices + i);
+			mtxF2L(&sp54, g_TitleModel->matrices + i);
 		}
 	}
 
@@ -8257,7 +8257,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 		for (i = 0, j = 0; i < g_TitleModel->filedata->nummatrices; i++, j += sizeof(Mtxf)) {
 			Mtxf sp58;
 			mtx4Copy((Mtxf *)((u32)g_TitleModel->matrices + j), &sp58);
-			mtx00016054(&sp58, g_TitleModel->matrices + i);
+			mtxF2L(&sp58, g_TitleModel->matrices + i);
 		}
 	}
 

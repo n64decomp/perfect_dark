@@ -267,7 +267,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 							&& shardmtx.m[3][2] < 10000 && shardmtx.m[3][2] > -10000)
 #endif
 					{
-						mtx00016054(&shardmtx, mtx);
+						mtxF2L(&shardmtx, mtx);
 
 						gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -389,7 +389,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 							&& shardmtx.m[3][2] < 10000 && shardmtx.m[3][2] > -10000)
 #endif
 					{
-						mtx00016054(&shardmtx, mtx);
+						mtxF2L(&shardmtx, mtx);
 
 						gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

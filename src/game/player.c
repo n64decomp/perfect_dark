@@ -2676,7 +2676,7 @@ Gfx *playerRenderHealthBar(Gfx *gdl)
 	Mtxf *addr = gfxAllocateMatrix();
 
 	mtx00016ae4(&matrix, 0, 370, 0, 0, 0, 0, 0, 0, -1);
-	mtx00016054(&matrix, addr);
+	mtxF2L(&matrix, addr);
 
 	gSPMatrix(gdl++, osVirtualToPhysical((void *)addr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPPipeSync(gdl++);
@@ -4180,7 +4180,7 @@ struct var80070ba4 var80070ba4[4][7] = { // [wieldmode][turnmode]
 
 void playerSetGlobalDrawWorldOffset(s32 room)
 {
-	room0f166df0(room, &g_Vars.currentplayer->globaldrawworldoffset);
+	roomGetPos(room, &g_Vars.currentplayer->globaldrawworldoffset);
 
 	g_Vars.currentplayer->globaldrawworldbgoffset.x = g_Vars.currentplayer->globaldrawworldoffset.x;
 	g_Vars.currentplayer->globaldrawworldbgoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
@@ -5709,6 +5709,6 @@ void player0f0c3320(Mtxf *matrices, s32 count)
 		sp40.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;
 		sp40.m[3][2] -= g_Vars.currentplayer->globaldrawworldoffset.z;
 
-		mtx00016054(&sp40, matrices + i);
+		mtxF2L(&sp40, matrices + i);
 	}
 }

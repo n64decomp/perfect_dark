@@ -500,7 +500,7 @@ glabel mtxGetObfuscatedRomBase
 	jr     $ra
 	addiu  $sp, $sp, 0x20
 
-glabel mtx00016054
+glabel mtxF2L
 	lui    $t2, %hi(var8005ef10)
 	addiu  $t2, $t2, %lo(var8005ef10)
 	addiu  $t0, $zero, 0x4

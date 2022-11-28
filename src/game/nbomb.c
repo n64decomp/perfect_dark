@@ -136,7 +136,7 @@ Gfx *func0f0073ac(Gfx *gdl, struct coord *pos, f32 arg2)
 	mtx4LoadIdentity(&sp104);
 	mtx4LoadTranslation(pos, &sp104);
 	mtx00015be0(camGetWorldToScreenMtxf(), &sp104);
-	mtx00016054(&sp104, modelmtx);
+	mtxF2L(&sp104, modelmtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(modelmtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -397,7 +397,7 @@ Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	mtx4MultMtx4(&sp48, &sp88, &spc8);
 
 	mtx00015be0(camGetWorldToScreenMtxf(), &spc8);
-	mtx00016054(&spc8, mtx);
+	mtxF2L(&spc8, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

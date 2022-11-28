@@ -247,7 +247,7 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 
 	mtx00015f04(1.0f / arg2, &sp84);
 	mtx00015be0(worldtoscreenmtx, &sp84);
-	mtx00016054(&sp84, spc8);
+	mtxF2L(&sp84, spc8);
 
 	mult = arg5 * arg2;
 
@@ -788,7 +788,7 @@ glabel var7f1accf4
 /*  f0ad1e4:	00001025 */ 	or	$v0,$zero,$zero
 /*  f0ad1e8:	1100026e */ 	beqz	$t0,.L0f0adba4
 /*  f0ad1ec:	27a40148 */ 	addiu	$a0,$sp,0x148
-/*  f0ad1f0:	0c005815 */ 	jal	mtx00016054
+/*  f0ad1f0:	0c005815 */ 	jal	mtxF2L
 /*  f0ad1f4:	8fa50188 */ 	lw	$a1,0x188($sp)
 /*  f0ad1f8:	82230001 */ 	lb	$v1,0x1($s1)
 /*  f0ad1fc:	2401fffe */ 	addiu	$at,$zero,-2
@@ -1585,7 +1585,7 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 			}
 
 			if (spd8) {
-				mtx00016054(&sp148, sp188);
+				mtxF2L(&sp148, sp188);
 
 				if (beam->weaponnum);
 
@@ -2239,7 +2239,7 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 	mtx00015f88(0.2f, &sp1b0);
 
 	mtx = gfxAllocateMatrix();
-	mtx00016054(&sp1b0, mtx);
+	mtxF2L(&sp1b0, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -2425,7 +2425,7 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 
 	mtx00015f88(0.2f, &sp198);
 	mtx = gfxAllocateMatrix();
-	mtx00016054(&sp198, mtx);
+	mtxF2L(&sp198, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

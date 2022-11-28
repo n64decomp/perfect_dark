@@ -61,7 +61,7 @@ void menuTickTimers(void)
 #if PIRACYCHECKS
 	{
 		u32 *ptr = (u32 *)&mtxGetObfuscatedRomBase;
-		u32 *end = (u32 *)&mtx00016054;
+		u32 *end = (u32 *)&mtxF2L;
 		u32 checksum = 0;
 
 		while (ptr < end) {
