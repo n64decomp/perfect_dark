@@ -18,6 +18,67 @@
 #include "data.h"
 #include "types.h"
 
+/**
+ * -- Model Definitions --
+ *
+ * A model definition is a representation of a model file.
+ * The term is sometimes abbreviated to modeldef.
+ *
+ * A single model definition can be shared by multiple model instances.
+ * For characters, their body is one model instance and their head is another
+ * instance, so guards who share the same outfit can share the same body
+ * modeldef, and guards who have the same head can share the same head modeldef.
+ *
+ * A modeldef contains a tree of nodes. A node can have any number of siblings,
+ * as well as children and grandchildren and so on. Each node has a type, and
+ * each node can contain data specific to that type.
+ *
+ * Some common node types are:
+ * - Distance nodes, which can turn on/off their child nodes based on distance
+ *   to the camera.
+ * - Toggle nodes, which can turn on/off their child nodes by other places in
+ *   the game (for example, hiding Cass's necklace from her model).
+ * - Headspot nodes, which mark a point on a body model where a head can be
+ *   attached.
+ * - Displaylist nodes, which contain GBI bytecode for rendering.
+ * - Bbox (bounding box) nodes, which are commonly used for shield hit detection.
+ *
+ * The data for these nodes is referred to as read-only data (rodata).
+ * It's read-only because changing it would affect all model instances that use
+ * this modeldef, which is typically undesired.
+ *
+ * Modeldefs can contain a parts list. The parts list is a mapping of part
+ * numbers to certain nodes within the tree. They allow the game to quickly get
+ * a pointer to a node by part number, without having to iterate through the
+ * tree to find it. A part number can map to a node of any type, but the game
+ * assumes certain numbers map to certain types. For example, it assumes that
+ * the part number for Cass's necklace maps to a toggle node.
+ *
+ * -- Model Instances --
+ *
+ * Model instances are usually just referred to as "models" in decomp.
+ *
+ * Each model instance contains a pointer to its modeldef and can have an
+ * animation applied to it, among other things.
+ *
+ * Model instances also have read-write data (rwdata). rwdata stores
+ * instance-specific node data, such as position/rotation, toggle state and the
+ * chosen head. Each instance has a pointer to its rwdata allocation, and each
+ * node in the model definition contains a rwdataindex which is its index in any
+ * instance's rwdata allocation. The node rwdata for an instance can be found by
+ * adding the two together.
+ *
+ * When working with a model, its common to detach and reattach nodes in the
+ * model definition's node tree. For example, a distance node may enable or
+ * disable its children, toggle nodes may be enabled or disabled, and heads may
+ * be replaced as needed. This is all done by clearing or populating a node's
+ * child pointer in the model definition. This leaves the modeldef in an
+ * inconsistent state, so any time a model instance is being worked on it needs
+ * to re-apply its relations to the modeldef. Some of these relations can be
+ * calculated on the fly (such as distance nodes) while others are saved in
+ * rwdata (such as the selected head).
+ */
+
 #if VERSION >= VERSION_PAL_BETA
 u8 var8005efb0_2 = 0;
 #endif
