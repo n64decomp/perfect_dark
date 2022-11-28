@@ -5710,7 +5710,7 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
 
 			modelSetRootPosition(chr->model, &prop->pos);
 
-			rwdata = modelGetNodeRwData(chr->model, chr->model->filedata->rootnode);
+			rwdata = modelGetNodeRwData(chr->model, chr->model->definition->rootnode);
 			rwdata->chrinfo.ground = ground;
 
 			chr->chrflags |= CHRCFLAG_00000001;
@@ -9138,7 +9138,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 					struct defaultobj *gun = gunprop->obj;
 					gunmodel = gun->model;
 					sp114 = 0;
-					burstnode = modelGetPart(gunmodel->filedata, MODELPART_CHRGUN_GUNFIRE);
+					burstnode = modelGetPart(gunmodel->definition, MODELPART_CHRGUN_GUNFIRE);
 
 					if (burstnode) {
 						sp108 = modelFindNodeMtx(gunmodel, burstnode, 0);
@@ -9161,7 +9161,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 							sp118.z = spb8.z;
 						}
 					} else {
-						posnode = modelGetPart(gunmodel->filedata, MODELPART_CHRGUN_0001);
+						posnode = modelGetPart(gunmodel->definition, MODELPART_CHRGUN_0001);
 
 						if (posnode) {
 							spb0 = modelFindNodeMtx(gunmodel, posnode, 0);
@@ -9203,7 +9203,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 				aimendsideback += M_BADTAU;
 			}
 
-			chrrwdata = modelGetNodeRwData(chr->model, chr->model->filedata->rootnode);
+			chrrwdata = modelGetNodeRwData(chr->model, chr->model->definition->rootnode);
 
 			if (chrrwdata->unk5c > 0.0f) {
 				aimendsideback -= chrrwdata->unk5c * chrrwdata->unk58;
@@ -9583,7 +9583,7 @@ bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 		model = obj->model;
 
 		if ((chr->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) && (weaponprop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
-			if ((part0 = modelGetPart(model->filedata, MODELPART_0000))) {
+			if ((part0 = modelGetPart(model->definition, MODELPART_0000))) {
 				spac = modelFindNodeMtx(model, part0, 0);
 				rodata = &part0->rodata->chrgunfire;
 
@@ -9594,7 +9594,7 @@ bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 				mtx00015be4(camGetProjectionMtxF(), spac, &sp6c);
 				mtx4TransformVecInPlace(&sp6c, gunpos);
 				result = true;
-			} else if ((part1 = modelGetPart(model->filedata, MODELPART_0001))) {
+			} else if ((part1 = modelGetPart(model->definition, MODELPART_0001))) {
 				sp64 = modelFindNodeMtx(model, part1, 0);
 
 				mtx00015be4(camGetProjectionMtxF(), sp64, &sp24);
@@ -9660,7 +9660,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 				mtx4RotateVec(worldtoscreenmtx, vector, &sp118);
 
 				isdifferentmtx = (camGetWorldToScreenMtxf() != worldtoscreenmtx);
-				node = chr->model->filedata->rootnode;
+				node = chr->model->definition->rootnode;
 
 				while (node) {
 					if ((node->type & 0xff) == MODELNODETYPE_BBOX) {
@@ -9747,7 +9747,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 		// If no node was found above, search the model for the torso bbox
 		// and return that.
 		if (!done) {
-			node = chr->model->filedata->rootnode;
+			node = chr->model->definition->rootnode;
 
 			while (node) {
 
@@ -10793,7 +10793,7 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool visible)
 		partnum = MODELPART_ROBOT_LGUNFIRE;
 	}
 
-	node = modelGetPart(chr->model->filedata, partnum);
+	node = modelGetPart(chr->model->definition, partnum);
 
 	if (node) {
 		rwdata = modelGetNodeRwData(chr->model, node);
@@ -10879,7 +10879,7 @@ void chrTickRobotAttack(struct chrdata *chr)
 
 	func0f0429d8(chr, 0.085f, invtheta);
 
-	if (chr->model->filedata->skel != &g_SkelRobot) {
+	if (chr->model->definition->skel != &g_SkelRobot) {
 		act->finished = true;
 		return;
 	}
@@ -10918,7 +10918,7 @@ void chrTickRobotAttack(struct chrdata *chr)
 			Mtxf spa4;
 
 			aimy = targetprop->pos.y - 20.0f;
-			rodata = modelGetPartRodata(chr->model->filedata, (i ? MODELPART_ROBOT_0000 : MODELPART_ROBOT_0001));
+			rodata = modelGetPartRodata(chr->model->definition, (i ? MODELPART_ROBOT_0000 : MODELPART_ROBOT_0001));
 
 			act->pos[i].x = rodata->position.pos.x;
 			act->pos[i].y = rodata->position.pos.y - 300.0f;
@@ -11185,7 +11185,7 @@ void chrTickAttackRoll(struct chrdata *chr)
 				}
 
 				if (chr->act_attack.animcfg->unk0c != 0.0f) {
-					union modelrwdata *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
+					union modelrwdata *rwdata = modelGetNodeRwData(model, model->definition->rootnode);
 					rwdata->chrinfo.unk5c = sp34;
 					rwdata->chrinfo.unk58 = -chr->act_attack.animcfg->unk0c / sp34;
 
@@ -15297,10 +15297,10 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 		chr0f0220ac(chr);
 		modelSetRootPosition(chr->model, &pos2);
 
-		nodetype = chr->model->filedata->rootnode->type;
+		nodetype = chr->model->definition->rootnode->type;
 
 		if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO) {
-			rwdata = modelGetNodeRwData(chr->model, chr->model->filedata->rootnode);
+			rwdata = modelGetNodeRwData(chr->model, chr->model->definition->rootnode);
 			rwdata->chrinfo.ground = ground;
 		}
 
@@ -16088,8 +16088,8 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 
 void chrToggleModelPart(struct chrdata *chr, s32 partnum)
 {
-	if (chr && chr->model && chr->model->filedata) {
-		struct modelnode *node = modelGetPart(chr->model->filedata, partnum);
+	if (chr && chr->model && chr->model->definition) {
+		struct modelnode *node = modelGetPart(chr->model->definition, partnum);
 		union modelrwdata *rwdata = NULL;
 
 		if (node) {

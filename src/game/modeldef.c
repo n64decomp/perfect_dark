@@ -106,7 +106,7 @@ struct skeleton *g_Skeletons[] = {
 	&g_SkelBB,
 };
 
-void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, struct modelfiledata *modeldef2, struct texpool *texpool, bool arg5)
+void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 arg2, struct modeldef *modeldef2, struct texpool *texpool, bool arg5)
 {
 	s32 allocsize;
 	s32 loadedsize;
@@ -162,45 +162,45 @@ void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, str
 	}
 }
 
-void modelPromoteTypeToPointer(struct modelfiledata *filedata)
+void modelPromoteTypeToPointer(struct modeldef *modeldef)
 {
 	s32 i;
 
-	if ((u32)filedata->skel < 0x10000) {
+	if ((u32)modeldef->skel < 0x10000) {
 		for (i = 0; g_Skeletons[i] != NULL; i++) {
-			if ((s16)filedata->skel == g_Skeletons[i]->skel) {
-				filedata->skel = g_Skeletons[i];
+			if ((s16)modeldef->skel == g_Skeletons[i]->skel) {
+				modeldef->skel = g_Skeletons[i];
 				return;
 			}
 		}
 	}
 }
 
-struct modelfiledata *modeldefLoad(u16 fileid, u8 *dst, s32 size, struct texpool *arg3)
+struct modeldef *modeldefLoad(u16 fileid, u8 *dst, s32 size, struct texpool *arg3)
 {
-	struct modelfiledata *filedata;
+	struct modeldef *modeldef;
 
 	g_LoadType = LOADTYPE_MODEL;
 
 	if (dst) {
-		filedata = fileLoadToAddr(fileid, FILELOADMETHOD_EXTRAMEM, dst, size);
+		modeldef = fileLoadToAddr(fileid, FILELOADMETHOD_EXTRAMEM, dst, size);
 	} else {
-		filedata = fileLoadToNew(fileid, FILELOADMETHOD_EXTRAMEM);
+		modeldef = fileLoadToNew(fileid, FILELOADMETHOD_EXTRAMEM);
 	}
 
-	modelPromoteTypeToPointer(filedata);
-	modelPromoteOffsetsToPointers(filedata, 0x5000000, (u32) filedata);
-	modeldef0f1a7560(filedata, fileid, 0x5000000, filedata, arg3, dst == NULL);
+	modelPromoteTypeToPointer(modeldef);
+	modelPromoteOffsetsToPointers(modeldef, 0x5000000, (u32) modeldef);
+	modeldef0f1a7560(modeldef, fileid, 0x5000000, modeldef, arg3, dst == NULL);
 
-	return filedata;
+	return modeldef;
 }
 
-struct modelfiledata *modeldefLoadToNew(u16 fileid)
+struct modeldef *modeldefLoadToNew(u16 fileid)
 {
 	return modeldefLoad(fileid, NULL, 0, NULL);
 }
 
-struct modelfiledata *modeldefLoadToAddr(u16 fileid, u8 *dst, s32 size)
+struct modeldef *modeldefLoadToAddr(u16 fileid, u8 *dst, s32 size)
 {
 	return modeldefLoad(fileid, dst, size, NULL);
 }

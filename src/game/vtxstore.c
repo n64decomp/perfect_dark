@@ -55,8 +55,8 @@ void vtxstoreFixRefs(union modelrwdata *find, union modelrwdata *replacement)
 		if (prop->type == PROPTYPE_OBJ) {
 			struct defaultobj *obj = prop->obj;
 			struct model *model = obj->model;
-			struct modelfiledata *filedata = model->filedata;
-			struct modelnode *node = filedata->rootnode;
+			struct modeldef *modeldef = model->definition;
+			struct modelnode *node = modeldef->rootnode;
 			struct modelrodata_dl *rodata;
 
 			while (node) {

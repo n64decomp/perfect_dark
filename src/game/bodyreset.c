@@ -283,7 +283,7 @@ void bodiesReset(s32 stagenum)
 	s32 j;
 
 	for (i = 0; g_HeadsAndBodies[i].filenum; i++) {
-		g_HeadsAndBodies[i].filedata = NULL;
+		g_HeadsAndBodies[i].modeldef = NULL;
 	}
 
 	var80062c80 = random() % g_NumBondBodies;

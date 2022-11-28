@@ -34,7 +34,7 @@ void bheadReset(void)
 {
 	s32 i;
 
-	modelInit(&g_Vars.currentplayer->model, &g_PlayerModelFileData, g_Vars.currentplayer->bondheadsave, false);
+	modelInit(&g_Vars.currentplayer->model, &g_PlayerModeldef, g_Vars.currentplayer->bondheadsave, false);
 	animInit(g_Vars.currentplayer->model.anim);
 	modelSetScale(&g_Vars.currentplayer->model, 0.1000000089407f);
 	modelSetAnimPlaySpeed(&g_Vars.currentplayer->model, (PAL ? 1.2f : 1), 0);

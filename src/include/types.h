@@ -574,7 +574,7 @@ struct modelnode {
 	/*0x14*/ struct modelnode *child;
 };
 
-struct modelfiledata {
+struct modeldef {
 	struct modelnode *rootnode;
 	struct skeleton *skel;
 
@@ -599,7 +599,7 @@ struct model {
 		struct chrdata *chr;
 		struct defaultobj *obj;
 	};
-	/*0x08*/ struct modelfiledata *filedata;
+	/*0x08*/ struct modeldef *definition;
 	/*0x0c*/ Mtxf *matrices;
 	/*0x10*/ union modelrwdata **rwdatas;
 	/*0x14*/ f32 scale;
@@ -654,7 +654,7 @@ struct modelrwdata_toggle { // type 0x12
 };
 
 struct modelrwdata_headspot { // type 0x17
-	struct modelfiledata *headmodeldef;
+	struct modeldef *headmodeldef;
 	void *rwdatas;
 };
 
@@ -2331,9 +2331,9 @@ struct gunctrl {
 	/*0x1584*/ s32 gunmemnew; // a weapon number, -1 when not changing guns
 	/*0x1588*/ s32 gunmemtype; // also a weapon number
 	/*0x158c*/ u8 *gunmem;
-	/*0x1590*/ struct modelfiledata *gunmodeldef;
-	/*0x1594*/ struct modelfiledata *handmodeldef;
-	/*0x1598*/ struct modelfiledata *cartmodeldef;
+	/*0x1590*/ struct modeldef *gunmodeldef;
+	/*0x1594*/ struct modeldef *handmodeldef;
+	/*0x1598*/ struct modeldef *cartmodeldef;
 	/*0x159c*/ u16 handfilenum;
 	/*0x15a0*/ u8 *unk15a0;
 	/*0x15a4*/ s32 unk15a4;
@@ -2342,7 +2342,7 @@ struct gunctrl {
 	/*0x15b0*/ u8 masterloadstate;
 	/*0x15b1*/ u8 gunloadstate;
 	/*0x15b2*/ u16 loadfilenum;
-	/*0x15b4*/ struct modelfiledata **loadtomodeldef;
+	/*0x15b4*/ struct modeldef **loadtomodeldef;
 	/*0x15b8*/ u32 *loadmemptr;
 	/*0x15bc*/ u32 *loadmemremaining;
 	/*0x15c0*/ struct texpool unk15c0;
@@ -3067,7 +3067,7 @@ struct headorbody {
 	/*0x02*/ u16 filenum;
 	/*0x04*/ f32 scale;
 	/*0x08*/ f32 animscale;
-	/*0x0c*/ void *filedata;
+	/*0x0c*/ struct modeldef *modeldef;
 	/*0x10*/ u16 handfilenum;
 };
 
@@ -3826,8 +3826,8 @@ struct menu840 {
 	/*0x00c*/ u32 unk00c;
 	/*0x010*/ s32 unk010;
 	/*0x014*/ Mtxf unk014;
-	/*0x054*/ struct modelfiledata *bodymodeldef;
-	/*0x058*/ struct modelfiledata *headmodeldef;
+	/*0x054*/ struct modeldef *bodymodeldef;
+	/*0x058*/ struct modeldef *headmodeldef;
 	/*0x05c*/ s16 unk05c;
 	/*0x05e*/ s16 unk05e;
 	/*0x060*/ struct model bodymodel;
@@ -4775,7 +4775,7 @@ struct chrnumaction {
 };
 
 struct modelstate {
-	struct modelfiledata *filedata;
+	struct modeldef *modeldef;
 	u16 fileid;
 	u16 scale;
 };
@@ -5398,7 +5398,7 @@ struct casing {
 	/*0x10*/ struct coord speed;
 	/*0x1c*/ s16 rot[3][3];
 	/*0x28*/ s16 rotspeed[3][3];
-	/*0x40*/ struct modelfiledata *modeldef;
+	/*0x40*/ struct modeldef *modeldef;
 };
 
 struct mplockinfo {

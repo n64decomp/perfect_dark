@@ -349,7 +349,7 @@ extern s8 g_PropExplosionTypes[];
 extern struct skeleton g_SkelBasic;
 extern struct skeleton g_SkelChrGun;
 extern struct skeleton g_Skel0B;
-extern struct modelfiledata g_PlayerModelFileData;
+extern struct modeldef g_PlayerModeldef;
 extern struct skeleton g_Skel0A;
 extern struct skeleton g_Skel20;
 extern struct skeleton g_SkelClassicGun;

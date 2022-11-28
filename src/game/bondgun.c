@@ -514,7 +514,7 @@ bool bgunTestGunVisCommand(struct gunviscmd *cmd, struct hand *hand)
 	return result;
 }
 
-void bgunSetPartVisible(s16 partnum, bool visible, struct hand *hand, struct modelfiledata *filedata)
+void bgunSetPartVisible(s16 partnum, bool visible, struct hand *hand, struct modeldef *modeldef)
 {
 	struct modelnode *node;
 
@@ -529,7 +529,7 @@ void bgunSetPartVisible(s16 partnum, bool visible, struct hand *hand, struct mod
 			}
 		}
 	} else {
-		node = modelGetPart(filedata, partnum);
+		node = modelGetPart(modeldef, partnum);
 
 		if (node) {
 			struct modelrodata_toggle *rodata = &node->rodata->toggle;
@@ -539,7 +539,7 @@ void bgunSetPartVisible(s16 partnum, bool visible, struct hand *hand, struct mod
 	}
 }
 
-void bgunExecuteGunVisCommands(struct hand *hand, struct modelfiledata *filedata, struct gunviscmd *commands)
+void bgunExecuteGunVisCommands(struct hand *hand, struct modeldef *modeldef, struct gunviscmd *commands)
 {
 	struct gunviscmd *cmd = commands;
 	bool done = false;
@@ -551,19 +551,19 @@ void bgunExecuteGunVisCommands(struct hand *hand, struct modelfiledata *filedata
 	while (!done) {
 		if (bgunTestGunVisCommand(cmd, hand)) {
 			if (cmd->op == GUNVISOP_IFTRUE_SETVISIBLE) {
-				bgunSetPartVisible(cmd->partnum, true, hand, filedata);
+				bgunSetPartVisible(cmd->partnum, true, hand, modeldef);
 			}
 
 			if (cmd->op == GUNVISOP_IFTRUE_SETHIDDEN) {
-				bgunSetPartVisible(cmd->partnum, false, hand, filedata);
+				bgunSetPartVisible(cmd->partnum, false, hand, modeldef);
 			}
 
 			if (cmd->op == GUNVISOP_SETVISIBILITY) {
-				bgunSetPartVisible(cmd->partnum, true, hand, filedata);
+				bgunSetPartVisible(cmd->partnum, true, hand, modeldef);
 			}
 		} else {
 			if (cmd->op == GUNVISOP_SETVISIBILITY) {
-				bgunSetPartVisible(cmd->partnum, false, hand, filedata);
+				bgunSetPartVisible(cmd->partnum, false, hand, modeldef);
 			}
 		}
 
@@ -575,22 +575,22 @@ void bgunExecuteGunVisCommands(struct hand *hand, struct modelfiledata *filedata
 	}
 }
 
-void bgun0f098030(struct hand *hand, struct modelfiledata *filedata)
+void bgun0f098030(struct hand *hand, struct modeldef *modeldef)
 {
 	struct weapon *weapon = weaponFindById(hand->gset.weaponnum);
 	s32 i;
 	s32 j;
 
-	bgunExecuteGunVisCommands(hand, filedata, weapon->gunviscmds);
-	bgunSetPartVisible(MODELPART_0042, false, hand, filedata);
+	bgunExecuteGunVisCommands(hand, modeldef, weapon->gunviscmds);
+	bgunSetPartVisible(MODELPART_0042, false, hand, modeldef);
 
 	for (i = 0; i < 2; i++) {
 		if (weapon->ammos[i] && (weapon->ammos[i]->flags & AMMOFLAG_QTYAFFECTSPARTVIS)) {
 			for (j = 0; j < hand->clipsizes[i]; j++) {
 				if (j >= hand->loadedammo[i]) {
-					bgunSetPartVisible(j + 100, false, hand, filedata);
+					bgunSetPartVisible(j + 100, false, hand, modeldef);
 				} else {
-					bgunSetPartVisible(j + 100, true, hand, filedata);
+					bgunSetPartVisible(j + 100, true, hand, modeldef);
 				}
 			}
 		}
@@ -610,7 +610,7 @@ f32 bgun0f09815c(struct hand *hand)
 	return 0;
 }
 
-void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef)
+void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 {
 #if VERSION >= VERSION_PAL_BETA
 	f32 s4;
@@ -3600,7 +3600,7 @@ u32 bgunGetGunMemType(void)
 	return g_Vars.currentplayer->gunctrl.gunmemtype;
 }
 
-struct modelfiledata *bgun0f09dddc(void)
+struct modeldef *bgun0f09dddc(void)
 {
 	return g_Vars.currentplayer->gunctrl.gunmodeldef;
 }
@@ -3764,7 +3764,7 @@ void bgunTickGunLoad(void)
 	u32 loadsize;
 	u32 ptr;
 	struct player *player = g_Vars.currentplayer;
-	struct modelfiledata *modeldef;
+	struct modeldef *modeldef;
 	struct fileinfo *fileinfo;
 	struct fileinfo *gunfileinfo;
 	s32 newvalue;
@@ -4254,7 +4254,7 @@ bool bgun0f09eae4(void)
 	return false;
 }
 
-struct modelfiledata *bgunGetCartModeldef(void)
+struct modeldef *bgunGetCartModeldef(void)
 {
 	return g_Vars.currentplayer->gunctrl.cartmodeldef;
 }
@@ -4645,10 +4645,10 @@ void bgunUpdateHeldRocket(s32 handnum)
 				propDeregisterRooms(objprop);
 			}
 
-			model->matrices = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+			model->matrices = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
 
 			mtx4Copy(&hand->muzzlemat, &model->matrices[0]);
-			modelUpdateRelationsQuick(model, model->filedata->rootnode);
+			modelUpdateRelationsQuick(model, model->definition->rootnode);
 
 			objprop->flags |= PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK;
 			objprop->z = -model->matrices[0].m[3][2];
@@ -4862,7 +4862,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 				struct coord sp6c;
 				struct coord sp60;
 
-				if (weapon->base.model && weapon->base.model->filedata) {
+				if (weapon->base.model && weapon->base.model->definition) {
 					weapon->timer240 = funcdef->timer60;
 
 					if (weapon->timer240 != -1) {
@@ -6765,7 +6765,7 @@ void bgunUpdateSmoke(struct hand *hand, s32 handnum, s32 weaponnum, struct weapo
 /**
  * Update the red beam and dot (used by the Falcon 2 and its variants).
  */
-void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32 handnum, u8 *allocation)
+void bgunUpdateLasersight(struct hand *hand, struct modeldef *modeldef, s32 handnum, u8 *allocation)
 {
 	struct modelnode *node;
 	struct coord beamfar;
@@ -6865,7 +6865,7 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 /**
  * Increment the main barrel spinning, play sounds and (probably) fire shots.
  */
-void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef)
+void bgunUpdateReaper(struct hand *hand, struct modeldef *modeldef)
 {
 	struct modelnode *node;
 	f32 f2;
@@ -6962,7 +6962,7 @@ void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef)
 /**
  * Move/extend the scope on the gun model when the zoom function is used.
  */
-void bgunUpdateSniperRifle(struct modelfiledata *modeldef, u8 *allocation)
+void bgunUpdateSniperRifle(struct modeldef *modeldef, u8 *allocation)
 {
 	struct modelnode *nodes[4];
 	f32 sp88[4] = {0, 0, 0, 0};
@@ -7006,7 +7006,7 @@ void bgunUpdateSniperRifle(struct modelfiledata *modeldef, u8 *allocation)
 /**
  * Animate the cartridge slider thing in the Devastator model.
  */
-void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledata *modeldef)
+void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modeldef *modeldef)
 {
 	struct modelnode *node = modelGetPart(modeldef, MODELPART_DEVASTATOR_0028);
 
@@ -7039,7 +7039,7 @@ void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledat
  * starburst when the trigger is pressed while the shotgun has the double blast
  * function.
  */
-void bgunUpdateShotgun(struct hand *hand, u8 *allocation, bool *arg2, struct modelfiledata *modeldef)
+void bgunUpdateShotgun(struct hand *hand, u8 *allocation, bool *arg2, struct modeldef *modeldef)
 {
 	if (hand->flashon) {
 		hand->matmot1 = 1.0f;
@@ -7091,7 +7091,7 @@ void bgunUpdateLaser(struct hand *hand)
 /**
  * Create ammo casing so they can be ejected during reload.
  */
-void bgunUpdateMagnum(struct hand *hand, s32 handnum, struct modelfiledata *modeldef, Mtxf *mtx)
+void bgunUpdateMagnum(struct hand *hand, s32 handnum, struct modeldef *modeldef, Mtxf *mtx)
 {
 	f32 ground = g_Vars.currentplayer->vv_ground;
 	s32 i;
@@ -7131,23 +7131,23 @@ void bgunUpdateRocketLauncher(struct hand *hand, s32 handnum, struct weaponfunc_
 	}
 }
 
-void bgun0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool isdetonator)
+void bgun0f0a45d0(struct hand *hand, struct modeldef *modeldef, bool isdetonator)
 {
 	struct modelnode *node = NULL;
 
 	switch (hand->ejecttype) {
 	case EJECTTYPE_GUN:
 		if (isdetonator) {
-			node = modelGetPart(filedata, 0x2a);
+			node = modelGetPart(modeldef, 0x2a);
 		} else {
-			node = modelGetPart(filedata, 0x37);
+			node = modelGetPart(modeldef, 0x37);
 		}
 		break;
 	case EJECTTYPE_GRENADEPIN:
-		node = modelGetPart(filedata, 0x2b);
+		node = modelGetPart(modeldef, 0x2b);
 		break;
 	case EJECTTYPE_TRANQCASE:
-		node = modelGetPart(filedata, 0x2b);
+		node = modelGetPart(modeldef, 0x2b);
 		break;
 	}
 
@@ -7164,7 +7164,7 @@ void bgun0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool isdeto
  * when reloading, and the pulled pin on grenades and nbombs appears to move
  * with the model rather than detaching properly.
  */
-void bgunTickEject(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator)
+void bgunTickEject(struct hand *hand, struct modeldef *modeldef, bool isdetonator)
 {
 	f32 lvupdate;
 	struct coord spd0;
@@ -7268,7 +7268,7 @@ void bgunTickEject(struct hand *hand, struct modelfiledata *modeldef, bool isdet
 	}
 }
 
-void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiledata *modeldef,
+void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modeldef *modeldef,
 		struct weaponfunc *funcdef, s32 maxburst, u8 *allocation, s32 weaponnum,
 		bool **arg7, s32 mtxindex, Mtxf *arg9, Mtxf *arg10)
 {
@@ -7360,7 +7360,7 @@ void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiled
  * Create casing and beam for a fired weapon,
  * and uncloak if the weapon is a throwable or fired projectile.
  */
-void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s32 weaponnum, struct modelfiledata *modeldef, u8 *allocation)
+void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s32 weaponnum, struct modeldef *modeldef, u8 *allocation)
 {
 	f32 ground;
 	bool createbeam = true;
@@ -7467,7 +7467,7 @@ void bgun0f0a5550(s32 handnum)
 	u8 *mtxallocation;
 	Mtxf sp2c4;
 	Mtxf sp284;
-	struct modelfiledata *modeldef = NULL;
+	struct modeldef *modeldef = NULL;
 	struct coord sp274 = {0, 0, 0};
 	Mtxf sp234;
 	Mtxf sp1f4;
@@ -7837,7 +7837,7 @@ void bgun0f0a5550(s32 handnum)
 				spc8 = player->hands[HAND_RIGHT].unk0dd8;
 				spc4 = hand->gunmodel.matrices;
 
-				for (spcc = 0; spcc < hand->gunmodel.filedata->nummatrices; spcc++) {
+				for (spcc = 0; spcc < hand->gunmodel.definition->nummatrices; spcc++) {
 					mtx00015be4(&sp2c4, spc8, spc4);
 					spc8++;
 					spc4++;
@@ -10911,10 +10911,10 @@ void bgunRender(Gfx **gdlptr)
 
 			// There is support for guns having a TV screen on them
 			// but no guns have this model part so it's not used.
-			node = modelGetPart(hand->gunmodel.filedata, MODELPART_0010);
+			node = modelGetPart(hand->gunmodel.definition, MODELPART_0010);
 
 			if (node) {
-				union modelrwdata *rwdata = modelGetNodeRwData(&hand->gunmodel, modelGetPart(hand->gunmodel.filedata, MODELPART_0011));
+				union modelrwdata *rwdata = modelGetNodeRwData(&hand->gunmodel, modelGetPart(hand->gunmodel.definition, MODELPART_0011));
 
 				if (rwdata) {
 					rwdata->toggle.visible = true;
@@ -10993,12 +10993,12 @@ void bgunRender(Gfx **gdlptr)
 				bool sp94 = false;
 
 #if VERSION >= VERSION_NTSC_1_0
-				if (rocketmodel && rocketmodel->filedata) {
+				if (rocketmodel && rocketmodel->definition) {
 					sp94 = true;
 
 					modelRender(&renderdata, rocketmodel);
 
-					mtxF2LBulk(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
+					mtxF2LBulk(rocketmodel->matrices, rocketmodel->definition->nummatrices);
 
 					if (hand->firedrocket) {
 						hand->rocket = NULL;
@@ -11009,7 +11009,7 @@ void bgunRender(Gfx **gdlptr)
 #else
 				modelRender(&renderdata, rocketmodel);
 
-				mtxF2LBulk(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
+				mtxF2LBulk(rocketmodel->matrices, rocketmodel->definition->nummatrices);
 
 				if (hand->firedrocket) {
 					hand->rocket = NULL;
@@ -11029,7 +11029,7 @@ void bgunRender(Gfx **gdlptr)
 
 			// Slide the laser's liquid texture
 			if (PLAYERCOUNT() == 1) {
-				node = modelGetPart(hand->gunmodel.filedata, MODELPART_LASER_0041);
+				node = modelGetPart(hand->gunmodel.definition, MODELPART_LASER_0041);
 
 				// a5c
 				if (node) {
@@ -11075,7 +11075,7 @@ void bgunRender(Gfx **gdlptr)
 				gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 			}
 
-			mtxF2LBulk(hand->gunmodel.matrices, hand->gunmodel.filedata->nummatrices);
+			mtxF2LBulk(hand->gunmodel.matrices, hand->gunmodel.definition->nummatrices);
 			mtx00016784();
 
 			gSPPerspNormalize(gdl++, viGetPerspScale());

@@ -10,7 +10,7 @@ struct modelrodata_chrinfo var8007c124;
 struct modelrodata_position var8007c130;
 struct modelrodata_position var8007c148;
 
-struct modelfiledata g_PlayerModelFileData = {
+struct modeldef g_PlayerModeldef = {
 	(struct modelnode *) &var8007c0dc,
 	&g_Skel0B,
 	NULL,

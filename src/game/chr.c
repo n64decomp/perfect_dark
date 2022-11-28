@@ -858,7 +858,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 				chr->ground = ground;
 
 				if (chr->chrflags & CHRCFLAG_00000001) {
-					node = model->filedata->rootnode;
+					node = model->definition->rootnode;
 					nodetype = (u8)node->type;
 
 					arg2->y += yincrement + chr->ground - manground;
@@ -1320,10 +1320,10 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	chr0f0220ac(chr);
 	modelSetRootPosition(model, &prop->pos);
 
-	nodetype = chr->model->filedata->rootnode->type;
+	nodetype = chr->model->definition->rootnode->type;
 
 	if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO) {
-		union modelrwdata *rwdata = modelGetNodeRwData(chr->model, chr->model->filedata->rootnode);
+		union modelrwdata *rwdata = modelGetNodeRwData(chr->model, chr->model->definition->rootnode);
 		rwdata->chrinfo.ground = ground;
 	}
 
@@ -1588,7 +1588,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 	f32 yrot; // eg. twist left/right or shaking head
 	f32 zrot; // eg. cartwheeling
 
-	if (g_CurModelChr->model->filedata->skel == &g_SkelRobot) {
+	if (g_CurModelChr->model->definition->skel == &g_SkelRobot) {
 		// Handle Chicago robot guns
 		theta = chrGetInverseTheta(g_CurModelChr);
 
@@ -1650,12 +1650,12 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 
 		mtx00015be0(camGetWorldToScreenMtxf(), mtx);
 	} else {
-		if (g_CurModelChr->model->filedata->skel == &g_SkelChr) {
+		if (g_CurModelChr->model->definition->skel == &g_SkelChr) {
 			lshoulderjoint = 2;
 			rshoulderjoint = 3;
 			waistjoint = 1;
 			neckjoint = 0;
-		} else if (g_CurModelChr->model->filedata->skel == &g_SkelSkedar) {
+		} else if (g_CurModelChr->model->definition->skel == &g_SkelSkedar) {
 			lshoulderjoint = 3;
 			rshoulderjoint = 4;
 			waistjoint = 2;
@@ -1979,7 +1979,7 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 			thing.unk00 = sp104;
 		}
 
-		thing.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+		thing.unk10 = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
 		modelSetMatrices(&thing, model);
 
 		func0f07063c(prop, fulltick);
@@ -2688,7 +2688,7 @@ s32 chrTick(struct prop *prop)
 			sp210.unk00 = camGetWorldToScreenMtxf();
 		}
 
-		sp210.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+		sp210.unk10 = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
 
 		if (fulltick && g_CurModelChr->flinchcnt >= 0) {
 			g_CurModelChr->flinchcnt += g_Vars.lvupdate60;
@@ -2821,8 +2821,8 @@ s32 chrTick(struct prop *prop)
 				}
 			}
 
-			if (model->filedata->skel == &g_SkelChr) {
-				struct modelnode *headspotnode = modelGetPart(model->filedata, MODELPART_CHR_HEADSPOT);
+			if (model->definition->skel == &g_SkelChr) {
+				struct modelnode *headspotnode = modelGetPart(model->definition, MODELPART_CHR_HEADSPOT);
 
 				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
 					union modelrwdata *rwdata = modelGetNodeRwData(model, headspotnode);
@@ -2893,10 +2893,10 @@ void chrDropConcealedItems(struct chrdata *chr)
 
 void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
 {
-	struct modelfiledata *modelfiledata = chr->model->filedata;
+	struct modeldef *modeldef = chr->model->definition;
 
-	if (modelfiledata->skel == &g_SkelChr) {
-		struct modelnode *headspotnode = modelGetPart(modelfiledata, MODELPART_CHR_HEADSPOT);
+	if (modeldef->skel == &g_SkelChr) {
+		struct modelnode *headspotnode = modelGetPart(modeldef, MODELPART_CHR_HEADSPOT);
 
 		if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
 			union modelrwdata *rwdata = modelGetNodeRwData(chr->model, headspotnode);
@@ -2979,7 +2979,7 @@ bool chr0f024738(struct chrdata *chr)
 				struct doorobj *door = prop->door;
 				struct coord pos;
 
-				if (obj->model->filedata->skel != &g_SkelWindowedDoor
+				if (obj->model->definition->skel != &g_SkelWindowedDoor
 						&& door->doortype != DOORTYPE_EYE
 						&& door->doortype != DOORTYPE_IRIS
 						&& door->doortype != DOORTYPE_FALLAWAY
@@ -3258,7 +3258,7 @@ void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderda
 		}
 
 		if (xlupass) {
-			mtxF2LBulk(model->matrices, model->filedata->nummatrices);
+			mtxF2LBulk(model->matrices, model->definition->nummatrices);
 		}
 	}
 }
@@ -3492,9 +3492,9 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		// Set Skedar eyes open or closed
-		if (model->filedata->skel == &g_SkelSkedar) {
-			struct modelnode *node1 = modelGetPart(model->filedata, MODELPART_SKEDAR_EYESOPEN);
-			struct modelnode *node2 = modelGetPart(model->filedata, MODELPART_SKEDAR_EYESCLOSED);
+		if (model->definition->skel == &g_SkelSkedar) {
+			struct modelnode *node1 = modelGetPart(model->definition, MODELPART_SKEDAR_EYESOPEN);
+			struct modelnode *node2 = modelGetPart(model->definition, MODELPART_SKEDAR_EYESCLOSED);
 
 			if (node1 && node2) {
 				union modelrwdata *data1 = modelGetNodeRwData(model, node1);
@@ -3510,8 +3510,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 				|| chr->headnum == HEAD_ELVIS
 				|| chr->headnum == HEAD_MAIAN_S
 				|| chr->headnum == HEAD_ELVIS_GOGS) {
-			if (model->filedata->skel == &g_SkelChr) {
-				struct modelnode *headspotnode = modelGetPart(model->filedata, MODELPART_CHR_HEADSPOT);
+			if (model->definition->skel == &g_SkelChr) {
+				struct modelnode *headspotnode = modelGetPart(model->definition, MODELPART_CHR_HEADSPOT);
 
 				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
 					union modelrwdata *headrwdata = modelGetNodeRwData(model, headspotnode);
@@ -3609,7 +3609,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 				}
 			}
 
-			mtxF2LBulk(model->matrices, model->filedata->nummatrices);
+			mtxF2LBulk(model->matrices, model->definition->nummatrices);
 
 			if (USINGDEVICE(DEVICE_IRSCANNER)) {
 				gdl = chrRenderShield(gdl, chr, 0x80);
@@ -4393,7 +4393,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 
 	// Do a pass over the entire model's tree, looking for vertices that share
 	// the chosen vertex, and darken then.
-	curnode = model->filedata->rootnode;
+	curnode = model->definition->rootnode;
 
 	while (curnode) {
 		nodetype = curnode->type & 0xff;
@@ -4675,7 +4675,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 
 	// Do a pass over the entire model's tree, looking for vertices that share
 	// the chosen vertex, and darken then.
-	curnode = model->filedata->rootnode;
+	curnode = model->definition->rootnode;
 
 	while (curnode) {
 		nodetype = curnode->type & 0xff;
@@ -4852,7 +4852,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 	}
 
 	// Iterate the nodes in the chr model
-	node = model->filedata->rootnode;
+	node = model->definition->rootnode;
 
 	while (node) {
 		switch (node->type & 0xff) {
@@ -5104,7 +5104,7 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 					hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node);
 
 					if (hitpart > 0) {
-						if (func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, &shotdata->unk00,
+						if (func0f06bea0(model, model->definition->rootnode, model->definition->rootnode, &shotdata->unk00,
 									&shotdata->unk0c, &sp88.unk00, &sp70, &node, &hitpart, &sp84, &sp80)) {
 							mtx4TransformVec(camGetProjectionMtxF(), &sp88.unk00, &spdc);
 							mtx4RotateVec(camGetProjectionMtxF(), &sp88.unk0c, &spd0);
@@ -5573,14 +5573,14 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 		Mtxf *mtx1;
 		Mtxf *mtx2;
 
-		if (model->filedata->skel == &g_SkelChr) {
+		if (model->definition->skel == &g_SkelChr) {
 			mtx1 = &model->matrices[0];
 			mtx2 = &model->matrices[1];
 			arg1->z = mtx2->m[3][2] + (mtx1->m[3][2] - mtx2->m[3][2]) * 0.5f;
-		} else if (model->filedata->skel == &g_SkelSkedar) {
+		} else if (model->definition->skel == &g_SkelSkedar) {
 			mtx2 = &model->matrices[0];
 			arg1->z = mtx2->m[3][2];
-		} else if (model->filedata->skel == &g_SkelDrCaroll) {
+		} else if (model->definition->skel == &g_SkelDrCaroll) {
 			mtx2 = &model->matrices[0];
 			arg1->z = mtx2->m[3][2];
 		} else {
@@ -5588,13 +5588,13 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 		}
 
 		if (arg1->z < 0) {
-			if (model->filedata->skel == &g_SkelChr) {
+			if (model->definition->skel == &g_SkelChr) {
 				arg1->x = mtx2->m[3][0] + (mtx1->m[3][0] - mtx2->m[3][0]) * 0.5f;
 				arg1->y = mtx2->m[3][1] + (mtx1->m[3][1] - mtx2->m[3][1]) * 0.5f;
-			} else if (model->filedata->skel == &g_SkelSkedar) {
+			} else if (model->definition->skel == &g_SkelSkedar) {
 				arg1->x = mtx2->m[3][0];
 				arg1->y = mtx2->m[3][1];
-			} else if (model->filedata->skel == &g_SkelDrCaroll) {
+			} else if (model->definition->skel == &g_SkelDrCaroll) {
 				arg1->x = mtx2->m[3][0];
 				arg1->y = mtx2->m[3][1];
 			} else {
@@ -5621,7 +5621,7 @@ bool chr0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, s
 		return true;
 	}
 
-	*total += model->filedata->nummatrices;
+	*total += model->definition->nummatrices;
 
 	if (arg0->child && chr0f028d50(arg0->child, arg1, node, model, total) > 0) {
 		return true;
@@ -5660,8 +5660,8 @@ bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct mode
 
 		if (1);
 
-		if (arg0 >= model->filedata->nummatrices) {
-			arg0 -= model->filedata->nummatrices;
+		if (arg0 >= model->definition->nummatrices) {
+			arg0 -= model->definition->nummatrices;
 
 			if (prop->child) {
 				result = chr0f028e6c(arg0, prop->child, propptr, nodeptr, modelptr);
@@ -5863,7 +5863,7 @@ s32 chr0f0293ec(struct prop *prop, s32 cmnum)
 
 				if (model == parentmodel->attachedtomodel) {
 					if (node == parentmodel->attachedtonode) {
-						result = chr0f028e18(child, parentmodel->filedata->rootnode, parentmodel, prop);
+						result = chr0f028e18(child, parentmodel->definition->rootnode, parentmodel, prop);
 						break;
 					}
 				}
@@ -5904,7 +5904,7 @@ s32 chr0f0294cc(struct prop *prop, s32 arg1)
 
 					if (parent->attachedtomodel == model2->attachedtomodel) {
 						if (parent->attachedtonode == model2->attachedtonode) {
-							result = chr0f028e18(child, parent->filedata->rootnode, parent, prop);
+							result = chr0f028e18(child, parent->definition->rootnode, parent, prop);
 							break;
 						}
 					}
@@ -6721,10 +6721,10 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 			model = chr->model;
 		} else {
 			model = prop2->obj->model;
-			specificnode = modelGetPart(model->filedata, MODELPART_BASIC_0067);
+			specificnode = modelGetPart(model->definition, MODELPART_BASIC_0067);
 		}
 
-		node = model->filedata->rootnode;
+		node = model->definition->rootnode;
 
 		while (node) {
 			if ((node->type & 0xff) == MODELNODETYPE_BBOX) {
@@ -6846,7 +6846,7 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 			model = thisprop->chr->model;
 		} else {
 			model = thisprop->obj->model;
-			bbox = modelGetPart(model->filedata, MODELPART_BASIC_0067);
+			bbox = modelGetPart(model->definition, MODELPART_BASIC_0067);
 		}
 
 		if (thisprop->parent == NULL) {
@@ -6875,7 +6875,7 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 		}
 
 		// Iterate nodes in the prop and render each
-		node = model->filedata->rootnode;
+		node = model->definition->rootnode;
 
 		while (node) {
 			if ((node->type & 0xff) == MODELNODETYPE_BBOX) {
@@ -7165,8 +7165,8 @@ void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imagerigh
 		// Parts 0-5 are the left image
 		// Parts 6-11 are the right image
 		for (i = 0; i < 6; i++) {
-			nodes[0] = modelGetPart(model->filedata, i);
-			nodes[1] = modelGetPart(model->filedata, i + 6);
+			nodes[0] = modelGetPart(model->definition, i);
+			nodes[1] = modelGetPart(model->definition, i + 6);
 
 			for (j = 0; j < 2; j++) {
 				if (nodes[j]) {

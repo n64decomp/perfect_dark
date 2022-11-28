@@ -13,7 +13,7 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *arg1, f32 arg2, struct co
 Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3);
 void beamTick(struct beam *beam);
 
-struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx);
+struct casing *casingCreate(struct modeldef *modeldef, Mtxf *mtx);
 void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx);
 void casingRender(struct casing *casing, Gfx **gdlptr);
 void casingsRender(Gfx **gdlptr);

@@ -14,6 +14,6 @@ bool setup0f092304(struct defaultobj *obj, struct coord *arg1, struct coord *arg
 void setup0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], s16 *rooms);
 void setup0f0923d4(struct defaultobj *obj);
 struct defaultobj *setupGetObjByCmdIndex(u32 cmdindex);
-struct defaultobj *setupFindObjForReuse(s32 type, struct defaultobj **arg1, struct defaultobj **arg2, bool musthaveprop, bool musthavemodel, struct modelfiledata *filedata);
+struct defaultobj *setupFindObjForReuse(s32 type, struct defaultobj **arg1, struct defaultobj **arg2, bool musthaveprop, bool musthavemodel, struct modeldef *modeldef);
 
 #endif

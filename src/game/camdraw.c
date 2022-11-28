@@ -2816,11 +2816,11 @@ void func0f14f1d4(s16 *src, s32 len, s32 *dst)
 	}
 }
 
-s32 func0f14f2b4(struct modelfiledata *filedata, struct gfxvtx **dst, u32 *len)
+s32 func0f14f2b4(struct modeldef *modeldef, struct gfxvtx **dst, u32 *len)
 {
-	struct modelnode *node1 = modelGetPart(filedata, MODELPART_HEAD_0190);
-	struct modelnode *node2 = modelGetPart(filedata, MODELPART_HEAD_0191);
-	struct modelnode *node3 = modelGetPart(filedata, MODELPART_HEAD_0192);
+	struct modelnode *node1 = modelGetPart(modeldef, MODELPART_HEAD_0190);
+	struct modelnode *node2 = modelGetPart(modeldef, MODELPART_HEAD_0191);
+	struct modelnode *node3 = modelGetPart(modeldef, MODELPART_HEAD_0192);
 
 	s32 totalverts = 0;
 

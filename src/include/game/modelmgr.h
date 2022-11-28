@@ -4,13 +4,13 @@
 #include "data.h"
 #include "types.h"
 
-bool modelmgrCanSlotFitRwdata(struct model *modelslot, struct modelfiledata *filedata);
+bool modelmgrCanSlotFitRwdata(struct model *modelslot, struct modeldef *modeldef);
 void modelmgrPrintCounts(void);
-struct model *modelmgrInstantiateModel(struct modelfiledata *modelfiledata, bool arg1);
-struct model *modelmgrInstantiateModelWithoutAnim(struct modelfiledata *modelfiledata);
+struct model *modelmgrInstantiateModel(struct modeldef *modeldef, bool arg1);
+struct model *modelmgrInstantiateModelWithoutAnim(struct modeldef *modeldef);
 void modelmgrFreeModel(struct model *model);
-struct model *modelmgrInstantiateModelWithAnim(struct modelfiledata *modelfiledata);
-void modelmgrAttachHead(struct model *model, struct modelnode *node, struct modelfiledata *headfiledata);
+struct model *modelmgrInstantiateModelWithAnim(struct modeldef *modeldef);
+void modelmgrAttachHead(struct model *model, struct modelnode *node, struct modeldef *headmodeldef);
 struct anim *modelmgrInstantiateAnim(void);
 void modelmgrFreeAnim(struct anim *anim);
 

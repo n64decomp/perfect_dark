@@ -556,39 +556,39 @@ void titleInitPdLogo(void)
 
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_NLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_NLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO].fileid));
 		nextaddr += size;
 		remaining = 0x47800 - size;
-		modelAllocateRwData(g_ModelStates[MODEL_NLOGO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_NLOGO].modeldef);
 
-		g_TitleModel = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO].filedata);
+		g_TitleModel = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO].modeldef);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 	}
 
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_NLOGO2].filedata = modeldefLoad(g_ModelStates[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
+		g_ModelStates[MODEL_NLOGO2].modeldef = modeldefLoad(g_ModelStates[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO2].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_NLOGO2].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_NLOGO2].modeldef);
 
-		g_TitleModelNLogo2 = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO2].filedata);
+		g_TitleModelNLogo2 = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO2].modeldef);
 		modelSetScale(g_TitleModelNLogo2, 1);
 		modelSetRootPosition(g_TitleModelNLogo2, &coord);
 	}
 
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_PDTWO].filedata = modeldefLoad(g_ModelStates[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
+		g_ModelStates[MODEL_PDTWO].modeldef = modeldefLoad(g_ModelStates[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTWO].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_PDTWO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_PDTWO].modeldef);
 
-		g_TitleModelPdTwo = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTWO].filedata);
+		g_TitleModelPdTwo = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTWO].modeldef);
 		modelSetScale(g_TitleModelPdTwo, 1);
 		modelSetRootPosition(g_TitleModelPdTwo, &coord);
 	}
@@ -596,26 +596,26 @@ void titleInitPdLogo(void)
 #if VERSION == VERSION_JPN_FINAL
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_JPNLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_JPNLOGO].fileid, nextaddr, remaining, 0);
+		g_ModelStates[MODEL_JPNLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_JPNLOGO].fileid, nextaddr, remaining, 0);
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNLOGO].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_JPNLOGO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_JPNLOGO].modeldef);
 
-		g_TitleModelJpnLogo1 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
-		g_TitleModelJpnLogo2 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
+		g_TitleModelJpnLogo1 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].modeldef);
+		g_TitleModelJpnLogo2 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].modeldef);
 		modelSetScale(g_TitleModelJpnLogo1, 1);
 		modelSetScale(g_TitleModelJpnLogo2, 1);
 		modelSetRootPosition(g_TitleModelJpnLogo1, &coord);
 		modelSetRootPosition(g_TitleModelJpnLogo2, &coord);
 
-		g_ModelStates[MODEL_JPNPD].filedata = modeldefLoad(g_ModelStates[MODEL_JPNPD].fileid, nextaddr, remaining, 0);
+		g_ModelStates[MODEL_JPNPD].modeldef = modeldefLoad(g_ModelStates[MODEL_JPNPD].fileid, nextaddr, remaining, 0);
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNPD].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_JPNPD].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_JPNPD].modeldef);
 
-		g_TitleModelJpnPd = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNPD].filedata);
+		g_TitleModelJpnPd = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNPD].modeldef);
 		modelSetScale(g_TitleModelJpnPd, 1);
 		modelSetRootPosition(g_TitleModelJpnPd, &coord);
 	}
@@ -623,19 +623,19 @@ void titleInitPdLogo(void)
 
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_PDTHREE].filedata = modeldefLoad(g_ModelStates[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
+		g_ModelStates[MODEL_PDTHREE].modeldef = modeldefLoad(g_ModelStates[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTHREE].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_PDTHREE].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_PDTHREE].modeldef);
 
-		g_TitleModelPdThree = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTHREE].filedata);
+		g_TitleModelPdThree = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTHREE].modeldef);
 		modelSetScale(g_TitleModelPdThree, 1);
 		modelSetRootPosition(g_TitleModelPdThree, &coord);
 	}
 
 	{
-		struct modelrodata_dl *rodata = (struct modelrodata_dl *)modelGetPartRodata(g_ModelStates[MODEL_PDTWO].filedata, MODELPART_LOGO_0002);
+		struct modelrodata_dl *rodata = (struct modelrodata_dl *)modelGetPartRodata(g_ModelStates[MODEL_PDTWO].modeldef, MODELPART_LOGO_0002);
 
 		size = ALIGN8(rodata->numvertices * sizeof(struct gfxvtx));
 
@@ -760,10 +760,10 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 	struct colour *s2;
 	Mtxf sp6c;
 
-	tmp = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_LOGO_0000));
+	tmp = modelGetNodeRwData(model, modelGetPart(model->definition, MODELPART_LOGO_0000));
 	tmp->toggle.visible = arg2;
 
-	tmp = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_LOGO_0001));
+	tmp = modelGetNodeRwData(model, modelGetPart(model->definition, MODELPART_LOGO_0001));
 	tmp->toggle.visible = !arg2;
 
 	s6 = arg3 * 65536.0f;
@@ -804,17 +804,17 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 
 	for (i = 0; i < 4; i++) {
 		if (i == 0) {
-			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0002);
-			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0003);
+			node1 = modelGetPart(model->definition, MODELPART_LOGO_0002);
+			node2 = modelGetPart(model->definition, MODELPART_LOGO_0003);
 		} else if (i == 1) {
-			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0004);
-			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0005);
+			node1 = modelGetPart(model->definition, MODELPART_LOGO_0004);
+			node2 = modelGetPart(model->definition, MODELPART_LOGO_0005);
 		} else if (i == 2) {
-			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0006);
-			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0007);
+			node1 = modelGetPart(model->definition, MODELPART_LOGO_0006);
+			node2 = modelGetPart(model->definition, MODELPART_LOGO_0007);
 		} else {
-			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0008);
-			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0009);
+			node1 = modelGetPart(model->definition, MODELPART_LOGO_0008);
+			node2 = modelGetPart(model->definition, MODELPART_LOGO_0009);
 		}
 
 		if (node1 && node2) {
@@ -880,7 +880,7 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 	gDPSetPrimColor(gdl++, 0, 0, 0x00, 0x00, 0x00, alpha1);
 
 	renderdata.unk00 = arg6;
-	renderdata.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+	renderdata.unk10 = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
 
 	mtx4Copy(arg6, renderdata.unk10);
 
@@ -896,7 +896,7 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 
 	gdl = renderdata.gdl;
 
-	for (j = 0, k = 0; j < model->filedata->nummatrices; j++, k += sizeof(Mtxf)) {
+	for (j = 0, k = 0; j < model->definition->nummatrices; j++, k += sizeof(Mtxf)) {
 		mtx4Copy((Mtxf *)((u32)model->matrices + k), &sp6c);
 		mtxF2L(&sp6c, model->matrices + j);
 	}
@@ -7445,7 +7445,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 		numvertices = 0;
 		numcolours = 0;
 
-		node = modelGetPart(model->filedata, MODELPART_LOGO_0002);
+		node = modelGetPart(model->definition, MODELPART_LOGO_0002);
 
 		if (node) {
 			Gfx *tmp;
@@ -7461,7 +7461,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			gSPBranchList(tmp++, rodata->primary);
 		}
 
-		node = modelGetPart(model->filedata, MODELPART_LOGO_0004);
+		node = modelGetPart(model->definition, MODELPART_LOGO_0004);
 
 		if (node) {
 			Gfx *tmp;
@@ -7481,7 +7481,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			}
 		}
 
-		node = modelGetPart(model->filedata, MODELPART_LOGO_0006);
+		node = modelGetPart(model->definition, MODELPART_LOGO_0006);
 
 		if (node) {
 			Gfx *tmp;
@@ -7501,7 +7501,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			}
 		}
 
-		node = modelGetPart(model->filedata, MODELPART_LOGO_0008);
+		node = modelGetPart(model->definition, MODELPART_LOGO_0008);
 
 		if (node) {
 			Gfx *tmp;
@@ -7566,7 +7566,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 				mtx4Copy(&sp1b0, &sp2b0);
 
 				renderdata.unk00 = &sp2b0;
-				renderdata.unk10 = gfxAllocate(g_TitleModelJpnLogo2->filedata->nummatrices * sizeof(Mtxf));
+				renderdata.unk10 = gfxAllocate(g_TitleModelJpnLogo2->definition->nummatrices * sizeof(Mtxf));
 
 				mtx4Copy(&sp2b0, renderdata.unk10);
 
@@ -7587,7 +7587,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 				{
 					s32 j;
 
-					for (sp19c = 0, j = 0; sp19c < g_TitleModelJpnLogo2->filedata->nummatrices; sp19c++, j += sizeof(Mtxf)) {
+					for (sp19c = 0, j = 0; sp19c < g_TitleModelJpnLogo2->definition->nummatrices; sp19c++, j += sizeof(Mtxf)) {
 						mtx4Copy((Mtxf *)((u32)g_TitleModelJpnLogo2->matrices + j), &sp158);
 						mtxF2L(&sp158, g_TitleModelJpnLogo2->matrices + sp19c);
 					}
@@ -7624,7 +7624,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 			renderdata.unk00 = &sp230;
 
-			renderdata.unk10 = gfxAllocate(g_TitleModelJpnPd->filedata->nummatrices * sizeof(Mtxf));
+			renderdata.unk10 = gfxAllocate(g_TitleModelJpnPd->definition->nummatrices * sizeof(Mtxf));
 
 			mtx4Copy(&sp230, renderdata.unk10);
 
@@ -7648,7 +7648,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			{
 				s32 j;
 
-				for (sp14c = 0, j = 0; sp14c < g_TitleModelJpnPd->filedata->nummatrices; sp14c++, j += sizeof(Mtxf)) {
+				for (sp14c = 0, j = 0; sp14c < g_TitleModelJpnPd->definition->nummatrices; sp14c++, j += sizeof(Mtxf)) {
 					mtx4Copy((Mtxf *)((u32)g_TitleModelJpnPd->matrices + j), &spf4);
 					mtxF2L(&spf4, g_TitleModelJpnPd->matrices + sp14c);
 				}
@@ -7661,7 +7661,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			mtx4Copy(&spb0, &sp2b0);
 
 			renderdata.unk00 = &sp2b0;
-			renderdata.unk10 = gfxAllocate(g_TitleModelJpnLogo1->filedata->nummatrices * sizeof(Mtxf));
+			renderdata.unk10 = gfxAllocate(g_TitleModelJpnLogo1->definition->nummatrices * sizeof(Mtxf));
 
 			mtx4Copy(&sp2b0, renderdata.unk10);
 
@@ -7682,7 +7682,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			{
 				s32 j;
 
-				for (sp9c = 0, j = 0; sp9c < g_TitleModelJpnLogo1->filedata->nummatrices; sp9c++, j += sizeof(Mtxf)) {
+				for (sp9c = 0, j = 0; sp9c < g_TitleModelJpnLogo1->definition->nummatrices; sp9c++, j += sizeof(Mtxf)) {
 					mtx4Copy((Mtxf *)((u32)g_TitleModelJpnLogo1->matrices + j), &sp5c);
 					mtxF2L(&sp5c, g_TitleModelJpnLogo1->matrices + sp9c);
 				}
@@ -7867,10 +7867,10 @@ void titleInitNintendoLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_ModelStates[MODEL_NINTENDOLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_NINTENDOLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
 
-		modelAllocateRwData(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
-		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_NINTENDOLOGO].modeldef);
+		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_NINTENDOLOGO].modeldef);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 		var800624f4 = 1;
@@ -7994,7 +7994,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 		mtx4Copy(&spa8, &sp108);
 		renderdata.unk00 = &sp108;
 
-		renderdata.unk10 = gfxAllocate(g_TitleModel->filedata->nummatrices * sizeof(Mtxf));
+		renderdata.unk10 = gfxAllocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
 		mtx4Copy(&sp108, renderdata.unk10);
 		g_TitleModel->matrices = renderdata.unk10;
 
@@ -8008,7 +8008,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 
 		gdl = renderdata.gdl;
 
-		for (i = 0, j = 0; i < g_TitleModel->filedata->nummatrices; i++, j += sizeof(Mtxf)) {
+		for (i = 0, j = 0; i < g_TitleModel->definition->nummatrices; i++, j += sizeof(Mtxf)) {
 			mtx4Copy((Mtxf *)((u32)g_TitleModel->matrices + j), &sp54);
 			mtxF2L(&sp54, g_TitleModel->matrices + i);
 		}
@@ -8026,10 +8026,10 @@ void titleInitRareLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_ModelStates[MODEL_RARELOGO].filedata = modeldefLoad(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_RARELOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
 
-		modelAllocateRwData(g_ModelStates[MODEL_RARELOGO].filedata);
-		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_RARELOGO].filedata);
+		modelAllocateRwData(g_ModelStates[MODEL_RARELOGO].modeldef);
+		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_RARELOGO].modeldef);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 
@@ -8191,26 +8191,26 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 		mtx4Copy(&spc0, &sp118);
 
 		renderdata.unk00 = &sp118;
-		renderdata.unk10 = gfxAllocate(g_TitleModel->filedata->nummatrices * sizeof(Mtxf));
+		renderdata.unk10 = gfxAllocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
 		mtx4Copy(&sp118, renderdata.unk10);
 
 		g_TitleModel->matrices = renderdata.unk10;
 
 		modelUpdateRelations(g_TitleModel);
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->filedata, MODELPART_RARELOGO_000B));
+		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000B));
 
 		if (rwdata) {
 			rwdata->visible = false;
 		}
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->filedata, MODELPART_RARELOGO_000D));
+		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000D));
 
 		if (rwdata) {
 			rwdata->visible = true;
 		}
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->filedata, MODELPART_RARELOGO_000C));
+		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000C));
 
 		if (rwdata) {
 			rwdata->visible = false;
@@ -8226,19 +8226,19 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 
 		gdl = renderdata.gdl;
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->filedata, MODELPART_RARELOGO_000B));
+		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000B));
 
 		if (rwdata) {
 			rwdata->visible = true;
 		}
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->filedata, MODELPART_RARELOGO_000D));
+		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000D));
 
 		if (rwdata) {
 			rwdata->visible = false;
 		}
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->filedata, MODELPART_RARELOGO_000C));
+		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000C));
 
 		if (rwdata) {
 			rwdata->visible = true;
@@ -8254,7 +8254,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 
 		gdl = renderdata.gdl;
 
-		for (i = 0, j = 0; i < g_TitleModel->filedata->nummatrices; i++, j += sizeof(Mtxf)) {
+		for (i = 0, j = 0; i < g_TitleModel->definition->nummatrices; i++, j += sizeof(Mtxf)) {
 			Mtxf sp58;
 			mtx4Copy((Mtxf *)((u32)g_TitleModel->matrices + j), &sp58);
 			mtxF2L(&sp58, g_TitleModel->matrices + i);

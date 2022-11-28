@@ -894,8 +894,8 @@ bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 		modelCopyAnimData(hostchr->model, playerchr->model);
 		func0f02e9a0(playerchr, 12);
 
-		chrrootrwdata = modelGetNodeRwData(hostchr->model, hostchr->model->filedata->rootnode);
-		playerrootrwdata = modelGetNodeRwData(playerchr->model, playerchr->model->filedata->rootnode);
+		chrrootrwdata = modelGetNodeRwData(hostchr->model, hostchr->model->definition->rootnode);
+		playerrootrwdata = modelGetNodeRwData(playerchr->model, playerchr->model->definition->rootnode);
 
 		playerrootrwdata->chrinfo = chrrootrwdata->chrinfo;
 
@@ -1277,9 +1277,9 @@ void playerTickChrBody(void)
 	if (g_Vars.currentplayer->haschrbody == false) {
 		struct chrdata *chr;
 		struct texpool texpool;
-		struct modelfiledata *bodyfiledata;
-		struct modelfiledata *headfiledata = NULL;
-		struct modelfiledata *weaponfiledata;
+		struct modeldef *bodymodeldef;
+		struct modeldef *headmodeldef = NULL;
+		struct modeldef *weaponmodeldef;
 		s32 offset1 = 0;
 		u8 *allocation;
 		void *spe8;
@@ -1399,21 +1399,21 @@ void playerTickChrBody(void)
 			bgunCalculateGunMemCapacity();
 			spe8 = g_Vars.currentplayer->gunmem2 + offset2;
 			texInitPool(&texpool, spe8, bgunCalculateGunMemCapacity() - offset2);
-			bodyfiledata = modeldefLoad(g_HeadsAndBodies[bodynum].filenum, allocation + offset1, offset2 - offset1, &texpool);
+			bodymodeldef = modeldefLoad(g_HeadsAndBodies[bodynum].filenum, allocation + offset1, offset2 - offset1, &texpool);
 			offset1 = ALIGN64(fileGetLoadedSize(g_HeadsAndBodies[bodynum].filenum) + offset1);
 
 			if (headnum >= 0) {
-				headfiledata = modeldefLoad(g_HeadsAndBodies[headnum].filenum, allocation + offset1, offset2 - offset1, &texpool);
+				headmodeldef = modeldefLoad(g_HeadsAndBodies[headnum].filenum, allocation + offset1, offset2 - offset1, &texpool);
 				offset1 = ALIGN64(fileGetLoadedSize(g_HeadsAndBodies[headnum].filenum) + offset1);
 			}
 
-			modelAllocateRwData(bodyfiledata);
+			modelAllocateRwData(bodymodeldef);
 
-			if (headfiledata != NULL) {
-				modelAllocateRwData(headfiledata);
+			if (headmodeldef != NULL) {
+				modelAllocateRwData(headmodeldef);
 			}
 
-			modelInit(model, bodyfiledata, rwdatas, false);
+			modelInit(model, bodymodeldef, rwdatas, false);
 			animInit(model->anim);
 
 			model->rwdatalen = 256;
@@ -1429,31 +1429,31 @@ void playerTickChrBody(void)
 			texGetPoolLeftPos(&texpool);
 		} else {
 			// 2-4 players
-			if (g_HeadsAndBodies[bodynum].filedata == NULL) {
-				g_HeadsAndBodies[bodynum].filedata = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
+			if (g_HeadsAndBodies[bodynum].modeldef == NULL) {
+				g_HeadsAndBodies[bodynum].modeldef = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
 			}
 
-			bodyfiledata = g_HeadsAndBodies[bodynum].filedata;
+			bodymodeldef = g_HeadsAndBodies[bodynum].modeldef;
 
 			if (g_HeadsAndBodies[bodynum].unk00_01) {
 				headnum = -1;
 			} else if (sp60) {
-				headfiledata = func0f18e57c(headnum, &headnum);
+				headmodeldef = func0f18e57c(headnum, &headnum);
 			} else if (g_Vars.normmplayerisrunning && IS8MB()) {
-				g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
-				headfiledata = g_HeadsAndBodies[headnum].filedata;
+				g_HeadsAndBodies[headnum].modeldef = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
+				headmodeldef = g_HeadsAndBodies[headnum].modeldef;
 				g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;
-				bodyCalculateHeadOffset(headfiledata, headnum, bodynum);
+				bodyCalculateHeadOffset(headmodeldef, headnum, bodynum);
 			} else {
-				if (g_HeadsAndBodies[headnum].filedata == NULL) {
-					g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
+				if (g_HeadsAndBodies[headnum].modeldef == NULL) {
+					g_HeadsAndBodies[headnum].modeldef = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
 				}
 
-				headfiledata = g_HeadsAndBodies[headnum].filedata;
+				headmodeldef = g_HeadsAndBodies[headnum].modeldef;
 			}
 		}
 
-		g_Vars.currentplayer->model00d4 = body0f02ce8c(bodynum, headnum, bodyfiledata, headfiledata, false, model, true, true);
+		g_Vars.currentplayer->model00d4 = body0f02ce8c(bodynum, headnum, bodymodeldef, headmodeldef, false, model, true, true);
 
 		chr0f020b14(g_Vars.currentplayer->prop, g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos,
 				g_Vars.currentplayer->prop->rooms, turnangle, 0);
@@ -1501,15 +1501,15 @@ void playerTickChrBody(void)
 
 		if (weaponmodelnum >= 0) {
 			if (g_Vars.mplayerisrunning == false) {
-				weaponfiledata = modeldefLoad(g_ModelStates[weaponmodelnum].fileid, allocation + offset1, offset2 - offset1, &texpool);
+				weaponmodeldef = modeldefLoad(g_ModelStates[weaponmodelnum].fileid, allocation + offset1, offset2 - offset1, &texpool);
 				fileGetLoadedSize(g_ModelStates[weaponmodelnum].fileid);
-				modelAllocateRwData(weaponfiledata);
+				modelAllocateRwData(weaponmodeldef);
 			} else {
 				weaponobj = NULL;
-				weaponfiledata = NULL;
+				weaponmodeldef = NULL;
 			}
 
-			weaponCreateForChr(chr, weaponmodelnum, weaponnum, 0, weaponobj, weaponfiledata);
+			weaponCreateForChr(chr, weaponmodelnum, weaponnum, 0, weaponobj, weaponmodeldef);
 		}
 
 		chr->fireslots[0] = bgunAllocateFireslot();
@@ -5289,7 +5289,7 @@ s32 playerTickThirdPerson(struct prop *prop)
 			chr0f0220ac(prop->chr);
 
 			if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-				if (player->model00d4->filedata->skel == &g_SkelChr) {
+				if (player->model00d4->definition->skel == &g_SkelChr) {
 					spe8 = player->model00d4->matrices;
 				} else {
 					spe8 = player->model00d4->matrices;

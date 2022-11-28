@@ -98,12 +98,12 @@ Mtxf *modelFindNodeMtx(struct model *model, struct modelnode *node, s32 arg2)
 
 Mtxf *modelGetRootMtx(struct model *model)
 {
-	return modelFindNodeMtx(model, model->filedata->rootnode, 0);
+	return modelFindNodeMtx(model, model->definition->rootnode, 0);
 }
 
 struct modelnode *modelFindNodeByMtxIndex(struct model *model, s32 mtxindex)
 {
-	struct modelnode *node = model->filedata->rootnode;
+	struct modelnode *node = model->definition->rootnode;
 	union modelrodata *rodata1;
 	union modelrodata *rodata2;
 	union modelrodata *rodata3;
@@ -263,26 +263,26 @@ struct modelnode *modelNodeFindChildOrParentMtxNode(struct modelnode *basenode)
 	return node;
 }
 
-struct modelnode *modelGetPart(struct modelfiledata *modelfiledata, s32 partnum)
+struct modelnode *modelGetPart(struct modeldef *modeldef, s32 partnum)
 {
 	s32 upper;
 	s32 lower;
 	u32 i;
 	s16 *partnums;
 
-	if (modelfiledata->numparts == 0) {
+	if (modeldef->numparts == 0) {
 		return NULL;
 	}
 
-	partnums = (s16 *)&modelfiledata->parts[modelfiledata->numparts];
+	partnums = (s16 *)&modeldef->parts[modeldef->numparts];
 	lower = 0;
-	upper = modelfiledata->numparts;
+	upper = modeldef->numparts;
 
 	while (upper >= lower) {
 		i = (lower + upper) / 2;
 
 		if (partnum == partnums[i]) {
-			return modelfiledata->parts[i];
+			return modeldef->parts[i];
 		}
 
 		if (partnum < partnums[i]) {
@@ -295,9 +295,9 @@ struct modelnode *modelGetPart(struct modelfiledata *modelfiledata, s32 partnum)
 	return NULL;
 }
 
-void *modelGetPartRodata(struct modelfiledata *modelfiledata, s32 partnum)
+void *modelGetPartRodata(struct modeldef *modeldef, s32 partnum)
 {
-	struct modelnode *node = modelGetPart(modelfiledata, partnum);
+	struct modelnode *node = modelGetPart(modeldef, partnum);
 
 	if (node) {
 		return node->rodata;
@@ -442,12 +442,12 @@ void modelNodeSetPosition(struct model *model, struct modelnode *node, struct co
 
 void modelGetRootPosition(struct model *model, struct coord *pos)
 {
-	modelNodeGetPosition(model, model->filedata->rootnode, pos);
+	modelNodeGetPosition(model, model->definition->rootnode, pos);
 }
 
 void modelSetRootPosition(struct model *model, struct coord *pos)
 {
-	modelNodeSetPosition(model, model->filedata->rootnode, pos);
+	modelNodeSetPosition(model, model->definition->rootnode, pos);
 }
 
 void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *node, struct coord *pos)
@@ -475,8 +475,8 @@ void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *no
 
 f32 modelGetChrRotY(struct model *model)
 {
-	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
-		union modelrwdata *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
+	if ((model->definition->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
+		union modelrwdata *rwdata = modelGetNodeRwData(model, model->definition->rootnode);
 		return rwdata->chrinfo.yrot;
 	}
 
@@ -485,8 +485,8 @@ f32 modelGetChrRotY(struct model *model)
 
 void modelSetChrRotY(struct model *model, f32 angle)
 {
-	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
-		struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
+	if ((model->definition->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
+		struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, model->definition->rootnode);
 		f32 diff = angle - rwdata->yrot;
 
 		if (diff < 0) {
@@ -523,7 +523,7 @@ void modelSetAnimScale(struct model *model, f32 scale)
 
 f32 modelGetEffectiveScale(struct model *model)
 {
-	return model->filedata->scale * model->scale;
+	return model->definition->scale * model->scale;
 }
 
 void modelTweenPos(struct coord *curpos, struct coord *goalpos, f32 frac)
@@ -655,7 +655,7 @@ void modelUpdateChrInfo(struct model *model, struct modelnode *node)
 
 void modelUpdateInfo(struct model *model)
 {
-	struct modelnode *node = model->filedata->rootnode;
+	struct modelnode *node = model->definition->rootnode;
 
 	if (node && (node->type & 0xff) == MODELNODETYPE_CHRINFO) {
 		modelUpdateChrInfo(model, node);
@@ -674,7 +674,7 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 	u32 stack1;
 	Mtxf *mtx = &model->matrices[rodata->chrinfo.mtxindex];
 	s32 sp240 = rodata->chrinfo.unk00;
-	struct skeleton *skel = model->filedata->skel;
+	struct skeleton *skel = model->definition->skel;
 	struct coord sp230;
 	struct coord sp224;
 	struct coord sp218;
@@ -1018,10 +1018,10 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 
 	if (anim != NULL) {
 		partnum = rodata->part;
-		skel = model->filedata->skel;
+		skel = model->definition->skel;
 
 		if (anim->animnum != 0) {
-			sp128 = (g_Anims[anim->animnum].flags & ANIMFLAG_02) && node == model->filedata->rootnode;
+			sp128 = (g_Anims[anim->animnum].flags & ANIMFLAG_02) && node == model->definition->rootnode;
 
 			anim00024050(partnum, anim->flip, skel, anim->animnum, anim->unk04, &sp144, &sp138, &sp12c);
 
@@ -1074,14 +1074,14 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 				sp138.y *= anim->animscale;
 				sp138.z *= anim->animscale;
 
-				if (node != model->filedata->rootnode) {
+				if (node != model->definition->rootnode) {
 					sp138.x += rodata->pos.x;
 					sp138.y += rodata->pos.y;
 					sp138.z += rodata->pos.z;
 				}
 
 				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &sp138, &sp12c);
-			} else if (node != model->filedata->rootnode) {
+			} else if (node != model->definition->rootnode) {
 				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &rodata->pos, &sp12c);
 			} else {
 				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &sp138, &sp12c);
@@ -1099,14 +1099,14 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 			sp138.y *= anim->animscale;
 			sp138.z *= anim->animscale;
 
-			if (node != model->filedata->rootnode) {
+			if (node != model->definition->rootnode) {
 				sp138.x += rodata->pos.x;
 				sp138.y += rodata->pos.y;
 				sp138.z += rodata->pos.z;
 			}
 
 			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &sp138, false, &sp12c);
-		} else if (node != model->filedata->rootnode) {
+		} else if (node != model->definition->rootnode) {
 			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &rodata->pos, false, &sp12c);
 		} else {
 			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &sp138, false, &sp12c);
@@ -1399,7 +1399,7 @@ void modelUpdateRelationsQuick(struct model *model, struct modelnode *parent)
  */
 void modelUpdateRelations(struct model *model)
 {
-	struct modelnode *node = model->filedata->rootnode;
+	struct modelnode *node = model->definition->rootnode;
 
 	while (node) {
 		u32 type = node->type & 0xff;
@@ -1440,7 +1440,7 @@ void modelUpdateRelations(struct model *model)
 
 void modelUpdateMatrices(struct modelrenderdata *arg0, struct model *model)
 {
-	struct modelnode *node = model->filedata->rootnode;
+	struct modelnode *node = model->definition->rootnode;
 
 	while (node) {
 		u32 type = node->type & 0xff;
@@ -1491,7 +1491,7 @@ void modelSetMatrices(struct modelrenderdata *renderdata, struct model *model)
 {
 	model->matrices = renderdata->unk10;
 
-	renderdata->unk10 += model->filedata->nummatrices;
+	renderdata->unk10 += model->definition->nummatrices;
 
 #if VERSION >= VERSION_PAL_BETA
 	if (var8005efb0_2 || !model00018680(renderdata, model)) {
@@ -1681,7 +1681,7 @@ void modelCopyAnimForMerge(struct model *model, f32 merge)
 				return;
 			}
 
-			node = model->filedata->rootnode;
+			node = model->definition->rootnode;
 			nodetype = node->type & 0xff;
 
 			anim->frame2 = anim->frame;
@@ -1740,14 +1740,14 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 
 		anim->looping = false;
 
-		type = model->filedata->rootnode->type & 0xff;
+		type = model->definition->rootnode->type & 0xff;
 
 		if (type == MODELNODETYPE_CHRINFO) {
 			u32 stack;
-			struct modelrodata_chrinfo *rodata = &model->filedata->rootnode->rodata->chrinfo;
-			struct modelrwdata_chrinfo *rwdata = (struct modelrwdata_chrinfo *) modelGetNodeRwData(model, model->filedata->rootnode);
+			struct modelrodata_chrinfo *rodata = &model->definition->rootnode->rodata->chrinfo;
+			struct modelrwdata_chrinfo *rwdata = (struct modelrwdata_chrinfo *) modelGetNodeRwData(model, model->definition->rootnode);
 			s32 spa4 = rodata->unk00;
-			struct skeleton *skel = model->filedata->skel;
+			struct skeleton *skel = model->definition->skel;
 			f32 scale;
 			f32 sp98;
 			f32 sp94;
@@ -2099,7 +2099,7 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 	struct anim *anim = model->anim;
 
 	if (anim != NULL) {
-		struct modelnode *rootnode = model->filedata->rootnode;
+		struct modelnode *rootnode = model->definition->rootnode;
 		u16 nodetype = rootnode->type;
 
 		if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO) {
@@ -2108,7 +2108,7 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 
 			if (rwdata->unk00 == 0) {
 				s32 sp118 = rodata->unk00;
-				struct skeleton *skel = model->filedata->skel;
+				struct skeleton *skel = model->definition->skel;
 				f32 scale = model->scale * anim->animscale;
 				f32 sine;
 				f32 cosine;
@@ -3441,7 +3441,7 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 	union modelrodata *rodata;
 	union modelrwdata *rwdata;
 	u32 type;
-	struct modelnode *node = model->filedata->rootnode;
+	struct modelnode *node = model->definition->rootnode;
 
 	gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_MTX, osVirtualToPhysical(model->matrices));
 
@@ -3718,7 +3718,7 @@ s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2,
 		node = *startnode;
 		*startnode = NULL;
 	} else {
-		node = model->filedata->rootnode;
+		node = model->definition->rootnode;
 	}
 
 	while (node) {
@@ -3886,26 +3886,26 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
  * Offsets in model files are based from virtual memory address 0x0f000000.
  * This vma address is specified as an argument to the function.
  */
-void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 vma, u32 fileramaddr)
+void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 vma, u32 fileramaddr)
 {
 	s32 diff = fileramaddr - vma;
 	s32 i;
 	s16 *partnums;
 
-	PROMOTE(filedata->rootnode);
-	PROMOTE(filedata->parts);
-	PROMOTE(filedata->texconfigs);
+	PROMOTE(modeldef->rootnode);
+	PROMOTE(modeldef->parts);
+	PROMOTE(modeldef->texconfigs);
 
-	for (i = 0; i < filedata->numparts; i++) {
-		PROMOTE(filedata->parts[i]);
+	for (i = 0; i < modeldef->numparts; i++) {
+		PROMOTE(modeldef->parts[i]);
 	}
 
-	modelPromoteNodeOffsetsToPointers(filedata->rootnode, vma, fileramaddr);
+	modelPromoteNodeOffsetsToPointers(modeldef->rootnode, vma, fileramaddr);
 
 	// Sort parts by part number so they can be bisected during lookup
-	partnums = (s16 *)&filedata->parts[filedata->numparts];
+	partnums = (s16 *)&modeldef->parts[modeldef->numparts];
 
-	if (filedata->numparts) {
+	if (modeldef->numparts) {
 		struct modelnode *tmpnode;
 		s16 tmpnum;
 		bool changed;
@@ -3913,15 +3913,15 @@ void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 vma, u32 
 		do {
 			changed = false;
 
-			for (i = 0; i < filedata->numparts - 1; i++) {
+			for (i = 0; i < modeldef->numparts - 1; i++) {
 				if (partnums[i] > partnums[i + 1]) {
 					tmpnum = partnums[i];
 					partnums[i] = partnums[i + 1];
 					partnums[i + 1] = tmpnum;
 
-					tmpnode = filedata->parts[i];
-					filedata->parts[i] = filedata->parts[i + 1];
-					filedata->parts[i + 1] = tmpnode;
+					tmpnode = modeldef->parts[i];
+					modeldef->parts[i] = modeldef->parts[i + 1];
+					modeldef->parts[i + 1] = tmpnode;
 
 					changed = true;
 				}
@@ -4010,9 +4010,9 @@ s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 	return len;
 }
 
-void modelAllocateRwData(struct modelfiledata *filedata)
+void modelAllocateRwData(struct modeldef *modeldef)
 {
-	filedata->rwdatalen = modelCalculateRwDataIndexes(filedata->rootnode);
+	modeldef->rwdatalen = modelCalculateRwDataIndexes(modeldef->rootnode);
 }
 
 void modelInitRwData(struct model *model, struct modelnode *startnode)
@@ -4120,19 +4120,19 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 	}
 }
 
-void modelInit(struct model *model, struct modelfiledata *filedata, union modelrwdata **rwdatas, bool resetanim)
+void modelInit(struct model *model, struct modeldef *modeldef, union modelrwdata **rwdatas, bool resetanim)
 {
 	struct modelnode *node;
 
 	model->unk00 = 0;
-	model->filedata = filedata;
+	model->definition = modeldef;
 	model->rwdatas = rwdatas;
 	model->rwdatalen = -1;
 	model->scale = 1;
 	model->attachedtomodel = NULL;
 	model->attachedtonode = NULL;
 
-	node = filedata->rootnode;
+	node = modeldef->rootnode;
 
 	while (node) {
 		u32 type = node->type & 0xff;
@@ -4145,7 +4145,7 @@ void modelInit(struct model *model, struct modelfiledata *filedata, union modelr
 			node = node->child;
 		} else {
 			while (node) {
-				if (node == filedata->rootnode->parent) {
+				if (node == modeldef->rootnode->parent) {
 					node = NULL;
 					break;
 				}
@@ -4161,7 +4161,7 @@ void modelInit(struct model *model, struct modelfiledata *filedata, union modelr
 	}
 
 	if (rwdatas != NULL) {
-		modelInitRwData(model, filedata->rootnode);
+		modelInitRwData(model, modeldef->rootnode);
 	}
 
 	if (resetanim) {
@@ -4193,7 +4193,7 @@ void animInit(struct anim *anim)
 	anim->animscale = 1;
 }
 
-void modelAttachHead(struct model *bodymode, struct modelfiledata *bodymodeldef, struct modelnode *headspotnode, struct modelfiledata *headmodeldef)
+void modelAttachHead(struct model *bodymode, struct modeldef *bodymodeldef, struct modelnode *headspotnode, struct modeldef *headmodeldef)
 {
 	struct modelrwdata_headspot *rwdata = modelGetNodeRwData(bodymode, headspotnode);
 	struct modelnode *node;
@@ -4225,14 +4225,14 @@ void modelAttachHead(struct model *bodymode, struct modelfiledata *bodymodeldef,
  * Note that some node types support multiple display lists, so the function
  * may return the same node while it iterates the display lists for that node.
  */
-void modelIterateDisplayLists(struct modelfiledata *filedata, struct modelnode **nodeptr, Gfx **gdlptr)
+void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **nodeptr, Gfx **gdlptr)
 {
 	struct modelnode *node = *nodeptr;
 	union modelrodata *rodata;
 	Gfx *gdl = NULL;
 
 	if (node == NULL) {
-		node = filedata->rootnode;
+		node = modeldef->rootnode;
 	}
 
 	while (node) {
@@ -4299,7 +4299,7 @@ void modelIterateDisplayLists(struct modelfiledata *filedata, struct modelnode *
 	*nodeptr = node;
 }
 
-void modelNodeReplaceGdl(struct modelfiledata *modeldef, struct modelnode *node, Gfx *find, Gfx *replacement)
+void modelNodeReplaceGdl(struct modeldef *modeldef, struct modelnode *node, Gfx *find, Gfx *replacement)
 {
 	union modelrodata *rodata;
 	u32 type = node->type & 0xff;

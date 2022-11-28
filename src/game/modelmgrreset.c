@@ -141,7 +141,7 @@ void modelmgrAllocateSlots(s32 numobjs, s32 numchrs)
 	}
 
 	for (i = 0; i < g_MaxModels; i++) {
-		g_ModelSlots[i].filedata = NULL;
+		g_ModelSlots[i].definition = NULL;
 		g_ModelSlots[i].rwdatas = NULL;
 	}
 

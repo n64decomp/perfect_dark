@@ -409,9 +409,9 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 
 	if (obj->flags & OBJFLAG_INSIDEANOTHEROBJ) {
 		if (obj->type == OBJTYPE_WEAPON) {
-			func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].filedata);
+			func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
 		} else {
-			objInitWithModelDef(obj, g_ModelStates[modelnum].filedata);
+			objInitWithModelDef(obj, g_ModelStates[modelnum].modeldef);
 		}
 
 		modelSetScale(obj->model, obj->model->scale * scale);
@@ -423,9 +423,9 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 
 		if (chr && chr->prop && chr->model) {
 			if (obj->type == OBJTYPE_WEAPON) {
-				prop = func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].filedata);
+				prop = func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
 			} else {
-				prop = objInitWithModelDef(obj, g_ModelStates[modelnum].filedata);
+				prop = objInitWithModelDef(obj, g_ModelStates[modelnum].modeldef);
 			}
 
 			modelSetScale(obj->model, obj->model->scale * scale);
@@ -434,9 +434,9 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 	} else {
 		if (obj->pad < 0) {
 			if (obj->type == OBJTYPE_WEAPON) {
-				func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].filedata);
+				func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
 			} else {
-				objInitWithModelDef(obj, g_ModelStates[modelnum].filedata);
+				objInitWithModelDef(obj, g_ModelStates[modelnum].modeldef);
 			}
 
 			modelSetScale(obj->model, obj->model->scale * scale);
@@ -473,7 +473,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 			}
 
 			if (obj->type == OBJTYPE_WEAPON) {
-				prop2 = func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].filedata);
+				prop2 = func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
 			} else {
 				prop2 = objInitWithAutoModel(obj);
 			}
@@ -798,7 +798,7 @@ void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
 
 	if (cctv->lookatpadnum >= 0) {
 		struct coord lenspos;
-		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_CCTV_CASING);
+		union modelrodata *lens = modelGetPartRodata(obj->model->definition, MODELPART_CCTV_CASING);
 		struct pad pad;
 		f32 xdiff;
 		f32 ydiff;
@@ -936,13 +936,13 @@ void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			monitor->base.model->attachedtomodel = owner->model;
 
 			if (monitor->ownerpart == MODELPART_0000) {
-				monitor->base.model->attachedtonode = modelGetPart(owner->model->filedata, MODELPART_0000);
+				monitor->base.model->attachedtonode = modelGetPart(owner->model->definition, MODELPART_0000);
 			} else if (monitor->ownerpart == MODELPART_0001) {
-				monitor->base.model->attachedtonode = modelGetPart(owner->model->filedata, MODELPART_0001);
+				monitor->base.model->attachedtonode = modelGetPart(owner->model->definition, MODELPART_0001);
 			} else if (monitor->ownerpart == MODELPART_0002) {
-				monitor->base.model->attachedtonode = modelGetPart(owner->model->filedata, MODELPART_0002);
+				monitor->base.model->attachedtonode = modelGetPart(owner->model->definition, MODELPART_0002);
 			} else {
-				monitor->base.model->attachedtonode = modelGetPart(owner->model->filedata, MODELPART_0003);
+				monitor->base.model->attachedtonode = modelGetPart(owner->model->definition, MODELPART_0003);
 			}
 
 			propReparent(prop, owner->prop);
@@ -1098,7 +1098,7 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 		f32 zscale;
 		struct modelrodata_bbox *bbox;
 
-		bbox = modelFileDataFindBboxRodata(g_ModelStates[modelnum].filedata);
+		bbox = modeldefFindBboxRodata(g_ModelStates[modelnum].modeldef);
 
 		mtx00016d58(&sp110, 0, 0, 0,
 				-pad.look.x, -pad.look.y, -pad.look.z,
@@ -1307,7 +1307,7 @@ void setupLoadFiles(s32 stagenum)
 	g_DoorScale = 1;
 
 	for (i = 0; i < NUM_MODELS; i++) {
-		g_ModelStates[i].filedata = NULL;
+		g_ModelStates[i].modeldef = NULL;
 	}
 
 	if (stagenum < STAGE_TITLE) {
@@ -1654,20 +1654,20 @@ void setupCreateProps(s32 stagenum)
 						setupLoadModeldef(modelnum);
 						modelstate = &g_ModelStates[modelnum];
 
-						if (modelstate->filedata) {
-							if (modelGetPartRodata(modelstate->filedata, 1)) {
+						if (modelstate->modeldef) {
+							if (modelGetPartRodata(modelstate->modeldef, 1)) {
 								obj->geocount++;
 							}
-							if (modelGetPartRodata(modelstate->filedata, 2)) {
+							if (modelGetPartRodata(modelstate->modeldef, 2)) {
 								obj->geocount++;
 							}
-							if (modelGetPartRodata(modelstate->filedata, 3)) {
+							if (modelGetPartRodata(modelstate->modeldef, 3)) {
 								obj->geocount++;
 							}
-							if (modelGetPartRodata(modelstate->filedata, 4)) {
+							if (modelGetPartRodata(modelstate->modeldef, 4)) {
 								obj->geocount++;
 							}
-							if (modelGetPartRodata(modelstate->filedata, 6)) {
+							if (modelGetPartRodata(modelstate->modeldef, 6)) {
 								obj->geocount++;
 							}
 						}
@@ -1824,7 +1824,7 @@ void setupCreateProps(s32 stagenum)
 						setupCreateObject(obj, index);
 
 						if (obj->model) {
-							struct modelnode *node = modelGetPart(obj->model->filedata, 5);
+							struct modelnode *node = modelGetPart(obj->model->definition, 5);
 
 							if (node) {
 								union modelrwdata *rwdata = modelGetNodeRwData(obj->model, node);

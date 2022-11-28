@@ -157,15 +157,15 @@ u32 bodyGetRace(s32 bodynum)
 
 bool bodyLoad(s32 bodynum)
 {
-	if (!g_HeadsAndBodies[bodynum].filedata) {
-		g_HeadsAndBodies[bodynum].filedata = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
+	if (!g_HeadsAndBodies[bodynum].modeldef) {
+		g_HeadsAndBodies[bodynum].modeldef = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
 		return true;
 	}
 
 	return false;
 }
 
-struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyfiledata, struct modelfiledata *headfiledata, bool sunglasses, struct model *model, bool isplayer, u8 varyheight)
+struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modeldef *bodymodeldef, struct modeldef *headmodeldef, bool sunglasses, struct model *model, bool isplayer, u8 varyheight)
 {
 	f32 scale = g_HeadsAndBodies[bodynum].scale * 0.10000001f;
 	f32 animscale = g_HeadsAndBodies[bodynum].animscale;
@@ -176,43 +176,43 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 		scale *= 0.8f;
 	}
 
-	if (bodyfiledata == NULL) {
-		if (g_HeadsAndBodies[bodynum].filedata == NULL) {
-			g_HeadsAndBodies[bodynum].filedata = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
+	if (bodymodeldef == NULL) {
+		if (g_HeadsAndBodies[bodynum].modeldef == NULL) {
+			g_HeadsAndBodies[bodynum].modeldef = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
 		}
 
-		bodyfiledata = g_HeadsAndBodies[bodynum].filedata;
+		bodymodeldef = g_HeadsAndBodies[bodynum].modeldef;
 	}
 
-	modelAllocateRwData(bodyfiledata);
+	modelAllocateRwData(bodymodeldef);
 
 	if (!g_HeadsAndBodies[bodynum].unk00_01) {
-		if (bodyfiledata->skel == &g_SkelChr) {
-			node = modelGetPart(bodyfiledata, MODELPART_CHR_HEADSPOT);
+		if (bodymodeldef->skel == &g_SkelChr) {
+			node = modelGetPart(bodymodeldef, MODELPART_CHR_HEADSPOT);
 
 			if (node != NULL) {
 				if (headnum < 0) {
-					headfiledata = func0f18e57c(-1 - headnum, &headnum);
-					bodyfiledata->rwdatalen += headfiledata->rwdatalen;
+					headmodeldef = func0f18e57c(-1 - headnum, &headnum);
+					bodymodeldef->rwdatalen += headmodeldef->rwdatalen;
 				} else if (headnum > 0) {
-					if (headfiledata == NULL) {
+					if (headmodeldef == NULL) {
 						if (g_Vars.normmplayerisrunning && !IS4MB()) {
-							headfiledata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
-							g_HeadsAndBodies[headnum].filedata = headfiledata;
+							headmodeldef = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
+							g_HeadsAndBodies[headnum].modeldef = headmodeldef;
 							g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;
-							bodyCalculateHeadOffset(headfiledata, headnum, bodynum);
+							bodyCalculateHeadOffset(headmodeldef, headnum, bodynum);
 						} else {
-							if (g_HeadsAndBodies[headnum].filedata == NULL) {
-								g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
+							if (g_HeadsAndBodies[headnum].modeldef == NULL) {
+								g_HeadsAndBodies[headnum].modeldef = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
 							}
 
-							headfiledata = g_HeadsAndBodies[headnum].filedata;
+							headmodeldef = g_HeadsAndBodies[headnum].modeldef;
 						}
 					}
 
-					modelAllocateRwData(headfiledata);
+					modelAllocateRwData(headmodeldef);
 
-					bodyfiledata->rwdatalen += headfiledata->rwdatalen;
+					bodymodeldef->rwdatalen += headmodeldef->rwdatalen;
 
 					if (g_HeadsAndBodies[bodynum].canvaryheight && varyheight) {
 						// Set height to between 95% and 115%
@@ -235,7 +235,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 					}
 				}
 			}
-		} else if (bodyfiledata->skel == &g_SkelSkedar) {
+		} else if (bodymodeldef->skel == &g_SkelSkedar) {
 			if (g_HeadsAndBodies[bodynum].canvaryheight && varyheight && bodynum == BODY_SKEDAR) {
 				// Set height to between 65% and 85%
 				f32 frac = RANDOMFRAC();
@@ -247,25 +247,25 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 	}
 
 	if (model) {
-		if (model->rwdatalen < bodyfiledata->rwdatalen);
+		if (model->rwdatalen < bodymodeldef->rwdatalen);
 	} else {
-		model = modelmgrInstantiateModelWithAnim(bodyfiledata);
+		model = modelmgrInstantiateModelWithAnim(bodymodeldef);
 	}
 
 	if (model) {
 		modelSetScale(model, scale);
 		modelSetAnimScale(model, animscale);
 
-		if (headfiledata && !g_HeadsAndBodies[bodynum].unk00_01) {
-			bodyfiledata->rwdatalen -= headfiledata->rwdatalen;
+		if (headmodeldef && !g_HeadsAndBodies[bodynum].unk00_01) {
+			bodymodeldef->rwdatalen -= headmodeldef->rwdatalen;
 
-			modelmgrAttachHead(model, node, headfiledata);
+			modelmgrAttachHead(model, node, headmodeldef);
 
-			if ((s16)*(s32 *)&headfiledata->skel == SKEL_HEAD) {
+			if ((s16)*(s32 *)&headmodeldef->skel == SKEL_HEAD) {
 				struct modelnode *node2;
 
 				if (!sunglasses) {
-					node2 = modelGetPart(headfiledata, MODELPART_HEAD_SUNGLASSES);
+					node2 = modelGetPart(headmodeldef, MODELPART_HEAD_SUNGLASSES);
 
 					if (node2) {
 						union modelrwdata *rwdata = modelGetNodeRwData(model, node2);
@@ -273,7 +273,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 					}
 				}
 
-				node2 = modelGetPart(headfiledata, MODELPART_HEAD_HUDPIECE);
+				node2 = modelGetPart(headmodeldef, MODELPART_HEAD_HUDPIECE);
 
 				if (node2) {
 					union modelrwdata *rwdata = modelGetNodeRwData(model, node2);
@@ -286,9 +286,9 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 	return model;
 }
 
-struct model *body0f02d338(s32 bodynum, s32 headnum, struct modelfiledata *bodyfiledata, struct modelfiledata *headfiledata, bool sunglasses, u8 varyheight)
+struct model *body0f02d338(s32 bodynum, s32 headnum, struct modeldef *bodymodeldef, struct modeldef *headmodeldef, bool sunglasses, u8 varyheight)
 {
-	return body0f02ce8c(bodynum, headnum, bodyfiledata, headfiledata, sunglasses, NULL, false, varyheight);
+	return body0f02ce8c(bodynum, headnum, bodymodeldef, headmodeldef, sunglasses, NULL, false, varyheight);
 }
 
 struct model *bodyAllocateModel(s32 bodynum, s32 headnum, u32 spawnflags)
@@ -348,7 +348,7 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	struct pad pad;
 	s16 rooms[2];
 	struct chrdata *chr;
-	struct modelfiledata *headfiledata;
+	struct modeldef *headmodeldef;
 	struct model *model;
 	struct prop *prop;
 	s32 bodynum;
@@ -382,7 +382,7 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	}
 
 	headnum = -55555;
-	headfiledata = NULL;
+	headmodeldef = NULL;
 
 	if (packed->bodynum == 255) {
 		bodynum = body0f02d3f8();
@@ -402,10 +402,10 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 		index = -1 - headnum;
 
 		if (index >= 0 && index < 22) {
-			headfiledata = func0f18e57c(index, &headnum);
+			headmodeldef = func0f18e57c(index, &headnum);
 		}
 
-		model = body0f02ce8c(bodynum, headnum, NULL, headfiledata, false, NULL, false, false);
+		model = body0f02ce8c(bodynum, headnum, NULL, headmodeldef, false, NULL, false, false);
 	} else {
 		model = bodyAllocateModel(bodynum, headnum, packed->spawnflags);
 	}
@@ -633,7 +633,7 @@ void body0f02ddbf(void)
  * any tweaking. This function is used in multiplayer where players can put any
  * heads on any bodies.
  */
-void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s32 bodynum)
+void bodyCalculateHeadOffset(struct modeldef *headmodeldef, s32 headnum, s32 bodynum)
 {
 	struct modelnode *node;
 	struct modelnode *prev;
@@ -671,7 +671,7 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 	}
 #endif
 
-	if ((s16)(*(s32 *)&headfiledata->skel) == SKEL_HEAD) {
+	if ((s16)(*(s32 *)&headmodeldef->skel) == SKEL_HEAD) {
 #if VERSION >= VERSION_JPN_FINAL
 		if (g_HeadsAndBodies[headnum].type == g_HeadsAndBodies[bodynum].type && offset == 0) {
 			return;
@@ -769,7 +769,7 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 			do {
 				prev = node;
 
-				modelIterateDisplayLists(headfiledata, &node, &gdl);
+				modelIterateDisplayLists(headmodeldef, &node, &gdl);
 
 				if (node && node != prev && node->type == MODELNODETYPE_DL) {
 					struct modelrodata_dl *rodata = &node->rodata->dl;
@@ -780,7 +780,7 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 				}
 			} while (node);
 
-			bbox = modelFileDataFindBboxRodata(headfiledata);
+			bbox = modeldefFindBboxRodata(headmodeldef);
 
 			if (bbox != NULL) {
 				bbox->ymin += offset;

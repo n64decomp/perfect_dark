@@ -26,7 +26,7 @@ s32 g_ModelMostAnims = 0;
 #define NUMTYPE2() (IS4MB() ? 24 : 25)
 #define NUMTYPE3() (IS4MB() ? 0 : 20)
 
-bool modelmgrCanSlotFitRwdata(struct model *modelslot, struct modelfiledata *modeldef)
+bool modelmgrCanSlotFitRwdata(struct model *modelslot, struct modeldef *modeldef)
 {
 	return modeldef->rwdatalen <= 0
 		|| (modelslot->rwdatas != NULL && modelslot->rwdatalen >= modeldef->rwdatalen);
@@ -60,7 +60,7 @@ void modelmgrPrintCounts(void)
 	}
 
 	for (i = 0; i < g_MaxModels; i++) {
-		if (g_ModelSlots[i].filedata) {
+		if (g_ModelSlots[i].definition) {
 			nummodels++;
 		}
 	}
@@ -102,7 +102,7 @@ void modelmgrPrintCounts(void)
 	if (IS4MB());
 }
 
-struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool withanim)
+struct model *modelmgrInstantiateModel(struct modeldef *modeldef, bool withanim)
 {
 	struct model *model = NULL;
 	union modelrwdata **rwdatas = NULL;
@@ -113,7 +113,7 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 		// If it's being allocated mid-gameplay, look through all slots
 		// and find any slot that's big enough.
 		for (i = 0; i < g_MaxModels; i++) {
-			if (g_ModelSlots[i].filedata == NULL && modelmgrCanSlotFitRwdata(&g_ModelSlots[i], modeldef)) {
+			if (g_ModelSlots[i].definition == NULL && modelmgrCanSlotFitRwdata(&g_ModelSlots[i], modeldef)) {
 				model = &g_ModelSlots[i];
 				rwdatas = g_ModelSlots[i].rwdatas;
 				datalen = g_ModelSlots[i].rwdatalen;
@@ -127,7 +127,7 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 
 		// Find any spare slot or allocate a new one
 		for (i = 0; i < g_MaxModels; i++) {
-			if (g_ModelSlots[i].filedata == NULL) {
+			if (g_ModelSlots[i].definition == NULL) {
 				model = &g_ModelSlots[i];
 				break;
 			}
@@ -249,9 +249,9 @@ struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool with
 	return model;
 }
 
-struct model *modelmgrInstantiateModelWithoutAnim(struct modelfiledata *modelfiledata)
+struct model *modelmgrInstantiateModelWithoutAnim(struct modeldef *modeldef)
 {
-	return modelmgrInstantiateModel(modelfiledata, false);
+	return modelmgrInstantiateModel(modeldef, false);
 }
 
 void modelmgrFreeModel(struct model *model)
@@ -311,17 +311,17 @@ void modelmgrFreeModel(struct model *model)
 		model->anim = NULL;
 	}
 
-	model->filedata = NULL;
+	model->definition = NULL;
 }
 
-struct model *modelmgrInstantiateModelWithAnim(struct modelfiledata *modelfiledata)
+struct model *modelmgrInstantiateModelWithAnim(struct modeldef *modeldef)
 {
-	return modelmgrInstantiateModel(modelfiledata, true);
+	return modelmgrInstantiateModel(modeldef, true);
 }
 
-void modelmgrAttachHead(struct model *model, struct modelnode *node, struct modelfiledata *headmodeldef)
+void modelmgrAttachHead(struct model *model, struct modelnode *node, struct modeldef *headmodeldef)
 {
-	modelAttachHead(model, model->filedata, node, headmodeldef);
+	modelAttachHead(model, model->definition, node, headmodeldef);
 	modelInitRwData(model, headmodeldef->rootnode);
 }
 

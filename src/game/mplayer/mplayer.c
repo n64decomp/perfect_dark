@@ -42,7 +42,7 @@ struct mpsetup g_MpSetup;
 struct bossfile g_BossFile;
 u32 var800acc1c;
 struct mplockinfo g_MpLockInfo;
-struct modelfiledata *var800acc28[18];
+struct modeldef *var800acc28[18];
 
 // Forward declaractions
 struct mpweaponset g_MpWeaponSets[12];
@@ -3937,7 +3937,7 @@ void func0f18e558(void)
 	}
 }
 
-struct modelfiledata *func0f18e57c(s32 index, s32 *headnum)
+struct modeldef *func0f18e57c(s32 index, s32 *headnum)
 {
 	return var800acc28[index];
 }

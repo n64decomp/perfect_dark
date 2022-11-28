@@ -153,9 +153,9 @@ u32 setupGetCmdIndexByProp(struct prop *prop)
 
 bool setupLoadModeldef(s32 modelnum)
 {
-	if (g_ModelStates[modelnum].filedata == NULL) {
-		g_ModelStates[modelnum].filedata = modeldefLoadToNew(g_ModelStates[modelnum].fileid);
-		modelAllocateRwData(g_ModelStates[modelnum].filedata);
+	if (g_ModelStates[modelnum].modeldef == NULL) {
+		g_ModelStates[modelnum].modeldef = modeldefLoadToNew(g_ModelStates[modelnum].fileid);
+		modelAllocateRwData(g_ModelStates[modelnum].modeldef);
 		return true;
 	}
 
@@ -301,7 +301,7 @@ struct defaultobj *setupGetObjByCmdIndex(u32 cmdindex)
  * hat caller is unreachable because hats don't exist in PD. So it's only used
  * for weapons which means the candidate logic isn't used.
  */
-struct defaultobj *setupFindObjForReuse(s32 wanttype, struct defaultobj **offscreenobjptr, struct defaultobj **anyobjptr, bool musthaveprop, bool musthavemodel, struct modelfiledata *filedata)
+struct defaultobj *setupFindObjForReuse(s32 wanttype, struct defaultobj **offscreenobjptr, struct defaultobj **anyobjptr, bool musthaveprop, bool musthavemodel, struct modeldef *modeldef)
 {
 	struct defaultobj *offscreenobj = NULL;
 	struct defaultobj *anyobj = NULL;
@@ -324,7 +324,7 @@ struct defaultobj *setupFindObjForReuse(s32 wanttype, struct defaultobj **offscr
 						&& (obj->flags & OBJFLAG_00800000) == 0
 #endif
 						&& obj->prop->parent == NULL
-						&& (!musthavemodel || modelmgrCanSlotFitRwdata(obj->model, filedata))) {
+						&& (!musthavemodel || modelmgrCanSlotFitRwdata(obj->model, modeldef))) {
 					if (offscreenobj == NULL && (obj->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0) {
 						offscreenobj = obj;
 					}

@@ -729,7 +729,7 @@ bool func0f06797c(struct coord *coord, f32 arg1, s32 padnum)
 
 bool func0f0679ac(struct model *model, f32 *max, f32 *min, f32 arg3[2], f32 arg4[2])
 {
-	struct modelnode *node = model->filedata->rootnode;
+	struct modelnode *node = model->definition->rootnode;
 	bool first = true;
 
 	while (node) {
@@ -786,7 +786,7 @@ bool func0f0679ac(struct model *model, f32 *max, f32 *min, f32 arg3[2], f32 arg4
 
 void func0f067bc4(struct model *model, f32 *max, f32 *min, s32 axis)
 {
-	struct modelnode *node = model->filedata->rootnode;
+	struct modelnode *node = model->definition->rootnode;
 	bool first = true;
 
 	while (node) {
@@ -848,7 +848,7 @@ bool modelGetScreenCoords2(struct model *model, f32 *x2, f32 *x1, f32 *y2, f32 *
 	bool first = true;
 
 	if (model) {
-		struct modelfiledata *modeldef = model->filedata;
+		struct modeldef *modeldef = model->definition;
 
 		if (modeldef) {
 			struct modelnode *node = modeldef->rootnode;
@@ -1220,8 +1220,8 @@ s32 objGetDestroyedLevel(struct defaultobj *obj)
 
 struct modelnode *func0f0687e4(struct model *model)
 {
-	struct modelfiledata *filedata = model->filedata;
-	struct modelnode *node = filedata->rootnode;
+	struct modeldef *modeldef = model->definition;
+	struct modelnode *node = modeldef->rootnode;
 
 	while (node) {
 		u32 type = node->type & 0xff;
@@ -1257,9 +1257,9 @@ struct modelnode *func0f0687e4(struct model *model)
 	return NULL;
 }
 
-struct modelnode *modelFileDataFindBboxNode(struct modelfiledata *filedata)
+struct modelnode *modeldefFindBboxNode(struct modeldef *modeldef)
 {
-	struct modelnode *node = filedata->rootnode;
+	struct modelnode *node = modeldef->rootnode;
 
 	while (node) {
 		if ((node->type & 0xff) == MODELNODETYPE_BBOX) {
@@ -1283,9 +1283,9 @@ struct modelnode *modelFileDataFindBboxNode(struct modelfiledata *filedata)
 	return NULL;
 }
 
-struct modelrodata_bbox *modelFileDataFindBboxRodata(struct modelfiledata *filedata)
+struct modelrodata_bbox *modeldefFindBboxRodata(struct modeldef *modeldef)
 {
-	struct modelnode *node = modelFileDataFindBboxNode(filedata);
+	struct modelnode *node = modeldefFindBboxNode(modeldef);
 
 	if (node) {
 		return &node->rodata->bbox;
@@ -1296,7 +1296,7 @@ struct modelrodata_bbox *modelFileDataFindBboxRodata(struct modelfiledata *filed
 
 struct modelnode *modelFindBboxNode(struct model *model)
 {
-	struct modelnode *node = model->filedata->rootnode;
+	struct modelnode *node = model->definition->rootnode;
 
 	while (node) {
 		u32 type = node->type & 0xff;
@@ -1760,11 +1760,11 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 	mtx3ToMtx4(rot, &mtx);
 	mtx4SetTranslation(pos, &mtx);
 
-	if (obj->model->filedata->skel == &g_SkelHoverbike
-			|| obj->model->filedata->skel == &g_SkelBasic
-			|| obj->model->filedata->skel == &g_SkelMaianUfo
-			|| obj->model->filedata->skel == &g_SkelDropship) {
-		rodata19 = modelGetPartRodata(obj->model->filedata, MODELPART_HOVERBIKE_0064);
+	if (obj->model->definition->skel == &g_SkelHoverbike
+			|| obj->model->definition->skel == &g_SkelBasic
+			|| obj->model->definition->skel == &g_SkelMaianUfo
+			|| obj->model->definition->skel == &g_SkelDropship) {
+		rodata19 = modelGetPartRodata(obj->model->definition, MODELPART_HOVERBIKE_0064);
 	}
 
 	if (obj->flags3 & OBJFLAG3_GEOCYL) {
@@ -1820,7 +1820,7 @@ void func0f069b4c(struct defaultobj *obj)
 			}
 		}
 
-		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0065);
+		rodata = modelGetPartRodata(obj->model->definition, MODELPART_0065);
 
 		if (rodata != NULL) {
 			u32 flags = GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2;
@@ -1834,7 +1834,7 @@ void func0f069b4c(struct defaultobj *obj)
 			ptr += 0x40;
 		}
 
-		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0066);
+		rodata = modelGetPartRodata(obj->model->definition, MODELPART_0066);
 
 		if (rodata != NULL) {
 			func0f070ca0(obj, (struct geotilef *)ptr, GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT, NULL, &rodata->type19);
@@ -1884,7 +1884,7 @@ void objInitToggleNodes(struct defaultobj *obj)
 	s32 i;
 
 	for (i = 0; i < 20; i++) {
-		struct modelnode *node = modelGetPart(model->filedata, 201 + i);
+		struct modelnode *node = modelGetPart(model->definition, 201 + i);
 
 		if (!node) {
 			return;
@@ -1930,7 +1930,7 @@ void objCreateOneDebris(struct defaultobj *obj, s32 partindex, struct prop *prop
 		*debris = tmp;
 		debris->modelnum = obj->modelnum;
 
-		if (objInitWithModelDef(debris, g_ModelStates[debris->modelnum].filedata)) {
+		if (objInitWithModelDef(debris, g_ModelStates[debris->modelnum].modeldef)) {
 			propReparent(debris->prop, obj->prop);
 			objSetDropped(debris->prop, DROPTYPE_5);
 
@@ -1978,7 +1978,7 @@ void objCreateOneDebris(struct defaultobj *obj, s32 partindex, struct prop *prop
 			debris->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000;
 			debris->flags3 |= OBJFLAG3_00000008;
 
-			node = modelGetPart(debris->model->filedata, MODELPART_BASIC_00C8);
+			node = modelGetPart(debris->model->definition, MODELPART_BASIC_00C8);
 
 			{
 				struct modelrwdata_toggle *rodata;
@@ -1988,7 +1988,7 @@ void objCreateOneDebris(struct defaultobj *obj, s32 partindex, struct prop *prop
 					rodata->visible = false;
 				}
 
-				node = modelGetPart(debris->model->filedata, MODELPART_BASIC_00C9 + partindex);
+				node = modelGetPart(debris->model->definition, MODELPART_BASIC_00C9 + partindex);
 
 				if (node) {
 					rodata = modelGetNodeRwData(debris->model, node);
@@ -2007,7 +2007,7 @@ void objCreateDebris(struct defaultobj *obj, struct prop *prop)
 	if (prop);
 
 	for (i = 0; i < 20; i++) {
-		if (modelGetPart(model->filedata, 201 + i) == NULL) {
+		if (modelGetPart(model->definition, 201 + i) == NULL) {
 			break;
 		}
 
@@ -2015,14 +2015,14 @@ void objCreateDebris(struct defaultobj *obj, struct prop *prop)
 	}
 }
 
-struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, struct prop *prop, struct model *model)
+struct prop *objInit(struct defaultobj *obj, struct modeldef *modeldef, struct prop *prop, struct model *model)
 {
 	if (prop == NULL) {
 		prop = propAllocate();
 	}
 
 	if (model == NULL) {
-		model = modelmgrInstantiateModelWithoutAnim(filedata);
+		model = modelmgrInstantiateModelWithoutAnim(modeldef);
 	}
 
 	if (prop && model) {
@@ -2030,11 +2030,11 @@ struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, str
 
 		obj->model = model;
 
-		if (modelGetPartRodata(filedata, MODELPART_BASIC_0065)) {
+		if (modelGetPartRodata(modeldef, MODELPART_BASIC_0065)) {
 			obj->geocount++;
 		}
 
-		if (modelGetPartRodata(filedata, MODELPART_BASIC_0066)) {
+		if (modelGetPartRodata(modeldef, MODELPART_BASIC_0066)) {
 			obj->geocount++;
 		}
 
@@ -2132,14 +2132,14 @@ struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, str
 	return prop;
 }
 
-struct prop *objInitWithModelDef(struct defaultobj *obj, struct modelfiledata *filedata)
+struct prop *objInitWithModelDef(struct defaultobj *obj, struct modeldef *modeldef)
 {
-	return objInit(obj, filedata, NULL, NULL);
+	return objInit(obj, modeldef, NULL, NULL);
 }
 
 struct prop *objInitWithAutoModel(struct defaultobj *obj)
 {
-	return objInitWithModelDef(obj, g_ModelStates[obj->modelnum].filedata);
+	return objInitWithModelDef(obj, g_ModelStates[obj->modelnum].modeldef);
 }
 
 void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, s16 *rooms)
@@ -2737,7 +2737,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 				} while (hitpart > 0);
 
 				if (obj->flags3 & OBJFLAG3_HOVERBEDSHIELD) {
-					node = modelGetPart(model->filedata, MODELPART_BASIC_0067);
+					node = modelGetPart(model->definition, MODELPART_BASIC_0067);
 
 					if (node && func0f084594(model, node, arg5, arg6, &thing2, &mtxindex2, &node2)) {
 						if (hitpart <= 0 ||
@@ -2809,7 +2809,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 			if (func0f06b39c(arg1, arg3, &prop->pos, modelGetEffectiveScale(model))
 					&& func0f06b488(prop, arg1, arg2, arg3, arg7, arg8, arg9)) {
 				g_EmbedModel = model;
-				g_EmbedNode = model->filedata->rootnode;
+				g_EmbedNode = model->definition->rootnode;
 				result = true;
 			}
 		}
@@ -3061,7 +3061,7 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 				hitpart = modelTestForHit(model, arg5, arg6, &spcc);
 
 				if (hitpart > 0
-						&& func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, arg5, arg6, &sp7c.unk00, &spec, &spcc, &hitpart, &sp78, &sp74)
+						&& func0f06bea0(model, model->definition->rootnode, model->definition->rootnode, arg5, arg6, &sp7c.unk00, &spec, &spcc, &hitpart, &sp78, &sp74)
 						&& spec < *arg9) {
 					*arg9 = spec;
 					mtx4TransformVec(camGetProjectionMtxF(), &sp7c.unk00, arg7);
@@ -4765,7 +4765,7 @@ void func0f07079c(struct prop *prop, bool fulltick)
 		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
 		mtx00015be4(mtx, &obj->embedment->matrix, &sp30);
 
-		renderdata.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+		renderdata.unk10 = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
 		renderdata.unk00 = &sp30;
 
 		modelSetMatrices(&renderdata, model);
@@ -5017,11 +5017,11 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 #endif
 
 				// Look for a non-rectangular floor with fallback to rectangular
-				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_FLOORNONRECT1);
+				rodata = modelGetPartRodata(lift->base.model->definition, MODELPART_LIFT_FLOORNONRECT1);
 
 				if (rodata == NULL) {
 					union modelrodata *tmp;
-					tmp = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_FLOORRECT);
+					tmp = modelGetPartRodata(lift->base.model->definition, MODELPART_LIFT_FLOORRECT);
 					bbox = &tmp->bbox;
 
 					if (bbox == NULL) {
@@ -5030,13 +5030,13 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 				}
 			} else if (i == 1) {
 				flags = GEOFLAG_WALL;
-				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL1);
+				rodata = modelGetPartRodata(lift->base.model->definition, MODELPART_LIFT_WALL1);
 			} else if (i == 2) {
 				flags = GEOFLAG_WALL;
-				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL2);
+				rodata = modelGetPartRodata(lift->base.model->definition, MODELPART_LIFT_WALL2);
 			} else if (i == 3) {
 				flags = GEOFLAG_WALL;
-				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL3);
+				rodata = modelGetPartRodata(lift->base.model->definition, MODELPART_LIFT_WALL3);
 			} else if (i == 4) {
 				// The doorblock model part exists in the dataDyne tower lifts.
 				// It's a tile across the door that only applies while the lift
@@ -5044,7 +5044,7 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 				// the doorway while it's moving.
 				if (!stationary) {
 					flags = GEOFLAG_WALL;
-					rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_DOORBLOCK);
+					rodata = modelGetPartRodata(lift->base.model->definition, MODELPART_LIFT_DOORBLOCK);
 				}
 			} else if (i == 5) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -5052,7 +5052,7 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 #else
 				flags = GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_LIFTFLOOR;
 #endif
-				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_FLOORNONRECT2);
+				rodata = modelGetPartRodata(lift->base.model->definition, MODELPART_LIFT_FLOORNONRECT2);
 			} else {
 				break;
 			}
@@ -7660,7 +7660,7 @@ void doorTick(struct prop *doorprop)
 	}
 
 	// Consider playing a sound effect
-	if (model->filedata->skel == &g_Skel13) {
+	if (model->definition->skel == &g_Skel13) {
 		f32 soundpoint = door->maxfrac * 0.3f;
 
 		if (door->frac > soundpoint) {
@@ -7716,8 +7716,8 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 			canhide = false;
 		}
 
-		if (model->filedata->skel == &g_SkelWindowedDoor) {
-			node = modelGetPart(model->filedata, MODELPART_WINDOWEDDOOR_0001);
+		if (model->definition->skel == &g_SkelWindowedDoor) {
+			node = modelGetPart(model->definition, MODELPART_WINDOWEDDOOR_0001);
 			rwdata = modelGetNodeRwData(model, node);
 
 			if (!rwdata->toggle.visible) {
@@ -7748,20 +7748,20 @@ void doorInitMatrices(struct prop *prop)
 	func0f08c424(door, matrices);
 	mtx00015be0(camGetWorldToScreenMtxf(), matrices);
 
-	if (model->filedata->skel == &g_Skel11) {
+	if (model->definition->skel == &g_Skel11) {
 		union modelrodata *rodata;
 		f32 xrot = M_BADTAU - door->frac * 0.017450513318181f;
 
-		rodata = modelGetPartRodata(model->filedata, 1);
+		rodata = modelGetPartRodata(model->definition, 1);
 		mtx4LoadXRotation(xrot, MTX(1));
 		mtx4SetTranslation(&rodata->position.pos, MTX(1));
 		mtx4MultMtx4InPlace(MTX(0), MTX(1));
 
-		rodata = modelGetPartRodata(model->filedata, 2);
+		rodata = modelGetPartRodata(model->definition, 2);
 		mtx4LoadXRotation(M_BADTAU - xrot, MTX(2));
 		mtx4SetTranslation(&rodata->position.pos, MTX(2));
 		mtx4MultMtx4InPlace(MTX(0), MTX(2));
-	} else if (model->filedata->skel == &g_Skel13) {
+	} else if (model->definition->skel == &g_Skel13) {
 		union modelrodata *rodata;
 		f32 zrot1 = 0;
 		f32 zrot2 = door->frac * 0.017450513318181f;
@@ -7776,12 +7776,12 @@ void doorInitMatrices(struct prop *prop)
 			s32 index1 = (i << 1) + 1;
 			s32 index2 = (i << 1) + 2;
 
-			rodata = modelGetPartRodata(model->filedata, index1);
+			rodata = modelGetPartRodata(model->definition, index1);
 			mtx4LoadZRotation(zrot1, MTX(index1));
 			mtx4SetTranslation(&rodata->position.pos, MTX(index1));
 			mtx4MultMtx4InPlace(MTX(0), MTX(index1));
 
-			rodata = modelGetPartRodata(model->filedata, index2);
+			rodata = modelGetPartRodata(model->definition, index2);
 			mtx4LoadZRotation(zrot2, MTX(index2));
 			mtx4SetTranslation(&rodata->position.pos, MTX(index2));
 			mtx4MultMtx4InPlace(MTX(index1), MTX(index2));
@@ -7846,10 +7846,10 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 				chr0f0220ac(chr);
 				modelSetRootPosition(chr->model, &prop->pos);
 
-				nodetype = chr->model->filedata->rootnode->type;
+				nodetype = chr->model->definition->rootnode->type;
 
 				if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO) {
-					struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(chr->model, chr->model->filedata->rootnode);
+					struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(chr->model, chr->model->definition->rootnode);
 					rwdata->ground += newpos->y - prevpos->y;
 				}
 			}
@@ -8365,7 +8365,7 @@ void cctvInitMatrices(struct prop *prop, Mtxf *mtx)
 	struct cctvobj *cctv = (struct cctvobj *)prop->obj;
 	struct model *model = cctv->base.model;
 	Mtxf *matrices = model->matrices;
-	union modelrodata *rodata = modelGetPartRodata(model->filedata, MODELPART_CCTV_CASING);
+	union modelrodata *rodata = modelGetPartRodata(model->definition, MODELPART_CCTV_CASING);
 	struct coord sp64;
 	Mtxf sp24;
 	f32 yrot = cctv->yrot;
@@ -8928,7 +8928,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 		yrot -= M_BADTAU;
 	}
 
-	rodata = modelGetPartRodata(model->filedata, MODELPART_AUTOGUN_0001);
+	rodata = modelGetPartRodata(model->definition, MODELPART_AUTOGUN_0001);
 
 	sp4c.x = rodata->position.pos.x;
 	sp4c.y = rodata->position.pos.y;
@@ -8940,7 +8940,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	mtx00015f04(autogun->base.model->scale, &matrices[1]);
 	mtx00015be0(camGetWorldToScreenMtxf(), &matrices[1]);
 
-	node2 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0002);
+	node2 = modelGetPart(model->definition, MODELPART_AUTOGUN_0002);
 	rodata = node2->rodata;
 	mtx4LoadZRotation(xrot, &matrices[2]);
 	mtx4SetTranslation(&rodata->position.pos, &matrices[2]);
@@ -8954,7 +8954,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 		mtx00015be0(&matrices[1], tmp);
 	}
 
-	node3 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0003);
+	node3 = modelGetPart(model->definition, MODELPART_AUTOGUN_0003);
 
 	if (node3 != NULL) {
 		tmp = modelFindNodeMtx(model, node3, 0);
@@ -8964,7 +8964,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 		mtx00015be0(&matrices[2], tmp);
 	}
 
-	node4 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0004);
+	node4 = modelGetPart(model->definition, MODELPART_AUTOGUN_0004);
 
 	if (node4 != NULL) {
 		tmp = modelFindNodeMtx(model, node4, 0);
@@ -8973,7 +8973,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 		mtx00015be0(&matrices[2], tmp);
 	}
 
-	node6 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0006);
+	node6 = modelGetPart(model->definition, MODELPART_AUTOGUN_0006);
 
 	if (node6 != NULL) {
 		tmp = modelFindNodeMtx(model, node6, 0);
@@ -9002,7 +9002,7 @@ void autogunTickShoot(struct prop *autogunprop)
 
 			fireleft = (autogun->firecount % 2) == 0;
 
-			if (modelGetPart(model->filedata, MODELPART_AUTOGUN_FLASHLEFT)) {
+			if (modelGetPart(model->definition, MODELPART_AUTOGUN_FLASHLEFT)) {
 				fireright = (autogun->firecount % 2) == 1;
 			}
 
@@ -9032,12 +9032,12 @@ void autogunTickShoot(struct prop *autogunprop)
 				}
 
 				if ((autogun->firecount & 7)
-						|| (flashnode = modelGetPart(model->filedata, MODELPART_AUTOGUN_FLASHRIGHT)) == NULL) {
-					flashnode = modelGetPart(model->filedata, MODELPART_AUTOGUN_FLASHLEFT);
+						|| (flashnode = modelGetPart(model->definition, MODELPART_AUTOGUN_FLASHRIGHT)) == NULL) {
+					flashnode = modelGetPart(model->definition, MODELPART_AUTOGUN_FLASHLEFT);
 				}
 
 				if (flashnode == NULL) {
-					posnode = modelGetPart(model->filedata, MODELPART_AUTOGUN_0003);
+					posnode = modelGetPart(model->definition, MODELPART_AUTOGUN_0003);
 				}
 
 				propSetPerimEnabled(autogunprop, false);
@@ -9365,14 +9365,14 @@ void autogunTickShoot(struct prop *autogunprop)
 			}
 		}
 
-		node1 = modelGetPart(model->filedata, MODELPART_AUTOGUN_FLASHLEFT);
+		node1 = modelGetPart(model->definition, MODELPART_AUTOGUN_FLASHLEFT);
 
 		if (node1) {
 			union modelrwdata *rwdata = modelGetNodeRwData(model, node1);
 			rwdata->chrgunfire.visible = fireleft;
 		}
 
-		node2 = modelGetPart(model->filedata, MODELPART_AUTOGUN_FLASHRIGHT);
+		node2 = modelGetPart(model->definition, MODELPART_AUTOGUN_FLASHRIGHT);
 
 		if (node2) {
 			union modelrwdata *rwdata = modelGetNodeRwData(model, node2);
@@ -9393,7 +9393,7 @@ void chopperInitMatrices(struct prop *prop)
 	Mtxf sp68;
 	Mtxf sp28;
 
-	rodata = modelGetPartRodata(model->filedata, MODELPART_CHOPPER_0001);
+	rodata = modelGetPartRodata(model->definition, MODELPART_CHOPPER_0001);
 	mtx4LoadZRotation(M_BADTAU - chopper->gunrotx, &sp68);
 	mtx4LoadYRotation(chopper->gunroty + 1.5707963705063f, &sp28);
 	mtx00015be4(&sp28, &sp68, &spa8);
@@ -9401,7 +9401,7 @@ void chopperInitMatrices(struct prop *prop)
 	mtx4SetTranslation(&rodata->position.pos, &spa8);
 	mtx00015be4(matrices, &spa8, &matrices[1]);
 
-	rodata = modelGetPartRodata(model->filedata, MODELPART_CHOPPER_0002);
+	rodata = modelGetPartRodata(model->definition, MODELPART_CHOPPER_0002);
 	mtx4LoadXRotation(chopper->barrelrot, &spa8);
 	mtx4SetTranslation(&rodata->position.pos, &spa8);
 	mtx00015be4(&matrices[1], &spa8, &matrices[2]);
@@ -9640,7 +9640,7 @@ void chopperIncrementBarrel(struct prop *chopperprop, bool firing)
 	chopper->fireslotthing->unk01 = (chopper->fireslotthing->unk00 % 3) == 0;
 
 	if (firing) {
-		rodata = modelGetPartRodata(model->filedata, MODELPART_CHOPPER_0001);
+		rodata = modelGetPartRodata(model->definition, MODELPART_CHOPPER_0001);
 		gunaimy = targetprop->pos.y - 20.0f;
 
 		gunpos.x = random() * random() * 0 * 30.0f + rodata->pos.x;
@@ -9740,7 +9740,7 @@ void chopperIncrementBarrel(struct prop *chopperprop, bool firing)
 		firing = false;
 	}
 
-	node = modelGetPart(model->filedata, MODELPART_CHOPPER_GUNFLASH);
+	node = modelGetPart(model->definition, MODELPART_CHOPPER_GUNFLASH);
 
 	if (node) {
 		rwdata = modelGetNodeRwData(model, node);
@@ -10718,7 +10718,7 @@ void dropshipUpdateInterior(struct prop *prop)
 	struct defaultobj *obj = prop->obj;
 	struct model *model = obj->model;
 
-	struct modelnode *node = modelGetPart(model->filedata, MODELPART_DROPSHIP_INTERIOR);
+	struct modelnode *node = modelGetPart(model->definition, MODELPART_DROPSHIP_INTERIOR);
 
 	if (node) {
 		union modelrwdata *data = modelGetNodeRwData(model, node);
@@ -10757,7 +10757,7 @@ void weaponInitMatrices(struct prop *prop)
 	Mtxf *mtxes = model->matrices;
 	Mtxf *ptr = &mtxes[i];
 
-	for (; i < model->filedata->nummatrices; i++) {
+	for (; i < model->definition->nummatrices; i++) {
 		mtx4LoadIdentity(ptr);
 		ptr++;
 	}
@@ -10779,19 +10779,19 @@ void hangingmonitorInitMatrices(struct prop *prop)
 	Mtxf *matrices = model->matrices;
 	union modelrodata *rodata;
 
-	rodata = modelGetPartRodata(model->filedata, MODELPART_0000);
+	rodata = modelGetPartRodata(model->definition, MODELPART_0000);
 	mtx4LoadTranslation(&rodata->position.pos, &matrices[1]);
 	mtx00015be0(matrices, &matrices[1]);
 
-	rodata = modelGetPartRodata(model->filedata, MODELPART_0001);
+	rodata = modelGetPartRodata(model->definition, MODELPART_0001);
 	mtx4LoadTranslation(&rodata->position.pos, &matrices[2]);
 	mtx00015be0(matrices, &matrices[2]);
 
-	rodata = modelGetPartRodata(model->filedata, MODELPART_0002);
+	rodata = modelGetPartRodata(model->definition, MODELPART_0002);
 	mtx4LoadTranslation(&rodata->position.pos, &matrices[3]);
 	mtx00015be0(matrices, &matrices[3]);
 
-	rodata = modelGetPartRodata(model->filedata, MODELPART_0003);
+	rodata = modelGetPartRodata(model->definition, MODELPART_0003);
 	mtx4LoadTranslation(&rodata->position.pos, &matrices[4]);
 	mtx00015be0(matrices, &matrices[4]);
 }
@@ -10819,7 +10819,7 @@ void objInitMatrices(struct prop *prop)
 		} else if (obj->type == OBJTYPE_HANGINGMONITORS) {
 			hangingmonitorInitMatrices(prop);
 		} else {
-			if (obj->model->filedata->nummatrices >= 2) {
+			if (obj->model->definition->nummatrices >= 2) {
 				struct modelrenderdata thing = {NULL, 1, 3};
 				u32 stack;
 				Mtxf sp28;
@@ -11049,7 +11049,7 @@ s32 objTickPlayer(struct prop *prop)
 					}
 
 					sp556 = true;
-					sp476.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+					sp476.unk10 = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
 					sp476.unk00 = camGetWorldToScreenMtxf();
 					modelSetMatricesWithAnim(&sp476, model);
 
@@ -11132,7 +11132,7 @@ s32 objTickPlayer(struct prop *prop)
 				sp144 = floorf(model->anim->frame);
 
 				for (i = sp148; i <= sp144; i++) {
-					anim00024b64(0, 0, model->filedata->skel, model->anim->animnum, i, &sp128, 0);
+					anim00024b64(0, 0, model->definition->skel, model->anim->animnum, i, &sp128, 0);
 
 					sp116.x += sp128.x * 0.1f;
 					sp112 = sp128.y * 0.1f;
@@ -11147,7 +11147,7 @@ s32 objTickPlayer(struct prop *prop)
 			mtx4MultMtx4(camGetWorldToScreenMtxf(), &sp248, &sp152);
 
 			sp556 = true;
-			sp312.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+			sp312.unk10 = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
 			sp312.unk00 = &sp152;
 			modelSetMatricesWithAnim(&sp312, model);
 
@@ -11293,14 +11293,14 @@ s32 objTickPlayer(struct prop *prop)
 
 		if (obj->type == OBJTYPE_FAN) {
 			fanUpdateModel(prop);
-		} else if (obj->model->filedata->skel == &g_SkelDropship) {
+		} else if (obj->model->definition->skel == &g_SkelDropship) {
 			dropshipUpdateInterior(prop);
 		}
 
 		if (sp556 == false) {
-			model->matrices = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+			model->matrices = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
 			objInitMatrices(prop);
-			modelUpdateRelationsQuick(model, model->filedata->rootnode);
+			modelUpdateRelationsQuick(model, model->definition->rootnode);
 		}
 
 		prop->z = -model->matrices[0].m[3][2];
@@ -13342,7 +13342,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 					sp60 = 1;
 				}
 
-				gdl = tvscreenRender(model, modelGetPart(model->filedata, MODELPART_0000), &monitor->screen, gdl, sp60, 1);
+				gdl = tvscreenRender(model, modelGetPart(model->definition, MODELPART_0000), &monitor->screen, gdl, sp60, 1);
 			}
 		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
 			if (renderdata->flags & 1) {
@@ -13356,7 +13356,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 					sp60 = 1;
 				}
 
-				gdl = tvscreenRender(model, modelGetPart(model->filedata, MODELPART_0000), &monitor->screens[0], gdl, sp60, 1);
+				gdl = tvscreenRender(model, modelGetPart(model->definition, MODELPART_0000), &monitor->screens[0], gdl, sp60, 1);
 
 				if (obj->flags2 & OBJFLAG2_DRAWONTOP) {
 					sp60 = 0;
@@ -13366,9 +13366,9 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 					sp60 = 1;
 				}
 
-				gdl = tvscreenRender(model, modelGetPart(model->filedata, MODELPART_0001), &monitor->screens[1], gdl, sp60, 1);
-				gdl = tvscreenRender(model, modelGetPart(model->filedata, MODELPART_0002), &monitor->screens[2], gdl, sp60, 1);
-				gdl = tvscreenRender(model, modelGetPart(model->filedata, MODELPART_0003), &monitor->screens[3], gdl, sp60, 1);
+				gdl = tvscreenRender(model, modelGetPart(model->definition, MODELPART_0001), &monitor->screens[1], gdl, sp60, 1);
+				gdl = tvscreenRender(model, modelGetPart(model->definition, MODELPART_0002), &monitor->screens[2], gdl, sp60, 1);
+				gdl = tvscreenRender(model, modelGetPart(model->definition, MODELPART_0003), &monitor->screens[3], gdl, sp60, 1);
 			}
 		}
 
@@ -13442,9 +13442,9 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 
 		if (xlupass) {
 			if (sp6c) {
-				player0f0c3320(model->matrices, model->filedata->nummatrices);
+				player0f0c3320(model->matrices, model->definition->nummatrices);
 			} else {
-				mtxF2LBulk(model->matrices, model->filedata->nummatrices);
+				mtxF2LBulk(model->matrices, model->definition->nummatrices);
 			}
 
 			if ((obj->flags3 & (OBJFLAG3_SHOWSHIELD | OBJFLAG3_SHIELDHIT)) && objIsHealthy(obj)) {
@@ -13798,19 +13798,19 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	return gdl;
 }
 
-bool modelIsNodeNotTvscreen(struct modelfiledata *filedata, struct modelnode *node)
+bool modelIsNodeNotTvscreen(struct modeldef *modeldef, struct modelnode *node)
 {
-	if (filedata->skel == &g_SkelTerminal) {
-		if (modelGetPart(filedata, MODELPART_TERMINAL_0000) == node) {
+	if (modeldef->skel == &g_SkelTerminal) {
+		if (modelGetPart(modeldef, MODELPART_TERMINAL_0000) == node) {
 			return false;
 		}
 	}
 
-	if (filedata->skel == &g_SkelCiHub) {
-		if (modelGetPart(filedata, MODELPART_CIHUB_0000) == node
-				|| modelGetPart(filedata, MODELPART_CIHUB_0001) == node
-				|| modelGetPart(filedata, MODELPART_CIHUB_0002) == node
-				|| modelGetPart(filedata, MODELPART_CIHUB_0003) == node) {
+	if (modeldef->skel == &g_SkelCiHub) {
+		if (modelGetPart(modeldef, MODELPART_CIHUB_0000) == node
+				|| modelGetPart(modeldef, MODELPART_CIHUB_0001) == node
+				|| modelGetPart(modeldef, MODELPART_CIHUB_0002) == node
+				|| modelGetPart(modeldef, MODELPART_CIHUB_0003) == node) {
 			return false;
 		}
 	}
@@ -13835,7 +13835,7 @@ void objDeform(struct defaultobj *obj, s32 level)
 	struct modelnode *node;
 	struct modelnode *parent;
 	struct model *model = obj->model;
-	struct modelfiledata *modeldef = model->filedata;
+	struct modeldef *modeldef = model->definition;
 	volatile s32 salt;
 	bool ok = true;
 	f32 mult;
@@ -15129,7 +15129,7 @@ void doorDestroyGlass(struct doorobj *door)
 	union modelrwdata *rwdata;
 	Mtxf matrix;
 
-	rodata = modelGetPartRodata(model->filedata, 2);
+	rodata = modelGetPartRodata(model->definition, 2);
 
 	if (door->portalnum >= 0) {
 		// @bug: Firing three shots at door glass is supposed to destroy it,
@@ -15154,7 +15154,7 @@ void doorDestroyGlass(struct doorobj *door)
 			SHARDTYPE_GLASS, prop);
 	wallhitsFreeByProp(prop, 1);
 
-	node = modelGetPart(model->filedata, 1);
+	node = modelGetPart(model->definition, 1);
 	rwdata = modelGetNodeRwData(model, node);
 	rwdata->toggle.visible = false;
 }
@@ -15169,8 +15169,8 @@ void cctvHandleLensShot(struct defaultobj *obj)
 	Mtxf matrix;
 
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-		rodata = modelGetPartRodata(model->filedata, MODELPART_CCTV_0002);
-		sp7c = modelFindNodeMtx(model, modelGetPart(model->filedata, MODELPART_CCTV_LENS), 0);
+		rodata = modelGetPartRodata(model->definition, MODELPART_CCTV_0002);
+		sp7c = modelFindNodeMtx(model, modelGetPart(model->definition, MODELPART_CCTV_LENS), 0);
 		mtx00015be4(camGetProjectionMtxF(), sp7c, &matrix);
 
 		shardsCreate((struct coord *) matrix.m[3], matrix.m[0], matrix.m[1], matrix.m[2],
@@ -15179,7 +15179,7 @@ void cctvHandleLensShot(struct defaultobj *obj)
 	}
 
 	wallhitsFreeByProp(prop, 1);
-	rwdata = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_CCTV_0003));
+	rwdata = modelGetNodeRwData(model, modelGetPart(model->definition, MODELPART_CCTV_0003));
 	rwdata->toggle.visible = false;
 }
 
@@ -15458,7 +15458,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 							newcrate->base.modelnum = modelnum;
 							newcrate->ammotype = i + 1;
 
-							if (objInitWithModelDef(&newcrate->base, g_ModelStates[modelnum].filedata)) {
+							if (objInitWithModelDef(&newcrate->base, g_ModelStates[modelnum].modeldef)) {
 								propReparent(newcrate->base.prop, obj->prop);
 							}
 
@@ -15584,7 +15584,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	}
 
 	if (obj->flags3 & OBJFLAG3_HOVERBEDSHIELD) {
-		node3 = modelGetPart(model->filedata, MODELPART_0067);
+		node3 = modelGetPart(model->definition, MODELPART_0067);
 
 		if (node3 && func0f084594(model, node3, &shotdata->unk00, &shotdata->unk0c, &hitthing2, &sp90, &node4)) {
 			if (lVar3 <= 0 ||
@@ -15610,8 +15610,8 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 			if ((obj->flags & OBJFLAG_INVINCIBLE) == 0) {
 				if (obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS) {
 					isnotglass = false;
-				} else if (obj->model->filedata->skel == &g_SkelWindowedDoor
-						&& modelGetPart(obj->model->filedata, MODELPART_WINDOWEDDOOR_0003) == node2) {
+				} else if (obj->model->definition->skel == &g_SkelWindowedDoor
+						&& modelGetPart(obj->model->definition, MODELPART_WINDOWEDDOOR_0003) == node2) {
 					isnotglass = false;
 				}
 			}
@@ -15759,7 +15759,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 			&& shotdata->gset.weaponnum != WEAPON_FARSIGHT) {
 		if (hit->unk4c == 0) {
 			struct prop *hitprop = hit->prop;
-			s8 iswindoweddoor = obj->model->filedata->skel == &g_SkelWindowedDoor ? true : false;
+			s8 iswindoweddoor = obj->model->definition->skel == &g_SkelWindowedDoor ? true : false;
 
 			textureindex = WALLHITTEX_GLASS1 + (random() % 3);
 
@@ -15791,8 +15791,8 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				spc4 = false;
 				spcc = random() % surfacetype->numwallhittexes;
 
-				if ((obj->model->filedata->skel == &g_SkelWindowedDoor && hit->unk44 == modelGetPart(obj->model->filedata, MODELPART_WINDOWEDDOOR_0003))
-						|| (obj->model->filedata->skel == &g_SkelCctv && hit->unk44 == modelGetPart(obj->model->filedata, MODELPART_CCTV_LENS))) {
+				if ((obj->model->definition->skel == &g_SkelWindowedDoor && hit->unk44 == modelGetPart(obj->model->definition, MODELPART_WINDOWEDDOOR_0003))
+						|| (obj->model->definition->skel == &g_SkelCctv && hit->unk44 == modelGetPart(obj->model->definition, MODELPART_CCTV_LENS))) {
 					spcb = true;
 				}
 
@@ -15823,8 +15823,8 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				damage *= g_AutogunDamageRxScale;
 			} else if (obj->type == OBJTYPE_CCTV) {
 				// Leftover from GE: shots to a CCTV's lens is a one hit kill
-				if (obj->model->filedata->skel == &g_SkelCctv) {
-					if (modelGetPart(obj->model->filedata, MODELPART_CCTV_LENS) == hit->unk44) {
+				if (obj->model->definition->skel == &g_SkelCctv) {
+					if (modelGetPart(obj->model->definition, MODELPART_CCTV_LENS) == hit->unk44) {
 						damage *= 100.0f;
 						cctvHandleLensShot(obj);
 					}
@@ -15841,7 +15841,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 
 			objTakeGunfire(obj, damage, &sp110, shotdata->gset.weaponnum, g_Vars.currentplayernum);
 
-			if (obj->model->filedata->skel == &g_SkelWindowedDoor && !hit->unk4c) {
+			if (obj->model->definition->skel == &g_SkelWindowedDoor && !hit->unk4c) {
 				struct doorobj *door = (struct doorobj *)obj;
 				door->glasshits++;
 
@@ -17665,7 +17665,7 @@ bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
 
 void modelFreeVertices(s32 vtxstoretype, struct model *model)
 {
-	struct modelfiledata *modeldef = model->filedata;
+	struct modeldef *modeldef = model->definition;
 	struct modelnode *node = modeldef->rootnode;
 
 	while (node) {
@@ -17724,10 +17724,10 @@ void modelFreeVertices(s32 vtxstoretype, struct model *model)
 	}
 }
 
-struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model)
+struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modeldef *modeldef, struct prop *prop, struct model *model)
 {
-	if (chr->model->filedata->skel == &g_SkelChr) {
-		prop = objInit(&hat->base, filedata, prop, model);
+	if (chr->model->definition->skel == &g_SkelChr) {
+		prop = objInit(&hat->base, modeldef, prop, model);
 
 		if (prop && hat->base.model) {
 			f32 scale = hat->base.extrascale * (1.0f / 256.0f);
@@ -17735,7 +17735,7 @@ struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct model
 			modelSetScale(hat->base.model, scale * hat->base.model->scale);
 
 			hat->base.model->attachedtomodel = chr->model;
-			hat->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_CHR_0006);
+			hat->base.model->attachedtonode = modelGetPart(chr->model->definition, MODELPART_CHR_0006);
 
 			propReparent(prop, chr->prop);
 
@@ -17755,7 +17755,7 @@ void hatLoadAndApplyToChr(struct hatobj *hat, struct chrdata *chr)
 
 	setupLoadModeldef(modelnum);
 
-	hatApplyToChr(hat, chr, g_ModelStates[modelnum].filedata, NULL, NULL);
+	hatApplyToChr(hat, chr, g_ModelStates[modelnum].modeldef, NULL, NULL);
 }
 
 void hatAssignToChr(struct hatobj *hat, struct chrdata *chr)
@@ -17765,23 +17765,23 @@ void hatAssignToChr(struct hatobj *hat, struct chrdata *chr)
 
 struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
 {
-	struct modelfiledata *filedata;
+	struct modeldef *modeldef;
 	struct prop *prop;
 	struct model *model;
 	struct hatobj *obj;
 
 	setupLoadModeldef(modelnum);
-	filedata = g_ModelStates[modelnum].filedata;
+	modeldef = g_ModelStates[modelnum].modeldef;
 	prop = propAllocate();
-	model = modelmgrInstantiateModelWithoutAnim(filedata);
-	obj = hatCreate(prop == NULL, model == NULL, filedata);
+	model = modelmgrInstantiateModelWithoutAnim(modeldef);
+	obj = hatCreate(prop == NULL, model == NULL, modeldef);
 
 	if (prop == NULL) {
 		prop = propAllocate();
 	}
 
 	if (model == NULL) {
-		model = modelmgrInstantiateModelWithoutAnim(filedata);
+		model = modelmgrInstantiateModelWithoutAnim(modeldef);
 	}
 
 	if (obj && prop && model) {
@@ -17816,7 +17816,7 @@ struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
 		obj->base.flags = flags | OBJFLAG_ASSIGNEDTOCHR;
 		obj->base.pad = chr->chrnum;
 
-		prop = hatApplyToChr(obj, chr, filedata, prop, model);
+		prop = hatApplyToChr(obj, chr, modeldef, prop, model);
 	} else {
 		if (model) {
 			modelmgrFreeModel(model);
@@ -17836,7 +17836,7 @@ struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
 	return prop;
 }
 
-struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct modelfiledata *filedata)
+struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct modeldef *modeldef)
 {
 	s32 i;
 	struct weaponobj *tmp;
@@ -17875,7 +17875,7 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 		}
 
 		if (usable) {
-			if (!musthavemodel || modelmgrCanSlotFitRwdata(g_WeaponSlots[i].base.model, filedata)) {
+			if (!musthavemodel || modelmgrCanSlotFitRwdata(g_WeaponSlots[i].base.model, modeldef)) {
 				if ((g_WeaponSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && sp40 < 0) {
 					sp40 = i;
 				}
@@ -17898,7 +17898,7 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 		return &g_WeaponSlots[sp44];
 	}
 
-	tmp = (struct weaponobj *)setupFindObjForReuse(OBJTYPE_WEAPON, (struct defaultobj **)&sp4c, (struct defaultobj **)&sp48, musthaveprop, musthavemodel, filedata);
+	tmp = (struct weaponobj *)setupFindObjForReuse(OBJTYPE_WEAPON, (struct defaultobj **)&sp4c, (struct defaultobj **)&sp48, musthaveprop, musthavemodel, modeldef);
 
 	if (tmp) {
 		return tmp;
@@ -17946,7 +17946,7 @@ struct weaponobj *func0f08a364(void)
 	return weaponCreate(false, false, NULL);
 }
 
-struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modelfiledata *filedata)
+struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modeldef *modeldef)
 {
 	s32 i;
 	struct hatobj *tmp;
@@ -17964,7 +17964,7 @@ struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modelfile
 			}
 		} else if ((g_HatSlots[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
 				&& g_HatSlots[i].base.prop->parent == NULL
-				&& (!musthavemodel || modelmgrCanSlotFitRwdata(g_HatSlots[i].base.model, filedata))) {
+				&& (!musthavemodel || modelmgrCanSlotFitRwdata(g_HatSlots[i].base.model, modeldef))) {
 			if ((g_HatSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && sp40 < 0) {
 				sp40 = i;
 			}
@@ -17986,7 +17986,7 @@ struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modelfile
 		return &g_HatSlots[sp44];
 	}
 
-	tmp = (struct hatobj *)setupFindObjForReuse(OBJTYPE_HAT, (struct defaultobj **)&sp4c, (struct defaultobj **)&sp48, musthaveprop, musthavemodel, filedata);
+	tmp = (struct hatobj *)setupFindObjForReuse(OBJTYPE_HAT, (struct defaultobj **)&sp4c, (struct defaultobj **)&sp48, musthaveprop, musthavemodel, modeldef);
 
 	if (tmp) {
 		return tmp;
@@ -18243,9 +18243,9 @@ void propweaponSetDual(struct weaponobj *weapon1, struct weaponobj *weapon2)
 	weapon2->dualweapon = weapon1;
 }
 
-struct prop *func0f08adc8(struct weaponobj *weapon, struct modelfiledata *filedata, struct prop *prop, struct model *model)
+struct prop *func0f08adc8(struct weaponobj *weapon, struct modeldef *modeldef, struct prop *prop, struct model *model)
 {
-	prop = objInit(&weapon->base, filedata, prop, model);
+	prop = objInit(&weapon->base, modeldef, prop, model);
 
 	if (prop) {
 		prop->type = PROPTYPE_WEAPON;
@@ -18255,9 +18255,9 @@ struct prop *func0f08adc8(struct weaponobj *weapon, struct modelfiledata *fileda
 	return prop;
 }
 
-struct prop *func0f08ae0c(struct weaponobj *weapon, struct modelfiledata *filedata)
+struct prop *func0f08ae0c(struct weaponobj *weapon, struct modeldef *modeldef)
 {
-	struct prop *prop = objInitWithModelDef(&weapon->base, filedata);
+	struct prop *prop = objInitWithModelDef(&weapon->base, modeldef);
 
 	if (prop) {
 		prop->type = PROPTYPE_WEAPON;
@@ -18292,13 +18292,13 @@ bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
 			}
 
 			if (!chr->weapons_held[handnum]) {
-				if (chr->model->filedata->skel == &g_SkelChr) {
+				if (chr->model->definition->skel == &g_SkelChr) {
 					weapon->base.model->attachedtomodel = chr->model;
 
 					if (handnum == HAND_RIGHT) {
-						weapon->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_CHR_RIGHTHAND);
+						weapon->base.model->attachedtonode = modelGetPart(chr->model->definition, MODELPART_CHR_RIGHTHAND);
 					} else {
-						weapon->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_CHR_LEFTHAND);
+						weapon->base.model->attachedtonode = modelGetPart(chr->model->definition, MODELPART_CHR_LEFTHAND);
 					}
 
 					chr->weapons_held[handnum] = weapon->base.prop;
@@ -18306,13 +18306,13 @@ bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
 					if ((weapon->base.flags & OBJFLAG_80000000) && chr->weapons_held[1 - handnum]) {
 						propweaponSetDual(weapon, chr->weapons_held[1 - handnum]->weapon);
 					}
-				} else if (chr->model->filedata->skel == &g_SkelSkedar) {
+				} else if (chr->model->definition->skel == &g_SkelSkedar) {
 					weapon->base.model->attachedtomodel = chr->model;
 
 					if (handnum == HAND_RIGHT) {
-						weapon->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_SKEDAR_RIGHTHAND);
+						weapon->base.model->attachedtonode = modelGetPart(chr->model->definition, MODELPART_SKEDAR_RIGHTHAND);
 					} else {
-						weapon->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_SKEDAR_LEFTHAND);
+						weapon->base.model->attachedtonode = modelGetPart(chr->model->definition, MODELPART_SKEDAR_LEFTHAND);
 					}
 
 					chr->weapons_held[handnum] = weapon->base.prop;
@@ -18334,9 +18334,9 @@ bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
 	return true;
 }
 
-struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model)
+struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct modeldef *modeldef, struct prop *prop, struct model *model)
 {
-	prop = func0f08adc8(weapon, filedata, prop, model);
+	prop = func0f08adc8(weapon, modeldef, prop, model);
 
 	if (prop && weapon->base.model) {
 		f32 scale = weapon->base.extrascale * (1.0f / 256.0f);
@@ -18373,7 +18373,7 @@ void func0f08b208(struct weaponobj *weapon, struct chrdata *chr)
 	s32 modelnum = weapon->base.modelnum;
 
 	setupLoadModeldef(modelnum);
-	func0f08b108(weapon, chr, g_ModelStates[modelnum].filedata, 0, 0);
+	func0f08b108(weapon, chr, g_ModelStates[modelnum].modeldef, 0, 0);
 }
 
 void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr)
@@ -18383,7 +18383,7 @@ void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr)
 
 struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata *chr)
 {
-	struct modelfiledata *filedata;
+	struct modeldef *modeldef;
 	struct prop *prop;
 	struct model *model;
 	struct autogunobj *laptop = NULL;
@@ -18397,7 +18397,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 
 	if (index >= 0 && index < g_MaxThrownLaptops) {
 		setupLoadModeldef(modelnum);
-		filedata = g_ModelStates[modelnum].filedata;
+		modeldef = g_ModelStates[modelnum].modeldef;
 		laptop = &g_ThrownLaptops[index];
 
 		if (laptop->base.prop) {
@@ -18410,14 +18410,14 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 		}
 
 		prop = propAllocate();
-		model = modelmgrInstantiateModelWithoutAnim(filedata);
+		model = modelmgrInstantiateModelWithoutAnim(modeldef);
 
 		if (prop == NULL) {
 			prop = propAllocate();
 		}
 
 		if (model == NULL) {
-			model = modelmgrInstantiateModelWithoutAnim(filedata);
+			model = modelmgrInstantiateModelWithoutAnim(modeldef);
 		}
 
 		if (laptop && prop && model) {
@@ -18449,7 +18449,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 			laptop->base = tmp;
 			laptop->base.modelnum = modelnum;
 
-			prop = objInit(&laptop->base, filedata, prop, model);
+			prop = objInit(&laptop->base, modeldef, prop, model);
 
 			laptop->targetpad = -1;
 			laptop->aimdist = 5000;
@@ -18527,14 +18527,14 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 
 struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset, struct chrdata *chr)
 {
-	struct modelfiledata *modeldef;
+	struct modeldef *modeldef;
 	struct prop *prop;
 	struct model *model;
 	struct weaponobj *weapon;
 
 	setupLoadModeldef(modelnum);
 
-	modeldef = g_ModelStates[modelnum].filedata;
+	modeldef = g_ModelStates[modelnum].modeldef;
 	prop = propAllocate();
 	model = modelmgrInstantiateModelWithoutAnim(modeldef);
 
@@ -18656,21 +18656,21 @@ void weaponDeleteFromChr(struct chrdata *chr, s32 hand)
 	}
 }
 
-struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum, u32 flags, struct weaponobj *obj, struct modelfiledata *filedata)
+struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum, u32 flags, struct weaponobj *obj, struct modeldef *modeldef)
 {
 	struct prop *prop;
 	struct model *model;
 
-	if (filedata == NULL) {
+	if (modeldef == NULL) {
 		setupLoadModeldef(modelnum);
-		filedata = g_ModelStates[modelnum].filedata;
+		modeldef = g_ModelStates[modelnum].modeldef;
 	}
 
 	prop = propAllocate();
-	model = modelmgrInstantiateModelWithoutAnim(filedata);
+	model = modelmgrInstantiateModelWithoutAnim(modeldef);
 
 	if (obj == NULL) {
-		obj = weaponCreate(prop == NULL, model == NULL, filedata);
+		obj = weaponCreate(prop == NULL, model == NULL, modeldef);
 	}
 
 	if (prop == NULL) {
@@ -18678,7 +18678,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 	}
 
 	if (model == NULL) {
-		model = modelmgrInstantiateModelWithoutAnim(filedata);
+		model = modelmgrInstantiateModelWithoutAnim(modeldef);
 	}
 
 	if (obj && prop && model) {
@@ -18725,7 +18725,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 		obj->base.flags = flags | OBJFLAG_ASSIGNEDTOCHR;
 		obj->base.pad = chr->chrnum;
 
-		prop = func0f08b108(obj, chr, filedata, prop, model);
+		prop = func0f08b108(obj, chr, modeldef, prop, model);
 	} else {
 		if (model) {
 			modelmgrFreeModel(model);
@@ -18773,8 +18773,8 @@ void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
 	if (obj && obj->type == OBJTYPE_WEAPON) {
 		struct model *model = obj->model;
 
-		if (model && model->filedata->skel == &g_SkelChrGun) {
-			node1 = modelGetPart(model->filedata, MODELPART_CHRGUN_GUNFIRE);
+		if (model && model->definition->skel == &g_SkelChrGun) {
+			node1 = modelGetPart(model->definition, MODELPART_CHRGUN_GUNFIRE);
 
 			if (node1) {
 				rwdata1 = modelGetNodeRwData(model, node1);
@@ -18785,7 +18785,7 @@ void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
 				}
 			}
 
-			node2 = modelGetPart(model->filedata, MODELPART_CHRGUN_0002);
+			node2 = modelGetPart(model->definition, MODELPART_CHRGUN_0002);
 
 			if (node2) {
 				rwdata2 = modelGetNodeRwData(model, node2);
@@ -18809,15 +18809,15 @@ bool weaponIsGunfireVisible(struct prop *prop)
 	struct model *model = obj->model;
 	struct modelnode *node;
 
-	if (model && model->filedata->skel == &g_SkelChrGun) {
-		node = modelGetPart(model->filedata, MODELPART_CHRGUN_GUNFIRE);
+	if (model && model->definition->skel == &g_SkelChrGun) {
+		node = modelGetPart(model->definition, MODELPART_CHRGUN_GUNFIRE);
 
 		if (node) {
 			struct modelrwdata_chrgunfire *rwdata = modelGetNodeRwData(model, node);
 			return rwdata->visible;
 		}
 
-		node = modelGetPart(model->filedata, MODELPART_CHRGUN_0002);
+		node = modelGetPart(model->definition, MODELPART_CHRGUN_0002);
 
 		if (node) {
 			struct modelrwdata_toggle *rwdata = modelGetNodeRwData(model, node);
@@ -21347,8 +21347,8 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 
 void objSetModelPartVisible(struct defaultobj *obj, s32 partnum, bool visible)
 {
-	if (obj && obj->model && obj->model->filedata) {
-		struct modelnode *node = modelGetPart(obj->model->filedata, partnum);
+	if (obj && obj->model && obj->model->definition) {
+		struct modelnode *node = modelGetPart(obj->model->definition, partnum);
 
 		if (node) {
 			union modelrwdata *rwdata = modelGetNodeRwData(obj->model, node);

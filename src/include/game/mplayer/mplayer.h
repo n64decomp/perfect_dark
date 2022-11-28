@@ -118,6 +118,6 @@ void mpsetupfileGetOverview(char *arg0, char *filename, u16 *numsims, u16 *stage
 s32 mpsetupfileSave(s32 device, s32 filenum, u16 deviceserial);
 s32 mpsetupfileLoad(s32 device, s32 filenum, u16 deviceserial);
 void func0f18e558(void);
-struct modelfiledata *func0f18e57c(s32 index, s32 *headnum);
+struct modeldef *func0f18e57c(s32 index, s32 *headnum);
 
 #endif

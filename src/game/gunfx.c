@@ -1765,7 +1765,7 @@ void beamTick(struct beam *beam)
 
 bool g_CasingsActive = false;
 
-struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx)
+struct casing *casingCreate(struct modeldef *modeldef, Mtxf *mtx)
 {
 	s32 i;
 	s32 j;
@@ -1814,7 +1814,7 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 	struct weaponfunc *func = gsetGetWeaponFunction2(&player->hands[handnum].gset);
 	struct weapon *weapondef = weaponFindById(player->gunctrl.weaponnum);
 	struct weaponfunc_shoot *shootfunc = NULL;
-	struct modelfiledata *modeldef;
+	struct modeldef *modeldef;
 
 	if ((func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
 		shootfunc = (struct weaponfunc_shoot *)func;
@@ -1959,7 +1959,7 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 void casingRender(struct casing *casing, Gfx **gdlptr)
 {
 	Gfx *gdl = *gdlptr;
-	struct modelfiledata *modeldef = casing->modeldef;
+	struct modeldef *modeldef = casing->modeldef;
 	Mtxf *matrices = gfxAllocate(modeldef->nummatrices * sizeof(Mtxf));
 	struct model model;
 	struct modelrenderdata renderdata = { NULL, true, 3 };
