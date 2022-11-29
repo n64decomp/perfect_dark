@@ -7,18 +7,18 @@
 
 u16 *g_WallhitCountsPerRoom;
 s32 g_WallhitsMax;
-u32 var8009cc48;
+u32 g_WallhitsNumSettled;
 u32 g_WallhitsNumFree;
 u32 g_WallhitsNumUsed;
-u32 var8009cc54;
-u32 var8009cc58;
+u32 g_WallhitsNumBloodSettled;
+u32 g_WallhitsNumNonbloodSettled;
 s32 g_MinPropWallhits;
 u32 g_MaxPropWallhits;
 s32 g_MinBgWallhitsPerRoom;
 s32 g_MaxBgWallhitsPerRoom;
 u32 var8009cc6c;
-s32 var8009cc70;
-s32 var8009cc74;
+s32 g_WallhitsCriticalSpareLimit;
+s32 g_WallhitsGoalSpareLimit;
 f32 g_WallhitTargetBloodRatio;
 
 /**
@@ -50,8 +50,8 @@ void wallhitReset(void)
 		g_MinBgWallhitsPerRoom = 1;
 		g_MaxBgWallhitsPerRoom = 25;
 		var8009cc6c = 20;
-		var8009cc70 = 5;
-		var8009cc74 = 15;
+		g_WallhitsCriticalSpareLimit = 5;
+		g_WallhitsGoalSpareLimit = 15;
 		g_WallhitTargetBloodRatio = 0.3f;
 		break;
 	case 1:
@@ -62,8 +62,8 @@ void wallhitReset(void)
 		g_MinBgWallhitsPerRoom = 4;
 		g_MaxBgWallhitsPerRoom = 40;
 		var8009cc6c = 80;
-		var8009cc70 = 20;
-		var8009cc74 = 30;
+		g_WallhitsCriticalSpareLimit = 20;
+		g_WallhitsGoalSpareLimit = 30;
 		g_WallhitTargetBloodRatio = 0.4f;
 		break;
 	case 2:
@@ -75,18 +75,18 @@ void wallhitReset(void)
 		g_MinBgWallhitsPerRoom = 10;
 		g_MaxBgWallhitsPerRoom = 60;
 		var8009cc6c = 180;
-		var8009cc70 = 25;
-		var8009cc74 = 40;
+		g_WallhitsCriticalSpareLimit = 25;
+		g_WallhitsGoalSpareLimit = 40;
 		g_WallhitTargetBloodRatio = 0.5f;
 		break;
 	}
 
 	g_WallhitCountsPerRoom = NULL;
-	var8009cc48 = 0;
+	g_WallhitsNumSettled = 0;
 	g_WallhitsNumFree = 0;
 	g_WallhitsNumUsed = 0;
-	var8009cc54 = 0;
-	var8009cc58 = 0;
+	g_WallhitsNumBloodSettled = 0;
+	g_WallhitsNumNonbloodSettled = 0;
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
 		g_WallhitsMax = 0;
