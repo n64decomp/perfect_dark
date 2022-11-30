@@ -247,18 +247,18 @@
 #define AMMODE_VIEW   1
 #define AMMODE_EDIT   2 // unused
 
-#define ANIMFLAG_LOOP 0x01
-#define ANIMFLAG_02   0x02
-#define ANIMFLAG_04   0x04
-#define ANIMFLAG_08   0x08
+#define ANIMFLAG_LOOP              0x01
+#define ANIMFLAG_02                0x02
+#define ANIMFLAG_HASREMAPPEDFRAMES 0x04
+#define ANIMFLAG_HASCUTSKIPFRAMES  0x08
 
-#define ANIMHEADERFLAG_01 0x01 // len 9
-#define ANIMHEADERFLAG_02 0x02 // len 9
-#define ANIMHEADERFLAG_08 0x08 // len 12
-#define ANIMHEADERFLAG_10 0x10 // len 0
-#define ANIMHEADERFLAG_20 0x20 // len 15
-#define ANIMHEADERFLAG_40 0x40 // len 5
-#define ANIMHEADERFLAG_80 0x80 // len 0
+#define ANIMFIELD_S16_ROTATE    0x01
+#define ANIMFIELD_S16_TRANSLATE 0x02
+#define ANIMFIELD_08            0x08
+#define ANIMFIELD_F32_ROTATE    0x10
+#define ANIMFIELD_S32_TRANSLATE 0x20
+#define ANIMFIELD_CAMERA        0x40
+#define ANIMFIELD_F32_SCALE     0x80
 
 #define ARTIFACTTYPE_FREE   0
 #define ARTIFACTTYPE_CIRCLE 1 // from a sun lens flare or teleport

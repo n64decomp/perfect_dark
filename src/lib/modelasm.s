@@ -163,14 +163,14 @@ glabel model00018680
  	nop
 	or     $t0, $sp, $zero
 	addi   $t1, $zero, 0x0
-	lui    $t4, %hi(var8005f010)
-	addiu  $t4, $t4, %lo(var8005f010)
+	lui    $t4, %hi(g_AnimToHeaderSlot)
+	addiu  $t4, $t4, %lo(g_AnimToHeaderSlot)
 	lw     $t4, 0x0($t4)
 	lh     $t5, 0x0($a2)
 	add    $t4, $t4, $t5
 	lbu    $t3, 0x0($t4)
-	lui    $t4, %hi(var8009a888)
-	addiu  $t4, $t4, %lo(var8009a888)
+	lui    $t4, %hi(g_AnimHeaderBytes)
+	addiu  $t4, $t4, %lo(g_AnimHeaderBytes)
 	lw     $t4, 0x0($t4)
 	sll    $t3, $t3, 0x2
 	add    $t4, $t4, $t3
@@ -185,8 +185,8 @@ glabel model00018680
 	lh     $t5, 0x8($t4)
 	lbu    $t4, 0xa($t4)
 	add    $t3, $t2, $t5
-	lui    $t5, %hi(var8009a874)
-	addiu  $t5, $t5, %lo(var8009a874)
+	lui    $t5, %hi(g_AnimFrameBytes)
+	addiu  $t5, $t5, %lo(g_AnimFrameBytes)
 	lw     $t5, 0x0($t5)
 	beq    $t2, $t3, .L00018874
 	addi   $v0, $zero, 0x0
@@ -216,14 +216,14 @@ glabel model00018680
 	mul.s  $f0, $f0, $f2
 	addi   $t1, $zero, 0x0
 	trunc.w.s $f0, $f0
-	lui    $t4, %hi(var8005f010)
-	addiu  $t4, $t4, %lo(var8005f010)
+	lui    $t4, %hi(g_AnimToHeaderSlot)
+	addiu  $t4, $t4, %lo(g_AnimToHeaderSlot)
 	lw     $t4, 0x0($t4)
 	lh     $t5, 0x0($a2)
 	add    $t4, $t4, $t5
 	lbu    $t3, 0x0($t4)
-	lui    $t4, %hi(var8009a888)
-	addiu  $t4, $t4, %lo(var8009a888)
+	lui    $t4, %hi(g_AnimHeaderBytes)
+	addiu  $t4, $t4, %lo(g_AnimHeaderBytes)
 	lw     $t4, 0x0($t4)
 	sll    $t3, $t3, 0x2
 	add    $t4, $t4, $t3
@@ -238,8 +238,8 @@ glabel model00018680
 	lh     $t5, 0x8($t4)
 	lbu    $t4, 0xa($t4)
 	add    $t3, $t2, $t5
-	lui    $t5, %hi(var8009a874)
-	addiu  $t5, $t5, %lo(var8009a874)
+	lui    $t5, %hi(g_AnimFrameBytes)
+	addiu  $t5, $t5, %lo(g_AnimFrameBytes)
 	lw     $t5, 0x0($t5)
 	beq    $t2, $t3, .L00018874
 	addi   $v0, $zero, 0x0
@@ -258,14 +258,14 @@ glabel model00018680
 	or     $t0, $sp, $zero
 	addiu  $t0, $t0, 0x3c0
 	addi   $t1, $zero, 0x0
-	lui    $t4, %hi(var8005f010)
-	addiu  $t4, $t4, %lo(var8005f010)
+	lui    $t4, %hi(g_AnimToHeaderSlot)
+	addiu  $t4, $t4, %lo(g_AnimToHeaderSlot)
 	lw     $t4, 0x0($t4)
 	lh     $t5, 0x2($a2)
 	add    $t4, $t4, $t5
 	lbu    $t3, 0x0($t4)
-	lui    $t4, %hi(var8009a888)
-	addiu  $t4, $t4, %lo(var8009a888)
+	lui    $t4, %hi(g_AnimHeaderBytes)
+	addiu  $t4, $t4, %lo(g_AnimHeaderBytes)
 	lw     $t4, 0x0($t4)
 	sll    $t3, $t3, 0x2
 	add    $t4, $t4, $t3
@@ -280,8 +280,8 @@ glabel model00018680
 	lh     $t5, 0x8($t4)
 	lbu    $t4, 0xa($t4)
 	add    $t3, $t2, $t5
-	lui    $t5, %hi(var8009a874)
-	addiu  $t5, $t5, %lo(var8009a874)
+	lui    $t5, %hi(g_AnimFrameBytes)
+	addiu  $t5, $t5, %lo(g_AnimFrameBytes)
 	lw     $t5, 0x0($t5)
 	beq    $t2, $t3, .L000189cc
 	addi   $v0, $zero, 0x0
@@ -303,14 +303,14 @@ glabel model00018680
 	mul.s  $f0, $f0, $f2
 	addi   $t1, $zero, 0x0
 	trunc.w.s $f0, $f0
-	lui    $t4, %hi(var8005f010)
-	addiu  $t4, $t4, %lo(var8005f010)
+	lui    $t4, %hi(g_AnimToHeaderSlot)
+	addiu  $t4, $t4, %lo(g_AnimToHeaderSlot)
 	lw     $t4, 0x0($t4)
 	lh     $t5, 0x2($a2)
 	add    $t4, $t4, $t5
 	lbu    $t3, 0x0($t4)
-	lui    $t4, %hi(var8009a888)
-	addiu  $t4, $t4, %lo(var8009a888)
+	lui    $t4, %hi(g_AnimHeaderBytes)
+	addiu  $t4, $t4, %lo(g_AnimHeaderBytes)
 	lw     $t4, 0x0($t4)
 	sll    $t3, $t3, 0x2
 	add    $t4, $t4, $t3
@@ -325,8 +325,8 @@ glabel model00018680
 	lh     $t5, 0x8($t4)
 	lbu    $t4, 0xa($t4)
 	add    $t3, $t2, $t5
-	lui    $t5, %hi(var8009a874)
-	addiu  $t5, $t5, %lo(var8009a874)
+	lui    $t5, %hi(g_AnimFrameBytes)
+	addiu  $t5, $t5, %lo(g_AnimFrameBytes)
 	lw     $t5, 0x0($t5)
 	beq    $t2, $t3, .L000189cc
 	addi   $v0, $zero, 0x0

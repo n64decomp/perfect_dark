@@ -13,26 +13,29 @@
 #include "data.h"
 #include "types.h"
 
-u8 *var8009a870;
-u8 **var8009a874;
-s16 *var8009a878;
-s16 *var8009a87c;
-u8 *var8009a880;
-u8 *var8009a884;
-u8 **var8009a888;
-s16 *var8009a88c;
-s32 *var8009a890;
-s16 var8009a894;
-struct animsummary *var8009a898;
+#define ANIM_HEADER_CACHE_SIZE 40
+#define ANIM_FRAME_CACHE_SIZE  32
 
-u32 var8005f000 = 0;
-s32 var8005f004 = 0;
+u8 *g_AnimFrameByteSlots;
+u8 **g_AnimFrameBytes;
+s16 *g_AnimFrameAnimNums;
+s16 *g_AnimFrameFrameNums;
+u8 *g_AnimFrameBirths;
+u8 *g_AnimHeaderByteSlots;
+u8 **g_AnimHeaderBytes;
+s16 *g_AnimHeaderAnimNums;
+s32 *g_AnimHeaderBirths;
+s16 g_NumRomAnimations;
+struct animtableentry *g_RomAnims;
+
+u32 g_NextAnimFrameIndex = 0;
+s32 g_NextAnimHeaderIndex = 0;
 s16 g_NumAnimations = 0;
-struct animsummary *g_Anims = NULL;
-u8 *var8005f010 = NULL;
+struct animtableentry *g_Anims = NULL;
+u8 *g_AnimToHeaderSlot = NULL;
 s16 *var8005f014 = NULL;
-s32 var8005f018 = 176;
-s32 var8005f01c = 608;
+s32 g_AnimMaxBytesPerFrame = 176;
+s32 g_AnimMaxHeaderLength = 608;
 bool g_AnimHostEnabled = false;
 u8 *g_AnimHostSegment = NULL;
 
@@ -48,36 +51,36 @@ void animsInit(void)
 	ptr = mempAlloc(tablelen, MEMPOOL_PERMANENT);
 	dmaExec(ptr, (s32)&_animationsTableRomStart, tablelen);
 
-	g_NumAnimations = var8009a894 = ptr[0];
-	g_Anims = var8009a898 = (struct animsummary *)&ptr[1];
+	g_NumAnimations = g_NumRomAnimations = ptr[0];
+	g_Anims = g_RomAnims = (struct animtableentry *)&ptr[1];
 
-	var8005f01c = 1;
-	var8005f018 = 1;
+	g_AnimMaxHeaderLength = 1;
+	g_AnimMaxBytesPerFrame = 1;
 
 	for (i = 0; i < g_NumAnimations; i++) {
-		if (g_Anims[i].headerlen > var8005f01c) {
-			var8005f01c = g_Anims[i].headerlen;
+		if (g_Anims[i].headerlen > g_AnimMaxHeaderLength) {
+			g_AnimMaxHeaderLength = g_Anims[i].headerlen;
 		}
 
-		if (g_Anims[i].bytesperframe > var8005f018) {
-			var8005f018 = g_Anims[i].bytesperframe;
+		if (g_Anims[i].bytesperframe > g_AnimMaxBytesPerFrame) {
+			g_AnimMaxBytesPerFrame = g_Anims[i].bytesperframe;
 		}
 	}
 
-	var8005f01c = ALIGN16(var8005f01c + 34);
-	var8005f018 = ALIGN16(var8005f018 + 34);
+	g_AnimMaxHeaderLength = ALIGN16(g_AnimMaxHeaderLength + 34);
+	g_AnimMaxBytesPerFrame = ALIGN16(g_AnimMaxBytesPerFrame + 34);
 
-	var8005f010 = mempAlloc(ALIGN64(g_NumAnimations), MEMPOOL_PERMANENT);
-	var8005f014 = mempAlloc(ALIGN64(g_NumAnimations * 2), MEMPOOL_PERMANENT);
-	var8009a870 = mempAlloc(ALIGN64(var8005f018 * 0x20), MEMPOOL_PERMANENT);
-	var8009a874 = mempAlloc(0x80, MEMPOOL_PERMANENT);
-	var8009a878 = mempAlloc(0x40, MEMPOOL_PERMANENT);
-	var8009a87c = mempAlloc(0x40, MEMPOOL_PERMANENT);
-	var8009a880 = mempAlloc(0x40, MEMPOOL_PERMANENT);
-	var8009a884 = mempAlloc(ALIGN64(var8005f01c * 40), MEMPOOL_PERMANENT);
-	var8009a888 = mempAlloc(0xc0, MEMPOOL_PERMANENT);
-	var8009a88c = mempAlloc(0x80, MEMPOOL_PERMANENT);
-	var8009a890 = mempAlloc(0xc0, MEMPOOL_PERMANENT);
+	g_AnimToHeaderSlot    = mempAlloc(ALIGN64(g_NumAnimations), MEMPOOL_PERMANENT);
+	var8005f014           = mempAlloc(ALIGN64(g_NumAnimations * sizeof(*var8005f014)), MEMPOOL_PERMANENT);
+	g_AnimFrameByteSlots  = mempAlloc(ALIGN64(ANIM_FRAME_CACHE_SIZE * g_AnimMaxBytesPerFrame), MEMPOOL_PERMANENT);
+	g_AnimFrameBytes      = mempAlloc(ALIGN64(ANIM_FRAME_CACHE_SIZE * sizeof(*g_AnimFrameBytes)), MEMPOOL_PERMANENT);
+	g_AnimFrameAnimNums   = mempAlloc(ALIGN64(ANIM_FRAME_CACHE_SIZE * sizeof(*g_AnimFrameAnimNums)), MEMPOOL_PERMANENT);
+	g_AnimFrameFrameNums  = mempAlloc(ALIGN64(ANIM_FRAME_CACHE_SIZE * sizeof(*g_AnimFrameFrameNums)), MEMPOOL_PERMANENT);
+	g_AnimFrameBirths     = mempAlloc(ALIGN64(ANIM_FRAME_CACHE_SIZE * sizeof(*g_AnimFrameBirths)), MEMPOOL_PERMANENT);
+	g_AnimHeaderByteSlots = mempAlloc(ALIGN64(ANIM_HEADER_CACHE_SIZE * g_AnimMaxHeaderLength), MEMPOOL_PERMANENT);
+	g_AnimHeaderBytes     = mempAlloc(ALIGN64(ANIM_HEADER_CACHE_SIZE * sizeof(*g_AnimHeaderBytes)), MEMPOOL_PERMANENT);
+	g_AnimHeaderAnimNums  = mempAlloc(ALIGN64(ANIM_HEADER_CACHE_SIZE * sizeof(*g_AnimHeaderAnimNums)), MEMPOOL_PERMANENT);
+	g_AnimHeaderBirths    = mempAlloc(ALIGN64(ANIM_HEADER_CACHE_SIZE * sizeof(*g_AnimHeaderBirths)), MEMPOOL_PERMANENT);
 
 	animsInitTables();
 
@@ -90,26 +93,26 @@ void animsInitTables(void)
 	s32 i;
 
 	for (i = 0; i < g_NumAnimations; i++) {
-		var8005f010[i] = 0xff;
+		g_AnimToHeaderSlot[i] = 0xff;
 		var8005f014[i] = 0;
 	}
 
-	for (i = 0; i < 32; i++) {
-		var8009a878[i] = 0;
-		var8009a87c[i] = 0;
-		var8009a880[i] = 0;
+	for (i = 0; i < ANIM_FRAME_CACHE_SIZE; i++) {
+		g_AnimFrameAnimNums[i] = 0;
+		g_AnimFrameFrameNums[i] = 0;
+		g_AnimFrameBirths[i] = 0;
 	}
 
-	for (i = 0; i < 40; i++) {
-		var8009a88c[i] = 0;
-		var8009a890[i] = -2;
+	for (i = 0; i < ANIM_HEADER_CACHE_SIZE; i++) {
+		g_AnimHeaderAnimNums[i] = 0;
+		g_AnimHeaderBirths[i] = -2;
 	}
 }
 
 void animsReset(void)
 {
-	g_NumAnimations = var8009a894;
-	g_Anims = var8009a898;
+	g_NumAnimations = g_NumRomAnimations;
+	g_Anims = g_RomAnims;
 	g_AnimHostEnabled = false;
 }
 
@@ -140,9 +143,12 @@ u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 	return dmaExecWithAutoAlign(dst, (u32)&_animationsSegmentRomStart + segoffset, len);
 }
 
-s32 anim0002384c(s16 animnum, s32 frame)
+/**
+ * Get a remapped frame, or return -1 if the frame is removed.
+ */
+s32 animGetRemappedFrame(s16 animnum, s32 frame)
 {
-	u8 *ptr = (u8 *)(var8009a888[var8005f010[animnum]] + g_Anims[animnum].headerlen - 2);
+	u8 *ptr = (u8 *)(g_AnimHeaderBytes[g_AnimToHeaderSlot[animnum]] + g_Anims[animnum].headerlen - 2);
 	s32 result = frame;
 
 	while (true) {
@@ -169,31 +175,31 @@ s32 anim0002384c(s16 animnum, s32 frame)
 	return result;
 }
 
-bool anim00023908(s16 animnum, s32 frame, s32 *frameptr)
+bool animRemapFrame(s16 animnum, s32 frame, s32 *frameptr)
 {
-	u8 *ptr = (u8 *)(var8009a888[var8005f010[animnum]] + g_Anims[animnum].headerlen - 2);
+	u8 *ptr = (u8 *)(g_AnimHeaderBytes[g_AnimToHeaderSlot[animnum]] + g_Anims[animnum].headerlen - 2);
 	s32 result = frame;
 	bool ret = true;
 
 	while (true) {
 		s16 value1 = ptr[0] << 8 | ptr[1];
+		s16 value2;
 
-		if (value1 >= 0) {
-			s16 value2 = ptr[-2] << 8 | ptr[-1];
-			ptr -= 4;
+		if (value1 < 0) {
+			break;
+		}
 
-			if (value1 <= frame) {
-				if (value2 < frame) {
-					result = result - value2 + value1 - 1;
-					continue;
-				}
+		value2 = ptr[-2] << 8 | ptr[-1];
+		ptr -= 4;
 
+		if (value1 <= frame) {
+			if (value2 < frame) {
+				result = result - value2 + value1 - 1;
+			} else {
 				result = result - frame + value1;
 				ret = false;
 				break;
 			}
-		} else {
-			break;
 		}
 	}
 
@@ -202,11 +208,21 @@ bool anim00023908(s16 animnum, s32 frame, s32 *frameptr)
 	return ret;
 }
 
-bool anim000239e0(s16 animnum, s32 frame)
+/**
+ * Return true if the given animation and frame should be skipped.
+ *
+ * Used by cutscenes.
+ *
+ * The skip frame numbers are stored at the tail end of the header, prior to the
+ * frame remapping data. The frame numbers are stored as a list of shorts.
+ * The list is terminated on the left side with a negative value.
+ */
+bool animIsFrameCutSkipped(s16 animnum, s32 frame)
 {
-	u8 *ptr = (u8 *)(var8009a888[var8005f010[animnum]] + g_Anims[animnum].headerlen - 2);
+	u8 *ptr = (u8 *)(g_AnimHeaderBytes[g_AnimToHeaderSlot[animnum]] + g_Anims[animnum].headerlen - 2);
 
-	if (g_Anims[animnum].flags & ANIMFLAG_04) {
+	// Iterate past the ANIMFLAG_HASREMAPPEDFRAMES stuff
+	if (g_Anims[animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES) {
 		while (true) {
 			s16 value1 = ptr[0] << 8 | ptr[1];
 
@@ -237,97 +253,97 @@ bool anim000239e0(s16 animnum, s32 frame)
 	return false;
 }
 
-u8 anim00023ab0(s16 animnum, s32 framenum)
+u8 animLoadFrame(s16 animnum, s32 framenum)
 {
-	s32 index = -1;
+	s32 slot = -1;
 	s32 i;
 	s32 offset;
 	s32 stack;
-	s32 sp2c = framenum;
+	s32 loadframenum = framenum;
 
-	for (i = 0; i < 32; i++) {
-		if (var8009a878[i] == animnum && var8009a87c[i] == sp2c) {
-			index = i;
+	for (i = 0; i < ANIM_FRAME_CACHE_SIZE; i++) {
+		if (g_AnimFrameAnimNums[i] == animnum && g_AnimFrameFrameNums[i] == loadframenum) {
+			slot = i;
 			break;
 		}
 	}
 
-	if (index >= 0) {
-		var8009a880[index] = 1;
+	if (slot >= 0) {
+		g_AnimFrameBirths[slot] = 1;
 	} else {
-		index = var8005f000;
+		slot = g_NextAnimFrameIndex;
 
-		while (var8009a880[index]) {
-			index = (index + 1) % 32;
+		while (g_AnimFrameBirths[slot]) {
+			slot = (slot + 1) % ANIM_FRAME_CACHE_SIZE;
 		}
 
-		if (g_Anims[animnum].flags & ANIMFLAG_04) {
-			anim00023908(animnum, framenum, &sp2c);
+		if (g_Anims[animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES) {
+			animRemapFrame(animnum, framenum, &loadframenum);
 		}
 
 		if (g_Anims[animnum].bytesperframe) {
-			offset = g_Anims[animnum].bytesperframe * sp2c + (g_Anims[animnum].data + g_Anims[animnum].headerlen);
-			var8009a874[index] = animDma(&var8009a870[index * var8005f018], offset, g_Anims[animnum].bytesperframe);
+			offset = g_Anims[animnum].bytesperframe * loadframenum + (g_Anims[animnum].data + g_Anims[animnum].headerlen);
+			g_AnimFrameBytes[slot] = animDma(&g_AnimFrameByteSlots[slot * g_AnimMaxBytesPerFrame], offset, g_Anims[animnum].bytesperframe);
 		} else {
-			var8009a874[index] = &var8009a870[index * var8005f018];
+			g_AnimFrameBytes[slot] = &g_AnimFrameByteSlots[slot * g_AnimMaxBytesPerFrame];
 		}
 
-		var8009a878[index] = animnum;
-		var8009a87c[index] = framenum;
-		var8009a880[index] = 1;
-		var8005f000 = (index + 1) % 32;
+		g_AnimFrameAnimNums[slot] = animnum;
+		g_AnimFrameFrameNums[slot] = framenum;
+		g_AnimFrameBirths[slot] = 1;
+		g_NextAnimFrameIndex = (slot + 1) % ANIM_FRAME_CACHE_SIZE;
 	}
 
-	return index;
+	return slot;
 }
 
-void anim00023d0c(void)
+void animForgetFrameBirths(void)
 {
 	s32 i;
 
-	for (i = 0; i < 32; i++) {
-		var8009a880[i] = 0;
+	for (i = 0; i < ANIM_FRAME_CACHE_SIZE; i++) {
+		g_AnimFrameBirths[i] = 0;
 	}
 }
 
-void anim00023d38(s16 animnum)
+void animLoadHeader(s16 animnum)
 {
 	s32 i;
 
-	if (var8005f010[animnum] != 0xff) {
-		var8009a890[var8005f010[animnum]] = g_Vars.thisframestart240;
-		var8005f004 = (var8005f010[animnum] + 1) % 40;
+	if (g_AnimToHeaderSlot[animnum] != 0xff) {
+		g_AnimHeaderBirths[g_AnimToHeaderSlot[animnum]] = g_Vars.thisframestart240;
+		g_NextAnimHeaderIndex = (g_AnimToHeaderSlot[animnum] + 1) % ANIM_HEADER_CACHE_SIZE;
 	} else {
 		s32 tmp;
-		s32 bestindex = var8005f004;
+		s32 slot = g_NextAnimHeaderIndex;
 		s32 stack;
 
-		for (i = 0; i < 40; i++) {
-			if (var8009a890[i] < var8009a890[bestindex]) {
-				bestindex = i;
+		for (i = 0; i < ANIM_HEADER_CACHE_SIZE; i++) {
+			if (g_AnimHeaderBirths[i] < g_AnimHeaderBirths[slot]) {
+				slot = i;
 			}
 		}
 
-		if (var8009a890[bestindex]);
+		if (g_AnimHeaderBirths[slot]);
 		if (&g_Vars && &g_Vars);
 
-		if (var8009a88c[bestindex]) {
-			var8005f010[var8009a88c[bestindex]] = 0xff;
+		if (g_AnimHeaderAnimNums[slot]) {
+			g_AnimToHeaderSlot[g_AnimHeaderAnimNums[slot]] = 0xff;
 		}
 
 		tmp = g_Anims[animnum].headerlen;
 
-		var8009a888[bestindex] = animDma(&var8009a884[bestindex * var8005f01c], g_Anims[animnum].data, tmp);
-		var8005f010[animnum] = bestindex;
-		var8009a88c[bestindex] = animnum;
-		var8009a890[bestindex] = g_Vars.thisframestart240;
-		var8005f004 = (bestindex + 1) % 40;
+		g_AnimHeaderBytes[slot] = animDma(&g_AnimHeaderByteSlots[slot * g_AnimMaxHeaderLength], g_Anims[animnum].data, tmp);
+		g_AnimToHeaderSlot[animnum] = slot;
+		g_AnimHeaderAnimNums[slot] = animnum;
+		g_AnimHeaderBirths[slot] = g_Vars.thisframestart240;
+		g_NextAnimHeaderIndex = (slot + 1) % ANIM_HEADER_CACHE_SIZE;
 	}
 }
 
 #if MATCHING
 GLOBAL_ASM(
-glabel anim00023f50
+glabel animReadBits
 /*    23f50:	30cf0007 */ 	andi	$t7,$a2,0x7
 /*    23f54:	24180008 */ 	addiu	$t8,$zero,0x8
 /*    23f58:	030f4023 */ 	subu	$t0,$t8,$t7
@@ -370,93 +386,99 @@ glabel anim00023f50
 );
 #else
 // Mismatch: regalloc
-s32 anim00023f50(u8 *arg0, u8 arg1, u32 arg2)
+s32 animReadBits(u8 *ptr, u8 readbitlen, u32 bitoffset)
 {
 	u32 result = 0;
-	u8 numbits;
+	u8 numbitsthisbyte;
 	u32 tmp;
 
-	arg0 += arg2 / 8;
-	numbits = 8 - (arg2 % 8);
+	ptr += bitoffset / 8;
+	numbitsthisbyte = 8 - (bitoffset % 8);
 
-	while (arg1 >= numbits) {
-		arg1 -= numbits;
-		result |= (*arg0 & ((1 << numbits) - 1)) << arg1;
-		arg0++;
-		numbits = 8;
+	while (readbitlen >= numbitsthisbyte) {
+		readbitlen -= numbitsthisbyte;
+		result |= (*ptr & ((1 << numbitsthisbyte) - 1)) << readbitlen;
+		ptr++;
+		numbitsthisbyte = 8;
 	}
 
-	if (arg1 > 0) {
-		result |= (*arg0 >> (numbits - arg1)) & ((1 << arg1) - 1);
+	if (readbitlen > 0) {
+		result |= (*ptr >> (numbitsthisbyte - readbitlen)) & ((1 << readbitlen) - 1);
 	}
 
-	if (arg2 / 8);
+	if (bitoffset / 8);
 
 	return result;
 }
 #endif
 
-s32 anim00023fe0(u8 *arg0, u8 arg1, s32 arg2)
+s32 animReadSignedShort(u8 *ptr, u8 readbitlen, s32 bitoffset)
 {
-	u16 result = anim00023f50(arg0, arg1, arg2);
+	u16 result = animReadBits(ptr, readbitlen, bitoffset);
 
-	if (arg1 < 16 && (result & (1 << (arg1 - 1)))) {
-		result |= ((1 << (16 - arg1)) - 1) << arg1;
+	if (readbitlen < 16 && (result & (1 << (readbitlen - 1)))) {
+		result |= ((1 << (16 - readbitlen)) - 1) << readbitlen;
 	}
 
 	return result;
 }
 
-void anim00024050(s32 arg0, bool flip, struct skeleton *skel, s16 animnum, u8 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7)
+/**
+ * Read the rotation, position and scale values for the given part for the frame
+ * at the given frameslot.
+ *
+ * Both the anim header and frame data must be loaded already.
+ */
+void animGetRotTranslateScale(s32 part, bool flip, struct skeleton *skel, s16 animnum, u8 frameslot, struct coord *rot, struct coord *translate, struct coord *scale)
 {
 	s32 i;
-	u16 sp5c[3];
-	u8 sp5b;
-	u8 *sp54 = var8009a874[arg4];
-	u8 bitsperentry;
+	u16 introt[3];
+	u8 readbitlen;
+	u8 *framebytes = g_AnimFrameBytes[frameslot];
+	u8 framelen;
 	u8 *ptr;
 	u8 *end;
-	s32 sum;
+	s32 bitoffset;
 	u32 stack;
 
 	if (flip) {
-		arg0 = skel->things[arg0][1];
+		part = skel->things[part][1];
 	}
 
-	bitsperentry = g_Anims[animnum].initialposbitsperentry;
-	ptr = var8009a888[var8005f010[animnum]];
-	sum = 0;
+	framelen = g_Anims[animnum].framelen;
+	ptr = g_AnimHeaderBytes[g_AnimToHeaderSlot[animnum]];
+	bitoffset = 0;
 	end = ptr + g_Anims[animnum].headerlen;
 
-	for (i = 0; i < arg0 && ptr < end; i++) {
+	for (i = 0; i < part && ptr < end; i++) {
 		u8 flags = *ptr;
 		ptr++;
 
-		if (flags & 0x08) {
-			sum += ptr[2] + ptr[5] + ptr[8] + ptr[11];
+		if (flags & ANIMFIELD_08) {
+			bitoffset += ptr[2] + ptr[5] + ptr[8] + ptr[11];
 			ptr += 12;
-		} else if (flags & 0x02) {
-			sum += ptr[2] + ptr[5] + ptr[8];
+		} else if (flags & ANIMFIELD_S16_TRANSLATE) {
+			bitoffset += ptr[2] + ptr[5] + ptr[8];
 			ptr += 9;
-		} else if (flags & 0x20) {
-			sum += ptr[0] + ptr[5] + ptr[10];
+		} else if (flags & ANIMFIELD_S32_TRANSLATE) {
+			bitoffset += ptr[0] + ptr[5] + ptr[10];
 			ptr += 15;
 		}
 
-		if (flags & 0x01) {
-			sum += ptr[2] + ptr[5] + ptr[8];
+		if (flags & ANIMFIELD_S16_ROTATE) {
+			bitoffset += ptr[2] + ptr[5] + ptr[8];
 			ptr += 9;
-		} else if (flags & 0x10) {
-			sum += 96;
+		} else if (flags & ANIMFIELD_F32_ROTATE) {
+			bitoffset += 96;
 		}
 
-		if (flags & 0x40) {
-			sum += ptr[0];
+		if (flags & ANIMFIELD_CAMERA) {
+			bitoffset += ptr[0];
 			ptr += 5;
 		}
 
-		if (flags & 0x80) {
-			sum += 0x60;
+		if (flags & ANIMFIELD_F32_SCALE) {
+			bitoffset += 0x60;
 		}
 	}
 
@@ -464,211 +486,217 @@ void anim00024050(s32 arg0, bool flip, struct skeleton *skel, s16 animnum, u8 ar
 		u8 flags = *ptr;
 		ptr++;
 
-		if (flags & 0x02) {
-			sp5b = ptr[2];
-			arg6->x = (s16) (anim00023fe0(sp54, sp5b, sum) + (ptr[0] << 8) + ptr[1]);
-			sum += sp5b;
+		if (flags & ANIMFIELD_S16_TRANSLATE) {
+			readbitlen = ptr[2];
+			translate->x = (s16) (animReadSignedShort(framebytes, readbitlen, bitoffset) + (ptr[0] << 8) + ptr[1]);
+			bitoffset += readbitlen;
 
-			sp5b = ptr[5];
-			arg6->y = (s16) (anim00023fe0(sp54, sp5b, sum) + (ptr[3] << 8) + ptr[4]);
-			sum += sp5b;
+			readbitlen = ptr[5];
+			translate->y = (s16) (animReadSignedShort(framebytes, readbitlen, bitoffset) + (ptr[3] << 8) + ptr[4]);
+			bitoffset += readbitlen;
 
-			sp5b = ptr[8];
-			arg6->z = (s16) (anim00023fe0(sp54, sp5b, sum) + (ptr[6] << 8) + ptr[7]);
-			sum += sp5b;
+			readbitlen = ptr[8];
+			translate->z = (s16) (animReadSignedShort(framebytes, readbitlen, bitoffset) + (ptr[6] << 8) + ptr[7]);
+			bitoffset += readbitlen;
 
 			ptr += 9;
-		} else if (flags & 0x20) {
-			sp5b = ptr[0];
-			arg6->x = (anim00023f50(sp54, sp5b, sum) + ((ptr[1] << 24) + (ptr[2] << 16) + (ptr[3] << 8) + ptr[4])) * 0.001f;
-			sum += sp5b;
+		} else if (flags & ANIMFIELD_S32_TRANSLATE) {
+			readbitlen = ptr[0];
+			translate->x = (animReadBits(framebytes, readbitlen, bitoffset) + ((ptr[1] << 24) + (ptr[2] << 16) + (ptr[3] << 8) + ptr[4])) * 0.001f;
+			bitoffset += readbitlen;
 
-			sp5b = ptr[5];
-			arg6->y = (anim00023f50(sp54, sp5b, sum) + ((ptr[6] << 24) + (ptr[7] << 16) + (ptr[8] << 8) + ptr[9])) * 0.001f;
-			sum += sp5b;
+			readbitlen = ptr[5];
+			translate->y = (animReadBits(framebytes, readbitlen, bitoffset) + ((ptr[6] << 24) + (ptr[7] << 16) + (ptr[8] << 8) + ptr[9])) * 0.001f;
+			bitoffset += readbitlen;
 
-			sp5b = ptr[10];
-			arg6->z = (anim00023f50(sp54, sp5b, sum) + ((ptr[11] << 24) + (ptr[12] << 16) + (ptr[13] << 8) + ptr[14])) * 0.001f;
-			sum += sp5b;
+			readbitlen = ptr[10];
+			translate->z = (animReadBits(framebytes, readbitlen, bitoffset) + ((ptr[11] << 24) + (ptr[12] << 16) + (ptr[13] << 8) + ptr[14])) * 0.001f;
+			bitoffset += readbitlen;
 
 			ptr += 15;
 		} else {
-			if (flags & 0x08) {
-				sum += ptr[2] + ptr[5] + ptr[8] + ptr[11];
+			if (flags & ANIMFIELD_08) {
+				bitoffset += ptr[2] + ptr[5] + ptr[8] + ptr[11];
 				ptr += 12;
 			}
 
-			arg6->x = arg6->y = arg6->z = 0.0f;
+			translate->x = translate->y = translate->z = 0.0f;
 		}
 
-		if (flags & 0x01) {
-			sp5b = ptr[2];
-			sp5c[0] = anim00023f50(sp54, sp5b, sum);
-			sp5c[0] += (ptr[0] << 8) + ptr[1];
-			sp5c[0] <<= 16 - bitsperentry;
-			sum += sp5b;
+		if (flags & ANIMFIELD_S16_ROTATE) {
+			readbitlen = ptr[2];
+			introt[0] = animReadBits(framebytes, readbitlen, bitoffset);
+			introt[0] += (ptr[0] << 8) + ptr[1];
+			introt[0] <<= 16 - framelen;
+			bitoffset += readbitlen;
 
-			sp5b = ptr[5];
-			sp5c[1] = anim00023f50(sp54, sp5b, sum);
-			sp5c[1] += (ptr[3] << 8) + ptr[4];
-			sp5c[1] <<= 16 - bitsperentry;
-			sum += sp5b;
+			readbitlen = ptr[5];
+			introt[1] = animReadBits(framebytes, readbitlen, bitoffset);
+			introt[1] += (ptr[3] << 8) + ptr[4];
+			introt[1] <<= 16 - framelen;
+			bitoffset += readbitlen;
 
-			sp5b = ptr[8];
-			sp5c[2] = anim00023f50(sp54, sp5b, sum);
-			sp5c[2] += (ptr[6] << 8) + ptr[7];
-			sp5c[2] <<= 16 - bitsperentry;
-			sum += sp5b;
+			readbitlen = ptr[8];
+			introt[2] = animReadBits(framebytes, readbitlen, bitoffset);
+			introt[2] += (ptr[6] << 8) + ptr[7];
+			introt[2] <<= 16 - framelen;
+			bitoffset += readbitlen;
 
-			arg5->x = sp5c[0] * M_BADTAU / 65536.0f;
+			rot->x = introt[0] * M_BADTAU / 65536.0f;
 
 			if (flip) {
-				if (sp5c[1] != 0) {
-					arg5->y = (0x10000 - sp5c[1]) * M_BADTAU / 65536.0f;
+				if (introt[1] != 0) {
+					rot->y = (0x10000 - introt[1]) * M_BADTAU / 65536.0f;
 				} else {
-					arg5->y = 0.0f;
+					rot->y = 0.0f;
 				}
 
-				if (sp5c[2] != 0) {
-					arg5->z = (0x10000 - sp5c[2]) * M_BADTAU / 65536.0f;
+				if (introt[2] != 0) {
+					rot->z = (0x10000 - introt[2]) * M_BADTAU / 65536.0f;
 				} else {
-					arg5->z = 0.0f;
+					rot->z = 0.0f;
 				}
 			} else {
-				arg5->y = sp5c[1] * M_BADTAU / 65536.0f;
-				arg5->z = sp5c[2] * M_BADTAU / 65536.0f;
+				rot->y = introt[1] * M_BADTAU / 65536.0f;
+				rot->z = introt[2] * M_BADTAU / 65536.0f;
 			}
-		} else if (flags & 0x10) {
+		} else if (flags & ANIMFIELD_F32_ROTATE) {
 			s32 sp38;
 
-			sp38 = anim00023f50(sp54, 32, sum);
-			arg5->x = *(f32 *)&sp38;
-			sum += 32;
+			sp38 = animReadBits(framebytes, 32, bitoffset);
+			rot->x = *(f32 *)&sp38;
+			bitoffset += 32;
 
-			sp38 = anim00023f50(sp54, 32, sum);
-			arg5->y = *(f32 *)&sp38;
-			sum += 32;
+			sp38 = animReadBits(framebytes, 32, bitoffset);
+			rot->y = *(f32 *)&sp38;
+			bitoffset += 32;
 
-			sp38 = anim00023f50(sp54, 32, sum);
-			arg5->z = *(f32 *)&sp38;
-			sum += 32;
+			sp38 = animReadBits(framebytes, 32, bitoffset);
+			rot->z = *(f32 *)&sp38;
+			bitoffset += 32;
 
 			if (flip) {
-				if (arg5->y != 0.0f) {
-					arg5->y = M_BADTAU - arg5->y;
+				if (rot->y != 0.0f) {
+					rot->y = M_BADTAU - rot->y;
 				}
 
-				if (arg5->z != 0.0f) {
-					arg5->z = M_BADTAU - arg5->z;
+				if (rot->z != 0.0f) {
+					rot->z = M_BADTAU - rot->z;
 				}
 			}
 		} else {
-			arg5->x = arg5->y = arg5->z = 0.0f;
+			rot->x = rot->y = rot->z = 0.0f;
 		}
 
-		if (flags & 0x80) {
-			s32 sp34;
+		if (flags & ANIMFIELD_F32_SCALE) {
+			s32 word;
 
-			sp34 = anim00023f50(sp54, 32, sum);
-			arg7->x = *(f32 *)&sp34;
-			sum += 32;
+			word = animReadBits(framebytes, 32, bitoffset);
+			scale->x = *(f32 *)&word;
+			bitoffset += 32;
 
-			sp34 = anim00023f50(sp54, 32, sum);
-			arg7->y = *(f32 *)&sp34;
-			sum += 32;
+			word = animReadBits(framebytes, 32, bitoffset);
+			scale->y = *(f32 *)&word;
+			bitoffset += 32;
 
-			sp34 = anim00023f50(sp54, 32, sum);
-			arg7->z = *(f32 *)&sp34;
+			word = animReadBits(framebytes, 32, bitoffset);
+			scale->z = *(f32 *)&word;
 		} else {
-			arg7->x = arg7->y = arg7->z = 1.0f;
+			scale->x = scale->y = scale->z = 1.0f;
 		}
 
 		return;
 	}
 
-	arg5->x = arg5->y = arg5->z = 0.0f;
-	arg6->x = arg6->y = arg6->z = 0.0f;
-	arg7->x = arg7->y = arg7->z = 1.0f;
+	rot->x = rot->y = rot->z = 0.0f;
+	translate->x = translate->y = translate->z = 0.0f;
+	scale->x = scale->y = scale->z = 1.0f;
 }
 
-u16 anim0002485c(s32 arg0, bool arg1, struct skeleton *skel, s16 animnum, s32 loopframe, s16 *arg5, bool arg6)
+/**
+ * Read the position and Y rotation (?) values for the given part at the given
+ * frame number.
+ *
+ * No data needs to be loaded by the caller - the function will ensure the
+ * header and frame are loaded.
+ */
+u16 animGetPosAngleAsInt(s32 part, bool flip, struct skeleton *skel, s16 animnum, s32 framenum, s16 inttranslate[3], bool arg6)
 {
 	u16 result = 0;
-	s32 sum;
-	u8 sp2f;
-	u8 index;
-	u8 *sp28;
+	s32 bitoffset;
+	u8 readbitlen;
+	u8 slot;
+	u8 *framebytes;
 	u8 *ptr;
 	s32 i;
 
 	if (arg6) {
-		arg5[0] = 0;
-		arg5[1] = 0;
-		arg5[2] = var8005f014[animnum];
+		inttranslate[0] = 0;
+		inttranslate[1] = 0;
+		inttranslate[2] = var8005f014[animnum];
 	} else {
-		anim00023d38(animnum);
-		index = anim00023ab0(animnum, loopframe);
-		anim00023d0c();
+		animLoadHeader(animnum);
+		slot = animLoadFrame(animnum, framenum);
+		animForgetFrameBirths();
 
-		sp28 = var8009a874[index];
+		framebytes = g_AnimFrameBytes[slot];
 
-		if (arg1) {
-			arg0 = skel->things[arg0][1];
+		if (flip) {
+			part = skel->things[part][1];
 		}
 
-		// This is iterating the header information in the animation's data
-		sum = 0;
-		ptr = var8009a888[var8005f010[animnum]];
+		bitoffset = 0;
+		ptr = g_AnimHeaderBytes[g_AnimToHeaderSlot[animnum]];
 
-		for (i = 0; i < arg0; i++) {
+		for (i = 0; i < part; i++) {
 			u8 flags = *ptr;
 			ptr++;
 
-			if (flags & 0x08) {
-				sum += ptr[2] + ptr[5] + ptr[8] + ptr[11];
+			if (flags & ANIMFIELD_08) {
+				bitoffset += ptr[2] + ptr[5] + ptr[8] + ptr[11];
 				ptr += 12;
-			} else if (flags & 0x02) {
-				sum += ptr[2] + ptr[5] + ptr[8];
+			} else if (flags & ANIMFIELD_S16_TRANSLATE) {
+				bitoffset += ptr[2] + ptr[5] + ptr[8];
 				ptr += 9;
-			} else if (flags & 0x20) {
-				sum += ptr[0] + ptr[5] + ptr[10];
+			} else if (flags & ANIMFIELD_S32_TRANSLATE) {
+				bitoffset += ptr[0] + ptr[5] + ptr[10];
 				ptr += 15;
 			}
 
-			if (flags & 0x01) {
-				sum += ptr[2] + ptr[5] + ptr[8];
+			if (flags & ANIMFIELD_S16_ROTATE) {
+				bitoffset += ptr[2] + ptr[5] + ptr[8];
 				ptr += 9;
-			} else if (flags & 0x10) {
-				sum += 96;
+			} else if (flags & ANIMFIELD_F32_ROTATE) {
+				bitoffset += 96;
 			}
 
-			if (flags & 0x40) {
-				sum += *ptr;
+			if (flags & ANIMFIELD_CAMERA) {
+				bitoffset += *ptr;
 				ptr += 5;
 			}
 
-			if (flags & 0x80) {
-				sum += 96;
+			if (flags & ANIMFIELD_F32_SCALE) {
+				bitoffset += 96;
 			}
 		}
 
-		sp2f = ptr[3];
-		arg5[0] = anim00023fe0(sp28, sp2f, sum) + ptr[1] * 256 + ptr[2];
-		sum += sp2f;
+		readbitlen = ptr[3];
+		inttranslate[0] = animReadSignedShort(framebytes, readbitlen, bitoffset) + ptr[1] * 256 + ptr[2];
+		bitoffset += readbitlen;
 
-		sp2f = ptr[6];
-		arg5[1] = anim00023fe0(sp28, sp2f, sum) + ptr[4] * 256 + ptr[5];
-		sum += sp2f;
+		readbitlen = ptr[6];
+		inttranslate[1] = animReadSignedShort(framebytes, readbitlen, bitoffset) + ptr[4] * 256 + ptr[5];
+		bitoffset += readbitlen;
 
-		sp2f = ptr[9];
-		arg5[2] = anim00023fe0(sp28, sp2f, sum) + ptr[7] * 256 + ptr[8];
-		sum += sp2f;
+		readbitlen = ptr[9];
+		inttranslate[2] = animReadSignedShort(framebytes, readbitlen, bitoffset) + ptr[7] * 256 + ptr[8];
+		bitoffset += readbitlen;
 
-		sp2f = ptr[12];
-		result = anim00023fe0(sp28, sp2f, sum) + ptr[10] * 256 + ptr[11];
+		readbitlen = ptr[12];
+		result = animReadSignedShort(framebytes, readbitlen, bitoffset) + ptr[10] * 256 + ptr[11];
 
-		if (arg1) {
-			arg5[0] = -arg5[0];
+		if (flip) {
+			inttranslate[0] = -inttranslate[0];
 
 			if (result != 0) {
 				result = 0x10000 - result;
@@ -679,58 +707,67 @@ u16 anim0002485c(s32 arg0, bool arg1, struct skeleton *skel, s16 animnum, s32 lo
 	return result;
 }
 
-f32 anim00024b64(u32 arg0, u32 arg1, struct skeleton *arg2, s16 animnum, u32 arg4, struct coord *coord, u32 arg6)
+f32 animGetTranslateAngle(s32 part, bool flip, struct skeleton *skel, s16 animnum, s32 framenum, struct coord *translate, bool arg6)
 {
-	s16 sp30[3];
+	s16 inttranslate[3];
 
-	f32 value = anim0002485c(arg0, arg1, arg2, animnum, arg4, sp30, arg6);
+	f32 angle = animGetPosAngleAsInt(part, flip, skel, animnum, framenum, inttranslate, arg6);
 
-	coord->x = sp30[0];
-	coord->y = sp30[1];
-	coord->z = sp30[2];
+	translate->x = inttranslate[0];
+	translate->y = inttranslate[1];
+	translate->z = inttranslate[2];
 
-	return value * M_BADTAU / 65536.0f;
+	return angle * M_BADTAU / 65536.0f;
 }
 
-f32 anim00024c14(s32 arg0, s16 animnum, u8 arg2)
+/**
+ * Return a camera value (FOV Y or blur frac) for the current frame.
+ *
+ * The function assumes the current frame's data has been loaded.
+ * Its slot is provided by the frameslot argument.
+ *
+ * When part = 1, the returned value is the FOV Y.
+ * When part = 2, the returned value is the blur frac.
+ */
+f32 animGetCameraValue(s32 part, s16 animnum, u8 frameslot)
 {
 	u32 stack[2];
-	u8 *sp24 = var8009a874[arg2];
-	u8 *ptr = var8009a888[var8005f010[animnum]];
+	u8 *framebytes = g_AnimFrameBytes[frameslot];
+	u8 *ptr = g_AnimHeaderBytes[g_AnimToHeaderSlot[animnum]];
 	f32 result = 0;
-	s32 total = 0;
+	s32 bitoffset = 0;
 	s32 i;
 	u8 *end = ptr + g_Anims[animnum].headerlen;
 
-	for (i = 0; i < arg0 && ptr < end; i++) {
+	for (i = 0; i < part && ptr < end; i++) {
 		u8 flags = ptr[0];
 		ptr++;
 
-		if (flags & ANIMHEADERFLAG_08) {
-			total += ptr[2] + ptr[5] + ptr[8] + ptr[11];
+		if (flags & ANIMFIELD_08) {
+			bitoffset += ptr[2] + ptr[5] + ptr[8] + ptr[11];
 			ptr += 12;
-		} else if (flags & ANIMHEADERFLAG_02) {
-			total += ptr[2] + ptr[5] + ptr[8];
+		} else if (flags & ANIMFIELD_S16_TRANSLATE) {
+			bitoffset += ptr[2] + ptr[5] + ptr[8];
 			ptr += 9;
-		} else if (flags & ANIMHEADERFLAG_20) {
-			total += ptr[0] + ptr[5] + ptr[10];
+		} else if (flags & ANIMFIELD_S32_TRANSLATE) {
+			bitoffset += ptr[0] + ptr[5] + ptr[10];
 			ptr += 15;
 		}
 
-		if (flags & ANIMHEADERFLAG_01) {
-			total += ptr[2] + ptr[5] + ptr[8];
+		if (flags & ANIMFIELD_S16_ROTATE) {
+			bitoffset += ptr[2] + ptr[5] + ptr[8];
 			ptr += 9;
-		} else if (flags & ANIMHEADERFLAG_10) {
-			total += 0x60;
+		} else if (flags & ANIMFIELD_F32_ROTATE) {
+			bitoffset += 0x60;
 		}
 
-		if (flags & ANIMHEADERFLAG_40) {
-			total += ptr[0];
+		if (flags & ANIMFIELD_CAMERA) {
+			bitoffset += ptr[0];
 			ptr += 5;
 		}
 
-		if (flags & ANIMHEADERFLAG_80) {
-			total += 0x60;
+		if (flags & ANIMFIELD_F32_SCALE) {
+			bitoffset += 0x60;
 		}
 	}
 
@@ -738,9 +775,17 @@ f32 anim00024c14(s32 arg0, s16 animnum, u8 arg2)
 		u8 flags = ptr[0];
 		ptr++;
 
-		if (flags & ANIMHEADERFLAG_40) {
-			total = anim00023f50(sp24, ptr[0], total);
-			result = (total + ptr[1] * 0x1000000 + ptr[2] * 0x10000 + ptr[3] * 0x100 + ptr[4]) * 0.001f;
+		if (flags & ANIMFIELD_CAMERA) {
+			/**
+			 * In the header:
+			 * ptr[0] = number of bits to read in the frame data
+			 * ptr[1,2,3,4] = base value
+			 *
+			 * The value in the frame data is an adjustment value that is added
+			 * to the base value.
+			 */
+			s32 framevalue = animReadBits(framebytes, ptr[0], bitoffset);
+			result = (framevalue + ptr[1] * 0x1000000 + ptr[2] * 0x10000 + ptr[3] * 0x100 + ptr[4]) * 0.001f;
 		}
 	}
 

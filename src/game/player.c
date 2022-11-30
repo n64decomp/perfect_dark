@@ -107,8 +107,8 @@ s32 g_CutsceneFrameOverrun240;
 
 bool g_CutsceneSkipRequested;
 f32 g_CutsceneCurTotalFrame60f;
-s32 var8009de2c;
-f32 g_CutsceneBarFrac; // 0 when bars across the top and bottom, 1 when fullscreen
+s32 g_CutsceneTweenDuration60;
+f32 g_CutsceneTweenFrac; // 0 when bars across the top and bottom, 1 when fullscreen
 u32 var8009de34;
 s16 g_SpawnPoints[MAX_SPAWNPOINTS];
 s32 g_NumSpawnPoints;
@@ -1808,7 +1808,7 @@ void playerStartCutscene2(void)
 #endif
 
 	g_CutsceneBlurFrac = 0;
-	var8009de2c = -1;
+	g_CutsceneTweenDuration60 = -1;
 	g_InCutscene = 1;
 
 	paksStop(true);
@@ -1840,26 +1840,26 @@ void playerStartCutscene(s16 animnum)
 	}
 }
 
-void playerReorientForCutsceneStop(u32 arg0)
+void playerReorientForCutsceneStop(s32 tweenduration60)
 {
-	struct coord sp94;
-	struct coord sp88;
-	struct coord sp7c;
-	u8 sp7f;
-	Mtxf sp38;
+	struct coord rot;
+	struct coord translate;
+	struct coord scale;
+	u8 frameslot;
+	Mtxf rotmtx;
 	s32 lastframe;
 	f32 theta;
 	u32 stack;
 
-	var8009de2c = arg0;
+	g_CutsceneTweenDuration60 = tweenduration60;
 	lastframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
-	anim00023d38(g_CutsceneAnimNum);
-	sp7f = anim00023ab0(g_CutsceneAnimNum, lastframe);
-	anim00023d0c();
-	anim00024050(0, 0, &g_Skel20, g_CutsceneAnimNum, sp7f, &sp94, &sp88, &sp7c);
-	mtx4LoadRotation(&sp94, &sp38);
+	animLoadHeader(g_CutsceneAnimNum);
+	frameslot = animLoadFrame(g_CutsceneAnimNum, lastframe);
+	animForgetFrameBirths();
+	animGetRotTranslateScale(0, 0, &g_Skel20, g_CutsceneAnimNum, frameslot, &rot, &translate, &scale);
+	mtx4LoadRotation(&rot, &rotmtx);
 
-	theta = atan2f(-sp38.m[2][0], -sp38.m[2][2]);
+	theta = atan2f(-rotmtx.m[2][0], -rotmtx.m[2][2]);
 	theta = (M_BADTAU - theta) * 57.304901123047f;
 	g_Vars.bond->vv_theta = theta;
 
@@ -1871,12 +1871,12 @@ void playerTickCutscene(bool arg0)
 	struct coord pos;
 	struct coord up;
 	struct coord look;
-	struct coord sp178;
-	struct coord sp16c;
-	struct coord sp160;
-	u8 sp15f;
-	Mtxf sp11c;
-	f32 sp118 = func0f15c888();
+	struct coord rot;
+	struct coord translate;
+	struct coord scale;
+	u8 frameslot;
+	Mtxf rotmtx;
+	f32 translatescale = func0f15c888();
 	f32 fovy;
 	s32 endframe;
 	s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
@@ -1884,7 +1884,7 @@ void playerTickCutscene(bool arg0)
 #if PAL
 	u8 stack3[0x2c];
 #endif
-	f32 barfrac;
+	f32 tweenfrac;
 	f32 sp104;
 	Mtxf spc4;
 	Mtxf sp84;
@@ -1898,7 +1898,7 @@ void playerTickCutscene(bool arg0)
 		buttons = 0;
 	}
 
-	anim00023d38(g_CutsceneAnimNum);
+	animLoadHeader(g_CutsceneAnimNum);
 
 	endframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
 
@@ -1914,8 +1914,9 @@ void playerTickCutscene(bool arg0)
 			g_CutsceneCurAnimFrame60 = g_CutsceneCurAnimFrame240 >> 2;
 #endif
 
-			if (g_Anims[g_CutsceneAnimNum].flags & ANIMFLAG_08) {
-				while (g_CutsceneCurAnimFrame60 < endframe && anim000239e0(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60)) {
+			if (g_Anims[g_CutsceneAnimNum].flags & ANIMFLAG_HASCUTSKIPFRAMES) {
+				while (g_CutsceneCurAnimFrame60 < endframe
+						&& animIsFrameCutSkipped(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60)) {
 #if PAL
 					g_CutsceneCurAnimFrame240 += 1.2f;
 					g_CutsceneCurAnimFrame60 = floorf(g_CutsceneCurAnimFrame240 + 0.01f);
@@ -1943,33 +1944,35 @@ void playerTickCutscene(bool arg0)
 	}
 
 	g_Vars.in_cutscene = (g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneCurAnimFrame60 < endframe);
-	sp15f = anim00023ab0(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60);
-	anim00023d0c();
-	anim00024050(0, 0, &g_Skel20, g_CutsceneAnimNum, sp15f, &sp178, &sp16c, &sp160);
+	frameslot = animLoadFrame(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60);
+	animForgetFrameBirths();
+	animGetRotTranslateScale(0, 0, &g_Skel20, g_CutsceneAnimNum, frameslot, &rot, &translate, &scale);
 
-	pos.x = sp16c.x * sp118;
-	pos.y = sp16c.y * sp118;
-	pos.z = sp16c.z * sp118;
+	pos.x = translate.x * translatescale;
+	pos.y = translate.y * translatescale;
+	pos.z = translate.z * translatescale;
 
-	mtx4LoadRotation(&sp178, &sp11c);
+	mtx4LoadRotation(&rot, &rotmtx);
 
-	up.x = sp11c.m[1][0];
-	up.y = sp11c.m[1][1];
-	up.z = sp11c.m[1][2];
+	up.x = rotmtx.m[1][0];
+	up.y = rotmtx.m[1][1];
+	up.z = rotmtx.m[1][2];
 
-	look.x = -sp11c.m[2][0];
-	look.y = -sp11c.m[2][1];
-	look.z = -sp11c.m[2][2];
+	look.x = -rotmtx.m[2][0];
+	look.y = -rotmtx.m[2][1];
+	look.z = -rotmtx.m[2][2];
 
-	fovy = anim00024c14(1, g_CutsceneAnimNum, sp15f);
-	g_CutsceneBlurFrac = anim00024c14(2, g_CutsceneAnimNum, sp15f);
-	g_CutsceneBarFrac = 0;
+	fovy = animGetCameraValue(1, g_CutsceneAnimNum, frameslot);
+	g_CutsceneBlurFrac = animGetCameraValue(2, g_CutsceneAnimNum, frameslot);
+	g_CutsceneTweenFrac = 0;
 
-	if (var8009de2c > 0 && var8009de2c >= endframe - g_CutsceneCurAnimFrame60) {
-		barfrac = 1 - (f32)(endframe - g_CutsceneCurAnimFrame60) / (f32)var8009de2c;
+	if (g_CutsceneTweenDuration60 > 0 && endframe - g_CutsceneCurAnimFrame60 <= g_CutsceneTweenDuration60) {
+		// Cutscene is almost done
+		// Camera is tweening to head and top/bottom bars are shrinking
+		tweenfrac = 1 - (f32)(endframe - g_CutsceneCurAnimFrame60) / (f32)g_CutsceneTweenDuration60;
 
-		g_CutsceneBarFrac = barfrac;
-		sp104 = 1 - cosf(1.5705462694168f * barfrac);
+		g_CutsceneTweenFrac = tweenfrac;
+		sp104 = 1 - cosf(1.5705462694168f * tweenfrac);
 
 		bmoveSetMode(MOVEMODE_WALK);
 
@@ -1985,18 +1988,18 @@ void playerTickCutscene(bool arg0)
 		quaternion0f097044(&sp84, sp64);
 		quaternion0f0976c0(sp64, sp74);
 		quaternionSlerp(sp74, sp64, sp104, sp54);
-		quaternionToMtx(sp54, &sp11c);
+		quaternionToMtx(sp54, &rotmtx);
 
-		up.x = sp11c.m[1][0];
-		up.y = sp11c.m[1][1];
-		up.z = sp11c.m[1][2];
+		up.x = rotmtx.m[1][0];
+		up.y = rotmtx.m[1][1];
+		up.z = rotmtx.m[1][2];
 
-		look.x = sp11c.m[2][0];
-		look.y = sp11c.m[2][1];
-		look.z = sp11c.m[2][2];
+		look.x = rotmtx.m[2][0];
+		look.y = rotmtx.m[2][1];
+		look.z = rotmtx.m[2][2];
 
-		g_CutsceneBlurFrac += barfrac * (0 - g_CutsceneBlurFrac);
-		fovy += barfrac * (60 - fovy);
+		g_CutsceneBlurFrac += tweenfrac * (0 - g_CutsceneBlurFrac);
+		fovy += tweenfrac * (60 - fovy);
 	}
 
 	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
@@ -2900,11 +2903,11 @@ s16 playerGetViewportHeight(void)
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
 			height = g_ViModes[g_ViRes].cinemaheight;
 		} else if (g_InCutscene && !var8009dfc0) {
-			if (var8009de2c >= 1) {
+			if (g_CutsceneTweenDuration60 >= 1) {
 				f32 a = g_ViModes[g_ViRes].wideheight;
 				f32 b = g_ViModes[g_ViRes].fullheight;
-				a = a * (1.0f - g_CutsceneBarFrac);
-				b = b * g_CutsceneBarFrac;
+				a = a * (1.0f - g_CutsceneTweenFrac);
+				b = b * g_CutsceneTweenFrac;
 				height = a + b;
 			} else {
 				height = g_ViModes[g_ViRes].wideheight;
@@ -2951,11 +2954,11 @@ s16 playerGetViewportTop(void)
 	} else {
 		if (optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE) {
 			if (g_InCutscene && optionsGetCutsceneSubtitles() && g_Vars.stagenum != STAGE_CITRAINING) {
-				if (var8009de2c >= 1) {
+				if (g_CutsceneTweenDuration60 >= 1) {
 					f32 a = g_ViModes[g_ViRes].fulltop;
 					f32 b = g_ViModes[g_ViRes].widetop;
-					a = a * (1.0f - g_CutsceneBarFrac);
-					b = b * g_CutsceneBarFrac;
+					a = a * (1.0f - g_CutsceneTweenFrac);
+					b = b * g_CutsceneTweenFrac;
 					top = a + b;
 				} else {
 					top = g_ViModes[g_ViRes].fulltop;
@@ -2968,11 +2971,11 @@ s16 playerGetViewportTop(void)
 		} else {
 			if (g_InCutscene && !var8009dfc0
 					&& (!optionsGetCutsceneSubtitles() || g_Vars.stagenum == STAGE_CITRAINING)) {
-				if (var8009de2c >= 1) {
+				if (g_CutsceneTweenDuration60 >= 1) {
 					f32 a = g_ViModes[g_ViRes].widetop;
 					f32 b = g_ViModes[g_ViRes].fulltop;
-					a = a * (1.0f - g_CutsceneBarFrac);
-					b = b * g_CutsceneBarFrac;
+					a = a * (1.0f - g_CutsceneTweenFrac);
+					b = b * g_CutsceneTweenFrac;
 					top = a + b;
 				} else {
 					top = g_ViModes[g_ViRes].widetop;

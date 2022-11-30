@@ -2356,8 +2356,8 @@ s32 chrTick(struct prop *prop)
 	s32 sp1e8;
 	Mtxf sp1a8;
 	s32 sp1a4;
-	bool offscreen;
-	bool offscreen2;
+	bool invalidframe;
+	bool invalidframe2;
 	struct coord sp190;
 	f32 angle;
 	struct player *player;
@@ -2471,7 +2471,7 @@ s32 chrTick(struct prop *prop)
 				&& player->cameramode == CAMERAMODE_THIRDPERSON
 				&& player->visionmode != VISIONMODE_SLAYERROCKET)) {
 		// Cutscene chr?
-		offscreen = false;
+		invalidframe = false;
 
 		if (fulltick) {
 			model->anim->average = false;
@@ -2483,15 +2483,15 @@ s32 chrTick(struct prop *prop)
 			}
 		}
 
-		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_04)) {
-			anim00023d38(chr->model->anim->animnum);
+		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES)) {
+			animLoadHeader(chr->model->anim->animnum);
 
-			offscreen = anim0002384c(chr->model->anim->animnum, chr->model->anim->framea) < 0
-				|| (anim0002384c(chr->model->anim->animnum, chr->model->anim->frameb) < 0
+			invalidframe = animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->framea) < 0
+				|| (animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->frameb) < 0
 						&& chr->model->anim->frac != 0.0f);
 		}
 
-		if (offscreen) {
+		if (invalidframe) {
 			onscreen = false;
 		} else {
 			onscreen = posIsInDrawDistance(&prop->pos);
@@ -2577,21 +2577,22 @@ s32 chrTick(struct prop *prop)
 		chr0f0220ec(chr, lvupdate240, true);
 		onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 	} else {
-		offscreen2 = false;
+		invalidframe2 = false;
 
 		if (fulltick) {
 			model->anim->average = false;
 			chr0f0220ec(chr, lvupdate240, true);
 		}
 
-		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_04)) {
-			anim00023d38(chr->model->anim->animnum);
+		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES)) {
+			animLoadHeader(chr->model->anim->animnum);
 
-			offscreen2 = anim0002384c(chr->model->anim->animnum, chr->model->anim->framea) < 0
-				|| (anim0002384c(chr->model->anim->animnum, chr->model->anim->frameb) < 0 && chr->model->anim->frac != 0.0f);
+			invalidframe2 = animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->framea) < 0
+				|| (animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->frameb) < 0
+						&& chr->model->anim->frac != 0.0f);
 		}
 
-		if (offscreen2) {
+		if (invalidframe2) {
 			onscreen = false;
 		} else {
 			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);

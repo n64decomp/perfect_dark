@@ -10965,7 +10965,7 @@ s32 objTickPlayer(struct prop *prop)
 	bool sp564 = true;
 	bool embedded = false;
 	bool sp556 = false;
-	bool sp552 = false;
+	bool invalidframe = false;
 
 	if (obj->hidden & OBJHFLAG_ISRETICK) {
 		obj->hidden &= ~OBJHFLAG_ISRETICK;
@@ -11015,7 +11015,7 @@ s32 objTickPlayer(struct prop *prop)
 	}
 
 	if (model->anim) {
-		if (g_Anims[model->anim->animnum].flags & 0x02) {
+		if (g_Anims[model->anim->animnum].flags & ANIMFLAG_02) {
 			if (g_Vars.tickmode != TICKMODE_CUTSCENE
 					&& modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 				modelmgrFreeAnim(model->anim);
@@ -11038,11 +11038,11 @@ s32 objTickPlayer(struct prop *prop)
 					modelTickAnimQuarterSpeed(model, lvupdate240, true);
 				}
 
-				anim00023d38(model->anim->animnum);
+				animLoadHeader(model->anim->animnum);
 
-				if ((g_Anims[model->anim->animnum].flags & 0x04)
-						&& anim0002384c(model->anim->animnum, model->anim->framea) < 0) {
-					sp552 = true;
+				if ((g_Anims[model->anim->animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES)
+						&& animGetRemappedFrame(model->anim->animnum, model->anim->framea) < 0) {
+					invalidframe = true;
 				} else {
 					if (fulltick) {
 						modelUpdateInfo(model);
@@ -11117,7 +11117,7 @@ s32 objTickPlayer(struct prop *prop)
 			s32 sp148;
 			s32 sp144;
 			s32 i;
-			struct coord sp128;
+			struct coord translate;
 			struct coord sp116 = {0, 0, 0};
 			f32 sp112;
 			s32 tagnum;
@@ -11132,11 +11132,11 @@ s32 objTickPlayer(struct prop *prop)
 				sp144 = floorf(model->anim->frame);
 
 				for (i = sp148; i <= sp144; i++) {
-					anim00024b64(0, 0, model->definition->skel, model->anim->animnum, i, &sp128, 0);
+					animGetTranslateAngle(0, false, model->definition->skel, model->anim->animnum, i, &translate, false);
 
-					sp116.x += sp128.x * 0.1f;
-					sp112 = sp128.y * 0.1f;
-					sp116.z += sp128.z * 0.1f;
+					sp116.x += translate.x * 0.1f;
+					sp112 = translate.y * 0.1f;
+					sp116.z += translate.z * 0.1f;
 				}
 
 				mtx00016208(obj->realrot, &sp116);
@@ -11261,7 +11261,7 @@ s32 objTickPlayer(struct prop *prop)
 		doorUpdatePortalIfWindowed(prop, playercount);
 	}
 
-	if (sp552) {
+	if (invalidframe) {
 		pass2 = false;
 	} else if (prop == bmoveGetHoverbike() || prop == bmoveGetGrabbedProp()) {
 		pass2 = posIsInDrawDistance(&prop->pos);

@@ -326,7 +326,7 @@ union filedataptr {
 
 struct attackanimconfig {
 	/*0x00*/ s16 animnum;
-	/*0x04*/ f32 unk04;
+	/*0x04*/ f32 unk04; // frame number
 	/*0x08*/ f32 unk08;
 	/*0x0c*/ f32 unk0c;
 	/*0x10*/ f32 unk10; // frame number
@@ -350,10 +350,10 @@ struct model;
 struct anim {
 	/*0x00*/ s16 animnum;
 	/*0x02*/ s16 animnum2;
-	/*0x04*/ u8 unk04;
-	/*0x05*/ u8 unk05;
-	/*0x06*/ u8 unk06;
-	/*0x07*/ u8 unk07;
+	/*0x04*/ u8 frameslot1;
+	/*0x05*/ u8 frameslot2;
+	/*0x06*/ u8 frameslot3;
+	/*0x07*/ u8 frameslot4;
 	/*0x08*/ s8 flip;
 	/*0x09*/ s8 flip2;
 	/*0x0a*/ s8 looping;
@@ -401,7 +401,7 @@ struct skeleton {
 };
 
 struct modelrodata_chrinfo { // type 0x01
-	u16 unk00;
+	u16 animpart;
 	s16 mtxindex;
 	f32 unk04;
 	u16 rwdataindex;
@@ -5286,12 +5286,12 @@ struct modelthing {
 	/*0x16*/ u16 unk16;
 };
 
-struct animsummary {
+struct animtableentry {
 	/*0x00*/ u16 numframes;
 	/*0x02*/ u16 bytesperframe; // in bytes
 	/*0x04*/ u32 data;
 	/*0x08*/ u16 headerlen;
-	/*0x0a*/ u8 initialposbitsperentry;
+	/*0x0a*/ u8 framelen;
 	/*0x0b*/ u8 flags;
 };
 

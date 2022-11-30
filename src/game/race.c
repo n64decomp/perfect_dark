@@ -7,31 +7,31 @@
 #include "data.h"
 #include "types.h"
 
-u16 raceInitAnim(s16 animnum, s32 frame, s32 endframe)
+u16 raceGetAnimSumAngleAsInt(s16 animnum, s32 frame, s32 endframe)
 {
-	s16 sp48[4];
-	u16 count = 0;
+	s16 inttranslate[3];
+	u16 sumangle = 0;
 
 	while (frame < endframe) {
-		count += anim0002485c(0, false, &g_SkelChr, animnum, frame, sp48, false);
+		sumangle += animGetPosAngleAsInt(0, false, &g_SkelChr, animnum, frame, inttranslate, false);
 		frame++;
 	}
 
-	return count;
+	return sumangle;
 }
 
-s32 race0f000358(s16 animnum, s32 frame, s32 endframe)
+s32 raceGetAnimSumForwardAsInt(s16 animnum, s32 frame, s32 endframe)
 {
-	s32 count = 0;
-	s16 sp44[4];
+	s32 sumforward = 0;
+	s16 inttranslate[3];
 
 	while (frame < endframe) {
-		anim0002485c(0, false, &g_SkelChr, animnum, frame, sp44, false);
-		count += sp44[2];
+		animGetPosAngleAsInt(0, false, &g_SkelChr, animnum, frame, inttranslate, false);
+		sumforward += inttranslate[2];
 		frame++;
 	}
 
-	return count;
+	return sumforward;
 }
 
 s32 raceInitAnimGroup(struct attackanimconfig *configs)
@@ -40,13 +40,13 @@ s32 raceInitAnimGroup(struct attackanimconfig *configs)
 	struct attackanimconfig *config = configs;
 
 	while (config->animnum != 0) {
-		u16 value = raceInitAnim(config->animnum, 0, floor(config->unk04));
+		u16 angle = raceGetAnimSumAngleAsInt(config->animnum, 0, floor(config->unk04));
 
 		if (config->unk04 > 0) {
-			if (value < 0x8000) {
-				config->unk08 = value * 0.00009585853695171f / config->unk04;
+			if (angle < 0x8000) {
+				config->unk08 = angle * 0.00009585853695171f / config->unk04;
 			} else {
-				config->unk08 = (value * 0.00009585853695171f - M_BADTAU) / config->unk04;
+				config->unk08 = (angle * 0.00009585853695171f - M_BADTAU) / config->unk04;
 			}
 		} else {
 			config->unk08 = 0;
@@ -81,11 +81,11 @@ s32 raceCountAnims(struct animtablerow *rows)
 
 f32 race0f0005c0(s16 animnum)
 {
-	f32 tmp = race0f000358(animnum, 0, animGetNumFrames(animnum) - 1) / (f32) animGetNumFrames(animnum);
+	f32 avgforward = raceGetAnimSumForwardAsInt(animnum, 0, animGetNumFrames(animnum) - 1) / (f32) animGetNumFrames(animnum);
 
-	var8005f014[animnum] = tmp;
+	var8005f014[animnum] = avgforward;
 
-	return tmp * 0.1000000089407f;
+	return avgforward * 0.1000000089407f;
 }
 
 void raceInitAnims(void)

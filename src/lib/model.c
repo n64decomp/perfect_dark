@@ -734,27 +734,27 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 	Mtxf *sp24c;
 	u32 stack1;
 	Mtxf *mtx = &model->matrices[rodata->chrinfo.mtxindex];
-	s32 sp240 = rodata->chrinfo.unk00;
+	s32 animpart = rodata->chrinfo.animpart;
 	struct skeleton *skel = model->definition->skel;
-	struct coord sp230;
-	struct coord sp224;
-	struct coord sp218;
+	struct coord rot1;
+	struct coord translate1;
+	struct coord scale1;
 	Mtxf sp1d8;
 	Mtxf sp198;
 	Mtxf sp158;
 	f32 sp154;
-	struct coord sp148;
-	struct coord sp13c;
-	struct coord sp130;
-	struct coord sp124;
-	struct coord sp118;
-	struct coord sp10c;
+	struct coord rot2;
+	struct coord translate2;
+	struct coord scale2;
+	struct coord rot3;
+	struct coord translate3;
+	struct coord scale3;
 	f32 spfc[4];
 	f32 spec[4];
 	f32 spdc[4];
-	struct coord spd0;
-	struct coord spc4;
-	struct coord spb8;
+	struct coord rot4;
+	struct coord translate4;
+	struct coord scale4;
 	Mtxf sp78;
 	Mtxf sp38;
 
@@ -766,7 +766,7 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 		sp24c = arg0->unk00;
 	}
 
-	anim00024050(sp240, anim->flip, skel, anim->animnum, anim->unk04, &sp230, &sp224, &sp218);
+	animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
 
 	if (g_Vars.in_cutscene && anim->speed > 0) {
 #if VERSION >= VERSION_PAL_BETA
@@ -779,33 +779,33 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 	}
 
 	if (sp154 != 0.0f) {
-		anim00024050(sp240, anim->flip, skel, anim->animnum, anim->unk05, &sp148, &sp13c, &sp130);
-		modelTweenRot(&sp230, &sp148, sp154);
+		animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot2, &rot2, &translate2, &scale2);
+		modelTweenRot(&rot1, &rot2, sp154);
 	}
 
 	if (anim->fracmerge != 0.0f) {
-		anim00024050(sp240, anim->flip2, skel, anim->animnum2, anim->unk06, &sp124, &sp118, &sp10c);
+		animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot3, &rot3, &translate3, &scale3);
 
 		if (anim->frac2 != 0.0f) {
-			anim00024050(sp240, anim->flip2, skel, anim->animnum2, anim->unk07, &spd0, &spc4, &spb8);
-			modelTweenRot(&sp124, &spd0, anim->frac2);
+			animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot4, &rot4, &translate4, &scale4);
+			modelTweenRot(&rot3, &rot4, anim->frac2);
 		}
 
 		if ((g_Anims[anim->animnum].flags & ANIMFLAG_02) && (g_Anims[anim->animnum2].flags & ANIMFLAG_02) == 0) {
 			mtx4LoadYRotation(rwdata->chrinfo.yrot, &sp78);
-			mtx4LoadRotation(&sp124, &sp38);
+			mtx4LoadRotation(&rot3, &sp38);
 			mtx00015be0(&sp78, &sp38);
 			quaternion0f097044(&sp38, spec);
 		} else {
-			quaternion0f096ca0(&sp124, spec);
+			quaternion0f096ca0(&rot3, spec);
 		}
 
-		quaternion0f096ca0(&sp230, spfc);
+		quaternion0f096ca0(&rot1, spfc);
 		quaternion0f0976c0(spfc, spec);
 		quaternionSlerp(spfc, spec, anim->fracmerge, spdc);
 		quaternionToMtx(spdc, &sp1d8);
 	} else {
-		mtx4LoadRotation(&sp230, &sp1d8);
+		mtx4LoadRotation(&rot1, &sp1d8);
 	}
 
 	if (g_Anims[anim->animnum].flags & ANIMFLAG_02) {
@@ -1053,38 +1053,38 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 {
 	struct anim *anim;
 	struct modelrodata_position *rodata = &node->rodata->position;
-	s32 partnum;
+	s32 animpart;
 	struct skeleton *skel;
-	struct coord sp144;
-	struct coord sp138;
-	struct coord sp12c;
+	struct coord rot1;
+	struct coord translate1;
+	struct coord scale1;
 	bool sp128;
 	Mtxf spe8;
 	Mtxf *mtx;
 	f32 spe0;
-	struct coord spd4;
-	struct coord spc8;
-	struct coord spbc;
-	struct coord spb0;
-	struct coord spa4;
-	struct coord sp98;
+	struct coord rot2;
+	struct coord translate2;
+	struct coord scale2;
+	struct coord rot3;
+	struct coord translate3;
+	struct coord scale3;
 	f32 sp88[4];
 	f32 sp78[4];
 	f32 sp68[4];
-	struct coord sp5c;
-	struct coord sp50;
-	struct coord sp44;
+	struct coord rot4;
+	struct coord translate4;
+	struct coord scale4;
 
 	anim = model->anim;
 
 	if (anim != NULL) {
-		partnum = rodata->part;
+		animpart = rodata->part;
 		skel = model->definition->skel;
 
 		if (anim->animnum != 0) {
 			sp128 = (g_Anims[anim->animnum].flags & ANIMFLAG_02) && node == model->definition->rootnode;
 
-			anim00024050(partnum, anim->flip, skel, anim->animnum, anim->unk04, &sp144, &sp138, &sp12c);
+			animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
 
 			if (g_Vars.in_cutscene && anim->speed > 0.0f) {
 #if VERSION >= VERSION_PAL_BETA
@@ -1097,8 +1097,8 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 			}
 
 			if (spe0 != 0.0f) {
-				anim00024050(partnum, anim->flip, skel, anim->animnum, anim->unk05, &spd4, &spc8, &spbc);
-				modelTweenRot(&sp144, &spd4, spe0);
+				animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot2, &rot2, &translate2, &scale2);
+				modelTweenRot(&rot1, &rot2, spe0);
 
 #if VERSION >= VERSION_PAL_BETA
 				if (sp128 || var8005efd8_2)
@@ -1106,71 +1106,71 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 				if (sp128)
 #endif
 				{
-					modelTweenPos(&sp138, &spc8, spe0);
+					modelTweenPos(&translate1, &translate2, spe0);
 				}
 			}
 		} else {
-			sp138.f[0] = sp138.f[1] = sp138.f[2] = 0.0f;
-			sp144.f[0] = sp144.f[1] = sp144.f[2] = 0.0f;
-			sp12c.f[0] = sp12c.f[1] = sp12c.f[2] = 1.0f;
+			translate1.f[0] = translate1.f[1] = translate1.f[2] = 0.0f;
+			rot1.f[0] = rot1.f[1] = rot1.f[2] = 0.0f;
+			scale1.f[0] = scale1.f[1] = scale1.f[2] = 1.0f;
 
 			sp128 = false;
 		}
 
 		if (anim->fracmerge != 0.0f) {
-			anim00024050(partnum, anim->flip2, skel, anim->animnum2, anim->unk06, &spb0, &spa4, &sp98);
+			animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot3, &rot3, &translate3, &scale3);
 
 			if (anim->frac2 != 0.0f) {
-				anim00024050(partnum, anim->flip2, skel, anim->animnum2, anim->unk07, &sp5c, &sp50, &sp44);
-				modelTweenRot(&spb0, &sp5c, anim->frac2);
+				animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot4, &rot4, &translate4, &scale4);
+				modelTweenRot(&rot3, &rot4, anim->frac2);
 			}
 
-			quaternion0f096ca0(&sp144, sp88);
-			quaternion0f096ca0(&spb0, sp78);
+			quaternion0f096ca0(&rot1, sp88);
+			quaternion0f096ca0(&rot3, sp78);
 			quaternion0f0976c0(sp88, sp78);
 			quaternionSlerp(sp88, sp78, anim->fracmerge, sp68);
 
-			if (sp138.f[0] != 0.0f || sp138.f[1] != 0.0f || sp138.f[2] != 0.0f) {
-				sp138.x *= anim->animscale;
-				sp138.y *= anim->animscale;
-				sp138.z *= anim->animscale;
+			if (translate1.f[0] != 0.0f || translate1.f[1] != 0.0f || translate1.f[2] != 0.0f) {
+				translate1.x *= anim->animscale;
+				translate1.y *= anim->animscale;
+				translate1.z *= anim->animscale;
 
 				if (node != model->definition->rootnode) {
-					sp138.x += rodata->pos.x;
-					sp138.y += rodata->pos.y;
-					sp138.z += rodata->pos.z;
+					translate1.x += rodata->pos.x;
+					translate1.y += rodata->pos.y;
+					translate1.z += rodata->pos.z;
 				}
 
-				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &sp138, &sp12c);
+				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &translate1, &scale1);
 			} else if (node != model->definition->rootnode) {
-				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &rodata->pos, &sp12c);
+				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &rodata->pos, &scale1);
 			} else {
-				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &sp138, &sp12c);
+				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &translate1, &scale1);
 			}
 		} else if (sp128) {
 			f32 mult = func0f15c888();
 
-			sp138.x *= mult;
-			sp138.y *= mult;
-			sp138.z *= mult;
+			translate1.x *= mult;
+			translate1.y *= mult;
+			translate1.z *= mult;
 
-			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &sp138, true, &sp12c);
-		} else if (sp138.f[0] != 0.0f || sp138.f[1] != 0.0f || sp138.f[2] != 0.0f) {
-			sp138.x *= anim->animscale;
-			sp138.y *= anim->animscale;
-			sp138.z *= anim->animscale;
+			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &translate1, true, &scale1);
+		} else if (translate1.f[0] != 0.0f || translate1.f[1] != 0.0f || translate1.f[2] != 0.0f) {
+			translate1.x *= anim->animscale;
+			translate1.y *= anim->animscale;
+			translate1.z *= anim->animscale;
 
 			if (node != model->definition->rootnode) {
-				sp138.x += rodata->pos.x;
-				sp138.y += rodata->pos.y;
-				sp138.z += rodata->pos.z;
+				translate1.x += rodata->pos.x;
+				translate1.y += rodata->pos.y;
+				translate1.z += rodata->pos.z;
 			}
 
-			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &sp138, false, &sp12c);
+			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &translate1, false, &scale1);
 		} else if (node != model->definition->rootnode) {
-			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &rodata->pos, false, &sp12c);
+			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &rodata->pos, false, &scale1);
 		} else {
-			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &sp138, false, &sp12c);
+			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &translate1, false, &scale1);
 		}
 	} else {
 		if (node->parent) {
@@ -1588,23 +1588,23 @@ void modelSetMatricesWithAnim(struct modelrenderdata *renderdata, struct model *
 			}
 		}
 
-		anim00023d38(anim->animnum);
-		anim->unk04 = anim00023ab0(anim->animnum, anim->framea);
+		animLoadHeader(anim->animnum);
+		anim->frameslot1 = animLoadFrame(anim->animnum, anim->framea);
 
 		if (anim->frac != 0) {
-			anim->unk05 = anim00023ab0(anim->animnum, anim->frameb);
+			anim->frameslot2 = animLoadFrame(anim->animnum, anim->frameb);
 		}
 
 		if (anim->animnum2) {
-			anim00023d38(anim->animnum2);
-			anim->unk06 = anim00023ab0(anim->animnum2, anim->frame2a);
+			animLoadHeader(anim->animnum2);
+			anim->frameslot3 = animLoadFrame(anim->animnum2, anim->frame2a);
 
 			if (anim->frac2 != 0) {
-				anim->unk07 = anim00023ab0(anim->animnum2, anim->frame2b);
+				anim->frameslot4 = animLoadFrame(anim->animnum2, anim->frame2b);
 			}
 		}
 
-		anim00023d0c();
+		animForgetFrameBirths();
 	}
 
 	modelSetMatrices(renderdata, model);
@@ -1807,16 +1807,16 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 			u32 stack;
 			struct modelrodata_chrinfo *rodata = &model->definition->rootnode->rodata->chrinfo;
 			struct modelrwdata_chrinfo *rwdata = (struct modelrwdata_chrinfo *) modelGetNodeRwData(model, model->definition->rootnode);
-			s32 spa4 = rodata->unk00;
+			s32 animpart = rodata->animpart;
 			struct skeleton *skel = model->definition->skel;
 			f32 scale;
 			f32 sp98;
 			f32 sp94;
-			struct coord sp88 = {0, 0, 0};
+			struct coord translate = {0, 0, 0};
 			f32 sp84;
-			u8 sp83;
-			struct coord sp74;
-			struct coord sp68;
+			u8 frameslot;
+			struct coord rot1;
+			struct coord scale1;
 			f32 sp64;
 			struct coord sp58;
 			struct coord sp4c;
@@ -1827,43 +1827,43 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 
 			if (g_Anims[anim->animnum].flags & ANIMFLAG_02) {
 				sp64 = func0f15c888();
-				anim00023d38(anim->animnum);
-				sp83 = anim00023ab0(anim->animnum, anim->framea);
-				anim00023d0c();
-				anim00024050(spa4, anim->flip, skel, anim->animnum, sp83, &sp74, &sp88, &sp68);
+				animLoadHeader(anim->animnum);
+				frameslot = animLoadFrame(anim->animnum, anim->framea);
+				animForgetFrameBirths();
+				animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
 
-				rwdata->unk34.x = sp88.x * sp64;
-				rwdata->unk34.y = sp88.y * sp64;
-				rwdata->unk34.z = sp88.z * sp64;
+				rwdata->unk34.x = translate.x * sp64;
+				rwdata->unk34.y = translate.y * sp64;
+				rwdata->unk34.z = translate.z * sp64;
 				rwdata->unk30 = rwdata->yrot;
 
 				if (anim->frac == 0) {
 					rwdata->unk01 = 0;
 				} else {
-					anim00023d38(anim->animnum);
-					sp83 = anim00023ab0(anim->animnum, anim->frameb);
-					anim00023d0c();
-					anim00024050(spa4, anim->flip, skel, anim->animnum, sp83, &sp74, &sp88, &sp68);
+					animLoadHeader(anim->animnum);
+					frameslot = animLoadFrame(anim->animnum, anim->frameb);
+					animForgetFrameBirths();
+					animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
 
-					rwdata->unk24.x = sp88.x * sp64;
-					rwdata->unk24.y = sp88.y * sp64;
-					rwdata->unk24.z = sp88.z * sp64;
+					rwdata->unk24.x = translate.x * sp64;
+					rwdata->unk24.y = translate.y * sp64;
+					rwdata->unk24.z = translate.z * sp64;
 					rwdata->unk20 = rwdata->yrot;
 
 					rwdata->unk01 = 1;
 				}
 			} else {
-				sp84 = anim00024b64(spa4, anim->flip, skel, anim->animnum, anim->frameb, &sp88, anim->average);
+				sp84 = animGetTranslateAngle(animpart, anim->flip, skel, anim->animnum, anim->frameb, &translate, anim->average);
 				scale = model->scale * anim->animscale;
 
 				if (scale != 1) {
-					sp88.x *= scale;
-					sp88.y *= scale;
-					sp88.z *= scale;
+					translate.x *= scale;
+					translate.y *= scale;
+					translate.z *= scale;
 				}
 
 				if (anim->average) {
-					sp88.y = rwdata->pos.y - rwdata->ground;
+					translate.y = rwdata->pos.y - rwdata->ground;
 				}
 
 				sp98 = cosf(rwdata->yrot);
@@ -1876,9 +1876,9 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 
 					rwdata->unk30 = rwdata->yrot;
 
-					sp58.x = rwdata->unk34.f[0] + sp88.f[0] * sp98 + sp88.f[2] * sp94;
-					sp58.y = sp88.f[1];
-					sp58.z = rwdata->unk34.f[2] - sp88.f[0] * sp94 + sp88.f[2] * sp98;
+					sp58.x = rwdata->unk34.f[0] + translate.f[0] * sp98 + translate.f[2] * sp94;
+					sp58.y = translate.f[1];
+					sp58.z = rwdata->unk34.f[2] - translate.f[0] * sp94 + translate.f[2] * sp98;
 
 					rwdata->unk24.x = sp58.f[0];
 					rwdata->unk24.y = sp58.f[1];
@@ -1894,9 +1894,9 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 
 					rwdata->unk01 = 1;
 				} else {
-					x = sp88.f[0] * sp98 + sp88.f[2] * sp94;
-					y = sp88.f[1];
-					z = -sp88.f[0] * sp94 + sp88.f[2] * sp98;
+					x = translate.f[0] * sp98 + translate.f[2] * sp94;
+					y = translate.f[1];
+					z = -translate.f[0] * sp94 + translate.f[2] * sp98;
 
 					sp4c.f[0] = rwdata->pos.f[0] + x * (1 - anim->frac);
 					sp4c.f[1] = y;
@@ -2168,13 +2168,13 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, rootnode);
 
 			if (rwdata->unk00 == 0) {
-				s32 sp118 = rodata->unk00;
+				s32 animpart = rodata->animpart;
 				struct skeleton *skel = model->definition->skel;
 				f32 scale = model->scale * anim->animscale;
 				f32 sine;
 				f32 cosine;
-				struct coord spfc = {0, 0, 0};
-				u8 s0;
+				struct coord translate = {0, 0, 0};
+				u8 frameslot;
 				f32 f20;
 				s32 floorcur;
 				s32 floorend;
@@ -2188,8 +2188,8 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 				f32 absspeed2;
 				f32 f22;
 				s32 s0frame;
-				struct coord spa8;
-				struct coord sp9c;
+				struct coord rot1;
+				struct coord scale1;
 				struct coord sp90;
 				u32 stack;
 
@@ -2245,14 +2245,14 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 							spe0.y = spd0.y;
 							spe0.z = spd0.z;
 						} else {
-							anim00023d38(anim->animnum);
-							s0 = anim00023ab0(anim->animnum, s0frame);
-							anim00023d0c();
-							anim00024050(sp118, anim->flip, skel, anim->animnum, s0, &spa8, &spfc, &sp9c);
+							animLoadHeader(anim->animnum);
+							frameslot = animLoadFrame(anim->animnum, s0frame);
+							animForgetFrameBirths();
+							animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
 
-							spe0.x = spfc.x * f20;
-							spe0.y = spfc.y * f20;
-							spe0.z = spfc.z * f20;
+							spe0.x = translate.x * f20;
+							spe0.y = translate.y * f20;
+							spe0.z = translate.z * f20;
 						}
 
 						floorcur = floorend;
@@ -2266,17 +2266,17 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 						s0frame = modelConstrainOrWrapAnimFrame(floorcur, anim->animnum, anim->endframe);
 						anim->frameb = s0frame;
 
-						anim00023d38(anim->animnum);
-						s0 = anim00023ab0(anim->animnum, s0frame);
+						animLoadHeader(anim->animnum);
+						frameslot = animLoadFrame(anim->animnum, s0frame);
 
-						anim00023d0c();
-						anim00024050(sp118, anim->flip, skel, anim->animnum, s0, &spa8, &spfc, &sp9c);
+						animForgetFrameBirths();
+						animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
 
 						spc8 = true;
 
-						spd0.x = spfc.x * f20;
-						spd0.y = spfc.y * f20;
-						spd0.z = spfc.z * f20;
+						spd0.x = translate.x * f20;
+						spd0.y = translate.y * f20;
+						spd0.z = translate.z * f20;
 					}
 				} else {
 					while (true) {
@@ -2303,17 +2303,17 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 								f30 = spcc;
 							}
 						} else {
-							f22 = anim00024b64(sp118, anim->flip, skel, anim->animnum, s0frame, &spfc, anim->average);
+							f22 = animGetTranslateAngle(animpart, anim->flip, skel, anim->animnum, s0frame, &translate, anim->average);
 
 							if (scale != 1.0f) {
-								spfc.x *= scale;
-								spfc.y *= scale;
-								spfc.z *= scale;
+								translate.x *= scale;
+								translate.y *= scale;
+								translate.z *= scale;
 							}
 
 							if (!forwards) {
-								spfc.x = -spfc.x;
-								spfc.z = -spfc.z;
+								translate.x = -translate.x;
+								translate.z = -translate.z;
 
 								if (f22 > 0.0f) {
 									f22 = M_BADTAU - f22;
@@ -2321,15 +2321,15 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 							}
 
 							if (anim->average) {
-								spfc.y = rwdata->pos.y - rwdata->ground;
+								translate.y = rwdata->pos.y - rwdata->ground;
 							}
 
 							cosine = cosf(rwdata->yrot);
 							sine = sinf(rwdata->yrot);
 
-							spe0.x += spfc.x * cosine + spfc.z * sine;
-							spe0.y = spfc.y;
-							spe0.z += (-spfc.x * sine) + (spfc.z * cosine);
+							spe0.x += translate.x * cosine + translate.z * sine;
+							spe0.y = translate.y;
+							spe0.z += (-translate.x * sine) + (translate.z * cosine);
 
 							if (rwdata->unk18 == 0.0f) {
 								f30 += f22;
@@ -2350,19 +2350,19 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 						anim->frameb = s0frame;
 
 						if (anim->frameb != anim->framea) {
-							f22 = anim00024b64(sp118, anim->flip, skel, anim->animnum, s0frame, &spfc, anim->average);
+							f22 = animGetTranslateAngle(animpart, anim->flip, skel, anim->animnum, s0frame, &translate, anim->average);
 
 							spc8 = true;
 
 							if (scale != 1.0f) {
-								spfc.x *= scale;
-								spfc.y *= scale;
-								spfc.z *= scale;
+								translate.x *= scale;
+								translate.y *= scale;
+								translate.z *= scale;
 							}
 
 							if (!forwards) {
-								spfc.x = -spfc.x;
-								spfc.z = -spfc.z;
+								translate.x = -translate.x;
+								translate.z = -translate.z;
 
 								if (f22 > 0.0f) {
 									f22 = M_BADTAU - f22;
@@ -2370,15 +2370,15 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 							}
 
 							if (anim->average) {
-								spfc.y = rwdata->unk34.y;
+								translate.y = rwdata->unk34.y;
 							}
 
 							cosine = cosf(rwdata->unk30);
 							sine = sinf(rwdata->unk30);
 
 							if (g_ModelAnimMergingEnabled && anim->animnum2) {
-								spd0.x = spfc.x * cosine + spfc.f[2] * sine;
-								spd0.z = -spfc.x * sine + spfc.f[2] * cosine;
+								spd0.x = translate.x * cosine + translate.f[2] * sine;
+								spd0.z = -translate.x * sine + translate.f[2] * cosine;
 
 								if (absspeed > 0.0f) {
 									f32 f0 = anim->fracmerge - anim->playspeed / (absspeed * anim->timemerge);
@@ -2402,11 +2402,11 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 
 								spd0.x += spe0.x;
 								spd0.z += spe0.z;
-								spd0.y = spfc.y;
+								spd0.y = translate.y;
 							} else {
-								spd0.x = spe0.x + spfc.x * cosine + spfc.f[2] * sine;
-								spd0.y = spfc.y;
-								spd0.z = spe0.z - spfc.x * sine + spfc.f[2] * cosine;
+								spd0.x = spe0.x + translate.x * cosine + translate.f[2] * sine;
+								spd0.y = translate.y;
+								spd0.z = spe0.z - translate.x * sine + translate.f[2] * cosine;
 							}
 
 							if (rwdata->unk5c > 0.0f && absspeed > 0.0f) {
@@ -2479,17 +2479,17 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 						s0frame = modelConstrainOrWrapAnimFrame(floorend2 + 1, anim->animnum2, anim->endframe2);
 						anim->frame2b = s0frame;
 
-						anim00024b64(sp118, anim->flip2, skel, anim->animnum2, s0frame, &spfc, anim->average);
+						animGetTranslateAngle(animpart, anim->flip2, skel, anim->animnum2, s0frame, &translate, anim->average);
 
 						if (scale != 1.0f) {
-							spfc.y *= scale;
+							translate.y *= scale;
 						}
 
 						if (anim->average) {
-							spfc.y = rwdata->unk4c.y;
+							translate.y = rwdata->unk4c.y;
 						}
 
-						rwdata->unk40.y = spfc.y;
+						rwdata->unk40.y = translate.y;
 						rwdata->unk02 = 1;
 					}
 
@@ -3359,7 +3359,7 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 	struct coord spe0;
 	f32 spdc;
 	f32 spd8;
-	f32 spd4;
+	f32 rot2;
 	f32 spd0;
 	f32 spcc;
 	f32 spc8;
@@ -3411,7 +3411,7 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 
 		spdc = cosf(spf0);
 		spd8 = sinf(spf0);
-		spd4 = cosf(spec);
+		rot2 = cosf(spec);
 		spd0 = sinf(spec);
 
 		scale = 0.75f + (random() % 128) * (1.0f / 256.0f); // 0.75 to 1.25
@@ -3424,8 +3424,8 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 		spc8 = sp9c.f[2] * spd8 * 0.5f;
 		spc4 = sp9c.f[1] * spd0 * 0.5f;
 
-		spc0 = sp9c.f[0] * spd4 * spd8 * 0.5f;
-		spbc = sp9c.f[2] * spd4 * spdc * 0.5f;
+		spc0 = sp9c.f[0] * rot2 * spd8 * 0.5f;
+		spbc = sp9c.f[2] * rot2 * spdc * 0.5f;
 
 		negspcc = -spcc;
 		negspc8 = -spc8;

@@ -18,7 +18,7 @@ void playerRemoveChrBody(void);
 void playerTickMpSwirl(void);
 void playerExecutePreparedWarp(void);
 void playerStartCutscene(s16 anim_id);
-void playerReorientForCutsceneStop(u32 arg0);
+void playerReorientForCutsceneStop(s32 tweenduration60);
 void playerTickCutscene(bool arg0);
 f32 playerGetCutsceneBlurFrac(void);
 void playerSetZoomFovY(f32 fovy, f32 timemax);

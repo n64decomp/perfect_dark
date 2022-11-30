@@ -6,8 +6,8 @@
 
 void racesInit(void);
 
-u16 raceInitAnim(s16 animnum, s32 frame, s32 endframe);
-s32 race0f000358(s16 animnum, s32 startframe, s32 endframe);
+u16 raceGetAnimSumAngleAsInt(s16 animnum, s32 frame, s32 endframe);
+s32 raceGetAnimSumForwardAsInt(s16 animnum, s32 startframe, s32 endframe);
 s32 raceInitAnimGroup(struct attackanimconfig *configs);
 void raceInitAnimGroups(struct attackanimgroup **groups);
 s32 raceCountAnims(struct animtablerow *rows);

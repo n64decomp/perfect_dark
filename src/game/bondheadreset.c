@@ -10,23 +10,23 @@
 #include "data.h"
 #include "types.h"
 
-void func0f0125a0(s16 animnum, s32 loopframe, s32 endframe, s32 *arg3)
+void func0f0125a0(s16 animnum, s32 frame, s32 endframe, s32 totalinttranslate[3])
 {
-	s16 sp48[3];
+	s16 inttranslate[3];
 	u32 stack;
 
-	arg3[0] = 0;
-	arg3[1] = 0;
-	arg3[2] = 0;
+	totalinttranslate[0] = 0;
+	totalinttranslate[1] = 0;
+	totalinttranslate[2] = 0;
 
-	while (loopframe < endframe) {
-		anim0002485c(0, 0, &g_SkelChr, animnum, loopframe, sp48, 0);
+	while (frame < endframe) {
+		animGetPosAngleAsInt(0, false, &g_SkelChr, animnum, frame, inttranslate, false);
 
-		arg3[0] += sp48[0];
-		arg3[1] += sp48[1];
-		arg3[2] += sp48[2];
+		totalinttranslate[0] += inttranslate[0];
+		totalinttranslate[1] += inttranslate[1];
+		totalinttranslate[2] += inttranslate[2];
 
-		loopframe++;
+		frame++;
 	}
 }
 
@@ -88,22 +88,22 @@ void bheadReset(void)
 	g_Vars.currentplayer->standcnt = 0;
 
 	for (i = 0; i < 2; i++) {
-		s32 spc8[3];
-		func0f0125a0(var80075c00[i].animnum, var80075c00[i].loopframe, var80075c00[i].endframe, spc8);
-		var80075c00[i].unk0c = (spc8[2] * 0.1000000089407f) / (var80075c00[i].endframe - var80075c00[i].loopframe);
+		s32 translate[3];
+		func0f0125a0(var80075c00[i].animnum, var80075c00[i].loopframe, var80075c00[i].endframe, translate);
+		var80075c00[i].unk0c = (translate[2] * 0.1000000089407f) / (var80075c00[i].endframe - var80075c00[i].loopframe);
 	}
 
 	{
-		struct modelrenderdata sp88 = {NULL, 1, 3};
+		struct modelrenderdata renderdata = {NULL, 1, 3};
 		Mtxf sp48;
 
 		modelSetAnimation(&g_Vars.currentplayer->model, 1, 0, 0, 0.5f, 0);
 
 		modelUpdateInfo(&g_Vars.currentplayer->model);
 		mtx4LoadIdentity(&sp48);
-		sp88.unk00 = &sp48;
-		sp88.unk10 = g_Vars.currentplayer->bondheadmatrices;
-		modelSetMatricesWithAnim(&sp88, &g_Vars.currentplayer->model);
+		renderdata.unk00 = &sp48;
+		renderdata.unk10 = g_Vars.currentplayer->bondheadmatrices;
+		modelSetMatricesWithAnim(&renderdata, &g_Vars.currentplayer->model);
 
 		g_Vars.currentplayer->standheight = g_Vars.currentplayer->bondheadmatrices[0].m[3][1];
 
