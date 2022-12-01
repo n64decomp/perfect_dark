@@ -25,7 +25,7 @@ char *challengeGetConfigDescription(struct mpconfigfull *mpconfig);
 bool challengeIsCompleteForEndscreen(void);
 bool aiMpInitSimulants(void);
 void vmPrintStatsIfEnabled(void);
-bool ChallengeIsAvailableToPlayer(s32 chrnum, s32 challengeindex);
+bool challengeIsAvailableToPlayer(s32 chrnum, s32 challengeindex);
 bool challengeIsAvailableToAnyPlayer(s32 challengeindex);
 s32 challengeGetNumAvailable(void);
 char *challengeGetName(s32 challengeindex);

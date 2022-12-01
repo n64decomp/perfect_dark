@@ -64,7 +64,7 @@ bool challengeIsAvailable(s32 challengeindex)
 	return (g_MpChallenges[challengeindex].availability & 1) != 0;
 }
 
-bool ChallengeIsAvailableToPlayer(s32 chrnum, s32 challengeindex)
+bool challengeIsAvailableToPlayer(s32 chrnum, s32 challengeindex)
 {
 	if ((g_MpSetup.chrslots & (1 << chrnum)) == 0) {
 		return 0;
@@ -198,7 +198,7 @@ void challengeDetermineUnlockedFeatures(void)
 
 		for (challengeindex = 0; challengeindex < 30; challengeindex++) {
 			for (prev = 0; prev < 4; prev++) {
-				if (ChallengeIsAvailableToPlayer(prev, challengeindex)) {
+				if (challengeIsAvailableToPlayer(prev, challengeindex)) {
 					for (i = 0; i < 16; i++) {
 						if (g_MpChallenges[challengeindex].unlockfeatures[i] == j) {
 							flag |= 2 << prev;

@@ -40,7 +40,7 @@ Gfx *currentPlayerScissorWithinViewport(Gfx *gdl, s32 viewleft, s32 viewtop, s32
 void func0f15cd28(void);
 bool func0f15cd90(u32 room, struct screenbox *arg1);
 bool func0f15d08c(struct coord *a, struct coord *b);
-bool g_PortalGetScreenBbox(s32 portal, struct screenbox *arg1);
+bool portalGetScreenBbox(s32 portal, struct screenbox *arg1);
 Gfx *boxRenderBorder(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2);
 bool boxGetIntersection(struct screenbox *a, struct screenbox *b);
 void boxExpand(struct screenbox *a, struct screenbox *b);

@@ -2733,7 +2733,7 @@ bool func0f15d08c(struct coord *a, struct coord *b)
 	return true;
 }
 
-bool g_PortalGetScreenBbox(s32 portalnum, struct screenbox *box)
+bool portalGetScreenBbox(s32 portalnum, struct screenbox *box)
 {
 	s32 i;
 	s32 j;
@@ -6562,7 +6562,7 @@ struct bgcmd *bgExecuteCommandsBranch(struct bgcmd *cmd, bool execute)
 		case BGCMD_SETRESULT_IFPORTALINFOV:
 			if (execute) {
 				if (!PORTAL_IS_CLOSED(cmd[1].param)) {
-					if (g_PortalGetScreenBbox(cmd[1].param, &g_PortalScreenBbox) == 0) {
+					if (portalGetScreenBbox(cmd[1].param, &g_PortalScreenBbox) == 0) {
 						g_BgCmdResult = BGRESULT_FALSE;
 					} else if (boxGetIntersection(&var800a65c0, &g_PortalScreenBbox) == 0) {
 						g_BgCmdResult = BGRESULT_FALSE;
@@ -6578,7 +6578,7 @@ struct bgcmd *bgExecuteCommandsBranch(struct bgcmd *cmd, bool execute)
 				struct screenbox portalbox;
 
 				if (!PORTAL_IS_CLOSED(cmd[1].param)) {
-					if (g_PortalGetScreenBbox(cmd[1].param, &portalbox) && boxGetIntersection(&var800a65c0, &portalbox)) {
+					if (portalGetScreenBbox(cmd[1].param, &portalbox) && boxGetIntersection(&var800a65c0, &portalbox)) {
 						if (g_BgCmdResult != BGRESULT_TRUE) {
 							boxCopy(&var800a65c0, &portalbox);
 							g_BgCmdResult = BGRESULT_TRUE;
@@ -6597,7 +6597,7 @@ struct bgcmd *bgExecuteCommandsBranch(struct bgcmd *cmd, bool execute)
 
 					if (PORTAL_IS_CLOSED(cmd[1].param)) {
 						g_BgCmdResult = BGRESULT_FALSE;
-					} else if (g_PortalGetScreenBbox(cmd[1].param, &portalbox) == 0) {
+					} else if (portalGetScreenBbox(cmd[1].param, &portalbox) == 0) {
 						g_BgCmdResult = BGRESULT_FALSE;
 					} else if (boxGetIntersection(&portalbox, (struct screenbox *)&g_Vars.currentplayer->screenxminf) == 0) {
 						g_BgCmdResult = BGRESULT_FALSE;
@@ -7042,7 +7042,7 @@ void func0f163528(struct var800a4d00 *arg0)
 			box2.ymax = arg0->screenbox.ymax;
 			unk02 = true;
 		} else {
-			unk02 = g_PortalGetScreenBbox(portalnum, &box2);
+			unk02 = portalGetScreenBbox(portalnum, &box2);
 		}
 
 		if (unk02) {
