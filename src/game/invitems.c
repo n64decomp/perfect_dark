@@ -262,8 +262,8 @@ struct guncmd invanim_punch[] = {
 	gunscript_end
 };
 
-struct weaponfunc_close invfunc_unarmed_punch = {
-	INVENTORYFUNCTYPE_CLOSE,
+struct weaponfunc_melee invfunc_unarmed_punch = {
+	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_100, // name
 	0, // unused
 	-1, // ammoindex
@@ -286,8 +286,8 @@ struct weaponfunc_close invfunc_unarmed_punch = {
 	0, // unused
 };
 
-struct weaponfunc_close invfunc_unarmed_disarm = {
-	INVENTORYFUNCTYPE_CLOSE,
+struct weaponfunc_melee invfunc_unarmed_disarm = {
+	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_101, // name
 	0, // unused
 	-1, // ammoindex
@@ -526,8 +526,8 @@ struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	1, // penetration
 };
 
-struct weaponfunc_close invfunc_falcon2_pistolwhip = {
-	INVENTORYFUNCTYPE_CLOSE,
+struct weaponfunc_melee invfunc_falcon2_pistolwhip = {
+	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_094, // name
 	0, // unused
 	-1, // ammoindex
@@ -935,8 +935,8 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	5, // penetration
 };
 
-struct weaponfunc_close invfunc_dy357_pistolwhip = {
-	INVENTORYFUNCTYPE_CLOSE,
+struct weaponfunc_melee invfunc_dy357_pistolwhip = {
+	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_094, // name
 	0, // unused
 	-1, // ammoindex
@@ -2656,8 +2656,8 @@ struct weaponfunc_shootauto invfunc_reaper_shoot = {
 	88, // turretdecel
 };
 
-struct weaponfunc_close invfunc_reaper_grind = {
-	INVENTORYFUNCTYPE_CLOSE,
+struct weaponfunc_melee invfunc_reaper_grind = {
+	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_106, // name
 	0, // unused
 	-1, // ammoindex
@@ -3858,8 +3858,8 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	1, // penetration
 };
 
-struct weaponfunc_close invfunc_tranquilizer_lethal = {
-	INVENTORYFUNCTYPE_CLOSE,
+struct weaponfunc_melee invfunc_tranquilizer_lethal = {
+	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_108, // name
 	0, // unused
 	0, // ammoindex
@@ -4899,8 +4899,8 @@ struct guncmd invanim_combatknife_reload[] = {
 	gunscript_end
 };
 
-struct weaponfunc_close invfunc_combatknife_slash = {
-	INVENTORYFUNCTYPE_CLOSE,
+struct weaponfunc_melee invfunc_combatknife_slash = {
+	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_109, // name
 	0, // unused
 	0, // ammoindex

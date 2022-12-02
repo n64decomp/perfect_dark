@@ -115,7 +115,7 @@ void botReset(struct chrdata *chr, u8 respawning)
 
 			aibot->weaponnum = WEAPON_UNARMED;
 			aibot->gunfunc = FUNC_PRIMARY;
-			aibot->iscloserangeweapon = true;
+			aibot->ismeleeweapon = true;
 			aibot->loadedammo[0] = 0;
 			aibot->loadedammo[1] = 0;
 			aibot->gotoprop = NULL;
@@ -990,7 +990,7 @@ s32 botTick(struct prop *prop)
 
 			chrSetLookAngle(chr, newangle);
 
-			if (chr->target != -1 && !aibot->iscloserangeweapon) {
+			if (chr->target != -1 && !aibot->ismeleeweapon) {
 				bool left = chr->weapons_held[HAND_LEFT] ? true : false;
 				bool right = (0, chr->weapons_held[HAND_RIGHT] ? true : false);
 
@@ -2430,7 +2430,7 @@ void botTickUnpaused(struct chrdata *chr)
 					// Bot doesn't have the weapon it was told to switch to
 					chr->aibot->weaponnum = WEAPON_UNARMED;
 					chr->aibot->gunfunc = FUNC_PRIMARY;
-					chr->aibot->iscloserangeweapon = 1;
+					chr->aibot->ismeleeweapon = true;
 				}
 
 				aibot->throwtimer60 = 0;
@@ -3332,7 +3332,7 @@ void botTickUnpaused(struct chrdata *chr)
 				}
 
 				if (aibot->skrocket == NULL && aibot->changeguntimer60 <= 0) {
-					if (aibot->iscloserangeweapon) {
+					if (aibot->ismeleeweapon) {
 						// Consider punching, pistol whipping etc
 						// Despite the name, punchtimer60 is used for all close
 						// range attacks. Its value is 0 if not currently

@@ -41,7 +41,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct hand *hand);
 bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand);
 s32 bgunGetMinClipQty(s32 weaponnum, s32 funcnum);
-bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand);
+bool bgunTickIncAttackingMelee(s32 handnum, struct hand *hand);
 bool bgunTickIncAttackingSpecial(struct hand *hand);
 s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 s32 bgunTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);

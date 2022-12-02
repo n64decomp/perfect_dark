@@ -188,7 +188,7 @@ void sightTick(bool sighton)
 		newtracktype = SIGHTTRACKTYPE_THREATDETECTOR;
 	}
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
 		newtracktype = SIGHTTRACKTYPE_NONE;
 	}
 

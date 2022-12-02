@@ -425,7 +425,7 @@ s32 botactGetShootInterval60(s32 weaponnum, s32 funcnum)
 			} else if (func->type == INVENTORYFUNCTYPE_SHOOT_PROJECTILE) {
 				struct weaponfunc_shoot *func2 = (struct weaponfunc_shoot *)func;
 				result = func2->unk24 + func2->unk25;
-			} else if (func->type == INVENTORYFUNCTYPE_CLOSE && weaponnum != WEAPON_REAPER) {
+			} else if (func->type == INVENTORYFUNCTYPE_MELEE && weaponnum != WEAPON_REAPER) {
 				result = 60;
 			}
 		}

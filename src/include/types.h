@@ -725,7 +725,7 @@ struct aibot {
 	/*0x048*/ s16 hillpadnum;
 	/*0x04a*/ s16 hillcovernum;
 	/*0x04c*/ u8 unk04c_00 : 1;
-	/*0x04c*/ u8 iscloserangeweapon : 1;
+	/*0x04c*/ u8 ismeleeweapon : 1;
 	/*0x04c*/ u8 gunfunc : 1;
 	/*0x04c*/ u8 unk04c_03 : 1;
 	/*0x04c*/ u8 unk04c_04 : 1;
@@ -2976,7 +2976,7 @@ struct weaponfunc_throw {
 	/*0x20*/ f32 damage;
 };
 
-struct weaponfunc_close {
+struct weaponfunc_melee {
 	struct weaponfunc base;
 	/*0x14*/ f32 damage;
 	/*0x18*/ f32 range;

@@ -4248,7 +4248,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	s32 race = CHRRACE(chr);
 	f32 shield;
 	bool makedizzy;
-	bool isclose;
+	bool ismelee;
 	struct prop *vprop = chr->prop;
 	f32 headshotdamagescale = 1;
 	bool usedshield = false;
@@ -4258,7 +4258,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	f32 explosionforce = damage;
 	f32 healthscale = 1;
 	f32 armourscale = 1;
-	bool isfar = true;
+	bool isshoot = true;
 	bool forceapplydamage = false;
 	struct weaponfunc *func;
 	f32 amount;
@@ -4338,15 +4338,15 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	}
 
 	func = gsetGetWeaponFunction(gset);
-	isclose = func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE;
+	ismelee = func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE;
 	makedizzy = race != RACE_DRCAROLL && gsetHasFunctionFlags(gset, FUNCFLAG_MAKEDIZZY);
 
 	if (chr->prop == g_Vars.currentplayer->prop && g_Vars.currentplayer->invincible) {
 		return;
 	}
 
-	if (isclose) {
-		isfar = false;
+	if (ismelee) {
+		isshoot = false;
 	}
 
 	// Set a flag on the victim that makes them switch to their "shot" AI list
@@ -4633,7 +4633,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	// If chr is dying or already dead, consider making their head flinch
 	// then we're done
 	if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD) {
-		if (hitpart == HITPART_HEAD && chr->actiontype == ACT_DIE && race != RACE_SKEDAR && isfar) {
+		if (hitpart == HITPART_HEAD && chr->actiontype == ACT_DIE && race != RACE_SKEDAR && isshoot) {
 			struct coord pos;
 			pos.x = vprop->pos.x - vector->x;
 			pos.y = vprop->pos.y - vector->y;
@@ -4708,7 +4708,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			} else {
 				damage *= 4;
 
-				if (isfar && !usedshield) {
+				if (isshoot && !usedshield) {
 					chrFlinchHead(chr, angle);
 					damage *= headshotdamagescale;
 
@@ -4809,7 +4809,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 				}
 
 				// Handle player boost
-				if (isclose && gset->weaponnum == WEAPON_REAPER) {
+				if (ismelee && gset->weaponnum == WEAPON_REAPER) {
 					boostscale = 0.1f;
 				} else if (g_Vars.normmplayerisrunning) {
 					boostscale = 0.75f;
@@ -4894,7 +4894,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			if (chr->aibot) {
 				f32 boostscale;
 
-				if (isclose && gset->weaponnum == WEAPON_REAPER) {
+				if (ismelee && gset->weaponnum == WEAPON_REAPER) {
 					boostscale = 0.1f;
 				} else {
 					boostscale = 0.75f;

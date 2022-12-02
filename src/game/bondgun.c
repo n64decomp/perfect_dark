@@ -1142,7 +1142,7 @@ bool bgun0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
 		return true;
 	}
 
-	if ((basefunc->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+	if ((basefunc->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
 		return true;
 	}
 
@@ -1269,7 +1269,7 @@ s32 bgunTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand,
 					if (info->gunctrl->wantammo) {
 						func = weaponGetFunction(&hand->gset, 1 - hand->gset.weaponfunc);
 
-						if ((func->type & 0xff) != INVENTORYFUNCTYPE_CLOSE) {
+						if ((func->type & 0xff) != INVENTORYFUNCTYPE_MELEE) {
 							sp30 = -1;
 						}
 					} else {
@@ -2369,7 +2369,7 @@ const char var7f1ab938[] = "GiveMem: %d\n";
 u32 var8007012c = 0x00000000;
 u32 var80070130 = 0x00000000;
 
-bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
+bool bgunTickIncAttackingMelee(s32 handnum, struct hand *hand)
 {
 	struct weaponfunc *func = gsetGetWeaponFunction(&hand->gset);
 
@@ -2384,7 +2384,7 @@ bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 		}
 
 		hand->firing = true;
-		hand->attacktype = HANDATTACKTYPE_CLOSERANGE;
+		hand->attacktype = HANDATTACKTYPE_MELEE;
 		hand->burstbullets++;
 
 		if (hand->triggeron) {
@@ -2404,7 +2404,7 @@ bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 	if (hand->stateminor == 0) {
 		if (hand->statecycles == 0) {
 			hand->firing = true;
-			hand->attacktype = HANDATTACKTYPE_CLOSERANGENOUNCLOAK;
+			hand->attacktype = HANDATTACKTYPE_MELEENOUNCLOAK;
 
 			if (func->fire_animation) {
 				bgunStartAnimation(func->fire_animation, handnum, hand);
@@ -2433,7 +2433,7 @@ bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 
 	if (hand->stateminor == 1) {
 		hand->firing = true;
-		hand->attacktype = HANDATTACKTYPE_CLOSERANGE;
+		hand->attacktype = HANDATTACKTYPE_MELEE;
 
 		if (hand->gset.weaponnum == WEAPON_TRANQUILIZER && func->ammoindex >= 0) {
 			if (hand->loadedammo[func->ammoindex] > bgunGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY)) {
@@ -2691,8 +2691,8 @@ s32 bgunTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *han
 		case INVENTORYFUNCTYPE_THROW:
 			finished = bgunTickIncAttackingThrow(handnum, hand);
 			break;
-		case INVENTORYFUNCTYPE_CLOSE:
-			finished = bgunTickIncAttackingClose(handnum, hand);
+		case INVENTORYFUNCTYPE_MELEE:
+			finished = bgunTickIncAttackingMelee(handnum, hand);
 			break;
 		case INVENTORYFUNCTYPE_SPECIAL:
 			finished = bgunTickIncAttackingSpecial(hand);
@@ -6140,7 +6140,7 @@ bool bgun0f0a27c8(void)
 	func = gsetGetWeaponFunction2(&hand->gset);
 
 	if (func
-			&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
+			&& (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE
 			&& hand->state == HANDSTATE_ATTACK
 			&& hand->unk0ce8 != NULL
 			&& hand->animmode == HANDANIMMODE_BUSY
@@ -6154,7 +6154,7 @@ bool bgun0f0a27c8(void)
 		func = gsetGetWeaponFunction2(&hand->gset);
 
 		if (func
-				&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
+				&& (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE
 				&& hand->state == HANDSTATE_ATTACK
 				&& hand->unk0ce8 != NULL
 				&& hand->animmode == HANDANIMMODE_BUSY
@@ -6180,7 +6180,7 @@ bool bgun0f0a28d8(void)
 	func = gsetGetWeaponFunction2(&hand->gset);
 
 	if (func
-			&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
+			&& (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE
 			&& hand->state == HANDSTATE_ATTACK
 			&& hand->unk0ce8 != NULL
 			&& hand->animmode == HANDANIMMODE_BUSY) {
@@ -6193,7 +6193,7 @@ bool bgun0f0a28d8(void)
 		func = gsetGetWeaponFunction2(&hand->gset);
 
 		if (func
-				&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
+				&& (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE
 				&& hand->state == HANDSTATE_ATTACK
 				&& hand->unk0ce8 != NULL
 				&& hand->animmode == HANDANIMMODE_BUSY) {
@@ -7407,7 +7407,7 @@ void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s3
 	}
 
 	if (funcdef) {
-		if ((funcdef->type & 0xff) == INVENTORYFUNCTYPE_CLOSE || (funcdef->type & INVENTORYFUNCTYPE_0200)) {
+		if ((funcdef->type & 0xff) == INVENTORYFUNCTYPE_MELEE || (funcdef->type & INVENTORYFUNCTYPE_0200)) {
 			createbeam = false;
 		}
 

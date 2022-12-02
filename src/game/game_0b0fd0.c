@@ -467,13 +467,13 @@ f32 gsetGetDamage(struct gset *gset)
 
 	if (func) {
 		if ((func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-			struct weaponfunc_shoot *fullfunc = (struct weaponfunc_shoot *)func;
-			damage = fullfunc->damage;
+			struct weaponfunc_shoot *shootfunc = (struct weaponfunc_shoot *)func;
+			damage = shootfunc->damage;
 		}
 
-		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
-			struct weaponfunc_close *fullfunc = (struct weaponfunc_close *)func;
-			damage = fullfunc->damage;
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
+			struct weaponfunc_melee *meleefunc = (struct weaponfunc_melee *)func;
+			damage = meleefunc->damage;
 
 			if (gset->weaponnum == WEAPON_REAPER) {
 				damage *= LVUPDATE60FREAL();
@@ -481,8 +481,8 @@ f32 gsetGetDamage(struct gset *gset)
 		}
 
 		if ((func->type & 0xff) == INVENTORYFUNCTYPE_THROW) {
-			struct weaponfunc_throw *fullfunc = (struct weaponfunc_throw *)func;
-			damage = fullfunc->damage;
+			struct weaponfunc_throw *throwfunc = (struct weaponfunc_throw *)func;
+			damage = throwfunc->damage;
 		}
 	}
 
@@ -577,7 +577,7 @@ u32 currentPlayerGetSight(void)
 			g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponnum,
 			g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc);
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
 		return SIGHT_NONE;
 	}
 

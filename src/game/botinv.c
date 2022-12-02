@@ -1103,7 +1103,7 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 
 	func = weaponGetFunctionById(weaponnum, funcnum);
 
-	aibot->iscloserangeweapon = func && func->type == INVENTORYFUNCTYPE_CLOSE;
+	aibot->ismeleeweapon = func && func->type == INVENTORYFUNCTYPE_MELEE;
 
 	for (i = 0; i < 2; i++) {
 		if (chr->weapons_held[i]) {

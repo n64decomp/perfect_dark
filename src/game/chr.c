@@ -5152,12 +5152,12 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 	struct coord hitpos;
 	struct coord sp98;
 	s16 sp90[3];
-	u8 isclose = false;
+	u8 ismelee = false;
 	struct weaponfunc *func = gsetGetWeaponFunction(&shotdata->gset);
 	f32 shield;
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
-		isclose = true;
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
+		ismelee = true;
 	}
 
 	// The prop that was hit could be an item held by the chr,
@@ -5306,7 +5306,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						&& race != RACE_DRCAROLL
 						&& race != RACE_ROBOT
 						&& race != RACE_EYESPY
-						&& !isclose
+						&& !ismelee
 						&& shotdata->gset.weaponnum != WEAPON_TRANQUILIZER) {
 					u8 darker;
 
@@ -5330,7 +5330,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						&& race != RACE_DRCAROLL
 						&& race != RACE_ROBOT
 						&& race != RACE_EYESPY
-						&& !isclose
+						&& !ismelee
 						&& shotdata->gset.weaponnum != WEAPON_TRANQUILIZER) {
 					u8 darker;
 

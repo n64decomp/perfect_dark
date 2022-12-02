@@ -81,7 +81,7 @@ bool bmoveIsAutoAimYEnabledForCurrentWeapon(void)
 			return false;
 		}
 
-		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
 			return true;
 		}
 	}
@@ -139,7 +139,7 @@ bool bmoveIsAutoAimXEnabledForCurrentWeapon(void)
 			return false;
 		}
 
-		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
 			return true;
 		}
 	}

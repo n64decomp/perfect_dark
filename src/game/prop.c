@@ -635,7 +635,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 			explosiveshells = true;
 		}
 
-		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE && arg1) {
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE && arg1) {
 			shortrange = true;
 			arg1 = false;
 		}
@@ -664,9 +664,9 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 		hitpos.y = shotdata.gunpos.y + shotdata.dir.y * 300;
 		hitpos.z = shotdata.gunpos.z + shotdata.dir.z * 300;
 	} else if (shortrange) {
-		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
-			struct weaponfunc_close *close = (struct weaponfunc_close *) func;
-			range = close->range;
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
+			struct weaponfunc_melee *meleefunc = (struct weaponfunc_melee *) func;
+			range = meleefunc->range;
 		}
 
 		hitpos.x = shotdata.gunpos.x + shotdata.dir.x * range;
@@ -829,7 +829,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 			bgunSetHitPos(&sp694.unk00);
 
-			if (surfacetype->numwallhittexes > 0 && (!func || (func->type & 0xff) != INVENTORYFUNCTYPE_CLOSE)) {
+			if (surfacetype->numwallhittexes > 0 && (!func || (func->type & 0xff) != INVENTORYFUNCTYPE_MELEE)) {
 				if (shotdata.gset.weaponnum != WEAPON_UNARMED
 						&& shotdata.gset.weaponnum != WEAPON_LASER
 						&& shotdata.gset.weaponnum != WEAPON_TRANQUILIZER
@@ -1103,7 +1103,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 	}
 }
 
-void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
+void handInflictMeleeDamage(s32 handnum, struct gset *gset, bool arg2)
 {
 	s32 cdtypes;
 	struct prop **ptr;
@@ -1170,9 +1170,9 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 				struct model *model;
 				struct weaponfunc *func = gsetGetWeaponFunction(gset);
 
-				if ((func->type & 0xff) == 3) {
-					struct weaponfunc_close *closefunc = (struct weaponfunc_close *)func;
-					rangelimit = closefunc->range;
+				if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
+					struct weaponfunc_melee *meleefunc = (struct weaponfunc_melee *)func;
+					rangelimit = meleefunc->range;
 				}
 
 				bgunGetCrossPos(&x, &y);
@@ -1308,12 +1308,12 @@ void handTickAttack(s32 handnum)
 				mpstats0f0b0520();
 			}
 			break;
-		case HANDATTACKTYPE_CLOSERANGE:
+		case HANDATTACKTYPE_MELEE:
 			chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
-			handInflictCloseRangeDamage(handnum, &gset, false);
+			handInflictMeleeDamage(handnum, &gset, false);
 			break;
-		case HANDATTACKTYPE_CLOSERANGENOUNCLOAK:
-			handInflictCloseRangeDamage(handnum, &gset, true);
+		case HANDATTACKTYPE_MELEENOUNCLOAK:
+			handInflictMeleeDamage(handnum, &gset, true);
 			break;
 		case HANDATTACKTYPE_DETONATE:
 			playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
@@ -2548,14 +2548,14 @@ void autoaimTick(void)
 {
 	struct prop *bestprop = NULL;
 	f32 aimpos[2] = {0, 0};
-	bool isclose = false;
+	bool ismelee = false;
 	bool cangangsta = weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_GANGSTA);
 	bool iscmpsec = false;
 	struct weaponfunc *func = currentPlayerGetWeaponFunction(HAND_RIGHT);
 	s32 i;
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
-		isclose = true;
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
+		ismelee = true;
 	}
 
 	if (frIsInTraining()) {
@@ -2661,7 +2661,7 @@ void autoaimTick(void)
 		}
 	} else if ((bmoveIsAutoAimYEnabledForCurrentWeapon()
 				|| bmoveIsAutoAimXEnabledForCurrentWeapon()
-				|| cangangsta) && !isclose) {
+				|| cangangsta) && !ismelee) {
 		// Standard auto aim
 		f32 bestthing = -1;
 		struct prop *prop;

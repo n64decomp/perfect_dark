@@ -15654,7 +15654,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	struct defaultobj *obj;
 	struct coord sp110;
 	struct prop *prop;
-	u8 isclosefunc = false;
+	u8 ismeleefunc = false;
 	s32 i;
 	bool explosiveshells = false;
 	bool spfc = hit->unk4c;
@@ -15666,8 +15666,8 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	s16 spdc[3];
 
 	if (func != NULL) {
-		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
-			isclosefunc = true;
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
+			ismeleefunc = true;
 		}
 
 		if (func->flags & FUNCFLAG_EXPLOSIVESHELLS) {
@@ -15721,7 +15721,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	}
 
 	// Create sparks
-	if (!isclosefunc) {
+	if (!ismeleefunc) {
 		if (chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
 			sparksCreate(prop->rooms[0], prop, &sp110, 0, 0, SPARKTYPE_PAINT);
 		} else {
@@ -15746,12 +15746,12 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	// Play hit sound
 	if (!spfc) {
 		bgunPlayGlassHitSound(&hit->prop->pos, hit->prop->rooms, hit->hitthing.texturenum);
-	} else if (!isclosefunc) {
+	} else if (!ismeleefunc) {
 		bgunPlayPropHitSound(&shotdata->gset, hit->prop, hit->hitthing.texturenum);
 	}
 
 	// Create wall hit (bullet hole)
-	if (!isclosefunc
+	if (!ismeleefunc
 			&& hit->hitthing.texturenum != 10000
 			&& shotdata->gset.weaponnum != WEAPON_UNARMED
 			&& shotdata->gset.weaponnum != WEAPON_LASER

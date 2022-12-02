@@ -176,7 +176,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->unk0a0 = 0;
 
 					aibot->gunfunc = FUNC_PRIMARY;
-					aibot->iscloserangeweapon = true;
+					aibot->ismeleeweapon = true;
 					aibot->teamisonlyai = false;
 					aibot->hasbriefcase = false;
 					aibot->hascase = false;

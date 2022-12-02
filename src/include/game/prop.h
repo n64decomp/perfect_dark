@@ -28,7 +28,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2);
 void shotCreate(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4);
 void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hitpart, struct modelnode *node, struct hitthing *hitthing, s32 arg6, struct modelnode *arg7, struct model *model, bool arg9, s32 arg10, struct coord *arg11, struct coord *arg12);
-void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2);
+void handInflictMeleeDamage(s32 handnum, struct gset *gset, bool arg2);
 void handTickAttack(s32 handnum);
 void handsTickAttack(void);
 void propExecuteTickOperation(struct prop *prop, s32 op);
