@@ -34,9 +34,9 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 ---
 
-### func0f08e2ac
+### doorFinishClose
 
-**When Called:** Unsure. Related to doors.
+**When Called:** When a door finishes closing.
 
 **What It Checks:** Checks that the value of `osCicId` is 6105.
 
@@ -46,9 +46,9 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** When a simulant in multiplayer picks up an item.
 
-**What It Checks:** Checksums `func0f08e2ac` to make sure it hasn't been modified.
+**What It Checks:** Checksums `doorFinishClose` to make sure it hasn't been modified.
 
-**Payload:** Rewrites the start of `func0f03978c` so it immediately returns true. This makes all guards able to see Jo through walls.
+**Payload:** Rewrites the start of `chrCheckTargetInSight` so it immediately returns true. This makes all guards able to see Jo through walls.
 
 ### chrUncloak
 
@@ -84,7 +84,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **What It Checks:** Checksums `lvGetSlowMotionType` to make sure it hasn't been modified.
 
-**Payload:** Writes 16 bytes of data to the start of EEPROM. Unsure what this does, but it's probably corrupting it.
+**Payload:** Writes a filesystem terminator file to the start of EEPROM. This disables the cartridge's save data, removing the ability to read existing files and create new ones.
 
 ### bodyAllocateEyespy
 
@@ -92,7 +92,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **What It Checks:** Checksums `lvReset` to make sure it hasn't been modified.
 
-**Payload:** Nops `_memaFree` entirely, so any time that function is called it'll flow into the following function, which just returns. The effect this has is that the system is unable to free individual mema allocations which makes it more likely to run out of memory.
+**Payload:** Nops `_memaFree` entirely, so any time that function is called it'll flow into the following function, which just returns. The effect this has is that the system is unable to free individual mema allocations which makes it unable to load rooms as you move throughout the level.
 
 ---
 
@@ -128,7 +128,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **What It Checks:** Checksums `tagsReset` to make sure it hasn't been modified.
 
-**Payload:** Corrupts `tagsReset` by writing 7 bytes of 0xff.
+**Payload:** Corrupts `tagsReset` by writing 4 bytes of 0xff.
 
 ---
 
@@ -136,13 +136,13 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** On every frame except credits.
 
-**What It Checks:** Checksums `func00015fd0` to make sure it hasn't been modified.
+**What It Checks:** Checksums `mtxGetObfuscatedRomBase` to make sure it hasn't been modified.
 
 **Payload:** Corrupts `bgReset` by writing 16 bytes of 0x12 to a random address within that function.
 
 ### func0f15c920
 
-**When Called:** Unknown.
+**When Called:** On every frame.
 
 **What It Checks:** Checksums `menuTickTimers` to make sure it hasn't been modified.
 
