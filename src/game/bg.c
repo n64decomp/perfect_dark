@@ -5322,7 +5322,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 
 						if (!(arg0->y < min.y && arg1->y < min.y) && !(arg0->y > max.y && arg1->y > max.y)) {
 							if (bgTestLineIntersectsBbox(arg0, arg2, &min, &max)
-									&& func0002f560(point1, point2, point3, 0, arg0, arg1, arg2, &sp8c, &sp80)) {
+									&& func0002f560(point1, point2, point3, NULL, arg0, arg1, arg2, &sp8c, &sp80)) {
 								tmp = sp8c.x - arg0->x;
 								sqdist = tmp * tmp;
 
@@ -5609,7 +5609,7 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 
 						if (!(arg1->y < min.y && arg2->y < min.y) && !(arg1->y > max.y && arg2->y > max.y)) {
 							if (bgTestLineIntersectsBbox(arg1, arg3, &min, &max)
-									&& func0002f560(point1, point2, point3, 0, arg1, arg2, arg3, &sp84, &sp78)) {
+									&& func0002f560(point1, point2, point3, NULL, arg1, arg2, arg3, &sp84, &sp78)) {
 								tmp = sp84.x - arg1->x;
 								sqdist = tmp * tmp;
 
@@ -5813,7 +5813,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 
 								if (!(arg0->y > max.y && arg1->y > max.y)) {
 									if (bgTestLineIntersectsBbox(arg0, arg2, &min, &max)
-											&& func0002f560(point1, point2, point3, 0, arg0, arg1, arg2, &spb0, &spa4)) {
+											&& func0002f560(point1, point2, point3, NULL, arg0, arg1, arg2, &spb0, &spa4)) {
 										f32 tmp;
 
 										tmp = spb0.x - arg0->x;

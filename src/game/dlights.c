@@ -499,8 +499,8 @@ bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
 
 	for (i = 0; i < g_Rooms[roomnum].numlights; i++) {
 		if (light->healthy && light->vulnerable) {
-			if (func0002f490(&light->bbox[0], &light->bbox[1], &light->bbox[3], 0, &spa4, &sp98, &sp8c, 0, 0)
-					|| func0002f490(&light->bbox[1], &light->bbox[2], &light->bbox[3], 0, &spa4, &sp98, &sp8c, 0, 0)) {
+			if (func0002f490(&light->bbox[0], &light->bbox[1], &light->bbox[3], NULL, &spa4, &sp98, &sp8c, 0, 0)
+					|| func0002f490(&light->bbox[1], &light->bbox[2], &light->bbox[3], NULL, &spa4, &sp98, &sp8c, 0, 0)) {
 				struct coord soundpos;
 
 				soundpos.x = light->bbox[0].x;
