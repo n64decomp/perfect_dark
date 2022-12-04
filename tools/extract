@@ -32,7 +32,6 @@ class Extractor:
         self.extract_mpconfigs()
         self.extract_mpstrings()
         self.extract_preamble()
-        self.extract_rsp()
         self.extract_textureconfig()
         self.extract_textures()
 
@@ -248,19 +247,6 @@ class Extractor:
 
     def extract_preamble(self):
         self.write_extracted('preamble.bin', self.rom[0x1000:0x1050])
-
-    def extract_rsp_segment(self, name, pos, length):
-        if pos < 0:
-            pos = len(self.data) + pos
-
-        end = pos + length
-        content = self.data[pos:end]
-
-        self.write_extracted('rsp/' + name, content)
-
-    def extract_rsp(self):
-        self.extract_rsp_segment('gsp.text.bin', 0xd0, 0x1420)
-        self.extract_rsp_segment('gsp.data.bin', -0x1350, 0x800)
 
     def extract_textures(self):
         base = self.val('textures')

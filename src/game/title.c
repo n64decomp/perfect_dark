@@ -7458,7 +7458,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
 
 			gSPSetLights1(tmp++, var80062530);
-			gSPBranchList(tmp++, rodata->primary);
+			gSPBranchList(tmp++, rodata->opagdl);
 		}
 
 		node = modelGetPart(model->definition, MODELPART_LOGO_0004);
@@ -7475,7 +7475,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 			if (g_PdLogoAmbientLightFrac > 0.0f) {
 				gSPSetLights1(tmp++, var80062560);
-				gSPBranchList(tmp++, rodata->primary);
+				gSPBranchList(tmp++, rodata->opagdl);
 			} else {
 				gSPEndDisplayList(tmp++);
 			}
@@ -7495,7 +7495,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 			if (g_PdLogoAmbientLightFrac > 0.0f) {
 				gSPSetLights1(tmp++, var80062560);
-				gSPBranchList(tmp++, rodata->primary);
+				gSPBranchList(tmp++, rodata->opagdl);
 			} else {
 				gSPEndDisplayList(tmp++);
 			}
@@ -7515,7 +7515,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 			if (g_PdLogoAmbientLightFrac > 0.0f) {
 				gSPSetLights1(tmp++, var80062560);
-				gSPBranchList(tmp++, rodata->primary);
+				gSPBranchList(tmp++, rodata->opagdl);
 			} else {
 				gSPEndDisplayList(tmp++);
 			}

@@ -69,6 +69,16 @@
 	} \
 	END_SEG(name)
 
+#define RSP_TEXT_SEGMENT(name) \
+		name##TextStart = .; \
+		build/ROMID/rsp/name.text.o (.data); \
+		name##TextEnd = .;
+
+#define RSP_DATA_SEGMENT(name) \
+		name##DataStart = .; \
+		build/ROMID/rsp/name.data.o (.data); \
+		name##DataEnd = .;
+
 OUTPUT_ARCH (mips)
 
 SECTIONS
@@ -183,28 +193,19 @@ SECTIONS
 
 	BEGIN_SEG(data)
 	{
-		build/ROMID/rsp/rspboot.text.o (.data);
-		build/ROMID/rsp/gsp.text.o (.data);
-		build/ROMID/rsp/asp.text.o (.data);
+		RSP_TEXT_SEGMENT(rspboot)
+		RSP_TEXT_SEGMENT(gsp)
+		RSP_TEXT_SEGMENT(asp)
+
 		LIBFILES(.data)
 		GAMEFILES(.data)
-		build/ROMID/rsp/gsp.data.o (.data);
-		build/ROMID/rsp/asp.data.o (.data);
+
 		. = ALIGN(0x10);
+
+		RSP_DATA_SEGMENT(gsp)
+		RSP_DATA_SEGMENT(asp)
 	}
 	END_SEG(data)
-
-	rspbootTextStart = _dataSegmentStart;
-	rspbootTextEnd = rspbootTextStart + 0xd0;
-	gspTextStart = rspbootTextEnd;
-	gspTextEnd = gspTextStart + 0x1420;
-	aspTextStart = gspTextEnd;
-	aspTextEnd = aspTextStart + 0x1930;
-
-	gspDataStart = _dataSegmentEnd - 0x800 - 0xb50;
-	gspDataEnd = gspDataStart + 0x800;
-	aspDataStart = gspDataEnd;
-	aspDataEnd = aspDataStart + 0xb50;
 
 	/***************************************************************************
 	 * bss

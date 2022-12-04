@@ -747,11 +747,6 @@ $(B_DIR)/rsp/%.text.bin $(B_DIR)/rsp/%.data.bin: src/rsp/%.s
 	@mkdir -p $(dir $@)
 	armips -strequ CODE_FILE $(B_DIR)/rsp/$*.text.bin -strequ DATA_FILE $(B_DIR)/rsp/$*.data.bin $<
 
-# For RSP ucodes which haven't been diassembled yet, copy from extracted
-$(B_DIR)/rsp/%.bin: $(E_DIR)/rsp/%.bin
-	@mkdir -p $(dir $@)
-	cp $< $@
-
 $(B_DIR)/rsp/%.o: $(B_DIR)/rsp/%.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
