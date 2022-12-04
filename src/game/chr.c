@@ -547,7 +547,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 #define VAR(property) g_Vars.property
 #endif
 
-	if (g_Anims[model->anim->animnum].flags & ANIMFLAG_02) {
+	if (g_Anims[model->anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
 		if (chr->hidden & CHRHFLAG_00020000) {
 			func0f065e98(&prop->pos, prop->rooms, arg2, spfc);
 		} else {
@@ -1917,7 +1917,7 @@ void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, bool arg2)
 		}
 
 		if (model->anim
-				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
+				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION)
 				&& lvupdate240 > 0
 				&& g_Vars.cutsceneskip60ths > 0) {
 			lvupdate240 += g_Vars.cutsceneskip60ths * 4;
@@ -2346,7 +2346,7 @@ s32 chrTick(struct prop *prop)
 	struct modelrenderdata sp210 = {0, 1, 3};
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
-	bool onscreen;
+	bool needsupdate;
 	bool hatvisible = true;
 	s32 lvupdate240 = g_Vars.lvupdate240;
 	struct prop *child;
@@ -2356,8 +2356,8 @@ s32 chrTick(struct prop *prop)
 	s32 sp1e8;
 	Mtxf sp1a8;
 	s32 sp1a4;
-	bool invalidframe;
-	bool invalidframe2;
+	bool isrepeatframe;
+	bool isrepeatframe2;
 	struct coord sp190;
 	f32 angle;
 	struct player *player;
@@ -2452,26 +2452,26 @@ s32 chrTick(struct prop *prop)
 
 		if (eyespy && eyespy->deployed) {
 			if (eyespy == g_Vars.currentplayer->eyespy && eyespy->active) {
-				onscreen = false;
+				needsupdate = false;
 			} else {
-				onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+				needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 			}
 
 			if (fulltick) {
 				chr0f0220ec(chr, lvupdate240, true);
 			}
 		} else {
-			onscreen = false;
+			needsupdate = false;
 		}
 	} else if (chr->chrflags & CHRCFLAG_HIDDEN) {
-		onscreen = false;
+		needsupdate = false;
 	} else if ((chr->chrflags & CHRCFLAG_UNPLAYABLE)
 			|| (prop->type == PROPTYPE_PLAYER
 				&& g_Vars.currentplayer == (player = g_Vars.players[playermgrGetPlayerNumByProp(prop)])
 				&& player->cameramode == CAMERAMODE_THIRDPERSON
 				&& player->visionmode != VISIONMODE_SLAYERROCKET)) {
 		// Cutscene chr?
-		invalidframe = false;
+		isrepeatframe = false;
 
 		if (fulltick) {
 			model->anim->average = false;
@@ -2483,25 +2483,25 @@ s32 chrTick(struct prop *prop)
 			}
 		}
 
-		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES)) {
+		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_HASREPEATFRAMES)) {
 			animLoadHeader(chr->model->anim->animnum);
 
-			invalidframe = animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->framea) < 0
+			isrepeatframe = animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->framea) < 0
 				|| (animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->frameb) < 0
 						&& chr->model->anim->frac != 0.0f);
 		}
 
-		if (invalidframe) {
-			onscreen = false;
+		if (isrepeatframe) {
+			needsupdate = false;
 		} else {
-			onscreen = posIsInDrawDistance(&prop->pos);
+			needsupdate = posIsInDrawDistance(&prop->pos);
 		}
 	} else if (chr->actiontype == ACT_PATROL || chr->actiontype == ACT_GOPOS) {
 		if ((chr->actiontype == ACT_PATROL && chr->act_patrol.waydata.mode == WAYMODE_MAGIC)
 				|| (chr->actiontype == ACT_GOPOS && chr->act_gopos.waydata.mode == WAYMODE_MAGIC)) {
-			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 
-			if (onscreen) {
+			if (needsupdate) {
 				model->anim->average = false;
 				modelGetRootPosition(model, &chr->prevpos);
 				modelUpdateInfo(model);
@@ -2511,9 +2511,9 @@ s32 chrTick(struct prop *prop)
 				chr0f0220ec(chr, lvupdate240, true);
 			}
 
-			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 
-			if (onscreen) {
+			if (needsupdate) {
 				if (chr->actiontype == ACT_PATROL) {
 					chr->act_patrol.waydata.lastvisible60 = g_Vars.lvframe60;
 				} else if (chr->actiontype == ACT_GOPOS) {
@@ -2521,16 +2521,16 @@ s32 chrTick(struct prop *prop)
 				}
 			}
 
-			model->anim->average = !onscreen
+			model->anim->average = !needsupdate
 				&& !((prop->flags & (PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) != 0);
 		}
 	} else if (chr->actiontype == ACT_ANIM && !chr->act_anim.movewheninvis) {
-		onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+		needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 
 		if (fulltick) {
 			model->anim->average = false;
 
-			if (onscreen && !chr->act_anim.lockpos) {
+			if (needsupdate && !chr->act_anim.lockpos) {
 				chr0f0220ec(chr, lvupdate240, true);
 			} else {
 				chr0f0220ec(chr, lvupdate240, false);
@@ -2541,14 +2541,14 @@ s32 chrTick(struct prop *prop)
 
 		if (chr->chrflags & CHRCFLAG_00000001) {
 			chr0f0220ec(chr, lvupdate240, true);
-			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 		} else {
-			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 
 			if (g_Vars.mplayerisrunning) {
 				if (fulltick) {
 					if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-						if (onscreen) {
+						if (needsupdate) {
 							chr0f0220ec(chr, lvupdate240, true);
 						} else if (model->anim->animnum2 != 0) {
 							chr0f0220ec(chr, lvupdate240, false);
@@ -2557,7 +2557,7 @@ s32 chrTick(struct prop *prop)
 						chr0f0220ec(chr, lvupdate240, true);
 					}
 				}
-			} else if (onscreen) {
+			} else if (needsupdate) {
 				if (chr->act_stand.playwalkanim == true) {
 					chr0f0220ec(chr, lvupdate240, false);
 				} else {
@@ -2568,34 +2568,34 @@ s32 chrTick(struct prop *prop)
 			}
 		}
 	} else if (chr->actiontype == ACT_DEAD) {
-		onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+		needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 	} else if (prop->type == PROPTYPE_PLAYER
 			&& (g_Vars.mplayerisrunning
 				|| (player = g_Vars.players[playermgrGetPlayerNumByProp(prop)], player->cameramode == CAMERAMODE_EYESPY)
 				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
 		model->anim->average = false;
 		chr0f0220ec(chr, lvupdate240, true);
-		onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+		needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 	} else {
-		invalidframe2 = false;
+		isrepeatframe2 = false;
 
 		if (fulltick) {
 			model->anim->average = false;
 			chr0f0220ec(chr, lvupdate240, true);
 		}
 
-		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES)) {
+		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_HASREPEATFRAMES)) {
 			animLoadHeader(chr->model->anim->animnum);
 
-			invalidframe2 = animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->framea) < 0
+			isrepeatframe2 = animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->framea) < 0
 				|| (animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->frameb) < 0
 						&& chr->model->anim->frac != 0.0f);
 		}
 
-		if (invalidframe2) {
-			onscreen = false;
+		if (isrepeatframe2) {
+			needsupdate = false;
 		} else {
-			onscreen = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 		}
 	}
 
@@ -2612,17 +2612,17 @@ s32 chrTick(struct prop *prop)
 	}
 
 	if (prop->pos.y < -65536) {
-		onscreen = false;
+		needsupdate = false;
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (!g_Vars.normmplayerisrunning && onscreen) {
+	if (!g_Vars.normmplayerisrunning && needsupdate) {
 		if (chr->actiontype == ACT_DEAD
 				|| (chr->actiontype == ACT_DRUGGEDKO && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
 			var8009cdac++;
 
 			if (var8009cdac > 10) {
-				onscreen = false;
+				needsupdate = false;
 				chrDropItemsForOwnerReap(chr);
 				chr->hidden |= CHRHFLAG_REAPED;
 			}
@@ -2631,12 +2631,12 @@ s32 chrTick(struct prop *prop)
 		}
 
 		if (var8009cdb0 + var8009cdac > 30) {
-			onscreen = false;
+			needsupdate = false;
 		}
 	}
 #endif
 
-	if (onscreen) {
+	if (needsupdate) {
 #if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 		debug0f1199f0nb();
 #endif

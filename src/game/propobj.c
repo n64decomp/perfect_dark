@@ -11015,7 +11015,7 @@ s32 objTickPlayer(struct prop *prop)
 	}
 
 	if (model->anim) {
-		if (g_Anims[model->anim->animnum].flags & ANIMFLAG_02) {
+		if (g_Anims[model->anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
 			if (g_Vars.tickmode != TICKMODE_CUTSCENE
 					&& modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 				modelmgrFreeAnim(model->anim);
@@ -11040,7 +11040,7 @@ s32 objTickPlayer(struct prop *prop)
 
 				animLoadHeader(model->anim->animnum);
 
-				if ((g_Anims[model->anim->animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES)
+				if ((g_Anims[model->anim->animnum].flags & ANIMFLAG_HASREPEATFRAMES)
 						&& animGetRemappedFrame(model->anim->animnum, model->anim->framea) < 0) {
 					invalidframe = true;
 				} else {

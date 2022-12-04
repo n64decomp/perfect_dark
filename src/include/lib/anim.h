@@ -12,7 +12,7 @@ bool animHasFrames(s16 animnum);
 s32 animGetNumAnimations(void);
 u8 *animDma(u8 *dst, u32 segoffset, u32 len);
 s32 animGetRemappedFrame(s16 animnum, s32 frame);
-bool animRemapFrame(s16 animnum, s32 frame, s32 *frameptr);
+bool animRemapFrameForLoad(s16 animnum, s32 frame, s32 *frameptr);
 bool animIsFrameCutSkipped(s16 animnum, s32 frame);
 u8 animLoadFrame(s16 animnum, s32 framenum);
 void animForgetFrameBirths(void);

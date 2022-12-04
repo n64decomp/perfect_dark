@@ -791,7 +791,7 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 			modelTweenRot(&rot3, &rot4, anim->frac2);
 		}
 
-		if ((g_Anims[anim->animnum].flags & ANIMFLAG_02) && (g_Anims[anim->animnum2].flags & ANIMFLAG_02) == 0) {
+		if ((g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) && (g_Anims[anim->animnum2].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
 			mtx4LoadYRotation(rwdata->chrinfo.yrot, &sp78);
 			mtx4LoadRotation(&rot3, &sp38);
 			mtx00015be0(&sp78, &sp38);
@@ -808,7 +808,7 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 		mtx4LoadRotation(&rot1, &sp1d8);
 	}
 
-	if (g_Anims[anim->animnum].flags & ANIMFLAG_02) {
+	if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
 		mtx4LoadTranslation(sp254, &sp198);
 	} else {
 		if (rwdata->chrinfo.unk18 != 0.0f) {
@@ -1082,7 +1082,7 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 		skel = model->definition->skel;
 
 		if (anim->animnum != 0) {
-			sp128 = (g_Anims[anim->animnum].flags & ANIMFLAG_02) && node == model->definition->rootnode;
+			sp128 = (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) && node == model->definition->rootnode;
 
 			animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
 
@@ -1825,7 +1825,7 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 			f32 x;
 			f32 z;
 
-			if (g_Anims[anim->animnum].flags & ANIMFLAG_02) {
+			if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
 				sp64 = func0f15c888();
 				animLoadHeader(anim->animnum);
 				frameslot = animLoadFrame(anim->animnum, anim->framea);
@@ -1951,8 +1951,8 @@ void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
-				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
-				&& (g_Anims[animnum].flags & ANIMFLAG_02) == 0) {
+				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION)
+				&& (g_Anims[animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
 			timemerge = 0;
 		}
 
@@ -1968,8 +1968,8 @@ void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startfram
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
-				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
-				&& (g_Anims[animnum].flags & ANIMFLAG_02) == 0) {
+				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION)
+				&& (g_Anims[animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
 			merge = 0;
 		}
 
@@ -2232,7 +2232,7 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 					floorend = ceil(endframe);
 				}
 
-				if (g_Anims[anim->animnum].flags & ANIMFLAG_02) {
+				if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
 					f20 = func0f15c888();
 
 					if (floorend != anim->framea) {
@@ -2463,7 +2463,7 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 					anim->frame = anim->frameb + (1.0f - anim->frac);
 				}
 
-				if (anim->animnum2 && (g_Anims[anim->animnum].flags & ANIMFLAG_02) == 0) {
+				if (anim->animnum2 && (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
 					s32 floorcur2 = floor(curframe2);
 					s32 floorend2 = floor(endframe2);
 

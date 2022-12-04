@@ -144,59 +144,81 @@ u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 }
 
 /**
- * Get a remapped frame, or return -1 if the frame is removed.
+ * Return -1 if the given apparent frame is a repeat frame, or if not a repeat
+ * frame then remap the apparent frame to a real one and return it.
+ *
+ * The end of the header can contain a sequence of shorts such as:
+ * -1, 55, 30
+ *
+ * The values are iterated backwards in pairs of 2 and are terminated by -1.
+ *
+ * In each pair, the right value is the repeatfromframe and the left value is
+ * the repeattoframe. In the above example, apparent frames 30 to 55 are
+ * repeated, so the remapping looks like:
+ * 29 -> 29
+ * 30 -> -1
+ * ...
+ * 55 -> -1
+ * 56 -> 30
+ * 57 -> 31
  */
-s32 animGetRemappedFrame(s16 animnum, s32 frame)
+s32 animGetRemappedFrame(s16 animnum, s32 apparentframe)
 {
 	u8 *ptr = (u8 *)(g_AnimHeaderBytes[g_AnimToHeaderSlot[animnum]] + g_Anims[animnum].headerlen - 2);
-	s32 result = frame;
+	s32 realframe = apparentframe;
 
 	while (true) {
-		s16 value1 = ptr[0] << 8 | ptr[1];
-		s16 value2;
+		s16 repeatfromframe = ptr[0] << 8 | ptr[1];
+		s16 repeattoframe;
 
-		if (value1 < 0) {
+		if (repeatfromframe < 0) {
 			break;
 		}
 
-		value2 = ptr[-2] << 8 | ptr[-1];
+		repeattoframe = ptr[-2] << 8 | ptr[-1];
 		ptr -= 4;
 
-		if (value1 <= frame) {
-			if (value2 < frame) {
-				result = result - value2 + value1 - 1;
+		if (repeatfromframe <= apparentframe) {
+			if (repeattoframe < apparentframe) {
+				realframe = realframe - repeattoframe + repeatfromframe - 1;
 			} else {
-				result = -1;
+				realframe = -1;
 				break;
 			}
 		}
 	}
 
-	return result;
+	return realframe;
 }
 
-bool animRemapFrame(s16 animnum, s32 frame, s32 *frameptr)
+/**
+ * Similar to the above, but with the following differences:
+ * - Write the remapped frame to the frameptr pointer instead of returning it.
+ * - If the apparent frame is a repeat, write the original frame rather than -1.
+ * - Return true if the frame is original or false if it's a repeat.
+ */
+bool animRemapFrameForLoad(s16 animnum, s32 apparentframe, s32 *frameptr)
 {
 	u8 *ptr = (u8 *)(g_AnimHeaderBytes[g_AnimToHeaderSlot[animnum]] + g_Anims[animnum].headerlen - 2);
-	s32 result = frame;
+	s32 result = apparentframe;
 	bool ret = true;
 
 	while (true) {
-		s16 value1 = ptr[0] << 8 | ptr[1];
-		s16 value2;
+		s16 repeatfromframe = ptr[0] << 8 | ptr[1];
+		s16 repeattoframe;
 
-		if (value1 < 0) {
+		if (repeatfromframe < 0) {
 			break;
 		}
 
-		value2 = ptr[-2] << 8 | ptr[-1];
+		repeattoframe = ptr[-2] << 8 | ptr[-1];
 		ptr -= 4;
 
-		if (value1 <= frame) {
-			if (value2 < frame) {
-				result = result - value2 + value1 - 1;
+		if (repeatfromframe <= apparentframe) {
+			if (repeattoframe < apparentframe) {
+				result = result - repeattoframe + repeatfromframe - 1;
 			} else {
-				result = result - frame + value1;
+				result = result - apparentframe + repeatfromframe;
 				ret = false;
 				break;
 			}
@@ -214,19 +236,19 @@ bool animRemapFrame(s16 animnum, s32 frame, s32 *frameptr)
  * Used by cutscenes.
  *
  * The skip frame numbers are stored at the tail end of the header, prior to the
- * frame remapping data. The frame numbers are stored as a list of shorts.
+ * frame repeat data. The frame numbers are stored as a list of shorts.
  * The list is terminated on the left side with a negative value.
  */
 bool animIsFrameCutSkipped(s16 animnum, s32 frame)
 {
 	u8 *ptr = (u8 *)(g_AnimHeaderBytes[g_AnimToHeaderSlot[animnum]] + g_Anims[animnum].headerlen - 2);
 
-	// Iterate past the ANIMFLAG_HASREMAPPEDFRAMES stuff
-	if (g_Anims[animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES) {
+	// Iterate past the repeat list
+	if (g_Anims[animnum].flags & ANIMFLAG_HASREPEATFRAMES) {
 		while (true) {
-			s16 value1 = ptr[0] << 8 | ptr[1];
+			s16 repeatfromframe = ptr[0] << 8 | ptr[1];
 
-			if (value1 < 0) {
+			if (repeatfromframe < 0) {
 				break;
 			}
 
@@ -237,13 +259,13 @@ bool animIsFrameCutSkipped(s16 animnum, s32 frame)
 	}
 
 	while (true) {
-		s16 value2 = ptr[0] << 8 | ptr[1];
+		s16 skipframe = ptr[0] << 8 | ptr[1];
 
-		if (value2 < 0) {
+		if (skipframe < 0) {
 			break;
 		}
 
-		if (value2 == frame) {
+		if (skipframe == frame) {
 			return true;
 		}
 
@@ -277,8 +299,8 @@ u8 animLoadFrame(s16 animnum, s32 framenum)
 			slot = (slot + 1) % ANIM_FRAME_CACHE_SIZE;
 		}
 
-		if (g_Anims[animnum].flags & ANIMFLAG_HASREMAPPEDFRAMES) {
-			animRemapFrame(animnum, framenum, &loadframenum);
+		if (g_Anims[animnum].flags & ANIMFLAG_HASREPEATFRAMES) {
+			animRemapFrameForLoad(animnum, framenum, &loadframenum);
 		}
 
 		if (g_Anims[animnum].bytesperframe) {
