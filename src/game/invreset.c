@@ -20,7 +20,7 @@ void invReset(void)
 
 void invInit(void)
 {
-	g_Vars.currentplayer->equipmaxitems = 8; // Unarmed, 6 MP weapons + data uplink
+	g_Vars.currentplayer->equipmaxitems = 14; // Unarmed, 6 MP weapons * 2 for dual weild + data uplink
 	g_Vars.currentplayer->equipment = mempAlloc(ALIGN16(g_Vars.currentplayer->equipmaxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
 	invClear();
 }
