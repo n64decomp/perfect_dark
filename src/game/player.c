@@ -794,8 +794,18 @@ void playerSpawn(void)
 	invGiveSingleWeapon(WEAPON_UNARMED);
 	playerSetShieldFrac(0);
 
-	bgunEquipWeapon2(HAND_LEFT, g_DefaultWeapons[HAND_LEFT]);
-	bgunEquipWeapon2(HAND_RIGHT, g_DefaultWeapons[HAND_RIGHT]);
+	if ((g_MpSetup.options & MPOPTION_SPAWNWITHWEAPON)
+			&& g_MpSetup.weapons[0] != MPWEAPON_NONE
+			&& g_MpSetup.weapons[0] != MPWEAPON_DISABLED) {
+		struct mpweapon *mpweapon = &g_MpWeapons[g_MpSetup.weapons[0]];
+		invGiveSingleWeapon(mpweapon->weaponnum);
+		bgunEquipWeapon2(HAND_LEFT, WEAPON_NONE);
+		bgunEquipWeapon2(HAND_RIGHT, mpweapon->weaponnum);
+		bgunSetAmmoQuantity(mpweapon->weapon1ammotypeminusone, mpweapon->weapon1ammoqty);
+	} else {
+		bgunEquipWeapon2(HAND_LEFT, g_DefaultWeapons[HAND_LEFT]);
+		bgunEquipWeapon2(HAND_RIGHT, g_DefaultWeapons[HAND_RIGHT]);
+	}
 
 	if (g_Vars.currentplayer->model00d4 == NULL) {
 		playerTickChrBody();

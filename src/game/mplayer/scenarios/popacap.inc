@@ -60,6 +60,14 @@ struct menuitem g_PacOptionsMenuItems[] = {
 		MENUITEMTYPE_CHECKBOX,
 		0,
 		MENUITEMFLAG_LOCKABLEMINOR,
+		L_MPMENU_252, // "Spawn With Weapon"
+		MPOPTION_SPAWNWITHWEAPON,
+		menuhandlerMpCheckboxOption,
+	},
+	{
+		MENUITEMTYPE_CHECKBOX,
+		0,
+		MENUITEMFLAG_LOCKABLEMINOR,
 		L_OPTIONS_493, // "Kills Score"
 		MPOPTION_KILLSSCORE,
 		menuhandlerMpCheckboxOption,
