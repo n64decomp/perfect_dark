@@ -74,7 +74,7 @@ Acmd *n_alAdpcmPull(N_PVoice *filter, s16 *outp, s32 outCount, Acmd *p)
 		 * Now fix up state info to reflect the loop start point
 		 */
 		f->dc_lastsam = f->dc_loop.start &0xf;
-		f->dc_memin = (s32) f->dc_table->base + ADPCMFBYTES * ((s32) (f->dc_loop.start>>LFSAMPLES) + 1);
+		f->dc_memin = (intptr_t) f->dc_table->base + ADPCMFBYTES * ((s32) (f->dc_loop.start>>LFSAMPLES) + 1);
 		f->dc_sample = f->dc_loop.start;
 
 		bEnd = *outp;
@@ -138,7 +138,7 @@ Acmd *n_alAdpcmPull(N_PVoice *filter, s16 *outp, s32 outCount, Acmd *p)
 	 * overFlow is the number of bytes past the end
 	 * of the bitstream I try to generate
 	 */
-	overFlow = f->dc_memin + nbytes - ((s32) f->dc_table->base + f->dc_table->len);
+	overFlow = f->dc_memin + nbytes - ((intptr_t) f->dc_table->base + f->dc_table->len);
 
 	if (overFlow < 0) {
 		overFlow = 0;
@@ -195,7 +195,7 @@ s32 n_alLoadParam(N_PVoice *filter, s32 paramID, void *param)
 	switch (paramID) {
 	case (AL_FILTER_SET_WAVETABLE):
 		a->dc_table = (ALWaveTable *) param;
-		a->dc_memin = (s32) a->dc_table->base;
+		a->dc_memin = (intptr_t) a->dc_table->base;
 		a->dc_sample = 0;
 
 		switch (a->dc_table->type) {
@@ -236,7 +236,7 @@ s32 n_alLoadParam(N_PVoice *filter, s32 paramID, void *param)
 		/* sct 2/14/96 - Check table since it is initialized to null and */
 		/* Get loop info according to table type. */
 		if (a->dc_table) {
-			a->dc_memin  = (s32) a->dc_table->base;
+			a->dc_memin  = (intptr_t) a->dc_table->base;
 
 			if (a->dc_table->type == AL_ADPCM_WAVE) {
 				if (a->dc_table->waveInfo.adpcmWave.loop) {

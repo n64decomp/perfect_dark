@@ -49,7 +49,7 @@ void animsInit(void)
 	u32 tablelen = ALIGN64(&_animationsTableRomEnd - &_animationsTableRomStart);
 
 	ptr = mempAlloc(tablelen, MEMPOOL_PERMANENT);
-	dmaExec(ptr, (s32)&_animationsTableRomStart, tablelen);
+	dmaExec(ptr, (romptr_t) &_animationsTableRomStart, tablelen);
 
 	g_NumAnimations = g_NumRomAnimations = ptr[0];
 	g_Anims = g_RomAnims = (struct animtableentry *)&ptr[1];
@@ -140,7 +140,7 @@ u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 		return dst;
 	}
 
-	return dmaExecWithAutoAlign(dst, (u32)&_animationsSegmentRomStart + segoffset, len);
+	return dmaExecWithAutoAlign(dst, (romptr_t) &_animationsSegmentRomStart + segoffset, len);
 }
 
 /**

@@ -1,6 +1,7 @@
 #include <libaudio.h>
 #include <os_internal.h>
 #include <ultraerror.h>
+#include "types.h"
 
 void _bnkfPatchBank(ALBank *bank, s32 offset, s32 table);
 void _bnkfPatchInst(ALInstrument *inst, s32 offset, s32 table);
@@ -9,7 +10,7 @@ void _bnkfPatchWaveTable(ALWaveTable *w, s32 offset, s32 table);
 
 void alSeqFileNew(ALSeqFile *file, u8 *base)
 {
-	s32 offset = (s32) base;
+	intptr_t offset = (intptr_t) base;
 	s32 i;
 
 	/*
@@ -22,8 +23,8 @@ void alSeqFileNew(ALSeqFile *file, u8 *base)
 
 void alBnkfNew(ALBankFile *file, u8 *table)
 {
-	s32 offset = (s32) file;
-	s32 woffset = (s32) table;
+	intptr_t offset = (intptr_t) file;
+	intptr_t woffset = (intptr_t) table;
 
 	s32 i;
 

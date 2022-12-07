@@ -226,7 +226,7 @@ void viReset(s32 stagenum)
 
 	ptr = mempAlloc(fbsize * 2 + 0x40, MEMPOOL_STAGE);
 
-	ptr = (u8 *)(((u32)ptr + 0x3f) & 0xffffffc0);
+	ptr = (u8 *)(((uintptr_t) ptr + 0x3f) & 0xffffffc0);
 
 	g_FrameBuffers[0] = (u16 *) ptr;
 	g_FrameBuffers[1] = (u16 *) (fbsize + ptr);

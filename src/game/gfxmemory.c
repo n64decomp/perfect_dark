@@ -127,7 +127,7 @@ struct gfxvtx *gfxAllocateVertices(u32 count)
 {
 	void *ptr = g_GfxMemPos;
 	g_GfxMemPos += count * sizeof(struct gfxvtx);
-	g_GfxMemPos = (u8 *)ALIGN16((u32)g_GfxMemPos);
+	g_GfxMemPos = (u8 *)ALIGN16((uintptr_t)g_GfxMemPos);
 
 	return ptr;
 }

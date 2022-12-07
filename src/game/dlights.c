@@ -2206,8 +2206,8 @@ void roomHighlight(s32 roomnum)
 		g_Rooms[roomnum].colours = dst;
 
 		extra = g_Rooms[roomnum].unk52;
-		src = (struct colour *)((u32)g_Rooms[roomnum].gfxdata->vertices + g_Rooms[roomnum].gfxdata->numvertices * sizeof(struct gfxvtx));
-		src = (struct colour *)ALIGN8((s32)src);
+		src = (struct colour *)((uintptr_t)g_Rooms[roomnum].gfxdata->vertices + g_Rooms[roomnum].gfxdata->numvertices * sizeof(struct gfxvtx));
+		src = (struct colour *)ALIGN8((uintptr_t)src);
 
 		if (g_Rooms[roomnum].flags & ROOMFLAG_RENDERALWAYS) {
 			g_Rooms[roomnum].colours = src;

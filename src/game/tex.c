@@ -1108,7 +1108,7 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 		}
 	}
 
-	return (u32) s6 - (u32) arg2;
+	return (uintptr_t) s6 - (uintptr_t) arg2;
 }
 
 void texCopyGdls(Gfx *src, Gfx *dst, s32 arg2)

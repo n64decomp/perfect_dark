@@ -1,5 +1,6 @@
 #include <os_internal.h>
 #include "controller.h"
+#include "types.h"
 
 s32 g_PfsPrevChannel = -1;
 u8 g_PfsPrevBank = 250;
@@ -28,7 +29,7 @@ s32 __osIdCheckSum(u16 *ptr, u16 *csum, u16 *icsum)
 	*csum = *icsum = 0;
 
 	for (i = 0; i < ((sizeof(__OSPackId) - sizeof(u32)) / sizeof(u8)); i += 2) {
-		data = *(u16 *)((u32)ptr + i);
+		data = *(u16 *)((uintptr_t) ptr + i);
 		*csum += data;
 		*icsum += ~data;
 	}

@@ -451,7 +451,7 @@ void func0f0f1494(void)
 	}
 }
 
-char *menuResolveText(u32 thing, void *dialogoritem)
+char *menuResolveText(uintptr_t thing, void *dialogoritem)
 {
 	char *(*handler)(void *dialogoritem) = (void *)thing;
 
@@ -465,7 +465,7 @@ char *menuResolveText(u32 thing, void *dialogoritem)
 		return langGet((u32)thing);
 	}
 
-	if (thing > (u32)func0f1a78b0) {
+	if (thing > (uintptr_t)func0f1a78b0) {
 #if VERSION < VERSION_NTSC_1_0
 		CRASH();
 #endif
@@ -2280,8 +2280,8 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 				sp160 = modelFindNodeMtxIndex(node, 0);
 				mtx4LoadIdentity(&sp120);
 				mtx4LoadXRotation(menuGetCosOscFrac(4), &sp120);
-				mtx4MultMtx4((Mtxf *)((u32)sp3b4 + sp160 * sizeof(Mtxf)), &sp120, &spe0);
-				mtx4Copy(&spe0, (Mtxf *)((u32)sp3b4 + sp160 * sizeof(Mtxf)));
+				mtx4MultMtx4((Mtxf *)((uintptr_t)sp3b4 + sp160 * sizeof(Mtxf)), &sp120, &spe0);
+				mtx4Copy(&spe0, (Mtxf *)((uintptr_t)sp3b4 + sp160 * sizeof(Mtxf)));
 			}
 
 			node = modelGetPart(thing->bodymodeldef, MODELPART_HUDPIECE_0001);
@@ -2325,7 +2325,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 		for (i = 0; i < thing->bodymodeldef->nummatrices; i++) {
 			Mtxf sp70;
-			mtx4Copy((Mtxf *)((u32)thing->bodymodel.matrices + i * sizeof(Mtxf)), &sp70);
+			mtx4Copy((Mtxf *)((uintptr_t)thing->bodymodel.matrices + i * sizeof(Mtxf)), &sp70);
 			mtxF2L(&sp70, &thing->bodymodel.matrices[i]);
 		}
 
@@ -5590,7 +5590,7 @@ u32 menuGetRoot(void)
 #if VERSION >= VERSION_NTSC_1_0
 struct menudialogdef g_PakAttemptRepairMenuDialog;
 
-s32 menuhandler000fcc34(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler000fcc34(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	bool done = false;
 
@@ -5616,7 +5616,7 @@ s32 menuhandler000fcc34(s32 operation, struct menuitem *item, union handlerdata 
 }
 #endif
 
-s32 menudialog000fcd48(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult menudialog000fcd48(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog
@@ -5630,7 +5630,7 @@ s32 menudialog000fcd48(s32 operation, struct menudialogdef *dialogdef, union han
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 func0f0fcdd0(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult func0f0fcdd0(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		func0f0f3704(&g_PakDamagedMenuDialog);
@@ -5640,7 +5640,7 @@ s32 func0f0fcdd0(s32 operation, struct menuitem *item, union handlerdata *data)
 }
 #endif
 
-s32 menuhandlerRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (pakRepair(g_Menus[g_MpPlayerNum].fm.device3)) {
@@ -5872,7 +5872,7 @@ char *menuTextSaveDeviceName(struct menuitem *item)
 	return NULL;
 }
 
-s32 menuhandlerRetrySavePak(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerRetrySavePak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -5889,7 +5889,7 @@ s32 menuhandlerRetrySavePak(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-s32 menuhandlerWarnRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerWarnRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -6049,7 +6049,7 @@ struct menuitem g_PakDamagedMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
-		(u32)&menuTextSaveDeviceName,
+		(uintptr_t)&menuTextSaveDeviceName,
 		0,
 		NULL,
 	},
@@ -6122,7 +6122,7 @@ struct menuitem g_PakFullMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_SELECTABLE_CENTRE,
-		(u32)&menuTextSaveDeviceName,
+		(uintptr_t)&menuTextSaveDeviceName,
 		0,
 		NULL,
 	},
@@ -6227,7 +6227,7 @@ struct menuitem g_PakDataLostMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
-		(u32)&menuTextSaveDeviceName,
+		(uintptr_t)&menuTextSaveDeviceName,
 		0,
 		NULL,
 	},

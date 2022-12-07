@@ -479,7 +479,7 @@ void *frLoadRomData(u32 len)
 	g_FrRomData = mempAlloc(ALIGN16(len), MEMPOOL_STAGE);
 
 	if (g_FrRomData) {
-		return dmaExecWithAutoAlign(g_FrRomData, (u32)&_firingrangeSegmentRomStart, len);
+		return dmaExecWithAutoAlign(g_FrRomData, (romptr_t) &_firingrangeSegmentRomStart, len);
 	}
 
 	return NULL;

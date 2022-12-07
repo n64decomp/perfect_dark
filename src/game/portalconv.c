@@ -14,7 +14,7 @@
 s32 portalConvertCoordinates(s32 portalnum, s32 *start, struct portalthing2 *things)
 {
 	Mtxf *mtx = g_Vars.currentplayer->worldtoscreenmtx;
-	struct portalvertices *pvertices = (struct portalvertices *) ((u32) g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+	struct portalvertices *pvertices = (struct portalvertices *) ((uintptr_t) g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 	struct portalthing2 *left;
 	struct portalthing2 *right = &things[39];
 	bool anybehind = false;

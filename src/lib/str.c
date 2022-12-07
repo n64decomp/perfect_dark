@@ -217,11 +217,11 @@ s32 strtol(const char *src, const char **endptr, s32 base)
 				break;
 			}
 
-			if (value > cutoff || (value == cutoff && (u32)c > cutlim)) {
+			if (value > cutoff || (value == cutoff && (uintptr_t) c > cutlim)) {
 				overflow = true;
 			} else {
 				value *= base;
-				value += (u32)c;
+				value += (uintptr_t) c;
 			}
 		}
 

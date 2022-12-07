@@ -29,7 +29,7 @@ void func0f0f139c(struct menuitem *item, f32 arg1);
 void func0f0f13ec(struct menuitem *item);
 void func0f0f1418(void);
 void func0f0f1494(void);
-char *menuResolveText(u32 thing, void *dialogoritem);
+char *menuResolveText(uintptr_t thing, void *dialogoritem);
 char *menuResolveParam2Text(struct menuitem *item);
 char *menuResolveDialogTitle(struct menudialogdef *dialogdef);
 void func0f0f15a4(struct menuitem *item, s32 *arg1);
@@ -107,11 +107,11 @@ void func0f0fd548(s32 arg0);
 struct menudialog *menuIsDialogOpen(struct menudialogdef *dialogdef);
 struct chrdata *currentPlayerGetCommandingAibot(void);
 
-s32 menuhandler000fcc34(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerRepairPak(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerRetrySavePak(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerWarnRepairPak(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuItemHandlerResult menuhandler000fcc34(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuItemHandlerResult amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuItemHandlerResult menuhandlerRepairPak(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuItemHandlerResult menuhandlerRetrySavePak(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuItemHandlerResult menuhandlerWarnRepairPak(s32 operation, struct menuitem *item, union handlerdata *data);
 
 extern const char var7f1b2658[];
 extern const char var7f1b265c[];

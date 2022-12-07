@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 fileGetRomAddress(s32 filenum);
+romptr_t fileGetRomAddress(s32 filenum);
 s32 fileGetRomSize(s32 filenum);
 void filesInit(void);
 void fileLoadPartToAddr(u16 filenum, void *memaddr, s32 offset, u32 len);

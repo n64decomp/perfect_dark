@@ -2914,13 +2914,13 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 
 				if (rwdata->gdl != NULL) {
 					if (rwdata->gdl == rodata->dl.opagdl) {
-						s4 = (Gfx *)((u32)rodata->dl.colourtable + ((u32)rodata->dl.opagdl & 0xffffff));
+						s4 = (Gfx *)((uintptr_t)rodata->dl.colourtable + ((uintptr_t)rodata->dl.opagdl & 0xffffff));
 					} else {
 						s4 = rwdata->gdl;
 					}
 
 					if (rodata->dl.xlugdl != NULL) {
-						s6 = (Gfx *)((u32)rodata->dl.colourtable + ((u32)rodata->dl.xlugdl & 0xffffff));
+						s6 = (Gfx *)((uintptr_t)rodata->dl.colourtable + ((uintptr_t)rodata->dl.xlugdl & 0xffffff));
 					}
 
 					vertices = rwdata->vertices;
@@ -2930,12 +2930,12 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 		case MODELNODETYPE_GUNDL:
 			if (s7) {
 				if (node->rodata->gundl.opagdl != NULL) {
-					s32 base = (s32)node->rodata->gundl.baseaddr;
+					s32 base = (intptr_t)node->rodata->gundl.baseaddr;
 
-					s4 = (Gfx *)(base + ((u32)node->rodata->gundl.opagdl & 0xffffff));
+					s4 = (Gfx *)(base + ((uintptr_t)node->rodata->gundl.opagdl & 0xffffff));
 
 					if (node->rodata->gundl.xlugdl != NULL) {
-						s6 = (Gfx *)(base + ((u32)node->rodata->gundl.xlugdl & 0xffffff));
+						s6 = (Gfx *)(base + ((uintptr_t)node->rodata->gundl.xlugdl & 0xffffff));
 					}
 
 					vertices = (struct gfxvtx *)base;
@@ -7737,7 +7737,7 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 	}
 }
 
-#define MTX(i) ((Mtxf *)((u32)matrices + i * sizeof(Mtxf)))
+#define MTX(i) ((Mtxf *)((uintptr_t)matrices + i * sizeof(Mtxf)))
 
 void doorInitMatrices(struct prop *prop)
 {
@@ -13659,7 +13659,7 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			node = func0f0687e4(obj->model);
 			dldata1 = &node->rodata->dl;
 			dldata2 = (struct modelrwdata_dl *) modelGetNodeRwData(obj->model, node);
-			oldcolours = (struct colour *) ((((u32) &dldata1->vertices[dldata1->numvertices] + 7) | 7) ^ 7);
+			oldcolours = (struct colour *) ((((uintptr_t) &dldata1->vertices[dldata1->numvertices] + 7) | 7) ^ 7);
 			newcolours = (struct colour *) gfxAllocateColours(dldata1->numcolours);
 
 			for (i = 0; i < dldata1->numcolours; i++) {
@@ -13977,7 +13977,7 @@ void objDeform(struct defaultobj *obj, s32 level)
 					ok = false;
 				}
 
-				if ((u32)rwdata->colours == ALIGN8((u32)&rodata->vertices[rodata->numvertices])) {
+				if ((uintptr_t)rwdata->colours == ALIGN8((uintptr_t)&rodata->vertices[rodata->numvertices])) {
 					struct colour *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_OBJCOL, NULL, 0);
 
 					if (colours) {
@@ -14288,12 +14288,12 @@ void piracyRestore(void)
 	ptr = (u32 *)buffer;
 
 	// Align ptr to an 8 byte boundary
-	while ((u32)ptr % 8) {
+	while ((uintptr_t)ptr % 8) {
 		ptr++;
 	}
 
 	// Copy the writeaddr/copylen pairs from ROM to the buffer
-	dmaExec(ptr, (u32) &_blankSegmentRomStart, 0x40);
+	dmaExec(ptr, (romptr_t) &_blankSegmentRomStart, 0x40);
 
 	// Calculate what needs to be copied and where
 	i = 0;
@@ -14311,7 +14311,7 @@ void piracyRestore(void)
 
 	// Copy it
 	if (copylen != 0) {
-		dmaExec((void *) writeaddr, (u32) &_blankSegmentRomStart + readoffset, copylen);
+		dmaExec((void *) writeaddr, (romptr_t) &_blankSegmentRomStart + readoffset, copylen);
 	}
 
 	// Increment the index, so the next time the function is called
@@ -14972,13 +14972,13 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 
 				if (rwdata->gdl != NULL) {
 					if (rwdata->gdl == rodata->opagdl) {
-						s3 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
+						s3 = (Gfx *)((uintptr_t)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
 					} else {
 						s3 = rwdata->gdl;
 					}
 
 					if (rodata->xlugdl != NULL) {
-						s5 = (void *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
+						s5 = (void *)((uintptr_t)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
 					}
 
 					vertices = rwdata->vertices;
@@ -14990,13 +14990,13 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 				struct modelrodata_gundl *rodata = &node->rodata->gundl;
 
 				if (rodata->opagdl != NULL) {
-					s3 = (Gfx *)((u32)rodata->baseaddr + ((u32)rodata->opagdl & 0xffffff));
+					s3 = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)rodata->opagdl & 0xffffff));
 
 					if (rodata->xlugdl != NULL) {
-						s5 = (Gfx *)((u32)rodata->baseaddr + ((u32)rodata->xlugdl & 0xffffff));
+						s5 = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)rodata->xlugdl & 0xffffff));
 					}
 
-					vertices = (void *)(u32)rodata->baseaddr;
+					vertices = (void *)(uintptr_t)rodata->baseaddr;
 				}
 			}
 			break;
@@ -15105,7 +15105,7 @@ void glassDestroy(struct defaultobj *obj)
 		u8 buffer[0x20];
 		u32 *ptr;
 		u32 romaddr = add43214321(0x00000dc0 - 0x43214321);
-		ptr = (u32 *) ALIGN16((u32)buffer);
+		ptr = (u32 *) ALIGN16((uintptr_t)buffer);
 		dmaExec(ptr, romaddr, 0x10);
 
 		if (ptr[1] + ptr[0] != add43214321(0x10a78f00e - 0x43214321)) {
@@ -16198,7 +16198,7 @@ bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 			if (obj->flags & OBJFLAG_00000100) {
 				if ((obj->hidden & (OBJHFLAG_PERIMDISABLED | OBJHFLAG_DOORPERIMDISABLED)) == 0) {
 					*start = (void *) obj->unkgeo;
-					*end = (void *)((u32)obj->unkgeo + len);
+					*end = (void *)((uintptr_t)obj->unkgeo + len);
 
 					if (obj->geocount >= 2) {
 						*end += obj->geocount * 0x40 - 0x40;
@@ -16209,7 +16209,7 @@ bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 			}
 
 			if (obj->geocount >= 2) {
-				*start = (void *)((u32)obj->unkgeo + len);
+				*start = (void *)((uintptr_t)obj->unkgeo + len);
 				*end = (void *)(*start + obj->geocount * 0x40 - 0x40);
 				return true;
 			}
@@ -16220,7 +16220,7 @@ bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 		}
 
 		*start = (void *) obj->unkgeo;
-		*end = (void *) ((u32)obj->unkgeo + obj->geocount * 0x40);
+		*end = (void *) ((uintptr_t)obj->unkgeo + obj->geocount * 0x40);
 		return true;
 	}
 
@@ -17685,7 +17685,7 @@ void modelFreeVertices(s32 vtxstoretype, struct model *model)
 					rwdata->dl.vertices = rodata->dl.vertices;
 				}
 
-				if ((u32)rwdata->dl.colours != ALIGN8((u32)rodata->dl.vertices + rodata->dl.numvertices * sizeof(struct gfxvtx))) {
+				if ((uintptr_t)rwdata->dl.colours != ALIGN8((uintptr_t)rodata->dl.vertices + rodata->dl.numvertices * sizeof(struct gfxvtx))) {
 					if (vtxstoretype == VTXSTORETYPE_OBJVTX) {
 						newtype = VTXSTORETYPE_OBJCOL;
 					} else {
@@ -17694,7 +17694,7 @@ void modelFreeVertices(s32 vtxstoretype, struct model *model)
 
 					vtxstoreFree(newtype, rwdata->dl.colours);
 
-					rwdata->dl.colours = (struct colour *)ALIGN8((u32)rodata->dl.vertices + rodata->dl.numvertices * sizeof(struct gfxvtx));
+					rwdata->dl.colours = (struct colour *)ALIGN8((uintptr_t)rodata->dl.vertices + rodata->dl.numvertices * sizeof(struct gfxvtx));
 				}
 			}
 			break;

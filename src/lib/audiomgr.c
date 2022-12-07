@@ -281,7 +281,7 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 	g_AmgrCurrentCmdList->list.t.type = M_AUDTASK;
 	g_AmgrCurrentCmdList->list.t.flags = 0;
 	g_AmgrCurrentCmdList->list.t.ucode_boot = (u64 *) &rspbootTextStart;
-	g_AmgrCurrentCmdList->list.t.ucode_boot_size = (u32) &rspbootTextEnd - (u32) &rspbootTextStart;
+	g_AmgrCurrentCmdList->list.t.ucode_boot_size = (uintptr_t) &rspbootTextEnd - (uintptr_t) &rspbootTextStart;
 	g_AmgrCurrentCmdList->list.t.ucode = (u64 *) &aspTextStart;
 	g_AmgrCurrentCmdList->list.t.ucode_data = (u64 *) &aspDataStart;
 	g_AmgrCurrentCmdList->list.t.ucode_size = SP_UCODE_SIZE;

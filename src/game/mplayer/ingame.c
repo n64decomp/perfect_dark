@@ -28,7 +28,7 @@ struct menudialogdef g_MpEndscreenTeamGameOverMenuDialog;
 struct menudialogdef g_MpEndscreenSavePlayerMenuDialog;
 #endif
 
-s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct mpchrconfig *mpchr;
 	s32 v0;
@@ -98,7 +98,7 @@ s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union 
 	return 0;
 }
 
-s32 menuhandlerMpEndGame(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerMpEndGame(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_Vars.currentplayer->aborted = true;
@@ -111,7 +111,7 @@ s32 menuhandlerMpEndGame(s32 operation, struct menuitem *item, union handlerdata
 /**
  * This is something near the top of the "End Game" dialog during gameplay.
  */
-s32 menuhandler00178018(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler00178018(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
@@ -141,7 +141,7 @@ char *mpMenuTextInGameLimit(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 menuhandlerMpInGameLimitLabel(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerMpInGameLimitLabel(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		switch (item->param) {
@@ -154,7 +154,7 @@ s32 menuhandlerMpInGameLimitLabel(s32 operation, struct menuitem *item, union ha
 	return 0;
 }
 
-s32 menuhandlerMpPause(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerMpPause(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (mpIsPaused()) {
@@ -249,7 +249,7 @@ struct menuitem g_MpPauseControlMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_SELECTABLE_CENTRE,
-		(u32)&mpMenuTextChallengeName,
+		(uintptr_t) &mpMenuTextChallengeName,
 		0,
 		menuhandler00178018,
 	},
@@ -258,7 +258,7 @@ struct menuitem g_MpPauseControlMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_SELECTABLE_CENTRE,
-		(u32)&mpMenuTextScenarioName,
+		(uintptr_t) &mpMenuTextScenarioName,
 		0,
 		NULL,
 	},
@@ -272,7 +272,7 @@ struct menuitem g_MpPauseControlMenuItems[] = {
 		MENUITEMFLAG_SMALLFONT,
 #endif
 		L_MPWEAPONS_162, // "Time Limit:"
-		(u32)&mpMenuTextInGameLimit,
+		(uintptr_t) &mpMenuTextInGameLimit,
 		menuhandlerMpInGameLimitLabel,
 	},
 	{
@@ -284,7 +284,7 @@ struct menuitem g_MpPauseControlMenuItems[] = {
 		MENUITEMFLAG_SMALLFONT,
 #endif
 		L_MPWEAPONS_163, // "Score Limit:"
-		(u32)&mpMenuTextInGameLimit,
+		(uintptr_t) &mpMenuTextInGameLimit,
 		menuhandlerMpInGameLimitLabel,
 	},
 	{
@@ -296,7 +296,7 @@ struct menuitem g_MpPauseControlMenuItems[] = {
 		MENUITEMFLAG_SMALLFONT,
 #endif
 		L_MPWEAPONS_164, // "Team Score Limit:"
-		(u32)&mpMenuTextInGameLimit,
+		(uintptr_t) &mpMenuTextInGameLimit,
 		menuhandlerMpInGameLimitLabel,
 	},
 	{
@@ -316,14 +316,14 @@ struct menuitem g_MpPauseControlMenuItems[] = {
 		0,
 #endif
 		L_MPMENU_286, // "Game Time:"
-		(u32)&menutextMatchTime,
+		(uintptr_t)&menutextMatchTime,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
 		1,
 		MENUITEMFLAG_SELECTABLE_CENTRE,
-		(u32)&menutextPauseOrUnpause,
+		(uintptr_t)&menutextPauseOrUnpause,
 		0,
 		menuhandlerMpPause,
 	},
@@ -341,7 +341,7 @@ struct menuitem g_MpPauseControlMenuItems[] = {
 struct menudialogdef g_MpPauseControlMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 #if VERSION >= VERSION_JPN_FINAL
-	(u32)&mpMenuTextScenarioName,
+	(uintptr_t)&mpMenuTextScenarioName,
 #else
 	L_MPMENU_285, // "Control"
 #endif
@@ -444,7 +444,7 @@ char *mpMenuTitleStatsFor(struct menudialogdef *dialogdef)
 	return g_StringPointer;
 }
 
-s32 func0f178440(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult func0f178440(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation);
 
@@ -479,7 +479,7 @@ struct menuitem g_Mp2PMissionInventoryMenuItems[] = {
 		MENUITEMTYPE_MARQUEE,
 		0,
 		MENUITEMFLAG_SMALLFONT | MENUITEMFLAG_MARQUEE_FADEBOTHSIDES,
-		(u32)&mpMenuTextWeaponDescription,
+		(uintptr_t)&mpMenuTextWeaponDescription,
 		0,
 		NULL,
 	},
@@ -527,7 +527,7 @@ struct menuitem g_MpInGamePlayerStatsMenuItems[] = {
 
 struct menudialogdef g_MpPausePlayerStatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&mpMenuTitleStatsFor,
+	(uintptr_t)&mpMenuTitleStatsFor,
 	g_MpInGamePlayerStatsMenuItems,
 	NULL,
 	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_1000 : 0,
@@ -536,7 +536,7 @@ struct menudialogdef g_MpPausePlayerStatsMenuDialog = {
 
 struct menudialogdef g_MpEndscreenPlayerStatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&mpMenuTitleStatsFor,
+	(uintptr_t)&mpMenuTitleStatsFor,
 	g_MpInGamePlayerStatsMenuItems,
 	NULL,
 	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_1000 : 0,
@@ -623,7 +623,7 @@ char *mpMenuTextPlacementWithSuffix(struct menuitem *item)
 	return langGet(suffixes[g_PlayerConfigsArray[g_MpPlayerNum].base.placement]);
 }
 
-s32 mpPlacementMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult mpPlacementMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_GETCOLOUR) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].base.placement == 0) { // winner
@@ -634,7 +634,7 @@ s32 mpPlacementMenuHandler(s32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
-s32 mpAwardsMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult mpAwardsMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_RENDER) {
 		Gfx *gdl = data->type19.gdl;
@@ -704,7 +704,7 @@ s32 mpAwardsMenuHandler(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-s32 mpPlayerTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult mpPlayerTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_GETCOLOUR) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].title != g_PlayerConfigsArray[g_MpPlayerNum].newtitle) {
@@ -721,7 +721,7 @@ char *mpMenuTextPlayerTitle(s32 arg0)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 mpConfirmPlayerNameHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult mpConfirmPlayerNameHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	char *name = data->keyboard.string;
 	s32 i;
@@ -844,8 +844,8 @@ struct menuitem g_MpGameOverMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
-		(u32)&mpGetCurrentPlayerName,
-		(u32)&mpMenuTextPlacementWithSuffix,
+		(uintptr_t)&mpGetCurrentPlayerName,
+		(uintptr_t)&mpMenuTextPlacementWithSuffix,
 		mpPlacementMenuHandler,
 	},
 	{
@@ -853,12 +853,12 @@ struct menuitem g_MpGameOverMenuItems[] = {
 		0,
 #if VERSION >= VERSION_JPN_FINAL
 		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
-		(u32)&mpMenuTextPlayerTitle,
+		(uintptr_t)&mpMenuTextPlayerTitle,
 		0,
 #else
 		MENUITEMFLAG_LABEL_CUSTOMCOLOUR,
 		L_MPMENU_261, // "Title:"
-		(u32)&mpMenuTextPlayerTitle,
+		(uintptr_t)&mpMenuTextPlayerTitle,
 #endif
 		mpPlayerTitleMenuHandler,
 	},
@@ -882,7 +882,7 @@ struct menuitem g_MpGameOverMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_ALTCOLOUR,
-		(u32)&mpMenuTextWeaponOfChoiceName,
+		(uintptr_t)&mpMenuTextWeaponOfChoiceName,
 		0,
 		NULL,
 	},
@@ -931,7 +931,7 @@ struct menuitem g_MpGameOverMenuItems[] = {
 #else
 		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_ALTCOLOUR,
 #endif
-		(u32)&mpMenuTextAward1,
+		(uintptr_t)&mpMenuTextAward1,
 		0,
 		NULL,
 	},
@@ -943,7 +943,7 @@ struct menuitem g_MpGameOverMenuItems[] = {
 #else
 		MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LABEL_ALTCOLOUR,
 #endif
-		(u32)&mpMenuTextAward2,
+		(uintptr_t)&mpMenuTextAward2,
 		0,
 		NULL,
 	},

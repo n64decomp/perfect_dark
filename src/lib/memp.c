@@ -239,7 +239,7 @@ s32 mempRealloc(void *allocation, s32 newsize, u8 poolnum)
 
 	if (growsize <= 0) {
 		pool->leftpos += growsize;
-		pool->leftpos = (u8 *)ALIGN16((u32)pool->leftpos);
+		pool->leftpos = (u8 *)ALIGN16((uintptr_t) pool->leftpos);
 		return 1;
 	}
 

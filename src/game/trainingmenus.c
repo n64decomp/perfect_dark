@@ -30,7 +30,7 @@ struct menudialogdef g_BioTextMenuDialog;
 struct menudialogdef g_HangarLocationDetailsMenuDialog;
 struct menudialogdef g_HangarVehicleDetailsMenuDialog;
 
-s32 frDetailsOkMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult frDetailsOkMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 i;
 
@@ -72,7 +72,7 @@ s32 frDetailsOkMenuHandler(s32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
-s32 frAbortMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult frAbortMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (frIsInTraining()) {
@@ -85,7 +85,7 @@ s32 frAbortMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 
 struct menudialogdef g_FrDifficultyMenuDialog;
 
-s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 weaponnum;
 	s32 score;
@@ -212,7 +212,7 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-s32 frTrainingInfoMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult frTrainingInfoMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	u32 stack;
 	s32 weaponnum;
@@ -246,7 +246,7 @@ s32 frTrainingInfoMenuDialog(s32 operation, struct menudialogdef *dialogdef, uni
 	return 0;
 }
 
-s32 frTrainingStatsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult frTrainingStatsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		if (frIsInTraining() == false) {
@@ -261,7 +261,7 @@ s32 frTrainingStatsMenuDialog(s32 operation, struct menudialogdef *dialogdef, un
  * This is an unused menu handler which implements the difficulty selection
  * using a dropdown.
  */
-s32 frDifficultyDropdownMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult frDifficultyDropdownMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 names[] = {
 		L_MPMENU_439, // "Bronze"
@@ -291,7 +291,7 @@ s32 frDifficultyDropdownMenuHandler(s32 operation, struct menuitem *item, union 
 	return 0;
 }
 
-s32 frDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult frDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
@@ -570,7 +570,7 @@ char *frMenuTextAmmoLimitValue(struct menuitem *item)
  * as well as the player's score chart. There are lines leading from
  * the score chart to the diagram.
  */
-s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_RENDER) {
 		Gfx *gdl = data->type19.gdl;
@@ -882,7 +882,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 menuhandlerFrFailedContinue(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerFrFailedContinue(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.currentplayer->prop->rooms[0] == 0xa) {
@@ -984,39 +984,39 @@ struct menuitem g_FrTrainingInfoInGameMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_443, // "Difficulty:"
-		(u32)&frMenuTextDifficultyName,
+		(uintptr_t)&frMenuTextDifficultyName,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(u32)&frMenuTextGoalScoreLabel,
-		(u32)&frMenuTextGoalScoreValue,
+		(uintptr_t)&frMenuTextGoalScoreLabel,
+		(uintptr_t)&frMenuTextGoalScoreValue,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(u32)&frMenuTextMinAccuracyOrTargetsLabel,
-		(u32)&frMenuTextMinAccuracyOrTargetsValue,
+		(uintptr_t)&frMenuTextMinAccuracyOrTargetsLabel,
+		(uintptr_t)&frMenuTextMinAccuracyOrTargetsValue,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(u32)&frMenuTextTimeLimitLabel,
-		(u32)&frMenuTextTimeLimitValue,
+		(uintptr_t)&frMenuTextTimeLimitLabel,
+		(uintptr_t)&frMenuTextTimeLimitValue,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(u32)&frMenuTextAmmoLimitLabel,
-		(u32)&frMenuTextAmmoLimitValue,
+		(uintptr_t)&frMenuTextAmmoLimitLabel,
+		(uintptr_t)&frMenuTextAmmoLimitValue,
 		NULL,
 	},
 	{
@@ -1077,39 +1077,39 @@ struct menuitem g_FrTrainingInfoPreGameMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_443, // "Difficulty:"
-		(u32)&frMenuTextDifficultyName,
+		(uintptr_t)&frMenuTextDifficultyName,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(u32)&frMenuTextGoalScoreLabel,
-		(u32)&frMenuTextGoalScoreValue,
+		(uintptr_t)&frMenuTextGoalScoreLabel,
+		(uintptr_t)&frMenuTextGoalScoreValue,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(u32)&frMenuTextMinAccuracyOrTargetsLabel,
-		(u32)&frMenuTextMinAccuracyOrTargetsValue,
+		(uintptr_t)&frMenuTextMinAccuracyOrTargetsLabel,
+		(uintptr_t)&frMenuTextMinAccuracyOrTargetsValue,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(u32)&frMenuTextTimeLimitLabel,
-		(u32)&frMenuTextTimeLimitValue,
+		(uintptr_t)&frMenuTextTimeLimitLabel,
+		(uintptr_t)&frMenuTextTimeLimitValue,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(u32)&frMenuTextAmmoLimitLabel,
-		(u32)&frMenuTextAmmoLimitValue,
+		(uintptr_t)&frMenuTextAmmoLimitLabel,
+		(uintptr_t)&frMenuTextAmmoLimitValue,
 		NULL,
 	},
 	{
@@ -1188,7 +1188,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_450, // "Score:"
-		(u32)&frMenuTextScoreValue,
+		(uintptr_t)&frMenuTextScoreValue,
 		NULL,
 	},
 	{
@@ -1196,7 +1196,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_451, // "Targets Destroyed:"
-		(u32)&frMenuTextTargetsDestroyedValue,
+		(uintptr_t)&frMenuTextTargetsDestroyedValue,
 		NULL,
 	},
 	{
@@ -1212,7 +1212,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_452, // "Difficulty:"
-		(u32)&frMenuTextDifficultyName,
+		(uintptr_t)&frMenuTextDifficultyName,
 		NULL,
 	},
 	{
@@ -1220,7 +1220,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_453, // "Time Taken:"
-		(u32)&frMenuTextTimeTakenValue,
+		(uintptr_t)&frMenuTextTimeTakenValue,
 		NULL,
 	},
 	{
@@ -1236,7 +1236,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_454, // "Weapon:"
-		(u32)&frMenuTextWeaponName,
+		(uintptr_t)&frMenuTextWeaponName,
 		NULL,
 	},
 	{
@@ -1244,7 +1244,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_455, // "Accuracy:"
-		(u32)&frMenuTextAccuracyValue,
+		(uintptr_t)&frMenuTextAccuracyValue,
 		NULL,
 	},
 	{
@@ -1295,7 +1295,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_SELECTABLE_CENTRE,
-		(u32)&frMenuTextFailReason,
+		(uintptr_t)&frMenuTextFailReason,
 		0,
 		NULL,
 	},
@@ -1314,7 +1314,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_450, // "Score:"
-		(u32)&frMenuTextScoreValue,
+		(uintptr_t)&frMenuTextScoreValue,
 		NULL,
 	},
 	{
@@ -1322,7 +1322,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_451, // "Targets Destroyed:"
-		(u32)&frMenuTextTargetsDestroyedValue,
+		(uintptr_t)&frMenuTextTargetsDestroyedValue,
 		NULL,
 	},
 	{
@@ -1338,7 +1338,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_452, // "Difficulty:"
-		(u32)&frMenuTextDifficultyName,
+		(uintptr_t)&frMenuTextDifficultyName,
 		NULL,
 	},
 	{
@@ -1346,7 +1346,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_453, // "Time Taken:"
-		(u32)&frMenuTextTimeTakenValue,
+		(uintptr_t)&frMenuTextTimeTakenValue,
 		NULL,
 	},
 	{
@@ -1362,7 +1362,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_454, // "Weapon:"
-		(u32)&frMenuTextWeaponName,
+		(uintptr_t)&frMenuTextWeaponName,
 		NULL,
 	},
 	{
@@ -1370,7 +1370,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_455, // "Accuracy:"
-		(u32)&frMenuTextAccuracyValue,
+		(uintptr_t)&frMenuTextAccuracyValue,
 		NULL,
 	},
 	{
@@ -1416,7 +1416,7 @@ struct menudialogdef g_FrFailedMenuDialog = {
 #endif
 };
 
-s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct optiongroup groups[2] = {
 		{ 0, L_MPMENU_421 }, // "Character Profiles"
@@ -1525,7 +1525,7 @@ struct menudialogdef g_NowSafeMenuDialog = {
 	NULL,
 };
 
-s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	u32 bodynum = ciGetChrBioBodynumBySlot(g_ChrBioSlot);
 	u32 mpbodynum = mpGetMpbodynumByBodynum(bodynum);
@@ -1682,7 +1682,7 @@ char *ciMenuTextMiscBioName(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 dtDeviceListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult dtDeviceListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
@@ -1717,7 +1717,7 @@ char *dtMenuTextName(struct menuitem *item)
 	return bgunGetName(weaponnum);
 }
 
-s32 menuhandlerDtOkOrResume(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerDtOkOrResume(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		// @bug: dtBegin() should not be called if training is already in
@@ -1729,7 +1729,7 @@ s32 menuhandlerDtOkOrResume(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-s32 menuhandler001a6514(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler001a6514(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		dtEnd();
@@ -1752,7 +1752,7 @@ struct menuitem g_BioProfileMenuItems[] = {
 		0,
 		MENUITEMFLAG_NEWCOLUMN | MENUITEMFLAG_00000002,
 		L_MPMENU_432, // "Name:"
-		(u32)&ciMenuTextChrBioName,
+		(uintptr_t)&ciMenuTextChrBioName,
 		NULL,
 	},
 	{
@@ -1760,7 +1760,7 @@ struct menuitem g_BioProfileMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_433, // "Age:"
-		(u32)&ciMenuTextChrBioAge,
+		(uintptr_t)&ciMenuTextChrBioAge,
 		NULL,
 	},
 	{
@@ -1768,7 +1768,7 @@ struct menuitem g_BioProfileMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_434, // "Race:"
-		(u32)&ciMenuTextChrBioRace,
+		(uintptr_t)&ciMenuTextChrBioRace,
 		NULL,
 	},
 	{
@@ -1845,7 +1845,7 @@ struct menuitem g_BioTextMenuItems[] = {
 
 struct menudialogdef g_BioTextMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&ciMenuTextMiscBioName,
+	(uintptr_t)&ciMenuTextMiscBioName,
 	g_BioTextMenuItems,
 	NULL,
 	MENUDIALOGFLAG_DISABLERESIZE,
@@ -1873,7 +1873,7 @@ struct menudialogdef g_DtListMenuDialog = {
 	NULL,
 };
 
-s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -1990,7 +1990,7 @@ char *dtMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 menudialogDeviceTrainingResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult menudialogDeviceTrainingResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		chrSetStageFlag(NULL, 0x08000000);
@@ -1999,7 +1999,7 @@ s32 menudialogDeviceTrainingResults(s32 operation, struct menudialogdef *dialogd
 	return false;
 }
 
-s32 htHoloListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult htHoloListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
@@ -2032,7 +2032,7 @@ char *htMenuTextName(struct menuitem *item)
 	return htGetName(htGetIndexBySlot(var80088bb4));
 }
 
-s32 menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		htBegin();
@@ -2042,7 +2042,7 @@ s32 menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-s32 menuhandler001a6a70(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler001a6a70(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		htEnd();
@@ -2051,7 +2051,7 @@ s32 menuhandler001a6a70(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-s32 menudialog001a6aa4(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult menudialog001a6aa4(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -2108,7 +2108,7 @@ char *htMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 menudialogFiringRangeResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult menudialogFiringRangeResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		chrSetStageFlag(NULL, 0x08000000);
@@ -2172,7 +2172,7 @@ struct menuitem g_DtDetailsMenuItems[] = {
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		(u32)&dtMenuTextOkOrResume,
+		(uintptr_t)&dtMenuTextOkOrResume,
 		0,
 		menuhandlerDtOkOrResume,
 	},
@@ -2180,7 +2180,7 @@ struct menuitem g_DtDetailsMenuItems[] = {
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		(u32)&dtMenuTextCancelOrAbort,
+		(uintptr_t)&dtMenuTextCancelOrAbort,
 		0,
 		menuhandler001a6514,
 	},
@@ -2189,7 +2189,7 @@ struct menuitem g_DtDetailsMenuItems[] = {
 
 struct menudialogdef g_DtDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&dtMenuTextName,
+	(uintptr_t)&dtMenuTextName,
 	g_DtDetailsMenuItems,
 	dtTrainingDetailsMenuDialog,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
@@ -2218,7 +2218,7 @@ struct menuitem g_DtFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_424, // "Time Taken:"
-		(u32)&dtMenuTextTimeTakenValue,
+		(uintptr_t)&dtMenuTextTimeTakenValue,
 		NULL,
 	},
 	{
@@ -2271,7 +2271,7 @@ struct menuitem g_DtCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_424, // "Time Taken:"
-		(u32)&dtMenuTextTimeTakenValue,
+		(uintptr_t)&dtMenuTextTimeTakenValue,
 		NULL,
 	},
 	{
@@ -2352,7 +2352,7 @@ struct menuitem g_HtDetailsMenuItems[] = {
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		(u32)&htMenuTextOkOrResume,
+		(uintptr_t)&htMenuTextOkOrResume,
 		0,
 		menuhandler001a6a34,
 	},
@@ -2360,7 +2360,7 @@ struct menuitem g_HtDetailsMenuItems[] = {
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		(u32)&htMenuTextCancelOrAbort,
+		(uintptr_t)&htMenuTextCancelOrAbort,
 		0,
 		menuhandler001a6a70,
 	},
@@ -2369,7 +2369,7 @@ struct menuitem g_HtDetailsMenuItems[] = {
 
 struct menudialogdef g_HtDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&htMenuTextName,
+	(uintptr_t)&htMenuTextName,
 	g_HtDetailsMenuItems,
 	menudialog001a6aa4,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
@@ -2398,7 +2398,7 @@ struct menuitem g_HtFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_424, // "Time Taken:"
-		(u32)&htMenuTextTimeTakenValue,
+		(uintptr_t)&htMenuTextTimeTakenValue,
 		NULL,
 	},
 	{
@@ -2457,7 +2457,7 @@ struct menuitem g_HtCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_424, // "Time Taken:"
-		(u32)&htMenuTextTimeTakenValue,
+		(uintptr_t)&htMenuTextTimeTakenValue,
 		NULL,
 	},
 	{
@@ -2494,7 +2494,7 @@ struct menudialogdef g_HtCompletedMenuDialog = {
 	&g_HtListMenuDialog,
 };
 
-s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct optiongroup groups[2] = {
 		{ 0, L_MPMENU_419 }, // "Locations"
@@ -2539,7 +2539,7 @@ s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union h
 	return 0;
 }
 
-s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_RENDER) {
 		Gfx *gdl = data->type19.gdl;
@@ -2631,7 +2631,7 @@ struct modelpartvisibility g_BioPartVisibility[] = {
 	{ 255 },
 };
 
-s32 ciHangarHolographMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult ciHangarHolographMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	s32 index = ciGetHangarBioIndexBySlot(g_HangarBioSlot);
 
@@ -2819,7 +2819,7 @@ struct menudialogdef g_HangarVehicleHolographMenuDialog = {
 
 struct menudialogdef g_HangarVehicleDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&bioMenuTextName,
+	(uintptr_t)&bioMenuTextName,
 	g_HangarDetailsMenuItems,
 	NULL,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
@@ -2828,7 +2828,7 @@ struct menudialogdef g_HangarVehicleDetailsMenuDialog = {
 
 struct menudialogdef g_HangarLocationDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&bioMenuTextName,
+	(uintptr_t)&bioMenuTextName,
 	g_HangarDetailsMenuItems,
 	NULL,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,

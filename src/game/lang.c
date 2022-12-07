@@ -288,8 +288,8 @@ struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
 		g_JpnCacheCacheItems[freeindexsingle].ttl = 2;
 		g_JpnCacheCacheItems[freeindexsingle].codepoint = codepoint;
 
-		dmaExec((u8 *) (freeindexsingle * (TMUL * 0x0c) + (u32)&g_JpnCharCachePixels[0]),
-				(u32) &_fontjpnSegmentRomStart + ((codepoint * TMUL) * 0xc + TMUL * (24 * 0xc)),
+		dmaExec((u8 *) (freeindexsingle * (TMUL * 0x0c) + (romptr_t) &g_JpnCharCachePixels[0]),
+				(romptr_t) &_fontjpnSegmentRomStart + ((codepoint * TMUL) * 0xc + TMUL * (24 * 0xc)),
 				TMUL * 0x0c);
 
 		return &g_JpnCharCachePixels[TMUL * freeindexsingle];
@@ -310,7 +310,7 @@ struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
 		g_JpnCacheCacheItems[freeindexsingle].ttl = 2;
 		g_JpnCacheCacheItems[freeindexsingle].codepoint = codepoint >> 1;
 
-		dmaExec(&g_JpnCharCachePixels[freeindexsingle * 8], (u32)&_fontjpnsingleSegmentRomStart + (codepoint >> SHIFTAMOUNT) * 0x60, 0x60);
+		dmaExec(&g_JpnCharCachePixels[freeindexsingle * 8], (romptr_t) &_fontjpnsingleSegmentRomStart + (codepoint >> SHIFTAMOUNT) * 0x60, 0x60);
 
 		return &g_JpnCharCachePixels[freeindexsingle * 8];
 	}
@@ -321,7 +321,7 @@ struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
 		g_JpnCacheCacheItems[freeindexmulti + 0].codepoint = codepoint >> 1;
 		g_JpnCacheCacheItems[freeindexmulti + 1].codepoint = codepoint >> 1;
 
-		dmaExec(&g_JpnCharCachePixels[freeindexmulti * 8], (u32)&_fontjpnmultiSegmentRomStart + ((codepoint & 0x1fff) >> SHIFTAMOUNT) * 0x80, 0x80);
+		dmaExec(&g_JpnCharCachePixels[freeindexmulti * 8], (romptr_t) &_fontjpnmultiSegmentRomStart + ((codepoint & 0x1fff) >> SHIFTAMOUNT) * 0x80, 0x80);
 
 		return &g_JpnCharCachePixels[freeindexmulti * 8];
 	}
@@ -403,7 +403,7 @@ char *langGet(s32 textid)
 	u32 addr;
 
 	if (bank && bank[textindex]) {
-		addr = (u32)bank + bank[textindex];
+		addr = (uintptr_t)bank + bank[textindex];
 	} else {
 		addr = 0;
 	}
@@ -416,7 +416,7 @@ void langReload(void)
 {
 	s32 i;
 
-	g_LangBufferPos = (u8 *) align32((u32) g_LangBuffer);
+	g_LangBufferPos = (u8 *) align32((uintptr_t) g_LangBuffer);
 
 	for (i = 0; i < ARRAYCOUNT(g_LangBanks); i++) {
 		if (g_LangBanks[i] != NULL) {

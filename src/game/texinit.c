@@ -15,5 +15,5 @@ void texInit(void)
 
 	g_Textures = mempAlloc(len, MEMPOOL_PERMANENT);
 
-	dmaExec(g_Textures, (u32) &_textureslistSegmentRomStart, len);
+	dmaExec(g_Textures, (romptr_t) &_textureslistSegmentRomStart, len);
 }

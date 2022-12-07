@@ -144,7 +144,7 @@ extern u8 _getitleSegmentEnd;
 
 void getitleLoad(void *addr, u32 arg1)
 {
-	u32 len = (u32)&_getitleSegmentEnd - (u32)&_getitleSegmentStart;
+	u32 len = (romptr_t)&_getitleSegmentEnd - (romptr_t)&_getitleSegmentStart;
 
 	var80062414 = 0;
 	var8009cc8c = 880;
@@ -152,7 +152,7 @@ void getitleLoad(void *addr, u32 arg1)
 	var80062498 = 0;
 	var8009cc90 = addr;
 
-	dmaExec(var8009cc90, (u32) &_getitleSegmentRomStart, ALIGN64(len));
+	dmaExec(var8009cc90, (romptr_t) &_getitleSegmentRomStart, ALIGN64(len));
 }
 
 Gfx *getitleRender(Gfx *gdl)

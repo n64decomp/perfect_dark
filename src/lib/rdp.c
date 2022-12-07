@@ -72,7 +72,7 @@ void rdpInit(void)
 	}
 
 	g_RdpOutBufferStart = mempAlloc(size, MEMPOOL_PERMANENT);
-	g_RdpOutBufferEnd = (u16 *)((u32)g_RdpOutBufferStart + size);
+	g_RdpOutBufferEnd = (u16 *) ((uintptr_t) g_RdpOutBufferStart + size);
 }
 
 void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
@@ -84,7 +84,7 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 	task = &sctask->list;
 
 	task->t.ucode_boot = (u64 *) rspbootTextStart;
-	task->t.ucode_boot_size = (u32) ((u32)rspbootTextEnd - (u32)rspbootTextStart);
+	task->t.ucode_boot_size = (uintptr_t) rspbootTextEnd - (uintptr_t) rspbootTextStart;
 
 	if (rspbootTextStart);
 
@@ -107,5 +107,5 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 	schedAppendTasks(&g_Sched, sctask);
 
 	// Swap g_RdpCurTask
-	g_RdpCurTask = (struct rdptask *)((u32)g_RdpCurTask ^ (u32) &g_RdpTaskA ^ (u32) &g_RdpTaskB);
+	g_RdpCurTask = (struct rdptask *)((uintptr_t) g_RdpCurTask ^ (uintptr_t) &g_RdpTaskA ^ (uintptr_t) &g_RdpTaskB);
 }

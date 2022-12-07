@@ -342,7 +342,7 @@ s32 texAlignIndices(u8 *src, s32 width, s32 height, s32 format, u8 *dst)
 			src++;
 		}
 
-		outptr = (u8 *)(((u32)outptr + 7) & ~7);
+		outptr = (u8 *)(((uintptr_t)outptr + 7) & ~7);
 	}
 
 	return outptr - dst;
@@ -1457,9 +1457,9 @@ void texReadAlphaBits(u8 *dst, s32 count)
  */
 s32 texReadUncompressed(u8 *dst, s32 width, s32 height, s32 format)
 {
-	u32 *dst32 = (u32 *)(((u32)dst + 0xf) & ~0xf);
-	u16 *dst16 = (u16 *)(((u32)dst + 7) & ~7);
-	u8 *dst8 = (u8 *)(((u32)dst + 7) & ~7);
+	u32 *dst32 = (u32 *)(((uintptr_t)dst + 0xf) & ~0xf);
+	u16 *dst16 = (u16 *)(((uintptr_t)dst + 7) & ~7);
+	u8 *dst8 = (u8 *)(((uintptr_t)dst + 7) & ~7);
 	s32 x;
 	s32 y;
 
@@ -2161,7 +2161,7 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 				return;
 			}
 
-			alignedcompbuffer = (u8 *) (((u32)compbuffer + 0xf) >> 4 << 4);
+			alignedcompbuffer = (u8 *) (((uintptr_t)compbuffer + 0xf) >> 4 << 4);
 
 			if (alignedcompbuffer);
 			if (tex);
@@ -2179,7 +2179,7 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 
 			// Copy the compressed texture to RAM
 			dmaExec(alignedcompbuffer,
-					(u32) &_texturesdataSegmentRomStart + (thisoffset & 0xfffffff8),
+					(romptr_t) &_texturesdataSegmentRomStart + (thisoffset & 0xfffffff8),
 					((u32) (nextoffset - thisoffset) + 0x1f) >> 4 << 4);
 
 			compptr = (u8 *) alignedcompbuffer + (thisoffset & 7);
@@ -2215,7 +2215,7 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 			// - set leftpos to 0x10 after rightpos
 			if (usingsharedpool) {
 				tail = pool->rightpos;
-				pool->rightpos = (struct tex *) ((((u32) buffer5kb + 0xf) >> 4 << 4) + sizeof(struct tex));
+				pool->rightpos = (struct tex *) ((((uintptr_t) buffer5kb + 0xf) >> 4 << 4) + sizeof(struct tex));
 				pool->leftpos = ((u8 *) pool->rightpos + sizeof(struct tex));
 
 				while (tail) {
@@ -2263,7 +2263,7 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 				pool->rightpos->next = 0;
 
 				if (tail != NULL) {
-					tail->next = (u32) pool->rightpos & 0xffffff;
+					tail->next = (uintptr_t) pool->rightpos & 0xffffff;
 				} else {
 					pool->head = pool->rightpos;
 				}

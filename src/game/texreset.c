@@ -48,31 +48,31 @@ void texReset(void)
 	s32 i;
 
 	g_TextureConfigSegment = mempAlloc(len, MEMPOOL_STAGE);
-	dmaExec(g_TextureConfigSegment, (u32)&_textureconfigSegmentRomStart, len);
+	dmaExec(g_TextureConfigSegment, (romptr_t)&_textureconfigSegmentRomStart, len);
 
-	g_TexBase = (u32)g_TextureConfigSegment - ROM_SIZE * 1024 * 1024;
-	g_TexGdl1 = (Gfx *)(g_TexBase + (u32)g_TcGdl1);
-	g_TexGdl2 = (Gfx *)(g_TexBase + (u32)g_TcGdl2);
-	g_TexGdl3 = (Gfx *)(g_TexBase + (u32)g_TcGdl3);
-	g_ExplosionTexturePairs = (void *)(g_TexBase + (u32)g_TcExplosionTexturePairs);
-	g_TexWallhitConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcWallhitConfigs);
-	g_TexBeamConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcBeamConfigs);
-	g_TexLaserConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcLaserConfigs);
-	g_TexGroup03Configs = (struct textureconfig *)(g_TexBase + (u32)g_TcGroup03Configs);
-	g_TexGeCrosshairConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcGeCrosshairConfigs);
-	g_TexRedLinesConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcRedLineConfigs);
-	g_TexShadowConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcGroup06Configs);
-	g_TexShieldConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcShieldConfigs);
-	g_TexShardConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcShardConfigs);
-	g_TexScreenConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcScreenConfigs);
-	g_TexWaterConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcWaterConfigs);
-	g_TexSkyConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcSkyConfigs);
-	g_TexLightGlareConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcLightGlareConfigs);
-	g_TexSparkConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcSparkConfigs);
-	g_TexGeneralConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcGeneralConfigs);
-	g_TexRadarConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcRadarConfigs);
+	g_TexBase = (uintptr_t)g_TextureConfigSegment - ROM_SIZE * 1024 * 1024;
+	g_TexGdl1 = (Gfx *)(g_TexBase + (uintptr_t)g_TcGdl1);
+	g_TexGdl2 = (Gfx *)(g_TexBase + (uintptr_t)g_TcGdl2);
+	g_TexGdl3 = (Gfx *)(g_TexBase + (uintptr_t)g_TcGdl3);
+	g_ExplosionTexturePairs = (void *)(g_TexBase + (uintptr_t)g_TcExplosionTexturePairs);
+	g_TexWallhitConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcWallhitConfigs);
+	g_TexBeamConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcBeamConfigs);
+	g_TexLaserConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcLaserConfigs);
+	g_TexGroup03Configs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGroup03Configs);
+	g_TexGeCrosshairConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGeCrosshairConfigs);
+	g_TexRedLinesConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcRedLineConfigs);
+	g_TexShadowConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGroup06Configs);
+	g_TexShieldConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcShieldConfigs);
+	g_TexShardConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcShardConfigs);
+	g_TexScreenConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcScreenConfigs);
+	g_TexWaterConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcWaterConfigs);
+	g_TexSkyConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcSkyConfigs);
+	g_TexLightGlareConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcLightGlareConfigs);
+	g_TexSparkConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcSparkConfigs);
+	g_TexGeneralConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGeneralConfigs);
+	g_TexRadarConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcRadarConfigs);
 
-	g_TexNumConfigs = (len - (u32)&g_TcWallhitConfigs + ROM_SIZE * 1024 * 1024) / sizeof(struct textureconfig);
+	g_TexNumConfigs = (len - (uintptr_t)&g_TcWallhitConfigs + ROM_SIZE * 1024 * 1024) / sizeof(struct textureconfig);
 	g_TexWords = mempAlloc(ALIGN16(g_TexNumConfigs * 4), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_TexNumConfigs; i++) {

@@ -1,6 +1,7 @@
 #include <os_internal.h>
 #include <rcp.h>
 #include "piint.h"
+#include "types.h"
 
 void __osDevMgrMain(void *args)
 {
@@ -30,7 +31,7 @@ void __osDevMgrMain(void *args)
 			info->sectorNum = -1;
 
 			if (info->transferMode != LEO_SECTOR_MODE) {
-				blockInfo->dramAddr = (void *)((u32)blockInfo->dramAddr - blockInfo->sectorSize);
+				blockInfo->dramAddr = (void *)((uintptr_t)blockInfo->dramAddr - blockInfo->sectorSize);
 			}
 
 			if (info->transferMode == LEO_TRACK_MODE && mb->piHandle->transferInfo.cmdType == LEO_CMD_TYPE_0) {

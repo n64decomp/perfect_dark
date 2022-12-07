@@ -12,7 +12,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 fmbHandleDropOut(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fmbHandleDropOut(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -26,7 +26,7 @@ s32 fmbHandleDropOut(s32 operation, struct menuitem *item, union handlerdata *da
 	return 0;
 }
 
-s32 fmdHandleAbortGame(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fmdHandleAbortGame(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.stagenum == STAGE_4MBMENU) {
@@ -39,7 +39,7 @@ s32 fmdHandleAbortGame(s32 operation, struct menuitem *item, union handlerdata *
 	return 0;
 }
 
-s32 fmbHandleAdvancedSetup(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fmbHandleAdvancedSetup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		func0f0f820c(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
@@ -48,7 +48,7 @@ s32 fmbHandleAdvancedSetup(s32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
-s32 fmbHandleAcceptChallenge(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fmbHandleAcceptChallenge(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		challengeSetCurrentBySlot(g_Menus[g_MpPlayerNum].main4mb.slotindex);
@@ -94,7 +94,7 @@ void fmbReset(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
-s32 fmbHandleMainMenu(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult fmbHandleMainMenu(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Vars.waitingtojoin[0] = false;
@@ -350,7 +350,7 @@ struct menuitem g_MpPlayerSetup4MbMenuItems[] = {
 		0,
 		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
 		L_MPMENU_030, // "Name"
-		(u32)&mpGetCurrentPlayerName,
+		(uintptr_t)&mpGetCurrentPlayerName,
 		(void *)&g_MpPlayerNameMenuDialog,
 	},
 	{
@@ -397,7 +397,7 @@ struct menuitem g_MpPlayerSetup4MbMenuItems[] = {
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		0,
-		(u32)&mpMenuTextSavePlayerOrCopy,
+		(uintptr_t)&mpMenuTextSavePlayerOrCopy,
 		0,
 		menuhandlerMpSavePlayer,
 	},
@@ -500,7 +500,7 @@ struct menuitem g_MpConfirmChallenge4MbMenuItems[] = {
 
 struct menudialogdef g_MpConfirmChallenge4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f17e318,
+	(uintptr_t)&func0f17e318,
 	g_MpConfirmChallenge4MbMenuItems,
 	menudialog0017e3fc,
 	0,
@@ -717,7 +717,7 @@ struct menuitem g_MpEditSimulant4MbMenuItems[] = {
 
 struct menudialogdef g_MpEditSimulant4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&mpMenuTitleEditSimulant,
+	(uintptr_t)&mpMenuTitleEditSimulant,
 	g_MpEditSimulant4MbMenuItems,
 	menudialogMpSimulant,
 	MENUDIALOGFLAG_MPLOCKABLE,
@@ -730,7 +730,7 @@ struct menuitem g_AdvancedSetup4MbMenuItems[] = {
 		0,
 		MENUITEMFLAG_SELECTABLE_OPENSDIALOG | MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_019, // "Scenario"
-		(u32)&mpMenuTextScenarioShortName,
+		(uintptr_t)&mpMenuTextScenarioShortName,
 		(void *)&g_MpScenarioMenuDialog,
 	},
 	{
@@ -746,7 +746,7 @@ struct menuitem g_AdvancedSetup4MbMenuItems[] = {
 		0,
 		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
 		L_MPMENU_020, // "Arena"
-		(u32)&mpMenuTextArenaName,
+		(uintptr_t)&mpMenuTextArenaName,
 		(void *)&g_MpArenaMenuDialog,
 	},
 	{

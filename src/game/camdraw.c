@@ -47,13 +47,13 @@ struct texpool var800a45a8;
 u32 var800a45b8;
 u32 var800a45bc;
 
-const char var7f1b6050[] = "Init";
-const char var7f1b6058[] = "Start Header Read";
-const char var7f1b606c[] = "Header Read Done";
-const char var7f1b6080[] = "Null";
-const char var7f1b6088[] = "Exit 1";
-const char var7f1b6090[] = "Exit 2";
-const char var7f1b6098[] = "Exit 3";
+char *var8007f8c0 = "Init";
+char *var8007f8c4 = "Start Header Read";
+char *var8007f8c8 = "Header Read Done";
+char *var8007f8cc = "Null";
+char *var8007f8d0 = "Exit 1";
+char *var8007f8d4 = "Exit 2";
+char *var8007f8d8 = "Exit 3";
 
 const u32 var7f1b60a0[][2] = {
 	{ 0, 0 },
@@ -189,13 +189,6 @@ const u32 var7f1b639c[] = {0x0c1857ff};
 
 const char var7f1b63a0[] = "RWI : Cam Alloc : Guid=%d -> Total = %u (%d at %s)\n";
 
-u32 var8007f8c0 = (u32)&var7f1b6050;
-u32 var8007f8c4 = (u32)&var7f1b6058;
-u32 var8007f8c8 = (u32)&var7f1b606c;
-u32 var8007f8cc = (u32)&var7f1b6080;
-u32 var8007f8d0 = (u32)&var7f1b6088;
-u32 var8007f8d4 = (u32)&var7f1b6090;
-u32 var8007f8d8 = (u32)&var7f1b6098;
 struct var8007f8dc *var8007f8dc = NULL;
 struct var8007f8e0 *var8007f8e0 = NULL;
 u32 var8007f8e4 = 0x00000000;

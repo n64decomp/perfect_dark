@@ -1,6 +1,7 @@
 #include <os_internal.h>
 #include <rcp.h>
 #include "../os/osint.h"
+#include "types.h"
 
 s32 osAiSetNextBuffer(void *bufPtr, u32 size)
 {
@@ -11,7 +12,7 @@ s32 osAiSetNextBuffer(void *bufPtr, u32 size)
 		bptr -= 0x2000;
 	}
 
-	if ((((u32)bufPtr + size) & 0x1fff) == 0) {
+	if ((((uintptr_t) bufPtr + size) & 0x1fff) == 0) {
 		hdwrBugFlag = 1;
 	} else {
 		hdwrBugFlag = 0;

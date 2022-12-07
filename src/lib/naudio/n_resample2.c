@@ -1,6 +1,7 @@
 #include "n_synthInternals.h"
 #include <os.h>
 #include <gu.h>
+#include "types.h"
 
 void func0003ba64(struct fx *fx, f32 outputrate);
 

@@ -53,7 +53,7 @@ void mp3Init(ALHeap *heap)
 	mp3mainInit();
 
 	g_Mp3Vars.var8009c398 = alHeapAlloc(heap, 1, 0x50);
-	*(u8 **)((u32)&g_Mp3Vars+0x44) = alHeapAlloc(heap, 1, 0x440);
+	*(u8 **)((uintptr_t)&g_Mp3Vars+0x44) = alHeapAlloc(heap, 1, 0x440);
 
 	g_Mp3Vars.var8009c3e0 = 0;
 	g_Mp3Vars.var8009c3e4 = 0x7fff;
@@ -268,7 +268,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 		}
 
 		if (arg0 > 0 && g_Mp3Vars.var8009c3c8) {
-			sp54 = (struct mp3thing *)(g_Mp3Vars.var8009c3d0 * 2 + (u32)g_Mp3Vars.var8009c3c8);
+			sp54 = (struct mp3thing *)(g_Mp3Vars.var8009c3d0 * 2 + (uintptr_t)g_Mp3Vars.var8009c3c8);
 
 			n_aLoadBuffer((*cmd)++, arg0 + arg0, sp4c, osVirtualToPhysical(sp54));
 

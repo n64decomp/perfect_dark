@@ -928,23 +928,23 @@ void sndLoadSfxCtl(void)
 	u32 size;
 
 	g_ALSoundRomOffsets = NULL;
-	buffer = (u8 *) ALIGN16((u32)unalignedbuffer);
+	buffer = (u8 *) ALIGN16((uintptr_t)unalignedbuffer);
 
 	// Load the first 256 bytes of the ctl file.
 	size = 256;
-	dmaExec(buffer, (u32) &_sfxctlSegmentRomStart, size);
+	dmaExec(buffer, (romptr_t) &_sfxctlSegmentRomStart, size);
 
 	// Get the ROM address of the first (and only) bank,
 	// then load the first 256 bytes of the bank.
 	file = (ALBankFile *) buffer;
-	romaddr = (u32)&_sfxctlSegmentRomStart;
+	romaddr = (romptr_t)&_sfxctlSegmentRomStart;
 	romaddr += (u32)file->bankArray[0];
 	dmaExec(buffer, romaddr, size);
 
 	// Get the ROM address of the first (and only) instrument,
 	// then load the first 256 bytes of the instrument.
 	bank = (ALBank *) buffer;
-	romaddr = (u32)&_sfxctlSegmentRomStart;
+	romaddr = (romptr_t)&_sfxctlSegmentRomStart;
 	romaddr += (u32)bank->instArray[0];
 	dmaExec(buffer, romaddr, size);
 
@@ -965,7 +965,7 @@ void sndLoadSfxCtl(void)
 
 	// Convert ctl-local offsets to ROM offsets
 	for (i = 0; i < g_NumSounds; i++) {
-		g_ALSoundRomOffsets[i] += (u32) &_sfxctlSegmentRomStart;
+		g_ALSoundRomOffsets[i] += (romptr_t) &_sfxctlSegmentRomStart;
 	}
 
 	// Allocate and initialise cache
@@ -1004,13 +1004,13 @@ ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
-	ALEnvelope *s2 = (ALEnvelope *)ALIGN16((u32)spaf);
-	ALEnvelope *s1 = (ALEnvelope *)ALIGN16((u32)sp5f);
+	ALEnvelope *s2 = (ALEnvelope *)ALIGN16((uintptr_t)spaf);
+	ALEnvelope *s1 = (ALEnvelope *)ALIGN16((uintptr_t)sp5f);
 	s32 i;
 	s32 sum1;
 	s32 sum2;
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
 		dmaExecHighPriority(s2, offset, 0x40);
@@ -1031,9 +1031,9 @@ ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 	} while (sum1 != sum2);
 #else
 	u8 sp5f[0x50];
-	ALEnvelope *s1 = (ALEnvelope *)ALIGN16((u32)sp5f);
+	ALEnvelope *s1 = (ALEnvelope *)ALIGN16((uintptr_t)sp5f);
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	dmaExecHighPriority(s1, offset, 0x40);
 #endif
@@ -1051,13 +1051,13 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
-	ALKeyMap *s2 = (ALKeyMap *)ALIGN16((u32)spaf);
-	ALKeyMap *s1 = (ALKeyMap *)ALIGN16((u32)sp5f);
+	ALKeyMap *s2 = (ALKeyMap *)ALIGN16((uintptr_t)spaf);
+	ALKeyMap *s1 = (ALKeyMap *)ALIGN16((uintptr_t)sp5f);
 	s32 i;
 	s32 sum1;
 	s32 sum2;
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
 		dmaExecHighPriority(s2, offset, 0x40);
@@ -1078,9 +1078,9 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 	} while (sum1 != sum2);
 #else
 	u8 sp5f[0x50];
-	ALKeyMap *s1 = (ALKeyMap *)ALIGN16((u32)sp5f);
+	ALKeyMap *s1 = (ALKeyMap *)ALIGN16((uintptr_t)sp5f);
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	dmaExecHighPriority(s1, offset, 0x40);
 #endif
@@ -1098,13 +1098,13 @@ ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x150];
 	u8 sp5f[0x150];
-	ALADPCMBook *s2 = (ALADPCMBook *)ALIGN16((u32)spaf);
-	ALADPCMBook *s1 = (ALADPCMBook *)ALIGN16((u32)sp5f);
+	ALADPCMBook *s2 = (ALADPCMBook *)ALIGN16((uintptr_t)spaf);
+	ALADPCMBook *s1 = (ALADPCMBook *)ALIGN16((uintptr_t)sp5f);
 	s32 i;
 	s32 sum1;
 	s32 sum2;
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
 		dmaExecHighPriority(s2, offset, 0x140);
@@ -1125,9 +1125,9 @@ ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 	} while (sum1 != sum2);
 #else
 	u8 sp5f[0x150];
-	ALADPCMBook *s1 = (ALADPCMBook *)ALIGN16((u32)sp5f);
+	ALADPCMBook *s1 = (ALADPCMBook *)ALIGN16((uintptr_t)sp5f);
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	dmaExecHighPriority(s1, offset, 0x140);
 #endif
@@ -1145,8 +1145,8 @@ ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
-	ALADPCMloop *s2 = (ALADPCMloop *)ALIGN16((u32)spaf);
-	ALADPCMloop *s1 = (ALADPCMloop *)ALIGN16((u32)sp5f);
+	ALADPCMloop *s2 = (ALADPCMloop *)ALIGN16((uintptr_t)spaf);
+	ALADPCMloop *s1 = (ALADPCMloop *)ALIGN16((uintptr_t)sp5f);
 	s32 i;
 	s32 sum1;
 	s32 sum2;
@@ -1155,7 +1155,7 @@ ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 		return NULL;
 	}
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
 		dmaExecHighPriority(s2, offset, 0x40);
@@ -1176,13 +1176,13 @@ ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 	} while (sum1 != sum2);
 #else
 	u8 sp5f[0x50];
-	ALADPCMloop *s1 = (ALADPCMloop *)ALIGN16((u32)sp5f);
+	ALADPCMloop *s1 = (ALADPCMloop *)ALIGN16((uintptr_t)sp5f);
 
 	if (offset == 0) {
 		return NULL;
 	}
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	dmaExecHighPriority(s1, offset, 0x40);
 #endif
@@ -1200,14 +1200,14 @@ ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
-	ALWaveTable *s2 = (ALWaveTable *)ALIGN16((u32)spaf);
-	ALWaveTable *s1 = (ALWaveTable *)ALIGN16((u32)sp5f);
+	ALWaveTable *s2 = (ALWaveTable *)ALIGN16((uintptr_t)spaf);
+	ALWaveTable *s1 = (ALWaveTable *)ALIGN16((uintptr_t)sp5f);
 	s32 i;
 	s32 sum1;
 	s32 sum2;
 	ALWaveTable *tmp;
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
 		dmaExecHighPriority(s2, offset, 0x40);
@@ -1228,10 +1228,10 @@ ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
 	} while (sum1 != sum2);
 #else
 	u8 sp5f[0x50];
-	ALWaveTable *s1 = (ALWaveTable *)ALIGN16((u32)sp5f);
+	ALWaveTable *s1 = (ALWaveTable *)ALIGN16((uintptr_t)sp5f);
 	ALWaveTable *tmp;
 
-	offset += (u32)&_sfxctlSegmentRomStart;
+	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	dmaExecHighPriority(s1, offset, 0x40);
 #endif
@@ -1240,11 +1240,11 @@ ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
 
 	*tmp = *s1;
 
-	tmp->base += (u32)&_sfxtblSegmentRomStart;
+	tmp->base += (romptr_t)&_sfxtblSegmentRomStart;
 
 	if (tmp->type == AL_ADPCM_WAVE) {
-		tmp->waveInfo.adpcmWave.book = sndLoadAdpcmBook((u32)tmp->waveInfo.adpcmWave.book, cacheindex);
-		tmp->waveInfo.adpcmWave.loop = sndLoadAdpcmLoop((u32)tmp->waveInfo.adpcmWave.loop, cacheindex);
+		tmp->waveInfo.adpcmWave.book = sndLoadAdpcmBook((uintptr_t)tmp->waveInfo.adpcmWave.book, cacheindex);
+		tmp->waveInfo.adpcmWave.loop = sndLoadAdpcmLoop((uintptr_t)tmp->waveInfo.adpcmWave.loop, cacheindex);
 	}
 
 	return tmp;
@@ -1296,7 +1296,7 @@ ALSound *sndLoadSound(s16 soundnum)
 	s16 sfxnum;
 	u8 sp47[0x58];
 
-	sound = (ALSound *)ALIGN16((u32)sp47);
+	sound = (ALSound *)ALIGN16((uintptr_t)sp47);
 
 	tmp.packed = soundnum;
 	sfxnum = tmp.id;
@@ -1348,9 +1348,9 @@ ALSound *sndLoadSound(s16 soundnum)
 		dmaExecHighPriority(sound, g_ALSoundRomOffsets[sfxnum - 1], 0x40);
 
 		// Promote segment offsets to pointers and load their child data
-		sound->envelope = sndLoadEnvelope((u32)sound->envelope, cacheindex);
-		sound->wavetable = sndLoadWavetable((u32)sound->wavetable, cacheindex);
-		sound->keyMap = sndLoadKeymap((u32)sound->keyMap, cacheindex);
+		sound->envelope = sndLoadEnvelope((uintptr_t)sound->envelope, cacheindex);
+		sound->wavetable = sndLoadWavetable((uintptr_t)sound->wavetable, cacheindex);
+		sound->keyMap = sndLoadKeymap((uintptr_t)sound->keyMap, cacheindex);
 
 		// Save the ALSound into the cache
 		g_SndCache.sounds[cacheindex] = *sound;
@@ -1477,7 +1477,7 @@ void sndInit(void)
 		// Load seq.ctl
 		var80095200 = 0xffffffff;
 		bankfile = alHeapAlloc(&g_SndHeap, 1, len);
-		dmaExec(bankfile, (u32) &_seqctlSegmentRomStart, len);
+		dmaExec(bankfile, (romptr_t) &_seqctlSegmentRomStart, len);
 
 		// Load seq.tbl
 		alBnkfNew(bankfile, &_seqtblSegmentRomStart);
@@ -1487,15 +1487,15 @@ void sndInit(void)
 		// enough space for the table and load it.
 		var80095204 = bankfile->bankArray[0];
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, 0x10);
-		dmaExec(g_SeqTable, (u32) &_sequencesSegmentRomStart, 0x10);
+		dmaExec(g_SeqTable, (romptr_t) &_sequencesSegmentRomStart, 0x10);
 
 		len = g_SeqTable->count * sizeof(struct seqtableentry) + 4;
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
-		dmaExec(g_SeqTable, (u32) &_sequencesSegmentRomStart, (len + 0xf) & 0xfffffff0);
+		dmaExec(g_SeqTable, (romptr_t) &_sequencesSegmentRomStart, (len + 0xf) & 0xfffffff0);
 
 		// Promote segment-relative offsets to ROM addresses
 		for (i = 0; i < g_SeqTable->count; i++) {
-			g_SeqTable->entries[i].romaddr += (u32) &_sequencesSegmentRomStart;
+			g_SeqTable->entries[i].romaddr += (romptr_t) &_sequencesSegmentRomStart;
 		}
 
 		synconfig.maxVVoices = 44;

@@ -170,14 +170,14 @@ void playerReset(void)
 				if (cmd->param2 == 0) {
 					g_SpawnPoints[g_NumSpawnPoints++] = cmd->param1;
 				}
-				cmd = (struct cmd32 *)((u32)cmd + 12);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 12);
 				break;
 			case INTROCMD_CASE:
 			case INTROCMD_CASERESPAWN:
-				cmd = (struct cmd32 *)((u32)cmd + 12);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 12);
 				break;
 			case INTROCMD_HILL:
-				cmd = (struct cmd32 *)((u32)cmd + 8);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 8);
 				break;
 			case INTROCMD_WEAPON:
 				if (cmd->param3 == 0 && g_Vars.currentplayer != g_Vars.anti) {
@@ -204,26 +204,26 @@ void playerReset(void)
 						haseyespy = true;
 					}
 				}
-				cmd = (struct cmd32 *)((u32)cmd + 16);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 16);
 				break;
 			case INTROCMD_AMMO:
 				if (cmd->param3 == 0 && g_Vars.currentplayer != g_Vars.anti) {
 					bgunSetAmmoQuantity(cmd->param1, cmd->param2);
 				}
-				cmd = (struct cmd32 *)((u32)cmd + 16);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 16);
 				break;
 			case INTROCMD_3:
-				cmd = (struct cmd32 *)((u32)cmd + 32);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 32);
 				break;
 			case INTROCMD_4:
-				cmd = (struct cmd32 *)((u32)cmd + 8);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 8);
 				break;
 			case INTROCMD_OUTFIT:
 				g_Vars.currentplayer->bondtype = cmd->param1;
-				cmd = (struct cmd32 *)((u32)cmd + 8);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 8);
 				break;
 			case INTROCMD_6:
-				cmd = (struct cmd32 *)((u32)cmd + 40);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 40);
 				break;
 			case INTROCMD_WATCHTIME:
 				g_Vars.currentplayer->bondwatchtime60 = 0;
@@ -233,7 +233,7 @@ void playerReset(void)
 				if (cmd->param1 > 0) {
 					g_Vars.currentplayer->bondwatchtime60 += (cmd->param1 % 12) * 3600 * 60;
 				}
-				cmd = (struct cmd32 *)((u32)cmd + 12);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 12);
 				break;
 			case INTROCMD_CREDITOFFSET:
 				thing = (struct gecreditsdata *)((s32)g_GeCreditsData + cmd->param1);
@@ -241,10 +241,10 @@ void playerReset(void)
 				while (thing->text1 || thing->text2) {
 					thing++;
 				}
-				cmd = (struct cmd32 *)((u32)cmd + 8);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 8);
 				break;
 			default:
-				cmd = (struct cmd32 *)((u32)cmd + 4);
+				cmd = (struct cmd32 *)((uintptr_t)cmd + 4);
 			}
 		}
 	}

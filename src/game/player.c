@@ -1367,7 +1367,7 @@ void playerTickChrBody(void)
 
 			allocation = g_Vars.currentplayer->gunmem2;
 			model = (struct model *)(allocation + offset1);
-			osSyncPrintf("Gunmem: bondsub 0x%08x\n", (u32)model);
+			osSyncPrintf("Gunmem: bondsub 0x%08x\n", (uintptr_t)model);
 			offset1 += ALIGN64(sizeof(struct model));
 
 			model->anim = (struct anim *)(allocation + offset1);
@@ -1376,12 +1376,12 @@ void playerTickChrBody(void)
 			offset1 = ALIGN64(offset1);
 
 			rwdatas = (union modelrwdata **)(allocation + offset1);
-			osSyncPrintf("Gunmem: savedata 0x%08x\n", (u32)rwdatas);
+			osSyncPrintf("Gunmem: savedata 0x%08x\n", (uintptr_t)rwdatas);
 			offset1 += 0x400;
 			offset1 = ALIGN64(offset1);
 
 			weaponobj = (struct weaponobj *)(allocation + offset1);
-			osSyncPrintf("Gunmem: wo 0x%08x\n", (u32)weaponobj);
+			osSyncPrintf("Gunmem: wo 0x%08x\n", (uintptr_t)weaponobj);
 			offset1 += sizeof(struct weaponobj);
 			offset1 = ALIGN64(offset1);
 
@@ -5706,7 +5706,7 @@ void player0f0c3320(Mtxf *matrices, s32 count)
 	s32 j;
 
 	for (i = 0, j = 0; i < count; i++, j += sizeof(Mtxf)) {
-		mtx00015be4(camGetProjectionMtxF(), (Mtxf *)((u32)matrices + j), &sp40);
+		mtx00015be4(camGetProjectionMtxF(), (Mtxf *)((uintptr_t)matrices + j), &sp40);
 
 		sp40.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
 		sp40.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;

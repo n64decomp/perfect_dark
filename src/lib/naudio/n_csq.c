@@ -2,6 +2,7 @@
 #include "n_libaudio.h"
 #include <os_internal.h>
 #include <ultraerror.h>
+#include "types.h"
 
 u32 __n_alCSeqGetTrackEvent(ALCSeq *seq, u32 track, N_ALEvent *event, s32 arg3);
 u8 __getTrackByte(ALCSeq *seq, u32 track);
@@ -27,7 +28,7 @@ void n_alCSeqNew(ALCSeq *seq, u8 *ptr)
 		if (tmpOff) {
 			flagTmp = 1 << i;
 			seq->validTracks |= flagTmp;
-			seq->curLoc[i] = (u8*)((u32)ptr + tmpOff);
+			seq->curLoc[i] = (u8*)((uintptr_t)ptr + tmpOff);
 			seq->evtDeltaTicks[i] = __readVarLen(seq,i);
 		} else {
 			seq->curLoc[i] = 0;

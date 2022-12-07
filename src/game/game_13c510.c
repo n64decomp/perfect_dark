@@ -431,7 +431,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 
 		if (count > 0) {
 			if (roomnum == light->roomnum) {
-				lightindex = ((u32)light - (u32)g_BgLightsFileData) / sizeof(struct light);
+				lightindex = ((uintptr_t)light - (uintptr_t)g_BgLightsFileData) / sizeof(struct light);
 				s3 = &var800a41a0[lightindex * 3];
 				t2 = 0;
 				min = 0xffff;

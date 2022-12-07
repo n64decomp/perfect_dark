@@ -23,6 +23,7 @@
 #include <n_libaudio.h>
 #include <synthInternals.h>
 #include "n_abi.h"
+#include "types.h"
 
 #define SAMPLE_ROUND
 #undef  SAMPLE_ROUND
@@ -67,7 +68,7 @@ typedef struct N_PVoice_s {
 	s32                         dc_sample;
 	s32                         dc_lastsam;
 	s32                         dc_first;
-	s32                         dc_memin;
+	intptr_t                    dc_memin;
 	/** ALResampler *********************************/
 	RESAMPLE_STATE      *rs_state;
 	f32                 rs_ratio;

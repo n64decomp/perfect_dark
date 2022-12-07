@@ -514,7 +514,7 @@ void splat0f14986c(struct splatdata *splat)
 
 void splatResetChr(struct chrdata *chr)
 {
-	osSyncPrintf("Splat_ResetChr : Reset One Char : chrdata = %x\n", (u32)chr);
+	osSyncPrintf("Splat_ResetChr : Reset One Char : chrdata = %x\n", (uintptr_t) chr);
 
 	chr->bulletstaken = 0;
 	chr->tickssincesplat = 0;

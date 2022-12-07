@@ -4,14 +4,14 @@
 #include "data.h"
 #include "types.h"
 
-s32 endscreenHandleRetryMission(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
-s32 endscreenHandle2PCompleted(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
-s32 endscreenHandle2PFailed(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
-s32 endscreenHandleDeclineMission(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 endscreenHandleCheatInfo(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 endscreenHandleContinueMission(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 endscreenHandleReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 endscreenHandleReplayPreviousMission(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuDialogHandlerResult endscreenHandleRetryMission(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+MenuDialogHandlerResult endscreenHandle2PCompleted(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+MenuDialogHandlerResult endscreenHandle2PFailed(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+MenuItemHandlerResult endscreenHandleDeclineMission(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuItemHandlerResult endscreenHandleCheatInfo(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuItemHandlerResult endscreenHandleContinueMission(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuItemHandlerResult endscreenHandleReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data);
+MenuItemHandlerResult endscreenHandleReplayPreviousMission(s32 operation, struct menuitem *item, union handlerdata *data);
 char *endscreenMenuTitleRetryMission(struct menudialogdef *dialogdef);
 char *endscreenMenuTitleNextMission(struct menudialogdef *dialogdef);
 char *endscreenMenuTextNumKills(struct menuitem *item);

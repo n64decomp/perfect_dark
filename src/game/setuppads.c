@@ -87,9 +87,9 @@ void setupPreparePads(void)
 		}
 	}
 
-	g_StageSetup.waypoints = (struct waypoint *) ((u32)g_StageSetup.padfiledata + g_PadsFile->waypointsoffset);
-	g_StageSetup.waygroups = (struct waygroup *) ((u32)g_StageSetup.padfiledata + g_PadsFile->waygroupsoffset);
-	g_StageSetup.cover = (void *) ((s32)g_StageSetup.padfiledata + g_PadsFile->coversoffset);
+	g_StageSetup.waypoints = (struct waypoint *) ((uintptr_t)g_StageSetup.padfiledata + g_PadsFile->waypointsoffset);
+	g_StageSetup.waygroups = (struct waygroup *) ((uintptr_t)g_StageSetup.padfiledata + g_PadsFile->waygroupsoffset);
+	g_StageSetup.cover = (void *) ((intptr_t)g_StageSetup.padfiledata + g_PadsFile->coversoffset);
 
 	if (g_StageSetup.cover != NULL) {
 		setupPrepareCover();
@@ -99,7 +99,7 @@ void setupPreparePads(void)
 	waypoint = g_StageSetup.waypoints;
 
 	while (waypoint->padnum >= 0) {
-		waypoint->neighbours = (s32 *)((u32)g_StageSetup.padfiledata + (u32)waypoint->neighbours);
+		waypoint->neighbours = (s32 *)((uintptr_t)g_StageSetup.padfiledata + (uintptr_t)waypoint->neighbours);
 		waypoint++;
 	}
 
@@ -107,8 +107,8 @@ void setupPreparePads(void)
 	waygroup = g_StageSetup.waygroups;
 
 	while (waygroup->neighbours != NULL) {
-		waygroup->neighbours = (s32 *)((u32)g_StageSetup.padfiledata + (u32)waygroup->neighbours);
-		waygroup->waypoints = (s32 *)((u32)g_StageSetup.padfiledata + (u32)waygroup->waypoints);
+		waygroup->neighbours = (s32 *)((uintptr_t)g_StageSetup.padfiledata + (uintptr_t)waygroup->neighbours);
+		waygroup->waypoints = (s32 *)((uintptr_t)g_StageSetup.padfiledata + (uintptr_t)waygroup->waypoints);
 		waygroup++;
 	}
 }

@@ -97,7 +97,7 @@ Gfx *bview0f141a20(Gfx *gdl, s32 top, s32 height, s32 left, s32 width)
 
 Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s32 left, s32 width)
 {
-	u32 image;
+	uintptr_t image;
 	s32 width2;
 	s32 numparts;
 	s32 lrs[1];
@@ -106,7 +106,7 @@ Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s
 		numparts = 2;
 		lrs[0] = width / numparts;
 
-		image = (u32) &fb[viGetWidth() * top + left] & 0x00ffffff;
+		image = (uintptr_t) &fb[viGetWidth() * top + left] & 0x00ffffff;
 
 		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
 		gDPLoadBlock(gdl++, tile, 0, 0, width / numparts - 1, 0);
@@ -123,7 +123,7 @@ Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s
 
 		left += lrs[0];
 
-		image = (u32) &fb[viGetWidth() * top + left] & 0x00ffffff;
+		image = (uintptr_t) &fb[viGetWidth() * top + left] & 0x00ffffff;
 
 		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
 		gDPLoadBlock(gdl++, tile, 0, 0, lrs[0] - 1, 0);
@@ -141,7 +141,7 @@ Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s
 	} else {
 		width2 = width;
 
-		image = (u32) &fb[viGetWidth() * top + left] & 0x00ffffff;
+		image = (uintptr_t) &fb[viGetWidth() * top + left] & 0x00ffffff;
 
 		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
 		gDPLoadBlock(gdl++, tile, 0, 0, width2 - 1, 0);

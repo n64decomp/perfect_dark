@@ -11,9 +11,14 @@
 
 #define bool s32
 #define ubool u32
+#define intptr_t s32
+#define uintptr_t u32
+#define romptr_t u32
 
 typedef s32 PakErr1;
 typedef s32 PakErr2;
+typedef s32 MenuDialogHandlerResult;
+typedef intptr_t MenuItemHandlerResult;
 
 // Float version of a graphics matrix, which has higher precision than an Mtx.
 // Matrices are stored as Mtxfs then converted to an Mtx when passed to the GPU.
@@ -3422,8 +3427,8 @@ struct menuitem {
 	u8 type;
 	u8 param;
 	u32 flags;
-	s32 param2;
-	s32 param3;
+	intptr_t param2;
+	intptr_t param3;
 
 	union {
 		s32 (*handler)(s32 operation, struct menuitem *item, union handlerdata *data);
@@ -3433,7 +3438,7 @@ struct menuitem {
 
 struct menudialogdef {
 	u8 type;
-	u32 title;
+	uintptr_t title;
 	struct menuitem *items;
 	s32 (*handler)(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
 	u32 flags;

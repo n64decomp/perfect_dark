@@ -353,9 +353,9 @@ u32 crashGetParentStackFrame(u32 *origptr, u32 *minaddr, u32 origsp, u32 *regs)
 
 bool crashIsReturnAddress(u32 *instruction)
 {
-	if (((u32)instruction % 4) == 0
-			&& (u32)instruction >= (u32)tlbInit
-			&& (u32)instruction <= (u32)&_libSegmentEnd) {
+	if (((uintptr_t)instruction % 4) == 0
+			&& (uintptr_t)instruction >= (uintptr_t)tlbInit
+			&& (uintptr_t)instruction <= (uintptr_t)&_libSegmentEnd) {
 		// This condition can never pass because 9 is masked out
 		if ((instruction[-2] & 0xfc00003c) == 9) {
 			return true;
@@ -399,7 +399,7 @@ u32 crash0000c52cnb(u32 romaddr)
 
 	var8009710cnb = var80097118nb[0];
 	var80097110nb = (char *)&var80097118nb[1];
-	var80097114nb = (char *)(crashGetStrLen(var80097110nb) + (u32)var80097110nb + 1);
+	var80097114nb = (char *)(crashGetStrLen(var80097110nb) + (uintptr_t)var80097110nb + 1);
 
 	addr = romaddr + crashGetStrLen(var80097110nb) + crashGetStrLen(var80097114nb) + 6;
 
@@ -512,8 +512,8 @@ u32 crashGetStackEnd(u32 sp, s32 tid)
 		return 0;
 	}
 
-	start = (u32)g_StackLeftAddrs[tid];
-	end = (u32)g_StackRightAddrs[tid];
+	start = (uintptr_t)g_StackLeftAddrs[tid];
+	end = (uintptr_t)g_StackRightAddrs[tid];
 
 	if (sp >= K0BASE) {
 		return end;
@@ -531,7 +531,7 @@ u32 crashGetStackStart(u32 sp, s32 tid)
 		return 0;
 	}
 
-	start = (u32)g_StackLeftAddrs[tid];
+	start = (uintptr_t)g_StackLeftAddrs[tid];
 
 	if (sp >= K0BASE) {
 		return start;
@@ -686,14 +686,14 @@ u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen)
 	i = 0;
 	done = false;
 	sp = (u32 *)ctx->sp;
-	stackend = (u32 *) crashGetStackEnd((u32)sp, thread->id);
-	stackstart = (u32 *) crashGetStackStart((u32)sp, thread->id);
+	stackend = (u32 *) crashGetStackEnd((uintptr_t)sp, thread->id);
+	stackstart = (u32 *) crashGetStackStart((uintptr_t)sp, thread->id);
 	ptr = ctx->pc;
 	*tracelen = 0;
 	rmonPrintf("nearl: ");
 
 	while (!done) {
-		sp = (u32 *) crashGetParentStackFrame((u32 *) ptr, &_libSegmentStart, (u32)sp, regs);
+		sp = (u32 *) crashGetParentStackFrame((u32 *) ptr, &_libSegmentStart, (uintptr_t)sp, regs);
 		rmonPrintf(" %08x ", ptr);
 
 		callstack[*tracelen] = ptr;

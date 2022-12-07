@@ -13,7 +13,7 @@
  * Points are awarded to each player in the hill at the time that it is won.
  */
 
-s32 menuhandlerMpHillTime(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerMpHillTime(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETSLIDER:

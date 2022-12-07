@@ -2,6 +2,7 @@
 #include <sptask.h>
 #include <rcp.h>
 #include "../os/osint.h"
+#include "types.h"
 
 OSTask tmp_task;
 
@@ -40,7 +41,7 @@ void osSpTaskLoad(OSTask *intp)
 		intp->t.flags &= ~OS_TASK_YIELDED;
 
 		if (tp->t.flags & OS_TASK_LOADABLE) {
-			tp->t.ucode = (u64 *)IO_READ((u32)intp->t.yield_data_ptr + OS_YIELD_DATA_SIZE - 4);
+			tp->t.ucode = (u64 *)IO_READ((uintptr_t) intp->t.yield_data_ptr + OS_YIELD_DATA_SIZE - 4);
 		}
 	}
 

@@ -307,7 +307,7 @@ u32 mtxGetObfuscatedRomBase(void)
 	// osRomBase is 0xb0000000
 	// load address is 0xb0000a5c
 	// value is 0x1740fff9
-	value = *(u32 *) (((u32) osRomBase | 0xb764b4fd) ^ 0x0764bea1);
+	value = *(u32 *) (((uintptr_t) osRomBase | 0xb764b4fd) ^ 0x0764bea1);
 
 	osSendMesg(&__osPiAccessQueue, 0, 0);
 

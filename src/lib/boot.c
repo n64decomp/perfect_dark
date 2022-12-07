@@ -97,17 +97,17 @@ void bootPhase1(void)
 	// Copy compressed .data and inflate segments
 	// .data is copied from ROM to 0x701eb000 - 0x70200000
 	// inflate is copied from ROM to 0x70200000 - 0x702013f0
-	datacomplen = (s32) &_datazipSegmentRomEnd - (s32) &_datazipSegmentRomStart;
+	datacomplen = (romptr_t) &_datazipSegmentRomEnd - (romptr_t) &_datazipSegmentRomStart;
 #if VERSION >= VERSION_NTSC_1_0
 	if (1);
 #endif
-	inflatelen = (s32) &_inflateSegmentRomEnd - (s32) &_inflateSegmentRomStart;
+	inflatelen = (romptr_t) &_inflateSegmentRomEnd - (romptr_t) &_inflateSegmentRomStart;
 	copylen = datacomplen + inflatelen;
-	libram = (u32 *) ((u32) &_libSegmentStart + 0x2000);
+	libram = (u32 *) ((romptr_t) &_libSegmentStart + 0x2000);
 	libzipram = (u32 *) 0x70280000;
-	dataziprom = (u8 *) ((s32) &_datazipSegmentRomStart | 0x70000000);
+	dataziprom = (u8 *) ((romptr_t) &_datazipSegmentRomStart | 0x70000000);
 	datazipram = (u8 *) (0x70200000 - datacomplen);
-	dataram = (u32) &_dataSegmentStart;
+	dataram = (romptr_t) &_dataSegmentStart;
 
 	for (i = copylen - 1; i >= 0; i--) {
 		datazipram[i] = dataziprom[i];

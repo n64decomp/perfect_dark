@@ -41,9 +41,9 @@ void stageParseTiles(void)
 			tile->ymax = mult6(tile->ymax) + 16;
 			tile->zmin = mult6(tile->zmin) + 18;
 			tile->zmax = mult6(tile->zmax) + 18;
-			geo = (struct geo *)((u8 *)geo + (u32)(geo->numvertices - 0x40) * 6 + 0x18e);
+			geo = (struct geo *)((u8 *)geo + (uintptr_t)(geo->numvertices - 0x40) * 6 + 0x18e);
 		} else if (geo->type == GEOTYPE_TILE_F) {
-			geo = (struct geo *)((u8 *)geo + (u32)(geo->numvertices - 0x40) * 12 + 0x310);
+			geo = (struct geo *)((u8 *)geo + (uintptr_t)(geo->numvertices - 0x40) * 12 + 0x310);
 		} else if (geo->type == GEOTYPE_BLOCK) {
 			geo = (struct geo *)((u8 *)geo + sizeof(struct geoblock));
 		} else if (geo->type == GEOTYPE_CYL) {

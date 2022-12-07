@@ -138,7 +138,7 @@ struct memaspace *memaMakeSlot(struct memaheap *heap)
 				return curr;
 			}
 
-			if ((u32)curr[1].addr < (u32)curr[0].addr) {
+			if ((uintptr_t) curr[1].addr < (uintptr_t) curr[0].addr) {
 				memaSwap(&curr[0], &curr[1]);
 			}
 
@@ -243,7 +243,7 @@ void memaReset(void *heapaddr, u32 heapsize)
 		space->size = 0;
 	}
 
-	g_MemaHeap.spaces[0].addr = g_MemaHeapStart = (u32)heapaddr;
+	g_MemaHeap.spaces[0].addr = g_MemaHeapStart = (uintptr_t) heapaddr;
 	g_MemaHeap.spaces[0].size = g_MemaHeapSize = heapsize;
 
 #if VERSION == VERSION_PAL_BETA
@@ -386,7 +386,7 @@ void memaPrint(void)
 		dhudPrintString(buffer);
 		line++;
 
-		sprintf(buffer, "Audio Free: %d", g_SndHeap.base + (g_SndHeap.len - (u32)g_SndHeap.cur));
+		sprintf(buffer, "Audio Free: %d", g_SndHeap.base + (g_SndHeap.len - (uintptr_t) g_SndHeap.cur));
 		dhudSetPos(30, line);
 		dhudPrintString(buffer);
 		line++;
@@ -627,7 +627,7 @@ found:
 
 void memaFree(void *addr, s32 size)
 {
-	_memaFree((u32)addr, size);
+	_memaFree((uintptr_t) addr, size);
 }
 
 void mema00012cd4(void)

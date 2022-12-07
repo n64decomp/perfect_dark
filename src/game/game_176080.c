@@ -56,7 +56,7 @@ void mblurAllocate(void)
 	}
 
 	var800844f0 = mempAlloc(var800ab7c0 * var800ab7c4 * 2 + 0x40, MEMPOOL_STAGE);
-	var800844f0 = (void *)(((u32) var800844f0 + 0x3f) & ~0x3f);
+	var800844f0 = (void *)(((uintptr_t) var800844f0 + 0x3f) & ~0x3f);
 	var800844f4 = var800844f0;
 }
 
@@ -81,7 +81,7 @@ Gfx *mblur0f1762ac(Gfx *gdl)
 		subamount = 0;
 	}
 
-	addr = (u32)var800844f4 - subamount;
+	addr = (uintptr_t)var800844f4 - subamount;
 	addr &= ~0x3f;
 
 	gDPPipeSync(gdl++);
@@ -135,7 +135,7 @@ u16 *mblur0f176668(s32 arg0)
 		addr = var800abdc8;
 	}
 
-	addr = (u16 *)(((u32)addr + 0x3f) & ~0x3f);
+	addr = (u16 *)(((uintptr_t)addr + 0x3f) & ~0x3f);
 
 	return addr;
 }

@@ -7,8 +7,8 @@
 void amTick(void);
 
 void amOpenPickTarget(void);
-s32 menudialog000fcd48(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
-s32 amPickTargetMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+MenuDialogHandlerResult menudialog000fcd48(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+MenuDialogHandlerResult amPickTargetMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
 void amSetAiBuddyTemperament(bool aggressive);
 void amSetAiBuddyStealth(void);
 s32 amGetFirstBuddyIndex(void);

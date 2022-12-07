@@ -74,7 +74,7 @@ struct stagetableentry g_Stages[61] = {
 struct stagetableentry *stageGetCurrent(void)
 {
 	struct stagetableentry *stage = g_Stages;
-	struct stagetableentry *end = (struct stagetableentry *)(u32)stage + ARRAYCOUNT(g_Stages);
+	struct stagetableentry *end = (struct stagetableentry *)(uintptr_t)stage + ARRAYCOUNT(g_Stages);
 	s32 stagenum = g_Vars.stagenum;
 
 	while (stage < end) {
@@ -91,7 +91,7 @@ struct stagetableentry *stageGetCurrent(void)
 s32 stageGetIndex(s32 stagenum)
 {
 	struct stagetableentry *stage = g_Stages;
-	struct stagetableentry *end = (struct stagetableentry *)(u32)stage + ARRAYCOUNT(g_Stages);
+	struct stagetableentry *end = (struct stagetableentry *)(uintptr_t)stage + ARRAYCOUNT(g_Stages);
 	s32 i = 0;
 
 	while (stage < end) {

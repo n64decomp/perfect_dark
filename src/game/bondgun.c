@@ -3829,7 +3829,7 @@ void bgunTickGunLoad(void)
 
 		// Tidy up the model
 		modelPromoteTypeToPointer(modeldef);
-		modelPromoteOffsetsToPointers(modeldef, 0x05000000, (u32)modeldef);
+		modelPromoteOffsetsToPointers(modeldef, 0x05000000, (uintptr_t)modeldef);
 
 		*player->gunctrl.loadtomodeldef = modeldef;
 
@@ -6474,7 +6474,7 @@ s32 bgunCreateModelCmdList(struct model *model, struct modelnode *nodearg, s32 *
 			rwdata = modelGetNodeRwData(model, node);
 			rwdata->dl.vertices = rodata->dl.vertices;
 			rwdata->dl.gdl = rodata->dl.opagdl;
-			rwdata->dl.colours = (void *)ALIGN8((u32)&rodata->dl.vertices[rodata->dl.numvertices]);
+			rwdata->dl.colours = (void *)ALIGN8((uintptr_t)&rodata->dl.vertices[rodata->dl.numvertices]);
 			ptr[0] = 5;
 			ptr[1] = (s32)rwdata;
 			ptr[2] = (s32)rwdata->dl.vertices;
@@ -6784,9 +6784,9 @@ void bgunUpdateLasersight(struct hand *hand, struct modeldef *modeldef, s32 hand
 	if (node) {
 		mtxindex = modelFindNodeMtxIndex(node, 0);
 
-		beamnear.x = ((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][0];
-		beamnear.y = ((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][1];
-		beamnear.z = ((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][2];
+		beamnear.x = ((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)))->m[3][0];
+		beamnear.y = ((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)))->m[3][1];
+		beamnear.z = ((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)))->m[3][2];
 
 		mtx4TransformVecInPlace(camGetProjectionMtxF(), &beamnear);
 
@@ -6836,7 +6836,7 @@ void bgunUpdateLasersight(struct hand *hand, struct modeldef *modeldef, s32 hand
 			beamfar.y = 0.0f;
 			beamfar.z = 500.0f;
 
-			mtx4TransformVecInPlace((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)), &beamfar);
+			mtx4TransformVecInPlace((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)), &beamfar);
 		} else {
 			cam0f0b4c3c(g_Vars.currentplayer->crosspos, &beamfar, 1);
 
@@ -6994,11 +6994,11 @@ void bgunUpdateSniperRifle(struct modeldef *modeldef, u8 *allocation)
 			sp70.y = 0.0f;
 			sp70.z = sp88[i];
 
-			mtx4RotateVecInPlace((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)), &sp70);
+			mtx4RotateVecInPlace((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)), &sp70);
 
-			((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][0] += sp70.x;
-			((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][1] += sp70.y;
-			((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][2] += sp70.z;
+			((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)))->m[3][0] += sp70.x;
+			((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)))->m[3][1] += sp70.y;
+			((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)))->m[3][2] += sp70.z;
 		}
 	}
 }
@@ -7024,11 +7024,11 @@ void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modeldef *mo
 		sp24.y = 0.0f;
 		sp24.z = 0.0f;
 
-		mtx4RotateVecInPlace((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)), &sp24);
+		mtx4RotateVecInPlace((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)), &sp24);
 
-		((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][0] += sp24.x;
-		((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][1] += sp24.y;
-		((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][2] += sp24.z;
+		((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)))->m[3][0] += sp24.x;
+		((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)))->m[3][1] += sp24.y;
+		((Mtxf *)((uintptr_t)allocation + mtxindex * sizeof(Mtxf)))->m[3][2] += sp24.z;
 	}
 }
 
@@ -7063,9 +7063,9 @@ void bgunUpdateShotgun(struct hand *hand, u8 *allocation, bool *arg2, struct mod
 		if (node) {
 			sp34 = modelFindNodeMtxIndex(node, 0);
 
-			mtx00015ea8((1.0f - hand->matmot1) * 8.0f + 0.5f, (Mtxf *)((u32)allocation + sp34 * sizeof(Mtxf)));
-			mtx00015df0((1.0f - hand->matmot1) * 3.0f + 1.0f, (Mtxf *)((u32)allocation + sp34 * sizeof(Mtxf)));
-			mtx00015e4c((1.0f - hand->matmot1) * 3.0f + 1.0f, (Mtxf *)((u32)allocation + sp34 * sizeof(Mtxf)));
+			mtx00015ea8((1.0f - hand->matmot1) * 8.0f + 0.5f, (Mtxf *)((uintptr_t)allocation + sp34 * sizeof(Mtxf)));
+			mtx00015df0((1.0f - hand->matmot1) * 3.0f + 1.0f, (Mtxf *)((uintptr_t)allocation + sp34 * sizeof(Mtxf)));
+			mtx00015e4c((1.0f - hand->matmot1) * 3.0f + 1.0f, (Mtxf *)((uintptr_t)allocation + sp34 * sizeof(Mtxf)));
 		}
 	}
 }
@@ -7932,7 +7932,7 @@ void bgun0f0a5550(s32 handnum)
 				mtx4Copy(mtx, &hand->muzzlemat);
 				mtx4TransformVecInPlace(camGetProjectionMtxF(), &hand->muzzlepos);
 
-				hand->muzzlez = -((Mtxf *)((u32)mtxallocation + sp6c * sizeof(Mtxf)))->m[3][2];
+				hand->muzzlez = -((Mtxf *)((uintptr_t)mtxallocation + sp6c * sizeof(Mtxf)))->m[3][2];
 
 				if (hand->flashon && sp1e0 > 0 && weaponnum != WEAPON_SHOTGUN && g_Vars.lvupdate240 != 0) {
 					bgun0f0a4e44(hand, weapondef, modeldef, funcdef, sp1e0, mtxallocation, weaponnum, sp1e4, sp6c, &sp234, &sp1f4);
@@ -7954,7 +7954,7 @@ void bgun0f0a5550(s32 handnum)
 				mtx4Copy(mtx, &hand->muzzlemat);
 				mtx4TransformVecInPlace(camGetProjectionMtxF(), &hand->muzzlepos);
 
-				hand->muzzlez = -((Mtxf *)((u32)mtxallocation + sp6c * sizeof(Mtxf)))->m[3][2];
+				hand->muzzlez = -((Mtxf *)((uintptr_t)mtxallocation + sp6c * sizeof(Mtxf)))->m[3][2];
 			} else {
 				hand->muzzlepos.x = hand->posmtx.m[3][0];
 				hand->muzzlepos.y = hand->posmtx.m[3][1];

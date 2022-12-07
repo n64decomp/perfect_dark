@@ -4290,13 +4290,13 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			// use the space... after the model definition's colour table?
 			// Let's hope that's not being used by other instances...
 			if (rwdata->gdl == rodata->opagdl) {
-				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
+				gdlptr = (Gfx *)((uintptr_t)rodata->colourtable + ((uintptr_t)rodata->opagdl & 0xffffff));
 			} else {
 				gdlptr = rwdata->gdl;
 			}
 
 			if (rodata->xlugdl) {
-				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
+				gdlptr2 = (Gfx *)((uintptr_t)rodata->colourtable + ((uintptr_t)rodata->xlugdl & 0xffffff));
 			} else {
 				gdlptr2 = NULL;
 			}
@@ -4324,7 +4324,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 						s32 numverts;
 						s32 i;
 
-						vertices = (struct gfxvtx *)((u32)rodata->vertices + word);
+						vertices = (struct gfxvtx *)((uintptr_t)rodata->vertices + word);
 						numverts = (u32)ptr[1] / 16 + 1;
 
 						if (posnode) {
@@ -4409,13 +4409,13 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			}
 
 			if (rwdata->gdl == rodata->opagdl) {
-				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
+				gdlptr = (Gfx *)((uintptr_t)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
 			} else {
 				gdlptr = rwdata->gdl;
 			}
 
 			if (rodata->xlugdl) {
-				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
+				gdlptr2 = (Gfx *)((uintptr_t)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
 			} else {
 				gdlptr2 = NULL;
 			}
@@ -4438,7 +4438,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 					if (op == G_VTX) {
 						u8 *ptr = (u8 *)&gdlptr->words.w0;
 						u32 word = gdlptr->words.w1 & 0xffffff;
-						struct gfxvtx *vertices = (struct gfxvtx *)((u32)rodata->vertices + word);
+						struct gfxvtx *vertices = (struct gfxvtx *)((uintptr_t)rodata->vertices + word);
 						s32 numverts = (u32)ptr[1] / 16 + 1;
 						s32 i;
 
@@ -4449,9 +4449,9 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 								s32 z = vertices[i].z + (s32)spd4.f[2];
 
 								if (x == bestcoords[0] && y == bestcoords[1] && z == bestcoords[2]) {
-									u32 tmp = ALIGN8((u32)&rodata->vertices[(u32)rodata->numvertices]); // u32 0xc
+									u32 tmp = ALIGN8((uintptr_t)&rodata->vertices[(u32)rodata->numvertices]); // u32 0xc
 
-									if ((u32)rwdata->colours == tmp) {
+									if ((uintptr_t)rwdata->colours == tmp) {
 										struct colour *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
 										s32 j;
 
@@ -4462,15 +4462,15 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 
 											rwdata->colours = colours;
 
-											tmp = ALIGN8((s32)&rodata->vertices[rodata->numvertices]); // s32 0xc
+											tmp = ALIGN8((intptr_t)&rodata->vertices[rodata->numvertices]); // s32 0xc
 										} else {
-											tmp = ALIGN8((s32)&rodata->vertices[rodata->numvertices]); // s32 0xc
+											tmp = ALIGN8((intptr_t)&rodata->vertices[rodata->numvertices]); // s32 0xc
 										}
 									}
 
-									if ((u32)rwdata->colours != tmp) {
+									if ((uintptr_t)rwdata->colours != tmp) {
 										u32 offset = rwdata->vertices[word / 12u + i].colour >> 2; // u32 0xc (both divide and mult)
-										struct colour *colours = (struct colour *) ((u32)rwdata->colours + spac);
+										struct colour *colours = (struct colour *) ((uintptr_t)rwdata->colours + spac);
 
 										colours[offset].a = alpha;
 									}
@@ -4570,13 +4570,13 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 			// use the space... after the model definition's colour table?
 			// Let's hope that's not being used by other instances...
 			if (rwdata->gdl == rodata->opagdl) {
-				gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
+				gdlptr = (Gfx *)((uintptr_t)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
 			} else {
 				gdlptr = rwdata->gdl;
 			}
 
 			if (rodata->xlugdl) {
-				gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
+				gdlptr2 = (Gfx *)((uintptr_t)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
 			} else {
 				gdlptr2 = NULL;
 			}
@@ -4604,7 +4604,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 						s32 numverts;
 						s32 i;
 
-						vertices = (struct gfxvtx *)((u32)rodata->vertices + word);
+						vertices = (struct gfxvtx *)((uintptr_t)rodata->vertices + word);
 						numverts = (u32)ptr[1] / 16 + 1;
 
 						if (posnode) {
@@ -4708,13 +4708,13 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 				}
 
 				if (rwdata->gdl == rodata->opagdl) {
-					gdlptr = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
+					gdlptr = (Gfx *)((uintptr_t)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
 				} else {
 					gdlptr = rwdata->gdl;
 				}
 
 				if (rodata->xlugdl) {
-					gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
+					gdlptr2 = (Gfx *)((uintptr_t)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
 				} else {
 					gdlptr2 = NULL;
 				}
@@ -4737,7 +4737,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 						if (op == G_VTX) {
 							u8 *ptr = (u8 *)&gdlptr->words.w0;
 							u32 word = gdlptr->words.w1 & 0xffffff;
-							struct gfxvtx *vertices = (struct gfxvtx *)((u32)rodata->vertices + word);
+							struct gfxvtx *vertices = (struct gfxvtx *)((uintptr_t)rodata->vertices + word);
 							s32 numverts = (u32)ptr[1] / 16 + 1;
 							s32 i;
 
@@ -4752,7 +4752,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 											coordinate = vertices[i].z + (s32)spd4.f[2];
 
 											if (coordinate == bestcoords[2]) {
-												if ((u32)rwdata->colours == ALIGN8((u32)rodata->vertices + rodata->numvertices * sizeof(struct gfxvtx))) {
+												if ((uintptr_t)rwdata->colours == ALIGN8((u32)rodata->vertices + rodata->numvertices * sizeof(struct gfxvtx))) {
 													struct colour *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
 													s32 j;
 
@@ -4765,9 +4765,9 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 													}
 												}
 
-												if ((u32)rwdata->colours != ALIGN8((u32)rodata->vertices + rodata->numvertices * sizeof(struct gfxvtx))) {
+												if ((uintptr_t)rwdata->colours != ALIGN8((uintptr_t)rodata->vertices + rodata->numvertices * sizeof(struct gfxvtx))) {
 													s32 offset = rwdata->vertices[word / sizeof(struct gfxvtx) + i].colour >> 2;
-													struct colour *colours = (struct colour *) ((u32)rwdata->colours + spac);
+													struct colour *colours = (struct colour *) ((uintptr_t)rwdata->colours + spac);
 
 													colours[offset].a = alpha;
 												}
@@ -4882,7 +4882,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 				}
 
 				// Copy the colours from the modeldef to the vtxstore
-				if ((u32)rwdata->colours == ALIGN8((u32)&rodata->vertices[rodata->numvertices])) {
+				if ((uintptr_t)rwdata->colours == ALIGN8((uintptr_t)&rodata->vertices[rodata->numvertices])) {
 					colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
 
 					if (colours) {
@@ -4897,15 +4897,15 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 				// Iterate the node's primary and secondary DLs, looking for
 				// MTX and VTX pointers
 				if (rwdata->vertices != rodata->vertices
-						&& (u32)rwdata->colours != ALIGN8((u32)&rodata->vertices[rodata->numvertices])) {
+						&& (uintptr_t)rwdata->colours != ALIGN8((uintptr_t)&rodata->vertices[rodata->numvertices])) {
 					if (rwdata->gdl == rodata->opagdl) {
-						gdlptr = (Gfx *)((u32)rodata->colourtable + ((s32)rodata->opagdl & 0xffffff));
+						gdlptr = (Gfx *)((uintptr_t)rodata->colourtable + ((s32)rodata->opagdl & 0xffffff));
 					} else {
 						gdlptr = rwdata->gdl;
 					}
 
 					if (rodata->xlugdl) {
-						gdlptr2 = (Gfx *)((u32)rodata->colourtable + ((s32)rodata->xlugdl & 0xffffff));
+						gdlptr2 = (Gfx *)((uintptr_t)rodata->colourtable + ((s32)rodata->xlugdl & 0xffffff));
 					} else {
 						gdlptr2 = NULL;
 					}
@@ -4932,7 +4932,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 								s32 word = gdlptr->words.w1 & 0xffffff;
 								s32 numverts;
 
-								vertices = (struct gfxvtx *)((u32)rwdata->vertices + word);
+								vertices = (struct gfxvtx *)((uintptr_t)rwdata->vertices + word);
 								numverts = (u32)ptr[1] / 16 + 1;
 
 								if (posnode) {

@@ -64,7 +64,7 @@ void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
 		osPiStartDma(&g_DmaIoMsgs[i], priority, 0, romaddr, memaddr, 0x4000, &g_DmaMesgQueue);
 
 		romaddr += 0x4000;
-		memaddr = (void *)((u32)memaddr + 0x4000);
+		memaddr = (void *)((uintptr_t) memaddr + 0x4000);
 	}
 
 	if (remainder) {
@@ -175,7 +175,7 @@ void dmaExecHighPriority(void *memaddr, u32 romaddr, u32 len)
 void *dmaExecWithAutoAlign(void *memaddr, u32 romaddr, u32 len)
 {
 	u32 alignedrom = ALIGN2(romaddr);
-	u32 alignedmem = ALIGN16((u32)memaddr);
+	u32 alignedmem = ALIGN16((uintptr_t) memaddr);
 	u32 offset = romaddr - alignedrom; // 0 or 1
 	u32 alignedlen = ALIGN16(offset + len);
 

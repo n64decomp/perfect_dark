@@ -95,7 +95,7 @@ char *scenarioRemoveLineBreaks(char *src, s32 stringnum)
 
 struct scenariodata g_ScenarioData;
 
-s32 menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -108,7 +108,7 @@ s32 menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handler
 	return menuhandlerMpCheckboxOption(operation, item, data);
 }
 
-s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED || operation == MENUOP_CHECKHIDDEN) {
 		if (challengeIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
@@ -121,7 +121,7 @@ s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handler
 	return menuhandlerMpCheckboxOption(operation, item, data);
 }
 
-s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 labels[] = {
 		L_MPMENU_240, // "Off"
@@ -264,7 +264,7 @@ struct mpscenariooverview g_MpScenarioOverviews[] = {
  * While the options dialog is open, check if another player has changed the
  * scenario to a different one. If so, replace this dialog with the new one.
  */
-s32 mpOptionsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult mpOptionsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog->definition != g_MpScenarios[g_MpSetup.scenario].optionsdialog) {
@@ -304,7 +304,7 @@ struct scenariogroup {
 	u16 textid;
 };
 
-s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct scenariogroup groups[] = {
 		{ 0, L_MPMENU_244 }, // "Free for All!"
@@ -398,7 +398,7 @@ s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
-s32 menuhandlerMpOpenOptions(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandlerMpOpenOptions(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPushDialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);

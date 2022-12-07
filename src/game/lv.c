@@ -1718,8 +1718,8 @@ Gfx *lvRender(Gfx *gdl)
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
 
 #if VERSION < VERSION_NTSC_1_0
-	if ((u32)gdl < (u32)g_GfxBuffers[g_GfxActiveBufferIndex]
-			|| (u32)gdl > (u32)g_GfxBuffers[g_GfxActiveBufferIndex + 1]) {
+	if ((uintptr_t)gdl < (uintptr_t)g_GfxBuffers[g_GfxActiveBufferIndex]
+			|| (uintptr_t)gdl > (uintptr_t)g_GfxBuffers[g_GfxActiveBufferIndex + 1]) {
 		crashSetMessage("lv.c Master DL overrun!");
 		CRASH();
 	}
@@ -1958,7 +1958,7 @@ s32 lvGetSlowMotionType(void)
 
 	if (actual != expected) {
 		u32 *ptr = (u32 *)&rspbootTextStart;
-		u32 *end = (u32 *)(u32)ptr + 1024;
+		u32 *end = (u32 *)(uintptr_t)ptr + 1024;
 
 		while (ptr < end) {
 			*ptr += 8;

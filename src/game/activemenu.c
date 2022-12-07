@@ -74,7 +74,7 @@ void amOpenPickTarget(void)
 	}
 }
 
-s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	static u32 teamcolours[] = {
 		0xff666600,
@@ -200,7 +200,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 	return 0;
 }
 
-s32 amPickTargetMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult amPickTargetMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:

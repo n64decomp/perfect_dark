@@ -137,7 +137,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 
 		state = (struct sndstate *)event->common.state;
 
-		if (((u32)state & 0x80000000) == 0) {
+		if (((uintptr_t) state & 0x80000000) == 0) {
 			// empty
 		}
 

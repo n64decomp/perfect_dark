@@ -1140,7 +1140,7 @@ Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
 			s32 index = gdl2->bytes[1] & 0xf;
 			s32 numvertices = (((u32)gdl2->bytes[1] >> 4)) + 1;
 			s32 offset = (gdl2->words.w1 & 0xffffff);
-			struct gfxvtx *vtx = (struct gfxvtx *)((u32)vertices + offset);
+			struct gfxvtx *vtx = (struct gfxvtx *)((uintptr_t)vertices + offset);
 			u32 stack[4];
 
 			for (i = 0; i < numvertices; i++) {
@@ -1692,7 +1692,7 @@ s32 stageGetIndex2(s32 stagenum)
 
 f32 portal0f15b274(s32 portalnum)
 {
-	struct portalvertices *pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+	struct portalvertices *pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 	s32 count = pvertices->count;
 	s32 i;
 	s32 j;
@@ -1720,7 +1720,7 @@ f32 portal0f15b274(s32 portalnum)
 void func0f15b3e4(s32 portalnum, struct coord *a, struct coord *b, struct coord *c, struct coord *d)
 {
 	struct portalvertices *pvertices;
-	pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+	pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 
 	a->x = pvertices->vertices[0].x;
 	a->y = pvertices->vertices[0].y;
@@ -1911,7 +1911,7 @@ void bgReset(s32 stagenum)
 	}
 
 	// Copy section 1 header to stack and parse into variables
-	header = (u8 *)ALIGN16((u32)headerbuffer);
+	header = (u8 *)ALIGN16((uintptr_t)headerbuffer);
 	bgLoadFile(header, 0, 0x40);
 	inflatedsize = *(u32 *)&header[0];
 	section1compsize = *(u32 *)&header[4];
@@ -1925,7 +1925,7 @@ void bgReset(s32 stagenum)
 	g_BgPrimaryData = mempAlloc(ALIGN16(inflatedsize + 0x8010), MEMPOOL_STAGE);
 
 	// Set up pointer to scratch space
-	scratch = (u32) g_BgPrimaryData + inflatedsize - primcompsize;
+	scratch = (uintptr_t) g_BgPrimaryData + inflatedsize - primcompsize;
 	scratch = ALIGN16(scratch + 0x8000);
 
 	g_LoadType = LOADTYPE_BG;
@@ -1955,13 +1955,13 @@ void bgReset(s32 stagenum)
 	// in the docs folder of this project.
 #ifdef AVOID_UB
 	section2 = mempAlloc(inflatedsize + section2compsize, MEMPOOL_STAGE);
-	scratch = (u32) section2 + inflatedsize;
+	scratch = (uintptr_t) section2 + inflatedsize;
 #elif VERSION >= VERSION_NTSC_FINAL
 	section2 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
-	scratch = (u32) section2 + 0x8000;
+	scratch = (uintptr_t) section2 + 0x8000;
 #else
 	section2 = mempAlloc(inflatedsize + 0x800, MEMPOOL_STAGE);
-	scratch = (u32) section2 + 0x800;
+	scratch = (uintptr_t) section2 + 0x800;
 #endif
 
 	// Load compressed data from ROM to scratch
@@ -2129,7 +2129,7 @@ void bgBuildTables(s32 stagenum)
 				}
 			}
 
-			pvertices = (struct portalvertices *)((u32)g_BgPortals + offset);
+			pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + offset);
 
 			if (pvertices->count <= 0) {
 				break;
@@ -2230,7 +2230,7 @@ void bgBuildTables(s32 stagenum)
 			tmp2.coord.y = 0.0f;
 			tmp2.coord.z = 0.0f;
 
-			pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[i].verticesoffset);
+			pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[i].verticesoffset);
 
 			for (j = 0; j < pvertices->count; j++) {
 				struct coord *next = &pvertices->vertices[(j + 1) % pvertices->count];
@@ -2276,7 +2276,7 @@ void bgBuildTables(s32 stagenum)
 		if (g_BgCommands != NULL) {
 			for (i = 0; g_BgCommands[i].type != BGCMD_END; i++) {
 				if (g_BgCommands[i].type == BGCMD_PORTALARG) {
-					g_BgCommands[i].param = portalFindNumByVertices((void *)(g_BgCommands[i].param + (u32)g_BgPrimaryData + 0xf1000000));
+					g_BgCommands[i].param = portalFindNumByVertices((void *)(g_BgCommands[i].param + (uintptr_t)g_BgPrimaryData + 0xf1000000));
 				}
 			}
 		}
@@ -2309,7 +2309,7 @@ void bgBuildTables(s32 stagenum)
 		// the section 3 allocation is resized to 0, effectively freeing it.
 
 		// Load and read the header
-		header = (u8 *)ALIGN16((u32)headerbuffer);
+		header = (u8 *)ALIGN16((uintptr_t)headerbuffer);
 		bgLoadFile(header, g_BgSection3, 0x40);
 		inflatedsize = (*(u16 *)&header[0] & 0x7fff) - 1;
 		section3compsize = *(u16 *)&header[2];
@@ -2931,7 +2931,7 @@ s32 portalFindNumByVertices(struct portalvertices *arg0)
 	struct bgportal *portal = g_BgPortals;
 
 	for (i = 0; portal[i].verticesoffset != 0; i++) {
-		struct portalvertices *pvertices = (struct portalvertices *)((u32)portal + portal[i].verticesoffset);
+		struct portalvertices *pvertices = (struct portalvertices *)((uintptr_t)portal + portal[i].verticesoffset);
 
 		if (pvertices == arg0) {
 			return i;
@@ -3080,9 +3080,9 @@ Gfx *roomGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
 struct gfxvtx *roomFindVerticesForGdl(s32 roomnum, Gfx *gdl)
 {
 	struct roomblock *block = g_Rooms[roomnum].gfxdata->blocks;
-	u32 end = (u32)g_Rooms[roomnum].gfxdata->vertices;
+	uintptr_t end = (uintptr_t)g_Rooms[roomnum].gfxdata->vertices;
 
-	while ((u32)(block + 1) <= end) {
+	while ((uintptr_t)(block + 1) <= end) {
 		switch (block->type) {
 		case ROOMBLOCKTYPE_LEAF:
 			if (gdl == block->gdl) {
@@ -3090,8 +3090,8 @@ struct gfxvtx *roomFindVerticesForGdl(s32 roomnum, Gfx *gdl)
 			}
 			break;
 		case ROOMBLOCKTYPE_PARENT:
-			if ((u32)block->unk0c < end) {
-				end = (u32)block->unk0c;
+			if ((uintptr_t)block->unk0c < end) {
+				end = (uintptr_t)block->unk0c;
 			}
 			break;
 		}
@@ -4285,9 +4285,9 @@ void bgLoadRoom(s32 roomnum)
 	u8 *vtxblocks[50]; // 140
 	u8 *sp78[50];
 	s32 len;
-	u32 end1;
+	uintptr_t end1;
 	s32 i; // 6c
-	u32 end2;
+	uintptr_t end2;
 	s32 prev;
 	s32 v1;
 
@@ -4352,56 +4352,56 @@ void bgLoadRoom(s32 roomnum)
 
 		// Promote offsets to pointers in the gfxdata header
 		if (g_Rooms[roomnum].gfxdata->vertices) {
-			g_Rooms[roomnum].gfxdata->vertices = (struct gfxvtx *)((u32)g_Rooms[roomnum].gfxdata->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+			g_Rooms[roomnum].gfxdata->vertices = (struct gfxvtx *)((uintptr_t)g_Rooms[roomnum].gfxdata->vertices - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 		}
 
 		if (g_Rooms[roomnum].gfxdata->colours) {
-			g_Rooms[roomnum].gfxdata->colours = (u32 *)((u32)g_Rooms[roomnum].gfxdata->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+			g_Rooms[roomnum].gfxdata->colours = (u32 *)((uintptr_t)g_Rooms[roomnum].gfxdata->colours - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 		}
 
 		if (g_Rooms[roomnum].gfxdata->opablocks) {
-			g_Rooms[roomnum].gfxdata->opablocks = (struct roomblock *)((u32)g_Rooms[roomnum].gfxdata->opablocks - g_BgRooms[roomnum].unk00 + (u32)allocation);
+			g_Rooms[roomnum].gfxdata->opablocks = (struct roomblock *)((uintptr_t)g_Rooms[roomnum].gfxdata->opablocks - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 		}
 
 		if (g_Rooms[roomnum].gfxdata->xlublocks) {
-			g_Rooms[roomnum].gfxdata->xlublocks = (struct roomblock *)((u32)g_Rooms[roomnum].gfxdata->xlublocks - g_BgRooms[roomnum].unk00 + (u32)allocation);
+			g_Rooms[roomnum].gfxdata->xlublocks = (struct roomblock *)((uintptr_t)g_Rooms[roomnum].gfxdata->xlublocks - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 		}
 
 		// Promote offsets to pointers in each gfxdata block
 		block1 = g_Rooms[roomnum].gfxdata->blocks;
-		end1 = (u32)g_Rooms[roomnum].gfxdata->vertices;
+		end1 = (uintptr_t)g_Rooms[roomnum].gfxdata->vertices;
 
-		while ((s32) (block1 + 1) <= end1) {
+		while ((intptr_t) (block1 + 1) <= end1) {
 			switch (block1->type) {
 			case ROOMBLOCKTYPE_LEAF:
 				if (block1->next != NULL) {
-					block1->next = (struct roomblock *)((u32)block1->next - g_BgRooms[roomnum].unk00 + (u32)allocation);
+					block1->next = (struct roomblock *)((uintptr_t)block1->next - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->gdl != 0) {
-					block1->gdl = (Gfx *)((u32)block1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
+					block1->gdl = (Gfx *)((uintptr_t)block1->gdl - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->vertices != 0) {
-					block1->vertices = (struct gfxvtx *)((u32)block1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+					block1->vertices = (struct gfxvtx *)((uintptr_t)block1->vertices - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->colours != 0) {
-					block1->colours = (u32 *)((u32)block1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+					block1->colours = (u32 *)((uintptr_t)block1->colours - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				break;
 			case ROOMBLOCKTYPE_PARENT:
 				if (block1->next != NULL) {
-					block1->next = (struct roomblock *)((u32)block1->next - g_BgRooms[roomnum].unk00 + (u32)allocation);
+					block1->next = (struct roomblock *)((uintptr_t)block1->next - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->gdl != 0) {
-					block1->gdl = (Gfx *)((u32)block1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
+					block1->gdl = (Gfx *)((uintptr_t)block1->gdl - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->vertices != 0) {
-					block1->vertices = (struct gfxvtx *)((u32)block1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+					block1->vertices = (struct gfxvtx *)((uintptr_t)block1->vertices - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->colours != 0) {
-					block1->colours = (u32 *)((u32)block1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+					block1->colours = (u32 *)((uintptr_t)block1->colours - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
-				if ((u32)block1->vertices < end1) {
-					end1 = (u32)block1->vertices;
+				if ((uintptr_t)block1->vertices < end1) {
+					end1 = (uintptr_t)block1->vertices;
 				}
 				break;
 			}
@@ -4410,8 +4410,8 @@ void bgLoadRoom(s32 roomnum)
 		}
 
 		// Calculate the number of vertices and colours
-		g_Rooms[roomnum].gfxdata->numvertices = ((u32)g_Rooms[roomnum].gfxdata->colours - (u32)g_Rooms[roomnum].gfxdata->vertices) / sizeof(struct gfxvtx);
-		g_Rooms[roomnum].gfxdata->numcolours = ((u32)roomGetNextGdlInLayer(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (u32)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
+		g_Rooms[roomnum].gfxdata->numvertices = ((uintptr_t)g_Rooms[roomnum].gfxdata->colours - (uintptr_t)g_Rooms[roomnum].gfxdata->vertices) / sizeof(struct gfxvtx);
+		g_Rooms[roomnum].gfxdata->numcolours = ((uintptr_t)roomGetNextGdlInLayer(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (uintptr_t)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
 
 		// Build arrays of pointers to gfx blocks and vtx blocks
 		len = 0;
@@ -4450,7 +4450,7 @@ void bgLoadRoom(s32 roomnum)
 			s32 byteswritten = texLoadFromGdl((void *) sp78[i], gfxblocks[i + 1] - gfxblocks[i], (void *) a2, NULL, vtxblocks[i]);
 			sp78[i] = a2;
 			a2 += byteswritten;
-			a2 = (u8 *) ALIGN8((s32) a2);
+			a2 = (u8 *) ALIGN8((intptr_t) a2);
 		}
 
 		sp78[len] = a2;
@@ -4469,15 +4469,15 @@ void bgLoadRoom(s32 roomnum)
 		g_Rooms[roomnum].loaded240 = 1;
 
 		if (g_Rooms[roomnum].gfxdatalen != size) {
-			memaRealloc((s32) allocation, size, g_Rooms[roomnum].gfxdatalen);
+			memaRealloc((intptr_t) allocation, size, g_Rooms[roomnum].gfxdatalen);
 		}
 
 		// Update gdl pointers in the gfxdata so they point to the ones
 		// that have been processed by the texture decompressor.
 		block2 = g_Rooms[roomnum].gfxdata->blocks; // a1 =
-		end2 = (u32) g_Rooms[roomnum].gfxdata->vertices; // a3 =
+		end2 = (uintptr_t) g_Rooms[roomnum].gfxdata->vertices; // a3 =
 
-		while ((s32) (block2 + 1) <= end2) {
+		while ((intptr_t) (block2 + 1) <= end2) {
 			switch (block2->type) {
 			case ROOMBLOCKTYPE_LEAF:
 				if (block2->gdl) {
@@ -4492,8 +4492,8 @@ void bgLoadRoom(s32 roomnum)
 				}
 				break;
 			case ROOMBLOCKTYPE_PARENT:
-				if ((u32) block2->unk0c < end2) {
-					end2 = (u32) block2->unk0c;
+				if ((uintptr_t) block2->unk0c < end2) {
+					end2 = (uintptr_t) block2->unk0c;
 				}
 				break;
 			}
@@ -4681,7 +4681,7 @@ void bgTickRooms(void)
 
 Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 {
-	u32 v0;
+	uintptr_t v0;
 
 	if (block == NULL) {
 		return gdl;
@@ -4697,13 +4697,13 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 
 		roomHighlight(roomnum);
 
-		v0 = (u32)g_Rooms[roomnum].colours;
+		v0 = (uintptr_t)g_Rooms[roomnum].colours;
 
 		if (v0 != NULL) {
-			s32 addr = ALIGN8((u32)&g_Rooms[roomnum].gfxdata->vertices[g_Rooms[roomnum].gfxdata->numvertices]);
-			v0 += (((s32)block->colours - addr) >> 2) * 4;
+			s32 addr = ALIGN8((uintptr_t)&g_Rooms[roomnum].gfxdata->vertices[g_Rooms[roomnum].gfxdata->numvertices]);
+			v0 += (((intptr_t)block->colours - addr) >> 2) * 4;
 		} else {
-			v0 = (u32)block->colours;
+			v0 = (uintptr_t)block->colours;
 		}
 
 		gSPSegment(gdl++, SPSEGMENT_BG_COL, OS_PHYSICAL_TO_K0(v0));
@@ -4826,7 +4826,7 @@ s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 
 			}
 
 			numvertices = (((u32)gdl[i].bytes[1] >> 4) & 0xf) + 1;
-			batchvertices = (struct gfxvtx *)((u32)vertices + (gdl[i].words.w1 & 0xffffff));
+			batchvertices = (struct gfxvtx *)((uintptr_t)vertices + (gdl[i].words.w1 & 0xffffff));
 
 			for (j = 0; j < numvertices; j++) {
 				f32 x = batchvertices[j].x;
@@ -5137,7 +5137,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 			count = gdl->bytes[1] & 0xf;
 			offset = (gdl->words.w1 & 0xffffff);
 			numvertices = (((u32)gdl->bytes[1] >> 4) & 0xf) + 1;
-			vtx = (struct gfxvtx *)((u32)vertices + offset);
+			vtx = (struct gfxvtx *)((uintptr_t)vertices + offset);
 			vtx -= count;
 
 			ptr[0] = vtx->x;
@@ -5438,7 +5438,7 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 			count = (gdl->bytes[1] & 0xf);
 			word = gdl->words.w1 & 0xffffff;
 			numvertices = ((u32)gdl->bytes[1] >> 4) + 1;
-			vtx = (struct gfxvtx *)((u32)vertices + word);
+			vtx = (struct gfxvtx *)((uintptr_t)vertices + word);
 
 			if (count < spdc) {
 				spdc = count;
@@ -7480,7 +7480,7 @@ void bgExpandRoomToPortals(s32 roomnum)
 
 	for (i = 0; i < g_Rooms[roomnum].numportals; i++) {
 		s32 portalnum = g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i];
-		struct portalvertices *pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+		struct portalvertices *pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 
 		for (j = 0; j < pvertices->count; j++) {
 			for (k = 0; k < 3; k++) {
@@ -7619,7 +7619,7 @@ void room0f164c64(s32 roomnum)
 				continue;
 			}
 
-			pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum2].verticesoffset);
+			pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum2].verticesoffset);
 
 			for (k = 0; k < pvertices->count; k++) {
 				tmp = thing.coord.f[0] * pvertices->vertices[k].f[0]
@@ -7708,7 +7708,7 @@ void portalFindBbox(s32 portalnum, struct coord *bbmin, struct coord *bbmax)
 	bbmax->y = MINFLOAT;
 	bbmax->z = MINFLOAT;
 
-	pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+	pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 
 	for (i = 0; i < pvertices->count; i++) {
 		for (j = 0; j < 3; j++) {

@@ -224,15 +224,15 @@ void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontch
 #define NUMCHARS() 94
 #endif
 
-	len = (u32)romend - (u32)romstart;
+	len = (romptr_t)romend - (romptr_t)romstart;
 	font = mempAlloc(len, MEMPOOL_STAGE);
 	chars = font->chars;
 
-	dmaExec(font, (u32) romstart, len);
+	dmaExec(font, (romptr_t) romstart, len);
 
 	// Convert pointers
 	for (i = 0; i < NUMCHARS(); i++) {
-		chars[i].pixeldata += (u32)font;
+		chars[i].pixeldata += (uintptr_t)font;
 	}
 
 #if VERSION >= VERSION_JPN_FINAL

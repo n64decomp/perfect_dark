@@ -3289,7 +3289,7 @@ void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct model
 			struct gfxvtx *dst = g_ModelVtxAllocatorFunc(rodata->unk00 * 4);
 
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(dst));
-			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL2, osVirtualToPhysical((void *)ALIGN8((u32)&rodata->vertices[rodata->unk00 << 2])));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL2, osVirtualToPhysical((void *)ALIGN8((uintptr_t)&rodata->vertices[rodata->unk00 << 2])));
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 
 			gDPSetFogColor(renderdata->gdl++, 0x00, 0x00, 0x00, 0x00);
@@ -3851,7 +3851,7 @@ s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2,
 
 #define PROMOTE(var) \
 	if (var) \
-		var = (void *)((u32)var + diff)
+		var = (void *)((uintptr_t)var + diff)
 
 void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 fileramaddr)
 {
@@ -3947,7 +3947,7 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
  * Offsets in model files are based from virtual memory address 0x0f000000.
  * This vma address is specified as an argument to the function.
  */
-void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 vma, u32 fileramaddr)
+void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 vma, uintptr_t fileramaddr)
 {
 	s32 diff = fileramaddr - vma;
 	s32 i;
@@ -4152,7 +4152,7 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 			rwdata = modelGetNodeRwData(model, node);
 			rwdata->dl.vertices = rodata->dl.vertices;
 			rwdata->dl.gdl = rodata->dl.opagdl;
-			rwdata->dl.colours = (void *) ALIGN8((u32)(rodata->dl.vertices + rodata->dl.numvertices));
+			rwdata->dl.colours = (void *) ALIGN8((uintptr_t)(rodata->dl.vertices + rodata->dl.numvertices));
 			if (rodata->dl.numvertices);
 			if (rodata->dl.numvertices);
 			if (rodata->dl.numvertices);

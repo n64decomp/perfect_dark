@@ -1237,7 +1237,7 @@ void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing 
 
 		langLoadToAddr(briefing->langbank, langbuffer, langbufferlen);
 
-		start = (struct defaultobj *)((u32)setup + (u32)setup->props);
+		start = (struct defaultobj *)((uintptr_t)setup + (u32)setup->props);
 
 		if (start != NULL) {
 			struct defaultobj *obj;
@@ -1323,10 +1323,10 @@ void setupLoadFiles(s32 stagenum)
 		setup = (struct stagesetup *)g_GeCreditsData;
 		langLoad(langGetLangBankIndexFromStagenum(stagenum));
 
-		g_StageSetup.intro = (s32 *)((u32)setup + (u32)setup->intro);
-		g_StageSetup.props = (u32 *)((u32)setup + (u32)setup->props);
-		g_StageSetup.paths = (struct path *)((u32)setup + (u32)setup->paths);
-		g_StageSetup.ailists = (struct ailist *)((u32)setup + (u32)setup->ailists);
+		g_StageSetup.intro = (s32 *)((uintptr_t)setup + (u32)setup->intro);
+		g_StageSetup.props = (u32 *)((uintptr_t)setup + (u32)setup->props);
+		g_StageSetup.paths = (struct path *)((uintptr_t)setup + (u32)setup->paths);
+		g_StageSetup.ailists = (struct ailist *)((uintptr_t)setup + (u32)setup->ailists);
 
 		g_LoadType = LOADTYPE_PADS;
 
@@ -1339,7 +1339,7 @@ void setupLoadFiles(s32 stagenum)
 		// Convert ailist pointers from file-local to proper pointers
 		if (g_StageSetup.ailists) {
 			for (i = 0; g_StageSetup.ailists[i].list != NULL; i++) {
-				g_StageSetup.ailists[i].list = (u8 *)((u32)setup + (u32)g_StageSetup.ailists[i].list);
+				g_StageSetup.ailists[i].list = (u8 *)((uintptr_t)setup + (u32)g_StageSetup.ailists[i].list);
 			}
 		}
 
@@ -1383,7 +1383,7 @@ void setupLoadFiles(s32 stagenum)
 		// and calculate the path lengths
 		if (g_StageSetup.paths) {
 			for (i = 0; g_StageSetup.paths[i].pads != NULL; i++) {
-				g_StageSetup.paths[i].pads = (s32 *)((u32)g_StageSetup.paths[i].pads + (u32)setup);
+				g_StageSetup.paths[i].pads = (s32 *)((uintptr_t)g_StageSetup.paths[i].pads + (u32)setup);
 
 				for (j = 0; g_StageSetup.paths[i].pads[j] >= 0; j++);
 

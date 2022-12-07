@@ -433,11 +433,11 @@ void mainInit(void)
 		if (g_DoBootPakMenu) {
 			start = &_accessingpakSegmentRomStart;
 			end = &_accessingpakSegmentRomEnd;
-			dmaExec(fb, (u32) start, end - start);
+			dmaExec(fb, (romptr_t) start, end - start);
 		} else {
 			start = &_copyrightSegmentRomStart;
 			end = &_copyrightSegmentRomEnd;
-			dmaExec(fb, (u32) start, end - start);
+			dmaExec(fb, (romptr_t) start, end - start);
 		}
 
 		// This is required for a match
@@ -577,7 +577,7 @@ void mainInit(void)
 		// It's using the framebuffer as a temporary data buffer.
 		start = &_copyrightSegmentRomStart;
 		end = &_copyrightSegmentRomEnd;
-		dmaExec(fb, (u32) start, end - start);
+		dmaExec(fb, (romptr_t) start, end - start);
 
 		// Unzip the compressed texture from fb to texture
 		rzipInflate(fb, texture, scratch);

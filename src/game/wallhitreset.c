@@ -111,7 +111,7 @@ void wallhitReset(void)
 		ptr = mempAlloc(structssize + numberssize, MEMPOOL_STAGE);
 
 		g_WallhitCountsPerRoom = ptr;
-		g_Wallhits = (struct wallhit *)((u32)ptr + numberssize);
+		g_Wallhits = (struct wallhit *)((uintptr_t)ptr + numberssize);
 		g_FreeWallhits = NULL;
 		g_ActiveWallhits = 0;
 

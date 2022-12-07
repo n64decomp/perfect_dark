@@ -897,7 +897,7 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 	gdl = renderdata.gdl;
 
 	for (j = 0, k = 0; j < model->definition->nummatrices; j++, k += sizeof(Mtxf)) {
-		mtx4Copy((Mtxf *)((u32)model->matrices + k), &sp6c);
+		mtx4Copy((Mtxf *)((uintptr_t)model->matrices + k), &sp6c);
 		mtxF2L(&sp6c, model->matrices + j);
 	}
 
@@ -7588,7 +7588,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 					s32 j;
 
 					for (sp19c = 0, j = 0; sp19c < g_TitleModelJpnLogo2->definition->nummatrices; sp19c++, j += sizeof(Mtxf)) {
-						mtx4Copy((Mtxf *)((u32)g_TitleModelJpnLogo2->matrices + j), &sp158);
+						mtx4Copy((Mtxf *)((uintptr_t)g_TitleModelJpnLogo2->matrices + j), &sp158);
 						mtxF2L(&sp158, g_TitleModelJpnLogo2->matrices + sp19c);
 					}
 				}
@@ -7649,7 +7649,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 				s32 j;
 
 				for (sp14c = 0, j = 0; sp14c < g_TitleModelJpnPd->definition->nummatrices; sp14c++, j += sizeof(Mtxf)) {
-					mtx4Copy((Mtxf *)((u32)g_TitleModelJpnPd->matrices + j), &spf4);
+					mtx4Copy((Mtxf *)((uintptr_t)g_TitleModelJpnPd->matrices + j), &spf4);
 					mtxF2L(&spf4, g_TitleModelJpnPd->matrices + sp14c);
 				}
 			}
@@ -7683,7 +7683,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 				s32 j;
 
 				for (sp9c = 0, j = 0; sp9c < g_TitleModelJpnLogo1->definition->nummatrices; sp9c++, j += sizeof(Mtxf)) {
-					mtx4Copy((Mtxf *)((u32)g_TitleModelJpnLogo1->matrices + j), &sp5c);
+					mtx4Copy((Mtxf *)((uintptr_t)g_TitleModelJpnLogo1->matrices + j), &sp5c);
 					mtxF2L(&sp5c, g_TitleModelJpnLogo1->matrices + sp9c);
 				}
 			}
@@ -8009,7 +8009,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 		gdl = renderdata.gdl;
 
 		for (i = 0, j = 0; i < g_TitleModel->definition->nummatrices; i++, j += sizeof(Mtxf)) {
-			mtx4Copy((Mtxf *)((u32)g_TitleModel->matrices + j), &sp54);
+			mtx4Copy((Mtxf *)((uintptr_t)g_TitleModel->matrices + j), &sp54);
 			mtxF2L(&sp54, g_TitleModel->matrices + i);
 		}
 	}
@@ -8256,7 +8256,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 
 		for (i = 0, j = 0; i < g_TitleModel->definition->nummatrices; i++, j += sizeof(Mtxf)) {
 			Mtxf sp58;
-			mtx4Copy((Mtxf *)((u32)g_TitleModel->matrices + j), &sp58);
+			mtx4Copy((Mtxf *)((uintptr_t)g_TitleModel->matrices + j), &sp58);
 			mtxF2L(&sp58, g_TitleModel->matrices + i);
 		}
 	}
