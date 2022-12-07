@@ -37,7 +37,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 var8009cc30;
+s32 g_SetupCurMpLocation;
 u32 var8009cc34;
 u32 var8009cc38;
 u32 var8009cc3c;
@@ -703,39 +703,38 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 			}
 		}
 	} else {
-		bool giveweapon = true;
+		bool createweapon = true;
 
 		if (g_Vars.normmplayerisrunning || g_Vars.lvmpbotlevel) {
 			struct mpweapon *mpweapon;
-			s32 mpweaponnum;
+			s32 locationindex;
 
-			var8009cc30 = -1;
+			g_SetupCurMpLocation = -1;
 
-			// Seems like a weaponnum >= 240 means an mpweaponnum...
 			switch (weapon->weaponnum) {
-			case 0xf0:
-			case 0xf1:
-			case 0xf2:
-			case 0xf3:
-			case 0xf4:
-			case 0xf5:
-			case 0xf6:
-			case 0xf7:
-			case 0xf8:
-			case 0xf9:
-			case 0xfa:
-			case 0xfb:
-			case 0xfc:
-			case 0xfd:
-			case 0xfe:
-			case 0xff:
-				mpweaponnum = weapon->weaponnum - 0xf0;
-				mpweapon = func0f188e24(mpweaponnum);
-				var8009cc30 = mpweaponnum;
+			case WEAPON_MPLOCATION00:
+			case WEAPON_MPLOCATION01:
+			case WEAPON_MPLOCATION02:
+			case WEAPON_MPLOCATION03:
+			case WEAPON_MPLOCATION04:
+			case WEAPON_MPLOCATION05:
+			case WEAPON_MPLOCATION06:
+			case WEAPON_MPLOCATION07:
+			case WEAPON_MPLOCATION08:
+			case WEAPON_MPLOCATION09:
+			case WEAPON_MPLOCATION10:
+			case WEAPON_MPLOCATION11:
+			case WEAPON_MPLOCATION12:
+			case WEAPON_MPLOCATION13:
+			case WEAPON_MPLOCATION14:
+			case WEAPON_MPLOCATION15:
+				locationindex = weapon->weaponnum - WEAPON_MPLOCATION00;
+				mpweapon = mpGetMpWeaponByLocation(locationindex);
+				g_SetupCurMpLocation = locationindex;
 				weapon->weaponnum = mpweapon->weaponnum;
 				weapon->base.modelnum = mpweapon->model;
 				weapon->base.extrascale = mpweapon->extrascale;
-				giveweapon = mpweapon->giveweapon;
+				createweapon = mpweapon->hasweapon;
 
 				if (mpweapon->weaponnum == WEAPON_MPSHIELD) {
 					struct shieldobj *shield = (struct shieldobj *)weapon;
@@ -746,13 +745,13 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 					shield->initialamount = 1;
 					shield->amount = 1;
 					setupCreateObject(&shield->base, cmdindex);
-					giveweapon = false;
+					createweapon = false;
 				}
 				break;
 			}
 		}
 
-		if (weapon->weaponnum != WEAPON_NONE && giveweapon) {
+		if (weapon->weaponnum != WEAPON_NONE && createweapon) {
 			modelmgrLoadProjectileModeldefs(weapon->weaponnum);
 			setupCreateObject(&weapon->base, cmdindex);
 		}
@@ -1745,10 +1744,14 @@ void setupCreateProps(s32 stagenum)
 						struct escalatorobj *step = (struct escalatorobj *)obj;
 						struct prop *prop;
 
+#ifdef AVOID_UB
+						Mtxf sp1a8;
+#else
 						// TODO: There is a stack problem here that should be
 						// resolved. sp1a8 is really an Mtxf which doesn't fit
 						// in its current location in the stack.
 						f32 sp1a8[12];
+#endif
 						f32 sp184[3][3];
 
 						setupCreateObject(obj, index);
@@ -1764,14 +1767,14 @@ void setupCreateProps(s32 stagenum)
 						if (obj->flags & OBJFLAG_ESCSTEP_ZALIGNED) {
 							step->frame = escstepy;
 							escstepy += 40;
-							mtx4LoadYRotation(4.7116389274597f, (Mtxf *)sp1a8);
-							mtx4ToMtx3((Mtxf *)sp1a8, sp184);
+							mtx4LoadYRotation(4.7116389274597f, (Mtxf *) &sp1a8);
+							mtx4ToMtx3((Mtxf *) &sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						} else {
 							step->frame = escstepx;
 							escstepx += 40;
-							mtx4LoadYRotation(M_BADPI, (Mtxf *)sp1a8);
-							mtx4ToMtx3((Mtxf *)sp1a8, sp184);
+							mtx4LoadYRotation(M_BADPI, (Mtxf *) &sp1a8);
+							mtx4ToMtx3((Mtxf *) &sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						}
 					}
@@ -1793,21 +1796,21 @@ void setupCreateProps(s32 stagenum)
 						s32 ammoqty = 1;
 						s32 i;
 
-						if (g_Vars.normmplayerisrunning && var8009cc30 >= 0) {
-							struct mpweapon *mpweapon = func0f188e24(var8009cc30);
-							ammoqty = mpweapon->weapon1ammoqty;
+						if (g_Vars.normmplayerisrunning && g_SetupCurMpLocation >= 0) {
+							struct mpweapon *mpweapon = mpGetMpWeaponByLocation(g_SetupCurMpLocation);
+							ammoqty = mpweapon->priammoqty;
 
-							if (mpweapon->weapon1ammotypeminusone > 0 && mpweapon->weapon1ammotypeminusone < 20) {
-								crate->slots[mpweapon->weapon1ammotypeminusone - 1].quantity = ammoqty;
+							if (mpweapon->priammotype > 0 && mpweapon->priammotype < 20) {
+								crate->slots[mpweapon->priammotype - 1].quantity = ammoqty;
 							}
 
-							if (mpweapon->weapon2ammotypeminusone > 0 && mpweapon->weapon2ammotypeminusone < 20) {
-								crate->slots[mpweapon->weapon2ammotypeminusone - 1].quantity = mpweapon->weapon2ammoqty;
+							if (mpweapon->secammotype > 0 && mpweapon->secammotype < 20) {
+								crate->slots[mpweapon->secammotype - 1].quantity = mpweapon->secammoqty;
 							}
 						}
 
 						if (ammoqty > 0 && withobjs && (obj->flags2 & diffflag) == 0) {
-							for (i = 0; i < 19; i++) {
+							for (i = 0; i < ARRAYCOUNT(crate->slots); i++) {
 								if (crate->slots[i].quantity > 0 && crate->slots[i].modelnum != 0xffff) {
 									setupLoadModeldef(crate->slots[i].modelnum);
 								}

@@ -5209,11 +5209,11 @@ struct mpconfig {
 
 struct mpweapon {
 	/*0x00*/ u8 weaponnum;
-	/*0x01*/ s8 weapon1ammotypeminusone;
-	/*0x02*/ u8 weapon1ammoqty;
-	/*0x03*/ s8 weapon2ammotypeminusone;
-	/*0x04*/ u8 weapon2ammoqty;
-	/*0x05*/ u8 giveweapon : 1;
+	/*0x01*/ s8 priammotype;
+	/*0x02*/ u8 priammoqty;
+	/*0x03*/ s8 secammotype;
+	/*0x04*/ u8 secammoqty;
+	/*0x05*/ u8 hasweapon : 1;
 	/*0x05*/ u8 unlockfeature : 7;
 	/*0x06*/ s16 model;
 	/*0x08*/ s16 extrascale;

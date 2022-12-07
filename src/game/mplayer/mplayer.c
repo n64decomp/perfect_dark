@@ -56,46 +56,46 @@ s32 var80087260 = 0x00000000;
 bool g_MpEnableMusicSwitching = false;
 
 struct mpweapon g_MpWeapons[NUM_MPWEAPONS] = {
-	/*0x00*/ { WEAPON_NONE,             0x00, 0x00, 0x00, 0x00, 1, 0,                                MODEL_CHRTT33,          0x0100 },
-	/*0x01*/ { WEAPON_FALCON2,          0x01, 0x50, 0x00, 0x00, 1, 0,                                MODEL_CHRFALCON2,       0x0100 },
-	/*0x02*/ { WEAPON_FALCON2_SILENCER, 0x01, 0x50, 0x00, 0x00, 1, MPFEATURE_WEAPON_FALCON2SILENCED, MODEL_CHRFALCON2SIL,    0x0100 },
-	/*0x03*/ { WEAPON_FALCON2_SCOPE,    0x01, 0x50, 0x00, 0x00, 1, MPFEATURE_WEAPON_FALCON2SCOPE,    MODEL_CHRFALCON2SCOPE,  0x0100 },
-	/*0x04*/ { WEAPON_MAGSEC4,          0x01, 0x50, 0x00, 0x00, 1, 0,                                MODEL_CHRLEEGUN1,       0x0100 },
-	/*0x05*/ { WEAPON_MAULER,           0x01, 0x5c, 0x00, 0x00, 1, MPFEATURE_WEAPON_MAULER,          MODEL_CHRMAULER,        0x0100 },
-	/*0x06*/ { WEAPON_PHOENIX,          0x01, 0x40, 0x00, 0x00, 1, MPFEATURE_WEAPON_PHOENIX,         MODEL_CHRMAIANPISTOL,   0x0100 },
-	/*0x07*/ { WEAPON_DY357MAGNUM,      0x0a, 0x32, 0x00, 0x00, 1, 0,                                MODEL_CHRDY357,         0x0100 },
-	/*0x08*/ { WEAPON_DY357LX,          0x0a, 0x32, 0x00, 0x00, 1, MPFEATURE_WEAPON_DY357LX,         MODEL_CHRDY357TRENT,    0x0100 },
-	/*0x09*/ { WEAPON_CMP150,           0x02, 0x64, 0x00, 0x00, 1, 0,                                MODEL_CHRCMP150,        0x0100 },
-	/*0x0a*/ { WEAPON_CYCLONE,          0x02, 0x96, 0x00, 0x00, 1, 0,                                MODEL_CHRCYCLONE,       0x0100 },
-	/*0x0b*/ { WEAPON_CALLISTO,         0x02, 0x96, 0x00, 0x00, 1, MPFEATURE_WEAPON_CALLISTO,        MODEL_CHRMAIANSMG,      0x0100 },
-	/*0x0c*/ { WEAPON_RCP120,           0x02, 0x96, 0x00, 0x00, 1, MPFEATURE_WEAPON_RCP120,          MODEL_CHRRCP120,        0x0100 },
-	/*0x0d*/ { WEAPON_LAPTOPGUN,        0x02, 0x96, 0x00, 0x00, 1, MPFEATURE_WEAPON_LAPTOPGUN,       MODEL_CHRPCGUN,         0x0100 },
-	/*0x0e*/ { WEAPON_DRAGON,           0x04, 0x96, 0x00, 0x00, 1, 0,                                MODEL_CHRDRAGON,        0x0100 },
-	/*0x0f*/ { WEAPON_K7AVENGER,        0x04, 0x96, 0x00, 0x00, 1, MPFEATURE_WEAPON_K7AVENGER,       MODEL_CHRAVENGER,       0x0100 },
-	/*0x10*/ { WEAPON_AR34,             0x04, 0x64, 0x00, 0x00, 1, 0,                                MODEL_CHRAR34,          0x0100 },
-	/*0x11*/ { WEAPON_SUPERDRAGON,      0x04, 0x96, 0x0b, 0x10, 1, MPFEATURE_WEAPON_SUPERDRAGON,     MODEL_CHRSUPERDRAGON,   0x0100 },
-	/*0x12*/ { WEAPON_SHOTGUN,          0x05, 0x10, 0x00, 0x00, 1, MPFEATURE_WEAPON_SHOTGUN,         MODEL_CHRSHOTGUN,       0x0100 },
-	/*0x13*/ { WEAPON_REAPER,           0x0f, 0xc8, 0x00, 0x00, 1, MPFEATURE_WEAPON_REAPER,          MODEL_CHRSKMINIGUN,     0x0100 },
-	/*0x14*/ { WEAPON_SNIPERRIFLE,      0x04, 0x32, 0x00, 0x00, 1, 0,                                MODEL_CHRSNIPERRIFLE,   0x0100 },
-	/*0x15*/ { WEAPON_FARSIGHT,         0x06, 0x0a, 0x00, 0x00, 1, MPFEATURE_WEAPON_FARSIGHT,        MODEL_CHRZ2020,         0x0100 },
-	/*0x16*/ { WEAPON_DEVASTATOR,       0x0b, 0x10, 0x00, 0x00, 1, MPFEATURE_WEAPON_DEVASTATOR,      MODEL_CHRDEVASTATOR,    0x0100 },
-	/*0x17*/ { WEAPON_ROCKETLAUNCHER,   0x08, 0x03, 0x00, 0x00, 1, 0,                                MODEL_CHRDYROCKET,      0x0100 },
-	/*0x18*/ { WEAPON_SLAYER,           0x08, 0x03, 0x00, 0x00, 1, MPFEATURE_WEAPON_SLAYER,          MODEL_CHRSKROCKET,      0x0100 },
+	/*0x00*/ { WEAPON_NONE,             0,                    0,   0,                   0,  1, 0,                                MODEL_CHRTT33,          256 },
+	/*0x01*/ { WEAPON_FALCON2,          AMMOTYPE_PISTOL,      80,  0,                   0,  1, 0,                                MODEL_CHRFALCON2,       256 },
+	/*0x02*/ { WEAPON_FALCON2_SILENCER, AMMOTYPE_PISTOL,      80,  0,                   0,  1, MPFEATURE_WEAPON_FALCON2SILENCED, MODEL_CHRFALCON2SIL,    256 },
+	/*0x03*/ { WEAPON_FALCON2_SCOPE,    AMMOTYPE_PISTOL,      80,  0,                   0,  1, MPFEATURE_WEAPON_FALCON2SCOPE,    MODEL_CHRFALCON2SCOPE,  256 },
+	/*0x04*/ { WEAPON_MAGSEC4,          AMMOTYPE_PISTOL,      80,  0,                   0,  1, 0,                                MODEL_CHRLEEGUN1,       256 },
+	/*0x05*/ { WEAPON_MAULER,           AMMOTYPE_PISTOL,      92,  0,                   0,  1, MPFEATURE_WEAPON_MAULER,          MODEL_CHRMAULER,        256 },
+	/*0x06*/ { WEAPON_PHOENIX,          AMMOTYPE_PISTOL,      64,  0,                   0,  1, MPFEATURE_WEAPON_PHOENIX,         MODEL_CHRMAIANPISTOL,   256 },
+	/*0x07*/ { WEAPON_DY357MAGNUM,      AMMOTYPE_MAGNUM,      50,  0,                   0,  1, 0,                                MODEL_CHRDY357,         256 },
+	/*0x08*/ { WEAPON_DY357LX,          AMMOTYPE_MAGNUM,      50,  0,                   0,  1, MPFEATURE_WEAPON_DY357LX,         MODEL_CHRDY357TRENT,    256 },
+	/*0x09*/ { WEAPON_CMP150,           AMMOTYPE_SMG,         100, 0,                   0,  1, 0,                                MODEL_CHRCMP150,        256 },
+	/*0x0a*/ { WEAPON_CYCLONE,          AMMOTYPE_SMG,         150, 0,                   0,  1, 0,                                MODEL_CHRCYCLONE,       256 },
+	/*0x0b*/ { WEAPON_CALLISTO,         AMMOTYPE_SMG,         150, 0,                   0,  1, MPFEATURE_WEAPON_CALLISTO,        MODEL_CHRMAIANSMG,      256 },
+	/*0x0c*/ { WEAPON_RCP120,           AMMOTYPE_SMG,         150, 0,                   0,  1, MPFEATURE_WEAPON_RCP120,          MODEL_CHRRCP120,        256 },
+	/*0x0d*/ { WEAPON_LAPTOPGUN,        AMMOTYPE_SMG,         150, 0,                   0,  1, MPFEATURE_WEAPON_LAPTOPGUN,       MODEL_CHRPCGUN,         256 },
+	/*0x0e*/ { WEAPON_DRAGON,           AMMOTYPE_RIFLE,       150, 0,                   0,  1, 0,                                MODEL_CHRDRAGON,        256 },
+	/*0x0f*/ { WEAPON_K7AVENGER,        AMMOTYPE_RIFLE,       150, 0,                   0,  1, MPFEATURE_WEAPON_K7AVENGER,       MODEL_CHRAVENGER,       256 },
+	/*0x10*/ { WEAPON_AR34,             AMMOTYPE_RIFLE,       100, 0,                   0,  1, 0,                                MODEL_CHRAR34,          256 },
+	/*0x11*/ { WEAPON_SUPERDRAGON,      AMMOTYPE_RIFLE,       150, AMMOTYPE_DEVASTATOR, 16, 1, MPFEATURE_WEAPON_SUPERDRAGON,     MODEL_CHRSUPERDRAGON,   256 },
+	/*0x12*/ { WEAPON_SHOTGUN,          AMMOTYPE_SHOTGUN,     16,  0,                   0,  1, MPFEATURE_WEAPON_SHOTGUN,         MODEL_CHRSHOTGUN,       256 },
+	/*0x13*/ { WEAPON_REAPER,           AMMOTYPE_REAPER,      200, 0,                   0,  1, MPFEATURE_WEAPON_REAPER,          MODEL_CHRSKMINIGUN,     256 },
+	/*0x14*/ { WEAPON_SNIPERRIFLE,      AMMOTYPE_RIFLE,       50,  0,                   0,  1, 0,                                MODEL_CHRSNIPERRIFLE,   256 },
+	/*0x15*/ { WEAPON_FARSIGHT,         AMMOTYPE_FARSIGHT,    10,  0,                   0,  1, MPFEATURE_WEAPON_FARSIGHT,        MODEL_CHRZ2020,         256 },
+	/*0x16*/ { WEAPON_DEVASTATOR,       AMMOTYPE_DEVASTATOR,  16,  0,                   0,  1, MPFEATURE_WEAPON_DEVASTATOR,      MODEL_CHRDEVASTATOR,    256 },
+	/*0x17*/ { WEAPON_ROCKETLAUNCHER,   AMMOTYPE_ROCKET,      3,   0,                   0,  1, 0,                                MODEL_CHRDYROCKET,      256 },
+	/*0x18*/ { WEAPON_SLAYER,           AMMOTYPE_ROCKET,      3,   0,                   0,  1, MPFEATURE_WEAPON_SLAYER,          MODEL_CHRSKROCKET,      256 },
 #if VERSION != VERSION_JPN_FINAL
-	/*0x19*/ { WEAPON_COMBATKNIFE,      0x09, 0x05, 0x00, 0x00, 1, 0,                                MODEL_CHRKNIFE,         0x0100 },
+	/*0x19*/ { WEAPON_COMBATKNIFE,      AMMOTYPE_KNIFE,       5,   0,                   0,  1, 0,                                MODEL_CHRKNIFE,         256 },
 #endif
-	/*0x1a*/ { WEAPON_CROSSBOW,         0x03, 0x0a, 0x00, 0x00, 1, MPFEATURE_WEAPON_CROSSBOW,        MODEL_CHRCROSSBOW,      0x0100 },
-	/*0x1b*/ { WEAPON_TRANQUILIZER,     0x13, 0x32, 0x00, 0x00, 1, MPFEATURE_WEAPON_TRANQUILIZER,    MODEL_CHRDRUGGUN,       0x0100 },
-	/*0x1c*/ { WEAPON_GRENADE,          0x07, 0x05, 0x00, 0x00, 0, 0,                                MODEL_CHRGRENADE,       0x0100 },
-	/*0x1d*/ { WEAPON_NBOMB,            0x12, 0x03, 0x00, 0x00, 0, MPFEATURE_WEAPON_NBOMB,           MODEL_CHRNBOMB,         0x0100 },
-	/*0x1e*/ { WEAPON_TIMEDMINE,        0x0e, 0x05, 0x00, 0x00, 0, 0,                                MODEL_CHRTIMEDMINE,     0x0180 },
-	/*0x1f*/ { WEAPON_PROXIMITYMINE,    0x0d, 0x05, 0x00, 0x00, 0, MPFEATURE_WEAPON_PROXIMITYMINE,   MODEL_CHRPROXIMITYMINE, 0x0180 },
-	/*0x20*/ { WEAPON_REMOTEMINE,       0x0c, 0x05, 0x00, 0x00, 0, MPFEATURE_WEAPON_REMOTEMINE,      MODEL_CHRREMOTEMINE,    0x0180 },
-	/*0x21*/ { WEAPON_LASER,            0x00, 0x00, 0x00, 0x00, 1, MPFEATURE_WEAPON_LASER,           MODEL_CHRLASER,         0x0200 },
-	/*0x22*/ { WEAPON_XRAYSCANNER,      0x00, 0x00, 0x00, 0x00, 1, MPFEATURE_WEAPON_XRAYSCANNER,     MODEL_CHRNIGHTSIGHT,    0x0100 },
-	/*0x23*/ { WEAPON_CLOAKINGDEVICE,   0x00, 0x00, 0x00, 0x00, 1, MPFEATURE_WEAPON_CLOAKINGDEVICE,  MODEL_CHRCLOAKER,       0x0100 },
-	/*0x24*/ { WEAPON_COMBATBOOST,      0x00, 0x00, 0x00, 0x00, 1, MPFEATURE_WEAPON_COMBATBOOST,     MODEL_CHRSPEEDPILL,     0x0100 },
-	/*0x25*/ { WEAPON_MPSHIELD,         0x00, 0x00, 0x00, 0x00, 1, MPFEATURE_WEAPON_SHIELD,          MODEL_CHRSHIELD,        0x0100 },
+	/*0x1a*/ { WEAPON_CROSSBOW,         AMMOTYPE_CROSSBOW,    10,  0,                   0,  1, MPFEATURE_WEAPON_CROSSBOW,        MODEL_CHRCROSSBOW,      256 },
+	/*0x1b*/ { WEAPON_TRANQUILIZER,     AMMOTYPE_SEDATIVE,    50,  0,                   0,  1, MPFEATURE_WEAPON_TRANQUILIZER,    MODEL_CHRDRUGGUN,       256 },
+	/*0x1c*/ { WEAPON_GRENADE,          AMMOTYPE_GRENADE,     5,   0,                   0,  0, 0,                                MODEL_CHRGRENADE,       256 },
+	/*0x1d*/ { WEAPON_NBOMB,            AMMOTYPE_NBOMB,       3,   0,                   0,  0, MPFEATURE_WEAPON_NBOMB,           MODEL_CHRNBOMB,         256 },
+	/*0x1e*/ { WEAPON_TIMEDMINE,        AMMOTYPE_TIMED_MINE,  5,   0,                   0,  0, 0,                                MODEL_CHRTIMEDMINE,     384 },
+	/*0x1f*/ { WEAPON_PROXIMITYMINE,    AMMOTYPE_PROXY_MINE,  5,   0,                   0,  0, MPFEATURE_WEAPON_PROXIMITYMINE,   MODEL_CHRPROXIMITYMINE, 384 },
+	/*0x20*/ { WEAPON_REMOTEMINE,       AMMOTYPE_REMOTE_MINE, 5,   0,                   0,  0, MPFEATURE_WEAPON_REMOTEMINE,      MODEL_CHRREMOTEMINE,    384 },
+	/*0x21*/ { WEAPON_LASER,            0,                    0,   0,                   0,  1, MPFEATURE_WEAPON_LASER,           MODEL_CHRLASER,         512 },
+	/*0x22*/ { WEAPON_XRAYSCANNER,      0,                    0,   0,                   0,  1, MPFEATURE_WEAPON_XRAYSCANNER,     MODEL_CHRNIGHTSIGHT,    256 },
+	/*0x23*/ { WEAPON_CLOAKINGDEVICE,   0,                    0,   0,                   0,  1, MPFEATURE_WEAPON_CLOAKINGDEVICE,  MODEL_CHRCLOAKER,       256 },
+	/*0x24*/ { WEAPON_COMBATBOOST,      0,                    0,   0,                   0,  1, MPFEATURE_WEAPON_COMBATBOOST,     MODEL_CHRSPEEDPILL,     256 },
+	/*0x25*/ { WEAPON_MPSHIELD,         0,                    0,   0,                   0,  1, MPFEATURE_WEAPON_SHIELD,          MODEL_CHRSHIELD,        256 },
 	/*0x26*/ { WEAPON_DISABLED },
 };
 
@@ -938,9 +938,9 @@ s32 mpGetWeaponSlot(s32 slot)
 	return count;
 }
 
-struct mpweapon *func0f188e24(s32 arg0)
+struct mpweapon *mpGetMpWeaponByLocation(s32 locationindex)
 {
-	s32 v0 = arg0 + 1;
+	s32 v0 = locationindex + 1;
 	s32 slot = 0;
 	s32 a2 = v0;
 	u8 mpweaponnum;
