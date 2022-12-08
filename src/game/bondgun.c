@@ -518,7 +518,7 @@ void bgunSetPartVisible(s16 partnum, bool visible, struct hand *hand, struct mod
 {
 	struct modelnode *node;
 
-	if (partnum == MODELPART_0035 || partnum == MODELPART_0036) {
+	if (partnum == MODELPART_HAND_LEFT || partnum == MODELPART_HAND_RIGHT) {
 		if (g_Vars.currentplayer->gunctrl.handmodeldef) {
 			node = modelGetPart(g_Vars.currentplayer->gunctrl.handmodeldef, partnum);
 
@@ -6779,7 +6779,7 @@ void bgunUpdateLasersight(struct hand *hand, struct modeldef *modeldef, s32 hand
 	struct coord sp30;
 	bool busy;
 
-	node = modelGetPart(modeldef, MODELPART_FALCON2_0034);
+	node = modelGetPart(modeldef, MODELPART_GUN_LASERSIGHT);
 
 	if (node) {
 		mtxindex = modelFindNodeMtxIndex(node, 0);
@@ -6973,10 +6973,10 @@ void bgunUpdateSniperRifle(struct modeldef *modeldef, u8 *allocation)
 
 	f26 = 1.0f - (currentPlayerGetGunZoomFov() - 2.0f) / 58.0f;
 
-	nodes[0] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_002A);
-	nodes[1] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_002B);
-	nodes[2] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_002C);
-	nodes[3] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_002D);
+	nodes[0] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_SCOPE1);
+	nodes[1] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_SCOPE2);
+	nodes[2] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_SCOPE3);
+	nodes[3] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_SCOPE4);
 
 	for (i = 0; i < 4; i++) {
 		if (nodes[i]) {
@@ -7371,11 +7371,11 @@ void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s3
 		ground = g_Vars.currentplayer->vv_ground;
 
 		if (modeldef && weaponnum != WEAPON_DY357MAGNUM && weaponnum != WEAPON_DY357LX) {
-			s32 partnum = MODELPART_PISTOL_003C;
+			s32 partnum = MODELPART_GUN_CARTEJECTPOS;
 			struct modelnode *node;
 
 			if (weaponnum == WEAPON_REAPER) {
-				partnum = (hand->burstbullets & 1) == 1 ? MODELPART_REAPER_0030 : MODELPART_REAPER_0031;
+				partnum = (hand->burstbullets & 1) == 1 ? MODELPART_REAPER_CARTEJECTPOS1 : MODELPART_REAPER_CARTEJECTPOS2;
 			}
 
 			node = modelGetPart(modeldef, partnum);
@@ -7395,8 +7395,8 @@ void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s3
 				casingCreateForHand(handnum, ground, &hand->posmtx);
 			}
 
-			bgunSetPartVisible(MODELPART_CMP150_0046, false, hand, modeldef);
-			bgunSetPartVisible(MODELPART_CMP150_0047, true, hand, modeldef);
+			bgunSetPartVisible(MODELPART_GUN_CARTFLAPCLOSED, false, hand, modeldef);
+			bgunSetPartVisible(MODELPART_GUN_CARTFLAPOPEN, true, hand, modeldef);
 		}
 
 		if (funcdef->type == INVENTORYFUNCTYPE_SHOOT_PROJECTILE) {
@@ -7864,7 +7864,7 @@ void bgun0f0a5550(s32 handnum)
 
 			g_ModelJointPositionedFunc = 0;
 
-			node = modelGetPart(modeldef, MODELPART_PISTOL_0033);
+			node = modelGetPart(modeldef, MODELPART_GUN_SLIDE);
 
 			if (node) {
 				sp80 = modelFindNodeMtxIndex(node, 0);
@@ -7909,13 +7909,13 @@ void bgun0f0a5550(s32 handnum)
 				break;
 			}
 
-			node = modelGetPart(modeldef, 0x32);
+			node = modelGetPart(modeldef, MODELPART_GUN_MUZZLEPOS);
 
 			if (weaponnum == WEAPON_REAPER) {
 				if (hand->flashon || hand->firing) {
-					node = modelGetPart(modeldef, 0x1e + (hand->burstbullets % 3));
+					node = modelGetPart(modeldef, MODELPART_REAPER_001E + (hand->burstbullets % 3));
 				} else {
-					node = modelGetPart(modeldef, 0x1e + (g_Vars.lvframenum % 3));
+					node = modelGetPart(modeldef, MODELPART_REAPER_001E + (g_Vars.lvframenum % 3));
 				}
 			}
 
@@ -7942,7 +7942,7 @@ void bgun0f0a5550(s32 handnum)
 					|| weaponnum == WEAPON_REMOTEMINE
 					|| weaponnum == WEAPON_PROXIMITYMINE
 					|| weaponnum == WEAPON_NBOMB) {
-				sp6c = modelFindNodeMtxIndex(modelGetPart(modeldef, 0x37), 0);
+				sp6c = modelFindNodeMtxIndex(modelGetPart(modeldef, MODELPART_GUN_HOLDPOS), 0);
 
 				mtx = (Mtxf *)mtxallocation;
 				mtx += sp6c;
@@ -11029,7 +11029,7 @@ void bgunRender(Gfx **gdlptr)
 
 			// Slide the laser's liquid texture
 			if (PLAYERCOUNT() == 1) {
-				node = modelGetPart(hand->gunmodel.definition, MODELPART_LASER_0041);
+				node = modelGetPart(hand->gunmodel.definition, MODELPART_GUN_LASERLIQUID);
 
 				// a5c
 				if (node) {

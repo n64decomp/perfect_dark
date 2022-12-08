@@ -336,79 +336,79 @@ struct weapon invitem_unarmed = {
 };
 
 struct modelpartvisibility invpartvisibility_falcon2[] = {
-	{ MODELPART_FALCON2_005A,     false },
-	{ MODELPART_FALCON2_002A,     false },
-	{ MODELPART_FALCON2_002B,     false },
-	{ MODELPART_FALCON2_SCOPE,    false },
-	{ MODELPART_FALCON2_SILENCER, false },
-	{ MODELPART_FALCON2_002E,     false },
-	{ MODELPART_FALCON2_002F,     false },
+	{ MODELPART_GUN_MUZZLEFLASH1,  false },
+	{ MODELPART_FALCON2_MAGAZINE1, false },
+	{ MODELPART_FALCON2_MAGAZINE2, false },
+	{ MODELPART_FALCON2_SCOPE,     false },
+	{ MODELPART_FALCON2_SILENCER,  false },
+	{ MODELPART_FALCON2_002E,      false },
+	{ MODELPART_FALCON2_002F,      false },
 	{ 255 },
 };
 
 struct modelpartvisibility invpartvisibility_falcon2scope[] = {
-	{ MODELPART_FALCON2_005A,     false },
-	{ MODELPART_FALCON2_002A,     false },
-	{ MODELPART_FALCON2_002B,     false },
-	{ MODELPART_FALCON2_SILENCER, false },
-	{ MODELPART_FALCON2_002F,     false },
+	{ MODELPART_GUN_MUZZLEFLASH1,  false },
+	{ MODELPART_FALCON2_MAGAZINE1, false },
+	{ MODELPART_FALCON2_MAGAZINE2, false },
+	{ MODELPART_FALCON2_SILENCER,  false },
+	{ MODELPART_FALCON2_002F,      false },
 	{ 255 },
 };
 
 struct modelpartvisibility invpartvisibility_falcon2silencer[] = {
-	{ MODELPART_FALCON2_005A,  false },
-	{ MODELPART_FALCON2_002A,  false },
-	{ MODELPART_FALCON2_002B,  false },
-	{ MODELPART_FALCON2_SCOPE, false },
-	{ MODELPART_FALCON2_002E,  false },
+	{ MODELPART_GUN_MUZZLEFLASH1,  false },
+	{ MODELPART_FALCON2_MAGAZINE1, false },
+	{ MODELPART_FALCON2_MAGAZINE2, false },
+	{ MODELPART_FALCON2_SCOPE,     false },
+	{ MODELPART_FALCON2_002E,      false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_falcon2[] = {
-	gunviscmd_sethidden(MODELPART_FALCON2_002A)
-	gunviscmd_sethidden(MODELPART_FALCON2_002B)
+	gunviscmd_sethidden(MODELPART_FALCON2_MAGAZINE1)
+	gunviscmd_sethidden(MODELPART_FALCON2_MAGAZINE2)
 	gunviscmd_sethidden(MODELPART_FALCON2_SCOPE)
 	gunviscmd_sethidden(MODELPART_FALCON2_SILENCER)
 	gunviscmd_sethidden(MODELPART_FALCON2_002E)
 	gunviscmd_sethidden(MODELPART_FALCON2_002F)
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_end
 };
 
 struct gunviscmd gunviscmds_falcon2scope[] = {
-	gunviscmd_sethidden(MODELPART_FALCON2_002A)
-	gunviscmd_sethidden(MODELPART_FALCON2_002B)
+	gunviscmd_sethidden(MODELPART_FALCON2_MAGAZINE1)
+	gunviscmd_sethidden(MODELPART_FALCON2_MAGAZINE2)
 	gunviscmd_sethidden(MODELPART_FALCON2_SILENCER)
 	gunviscmd_sethidden(MODELPART_FALCON2_002E)
 	gunviscmd_sethidden(MODELPART_FALCON2_002F)
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_end
 };
 
 struct gunviscmd gunviscmds_falcon2silencer[] = {
-	gunviscmd_sethidden(MODELPART_FALCON2_002A)
-	gunviscmd_sethidden(MODELPART_FALCON2_002B)
+	gunviscmd_sethidden(MODELPART_FALCON2_MAGAZINE1)
+	gunviscmd_sethidden(MODELPART_FALCON2_MAGAZINE2)
 	gunviscmd_sethidden(MODELPART_FALCON2_SCOPE)
 	gunviscmd_sethidden(MODELPART_FALCON2_002E)
 	gunviscmd_sethidden(MODELPART_FALCON2_002F)
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_end
 };
 
 struct guncmd invanim_falcon2_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_FALCON2_RELOAD, 0, 10000)
-	gunscript_showpart(1, 53)
-	gunscript_showpart(1, 43)
-	gunscript_showpart(1, 42)
+	gunscript_showpart(1, MODELPART_HAND_LEFT)
+	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE2)
+	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE1)
 	gunscript_playsound(10, SFX_01D8)
-	gunscript_hidepart(19, 42)
+	gunscript_hidepart(19, MODELPART_FALCON2_MAGAZINE1)
 	gunscript_waittime(24, 1)
 #if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(24, SFX_80F6)
 #else
 	gunscript_playsound(24, SFX_01D9)
 #endif
-	gunscript_hidepart(24, 43)
+	gunscript_hidepart(24, MODELPART_FALCON2_MAGAZINE2)
 	gunscript_playsound(53, SFX_01DB)
 	gunscript_waittime(53, 3)
 	gunscript_end
@@ -416,18 +416,18 @@ struct guncmd invanim_falcon2_reload_singlewield[] = {
 
 struct guncmd invanim_falcon2scope_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_FALCON2_RELOAD_SCOPE, 0, 10000)
-	gunscript_showpart(1, 53)
-	gunscript_showpart(1, 43)
-	gunscript_showpart(1, 42)
+	gunscript_showpart(1, MODELPART_HAND_LEFT)
+	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE2)
+	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE1)
 	gunscript_playsound(10, SFX_01D8)
-	gunscript_hidepart(19, 42)
+	gunscript_hidepart(19, MODELPART_FALCON2_MAGAZINE1)
 	gunscript_waittime(24, 1)
 #if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(24, SFX_80F6)
 #else
 	gunscript_playsound(24, SFX_01D9)
 #endif
-	gunscript_hidepart(24, 43)
+	gunscript_hidepart(24, MODELPART_FALCON2_MAGAZINE2)
 	gunscript_playsound(53, SFX_01DB)
 	gunscript_waittime(53, 3)
 	gunscript_end
@@ -435,8 +435,8 @@ struct guncmd invanim_falcon2scope_reload_singlewield[] = {
 
 struct guncmd invanim_falcon2_reload_dualwield[] = {
 	gunscript_playanimation(ANIM_GUN_FALCON2_RELOAD_DUALWIELD, 0, 10000)
-	gunscript_hidepart(1, 43)
-	gunscript_showpart(1, 42)
+	gunscript_hidepart(1, MODELPART_FALCON2_MAGAZINE2)
+	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE1)
 	gunscript_playsound(6, SFX_01D8)
 	gunscript_waittime(50, 1)
 #if VERSION >= VERSION_NTSC_1_0
@@ -646,29 +646,29 @@ struct weapon invitem_falcon2silencer = {
 };
 
 struct modelpartvisibility invpartvisibility_magsec[] = {
-	{ MODELPART_PISTOL_005A, false },
-	{ MODELPART_PISTOL_0029, false },
-	{ MODELPART_PISTOL_002A, false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
+	{ MODELPART_PISTOL_MAGAZINE1, false },
+	{ MODELPART_PISTOL_MAGAZINE2, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_magsec[] = {
-	gunviscmd_sethidden(MODELPART_0035)
-	gunviscmd_sethidden(MODELPART_PISTOL_002A)
-	gunviscmd_sethidden(MODELPART_PISTOL_0029)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
+	gunviscmd_sethidden(MODELPART_PISTOL_MAGAZINE2)
+	gunviscmd_sethidden(MODELPART_PISTOL_MAGAZINE1)
 	gunviscmd_end
 };
 
 struct guncmd invanim_magsec_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_MAGSEC4_RELOAD, 0, 10000)
-	gunscript_showpart(1, 53)
-	gunscript_showpart(1, 41)
+	gunscript_showpart(1, MODELPART_HAND_LEFT)
+	gunscript_showpart(1, MODELPART_PISTOL_MAGAZINE1)
 	gunscript_setsoundspeed(3, 1300)
 	gunscript_playsound(3, SFX_01D8)
-	gunscript_showpart(10, 42)
-	gunscript_hidepart(14, 41)
-	gunscript_hidepart(22, 42)
-	gunscript_showpart(22, 41)
+	gunscript_showpart(10, MODELPART_PISTOL_MAGAZINE2)
+	gunscript_hidepart(14, MODELPART_PISTOL_MAGAZINE1)
+	gunscript_hidepart(22, MODELPART_PISTOL_MAGAZINE2)
+	gunscript_showpart(22, MODELPART_PISTOL_MAGAZINE1)
 	gunscript_setsoundspeed(27, 1300)
 #if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(27, SFX_80F6)
@@ -684,10 +684,10 @@ struct guncmd invanim_magsec_reload_singlewield[] = {
 
 struct guncmd invanim_magsec_reload_dualwield[] = {
 	gunscript_playanimation(ANIM_GUN_MAGSEC4_RELOAD_DUALWIELD, 0, 10000)
-	gunscript_showpart(1, 41)
+	gunscript_showpart(1, MODELPART_PISTOL_MAGAZINE1)
 	gunscript_setsoundspeed(5, 1300)
 	gunscript_playsound(5, SFX_01D8)
-	gunscript_hidepart(25, 41)
+	gunscript_hidepart(25, MODELPART_PISTOL_MAGAZINE1)
 	gunscript_setsoundspeed(47, 1300)
 #if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(47, SFX_80F6)
@@ -802,24 +802,24 @@ struct weapon invitem_magsec = {
 };
 
 struct modelpartvisibility invpartvisibility_dy357[] = {
-	{ MODELPART_MAGNUM_005A, false },
-	{ MODELPART_MAGNUM_0028, false },
-	{ MODELPART_MAGNUM_0029, false },
-	{ MODELPART_MAGNUM_002A, false },
-	{ MODELPART_MAGNUM_002B, false },
-	{ MODELPART_MAGNUM_002C, false },
-	{ MODELPART_MAGNUM_002D, false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
+	{ MODELPART_MAGNUM_CART1,     false },
+	{ MODELPART_MAGNUM_CART2,     false },
+	{ MODELPART_MAGNUM_CART3,     false },
+	{ MODELPART_MAGNUM_CART4,     false },
+	{ MODELPART_MAGNUM_CART5,     false },
+	{ MODELPART_MAGNUM_CART6,     false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_magnum[] = {
-	gunviscmd_sethidden(MODELPART_MAGNUM_0028)
-	gunviscmd_sethidden(MODELPART_MAGNUM_0029)
-	gunviscmd_sethidden(MODELPART_MAGNUM_002A)
-	gunviscmd_sethidden(MODELPART_MAGNUM_002B)
-	gunviscmd_sethidden(MODELPART_MAGNUM_002C)
-	gunviscmd_sethidden(MODELPART_MAGNUM_002D)
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_MAGNUM_CART1)
+	gunviscmd_sethidden(MODELPART_MAGNUM_CART2)
+	gunviscmd_sethidden(MODELPART_MAGNUM_CART3)
+	gunviscmd_sethidden(MODELPART_MAGNUM_CART4)
+	gunviscmd_sethidden(MODELPART_MAGNUM_CART5)
+	gunviscmd_sethidden(MODELPART_MAGNUM_CART6)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_end
 };
 
@@ -835,27 +835,27 @@ struct guncmd invanim_dy357_reload_singlewield[] = {
 	gunscript_playsound(50, SFX_05CF)
 	gunscript_setsoundspeed(80, 1830)
 	gunscript_playsound(80, SFX_01D8)
-	gunscript_popoutsackofpills(0x0050)
-	gunscript_popoutsackofpills(0x0051)
-	gunscript_popoutsackofpills(0x0052)
-	gunscript_popoutsackofpills(0x0053)
-	gunscript_popoutsackofpills(0x0054)
-	gunscript_popoutsackofpills(0x0055)
-	gunscript_showpart(92, 53)
-	gunscript_showpart(92, 40)
-	gunscript_showpart(92, 41)
-	gunscript_showpart(92, 42)
-	gunscript_showpart(92, 43)
-	gunscript_showpart(92, 44)
-	gunscript_showpart(92, 45)
+	gunscript_popoutsackofpills(80)
+	gunscript_popoutsackofpills(81)
+	gunscript_popoutsackofpills(82)
+	gunscript_popoutsackofpills(83)
+	gunscript_popoutsackofpills(84)
+	gunscript_popoutsackofpills(85)
+	gunscript_showpart(92, MODELPART_HAND_LEFT)
+	gunscript_showpart(92, MODELPART_MAGNUM_CART1)
+	gunscript_showpart(92, MODELPART_MAGNUM_CART2)
+	gunscript_showpart(92, MODELPART_MAGNUM_CART3)
+	gunscript_showpart(92, MODELPART_MAGNUM_CART4)
+	gunscript_showpart(92, MODELPART_MAGNUM_CART5)
+	gunscript_showpart(92, MODELPART_MAGNUM_CART6)
 	gunscript_setsoundspeed(114, 1210)
 	gunscript_playsound(114, SFX_01D8)
-	gunscript_hidepart(121, 40)
-	gunscript_hidepart(121, 41)
-	gunscript_hidepart(121, 42)
-	gunscript_hidepart(121, 43)
-	gunscript_hidepart(121, 44)
-	gunscript_hidepart(121, 45)
+	gunscript_hidepart(121, MODELPART_MAGNUM_CART1)
+	gunscript_hidepart(121, MODELPART_MAGNUM_CART2)
+	gunscript_hidepart(121, MODELPART_MAGNUM_CART3)
+	gunscript_hidepart(121, MODELPART_MAGNUM_CART4)
+	gunscript_hidepart(121, MODELPART_MAGNUM_CART5)
+	gunscript_hidepart(121, MODELPART_MAGNUM_CART6)
 	gunscript_waittime(123, 1)
 	gunscript_playsound(147, SFX_05CD)
 	gunscript_end
@@ -866,12 +866,12 @@ struct guncmd invanim_dy357_reload_dualwield[] = {
 	gunscript_playsound(50, SFX_05CF)
 	gunscript_setsoundspeed(80, 1830)
 	gunscript_playsound(80, SFX_01D8)
-	gunscript_popoutsackofpills(0x0050)
-	gunscript_popoutsackofpills(0x0051)
-	gunscript_popoutsackofpills(0x0052)
-	gunscript_popoutsackofpills(0x0053)
-	gunscript_popoutsackofpills(0x0054)
-	gunscript_popoutsackofpills(0x0055)
+	gunscript_popoutsackofpills(80)
+	gunscript_popoutsackofpills(81)
+	gunscript_popoutsackofpills(82)
+	gunscript_popoutsackofpills(83)
+	gunscript_popoutsackofpills(84)
+	gunscript_popoutsackofpills(85)
 	gunscript_setsoundspeed(114, 1210)
 	gunscript_playsound(114, SFX_01D8)
 	gunscript_waittime(123, 1)
@@ -1018,33 +1018,33 @@ struct weapon invitem_dy357lx = {
 };
 
 struct modelpartvisibility invpartvisibility_phoenix[] = {
-	{ MODELPART_PHOENIX_0028, false },
+	{ MODELPART_PHOENIX_ORB, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_phoenix[] = {
-	gunviscmd_sethidden(MODELPART_PHOENIX_0028)
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_PHOENIX_ORB)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_end
 };
 
 struct guncmd invanim_phoenix_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_PHOENIX_RELOAD, 0, 10000)
-	gunscript_showpart(1, 53)
-	gunscript_showpart(1, 40)
+	gunscript_showpart(1, MODELPART_HAND_LEFT)
+	gunscript_showpart(1, MODELPART_PHOENIX_ORB)
 	gunscript_setsoundspeed(44, 1510)
 	gunscript_playsound(44, SFX_RELOAD_FARSIGHT)
-	gunscript_hidepart(50, 40)
+	gunscript_hidepart(50, MODELPART_PHOENIX_ORB)
 	gunscript_end
 };
 
 struct guncmd invanim_phoenix_reload_dualwield[] = {
 	gunscript_playanimation(ANIM_GUN_PHOENIX_RELOAD_DUALWIELD, 0, 10000)
-	gunscript_showpart(1, 53)
-	gunscript_showpart(1, 40)
+	gunscript_showpart(1, MODELPART_HAND_LEFT)
+	gunscript_showpart(1, MODELPART_PHOENIX_ORB)
 	gunscript_setsoundspeed(44, 1510)
 	gunscript_playsound(44, SFX_RELOAD_FARSIGHT)
-	gunscript_hidepart(50, 40)
+	gunscript_hidepart(50, MODELPART_PHOENIX_ORB)
 	gunscript_end
 };
 
@@ -1138,14 +1138,14 @@ struct weapon invitem_phoenix = {
 };
 
 struct modelpartvisibility invpartvisibility_mauler[] = {
-	{ MODELPART_MAULER_002B, false },
-	{ MODELPART_MAULER_005A, false },
+	{ MODELPART_MAULER_MAGAZINE2, false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_mauler[] = {
-	gunviscmd_sethidden(MODELPART_0035)
-	gunviscmd_sethidden(MODELPART_MAULER_002B)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
+	gunviscmd_sethidden(MODELPART_MAULER_MAGAZINE2)
 	gunviscmd_end
 };
 
@@ -1157,16 +1157,16 @@ struct guncmd invanim_mauler_shoot[] = {
 
 struct guncmd invanim_mauler_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_MAULER_RELOAD, 0, 10000)
-	gunscript_showpart(0, 53)
+	gunscript_showpart(0, MODELPART_HAND_LEFT)
 	gunscript_setsoundspeed(4, 1200)
 	gunscript_playsound(4, SFX_0053)
-	gunscript_showpart(4, 43)
-	gunscript_hidepart(18, 42)
+	gunscript_showpart(4, MODELPART_MAULER_MAGAZINE2)
+	gunscript_hidepart(18, MODELPART_MAULER_MAGAZINE1)
 	gunscript_setsoundspeed(20, 2500)
 	gunscript_playsound(20, SFX_DOOR_8012)
 	gunscript_waittime(25, 1)
-	gunscript_showpart(25, 42)
-	gunscript_hidepart(25, 43)
+	gunscript_showpart(25, MODELPART_MAULER_MAGAZINE1)
+	gunscript_hidepart(25, MODELPART_MAULER_MAGAZINE2)
 	gunscript_setsoundspeed(27, 2000)
 	gunscript_playsound(27, SFX_05C5)
 	gunscript_setsoundspeed(61, 1000)
@@ -1278,23 +1278,23 @@ struct weapon invitem_mauler = {
 };
 
 struct modelpartvisibility invpartvisibility_cmp150[] = {
-	{ MODELPART_CMP150_005A, false },
-	{ MODELPART_CMP150_002B, false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
+	{ MODELPART_CMP150_MAGAZINE2, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_cmp150[] = {
-	gunviscmd_sethidden(MODELPART_0035)
-	gunviscmd_sethidden(MODELPART_CMP150_002B)
-	gunviscmd_sethidden(MODELPART_CMP150_0047)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
+	gunviscmd_sethidden(MODELPART_CMP150_MAGAZINE2)
+	gunviscmd_sethidden(MODELPART_GUN_CARTFLAPOPEN)
 	gunviscmd_end
 };
 
 struct guncmd invanim_cmp150_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_CMP150_RELOAD, 0, 10000)
-	gunscript_hidepart(23, 42)
-	gunscript_showpart(33, 53)
-	gunscript_showpart(33, 43)
+	gunscript_hidepart(23, MODELPART_CMP150_MAGAZINE1)
+	gunscript_showpart(33, MODELPART_HAND_LEFT)
+	gunscript_showpart(33, MODELPART_CMP150_MAGAZINE2)
 	gunscript_setsoundspeed(9, 950)
 	gunscript_playsound(9, SFX_01D8)
 	gunscript_setsoundspeed(44, 950)
@@ -1303,8 +1303,8 @@ struct guncmd invanim_cmp150_reload_singlewield[] = {
 #else
 	gunscript_playsound(44, SFX_01D9)
 #endif
-	gunscript_hidepart(45, 43)
-	gunscript_showpart(45, 42)
+	gunscript_hidepart(45, MODELPART_CMP150_MAGAZINE2)
+	gunscript_showpart(45, MODELPART_CMP150_MAGAZINE1)
 	gunscript_waittime(45, 1)
 	gunscript_playsound(86, SFX_0431)
 	gunscript_end
@@ -1312,9 +1312,9 @@ struct guncmd invanim_cmp150_reload_singlewield[] = {
 
 struct guncmd invanim_cmp150_reload_dualwield[] = {
 	gunscript_playanimation(ANIM_GUN_CMP150_RELOAD_DUALWIELD, 0, 10000)
-	gunscript_hidepart(23, 42)
-	gunscript_showpart(33, 53)
-	gunscript_showpart(33, 43)
+	gunscript_hidepart(23, MODELPART_CMP150_MAGAZINE1)
+	gunscript_showpart(33, MODELPART_HAND_LEFT)
+	gunscript_showpart(33, MODELPART_CMP150_MAGAZINE2)
 	gunscript_setsoundspeed(20, 950)
 	gunscript_playsound(20, SFX_01D8)
 	gunscript_setsoundspeed(61, 950)
@@ -1323,8 +1323,8 @@ struct guncmd invanim_cmp150_reload_dualwield[] = {
 #else
 	gunscript_playsound(61, SFX_01D9)
 #endif
-	gunscript_hidepart(61, 43)
-	gunscript_showpart(61, 42)
+	gunscript_hidepart(61, MODELPART_CMP150_MAGAZINE2)
+	gunscript_showpart(61, MODELPART_CMP150_MAGAZINE1)
 	gunscript_waittime(61, 1)
 	gunscript_playsound(76, SFX_0431)
 	gunscript_end
@@ -1445,21 +1445,21 @@ struct weapon invitem_cmp150 = {
 };
 
 struct modelpartvisibility invpartvisibility_cyclone[] = {
-	{ MODELPART_CYCLONE_005A, false },
-	{ MODELPART_CYCLONE_0028, false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
+	{ MODELPART_CYCLONE_MAGAZINE, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_cyclone[] = {
-	gunviscmd_sethidden(MODELPART_0035)
-	gunviscmd_sethidden(MODELPART_CYCLONE_0028)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
+	gunviscmd_sethidden(MODELPART_CYCLONE_MAGAZINE)
 	gunviscmd_end
 };
 
 struct guncmd invanim_cyclone_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_CYCLONE_RELOAD, 0, 10000)
-	gunscript_showpart(1, 53)
-	gunscript_showpart(1, 40)
+	gunscript_showpart(1, MODELPART_HAND_LEFT)
+	gunscript_showpart(1, MODELPART_CYCLONE_MAGAZINE)
 	gunscript_playsound(60, SFX_05D3)
 	gunscript_end
 };
@@ -1576,11 +1576,11 @@ struct guncmd invanim_rcp120_reload[] = {
 	gunscript_playanimation(ANIM_GUN_RCP120_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(18, 1100)
 	gunscript_playsound(18, SFX_0053)
-	gunscript_showpart(25, 40)
-	gunscript_showpart(50, 41)
+	gunscript_showpart(25, MODELPART_RCP120_MAGAZINE1)
+	gunscript_showpart(50, MODELPART_RCP120_MAGAZINE2)
 	gunscript_playsound(74, SFX_05C5)
-	gunscript_hidepart(75, 41)
-	gunscript_showpart(75, 40)
+	gunscript_hidepart(75, MODELPART_RCP120_MAGAZINE2)
+	gunscript_showpart(75, MODELPART_RCP120_MAGAZINE1)
 	gunscript_playsound(112, SFX_0431)
 	gunscript_end
 };
@@ -1593,13 +1593,13 @@ struct guncmd invanim_rcp120_shoot[] = {
 };
 
 struct modelpartvisibility invpartvisibility_rcp120[] = {
-	{ MODELPART_RCP120_005A, false },
-	{ MODELPART_RCP120_0029, false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
+	{ MODELPART_RCP120_MAGAZINE2, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_rcp120[] = {
-	gunviscmd_sethidden(MODELPART_RCP120_0029)
+	gunviscmd_sethidden(MODELPART_RCP120_MAGAZINE2)
 	gunviscmd_end
 };
 
@@ -1679,10 +1679,10 @@ struct weapon invitem_rcp120 = {
 
 struct guncmd invanim_callisto_reload[] = {
 	gunscript_playanimation(ANIM_GUN_CALLISTO_RELOAD, 0, 10000)
-	gunscript_showpart(30, 40)
+	gunscript_showpart(30, MODELPART_CALLISTO_ORB)
 	gunscript_setsoundspeed(58, 933)
 	gunscript_playsound(58, SFX_RELOAD_FARSIGHT)
-	gunscript_hidepart(79, 40)
+	gunscript_hidepart(79, MODELPART_CALLISTO_ORB)
 	gunscript_end
 };
 
@@ -1694,12 +1694,12 @@ struct guncmd invanim_callisto_shoot[] = {
 };
 
 struct modelpartvisibility invpartvisibility_callisto[] = {
-	{ MODELPART_CALLISTO_0028, false },
+	{ MODELPART_CALLISTO_ORB, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_callisto[] = {
-	gunviscmd_sethidden(MODELPART_CALLISTO_0028)
+	gunviscmd_sethidden(MODELPART_CALLISTO_ORB)
 	gunviscmd_end
 };
 
@@ -1793,13 +1793,13 @@ struct weapon invitem_callisto = {
 };
 
 struct gunviscmd gunviscmds_dragon[] = {
-	gunviscmd_sethidden(MODELPART_DRAGON_0028)
+	gunviscmd_sethidden(MODELPART_DRAGON_MAGAZINE1)
 	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_dragon[] = {
-	{ MODELPART_DRAGON_0028,     false },
-	{ MODELPART_DRAGON_005A, false },
+	{ MODELPART_DRAGON_MAGAZINE1, false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
 	{ 255 },
 };
 
@@ -1811,12 +1811,12 @@ struct guncmd invanim_dragon_shoot[] = {
 struct guncmd invanim_dragon_reload[] = {
 	gunscript_playanimation(ANIM_GUN_DRAGON_RELOAD, 0, 10000)
 	gunscript_playsound(8, SFX_0053)
-	gunscript_hidepart(17, 42)
-	gunscript_showpart(17, 40)
+	gunscript_hidepart(17, MODELPART_DRAGON_MAGAZINE2)
+	gunscript_showpart(17, MODELPART_DRAGON_MAGAZINE1)
 	gunscript_waittime(41, 1)
 	gunscript_playsound(41, SFX_05C5)
-	gunscript_showpart(41, 42)
-	gunscript_hidepart(41, 40)
+	gunscript_showpart(41, MODELPART_DRAGON_MAGAZINE2)
+	gunscript_hidepart(41, MODELPART_DRAGON_MAGAZINE1)
 	gunscript_end
 };
 
@@ -1896,27 +1896,27 @@ struct weapon invitem_dragon = {
 };
 
 struct gunviscmd gunviscmds_superdragon[] = {
-	gunviscmd_sethidden(MODELPART_SUPERDRAGON_0028)
-	gunviscmd_sethidden(MODELPART_SUPERDRAGON_0029)
+	gunviscmd_sethidden(MODELPART_SUPERDRAGON_MAGAZINE1)
+	gunviscmd_sethidden(MODELPART_SUPERDRAGON_MAGAZINE2)
 	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_superdragon[] = {
-	{ MODELPART_SUPERDRAGON_0028, false },
-	{ MODELPART_SUPERDRAGON_0029, false },
-	{ MODELPART_SUPERDRAGON_005A, false },
+	{ MODELPART_SUPERDRAGON_MAGAZINE1, false },
+	{ MODELPART_SUPERDRAGON_MAGAZINE2, false },
+	{ MODELPART_GUN_MUZZLEFLASH1,      false },
 	{ 255 },
 };
 
 struct guncmd invanim_superdragon_reload[] = {
 	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_RELOAD_PRI, 0, 10000)
 	gunscript_playsound(8, SFX_0053)
-	gunscript_hidepart(16, 42)
-	gunscript_showpart(16, 40)
+	gunscript_hidepart(16, MODELPART_SUPERDRAGON_MAGAZINE3)
+	gunscript_showpart(16, MODELPART_SUPERDRAGON_MAGAZINE1)
 	gunscript_playsound(41, SFX_05C5)
 	gunscript_waittime(43, 1)
-	gunscript_showpart(43, 42)
-	gunscript_hidepart(43, 40)
+	gunscript_showpart(43, MODELPART_SUPERDRAGON_MAGAZINE3)
+	gunscript_hidepart(43, MODELPART_SUPERDRAGON_MAGAZINE1)
 	gunscript_end
 };
 
@@ -1924,10 +1924,10 @@ struct guncmd invanim_superdragon_grenadereload[] = {
 	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_RELOAD_SEC, 0, 10000)
 	gunscript_setsoundspeed(6, 700)
 	gunscript_playsound(6, SFX_0053)
-	gunscript_showpart(30, 41)
-	gunscript_hidepart(30, 43)
-	gunscript_hidepart(64, 41)
-	gunscript_showpart(64, 43)
+	gunscript_showpart(30, MODELPART_SUPERDRAGON_MAGAZINE2)
+	gunscript_hidepart(30, MODELPART_SUPERDRAGON_MAGAZINE4)
+	gunscript_hidepart(64, MODELPART_SUPERDRAGON_MAGAZINE2)
+	gunscript_showpart(64, MODELPART_SUPERDRAGON_MAGAZINE4)
 	gunscript_waittime(64, 1)
 	gunscript_setsoundspeed(66, 850)
 	gunscript_playsound(66, SFX_05C5)
@@ -2055,13 +2055,13 @@ struct weapon invitem_superdragon = {
 };
 
 struct gunviscmd gunviscmds_ar34[] = {
-	gunviscmd_sethidden(MODELPART_AR34_002A)
+	gunviscmd_sethidden(MODELPART_AR34_MAGAZINE2)
 	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_ar34[] = {
-	{ MODELPART_AR34_002A, false },
-	{ MODELPART_AR34_005A, false },
+	{ MODELPART_AR34_MAGAZINE2,   false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
 	{ 255 },
 };
 
@@ -2069,12 +2069,12 @@ struct guncmd invanim_ar34_reload[] = {
 	gunscript_playanimation(ANIM_GUN_AR34_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(16, 900)
 	gunscript_playsound(16, SFX_0053)
-	gunscript_hidepart(21, 41)
-	gunscript_showpart(50, 42)
+	gunscript_hidepart(21, MODELPART_AR34_MAGAZINE1)
+	gunscript_showpart(50, MODELPART_AR34_MAGAZINE2)
 	gunscript_setsoundspeed(67, 1400)
 	gunscript_playsound(67, SFX_8025)
-	gunscript_hidepart(72, 42)
-	gunscript_showpart(72, 41)
+	gunscript_hidepart(72, MODELPART_AR34_MAGAZINE2)
+	gunscript_showpart(72, MODELPART_AR34_MAGAZINE1)
 	gunscript_waittime(72, 1)
 	gunscript_setsoundspeed(95, 900)
 	gunscript_playsound(95, SFX_05C5)
@@ -2183,13 +2183,13 @@ struct weapon invitem_ar34 = {
 };
 
 struct gunviscmd gunviscmds_k7avenger[] = {
-	gunviscmd_sethidden(MODELPART_K7AVENGER_002A)
+	gunviscmd_sethidden(MODELPART_K7AVENGER_MAGAZINE2)
 	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_k7avenger[] = {
-	{ MODELPART_K7AVENGER_002A, false },
-	{ MODELPART_K7AVENGER_005A, false },
+	{ MODELPART_K7AVENGER_MAGAZINE2, false },
+	{ MODELPART_GUN_MUZZLEFLASH1,    false },
 	{ 255 },
 };
 
@@ -2197,11 +2197,11 @@ struct guncmd invanim_k7avenger_reload[] = {
 	gunscript_playanimation(ANIM_GUN_K7AVENGER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(15, 1200)
 	gunscript_playsound(15, SFX_0053)
-	gunscript_hidepart(22, 41)
-	gunscript_showpart(48, 42)
+	gunscript_hidepart(22, MODELPART_K7AVENGER_MAGAZINE1)
+	gunscript_showpart(48, MODELPART_K7AVENGER_MAGAZINE2)
 	gunscript_waittime(68, 1)
-	gunscript_hidepart(69, 42)
-	gunscript_showpart(69, 41)
+	gunscript_hidepart(69, MODELPART_K7AVENGER_MAGAZINE2)
+	gunscript_showpart(69, MODELPART_K7AVENGER_MAGAZINE1)
 	gunscript_setsoundspeed(69, 1400)
 	gunscript_playsound(69, SFX_8025)
 	gunscript_playsound(91, SFX_05C5)
@@ -2330,15 +2330,15 @@ struct weapon invitem_k7avenger = {
 };
 
 struct gunviscmd gunviscmds_laptopgun[] = {
-	gunviscmd_sethidden(MODELPART_LAPTOPGUN_002A)
-	gunviscmd_sethidden(MODELPART_LAPTOPGUN_0029)
+	gunviscmd_sethidden(MODELPART_LAPTOPGUN_MAGAZINE2)
+	gunviscmd_sethidden(MODELPART_LAPTOPGUN_MAGAZINE1)
 	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_laptopgun[] = {
-	{ MODELPART_LAPTOPGUN_005A, false },
-	{ MODELPART_LAPTOPGUN_0029, false },
-	{ MODELPART_LAPTOPGUN_002A, false },
+	{ MODELPART_GUN_MUZZLEFLASH1,    false },
+	{ MODELPART_LAPTOPGUN_MAGAZINE1, false },
+	{ MODELPART_LAPTOPGUN_MAGAZINE2, false },
 	{ 255 },
 };
 
@@ -2349,14 +2349,14 @@ struct guncmd invanim_laptopgun_reload[] = {
 	gunscript_setsoundspeed(15, 1436)
 	gunscript_playsound(15, SFX_04FA)
 	gunscript_playsound(25, SFX_04F7)
-	gunscript_showpart(40, 41)
+	gunscript_showpart(40, MODELPART_LAPTOPGUN_MAGAZINE1)
 	gunscript_playsound(42, SFX_0053)
-	gunscript_showpart(48, 42)
-	gunscript_hidepart(55, 41)
-	gunscript_hidepart(63, 42)
-	gunscript_showpart(63, 41)
+	gunscript_showpart(48, MODELPART_LAPTOPGUN_MAGAZINE2)
+	gunscript_hidepart(55, MODELPART_LAPTOPGUN_MAGAZINE1)
+	gunscript_hidepart(63, MODELPART_LAPTOPGUN_MAGAZINE2)
+	gunscript_showpart(63, MODELPART_LAPTOPGUN_MAGAZINE1)
 	gunscript_playsound(63, SFX_04F8)
-	gunscript_hidepart(85, 41)
+	gunscript_hidepart(85, MODELPART_LAPTOPGUN_MAGAZINE1)
 	gunscript_waittime(85, 1)
 	gunscript_playsound(85, SFX_05C5)
 	gunscript_playsound(91, SFX_04F9)
@@ -2468,22 +2468,22 @@ struct weapon invitem_laptopgun = {
 };
 
 struct gunviscmd gunviscmds_shotgun[] = {
-	gunviscmd_sethidden(MODELPART_SHOTGUN_002B)
+	gunviscmd_sethidden(MODELPART_SHOTGUN_CART)
 	gunviscmd_end
 };
 
 struct modelpartvisibility invpartvisibility_shotgun[] = {
-	{ MODELPART_SHOTGUN_002B, false },
-	{ MODELPART_SHOTGUN_005A, false },
+	{ MODELPART_SHOTGUN_CART,     false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
 	{ 255 },
 };
 
 struct guncmd invanim_shotgun_reload[] = {
 	gunscript_playanimation(ANIM_GUN_SHOTGUN_RELOAD, 0, 10000)
-	gunscript_showpart(1, 43)
+	gunscript_showpart(1, MODELPART_SHOTGUN_CART)
 	gunscript_playsound(67, SFX_01D8)
 	gunscript_waittime(74, 1)
-	gunscript_hidepart(75, 43)
+	gunscript_hidepart(75, MODELPART_SHOTGUN_CART)
 	gunscript_repeatuntilfull(0x0054, 0x0000, 0x0032)
 	gunscript_playsound(103, SFX_RELOAD_04FB)
 	gunscript_end
@@ -2588,15 +2588,15 @@ f32 vibrationstart_reaper[] = {0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
 f32 vibrationmax_reaper[] = {1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
 
 struct modelpartvisibility invpartvisibility_reaper[] = {
-	{ MODELPART_REAPER_005A, false },
-	{ MODELPART_REAPER_005B, false },
-	{ MODELPART_REAPER_005C, false },
-	{ MODELPART_REAPER_002B, false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
+	{ MODELPART_GUN_MUZZLEFLASH2, false },
+	{ MODELPART_GUN_MUZZLEFLASH3, false },
+	{ MODELPART_REAPER_MAGAZINE2, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_reaper[] = {
-	gunviscmd_sethidden(MODELPART_REAPER_002B)
+	gunviscmd_sethidden(MODELPART_REAPER_MAGAZINE2)
 	gunviscmd_end
 };
 
@@ -2609,11 +2609,11 @@ struct guncmd invanim_reaper_shoot[] = {
 struct guncmd invanim_reaper_reload[] = {
 	gunscript_playanimation(ANIM_GUN_REAPER_RELOAD, 0, 10000)
 	gunscript_playsound(49, SFX_05C7)
-	gunscript_hidepart(70, 42)
-	gunscript_showpart(90, 43)
+	gunscript_hidepart(70, MODELPART_REAPER_MAGAZINE1)
+	gunscript_showpart(90, MODELPART_REAPER_MAGAZINE2)
 	gunscript_playsound(124, SFX_05C6)
-	gunscript_showpart(134, 42)
-	gunscript_hidepart(134, 43)
+	gunscript_showpart(134, MODELPART_REAPER_MAGAZINE1)
+	gunscript_hidepart(134, MODELPART_REAPER_MAGAZINE2)
 	gunscript_waittime(134, 1)
 	gunscript_end
 };
@@ -2714,12 +2714,12 @@ struct weapon invitem_reaper = {
 };
 
 struct modelpartvisibility invpartvisibility_rocketlauncher[] = {
-	{ MODELPART_ROCKET_0028, false },
+	{ MODELPART_ROCKETLAUNCHER_ROCKET, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_rocketlauncher[] = {
-	gunviscmd_sethidden(MODELPART_ROCKET_0028)
+	gunviscmd_sethidden(MODELPART_ROCKETLAUNCHER_ROCKET)
 	gunviscmd_end
 };
 
@@ -2728,9 +2728,9 @@ struct guncmd invanim_rocketlauncher_reload[] = {
 	gunscript_setsoundspeed(16, 900)
 	gunscript_playsound(16, SFX_04F9)
 	gunscript_playsound(40, SFX_0053)
-	gunscript_showpart(24, 40)
+	gunscript_showpart(24, MODELPART_ROCKETLAUNCHER_ROCKET)
 	gunscript_waittime(76, 1)
-	gunscript_hidepart(76, 40)
+	gunscript_hidepart(76, MODELPART_ROCKETLAUNCHER_ROCKET)
 	gunscript_playsound(77, SFX_05D1)
 	gunscript_setsoundspeed(106, 1000)
 	gunscript_playsound(106, SFX_04F9)
@@ -2961,8 +2961,8 @@ struct weapon invitem_slayer = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_02000000,
 };
 
-struct gunviscmd gunviscmds_unused_8006d890[] = {
-	gunviscmd_sethidden(MODELPART_0029)
+struct gunviscmd gunviscmds_devastator[] = {
+	gunviscmd_sethidden(MODELPART_DEVASTATOR_MAGAZINE1)
 	gunviscmd_end
 };
 
@@ -2975,12 +2975,12 @@ struct guncmd invanim_devastator_reload[] = {
 	gunscript_playanimation(ANIM_GUN_DEVASTATOR_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(15, 600)
 	gunscript_playsound(15, SFX_0053)
-	gunscript_hidepart(22, 42)
-	gunscript_showpart(36, 41)
+	gunscript_hidepart(22, MODELPART_DEVASTATOR_MAGAZINE2)
+	gunscript_showpart(36, MODELPART_DEVASTATOR_MAGAZINE1)
 	gunscript_setsoundspeed(47, 700)
 	gunscript_playsound(47, SFX_05C5)
-	gunscript_hidepart(47, 41)
-	gunscript_showpart(47, 42)
+	gunscript_hidepart(47, MODELPART_DEVASTATOR_MAGAZINE1)
+	gunscript_showpart(47, MODELPART_DEVASTATOR_MAGAZINE2)
 	gunscript_waittime(47, 1)
 	gunscript_playsound(66, SFX_05CC)
 	gunscript_end
@@ -3057,7 +3057,7 @@ struct inventory_ammo invammo_devastator = {
 };
 
 struct modelpartvisibility invpartvisibility_devastator[] = {
-	{ MODELPART_DEVASTATOR_0029, false },
+	{ MODELPART_DEVASTATOR_MAGAZINE1, false },
 	{ 255 },
 };
 
@@ -3165,10 +3165,10 @@ struct weapon invitem_timedmine = {
 };
 
 struct gunviscmd gunviscmds_remotemine[] = {
-	gunviscmd_checkinlefthand(GUNVISOP_SETVISIBILITY, MODELPART_0035)
-	gunviscmd_checkinlefthand(GUNVISOP_SETVISIBILITY, MODELPART_REMOTEMINE_0029)
-	gunviscmd_checkinrighthand(GUNVISOP_SETVISIBILITY, MODELPART_0036)
-	gunviscmd_checkinrighthand(GUNVISOP_SETVISIBILITY, MODELPART_REMOTEMINE_0028)
+	gunviscmd_checkinlefthand(GUNVISOP_SETVISIBILITY, MODELPART_HAND_LEFT)
+	gunviscmd_checkinlefthand(GUNVISOP_SETVISIBILITY, MODELPART_REMOTEMINE_DETONATOR)
+	gunviscmd_checkinrighthand(GUNVISOP_SETVISIBILITY, MODELPART_HAND_RIGHT)
+	gunviscmd_checkinrighthand(GUNVISOP_SETVISIBILITY, MODELPART_REMOTEMINE_MINE)
 	gunviscmd_end
 };
 
@@ -3225,7 +3225,7 @@ struct inventory_ammo invammo_remotemine = {
 };
 
 struct modelpartvisibility invpartvisibility_remotemine[] = {
-	{ MODELPART_REMOTEMINE_0029, false },
+	{ MODELPART_REMOTEMINE_DETONATOR, false },
 	{ 255 },
 };
 
@@ -3400,13 +3400,13 @@ struct weapon invitem_unused_8007dd88 = {
 };
 
 struct gunviscmd gunviscmds_grenade[] = {
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_end
 };
 
 struct guncmd invanim_grenade_throw[] = {
 	gunscript_playanimation(ANIM_GUN_GRENADE_THROW, 0, 10000)
-	gunscript_popoutsackofpills(0x0006)
+	gunscript_popoutsackofpills(6)
 	gunscript_playsound(6, SFX_05C1)
 	gunscript_waitforzreleased(43)
 	gunscript_waittime(49, 2)
@@ -3547,10 +3547,10 @@ struct gunviscmd gunviscmds_farsight[] = {
 
 struct guncmd invanim_farsight_reload[] = {
 	gunscript_playanimation(ANIM_GUN_FARSIGHT_RELOAD, 0, 10000)
-	gunscript_showpart(1, 40)
+	gunscript_showpart(1, MODELPART_FARSIGHT_ORB)
 	gunscript_playsound(72, SFX_RELOAD_FARSIGHT)
 	gunscript_waittime(76, 1)
-	gunscript_hidepart(82, 40)
+	gunscript_hidepart(82, MODELPART_FARSIGHT_ORB)
 	gunscript_end
 };
 
@@ -3624,7 +3624,7 @@ struct inventory_ammo invammo_farsight = {
 };
 
 struct modelpartvisibility invpartvisibility_farsight[] = {
-	{ MODELPART_FARSIGHT_0028, false },
+	{ MODELPART_FARSIGHT_ORB, false },
 	{ 255 },
 };
 
@@ -3654,36 +3654,36 @@ struct weapon invitem_farsight = {
 };
 
 struct gunviscmd gunviscmds_crossbow[] = {
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_sethidden(0x0029)
 	gunviscmd_end
 };
 
 struct guncmd invanim_crossbow_reload[] = {
 	gunscript_playanimation(ANIM_GUN_CROSSBOW_RELOAD, 0, 10000)
-	gunscript_hidepart(1, 40)
-	gunscript_showpart(1, 41)
-	gunscript_showpart(1, 53)
-	gunscript_hidepart(19, 40)
-	gunscript_showpart(19, 41)
+	gunscript_hidepart(1, MODELPART_CROSSBOW_0028)
+	gunscript_showpart(1, MODELPART_CROSSBOW_BOLT)
+	gunscript_showpart(1, MODELPART_HAND_LEFT)
+	gunscript_hidepart(19, MODELPART_CROSSBOW_0028)
+	gunscript_showpart(19, MODELPART_CROSSBOW_BOLT)
 	gunscript_playsound(45, SFX_04FC)
 	gunscript_waittime(50, 1)
-	gunscript_hidepart(50, 41)
-	gunscript_showpart(50, 40)
+	gunscript_hidepart(50, MODELPART_CROSSBOW_BOLT)
+	gunscript_showpart(50, MODELPART_CROSSBOW_0028)
 	gunscript_repeatuntilfull(0x0044, 0x0000, 0x0013)
 	gunscript_end
 };
 
 struct guncmd invanim_crossbow_shoot[] = {
 	gunscript_playanimation(ANIM_GUN_CROSSBOW_SHOOT, 0, 10000)
-	gunscript_hidepart(20, 40)
+	gunscript_hidepart(20, MODELPART_CROSSBOW_0028)
 	gunscript_playsound(37, SFX_04F8)
 	gunscript_end
 };
 
 struct guncmd invanim_crossbow_unequip[] = {
 	gunscript_playanimation(ANIM_GUN_CROSSBOW_UNEQUIP, 0, 10000)
-	gunscript_hidepart(1, 40)
+	gunscript_hidepart(1, MODELPART_CROSSBOW_0028)
 	gunscript_playsound(37, SFX_04F8)
 	gunscript_end
 };
@@ -3766,9 +3766,9 @@ struct inventory_ammo invammo_crossbow = {
 };
 
 struct modelpartvisibility invpartvisibility_crossbow[] = {
-	{ MODELPART_CROSSBOW_0028,  false },
-	{ MODELPART_CROSSBOW_0029, false },
-	{ MODELPART_CROSSBOW_002A, false },
+	{ MODELPART_CROSSBOW_0028,   false },
+	{ MODELPART_CROSSBOW_BOLT,   false },
+	{ MODELPART_CROSSBOW_HANDLE, false },
 	{ 255 },
 };
 
@@ -3799,7 +3799,7 @@ struct weapon invitem_crossbow = {
 
 struct gunviscmd gunviscmds_tranquilizer[] = {
 	gunviscmd_sethidden(0x0028)
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_end
 };
 
@@ -3817,16 +3817,16 @@ struct guncmd invanim_tranquilizer_shoot[] = {
 
 struct guncmd invanim_tranquilizer_reload[] = {
 	gunscript_playanimation(ANIM_GUN_TRANQUILIZER_RELOAD, 0, 10000)
-	gunscript_showpart(1, 53)
-	gunscript_showpart(1, 40)
-	gunscript_showpart(1, 42)
-	gunscript_hidepart(1, 41)
-	gunscript_popoutsackofpills(0x0001)
+	gunscript_showpart(1, MODELPART_HAND_LEFT)
+	gunscript_showpart(1, MODELPART_TRANQUILIZER_MAGAZINE1)
+	gunscript_showpart(1, MODELPART_TRANQUILIZER_MAGAZINE3)
+	gunscript_hidepart(1, MODELPART_TRANQUILIZER_MAGAZINE2)
+	gunscript_popoutsackofpills(1)
 	gunscript_setsoundspeed(3, 3500)
 	gunscript_playsound(3, SFX_DOOR_8016)
 	gunscript_waittime(39, 1)
-	gunscript_hidepart(39, 42)
-	gunscript_showpart(39, 41)
+	gunscript_hidepart(39, MODELPART_TRANQUILIZER_MAGAZINE3)
+	gunscript_showpart(39, MODELPART_TRANQUILIZER_MAGAZINE2)
 	gunscript_setsoundspeed(39, 3500)
 	gunscript_playsound(39, SFX_HIT_MUD_8083)
 	gunscript_setsoundspeed(63, 2070)
@@ -3891,9 +3891,9 @@ struct inventory_ammo invammo_tranquilizer = {
 };
 
 struct modelpartvisibility invpartvisibility_tranquilizer[] = {
-	{ MODELPART_TRANQUILIZER_0028,  false },
-	{ MODELPART_TRANQUILIZER_0029, false },
-	{ MODELPART_TRANQUILIZER_002A, false },
+	{ MODELPART_TRANQUILIZER_MAGAZINE1, false },
+	{ MODELPART_TRANQUILIZER_MAGAZINE2, false },
+	{ MODELPART_TRANQUILIZER_MAGAZINE3, false },
 	{ 255 },
 };
 
@@ -3995,16 +3995,16 @@ struct guncmd invanim_sniperrifle_reload[] = {
 	gunscript_playanimation(ANIM_GUN_SNIPER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(22, 850)
 	gunscript_playsound(22, SFX_01D8)
-	gunscript_showpart(42, 41)
-	gunscript_hidepart(42, 40)
+	gunscript_showpart(42, MODELPART_SNIPERRIFLE_MAGAZINE2)
+	gunscript_hidepart(42, MODELPART_SNIPERRIFLE_MAGAZINE1)
 	gunscript_setsoundspeed(72, 850)
 #if VERSION >= VERSION_NTSC_1_0
 	gunscript_playsound(72, SFX_80F6)
 #else
 	gunscript_playsound(72, SFX_01D9)
 #endif
-	gunscript_hidepart(72, 41)
-	gunscript_showpart(72, 40)
+	gunscript_hidepart(72, MODELPART_SNIPERRIFLE_MAGAZINE2)
+	gunscript_showpart(72, MODELPART_SNIPERRIFLE_MAGAZINE1)
 	gunscript_waittime(72, 1)
 	gunscript_end
 };
@@ -4065,7 +4065,7 @@ struct inventory_ammo invammo_sniperrifle = {
 };
 
 struct modelpartvisibility invpartvisibility_sniperrifle[] = {
-	{ MODELPART_SNIPERRIFLE_0029, false },
+	{ MODELPART_SNIPERRIFLE_MAGAZINE2, false },
 	{ 255 },
 };
 
@@ -4184,12 +4184,12 @@ struct weapon invitem_laser = {
 };
 
 struct modelpartvisibility invpartvisibility_classic[] = {
-	{ MODELPART_CLASSICGUN_005A, false },
+	{ MODELPART_GUN_MUZZLEFLASH1, false },
 	{ 255 },
 };
 
 struct gunviscmd gunviscmds_classicpistol[] = {
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_end
 };
 
@@ -4844,7 +4844,7 @@ struct weapon invitem_watchlaser = {
 };
 
 struct gunviscmd gunviscmds_knife[] = {
-	gunviscmd_sethidden(MODELPART_0035)
+	gunviscmd_sethidden(MODELPART_HAND_LEFT)
 	gunviscmd_end
 };
 

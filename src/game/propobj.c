@@ -7752,12 +7752,12 @@ void doorInitMatrices(struct prop *prop)
 		union modelrodata *rodata;
 		f32 xrot = M_BADTAU - door->frac * 0.017450513318181f;
 
-		rodata = modelGetPartRodata(model->definition, 1);
+		rodata = modelGetPartRodata(model->definition, MODELPART_0001);
 		mtx4LoadXRotation(xrot, MTX(1));
 		mtx4SetTranslation(&rodata->position.pos, MTX(1));
 		mtx4MultMtx4InPlace(MTX(0), MTX(1));
 
-		rodata = modelGetPartRodata(model->definition, 2);
+		rodata = modelGetPartRodata(model->definition, MODELPART_0002);
 		mtx4LoadXRotation(M_BADTAU - xrot, MTX(2));
 		mtx4SetTranslation(&rodata->position.pos, MTX(2));
 		mtx4MultMtx4InPlace(MTX(0), MTX(2));
@@ -15129,7 +15129,7 @@ void doorDestroyGlass(struct doorobj *door)
 	union modelrwdata *rwdata;
 	Mtxf matrix;
 
-	rodata = modelGetPartRodata(model->definition, 2);
+	rodata = modelGetPartRodata(model->definition, MODELPART_WINDOWEDDOOR_0002);
 
 	if (door->portalnum >= 0) {
 		// @bug: Firing three shots at door glass is supposed to destroy it,
@@ -15154,7 +15154,7 @@ void doorDestroyGlass(struct doorobj *door)
 			SHARDTYPE_GLASS, prop);
 	wallhitsFreeByProp(prop, 1);
 
-	node = modelGetPart(model->definition, 1);
+	node = modelGetPart(model->definition, MODELPART_WINDOWEDDOOR_0001);
 	rwdata = modelGetNodeRwData(model, node);
 	rwdata->toggle.visible = false;
 }

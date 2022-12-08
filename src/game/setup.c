@@ -1654,19 +1654,19 @@ void setupCreateProps(s32 stagenum)
 						modelstate = &g_ModelStates[modelnum];
 
 						if (modelstate->modeldef) {
-							if (modelGetPartRodata(modelstate->modeldef, 1)) {
+							if (modelGetPartRodata(modelstate->modeldef, MODELPART_LIFT_WALL1)) {
 								obj->geocount++;
 							}
-							if (modelGetPartRodata(modelstate->modeldef, 2)) {
+							if (modelGetPartRodata(modelstate->modeldef, MODELPART_LIFT_WALL2)) {
 								obj->geocount++;
 							}
-							if (modelGetPartRodata(modelstate->modeldef, 3)) {
+							if (modelGetPartRodata(modelstate->modeldef, MODELPART_LIFT_WALL3)) {
 								obj->geocount++;
 							}
-							if (modelGetPartRodata(modelstate->modeldef, 4)) {
+							if (modelGetPartRodata(modelstate->modeldef, MODELPART_LIFT_DOORBLOCK)) {
 								obj->geocount++;
 							}
-							if (modelGetPartRodata(modelstate->modeldef, 6)) {
+							if (modelGetPartRodata(modelstate->modeldef, MODELPART_LIFT_FLOORNONRECT2)) {
 								obj->geocount++;
 							}
 						}
@@ -1827,11 +1827,12 @@ void setupCreateProps(s32 stagenum)
 						setupCreateObject(obj, index);
 
 						if (obj->model) {
-							struct modelnode *node = modelGetPart(obj->model->definition, 5);
+							struct modelnode *node = modelGetPart(obj->model->definition, MODELPART_TRUCK_0005);
 
 							if (node) {
+								// The truck model doesn't exist in PD, so I'm assuming this is a toggle node
 								union modelrwdata *rwdata = modelGetNodeRwData(obj->model, node);
-								rwdata->type05.unk00 = ((obj->flags & OBJFLAG_DEACTIVATED) == 0);
+								rwdata->toggle.visible = ((obj->flags & OBJFLAG_DEACTIVATED) == 0);
 							}
 						}
 
