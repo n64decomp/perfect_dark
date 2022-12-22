@@ -5302,6 +5302,7 @@ struct movedata {
 	/*    */ f32 freelookdx; // how much the mouse moved ...
 	/*    */ f32 freelookdy; // ... in normalized window coordinates
 #endif
+	/*0xac*/ s32 alt1tapcount;
 };
 
 struct attackanimgroup {

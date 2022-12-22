@@ -579,6 +579,7 @@ void bmoveResetMoveData(struct movedata *data)
 	data->freelookdx = 0.0f;
 	data->freelookdy = 0.0f;
 #endif
+	data->alt1tapcount = 0;
 }
 
 /**
@@ -1348,6 +1349,13 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 						}
 					}
 
+					// Handle ALT1 / MI Reload Hack
+					for (i = 0; i < numsamples; i++) {
+						if (joyGetButtonsOnSample(i, contpad1, c1allowedbuttons & X_BUTTON)) {
+							movedata.alt1tapcount++;
+						}
+					}
+
 					// Handle manual zoom in and out (sniper, farsight and horizon scanner)
 					if (canmanualzoom && g_Vars.currentplayer->insightaimmode) {
 						increment = 1;
@@ -1474,10 +1482,13 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 	g_Vars.currentplayer->bondactivateorreload = 0;
 
+	if (movedata.alt1tapcount) {
+		g_Vars.currentplayer->bondactivateorreload = g_Vars.currentplayer->bondactivateorreload | JO_ACTION_RELOAD;
+	}
 	if (movedata.btapcount) {
 		g_Vars.currentplayer->activatetimelast = g_Vars.currentplayer->activatetimethis;
 		g_Vars.currentplayer->activatetimethis = g_Vars.lvframe60;
-		g_Vars.currentplayer->bondactivateorreload = movedata.btapcount;
+		g_Vars.currentplayer->bondactivateorreload = g_Vars.currentplayer->bondactivateorreload | JO_ACTION_ACTIVATE;
 
 		bmoveHandleActivate();
 	}
