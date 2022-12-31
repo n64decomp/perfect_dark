@@ -14,7 +14,7 @@ void explosionsReset(void)
 	g_ExplosionShakeIntensityTimer = 0;
 	g_ExplosionDamageTxScale = 1;
 
-	g_MaxExplosions = 6;
+	g_MaxExplosions = 60;
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
 		g_MaxExplosions = 0;

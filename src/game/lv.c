@@ -351,9 +351,9 @@ void lvReset(s32 stagenum)
 	scenarioReset();
 	varsResetRoomProps();
 	bodiesReset(stagenum);
-	setupCreateProps(stagenum);
 	explosionsReset();
 	smokeReset();
+	setupCreateProps(stagenum);
 	sparksReset();
 	lvResetMiscSfx();
 	func0f0099a4();

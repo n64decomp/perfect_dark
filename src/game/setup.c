@@ -49,13 +49,9 @@ u32 var80061be4 = 0x00000000;
 u32 var80061be8 = 0x00000000;
 u32 var80061bec = 0x00000000;
 
-void propsReset(bool withlaptops)
+void propsResetCounters(bool withlaptops)
 {
 	s32 i;
-
-	for (i = 0; i < ARRAYCOUNT(g_Lifts); i++) {
-		g_Lifts[i] = NULL;
-	}
 
 	g_MaxWeaponSlots = 50;
 	g_MaxAmmoCrates = 20;
@@ -67,6 +63,16 @@ void propsReset(bool withlaptops)
 		g_MaxAmmoCrates = 0;
 		g_MaxProjectiles = 0;
 		g_MaxEmbedments = 0;
+	}
+
+}
+
+void propsReset(bool withlaptops)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_Lifts); i++) {
+		g_Lifts[i] = NULL;
 	}
 
 	setupResetProxyMines();
@@ -863,6 +869,11 @@ s32 setupGetBaseBytesPerPlayer(bool haslaptops)
 	sum += sizeof(struct modelrwdatabinding);
 	sum += 172 * sizeof(u32); // 172 rwdata words
 
+	// Held weapons
+	sum += 2 * sizeof(struct prop);
+	sum += 2 * sizeof(struct model);
+	sum += 2 * sizeof(struct weaponobj);
+
 	if (haslaptops) {
 		sum += sizeof(struct autogunobj);
 		sum += sizeof(struct beam);
@@ -891,6 +902,11 @@ s32 setupGetBaseBytesPerBot(bool haslaptops)
 	sum += ALIGN8(3 * sizeof(u32) * 2); // 3 rwdata words * 2 held guns
 	sum += ALIGN8(36 * sizeof(s32)); // aibot.ammoheld
 	sum += ALIGN16(8 * sizeof(struct invitem)); // aibot.items
+
+	// Held weapons
+	sum += 2 * sizeof(struct prop);
+	sum += 2 * sizeof(struct model);
+	sum += 2 * sizeof(struct weaponobj);
 
 	if (haslaptops) {
 		sum += sizeof(struct autogunobj);
@@ -929,8 +945,13 @@ s32 setupCalculateMaxBots(s32 numrequested, bool haslaptops)
 
 	freebytes -= setupCalculateHeadsAndBodies();
 
-	freebytes -= ALIGN16(g_MaxExplosions * sizeof(struct explosion));
-	freebytes -= ALIGN16(g_MaxSmokes * sizeof(struct smoke));
+	freebytes -= ALIGN16(g_MaxWeaponSlots * sizeof(struct weaponobj));
+	freebytes -= ALIGN16(g_MaxAmmoCrates * sizeof(struct ammocrateobj));
+	freebytes -= ALIGN16(g_MaxProjectiles * sizeof(struct projectile));
+	freebytes -= ALIGN16(g_MaxEmbedments * sizeof(struct embedment));
+	freebytes -= ALIGN16(g_MaxThrownLaptops * sizeof(struct autogunobj));
+	freebytes -= ALIGN16(g_MaxThrownLaptops * sizeof(struct beam));
+
 	freebytes -= ALIGN16(g_MaxShards * sizeof(struct shard));
 	freebytes -= 0x4b00 * numplayers; // for blurbg
 	freebytes -= 150 * 1024 * numplayers; // for gunmem
@@ -1071,6 +1092,8 @@ void setupAllocateEverything(void)
 
 	numhumans = PLAYERCOUNT();
 
+	propsResetCounters(haslaptops);
+
 	// Count how many bots were requested
 	numbotsrequested = setupGetNumRequestedBots();
 
@@ -1087,10 +1110,17 @@ void setupAllocateEverything(void)
 	// Figure out how many we can allocate based on available memory
 	g_NumBots = setupCalculateMaxBots(numbotsrequested, haslaptops);
 
-	// Allocate everything
-	modelmgrAllocateSlots(g_ModelNumObjs, PLAYERCOUNT() + g_NumBots, haslaptops);
+	// Finalise counters
+	g_MaxWeaponSlots += 2 * (numhumans + g_NumBots);
 
-	g_Vars.maxprops += PLAYERCOUNT() + g_NumBots;
+	g_Vars.maxprops += numhumans;
+	g_Vars.maxprops += g_NumBots;
+	g_Vars.maxprops += g_MaxExplosions;
+	g_Vars.maxprops += haslaptops ? g_NumBots : 0;
+	g_Vars.maxprops += (numhumans + g_NumBots) * 2; // held weapons
+
+	// Allocate everything
+	modelmgrAllocateSlots(g_ModelNumObjs, numhumans + g_NumBots, haslaptops);
 
 	varsReset();
 	propsReset(haslaptops);
