@@ -10482,7 +10482,7 @@ bool chrDetectDangerousObject(struct chrdata *chr)
 		struct prop *prop = g_DangerousProps[i];
 
 		if (prop->type == PROPTYPE_EXPLOSION
-				|| (prop->weapon->weaponnum == WEAPON_GRENADE && prop->weapon->timer240 < TICKS(480))) {
+				|| (prop->weapon && prop->weapon->weaponnum == WEAPON_GRENADE && prop->weapon->timer240 < TICKS(480))) {
 			if (chrGetSquaredDistanceToCoord(chr, &prop->pos) < 1600) {
 				chr->runfrompos = g_DangerousProps[i]->pos;
 				return true;
