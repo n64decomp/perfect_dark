@@ -4047,6 +4047,15 @@ u8 func1026_buddy_floor_hatch[] = {
 	endlist
 };
 
+u8 func1427_start_lifts[] = {
+	activate_lift(1, 0x1b)
+	activate_lift(2, 0x1f)
+	activate_lift(3, 0x05)
+	activate_lift(4, 0x06)
+	terminate
+	endlist
+};
+
 struct ailist ailists[] = {
 	{ func1400_setup_counterop,                        0x1400 },
 	{ func1001_objectives_failed_msg,                  0x1001 },
@@ -4084,6 +4093,7 @@ struct ailist ailists[] = {
 	{ func1024_give_objects,                           0x1024 },
 	{ func1025_disable_buddy_warp,                     0x1025 },
 	{ func1026_buddy_floor_hatch,                      0x1026 },
+	{ func1427_start_lifts,                            0x1427 },
 	{ func1002_intro,                                  0x0c00 },
 	{ func1019_midcutscene_from_menu,                  0x0c01 },
 	{ func0c02_outro_from_menu,                        0x0c02 },

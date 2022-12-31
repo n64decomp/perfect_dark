@@ -1359,6 +1359,12 @@ u8 func1010_init_lighting[] = {
 	endlist
 };
 
+u8 func1411_start_lifts[] = {
+	activate_lift(1, 0x05)
+	terminate
+	endlist
+};
+
 struct ailist ailists[] = {
 	{ func1000_counterop,             0x1000 },
 	{ func1001_objectives_failed_msg, 0x1001 },
@@ -1375,6 +1381,7 @@ struct ailist ailists[] = {
 	{ func100d_king1_invincible,      0x100d },
 	{ func100f_blow_mines,            0x100f },
 	{ func1010_init_lighting,         0x1010 },
+	{ func1411_start_lifts,           0x1411 },
 	{ func100f_blow_mines,            0x040d },
 	{ func040c_hide,                  0x040c },
 	{ func0401_defend,                0x0401 },

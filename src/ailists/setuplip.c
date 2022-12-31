@@ -4344,8 +4344,16 @@ u8 func042e_biotech_guard_alerted[] = {
 
 u8 func142d_start_lifts[] = {
 	activate_lift(1, 0x35)
+	activate_lift(2, 0x1a)
+	activate_lift(3, 0x1b)
 	activate_lift(4, 0x38)
 	activate_lift(5, 0x39)
+	activate_lift(6, 0x1c)
+	activate_lift(7, 0x1d)
+	activate_lift(8, 0x1e)
+	activate_lift(9, 0x1f)
+	activate_lift(10, 0x20)
+	activate_lift(11, 0x21)
 	terminate
 	endlist
 };

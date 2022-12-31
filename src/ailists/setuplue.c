@@ -2834,6 +2834,7 @@ u8 func0420_dragon_alerted[] = {
 };
 
 u8 func141f_start_lifts[] = {
+	activate_lift(1, 0x07)
 	activate_lift(2, 0x31)
 	activate_lift(3, 0x32)
 	activate_lift(4, 0x33)

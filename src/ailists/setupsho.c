@@ -3897,6 +3897,12 @@ u8 func1028_buddybridge[] = {
 	endlist
 };
 
+u8 func1429_start_lifts[] = {
+	activate_lift(1, 0x05)
+	terminate
+	endlist
+};
+
 struct ailist ailists[] = {
 	{ func0401_init_unarmed_skedar,           0x0401 },
 	{ func0402_unarmed_skedar,                0x0402 },
@@ -3960,6 +3966,7 @@ struct ailist ailists[] = {
 	{ func1426_setup_portals,                 0x1426 },
 	{ func1427_setup_environment,             0x1427 },
 	{ func1028_buddybridge,                   0x1028 },
+	{ func1429_start_lifts,                   0x1429 },
 	{ NULL, 0 },
 };
 

@@ -3437,6 +3437,8 @@ u8 func041a_draw_magnum[] = {
 u8 func141b_setup_lifts[] = {
 	activate_lift(1, 0x20)
 	activate_lift(2, 0x21)
+	activate_lift(3, 0x04)
+	activate_lift(4, 0x1f)
 	activate_lift(9, 0x36)
 	terminate
 	endlist

@@ -3658,6 +3658,14 @@ u8 func1032_unlock_door_after_hangar[] = {
  */
 u8 func1433_start_lift[] = {
 	activate_lift(1, 0x4e)
+	activate_lift(2, 0x46)
+	activate_lift(3, 0x47)
+	activate_lift(4, 0x48)
+	activate_lift(5, 0x49)
+	activate_lift(6, 0x4a)
+	activate_lift(7, 0x4b)
+	activate_lift(8, 0x4c)
+	activate_lift(9, 0x4d)
 	terminate
 	endlist
 };
