@@ -272,6 +272,8 @@ void propsReset(void)
 
 	g_EmbedProp = NULL;
 	g_EmbedHitPart = -1;
+	g_CctvWaitScale = 1;
+	g_CctvDamageRxScale = 1;
 	g_AutogunAccuracyScale = 1;
 	g_AutogunDamageTxScale = 1;
 	g_AutogunDamageRxScale = 1;
@@ -716,6 +718,60 @@ void setupCreateMine(struct mineobj *mine, s32 cmdindex)
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 		mine->base.hidden = (mine->base.hidden & 0x0fffffff) | OBJHFLAG_20000000;
+	}
+}
+
+void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
+{
+	struct defaultobj *obj = &cctv->base;
+
+	setupCreateObject(obj, cmdindex);
+
+	if (cctv->lookatpadnum >= 0) {
+		struct coord lenspos;
+		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_CCTV_CASING);
+		struct pad *pad;
+		f32 xdiff;
+		f32 ydiff;
+		f32 zdiff;
+
+		pad = &g_Pads[cctv->lookatpadnum];
+
+		lenspos = lens->position.pos;
+
+		mtx00016208(obj->realrot, &lenspos);
+
+		lenspos.x += obj->prop->pos.x;
+		lenspos.y += obj->prop->pos.y;
+		lenspos.z += obj->prop->pos.z;
+
+		xdiff = lenspos.x - pad->pos.x;
+		ydiff = lenspos.y - pad->pos.y;
+		zdiff = lenspos.z - pad->pos.z;
+
+		if (ydiff) {
+			// empty
+		}
+
+		mtx00016d58(&cctv->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
+		mtx00015f04(obj->model->scale, &cctv->camrotm);
+
+		cctv->toleft = 0;
+		cctv->yleft = *(s32 *)&cctv->yleft * M_BADTAU / 65536.0f;
+		cctv->yright = *(s32 *)&cctv->yright * M_BADTAU / 65536.0f;
+		cctv->yspeed = 0.0f;
+		cctv->ymaxspeed = *(s32 *)&cctv->ymaxspeed * M_BADTAU / 65536.0f;
+		cctv->maxdist = *(s32 *)&cctv->maxdist;
+		cctv->yrot = cctv->yleft;
+
+		cctv->yzero = atan2f(xdiff, zdiff);
+		cctv->xzero = M_BADTAU - atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+
+		if (xdiff || zdiff) {
+			// empty
+		}
+
+		cctv->seebondtime60 = 0;
 	}
 }
 
@@ -1432,6 +1488,11 @@ void setupCreateProps(s32 stagenum)
 				case OBJTYPE_KEY:
 					if (withchrs && (obj->flags2 & diffflag) == 0) {
 						setupCreateKey((struct keyobj *)obj, index);
+					}
+					break;
+				case OBJTYPE_CCTV:
+					if (withobjs && (obj->flags2 & diffflag) == 0) {
+						setupCreateCctv((struct cctvobj *)obj, index);
 					}
 					break;
 				case OBJTYPE_AUTOGUN:

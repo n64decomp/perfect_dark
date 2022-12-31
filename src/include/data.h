@@ -262,6 +262,8 @@ extern struct linksceneryobj *g_LinkedScenery;
 extern struct blockedpathobj *g_BlockedPaths;
 extern struct prop *g_EmbedProp;
 extern s32 g_EmbedHitPart;
+extern f32 g_CctvWaitScale;
+extern f32 g_CctvDamageRxScale;
 extern f32 g_AutogunAccuracyScale;
 extern f32 g_AutogunDamageTxScale;
 extern f32 g_AutogunDamageRxScale;

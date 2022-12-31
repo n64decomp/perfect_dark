@@ -108,6 +108,8 @@ s32 g_EmbedHitPart = 0;
 u32 g_EmbedSide = 0x00000000;
 s16 var8006993c[3] = {0};
 u32 var80069944 = 0x00000000;
+f32 g_CctvWaitScale = 1;
+f32 g_CctvDamageRxScale = 1;
 f32 g_AutogunAccuracyScale = 1;
 f32 g_AutogunDamageTxScale = 1;
 f32 g_AutogunDamageRxScale = 1;
@@ -7681,6 +7683,227 @@ void escastepTick(struct prop *prop)
 	}
 }
 
+void cctvTick(struct prop *camprop)
+{
+	struct cctvobj *camera = (struct cctvobj *)camprop->obj;
+	struct defaultobj *obj = camprop->obj;
+	f32 yaw;
+	struct prop *playerprop;
+	f32 xdist;
+	f32 ydist;
+	f32 zdist;
+	bool canseeplayer = true;
+
+	// If playing in coop mode, cycle between players in alternating frames
+	if (g_Vars.coopplayernum >= 0) {
+		if (g_Vars.lvframenum & 1) {
+			playerprop = g_Vars.bond->prop;
+		} else {
+			playerprop = g_Vars.coop->prop;
+		}
+	} else {
+		playerprop = g_Vars.bond->prop;
+	}
+
+	// Check distance
+	xdist = playerprop->pos.x - camprop->pos.x;
+	ydist = playerprop->pos.y - camprop->pos.y;
+	zdist = playerprop->pos.z - camprop->pos.z;
+
+	yaw = camera->toleft ? camera->yleft : camera->yright;
+
+	if (camera->maxdist > 0) {
+		if (xdist * xdist + ydist * ydist + zdist * zdist > camera->maxdist * camera->maxdist) {
+			canseeplayer = false;
+		}
+	}
+
+	if (g_Vars.bondvisible == false
+			|| (obj->flags & OBJFLAG_CAMERA_DISABLED)
+			|| (playerprop->chr->hidden & CHRHFLAG_CLOAKED)) {
+		canseeplayer = false;
+	}
+
+	// Check horizontal angle
+	if (canseeplayer) {
+		f32 angle = atan2f(xdist, zdist);
+		f32 yrot = camera->yrot;
+		f32 finalangle;
+
+		if (yrot < 0) {
+			yrot += M_BADTAU;
+		} else if (yrot >= M_BADTAU) {
+			yrot -= M_BADTAU;
+		}
+
+		yrot += camera->yzero;
+
+		if (yrot >= M_BADTAU) {
+			yrot -= M_BADTAU;
+		}
+
+		finalangle = angle - yrot;
+
+		if (angle < yrot) {
+			finalangle += M_BADTAU;
+		}
+
+		finalangle -= M_BADPI;
+
+		if (finalangle < 0) {
+			finalangle += M_BADTAU;
+		}
+
+		if (finalangle > M_BADPI) {
+			finalangle -= M_BADTAU;
+		}
+
+		if (finalangle > 0.7852731347084f || finalangle < -0.7852731347084f) {
+			canseeplayer = false;
+		}
+	}
+
+	// Check vertical angle
+	if (canseeplayer) {
+		f32 angle = atan2f(ydist, sqrtf(xdist * xdist + zdist * zdist));
+		f32 finalangle = angle - camera->xzero;
+
+		if (angle < camera->xzero) {
+			finalangle = angle - camera->xzero + M_BADTAU;
+		}
+
+		if (finalangle > M_BADTAU) {
+			finalangle -= M_BADTAU;
+		}
+
+		if (finalangle > M_BADPI) {
+			finalangle -= M_BADTAU;
+		}
+
+		if (finalangle);
+
+		if (finalangle > 0.7852731347084f || finalangle < -0.7852731347084f) {
+			canseeplayer = false;
+		}
+	}
+
+	// Check line of sight
+	if (canseeplayer) {
+		playerSetPerimEnabled(playerprop, false);
+
+		if (!cdTestLos05(&camprop->pos, camprop->rooms, &playerprop->pos, playerprop->rooms,
+					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
+					GEOFLAG_BLOCK_SIGHT)) {
+			canseeplayer = false;
+		}
+
+		playerSetPerimEnabled(playerprop, true);
+	}
+
+	if (canseeplayer) {
+		obj->flags |= OBJFLAG_CAMERA_BONDINVIEW;
+		camera->seebondtime60 += g_Vars.lvupdate60;
+
+		if (g_Vars.coopplayernum >= 0) {
+			camera->seebondtime60 += g_Vars.lvupdate60;
+		}
+
+		if (camera->seebondtime60 >= (s32)(TICKS(300) * g_CctvWaitScale)) {
+			alarmActivate();
+			camera->seebondtime60 = 0;
+		}
+	} else {
+		obj->flags &= ~OBJFLAG_CAMERA_BONDINVIEW;
+	}
+
+	// Update yaw
+	if (camera->yrot < yaw) {
+		f32 tmp = camera->yspeed * camera->yspeed * 764.06536865234f;
+
+		if (camera->yrot >= yaw - tmp) {
+			camera->yspeed -= 0.00065439427271485f * g_Vars.lvupdate60freal;
+
+			if (camera->yspeed < 0.00065439427271485f) {
+				camera->yspeed = 0.00065439427271485f;
+			}
+		} else if (camera->yspeed < camera->ymaxspeed) {
+			f32 newspeed = camera->yspeed + 0.00065439427271485f * g_Vars.lvupdate60freal;
+
+			if (newspeed > camera->ymaxspeed) {
+				newspeed = camera->ymaxspeed;
+			}
+
+			if (camera->yrot < yaw - newspeed * newspeed * 764.06536865234f) {
+				camera->yspeed = newspeed;
+			}
+		}
+
+		camera->yrot += camera->yspeed * g_Vars.lvupdate60freal;
+
+		if (camera->yrot >= yaw) {
+			camera->yrot = yaw;
+			camera->toleft = false;
+			camera->yspeed = 0;
+		}
+	} else {
+		f32 tmp = camera->yspeed * camera->yspeed * 764.06536865234f;
+
+		if (camera->yrot <= yaw + tmp) {
+			camera->yspeed -= 0.00065439427271485f * g_Vars.lvupdate60freal;
+
+			if (camera->yspeed < 0.00065439427271485f) {
+				camera->yspeed = 0.00065439427271485f;
+			}
+		} else if (camera->yspeed < camera->ymaxspeed) {
+			f32 newspeed = camera->yspeed + 0.00065439427271485f * g_Vars.lvupdate60freal;
+
+			if (newspeed > camera->ymaxspeed) {
+				newspeed = camera->ymaxspeed;
+			}
+
+			if (camera->yrot > yaw + newspeed * newspeed * 764.06536865234f) {
+				camera->yspeed = newspeed;
+			}
+		}
+
+		camera->yrot -= camera->yspeed * g_Vars.lvupdate60freal;
+
+		if (camera->yrot <= yaw) {
+			camera->yrot = yaw;
+			camera->toleft = true;
+			camera->yspeed = 0;
+		}
+	}
+}
+
+void cctvInitMatrices(struct prop *prop, Mtxf *mtx)
+{
+	struct cctvobj *cctv = (struct cctvobj *)prop->obj;
+	struct model *model = cctv->base.model;
+	Mtxf *matrices = model->matrices;
+	union modelrodata *rodata = modelGetPartRodata(model->filedata, MODELPART_CCTV_CASING);
+	struct coord sp64;
+	Mtxf sp24;
+	f32 yrot = cctv->yrot;
+
+	if (yrot < 0) {
+		yrot += M_BADTAU;
+	} else if (yrot >= M_BADTAU) {
+		yrot -= M_BADTAU;
+	}
+
+	mtx4LoadYRotation(yrot, &sp24);
+	mtx4MultMtx4(&sp24, &cctv->camrotm, &matrices[1]);
+
+	sp64.x = rodata->position.pos.x;
+	sp64.y = rodata->position.pos.y;
+	sp64.z = rodata->position.pos.z;
+
+	mtx4TransformVecInPlace(mtx, &sp64);
+	mtx4SetTranslation(&sp64, &matrices[1]);
+	mtx00015be0(camGetWorldToScreenMtxf(), &matrices[1]);
+}
+
 void fanTick(struct prop *prop)
 {
 	struct defaultobj *obj = (struct defaultobj *)prop->obj;
@@ -9990,7 +10213,9 @@ void objInitMatrices(struct prop *prop)
 		mtx4SetTranslation(&prop->pos, &mtx);
 		mtx00015be4(camGetWorldToScreenMtxf(), &mtx, obj->model->matrices);
 
-		if (obj->type == OBJTYPE_AUTOGUN) {
+		if (obj->type == OBJTYPE_CCTV) {
+			cctvInitMatrices(prop, &mtx);
+		} else if (obj->type == OBJTYPE_AUTOGUN) {
 			autogunInitMatrices(prop, &mtx);
 		} else if (obj->type == OBJTYPE_CHOPPER) {
 			chopperInitMatrices(prop);
@@ -10376,6 +10601,8 @@ s32 objTickPlayer(struct prop *prop)
 
 		if (obj->type == OBJTYPE_DOOR) {
 			doorTick(prop);
+		} else if (obj->type == OBJTYPE_CCTV && (obj->flags & OBJFLAG_DEACTIVATED) == 0) {
+			cctvTick(prop);
 		} else if (obj->type == OBJTYPE_FAN) {
 			fanTick(prop);
 		} else if (obj->type == OBJTYPE_AUTOGUN && (obj->flags & OBJFLAG_DEACTIVATED) == 0) {
