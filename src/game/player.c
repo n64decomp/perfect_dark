@@ -3426,7 +3426,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 
 				if (joyGetButtons(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000)
 						&& !mpIsPaused()
-						&& g_NumReasonsToEndMpMatch == 0) {
+						&& g_MpMatchIsEnding == 0) {
 					canrestart = true;
 				}
 

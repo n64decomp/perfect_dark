@@ -1178,7 +1178,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 			&& g_Vars.currentplayer->isdead
 			&& g_Vars.currentplayer->redbloodfinished
 			&& g_Vars.currentplayer->deathanimfinished
-			&& g_NumReasonsToEndMpMatch == 0) {
+			&& g_MpMatchIsEnding == 0) {
 		// Render "Press START" text
 		gdl = text0f153628(gdl);
 

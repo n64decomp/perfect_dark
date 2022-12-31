@@ -105,7 +105,7 @@ s32 g_MpTimeLimit60 = SECSTOTIME60(60 * 10); // 10 minutes
 s32 g_MpScoreLimit = 10;
 s32 g_MpTeamScoreLimit = 20;
 struct sndstate *g_MiscAudioHandle = NULL;
-s32 g_NumReasonsToEndMpMatch = 0;
+s32 g_MpMatchIsEnding = 0;
 f32 g_StageTimeElapsed1f = 0;
 bool var80084040 = true;
 
@@ -122,6 +122,8 @@ f32 g_FadeFrac = -1;
 u32 g_FadePrevColour = 0;
 u32 g_FadeColour = 0;
 s16 g_FadeDelay = 0;
+
+s32 g_MpEndTimer;
 
 u32 getVar80084040(void)
 {
@@ -419,6 +421,9 @@ void lvReset(s32 stagenum)
 	modelmgrSetLvResetting(false);
 	var80084018 = 1;
 	lvSetPaused(0);
+
+	g_MpMatchIsEnding = false;
+	g_MpEndTimer = -1;
 
 #if PIRACYCHECKS
 	{
@@ -1703,8 +1708,6 @@ void lvTick(void)
 	bgunTickBoost();
 	hudmsgsTick();
 
-	g_NumReasonsToEndMpMatch = 0;
-
 	// Handle MP match ending
 	if (g_Vars.normmplayerisrunning && g_Vars.stagenum < STAGE_TITLE) {
 		if (g_MpTimeLimit60 > 0) {
@@ -1737,46 +1740,58 @@ void lvTick(void)
 		}
 
 		if (g_Vars.lvupdate240 != 0) {
-			s32 numdying = 0;
+			if (!g_MpMatchIsEnding) {
+				// Check for match ending conditions
+				if (g_MpScoreLimit > 0) {
+					s32 count = mpGetPlayerRankings(g_MpRankings);
 
-			for (i = 0; i < PLAYERCOUNT(); i++) {
-				if (g_Vars.players[i]->isdead) {
-					if (g_Vars.players[i]->redbloodfinished == false
-							|| g_Vars.players[i]->deathanimfinished == false
-							|| g_Vars.players[i]->colourfadetimemax60 >= 0) {
-						numdying++;
+					for (i = 0; i < count; i++) {
+						if (g_MpRankings[i].score >= g_MpScoreLimit) {
+							g_MpMatchIsEnding = true;
+							break;
+						}
 					}
 				}
-			}
 
-			for (i = 0; i < g_MpNumChrs; i++) {
-				if (g_MpChrs[i].chr->actiontype == ACT_DIE) {
-					numdying++;
-				}
-			}
+				if (!g_MpMatchIsEnding && (g_MpSetup.options & MPOPTION_TEAMSENABLED) && g_MpTeamScoreLimit > 0) {
+					s32 count = mpGetTeamRankings(g_MpRankings);
 
-			if (g_MpScoreLimit > 0) {
-				s32 count = mpGetPlayerRankings(g_MpRankings);
-
-				for (i = 0; i < count; i++) {
-					if (g_MpRankings[i].score >= g_MpScoreLimit) {
-						g_NumReasonsToEndMpMatch++;
+					for (i = 0; i < count; i++) {
+						if (g_MpRankings[i].score >= g_MpTeamScoreLimit) {
+							g_MpMatchIsEnding = true;
+							break;
+						}
 					}
 				}
-			}
 
-			if (g_MpTeamScoreLimit > 0) {
-				s32 count = mpGetTeamRankings(g_MpRankings);
+				if (g_MpMatchIsEnding) {
+					g_MpEndTimer = TICKS(240 * 4);
+				}
+			} else {
+				// If a player is dying then the match end timer will be ignored
+				// and the match will end once the death animation has finished.
+				bool playerdying = false;
 
-				for (i = 0; i < count; i++) {
-					if (g_MpRankings[i].score >= g_MpTeamScoreLimit) {
-						g_NumReasonsToEndMpMatch++;
+				for (i = 0; i < PLAYERCOUNT(); i++) {
+					if (g_Vars.players[i]->isdead) {
+						if (g_Vars.players[i]->redbloodfinished == false
+								|| g_Vars.players[i]->deathanimfinished == false
+								|| g_Vars.players[i]->colourfadetimemax60 >= 0) {
+							playerdying = true;
+							break;
+						}
 					}
 				}
-			}
 
-			if (g_NumReasonsToEndMpMatch > 0 && numdying == 0) {
-				mainEndStage();
+				if (playerdying) {
+					g_MpEndTimer = -1;
+				} else {
+					g_MpEndTimer -= g_Vars.lvupdate240;
+				}
+
+				if (g_MpEndTimer <= 0 && !playerdying) {
+					mainEndStage();
+				}
 			}
 		}
 	}
