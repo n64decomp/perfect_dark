@@ -493,7 +493,7 @@ extern f32 var8007fcb4;
 extern struct stagetableentry g_Stages[61];
 extern s32 var80082050;
 extern u32 g_GfxNumSwaps;
-extern s32 g_NumReasonsToEndMpMatch;
+extern s32 g_MpMatchIsEnding;
 extern s32 g_MusicEventQueueLength;
 extern bool g_MusicNrgIsActive;
 extern s32 var800840e0;

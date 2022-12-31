@@ -114,8 +114,8 @@ s32 g_MpTimeLimit60 = SECSTOTIME60(60 * 10); // 10 minutes
 s32 g_MpScoreLimit = 10;
 s32 g_MpTeamScoreLimit = 20;
 struct sndstate *g_MiscAudioHandle = NULL;
-s32 g_NumReasonsToEndMpMatch = 0;
-f32 g_StageTimeElapsed1f = 0;
+bool g_MpMatchIsEnding = false;
+s32 g_MpTimeState;
 
 u32 g_MiscSfxSounds[] = {
 	SFX_HEARTBEAT,
@@ -245,7 +245,6 @@ void lvReset(s32 stagenum)
 	g_Vars.lvupdate60freal = g_Vars.lvupdate60frealprev;
 
 	g_StageTimeElapsed60 = 0;
-	g_StageTimeElapsed1f = 0;
 
 	g_Vars.speedpilltime = 0;
 	g_Vars.speedpillchange = 0;
@@ -411,6 +410,9 @@ void lvReset(s32 stagenum)
 	var80084018 = 1;
 	schedResetArtifacts();
 	lvSetPaused(0);
+
+	g_MpMatchIsEnding = false;
+	g_MpTimeState = g_MpTimeLimit60 > 0 ? 1 : 0;
 }
 
 void lvConfigureFade(u32 color, s16 num_frames)
@@ -1918,88 +1920,106 @@ void lvTick(void)
 		g_IsTitleDemo = false;
 	}
 
-	g_NumReasonsToEndMpMatch = 0;
-
 	// Handle MP match ending
 	if (g_Vars.normmplayerisrunning && g_Vars.stagenum < STAGE_TITLE) {
-		if (g_MpTimeLimit60 > 0) {
-			s32 elapsed = g_StageTimeElapsed60;
-			s32 nexttime = g_Vars.lvupdate60 + g_StageTimeElapsed60;
-			s32 warntime = TICKS(g_MpTimeLimit60) - TICKS(3600);
-
-			// Show HUD message at one minute remaining
-			if (elapsed < warntime && nexttime >= warntime) {
+		switch (g_MpTimeState) {
+		case 0: // no time limit
+			break;
+		case 1: // waiting for 1 minute mark
+			{
+				s32 nexttime = g_Vars.lvupdate60 + g_StageTimeElapsed60;
+				s32 warntime = TICKS(g_MpTimeLimit60) - TICKS(3600);
 				s32 i;
 
-				for (i = 0; i < PLAYERCOUNT(); i++) {
-					setCurrentPlayerNum(i);
-					hudmsgCreate(langGet(L_MISC_068), HUDMSGTYPE_DEFAULT); // "One minute left."
+				if (nexttime >= warntime) {
+					if (g_MpTimeLimit60 != 60 * 60) {
+						for (i = 0; i < PLAYERCOUNT(); i++) {
+							setCurrentPlayerNum(i);
+							hudmsgCreate(langGet(L_MISC_068), HUDMSGTYPE_DEFAULT); // "One minute left."
+						}
+					}
+
+					g_MpTimeState++;
 				}
 			}
+			break;
+		case 2: // waiting for 10 second mark
+			{
+				s32 nexttime = g_Vars.lvupdate60 + g_StageTimeElapsed60;
 
-			if (elapsed < TICKS(g_MpTimeLimit60) && nexttime >= TICKS(g_MpTimeLimit60)) {
-				// Match is ending due to time limit reached
-				mainEndStage();
+				if (nexttime >= TICKS(g_MpTimeLimit60) - TICKS(600)) {
+					g_MpTimeState++;
+				}
 			}
+			break;
+		case 3: // sounding alarm and waiting for match end
+			{
+				if (g_MiscAudioHandle == NULL && !lvIsPaused()) {
+					snd00010718(&g_MiscAudioHandle, 0, 0x7fff, 0x40, SFX_ALARM_DEFAULT, 1, 1, -1, 1);
+				}
 
-			// Sound alarm at 10 seconds remaining
-			if (nexttime >= TICKS(g_MpTimeLimit60) - TICKS(600)
-					&& g_MiscAudioHandle == NULL
-					&& !lvIsPaused()
-					&& nexttime < TICKS(g_MpTimeLimit60)) {
-				snd00010718(&g_MiscAudioHandle, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
+				if (g_Vars.lvupdate60 + g_StageTimeElapsed60 >= TICKS(g_MpTimeLimit60)) {
+					mainEndStage();
+					g_MpTimeState++;
+				}
 			}
+			break;
 		}
 
 		if (g_Vars.lvupdate240 != 0) {
-			s32 numdying = 0;
+			if (!g_MpMatchIsEnding) {
+				if (g_MpScoreLimit > 0) {
+					struct ranking rankings[MAX_MPCHRS];
+					s32 count = mpGetPlayerRankings(rankings);
 
-			for (i = 0; i < PLAYERCOUNT(); i++) {
-				if (g_Vars.players[i]->isdead) {
-					if (g_Vars.players[i]->redbloodfinished == false
-							|| g_Vars.players[i]->deathanimfinished == false
-							|| g_Vars.players[i]->colourfadetimemax60 >= 0) {
-						numdying++;
+					for (i = 0; i < count; i++) {
+						if (rankings[i].score >= g_MpScoreLimit) {
+							g_MpMatchIsEnding = true;
+							break;
+						}
 					}
 				}
-			}
 
-			for (i = 0; i < g_MpNumChrs; i++) {
-				if (g_MpAllChrPtrs[i]->actiontype == ACT_DIE) {
-					numdying++;
-				}
-			}
+				if (!g_MpMatchIsEnding && g_MpTeamScoreLimit > 0) {
+					struct ranking rankings[MAX_MPCHRS];
+					s32 count = mpGetTeamRankings(rankings);
 
-			if (g_MpScoreLimit > 0) {
-				struct ranking rankings[MAX_MPCHRS];
-				s32 count = mpGetPlayerRankings(rankings);
-
-				for (i = 0; i < count; i++) {
-					if (rankings[i].score >= g_MpScoreLimit) {
-						g_NumReasonsToEndMpMatch++;
+					for (i = 0; i < count; i++) {
+						if (rankings[i].score >= g_MpTeamScoreLimit) {
+							g_MpMatchIsEnding = true;
+							break;
+						}
 					}
 				}
-			}
+			} else {
+				bool anyonedying = false;
 
-			if (g_MpTeamScoreLimit > 0) {
-				struct ranking rankings[MAX_MPCHRS];
-				s32 count = mpGetTeamRankings(rankings);
-
-				for (i = 0; i < count; i++) {
-					if (rankings[i].score >= g_MpTeamScoreLimit) {
-						g_NumReasonsToEndMpMatch++;
+				for (i = 0; i < PLAYERCOUNT(); i++) {
+					if (g_Vars.players[i]->isdead) {
+						if (g_Vars.players[i]->redbloodfinished == false
+								|| g_Vars.players[i]->deathanimfinished == false
+								|| g_Vars.players[i]->colourfadetimemax60 >= 0) {
+							anyonedying = true;
+							break;
+						}
 					}
 				}
-			}
 
-			if (g_NumReasonsToEndMpMatch > 0 && numdying == 0) {
-				mainEndStage();
+				for (i = 0; i < g_MpNumChrs; i++) {
+					if (g_MpAllChrPtrs[i]->actiontype == ACT_DIE) {
+						anyonedying = true;
+						break;
+					}
+				}
+
+				if (!anyonedying) {
+					mainEndStage();
+				}
 			}
 		}
 	}
 
 	g_StageTimeElapsed60 += g_Vars.lvupdate60;
-	g_StageTimeElapsed1f = g_StageTimeElapsed60 / TICKS(60.0f);
 
 	viSetUseZBuf(true);
 
