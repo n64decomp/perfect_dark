@@ -697,15 +697,15 @@
 #define COVERCRITERIA_DISTTOFETCHPROP        0x4000
 #define COVERCRITERIA_ALLOWSOFT                   0x8000
 
-#define COVERFLAG_0001            0x0001
+#define COVERFLAG_OUTOFSIGHT      0x0001
 #define COVERFLAG_INUSE           0x0002
 #define COVERFLAG_AIMSAMEROOM     0x0004 // look + 6 metres is in the same room
 #define COVERFLAG_AIMDIFFROOM     0x0008 // look + 6 metres is not in the same room
 #define COVERFLAG_OMNIDIRECTIONAL 0x0010
-#define COVERFLAG_0020            0x0020
-#define COVERFLAG_0040            0x0040
-#define COVERFLAG_0080            0x0080
-#define COVERFLAG_0100            0x0100
+#define COVERFLAG_SPECIAL1        0x0020
+#define COVERFLAG_SPECIAL2        0x0040
+#define COVERFLAG_SPECIAL3        0x0080
+#define COVERFLAG_AIBOTINUSE      0x0100
 
 // L/C/R = left/centered/right
 // SM/MD/LG = small/medium/large
@@ -3252,7 +3252,7 @@
 #define PADFLAG_AIDUCK          0x4000
 #define PADFLAG_8000            0x8000
 #define PADFLAG_10000           0x10000
-#define PADFLAG_20000           0x20000
+#define PADFLAG_AIBOTINUSE           0x20000
 
 #define PAK010_00 0
 #define PAK010_01 1

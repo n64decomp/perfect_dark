@@ -3260,9 +3260,9 @@ void botTickUnpaused(struct chrdata *chr)
 				} else if (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
 					// empty
 				} else if (aibot->hillpadnum >= 0) {
-					padSetFlag(aibot->hillpadnum, PADFLAG_20000);
+					padSetFlag(aibot->hillpadnum, PADFLAG_AIBOTINUSE);
 				} else if (aibot->hillcovernum >= 0) {
-					coverSetFlag(aibot->hillcovernum, COVERFLAG_0100);
+					coverSetFlag(aibot->hillcovernum, COVERFLAG_AIBOTINUSE);
 				}
 			}
 

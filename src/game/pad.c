@@ -380,20 +380,20 @@ void coverUnsetFlag(s32 covernum, u32 flag)
 	g_CoverFlags[covernum] &= ~flag;
 }
 
-void coverSetFlag0001(s32 covernum, bool enable)
+void coverSetOutOfSight(s32 covernum, bool enable)
 {
 	if (covernum >= 0 && covernum < g_PadsFile->numcovers) {
 		if (enable) {
-			g_CoverFlags[covernum] |= COVERFLAG_0001;
+			g_CoverFlags[covernum] |= COVERFLAG_OUTOFSIGHT;
 		} else {
-			g_CoverFlags[covernum] &= ~COVERFLAG_0001;
+			g_CoverFlags[covernum] &= ~COVERFLAG_OUTOFSIGHT;
 		}
 	}
 }
 
 bool coverIsSpecial(struct cover *cover)
 {
-	return (cover->flags & (COVERFLAG_0080 | COVERFLAG_0040 | COVERFLAG_0020)) != 0;
+	return (cover->flags & (COVERFLAG_SPECIAL1 | COVERFLAG_SPECIAL2 | COVERFLAG_SPECIAL3)) != 0;
 }
 
 s32 func0f1165c0(s32 arg0, s32 arg1)

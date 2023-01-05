@@ -15352,11 +15352,11 @@ bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool soft)
 
 	if (!targetcanseecover != false) {
 		// Target can't see cover
-		coverSetFlag0001(covernum, true);
+		coverSetOutOfSight(covernum, true);
 		return true;
 	}
 
-	coverSetFlag0001(covernum, false);
+	coverSetOutOfSight(covernum, false);
 	return false;
 }
 

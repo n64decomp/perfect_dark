@@ -79,12 +79,12 @@ bool botroomFindPos(s16 room, struct coord *pos, f32 *angleptr, s32 *padnumptr, 
 
 		for (i = 0; i < count; i++) {
 			if (coverUnpack(i, &cover) && !coverIsSpecial(&cover) && arrayIntersects(cover.rooms, rooms)) {
-				if (sp50 && (cover.flags & COVERFLAG_0100)) {
-					coverUnsetFlag(i, COVERFLAG_0100);
+				if (sp50 && (cover.flags & COVERFLAG_AIBOTINUSE)) {
+					coverUnsetFlag(i, COVERFLAG_AIBOTINUSE);
 					covernums[covercount] = i;
 					covercount++;
 					totalcount++;
-				} else if ((cover.flags & COVERFLAG_0100) == 0) {
+				} else if ((cover.flags & COVERFLAG_AIBOTINUSE) == 0) {
 					covernums[covercount] = i;
 					covercount++;
 					totalcount++;
@@ -107,12 +107,12 @@ bool botroomFindPos(s16 room, struct coord *pos, f32 *angleptr, s32 *padnumptr, 
 
 				padUnpack(waypoint->padnum, PADFIELD_FLAGS, &pad);
 
-				if (sp50 && (pad.flags & PADFLAG_20000)) {
-					padUnsetFlag(waypoint->padnum, PADFLAG_20000);
+				if (sp50 && (pad.flags & PADFLAG_AIBOTINUSE)) {
+					padUnsetFlag(waypoint->padnum, PADFLAG_AIBOTINUSE);
 					padnums[padcount] = waypoint->padnum;
 					padcount++;
 					totalcount++;
-				} else if ((pad.flags & PADFLAG_20000) == 0) {
+				} else if ((pad.flags & PADFLAG_AIBOTINUSE) == 0) {
 					padnums[padcount] = waypoint->padnum;
 					padcount++;
 					totalcount++;
