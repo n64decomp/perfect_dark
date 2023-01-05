@@ -12,8 +12,6 @@ u32 var800a235c;
 u16 *g_CoverFlags;
 s32 *g_CoverRooms;
 struct covercandidate *g_CoverCandidates;
-u16 g_NumSpecialCovers;
-u16 *g_SpecialCoverNums;
 
 bool padHasBboxData(s32 padnum)
 {
@@ -145,20 +143,4 @@ void coverSetFlag(s32 covernum, u32 flag)
 void coverUnsetFlag(s32 covernum, u32 flag)
 {
 	g_CoverFlags[covernum] &= ~flag;
-}
-
-void coverSetOutOfSight(s32 covernum, bool enable)
-{
-	if (covernum >= 0 && covernum < g_PadsFile->numcovers) {
-		if (enable) {
-			g_CoverFlags[covernum] |= COVERFLAG_OUTOFSIGHT;
-		} else {
-			g_CoverFlags[covernum] &= ~COVERFLAG_OUTOFSIGHT;
-		}
-	}
-}
-
-bool coverIsSpecial(struct cover *cover)
-{
-	return (cover->flags & (COVERFLAG_SPECIAL1 | COVERFLAG_SPECIAL2 | COVERFLAG_SPECIAL3)) != 0;
 }

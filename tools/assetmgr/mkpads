@@ -249,28 +249,14 @@ class App():
         output = bytes()
 
         for row in self.json['cover']:
-            output += self.make_float(row['pos'][0])
-            output += self.make_float(row['pos'][1])
-            output += self.make_float(row['pos'][2])
-            output += self.make_float(row['dir'][0])
-            output += self.make_float(row['dir'][1])
-            output += self.make_float(row['dir'][2])
-
-            if row['special'] == 1:
-                output += b'\x00\x20'
-            elif row['special'] == 2:
-                output += b'\x00\x40'
-            elif row['special'] == 3:
-                output += b'\x00\x80'
-            else:
-                output += b'\x00\x00'
-
-            unk1a = row['unk1a']
-
-            if unk1a < 0:
-                unk1a += 0x10000
-
-            output += unk1a.to_bytes(2, 'big')
+            if row['special'] == 0:
+                output += self.make_float(row['pos'][0])
+                output += self.make_float(row['pos'][1])
+                output += self.make_float(row['pos'][2])
+                output += self.make_float(row['dir'][0])
+                output += self.make_float(row['dir'][1])
+                output += self.make_float(row['dir'][2])
+                output += b'\x00\x00\x00\x00'
 
         return output
 

@@ -9,19 +9,6 @@
 #include "data.h"
 #include "types.h"
 
-void coverAllocateSpecial(u16 *specialcovernums)
-{
-	s32 i;
-
-	g_SpecialCoverNums = mempAlloc(ALIGN16(g_NumSpecialCovers * sizeof(u16)), MEMPOOL_STAGE);
-
-	if (g_SpecialCoverNums != NULL) {
-		for (i = 0; i < g_NumSpecialCovers; i++) {
-			g_SpecialCoverNums[i] = specialcovernums[i];
-		}
-	}
-}
-
 void setupPrepareCover(void)
 {
 	s32 i;
@@ -30,16 +17,12 @@ void setupPrepareCover(void)
 	f32 scale = 1;
 	struct coord aimpos;
 	struct cover cover;
-	u16 specialcovernums[1024];
 	s16 inrooms[21];
 	s16 aboverooms[21];
 
 	g_CoverFlags = mempAlloc(ALIGN16(numcovers * sizeof(u16)), MEMPOOL_STAGE);
 	g_CoverRooms = mempAlloc(ALIGN16(numcovers * sizeof(s32)), MEMPOOL_STAGE);
 	g_CoverCandidates = mempAlloc(ALIGN16(numcovers * 0x10), MEMPOOL_STAGE);
-
-	g_NumSpecialCovers = 0;
-	g_SpecialCoverNums = NULL;
 
 	if (g_CoverFlags && g_CoverRooms && g_CoverCandidates) {
 		for (i = 0; i < numcovers; i++) {
@@ -48,18 +31,13 @@ void setupPrepareCover(void)
 
 			if (coverUnpack(i, &cover)
 					&& (cover.look->x != 0.0f || cover.look->y != 0.0f || cover.look->z != 0.0f)) {
-				if (coverIsSpecial(&cover)) {
-					specialcovernums[g_NumSpecialCovers] = i;
-					g_NumSpecialCovers++;
-				}
-
 				cover.pos->x *= scale;
 				cover.pos->y *= scale;
 				cover.pos->z *= scale;
 
 				if (cover.look->x == 1.0f && cover.look->y == 1.0f && cover.look->z == 1.0f) {
 					g_CoverFlags[i] |= COVERFLAG_OMNIDIRECTIONAL;
-				} else if (!coverIsSpecial(&cover)) {
+				} else {
 					struct coord *look = cover.look;
 					look->y = 0;
 					guNormalize(&look->x, &look->y, &look->z);
@@ -116,7 +94,5 @@ void setupPrepareCover(void)
 				}
 			}
 		}
-
-		coverAllocateSpecial(specialcovernums);
 	}
 }

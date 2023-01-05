@@ -17,7 +17,5 @@ bool coverIsInUse(s32 covernum);
 void coverSetInUse(s32 covernum, bool enable);
 void coverSetFlag(s32 covernum, u32 flag);
 void coverUnsetFlag(s32 covernum, u32 flag);
-void coverSetOutOfSight(s32 covernum, bool enable);
-bool coverIsSpecial(struct cover *cover);
 
 #endif

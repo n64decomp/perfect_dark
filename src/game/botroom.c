@@ -78,7 +78,7 @@ bool botroomFindPos(s16 room, struct coord *pos, f32 *angleptr, s32 *padnumptr, 
 		count = coverGetCount();
 
 		for (i = 0; i < count; i++) {
-			if (coverUnpack(i, &cover) && !coverIsSpecial(&cover) && arrayIntersects(cover.rooms, rooms)) {
+			if (coverUnpack(i, &cover) && arrayIntersects(cover.rooms, rooms)) {
 				if (sp50 && (cover.flags & COVERFLAG_AIBOTINUSE)) {
 					coverUnsetFlag(i, COVERFLAG_AIBOTINUSE);
 					covernums[covercount] = i;

@@ -13854,14 +13854,7 @@ bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool soft)
 				CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_BG);
 	}
 
-	if (!targetcanseecover != false) {
-		// Target can't see cover
-		coverSetOutOfSight(covernum, true);
-		return true;
-	}
-
-	coverSetOutOfSight(covernum, false);
-	return false;
+	return !targetcanseecover;
 }
 
 s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 criteria, s32 refdist)
@@ -13900,7 +13893,6 @@ s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 criteria, s32 refdist)
 	// Iterate all cover, filter them by criteria and store them in g_CoverCandidates
 	for (i = 0; i < numcovers; i++) {
 		if (coverUnpack(i, &cover)
-				&& !coverIsSpecial(&cover)
 				&& ((criteria & COVERCRITERIA_2000) == 0 || (cover.flags & COVERFLAG_OMNIDIRECTIONAL))
 				&& ((criteria & COVERCRITERIA_1000) || (cover.flags & COVERFLAG_AIMDIFFROOM) == 0 || !arrayIntersects(cover.rooms, target->rooms))) {
 			userandomdist = false;
@@ -14074,7 +14066,7 @@ s32 chrAssignCoverAwayFromDanger(struct chrdata *chr, s32 mindist, s32 maxdist)
 	guNormalize(&vecfromdanger[0], &y, &vecfromdanger[1]);
 
 	for (i = 0; i < numcovers; i++) {
-		if (coverUnpack(i, &cover) && !coverIsInUse(i) && !(cover.pos->y > ymax) && !coverIsSpecial(&cover)) {
+		if (coverUnpack(i, &cover) && !coverIsInUse(i) && !(cover.pos->y > ymax)) {
 			coversqdistfrompos = coordGetSquaredDistanceToCoord(&chr->runfrompos, cover.pos);
 
 			if (!(coversqdistfrompos < mindist) && !(coversqdistfrompos > maxdist)) {
