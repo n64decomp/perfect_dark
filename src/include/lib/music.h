@@ -8,7 +8,7 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result);
 s32 musicHandleStopEvent(struct musicevent *event, s32 result);
 s32 musicHandleFadeEvent(struct musicevent *event, s32 result);
 s32 musicHandleStopAllEvent(s32 result);
-s32 musicHandleEvent5(struct musicevent *event, s32 result);
+s32 musicHandleSetIntervalEvent(struct musicevent *event, s32 result);
 void musicTickEvents(void);
 void musicTick(void);
 

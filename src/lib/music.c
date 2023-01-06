@@ -52,7 +52,7 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 	// Check if this tracktype is currently in use. If it is then that's
 	// an error - the caller should have stopped the existing track first.
 	for (i = 0; i < 3; i++) {
-		if (event->tracktype == var800aaa38[i].tracktype && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
+		if (event->tracktype == g_SeqChannels[i].tracktype && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
 			value = event->tracktype == TRACKTYPE_AMBIENT ? 24 : 32;
 
 			for (j = 0; j < 16; j++) {
@@ -60,8 +60,8 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 				osSyncPrintf("MUSIC(Play) : Unpaused midi channel %d for state %d\n", j, event->tracktype);
 			}
 
-			var800aaa38[i].unk08 = 0;
-			var800aaa38[i].unk0c = 0;
+			g_SeqChannels[i].keepafterfade = false;
+			g_SeqChannels[i].unk0c = 0;
 
 			event->eventtype = 0;
 			result = RESULT_OK_BREAK;
@@ -93,10 +93,10 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 				if (seqPlay(&g_SeqInstances[i], event->tracknum)) {
 					seqSetVolume(&g_SeqInstances[i], event->volume);
 
-					var800aaa38[i].tracktype = event->tracktype;
-					var800aaa38[i].unk04 = 1;
-					var800aaa38[i].unk08 = 0;
-					var800aaa38[i].unk0c = 0;
+					g_SeqChannels[i].tracktype = event->tracktype;
+					g_SeqChannels[i].inuse = true;
+					g_SeqChannels[i].keepafterfade = false;
+					g_SeqChannels[i].unk0c = 0;
 
 					osSyncPrintf("MUSIC(Play) : Done\n");
 
@@ -110,7 +110,7 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 			index = -1;
 
 			for (i = 0; i < 3; i++) {
-				if ((var800aaa38[i].tracktype == TRACKTYPE_NONE || event->tracktype == var800aaa38[i].tracktype)
+				if ((g_SeqChannels[i].tracktype == TRACKTYPE_NONE || event->tracktype == g_SeqChannels[i].tracktype)
 						&& n_alCSPGetState(g_SeqInstances[i].seqp) != AL_STOPPED) {
 					index = i;
 					osSyncPrintf("MUSIC(Play) : About to dump the fading channel %d as a same state play request is waiting\n", index);
@@ -121,7 +121,7 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 			if (index == -1) {
 				if (event->failcount >= 3) {
 					for (i = 0; i < 3; i++) {
-						if (var800aaa38[i].tracktype == TRACKTYPE_AMBIENT
+						if (g_SeqChannels[i].tracktype == TRACKTYPE_AMBIENT
 								&& n_alCSPGetState(g_SeqInstances[i].seqp) != AL_STOPPED) {
 							index = i;
 							osSyncPrintf("MUSIC(Play) : About to dump the ambience channel %d\n", index);
@@ -135,10 +135,10 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 			if (index != -1) {
 				n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[index].seqp);
 
-				var800aaa38[index].tracktype = TRACKTYPE_NONE;
-				var800aaa38[index].unk04 = 0;
-				var800aaa38[index].unk08 = 0;
-				var800aaa38[index].unk0c = 0;
+				g_SeqChannels[index].tracktype = TRACKTYPE_NONE;
+				g_SeqChannels[index].inuse = false;
+				g_SeqChannels[index].keepafterfade = false;
+				g_SeqChannels[index].unk0c = 0;
 			} else {
 				event->failcount++;
 				osSyncPrintf("MUSIC(Play) : SERIOUS -> Out of MIDI channels - Attempt = %d\n", event->failcount);
@@ -166,13 +166,13 @@ s32 musicHandleStopEvent(struct musicevent *event, s32 result)
 	s32 i;
 
 	for (i = 0; i < 3; i++) {
-		if (event->tracktype == var800aaa38[i].tracktype) {
+		if (event->tracktype == g_SeqChannels[i].tracktype) {
 			n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
-			var800aaa38[i].tracktype = TRACKTYPE_NONE;
-			var800aaa38[i].unk04 = 0;
-			var800aaa38[i].unk08 = 0;
-			var800aaa38[i].unk0c = 0;
+			g_SeqChannels[i].tracktype = TRACKTYPE_NONE;
+			g_SeqChannels[i].inuse = false;
+			g_SeqChannels[i].keepafterfade = false;
+			g_SeqChannels[i].unk0c = 0;
 
 			break;
 		}
@@ -187,14 +187,14 @@ s32 musicHandleFadeEvent(struct musicevent *event, s32 result)
 	s32 j;
 
 	for (i = 0; i < 3; i++) {
-		if (event->tracktype == var800aaa38[i].tracktype && var800aaa38[i].unk04 != 0) {
+		if (event->tracktype == g_SeqChannels[i].tracktype && g_SeqChannels[i].inuse) {
 			for (j = 0; j < 16; j++) {
 				func00039e5c(g_SeqInstances[i].seqp, j, var70053ca0[event->tracktype], 32);
 			}
 
-			var800aaa38[i].unk04 = event->fadetopause;
-			var800aaa38[i].unk08 = event->fadetopause;
-			var800aaa38[i].unk0c = g_SeqInstances[i].seqp->chanState[0].unk0d;
+			g_SeqChannels[i].inuse = event->keepafterfade;
+			g_SeqChannels[i].keepafterfade = event->keepafterfade;
+			g_SeqChannels[i].unk0c = g_SeqInstances[i].seqp->chanState[0].unk0d;
 		}
 	}
 
@@ -208,19 +208,19 @@ s32 musicHandleStopAllEvent(s32 result)
 	for (i = 0; i < 3; i++) {
 		n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
-		var800aaa38[i].tracktype = 0;
-		var800aaa38[i].unk04 = 0;
-		var800aaa38[i].unk08 = 0;
-		var800aaa38[i].unk0c = 0;
+		g_SeqChannels[i].tracktype = 0;
+		g_SeqChannels[i].inuse = false;
+		g_SeqChannels[i].keepafterfade = false;
+		g_SeqChannels[i].unk0c = 0;
 	}
 
 	return RESULT_OK_NEXT;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 musicHandleEvent5(struct musicevent *event, s32 result)
+s32 musicHandleSetIntervalEvent(struct musicevent *event, s32 result)
 {
-	var800840e0 = event->tracknum;
+	g_MusicInterval240 = event->timer240;
 	return RESULT_OK_NEXT;
 }
 #endif
@@ -251,9 +251,9 @@ glabel var70053fec
 /*    11928:	15c0010f */ 	bnez	$t6,.L00011d68
 /*    1192c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*    11930:	3c138008 */ 	lui	$s3,%hi(g_MusicEventQueueLength)
-/*    11934:	3c10800b */ 	lui	$s0,%hi(var800aaa38)
+/*    11934:	3c10800b */ 	lui	$s0,%hi(g_SeqChannels)
 /*    11938:	267340c4 */ 	addiu	$s3,$s3,%lo(g_MusicEventQueueLength)
-/*    1193c:	2610aa38 */ 	addiu	$s0,$s0,%lo(var800aaa38)
+/*    1193c:	2610aa38 */ 	addiu	$s0,$s0,%lo(g_SeqChannels)
 /*    11940:	00008825 */ 	or	$s1,$zero,$zero
 /*    11944:	24120001 */ 	addiu	$s2,$zero,0x1
 .L00011948:
@@ -430,20 +430,20 @@ glabel var70053fec
 /*    11ba8:	24c6001c */ 	addiu	$a2,$a2,0x1c
 .L00011bac:
 /*    11bac:	ae620000 */ 	sw	$v0,0x0($s3)
-/*    11bb0:	3c038008 */ 	lui	$v1,%hi(var800840e0)
-/*    11bb4:	8c6340e0 */ 	lw	$v1,%lo(var800840e0)($v1)
+/*    11bb0:	3c038008 */ 	lui	$v1,%hi(g_MusicInterval240)
+/*    11bb4:	8c6340e0 */ 	lw	$v1,%lo(g_MusicInterval240)($v1)
 /*    11bb8:	3c12800b */ 	lui	$s2,%hi(g_MusicEventQueue)
 /*    11bbc:	2652a5d8 */ 	addiu	$s2,$s2,%lo(g_MusicEventQueue)
 /*    11bc0:	10600006 */ 	beqz	$v1,.L00011bdc
-/*    11bc4:	3c188008 */ 	lui	$t8,%hi(var800840e4)
+/*    11bc4:	3c188008 */ 	lui	$t8,%hi(g_MusicSleepRemaining240)
 /*    11bc8:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x40)
 /*    11bcc:	8f39a000 */ 	lw	$t9,%lo(g_Vars+0x40)($t9)
-/*    11bd0:	8f1840e4 */ 	lw	$t8,%lo(var800840e4)($t8)
+/*    11bd0:	8f1840e4 */ 	lw	$t8,%lo(g_MusicSleepRemaining240)($t8)
 /*    11bd4:	0319082a */ 	slt	$at,$t8,$t9
 /*    11bd8:	10200058 */ 	beqz	$at,.L00011d3c
 .L00011bdc:
-/*    11bdc:	3c018008 */ 	lui	$at,%hi(var800840e4)
-/*    11be0:	ac2340e4 */ 	sw	$v1,%lo(var800840e4)($at)
+/*    11bdc:	3c018008 */ 	lui	$at,%hi(g_MusicSleepRemaining240)
+/*    11be0:	ac2340e4 */ 	sw	$v1,%lo(g_MusicSleepRemaining240)($at)
 /*    11be4:	8e6c0000 */ 	lw	$t4,0x0($s3)
 /*    11be8:	11800054 */ 	beqz	$t4,.L00011d3c
 .L00011bec:
@@ -484,7 +484,7 @@ glabel var70053fec
 /*    11c74:	10000005 */ 	b	.L00011c8c
 /*    11c78:	00402025 */ 	or	$a0,$v0,$zero
 /*    11c7c:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c80:	0c00463d */ 	jal	musicHandleEvent5
+/*    11c80:	0c00463d */ 	jal	musicHandleSetIntervalEvent
 /*    11c84:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c88:	00402025 */ 	or	$a0,$v0,$zero
 .L00011c8c:
@@ -524,31 +524,31 @@ glabel var70053fec
 /*    11d0c:	8c410000 */ 	lw	$at,0x0($v0)
 .L00011d10:
 /*    11d10:	14900006 */ 	bne	$a0,$s0,.L00011d2c
-/*    11d14:	3c038008 */ 	lui	$v1,%hi(var800840e0)
+/*    11d14:	3c038008 */ 	lui	$v1,%hi(g_MusicInterval240)
 /*    11d18:	10000008 */ 	b	.L00011d3c
-/*    11d1c:	8c6340e0 */ 	lw	$v1,%lo(var800840e0)($v1)
+/*    11d1c:	8c6340e0 */ 	lw	$v1,%lo(g_MusicInterval240)($v1)
 .L00011d20:
-/*    11d20:	3c038008 */ 	lui	$v1,%hi(var800840e0)
+/*    11d20:	3c038008 */ 	lui	$v1,%hi(g_MusicInterval240)
 /*    11d24:	10000005 */ 	b	.L00011d3c
-/*    11d28:	8c6340e0 */ 	lw	$v1,%lo(var800840e0)($v1)
+/*    11d28:	8c6340e0 */ 	lw	$v1,%lo(g_MusicInterval240)($v1)
 .L00011d2c:
 /*    11d2c:	14a0ffaf */ 	bnez	$a1,.L00011bec
 /*    11d30:	00000000 */ 	nop
-/*    11d34:	3c038008 */ 	lui	$v1,%hi(var800840e0)
-/*    11d38:	8c6340e0 */ 	lw	$v1,%lo(var800840e0)($v1)
+/*    11d34:	3c038008 */ 	lui	$v1,%hi(g_MusicInterval240)
+/*    11d38:	8c6340e0 */ 	lw	$v1,%lo(g_MusicInterval240)($v1)
 .L00011d3c:
 /*    11d3c:	10600009 */ 	beqz	$v1,.L00011d64
-/*    11d40:	3c018008 */ 	lui	$at,%hi(var800840e4)
-/*    11d44:	3c198008 */ 	lui	$t9,%hi(var800840e4)
+/*    11d40:	3c018008 */ 	lui	$at,%hi(g_MusicSleepRemaining240)
+/*    11d44:	3c198008 */ 	lui	$t9,%hi(g_MusicSleepRemaining240)
 /*    11d48:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x40)
 /*    11d4c:	8d8ca000 */ 	lw	$t4,%lo(g_Vars+0x40)($t4)
-/*    11d50:	8f3940e4 */ 	lw	$t9,%lo(var800840e4)($t9)
-/*    11d54:	3c018008 */ 	lui	$at,%hi(var800840e4)
+/*    11d50:	8f3940e4 */ 	lw	$t9,%lo(g_MusicSleepRemaining240)($t9)
+/*    11d54:	3c018008 */ 	lui	$at,%hi(g_MusicSleepRemaining240)
 /*    11d58:	032c6823 */ 	subu	$t5,$t9,$t4
 /*    11d5c:	10000002 */ 	b	.L00011d68
-/*    11d60:	ac2d40e4 */ 	sw	$t5,%lo(var800840e4)($at)
+/*    11d60:	ac2d40e4 */ 	sw	$t5,%lo(g_MusicSleepRemaining240)($at)
 .L00011d64:
-/*    11d64:	ac2040e4 */ 	sw	$zero,%lo(var800840e4)($at)
+/*    11d64:	ac2040e4 */ 	sw	$zero,%lo(g_MusicSleepRemaining240)($at)
 .L00011d68:
 /*    11d68:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*    11d6c:	8fb00014 */ 	lw	$s0,0x14($sp)
@@ -574,13 +574,13 @@ glabel musicTickEvents
 /*    11cdc:	15c00106 */ 	bnez	$t6,.NB000120f8
 /*    11ce0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    11ce4:	3c168008 */ 	lui	$s6,%hi(g_MusicEventQueueLength)
-/*    11ce8:	3c10800b */ 	lui	$s0,%hi(var800aaa38)
+/*    11ce8:	3c10800b */ 	lui	$s0,%hi(g_SeqChannels)
 /*    11cec:	3c157005 */ 	lui	$s5,%hi(var70053ca0)
 /*    11cf0:	3c138009 */ 	lui	$s3,%hi(g_SeqInstances)
 /*    11cf4:	26d66944 */ 	addiu	$s6,$s6,%lo(g_MusicEventQueueLength)
 /*    11cf8:	26737e58 */ 	addiu	$s3,$s3,%lo(g_SeqInstances)
 /*    11cfc:	26b553b0 */ 	addiu	$s5,$s5,%lo(var70053ca0)
-/*    11d00:	2610f2e8 */ 	addiu	$s0,$s0,%lo(var800aaa38)
+/*    11d00:	2610f2e8 */ 	addiu	$s0,$s0,%lo(g_SeqChannels)
 /*    11d04:	00008825 */ 	or	$s1,$zero,$zero
 /*    11d08:	24140108 */ 	addiu	$s4,$zero,0x108
 /*    11d0c:	24120001 */ 	addiu	$s2,$zero,0x1
@@ -749,20 +749,20 @@ glabel musicTickEvents
 /*    11f50:	24a5001c */ 	addiu	$a1,$a1,0x1c
 .NB00011f54:
 /*    11f54:	aec20000 */ 	sw	$v0,0x0($s6)
-/*    11f58:	3c038008 */ 	lui	$v1,%hi(var800840e0)
-/*    11f5c:	8c63695c */ 	lw	$v1,%lo(var800840e0)($v1)
+/*    11f58:	3c038008 */ 	lui	$v1,%hi(g_MusicInterval240)
+/*    11f5c:	8c63695c */ 	lw	$v1,%lo(g_MusicInterval240)($v1)
 /*    11f60:	3c15800b */ 	lui	$s5,%hi(g_MusicEventQueue)
 /*    11f64:	26b5ee88 */ 	addiu	$s5,$s5,%lo(g_MusicEventQueue)
 /*    11f68:	10600006 */ 	beqz	$v1,.NB00011f84
-/*    11f6c:	3c0e8008 */ 	lui	$t6,%hi(var800840e4)
+/*    11f6c:	3c0e8008 */ 	lui	$t6,%hi(g_MusicSleepRemaining240)
 /*    11f70:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x40)
 /*    11f74:	8defe700 */ 	lw	$t7,%lo(g_Vars+0x40)($t7)
-/*    11f78:	8dce6960 */ 	lw	$t6,%lo(var800840e4)($t6)
+/*    11f78:	8dce6960 */ 	lw	$t6,%lo(g_MusicSleepRemaining240)($t6)
 /*    11f7c:	01cf082a */ 	slt	$at,$t6,$t7
 /*    11f80:	10200052 */ 	beqz	$at,.NB000120cc
 .NB00011f84:
-/*    11f84:	3c018008 */ 	lui	$at,%hi(var800840e4)
-/*    11f88:	ac236960 */ 	sw	$v1,%lo(var800840e4)($at)
+/*    11f84:	3c018008 */ 	lui	$at,%hi(g_MusicSleepRemaining240)
+/*    11f88:	ac236960 */ 	sw	$v1,%lo(g_MusicSleepRemaining240)($at)
 /*    11f8c:	8ed80000 */ 	lw	$t8,0x0($s6)
 /*    11f90:	1300004e */ 	beqz	$t8,.NB000120cc
 .NB00011f94:
@@ -841,31 +841,31 @@ glabel musicTickEvents
 /*    1209c:	8c410000 */ 	lw	$at,0x0($v0)
 .NB000120a0:
 /*    120a0:	14930006 */ 	bne	$a0,$s3,.NB000120bc
-/*    120a4:	3c038008 */ 	lui	$v1,%hi(var800840e0)
+/*    120a4:	3c038008 */ 	lui	$v1,%hi(g_MusicInterval240)
 /*    120a8:	10000008 */ 	beqz	$zero,.NB000120cc
-/*    120ac:	8c63695c */ 	lw	$v1,%lo(var800840e0)($v1)
+/*    120ac:	8c63695c */ 	lw	$v1,%lo(g_MusicInterval240)($v1)
 .NB000120b0:
-/*    120b0:	3c038008 */ 	lui	$v1,%hi(var800840e0)
+/*    120b0:	3c038008 */ 	lui	$v1,%hi(g_MusicInterval240)
 /*    120b4:	10000005 */ 	beqz	$zero,.NB000120cc
-/*    120b8:	8c63695c */ 	lw	$v1,%lo(var800840e0)($v1)
+/*    120b8:	8c63695c */ 	lw	$v1,%lo(g_MusicInterval240)($v1)
 .NB000120bc:
 /*    120bc:	14c0ffb5 */ 	bnez	$a2,.NB00011f94
 /*    120c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    120c4:	3c038008 */ 	lui	$v1,%hi(var800840e0)
-/*    120c8:	8c63695c */ 	lw	$v1,%lo(var800840e0)($v1)
+/*    120c4:	3c038008 */ 	lui	$v1,%hi(g_MusicInterval240)
+/*    120c8:	8c63695c */ 	lw	$v1,%lo(g_MusicInterval240)($v1)
 .NB000120cc:
 /*    120cc:	10600009 */ 	beqz	$v1,.NB000120f4
-/*    120d0:	3c018008 */ 	lui	$at,%hi(var800840e4)
-/*    120d4:	3c0f8008 */ 	lui	$t7,%hi(var800840e4)
+/*    120d0:	3c018008 */ 	lui	$at,%hi(g_MusicSleepRemaining240)
+/*    120d4:	3c0f8008 */ 	lui	$t7,%hi(g_MusicSleepRemaining240)
 /*    120d8:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x40)
 /*    120dc:	8f18e700 */ 	lw	$t8,%lo(g_Vars+0x40)($t8)
-/*    120e0:	8def6960 */ 	lw	$t7,%lo(var800840e4)($t7)
-/*    120e4:	3c018008 */ 	lui	$at,%hi(var800840e4)
+/*    120e0:	8def6960 */ 	lw	$t7,%lo(g_MusicSleepRemaining240)($t7)
+/*    120e4:	3c018008 */ 	lui	$at,%hi(g_MusicSleepRemaining240)
 /*    120e8:	01f8c823 */ 	subu	$t9,$t7,$t8
 /*    120ec:	10000002 */ 	beqz	$zero,.NB000120f8
-/*    120f0:	ac396960 */ 	sw	$t9,%lo(var800840e4)($at)
+/*    120f0:	ac396960 */ 	sw	$t9,%lo(g_MusicSleepRemaining240)($at)
 .NB000120f4:
-/*    120f4:	ac206960 */ 	sw	$zero,%lo(var800840e4)($at)
+/*    120f4:	ac206960 */ 	sw	$zero,%lo(g_MusicSleepRemaining240)($at)
 .NB000120f8:
 /*    120f8:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*    120fc:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -894,22 +894,23 @@ void musicTickEvents(void)
 	if (!g_SndDisabled) {
 		if (g_MusicEventQueueLength);
 
+		// Release channels if their track has finished fading out
 		for (i = 0; i < 3; i++) {
-			if (var800aaa38[i].unk04 == 0 && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
-				if (g_SeqInstances[i].seqp->chanState[0].unk0d <= var70053ca0[var800aaa38[i].tracktype]) {
+			if (!g_SeqChannels[i].inuse && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
+				if (g_SeqInstances[i].seqp->chanState[0].unk0d <= var70053ca0[g_SeqChannels[i].tracktype]) {
 					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
-					var800aaa38[i].tracktype = TRACKTYPE_NONE;
-					var800aaa38[i].unk04 = 0;
-					var800aaa38[i].unk08 = 0;
-					var800aaa38[i].unk0c = 0;
-				} else if (g_SeqInstances[i].seqp->chanState[0].unk0d == var800aaa38[i].unk0c) {
+					g_SeqChannels[i].tracktype = TRACKTYPE_NONE;
+					g_SeqChannels[i].inuse = false;
+					g_SeqChannels[i].keepafterfade = false;
+					g_SeqChannels[i].unk0c = 0;
+				} else if (g_SeqInstances[i].seqp->chanState[0].unk0d == g_SeqChannels[i].unk0c) {
 					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
-					var800aaa38[i].tracktype = TRACKTYPE_NONE;
-					var800aaa38[i].unk04 = 0;
-					var800aaa38[i].unk08 = 0;
-					var800aaa38[i].unk0c = 0;
+					g_SeqChannels[i].tracktype = TRACKTYPE_NONE;
+					g_SeqChannels[i].inuse = false;
+					g_SeqChannels[i].keepafterfade = false;
+					g_SeqChannels[i].unk0c = 0;
 				}
 			}
 		}
@@ -921,7 +922,7 @@ void musicTickEvents(void)
 			event = &g_MusicEventQueue[i];
 
 #if VERSION >= VERSION_NTSC_1_0
-			if (event->eventtype == MUSICEVENTTYPE_5) {
+			if (event->eventtype == MUSICEVENTTYPE_SETINTERVAL) {
 				continue;
 			}
 #endif
@@ -939,7 +940,7 @@ void musicTickEvents(void)
 				}
 
 #if VERSION >= VERSION_NTSC_1_0
-				if (earlier->eventtype == MUSICEVENTTYPE_5) {
+				if (earlier->eventtype == MUSICEVENTTYPE_SETINTERVAL) {
 					continue;
 				}
 #endif
@@ -984,10 +985,12 @@ void musicTickEvents(void)
 
 		g_MusicEventQueueLength = j;
 
+		// Process the queue, but only on certain timer intervals,
+		// or every frame if the interval timer is disabled
 		event = &g_MusicEventQueue[0];
 
-		if (var800840e0 == 0 || var800840e4 < g_Vars.diffframe240) {
-			var800840e4 = var800840e0;
+		if (g_MusicInterval240 == 0 || g_MusicSleepRemaining240 < g_Vars.diffframe240) {
+			g_MusicSleepRemaining240 = g_MusicInterval240;
 
 			while (g_MusicEventQueueLength) {
 				event->numattempts++;
@@ -1008,8 +1011,8 @@ void musicTickEvents(void)
 					result = musicHandleStopAllEvent(result);
 					break;
 #if VERSION >= VERSION_NTSC_1_0
-				case MUSICEVENTTYPE_5:
-					result = musicHandleEvent5(event, result);
+				case MUSICEVENTTYPE_SETINTERVAL:
+					result = musicHandleSetIntervalEvent(event, result);
 					break;
 #endif
 				}
@@ -1035,10 +1038,10 @@ void musicTickEvents(void)
 			}
 		}
 
-		if (var800840e0) {
-			var800840e4 -= g_Vars.diffframe240;
+		if (g_MusicInterval240) {
+			g_MusicSleepRemaining240 -= g_Vars.diffframe240;
 		} else {
-			var800840e4 = 0;
+			g_MusicSleepRemaining240 = 0;
 		}
 	}
 }
@@ -1072,9 +1075,9 @@ void musicTick(void)
 			}
 		} else if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning && g_MusicLife60 < g_MusicAge60) {
 			// Due to start a new track. Fade out the old one,
-			// then start a 2 second time before starting the new one.
+			// then start a 2 second timer before starting the new one.
 			g_MusicAge60 = 0;
-			musicQueueFadeEvent(TRACKTYPE_PRIMARY, 2, 1);
+			musicQueueFadeEvent(TRACKTYPE_PRIMARY, 2, true);
 			g_MusicSilenceTimer60 = TICKS(120);
 		}
 
@@ -1137,7 +1140,7 @@ void musicTick(void)
 		}
 #else
 		if (g_Vars.lvupdate240 != 0) {
-			if (func0f16d0a8(TRACKTYPE_NRG, 1)) {
+			if (musicIsTrackState(TRACKTYPE_NRG, AL_PLAYING)) {
 				if (!playnrg) {
 					musicDeactivateNrg();
 				}
@@ -1166,7 +1169,7 @@ bool musicIsTrackTypePlaying(s32 tracktype)
 	s32 i;
 
 	for (i = 0; i < 3; i++) {
-		if (tracktype == var800aaa38[i].tracktype && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
+		if (tracktype == g_SeqChannels[i].tracktype && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
 			return true;
 		}
 	}

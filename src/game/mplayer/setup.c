@@ -3917,11 +3917,11 @@ MenuItemHandlerResult mpSelectTuneListHandler(s32 operation, struct menuitem *it
 MenuDialogHandlerResult menudialogMpSelectTune(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		var800840e0 = 80;
+		g_MusicInterval240 = 80;
 	}
 
 	if (operation == MENUOP_CLOSE) {
-		var800840e0 = 15;
+		g_MusicInterval240 = 15;
 	}
 
 	return false;

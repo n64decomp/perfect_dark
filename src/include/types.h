@@ -5387,8 +5387,11 @@ struct optiongroup {
 
 struct musicevent {
 	s32 tracktype;
-	s32 tracknum;
-	bool fadetopause;
+	union {
+		s32 tracknum;
+		s32 timer240;
+	};
+	bool keepafterfade;
 	f32 unk0c;
 	s16 volume;
 	u16 eventtype;
@@ -5435,11 +5438,11 @@ struct var800a4ce8 {
 	s16 unk02;
 };
 
-struct var800aaa38 {
+struct seqchannel {
 	s32 tracktype;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
+	s32 inuse;
+	s32 keepafterfade;
+	s32 unk0c;
 };
 
 struct seqinstance {

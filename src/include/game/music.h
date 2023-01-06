@@ -6,15 +6,15 @@
 
 u16 musicGetVolume(void);
 void musicSetVolume(u16 volume);
-bool func0f16d0a8(s32 tracktype, s32 arg1);
-s32 func0f16d124(s32 tracktype);
+bool musicIsTrackState(s32 tracktype, s32 state);
+s32 musicGetTrackState(s32 tracktype);
 void musicQueueStartEvent(u32 tracktype, u32 tracknum, f32 arg2, u16 volume);
 void musicQueueStopEvent(s32 tracktype);
-void musicQueueFadeEvent(s32 tracktype, f32 arg1, bool fadetopause);
+void musicQueueFadeEvent(s32 tracktype, f32 arg1, bool keepafterfade);
 void musicReset(void);
 void musicQueueStopAllEvent(void);
-void func0f16d430(void);
-void musicQueueType5Event(void);
+void musicSaveInterval(void);
+void musicRestoreInterval(void);
 void musicStartPrimary(f32 arg0);
 void musicStartAmbient(f32 arg0);
 bool musicIsAnyPlayerInAmbientRoom(void);

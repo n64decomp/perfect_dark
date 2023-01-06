@@ -16,7 +16,7 @@
 
 s32 g_MusicStageNum;
 struct musicevent g_MusicEventQueue[40];
-struct var800aaa38 var800aaa38[3];
+struct seqchannel g_SeqChannels[3];
 u32 g_AudioXReasonsActive[4];
 s32 g_MusicXReasonMinDurations[4];
 s32 g_MusicXReasonMaxDurations[4];
@@ -27,24 +27,24 @@ s32 g_TemporaryPrimaryTrack = -1;
 s32 g_TemporaryAmbientTrack = -1;
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 var800840d0 = -1;
+s32 g_MusicSavedInterval240 = -1;
 #endif
 
 u32 g_MusicNextEventId = 0;
 bool g_MusicNrgIsActive = false;
 bool g_MusicMpDeathIsPlaying = false;
-s32 var800840e0 = 15;
-s32 var800840e4 = 0;
+s32 g_MusicInterval240 = 15;
+s32 g_MusicSleepRemaining240 = 0;
 bool g_MusicSoloDeathIsPlaying = false;
 
 #if VERSION >= VERSION_NTSC_1_0
 u16 g_MusicVolume = 0x5000;
 #endif
 
-s32 g_MusicDeathTimer240 = 0;     // Counts down 5 seconds while death music plays
-s32 g_MusicAge60 = 0;             // The current age of the MP track being played
+s32 g_MusicDeathTimer240 = 0;   // Counts down 5 seconds while death music plays
+s32 g_MusicAge60 = 0;           // The current age of the MP track being played
 s32 g_MusicLife60 = TICKS(120); // The max age of any MP track (this value is changed in MP code)
-s32 g_MusicSilenceTimer60 = 0;    // Counts down the 2 second silence between MP track changes
+s32 g_MusicSilenceTimer60 = 0;  // Counts down the 2 second silence between MP track changes
 
 #if VERSION < VERSION_NTSC_1_0
 const char var7f1b2030nb[] = "MUSIC : musicPlayLevel\n";
@@ -112,8 +112,8 @@ void musicSetVolume(u16 volume)
 	}
 #endif
 
-	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].tracktype != TRACKTYPE_NONE && var800aaa38[i].tracktype != TRACKTYPE_AMBIENT) {
+	for (i = 0; i < ARRAYCOUNT(g_SeqChannels); i++) {
+		if (g_SeqChannels[i].tracktype != TRACKTYPE_NONE && g_SeqChannels[i].tracktype != TRACKTYPE_AMBIENT) {
 			seqSetVolume(&g_SeqInstances[i], volume);
 		}
 	}
@@ -123,16 +123,19 @@ void musicSetVolume(u16 volume)
 #endif
 }
 
-bool func0f16d0a8(s32 tracktype, s32 arg1)
+bool musicIsTrackState(s32 tracktype, s32 state)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].tracktype == tracktype) {
-			switch (arg1) {
-			case 0: return var800aaa38[i].unk04 <= 0;
-			case 1: return var800aaa38[i].unk04;
-			case 2: return var800aaa38[i].unk08;
+	for (i = 0; i < ARRAYCOUNT(g_SeqChannels); i++) {
+		if (g_SeqChannels[i].tracktype == tracktype) {
+			switch (state) {
+			case AL_STOPPED:
+				return !g_SeqChannels[i].inuse;
+			case AL_PLAYING:
+				return g_SeqChannels[i].inuse;
+			case AL_STOPPING:
+				return g_SeqChannels[i].keepafterfade;
 			}
 		}
 	}
@@ -140,31 +143,31 @@ bool func0f16d0a8(s32 tracktype, s32 arg1)
 	return false;
 }
 
-s32 func0f16d124(s32 tracktype)
+s32 musicGetTrackState(s32 tracktype)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].tracktype == tracktype) {
-			if (var800aaa38[i].unk08) {
-				return 2;
+	for (i = 0; i < ARRAYCOUNT(g_SeqChannels); i++) {
+		if (g_SeqChannels[i].tracktype == tracktype) {
+			if (g_SeqChannels[i].keepafterfade) {
+				return AL_STOPPING;
 			}
 
-			if (var800aaa38[i].unk04) {
-				return 1;
+			if (g_SeqChannels[i].inuse) {
+				return AL_PLAYING;
 			}
 		}
 	}
 
-	return 0;
+	return AL_STOPPED;
 }
 
 s32 musicGetChannelByTrackType(s32 tracktype)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].tracktype == tracktype) {
+	for (i = 0; i < ARRAYCOUNT(g_SeqChannels); i++) {
+		if (g_SeqChannels[i].tracktype == tracktype) {
 			return i;
 		}
 	}
@@ -199,12 +202,12 @@ void musicQueueStopEvent(s32 tracktype)
 	}
 }
 
-void musicQueueFadeEvent(s32 tracktype, f32 arg1, bool fadetopause)
+void musicQueueFadeEvent(s32 tracktype, f32 arg1, bool keepafterfade)
 {
 	if (!g_SndDisabled) {
 		g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
 		g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg1;
-		g_MusicEventQueue[g_MusicEventQueueLength].fadetopause = fadetopause;
+		g_MusicEventQueue[g_MusicEventQueueLength].keepafterfade = keepafterfade;
 		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_FADE;
 		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
 		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
@@ -225,9 +228,9 @@ void musicReset(void)
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
-		func0f16d430();
+		musicSaveInterval();
 		musicQueueStopAllEvent();
-		musicQueueType5Event();
+		musicRestoreInterval();
 #else
 		musicQueueStopAllEvent();
 #endif
@@ -258,26 +261,28 @@ void musicQueueStopAllEvent(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f16d430(void)
+void musicSaveInterval(void)
 {
-	var800840d0 = var800840e0;
-	var800840e0 = 0;
+	g_MusicSavedInterval240 = g_MusicInterval240;
+	g_MusicInterval240 = 0;
 }
 
-void musicQueueType5Event(void)
+void musicRestoreInterval(void)
 {
 	g_MusicEventQueue[g_MusicEventQueueLength].tracktype = TRACKTYPE_6;
-	g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_5;
+	g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_SETINTERVAL;
 	g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
-	g_MusicEventQueue[g_MusicEventQueueLength].tracknum = var800840d0;
+	g_MusicEventQueue[g_MusicEventQueueLength].timer240 = g_MusicSavedInterval240;
 	g_MusicEventQueueLength++;
 
+	// @bug: This should be modifying the interval queue item, not the first queue item
 	g_MusicEventQueue[0].numattempts = 0;
 	g_MusicEventQueue[0].failcount = 0;
 }
 #endif
 
 #define PRIMARYTRACK() (g_TemporaryPrimaryTrack != -1 ? g_TemporaryPrimaryTrack : stageGetPrimaryTrack(g_MusicStageNum))
+#define AMBIENTTRACK() (g_TemporaryAmbientTrack != -1 ? g_TemporaryAmbientTrack : stageGetAmbientTrack(g_MusicStageNum))
 
 void musicStartPrimary(f32 arg0)
 {
@@ -285,8 +290,6 @@ void musicStartPrimary(f32 arg0)
 		musicQueueStartEvent(TRACKTYPE_PRIMARY, PRIMARYTRACK(), arg0, musicGetVolume());
 	}
 }
-
-#define AMBIENTTRACK() (g_TemporaryAmbientTrack != -1 ? g_TemporaryAmbientTrack : stageGetAmbientTrack(g_MusicStageNum))
 
 void musicStartAmbient(f32 arg0)
 {
@@ -307,9 +310,9 @@ void musicStartAmbient(f32 arg0)
 	}
 
 	if (pass) {
-		switch (func0f16d124(TRACKTYPE_AMBIENT)) {
-		case 0:
-		case 2:
+		switch (musicGetTrackState(TRACKTYPE_AMBIENT)) {
+		case AL_STOPPED:
+		case AL_STOPPING:
 			musicQueueStartEvent(TRACKTYPE_AMBIENT, AMBIENTTRACK(), arg0, VOLUME(g_SfxVolume));
 			break;
 		}
@@ -414,9 +417,9 @@ void musicSetStage(s32 stagenum)
 void musicStop(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	func0f16d430();
+	musicSaveInterval();
 	musicQueueStopAllEvent();
-	musicQueueType5Event();
+	musicRestoreInterval();
 #else
 	musicQueueStopAllEvent();
 #endif
@@ -470,7 +473,7 @@ void musicEndMenu(void)
 {
 	musicQueueFadeEvent(TRACKTYPE_MENU, 1, FADETYPE_STOP);
 
-	if (func0f16d0a8(TRACKTYPE_NRG, 1)) {
+	if (musicIsTrackState(TRACKTYPE_NRG, AL_PLAYING)) {
 		musicStartNrg(1);
 	} else {
 		musicStartPrimary(1);
@@ -484,7 +487,7 @@ void musicStartSoloDeath(void)
 	g_MusicSoloDeathIsPlaying = true;
 
 #if VERSION >= VERSION_NTSC_1_0
-	func0f16d430();
+	musicSaveInterval();
 #endif
 
 	musicQueueStopEvent(TRACKTYPE_MENU);
@@ -496,16 +499,16 @@ void musicStartSoloDeath(void)
 	musicQueueStartEvent(TRACKTYPE_PRIMARY, MUSIC_DEATH_SOLO, 0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
 
 #if VERSION >= VERSION_NTSC_1_0
-	musicQueueType5Event();
+	musicRestoreInterval();
 #endif
 }
 
 void _musicStartMpDeath(f32 arg0)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	func0f16d430();
+	musicSaveInterval();
 	musicQueueStartEvent(TRACKTYPE_DEATH, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
-	musicQueueType5Event();
+	musicRestoreInterval();
 #else
 	musicQueueStartEvent(TRACKTYPE_DEATH, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
 #endif
@@ -514,7 +517,7 @@ void _musicStartMpDeath(f32 arg0)
 void musicStartMpDeath(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	func0f16d430();
+	musicSaveInterval();
 #endif
 
 	musicQueueStopEvent(TRACKTYPE_MENU);
@@ -533,7 +536,7 @@ void musicStartMpDeath(void)
 	g_MusicMpDeathIsPlaying = true;
 
 #if VERSION >= VERSION_NTSC_1_0
-	musicQueueType5Event();
+	musicRestoreInterval();
 #endif
 }
 
@@ -561,7 +564,7 @@ void musicEndDeath(void)
 void musicPlayTrackIsolated(s32 tracknum)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	func0f16d430();
+	musicSaveInterval();
 #endif
 
 	musicQueueStopEvent(TRACKTYPE_MENU);
@@ -573,7 +576,7 @@ void musicPlayTrackIsolated(s32 tracknum)
 	musicQueueStartEvent(TRACKTYPE_PRIMARY, tracknum, 0, musicGetVolume());
 
 #if VERSION >= VERSION_NTSC_1_0
-	musicQueueType5Event();
+	musicRestoreInterval();
 #endif
 }
 
@@ -699,7 +702,7 @@ void musicTickAmbient(void)
 	if (g_TemporaryAmbientTrack == -1) {
 		if (musicIsAnyPlayerInAmbientRoom()) {
 			musicStartAmbient(1);
-		} else if (func0f16d124(TRACKTYPE_AMBIENT) == 1) {
+		} else if (musicGetTrackState(TRACKTYPE_AMBIENT) == AL_PLAYING) {
 			musicQueueFadeEvent(TRACKTYPE_AMBIENT, 1, FADETYPE_PAUSE);
 		}
 	} else if (stageGetAmbientTrack(g_MusicStageNum) >= 0) {
