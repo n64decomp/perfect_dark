@@ -6,8 +6,6 @@
 
 void roomsReset(void);
 
-void roomsTick(void);
-
 void roomSetLastForOffset(s32 room);
 void room0f1668f0(struct roommtx *roommtx, s32 roomnum);
 void room0f16692c(struct roommtx *roommtx, s32 roomnum);

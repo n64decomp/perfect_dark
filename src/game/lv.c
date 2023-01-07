@@ -2041,7 +2041,6 @@ void lvTick(void)
 		lvUpdateCutsceneTime();
 		PROFILE(PROFILEMARKER_LVT_VTXSTORE, vtxstoreTick());
 		lvUpdateSoloHandicaps();
-		PROFILE(PROFILEMARKER_LVT_ROOMS, roomsTick());
 		skyTick();
 		PROFILE(PROFILEMARKER_LVT_CASINGS, casingsTick());
 

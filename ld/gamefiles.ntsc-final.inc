@@ -58,7 +58,6 @@
 	build/ROMID/game/menustop.o (section); \
 	build/ROMID/game/menutick.o (section); \
 	build/ROMID/game/weathertick.o (section); \
-	build/ROMID/game/roomtick.o (section); \
 	build/ROMID/game/skytick.o (section); \
 	build/ROMID/game/casingtick.o (section); \
 	build/ROMID/game/shardstick.o (section); \

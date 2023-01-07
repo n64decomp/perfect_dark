@@ -93,6 +93,7 @@ void profileStartDynamic(char *file, s32 line)
 
 void profileEndDynamic(char *file, s32 line)
 {
+	u32 count = osGetCount();
 	s32 i;
 	struct profileslot *slot = NULL;
 
@@ -104,7 +105,7 @@ void profileEndDynamic(char *file, s32 line)
 	}
 
 	if (slot) {
-		slot->ticks = osGetCount() - slot->startticks;
+		slot->ticks += count - slot->startticks;
 		slot->startticks = 0;
 
 		g_ProfileCurrentSlot = slot->parent;
@@ -266,7 +267,6 @@ Gfx *profileRender(Gfx *gdl)
 		gdl = profileRenderCpuLine(gdl, x, &y, " lvTick", PROFILEMARKER_LVTICK);
 		gdl = profileRenderCpuLine(gdl, x, &y, "  hudmsgs   ", PROFILEMARKER_LVT_HUDMSGS   );
 		gdl = profileRenderCpuLine(gdl, x, &y, "  vtxstore  ", PROFILEMARKER_LVT_VTXSTORE  );
-		gdl = profileRenderCpuLine(gdl, x, &y, "  rooms     ", PROFILEMARKER_LVT_ROOMS     );
 		gdl = profileRenderCpuLine(gdl, x, &y, "  casings   ", PROFILEMARKER_LVT_CASINGS   );
 		gdl = profileRenderCpuLine(gdl, x, &y, "  shards    ", PROFILEMARKER_LVT_SHARDS    );
 		gdl = profileRenderCpuLine(gdl, x, &y, "  sparks    ", PROFILEMARKER_LVT_SPARKS    );

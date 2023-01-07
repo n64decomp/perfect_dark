@@ -295,8 +295,7 @@ extern s32 g_LasersightsActive;
 extern bool g_StarsActive;
 extern u8 g_HudmsgsActive;
 extern struct roommtx *g_RoomMtxes;
-extern struct roommtx *g_RoomMtxesUsed;
-extern struct roommtx *g_RoomMtxesFree;
+extern s32 g_NextRoomMtx;
 extern s32 g_BgAlwaysRoom;
 
 #endif
