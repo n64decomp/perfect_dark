@@ -6899,7 +6899,8 @@ void bgun0f0a5550(s32 handnum)
 
 	hand->visible = true;
 
-	if (!weaponHasFlag(weaponnum, WEAPONFLAG_00000040)
+	if ((weaponnum <= WEAPON_UNARMED && hand->state != HANDSTATE_ATTACK)
+			|| !weaponHasFlag(weaponnum, WEAPONFLAG_00000040)
 			|| weaponHasFlag(weaponnum, WEAPONFLAG_00000080)
 			|| hand->mode == HANDMODE_6
 			|| hand->mode == HANDMODE_7
