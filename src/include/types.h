@@ -5727,7 +5727,9 @@ struct wallhit {
  * The first item in the propnums array is -2 if this chunk is unallocated.
  */
 struct roomproplistchunk {
-	s16 propnums[8];
+	s8 count;
+	s16 next;
+	s16 propnums[16];
 };
 
 struct nbomb {

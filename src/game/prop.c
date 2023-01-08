@@ -2773,13 +2773,12 @@ bool arrayIntersects(s16 *a, s16 *b)
 
 bool propTryAddToChunk(s16 propnum, s32 chunkindex)
 {
-	s32 i;
+	struct roomproplistchunk *chunk = &g_RoomPropListChunks[chunkindex];
 
-	for (i = 0; i < 7; i++) {
-		if (g_RoomPropListChunks[chunkindex].propnums[i] < 0) {
-			g_RoomPropListChunks[chunkindex].propnums[i] = propnum;
-			return true;
-		}
+	if (chunk->count < ARRAYCOUNT(chunk->propnums)) {
+		chunk->propnums[chunk->count] = propnum;
+		chunk->count++;
+		return true;
 	}
 
 	return false;
@@ -2791,13 +2790,15 @@ s32 roomAllocatePropListChunk(s32 room, s32 prevchunkindex)
 	s32 j;
 
 	for (i = 0; i < 256; i++) {
-		if (g_RoomPropListChunks[i].propnums[0] == -2) {
-			for (j = 0; j < 8; j++) {
+		if (g_RoomPropListChunks[i].count == 0) {
+			for (j = 0; j < ARRAYCOUNT(g_RoomPropListChunks[i].propnums); j++) {
 				g_RoomPropListChunks[i].propnums[j] = -1;
 			}
 
+			g_RoomPropListChunks[i].next = -1;
+
 			if (prevchunkindex >= 0) {
-				g_RoomPropListChunks[prevchunkindex].propnums[7] = i;
+				g_RoomPropListChunks[prevchunkindex].next = i;
 			} else {
 				g_RoomPropListChunkIndexes[room] = i;
 			}
@@ -2827,7 +2828,7 @@ void propRegisterRoom(struct prop *prop, s16 room)
 				}
 
 				prev = chunkindex;
-				chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
+				chunkindex = g_RoomPropListChunks[chunkindex].next;
 			}
 
 			// Allocate a new chunk
@@ -2846,7 +2847,6 @@ void propRegisterRoom(struct prop *prop, s16 room)
 
 void propDeregisterRoom(struct prop *prop, s16 room)
 {
-	bool removed = false;
 	s32 prev = -1;
 
 	if (room >= 0 && room < g_Vars.roomcount) {
@@ -2855,37 +2855,30 @@ void propDeregisterRoom(struct prop *prop, s16 room)
 		s16 propnum = prop - g_Vars.props;
 
 		while (chunkindex >= 0) {
-			bool populated = false;
+			struct roomproplistchunk *chunk = &g_RoomPropListChunks[chunkindex];
 			s32 j;
 
 			// Iterate propnums in this chunk
-			for (j = 0; j < 7; j++) {
-				if (g_RoomPropListChunks[chunkindex].propnums[j] == propnum) {
-					g_RoomPropListChunks[chunkindex].propnums[j] = -1;
-					removed = true;
-				} else if (!populated && g_RoomPropListChunks[chunkindex].propnums[j] >= 0) {
-					populated = true;
+			for (j = 0; j < chunk->count; j++) {
+				if (chunk->propnums[j] == propnum) {
+					chunk->propnums[j] = chunk->propnums[chunk->count - 1];
+					chunk->count--;
+
+					if (chunk->count <= 0) {
+						// This chunk is now empty
+						if (prev >= 0) {
+							g_RoomPropListChunks[prev].next = g_RoomPropListChunks[chunkindex].next;
+						} else {
+							g_RoomPropListChunkIndexes[room] = g_RoomPropListChunks[chunkindex].next;
+						}
+					}
+
+					return;
 				}
 			}
 
-			if (!populated) {
-				// This chunk is empty, so it can be marked as available
-				g_RoomPropListChunks[chunkindex].propnums[0] = -2;
-
-				if (prev >= 0) {
-					g_RoomPropListChunks[prev].propnums[7] = g_RoomPropListChunks[chunkindex].propnums[7];
-				} else {
-					g_RoomPropListChunkIndexes[room] = g_RoomPropListChunks[chunkindex].propnums[7];
-				}
-			} else {
-				prev = chunkindex;
-			}
-
-			if (removed) {
-				return;
-			}
-
-			chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
+			prev = chunkindex;
+			chunkindex = g_RoomPropListChunks[chunkindex].next;
 		}
 	}
 }
@@ -3018,9 +3011,32 @@ void roomGetProps(s16 *rooms, s16 *propnums, s32 len)
 	s16 *writeptr = propnums;
 	s32 room;
 	s32 i;
-	s32 j;
 
+	// Do first room without checking for duplicates
 	room = *rooms;
+
+	if (room != -1) {
+		// Find the chunk to start at
+		s32 chunkindex = g_RoomPropListChunkIndexes[room];
+
+		// Iterate the chunks
+		while (chunkindex >= 0) {
+			struct roomproplistchunk *chunk = &g_RoomPropListChunks[chunkindex];
+
+			// Iterate the propnums within each chunk
+			for (i = 0; i < chunk->count; i++) {
+				*writeptr = chunk->propnums[i];
+				writeptr++;
+			}
+
+			chunkindex = chunk->next;
+		}
+
+		rooms++;
+		room = *rooms;
+	}
+
+	// Do subsequent rooms with duplicate checks
 
 	// Iterate rooms
 	while (room != -1) {
@@ -3029,31 +3045,30 @@ void roomGetProps(s16 *rooms, s16 *propnums, s32 len)
 
 		// Iterate the chunks
 		while (chunkindex >= 0) {
+			struct roomproplistchunk *chunk = &g_RoomPropListChunks[chunkindex];
+
 			// Iterate the propnums within each chunk
-			for (i = 0; i < 7; i++) {
-				s16 propnum = g_RoomPropListChunks[chunkindex].propnums[i];
+			for (i = 0; i < chunk->count; i++) {
+				s16 propnum = chunk->propnums[i];
 
-				if (propnum >= 0) {
-					// Check if it's in the list already
-					s16 *ptr = propnums;
+				// Check if it's in the list already
+				s16 *ptr = propnums;
 
-					while (ptr < writeptr) {
-						if (*ptr == propnum) {
-							break;
-						}
-
-						ptr++;
+				while (ptr < writeptr) {
+					if (*ptr == propnum) {
+						break;
 					}
 
-					if (ptr == writeptr) {
-						// Prop is not in the list, so insert it
-						writeptr++;
-						writeptr[-1] = propnum;
-					}
+					ptr++;
+				}
+
+				if (ptr == writeptr) {
+					*writeptr = propnum;
+					writeptr++;
 				}
 			}
 
-			chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
+			chunkindex = chunk->next;
 		}
 
 		rooms++;
@@ -3074,48 +3089,35 @@ void propsDefragRoomProps(void)
 		s32 previndex = g_RoomPropListChunkIndexes[i];
 
 		if (previndex >= 0) {
-			s32 nextindex = g_RoomPropListChunks[previndex].propnums[7];
+			s32 nextindex = g_RoomPropListChunks[previndex].next;
 
 			// Iterate this room's chunks but skip the first
 			while (nextindex >= 0) {
-				// Iterate propnums within this chunk
-				for (j = 0; j < 7; j++) {
-					// If this propnum is unallocated
-					if (g_RoomPropListChunks[previndex].propnums[j] < 0) {
-						// Iterate forward through the chunk list and find a
-						// propnum to move back to the prev chunk
-						for (k = 0; k < 7; k++) {
-							if (g_RoomPropListChunks[nextindex].propnums[k] >= 0) {
-								g_RoomPropListChunks[previndex].propnums[j] = g_RoomPropListChunks[nextindex].propnums[k];
-								g_RoomPropListChunks[nextindex].propnums[k] = -1;
-								break;
-							}
-						}
+				// Iterate empty slots within this chunk
+				for (j = g_RoomPropListChunks[previndex].count; j < ARRAYCOUNT(g_RoomPropListChunks[j].propnums); j++) {
+					// Iterate forward through the chunk list and find a
+					// propnum to move back to the prev chunk
+					if (g_RoomPropListChunks[nextindex].count > 0) {
+						g_RoomPropListChunks[previndex].propnums[j] = g_RoomPropListChunks[nextindex].propnums[g_RoomPropListChunks[nextindex].count - 1];
+						g_RoomPropListChunks[nextindex].count--;
+					}
 
-						// Check if there are more propnums in the future chunk
-						for (; k < 7; k++) {
-							if (g_RoomPropListChunks[nextindex].propnums[k] >= 0) {
-								break;
-							}
-						}
+					// Check if next chunk is empty
+					if (g_RoomPropListChunks[nextindex].count <= 0) {
+						g_RoomPropListChunks[nextindex].count = 0;
+						g_RoomPropListChunks[previndex].next = g_RoomPropListChunks[nextindex].next;
 
-						if (k == 7) {
-							// There's no more propnums, so this chunk can be removed
-							g_RoomPropListChunks[nextindex].propnums[0] = -2;
-							g_RoomPropListChunks[previndex].propnums[7] = g_RoomPropListChunks[nextindex].propnums[7];
+						nextindex = g_RoomPropListChunks[previndex].next;
 
-							nextindex = g_RoomPropListChunks[previndex].propnums[7];
-
-							if (nextindex < 0) {
-								break;
-							}
+						if (nextindex < 0) {
+							break;
 						}
 					}
 				}
 
 				if (nextindex >= 0) {
 					previndex = nextindex;
-					nextindex = g_RoomPropListChunks[nextindex].propnums[7];
+					nextindex = g_RoomPropListChunks[nextindex].next;
 				}
 			}
 		}

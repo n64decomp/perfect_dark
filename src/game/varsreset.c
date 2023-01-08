@@ -71,9 +71,10 @@ void varsResetRoomProps(void)
 	}
 
 	for (i = 0; i < 256; i++) {
-		g_RoomPropListChunks[i].propnums[0] = -2;
+		g_RoomPropListChunks[i].count = 0;
+		g_RoomPropListChunks[i].next = -1;
 
-		for (j = 1; j < ARRAYCOUNT(g_RoomPropListChunks[i].propnums); j++) {
+		for (j = 0; j < ARRAYCOUNT(g_RoomPropListChunks[i].propnums); j++) {
 			g_RoomPropListChunks[i].propnums[j] = -1;
 		}
 	}
