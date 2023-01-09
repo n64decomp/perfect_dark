@@ -394,122 +394,6 @@ void memaPrint(void)
 #endif
 }
 
-#if MATCHING && VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel memaAlloc
-/*    12ab0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    12ab4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    12ab8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    12abc:	00809025 */ 	or	$s2,$a0,$zero
-/*    12ac0:	afb50028 */ 	sw	$s5,0x28($sp)
-/*    12ac4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    12ac8:	3c11800a */ 	lui	$s1,%hi(g_MemaHeap+0xc)
-/*    12acc:	3c078009 */ 	lui	$a3,%hi(g_Is4Mb)
-/*    12ad0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    12ad4:	afb40024 */ 	sw	$s4,0x24($sp)
-/*    12ad8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    12adc:	26319484 */ 	addiu	$s1,$s1,%lo(g_MemaHeap+0xc)
-/*    12ae0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*    12ae4:	00004025 */ 	or	$t0,$zero,$zero
-/*    12ae8:	24e70af0 */ 	addiu	$a3,$a3,%lo(g_Is4Mb)
-/*    12aec:	00008025 */ 	or	$s0,$zero,$zero
-/*    12af0:	2415ffff */ 	addiu	$s5,$zero,-1
-/*    12af4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    12af8:	24050010 */ 	addiu	$a1,$zero,0x10
-.L00012afc:
-/*    12afc:	8e230004 */ 	lw	$v1,0x4($s1)
-/*    12b00:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    12b04:	0072082b */ 	sltu	$at,$v1,$s2
-/*    12b08:	14200011 */ 	bnez	$at,.L00012b50
-/*    12b0c:	00721023 */ 	subu	$v0,$v1,$s2
-/*    12b10:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*    12b14:	0044082b */ 	sltu	$at,$v0,$a0
-/*    12b18:	12ae000f */ 	beq	$s5,$t6,.L00012b58
-/*    12b1c:	00000000 */ 	nop
-/*    12b20:	1020000b */ 	beqz	$at,.L00012b50
-/*    12b24:	2c410040 */ 	sltiu	$at,$v0,0x40
-/*    12b28:	00402025 */ 	or	$a0,$v0,$zero
-/*    12b2c:	1420000a */ 	bnez	$at,.L00012b58
-/*    12b30:	02204025 */ 	or	$t0,$s1,$zero
-/*    12b34:	90ef0000 */ 	lbu	$t7,0x0($a3)
-/*    12b38:	0012c082 */ 	srl	$t8,$s2,0x2
-/*    12b3c:	0058082b */ 	sltu	$at,$v0,$t8
-/*    12b40:	10cf0003 */ 	beq	$a2,$t7,.L00012b50
-/*    12b44:	00000000 */ 	nop
-/*    12b48:	14200003 */ 	bnez	$at,.L00012b58
-/*    12b4c:	00000000 */ 	nop
-.L00012b50:
-/*    12b50:	1605ffea */ 	bne	$s0,$a1,.L00012afc
-/*    12b54:	26310008 */ 	addiu	$s1,$s1,0x8
-.L00012b58:
-/*    12b58:	55000027 */ 	bnezl	$t0,.L00012bf8
-/*    12b5c:	8d030000 */ 	lw	$v1,0x0($t0)
-/*    12b60:	8e390004 */ 	lw	$t9,0x4($s1)
-/*    12b64:	00008025 */ 	or	$s0,$zero,$zero
-/*    12b68:	24140008 */ 	addiu	$s4,$zero,0x8
-/*    12b6c:	0332082b */ 	sltu	$at,$t9,$s2
-/*    12b70:	10200006 */ 	beqz	$at,.L00012b8c
-/*    12b74:	3c13800a */ 	lui	$s3,%hi(g_MemaHeap)
-/*    12b78:	8e29000c */ 	lw	$t1,0xc($s1)
-.L00012b7c:
-/*    12b7c:	26310008 */ 	addiu	$s1,$s1,0x8
-/*    12b80:	0132082b */ 	sltu	$at,$t1,$s2
-/*    12b84:	5420fffd */ 	bnezl	$at,.L00012b7c
-/*    12b88:	8e29000c */ 	lw	$t1,0xc($s1)
-.L00012b8c:
-/*    12b8c:	8e2a0000 */ 	lw	$t2,0x0($s1)
-/*    12b90:	26739478 */ 	addiu	$s3,$s3,%lo(g_MemaHeap)
-/*    12b94:	56aa0017 */ 	bnel	$s5,$t2,.L00012bf4
-/*    12b98:	02204025 */ 	or	$t0,$s1,$zero
-/*    12b9c:	3c11800a */ 	lui	$s1,%hi(g_MemaHeap+0xc)
-/*    12ba0:	26319484 */ 	addiu	$s1,$s1,%lo(g_MemaHeap+0xc)
-.L00012ba4:
-/*    12ba4:	0c0049bc */ 	jal	memaDefragPass
-/*    12ba8:	02602025 */ 	or	$a0,$s3,$zero
-/*    12bac:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    12bb0:	1614fffc */ 	bne	$s0,$s4,.L00012ba4
-/*    12bb4:	00000000 */ 	nop
-/*    12bb8:	8e6b0010 */ 	lw	$t3,0x10($s3)
-/*    12bbc:	0172082b */ 	sltu	$at,$t3,$s2
-/*    12bc0:	50200007 */ 	beqzl	$at,.L00012be0
-/*    12bc4:	8e2d0000 */ 	lw	$t5,0x0($s1)
-/*    12bc8:	8e2c000c */ 	lw	$t4,0xc($s1)
-.L00012bcc:
-/*    12bcc:	26310008 */ 	addiu	$s1,$s1,0x8
-/*    12bd0:	0192082b */ 	sltu	$at,$t4,$s2
-/*    12bd4:	5420fffd */ 	bnezl	$at,.L00012bcc
-/*    12bd8:	8e2c000c */ 	lw	$t4,0xc($s1)
-/*    12bdc:	8e2d0000 */ 	lw	$t5,0x0($s1)
-.L00012be0:
-/*    12be0:	56ad0004 */ 	bnel	$s5,$t5,.L00012bf4
-/*    12be4:	02204025 */ 	or	$t0,$s1,$zero
-/*    12be8:	1000000b */ 	b	.L00012c18
-/*    12bec:	00001025 */ 	or	$v0,$zero,$zero
-/*    12bf0:	02204025 */ 	or	$t0,$s1,$zero
-.L00012bf4:
-/*    12bf4:	8d030000 */ 	lw	$v1,0x0($t0)
-.L00012bf8:
-/*    12bf8:	8d0f0004 */ 	lw	$t7,0x4($t0)
-/*    12bfc:	00727021 */ 	addu	$t6,$v1,$s2
-/*    12c00:	01f2c023 */ 	subu	$t8,$t7,$s2
-/*    12c04:	ad0e0000 */ 	sw	$t6,0x0($t0)
-/*    12c08:	17000002 */ 	bnez	$t8,.L00012c14
-/*    12c0c:	ad180004 */ 	sw	$t8,0x4($t0)
-/*    12c10:	ad000000 */ 	sw	$zero,0x0($t0)
-.L00012c14:
-/*    12c14:	00601025 */ 	or	$v0,$v1,$zero
-.L00012c18:
-/*    12c18:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    12c1c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    12c20:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    12c24:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    12c28:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    12c2c:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*    12c30:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*    12c34:	03e00008 */ 	jr	$ra
-/*    12c38:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
-#else
 void *memaAlloc(u32 size)
 {
 	u32 addr;
@@ -528,32 +412,32 @@ void *memaAlloc(u32 size)
 
 	// Iterate up to the first 16 spaces, looking for the
 	// smallest space that will accommodate the requested size.
-	for (i = 0; i < 16; i++) {
-		if (curr->size >= size) {
-			if (curr->addr == 0xffffffff) {
-				// Reached the end
-				break;
-			}
-
-			diff = curr->size - size;
-
-			if (diff < bestdiff) {
-				bestdiff = diff;
-				best = curr;
-
-				// Stop looking if the space is small enough
-#if VERSION >= VERSION_NTSC_1_0
-				if (diff < 64 || (IS8MB() && diff < size / 4))
-#else
-				if (diff < 64 || diff < size / 4)
-#endif
-				{
-					break;
-				}
-			}
+	for (i = 0; i < 16; i++, curr++) {
+		if (curr->size < size) {
+			continue;
 		}
 
-		curr++;
+		if (curr->addr == 0xffffffff) {
+			// Reached the end
+			break;
+		}
+
+		diff = curr->size - size;
+
+		if (diff < bestdiff) {
+			bestdiff = diff;
+			best = curr;
+
+			// Stop looking if the space is small enough
+#if VERSION >= VERSION_NTSC_1_0
+			if (diff < 64 || (IS8MB() && diff < size / 4))
+#else
+			if (diff < 64 || diff < size / 4)
+#endif
+			{
+				break;
+			}
+		}
 	}
 
 	if (best == NULL) {
@@ -595,7 +479,6 @@ void *memaAlloc(u32 size)
 
 	return (void *)addr;
 }
-#endif
 
 /**
  * Grow the allocation which currently *ends at* the given address.
