@@ -1474,7 +1474,7 @@ void mainTick(void)
 			dhudClear();
 #endif
 
-			if (debug0f11ed70() >= 2) {
+			if (debugGetProfileMode() >= 2) {
 				gdl = profileRender(gdl);
 			}
 

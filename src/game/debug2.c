@@ -36,6 +36,13 @@
 #define DEBUGOPT_MANPOS        101
 #endif
 
+// The DEBUG_VALUE macro is used for readability.
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#define DEBUG_VALUE(valueifdebug, valueifnotdebug) (valueifdebug)
+#else
+#define DEBUG_VALUE(valueifdebug, valueifnotdebug) (valueifnotdebug)
+#endif
+
 #if VERSION == VERSION_PAL_BETA
 s32 var80075d60 = 2;
 s32 var80075d64 = 2;
@@ -43,6 +50,7 @@ s32 var80075d68 = 2;
 s32 var800786f4nb = 2;
 #endif
 
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 s32 g_DebugMenuOffsets[] = {
 	15,
 	30,
@@ -181,7 +189,6 @@ s32 g_DebugMenuPositions[][2] = {
 	{ 57, 30 },
 };
 
-// ntsc-beta rodata at 7f1af170
 char *g_DebugMenuLabels[] = {
 	"-",
 	"-",
@@ -339,15 +346,17 @@ u32 var800a7950nb;
 
 s32 g_DebugCurMenu = DEBUGMENU_MAIN;
 s32 g_DebugSelectedOptionsByMenu[2] = {0, 0};
+#endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION != VERSION_PAL_BETA
 s32 var80075d60 = 2;
 s32 var80075d64 = 2;
 s32 var80075d68 = 2;
 s32 var800786f4nb = 2;
 #endif
 
-s32 var800786f8nb = 0;
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+s32 g_DebugProfileMode = 0;
 bool g_DebugRenderBg = true;
 bool g_DebugRenderProps = true;
 s32 var80078704nb = 1;
@@ -355,14 +364,22 @@ s32 var80078708nb = 0;
 bool g_DebugRoomState = false;
 s32 var80078710nb = 0;
 s32 var80078714nb = 0;
-s32 var80078718nb = 0;
+s32 g_DebugRoomGfxExtraMem = 0;
 bool g_DebugObjDeform = false;
+#endif
+
 bool g_DebugLineMode = false;
+
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 s32 var80078724nb = 0;
 s32 var80078728nb = 0;
 s32 var8007872cnb = 0;
 bool g_DebugManPos = false;
+#endif
+
 bool g_DebugTurboMode = false;
+
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 bool g_DebugObjectives = false;
 bool g_DebugZBufferDisabled = false;
 s32 var80078740nb = 0;
@@ -421,36 +438,42 @@ u32 var80078804nb = 0x80600000;
 u32 var80078808nb = 0x00040000;
 u32 var8007880cnb = 0x70000000;
 u32 var80078810nb = 0x70100000;
+#endif
+
 s32 g_DebugScreenshotRgb = 0;
 s32 g_DebugScreenshotJpg = 0;
-bool g_DebugIsMenuOpen = false;
 
-u32 var80078820nb = 0;
-u32 var80078824nb = 0;
-u32 var80078828nb = 0;
-u32 var8007882cnb = 0;
-u32 var80078830nb = 0;
-u32 var80078834nb = 0xbf800000;
-u32 var80078838nb = 0;
-u32 var8007883cnb = 0x3f800000;
-u32 var80078840nb = 0;
-u32 var80078844nb = 0;
-u32 var80078848nb = 0x3f800000;
-u32 var8007884cnb = 0;
-u32 var80078850nb = 0;
-u32 var80078854nb = 0x3f800000;
-u32 var80078858nb = 0;
-u32 var8007885cnb = 0;
-u32 var80078860nb = 0;
-u32 var80078864nb = 0;
-u32 var80078868nb = 0;
-u32 var8007886cnb = 0;
-u32 var80078870nb = 0;
-u32 var80078874nb = 0;
-u32 var80078878nb = 0x3f800000;
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+bool g_DebugIsMenuOpen = false;
+#endif
+
+f32 var80075d80 = 0;
+f32 var80075d84 = 0;
+f32 var80075d88 = 0;
+f32 var80075d8c = 0;
+f32 var80075d90 = 0;
+f32 var80075d94 = -1;
+f32 var80075d98 = 0;
+f32 var80075d9c = 1;
+f32 var80075da0 = 0;
+f32 var80075da4 = 0;
+f32 var80075da8 = 1;
+f32 var80075dac = 0;
+f32 var80075db0 = 0;
+f32 var80075db4 = 1;
+f32 var80075db8 = 0;
+f32 var80075dbc = 0;
+f32 var80075dc0 = 0;
+f32 var80075dc4 = 0;
+f32 var80075dc8 = 0;
+f32 var80075dcc = 0;
+f32 var80075dd0 = 0;
+f32 var80075dd4 = 0;
+f32 var80075dd8 = 1;
 
 void debugUpdateMenu(void)
 {
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	s32 i;
 
 	if (g_DebugCurMenu == DEBUGMENU_MAIN) {
@@ -478,41 +501,45 @@ void debugUpdateMenu(void)
 	}
 
 	dmenuSetSelectedOption(g_DebugSelectedOptionsByMenu[g_DebugCurMenu]);
+#endif
 }
 
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 void debugSaveSelectedOption(void)
 {
 	g_DebugSelectedOptionsByMenu[g_DebugCurMenu] = dmenuGetSelectedOption();
 }
 
-void debug0f1193e4nb(void)
+void debug0f1193e4nb(void) // not called
 {
 	// empty
 }
 
-void debug0f1193ecnb(void)
+void debug0f1193ecnb(void) // not called
 {
 	// empty
 }
 
-void debug0f1193f4nb(void)
+void debug0f1193f4nb(void) // not called
 {
 	var80075d60 = var80075d64 = var800786f4nb = 2;
 }
 
-void debug0f11941cnb(void)
+void debug0f11941cnb(void) // not called
 {
 	rmon0002fa30(&var800787f4nb, 2);
 	rmon0002fa38(250);
 }
 
-void debug0f11944cnb(void)
+void debug0f11944cnb(void) // not called
 {
 	rmon0002fa40();
 }
+#endif
 
 bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 {
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	s32 i;
 	s32 prev;
 	s32 tmp = 3;
@@ -708,61 +735,66 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 	debugSaveSelectedOption();
 
 	return g_DebugIsMenuOpen;
+#else
+	return false;
+#endif
 }
 
-bool debug0f11ed70(void)
+s32 debugGetProfileMode(void)
 {
-	return var800786f8nb;
+	return DEBUG_VALUE(g_DebugProfileMode, 0);
 }
 
 bool debugIsBgRenderingEnabled(void)
 {
-	return g_DebugRenderBg;
+	return DEBUG_VALUE(g_DebugRenderBg, true);
 }
 
 bool debugIsPropRenderingEnabled(void)
 {
-	return g_DebugRenderProps;
+	return DEBUG_VALUE(g_DebugRenderProps, true);
 }
 
-bool debug0f11990cnb(void)
+bool debug0f11ed88(void)
 {
-	return var80078708nb;
+	return DEBUG_VALUE(var80078708nb, false);
 }
 
 bool debugIsManPosEnabled(void)
 {
-	return g_DebugManPos;
+	return DEBUG_VALUE(g_DebugManPos, false);
 }
 
 void debugSetManPos(bool enabled)
 {
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	g_DebugManPos = enabled;
+#endif
 }
 
-bool debug0f119930nb(void)
+bool debug0f11eda0(void) // not called
 {
-	return var80078710nb;
+	return DEBUG_VALUE(var80078710nb, false);
 }
 
-bool debug0f11993cnb(void)
+bool debug0f11eda8(void) // not called
 {
-	return var80078714nb;
+	return DEBUG_VALUE(var80078714nb, false);
 }
 
-bool debug0f11edb0(void)
+bool debugIsRoomGfxExtraMemEnabled(void)
 {
-	return var80078718nb;
+	return DEBUG_VALUE(g_DebugRoomGfxExtraMem, false);
 }
 
 bool debugIsObjDeformDebugEnabled(void)
 {
-	return g_DebugObjDeform;
+	return DEBUG_VALUE(g_DebugObjDeform, false);
 }
 
 bool debugIsRoomStateDebugEnabled(void)
 {
-	return g_DebugRoomState;
+	return DEBUG_VALUE(g_DebugRoomState, false);
 }
 
 bool debugIsLineModeEnabled(void)
@@ -774,6 +806,33 @@ void debugSetLineModeEnabled(bool enabled)
 {
 	g_DebugLineMode = enabled;
 }
+
+#if VERSION != VERSION_NTSC_BETA && VERSION != VERSION_PAL_BETA
+bool debug0f11ede0(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ede8(void) // not called
+{
+	return false;
+}
+
+bool debug0f11edf0(void) // not called
+{
+	return false;
+}
+
+void debug0f11edf8(void) // not called
+{
+	// empty
+}
+
+void debug0f11ee00(void) // not called
+{
+	// empty
+}
+#endif
 
 bool debugIsTurboModeEnabled(void)
 {
@@ -787,35 +846,40 @@ void debugSetTurboMode(bool enabled)
 
 bool debugForceAllObjectivesComplete(void)
 {
-	return g_DebugObjectives;
+	return DEBUG_VALUE(g_DebugObjectives, false);
 }
 
 bool debugIsZBufferDisabled(void)
 {
-	return g_DebugZBufferDisabled;
+	return DEBUG_VALUE(g_DebugZBufferDisabled, false);
 }
 
-bool debug0f11ee30(void)
+bool debug0f11ee30(void) // not called
 {
-	return var80078744nb;
+	return DEBUG_VALUE(var80078744nb, false);
 }
 
-bool debug0f11ee38(void)
+bool debug0f11ee38(void) // not called
 {
-	return var80078750nb;
+	return DEBUG_VALUE(var80078750nb, false);
 }
 
 bool debug0f11ee40(void)
 {
-	return var80078754nb;
+	return DEBUG_VALUE(var80078754nb, false);
 }
 
-bool debug0f1199d8nb(void)
+//------------------------------------------------------------------------------
+// Unsure which functions are which between versions
+// as none are called by both versions
+
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+bool debug0f1199d8nb(void) // not called
 {
 	return var80078758nb;
 }
 
-bool debug0f1199e4nb(void)
+bool debug0f1199e4nb(void) // not called
 {
 	return var80078740nb;
 }
@@ -825,12 +889,12 @@ bool debug0f1199f0nb(void)
 	return var80078724nb;
 }
 
-bool debug0f1199fcnb(void)
+bool debug0f1199fcnb(void) // not called
 {
 	return var80078728nb;
 }
 
-bool debug0f119a08nb(void)
+bool debug0f119a08nb(void) // not called
 {
 	return var8007872cnb;
 }
@@ -840,102 +904,166 @@ bool debug0f119a14nb(void)
 	return var80078748nb;
 }
 
-bool debug0f119a20nb(void)
+bool debug0f119a20nb(void) // not called
 {
 	return var8007874cnb;
 }
 
-bool debug0f119a2cnb(void)
+bool debug0f119a2cnb(void) // not called
 {
 	return var8007875cnb;
 }
-
-s32 debugGetSlowMotion(void)
-{
-	return g_DebugSlowMotion;
-}
-
-bool debug0f119a44nb(void)
-{
-	return var80078768nb;
-}
-
-bool debug0f119a50nb(void)
-{
-	return var80078760nb;
-}
-
-s32 debugGetTilesDebugMode(void)
-{
-	return g_DebugTiles;
-}
-
-s32 debugGetPadsDebugMode(void)
-{
-	return g_DebugPads;
-}
-
-bool debug0f119a74nb(void)
-{
-	return var80078774nb;
-}
-
-void debug0f119a80nb(void)
-{
-	var80078774nb = 0;
-}
-
-bool debug0f119a8cnb(void)
-{
-	return var80078778nb;
-}
-
-bool debug0f11eea8(void)
-{
-	return var80078780nb;
-}
-
-bool debug0f119aa4nb(void)
+#else
+bool debug0f11ee48(void) // not called
 {
 	return false;
 }
 
-bool debugDangerousProps(void)
+bool debug0f11ee50(void) // not called
 {
-	return var800787ecnb;
+	return false;
 }
 
-bool debug0f119ab8nb(void)
+bool debug0f11ee58(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ee60(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ee68(void) // not called
+{
+	return false;
+}
+#endif
+
+//------------------------------------------------------------------------------
+
+s32 debugGetSlowMotion(void)
+{
+	return DEBUG_VALUE(g_DebugSlowMotion, SLOWMOTION_OFF);
+}
+
+bool debug0f11ee78(void) // not called
+{
+	return DEBUG_VALUE(var80078768nb, false);
+}
+
+bool debug0f11ee80(void) // not called
+{
+	return DEBUG_VALUE(var80078760nb, false);
+}
+
+s32 debugGetTilesDebugMode(void)
+{
+	return DEBUG_VALUE(g_DebugTiles, 0);
+}
+
+s32 debugGetPadsDebugMode(void)
+{
+	return DEBUG_VALUE(g_DebugPads, 0);
+}
+
+bool debug0f11ee98(void) // not called
+{
+	return DEBUG_VALUE(var80078774nb, false);
+}
+
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+void debug0f119a80nb(void)
+{
+	var80078774nb = 0;
+}
+#endif
+
+bool debug0f11eea0(void) // not called
+{
+	return DEBUG_VALUE(var80078778nb, false);
+}
+
+bool debug0f11eea8(void)
+{
+	return DEBUG_VALUE(var80078780nb, false);
+}
+
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+bool debug0f119aa4nb(void)
+{
+	return false;
+}
+#endif
+
+bool debugDangerousProps(void)
+{
+	return DEBUG_VALUE(var800787ecnb, false);
+}
+
+//------------------------------------------------------------------------------
+// Unsure which functions are which between versions
+// as none are called by both versions
+
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+bool debug0f119ab8nb(void) // not called
 {
 	return var800787d8nb;
 }
 
-bool debug0f119ac4nb(void)
+bool debug0f119ac4nb(void) // not called
 {
 	return var800787dcnb;
 }
 
-bool debug0f119ad0nb(void)
+bool debug0f119ad0nb(void) // not called
 {
 	return var8007877cnb;
 }
-
-bool debugGetMotionBlur(void)
+#else
+bool debug0f11eeb8(void) // not called
 {
-	return var80078784nb;
+	return false;
+}
+
+bool debug0f11eec0(void) // not called
+{
+	return false;
+}
+
+bool debug0f11eec8(void) // not called
+{
+	return false;
+}
+
+bool debug0f11eed0(void) // not called
+{
+	return false;
+}
+#endif
+
+//------------------------------------------------------------------------------
+
+s32 debugGetMotionBlur(void)
+{
+	return DEBUG_VALUE(var80078784nb, 0);
 }
 
 bool debug0f119ae8nb(void)
 {
-	return var80078790nb;
+	return DEBUG_VALUE(var80078790nb, false);
 }
 
 u32 dprint()
 {
-	return var800787b8nb;
+	return DEBUG_VALUE(var800787b8nb, 0);
 }
 
-bool debug0f119b00nb(void)
+//------------------------------------------------------------------------------
+// Reordered functions between versions
+
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+bool debug0f119b00nb(void) // not called
 {
 	return var800787c0nb;
 }
@@ -945,22 +1073,22 @@ bool debugAllowEndLevel(void)
 	return var800787c4nb;
 }
 
-bool debug0f119b18nb(void)
+bool debug0f119b18nb(void) // not called
 {
 	return var800787c8nb;
 }
 
-bool debug0f119b24nb(void)
+bool debug0f119b24nb(void) // not called
 {
 	return var800787ccnb;
 }
 
-bool debug0f119b30nb(void)
+bool debug0f119b30nb(void) // not called
 {
 	return var800787d0nb;
 }
 
-bool debug0f119b3cnb(void)
+bool debug0f119b3cnb(void) // not called
 {
 	return var800787d4nb;
 }
@@ -992,12 +1120,12 @@ bool debugIsAllTrainingEnabled(void)
 	return g_DebugAllTraining;
 }
 
-bool debug0f119b78nb(void)
+bool debug0f119b78nb(void) // not called
 {
 	return var800787a4nb;
 }
 
-bool debug0f119b84nb(void)
+bool debug0f119b84nb(void) // not called
 {
 	return var800787a8nb;
 }
@@ -1007,12 +1135,12 @@ bool debugIsMemInfoEnabled(void)
 	return g_DebugMemInfo;
 }
 
-bool debug0f119b9cnb(void)
+bool debug0f119b9cnb(void) // not called
 {
 	return var800787b0nb;
 }
 
-bool debug0f119ba8nb(void)
+bool debug0f119ba8nb(void) // not called
 {
 	return var800787bcnb;
 }
@@ -1027,12 +1155,133 @@ bool debug0f11ef80(void)
 	return var800787e8nb;
 }
 
-bool debug0f119bccnb(void)
+bool debug0f119bccnb(void) // not called
 {
 	return var800787e0nb;
 }
 
-bool debug0f119bd8nb(void)
+bool debug0f119bd8nb(void) // not called
 {
 	return var800787f0nb;
 }
+#else
+bool debug0f11eef0(void) // not called
+{
+	return false;
+}
+
+bool debugIsFootstepsEnabled(void)
+{
+	return true;
+}
+
+bool debug0f11ef00(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef08(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef10(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef18(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef20(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef28(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef30(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef38(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef40(void) // not called
+{
+	return false;
+}
+
+bool debugAllowEndLevel(void)
+{
+	return true;
+}
+
+bool debug0f11ef50(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef58(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef60(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef68(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef70(void) // not called
+{
+	return false;
+}
+
+bool debugIsChrStatsEnabled(void)
+{
+	return false;
+}
+
+bool debug0f11ef80(void)
+{
+	return false;
+}
+
+bool debug0f11ef88(void) // not called
+{
+	return false;
+}
+
+bool debug0f11ef90(void) // not called
+{
+	return false;
+}
+
+void debug0f11ef98(s32 arg0) // not called
+{
+	// empty
+}
+
+void debug0f11efa0(void) // not called
+{
+	// empty
+}
+
+void debug0f11efa8(void) // not called
+{
+	// empty
+}
+#endif

@@ -3134,7 +3134,7 @@ glabel bgLoadRoom
 /*  f15dcbc:	18400009 */ 	blez	$v0,.L0f15dce4
 /*  f15dcc0:	00000000 */ 	nop
 /*  f15dcc4:	afa202f4 */ 	sw	$v0,0x2f4($sp)
-/*  f15dcc8:	0fc47b6c */ 	jal	debug0f11edb0
+/*  f15dcc8:	0fc47b6c */ 	jal	debugIsRoomGfxExtraMemEnabled
 /*  f15dccc:	afa402f8 */ 	sw	$a0,0x2f8($sp)
 /*  f15dcd0:	10400007 */ 	beqz	$v0,.L0f15dcf0
 /*  f15dcd4:	8fac02f4 */ 	lw	$t4,0x2f4($sp)
@@ -3703,7 +3703,7 @@ glabel bgLoadRoom
 /*  f158468:	8c620080 */ 	lw	$v0,0x80($v1)
 /*  f15846c:	18400008 */ 	blez	$v0,.NB0f158490
 /*  f158470:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f158474:	0fc46652 */ 	jal	debug0f11edb0
+/*  f158474:	0fc46652 */ 	jal	debugIsRoomGfxExtraMemEnabled
 /*  f158478:	afa202f4 */ 	sw	$v0,0x2f4($sp)
 /*  f15847c:	10400007 */ 	beqz	$v0,.NB0f15849c
 /*  f158480:	8fac02f4 */ 	lw	$t4,0x2f4($sp)
@@ -4308,7 +4308,7 @@ void bgLoadRoom(s32 roomnum)
 	if (g_Rooms[roomnum].gfxdatalen > 0) {
 		size = g_Rooms[roomnum].gfxdatalen;
 
-		if (debug0f11edb0()) {
+		if (debugIsRoomGfxExtraMemEnabled()) {
 			size += 1024;
 		}
 	} else {

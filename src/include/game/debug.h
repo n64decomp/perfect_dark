@@ -6,12 +6,12 @@
 
 void debug0f119a80nb(void);
 u32 dprint();
-s32 debug0f11ed70(void);
+s32 debugGetProfileMode(void);
 bool debugIsBgRenderingEnabled(void);
 bool debugIsPropRenderingEnabled(void);
-bool debug0f11990cnb(void);
+bool debug0f11ed88(void);
 bool debugIsManPosEnabled(void);
-bool debug0f11edb0(void);
+bool debugIsRoomGfxExtraMemEnabled(void);
 bool debugIsObjDeformDebugEnabled(void);
 bool debugIsRoomStateDebugEnabled(void);
 s32 debugIsTurboModeEnabled(void);

@@ -4047,7 +4047,7 @@ void playerTick(bool arg0)
 	}
 
 #if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-	if (debug0f11990cnb()) {
+	if (debug0f11ed88()) {
 		debug0f119a14nb();
 	}
 #endif
