@@ -2637,7 +2637,7 @@ s32 chrTick(struct prop *prop)
 #endif
 
 	if (needsupdate) {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 		debug0f1199f0nb();
 #endif
 

@@ -32,7 +32,7 @@ OSMesg g_FaultMesg;
 #if VERSION == VERSION_NTSC_BETA
 u8 g_CrashHasMessage = false;
 #else
-bool g_CrashHasMessage = false;
+bool g_CrashEnabled = false;
 #endif
 
 s16 g_CrashCurX = 0;
@@ -137,7 +137,7 @@ struct crashdescription g_CrashFpcsrDescriptions[] = {
 
 char (*g_CrashCharBuffer)[71] = NULL;
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 u32 var8005f138nb[] = {
 	0x00000000, 0x22220200, 0x55000000, 0x05f5f500,
 	0x27427200, 0x05124500, 0x34255300, 0x22000000,
@@ -216,12 +216,12 @@ void faultproc(void *arg0)
 		osSetIntMask(mask);
 
 #if VERSION == VERSION_PAL_BETA
-		if (!g_CrashHasMessage) {
+		if (!g_CrashEnabled) {
 			continue;
 		}
 #endif
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 		crashGenerate(curr, callstack, &tracelen);
 		schedSetCrashedUnexpectedly(true);
 #endif
@@ -233,8 +233,9 @@ u32 var8009710cnb;
 char *var80097110nb;
 char *var80097114nb;
 u32 var80097118nb[24];
-char var80097178nb[MAX_LINES + 1][71];
-#elif VERSION == VERSION_PAL_BETA
+#endif
+
+#ifdef DEBUG
 char var80097178nb[MAX_LINES + 1][71];
 #endif
 
@@ -881,7 +882,7 @@ void crashRenderChar(s32 x, s32 y, char c)
 		fbpos = g_CrashFrameBuffer + x + y * width;
 	}
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	a2 = var8005f138nb[c - ' '];
 #else
 	a2 = 0;
@@ -934,7 +935,7 @@ void crashRenderChar(s32 x, s32 y, char c)
 
 void crashReset(void)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	g_CrashCharBuffer = var80097178nb;
 #else
 	g_CrashCharBuffer = NULL;

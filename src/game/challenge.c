@@ -118,7 +118,7 @@ void challengeDetermineUnlockedFeatures(void)
 			flag = 1;
 			numgifted++;
 		}
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 		else if (debugIsAllChallengesEnabled()) {
 			flag = 1;
 		}

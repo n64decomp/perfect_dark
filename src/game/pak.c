@@ -252,7 +252,7 @@ u32 var800a337c;
 u32 var800a3380;
 u32 var800a3384;
 
-#if VERSION != VERSION_NTSC_BETA && VERSION != VERSION_PAL_BETA
+#ifndef DEBUG
 // This is likely g_DebugCutsceneLabelPtrs and/or g_DebugCutsceneLabelBuffers
 // but with reduced lengths
 u32 var800a3388;

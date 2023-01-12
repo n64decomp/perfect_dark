@@ -68,6 +68,13 @@ ROMALLOCATION_GAME = 0x144ee0
 
 ROM_SIZE := 32
 
+# DEBUG - Enable (1) or disable (0) the debug menu and crash screen.
+#
+# When enabled, press C-up and C-down simultaneously to toggle the debug menu.
+# Note that some emulators have problems displaying the crash screen text.
+
+DEBUG = 0
+
 ################################################################################
 
 # The VERSION constant is used in the source to handle version-specific code.
@@ -112,6 +119,7 @@ ROMALLOCATION_DATA = 0x015000
 ROMALLOCATION_LIB  = 0x038800
 
 ROM_SIZE = 32
+DEBUG = 0
 
 ifeq ($(ROMID), ntsc-beta)
     PAL = 0
@@ -119,6 +127,7 @@ ifeq ($(ROMID), ntsc-beta)
     ROMALLOCATION_DATA = 0x012000
     ROMALLOCATION_LIB  = 0x02f800
     ROMALLOCATION_GAME = 0x105000
+    DEBUG = 1
 endif
 ifeq ($(ROMID), ntsc-1.0)
     PAL = 0
@@ -138,6 +147,7 @@ ifeq ($(ROMID), pal-beta)
     ROMALLOCATION_GAME = 0x1306f0
     ZIPMAGIC = 0x0c00
     COPYLEN = 6
+    DEBUG = 1
 endif
 ifeq ($(ROMID), pal-final)
     PAL = 1
@@ -160,6 +170,10 @@ DEFINES := \
     PAL=$(PAL) \
     PIRACYCHECKS=$(PIRACYCHECKS) \
     ROM_SIZE=$(ROM_SIZE)
+
+ifeq ($(DEBUG),1)
+    DEFINES := $(DEFINES) DEBUG=1
+endif
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 AS_DEFINES := $(foreach d,$(DEFINES),--defsym $(d)) --defsym _LANGUAGE_ASSEMBLY=1

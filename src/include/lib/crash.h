@@ -90,7 +90,7 @@ extern const char var700529ac[];
 #if VERSION == VERSION_NTSC_BETA
 extern u8 g_CrashHasMessage;
 #else
-extern bool g_CrashHasMessage;
+extern bool g_CrashEnabled;
 #endif
 
 void crashSetMessage(char *string);

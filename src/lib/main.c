@@ -376,16 +376,16 @@ void mainInit(void)
 	}
 
 #if VERSION == VERSION_PAL_BETA
-	// In PAL beta, pressing all C buttons during poweron sets g_CrashHasMessage.
-	// If it's set, a sound effect is played on the legal screen.
-	// It's likely some debug code to see how far the game got before crashing.
+	// In PAL beta, pressing all C buttons during poweron sets g_CrashEnabled.
+	// If it's set, a sound effect is played on the legal screen to confirm
+	// and the crash screen will be shown if the game crashes.
 #define BUTTON_MASK (U_CBUTTONS | D_CBUTTONS | L_CBUTTONS | R_CBUTTONS)
 
 	if (joyGetButtons(0, BUTTON_MASK) == BUTTON_MASK
 			|| joyGetButtons(1, BUTTON_MASK) == BUTTON_MASK
 			|| joyGetButtons(2, BUTTON_MASK) == BUTTON_MASK
 			|| joyGetButtons(3, BUTTON_MASK) == BUTTON_MASK) {
-		g_CrashHasMessage = true;
+		g_CrashEnabled = true;
 	}
 #endif
 
@@ -1428,7 +1428,7 @@ void mainTick(void)
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 			if (g_MainIsDebugMenuOpen || joyGetButtons(0, U_CBUTTONS | D_CBUTTONS) == (U_CBUTTONS | D_CBUTTONS)) {
 				g_MainIsDebugMenuOpen = debugProcessInput(joyGetStickX(0), joyGetStickY(0), joyGetButtons(0, 0xffff), joyGetButtonsPressedThisFrame(0, 0xffff));
 			} else if (joyGetButtons(0, START_BUTTON) == 0) {
@@ -1459,7 +1459,7 @@ void mainTick(void)
 			gdl = lvRender(gdl);
 			func000034e0(&gdl);
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 			if (debugIsLineModeEnabled()) {
 				gDPPipeSync(gdl++);
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -1478,7 +1478,7 @@ void mainTick(void)
 				gdl = profileRender(gdl);
 			}
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 			if (g_MainIsDebugMenuOpen) {
 				debugUpdateMenu();
 				gdl = dmenuRender(gdl);

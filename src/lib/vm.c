@@ -76,7 +76,7 @@ u8 *g_VmMarker;
 u32 g_VmRamEnd;
 u32 g_VmStateTableEnd;
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 u8 g_VmShowStats = false;
 #endif
 

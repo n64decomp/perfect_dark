@@ -219,12 +219,12 @@ void memaReset(void *heapaddr, u32 heapsize)
 {
 	struct memaspace *space;
 
-#if VERSION != VERSION_NTSC_BETA && VERSION != VERSION_PAL_BETA
+#ifndef DEBUG
 	// Adding an amount to the heap size here means that mema can allocate past
 	// the end of its heap. This would overflow into the gun names language
-	// file. Maybe this code was intended to be temporary while a developer
-	// figured out how much memory was needed, but they forgot to remove it?
-	// @dangerous
+	// file. Maybe the developers had an ifndef directive like we do, but they
+	// meant for it to be ifdef instead?
+	// @bug @dangerous
 	heapsize += 0x8e0;
 #endif
 

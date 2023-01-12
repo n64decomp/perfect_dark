@@ -181,7 +181,9 @@ void titleInitLegal(void)
 	g_TitleFastForward = false;
 
 #if VERSION == VERSION_PAL_BETA
-	if (g_CrashHasMessage) {
+	// Play a sound if player has successfully enabled the crash screen.
+	// This is done in mainInit by holding all four C buttons.
+	if (g_CrashEnabled) {
 		sndStart(var80095200, SFX_8113, 0, -1, -1, -1.0f, -1, -1);
 	}
 #endif

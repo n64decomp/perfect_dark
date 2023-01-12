@@ -659,7 +659,7 @@ bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 	return true;
 }
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 Gfx *lvRenderManPosIfEnabled(Gfx *gdl)
 {
 	char bufroom[16];
@@ -1313,7 +1313,7 @@ Gfx *lvRender(Gfx *gdl)
 				if (var80075d60 == 2) {
 					gdl = playerRenderHud(gdl);
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 					gdl = lvRenderManPosIfEnabled(gdl);
 #endif
 				} else {

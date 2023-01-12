@@ -4046,7 +4046,7 @@ void playerTick(bool arg0)
 				g_Vars.currentplayer->prop->rooms);
 	}
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	if (debug0f11ed88()) {
 		debug0f119a14nb();
 	}

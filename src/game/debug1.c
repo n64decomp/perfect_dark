@@ -6,7 +6,7 @@
 #include "data.h"
 #include "types.h"
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 s32 g_DMenuSelectedOption = 0;
 s32 g_DMenuNumOptions = 0;
 char **g_DMenuCurLabels = NULL;
@@ -18,7 +18,7 @@ u8 g_DMenuXScales[] = { 4, 4, 4 };
 u8 g_DMenuYScales[] = { 7, 7, 7 };
 #endif
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 void dmenu0f118c80nb(void)
 {
 	// empty
@@ -27,14 +27,14 @@ void dmenu0f118c80nb(void)
 
 void dmenuSetScaleIndex(s32 index)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	g_DMenuScaleIndex = index;
 #endif
 }
 
 void dmenuSetMenu(char **labels, s32 (*positions)[2], s32 *offsets)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	s32 numgroups;
 
 	g_DMenuCurLabels = labels;
@@ -50,7 +50,7 @@ void dmenuSetMenu(char **labels, s32 (*positions)[2], s32 *offsets)
 
 Gfx *dmenuRender(Gfx *gdl)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	s32 xscale = g_DMenuXScales[g_DMenuScaleIndex];
 	s32 yscale = g_DMenuYScales[g_DMenuScaleIndex];
 	s32 i;
@@ -83,7 +83,7 @@ Gfx *dmenuRender(Gfx *gdl)
 	return gdl;
 }
 
-#if VERSION != VERSION_NTSC_BETA && VERSION != VERSION_PAL_BETA
+#ifndef DEBUG
 void debug0f11ed10(s32 arg0, s32 arg1, s32 arg2)
 {
 	// empty
@@ -92,7 +92,7 @@ void debug0f11ed10(s32 arg0, s32 arg1, s32 arg2)
 
 s32 dmenuGetSelectedOption(void)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	return g_DMenuSelectedOption;
 #else
 	return 0;
@@ -101,14 +101,14 @@ s32 dmenuGetSelectedOption(void)
 
 void dmenuSetSelectedOption(s32 option)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	g_DMenuSelectedOption = option;
 #endif
 }
 
 void dmenuNavigateUp(void)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	s32 i;
 
 	g_DMenuSelectedOption--;
@@ -133,7 +133,7 @@ void dmenuNavigateUp(void)
 
 void dmenuNavigateDown(void)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	s32 i;
 
 	g_DMenuSelectedOption++;
@@ -158,7 +158,7 @@ void dmenuNavigateDown(void)
 
 void dmenuNavigateRight(void)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	s32 i;
 
 	if (g_DMenuSelectedOption < g_DMenuCurOffsets[0]) {
@@ -195,7 +195,7 @@ void dmenuNavigateRight(void)
 
 void dmenuNavigateLeft(void)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	s32 i;
 
 	// First group

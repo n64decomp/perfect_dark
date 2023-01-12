@@ -37,7 +37,7 @@
 #endif
 
 // The DEBUG_VALUE macro is used for readability.
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 #define DEBUG_VALUE(valueifdebug, valueifnotdebug) (valueifdebug)
 #else
 #define DEBUG_VALUE(valueifdebug, valueifnotdebug) (valueifnotdebug)
@@ -50,7 +50,7 @@ s32 var80075d68 = 2;
 s32 var800786f4nb = 2;
 #endif
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 s32 g_DebugMenuOffsets[] = {
 	15,
 	30,
@@ -355,7 +355,7 @@ s32 var80075d68 = 2;
 s32 var800786f4nb = 2;
 #endif
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 s32 g_DebugProfileMode = 0;
 bool g_DebugRenderBg = true;
 bool g_DebugRenderProps = true;
@@ -370,7 +370,7 @@ bool g_DebugObjDeform = false;
 
 bool g_DebugLineMode = false;
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 s32 var80078724nb = 0;
 s32 var80078728nb = 0;
 s32 var8007872cnb = 0;
@@ -379,7 +379,7 @@ bool g_DebugManPos = false;
 
 bool g_DebugTurboMode = false;
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 bool g_DebugObjectives = false;
 bool g_DebugZBufferDisabled = false;
 s32 var80078740nb = 0;
@@ -443,7 +443,7 @@ u32 var80078810nb = 0x70100000;
 s32 g_DebugScreenshotRgb = 0;
 s32 g_DebugScreenshotJpg = 0;
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 bool g_DebugIsMenuOpen = false;
 #endif
 
@@ -473,7 +473,7 @@ f32 var80075dd8 = 1;
 
 void debugUpdateMenu(void)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	s32 i;
 
 	if (g_DebugCurMenu == DEBUGMENU_MAIN) {
@@ -504,7 +504,7 @@ void debugUpdateMenu(void)
 #endif
 }
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 void debugSaveSelectedOption(void)
 {
 	g_DebugSelectedOptionsByMenu[g_DebugCurMenu] = dmenuGetSelectedOption();
@@ -539,7 +539,7 @@ void debug0f11944cnb(void) // not called
 
 bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	s32 i;
 	s32 prev;
 	s32 tmp = 3;
@@ -767,7 +767,7 @@ bool debugIsManPosEnabled(void)
 
 void debugSetManPos(bool enabled)
 {
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	g_DebugManPos = enabled;
 #endif
 }
@@ -807,7 +807,7 @@ void debugSetLineModeEnabled(bool enabled)
 	g_DebugLineMode = enabled;
 }
 
-#if VERSION != VERSION_NTSC_BETA && VERSION != VERSION_PAL_BETA
+#ifndef DEBUG
 bool debug0f11ede0(void) // not called
 {
 	return false;
@@ -873,7 +873,7 @@ bool debug0f11ee40(void)
 // Unsure which functions are which between versions
 // as none are called by both versions
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 bool debug0f1199d8nb(void) // not called
 {
 	return var80078758nb;
@@ -972,7 +972,7 @@ bool debug0f11ee98(void) // not called
 	return DEBUG_VALUE(var80078774nb, false);
 }
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 void debug0f119a80nb(void)
 {
 	var80078774nb = 0;
@@ -989,7 +989,7 @@ bool debug0f11eea8(void)
 	return DEBUG_VALUE(var80078780nb, false);
 }
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 bool debug0f119aa4nb(void)
 {
 	return false;
@@ -1005,7 +1005,7 @@ bool debugDangerousProps(void)
 // Unsure which functions are which between versions
 // as none are called by both versions
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 bool debug0f119ab8nb(void) // not called
 {
 	return var800787d8nb;
@@ -1062,7 +1062,7 @@ u32 dprint()
 //------------------------------------------------------------------------------
 // Reordered functions between versions
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 bool debug0f119b00nb(void) // not called
 {
 	return var800787c0nb;
