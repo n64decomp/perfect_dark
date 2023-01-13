@@ -6366,7 +6366,7 @@ void chrRecordLastVisibleTargetTime(struct chrdata *chr)
 	chr->lastvisibletarget60 = g_Vars.lvframe60;
 }
 
-bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, bool allowextraheight, u32 attackflags, u32 entityid)
+bool chrHasLosToEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, bool allowextraheight, u32 attackflags, u32 entityid)
 {
 	bool result = false;
 	struct coord targetpos;
@@ -6456,7 +6456,7 @@ bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, b
 	return result;
 }
 
-bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool allowextraheight)
+bool chrHasLosToAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool allowextraheight)
 {
 	u32 attackflags = ATTACKFLAG_AIMATTARGET;
 	u32 entityid = 0;
@@ -6466,16 +6466,16 @@ bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, b
 		entityid = chr->act_attack.entityid;
 	}
 
-	return chrCanSeeEntity(chr, pos, rooms, allowextraheight, attackflags, entityid);
+	return chrHasLosToEntity(chr, pos, rooms, allowextraheight, attackflags, entityid);
 }
 
-bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
+bool chrHasLosToChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 {
 	bool cansee = false;
 	u32 stack;
 	s16 sp88[] = {-1, 0, 0, 0, 0, 0, 0, 0};
 
-	if (botIsTargetInvisible(chr, target) == 0) {
+	if (!botIsTargetInvisible(chr, target)) {
 		struct prop *prop = chr->prop;
 		struct coord pos;
 		s16 rooms[8];
@@ -6506,7 +6506,7 @@ bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 	return cansee;
 }
 
-bool chrCanSeeTarget(struct chrdata *chr)
+bool chrHasLosToTarget(struct chrdata *chr)
 {
 	bool cansee;
 	struct prop *prop;
@@ -6516,7 +6516,7 @@ bool chrCanSeeTarget(struct chrdata *chr)
 	prop = chrGetTargetProp(chr);
 
 	if (prop && prop->chr) {
-		cansee = chrCanSeeChr(chr, prop->chr, NULL);
+		cansee = chrHasLosToChr(chr, prop->chr, NULL);
 
 		if (cansee) {
 			chrRecordLastVisibleTargetTime(chr);
@@ -6524,7 +6524,7 @@ bool chrCanSeeTarget(struct chrdata *chr)
 	}
 #else
 	prop = chrGetTargetProp(chr);
-	cansee = chrCanSeeChr(chr, prop->chr, NULL);
+	cansee = chrHasLosToChr(chr, prop->chr, NULL);
 
 	if (cansee) {
 		chrRecordLastVisibleTargetTime(chr);
@@ -6534,7 +6534,7 @@ bool chrCanSeeTarget(struct chrdata *chr)
 	return cansee;
 }
 
-bool chrHasLineOfSightToPos(struct chrdata *chr, struct coord *pos, s16 *rooms)
+bool chrHasLosToPos(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
 	struct prop *prop = chr->prop;
 	bool result = false;
@@ -6559,7 +6559,11 @@ bool chrHasLineOfSightToPos(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	return result;
 }
 
-bool chrCanSeePos(struct chrdata *chr, struct coord *pos, s16 *rooms)
+/**
+ * Wasteful because this function calculates angles then does nothing with them.
+ * chrHasLosToPos is called with the same arguments regardless.
+ */
+bool chrHasLosToPosWasteful(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
 	f32 facingangle = chrGetInverseTheta(chr);
 	f32 posangle = atan2f(pos->x - chr->prop->pos.x, pos->z - chr->prop->pos.z);
@@ -6569,22 +6573,20 @@ bool chrCanSeePos(struct chrdata *chr, struct coord *pos, s16 *rooms)
 		diffangle += M_BADTAU;
 	}
 
-	// This check is pointless because chrHasLineOfSightToPos is called
-	// with the same arguments regardless.
 	if ((diffangle < 1.7450513839722f || diffangle > 4.5371336936951f)
 			&& chrHasFlag(chr, CHRFLAG1_NOOP_00200000, BANK_1) == false) {
-		return chrHasLineOfSightToPos(chr, pos, rooms);
+		return chrHasLosToPos(chr, pos, rooms);
 	}
 
-	return chrHasLineOfSightToPos(chr, pos, rooms);
+	return chrHasLosToPos(chr, pos, rooms);
 }
 
-bool chrCanSeeProp(struct chrdata *chr, struct prop *prop)
+bool chrHasLosToProp(struct chrdata *chr, struct prop *prop)
 {
 	bool result;
 
 	propSetPerimEnabled(prop, false);
-	result = chrCanSeePos(chr, &prop->pos, prop->rooms);
+	result = chrHasLosToPosWasteful(chr, &prop->pos, prop->rooms);
 	propSetPerimEnabled(prop, true);
 
 	return result;
@@ -6642,22 +6644,22 @@ bool chrIsStopped(struct chrdata *chr)
 	return false;
 }
 
-bool chrCheckTargetInSight(struct chrdata *chr)
+bool chrCheckCanSeeTarget(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop;
 	struct prop *target = chrGetTargetProp(chr);
 	f32 sqdistance;
-	f32 fVar5 = chrGetInverseTheta(chr);
+	f32 invtheta = chrGetInverseTheta(chr);
 
 	f32 x = target->pos.x - prop->pos.x;
 	f32 y = target->pos.y - prop->pos.y;
 	f32 z = target->pos.z - prop->pos.z;
 
-	f32 fVar6 = atan2f(x, z);
-	f32 angle = fVar6 - fVar5;
+	f32 angletotarget = atan2f(x, z);
+	f32 angle = angletotarget - invtheta;
 	bool result = false;
 
-	if (fVar6 < fVar5) {
+	if (angletotarget < invtheta) {
 		angle += M_BADTAU;
 	}
 
@@ -6690,7 +6692,7 @@ bool chrCheckTargetInSight(struct chrdata *chr)
 	}
 
 	if (result) {
-		result = chrCanSeeTarget(chr);
+		result = chrHasLosToTarget(chr);
 	}
 
 	if (result) {
@@ -6876,7 +6878,7 @@ bool chrTryAttackWalk(struct chrdata *chr)
 	if (chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
-		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false)
+		if (chrHasLosToAttackTarget(chr, &prop->pos, prop->rooms, false)
 				&& (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))
 				&& g_Vars.lvframe60 - chr->lastwalk60 > TICKS(120)) {
 			struct prop *target = chrGetTargetProp(chr);
@@ -6905,7 +6907,7 @@ bool chrTryAttackRun(struct chrdata *chr)
 	if (chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
-		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false)
+		if (chrHasLosToAttackTarget(chr, &prop->pos, prop->rooms, false)
 				&& (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))
 				&& g_Vars.lvframe60 - chr->lastwalk60 > TICKS(180)) {
 			struct prop *target = chrGetTargetProp(chr);
@@ -6928,7 +6930,7 @@ bool chrTryAttackRoll(struct chrdata *chr)
 	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
-		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false) &&
+		if (chrHasLosToAttackTarget(chr, &prop->pos, prop->rooms, false) &&
 				(chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))) {
 			struct prop *target = chrGetTargetProp(chr);
 			f32 x = target->pos.x - prop->pos.x;
@@ -8270,7 +8272,7 @@ void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 			if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff < 4000000.0f) {
 				numinrange++;
 
-				if (chrCanSeePos(loopchr, &chr->prop->pos, chr->prop->rooms)) {
+				if (chrHasLosToPosWasteful(loopchr, &chr->prop->pos, chr->prop->rooms)) {
 					if (dying == false) {
 						loopchr->chrseeshot = chr->chrnum;
 					} else {
@@ -9041,7 +9043,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 			if (flags & ATTACKFLAG_DONTTURN) {
 				holdturn = true;
 			} else {
-				holdturn = chrCanSeeTarget(chr);
+				holdturn = chrHasLosToTarget(chr);
 			}
 		} else {
 			holdturn = true;
@@ -10246,7 +10248,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 					if (!isaibot) {
 						if ((attackflags & ATTACKFLAG_AIMATTARGET)
 								&& targetprop->type == PROPTYPE_PLAYER
-								&& chrCanSeeAttackTarget(chr, &gunpos, gunrooms, false)
+								&& chrHasLosToAttackTarget(chr, &gunpos, gunrooms, false)
 #if VERSION >= VERSION_NTSC_1_0
 								&& chrCompareTeams(targetprop->chr, chr, COMPARE_ENEMIES)
 #endif
@@ -13284,7 +13286,7 @@ void chraTick(struct chrdata *chr)
 
 				if (chr->aishootingatmelist >= 0
 						&& ailistFindById(chr->aishootingatmelist) != chr->ailist
-						&& chrCanSeeTargetWithExtraCheck(chr)) {
+						&& chrIsTargetAimingAtMe(chr)) {
 					chr->chrflags |= CHRCFLAG_CONSIDER_DODGE;
 				}
 			} else {
@@ -14424,13 +14426,13 @@ f32 chrGetTimer(struct chrdata *chr)
 	return chr->timer60 * FRAMEDURATION;
 }
 
-bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
+bool chrIsTargetAimingAtMe(struct chrdata *chr)
 {
 	struct prop *target = chrGetTargetProp(chr);
 
 	if (target) {
 		if (target->type == PROPTYPE_CHR) {
-			if (!chrCanSeeTarget(chr)) {
+			if (!chrHasLosToTarget(chr)) {
 				return false;
 			}
 

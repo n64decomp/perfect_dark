@@ -634,7 +634,7 @@ u8 func0401_drcaroll_following[] = {
 			if_chr_y(CHR_TARGET, -1910, OPERATOR_LESS_THAN, /*goto*/ 0x20)
 			label(0x20)
 			dprint 't','a','r','g','e','t','\n',0,
-			if_can_see_target(/*goto*/ 0x00)
+			if_los_to_target(/*goto*/ 0x00)
 			goto_next(0x04)
 
 			label(0x00)
@@ -989,11 +989,11 @@ u8 func0406_general_combat[] = {
 			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_stage_flag_eq(STAGEFLAG_FOYER_LIGHTS_RESTORED, TRUE, /*goto*/ 0x00)
-			if_target_in_sight(/*goto*/ 0x15)
+			if_can_see_target(/*goto*/ 0x15)
 			goto_next(0x20)
 
 			label(0x00)
-			if_can_see_target(/*goto*/ 0x15)
+			if_los_to_target(/*goto*/ 0x15)
 			label(0x20)
 			if_near_miss(/*goto*/ 0x18)
 			if_stage_flag_eq(STAGEFLAG_FOYER_LIGHTS_RESTORED, TRUE, /*goto*/ 0x00)
@@ -1013,7 +1013,7 @@ u8 func0406_general_combat[] = {
 			reloop(0x10)
 
 			label(0x00)
-			if_target_in_sight(/*goto*/ 0x15)
+			if_can_see_target(/*goto*/ 0x15)
 			if_stage_flag_eq(STAGEFLAG_FOYER_LIGHTS_RESTORED, TRUE, /*goto*/ 0x00)
 			if_enemy_distance_lt_and_los(500, /*goto*/ 0x20)
 			goto_next(0x5e)
@@ -1074,13 +1074,13 @@ u8 func0406_general_combat[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		call_rng
-		if_target_in_sight(/*goto*/ 0x19)
+		if_can_see_target(/*goto*/ 0x19)
 		if_timer_gt(60, /*goto*/ 0x1e)
 		if_rand_lt(4, /*goto*/ 0x1e)
 	endloop(0x1c)
 
 	label(0x1e)
-	if_can_see_target(/*goto*/ 0x19)
+	if_los_to_target(/*goto*/ 0x19)
 	goto_first(0x14)
 
 	label(0x19)
@@ -1092,7 +1092,7 @@ u8 func0406_general_combat[] = {
 	beginloop(0x1b)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_can_see_target(/*goto*/ 0x19)
+		if_los_to_target(/*goto*/ 0x19)
 		if_timer_gt(300, /*goto*/ 0x00)
 	endloop(0x1b)
 
@@ -1165,10 +1165,10 @@ u8 func0408_hovercopter[] = {
 
 		label(0x00)
 		set_target_chr(CHR_BOND)
-		if_can_see_target(/*goto*/ 0x43)
+		if_los_to_target(/*goto*/ 0x43)
 		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x20)
 		set_target_chr(CHR_COOP)
-		if_can_see_target(/*goto*/ 0x43)
+		if_los_to_target(/*goto*/ 0x43)
 		set_target_chr(CHR_BOND)
 		label(0x20)
 	endloop(0x22)
@@ -1190,7 +1190,7 @@ u8 func0408_hovercopter[] = {
 		label(0x00)
 		dprint 'M','I','D','3','\n',0,
 		set_target_chr(CHR_BOND)
-		if_can_see_target(/*goto*/ 0x48)
+		if_los_to_target(/*goto*/ 0x48)
 		dprint 'N','O','T','V','I','S','\n',0,
 		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x20)
 		set_target_chr(CHR_COOP)
@@ -1199,7 +1199,7 @@ u8 func0408_hovercopter[] = {
 		// which doesn't appear to have any side effects except that the
 		// hovercopter will say the low line ("surrender or die") on the mid
 		// level if Velvet is the first player it sees.
-		if_can_see_target(/*goto*/ 0x43)
+		if_los_to_target(/*goto*/ 0x43)
 		set_target_chr(CHR_BOND)
 		label(0x20)
 	endloop(0x24)
@@ -1214,10 +1214,10 @@ u8 func0408_hovercopter[] = {
 		if_chr_y(CHR_TARGET, -1850, OPERATOR_LESS_THAN, /*goto*/ 0x52)
 		if_chr_y(CHR_TARGET, -1200, OPERATOR_LESS_THAN, /*goto*/ 0x53)
 		set_target_chr(CHR_BOND)
-		if_can_see_target(/*goto*/ 0x4d)
+		if_los_to_target(/*goto*/ 0x4d)
 		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x20)
 		set_target_chr(CHR_COOP)
-		if_can_see_target(/*goto*/ 0x4d)
+		if_los_to_target(/*goto*/ 0x4d)
 		label(0x20)
 		set_target_chr(CHR_BOND)
 		label(0x00)
@@ -1230,7 +1230,7 @@ u8 func0408_hovercopter[] = {
 	yield
 	goto_next(0x00)
 	label(0x00)
-	if_can_see_target(/*goto*/ 0x20)
+	if_los_to_target(/*goto*/ 0x20)
 	move_object_to_pad(OBJ_HOVERCOPTER, PAD_ARK_0199)
 	label(0x20)
 	goto_first(0x25)
@@ -1238,7 +1238,7 @@ u8 func0408_hovercopter[] = {
 	// Change to low
 	label(0x52)
 	dprint 'C','H','A','N','G','E',' ','T','O',' ','L','O','W','\n',0,
-	if_can_see_target(/*goto*/ 0x20)
+	if_los_to_target(/*goto*/ 0x20)
 	move_object_to_pad(OBJ_HOVERCOPTER, PAD_ARK_0190)
 	label(0x20)
 	goto_first(0x21)
@@ -1246,7 +1246,7 @@ u8 func0408_hovercopter[] = {
 	// Change to mid
 	label(0x53)
 	dprint 'C','H','A','N','G','E',' ','T','O',' ','M','I','D','\n',0,
-	if_can_see_target(/*goto*/ 0x20)
+	if_los_to_target(/*goto*/ 0x20)
 	move_object_to_pad(OBJ_HOVERCOPTER, PAD_ARK_0195)
 	label(0x20)
 	goto_first(0x23)
@@ -1257,12 +1257,12 @@ u8 func0408_hovercopter[] = {
 	goto_first(0x22)
 
 	beginloop(0x44)
-		if_can_see_target(/*goto*/ 0x47)
+		if_los_to_target(/*goto*/ 0x47)
 		restart_timer
 
 		beginloop(0x45)
 			if_timer_gt(480, /*goto*/ 0x46)
-			if_can_see_target(/*goto*/ 0x47)
+			if_los_to_target(/*goto*/ 0x47)
 		endloop(0x45)
 
 		label(0x46)
@@ -1283,12 +1283,12 @@ u8 func0408_hovercopter[] = {
 	goto_first(0x24)
 
 	beginloop(0x49)
-		if_can_see_target(/*goto*/ 0x4c)
+		if_los_to_target(/*goto*/ 0x4c)
 		restart_timer
 
 		beginloop(0x4a)
 			if_timer_gt(180, /*goto*/ 0x4b)
-			if_can_see_target(/*goto*/ 0x4c)
+			if_los_to_target(/*goto*/ 0x4c)
 		endloop(0x4a)
 
 		label(0x4b)
@@ -1326,12 +1326,12 @@ u8 func0408_hovercopter[] = {
 	restart_timer
 
 	beginloop(0x4e)
-		if_can_see_target(/*goto*/ 0x51)
+		if_los_to_target(/*goto*/ 0x51)
 		restart_timer
 
 		beginloop(0x4f)
 			if_timer_gt(480, /*goto*/ 0x50)
-			if_can_see_target(/*goto*/ 0x51)
+			if_los_to_target(/*goto*/ 0x51)
 		endloop(0x4f)
 
 		label(0x50)
@@ -1714,7 +1714,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_in_sight(/*goto*/ 0x33)
+		if_can_see_target(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x21)
@@ -1735,7 +1735,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_in_sight(/*goto*/ 0x33)
+		if_can_see_target(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x22)
@@ -1756,7 +1756,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_in_sight(/*goto*/ 0x33)
+		if_can_see_target(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x23)
@@ -1777,7 +1777,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_in_sight(/*goto*/ 0x33)
+		if_can_see_target(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x24)
@@ -1799,7 +1799,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_in_sight(/*goto*/ 0x33)
+		if_can_see_target(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x25)
@@ -1819,7 +1819,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_can_see_target(/*goto*/ 0x20)
+		if_los_to_target(/*goto*/ 0x20)
 	endloop(0x26)
 
 	label(0x20)
@@ -1890,7 +1890,7 @@ u8 func040a_tech2[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TECHS_FINISHED, TRUE, /*goto*/ 0x20)
-		if_target_in_sight(/*goto*/ 0x33)
+		if_can_see_target(/*goto*/ 0x33)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 	endloop(0x1f)
 
@@ -1900,7 +1900,7 @@ u8 func040a_tech2[] = {
 	beginloop(0x21)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_can_see_target(/*goto*/ 0x00)
+		if_los_to_target(/*goto*/ 0x00)
 		reloop(0x21)
 
 		label(0x00)
@@ -2129,7 +2129,7 @@ u8 func040d_cass[] = {
 	endloop(0x2c)
 #else
 	beginloop(0x2c)
-		if_can_see_target(/*goto*/ 0x20)
+		if_los_to_target(/*goto*/ 0x20)
 		goto_next(0x2d)
 
 		label(0x20)
@@ -2696,7 +2696,7 @@ u8 func0413_defend_pad[] = {
 	beginloop(0x1f)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_can_see_target(/*goto*/ 0x21)
+		if_los_to_target(/*goto*/ 0x21)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x21)
 		if_distance_from_target_to_pad_lt(200, PAD_PRESET, /*goto*/ 0x22)
 	endloop(0x1f)
@@ -2709,7 +2709,7 @@ u8 func0413_defend_pad[] = {
 
 	beginloop(0x23)
 		if_chr_stopped(/*goto*/ 0x00)
-		if_can_see_target(/*goto*/ 0x00)
+		if_los_to_target(/*goto*/ 0x00)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x00)
 	endloop(0x23)
 

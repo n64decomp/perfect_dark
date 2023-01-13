@@ -573,9 +573,9 @@ bool aiIfChrKnockedOut(void)
 /**
  * @cmd 0035
  */
-bool aiIfTargetInSight(void)
+bool aiIfCanSeeTarget(void)
 {
-	if (chrCheckTargetInSight(g_Vars.chrdata)) {
+	if (chrCheckCanSeeTarget(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1338,9 +1338,9 @@ bool aiIfSawDeath(void)
 /**
  * @cmd 003f
  */
-bool aiIfCanSeeTarget(void)
+bool aiIfLosToTarget(void)
 {
-	if ((g_Vars.chrdata && chrCanSeeTarget(g_Vars.chrdata)) ||
+	if ((g_Vars.chrdata && chrHasLosToTarget(g_Vars.chrdata)) ||
 			(g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -1354,9 +1354,9 @@ bool aiIfCanSeeTarget(void)
 /**
  * @cmd 017a
  */
-bool aiIfCanSeeAttackTarget(void)
+bool aiIfLosToAttackTarget(void)
 {
-	if ((g_Vars.chrdata && g_Vars.chrdata->prop && chrCanSeeAttackTarget(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, true))
+	if ((g_Vars.chrdata && g_Vars.chrdata->prop && chrHasLosToAttackTarget(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, true))
 			|| (g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -1451,12 +1451,12 @@ bool aiIfHeardTargetRecently(void)
 /**
  * @cmd 0045
  */
-bool ai0045(void)
+bool aiIfLosToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->prop && chrHasLineOfSightToPos(g_Vars.chrdata, &chr->prop->pos, chr->prop->rooms)) {
+	if (chr && chr->prop && chrHasLosToPos(g_Vars.chrdata, &chr->prop->pos, chr->prop->rooms)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1544,9 +1544,9 @@ bool aiIfRoomIsOnScreen(void)
 /**
  * @cmd 004a
  */
-bool ai004a(void)
+bool aiIfTargetAimingAtMe(void)
 {
-	if (chrCanSeeTargetWithExtraCheck(g_Vars.chrdata)) {
+	if (chrIsTargetAimingAtMe(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1592,16 +1592,16 @@ bool aiIfSeesSuspiciousItem(void)
 		obj = prop->obj;
 
 		if (prop->type == PROPTYPE_WEAPON) {
-			if ((obj->hidden & OBJHFLAG_SUSPICIOUS) && chrCanSeeProp(g_Vars.chrdata, prop)) {
+			if ((obj->hidden & OBJHFLAG_SUSPICIOUS) && chrHasLosToProp(g_Vars.chrdata, prop)) {
 				pass = true;
 			}
 		} else if (prop->type == PROPTYPE_OBJ) {
 			if (((obj->hidden & OBJHFLAG_SUSPICIOUS) || !objIsHealthy(obj))
-					&& chrCanSeeProp(g_Vars.chrdata, prop)) {
+					&& chrHasLosToProp(g_Vars.chrdata, prop)) {
 				pass = true;
 			}
 		} else if (prop->type == PROPTYPE_EXPLOSION) {
-			if (chrCanSeeProp(g_Vars.chrdata, prop)) {
+			if (chrHasLosToProp(g_Vars.chrdata, prop)) {
 				pass = true;
 			}
 		}
@@ -6414,7 +6414,7 @@ bool aiDetectEnemy(void)
 				f32 distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
 
 				if (distance < maxdist && distance != 0 && distance < closestdist
-						&& chrCanSeeProp(g_Vars.chrdata, chr->prop)
+						&& chrHasLosToProp(g_Vars.chrdata, chr->prop)
 						&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0) {
 					if (g_Vars.chrdata->yvisang == 0) {
 						closestdist = distance;
@@ -10352,7 +10352,7 @@ bool aiSetTargetToEyespyIfInSight(void)
 		struct chrdata *chr = eyespy->prop->chr;
 		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, chr->chrnum);
 
-		if (chrCheckTargetInSight(g_Vars.chrdata)) {
+		if (chrCheckCanSeeTarget(g_Vars.chrdata)) {
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 		} else {
 			g_Vars.aioffset += 3;

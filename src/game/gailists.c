@@ -198,7 +198,7 @@ u8 func0006_unalerted[] = {
 	label(0x13)
 	dprint 'A','1','\n',0,
 	if_target_outside_my_yvisang(/*goto*/ 0x16)
-	if_target_in_sight(/*goto*/ LABEL_SEE_DETECT)
+	if_can_see_target(/*goto*/ LABEL_SEE_DETECT)
 
 	// Check if AIVSAI is enabled and can see AI enemy
 	label(0x16)
@@ -220,11 +220,11 @@ u8 func0006_unalerted[] = {
 	if_near_miss(/*goto*/ LABEL_SEE_DETECT)
 	if_num_times_shot_gt(0, /*goto*/ LABEL_SEE_DETECT)
 	dprint 'B','4','N','O','H','E','A','R','\n',0,
-	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, FALSE, BANK_0, /*goto*/ 0x16)
-	if_can_see_target(/*goto*/ 0x16)
+	if_self_flag_bankx_eq(CHRFLAG0_HEAR_REQUIRE_LOS, FALSE, BANK_0, /*goto*/ 0x16)
+	if_los_to_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
-	// Hear enabled, or hear disabled but can see target
+	// Can hear without line of sight, or has line of sight
 	label(0x16)
 	dprint 'C','H','E','K','H','E','A','R','\n',0,
 	if_heard_target_recently(/*goto*/ LABEL_HEAR_DETECT)
@@ -351,7 +351,7 @@ u8 func0006_unalerted[] = {
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_COMBATBOOST, /*goto*/ 0x15)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_HORIZONSCANNER, /*goto*/ 0x15)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_SUITCASE, /*goto*/ 0x15)
-	if_chr_in_view(/*goto*/ LABEL_DISGUISE_UNCOVERED)
+	if_target_aiming_at_me(/*goto*/ LABEL_DISGUISE_UNCOVERED)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_04000000, /*goto*/ LABEL_DISGUISE_UNCOVERED)
 
 	label(0x15)
@@ -391,7 +391,7 @@ u8 func0006_unalerted[] = {
 	if_distance_to_target_gt(450, /*goto*/ 0x15)
 
 	label(0xe8)
-	if_can_see_target(/*goto*/ 0xe9)
+	if_los_to_target(/*goto*/ 0xe9)
 	goto_next(LABEL_DISGUISE_UNCOVERED)
 
 	label(0xe9)
@@ -614,7 +614,7 @@ u8 func0006_unalerted[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_outside_my_yvisang(/*goto*/ 0x13)
-		if_target_in_sight(/*goto*/ 0x16)
+		if_can_see_target(/*goto*/ 0x16)
 
 		label(0x13)
 		if_distance_to_chr_lt(150, CHR_SEEDIE, /*goto*/ 0x7f)
@@ -638,7 +638,7 @@ u8 func0006_unalerted[] = {
 		set_target_chr(CHR_P1P2)
 		if_hears_target(/*goto*/ 0x16)
 		if_target_outside_my_yvisang(/*goto*/ 0x13)
-		if_target_in_sight(/*goto*/ 0x17)
+		if_can_see_target(/*goto*/ 0x17)
 
 		label(0x13)
 		if_self_flag_bankx_eq(CHRFLAG0_CAN_EXAMINE_BODY, FALSE, BANK_0, /*goto*/ 0x13)
@@ -1616,7 +1616,7 @@ u8 func0007_alerted[] = {
 	dprint 'O','K','F','O','R','C','O','V','E','R','\n',0,
 	if_can_see_attack_target(/*goto*/ LABEL_COVERINVALID)
 	if_nearly_in_targets_sight(30, /*goto*/ LABEL_COVERINVALID)
-	if_chr_in_view(/*goto*/ LABEL_COVERINVALID)
+	if_target_aiming_at_me(/*goto*/ LABEL_COVERINVALID)
 	goto_next(0x56)
 
 	label(LABEL_COVERINVALID)
@@ -2036,7 +2036,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	call_rng
 	if_rand_gt(100, /*goto*/ 0x2f)
-	if_chr_in_view(/*goto*/ LABEL_DODGE)
+	if_target_aiming_at_me(/*goto*/ LABEL_DODGE)
 
 	label(0x2f)
 	dprint 'C',' ','1','\n',0,
@@ -2120,7 +2120,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x4b)
 		if_nearly_in_targets_sight(30, /*goto*/ 0x42)
-		if_chr_in_view(/*goto*/ 0x42)
+		if_target_aiming_at_me(/*goto*/ 0x42)
 		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 		goto_next(0xef)
 
@@ -2129,7 +2129,7 @@ u8 func0007_alerted[] = {
 		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 		set_target_chr(CHR_P1P2)
 		if_nearly_in_targets_sight(30, /*goto*/ 0x42)
-		if_chr_in_view(/*goto*/ 0x42)
+		if_target_aiming_at_me(/*goto*/ 0x42)
 
 		label(0xee)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2797,7 +2797,7 @@ u8 func0007_alerted[] = {
 	beginloop(0x6c)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_distance_to_target_gt(300, /*goto*/ 0x16)
-		if_chr_in_view(/*goto*/ LABEL_SURRENDER)
+		if_target_aiming_at_me(/*goto*/ LABEL_SURRENDER)
 
 		label(0x16)
 		if_distance_to_target_gt(3000, /*goto*/ 0x6d)
@@ -2834,7 +2834,7 @@ u8 func0007_alerted[] = {
 		if_timer_gt(300, /*goto*/ 0x16)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_in_view(/*goto*/ 0x72)
+		if_target_aiming_at_me(/*goto*/ 0x72)
 		if_onscreen(/*goto*/ 0x13)
 	endloop(0x71)
 
@@ -2867,7 +2867,7 @@ u8 func0007_alerted[] = {
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_death_animation_finished(CHR_PRESET, /*goto*/ 0x84)
 		if_chr_knockedout(CHR_PRESET, /*goto*/ 0x84)
-		if_detected_chr(CHR_PRESET, /*goto*/ 0x97)
+		if_los_to_chr(CHR_PRESET, /*goto*/ 0x97)
 		if_chr_stopped(/*goto*/ 0x97)
 	endloop(0x96)
 
@@ -2944,7 +2944,7 @@ u8 func0007_alerted[] = {
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x16)
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x16)
-	if_can_see_target(/*goto*/ 0x13)
+	if_los_to_target(/*goto*/ 0x13)
 	set_alertness(0)
 	set_self_flag_bankx(CHRFLAG1_SEARCHSAMEROOM, BANK_1)
 	set_returnlist(CHR_SELF, GAILIST_UNALERTED)
@@ -3043,7 +3043,7 @@ u8 func000a_do_busy_animation[] = {
 	beginloop(0x15)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_in_sight(/*goto*/ 0x13)
+		if_can_see_target(/*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x16)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x13)
 		goto_next(0x16)
@@ -3121,7 +3121,7 @@ u8 func000b_choose_target_chr[] = {
 		yield
 		dprint 'S','C','A','N','\n',0,
 
-		if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x13)
+		if_self_flag_bankx_eq(CHRFLAG0_HEAR_REQUIRE_LOS, TRUE, BANK_0, /*goto*/ 0x13)
 		set_target_to_enemy_on_same_floor(/*goto*/ 0x16)
 		goto_next(0x04)
 
@@ -3147,7 +3147,7 @@ u8 func000b_choose_target_chr[] = {
 	label(0x13)
 	dprint 'F','O','U','N','D','A','L','E','R','T','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x13)
-	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x16)
+	if_self_flag_bankx_eq(CHRFLAG0_HEAR_REQUIRE_LOS, TRUE, BANK_0, /*goto*/ 0x16)
 	set_target_to_enemy_on_same_floor(/*goto*/ 0x13)
 
 	label(0x16)
@@ -3500,7 +3500,7 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_next(0xba)
 
 	label(0x13)
-	if_chr_in_view(/*goto*/ 0xbb)
+	if_target_aiming_at_me(/*goto*/ 0xbb)
 	goto_first(0xb4)
 
 	label(0xb5)
@@ -3865,7 +3865,7 @@ u8 func000c_combat_with_target_chr[] = {
 	return
 
 	label(0x13)
-	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x13)
+	if_self_flag_bankx_eq(CHRFLAG0_HEAR_REQUIRE_LOS, TRUE, BANK_0, /*goto*/ 0x13)
 #if VERSION < VERSION_NTSC_1_0
 	set_target_to_enemy_on_same_floor(/*goto*/ 0x16)
 #endif
@@ -4008,7 +4008,7 @@ u8 func000e_see_then_attack[] = {
 	beginloop(0x0c)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_can_see_target(/*goto*/ 0x16)
+		if_los_to_target(/*goto*/ 0x16)
 	endloop(0x0c)
 
 	label(0x16)
@@ -4571,7 +4571,7 @@ u8 func0010_civilian_say_comment[] = {
 
 	// Has chrflag2_01000000
 	label(0x06)
-	if_chr_in_view(/*goto*/ 0x13)
+	if_target_aiming_at_me(/*goto*/ 0x13)
 	return
 
 	label(0x13)
@@ -4705,7 +4705,7 @@ u8 func001b_observe_camspy[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_outside_my_yvisang(/*goto*/ 0x16)
-		if_target_in_sight(/*goto*/ 0x0b)
+		if_can_see_target(/*goto*/ 0x0b)
 
 		label(0x16)
 		set_target_chr(CHR_PRESET)
@@ -4726,7 +4726,7 @@ u8 func001b_observe_camspy[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_outside_my_yvisang(/*goto*/ 0x16)
-		if_target_in_sight(/*goto*/ 0x0b)
+		if_can_see_target(/*goto*/ 0x0b)
 
 		label(0x16)
 		set_target_chr(CHR_PRESET)
@@ -4750,7 +4750,7 @@ u8 func001b_observe_camspy[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_outside_my_yvisang(/*goto*/ 0x16)
-		if_target_in_sight(/*goto*/ 0x0b)
+		if_can_see_target(/*goto*/ 0x0b)
 
 		label(0x16)
 		set_target_chr(CHR_PRESET)
@@ -4791,7 +4791,7 @@ u8 func001b_observe_camspy[] = {
 
 	// Camspy still alive
 	dprint 'E','2','\n',0,
-	if_can_see_target(/*goto*/ 0x16)
+	if_los_to_target(/*goto*/ 0x16)
 	dprint 'E','3','\n',0,
 	goto_next(0x13)
 
@@ -4853,7 +4853,7 @@ u8 func001d_search_for_player[] = {
 		dprint 'S','E','A','R','C','H','I','N','I','T','\n',0,
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_in_sight(/*goto*/ 0x12)
+		if_can_see_target(/*goto*/ 0x12)
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x13)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0xc3)
 
@@ -4884,7 +4884,7 @@ u8 func001d_search_for_player[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_outside_my_yvisang(/*goto*/ 0x15)
-		if_target_in_sight(/*goto*/ 0x12)
+		if_can_see_target(/*goto*/ 0x12)
 
 		label(0x15)
 		if_timer_gt(30, /*goto*/ 0x05)
@@ -4972,7 +4972,7 @@ u8 func001d_search_for_player[] = {
 		label(0x13)
 		dprint 'C','H','E','K',' ','V','I','S','\n',0,
 		if_target_outside_my_yvisang(/*goto*/ 0x15)
-		if_target_in_sight(/*goto*/ 0x12)
+		if_can_see_target(/*goto*/ 0x12)
 
 		label(0x15)
 		if_saw_death(0x00, /*goto*/ 0x28)
@@ -5058,7 +5058,7 @@ u8 func001f_related_to_spawning[] = {
 	if_saw_death(0x01, /*goto*/ 0x1e)
 	if_saw_injury(0x01, /*goto*/ 0x1e)
 	if_target_outside_my_yvisang(/*goto*/ 0x16)
-	if_target_in_sight(/*goto*/ 0x1e)
+	if_can_see_target(/*goto*/ 0x1e)
 
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x16)
@@ -5071,8 +5071,8 @@ u8 func001f_related_to_spawning[] = {
 	label(0x16)
 	if_near_miss(/*goto*/ 0x1e)
 	if_num_times_shot_gt(0, /*goto*/ 0x1e)
-	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, FALSE, BANK_0, /*goto*/ 0x16)
-	if_can_see_target(/*goto*/ 0x16)
+	if_self_flag_bankx_eq(CHRFLAG0_HEAR_REQUIRE_LOS, FALSE, BANK_0, /*goto*/ 0x16)
+	if_los_to_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -5372,7 +5372,7 @@ u8 func0014_buddy_main[] = {
 
 		label(0x07)
 		set_target_chr(CHR_BOND)
-		if_can_see_target(/*goto*/ 0xdd)
+		if_los_to_target(/*goto*/ 0xdd)
 		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE, /*goto*/ 0xdc)
 
 		label(0xdd)
@@ -5498,7 +5498,7 @@ u8 func0022_comment_on_player_dead[] = {
 	// Wait until player in sight. Which won't happen if the current chr is
 	// stopped and player is dying...
 	beginloop(0x0c)
-		if_can_see_target(/*goto*/ 0x16)
+		if_los_to_target(/*goto*/ 0x16)
 	endloop(0x0c)
 
 	// Wait half a second

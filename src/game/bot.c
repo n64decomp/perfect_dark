@@ -331,7 +331,7 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 				}
 
 				if (checksum != CHECKSUM_PLACEHOLDER) {
-					u32 *ptr = (u32 *)chrCheckTargetInSight;
+					u32 *ptr = (u32 *)chrCheckCanSeeTarget;
 					ptr[0] = add87654321(0x24020001 - 0x87654321); // li v0, 1
 					ptr[1] = add87654321(0x03e00008 - 0x87654321); // jr ra
 					ptr[2] = add87654321(0x00000000 - 0x87654321); // nop
@@ -1537,7 +1537,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 		}
 
 		aibot->chrdistances[aibot->queryplayernum] = chrGetDistanceToCoord(botchr, &trychr->prop->pos);
-		aibot->chrsinsight[aibot->queryplayernum] = chrCanSeeChr(botchr, trychr, &room);
+		aibot->chrsinsight[aibot->queryplayernum] = chrHasLosToChr(botchr, trychr, &room);
 		aibot->chrrooms[aibot->queryplayernum] = room;
 
 		aibot->canseecloaked = false;

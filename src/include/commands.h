@@ -503,10 +503,13 @@
 	label,
 
 /**
- * Checks if the chr has line of sight to their target. The target can be a chr,
- * object or the player.
+ * Checks if the chr can see their target. The target can be the player, a chr
+ * or an object.
+ *
+ * Everything is considered, including collisions, the chr's field of view,
+ * the chr's vision distance, fog and the target's cloak status.
  */
-#define if_target_in_sight(label) \
+#define if_can_see_target(label) \
 	mkshort(0x0035), \
 	label,
 
@@ -604,9 +607,11 @@
 	label,
 
 /**
- * Checks if the current chr can see their target.
+ * Checks if there is line of sight between the current chr and their target.
+ * The direction being faced is irrelevant.
+ * If the target is cloaked, the check will not pass.
  */
-#define if_can_see_target(label) \
+#define if_los_to_target(label) \
 	mkshort(0x003f), \
 	label,
 
@@ -654,10 +659,9 @@
 	label,
 
 /**
- * Checks if the chr has detected the given chr. Detecting can happen by seeing
- * the chr or hearing gunfire.
+ * Checks if the chr has line of sight to the given chr.
  */
-#define if_detected_chr(chr, label) \
+#define if_los_to_chr(chr, label) \
 	mkshort(0x0045), \
 	chr, \
 	label,
@@ -697,7 +701,18 @@
 	mkshort(room), \
 	label,
 
-#define if_chr_in_view(label) \
+/**
+ * Checks if the chr's target is aiming at them.
+ *
+ * If the target is a player, the check is rough - likely just a bounding box
+ * check. The player does not need to be aiming with R, and can even be unarmed.
+ *
+ * If the target is a chr, the check passes if the chr is within 20 degrees of
+ * their target's facing angle.
+ *
+ * Collision checks are done.
+ */
+#define if_target_aiming_at_me(label) \
 	mkshort(0x004a), \
 	label,
 
@@ -3393,7 +3408,7 @@
  * specified in a prior attack command using attackflags and entityid.
  *
  * If the chr is not currently doing an attack action, it checks if they can see
- * their normal target (same as if_can_see_target).
+ * their normal target (same as if_los_to_target).
  */
 #define if_can_see_attack_target(label) \
 	mkshort(0x017a), \

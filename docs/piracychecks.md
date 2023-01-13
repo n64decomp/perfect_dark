@@ -48,7 +48,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **What It Checks:** Checksums `doorFinishClose` to make sure it hasn't been modified.
 
-**Payload:** Rewrites the start of `chrCheckTargetInSight` so it immediately returns true. This makes all guards able to see Jo through walls.
+**Payload:** Rewrites the start of `chrCheckCanSeeTarget` so it immediately returns true. This makes all guards able to see Jo through walls.
 
 ### chrUncloak
 

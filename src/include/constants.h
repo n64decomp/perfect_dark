@@ -497,7 +497,7 @@
 #define CHRFLAG0_COVER_TYPE2        0x08000000
 #define CHRFLAG0_CAMP               0x10000000 // Flag is turned off permanently if player gets too close
 #define CHRFLAG0_CAN_HEARSPAWN      0x20000000
-#define CHRFLAG0_NOHEAR             0x40000000
+#define CHRFLAG0_HEAR_REQUIRE_LOS   0x40000000
 #define CHRFLAG0_CANLOSEGUN         0x80000000
 
 // chr->flags2

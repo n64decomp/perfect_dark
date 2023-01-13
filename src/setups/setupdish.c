@@ -265,9 +265,9 @@ u32 props[] = {
 	chr(SPAWNFLAG_NOBLOOD, 0x03, PAD_DISH_00F7, BODY_CILABTECH, HEAD_MARK2, 0x0421, -1, -1, 1000, 6, 0, 0, TEAM_20, SQUADRON_05, -1, 0, 2, 0, 0, 0)
 	chr(SPAWNFLAG_NOBLOOD, 0x04, PAD_DISH_00F9, BODY_CIFEMTECH, HEAD_SECRETARY, 0x0422, -1, -1, 1000, 6, 0, 0, TEAM_20, SQUADRON_05, -1, 0, 2, 0, 0, 0)
 	chr(SPAWNFLAG_NOBLOOD, 0x05, PAD_DISH_00FB, BODY_CILABTECH, HEAD_BRIAN, 0x0423, -1, -1, 1000, 6, 0, 0, TEAM_20, SQUADRON_05, -1, 0, 2, 0, 0, 0)
-	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x06, PAD_DISH_00FD, BODY_CILABTECH, HEAD_RUSS, 0x0425, -1, -1, 0, 0, CHRFLAG0_COVER_TYPE2 | CHRFLAG0_NOHEAR | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x01, 0, 0, 2, 0, 0)
-	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x07, PAD_DISH_00FC, BODY_CILABTECH, HEAD_BEAU1, 0x0426, -1, -1, 0, 0, CHRFLAG0_COVER_TYPE2 | CHRFLAG0_NOHEAR | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x00, 0, 0, 2, 0, 0)
-	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x08, PAD_DISH_00FE, BODY_CIFEMTECH, HEAD_SECRETARY, 0x0427, -1, -1, 0, 0, CHRFLAG0_COVER_TYPE2 | CHRFLAG0_NOHEAR | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x02, 0, 0, 2, 0, 0)
+	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x06, PAD_DISH_00FD, BODY_CILABTECH, HEAD_RUSS, 0x0425, -1, -1, 0, 0, CHRFLAG0_COVER_TYPE2 | CHRFLAG0_HEAR_REQUIRE_LOS | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x01, 0, 0, 2, 0, 0)
+	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x07, PAD_DISH_00FC, BODY_CILABTECH, HEAD_BEAU1, 0x0426, -1, -1, 0, 0, CHRFLAG0_COVER_TYPE2 | CHRFLAG0_HEAR_REQUIRE_LOS | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x00, 0, 0, 2, 0, 0)
+	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x08, PAD_DISH_00FE, BODY_CIFEMTECH, HEAD_SECRETARY, 0x0427, -1, -1, 0, 0, CHRFLAG0_COVER_TYPE2 | CHRFLAG0_HEAR_REQUIRE_LOS | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x02, 0, 0, 2, 0, 0)
 	tag(0x1e, 8)
 	tag(0x1f, 8)
 	tag(0x20, 8)
@@ -564,7 +564,7 @@ u8 func041d_init_collegue_when_sighted[] = {
 	restart_timer
 
 	beginloop(0x04)
-		if_can_see_target(/*goto*/ 0x2f)
+		if_los_to_target(/*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -603,7 +603,7 @@ u8 func041e_colleague[] = {
 
 	beginloop(0x04)
 		// Wait until player in sight and not doing idle animations already
-		if_target_in_sight(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x7f)
 		chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 0, CHR_SELF, 2)
@@ -654,7 +654,7 @@ u8 func041e_colleague[] = {
 		try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x59)
 
 		beginloop(0x59)
-			if_target_in_sight(/*goto*/ 0x06)
+			if_can_see_target(/*goto*/ 0x06)
 		endloop(0x59)
 
 		label(0x06)
@@ -685,7 +685,7 @@ u8 func041e_colleague[] = {
 
 		beginloop(0x0a)
 			if_timer_lt(600, /*goto*/ 0x2f)
-			if_target_in_sight(/*goto*/ 0x06)
+			if_can_see_target(/*goto*/ 0x06)
 			goto_next(0x2f)
 
 			label(0x06)
@@ -2506,7 +2506,7 @@ u8 func0429_grimshaw_disguise[] = {
 	// Wait until Jo in sight
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
-		if_target_in_sight(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		label(0x7f)
 		call_rng
@@ -2695,7 +2695,7 @@ u8 func042a_carrington_cloak[] = {
 	dprint 'I','n','i','t','i','a','l','i','s','e','a',0,
 
 	beginloop(0x04)
-		if_target_in_sight(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		label(0x7f)
 		call_rng
@@ -2986,7 +2986,7 @@ u8 func042c_carrington_tour[] = {
 	beginloop(0x04)
 		dprint 'F','A','C','E',' ','P','A','D',0,
 		if_timer_gt(1200, /*goto*/ 0x2f)
-		if_can_see_target(/*goto*/ 0x2f)
+		if_los_to_target(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		label(0x7f)
 		call_rng
@@ -2997,11 +2997,11 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	if_can_see_target(/*goto*/ 0x06)
+	if_los_to_target(/*goto*/ 0x06)
 	try_jog_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
-		if_can_see_target(/*goto*/ 0x06)
+		if_los_to_target(/*goto*/ 0x06)
 	endloop(0x08)
 
 	label(0x06)
@@ -3039,7 +3039,7 @@ u8 func042c_carrington_tour[] = {
 
 	beginloop(0x5c)
 		if_timer_lt(60, /*goto*/ 0x06)
-		if_can_see_target(/*goto*/ 0x2f)
+		if_los_to_target(/*goto*/ 0x2f)
 		label(0x06)
 	endloop(0x5c)
 
@@ -3105,7 +3105,7 @@ u8 func042c_carrington_tour[] = {
 	stop_chr
 
 	beginloop(0x63)
-		if_can_see_target(/*goto*/ 0x2f)
+		if_los_to_target(/*goto*/ 0x2f)
 	endloop(0x63)
 
 	label(0x2f)
@@ -3164,7 +3164,7 @@ u8 func042c_carrington_tour[] = {
 	stop_chr
 
 	beginloop(0x6a)
-		if_can_see_target(/*goto*/ 0x2f)
+		if_los_to_target(/*goto*/ 0x2f)
 	endloop(0x6a)
 
 	label(0x2f)
@@ -3200,7 +3200,7 @@ u8 func042c_carrington_tour[] = {
 	stop_chr
 
 	beginloop(0x6e)
-		if_can_see_target(/*goto*/ 0x2f)
+		if_los_to_target(/*goto*/ 0x2f)
 	endloop(0x6e)
 
 	label(0x2f)
@@ -3255,7 +3255,7 @@ u8 func042c_carrington_tour[] = {
 	stop_chr
 
 	beginloop(0x74)
-		if_can_see_target(/*goto*/ 0x2f)
+		if_los_to_target(/*goto*/ 0x2f)
 	endloop(0x74)
 
 	label(0x2f)
@@ -4970,7 +4970,7 @@ u8 func0409_holo5_guard2[] = {
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
-	if_target_in_sight(/*goto*/ 0x09)
+	if_can_see_target(/*goto*/ 0x09)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_alertness(0)
 	goto_first(0x08)
@@ -4981,7 +4981,7 @@ u8 func0409_holo5_guard2[] = {
 	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
-		if_can_see_target(/*goto*/ 0x06)
+		if_los_to_target(/*goto*/ 0x06)
 		goto_first(0x04)
 
 		label(0x06)
