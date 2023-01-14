@@ -142,7 +142,7 @@ u8 func0006_unalerted[] = {
 
 	// Has asked about gun
 	label(0x14)
-	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_04000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_ASKEDTHENSHOT)
 
 	// Wait for the chr's injured animation to end
 	label(0x13)
@@ -352,7 +352,7 @@ u8 func0006_unalerted[] = {
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_HORIZONSCANNER, /*goto*/ 0x15)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_SUITCASE, /*goto*/ 0x15)
 	if_target_aiming_at_me(/*goto*/ LABEL_DISGUISE_UNCOVERED)
-	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_04000000, /*goto*/ LABEL_DISGUISE_UNCOVERED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_ASKEDTHENSHOT, /*goto*/ LABEL_DISGUISE_UNCOVERED)
 
 	label(0x15)
 	dprint 'N','O','T',' ','A','I','M','I','N','G',' ','A','T',' ','M','E','\n',0,
@@ -1188,7 +1188,7 @@ u8 func0007_alerted[] = {
 	yield
 
 	label(0x16)
-	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00002000, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_DONTLOSETARGET, /*goto*/ 0x13)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_UNTARGETABLE, /*goto*/ LABEL_TARGETGONE)
 
 	label(0x13)
@@ -2446,7 +2446,7 @@ u8 func0007_alerted[] = {
 	try_run_to_target(/*goto*/ 0x35)
 
 	beginloop(0x35)
-		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00002000, /*goto*/ 0x13)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_DONTLOSETARGET, /*goto*/ 0x13)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_UNTARGETABLE, /*goto*/ LABEL_TARGETGONE)
 
 		label(0x13)
@@ -2935,11 +2935,11 @@ u8 func0007_alerted[] = {
 	set_ailist(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER)
 
 	/***************************************************************************
-	 * Target is gone (disguised on Rescue or just warped)
+	 * Target is gone (eg. just warped)
 	 **************************************************************************/
 
 	label(LABEL_TARGETGONE)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00002000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DONTLOSETARGET)
 	stop_chr
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x16)
@@ -5645,14 +5645,14 @@ u8 func0015_buddy_stealth[] = {
 	// This will execute every second after the initial 7ish seconds and while
 	// cutscene is not running. The chr is being moved back to the player
 	// repeatedly.
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000200 | CHRHFLAG_00100000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_SPAWNONLYSURROUNDING | CHRHFLAG_WARPONSCREEN)
 	chr_move_to_pad(CHR_SELF, CHR_BOND, 88, /*goto*/ 0x17)
 	goto_first(0x19)
 
 	label(0x17)
 	unset_self_chrflag(CHRCFLAG_HIDDEN | CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_00040000)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
-	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000200 | CHRHFLAG_00100000)
+	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_SPAWNONLYSURROUNDING | CHRHFLAG_WARPONSCREEN)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	set_returnlist(CHR_SELF, GAILIST_BUDDY_MAIN)
 	set_shotlist(GAILIST_BUDDY_MAIN)
@@ -5940,28 +5940,28 @@ u8 func0020_buddy_warp[] = {
 		goto_next(0xf3)
 
 		label(0xfa)
-		chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, PAD_PRESET, TRUE, /*goto*/ 0x13)
 
 		label(0xf3)
 		try_set_padpreset_to_target_quadrant(QUADRANT_SIDE1, /*goto*/ 0xfa)
 		goto_next(0xf3)
 
 		label(0xfa)
-		chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, PAD_PRESET, TRUE, /*goto*/ 0x13)
 
 		label(0xf3)
 		try_set_padpreset_to_target_quadrant(QUADRANT_SIDE2, /*goto*/ 0xfa)
 		goto_next(0xf3)
 
 		label(0xfa)
-		chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, PAD_PRESET, TRUE, /*goto*/ 0x13)
 
 		label(0xf3)
 		try_set_padpreset_to_target_quadrant(QUADRANT_FRONT, /*goto*/ 0xfa)
 		goto_next(0xf3)
 
 		label(0xfa)
-		chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, PAD_PRESET, TRUE, /*goto*/ 0x13)
 
 		label(0xf3)
 	endloop(0x03)
@@ -5988,18 +5988,18 @@ u8 func0020_buddy_warp[] = {
 
 	// Attack Ship
 	beginloop(0x05)
-		chr_move_to_pad(CHR_SELF, 0x011f, 0x01, /*goto*/ 0x13)
-		chr_move_to_pad(CHR_SELF, 0x0120, 0x01, /*goto*/ 0x13)
-		chr_move_to_pad(CHR_SELF, 0x0121, 0x01, /*goto*/ 0x13)
-		chr_move_to_pad(CHR_SELF, 0x0122, 0x01, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, 0x011f, TRUE, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, 0x0120, TRUE, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, 0x0121, TRUE, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, 0x0122, TRUE, /*goto*/ 0x13)
 	endloop(0x05)
 
 	// Not Air Force One, Deep Sea or Attack Ship
 	beginloop(0x04)
-		chr_move_to_pad(CHR_SELF, 0x0012, 0x01, /*goto*/ 0x13)
-		chr_move_to_pad(CHR_SELF, 0x001a, 0x01, /*goto*/ 0x13)
-		chr_move_to_pad(CHR_SELF, 0x0013, 0x01, /*goto*/ 0x13)
-		chr_move_to_pad(CHR_SELF, 0x0019, 0x01, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, 0x0012, TRUE, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, 0x001a, TRUE, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, 0x0013, TRUE, /*goto*/ 0x13)
+		chr_move_to_pad(CHR_SELF, 0x0019, TRUE, /*goto*/ 0x13)
 	endloop(0x04)
 
 	// Move to pad worked

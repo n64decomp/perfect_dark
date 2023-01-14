@@ -450,8 +450,8 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 				chr->chrflags |= CHRCFLAG_INVINCIBLE;
 			}
 
-			if (packed->spawnflags & SPAWNFLAG_00000200) {
-				chr->hidden |= CHRHFLAG_00400000;
+			if (packed->spawnflags & SPAWNFLAG_BASICGUARD) {
+				chr->hidden |= CHRHFLAG_BASICGUARD;
 			}
 
 			if (packed->spawnflags & SPAWNFLAG_ANTINONINTERACTABLE) {
@@ -609,9 +609,9 @@ struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
 			chr->chrflags |= CHRCFLAG_HIDDEN;
 
 #if VERSION >= VERSION_NTSC_1_0
-			chr->hidden2 |= CHRH2FLAG_0040;
+			chr->hidden2 |= CHRH2FLAG_CONSIDERPROXIES;
 #else
-			chr->hidden |= CHRHFLAG_00000200;
+			chr->hidden |= CHRHFLAG_CONSIDERPROXIES;
 #endif
 
 			return prop;

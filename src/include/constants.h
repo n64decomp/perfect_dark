@@ -535,48 +535,49 @@
 #define CHRFLAG1_PUNCHHARDER               0x80000000 // Punches deal 6x the usual damage. Must not have CHRFLAG0_CHUCKNORRIS
 
 // chr->hidden
-#define CHRHFLAG_00000001            0x00000001 // Set when chr drops weapon
-#define CHRHFLAG_IS_HEARING_TARGET   0x00000002 // Not used in scripts
-#define CHRHFLAG_FIRINGLEFT          0x00000004
-#define CHRHFLAG_FIRINGRIGHT         0x00000008
-#define CHRHFLAG_BLOCKINGDOOR        0x00000010
-#define CHRHFLAG_REAPED              0x00000020
-#define CHRHFLAG_TIMER_RUNNING       0x00000040
-#define CHRHFLAG_00000080            0x00000080 // Not used in scripts
-#define CHRHFLAG_PERIMDISABLED       0x00000100
-#define CHRHFLAG_00000200            0x00000200 // Not used in scripts
-#define CHRHFLAG_PASSIVE             0x00000400
-#define CHRHFLAG_00000800            0x00000800
-#define CHRHFLAG_UNTARGETABLE        0x00001000 // Player is disgused on Rescue, or just warped
-#define CHRHFLAG_00002000            0x00002000 // Globals, Rescue guards once disguised
-#define CHRHFLAG_TRIGGER_BUDDY_WARP  0x00004000
-#define CHRHFLAG_PERFECTACCURACY     0x00008000
-#define CHRHFLAG_DISGUISE_UNCOVERED  0x00010000
-#define CHRHFLAG_00020000            0x00020000 // Used in every stage, on Jo and other chrs. Only ever set, never unset or read.
-#define CHRHFLAG_00040000            0x00040000 // Not used in scripts
-#define CHRHFLAG_DISGUISED           0x00080000
-#define CHRHFLAG_00100000            0x00100000 // Set before warping to pad, never unset or read
-#define CHRHFLAG_NEEDANIM            0x00200000
-#define CHRHFLAG_00400000            0x00400000 // Set in Chicago, G5, AF1, Defense, Attack Ship, Skedar Ruins, Maian SOS, WAR
-#define CHRHFLAG_00800000            0x00800000 // Not used in scripts
-#define CHRHFLAG_ASKEDABOUTGUN       0x01000000
-#define CHRHFLAG_ALMOSTUNCOVERED     0x02000000
-#define CHRHFLAG_04000000            0x04000000 // Related to disguise and detection
-#define CHRHFLAG_DONTSHOOTME         0x08000000 // Globals, Villa and G5
-#define CHRHFLAG_INFINITESHIELD      0x10000000
-#define CHRHFLAG_CLOAKED             0x20000000
-#define CHRHFLAG_ANTINONINTERACTABLE 0x40000000
-#define CHRHFLAG_DETECTED            0x80000000 // If set on player
-#define CHRHFLAG_PSYCHOSISED         0x80000000 // If set on AI
+#define CHRHFLAG_DROPPINGITEM         0x00000001 // Chr is currently dropping an item
+#define CHRHFLAG_IS_HEARING_TARGET    0x00000002 // Chr is currently hearing their target
+#define CHRHFLAG_FIRINGLEFT           0x00000004
+#define CHRHFLAG_FIRINGRIGHT          0x00000008
+#define CHRHFLAG_BLOCKINGDOOR         0x00000010
+#define CHRHFLAG_DELETING             0x00000020
+#define CHRHFLAG_TIMER_RUNNING        0x00000040
+#define CHRHFLAG_FIRESOUNDDONE        0x00000080
+#define CHRHFLAG_PERIMDISABLED        0x00000100
+#define CHRHFLAG_CONSIDERPROXIES      0x00000200 // Used for optimisation
+#define CHRHFLAG_SPAWNONLYSURROUNDING 0x00000200 // When spawning, only try nearby positions rather than the given position
+#define CHRHFLAG_PASSIVE              0x00000400
+#define CHRHFLAG_00000800             0x00000800
+#define CHRHFLAG_UNTARGETABLE         0x00001000 // Player is disgused on Rescue, or just warped
+#define CHRHFLAG_DONTLOSETARGET       0x00002000 // Don't lose target when target has CHRHFLAG_UNTARGETABLE
+#define CHRHFLAG_TRIGGER_BUDDY_WARP   0x00004000
+#define CHRHFLAG_PERFECTACCURACY      0x00008000 // Duel opponents
+#define CHRHFLAG_DISGUISE_UNCOVERED   0x00010000
+#define CHRHFLAG_00020000             0x00020000
+#define CHRHFLAG_00040000             0x00040000 // Not used
+#define CHRHFLAG_DISGUISED            0x00080000
+#define CHRHFLAG_WARPONSCREEN         0x00100000 // Allow chr warp to occur onscreen
+#define CHRHFLAG_NEEDANIM             0x00200000
+#define CHRHFLAG_BASICGUARD           0x00400000 // Can be used for anti, have movement stopped during high lag, and warped out of lift doorways
+#define CHRHFLAG_ONBONDSSCREEN        0x00800000 // Anti mode: chr is currently on Bond's screen so shouldn't be used for spawning anti
+#define CHRHFLAG_ASKEDABOUTGUN        0x01000000
+#define CHRHFLAG_ALMOSTUNCOVERED      0x02000000
+#define CHRHFLAG_ASKEDTHENSHOT        0x04000000 // Chr asked player about their gun and then was shot
+#define CHRHFLAG_DONTSHOOTME          0x08000000 // AI buddy must use melee attacks on this chr rather than shoot
+#define CHRHFLAG_INFINITESHIELD       0x10000000
+#define CHRHFLAG_CLOAKED              0x20000000
+#define CHRHFLAG_ANTINONINTERACTABLE  0x40000000
+#define CHRHFLAG_DETECTED             0x80000000 // If set on player
+#define CHRHFLAG_PSYCHOSISED          0x80000000 // If set on AI
 
 // chr->hidden2
 #define CHRH2FLAG_HIDDENFORCUTSCENE 0x0001
 #define CHRH2FLAG_SHIELDHIT         0x0002 // Turns off when shield no longer visible
-#define CHRH2FLAG_0004              0x0004
+#define CHRH2FLAG_AUTOANIM          0x0004 // Do automatic look up/down anims for multiplayer third person
 #define CHRH2FLAG_BLUESIGHT         0x0008
 #define CHRH2FLAG_TICKDURINGAUTOCUT 0x0010
-#define CHRH2FLAG_0020              0x0020
-#define CHRH2FLAG_0040              0x0040
+#define CHRH2FLAG_FIRESOUNDDONE     0x0020
+#define CHRH2FLAG_CONSIDERPROXIES   0x0040
 #define CHRH2FLAG_SPAWNED           0x0080
 #define CHRH2FLAG_HEADSHOTTED       0x1000
 
@@ -3705,14 +3706,14 @@
 #define SPAWNFLAG_FORCESUNGLASSES     0x00000001 // 100% chance of wearing sunglasses if head model supports it
 #define SPAWNFLAG_MAYBESUNGLASSES     0x00000002 // 50% chance of wearing sunglasses if head model supports it
 #define SPAWNFLAG_INVINCIBLE          0x00000008
-#define SPAWNFLAG_00000010            0x00000010
+#define SPAWNFLAG_ALLOWONSCREEN       0x00000010
 #define SPAWNFLAG_ONLYONA             0x00000020
 #define SPAWNFLAG_ONLYONSA            0x00000040
 #define SPAWNFLAG_ONLYONPA            0x00000080
 #define SPAWNFLAG_IGNORECOLLISION     0x00000100 // For initial chr placement only
-#define SPAWNFLAG_00000200            0x00000200
+#define SPAWNFLAG_BASICGUARD          0x00000200 // Can be used for anti, have movement stopped during high lag, and warped out of lift doorways
 #define SPAWNFLAG_ANTINONINTERACTABLE 0x00000400
-#define SPAWNFLAG_DONTSHOOTME         0x00000800
+#define SPAWNFLAG_DONTSHOOTME         0x00000800 // AI buddy must use melee attacks on this chr rather than shoot
 #define SPAWNFLAG_HIDDEN              0x00001000
 #define SPAWNFLAG_NOBLOOD             0x00002000
 #define SPAWNFLAG_FIXEDHEIGHT         0x00004000 // By default, chr heights vary slightly. This disables it.

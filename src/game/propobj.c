@@ -4289,7 +4289,7 @@ void weaponTick(struct prop *prop)
 						}
 
 						if (parent && (parent->type == PROPTYPE_CHR || parent->type == PROPTYPE_PLAYER)) {
-							parent->chr->hidden |= CHRHFLAG_00000001;
+							parent->chr->hidden |= CHRHFLAG_DROPPINGITEM;
 						} else {
 							projectile->ownerprop = NULL;
 							projectile->flags |= PROJECTILEFLAG_AIRBORNE;
@@ -18219,10 +18219,10 @@ void chrsTriggerProxies(void)
 
 		if (chr->model
 #if VERSION >= VERSION_NTSC_1_0
-				&& (chr->hidden2 & CHRH2FLAG_0040)
+				&& (chr->hidden2 & CHRH2FLAG_CONSIDERPROXIES)
 				&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
 #else
-				&& (chr->hidden & CHRHFLAG_00000200)
+				&& (chr->hidden & CHRHFLAG_CONSIDERPROXIES)
 #endif
 				&& chr->prop
 				&& (chr->prop->flags & PROPFLAG_ENABLED)
@@ -20158,7 +20158,7 @@ void doorsCalcFrac(struct doorobj *door)
 
 #if VERSION >= VERSION_NTSC_1_0
 						// Consider warping the chr past the lift door
-						if (!g_Vars.normmplayerisrunning && (chr->hidden & CHRHFLAG_00400000)) {
+						if (!g_Vars.normmplayerisrunning && (chr->hidden & CHRHFLAG_BASICGUARD)) {
 							bool isliftdoor = false;
 							loopdoor2 = loopdoor;
 

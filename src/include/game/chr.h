@@ -18,7 +18,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 s32 chrsGetNumFree(void);
 s16 chrsGetNextUnusedChrnum(void);
 struct prop *chr0f020b14(struct prop *prop, struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
-void chrRemove(struct prop *prop, bool removechr);
+void chrRemove(struct prop *prop, bool free);
 void chrUpdateAimProperties(struct chrdata *chr);
 void chrFlinchBody(struct chrdata *chr);
 void chrFlinchHead(struct chrdata *chr, f32 arg1);

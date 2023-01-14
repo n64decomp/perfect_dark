@@ -917,7 +917,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 								chrDie(chr, shooter);
 							} else {
-								chr->hidden |= CHRHFLAG_REAPED;
+								chr->hidden |= CHRHFLAG_DELETING;
 							}
 						}
 					} else if (chr->manground <= chr->ground) {
@@ -1352,9 +1352,9 @@ struct prop *chrAllocate(struct model *model, struct coord *pos, s16 *rooms, f32
 }
 
 /**
- * Removes a chr. If delete is true, deallocates the chr completely.
+ * Removes a chr. If free is true, free the chr.
  */
-void chrRemove(struct prop *prop, bool delete)
+void chrRemove(struct prop *prop, bool free)
 {
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
@@ -1400,7 +1400,7 @@ void chrRemove(struct prop *prop, bool delete)
 	modelmgrFreeModel(model);
 	chr->model = NULL;
 
-	if (delete) {
+	if (free) {
 		chrDeregister(chr->chrnum);
 
 		if (chr->cover != -1) {
@@ -1689,7 +1689,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				// Up/down at the waist
 				xrot = g_CurModelChr->aimupback;
 
-				if (g_CurModelChr->hidden2 & CHRH2FLAG_0004) {
+				if (g_CurModelChr->hidden2 & CHRH2FLAG_AUTOANIM) {
 					if (xrot > 1.0470308065414f) {
 						xrot -= 1.0470308065414f;
 					} else if (xrot < -0.87252569198608f) {
@@ -1709,7 +1709,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				}
 			} else if (joint == neckjoint) {
 				// Head up/down
-				if (g_CurModelChr->hidden2 & CHRH2FLAG_0004) {
+				if (g_CurModelChr->hidden2 & CHRH2FLAG_AUTOANIM) {
 					xrot = g_CurModelChr->aimupback;
 
 					if (xrot > 1.0470308065414f) {
@@ -2437,8 +2437,8 @@ s32 chrTick(struct prop *prop)
 			}
 		}
 
-		if (chr->hidden & CHRHFLAG_REAPED) {
-			if (chr->hidden & CHRHFLAG_00000001) {
+		if (chr->hidden & CHRHFLAG_DELETING) {
+			if (chr->hidden & CHRHFLAG_DROPPINGITEM) {
 				objDropRecursively(prop, true);
 			}
 
@@ -2602,9 +2602,9 @@ s32 chrTick(struct prop *prop)
 	if (fulltick) {
 		if (chr->actiontype != ACT_STAND || model->anim->animnum2 != 0 || prop->type == PROPTYPE_PLAYER) {
 #if VERSION >= VERSION_NTSC_1_0
-			chr->hidden2 |= CHRH2FLAG_0040;
+			chr->hidden2 |= CHRH2FLAG_CONSIDERPROXIES;
 #else
-			chr->hidden |= CHRHFLAG_00000200;
+			chr->hidden |= CHRHFLAG_CONSIDERPROXIES;
 #endif
 		}
 
@@ -2624,7 +2624,7 @@ s32 chrTick(struct prop *prop)
 			if (var8009cdac > 10) {
 				needsupdate = false;
 				chrDropItemsForOwnerReap(chr);
-				chr->hidden |= CHRHFLAG_REAPED;
+				chr->hidden |= CHRHFLAG_DELETING;
 			}
 		} else {
 			var8009cdb0++;
@@ -2645,7 +2645,7 @@ s32 chrTick(struct prop *prop)
 		chr->chrflags |= CHRCFLAG_EVERONSCREEN;
 
 		if (g_Vars.antiplayernum >= 0 && g_Vars.currentplayer == g_Vars.bond) {
-			chr->hidden |= CHRHFLAG_00800000;
+			chr->hidden |= CHRHFLAG_ONBONDSSCREEN;
 		}
 
 		if (cheatIsActive(CHEAT_DKMODE)) {
@@ -2844,7 +2844,7 @@ s32 chrTick(struct prop *prop)
 		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
 
 		if (g_Vars.antiplayernum >= 0 && g_Vars.currentplayer == g_Vars.bond) {
-			chr->hidden &= ~CHRHFLAG_00800000;
+			chr->hidden &= ~CHRHFLAG_ONBONDSSCREEN;
 		}
 
 		child = prop->child;
@@ -2862,9 +2862,9 @@ s32 chrTick(struct prop *prop)
 	}
 
 	if (fulltick && (chr->chrflags & CHRCFLAG_HIDDEN) == 0) {
-		if (chr->hidden & CHRHFLAG_00000001) {
+		if (chr->hidden & CHRHFLAG_DROPPINGITEM) {
 			objDropRecursively(prop, false);
-			chr->hidden &= ~CHRHFLAG_00000001;
+			chr->hidden &= ~CHRHFLAG_DROPPINGITEM;
 		}
 
 		func0f041a74(chr);
@@ -2889,7 +2889,7 @@ void chrDropConcealedItems(struct chrdata *chr)
 		prop = prop->next;
 	}
 
-	chr->hidden |= CHRHFLAG_00000001;
+	chr->hidden |= CHRHFLAG_DROPPINGITEM;
 }
 
 void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
@@ -2931,7 +2931,7 @@ void chrDropItemsForOwnerReap(struct chrdata *chr)
 		prop = prop->next;
 	}
 
-	chr->hidden |= CHRHFLAG_00000001;
+	chr->hidden |= CHRHFLAG_DROPPINGITEM;
 }
 
 u8 var80062a48[] = { 64, 10, 10 };
@@ -5224,7 +5224,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						|| weapon->weaponnum == WEAPON_REMOTEMINE
 						|| weapon->weaponnum == WEAPON_PROXIMITYMINE) {
 					objSetDropped(hit->prop, DROPTYPE_DEFAULT);
-					chr->hidden |= CHRHFLAG_00000001;
+					chr->hidden |= CHRHFLAG_DROPPINGITEM;
 					objDamage(&weapon->base, gsetGetDamage(&shotdata->gset), &sp98, shotdata->gset.weaponnum, g_Vars.currentplayernum);
 					return;
 				}
@@ -5262,7 +5262,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				if (chr->aibot == NULL && (chr->flags & CHRFLAG0_CANLOSEGUN)) {
 					chr->gunprop = hit->prop;
 					objSetDropped(hit->prop, DROPTYPE_DEFAULT);
-					chr->hidden |= CHRHFLAG_00000001;
+					chr->hidden |= CHRHFLAG_DROPPINGITEM;
 				}
 			} else if (hit->hitpart == HITPART_HAT) {
 				// Shot a chr's hat

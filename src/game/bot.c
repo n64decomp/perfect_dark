@@ -243,7 +243,7 @@ void botSpawn(struct chrdata *chr, u8 respawning)
 		botReset(chr, respawning);
 		splatResetChr(chr);
 		thing = scenarioChooseSpawnLocation(chr->radius, &pos, rooms, chr->prop);
-		chr->hidden |= CHRHFLAG_00100000;
+		chr->hidden |= CHRHFLAG_WARPONSCREEN;
 		chrMoveToPos(chr, &pos, rooms, thing, true);
 		chr->aibot->unk0a4 = modelGetChrRotY(chr->model);
 		chr->aibot->angleoffset = 0;
@@ -1260,7 +1260,7 @@ void botDisarm(struct chrdata *chr, struct prop *attackerprop)
 		if (prop && prop->obj) {
 			obj = prop->obj;
 			objSetDropped(prop, DROPTYPE_DEFAULT);
-			chr->hidden |= CHRHFLAG_00000001;
+			chr->hidden |= CHRHFLAG_DROPPINGITEM;
 
 			if (obj->hidden & OBJHFLAG_PROJECTILE) {
 				obj->projectile->pickuptimer240 = TICKS(240);

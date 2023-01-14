@@ -1650,8 +1650,8 @@ f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
 
 void chrChooseStandAnimation(struct chrdata *chr, f32 mergetime)
 {
-	struct prop *gun1 = chrGetHeldProp(chr, HAND_LEFT);
-	struct prop *gun2 = chrGetHeldProp(chr, HAND_RIGHT);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	s32 race = CHRRACE(chr);
 	s32 prevanimnum = modelGetAnimNum(chr->model);
 
@@ -1670,13 +1670,13 @@ void chrChooseStandAnimation(struct chrdata *chr, f32 mergetime)
 				|| prevanimnum == ANIM_SNIPING_GETUP
 				|| prevanimnum == ANIM_SNIPING_ONGROUND) {
 			modelSetAnimation(chr->model, ANIM_SNIPING_GETUP, chr->model->anim->flip, -1, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
-		} else if ((gun1 && gun2) || (!gun1 && !gun2)
-				|| weaponIsOneHanded(gun1)
-				|| weaponIsOneHanded(gun2)) {
+		} else if ((leftgun && rightgun) || (!leftgun && !rightgun)
+				|| weaponIsOneHanded(leftgun)
+				|| weaponIsOneHanded(rightgun)) {
 			modelSetAnimation(chr->model, ANIM_006A, random() % 2, 0, 0.25, mergetime);
 			modelSetAnimLooping(chr->model, 0, 16);
-		} else if (gun2 || gun1) {
-			modelSetAnimation(chr->model, ANIM_TWO_GUN_HOLD, gun1 != NULL, 0, 0.25, mergetime);
+		} else if (rightgun || leftgun) {
+			modelSetAnimation(chr->model, ANIM_TWO_GUN_HOLD, leftgun != NULL, 0, 0.25, mergetime);
 			modelSetAnimLooping(chr->model, 0, 16);
 			modelSetAnimEndFrame(chr->model, 120);
 		}
@@ -1814,19 +1814,19 @@ void chrStop(struct chrdata *chr)
 
 void chrKneelChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetHeldProp(chr, 1);
-	struct prop *gun2 = chrGetHeldProp(chr, 0);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 
 	if (chr->aibot == NULL) {
-		if ((gun1 && gun2)
-				|| (!gun1 && !gun2)
-				|| weaponIsOneHanded(gun1)
-				|| weaponIsOneHanded(gun2)) {
+		if ((leftgun && rightgun)
+				|| (!leftgun && !rightgun)
+				|| weaponIsOneHanded(leftgun)
+				|| weaponIsOneHanded(rightgun)) {
 			bool flip = random() % 2;
 			modelSetAnimation(chr->model, ANIM_KNEEL_SHOOT_RIGHT_HAND, flip, 0, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
 			modelSetAnimEndFrame(chr->model, 28);
-		} else if (gun2 || gun1) {
-			modelSetAnimation(chr->model, ANIM_KNEEL_TWO_HANDED_GUN, gun1 != NULL, 0, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
+		} else if (rightgun || leftgun) {
+			modelSetAnimation(chr->model, ANIM_KNEEL_TWO_HANDED_GUN, leftgun != NULL, 0, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
 			modelSetAnimEndFrame(chr->model, 27);
 		}
 	}
@@ -1848,13 +1848,13 @@ void chrKneel(struct chrdata *chr)
 
 void chrStartAlarmChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetHeldProp(chr, 1);
-	struct prop *gun2 = chrGetHeldProp(chr, 0);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	bool flip = false;
 
-	if (gun1 && !gun2) {
+	if (leftgun && !rightgun) {
 		flip = true;
-	} else if ((gun1 && gun2) || (!gun1 && !gun2)) {
+	} else if ((leftgun && rightgun) || (!leftgun && !rightgun)) {
 		flip = random() % 2;
 	}
 
@@ -1920,13 +1920,13 @@ void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
 void chrSurprisedChooseAnimation(struct chrdata *chr)
 {
 	if (chr->act_surprised.type == 1) {
-		struct prop *gun1 = chrGetHeldProp(chr, 1);
-		struct prop *gun0 = chrGetHeldProp(chr, 0);
+		struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+		struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 		s32 flip = 0;
 
-		if (gun1 != NULL && gun0 == NULL) {
+		if (leftgun != NULL && rightgun == NULL) {
 			flip = 1;
-		} else if ((gun1 != NULL && gun0 != NULL) || (gun1 == NULL && gun0 == NULL)) {
+		} else if ((leftgun != NULL && rightgun != NULL) || (leftgun == NULL && rightgun == NULL)) {
 			flip = random() & 1;
 		}
 
@@ -2004,22 +2004,22 @@ void chrDoSurprisedLookAround(struct chrdata *chr)
 
 void chrSurrenderChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetHeldProp(chr, 1);
-	struct prop *gun0 = chrGetHeldProp(chr, 0);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 
-	if (gun0 || gun1) {
+	if (rightgun || leftgun) {
 		modelSetAnimation(chr->model, ANIM_SURRENDER_002F, random() & 1, 0, 0.5, 16);
 		modelSetAnimLooping(chr->model, 40, 16);
 
-		if (gun1) {
-			objSetDropped(gun1, DROPTYPE_SURRENDER);
+		if (leftgun) {
+			objSetDropped(leftgun, DROPTYPE_SURRENDER);
 		}
 
-		if (gun0) {
-			objSetDropped(gun0, DROPTYPE_SURRENDER);
+		if (rightgun) {
+			objSetDropped(rightgun, DROPTYPE_SURRENDER);
 		}
 
-		chr->hidden |= CHRHFLAG_00000001;
+		chr->hidden |= CHRHFLAG_DROPPINGITEM;
 	} else {
 		modelSetAnimation(chr->model, ANIM_SURRENDER_002E, random() & 1, 0, 0.5, 16);
 		modelSetAnimLooping(chr->model, 30, 16);
@@ -2048,20 +2048,20 @@ void chrSurrender(struct chrdata *chr)
 
 void chrSidestepChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetHeldProp(chr, 1);
-	struct prop *gun2 = chrGetHeldProp(chr, 0);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	bool flip = false;
 	bool allowflip = false;
 	u32 race = CHRRACE(chr);
 
-	if (gun1 && gun2) {
+	if (leftgun && rightgun) {
 		flip = random() % 2;
 		allowflip = random() % 2;
 	} else {
-		if (weaponIsOneHanded(gun1) == false
-				&& weaponIsOneHanded(gun2) == false
-				&& (gun1 || gun2)) {
-			flip = (gun1 != 0);
+		if (weaponIsOneHanded(leftgun) == false
+				&& weaponIsOneHanded(rightgun) == false
+				&& (leftgun || rightgun)) {
+			flip = (leftgun != 0);
 			allowflip = random() % 2;
 		}
 	}
@@ -2112,14 +2112,14 @@ void chrSidestep(struct chrdata *chr, bool side)
 
 void chrJumpOutChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetHeldProp(chr, 1);
-	struct prop *gun2 = chrGetHeldProp(chr, 0);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	bool flip = false;
 
-	if (gun1 && !gun2) {
+	if (leftgun && !rightgun) {
 		flip = true;
-	} else if ((gun1 && gun2) || (!gun1 && !gun2)
-			|| weaponIsOneHanded(gun1) || weaponIsOneHanded(gun2)) {
+	} else if ((leftgun && rightgun) || (!leftgun && !rightgun)
+			|| weaponIsOneHanded(leftgun) || weaponIsOneHanded(rightgun)) {
 		flip = random() % 2;
 	}
 
@@ -2153,20 +2153,20 @@ void chrRunPosChooseAnimation(struct chrdata *chr)
 	f32 ydiff = chr->prop->pos.y - chr->act_runpos.pos.y;
 	f32 zdiff = chr->prop->pos.z - chr->act_runpos.pos.z;
 	f32 distance = sqrtf(xdiff * xdiff + zdiff * zdiff);
-	struct prop *gun1 = chrGetHeldProp(chr, 1);
-	struct prop *gun2 = chrGetHeldProp(chr, 0);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	bool heavy = true;
 	bool flip;
 	s32 race = CHRRACE(chr);
 
-	if ((gun1 && gun2) || (!gun1 && !gun2)) {
+	if ((leftgun && rightgun) || (!leftgun && !rightgun)) {
 		heavy = false;
 		flip = random() % 2;
-	} else if (weaponIsOneHanded(gun1) || weaponIsOneHanded(gun2)) {
+	} else if (weaponIsOneHanded(leftgun) || weaponIsOneHanded(rightgun)) {
 		heavy = false;
-		flip = (bool)gun1 != false;
+		flip = (bool)leftgun != false;
 	} else {
-		flip = (bool)gun1 != false;
+		flip = (bool)leftgun != false;
 	}
 
 	if (race == RACE_HUMAN) {
@@ -2938,7 +2938,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 void chrAttackAmount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 maxshots)
 {
 	u32 stack;
-	struct prop *prop = chrGetHeldProp(chr, 0);
+	struct prop *prop = chrGetHeldProp(chr, HAND_RIGHT);
 	struct attackanimgroup **things = NULL;
 	bool firing[] = {false, false};
 	u32 race = CHRRACE(chr);
@@ -3039,7 +3039,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 			}
 
 			// Destroy the eyespy
-			chr->hidden |= CHRHFLAG_REAPED;
+			chr->hidden |= CHRHFLAG_DELETING;
 
 			explosionCreateSimple(g_Vars.currentplayer->eyespy->prop,
 					&g_Vars.currentplayer->eyespy->prop->pos,
@@ -3386,12 +3386,12 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 		if (chr->weapons_held[0] && (chr->weapons_held[0]->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
 			objSetDropped(chr->weapons_held[0], DROPTYPE_DEFAULT);
-			chr->hidden |= CHRHFLAG_00000001;
+			chr->hidden |= CHRHFLAG_DROPPINGITEM;
 		}
 
 		if (chr->weapons_held[1] && (chr->weapons_held[1]->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
 			objSetDropped(chr->weapons_held[1], DROPTYPE_DEFAULT);
-			chr->hidden |= CHRHFLAG_00000001;
+			chr->hidden |= CHRHFLAG_DROPPINGITEM;
 		}
 
 		chrDropConcealedItems(chr);
@@ -4573,7 +4573,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			// Normal hat
 			damage = 0;
 			objSetDropped(chr->weapons_held[2], DROPTYPE_HAT);
-			chr->hidden |= CHRHFLAG_00000001;
+			chr->hidden |= CHRHFLAG_DROPPINGITEM;
 		} else {
 			// Metal helmets don't fall off and make a metallic chink noise when shot
 			u16 sounds[] = { SFX_HIT_METAL_807B, SFX_HIT_METAL_8079, SFX_HATHIT_807C };
@@ -4856,7 +4856,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 				if (weapon) {
 					chr->gunprop = weapon;
 					objSetDropped(weapon, DROPTYPE_DEFAULT);
-					chr->hidden |= CHRHFLAG_00000001;
+					chr->hidden |= CHRHFLAG_DROPPINGITEM;
 				}
 
 				weapon = chrGetHeldProp(chr, HAND_LEFT);
@@ -4864,7 +4864,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 				if (weapon) {
 					chr->gunprop = weapon;
 					objSetDropped(weapon, DROPTYPE_DEFAULT);
-					chr->hidden |= CHRHFLAG_00000001;
+					chr->hidden |= CHRHFLAG_DROPPINGITEM;
 				}
 			}
 		}
@@ -5002,14 +5002,14 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 							if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
 								objSetDropped(weapon, DROPTYPE_DEFAULT);
-								chr->hidden |= CHRHFLAG_00000001;
+								chr->hidden |= CHRHFLAG_DROPPINGITEM;
 							}
 
 							weapon = chr->weapons_held[HAND_LEFT];
 
 							if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
 								objSetDropped(weapon, DROPTYPE_DEFAULT);
-								chr->hidden |= CHRHFLAG_00000001;
+								chr->hidden |= CHRHFLAG_DROPPINGITEM;
 							}
 						}
 					}
@@ -5810,8 +5810,8 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 {
 	s32 gospeed = chr->act_gopos.flags & GOPOSMASK_SPEED;
 	s32 male = g_HeadsAndBodies[chr->bodynum].ismale;
-	struct prop *gun1 = chrGetHeldProp(chr, 1);
-	struct prop *gun2 = chrGetHeldProp(chr, 0);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	s32 flip = false;
 	s32 heavy;
 	s32 race = CHRRACE(chr);
@@ -5831,16 +5831,16 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 	}
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-		if ((gun1 && gun2) || (!gun1 && !gun2)) {
+		if ((leftgun && rightgun) || (!leftgun && !rightgun)) {
 			heavy = false;
 			flip = random() % 2;
 		} else {
-			if (weaponIsOneHanded(gun1) || weaponIsOneHanded(gun2)) {
+			if (weaponIsOneHanded(leftgun) || weaponIsOneHanded(rightgun)) {
 				heavy = false;
-				flip = (bool)gun1 != false;
+				flip = (bool)leftgun != false;
 			} else {
 				heavy = true;
-				flip = (bool)gun1 != false;
+				flip = (bool)leftgun != false;
 			}
 		}
 
@@ -7109,7 +7109,7 @@ bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 goposflags)
 			&& chrIsReadyForOrders(chr)
 #if VERSION >= VERSION_NTSC_1_0
 			&& (g_NumChrsSeenPlayerRecently2 <= 8
-				|| (chr->hidden & CHRHFLAG_00400000) == 0
+				|| (chr->hidden & CHRHFLAG_BASICGUARD) == 0
 				|| (chr->flags & CHRFLAG0_ACTIVATEALARM))
 #else
 			&& g_NumChrsSeenPlayerRecently2 <= 9
@@ -7180,7 +7180,7 @@ bool chrGoToTarget(struct chrdata *chr, u32 goposflags)
 		if (
 #if VERSION >= VERSION_NTSC_1_0
 				g_NumChrsSeenPlayerRecently2 <= 8
-				|| (chr->hidden & CHRHFLAG_00400000) == 0
+				|| (chr->hidden & CHRHFLAG_BASICGUARD) == 0
 				|| (chr->flags & CHRFLAG0_ACTIVATEALARM)
 #else
 				g_NumChrsSeenPlayerRecently2 <= 9
@@ -7203,7 +7203,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 goposflags)
 		if (
 #if VERSION >= VERSION_NTSC_1_0
 				g_NumChrsSeenPlayerRecently2 <= 8
-				|| (chr->hidden & CHRHFLAG_00400000) == 0
+				|| (chr->hidden & CHRHFLAG_BASICGUARD) == 0
 				|| (chr->flags & CHRFLAG0_ACTIVATEALARM)
 #else
 				g_NumChrsSeenPlayerRecently2 <= 9
@@ -7239,7 +7239,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, u32 goposflags)
 	if (chrIsReadyForOrders(chr)) {
 #if VERSION >= VERSION_NTSC_1_0
 		if (g_NumChrsSeenPlayerRecently2 < 9
-				|| (chr->hidden & CHRHFLAG_00400000) == 0
+				|| (chr->hidden & CHRHFLAG_BASICGUARD) == 0
 				|| (chr->flags & CHRCFLAG_00040000))
 #else
 		if (g_NumChrsSeenPlayerRecently2 < 10)
@@ -7676,7 +7676,7 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 		propReparent(weapon->base.prop, chr->prop);
 		weapon->timer240 = TICKS(720);
 		objSetDropped(weapon->base.prop, DROPTYPE_DEFAULT);
-		chr->hidden |= CHRHFLAG_00000001;
+		chr->hidden |= CHRHFLAG_DROPPINGITEM;
 
 		return true;
 	}
@@ -8194,7 +8194,7 @@ void chrTickDead(struct chrdata *chr)
 			if (aibot) {
 				botSpawn(chr, true);
 			} else {
-				chr->hidden |= CHRHFLAG_REAPED;
+				chr->hidden |= CHRHFLAG_DELETING;
 			}
 		} else {
 			// Still fading
@@ -8218,7 +8218,7 @@ void chrTickDead(struct chrdata *chr)
 		if (chr->act_dead.fadewheninvis && chr->act_dead.invistimer60 >= TICKS(120)) {
 			// Remove corpse (off-screen)
 			if (aibot == NULL) {
-				chr->hidden |= CHRHFLAG_REAPED;
+				chr->hidden |= CHRHFLAG_DELETING;
 			}
 
 			chr->fadealpha = 0;
@@ -8343,7 +8343,7 @@ void chrTickDie(struct chrdata *chr)
 		struct prop *prop = chr->prop;
 		func0f0926bc(prop, 1, 0xffff);
 		explosionCreateSimple(prop, &prop->pos, prop->rooms, EXPLOSIONTYPE_8, g_Vars.currentplayernum);
-		chr->hidden |= CHRHFLAG_REAPED;
+		chr->hidden |= CHRHFLAG_DELETING;
 		return;
 	}
 
@@ -8507,14 +8507,14 @@ void chrTickDruggedComingUp(struct chrdata *chr)
 
 		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
 			objSetDropped(weapon, DROPTYPE_DEFAULT);
-			chr->hidden |= CHRHFLAG_00000001;
+			chr->hidden |= CHRHFLAG_DROPPINGITEM;
 		}
 
 		weapon = chr->weapons_held[HAND_LEFT];
 
 		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
 			objSetDropped(weapon, DROPTYPE_DEFAULT);
-			chr->hidden |= CHRHFLAG_00000001;
+			chr->hidden |= CHRHFLAG_DROPPINGITEM;
 		}
 
 		chrDropConcealedItems(chr);
@@ -8614,7 +8614,7 @@ void chrTickDruggedKo(struct chrdata *chr)
 
 	if (reap) {
 		chr->fadealpha = 0;
-		chr->hidden |= CHRHFLAG_REAPED;
+		chr->hidden |= CHRHFLAG_DELETING;
 		chrDropItemsForOwnerReap(chr);
 	}
 }
@@ -8754,7 +8754,7 @@ void chrTickSurprised(struct chrdata *chr)
 	}
 }
 
-void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool withbeam, struct coord *from, struct coord *to)
+void chrUpdateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool withbeam, struct coord *from, struct coord *to)
 {
 	struct prop *weaponprop;
 	struct weaponobj *weapon;
@@ -8781,9 +8781,9 @@ void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool wi
 			if (withsound) {
 				if (duration > 0) {
 #if VERSION >= VERSION_NTSC_1_0
-					if (chr->hidden2 & CHRH2FLAG_0020)
+					if (chr->hidden2 & CHRH2FLAG_FIRESOUNDDONE)
 #else
-					if (chr->hidden & CHRHFLAG_00000080)
+					if (chr->hidden & CHRHFLAG_FIRESOUNDDONE)
 #endif
 					{
 						playsound = false;
@@ -8803,11 +8803,11 @@ void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool wi
 #if VERSION >= VERSION_NTSC_1_0
 				propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0x11, NULL, -1, NULL, -1, -1, -1, -1);
 				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
-				chr->hidden2 |= CHRH2FLAG_0020;
+				chr->hidden2 |= CHRH2FLAG_FIRESOUNDDONE;
 #else
 				propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0, NULL, -1, NULL, -1, -1, -1, -1);
 				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
-				chr->hidden |= CHRHFLAG_00000080;
+				chr->hidden |= CHRHFLAG_FIRESOUNDDONE;
 
 				if (chr);
 #endif
@@ -10456,7 +10456,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 		osSyncPrintf("on");
 		osSyncPrintf("off");
 
-		chrCreateFireslot(chr, handnum, firingthisframe, firingthisframe && makebeam, &gunpos, &hitpos);
+		chrUpdateFireslot(chr, handnum, firingthisframe, firingthisframe && makebeam, &gunpos, &hitpos);
 
 		if (isaibot) {
 			if (firingthisframe) {
@@ -10479,9 +10479,9 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 void func0f041a74(struct chrdata *chr)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	chr->hidden2 &= ~CHRH2FLAG_0020;
+	chr->hidden2 &= ~CHRH2FLAG_FIRESOUNDDONE;
 #else
-	chr->hidden &= ~CHRHFLAG_00000080;
+	chr->hidden &= ~CHRHFLAG_FIRESOUNDDONE;
 #endif
 
 	if (chr->actiontype == ACT_ROBOTATTACK) {
@@ -11313,7 +11313,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 			(frame >= 58 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING)) {
 		weapon = weaponprop->weapon;
 		objSetDropped(weaponprop, DROPTYPE_THROWGRENADE);
-		chr->hidden |= CHRHFLAG_00000001;
+		chr->hidden |= CHRHFLAG_DROPPINGITEM;
 		weapon->timer240 = TICKS(240);
 	}
 
@@ -12781,7 +12781,7 @@ void chrTickGoPos(struct chrdata *chr)
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (g_NumChrsSeenPlayerRecently2 >= 9
-			&& (chr->hidden & CHRHFLAG_00400000)
+			&& (chr->hidden & CHRHFLAG_BASICGUARD)
 			&& (chr->flags & CHRFLAG0_ACTIVATEALARM) == 0) {
 		chrStop(chr);
 		return;
@@ -13374,9 +13374,9 @@ void chraTick(struct chrdata *chr)
 
 #if VERSION >= VERSION_NTSC_1_0
 		chr->hidden &= ~CHRHFLAG_IS_HEARING_TARGET;
-		chr->hidden2 &= ~CHRH2FLAG_0040;
+		chr->hidden2 &= ~CHRH2FLAG_CONSIDERPROXIES;
 #else
-		chr->hidden &= ~(CHRHFLAG_IS_HEARING_TARGET | CHRHFLAG_00000200);
+		chr->hidden &= ~(CHRHFLAG_IS_HEARING_TARGET | CHRHFLAG_CONSIDERPROXIES);
 #endif
 
 		if (pass) {
@@ -14951,7 +14951,7 @@ bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
  * If the spawn cannot happen, the function return false.
  */
 #if VERSION >= VERSION_NTSC_1_0
-bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg, bool arg6)
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool force, bool onlysurrounding)
 {
 	struct coord testpos;
 	s32 i;
@@ -14962,14 +14962,14 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
 	f32 curangle = angle;
 	f32 ground;
 
-	if (ignorebg) {
+	if (force) {
 		types = CDTYPE_ALL & ~CDTYPE_BG;
 		allowonscreen = true;
 	} else {
 		types = CDTYPE_ALL;
 	}
 
-	if (arg6) {
+	if (onlysurrounding) {
 		// Skip testing the given pos, and just do the surrounding checks below.
 		// Add 45 degrees to the angle here, but this isn't necessary.
 		curangle += 0.7852731347084f;
@@ -15003,8 +15003,8 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
 		testpos.y = pos->y;
 		testpos.z = pos->z + cosf(curangle) * 60;
 
-		if ((arg6 && cdTestCylMove04(pos, rooms, &testpos, testrooms, CDTYPE_ALL & ~CDTYPE_PLAYERS, 1, ymax, -200) != CDRESULT_COLLISION)
-				|| (!arg6 && cdTestLos11(pos, rooms, &testpos, testrooms, CDTYPE_BG))) {
+		if ((onlysurrounding && cdTestCylMove04(pos, rooms, &testpos, testrooms, CDTYPE_ALL & ~CDTYPE_PLAYERS, 1, ymax, -200) != CDRESULT_COLLISION)
+				|| (!onlysurrounding && cdTestLos11(pos, rooms, &testpos, testrooms, CDTYPE_BG))) {
 			chr0f021fa8(NULL, &testpos, testrooms);
 			ground = cdFindGroundAtCyl(&testpos, chrradius, testrooms, 0, 0);
 			ymin = -200;
@@ -15015,7 +15015,7 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
 
 			if (cdTestVolume(&testpos, chrradius, testrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax, ymin) != CDRESULT_COLLISION
 					&& (allowonscreen || chrIsPosOffScreen(&testpos, testrooms))
-					&& (!arg6 || ground > -100000)) {
+					&& (!onlysurrounding || ground > -100000)) {
 				pos->x = testpos.x;
 				pos->y = testpos.y;
 				pos->z = testpos.z;
@@ -15035,10 +15035,10 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
 }
 #else
 /**
- * ntsc-beta's version of this function doesn't have the arg6 argument
+ * ntsc-beta's version of this function doesn't have the onlysurrounding argument
  * nor out of bounds checking, and lacks the reduction for the volume test.
  */
-bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg)
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool force)
 {
 	struct coord testpos;
 	s32 i;
@@ -15046,7 +15046,7 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
 	s16 testrooms[8];
 	f32 curangle = angle;
 
-	if (ignorebg) {
+	if (force) {
 		types = CDTYPE_ALL & ~CDTYPE_BG;
 		allowonscreen = true;
 	} else {
@@ -15110,9 +15110,9 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 		roomsCopy(rooms, rooms2);
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0, 0))
+		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_ALLOWONSCREEN) != 0, false, false))
 #else
-		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0))
+		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_ALLOWONSCREEN) != 0, false))
 #endif
 		{
 			struct model *model = bodyAllocateModel(bodynum, headnum, spawnflags);
@@ -15261,7 +15261,7 @@ void func0f04b740(void)
 	// empty
 }
 
-bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen)
+bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle, bool force)
 {
 	struct coord pos2;
 	s16 rooms2[8];
@@ -15279,9 +15279,9 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 	propSetPerimEnabled(chr->prop, false);
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (chrAdjustPosForSpawn(chr->radius, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0))
+	if (chrAdjustPosForSpawn(chr->radius, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_WARPONSCREEN) != 0, force, (chr->hidden & CHRHFLAG_SPAWNONLYSURROUNDING) != 0))
 #else
-	if (chrAdjustPosForSpawn(chr->radius, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen))
+	if (chrAdjustPosForSpawn(chr->radius, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_WARPONSCREEN) != 0, force))
 #endif
 	{
 		ground = cdFindGroundInfoAtCyl(&pos2, chr->radius, rooms2, &chr->floorcol,

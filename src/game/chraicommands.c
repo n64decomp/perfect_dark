@@ -2242,7 +2242,7 @@ bool ai0067(void)
 	if (obj && obj->prop && obj->prop->parent && obj->prop->parent->type == PROPTYPE_CHR) {
 		struct chrdata *chr = obj->prop->parent->chr;
 		objSetDropped(obj->prop, DROPTYPE_SURRENDER);
-		chr->hidden |= CHRHFLAG_00000001;
+		chr->hidden |= CHRHFLAG_DROPPINGITEM;
 	}
 
 	g_Vars.aioffset += 3;
@@ -2287,12 +2287,12 @@ bool aiChrDropWeapon(void)
 	} else if (chr && chr->prop) {
 		if (chr->weapons_held[0]) {
 			objSetDropped(chr->weapons_held[0], DROPTYPE_DEFAULT);
-			chr->hidden |= CHRHFLAG_00000001;
+			chr->hidden |= CHRHFLAG_DROPPINGITEM;
 		}
 
 		if (chr->weapons_held[1]) {
 			objSetDropped(chr->weapons_held[1], DROPTYPE_DEFAULT);
-			chr->hidden |= CHRHFLAG_00000001;
+			chr->hidden |= CHRHFLAG_DROPPINGITEM;
 		}
 	}
 
@@ -5193,7 +5193,7 @@ bool aiChrMoveToPad(void)
 
 			if (chr2 && chr2->prop) {
 				theta = chrGetInverseTheta(chr2);
-				pass = chrMoveToPos(chr, &chr2->prop->pos, chr2->prop->rooms, theta, 0);
+				pass = chrMoveToPos(chr, &chr2->prop->pos, chr2->prop->rooms, theta, false);
 			}
 		} else {
 			s32 padnum = cmd[4] | (cmd[3] << 8);
@@ -5903,22 +5903,29 @@ bool aiSetTarget(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (g_Vars.chrdata) {
-		s16 prop_id;
+		s16 newtarget;
 
 		if (!cmd[3] && !cmd[4]) {
-			prop_id = propGetIndexByChrId(g_Vars.chrdata, cmd[2]);
+			newtarget = propGetIndexByChrId(g_Vars.chrdata, cmd[2]);
 		} else if (!cmd[4]) {
 			struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-			prop_id = chr->target;
+			newtarget = chr->target;
 		}
 
-		if (prop_id != g_Vars.chrdata->target) {
+		if (newtarget != g_Vars.chrdata->target) {
 			g_Vars.chrdata->lastvisibletarget60 = 0;
 			g_Vars.chrdata->lastseetarget60 = 0;
 			g_Vars.chrdata->lastheartarget60 = 0;
+
+			// @bug: Unsetting these flags here causes guards to become deaf in
+			// co-op mode. This is because their AI scripting toggles their
+			// target between the two players on each frame, so this flag is
+			// cleared before it is read. A suitable fix would be to only unset
+			// these flags if either the old or new target is not a player.
 			g_Vars.chrdata->hidden &= ~CHRHFLAG_IS_HEARING_TARGET;
 			g_Vars.chrdata->chrflags &= ~CHRCFLAG_NEAR_MISS;
-			g_Vars.chrdata->target = prop_id;
+
+			g_Vars.chrdata->target = newtarget;
 		}
 	} else if (g_Vars.hovercar) {
 		chopperSetTarget(g_Vars.hovercar, cmd[2]);
@@ -11519,7 +11526,7 @@ bool aiChrSetFiringInCutscene(void)
 	if (chr && chr->weapons_held[HAND_RIGHT]) {
 		if (cmd[3]) {
 			chrSetFiring(chr, HAND_RIGHT, true);
-			chrCreateFireslot(chr, HAND_RIGHT, true, false, &from, &to);
+			chrUpdateFireslot(chr, HAND_RIGHT, true, false, &from, &to);
 		} else {
 			chrSetFiring(chr, HAND_RIGHT, false);
 		}

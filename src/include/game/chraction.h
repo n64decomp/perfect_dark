@@ -134,7 +134,7 @@ void chrTickSidestep(struct chrdata *chr);
 void chrTickJumpOut(struct chrdata *chr);
 void chrTickStartAlarm(struct chrdata *chr);
 void chrTickSurprised(struct chrdata *chr);
-void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool withbeam, struct coord *from, struct coord *to);
+void chrUpdateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool withbeam, struct coord *from, struct coord *to);
 f32 chrGetInverseTheta(struct chrdata *chr);
 f32 chrGetAimAngle(struct chrdata *chr);
 f32 chrGetPitchAngle(struct chrdata *chr);
@@ -206,14 +206,14 @@ bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr);
 bool chrIsPosOffScreen(struct coord *pos, s16 *rooms);
 
 #if VERSION >= VERSION_NTSC_1_0
-bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5, bool arg6);
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool force, bool onlysurrounding);
 #else
-bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5);
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool force);
 #endif
 
 struct prop *chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f32 angle, u8 *ailist, u32 spawnflags);
 bool chrIsPropPresetBlockingSightToTarget(struct chrdata *chr);
-bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle, bool allowonscreen);
+bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle, bool ignorebg);
 bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool soft);
 s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 arg1, s32 arg2);
 s32 chrAssignCoverAwayFromDanger(struct chrdata *chr, s32 mindist, s32 maxdist);

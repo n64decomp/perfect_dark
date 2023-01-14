@@ -817,7 +817,7 @@ bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 	hostprop = hostchr->prop;
 
 	hostchr->chrflags |= CHRCFLAG_PERIMDISABLEDTMP;
-	playerchr->hidden |= CHRHFLAG_00100000;
+	playerchr->hidden |= CHRHFLAG_WARPONSCREEN;
 	playerchr->radius = hostchr->radius;
 
 	if (chrMoveToPos(playerchr, &hostchr->prop->pos, hostchr->prop->rooms, chrGetInverseTheta(hostchr), false) || force) {
@@ -988,7 +988,7 @@ void playerSpawn(void)
 			for (i = 0; i < chrsGetNumSlots(); i++) {
 				if (g_ChrSlots[i].model
 						&& g_ChrSlots[i].prop
-						&& (g_ChrSlots[i].hidden & CHRHFLAG_00400000)
+						&& (g_ChrSlots[i].hidden & CHRHFLAG_BASICGUARD)
 						&& (g_ChrSlots[i].chrflags & CHRCFLAG_HIDDEN) == 0
 						&& g_ChrSlots[i].prop->type == PROPTYPE_CHR
 						&& !chrIsDead(&g_ChrSlots[i])
@@ -1006,10 +1006,10 @@ void playerSpawn(void)
 					sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 
 					if (g_Vars.lvframenum > 0
-							&& (g_ChrSlots[i].hidden & CHRHFLAG_00800000)
+							&& (g_ChrSlots[i].hidden & CHRHFLAG_ONBONDSSCREEN)
 							&& func0f06b39c(&sp78, &sp90, &g_ChrSlots[i].prop->pos, modelGetEffectiveScale(g_ChrSlots[i].model))
 							&& (random() % 8)) {
-						sqdist += 1000000;
+						sqdist += 1000 * 1000;
 					}
 
 					// Insert sqdist to sorteddists, maintaining sort order,
@@ -3689,21 +3689,21 @@ void playerTick(bool arg0)
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta / 2),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
 						prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chrSpawnAtCoord(BODY_DARK_COMBAT, HEAD_VD,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta / 2),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					}
 
 					if (prop) {
@@ -3742,14 +3742,14 @@ void playerTick(bool arg0)
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chrSpawnAtCoord(BODY_CARRINGTON, HEAD_JAMIE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 								ailistFindById(GAILIST_INIT_PUGILIST_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					}
 
 					if (prop) {
@@ -3786,14 +3786,14 @@ void playerTick(bool arg0)
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MARK2,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					}
 
 					if (prop) {
@@ -3832,14 +3832,14 @@ void playerTick(bool arg0)
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chrSpawnAtCoord(BODY_CISOLDIER, HEAD_CHRIST,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					}
 
 					if (prop) {
@@ -3879,14 +3879,14 @@ void playerTick(bool arg0)
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chrSpawnAtCoord(BODY_ELVIS1, HEAD_MAIAN_S,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
-								SPAWNFLAG_00000010);
+								SPAWNFLAG_ALLOWONSCREEN);
 					}
 
 					if (prop) {
@@ -5346,10 +5346,10 @@ s32 playerTickThirdPerson(struct prop *prop)
 
 			if (modelGetAnimNum(chr->model) == animnum) {
 				if (chr->act_bondmulti.animcfg) {
-					chr->hidden2 &= ~CHRH2FLAG_0004;
+					chr->hidden2 &= ~CHRH2FLAG_AUTOANIM;
 					chrCalculateAimEndProperties(chr, chr->act_bondmulti.animcfg, leftprop != NULL, rightprop != NULL, shootrotx);
 				} else {
-					chr->hidden2 |= CHRH2FLAG_0004;
+					chr->hidden2 |= CHRH2FLAG_AUTOANIM;
 					chr->aimendback = shootrotx;
 					chr->aimendrshoulder = 0;
 					chr->aimendlshoulder = 0;
@@ -5384,7 +5384,7 @@ s32 playerTickThirdPerson(struct prop *prop)
 
 		chrSetLookAngle(chr, angle);
 
-		chr->chrflags |= CHRHFLAG_00000001;
+		chr->chrflags |= CHRHFLAG_DROPPINGITEM;
 
 		tickop2 = chrTick(prop);
 

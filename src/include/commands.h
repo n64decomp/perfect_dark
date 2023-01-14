@@ -2114,20 +2114,18 @@
  * If the pad is occupied then a reasonable attempt will be made to place the
  * chr near it. This attempt may fail if the pad is occupied by several chrs.
  *
- * If allowonscreen is FALSE, the chr will not be moved if the pad is on screen.
+ * If force is TRUE, background collision checks will be skipped and the chr
+ * will be moved even if the pad is on screen.
  *
- * If allowonscreen is TRUE, the chr will be moved even if the pad is on screen.
- * This may cause them to appear out of nowhere.
- *
- * If allowonscreen is 88 then the pad number will be interpreted as a chr
- * number and the chr will be moved to the other chr instead. This is used to
- * warp a co-op AI buddy to the player when using the stealth command.
+ * If force is 88 then the pad number will be interpreted as a chr number and
+ * the chr will be moved to the other chr instead. This is used to warp a co-op
+ * AI buddy to the player when using the stealth command.
  */
-#define chr_move_to_pad(chr, pad, allowonscreen, label) \
+#define chr_move_to_pad(chr, pad, force, label) \
 	mkshort(0x00e2), \
 	chr, \
 	mkshort(pad), \
-	allowonscreen, \
+	force, \
 	label,
 
 #define cmd00e3(chr) \

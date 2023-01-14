@@ -1164,7 +1164,7 @@ void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall)
 		botinvSwitchToWeapon(chr, WEAPON_UNARMED, FUNC_PRIMARY);
 	}
 
-	chr->hidden |= CHRHFLAG_00000001;
+	chr->hidden |= CHRHFLAG_DROPPINGITEM;
 
 	if (!dropall) {
 		botinvRemoveItem(chr, weaponnum);

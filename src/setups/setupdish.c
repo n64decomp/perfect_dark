@@ -2473,7 +2473,7 @@ u8 func101a_move_jo_to_training_room[] = {
 };
 
 u8 func0401_move_to_deviceroom[] = {
-	chr_move_to_pad(CHR_SELF, PAD_DEVICEROOM, 0x01, /*goto*/ 0x06)
+	chr_move_to_pad(CHR_SELF, PAD_DEVICEROOM, TRUE, /*goto*/ 0x06)
 	label(0x06)
 	stop_chr
 	yield
@@ -2482,7 +2482,7 @@ u8 func0401_move_to_deviceroom[] = {
 };
 
 u8 func0402_move_to_holoroom[] = {
-	chr_move_to_pad(CHR_SELF, PAD_HOLOROOM, 0x01, /*goto*/ 0x06)
+	chr_move_to_pad(CHR_SELF, PAD_HOLOROOM, TRUE, /*goto*/ 0x06)
 	label(0x06)
 	stop_chr
 	yield
@@ -2688,7 +2688,7 @@ u8 func042a_carrington_cloak[] = {
 	set_returnlist(CHR_SELF, AILIST_CARRINGTON_CLOAK)
 
 	beginloop(0x8f)
-		chr_move_to_pad(CHR_SELF, PAD_CARRINGTON_OFFICE, 0x01, /*goto*/ 0x06)
+		chr_move_to_pad(CHR_SELF, PAD_CARRINGTON_OFFICE, TRUE, /*goto*/ 0x06)
 	endloop(0x8f)
 
 	label(0x06)
@@ -2941,7 +2941,7 @@ u8 func042b_init_carrington[] = {
 	dprint 'E','E','P','R','O','M',' ','S','E','T',0,
 
 	beginloop(0x08)
-		chr_move_to_pad(CHR_SELF, PAD_CARRINGTON_OFFICE, 0x01, /*goto*/ 0x2f)
+		chr_move_to_pad(CHR_SELF, PAD_CARRINGTON_OFFICE, TRUE, /*goto*/ 0x2f)
 	endloop(0x08)
 
 	label(0x2f)
@@ -2953,7 +2953,7 @@ u8 func042b_init_carrington[] = {
 	goto_first(0x08)
 
 	beginloop(0x8f)
-		chr_move_to_pad(CHR_SELF, PAD_OUTSIDE_JO_OFFICE, 0x01, /*goto*/ 0x2f)
+		chr_move_to_pad(CHR_SELF, PAD_OUTSIDE_JO_OFFICE, TRUE, /*goto*/ 0x2f)
 	endloop(0x8f)
 
 	label(0x2f)
@@ -4526,7 +4526,7 @@ u8 func1028_holo4_main[] = {
 	unset_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	disable_object(0x45)
 	disable_chr(0x04)
-	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0274, AILIST_HOLO4_GUARD1, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x08)
+	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0274, AILIST_HOLO4_GUARD1, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x08)
 	label(0x08)
 	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x91)
@@ -4620,7 +4620,7 @@ u8 func0403_holo4_guard1[] = {
 
 	label(0x2f)
 	set_self_chrflag(CHRCFLAG_00000040)
-	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0277, AILIST_HOLO4_GUARD2, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x08)
+	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0277, AILIST_HOLO4_GUARD2, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x08)
 	label(0x08)
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_108) // "Now try against a moving target..."
@@ -4641,7 +4641,7 @@ u8 func0404_holo4_guard2[] = {
 
 	label(0x2f)
 	set_self_chrflag(CHRCFLAG_00000040)
-	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_027A, AILIST_HOLO4_GUARD3, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x0a)
+	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_027A, AILIST_HOLO4_GUARD3, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x0a)
 	label(0x0a)
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_109) // "And finally against a target that fights back."
@@ -4769,7 +4769,7 @@ u8 func1029_holo5_main[] = {
 	unset_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	disable_object(0x45)
 	disable_chr(0x04)
-	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0126, AILIST_HOLO5_INIT_GUARD1, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x06)
+	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0126, AILIST_HOLO5_INIT_GUARD1, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x06)
 	label(0x06)
 	yield
 	dprint 't','r','a','i','n','i','n','g',0,
@@ -4910,7 +4910,7 @@ u8 func0407_holo5_guard1[] = {
 	show_hudmsg(CHR_BOND, L_DISH_090) // "Guard has been successfully disarmed."
 
 	beginloop(0x59)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0272, AILIST_HOLO5_INIT_GUARD2, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x2f)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0272, AILIST_HOLO5_INIT_GUARD2, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x2f)
 	endloop(0x59)
 
 	label(0x2f)
@@ -4992,7 +4992,7 @@ u8 func0409_holo5_guard2[] = {
 	set_self_chrflag(CHRCFLAG_00000040)
 
 	beginloop(0x57)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0125, AILIST_HOLO5_INIT_GUARD3, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x06)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0125, AILIST_HOLO5_INIT_GUARD3, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x06)
 	endloop(0x57)
 
 	label(0x06)
@@ -5146,19 +5146,19 @@ u8 func102e_holo6_main[] = {
 	disable_chr(0x04)
 
 	beginloop(0x57)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0127, AILIST_HOLO6_INIT_GUARD1, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x59)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0127, AILIST_HOLO6_INIT_GUARD1, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x59)
 	endloop(0x57)
 
 	beginloop(0x59)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0128, AILIST_HOLO6_INIT_GUARD2, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5b)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0128, AILIST_HOLO6_INIT_GUARD2, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5b)
 	endloop(0x59)
 
 	beginloop(0x5b)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0129, AILIST_HOLO6_INIT_GUARD3, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5c)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0129, AILIST_HOLO6_INIT_GUARD3, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5c)
 	endloop(0x5b)
 
 	beginloop(0x5c)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012A, AILIST_HOLO6_INIT_GUARD4, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5d)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012A, AILIST_HOLO6_INIT_GUARD4, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5d)
 	endloop(0x5c)
 
 	label(0x5d)
@@ -5557,23 +5557,23 @@ u8 func1030_holo7_main[] = {
 	disable_chr(0x04)
 
 	beginloop(0x57)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012B, AILIST_HOLO7_INIT_GUARD1, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x59)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012B, AILIST_HOLO7_INIT_GUARD1, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x59)
 	endloop(0x57)
 
 	beginloop(0x59)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012C, AILIST_HOLO7_INIT_GUARD2, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5b)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012C, AILIST_HOLO7_INIT_GUARD2, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5b)
 	endloop(0x59)
 
 	beginloop(0x5b)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012D, AILIST_HOLO7_INIT_GUARD3, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5c)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012D, AILIST_HOLO7_INIT_GUARD3, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5c)
 	endloop(0x5b)
 
 	beginloop(0x5c)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012E, AILIST_HOLO7_INIT_GUARD4, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5d)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012E, AILIST_HOLO7_INIT_GUARD4, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5d)
 	endloop(0x5c)
 
 	beginloop(0x5d)
-		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012F, AILIST_HOLO7_INIT_GUARD5, SPAWNFLAG_00000010 | SPAWNFLAG_00000200 | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5e)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_012F, AILIST_HOLO7_INIT_GUARD5, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x5e)
 	endloop(0x5d)
 
 	label(0x5e)
