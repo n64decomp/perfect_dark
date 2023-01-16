@@ -488,9 +488,9 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 					f32 minscale;
 					f32 maxscale;
 
-					flag40 = OBJFLAG_00000040;
+					flag40 = OBJFLAG_YTOPADBOUNDS;
 
-					if (obj->flags & OBJFLAG_00000020) {
+					if (obj->flags & OBJFLAG_XTOPADBOUNDS) {
 						if (bbox->xmin < bbox->xmax) {
 							if (obj->flags & OBJFLAG_00000002) {
 								xscale = (pad.bbox.xmax - pad.bbox.xmin) / ((bbox->xmax - bbox->xmin) * obj->model->scale);
@@ -510,7 +510,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 						}
 					}
 
-					if (obj->flags & OBJFLAG_00000080) {
+					if (obj->flags & OBJFLAG_ZTOPADBOUNDS) {
 						if (bbox->zmin < bbox->zmax) {
 							if (obj->flags & OBJFLAG_00000002) {
 								yscale = (pad.bbox.ymax - pad.bbox.ymin) / ((bbox->zmax - bbox->zmin) * obj->model->scale);
@@ -540,7 +540,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 						maxscale = zscale;
 					}
 
-					if ((obj->flags & OBJFLAG_00000020) == 0) {
+					if ((obj->flags & OBJFLAG_XTOPADBOUNDS) == 0) {
 						if (obj->flags & OBJFLAG_00000002) {
 							if (bbox->xmax == bbox->xmin) {
 								xscale = maxscale;
@@ -560,7 +560,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 						}
 					}
 
-					if ((obj->flags & OBJFLAG_00000080) == 0) {
+					if ((obj->flags & OBJFLAG_ZTOPADBOUNDS) == 0) {
 						if (obj->flags & OBJFLAG_00000002) {
 							if (bbox->zmax == bbox->zmin) {
 								yscale = maxscale;
@@ -1884,7 +1884,7 @@ void setupCreateProps(s32 stagenum)
 
 						setupCreateObject(obj, index);
 
-						obj->flags |= OBJFLAG_20000000;
+						obj->flags |= OBJFLAG_CHOPPER_INIT;
 						obj->prop->forcetick = true;
 
 						chopper->turnrot60 = 0;

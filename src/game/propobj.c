@@ -1906,7 +1906,7 @@ void objCreateOneDebris(struct defaultobj *obj, s32 partindex, struct prop *prop
 			OBJTYPE_DEBRIS,         // type
 			0,                      // modelnum
 			-1,                     // pad
-			OBJFLAG_00000001,       // flags
+			OBJFLAG_FALL,       // flags
 			0,                      // flags2
 			0,                      // flags3
 			NULL,                   // prop
@@ -2116,7 +2116,7 @@ struct prop *objInit(struct defaultobj *obj, struct modeldef *modeldef, struct p
 			}
 
 			prop->forcetick = true;
-			obj->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_00400000;
+			obj->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_FORCENOBOUNCE;
 			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000;
 		} else if (weapon->weaponnum == WEAPON_DATAUPLINK) {
 			if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
@@ -2124,7 +2124,7 @@ struct prop *objInit(struct defaultobj *obj, struct modeldef *modeldef, struct p
 			}
 
 			prop->forcetick = true;
-			obj->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_00400000;
+			obj->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_FORCENOBOUNCE;
 			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000;
 		}
 	}
@@ -2215,7 +2215,7 @@ void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, s16 *ro
 	s32 row;
 	bool isnegative;
 
-	if (obj->flags & OBJFLAG_00000004) {
+	if (obj->flags & OBJFLAG_UPSIDEDOWN) {
 		mtx4LoadZRotation(M_BADPI, &sp70);
 		mtx4MultMtx4InPlace(mtx, &sp70);
 
@@ -4114,7 +4114,7 @@ void objLand(struct prop *prop, struct coord *arg1, struct coord *arg2, bool *em
 				|| weapon->weaponnum == WEAPON_TRACERBUG
 				|| weapon->weaponnum == WEAPON_TARGETAMPLIFIER) {
 			obj->flags |= OBJFLAG_INVINCIBLE;
-			obj->flags |= OBJFLAG_00400000;
+			obj->flags |= OBJFLAG_FORCENOBOUNCE;
 			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE;
 		}
 
@@ -5399,9 +5399,9 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 		}
 
 		if (hov->unk30 < hov->ground - 5.0f || hov->unk30 > hov->ground + 5.0f) {
-			obj->flags |= OBJFLAG_80000000;
+			obj->flags |= OBJFLAG_HOVERCAR_ISHOVERBOT;
 		} else {
-			obj->flags &= ~OBJFLAG_80000000;
+			obj->flags &= ~OBJFLAG_HOVERCAR_ISHOVERBOT;
 		}
 
 		prop->pos.y = objGetHov04(obj) + hov->unk30;
@@ -5647,7 +5647,7 @@ void hovercarStartNextPath(struct hovercarobj *hovercar)
 
 	func0f06a730(&hovercar->base, &pad.pos, &matrix, rooms, &pad.pos);
 
-	hovercar->base.flags |= OBJFLAG_HOVERCAR_20000000;
+	hovercar->base.flags |= OBJFLAG_HOVERCAR_INIT;
 }
 
 void hovercarIncrementStep(struct hovercarobj *hovercar)
@@ -7862,7 +7862,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 			if (platformobj->type == OBJTYPE_LIFT) {
 #if VERSION >= VERSION_NTSC_1_0
 				if (g_Vars.players[playernum]->lift == platform && g_Vars.players[playernum]->bondmovemode == MOVEMODE_WALK) {
-					if (platformobj->flags & OBJFLAG_20000000) {
+					if (platformobj->flags & OBJFLAG_LIFT_LATERALMOVEMENT) {
 						g_Vars.players[playernum]->bondextrapos.x += newpos->x - prevpos->x;
 						g_Vars.players[playernum]->bondextrapos.z += newpos->z - prevpos->z;
 
@@ -7893,7 +7893,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 
 							g_Vars.players[playernum]->vv_ground += ydist;
 
-							if (ydist > 0.0f || (platformobj->flags & OBJFLAG_80000000) == 0) {
+							if (ydist > 0.0f || (platformobj->flags & OBJFLAG_LIFT_CHECKCEILING) == 0) {
 								sp78.x = prop->pos.x;
 								sp78.y = prop->pos.y + ydist;
 								sp78.z = prop->pos.z;
@@ -7925,7 +7925,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 					}
 				}
 #else
-				if ((platformobj->flags & OBJFLAG_20000000)
+				if ((platformobj->flags & OBJFLAG_LIFT_LATERALMOVEMENT)
 						&& g_Vars.players[playernum]->lift == platform
 						&& g_Vars.players[playernum]->bondmovemode == MOVEMODE_WALK) {
 					g_Vars.players[playernum]->bondextrapos.x += newpos->x - prevpos->x;
@@ -8675,7 +8675,7 @@ void autogunTick(struct prop *prop)
 		dist = sqrtf(sqdist);
 		horizdist = dist;
 
-		if (obj->flags & OBJFLAG_08000000) {
+		if (obj->flags & OBJFLAG_AUTOGUN_3DRANGE) {
 			sqdist += ydist * ydist;
 			dist = sqrtf(sqdist);
 		}
@@ -10048,7 +10048,7 @@ void chopperTickFall(struct prop *chopperprop)
 
 			chopper->bobstrength = (random() % 8 + 2) * 0.01f;
 
-			if (obj->flags & OBJFLAG_80000000) {
+			if (obj->flags & OBJFLAG_CHOPPER_INACTIVE) {
 				chopper->bobstrength *= 0.15f;
 			}
 		}
@@ -10176,11 +10176,11 @@ void chopperTickPatrol(struct prop *chopperprop)
 		rotx = atan2f(pad.pos.y - chopperprop->pos.y, sqrtf(xdiff * xdiff + zdiff * zdiff));
 	}
 
-	if (chopper->base.flags & OBJFLAG_20000000) {
+	if (chopper->base.flags & OBJFLAG_CHOPPER_INIT) {
 		chopper->roty = roty;
 		chopper->rotx = rotx;
 		if (1);
-		chopper->base.flags &= ~OBJFLAG_20000000;
+		chopper->base.flags &= ~OBJFLAG_CHOPPER_INIT;
 	}
 
 	if (chopper->patroltimer60 > 0) {
@@ -10360,8 +10360,8 @@ void chopperTickCombat(struct prop *chopperprop)
 	}
 }
 
-#define HOVVALUE1() ((active ? 15.0f : 5.0f) * PALUPF(0.00021813141938765f))
-#define HOVVALUE2() ((active ? 15.0f : 5.0f) * PALUPF(0.013087885454297f))
+#define HOVVALUE1() ((ishoverbot ? 15.0f : 5.0f) * PALUPF(0.00021813141938765f))
+#define HOVVALUE2() ((ishoverbot ? 15.0f : 5.0f) * PALUPF(0.013087885454297f))
 
 void hovercarTick(struct prop *prop)
 {
@@ -10374,8 +10374,8 @@ void hovercarTick(struct prop *prop)
 	u32 stack;
 	f32 sp200 = hovercar->roty;
 	f32 sp1fc = hovercar->rotx;
-	u32 active = obj->flags & OBJFLAG_80000000;
-	f32 sp1f4 = active ? 5 : 10;
+	u32 ishoverbot = obj->flags & OBJFLAG_HOVERCAR_ISHOVERBOT;
+	f32 sp1f4 = ishoverbot ? 5 : 10;
 	struct prop *doorprop;
 	struct coord sp1e4;
 	struct coord sp1d8;
@@ -10406,7 +10406,7 @@ void hovercarTick(struct prop *prop)
 
 	doorprop = NULL;
 
-	if (active && hovercar->deadtimer60 < 0) {
+	if (ishoverbot && hovercar->deadtimer60 < 0) {
 		// Exploding
 		bbox = modelFindBboxRodata(hovercar->base.model);
 		ymin = objGetLocalYMin(bbox);
@@ -10427,7 +10427,7 @@ void hovercarTick(struct prop *prop)
 	}
 
 	if (hovercar->dead) {
-		if (active) {
+		if (ishoverbot) {
 			hovercar->deadtimer60 -= g_Vars.lvupdate60;
 			hovercar->sparkstimer60 -= g_Vars.lvupdate60;
 
@@ -10476,7 +10476,7 @@ void hovercarTick(struct prop *prop)
 
 		sp214.x = pad.pos.x;
 
-		if (active) {
+		if (ishoverbot) {
 			sp210[0] = pad.room;
 			sp210[1] = -1;
 
@@ -10487,7 +10487,7 @@ void hovercarTick(struct prop *prop)
 
 		sp214.z = pad.pos.z;
 
-		if ((hovercar->base.flags & OBJFLAG_20000000)
+		if ((hovercar->base.flags & OBJFLAG_HOVERCAR_INIT)
 				&& posIsArrivingLaterallyAtPos(&prop->pos, &prop->pos, &sp214, (0, sp1f4))) {
 			hovercarIncrementStep(hovercar);
 			padnum = &hovercar->path->pads[hovercar->nextstep];
@@ -10498,17 +10498,17 @@ void hovercarTick(struct prop *prop)
 		tmp2 = sqrtf((sp214.x - prop->pos.x) * (sp214.x - prop->pos.x) + (sp214.z - prop->pos.z) * (sp214.z - prop->pos.z));
 		sp1fc = atan2f(sp214.y - prop->pos.y, tmp2);
 
-		if (hovercar->base.flags & OBJFLAG_20000000) {
+		if (hovercar->base.flags & OBJFLAG_HOVERCAR_INIT) {
 			hovercar->roty = sp200;
 			hovercar->rotx = sp1fc;
-			obj->flags &= ~OBJFLAG_20000000;
+			obj->flags &= ~OBJFLAG_HOVERCAR_INIT;
 
-			if (active) {
+			if (ishoverbot) {
 				prop->pos.y = sp214.y;
 			}
 		}
 
-		if (active) {
+		if (ishoverbot) {
 			if (cdExamCylMove03(&prop->pos, prop->rooms, &sp214,
 						CDTYPE_CLOSEDDOORS | CDTYPE_AJARDOORS, 0, 0, 0) == CDRESULT_COLLISION) {
 				doorprop = cdGetObstacleProp();
@@ -10530,11 +10530,11 @@ void hovercarTick(struct prop *prop)
 			}
 		}
 	} else {
-		if (hovercar->base.flags & OBJFLAG_20000000) {
+		if (hovercar->base.flags & OBJFLAG_HOVERCAR_INIT) {
 			hovercar->roty = atan2f(hovercar->base.realrot[2][0], hovercar->base.realrot[2][2]);
 			tmp2 = sqrtf(hovercar->base.realrot[2][2] * hovercar->base.realrot[2][2] + hovercar->base.realrot[2][0] * hovercar->base.realrot[2][0]);
 			hovercar->rotx = atan2f(hovercar->base.realrot[2][1], tmp2);
-			hovercar->base.flags &= ~OBJFLAG_20000000;
+			hovercar->base.flags &= ~OBJFLAG_HOVERCAR_INIT;
 		}
 	}
 
@@ -10554,7 +10554,7 @@ void hovercarTick(struct prop *prop)
 		hovercar->speedtime60 -= g_Vars.lvupdate60freal;
 	}
 
-	if (active) {
+	if (ishoverbot) {
 		if (hovercar->turnyspeed60 > 0) {
 			hovercar->speed -= hovercar->speedaim * (1.0f / 24.0f) * LVUPDATE60FREAL();
 
@@ -10610,13 +10610,13 @@ void hovercarTick(struct prop *prop)
 			sp180 = 0;
 		}
 
-		if (hovercar->base.flags & OBJFLAG_80000000) {
+		if (hovercar->base.flags & OBJFLAG_HOVERCAR_ISHOVERBOT) {
 			sp188 = 0;
 		} else {
 			sp188 += (-sp184 * 120 - sp188) * 0.1f;
 		}
 
-		sp12c.x = active ? M_BADTAU - sp18c : 0;
+		sp12c.x = ishoverbot ? M_BADTAU - sp18c : 0;
 		sp12c.y = sp190;
 		sp12c.z = 0;
 
@@ -10635,7 +10635,7 @@ void hovercarTick(struct prop *prop)
 		sp138 = cosf(sp18c);
 
 		sp194.x = sinf(sp190) * sp138;
-		sp194.y = active ? sinf(sp1fc) : sinf(sp18c);
+		sp194.y = ishoverbot ? sinf(sp1fc) : sinf(sp18c);
 		sp194.z = cosf(sp190) * sp138;
 
 		sp150.x = prop->pos.x + sp194.f[0] * (hovercar->speed * g_Vars.lvupdate60freal);
@@ -10644,7 +10644,7 @@ void hovercarTick(struct prop *prop)
 
 		func0f065e74(&prop->pos, prop->rooms, &sp150, sp140);
 
-		if (active) {
+		if (ishoverbot) {
 			sp150.y = cdFindGroundAtCyl(&sp150, 5, sp140, NULL, NULL) + 35;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -13320,13 +13320,13 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		struct defaultobj *obj = prop->obj;
 		struct model *model = obj->model;
-		bool sp6c;
+		bool orthogonal;
 		struct prop *child;
 		Gfx *gdl;
 		s32 sp60;
 
-		sp6c = 0;
-		sp6c += (obj->flags & OBJFLAG_00000200) && camGetOrthogonalMtxL();
+		orthogonal = 0;
+		orthogonal += (obj->flags & OBJFLAG_ORTHOGONAL) && camGetOrthogonalMtxL();
 
 		gdl = renderdata->gdl;
 
@@ -13360,7 +13360,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 
 				if (obj->flags2 & OBJFLAG2_DRAWONTOP) {
 					sp60 = 0;
-				} else if (obj->flags & (OBJFLAG_DEACTIVATED | OBJFLAG_20000000)) {
+				} else if (obj->flags & (OBJFLAG_DEACTIVATED | OBJFLAG_MONITOR_20000000)) {
 					sp60 = wallhit0f140750(&prop->pos);
 				} else {
 					sp60 = 1;
@@ -13411,7 +13411,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 			}
 		}
 
-		if (sp6c) {
+		if (orthogonal) {
 			gSPMatrix(gdl++, camGetOrthogonalMtxL(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		}
 
@@ -13427,7 +13427,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 			gdl = wallhitRenderPropHits(gdl, prop, xlupass);
 		}
 
-		if (sp6c) {
+		if (orthogonal) {
 			gSPMatrix(gdl++, camGetPerspectiveMtxL(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		}
 
@@ -13441,7 +13441,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 		}
 
 		if (xlupass) {
-			if (sp6c) {
+			if (orthogonal) {
 				player0f0c3320(model->matrices, model->definition->nummatrices);
 			} else {
 				mtxF2LBulk(model->matrices, model->definition->nummatrices);
@@ -13790,7 +13790,7 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			gdl = objRenderShadow(obj, gdl);
 		}
 
-		if (obj->modelnum == MODEL_A51INTERCEPTOR && (obj->flags & OBJFLAG_80000000)) {
+		if (obj->modelnum == MODEL_A51INTERCEPTOR && (obj->flags & OBJFLAG_CHOPPER_INACTIVE)) {
 			gdl = objRenderShadow(obj, gdl);
 		}
 	}
@@ -14201,7 +14201,7 @@ void objApplyMomentum(struct defaultobj *obj, struct coord *speed, f32 rotation,
 		}
 
 		if (obj->type == OBJTYPE_HOVERPROP || obj->type == OBJTYPE_HOVERBIKE) {
-			if (obj->flags & OBJFLAG_20000000) {
+			if (obj->flags & OBJFLAG_HOVERPROP_20000000) {
 				projectile->unk08c = 0.8f;
 				projectile->unk098 = 0.0027777778f;
 				projectile->unk0e0 = 0.000041881234f;
@@ -14617,7 +14617,7 @@ void objFall(struct defaultobj *obj, s32 playernum)
 
 	if ((obj->flags2 & OBJFLAG2_00000100) == 0
 			&& (obj->flags3 & OBJFLAG3_10000000) == 0
-			&& (obj->flags & (OBJFLAG_00000001 | OBJFLAG_00000008))
+			&& (obj->flags & (OBJFLAG_FALL | OBJFLAG_00000008))
 			&& (obj->hidden & (OBJHFLAG_EMBEDDED | OBJHFLAG_PROJECTILE)) == 0) {
 		struct coord rot = {0, 0, 0};
 		struct projectile *projectile = NULL;
@@ -15266,7 +15266,7 @@ bool objIsMortal(struct defaultobj *obj)
 	}
 
 	if (func0f085194(obj) && obj->type != OBJTYPE_SHIELD) {
-		if ((obj->flags & OBJFLAG_00010000) == 0) {
+		if ((obj->flags & OBJFLAG_FORCEMORTAL) == 0) {
 			return false;
 		}
 	} else if (obj->flags & OBJFLAG_INVINCIBLE) {
@@ -15288,7 +15288,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 	// Store the attacker playernum into the object's "hidden" field
 #if VERSION >= VERSION_NTSC_1_0
 	// ...but not for deployed laptop guns in multiplayer, because those bits
-	// likely designate the owner of the gun
+	// designate the owner of the gun
 	if (obj->type != OBJTYPE_AUTOGUN || !g_Vars.normmplayerisrunning) {
 		obj->hidden &= 0x0fffffff;
 		obj->hidden |= (playernum << 28) & 0xf0000000;
@@ -15435,7 +15435,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 								OBJTYPE_AMMOCRATE,      // type
 								0,                      // modelnum
 								-1,                     // pad
-								OBJFLAG_00000001,       // flags
+								OBJFLAG_FALL,       // flags
 								0,                      // flags2
 								0,                      // flags3
 								NULL,                   // prop
@@ -15877,7 +15877,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				bool bounce = false;
 
 				if (func0f085194(obj)) {
-					if ((obj->flags & OBJFLAG_00400000) == 0) {
+					if ((obj->flags & OBJFLAG_FORCENOBOUNCE) == 0) {
 						bounce = true;
 					}
 				} else if (obj->flags & OBJFLAG_BOUNCEIFSHOT) {
@@ -16192,7 +16192,7 @@ bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 	struct defaultobj *obj = prop->obj;
 
 	if (obj->unkgeo && (obj->flags3 & OBJFLAG3_WALKTHROUGH) == 0) {
-		if ((obj->hidden2 & OBJH2FLAG_08)) {
+		if (obj->hidden2 & OBJH2FLAG_08) {
 			s32 len = (obj->flags3 & OBJFLAG3_GEOCYL) ? sizeof(struct geocyl) : sizeof(struct geoblock);
 
 			if (obj->flags & OBJFLAG_00000100) {
@@ -16972,41 +16972,41 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 		return 1;
 	}
 
-	if (weapon->base.flags & OBJFLAG_WEAPON_40000000) {
+	if (weapon->base.flags & OBJFLAG_WEAPON_NOAMMO) {
 		return 0;
 	}
 
 	if (g_Vars.normmplayerisrunning) {
 		switch (ammotype) {
-		case AMMOTYPE_PISTOL:       qty = 10;            break;
-		case AMMOTYPE_SMG:          qty = 20;            break;
-		case AMMOTYPE_CROSSBOW:     qty = 5;             break;
-		case AMMOTYPE_RIFLE:        qty = 20;            break;
-		case AMMOTYPE_SHOTGUN:      qty = 10;            break;
-		case AMMOTYPE_FARSIGHT:     qty = 4;             break;
-		case AMMOTYPE_MAGNUM:       qty = 10;            break;
-		case AMMOTYPE_DEVASTATOR:   qty = 3;             break;
-		case AMMOTYPE_REAPER:       qty = 200;           break;
-		case AMMOTYPE_DART:         qty = 10;            break;
+		case AMMOTYPE_PISTOL:       qty = 10;          break;
+		case AMMOTYPE_SMG:          qty = 20;          break;
+		case AMMOTYPE_CROSSBOW:     qty = 5;           break;
+		case AMMOTYPE_RIFLE:        qty = 20;          break;
+		case AMMOTYPE_SHOTGUN:      qty = 10;          break;
+		case AMMOTYPE_FARSIGHT:     qty = 4;           break;
+		case AMMOTYPE_MAGNUM:       qty = 10;          break;
+		case AMMOTYPE_DEVASTATOR:   qty = 3;           break;
+		case AMMOTYPE_REAPER:       qty = 200;         break;
+		case AMMOTYPE_DART:         qty = 10;          break;
 		case AMMOTYPE_CLOAK:        qty = TICKS(1200); break;
-		case AMMOTYPE_SEDATIVE:     qty = 16;            break;
-		case AMMOTYPE_BOOST:        qty = 1;             break;
+		case AMMOTYPE_SEDATIVE:     qty = 16;          break;
+		case AMMOTYPE_BOOST:        qty = 1;           break;
 		}
 	} else {
 		switch (ammotype) {
-		case AMMOTYPE_PISTOL:     qty = 10;            break;
-		case AMMOTYPE_SMG:        qty = 10;            break;
-		case AMMOTYPE_CROSSBOW:   qty = 5;             break;
-		case AMMOTYPE_RIFLE:      qty = 10;            break;
-		case AMMOTYPE_SHOTGUN:    qty = 5;             break;
-		case AMMOTYPE_FARSIGHT:   qty = 4;             break;
-		case AMMOTYPE_MAGNUM:     qty = 5;             break;
-		case AMMOTYPE_DEVASTATOR: qty = 3;             break;
-		case AMMOTYPE_REAPER:     qty = 100;           break;
-		case AMMOTYPE_DART:       qty = 4;             break;
+		case AMMOTYPE_PISTOL:     qty = 10;          break;
+		case AMMOTYPE_SMG:        qty = 10;          break;
+		case AMMOTYPE_CROSSBOW:   qty = 5;           break;
+		case AMMOTYPE_RIFLE:      qty = 10;          break;
+		case AMMOTYPE_SHOTGUN:    qty = 5;           break;
+		case AMMOTYPE_FARSIGHT:   qty = 4;           break;
+		case AMMOTYPE_MAGNUM:     qty = 5;           break;
+		case AMMOTYPE_DEVASTATOR: qty = 3;           break;
+		case AMMOTYPE_REAPER:     qty = 100;         break;
+		case AMMOTYPE_DART:       qty = 4;           break;
 		case AMMOTYPE_CLOAK:      qty = TICKS(1200); break;
-		case AMMOTYPE_BOOST:      qty = 2;             break;
-		case AMMOTYPE_SEDATIVE:   qty = 16;            break;
+		case AMMOTYPE_BOOST:      qty = 2;           break;
+		case AMMOTYPE_SEDATIVE:   qty = 16;          break;
 		}
 
 		if (qty > 1) {
@@ -17858,7 +17858,7 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 #if VERSION >= VERSION_NTSC_1_0
 			if ((g_WeaponSlots[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
 					&& (g_WeaponSlots[i].base.hidden2 & OBJH2FLAG_CANREGEN) == 0
-					&& (g_WeaponSlots[i].base.flags & OBJFLAG_00800000) == 0)
+					&& (g_WeaponSlots[i].base.flags & OBJFLAG_HELDROCKET) == 0)
 #else
 			if ((g_WeaponSlots[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
 					&& (g_WeaponSlots[i].base.hidden2 & OBJH2FLAG_CANREGEN) == 0)
@@ -18303,7 +18303,7 @@ bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
 
 					chr->weapons_held[handnum] = weapon->base.prop;
 
-					if ((weapon->base.flags & OBJFLAG_80000000) && chr->weapons_held[1 - handnum]) {
+					if ((weapon->base.flags & OBJFLAG_WEAPON_CANMIXDUAL) && chr->weapons_held[1 - handnum]) {
 						propweaponSetDual(weapon, chr->weapons_held[1 - handnum]->weapon);
 					}
 				} else if (chr->model->definition->skel == &g_SkelSkedar) {
@@ -18317,7 +18317,7 @@ bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
 
 					chr->weapons_held[handnum] = weapon->base.prop;
 
-					if ((weapon->base.flags & OBJFLAG_80000000) && chr->weapons_held[1 - handnum]) {
+					if ((weapon->base.flags & OBJFLAG_WEAPON_CANMIXDUAL) && chr->weapons_held[1 - handnum]) {
 						propweaponSetDual(weapon, chr->weapons_held[1 - handnum]->weapon);
 					}
 				} else {
@@ -18507,7 +18507,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 			prop->forcetick = true;
 
 			laptop->base.hidden |= OBJHFLAG_TAGGED;
-			laptop->base.flags |= OBJFLAG_THROWNLAPTOP | OBJFLAG_01000000 | OBJFLAG_20000000;
+			laptop->base.flags |= OBJFLAG_THROWNLAPTOP | OBJFLAG_01000000 | OBJFLAG_WEAPON_AICANNOTUSE;
 			laptop->base.flags3 |= OBJFLAG3_INTERACTABLE | OBJFLAG3_08000000;
 		} else {
 			if (model) {
@@ -18555,7 +18555,7 @@ struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset
 			OBJTYPE_WEAPON,         // type
 			0,                      // modelnum
 			-1,                     // pad
-			OBJFLAG_00000001,       // flags
+			OBJFLAG_FALL,       // flags
 			0,                      // flags2
 			0,                      // flags3
 			NULL,                   // prop
@@ -18688,7 +18688,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 			OBJTYPE_WEAPON,         // type
 			0,                      // modelnum
 			0,                      // pad
-			OBJFLAG_00000001 | OBJFLAG_ASSIGNEDTOCHR, // flags
+			OBJFLAG_FALL | OBJFLAG_ASSIGNEDTOCHR, // flags
 			0,                      // flags2
 			0,                      // flags3
 			NULL,                   // prop

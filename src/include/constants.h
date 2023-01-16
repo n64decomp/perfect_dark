@@ -2959,58 +2959,63 @@
 #define OBJECTIVEFLAG_AUTOCOMPLETE 0x01
 
 // obj->flags
-#define OBJFLAG_00000001                   0x00000001 // Editor: "Fall to Ground"
+#define OBJFLAG_FALL                       0x00000001
 #define OBJFLAG_00000002                   0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"
-#define OBJFLAG_00000004                   0x00000004 // Editor: "In Air Upside-Down"
+#define OBJFLAG_UPSIDEDOWN                 0x00000004
 #define OBJFLAG_00000008                   0x00000008 // Editor: "In Air"
 #define OBJFLAG_00000010                   0x00000010 // Editor: "Scale to Pad Bounds"
-#define OBJFLAG_00000020                   0x00000020 // Editor: "X to Pad Bounds"
-#define OBJFLAG_00000040                   0x00000040 // Editor: "Y to Pad Bounds"
-#define OBJFLAG_00000080                   0x00000080 // Editor: "Z to Pad Bounds"
+#define OBJFLAG_XTOPADBOUNDS               0x00000020
+#define OBJFLAG_YTOPADBOUNDS               0x00000040
+#define OBJFLAG_ZTOPADBOUNDS               0x00000080
 #define OBJFLAG_00000100                   0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
-#define OBJFLAG_00000200                   0x00000200 // Editor: "Special Environment Mapping"
-#define OBJFLAG_IGNOREFLOORCOLOUR                0x00000400
+#define OBJFLAG_ORTHOGONAL                 0x00000200
+#define OBJFLAG_IGNOREFLOORCOLOUR          0x00000400
 #define OBJFLAG_PATHBLOCKER                0x00000800 // Glass and explodable scenery which may be blocking a path segment
-#define OBJFLAG_IGNOREROOMCOLOUR                   0x00001000 // Editor: "Absolute Position"
+#define OBJFLAG_IGNOREROOMCOLOUR           0x00001000 // Editor: "Absolute Position"
 #define OBJFLAG_AIUNDROPPABLE              0x00002000 // AI cannot drop item
 #define OBJFLAG_ASSIGNEDTOCHR              0x00004000
 #define OBJFLAG_INSIDEANOTHEROBJ           0x00008000 // Eg. gun inside a crate or suitcase inside a dumpster
-#define OBJFLAG_00010000                   0x00010000 // Not used in scripts
+#define OBJFLAG_FORCEMORTAL                0x00010000
 #define OBJFLAG_INVINCIBLE                 0x00020000
 #define OBJFLAG_COLLECTABLE                0x00040000
 #define OBJFLAG_THROWNLAPTOP               0x00080000
 #define OBJFLAG_UNCOLLECTABLE              0x00100000
 #define OBJFLAG_BOUNCEIFSHOT               0x00200000 // Bounce or explode
-#define OBJFLAG_00400000                   0x00400000 // Not used in scripts
-#define OBJFLAG_00800000                   0x00800000 // Not used in scripts
+#define OBJFLAG_FORCENOBOUNCE              0x00400000 // Override the above
+#define OBJFLAG_HELDROCKET                 0x00800000 // Rocket obj that's currently in an equipped rocket launcher
 #define OBJFLAG_01000000                   0x01000000 // Editor: "Embedded Object"
 #define OBJFLAG_CANNOT_ACTIVATE            0x02000000 // Makes it do nothing if player presses B on object. Used mostly for doors.
 #define OBJFLAG_AISEETHROUGH               0x04000000 // Glass, glass doors, small objects such as plant pots
-#define OBJFLAG_08000000                   0x08000000 // Not used in scripts
+#define OBJFLAG_AUTOGUN_3DRANGE            0x08000000 // Autogun uses 3 dimensions when checking if target is in range
 #define OBJFLAG_DEACTIVATED                0x10000000
 #define OBJFLAG_AMMOCRATE_EXPLODENOW       0x10000000
 #define OBJFLAG_DOOR_HASPORTAL             0x10000000
 #define OBJFLAG_GLASS_HASPORTAL            0x10000000
 #define OBJFLAG_WEAPON_LEFTHANDED          0x10000000
 #define OBJFLAG_ESCSTEP_ZALIGNED           0x10000000
-#define OBJFLAG_20000000                   0x20000000
 #define OBJFLAG_AUTOGUN_SEENTARGET         0x20000000
 #define OBJFLAG_CAMERA_DISABLED            0x20000000
+#define OBJFLAG_CHOPPER_INIT               0x20000000
 #define OBJFLAG_DOOR_OPENTOFRONT           0x20000000
-#define OBJFLAG_HOVERCAR_20000000          0x20000000
+#define OBJFLAG_HOVERCAR_INIT              0x20000000
+#define OBJFLAG_HOVERPROP_20000000         0x20000000
+#define OBJFLAG_LIFT_LATERALMOVEMENT       0x20000000
+#define OBJFLAG_MONITOR_20000000           0x20000000
 #define OBJFLAG_WEAPON_AICANNOTUSE         0x20000000
 #define OBJFLAG_AUTOGUN_DAMAGED            0x40000000
 #define OBJFLAG_CAMERA_BONDINVIEW          0x40000000
 #define OBJFLAG_DOOR_KEEPOPEN              0x40000000
 #define OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY 0x40000000
-#define OBJFLAG_HOVERCAR_40000000          0x40000000
+#define OBJFLAG_HOVERCAR_40000000          0x40000000 // Set but not read
 #define OBJFLAG_LIFT_TRIGGERDISABLE        0x40000000
 #define OBJFLAG_MONITOR_RENDERPOSTBG       0x40000000
-#define OBJFLAG_WEAPON_40000000            0x40000000
+#define OBJFLAG_WEAPON_NOAMMO              0x40000000 // Don't give ammo when picking up
 #define OBJFLAG_80000000                   0x80000000
-#define OBJFLAG_HOVERCAR_ISHOVERBOT        0x80000000
-#define OBJFLAG_CHOPPER_INACTIVE           0x80000000 // Or lift disabled, or hovercar something
+#define OBJFLAG_CHOPPER_INACTIVE           0x80000000
 #define OBJFLAG_DOOR_TWOWAY                0x80000000 // Door swings in both directions
+#define OBJFLAG_HOVERCAR_ISHOVERBOT        0x80000000
+#define OBJFLAG_LIFT_CHECKCEILING          0x80000000
+#define OBJFLAG_WEAPON_CANMIXDUAL          0x80000000
 
 // obj->flags2
 #define OBJFLAG2_IMMUNETOANTI            0x00000001 // Counter-op cannot damage this object

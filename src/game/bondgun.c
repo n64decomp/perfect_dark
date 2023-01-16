@@ -4674,7 +4674,7 @@ void bgunCreateHeldRocket(s32 handnum, struct weaponfunc_shootprojectile *func)
 
 			obj->timer240 = 1;
 #if VERSION >= VERSION_NTSC_1_0
-			obj->base.flags |= OBJFLAG_00800000;
+			obj->base.flags |= OBJFLAG_HELDROCKET;
 #endif
 			obj->base.flags2 |= OBJFLAG2_THROWTHROUGH;
 		}
@@ -4818,7 +4818,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 				weapon = hand->rocket;
 				weapon->base.flags2 &= ~OBJFLAG2_THROWTHROUGH;
 #if VERSION >= VERSION_NTSC_1_0
-				weapon->base.flags &= ~OBJFLAG_00800000;
+				weapon->base.flags &= ~OBJFLAG_HELDROCKET;
 #endif
 
 				if (funcdef->base.base.flags & FUNCFLAG_HOMINGROCKET) {

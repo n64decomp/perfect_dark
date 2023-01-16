@@ -2117,7 +2117,7 @@ bool aiIfGunUnclaimed(void)
 		struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
 		if (weapon && weapon->base.prop) {
-			weapon->base.flags |= OBJFLAG_00400000;
+			weapon->base.flags |= OBJFLAG_FORCENOBOUNCE;
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 		} else {
 			g_Vars.aioffset += 5;
@@ -2217,7 +2217,7 @@ bool aiDestroyObject(void)
 		struct defaultobj *entity = obj->prop->obj;
 
 		if (entity->modelnum == MODEL_ELVIS_SAUCER) {
-			obj->flags = (obj->flags & ~OBJFLAG_00010000) | OBJFLAG_INVINCIBLE;
+			obj->flags = (obj->flags & ~OBJFLAG_FORCEMORTAL) | OBJFLAG_INVINCIBLE;
 			explosionCreateSimple(entity->prop, &entity->prop->pos, entity->prop->rooms, EXPLOSIONTYPE_LAPTOP, 0);
 			smokeCreateAtProp(entity->prop, SMOKETYPE_UFO);
 		} else {
@@ -4699,7 +4699,7 @@ bool aiHovercarBeginPath(void)
 			chopper->patroltimer60 = 0;
 			chopper->cw = 0;
 			chopper->weaponsarmed = true;
-			chopper->base.flags |= OBJFLAG_20000000;
+			chopper->base.flags |= OBJFLAG_CHOPPER_INIT;
 		} else {
 			g_Vars.hovercar->weaponsarmed = false;
 		}

@@ -177,7 +177,7 @@ void ctcInitProps(void)
 		OBJTYPE_WEAPON,         // type
 		MODEL_CHRBRIEFCASE,     // modelnum
 		0,                      // pad
-		OBJFLAG_00000001 | OBJFLAG_INVINCIBLE | OBJFLAG_00400000,
+		OBJFLAG_FALL | OBJFLAG_INVINCIBLE | OBJFLAG_FORCENOBOUNCE,
 		OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000,
 		0,                      // flags3
 		NULL,                   // prop
