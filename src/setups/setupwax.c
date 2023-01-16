@@ -1332,7 +1332,7 @@ u8 func0411_cass_in_office[] = {
 	label(0x2c)
 	if_self_flag_bankx_eq(CHRFLAG0_SKIPSAFETYCHECKS, TRUE, BANK_0, /*goto*/ 0x5a)
 	set_shotlist(AILIST_CASS_IN_OFFICE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	if_chr_dead(CHR_CASS, /*goto*/ 0x06)
 	if_chr_knockedout(CHR_CASS, /*goto*/ 0x06)
 	goto_next(0x2c)

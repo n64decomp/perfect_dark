@@ -1206,11 +1206,11 @@ u8 func1002_intro[] = {
 	chr_do_animation(ANIM_CUT_ELD_INTRO_JO_02, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
-	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_00000001)
+	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_FORCETOGROUND)
 	chr_do_animation(ANIM_CUT_ELD_INTRO_TAKER1_03, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER1, 2)
 	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
-	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_00000001)
+	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_FORCETOGROUND)
 	chr_do_animation(ANIM_CUT_ELD_INTRO_TAKER2_03, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 2)
 	disable_object(OBJ_DROPSHIP)
 	stop_cutscene_track
@@ -1460,7 +1460,7 @@ u8 func0401_init_taker[] = {
 };
 
 u8 func0402_taker[] = {
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	yield
 	yield
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)

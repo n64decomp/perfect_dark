@@ -2136,7 +2136,7 @@ u8 func0404_angry_pilot[] = {
 	rebuild_teams
 	rebuild_squadrons
 	unset_self_flag_bankx(CHRFLAG0_ALERT_ON_HEARSPAWN, BANK_0)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_shotlist(AILIST_ANGRY_PILOT)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x07)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)

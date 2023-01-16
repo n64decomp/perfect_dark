@@ -3266,7 +3266,7 @@ u8 func000c_combat_with_target_chr[] = {
 	// Co-op with friend or counter-op on any of the above stages
 	// Or follow through if chr still has target
 	label(0x16)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	dprint 'D','E','T','E','C','T','\n',0,
 	if_chr_dead(CHR_SELF, /*goto*/ 0x16)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
@@ -3534,7 +3534,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0xb6)
 	set_grenade_probability_out_of_255(255)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	if_chr_dead(CHR_TARGET, /*goto*/ 0xc1)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
 	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc1)
@@ -4495,7 +4495,7 @@ u8 func000f_hand_combat[] = {
  * The chr will make one comment, then it returns to the previous function.
  */
 u8 func0010_civilian_say_comment[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_shotlist(GAILIST_SURPRISED)
 
 	label(0x0c)
@@ -4772,7 +4772,7 @@ u8 func001b_observe_camspy[] = {
 
 	// Shoot camspy
 	label(0x09)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x16)
 
 	label(0x16)
@@ -5148,7 +5148,7 @@ u8 func001f_related_to_spawning[] = {
  */
 u8 func0012_init_default_buddy[] = {
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DETECTED)
@@ -5226,7 +5226,7 @@ u8 func0012_init_default_buddy[] = {
 u8 func0013_init_pugilist_buddy[] = {
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DETECTED)
 	set_alertness(200)
@@ -5288,7 +5288,7 @@ u8 func0014_buddy_main[] = {
 	set_returnlist(CHR_SELF, GAILIST_BUDDY_MAIN)
 	set_shotlist(GAILIST_BUDDY_MAIN)
 	dprint 'B','A','C','K',' ','T','O',' ','B','U','D','D','Y','\n',0,
-	unset_self_chrflag(CHRCFLAG_00040000)
+	unset_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_flag_bankx(CHRFLAG1_AIVSAI_ADVANTAGED, BANK_1)
 	set_morale(0)
 	set_shotlist(GAILIST_BUDDY_MAIN)
@@ -5599,7 +5599,7 @@ u8 func0015_buddy_stealth[] = {
 	label(0x16)
 	remove_references_to_chr
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_self_chrflag((CHRCFLAG_HIDDEN | CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_00040000))
+	set_self_chrflag(CHRCFLAG_HIDDEN | CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_NEVERSLEEP)
 
 	// Wait 3 seconds
 	restart_timer
@@ -5650,7 +5650,7 @@ u8 func0015_buddy_stealth[] = {
 	goto_first(0x19)
 
 	label(0x17)
-	unset_self_chrflag(CHRCFLAG_HIDDEN | CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_00040000)
+	unset_self_chrflag(CHRCFLAG_HIDDEN | CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_NEVERSLEEP)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_SPAWNONLYSURROUNDING | CHRHFLAG_WARPONSCREEN)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
@@ -5748,7 +5748,7 @@ u8 func0026_init_psychosis[] = {
 	set_shotlist(GAILIST_INIT_PSYCHOSIS)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
 	set_self_flag_bankx(CHRFLAG1_PUNCHHARDER, BANK_1)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_self_flag_bankx(CHRFLAG1_AIVSAI_ADVANTAGED, BANK_1)
 	set_self_flag_bankx(CHRFLAG1_IGNORECOVER, BANK_1)
@@ -5914,7 +5914,7 @@ u8 func002d_invincible_and_idle[] = {
  */
 u8 func0020_buddy_warp[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 	stop_chr
 	set_target_chr(CHR_BOND)

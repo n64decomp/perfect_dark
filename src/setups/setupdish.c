@@ -2979,7 +2979,7 @@ u8 func1019_setup_carrington[] = {
 
 u8 func042c_carrington_tour[] = {
 	set_returnlist(CHR_SELF, AILIST_CARRINGTON_TOUR)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	restart_timer
 	try_face_entity(ATTACKFLAG_AIMATPAD, 0x0054, /*goto*/ 0x04)
 
@@ -3304,7 +3304,7 @@ u8 func042c_carrington_tour[] = {
 
 u8 func042d_unused[] = {
 	set_alertness(1)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	restart_timer
 	try_face_entity(ATTACKFLAG_AIMATCHR, CHR_CARRINGTON, /*goto*/ 0x5f)
 
@@ -3333,7 +3333,7 @@ u8 func042d_unused[] = {
 
 u8 func042e_devicegirl_reply_to_carrington[] = {
 	set_alertness(1)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	restart_timer
 	try_face_entity(ATTACKFLAG_AIMATCHR, CHR_CARRINGTON, /*goto*/ 0x5f)
 
@@ -4532,12 +4532,12 @@ u8 func1028_holo4_main[] = {
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_hudmsgs
-	if_chr_has_chrflag(0x0d, CHRCFLAG_00000040, /*goto*/ 0x61)
+	if_chr_has_chrflag(0x0d, CHRCFLAG_NOFRIENDLYFIRE, /*goto*/ 0x61)
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_107) // "Unarmed combat - knock out the target. - Press Z Button repeatedly to punch."
 	goto_next(0x2f)
 
 	label(0x61)
-	if_chr_has_chrflag(0x0e, CHRCFLAG_00000040, /*goto*/ 0x62)
+	if_chr_has_chrflag(0x0e, CHRCFLAG_NOFRIENDLYFIRE, /*goto*/ 0x62)
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_108) // "Now try against a moving target..."
 	goto_next(0x2f)
@@ -4619,7 +4619,7 @@ u8 func0403_holo4_guard1[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0277, AILIST_HOLO4_GUARD2, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x08)
 	label(0x08)
 	remove_hudmsgs
@@ -4640,7 +4640,7 @@ u8 func0404_holo4_guard2[] = {
 	goto_next(0x06)
 
 	label(0x2f)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_027A, AILIST_HOLO4_GUARD3, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x0a)
 	label(0x0a)
 	remove_hudmsgs
@@ -4776,12 +4776,12 @@ u8 func1029_holo5_main[] = {
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_hudmsgs
-	if_chr_has_chrflag(0x10, CHRCFLAG_00000040, /*goto*/ 0x61)
+	if_chr_has_chrflag(0x10, CHRCFLAG_NOFRIENDLYFIRE, /*goto*/ 0x61)
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_092) // "Disarm this live target if you can."
 	goto_next(0x2f)
 
 	label(0x61)
-	if_chr_has_chrflag(0x11, CHRCFLAG_00000040, /*goto*/ 0x62)
+	if_chr_has_chrflag(0x11, CHRCFLAG_NOFRIENDLYFIRE, /*goto*/ 0x62)
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_093) // "Knock out this target - stealth is the key."
 	goto_next(0x2f)
 
@@ -4882,7 +4882,7 @@ u8 func0407_holo5_guard1[] = {
 #else
 	set_alertness(100)
 #endif
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_shotlist(GAILIST_IDLE)
 	goto_next(0x0a)
 	label(0x30)
@@ -4900,7 +4900,7 @@ u8 func0407_holo5_guard1[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x0a)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 #if VERSION >= VERSION_NTSC_1_0
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 #else
@@ -4989,7 +4989,7 @@ u8 func0409_holo5_guard2[] = {
 
 	label(0x2f)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 
 	beginloop(0x57)
 		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, PAD_DISH_0125, AILIST_HOLO5_INIT_GUARD3, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_BASICGUARD | SPAWNFLAG_NOBLOOD, /*goto*/ 0x06)

@@ -1093,7 +1093,7 @@ u8 func1009_spawner_during_decode[] = {
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0) \
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0) \
 	set_alertness(90) \
-	set_self_chrflag(CHRCFLAG_00000200) \
+	set_self_chrflag(CHRCFLAG_CANCHANGEACTDURINGARGH) \
 	rebuild_teams \
 	rebuild_squadrons \
 	run_to_pad(PAD_DEPO_004E)
@@ -2375,7 +2375,7 @@ u8 func0413_cloak1_guard[] = {
 
 	label(0x06)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 	set_ailist(CHR_SELF, AILIST_CLOAK_GUARD)
 	endlist
@@ -2393,7 +2393,7 @@ u8 func0414_init_cloak2_guard[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 	set_ailist(CHR_SELF, AILIST_CLOAK_GUARD)
 	endlist

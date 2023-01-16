@@ -920,7 +920,7 @@ u8 func0414_walk_3_pads[] = {
  * Unused.
  */
 u8 func0401_init_chr_with_flag[] = {
-	set_self_chrflag(CHRCFLAG_00000200)
+	set_self_chrflag(CHRCFLAG_CANCHANGEACTDURINGARGH)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)
 	endlist
 };
@@ -2038,7 +2038,7 @@ u8 func0408_alarm_responder[] = {
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_alertness(90)
-	set_self_chrflag(CHRCFLAG_00000200)
+	set_self_chrflag(CHRCFLAG_CANCHANGEACTDURINGARGH)
 
 	// Run to scientist based on which alarm was triggered
 	if_stage_flag_eq(STAGEFLAG_ALARM1_ACTIVE, TRUE, /*goto*/ 0x08)
@@ -2715,7 +2715,7 @@ u8 func0409_uplink_responder[] = {
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_alertness(110)
-	set_self_chrflag(CHRCFLAG_00000200)
+	set_self_chrflag(CHRCFLAG_CANCHANGEACTDURINGARGH)
 	label(0x06)
 	rebuild_teams
 	rebuild_squadrons

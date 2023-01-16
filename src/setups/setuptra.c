@@ -3290,7 +3290,7 @@ u8 func0416_spawn_during_follow[] = {
 	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)

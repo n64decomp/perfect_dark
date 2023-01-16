@@ -38,9 +38,9 @@ void varsInit(void)
 	g_Vars.bond = NULL;
 	g_Vars.coop = NULL;
 	g_Vars.anti = NULL;
-	g_Vars.coopradaron = 1;
-	g_Vars.coopfriendlyfire = 1;
-	g_Vars.antiradaron = 1;
+	g_Vars.coopradaron = true;
+	g_Vars.coopfriendlyfire = true;
+	g_Vars.antiradaron = true;
 	g_Vars.pendingantiplayernum = 1;
 	g_Vars.modifiedfiles = 0;
 	g_Vars.numaibuddies = 0;

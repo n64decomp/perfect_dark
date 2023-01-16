@@ -855,7 +855,7 @@ u8 func0404_miniskedar[] = {
 u8 func0407_init_cloaked_skedar[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 
 	beginloop(0x04)
@@ -884,7 +884,7 @@ u8 func0408_cloaked_skedar[] = {
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_BASICGUARD)
@@ -922,7 +922,7 @@ u8 func0408_cloaked_skedar[] = {
 u8 func0404_miniskedar_spawner[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_morale(0)
 
 	// Wait until player near trigger pad
@@ -1700,7 +1700,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 
 	// Healthy
 	label(0x08)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	label(0x5e)
 	if_self_flag_bankx_eq(CHRFLAG0_SKIPSAFETYCHECKS, TRUE, BANK_0, /*goto*/ 0x06)
 	set_target_chr(CHR_BOND)
@@ -2045,7 +2045,7 @@ u8 func040d_king_combat[] = {
 	endloop(0x7f)
 
 	label(0x2d)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 
 	beginloop(0x7a)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ LABEL_PLAYER_DEAD)
@@ -2298,7 +2298,7 @@ u8 func040e_king_skedar_spawner[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 #endif
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_WARPONSCREEN)
 
 	beginloop(0x04)
@@ -2339,7 +2339,7 @@ u8 func040e_king_skedar_spawner[] = {
 };
 
 u8 func0410_init_king_skedar_clone[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 	yield
@@ -2361,7 +2361,7 @@ u8 func0411_king_miniskedar_spawner[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 #endif
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_WARPONSCREEN)
 
 	beginloop(0x04)
@@ -2404,7 +2404,7 @@ u8 func0411_king_miniskedar_spawner[] = {
 };
 
 u8 func0412_init_king_miniskedar_clone[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 	yield

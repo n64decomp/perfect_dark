@@ -1324,7 +1324,7 @@ MenuItemHandlerResult menuhandlerCoopRadar(s32 operation, struct menuitem *item,
 	case MENUOP_GET:
 		return g_Vars.coopradaron;
 	case MENUOP_SET:
-		g_Vars.coopradaron = data->checkbox.value ? 1 : 0;
+		g_Vars.coopradaron = data->checkbox.value ? true : false;
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
@@ -1337,7 +1337,7 @@ MenuItemHandlerResult menuhandlerCoopFriendlyFire(s32 operation, struct menuitem
 	case MENUOP_GET:
 		return g_Vars.coopfriendlyfire;
 	case MENUOP_SET:
-		g_Vars.coopfriendlyfire = data->checkbox.value ? 1 : 0;
+		g_Vars.coopfriendlyfire = data->checkbox.value ? true : false;
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 

@@ -4279,7 +4279,7 @@ u8 func0429_spawn_while_xraying[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	restart_timer
 
 	beginloop(0x04)

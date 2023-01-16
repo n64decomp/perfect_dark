@@ -1434,7 +1434,7 @@ u8 func0411_init_hangar_guard1[] = {
 	set_shield(0)
 	set_squadron(SQUADRON_0B)
 	set_self_flag_bankx(CHRFLAG1_NOIDLEANIMS, BANK_1)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_chr_id(0x2c)
 	set_self_flag_bankx(CHRFLAG0_CAMP, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
@@ -1456,7 +1456,7 @@ u8 func0412_init_hangar_guard2[] = {
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_NOIDLEANIMS, BANK_1)
 	set_squadron(SQUADRON_0B)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_chr_id(0x2d)
 	set_self_flag_bankx(CHRFLAG0_CAMP, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
@@ -1478,7 +1478,7 @@ u8 func0413_init_hangar_guard3[] = {
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_NOIDLEANIMS, BANK_1)
 	set_squadron(SQUADRON_0B)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_chr_id(0x2e)
 	set_self_flag_bankx(CHRFLAG0_CAMP, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
@@ -1500,7 +1500,7 @@ u8 func0414_init_hangar_guard4[] = {
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_NOIDLEANIMS, BANK_1)
 	set_squadron(SQUADRON_0B)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_chr_id(0x2f)
 	set_self_flag_bankx(CHRFLAG0_CAMP, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
@@ -1532,7 +1532,7 @@ u8 func0415_alert_when_stopped[] = {
  * This is NOT assigned to Jon.
  */
 u8 func0417_traitor[] = {
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_self_flag_bankx(CHRFLAG1_PREWARNED, BANK_1)
 	set_accuracy(100)
 	set_reaction_speed(100)
@@ -2694,7 +2694,7 @@ u8 func0419_clone_spawner[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 #endif
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_ENTERED_FINAL_HANGAR, TRUE, /*goto*/ 0x2e)

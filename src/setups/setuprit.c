@@ -858,7 +858,7 @@ u8 func1006_hijack[] = {
 
 u8 func0403_stripes[] = {
 	set_returnlist(CHR_SELF, AILIST_STRIPES)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 
 	beginloop(0x04)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x06)
@@ -1661,7 +1661,7 @@ u8 func100b_check_president_dead[] = {
 };
 
 u8 func0409_unused[] = {
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 
 	beginloop(0x04)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x06)
@@ -1701,7 +1701,7 @@ u8 func100c_cockpit_stripes[] = {
 	add_health_or_armor(0)
 	set_recovery_speed(30)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1767,7 +1767,7 @@ u8 func0413_taker[] = {
 	rebuild_teams
 	rebuild_squadrons
 	set_accuracy(50)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	restart_timer
 
 	// Wait for condition
@@ -2444,7 +2444,7 @@ u8 func040b_defend_president[] = {
 u8 func0415_cloner1[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	beginloop(0x03)
 		if_stage_flag_eq(STAGEFLAG_PRESIDENT_STARTED_RUNNING, TRUE, /*goto*/ 0x06)
@@ -2535,7 +2535,7 @@ u8 func0417_clone1[] = {
 u8 func0418_cloner2[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	beginloop(0x03)
 		if_stage_flag_eq(STAGEFLAG_PRESIDENT_STARTED_RUNNING, TRUE, /*goto*/ 0x06)
@@ -2635,7 +2635,7 @@ u8 func041a_clone2[] = {
 u8 func041b_cloner3[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	beginloop(0x03)
 		if_stage_flag_eq(STAGEFLAG_PRESIDENT_STARTED_RUNNING, TRUE, /*goto*/ 0x06)
@@ -2770,7 +2770,7 @@ u8 func041e_blonde[] = {
 
 	label(0x06)
 	label(0x08)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	label(0x68)
 	if_self_flag_bankx_eq(CHRFLAG0_SKIPSAFETYCHECKS, TRUE, BANK_0, /*goto*/ 0x06)
 	try_attack_kneel(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x75)
@@ -2886,7 +2886,7 @@ u8 func0421_trent_waiting[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
 	rebuild_teams
 	rebuild_squadrons
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_shield(500)
 	set_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE)
 

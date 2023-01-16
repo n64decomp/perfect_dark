@@ -1465,7 +1465,7 @@ void playerTickChrBody(void)
 			g_MpAllChrConfigPtrs[g_Vars.currentplayernum] = &g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base;
 		}
 
-		chr->chrflags |= CHRCFLAG_00000001;
+		chr->chrflags |= CHRCFLAG_FORCETOGROUND;
 
 		modelSetRootPosition(g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos);
 		chrSetLookAngle(g_Vars.currentplayer->prop->chr, turnangle);
@@ -1519,7 +1519,7 @@ void playerTickChrBody(void)
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 		if (chr->model->anim == NULL) {
-			chr->chrflags |= CHRCFLAG_00000001;
+			chr->chrflags |= CHRCFLAG_FORCETOGROUND;
 			func0f02e9a0(chr, 0);
 			modelSetRootPosition(g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos);
 			chrSetLookAngle(g_Vars.currentplayer->prop->chr, turnangle);
@@ -3726,7 +3726,7 @@ void playerTick(bool arg0)
 
 						chrSetMaxDamage(chr, 4);
 
-						chr->chrflags |= CHRCFLAG_00040000;
+						chr->chrflags |= CHRCFLAG_NEVERSLEEP;
 						chr->hidden |= CHRHFLAG_CLOAKED;
 						chr->cloakfadefinished = true;
 						chr->cloakfadefrac = 0;
@@ -3770,7 +3770,7 @@ void playerTick(bool arg0)
 							chrAddHealth(chr, 20);
 						}
 
-						chr->chrflags |= CHRCFLAG_00040000;
+						chr->chrflags |= CHRCFLAG_NEVERSLEEP;
 						chr->hidden |= CHRHFLAG_CLOAKED;
 						chr->cloakfadefinished = true;
 						chr->cloakfadefrac = 0;
@@ -3816,7 +3816,7 @@ void playerTick(bool arg0)
 
 						chrSetMaxDamage(chr, 10);
 
-						chr->chrflags |= CHRCFLAG_00040000;
+						chr->chrflags |= CHRCFLAG_NEVERSLEEP;
 						chr->hidden |= CHRHFLAG_CLOAKED;
 						chr->cloakfadefinished = true;
 						chr->cloakfadefrac = 0;
@@ -3862,7 +3862,7 @@ void playerTick(bool arg0)
 
 						chrSetMaxDamage(chr, 10);
 
-						chr->chrflags |= CHRCFLAG_00040000;
+						chr->chrflags |= CHRCFLAG_NEVERSLEEP;
 						chr->hidden |= CHRHFLAG_CLOAKED;
 						chr->cloakfadefinished = true;
 						chr->cloakfadefrac = 0;
@@ -3909,7 +3909,7 @@ void playerTick(bool arg0)
 
 						chrSetMaxDamage(chr, 10);
 
-						chr->chrflags |= CHRCFLAG_00040000;
+						chr->chrflags |= CHRCFLAG_NEVERSLEEP;
 						chr->hidden |= CHRHFLAG_CLOAKED;
 						chr->cloakfadefinished = true;
 						chr->cloakfadefrac = 0;
@@ -5280,7 +5280,7 @@ s32 playerTickThirdPerson(struct prop *prop)
 		if (var80075d60 == 0
 				|| var80075d60 == 1
 				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode != VISIONMODE_SLAYERROCKET)) {
-			chr->chrflags |= CHRCFLAG_00000001;
+			chr->chrflags |= CHRCFLAG_FORCETOGROUND;
 
 			player->bondperimenabled = false;
 			tickop1 = chrTick(prop);

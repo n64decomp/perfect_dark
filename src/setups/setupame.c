@@ -1065,7 +1065,7 @@ u8 unregistered_function[] = {
  */
 u8 func0402_guard_with_chrflag[] = {
 	set_returnlist(CHR_SELF, 0x0402)
-	set_self_chrflag(CHRCFLAG_00000200)
+	set_self_chrflag(CHRCFLAG_CANCHANGEACTDURINGARGH)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)
 	endlist
 };
@@ -1075,7 +1075,7 @@ u8 func0402_guard_with_chrflag[] = {
  */
 u8 func0403_shielded_guard[] = {
 	set_shield(200)
-	set_self_chrflag(CHRCFLAG_00000200)
+	set_self_chrflag(CHRCFLAG_CANCHANGEACTDURINGARGH)
 	set_ailist(CHR_SELF, GAILIST_CHOOSE_TARGET)
 	endlist
 };
@@ -1994,7 +1994,7 @@ u8 func0413_c318[] = {
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_alertness(255)
-	set_self_chrflag(CHRCFLAG_00000200)
+	set_self_chrflag(CHRCFLAG_CANCHANGEACTDURINGARGH)
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0001)

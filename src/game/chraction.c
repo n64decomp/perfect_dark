@@ -5713,7 +5713,7 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
 			rwdata = modelGetNodeRwData(chr->model, chr->model->definition->rootnode);
 			rwdata->chrinfo.ground = ground;
 
-			chr->chrflags |= CHRCFLAG_00000001;
+			chr->chrflags |= CHRCFLAG_FORCETOGROUND;
 
 			if (chr->actiontype == ACT_PATROL) {
 				func0f0375b0(chr);
@@ -6709,23 +6709,29 @@ bool chrIsReadyForOrders(struct chrdata *chr)
 	}
 
 	switch ((s32) chr->actiontype) {
+#if VERSION >= VERSION_NTSC_1_0
 	case ACT_DIE:
 	case ACT_DEAD:
 	case ACT_PREARGH:
 	case ACT_DRUGGEDDROP:
 	case ACT_DRUGGEDKO:
 	case ACT_DRUGGEDCOMINGUP:
-#if VERSION < VERSION_NTSC_1_0
-	case ACT_ARGH:
-	case 0x200:
-#endif
 		return false;
-#if VERSION >= VERSION_NTSC_1_0
 	case ACT_ARGH:
-		if ((chr->chrflags & CHRCFLAG_00000200) == 0) {
+		if ((chr->chrflags & CHRCFLAG_CANCHANGEACTDURINGARGH) == 0) {
 			return false;
 		}
 		break;
+#else
+	case ACT_DIE:
+	case ACT_DEAD:
+	case ACT_PREARGH:
+	case ACT_DRUGGEDDROP:
+	case ACT_DRUGGEDKO:
+	case ACT_DRUGGEDCOMINGUP:
+	case ACT_ARGH:
+	case 0x200:
+		return false;
 #endif
 	case ACT_ROBOTATTACK:
 		if (!chr->act_robotattack.finished) {
@@ -7240,7 +7246,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, u32 goposflags)
 #if VERSION >= VERSION_NTSC_1_0
 		if (g_NumChrsSeenPlayerRecently2 < 9
 				|| (chr->hidden & CHRHFLAG_BASICGUARD) == 0
-				|| (chr->flags & CHRCFLAG_00040000))
+				|| (chr->flags & CHRCFLAG_NEVERSLEEP))
 #else
 		if (g_NumChrsSeenPlayerRecently2 < 10)
 #endif
@@ -10328,7 +10334,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 								// were aiming for
 								if (isaibot
 										|| fudgeforeyespy
-										|| ((chr->chrflags & CHRCFLAG_00000040) && chrCompareTeams(hitprop->chr, chr, COMPARE_ENEMIES))) {
+										|| ((chr->chrflags & CHRCFLAG_NOFRIENDLYFIRE) && chrCompareTeams(hitprop->chr, chr, COMPARE_ENEMIES))) {
 									struct modelnode *node = NULL;
 									struct model *model = NULL;
 									s32 side = -1;
@@ -13246,7 +13252,7 @@ void chraTick(struct chrdata *chr)
 	}
 
 	if (chr->actiontype == ACT_INIT) {
-		chr->chrflags |= CHRCFLAG_00000001;
+		chr->chrflags |= CHRCFLAG_FORCETOGROUND;
 		func0f02e9a0(chr, 0);
 		chr->sleep = 0;
 	}
@@ -13271,7 +13277,7 @@ void chraTick(struct chrdata *chr)
 	chr->sleep -= g_Vars.lvupdate60;
 
 	if (chr->sleep < 0
-			|| (chr->chrflags & CHRCFLAG_00040000)
+			|| (chr->chrflags & CHRCFLAG_NEVERSLEEP)
 			|| chr->alertness >= 65
 			|| (chr->aibot && (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD))) {
 		u8 pass = race == RACE_HUMAN || race == RACE_SKEDAR;
@@ -15306,7 +15312,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 			rwdata->chrinfo.ground = ground;
 		}
 
-		chr->chrflags |= CHRCFLAG_00000001;
+		chr->chrflags |= CHRCFLAG_FORCETOGROUND;
 		chrSetLookAngle(chr, angle);
 
 		if (chr->prop->type == PROPTYPE_PLAYER) {
@@ -16154,7 +16160,7 @@ void chrAvoid(struct chrdata *chr)
 
 			if ((random() % 255) >= 2) {
 				cdresult = CDRESULT_COLLISION;
-				chr->chrflags &= ~CHRCFLAG_10000000;
+				chr->chrflags &= ~CHRCFLAG_AVOIDING;
 			}
 		} else if (relangle > 225 && relangle < 315) {
 			animindex = 3;
@@ -16189,11 +16195,11 @@ void chrAvoid(struct chrdata *chr)
 			}
 
 			if (cdresult == CDRESULT_ERROR) {
-				chr->chrflags &= ~CHRCFLAG_10000000;
+				chr->chrflags &= ~CHRCFLAG_AVOIDING;
 			} else if (cdresult == CDRESULT_NOCOLLISION) {
 				chrStartAnim(chr, anims[animindex], 0, anims[4 + animindex], chranimflags, 2, 0.6f);
 			} else {
-				chr->chrflags &= ~CHRCFLAG_10000000;
+				chr->chrflags &= ~CHRCFLAG_AVOIDING;
 			}
 		}
 
@@ -16211,7 +16217,7 @@ void chrAvoid(struct chrdata *chr)
 bool chrIsAvoiding(struct chrdata *chr)
 {
 	s32 anim = modelGetAnimNum(chr->model);
-	chr->chrflags &= ~CHRCFLAG_10000000;
+	chr->chrflags &= ~CHRCFLAG_AVOIDING;
 
 	// Possible @bug or just sloppy code: The flag check below can never pass
 	// because that flag was just turned off above.
@@ -16219,7 +16225,7 @@ bool chrIsAvoiding(struct chrdata *chr)
 			|| anim == ANIM_0065
 			|| anim == ANIM_0066
 			|| anim == ANIM_0067
-			|| (chr->chrflags & CHRCFLAG_10000000)) {
+			|| (chr->chrflags & CHRCFLAG_AVOIDING)) {
 		return true;
 	}
 

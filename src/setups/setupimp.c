@@ -590,7 +590,7 @@ u8 func1400_setup_counterop[] = {
 #define spawner_logic(initfunc, clonefunc) \
 	set_self_chrflag(CHRCFLAG_CLONEABLE) \
 	set_self_chrflag(CHRCFLAG_HIDDEN) \
-	set_self_chrflag(CHRCFLAG_00040000) \
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP) \
  \
 	beginloop(0x0f) \
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_SPAWNING, TRUE, /*goto*/ 0x04) \
@@ -1724,7 +1724,7 @@ u8 func041b_init_hostage_holo[] = {
 
 u8 func041a_hostage_holo[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_shotlist(AILIST_HOSTAGE_HOLO)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
@@ -1899,7 +1899,7 @@ u8 func041f_holoclone[] = {
 	endloop(0xba) \
  \
 	label(0xbb) \
-	set_self_chrflag(CHRCFLAG_00000040) \
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE) \
 	set_accuracy(50) \
 	set_target_chr(holoclone) \
 	label(0x04) \
@@ -1919,13 +1919,13 @@ u8 func041f_holoclone[] = {
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 
 u8 func0420_taker_holo1[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	holo_taker_logic(CHR_HOLOCLONE1)
 	endlist
 };
 
 u8 func0421_taker_holo2[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	assign_sound(SFX_M0_WHAT_THE, CHANNEL_6)
 #if VERSION >= VERSION_NTSC_1_0
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
@@ -1937,7 +1937,7 @@ u8 func0421_taker_holo2[] = {
 };
 
 u8 func0422_taker_holo3[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	holo_taker_logic(CHR_HOLOCLONE3)
 	endlist
 };
@@ -2288,7 +2288,7 @@ u8 func042e_taker_device_m[] = {
 	endloop(0xba)
 
 	label(0xbb)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_accuracy(50)
 	set_target_chr(CHR_HOSTAGE_DEVICE_M)
 	set_ailist(CHR_SELF, AILIST_TAKER_ATTACK)
@@ -2341,7 +2341,7 @@ u8 func0430_taker_device_f[] = {
 	endloop(0xbc)
 
 	label(0x2e)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_accuracy(50)
 	set_target_chr(CHR_HOSTAGE_DEVICE_F)
 	set_ailist(CHR_SELF, AILIST_TAKER_ATTACK)
@@ -2541,7 +2541,7 @@ u8 func0436_taker_info_m[] = {
 	endloop(0x0a)
 
 	label(0x08)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_accuracy(50)
 	set_target_chr(CHR_HOSTAGE_INFO_M)
 	set_ailist(CHR_SELF, AILIST_TAKER_ATTACK)
@@ -2574,7 +2574,7 @@ u8 func0438_taker_info_f[] = {
 	endloop(0x0a)
 
 	label(0x08)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_accuracy(20)
 	set_target_chr(CHR_HOSTAGE_INFO_F)
 	set_ailist(CHR_SELF, AILIST_TAKER_ATTACK)
@@ -3000,7 +3000,7 @@ u8 func1015_firingrange_pc[] = {
 #define topspawner_logic(initfunc, clonefunc) \
 	set_self_chrflag(CHRCFLAG_CLONEABLE) \
 	set_self_chrflag(CHRCFLAG_HIDDEN) \
-	set_self_chrflag(CHRCFLAG_00040000) \
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP) \
  \
 	beginloop(0x04) \
 		if_objective_complete(1, /*goto*/ 0x2e) \
@@ -3137,7 +3137,7 @@ u8 func1016_remove_spawners[] = {
 u8 func0410_spawner6[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)

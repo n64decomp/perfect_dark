@@ -857,13 +857,13 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 				chr->ground = ground;
 
-				if (chr->chrflags & CHRCFLAG_00000001) {
+				if (chr->chrflags & CHRCFLAG_FORCETOGROUND) {
 					node = model->definition->rootnode;
 					nodetype = (u8)node->type;
 
 					arg2->y += yincrement + chr->ground - manground;
 
-					chr->chrflags &= ~CHRCFLAG_00000001;
+					chr->chrflags &= ~CHRCFLAG_FORCETOGROUND;
 					chr->manground = chr->ground;
 					chr->sumground = chr->ground * (PAL ? 8.4175090789795f : 9.999998f);
 
@@ -1121,7 +1121,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->floorroom = -1;
 	chr->fadealpha = 0xff;
 
-	chr->chrflags = CHRCFLAG_00000001;
+	chr->chrflags = CHRCFLAG_FORCETOGROUND;
 	chr->hidden = 0;
 	chr->hidden2 = 0;
 	chr->actiontype = ACT_INIT;
@@ -1924,8 +1924,8 @@ void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, bool arg2)
 		}
 	}
 
-	if (chr->chrflags & CHRCFLAG_20000000) {
-		chr->chrflags &= ~CHRCFLAG_20000000;
+	if (chr->chrflags & CHRCFLAG_DELAYANIM) {
+		chr->chrflags &= ~CHRCFLAG_DELAYANIM;
 	} else if (arg2) {
 		if ((chr->hidden & CHRHFLAG_00000800) == 0) {
 			modelGetRootPosition(model, &chr->prevpos);
@@ -2413,7 +2413,7 @@ s32 chrTick(struct prop *prop)
 		chrUpdateCloak(chr);
 		chrTickPoisoned(chr);
 
-		if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 || (chr->chrflags & CHRCFLAG_00040000)) {
+		if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 || (chr->chrflags & CHRCFLAG_NEVERSLEEP)) {
 			if (var8006296c) {
 				if (animHasFrames(g_SelectedAnimNum)) {
 					if (modelGetAnimNum(model) != g_SelectedAnimNum || !animHasFrames(modelGetAnimNum(model))) {
@@ -2539,7 +2539,7 @@ s32 chrTick(struct prop *prop)
 	} else if (chr->actiontype == ACT_STAND) {
 		model->anim->average = false;
 
-		if (chr->chrflags & CHRCFLAG_00000001) {
+		if (chr->chrflags & CHRCFLAG_FORCETOGROUND) {
 			chr0f0220ec(chr, lvupdate240, true);
 			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
 		} else {
@@ -5198,12 +5198,12 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 		}
 
 		if (g_Vars.coopplayernum >= 0
-				&& g_Vars.coopfriendlyfire == 0
+				&& g_Vars.coopfriendlyfire == false
 				&& prop->type == PROPTYPE_PLAYER) {
 			return;
 		}
 
-		if (g_MissionConfig.iscoop && g_Vars.coopfriendlyfire == 0 && chr->team == TEAM_ALLY) {
+		if (g_MissionConfig.iscoop && g_Vars.coopfriendlyfire == false && chr->team == TEAM_ALLY) {
 			return;
 		}
 

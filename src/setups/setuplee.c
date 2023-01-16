@@ -785,7 +785,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 };
 
 u8 func040d_elvis_wait_for_hangar_entry[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_accuracy(100)
 	set_reaction_speed(100)
 	add_health_or_armor(200)
@@ -921,7 +921,7 @@ u8 func040e_elvis_give_ar34[] = {
  */
 u8 func0409_elvis_follow[] = {
 #if VERSION >= VERSION_NTSC_1_0
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 #endif
 	set_shotlist(AILIST_ELVIS_FOLLOW)
 	set_returnlist(CHR_SELF, AILIST_ELVIS_FOLLOW)
@@ -1629,7 +1629,7 @@ u8 func1008_hangar_lifts[] = {
 u8 func0407_init_knifeable_skedar[] = {
 	add_health_or_armor(160)
 	set_self_flag_bankx(CHRFLAG1_NOIDLEANIMS, BANK_1)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_ailist(CHR_SELF, AILIST_KNIFEABLE_SKEDAR)
 	endlist
 };
@@ -1809,7 +1809,7 @@ u8 func0412_hangarspawner[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_KILLCOUNTABLE)
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_morale(0)
 
 	beginloop(LABEL_C2)
@@ -1970,7 +1970,7 @@ u8 func0419_hangar_maian[] = {
 
 u8 func0418_init_hangar_maian[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HANGAR_MAIANS, TRUE, /*goto*/ 0x06)
@@ -2292,7 +2292,7 @@ u8 func0415_bridgespawner[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_morale(0)
 
 	beginloop(LABEL_C2)
@@ -2916,12 +2916,12 @@ u8 func1003_intro[] = {
 
 	unset_chr_chrflag(CHR_CASS, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_CASS, CHRHFLAG_00020000)
-	set_chr_chrflag(CHR_CASS, CHRCFLAG_00000001)
+	set_chr_chrflag(CHR_CASS, CHRCFLAG_FORCETOGROUND)
 	chr_do_animation(ANIM_CUT_LEE_INTRO_CASS, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CASS, 2)
 
 	unset_chr_chrflag(CHR_INTRO_SKEDAR, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_INTRO_SKEDAR, CHRHFLAG_00020000)
-	set_chr_chrflag(CHR_INTRO_SKEDAR, CHRCFLAG_00000001)
+	set_chr_chrflag(CHR_INTRO_SKEDAR, CHRCFLAG_FORCETOGROUND)
 	chr_do_animation(ANIM_CUT_LEE_INTRO_SKEDAR, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_SKEDAR, 2)
 
 	remove_chr(CHR_INTRO_SKEDAR)
@@ -3133,7 +3133,7 @@ u8 func0421_bridge_skedar[] = {
 
 	// Not injured
 	label(0x08)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	label(LABEL_C6)
 	if_self_flag_bankx_eq(CHRFLAG0_SKIPSAFETYCHECKS, TRUE, BANK_0, /*goto*/ 0x06)
 	set_target_chr(CHR_BOND)
@@ -3321,7 +3321,7 @@ u8 func1016_msg_ifwecontrolthebridge[] = {
 
 u8 func0422_cass[] = {
 	set_shotlist(GAILIST_IDLE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	run_to_pad(PAD_LEE_01DD)
 
 	beginloop(0x08)
@@ -3359,8 +3359,8 @@ u8 func0422_cass[] = {
 
 u8 func0423_shy_skedar[] = {
 	set_shotlist(AILIST_INIT_SKEDAR)
-	set_self_chrflag(CHRCFLAG_00000040)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_target_chr(CHR_CASS)
 	goto_next(0x2c)
 

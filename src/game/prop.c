@@ -1214,7 +1214,7 @@ void handInflictMeleeDamage(s32 handnum, struct gset *gset, bool arg2)
 								objDropRecursively(prop, false);
 							}
 						} else if (arg2) {
-							chr->chrflags |= CHRCFLAG_10000000;
+							chr->chrflags |= CHRCFLAG_AVOIDING;
 						} else {
 							struct coord spb8;
 							struct coord vector;

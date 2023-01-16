@@ -1208,7 +1208,7 @@ u8 func1006_activate_alarm[] = {
 u8 func0410_clone_spawner[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	// Wait until alarm activated
 	beginloop(0x0d)
@@ -1267,7 +1267,7 @@ u8 func0411_init_clone[] = {
 };
 
 u8 func0412_clone[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_returnlist(CHR_SELF, GAILIST_ALERTED)
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 	endlist
@@ -1276,7 +1276,7 @@ u8 func0412_clone[] = {
 u8 func0410_clone_spawner2[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	// Wait until player is in room 0x005e
 	beginloop(0x0d)

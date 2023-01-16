@@ -1346,7 +1346,7 @@ u8 func0407_stewardess[] = {
 };
 
 u8 func0406_become_unalerted[] = {
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	label(0x00)
 	yield
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x02)
@@ -2049,7 +2049,7 @@ u8 func040d_init_office1[] = {
 u8 func0409_office1[] = {
 #define LABEL_RUN_TO_FOYER 0x4f
 
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_morale(0)
 	set_shotlist(AILIST_OFFICE1)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x02)
@@ -2186,7 +2186,7 @@ u8 func040e_init_office2[] = {
 };
 
 u8 func040a_office2[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_morale(0)
 	set_shotlist(AILIST_OFFICE2)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x02)
@@ -2411,8 +2411,8 @@ u8 func0410_unused[] = {
 	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00000040)
-	set_chr_chrflag(CHR_SELF, CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
+	set_chr_chrflag(CHR_SELF, CHRCFLAG_NEVERSLEEP)
 	set_ailist(CHR_SELF, AILIST_NSA)
 	endlist
 };
@@ -2592,7 +2592,7 @@ u8 func040f_nsa[] = {
 
 u8 func0412_init_takeover_lackey[] = {
 	set_shotlist(GAILIST_ALERTED)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_chr_dodge_rating(2, 10)
 	set_accuracy(60)
 	set_reaction_speed(80)
@@ -3061,7 +3061,7 @@ u8 func0426_init_alaskan_guard[] = {
  * Assigned to stripes guards and NSA lackeys during takeover.
  */
 u8 func0427_init_posttakeover_guard[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_chr_team(CHR_SELF, TEAM_04)
 	set_chr_dodge_rating(2, 10)
@@ -3096,7 +3096,7 @@ u8 func0428_posttakeover_guard[] = {
 
 		label(0x02)
 		unset_self_chrflag(CHRCFLAG_HIDDEN)
-		unset_self_chrflag(CHRCFLAG_00040000)
+		unset_self_chrflag(CHRCFLAG_NEVERSLEEP)
 		set_ailist(CHR_SELF, AILIST_BECOME_UNALERTED)
 
 		label(0x31)
@@ -3140,7 +3140,7 @@ u8 func042a_foyer_spawner[] = {
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
@@ -4028,7 +4028,7 @@ u8 func1026_check_alarm_destroyed[] = {
 };
 
 u8 func0417_remove_or_unalert[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	label(0x00)
 	yield
@@ -4054,7 +4054,7 @@ u8 func0417_remove_or_unalert[] = {
 };
 
 u8 func0418_remove_or_cower[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	label(0x00)
 	yield
 	set_target_chr(CHR_BOND)

@@ -1952,7 +1952,7 @@ u8 func041b_init_robot[] = {
 };
 
 u8 func041a_robot[] = {
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_chr_maxdamage(CHR_SELF, VERSION >= VERSION_NTSC_1_0 ? 1 : 40)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x0c)
 	assign_path(0)
@@ -2365,7 +2365,7 @@ u8 func041f_alarm_responder[] = {
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_alertness(90)
-	set_self_chrflag(CHRCFLAG_00000200)
+	set_self_chrflag(CHRCFLAG_CANCHANGEACTDURINGARGH)
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER)

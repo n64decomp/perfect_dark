@@ -583,7 +583,7 @@ u8 func0402_start_drcaroll[] = {
 
 u8 func0401_drcaroll_following[] = {
 	set_shotlist(AILIST_DRCAROLL_FOLLOWING)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	stop_chr
 	set_target_chr(CHR_BOND)
 	try_jog_to_target(/*goto*/ 0x00)
@@ -916,7 +916,7 @@ u8 func0411_top_guard_blinded[] = {
 };
 
 u8 func0406_general_combat[] = {
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_shotlist(AILIST_GENERAL_COMBAT)
 	if_has_gun(CHR_SELF, /*goto*/ 0x20)
 
@@ -968,7 +968,7 @@ u8 func0406_general_combat[] = {
 
 	// Not injured, or injury recovery finished
 	label(0x21)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 
 	label(0x14)
 		if_self_flag_bankx_eq(CHRFLAG0_SKIPSAFETYCHECKS, TRUE, BANK_0, /*goto*/ 0x00)

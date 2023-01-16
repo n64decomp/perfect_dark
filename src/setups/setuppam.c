@@ -745,7 +745,7 @@ u8 func1400_setup_counterop[] = {
 
 u8 func040b_init_elvis[] = {
 	set_self_chrflag(CHRCFLAG_RUNFASTER)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_accuracy(100)
 	set_reaction_speed(100)
@@ -902,9 +902,9 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	play_sound(SFX_8148, -1)
 	set_lights_state(0x003c, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_chr_chrflag(0x14, CHRCFLAG_00040000)
-	set_chr_chrflag(0x15, CHRCFLAG_00040000)
-	set_chr_chrflag(0x16, CHRCFLAG_00040000)
+	set_chr_chrflag(0x14, CHRCFLAG_NEVERSLEEP)
+	set_chr_chrflag(0x15, CHRCFLAG_NEVERSLEEP)
+	set_chr_chrflag(0x16, CHRCFLAG_NEVERSLEEP)
 	unset_chr_chrflag(0x14, CHRCFLAG_INVINCIBLE)
 	unset_chr_chrflag(0x15, CHRCFLAG_INVINCIBLE)
 	unset_chr_chrflag(0x16, CHRCFLAG_INVINCIBLE)
@@ -3141,14 +3141,14 @@ u8 func041b_sniper_wait_for_detection[] = {
 
 	label(0x06)
 	increase_squadron_alertness(100)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 	set_ailist(CHR_SELF, AILIST_SNIPER)
 	endlist
 };
 
 u8 func041d_sniper[] = {
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_shotlist(AILIST_SNIPER)
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
@@ -3369,7 +3369,7 @@ u8 func040f_miniskedar_send_clones[] = {
 	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 
 	beginloop(0x04)
 		goto_next(0x52)
@@ -3559,7 +3559,7 @@ u8 func0411_hide[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 #endif
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3579,7 +3579,7 @@ u8 func0413_cloak_and_hide[] = {
 	stop_chr
 	yield
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

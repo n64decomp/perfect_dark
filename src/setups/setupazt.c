@@ -1341,7 +1341,7 @@ u8 func0417_init_robot[] = {
 u8 func0418_robot[] = {
 	set_shotlist(AILIST_ROBOT)
 	label(0x66)
-	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x11)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x11)
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x08)
@@ -1791,7 +1791,7 @@ u8 func100e_check_robots_left[] = {
 
 u8 func041e_trent_waiting[] = {
 	set_accuracy(0)
-	set_self_chrflag(CHRCFLAG_00000040)
+	set_self_chrflag(CHRCFLAG_NOFRIENDLYFIRE)
 	set_shield(100)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 
