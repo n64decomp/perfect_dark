@@ -4614,7 +4614,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 				weapon->base.projectile->flags |= PROJECTILEFLAG_00000002;
 				weapon->base.projectile->unk08c = 0.1f;
 				weapon->base.projectile->pickuptimer240 = TICKS(240);
-				weapon->base.hidden |= OBJHFLAG_00000020;
+				weapon->base.hidden |= OBJHFLAG_THROWNKNIFE;
 			}
 		}
 	}

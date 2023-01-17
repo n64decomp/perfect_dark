@@ -269,7 +269,7 @@ void objUpdateLinkedScenery(struct defaultobj *obj, struct prop *prop)
 				objCreateDebris(obj, prop);
 
 				link->trigger->flags2 |= OBJFLAG2_INVISIBLE;
-				link->trigger->hidden |= OBJHFLAG_REAPABLE;
+				link->trigger->hidden |= OBJHFLAG_DELETING;
 
 				if (link->unexp) {
 					link->unexp->flags2 |= OBJFLAG2_INVISIBLE;
@@ -1104,7 +1104,7 @@ struct projectile *projectileAllocate(void)
 				objFreeEmbedmentOrProjectile(g_Projectiles[bestindex].obj->prop);
 			}
 
-			g_Projectiles[bestindex].obj->hidden |= OBJHFLAG_REAPABLE;
+			g_Projectiles[bestindex].obj->hidden |= OBJHFLAG_DELETING;
 		}
 
 		projectileReset(&g_Projectiles[bestindex]);
@@ -3282,7 +3282,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 						s0 = false;
 						sparksCreate(prop->rooms[0], prop, &hitthing.unk00, &spa4, &hitthing.unk0c, SPARKTYPE_DEEPWATER);
 						propsnd0f0939f8(0, prop, SFX_HIT_WATER, -1, -1, 1024, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-						obj->hidden |= OBJHFLAG_REAPABLE;
+						obj->hidden |= OBJHFLAG_DELETING;
 					}
 				}
 			} else {
@@ -3876,7 +3876,7 @@ void knifePlayWooshSound(struct defaultobj *obj)
 	if (obj->hidden & OBJHFLAG_PROJECTILE) {
 		if ((obj->projectile->flags & PROJECTILEFLAG_AIRBORNE)
 				&& obj->projectile->bouncecount <= 0
-				&& (obj->hidden & OBJHFLAG_00000020)) {
+				&& (obj->hidden & OBJHFLAG_THROWNKNIFE)) {
 			u16 soundnums[] = { SFX_8074, SFX_8074, SFX_8074 };
 			s32 index = random() % ARRAYCOUNT(soundnums);
 
@@ -3889,7 +3889,7 @@ void knifePlayWooshSound(struct defaultobj *obj)
 				}
 			}
 		} else {
-			obj->hidden &= ~OBJHFLAG_00000020;
+			obj->hidden &= ~OBJHFLAG_THROWNKNIFE;
 			func0f0926bc(obj->prop, 1, 0xffff);
 		}
 	}
@@ -4156,7 +4156,7 @@ void objLand(struct prop *prop, struct coord *arg1, struct coord *arg2, bool *em
 				*embedded = true;
 			}
 		} else {
-			obj->hidden |= OBJHFLAG_REAPABLE;
+			obj->hidden |= OBJHFLAG_DELETING;
 		}
 	} else if (obj->type == OBJTYPE_WEAPON) {
 		struct weaponobj *weapon = (struct weaponobj *)obj;
@@ -4226,7 +4226,7 @@ void ammocrateTick(struct prop *prop)
 
 	if (obj->flags & OBJFLAG_AMMOCRATE_EXPLODENOW) {
 		propExplode(prop, EXPLOSIONTYPE_12);
-		obj->hidden |= OBJHFLAG_REAPABLE;
+		obj->hidden |= OBJHFLAG_DELETING;
 	}
 }
 
@@ -4328,7 +4328,7 @@ void weaponTick(struct prop *prop)
 					propExplode(prop, (obj->flags2 & OBJFLAG2_WEAPON_HUGEEXP) ? EXPLOSIONTYPE_HUGE17 : EXPLOSIONTYPE_ROCKET);
 				}
 
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 
 #if VERSION >= VERSION_NTSC_1_0
 				{
@@ -4370,7 +4370,7 @@ void weaponTick(struct prop *prop)
 				nbombCreateStorm_hack(&prop->pos, ownerprop, prop);
 				propUnsetDangerous(prop);
 
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 
 #if VERSION >= VERSION_NTSC_1_0
 				{
@@ -4397,7 +4397,7 @@ void weaponTick(struct prop *prop)
 		if (weapon->timer240 == 0) {
 			propExplode(prop, (obj->flags2 & OBJFLAG2_WEAPON_HUGEEXP) ? EXPLOSIONTYPE_HUGE17 : EXPLOSIONTYPE_ROCKET);
 
-			obj->hidden |= OBJHFLAG_REAPABLE;
+			obj->hidden |= OBJHFLAG_DELETING;
 
 #if VERSION >= VERSION_NTSC_1_0
 			{
@@ -4424,7 +4424,7 @@ void weaponTick(struct prop *prop)
 			if (weapon->timer240 < 0) {
 				if (propExplode(prop, (obj->flags2 & OBJFLAG2_WEAPON_HUGEEXP) ? EXPLOSIONTYPE_HUGE17 : EXPLOSIONTYPE_ROCKET)) {
 					weapon->timer240 = -1;
-					obj->hidden |= OBJHFLAG_REAPABLE;
+					obj->hidden |= OBJHFLAG_DELETING;
 				}
 			}
 		} else {
@@ -4482,7 +4482,7 @@ void weaponTick(struct prop *prop)
 
 			if (propExplode(prop, exptype)) {
 				weapon->timer240 = -1;
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 			}
 		}
 	} else if (weapon->weaponnum == WEAPON_PROXIMITYMINE
@@ -4528,7 +4528,7 @@ void weaponTick(struct prop *prop)
 				nbombCreateStorm_hack(&prop->pos, ownerprop, prop);
 				propUnsetDangerous(prop);
 
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 
 #if VERSION >= VERSION_NTSC_1_0
 				{
@@ -4562,7 +4562,7 @@ void weaponTick(struct prop *prop)
 
 				if (propExplode(prop, exptype)) {
 					weapon->timer240 = -1;
-					obj->hidden |= OBJHFLAG_REAPABLE;
+					obj->hidden |= OBJHFLAG_DELETING;
 				}
 			}
 		}
@@ -4682,7 +4682,7 @@ void weaponTick(struct prop *prop)
 
 		if (weapon->fadeouttimer60 <= 0) {
 			weapon->fadeouttimer60 = 0;
-			obj->hidden |= OBJHFLAG_REAPABLE;
+			obj->hidden |= OBJHFLAG_DELETING;
 		}
 	}
 
@@ -4727,7 +4727,7 @@ void func0f0706f8(struct prop *prop, bool arg1)
 	struct defaultobj *obj = prop->obj;
 	struct prop *child;
 
-	if (obj->hidden & OBJHFLAG_REAPABLE) {
+	if (obj->hidden & OBJHFLAG_DELETING) {
 		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
 	} else {
 		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
@@ -4751,7 +4751,7 @@ void func0f07079c(struct prop *prop, bool fulltick)
 	struct prop *child;
 	struct prop *next;
 
-	if (obj->hidden & OBJHFLAG_REAPABLE) {
+	if (obj->hidden & OBJHFLAG_DELETING) {
 		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
 		return;
 	}
@@ -6678,7 +6678,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						|| prop->pos.y < -20000.0f || prop->pos.y > 32000.0f
 						|| prop->pos.x < -32000.0f || prop->pos.x > 32000.0f
 						|| prop->pos.z < -32000.0f || prop->pos.z > 32000.0f) {
-					obj->hidden |= OBJHFLAG_REAPABLE;
+					obj->hidden |= OBJHFLAG_DELETING;
 				}
 
 				projectile->flighttime240 += g_Vars.lvupdate240;
@@ -7215,7 +7215,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						cdresult = CDRESULT_COLLISION;
 
 						if (geoflags & GEOFLAG_DIE) {
-							obj->hidden |= OBJHFLAG_REAPABLE;
+							obj->hidden |= OBJHFLAG_DELETING;
 						}
 					} else {
 						roomnum = cdFindFloorRoomYColourNormalPropAtPos(&prop->pos, prop->rooms, &sp390, &obj->floorcol, &sp380, NULL);
@@ -7304,7 +7304,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						projectile->bounceframe = g_Vars.lvframe60;
 
 						if ((obj->hidden & OBJHFLAG_00010000) == 0) {
-							obj->hidden |= OBJHFLAG_00000100;
+							obj->hidden |= OBJHFLAG_DAMAGEFORBOUNCE;
 						}
 
 						if (sp350) {
@@ -7530,7 +7530,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 #if VERSION >= VERSION_NTSC_1_0
 						if (geoflags & GEOFLAG_DIE) {
-							obj->hidden |= OBJHFLAG_REAPABLE;
+							obj->hidden |= OBJHFLAG_DELETING;
 						}
 #endif
 					} else {
@@ -10026,7 +10026,7 @@ void chopperTickFall(struct prop *chopperprop)
 		// reaped once it reaches the lower barrier
 		if (chopperprop->pos.y < -30000) {
 			func0f0926bc(chopperprop, 1, 0xffff);
-			obj->hidden |= OBJHFLAG_REAPABLE;
+			obj->hidden |= OBJHFLAG_DELETING;
 		} else {
 			chopperIncrementMovement(chopperprop, goalroty, chopper->rotx < 0 ? M_PI : -M_PI, &speed, false);
 		}
@@ -10422,7 +10422,7 @@ void hovercarTick(struct prop *prop)
 
 		func0f0926bc(prop, 1, 0xffff);
 		explosionCreate(NULL, &prop->pos, prop->rooms, EXPLOSIONTYPE_7, g_Vars.currentplayernum, true, &sp1e4, sp1d6, &sp1d8);
-		hovercar->base.hidden |= OBJHFLAG_REAPABLE;
+		hovercar->base.hidden |= OBJHFLAG_DELETING;
 		return;
 	}
 
@@ -10881,7 +10881,7 @@ u32 objTick(struct prop *prop)
 				if (obj->flags & OBJFLAG_INSIDEANOTHEROBJ) {
 					propDeregisterRooms(prop);
 					propDelist(prop);
-					obj->hidden &= ~OBJHFLAG_00000800;
+					obj->hidden &= ~OBJHFLAG_GONE;
 					cmdindex = setupGetCmdIndexByProp(prop);
 
 					// Find the parent obj (pad is repurposed here)
@@ -10896,7 +10896,7 @@ u32 objTick(struct prop *prop)
 				} else {
 					propEnable(prop);
 					setup0f0923d4(obj);
-					obj->hidden &= ~OBJHFLAG_00000800;
+					obj->hidden &= ~OBJHFLAG_GONE;
 				}
 			} else {
 				// Object was previously damaged. Maybe glass?
@@ -10975,7 +10975,7 @@ s32 objTickPlayer(struct prop *prop)
 		return TICKOP_RETICK;
 	}
 
-	if (obj->hidden & OBJHFLAG_REAPABLE) {
+	if (obj->hidden & OBJHFLAG_DELETING) {
 		pass = false;
 
 		if (obj->type == OBJTYPE_TINTEDGLASS) {
@@ -11267,7 +11267,7 @@ s32 objTickPlayer(struct prop *prop)
 		pass2 = posIsInDrawDistance(&prop->pos);
 	} else if (obj->flags2 & OBJFLAG2_CANFILLVIEWPORT) {
 		pass2 = posIsInDrawDistance(&prop->pos);
-	} else if ((obj->hidden & OBJHFLAG_00000800) == 0 && (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
+	} else if ((obj->hidden & OBJHFLAG_GONE) == 0 && (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
 		pass2 = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), sp564);
 	} else {
 		pass2 = false;
@@ -11324,8 +11324,8 @@ s32 objTickPlayer(struct prop *prop)
 		}
 	}
 
-	if (obj->hidden & OBJHFLAG_00000100) {
-		obj->hidden &= ~OBJHFLAG_00000100;
+	if (obj->hidden & OBJHFLAG_DAMAGEFORBOUNCE) {
+		obj->hidden &= ~OBJHFLAG_DAMAGEFORBOUNCE;
 		objDamage(obj, RANDOMFRAC() * 4.0f + 2.0f, &prop->pos, WEAPON_NONE, (obj->hidden & 0xf0000000) >> 28);
 	}
 
@@ -14723,7 +14723,7 @@ void objCheckDestroyed(struct defaultobj *obj, struct coord *pos, s32 playernum)
 			explosionCreateComplex(prop, pos, rooms, exptype, playernum);
 
 			if (obj->flags2 & OBJFLAG2_REMOVEWHENDESTROYED) {
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 			} else if (obj->type == OBJTYPE_CHOPPER) {
 				struct chopperobj *chopper = (struct chopperobj *)obj;
 
@@ -15115,7 +15115,7 @@ void glassDestroy(struct defaultobj *obj)
 #endif
 
 	obj->damage = 0;
-	obj->hidden |= OBJHFLAG_REAPABLE;
+	obj->hidden |= OBJHFLAG_DELETING;
 	obj->hidden2 |= OBJH2FLAG_DESTROYED;
 }
 
@@ -15320,7 +15320,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 
 			if (obj->flags2 & OBJFLAG2_AICANNOTUSE) {
 				propExplode(obj->prop, EXPLOSIONTYPE_12);
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 			}
 
 			// If damaging an explosive item, make it explode immediately by
@@ -15537,7 +15537,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	struct coord spd8;
 	f32 spd4;
 	struct modelnode *node2;
-	s32 lVar3;
+	s32 hitpart;
 	bool isnotglass;
 	struct modelnode *node3;
 	struct hitthing hitthing2;
@@ -15564,33 +15564,33 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	}
 
 	if (var8005efc0 > 0.0f) {
-		lVar3 = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
+		hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
 
-		while (lVar3 > 0) {
+		while (hitpart > 0) {
 			if (func0f084594(model, node1, &shotdata->unk00, &shotdata->unk0c, &hitthing1, &spe4, &node2)) {
 				break;
 			}
 
-			lVar3 = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
+			hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
 		}
 	} else {
 		do {
-			lVar3 = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
+			hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
 
-			if (lVar3 > 0 && func0f0849dc(model, node1, &shotdata->unk00, &shotdata->unk0c, &hitthing1, &spe4, &node2)) {
+			if (hitpart > 0 && func0f0849dc(model, node1, &shotdata->unk00, &shotdata->unk0c, &hitthing1, &spe4, &node2)) {
 				break;
 			}
-		} while (lVar3 > 0);
+		} while (hitpart > 0);
 	}
 
 	if (obj->flags3 & OBJFLAG3_HOVERBEDSHIELD) {
 		node3 = modelGetPart(model->definition, MODELPART_0067);
 
 		if (node3 && func0f084594(model, node3, &shotdata->unk00, &shotdata->unk0c, &hitthing2, &sp90, &node4)) {
-			if (lVar3 <= 0 ||
+			if (hitpart <= 0 ||
 					model->matrices[sp90].m[0][2] * hitthing2.unk00.f[0] + model->matrices[sp90].m[1][2] * hitthing2.unk00.f[1] + model->matrices[sp90].m[2][2] * hitthing2.unk00.f[2] >
 					model->matrices[spe4].m[0][2] * hitthing1.unk00.f[0] + model->matrices[spe4].m[1][2] * hitthing1.unk00.f[1] + model->matrices[spe4].m[2][2] * hitthing1.unk00.f[2]) {
-				lVar3 = 1;
+				hitpart = HITPART_LFOOT;
 				hitthing1 = hitthing2;
 				node1 = node3;
 				spe4 = sp90;
@@ -15600,7 +15600,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 		}
 	}
 
-	if (lVar3 > 0) {
+	if (hitpart > 0) {
 		mtx4TransformVec(&model->matrices[spe4], &hitthing1.unk00, &spd8);
 		spd4 = -spd8.f[2];
 
@@ -15620,7 +15620,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 			mtx4RotateVec(&model->matrices[spe4], &hitthing1.unk0c, &sp70);
 			mtx4RotateVecInPlace(camGetProjectionMtxF(), &sp70);
 
-			func0f061fa8(shotdata, prop, spd4, lVar3,
+			func0f061fa8(shotdata, prop, spd4, hitpart,
 					node1, &hitthing1, spe4, node2,
 					model, isnotglass && shotdata->gset.weaponnum != WEAPON_FARSIGHT,
 					(obj->flags2 & OBJFLAG2_BULLETPROOF)
@@ -16139,7 +16139,7 @@ bool propobjInteract(struct prop *prop)
 			}
 
 			if (playernum >= 0 && laptop == &g_ThrownLaptops[playernum]) {
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 				invGiveSingleWeapon(WEAPON_LAPTOPGUN);
 				currentPlayerQueuePickupWeaponHudmsg(WEAPON_LAPTOPGUN, false);
 				weaponPlayPickupSound(WEAPON_LAPTOPGUN);
@@ -17399,7 +17399,7 @@ s32 objTestForPickup(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if (obj->hidden & OBJHFLAG_REAPABLE) {
+	if (obj->hidden & OBJHFLAG_DELETING) {
 		return TICKOP_NONE;
 	}
 
@@ -17449,7 +17449,7 @@ s32 objTestForPickup(struct prop *prop)
 				|| weapon->weaponnum == WEAPON_GRENADEROUND
 				|| weapon->weaponnum == WEAPON_NBOMB
 				|| weapon->weaponnum == WEAPON_SKROCKET) {
-			if (weapon->timer240 >= 0 || (obj->hidden & OBJHFLAG_REAPABLE)) {
+			if (weapon->timer240 >= 0 || (obj->hidden & OBJHFLAG_DELETING)) {
 				return TICKOP_NONE;
 			}
 		}
@@ -17462,7 +17462,7 @@ s32 objTestForPickup(struct prop *prop)
 				|| weapon->weaponnum == WEAPON_TARGETAMPLIFIER
 				|| weapon->weaponnum == WEAPON_COMMSRIDER
 				|| weapon->weaponnum == WEAPON_ECMMINE) {
-			if (weapon->timer240 >= 0 || (obj->hidden & OBJHFLAG_REAPABLE)) {
+			if (weapon->timer240 >= 0 || (obj->hidden & OBJHFLAG_DELETING)) {
 				return TICKOP_NONE;
 			}
 		}
@@ -18284,7 +18284,7 @@ bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
 		if ((weapon->base.flags & OBJFLAG_WEAPON_AICANNOTUSE) == 0) {
 			if (chr->weapons_held[handnum]) {
 				if (chr->aibot) {
-					chr->weapons_held[handnum]->weapon->base.hidden |= OBJHFLAG_REAPABLE;
+					chr->weapons_held[handnum]->weapon->base.hidden |= OBJHFLAG_DELETING;
 					chr->weapons_held[handnum] = NULL;
 				} else {
 					return false;
@@ -18652,7 +18652,7 @@ void weaponDeleteFromChr(struct chrdata *chr, s32 hand)
 {
 	if (chr && chr->weapons_held[hand]) {
 		struct defaultobj *obj = chr->weapons_held[hand]->obj;
-		obj->hidden |= OBJHFLAG_REAPABLE;
+		obj->hidden |= OBJHFLAG_DELETING;
 	}
 }
 
@@ -19622,7 +19622,7 @@ void doorPlayClosedSound(s32 soundtype, struct prop *prop)
 void doorStartOpen(struct doorobj *door)
 {
 	door->base.flags &= ~OBJFLAG_DOOR_KEEPOPEN;
-	door->base.hidden |= OBJHFLAG_00000200;
+	door->base.hidden |= OBJHFLAG_DOOREVEROPENED;
 
 	doorPlayOpeningSound(door->soundtype, door->base.prop);
 	doorActivatePortal(door);

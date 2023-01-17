@@ -1368,13 +1368,14 @@ void propExecuteTickOperation(struct prop *prop, s32 op)
 	if (op == TICKOP_FREE) {
 		if ((prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ)
 				&& prop->obj && (prop->obj->hidden2 & OBJH2FLAG_CANREGEN)) {
+			// Start the wait timer for regen
 			struct defaultobj *obj = prop->obj;
 
 			prop->timetoregen = TICKS(1200);
 
 			obj->damage = 0;
-			obj->hidden |= OBJHFLAG_00000800;
-			obj->hidden &= ~OBJHFLAG_REAPABLE;
+			obj->hidden |= OBJHFLAG_GONE;
+			obj->hidden &= ~OBJHFLAG_DELETING;
 			obj->hidden2 &= ~OBJH2FLAG_DESTROYED;
 
 			propDeregisterRooms(prop);
@@ -1384,6 +1385,7 @@ void propExecuteTickOperation(struct prop *prop, s32 op)
 				propUnpause(prop);
 			}
 		} else {
+			// Prop doesn't regen, so free it
 			propDeregisterRooms(prop);
 			propDelist(prop);
 			propDisable(prop);

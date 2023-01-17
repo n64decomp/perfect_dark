@@ -232,7 +232,7 @@ void botSpawn(struct chrdata *chr, u8 respawning)
 			obj = prop->obj;
 
 			if (obj) {
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 			}
 
 			prop = prop->next;
@@ -478,7 +478,7 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 	if (1);
 
 #if VERSION >= VERSION_NTSC_1_0
-	if ((obj->hidden & OBJHFLAG_REAPABLE) || (obj->flags & OBJFLAG_THROWNLAPTOP)) {
+	if ((obj->hidden & OBJHFLAG_DELETING) || (obj->flags & OBJFLAG_THROWNLAPTOP)) {
 		return false;
 	}
 #else
@@ -1241,7 +1241,7 @@ void botDisarm(struct chrdata *chr, struct prop *attackerprop)
 		if (chr->weapons_held[HAND_LEFT]) {
 			obj = chr->weapons_held[HAND_LEFT]->obj;
 
-			obj->hidden |= OBJHFLAG_REAPABLE;
+			obj->hidden |= OBJHFLAG_DELETING;
 			chr->weapons_held[HAND_LEFT] = NULL;
 		}
 

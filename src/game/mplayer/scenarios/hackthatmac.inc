@@ -240,7 +240,7 @@ void htbCreateUplink(void)
 	if (count > 0) {
 		count = random() % count;
 		var800869ec = candidates[count];
-		var800869ec->hidden |= OBJHFLAG_REAPABLE;
+		var800869ec->hidden |= OBJHFLAG_DELETING;
 		var800869ec->hidden2 |= OBJH2FLAG_CANREGEN;
 		padnum = var800869ec->pad;
 	} else if (g_ScenarioData.htm.numpads > 0) {

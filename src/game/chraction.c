@@ -7653,7 +7653,7 @@ bool chrConsiderGrenadeThrow(struct chrdata *chr, u32 attackflags, u32 entityid)
 
 				if (prop) {
 					weapon = prop->weapon;
-					weapon->base.hidden |= OBJHFLAG_00000800;
+					weapon->base.hidden |= OBJHFLAG_GONE;
 					chrThrowGrenade(chr, rightprop == NULL ? 0 : 1, true);
 					chr->act_throwgrenade.flags = attackflags;
 					chr->act_throwgrenade.entityid = entityid;
@@ -11304,19 +11304,21 @@ void chrTickThrowGrenade(struct chrdata *chr)
 
 	model = chr->model;
 	frame = modelGetCurAnimFrame(model);
-	hand = model->anim->flip ? 1 : 0;
+	hand = model->anim->flip ? HAND_LEFT : HAND_RIGHT;
 	weaponprop = chrGetHeldProp(chr, hand);
 
-	if ((frame >= 20 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_STANDING) ||
-			(frame >= 1 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN) ||
-			(frame >= 1 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING)) {
+	// Decide at which frame the grenade should become visible in the chr's hand
+	if ((frame >= 20 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_STANDING)
+			|| (frame >= 1 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN)
+			|| (frame >= 1 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING)) {
 		obj = weaponprop->obj;
-		obj->hidden &= ~OBJHFLAG_00000800;
+		obj->hidden &= ~OBJHFLAG_GONE;
 	}
 
-	if ((frame >= 119 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_STANDING) ||
-			(frame >= 57 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN) ||
-			(frame >= 58 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING)) {
+	// Decide at which frame the grenade leaves the chr's hand
+	if ((frame >= 119 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_STANDING)
+			|| (frame >= 57 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN)
+			|| (frame >= 58 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING)) {
 		weapon = weaponprop->weapon;
 		objSetDropped(weaponprop, DROPTYPE_THROWGRENADE);
 		chr->hidden |= CHRHFLAG_DROPPINGITEM;
@@ -11328,9 +11330,9 @@ void chrTickThrowGrenade(struct chrdata *chr)
 	if (frame2 >= modelGetAnimEndFrame(model)) {
 		chrStop(chr);
 	} else {
-		if ((frame >= 87 && frame <= 110 && modelGetAnimNum(model) == ANIM_THROWGRENADE_STANDING) ||
-				(frame >= 5 && frame <= 45 && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN) ||
-				((frame >= 20 && frame <= 45 && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING))) {
+		if ((frame >= 87 && frame <= 110 && modelGetAnimNum(model) == ANIM_THROWGRENADE_STANDING)
+				|| (frame >= 5 && frame <= 45 && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN)
+				|| ((frame >= 20 && frame <= 45 && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING))) {
 			f32 value = chrGetRangedSpeed(chr, 1, 3.2);
 			chrTurn(chr, 1, 110, value, 0);
 		}

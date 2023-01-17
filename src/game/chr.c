@@ -1944,13 +1944,13 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 	struct prop *child;
 	struct prop *next;
 
-	if (obj->hidden & OBJHFLAG_REAPABLE) {
+	if (obj->hidden & OBJHFLAG_DELETING) {
 		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
 		return;
 	}
 
 	if (model->attachedtomodel && model->attachedtonode
-			&& (obj->hidden & OBJHFLAG_00000800) == 0
+			&& (obj->hidden & OBJHFLAG_GONE) == 0
 			&& (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
 		Mtxf *sp104 = modelFindNodeMtx(model->attachedtomodel, model->attachedtonode, 0);
 		struct modelrenderdata thing = {NULL, 1, 3};

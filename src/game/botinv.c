@@ -1060,7 +1060,7 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 			aibot->reaperspeed[i] = 0;
 
 			if (chr->weapons_held[i]) {
-				chr->weapons_held[i]->obj->hidden |= OBJHFLAG_REAPABLE;
+				chr->weapons_held[i]->obj->hidden |= OBJHFLAG_DELETING;
 				chr->weapons_held[i] = NULL;
 			}
 		}

@@ -783,7 +783,7 @@ void setupCreateMine(struct mineobj *mine, s32 cmdindex)
 	setupCreateObject(&mine->base, cmdindex);
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mine->base.hidden = (mine->base.hidden & 0x0fffffff) | OBJHFLAG_20000000;
+		mine->base.hidden = (mine->base.hidden & 0x0fffffff) | (2 << 28);
 	}
 
 	mine->base.prop->forcetick = true;
@@ -2224,10 +2224,9 @@ void setupCreateProps(s32 stagenum)
 
 							// This gets optimised out but makes v0 unavailable
 							// for storing OBJHFLAG_CONDITIONALSCENERY, which is required
-							// for a match. Any function call would work; I just
-							// copied the one above.
+							// for a match. Any function call would work.
 							if (alwayszero) {
-								setupCreateConditionalScenery(link);
+								random();
 							}
 
 							if (expoffset) {
@@ -2235,7 +2234,7 @@ void setupCreateProps(s32 stagenum)
 								exp->flags2 |= OBJFLAG2_INVISIBLE;
 							}
 
-							if (trigger->hidden & OBJHFLAG_02000000) {
+							if (trigger->hidden & OBJHFLAG_BLOCKEDPATH) {
 								objSetBlockedPathUnblocked(trigger, false);
 							}
 						}
@@ -2252,7 +2251,7 @@ void setupCreateProps(s32 stagenum)
 
 							setupCreateBlockedPath(blockedpath);
 
-							blocker->hidden |= OBJHFLAG_02000000;
+							blocker->hidden |= OBJHFLAG_BLOCKEDPATH;
 
 							if (blocker->hidden & OBJHFLAG_CONDITIONALSCENERY) {
 								objSetBlockedPathUnblocked(blocker, false);

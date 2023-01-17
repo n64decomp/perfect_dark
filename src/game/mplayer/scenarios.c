@@ -1021,7 +1021,7 @@ struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u3
 	obj->flags2 = flags2;
 	obj->flags3 = flags3;
 	obj->extrascale = arg2 * 256;
-	obj->hidden2 &= ~OBJHFLAG_REAPABLE;
+	obj->hidden2 &= ~OBJHFLAG_DELETING;
 
 	setupCreateObject(obj, 123);
 	propActivate(obj->prop);
@@ -1137,7 +1137,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 		setCurrentPlayerNum(prevplayernum);
 
 		if (chr->aibot) {
-			obj->hidden |= OBJHFLAG_REAPABLE;
+			obj->hidden |= OBJHFLAG_DELETING;
 			return TICKOP_NONE;
 		}
 
@@ -1308,7 +1308,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 
 				if (chr->aibot) {
 					botinvGiveSingleWeapon(chr, WEAPON_BRIEFCASE2);
-					obj->hidden |= OBJHFLAG_REAPABLE;
+					obj->hidden |= OBJHFLAG_DELETING;
 					return TICKOP_NONE;
 				} else {
 					invGiveWeaponsByProp(prop);
@@ -1437,9 +1437,9 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 			chr->aibot->hasuplink = true;
 
 #if VERSION >= VERSION_NTSC_1_0
-			obj->hidden |= OBJHFLAG_REAPABLE;
+			obj->hidden |= OBJHFLAG_DELETING;
 #else
-			prop->obj->hidden |= OBJHFLAG_REAPABLE;
+			prop->obj->hidden |= OBJHFLAG_DELETING;
 #endif
 
 			return TICKOP_NONE;

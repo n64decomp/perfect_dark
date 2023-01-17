@@ -158,7 +158,7 @@ void htbRemoveAmmoCrateAtPad(s16 padnum)
 			if (obj->pad == padnum
 					&& (obj->type == OBJTYPE_AMMOCRATE || obj->type == OBJTYPE_MULTIAMMOCRATE)
 					&& obj->modelnum == MODEL_MULTI_AMMO_CRATE) {
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 				obj->hidden2 &= ~OBJH2FLAG_CANREGEN;
 				return;
 			}
@@ -243,7 +243,7 @@ void htbCreateToken(void)
 		count = random() % count;
 		var800869ec = candidates[count];
 		g_ScenarioData.htb.tokenpad = var800869ec->pad;
-		var800869ec->hidden |= OBJHFLAG_REAPABLE;
+		var800869ec->hidden |= OBJHFLAG_DELETING;
 		var800869ec->hidden2 |= OBJH2FLAG_CANREGEN;
 	} else if (g_ScenarioData.htb.nextindex > 0) {
 		g_ScenarioData.htb.tokenpad = g_ScenarioData.htb.padnums[random() % g_ScenarioData.htb.nextindex];

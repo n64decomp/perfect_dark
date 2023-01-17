@@ -500,7 +500,7 @@ void playerStartNewLife(void)
 			struct defaultobj *obj = prop->obj;
 
 			if (obj) {
-				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden |= OBJHFLAG_DELETING;
 			}
 
 			prop = prop->next;
@@ -5427,11 +5427,11 @@ s32 playerTickThirdPerson(struct prop *prop)
 	chr->sumground = chr->manground * (PAL ? 8.417509f : 9.999998f);
 
 	if (g_Vars.mplayerisrunning) {
-		if (chr->weapons_held[0] && (chr->weapons_held[0]->obj->hidden & OBJHFLAG_REAPABLE)) {
+		if (chr->weapons_held[0] && (chr->weapons_held[0]->obj->hidden & OBJHFLAG_DELETING)) {
 			objFree(chr->weapons_held[0]->obj, true, false);
 		}
 
-		if (chr->weapons_held[1] && (chr->weapons_held[1]->obj->hidden & OBJHFLAG_REAPABLE)) {
+		if (chr->weapons_held[1] && (chr->weapons_held[1]->obj->hidden & OBJHFLAG_DELETING)) {
 			objFree(chr->weapons_held[1]->obj, true, false);
 		}
 	}

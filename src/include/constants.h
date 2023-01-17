@@ -3096,16 +3096,16 @@
 // obj->hidden
 #define OBJHFLAG_LIFTDOOR           0x00000001
 #define OBJHFLAG_00000002           0x00000002
-#define OBJHFLAG_REAPABLE           0x00000004
+#define OBJHFLAG_DELETING           0x00000004
 #define OBJHFLAG_ISRETICK           0x00000008
 #define OBJHFLAG_TAGGED             0x00000010
-#define OBJHFLAG_00000020           0x00000020 // thrown knife
+#define OBJHFLAG_THROWNKNIFE        0x00000020 // thrown knife
 #define OBJHFLAG_EMBEDDED           0x00000040 // obj is embedded in a chr or other obj (eg. knife)
 #define OBJHFLAG_PROJECTILE         0x00000080 // obj is airborne, sliding or falling
-#define OBJHFLAG_00000100           0x00000100
-#define OBJHFLAG_00000200           0x00000200
+#define OBJHFLAG_DAMAGEFORBOUNCE    0x00000100
+#define OBJHFLAG_DOOREVEROPENED     0x00000200
 #define OBJHFLAG_HASTEXTOVERRIDE    0x00000400
-#define OBJHFLAG_00000800           0x00000800
+#define OBJHFLAG_GONE               0x00000800 // Waiting to regen in MP, or grenade in chr's hand during throw anim before it becomes visible
 #define OBJHFLAG_00001000           0x00001000
 #define OBJHFLAG_PADLOCKEDDOOR      0x00002000
 #define OBJHFLAG_ACTIVATED_BY_BOND  0x00004000
@@ -3119,10 +3119,9 @@
 #define OBJHFLAG_PERIMDISABLED      0x00400000
 #define OBJHFLAG_DOORPERIMDISABLED  0x00800000
 #define OBJHFLAG_CONDITIONALSCENERY 0x01000000 // Set on triggers, exp and unexp
-#define OBJHFLAG_02000000           0x02000000
+#define OBJHFLAG_BLOCKEDPATH        0x02000000
 #define OBJHFLAG_MOUNTED            0x04000000 // for hoverbike
 #define OBJHFLAG_GRABBED            0x08000000
-#define OBJHFLAG_20000000           0x20000000 // upper nibble might be a single 4-bit value
 
 // obj->hidden2
 #define OBJH2FLAG_HASOPA       0x01 // obj has opaque polygons (ie. most objects)

@@ -7,7 +7,7 @@
 
 void objSetBlockedPathUnblocked(struct defaultobj *blocker, bool unblocked)
 {
-	if (blocker->hidden & OBJHFLAG_02000000) {
+	if (blocker->hidden & OBJHFLAG_BLOCKEDPATH) {
 		struct blockedpathobj *bp = g_BlockedPaths;
 
 		while (bp) {
