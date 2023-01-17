@@ -629,22 +629,22 @@
 #define CDRESULT_COLLISION   0
 #define CDRESULT_NOCOLLISION 1
 
-#define CDTYPE_OBJS              0x0001
-#define CDTYPE_DOORS             0x0002
-#define CDTYPE_PLAYERS           0x0004
-#define CDTYPE_CHRS              0x0008
-#define CDTYPE_PATHBLOCKER       0x0010 // glass and scenery with OBJFLAG_PATHBLOCKER
-#define CDTYPE_BG                0x0020
-#define CDTYPE_OBJSWITHFLAG      0x0080
-#define CDTYPE_AIOPAQUE          0x0100 // exclude objects with OBJFLAG_AISEETHROUGH
-#define CDTYPE_OBJSWITHFLAG2     0x0200
-#define CDTYPE_OBJSNOTSAFEORHELI 0x0400
-#define CDTYPE_DOORSWITHOUTFLAG  0x0800
-#define CDTYPE_CLOSEDDOORS       0x1000
-#define CDTYPE_OPENDOORS         0x2000
-#define CDTYPE_AJARDOORS         0x4000
-#define CDTYPE_DOORSLOCKEDTOAI   0x8000
-#define CDTYPE_ALL               0x003f
+#define CDTYPE_OBJS                   0x0001
+#define CDTYPE_DOORS                  0x0002
+#define CDTYPE_PLAYERS                0x0004
+#define CDTYPE_CHRS                   0x0008
+#define CDTYPE_PATHBLOCKER            0x0010 // glass and scenery with OBJFLAG_PATHBLOCKER
+#define CDTYPE_BG                     0x0020
+#define CDTYPE_OBJSIMMUNETOGUNFIRE    0x0080
+#define CDTYPE_AIOPAQUE               0x0100 // exclude objects with OBJFLAG_AISEETHROUGH
+#define CDTYPE_OBJSIMMUNETOEXPLOSIONS 0x0200
+#define CDTYPE_OBJSNOTSAFEORHELI      0x0400
+#define CDTYPE_DOORSWITHOUTFLAG       0x0800
+#define CDTYPE_CLOSEDDOORS            0x1000
+#define CDTYPE_OPENDOORS              0x2000
+#define CDTYPE_AJARDOORS              0x4000
+#define CDTYPE_DOORSLOCKEDTOAI        0x8000
+#define CDTYPE_ALL                    0x003f
 
 #define CHECKVERTICAL_NO  0
 #define CHECKVERTICAL_YES 1
@@ -3019,15 +3019,15 @@
 
 // obj->flags2
 #define OBJFLAG2_IMMUNETOANTI            0x00000001 // Counter-op cannot damage this object
-#define OBJFLAG2_00000002                0x00000002 // Ruins spikes
+#define OBJFLAG2_BOUNCEIFSHOTWHENDEAD    0x00000002 // Ruins spikes
 #define OBJFLAG2_SKIPDOORLOCKEDMSG       0x00000004
-#define OBJFLAG2_00000008                0x00000008 // Editor: "Don't load in Multiplayer"
+#define OBJFLAG2_DOOR_PENDINGACTIVATION  0x00000008 // Editor: "Don't load in Multiplayer"
 #define OBJFLAG2_EXCLUDE_A               0x00000010
 #define OBJFLAG2_EXCLUDE_SA              0x00000020
 #define OBJFLAG2_EXCLUDE_PA              0x00000040
 #define OBJFLAG2_EXCLUDE_PD              0x00000080
-#define OBJFLAG2_00000100                0x00000100 // Editor: "Immobile"
-#define OBJFLAG2_00000200                0x00000200 // Editor: "Mines"
+#define OBJFLAG2_NOFALL                  0x00000100
+#define OBJFLAG2_FALLWITHOUTROTATION     0x00000200
 #define OBJFLAG2_LINKEDTOSAFE            0x00000400 // Applied to safe door and item
 #define OBJFLAG2_INTERACTCHECKLOS        0x00000800 // Check line of sight when attempting to interact with object
 #define OBJFLAG2_PICKUPWITHOUTLOS        0x00001000 // Object can be picked up without having line of sight
@@ -3035,24 +3035,28 @@
 #define OBJFLAG2_IMMUNETOGUNFIRE         0x00004000
 #define OBJFLAG2_SHOOTTHROUGH            0x00008000
 #define OBJFLAG2_DRAWONTOP               0x00010000
-#define OBJFLAG2_00020000                0x00020000 // G5 mine, Air Base mine
-#define OBJFLAG2_00040000                0x00040000 // Only used in CI training
+#define OBJFLAG2_DONTPAUSE               0x00020000 // Don't allow prop to pause
+#define OBJFLAG2_INVHIDDEN               0x00040000 // Don't show in inventory menu
 #define OBJFLAG2_INVISIBLE               0x00080000
 #define OBJFLAG2_BULLETPROOF             0x00100000 // Only magnum and FarSight can shoot through it
-#define OBJFLAG2_00200000                0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
+#define OBJFLAG2_IMMUNETOEXPLOSIONS      0x00200000
 #define OBJFLAG2_EXCLUDE_2P              0x00400000
 #define OBJFLAG2_EXCLUDE_3P              0x00800000
 #define OBJFLAG2_EXCLUDE_4P              0x01000000
 #define OBJFLAG2_THROWTHROUGH            0x02000000 // Rockets/mines/grenades etc pass through object
-#define OBJFLAG2_04000000                0x04000000 // Used quite a lot - gravity?
+#define OBJFLAG2_CANFILLVIEWPORT         0x04000000
 #define OBJFLAG2_LOCKEDFRONT             0x08000000 // One-way door lock
 #define OBJFLAG2_LOCKEDBACK              0x10000000 // One-way door lock
-#define OBJFLAG2_AICANNOTUSE             0x20000000
+#define OBJFLAG2_AICANNOTUSE             0x20000000 // AI can't equip weapon
 #define OBJFLAG2_AUTOGUN_MALFUNCTIONING2 0x20000000
 #define OBJFLAG2_AIRLOCKDOOR             0x40000000 // Door waits for sibling to close before it can open
-#define OBJFLAG2_AUTOGUN_40000000        0x40000000
-#define OBJFLAG2_80000000                0x80000000 // Attack Ship glass
+#define OBJFLAG2_AUTOGUN_ZEROTOROT       0x40000000 // set xzero/yzero to xrot/yrot when malfunctioning
 #define OBJFLAG2_AUTOGUN_MALFUNCTIONING1 0x80000000
+#define OBJFLAG2_DEBRIS_80000000         0x80000000
+#define OBJFLAG2_DEFAULT_80000000        0x80000000
+#define OBJFLAG2_DOOR_ALTCOORDSYSTEM     0x80000000 // Floor grates, but also Temple doors
+#define OBJFLAG2_GLASS_80000000          0x80000000
+#define OBJFLAG2_HOVERPROP_80000000      0x80000000
 #define OBJFLAG2_WEAPON_HUGEEXP          0x80000000
 
 // obj->flags3

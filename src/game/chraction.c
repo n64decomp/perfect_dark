@@ -6392,9 +6392,9 @@ bool chrHasLosToEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms,
 			if (weapon->weaponnum == WEAPON_ROCKETLAUNCHER
 					|| weapon->weaponnum == WEAPON_SLAYER
 					|| weapon->weaponnum == WEAPON_ROCKETLAUNCHER_34) {
-				types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_OBJSWITHFLAG2 | CDTYPE_ALL;
+				types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_OBJSIMMUNETOEXPLOSIONS | CDTYPE_ALL;
 			} else {
-				types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_OBJSWITHFLAG | CDTYPE_ALL;
+				types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_OBJSIMMUNETOGUNFIRE | CDTYPE_ALL;
 			}
 		}
 

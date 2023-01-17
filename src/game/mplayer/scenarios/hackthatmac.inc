@@ -189,7 +189,7 @@ void htbCreateUplink(void)
 		MODEL_CHRDATATHIEF,     // modelnum
 		0,                      // pad
 		OBJFLAG_FALL | OBJFLAG_INVINCIBLE | OBJFLAG_FORCENOBOUNCE,
-		OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000,
+		OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_IMMUNETOEXPLOSIONS,
 		0,                      // flags3
 		NULL,                   // prop
 		NULL,                   // model
@@ -318,7 +318,7 @@ void htmInitProps(void)
 	for (i = 0; i < HTM_NUM_TERMINALS; i++) {
 		data->terminals[i].prop = scenarioCreateObj(MODEL_GOODPC, data->terminals[i].padnum, 0.2f,
 				OBJFLAG_FALL | OBJFLAG_INVINCIBLE | OBJFLAG_FORCENOBOUNCE,
-				OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000,
+				OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_IMMUNETOEXPLOSIONS,
 				OBJFLAG3_HTMTERMINAL | OBJFLAG3_INTERACTABLE);
 		osSyncPrintf("HackThatMacInitProps -> Building and adding custom prop %d - Pad=%d, Ptr=%08x\n",
 				i, data->terminals[i].padnum, data->terminals[i].prop);

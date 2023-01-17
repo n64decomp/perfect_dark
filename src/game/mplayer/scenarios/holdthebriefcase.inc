@@ -188,7 +188,7 @@ void htbCreateToken(void)
 		MODEL_CHRBRIEFCASE,     // modelnum
 		0,                      // pad
 		OBJFLAG_FALL | OBJFLAG_INVINCIBLE | OBJFLAG_FORCENOBOUNCE,
-		OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000,
+		OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_IMMUNETOEXPLOSIONS,
 		0,                      // flags3
 		NULL,                   // prop
 		NULL,                   // model

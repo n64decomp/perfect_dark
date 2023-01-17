@@ -850,7 +850,7 @@ void explosionInflictDamage(struct prop *expprop)
 
 							// Damage the object
 							if ((obj->hidden & OBJHFLAG_00001000) == 0
-									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_00200000)) == 0) {
+									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_IMMUNETOEXPLOSIONS)) == 0) {
 								func0f085050(prop, (RANDOMFRAC() * 0.5f + 1.0f) * minfrac, &prop->pos, 0x22, exp->owner);
 							}
 
@@ -881,7 +881,7 @@ void explosionInflictDamage(struct prop *expprop)
 							minfrac *= 0.05f * g_Vars.lvupdate60freal;
 
 							if ((obj->hidden & OBJHFLAG_00001000) == 0
-									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_00200000)) == 0) {
+									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_IMMUNETOEXPLOSIONS)) == 0) {
 								func0f085050(prop, (RANDOMFRAC() * 0.5f + 1.0f) * minfrac,
 										&prop->pos, 0x22, exp->owner);
 							}

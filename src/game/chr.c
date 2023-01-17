@@ -2986,7 +2986,7 @@ bool chr0f024738(struct chrdata *chr)
 						&& door->doortype != DOORTYPE_FALLAWAY
 						&& door->doortype != DOORTYPE_AZTECCHAIR
 						&& (obj->flags & (OBJFLAG_00000010 | OBJFLAG_AISEETHROUGH)) == 0
-						&& (obj->flags2 & OBJFLAG2_80000000) == 0
+						&& (obj->flags2 & OBJFLAG2_DOOR_ALTCOORDSYSTEM) == 0
 						&& !((door->doorflags & DOORFLAG_0080) == 0 && door->frac > 0)) {
 					for (i = 0; i < var80062964; i++) {
 						if (var80062960[i].prop == prop) {

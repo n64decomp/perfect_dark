@@ -1975,7 +1975,7 @@ void objCreateOneDebris(struct defaultobj *obj, s32 partindex, struct prop *prop
 			debris->model->scale = obj->model->scale;
 
 			debris->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_BOUNCEIFSHOT | OBJFLAG_01000000;
-			debris->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000;
+			debris->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_IMMUNETOEXPLOSIONS;
 			debris->flags3 |= OBJFLAG3_00000008;
 
 			node = modelGetPart(debris->model->definition, MODELPART_BASIC_00C8);
@@ -2117,7 +2117,7 @@ struct prop *objInit(struct defaultobj *obj, struct modeldef *modeldef, struct p
 
 			prop->forcetick = true;
 			obj->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_FORCENOBOUNCE;
-			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000;
+			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_IMMUNETOEXPLOSIONS;
 		} else if (weapon->weaponnum == WEAPON_DATAUPLINK) {
 			if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
 				g_ScenarioData.htm.uplink = prop;
@@ -2125,7 +2125,7 @@ struct prop *objInit(struct defaultobj *obj, struct modeldef *modeldef, struct p
 
 			prop->forcetick = true;
 			obj->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_FORCENOBOUNCE;
-			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000;
+			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_IMMUNETOEXPLOSIONS;
 		}
 	}
 
@@ -8496,7 +8496,7 @@ void autogunTick(struct prop *prop)
 	// Malfunctioning mode 1: The gun looks around continuously in random
 	// directions on both axis without spinning the barrel.
 	if (obj->flags2 & OBJFLAG2_AUTOGUN_MALFUNCTIONING1) {
-		if (obj->flags2 & OBJFLAG2_AUTOGUN_40000000) {
+		if (obj->flags2 & OBJFLAG2_AUTOGUN_ZEROTOROT) {
 			autogun->xzero = autogun->xrot;
 			autogun->yzero = autogun->yrot;
 		} else if (autogun->yrot == autogun->yzero && autogun->xrot == autogun->xzero) {
@@ -8514,7 +8514,7 @@ void autogunTick(struct prop *prop)
 	if (obj->flags2 & OBJFLAG2_AUTOGUN_MALFUNCTIONING2) {
 		spinup = true;
 
-		if (obj->flags2 & OBJFLAG2_AUTOGUN_40000000) {
+		if (obj->flags2 & OBJFLAG2_AUTOGUN_ZEROTOROT) {
 			autogun->xzero = autogun->xrot;
 			autogun->yzero = autogun->yrot;
 		} else if (autogun->yrot == autogun->yzero) {
@@ -11265,7 +11265,7 @@ s32 objTickPlayer(struct prop *prop)
 		pass2 = false;
 	} else if (prop == bmoveGetHoverbike() || prop == bmoveGetGrabbedProp()) {
 		pass2 = posIsInDrawDistance(&prop->pos);
-	} else if (obj->flags2 & OBJFLAG2_04000000) {
+	} else if (obj->flags2 & OBJFLAG2_CANFILLVIEWPORT) {
 		pass2 = posIsInDrawDistance(&prop->pos);
 	} else if ((obj->hidden & OBJHFLAG_00000800) == 0 && (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
 		pass2 = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), sp564);
@@ -13671,7 +13671,7 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 	}
 
-	if ((obj->flags2 & OBJFLAG2_04000000) == 0 && func0f08e5a8(prop->rooms, &screenbox) > 0) {
+	if ((obj->flags2 & OBJFLAG2_CANFILLVIEWPORT) == 0 && func0f08e5a8(prop->rooms, &screenbox) > 0) {
 		gdl = currentPlayerScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 	} else {
 		gdl = currentPlayerScissorToViewport(gdl);
@@ -14615,7 +14615,7 @@ void objFall(struct defaultobj *obj, s32 playernum)
 	obj->hidden |= (playernum << 28) & 0xf0000000;
 #endif
 
-	if ((obj->flags2 & OBJFLAG2_00000100) == 0
+	if ((obj->flags2 & OBJFLAG2_NOFALL) == 0
 			&& (obj->flags3 & OBJFLAG3_10000000) == 0
 			&& (obj->flags & (OBJFLAG_FALL | OBJFLAG_00000008))
 			&& (obj->hidden & (OBJHFLAG_EMBEDDED | OBJHFLAG_PROJECTILE)) == 0) {
@@ -14633,7 +14633,7 @@ void objFall(struct defaultobj *obj, s32 playernum)
 			projectile->speed.y = RANDOMFRAC() * 3.3333333f + 1.6666666f;
 			projectile->speed.z = RANDOMFRAC() * 1.6666666f - 0.8333333f;
 
-			if ((obj->flags2 & OBJFLAG2_00000200) == 0) {
+			if ((obj->flags2 & OBJFLAG2_FALLWITHOUTROTATION) == 0) {
 #if PAL
 				rot.x = RANDOMFRAC() * 0.0058895489f - 0.0029447745f;
 				rot.y = RANDOMFRAC() * 0.0058895489f - 0.0029447745f;
@@ -15884,7 +15884,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 					bounce = true;
 				}
 
-				if (obj->flags2 & OBJFLAG2_00000002) {
+				if (obj->flags2 & OBJFLAG2_BOUNCEIFSHOTWHENDEAD) {
 					if (!objIsHealthy(obj)) {
 						bounce = true;
 					}
@@ -20311,7 +20311,7 @@ f32 func0f08f538(f32 x, f32 y)
 /**
  * Get some coordinates/distances related to activating doors.
  */
-void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool arg5)
+void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool altcoordsystem)
 {
 	f32 value1;
 	f32 value2;
@@ -20347,7 +20347,7 @@ void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *ar
 	playerpos.f[1] = playerprop->pos.y;
 	playerpos.f[2] = playerprop->pos.z;
 
-	if (arg5) {
+	if (altcoordsystem) {
 		spa8 = pad.bbox.xmin;
 		spa4 = pad.bbox.xmax;
 		spb0 = pad.up.y * pad.look.z - pad.look.y * pad.up.z;
@@ -20415,7 +20415,7 @@ void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *ar
 	}
 }
 
-bool func0f08f968(struct doorobj *door, bool arg1)
+bool func0f08f968(struct doorobj *door, bool altcoordsystem)
 {
 	bool checkmore = true;
 	f32 sp58;
@@ -20442,9 +20442,9 @@ bool func0f08f968(struct doorobj *door, bool arg1)
 		}
 
 		if (maybe) {
-			door0f08f604(door, &sp58, &sp54, &sp50, &sp4c, arg1);
+			door0f08f604(door, &sp58, &sp54, &sp50, &sp4c, altcoordsystem);
 		} else {
-			door0f08f604(door, &sp58, &sp54, NULL, NULL, arg1);
+			door0f08f604(door, &sp58, &sp54, NULL, NULL, altcoordsystem);
 		}
 
 		if (maybe && ((sp50 >= -limit && sp50 <= limit && sp4c >= -limit && sp4c <= limit)
@@ -20460,7 +20460,7 @@ bool func0f08f968(struct doorobj *door, bool arg1)
 			f32 sp34;
 
 			while (sibling != NULL && sibling != door && (sp58 >= 0.0f || sp54 < 0.0f)) {
-				door0f08f604(sibling, &sp38, &sp34, NULL, NULL, arg1);
+				door0f08f604(sibling, &sp38, &sp34, NULL, NULL, altcoordsystem);
 
 				if (sp58 >= 0.0f && sp38 < sp58) {
 					sp58 = sp38;
@@ -20534,7 +20534,7 @@ bool doorTestForInteract(struct prop *prop)
 					|| cdTestLos06(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
 				checkmore = func0f08f968(door, false);
 
-				if (checkmore && (door->base.flags2 & OBJFLAG2_80000000)) {
+				if (checkmore && (door->base.flags2 & OBJFLAG2_DOOR_ALTCOORDSYSTEM)) {
 					checkmore = func0f08f968(door, true);
 				}
 			}
@@ -20578,7 +20578,7 @@ void doorsActivate(struct prop *doorprop, bool allowliftclose)
 		door->base.hidden |= OBJHFLAG_ACTIVATED_BY_BOND;
 	}
 
-	door->base.flags2 &= ~OBJFLAG2_00000008;
+	door->base.flags2 &= ~OBJFLAG2_DOOR_PENDINGACTIVATION;
 }
 
 bool posIsInFrontOfDoor(struct coord *pos, struct doorobj *door)
@@ -20679,7 +20679,7 @@ bool propdoorInteract(struct prop *doorprop)
 			door->base.hidden |= OBJHFLAG_ACTIVATED_BY_BOND;
 		}
 
-		door->base.flags2 |= OBJFLAG2_00000008;
+		door->base.flags2 |= OBJFLAG2_DOOR_PENDINGACTIVATION;
 	}
 
 	return TICKOP_NONE;

@@ -589,7 +589,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 			modelSetScale(obj->model, obj->model->scale * scale);
 			mtx00015f04(obj->model->scale, &mtx);
 
-			if (obj->flags2 & OBJFLAG2_00020000) {
+			if (obj->flags2 & OBJFLAG2_DONTPAUSE) {
 				prop2->flags |= PROPFLAG_DONTPAUSE;
 			}
 
@@ -741,7 +741,7 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 					shield->base.modelnum = MODEL_CHRSHIELD;
 					shield->base.type = OBJTYPE_SHIELD;
 					shield->base.flags |= OBJFLAG_01000000 | OBJFLAG_INVINCIBLE;
-					shield->base.flags2 |= OBJFLAG2_00200000 | OBJFLAG2_IMMUNETOGUNFIRE;
+					shield->base.flags2 |= OBJFLAG2_IMMUNETOEXPLOSIONS | OBJFLAG2_IMMUNETOGUNFIRE;
 					shield->initialamount = 1;
 					shield->amount = 1;
 					setupCreateObject(&shield->base, cmdindex);

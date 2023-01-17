@@ -749,7 +749,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 
 		if (obj
 				&& obj->type == OBJTYPE_AUTOGUN
-				&& (obj->flags2 & (OBJFLAG2_80000000 | OBJFLAG2_AICANNOTUSE)) == 0) {
+				&& (obj->flags2 & (OBJFLAG2_AUTOGUN_MALFUNCTIONING1 | OBJFLAG2_AICANNOTUSE)) == 0) {
 			pass = true;
 		}
 

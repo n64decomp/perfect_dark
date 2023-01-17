@@ -2817,15 +2817,15 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 				result = false;
 			}
 
-			if ((types & CDTYPE_OBJSWITHFLAG)
+			if ((types & CDTYPE_OBJSIMMUNETOGUNFIRE)
 					&& (obj->flags & OBJFLAG_INVINCIBLE) == 0
 					&& (obj->flags2 & OBJFLAG2_IMMUNETOGUNFIRE) == 0) {
 				result = false;
 			}
 
-			if ((types & CDTYPE_OBJSWITHFLAG2)
+			if ((types & CDTYPE_OBJSIMMUNETOEXPLOSIONS)
 					&& (obj->flags & OBJFLAG_INVINCIBLE) == 0
-					&& (obj->flags2 & OBJFLAG2_00200000) == 0) {
+					&& (obj->flags2 & OBJFLAG2_IMMUNETOEXPLOSIONS) == 0) {
 				result = false;
 			}
 

@@ -119,7 +119,7 @@ void invInsertItem(struct invitem *item)
 
 			if (setflag && prop->type == PROPTYPE_OBJ) {
 				struct defaultobj *obj = prop->obj;
-				obj->flags2 |= OBJFLAG2_00040000;
+				obj->flags2 |= OBJFLAG2_INVHIDDEN;
 			}
 		}
 	}
@@ -827,7 +827,7 @@ s32 invGetCount(void)
 							numitems++;
 						}
 					} else if (prop->type == PROPTYPE_OBJ) {
-						if ((obj->flags2 & OBJFLAG2_00040000) == 0) {
+						if ((obj->flags2 & OBJFLAG2_INVHIDDEN) == 0) {
 							numitems++;
 						}
 					}
@@ -880,7 +880,7 @@ struct invitem *invGetItemByIndex(s32 index)
 							index--;
 						}
 					} else if (prop->type == PROPTYPE_OBJ) {
-						if ((obj->flags2 & OBJFLAG2_00040000) == 0) {
+						if ((obj->flags2 & OBJFLAG2_INVHIDDEN) == 0) {
 							if (index == 0) {
 								return item;
 							}
