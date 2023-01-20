@@ -2005,7 +2005,7 @@ void bgReset(s32 stagenum)
 
 	if (var800a4920 == 0) {
 		g_BgPrimaryData2 = (u32 *)g_BgPrimaryData;
-		g_BgRooms = (struct bgroom *)(g_BgPrimaryData2[1] + g_BgPrimaryData + 0xf1000000);
+		g_BgRooms = (struct bgroom *)(g_BgPrimaryData2[1] + g_BgPrimaryData - 0x0f000000);
 		goto foo; foo:;
 		g_Vars.roomcount = 0;
 
@@ -2013,24 +2013,24 @@ void bgReset(s32 stagenum)
 			g_Vars.roomcount++;
 		}
 
-		g_BgPortals = (struct bgportal *)(g_BgPrimaryData2[2] + g_BgPrimaryData + 0xf1000000);
+		g_BgPortals = (struct bgportal *)(g_BgPrimaryData2[2] + g_BgPrimaryData - 0x0f000000);
 
 		if (g_BgPrimaryData2[3] == 0) {
 			g_BgCommands = NULL;
 		} else {
-			g_BgCommands = (struct bgcmd *)(g_BgPrimaryData2[3] + g_BgPrimaryData + 0xf1000000);
+			g_BgCommands = (struct bgcmd *)(g_BgPrimaryData2[3] + g_BgPrimaryData - 0x0f000000);
 		}
 
 		if (g_BgPrimaryData2[4] == 0) {
 			g_BgLightsFileData = NULL;
 		} else {
-			g_BgLightsFileData = (u8 *)(g_BgPrimaryData2[4] + g_BgPrimaryData + 0xf1000000);
+			g_BgLightsFileData = (u8 *)(g_BgPrimaryData2[4] + g_BgPrimaryData - 0x0f000000);
 		}
 
 		if (g_BgPrimaryData2[5] == 0) {
 			g_BgTable5 = NULL;
 		} else {
-			g_BgTable5 = (f32 *)(g_BgPrimaryData2[5] + g_BgPrimaryData + 0xf1000000);
+			g_BgTable5 = (f32 *)(g_BgPrimaryData2[5] + g_BgPrimaryData - 0x0f000000);
 		}
 	}
 }
@@ -2276,7 +2276,7 @@ void bgBuildTables(s32 stagenum)
 		if (g_BgCommands != NULL) {
 			for (i = 0; g_BgCommands[i].type != BGCMD_END; i++) {
 				if (g_BgCommands[i].type == BGCMD_PORTALARG) {
-					g_BgCommands[i].param = portalFindNumByVertices((void *)(g_BgCommands[i].param + (uintptr_t)g_BgPrimaryData + 0xf1000000));
+					g_BgCommands[i].param = portalFindNumByVertices((void *)((intptr_t)g_BgPrimaryData - 0x0f000000 + g_BgCommands[i].param));
 				}
 			}
 		}
@@ -4327,7 +4327,7 @@ void bgLoadRoom(s32 roomnum)
 		// Calculate the file offset and read length
 		// of the compressed room data in the BG file
 		readlen = ((g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00) + 0xf) & ~0xf;
-		fileoffset = (g_BgPrimaryData + g_BgRooms[roomnum].unk00 - g_BgPrimaryData) + 0xf1000000;
+		fileoffset = (g_BgPrimaryData + g_BgRooms[roomnum].unk00 - g_BgPrimaryData) - 0x0f000000;
 		fileoffset -= var8007fc54;
 
 		if (size < readlen) {
