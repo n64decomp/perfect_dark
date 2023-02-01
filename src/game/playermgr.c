@@ -701,552 +701,67 @@ void playermgrSetAspectRatio(f32 aspect)
 	g_Vars.currentplayer->aspect = aspect;
 }
 
-#if MATCHING
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel playermgrGetModelOfWeapon
-.late_rodata
-glabel var7f1b5168
-.word playermgrGetModelOfWeapon+0x60 # f128b54
-glabel var7f1b516c
-.word playermgrGetModelOfWeapon+0x60 # f128b54
-glabel var7f1b5170
-.word playermgrGetModelOfWeapon+0x68 # f128b5c
-glabel var7f1b5174
-.word playermgrGetModelOfWeapon+0x98 # f128b8c
-glabel var7f1b5178
-.word playermgrGetModelOfWeapon+0xa0 # f128b94
-glabel var7f1b517c
-.word playermgrGetModelOfWeapon+0x70 # f128b64
-glabel var7f1b5180
-.word playermgrGetModelOfWeapon+0x78 # f128b6c
-glabel var7f1b5184
-.word playermgrGetModelOfWeapon+0x90 # f128b84
-glabel var7f1b5188
-.word playermgrGetModelOfWeapon+0x80 # f128b74
-glabel var7f1b518c
-.word playermgrGetModelOfWeapon+0x88 # f128b7c
-glabel var7f1b5190
-.word playermgrGetModelOfWeapon+0xa8 # f128b9c
-glabel var7f1b5194
-.word playermgrGetModelOfWeapon+0xd0 # f128bc4
-glabel var7f1b5198
-.word playermgrGetModelOfWeapon+0xd8 # f128bcc
-glabel var7f1b519c
-.word playermgrGetModelOfWeapon+0xe0 # f128bd4
-glabel var7f1b51a0
-.word playermgrGetModelOfWeapon+0xe8 # f128bdc
-glabel var7f1b51a4
-.word playermgrGetModelOfWeapon+0xb8 # f128bac
-glabel var7f1b51a8
-.word playermgrGetModelOfWeapon+0xc8 # f128bbc
-glabel var7f1b51ac
-.word playermgrGetModelOfWeapon+0xb0 # f128ba4
-glabel var7f1b51b0
-.word playermgrGetModelOfWeapon+0xc0 # f128bb4
-glabel var7f1b51b4
-.word playermgrGetModelOfWeapon+0xf0 # f128be4
-glabel var7f1b51b8
-.word playermgrGetModelOfWeapon+0xf8 # f128bec
-glabel var7f1b51bc
-.word playermgrGetModelOfWeapon+0x120 # f128c14
-glabel var7f1b51c0
-.word playermgrGetModelOfWeapon+0x118 # f128c0c
-glabel var7f1b51c4
-.word playermgrGetModelOfWeapon+0x108 # f128bfc
-glabel var7f1b51c8
-.word playermgrGetModelOfWeapon+0x100 # f128bf4
-glabel var7f1b51cc
-.word playermgrGetModelOfWeapon+0x110 # f128c04
-glabel var7f1b51d0
-.word playermgrGetModelOfWeapon+0x138 # f128c2c
-glabel var7f1b51d4
-.word playermgrGetModelOfWeapon+0x128 # f128c1c
-glabel var7f1b51d8
-.word playermgrGetModelOfWeapon+0x140 # f128c34
-glabel var7f1b51dc
-.word playermgrGetModelOfWeapon+0x130 # f128c24
-glabel var7f1b51e0
-.word playermgrGetModelOfWeapon+0x158 # f128c4c
-glabel var7f1b51e4
-.word playermgrGetModelOfWeapon+0x150 # f128c44
-glabel var7f1b51e8
-.word playermgrGetModelOfWeapon+0x170 # f128c64
-glabel var7f1b51ec
-.word playermgrGetModelOfWeapon+0x168 # f128c5c
-glabel var7f1b51f0
-.word playermgrGetModelOfWeapon+0x160 # f128c54
-glabel var7f1b51f4
-.word playermgrGetModelOfWeapon+0x1c8 # f128cbc
-glabel var7f1b51f8
-.word playermgrGetModelOfWeapon+0x188 # f128c7c
-glabel var7f1b51fc
-.word playermgrGetModelOfWeapon+0x190 # f128c84
-glabel var7f1b5200
-.word playermgrGetModelOfWeapon+0x198 # f128c8c
-glabel var7f1b5204
-.word playermgrGetModelOfWeapon+0x1a0 # f128c94
-glabel var7f1b5208
-.word playermgrGetModelOfWeapon+0x1a8 # f128c9c
-glabel var7f1b520c
-.word playermgrGetModelOfWeapon+0x1b0 # f128ca4
-glabel var7f1b5210
-.word playermgrGetModelOfWeapon+0x1b8 # f128cac
-glabel var7f1b5214
-.word playermgrGetModelOfWeapon+0x1c0 # f128cb4
-glabel var7f1b5218
-.word playermgrGetModelOfWeapon+0x148 # f128c3c
-glabel var7f1b521c
-.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
-glabel var7f1b5220
-.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
-glabel var7f1b5224
-.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
-glabel var7f1b5228
-.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
-glabel var7f1b522c
-.word playermgrGetModelOfWeapon+0x180 # f128c74
-.text
-/*  f128af4:	28810052 */ 	slti	$at,$a0,0x52
-/*  f128af8:	14200007 */ 	bnez	$at,.L0f128b18
-/*  f128afc:	24010052 */ 	addiu	$at,$zero,0x52
-/*  f128b00:	10810072 */ 	beq	$a0,$at,.L0f128ccc
-/*  f128b04:	24010057 */ 	addiu	$at,$zero,0x57
-/*  f128b08:	10810058 */ 	beq	$a0,$at,.L0f128c6c
-/*  f128b0c:	00000000 */ 	nop
-/*  f128b10:	10000071 */ 	b	.L0f128cd8
-/*  f128b14:	2881002d */ 	slti	$at,$a0,0x2d
-.L0f128b18:
-/*  f128b18:	28810032 */ 	slti	$at,$a0,0x32
-/*  f128b1c:	14200005 */ 	bnez	$at,.L0f128b34
-/*  f128b20:	24010051 */ 	addiu	$at,$zero,0x51
-/*  f128b24:	10810067 */ 	beq	$a0,$at,.L0f128cc4
-/*  f128b28:	00000000 */ 	nop
-/*  f128b2c:	1000006a */ 	b	.L0f128cd8
-/*  f128b30:	2881002d */ 	slti	$at,$a0,0x2d
-.L0f128b34:
-/*  f128b34:	2c810032 */ 	sltiu	$at,$a0,0x32
-/*  f128b38:	10200066 */ 	beqz	$at,.L0f128cd4
-/*  f128b3c:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f128b40:	3c017f1b */ 	lui	$at,%hi(var7f1b5168)
-/*  f128b44:	002e0821 */ 	addu	$at,$at,$t6
-/*  f128b48:	8c2e5168 */ 	lw	$t6,%lo(var7f1b5168)($at)
-/*  f128b4c:	01c00008 */ 	jr	$t6
-/*  f128b50:	00000000 */ 	nop
-/*  f128b54:	03e00008 */ 	jr	$ra
-/*  f128b58:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f128b5c:	03e00008 */ 	jr	$ra
-/*  f128b60:	240200f5 */ 	addiu	$v0,$zero,0xf5
-/*  f128b64:	03e00008 */ 	jr	$ra
-/*  f128b68:	240200f6 */ 	addiu	$v0,$zero,0xf6
-/*  f128b6c:	03e00008 */ 	jr	$ra
-/*  f128b70:	240200f7 */ 	addiu	$v0,$zero,0xf7
-/*  f128b74:	03e00008 */ 	jr	$ra
-/*  f128b78:	240200f8 */ 	addiu	$v0,$zero,0xf8
-/*  f128b7c:	03e00008 */ 	jr	$ra
-/*  f128b80:	240200f9 */ 	addiu	$v0,$zero,0xf9
-/*  f128b84:	03e00008 */ 	jr	$ra
-/*  f128b88:	240200fa */ 	addiu	$v0,$zero,0xfa
-/*  f128b8c:	03e00008 */ 	jr	$ra
-/*  f128b90:	240200fb */ 	addiu	$v0,$zero,0xfb
-/*  f128b94:	03e00008 */ 	jr	$ra
-/*  f128b98:	240200fc */ 	addiu	$v0,$zero,0xfc
-/*  f128b9c:	03e00008 */ 	jr	$ra
-/*  f128ba0:	240200fd */ 	addiu	$v0,$zero,0xfd
-/*  f128ba4:	03e00008 */ 	jr	$ra
-/*  f128ba8:	240200fe */ 	addiu	$v0,$zero,0xfe
-/*  f128bac:	03e00008 */ 	jr	$ra
-/*  f128bb0:	240200ff */ 	addiu	$v0,$zero,0xff
-/*  f128bb4:	03e00008 */ 	jr	$ra
-/*  f128bb8:	24020100 */ 	addiu	$v0,$zero,0x100
-/*  f128bbc:	03e00008 */ 	jr	$ra
-/*  f128bc0:	24020101 */ 	addiu	$v0,$zero,0x101
-/*  f128bc4:	03e00008 */ 	jr	$ra
-/*  f128bc8:	24020102 */ 	addiu	$v0,$zero,0x102
-/*  f128bcc:	03e00008 */ 	jr	$ra
-/*  f128bd0:	24020103 */ 	addiu	$v0,$zero,0x103
-/*  f128bd4:	03e00008 */ 	jr	$ra
-/*  f128bd8:	24020104 */ 	addiu	$v0,$zero,0x104
-/*  f128bdc:	03e00008 */ 	jr	$ra
-/*  f128be0:	24020105 */ 	addiu	$v0,$zero,0x105
-/*  f128be4:	03e00008 */ 	jr	$ra
-/*  f128be8:	24020106 */ 	addiu	$v0,$zero,0x106
-/*  f128bec:	03e00008 */ 	jr	$ra
-/*  f128bf0:	24020107 */ 	addiu	$v0,$zero,0x107
-/*  f128bf4:	03e00008 */ 	jr	$ra
-/*  f128bf8:	24020108 */ 	addiu	$v0,$zero,0x108
-/*  f128bfc:	03e00008 */ 	jr	$ra
-/*  f128c00:	24020109 */ 	addiu	$v0,$zero,0x109
-/*  f128c04:	03e00008 */ 	jr	$ra
-/*  f128c08:	2402010a */ 	addiu	$v0,$zero,0x10a
-/*  f128c0c:	03e00008 */ 	jr	$ra
-/*  f128c10:	2402010b */ 	addiu	$v0,$zero,0x10b
-/*  f128c14:	03e00008 */ 	jr	$ra
-/*  f128c18:	2402010c */ 	addiu	$v0,$zero,0x10c
-/*  f128c1c:	03e00008 */ 	jr	$ra
-/*  f128c20:	2402010d */ 	addiu	$v0,$zero,0x10d
-/*  f128c24:	03e00008 */ 	jr	$ra
-/*  f128c28:	24020195 */ 	addiu	$v0,$zero,0x195
-/*  f128c2c:	03e00008 */ 	jr	$ra
-/*  f128c30:	2402010f */ 	addiu	$v0,$zero,0x10f
-/*  f128c34:	03e00008 */ 	jr	$ra
-/*  f128c38:	2402010e */ 	addiu	$v0,$zero,0x10e
-/*  f128c3c:	03e00008 */ 	jr	$ra
-/*  f128c40:	2402010e */ 	addiu	$v0,$zero,0x10e
-/*  f128c44:	03e00008 */ 	jr	$ra
-/*  f128c48:	24020110 */ 	addiu	$v0,$zero,0x110
-/*  f128c4c:	03e00008 */ 	jr	$ra
-/*  f128c50:	24020112 */ 	addiu	$v0,$zero,0x112
-/*  f128c54:	03e00008 */ 	jr	$ra
-/*  f128c58:	24020115 */ 	addiu	$v0,$zero,0x115
-/*  f128c5c:	03e00008 */ 	jr	$ra
-/*  f128c60:	24020114 */ 	addiu	$v0,$zero,0x114
-/*  f128c64:	03e00008 */ 	jr	$ra
-/*  f128c68:	24020113 */ 	addiu	$v0,$zero,0x113
-.L0f128c6c:
-/*  f128c6c:	03e00008 */ 	jr	$ra
-/*  f128c70:	24020011 */ 	addiu	$v0,$zero,0x11
-/*  f128c74:	03e00008 */ 	jr	$ra
-/*  f128c78:	2402012e */ 	addiu	$v0,$zero,0x12e
-/*  f128c7c:	03e00008 */ 	jr	$ra
-/*  f128c80:	24020117 */ 	addiu	$v0,$zero,0x117
-/*  f128c84:	03e00008 */ 	jr	$ra
-/*  f128c88:	24020118 */ 	addiu	$v0,$zero,0x118
-/*  f128c8c:	03e00008 */ 	jr	$ra
-/*  f128c90:	24020119 */ 	addiu	$v0,$zero,0x119
-/*  f128c94:	03e00008 */ 	jr	$ra
-/*  f128c98:	2402011a */ 	addiu	$v0,$zero,0x11a
-/*  f128c9c:	03e00008 */ 	jr	$ra
-/*  f128ca0:	2402011b */ 	addiu	$v0,$zero,0x11b
-/*  f128ca4:	03e00008 */ 	jr	$ra
-/*  f128ca8:	2402011c */ 	addiu	$v0,$zero,0x11c
-/*  f128cac:	03e00008 */ 	jr	$ra
-/*  f128cb0:	2402011d */ 	addiu	$v0,$zero,0x11d
-/*  f128cb4:	03e00008 */ 	jr	$ra
-/*  f128cb8:	2402011e */ 	addiu	$v0,$zero,0x11e
-/*  f128cbc:	03e00008 */ 	jr	$ra
-/*  f128cc0:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f128cc4:
-/*  f128cc4:	03e00008 */ 	jr	$ra
-/*  f128cc8:	24020198 */ 	addiu	$v0,$zero,0x198
-.L0f128ccc:
-/*  f128ccc:	03e00008 */ 	jr	$ra
-/*  f128cd0:	24020197 */ 	addiu	$v0,$zero,0x197
-.L0f128cd4:
-/*  f128cd4:	2881002d */ 	slti	$at,$a0,0x2d
-.L0f128cd8:
-/*  f128cd8:	10200003 */ 	beqz	$at,.L0f128ce8
-/*  f128cdc:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f128ce0:	03e00008 */ 	jr	$ra
-/*  f128ce4:	2402010c */ 	addiu	$v0,$zero,0x10c
-.L0f128ce8:
-/*  f128ce8:	03e00008 */ 	jr	$ra
-/*  f128cec:	00601025 */ 	or	$v0,$v1,$zero
-);
-#else
-GLOBAL_ASM(
-glabel playermgrGetModelOfWeapon
-.late_rodata
-glabel var7f1b5168
-.word playermgrGetModelOfWeapon+0x60 # f128b54
-glabel var7f1b516c
-.word playermgrGetModelOfWeapon+0x60 # f128b54
-glabel var7f1b5170
-.word playermgrGetModelOfWeapon+0x68 # f128b5c
-glabel var7f1b5174
-.word playermgrGetModelOfWeapon+0x98 # f128b8c
-glabel var7f1b5178
-.word playermgrGetModelOfWeapon+0xa0 # f128b94
-glabel var7f1b517c
-.word playermgrGetModelOfWeapon+0x70 # f128b64
-glabel var7f1b5180
-.word playermgrGetModelOfWeapon+0x78 # f128b6c
-glabel var7f1b5184
-.word playermgrGetModelOfWeapon+0x90 # f128b84
-glabel var7f1b5188
-.word playermgrGetModelOfWeapon+0x80 # f128b74
-glabel var7f1b518c
-.word playermgrGetModelOfWeapon+0x88 # f128b7c
-glabel var7f1b5190
-.word playermgrGetModelOfWeapon+0xa8 # f128b9c
-glabel var7f1b5194
-.word playermgrGetModelOfWeapon+0xd0 # f128bc4
-glabel var7f1b5198
-.word playermgrGetModelOfWeapon+0xd8 # f128bcc
-glabel var7f1b519c
-.word playermgrGetModelOfWeapon+0xe0 # f128bd4
-glabel var7f1b51a0
-.word playermgrGetModelOfWeapon+0xe8 # f128bdc
-glabel var7f1b51a4
-.word playermgrGetModelOfWeapon+0xb8 # f128bac
-glabel var7f1b51a8
-.word playermgrGetModelOfWeapon+0xc8 # f128bbc
-glabel var7f1b51ac
-.word playermgrGetModelOfWeapon+0xb0 # f128ba4
-glabel var7f1b51b0
-.word playermgrGetModelOfWeapon+0xc0 # f128bb4
-glabel var7f1b51b4
-.word playermgrGetModelOfWeapon+0xf0 # f128be4
-glabel var7f1b51b8
-.word playermgrGetModelOfWeapon+0xf8 # f128bec
-glabel var7f1b51bc
-.word playermgrGetModelOfWeapon+0x120 # f128c14
-glabel var7f1b51c0
-.word playermgrGetModelOfWeapon+0x118 # f128c0c
-glabel var7f1b51c4
-.word playermgrGetModelOfWeapon+0x108 # f128bfc
-glabel var7f1b51c8
-.word playermgrGetModelOfWeapon+0x100 # f128bf4
-glabel var7f1b51cc
-.word playermgrGetModelOfWeapon+0x110 # f128c04
-glabel var7f1b51d0
-.word playermgrGetModelOfWeapon+0x138 # f128c2c
-glabel var7f1b51d4
-.word playermgrGetModelOfWeapon+0x128 # f128c1c
-glabel var7f1b51d8
-.word playermgrGetModelOfWeapon+0x140 # f128c34
-glabel var7f1b51dc
-.word playermgrGetModelOfWeapon+0x130 # f128c24
-glabel var7f1b51e0
-.word playermgrGetModelOfWeapon+0x158 # f128c4c
-glabel var7f1b51e4
-.word playermgrGetModelOfWeapon+0x150 # f128c44
-glabel var7f1b51e8
-.word playermgrGetModelOfWeapon+0x170 # f128c64
-glabel var7f1b51ec
-.word playermgrGetModelOfWeapon+0x168 # f128c5c
-glabel var7f1b51f0
-.word playermgrGetModelOfWeapon+0x160 # f128c54
-glabel var7f1b51f4
-.word playermgrGetModelOfWeapon+0x1c8 # f128cbc
-glabel var7f1b51f8
-.word playermgrGetModelOfWeapon+0x188 # f128c7c
-glabel var7f1b51fc
-.word playermgrGetModelOfWeapon+0x190 # f128c84
-glabel var7f1b5200
-.word playermgrGetModelOfWeapon+0x198 # f128c8c
-glabel var7f1b5204
-.word playermgrGetModelOfWeapon+0x1a0 # f128c94
-glabel var7f1b5208
-.word playermgrGetModelOfWeapon+0x1a8 # f128c9c
-glabel var7f1b520c
-.word playermgrGetModelOfWeapon+0x1b0 # f128ca4
-glabel var7f1b5210
-.word playermgrGetModelOfWeapon+0x1b8 # f128cac
-glabel var7f1b5214
-.word playermgrGetModelOfWeapon+0x1c0 # f128cb4
-glabel var7f1b5218
-.word playermgrGetModelOfWeapon+0x148 # f128c3c
-glabel var7f1b521c
-.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
-glabel var7f1b5220
-.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
-glabel var7f1b5224
-.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
-glabel var7f1b5228
-.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
-glabel var7f1b522c
-.word playermgrGetModelOfWeapon+0x180 # f128c74
-.text
-/*  f128af4:	28810052 */ 	slti	$at,$a0,0x51
-/*  f128af8:	14200007 */ 	bnez	$at,.L0f128b18
-/*  f128afc:	24010052 */ 	addiu	$at,$zero,0x51
-/*  f128b00:	10810072 */ 	beq	$a0,$at,.L0f128ccc
-/*  f128b04:	24010057 */ 	addiu	$at,$zero,0x56
-/*  f128b08:	10810058 */ 	beq	$a0,$at,.L0f128c6c
-/*  f128b0c:	00000000 */ 	nop
-/*  f128b10:	10000071 */ 	b	.L0f128cd8
-/*  f128b14:	2881002d */ 	slti	$at,$a0,0x2d
-.L0f128b18:
-/*  f128b18:	28810032 */ 	slti	$at,$a0,0x32
-/*  f128b1c:	14200005 */ 	bnez	$at,.L0f128b34
-/*  f128b20:	24010051 */ 	addiu	$at,$zero,0x50
-/*  f128b24:	10810067 */ 	beq	$a0,$at,.L0f128cc4
-/*  f128b28:	00000000 */ 	nop
-/*  f128b2c:	1000006a */ 	b	.L0f128cd8
-/*  f128b30:	2881002d */ 	slti	$at,$a0,0x2d
-.L0f128b34:
-/*  f128b34:	2c810032 */ 	sltiu	$at,$a0,0x32
-/*  f128b38:	10200066 */ 	beqz	$at,.L0f128cd4
-/*  f128b3c:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f128b40:	3c017f1b */ 	lui	$at,%hi(var7f1b5168)
-/*  f128b44:	002e0821 */ 	addu	$at,$at,$t6
-/*  f128b48:	8c2e5168 */ 	lw	$t6,%lo(var7f1b5168)($at)
-/*  f128b4c:	01c00008 */ 	jr	$t6
-/*  f128b50:	00000000 */ 	nop
-/*  f128b54:	03e00008 */ 	jr	$ra
-/*  f128b58:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f128b5c:	03e00008 */ 	jr	$ra
-/*  f128b60:	240200f5 */ 	addiu	$v0,$zero,0xf5
-/*  f128b64:	03e00008 */ 	jr	$ra
-/*  f128b68:	240200f6 */ 	addiu	$v0,$zero,0xf6
-/*  f128b6c:	03e00008 */ 	jr	$ra
-/*  f128b70:	240200f7 */ 	addiu	$v0,$zero,0xf7
-/*  f128b74:	03e00008 */ 	jr	$ra
-/*  f128b78:	240200f8 */ 	addiu	$v0,$zero,0xf8
-/*  f128b7c:	03e00008 */ 	jr	$ra
-/*  f128b80:	240200f9 */ 	addiu	$v0,$zero,0xf9
-/*  f128b84:	03e00008 */ 	jr	$ra
-/*  f128b88:	240200fa */ 	addiu	$v0,$zero,0xfa
-/*  f128b8c:	03e00008 */ 	jr	$ra
-/*  f128b90:	240200fb */ 	addiu	$v0,$zero,0xfb
-/*  f128b94:	03e00008 */ 	jr	$ra
-/*  f128b98:	240200fc */ 	addiu	$v0,$zero,0xfc
-/*  f128b9c:	03e00008 */ 	jr	$ra
-/*  f128ba0:	240200fd */ 	addiu	$v0,$zero,0xfd
-/*  f128ba4:	03e00008 */ 	jr	$ra
-/*  f128ba8:	240200fe */ 	addiu	$v0,$zero,0xfe
-/*  f128bac:	03e00008 */ 	jr	$ra
-/*  f128bb0:	240200ff */ 	addiu	$v0,$zero,0xff
-/*  f128bb4:	03e00008 */ 	jr	$ra
-/*  f128bb8:	24020100 */ 	addiu	$v0,$zero,0x100
-/*  f128bbc:	03e00008 */ 	jr	$ra
-/*  f128bc0:	24020101 */ 	addiu	$v0,$zero,0x101
-/*  f128bc4:	03e00008 */ 	jr	$ra
-/*  f128bc8:	24020102 */ 	addiu	$v0,$zero,0x102
-/*  f128bcc:	03e00008 */ 	jr	$ra
-/*  f128bd0:	24020103 */ 	addiu	$v0,$zero,0x103
-/*  f128bd4:	03e00008 */ 	jr	$ra
-/*  f128bd8:	24020104 */ 	addiu	$v0,$zero,0x104
-/*  f128bdc:	03e00008 */ 	jr	$ra
-/*  f128be0:	24020105 */ 	addiu	$v0,$zero,0x105
-/*  f128be4:	03e00008 */ 	jr	$ra
-/*  f128be8:	24020106 */ 	addiu	$v0,$zero,0x106
-/*  f128bec:	03e00008 */ 	jr	$ra
-/*  f128bf0:	24020107 */ 	addiu	$v0,$zero,0x107
-/*  f128bf4:	03e00008 */ 	jr	$ra
-/*  f128bf8:	24020108 */ 	addiu	$v0,$zero,0x108
-/*  f128bfc:	03e00008 */ 	jr	$ra
-/*  f128c00:	24020109 */ 	addiu	$v0,$zero,0x109
-/*  f128c04:	03e00008 */ 	jr	$ra
-/*  f128c08:	2402010a */ 	addiu	$v0,$zero,0x10a
-/*  f128c0c:	03e00008 */ 	jr	$ra
-/*  f128c10:	2402010b */ 	addiu	$v0,$zero,0x10b
-/*  f128c14:	03e00008 */ 	jr	$ra
-/*  f128c18:	2402010c */ 	addiu	$v0,$zero,0x10c
-/*  f128c1c:	03e00008 */ 	jr	$ra
-/*  f128c20:	2402010d */ 	addiu	$v0,$zero,0x10d
-/*  f128c24:	03e00008 */ 	jr	$ra
-/*  f128c28:	24020195 */ 	addiu	$v0,$zero,0x195
-/*  f128c2c:	03e00008 */ 	jr	$ra
-/*  f128c30:	2402010f */ 	addiu	$v0,$zero,0x10f
-/*  f128c34:	03e00008 */ 	jr	$ra
-/*  f128c38:	2402010e */ 	addiu	$v0,$zero,0x10e
-/*  f128c3c:	03e00008 */ 	jr	$ra
-/*  f128c40:	2402010e */ 	addiu	$v0,$zero,0x10e
-/*  f128c44:	03e00008 */ 	jr	$ra
-/*  f128c48:	24020110 */ 	addiu	$v0,$zero,0x110
-/*  f128c4c:	03e00008 */ 	jr	$ra
-/*  f128c50:	24020112 */ 	addiu	$v0,$zero,0x112
-/*  f128c54:	03e00008 */ 	jr	$ra
-/*  f128c58:	24020115 */ 	addiu	$v0,$zero,0x115
-/*  f128c5c:	03e00008 */ 	jr	$ra
-/*  f128c60:	24020114 */ 	addiu	$v0,$zero,0x114
-/*  f128c64:	03e00008 */ 	jr	$ra
-/*  f128c68:	24020113 */ 	addiu	$v0,$zero,0x113
-.L0f128c6c:
-/*  f128c6c:	03e00008 */ 	jr	$ra
-/*  f128c70:	24020011 */ 	addiu	$v0,$zero,0x11
-/*  f128c74:	03e00008 */ 	jr	$ra
-/*  f128c78:	2402012e */ 	addiu	$v0,$zero,0x12e
-/*  f128c7c:	03e00008 */ 	jr	$ra
-/*  f128c80:	24020117 */ 	addiu	$v0,$zero,0x117
-/*  f128c84:	03e00008 */ 	jr	$ra
-/*  f128c88:	24020118 */ 	addiu	$v0,$zero,0x118
-/*  f128c8c:	03e00008 */ 	jr	$ra
-/*  f128c90:	24020119 */ 	addiu	$v0,$zero,0x119
-/*  f128c94:	03e00008 */ 	jr	$ra
-/*  f128c98:	2402011a */ 	addiu	$v0,$zero,0x11a
-/*  f128c9c:	03e00008 */ 	jr	$ra
-/*  f128ca0:	2402011b */ 	addiu	$v0,$zero,0x11b
-/*  f128ca4:	03e00008 */ 	jr	$ra
-/*  f128ca8:	2402011c */ 	addiu	$v0,$zero,0x11c
-/*  f128cac:	03e00008 */ 	jr	$ra
-/*  f128cb0:	2402011d */ 	addiu	$v0,$zero,0x11d
-/*  f128cb4:	03e00008 */ 	jr	$ra
-/*  f128cb8:	2402011e */ 	addiu	$v0,$zero,0x11e
-/*  f128cbc:	03e00008 */ 	jr	$ra
-/*  f128cc0:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f128cc4:
-/*  f128cc4:	03e00008 */ 	jr	$ra
-/*  f128cc8:	24020198 */ 	addiu	$v0,$zero,0x198
-.L0f128ccc:
-/*  f128ccc:	03e00008 */ 	jr	$ra
-/*  f128cd0:	24020197 */ 	addiu	$v0,$zero,0x197
-.L0f128cd4:
-/*  f128cd4:	2881002d */ 	slti	$at,$a0,0x2d
-.L0f128cd8:
-/*  f128cd8:	10200003 */ 	beqz	$at,.L0f128ce8
-/*  f128cdc:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f128ce0:	03e00008 */ 	jr	$ra
-/*  f128ce4:	2402010c */ 	addiu	$v0,$zero,0x10c
-.L0f128ce8:
-/*  f128ce8:	03e00008 */ 	jr	$ra
-/*  f128cec:	00601025 */ 	or	$v0,$v1,$zero
-);
-#endif
-#else
 s32 playermgrGetModelOfWeapon(s32 weapon)
 {
+	s32 model;
+
 	switch (weapon) {
 	case WEAPON_NONE:
-	case WEAPON_UNARMED:          return -1;
-	case WEAPON_FALCON2:          return MODEL_CHRFALCON2;
-	case WEAPON_MAGSEC4:          return MODEL_CHRLEEGUN1;
-	case WEAPON_MAULER:           return MODEL_CHRMAULER;
-	case WEAPON_DY357MAGNUM:      return MODEL_CHRDY357;
-	case WEAPON_DY357LX:          return MODEL_CHRDY357TRENT;
-	case WEAPON_PHOENIX:          return MODEL_CHRMAIANPISTOL;
-	case WEAPON_FALCON2_SILENCER: return MODEL_CHRFALCON2SIL;
-	case WEAPON_FALCON2_SCOPE:    return MODEL_CHRFALCON2SCOPE;
-	case WEAPON_CMP150:           return MODEL_CHRCMP150;
-	case WEAPON_AR34:             return MODEL_CHRAR34;
-	case WEAPON_DRAGON:           return MODEL_CHRDRAGON;
-	case WEAPON_SUPERDRAGON:      return MODEL_CHRSUPERDRAGON;
-	case WEAPON_K7AVENGER:        return MODEL_CHRAVENGER;
-	case WEAPON_CYCLONE:          return MODEL_CHRCYCLONE;
-	case WEAPON_CALLISTO:         return MODEL_CHRMAIANSMG;
-	case WEAPON_RCP120:           return MODEL_CHRRCP120;
-	case WEAPON_LAPTOPGUN:        return MODEL_CHRPCGUN;
-	case WEAPON_SHOTGUN:          return MODEL_CHRSHOTGUN;
-	case WEAPON_REAPER:           return MODEL_CHRSKMINIGUN;
-	case WEAPON_ROCKETLAUNCHER:   return MODEL_CHRDYROCKET;
-	case WEAPON_DEVASTATOR:       return MODEL_CHRDEVASTATOR;
-	case WEAPON_SLAYER:           return MODEL_CHRSKROCKET;
-	case WEAPON_FARSIGHT:         return MODEL_CHRZ2020;
-	case WEAPON_SNIPERRIFLE:      return MODEL_CHRSNIPERRIFLE;
-	case WEAPON_CROSSBOW:         return MODEL_CHRCROSSBOW;
-	case WEAPON_LASER:            return MODEL_CHRLASER;
-	case WEAPON_COMBATKNIFE:      return MODEL_CHRKNIFE;
-	case WEAPON_TRANQUILIZER:     return MODEL_CHRDRUGGUN;
-	case WEAPON_PSYCHOSISGUN:     return MODEL_CHRDRUGGUN;
-	case WEAPON_NBOMB:            return MODEL_CHRNBOMB;
-	case WEAPON_GRENADE:          return MODEL_CHRGRENADE;
-	case WEAPON_REMOTEMINE:       return MODEL_CHRREMOTEMINE;
-	case WEAPON_PROXIMITYMINE:    return MODEL_CHRPROXIMITYMINE;
-	case WEAPON_TIMEDMINE:        return MODEL_CHRTIMEDMINE;
-	case WEAPON_BRIEFCASE2:       return MODEL_CHRBRIEFCASE;
-	case WEAPON_CLOAKINGDEVICE:   return MODEL_CHRCLOAKER;
-	case WEAPON_PP9I:             return MODEL_CHRWPPK;
-	case WEAPON_CC13:             return MODEL_CHRTT33;
-	case WEAPON_KL01313:          return MODEL_CHRSKORPION;
-	case WEAPON_KF7SPECIAL:       return MODEL_CHRKALASH;
-	case WEAPON_ZZT:              return MODEL_CHRUZI;
-	case WEAPON_DMC:              return MODEL_CHRMP5K;
-	case WEAPON_AR53:             return MODEL_CHRM16;
-	case WEAPON_RCP45:            return MODEL_CHRFNP90;
-	case WEAPON_COMBATBOOST:      return -1;
-	case WEAPON_HAMMER:           return MODEL_CHRLUMPHAMMER;
-	case WEAPON_SCREWDRIVER:      return MODEL_CHRSONICSCREWER;
+	case WEAPON_UNARMED:          model = -1; break;
+	case WEAPON_FALCON2:          model = MODEL_CHRFALCON2; break;
+	case WEAPON_MAGSEC4:          model = MODEL_CHRLEEGUN1; break;
+	case WEAPON_MAULER:           model = MODEL_CHRMAULER; break;
+	case WEAPON_DY357MAGNUM:      model = MODEL_CHRDY357; break;
+	case WEAPON_DY357LX:          model = MODEL_CHRDY357TRENT; break;
+	case WEAPON_PHOENIX:          model = MODEL_CHRMAIANPISTOL; break;
+	case WEAPON_FALCON2_SILENCER: model = MODEL_CHRFALCON2SIL; break;
+	case WEAPON_FALCON2_SCOPE:    model = MODEL_CHRFALCON2SCOPE; break;
+	case WEAPON_CMP150:           model = MODEL_CHRCMP150; break;
+	case WEAPON_AR34:             model = MODEL_CHRAR34; break;
+	case WEAPON_DRAGON:           model = MODEL_CHRDRAGON; break;
+	case WEAPON_SUPERDRAGON:      model = MODEL_CHRSUPERDRAGON; break;
+	case WEAPON_K7AVENGER:        model = MODEL_CHRAVENGER; break;
+	case WEAPON_CYCLONE:          model = MODEL_CHRCYCLONE; break;
+	case WEAPON_CALLISTO:         model = MODEL_CHRMAIANSMG; break;
+	case WEAPON_RCP120:           model = MODEL_CHRRCP120; break;
+	case WEAPON_LAPTOPGUN:        model = MODEL_CHRPCGUN; break;
+	case WEAPON_SHOTGUN:          model = MODEL_CHRSHOTGUN; break;
+	case WEAPON_REAPER:           model = MODEL_CHRSKMINIGUN; break;
+	case WEAPON_ROCKETLAUNCHER:   model = MODEL_CHRDYROCKET; break;
+	case WEAPON_DEVASTATOR:       model = MODEL_CHRDEVASTATOR; break;
+	case WEAPON_SLAYER:           model = MODEL_CHRSKROCKET; break;
+	case WEAPON_FARSIGHT:         model = MODEL_CHRZ2020; break;
+	case WEAPON_SNIPERRIFLE:      model = MODEL_CHRSNIPERRIFLE; break;
+	case WEAPON_CROSSBOW:         model = MODEL_CHRCROSSBOW; break;
+	case WEAPON_LASER:            model = MODEL_CHRLASER; break;
+	case WEAPON_COMBATKNIFE:      model = MODEL_CHRKNIFE; break;
+	case WEAPON_TRANQUILIZER:     model = MODEL_CHRDRUGGUN; break;
+	case WEAPON_PSYCHOSISGUN:     model = MODEL_CHRDRUGGUN; break;
+	case WEAPON_NBOMB:            model = MODEL_CHRNBOMB; break;
+	case WEAPON_GRENADE:          model = MODEL_CHRGRENADE; break;
+	case WEAPON_REMOTEMINE:       model = MODEL_CHRREMOTEMINE; break;
+	case WEAPON_PROXIMITYMINE:    model = MODEL_CHRPROXIMITYMINE; break;
+	case WEAPON_TIMEDMINE:        model = MODEL_CHRTIMEDMINE; break;
+	case WEAPON_BRIEFCASE2:       model = MODEL_CHRBRIEFCASE; break;
+	case WEAPON_CLOAKINGDEVICE:   model = MODEL_CHRCLOAKER; break;
+	case WEAPON_PP9I:             model = MODEL_CHRWPPK; break;
+	case WEAPON_CC13:             model = MODEL_CHRTT33; break;
+	case WEAPON_KL01313:          model = MODEL_CHRSKORPION; break;
+	case WEAPON_KF7SPECIAL:       model = MODEL_CHRKALASH; break;
+	case WEAPON_ZZT:              model = MODEL_CHRUZI; break;
+	case WEAPON_DMC:              model = MODEL_CHRMP5K; break;
+	case WEAPON_AR53:             model = MODEL_CHRM16; break;
+	case WEAPON_RCP45:            model = MODEL_CHRFNP90; break;
+	case WEAPON_COMBATBOOST:      model = -1; break;
+	case WEAPON_HAMMER:           model = MODEL_CHRLUMPHAMMER; break;
+	case WEAPON_SCREWDRIVER:      model = MODEL_CHRSONICSCREWER; break;
+	default:
+		model = weapon <= WEAPON_PSYCHOSISGUN ? MODEL_CHRSNIPERRIFLE : -1;
+		break;
 	}
 
-	if (weapon <= WEAPON_PSYCHOSISGUN) {
-		return MODEL_CHRSNIPERRIFLE;
-	}
-
-	return -1;
+	return model;
 }
-#endif
 
 void playermgrDeleteWeapon(s32 hand)
 {
