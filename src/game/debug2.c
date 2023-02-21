@@ -20,9 +20,9 @@
 #define DEBUGOPT_ALLLEVELS     13
 #define DEBUGOPT_ALLTRAINING   29
 #define DEBUGOPT_PROPS         32
-#define DEBUGOPT_PADS          40
-#define DEBUGOPT_44            44
 #define DEBUGOPT_TILES         39
+#define DEBUGOPT_PADS          40
+#define DEBUGOPT_CUTDEBUG      44
 #define DEBUGOPT_CHRSTATS      65
 #define DEBUGOPT_ALLCHALLENGES 67
 #define DEBUGOPT_VMSTATS       69
@@ -189,52 +189,53 @@ s32 g_DebugMenuPositions[][2] = {
 	{ 57, 30 },
 };
 
+// Comments are strings found in XBLA debug.
 char *g_DebugMenuLabels[] = {
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "move view"
+	"-", // "rotate view"
+	"-", // "bond view"
+	"-", // "bond die"
+	"-", // "3rd person"
+	"-", // "EDIT SOUNDS"
+	"-", // "spirit view"
+	"-", // "cut scene"
+	"-", // "watch window"
+	"-", // "MP3 Player"
+	"-", // "lights print"
+	"-", // "Game Boy Camera"
+	"-", // "GUN SOUNDZzz"
 	"All Levels",
-	"-",
+	"-", // "chr view"
 
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "select anim"
+	"-", // "gun pos"
+	"-", // "music"
+	"-", // "sfx"
+	"-", // "view textures"
+	"-", // "invincible"
+	"-", // "visible"
+	"-", // "collisions"
+	"-", // "all guns"
+	"-", // "max ammo"
+	"-", // "Shadow Stats"
+	"-", // "Footsteps"
+	"-", // "Debug Person"
+	"-", // "APS"
 	"All Training",
 
-	"-",
-	"-",
+	"-", // "display speed"
+	"-", // "background"
 #if VERSION == VERSION_NTSC_BETA
 	"props",
 #else
 	"-",
 #endif
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "print man pos"
+	"-", // "port edit"
+	"-", // "rect portals"
+	"-", // "pr room loads"
+	"-", // "x-ray specs"
+	"-", // "period"
 #if VERSION == VERSION_NTSC_BETA
 	"tiles",
 	"pads",
@@ -242,85 +243,85 @@ char *g_DebugMenuLabels[] = {
 	"-",
 	"-",
 #endif
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "cover"
+	"-", // "black"
+	"-", // "Portal Debug"
+	"-", // "cut debug"
 
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "show mem use"
+	"-", // "show mem bars"
+	"-", // "grab rgb"
+	"-", // "grab jpeg"
+	"-", // "rnd walk"
+	"-", // "record ramrom"
+	"-", // "record 1"
+	"-", // "record 2"
+	"-", // "record 3"
+	"-", // "replay ramrom"
+	"-", // "save ramrom"
+	"-", // "load ramrom"
+	"-", // "Memory Pak"
+	"-", // "draw skjump"
 
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "fast"
+	"-", // "objectives"
+	"-", // "weather"
+	"-", // "konsole!"
+	"-", // "Slo-Mo"
+	"-", // "Sky"
 #if VERSION == VERSION_NTSC_BETA
 	"chr stats",
 #else
 	"-",
 #endif
-	"-",
+	"-", // "Noise Balls"
 	"all challenges",
-	"-",
+	"-", // "Breadcrumbs"
 	"VM Stats",
 	"Mem Info",
-	"-",
+	"-", // "Mem Load"
 
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "res mode"
+	"-", // "screen size"
+	"-", // "screen pos"
+	"-", // "show stats"
+	"-", // "blur"
+	"-", // "rain"
+	"-", // "snow"
+	"-", // "cameras"
+	"-", // "ai print"
+	"-", // "eye spy"
+	"-", // "aiEndLevel off"
+	"-", // "bot wzone"
 
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "show patrols"
+	"-", // "world pos"
+	"-", // "vis cvg"
+	"-", // "chr num"
+	"-", // "chr test"
+	"-", // "room blocks"
+	"-", // "profile"
+	"-", // "obj load"
+	"-", // "weapon load"
+	"-", // "frame mode"
 	"all buddies",
 #if VERSION == VERSION_PAL_BETA
 	"set complete",
 #endif
 
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "joy2 sky edit"
+	"-", // "Edit Wallhits"
+	"-", // "joy2 detail edit"
+	"-", // "explosion info"
+	"-", // "magic fog"
+	"-", // "gun watch pos"
 	"testing man pos",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
-	"-",
+	"-", // "fog"
+	"-", // "show stacks"
+	"-", // "lod"
+	"-", // "FrGraph"
+	"-", // "DL-Info"
+	"-", // "Codesize"
 };
 
 s32 g_DebugCutsceneOffsets[] = {
@@ -410,7 +411,7 @@ bool g_DebugAllBuddies = false;
 bool g_DebugSetComplete = false;
 #endif
 bool g_DebugAllTraining = false;
-s32 var800787a4nb = 0;
+s32 g_DebugCutDebug = 0;
 s32 var800787a8nb = 0;
 bool g_DebugMemInfo = false;
 s32 var800787b0nb = 0;
@@ -702,10 +703,8 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 				gamefileSetFlag(GAMEFILEFLAG_CI_ECMMINE_DONE);
 				gamefileSetFlag(GAMEFILEFLAG_CI_UPLINK_DONE);
 				break;
-			case DEBUGOPT_44:
-				// This is one of the "-" labels. The value is returned in a
-				// getter function but the getter function is never called.
-				var800787a4nb ^= 1;
+			case DEBUGOPT_CUTDEBUG:
+				g_DebugCutDebug ^= 1;
 				break;
 			case DEBUGOPT_CHRSTATS:
 				g_DebugChrStats ^= 1;
@@ -1120,9 +1119,9 @@ bool debugIsAllTrainingEnabled(void)
 	return g_DebugAllTraining;
 }
 
-bool debug0f119b78nb(void) // not called
+bool debugGetCutDebug(void) // not called
 {
-	return var800787a4nb;
+	return g_DebugCutDebug;
 }
 
 bool debug0f119b84nb(void) // not called
