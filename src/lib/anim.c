@@ -363,76 +363,44 @@ void animLoadHeader(s16 animnum)
 	}
 }
 
-#if MATCHING
-GLOBAL_ASM(
-glabel animReadBits
-/*    23f50:	30cf0007 */ 	andi	$t7,$a2,0x7
-/*    23f54:	24180008 */ 	addiu	$t8,$zero,0x8
-/*    23f58:	030f4023 */ 	subu	$t0,$t8,$t7
-/*    23f5c:	30a900ff */ 	andi	$t1,$a1,0xff
-/*    23f60:	311900ff */ 	andi	$t9,$t0,0xff
-/*    23f64:	000610c2 */ 	srl	$v0,$a2,0x3
-/*    23f68:	0139082a */ 	slt	$at,$t1,$t9
-/*    23f6c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    23f70:	00001825 */ 	or	$v1,$zero,$zero
-/*    23f74:	00822021 */ 	addu	$a0,$a0,$v0
-/*    23f78:	1420000e */ 	bnez	$at,.L00023fb4
-/*    23f7c:	310700ff */ 	andi	$a3,$t0,0xff
-.L00023f80:
-/*    23f80:	908b0000 */ 	lbu	$t3,0x0($a0)
-/*    23f84:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*    23f88:	01272823 */ 	subu	$a1,$t1,$a3
-/*    23f8c:	00ec6804 */ 	sllv	$t5,$t4,$a3
-/*    23f90:	30a900ff */ 	andi	$t1,$a1,0xff
-/*    23f94:	25aeffff */ 	addiu	$t6,$t5,-1
-/*    23f98:	016e7824 */ 	and	$t7,$t3,$t6
-/*    23f9c:	012fc004 */ 	sllv	$t8,$t7,$t1
-/*    23fa0:	29210008 */ 	slti	$at,$t1,0x8
-/*    23fa4:	00781825 */ 	or	$v1,$v1,$t8
-/*    23fa8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*    23fac:	1020fff4 */ 	beqz	$at,.L00023f80
-/*    23fb0:	24070008 */ 	addiu	$a3,$zero,0x8
-.L00023fb4:
-/*    23fb4:	19200008 */ 	blez	$t1,.L00023fd8
-/*    23fb8:	00e95023 */ 	subu	$t2,$a3,$t1
-/*    23fbc:	90990000 */ 	lbu	$t9,0x0($a0)
-/*    23fc0:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*    23fc4:	012d5804 */ 	sllv	$t3,$t5,$t1
-/*    23fc8:	256effff */ 	addiu	$t6,$t3,-1
-/*    23fcc:	01596007 */ 	srav	$t4,$t9,$t2
-/*    23fd0:	018e7824 */ 	and	$t7,$t4,$t6
-/*    23fd4:	006f1825 */ 	or	$v1,$v1,$t7
-.L00023fd8:
-/*    23fd8:	03e00008 */ 	jr	$ra
-/*    23fdc:	00601025 */ 	or	$v0,$v1,$zero
-);
-#else
-// Mismatch: regalloc
-s32 animReadBits(u8 *ptr, u8 readbitlen, u32 bitoffset)
+/**
+ * Read a number of bits from the given ptr and return it as an integer.
+ *
+ * remainingbits in the number of bits to read.
+ * bitoffset is the starting bit offset relative to ptr.
+ */
+s32 animReadBits(u8 *ptr, u8 remainingbits, u32 bitoffset)
 {
 	u32 result = 0;
+	u32 mask;
 	u8 numbitsthisbyte;
-	u32 tmp;
 
+	result *= bitoffset / 8;
+
+	// Move ptr forward past all the bytes that should be fully skipped
 	ptr += bitoffset / 8;
-	numbitsthisbyte = 8 - (bitoffset % 8);
 
-	while (readbitlen >= numbitsthisbyte) {
-		readbitlen -= numbitsthisbyte;
-		result |= (*ptr & ((1 << numbitsthisbyte) - 1)) << readbitlen;
+	// Calculate the number of bits to read in the first byte
+	bitoffset %= 8;
+	numbitsthisbyte = 8 - bitoffset;
+
+	// Iterate bytes, except for the last if it's a partial read
+	while (remainingbits >= numbitsthisbyte) {
+		remainingbits -= numbitsthisbyte;
+		mask = (1 << numbitsthisbyte) - 1;
+		result |= (*ptr & mask) << remainingbits;
 		ptr++;
 		numbitsthisbyte = 8;
 	}
 
-	if (readbitlen > 0) {
-		result |= (*ptr >> (numbitsthisbyte - readbitlen)) & ((1 << readbitlen) - 1);
+	// Read bits from the final byte if it's partial read
+	if (remainingbits > 0) {
+		mask = (1 << remainingbits) - 1;
+		result |= (*ptr >> (numbitsthisbyte - remainingbits)) & mask;
 	}
-
-	if (bitoffset / 8);
 
 	return result;
 }
-#endif
 
 s32 animReadSignedShort(u8 *ptr, u8 readbitlen, s32 bitoffset)
 {
