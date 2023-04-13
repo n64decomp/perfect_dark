@@ -2347,16 +2347,57 @@
 	mkshort(0x0101), \
 	u1,
 
-#define set_lights_state(pad, operation, u1, u2, u3) \
+/**
+ * Modifies the lighting of a room.
+ *
+ * The room is specified by the <roomorpad> argument. If less than 10000 then it
+ * is interpreted as a room number. If it is 10000 or more then 10000 is
+ * subtracted from it, it's interpreted as a pad number and the room that the
+ * pad can be found in is used.
+ *
+ * <operation> is a LIGHTOP constant.
+ * Unless noted otherwise, the <to> and <from> arguments are percentages of the
+ * usual brightness. Less than 100 is darker and more than 100 is brighter.
+ *
+ * LIGHTOP_NONE:
+ * Stops any of the below ongoing effects (setrandom, transition or sineloop).
+ *
+ * LIGHTOP_SET:
+ * Set the room's brightness to <to>, without any transition.
+ *
+ * LIGHTOP_SETRANDOM:
+ * Set the room's brightness randomly.
+ * <duration60> is the interval between rolls of the dice.
+ * <to> is the probability (range 0-100) of it using normal brightness on any
+ * given interval. Otherwise the <from> brightness is used.
+ * For example, with to=80, from=50 and duration60=120, then every 2 seconds
+ * there will be an 80% chance of changing to normal brightness and a 20% chance
+ * of changing to 50% brightness.
+ *
+ * LIGHTOP_TRANSITION:
+ * Transition from <from> to <to> over <duration60> ticks.
+ * Due to a bug, the timer starts at 75% completion.
+ *
+ * LIGHTOP_SINELOOP:
+ * Repeatedly adjust lighting between <from> and <to> in a sine pattern,
+ * taking <duration60> ticks to complete a loop cycle.
+ *
+ * LIGHTOP_TURNON:
+ * Turn the room's lights on (eg. using a light switch).
+ *
+ * LIGHTOP_TURNOFF:
+ * Turn the room's lights off (eg. using a light switch).
+ */
+#define set_lights_state(roomorpad, operation, to, from, duration60) \
 	mkshort(0x0102), \
-	mkshort(pad), \
+	mkshort(roomorpad), \
 	operation, \
-	u1, \
-	u2, \
-	u3, \
-	0x00, \
-	0x00, \
-	0x00,
+	to, \
+	from, \
+	duration60, \
+	0, \
+	0, \
+	0,
 
 /**
  * Checks if the current chr's proppreset is blocking line of sight from the chr

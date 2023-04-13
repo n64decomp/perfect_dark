@@ -1439,13 +1439,14 @@
 #define LANGUAGE_PAL_IT  3
 #define LANGUAGE_PAL_ES  4
 
-#define LIGHTOP_1       1
-#define LIGHTOP_2       2
-#define LIGHTOP_3       3
-#define LIGHTOP_4       4
-#define LIGHTOP_5       5
-#define LIGHTOP_TURNON  6
-#define LIGHTOP_TURNOFF 7
+#define LIGHTOP_NONE       0
+#define LIGHTOP_SET        1
+#define LIGHTOP_SETRANDOM  2
+#define LIGHTOP_TRANSITION 3
+#define LIGHTOP_SINELOOP   4
+#define LIGHTOP_HIGHLIGHT  5
+#define LIGHTOP_TURNON     6
+#define LIGHTOP_TURNOFF    7
 
 #define LOADTYPE_NONE  0
 #define LOADTYPE_BG    1
@@ -3475,22 +3476,22 @@
 #define ROOMBLOCKTYPE_LEAF   0
 #define ROOMBLOCKTYPE_PARENT 1
 
-#define ROOMFLAG_DISABLEDBYSCRIPT 0x0001
-#define ROOMFLAG_HASDYNTEX        0x0002 // Has dynamic textures such as water
-#define ROOMFLAG_ONSCREEN         0x0004
-#define ROOMFLAG_STANDBY          0x0008 // Neighbour of an onscreen room - usually loaded as well
-#define ROOMFLAG_0010             0x0010
-#define ROOMFLAG_LOADCANDIDATE    0x0020 // Room is a good candidate for loading on this tick
-#define ROOMFLAG_0040             0x0040
-#define ROOMFLAG_RENDERALWAYS     0x0080
-#define ROOMFLAG_DIRTY            0x0100
-#define ROOMFLAG_0200             0x0200
-#define ROOMFLAG_0400             0x0400
-#define ROOMFLAG_0800             0x0800
-#define ROOMFLAG_1000             0x1000
-#define ROOMFLAG_LIGHTSOFF        0x2000
-#define ROOMFLAG_PLAYAMBIENTTRACK 0x4000
-#define ROOMFLAG_OUTDOORS         0x8000
+#define ROOMFLAG_DISABLEDBYSCRIPT      0x0001
+#define ROOMFLAG_HASDYNTEX             0x0002 // Has dynamic textures such as water
+#define ROOMFLAG_ONSCREEN              0x0004
+#define ROOMFLAG_STANDBY               0x0008 // Neighbour of an onscreen room - usually loaded as well
+#define ROOMFLAG_0010                  0x0010
+#define ROOMFLAG_LOADCANDIDATE         0x0020 // Room is a good candidate for loading on this tick
+#define ROOMFLAG_BRIGHTNESS_CALCED     0x0040
+#define ROOMFLAG_RENDERALWAYS          0x0080
+#define ROOMFLAG_LIGHTS_DIRTY          0x0100
+#define ROOMFLAG_BRIGHTNESS_DIRTY_PERM 0x0200
+#define ROOMFLAG_BRIGHTNESS_DIRTY_TEMP 0x0400
+#define ROOMFLAG_BBOXHACK              0x0800
+#define ROOMFLAG_NEEDRESHADE           0x1000
+#define ROOMFLAG_LIGHTSOFF             0x2000
+#define ROOMFLAG_PLAYAMBIENTTRACK      0x4000
+#define ROOMFLAG_OUTDOORS              0x8000
 
 #define RUMBLESTATE_1                 1
 #define RUMBLESTATE_ENABLED_STOPPED   2

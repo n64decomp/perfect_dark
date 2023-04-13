@@ -338,7 +338,7 @@ void ctcInitProps(void)
 
 	for (i = 0; i < 4; i++) {
 		if (g_ScenarioData.ctc.playercountsperteam[i] && g_ScenarioData.ctc.baserooms[i] != -1) {
-			roomSetLighting(g_ScenarioData.ctc.baserooms[i], 5, 0, 0, 0);
+			roomSetLightOp(g_ScenarioData.ctc.baserooms[i], LIGHTOP_HIGHLIGHT, 0, 0, 0);
 		}
 	}
 }

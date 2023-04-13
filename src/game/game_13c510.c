@@ -172,11 +172,11 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 				s1[i * 3 + 1] = 0;
 				s1[i * 3 + 2] = 0;
 
-				tmp = roomlights[i].unk07 * roomlights[i].unk07 + roomlights[i].unk08 * roomlights[i].unk08 + roomlights[i].unk09 * roomlights[i].unk09;
+				tmp = roomlights[i].dirx * roomlights[i].dirx + roomlights[i].diry * roomlights[i].diry + roomlights[i].dirz * roomlights[i].dirz;
 				f16 = spc4.f[0] * spc4.f[0] + spc4.f[1] * spc4.f[1] + spc4.f[2] * spc4.f[2];
 
 				if (tmp > 0.0001f && f16 > 0.0001f) {
-					sp190 = -((roomlights[i].unk07 * spc4.f[0] + roomlights[i].unk08 * spc4.f[1] + roomlights[i].unk09 * spc4.f[2]) / sqrtf(tmp * f16));
+					sp190 = -((roomlights[i].dirx * spc4.f[0] + roomlights[i].diry * spc4.f[1] + roomlights[i].dirz * spc4.f[2]) / sqrtf(tmp * f16));
 
 					if (sp190 > 0.4f) {
 						sp190 = 0.4f;
@@ -385,7 +385,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 	struct artifact *artifacts;
 	u16 min;
 	u16 max;
-	f32 f30;
+	f32 lightop_cur_frac;
 	s32 t2;
 	struct light *light;
 	u8 *s3;
@@ -413,7 +413,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 	f32 f26;
 
 	artifacts = schedGetFrontArtifacts();
-	f30 = roomGetUnk5c(roomnum);
+	lightop_cur_frac = roomGetLightOpCurFrac(roomnum);
 
 	if (g_Rooms[roomnum].gfxdata == NULL || g_Rooms[roomnum].loaded240 == 0) {
 		return gdl;
@@ -500,7 +500,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 					}
 
 					if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-						s3[2] *= (s32) (f30 * 7.0f);
+						s3[2] *= (s32) (lightop_cur_frac * 7.0f);
 					}
 
 					f0 = s3[2] * (1.0f / 255.0f);
@@ -519,18 +519,18 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 
 					brightness *= 27500.0f / (-lightscreenpos.z < 1.0f ? 1.0f : -lightscreenpos.z);
 
-					if (light->unk06 != 0) {
-						brightness *= light->unk06 * (1.0f / 32.0f);
+					if (light->brightnessmult != 0) {
+						brightness *= light->brightnessmult * (1.0f / 32.0f);
 					}
 
 					brightness *= s3[1] * (1.0f / 255.0f);
 
 					if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-						brightness *= 14.0f * f30;
+						brightness *= 14.0f * lightop_cur_frac;
 					}
 
 					brightness += add;
-					brightness *= 2.0f * func0f000dbc(roomnum);
+					brightness *= 2.0f * roomGetSettledLocalBrightnessFrac(roomnum);
 
 					if (brightness > 750.0f) {
 						brightness = 750.0f;
@@ -554,7 +554,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 						alpha *= (s3[0] / 8.0f);
 
 						if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-							alpha *= f30 * 7.0f;
+							alpha *= lightop_cur_frac * 7.0f;
 						}
 
 						if (alpha > 255.0f) {

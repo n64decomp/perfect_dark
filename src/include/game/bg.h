@@ -6,7 +6,7 @@
 
 void roomUnpauseProps(u32 roomnum, bool tintedglassonly);
 void roomSetOnscreen(s32 room, s32 draworder, struct screenbox *arg2);
-void func0f158108(s32 roomnum, u8 *arg1, u8 *arg2);
+void bgGetRoomBrightnessRange(s32 roomnum, u8 *min, u8 *max);
 struct var800a4640_00 *func0f158140(s32 roomnum);
 Gfx *bg0f158184(Gfx *gdl, struct xraydata *xraydata);
 Gfx *func0f158400(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 vertices2[3], s16 vertices3[3], u32 colour1, u32 colour2, u32 colour3);

@@ -1790,12 +1790,12 @@ u8 func1007_console_activation[] = {
 	label(0x00) \
 	yield \
 	mute_channel(CHANNEL_6) \
-	set_lights_state(0x0039, LIGHTOP_3, 0x78, 0xff, 0x3c) \
-	set_lights_state(0x003a, LIGHTOP_3, 0x78, 0xff, 0x3c) \
-	set_lights_state(0x003b, LIGHTOP_3, 0x78, 0xff, 0x3c) \
-	set_lights_state(0x0041, LIGHTOP_3, 0x78, 0xff, 0x3c) \
-	set_lights_state(0x0042, LIGHTOP_3, 0x78, 0xff, 0x3c) \
-	set_lights_state(0x0043, LIGHTOP_3, 0x78, 0xff, 0x3c) \
+	set_lights_state(0x0039, LIGHTOP_TRANSITION, 120, 255, 60) \
+	set_lights_state(0x003a, LIGHTOP_TRANSITION, 120, 255, 60) \
+	set_lights_state(0x003b, LIGHTOP_TRANSITION, 120, 255, 60) \
+	set_lights_state(0x0041, LIGHTOP_TRANSITION, 120, 255, 60) \
+	set_lights_state(0x0042, LIGHTOP_TRANSITION, 120, 255, 60) \
+	set_lights_state(0x0043, LIGHTOP_TRANSITION, 120, 255, 60) \
  \
 	beginloop(0x65) \
 		if_stage_flag_eq(STAGEFLAG_SUITCASE_DEPOSITED, TRUE, /*goto*/ 0x08) \
@@ -1809,12 +1809,12 @@ u8 func1007_console_activation[] = {
  \
 	/* In hallway with weapons */ \
 	label(0x31) \
-	set_lights_state(0x0039, LIGHTOP_4, 0x00, 0xff, 0x3c) \
-	set_lights_state(0x003a, LIGHTOP_4, 0x00, 0xff, 0x3c) \
-	set_lights_state(0x003b, LIGHTOP_4, 0x00, 0xff, 0x3c) \
-	set_lights_state(0x0041, LIGHTOP_4, 0x00, 0xff, 0x3c) \
-	set_lights_state(0x0042, LIGHTOP_4, 0x00, 0xff, 0x3c) \
-	set_lights_state(0x0043, LIGHTOP_4, 0x00, 0xff, 0x3c) \
+	set_lights_state(0x0039, LIGHTOP_SINELOOP, 0, 255, 60) \
+	set_lights_state(0x003a, LIGHTOP_SINELOOP, 0, 255, 60) \
+	set_lights_state(0x003b, LIGHTOP_SINELOOP, 0, 255, 60) \
+	set_lights_state(0x0041, LIGHTOP_SINELOOP, 0, 255, 60) \
+	set_lights_state(0x0042, LIGHTOP_SINELOOP, 0, 255, 60) \
+	set_lights_state(0x0043, LIGHTOP_SINELOOP, 0, 255, 60) \
 	play_sound(SFX_ALARM_INFILTRATION, CHANNEL_6) \
 	restart_timer \
  \
@@ -1834,12 +1834,12 @@ u8 func1007_console_activation[] = {
 	/* In hallway with weapons for over 60 frames */ \
 	label(0x02) \
 	restart_timer \
-	set_lights_state(0x0039, LIGHTOP_4, 0x00, 0xff, 0x32) \
-	set_lights_state(0x003a, LIGHTOP_4, 0x00, 0xff, 0x32) \
-	set_lights_state(0x003b, LIGHTOP_4, 0x00, 0xff, 0x32) \
-	set_lights_state(0x0041, LIGHTOP_4, 0x00, 0xff, 0x32) \
-	set_lights_state(0x0042, LIGHTOP_4, 0x00, 0xff, 0x32) \
-	set_lights_state(0x0043, LIGHTOP_4, 0x00, 0xff, 0x32) \
+	set_lights_state(0x0039, LIGHTOP_SINELOOP, 0, 255, 50) \
+	set_lights_state(0x003a, LIGHTOP_SINELOOP, 0, 255, 50) \
+	set_lights_state(0x003b, LIGHTOP_SINELOOP, 0, 255, 50) \
+	set_lights_state(0x0041, LIGHTOP_SINELOOP, 0, 255, 50) \
+	set_lights_state(0x0042, LIGHTOP_SINELOOP, 0, 255, 50) \
+	set_lights_state(0x0043, LIGHTOP_SINELOOP, 0, 255, 50) \
  \
 	beginloop(0x05) \
 		if_timer_gt(40, /*goto*/ 0x02) \
@@ -1857,12 +1857,12 @@ u8 func1007_console_activation[] = {
 	/* In hallway with weapons for over 100 frames */ \
 	label(0x02) \
 	restart_timer \
-	set_lights_state(0x0039, LIGHTOP_4, 0x00, 0xff, 0x28) \
-	set_lights_state(0x003a, LIGHTOP_4, 0x00, 0xff, 0x28) \
-	set_lights_state(0x003b, LIGHTOP_4, 0x00, 0xff, 0x28) \
-	set_lights_state(0x0041, LIGHTOP_4, 0x00, 0xff, 0x28) \
-	set_lights_state(0x0042, LIGHTOP_4, 0x00, 0xff, 0x28) \
-	set_lights_state(0x0043, LIGHTOP_4, 0x00, 0xff, 0x28) \
+	set_lights_state(0x0039, LIGHTOP_SINELOOP, 0, 255, 40) \
+	set_lights_state(0x003a, LIGHTOP_SINELOOP, 0, 255, 40) \
+	set_lights_state(0x003b, LIGHTOP_SINELOOP, 0, 255, 40) \
+	set_lights_state(0x0041, LIGHTOP_SINELOOP, 0, 255, 40) \
+	set_lights_state(0x0042, LIGHTOP_SINELOOP, 0, 255, 40) \
+	set_lights_state(0x0043, LIGHTOP_SINELOOP, 0, 255, 40) \
  \
 	beginloop(0x06) \
 		if_timer_gt(1, /*goto*/ 0x02) \
@@ -1880,12 +1880,12 @@ u8 func1007_console_activation[] = {
 	/* In hallway with weapons for over 101 frames */ \
 	label(0x02) \
 	restart_timer \
-	set_lights_state(0x0039, LIGHTOP_4, 0x00, 0xff, 0x1e) \
-	set_lights_state(0x003a, LIGHTOP_4, 0x00, 0xff, 0x1e) \
-	set_lights_state(0x003b, LIGHTOP_4, 0x00, 0xff, 0x1e) \
-	set_lights_state(0x0041, LIGHTOP_4, 0x00, 0xff, 0x1e) \
-	set_lights_state(0x0042, LIGHTOP_4, 0x00, 0xff, 0x1e) \
-	set_lights_state(0x0043, LIGHTOP_4, 0x00, 0xff, 0x1e) \
+	set_lights_state(0x0039, LIGHTOP_SINELOOP, 0, 255, 30) \
+	set_lights_state(0x003a, LIGHTOP_SINELOOP, 0, 255, 30) \
+	set_lights_state(0x003b, LIGHTOP_SINELOOP, 0, 255, 30) \
+	set_lights_state(0x0041, LIGHTOP_SINELOOP, 0, 255, 30) \
+	set_lights_state(0x0042, LIGHTOP_SINELOOP, 0, 255, 30) \
+	set_lights_state(0x0043, LIGHTOP_SINELOOP, 0, 255, 30) \
  \
 	beginloop(0x07) \
 		yield \
@@ -4347,7 +4347,7 @@ u8 func1032_unhide_guards_near_plane[] = {
 
 u8 func1420_setup_portals[] = {
 	yield
-	set_room_flag(0x0080, ROOMFLAG_0800)
+	set_room_flag(0x0080, ROOMFLAG_BBOXHACK)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

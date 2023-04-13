@@ -1353,21 +1353,21 @@ struct modelrodata_bbox *objFindBboxRodata(struct defaultobj *obj)
 	return modelFindBboxRodata(obj->model);
 }
 
-s32 func0f068b14(s16 *rooms, s32 arg1)
+s32 objGetAverageBrightnessInRooms(s16 *rooms, s32 brightnesstype)
 {
-	s32 total = 0;
+	s32 brightness = 0;
 	s32 i;
 
 	for (i = 0; rooms[i] != -1; i++) {
-		if (arg1 == 0) {
-			total += func0f000b24(rooms[i]);
-		} else if (arg1 == 1) {
-			total += func0f000c54(rooms[i]);
+		if (brightnesstype == 0) {
+			brightness += roomGetSettledRegionalBrightnessForPlayer(rooms[i]);
+		} else if (brightnesstype == 1) {
+			brightness += roomGetFlashBrightness(rooms[i]);
 		}
 	}
 
 	if (i) {
-		s32 average = total / i;
+		s32 average = brightness / i;
 
 		if (average > 255) {
 			average = 255;
@@ -1384,12 +1384,12 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 	struct doorobj *door = prop->door;
 	struct doorobj *sibling;
 	s32 i;
-	s32 s1;
-	s32 s3 = 0;
-	s32 s4 = 0;
+	s32 br_settled_average;
+	s32 total_br_settled = 0;
+	s32 total_br_flash = 0;
 	s32 s2 = 0;
 	s32 s5 = 0;
-	s32 v1;
+	s32 br_flash_average;
 	s32 result;
 	struct prop *loopprop;
 	struct pad pad;
@@ -1411,11 +1411,11 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 				padUnpack(sibling->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_ROOM, &pad);
 
 				if (door->base.flags3 & OBJFLAG3_04000000) {
-					s3 += func0f000b24(pad.room);
-					s4 += func0f000c54(pad.room);
+					total_br_settled += roomGetSettledRegionalBrightnessForPlayer(pad.room);
+					total_br_flash += roomGetFlashBrightness(pad.room);
 					s5++;
 
-					s2 = s3 + s4;
+					s2 = total_br_settled + total_br_flash;
 
 					if (s2 > 255) {
 						s2 = 255;
@@ -1454,8 +1454,8 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 						// @bug? Duplicate sum1 < 0.0f check in the first part.
 						// Perhaps one of them should be sum2 < 0.0f.
 						if ((sum1 < 0.0f && sum1 < 0.0f) || (sum1 > 0.0f && sum2 > 0.0f)) {
-							s32 value1 = func0f000c54(loopprop->rooms[i]);
-							s32 value2 = func0f000b24(loopprop->rooms[i]);
+							s32 value1 = roomGetFlashBrightness(loopprop->rooms[i]);
+							s32 value2 = roomGetSettledRegionalBrightnessForPlayer(loopprop->rooms[i]);
 							s32 sum = value2 + value1;
 
 							if (sum > 255) {
@@ -1463,8 +1463,8 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 							}
 
 							s5++;
-							s3 += value2;
-							s4 += value1;
+							total_br_settled += value2;
+							total_br_flash += value1;
 							s2 += sum;
 						}
 					}
@@ -1480,23 +1480,23 @@ s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
 	}
 
 	if (s5 == 0) {
-		s1 = func0f068b14(prop->rooms, 0);
-		v1 = func0f068b14(prop->rooms, 1);
+		br_settled_average = objGetAverageBrightnessInRooms(prop->rooms, 0);
+		br_flash_average = objGetAverageBrightnessInRooms(prop->rooms, 1);
 	} else {
-		s1 = s3 / s5;
-		v1 = s4 / s5;
+		br_settled_average = total_br_settled / s5;
+		br_flash_average = total_br_flash / s5;
 	}
 
 	if (arg1 != NULL) {
-		*arg1 = s1;
+		*arg1 = br_settled_average;
 	}
 
 	if (arg2 != NULL) {
-		*arg2 = v1;
+		*arg2 = br_flash_average;
 	}
 
-	if (s1 + v1 < 255) {
-		result = s1 + v1;
+	if (br_settled_average + br_flash_average < 255) {
+		result = br_settled_average + br_flash_average;
 	} else {
 		result = 255;
 	}
@@ -1547,8 +1547,8 @@ s32 func0f068fc8(struct prop *prop, bool arg1)
 			}
 		}
 	} else {
-		actual = func0f068b14(prop->rooms, 0);
-		extra = func0f068b14(prop->rooms, 1);
+		actual = objGetAverageBrightnessInRooms(prop->rooms, 0);
+		extra = objGetAverageBrightnessInRooms(prop->rooms, 1);
 	}
 
 	if (arg1 == 0) {
@@ -18799,7 +18799,7 @@ void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
 	}
 
 	if (flash && room != -1) {
-		roomAdjustLighting(room, 48, 128);
+		roomFlashLighting(room, 48, 128);
 	}
 }
 
@@ -19993,7 +19993,7 @@ void doorCreateSparks(struct doorobj *door)
 			-1, 0, 0, 0, &sp7c, -1, door->base.prop->rooms, -1, -1, -1, -1);
 
 	for (i = 0; door->base.prop->rooms[i] != -1; i++) {
-		roomAdjustLighting(door->base.prop->rooms[i], 128, 200);
+		roomFlashLighting(door->base.prop->rooms[i], 128, 200);
 	}
 }
 

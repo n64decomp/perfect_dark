@@ -207,7 +207,7 @@ Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, stru
 		colours[0].a = alpha * alphamult;
 	} else {
 		if (smoke->type != SMOKETYPE_PINBALL) {
-			frac = func0f000a10(smoke->prop->rooms[0]) * (1.0f / 255.0f);
+			frac = roomGetFinalBrightnessForPlayer(smoke->prop->rooms[0]) * (1.0f / 255.0f);
 
 			if (frac > 1) {
 				frac = 1;

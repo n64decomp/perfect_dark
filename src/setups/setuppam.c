@@ -901,7 +901,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	set_stage_flag(STAGEFLAG_TELEPORTALS_ACTIVATED)
 	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	play_sound(SFX_8148, -1)
-	set_lights_state(0x003c, LIGHTOP_4, 0x00, 0xff, 0xb4)
+	set_lights_state(0x003c, LIGHTOP_SINELOOP, 0, 255, 180)
 	set_chr_chrflag(0x14, CHRCFLAG_NEVERSLEEP)
 	set_chr_chrflag(0x15, CHRCFLAG_NEVERSLEEP)
 	set_chr_chrflag(0x16, CHRCFLAG_NEVERSLEEP)
@@ -1064,7 +1064,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	show_hudmsg(CHR_BOND, L_PAM_020) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_AGENT_MEGAWEAPON_DISABLED)
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
-	set_lights_state(0x006c, LIGHTOP_3, 0x64, 0xff, 0x78)
+	set_lights_state(0x006c, LIGHTOP_TRANSITION, 100, 255, 120)
 	assign_sound(SFX_8148, CHANNEL_7)
 	play_sound_from_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	unlock_door(0xb7, 0x02)
@@ -3672,17 +3672,17 @@ u8 func041e_init_sa_megaweapon_miniskedar[] = {
 	set_ailist(CHR_SELF, 0x0408)
 
 u8 func1013_pa_doorcylinder1[] = {
-	set_lights_state(0x00a1, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x00a9, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x00ac, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x00b4, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x00b7, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x00bf, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x00c0, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x00c1, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x00c2, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x00c3, LIGHTOP_4, 0x00, 0xff, 0xb4)
-	set_lights_state(0x006c, LIGHTOP_4, 0x00, 0xff, 0xf0)
+	set_lights_state(0x00a1, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x00a9, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x00ac, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x00b4, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x00b7, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x00bf, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x00c0, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x00c1, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x00c2, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x00c3, LIGHTOP_SINELOOP, 0, 255, 180)
+	set_lights_state(0x006c, LIGHTOP_SINELOOP, 0, 255, 240)
 
 	doorcylinder_logic(0x11, 0x12, 0x13, 0x9c, STAGEFLAG_PA_EARLYDOORCYLINDER1_DESTROYED)
 	endlist
@@ -3731,12 +3731,12 @@ u8 func0408_check_pa_earlydoorcylinders_destroyed[] = {
 	endloop(0x08)
 
 	label(0x06)
-	set_lights_state(0x008b, LIGHTOP_3, 0xff, 0x0a, 0x78)
-	set_lights_state(0x00bf, LIGHTOP_3, 0xff, 0x0a, 0x78)
-	set_lights_state(0x00c0, LIGHTOP_3, 0xff, 0x0a, 0x78)
-	set_lights_state(0x00c1, LIGHTOP_3, 0xff, 0x0a, 0x78)
-	set_lights_state(0x00c2, LIGHTOP_3, 0xff, 0x0a, 0x78)
-	set_lights_state(0x00c3, LIGHTOP_3, 0xff, 0x0a, 0x78)
+	set_lights_state(0x008b, LIGHTOP_TRANSITION, 255, 10, 120)
+	set_lights_state(0x00bf, LIGHTOP_TRANSITION, 255, 10, 120)
+	set_lights_state(0x00c0, LIGHTOP_TRANSITION, 255, 10, 120)
+	set_lights_state(0x00c1, LIGHTOP_TRANSITION, 255, 10, 120)
+	set_lights_state(0x00c2, LIGHTOP_TRANSITION, 255, 10, 120)
+	set_lights_state(0x00c3, LIGHTOP_TRANSITION, 255, 10, 120)
 	open_door(0x09)
 	open_door(0x0a)
 	goto_first(0x08)
@@ -3803,7 +3803,7 @@ u8 func0408_check_pa_earlydoorcylinders_destroyed[] = {
 u8 func1018_pa_door1[] = {
 	pa_cylinder(0x20, 0xa1)
 	set_stage_flag(STAGEFLAG_PA_MIDDOORCYLINDER_DESTROYED)
-	set_lights_state(0x00a1, LIGHTOP_3, 0xff, 0x0a, 0x78)
+	set_lights_state(0x00a1, LIGHTOP_TRANSITION, 255, 10, 120)
 
 	beginloop(0x08)
 		if_door_state(0x0b, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
@@ -3850,7 +3850,7 @@ u8 func0409_check_pa_latedoorcylinders_destroyed[] = {
 
 u8 func1019_pa_door2[] = {
 	pa_cylinder(0x2c, 0xa2)
-	set_lights_state(0x00a9, LIGHTOP_3, 0xff, 0x0a, 0x78)
+	set_lights_state(0x00a9, LIGHTOP_TRANSITION, 255, 10, 120)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_LATEDOORCYLINDER1_DESTROYED)
 	set_ailist(CHR_SELF, 0x0409)
@@ -3859,7 +3859,7 @@ u8 func1019_pa_door2[] = {
 
 u8 func101a_pa_door3[] = {
 	pa_cylinder(0x38, 0xa3)
-	set_lights_state(0x00ac, LIGHTOP_3, 0xff, 0x0a, 0x78)
+	set_lights_state(0x00ac, LIGHTOP_TRANSITION, 255, 10, 120)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_LATEDOORCYLINDER2_DESTROYED)
 	set_ailist(CHR_SELF, 0x0409)
@@ -3868,7 +3868,7 @@ u8 func101a_pa_door3[] = {
 
 u8 func101b_pa_door4[] = {
 	pa_cylinder(0x44, 0xa4)
-	set_lights_state(0x00b4, LIGHTOP_3, 0xff, 0x0a, 0x78)
+	set_lights_state(0x00b4, LIGHTOP_TRANSITION, 255, 10, 120)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_LATEDOORCYLINDER3_DESTROYED)
 	set_ailist(CHR_SELF, 0x0409)
@@ -3934,7 +3934,7 @@ u8 func101c_pa_door5[] = {
 	destroy_object(0x59)
 	destroy_object(0x5a)
 
-	set_lights_state(0x00b7, LIGHTOP_3, 0xff, 0x0a, 0x78)
+	set_lights_state(0x00b7, LIGHTOP_TRANSITION, 255, 10, 120)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_LATEDOORCYLINDER4_DESTROYED)
 	set_ailist(CHR_SELF, 0x0409)
@@ -3969,7 +3969,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 	// Both canisters destroyed
 	label(0x2e)
 	set_object_flag(0x0f, OBJFLAG_DOOR_KEEPOPEN)
-	set_lights_state(0x00bc, LIGHTOP_3, 0xff, 0x0a, 0x78)
+	set_lights_state(0x00bc, LIGHTOP_TRANSITION, 255, 10, 120)
 
 	beginloop(0x08)
 		if_door_state(0x0f, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
@@ -4540,7 +4540,7 @@ u8 func0432_dead_skedar[] = {
 };
 
 u8 unregistered_function2[] = {
-	set_lights_state(0x0009, LIGHTOP_4, 0x00, 0xff, 0xfa)
+	set_lights_state(0x0009, LIGHTOP_SINELOOP, 0, 255, 250)
 
 	beginloop(0x08)
 	endloop(0x08)

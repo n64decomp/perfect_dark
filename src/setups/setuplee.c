@@ -2052,7 +2052,7 @@ u8 func100b_msg_getshieldsdown[] = {
 };
 
 u8 func100c_engineroom[] = {
-	set_lights_state(0x0067, LIGHTOP_4, 0x46, 0xff, 0xfa)
+	set_lights_state(0x0067, LIGHTOP_SINELOOP, 70, 255, 250)
 
 	// Wait until both engines destroyed
 	beginloop(0x04)

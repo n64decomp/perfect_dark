@@ -333,7 +333,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 			for (i = 0; exprooms[i] != -1 && i < 7; i++) {
 				expprop->rooms[i] = exprooms[i];
 
-				roomAdjustLighting(exprooms[i], g_ExplosionTypes[type].rangeh, 255);
+				roomFlashLighting(exprooms[i], g_ExplosionTypes[type].rangeh, 255);
 			}
 
 			expprop->rooms[i] = -1;
@@ -706,7 +706,7 @@ void explosionInflictDamage(struct prop *expprop)
 	// Flicker room lighting
 	for (i = 0; expprop->rooms[i] != -1; i++) {
 		if (random() % 2048 <= 240) {
-			roomAdjustLighting(expprop->rooms[i], type->rangeh, 255);
+			roomFlashLighting(expprop->rooms[i], type->rangeh, 255);
 		}
 	}
 

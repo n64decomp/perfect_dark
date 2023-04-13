@@ -5832,7 +5832,8 @@ bool aiSetLights(void)
 			roomSetLightsOn(roomnum, true);
 			break;
 		default:
-			roomSetLighting(roomnum, cmd[4], cmd[5], cmd[6], TICKS(cmd[7]));
+			roomSetLightOp(roomnum, cmd[4], cmd[5], cmd[6], TICKS(cmd[7]));
+			break;
 		}
 	}
 

@@ -414,10 +414,10 @@ void frInitLighting(void)
 		s32 roomnum;
 
 		for (roomnum = 7; roomnum < 10; roomnum++) {
-			roomSetLighting(roomnum, LIGHTOP_3, 50, 100, TICKS(32));
+			roomSetLightOp(roomnum, LIGHTOP_TRANSITION, 50, 100, TICKS(32));
 		}
 
-		roomSetLighting(ROOM_DISH_FIRINGRANGE, LIGHTOP_3, 25, 100, TICKS(32));
+		roomSetLightOp(ROOM_DISH_FIRINGRANGE, LIGHTOP_TRANSITION, 25, 100, TICKS(32));
 
 		g_FrData.donelighting = true;
 
@@ -433,10 +433,10 @@ void frRestoreLighting(void)
 		s32 roomnum;
 
 		for (roomnum = 7; roomnum < 10; roomnum++) {
-			roomSetLighting(roomnum, LIGHTOP_3, 100, 50, TICKS(8));
+			roomSetLightOp(roomnum, LIGHTOP_TRANSITION, 100, 50, TICKS(8));
 		}
 
-		roomSetLighting(ROOM_DISH_FIRINGRANGE, LIGHTOP_3, 100, 25, TICKS(8));
+		roomSetLightOp(ROOM_DISH_FIRINGRANGE, LIGHTOP_TRANSITION, 100, 25, TICKS(8));
 
 		g_FrData.donelighting = false;
 

@@ -1945,7 +1945,7 @@ Gfx *bviewDrawNvLens(Gfx *gdl)
 	s32 viewtop = viGetViewTop();
 	s32 viewleft = viGetViewLeft();
 	s32 viewbottom = viewtop + viewheight;
-	s32 roomvalue;
+	s32 brightness;
 	s32 y;
 
 	var8007f840++;
@@ -1962,10 +1962,10 @@ Gfx *bviewDrawNvLens(Gfx *gdl)
 	var8009caed = 0x50;
 	var8009caee = 0xc0;
 
-	roomvalue = func0f0009c0(g_Vars.currentplayer->prop->rooms[0]);
+	brightness = roomGetFinalBrightness(g_Vars.currentplayer->prop->rooms[0]);
 
-	if (roomvalue > 128) {
-		sky0f127334(roomvalue, roomvalue, roomvalue);
+	if (brightness > 128) {
+		sky0f127334(brightness, brightness, brightness);
 	}
 
 	if (g_Menus[g_Vars.currentplayerstats->mpindex].curdialog == NULL) {

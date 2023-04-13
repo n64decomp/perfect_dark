@@ -3022,12 +3022,12 @@ u8 func101f_check_one_basement_guard_remaining[] = {
  */
 u8 func1420_setup_portals[] = {
 	yield
-	set_room_flag(0x0050, ROOMFLAG_0800)
-	set_room_flag(0x0052, ROOMFLAG_0800)
-	set_room_flag(0x006c, ROOMFLAG_0800)
-	set_room_flag(0x004d, ROOMFLAG_0800)
-	set_room_flag(0x0065, ROOMFLAG_0800)
-	set_room_flag(0x0059, ROOMFLAG_0800)
+	set_room_flag(0x0050, ROOMFLAG_BBOXHACK)
+	set_room_flag(0x0052, ROOMFLAG_BBOXHACK)
+	set_room_flag(0x006c, ROOMFLAG_BBOXHACK)
+	set_room_flag(0x004d, ROOMFLAG_BBOXHACK)
+	set_room_flag(0x0065, ROOMFLAG_BBOXHACK)
+	set_room_flag(0x0059, ROOMFLAG_BBOXHACK)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

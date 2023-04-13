@@ -3610,28 +3610,57 @@ struct room {
 	/*0x3c*/ f32 radius; // from volume centre to the corner in 3D
 	/*0x40*/ s32 numvtxbatches;
 	/*0x44*/ struct vtxbatch *vtxbatches;
-	/*0x48*/ u8 unk48;
-	/*0x49*/ u8 unk49;
-	/*0x4a*/ u8 unk4a;
-	/*0x4b*/ u8 unk4b;
-	/*0x4c*/ u8 unk4c;
+
+	/**
+	 * br values are a brightness value (0-255).
+	 */
+
+	// The min and max values are the brightness levels when the room has all
+	// its lights shot out, or all lights healthy. They come from the BG file.
+	// The br_light_each value is calculated from these based on the number of
+	// lights in the room.
+	/*0x48*/ u8 br_light_min;
+	/*0x49*/ u8 br_light_max;
+	/*0x4a*/ u8 br_light_each;
+
+	// The brightness level of the room, assuming no flashes are taking place,
+	// and factoring in settled brightness from neighbouring rooms.
+	/*0x4b*/ u8 br_settled_regional;
+
+	// Generally the same as br_light_min, but is sometimes fudged a bit.
+	/*0x4c*/ u8 br_base;
+
+	// Unused
 	/*0x4d*/ u8 unk4d;
+
+	// Lightops control what a room is doing with its lighting. They can be used
+	// to simply set a brightness multiplier, or transition to another
+	// brightness level over several frames, or repeat a brightness sine pattern.
+	// The lightop calculates lightop_cur_frac, which is a multiplier.
 	/*0x4e*/ u8 lightop : 4;
+
+	// Unused
 	/*0x4e*/ u8 unk4e_04 : 4;
-	/*0x50*/ s16 brightness;
-	/*0x52*/ s16 unk52;
-	/*0x54*/ s16 unk54;
+
+	// The brightness level of the room, assuming no flashes are taking place,
+	// and ignoring the brightness of neighbouring rooms.
+	/*0x50*/ s16 br_settled_local;
+
+	// The current brightness of any temporary flash of light,
+	// such as gunfire or lightning.
+	/*0x52*/ s16 br_flash;
+	/*0x54*/ s16 lightop_timer240;
 	/*0x56*/ u16 unk56;
 	/*0x58*/ struct colour *colours;
-	/*0x5c*/ f32 unk5c;
-	/*0x60*/ f32 unk60;
-	/*0x64*/ f32 unk64;
-	/*0x68*/ f32 unk68;
+	/*0x5c*/ f32 lightop_cur_frac;
+	/*0x60*/ f32 lightop_to_frac;
+	/*0x64*/ f32 lightop_from_frac;
+	/*0x68*/ f32 lightop_duration240;
 	/*0x6c*/ f32 unk6c;
 	/*0x70*/ f32 unk70;
-	/*0x74*/ f32 unk74;
-	/*0x78*/ f32 unk78;
-	/*0x7c*/ f32 unk7c;
+	/*0x74*/ f32 highlightfrac_r;
+	/*0x78*/ f32 highlightfrac_g;
+	/*0x7c*/ f32 highlightfrac_b;
 	/*0x80*/ s32 gfxdatalen; // when inflated
 	/*0x84*/ struct wallhit *opawallhits; // opaque
 	/*0x88*/ struct wallhit *xluwallhits; // translucent
@@ -5358,8 +5387,8 @@ struct shieldhit {
 struct bgroom {
 	u32 unk00;
 	struct coord pos;
-	u8 unk10;
-	u8 unk11;
+	u8 br_light_min;
+	u8 br_light_max;
 };
 
 struct damagetype {
@@ -5478,16 +5507,16 @@ struct vec3s16 {
 struct light {
 	/*0x00*/ u16 roomnum;
 	/*0x02*/ u16 colour; // 4/4/4/4
-	/*0x04*/ u8 unk04;
-	/*0x05*/ u8 unk05_00 : 1;
+	/*0x04*/ u8 brightness;
+	/*0x05*/ u8 sparkable : 1;
 	/*0x05*/ u8 healthy : 1;
 	/*0x05*/ u8 on : 1;
 	/*0x05*/ u8 sparking : 1;
 	/*0x05*/ u8 vulnerable : 1;
-	/*0x06*/ u8 unk06;
-	/*0x07*/ s8 unk07;
-	/*0x08*/ s8 unk08;
-	/*0x09*/ s8 unk09;
+	/*0x06*/ u8 brightnessmult;
+	/*0x07*/ s8 dirx;
+	/*0x08*/ s8 diry;
+	/*0x09*/ s8 dirz;
 	/*0x0a*/ struct vec3s16 bbox[4];
 };
 

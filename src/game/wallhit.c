@@ -1078,7 +1078,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 			u8 b;
 			u8 a;
 
-			brightnessfrac = func0f000a10(room2) * (1.0f / 255.0f);
+			brightnessfrac = roomGetFinalBrightnessForPlayer(room2) * (1.0f / 255.0f);
 
 			range = maxalpha - (u32)minalpha;
 
@@ -1427,9 +1427,9 @@ void wallhitsRecolour(void)
 	s32 j;
 	u32 stack;
 	struct wallhit *wallhit;
-	f32 sp0c;
-	f32 sp08;
-	f32 sp04;
+	f32 r;
+	f32 g;
+	f32 b;
 
 	for (i = 0, wallhit = g_Wallhits; i < g_WallhitsMax; i++) {
 		if (wallhit->roomnum > 0) {
@@ -1443,30 +1443,30 @@ void wallhitsRecolour(void)
 				}
 
 				for (j = 0; prop->rooms[j] != -1; j++) {
-					if (g_Rooms[prop->rooms[j]].flags & ROOMFLAG_1000) {
+					if (g_Rooms[prop->rooms[j]].flags & ROOMFLAG_NEEDRESHADE) {
 						room = prop->rooms[j];
 
-						sp0c = g_Rooms[room].unk74;
-						sp08 = g_Rooms[room].unk78;
-						sp04 = g_Rooms[room].unk7c;
+						r = g_Rooms[room].highlightfrac_r;
+						g = g_Rooms[room].highlightfrac_g;
+						b = g_Rooms[room].highlightfrac_b;
 						break;
 					}
 				}
 			} else {
-				if (g_Rooms[wallhit->roomnum].flags & ROOMFLAG_1000) {
+				if (g_Rooms[wallhit->roomnum].flags & ROOMFLAG_NEEDRESHADE) {
 					room = wallhit->roomnum;
 
-					sp0c = g_Rooms[room].unk74;
-					sp08 = g_Rooms[room].unk78;
-					sp04 = g_Rooms[room].unk7c;
+					r = g_Rooms[room].highlightfrac_r;
+					g = g_Rooms[room].highlightfrac_g;
+					b = g_Rooms[room].highlightfrac_b;
 				}
 			}
 
 			if (room > 0) {
 				for (j = 0; j < 4; j++) {
-					wallhit->finalcolours[j].r = wallhit->basecolours[j].r * sp0c;
-					wallhit->finalcolours[j].g = wallhit->basecolours[j].g * sp08;
-					wallhit->finalcolours[j].b = wallhit->basecolours[j].b * sp04;
+					wallhit->finalcolours[j].r = wallhit->basecolours[j].r * r;
+					wallhit->finalcolours[j].g = wallhit->basecolours[j].g * g;
+					wallhit->finalcolours[j].b = wallhit->basecolours[j].b * b;
 				}
 			}
 		}

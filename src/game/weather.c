@@ -1291,7 +1291,7 @@ glabel var7f1b5780
 /*  f133540:	02002025 */ 	or	$a0,$s0,$zero
 /*  f133544:	14400003 */ 	bnez	$v0,.L0f133554
 /*  f133548:	02002025 */ 	or	$a0,$s0,$zero
-/*  f13354c:	0fc00400 */ 	jal	roomSetUnk52
+/*  f13354c:	0fc00400 */ 	jal	roomSetFlashBrightness
 /*  f133550:	02202825 */ 	or	$a1,$s1,$zero
 .L0f133554:
 /*  f133554:	8e6d02bc */ 	lw	$t5,0x2bc($s3)
@@ -2712,7 +2712,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 				// 3534
 				for (s0 = 1; s0 < g_Vars.roomcount; s0++) {
 					if (!weatherIsRoomWeatherProof(s0)) {
-						roomSetUnk52(s0, s1);
+						roomSetFlashBrightness(s0, s1);
 					}
 				}
 			}

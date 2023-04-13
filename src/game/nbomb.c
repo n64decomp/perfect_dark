@@ -461,7 +461,7 @@ void nbombInflictDamage(struct nbomb *nbomb)
 			if (index < 52) {
 				roomnums[index] = i;
 				index++;
-				roomAdjustLighting(i, -38, -180);
+				roomFlashLighting(i, -38, -180);
 			}
 		}
 	}

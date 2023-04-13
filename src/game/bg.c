@@ -182,7 +182,7 @@ void roomSetOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 		g_Rooms[roomnum].flags |= ROOMFLAG_ONSCREEN;
 #endif
 
-		if (g_Rooms[roomnum].flags & ROOMFLAG_0800) {
+		if (g_Rooms[roomnum].flags & ROOMFLAG_BBOXHACK) {
 			box->xmin = var800a4640.unk2d0.box.xmin;
 			box->ymin = var800a4640.unk2d0.box.ymin;
 			box->xmax = var800a4640.unk2d0.box.xmax;
@@ -249,10 +249,10 @@ void roomSetOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 	}
 }
 
-void func0f158108(s32 roomnum, u8 *arg1, u8 *arg2)
+void bgGetRoomBrightnessRange(s32 roomnum, u8 *min, u8 *max)
 {
-	*arg1 = g_BgRooms[roomnum].unk10;
-	*arg2 = g_BgRooms[roomnum].unk11;
+	*min = g_BgRooms[roomnum].br_light_min;
+	*max = g_BgRooms[roomnum].br_light_max;
 }
 
 struct var800a4640_00 *func0f158140(s32 roomnum)
@@ -4513,8 +4513,8 @@ void bgLoadRoom(s32 roomnum)
 		// Create vertex batches - these are used for hit detection
 		bgFindRoomVtxBatches(roomnum);
 
-		g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
-		g_Rooms[roomnum].flags |= ROOMFLAG_0200;
+		g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTS_DIRTY;
+		g_Rooms[roomnum].flags |= ROOMFLAG_BRIGHTNESS_DIRTY_PERM;
 
 		g_Rooms[roomnum].colours = NULL;
 
