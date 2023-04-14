@@ -6185,11 +6185,11 @@ struct var8007f8e0 { // perfect head?
 	/*0x3d0*/ f32 unk3d0[7];
 	/*0x3ec*/ s32 unk3ec;
 	/*0x3f0*/ s32 unk3f0;
-	/*0x3f4*/ u32 unk3f4_00 : 1;
-	/*0x3f4*/ u32 unk3f4_01 : 1;
-	/*0x3f4*/ u32 unk3f4_02 : 1;
-	/*0x3f4*/ u32 unk3f4_03 : 1;
-	/*0x3f4*/ u32 unk3f4_04 : 1;
+	/*0x3f4*/ u16 unk3f4_00 : 1;
+	/*0x3f4*/ u16 unk3f4_01 : 1;
+	/*0x3f4*/ u16 unk3f4_02 : 1;
+	/*0x3f4*/ u16 unk3f4_03 : 1;
+	/*0x3f4*/ u16 unk3f4_04 : 1;
 	/*0x3f8*/ struct fileguid fileguid;
 };
 
