@@ -13661,6 +13661,10 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 			if (objGetDestroyedLevel(obj) == 1) {
 				obj->flags |= OBJFLAG_DEACTIVATED;
 			}
+		} else if (obj->type == OBJTYPE_CCTV) {
+			if (objGetDestroyedLevel(obj) == 1) {
+				obj->flags |= OBJFLAG_DEACTIVATED;
+			}
 		} else if (obj->type == OBJTYPE_SINGLEMONITOR) {
 			struct singlemonitorobj *monitor = (struct singlemonitorobj *) obj;
 
