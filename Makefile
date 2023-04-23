@@ -72,7 +72,7 @@ ROM_SIZE := 32
 #
 # Enable (1) or disable (0) antialias
 
-ANTIALIAS = 0
+ANTIALIAS = 1
 
 # PROFILING
 #
