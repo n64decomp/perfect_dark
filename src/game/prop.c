@@ -3082,7 +3082,6 @@ void propsDefragRoomProps(void)
 {
 	s32 i;
 	s32 j;
-	s32 k;
 
 	// Iterate rooms
 	for (i = 0; i < g_Vars.roomcount; i++) {
@@ -3094,12 +3093,13 @@ void propsDefragRoomProps(void)
 			// Iterate this room's chunks but skip the first
 			while (nextindex >= 0) {
 				// Iterate empty slots within this chunk
-				for (j = g_RoomPropListChunks[previndex].count; j < ARRAYCOUNT(g_RoomPropListChunks[j].propnums); j++) {
+				for (j = g_RoomPropListChunks[previndex].count; j < ARRAYCOUNT(g_RoomPropListChunks[previndex].propnums); j++) {
 					// Iterate forward through the chunk list and find a
 					// propnum to move back to the prev chunk
 					if (g_RoomPropListChunks[nextindex].count > 0) {
 						g_RoomPropListChunks[previndex].propnums[j] = g_RoomPropListChunks[nextindex].propnums[g_RoomPropListChunks[nextindex].count - 1];
 						g_RoomPropListChunks[nextindex].count--;
+						g_RoomPropListChunks[previndex].count++;
 					}
 
 					// Check if next chunk is empty
