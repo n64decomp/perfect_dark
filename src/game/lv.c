@@ -330,13 +330,13 @@ void lvReset(s32 stagenum)
 	animsReset();
 	objectivesReset();
 	vtxstoreReset();
-	lvResetSoloHandicaps();
 	modelmgrReset();
 	propsndReset();
 	setupLoadFiles(stagenum);
 	scenarioReset();
 	varsReset();
 	propsReset();
+	lvResetSoloHandicaps();
 	chrmgrReset();
 	bodiesReset(stagenum);
 	setupCreateProps(stagenum);
