@@ -4,7 +4,7 @@
 
 extern OSTimer var80090ab0;
 extern OSMesgQueue g_GbpakMesgQueue;
-extern OSMesg var80090ae8;
+extern OSMesg g_GbpakMesg;
 
 s32 osGbpakPower(OSPfs *pfs, s32 flag)
 {
@@ -31,7 +31,7 @@ s32 osGbpakPower(OSPfs *pfs, s32 flag)
 	}
 
 	if (flag != OS_GBPAK_POWER_OFF) {
-		osSetTimer(&var80090ab0, 937500, 0, &g_GbpakMesgQueue, &var80090ae8);
+		osSetTimer(&var80090ab0, OS_CPU_COUNTER / 50, 0, &g_GbpakMesgQueue, &g_GbpakMesg);
 		osRecvMesg(&g_GbpakMesgQueue, NULL, OS_MESG_BLOCK);
 	}
 

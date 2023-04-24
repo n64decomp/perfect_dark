@@ -34,14 +34,14 @@
 struct joydata g_JoyData[2];
 s32 g_JoyDisableCooldown[4];
 OSMesgQueue g_PiMesgQueue;
-OSMesg var80099e90[10];
-OSMesg var80099eb8[2];
+OSMesg g_PiMesgBuf[10];
+OSMesg g_JoyStopCyclicPollingMesgBuf[1];
 OSMesgQueue g_JoyStopCyclicPollingMesgQueue;
-OSMesg var80099ed8[2];
+OSMesg g_JoyStopCyclicPollingDoneMesgBuf[1];
 OSMesgQueue g_JoyStopCyclicPollingDoneMesgQueue;
-OSMesg var80099ef8[2];
+OSMesg g_JoyStartCyclicPollingMesgBuf[1];
 OSMesgQueue g_JoyStartCyclicPollingMesgQueue;
-OSMesg var80099f18[2];
+OSMesg g_JoyStartCyclicPollingDoneMesgBuf[1];
 OSMesgQueue g_JoyStartCyclicPollingDoneMesgQueue;
 OSContStatus var80099f38[4];
 #if VERSION >= VERSION_NTSC_1_0
@@ -279,11 +279,11 @@ void joyInit(void)
 	s32 i;
 	s32 j;
 
-	osCreateMesgQueue(&g_JoyStopCyclicPollingMesgQueue, var80099eb8, 1);
-	osCreateMesgQueue(&g_JoyStopCyclicPollingDoneMesgQueue, var80099ed8, 1);
-	osCreateMesgQueue(&g_JoyStartCyclicPollingMesgQueue, var80099ef8, 1);
-	osCreateMesgQueue(&g_JoyStartCyclicPollingDoneMesgQueue, var80099f18, 1);
-	osCreateMesgQueue(&g_PiMesgQueue, var80099e90, ARRAYCOUNT(var80099e90));
+	osCreateMesgQueue(&g_JoyStopCyclicPollingMesgQueue, g_JoyStopCyclicPollingMesgBuf, ARRAYCOUNT(g_JoyStopCyclicPollingMesgBuf));
+	osCreateMesgQueue(&g_JoyStopCyclicPollingDoneMesgQueue, g_JoyStopCyclicPollingDoneMesgBuf, ARRAYCOUNT(g_JoyStopCyclicPollingDoneMesgBuf));
+	osCreateMesgQueue(&g_JoyStartCyclicPollingMesgQueue, g_JoyStartCyclicPollingMesgBuf, ARRAYCOUNT(g_JoyStartCyclicPollingMesgBuf));
+	osCreateMesgQueue(&g_JoyStartCyclicPollingDoneMesgQueue, g_JoyStartCyclicPollingDoneMesgBuf, ARRAYCOUNT(g_JoyStartCyclicPollingDoneMesgBuf));
+	osCreateMesgQueue(&g_PiMesgQueue, g_PiMesgBuf, ARRAYCOUNT(g_PiMesgBuf));
 
 	osSetEventMesg(OS_EVENT_SI, &g_PiMesgQueue, NULL);
 
@@ -601,7 +601,7 @@ void joyReadData(void)
 	g_JoyData[0].nextsecondlast = (g_JoyData[0].nextlast + 19) % 20;
 }
 
-void joysTick(void)
+void joysHandleRetrace(void)
 {
 	OSMesg msg;
 	s8 i;
@@ -984,7 +984,7 @@ void joyDestroy(void)
 {
 	s32 i;
 
-	osCreateMesgQueue(&g_PiMesgQueue, var80099e90, ARRAYCOUNT(var80099e90));
+	osCreateMesgQueue(&g_PiMesgQueue, g_PiMesgBuf, ARRAYCOUNT(g_PiMesgBuf));
 	osSetEventMesg(OS_EVENT_SI, &g_PiMesgQueue, 0);
 
 	for (i = 0; i < 4; i++) {

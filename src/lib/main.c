@@ -345,7 +345,7 @@ void mainInit(void)
 
 	// Wait a bit, reset the controllers and wait a bit more
 	for (i = 0; i < 4; i++) {
-		osSetTimer(&timer, 781250 * 6, 0, &queue, &msg);
+		osSetTimer(&timer, OS_CPU_COUNTER / 60 * 6, 0, &queue, &msg);
 		osRecvMesg(&queue, &msg, OS_MESG_BLOCK);
 
 		if (i == 1) {
@@ -485,18 +485,18 @@ void mainInit(void)
 		g_RdpOutBufferStart = texture;
 		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
 
-		while (osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0) {
+		while (osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0) {
 			// empty
 		}
 
 		j = 0;
 
 		while (j < 6) {
-			osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_BLOCK);
+			osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_BLOCK);
 
 			i = (s32) &scdonemsg;
 
-			if (*(s16 *) receivedmsg == 1) {
+			if (*(s16 *) receivedmsg == OS_SC_RETRACE_MSG) {
 				viUpdateMode();
 				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (void *) i);
 				j++;
@@ -612,18 +612,18 @@ void mainInit(void)
 		g_RdpOutBufferStart = texture;
 		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
 
-		while (osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0) {
+		while (osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0) {
 			if (i);
 		}
 
 		i = 0;
 
 		while (i < 6) {
-			osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_BLOCK);
+			osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_BLOCK);
 
 			j = (s32) &scdonemsg;
 
-			if (*(s16 *) receivedmsg == 1) {
+			if (*(s16 *) receivedmsg == OS_SC_RETRACE_MSG) {
 				viUpdateMode();
 				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (void *) j);
 				i++;
@@ -919,9 +919,9 @@ glabel mainInit
 /*     dd8c:	0c00273c */ 	jal	viConfigureForCopyright
 /*     dd90:	02202025 */ 	or	$a0,$s1,$zero
 /*     dd94:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferStart)
-/*     dd98:	3c118009 */ 	lui	$s1,%hi(g_SchedMesgQueue)
+/*     dd98:	3c118009 */ 	lui	$s1,%hi(g_MainMesgQueue)
 /*     dd9c:	ac321554 */ 	sw	$s2,%lo(g_RdpOutBufferStart)($at)
-/*     dda0:	26310160 */ 	addiu	$s1,$s1,%lo(g_SchedMesgQueue)
+/*     dda0:	26310160 */ 	addiu	$s1,$s1,%lo(g_MainMesgQueue)
 /*     dda4:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferEnd)
 /*     dda8:	264c0800 */ 	addiu	$t4,$s2,0x800
 /*     ddac:	ac2c1550 */ 	sw	$t4,%lo(g_RdpOutBufferEnd)($at)
@@ -1346,14 +1346,14 @@ void mainLoop(void)
 		frametimeCalculate();
 		profileReset();
 
-		while (osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_NOBLOCK) != -1) {
+		while (osRecvMesg(&g_MainMesgQueue, &msg, OS_MESG_NOBLOCK) != -1) {
 			// empty
 		}
 
 		while (g_MainChangeToStageNum < 0 || g_MainNumGfxTasks != 0) {
 			s32 cycles;
 
-			osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_BLOCK);
+			osRecvMesg(&g_MainMesgQueue, &msg, OS_MESG_BLOCK);
 
 #if VERSION < VERSION_NTSC_1_0
 			bootCheckStackOverflow();

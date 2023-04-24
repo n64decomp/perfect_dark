@@ -1880,7 +1880,7 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 			}
 
 			sp5c = ((s32)((random() >> 24) * magic) >> 10) + magic;
-			f0 = (random() % sp5c) / PALUP(781250.0f);
+			f0 = (random() % sp5c) / PALUP((f32) (OS_CPU_COUNTER / 60));
 
 			newyspeed = casing->speed.y - f0 * 0.2777778f;
 
@@ -1937,7 +1937,7 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 			}
 
 			sp4c = ((s32) ((random() >> 24) * magic) >> 10) + magic;
-			f0 = (random() % sp4c) / PALUP(781250.0f);
+			f0 = (random() % sp4c) / PALUP((f32) (OS_CPU_COUNTER / 60));
 
 			newyspeed = casing->speed.y - f0 * 0.2777778f;
 

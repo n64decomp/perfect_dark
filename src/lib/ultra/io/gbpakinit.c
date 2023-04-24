@@ -4,7 +4,7 @@
 
 OSTimer var80090ab0;
 OSMesgQueue g_GbpakMesgQueue;
-OSMesg var80090ae8;
+OSMesg g_GbpakMesg;
 
 s32 osGbpakInit(OSMesgQueue *queue, OSPfs *pfs, int channel)
 {
@@ -76,17 +76,17 @@ s32 osGbpakInit(OSMesgQueue *queue, OSPfs *pfs, int channel)
 		return ret;
 	}
 
-	osCreateMesgQueue(&g_GbpakMesgQueue, &var80090ae8, 1);
-	osSetTimer(&var80090ab0, 937500, 0, &g_GbpakMesgQueue, &var80090ae8);
+	osCreateMesgQueue(&g_GbpakMesgQueue, &g_GbpakMesg, 1);
+	osSetTimer(&var80090ab0, OS_CPU_COUNTER / 50, 0, &g_GbpakMesgQueue, &g_GbpakMesg);
 	osRecvMesg(&g_GbpakMesgQueue, 0, OS_MESG_BLOCK);
 
 	pfs->queue = queue;
-	pfs->status = 0x10;
+	pfs->status = PFS_GBPAK_INITIALIZED;
 	pfs->channel = channel;
-	pfs->activebank = 0x84;
-	pfs->banks = 0xff;
-	pfs->version = 0xff;
-	pfs->dir_size = 0xff;
+	pfs->activebank = 132;
+	pfs->banks = 255;
+	pfs->version = 255;
+	pfs->dir_size = 255;
 
 	return 0;
 }

@@ -31,7 +31,7 @@ u32 var800915bc;
 u32 var800915c0;
 u32 var800915c4;
 AMAudioMgr g_AudioManager;
-OSScClient var800918d0;
+OSScClient g_AudioSchedClient;
 u32 var800918dc;
 u32 g_AmgrFreqPerTick;
 u32 var800918e4;
@@ -182,9 +182,12 @@ void amgrMain(void *arg)
 	static u32 var8005d514 = 1;
 
 #if PAL
-	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, true);
+	// Receive retrace events every second retrace
+	osScAddClient(&g_Sched, &g_AudioSchedClient, &g_AudioManager.audioFrameMsgQ, true);
 #else
-	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, !IS4MB());
+	// 8MB - Receive retrace events every second retrace
+	// 4MB - Receive retrace events every retrace due to smaller command buffer
+	osScAddClient(&g_Sched, &g_AudioSchedClient, &g_AudioManager.audioFrameMsgQ, !IS4MB());
 #endif
 
 	while (!done) {
@@ -246,7 +249,7 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 	extern u8 aspDataStart;
 
 	if (g_AmgrCurrentCmdList) {
-		schedAppendTasks(&g_Sched, g_AmgrCurrentCmdList);
+		schedSubmitTask(&g_Sched, g_AmgrCurrentCmdList);
 	}
 
 	admaBeginFrame();

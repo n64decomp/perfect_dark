@@ -9,7 +9,7 @@ void viConfigureForCopyright(u16 *fb);
 void viConfigureForLegal(void);
 void viReset(s32 stagenum);
 void viBlack(bool black);
-void vi00009ed4(void);
+void viHandleRetrace(void);
 void viUpdateMode(void);
 void viShake(f32 intensity);
 void viSetMode(s32 mode);

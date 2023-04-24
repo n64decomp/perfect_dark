@@ -24,7 +24,7 @@ void joy00014238(void);
 void joyDebugJoy(void);
 s32 joyStartReadData(OSMesgQueue *mq);
 void joyReadData(void);
-void joysTick(void);
+void joysHandleRetrace(void);
 void joy00014810(bool value);
 s32 joyGetNumSamples(void);
 s32 joyGetStickXOnSample(s32 samplenum, s8 contpadnum);

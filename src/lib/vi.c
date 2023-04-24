@@ -258,7 +258,7 @@ void viBlack(bool black)
 	g_ViUnblackTimer = black;
 }
 
-void vi00009ed4(void)
+void viHandleRetrace(void)
 {
 	s32 prevmask;
 	s32 offset;

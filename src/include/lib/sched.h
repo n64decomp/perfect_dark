@@ -5,7 +5,7 @@
 #include "types.h"
 
 void schedSetCrashEnable2(s32 enable);
-void schedAppendTasks(OSSched *sc, OSScTask *t);
+void schedSubmitTask(OSSched *sc, OSScTask *t);
 void __scHandleRetrace(OSSched *sc);
 void __scHandleRSP(OSSched *sc);
 void __scHandleRDP(OSSched *sc);

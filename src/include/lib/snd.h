@@ -26,7 +26,7 @@ bool snd0000fbc4(s16 arg0);
 bool seqPlay(struct seqinstance *seq, s32 tracknum);
 u16 seqGetVolume(struct seqinstance *seq);
 void seqSetVolume(struct seqinstance *seq, u16 volume);
-void snd0000fe18(void);
+void sndHandleRetrace(void);
 void snd0000fe20(void);
 void snd0000fe50(void);
 void sndTick(void);

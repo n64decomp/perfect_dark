@@ -5,7 +5,7 @@
 #include "types.h"
 
 extern OSThread g_MainThread;
-extern OSMesgQueue g_SchedMesgQueue;
+extern OSMesgQueue g_MainMesgQueue;
 extern OSSched g_Sched;
 extern OSViMode var8008dcc0[2];
 extern OSViMode *var8008dd60[2];
@@ -18,7 +18,7 @@ extern OSPiHandle CartRomHandle;
 extern OSPiHandle LeoDiskHandle;
 extern OSTimer var80090ab0;
 extern OSMesgQueue g_GbpakMesgQueue;
-extern OSMesg var80090ae8;
+extern OSMesg g_GbpakMesg;
 extern u8 g_Is4Mb;
 extern u32 g_VmNumTlbMisses;
 extern u32 g_VmNumPageMisses;

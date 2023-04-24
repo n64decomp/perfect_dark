@@ -83,7 +83,7 @@ typedef struct OSScTask_s {
 typedef struct SCClient_s {
     struct SCClient_s   *next;  /* next client in the list      */
     OSMesgQueue         *msgQ;  /* where to send the frame msg  */
-    s32                 is8mb;
+    s32                 is30fps;
 } OSScClient;
 
 typedef struct {
@@ -106,7 +106,7 @@ typedef struct {
 } OSSched;
 
 void            osCreateScheduler(OSSched *s, OSThread *thread, u8 mode, u32 numFields);
-void            osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ, int is8mb);
+void            osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ, s32 is30fps);
 void            osScRemoveClient(OSSched *s, OSScClient *c);
 OSMesgQueue     *osScGetCmdQ(OSSched *s);
 

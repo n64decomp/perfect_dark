@@ -1679,7 +1679,7 @@ void seqSetVolume(struct seqinstance *seq, u16 volume)
 	}
 }
 
-void snd0000fe18(void)
+void sndHandleRetrace(void)
 {
 	// empty
 }

@@ -34,9 +34,9 @@ s32 osContInit(OSMesgQueue *mq, u8 *bitpattern, OSContStatus *data)
 	__osContInitialized = TRUE;
 	t = osGetTime();
 
-	if (t < 23437500) {
+	if (t < OS_CPU_COUNTER / 2) {
 		osCreateMesgQueue(&timerMesgQueue, &dummy, 1);
-		osSetTimer(&mytimer, 23437500 - t, 0, &timerMesgQueue, &dummy);
+		osSetTimer(&mytimer, OS_CPU_COUNTER / 2 - t, 0, &timerMesgQueue, &dummy);
 		osRecvMesg(&timerMesgQueue, &dummy, OS_MESG_BLOCK);
 	}
 
