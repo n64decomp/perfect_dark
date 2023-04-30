@@ -1555,11 +1555,11 @@ void modelSetMatrices(struct modelrenderdata *renderdata, struct model *model)
 	renderdata->unk10 += model->definition->nummatrices;
 
 #if VERSION >= VERSION_PAL_BETA
-	if (var8005efb0_2 || !model00018680(renderdata, model)) {
+	if (var8005efb0_2 || !modelasm00018680(renderdata, model)) {
 		modelUpdateMatrices(renderdata, model);
 	}
 #else
-	if (!model00018680(renderdata, model)) {
+	if (!modelasm00018680(renderdata, model)) {
 		modelUpdateMatrices(renderdata, model);
 	}
 #endif

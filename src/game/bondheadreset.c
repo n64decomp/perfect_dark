@@ -97,7 +97,7 @@ void bheadReset(void)
 		struct modelrenderdata renderdata = {NULL, 1, 3};
 		Mtxf sp48;
 
-		modelSetAnimation(&g_Vars.currentplayer->model, 1, 0, 0, 0.5f, 0);
+		modelSetAnimation(&g_Vars.currentplayer->model, ANIM_TWO_GUN_HOLD, 0, 0, 0.5f, 0);
 
 		modelUpdateInfo(&g_Vars.currentplayer->model);
 		mtx4LoadIdentity(&sp48);
