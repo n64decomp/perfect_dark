@@ -13,6 +13,7 @@ void profile00009a98(void);
 void profileStart(s32 arg0);
 void profileEnd(s32 arg0);
 void profileHandleRspEvent(s32 event);
+void profileGetCounters(u32 counters[5]);
 #endif
 
 Gfx *profileRender(Gfx *gdl);

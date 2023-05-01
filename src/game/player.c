@@ -1847,7 +1847,7 @@ void playerTickCutscene(bool arg0)
 		g_CutsceneCurTotalFrame60f += g_Vars.lvupdate60freal;
 	}
 
-	if (g_CutsceneCurTotalFrame60f > 30 && (buttons & 0xffff)) {
+	if (g_CutsceneCurTotalFrame60f > 30 && (buttons & ~L_TRIG)) {
 		g_CutsceneSkipRequested = true;
 
 		if (g_Vars.autocutplaying) {

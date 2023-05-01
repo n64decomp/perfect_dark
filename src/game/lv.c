@@ -859,8 +859,60 @@ Gfx *lvPrintRateGraph(Gfx *gdl)
 	return gdl;
 }
 
-u32 g_LvBefore = 0;
-u32 g_LvAfter = 0;
+Gfx *lvPrintCounter(Gfx *gdl, s32 *y, char *label, u32 cycles, u32 cycles_per_second)
+{
+	char buffer[32];
+	s32 x = 10;
+	u32 colour;
+	u32 percentage;
+	u32 microseconds;
+	s32 textwidth;
+	s32 textheight;
+	u32 target;
+
+	// 100% means 30 FPS
+	// 50% means 60 FPS
+	target = cycles_per_second / 30;
+	percentage = 100 * cycles / target;
+
+	microseconds = (f32) cycles / cycles_per_second * 1000000;
+
+	// Colour green if this counter can achieve 60 FPS
+	// Colour yellow if this counter can achieve 30 FPS
+	// Colour red if under 30 FPS
+	if (percentage <= 50) {
+		colour = 0x00ff00a0; // green
+	} else if (percentage <= 100) {
+		colour = 0xffff00a0; // yellow
+	} else {
+		colour = 0xff0000a0; // red
+	}
+
+	// Label
+	x = 10;
+	gdl = textRender(gdl, &x, y, label, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+	// Microseconds
+	sprintf(buffer, "%d", microseconds);
+	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+	x = 80 - textwidth;
+	gdl = textRender(gdl, &x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+	// Percentage
+	sprintf(buffer, "(%d%%)\n", percentage);
+	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+	x = 120 - textwidth;
+	gdl = textRender(gdl, &x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+	// Line
+	gdl = textSetPrimColour(gdl, colour);
+
+	gDPFillRectangleScaled(gdl++, 10, *y, 11 + microseconds * 110 / 33333, *y + 1);
+
+	*y += 2;
+
+	return gdl;
+}
 
 Gfx *lvPrintRateText(Gfx *gdl)
 {
@@ -907,8 +959,23 @@ Gfx *lvPrintRateText(Gfx *gdl)
 			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 		}
 
+#ifdef PROFILING
+		{
+			u32 counters[5];
+
+			profileGetCounters(counters);
+
+			gdl = lvPrintCounter(gdl, &y, "RSP", counters[0], OS_CLOCK_RATE);
+			gdl = lvPrintCounter(gdl, &y, "RDP", counters[1], OS_CLOCK_RATE);
+			gdl = lvPrintCounter(gdl, &y, "CPU", counters[2] + counters[3] + counters[4], OS_CPU_COUNTER);
+			gdl = lvPrintCounter(gdl, &y, " audio", counters[2], OS_CPU_COUNTER);
+			gdl = lvPrintCounter(gdl, &y, " main", counters[3], OS_CPU_COUNTER);
+			gdl = lvPrintCounter(gdl, &y, " sched", counters[4], OS_CPU_COUNTER);
+		}
+#endif
+
 		x = 10;
-		sprintf(buffer, "mema free %d KB\n", memaGetLongestFree() / 1024);
+		sprintf(buffer, "\nmema free %d KB\n", memaGetLongestFree() / 1024);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 
 		sprintf(buffer, "memp free %d KB\n", mempGetStageFree() / 1024);

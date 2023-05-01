@@ -164,7 +164,7 @@ void __scMain(void *arg)
 		switch ((int) msg) {
 		case VIDEO_MSG:
 			if (osViGetCurrentFramebuffer() == osViGetNextFramebuffer()) {
-				osDpSetStatus(DPC_STATUS_FLUSH);
+				osDpSetStatus(DPC_CLR_FREEZE);
 			}
 
 			__scHandleRetrace(sc);
@@ -174,7 +174,7 @@ void __scMain(void *arg)
 			__scHandleRSP(sc);
 			break;
 		case RDP_DONE_MSG:
-			osDpSetStatus(DPC_STATUS_START_GCLK);
+			osDpSetStatus(DPC_SET_FREEZE);
 			__scHandleRDP(sc);
 			__scHandleTasks(sc);
 			break;
@@ -309,8 +309,6 @@ void __scHandleRSP(OSSched *sc)
 			t->state |= OS_SC_YIELDED;
 
 			if ((t->flags & OS_SC_TYPE_MASK) == OS_SC_XBUS) {
-				profileHandleRspEvent(RSPEVENT_GFX_PAUSE);
-
 				// Push the task back on the list
 				t->next = sc->gfxListHead;
 				sc->gfxListHead = t;
@@ -489,13 +487,13 @@ OSScTask *__scTaskReady(OSScTask *t)
  */
 s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 {
-	if (t->list.t.type == M_AUDTASK) {
-		profileHandleRspEvent(RSPEVENT_AUD_FINISH);
-	} else {
-		profileHandleRspEvent(RSPEVENT_GFX_FINISH);
-	}
-
 	if ((t->state & OS_SC_RCP_MASK) == 0) {
+		if (t->list.t.type == M_AUDTASK) {
+			profileHandleRspEvent(RSPEVENT_AUD_FINISH);
+		} else {
+			profileHandleRspEvent(RSPEVENT_GFX_FINISH);
+		}
+
 		if (t->list.t.type == 1
 				&& (t->flags & OS_SC_SWAPBUFFER)
 				&& (t->flags & OS_SC_LAST_TASK)) {
@@ -582,24 +580,13 @@ void __scAppendList(OSSched *sc, OSScTask *t)
 void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp, s32 resuming)
 {
 	if (sp) {
-		if (sp->list.t.type == M_AUDTASK) {
-			osWritebackDCacheAll();
-		}
-
-		if (sp->list.t.type != M_AUDTASK && (sp->state & OS_SC_YIELD) == 0) {
-			osDpSetStatus(DPC_STATUS_CMD_BUSY | DPC_STATUS_CBUF_READY | DPC_STATUS_DMA_BUSY | DPC_STATUS_END_VALID);
-		}
-
-		if (resuming) {
-			if (sp->list.t.type != M_AUDTASK) {
-				profileHandleRspEvent(RSPEVENT_GFX_RESUME);
-			}
-		} else {
-			if (sp->list.t.type == M_AUDTASK) {
-				profileHandleRspEvent(RSPEVENT_AUD_START);
-			} else {
+		if (sp->list.t.type == M_GFXTASK) {
+			if ((sp->state & OS_SC_YIELD) == 0) {
 				profileHandleRspEvent(RSPEVENT_GFX_START);
 			}
+		} else {
+			osWritebackDCacheAll();
+			profileHandleRspEvent(RSPEVENT_AUD_START);
 		}
 
 		sp->state &= ~(OS_SC_YIELD | OS_SC_YIELDED);

@@ -78,6 +78,8 @@ typedef struct OSThread_s {
 	OSId			id;		/* id for debugging */
 	int			fp;		/* thread has used fp unit */
 	__OSThreadContext	context;	/* register/interrupt mask */
+	u32 cycles_saved;
+	u32 cycles_at_dispatch;
 } OSThread;
 
 

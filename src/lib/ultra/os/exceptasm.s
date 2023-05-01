@@ -645,7 +645,25 @@ glabel __osDispatchThread
 	jal   __osPopThread
 	addiu $a0, $a0, %lo(__osRunQueue)
 	lui   $at, %hi(__osRunningThread)
-	sw    $v0, %lo(__osRunningThread)($at)
+	lw    $v1, %lo(__osRunningThread)($at) # v1 = yielding thread
+	sw    $v0, %lo(__osRunningThread)($at) # v0 = dispatching thread
+
+	# Read the current CPU cycle counter
+	mfc0  $t0, C0_COUNT
+
+	# In the dispatching thread, set cycles_at_dispatch = COUNT
+	sw    $t0, 0x234($v0)
+
+	# In the yielding thread, set cycles_saved += (COUNT - cycles_at_dispatch)
+	beqz  $v1, .Ldispatch
+	nop
+	lw    $t1, 0x234($v1) # t1 = cycles_at_dispatch
+	subu  $t0, $t0, $t1 # t0 = COUNT - cycles_at_dispatch
+	lw    $t1, 0x230($v1) # t1 = cycles_saved
+	addu  $t1, $t1, $t0 # cycles_saved += COUNT - cycles_at_dispatch
+	sw    $t0, 0x230($v1)
+
+.Ldispatch:
 	addiu $t0, $zero, 0x4
 	sh    $t0, 0x10($v0)
 	move  $k0, $v0

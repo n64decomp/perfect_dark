@@ -13,10 +13,11 @@
 // [x][x][1] is the start time
 u32 g_ProfileMarkers[NUM_SAMPLES][NUM_PROFILEMARKERS][2];
 s32 g_ProfileIndex = 0;
-u32 g_ProfileAudStart = 0;
-u32 g_ProfileAudTicks[NUM_SAMPLES];
-u32 g_ProfileGfxTicks[NUM_SAMPLES];
-u32 g_ProfileGfxTally;
+u32 g_ProfileAudStart;
+u32 g_ProfileAudCycles;
+u32 g_ProfileGfxCycles;
+u32 g_ProfileGfxHistory[30];
+u32 g_ProfileGfxIndex = 0;
 struct profileslot *g_ProfileCurrentSlot;
 
 struct profileslot {
@@ -135,6 +136,43 @@ u32 profileReadCounters(void)
 	return max;
 }
 
+extern OSThread g_SchedThread;
+
+void profileGetCounters(u32 counters[5])
+{
+	s32 i;
+	u32 max = 0;
+
+	OSPri prevpri = osGetThreadPri(0);
+	osSetThreadPri(0, THREADPRI_SCHED + 1);
+
+	// RSP
+	counters[0] = g_ProfileAudCycles;
+
+	// RDP
+	for (i = 0; i < ARRAYCOUNT(g_ProfileGfxHistory); i++) {
+		if (g_ProfileGfxHistory[i] > max) {
+			max = g_ProfileGfxHistory[i];
+		}
+	}
+
+	counters[1] = g_ProfileGfxCycles;
+
+	// Audio thread
+	counters[2] = g_AudioManager.thread.cycles_saved;
+	g_AudioManager.thread.cycles_saved = 0;
+
+	// Main thread
+	counters[3] = g_MainThread.cycles_saved + (osGetCount() - g_MainThread.cycles_at_dispatch);
+	g_MainThread.cycles_saved = 0;
+
+	// Scheduler thread
+	counters[4] = g_SchedThread.cycles_saved;
+	g_SchedThread.cycles_saved = 0;
+
+	osSetThreadPri(0, prevpri);
+}
+
 void profileHandleRspEvent(s32 event)
 {
 	switch (event) {
@@ -142,19 +180,15 @@ void profileHandleRspEvent(s32 event)
 		g_ProfileAudStart = osGetCount();
 		break;
 	case RSPEVENT_AUD_FINISH:
-		g_ProfileMarkers[g_ProfileIndex][PROFILEMARKER_AUD][0] += osGetCount() - g_ProfileAudStart;
+		g_ProfileAudCycles = osGetCount() - g_ProfileAudStart;
 		break;
 	case RSPEVENT_GFX_START:
 		osDpSetStatus(DPC_CLR_CMD_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_TMEM_CTR);
 		break;
-	case RSPEVENT_GFX_PAUSE:
-		g_ProfileGfxTally += profileReadCounters();
-		break;
-	case RSPEVENT_GFX_RESUME:
-		osDpSetStatus(DPC_CLR_CMD_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_TMEM_CTR);
-		break;
 	case RSPEVENT_GFX_FINISH:
-		g_ProfileGfxTicks[g_ProfileIndex] = g_ProfileGfxTally + profileReadCounters();
+		g_ProfileGfxCycles = profileReadCounters();
+		g_ProfileGfxHistory[g_ProfileGfxIndex] = g_ProfileGfxCycles;
+		g_ProfileGfxIndex = (g_ProfileGfxIndex + 1) % ARRAYCOUNT(g_ProfileGfxHistory);
 		break;
 	}
 }
@@ -260,8 +294,6 @@ Gfx *profileRender(Gfx *gdl)
 		s32 y = 10;
 
 		gdl = text0f153628(gdl);
-		gdl = profileRenderCpuLine(gdl, x, &y, "AUD", PROFILEMARKER_AUD);
-		gdl = profileRenderRdpLine(gdl, x, &y, "GFX", g_ProfileGfxTicks);
 		gdl = profileRenderCpuLine(gdl, x, &y, "CPU", PROFILEMARKER_CPU);
 		gdl = profileRenderCpuLine(gdl, x, &y, " audio", PROFILEMARKER_AUDIO);
 		gdl = profileRenderCpuLine(gdl, x, &y, " lvTick", PROFILEMARKER_LVTICK);
@@ -321,8 +353,6 @@ Gfx *profileRender(Gfx *gdl)
 		gdl = profileRenderCpuLine(gdl, x, &y, "tmp", PROFILEMARKER_TMP);
 		gdl = text0f153780(gdl);
 	}
-
-	g_ProfileGfxTally = 0;
 
 	return gdl;
 }
