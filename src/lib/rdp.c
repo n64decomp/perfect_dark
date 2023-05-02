@@ -100,7 +100,7 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 	sctask->framebuffer = g_RdpCurTask->framebuffer;
 
 	osWritebackDCacheAll();
-	schedAppendTasks(&g_Sched, sctask);
+	schedSubmitGfxTask(&g_Sched, sctask);
 
 	// Swap g_RdpCurTask
 	g_RdpCurTask = (struct rdptask *)((u32)g_RdpCurTask ^ (u32) &g_RdpTaskA ^ (u32) &g_RdpTaskB);

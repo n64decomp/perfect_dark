@@ -20,9 +20,7 @@ OSThread g_MainThread;
 OSThread g_SchedThread;
 OSMesgQueue g_SchedMesgQueue;
 OSMesg var8008db48[32];
-OSMesgQueue *g_SchedCmdQ;
 u32 var8008dbcc;
-OSSched g_Sched;
 OSScClient var8008dca8;
 u32 g_OsMemSize;
 
@@ -35,6 +33,8 @@ u8 *g_StackRightAddrs[7] = {0};
 u8 *g_StackAllocatedPos = (u8 *) K0BASE + 4 * 1024 * 1024;
 u32 var8005ce4c = 0x00000002;
 u32 var8005ce50 = 0x10000000;
+
+extern OSSched g_Sched;
 
 extern u8 *_libSegmentStart;
 extern u8 *_datazipSegmentRomStart;
@@ -204,7 +204,6 @@ void bootCreateSchedThread(void)
 	}
 
 	osScAddClient(&g_Sched, &var8008dca8, &g_SchedMesgQueue, 0);
-	g_SchedCmdQ = osScGetCmdQ(&g_Sched);
 }
 
 void bootPhase2(void *arg)

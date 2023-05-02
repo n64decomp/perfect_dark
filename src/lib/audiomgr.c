@@ -218,7 +218,7 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 	extern u8 aspDataStart;
 
 	if (g_AmgrCurrentCmdList) {
-		schedAppendTasks(&g_Sched, g_AmgrCurrentCmdList);
+		schedSubmitAudTask(&g_Sched, g_AmgrCurrentCmdList);
 	}
 
 	admaBeginFrame();

@@ -519,6 +519,7 @@ else ifeq ($(COMPILER), gcc)
         -Wno-address \
         -Wno-aggressive-loop-optimizations \
         -Wno-array-bounds \
+        -Wno-comment \
         -Wno-int-in-bool-context \
         -Wno-int-to-pointer-cast \
         -Wno-maybe-uninitialized \

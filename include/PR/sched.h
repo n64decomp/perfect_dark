@@ -91,18 +91,15 @@ typedef struct {
     OSScMsg     prenmiMsg;
     OSMesgQueue interruptQ;
     OSMesg      intBuf[OS_SC_MAX_MESGS];
-    OSMesgQueue cmdQ;
-    OSMesg      cmdMsgBuf[OS_SC_MAX_MESGS];
     OSThread    *thread;
-    OSScClient  *clientList;
-    OSScTask    *audioListHead;
-    OSScTask    *gfxListHead;
-    OSScTask    *audioListTail;
-    OSScTask    *gfxListTail;
+    OSScTask    *nextAudTask;
+    OSScTask    *nextGfxTask;
+    OSScTask    *nextGfxTask2;
     OSScTask    *curRSPTask;
     OSScTask    *curRDPTask;
-    u32         frameCount;
-    s32         doAudio;
+    u32         alt;
+    OSMesgQueue *audmq;
+    OSMesgQueue *gfxmq;
 } OSSched;
 
 void            osCreateScheduler(OSSched *s, OSThread *thread, u8 mode, u32 numFields);
