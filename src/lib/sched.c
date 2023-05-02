@@ -149,7 +149,6 @@ static void __scTaskComplete(OSSched *sc, OSScTask *t)
 		}
 
 		osSendMesg(t->msgQ, t->msg, OS_MESG_BLOCK);
-		osSendMesg(sc->gfxmq, (OSMesg) &sc->retraceMsg, OS_MESG_BLOCK);
 	}
 }
 

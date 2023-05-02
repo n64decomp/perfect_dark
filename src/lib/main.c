@@ -74,7 +74,6 @@ u32 g_MainMemaHeapSize = 1024 * 300;
 bool var8005d9bc = false;
 s32 var8005d9c0 = 0;
 s32 var8005d9c4 = 0;
-bool g_MainGameLogicEnabled = true;
 u32 g_MainNumGfxTasks = 0;
 bool g_MainIsEndscreen = false;
 s32 g_DoBootPakMenu = 0;
@@ -436,7 +435,6 @@ void mainLoop(void)
 	// Outer loop - this is infinite because ending is never changed
 	while (!ending) {
 		g_MainNumGfxTasks = 0;
-		g_MainGameLogicEnabled = true;
 		msg = NULL;
 		g_MainIsEndscreen = false;
 
@@ -562,18 +560,15 @@ void mainLoop(void)
 		}
 
 		while (g_MainChangeToStageNum < 0 || g_MainNumGfxTasks != 0) {
-			s32 cycles;
+			while (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
+				if (osGetCount() - g_Vars.thisframestartt >= CYCLES_PER_FRAME / 2) {
+					mainTick();
+				}
+			}
 
 			osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_BLOCK);
 
-			switch (*(s16 *) msg) {
-			case OS_SC_RETRACE_MSG:
-				cycles = osGetCount() - g_Vars.thisframestartt;
-
-				if (cycles >= g_Vars.mininc60 * CYCLES_PER_FRAME - CYCLES_PER_FRAME / 2) {
-					mainTick();
-				}
-				break;
+			switch ((s32) msg) {
 			case OS_SC_DONE_MSG:
 				g_MainNumGfxTasks--;
 				break;
@@ -604,69 +599,62 @@ void mainTick(void)
 {
 	Gfx *gdl;
 	Gfx *gdlstart;
-	OSScMsg msg = {OS_SC_DONE_MSG};
 	s32 i;
 
-	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
-		frametimeCalculate();
+	frametimeCalculate();
 #if PROFILING
-		profileReset();
+	profileReset();
 #endif
-		joyDebugJoy();
+	joyDebugJoy();
 
-		if (g_MainGameLogicEnabled) {
-			profileStart(PROFILEMARKER_CPU);
-			gdl = gdlstart = gfxGetMasterDisplayList();
+	profileStart(PROFILEMARKER_CPU);
+	gdl = gdlstart = gfxGetMasterDisplayList();
 
-			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-			PROFILE(PROFILEMARKER_LVTICK, lvTick());
+	PROFILE(PROFILEMARKER_LVTICK, lvTick());
 
-			profileStart(PROFILEMARKER_LVTICKPLAYERS);
-			playermgrShuffle();
+	profileStart(PROFILEMARKER_LVTICKPLAYERS);
+	playermgrShuffle();
 
-			if (g_StageNum < STAGE_TITLE) {
-				for (i = 0; i < PLAYERCOUNT(); i++) {
-					setCurrentPlayerNum(playermgrGetPlayerAtOrder(i));
+	if (g_StageNum < STAGE_TITLE) {
+		for (i = 0; i < PLAYERCOUNT(); i++) {
+			setCurrentPlayerNum(playermgrGetPlayerAtOrder(i));
 
-					viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
-					viSetFovAspectAndSize(
-							g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
-							g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
+			viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
+			viSetFovAspectAndSize(
+					g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
+					g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 
-					lvTickPlayer();
-				}
-			}
-
-			profileEnd(PROFILEMARKER_LVTICKPLAYERS);
-
-			PROFILE(PROFILEMARKER_LVRENDER, gdl = lvRender(gdl));
-
-			profileEnd(PROFILEMARKER_CPU);
-
-#if PROFILING
-			if (g_LvShowStats) {
-				if (g_LvStatsPage == 1) {
-					gdl = profileRender(gdl);
-				} else if (g_LvStatsPage == 2) {
-					gdl = profileRenderDynamic(gdl);
-				}
-			}
-#endif
-
-			gDPFullSync(gdl++);
-			gSPEndDisplayList(gdl++);
+			lvTickPlayer();
 		}
-
-		if (g_MainGameLogicEnabled) {
-			gfxSwapBuffers();
-			viUpdateMode();
-		}
-
-		rdpCreateTask(gdlstart, gdl, 0, &msg);
-		g_MainNumGfxTasks++;
 	}
+
+	profileEnd(PROFILEMARKER_LVTICKPLAYERS);
+
+	PROFILE(PROFILEMARKER_LVRENDER, gdl = lvRender(gdl));
+
+	profileEnd(PROFILEMARKER_CPU);
+
+#if PROFILING
+	if (g_LvShowStats) {
+		if (g_LvStatsPage == 1) {
+			gdl = profileRender(gdl);
+		} else if (g_LvStatsPage == 2) {
+			gdl = profileRenderDynamic(gdl);
+		}
+	}
+#endif
+
+	gDPFullSync(gdl++);
+	gSPEndDisplayList(gdl++);
+
+	gfxSwapBuffers();
+	viUpdateMode();
+
+	rdpCreateTask(gdlstart, gdl, 0, (void *) OS_SC_DONE_MSG);
+	g_MainNumGfxTasks++;
 }
 
 void mainEndStage(void)
