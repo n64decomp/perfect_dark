@@ -39,6 +39,7 @@
 #define SECSTOTIME240(secs) (secs * 240)
 #define SECSTOTIME60(secs)  (secs * 60)
 #define PFS(device)         (device == SAVEDEVICE_GAMEPAK ? NULL : &g_Pfses[device])
+#define FRAMEBUFFER_SIZE    (320 * 220 * sizeof(u16))
 
 #define VALIDWEAPON()       (g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED && g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST)
 #define FUNCISSEC()         (VALIDWEAPON() && (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->gunctrl.weaponnum - 1) & 7))))
@@ -3927,6 +3928,7 @@ enum rspevent {
 #define STACKSIZE_RESET 0x100
 
 #define STACK_START (0x80400000 \
+		- FRAMEBUFFER_SIZE \
 		- STACKSIZE_MAIN \
 		- STACKSIZE_IDLE \
 		- STACKSIZE_RMON \

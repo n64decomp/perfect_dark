@@ -171,18 +171,21 @@ void viReset(s32 stagenum)
 	if (stagenum == STAGE_TITLE) {
 		viSetMode(VIMODE_HI);
 		fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * 2;
+
+		ptr = mempAlloc(fbsize * 3 + 0x40, MEMPOOL_STAGE);
+		ptr = (u8 *)(((u32)ptr + 0x3f) & 0xffffffc0);
+
+		g_FrameBuffers[0] = (u16 *) ptr;
+		g_FrameBuffers[1] = (u16 *) (ptr + fbsize);
+		g_FrameBuffers[2] = (u16 *) (ptr + fbsize * 2);
 	} else {
 		viSetMode(VIMODE_LO);
-		fbsize = 320 * 220 * 2;
+		fbsize = FRAMEBUFFER_SIZE;
+
+		g_FrameBuffers[0] = (void *) (0x80400000 - fbsize);
+		g_FrameBuffers[1] = (void *) (0x80400000);
+		g_FrameBuffers[2] = (void *) (0x80800000 - fbsize);
 	}
-
-	ptr = mempAlloc(fbsize * 3 + 0x40, MEMPOOL_STAGE);
-
-	ptr = (u8 *)(((u32)ptr + 0x3f) & 0xffffffc0);
-
-	g_FrameBuffers[0] = (u16 *) ptr;
-	g_FrameBuffers[1] = (u16 *) (ptr + fbsize);
-	g_FrameBuffers[2] = (u16 *) (ptr + fbsize * 2);
 
 	g_ViFrontData->fb = g_FrameBuffers[g_ViFrontIndex];
 	g_ViBackData->fb = g_FrameBuffers[g_ViBackIndex];
