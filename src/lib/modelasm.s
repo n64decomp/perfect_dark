@@ -785,7 +785,7 @@ glabel model00018680
 	lwc1   $f0, 0x38($t0)
 	lw     $t2, 0x284($t2)
 	neg.s  $f0, $f0
-	lwc1   $f1, 0x1774($t2)
+	lwc1   $f1, 0x1784($t2)
 	mul.s  $f0, $f0, $f1
 	lui    $t0, %hi(g_ModelDistanceScale)
 	addiu  $t0, $t0, %lo(g_ModelDistanceScale)

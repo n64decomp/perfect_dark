@@ -2515,7 +2515,7 @@ struct player {
 	/*0x0494*/ union modelrwdata *bondheadsave[30];
 	/*0x050c*/ u32 unk050c;
 	/*0x0510*/ Mtxf bondheadmatrices[4];
-	/*0x0610*/ Vp viewport[2];
+	/*0x0610*/ Vp viewport[3];
 	/*0x0630*/ s16 viewwidth;  // 320 lo-res, 640 hi-res
 	/*0x0632*/ s16 viewheight; // 220 regardless of res
 	/*0x0634*/ s16 viewleft;   // 0

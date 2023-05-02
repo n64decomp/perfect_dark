@@ -100,6 +100,8 @@ typedef struct {
     u32         alt;
     OSMesgQueue *audmq;
     OSMesgQueue *gfxmq;
+    void        *scheduledFB;
+    void        *queuedFB;
 } OSSched;
 
 void            osCreateScheduler(OSSched *s, OSThread *thread, u8 mode, u32 numFields);

@@ -15,7 +15,7 @@ glabel func0f165360
 	lui    $a3, %hi(g_Vars)
 	addiu  $a3, $a3, %lo(g_Vars)
 	lw     $a3, 0x284($a3)
-	lw     $a3, 0x1740($a3)
+	lw     $a3, 0x1750($a3)
 	lui    $t0, %hi(var800a4cf0)
 	addiu  $t0, $t0, %lo(var800a4cf0)
 	lui    $at, %hi(var7f1b76d0)

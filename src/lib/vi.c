@@ -26,10 +26,22 @@ Mtx *var80092870;
 u16 g_ViPerspScale;
 u8 g_ViFrontIndex;
 u8 g_ViBackIndex;
-u16 *g_FrameBuffers[2];
+u16 *g_FrameBuffers[3];
 
 struct rend_vidat g_ViDataArray[] = {
 	{
+		0, 0, 0, 0,
+		320, 220,         // x and y
+		60,               // fovy
+		1.4545454978943f, // aspect
+		30,               // znear
+		10000,            // zfar
+		320, 220,         // bufx and bufy
+		320, 220,         // viewx and viewy
+		0, 0,             // viewleft and viewtop
+		true,             // usezbuf
+		0,
+	}, {
 		0, 0, 0, 0,
 		320, 220,         // x and y
 		60,               // fovy
@@ -60,7 +72,6 @@ s32 var8005d588 = 0;
 s32 var8005d58c = 0;
 struct rend_vidat *g_ViFrontData = &g_ViDataArray[0];
 struct rend_vidat *g_ViBackData = &g_ViDataArray[0];
-bool g_ViIs16Bit = true;
 bool g_ViReconfigured = false;
 s32 g_ViSlot = 0;
 
@@ -87,7 +98,7 @@ void viConfigureForCopyright(u16 *texturedata)
 {
 	s32 i;
 
-	for (i = 0; i < 2; i++) {
+	for (i = 0; i < 3; i++) {
 		g_FrameBuffers[i] = texturedata;
 
 		g_ViDataArray[i].x = 576;
@@ -115,7 +126,7 @@ void viConfigureForLegal(void)
 {
 	s32 i;
 
-	for (i = 0; i < 2; i++) {
+	for (i = 0; i < 3; i++) {
 		g_ViDataArray[i].x = 320;
 		g_ViDataArray[i].bufx = 320;
 		g_ViDataArray[i].viewx = 320;
@@ -155,6 +166,7 @@ void viReset(s32 stagenum)
 	u8 *ptr;
 	u8 *fb0;
 	u8 *fb1;
+	u8 *fb2;
 
 	if (stagenum == STAGE_TITLE) {
 		viSetMode(VIMODE_HI);
@@ -164,22 +176,25 @@ void viReset(s32 stagenum)
 		fbsize = 320 * 220 * 2;
 	}
 
-	ptr = mempAlloc(fbsize * 2 + 0x40, MEMPOOL_STAGE);
+	ptr = mempAlloc(fbsize * 3 + 0x40, MEMPOOL_STAGE);
 
 	ptr = (u8 *)(((u32)ptr + 0x3f) & 0xffffffc0);
 
 	g_FrameBuffers[0] = (u16 *) ptr;
-	g_FrameBuffers[1] = (u16 *) (fbsize + ptr);
+	g_FrameBuffers[1] = (u16 *) (ptr + fbsize);
+	g_FrameBuffers[2] = (u16 *) (ptr + fbsize * 2);
 
 	g_ViFrontData->fb = g_FrameBuffers[g_ViFrontIndex];
 	g_ViBackData->fb = g_FrameBuffers[g_ViBackIndex];
 
 	fb0 = (u8 *) g_FrameBuffers[0];
 	fb1 = (u8 *) g_FrameBuffers[1];
+	fb2 = (u8 *) g_FrameBuffers[2];
 
 	for (i = 0; i < fbsize; i++) {
 		fb0[i] = 0;
 		fb1[i] = 0;
+		fb2[i] = 0;
 	}
 
 	g_ViReconfigured = true;
@@ -360,12 +375,12 @@ void viUpdateMode(void)
 	// 908
 	g_ViSlot = (g_ViSlot + 1) % 2;
 
-	g_RdpCurTask->framebuffer = g_ViIs16Bit ? g_ViBackData->fb : g_FrameBuffers[0];
+	g_RdpCurTask->framebuffer = g_ViBackData->fb;
 
 	prevdata = g_ViBackData;
 
-	g_ViFrontIndex = (g_ViFrontIndex + 1) % 2;
-	g_ViBackIndex = (g_ViBackIndex + 1) % 2;
+	g_ViFrontIndex = (g_ViFrontIndex + 1) % 3;
+	g_ViBackIndex = (g_ViBackIndex + 1) % 3;
 
 	g_ViFrontData = g_ViDataArray + g_ViFrontIndex;
 	g_ViBackData = g_ViDataArray + g_ViBackIndex;
@@ -544,11 +559,7 @@ Gfx *vi0000b1d0(Gfx *gdl)
 {
 	gdl = vi0000b1a8(gdl);
 
-	if (g_ViIs16Bit) {
-		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViBackData->bufx, OS_K0_TO_PHYSICAL(g_ViBackData->fb));
-	} else {
-		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_32b, g_ViBackData->bufx, OS_K0_TO_PHYSICAL(g_FrameBuffers[0]));
-	}
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViBackData->bufx, OS_K0_TO_PHYSICAL(g_ViBackData->fb));
 
 	return gdl;
 }
@@ -784,11 +795,7 @@ void viGetZRange(struct zrange *zrange)
 
 Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b)
 {
-	if (g_ViIs16Bit) {
-		gDPSetFillColor(gdl++, (GPACK_RGBA5551(r, g, b, 1) << 16) | GPACK_RGBA5551(r, g, b, 1));
-	} else {
-		gDPSetFillColor(gdl++, r << 24 | g << 16 | b << 8 | 0xff);
-	}
+	gDPSetFillColor(gdl++, (GPACK_RGBA5551(r, g, b, 1) << 16) | GPACK_RGBA5551(r, g, b, 1));
 
 	return gdl;
 }

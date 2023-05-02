@@ -62,7 +62,7 @@ s32 g_MenuScissorX1;
 s32 g_MenuScissorX2;
 s32 g_MenuScissorY1;
 s32 g_MenuScissorY2;
-Vp var800a2048[4][2];
+Vp var800a2048[4][3];
 
 struct menudialogdef g_PakCannotReadGameBoyMenuDialog;
 struct menudialogdef g_PakDamagedMenuDialog;
