@@ -42,14 +42,14 @@
 .elseif VERSION == VERSION_PAL_FINAL
 .ascii "NPDP"
 .else
-.ascii "NPDE"
+.ascii "NEDE"
 .endif
 
 # ROM version byte
 .if VERSION == VERSION_NTSC_BETA
 	.byte 0x01
 .elseif VERSION == VERSION_NTSC_FINAL
-	.byte 0x01
+	.byte 0x20
 .else
 	.byte 0x00
 .endif
