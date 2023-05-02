@@ -95,7 +95,6 @@ void playerAdjustFade(f32 maxfadetime, s32 r, s32 g, s32 b, f32 frac);
 void playerSetFadeFrac(f32 maxfadetime, f32 frac);
 bool playerIsFadeComplete(void);
 void playerStartChrFade(f32 duration60, f32 targetfrac);
-void playerSetHiResEnabled(bool enable);
 void playerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8 dist);
 void playerLaunchSlayerRocket(struct weaponobj *rocket);
 void playerSetGlobalDrawWorldOffset(s32 room);

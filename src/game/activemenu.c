@@ -804,7 +804,7 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		*y = (*y * 3) / 5;
 	}
 
-	*x += viGetViewLeft() / g_ScaleX + viGetViewWidth() / (g_ScaleX * 2);
+	*x += viGetViewLeft() + viGetViewWidth() / 2;
 	*y += viGetViewTop() + viGetViewHeight() / 2;
 
 	if ((playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || playercount >= 3) {
@@ -874,8 +874,8 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 		textMeasure(&textheight, &textwidth, aibotname, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft() / g_ScaleX
-			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
+		x = viGetViewLeft()
+			+ (s32)(viGetViewWidth() * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
@@ -886,7 +886,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		}
 
 		if (wide) {
-			x = viGetViewLeft() / g_ScaleX + 32;
+			x = viGetViewLeft() + 32;
 		}
 
 		gdl = textRender(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
@@ -895,13 +895,13 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
 		textMeasure(&textheight, &textwidth, weaponname, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft() / g_ScaleX
-			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
+		x = viGetViewLeft()
+			+ (s32)(viGetViewWidth() * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
 		if (wide) {
-			x = viGetViewLeft() / g_ScaleX + 32;
+			x = viGetViewLeft() + 32;
 		}
 
 		gdl = textRender(gdl, &x, &y, weaponname, g_AmFont1, g_AmFont2, -1,
@@ -913,8 +913,8 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 		textMeasure(&textheight, &textwidth, title, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft() / g_ScaleX
-			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
+		x = viGetViewLeft()
+			+ (s32)(viGetViewWidth() * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
@@ -925,7 +925,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		}
 
 		if (wide) {
-			x = viGetViewLeft() / g_ScaleX + 32;
+			x = viGetViewLeft() + 32;
 		}
 
 		gdl = textRender(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
@@ -1078,8 +1078,6 @@ Gfx *amRender(Gfx *gdl)
 	s16 sloty;
 	s16 tmp1;
 	s16 tmp2;
-
-	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 
 	g_AmIndex = g_Vars.currentplayernum;
 	g_Vars.currentplayer->commandingaibot = NULL;
@@ -1373,10 +1371,10 @@ Gfx *amRender(Gfx *gdl)
 		}
 
 		if (PLAYERCOUNT() == 1 && optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
-			part1left = viGetViewLeft() / g_ScaleX + 32;
+			part1left = viGetViewLeft() + 32;
 		} else {
-			part1left = (s32) ((viGetViewWidth() / g_ScaleX) * 0.5f)
-				+ (s32) (viGetViewLeft() / g_ScaleX)
+			part1left = (s32) (viGetViewWidth() * 0.5f)
+				+ (s32) (viGetViewLeft())
 				- (s32) (barwidth * 0.5f)
 				+ xoffset;
 		}
@@ -1442,8 +1440,6 @@ Gfx *amRender(Gfx *gdl)
 
 		gDPFillRectangleScaled(gdl++, a2, y, part1left + barwidth, y + barheight);
 	}
-
-	g_ScaleX = 1;
 
 	return gdl;
 }

@@ -223,8 +223,8 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 		width = context->width;
 	}
 
-	g_ScissorX1 = context->x * g_ScaleX;
-	g_ScissorX2 = (context->x + width) * g_ScaleX;
+	g_ScissorX1 = context->x;
+	g_ScissorX2 = (context->x + width);
 	g_ScissorY1 = context->y;
 	g_ScissorY2 = context->y + context->height;
 
@@ -480,19 +480,18 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 							sp8cright = 0;
 						}
 
-						// This logic doesn't look right...
-						if (sp94left / g_ScaleX > viGetWidth()) {
-							sp94left = viGetWidth() / g_ScaleX;
+						if (sp94left > viGetWidth()) {
+							sp94left = viGetWidth();
 						}
 
-						if (sp8cright / g_ScaleX > viGetWidth()) {
-							sp8cright = viGetWidth() / g_ScaleX;
+						if (sp8cright > viGetWidth()) {
+							sp8cright = viGetWidth();
 						}
 
 						gDPPipeSync(gdl++);
 
-						g_ScissorX1 = sp94left * g_ScaleX;
-						g_ScissorX2 = sp8cright * g_ScaleX;
+						g_ScissorX1 = sp94left;
+						g_ScissorX2 = sp8cright;
 						g_ScissorY1 = sp90top;
 						g_ScissorY2 = sp88bottom;
 
@@ -2910,8 +2909,8 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 		}
 	}
 
-	g_ScissorX1 = context->x * g_ScaleX;
-	g_ScissorX2 = (context->x + context->width) * g_ScaleX;
+	g_ScissorX1 = context->x;
+	g_ScissorX2 = context->x + context->width;
 	g_ScissorY1 = context->y;
 	g_ScissorY2 = context->y + context->height - 1;
 
@@ -3143,8 +3142,8 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 
 	gDPPipeSync(gdl++);
 
-	g_ScissorX1 = context->x * g_ScaleX;
-	g_ScissorX2 = (context->x + context->width) * g_ScaleX;
+	g_ScissorX1 = context->x;
+	g_ScissorX2 = context->x + context->width;
 	g_ScissorY1 = context->y + 10;
 	g_ScissorY2 = context->y + context->height - 1;
 
@@ -3391,8 +3390,8 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 
 		gDPPipeSync(gdl++);
 
-		g_ScissorX1 = context->x * g_ScaleX;
-		g_ScissorX2 = (context->x + context->width) * g_ScaleX;
+		g_ScissorX1 = context->x;
+		g_ScissorX2 = context->x + context->width;
 		g_ScissorY1 = context->y + ypos;
 		g_ScissorY2 = context->y + context->height;
 
@@ -3523,12 +3522,12 @@ Gfx *menuitemControllerRenderLine(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2, s
 	speed = speed + (x1 % 4);
 
 	gSPTextureRectangle(gdl++,
-			x1 * 4 * g_ScaleX, y1 * 4,
-			x2 * 4 * g_ScaleX, y2 * 4,
+			x1 * 4, y1 * 4,
+			x2 * 4, y2 * 4,
 			G_TX_RENDERTILE,
 			speed * 32,
 			(y1 % 4) * 32,
-			1024 / g_ScaleX, 1024);
+			1024, 1024);
 
 	return gdl;
 }
@@ -3556,9 +3555,9 @@ Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32
 	gDPSetColor(gdl++, G_SETENVCOLOR, 0xffffff00 | alpha);
 
 	gSPTextureRectangle(gdl++,
-			(x << 2) * g_ScaleX, y << 2,
-			((x + 32) << 2) * g_ScaleX, (y + 32) << 2,
-			0, 16, 1008, 1024 / g_ScaleX, 0xfc00);
+			(x << 2), y << 2,
+			((x + 32) << 2), (y + 32) << 2,
+			0, 16, 1008, 1024, 0xfc00);
 
 	return gdl;
 }

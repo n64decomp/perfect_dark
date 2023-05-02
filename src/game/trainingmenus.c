@@ -188,9 +188,9 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 					TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
 
 			gSPTextureRectangle(gdl++,
-					(((renderdata->x + i * 13) + 125) << 2) * g_ScaleX, (renderdata->y) << 2,
-					(((renderdata->x + i * 13) + 136) << 2) * g_ScaleX, (renderdata->y + 11) << 2,
-					G_TX_RENDERTILE, 0, 0x0160, 1024 / g_ScaleX, -1024);
+					(((renderdata->x + i * 13) + 125) << 2), (renderdata->y) << 2,
+					(((renderdata->x + i * 13) + 136) << 2), (renderdata->y + 11) << 2,
+					G_TX_RENDERTILE, 0, 0x0160, 1024, -1024);
 		}
 
 		return (s32)gdl;
@@ -539,27 +539,27 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 
 		// Top left quarter of target
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 10) << 2) * g_ScaleX, (renderdata->y + 5) << 2,
-				((renderdata->x + 42) << 2) * g_ScaleX, (renderdata->y + 37) << 2,
-				G_TX_RENDERTILE, 16, 1024, 1024 / g_ScaleX, -1024);
+				((renderdata->x + 10) << 2), (renderdata->y + 5) << 2,
+				((renderdata->x + 42) << 2), (renderdata->y + 37) << 2,
+				G_TX_RENDERTILE, 16, 1024, 1024, -1024);
 
 		// Top right quarter of target
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 41) << 2) * g_ScaleX, (renderdata->y + 5) << 2,
-				((renderdata->x + 73) << 2) * g_ScaleX, (renderdata->y + 37) << 2,
-				G_TX_RENDERTILE, 16, 1024, -1024 / g_ScaleX, -1024);
+				((renderdata->x + 41) << 2), (renderdata->y + 5) << 2,
+				((renderdata->x + 73) << 2), (renderdata->y + 37) << 2,
+				G_TX_RENDERTILE, 16, 1024, -1024, -1024);
 
 		// Bottom left quarter of target
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 10) << 2) * g_ScaleX, (renderdata->y + 36) << 2,
-				((renderdata->x + 42) << 2) * g_ScaleX, (renderdata->y + 68) << 2,
-				G_TX_RENDERTILE, 16, 1024, 1024 / g_ScaleX, 1024);
+				((renderdata->x + 10) << 2), (renderdata->y + 36) << 2,
+				((renderdata->x + 42) << 2), (renderdata->y + 68) << 2,
+				G_TX_RENDERTILE, 16, 1024, 1024, 1024);
 
 		// Bottom right quarter of target
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 41) << 2) * g_ScaleX, (renderdata->y + 36) << 2,
-				((renderdata->x + 73) << 2) * g_ScaleX, (renderdata->y + 68) << 2,
-				G_TX_RENDERTILE, 16, 1024, -1024 / g_ScaleX, 1024);
+				((renderdata->x + 41) << 2), (renderdata->y + 36) << 2,
+				((renderdata->x + 73) << 2), (renderdata->y + 68) << 2,
+				G_TX_RENDERTILE, 16, 1024, -1024, 1024);
 
 		gdl = textSetPrimColour(gdl, ((failed ? 0xff000055 : 0x00ff0055) & 0xffffff00) | (((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8));
 		colour = ((failed ? 0xff6969aa : renderdata->colour) & 0xffffff00) | ((((failed ? 0xff6969aa : renderdata->colour) & 0xff) * (renderdata->colour & 0xff)) >> 8);
@@ -2327,9 +2327,9 @@ s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 			gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 255) >> 8);
 
 			gSPTextureRectangle(gdl++,
-					((renderdata->x + 6) << 2) * g_ScaleX, (renderdata->y + 3) << 2,
-					((renderdata->x + 60) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
-					G_TX_RENDERTILE, 0, 0x0480, 1024 / g_ScaleX, -1024);
+					((renderdata->x + 6) << 2), (renderdata->y + 3) << 2,
+					((renderdata->x + 60) << 2), (renderdata->y + 39) << 2,
+					G_TX_RENDERTILE, 0, 0x0480, 1024, -1024);
 
 			leftmargin = -1;
 		} else {

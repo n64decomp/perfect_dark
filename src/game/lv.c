@@ -1005,14 +1005,10 @@ Gfx *lvPrint(Gfx *gdl)
 	lvRecordRate();
 
 	if (g_LvShowStats && g_LvStatsPage == 0) {
-		g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
-
 		gdl = text0f153628(gdl);
 		gdl = lvPrintRateGraph(gdl);
 		gdl = lvPrintRateText(gdl);
 		gdl = text0f153780(gdl);
-
-		g_ScaleX = 1;
 	}
 
 	return gdl;

@@ -2428,12 +2428,6 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 		return gdl;
 	}
 
-#if !PAL
-	if (g_ViRes == 1) {
-		xscale = 2;
-	}
-#endif
-
 	viewleft = viGetViewLeft();
 	viewtop = viGetViewTop();
 	viewwidth = viGetViewWidth();
@@ -2614,12 +2608,6 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 	f32 fovy;
 
 	scale = 1;
-
-#if !PAL
-	if (g_ViRes == VIRES_HI) {
-		scale = 2;
-	}
-#endif
 
 	sp128 = (x - viGetViewWidth() / 2.0f) * 0.01f;
 	sp124 = (y - viGetViewHeight() / 2.0f) * 0.01f;

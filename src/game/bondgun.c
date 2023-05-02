@@ -9094,12 +9094,6 @@ Gfx *bgunDrawHud(Gfx *gdl)
 		return gdl;
 	}
 
-#if PAL
-	g_ScaleX = 1;
-#else
-	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
-#endif
-
 	gdl = text0f153628(gdl);
 
 	if (playercount >= 2) {
@@ -9135,7 +9129,7 @@ Gfx *bgunDrawHud(Gfx *gdl)
 		funcnum = tmpfuncnum;
 	}
 
-	xpos = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - barwidth - 24;
+	xpos = (viGetViewLeft() + viGetViewWidth()) - barwidth - 24;
 
 	if (playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && playernum == 0) {
 		xpos += 15;
@@ -9299,7 +9293,6 @@ Gfx *bgunDrawHud(Gfx *gdl)
 
 		if (ammoindex == -1) {
 			gdl = text0f153780(gdl);
-			g_ScaleX = 1;
 			return gdl;
 		}
 	}
@@ -9315,7 +9308,7 @@ Gfx *bgunDrawHud(Gfx *gdl)
 	if (lefthand->inuse
 			&& weapon->ammos[ammoindex] != NULL
 			&& lefthand->gset.weaponnum != WEAPON_REMOTEMINE) {
-		xpos = viGetViewLeft() / g_ScaleX + 24;
+		xpos = viGetViewLeft() + 24;
 
 		if (playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && playernum == 1) {
 			xpos -= 14;
@@ -9341,7 +9334,7 @@ Gfx *bgunDrawHud(Gfx *gdl)
 
 		ammotype = player->gunctrl.ammotypes[ammoindex];
 
-		xpos = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - barwidth - 24;
+		xpos = (viGetViewLeft() + viGetViewWidth()) - barwidth - 24;
 
 		if (playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && playernum == 0) {
 			xpos += 15;
@@ -9403,8 +9396,6 @@ Gfx *bgunDrawHud(Gfx *gdl)
 	}
 
 	gdl = text0f153780(gdl);
-
-	g_ScaleX = 1;
 
 	return gdl;
 }

@@ -1789,13 +1789,6 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			}
 
 			sp430 = thing->unk510;
-
-#if !PAL
-			if (g_ViRes == VIRES_HI) {
-				sp430 *= 2.0f;
-			}
-#endif
-
 			sp42c = thing->unk514;
 			sp428 = thing->unk518;
 			sp424 = thing->unk51c;
@@ -1906,10 +1899,10 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		sp30c[0] = -100.0f + sp428;
 
 		if (arg2 == 1) {
-			sp390[0] = thing->unk510 * g_ScaleX;
+			sp390[0] = thing->unk510;
 			sp390[1] = thing->unk514;
 		} else {
-			sp390[0] = sp430 * g_ScaleX + viGetViewLeft() + viGetViewWidth() * 0.5f;
+			sp390[0] = sp430 + viGetViewLeft() + viGetViewWidth() * 0.5f;
 			sp390[1] = sp42c + viGetViewTop() + viGetViewHeight() * 0.5f;
 		}
 
@@ -1995,8 +1988,8 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 				gdl = func0f0d49c8(gdl);
 
-				viSetViewPosition(g_MenuScissorX1 * g_ScaleX, g_MenuScissorY1);
-				viSetFovAspectAndSize(g_Vars.currentplayer->fovy, aspect, (g_MenuScissorX2 - g_MenuScissorX1) * g_ScaleX, g_MenuScissorY2 - g_MenuScissorY1);
+				viSetViewPosition(g_MenuScissorX1, g_MenuScissorY1);
+				viSetFovAspectAndSize(g_Vars.currentplayer->fovy, aspect, (g_MenuScissorX2 - g_MenuScissorX1), g_MenuScissorY2 - g_MenuScissorY1);
 
 				gdl = vi0000af00(gdl, var800a2048[g_MpPlayerNum]);
 				gdl = vi0000aca4(gdl, znear, zfar);
@@ -2096,7 +2089,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 					spd0.z = sp3b4[index].m[3][2];
 
 					cam0f0b4d04(&spd0, spc8);
-					var8009de98 = ((s32)spc8[0] - viGetWidth() / 2) / g_ScaleX;
+					var8009de98 = (s32)spc8[0] - viGetWidth() / 2;
 					var8009de9c = (s32)spc8[1] - viGetHeight() / 2;
 				}
 			}
@@ -2173,8 +2166,8 @@ Gfx *menuApplyScissor(Gfx *gdl)
 {
 	gDPPipeSync(gdl++);
 
-	g_ScissorX1 = g_MenuScissorX1 * g_ScaleX;
-	g_ScissorX2 = g_MenuScissorX2 * g_ScaleX;
+	g_ScissorX1 = g_MenuScissorX1;
+	g_ScissorX2 = g_MenuScissorX2;
 	g_ScissorY1 = g_MenuScissorY1;
 	g_ScissorY2 = g_MenuScissorY2;
 
@@ -2458,9 +2451,9 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 
 	{
 		struct menulayer *layer;
-		s32 viewleft = viGetViewLeft() / g_ScaleX;
+		s32 viewleft = viGetViewLeft();
 		s32 viewtop = viGetViewTop();
-		s32 viewright = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX;
+		s32 viewright = (viGetViewLeft() + viGetViewWidth());
 		s32 viewbottom = viGetViewTop() + viGetViewHeight();
 
 		g_MenuScissorX1 = dialogleft + 2;
@@ -2923,9 +2916,9 @@ void func0f0f7594(s32 arg0, s32 *vdir, s32 *hdir)
  */
 void menuFindAvailableSize(s32 *leftptr, s32 *topptr, s32 *rightptr, s32 *bottomptr)
 {
-	s32 left = viGetViewLeft() / g_ScaleX + 20;
+	s32 left = viGetViewLeft() + 20;
 	s32 top = viGetViewTop() + 4;
-	s32 right = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - 20;
+	s32 right = (viGetViewLeft() + viGetViewWidth()) - 20;
 	s32 bottom = viGetViewTop() + viGetViewHeight() - 4;
 	s32 playernum;
 	u32 stack[2];
@@ -3018,9 +3011,9 @@ void menuFindAvailableSize(s32 *leftptr, s32 *topptr, s32 *rightptr, s32 *bottom
 	case MENUROOT_MPENDSCREEN:
 	case MENUROOT_PICKTARGET:
 	case MENUROOT_4MBFILEMGR:
-		*leftptr = g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->viewleft / g_ScaleX;
+		*leftptr = g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->viewleft;
 		*topptr = g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->viewtop;
-		*rightptr = (g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->viewleft + g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->viewwidth) / g_ScaleX;
+		*rightptr = (g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->viewleft + g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->viewwidth);
 		*bottomptr = g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->viewtop + g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->viewheight;
 
 		if (PLAYERCOUNT() > 2) {
@@ -3085,7 +3078,7 @@ void dialogCalculatePosition(struct menudialog *dialog)
 		}
 
 		if (hdir > 0) {
-			dialog->dstx = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX + 4;
+			dialog->dstx = (viGetViewLeft() + viGetViewWidth()) + 4;
 		}
 
 		if (vdir < 0) {
@@ -3310,7 +3303,7 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 		if (g_MenuData.root == MENUROOT_MPPAUSE
 				|| g_MenuData.root == MENUROOT_PICKTARGET
 				|| g_MenuData.root == MENUROOT_MPENDSCREEN) {
-			var8009de98 = g_Menus[g_MpPlayerNum].curdialog->x + g_Menus[g_MpPlayerNum].curdialog->width / 2 - viGetWidth() / (g_ScaleX * 2);
+			var8009de98 = g_Menus[g_MpPlayerNum].curdialog->x + g_Menus[g_MpPlayerNum].curdialog->width / 2 - viGetWidth() / 2;
 			var8009de9c = g_Menus[g_MpPlayerNum].curdialog->y + g_Menus[g_MpPlayerNum].curdialog->height / 2 - viGetHeight() / 2;
 
 			gdl = menuRenderDialog(gdl, g_Menus[g_MpPlayerNum].curdialog, &g_Menus[g_MpPlayerNum], 0);
@@ -3359,9 +3352,9 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 
 				gdl = menuRenderBanner(gdl, xmin, ymin, xmax, ymax, false, g_Menus[g_MpPlayerNum].bannernum, 0, 0);
 			} else {
-				s32 xmin = viGetViewLeft() / g_ScaleX;
+				s32 xmin = viGetViewLeft();
 				s32 ymin = viGetViewTop();
-				s32 xmax = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX;
+				s32 xmax = (viGetViewLeft() + viGetViewWidth());
 				s32 ymax = viGetViewTop() + viGetViewHeight();
 
 				gdl = menuRenderBanner(gdl, xmin, ymin, xmax, ymax, true, g_Menus[g_MpPlayerNum].bannernum, 0, 0);
@@ -4761,8 +4754,6 @@ Gfx *menuRender(Gfx *gdl)
 {
 	g_MpPlayerNum = 0;
 
-	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
-
 	gdl = func0f0d479c(gdl);
 
 	gSPDisplayList(gdl++, var800613a0);
@@ -4903,9 +4894,9 @@ Gfx *menuRender(Gfx *gdl)
 		if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
 			s32 i;
 			s32 j;
-			s32 viewleft = viGetViewLeft() / g_ScaleX + 20;
+			s32 viewleft = viGetViewLeft() + 20;
 			s32 viewtop = viGetViewTop() + 4;
-			s32 viewright = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - 20;
+			s32 viewright = (viGetViewLeft() + viGetViewWidth()) - 20;
 			s32 viewbottom = viGetViewTop() + viGetViewHeight() - 4;
 			s32 textheight;
 			s32 textwidth;
@@ -5023,9 +5014,9 @@ Gfx *menuRender(Gfx *gdl)
 	// Render banner messages, such as "Please Wait...",
 	// "Checking Controller Pak" and some unused game boy camera texts.
 	if (g_MenuData.bannernum != -1) {
-		s32 x1 = viGetViewLeft() / g_ScaleX;
+		s32 x1 = viGetViewLeft();
 		s32 y1 = viGetViewTop();
-		s32 x2 = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX;
+		s32 x2 = viGetViewLeft() + viGetViewWidth();
 		s32 y2 = viGetViewTop() + viGetViewHeight();
 
 		s32 left = 0;
@@ -5052,11 +5043,8 @@ Gfx *menuRender(Gfx *gdl)
 
 	gdl = func0f0d49c8(gdl);
 
-	g_ScaleX = 1;
-
 	return gdl;
 }
-
 
 u32 menuChooseMusic(void)
 {

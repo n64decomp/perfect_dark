@@ -1833,10 +1833,6 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 
 	strcpy(var800a41c0, "BinocularViewGfx");
 
-	if (!PAL && g_ViRes == VIRES_HI) {
-		scale = 2;
-	}
-
 	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
 		vsplit = true;
 	}

@@ -121,8 +121,6 @@ struct vimode g_ViModes[] = {
 	{ 400, 300, 400, 1,                2, 300, 0,  300, 0,  300, 0   }, // unused
 };
 
-s32 g_ViRes = VIRES_LO;
-bool g_HiResEnabled = false;
 u32 var800706d0 = 0x00000000;
 u32 var800706d4 = 0x00000000;
 u32 var800706d8 = 0x00000000;
@@ -2546,20 +2544,15 @@ void playerTickExplode(void)
 	}
 }
 
-void playerSetHiResEnabled(bool enable)
-{
-	g_HiResEnabled = enable;
-}
-
 s16 playerGetFbWidth(void)
 {
-	s16 width = g_ViModes[g_ViRes].fbwidth;
+	s16 width = g_ViModes[VIRES_LO].fbwidth;
 	return width;
 }
 
 s16 playerGetFbHeight(void)
 {
-	s16 height = g_ViModes[g_ViRes].fbheight;
+	s16 height = g_ViModes[VIRES_LO].fbheight;
 
 	return height;
 }
@@ -2582,7 +2575,7 @@ s16 playerGetViewportWidth(void)
 	if (!playerHasSharedViewport()) {
 		if (PLAYERCOUNT() >= 3) {
 			// 3/4 players
-			width = g_ViModes[g_ViRes].width / 2;
+			width = g_ViModes[VIRES_LO].width / 2;
 
 			if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 2) {
 				width--;
@@ -2590,22 +2583,22 @@ s16 playerGetViewportWidth(void)
 		} else if (PLAYERCOUNT() == 2) {
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 				// 2 players vsplit
-				width = g_ViModes[g_ViRes].width / 2;
+				width = g_ViModes[VIRES_LO].width / 2;
 
 				if (g_Vars.currentplayernum == 0) {
 					width--;
 				}
 			} else {
 				// 2 players full width
-				width = g_ViModes[g_ViRes].width;
+				width = g_ViModes[VIRES_LO].width;
 			}
 		} else {
 			// 1 player
-			width = g_ViModes[g_ViRes].width;
+			width = g_ViModes[VIRES_LO].width;
 		}
 	} else {
 		// Probably cutscene
-		width = g_ViModes[g_ViRes].width;
+		width = g_ViModes[VIRES_LO].width;
 	}
 
 	return width;
@@ -2619,27 +2612,27 @@ s16 playerGetViewportLeft(void)
 	if (PLAYERCOUNT() >= 3 && something != 0) {
 		if (g_Vars.currentplayernum == 1 || g_Vars.currentplayernum == 3) {
 			// 3/4 players - right side
-			left = g_ViModes[g_ViRes].width / 2 + g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
+			left = g_ViModes[VIRES_LO].width / 2 + g_ViModes[VIRES_LO].fbwidth - g_ViModes[VIRES_LO].width;
 		} else {
 			// 3/4 players - left side
-			left = g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
+			left = g_ViModes[VIRES_LO].fbwidth - g_ViModes[VIRES_LO].width;
 		}
 	} else if (PLAYERCOUNT() == 2 && something != 0) {
 		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			if (g_Vars.currentplayernum == 1) {
 				// 2 players vsplit - right side
-				left = (g_ViModes[g_ViRes].width / 2) + g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
+				left = (g_ViModes[VIRES_LO].width / 2) + g_ViModes[VIRES_LO].fbwidth - g_ViModes[VIRES_LO].width;
 			} else {
 				// 2 players vsplit - left side
-				left = g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
+				left = g_ViModes[VIRES_LO].fbwidth - g_ViModes[VIRES_LO].width;
 			}
 		} else {
 			// 2 players - full width
-			left = g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
+			left = g_ViModes[VIRES_LO].fbwidth - g_ViModes[VIRES_LO].width;
 		}
 	} else {
 		// Full screen
-		left = g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
+		left = g_ViModes[VIRES_LO].fbwidth - g_ViModes[VIRES_LO].width;
 	}
 
 	return left;
@@ -2650,7 +2643,7 @@ s16 playerGetViewportHeight(void)
 	s16 height;
 
 	if (PLAYERCOUNT() >= 2 && !playerHasSharedViewport()) {
-		s16 tmp = g_ViModes[g_ViRes].fullheight;
+		s16 tmp = g_ViModes[VIRES_LO].fullheight;
 
 		height = tmp / 2;
 
@@ -2665,21 +2658,21 @@ s16 playerGetViewportHeight(void)
 		}
 	} else {
 		if (optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE) {
-			height = g_ViModes[g_ViRes].wideheight;
+			height = g_ViModes[VIRES_LO].wideheight;
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-			height = g_ViModes[g_ViRes].cinemaheight;
+			height = g_ViModes[VIRES_LO].cinemaheight;
 		} else if (g_InCutscene && !var8009dfc0) {
 			if (var8009de2c >= 1) {
-				f32 a = g_ViModes[g_ViRes].wideheight;
-				f32 b = g_ViModes[g_ViRes].fullheight;
+				f32 a = g_ViModes[VIRES_LO].wideheight;
+				f32 b = g_ViModes[VIRES_LO].fullheight;
 				a = a * (1.0f - g_CutsceneBarFrac);
 				b = b * g_CutsceneBarFrac;
 				height = a + b;
 			} else {
-				height = g_ViModes[g_ViRes].wideheight;
+				height = g_ViModes[VIRES_LO].wideheight;
 			}
 		} else {
-			height = g_ViModes[g_ViRes].fullheight;
+			height = g_ViModes[VIRES_LO].fullheight;
 		}
 	}
 
@@ -2691,50 +2684,50 @@ s16 playerGetViewportTop(void)
 	s16 top;
 
 	if (PLAYERCOUNT() >= 2 && !playerHasSharedViewport()) {
-		top = g_ViModes[g_ViRes].fulltop;
+		top = g_ViModes[VIRES_LO].fulltop;
 
 		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL || PLAYERCOUNT() != 2) {
 			if (PLAYERCOUNT() == 2
 					&& g_Vars.currentplayernum == 1
 					&& optionsGetScreenSplit() != SCREENSPLIT_VERTICAL) {
 				// 2 players hsplit - bottom side
-				top = g_ViModes[g_ViRes].fulltop + g_ViModes[g_ViRes].fullheight / 2;
+				top = g_ViModes[VIRES_LO].fulltop + g_ViModes[VIRES_LO].fullheight / 2;
 			} else if (g_Vars.currentplayernum == 2 || g_Vars.currentplayernum == 3) {
 				// 3/4 players - bottom side
-				top = g_ViModes[g_ViRes].fulltop + g_ViModes[g_ViRes].fullheight / 2;
+				top = g_ViModes[VIRES_LO].fulltop + g_ViModes[VIRES_LO].fullheight / 2;
 			}
 		}
 	} else {
 		if (optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE) {
 			if (g_InCutscene && optionsGetCutsceneSubtitles() && g_Vars.stagenum != STAGE_CITRAINING) {
 				if (var8009de2c >= 1) {
-					f32 a = g_ViModes[g_ViRes].fulltop;
-					f32 b = g_ViModes[g_ViRes].widetop;
+					f32 a = g_ViModes[VIRES_LO].fulltop;
+					f32 b = g_ViModes[VIRES_LO].widetop;
 					a = a * (1.0f - g_CutsceneBarFrac);
 					b = b * g_CutsceneBarFrac;
 					top = a + b;
 				} else {
-					top = g_ViModes[g_ViRes].fulltop;
+					top = g_ViModes[VIRES_LO].fulltop;
 				}
 			} else {
-				top = g_ViModes[g_ViRes].widetop;
+				top = g_ViModes[VIRES_LO].widetop;
 			}
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-			top = g_ViModes[g_ViRes].cinematop;
+			top = g_ViModes[VIRES_LO].cinematop;
 		} else {
 			if (g_InCutscene && !var8009dfc0
 					&& (!optionsGetCutsceneSubtitles() || g_Vars.stagenum == STAGE_CITRAINING)) {
 				if (var8009de2c >= 1) {
-					f32 a = g_ViModes[g_ViRes].widetop;
-					f32 b = g_ViModes[g_ViRes].fulltop;
+					f32 a = g_ViModes[VIRES_LO].widetop;
+					f32 b = g_ViModes[VIRES_LO].fulltop;
 					a = a * (1.0f - g_CutsceneBarFrac);
 					b = b * g_CutsceneBarFrac;
 					top = a + b;
 				} else {
-					top = g_ViModes[g_ViRes].widetop;
+					top = g_ViModes[VIRES_LO].widetop;
 				}
 			} else {
-				return g_ViModes[g_ViRes].fulltop;
+				return g_ViModes[VIRES_LO].fulltop;
 			}
 		}
 	}
@@ -2750,7 +2743,7 @@ f32 player0f0bd358(void)
 	s16 width = playerGetViewportWidth();
 
 	result = (f32)width / (f32)height;
-	result = g_ViModes[g_ViRes].yscale * result;
+	result = g_ViModes[VIRES_LO].yscale * result;
 
 	return result;
 }
@@ -2861,7 +2854,6 @@ void playerTickTeleport(f32 *aspectratio)
 void playerConfigureVi(void)
 {
 	f32 ratio = player0f0bd358();
-	g_ViRes = VIRES_LO;
 
 	text0f1531dc(false);
 
@@ -2870,7 +2862,7 @@ void playerConfigureVi(void)
 	playermgrSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
 	playermgrSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 
-	viSetMode(g_ViModes[g_ViRes].xscale);
+	viSetMode(g_ViModes[VIRES_LO].xscale);
 
 	viSetFovAspectAndSize(60, ratio, playerGetViewportWidth(), playerGetViewportHeight());
 
@@ -2884,21 +2876,7 @@ void playerTick(bool arg0)
 	f32 aspectratio;
 	f32 f20;
 
-	g_ViRes = g_HiResEnabled;
-
-	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() > 1) {
-		g_ViRes = VIRES_LO;
-	}
-
-#if PAL
 	text0f1531dc(false);
-#else
-	if (g_ViRes == VIRES_HI) {
-		text0f1531dc(true);
-	} else {
-		text0f1531dc(false);
-	}
-#endif
 
 	if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 		aspectratio = player0f0bd358() * 1.33333333f;
@@ -2919,7 +2897,7 @@ void playerTick(bool arg0)
 	playermgrSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
 	playermgrSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 
-	viSetMode(g_ViModes[g_ViRes].xscale);
+	viSetMode(g_ViModes[VIRES_LO].xscale);
 	viSetFovAspectAndSize(60, aspectratio, playerGetViewportWidth(), playerGetViewportHeight());
 	viSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 	viSetSize(playerGetFbWidth(), playerGetFbHeight());

@@ -55,12 +55,6 @@ void menuTick(void)
 	s32 sp340 = true;
 	s32 anyopen = false;
 
-#if PAL
-	g_ScaleX = 1;
-#else
-	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
-#endif
-
 	menuTickTimers();
 
 	if (g_MenuData.count) {
@@ -711,6 +705,5 @@ void menuTick(void)
 		}
 	}
 
-	g_ScaleX = 1;
 	g_MenuData.unk5d5_06 = sp344 ? true : false;
 }

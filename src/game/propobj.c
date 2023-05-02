@@ -18192,12 +18192,6 @@ Gfx *countdownTimerRender(Gfx *gdl)
 		}
 	}
 
-#if !PAL
-	if (g_ViRes == VIRES_HI) {
-		viewright = viewright / 2;
-	}
-#endif
-
 	if (value60 < 0) {
 		value60 = -value60;
 	}

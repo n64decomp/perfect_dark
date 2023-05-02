@@ -36,10 +36,6 @@ void func0f0d4690(Mtxf *mtx)
 
 	mtx4SetTranslation(&pos, mtx);
 	mtx00015e4c(-1, mtx);
-
-	if (g_ScaleX == 2) {
-		mtx00015df0(2, mtx);
-	}
 }
 
 void func0f0d475c(Mtxf *mtx)

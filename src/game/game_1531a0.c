@@ -57,7 +57,6 @@ Gfx *var800a4634;
 Gfx *var800a4638;
 u32 var800a463c;
 
-s32 g_ScaleX = 1;
 s32 var8007fac4 = 0;
 bool g_TextRotated90 = false;
 s32 g_WrapIndentCount = 0;
@@ -894,7 +893,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 			gDPPipeSync(gdl++);
 
 			if (g_Blend.types) {
-				gdl = text0f154ecc(gdl, *x / g_ScaleX, *y + arg10);
+				gdl = text0f154ecc(gdl, *x, *y + arg10);
 			}
 
 			if (1);
@@ -928,7 +927,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 							if (var8007fb9c) {
 								text0f153b6c(*y + arg10);
 
-								if (var8007fba0 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0) {
+								if (var8007fba0 >= *x && *x + curchar->width * var8007fad0 >= var8007fba0) {
 									var800a4634 = menugfxDrawPlane(var800a4634,
 											var8007fba0,
 											curchar->baseline + sp90,
@@ -939,7 +938,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 											MENUPLANE_00);
 								}
 
-								if (var8007fba0 - 3 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0 - 3) {
+								if (var8007fba0 - 3 >= *x && *x + curchar->width * var8007fad0 >= var8007fba0 - 3) {
 									var800a4634 = menugfxDrawPlane(var800a4634,
 											var8007fba0,
 											curchar->baseline + sp90,
@@ -1014,15 +1013,12 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 	spb0 = var8007fad0;
 
 	if (g_TextRotated90) {
-		*y *= g_ScaleX;
 		spb0 = 1;
-	} else {
-		*x *= g_ScaleX;
 	}
 
 	if (var8007fbd8) {
 		alpha = (1.0f - menuGetSinOscFrac(40.0f)) * 100.0f + 150.0f;
-		newx = *x / g_ScaleX;
+		newx = *x;
 		newy = *y;
 		tmpcolour = var800a463c;
 		colour2 = (colour & 0xffffff00) | (u32) alpha;
@@ -1097,12 +1093,6 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 		}
 	}
 
-	if (g_TextRotated90) {
-		*y = *y / g_ScaleX;
-	} else {
-		*x = *x / g_ScaleX;
-	}
-
 	return gdl;
 }
 
@@ -1146,7 +1136,7 @@ Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fon
 			&& *x >= arg6
 			&& sp38 + char1->baseline + char1->height >= arg7) {
 		if (g_Blend.types) {
-			gdl = text0f1566cc(gdl, *x / g_ScaleX, *y + arg10);
+			gdl = text0f1566cc(gdl, *x, *y + arg10);
 		}
 
 		gDPSetTextureImage(gdl++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, char1->pixeldata);
@@ -1231,8 +1221,6 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 	s32 savedy;
 	s32 prevchar;
 
-	*x *= g_ScaleX;
-
 	savedx = *x;
 	savedy = *y;
 	prevchar = 'H';
@@ -1309,8 +1297,6 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 			0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0,
 			0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
 
-	*x = *x / g_ScaleX;
-
 	return gdl;
 }
 
@@ -1375,9 +1361,7 @@ void textMeasure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *f
 	}
 
 	// @bug? Shouldn't this go at the very end of the function?
-	if (g_ScaleX == 1) {
-		*textwidth *= var8007fad0;
-	}
+	*textwidth *= var8007fad0;
 
 	if (longest > *textwidth) {
 		*textwidth = longest;

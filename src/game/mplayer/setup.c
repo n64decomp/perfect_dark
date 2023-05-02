@@ -648,12 +648,12 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 					TEXEL0, 0, ENVIRONMENT, 0);
 
 			gSPTextureRectangle(gdl++,
-					((renderdata->x + loopx) << 2) * g_ScaleX,
+					(renderdata->x + loopx) << 2,
 					(renderdata->y + size) << 2,
-					((renderdata->x + size + loopx) << 2) * g_ScaleX,
+					(renderdata->x + size + loopx) << 2,
 					(renderdata->y + size * 2) << 2,
 					G_TX_RENDERTILE,
-					0, 0x0160, 0x0400 / g_ScaleX, 0xfc00);
+					0, 0x0160, 0x0400, 0xfc00);
 
 			loopx += 13;
 		}
@@ -869,9 +869,9 @@ s32 mpMedalMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 				TEXEL0, 0, ENVIRONMENT, 0);
 
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 9) << 2) * g_ScaleX, renderdata->y << 2,
-				((renderdata->x + 20) << 2) * g_ScaleX, (renderdata->y + 11) << 2,
-				G_TX_RENDERTILE, 0, 0x0160, 1024 / g_ScaleX, -1024);
+				((renderdata->x + 9) << 2), renderdata->y << 2,
+				((renderdata->x + 20) << 2), (renderdata->y + 11) << 2,
+				G_TX_RENDERTILE, 0, 0x0160, 1024, -1024);
 
 		return (s32) gdl;
 	}
@@ -4210,9 +4210,9 @@ s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union hand
 				TEXEL0, 0, ENVIRONMENT, 0);
 
 			gSPTextureRectangle(gdl++,
-				((renderdata->x + marginleft) << 2) * g_ScaleX, (renderdata->y + 11) << 2,
-				((renderdata->x + marginleft + 11) << 2) * g_ScaleX, (renderdata->y + 22) << 2,
-				G_TX_RENDERTILE, 0, 0x0160, 1024 / g_ScaleX, -1024);
+				((renderdata->x + marginleft) << 2), (renderdata->y + 11) << 2,
+				((renderdata->x + marginleft + 11) << 2), (renderdata->y + 22) << 2,
+				G_TX_RENDERTILE, 0, 0x0160, 1024, -1024);
 
 			marginleft += 13;
 		}

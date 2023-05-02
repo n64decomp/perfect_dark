@@ -161,14 +161,7 @@ void viReset(s32 stagenum)
 		fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * 2;
 	} else {
 		viSetMode(VIMODE_LO);
-
-		if (1);
-
-		fbsize = 640 * 220 * 2;
-
-		if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
-			fbsize = 320 * 220 * 2;
-		}
+		fbsize = 320 * 220 * 2;
 	}
 
 	ptr = mempAlloc(fbsize * 2 + 0x40, MEMPOOL_STAGE);

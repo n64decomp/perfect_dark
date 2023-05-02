@@ -2144,11 +2144,11 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 				TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
 
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 4) << 2) * g_ScaleX,
+				((renderdata->x + 4) << 2),
 				(renderdata->y + 2) << 2,
-				((renderdata->x + 60) << 2) * g_ScaleX,
+				((renderdata->x + 60) << 2),
 				(renderdata->y + 38) << 2,
-				G_TX_RENDERTILE, 0, 1152, 1024 / g_ScaleX, -1024);
+				G_TX_RENDERTILE, 0, 1152, 1024, -1024);
 
 		x = renderdata->x + 62;
 		y = renderdata->y + 4;

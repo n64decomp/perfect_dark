@@ -120,14 +120,8 @@
 #define	gDPSetEnvColorViaWord(pkt, rgba) gDPSetColor(pkt, G_SETENVCOLOR, rgba)
 #define	gDPSetFogColorViaWord(pkt, rgba) gDPSetColor(pkt, G_SETFOGCOLOR, rgba)
 
-/**
- * gDPFillRectangle - a wrapper around gDPFillRectangle which applies
- * g_ScaleX to the X coordinates.
- *
- * g_ScaleX is normally 1, but 2 when using hi-res.
- */
-#define gDPFillRectangleScaled(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1) * g_ScaleX, y1, (x2) * g_ScaleX, y2)
+#define gDPFillRectangleScaled gDPFillRectangle
 
-#define gDPHudRectangle(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1) * g_ScaleX, y1, ((x2 + 1)) * g_ScaleX, (y2) + 1)
+#define gDPHudRectangle(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1), y1, ((x2 + 1)), (y2) + 1)
 
 #endif

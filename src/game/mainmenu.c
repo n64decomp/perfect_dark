@@ -400,26 +400,6 @@ s32 menuhandlerAlternativeTitle(s32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
-s32 menuhandlerHiRes(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	switch (operation) {
-	case MENUOP_CHECKHIDDEN:
-		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-			if (PLAYERCOUNT() >= 2) {
-				return true;
-			}
-		}
-		break;
-	case MENUOP_GET:
-		return g_HiResEnabled == true;
-	case MENUOP_SET:
-		playerSetHiResEnabled(data->checkbox.value ? 1 : 0);
-		g_Vars.modifiedfiles |= MODFILE_GAME;
-	}
-
-	return 0;
-}
-
 s32 menuhandlerAmmoOnScreen(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u32 mpchrnum;
@@ -1893,9 +1873,9 @@ s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerda
 		gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 255 / 256));
 
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 4) << 2) * g_ScaleX, (renderdata->y + 3) << 2,
-				((renderdata->x + 60) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
-				G_TX_RENDERTILE, 0, 0x0480, 1024 / g_ScaleX, -1024);
+				((renderdata->x + 4) << 2), (renderdata->y + 3) << 2,
+				((renderdata->x + 60) << 2), (renderdata->y + 39) << 2,
+				G_TX_RENDERTILE, 0, 0x0480, 1024, -1024);
 
 		if (g_MissionConfig.isanti) {
 			// No stars
@@ -1919,9 +1899,9 @@ s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerda
 				}
 
 				gSPTextureRectangle(gdl++,
-						((renderdata->x + relx) << 2) * g_ScaleX, (renderdata->y + 25) << 2,
-						((renderdata->x + relx + 14) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
-						G_TX_RENDERTILE, 0x0010, 0x01c0, 1024 / g_ScaleX, -1024);
+						((renderdata->x + relx) << 2), (renderdata->y + 25) << 2,
+						((renderdata->x + relx + 14) << 2), (renderdata->y + 39) << 2,
+						G_TX_RENDERTILE, 0x0010, 0x01c0, 1024, -1024);
 			}
 		} else {
 			texSelect(&gdl, &g_TexGeneralConfigs[34], 2, 0, 2, true, NULL);
@@ -1950,9 +1930,9 @@ s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerda
 				}
 
 				gSPTextureRectangle(gdl++,
-						((renderdata->x + relx) << 2) * g_ScaleX, (renderdata->y + 25) << 2,
-						((renderdata->x + relx + 14) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
-						G_TX_RENDERTILE, 0x0010, 0x01c0, 1024 / g_ScaleX, -1024);
+						((renderdata->x + relx) << 2), (renderdata->y + 25) << 2,
+						((renderdata->x + relx + 14) << 2), (renderdata->y + 39) << 2,
+						G_TX_RENDERTILE, 0x0010, 0x01c0, 1024, -1024);
 			}
 		}
 
@@ -2360,14 +2340,6 @@ struct menuitem g_VideoOptionsMenuItems[] = {
 		0,
 		menuhandlerScreenRatio,
 	},
-	{
-		MENUITEMTYPE_CHECKBOX,
-		0,
-		0,
-		L_OPTIONS_217, // "Hi-Res"
-		0,
-		menuhandlerHiRes,
-	},
 #if PAL
 	{
 		MENUITEMTYPE_DROPDOWN,
@@ -2421,14 +2393,6 @@ struct menuitem g_2PMissionVideoOptionsMenuItems[] = {
 		L_OPTIONS_216, // "Ratio"
 		0,
 		menuhandlerScreenRatio,
-	},
-	{
-		MENUITEMTYPE_CHECKBOX,
-		0,
-		0,
-		L_OPTIONS_217, // "Hi-Res"
-		0,
-		menuhandlerHiRes,
 	},
 #if PAL
 	{

@@ -60,15 +60,11 @@ Gfx *radarRenderBackground(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s3
 	gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 	gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00000000);
 
-	gDPFillRectangle(gdl++,
-			arg2 * g_ScaleX,
-			arg3,
-			(arg2 + tconfig->width) * g_ScaleX,
-			arg3 + tconfig->width);
+	gDPFillRectangle(gdl++, arg2, arg3, (arg2 + tconfig->width), arg3 + tconfig->width);
 
-	spb0[0] = arg2 * g_ScaleX;
+	spb0[0] = arg2;
 	spb0[1] = arg3;
-	spa8[0] = arg4 * g_ScaleX;
+	spa8[0] = arg4;
 	spa8[1] = arg4;
 
 	texSelect(&gdl, tconfig, 2, 0, 0, 1, NULL);
@@ -264,17 +260,7 @@ Gfx *radarRender(Gfx *gdl)
 		return gdl;
 	}
 
-#if PAL
-	g_ScaleX = 1;
-#else
-	if (g_ViRes == VIRES_HI) {
-		g_ScaleX = 2;
-	} else {
-		g_ScaleX = 1;
-	}
-#endif
-
-	g_RadarX = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - 41;
+	g_RadarX = (viGetViewLeft() + viGetViewWidth()) - 41;
 
 	if (playercount == 2) {
 		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
@@ -397,8 +383,6 @@ Gfx *radarRender(Gfx *gdl)
 
 		gdl = radarDrawDot(gdl, g_Vars.currentplayer->prop, &pos, colour, 0, 0);
 	}
-
-	g_ScaleX = 1;
 
 	return gdl;
 }

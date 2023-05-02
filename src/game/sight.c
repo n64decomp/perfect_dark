@@ -333,9 +333,9 @@ s32 sightCalculateBoxBound(s32 targetx, s32 viewleft, s32 timeelapsed, s32 timee
  */
 Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s32 time)
 {
-	s32 viewleft = viGetViewLeft() / g_ScaleX;
+	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth() / g_ScaleX;
+	s32 viewwidth = viGetViewWidth();
 	s32 viewheight = viGetViewHeight();
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
@@ -350,9 +350,9 @@ Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s
 		time = TICKS(512);
 	}
 
-	boxleft = sightCalculateBoxBound(trackedprop->x1 / g_ScaleX, viewleft, time, TICKS(80));
+	boxleft = sightCalculateBoxBound(trackedprop->x1, viewleft, time, TICKS(80));
 	boxtop = sightCalculateBoxBound(trackedprop->y1, viewtop, time, TICKS(80));
-	boxright = sightCalculateBoxBound(trackedprop->x2 / g_ScaleX, viewright, time, TICKS(80));
+	boxright = sightCalculateBoxBound(trackedprop->x2, viewright, time, TICKS(80));
 	boxbottom = sightCalculateBoxBound(trackedprop->y2, viewbottom, time, TICKS(80));
 
 	if (trackedprop->prop) {
@@ -417,9 +417,9 @@ Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s
 
 Gfx *sightDrawAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 colour)
 {
-	s32 viewleft = viGetViewLeft() / g_ScaleX;
+	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth() / g_ScaleX;
+	s32 viewwidth = viGetViewWidth();
 	s32 viewheight = viGetViewHeight();
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
@@ -468,7 +468,7 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 	s32 radius;
 	s32 cornergap;
 	u32 colour;
-	s32 x = (s32) g_Vars.currentplayer->crosspos[0] / g_ScaleX;
+	s32 x = (s32) g_Vars.currentplayer->crosspos[0];
 	s32 y = g_Vars.currentplayer->crosspos[1];
 	struct trackedprop *trackedprop;
 	s32 i;
@@ -682,7 +682,7 @@ Gfx *sightDrawClassic(Gfx *gdl, bool sighton)
 	spc4[0] = x;
 	spc4[1] = y;
 
-	spbc[0] = (tconfig->width >> 1) * (f32)g_ScaleX;
+	spbc[0] = tconfig->width >> 1;
 	spbc[1] = tconfig->height >> 1;
 
 	texSelect(&gdl, tconfig, 2, 0, 0, 1, NULL);
@@ -796,15 +796,15 @@ Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
 
 Gfx *sightDrawSkedar(Gfx *gdl, bool sighton)
 {
-	s32 viewleft = viGetViewLeft() / g_ScaleX;
+	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth() / g_ScaleX;
+	s32 viewwidth = viGetViewWidth();
 	s32 viewheight = viGetViewHeight();
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 	s32 paddingy = viewheight / 4;
 	s32 paddingx = viewwidth / 4;
-	s32 x = (s32) (g_Vars.currentplayer->crosspos[0] / g_ScaleX);
+	s32 x = (s32) (g_Vars.currentplayer->crosspos[0]);
 	s32 trix1;
 	s32 trix2;
 	s32 y = g_Vars.currentplayer->crosspos[1];
@@ -980,9 +980,9 @@ Gfx *sightDrawSkedar(Gfx *gdl, bool sighton)
 
 Gfx *sightDrawZoom(Gfx *gdl, bool sighton)
 {
-	s32 viewleft = viGetViewLeft() / g_ScaleX;
+	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
-	s32 viewhalfwidth = (viGetViewWidth() / g_ScaleX) >> 1;
+	s32 viewhalfwidth = viGetViewWidth() >> 1;
 	s32 viewhalfheight = viGetViewHeight() >> 1;
 	s32 viewright = viewleft + viewhalfwidth * 2 - 1;
 	s32 viewbottom = viewtop + viewhalfheight * 2 - 1;
@@ -1118,13 +1118,13 @@ Gfx *sightDrawZoom(Gfx *gdl, bool sighton)
 
 Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 {
-	s32 viewleft = viGetViewLeft() / g_ScaleX;
+	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth() / g_ScaleX;
+	s32 viewwidth = viGetViewWidth();
 	s32 viewheight = viGetViewHeight();
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
-	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX;
+	s32 x = (s32)g_Vars.currentplayer->crosspos[0];
 	s32 y = g_Vars.currentplayer->crosspos[1];
 	struct gfxvtx *vertices;
 	u32 *colours;
@@ -1215,7 +1215,7 @@ Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 
 Gfx *sightDrawTarget(Gfx *gdl)
 {
-	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX;
+	s32 x = (s32)g_Vars.currentplayer->crosspos[0];
 	s32 y = g_Vars.currentplayer->crosspos[1];
 
 	gdl = textSetPrimColour(gdl, 0x00ff0028);
@@ -1258,16 +1258,6 @@ Gfx *sightDraw(Gfx *gdl, bool sighton, s32 sight)
 		return gdl;
 	}
 
-#if PAL
-	g_ScaleX = 1;
-#else
-	if (g_ViRes == VIRES_HI) {
-		g_ScaleX = 2;
-	} else {
-		g_ScaleX = 1;
-	}
-#endif
-
 	if (PLAYERCOUNT() >= 2 && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
 		sight = SIGHT_DEFAULT;
 	}
@@ -1309,8 +1299,6 @@ Gfx *sightDraw(Gfx *gdl, bool sighton, s32 sight)
 			gdl = sightDrawTarget(gdl);
 		}
 	}
-
-	g_ScaleX = 1;
 
 	return gdl;
 }

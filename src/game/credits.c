@@ -1548,8 +1548,6 @@ Gfx *creditsDraw(Gfx *gdl)
 
 	text0f1531dc(false);
 
-	g_ScaleX = 1;
-
 	gdl = vi0000b280(gdl);
 	gdl = vi0000b1d0(gdl);
 	gdl = creditsFillFramebuffer(gdl, 0x000000ff);
