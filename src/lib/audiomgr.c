@@ -152,7 +152,7 @@ void amgrMain(void *arg)
 {
 	s32 count = 0;
 	bool done = false;
-	s16 *msg = NULL;
+	s32 msg = 0;
 	AudioInfo *info = NULL;
 
 	static u32 var8005d514 = 1;
@@ -162,7 +162,7 @@ void amgrMain(void *arg)
 	while (!done) {
 		osRecvMesg(&g_AudioManager.audioFrameMsgQ, (OSMesg *) &msg, OS_MESG_BLOCK);
 
-		switch (*msg) {
+		switch (msg) {
 		case OS_SC_RSP_MSG:
 			var80091588 = osGetTime();
 			profileStart(PROFILEMARKER_AUDIO);

@@ -225,8 +225,7 @@ void mainInit(void)
 	}
 
 	{
-		OSMesg receivedmsg = NULL;
-		OSScMsg scdonemsg = { OS_SC_DONE_MSG };
+		s32 receivedmsg = 0;
 		u16 *texture;
 		s32 numpages;
 		u8 scratch[1024 * 5 - 8];
@@ -310,20 +309,18 @@ void mainInit(void)
 		g_RdpOutBufferStart = texture;
 		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
 
-		while (osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0) {
+		while (osRecvMesg(&g_SchedMesgQueue, (OSMesg) &receivedmsg, OS_MESG_NOBLOCK) == 0) {
 			// empty
 		}
 
 		j = 0;
 
 		while (j < 6) {
-			osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_BLOCK);
+			osRecvMesg(&g_SchedMesgQueue, (OSMesg) &receivedmsg, OS_MESG_BLOCK);
 
-			i = (s32) &scdonemsg;
-
-			if (*(s16 *) receivedmsg == 1) {
+			if (receivedmsg == OS_SC_RETRACE_MSG) {
 				viUpdateMode();
-				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (void *) i);
+				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (OSMesg) OS_SC_DONE_MSG);
 				j++;
 			}
 		}
@@ -403,7 +400,6 @@ void mainProc(void)
 void mainLoop(void)
 {
 	s32 ending = false;
-	OSScMsg msg2 = {OS_SC_DONE_MSG};
 	OSMesg msg;
 	s32 index;
 	s32 numplayers;
@@ -569,6 +565,8 @@ void mainLoop(void)
 			osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_BLOCK);
 
 			switch ((s32) msg) {
+			case OS_SC_RETRACE_MSG:
+				break;
 			case OS_SC_DONE_MSG:
 				g_MainNumGfxTasks--;
 				break;
@@ -653,7 +651,7 @@ void mainTick(void)
 	gfxSwapBuffers();
 	viUpdateMode();
 
-	rdpCreateTask(gdlstart, gdl, 0, (void *) OS_SC_DONE_MSG);
+	rdpCreateTask(gdlstart, gdl, 0, (OSMesg) OS_SC_DONE_MSG);
 	g_MainNumGfxTasks++;
 }
 

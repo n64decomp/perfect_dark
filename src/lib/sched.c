@@ -45,7 +45,6 @@ s32 g_ViShakeIntensity = 0;
 s32 g_ViShakeTimer = 0;
 u32 var8005cea0 = 0;
 u32 var8005cea4 = 0;
-OSScMsg g_SchedRspMsg = {OS_SC_RSP_MSG};
 bool g_SchedIsFirstTask = true;
 
 static void __scExec(OSSched *sc, OSScTask *t)
@@ -181,7 +180,7 @@ static void __scHandleRetrace(OSSched *sc)
 	 */
 	if (sc->alt && !g_Resetting) {
 		osStopTimer(&g_SchedRspTimer);
-		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), &g_SchedRspMsg);
+		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), (OSMesg) OS_SC_RSP_MSG);
 
 		if (sc->nextAudTask && sc->curRSPTask->list.t.type == M_GFXTASK) {
 			osSpTaskYield();
@@ -196,7 +195,7 @@ static void __scHandleRetrace(OSSched *sc)
 	joysTick();
 
 	if (sc->gfxmq) {
-		osSendMesg(sc->gfxmq, (OSMesg) &sc->retraceMsg, OS_MESG_NOBLOCK);
+		osSendMesg(sc->gfxmq, (OSMesg) OS_SC_RETRACE_MSG, OS_MESG_NOBLOCK);
 	}
 }
 
