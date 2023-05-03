@@ -165,6 +165,7 @@ void profileGetCounters(u32 counters[5])
 	// Main thread
 	counters[3] = g_MainThread.cycles_saved + (osGetCount() - g_MainThread.cycles_at_dispatch);
 	g_MainThread.cycles_saved = 0;
+	g_MainThread.cycles_at_dispatch = osGetCount();
 
 	// Scheduler thread
 	counters[4] = g_SchedThread.cycles_saved;

@@ -661,7 +661,7 @@ glabel __osDispatchThread
 	subu  $t0, $t0, $t1 # t0 = COUNT - cycles_at_dispatch
 	lw    $t1, 0x230($v1) # t1 = cycles_saved
 	addu  $t1, $t1, $t0 # cycles_saved += COUNT - cycles_at_dispatch
-	sw    $t0, 0x230($v1)
+	sw    $t1, 0x230($v1)
 
 .Ldispatch:
 	addiu $t0, $zero, 0x4
