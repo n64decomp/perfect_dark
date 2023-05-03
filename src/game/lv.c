@@ -914,6 +914,8 @@ Gfx *lvPrintCounter(Gfx *gdl, s32 *y, char *label, u32 cycles, u32 cycles_per_se
 	return gdl;
 }
 
+extern u8 g_ScBottleneck;
+
 Gfx *lvPrintRateText(Gfx *gdl)
 {
 	if (g_FontHandelGothicXs) {
@@ -959,7 +961,6 @@ Gfx *lvPrintRateText(Gfx *gdl)
 			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 		}
 
-#ifdef PROFILING
 		{
 			u32 counters[5];
 
@@ -971,11 +972,21 @@ Gfx *lvPrintRateText(Gfx *gdl)
 			gdl = lvPrintCounter(gdl, &y, " audio", counters[2], OS_CPU_COUNTER);
 			gdl = lvPrintCounter(gdl, &y, " main", counters[3], OS_CPU_COUNTER);
 			gdl = lvPrintCounter(gdl, &y, " sched", counters[4], OS_CPU_COUNTER);
+
+			gdl = textRender(gdl, &x, &y, "\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 		}
-#endif
 
 		x = 10;
-		sprintf(buffer, "\nmema free %d KB\n", memaGetLongestFree() / 1024);
+
+		if (g_ScBottleneck == 'C') {
+			gdl = textRender(gdl, &x, &y, "bottleneck CPU\n\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x3333ffa0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		} else if (g_ScBottleneck == 'R') {
+			gdl = textRender(gdl, &x, &y, "bottleneck RDP\n\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xff0000a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		} else if (g_ScBottleneck == 'V') {
+			gdl = textRender(gdl, &x, &y, "bottleneck VI\n\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		}
+
+		sprintf(buffer, "mema free %d KB\n", memaGetLongestFree() / 1024);
 		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 
 		sprintf(buffer, "memp free %d KB\n", mempGetStageFree() / 1024);

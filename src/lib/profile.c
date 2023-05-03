@@ -3,21 +3,84 @@
 #include "bss.h"
 #include "data.h"
 #include "game/game_1531a0.h"
+#include "lib/profile.h"
 #include "lib/vi.h"
 #include "types.h"
 
-#define NUM_SAMPLES 32
+u32 g_ProfileAudStart;
+u32 g_ProfileAudCycles;
+u32 g_ProfileGfxCycles;
+
+extern OSThread g_SchedThread;
+
+u32 profileReadCounters(void)
+{
+	u32 buf = IO_READ(DPC_BUFBUSY_REG);
+	u32 tmm = IO_READ(DPC_TMEM_REG);
+	u32 bus = IO_READ(DPC_PIPEBUSY_REG);
+	u32 max;
+
+	max = buf > tmm ? buf : tmm;
+	max = bus > max ? bus : max;
+
+	return max;
+}
+
+void profileGetCounters(u32 counters[5])
+{
+	s32 i;
+
+	OSPri prevpri = osGetThreadPri(0);
+	osSetThreadPri(0, THREADPRI_SCHED + 1);
+
+	// RSP
+	counters[0] = g_ProfileAudCycles;
+
+	// RDP
+	counters[1] = g_ProfileGfxCycles;
+
+	// Audio thread
+	counters[2] = g_AudioManager.thread.cycles_saved;
+	g_AudioManager.thread.cycles_saved = 0;
+
+	// Main thread
+	counters[3] = g_MainThread.cycles_saved + (osGetCount() - g_MainThread.cycles_at_dispatch);
+	g_MainThread.cycles_saved = 0;
+	g_MainThread.cycles_at_dispatch = osGetCount();
+
+	// Scheduler thread
+	counters[4] = g_SchedThread.cycles_saved;
+	g_SchedThread.cycles_saved = 0;
+
+	osSetThreadPri(0, prevpri);
+}
+
+void profileHandleRspEvent(s32 event)
+{
+	switch (event) {
+	case RSPEVENT_AUD_START:
+		g_ProfileAudStart = osGetCount();
+		break;
+	case RSPEVENT_AUD_FINISH:
+		g_ProfileAudCycles = osGetCount() - g_ProfileAudStart;
+		break;
+	case RSPEVENT_GFX_START:
+		osDpSetStatus(DPC_CLR_CMD_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_TMEM_CTR);
+		break;
+	case RSPEVENT_GFX_FINISH:
+		g_ProfileGfxCycles = profileReadCounters();
+		break;
+	}
+}
 
 #ifdef PROFILING
+
+#define NUM_SAMPLES 32
+
 // [x][x][0] is the current ticks tally (for multiple start + stops within one frame)
 // [x][x][1] is the start time
 u32 g_ProfileMarkers[NUM_SAMPLES][NUM_PROFILEMARKERS][2];
 s32 g_ProfileIndex = 0;
-u32 g_ProfileAudStart;
-u32 g_ProfileAudCycles;
-u32 g_ProfileGfxCycles;
-u32 g_ProfileGfxHistory[30];
-u32 g_ProfileGfxIndex = 0;
 struct profileslot *g_ProfileCurrentSlot;
 
 struct profileslot {
@@ -121,124 +184,6 @@ void profileStart(s32 marker)
 void profileEnd(s32 marker)
 {
 	g_ProfileMarkers[g_ProfileIndex][marker][0] += osGetCount() - g_ProfileMarkers[g_ProfileIndex][marker][1];
-}
-
-u32 profileReadCounters(void)
-{
-	u32 buf = IO_READ(DPC_BUFBUSY_REG);
-	u32 tmm = IO_READ(DPC_TMEM_REG);
-	u32 bus = IO_READ(DPC_PIPEBUSY_REG);
-	u32 max;
-
-	max = buf > tmm ? buf : tmm;
-	max = bus > max ? bus : max;
-
-	return max;
-}
-
-extern OSThread g_SchedThread;
-
-void profileGetCounters(u32 counters[5])
-{
-	s32 i;
-	u32 max = 0;
-
-	OSPri prevpri = osGetThreadPri(0);
-	osSetThreadPri(0, THREADPRI_SCHED + 1);
-
-	// RSP
-	counters[0] = g_ProfileAudCycles;
-
-	// RDP
-	for (i = 0; i < ARRAYCOUNT(g_ProfileGfxHistory); i++) {
-		if (g_ProfileGfxHistory[i] > max) {
-			max = g_ProfileGfxHistory[i];
-		}
-	}
-
-	counters[1] = g_ProfileGfxCycles;
-
-	// Audio thread
-	counters[2] = g_AudioManager.thread.cycles_saved;
-	g_AudioManager.thread.cycles_saved = 0;
-
-	// Main thread
-	counters[3] = g_MainThread.cycles_saved + (osGetCount() - g_MainThread.cycles_at_dispatch);
-	g_MainThread.cycles_saved = 0;
-	g_MainThread.cycles_at_dispatch = osGetCount();
-
-	// Scheduler thread
-	counters[4] = g_SchedThread.cycles_saved;
-	g_SchedThread.cycles_saved = 0;
-
-	osSetThreadPri(0, prevpri);
-}
-
-void profileHandleRspEvent(s32 event)
-{
-	switch (event) {
-	case RSPEVENT_AUD_START:
-		g_ProfileAudStart = osGetCount();
-		break;
-	case RSPEVENT_AUD_FINISH:
-		g_ProfileAudCycles = osGetCount() - g_ProfileAudStart;
-		break;
-	case RSPEVENT_GFX_START:
-		osDpSetStatus(DPC_CLR_CMD_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_TMEM_CTR);
-		break;
-	case RSPEVENT_GFX_FINISH:
-		g_ProfileGfxCycles = profileReadCounters();
-		g_ProfileGfxHistory[g_ProfileGfxIndex] = g_ProfileGfxCycles;
-		g_ProfileGfxIndex = (g_ProfileGfxIndex + 1) % ARRAYCOUNT(g_ProfileGfxHistory);
-		break;
-	}
-}
-
-Gfx *profileRenderRdpLine(Gfx *gdl, s32 x, s32 *y, char *label, u32 *ticksarray)
-{
-	char buffer[64];
-	s32 percent;
-	u32 colour;
-	u32 microseconds;
-	s32 textwidth;
-	s32 textheight;
-	s32 x2;
-	u32 ticks = 0;
-	s32 i;
-
-	for (i = 0; i < NUM_SAMPLES; i++) {
-		ticks += ticksarray[i];
-	}
-
-	ticks /= NUM_SAMPLES;
-
-	percent = ticks * 100 / (62500000 / 60);
-	microseconds = ticks * 10 / 625;
-
-	if (percent >= 100) {
-		colour = 0xff0000a0;
-	} else if (percent >= 80) {
-		colour = 0xffff00a0;
-	} else {
-		colour = 0x00ff00a0;
-	}
-
-	x2 = x;
-	gdl = textRender(gdl, &x2, y, label, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-
-	sprintf(buffer, "%d", microseconds);
-	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
-
-	x2 = x + 100 - textwidth;
-	gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-
-	sprintf(buffer, "%d%%\n", percent);
-	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
-
-	x2 = x + 130 - textwidth;
-	gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
-
-	return gdl;
 }
 
 Gfx *profileRenderCpuLine(Gfx *gdl, s32 x, s32 *y, char *label, s32 marker)

@@ -3510,20 +3510,10 @@ enum profilemarker {
 	PROFILEMARKER_TMP,
 	NUM_PROFILEMARKERS
 };
-
-enum rspevent {
-	RSPEVENT_AUD_START,
-	RSPEVENT_AUD_FINISH,
-	RSPEVENT_GFX_START,
-	RSPEVENT_GFX_PAUSE,
-	RSPEVENT_GFX_RESUME,
-	RSPEVENT_GFX_FINISH
-};
 #else
 #define PROFILE(marker, code) code
 #define profileStart(marker)
 #define profileEnd(marker)
-#define profileHandleRspEvent(event)
 #endif
 
 #define PROJECTILEFLAG_AIRBORNE    0x00000001

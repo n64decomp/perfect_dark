@@ -33,6 +33,7 @@ s32 var8008de0c;
 s32 var8008de10;
 u32 var8008de14;
 OSTimer g_SchedRspTimer;
+u8 g_ScBottleneck = ' ';
 
 s32 var8005ce74 = 0;
 f32 g_ViXScalesBySlot[2] = {1, 1};
@@ -292,8 +293,11 @@ void schedSubmitGfxTask(OSSched *sc, OSScTask *t)
 	t->state = OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP;
 
 	if (sc->curRSPTask == NULL && sc->curRDPTask == NULL && sc->queuedFB == NULL) {
+		g_ScBottleneck = 'C';
 		__scExec(sc, t);
 	} else {
+		g_ScBottleneck = sc->queuedFB ? 'V' : 'R';
+
 		if (sc->nextGfxTask == NULL) {
 			sc->nextGfxTask = t;
 		} else {
