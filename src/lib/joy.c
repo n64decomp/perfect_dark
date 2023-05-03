@@ -423,16 +423,7 @@ void joyDebugJoy(void)
 	if (var8005eec8) {
 		var8005eec8(g_JoyData[0].samples, g_JoyData[0].curstart, g_JoyData[0].curlast);
 	}
-
-	if (joyIsCyclicPollingEnabled() && var8005eec0 && joyGetNumSamples() <= 0) {
-		joyDisableCyclicPolling();
-		joy00014238();
-		joyEnableCyclicPolling();
-		joyConsumeSamples(&g_JoyData[0]);
-	}
 }
-
-
 
 s32 joyStartReadData(OSMesgQueue *mq)
 {
