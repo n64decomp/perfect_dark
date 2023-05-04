@@ -31,7 +31,7 @@
  * sample in the next partition.
  */
 
-struct joydata g_JoyData[2];
+struct joydata g_JoyData;
 s32 g_JoyDisableCooldown[4];
 OSMesgQueue g_PiMesgQueue;
 OSMesg var80099e90[10];
@@ -48,17 +48,8 @@ u8 g_JoyPfsStates[100];
 u32 var80099fac;
 u32 var80099fb0;
 
-
-struct joydata *g_JoyDataPtr = &g_JoyData[0];
 bool g_JoyBusy = false;
 u32 var8005ee68 = 0;
-
-// Number of times per pad that different inputs were attempted to be read
-// when controller was disconnected or not ready.
-u32 g_JoyBadReadsStickX[4] = {0};
-u32 g_JoyBadReadsStickY[4] = {0};
-u32 g_JoyBadReadsButtons[4] = {0};
-u32 g_JoyBadReadsButtonsPressed[4] = {0};
 
 u8 g_JoyConnectedControllers = 0;
 bool g_JoyQueuesCreated = false;
@@ -66,8 +57,6 @@ bool g_JoyInitDone = false;
 bool g_JoyNeedsInit = true;
 u32 g_JoyCyclicPollDisableCount = 0;
 u32 var8005eec0 = 1;
-s32 (*var8005eec4)(struct contsample *samples, s32 samplenum) = NULL;
-void (*var8005eec8)(struct contsample *samples, s32 samplenum, s32 samplenum2) = NULL;
 s32 g_JoyNextPfsStateIndex = 0;
 s32 var8005eed0 = 0;
 
@@ -228,22 +217,17 @@ void joyInit(void)
 
 	g_JoyQueuesCreated = true;
 
-	var8005eec4 = NULL;
-	var8005eec8 = NULL;
+	g_JoyData.curlast = 0;
+	g_JoyData.curstart = 0;
+	g_JoyData.nextlast = 0;
+	g_JoyData.nextsecondlast = 0;
+	g_JoyData.unk200 = -1;
 
-	for (i = 0; i < 2; i++) {
-		g_JoyData[i].curlast = 0;
-		g_JoyData[i].curstart = 0;
-		g_JoyData[i].nextlast = 0;
-		g_JoyData[i].nextsecondlast = 0;
-		g_JoyData[i].unk200 = -1;
-
-		for (j = 0; j < 4; j++) {
-			g_JoyData[i].samples[0].pads[j].button = 0;
-			g_JoyData[i].samples[0].pads[j].stick_x = 0;
-			g_JoyData[i].samples[0].pads[j].stick_y = 0;
-			g_JoyData[i].samples[0].pads[j].errno = 0;
-		}
+	for (j = 0; j < 4; j++) {
+		g_JoyData.samples[0].pads[j].button = 0;
+		g_JoyData.samples[0].pads[j].stick_x = 0;
+		g_JoyData.samples[0].pads[j].stick_y = 0;
+		g_JoyData.samples[0].pads[j].errno = 0;
 	}
 
 	for (i = 0; i < 4; i++) {
@@ -337,50 +321,6 @@ u32 joyGetConnectedControllers(void)
 	return g_JoyConnectedControllers;
 }
 
-void joyConsumeSamples(struct joydata *joydata)
-{
-	s8 i;
-	s32 samplenum;
-	u16 buttons1;
-	u16 buttons2;
-
-	joydata->curstart = joydata->curlast;
-	joydata->curlast = joydata->nextlast;
-
-	for (i = 0; i < 4; i++) {
-		joydata->buttonspressed[i] = 0;
-		joydata->buttonsreleased[i] = 0;
-
-		if (joydata->curlast != joydata->curstart) {
-			samplenum = (joydata->curstart + 1) % 20; while (true) {
-				buttons1 = joydata->samples[samplenum].pads[i].button;
-				buttons2 = joydata->samples[(samplenum + 19) % 20].pads[i].button;
-
-				joydata->buttonspressed[i] |= buttons1 & ~buttons2;
-				joydata->buttonsreleased[i] |= ~buttons1 & buttons2;
-
-				if (g_JoyDisableCooldown[i] > 0) {
-					if (joydata->samples[samplenum].pads[i].button == 0
-							&& joydata->samples[samplenum].pads[i].stick_x < 15
-							&& joydata->samples[samplenum].pads[i].stick_x > -15
-							&& joydata->samples[samplenum].pads[i].stick_y < 15
-							&& joydata->samples[samplenum].pads[i].stick_y > -15) {
-						g_JoyDisableCooldown[i] = 0;
-					} else {
-						g_JoyDisableCooldown[i]--;
-					}
-				}
-
-				if (samplenum == joydata->curlast) {
-					break;
-				}
-
-				samplenum = (samplenum + 1) % 20;
-			}
-		}
-	}
-}
-
 /**
  * The use of the static variable suggests that the function is able to be
  * called recursively, but its behaviour should not be run when recursing.
@@ -399,9 +339,7 @@ void joy00014238(void)
 			}
 		}
 
-		if (var8005eec4 == NULL) {
-			joysTickRumble();
-		}
+		joysTickRumble();
 
 		doingit = false;
 	}
@@ -409,19 +347,49 @@ void joy00014238(void)
 
 void joyDebugJoy(void)
 {
+	s8 i;
+	s32 samplenum;
+	u16 buttons1;
+	u16 buttons2;
+
 	if (g_Vars.paksconnected) {
 		joyCheckPfs(1);
 	}
 
-	if (var8005eec4) {
-		g_JoyData[1].nextlast = var8005eec4(g_JoyData[1].samples, g_JoyData[1].curlast);
-		joyConsumeSamples(&g_JoyData[1]);
-	}
+	g_JoyData.curstart = g_JoyData.curlast;
+	g_JoyData.curlast = g_JoyData.nextlast;
 
-	joyConsumeSamples(&g_JoyData[0]);
+	for (i = 0; i < 4; i++) {
+		g_JoyData.buttonspressed[i] = 0;
+		g_JoyData.buttonsreleased[i] = 0;
 
-	if (var8005eec8) {
-		var8005eec8(g_JoyData[0].samples, g_JoyData[0].curstart, g_JoyData[0].curlast);
+		if (g_JoyData.curlast != g_JoyData.curstart) {
+			samplenum = (g_JoyData.curstart + 1) % 20; while (true) {
+				buttons1 = g_JoyData.samples[samplenum].pads[i].button;
+				buttons2 = g_JoyData.samples[(samplenum + 19) % 20].pads[i].button;
+
+				g_JoyData.buttonspressed[i] |= buttons1 & ~buttons2;
+				g_JoyData.buttonsreleased[i] |= ~buttons1 & buttons2;
+
+				if (g_JoyDisableCooldown[i] > 0) {
+					if (g_JoyData.samples[samplenum].pads[i].button == 0
+							&& g_JoyData.samples[samplenum].pads[i].stick_x < 15
+							&& g_JoyData.samples[samplenum].pads[i].stick_x > -15
+							&& g_JoyData.samples[samplenum].pads[i].stick_y < 15
+							&& g_JoyData.samples[samplenum].pads[i].stick_y > -15) {
+						g_JoyDisableCooldown[i] = 0;
+					} else {
+						g_JoyDisableCooldown[i]--;
+					}
+				}
+
+				if (samplenum == g_JoyData.curlast) {
+					break;
+				}
+
+				samplenum = (samplenum + 1) % 20;
+			}
+		}
 	}
 }
 
@@ -432,18 +400,18 @@ s32 joyStartReadData(OSMesgQueue *mq)
 
 void joyReadData(void)
 {
-	s32 index = (g_JoyData[0].nextlast + 1) % 20;
+	s32 index = (g_JoyData.nextlast + 1) % 20;
 
-	if (index == g_JoyData[0].curstart) {
+	if (index == g_JoyData.curstart) {
 		// If the sample queue is full, don't overwrite the oldest sample.
 		// Instead, overwrite the most recent.
-		index = g_JoyData[0].nextlast;
+		index = g_JoyData.nextlast;
 	}
 
-	osContGetReadData(g_JoyData[0].samples[index].pads);
+	osContGetReadData(g_JoyData.samples[index].pads);
 
-	g_JoyData[0].nextlast = index;
-	g_JoyData[0].nextsecondlast = (g_JoyData[0].nextlast + 19) % 20;
+	g_JoyData.nextlast = index;
+	g_JoyData.nextsecondlast = (g_JoyData.nextlast + 19) % 20;
 }
 
 void joysTick(void)
@@ -460,8 +428,8 @@ void joysTick(void)
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
-						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
+				if ((g_JoyData.samples[g_JoyData.nextlast].pads[i].errno == 0 && g_JoyData.samples[g_JoyData.nextsecondlast].pads[i].errno != 0)
+						|| (g_JoyData.samples[g_JoyData.nextlast].pads[i].errno != 0 && g_JoyData.samples[g_JoyData.nextsecondlast].pads[i].errno == 0)) {
 					joy00013e84();
 					break;
 				}
@@ -495,15 +463,13 @@ void joysTick(void)
 		}
 
 		if (osRecvMesg(&g_PiMesgQueue, &msg, OS_MESG_NOBLOCK) == 0) {
-			static s32 count = 0;
-
 			g_JoyBusy = false;
 			joyReadData();
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
-						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
+				if ((g_JoyData.samples[g_JoyData.nextlast].pads[i].errno == 0 && g_JoyData.samples[g_JoyData.nextsecondlast].pads[i].errno != 0)
+						|| (g_JoyData.samples[g_JoyData.nextlast].pads[i].errno != 0 && g_JoyData.samples[g_JoyData.nextsecondlast].pads[i].errno == 0)) {
 					joy00013e84();
 					break;
 				}
@@ -515,23 +481,6 @@ void joysTick(void)
 
 			joyStartReadData(&g_PiMesgQueue);
 			g_JoyBusy = true;
-
-			count++;
-
-			if (count >= 60) {
-				s32 i;
-
-				for (i = 0; i < 4; i++) {
-					if (g_JoyBadReadsStickX[i] || g_JoyBadReadsStickY[i] || g_JoyBadReadsButtons[i] || g_JoyBadReadsButtonsPressed[i]) {
-						g_JoyBadReadsStickX[i] = 0;
-						g_JoyBadReadsStickY[i] = 0;
-						g_JoyBadReadsButtons[i] = 0;
-						g_JoyBadReadsButtonsPressed[i] = 0;
-					}
-				}
-
-				count = 0;
-			}
 		}
 	}
 }
@@ -543,13 +492,12 @@ void joy00014810(bool value)
 
 s32 joyGetNumSamples(void)
 {
-	return (g_JoyDataPtr->curlast - g_JoyDataPtr->curstart + 20) % 20;
+	return (g_JoyData.curlast - g_JoyData.curstart + 20) % 20;
 }
 
 s32 joyGetStickXOnSample(s32 samplenum, s8 contpadnum)
 {
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsStickX[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -557,13 +505,12 @@ s32 joyGetStickXOnSample(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_x;
+	return g_JoyData.samples[(g_JoyData.curstart + samplenum + 1) % 20].pads[contpadnum].stick_x;
 }
 
 s32 joyGetStickYOnSample(s32 samplenum, s8 contpadnum)
 {
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsStickY[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -571,13 +518,12 @@ s32 joyGetStickYOnSample(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_y;
+	return g_JoyData.samples[(g_JoyData.curstart + samplenum + 1) % 20].pads[contpadnum].stick_y;
 }
 
 s32 joyGetStickYOnSampleIndex(s32 samplenum, s8 contpadnum)
 {
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsStickY[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -585,15 +531,14 @@ s32 joyGetStickYOnSampleIndex(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum) % 20].pads[contpadnum].stick_y;
+	return g_JoyData.samples[(g_JoyData.curstart + samplenum) % 20].pads[contpadnum].stick_y;
 }
 
 u16 joyGetButtonsOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 {
 	u16 button;
 
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsButtons[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -601,7 +546,7 @@ u16 joyGetButtonsOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
+	button = g_JoyData.samples[(g_JoyData.curstart + samplenum + 1) % 20].pads[contpadnum].button;
 
 	return button & mask;
 }
@@ -611,8 +556,7 @@ u16 joyGetButtonsPressedOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 	u16 button1;
 	u16 button2;
 
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsButtonsPressed[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -620,8 +564,8 @@ u16 joyGetButtonsPressedOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button1 = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
-	button2 = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum) % 20].pads[contpadnum].button;
+	button1 = g_JoyData.samples[(g_JoyData.curstart + samplenum + 1) % 20].pads[contpadnum].button;
+	button2 = g_JoyData.samples[(g_JoyData.curstart + samplenum) % 20].pads[contpadnum].button;
 
 	return (button1 & ~button2) & mask;
 }
@@ -640,8 +584,7 @@ s32 joyCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 	s32 i;
 	u16 button;
 
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsButtons[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -649,18 +592,18 @@ s32 joyCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	i = (g_JoyDataPtr->curstart + 1) % 20;
+	i = (g_JoyData.curstart + 1) % 20;
 
 	while (true) {
 		if (checksamples == NULL || checksamples[index]) {
-			button = g_JoyDataPtr->samples[i].pads[contpadnum].button;
+			button = g_JoyData.samples[i].pads[contpadnum].button;
 
 			if (button & mask) {
 				count++;
 			}
 		}
 
-		if (i == g_JoyDataPtr->curlast) {
+		if (i == g_JoyData.curlast) {
 			break;
 		}
 
@@ -673,8 +616,7 @@ s32 joyCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 
 s8 joyGetStickX(s8 contpadnum)
 {
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsStickX[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -682,13 +624,12 @@ s8 joyGetStickX(s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyDataPtr->samples[g_JoyDataPtr->curlast].pads[contpadnum].stick_x;
+	return g_JoyData.samples[g_JoyData.curlast].pads[contpadnum].stick_x;
 }
 
 s8 joyGetStickY(s8 contpadnum)
 {
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsStickY[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -696,13 +637,12 @@ s8 joyGetStickY(s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyDataPtr->samples[g_JoyDataPtr->curlast].pads[contpadnum].stick_y;
+	return g_JoyData.samples[g_JoyData.curlast].pads[contpadnum].stick_y;
 }
 
 u16 joyGetButtons(s8 contpadnum, u16 mask)
 {
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsButtons[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -710,13 +650,12 @@ u16 joyGetButtons(s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	return g_JoyDataPtr->samples[g_JoyDataPtr->curlast].pads[contpadnum].button & mask;
+	return g_JoyData.samples[g_JoyData.curlast].pads[contpadnum].button & mask;
 }
 
 u16 joyGetButtonsPressedThisFrame(s8 contpadnum, u16 mask)
 {
-	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
-		g_JoyBadReadsButtonsPressed[contpadnum]++;
+	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
 
@@ -724,7 +663,7 @@ u16 joyGetButtonsPressedThisFrame(s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	return g_JoyDataPtr->buttonspressed[contpadnum] & mask;
+	return g_JoyData.buttonspressed[contpadnum] & mask;
 }
 
 bool joyIsCyclicPollingEnabled(void)
