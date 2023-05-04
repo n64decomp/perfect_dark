@@ -93,11 +93,11 @@ struct roommtx *roomTouchMtx(s32 roomnum)
 		return roommtx;
 	}
 
-	if (index != -1) {
-		roomUnlinkMtx(&g_RoomMtxes[index], roomnum);
-	}
-
 	roommtx = roomAllocateMtx();
+
+	if (roommtx->room1 != -1) {
+		roomUnlinkMtx(roommtx, roommtx->room1);
+	}
 
 	roomLinkMtx(roommtx, roomnum);
 	roommtx->lvframe = g_Vars.lvframenum;
