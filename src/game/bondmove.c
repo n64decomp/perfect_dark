@@ -731,12 +731,14 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				}
 
 				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
-					for (i = 0; i < numsamples; i++) {
-						aimonhist[i] = allowc1buttons && joyGetButtonsOnSample(i, aimpad, aimallowedbuttons & Z_TRIG);
-						aimoffhist[i] = !aimonhist[i];
-					}
+					if (numsamples) {
+						for (i = 0; i < numsamples; i++) {
+							aimonhist[i] = allowc1buttons && joyGetButtonsOnSample(i, aimpad, aimallowedbuttons & Z_TRIG);
+							aimoffhist[i] = !aimonhist[i];
+						}
 
-					g_Vars.currentplayer->insightaimmode = aimonhist[numsamples - 1];
+						g_Vars.currentplayer->insightaimmode = aimonhist[numsamples - 1];
+					}
 				}
 
 				if (!lvIsPaused()) {
@@ -1034,12 +1036,14 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				}
 
 				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
-					for (i = 0; i < numsamples; i++) {
-						aimonhist[i] = allowc1buttons && joyGetButtonsOnSample(i, contpad1, aimbuttons & c1allowedbuttons);
-						aimoffhist[i] = !aimonhist[i];
-					}
+					if (numsamples) {
+						for (i = 0; i < numsamples; i++) {
+							aimonhist[i] = allowc1buttons && joyGetButtonsOnSample(i, contpad1, aimbuttons & c1allowedbuttons);
+							aimoffhist[i] = !aimonhist[i];
+						}
 
-					g_Vars.currentplayer->insightaimmode = aimonhist[numsamples - 1];
+						g_Vars.currentplayer->insightaimmode = aimonhist[numsamples - 1];
+					}
 				}
 
 				if (!lvIsPaused()) {
