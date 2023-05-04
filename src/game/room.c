@@ -11,35 +11,6 @@ struct roommtx *g_RoomMtxes;
 s32 var80082050 = 0;
 s32 g_NextRoomMtx = 0;
 
-void roomSetLastForOffset(s32 room)
-{
-	g_Vars.currentplayer->lastroomforoffset = room;
-}
-
-void roomLinkMtx(struct roommtx *roommtx, s32 roomnum)
-{
-	g_Rooms[roomnum].unk10[g_Vars.currentplayernum] = roommtx->index;
-	roommtx->room1 = roomnum;
-}
-
-void roomUnlinkMtx(struct roommtx *roommtx, s32 roomnum)
-{
-	g_Rooms[roomnum].unk10[roommtx->playernum] = -1;
-	roommtx->room1 = -1;
-}
-
-void roomFreeMtx(struct roommtx *roommtx)
-{
-	if (roommtx->room1 != -1) {
-		roomUnlinkMtx(roommtx, roommtx->room1);
-	}
-
-	roommtx->lvframe = 0;
-	roommtx->playernum = -1;
-	roommtx->room2 = -1;
-	roommtx->somefloat = 1;
-}
-
 /**
  * Find a free mtx and return it.
  */
@@ -96,10 +67,13 @@ struct roommtx *roomTouchMtx(s32 roomnum)
 	roommtx = roomAllocateMtx();
 
 	if (roommtx->room1 != -1) {
-		roomUnlinkMtx(roommtx, roommtx->room1);
+		g_Rooms[roommtx->room1].unk10[roommtx->playernum] = -1;
+		roommtx->room1 = -1;
 	}
 
-	roomLinkMtx(roommtx, roomnum);
+	g_Rooms[roomnum].unk10[g_Vars.currentplayernum] = roommtx->index;
+
+	roommtx->room1 = roomnum;
 	roommtx->lvframe = g_Vars.lvframenum;
 	roommtx->playernum = g_Vars.currentplayernum;
 	roommtx->room2 = g_Vars.currentplayer->lastroomforoffset;
@@ -118,14 +92,4 @@ Gfx *roomApplyMtx(Gfx *gdl, s32 roomnum)
 	gSPMatrix(gdl++, &roommtx->mtx, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	return gdl;
-}
-
-struct coord *roomGetPosPtr(s32 room)
-{
-	return &g_BgRooms[room].pos;
-}
-
-void roomGetPos(s32 room, struct coord *globaldrawworldoffset)
-{
-	*globaldrawworldoffset = g_BgRooms[room].pos;
 }

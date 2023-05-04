@@ -3813,11 +3813,9 @@ struct var80070ba4 var80070ba4[4][7] = { // [wieldmode][turnmode]
 
 void playerSetGlobalDrawWorldOffset(s32 room)
 {
-	roomGetPos(room, &g_Vars.currentplayer->globaldrawworldoffset);
-
+	g_Vars.currentplayer->globaldrawworldoffset = g_BgRooms[room].pos;
 	g_Vars.currentplayer->globaldrawworldbgoffset = g_Vars.currentplayer->globaldrawworldoffset;
-
-	roomSetLastForOffset(room);
+	g_Vars.currentplayer->lastroomforoffset = room;
 }
 
 void playerSetGlobalDrawCameraOffset(void)

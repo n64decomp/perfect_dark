@@ -1243,7 +1243,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 	if (roomnum != -1) {
 		struct screenbox screenbox;
-		struct coord *coord = roomGetPosPtr(roomnum);
+		struct coord *coord = &g_BgRooms[roomnum].pos;
 		u32 *colour;
 		s32 tmp;
 

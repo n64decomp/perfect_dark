@@ -638,9 +638,9 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	}
 
 	if (roomnum != -1) {
-		coord = roomGetPosPtr(roomnum);
+		coord = &g_BgRooms[roomnum].pos;
 
-		roomGetPos(roomnum, &worldoffset);
+		worldoffset = g_BgRooms[roomnum].pos;
 
 		if (smoke->parts[0].size > 0) {
 			f32 x = smoke->parts[0].pos.x - worldoffset.x;

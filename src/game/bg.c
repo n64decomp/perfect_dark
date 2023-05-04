@@ -809,7 +809,6 @@ Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool r
 Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 {
 	struct coord sp54;
-	struct coord globaldrawworldoffset;
 	s16 sp40[3];
 	struct player *player = g_Vars.currentplayer;
 
@@ -832,11 +831,9 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 		return gdl;
 	}
 
-	roomGetPos(roomnum, &globaldrawworldoffset);
-
-	sp54.x = player->eraserpos.x - globaldrawworldoffset.x;
-	sp54.y = player->eraserpos.y - globaldrawworldoffset.y;
-	sp54.z = player->eraserpos.z - globaldrawworldoffset.z;
+	sp54.x = player->eraserpos.x - g_BgRooms[roomnum].pos.x;
+	sp54.y = player->eraserpos.y - g_BgRooms[roomnum].pos.y;
+	sp54.z = player->eraserpos.z - g_BgRooms[roomnum].pos.z;
 
 	sp40[0] = sp54.f[0];
 	sp40[1] = sp54.f[1];

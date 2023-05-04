@@ -899,7 +899,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 				obj->hidden2 |= OBJH2FLAG_HASOPA;
 			}
 		} else {
-			struct coord *roompos = roomGetPosPtr(room);
+			struct coord *roompos = &g_BgRooms[room].pos;
 
 			if (arg2 != NULL) {
 				f32 xdist = arg2->x - relpos->x;
