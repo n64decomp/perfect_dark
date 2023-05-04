@@ -2786,24 +2786,25 @@ bool propTryAddToChunk(s16 propnum, s32 chunkindex)
 
 s32 roomAllocatePropListChunk(s32 room, s32 prevchunkindex)
 {
-	s32 i;
-	s32 j;
+	u32 i;
+
+	static u32 nextindex = 0;
 
 	for (i = 0; i < 256; i++) {
-		if (g_RoomPropListChunks[i].count == 0) {
-			for (j = 0; j < ARRAYCOUNT(g_RoomPropListChunks[i].propnums); j++) {
-				g_RoomPropListChunks[i].propnums[j] = -1;
-			}
+		s32 index = (nextindex + i) % 256;
 
-			g_RoomPropListChunks[i].next = -1;
+		if (g_RoomPropListChunks[index].count == 0) {
+			g_RoomPropListChunks[index].next = -1;
 
 			if (prevchunkindex >= 0) {
-				g_RoomPropListChunks[prevchunkindex].next = i;
+				g_RoomPropListChunks[prevchunkindex].next = index;
 			} else {
-				g_RoomPropListChunkIndexes[room] = i;
+				g_RoomPropListChunkIndexes[room] = index;
 			}
 
-			return i;
+			nextindex = (index + 1) % 256;
+
+			return index;
 		}
 	}
 
