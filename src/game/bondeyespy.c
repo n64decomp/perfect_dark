@@ -553,8 +553,7 @@ bool eyespyTryLaunch(void)
 	bool insafe;
 	char text[48];
 
-	insafe = stageGetIndex(g_Vars.stagenum) == STAGEINDEX_G5BUILDING
-		&& g_Vars.currentplayer->prop->rooms[0] == 0x53;
+	insafe = g_Vars.stagenum == STAGE_G5BUILDING && g_Vars.currentplayer->prop->rooms[0] == 0x53;
 
 	playerpos = g_Vars.currentplayer->prop->pos;
 
@@ -566,8 +565,7 @@ bool eyespyTryLaunch(void)
 	g_Vars.currentplayer->eyespy->up.z = 0;
 	g_Vars.currentplayer->eyespy->startuptimer60 = 0;
 
-	if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_G5BUILDING
-			|| stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CITRAINING) {
+	if (g_Vars.stagenum == STAGE_G5BUILDING || g_Vars.stagenum == STAGE_CITRAINING) {
 		g_EyespyMinHeight = 30;
 	} else {
 		g_EyespyMinHeight = 80;

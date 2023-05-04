@@ -642,9 +642,9 @@ void playerLoadDefaults(void)
 	g_Vars.currentplayer->bondactivateorreload = false;
 	g_Vars.currentplayer->isdead = false;
 
-	if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_DUEL) {
+	if (g_Vars.stagenum == STAGE_DUEL) {
 		g_Vars.currentplayer->bondhealth = 0.01f;
-	} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MAIANSOS) {
+	} else if (g_Vars.stagenum == STAGE_MAIANSOS) {
 		g_Vars.currentplayer->bondhealth = 0.5f;
 	} else {
 		g_Vars.currentplayer->bondhealth = 1;
@@ -1956,8 +1956,7 @@ void playerUpdateZoom(void)
 		scale = 0.1;
 	}
 
-	stage = stageGetCurrent();
-	currentPlayerSetScaleBg2Gfx((1 - (1 - stage->unk34) * (1 - scale) * (10.f / 9.0f)) * scale);
+	currentPlayerSetScaleBg2Gfx((1 - (1 - g_CurrentStage->unk34) * (1 - scale) * (10.f / 9.0f)) * scale);
 }
 
 void playerStopAudioForPause(void)
@@ -3367,14 +3366,14 @@ void playerTick(bool arg0)
 								| 1 << CHEAT_HOTSHOT
 								| 1 << CHEAT_HITANDRUN
 								| 1 << CHEAT_ALIEN)) == 0) {
-					if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+					if (g_Vars.stagenum == STAGE_AIRBASE) {
 						prop = chrSpawnAtCoord(BODY_DARK_COMBAT, HEAD_VD,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
 								BADDEG2RAD(g_Vars.currentplayer->vv_theta / 2),
 								ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_00000010);
-					} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
+					} else if (g_Vars.stagenum == STAGE_MBR) {
 						prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
@@ -3402,7 +3401,7 @@ void playerTick(bool arg0)
 						chr->accuracyrating = 100;
 						chr->speedrating = 100;
 
-						if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+						if (g_Vars.stagenum == STAGE_AIRBASE) {
 							chrAddHealth(chr, 40);
 						} else {
 							chrAddHealth(chr, 20);
@@ -3420,7 +3419,7 @@ void playerTick(bool arg0)
 				}
 
 				if (cheatIsActive(CHEAT_PUGILIST)) {
-					if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
+					if (g_Vars.stagenum == STAGE_MBR) {
 						prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
@@ -3448,7 +3447,7 @@ void playerTick(bool arg0)
 						chr->accuracyrating = 100;
 						chr->speedrating = 100;
 
-						if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+						if (g_Vars.stagenum == STAGE_AIRBASE) {
 							chrAddHealth(chr, 40);
 						} else {
 							chrAddHealth(chr, 20);
@@ -3464,7 +3463,7 @@ void playerTick(bool arg0)
 				}
 
 				if (cheatIsActive(CHEAT_HITANDRUN)) {
-					if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
+					if (g_Vars.stagenum == STAGE_MBR) {
 						prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
@@ -3492,7 +3491,7 @@ void playerTick(bool arg0)
 						chr->accuracyrating = 50;
 						chr->speedrating = 100;
 
-						if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+						if (g_Vars.stagenum == STAGE_AIRBASE) {
 							chrAddHealth(chr, 20);
 						} else {
 							chrAddHealth(chr, 10);
@@ -3510,7 +3509,7 @@ void playerTick(bool arg0)
 				}
 
 				if (cheatIsActive(CHEAT_HOTSHOT)) {
-					if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
+					if (g_Vars.stagenum == STAGE_MBR) {
 						prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
@@ -3538,7 +3537,7 @@ void playerTick(bool arg0)
 						chr->accuracyrating = 50;
 						chr->speedrating = 100;
 
-						if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+						if (g_Vars.stagenum == STAGE_AIRBASE) {
 							chrAddHealth(chr, 40);
 						} else {
 							chrAddHealth(chr, 20);
@@ -3557,7 +3556,7 @@ void playerTick(bool arg0)
 				}
 
 				if (cheatIsActive(CHEAT_ALIEN)) {
-					if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
+					if (g_Vars.stagenum == STAGE_MBR) {
 						prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
@@ -3585,7 +3584,7 @@ void playerTick(bool arg0)
 						chr->accuracyrating = 100;
 						chr->speedrating = 100;
 
-						if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+						if (g_Vars.stagenum == STAGE_AIRBASE) {
 							chrAddHealth(chr, 40);
 						} else {
 							chrAddHealth(chr, 20);

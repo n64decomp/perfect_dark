@@ -2782,18 +2782,12 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 			// For Investigation and G5 Building, set a stage flag to show that
 			// the eyespy is destroyed. The scripting in those stages checks for
 			// this flag and fails the objective if set.
-			switch (stageGetIndex(g_Vars.stagenum)) {
-			case STAGEINDEX_INVESTIGATION:
+			switch (g_Vars.stagenum) {
+			case STAGE_INVESTIGATION:
 				objectivenum = 0;
 				break;
-			case STAGEINDEX_G5BUILDING:
-				if (lvGetDifficulty() == DIFF_A) {
-					objectivenum = 2;
-				} else if (lvGetDifficulty() == DIFF_SA) {
-					objectivenum = 2;
-				} else {
-					objectivenum = 2;
-				}
+			case STAGE_G5BUILDING:
+				objectivenum = 2;
 				break;
 			}
 
@@ -5625,7 +5619,7 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 							|| chr->hitpart == HITPART_RBICEP) {
 						anim = ANIM_01F8;
 						flip = true;
-					} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO) {
+					} else if (g_Vars.stagenum == STAGE_CHICAGO) {
 						anim = ANIM_005F;
 					} else if (male) {
 						if (random() % 2) {
@@ -6910,7 +6904,7 @@ bool chrConsiderGrenadeThrow(struct chrdata *chr, u32 attackflags, u32 entityid)
 					flags = OBJFLAG_WEAPON_LEFTHANDED;
 				}
 
-				if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
+				if (g_Vars.stagenum == STAGE_MBR) {
 					prop = chrGiveWeapon(chr, MODEL_CHRGRENADE, WEAPON_NBOMB, flags);
 				} else {
 					prop = chrGiveWeapon(chr, MODEL_CHRGRENADE, WEAPON_GRENADE, flags);

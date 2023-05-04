@@ -63,6 +63,7 @@
 #include "game/smoke.h"
 #include "game/sparks.h"
 #include "game/splat.h"
+#include "game/stagetable.h"
 #include "game/stars.h"
 #include "game/stubs/game_013540.h"
 #include "game/stubs/game_015260.h"
@@ -101,6 +102,7 @@
 struct sndstate *g_MiscSfxAudioHandles[3];
 u32 var800aa5bc;
 s32 g_MiscSfxActiveTypes[3];
+struct stagetableentry *g_CurrentStage;
 
 u32 var80084010 = 0;
 bool var80084014 = false;
@@ -231,6 +233,8 @@ void lvReset(s32 stagenum)
 	g_Vars.paksconnected2 = 0;
 	g_Vars.paksconnected = 0;
 	g_Vars.stagenum = stagenum;
+
+	g_CurrentStage = stageGetCurrent();
 
 	cheatsReset();
 

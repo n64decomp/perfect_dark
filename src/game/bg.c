@@ -662,7 +662,6 @@ Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
 	s32 i;
 	s32 stack;
 	struct xraydata xraydata;
-	struct stagetableentry *stage = stageGetCurrent();
 	s16 sp120[16][3];
 	u32 colours[16];
 	bool inrange[16];
@@ -677,7 +676,7 @@ Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
 	}
 
 	xraydata.unk014 = 0.250f;
-	xraydata.unk020 = stage->unk2c;
+	xraydata.unk020 = g_CurrentStage->unk2c;
 	xraydata.unk024 = xraydata.unk020 * xraydata.unk020;
 	xraydata.unk000 = arg3[0];
 	xraydata.unk004 = arg3[1];
@@ -4996,7 +4995,6 @@ void bgTickPortalsXray(void)
 	s16 xmax;
 	s16 ymin;
 	s16 xmin;
-	struct stagetableentry *stage;
 	s32 i;
 	struct var800a4640 *thing;
 
@@ -5029,10 +5027,8 @@ void bgTickPortalsXray(void)
 	player->eraserpos.f[1] = eraserpos.f[1];
 	player->eraserpos.f[2] = eraserpos.f[2];
 
-	stage = stageGetCurrent();
-
-	player->eraserpropdist = stage->eraserpropdist;
-	player->eraserbgdist = (f32) stage->eraserpropdist + stage->unk30;
+	player->eraserpropdist = g_CurrentStage->eraserpropdist;
+	player->eraserbgdist = (f32) g_CurrentStage->eraserpropdist + g_CurrentStage->unk30;
 
 	vismax.f[0] = eraserpos.f[0] + player->eraserbgdist;
 	vismax.f[1] = eraserpos.f[1] + player->eraserbgdist;

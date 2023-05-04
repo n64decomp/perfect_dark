@@ -86,11 +86,11 @@ void playerInitEyespy(void)
 				playerchr = g_Vars.currentplayer->prop->chr;
 				propchr->team = playerchr->team;
 
-				if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+				if (g_Vars.stagenum == STAGE_AIRBASE) {
 					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_DRUGSPY;
 					g_Weapons[WEAPON_EYESPY]->name = L_GUN_061; // "DrugSpy"
 					g_Weapons[WEAPON_EYESPY]->shortname = L_GUN_061; // "DrugSpy"
-				} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR || stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO) {
+				} else if (g_Vars.stagenum == STAGE_MBR || g_Vars.stagenum == STAGE_CHICAGO) {
 					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_BOMBSPY;
 				} else {
 					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;

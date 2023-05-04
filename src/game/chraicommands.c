@@ -821,7 +821,7 @@ bool aiDetectEnemyOnSameFloor(void)
 				distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
 
 				if (distance < closestdist) {
-					if (distance < scandist || stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MAIANSOS) {
+					if (distance < scandist || g_Vars.stagenum == STAGE_MAIANSOS) {
 						if (distance < closestdist) {
 							closestdist = distance;
 							newtarget = chr->chrnum;
@@ -1551,7 +1551,7 @@ bool aiIfEyespyNearG5Pad(s32 padnum)
 {
 	s32 i;
 
-	if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_G5BUILDING) {
+	if (g_Vars.stagenum == STAGE_G5BUILDING) {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (g_Vars.players[i]->eyespy && g_Vars.players[i]->eyespy->prop
 					&& chrGetSquaredDistanceToPad(g_Vars.players[i]->eyespy->prop->chr, padnum) < 22500.0f) {

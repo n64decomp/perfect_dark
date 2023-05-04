@@ -353,9 +353,7 @@ u8 func0f13d3c4(u8 arg0, u8 arg1)
 
 Gfx *artifactsConfigureForGlares(Gfx *gdl)
 {
-	struct stagetableentry *stage = stageGetCurrent();
-
-	texSelect(&gdl, &g_TexLightGlareConfigs[stage->light_type], 4, 0, 2, 1, NULL);
+	texSelect(&gdl, &g_TexLightGlareConfigs[g_CurrentStage->light_type], 4, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
@@ -536,8 +534,8 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 						brightness = 750.0f;
 					}
 
-					f24 = stageGetCurrent()->light_width * brightness * 0.01f;
-					f26 = stageGetCurrent()->light_height * brightness * 0.01f;
+					f24 = g_CurrentStage->light_width * brightness * 0.01f;
+					f26 = g_CurrentStage->light_height * brightness * 0.01f;
 
 					f24 *= viGetViewWidth() * (1.0f / 240.0f) / camGetPerspAspect();
 					f26 *= viGetViewHeight() * (1.0f / 240.0f);
@@ -549,7 +547,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 						colour[1] = g;
 						colour[2] = b;
 
-						alpha *= stageGetCurrent()->light_alpha / 255.0f;
+						alpha *= g_CurrentStage->light_alpha / 255.0f;
 						alpha *= (s3[1] / 255.0f);
 						alpha *= (s3[0] / 8.0f);
 
@@ -574,7 +572,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 							colour[0] = 0xff;
 							colour[1] = 0xff;
 							colour[2] = 0xff;
-							colour[3] = stageGetCurrent()->light_alpha;
+							colour[3] = g_CurrentStage->light_alpha;
 							colour[3] = s3[0] * colour[3] / 8;
 
 							gDPSetEnvColor(gdl++, colour[0], colour[1], colour[2], colour[3]);

@@ -238,12 +238,11 @@ void bgunReset(void)
 	g_Vars.currentplayer->gunzoomfovs[1] = 60;
 	g_Vars.currentplayer->gunzoomfovs[2] = 30;
 
-	if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+	if (g_Vars.stagenum == STAGE_AIRBASE) {
 		g_Weapons[WEAPON_EYESPY]->name = L_GUN_061; // "DrugSpy"
 		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN_061; // "DrugSpy"
 		g_Weapons[WEAPON_EYESPY]->flags &= ~(WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN);
-	} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO
-			|| (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR)) {
+	} else if (g_Vars.stagenum == STAGE_CHICAGO || g_Vars.stagenum == STAGE_MBR) {
 		g_Weapons[WEAPON_EYESPY]->name = L_GUN_062; // "BombSpy"
 		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN_062; // "BombSpy"
 		g_Weapons[WEAPON_EYESPY]->flags &= ~(WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN);
