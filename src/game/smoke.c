@@ -638,9 +638,9 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	}
 
 	if (roomnum != -1) {
-		coord = roomGetPos(roomnum);
+		coord = roomGetPosPtr(roomnum);
 
-		room0f166df0(roomnum, &worldoffset);
+		roomGetPos(roomnum, &worldoffset);
 
 		if (smoke->parts[0].size > 0) {
 			f32 x = smoke->parts[0].pos.x - worldoffset.x;
@@ -661,7 +661,7 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
 		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = roomPushMtx(gdl, roomnum);
+		gdl = roomApplyMtx(gdl, roomnum);
 
 		if (near) {
 			gSPMatrix(gdl++, osVirtualToPhysical(&var800a3448), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);

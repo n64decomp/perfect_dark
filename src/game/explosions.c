@@ -1243,7 +1243,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 	if (roomnum != -1) {
 		struct screenbox screenbox;
-		struct coord *coord = roomGetPos(roomnum);
+		struct coord *coord = roomGetPosPtr(roomnum);
 		u32 *colour;
 		s32 tmp;
 
@@ -1256,7 +1256,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
 		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = roomPushMtx(gdl, roomnum);
+		gdl = roomApplyMtx(gdl, roomnum);
 
 		gSPDisplayList(gdl++, g_TexGdl2);
 

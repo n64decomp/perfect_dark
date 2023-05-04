@@ -141,7 +141,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 			roomlights = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].gfxdata->lightsindex * 0x22];
 			s1 = &var800a41a0[g_Rooms[roomnum].gfxdata->lightsindex * 3];
 
-			room0f166a6c(&sp138, roomnum);
+			roomPopulateMtx(&sp138, roomnum);
 			mtx00015f88(currentPlayerGetScaleBg2Gfx(), &sp138);
 			mtx4MultMtx4(camGetMtxF006c(), &sp138, &spf8);
 
