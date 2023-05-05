@@ -1425,7 +1425,7 @@ void model0001ce64(struct modelrenderdata *arg0, struct model *model)
 
 	arg0->unk10 += model->filedata->nummatrices;
 
-	if (!model00018680()) {
+	if (!model00018680(arg0, model)) {
 		model0001cd18(arg0, model);
 	}
 }

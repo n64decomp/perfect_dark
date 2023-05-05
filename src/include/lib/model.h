@@ -8,7 +8,7 @@ extern bool (*var8005efc4)(struct model *model, struct modelnode *node);
 extern struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices);
 extern void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx);
 
-bool model00018680(void);
+bool model00018680(struct modelrenderdata *renderdata, struct model *model);
 void modelSetDistanceScale(f32 value);
 void modelSetVtxAllocatorFunc(struct gfxvtx *(*fn)(s32 numvertices));
 s32 model0001a524(struct modelnode *node, s32 arg1);
