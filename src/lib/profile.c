@@ -178,12 +178,13 @@ void profileEndDynamic(char *file, s32 line)
 
 void profileStart(s32 marker)
 {
-	g_ProfileMarkers[g_ProfileIndex][marker][1] = osGetCount();
+	g_ProfileMarkers[g_ProfileIndex][marker][1] = __osRunningThread->cycles_saved + (osGetCount() - __osRunningThread->cycles_at_dispatch);
 }
 
 void profileEnd(s32 marker)
 {
-	g_ProfileMarkers[g_ProfileIndex][marker][0] += osGetCount() - g_ProfileMarkers[g_ProfileIndex][marker][1];
+	u32 now = __osRunningThread->cycles_saved + (osGetCount() - __osRunningThread->cycles_at_dispatch);
+	g_ProfileMarkers[g_ProfileIndex][marker][0] += now - g_ProfileMarkers[g_ProfileIndex][marker][1];
 }
 
 Gfx *profileRenderCpuLine(Gfx *gdl, s32 x, s32 *y, char *label, s32 marker)
