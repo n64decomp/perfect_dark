@@ -42,6 +42,13 @@
 #define FRAMEBUFFER_SIZE    (320 * 220 * sizeof(u16))
 #define UNCACHED(x)         ((void *)((u32)(x)|0xa0000000))
 
+inline float sqrtf(float value)
+{
+	float ret;
+	__asm__ ("sqrt.s %0, %1" : "=f"(ret) : "f"(value));
+	return ret;
+}
+
 #define VALIDWEAPON()       (g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED && g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST)
 #define FUNCISSEC()         (VALIDWEAPON() && (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->gunctrl.weaponnum - 1) & 7))))
 

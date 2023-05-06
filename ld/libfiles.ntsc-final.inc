@@ -157,7 +157,6 @@
 	build/ROMID/lib/ultra/os/thread.o (section); \
 	build/ROMID/lib/ultra/os/destroythread.o (section); \
 	build/ROMID/lib/ultra/gu/mtxutil.o (section); \
-	build/ROMID/lib/ultra/gu/sqrtf.o (section); \
 	build/ROMID/lib/ultra/libc/string.o (section); \
 	build/ROMID/lib/ultra/libc/ldiv.o (section); \
 	build/ROMID/lib/ultra/io/siacs.o (section); \
