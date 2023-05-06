@@ -120,7 +120,7 @@ Gfx *gfxGetMasterDisplayList(void)
 {
 	g_GfxRequestedDisplayList = true;
 
-	return (Gfx *)g_GfxBuffers[g_GfxActiveBufferIndex];
+	return (Gfx *) UNCACHED(g_GfxBuffers[g_GfxActiveBufferIndex]);
 }
 
 struct gfxvtx *gfxAllocateVertices(u32 count)
@@ -129,7 +129,7 @@ struct gfxvtx *gfxAllocateVertices(u32 count)
 	g_GfxMemPos += count * sizeof(struct gfxvtx);
 	g_GfxMemPos = (u8 *)ALIGN16((u32)g_GfxMemPos);
 
-	return ptr;
+	return UNCACHED(ptr);
 }
 
 void *gfxAllocateMatrix(void)
@@ -145,7 +145,7 @@ void *gfxAllocateLookAt(s32 count)
 	void *ptr = g_GfxMemPos;
 	g_GfxMemPos += count * 0x10;
 
-	return ptr;
+	return UNCACHED(ptr);
 }
 
 void *gfxAllocateColours(s32 count)
@@ -154,7 +154,7 @@ void *gfxAllocateColours(s32 count)
 	count = ALIGN16(count * sizeof(u32));
 	g_GfxMemPos += count;
 
-	return ptr;
+	return UNCACHED(ptr);
 }
 
 void *gfxAllocate(u32 size)
