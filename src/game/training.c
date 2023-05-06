@@ -680,7 +680,7 @@ void frSetTargetProps(void)
 	};
 
 	for (i = 0; i < ARRAYCOUNT(targets); i++) {
-		struct defaultobj *obj = objFindByTagId(targets[i]);
+		struct defaultobj *obj = g_ObjsByTag[targets[i]];
 
 		if (obj) {
 			g_FrData.targets[i].prop = obj->prop;
@@ -924,7 +924,7 @@ void frInitTargets(void)
 
 void frCloseAndLockDoor(void)
 {
-	struct defaultobj *obj = objFindByTagId(0x91);
+	struct defaultobj *obj = g_ObjsByTag[0x91];
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *)obj;
@@ -935,7 +935,7 @@ void frCloseAndLockDoor(void)
 
 void frUnlockDoor(void)
 {
-	struct defaultobj *obj = objFindByTagId(0x91);
+	struct defaultobj *obj = g_ObjsByTag[0x91];
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *)obj;
@@ -1016,7 +1016,7 @@ u32 frInitAmmo(s32 weaponnum)
 void frBeginSession(s32 weapon)
 {
 	s32 i;
-	struct defaultobj *obj = objFindByTagId(0x7f); // computer
+	struct defaultobj *obj = g_ObjsByTag[0x7f]; // computer
 
 	if (obj) {
 		obj->flags |= OBJFLAG_CANNOT_ACTIVATE;
@@ -1091,7 +1091,7 @@ void frEndSession(bool hidetargets)
 	u32 stack2;
 
 	if (g_FrDataLoaded) {
-		struct defaultobj *terminal = objFindByTagId(0x7f);
+		struct defaultobj *terminal = g_ObjsByTag[0x7f];
 
 		if (terminal) {
 			terminal->flags &= ~OBJFLAG_CANNOT_ACTIVATE;

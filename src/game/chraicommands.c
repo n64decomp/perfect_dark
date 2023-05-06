@@ -52,7 +52,7 @@ bool ai0075(s32 value)
 
 void ai00cf(s32 channel, s32 tagnum, bool thing)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		audioPlayFromProp2(channel, -1, -1, obj->prop, thing, 2500, 3000, 0);
@@ -80,7 +80,7 @@ void ai013e(void)
 
 void ai016b(s32 channel, s32 tagnum, s32 thing1, s32 thing2, s32 thing3)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		s32 thing1again;
@@ -114,7 +114,7 @@ bool ai01b4(void)
 
 void aiActivateLift(s32 liftnum, s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		liftActivate(obj->prop, liftnum);
@@ -371,7 +371,7 @@ void aiChrExplosions(s32 chrref)
 
 void aiChrGrabObject(s32 chrref, s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER && obj && obj->prop) {
@@ -623,7 +623,7 @@ void aiClearInventory(void)
 
 void aiCloseDoor(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
@@ -670,7 +670,7 @@ void aiDamageChr(s32 chrref, s32 hitpart, u32 gset)
 
 void aiDestroyObject(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && objGetDestroyedLevel(obj) == 0) {
 		struct defaultobj *entity = obj->prop->obj;
@@ -961,7 +961,7 @@ void aiDisableChr(s32 chrref)
 
 void aiDisableObj(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->model) {
 		if (obj->prop->parent) {
@@ -1065,7 +1065,7 @@ void aiEnableChr(s32 chrref)
 
 void aiEnableObj(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->model) {
 		propActivate(obj->prop);
@@ -1191,7 +1191,7 @@ s32 aiGetNumTimesShot(void)
 
 s32 aiGetObjDamage(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (!obj || !obj->prop) {
 		return 0;
@@ -1233,7 +1233,7 @@ s32 aiGetRandom(void)
 
 void aiGiveObjectToChr(s32 tagnum, s32 chrref)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
 
 	if (obj && obj->prop && chr && chr->prop) {
@@ -1369,7 +1369,7 @@ void aiHovercopterFireRocket(s32 side)
 
 bool aiIfAnyoneActivatedObject(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		if (obj->hidden & (OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP)) {
@@ -1407,7 +1407,7 @@ bool aiIfCanSeeTarget(void)
 
 bool aiIfChrActivatedObject(s32 chrref, s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
@@ -1662,7 +1662,7 @@ bool aiIfChrHasHiddenFlag(s32 chrref, u32 flag)
 
 bool aiIfChrHasObject(s32 chrref, s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
 	bool hasprop = false;
 
@@ -1804,7 +1804,7 @@ bool aiIfDistanceToGunLessThan(f32 distance)
 
 bool aiIfDoorLocked(s32 tagnum, u32 flags)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
@@ -1817,7 +1817,7 @@ bool aiIfDoorLocked(s32 tagnum, u32 flags)
 
 bool aiIfDoorState(s32 tagnum, u32 state)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->type == OBJTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
@@ -1915,7 +1915,7 @@ bool aiIfInjured(s32 chrref)
 
 bool aiIfLiftStationary(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
 		struct liftobj *lift = (struct liftobj *)obj;
@@ -1972,7 +1972,7 @@ bool aiIfObjectDistanceToPadLessThan(s32 tagnum, s32 padnum, f32 distance)
 	f32 xdiff;
 	f32 ydiff;
 	f32 zdiff;
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		padnum = chrResolvePadId(g_Vars.chrdata, padnum);
@@ -1995,14 +1995,14 @@ bool aiIfObjectDistanceToPadLessThan(s32 tagnum, s32 padnum, f32 distance)
 
 bool aiIfObjectHealthy(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	return obj && obj->prop && objIsHealthy(obj);
 }
 
 bool aiIfObjectInRoom(s32 tagnum, s32 padnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 	s32 roomnum = chrGetPadRoom(g_Vars.chrdata, padnum);
 
 	return roomnum >= 0 && obj && obj->prop && roomnum == obj->prop->rooms[0];
@@ -2010,7 +2010,7 @@ bool aiIfObjectInRoom(s32 tagnum, s32 padnum)
 
 bool aiIfObjHasFlag2(s32 tagnum, u32 flag)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	return obj && obj->prop && (obj->flags2 & flag) == flag;
 }
@@ -2033,7 +2033,7 @@ bool aiIfPatrolling(void)
 
 bool aiIfPlayerLookingAtObject(s32 chrref, s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
 
@@ -2337,7 +2337,7 @@ bool aiIfTrainingPcHolographed(void)
 
 bool aiIfWeaponThrownOnObject(s32 weaponnum, s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		struct prop *prop = obj->prop->child;
@@ -2389,7 +2389,7 @@ void aiKneel(void)
 
 void aiLockDoor(s32 tagnum, u32 flags)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
@@ -2422,10 +2422,10 @@ void aiObjectDoAnimation(s32 anim_id, s32 tagnum, s32 arg2, s32 startframe)
 
 	if (tagnum == 255) {
 		if (g_Vars.chrdata && g_Vars.chrdata->myspecial >= 0) {
-			obj = objFindByTagId(g_Vars.chrdata->myspecial);
+			obj = g_ObjsByTag[g_Vars.chrdata->myspecial];
 		}
 	} else {
-		obj = objFindByTagId(tagnum);
+		obj = g_ObjsByTag[tagnum];
 	}
 
 	if (obj && obj->prop) {
@@ -2451,7 +2451,7 @@ void aiObjectDoAnimation(s32 anim_id, s32 tagnum, s32 arg2, s32 startframe)
 
 void aiObjectMoveToPad(s32 tagnum, s32 padnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 	Mtxf matrix;
 	struct pad *pad;
 	s16 rooms[2];
@@ -2474,7 +2474,7 @@ void aiObjectMoveToPad(s32 tagnum, s32 padnum)
 
 void aiObjSetModelPartVisible(s32 tagnum, s32 partnum, bool visible)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		objSetModelPartVisible(obj, partnum, visible);
@@ -2483,7 +2483,7 @@ void aiObjSetModelPartVisible(s32 tagnum, s32 partnum, bool visible)
 
 void aiOpenDoor(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		if (!doorCallLift(obj->prop, false)) {
@@ -2509,7 +2509,7 @@ void aiPlaySoundFromChr(s32 channel, s32 chrref, u32 thing2, u32 thing3)
 
 void aiPlaySoundFromObj(s32 channel, s32 tagnum, u32 thing2, u32 thing3)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		audioPlayFromProp2(channel, -1, -1, obj->prop, 1, thing2, thing3, 0);
@@ -2518,7 +2518,7 @@ void aiPlaySoundFromObj(s32 channel, s32 tagnum, u32 thing2, u32 thing3)
 
 void aiPlaySoundFromProp(s32 channel, s32 tagnum, s32 soundnum, s32 unk1, s32 unk2)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	audioPlayFromProp(channel, soundnum, 0xffff, obj->prop, unk1, unk2);
 }
@@ -3220,7 +3220,7 @@ void aiSetAllRoomsAmbient(void)
 
 void aiSetAutogunTargetTeam(s32 tagnum, s32 team)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->type == OBJTYPE_AUTOGUN) {
 		struct autogunobj *autogun = (struct autogunobj *)obj;
@@ -3354,7 +3354,7 @@ void aiSetDodgeRatingBoth(s32 rating)
 
 void aiSetDoorOpen(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		struct doorobj *door = (struct doorobj *) obj;
@@ -3468,7 +3468,7 @@ u8 *aiSetMyList(u8 *ailist)
 
 void aiSetObjFlag(s32 tagnum, u32 flag)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		obj->flags |= flag;
@@ -3477,7 +3477,7 @@ void aiSetObjFlag(s32 tagnum, u32 flag)
 
 void aiSetObjFlag2(s32 tagnum, u32 flag)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		obj->flags2 |= flag;
@@ -3486,7 +3486,7 @@ void aiSetObjFlag2(s32 tagnum, u32 flag)
 
 void aiSetObjFlag3(s32 tagnum, u32 flag)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		obj->flags3 |= flag;
@@ -3495,7 +3495,7 @@ void aiSetObjFlag3(s32 tagnum, u32 flag)
 
 void aiSetObjDamage(s32 tagnum, s32 damage)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		obj->damage = damage;
@@ -3504,7 +3504,7 @@ void aiSetObjDamage(s32 tagnum, s32 damage)
 
 void aiSetObjImage(s32 tagnum, s32 slot, s32 image)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		if (obj->type == OBJTYPE_SINGLEMONITOR) {
@@ -3549,7 +3549,7 @@ u16 g_InvestigationPadMap[] = {
 
 void aiSetPadPresetToInvestigationTerminal(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 	s32 i;
 
 	if (obj) {
@@ -3891,28 +3891,16 @@ void aiShowHudmsgTopMiddle(s32 chrref, s32 textid, s32 colour)
 
 void aiShuffleInvestigationTerminals(s32 goodtagnum, s32 badtagnum, s32 pc1, s32 pc2, s32 pc3)
 {
-	u8 rand1;
-	u8 rand2;
-	struct tag *goodtag = tagFindById(goodtagnum);
-	struct tag *badtag = tagFindById(badtagnum);
-	struct tag *pc;
-
-	rand1 = random() % 3;
-	rand2 = random() % 3;
+	u8 rand1 = random() % 3;
+	u8 rand2 = random() % 3;
 
 	// Place the good terminal
 	if (rand1 == 0) {
-		pc = tagFindById(pc1);
-		goodtag->cmdoffset = pc->cmdoffset;
-		goodtag->obj = pc->obj;
+		g_ObjsByTag[goodtagnum] = g_ObjsByTag[pc1];
 	} else if (rand1 == 1) {
-		pc = tagFindById(pc2);
-		goodtag->cmdoffset = pc->cmdoffset;
-		goodtag->obj = pc->obj;
+		g_ObjsByTag[goodtagnum] = g_ObjsByTag[pc2];
 	} else {
-		pc = tagFindById(pc3);
-		goodtag->cmdoffset = pc->cmdoffset;
-		goodtag->obj = pc->obj;
+		g_ObjsByTag[goodtagnum] = g_ObjsByTag[pc3];
 	}
 
 	// Handle both good and alarm terminals having the same destination
@@ -3924,17 +3912,11 @@ void aiShuffleInvestigationTerminals(s32 goodtagnum, s32 badtagnum, s32 pc1, s32
 
 	// Place the alarm terminal
 	if (rand2 == 0) {
-		pc = tagFindById(pc1);
-		badtag->cmdoffset = pc->cmdoffset;
-		badtag->obj = pc->obj;
+		g_ObjsByTag[badtagnum] = g_ObjsByTag[pc1];
 	} else if (rand2 == 1) {
-		pc = tagFindById(pc2);
-		badtag->cmdoffset = pc->cmdoffset;
-		badtag->obj = pc->obj;
+		g_ObjsByTag[badtagnum] = g_ObjsByTag[pc2];
 	} else {
-		pc = tagFindById(pc3);
-		badtag->cmdoffset = pc->cmdoffset;
-		badtag->obj = pc->obj;
+		g_ObjsByTag[badtagnum] = g_ObjsByTag[pc3];
 	}
 }
 
@@ -3948,22 +3930,17 @@ void aiShufflePelagicSwitches(void)
 	u8 index;
 
 	for (i = 8; i < 16; i++) {
-		tag = tagFindById(i);
 		index = random() & 7;
 
 		if (buttonsdone[index] == 0) {
 			// Switch has not yet been mapped
-			button = tagFindById(index);
-			tag->cmdoffset = button->cmdoffset;
-			tag->obj = button->obj;
+			g_ObjsByTag[i] = g_ObjsByTag[index];
 			buttonsdone[index] = 1;
 		} else {
 			// Switch is already mapped - find first unmapped switch
 			for (j = 0; buttonsdone[j]; j++);
 
-			button = tagFindById(j);
-			tag->cmdoffset = button->cmdoffset;
-			tag->obj = button->obj;
+			g_ObjsByTag[i] = g_ObjsByTag[j];
 			buttonsdone[j] = 1;
 		}
 	}
@@ -3971,10 +3948,6 @@ void aiShufflePelagicSwitches(void)
 
 void aiShuffleRuinsPillars(void)
 {
-	struct tag *ptr1 = tagFindById(0x01);
-	struct tag *ptr2 = tagFindById(0x02);
-	struct tag *ptr3 = tagFindById(0x03);
-	struct tag *src;
 	u8 marked1index = random() % 5;
 	u8 marked2index = random() % 5;
 	u8 marked3index = random() % 5;
@@ -4000,34 +3973,16 @@ void aiShuffleRuinsPillars(void)
 	}
 
 	// Pillar/mine 1
-	src = tagFindById(pillars[marked1index]);
-	ptr1->cmdoffset = src->cmdoffset;
-	ptr1->obj = src->obj;
-
-	ptr1 = tagFindById(0x27);
-	src = tagFindById(mines[marked1index]);
-	ptr1->cmdoffset = src->cmdoffset;
-	ptr1->obj = src->obj;
+	g_ObjsByTag[0x01] = g_ObjsByTag[pillars[marked1index]];
+	g_ObjsByTag[0x27] = g_ObjsByTag[mines[marked1index]];
 
 	// Pillar/mine 2
-	src = tagFindById(pillars[marked2index]);
-	ptr2->cmdoffset = src->cmdoffset;
-	ptr2->obj = src->obj;
-
-	ptr2 = tagFindById(0x28);
-	src = tagFindById(mines[marked2index]);
-	ptr2->cmdoffset = src->cmdoffset;
-	ptr2->obj = src->obj;
+	g_ObjsByTag[0x02] = g_ObjsByTag[pillars[marked2index]];
+	g_ObjsByTag[0x28] = g_ObjsByTag[mines[marked2index]];
 
 	// Pillar/mine 3
-	src = tagFindById(pillars[marked3index]);
-	ptr3->cmdoffset = src->cmdoffset;
-	ptr3->obj = src->obj;
-
-	ptr3 = tagFindById(0x29);
-	src = tagFindById(mines[marked3index]);
-	ptr3->cmdoffset = src->cmdoffset;
-	ptr3->obj = src->obj;
+	g_ObjsByTag[0x03] = g_ObjsByTag[pillars[marked3index]];
+	g_ObjsByTag[0x29] = g_ObjsByTag[mines[marked3index]];
 }
 
 void aiSpeak(s32 chrref, s32 text_id, s32 audio_id, s32 channel, s32 colour)
@@ -4237,7 +4192,7 @@ bool aiTryWalkToTarget(void)
 
 void aiUnlockDoor(s32 tagnum, u32 flags)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
@@ -4271,7 +4226,7 @@ void aiUnsetFlagBank1(u32 flag)
 
 void aiUnsetObjFlag(s32 tagnum, u32 flag)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		obj->flags &= ~flag;
@@ -4280,7 +4235,7 @@ void aiUnsetObjFlag(s32 tagnum, u32 flag)
 
 void aiUnsetObjFlag2(s32 tagnum, u32 flag)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		obj->flags2 &= ~flag;
@@ -4289,7 +4244,7 @@ void aiUnsetObjFlag2(s32 tagnum, u32 flag)
 
 void aiUnsetObjFlag3(s32 tagnum, u32 flag)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
 		obj->flags3 &= ~flag;

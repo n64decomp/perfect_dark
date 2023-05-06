@@ -147,7 +147,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 
 	// myspecial is the chr's chair
 	if (chr->myspecial != -1) {
-		chair = objFindByTagId(chr->myspecial);
+		chair = g_ObjsByTag[chr->myspecial];
 
 		if (chair && chair->prop) {
 			objSetPerimEnabled(chair->prop, false);
@@ -1168,7 +1168,7 @@ void chrRemove(struct prop *prop, bool delete)
 	propDeregisterRooms(prop);
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {
-		eyespyobj = objFindByTagId(0x26);
+		eyespyobj = g_ObjsByTag[0x26];
 	}
 
 	child = prop->child;

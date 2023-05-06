@@ -588,7 +588,7 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 
 f32 gasGetDoorFrac(s32 tagnum)
 {
-	struct defaultobj *obj = objFindByTagId(tagnum);
+	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop && obj->type == OBJTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *)obj;

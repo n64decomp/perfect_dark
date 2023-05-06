@@ -24,11 +24,11 @@
 
 struct objective *g_Objectives[MAX_OBJECTIVES];
 u32 g_ObjectiveStatuses[MAX_OBJECTIVES];
+struct defaultobj **g_ObjsByTag;
 struct tag *g_TagsLinkedList;
 struct briefingobj *g_BriefingObjs;
 struct criteria_holograph *g_HolographCriterias;
 s32 g_NumTags;
-struct tag **g_TagPtrs;
 u32 var8009d0cc;
 bool g_ObjectivesDirty;
 bool g_AnyObjectiveFailed;
@@ -53,30 +53,19 @@ void tagsReset(void)
 
 	if (g_NumTags) {
 		u32 size = index * 4;
-		g_TagPtrs = mempAlloc(ALIGN16(size), MEMPOOL_STAGE);
+		g_ObjsByTag = mempAlloc(ALIGN16(size), MEMPOOL_STAGE);
 
 		for (index = 0; index < g_NumTags; index++) {
-			g_TagPtrs[index] = NULL;
+			g_ObjsByTag[index] = NULL;
 		}
 	}
 
 	tag = g_TagsLinkedList;
 
 	while (tag) {
-		g_TagPtrs[tag->tagnum] = tag;
+		g_ObjsByTag[tag->tagnum] = tag->obj;
 		tag = tag->next;
 	}
-}
-
-struct tag *tagFindById(s32 tag_id)
-{
-	struct tag *tag = NULL;
-
-	if (tag_id >= 0 && tag_id < g_NumTags) {
-		tag = g_TagPtrs[tag_id];
-	}
-
-	return tag;
 }
 
 s32 objGetTagNum(struct defaultobj *obj)
@@ -94,22 +83,6 @@ s32 objGetTagNum(struct defaultobj *obj)
 	}
 
 	return -1;
-}
-
-struct defaultobj *objFindByTagId(s32 tag_id)
-{
-	struct tag *tag = tagFindById(tag_id);
-	struct defaultobj *obj = NULL;
-
-	if (tag) {
-		obj = tag->obj;
-	}
-
-	if (obj && (obj->hidden & OBJHFLAG_TAGGED) == 0) {
-		obj = NULL;
-	}
-
-	return obj;
 }
 
 s32 objectiveGetCount(void)
@@ -164,7 +137,7 @@ s32 objectiveCheck(s32 index)
 					break;
 				case OBJECTIVETYPE_COLLECTOBJ:
 					{
-						struct defaultobj *obj = objFindByTagId(cmd[1]);
+						struct defaultobj *obj = g_ObjsByTag[cmd[1]];
 						s32 prevplayernum;
 						s32 collected = false;
 						s32 i;
@@ -195,7 +168,7 @@ s32 objectiveCheck(s32 index)
 					break;
 				case OBJECTIVETYPE_HOLOGRAPH:
 					if (cmd[2] == OBJECTIVE_INCOMPLETE) {
-						struct defaultobj *obj = objFindByTagId(cmd[1]);
+						struct defaultobj *obj = g_ObjsByTag[cmd[1]];
 
 						if (!obj || !obj->prop || !objIsHealthy(obj)) {
 							reqstatus = OBJECTIVE_FAILED;
@@ -311,7 +284,7 @@ void objectiveCheckHolograph(f32 maxdist)
 		}
 
 		if (criteria->status == OBJECTIVE_INCOMPLETE) {
-			struct defaultobj *obj = objFindByTagId(criteria->obj);
+			struct defaultobj *obj = g_ObjsByTag[criteria->obj];
 
 			if (obj && obj->prop
 					&& (obj->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)

@@ -2987,7 +2987,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 
 						// chr->myspecial is the tag number of the chr's chair
 						if (chr->myspecial >= 0) {
-							struct defaultobj *obj = objFindByTagId(chr->myspecial);
+							struct defaultobj *obj = g_ObjsByTag[chr->myspecial];
 							obj->flags3 &= ~OBJFLAG3_PUSHABLE;
 							obj->flags |= OBJFLAG_INVINCIBLE;
 

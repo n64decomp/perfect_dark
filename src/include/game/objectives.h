@@ -28,7 +28,5 @@ void objectivesShowHudmsg(char *buffer, s32 hudmsgtype);
 void objectivesCheckAll(void);
 void objectiveCheckHolograph(f32 sqdist);
 struct prop *chopperGetTargetProp(struct chopperobj *heli);
-struct defaultobj *objFindByTagId(s32 tag_id);
-struct tag *tagFindById(s32 tag_id);
 
 #endif

@@ -14075,7 +14075,7 @@ u32 propobjGetCiTagId(struct prop *prop)
 		u32 i;
 
 		for (i = 0; i != 8; i++) {
-			struct defaultobj *taggedobj = objFindByTagId(tags[i]);
+			struct defaultobj *taggedobj = g_ObjsByTag[tags[i]];
 
 			if (obj == taggedobj) {
 				return tags[i];
