@@ -476,19 +476,6 @@ Gfx *creditsDrawBackground(Gfx *gdl)
 	return gdl;
 }
 
-u32 var8007f3dc = 0x00000000;
-u32 var8007f3e0 = 0x00000000;
-u32 var8007f3e4 = 0x00000000;
-u32 var8007f3e8 = 0x00000001;
-u32 var8007f3ec = 0x00000000;
-u32 var8007f3f0 = 0x00000000;
-u32 var8007f3f4 = 0x010301f4;
-u32 var8007f3f8 = 0x008888ff;
-u32 var8007f3fc = 0x00ff88ff;
-u32 var8007f400 = 0x00ff8888;
-u32 var8007f404 = 0x006666ff;
-u32 var8007f408 = 0x41f00000;
-u32 var8007f40c = 0x41f00000;
 
 u32 g_CreditColourPalette[][4] = {
 	{ 0x0000ffff, 0x0044ffff, 0x0088ffff, 0x00ffffff },

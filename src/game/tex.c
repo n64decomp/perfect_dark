@@ -10,7 +10,6 @@
 #include "types.h"
 
 s32 g_TexLutMode;
-u32 var800ab5b4;
 struct var800ab5b8 var800ab5b8[8];
 struct var800ab718 var800ab718[8];
 
@@ -149,33 +148,7 @@ struct surfacetype *g_SurfaceTypes[] = {
 	/*14*/ &g_SurfaceTypeDeepWater,
 };
 
-char *var80084494[] = {
-	"default",
-	"stone",
-	"wood",
-	"metal",
-	"glass",
-	"shallow water",
-	"snow",
-	"dirt",
-	"mud",
-	"tile",
-	"metalobj",
-	"chr",
-	"glass xlu",
-	"no hit",
-	"deep water",
-};
-
-
 bool var800844d0 = false;
-u32 var800844d4 = 0x00000000;
-u32 var800844d8 = 0x00000000;
-u32 var800844dc = 0x00000000;
-u32 var800844e0 = 0x00000103;
-u32 var800844e4 = 0x00000000;
-u32 var800844e8 = 0x00000000;
-u32 var800844ec = 0x00000000;
 
 void tex0f173a08(void)
 {

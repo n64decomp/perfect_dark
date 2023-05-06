@@ -16,7 +16,6 @@ struct mp3decfourbytes var8009c650[34];
 f32 *var8009c6d8;
 f32 *var8009c6dc;
 
-u32 var8005f700 = 0;
 u32 var8005f704 = 0;
 
 s32 mp3main00043dd0(struct asistream *stream)

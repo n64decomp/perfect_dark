@@ -256,7 +256,6 @@ void weatherSetIntensity(s32 intensity)
 	g_WeatherData->intensity = intensity;
 }
 
-u32 g_SnowSpeedExtra;
 
 void weatherTickRain(struct weatherdata *weather)
 { \

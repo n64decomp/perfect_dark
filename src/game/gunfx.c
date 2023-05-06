@@ -304,12 +304,6 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 	return gdl;
 }
 
-u32 var8007050c = 0x00000000;
-u32 var80070510 = 0x00000000;
-u32 var80070514 = 0x00000000;
-u32 var80070518 = 0x00000000;
-u32 var8007051c = 0x00000000;
-u32 var80070520 = 0x00000000;
 
 Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 {

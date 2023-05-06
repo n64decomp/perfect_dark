@@ -27,7 +27,6 @@
 s16 var8009cb00;
 s32 var8009cb04;
 struct nbomb g_Nbombs[6];
-u32 var8009cbf8;
 
 bool g_NbombsActive = false;
 f32 var80061644 = 100;

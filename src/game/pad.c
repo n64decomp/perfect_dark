@@ -7,8 +7,6 @@
 
 struct padsfileheader *g_PadsFile;
 struct pad *g_Pads;
-u32 var800a2358;
-u32 var800a235c;
 u16 *g_CoverFlags;
 s32 *g_CoverRooms;
 struct covercandidate *g_CoverCandidates;

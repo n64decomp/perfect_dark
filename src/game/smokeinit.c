@@ -8,13 +8,6 @@
 // These three gfx arrays probably don't belong here,
 // but there's no obvious place for them to live.
 
-Gfx var80061360[] = {
-	gsSPClearGeometryMode(G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH),
-	gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
-	gsSPSetGeometryMode(G_SHADE | G_SHADING_SMOOTH),
-	gsSPEndDisplayList(),
-};
-
 Gfx var80061380[] = {
 	gsSPClearGeometryMode(G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH),
 	gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),

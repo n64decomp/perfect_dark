@@ -18,8 +18,6 @@ struct stageheadlimit g_StageHeadLimits[3] = {
 	{ STAGE_ESCAPE,       5 },
 };
 
-u32 var80061708 = 0x00000000;
-u32 var8006170c = 0x00000000;
 
 void bodiesReset(s32 stagenum)
 {

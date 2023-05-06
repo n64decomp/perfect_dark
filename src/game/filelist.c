@@ -25,8 +25,6 @@ s32 var800a2330[5];
 
 struct filelist *g_FileLists[] = { NULL, NULL, NULL, NULL };
 bool var80075bd0[] = { true, true, true, true };
-bool var80075be0[] = { false, false, false, false };
-u32 var80075bf0 = false;
 
 void func0f110bf8(void)
 {

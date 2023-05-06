@@ -37,7 +37,6 @@ struct curmp3 {
 s32 g_NumSounds;
 u32 *g_ALSoundRomOffsets;
 s32 g_SndMaxFxBusses;
-u32 var80094eac;
 struct curmp3 g_SndCurMp3;
 struct seqinstance g_SeqInstances[3];
 ALHeap g_SndHeap;
@@ -50,7 +49,6 @@ ALIGNED16 struct sndcache g_SndCache;
 const char g_SndGuardString[] = "RUSSES SOUND GUARD STRING";
 
 bool g_SndDisabled = false;
-u32 var8005dda4 = 0x00000000;
 
 s32 g_SndNosediveVolume = 0;
 s32 g_SndNosediveAge240 = -1;
@@ -69,7 +67,6 @@ bool g_SndMp3Enabled = false;
 
 s32 var8005ddd4 = 0;
 s32 var8005ddd8 = 0;
-s32 var8005dddc = 0;
 
 u8 *g_SndGuardStringPtr = NULL;
 
@@ -655,14 +652,6 @@ struct audioconfig g_AudioConfigs[] = {
 	{ /*63*/  400, 1000, 1200, -1, 100, -1,   0, 0 },
 };
 
-u32 var8005ecd8 = 0x00000000;
-u32 var8005ecdc = 0x00000000;
-u32 var8005ece0 = 0x00000000;
-u32 var8005ece4 = 0x00000000;
-u32 var8005ece8 = 0x00000000;
-u32 var8005ecec = 0x00000000;
-u32 var8005ecf0 = 0x00000000;
-u32 var8005ecf4 = 0x00000000;
 
 s16 var8005ecf8[] = {
 	0x6665,

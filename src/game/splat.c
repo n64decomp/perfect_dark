@@ -36,9 +36,7 @@ struct splatdata {
 };
 
 f32 var8007f8a0 = 0.15;
-f32 var8007f8a4 = 3;
 f32 var8007f8a8 = 12;
-s32 var8007f8ac = 8;
 f32 g_SplatMaxDistance = 180;
 f32 var8007f8b4 = 5;
 f32 var8007f8b8 = 50;

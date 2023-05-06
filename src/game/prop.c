@@ -45,9 +45,6 @@ struct prop *g_InteractProp;
 s32 var8009cdac;
 
 s32 var8009cdb0;
-u32 var8009cdb4;
-u32 var8009cdb8;
-u32 var8009cdbc;
 
 f32 g_AutoAimScale = 1;
 

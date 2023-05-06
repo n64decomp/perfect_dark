@@ -8865,7 +8865,6 @@ void autogunTickShoot(struct prop *autogunprop)
 	}
 }
 
-u32 var80069cc0 = 0x00000000;
 
 void chopperInitMatrices(struct prop *prop)
 {
@@ -11054,84 +11053,6 @@ u32 g_TvCmdlist24[] = {
 u32 g_TvCmdlist1D[] = {
 	tvcmd_settexture(78),
 	tvcmd_setcolour(0xffffffff, 1),
-	tvcmd_pause(10),
-	tvcmd_restart(),
-};
-
-u32 var8006a4dc[] = {
-	tvcmd_settexture(52),
-	tvcmd_setcolour(0xffffffff, 1),
-	tvcmd_pause(5),
-	tvcmd_settexture(53),
-	tvcmd_pause(5),
-	tvcmd_settexture(54),
-	tvcmd_pause(5),
-	tvcmd_settexture(55),
-	tvcmd_pause(5),
-	tvcmd_restart(),
-};
-
-u32 var8006a52c[] = {
-	tvcmd_settexture(79),
-	tvcmd_setcolour(0xffffffff, 1),
-	tvcmd_pause(5),
-	tvcmd_settexture(80),
-	tvcmd_pause(5),
-	tvcmd_settexture(81),
-	tvcmd_pause(5),
-	tvcmd_settexture(82),
-	tvcmd_pause(5),
-	tvcmd_restart(),
-};
-
-u32 var8006a57c[] = {
-	tvcmd_settexture(56),
-	tvcmd_setcolour(0xffffffff, 1),
-	tvcmd_pause(10),
-	tvcmd_settexture(57),
-	tvcmd_pause(10),
-	tvcmd_settexture(58),
-	tvcmd_pause(10),
-	tvcmd_settexture(59),
-	tvcmd_pause(10),
-	tvcmd_restart(),
-};
-
-u32 var8006a5cc[] = {
-	tvcmd_settexture(60),
-	tvcmd_setcolour(0xffffffff, 1),
-	tvcmd_pause(15),
-	tvcmd_settexture(61),
-	tvcmd_pause(15),
-	tvcmd_restart(),
-};
-
-u32 var8006a5fc[] = {
-	tvcmd_settexture(62),
-	tvcmd_setcolour(0xffffffff, 1),
-	tvcmd_pause(10),
-	tvcmd_settexture(63),
-	tvcmd_pause(10),
-	tvcmd_settexture(64),
-	tvcmd_pause(10),
-	tvcmd_settexture(65),
-	tvcmd_pause(10),
-	tvcmd_settexture(66),
-	tvcmd_pause(10),
-	tvcmd_restart(),
-};
-
-u32 var8006a65c[] = {
-	tvcmd_settexture(67),
-	tvcmd_setcolour(0xffffffff, 1),
-	tvcmd_pause(10),
-	tvcmd_settexture(68),
-	tvcmd_pause(10),
-	tvcmd_settexture(69),
-	tvcmd_pause(10),
-	tvcmd_settexture(70),
-	tvcmd_pause(10),
-	tvcmd_settexture(71),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };

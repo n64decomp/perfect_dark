@@ -27,7 +27,6 @@ glabel var8005ef5c
 glabel var8005ef7c
 .word 0x00000000
 
-glabel var8005ef80
 .word model00019be0+0x84
 .word model00019be0+0x90
 .word model00019be0+0xa8

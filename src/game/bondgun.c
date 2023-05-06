@@ -71,54 +71,20 @@ s32 var8009d0d8;
 s32 var8009d0dc;
 struct sndstate *g_BgunAudioHandles[4];
 s32 var8009d0f0[3];
-u32 var8009d0fc;
-u32 var8009d100;
-u32 var8009d104;
-u32 var8009d108;
-u32 var8009d10c;
-u32 var8009d110;
-u32 var8009d114;
-u32 var8009d118;
-u32 var8009d11c;
-u32 var8009d120;
-u32 var8009d124;
-u32 var8009d128;
-u32 var8009d12c;
-u32 var8009d130;
-u32 var8009d134;
-u32 var8009d138;
-u32 var8009d13c;
 f32 var8009d140;
 struct hand *var8009d144;
 s32 var8009d148;
-u32 var8009d14c;
 struct fireslot g_Fireslots[NUM_FIRESLOTS];
 
 Lights1 var80070090 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0xb2, 0x4d, 0x2e);
 
 u32 var800700a8 = 0x00025800;
-u32 var800700ac = 0x0001e000;
 
 u16 g_CartFileNums[] = {
 	FILE_GCARTRIDGE,
 	FILE_GCARTRIFLE,
 	FILE_GCARTBLUE,
 	FILE_GCARTSHELL,
-};
-
-u32 var800700b8 = 0x00000000;
-
-char var800700bc[][10] = {
-	{ 'i','d','l','e'                     }, // "idle"
-	{ 'p','r','e','p','a','r','e'         }, // "prepare"
-	{ 'c','a','n','t','u','s','e'         }, // "cantuse"
-	{ 'n','o','a','m','m','o'             }, // "noammo"
-	{ 'u','s','e','2'                     }, // "use2"
-	{ 'c','h','a','n','g','e'             }, // "change"
-	{ 'u','p','g','r','a','d','e'         }, // "upgrade"
-	{ 'c','h','a','n','g','e','f','n'     }, // "changefn"
-	{ 'i','d','l','e','s','t','u','c','k' }, // "idlestuck"
-	{ 'x','x','x'                         }, // "xxx"
 };
 
 struct modelfiledata *g_GunModeldefs[0x5e]; // All weapon IDs
@@ -2070,8 +2036,6 @@ s32 bgunGetMinClipQty(s32 weaponnum, s32 funcnum)
 }
 
 
-u32 var8007012c = 0x00000000;
-u32 var80070130 = 0x00000000;
 
 bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 {
@@ -3118,27 +3082,6 @@ void bgunUpdateBlend(struct hand *hand, s32 handnum)
 	hand->dampup.z = hand->dampupsum.z * (PAL ? 0.01529997587204f : 0.012799978f);
 }
 
-u32 var80070158 = 0x04e50764;
-u32 var8007015c = 0x05360529;
-u32 var80070160 = 0x0531052a;
-u32 var80070164 = 0x052b052c;
-u32 var80070168 = 0x052c052d;
-u32 var8007016c = 0x052b052b;
-u32 var80070170 = 0x052e052f;
-u32 var80070174 = 0x052f0530;
-u32 var80070178 = 0x05310532;
-u32 var8007017c = 0x05320533;
-u32 var80070180 = 0x05340535;
-u32 var80070184 = 0x05360537;
-u32 var80070188 = 0x05380530;
-u32 var8007018c = 0x0539053a;
-u32 var80070190 = 0x0532053b;
-u32 var80070194 = 0x05310766;
-u32 var80070198 = 0x07670768;
-u32 var8007019c = 0x0769076a;
-u32 var800701a0 = 0x076b076c;
-u32 var800701a4 = 0x076d0000;
-u32 var800701a8 = 0x0000ffff;
 
 void bgun0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 {
@@ -5860,11 +5803,6 @@ s32 bgunCreateModelCmdList(struct model *model, struct modelnode *nodearg, s32 *
 	return len;
 }
 
-u32 var800701ec = 0x00000000;
-u32 var800701f0 = 0x00000000;
-u32 var800701f4 = 0x00000000;
-u32 var800701f8 = 0x00000000;
-u32 var800701fc = 0x00000000;
 
 struct guncmd var80070200[2] = {
 	{ GUNCMD_PLAYANIMATION, 0, ANIM_0434, 10000 },
@@ -7541,23 +7479,6 @@ s32 bgunAllocateFireslot(void)
 	return index;
 }
 
-u32 var8007029c = 0x00000000;
-u32 var800702a0 = 0x00000001;
-u32 var800702a4 = 0x00000003;
-u32 var800702a8 = 0x00000000;
-u32 var800702ac = 0x00000000;
-u32 var800702b0 = 0x00000000;
-u32 var800702b4 = 0x00000000;
-u32 var800702b8 = 0x00000000;
-u32 var800702bc = 0x00000000;
-u32 var800702c0 = 0x00000000;
-u32 var800702c4 = 0x00000000;
-u32 var800702c8 = 0x00000000;
-u32 var800702cc = 0x00000000;
-u32 var800702d0 = 0x00000000;
-u32 var800702d4 = 0x00000000;
-u32 var800702d8 = 0x00000000;
-u32 var800702dc = 0x00000001;
 
 void bgunRender(Gfx **gdlptr)
 {

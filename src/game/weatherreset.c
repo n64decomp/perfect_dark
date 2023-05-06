@@ -7,9 +7,6 @@
 #include "types.h"
 
 s32 g_WeatherActive = false;
-u32 var800623f4 = 0x00000000;
-u32 var800623f8 = 0x00000000;
-u32 var800623fc = 0x00000000;
 
 void weatherReset(void)
 {

@@ -29,7 +29,6 @@ struct tag *g_TagsLinkedList;
 struct briefingobj *g_BriefingObjs;
 struct criteria_holograph *g_HolographCriterias;
 s32 g_NumTags;
-u32 var8009d0cc;
 bool g_ObjectivesDirty;
 bool g_AnyObjectiveFailed;
 

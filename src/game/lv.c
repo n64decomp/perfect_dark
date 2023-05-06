@@ -100,14 +100,12 @@
 #include "types.h"
 
 struct sndstate *g_MiscSfxAudioHandles[3];
-u32 var800aa5bc;
 s32 g_MiscSfxActiveTypes[3];
 struct stagetableentry *g_CurrentStage;
 
 u32 var80084010 = 0;
 bool var80084014 = false;
 f32 var80084018 = 1;
-u32 var8008401c = 0x00000001;
 
 s32 g_Difficulty = DIFF_A;
 
@@ -1669,13 +1667,7 @@ Gfx *lvRender(Gfx *gdl)
 
 u32 g_CutsceneTime240_60 = 0;
 
-u32 var800840a8 = 0;
-u32 var800840ac = 0;
-u32 var800840b0 = 0;
 
-u32 var800840b4 = 0;
-u32 var800840b8 = 0;
-u32 var800840bc = 0;
 
 void lvResetSoloHandicaps(void)
 {

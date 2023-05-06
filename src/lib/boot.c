@@ -20,19 +20,12 @@ OSThread g_MainThread;
 OSThread g_SchedThread;
 OSMesgQueue g_SchedMesgQueue;
 OSMesg var8008db48[32];
-u32 var8008dbcc;
 OSScClient var8008dca8;
 u32 g_OsMemSize;
 
-u32 var8005ce00 = 0;
-u32 var8005ce04 = 0;
-u32 var8005ce08 = 0;
-u32 var8005ce0c = 0;
 u8 *g_StackLeftAddrs[7] = {0};
 u8 *g_StackRightAddrs[7] = {0};
 u8 *g_StackAllocatedPos = (u8 *) K0BASE + 4 * 1024 * 1024 - FRAMEBUFFER_SIZE;
-u32 var8005ce4c = 0x00000002;
-u32 var8005ce50 = 0x10000000;
 
 extern OSSched g_Sched;
 

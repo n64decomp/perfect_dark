@@ -56,11 +56,6 @@
 #include "types.h"
 
 s32 g_RecentQuipsPlayed[5];
-u32 var8009cd84;
-u32 var8009cd88;
-u32 var8009cd8c;
-u32 var8009cd90;
-u32 var8009cd94;
 u8 g_RecentQuipsIndex;
 
 f32 g_EnemyAccuracyScale = 1;
@@ -1148,12 +1143,6 @@ struct attackanimconfig g_AttackAnimDualWalk        = { ANIM_006C, 0, 0, 0, 0, -
 struct attackanimconfig g_AttackAnimDualRun         = { ANIM_006E, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
 struct attackanimconfig g_AttackAnimDualCrossedWalk = { ANIM_006D, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
 struct attackanimconfig g_AttackAnimDualCrossedRun  = { ANIM_006F, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-
-struct attackanimconfig var80067c50[] = {
-	{ ANIM_0057, 0, 0, 1.5707963705063, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0, 0 },
-	{ ANIM_0056, 0, 0, 4.7123889923096, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0, 0 },
-	{ 0, 0, 0, 0,               0, -1, 0, 0, 0,  0,  0, 0, 0,                0,                 0,                0,                 0, 0 },
-};
 
 struct attackanimconfig var80067d28[] = { ANIM_SNIPING_GETDOWN, 0, 0, 0, 0, 236, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0, 0 };
 

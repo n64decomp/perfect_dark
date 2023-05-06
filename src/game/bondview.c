@@ -34,9 +34,6 @@ u8 var8007f844 = 0;
 u8 var8007f848 = 0;
 s32 g_IrBinocularRadius = PAL ? 102 : 90;
 s32 var8007f850 = 3;
-u32 var8007f854 = 0x00000000;
-u32 var8007f858 = 0xb8000000;
-u32 var8007f85c = 0x00000000;
 
 Gfx *bviewDrawIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {

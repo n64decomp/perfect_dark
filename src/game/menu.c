@@ -52,9 +52,7 @@ char g_CheatMarqueeString[252];
 
 u8 *g_BlurBuffer;
 s32 var8009dfc0;
-u32 var8009dfc4;
 struct briefing g_Briefing;
-u32 var8009dfe4;
 struct missionconfig g_MissionConfig;
 struct menu g_Menus[4];
 struct menudata g_MenuData;
@@ -339,7 +337,6 @@ Gfx *menuRenderBanner(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool big, s32 ms
 	return gdl;
 }
 
-u32 var80071464 = 0;
 
 struct menudfc *func0f0f1338(struct menuitem *item)
 {
@@ -3365,7 +3362,6 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 	return gdl;
 }
 
-u32 var800714e8 = 0;
 
 void func0f0f8bb4(struct menu840 *arg0, u32 arg1, u32 arg2)
 {

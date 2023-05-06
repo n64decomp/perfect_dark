@@ -344,43 +344,6 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialogdef *dialogdef, union 
 	return 0;
 }
 
-struct menuitem g_CheatsWarningMenuItems[] = {
-	{
-		MENUITEMTYPE_LABEL,
-		0,
-		0,
-		L_MPMENU_479, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."
-		0,
-		NULL,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
-		L_MPMENU_480, // "OK"
-		0,
-		NULL,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
-		L_MPMENU_481, // "Cancel"
-		0,
-		NULL,
-	},
-	{ MENUITEMTYPE_END },
-};
-
-struct menudialogdef g_CheatsWarningMenuDialog = {
-	MENUDIALOGTYPE_SUCCESS,
-	L_MPMENU_478, // "Warning"
-	g_CheatsWarningMenuItems,
-	NULL,
-	0,
-	NULL,
-};
-
 /**
  * NTSC Beta uses g_StringPointer while newer versions use g_CheatMarqueeString.
  *

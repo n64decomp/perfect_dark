@@ -71,8 +71,6 @@ extern u8 g_LvStatsPage;
 bool var8005d9b0 = false;
 s32 g_StageNum = STAGE_TITLE;
 u32 g_MainMemaHeapSize = 1024 * 300;
-bool var8005d9bc = false;
-s32 var8005d9c0 = 0;
 s32 var8005d9c4 = 0;
 u32 g_MainNumGfxTasks = 0;
 bool g_MainIsEndscreen = false;
@@ -372,12 +370,6 @@ void mainInit(void)
 	var8005dd18 = 0;
 }
 
-u32 var8005dd3c = 0x00000000;
-u32 var8005dd40 = 0x00000000;
-u32 var8005dd44 = 0x00000000;
-u32 var8005dd48 = 0x00000000;
-u32 var8005dd4c = 0x00000000;
-u32 var8005dd50 = 0x00000000;
 s32 g_MainChangeToStageNum = -1;
 bool g_MainIsDebugMenuOpen = false;
 

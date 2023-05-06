@@ -28,7 +28,6 @@ struct fileguid g_FilemgrFileToDelete;
 
 s32 g_FilemgrLastPakError;
 struct gamefile g_GameFile;
-u32 var800a22bc;
 struct fileguid g_GameFileGuid;
 
 // These might be able to be removed by relocating their symbols

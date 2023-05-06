@@ -8,7 +8,6 @@
 .bss
 .balign 4
 
-glabel var8008ae20
 .space 4
 
 glabel g_VmStateTable
@@ -29,10 +28,8 @@ glabel var8008ae38
 glabel var8008be38
 .space 0x1400
 
-glabel var8008d238
 .space 0x20
 
-glabel var8008d258
 .space 4
 
 glabel var8008d25c

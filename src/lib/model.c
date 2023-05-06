@@ -18,7 +18,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8005efb0 = 0;
 
 bool g_ModelDistanceDisabled = false;
 f32 g_ModelDistanceScale = 1;

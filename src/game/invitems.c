@@ -147,28 +147,6 @@ struct invaimsettings invaimsettings_heavy = {
 	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT, // flags
 };
 
-struct weaponfunc_shootsingle invfunc_00011160 = {
-	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN_085, // name
-	0, // unused
-	0, // ammoindex
-	&invnoisesettings_default,
-	NULL, // fire animation
-	0, // flags
-	&invrecoilsettings_default,
-	0, // recoverytime60
-	1, // damage
-	6, // spread
-	6, 18, 2, 8,
-	5, // recoildist
-	2, // recoilangle
-	0, // slidemax
-	4, // impactforce
-	4, // duration60
-	SFX_8039, // shootsound
-	1, // penetration
-};
-
 struct inventory_ammo invammo_default = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
@@ -1168,11 +1146,6 @@ struct guncmd invanim_mauler_reload_dualwield[] = {
 struct guncmd invanim_mauler_reload[] = {
 	gunscript_include(1, invanim_mauler_reload_dualwield)
 	gunscript_include(0, invanim_mauler_reload_singlewield)
-	gunscript_end
-};
-
-struct guncmd invanim_unused_8007c0bc[] = {
-	gunscript_playanimation(ANIM_03F6, 0, 10000)
 	gunscript_end
 };
 
@@ -2186,11 +2159,6 @@ struct guncmd invanim_k7avenger_unequip[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_unused_8007ce6c[] = {
-	gunscript_playanimation(ANIM_00E8, 0, 10000)
-	gunscript_end
-};
-
 struct invaimsettings invaimsettings_k7avenger = {
 	20,
 	3,
@@ -2916,11 +2884,6 @@ struct weapon invitem_slayer = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00002000 | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_02000000,
 };
 
-struct gunviscmd gunviscmds_unused_8006d890[] = {
-	gunviscmd_sethidden(MODELPART_0029)
-	gunviscmd_end
-};
-
 struct guncmd invanim_devastator_shoot[] = {
 	gunscript_playanimation(ANIM_GUN_DEVASTATOR_SHOOT, 0, 10000)
 	gunscript_end
@@ -3313,33 +3276,6 @@ struct weapon invitem_ecmmine = {
 	L_GUN_000, // manufacturer
 	L_GUN_188, // description
 	WEAPONFLAG_THROWABLE | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_00002000 | WEAPONFLAG_HASHANDS | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_UNDROPPABLE,
-};
-
-// Some unfinished Reaper-like gun. The name is "Timed Mine". The primary
-// function is detonate (and it works). It can't shoot.
-struct weapon invitem_unused_8007dd88 = {
-	FILE_GSKMINIGUN, // hi model
-	FILE_GSKMINIGUNLOD, // lo model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
-	{ &invfunc_remotemine_detonate, NULL }, // functions
-	NULL, // pri ammo
-	NULL, // sec ammo
-	&invaimsettings_default,
-	1, // muzzlez
-	0, // posx
-	-39.5, // posy
-	-55.5, // posz
-	1, // sway
-	NULL, // gunviscmds
-	NULL, // part visibility
-	L_GUN_038, // short name
-	L_GUN_038, // name
-	L_GUN_000, // manufacturer
-	L_GUN_000, // description
-	WEAPONFLAG_ONEHANDED | WEAPONFLAG_00000040 | WEAPONFLAG_UNDROPPABLE,
 };
 
 struct gunviscmd gunviscmds_grenade[] = {
@@ -4622,11 +4558,6 @@ struct weaponfunc invfunc_briefcase_use = {
 	0, // flags
 };
 
-struct gunviscmd gunviscmds_unused_8006edcc[] = {
-	{ 0, 0x001e, 0, 0x0002, 0x0001 },
-	gunviscmd_end
-};
-
 struct weapon invitem_briefcase2 = {
 	FILE_GFALCON2LOD, // hi model
 	FILE_GFALCON2LOD, // lo model
@@ -4815,12 +4746,6 @@ struct guncmd invanim_combatknife_throw[] = {
 	gunscript_playanimation(ANIM_GUN_KNIFE_THROW, 0, 10000)
 	gunscript_waitforzreleased(12)
 	gunscript_waittime(16, 2)
-	gunscript_end
-};
-
-struct guncmd invanim_unused_8007f05c[] = {
-	gunscript_playanimation(ANIM_041C, 0, 10000)
-	gunscript_waittime(22, 1)
 	gunscript_end
 };
 
@@ -5448,11 +5373,6 @@ struct guncmd invanim_datauplink_unequip[] = {
 	gunscript_end
 };
 
-struct guncmd invanim_unused_8007f794[] = {
-	gunscript_playanimation(ANIM_043B, 0, 10000)
-	gunscript_end
-};
-
 struct weaponfunc_special invfunc_datauplink_primary = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_141, // name
@@ -5617,19 +5537,6 @@ struct weapon invitem_bolt = {
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description
 	0, // flags
-};
-
-struct weaponfunc_special invfunc_unused_8006f9a4 = {
-	INVENTORYFUNCTYPE_SPECIAL,
-	L_GUN_144, // "Place Explosives"
-	0, // unused
-	-1, // ammoindex
-	&invnoisesettings_silent,
-	NULL, // fire animation
-	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
-	HANDATTACKTYPE_UPLINK,
-	30, // recoverytime60
-	0, // soundnum (unused)
 };
 
 struct weapon invitem_skedarbomb = {

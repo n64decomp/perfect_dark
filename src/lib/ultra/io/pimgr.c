@@ -12,7 +12,6 @@ s32 osPiRawStartDma(s32 direction, u32 devAddr, void *dramAddr, u32 size);
 s32 osEPiRawStartDma(OSPiHandle *handle, s32 direction, u32 devAddr, void *dramAddr, u32 size);
 
 OSDevMgr __osPiDevMgr = {0};
-OSPiHandle *__osPiTable = NULL;
 OSPiHandle *__osCurrentHandle[2] = { &CartRomHandle, &LeoDiskHandle };
 
 void osCreatePiManager(OSPri pri, OSMesgQueue *cmdQ, OSMesg *cmdBuf, s32 cmdMsgCnt)

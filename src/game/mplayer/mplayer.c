@@ -33,14 +33,12 @@
 struct chrdata *g_MpAllChrPtrs[MAX_MPCHRS];
 struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
 s32 g_MpNumChrs;
-u32 var800ac534;
 struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
 u8 g_MpSimulantDifficultiesPerNumPlayers[MAX_BOTS][4];
 struct mpplayerconfig g_PlayerConfigsArray[6];
 u8 g_AmBotCommands[16];
 struct mpsetup g_MpSetup;
 struct bossfile g_BossFile;
-u32 var800acc1c;
 struct mplockinfo g_MpLockInfo;
 struct modelfiledata *var800acc28[18];
 
@@ -1495,15 +1493,6 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 	}
 }
 
-
-struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
-	// head, require feature
-	{ HEAD_BEAU2, 0 },
-	{ HEAD_BEAU3, 0 },
-	{ HEAD_BEAU4, 0 },
-	{ HEAD_BEAU5, 0 },
-	{ HEAD_BEAU6, 0 },
-};
 
 struct mphead g_MpHeads[NUM_MPHEADS] = {
 	// head, require feature

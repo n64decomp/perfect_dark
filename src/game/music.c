@@ -42,17 +42,6 @@ s32 g_MusicAge60 = 0;             // The current age of the MP track being playe
 s32 g_MusicLife60 = TICKS(120); // The max age of any MP track (this value is changed in MP code)
 s32 g_MusicSilenceTimer60 = 0;    // Counts down the 2 second silence between MP track changes
 
-char *var80084100[] = {
-	"null",
-	"leveltune",
-	"nrgtune,watchtune,mpdeathtune",
-	"ambience",
-	"NULL",
-	"playing",
-	"paused",
-};
-
-
 u16 musicGetVolume(void)
 {
 	u32 volume;

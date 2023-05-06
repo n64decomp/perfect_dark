@@ -74,16 +74,13 @@ u8 *g_VmMarker;
 u32 g_VmRamEnd;
 u32 g_VmStateTableEnd;
 
-u32 var8005cf80 = 0;
 s32 g_VmNumPages = 0;
 
-u32 var8005cf88 = 0;
 
 extern u8 _gameSegmentStart;
 extern u8 _gameSegmentEnd;
 extern u8 _gamezipSegmentRomStart;
 
-extern u32 var8008ae20;
 extern u32 *g_VmStateTable;
 extern u8 g_VmInitialised;
 extern u32 g_VmZipBuffer;

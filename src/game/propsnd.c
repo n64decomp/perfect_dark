@@ -21,22 +21,10 @@ struct audiochannel *g_AudioChannels = NULL;
 
 u32 g_AudioPrevUuid = 0x00000000;
 
-s8 var8006ae18 = 0;
-s8 var8006ae1c = 0;
-s8 var8006ae20 = 0;
-s8 var8006ae24 = 0;
-s8 var8006ae28 = 0;
 u32 var8006ae2c = 0x00000000;
-u32 var8006ae30 = 0x00000000;
 u32 var8006ae34 = 0x00000000;
-u32 var8006ae38 = 0x00000000;
 
-u32 var8006ae40 = 0x00000000;
-bool var8006ae44 = false;
-u32 var8006ae48 = 0x00000001;
-u32 var8006ae4c = 0x00000000;
 s16 var8006ae50 = -1;
-u32 var8006ae54 = 0x000003e7;
 
 bool func0f092610(struct prop *prop, s32 arg1)
 {

@@ -5,17 +5,10 @@
 
 f32 var800a6470[16 * 3];
 
-u32 var800a6530;
-u32 var800a6534;
 struct var800a6538 var800a6538[16];
 u32 g_BgRoomTestsDisabled;
-u32 var800a65bc;
 struct screenbox var800a65c0;
 struct screenbox g_PortalScreenBbox;
-u32 g_BgCmdThrowing;
-s32 g_BgNumLightsChecksum;
-s32 g_BgLightsOffsetChecksum;
-u32 var800a65dc;
 u32 g_FogEnabled;
 u32 var800a65e4;
 struct coord *var800a65e8;

@@ -6,7 +6,6 @@
 #include "types.h"
 
 volatile u32 g_DmaNumSlotsBusy;
-u32 var80094ae4;
 OSIoMesg g_DmaIoMsgs[32];
 volatile u8 g_DmaSlotsBusy[32];
 OSMesg g_DmaMesgs[32];

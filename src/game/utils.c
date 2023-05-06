@@ -9,31 +9,15 @@
 
 
 void *var800ac0d0;
-u32 var800ac0d4;
-u32 var800ac0d8;
-u32 var800ac0dc;
-u32 var800ac0e0;
-u32 var800ac0e4;
 u8 *var800ac0e8[4];
 u32 var800ac0f8[4];
 
-f32 var800845d0 = 999999;
 f32 var800845d4 = 0.00001f;
-s32 var800845d8 = 1;
 struct coord var800845dc = {0, 0, 0};
-u32 var800845e8 = 0x00000000;
-u32 var800845ec = 0x3f800000;
-u32 var800845f0 = 0x00000000;
 struct coord var800845f4 = {0, 0, 1};
-u32 var80084600 = 0x3f800000;
-u32 var80084604 = 0x00000000;
-u32 var80084608 = 0x00000000;
-u32 var8008460c = 0xffffffff;
 u8 *var80084610 = NULL;
 u8 *var80084614 = NULL;
 u8 *var80084618 = NULL;
-u32 var8008461c = 0x00000004;
-u32 var80084620 = 0x00000000;
 
 u32 align4(u32 arg0)
 {

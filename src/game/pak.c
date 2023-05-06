@@ -131,57 +131,17 @@ const char g_N64FontCodeMap[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRST
 
 struct pak g_Paks[5];
 
-u32 var800a317c;
-
 OSPfs g_Pfses[4];
-u32 var800a3320;
-u32 var800a3324;
-u32 var800a3328;
-u32 var800a332c;
-u32 var800a3330;
-u32 var800a3334;
-u32 var800a3338;
-u32 var800a333c;
-u32 var800a3340;
-u32 var800a3344;
-u32 var800a3348;
-u32 var800a334c;
-u32 var800a3350;
-u32 var800a3354;
-u32 var800a3358;
-u32 var800a335c;
-u32 var800a3360;
-u32 var800a3364;
-u32 var800a3368;
-u32 var800a336c;
-u32 var800a3370;
-u32 var800a3374;
-u32 var800a3378;
-u32 var800a337c;
-u32 var800a3380;
-u32 var800a3384;
 
 // This is likely g_DebugCutsceneLabelPtrs and/or g_DebugCutsceneLabelBuffers
 // but with reduced lengths
-u32 var800a3388;
-u32 var800a338c;
-u32 var800a3390;
-u32 var800a3394;
-u32 var800a3398;
-u32 var800a339c;
 
 u16 var80075cb0 = ROM_COMPANYCODE;
 char var80075cb4[] = "PerfDark";
 char var80075cc0[] = "PerfDark";
 
-u32 var80075ccc = 0x00000400;
 u32 g_PakHasEeprom = false;
-u32 var80075cd4 = 0x00000000;
-u32 var80075cd8 = 0x00000000;
-u32 g_PakDebugForceCrc = 0;
-u32 g_PakDebugForceScrub = 0;
 u32 g_PakDebugPakCache = 1;
-u32 g_PakDebugPakInit = 0;
 
 char g_PakNoteGameName[] = {
 	N64CHAR('P'),
@@ -204,7 +164,6 @@ char g_PakNoteGameName[] = {
 
 char g_PakNoteExtName[] = {0, 0, 0, 0};
 
-u32 var80075d0c = 0x00000000;
 u8 var80075d10 = 0;
 
 bool var80075d14 = true;
@@ -2703,8 +2662,6 @@ bool pak0f11ce00(s8 device, u16 arg1, char *arg2, s32 arg3, bool arg4)
 	return result;
 }
 
-u32 var80075d58 = 0x00000000;
-u32 var80075d5c = 0x00000000;
 
 void pakRumble(s32 device, f32 numsecs, s32 onduration, s32 offduration)
 {

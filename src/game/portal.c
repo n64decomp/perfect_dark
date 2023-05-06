@@ -61,7 +61,6 @@
 
 
 struct roomacousticdata *g_RoomAcousticData;
-u32 var8009dd74;
 struct var8009dd78 var8009dd78[10];
 u16 *g_PortalXluFracs;
 s32 g_NumPortalXluFracs;

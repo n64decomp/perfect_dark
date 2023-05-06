@@ -2065,7 +2065,6 @@ extern void *_filenamesSegmentRomStart;
 
 struct fileinfo g_FileInfo[NUM_FILES];
 
-u32 var800aa570;
 
 u32 g_FileTable[] = {
 	/*0x0000*/ 0,

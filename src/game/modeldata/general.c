@@ -1300,18 +1300,3 @@ s8 g_PropExplosionTypes[] = {
 	0xff,
 };
 
-u32 var8007bff8 = 0x00000000;
-u32 var8007bffc = 0x00000000;
-u32 var8007c000 = 0x00000000;
-u32 var8007c004 = 0x00000000;
-u32 var8007c008 = 0x00000000;
-u32 var8007c00c = 0x00000000;
-u32 var8007c010 = 0xf8f4f1e0;
-u32 var8007c014 = 0x473f41dd;
-u32 var8007c018 = 0xa510c9c6;
-u32 var8007c01c = 0xbcae0bd1;
-u32 var8007c020 = 0x0ff73a30;
-u32 var8007c024 = 0x724083b7;
-u32 var8007c028 = 0xffffffff;
-u32 var8007c02c = 0xffffffff;
-u32 var8007c030 = 0xffffffff;

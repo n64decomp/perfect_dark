@@ -11,7 +11,6 @@
 #include "types.h"
 
 struct texture *g_Textures;
-u32 var800aabc4;
 struct texpool g_TexSharedPool;
 struct texcacheitem g_TexCacheItems[150];
 s32 g_TexCacheCount;
@@ -19,7 +18,6 @@ s32 g_TexNumToLoad;
 u8 *var800ab540;
 u32 var800ab544;
 s32 var800ab548;
-u32 var800ab54c;
 u32 g_TexBase;
 u8 *g_TextureConfigSegment;
 s32 g_TexNumConfigs;
@@ -45,8 +43,6 @@ struct textureconfig *g_TexSparkConfigs;
 struct textureconfig *g_TexGeneralConfigs;
 struct textureconfig *g_TexRadarConfigs;
 
-u32 var800841b0 = 0x0006ddd0;
-u32 var800841b4 = 0x00000000;
 
 // The number of channels, excluding 1-bit alpha channels.
 s32 g_TexFormatNumChannels[] = { 4, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1 };

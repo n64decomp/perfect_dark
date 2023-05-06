@@ -84,7 +84,6 @@ f32 g_WarpType3Height;
 f32 g_WarpType3MoreHeight;
 u32 g_WarpType3Pad;
 s32 g_WarpType2HasDirection;
-u32 g_WarpType2Arg2;
 s32 g_CutsceneCurAnimFrame60;
 
 s32 g_CutsceneCurAnimFrame240;
@@ -96,7 +95,6 @@ bool g_CutsceneSkipRequested;
 f32 g_CutsceneCurTotalFrame60f;
 s32 var8009de2c;
 f32 g_CutsceneBarFrac; // 0 when bars across the top and bottom, 1 when fullscreen
-u32 var8009de34;
 s16 g_SpawnPoints[MAX_SPAWNPOINTS];
 s32 g_NumSpawnPoints;
 
@@ -121,32 +119,7 @@ struct vimode g_ViModes[] = {
 	{ 400, 300, 400, 1,                2, 300, 0,  300, 0,  300, 0   }, // unused
 };
 
-u32 var800706d0 = 0x00000000;
-u32 var800706d4 = 0x00000000;
-u32 var800706d8 = 0x00000000;
-u32 var800706dc = 0x00000000;
-u32 var800706e0 = 0x00000000;
-u32 var800706e4 = 0xbf800000;
-u32 var800706e8 = 0x00000000;
-u32 var800706ec = 0x3f800000;
-u32 var800706f0 = 0x00000000;
-u32 var800706f4 = 0x00000000;
-u32 var800706f8 = 0x3f800000;
-u32 var800706fc = 0x00000000;
-u32 var80070700 = 0x00000000;
-u32 var80070704 = 0x3f800000;
-u32 var80070708 = 0x00000000;
-u32 var8007070c = 0x00000000;
-u32 var80070710 = 0x00000000;
-u32 var80070714 = 0x00000000;
-u32 var80070718 = 0x00000000;
-u32 var8007071c = 0x00000000;
-u32 var80070720 = 0x00000000;
-u32 var80070724 = 0x00000000;
-u32 var80070728 = 0x3f800000;
 s32 var8007072c = 1;
-u32 var80070730 = 0xffffffff;
-u32 var80070734 = 0xffffffff;
 u32 var80070738 = 0;
 u32 var8007073c = 0;
 struct gecreditsdata *g_CurrentGeCreditsData = NULL;

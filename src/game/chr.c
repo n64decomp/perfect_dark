@@ -49,16 +49,11 @@
 #include "types.h"
 
 void *var8009ccc0[20];
-s32 g_NumChrs;
 s16 g_ChrIndexesByChrnum[240];
 struct chrdata *g_CurModelChr;
 
 struct var80062960 *var80062960 = NULL;
 s32 var80062964 = 0;
-s32 g_SelectedAnimNum = 0;
-u32 var80062978 = 0x00000000;
-u32 var8006297c = 0;
-u32 var80062980 = 0;
 s32 g_NextChrnum = 200;
 
 struct chrdata *g_ChrSlots = NULL;
@@ -2054,10 +2049,6 @@ void chrTickPoisoned(struct chrdata *chr)
 }
 
 f32 var800629e8 = 1;
-u32 var800629ec = 0x00000000;
-u32 var800629f0 = 0x00000000;
-u32 var800629f4 = 0x00000000;
-u32 var800629f8 = 0x00000000;
 
 bool chrTickBeams(struct prop *prop)
 {

@@ -31,7 +31,6 @@
 #include "string.h"
 
 u8 *var8009cca0;
-u32 var8009cca4;
 struct gfxvtx *var8009cca8[2];
 u32 *var8009ccb0[2];
 u32 var8009ccb8;
@@ -45,9 +44,6 @@ s32 g_TitleNextMode = -1;
 u32 g_TitleDelayedTimer = 2;
 s32 g_TitleDelayedMode = -1;
 s32 g_TitleTimer = 0;
-u32 var800624c8 = 0x00000000;
-u32 var800624cc = 0x00000000;
-u32 var800624d0 = 0x00000000;
 u32 var800624d4 = 0x00000000;
 u32 var800624d8 = 0x00000000;
 u32 var800624dc = 0x00000000;
@@ -59,40 +55,17 @@ u32 var800624f0 = 0x00000000;
 s32 var800624f4 = 1;
 struct model *g_TitleModel = NULL;
 struct model *g_TitleModelNLogo2 = NULL;
-u32 var80062500 = 0x00000000;
-u32 var80062504 = 0x00000000;
 struct model *g_TitleModelPdTwo = NULL;
 struct model *g_TitleModelPdThree = NULL;
 
-u32 var80062510 = 0x00000000;
-u32 var80062514 = 0x00000000;
-u32 var80062518 = 0x96969600;
-u32 var8006251c = 0x96969600;
-u32 var80062520 = 0xffffff00;
-u32 var80062524 = 0xffffff00;
-u32 var80062528 = 0x4d4d2e00;
-u32 var8006252c = 0x00000000;
 
 Lights1 var80062530 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-Lights1 var80062548 = gdSPDefLights1(0x3f, 0xff, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 Lights1 var80062560 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 
 Lights1 var80062578 = gdSPDefLights1(0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x7f);
 Lights1 var80062590 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 Lights1 var800625a8 = gdSPDefLights1(0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x7f);
 
-u32 var800625c0 = 0x00000000;
-u32 var800625c4 = 0x00000000;
-u32 var800625c8 = 0xffffff00;
-u32 var800625cc = 0xffffff00;
-u32 var800625d0 = 0x00007f00;
-u32 var800625d4 = 0x00000000;
-u32 var800625d8 = 0x00000000;
-u32 var800625dc = 0x00000000;
-u32 var800625e0 = 0xffffff00;
-u32 var800625e4 = 0xffffff00;
-u32 var800625e8 = 0x00007f00;
-u32 var800625ec = 0x00000000;
 
 char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
 {
@@ -1179,7 +1152,6 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 	return gdl;
 }
 
-struct sndstate *g_TitleAudioHandle = NULL;
 
 void titleInitNintendoLogo(void)
 {
@@ -1589,11 +1561,6 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 }
 
 s32 g_NumPlayers = 0;
-u32 var80062928 = 0x00000000;
-u32 var8006292c = 0x00000001;
-u32 var80062930 = 0x00000001;
-u32 var80062934 = 0x00000001;
-u32 var80062938 = 0x00000000;
 
 s32 getNumPlayers(void)
 {

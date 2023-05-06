@@ -1,7 +1,6 @@
 #include <os_internal.h>
 
 OSMesg siAccessBuf;
-u32 var8009c7c4;
 OSMesgQueue __osSiAccessQueue;
 
 u32 __osSiAccessQueueEnabled = 0;

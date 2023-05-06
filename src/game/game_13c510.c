@@ -18,9 +18,6 @@
 #include "types.h"
 
 u8 *var800a41a0;
-u32 var800a41a4;
-u32 var800a41a8;
-u32 var800a41ac;
 
 void artifactsClear(void)
 {

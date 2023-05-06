@@ -18,11 +18,7 @@
 #include "types.h"
 
 struct prop *var8009de70;
-u32 var8009de74;
 struct coord var8009de78;
-u32 var8009de84;
-u32 var8009de88;
-u32 var8009de8c;
 
 bool var80070e80 = false;
 

@@ -9,7 +9,6 @@
 #include "types.h"
 
 struct coord var800a65f0;
-u32 var800a65fc;
 
 struct var800a6600 var800a6600;
 f32 var800a6618;
@@ -21,11 +20,8 @@ struct envtype1 *g_EnvTransitionTo;
 f32 var80081050 = MAXFLOAT;
 f32 var80081054 = 0;
 struct environment g_Env = {900, 1000};
-u32 var800810a8 = 0;
-u32 var800810ac = 0;
 
 //                   lensflare,    r,    g,    b,        x,       y,        z, texture size, orb size
-struct sun suns_00[]     = { 1, 0xff, 0xff, 0xff, -1000000,  200000,    50000, 20, 48 };
 struct sun suns_area51[] = { 0, 0xff, 0xe0, 0x80,  -200000,  310000,  1000000, 20, 48 };
 struct sun suns_villa[]  = { 1, 0xff, 0xff, 0xff, -1000000,  200000,    50000, 20, 48 };
 struct sun suns_ci[]     = { 1, 0xff, 0xff, 0xff,   400000,  600000, -1000000, 20, 48 };

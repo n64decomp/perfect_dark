@@ -8,7 +8,6 @@
 #include "data.h"
 #include "types.h"
 
-extern u32 var800700ac;
 
 void bgunReset(void)
 {

@@ -45,8 +45,6 @@ OSMesg var80099f18[2];
 OSMesgQueue g_JoyStartCyclicPollingDoneMesgQueue;
 OSContStatus var80099f38[4];
 u8 g_JoyPfsStates[100];
-u32 var80099fac;
-u32 var80099fb0;
 
 bool g_JoyBusy = false;
 u32 var8005ee68 = 0;
@@ -58,11 +56,8 @@ bool g_JoyNeedsInit = true;
 u32 g_JoyCyclicPollDisableCount = 0;
 u32 var8005eec0 = 1;
 s32 g_JoyNextPfsStateIndex = 0;
-s32 var8005eed0 = 0;
 
-u32 var8005eed4 = 0;
 
-u8 var8005eed8 = 0;
 
 bool var8005eedc = true;
 s32 var8005eee0 = 0;

@@ -39,9 +39,6 @@
 #include "types.h"
 
 s32 var8009cc30;
-u32 var8009cc34;
-u32 var8009cc38;
-u32 var8009cc3c;
 
 struct tvscreen var80061a80 = {
 	g_TvCmdlist00, // cmdlist
@@ -169,11 +166,7 @@ struct tvscreen var80061b68 = {
 	0,           // colinc
 };
 
-u32 var80061bdc = 0x00000000;
 f32 g_DoorScale = 1;
-u32 var80061be4 = 0x00000000;
-u32 var80061be8 = 0x00000000;
-u32 var80061bec = 0x00000000;
 
 void propsReset(void)
 {

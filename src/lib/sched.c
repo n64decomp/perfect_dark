@@ -31,7 +31,6 @@ OSViMode var8008dd68[2];
 u32 var8008de08;
 s32 var8008de0c;
 s32 var8008de10;
-u32 var8008de14;
 OSTimer g_SchedRspTimer;
 u8 g_ScBottleneck = ' ';
 
@@ -43,8 +42,6 @@ s32 g_ViUnblackTimer = 3;
 s32 g_ViShakeDirection = 1;
 s32 g_ViShakeIntensity = 0;
 s32 g_ViShakeTimer = 0;
-u32 var8005cea0 = 0;
-u32 var8005cea4 = 0;
 bool g_SchedIsFirstTask = true;
 
 static void __scExec(OSSched *sc, OSScTask *t)

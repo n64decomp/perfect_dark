@@ -21,7 +21,6 @@ u32 g_SkyStageNum;
 bool g_SkyLightningActive;
 Mtxf var800a33a8;
 struct coord g_SunPositions[3]; // relative to centre screen, with a huge scale
-u32 var800a340c;
 f32 g_SunScreenXPositions[4];
 f32 g_SunScreenYPositions[4];
 

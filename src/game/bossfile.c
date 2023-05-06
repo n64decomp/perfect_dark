@@ -19,7 +19,6 @@
 #include "data.h"
 #include "types.h"
 
-u8 var800a22d0[0x5b];
 u8 g_AltTitleUnlocked;
 u8 g_AltTitleEnabled;
 

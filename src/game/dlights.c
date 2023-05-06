@@ -31,7 +31,6 @@
 
 
 s32 *var8009cad0;
-u32 var8009cad4;
 s32 *var8009cad8;
 s32 g_NumPortals;
 s32 var8009cae0;
@@ -44,7 +43,6 @@ u8 var8009caef;
 u8 var8009caf0;
 
 struct var80061420 *var80061420 = NULL;
-u32 var80061424 = 0x00000000;
 struct coord *var80061428 = NULL;
 u16 **var8006142c = NULL;
 u16 **var80061430 = NULL;
@@ -53,13 +51,9 @@ bool *var80061438 = NULL;
 f32 var8006143c = 50;
 u32 var80061440 = 0x00000000;
 u32 var80061444 = 1;
-u32 var80061448 = 0x00000000;
 bool g_IsSwitchingGoggles = false;
-u32 var80061450 = 0x00000000;
-u32 var80061454 = 0xffffffff;
 
 s32 var80061458 = 0x00000000;
-u32 var8006145c = 0x00000000;
 
 Lights1 var80061460 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0x4d, 0x4d, 0x2e);
 

@@ -326,25 +326,15 @@ class App():
 
     def ai_configure_environment(self, params):
         if params[2] == 0:
-            self.emit('li', ['$v0', params[3]])
-            self.emit('lui', ['$a0', '%hi(var8006ae18)'])
-            self.emit('sb', ['$v0', '%lo(var8006ae18)($a0)'])
+            pass
         elif params[2] == 1:
-            self.emit('li', ['$v0', params[3]])
-            self.emit('lui', ['$a0', '%hi(var8006ae1c)'])
-            self.emit('sb', ['$v0', '%lo(var8006ae1c)($a0)'])
+            pass
         elif params[2] == 2:
-            self.emit('li', ['$v0', params[3]])
-            self.emit('lui', ['$a0', '%hi(var8006ae20)'])
-            self.emit('sb', ['$v0', '%lo(var8006ae20)($a0)'])
+            pass
         elif params[2] == 3:
-            self.emit('li', ['$v0', params[3]])
-            self.emit('lui', ['$a0', '%hi(var8006ae24)'])
-            self.emit('sb', ['$v0', '%lo(var8006ae24)($a0)'])
+            pass
         elif params[2] == 4:
-            self.emit('li', ['$v0', params[3]])
-            self.emit('lui', ['$a0', '%hi(var8006ae28)'])
-            self.emit('sb', ['$v0', '%lo(var8006ae28)($a0)'])
+            pass
         elif params[2] == 5:
             self.emit('li', ['$a0', '0x%04x' % self.u16(params, 0)])
             self.emit('li', ['$a1', '0x4000'])

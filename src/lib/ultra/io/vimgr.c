@@ -10,7 +10,6 @@ OSThread viThread;
 char viThreadStack[512];
 OSMesgQueue viEventQueue;
 OSMesg viEventBuf[5];
-u32 var8009025c;
 OSIoMesg viRetraceMsg;
 OSIoMesg viCounterMsg;
 

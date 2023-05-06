@@ -34,10 +34,7 @@ typedef struct oscData_s {
 } oscData;
 
 oscData *freeOscStateList;
-u32 var8009b874;
 oscData oscStates[60];
-u32 var8009c2c8;
-u32 var8009c2cc;
 N_ALSndPlayer var8009c2d0;
 
 ALMicroTime updateOsc(void *oscState, f32 *updateVal);

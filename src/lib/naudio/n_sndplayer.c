@@ -8,7 +8,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009c330;
 s16 *var8009c334;
 
 struct sndstate *g_SndpAllocStatesHead = NULL;

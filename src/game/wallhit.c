@@ -36,7 +36,6 @@ s32 var8007f740 = 0;
 u8 g_WallhitBloodColour[4] = {0x40, 0x0a, 0x0a, 0x00};
 f32 var8007f748 = 1;
 f32 var8007f74c = 1;
-u32 var8007f750 = 0;
 f32 var8007f754 = 0;
 f32 var8007f758 = 0;
 

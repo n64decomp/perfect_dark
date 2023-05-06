@@ -30,8 +30,6 @@ s32 g_ScissorX2 = 0;
 s32 g_ScissorY1 = 0;
 s32 g_ScissorY2 = 0;
 
-s32 var800711a0 = 0;
-s32 var800711a4 = 0;
 s32 g_LineHeight = LINEHEIGHT;
 
 u8 g_KeyboardKeys[5][10] = {

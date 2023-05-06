@@ -1311,43 +1311,6 @@ struct menudialogdef g_BioListMenuDialog = {
 	NULL,
 };
 
-struct menuitem g_NowSafeMenuItems[] = {
-	{
-		MENUITEMTYPE_LABEL,
-		0,
-		MENUITEMFLAG_SELECTABLE_CENTRE,
-		L_MPMENU_437, // "It is now safe to turn off your computer."
-		0,
-		NULL,
-	},
-	{
-		MENUITEMTYPE_SEPARATOR,
-		0,
-		0,
-		0,
-		0,
-		NULL,
-	},
-	{
-		MENUITEMTYPE_SELECTABLE,
-		0,
-		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		L_MPMENU_438, // "Cancel"
-		0,
-		NULL,
-	},
-	{ MENUITEMTYPE_END },
-};
-
-struct menudialogdef g_NowSafeMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU_436, // "Cheats"
-	g_NowSafeMenuItems,
-	NULL,
-	MENUDIALOGFLAG_DISABLERESIZE,
-	NULL,
-};
-
 s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	u32 bodynum = ciGetChrBioBodynumBySlot(g_ChrBioSlot);

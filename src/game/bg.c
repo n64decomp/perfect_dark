@@ -88,7 +88,6 @@ s16 g_ActiveRoomNums[350];
 s32 g_NumActiveRooms;
 u16 g_BgUnloadDelay240;
 u16 g_BgUnloadDelay240_2;
-u32 var800a4bf4;
 s16 g_GlareRooms[100];
 u32 *g_BgPrimaryData2;
 struct bgroom *g_BgRooms;
@@ -113,8 +112,6 @@ u8 *var8007fc08 = NULL;
 s16 var8007fc0c = 0;
 s16 var8007fc10 = 0;
 s32 g_NumRoomsWithGlares = 0;
-u32 var8007fc18 = 0x01000100;
-u32 var8007fc1c = 0x00000000;
 s32 g_CamRoom = 0x00000001;
 struct var800a4640_00 *var8007fc24 = &var800a4640.unk2d0;
 s32 var8007fc28 = 0;
@@ -653,8 +650,6 @@ Gfx *func0f158d9c(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3[3],
 }
 
 u32 var8007fc54 = 0;
-bool g_BgCmdStack[20] = {0};
-s32 g_BgCmdStackIndex = 0;
 u32 g_BgCmdResult = BGRESULT_TRUE;
 
 Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])

@@ -17,16 +17,6 @@
 f32 atan2f(f32 x, f32 z);
 #endif
 
-s32 SMALLROOM_PARAMS_N[26] = {
-	/* sections	 length */
-	3,           55 ms,
-	/*                                        chorus  chorus  filter
-	input    output   fbcoef  ffcoef  gain    rate    depth   coef  */
-	0    ms, 29.6 ms, 9830,   -9830,  0,      0,      0,      0,
-	10.4 ms, 20.8 ms, 3276,   -3276,  0x3fff, 0,      0,      0,
-	0    ms, 33   ms, 5000,   0,      0,      0,      0,      0x5000,
-};
-
 s32 BIGROOM_PARAMS_N[10] = {
 	0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
