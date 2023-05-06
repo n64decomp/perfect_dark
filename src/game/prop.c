@@ -1861,7 +1861,8 @@ void propsTickPlayer(bool islastplayer)
 
 					op = objTickPlayer(prop);
 
-					if (op == TICKOP_NONE && door->mode == DOORMODE_IDLE && door->frac <= 0) {
+					if (op == TICKOP_NONE && door->mode == DOORMODE_IDLE && door->frac <= 0
+							&& (door->base.hidden & OBJHFLAG_REAPABLE) == 0) {
 						propPause(prop);
 						op = TICKOP_CHANGEDLIST;
 					}

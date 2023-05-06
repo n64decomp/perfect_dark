@@ -211,6 +211,11 @@ void objUpdateLinkedScenery(struct defaultobj *obj, struct prop *prop)
 
 				link->trigger->flags2 |= OBJFLAG2_INVISIBLE;
 				link->trigger->hidden |= OBJHFLAG_REAPABLE;
+				link->trigger->prop->forcetick;
+
+				if (!link->trigger->prop->active) {
+					propUnpause(link->trigger->prop);
+				}
 
 				if (link->unexp) {
 					link->unexp->flags2 |= OBJFLAG2_INVISIBLE;
@@ -15643,6 +15648,20 @@ struct defaultobj *debrisAllocate(void)
 
 void playerActivateRemoteMineDetonator(s32 playernum)
 {
+	struct prop *prop = g_Vars.activeprops;
+
+	while (prop) {
+		if (prop->type == PROPTYPE_WEAPON && prop->weapon->weaponnum == WEAPON_REMOTEMINE) {
+			if (!prop->active) {
+				propUnpause(prop);
+			}
+
+			prop->forceonetick = true;
+		}
+
+		prop = prop->next;
+	}
+
 	g_PlayersDetonatingMines |= 1 << playernum;
 
 	sndStart(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
