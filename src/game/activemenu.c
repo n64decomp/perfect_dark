@@ -960,7 +960,7 @@ static Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags
 		paddingbottom = 3;
 	}
 
-	if (text == NULL || strcmp(text, "") == 0) {
+	if (text == NULL || text[0] == '\0') {
 		return gdl;
 	}
 

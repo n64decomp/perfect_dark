@@ -528,7 +528,7 @@ static void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height
 	case MENUITEMTYPE_DROPDOWN:
 		text = menuResolveParam2Text(item);
 
-		if (text && strcmp(text, "") == 0) {
+		if (text && text[0] == '\0') {
 			*width = 0;
 			*height = 0;
 		} else {
@@ -582,7 +582,7 @@ static void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height
 
 		if (text == NULL) {
 			*width = 120;
-		} else if (strcmp(text, "") == 0) {
+		} else if (text[0] == '\0') {
 			*width = 0;
 			*height = 0;
 		} else {
@@ -630,7 +630,7 @@ static void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height
 			font = g_FontHandelGothicMd;
 		}
 
-		if (strcmp(text, "") == 0) {
+		if (text[0] == '\0') {
 			*height = 0;
 			*width = *height;
 		} else {
@@ -650,8 +650,7 @@ static void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height
 			if ((item->flags & (MENUITEMFLAG_LABEL_HASRIGHTTEXT | MENUITEMFLAG_BIGFONT)) == 0) {
 				text = menuResolveText(item->param3, item);
 
-				// @bug: This is not how you check for an empty string
-				if (text != NULL && text != "") {
+				if (text != NULL) {
 					textMeasure(&textheight, &textwidth, text, chars, font, 0);
 					*width += textwidth + 5;
 

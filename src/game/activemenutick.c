@@ -314,7 +314,7 @@ void amTick(void)
 
 						amGetSlotDetails(slotnum, &flags, text);
 
-						if (strcmp(text, "") == 0) {
+						if (text[0] == '\0') {
 							gotoslot = false;
 						}
 

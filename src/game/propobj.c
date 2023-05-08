@@ -14802,7 +14802,7 @@ static void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 
 void currentPlayerQueuePickupWeaponHudmsg(u32 weaponnum, bool dual)
 {
-	char buffer[100] = "";
+	char buffer[100];
 
 	weaponGetPickupText(buffer, weaponnum, dual);
 	hudmsgCreateWithFlags(buffer, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);

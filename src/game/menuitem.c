@@ -1895,8 +1895,7 @@ static Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		// Right side text
 		text = menuResolveText(context->item->param3, context->item);
 
-		// This is not how you check if a string is empty...
-		if (text != NULL && text != "") {
+		if (text != NULL) {
 			s32 textheight;
 			s32 textwidth;
 
@@ -2114,8 +2113,7 @@ static Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context
 		// Right side text
 		text = menuResolveText(context->item->param3, context->item);
 
-		// This is not how you check if a string is empty...
-		if (text != NULL && text != "") {
+		if (text != NULL) {
 			s32 textheight;
 			s32 textwidth;
 
@@ -2653,7 +2651,7 @@ static char *menuitemScrollableGetText(u32 type)
  */
 static Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 {
-	char alltext[8000] = "";
+	char alltext[8000];
 	char headingtext[8000];
 	char bodytext[8000];
 	bool prevwaslinebreak;
@@ -2666,6 +2664,8 @@ static Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context
 	s32 y;
 	char *rawtext;
 	s32 paddingright = 24;
+
+	alltext[0] = '\0';
 
 	rawtext = menuitemScrollableGetText(context->item->param);
 
@@ -2764,7 +2764,7 @@ static bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dia
 	u32 stack;
 
 	if ((s16)dialog->height != data->scrollable.unk06) {
-		char wrapped[8000] = "";
+		char wrapped[8000];
 		char *rawtext;
 		s32 width;
 		s32 height;
@@ -2772,6 +2772,8 @@ static bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dia
 		s32 colindex;
 		s16 colwidth;
 		s16 rowheight;
+
+		wrapped[0] = '\0';
 
 		dialogFindItem(dialog, item, &rowindex, &colindex);
 
