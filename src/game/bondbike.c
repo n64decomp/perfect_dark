@@ -302,7 +302,7 @@ static void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2,
 	struct coord sp60;
 	struct coord sp54;
 
-	cdGetEdge(&sp78, &sp6c, 333, "bondbike.c");
+	cdGetEdge(&sp78, &sp6c);
 
 	sp60 = bike->prop->pos;
 
@@ -586,7 +586,7 @@ static s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *a
 	s32 result = bbikeCalculateNewPositionWithPush(arg0, 0);
 
 	if (!result) {
-		cdGetEdge(arg1, arg2, 659, "bondbike.c");
+		cdGetEdge(arg1, arg2);
 	}
 
 	return result;
@@ -610,7 +610,7 @@ static s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *a
 		}
 
 		if (someint == 0) {
-			cdGetEdge(arg3, arg4, 685, "bondbike.c");
+			cdGetEdge(arg3, arg4);
 
 			if (arg3->f[0] != arg1->f[0]
 					|| arg3->f[1] != arg1->f[1]

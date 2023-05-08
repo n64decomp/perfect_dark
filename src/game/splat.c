@@ -192,8 +192,8 @@ static s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *s
 		mtx4RotateVec(&spa4, &spfc, &shotdata->dir);
 		mtx4RotateVec(&spa4, &spf0, &shotdata->unk0c);
 
-		func0f177164(&shotdata->dir, &shotdata->dir, 403, "splat.c");
-		func0f177164(&shotdata->unk0c, &shotdata->unk0c, 404, "splat.c");
+		func0f177164(&shotdata->dir, &shotdata->dir);
+		func0f177164(&shotdata->unk0c, &shotdata->unk0c);
 
 		if (splat0f149274(arg1, prop, shotdata, /*reused var*/ dist, isskedar, splattype, timermax, chr, timerspeed)) {
 			numdropped++;

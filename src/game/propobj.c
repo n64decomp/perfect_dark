@@ -2490,8 +2490,8 @@ static bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *ar
 	struct coord sp20;
 
 	if (!cd0002ded8(arg1, arg2, prop)) {
-		cdGetEdge(&sp3c, &sp30, 2909, "propobj.c");
-		cdGetPos(&sp20, 2910, "propobj.c");
+		cdGetEdge(&sp3c, &sp30);
+		cdGetPos(&sp20);
 
 		f0 = (sp20.f[0] - arg1->f[0]) * arg3->f[0]
 			+ (sp20.f[1] - arg1->f[1]) * arg3->f[1]
@@ -3137,7 +3137,7 @@ static s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord 
 
 				if (cdExamLos09(&prop->pos, spa0, &sp1c4, CDTYPE_BG) == CDRESULT_COLLISION) {
 					s0 = true;
-					cdGetPos(&hitthing.unk00, 4257, "propobj.c");
+					cdGetPos(&hitthing.unk00);
 					cdGetObstacleNormal(&hitthing.unk0c);
 				}
 			}
@@ -3236,7 +3236,7 @@ static bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coor
 			}
 
 			if (!result) {
-				cdGetEdge(&sp64, &sp58, 4385, "propobj.c");
+				cdGetEdge(&sp64, &sp58);
 
 				arg3->x = sp58.z - sp64.z;
 				arg3->y = 0.0f;
@@ -5418,7 +5418,7 @@ static f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32
 
 				objApplyMomentum(obstacleobj, &obstaclevel, 0.0f, true, true);
 
-				cdGetEdge(&sp70, &sp64, 7355, "propobj.c");
+				cdGetEdge(&sp70, &sp64);
 
 				if (cdGetSavedPos(&sp58, &sp4c)) {
 					sp4c.x -= sp58.x;
@@ -6123,7 +6123,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							sp3c4.y -= sp3d0.y;
 							sp3c4.z -= sp3d0.z;
 						} else {
-							cdGetEdge(&sp3d0, &sp3c4, 8339, "propobj.c");
+							cdGetEdge(&sp3d0, &sp3c4);
 
 							sp3d0.x -= sp3c4.x;
 							sp3d0.y -= sp3c4.y;
@@ -6155,7 +6155,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 						projectile->unk0dc += f0;
 
-						cdGetEdge(&sp3e8, &sp3dc, 8377, "propobj.c");
+						cdGetEdge(&sp3e8, &sp3dc);
 
 						sp3f4.x = sp3dc.z - sp3e8.z;
 						sp3f4.y = 0.0f;
@@ -8601,7 +8601,7 @@ static void autogunTickShoot(struct prop *autogunprop)
 						|| (targetprop && (targetprop->type == PROPTYPE_CHR))
 						|| (g_Vars.antiplayernum >= 0 && targetprop && targetprop == g_Vars.anti->prop)) {
 					if (cdExamLos08(&gunpos, gunrooms, &hitpos, CDTYPE_ALL, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-						cdGetPos(&hitpos, 11458, "propobj.c");
+						cdGetPos(&hitpos);
 
 						hitprop = cdGetObstacleProp();
 
@@ -8650,7 +8650,7 @@ static void autogunTickShoot(struct prop *autogunprop)
 					if (cdExamLos08(&gunpos, gunrooms, &hitpos,
 								CDTYPE_ALL & ~CDTYPE_PLAYERS,
 								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-						cdGetPos(&hitpos, 11513, "propobj.c");
+						cdGetPos(&hitpos);
 
 						hitprop = cdGetObstacleProp();
 						missed = true;
@@ -8680,7 +8680,7 @@ static void autogunTickShoot(struct prop *autogunprop)
 					if (cdExamLos08(&gunpos, gunrooms, &hitpos,
 								CDTYPE_DOORS | CDTYPE_BG,
 								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-						cdGetPos(&hitpos, 11539, "propobj.c");
+						cdGetPos(&hitpos);
 
 						missed = true;
 					}
@@ -9543,7 +9543,7 @@ static void chopperTickFall(struct prop *chopperprop)
 			ground = cdFindGroundAtCyl(&chopperprop->pos, 5, chopperprop->rooms, NULL, NULL);
 			chopperprop->pos.y -= 100;
 
-			cdGetPos(&sp64, 12449, "propobj.c");
+			cdGetPos(&sp64);
 
 			newpos.x = sp64.x;
 			newpos.y = ground + 20;
@@ -18384,7 +18384,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 						CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER| CDTYPE_BG,
 						GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 				blocked = true;
-				cdGetPos(&endpos, 24482, "propobj.c");
+				cdGetPos(&endpos);
 				obstacle = cdGetObstacleProp();
 			}
 

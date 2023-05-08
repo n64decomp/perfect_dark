@@ -1418,7 +1418,7 @@ void func0f02e4f8(struct coord *arg0, struct coord *arg1, struct coord *dst)
 	struct coord sp2c;
 	struct coord sp20;
 
-	cdGetEdge(&sp2c, &sp20, 2298, "chraction.c");
+	cdGetEdge(&sp2c, &sp20);
 
 	func0f02e3dc(&sp2c, &sp20, arg0, arg1, dst);
 }
@@ -1446,7 +1446,7 @@ static f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 
 	if (cdExamCylMove03(&prop->pos, prop->rooms, &sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 		result = arg2;
 	} else {
-		cdGetPos(&sp3c, 2377, "chraction.c");
+		cdGetPos(&sp3c);
 
 		xdiff = sp3c.x - prop->pos.x;
 		zdiff = sp3c.z - prop->pos.z;
@@ -9191,7 +9191,7 @@ static void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 				if (cdExamLos08(&gunpos, gunrooms, &hitpos, cdtypes, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 					hitsomething = true;
-					cdGetPos(&hitpos, 12072, "chraction.c");
+					cdGetPos(&hitpos);
 					hitprop = cdGetObstacleProp();
 				}
 
@@ -10904,7 +10904,7 @@ static bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, sp50, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spbc = true;
-		cdGetEdge(&spac, &spa0, 14145, "chraction.c");
+		cdGetEdge(&spac, &spa0);
 		func0f044b68(&spac, &spa0, &spd4);
 	}
 
@@ -10919,7 +10919,7 @@ static bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, chrrooms, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spb8 = true;
-		cdGetEdge(&sp94, &sp88, 14160, "chraction.c");
+		cdGetEdge(&sp94, &sp88);
 		func0f044b68(&sp94, &sp88, &spd4);
 	}
 
@@ -10942,7 +10942,7 @@ static bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *
 			&& (!arg9 || cdExamCylMove01(chrpos, aimpos, chrradius, sp40, cdtypes, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
 		result = true;
 	} else {
-		cdGetEdge(leftpos, rightpos, 14230, "chraction.c");
+		cdGetEdge(leftpos, rightpos);
 		func0f044b68(leftpos, rightpos, &spd4);
 	}
 
@@ -11021,7 +11021,7 @@ static bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s1
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, sp50, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spbc = true;
-		cdGetEdge(&spac, &spa0, 14310, "chraction.c");
+		cdGetEdge(&spac, &spa0);
 		func0f044b68(&spac, &spa0, &spd4);
 		value1 = cd00024e40();
 	}
@@ -11037,7 +11037,7 @@ static bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s1
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, chrrooms, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spb8 = true;
-		cdGetEdge(&sp94, &sp88, 14325, "chraction.c");
+		cdGetEdge(&sp94, &sp88);
 		func0f044b68(&sp94, &sp88, &spd4);
 		value2 = cd00024e40();
 	}
@@ -11064,7 +11064,7 @@ static bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s1
 			&& (!hasobstacle || cdExamCylMove01(chrpos, aimpos, chrradius, sp40, cdtypes, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
 		result = true;
 	} else {
-		cdGetEdge(leftpos, rightpos, 14395, "chraction.c");
+		cdGetEdge(leftpos, rightpos);
 		func0f044b68(leftpos, rightpos, &spd4);
 	}
 
@@ -14111,7 +14111,7 @@ bool chrRunFromPos(struct chrdata *chr, u32 goposflags, f32 rundist, struct coor
 		chrSetPerimEnabled(chr, false);
 
 		if (cdExamLos08(&chr->prop->pos, chr->prop->rooms, &delta, CDTYPE_ALL, GEOFLAG_WALL) == CDRESULT_COLLISION) {
-			cdGetPos(&delta, 18547, "chraction.c");
+			cdGetPos(&delta);
 		}
 
 		chrSetPerimEnabled(chr, true);
@@ -14245,7 +14245,7 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
 			f32 zdiff;
 			f32 tmp;
 
-			cdGetPos(pos, 18686, "chraction.c");
+			cdGetPos(pos);
 
 			xdiff = pos->x - chrpos.x;
 			zdiff = pos->z - chrpos.z;

@@ -170,7 +170,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 
 			moveok = true;
 		} else {
-			cdGetEdge(&sp78, &sp6c, 453, "chr/chr.c");
+			cdGetEdge(&sp78, &sp6c);
 
 			// Attempt to find a valid position - method #1
 			sp60.x = dstpos->x - prop->pos.x;

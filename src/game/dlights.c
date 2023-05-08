@@ -916,13 +916,13 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 			sp80.y = -sp8c.f[1];
 			sp80.z = -sp8c.f[2];
 
-			func0f177164(&sp98, &spa4, 0, "dlights.c");
+			func0f177164(&sp98, &spa4);
 
 			spa4.x += sp80.x;
 			spa4.y += sp80.y;
 			spa4.z += sp80.z;
 
-			func0f177164(&spa4, &spa4, 0, "dlights.c");
+			func0f177164(&spa4, &spa4);
 
 			// Mismatch: Goal loads roomnum * 0x14 into sp58 here but doesn't
 			// use it until after lightGetBboxCentre. The below statement does

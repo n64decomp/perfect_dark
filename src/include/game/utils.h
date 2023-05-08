@@ -10,7 +10,7 @@ u32 align16(u32 arg0);
 u32 align32(u32 arg0);
 void utilsInit(void);
 void func0f1770ac(struct coord *a, struct coord *b, struct coord *out);
-bool func0f177164(struct coord *arg0, struct coord *arg1, u32 line, char *file);
+bool func0f177164(struct coord *arg0, struct coord *arg1);
 bool func0f1773c8(struct coord *a, struct coord *b);
 f32 coordsGetDistance(struct coord *a, struct coord *b);
 f32 func0f1776cc(struct coord *a, struct coord *b, struct coord *c);

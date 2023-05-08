@@ -682,7 +682,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 
 	sp1b8 = *arg1;
 
-	func0f177164(&sp1b8, &sp1b8, 956, "wallhit.c");
+	func0f177164(&sp1b8, &sp1b8);
 
 	paintball = chrIsUsingPaintball(chr);
 
@@ -822,8 +822,8 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 			sp130.y = arg4[1];
 			sp130.z = arg4[2];
 
-			func0f177164(&sp13c, &sp13c, 1151, "wallhit.c");
-			func0f177164(&sp130, &sp130, 1152, "wallhit.c");
+			func0f177164(&sp13c, &sp13c);
+			func0f177164(&sp130, &sp130);
 
 			f0 = (sp13c.x * sp130.x + sp13c.y * sp130.y + sp13c.z * sp130.z) * -1.0f;
 

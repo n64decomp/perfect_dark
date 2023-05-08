@@ -231,7 +231,7 @@ static bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 					struct coord sp2c;
 					struct coord sp20;
 
-					cdGetEdge(&sp2c, &sp20, 286, "bondeyespy.c");
+					cdGetEdge(&sp2c, &sp20);
 
 					// Nothing is actually done with these coordinates...
 					// This code was likely copied from bondwalk then the bounce
@@ -282,7 +282,7 @@ static s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *
 		}
 
 		if (someint == 0) {
-			cdGetEdge(arg3, arg4, 350, "bondeyespy.c");
+			cdGetEdge(arg3, arg4);
 
 			if (arg3->f[0] != arg1->f[0]
 					|| arg3->f[1] != arg1->f[1]
@@ -401,7 +401,7 @@ static s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *a
 	bool result = eyespyCalculateNewPositionWithPush(vel);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		cdGetEdge(arg1, arg2, 473, "bondeyespy.c");
+		cdGetEdge(arg1, arg2);
 	}
 
 	return result;

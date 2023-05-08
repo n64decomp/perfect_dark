@@ -80,7 +80,7 @@ void func0f1770ac(struct coord *a, struct coord *b, struct coord *out)
 	out->z = a->x * b->y - a->y * b->x;
 }
 
-bool func0f177164(struct coord *arg0, struct coord *arg1, u32 line, char *file)
+bool func0f177164(struct coord *arg0, struct coord *arg1)
 {
 	f32 sqdist = arg0->x * arg0->x + arg0->y * arg0->y + arg0->z * arg0->z;
 	f32 mult;

@@ -56,7 +56,7 @@ f32 cd00024e40(void)
 	return var8009a8f0;
 }
 
-void cdGetEdge(struct coord *vtx1, struct coord *vtx2, u32 line, char *file)
+void cdGetEdge(struct coord *vtx1, struct coord *vtx2)
 {
 	*vtx1 = g_CdEdgeVtx1;
 
@@ -78,7 +78,7 @@ struct prop *cdGetObstacleProp(void)
 	return g_CdObstacleProp;
 }
 
-void cdGetPos(struct coord *pos, u32 line, char *file)
+void cdGetPos(struct coord *pos)
 {
 	*pos = g_CdObstaclePos;
 }
