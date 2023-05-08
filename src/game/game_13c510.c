@@ -407,7 +407,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 	bool extra;
 	f32 f26;
 
-	artifacts = g_ArtifactLists[g_SchedWriteArtifactsIndex];
+	artifacts = g_ArtifactLists[g_SchedFrontArtifactsIndex];
 	f30 = roomGetUnk5c(roomnum);
 
 	if (g_Rooms[roomnum].gfxdata == NULL || g_Rooms[roomnum].loaded240 == 0) {
