@@ -29,7 +29,7 @@ void invClear(void)
  * Subject is expected to initially be at the head of the list. It works by
  * swapping the subject with the item to its right as many times as needed.
  */
-void invSortItem(struct invitem *subject)
+static void invSortItem(struct invitem *subject)
 {
 	struct invitem *candidate;
 	s32 subjweapon1 = -1;
@@ -93,7 +93,7 @@ void invSortItem(struct invitem *subject)
 	}
 }
 
-void invInsertItem(struct invitem *item)
+static void invInsertItem(struct invitem *item)
 {
 	if (item->type == INVITEMTYPE_PROP) {
 		struct prop *prop = item->type_prop.prop;
@@ -141,7 +141,7 @@ void invInsertItem(struct invitem *item)
 	invCalculateCurrentIndex();
 }
 
-void invRemoveItem(struct invitem *item)
+static void invRemoveItem(struct invitem *item)
 {
 	struct invitem *next = item->next;
 	struct invitem *prev = item->prev;
@@ -161,7 +161,7 @@ void invRemoveItem(struct invitem *item)
 	invCalculateCurrentIndex();
 }
 
-struct invitem *invFindUnusedSlot(void)
+static struct invitem *invFindUnusedSlot(void)
 {
 	s32 i;
 
@@ -209,7 +209,7 @@ bool invHasSingleWeaponExcAllGuns(s32 weaponnum)
 	return invFindSingleWeapon(weaponnum) != NULL;
 }
 
-struct invitem *invFindDoubleWeapon(s32 weapon1, s32 weapon2)
+static struct invitem *invFindDoubleWeapon(s32 weapon1, s32 weapon2)
 {
 	struct invitem *first = g_Vars.currentplayer->weapons;
 	struct invitem *item = first;
@@ -271,7 +271,7 @@ bool invHasSingleWeaponOrProp(s32 weaponnum)
 	return false;
 }
 
-s32 invAddOneIfCantHaveSlayer(s32 index)
+static s32 invAddOneIfCantHaveSlayer(s32 index)
 {
 	if (mainGetStageNum());
 
@@ -284,7 +284,7 @@ s32 invAddOneIfCantHaveSlayer(s32 index)
 	return index;
 }
 
-s32 currentStageForbidsSlayer(void)
+static s32 currentStageForbidsSlayer(void)
 {
 	bool value = 0;
 
@@ -295,7 +295,7 @@ s32 currentStageForbidsSlayer(void)
 	return value;
 }
 
-bool invCanHaveAllGunsWeapon(s32 weaponnum)
+static bool invCanHaveAllGunsWeapon(s32 weaponnum)
 {
 	bool canhave = true;
 
@@ -826,7 +826,7 @@ s32 invGetCount(void)
 	return numitems;
 }
 
-struct invitem *invGetItemByIndex(s32 index)
+static struct invitem *invGetItemByIndex(s32 index)
 {
 	struct invitem *item;
 
@@ -900,7 +900,7 @@ struct textoverride *invGetTextOverrideForObj(struct defaultobj *obj)
 	return NULL;
 }
 
-struct textoverride *invGetTextOverrideForWeapon(s32 weaponnum)
+static struct textoverride *invGetTextOverrideForWeapon(s32 weaponnum)
 {
 	struct textoverride *override = g_Vars.textoverrides;
 

@@ -68,7 +68,7 @@ u32 hufts = 0;
  * t = result: starting table
  * m = maximum lookup bits, returns actual
  */
-s32 huft_build(u32 *b, u32 n, u32 s, u16 *d, u8 *e, struct huft **t, s32 *m)
+static s32 huft_build(u32 *b, u32 n, u32 s, u16 *d, u8 *e, struct huft **t, s32 *m)
 {
 	u32 a;                   /* counter for codes of length k */
 	u32 c[BMAX+1];           /* bit length count table */
@@ -265,7 +265,7 @@ s32 huft_build(u32 *b, u32 n, u32 s, u16 *d, u8 *e, struct huft **t, s32 *m)
 	return y != 0 && g != 1;
 }
 
-s32 inflate_codes(struct huft *tl, struct huft *td, s32 bl, s32 bd)
+static s32 inflate_codes(struct huft *tl, struct huft *td, s32 bl, s32 bd)
 {
 	register u32 e;  /* table entry flag/number of extra bits */
 	u32 n, d;        /* length and index for copy */
@@ -343,7 +343,7 @@ s32 inflate_codes(struct huft *tl, struct huft *td, s32 bl, s32 bd)
 	return 0;
 }
 
-s32 inflate_stored(void)
+static s32 inflate_stored(void)
 {
 	s32 n;           /* number of bytes in block */
 	s32 w;           /* current window position */
@@ -382,7 +382,7 @@ s32 inflate_stored(void)
 	return 0;
 }
 
-s32 inflate_fixed(void)
+static s32 inflate_fixed(void)
 {
 	s32 i;                /* temporary variable */
 	struct huft *tl;      /* literal/length code table */
@@ -424,7 +424,7 @@ s32 inflate_fixed(void)
 	return 0;
 }
 
-s32 inflate_dynamic(void)
+static s32 inflate_dynamic(void)
 {
 	s32 i;                /* temporary variables */
 	u32 j;
@@ -537,7 +537,7 @@ s32 inflate_dynamic(void)
 	return 0;
 }
 
-s32 inflate_block(s32 *e)
+static s32 inflate_block(s32 *e)
 {
 	u32 t;                /* block type */
 	register u32 b = bb;  /* bit buffer */
@@ -578,7 +578,7 @@ s32 inflate_block(s32 *e)
 	return 2;
 }
 
-u32 inflate(void)
+static u32 inflate(void)
 {
 	s32 e;           /* last block flag */
 	s32 r;           /* result code */

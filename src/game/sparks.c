@@ -85,7 +85,7 @@ struct sparktype g_SparkTypes[] = {
 
 bool g_SparksAreActive = false;
 
-void sparkCreate(struct coord *pos, struct sparktype *type)
+static void sparkCreate(struct coord *pos, struct sparktype *type)
 {
 	f32 tmp;
 	f32 maxspeed = 0.0f;
@@ -150,7 +150,7 @@ void sparkCreate(struct coord *pos, struct sparktype *type)
  * This function handles an out-of-memory situation when creating a spark, by
  * shrinking whichever spark group was about to be overwritten.
  */
-void sparkgroupEnsureFreeSparkSlot(struct sparkgroup *group)
+static void sparkgroupEnsureFreeSparkSlot(struct sparkgroup *group)
 {
 	s32 i;
 

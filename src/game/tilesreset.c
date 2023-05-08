@@ -7,10 +7,12 @@
 #include "data.h"
 #include "types.h"
 
-void stageParseTiles(void);
+#define mult6(a) (((a) << 1) + ((a) << 2))
 
 void tilesReset(void)
 {
+	struct geo *geo;
+	struct geo *end;
 	s32 index = stageGetIndex2(g_Vars.stagenum);
 
 	if (index < 0) {
@@ -22,15 +24,8 @@ void tilesReset(void)
 	g_TileNumRooms = *g_TileFileData.u32;
 	g_TileRooms = g_TileFileData.u32 + 1;
 
-	stageParseTiles();
-}
-
-#define mult6(a) (((a) << 1) + ((a) << 2))
-
-void stageParseTiles(void)
-{
-	struct geo *geo = (struct geo *)(g_TileFileData.u8 + g_TileRooms[0]);
-	struct geo *end = (struct geo *)(g_TileFileData.u8 + g_TileRooms[g_TileNumRooms]);
+	geo = (struct geo *)(g_TileFileData.u8 + g_TileRooms[0]);
+	end = (struct geo *)(g_TileFileData.u8 + g_TileRooms[g_TileNumRooms]);
 
 	while (geo < end) {
 		if (geo->type == GEOTYPE_TILE_I) {

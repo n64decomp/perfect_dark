@@ -22,6 +22,8 @@
 #define BLENDTYPE_MENU       0x08
 #define BLENDTYPE_HORIZONTAL 0x10
 
+static Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
+
 struct blendsettings {
 	/*0x00*/ u8 types;
 	/*0x04*/ u32 colour04;
@@ -119,7 +121,7 @@ void text0f1531dc(bool arg0)
 	}
 }
 
-void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace)
+static void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace)
 {
 	extern u8 _fonthandelgothicsmSegmentRomStart;
 	extern u8 _fonthandelgothicxsSegmentRomStart;
@@ -363,7 +365,7 @@ void text0f153b40(void)
 	gSPEndDisplayList(var800a4634++);
 }
 
-void text0f153b6c(s32 arg0)
+static void text0f153b6c(s32 arg0)
 {
 	if (arg0 != var8007fba4) {
 		f32 tmp = g_Blend.diagtimer * g_Blend.diagtimer - (f32)((arg0 - g_Blend.diagrefy) * (arg0 - g_Blend.diagrefy));
@@ -676,7 +678,7 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 	return colour;
 }
 
-Gfx *text0f154ecc(Gfx *gdl, u32 arg1, u32 arg2)
+static Gfx *text0f154ecc(Gfx *gdl, u32 arg1, u32 arg2)
 {
 	u32 colour = text0f1543ac(arg1, arg2, g_Blend.colour04);
 
@@ -689,7 +691,7 @@ Gfx *text0f154ecc(Gfx *gdl, u32 arg1, u32 arg2)
 	return gdl;
 }
 
-Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar *prevchar,
+static Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar *prevchar,
 		struct font *font, f32 widthscale, f32 heightscale, f32 x, f32 y)
 {
 	s32 tmp1;
@@ -859,7 +861,7 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 	return gdl;
 }
 
-Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fontchar *prevchar,
+static Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fontchar *prevchar,
 		struct font *font, s32 savedx, s32 savedy, s32 width, s32 height, s32 arg10)
 {
 	s32 tmp;
@@ -1089,7 +1091,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 	return gdl;
 }
 
-Gfx *text0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
+static Gfx *text0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
 {
 	u32 colour = text0f1543ac(arg1, arg2, g_Blend.colour04);
 
@@ -1110,7 +1112,7 @@ Gfx *text0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
 	return gdl;
 }
 
-Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fontchar *char2,
+static Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fontchar *char2,
 		struct font *font, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
 {
 	s32 tmp;
@@ -1145,7 +1147,7 @@ Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fon
 	return gdl;
 }
 
-Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
+static Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
 {
 	if (arg4 + arg6 >= char1->width + x + 2) {
 		if (y + char1->baseline >= arg5) {

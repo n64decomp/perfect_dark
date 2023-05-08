@@ -150,7 +150,7 @@ struct surfacetype *g_SurfaceTypes[] = {
 
 bool var800844d0 = false;
 
-void tex0f173a08(void)
+static void tex0f173a08(void)
 {
 	s32 i;
 
@@ -162,7 +162,7 @@ void tex0f173a08(void)
 	g_TexLutMode = -1;
 }
 
-bool texSetLutMode(u32 lutmode)
+static bool texSetLutMode(u32 lutmode)
 {
 	if (g_TexLutMode == lutmode) {
 		return false;
@@ -172,7 +172,7 @@ bool texSetLutMode(u32 lutmode)
 	return true;
 }
 
-bool tex0f173a70(s32 index, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
+static bool tex0f173a70(s32 index, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
 {
 	bool result = false;
 
@@ -204,7 +204,7 @@ bool tex0f173a70(s32 index, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
 	return result;
 }
 
-bool tex0f173b8c(s32 index, s32 uls, s32 ult, s32 lrs, s32 lrt)
+static bool tex0f173b8c(s32 index, s32 uls, s32 ult, s32 lrs, s32 lrt)
 {
 	bool result = false;
 
@@ -276,7 +276,7 @@ s32 texGetHeightAtLod(struct tex *tex, s32 lod)
 	return height;
 }
 
-s32 texGetLineSizeInBytes(struct tex *tex, s32 lod)
+static s32 texGetLineSizeInBytes(struct tex *tex, s32 lod)
 {
 	s32 depth = tex->depth;
 	s32 width = texGetWidthAtLod(tex, lod);
@@ -296,7 +296,7 @@ s32 texGetLineSizeInBytes(struct tex *tex, s32 lod)
 	return (width + 15) / 16;
 }
 
-s32 texGetSizeInBytes(struct tex *tex, s32 lod)
+static s32 texGetSizeInBytes(struct tex *tex, s32 lod)
 {
 	return texGetHeightAtLod(tex, lod) * texGetLineSizeInBytes(tex, lod);
 }
@@ -324,7 +324,7 @@ void tex0f173e50(struct tex *tex, s32 *deptharg, s32 *lenarg)
 	}
 }
 
-s32 tex0f173f18(s32 arg0)
+static s32 tex0f173f18(s32 arg0)
 {
 	s32 i = 0;
 
@@ -338,7 +338,7 @@ s32 tex0f173f18(s32 arg0)
 	return i;
 }
 
-s32 tex0f173f48(s32 arg0)
+static s32 tex0f173f48(s32 arg0)
 {
 	if (arg0 == 1) {
 		return 2;
@@ -351,7 +351,7 @@ s32 tex0f173f48(s32 arg0)
 	return 0;
 }
 
-Gfx *tex0f173f78(Gfx *gdl, struct tex *tex, s32 arg2, s32 shifts, s32 shiftt, s32 arg5)
+static Gfx *tex0f173f78(Gfx *gdl, struct tex *tex, s32 arg2, s32 shifts, s32 shiftt, s32 arg5)
 {
 	struct texture *s0 = &g_Textures[tex->texturenum];
 	s32 sp88;
@@ -392,7 +392,7 @@ Gfx *tex0f173f78(Gfx *gdl, struct tex *tex, s32 arg2, s32 shifts, s32 shiftt, s3
 	return gdl;
 }
 
-Gfx *tex0f1742e4(Gfx *arg0, Gfx *arg1, struct tex *tex, bool arg3)
+static Gfx *tex0f1742e4(Gfx *arg0, Gfx *arg1, struct tex *tex, bool arg3)
 {
 	s32 lod = tex->maxlod ? tex->maxlod - 1 : 0;
 
@@ -416,7 +416,7 @@ Gfx *tex0f1742e4(Gfx *arg0, Gfx *arg1, struct tex *tex, bool arg3)
 	return arg0;
 }
 
-Gfx *tex0f1743a0(Gfx *gdl, struct tex *tex, s32 arg2)
+static Gfx *tex0f1743a0(Gfx *gdl, struct tex *tex, s32 arg2)
 {
 	s32 depth;
 	s32 len;
@@ -480,7 +480,7 @@ Gfx *tex0f1743a0(Gfx *gdl, struct tex *tex, s32 arg2)
 	return gdl;
 }
 
-Gfx *tex0f1747a4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u32 arg7)
+static Gfx *tex0f1747a4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u32 arg7)
 {
 	u32 tmem;
 	s32 maxlod;
@@ -531,7 +531,7 @@ Gfx *tex0f1747a4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ar
 	return gdl;
 }
 
-Gfx *tex0f174b54(Gfx *gdl, struct tex *tex)
+static Gfx *tex0f174b54(Gfx *gdl, struct tex *tex)
 {
 	s32 depth;
 	s32 len;
@@ -591,7 +591,7 @@ Gfx *tex0f174b54(Gfx *gdl, struct tex *tex)
 	return gdl;
 }
 
-Gfx *tex0f174f30(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 tile)
+static Gfx *tex0f174f30(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 tile)
 {
 	s32 masks;
 	s32 maskt;
@@ -629,7 +629,7 @@ Gfx *tex0f174f30(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ti
 	return gdl;
 }
 
-Gfx *tex0f1751e4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+static Gfx *tex0f1751e4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
 	s32 sp34 = 0;
 
@@ -655,7 +655,7 @@ Gfx *tex0f1751e4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ar
 	return gdl;
 }
 
-Gfx *tex0f175308(Gfx *gdl, struct tex *tex1, s32 arg2, s32 arg3, s32 arg4, struct tex *tex2, s32 arg6, s32 arg7, s32 arg8, bool arg9)
+static Gfx *tex0f175308(Gfx *gdl, struct tex *tex1, s32 arg2, s32 arg3, s32 arg4, struct tex *tex2, s32 arg6, s32 arg7, s32 arg8, bool arg9)
 {
 	s32 size = texGetSizeInBytes(tex2, 0);
 	s32 sp38 = 0;
@@ -689,7 +689,7 @@ Gfx *tex0f175308(Gfx *gdl, struct tex *tex1, s32 arg2, s32 arg3, s32 arg4, struc
 	return gdl;
 }
 
-Gfx *tex0f175490(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, bool arg8)
+static Gfx *tex0f175490(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, bool arg8)
 {
 	s32 sp34 = 0;
 
@@ -718,7 +718,7 @@ Gfx *tex0f175490(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ar
 	return gdl;
 }
 
-Gfx *tex0f1755dc(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4)
+static Gfx *tex0f1755dc(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4)
 {
 	gdl = tex0f174b54(gdl, tex);
 	gdl = tex0f174f30(gdl, tex, arg2, arg3, arg4, 0);
@@ -730,7 +730,7 @@ Gfx *tex0f1755dc(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4)
 	return gdl;
 }
 
-Gfx *tex0f17563c(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4)
+static Gfx *tex0f17563c(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4)
 {
 	gdl = tex0f174b54(gdl, tex);
 	gdl = tex0f174f30(gdl, tex, arg2, arg3, arg4, 0);

@@ -7,8 +7,6 @@
 struct environment *envGetCurrent(void);
 f32 env0f1657e4(void);
 void env0f1657f8(void);
-void envApplyType1(struct envtype1 *sky);
-void envApplyType2(struct envtype2 *sky);
 void envSetStageNum(s32 stagenum);
 void envChooseAndApply(s32 stagenum, bool allowoverride);
 void envApplyTransitionFrac(f32 arg0);

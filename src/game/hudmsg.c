@@ -23,6 +23,11 @@
 #include "types.h"
 #include "string.h"
 
+static void hudmsgCreateFromArgs(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
+		struct fontchar **conf04, struct font **conf08,
+		u32 textcolour, u32 glowcolour,
+		u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14, u32 flags);
+
 u32 g_NextHudMessageId;
 u8 g_HudmsgsActive;
 
@@ -60,7 +65,7 @@ struct hudmsgtype g_HudmsgTypes[] = {
 	/*11*/ { 0, 0, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BELOWVIEWPORT, 0, 0, 120 },
 };
 
-s32 hudmsgIsZoomRangeVisible(void)
+static s32 hudmsgIsZoomRangeVisible(void)
 {
 	return optionsGetShowZoomRange(g_Vars.currentplayerstats->mpindex)
 		&& (PLAYERCOUNT() == 1 || !g_Vars.mplayerisrunning || g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
@@ -81,7 +86,7 @@ s32 hudmsgIsZoomRangeVisible(void)
  */
 extern s32 viGetHeight_hack(void);
 
-Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
+static Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 {
 	s32 x;
 	s32 y;
@@ -112,7 +117,7 @@ Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 	// Because of this, in 1 player the timer is drawn out of place when the
 	// screen split option is vertical and either the countdown timer is visible
 	// or a zoomable weapon is in use.
-	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && countdownTimerIsVisible()) {
+	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && !g_CountdownTimerOff) {
 		timery -= 8;
 	}
 
@@ -160,7 +165,7 @@ Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 	return gdl;
 }
 
-Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
+static Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 {
 	s32 viewtop;
 	s32 viewleft;
@@ -194,7 +199,7 @@ Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 
 	texty -= 17;
 
-	if (countdownTimerIsVisible()) {
+	if (!g_CountdownTimerOff) {
 		texty -= 8;
 	}
 
@@ -267,7 +272,7 @@ Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 	return gdl;
 }
 
-Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u32 bordercolour, f32 textopacity)
+static Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u32 bordercolour, f32 textopacity)
 {
 	f32 f0;
 	f32 f20;
@@ -310,7 +315,7 @@ Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u3
 	return gdl;
 }
 
-s32 hudmsg0f0ddb1c(s32 *arg0, s32 arg1)
+static s32 hudmsg0f0ddb1c(s32 *arg0, s32 arg1)
 {
 	s32 viewwidth = g_Vars.currentplayer->viewwidth;
 	s32 result = 0;
@@ -374,7 +379,7 @@ void hudmsgRemoveAll(void)
 	g_HudmsgsActive = false;
 }
 
-s32 hudmsgGetNext(s32 refid)
+static s32 hudmsgGetNext(s32 refid)
 {
 	s32 bestid = -1;
 	s32 bestindex = -1;
@@ -446,7 +451,7 @@ void hudmsgCreateWithColour(char *text, s32 type, u8 colournum)
 			-1, 0);
 }
 
-void hudmsgCreateWithDuration(char *text, s32 type, struct hudmsgtype *config, s32 duration60)
+static void hudmsgCreateWithDuration(char *text, s32 type, struct hudmsgtype *config, s32 duration60)
 {
 	hudmsgCreateFromArgs(text, type,
 			config->unk00,
@@ -704,7 +709,7 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 	}
 }
 
-void hudmsgCalculatePosition(struct hudmessage *msg)
+static void hudmsgCalculatePosition(struct hudmessage *msg)
 {
 	s32 x;
 	s32 y;
@@ -813,7 +818,7 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 	msg->y = y;
 }
 
-void hudmsgCreateFromArgs(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
+static void hudmsgCreateFromArgs(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
 		struct fontchar **conf04, struct font **conf08,
 		u32 textcolour, u32 glowcolour,
 		u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14, u32 flags)

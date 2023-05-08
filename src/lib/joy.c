@@ -57,14 +57,15 @@ u32 g_JoyCyclicPollDisableCount = 0;
 u32 var8005eec0 = 1;
 s32 g_JoyNextPfsStateIndex = 0;
 
-
-
 bool var8005eedc = true;
 s32 var8005eee0 = 0;
 s32 var8005eee4 = -1;
 u32 var8005eee8 = 0;
 u32 var8005eeec = 0;
 u32 var8005eef0 = 1;
+
+static void joy00013e84(void);
+static void joysTickRumble(void);
 
 void joy00013900(void)
 {
@@ -264,7 +265,7 @@ void joyReset(void)
 	}
 }
 
-void joy00013e84(void)
+static void joy00013e84(void)
 {
 	static u8 var8005ef00 = 0xff;
 
@@ -320,7 +321,7 @@ u32 joyGetConnectedControllers(void)
  * The use of the static variable suggests that the function is able to be
  * called recursively, but its behaviour should not be run when recursing.
  */
-void joy00014238(void)
+static void joy00014238(void)
 {
 	static bool doingit = false;
 	s32 i;
@@ -329,7 +330,7 @@ void joy00014238(void)
 		doingit = true;
 
 		for (i = 0; i < 4; i++) {
-			if (joy000155f4(i) == PAK010_13) {
+			if (joy000155b4(i) == PAK010_13) {
 				pakSetUnk010(i, PAK010_11);
 			}
 		}
@@ -388,12 +389,7 @@ void joyDebugJoy(void)
 	}
 }
 
-s32 joyStartReadData(OSMesgQueue *mq)
-{
-	return osContStartReadData(mq);
-}
-
-void joyReadData(void)
+static void joyReadData(void)
 {
 	s32 index = (g_JoyData.nextlast + 1) % 20;
 
@@ -443,7 +439,7 @@ void joysTick(void)
 		var8005ee68--;
 
 		if (var8005ee68 == 0) {
-			joyStartReadData(&g_PiMesgQueue);
+			osContStartReadData(&g_PiMesgQueue);
 			g_JoyBusy = true;
 		}
 
@@ -474,7 +470,7 @@ void joysTick(void)
 
 			joyCheckPfs(0);
 
-			joyStartReadData(&g_PiMesgQueue);
+			osContStartReadData(&g_PiMesgQueue);
 			g_JoyBusy = true;
 		}
 	}
@@ -661,11 +657,6 @@ u16 joyGetButtonsPressedThisFrame(s8 contpadnum, u16 mask)
 	return g_JoyData.buttonspressed[contpadnum] & mask;
 }
 
-bool joyIsCyclicPollingEnabled(void)
-{
-	return g_JoyCyclicPollDisableCount ? false : true;
-}
-
 /**
  * If cyclic polling is enabled, send a message to the scheduler thread telling
  * it to update the joy state (connected controllers, PFS etc). Then block while
@@ -770,12 +761,7 @@ s32 joy000155b4(s8 device)
 	return g_Paks[device].unk010;
 }
 
-s32 joy000155f4(s8 device)
-{
-	return joy000155b4(device);
-}
-
-void joysTickRumble(void)
+static void joysTickRumble(void)
 {
 	s32 i;
 

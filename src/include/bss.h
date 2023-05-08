@@ -293,5 +293,10 @@ extern struct roommtx *g_RoomMtxes;
 extern s32 g_NextRoomMtx;
 extern s32 g_BgAlwaysRoom;
 extern struct stagetableentry *g_CurrentStage;
+extern struct artifact g_ArtifactLists[3][120];
+extern u8 g_SchedSpecialArtifactIndexes[3];
+extern s32 g_SchedWriteArtifactsIndex;
+extern s32 g_SchedFrontArtifactsIndex;
+extern s32 g_SchedPendingArtifactsIndex;
 
 #endif

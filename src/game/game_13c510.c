@@ -21,7 +21,7 @@ u8 *var800a41a0;
 
 void artifactsClear(void)
 {
-	struct artifact *artifacts = schedGetWriteArtifacts();
+	struct artifact *artifacts = g_ArtifactLists[g_SchedWriteArtifactsIndex];
 	s32 i;
 
 	for (i = 0; i < MAX_ARTIFACTS; i++) {
@@ -31,11 +31,11 @@ void artifactsClear(void)
 
 void artifactsTick(void)
 {
-	schedIncrementWriteArtifacts();
-	schedIncrementFrontArtifacts();
+	g_SchedWriteArtifactsIndex = (g_SchedWriteArtifactsIndex + 1) % 3;
+	g_SchedFrontArtifactsIndex = (g_SchedFrontArtifactsIndex + 1) % 3;
 }
 
-u16 func0f13c574(f32 arg0)
+static u16 func0f13c574(f32 arg0)
 {
 	u32 value = arg0 * 8.0f;
 	u32 left;
@@ -78,7 +78,7 @@ u16 func0f13c574(f32 arg0)
 	return left << 13 | (right << 2);
 }
 
-s32 func0f13c710(f32 arg0)
+static s32 func0f13c710(f32 arg0)
 {
 	if (arg0 > 0.0f) {
 		if (arg0 > 2147483520.0f) {
@@ -127,7 +127,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 	struct coord spc4;
 	struct light *roomlights;
 	s32 index;
-	struct artifact *artifacts = schedGetWriteArtifacts();
+	struct artifact *artifacts = g_ArtifactLists[g_SchedWriteArtifactsIndex];
 	struct coord *campos = &g_Vars.currentplayer->cam_pos;
 	struct artifact *artifact;
 
@@ -335,7 +335,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 	}
 }
 
-u8 func0f13d3c4(u8 arg0, u8 arg1)
+static u8 func0f13d3c4(u8 arg0, u8 arg1)
 {
 	if (arg1 >= arg0 + 7) {
 		return arg0 + 7;
@@ -407,7 +407,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 	bool extra;
 	f32 f26;
 
-	artifacts = schedGetFrontArtifacts();
+	artifacts = g_ArtifactLists[g_SchedWriteArtifactsIndex];
 	f30 = roomGetUnk5c(roomnum);
 
 	if (g_Rooms[roomnum].gfxdata == NULL || g_Rooms[roomnum].loaded240 == 0) {

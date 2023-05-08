@@ -12,6 +12,7 @@
 #include "game/botinv.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
+#include "game/mplayer/scenarios.h"
 #include "game/options.h"
 #include "bss.h"
 #include "data.h"
@@ -136,7 +137,7 @@ s32 mpstatsGetPlayerKillCount(void)
 	return g_Vars.currentplayerstats->killcount;
 }
 
-void mpstatsRecordPlayerDeath(void)
+static void mpstatsRecordPlayerDeath(void)
 {
 	char buffer[256];
 
@@ -156,7 +157,7 @@ void mpstatsRecordPlayerDeath(void)
 	}
 }
 
-void mpstatsRecordPlayerSuicide(void)
+static void mpstatsRecordPlayerSuicide(void)
 {
 	char text[256];
 	s32 simulkills;

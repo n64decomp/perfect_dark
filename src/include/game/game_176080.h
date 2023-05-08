@@ -6,7 +6,6 @@
 
 void *mblurGetAllocation(void);
 void mblurReset(s32 stagenum);
-void mblurAllocate(void);
 void mblur0f176298(void);
 Gfx *mblur0f1762ac(Gfx *gdl);
 Gfx *mblur0f1763f4(Gfx *gdl);

@@ -75,7 +75,7 @@ void amOpenPickTarget(void)
 	}
 }
 
-s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	static u32 teamcolours[] = {
 		0xff666600,
@@ -201,7 +201,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 	return 0;
 }
 
-s32 amPickTargetMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 amPickTargetMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -239,7 +239,7 @@ struct menudialogdef g_AmPickTargetMenuDialog = {
 	NULL,
 };
 
-void amSetAiBuddyTemperament(bool aggressive)
+static void amSetAiBuddyTemperament(bool aggressive)
 {
 	s32 i;
 
@@ -258,7 +258,7 @@ void amSetAiBuddyTemperament(bool aggressive)
 	}
 }
 
-void amSetAiBuddyStealth(void)
+static void amSetAiBuddyStealth(void)
 {
 	s32 i;
 
@@ -280,7 +280,7 @@ void amSetAiBuddyStealth(void)
 	}
 }
 
-s32 amGetFirstBuddyIndex(void)
+static s32 amGetFirstBuddyIndex(void)
 {
 	s32 i;
 
@@ -559,7 +559,7 @@ void amReset(void)
 	g_AmActive = false;
 }
 
-s16 amCalculateSlotWidth(void)
+static s16 amCalculateSlotWidth(void)
 {
 	s32 textheight;
 	s32 textwidth;
@@ -756,13 +756,13 @@ void amClose(void)
 	g_PlayersWithControl[g_Vars.currentplayernum] = 1;
 }
 
-bool amIsCramped(void)
+static bool amIsCramped(void)
 {
 	return (g_AmMenus[g_AmIndex].screenindex == 0 && PLAYERCOUNT() >= 3)
 		|| (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
 }
 
-void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
+static void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 {
 	s32 playercount = PLAYERCOUNT();
 
@@ -816,7 +816,7 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 	}
 }
 
-Gfx *amRenderText(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
+static Gfx *amRenderText(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
 {
 	s32 x;
 	s32 y;
@@ -832,7 +832,7 @@ Gfx *amRenderText(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
 	return gdl;
 }
 
-Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
+static Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 {
 	s32 x;
 	s32 y;
@@ -939,7 +939,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 u8 var800719a0[][3] = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8} };
 
-Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
+static Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 {
 	u32 obcol = 0xff00004f; // outer border
 	u32 ibcol = 0x3f00008f; // inner background

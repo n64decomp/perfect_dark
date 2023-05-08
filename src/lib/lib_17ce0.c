@@ -39,7 +39,7 @@ void portalGetAvgVertexPos(s32 portalnum, struct coord *avg)
  * The list is assumed to have 16 slots, with the last being reserved for the
  * -1 terminator.
  */
-void portal00017dc4(s16 *rooms, s16 roomnum)
+static void portal00017dc4(s16 *rooms, s16 roomnum)
 {
 	s32 i;
 

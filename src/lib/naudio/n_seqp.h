@@ -45,7 +45,6 @@ ALMicroTime       __n_vsDelta(N_ALVoiceState *voice, ALMicroTime t);
 ALPan             __n_vsPan(N_ALVoiceState *voice, N_ALSeqPlayer *seqp);
 void		  __n_initFromBank(N_ALSeqPlayer *seqp, ALBank *b);
 void              __n_initChanState(N_ALSeqPlayer *seqp);
-void              __n_resetPerfChanState(N_ALSeqPlayer *seqp, s32 chan);
 void              __n_setInstChanState(N_ALSeqPlayer *seqp, ALInstrument *inst, s32 chan);
 void              __n_seqpStopOsc(N_ALSeqPlayer *seqp, N_ALVoiceState *vs);
 void		  __n_postNextSeqEvent(N_ALSeqPlayer *seqp);

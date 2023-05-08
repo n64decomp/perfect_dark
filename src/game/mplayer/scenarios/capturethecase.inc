@@ -117,7 +117,7 @@ struct weaponobj g_CtcTokenObj1;
 struct weaponobj g_CtcTokenObj2;
 struct weaponobj g_CtcTokenObj3;
 
-void ctcInit(void)
+static void ctcInit(void)
 {
 	s32 i, j, k;
 	g_MpSetup.options |= MPOPTION_TEAMSENABLED;
@@ -148,12 +148,12 @@ void ctcInit(void)
 	}
 }
 
-s32 ctcNumProps(void)
+static s32 ctcNumProps(void)
 {
 	return 4;
 }
 
-void ctcInitProps(void)
+static void ctcInitProps(void)
 {
 	struct mpchrconfig *mpchr;
 	struct weaponobj *tmp;
@@ -323,7 +323,7 @@ void ctcInitProps(void)
 	}
 }
 
-void ctcCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+static void ctcCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
@@ -350,7 +350,7 @@ void ctcCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score
 	*deaths = mpchr->numdeaths;
 }
 
-Gfx *ctcRadarExtra(Gfx *gdl)
+static Gfx *ctcRadarExtra(Gfx *gdl)
 {
 	if (g_MpSetup.options & MPOPTION_CTC_SHOWONRADAR) {
 		s32 i;
@@ -370,7 +370,7 @@ Gfx *ctcRadarExtra(Gfx *gdl)
 	return gdl;
 }
 
-bool ctcRadarChr(Gfx **gdl, struct prop *prop)
+static bool ctcRadarChr(Gfx **gdl, struct prop *prop)
 {
 	s32 i;
 
@@ -393,7 +393,7 @@ bool ctcRadarChr(Gfx **gdl, struct prop *prop)
 	return false;
 }
 
-bool ctcHighlightProp(struct prop *prop, s32 *colour)
+static bool ctcHighlightProp(struct prop *prop, s32 *colour)
 {
 	struct defaultobj *obj = prop->obj;
 
@@ -417,7 +417,7 @@ bool ctcHighlightProp(struct prop *prop, s32 *colour)
 	return false;
 }
 
-void ctcAddPad(s32 *cmd)
+static void ctcAddPad(s32 *cmd)
 {
 	s32 i;
 
@@ -436,7 +436,7 @@ void ctcAddPad(s32 *cmd)
 	}
 }
 
-bool ctcChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4)
+static bool ctcChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4)
 {
 	struct chrdata *chr = prop->chr;
 	s32 index = radarGetTeamIndex(chr->team);
@@ -451,12 +451,12 @@ bool ctcChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop
 	return false;
 }
 
-s32 ctcGetMaxTeams(void)
+static s32 ctcGetMaxTeams(void)
 {
 	return 4;
 }
 
-void ctcHighlightRoom(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
+static void ctcHighlightRoom(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
 {
 	s32 i;
 

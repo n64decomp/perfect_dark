@@ -1,8 +1,8 @@
 #include <os_internal.h>
 #include "controller.h"
 
-s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache);
-s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache);
+static s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache);
+static s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache);
 
 s32 osPfsChecker(OSPfs *pfs)
 {
@@ -142,7 +142,7 @@ s32 osPfsChecker(OSPfs *pfs)
 	return 0;
 }
 
-s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache)
+static s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache)
 {
 	int i;
 	int n;
@@ -184,7 +184,7 @@ s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache)
 	return 0;
 }
 
-s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache)
+static s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache)
 {
 	int j;
 	int n;

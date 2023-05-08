@@ -33,6 +33,10 @@
 #include "data.h"
 #include "types.h"
 
+static s32 botGetNumOpponentsInHill(struct chrdata *chr);
+static s32 botGetNumTeammatesDefendingHill(struct chrdata *bot);
+static bool botShouldReturnCtcToken(struct chrdata *chr);
+
 #define PICKUPCRITERIA_DEFAULT  0
 #define PICKUPCRITERIA_CRITICAL 1
 #define PICKUPCRITERIA_ANY      2
@@ -60,12 +64,12 @@ struct botdifficulty g_BotDifficulties[] = {
 	{ 0 },
 };
 
-bool botIsDizzy(struct chrdata *chr)
+static bool botIsDizzy(struct chrdata *chr)
 {
 	return chr->blurdrugamount >= g_BotDifficulties[chr->aibot->config->difficulty].dizzyamount;
 }
 
-void botReset(struct chrdata *chr, u8 respawning)
+static void botReset(struct chrdata *chr, u8 respawning)
 {
 	s32 i;
 	u32 rand;
@@ -372,7 +376,7 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 	return 0;
 }
 
-bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
+static bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 {
 	struct defaultobj *obj = prop->obj;
 
@@ -538,7 +542,7 @@ bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 	return false;
 }
 
-s32 botIsObjCollectable(struct defaultobj *obj)
+static s32 botIsObjCollectable(struct defaultobj *obj)
 {
 	if (!obj) {
 		return false;
@@ -573,7 +577,7 @@ s32 botIsObjCollectable(struct defaultobj *obj)
 /**
  * Check nearby props to see if the chr is picking them up on this frame.
  */
-void botCheckPickups(struct chrdata *chr)
+static void botCheckPickups(struct chrdata *chr)
 {
 	s32 i;
 	s16 *propnumptr;
@@ -632,7 +636,7 @@ s32 botGuessCrouchPos(struct chrdata *chr)
 	return crouchpos;
 }
 
-bool botApplyMovement(struct chrdata *chr)
+static bool botApplyMovement(struct chrdata *chr)
 {
 	struct aibot *aibot;
 	u32 stack;
@@ -673,7 +677,7 @@ bool botApplyMovement(struct chrdata *chr)
 	return true;
 }
 
-s32 botGetWeaponNum(struct chrdata *chr)
+static s32 botGetWeaponNum(struct chrdata *chr)
 {
 	if (chr->aibot) {
 		return chr->aibot->weaponnum;
@@ -694,7 +698,7 @@ u8 botGetTargetsWeaponNum(struct chrdata *chr)
 	return weaponnum;
 }
 
-bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
+static bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
 {
 	bool result = false;
 	struct prop *target;
@@ -1188,7 +1192,7 @@ void botDisarm(struct chrdata *chr, struct prop *attackerprop)
  * This should be called on each tick even if the target hasn't changed
  * because the tracking figures need to be constantly updated.
  */
-void botSetTarget(struct chrdata *botchr, s32 propnum)
+static void botSetTarget(struct chrdata *botchr, s32 propnum)
 {
 	struct chrdata *otherchr = NULL;
 	s32 index;
@@ -1283,7 +1287,7 @@ bool botHasGround(struct chrdata *chr)
 	return chr->ground >= -20000;
 }
 
-void bot0f192a74(struct chrdata *chr)
+static void bot0f192a74(struct chrdata *chr)
 {
 	struct aibot *aibot = chr->aibot;
 	s32 diff = aibot->config->difficulty;
@@ -1364,7 +1368,7 @@ void bot0f192a74(struct chrdata *chr)
  * Return true if the bot is a peacesim and is happy to fight the given chr,
  * or if the bot is not a peacesim.
  */
-bool botPassesPeaceCheck(struct chrdata *botchr, struct chrdata *otherchr)
+static bool botPassesPeaceCheck(struct chrdata *botchr, struct chrdata *otherchr)
 {
 	struct aibot *aibot = botchr->aibot;
 	bool pass = true;
@@ -1384,7 +1388,7 @@ bool botPassesPeaceCheck(struct chrdata *botchr, struct chrdata *otherchr)
  * Return true if the bot is a cowardsim and is happy to fight the given chr,
  * or if the bot is not a cowardsim.
  */
-bool botPassesCowardCheck(struct chrdata *botchr, struct chrdata *otherchr)
+static bool botPassesCowardCheck(struct chrdata *botchr, struct chrdata *otherchr)
 {
 	struct aibot *aibot = botchr->aibot;
 	bool pass = true;
@@ -1416,7 +1420,7 @@ bool botPassesCowardCheck(struct chrdata *botchr, struct chrdata *otherchr)
  * The function does not compare weapons with the target, nor ammo counts,
  * and does not factor in the bot types (eg. VengeSim).
  */
-void botChooseGeneralTarget(struct chrdata *botchr)
+static void botChooseGeneralTarget(struct chrdata *botchr)
 {
 	struct aibot *aibot = botchr->aibot;
 	s32 i;
@@ -1602,7 +1606,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
  *
  * They are not capable if it would create a circular follow loop.
  */
-bool botCanFollow(struct chrdata *botchr, struct chrdata *leader)
+static bool botCanFollow(struct chrdata *botchr, struct chrdata *leader)
 {
 	bool canfollow = true;
 
@@ -1626,7 +1630,7 @@ bool botCanFollow(struct chrdata *botchr, struct chrdata *leader)
 	return canfollow;
 }
 
-s32 botFindTeammateToFollow(struct chrdata *chr, f32 range)
+static s32 botFindTeammateToFollow(struct chrdata *chr, f32 range)
 {
 	s32 result = -1;
 
@@ -1659,7 +1663,7 @@ s32 botFindTeammateToFollow(struct chrdata *chr, f32 range)
 	return result;
 }
 
-void botScheduleReload(struct chrdata *chr, s32 handnum)
+static void botScheduleReload(struct chrdata *chr, s32 handnum)
 {
 	chr->aibot->timeuntilreload60[handnum] = g_AibotWeaponPreferences[chr->aibot->weaponnum].reloaddelay * (PAL ? 50 : 60);
 
@@ -1692,7 +1696,7 @@ void botScheduleReload(struct chrdata *chr, s32 handnum)
  *     Find pretty much any prop. This is used when the bot has nothing else to
  *     do (eg. if all opponents are cloaked) and may as well stock up on ammo.
  */
-struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
+static struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
 {
 	struct aibot *aibot = chr->aibot;
 	s32 weaponnums[6];
@@ -2123,7 +2127,7 @@ struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
  * This returns true when the bot is low on health or ammo and there are pickups
  * available.
  */
-bool botCanDoCriticalPickup(struct chrdata *chr)
+static bool botCanDoCriticalPickup(struct chrdata *chr)
 {
 	return botFindPickup(chr, PICKUPCRITERIA_CRITICAL) != NULL;
 }
@@ -2132,7 +2136,7 @@ bool botCanDoCriticalPickup(struct chrdata *chr)
  * Find a pickup to fetch based on default criteria. Default criteria basically
  * means a good amount of ammo - not lacking but not excessive either.
  */
-struct prop *botFindDefaultPickup(struct chrdata *chr)
+static struct prop *botFindDefaultPickup(struct chrdata *chr)
 {
 	return botFindPickup(chr, PICKUPCRITERIA_DEFAULT);
 }
@@ -2141,12 +2145,12 @@ struct prop *botFindDefaultPickup(struct chrdata *chr)
  * Find any pickup to fetch. This is used when the bot has nothing else to do
  * (eg. if all opponents are cloaked).
  */
-struct prop *botFindAnyPickup(struct chrdata *chr)
+static struct prop *botFindAnyPickup(struct chrdata *chr)
 {
 	return botFindPickup(chr, PICKUPCRITERIA_ANY);
 }
 
-s32 botGetTeamSize(struct chrdata *chr)
+static s32 botGetTeamSize(struct chrdata *chr)
 {
 	s32 count = 0;
 	s32 i;
@@ -2160,7 +2164,7 @@ s32 botGetTeamSize(struct chrdata *chr)
 	return count;
 }
 
-s32 botGetCountInTeamDoingCommand(struct chrdata *self, u32 command, bool includeself)
+static s32 botGetCountInTeamDoingCommand(struct chrdata *self, u32 command, bool includeself)
 {
 	s32 count = 0;
 	s32 i;
@@ -2178,7 +2182,7 @@ s32 botGetCountInTeamDoingCommand(struct chrdata *self, u32 command, bool includ
 	return count;
 }
 
-s32 botIsChrsCtcTokenHeld(struct chrdata *chr)
+static s32 botIsChrsCtcTokenHeld(struct chrdata *chr)
 {
 	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
 	struct prop *prop = g_ScenarioData.ctc.tokens[mpchr->team];
@@ -2192,7 +2196,7 @@ s32 botIsChrsCtcTokenHeld(struct chrdata *chr)
  *     If chr is on a team by themself and their token is stolen, return false
  *     Otherwise, return true
  */
-bool botShouldReturnCtcToken(struct chrdata *chr)
+static bool botShouldReturnCtcToken(struct chrdata *chr)
 {
 	if (chr->aibot->hascase) {
 		if (!chr->aibot->teamisonlyai || botGetTeamSize(chr) >= 2 || !botIsChrsCtcTokenHeld(chr)) {
@@ -2203,7 +2207,7 @@ bool botShouldReturnCtcToken(struct chrdata *chr)
 	return false;
 }
 
-s32 botGetNumTeammatesDefendingHill(struct chrdata *bot)
+static s32 botGetNumTeammatesDefendingHill(struct chrdata *bot)
 {
 	s32 count = 0;
 	s32 i;
@@ -2227,7 +2231,7 @@ s32 botGetNumTeammatesDefendingHill(struct chrdata *bot)
  *
  * This function is slightly misnamed.
  */
-s32 botGetNumOpponentsInHill(struct chrdata *chr)
+static s32 botGetNumOpponentsInHill(struct chrdata *chr)
 {
 	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
 	struct mpchrconfig *loopmpchr;

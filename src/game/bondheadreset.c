@@ -10,7 +10,7 @@
 #include "data.h"
 #include "types.h"
 
-void func0f0125a0(s16 animnum, s32 loopframe, s32 endframe, s32 *arg3)
+static void func0f0125a0(s16 animnum, s32 loopframe, s32 endframe, s32 *arg3)
 {
 	s16 sp48[3];
 	u32 stack;

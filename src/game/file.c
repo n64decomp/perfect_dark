@@ -4089,7 +4089,7 @@ u32 fileGetRomAddress(s32 filenum)
 	return (u32)g_FileTable[filenum];
 }
 
-u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)
+static u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)
 {
 	u32 size;
 
@@ -4107,7 +4107,7 @@ s32 fileGetRomSize(s32 filenum)
 	return fileGetRomSizeByTableAddress((u32 *)&g_FileTable[filenum]);
 }
 
-void fileLoad(u8 *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info)
+static void fileLoad(u8 *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info)
 {
 	u32 romsize = fileGetRomSizeByTableAddress(romaddrptr);
 	u8 buffer[5 * 1024];

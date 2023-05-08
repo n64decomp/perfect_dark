@@ -7,7 +7,7 @@
 #include "data.h"
 #include "types.h"
 
-void varsResetRoomProps(void);
+static void varsResetRoomProps(void);
 
 void varsReset(void)
 {
@@ -58,7 +58,7 @@ void varsReset(void)
 	}
 }
 
-void varsResetRoomProps(void)
+static void varsResetRoomProps(void)
 {
 	s32 i;
 

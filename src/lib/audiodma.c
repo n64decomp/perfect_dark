@@ -46,7 +46,7 @@ void admaInit(void)
  * that this buffer was last used in this frame. This is important for the
  * admaBeginFrame routine.
  */
-s32 admaExec(s32 offset, s32 len, void *state)
+static s32 admaExec(s32 offset, s32 len, void *state)
 {
 	void *foundbuffer;
 	s32 delta;

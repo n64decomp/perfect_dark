@@ -13,7 +13,7 @@ u32 g_ProfileGfxCycles;
 
 extern OSThread g_SchedThread;
 
-u32 profileReadCounters(void)
+static u32 profileReadCounters(void)
 {
 	u32 buf = IO_READ(DPC_BUFBUSY_REG);
 	u32 tmm = IO_READ(DPC_TMEM_REG);

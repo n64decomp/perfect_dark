@@ -26,6 +26,7 @@
 
 #define IS_BLOOD_DROP(texnum) (texnum >= WALLHITTEX_BLOOD4 && texnum <= WALLHITTEX_BLOOD4)
 
+static void wallhitFade(struct wallhit *wallhit, u32 arg1);
 
 struct wallhit *g_Wallhits;
 struct wallhit *g_FreeWallhits;
@@ -66,7 +67,7 @@ struct wallhittex g_WallhitTexes[] = {
 	/*0x11*/ { 6,   6,   WALLHITTYPE_BULLET }, // WALLHITTEX_METAL
 };
 
-s16 wallhitFinaliseAxis(f32 value)
+static s16 wallhitFinaliseAxis(f32 value)
 {
 	if (value > var8007f754) {
 		var8007f754 = value;
@@ -89,7 +90,7 @@ s16 wallhitFinaliseAxis(f32 value)
 	return value;
 }
 
-void wallhitUnsetBusy(struct wallhit *wallhit)
+static void wallhitUnsetBusy(struct wallhit *wallhit)
 {
 	if (wallhit == g_BusyWallhits) {
 		g_BusyWallhits = wallhit->busynext;
@@ -106,7 +107,7 @@ void wallhitUnsetBusy(struct wallhit *wallhit)
 	}
 }
 
-void wallhitFree(struct wallhit *wallhit)
+static void wallhitFree(struct wallhit *wallhit)
 {
 	struct wallhit *iter;
 	s32 i;
@@ -260,7 +261,7 @@ void wallhitChooseBloodColour(struct prop *prop)
 	}
 }
 
-void wallhitFade(struct wallhit *wallhit, u32 arg1)
+static void wallhitFade(struct wallhit *wallhit, u32 arg1)
 {
 	if (!wallhit->fading) {
 		if (wallhit->objprop) {
@@ -305,7 +306,7 @@ void wallhitFade(struct wallhit *wallhit, u32 arg1)
  * be favoured over a blood puddle. The actual wallhit to be removed will
  * be the oldest one that meets that criteria.
  */
-bool wallhitReapOneInRoom(s32 room)
+static bool wallhitReapOneInRoom(s32 room)
 {
 	if (room == -1 || g_WallhitCountsPerRoom[room]) {
 		f32 ratio = 0.0f;
@@ -386,7 +387,7 @@ bool wallhitReapOneInRoom(s32 room)
  * The chosen room will be the one with the most wallhits within one of those
  * three categories.
  */
-void wallhitReapOne(void)
+static void wallhitReapOne(void)
 {
 	s32 room;
 	u32 i;
@@ -1134,7 +1135,7 @@ s32 wallhit0f140750(struct coord *coord)
 	return 128;
 }
 
-Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
+static Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 {
 	struct wallhit *wallhit;
 	struct colour *colours;
@@ -1195,7 +1196,7 @@ Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 	return gdl;
 }
 
-Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
+static Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
 {
 	struct wallhit *wallhit;
 	struct colour *colours;

@@ -13,7 +13,7 @@ OSMesg viEventBuf[5];
 OSIoMesg viRetraceMsg;
 OSIoMesg viCounterMsg;
 
-void viMgrMain(void *args);
+static void viMgrMain(void *args);
 
 void osCreateViManager(OSPri pri)
 {
@@ -65,7 +65,7 @@ void osCreateViManager(OSPri pri)
 	}
 }
 
-void viMgrMain(void *args)
+static void viMgrMain(void *args)
 {
 	__OSViContext *vc;
 	OSDevMgr *dm;

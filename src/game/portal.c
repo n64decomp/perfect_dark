@@ -82,13 +82,6 @@ void portalSetXluFrac(s32 portalnum, f32 frac)
 	}
 }
 
-f32 portalGetXluFrac2(s32 arg0)
-{
-	f32 value = (g_PortalXluFracs[arg0] & 0xff) * 0.0039215688593686f;
-
-	return value;
-}
-
 f32 portalGetXluFrac(s32 arg0)
 {
 	f32 value = ((g_PortalXluFracs[arg0] & 0xf00) >> 8) * 0.06666667f;
@@ -141,11 +134,6 @@ void portalsReset(void)
 			}
 
 			prop = prop->next;
-		}
-
-		for (i = 0; i < g_NumPortalXluFracs; i++) {
-			portalGetXluFrac(i);
-			portalGetXluFrac2(i);
 		}
 	}
 }

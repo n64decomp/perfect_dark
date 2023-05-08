@@ -7,6 +7,12 @@
 #include "data.h"
 #include "types.h"
 
+static void mtx000161b0(f32 arg0[3][3], f32 src[3], f32 dest[3]);
+static f32 mtx00017c2c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8);
+static void mtx00017614(f32 arg0[4][4], f32 arg1[4][4]);
+static f32 mtx00017a78(f32 arg0[4][4]);
+static f32 mtx00017cbc(f32 arg0, f32 arg1, f32 arg2, f32 arg3);
+
 void mtx00016110(f32 mtx1[3][3], f32 mtx2[3][3])
 {
 	f32 mtx3[3][3];
@@ -27,7 +33,7 @@ void mtx00016140(f32 mtx1[3][3], f32 mtx2[3][3], f32 dst[3][3])
 	}
 }
 
-void mtx000161b0(f32 mtx[3][3], f32 src[3], f32 dest[3])
+static void mtx000161b0(f32 mtx[3][3], f32 src[3], f32 dest[3])
 {
 	s32 i;
 
@@ -580,7 +586,7 @@ void mtx00017588(f32 arg0[4][4], f32 arg1[4][4])
 	}
 }
 
-void mtx00017614(f32 arg0[4][4], f32 arg1[4][4])
+static void mtx00017614(f32 arg0[4][4], f32 arg1[4][4])
 {
 	f32 mtx00, mtx10, mtx20, mtx30;
 	f32 mtx04, mtx14, mtx24, mtx34;
@@ -614,7 +620,7 @@ void mtx00017614(f32 arg0[4][4], f32 arg1[4][4])
 	arg1[3][3] =  mtx00017c2c(mtx00, mtx10, mtx20, mtx04, mtx14, mtx24, mtx08, mtx18, mtx28);
 }
 
-f32 mtx00017a78(f32 arg0[4][4])
+static f32 mtx00017a78(f32 arg0[4][4])
 {
 	f32 tmp;
 	f32 sp78, sp74, sp70, sp6c;
@@ -643,7 +649,7 @@ f32 mtx00017a78(f32 arg0[4][4])
 	return (sp78 * sp38 - sp68 * sp34 + sp58 * sp30) - tmp * sp48;
 }
 
-f32 mtx00017c2c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8)
+static f32 mtx00017c2c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8)
 {
 	f32 sp24;
 	f32 sp20;
@@ -656,7 +662,7 @@ f32 mtx00017c2c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 
 	return sp24 * arg6 + (arg0 * sp20 - arg3 * sp1c);
 }
 
-f32 mtx00017cbc(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
+static f32 mtx00017cbc(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
 {
 	return arg0 * arg3 - arg1 * arg2;
 }

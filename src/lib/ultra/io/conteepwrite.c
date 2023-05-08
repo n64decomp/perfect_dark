@@ -3,7 +3,7 @@
 #include "siint.h"
 #include <rcp.h>
 
-void __osPackEepWriteData(u8 address, u8 *buffer);
+static void __osPackEepWriteData(u8 address, u8 *buffer);
 
 s32 osEepromWrite(OSMesgQueue *mq, u8 address, u8 *buffer)
 {
@@ -69,7 +69,7 @@ s32 osEepromWrite(OSMesgQueue *mq, u8 address, u8 *buffer)
 	return ret;
 }
 
-void __osPackEepWriteData(u8 address, u8 *buffer)
+static void __osPackEepWriteData(u8 address, u8 *buffer)
 {
 	u8 *ptr;
 	__OSContEepromFormat eepromformat;

@@ -75,7 +75,12 @@ struct mpscenario {
 
 struct scenariodata g_ScenarioData;
 
-s32 menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handlerdata *data)
+static bool scenarioChrsAreSameTeam(s32 playernum1, s32 playernum2);
+static void scenarioCreateHudmsg(s32 playernum, char *message);
+static struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u32 flags2, u32 flags3);
+static s32 mpOptionsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+
+static s32 menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -88,7 +93,7 @@ s32 menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handler
 	return menuhandlerMpCheckboxOption(operation, item, data);
 }
 
-s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED || operation == MENUOP_CHECKHIDDEN) {
 		if (challengeIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
@@ -101,7 +106,7 @@ s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handler
 	return menuhandlerMpCheckboxOption(operation, item, data);
 }
 
-s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 labels[] = {
 		L_MPMENU_240, // "Off"
@@ -244,7 +249,7 @@ struct mpscenariooverview g_MpScenarioOverviews[] = {
  * While the options dialog is open, check if another player has changed the
  * scenario to a different one. If so, replace this dialog with the new one.
  */
-s32 mpOptionsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 mpOptionsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog->definition != g_MpScenarios[g_MpSetup.scenario].optionsdialog) {
@@ -284,7 +289,7 @@ struct scenariogroup {
 	u16 textid;
 };
 
-s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct scenariogroup groups[] = {
 		{ 0, L_MPMENU_244 }, // "Free for All!"
@@ -462,7 +467,7 @@ void scenarioInitProps(void)
  * At the start of each match, a hud message appears for all players containing
  * the challenge name if it's a challenge, or the scenario name if not.
  */
-void scenarioCreateMatchStartHudmsgs(void)
+static void scenarioCreateMatchStartHudmsgs(void)
 {
 	s32 i;
 	s32 prevplayernum = g_Vars.currentplayernum;
@@ -930,7 +935,7 @@ struct menudialogdef g_MpQuickTeamScenarioMenuDialog = {
  *
  * This is a helper function used by HTM to create the terminal.
  */
-struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u32 flags2, u32 flags3)
+static struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u32 flags2, u32 flags3)
 {
 	struct defaultobj template = {
 		256,                    // extrascale
@@ -980,7 +985,7 @@ struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u3
  *
  * This is a helper function used by PAC.
  */
-void scenarioCreateHudmsg(s32 playernum, char *message)
+static void scenarioCreateHudmsg(s32 playernum, char *message)
 {
 	if (playernum >= 0 && playernum < PLAYERCOUNT()) {
 		s32 prevplayernum = g_Vars.currentplayernum;
@@ -992,11 +997,11 @@ void scenarioCreateHudmsg(s32 playernum, char *message)
 }
 
 /**
- * CHeck if two player numbers are on the same team.
+ * Check if two player numbers are on the same team.
  *
  * This is a helper function used by PAC.
  */
-bool scenarioChrsAreSameTeam(s32 playernum1, s32 playernum2)
+static bool scenarioChrsAreSameTeam(s32 playernum1, s32 playernum2)
 {
 	struct mpchrconfig *achr;
 	struct mpchrconfig *bchr;

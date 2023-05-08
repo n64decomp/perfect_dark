@@ -38,6 +38,9 @@
 #include "data.h"
 #include "types.h"
 
+static void setupReset0f00cc8c(void);
+static void setupResetProxyMines(void);
+
 s32 var8009cc30;
 
 struct tvscreen var80061a80 = {
@@ -282,25 +285,25 @@ void propsReset(void)
 	}
 }
 
-void setupCreateLiftDoor(struct linkliftdoorobj *link)
+static void setupCreateLiftDoor(struct linkliftdoorobj *link)
 {
 	link->next = g_LiftDoors;
 	g_LiftDoors = link;
 }
 
-void setupCreateConditionalScenery(struct linksceneryobj *link)
+static void setupCreateConditionalScenery(struct linksceneryobj *link)
 {
 	link->next = g_LinkedScenery;
 	g_LinkedScenery = link;
 }
 
-void setupCreateBlockedPath(struct blockedpathobj *blockedpath)
+static void setupCreateBlockedPath(struct blockedpathobj *blockedpath)
 {
 	blockedpath->next = g_BlockedPaths;
 	g_BlockedPaths = blockedpath;
 }
 
-void setupReset0f00cc8c(void)
+static void setupReset0f00cc8c(void)
 {
 	struct tvscreen tmp1;
 	struct tvscreen tmp2;
@@ -316,7 +319,7 @@ void setupReset0f00cc8c(void)
 	var8009cf88 = tmp3;
 }
 
-void setupResetProxyMines(void)
+static void setupResetProxyMines(void)
 {
 	s32 i;
 
@@ -327,7 +330,7 @@ void setupResetProxyMines(void)
 	g_NumProxies = 0;
 }
 
-s32 setupCountCommandType(u32 type)
+static s32 setupCountCommandType(u32 type)
 {
 	struct defaultobj *obj = (struct defaultobj *)g_StageSetup.props;
 	s32 count = 0;
@@ -698,12 +701,12 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 	}
 }
 
-void setupCreateKey(struct keyobj *key, s32 cmdindex)
+static void setupCreateKey(struct keyobj *key, s32 cmdindex)
 {
 	setupCreateObject(&key->base, cmdindex);
 }
 
-void setupCreateMine(struct mineobj *mine, s32 cmdindex)
+static void setupCreateMine(struct mineobj *mine, s32 cmdindex)
 {
 	mine->base.type = OBJTYPE_WEAPON;
 
@@ -714,7 +717,7 @@ void setupCreateMine(struct mineobj *mine, s32 cmdindex)
 	}
 }
 
-void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
+static void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
 {
 	struct defaultobj *obj = &cctv->base;
 
@@ -768,7 +771,7 @@ void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
 	}
 }
 
-void setupCreateAutogun(struct autogunobj *autogun, s32 cmdindex)
+static void setupCreateAutogun(struct autogunobj *autogun, s32 cmdindex)
 {
 	setupCreateObject(&autogun->base, cmdindex);
 
@@ -817,7 +820,7 @@ void setupCreateAutogun(struct autogunobj *autogun, s32 cmdindex)
 	}
 }
 
-void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
+static void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 {
 	u32 stack[2];
 
@@ -883,7 +886,7 @@ void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 	}
 }
 
-void setupCreateMultiMonitor(struct multimonitorobj *monitor, s32 cmdindex)
+static void setupCreateMultiMonitor(struct multimonitorobj *monitor, s32 cmdindex)
 {
 	monitor->screens[0] = var8009ce98;
 	tvscreenSetImageByNum(&monitor->screens[0], monitor->imagenums[0]);
@@ -900,7 +903,7 @@ void setupCreateMultiMonitor(struct multimonitorobj *monitor, s32 cmdindex)
 	setupCreateObject(&monitor->base, cmdindex);
 }
 
-s32 setupGetPortalByPad(s32 padnum)
+static s32 setupGetPortalByPad(s32 padnum)
 {
 	f32 mult;
 	struct coord centre;
@@ -924,7 +927,7 @@ s32 setupGetPortalByPad(s32 padnum)
 	return bg0f164e8c(&centre, &coord);
 }
 
-s32 setupGetPortalByDoorPad(s32 padnum)
+static s32 setupGetPortalByDoorPad(s32 padnum)
 {
 	f32 mult;
 	struct coord centre;
@@ -949,7 +952,7 @@ s32 setupGetPortalByDoorPad(s32 padnum)
 	return bg0f164e8c(&centre, &coord);
 }
 
-void setupCreateDoor(struct doorobj *door, s32 cmdindex)
+static void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 {
 	f32 scale;
 	s32 modelnum = door->base.modelnum;
@@ -1099,7 +1102,7 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 	}
 }
 
-void setupCreateHov(struct defaultobj *obj, struct hov *hov)
+static void setupCreateHov(struct defaultobj *obj, struct hov *hov)
 {
 	hov->unk04 = 0;
 	hov->unk08 = 0;
@@ -1204,7 +1207,7 @@ void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing 
 
 extern u8 _setupdishasmSegmentStart;
 
-struct ailist *getStageAilists(void)
+static struct ailist *getStageAilists(void)
 {
 	if (g_StageIndex >= 0 && g_StageIndex < ARRAYCOUNT(g_Stages)) {
 		if (g_Stages[g_StageIndex].ailistsromstart) {
@@ -1974,7 +1977,6 @@ void setupCreateProps(s32 stagenum)
 						struct defaultobj *trigger = setupGetObjByCmdIndex(index + triggeroffset);
 						struct defaultobj *unexp = NULL;
 						struct defaultobj *exp = NULL;
-						s32 alwayszero = 0;
 
 						if (unexpoffset) {
 							unexp = setupGetObjByCmdIndex(index + unexpoffset);
@@ -1997,14 +1999,6 @@ void setupCreateProps(s32 stagenum)
 
 							if (unexpoffset) {
 								unexp->hidden |= OBJHFLAG_CONDITIONALSCENERY;
-							}
-
-							// This gets optimised out but makes v0 unavailable
-							// for storing OBJHFLAG_CONDITIONALSCENERY, which is required
-							// for a match. Any function call would work; I just
-							// copied the one above.
-							if (alwayszero) {
-								setupCreateConditionalScenery(link);
 							}
 
 							if (expoffset) {

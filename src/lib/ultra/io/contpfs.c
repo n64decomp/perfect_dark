@@ -4,7 +4,7 @@
 s32 g_PfsPrevChannel = -1;
 u8 g_PfsPrevBank = 250;
 
-u16 __osSumCalc(u8 *ptr, int length)
+static u16 __osSumCalc(u8 *ptr, int length)
 {
 	int i;
 	u32 sum;

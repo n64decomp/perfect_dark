@@ -30,7 +30,7 @@ struct menudialogdef g_BioTextMenuDialog;
 struct menudialogdef g_HangarLocationDetailsMenuDialog;
 struct menudialogdef g_HangarVehicleDetailsMenuDialog;
 
-s32 frDetailsOkMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 frDetailsOkMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 i;
 
@@ -72,7 +72,7 @@ s32 frDetailsOkMenuHandler(s32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
-s32 frAbortMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 frAbortMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (frIsInTraining()) {
@@ -85,7 +85,7 @@ s32 frAbortMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 
 struct menudialogdef g_FrDifficultyMenuDialog;
 
-s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 weaponnum;
 	s32 score;
@@ -199,7 +199,7 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-s32 frTrainingInfoMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 frTrainingInfoMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	u32 stack;
 	s32 weaponnum;
@@ -233,7 +233,7 @@ s32 frTrainingInfoMenuDialog(s32 operation, struct menudialogdef *dialogdef, uni
 	return 0;
 }
 
-s32 frTrainingStatsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 frTrainingStatsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		if (frIsInTraining() == false) {
@@ -244,7 +244,7 @@ s32 frTrainingStatsMenuDialog(s32 operation, struct menudialogdef *dialogdef, un
 	return 0;
 }
 
-s32 frDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 frDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
@@ -266,7 +266,7 @@ s32 frDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-char *frMenuTextFailReason(struct menuitem *item)
+static char *frMenuTextFailReason(struct menuitem *item)
 {
 	u16 reasons[] = {
 		L_MPMENU_456, // "Not Failed"
@@ -281,7 +281,7 @@ char *frMenuTextFailReason(struct menuitem *item)
 	return langGet(reasons[frdata->failreason]);
 }
 
-char *frMenuTextDifficultyName(struct menuitem *item)
+static char *frMenuTextDifficultyName(struct menuitem *item)
 {
 	u16 names[] = {
 		L_MPMENU_439, // "Bronze"
@@ -294,7 +294,7 @@ char *frMenuTextDifficultyName(struct menuitem *item)
 	return langGet(names[frdata->difficulty]);
 }
 
-char *frMenuTextTimeTakenValue(struct menuitem *item)
+static char *frMenuTextTimeTakenValue(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 	f32 secs = frdata->timetaken / (PAL ? 50.0f : 60.0f);
@@ -320,7 +320,7 @@ char *frMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextScoreValue(struct menuitem *item)
+static char *frMenuTextScoreValue(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 
@@ -328,12 +328,12 @@ char *frMenuTextScoreValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextWeaponName(struct menuitem *item)
+static char *frMenuTextWeaponName(struct menuitem *item)
 {
 	return bgunGetName(frGetWeaponBySlot(frGetSlot()));
 }
 
-char *frMenuTextTargetsDestroyedValue(struct menuitem *item)
+static char *frMenuTextTargetsDestroyedValue(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 
@@ -341,7 +341,7 @@ char *frMenuTextTargetsDestroyedValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextAccuracyValue(struct menuitem *item)
+static char *frMenuTextAccuracyValue(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 	f32 totalhits = (frdata->numhitsring3 + frdata->numhitsbullseye + frdata->numhitsring1 + frdata->numhitsring2) * 100.0f;
@@ -359,7 +359,7 @@ char *frMenuTextAccuracyValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextGoalScoreLabel(struct menuitem *item)
+static char *frMenuTextGoalScoreLabel(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 
@@ -371,7 +371,7 @@ char *frMenuTextGoalScoreLabel(struct menuitem *item)
 	return NULL;
 }
 
-char *frMenuTextGoalScoreValue(struct menuitem *item)
+static char *frMenuTextGoalScoreValue(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 
@@ -383,7 +383,7 @@ char *frMenuTextGoalScoreValue(struct menuitem *item)
 	return NULL;
 }
 
-char *frMenuTextMinAccuracyOrTargetsLabel(struct menuitem *item)
+static char *frMenuTextMinAccuracyOrTargetsLabel(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 
@@ -398,7 +398,7 @@ char *frMenuTextMinAccuracyOrTargetsLabel(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextMinAccuracyOrTargetsValue(struct menuitem *item)
+static char *frMenuTextMinAccuracyOrTargetsValue(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 
@@ -413,7 +413,7 @@ char *frMenuTextMinAccuracyOrTargetsValue(struct menuitem *item)
 	return g_StringPointer2;
 }
 
-char *frMenuTextTimeLimitLabel(struct menuitem *item)
+static char *frMenuTextTimeLimitLabel(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 
@@ -426,7 +426,7 @@ char *frMenuTextTimeLimitLabel(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextTimeLimitValue(struct menuitem *item)
+static char *frMenuTextTimeLimitValue(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 
@@ -451,7 +451,7 @@ char *frMenuTextTimeLimitValue(struct menuitem *item)
 	return g_StringPointer2;
 }
 
-char *frMenuTextAmmoLimitLabel(struct menuitem *item)
+static char *frMenuTextAmmoLimitLabel(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 
@@ -464,7 +464,7 @@ char *frMenuTextAmmoLimitLabel(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextAmmoLimitValue(struct menuitem *item)
+static char *frMenuTextAmmoLimitValue(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
 	char suffix[16];
@@ -494,7 +494,7 @@ char *frMenuTextAmmoLimitValue(struct menuitem *item)
  * as well as the player's score chart. There are lines leading from
  * the score chart to the diagram.
  */
-s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_RENDER) {
 		Gfx *gdl = data->type19.gdl;
@@ -740,7 +740,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 	return 0;
 }
 
-s32 menuhandlerFrFailedContinue(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 menuhandlerFrFailedContinue(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.currentplayer->prop->rooms[0] == 0xa) {
@@ -1239,7 +1239,7 @@ struct menudialogdef g_FrFailedMenuDialog = {
 	NULL,
 };
 
-s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct optiongroup groups[2] = {
 		{ 0, L_MPMENU_421 }, // "Character Profiles"
@@ -1311,7 +1311,7 @@ struct menudialogdef g_BioListMenuDialog = {
 	NULL,
 };
 
-s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	u32 bodynum = ciGetChrBioBodynumBySlot(g_ChrBioSlot);
 	u32 mpbodynum = mpGetMpbodynumByBodynum(bodynum);
@@ -1409,7 +1409,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 	return 0;
 }
 
-char *ciMenuTextChrBioName(struct menuitem *item)
+static char *ciMenuTextChrBioName(struct menuitem *item)
 {
 	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
@@ -1417,7 +1417,7 @@ char *ciMenuTextChrBioName(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *ciMenuTextChrBioAge(struct menuitem *item)
+static char *ciMenuTextChrBioAge(struct menuitem *item)
 {
 	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->age));
@@ -1425,7 +1425,7 @@ char *ciMenuTextChrBioAge(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *ciMenuTextChrBioRace(struct menuitem *item)
+static char *ciMenuTextChrBioRace(struct menuitem *item)
 {
 	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->race));
@@ -1433,7 +1433,7 @@ char *ciMenuTextChrBioRace(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *ciMenuTextMiscBioName(struct menuitem *item)
+static char *ciMenuTextMiscBioName(struct menuitem *item)
 {
 	struct miscbio *bio = ciGetMiscBio(ciGetMiscBioIndexBySlot(g_ChrBioSlot - ciGetNumUnlockedChrBios()));
 
@@ -1442,7 +1442,7 @@ char *ciMenuTextMiscBioName(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 dtDeviceListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 dtDeviceListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
@@ -1470,14 +1470,14 @@ s32 dtDeviceListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-char *dtMenuTextName(struct menuitem *item)
+static char *dtMenuTextName(struct menuitem *item)
 {
 	u32 weaponnum = dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot));
 
 	return bgunGetName(weaponnum);
 }
 
-s32 menuhandlerDtOkOrResume(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 menuhandlerDtOkOrResume(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		// @bug: dtBegin() should not be called if training is already in
@@ -1489,7 +1489,7 @@ s32 menuhandlerDtOkOrResume(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-s32 menuhandler001a6514(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 menuhandler001a6514(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		dtEnd();
@@ -1633,7 +1633,7 @@ struct menudialogdef g_DtListMenuDialog = {
 	NULL,
 };
 
-s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -1678,7 +1678,7 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, 
 	return 0;
 }
 
-char *dtMenuTextOkOrResume(struct menuitem *item)
+static char *dtMenuTextOkOrResume(struct menuitem *item)
 {
 	struct trainingdata *data = dtGetData();
 
@@ -1689,7 +1689,7 @@ char *dtMenuTextOkOrResume(struct menuitem *item)
 	return langGet(L_MPMENU_427); // "Ok"
 }
 
-char *dtMenuTextCancelOrAbort(struct menuitem *item)
+static char *dtMenuTextCancelOrAbort(struct menuitem *item)
 {
 	struct trainingdata *data = dtGetData();
 
@@ -1700,7 +1700,7 @@ char *dtMenuTextCancelOrAbort(struct menuitem *item)
 	return langGet(L_MPMENU_429); // "Cancel"
 }
 
-char *dtMenuTextTimeTakenValue(struct menuitem *item)
+static char *dtMenuTextTimeTakenValue(struct menuitem *item)
 {
 	struct trainingdata *data = dtGetData();
 	f32 secs = data->timetaken / (PAL ? 50.0f : 60.0f);
@@ -1722,7 +1722,7 @@ char *dtMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 menudialogDeviceTrainingResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 menudialogDeviceTrainingResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		chrSetStageFlag(NULL, 0x08000000);
@@ -1731,7 +1731,7 @@ s32 menudialogDeviceTrainingResults(s32 operation, struct menudialogdef *dialogd
 	return false;
 }
 
-s32 htHoloListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 htHoloListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
@@ -1759,12 +1759,12 @@ s32 htHoloListMenuHandler(s32 operation, struct menuitem *item, union handlerdat
 	return 0;
 }
 
-char *htMenuTextName(struct menuitem *item)
+static char *htMenuTextName(struct menuitem *item)
 {
 	return htGetName(htGetIndexBySlot(var80088bb4));
 }
 
-s32 menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		htBegin();
@@ -1774,7 +1774,7 @@ s32 menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-s32 menuhandler001a6a70(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 menuhandler001a6a70(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		htEnd();
@@ -1783,7 +1783,7 @@ s32 menuhandler001a6a70(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-s32 menudialog001a6aa4(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 menudialog001a6aa4(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -1796,7 +1796,7 @@ s32 menudialog001a6aa4(s32 operation, struct menudialogdef *dialogdef, union han
 	return false;
 }
 
-char *htMenuTextOkOrResume(struct menuitem *item)
+static char *htMenuTextOkOrResume(struct menuitem *item)
 {
 	struct trainingdata *data = getHoloTrainingData();
 
@@ -1807,7 +1807,7 @@ char *htMenuTextOkOrResume(struct menuitem *item)
 	return langGet(L_MPMENU_427); // "Ok"
 }
 
-char *htMenuTextCancelOrAbort(struct menuitem *item)
+static char *htMenuTextCancelOrAbort(struct menuitem *item)
 {
 	struct trainingdata *data = getHoloTrainingData();
 
@@ -1818,7 +1818,7 @@ char *htMenuTextCancelOrAbort(struct menuitem *item)
 	return langGet(L_MPMENU_429); // "Cancel"
 }
 
-char *htMenuTextTimeTakenValue(struct menuitem *item)
+static char *htMenuTextTimeTakenValue(struct menuitem *item)
 {
 	struct trainingdata *data = getHoloTrainingData();
 	f32 secs = data->timetaken / (PAL ? 50.0f : 60.0f);
@@ -1840,7 +1840,7 @@ char *htMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 menudialogFiringRangeResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 menudialogFiringRangeResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		chrSetStageFlag(NULL, 0x08000000);
@@ -1849,7 +1849,7 @@ s32 menudialogFiringRangeResults(s32 operation, struct menudialogdef *dialogdef,
 	return false;
 }
 
-char *bioMenuTextName(struct menuitem *item)
+static char *bioMenuTextName(struct menuitem *item)
 {
 	struct hangarbio *bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(g_HangarBioSlot));
 
@@ -1860,7 +1860,7 @@ char *bioMenuTextName(struct menuitem *item)
  * The subheading is stored in the same string as the name, separated by a pipe.
  * eg. "Lucerne Tower\0|Global headquarters\n"
  */
-char *ciMenuTextHangarBioSubheading(struct menuitem *item)
+static char *ciMenuTextHangarBioSubheading(struct menuitem *item)
 {
 	s32 index = 0;
 	struct hangarbio *bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(g_HangarBioSlot));
@@ -2214,7 +2214,7 @@ struct menudialogdef g_HtCompletedMenuDialog = {
 	&g_HtListMenuDialog,
 };
 
-s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct optiongroup groups[2] = {
 		{ 0, L_MPMENU_419 }, // "Locations"
@@ -2259,7 +2259,7 @@ s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union h
 	return 0;
 }
 
-s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_RENDER) {
 		Gfx *gdl = data->type19.gdl;
@@ -2349,7 +2349,7 @@ struct modelpartvisibility g_BioPartVisibility[] = {
 	{ 255 },
 };
 
-s32 ciHangarHolographMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 ciHangarHolographMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	s32 index = ciGetHangarBioIndexBySlot(g_HangarBioSlot);
 

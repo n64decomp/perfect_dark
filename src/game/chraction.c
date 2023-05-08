@@ -55,6 +55,19 @@
 #include "data.h"
 #include "types.h"
 
+static void chrFadeCorpse(struct chrdata *chr);
+static void robotAttack(struct chrdata *chr);
+static void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset,
+		struct prop *aprop, s32 hitpart, bool damageshield, struct prop *prop2,
+		struct modelnode *node, struct model *model, s32 side, s16 *arg11,
+		bool explosion, struct coord *explosionpos);
+static f32 propGetDistanceToProp(struct prop *a, struct prop *b);
+static void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool flip, bool *firing, u32 attackflags, s32 entityid, bool standing);
+static void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, s16 *rooms);
+static f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id);
+static bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4);
+static s32 chrTurn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 toleranceangle);
+
 s32 g_RecentQuipsPlayed[5];
 u8 g_RecentQuipsIndex;
 
@@ -1234,7 +1247,7 @@ struct var80067e6c *var80067fdc[] = {
 	var80067fcc,
 };
 
-f32 func0f02dff0(s16 animnum)
+static f32 func0f02dff0(s16 animnum)
 {
 	s32 i;
 
@@ -1308,11 +1321,11 @@ bool weaponIsOneHanded(struct prop *prop)
  * reaction speed is always zero because PD doesn't have it in the settings.
  * It was used in GE but disabled in PD.
  */
-f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max)
+static f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max)
 {
 	f32 speedrating = chr->speedrating;
 
-	return (max - min) * speedrating * 0.01f + min;
+	return (max - min) * chr->speedrating * 0.01f + min;
 }
 
 /**
@@ -1327,21 +1340,21 @@ f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max)
  * For example, if the chr's speedrating is 10 (out of 100) and the given
  * percentage is 50, the result will be 45.
  */
-s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage)
+static s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage)
 {
 	s32 speedrating = chr->speedrating;
 
 	return (100 - speedrating) * percentage / 100;
 }
 
-f32 chrGetRangedArghSpeed(struct chrdata *chr, f32 min, f32 max)
+static f32 chrGetRangedArghSpeed(struct chrdata *chr, f32 min, f32 max)
 {
 	f32 arghrating = chr->arghrating;
 
 	return (max - min) * arghrating * 0.01f + min;
 }
 
-f32 chrGetAttackEntityRelativeAngle(struct chrdata *chr, s32 attackflags, s32 entityid)
+static f32 chrGetAttackEntityRelativeAngle(struct chrdata *chr, s32 attackflags, s32 entityid)
 {
 	f32 angle;
 	struct coord pos;
@@ -1410,7 +1423,7 @@ void func0f02e4f8(struct coord *arg0, struct coord *arg1, struct coord *dst)
 	func0f02e3dc(&sp2c, &sp20, arg0, arg1, dst);
 }
 
-f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 ymax, f32 ymin)
+static f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 ymax, f32 ymin)
 {
 	struct coord sp5c;
 	struct coord sp50;
@@ -1446,7 +1459,7 @@ f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 ymax, f
 	return result;
 }
 
-f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
+static f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
 {
 	f32 ymax;
 	f32 ymin;
@@ -1457,7 +1470,7 @@ f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
 	return func0f02e550(prop, arg1, arg2, CDTYPE_ALL, ymax, ymin);
 }
 
-void chrChooseStandAnimation(struct chrdata *chr, f32 mergetime)
+static void chrChooseStandAnimation(struct chrdata *chr, f32 mergetime)
 {
 	struct prop *gun1 = chrGetHeldProp(chr, HAND_LEFT);
 	struct prop *gun2 = chrGetHeldProp(chr, HAND_RIGHT);
@@ -1589,21 +1602,21 @@ void chrStand(struct chrdata *chr)
 	}
 }
 
-void func0f02ed28(struct chrdata *chr, f32 mergetime)
+static void func0f02ed28(struct chrdata *chr, f32 mergetime)
 {
 	func0f02e9a0(chr, mergetime);
 
 	chr->act_stand.checkfacingwall = true;
 }
 
-void chrStop(struct chrdata *chr)
+static void chrStop(struct chrdata *chr)
 {
 	chrStand(chr);
 
 	chr->act_stand.checkfacingwall = true;
 }
 
-void chrKneelChooseAnimation(struct chrdata *chr)
+static void chrKneelChooseAnimation(struct chrdata *chr)
 {
 	struct prop *gun1 = chrGetHeldProp(chr, 1);
 	struct prop *gun2 = chrGetHeldProp(chr, 0);
@@ -1623,7 +1636,7 @@ void chrKneelChooseAnimation(struct chrdata *chr)
 	}
 }
 
-void chrKneel(struct chrdata *chr)
+static void chrKneel(struct chrdata *chr)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_KNEEL;
@@ -1637,7 +1650,7 @@ void chrKneel(struct chrdata *chr)
 	}
 }
 
-void chrStartAlarmChooseAnimation(struct chrdata *chr)
+static void chrStartAlarmChooseAnimation(struct chrdata *chr)
 {
 	struct prop *gun1 = chrGetHeldProp(chr, 1);
 	struct prop *gun2 = chrGetHeldProp(chr, 0);
@@ -1653,7 +1666,7 @@ void chrStartAlarmChooseAnimation(struct chrdata *chr)
 	modelSetAnimEndFrame(chr->model, 82);
 }
 
-void chrThrowGrenadeChooseAnimation(struct chrdata *chr)
+static void chrThrowGrenadeChooseAnimation(struct chrdata *chr)
 {
 	u32 rand = random();
 
@@ -1678,7 +1691,7 @@ void chrThrowGrenadeChooseAnimation(struct chrdata *chr)
 	modelSetAnimEndFrame(chr->model, -1);
 }
 
-void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
+static void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_THROWGRENADE;
@@ -1694,7 +1707,7 @@ void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
 	}
 }
 
-void chrSurprisedChooseAnimation(struct chrdata *chr)
+static void chrSurprisedChooseAnimation(struct chrdata *chr)
 {
 	if (chr->act_surprised.type == 1) {
 		struct prop *gun1 = chrGetHeldProp(chr, 1);
@@ -1726,7 +1739,7 @@ void chrSurprisedChooseAnimation(struct chrdata *chr)
 	}
 }
 
-void chrSurrenderChooseAnimation(struct chrdata *chr)
+static void chrSurrenderChooseAnimation(struct chrdata *chr)
 {
 	struct prop *gun1 = chrGetHeldProp(chr, 1);
 	struct prop *gun0 = chrGetHeldProp(chr, 0);
@@ -1752,7 +1765,7 @@ void chrSurrenderChooseAnimation(struct chrdata *chr)
 	chrDropConcealedItems(chr);
 }
 
-void chrSurrender(struct chrdata *chr)
+static void chrSurrender(struct chrdata *chr)
 {
 	u32 action = ACT_SURRENDER;
 
@@ -1770,7 +1783,7 @@ void chrSurrender(struct chrdata *chr)
 	}
 }
 
-void chrSidestepChooseAnimation(struct chrdata *chr)
+static void chrSidestepChooseAnimation(struct chrdata *chr)
 {
 	struct prop *gun1 = chrGetHeldProp(chr, 1);
 	struct prop *gun2 = chrGetHeldProp(chr, 0);
@@ -1819,7 +1832,7 @@ void chrSidestepChooseAnimation(struct chrdata *chr)
 	}
 }
 
-void chrSidestep(struct chrdata *chr, bool side)
+static void chrSidestep(struct chrdata *chr, bool side)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_SIDESTEP;
@@ -1834,7 +1847,7 @@ void chrSidestep(struct chrdata *chr, bool side)
 	}
 }
 
-void chrJumpOutChooseAnimation(struct chrdata *chr)
+static void chrJumpOutChooseAnimation(struct chrdata *chr)
 {
 	struct prop *gun1 = chrGetHeldProp(chr, 1);
 	struct prop *gun2 = chrGetHeldProp(chr, 0);
@@ -1856,7 +1869,7 @@ void chrJumpOutChooseAnimation(struct chrdata *chr)
 	}
 }
 
-void chrJumpOut(struct chrdata *chr, bool side)
+static void chrJumpOut(struct chrdata *chr, bool side)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_JUMPOUT;
@@ -1871,7 +1884,7 @@ void chrJumpOut(struct chrdata *chr, bool side)
 	}
 }
 
-void chrRunPosChooseAnimation(struct chrdata *chr)
+static void chrRunPosChooseAnimation(struct chrdata *chr)
 {
 	f32 xdiff = chr->prop->pos.x - chr->act_runpos.pos.x;
 	f32 ydiff = chr->prop->pos.y - chr->act_runpos.pos.y;
@@ -1922,7 +1935,7 @@ void chrRunPosChooseAnimation(struct chrdata *chr)
 	}
 }
 
-void chrRunToPos(struct chrdata *chr, struct coord *pos)
+static void chrRunToPos(struct chrdata *chr, struct coord *pos)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_RUNPOS;
@@ -1939,7 +1952,7 @@ void chrRunToPos(struct chrdata *chr, struct coord *pos)
 	}
 }
 
-void chrAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
+static void chrAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
 	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
@@ -1987,7 +2000,7 @@ void chrAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 	chrAttack(chr, animgroup, flip, firing, attackflags, entityid, true);
 }
 
-void chrAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
+static void chrAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	u32 stack[2];
 	struct prop *gun = chrGetHeldProp(chr, HAND_RIGHT);
@@ -2007,7 +2020,7 @@ void chrAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
 	chrAttack(chr, &g_LieAttackAnims, gun == NULL, firing, attackflags, entityid, false);
 }
 
-void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
+static void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
 	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
@@ -2057,7 +2070,7 @@ void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 	chrAttack(chr, animgroup, flip, firing, attackflags, entityid, false);
 }
 
-void chrAttackWalkChooseAnimation(struct chrdata *chr)
+static void chrAttackWalkChooseAnimation(struct chrdata *chr)
 {
 	if (chr->aibot == NULL) {
 		modelSetAnimation(chr->model, chr->act_attackwalk.animcfg->animnum,
@@ -2065,7 +2078,7 @@ void chrAttackWalkChooseAnimation(struct chrdata *chr)
 	}
 }
 
-void chrAttackWalk(struct chrdata *chr, bool run)
+static void chrAttackWalk(struct chrdata *chr, bool run)
 {
 	struct attackanimconfig *animcfg;
 	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
@@ -2214,7 +2227,7 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 	}
 }
 
-void chrAttackRollChooseAnimation(struct chrdata *chr)
+static void chrAttackRollChooseAnimation(struct chrdata *chr)
 {
 	modelSetAnimation(chr->model, chr->act_attack.animcfg->animnum, chr->act_attack.flip,
 			chr->act_attack.animcfg->unk10, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
@@ -2236,7 +2249,7 @@ void chrAttackRollChooseAnimation(struct chrdata *chr)
 	}
 }
 
-void chrAttackRoll(struct chrdata *chr, bool toleft)
+static void chrAttackRoll(struct chrdata *chr, bool toleft)
 {
 	struct attackanimconfig *animcfg;
 	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
@@ -2402,7 +2415,7 @@ void chrAttackRoll(struct chrdata *chr, bool toleft)
 	}
 }
 
-void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 chranimflags, s32 merge, f32 speed)
+static void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 chranimflags, s32 merge, f32 speed)
 {
 	u32 stack;
 
@@ -2446,7 +2459,7 @@ void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe
 	}
 }
 
-void chrBeginDead(struct chrdata *chr)
+static void chrBeginDead(struct chrdata *chr)
 {
 	if (chr->actiontype != ACT_DEAD) {
 		chrStopFiring(chr);
@@ -2471,7 +2484,7 @@ void chrBeginDead(struct chrdata *chr)
 	}
 }
 
-void func0f031254(struct chrdata *chr)
+static void func0f031254(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	struct attackanimconfig *animcfg = chr->act_attack.animcfg;
@@ -2503,7 +2516,7 @@ void func0f031254(struct chrdata *chr)
  * This function implements attack behaviour common to all the attack types,
  * such as stand, kneel and lie.
  */
-void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool flip, bool *firing, u32 attackflags, s32 entityid, bool standing)
+static void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool flip, bool *firing, u32 attackflags, s32 entityid, bool standing)
 {
 	struct model *model = chr->model;
 	s32 i;
@@ -2657,7 +2670,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 	}
 }
 
-void chrAttackAmount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 maxshots)
+static void chrAttackAmount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 maxshots)
 {
 	u32 stack;
 	struct prop *prop = chrGetHeldProp(chr, 0);
@@ -3108,7 +3121,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 	}
 }
 
-void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
+static void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
 {
 	bool doneanim = false;
 	s32 instant;
@@ -3236,7 +3249,7 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
 	}
 }
 
-void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 hitpart, struct gset *gset, s32 aplayernum)
+static void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 hitpart, struct gset *gset, s32 aplayernum)
 {
 	s32 race = CHRRACE(chr);
 	bool knockedout = false;
@@ -3384,30 +3397,28 @@ void chrYeetFromPos(struct chrdata *chr, struct coord *exppos, f32 force)
 	}
 }
 
-s32 gsetGetBlurAmount(struct gset *gset)
+static s32 gsetGetBlurAmount(struct gset *gset)
 {
-	s32 amount = TICKS(1000);
-
-	if (g_Vars.normmplayerisrunning == false) {
-		amount = TICKS(250);
-	}
+	s32 amount;
 
 	if (gset->weaponnum == WEAPON_TRANQUILIZER) {
 		amount = TICKS(2000);
-	}
-
-	if (gset->weaponnum == WEAPON_BOLT) {
+	} else if (gset->weaponnum == WEAPON_BOLT) {
 		amount = TICKS(5000);
-	}
-
-	if (gset->weaponnum == WEAPON_NBOMB) {
+	} else if (gset->weaponnum == WEAPON_NBOMB) {
 		amount = TICKS(100);
+	} else {
+		if (g_Vars.normmplayerisrunning) {
+			amount = TICKS(1000);
+		} else {
+			amount = TICKS(250);
+		}
 	}
 
 	return amount;
 }
 
-void chrKnockOut(struct chrdata *chr, f32 angle, s32 hitpart, struct gset *gset)
+static void chrKnockOut(struct chrdata *chr, f32 angle, s32 hitpart, struct gset *gset)
 {
 	if (chr->actiontype != ACT_DRUGGEDCOMINGUP
 			&& chr->actiontype != ACT_DRUGGEDDROP
@@ -3431,7 +3442,7 @@ void chrKnockOut(struct chrdata *chr, f32 angle, s32 hitpart, struct gset *gset)
  *
  * The attack roll animation is the only one which is too awkward to transition.
  */
-bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *dst)
+static bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *dst)
 {
 	bool result = false;
 	s32 race = CHRRACE(chr);
@@ -3484,7 +3495,7 @@ bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *dst)
 	return result;
 }
 
-void chrChoke(struct chrdata *chr, s32 choketype)
+static void chrChoke(struct chrdata *chr, s32 choketype)
 {
 	bool male = false;
 	s16 soundnum = -1;
@@ -3858,7 +3869,7 @@ void chrDamageByExplosion(struct chrdata *chr, f32 damage, struct coord *vector,
 			explosionpos);
 }
 
-void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 damage)
+static void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 damage)
 {
 	s32 playernum;
 
@@ -3903,7 +3914,7 @@ void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 dam
  * explosion - true if damage is coming from an explosion
  * explosionpos - position of said explosion
  */
-void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset,
+static void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset,
 		struct prop *aprop, s32 hitpart, bool damageshield, struct prop *prop2,
 		struct modelnode *node, struct model *model, s32 side, s16 *arg11,
 		bool explosion, struct coord *explosionpos)
@@ -4734,7 +4745,7 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 	}
 }
 
-bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coord *arg3, struct coord *arg4, s32 arg5)
+static bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coord *arg3, struct coord *arg4, s32 arg5)
 {
 	bool result = false;
 	f32 ymax;
@@ -4757,7 +4768,7 @@ bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coo
 	return result;
 }
 
-bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 types)
+static bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 types)
 {
 	struct coord tmp;
 	f32 a;
@@ -4830,12 +4841,12 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coo
 	return result;
 }
 
-bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct coord *vector)
+static bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct coord *vector)
 {
 	return func0f03654c(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, vector, prop->chr->radius * 1.2f, CDTYPE_ALL);
 }
 
-bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mult)
+static bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mult)
 {
 	struct coord dstpos;
 
@@ -4846,7 +4857,7 @@ bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mu
 	return propchrHasClearLineToPos(prop, &dstpos, vector);
 }
 
-void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector)
+static void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector)
 {
 	struct prop *prop = chr->prop;
 	struct prop *target = chrGetTargetProp(chr);
@@ -4877,7 +4888,7 @@ void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vect
 	}
 }
 
-bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance)
+static bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance)
 {
 	struct prop *prop = chr->prop;
 	struct coord vector;
@@ -4892,7 +4903,7 @@ bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance)
 	return propchrHasClearLineToPos(prop, &dstpos, &vector);
 }
 
-void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector)
+static void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector)
 {
 	f32 angle = chrGetInverseTheta(chr);
 
@@ -4907,7 +4918,7 @@ void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector)
 	}
 }
 
-bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance)
+static bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance)
 {
 	struct prop *prop = chr->prop;
 	struct coord vector;
@@ -4922,7 +4933,7 @@ bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance)
 	return propchrHasClearLineToPos(prop, &dstpos, &vector);
 }
 
-bool chrIsRoomOffScreen(struct chrdata *chr, struct coord *waypos, s16 *wayrooms)
+static bool chrIsRoomOffScreen(struct chrdata *chr, struct coord *waypos, s16 *wayrooms)
 {
 	struct prop *prop = chr->prop;
 	s16 sp7c[20];
@@ -4966,7 +4977,7 @@ bool chrIsRoomOffScreen(struct chrdata *chr, struct coord *waypos, s16 *wayrooms
 	return offscreen;
 }
 
-void chrGoPosInitMagic(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
+static void chrGoPosInitMagic(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
 {
 	f32 xdiff1 = padpos->x - chr->prop->pos.x;
 	f32 zdiff1 = padpos->z - chr->prop->pos.z;
@@ -4984,7 +4995,7 @@ void chrGoPosInitMagic(struct chrdata *chr, struct waydata *waydata, struct coor
 	chrSetLookAngle(chr, angle);
 }
 
-void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
+static void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
 {
 	struct waypoint *waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 	struct pad *pad;
@@ -5012,12 +5023,12 @@ void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos,
 	}
 }
 
-void chrGoPosGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms)
+static void chrGoPosGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
 	chrGoPosGetCurWaypointInfoWithFlags(chr, pos, rooms, NULL);
 }
 
-f32 func0f0370a8(struct chrdata *chr)
+static f32 func0f0370a8(struct chrdata *chr)
 {
 	f32 result;
 
@@ -5031,7 +5042,7 @@ f32 func0f0370a8(struct chrdata *chr)
 	return result;
 }
 
-s32 chrGoPosCalculateBaseTtl(struct chrdata *chr)
+static s32 chrGoPosCalculateBaseTtl(struct chrdata *chr)
 {
 	f32 xdiff;
 	f32 zdiff;
@@ -5066,12 +5077,7 @@ s32 chrGoPosCalculateBaseTtl(struct chrdata *chr)
 	return (xdiff + zdiff) / speed;
 }
 
-void chrGoPosClearRestartTtl(struct chrdata *chr)
-{
-	chr->act_gopos.restartttl = 0;
-}
-
-void chrGoPosConsiderRestart(struct chrdata *chr)
+static void chrGoPosConsiderRestart(struct chrdata *chr)
 {
 	if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC
 			&& chr->liftaction != LIFTACTION_WAITINGONLIFT
@@ -5100,7 +5106,7 @@ void chrGoPosConsiderRestart(struct chrdata *chr)
 	}
 }
 
-void chrGoPosInitExpensive(struct chrdata *chr)
+static void chrGoPosInitExpensive(struct chrdata *chr)
 {
 	struct coord pos;
 	s16 rooms[8];
@@ -5112,7 +5118,7 @@ void chrGoPosInitExpensive(struct chrdata *chr)
 	chr->act_gopos.waydata.gotaimpos = false;
 	chr->act_gopos.waydata.aimpos = pos;
 
-	chrGoPosClearRestartTtl(chr);
+	chr->act_gopos.restartttl = 0;
 }
 
 /**
@@ -5123,7 +5129,7 @@ void chrGoPosInitExpensive(struct chrdata *chr)
  * far into the array, new pathfinding will be done and the array and index will
  * be reset.
  */
-void chrGoPosAdvanceWaypoint(struct chrdata *chr)
+static void chrGoPosAdvanceWaypoint(struct chrdata *chr)
 {
 	if (chr->act_gopos.curindex < 3) {
 		chr->act_gopos.curindex++;
@@ -5150,7 +5156,7 @@ void chrGoPosAdvanceWaypoint(struct chrdata *chr)
  * whether the chr will be traversing the path in the forward direction at that
  * point.
  */
-s32 chrPatrolCalculateStep(struct chrdata *chr, bool *forward, s32 numsteps)
+static s32 chrPatrolCalculateStep(struct chrdata *chr, bool *forward, s32 numsteps)
 {
 	s32 nextstep = chr->act_patrol.nextstep;
 	bool isforward = *forward;
@@ -5207,7 +5213,7 @@ s32 chrPatrolCalculateStep(struct chrdata *chr, bool *forward, s32 numsteps)
  * Determines which pad number the chr will be at given their current index and
  * the number of steps to take.
  */
-s16 chrPatrolCalculatePadNum(struct chrdata *chr, s32 numsteps)
+static s16 chrPatrolCalculatePadNum(struct chrdata *chr, s32 numsteps)
 {
 	s32 *padnumptr;
 	bool forward = chr->act_patrol.forward;
@@ -5217,7 +5223,7 @@ s16 chrPatrolCalculatePadNum(struct chrdata *chr, s32 numsteps)
 	return *padnumptr;
 }
 
-void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
+static void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
 {
 	s32 padnum = chrPatrolCalculatePadNum(chr, 0);
 	struct pad *pad;
@@ -5234,12 +5240,12 @@ void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos
 	}
 }
 
-void chrPatrolGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms)
+static void chrPatrolGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
 	chrPatrolGetCurWaypointInfoWithFlags(chr, pos, rooms, NULL);
 }
 
-void func0f037580(struct chrdata *chr)
+static void func0f037580(struct chrdata *chr)
 {
 	s16 rooms[8];
 
@@ -5250,7 +5256,7 @@ void func0f037580(struct chrdata *chr)
 	chrPatrolGetCurWaypointInfo(chr, &chr->act_patrol.waydata.aimpos, rooms);
 }
 
-void func0f0375b0(struct chrdata *chr)
+static void func0f0375b0(struct chrdata *chr)
 {
 	s32 nextstep = chrPatrolCalculateStep(chr, &chr->act_patrol.forward, 1);
 
@@ -5260,7 +5266,7 @@ void func0f0375b0(struct chrdata *chr)
 	func0f037580(chr);
 }
 
-void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, struct coord *arg3, s16 *rooms)
+static void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, struct coord *arg3, s16 *rooms)
 {
 	s16 sp118[8];
 	f32 ymax;
@@ -5412,7 +5418,7 @@ void chrCalculatePosition(struct chrdata *chr, struct coord *pos)
 	}
 }
 
-void chrGoPosChooseAnimation(struct chrdata *chr)
+static void chrGoPosChooseAnimation(struct chrdata *chr)
 {
 	s32 gospeed = chr->act_gopos.flags & GOPOSMASK_SPEED;
 	s32 male = g_HeadsAndBodies[chr->bodynum].ismale;
@@ -5796,7 +5802,7 @@ struct path *pathFindById(u32 path_id)
 	return NULL;
 }
 
-void chrPatrolChooseAnimation(struct chrdata *chr)
+static void chrPatrolChooseAnimation(struct chrdata *chr)
 {
 	struct prop *leftprop = chrGetHeldProp(chr, HAND_LEFT);
 	struct prop *rightprop = chrGetHeldProp(chr, HAND_RIGHT);
@@ -5845,7 +5851,7 @@ void chrPatrolChooseAnimation(struct chrdata *chr)
 	}
 }
 
-void chrStartPatrol(struct chrdata *chr, struct path *path)
+static void chrStartPatrol(struct chrdata *chr, struct path *path)
 {
 	s32 i;
 	f32 dist;
@@ -5961,12 +5967,12 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 	}
 }
 
-void chrRecordLastVisibleTargetTime(struct chrdata *chr)
+static void chrRecordLastVisibleTargetTime(struct chrdata *chr)
 {
 	chr->lastvisibletarget60 = g_Vars.lvframe60;
 }
 
-bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, bool allowextraheight, u32 attackflags, u32 entityid)
+static bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, bool allowextraheight, u32 attackflags, u32 entityid)
 {
 	bool result = false;
 	struct coord targetpos;
@@ -6146,7 +6152,7 @@ bool chrHasLineOfSightToPos(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	return result;
 }
 
-bool chrCanSeePos(struct chrdata *chr, struct coord *pos, s16 *rooms)
+static bool chrCanSeePos(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
 	f32 facingangle = chrGetInverseTheta(chr);
 	f32 posangle = atan2f(pos->x - chr->prop->pos.x, pos->z - chr->prop->pos.z);
@@ -6177,15 +6183,9 @@ bool chrCanSeeProp(struct chrdata *chr, struct prop *prop)
 	return result;
 }
 
-void chrRecordLastSeeTargetTime(struct chrdata *chr)
+static void chrRecordLastSeeTargetTime(struct chrdata *chr)
 {
 	chr->lastseetarget60 = g_Vars.lvframe60;
-}
-
-void chrRecordLastHearTargetTime(struct chrdata *chr)
-{
-	chr->hidden |= CHRHFLAG_IS_HEARING_TARGET;
-	chr->lastheartarget60 = g_Vars.lvframe60;
 }
 
 bool chrIsStopped(struct chrdata *chr)
@@ -6287,12 +6287,8 @@ bool chrCheckTargetInSight(struct chrdata *chr)
 	return result;
 }
 
-bool chrIsReadyForOrders(struct chrdata *chr)
+static bool chrIsReadyForOrders(struct chrdata *chr)
 {
-	if (chr->onladder) {
-		return false;
-	}
-
 	switch (chr->actiontype) {
 	case ACT_DIE:
 	case ACT_DEAD:
@@ -6311,6 +6307,10 @@ bool chrIsReadyForOrders(struct chrdata *chr)
 			return false;
 		}
 		break;
+	}
+
+	if (chr->onladder) {
+		return false;
 	}
 
 	return true;
@@ -6746,7 +6746,7 @@ bool chrGoToProp(struct chrdata *chr, struct prop *prop, u32 goposflags)
 	return false;
 }
 
-bool chrGoToPos(struct chrdata *chr, struct coord *pos, u32 goposflags)
+static bool chrGoToPos(struct chrdata *chr, struct coord *pos, u32 goposflags)
 {
 	s16 inrooms[21];
 	s16 aboverooms[21];
@@ -7106,7 +7106,7 @@ struct eyespy *chrToEyespy(struct chrdata *chr)
 	return NULL;
 }
 
-void chrTickStand(struct chrdata *chr)
+static void chrTickStand(struct chrdata *chr)
 {
 	s32 race;
 	s32 i;
@@ -7299,7 +7299,7 @@ void chrTickStand(struct chrdata *chr)
 	}
 }
 
-void chrTickKneel(struct chrdata *chr)
+static void chrTickKneel(struct chrdata *chr)
 {
 	chr->sleep = 0;
 
@@ -7309,7 +7309,7 @@ void chrTickKneel(struct chrdata *chr)
 	}
 }
 
-void chrTickAnim(struct chrdata *chr)
+static void chrTickAnim(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
 		if (modelIsAnimMerging(chr->model)) {
@@ -7355,7 +7355,7 @@ void chrTickAnim(struct chrdata *chr)
 	}
 }
 
-void chrTickSurrender(struct chrdata *chr)
+static void chrTickSurrender(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
 		if (modelIsAnimMerging(chr->model)) {
@@ -7386,7 +7386,7 @@ void chrTickSurrender(struct chrdata *chr)
 	}
 }
 
-void chrFadeCorpse(struct chrdata *chr)
+static void chrFadeCorpse(struct chrdata *chr)
 {
 	if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DRUGGEDKO) {
 		chr->act_dead.fadenow = true;
@@ -7400,7 +7400,7 @@ void chrFadeCorpseWhenOffScreen(struct chrdata *chr)
 	}
 }
 
-void chrTickDead(struct chrdata *chr)
+static void chrTickDead(struct chrdata *chr)
 {
 	struct aibot *aibot = chr->aibot;
 
@@ -7465,7 +7465,7 @@ void chrTickDead(struct chrdata *chr)
  * from there next time the function is called. The function is called on
  * subsequent ticks while the chr is still in their injured or dying action.
  */
-void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
+static void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 {
 	s32 index = 0;
 	s32 numinrange = 0;
@@ -7514,7 +7514,7 @@ void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 	}
 }
 
-void chrTickDie(struct chrdata *chr)
+static void chrTickDie(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	u32 race = CHRRACE(chr);
@@ -7659,7 +7659,7 @@ void chrTickDie(struct chrdata *chr)
 	chrAlertOthersOfInjury(chr, true);
 }
 
-void chrTickDruggedComingUp(struct chrdata *chr)
+static void chrTickDruggedComingUp(struct chrdata *chr)
 {
 	u16 thuds[] = {
 		SFX_THUD_808D,
@@ -7735,7 +7735,7 @@ void chrTickDruggedComingUp(struct chrdata *chr)
 	}
 }
 
-void chrTickDruggedDrop(struct chrdata *chr)
+static void chrTickDruggedDrop(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -7797,7 +7797,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 	chrAlertOthersOfInjury(chr, true);
 }
 
-void chrTickDruggedKo(struct chrdata *chr)
+static void chrTickDruggedKo(struct chrdata *chr)
 {
 	bool reap = false;
 
@@ -7833,7 +7833,7 @@ void chrTickDruggedKo(struct chrdata *chr)
 	}
 }
 
-void chrTickArgh(struct chrdata *chr)
+static void chrTickArgh(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -7855,7 +7855,7 @@ void chrTickArgh(struct chrdata *chr)
 	chrAlertOthersOfInjury(chr, false);
 }
 
-void chrTickPreArgh(struct chrdata *chr)
+static void chrTickPreArgh(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -7871,7 +7871,7 @@ void chrTickPreArgh(struct chrdata *chr)
 	}
 }
 
-void chrTickSidestep(struct chrdata *chr)
+static void chrTickSidestep(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -7890,7 +7890,7 @@ void chrTickSidestep(struct chrdata *chr)
 	}
 }
 
-void chrTickJumpOut(struct chrdata *chr)
+static void chrTickJumpOut(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -7909,16 +7909,7 @@ void chrTickJumpOut(struct chrdata *chr)
 	}
 }
 
-void chrTickTest(struct chrdata *chr)
-{
-	struct model *model = chr->model;
-
-	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
-		chrStand(chr);
-	}
-}
-
-void chrTickStartAlarm(struct chrdata *chr)
+static void chrTickStartAlarm(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -7940,7 +7931,7 @@ void chrTickStartAlarm(struct chrdata *chr)
 	}
 }
 
-void chrTickSurprised(struct chrdata *chr)
+static void chrTickSurprised(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
 		if (modelIsAnimMerging(chr->model)) {
@@ -8062,7 +8053,7 @@ f32 func0f03e578(struct chrdata *chr)
 	return model0001ae44(chr->model);
 }
 
-void func0f03e5b0(struct chrdata *chr, f32 arg1)
+static void func0f03e5b0(struct chrdata *chr, f32 arg1)
 {
 	if (chr->aibot) {
 		chr->aibot->unk0a4 = arg1;
@@ -8127,7 +8118,7 @@ f32 chrGetPitchAngle(struct chrdata *chr)
 /**
  * Turn the chr slightly towards their target.
  */
-s32 chrTurn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 toleranceangle)
+static s32 chrTurn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 toleranceangle)
 {
 	if (turning != TURNSTATE_OFF) {
 		struct model *model = chr->model;
@@ -8594,7 +8585,7 @@ f32 chrGetAimLimitAngle(f32 sqdist)
  * is within range, and writes to the hit argument to indicate if the target is
  * being hit or not.
  */
-void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gset *gset)
+static void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gset *gset)
 {
 	struct prop *prop;
 	struct prop *target;
@@ -9021,7 +9012,7 @@ void chrCalculateTrajectory(struct coord *frompos, f32 arg1, struct coord *aimpo
  * This should be called on every frame while the chr is shooting.
  * The function takes care of the gun's fire rate.
  */
-void chrTickShoot(struct chrdata *chr, s32 handnum)
+static void chrTickShoot(struct chrdata *chr, s32 handnum)
 {
 	struct prop *chrprop = chr->prop;
 	struct prop *gunprop;
@@ -9674,7 +9665,7 @@ void func0f041a74(struct chrdata *chr)
 	}
 }
 
-bool func0f041c44(struct chrdata *chr)
+static bool func0f041c44(struct chrdata *chr)
 {
 	if (CHRRACE(chr) == RACE_HUMAN) {
 		if (chr->act_attack.animcfg == &g_RollAttackAnims[2] || chr->act_attack.animcfg == &g_RollAttackAnims[3]) {
@@ -9699,7 +9690,7 @@ bool func0f041c44(struct chrdata *chr)
 	return false;
 }
 
-void chrAttackAmountUpdateAnimation(struct chrdata *chr)
+static void chrAttackAmountUpdateAnimation(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -9724,7 +9715,7 @@ void chrAttackAmountUpdateAnimation(struct chrdata *chr)
 	}
 }
 
-void chrTickFire(struct chrdata *chr)
+static void chrTickFire(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	f32 curframe = modelGetCurAnimFrame(model);
@@ -9895,7 +9886,7 @@ void chrTickFire(struct chrdata *chr)
 	}
 }
 
-void chrTickAttackAmount(struct chrdata *chr)
+static void chrTickAttackAmount(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	f32 frame = modelGetCurAnimFrame(model);
@@ -9933,7 +9924,7 @@ void chrTickAttackAmount(struct chrdata *chr)
  * There are two muzzles, left and right, which is specified using the `right`
  * argument.
  */
-void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool visible)
+static void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool visible)
 {
 	struct modelnode *node;
 	union modelrwdata *rwdata;
@@ -9956,7 +9947,7 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool visible)
 	}
 }
 
-void robotAttack(struct chrdata *chr)
+static void robotAttack(struct chrdata *chr)
 {
 	u32 numshots = random() % 20;
 
@@ -10010,7 +10001,7 @@ void robotAttack(struct chrdata *chr)
 	}
 }
 
-void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
+static void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 {
 	struct prop *prop = chrGetTargetProp(chr);
 	f32 distance = atan2f(prop->pos.x - chr->prop->pos.x, prop->pos.z - chr->prop->pos.z);
@@ -10018,7 +10009,7 @@ void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 	chrSetLookAngle(chr, value);
 }
 
-void chrTickRobotAttack(struct chrdata *chr)
+static void chrTickRobotAttack(struct chrdata *chr)
 {
 	s32 i;
 	f32 roty = 0.0f;
@@ -10159,7 +10150,7 @@ void chrTickRobotAttack(struct chrdata *chr)
 	}
 }
 
-void chrTickAttack(struct chrdata *chr)
+static void chrTickAttack(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	f32 curframe = modelGetCurAnimFrame(model);
@@ -10254,7 +10245,7 @@ void chrTickAttack(struct chrdata *chr)
 	chrTickFire(chr);
 }
 
-void chrTickAttackRoll(struct chrdata *chr)
+static void chrTickAttackRoll(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
 		if (modelIsAnimMerging(chr->model)) {
@@ -10403,7 +10394,7 @@ void propSetDangerous(struct prop *prop)
 	}
 }
 
-void chrTickThrowGrenade(struct chrdata *chr)
+static void chrTickThrowGrenade(struct chrdata *chr)
 {
 	struct model *model;
 	f32 frame;
@@ -10476,7 +10467,7 @@ bool chrDetectDangerousObject(struct chrdata *chr)
 	return false;
 }
 
-bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turnspeed)
+static bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turnspeed)
 {
 	struct prop *prop = chr->prop;
 	struct model *model = chr->model;
@@ -10561,7 +10552,7 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 	return result;
 }
 
-void chrTickAttackWalk(struct chrdata *chr)
+static void chrTickAttackWalk(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	struct prop *prop = chr->prop;
@@ -10734,7 +10725,7 @@ bool posIsArrivingLaterallyAtPos(struct coord *prevpos, struct coord *curpos, st
  *   the range, and
  * - either prevpos or curpos is within 150cm vertically of targetpos.
  */
-bool posIsArrivingAtPos(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 range)
+static bool posIsArrivingAtPos(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 range)
 {
 	if (prevpos->y <= targetpos->y - 150 && curpos->y <= targetpos->y - 150) {
 		return false;
@@ -10747,7 +10738,7 @@ bool posIsArrivingAtPos(struct coord *prevpos, struct coord *curpos, struct coor
 	return posIsArrivingLaterallyAtPos(prevpos, curpos, targetpos, range);
 }
 
-void chrTickRunPos(struct chrdata *chr)
+static void chrTickRunPos(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop;
 	struct model *model = chr->model;
@@ -10822,7 +10813,7 @@ void chrTickRunPos(struct chrdata *chr)
 	}
 }
 
-void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+static void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	struct coord sp0c;
 	struct coord sp00;
@@ -10858,7 +10849,7 @@ void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2)
  * This is similar to chrNavCheckForObstacle. The difference between the two are
  * not yet understood.
  */
-bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, s32 arg9)
+static bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, s32 arg9)
 {
 	struct coord spd4;
 	f32 spd0;
@@ -10973,7 +10964,7 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
  * This is similar to chrNavCanSeeNextPos. The only difference is this one uses
  * the value1 and value2 variables.
  */
-bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, bool hasobstacle)
+static bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, bool hasobstacle)
 {
 	struct coord spd4;
 	f32 spd0;
@@ -11082,7 +11073,7 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 	return result;
 }
 
-bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 radius, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10)
+static bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 radius, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10)
 {
 	struct prop *prop = chr->prop;
 	struct coord sp68;
@@ -11168,7 +11159,7 @@ bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struc
  *
  * The chr must be within 200cm of the door unless it's a laser.
  */
-struct prop *chrOpenDoor(struct chrdata *chr, struct coord *rangepos)
+static struct prop *chrOpenDoor(struct chrdata *chr, struct coord *rangepos)
 {
 	struct prop *doorprop = NULL;
 
@@ -11186,7 +11177,8 @@ struct prop *chrOpenDoor(struct chrdata *chr, struct coord *rangepos)
 			f32 zdiff = doorprop->pos.z - chr->prop->pos.z;
 
 			if (xdiff * xdiff + zdiff * zdiff < 200 * 200 || (door->doorflags & DOORFLAG_DAMAGEONCONTACT)) {
-				chrGoPosClearRestartTtl(chr);
+				chr->act_gopos.restartttl = 0;
+
 				doorsChooseSwingDirection(chr->prop, doorprop->door);
 
 				if (!doorCallLift(doorprop, false)) {
@@ -11217,7 +11209,7 @@ struct prop *chrOpenDoor(struct chrdata *chr, struct coord *rangepos)
  * opened into their path. If one is found, the chr routes around the obstacle
  * and then to the next pos again.
  */
-void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *waydata, bool arg3)
+static void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *waydata, bool arg3)
 {
 	struct prop *prop = chr->prop;
 	struct coord sp100;
@@ -11544,7 +11536,7 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 	}
 }
 
-bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum)
+static bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum)
 {
 	bool advance = false;
 	struct pad *nextpad = NULL;
@@ -11678,7 +11670,7 @@ bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, b
 	return advance;
 }
 
-s16 chrGoPosGetNextPadNum(struct chrdata *chr)
+static s16 chrGoPosGetNextPadNum(struct chrdata *chr)
 {
 	if (chr->act_gopos.waypoints[chr->act_gopos.curindex + 1]) {
 		return chr->act_gopos.waypoints[chr->act_gopos.curindex + 1]->padnum;
@@ -11687,7 +11679,7 @@ s16 chrGoPosGetNextPadNum(struct chrdata *chr)
 	return -1;
 }
 
-void chrTickGoPos(struct chrdata *chr)
+static void chrTickGoPos(struct chrdata *chr)
 {
 	struct waypoint *waypoint;
 	struct coord nextpos;
@@ -11953,7 +11945,7 @@ void chrTickGoPos(struct chrdata *chr)
 	}
 }
 
-void chrTickPatrol(struct chrdata *chr)
+static void chrTickPatrol(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop;
 	bool enteringmagic;
@@ -12037,7 +12029,7 @@ bool chrTrySkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 	return false;
 }
 
-bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
+static bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 {
 	f32 radius;
 	f32 ymax;
@@ -12091,7 +12083,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 	return true;
 }
 
-void chrTickSkJump(struct chrdata *chr)
+static void chrTickSkJump(struct chrdata *chr)
 {
 	if (g_Vars.lvupdate60 == 0) {
 		return;
@@ -12257,7 +12249,6 @@ void chraTick(struct chrdata *chr)
 			case ACT_PATROL:          chrTickPatrol(chr);          pass = false; break;
 			case ACT_GOPOS:           chrTickGoPos(chr);           break;
 			case ACT_SURRENDER:       chrTickSurrender(chr);       break;
-			case ACT_TEST:            chrTickTest(chr);            break;
 			case ACT_SURPRISED:       chrTickSurprised(chr);       break;
 			case ACT_STARTALARM:      chrTickStartAlarm(chr);      break;
 			case ACT_THROWGRENADE:    chrTickThrowGrenade(chr);    break;
@@ -12280,7 +12271,7 @@ void chraTick(struct chrdata *chr)
 	}
 }
 
-void cutsceneStart(u32 ailistid)
+static void cutsceneStart(u32 ailistid)
 {
 	struct prop *prop;
 
@@ -12531,7 +12522,7 @@ f32 chrGetAngleToTarget(struct chrdata *chr)
 	return chrGetAngleToPos(chr, &prop->pos);
 }
 
-void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, s16 *rooms)
+static void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, s16 *rooms)
 {
 	struct prop *targetprop;
 	struct chrdata *targetchr;
@@ -12581,7 +12572,7 @@ void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, s
 	}
 }
 
-f32 chrGetAngleFromTargetsFov(struct chrdata *chr)
+static f32 chrGetAngleFromTargetsFov(struct chrdata *chr)
 {
 	f32 targetfacingangle = 0;
 	struct prop *prop = chr->prop;
@@ -12613,7 +12604,7 @@ f32 chrGetAngleFromTargetsFov(struct chrdata *chr)
 	return result;
 }
 
-f32 chrGetVerticalAngleToTarget(struct chrdata *chr)
+static f32 chrGetVerticalAngleToTarget(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop;
 	struct prop *target = chrGetTargetProp(chr);
@@ -12662,7 +12653,7 @@ bool chrIsVerticalAngleToTargetWithin(struct chrdata *chr, u8 fov360)
 	return false;
 }
 
-f32 func0f048fcc(struct chrdata *chr, u8 reverse)
+static f32 func0f048fcc(struct chrdata *chr, u8 reverse)
 {
 	f32 result;
 
@@ -12719,7 +12710,7 @@ f32 chrGetDistanceToCurrentPlayer(struct chrdata *chr)
 	return propGetDistanceToProp(chr->prop, g_Vars.currentplayer->prop);
 }
 
-f32 propGetDistanceToProp(struct prop *a, struct prop *b)
+static f32 propGetDistanceToProp(struct prop *a, struct prop *b)
 {
 	f32 xdiff = a->pos.x - b->pos.x;
 	f32 ydiff = a->pos.y - b->pos.y;
@@ -12728,7 +12719,7 @@ f32 propGetDistanceToProp(struct prop *a, struct prop *b)
 	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 }
 
-f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
+static f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct prop *prop = chr->prop;
 	f32 xdiff, ydiff, zdiff;
@@ -12894,7 +12885,7 @@ void chrsClearRefsToPlayer(s32 playernum)
 	}
 }
 
-s32 chrResolveId(struct chrdata *ref, s32 id)
+static s32 chrResolveId(struct chrdata *ref, s32 id)
 {
 	if (ref) {
 		switch (id) {
@@ -13278,12 +13269,7 @@ void incrementByte(u8 *dst, u8 amount)
 	*dst += amount;
 }
 
-bool chrCanHearAlarm(struct chrdata *chr)
-{
-	return alarmIsActive();
-}
-
-bool waypointIsWithin90DegreesOfPosAngle(struct waypoint *waypoint, struct coord *pos, f32 angle)
+static bool waypointIsWithin90DegreesOfPosAngle(struct waypoint *waypoint, struct coord *pos, f32 angle)
 {
 	u32 stack[3];
 	f32 diffangle;
@@ -13317,7 +13303,7 @@ bool waypointIsWithin90DegreesOfPosAngle(struct waypoint *waypoint, struct coord
  * those are in the quadrant then no further checks are made and the function
  * returns -1.
  */
-s32 chrFindWaypointWithinPosQuadrant(struct coord *pos, s16 *rooms, f32 angle, u8 quadrant)
+static s32 chrFindWaypointWithinPosQuadrant(struct coord *pos, s16 *rooms, f32 angle, u8 quadrant)
 {
 	struct waypoint *waypoint = waypointFindClosestToPos(pos, rooms);
 	s32 neighbournum;
@@ -13518,7 +13504,7 @@ void chrSetPadPreset(struct chrdata *chr, s32 pad_id)
 	chr->padpreset1 = chrResolvePadId(chr, pad_id);
 }
 
-bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
+static bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
 {
 	bool offscreen = true;
 	s32 i;
@@ -14182,7 +14168,7 @@ bool chrIsNearlyInTargetsSight(struct chrdata *chr, u32 distance)
 	return cdIsNearlyInSight(&target->pos, target->rooms, &chr->prop->pos, distance, CDTYPE_BG);
 }
 
-f32 func0f04c784(struct chrdata *chr)
+static f32 func0f04c784(struct chrdata *chr)
 {
 	f32 targetfacingangle = 0;
 	u32 stack;

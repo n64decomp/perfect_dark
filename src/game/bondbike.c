@@ -36,7 +36,9 @@ void bbikeInit(void)
 	g_Vars.currentplayer->gunextraaimx = 0;
 	g_Vars.currentplayer->gunextraaimy = 0;
 
-	bbikeUpdateVehicleOffset();
+	g_Vars.currentplayer->bondvehicleoffset.x = 0.0f / hoverbike->base.model->scale;
+	g_Vars.currentplayer->bondvehicleoffset.y = 80.0f / hoverbike->base.model->scale;
+	g_Vars.currentplayer->bondvehicleoffset.z = -50.0f / hoverbike->base.model->scale;
 
 	g_Vars.currentplayer->bondentert = 0;
 	g_Vars.currentplayer->bondentert2 = 1;
@@ -90,16 +92,7 @@ void bbikeExit(void)
 	obj->flags |= OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY;
 }
 
-void bbikeUpdateVehicleOffset(void)
-{
-	struct defaultobj *hoverbike = g_Vars.currentplayer->hoverbike->obj;
-
-	g_Vars.currentplayer->bondvehicleoffset.x = 0.0f / hoverbike->model->scale;
-	g_Vars.currentplayer->bondvehicleoffset.y = 80.0f / hoverbike->model->scale;
-	g_Vars.currentplayer->bondvehicleoffset.z = -50.0f / hoverbike->model->scale;
-}
-
-void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
+static void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 {
 	u32 stack;
 	struct hoverbikeobj *bike;
@@ -299,7 +292,7 @@ void bbikeApplyMoveData(struct movedata *data)
 	}
 }
 
-void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct defaultobj *obstacle)
+static void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct defaultobj *obstacle)
 {
 	struct coord sp9c;
 	struct coord sp90;
@@ -361,7 +354,7 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 	}
 }
 
-s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
+static s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 {
 	s32 result = CDRESULT_NOCOLLISION;
 	struct coord dstpos;
@@ -460,7 +453,7 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 	return result;
 }
 
-s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
+static s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 {
 	s32 result = bbikeCalculateNewPosition(arg0, arg1);
 
@@ -518,7 +511,7 @@ s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 	return result;
 }
 
-void bbikeUpdateVertical(struct coord *pos)
+static void bbikeUpdateVertical(struct coord *pos)
 {
 	struct defaultobj *bike = g_Vars.currentplayer->hoverbike->obj;
 	f32 angle;
@@ -581,14 +574,14 @@ void bbikeUpdateVertical(struct coord *pos)
 	bmoveUpdateVerta();
 }
 
-s32 bbike0f0d363c(f32 arg0)
+static s32 bbike0f0d363c(f32 arg0)
 {
 	struct coord coord = {0, 0, 0};
 
 	return bbikeCalculateNewPositionWithPush(&coord, arg0);
 }
 
-s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+static s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	s32 result = bbikeCalculateNewPositionWithPush(arg0, 0);
 
@@ -599,7 +592,7 @@ s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+static s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
 	if (cd00024ea4()) {
 		struct coord sp24;
@@ -633,7 +626,7 @@ s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, st
 	return -1;
 }
 
-s32 bbike0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+static s32 bbike0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	s32 result;
 
@@ -664,7 +657,7 @@ s32 bbike0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+static s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	struct coord sp34;
 	struct coord sp28;
@@ -736,7 +729,7 @@ s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return false;
 }
 
-void bbike0f0d3c60(struct coord *arg0)
+static void bbike0f0d3c60(struct coord *arg0)
 {
 	struct coord sp64;
 	struct coord sp58;

@@ -21,6 +21,9 @@
 
 #define ABSF(val) ((val) > 0.0f ? (val) : -(val))
 
+static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2);
+static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2);
+
 struct weatherdata *g_WeatherData = NULL;
 
 Gfx *weatherRender(Gfx *gdl)
@@ -70,13 +73,6 @@ Gfx *weatherRender(Gfx *gdl)
 	return gdl;
 }
 
-void weatherSetBoundaries(struct weatherparticledata *data, s32 index, f32 min, f32 max)
-{
-	((f32 *)(&data->boundarymin))[index] = min;
-	((f32 *)(&data->boundarymax))[index] = max;
-	((f32 *)(&data->boundaryrange))[index] = ABS(min) + ABS(max);
-}
-
 struct weatherparticledata *weatherAllocateParticles(void)
 {
 	struct weatherparticledata *data = mempAlloc(sizeof(struct weatherparticledata), MEMPOOL_STAGE);
@@ -86,15 +82,23 @@ struct weatherparticledata *weatherAllocateParticles(void)
 	data->unk3e80.y = 0;
 	data->unk3e80.z = 0;
 
-	weatherSetBoundaries(data, 0, -800, 800);
+	data->boundarymin.x = -800;
+	data->boundarymax.x = 800;
+	data->boundaryrange.x = 1600;
 
-	if ((u32)g_StageIndex == STAGEINDEX_CRASHSITE) {
-		weatherSetBoundaries(data, 1, -500, 500);
+	data->boundarymin.z = -800;
+	data->boundarymax.z = 800;
+	data->boundaryrange.z = 1600;
+
+	if (g_StageIndex == STAGEINDEX_CRASHSITE) {
+		data->boundarymin.y = -500;
+		data->boundarymax.y = 500;
+		data->boundaryrange.y = 1000;
 	} else {
-		weatherSetBoundaries(data, 1, -800, 800);
+		data->boundarymin.y = -800;
+		data->boundarymax.y = 800;
+		data->boundaryrange.y = 1600;
 	}
-
-	weatherSetBoundaries(data, 2, -800, 800);
 
 	i = 0;
 
@@ -120,7 +124,7 @@ struct weatherparticledata *weatherAllocateParticles(void)
 	return data;
 }
 
-void func0f131610(struct weatherdata *weather)
+static void func0f131610(struct weatherdata *weather)
 {
 	weather->unk94 = 0;
 	weather->unk98 = (random() & 7) + 1;
@@ -129,7 +133,7 @@ void func0f131610(struct weatherdata *weather)
 	weather->unka4 = (random() & 0xf) + 10;
 }
 
-void func0f131678(s32 arg0)
+static void func0f131678(s32 arg0)
 {
 	s32 i;
 
@@ -146,7 +150,7 @@ void func0f131678(s32 arg0)
 	}
 }
 
-void weatherSetIntensity(s32 intensity)
+static void weatherSetIntensity(s32 intensity)
 {
 	s32 dotheloop = -1;
 	s32 special = -1;
@@ -603,7 +607,7 @@ void weatherConfigureSnow(u32 intensity)
 	}
 }
 
-bool weatherIsRoomWeatherProof(s32 room)
+static bool weatherIsRoomWeatherProof(s32 room)
 {
 	if (g_StageIndex == STAGEINDEX_CHICAGO) {
 		// Rooms listed do not have weather
@@ -750,7 +754,7 @@ bool weatherIsRoomWeatherProof(s32 room)
 
 u32 var8007f0e0 = 0x00000001;
 
-Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
+static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 {
 	u8 stack[0x10];
 	s32 spdb0[10];
@@ -1348,7 +1352,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	return gdl;
 }
 
-Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
+static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 {
 	struct weatherparticledata *particledata;
 	struct weatherparticle *particle;

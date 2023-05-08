@@ -70,6 +70,16 @@
 #include "data.h"
 #include "types.h"
 
+static void playerSetCameraMode(s32 mode);
+static void playerSetCamProperties(struct coord *pos, struct coord *up, struct coord *look, s32 room);
+static void playerSetCamPropertiesWithoutRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room);
+static void player0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom);
+static void player0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look);
+static void playerStartChrFade(f32 duration60, f32 targetfrac);
+static void playersClearMemCamRoom(void);
+static void playerTickChrBody(void);
+static void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms2);
+
 s32 g_DefaultWeapons[2];
 f32 g_MpSwirlRotateSpeed;
 f32 g_MpSwirlAngleDegrees;
@@ -716,7 +726,7 @@ void playerLoadDefaults(void)
 	g_Vars.currentplayer->unk1c3c = 0;
 }
 
-bool playerSpawnAnti(struct chrdata *hostchr, bool force)
+static bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 {
 	struct prop *hostprop;
 	union modelrwdata *chrrootrwdata;
@@ -1022,7 +1032,7 @@ void playerResetBond(struct playerbond *pb, struct coord *pos)
 	pb->radius = 30;
 }
 
-void playersTickAllChrBodies(void)
+static void playersTickAllChrBodies(void)
 {
 	s32 prevplayernum = g_Vars.currentplayernum;
 	s32 i;
@@ -1164,7 +1174,7 @@ void playerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
  * these structures are already allocated elsewhere in memory due to the two
  * players being able to see each other at any time.
  */
-void playerTickChrBody(void)
+static void playerTickChrBody(void)
 {
 	f32 turnangle = (360.0f - g_Vars.currentplayer->vv_theta) * M_BADTAU / 360.0f;
 
@@ -1439,7 +1449,7 @@ void playersBeginMpSwirl(void)
 	envChooseAndApply(mainGetStageNum(), false);
 }
 
-void playerTickMpSwirl(void)
+static void playerTickMpSwirl(void)
 {
 	f32 angle;
 	struct coord pos = {0, 0, 0};
@@ -1536,7 +1546,7 @@ void playerPrepareWarpType1(s16 pad)
 	g_WarpType1Pad = pad;
 }
 
-void playerExecutePreparedWarp(void)
+static void playerExecutePreparedWarp(void)
 {
 	struct coord pos = {0, 0, 0};
 	struct coord look = {0, 0, 1};
@@ -1603,7 +1613,7 @@ void playerExecutePreparedWarp(void)
 	player0f0c1ba4(&pos, &up, &look, &memcampos, room);
 }
 
-void playerStartCutscene2(void)
+static void playerStartCutscene2(void)
 {
 	playerSetTickMode(TICKMODE_CUTSCENE);
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
@@ -1676,7 +1686,7 @@ void playerReorientForCutsceneStop(u32 arg0)
 	chrSetLookAngle(g_Vars.bond->prop->chr, (360 - theta) * 0.017450513318181f);
 }
 
-void playerTickCutscene(bool arg0)
+static void playerTickCutscene(bool arg0)
 {
 	struct coord pos;
 	struct coord up;
@@ -1836,7 +1846,7 @@ f32 playerGetCutsceneBlurFrac(void)
 	return g_CutsceneBlurFrac;
 }
 
-void playerSetZoomFovY(f32 fovy, f32 timemax)
+static void playerSetZoomFovY(f32 fovy, f32 timemax)
 {
 	g_Vars.currentplayer->zoomintime = 0;
 	g_Vars.currentplayer->zoomintimemax = timemax;
@@ -1844,7 +1854,7 @@ void playerSetZoomFovY(f32 fovy, f32 timemax)
 	g_Vars.currentplayer->zoominfovynew = fovy;
 }
 
-f32 playerGetZoomFovY(void)
+static f32 playerGetZoomFovY(void)
 {
 	if (g_Vars.currentplayer->zoomintimemax > g_Vars.currentplayer->zoomintime) {
 		return g_Vars.currentplayer->zoominfovynew;
@@ -1864,7 +1874,7 @@ void playerTweenFovY(f32 targetfovy)
 	}
 }
 
-f32 playerGetTeleportFovY(void)
+static f32 playerGetTeleportFovY(void)
 {
 	f32 time;
 	u32 fovyoffset;
@@ -1932,7 +1942,7 @@ void playerUpdateZoom(void)
 	currentPlayerSetScaleBg2Gfx((1 - (1 - g_CurrentStage->unk34) * (1 - scale) * (10.f / 9.0f)) * scale);
 }
 
-void playerStopAudioForPause(void)
+static void playerStopAudioForPause(void)
 {
 	struct hand *hand;
 	s32 i;
@@ -2027,7 +2037,7 @@ void playerUnpause(void)
 	}
 }
 
-Gfx *player0f0baf84(Gfx *gdl)
+static Gfx *player0f0baf84(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
 		Mtx *a = gfxAllocateMatrix();
@@ -2069,7 +2079,7 @@ Gfx *playerDrawFade(Gfx *gdl, u32 r, u32 g, u32 b, f32 frac)
 	return gdl;
 }
 
-Gfx *playerDrawStoredFade(Gfx *gdl)
+static Gfx *playerDrawStoredFade(Gfx *gdl)
 {
 	return playerDrawFade(gdl,
 			g_Vars.currentplayer->colourscreenred,
@@ -2078,7 +2088,7 @@ Gfx *playerDrawStoredFade(Gfx *gdl)
 			g_Vars.currentplayer->colourscreenfrac);
 }
 
-void playerSetFadeColour(s32 r, s32 g, s32 b, f32 frac)
+static void playerSetFadeColour(s32 r, s32 g, s32 b, f32 frac)
 {
 	g_Vars.currentplayer->colourscreenred = r;
 	g_Vars.currentplayer->colourscreengreen = g;
@@ -2086,7 +2096,7 @@ void playerSetFadeColour(s32 r, s32 g, s32 b, f32 frac)
 	g_Vars.currentplayer->colourscreenfrac = frac;
 }
 
-void playerAdjustFade(f32 maxfadetime, s32 r, s32 g, s32 b, f32 frac)
+static void playerAdjustFade(f32 maxfadetime, s32 r, s32 g, s32 b, f32 frac)
 {
 	g_Vars.currentplayer->colourfadetime60 = 0;
 	g_Vars.currentplayer->colourfadetimemax60 = maxfadetime;
@@ -2100,21 +2110,12 @@ void playerAdjustFade(f32 maxfadetime, s32 r, s32 g, s32 b, f32 frac)
 	g_Vars.currentplayer->colourfadefracnew = frac;
 }
 
-void playerSetFadeFrac(f32 maxfadetime, f32 frac)
-{
-	playerAdjustFade(maxfadetime,
-			g_Vars.currentplayer->colourscreenred,
-			g_Vars.currentplayer->colourscreengreen,
-			g_Vars.currentplayer->colourscreenblue,
-			frac);
-}
-
-bool playerIsFadeComplete(void)
+static bool playerIsFadeComplete(void)
 {
 	return g_Vars.currentplayer->colourfadetimemax60 < 0;
 }
 
-void playerUpdateColourScreenProperties(void)
+static void playerUpdateColourScreenProperties(void)
 {
 	if (g_Vars.currentplayer->colourfadetimemax60 >= 0) {
 		g_Vars.currentplayer->colourfadetime60 += g_Vars.lvupdate60freal;
@@ -2136,7 +2137,7 @@ void playerUpdateColourScreenProperties(void)
 	}
 }
 
-void playerStartChrFade(f32 duration60, f32 targetfrac)
+static void playerStartChrFade(f32 duration60, f32 targetfrac)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
@@ -2148,7 +2149,7 @@ void playerStartChrFade(f32 duration60, f32 targetfrac)
 	}
 }
 
-void playerTickChrFade(void)
+static void playerTickChrFade(void)
 {
 	if (g_Vars.currentplayer->bondfadetimemax60 >= 0) {
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
@@ -2256,7 +2257,7 @@ void playerDisplayHealth(void)
 /**
  * Update properties relating to the damage flash and health bar updating.
  */
-void playerTickDamageAndHealth(void)
+static void playerTickDamageAndHealth(void)
 {
 	/**
 	 * Handle flash of red when the player is damaged.
@@ -2491,7 +2492,7 @@ void playerSurroundWithExplosions(s32 arg0)
 	g_Vars.currentplayer->bondcurexplode = 0;
 }
 
-void playerTickExplode(void)
+static void playerTickExplode(void)
 {
 	g_Vars.currentplayer->bondcurexplode++;
 
@@ -2540,7 +2541,7 @@ bool playerHasSharedViewport(void)
 	return (g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE;
 }
 
-s16 playerGetViewportWidth(void)
+static s16 playerGetViewportWidth(void)
 {
 	s16 width;
 
@@ -2576,7 +2577,7 @@ s16 playerGetViewportWidth(void)
 	return width;
 }
 
-s16 playerGetViewportLeft(void)
+static s16 playerGetViewportLeft(void)
 {
 	s32 something = !playerHasSharedViewport();
 	s16 left;
@@ -2610,7 +2611,7 @@ s16 playerGetViewportLeft(void)
 	return left;
 }
 
-s16 playerGetViewportHeight(void)
+static s16 playerGetViewportHeight(void)
 {
 	s16 height;
 
@@ -2651,7 +2652,7 @@ s16 playerGetViewportHeight(void)
 	return height;
 }
 
-s16 playerGetViewportTop(void)
+static s16 playerGetViewportTop(void)
 {
 	s16 top;
 
@@ -2720,7 +2721,7 @@ f32 player0f0bd358(void)
 	return result;
 }
 
-void playerUpdateShake(void)
+static void playerUpdateShake(void)
 {
 	struct coord coord = {0, 0, 0};
 
@@ -2757,7 +2758,7 @@ void playerLaunchSlayerRocket(struct weaponobj *rocket)
 	g_Vars.currentplayer->badrockettime = 0;
 }
 
-void playerTickTeleport(f32 *aspectratio)
+static void playerTickTeleport(f32 *aspectratio)
 {
 	if (g_Vars.currentplayer->teleportstate) {
 		// empty
@@ -3783,21 +3784,21 @@ struct var80070ba4 var80070ba4[4][7] = { // [wieldmode][turnmode]
 	},
 };
 
-void playerSetGlobalDrawWorldOffset(s32 room)
+static void playerSetGlobalDrawWorldOffset(s32 room)
 {
 	g_Vars.currentplayer->globaldrawworldoffset = g_BgRooms[room].pos;
 	g_Vars.currentplayer->globaldrawworldbgoffset = g_Vars.currentplayer->globaldrawworldoffset;
 	g_Vars.currentplayer->lastroomforoffset = room;
 }
 
-void playerSetGlobalDrawCameraOffset(void)
+static void playerSetGlobalDrawCameraOffset(void)
 {
 	g_Vars.currentplayer->globaldrawcameraoffset = g_Vars.currentplayer->globaldrawworldoffset;
 
 	mtx4RotateVecInPlace(camGetWorldToScreenMtxf(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
 
-void playerAllocateMatrices(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up)
+static void playerAllocateMatrices(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up)
 {
 	Mtx spd0;
 	LookAt *lookat;
@@ -3935,7 +3936,7 @@ void playerDisplayShield(void)
 /**
  * Render the current player's shield from the first person perspective.
  */
-Gfx *playerRenderShield(Gfx *gdl)
+static Gfx *playerRenderShield(Gfx *gdl)
 {
 	f32 sp90[2];
 	f32 sp88[2];
@@ -4466,12 +4467,12 @@ bool playerIsHealthVisible(void)
 	return g_Vars.currentplayer->healthshowmode != HEALTHSHOWMODE_HIDDEN;
 }
 
-void playerSetCameraMode(s32 mode)
+static void playerSetCameraMode(s32 mode)
 {
 	g_Vars.currentplayer->cameramode = mode;
 }
 
-void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms2)
+static void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms2)
 {
 	bool done = false;
 	s16 inrooms[21];
@@ -4560,7 +4561,7 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 	}
 }
 
-void player0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom)
+static void player0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom)
 {
 	s16 rooms[2];
 	rooms[0] = memcamroom;
@@ -4569,7 +4570,7 @@ void player0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, str
 	player0f0c1840(pos, up, look, memcampos, rooms);
 }
 
-void player0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look)
+static void player0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look)
 {
 	if (g_Vars.currentplayer->memcamroom >= 0) {
 		player0f0c1ba4(pos, up, look, &g_Vars.currentplayer->memcampos, g_Vars.currentplayer->memcamroom);
@@ -4586,13 +4587,13 @@ void playerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, struct 
 	playerSetCamProperties(pos, up, look, room);
 }
 
-void playerSetCamPropertiesWithoutRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+static void playerSetCamPropertiesWithoutRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
-	playerClearMemCamRoom();
+	g_Vars.currentplayer->memcamroom = -1;
 	playerSetCamProperties(pos, up, look, room);
 }
 
-void playerSetCamProperties(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+static void playerSetCamProperties(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -4602,22 +4603,13 @@ void playerSetCamProperties(struct coord *pos, struct coord *up, struct coord *l
 	player->cam_room = room;
 }
 
-void playerClearMemCamRoom(void)
+static void playersClearMemCamRoom(void)
 {
-	g_Vars.currentplayer->memcamroom = -1;
-}
-
-void playersClearMemCamRoom(void)
-{
-	s32 prevplayernum = g_Vars.currentplayernum;
 	s32 i;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
-		setCurrentPlayerNum(i);
-		playerClearMemCamRoom();
+		g_Vars.players[i]->memcamroom = -1;
 	}
-
-	setCurrentPlayerNum(prevplayernum);
 }
 
 void playerSetPerimEnabled(struct prop *prop, bool enable)

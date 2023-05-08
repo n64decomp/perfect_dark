@@ -48,7 +48,7 @@ u32 var80061648 = 0;
 \
 	vertices[i].t += var8009cb00;
 
-Gfx *func0f006c80(Gfx *gdl, struct coord *arg1, struct coord *arg2, struct coord *arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, s8 depth)
+static Gfx *func0f006c80(Gfx *gdl, struct coord *arg1, struct coord *arg2, struct coord *arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, s8 depth)
 {
 	struct coord sp7c;
 	struct coord sp70;
@@ -110,7 +110,7 @@ Gfx *func0f006c80(Gfx *gdl, struct coord *arg1, struct coord *arg2, struct coord
 	return gdl;
 }
 
-Gfx *func0f008558(Gfx *gdl, s32 depth)
+static Gfx *func0f008558(Gfx *gdl, s32 depth)
 {
 	struct gfxvtx *vertices;
 	struct coord sp5c[] = {
@@ -163,17 +163,12 @@ Gfx *func0f008558(Gfx *gdl, s32 depth)
 	return gdl;
 }
 
-void nbombReset(struct nbomb *nbomb)
-{
-	nbomb->age240 = 0;
-}
-
 /**
  * If nbomb->age240 is 0 to 310, return 127
  * If nbomb->age240 is 311 to 349, return a scaled number between 127 and 0
  * If nbomb->age240 is 350+, return 0
  */
-s32 nbombCalculateAlpha(struct nbomb *nbomb)
+static s32 nbombCalculateAlpha(struct nbomb *nbomb)
 {
 	s32 alpha = 127;
 
@@ -193,7 +188,7 @@ s32 nbombCalculateAlpha(struct nbomb *nbomb)
  *
  * The gdl sets up a single vertex but has no colour or triangles.
  */
-Gfx *nbombCreateGdl(void)
+static Gfx *nbombCreateGdl(void)
 {
 	struct gfxvtx *vertices;
 	u32 gdlsizes[] = { 0x0a30, 0x0330 }; // 1 player, 2+ players
@@ -246,7 +241,7 @@ Gfx *nbombCreateGdl(void)
 
 struct sndstate *g_NbombAudioHandle = NULL;
 
-Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
+static Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 {
 	f32 divider = 2048;
 	Mtxf *mtx;
@@ -307,7 +302,7 @@ void func0f0099a4(void)
 	}
 }
 
-void nbombInflictDamage(struct nbomb *nbomb)
+static void nbombInflictDamage(struct nbomb *nbomb)
 {
 	s32 index = 0;
 	u32 stack;
@@ -395,7 +390,7 @@ void nbombInflictDamage(struct nbomb *nbomb)
 	}
 }
 
-void nbombTick(struct nbomb *nbomb)
+static void nbombTick(struct nbomb *nbomb)
 {
 	if (nbomb->age240 >= 0) {
 		s32 age60;
@@ -556,8 +551,7 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 		}
 	}
 
-	nbombReset(&g_Nbombs[index]);
-
+	g_Nbombs[index].age240 = 0;
 	g_Nbombs[index].pos = *pos;
 	g_Nbombs[index].age240 = 0;
 	g_Nbombs[index].ownerprop = ownerprop;
@@ -585,7 +579,7 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 	}
 }
 
-f32 gasGetDoorFrac(s32 tagnum)
+static f32 gasGetDoorFrac(s32 tagnum)
 {
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
 

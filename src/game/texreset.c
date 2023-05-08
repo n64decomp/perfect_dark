@@ -11,26 +11,6 @@
 #include "textureconfig.h"
 #include "types.h"
 
-void texSetBitstring(u8 *arg0)
-{
-	var800ab540 = arg0;
-	var800ab544 = 0;
-	var800ab548 = 0;
-}
-
-s32 texReadBits(s32 arg0)
-{
-	while (var800ab548 < arg0) {
-		var800ab544 = *var800ab540 | var800ab544 << 8;
-		var800ab540++;
-		var800ab548 += 8;
-	}
-
-	var800ab548 -= arg0;
-
-	return var800ab544 >> var800ab548 & ((1 << arg0) - 1);
-}
-
 extern u8 *g_TextureConfigSegment;
 extern u32 g_TexBase;
 extern Gfx *g_TexGdl3;

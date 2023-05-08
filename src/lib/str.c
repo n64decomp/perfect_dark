@@ -110,7 +110,7 @@ s32 strncmp(const char *s1, const char *s2, s32 len)
 	return strncmp(s1 + 1, s2 + 1, len);
 }
 
-char toupper(char c)
+static char toupper(char c)
 {
 	if (c >= 'a' && c <= 'z') {
 		return c - 0x20;
@@ -119,17 +119,17 @@ char toupper(char c)
 	return c;
 }
 
-s32 isdigit(char c)
+static s32 isdigit(char c)
 {
 	return c >= '0' && c <= '9';
 }
 
-s32 isalpha(char c)
+static s32 isalpha(char c)
 {
 	return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
 
-s32 isspace(char c)
+static s32 isspace(char c)
 {
 	return c == ' ' || c == '\t' || c == '\n' || c == '\f' || c == '\v';
 }

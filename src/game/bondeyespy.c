@@ -37,7 +37,7 @@ f32 g_EyespyMinHeight = 80;
  * position 50 units above the current position, or less if the eyespy is near
  * the top of its height range.
  */
-f32 eyespyFindGround(s16 *floorroom)
+static f32 eyespyFindGround(s16 *floorroom)
 {
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
 	s32 inlift;
@@ -67,7 +67,7 @@ f32 eyespyFindGround(s16 *floorroom)
 	return ground;
 }
 
-s32 eyespyTryMoveUpwards(f32 yvel)
+static s32 eyespyTryMoveUpwards(f32 yvel)
 {
 	s32 result;
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
@@ -110,7 +110,7 @@ s32 eyespyTryMoveUpwards(f32 yvel)
 	return result;
 }
 
-s32 eyespyCalculateNewPosition(struct coord *vel)
+static s32 eyespyCalculateNewPosition(struct coord *vel)
 {
 	bool result = true;
 	struct prop *eyespyprop = g_Vars.currentplayer->eyespy->prop;
@@ -210,7 +210,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 	return result;
 }
 
-bool eyespyCalculateNewPositionWithPush(struct coord *vel)
+static bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 {
 	s32 result = eyespyCalculateNewPosition(vel);
 	struct prop *prop;
@@ -265,7 +265,7 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 	return result;
 }
 
-s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+static s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
 	if (cd00024ea4()) {
 		struct coord sp24;
@@ -298,7 +298,7 @@ s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, s
 	return -1;
 }
 
-s32 eyespy0f0cf9f8(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+static s32 eyespy0f0cf9f8(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	f32 tmp;
 	struct coord sp30;
@@ -327,7 +327,7 @@ s32 eyespy0f0cf9f8(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return -1;
 }
 
-s32 eyespy0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+static s32 eyespy0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	struct coord sp34;
 	struct coord sp28;
@@ -396,7 +396,7 @@ s32 eyespy0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return false;
 }
 
-s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
+static s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
 {
 	bool result = eyespyCalculateNewPositionWithPush(vel);
 
@@ -407,7 +407,7 @@ s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-void eyespyUpdateVertical(void)
+static void eyespyUpdateVertical(void)
 {
 	struct coord spac;
 	struct coord spa0;

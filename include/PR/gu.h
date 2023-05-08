@@ -118,10 +118,6 @@ extern void guLookAtReflect(Mtx *m, LookAt *l,
 			float xEye, float yEye, float zEye,
 			float xAt,  float yAt,  float zAt,
 			float xUp,  float yUp,  float zUp);
-extern void guLookAtReflectF(float mf[4][4], LookAt *l,
-		      float xEye, float yEye, float zEye,
-		      float xAt,  float yAt,  float zAt,
-		      float xUp,  float yUp,  float zUp);
 extern void guLookAtHilite(Mtx *m, LookAt *l, Hilite *h,
                 float xEye, float yEye, float zEye,
                 float xAt,  float yAt,  float zAt,
@@ -191,7 +187,6 @@ extern float sinf(float angle);
 extern float cosf(float angle);
 extern signed short sins (unsigned short angle);
 extern signed short coss (unsigned short angle);
-extern float sqrtf(float value);
 
 /*
  *  Dump routines for low-level display lists

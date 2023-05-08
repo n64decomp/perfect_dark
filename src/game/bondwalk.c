@@ -26,6 +26,9 @@
 #include "data.h"
 #include "types.h"
 
+static void bwalkUpdateCrouchOffsetReal(void);
+static bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types);
+
 void bwalkInit(void)
 {
 	u32 prevmode = g_Vars.currentplayer->bondmovemode;
@@ -111,7 +114,7 @@ void bwalkInit(void)
 	}
 }
 
-void bwalkSetSwayTarget(s32 value)
+static void bwalkSetSwayTarget(s32 value)
 {
 	g_Vars.currentplayer->swaytarget = value * 75.0f;
 }
@@ -127,7 +130,7 @@ void bwalkAdjustCrouchPos(s32 value)
 	}
 }
 
-void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
+static void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 {
 	struct coord posunk;
 	struct coord vector;
@@ -217,7 +220,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 	return result;
 }
 
-bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 checktypes)
+static bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 checktypes)
 {
 	s32 result = CDRESULT_NOCOLLISION;
 	f32 halfradius;
@@ -324,7 +327,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 	return result;
 }
 
-bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types)
+static bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types)
 {
 	s32 result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
 
@@ -465,7 +468,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 	return result;
 }
 
-s32 bwalk0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 types)
+static s32 bwalk0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 types)
 {
 	s32 result = bwalkCalculateNewPositionWithPush(delta, 0, true, 0, types);
 
@@ -476,7 +479,7 @@ s32 bwalk0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s
 	return result;
 }
 
-s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
+static s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 		struct coord *d, struct coord *e, s32 types)
 {
 	struct coord quarter;
@@ -510,7 +513,7 @@ s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 	return CDRESULT_ERROR;
 }
 
-s32 bwalk0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 types)
+static s32 bwalk0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 types)
 {
 	if (b->f[0] != c->f[0] || b->f[2] != c->f[2]) {
 		f32 tmp;
@@ -538,7 +541,7 @@ s32 bwalk0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 types)
 	return -1;
 }
 
-s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32 types)
+static s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32 types)
 {
 	struct coord sp34;
 	struct coord sp28;
@@ -610,7 +613,7 @@ s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s3
 	return false;
 }
 
-void bwalkUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
+static void bwalkUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 {
 	if (g_Vars.normmplayerisrunning) {
 		targetspeed = (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
@@ -633,7 +636,7 @@ void bwalkUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 	g_Vars.currentplayer->speedsideways = g_Vars.currentplayer->speedstrafe;
 }
 
-void bwalkUpdateSpeedForwards(f32 targetspeed, f32 accelspeed)
+static void bwalkUpdateSpeedForwards(f32 targetspeed, f32 accelspeed)
 {
 	if (g_Vars.normmplayerisrunning) {
 		targetspeed = (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
@@ -656,7 +659,7 @@ void bwalkUpdateSpeedForwards(f32 targetspeed, f32 accelspeed)
 	g_Vars.currentplayer->speedforwards = g_Vars.currentplayer->speedgo;
 }
 
-void bwalkUpdateVertical(void)
+static void bwalkUpdateVertical(void)
 {
 	s32 i;
 	f32 newfallspeed;
@@ -1053,7 +1056,7 @@ void bwalkUpdateVertical(void)
 	}
 }
 
-void bwalkApplyCrouchSpeed(void)
+static void bwalkApplyCrouchSpeed(void)
 {
 	if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
 		g_Vars.currentplayer->speedforwards *= 0.5f;
@@ -1064,7 +1067,7 @@ void bwalkApplyCrouchSpeed(void)
 	}
 }
 
-void bwalkUpdateCrouchOffsetReal(void)
+static void bwalkUpdateCrouchOffsetReal(void)
 {
 	if (g_Vars.currentplayer->vv_eyeheight + -90.0f * g_Vars.currentplayer->vv_eyeheight * (1.0f / 159.0f) < 69.0f) {
 		g_Vars.currentplayer->crouchoffsetreal = g_Vars.currentplayer->crouchoffset * ((69.0f - g_Vars.currentplayer->vv_eyeheight) / -90.0f);
@@ -1081,7 +1084,7 @@ void bwalkUpdateCrouchOffsetReal(void)
 	}
 }
 
-void bwalkUpdateCrouchOffset(void)
+static void bwalkUpdateCrouchOffset(void)
 {
 	f32 targetoffset = 0;
 
@@ -1123,7 +1126,7 @@ void bwalkUpdateCrouchOffset(void)
 	g_Vars.currentplayer->guncloseroffset = g_Vars.currentplayer->crouchoffset / -90;
 }
 
-void bwalkUpdateTheta(void)
+static void bwalkUpdateTheta(void)
 {
 	f32 mult;
 	f32 rotateamount;
@@ -1173,7 +1176,7 @@ void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 	}
 }
 
-void bwalkUpdatePrevPos(void)
+static void bwalkUpdatePrevPos(void)
 {
 	g_Vars.currentplayer->bondprevpos = g_Vars.currentplayer->prop->pos;
 
@@ -1277,7 +1280,7 @@ void bwalkUpdateSpeedTheta(void)
 	}
 }
 
-void bwalk0f0c69b8(void)
+static void bwalk0f0c69b8(void)
 {
 	s32 i;
 	f32 spe0;

@@ -29,6 +29,10 @@
 #include "data.h"
 #include "types.h"
 
+static void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer);
+static s32 mpChooseRandomLockPlayer(void);
+static s32 mpGetChrIndexBySlotNum(s32 slot);
+
 // bss
 struct chrdata *g_MpAllChrPtrs[MAX_MPCHRS];
 struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
@@ -116,19 +120,6 @@ f32 mpHandicapToDamageScale(u8 value)
 	return tmp * tmp * 3 - 2;
 }
 
-void func0f187838(struct mpchrconfig *mpchr)
-{
-	s32 i = 0;
-
-	while (i < ARRAYCOUNT(mpchr->killcounts)) {
-		mpchr->killcounts[i++] = 0;
-	}
-
-	mpchr->numdeaths = 0;
-	mpchr->numpoints = 0;
-	mpchr->unk40 = 0;
-}
-
 void mpStartMatch(void)
 {
 	s32 i;
@@ -159,7 +150,7 @@ void mpStartMatch(void)
 
 	titleSetNextStage(stagenum);
 	mainChangeToStage(stagenum);
-	setNumPlayers(numplayers);
+	g_NumPlayers = numplayers;
 	titleSetNextMode(TITLEMODE_SKIP);
 
 	g_Vars.perfectbuddynum = 1;
@@ -243,8 +234,15 @@ void mpReset(void)
 
 	for (i = 0; i != MAX_MPCHRS; i++) {
 		struct mpchrconfig *mpchr = MPCHR(i);
+		s32 j = 0;
 
-		func0f187838(mpchr);
+		while (j < ARRAYCOUNT(mpchr->killcounts)) {
+			mpchr->killcounts[j++] = 0;
+		}
+
+		mpchr->numdeaths = 0;
+		mpchr->numpoints = 0;
+		mpchr->unk40 = 0;
 
 		g_MpAllChrPtrs[i] = NULL;
 	}
@@ -343,13 +341,6 @@ void mpCalculateTeamIsOnlyAi(void)
 	}
 }
 
-void func0f187fbc(s32 playernum)
-{
-	g_PlayerConfigsArray[playernum].base.unk18 = 80;
-	g_PlayerConfigsArray[playernum].base.unk1a = 80;
-	g_PlayerConfigsArray[playernum].base.unk1c = 75;
-}
-
 void func0f187fec(void)
 {
 	g_MpSetup.timelimit = 9;
@@ -362,7 +353,9 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 	s32 i;
 	s32 j;
 
-	func0f187fbc(playernum);
+	g_PlayerConfigsArray[playernum].base.unk18 = 80;
+	g_PlayerConfigsArray[playernum].base.unk1a = 80;
+	g_PlayerConfigsArray[playernum].base.unk1c = 75;
 
 	g_PlayerConfigsArray[playernum].controlmode = CONTROLMODE_11;
 
@@ -439,7 +432,7 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 	}
 }
 
-void func0f1881d4(s32 index)
+static void func0f1881d4(s32 index)
 {
 	g_BotConfigsArray[index].base.name[0] = '\0';
 	g_BotConfigsArray[index].base.mpheadnum = MPHEAD_DARK_COMBAT;
@@ -724,7 +717,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
  * - The rankable score, which is the returned value. The rankable score is
  *   similar to the team score but uses the number of deaths as a tie breaker.
  */
-s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
+static s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
 {
 	struct mpchrconfig *mpchr;
 	s32 teamscore = 0;
@@ -922,7 +915,7 @@ struct mpweapon *func0f188e24(s32 arg0)
 	return &g_MpWeapons[mpweaponnum];
 }
 
-s32 mpCountWeaponSetThing(s32 weaponsetindex)
+static s32 mpCountWeaponSetThing(s32 weaponsetindex)
 {
 	s32 i;
 	s32 count = 0;
@@ -944,7 +937,7 @@ s32 mpCountWeaponSetThing(s32 weaponsetindex)
 	return count;
 }
 
-s32 func0f188f9c(s32 arg0)
+static s32 func0f188f9c(s32 arg0)
 {
 	s32 i;
 
@@ -995,7 +988,7 @@ char *mpGetWeaponSetName(s32 index)
 	return langGet(g_MpWeaponSets[index].name);
 }
 
-void func0f18913c(void)
+static void func0f18913c(void)
 {
 	s32 i;
 	bool done = false;
@@ -1043,7 +1036,7 @@ void func0f18913c(void)
 	}
 }
 
-void mpApplyWeaponSet(void)
+static void mpApplyWeaponSet(void)
 {
 	s32 i;
 	u8 *ptr;
@@ -1222,7 +1215,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 	return gdl;
 }
 
-s32 mpFindMaxInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
+static s32 mpFindMaxInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
 {
 	s32 bestvalue = val0;
 	s32 bestplayer = 0;
@@ -1253,7 +1246,7 @@ s32 mpFindMaxInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
 	return bestplayer;
 }
 
-s32 mpFindMinInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
+static s32 mpFindMinInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
 {
 	s32 bestvalue = val0;
 	s32 bestplayer = 0;
@@ -1284,7 +1277,7 @@ s32 mpFindMinInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
 	return bestplayer;
 }
 
-s32 mpFindMaxFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
+static s32 mpFindMaxFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
 {
 	// @bug: bestvalue should be an f32. Any value saved into here will be
 	// rounded down which may cause the function to return an incorrect result.
@@ -1317,7 +1310,7 @@ s32 mpFindMaxFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
 	return bestplayer;
 }
 
-s32 mpFindMinFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
+static s32 mpFindMinFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
 {
 	// @bug: bestvalue should be an f32. Any value saved into here will be
 	// rounded down which may cause the function to return an incorrect result.
@@ -1389,7 +1382,7 @@ u16 g_AwardNames[] = {
 	L_MPMENU_016, // "Quad Kill"
 };
 
-void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
+static void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 {
 	const u32 tiers[] = { 2, 4, 8, 16, 28, 60, 100, 150, 210, 300 };
 	s32 tallies[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -1778,7 +1771,7 @@ u32 g_MpFemaleHeads[] = {
 /**
  * Calculate player awards, medals, and update character statistics.
  */
-void mpCalculateAwards(void)
+static void mpCalculateAwards(void)
 {
 	s32 playercount;
 	s32 i;
@@ -1786,17 +1779,7 @@ void mpCalculateAwards(void)
 	s32 prevplayernum;
 	s32 duration60;
 	struct awardmetrics metrics[4];
-
-	// @bug: playerrankings should have 12 elements. Because it's too small,
-	// overflow occurs in mpGetPlayerRankings. The overflow writes into the
-	// metrics array (above) which is yet to be initialised, so this bug has
-	// no effect on IDO.
-#ifdef AVOID_UB
 	struct ranking playerrankings[MAX_MPCHRS];
-#else
-	struct ranking playerrankings[1];
-#endif
-
 	s32 numchrs;
 	s32 numteams;
 	struct ranking teamrankings[MAX_MPCHRS];
@@ -2338,7 +2321,7 @@ s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
 	return index;
 }
 
-s32 mpChooseRandomLockPlayer(void)
+static s32 mpChooseRandomLockPlayer(void)
 {
 	s32 start = random() % 4;
 	s32 i;
@@ -2452,7 +2435,7 @@ struct mptrack g_MpTracks[NUM_MPTRACKS] = {
 	/*0x29*/ { MUSIC_CREDITS,         120, L_MISC_165, SOLOSTAGEINDEX_SKEDARRUINS }, // "End Credits"
 };
 
-bool mpIsTrackUnlocked(s32 tracknum)
+static bool mpIsTrackUnlocked(s32 tracknum)
 {
 	s16 stageindex = g_MpTracks[tracknum].unlockstage;
 	bool unlocked = false;
@@ -2472,7 +2455,7 @@ bool mpIsTrackUnlocked(s32 tracknum)
 	return unlocked;
 }
 
-s32 mpGetTrackSlotIndex(s32 tracknum)
+static s32 mpGetTrackSlotIndex(s32 tracknum)
 {
 	s32 i;
 	s32 slotindex = 0;
@@ -2486,7 +2469,7 @@ s32 mpGetTrackSlotIndex(s32 tracknum)
 	return slotindex;
 }
 
-s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
+static s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
 {
 	s32 i;
 	s32 numunlocked = 0;
@@ -2546,7 +2529,7 @@ bool mpIsMultiTrackSlotEnabled(s32 slot)
 	return true;
 }
 
-void mpSetMultiTrackSlotEnabled(s32 slot, bool enable)
+static void mpSetMultiTrackSlotEnabled(s32 slot, bool enable)
 {
 	s32 tracknum = mpGetTrackNumAtSlotIndex(slot);
 	u8 value = 1 << (tracknum & 7);
@@ -2705,7 +2688,7 @@ struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot)
 	return result;
 }
 
-s32 mpGetChrIndexBySlotNum(s32 slot)
+static s32 mpGetChrIndexBySlotNum(s32 slot)
 {
 	s32 count = 0;
 	s32 result = 0;
@@ -2739,7 +2722,7 @@ s32 mpGetNumChrs(void)
 	return count;
 }
 
-u8 mpFindUnusedTeamNum(void)
+static u8 mpFindUnusedTeamNum(void)
 {
 	u8 teamnum = 0;
 	bool available = false;
@@ -3031,7 +3014,7 @@ s32 func0f18d0e8(s32 arg0)
 	return -1;
 }
 
-void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
+static void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
 {
 	s32 bitsremaining = 35;
 	s32 i = 0;
@@ -3050,7 +3033,7 @@ void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
 	}
 }
 
-void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum)
+static void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum)
 {
 	s32 bitsremaining = 35;
 	s32 i = 0;
@@ -3069,7 +3052,7 @@ void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum)
 	}
 }
 
-void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
+static void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 {
 	struct fileguid guid;
 	u32 stack;
@@ -3134,7 +3117,7 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 	mpplayerfileLoadGunFuncs(buffer, playernum);
 }
 
-void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
+static void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 {
 	s32 i;
 	s32 j;
@@ -3349,7 +3332,7 @@ s32 mpGetNumPresets(void)
 	return NUM_MPPRESETS;
 }
 
-bool mpIsPresetUnlocked(s32 presetnum)
+static bool mpIsPresetUnlocked(s32 presetnum)
 {
 	s32 i;
 
@@ -3457,7 +3440,7 @@ void mp0f18dec4(s32 slot)
 	mpApplyConfig(config);
 }
 
-void mpsetupfileLoadWad(struct savebuffer *buffer)
+static void mpsetupfileLoadWad(struct savebuffer *buffer)
 {
 	s32 i;
 	s32 j;
@@ -3511,7 +3494,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 	challengeForceUnlockBotFeatures();
 }
 
-void mpsetupfileSaveWad(struct savebuffer *buffer)
+static void mpsetupfileSaveWad(struct savebuffer *buffer)
 {
 	s32 numsims = 0;
 	s32 mpbodynum;

@@ -6,10 +6,7 @@
 
 extern s32 var8005dd18;
 
-void mainInit(void);
 void mainProc(void);
-void mainLoop(void);
-void mainTick(void);
 void mainEndStage(void);
 void mainChangeToStage(s32 stagenum);
 void func0000e990(void);

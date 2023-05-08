@@ -25,7 +25,7 @@ u16 var8006ae90[] = {
 	0x028c, 0x01cd, 0x0000,
 };
 
-s32 func0f096890(s32 arg0)
+static s32 func0f096890(s32 arg0)
 {
 	u16 *array;
 	s32 shiftamount;

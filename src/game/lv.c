@@ -131,7 +131,8 @@ u32 g_FadePrevColour = 0;
 u32 g_FadeColour = 0;
 s16 g_FadeDelay = 0;
 
-void lvResetSoloHandicaps(void);
+static void lvResetSoloHandicaps(void);
+static void lvCheckPauseStateChanged(void);
 
 void lvInit(void)
 {
@@ -139,7 +140,7 @@ void lvInit(void)
 	g_Vars.joydisableframestogo = -1;
 }
 
-void lvResetMiscSfx(void)
+static void lvResetMiscSfx(void)
 {
 	s32 i;
 
@@ -149,7 +150,7 @@ void lvResetMiscSfx(void)
 	}
 }
 
-s32 lvGetMiscSfxIndex(u32 type)
+static s32 lvGetMiscSfxIndex(u32 type)
 {
 	s32 i;
 
@@ -162,7 +163,7 @@ s32 lvGetMiscSfxIndex(u32 type)
 	return -1;
 }
 
-void lvSetMiscSfxState(u32 type, bool play)
+static void lvSetMiscSfxState(u32 type, bool play)
 {
 	if (play) {
 		if (lvGetMiscSfxIndex(type) == -1) {
@@ -184,7 +185,7 @@ void lvSetMiscSfxState(u32 type, bool play)
 	}
 }
 
-void lvUpdateMiscSfx(void)
+static void lvUpdateMiscSfx(void)
 {
 	s32 i;
 
@@ -219,7 +220,11 @@ void lvUpdateMiscSfx(void)
 
 void lvReset(s32 stagenum)
 {
-	lvFadeReset();
+	g_FadeNumFrames = 0;
+	g_FadeFrac = -1;
+	g_FadePrevColour = 0;
+	g_FadeColour = 0;
+	g_FadeDelay = 0;
 
 	var80084014 = false;
 	var80084010 = 0;
@@ -433,7 +438,7 @@ void lvConfigureFade(u32 color, s16 num_frames)
 	g_FadeDelay = 2;
 }
 
-Gfx *lvRenderFade(Gfx *gdl)
+static Gfx *lvRenderFade(Gfx *gdl)
 {
 	u32 colour = g_FadeColour;
 	u32 inset = 0;
@@ -476,16 +481,7 @@ Gfx *lvRenderFade(Gfx *gdl)
 	return text0f153838(gdl);
 }
 
-void lvFadeReset(void)
-{
-	g_FadeNumFrames = 0;
-	g_FadeFrac = -1;
-	g_FadePrevColour = 0;
-	g_FadeColour = 0;
-	g_FadeDelay = 0;
-}
-
-bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
+static bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 {
 	f32 y1;
 	f32 x1;
@@ -565,7 +561,7 @@ bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 	return true;
 }
 
-void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
+static void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
 {
 	bool condition = true;
 	struct defaultobj *obj;
@@ -693,7 +689,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 	}
 }
 
-void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *distances)
+static void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *distances)
 {
 	s32 i;
 	f32 sp128;
@@ -748,7 +744,7 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 	}
 }
 
-void lvFindThreats(void)
+static void lvFindThreats(void)
 {
 	s32 i;
 	struct prop *prop;
@@ -797,7 +793,7 @@ u8 g_LvOom = 0;
 u32 g_LvOomSize = 0;
 u8 g_LvFrameRates[60];
 
-void lvRecordRate(void)
+static void lvRecordRate(void)
 {
 	g_LvFrameRates[g_LvRateIndex] = OS_CPU_COUNTER / g_Vars.diffframet;
 
@@ -810,7 +806,7 @@ void lvRecordRate(void)
 
 Gfx *func0f153134(Gfx *gdl);
 
-Gfx *lvPrintRateGraph(Gfx *gdl)
+static Gfx *lvPrintRateGraph(Gfx *gdl)
 {
 	s32 i;
 	s32 top = 10;
@@ -861,7 +857,7 @@ Gfx *lvPrintRateGraph(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *lvPrintCounter(Gfx *gdl, s32 *y, char *label, u32 cycles, u32 cycles_per_second)
+static Gfx *lvPrintCounter(Gfx *gdl, s32 *y, char *label, u32 cycles, u32 cycles_per_second)
 {
 	char buffer[32];
 	s32 x = 10;
@@ -918,7 +914,7 @@ Gfx *lvPrintCounter(Gfx *gdl, s32 *y, char *label, u32 cycles, u32 cycles_per_se
 
 extern u8 g_ScBottleneck;
 
-Gfx *lvPrintRateText(Gfx *gdl)
+static Gfx *lvPrintRateText(Gfx *gdl)
 {
 	if (g_FontHandelGothicXs) {
 		char buffer[64];
@@ -1003,7 +999,7 @@ Gfx *lvPrintRateText(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *lvPrint(Gfx *gdl)
+static Gfx *lvPrint(Gfx *gdl)
 {
 	if (joyGetButtonsPressedThisFrame(0, L_TRIG)) {
 		g_LvShowStats = 1 - g_LvShowStats;
@@ -1638,7 +1634,7 @@ Gfx *lvRender(Gfx *gdl)
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = -1;
 			g_MissionConfig.isanti = false;
-			setNumPlayers(1);
+			g_NumPlayers = 1;
 			titleSetNextMode(TITLEMODE_SKIP);
 			g_MissionConfig.difficulty = DIFF_A;
 			lvSetDifficulty(DIFF_A);
@@ -1669,7 +1665,7 @@ u32 g_CutsceneTime240_60 = 0;
 
 
 
-void lvResetSoloHandicaps(void)
+static void lvResetSoloHandicaps(void)
 {
 	if (g_Vars.antiplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
@@ -1790,7 +1786,7 @@ void lvResetSoloHandicaps(void)
 	}
 }
 
-void lvUpdateSoloHandicaps(void)
+static void lvUpdateSoloHandicaps(void)
 {
 	if (g_Difficulty == DIFF_A && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
 		f32 totalhealth;
@@ -1811,7 +1807,7 @@ void lvUpdateSoloHandicaps(void)
 	}
 }
 
-void lvUpdateCutsceneTime(void)
+static void lvUpdateCutsceneTime(void)
 {
 	if (g_Vars.in_cutscene) {
 		g_CutsceneTime240_60 += g_Vars.lvupdate60;
@@ -2228,7 +2224,7 @@ void lvStop(void)
 	menuStop();
 }
 
-void lvCheckPauseStateChanged(void)
+static void lvCheckPauseStateChanged(void)
 {
 	u32 paused = mpIsPaused();
 

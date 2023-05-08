@@ -48,6 +48,10 @@
 #include "gbiex.h"
 #include "types.h"
 
+static Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop);
+static Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha);
+static void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright);
+
 void *var8009ccc0[20];
 s16 g_ChrIndexesByChrnum[240];
 struct chrdata *g_CurModelChr;
@@ -75,16 +79,6 @@ void chrSetChrnum(struct chrdata *chr, s16 newnum)
 	g_ChrIndexesByChrnum[newnum] = index;
 
 	chr->chrnum = newnum;
-}
-
-void chrRegister(s32 chrnum, s32 chrindex)
-{
-	g_ChrIndexesByChrnum[chrnum] = chrindex;
-}
-
-void chrDeregister(s32 chrnum)
-{
-	g_ChrIndexesByChrnum[chrnum] = -1;
 }
 
 struct gfxvtx *chrAllocateVertices(s32 numvertices)
@@ -362,7 +356,7 @@ bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, b
 	return result == CDRESULT_NOCOLLISION;
 }
 
-bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f32 *mangroundptr)
+static bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f32 *mangroundptr)
 {
 	struct chrdata *chr = model->chr;
 	struct prop *prop = chr->prop;
@@ -870,7 +864,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 
 	prop->chr = chr;
 	chr->chrnum = chrsGetNextUnusedChrnum();
-	chrRegister(chr->chrnum, i);
+	g_ChrIndexesByChrnum[chr->chrnum] = i;
 
 	chr->headnum = 0;
 	chr->bodynum = 0;
@@ -1186,7 +1180,7 @@ void chrRemove(struct prop *prop, bool delete)
 	chr->model = NULL;
 
 	if (delete) {
-		chrDeregister(chr->chrnum);
+		g_ChrIndexesByChrnum[chr->chrnum] = -1;
 
 		if (chr->cover != -1) {
 			coverSetInUse(chr->cover, false);
@@ -1242,7 +1236,7 @@ void chrClearReferences(s32 propnum)
 	}
 }
 
-void chrUpdateAimProperties(struct chrdata *chr)
+static void chrUpdateAimProperties(struct chrdata *chr)
 {
 	if (chr->aimendcount >= 2) {
 		f32 mult = g_Vars.lvupdate60f / chr->aimendcount;
@@ -1299,7 +1293,7 @@ void chrFlinchHead(struct chrdata *chr, f32 arg1)
 	chr->hidden2 |= value << 13;
 }
 
-f32 chrGetFlinchAmount(struct chrdata *chr)
+static f32 chrGetFlinchAmount(struct chrdata *chr)
 {
 	f32 value = chr->flinchcnt;
 
@@ -1335,7 +1329,7 @@ f32 chrGetFlinchAmount(struct chrdata *chr)
  * - Body flinching when shot
  * - Chrs aiming up, down, left and right
  */
-void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
+static void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 {
 	f32 scale = 1.0f;
 	s32 lshoulderjoint;
@@ -1656,7 +1650,7 @@ void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	bgFindEnteredRooms(&lower, &upper, rooms, 7, true);
 }
 
-void chr0f022084(struct chrdata *chr, s16 *room)
+static void chr0f022084(struct chrdata *chr, s16 *room)
 {
 	chr0f021fa8(chr, &chr->prop->pos, room);
 }
@@ -1698,7 +1692,7 @@ void chr0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 	}
 }
 
-void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
+static void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 {
 	struct defaultobj *obj = prop->obj;
 	struct model *model = obj->model;
@@ -1992,7 +1986,7 @@ void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop)
 	}
 }
 
-void chrTickPoisoned(struct chrdata *chr)
+static void chrTickPoisoned(struct chrdata *chr)
 {
 	if (chr->poisoncounter > 0) {
 		struct coord coord = {0, 0, 0};
@@ -2563,19 +2557,14 @@ void chrDropItemsForOwnerReap(struct chrdata *chr)
 
 u8 var80062a48[] = { 64, 10, 10 };
 
-void chr0f0246e4(u8 *arg0)
+static void chr0f0246e4(u8 *arg0)
 {
 	var80062a48[0] = arg0[0];
 	var80062a48[1] = arg0[1];
 	var80062a48[2] = arg0[2];
 }
 
-void chr0f02472c(void)
-{
-	var80062964 = 0;
-}
-
-bool chr0f024738(struct chrdata *chr)
+static bool chr0f024738(struct chrdata *chr)
 {
 	s16 *propnumptr;
 	s16 propnums[256];
@@ -2672,7 +2661,7 @@ next:
 	return result;
 }
 
-bool chr0f024b18(struct model *model, struct modelnode *node)
+static bool chr0f024b18(struct model *model, struct modelnode *node)
 {
 	struct model *rootmodel;
 	struct modelnode *bboxnode;
@@ -2855,7 +2844,7 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
  * This function is recursive. The chr's gun can have mines placed on it, and
  * mines can also have further mines placed on them.
  */
-void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool xlupass, struct chrdata *chr)
+static void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool xlupass, struct chrdata *chr)
 {
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		u32 stack;
@@ -3569,7 +3558,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
  * This happens when the chr is shot, which creates the illusion of blood
  * soaking through their clothing.
  */
-void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3)
+static void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3)
 {
 	struct modelnode *bestnode = NULL;
 	bool ok;
@@ -4367,7 +4356,8 @@ void chrsCheckForNoise(f32 noiseradius)
 				}
 
 				if (distance > 1.0f) {
-					chrRecordLastHearTargetTime(&g_ChrSlots[i]);
+					g_ChrSlots[i].hidden |= CHRHFLAG_IS_HEARING_TARGET;
+					g_ChrSlots[i].lastheartarget60 = g_Vars.lvframe60;
 				}
 			}
 		}
@@ -4533,7 +4523,7 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 	return false;
 }
 
-bool chr0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *total)
+static bool chr0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *total)
 {
 	if (arg1 == arg0) {
 		*total += model0001a524(node, 0);
@@ -4553,7 +4543,7 @@ bool chr0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, s
 	return false;
 }
 
-s32 chr0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3)
+static s32 chr0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3)
 {
 	s32 result = 0;
 
@@ -4564,7 +4554,7 @@ s32 chr0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, 
 	return -1;
 }
 
-bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr)
+static bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr)
 { \
 	while (true) {
 		bool result = false;
@@ -4690,7 +4680,7 @@ void shieldhitCreate(struct prop *prop, f32 shield, struct prop *arg2, struct mo
 	g_ShieldHitActive = true;
 }
 
-void shieldhitRemove(struct shieldhit *shieldhit)
+static void shieldhitRemove(struct shieldhit *shieldhit)
 {
 	s32 exists = false;
 	s32 i;
@@ -4738,7 +4728,7 @@ void shieldhitsRemoveByProp(struct prop *prop)
 	}
 }
 
-s32 chr0f02932c(struct prop *prop, s32 arg1)
+static s32 chr0f02932c(struct prop *prop, s32 arg1)
 {
 	s32 result = -1;
 	struct modelnode *node2;
@@ -4759,7 +4749,7 @@ s32 chr0f02932c(struct prop *prop, s32 arg1)
 	return result;
 }
 
-s32 chr0f0293ec(struct prop *prop, s32 cmnum)
+static s32 chr0f0293ec(struct prop *prop, s32 cmnum)
 {
 	s32 result = -1;
 	struct modelnode *node2;
@@ -4793,7 +4783,7 @@ s32 chr0f0293ec(struct prop *prop, s32 cmnum)
 	return result;
 }
 
-s32 chr0f0294cc(struct prop *prop, s32 arg1)
+static s32 chr0f0294cc(struct prop *prop, s32 arg1)
 {
 	s32 result = -1;
 	struct prop *child;
@@ -4870,7 +4860,7 @@ void chr0f0295f8(f32 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
 	*arg3 = 0;
 }
 
-f32 propGetShieldThing(struct prop **propptr)
+static f32 propGetShieldThing(struct prop **propptr)
 {
 	struct prop *prop = *propptr;
 
@@ -4893,7 +4883,7 @@ f32 propGetShieldThing(struct prop **propptr)
 
 bool g_ShieldHitActive = false;
 
-Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop, struct model *model,
+static Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop, struct model *model,
 		struct modelnode *node, s32 side, s32 arg6, s32 arg7, s32 alpha)
 {
 	struct modelrodata_bbox *bbox = &node->rodata->bbox;
@@ -5750,7 +5740,7 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
  * The function iterates the child props and calls itself recursively, setting
  * thisprop to the current child being iterated.
  */
-Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
+static Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 {
 	struct model *model;
 	struct modelnode *bbox = NULL;
@@ -5910,7 +5900,7 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 	return gdl;
 }
 
-Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
+static Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 {
 	if (chrGetShield(chr) > 0 && g_Vars.lvupdate240 > 0) {
 		chr->cmcount++;
@@ -6066,7 +6056,7 @@ void shieldhitsTick(void)
 	}
 }
 
-void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright)
+static void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright)
 {
 	if (drcaroll && imageleft >= 0 && imageleft < 6 && imageright >= 0 && imageright < 6) {
 		struct model *model = drcaroll->model;

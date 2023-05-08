@@ -11,6 +11,8 @@
 #include "data.h"
 #include "types.h"
 
+static void playermgrAllocatePlayer(s32 index);
+
 void playermgrInit(void)
 {
 	s32 i;
@@ -82,7 +84,7 @@ void playermgrAllocatePlayers(s32 count)
 	}
 }
 
-void playermgrAllocatePlayer(s32 index)
+static void playermgrAllocatePlayer(s32 index)
 {
 	struct hand hand = {
 		{0},

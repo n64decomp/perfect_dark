@@ -24,7 +24,7 @@ struct vtxstoretype g_VtxstoreTypes[] = {
  * Search all props and their model data for something, and replace it with
  * something else.
  */
-void vtxstoreFixRefs(union modelrwdata *find, union modelrwdata *replacement)
+static void vtxstoreFixRefs(union modelrwdata *find, union modelrwdata *replacement)
 {
 	u32 stack;
 	struct prop *prop = g_Vars.activeprops;

@@ -41,7 +41,7 @@ void bheadUpdateIdleRoll(void)
 	g_Vars.currentplayer->standcnt = 1 - g_Vars.currentplayer->standcnt;
 }
 
-void bheadUpdatePos(struct coord *vel)
+static void bheadUpdatePos(struct coord *vel)
 {
 	s32 i;
 
@@ -64,7 +64,7 @@ void bheadUpdatePos(struct coord *vel)
 	g_Vars.currentplayer->headpos.z = g_Vars.currentplayer->headpossum.z * (PAL ? 0.021499991416931f : 0.018000006f);
 }
 
-void bheadUpdateRot(struct coord *lookvel, struct coord *upvel)
+static void bheadUpdateRot(struct coord *lookvel, struct coord *upvel)
 {
 	s32 i;
 
@@ -96,7 +96,7 @@ void bheadUpdateRot(struct coord *lookvel, struct coord *upvel)
 	g_Vars.currentplayer->headup.z = g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headdamp);
 }
 
-void bheadSetdamp(f32 headdamp)
+static void bheadSetDamp(f32 headdamp)
 {
 	if (headdamp != g_Vars.currentplayer->headdamp) {
 		f32 divisor = 1.0f - headdamp;
@@ -195,9 +195,9 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			g_Vars.currentplayer->headwalkingtime60 += g_Vars.lvupdate60;
 
 			if (g_Vars.currentplayer->headwalkingtime60 > TICKS(60)) {
-				bheadSetdamp(PAL ? 0.9785f : 0.982f);
+				bheadSetDamp(PAL ? 0.9785f : 0.982f);
 			} else {
-				bheadSetdamp(PAL ? 0.99699f : 0.99748998880386f);
+				bheadSetDamp(PAL ? 0.99699f : 0.99748998880386f);
 			}
 		} else {
 			lookvel.x = g_Vars.currentplayer->bondheadmatrices[0].m[2][0];
@@ -208,7 +208,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			upvel.y = g_Vars.currentplayer->bondheadmatrices[0].m[1][1];
 			upvel.z = g_Vars.currentplayer->bondheadmatrices[0].m[1][2];
 
-			bheadSetdamp(PAL ? 0.952f : 0.96f);
+			bheadSetDamp(PAL ? 0.952f : 0.96f);
 		}
 	} else {
 		g_Vars.currentplayer->headbodyoffset = g_Vars.currentplayer->standbodyoffset;
@@ -218,7 +218,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 		headpos.z = 0;
 
 		g_Vars.currentplayer->headwalkingtime60 = 0;
-		bheadSetdamp(PAL ? 0.99699f : 0.99748998880386f);
+		bheadSetDamp(PAL ? 0.99699f : 0.99748998880386f);
 
 		if (bmoveGetCrouchPos() != CROUCHPOS_SQUAT) {
 			g_Vars.currentplayer->standfrac +=

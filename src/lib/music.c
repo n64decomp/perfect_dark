@@ -19,7 +19,7 @@ const u8 var70053ca0[] = {0, 0, 0, 0, 0, 5};
 
 s32 g_MusicNextAmbientTick240 = -1;
 
-s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
+static s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 {
 	s32 i;
 	u8 value;
@@ -125,7 +125,7 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 }
 
 
-s32 musicHandleStopEvent(struct musicevent *event, s32 result)
+static s32 musicHandleStopEvent(struct musicevent *event, s32 result)
 {
 	s32 i;
 
@@ -145,7 +145,7 @@ s32 musicHandleStopEvent(struct musicevent *event, s32 result)
 	return RESULT_OK_NEXT;
 }
 
-s32 musicHandleFadeEvent(struct musicevent *event, s32 result)
+static s32 musicHandleFadeEvent(struct musicevent *event, s32 result)
 {
 	s32 i;
 	s32 j;
@@ -165,7 +165,7 @@ s32 musicHandleFadeEvent(struct musicevent *event, s32 result)
 	return RESULT_OK_NEXT;
 }
 
-s32 musicHandleStopAllEvent(s32 result)
+static s32 musicHandleStopAllEvent(s32 result)
 {
 	s32 i;
 
@@ -181,7 +181,7 @@ s32 musicHandleStopAllEvent(s32 result)
 	return RESULT_OK_NEXT;
 }
 
-s32 musicHandleEvent5(struct musicevent *event, s32 result)
+static s32 musicHandleEvent5(struct musicevent *event, s32 result)
 {
 	var800840e0 = event->tracknum;
 	return RESULT_OK_NEXT;

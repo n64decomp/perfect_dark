@@ -42,7 +42,9 @@ u32 var80087ce4[] = {
 	0x8a158a15,
 };
 
-Gfx *radarRenderBackground(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s32 arg3, s32 arg4)
+static Gfx *radarRenderRTrackedProps(Gfx *gdl);
+
+static Gfx *radarRenderBackground(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s32 arg3, s32 arg4)
 {
 	f32 spb0[2];
 	f32 spa8[2];
@@ -387,7 +389,7 @@ Gfx *radarRender(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *radarRenderRTrackedProps(Gfx *gdl)
+static Gfx *radarRenderRTrackedProps(Gfx *gdl)
 {
 	struct prop *prop = g_Vars.activeprops;
 	struct coord *playerpos = &g_Vars.currentplayer->prop->pos;

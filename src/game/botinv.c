@@ -125,6 +125,8 @@ struct aibotweaponpreference g_AibotWeaponPreferences[] = {
 	/*0x5d*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_SUICIDEPILL
 };
 
+static void botinvScoreWeaponByItself(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2);
+
 /**
  * Remove all items from the bot's inventory.
  */
@@ -146,7 +148,7 @@ void botinvClear(struct chrdata *chr)
  * weapons, and 4 are for scenario-specific items such as briefcases and the
  * data uplink.
  */
-struct invitem *botinvGetFreeSlot(struct chrdata *chr)
+static struct invitem *botinvGetFreeSlot(struct chrdata *chr)
 {
 	s32 i;
 
@@ -796,12 +798,12 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 	*dst2 = score2;
 }
 
-void botinvScoreWeaponAgainstTarget(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2)
+static void botinvScoreWeaponAgainstTarget(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2)
 {
 	botinvScoreWeapon(chr, weaponnum, funcnum, arg3, arg4, dst1, dst2, true, true);
 }
 
-void botinvScoreWeaponByItself(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2)
+static void botinvScoreWeaponByItself(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2)
 {
 	botinvScoreWeapon(chr, weaponnum, funcnum, arg3, arg4, dst1, dst2, false, true);
 }
@@ -1100,7 +1102,7 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
  *
  * dropall is used when the bot is killed.
  */
-void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall)
+static void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall)
 {
 	s32 i;
 

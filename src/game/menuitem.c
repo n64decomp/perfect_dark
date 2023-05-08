@@ -40,7 +40,7 @@ u8 g_KeyboardKeys[5][10] = {
 	{ '1','2','1','2','1','2','3','1','2','3' },
 };
 
-s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
+static s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
 {
 	union handlerdata data;
 	s32 s0;
@@ -95,7 +95,7 @@ s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
 	return s1;
 }
 
-s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item)
+static s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item)
 {
 	union handlerdata data;
 	bool done;
@@ -137,7 +137,7 @@ s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item)
 	return arg0 * g_LineHeight + numlines * LINEHEIGHT;
 }
 
-Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16 height, char *text, struct menudialog *dialog)
+static Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16 height, char *text, struct menudialog *dialog)
 {
 	s32 x;
 	s32 y;
@@ -169,13 +169,13 @@ Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16
 	return gdl;
 }
 
-Gfx *menuitemListOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
+static Gfx *menuitemListOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
 {
 	gDPFillRectangleScaled(gdl++, x, y, x + x2, y + y2);
 	return gdl;
 }
 
-Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_list *itemdata = &context->data->list;
 	union handlerdata sp15c;
@@ -619,7 +619,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+static bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	f32 f0;
 	union handlerdata handlerdata;
@@ -752,7 +752,7 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 	return true;
 }
 
-void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
+static void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
 {
 	s32 (*handler)(s32 operation, struct menuitem *item, union handlerdata *data);
 	union handlerdata handlerdata;
@@ -794,7 +794,7 @@ void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
 	item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
 }
 
-Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour;
 	char *text;
@@ -883,7 +883,7 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+static bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	u32 stack;
 
@@ -924,7 +924,7 @@ bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, stru
 	return true;
 }
 
-Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
+static Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
 {
 	s32 stack;
 	s32 textwidth;
@@ -1002,7 +1002,7 @@ Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menu
 	return gdl;
 }
 
-bool menuitemKeyboardIsStringEmptyOrSpaces(char *text)
+static bool menuitemKeyboardIsStringEmptyOrSpaces(char *text)
 {
 	s32 i;
 
@@ -1037,7 +1037,7 @@ bool menuitemKeyboardIsStringEmptyOrSpaces(char *text)
  * |  DEL  |    CAPS   |   CANCEL  |   OK  |
  * +-------+-----------+-----------+-------+
  */
-Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 {
 	char label[8];
 	s32 x;
@@ -1299,7 +1299,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
  * |  DEL  |    CAPS   |   CANCEL  |   OK  |
  * +-------+-----------+-----------+-------+
  */
-bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+static bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	struct menuitemdata_keyboard *kb = &data->keyboard;
 	union handlerdata handlerdata;
@@ -1499,7 +1499,7 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	return true;
 }
 
-void menuitemKeyboardInit(struct menuitem *item, union menuitemdata *data)
+static void menuitemKeyboardInit(struct menuitem *item, union menuitemdata *data)
 {
 	u32 stack;
 	s32 i;
@@ -1520,7 +1520,7 @@ void menuitemKeyboardInit(struct menuitem *item, union menuitemdata *data)
 	data->keyboard.capslock = 0;
 }
 
-Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour;
 
@@ -1538,7 +1538,7 @@ Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 	return menugfxDrawFilledRect(gdl, context->x, context->y + 2, context->x + context->width, context->y + 3, colour, colour);
 }
 
-Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index, s32 position, s16 objx, s16 objy, s16 width, s16 height, bool withstatus, bool narrow)
+static Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index, s32 position, s16 objx, s16 objy, s16 width, s16 height, bool withstatus, bool narrow)
 {
 	u32 sp12c;
 	s32 x;
@@ -1699,7 +1699,7 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 	return gdl;
 }
 
-Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
 {
 	s32 y = context->y + 5;
 	s32 position = 1;
@@ -1728,7 +1728,7 @@ Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
 {
 	if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 		struct menuitemrenderdata renderdata;
@@ -1763,7 +1763,7 @@ Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour1;
 	u32 colour2;
@@ -1954,7 +1954,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
  * Renders two yellow bars and an optional label. Suspected to be a resource
  * meter but with the calculations ifdeffed out, so the widths are static.
  */
-Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 a = 9;
 	char *text;
@@ -2009,7 +2009,7 @@ Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 leftcolour;
 	u32 rightcolour;
@@ -2131,7 +2131,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 	return text0f153780(gdl);
 }
 
-bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
+static bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
 	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && inputs->select) {
 		menuPlaySound(MENUSOUND_SELECT);
@@ -2151,7 +2151,7 @@ bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u3
 	return true;
 }
 
-Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour;
 	char *label;
@@ -2280,7 +2280,7 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+static bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	s32 index;
 	union handlerdata handlerdata;
@@ -2382,12 +2382,12 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 	return true;
 }
 
-void menuitemSliderInit(union menuitemdata *data)
+static void menuitemSliderInit(union menuitemdata *data)
 {
 	data->slider.unk00 = 0;
 }
 
-Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour = 0xff0000ff;
 
@@ -2421,7 +2421,7 @@ Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
+static bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
 	union handlerdata data;
 	s32 index;
@@ -2475,7 +2475,7 @@ bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	return true;
 }
 
-Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 maincolour = 0x00000000;
 	char *text;
@@ -2592,7 +2592,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 	return text0f153780(gdl);
 }
 
-bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
+static bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
 	union handlerdata data;
 
@@ -2613,7 +2613,7 @@ bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	return true;
 }
 
-char *menuitemScrollableGetText(u32 type)
+static char *menuitemScrollableGetText(u32 type)
 {
 	switch (type) {
 	case DESCRIPTION_MPCONFIG:
@@ -2652,7 +2652,7 @@ char *menuitemScrollableGetText(u32 type)
  *
  * Headings are rendered in red, with a dropshadow and are outdented.
  */
-Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 {
 	char alltext[8000] = "";
 	char headingtext[8000];
@@ -2760,7 +2760,7 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	return text0f153780(gdl);
 }
 
-bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+static bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	u32 stack;
 
@@ -2840,13 +2840,13 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 	return true;
 }
 
-void menuitemScrollableInit(union menuitemdata *data)
+static void menuitemScrollableInit(union menuitemdata *data)
 {
 	data->scrollable.unk06 = -1;
 	data->scrollable.unk00 = -10;
 }
 
-Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_marquee *data = &context->data->marquee;
 	char *text = menuResolveParam2Text(context->item);
@@ -2977,7 +2977,7 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 
 u32 var800711f0 = 0x00000002;
 
-bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
+static bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 {
 	s32 i;
 	s32 textheight;
@@ -3030,14 +3030,14 @@ bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 	return true;
 }
 
-void menuitemMarqueeInit(union menuitemdata *data)
+static void menuitemMarqueeInit(union menuitemdata *data)
 {
 	data->marquee.totalmoved = 0;
 	data->marquee.unk04 = 50;
 	data->marquee.unk06 = 0;
 }
 
-Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 {
 	struct ranking rankings[MAX_MPCHRS];
 	s32 numrows;
@@ -3234,7 +3234,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	return text0f153780(gdl);
 }
 
-bool menuitemRankingTick(struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+static bool menuitemRankingTick(struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	f32 floatval;
 	s32 intval;
@@ -3261,12 +3261,12 @@ bool menuitemRankingTick(struct menuinputs *inputs, u32 tickflags, union menuite
 	return true;
 }
 
-void menuitemRankingInit(union menuitemdata *data)
+static void menuitemRankingInit(union menuitemdata *data)
 {
 	data->ranking.scrolloffset = 0;
 }
 
-Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_dropdown *data = &context->data->dropdown;
 	s32 x;
@@ -3475,7 +3475,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	return text0f153780(gdl);
 }
 
-bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+static bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	f32 floatval;
 	s32 intval;
@@ -3502,12 +3502,12 @@ bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, s
 	return menuitemDropdownTick(item, dialog, inputs, tickflags, data);
 }
 
-Gfx *menuitemPlayerStatsOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
+static Gfx *menuitemPlayerStatsOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
 {
 	return menuitemDropdownOverlay(gdl, x + 1, y, -1, y2, item, dialog, data);
 }
 
-void menuitemPlayerStatsInit(struct menuitem *item, union menuitemdata *data)
+static void menuitemPlayerStatsInit(struct menuitem *item, union menuitemdata *data)
 {
 	data->dropdown.scrolloffset = 0;
 	g_MpSelectedPlayersForStats[g_MpPlayerNum] = g_MpPlayerNum;
@@ -3515,7 +3515,7 @@ void menuitemPlayerStatsInit(struct menuitem *item, union menuitemdata *data)
 	menuitemDropdownInit(item, data);
 }
 
-Gfx *menuitemControllerRenderLine(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2, s32 y2)
+static Gfx *menuitemControllerRenderLine(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	speed = speed + (x1 % 4);
 
@@ -3530,7 +3530,7 @@ Gfx *menuitemControllerRenderLine(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2, s
 	return gdl;
 }
 
-Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha)
+static Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha)
 {
 	gDPPipeSync(gdl++);
 	gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -3567,7 +3567,7 @@ struct lineconfig {
 	s32 y2;
 };
 
-Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, s32 firstindex, s32 lastindex, s32 padx, s32 pady, u32 alpha)
+static Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, s32 firstindex, s32 lastindex, s32 padx, s32 pady, u32 alpha)
 {
 	s32 speed;
 	s32 i;
@@ -3679,7 +3679,7 @@ u16 var80071354[][9] = {
 	/*11*/ { L_OPTIONS_003,   L_OPTIONS_003,   L_MPWEAPONS_212, L_OPTIONS_003,   L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_208, L_MPWEAPONS_205, L_OPTIONS_003   },
 };
 
-u16 menuitemControllerGetButtonAction(s32 mode, s32 buttonnum)
+static u16 menuitemControllerGetButtonAction(s32 mode, s32 buttonnum)
 {
 	u32 textid = var80071354[mode][buttonnum];
 
@@ -3710,7 +3710,7 @@ u16 menuitemControllerGetButtonAction(s32 mode, s32 buttonnum)
  * Note that the valuecolour argument is mostly unused - only the alpha channel
  * is used because the rest is bitwise or'ed to white.
  */
-Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 padx, s32 pady, u32 valuecolour, u32 labelcolour, s8 prevmode)
+static Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 padx, s32 pady, u32 valuecolour, u32 labelcolour, s8 prevmode)
 {
 	s32 rx;
 	s32 ry;
@@ -3782,7 +3782,7 @@ Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontex
 	return text0f153780(gdl);
 }
 
-Gfx *menuitemControllerRenderPad(Gfx *gdl, struct menurendercontext *context, s32 padx, s32 pady, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
+static Gfx *menuitemControllerRenderPad(Gfx *gdl, struct menurendercontext *context, s32 padx, s32 pady, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
 {
 	s32 rx = context->x + padx;
 	s32 ry = context->y + pady + 4;
@@ -3802,7 +3802,7 @@ Gfx *menuitemControllerRenderPad(Gfx *gdl, struct menurendercontext *context, s3
 	return menuitemControllerRenderText(gdl, curmode, context, padx, pady, colour1, colour2, prevmode);
 }
 
-Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
+static Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_controller *data = &context->data->controller;
 	u32 colour;
@@ -3926,7 +3926,7 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-void menuitemControllerInit(union menuitemdata *data)
+static void menuitemControllerInit(union menuitemdata *data)
 {
 	data->controller.textfadetimer = 0;
 	data->controller.contfadetimer = 0;

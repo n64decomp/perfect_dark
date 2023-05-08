@@ -73,7 +73,7 @@ s32 g_DyntexRoomsCount = 0;
 s32 g_DyntexTypesCount = 0;
 s32 g_DyntexVerticesCount = 0;
 
-void dyntexUpdateLinear(struct gfxvtx *vertices, struct dyntextype *type)
+static void dyntexUpdateLinear(struct gfxvtx *vertices, struct dyntextype *type)
 {
 	s16 tmp = (s32) (g_Lv80SecIntervalFrac * 10.0f * 4096.0f) % 4096;
 	s32 i;
@@ -86,7 +86,7 @@ void dyntexUpdateLinear(struct gfxvtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexUpdateReset(struct gfxvtx *vertices, struct dyntextype *type)
+static void dyntexUpdateReset(struct gfxvtx *vertices, struct dyntextype *type)
 {
 	s32 i;
 
@@ -98,7 +98,7 @@ void dyntexUpdateReset(struct gfxvtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexUpdateMonitor(struct gfxvtx *vertices, struct dyntextype *type)
+static void dyntexUpdateMonitor(struct gfxvtx *vertices, struct dyntextype *type)
 {
 	s16 tmp = (s32) (g_Lv80SecIntervalFrac * 4.0f * 4096.0f) % 4096;
 	s32 i;
@@ -111,7 +111,7 @@ void dyntexUpdateMonitor(struct gfxvtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type)
+static void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type)
 {
 	f32 f24 = g_Lv80SecIntervalFrac * 5.0f;
 	f32 angle;
@@ -128,7 +128,7 @@ void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexUpdateArrows(struct gfxvtx *vertices, struct dyntextype *type)
+static void dyntexUpdateArrows(struct gfxvtx *vertices, struct dyntextype *type)
 {
 	s32 tmp = ((s32) ((1.0f - g_Lv80SecIntervalFrac) * 60.0f * 8.0f) % 8) * 256;
 	s32 i;

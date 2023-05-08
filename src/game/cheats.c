@@ -113,7 +113,7 @@ bool cheatIsActive(s32 cheat_id)
 	return g_CheatsActiveBank1 & (1 << cheat_id);
 }
 
-void cheatActivate(s32 cheat_id)
+static void cheatActivate(s32 cheat_id)
 {
 	u32 prevplayernum;
 	s32 playernum;
@@ -226,7 +226,7 @@ void cheatsReset(void)
 	}
 }
 
-s32 cheatCheckboxMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 cheatCheckboxMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GET:
@@ -277,7 +277,7 @@ s32 cheatCheckboxMenuHandler(s32 operation, struct menuitem *item, union handler
 	return 0;
 }
 
-s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GET:
@@ -318,7 +318,7 @@ s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menuitem *item, union han
 	return 0;
 }
 
-char *cheatGetNameIfUnlocked(struct menuitem *item)
+static char *cheatGetNameIfUnlocked(struct menuitem *item)
 {
 	if (cheatIsUnlocked(item->param)) {
 		return langGet(g_Cheats[item->param].nametextid);
@@ -352,7 +352,7 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialogdef *dialogdef, union 
  *
  * JPN final removes the colon characters from the format strings.
  */
-char *cheatGetMarquee(struct menuitem *arg0)
+static char *cheatGetMarquee(struct menuitem *arg0)
 {
 	u32 cheat_id;
 	char *ptr;
@@ -432,7 +432,7 @@ char *cheatGetMarquee(struct menuitem *arg0)
 	return langGet(L_MPWEAPONS_142); // "Select cheat for information"
 }
 
-s32 cheatMenuHandleTurnOffAllCheats(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 cheatMenuHandleTurnOffAllCheats(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_CheatsEnabledBank0 = 0;

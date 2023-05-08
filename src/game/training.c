@@ -60,6 +60,9 @@ u16 g_FrPads[] = {
 	0x00f2, 0x00f1, 0x00f0, 0x00ef, 0x00ee, 0x00ed, 0x00ec,
 };
 
+static u32 func0f1a25c0(s32 index);
+static u32 ciGetStageFlagByDeviceIndex(u32 deviceindex);
+
 bool ciIsTourDone(void)
 {
 	return gamefileHasFlag(GAMEFILEFLAG_CI_TOUR_DONE);
@@ -72,7 +75,7 @@ u8 ciGetFiringRangeScore(s32 weaponindex)
 	return (g_GameFile.firingrangescores[weaponindex >> 2] >> (weaponindex % 4) * 2) & 3;
 }
 
-void frSaveScoreIfBest(s32 weaponindex, s32 difficulty)
+static void frSaveScoreIfBest(s32 weaponindex, s32 difficulty)
 {
 	if (ciGetFiringRangeScore(weaponindex) < difficulty) {
 		u32 byteindex = weaponindex >> 2;
@@ -115,7 +118,7 @@ void frSetWeaponFound(s32 weaponnum)
 	}
 }
 
-s32 ciIsStageComplete(s32 stageindex)
+static s32 ciIsStageComplete(s32 stageindex)
 {
 	return g_GameFile.besttimes[stageindex][0]
 		|| g_GameFile.besttimes[stageindex][1]
@@ -139,7 +142,7 @@ bool func0f19cbcc(s32 weapon)
 	return frIsWeaponFound(weapon);
 }
 
-bool frIsWeaponAvailable(s32 weapon)
+static bool frIsWeaponAvailable(s32 weapon)
 {
 	if (weapon < WEAPON_FALCON2 || weapon > WEAPON_REMOTEMINE
 			|| weapon == WEAPON_PSYCHOSISGUN
@@ -195,7 +198,7 @@ u32 frGetWeaponIndexByWeapon(u32 weaponnum)
 	return 0;
 }
 
-u32 frGetWeaponScriptIndex(u32 weaponnum)
+static u32 frGetWeaponScriptIndex(u32 weaponnum)
 {
 	switch (weaponnum) {
 	case WEAPON_FALCON2:          return 1;
@@ -324,7 +327,7 @@ s32 frGetNumWeaponsAvailable(void)
 	return count;
 }
 
-void frInitLighting(void)
+static void frInitLighting(void)
 {
 	if (g_FrData.donelighting == false) {
 		s32 roomnum;
@@ -343,7 +346,7 @@ void frInitLighting(void)
 	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 }
 
-void frRestoreLighting(void)
+static void frRestoreLighting(void)
 {
 	if (g_FrData.donelighting == true) {
 		s32 roomnum;
@@ -386,7 +389,7 @@ void frReset(void)
 	g_FrNumSounds = 0;
 }
 
-void *frLoadRomData(u32 len)
+static void *frLoadRomData(u32 len)
 {
 	g_FrRomData = mempAlloc(ALIGN16(len), MEMPOOL_STAGE);
 
@@ -410,7 +413,7 @@ void frSetDifficulty(s32 difficulty)
 	g_FrData.difficulty = difficulty;
 }
 
-void frInitDefaults(void)
+static void frInitDefaults(void)
 {
 	s32 i;
 	struct pad *pad;
@@ -486,7 +489,7 @@ struct frdata *frGetData(void)
 	return &g_FrData;
 }
 
-u32 frResolveFrPad(u32 arg0)
+static u32 frResolveFrPad(u32 arg0)
 {
 	switch (arg0) {
 	case 31: return random() % 9 + 4;  // 4 - 12
@@ -498,7 +501,7 @@ u32 frResolveFrPad(u32 arg0)
 	return g_FrData.padindexoffset + arg0;
 }
 
-bool frIsDifficulty(u32 flags)
+static bool frIsDifficulty(u32 flags)
 {
 	if (g_FrData.difficulty == FRDIFFICULTY_BRONZE) {
 		if ((flags & FRTARGETFLAG_BRONZE) == 0) {
@@ -517,7 +520,7 @@ bool frIsDifficulty(u32 flags)
 	return true;
 }
 
-void frExecuteWeaponScript(s32 scriptindex)
+static void frExecuteWeaponScript(s32 scriptindex)
 {
 	s32 offset = 0;
 
@@ -671,7 +674,7 @@ void frExecuteWeaponScript(s32 scriptindex)
 	}
 }
 
-void frSetTargetProps(void)
+static void frSetTargetProps(void)
 {
 	s32 i;
 	u32 targets[] = {
@@ -691,7 +694,7 @@ void frSetTargetProps(void)
 
 s32 g_FrWeaponNum = WEAPON_UNARMED;
 
-bool frTargetIsAtScriptStart(s32 targetnum)
+static bool frTargetIsAtScriptStart(s32 targetnum)
 {
 	return g_FrData.targets[targetnum].scriptoffset == 0;
 }
@@ -707,14 +710,14 @@ bool frTargetIsAtScriptStart(s32 targetnum)
  * 7 => "ZOOM\n Hold R Button to enter Zoom mode.\n"
  * 8 => "FAST FIRE\n Press Z Button quickly to fire faster.\n"
  */
-char *frGetInstructionalText(u32 index)
+static char *frGetInstructionalText(u32 index)
 {
 	u16 textid = (u16)(g_FrRomData[index * 2] << 8) | g_FrRomData[index * 2 + 1];
 
 	return langGet(textid);
 }
 
-void frExecuteHelpScript(void)
+static void frExecuteHelpScript(void)
 {
 	if (!g_FrData.helpscriptenabled || g_Vars.lvupdate240 == 0) {
 		return;
@@ -759,7 +762,7 @@ void frExecuteHelpScript(void)
 	}
 }
 
-bool frExecuteTargetScript(s32 targetnum)
+static bool frExecuteTargetScript(s32 targetnum)
 {
 	if (g_FrData.targets[targetnum].inuse) {
 		s32 index = FRSCRIPTINDEX_TARGETS + g_FrData.targets[targetnum].scriptindex;
@@ -835,7 +838,7 @@ bool frExecuteTargetScript(s32 targetnum)
 	return true;
 }
 
-void frHideAllTargets(void)
+static void frHideAllTargets(void)
 {
 	s32 i;
 
@@ -849,7 +852,7 @@ void frHideAllTargets(void)
 	}
 }
 
-void frInitTargets(void)
+static void frInitTargets(void)
 {
 	s32 count = 0;
 	s32 i;
@@ -922,7 +925,7 @@ void frInitTargets(void)
 	}
 }
 
-void frCloseAndLockDoor(void)
+static void frCloseAndLockDoor(void)
 {
 	struct defaultobj *obj = g_ObjsByTag[0x91];
 
@@ -933,7 +936,7 @@ void frCloseAndLockDoor(void)
 	}
 }
 
-void frUnlockDoor(void)
+static void frUnlockDoor(void)
 {
 	struct defaultobj *obj = g_ObjsByTag[0x91];
 
@@ -1189,7 +1192,7 @@ void frEndSession(bool hidetargets)
 	g_Vars.currentplayer->bondhealth = 1;
 }
 
-bool frWasTooInaccurate(void)
+static bool frWasTooInaccurate(void)
 {
 	f32 sum = (g_FrData.numhitsring3 +
 		+ g_FrData.numhitsbullseye
@@ -1207,7 +1210,7 @@ bool frWasTooInaccurate(void)
 	return false;
 }
 
-void frSetFailReason(s32 failreason)
+static void frSetFailReason(s32 failreason)
 {
 	frEndSession(false);
 
@@ -1216,7 +1219,7 @@ void frSetFailReason(s32 failreason)
 	g_FrData.menucountdown = TICKS(60);
 }
 
-void frSetCompleted(void)
+static void frSetCompleted(void)
 {
 	frEndSession(false);
 
@@ -1252,7 +1255,7 @@ bool frIsTargetOneHitExplodable(struct prop *prop)
 	return false;
 }
 
-f32 frGetTargetAngleToPos(struct coord *targetpos, f32 targetangle, struct coord *pos)
+static f32 frGetTargetAngleToPos(struct coord *targetpos, f32 targetangle, struct coord *pos)
 {
 	f32 xdiff = targetpos->x - pos->x;
 	f32 zdiff = targetpos->z - pos->z;
@@ -1332,7 +1335,7 @@ struct prop *frChooseAutogunTarget(struct coord *autogunpos)
 	return closesttarget;
 }
 
-bool frIsAmmoWasted(void)
+static bool frIsAmmoWasted(void)
 {
 	s32 weaponnum = frGetWeaponBySlot(g_FrData.slot);
 	s32 i;
@@ -2091,7 +2094,7 @@ void frIncrementNumShots(void)
 	g_FrData.numshotssincetopup++;
 }
 
-bool ciIsChrBioUnlocked(u32 bodynum)
+static bool ciIsChrBioUnlocked(u32 bodynum)
 {
 	switch (bodynum) {
 	case BODY_DARK_COMBAT:
@@ -2225,7 +2228,7 @@ struct miscbio *ciGetMiscBio(s32 index)
 	return NULL;
 }
 
-bool ciIsMiscBioUnlocked(s32 index)
+static bool ciIsMiscBioUnlocked(s32 index)
 {
 	switch (index) {
 	case MISCBIO_MAIANS:
@@ -2280,7 +2283,7 @@ char *ciGetMiscBioDescription(void)
 	return langGet(bio->description);
 }
 
-bool ciIsHangarBioAVehicle(s32 index)
+static bool ciIsHangarBioAVehicle(s32 index)
 {
 	return index >= HANGARBIO_JUMPSHIP;
 }
@@ -2351,7 +2354,7 @@ struct hangarbio *ciGetHangarBio(s32 index)
 u8 g_DtSlot = 0;
 u8 var80088adc = 0;
 
-bool ciIsHangarBioUnlocked(u32 bioindex)
+static bool ciIsHangarBioUnlocked(u32 bioindex)
 {
 	u32 stage;
 
@@ -2476,7 +2479,7 @@ struct trainingdata *dtGetData(void)
 	return &g_DtData;
 }
 
-void dtRestorePlayer(void)
+static void dtRestorePlayer(void)
 {
 	bgunSetPassiveMode(true);
 
@@ -2595,7 +2598,7 @@ void dtEnd(void)
 	g_Vars.currentplayer->bondhealth = 1;
 }
 
-bool dtIsAvailable(s32 deviceindex)
+static bool dtIsAvailable(s32 deviceindex)
 {
 	u8 flags[] = {
 		GAMEFILEFLAG_CI_UPLINK_DONE,
@@ -2673,7 +2676,7 @@ u32 dtGetWeaponByDeviceIndex(s32 deviceindex)
 	return weapons[deviceindex];
 }
 
-u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
+static u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
 {
 	u32 flags[] = {
 		STAGEFLAG_CI_TRIGGER_UPLINK,
@@ -2874,7 +2877,7 @@ void htEnd(void)
 	g_Vars.currentplayer->bondhealth = 1;
 }
 
-bool htIsUnlocked(u32 value)
+static bool htIsUnlocked(u32 value)
 {
 	switch (value) {
 	case 0:
@@ -2937,7 +2940,7 @@ char *htGetName(s32 index)
 	return langGet(texts[index]);
 }
 
-u32 func0f1a25c0(s32 index)
+static u32 func0f1a25c0(s32 index)
 {
 	u32 flags[] = {
 		STAGEFLAG_CI_IN_HOLO1,
@@ -2998,23 +3001,23 @@ char *htGetTip2(void)
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
 }
 
-void frGetGoalTargetsText(char *buffer)
+static void frGetGoalTargetsText(char *buffer)
 {
 	// "GOAL TARGETS:"
 	sprintf(buffer, "%s %d\n", langGet(L_MISC_417), g_FrData.goaltargets);
 }
 
-void frGetTargetsDestroyedValue(char *buffer)
+static void frGetTargetsDestroyedValue(char *buffer)
 {
 	sprintf(buffer, "%02d\n", g_FrData.targetsdestroyed);
 }
 
-void frGetScoreValue(char *buffer)
+static void frGetScoreValue(char *buffer)
 {
 	sprintf(buffer, "%03d\n", g_FrData.score);
 }
 
-void frGetGoalScoreText(char *buffer)
+static void frGetGoalScoreText(char *buffer)
 {
 	if (g_FrData.goalscore) {
 		// "GOAL SCORE:"
@@ -3024,7 +3027,7 @@ void frGetGoalScoreText(char *buffer)
 	}
 }
 
-f32 frGetAccuracy(char *buffer)
+static f32 frGetAccuracy(char *buffer)
 {
 	f32 sum = (g_FrData.numhitsring3
 		+ g_FrData.numhitsbullseye
@@ -3045,7 +3048,7 @@ f32 frGetAccuracy(char *buffer)
 	return accuracy;
 }
 
-bool frGetMinAccuracy(char *buffer, f32 accuracy)
+static bool frGetMinAccuracy(char *buffer, f32 accuracy)
 {
 	// "MIN ACCURACY:"
 	sprintf(buffer, "%s %d%%\n", langGet(L_MISC_419), g_FrData.goalaccuracy);
@@ -3063,7 +3066,7 @@ bool frGetMinAccuracy(char *buffer, f32 accuracy)
  * Negative time taken (such as when the player aborts before the challenge
  * starts) is wrapped to positive and will induce a failure.
  */
-bool frFormatTime(char *buffer)
+static bool frFormatTime(char *buffer)
 {
 	s32 mins = 0;
 	s32 mult = 1;
@@ -3094,7 +3097,7 @@ bool frFormatTime(char *buffer)
 	return failed;
 }
 
-bool frGetHudMiddleSubtext(char *buffer)
+static bool frGetHudMiddleSubtext(char *buffer)
 {
 	s32 secs;
 	s32 mins;
@@ -3127,7 +3130,7 @@ bool frGetHudMiddleSubtext(char *buffer)
 	return true;
 }
 
-bool frGetFeedback(char *scorebuffer, char *zonebuffer)
+static bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 {
 	u32 texts[] = {
 		L_MISC_423, // "ZONE 3"
@@ -3177,7 +3180,7 @@ bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 	return false;
 }
 
-Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u32 colour, u8 alpha)
+static Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u32 colour, u8 alpha)
 {
 	s32 textheight;
 	s32 textwidth;

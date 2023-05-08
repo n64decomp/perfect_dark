@@ -147,17 +147,17 @@ struct menudialogdef g_KohOptionsMenuDialog = {
 	NULL,
 };
 
-void kohReadSave(struct savebuffer *buffer)
+static void kohReadSave(struct savebuffer *buffer)
 {
 	g_Vars.mphilltime = savebufferReadBits(buffer, 8);
 }
 
-void kohWriteSave(struct savebuffer *buffer)
+static void kohWriteSave(struct savebuffer *buffer)
 {
 	savebufferOr(buffer, g_Vars.mphilltime, 8);
 }
 
-void kohInit(void)
+static void kohInit(void)
 {
 	s32 i;
 
@@ -181,7 +181,7 @@ void kohInit(void)
 	}
 }
 
-void kohInitProps(void)
+static void kohInitProps(void)
 {
 	s16 pad_id = 0;
 
@@ -211,7 +211,7 @@ void kohInitProps(void)
  * To make this code readable, constants have been used to map appropriate names
  * to the underlying variable.
  */
-void kohTick(void)
+static void kohTick(void)
 {
 	s32 i;
 	s32 hillteam;
@@ -526,7 +526,7 @@ void kohTick(void)
 	}
 }
 
-Gfx *kohRenderHud(Gfx *gdl)
+static Gfx *kohRenderHud(Gfx *gdl)
 {
 	s32 time240;
 	s32 mins;
@@ -570,7 +570,7 @@ Gfx *kohRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void kohCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+static void kohCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
@@ -597,7 +597,7 @@ void kohCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score
 	*deaths = mpchr->numdeaths;
 }
 
-Gfx *kohRadarExtra(Gfx *gdl)
+static Gfx *kohRadarExtra(Gfx *gdl)
 {
 	if (g_MpSetup.options & MPOPTION_KOH_HILLONRADAR && !g_ScenarioData.koh.movehill) {
 		struct coord dist;
@@ -618,7 +618,7 @@ Gfx *kohRadarExtra(Gfx *gdl)
 	return gdl;
 }
 
-void kohAddHill(s32 *cmd)
+static void kohAddHill(s32 *cmd)
 {
 	if (g_ScenarioData.koh.hillcount < ARRAYCOUNT(g_ScenarioData.koh.hillpads)) {
 		g_ScenarioData.koh.hillpads[g_ScenarioData.koh.hillcount] = cmd[1];
@@ -626,7 +626,7 @@ void kohAddHill(s32 *cmd)
 	}
 }
 
-void kohHighlightRoom(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
+static void kohHighlightRoom(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
 {
 	if (roomnum == g_ScenarioData.koh.hillrooms[0]) {
 		f32 a = *arg1;

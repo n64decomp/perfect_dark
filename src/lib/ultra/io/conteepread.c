@@ -5,7 +5,7 @@
 
 OSPifRam __osEepPifRam;
 
-void __osPackEepReadData(u8 address);
+static void __osPackEepReadData(u8 address);
 
 s32 osEepromRead(OSMesgQueue *mq, u8 address, u8 *buffer)
 {
@@ -81,7 +81,7 @@ s32 osEepromRead(OSMesgQueue *mq, u8 address, u8 *buffer)
 	return ret;
 }
 
-void __osPackEepReadData(u8 address)
+static void __osPackEepReadData(u8 address)
 {
 	u8 *ptr;
 	__OSContEepromFormat eepromformat;

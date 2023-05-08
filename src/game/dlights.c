@@ -57,7 +57,21 @@ s32 var80061458 = 0x00000000;
 
 Lights1 var80061460 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0x4d, 0x4d, 0x2e);
 
-u32 func0f000920(s32 portalnum1, s32 portalnum2)
+static void func0f0023b8(void);
+static void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum);
+static void func0f00259c(s32 roomnum);
+static void func0f00215c(u8 *arg0);
+static void func0f003444(void);
+static void func0f0035c0(void);
+static void func0f00372c(void);
+static void func0f0037ac(void);
+static void func0f004558(s32 roomnum, s32 increment, s32 limit);
+static void func0f00505c(void);
+static void func0f004c6c(void);
+static f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 roomnum2, struct coord *pos2, s32 portalnum2, f32 *arg6);
+static void func0f005bb0(void);
+
+static u32 func0f000920(s32 portalnum1, s32 portalnum2)
 {
 	if (portalnum1 != portalnum2) {
 		s32 upper = (portalnum1 > portalnum2) ? portalnum1 : portalnum2;
@@ -69,7 +83,7 @@ u32 func0f000920(s32 portalnum1, s32 portalnum2)
 	return 0;
 }
 
-struct light *roomGetLight(s32 roomnum, s32 lightnum)
+static struct light *roomGetLight(s32 roomnum, s32 lightnum)
 {
 	return (struct light *)&g_BgLightsFileData[(g_Rooms[roomnum].lightindex + lightnum) * 0x22];
 }
@@ -219,7 +233,7 @@ void roomSetUnk52(s32 roomnum, s32 value)
 	g_Rooms[roomnum].unk52 = value;
 }
 
-void roomSetDefaults(struct room *room)
+static void roomSetDefaults(struct room *room)
 {
 	room->unk48 = 0;
 	room->unk49 = 255;
@@ -594,9 +608,9 @@ void func0f001c0c(void)
 	if (sp68);
 }
 
-f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2);
+static f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2);
 
-void func0f00215c(u8 *arg0)
+static void func0f00215c(u8 *arg0)
 {
 	s32 i;
 	s32 j;
@@ -639,7 +653,7 @@ f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2)
 	return result;
 }
 
-void func0f0023b8(void)
+static void func0f0023b8(void)
 {
 	s32 i;
 	s32 j;
@@ -690,7 +704,7 @@ void func0f0023b8(void)
 	}
 }
 
-void func0f00259c(s32 roomnum)
+static void func0f00259c(s32 roomnum)
 {
 	s32 i;
 	f32 sp58;
@@ -729,7 +743,7 @@ void func0f00259c(s32 roomnum)
 	}
 }
 
-void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum)
+static void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum)
 {
 	s32 i;
 	s32 otherroomnum = -1;
@@ -979,7 +993,7 @@ void lightingTick(void)
 	}
 }
 
-void func0f003444(void)
+static void func0f003444(void)
 {
 	s32 i;
 	s32 j;
@@ -1002,7 +1016,7 @@ void func0f003444(void)
 	}
 }
 
-void func0f0035c0(void)
+static void func0f0035c0(void)
 {
 	s32 i;
 	s32 j;
@@ -1025,7 +1039,7 @@ void func0f0035c0(void)
 	}
 }
 
-void func0f00372c(void)
+static void func0f00372c(void)
 {
 	if (g_Vars.tickmode != var80061458) {
 		if (TICKMODE_CUTSCENE == g_Vars.tickmode && TICKMODE_CUTSCENE != var80061458) {
@@ -1038,7 +1052,7 @@ void func0f00372c(void)
 	}
 }
 
-void func0f0037ac(void)
+static void func0f0037ac(void)
 {
 	s32 i;
 	s32 numprocessed = 0;
@@ -1355,7 +1369,7 @@ void roomAdjustLighting(s32 roomnum, s32 start, s32 limit)
 	}
 }
 
-void func0f004558(s32 roomnum, s32 increment, s32 limit)
+static void func0f004558(s32 roomnum, s32 increment, s32 limit)
 {
 	if (roomnum) {
 		if (g_Rooms[roomnum].flags & ROOMFLAG_ONSCREEN) {
@@ -1513,7 +1527,7 @@ void roomHighlight(s32 roomnum)
 	}
 }
 
-void func0f004c6c(void)
+static void func0f004c6c(void)
 {
 	s32 sp44;
 	s32 sp40;
@@ -1615,7 +1629,7 @@ void func0f004c6c(void)
 	}
 }
 
-void func0f00505c(void)
+static void func0f00505c(void)
 {
 	s32 j;
 	s32 sp78;
@@ -1668,7 +1682,7 @@ void func0f00505c(void)
 	}
 }
 
-f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 roomnum2, struct coord *pos2, s32 portalnum2, f32 *arg6)
+static f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 roomnum2, struct coord *pos2, s32 portalnum2, f32 *arg6)
 {
 	f32 sp6c;
 	f32 *sp68;
@@ -1824,7 +1838,7 @@ void func0f0056f4(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
  * - Sets g_IsSwitchingGoggles if equipping or unequipping NV/IR on this frame.
  * - Updates the player's usinggoggles property.
  */
-void func0f005bb0(void)
+static void func0f005bb0(void)
 {
 	s32 brightness = func0f0009c0(g_Vars.currentplayer->prop->rooms[0]);
 

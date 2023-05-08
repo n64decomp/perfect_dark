@@ -8,10 +8,11 @@
 #include "cseq.h"
 #include "n_cseqp.h"
 
-void __n_CSPRepostEvent(ALEventQueue *evtq, N_ALEventListItem *item);
-void __n_setUsptFromTempo(N_ALCSPlayer *seqp, f32 tempo);
-void __n_CSPHandleMetaMsg(N_ALCSPlayer *seqp, N_ALEvent *event);
+static void __n_CSPRepostEvent(ALEventQueue *evtq, N_ALEventListItem *item);
+static void __n_setUsptFromTempo(N_ALCSPlayer *seqp, f32 tempo);
+static void __n_CSPHandleMetaMsg(N_ALCSPlayer *seqp, N_ALEvent *event);
 ALMicroTime __n_vsDelta(N_ALVoiceState *vs, ALMicroTime t);
+static void __n_CSPPostNextSeqEvent(N_ALCSPlayer *seqp);
 
 u32 var8009c350[16];
 
@@ -67,7 +68,7 @@ f32 var8005f34c[100] = {
 u32 var8005f4dc = 0x00000000;
 
 void func00039cd0(N_ALCSPlayer *seqp);
-ALMicroTime __n_CSPVoiceHandler(void *node);
+static ALMicroTime __n_CSPVoiceHandler(void *node);
 
 void n_alCSPNew(N_ALCSPlayer *seqp, ALSeqpConfig *c)
 {
@@ -145,8 +146,8 @@ void n_alCSPNew(N_ALCSPlayer *seqp, ALSeqpConfig *c)
 	n_alSynAddSeqPlayer(&seqp->node);
 }
 
-void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp);
-void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event);
+static void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp);
+static void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event);
 
 void n_alSynFilter13(N_ALVoice *v, f32 arg1);
 u8 func0003d9cc(N_ALVoiceState *vs, N_ALCSPlayer *seqp);
@@ -155,7 +156,7 @@ ALFxRef func0003e5b8(u8 arg0);
 void func0003e674(struct fx *fx, u8 arg1, void *param);
 f32 func0003b9d4(s32 arg0);
 
-ALMicroTime __n_CSPVoiceHandler(void *node)
+static ALMicroTime __n_CSPVoiceHandler(void *node)
 {
 	N_ALCSPlayer    *seqp = (N_ALCSPlayer *) node;
 	N_ALEvent        evt;
@@ -415,7 +416,7 @@ ALMicroTime __n_CSPVoiceHandler(void *node)
  *
  * sct 11/7/95
  */
-void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp)
+static void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp)
 {
 	N_ALEvent evt;
 
@@ -456,7 +457,7 @@ void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp)
 	}
 }
 
-void func00034f0c(N_ALCSPlayer *seqp, u8 channel)
+static void func00034f0c(N_ALCSPlayer *seqp, u8 channel)
 {
 	N_ALVoiceState *vs;
 
@@ -469,7 +470,7 @@ void func00034f0c(N_ALCSPlayer *seqp, u8 channel)
 	}
 }
 
-void func00034fb8(N_ALCSPlayer *seqp, u8 channel)
+static void func00034fb8(N_ALCSPlayer *seqp, u8 channel)
 {
 	N_ALVoiceState *vs;
 	s16 sp2a;
@@ -492,7 +493,7 @@ void func00034fb8(N_ALCSPlayer *seqp, u8 channel)
 void sndStartMp3ByFilenum(u8 arg0);
 f32 _depth2Cents(u8 arg0);
 
-void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
+static void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 {
 	N_ALVoice          *voice;
 	N_ALVoiceState     *vs;
@@ -1127,7 +1128,7 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 	}
 }
 
-void __n_CSPHandleMetaMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
+static void __n_CSPHandleMetaMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 {
 	ALTempoEvent *tevt = &event->msg.tempo;
 	s32 tempo;
@@ -1185,7 +1186,7 @@ void __n_CSPHandleMetaMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 	}
 }
 
-void __n_CSPRepostEvent(ALEventQueue *evtq, N_ALEventListItem *item)
+static void __n_CSPRepostEvent(ALEventQueue *evtq, N_ALEventListItem *item)
 {
 	OSIntMask mask;
 	ALLink *node;
@@ -1213,7 +1214,7 @@ void __n_CSPRepostEvent(ALEventQueue *evtq, N_ALEventListItem *item)
 	osSetIntMask(mask);
 }
 
-void __n_setUsptFromTempo(N_ALCSPlayer *seqp, f32 tempo)
+static void __n_setUsptFromTempo(N_ALCSPlayer *seqp, f32 tempo)
 {
 	if (seqp->target) {
 		seqp->uspt = (s32)((f32)tempo * seqp->target->qnpt);
@@ -1222,7 +1223,7 @@ void __n_setUsptFromTempo(N_ALCSPlayer *seqp, f32 tempo)
 	}
 }
 
-void __n_CSPPostNextSeqEvent(N_ALCSPlayer *seqp)
+static void __n_CSPPostNextSeqEvent(N_ALCSPlayer *seqp)
 {
 	N_ALEvent evt;
 	s32 deltaTicks;

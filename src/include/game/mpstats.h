@@ -15,8 +15,6 @@ u8 mpstatsGetTotalKnockoutCount(void);
 u32 mpstatsGetTotalKillCount(void);
 void mpstatsRecordPlayerKill(void);
 s32 mpstatsGetPlayerKillCount(void);
-void mpstatsRecordPlayerDeath(void);
-void mpstatsRecordPlayerSuicide(void);
 void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum);
 
 #endif

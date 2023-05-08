@@ -7,7 +7,6 @@
 void playermgrInit(void);
 void playermgrReset(void);
 void playermgrAllocatePlayers(s32 count);
-void playermgrAllocatePlayer(s32 index);
 void playermgrCalculateAiBuddyNums(void);
 void setCurrentPlayerNum(s32 playernum);
 s32 playermgrGetPlayerNumByProp(struct prop *prop);

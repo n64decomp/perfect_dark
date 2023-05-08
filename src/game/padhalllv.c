@@ -195,7 +195,7 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 	return closest;
 }
 
-struct waygroup *func0f114810(s32 *groupnums, s32 value, u32 mask)
+static struct waygroup *func0f114810(s32 *groupnums, s32 value, u32 mask)
 {
 	struct waygroup *groups = g_StageSetup.waygroups;
 	struct waygroup *best = NULL;
@@ -235,7 +235,7 @@ struct waygroup *func0f114810(s32 *groupnums, s32 value, u32 mask)
  * For each group number in the given list which matches the mask,
  * assign value to their unk08 if their unk08 has no value (ie. is negative).
  */
-void func0f114958(s32 *groupnums, s32 value, u32 mask)
+static void func0f114958(s32 *groupnums, s32 value, u32 mask)
 {
 	struct waygroup *groups = g_StageSetup.waygroups;
 
@@ -260,7 +260,7 @@ void func0f114958(s32 *groupnums, s32 value, u32 mask)
  *
  * Return true if any matched.
  */
-bool func0f1149b0(struct waygroup *group, s32 arg1, u32 mask)
+static bool func0f1149b0(struct waygroup *group, s32 arg1, u32 mask)
 {
 	bool result = false;
 
@@ -276,7 +276,7 @@ bool func0f1149b0(struct waygroup *group, s32 arg1, u32 mask)
 	return result;
 }
 
-bool func0f114a2c(struct waygroup *from, struct waygroup *to, struct waygroup *groups, s32 arg3, u32 mask)
+static bool func0f114a2c(struct waygroup *from, struct waygroup *to, struct waygroup *groups, s32 arg3, u32 mask)
 {
 	bool result = true;
 	struct waygroup *group;
@@ -295,7 +295,7 @@ bool func0f114a2c(struct waygroup *from, struct waygroup *to, struct waygroup *g
 	return result;
 }
 
-bool func0f114aec(struct waygroup *from, struct waygroup *to, struct waygroup *groups)
+static bool func0f114aec(struct waygroup *from, struct waygroup *to, struct waygroup *groups)
 {
 	u32 stack[2];
 	bool result = func0f114a2c(from, to, groups, 0, 0x8000);
@@ -316,7 +316,7 @@ bool func0f114aec(struct waygroup *from, struct waygroup *to, struct waygroup *g
 	return result;
 }
 
-struct waypoint *func0f114b7c(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
+static struct waypoint *func0f114b7c(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
 {
 	struct waypoint *points = g_StageSetup.waypoints;
 	struct waypoint *best = NULL;
@@ -356,7 +356,7 @@ struct waypoint *func0f114b7c(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
  * For each pointnum, if it matches the mask, belongs to the given group and has
  * no unk0c, set its unk0c to the given value.
  */
-void func0f114ccc(s32 *pointnums, s32 value, s32 groupnum, u32 mask)
+static void func0f114ccc(s32 *pointnums, s32 value, s32 groupnum, u32 mask)
 {
 	struct waypoint *waypoints = g_StageSetup.waypoints;
 
@@ -373,7 +373,7 @@ void func0f114ccc(s32 *pointnums, s32 value, s32 groupnum, u32 mask)
 	}
 }
 
-bool func0f114d34(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
+static bool func0f114d34(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
 {
 	bool result = false;
 	struct waypoint *points = g_StageSetup.waypoints;
@@ -392,7 +392,7 @@ bool func0f114d34(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
 	return result;
 }
 
-void func0f114de0(struct waypoint *from, struct waypoint *to, s32 arg2, u32 mask)
+static void func0f114de0(struct waypoint *from, struct waypoint *to, s32 arg2, u32 mask)
 {
 	struct waygroup *groups = g_StageSetup.waygroups;
 	struct waypoint *points = g_StageSetup.waypoints;
@@ -416,7 +416,7 @@ void func0f114de0(struct waypoint *from, struct waypoint *to, s32 arg2, u32 mask
 	}
 }
 
-void func0f114ee4(struct waypoint *from, struct waypoint *to)
+static void func0f114ee4(struct waypoint *from, struct waypoint *to)
 {
 	struct waypoint *curto;
 	s32 value;
@@ -436,7 +436,7 @@ void func0f114ee4(struct waypoint *from, struct waypoint *to)
 	curto->unk0c += 10000;
 }
 
-s32 func0f114f70(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen)
+static s32 func0f114f70(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen)
 {
 	struct waypoint **arrptr = arr;
 	struct waypoint *curfrom;
@@ -466,7 +466,7 @@ s32 func0f114f70(struct waypoint *from, struct waypoint *to, struct waypoint **a
 	return arrptr - arr;
 }
 
-void func0f11505c(struct waygroup *groupa, struct waygroup *groupb, struct waypoint **pointa, struct waypoint **pointb)
+static void func0f11505c(struct waygroup *groupa, struct waygroup *groupb, struct waypoint **pointa, struct waypoint **pointb)
 {
 	struct waypoint *points = g_StageSetup.waypoints;
 	struct waygroup *groups = g_StageSetup.waygroups;
@@ -560,7 +560,7 @@ s32 waypointFindRoute(struct waypoint *frompoint, struct waypoint *topoint, stru
 	return arrptr - arr;
 }
 
-void func0f115390(void)
+static void func0f115390(void)
 {
 	struct waypoint *waypoint = g_StageSetup.waypoints;
 
@@ -570,7 +570,7 @@ void func0f115390(void)
 	}
 }
 
-struct waypoint *func0f1153c4(s32 *pointnums, s32 arg1)
+static struct waypoint *func0f1153c4(s32 *pointnums, s32 arg1)
 {
 	s32 len = 0;
 	s32 randomindex;
@@ -607,7 +607,7 @@ struct waypoint *func0f1153c4(s32 *pointnums, s32 arg1)
 	return NULL;
 }
 
-struct waygroup *func0f1154cc(s32 *groupnums, s32 arg1)
+static struct waygroup *func0f1154cc(s32 *groupnums, s32 arg1)
 {
 	s32 len = 0;
 	s32 randomindex;
@@ -717,7 +717,7 @@ struct waypoint *func0f1155e0(struct waypoint *pointa, struct waypoint *pointb)
  * A's group and B's group then group B is removed from group A's neighbour
  * list.
  */
-void waypointDisableSegmentInDirection(struct waypoint *a, struct waypoint *b)
+static void waypointDisableSegmentInDirection(struct waypoint *a, struct waypoint *b)
 {
 	struct waygroup *agroup = &g_StageSetup.waygroups[a->groupnum];
 	s32 bindex = b - g_StageSetup.waypoints;
@@ -773,7 +773,7 @@ void waypointDisableSegmentInDirection(struct waypoint *a, struct waypoint *b)
  * This code assumes that A's neighbours array is big enough to add the new
  * neighbour, which it will be if B was disabled previously.
  */
-void waypointEnableSegmentInDirection(struct waypoint *a, struct waypoint *b)
+static void waypointEnableSegmentInDirection(struct waypoint *a, struct waypoint *b)
 {
 	struct waygroup *agroup = &g_StageSetup.waygroups[a->groupnum];
 	s32 bpointnum = b - g_StageSetup.waypoints;

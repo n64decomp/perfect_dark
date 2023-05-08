@@ -33,7 +33,7 @@ char *argv[17] = {
 /**
  * Split the given string into words and populate the argv array.
  */
-char *argParseString(char *str)
+static char *argParseString(char *str)
 {
 	argv[0] = "";
 	argc = 1;
@@ -59,32 +59,6 @@ void argSetString(char *string)
 {
 	strcpy((char *) g_ArgBuffer, string);
 	argParseString((char *) g_ArgBuffer);
-}
-
-bool argsParseDebugArgs(void)
-{
-	u32 devaddr;
-	u32 stack;
-	s32 i;
-	bool ret = false;
-
-	devaddr = 0x1ffff00;
-
-	g_ArgBuffer[0] = 0;
-
-	argParseString((char *) g_ArgBuffer);
-
-	// I'm guessing the -d stands for debug. If set at boot, the main thread
-	// stops itself immediately after creating the rmon thread.
-	if (argFindByPrefix(1, "-d")) {
-		ret = true;
-	}
-
-	if (argFindByPrefix(1, "-s")) {
-		g_SndDisabled = true;
-	}
-
-	return ret;
 }
 
 /**

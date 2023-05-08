@@ -66,7 +66,7 @@ struct footstepframe g_FootstepAnims[] = {
 	{ ANIM_SKEDAR_RUNNING,     0x00, 0x00 },
 };
 
-bool footstepIsRunning(s32 animnum)
+static bool footstepIsRunning(s32 animnum)
 {
 	switch (animnum) {
 	case ANIM_001D:

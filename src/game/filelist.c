@@ -26,6 +26,8 @@ s32 var800a2330[5];
 struct filelist *g_FileLists[] = { NULL, NULL, NULL, NULL };
 bool var80075bd0[] = { true, true, true, true };
 
+static void filelistUpdate(struct filelist *list);
+
 void func0f110bf8(void)
 {
 	s32 i;
@@ -140,7 +142,7 @@ void filelistsTick(void)
 	}
 }
 
-void filelistUpdate(struct filelist *list)
+static void filelistUpdate(struct filelist *list)
 {
 	const u32 sp3a88[] = {
 		PAKFILETYPE_GAME,

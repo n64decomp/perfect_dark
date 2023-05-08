@@ -166,11 +166,14 @@ extern u8 _copyrightSegmentRomStart;
 extern u8 _copyrightSegmentRomEnd;
 extern u8 _setupdishasmSegmentEnd;
 
+static void mainTick(void);
+static void mainLoop(void);
+
 /**
  * Initialise various subsystems, display the copyright or accessing pak texture,
  * then initialise more subsystems.
  */
-void mainInit(void)
+static void mainInit(void)
 {
 	s32 x;
 	s32 dsty;
@@ -389,7 +392,7 @@ void mainProc(void)
  * Within this loop is an inner loop which runs very frequently and decides
  * whether to run mainTick on each iteration.
  */
-void mainLoop(void)
+static void mainLoop(void)
 {
 	s32 ending = false;
 	OSMesg msg;
@@ -429,7 +432,7 @@ void mainLoop(void)
 		if (var8005d9b0 && var8005d9c4 == 0) {
 			index = -1;
 
-			if (g_StageNum < STAGE_TITLE && getNumPlayers() >= 2) {
+			if (g_StageNum < STAGE_TITLE && g_NumPlayers >= 2) {
 				index = 0;
 
 				while (g_StageAllocations8Mb[index].stagenum) {
@@ -483,8 +486,8 @@ void mainLoop(void)
 				numplayers = 1;
 			}
 
-			if (getNumPlayers() >= 2) {
-				numplayers = getNumPlayers();
+			if (g_NumPlayers >= 2) {
+				numplayers = g_NumPlayers;
 			}
 		}
 
@@ -585,7 +588,7 @@ void mainLoop(void)
 	func0f175fc8();
 }
 
-void mainTick(void)
+static void mainTick(void)
 {
 	Gfx *gdl;
 	Gfx *gdlstart;

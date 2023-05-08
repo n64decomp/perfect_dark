@@ -79,16 +79,6 @@ void animsInit(void)
 	var8009a88c = mempAlloc(0x80, MEMPOOL_PERMANENT);
 	var8009a890 = mempAlloc(0xc0, MEMPOOL_PERMANENT);
 
-	animsInitTables();
-
-	g_AnimHostSegment = NULL;
-	g_AnimHostEnabled = false;
-}
-
-void animsInitTables(void)
-{
-	s32 i;
-
 	for (i = 0; i < g_NumAnimations; i++) {
 		var8005f010[i] = 0xff;
 		var8005f014[i] = 0;
@@ -104,6 +94,9 @@ void animsInitTables(void)
 		var8009a88c[i] = 0;
 		var8009a890[i] = -2;
 	}
+
+	g_AnimHostSegment = NULL;
+	g_AnimHostEnabled = false;
 }
 
 void animsReset(void)
@@ -125,7 +118,7 @@ bool animHasFrames(s16 animnum)
 
 extern u8 _animationsSegmentRomStart;
 
-u8 *animDma(u8 *dst, u32 segoffset, u32 len)
+static u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 {
 	if (g_AnimHostEnabled) {
 		bcopy(&g_AnimHostSegment[segoffset], dst, len);
@@ -164,7 +157,7 @@ s32 anim0002384c(s16 animnum, s32 frame)
 	return result;
 }
 
-bool anim00023908(s16 animnum, s32 frame, s32 *frameptr)
+static bool anim00023908(s16 animnum, s32 frame, s32 *frameptr)
 {
 	u8 *ptr = (u8 *)(var8009a888[var8005f010[animnum]] + g_Anims[animnum].headerlen - 2);
 	s32 result = frame;
@@ -320,7 +313,7 @@ void anim00023d38(s16 animnum)
 	}
 }
 
-s32 anim00023f50(u8 *arg0, u8 arg1, u32 arg2)
+static s32 anim00023f50(u8 *arg0, u8 arg1, u32 arg2)
 {
 	u32 result = 0;
 	u8 numbits;
@@ -345,7 +338,7 @@ s32 anim00023f50(u8 *arg0, u8 arg1, u32 arg2)
 	return result;
 }
 
-s32 anim00023fe0(u8 *arg0, u8 arg1, s32 arg2)
+static s32 anim00023fe0(u8 *arg0, u8 arg1, s32 arg2)
 {
 	u16 result = anim00023f50(arg0, arg1, arg2);
 

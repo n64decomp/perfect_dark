@@ -19,7 +19,7 @@ s8 g_Resetting = false;
  * (actual reset) at least 0.5 seconds later. During PRENMI, the system must
  * prepare the system for reset.
  */
-void resetproc(void *data)
+static void resetproc(void *data)
 {
 	OSMesg msg = 0;
 	OSViMode *mode;

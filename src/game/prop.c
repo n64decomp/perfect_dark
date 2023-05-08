@@ -39,6 +39,8 @@
 #include "data.h"
 #include "types.h"
 
+static void propsDefragRoomProps(void);
+
 s16 *g_RoomPropListChunkIndexes;
 struct roomproplistchunk *g_RoomPropListChunks;
 struct prop *g_InteractProp;
@@ -340,7 +342,7 @@ void propDetach(struct prop *prop)
 	}
 }
 
-Gfx *propRender(Gfx *gdl, struct prop *prop, bool xlupass)
+static Gfx *propRender(Gfx *gdl, struct prop *prop, bool xlupass)
 {
 	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_DOOR | PROPTYPE_WEAPON)) {
 		gdl = objRender(prop, gdl, xlupass);
@@ -474,7 +476,7 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
  * This is similar to the above but the sound numbers seem wrong...
  * Perhaps the function was from GE and not updated for PD.
  */
-void func0f060bac(s32 weaponnum, struct prop *prop)
+static void func0f060bac(s32 weaponnum, struct prop *prop)
 {
 	s32 soundnum = -1;
 	f32 speed = 1;
@@ -522,7 +524,7 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
  *
  * The return value is the final prop that was hit.
  */
-struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struct coord *arg3, struct coord *gunpos, struct coord *dir, u32 arg6, f32 arg7, bool arg8)
+static struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struct coord *arg3, struct coord *gunpos, struct coord *dir, u32 arg6, f32 arg7, bool arg8)
 {
 	u32 index;
 	struct prop **propptr;
@@ -932,7 +934,7 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 	return shotCalculateHits(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
 }
 
-void shotCreate(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4)
+static void shotCreate(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4)
 {
 	struct coord shootdir;
 	struct coord shootpos;
@@ -1039,7 +1041,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 	}
 }
 
-void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
+static void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 {
 	s32 cdtypes;
 	struct prop **ptr;
@@ -1194,7 +1196,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 	}
 }
 
-void handTickAttack(s32 handnum)
+static void handTickAttack(s32 handnum)
 {
 	if (g_Vars.currentplayer->hands[handnum].unk0d0f_02) {
 		s32 doit = true;
@@ -1253,9 +1255,6 @@ void handTickAttack(s32 handnum)
 			break;
 		case HANDATTACKTYPE_DETONATE:
 			playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
-			break;
-		case HANDATTACKTYPE_UPLINK:
-			propFindForUplink();
 			break;
 		case HANDATTACKTYPE_BOOST:
 			bgunApplyBoost();
@@ -1339,7 +1338,7 @@ void propExecuteTickOperation(struct prop *prop, s32 op)
 	}
 }
 
-struct prop *propFindForInteract(bool usingeyespy)
+static struct prop *propFindForInteract(bool usingeyespy)
 {
 	struct prop **ptr;
 	bool checkmore = true;
@@ -1366,33 +1365,6 @@ struct prop *propFindForInteract(bool usingeyespy)
 	}
 
 	return g_InteractProp;
-}
-
-/**
- * While this function is called, it doesn't return anything and doesn't appear
- * to be useful. Uplinking still works when this function is empty.
- */
-void propFindForUplink(void)
-{
-	struct prop **ptr = g_Vars.endonscreenprops - 1;
-	bool checkmore = true;
-
-	// Iterate onscreen props near to far
-	while (ptr >= g_Vars.onscreenprops) {
-		struct prop *prop = *ptr;
-
-		if (prop) {
-			if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON)) {
-				checkmore = objTestForInteract(prop);
-			}
-
-			if (!checkmore) {
-				return;
-			}
-		}
-
-		ptr--;
-	}
 }
 
 bool currentPlayerInteract(bool eyespy)
@@ -1424,7 +1396,7 @@ bool currentPlayerInteract(bool eyespy)
  * The prop is removed from its current list (activeprops or pausedprops)
  * if any, and is then inserted to the head of pausedprops.
  */
-void propPause(struct prop *prop)
+static void propPause(struct prop *prop)
 {
 	if ((prop->flags & PROPFLAG_DONTPAUSE) == 0) {
 		propDelist(prop);
@@ -2097,7 +2069,7 @@ void propsTickPlayer(bool islastplayer)
 		}
 	}
 
-	chr0f02472c();
+	var80062964 = 0;
 }
 
 void propsTickPadEffects(void)
@@ -2228,7 +2200,7 @@ void propsTestForPickup(void)
 	}
 }
 
-f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
+static f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
 {
 	f32 spa0[2];
 	struct coord sp94;
@@ -2356,7 +2328,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 	return result;
 }
 
-void farsightChooseTarget(void)
+static void farsightChooseTarget(void)
 {
 	struct prop *besttarget = NULL;
 	f32 bestthing = 1;
@@ -2410,7 +2382,7 @@ void farsightChooseTarget(void)
 	g_Vars.currentplayer->autoerasertarget = besttarget;
 }
 
-struct prop *autoaimFindBestCmpProp(f32 aimpos[2])
+static struct prop *autoaimFindBestCmpProp(f32 aimpos[2])
 {
 	struct prop *bestprop = NULL;
 	s32 i;
@@ -2503,7 +2475,7 @@ struct prop *autoaimFindBestCmpProp(f32 aimpos[2])
 	return bestprop;
 }
 
-struct prop *autoaimFindGeneralProp(f32 aimpos[2])
+static struct prop *autoaimFindGeneralProp(f32 aimpos[2])
 {
 	struct prop *bestprop = NULL;
 	f32 bestthing = -1;
@@ -2552,7 +2524,7 @@ struct prop *autoaimFindGeneralProp(f32 aimpos[2])
 	return bestprop;
 }
 
-void autoaimSetProp(struct prop *prop, f32 aimpos[2])
+static void autoaimSetProp(struct prop *prop, f32 aimpos[2])
 {
 	if (prop) {
 		f32 x = (aimpos[0] - camGetScreenLeft()) / (camGetScreenWidth() * 0.5f) - 1;
@@ -2769,7 +2741,7 @@ bool arrayIntersects(s16 *a, s16 *b)
 	return false;
 }
 
-bool propTryAddToChunk(s16 propnum, s32 chunkindex)
+static bool propTryAddToChunk(s16 propnum, s32 chunkindex)
 {
 	struct roomproplistchunk *chunk = &g_RoomPropListChunks[chunkindex];
 
@@ -2782,7 +2754,7 @@ bool propTryAddToChunk(s16 propnum, s32 chunkindex)
 	return false;
 }
 
-s32 roomAllocatePropListChunk(s32 room, s32 prevchunkindex)
+static s32 roomAllocatePropListChunk(s32 room, s32 prevchunkindex)
 {
 	u32 i;
 
@@ -2809,7 +2781,7 @@ s32 roomAllocatePropListChunk(s32 room, s32 prevchunkindex)
 	return -1;
 }
 
-void propRegisterRoom(struct prop *prop, s16 room)
+static void propRegisterRoom(struct prop *prop, s16 room)
 {
 	s32 prev = -1;
 	s32 i;
@@ -2844,7 +2816,7 @@ void propRegisterRoom(struct prop *prop, s16 room)
 	}
 }
 
-void propDeregisterRoom(struct prop *prop, s16 room)
+static void propDeregisterRoom(struct prop *prop, s16 room)
 {
 	s32 prev = -1;
 
@@ -3077,7 +3049,7 @@ void roomGetProps(s16 *rooms, s16 *propnums, s32 len)
 	*writeptr = -1;
 }
 
-void propsDefragRoomProps(void)
+static void propsDefragRoomProps(void)
 {
 	s32 i;
 	s32 j;

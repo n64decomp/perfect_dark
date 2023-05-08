@@ -20,6 +20,8 @@ u16 var800abdc8[0x180];
 u16 *var800844f0 = NULL;
 void *var800844f4 = NULL;
 
+static void mblurAllocate(void);
+
 void *mblurGetAllocation(void)
 {
 	return var800844f0;
@@ -35,7 +37,7 @@ void mblurReset(s32 stagenum)
 	}
 }
 
-void mblurAllocate(void)
+static void mblurAllocate(void)
 {
 	var800ab7c0 = 640;
 
@@ -109,7 +111,7 @@ Gfx *mblur0f1763f4(Gfx *gdl)
 	return gdl;
 }
 
-u16 *mblur0f176668(s32 arg0)
+static u16 *mblur0f176668(s32 arg0)
 {
 	u16 *addr;
 
@@ -132,7 +134,7 @@ u16 *mblur0f176668(s32 arg0)
 
 Gfx *mblurRender(Gfx *gdl)
 {
-	struct artifact *artifacts = schedGetWriteArtifacts();
+	struct artifact *artifacts = g_ArtifactLists[g_SchedWriteArtifactsIndex];
 	u32 stack;
 	u16 *sp4c = var800844f0;
 	u32 s4 = 0;

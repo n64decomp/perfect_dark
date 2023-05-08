@@ -7,7 +7,7 @@
 #include "data.h"
 #include "types.h"
 
-u16 raceInitAnim(s16 animnum, s32 frame, s32 endframe)
+static u16 raceInitAnim(s16 animnum, s32 frame, s32 endframe)
 {
 	s16 sp48[4];
 	u16 count = 0;
@@ -20,7 +20,7 @@ u16 raceInitAnim(s16 animnum, s32 frame, s32 endframe)
 	return count;
 }
 
-s32 race0f000358(s16 animnum, s32 frame, s32 endframe)
+static s32 race0f000358(s16 animnum, s32 frame, s32 endframe)
 {
 	s32 count = 0;
 	s16 sp44[4];
@@ -34,7 +34,7 @@ s32 race0f000358(s16 animnum, s32 frame, s32 endframe)
 	return count;
 }
 
-s32 raceInitAnimGroup(struct attackanimconfig *configs)
+static s32 raceInitAnimGroup(struct attackanimconfig *configs)
 {
 	s32 count = 0;
 	struct attackanimconfig *config = configs;
@@ -59,7 +59,7 @@ s32 raceInitAnimGroup(struct attackanimconfig *configs)
 	return count;
 }
 
-void raceInitAnimGroups(struct attackanimgroup **groups)
+static void raceInitAnimGroups(struct attackanimgroup **groups)
 {
 	s32 i;
 
@@ -70,7 +70,7 @@ void raceInitAnimGroups(struct attackanimgroup **groups)
 	}
 }
 
-s32 raceCountAnims(struct animtablerow *rows)
+static s32 raceCountAnims(struct animtablerow *rows)
 {
 	s32 i;
 
@@ -79,7 +79,7 @@ s32 raceCountAnims(struct animtablerow *rows)
 	return i;
 }
 
-f32 race0f0005c0(s16 animnum)
+static f32 race0f0005c0(s16 animnum)
 {
 	f32 tmp = race0f000358(animnum, 0, animGetNumFrames(animnum) - 1) / (f32) animGetNumFrames(animnum);
 

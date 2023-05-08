@@ -4,11 +4,11 @@
 
 #define RANGE 2.0f
 
-Acmd *_n_loadOutputBuffer(ALFx *r, ALDelay *d, s32 arg2, s32 buff, Acmd *p);
-Acmd *_n_loadBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff,s32 count, Acmd *p);
-Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p);
-Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
-f32 _doModFunc(ALDelay *d, s32 count);
+static Acmd *_n_loadOutputBuffer(ALFx *r, ALDelay *d, s32 arg2, s32 buff, Acmd *p);
+static Acmd *_n_loadBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff,s32 count, Acmd *p);
+static Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p);
+static Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
+static f32 _doModFunc(ALDelay *d, s32 count);
 
 Acmd *n_alFxPull(s32 sampleOffset, Acmd *p, s32 arg2)
 {
@@ -233,7 +233,7 @@ s32 n_alFxParamHdl(void *filter, s32 paramID, void *param)
 	return 0;
 }
 
-Acmd *_n_loadOutputBuffer(ALFx *r, ALDelay *d, s32 arg2, s32 buff, Acmd *p)
+static Acmd *_n_loadOutputBuffer(ALFx *r, ALDelay *d, s32 arg2, s32 buff, Acmd *p)
 {
 	Acmd *ptr = p;
 	s32 ratio, count, rbuff = N_AL_TEMP_2;
@@ -272,7 +272,7 @@ Acmd *_n_loadOutputBuffer(ALFx *r, ALDelay *d, s32 arg2, s32 buff, Acmd *p)
 	return ptr;
 }
 
-Acmd *_n_loadBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff,s32 count, Acmd *p)
+static Acmd *_n_loadBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff,s32 count, Acmd *p)
 {
 	Acmd *ptr = p;
 	s32 after_end, before_end;
@@ -299,7 +299,7 @@ Acmd *_n_loadBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff,s32 count, Acmd *
 	return ptr;
 }
 
-Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p)
+static Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p)
 {
 	Acmd *ptr = p;
 	s32 after_end, before_end;
@@ -326,7 +326,7 @@ Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p)
 	return ptr;
 }
 
-Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p)
+static Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p)
 {
 	Acmd *ptr = p;
 	s16 tmp = count >> 8;
@@ -346,7 +346,7 @@ Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p)
  * should go at it's full chorus. In otherwords, this function returns a number
  * of samples the output pointer should modulate backwards.
  */
-f32 _doModFunc(ALDelay *d, s32 count)
+static f32 _doModFunc(ALDelay *d, s32 count)
 {
 	f32 val;
 

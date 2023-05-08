@@ -246,7 +246,7 @@ Gfx *var80081018[] = {
 	gbi_26f50,
 };
 
-void gfxReplaceGbiCommands(Gfx *startgdl, Gfx *endgdl, s32 type)
+static void gfxReplaceGbiCommands(Gfx *startgdl, Gfx *endgdl, s32 type)
 {
 	Gfx *gdl = startgdl;
 

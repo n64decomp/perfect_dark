@@ -20,7 +20,7 @@ s32 var8009de94;
 s32 var8009de98;
 s32 var8009de9c;
 
-void func0f0d4690(Mtxf *mtx)
+static void func0f0d4690(Mtxf *mtx)
 {
 	struct coord pos;
 
@@ -38,7 +38,7 @@ void func0f0d4690(Mtxf *mtx)
 	mtx00015e4c(-1, mtx);
 }
 
-void func0f0d475c(Mtxf *mtx)
+static void func0f0d475c(Mtxf *mtx)
 {
 	func0f0d4690(mtx);
 	mtx00015df0(0.1f, mtx);
@@ -358,7 +358,7 @@ void savebufferOr(struct savebuffer *buffer, u32 value, s32 numbits)
  *
  * numbits is expected to be 32 or less.
  */
-void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *dst)
+static void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *dst)
 {
 	u32 bit = 1 << (numbits - 1);
 

@@ -38,45 +38,6 @@ void schedInitArtifacts(void)
 	}
 }
 
-/**
- * The write list is an artifact list that is not currently being displayed on
- * the screen. Update logic can write here to put artifacts on the next frame.
- */
-struct artifact *schedGetWriteArtifacts(void)
-{
-	return g_ArtifactLists[g_SchedWriteArtifactsIndex];
-}
-
-/**
- * The front list is the artifact list that is currently being displayed on the
- * screen. Rendering logic reads this list. The list may be re-used for multiple
- * frames in a row during lag.
- */
-struct artifact *schedGetFrontArtifacts(void)
-{
-	return g_ArtifactLists[g_SchedFrontArtifactsIndex];
-}
-
-struct artifact *schedGetPendingArtifacts(void)
-{
-	return g_ArtifactLists[g_SchedPendingArtifactsIndex];
-}
-
-void schedIncrementWriteArtifacts(void)
-{
-	g_SchedWriteArtifactsIndex = (g_SchedWriteArtifactsIndex + 1) % 3;
-}
-
-void schedIncrementFrontArtifacts(void)
-{
-	g_SchedFrontArtifactsIndex = (g_SchedFrontArtifactsIndex + 1) % 3;
-}
-
-void schedIncrementPendingArtifacts(void)
-{
-	g_SchedPendingArtifactsIndex = (g_SchedPendingArtifactsIndex + 1) % 3;
-}
-
 void schedResetArtifacts(void)
 {
 	g_SchedWriteArtifactsIndex = 0;
@@ -86,7 +47,7 @@ void schedResetArtifacts(void)
 
 void schedUpdatePendingArtifacts(void)
 {
-	struct artifact *artifacts = schedGetPendingArtifacts();
+	struct artifact *artifacts = g_ArtifactLists[g_SchedPendingArtifactsIndex];
 	s32 i;
 
 	for (i = 0; i < MAX_ARTIFACTS; i++) {
@@ -113,5 +74,5 @@ void schedUpdatePendingArtifacts(void)
 
 	g_SchedSpecialArtifactIndexes[g_SchedPendingArtifactsIndex] = 0;
 
-	schedIncrementPendingArtifacts();
+	g_SchedPendingArtifactsIndex = (g_SchedPendingArtifactsIndex + 1) % 3;
 }

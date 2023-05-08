@@ -9,7 +9,7 @@
 #include "data.h"
 #include "types.h"
 
-void casingTick(struct casing *casing)
+static void casingTick(struct casing *casing)
 {
 	f32 tmp;
 	f32 tmp2;

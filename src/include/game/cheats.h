@@ -14,19 +14,13 @@ extern struct menudialogdef g_CheatsBuddiesMenuDialog;
 
 u32 cheatIsUnlocked(s32 cheat_id);
 bool cheatIsActive(s32 cheat_id);
-void cheatActivate(s32 cheat_id);
 void cheatDeactivate(s32 cheat_id);
 void cheatsInit(void);
 void cheatsReset(void);
-char *cheatGetNameIfUnlocked(struct menuitem *item);
-char *cheatGetMarquee(struct menuitem *item);
 s32 cheatGetByTimedStageIndex(s32 stage_index, s32 difficulty);
 s32 cheatGetByCompletedStageIndex(s32 stage_index);
 s32 cheatGetTime(s32 cheat_id);
 char *cheatGetName(s32 cheat_id);
 s32 cheatMenuHandleDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
-s32 cheatCheckboxMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 cheatMenuHandleTurnOffAllCheats(s32 operation, struct menuitem *item, union handlerdata *data);
 
 #endif

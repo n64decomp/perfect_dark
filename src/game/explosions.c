@@ -78,6 +78,8 @@ struct explosiontype g_ExplosionTypes[NUM_EXPLOSIONTYPES] = {
 	/*25*/ { 640, 480, 32,  11.2, 1600, 1000, 1000, 180, 2, 5, SMOKETYPE_NONE,         0x80a4, 4     },
 };
 
+static Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4);
+
 bool explosionCreateSimple(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum)
 {
 	return explosionCreate(prop, pos, rooms, type, playernum, false, NULL, 0, NULL);
@@ -119,7 +121,7 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s1
 	return explosionCreate(prop, pos, rooms, type, playernum, makescorch, &sp100, room, &sp88);
 }
 
-f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)
+static f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)
 {
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
 	f32 changerate = PALUPF(type->changerateh);
@@ -138,7 +140,7 @@ f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)
 	return result;
 }
 
-f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
+static f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
 {
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
 	f32 changerate = PALUPF(type->changeratev);
@@ -153,7 +155,7 @@ f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
 	return result;
 }
 
-void explosionGetBboxAtFrame(struct coord *lower, struct coord *upper, s32 frame, struct prop *prop)
+static void explosionGetBboxAtFrame(struct coord *lower, struct coord *upper, s32 frame, struct prop *prop)
 {
 	struct explosion *exp = prop->explosion;
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
@@ -194,7 +196,8 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 			}
 
 			if (distance > 1) {
-				chrRecordLastHearTargetTime(&g_ChrSlots[i]);
+				g_ChrSlots[i].hidden |= CHRHFLAG_IS_HEARING_TARGET;
+				g_ChrSlots[i].lastheartarget60 = g_Vars.lvframe60;
 			}
 		}
 	}
@@ -571,7 +574,7 @@ void explosionsUpdateShake(struct coord *arg0, struct coord *arg1, struct coord 
  *
  * minpos and maxpos are the bounding boxes of the prop.
  */
-bool explosionOverlapsProp(struct explosion *exp, struct prop *prop, struct coord *minpos, struct coord *maxpos)
+static bool explosionOverlapsProp(struct explosion *exp, struct prop *prop, struct coord *minpos, struct coord *maxpos)
 {
 	bool result = false;
 	s32 i;
@@ -607,7 +610,7 @@ bool explosionOverlapsProp(struct explosion *exp, struct prop *prop, struct coor
 	return result;
 }
 
-void explosionInflictDamage(struct prop *expprop)
+static void explosionInflictDamage(struct prop *expprop)
 {
 	s32 stack;
 	struct explosion *exp = expprop->explosion;
@@ -954,7 +957,7 @@ void explosionInflictDamage(struct prop *expprop)
 	}
 }
 
-u32 explosionTick(struct prop *prop)
+static u32 explosionTick(struct prop *prop)
 {
 	struct explosion *exp = prop->explosion;
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
@@ -1335,7 +1338,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	return gdl;
 }
 
-Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4)
+static Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4)
 {
 	struct gfxvtx *vertices = gfxAllocateVertices(4);
 	Mtxf *mtx = camGetProjectionMtxF();

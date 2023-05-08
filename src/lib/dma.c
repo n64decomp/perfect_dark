@@ -13,6 +13,8 @@ OSMesgQueue g_DmaMesgQueue;
 
 u8 g_LoadType = 0;
 
+static void dmaWait(void);
+
 void dmaInit(void)
 {
 	s32 i;
@@ -26,7 +28,7 @@ void dmaInit(void)
 	osCreateMesgQueue(&g_DmaMesgQueue, g_DmaMesgs, ARRAYCOUNT(g_DmaMesgs));
 }
 
-void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
+static void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
 {
 	u32 numiterations;
 	u32 remainder;
@@ -66,7 +68,7 @@ void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
 	}
 }
 
-void dmaWait(void)
+static void dmaWait(void)
 {
 	u32 stack;
 	OSIoMesg *msg;

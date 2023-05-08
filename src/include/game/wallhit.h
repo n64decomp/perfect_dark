@@ -6,14 +6,9 @@
 
 void wallhitReset(void);
 
-s16 wallhitFinaliseAxis(f32 arg0);
-void wallhitFree(struct wallhit *wallhit);
 void wallhitsFreeByProp(struct prop *prop, s8 layer);
 bool chrIsUsingPaintball(struct chrdata *chr);
 void wallhitChooseBloodColour(struct prop *prop);
-void wallhitFade(struct wallhit *wallhit, u32 arg1);
-bool wallhitReapOneInRoom(s32 arg0);
-void wallhitReapOne(void);
 void wallhitsTick(void);
 
 void wallhitCreate(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],

@@ -49,7 +49,7 @@ void bmoveSetAutoAim(bool enabled)
 	g_Vars.currentplayer->autoaimenabled = enabled;
 }
 
-bool bmoveIsAutoAimEnabled(void)
+static bool bmoveIsAutoAimEnabled(void)
 {
 	if (!g_Vars.normmplayerisrunning) {
 		return g_Vars.currentplayer->autoaimenabled;
@@ -167,7 +167,7 @@ void bmoveSetModeForAllPlayers(u32 movemode)
 	setCurrentPlayerNum(prevplayernum);
 }
 
-void bmoveHandleActivate(void)
+static void bmoveHandleActivate(void)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		bbikeHandleActivate();
@@ -178,7 +178,7 @@ void bmoveHandleActivate(void)
 	}
 }
 
-void bmoveApplyMoveData(struct movedata *data)
+static void bmoveApplyMoveData(struct movedata *data)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		bbikeApplyMoveData(data);
@@ -189,7 +189,7 @@ void bmoveApplyMoveData(struct movedata *data)
 	}
 }
 
-void bmoveUpdateSpeedTheta(void)
+static void bmoveUpdateSpeedTheta(void)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		// empty
@@ -200,7 +200,7 @@ void bmoveUpdateSpeedTheta(void)
 	}
 }
 
-f32 bmoveGetSpeedVertaLimit(f32 value)
+static f32 bmoveGetSpeedVertaLimit(f32 value)
 {
 	if (value > 0) {
 		return (viGetFovY() * value * -0.7f) / 60.0f;
@@ -213,7 +213,7 @@ f32 bmoveGetSpeedVertaLimit(f32 value)
 	return 0;
 }
 
-void bmoveUpdateSpeedVerta(f32 value)
+static void bmoveUpdateSpeedVerta(f32 value)
 {
 	f32 mult = viGetFovY() / 60.0f;
 	f32 limit = bmoveGetSpeedVertaLimit(value);
@@ -255,7 +255,7 @@ void bmoveUpdateSpeedVerta(f32 value)
 	}
 }
 
-f32 bmoveGetSpeedThetaControlLimit(f32 value)
+static f32 bmoveGetSpeedThetaControlLimit(f32 value)
 {
 	if (value > 0) {
 		return (viGetFovY() * value * -0.7f) / 60.0f;
@@ -268,7 +268,7 @@ f32 bmoveGetSpeedThetaControlLimit(f32 value)
 	return 0;
 }
 
-void bmoveUpdateSpeedThetaControl(f32 value)
+static void bmoveUpdateSpeedThetaControl(f32 value)
 {
 	f32 mult = viGetFovY() / 60.0f;
 	f32 limit = bmoveGetSpeedThetaControlLimit(value);
@@ -318,7 +318,7 @@ void bmoveUpdateSpeedThetaControl(f32 value)
  * 0 = horizontal
  * -90 = straight down
  */
-f32 bmoveCalculateLookahead(void)
+static f32 bmoveCalculateLookahead(void)
 {
 	f32 result = -4.0f;
 	f32 sp160 = 400.0f;
@@ -461,7 +461,7 @@ f32 bmoveCalculateLookahead(void)
 	return result;
 }
 
-void bmoveResetMoveData(struct movedata *data)
+static void bmoveResetMoveData(struct movedata *data)
 {
 	data->canswivelgun = 0;
 	data->canmanualaim = 0;
@@ -521,7 +521,7 @@ void bmoveResetMoveData(struct movedata *data)
  * 0, 0, 0, 1 = tickmode warp
  * 1, 1, 0, 1 = autowalk
  */
-void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool ignorec2)
+static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool ignorec2)
 {
 	struct movedata movedata;
 	s32 controlmode;
@@ -1759,15 +1759,10 @@ void bmoveFindEnteredRoomsByPos(struct player *player, struct coord *mid, s16 *r
 	bgFindEnteredRooms(&bbmin, &bbmax, rooms, 7, false);
 }
 
-void bmoveFindEnteredRooms(struct player *player, s16 *rooms)
-{
-	bmoveFindEnteredRoomsByPos(player, &player->prop->pos, rooms);
-}
-
 void bmoveUpdateRooms(struct player *player)
 {
 	propDeregisterRooms(player->prop);
-	bmoveFindEnteredRooms(player, player->prop->rooms);
+	bmoveFindEnteredRoomsByPos(player, &player->prop->pos, player->prop->rooms);
 	propRegisterRooms(player->prop);
 }
 

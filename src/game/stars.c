@@ -22,7 +22,7 @@ bool g_StarsActive;
 
 bool g_StarsBelowHorizon = false;
 
-void stars0f135c70(void)
+static void stars0f135c70(void)
 {
 	u32 stack[4];
 	struct coord coord;
@@ -71,7 +71,7 @@ void stars0f135c70(void)
 /**
  * Insert a star position *after* the given index.
  */
-void starInsert(s32 index, struct coord *arg1)
+static void starInsert(s32 index, struct coord *arg1)
 {
 	s32 i;
 

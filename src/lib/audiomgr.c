@@ -28,9 +28,9 @@ void *g_AudioSp;
 u32 var8005cf90 = 0x00000000;
 u8 var8005cf94 = 1;
 
-void amgrHandleDoneMsg(AudioInfo *info);
-void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo);
-void amgrMain(void *arg);
+static void amgrHandleDoneMsg(AudioInfo *info);
+static void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo);
+static void amgrMain(void *arg);
 
 void amgrInit(void)
 {
@@ -134,7 +134,7 @@ void amgrStopThread(void)
 
 extern u32 g_AdmaCurFrame;
 
-void amgrMain(void *arg)
+static void amgrMain(void *arg)
 {
 	s32 count = 0;
 	bool done = false;
@@ -191,7 +191,7 @@ void amgrMain(void *arg)
 	n_alClose(&g_AudioManager.g);
 }
 
-void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
+static void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 {
 	u32 somevalue;
 	s16 *outbuffer;
@@ -252,7 +252,7 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 	var8005cf90 ^= 1;
 }
 
-void amgrHandleDoneMsg(AudioInfo *info)
+static void amgrHandleDoneMsg(AudioInfo *info)
 {
 	static bool firsttime = true;
 

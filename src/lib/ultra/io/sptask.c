@@ -5,14 +5,12 @@
 
 OSTask tmp_task;
 
-OSTask *_VirtualToPhysicalTask(OSTask *intp);
-
 #define _osVirtualToPhysical(ptr)               \
 	if (ptr != NULL) {                          \
 		ptr = (void *)osVirtualToPhysical(ptr); \
 	}
 
-OSTask *_VirtualToPhysicalTask(OSTask *intp)
+static OSTask *_VirtualToPhysicalTask(OSTask *intp)
 {
 	OSTask *tp;
 	tp = &tmp_task;

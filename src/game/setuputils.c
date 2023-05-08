@@ -129,7 +129,7 @@ bool setupLoadModeldef(s32 modelnum)
 	return false;
 }
 
-bool setupGetObjBbox(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], struct coord *arg3, struct coord *arg4)
+static bool setupGetObjBbox(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], struct coord *arg3, struct coord *arg4)
 {
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 

@@ -275,7 +275,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 	return model;
 }
 
-struct model *body0f02d338(s32 bodynum, s32 headnum, struct modelfiledata *bodyfiledata, struct modelfiledata *headfiledata, bool sunglasses, u8 varyheight)
+static struct model *body0f02d338(s32 bodynum, s32 headnum, struct modelfiledata *bodyfiledata, struct modelfiledata *headfiledata, bool sunglasses, u8 varyheight)
 {
 	return body0f02ce8c(bodynum, headnum, bodyfiledata, headfiledata, sunglasses, NULL, false, varyheight);
 }
@@ -296,11 +296,6 @@ struct model *bodyAllocateModel(s32 bodynum, s32 headnum, u32 spawnflags)
 	}
 
 	return body0f02d338(bodynum, headnum, NULL, NULL, sunglasses, varyheight);
-}
-
-s32 body0f02d3f8(void)
-{
-	return g_BondBodies[var80062c80];
 }
 
 s32 bodyChooseHead(s32 bodynum)
@@ -374,7 +369,7 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	headfiledata = NULL;
 
 	if (packed->bodynum == 255) {
-		bodynum = body0f02d3f8();
+		bodynum = g_BondBodies[var80062c80];
 	} else {
 		bodynum = packed->bodynum;
 	}

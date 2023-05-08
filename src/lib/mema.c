@@ -57,7 +57,7 @@ s32 g_MemaHeapStart;
 s32 g_MemaHeapSize;
 struct memaheap g_MemaHeap;
 
-void memaSwap(struct memaspace *a, struct memaspace *b)
+static void memaSwap(struct memaspace *a, struct memaspace *b)
 {
 	u32 tempaddr = a->addr;
 	u32 tempsize = a->size;
@@ -67,14 +67,14 @@ void memaSwap(struct memaspace *a, struct memaspace *b)
 	b->size = tempsize;
 }
 
-void memaMerge(struct memaspace *a, struct memaspace *b)
+static void memaMerge(struct memaspace *a, struct memaspace *b)
 {
 	a->size += b->size;
 	b->addr = 0;
 	b->size = 0;
 }
 
-bool memaDefragPass(struct memaheap *heap)
+static bool memaDefragPass(struct memaheap *heap)
 {
 	bool merged = false;
 	struct memaspace *prev = &heap->start;
@@ -115,7 +115,7 @@ void memaDefrag(void)
  * If none can be found, return the smallest run of free space so it can be
  * overwritten by the caller.
  */
-struct memaspace *memaMakeSlot(struct memaheap *heap)
+static struct memaspace *memaMakeSlot(struct memaheap *heap)
 {
 	struct memaspace *curr = &heap->spaces[0];
 	struct memaspace *best;
@@ -171,7 +171,7 @@ struct memaspace *memaMakeSlot(struct memaheap *heap)
 	return best;
 }
 
-void _memaFree(s32 addr, s32 size)
+static void _memaFree(s32 addr, s32 size)
 {
 	// Choose an index in the spaces array which we'll mark a space as free,
 	// based on how far into the heap the allocation is. This is a rough
@@ -308,7 +308,7 @@ void *memaAlloc(u32 size)
 /**
  * Grow the allocation which currently *ends at* the given address.
  */
-s32 memaGrow(s32 addr, u32 amount)
+static s32 memaGrow(s32 addr, u32 amount)
 {
 	struct memaspace *curr = &g_MemaHeap.spaces[0];
 

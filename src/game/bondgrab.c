@@ -22,6 +22,8 @@ struct coord var8009de78;
 
 bool var80070e80 = false;
 
+static void bgrab0f0ce0bc(struct coord *arg0);
+
 void bgrabInit(void)
 {
 	s32 prevmode = g_Vars.currentplayer->bondmovemode;
@@ -162,7 +164,7 @@ void bgrabExit(void)
 	}
 }
 
-void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
+static void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 {
 	struct coord spd4;
 	struct coord spc8;
@@ -263,7 +265,7 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 	}
 }
 
-bool bgrabTryMoveUpwards(f32 y)
+static bool bgrabTryMoveUpwards(f32 y)
 {
 	bool result;
 	struct coord newpos;
@@ -298,7 +300,7 @@ bool bgrabTryMoveUpwards(f32 y)
 	return result;
 }
 
-s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
+static s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 {
 	s32 cdresult = CDRESULT_NOCOLLISION;
 	s32 i;
@@ -497,7 +499,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 	return cdresult;
 }
 
-bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg2)
+static bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg2)
 {
 	s32 result = bgrabCalculateNewPosition(delta, angle, arg2);
 
@@ -556,7 +558,7 @@ bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg
 	return result;
 }
 
-bool bgrab0f0cdb04(f32 angle, bool arg2)
+static bool bgrab0f0cdb04(f32 angle, bool arg2)
 {
 	struct coord coord = {0, 0, 0};
 	bool result;
@@ -568,7 +570,7 @@ bool bgrab0f0cdb04(f32 angle, bool arg2)
 	return result;
 }
 
-bool bgrab0f0cdb68(f32 angle)
+static bool bgrab0f0cdb68(f32 angle)
 {
 	struct coord spa4;
 	struct coord sp98;
@@ -672,7 +674,7 @@ bool bgrab0f0cdb68(f32 angle)
 	return false;
 }
 
-void bgrab0f0cdef0(void)
+static void bgrab0f0cdef0(void)
 {
 	if (g_Vars.lvupdate240 > 0) {
 		f32 angle = g_Vars.currentplayer->speedtheta * g_Vars.lvupdate60freal * 0.017450513318181f * 3.5f;
@@ -683,7 +685,7 @@ void bgrab0f0cdef0(void)
 	}
 }
 
-bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
+static bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
 {
 	bool result = bgrabCalculateNewPositiontWithPush(delta, 0, true);
 
@@ -694,7 +696,7 @@ bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-s32 bgrab0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2)
+static s32 bgrab0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2)
 {
 	if (arg1->f[0] != arg2->f[0] || arg1->f[2] != arg2->f[2]) {
 		f32 tmp;
@@ -721,7 +723,7 @@ s32 bgrab0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2)
 	return -1;
 }
 
-void bgrab0f0ce0bc(struct coord *arg0)
+static void bgrab0f0ce0bc(struct coord *arg0)
 {
 	struct coord a;
 	struct coord b;
@@ -740,21 +742,19 @@ void bgrab0f0ce0bc(struct coord *arg0)
 	}
 }
 
-void bgrabUpdatePrevPos(void)
+static void bgrabUpdatePrevPos(void)
 {
 	g_Vars.currentplayer->bondprevpos = g_Vars.currentplayer->prop->pos;
-
 	g_Vars.currentplayer->bondprevtheta = g_Vars.currentplayer->vv_theta;
-
 	g_Vars.currentplayer->grabbedprevpos = g_Vars.currentplayer->grabbedprop->pos;
 }
 
-void bgrab0f0ce178(void)
+static void bgrab0f0ce178(void)
 {
 	func0f069c70(g_Vars.currentplayer->grabbedprop->obj, 0, 1);
 }
 
-void bgrabUpdateVertical(void)
+static void bgrabUpdateVertical(void)
 {
 	f32 stack;
 	s32 i;
@@ -843,7 +843,7 @@ void bgrabHandleActivate(void)
 	}
 }
 
-void bgrabUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
+static void bgrabUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 {
 	if (targetspeed < g_Vars.currentplayer->speedstrafe) {
 		g_Vars.currentplayer->speedstrafe -= PALUPF(accelspeed * mult);
@@ -862,7 +862,7 @@ void bgrabUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 	g_Vars.currentplayer->speedsideways = g_Vars.currentplayer->speedstrafe;
 }
 
-void bgrabUpdateSpeedForwards(f32 target, f32 speed)
+static void bgrabUpdateSpeedForwards(f32 target, f32 speed)
 {
 	if (g_Vars.currentplayer->speedgo < target) {
 		g_Vars.currentplayer->speedgo += speed * g_Vars.lvupdate60freal;
@@ -953,7 +953,7 @@ void bgrabUpdateSpeedTheta(void)
 	g_Vars.currentplayer->speedtheta = g_Vars.currentplayer->bondgrabthetaspeedsum * (PAL ? 0.024800002574921f : 0.01529997587204f);
 }
 
-void bgrab0f0ce924(void)
+static void bgrab0f0ce924(void)
 {
 	f32 mult;
 	f32 sp88;

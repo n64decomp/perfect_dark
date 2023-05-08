@@ -5,7 +5,7 @@
 #define ADPCMFBYTES      9
 #define LFSAMPLES        4
 
-Acmd *_decodeChunk(Acmd *ptr, N_PVoice *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags);
+static Acmd *_decodeChunk(Acmd *ptr, N_PVoice *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags);
 
 Acmd *n_alAdpcmPull(N_PVoice *filter, s16 *outp, s32 outCount, Acmd *p)
 {
@@ -256,7 +256,7 @@ s32 n_alLoadParam(N_PVoice *filter, s32 paramID, void *param)
 	return 0;
 }
 
-Acmd *_decodeChunk(Acmd *ptr, N_PVoice *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags)
+static Acmd *_decodeChunk(Acmd *ptr, N_PVoice *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags)
 {
 	s32 dramAlign, dramLoc;
 

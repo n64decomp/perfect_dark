@@ -26,6 +26,10 @@ u32 var8006ae34 = 0x00000000;
 
 s16 var8006ae50 = -1;
 
+static void func0f092a98(s32 channelnum);
+static s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 *rooms, s16 soundnum, s32 arg6, f32 *arg7);
+static s32 propsnd0f094d78(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, f32 arg4, bool arg5, struct audiochannel *channel);
+
 bool func0f092610(struct prop *prop, s32 arg1)
 {
 	s32 i;
@@ -58,7 +62,7 @@ void func0f0926bc(struct prop *prop, s32 arg1, u16 arg2)
 	}
 }
 
-s32 func0f0927d4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4)
+static s32 func0f0927d4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4)
 {
 	s32 result = 0;
 
@@ -115,7 +119,7 @@ void propsnd0f09294c(struct prop *prop, s16 soundnum, s32 arg2)
 	}
 }
 
-void func0f092a98(s32 channelnum)
+static void func0f092a98(s32 channelnum)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 
@@ -160,7 +164,7 @@ s32 propsndGetSubtitleOpacity(s32 channelnum)
 	return 0;
 }
 
-void propsndTickChannel(s32 channelnum)
+static void propsndTickChannel(s32 channelnum)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 
@@ -450,7 +454,7 @@ void func0f093790(struct prop *prop, s32 arg1)
 	}
 }
 
-void func0f0938ec(struct prop *prop)
+static void func0f0938ec(struct prop *prop)
 {
 	s32 lowestuuid = -1;
 	s32 count = 0;
@@ -825,7 +829,7 @@ void audioPlayFromProp2(s32 channelnum, s32 arg1, s16 padnum, struct prop *prop,
 	}
 }
 
-s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 *rooms, s16 soundnum, s32 arg6, f32 *arg7)
+static s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 *rooms, s16 soundnum, s32 arg6, f32 *arg7)
 {
 	union soundnumhack sp6c;
 	union soundnumhack sp68;
@@ -886,7 +890,7 @@ s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 *rooms,
 	return func0f0927d4(sp64, arg1, arg2, arg3, arg6);
 }
 
-s32 propsnd0f094940(s32 degrees, f32 arg1, struct audiochannel *channel)
+static s32 propsnd0f094940(s32 degrees, f32 arg1, struct audiochannel *channel)
 {
 	s32 result;
 
@@ -951,7 +955,7 @@ s32 propsnd0f094940(s32 degrees, f32 arg1, struct audiochannel *channel)
 	return result;
 }
 
-s32 propsnd0f094b1c(struct coord *pos, s32 arg1, f32 arg2, struct audiochannel *channel)
+static s32 propsnd0f094b1c(struct coord *pos, s32 arg1, f32 arg2, struct audiochannel *channel)
 {
 	s32 result = 64;
 	u32 stack[4];
@@ -999,7 +1003,7 @@ s32 propsnd0f094b1c(struct coord *pos, s32 arg1, f32 arg2, struct audiochannel *
 	return result;
 }
 
-s32 propsnd0f094d78(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, f32 arg4, bool arg5, struct audiochannel *channel)
+static s32 propsnd0f094d78(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, f32 arg4, bool arg5, struct audiochannel *channel)
 {
 	s32 result = 0x40;
 

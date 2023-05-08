@@ -4,7 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-char *argParseString(char *str);
 void argSetString(char *string);
 s32 argsParseDebugArgs(void);
 char *argFindByPrefix(s32 occurrence, char *string);

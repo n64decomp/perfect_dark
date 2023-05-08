@@ -24,7 +24,7 @@ s32 BIGROOM_PARAMS_N[10] = {
 
 #define M_PI    3.141592741f
 
-void func0003b710(f32 outputrate, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4)
+static void func0003b710(f32 outputrate, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4)
 {
 	f32 sp24;
 	f32 sp20;

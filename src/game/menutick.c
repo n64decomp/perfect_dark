@@ -34,7 +34,7 @@ u8 var80062948 = 0;
 u8 var8006294c = 0;
 
 
-void menuCountDialogs(void)
+static void menuCountDialogs(void)
 {
 	s32 i;
 	g_MenuData.count = 0;
@@ -605,7 +605,7 @@ void menuTick(void)
 					}
 
 					titleSetNextStage(STAGE_CITRAINING);
-					setNumPlayers(1);
+					g_NumPlayers = 1;
 					titleSetNextMode(TITLEMODE_SKIP);
 					mainChangeToStage(STAGE_CITRAINING);
 				}
@@ -617,7 +617,7 @@ void menuTick(void)
 					g_Vars.normmplayerisrunning = false;
 					g_Vars.lvmpbotlevel = 0;
 					titleSetNextStage(STAGE_CITRAINING);
-					setNumPlayers(1);
+					g_NumPlayers = 1;
 					titleSetNextMode(TITLEMODE_SKIP);
 					mainChangeToStage(STAGE_CITRAINING);
 					g_MissionConfig.iscoop = false;

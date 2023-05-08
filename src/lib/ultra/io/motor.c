@@ -47,7 +47,7 @@ s32 __osMotorAccess(OSPfs *pfs, s32 vibrate)
 	return ret;
 }
 
-void osSetUpMempakWrite(s32 channel, OSPifRam* buf)
+static void osSetUpMempakWrite(s32 channel, OSPifRam* buf)
 {
 	u8* bufptr = (u8*)buf;
 	__OSContRamReadFormat mempakwr;

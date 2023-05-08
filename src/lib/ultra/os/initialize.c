@@ -14,6 +14,8 @@ typedef struct {
 
 extern __osExceptionVector __osExceptionPreamble;
 extern s32 osAppNMIBuffer[];
+extern OSPiHandle CartRomHandle;
+extern OSPiHandle LeoDiskHandle;
 
 u32 __osFinalRom;
 
@@ -23,7 +25,6 @@ s32 osViClock = VI_NTSC_CLOCK;
 
 u32 _osShutdown = 0;
 u32 __osGlobalIntMask = OS_IM_ALL;
-
 
 void osInitialize(void)
 {
@@ -44,7 +45,19 @@ void osInitialize(void)
 
 	osWritebackDCache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
 	osInvalICache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
-	osCartRomInit();
+
+	CartRomHandle.type = DEVICE_TYPE_INIT;
+	CartRomHandle.latency = IO_READ(0xa4600014);
+	CartRomHandle.pulse = IO_READ(0xa4600018);
+	CartRomHandle.pageSize = IO_READ(0xa460001c);
+	CartRomHandle.relDuration = IO_READ(0xa4600020);
+
+	LeoDiskHandle.type = DEVICE_TYPE_INIT;
+	LeoDiskHandle.latency = IO_READ(0xa4600024);
+	LeoDiskHandle.pulse = IO_READ(0xa4600028);
+	LeoDiskHandle.pageSize = IO_READ(0xa460002c);
+	LeoDiskHandle.relDuration = IO_READ(0xa4600030);
+
 	osMapTLBRdb();
 
 	osClockRate = osClockRate * 3 / 4;
@@ -68,31 +81,4 @@ void osInitialize(void)
 	*(u32 *)PHYS_TO_K1(AI_CONTROL_REG) = 1;
 	*(u32 *)PHYS_TO_K1(AI_DACRATE_REG) = 0x3fff;
 	*(u32 *)PHYS_TO_K1(AI_BITRATE_REG) = 0xf;
-}
-
-extern OSPiHandle CartRomHandle;
-extern OSPiHandle LeoDiskHandle;
-
-/**
- * According to Nintendo's SDK this function should return a pointer to an
- * OSPiHandle, but the function only matches if the return statement is omitted.
- * By chance the value in v0 happens to be &CartRomHandle anyway.
- */
-OSPiHandle *osCartRomInit(void)
-{
-	CartRomHandle.type = DEVICE_TYPE_INIT;
-	CartRomHandle.latency = IO_READ(0xa4600014);
-	CartRomHandle.pulse = IO_READ(0xa4600018);
-	CartRomHandle.pageSize = IO_READ(0xa460001c);
-	CartRomHandle.relDuration = IO_READ(0xa4600020);
-
-	LeoDiskHandle.type = DEVICE_TYPE_INIT;
-	LeoDiskHandle.latency = IO_READ(0xa4600024);
-	LeoDiskHandle.pulse = IO_READ(0xa4600028);
-	LeoDiskHandle.pageSize = IO_READ(0xa460002c);
-	LeoDiskHandle.relDuration = IO_READ(0xa4600030);
-
-#ifdef AVOID_UB
-	return &CartRomHandle;
-#endif
 }

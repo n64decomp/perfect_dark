@@ -164,7 +164,7 @@ void env0f1657f8(void)
 	var800a6600.unk14 = ((zfar + 1.0f) * sp28 / (zfar - znear) + sp24) / 255.0f;
 }
 
-void envApplyType1(struct envtype1 *env)
+static void envApplyType1(struct envtype1 *env)
 {
 	g_FogEnabled = true;
 	var800a65e4 = 0;
@@ -211,7 +211,7 @@ void envApplyType1(struct envtype1 *env)
 	env0f1657f8();
 }
 
-void envApplyType2(struct envtype2 *env)
+static void envApplyType2(struct envtype2 *env)
 {
 	struct zrange zrange;
 

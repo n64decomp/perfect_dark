@@ -27,7 +27,7 @@ bool modelmgrCanSlotFitRwdata(struct model *modelslot, struct modelfiledata *mod
 		|| (modelslot->rwdatas != NULL && modelslot->rwdatalen >= modeldef->rwdatalen);
 }
 
-struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool withanim)
+static struct model *modelmgrInstantiateModel(struct modelfiledata *modeldef, bool withanim)
 {
 	struct model *model = NULL;
 	union modelrwdata **rwdatas = NULL;

@@ -38,9 +38,9 @@ oscData oscStates[60];
 N_ALSndPlayer var8009c2d0;
 
 ALMicroTime updateOsc(void *oscState, f32 *updateVal);
-ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal);
-void func00030bd8(void *oscState);
-ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 oscDepth, u8 arg5, u8 arg6);
+static ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal);
+static void func00030bd8(void *oscState);
+static ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 oscDepth, u8 arg5, u8 arg6);
 
 f32 _depth2Cents(u8 depth)
 {
@@ -154,7 +154,7 @@ void stopOsc(void *oscState)
 	freeOscStateList = (oscData*)oscState;
 }
 
-f32 func000301a4(f32 value)
+static f32 func000301a4(f32 value)
 {
 	// Almost value / (32768 / M_PI), but has a precision mismatch
 	return sinf(value / 10430.379882812f);
@@ -163,7 +163,7 @@ f32 func000301a4(f32 value)
 extern s32 var8005f150[];
 extern f32 var8005f34c[100];
 
-ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 oscDepth, u8 arg5, u8 arg6)
+static ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 oscDepth, u8 arg5, u8 arg6)
 {
 	oscData *state;
 	f32 oscDepthf;
@@ -260,7 +260,7 @@ ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 o
 	return AL_USEC_PER_FRAME;
 }
 
-ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal)
+static ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal)
 {
 	f32 sp24;
 	f32 sp20;
@@ -358,7 +358,7 @@ ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal)
 	return statePtr->curCount;
 }
 
-void func00030bd8(void *oscState)
+static void func00030bd8(void *oscState)
 {
 	((oscData*)oscState)->next = freeOscStateList;
 	freeOscStateList = (oscData*)oscState;

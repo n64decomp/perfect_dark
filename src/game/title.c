@@ -30,6 +30,8 @@
 #include "types.h"
 #include "string.h"
 
+static void titleSkipToPdTitle(void);
+
 u8 *var8009cca0;
 struct gfxvtx *var8009cca8[2];
 u32 *var8009ccb0[2];
@@ -87,7 +89,7 @@ char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
 	return name;
 }
 
-void titleSetLight(Lights1 *light, u8 r, u8 g, u8 b, f32 luminosity, struct coord *dir)
+static void titleSetLight(Lights1 *light, u8 r, u8 g, u8 b, f32 luminosity, struct coord *dir)
 {
 	light->a.l.col[0] = r * luminosity;
 	light->a.l.col[1] = g * luminosity;
@@ -110,7 +112,7 @@ void titleSetLight(Lights1 *light, u8 r, u8 g, u8 b, f32 luminosity, struct coor
 	light->l[0].l.dir[2] = dir->z * 127.0f;
 }
 
-void titleInitLegal(void)
+static void titleInitLegal(void)
 {
 	musicQueueStopAllEvent();
 	var800624f4 = 1;
@@ -119,7 +121,7 @@ void titleInitLegal(void)
 	g_TitleFastForward = false;
 }
 
-void titleTickLegal(void)
+static void titleTickLegal(void)
 {
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
@@ -133,13 +135,13 @@ void titleTickLegal(void)
 	}
 }
 
-void titleInitCheckControllers(void)
+static void titleInitCheckControllers(void)
 {
 	g_TitleTimer = 0;
 	viBlack(true);
 }
 
-void titleExitCheckControllers(void)
+static void titleExitCheckControllers(void)
 {
 	var800624e8 = 0;
 	viConfigureForLogos();
@@ -147,7 +149,7 @@ void titleExitCheckControllers(void)
 	viBlack(false);
 }
 
-void titleTickCheckControllers(void)
+static void titleTickCheckControllers(void)
 {
 	g_TitleTimer++;
 	viSetZRange(100, 10000);
@@ -162,7 +164,7 @@ void titleTickCheckControllers(void)
 	}
 }
 
-Gfx *titleRenderCheckControllers(Gfx *gdl)
+static Gfx *titleRenderCheckControllers(Gfx *gdl)
 {
 	if (g_TitleTimer > 2 && g_TitleTimer < 6) {
 		gdl = titleClear(gdl);
@@ -215,7 +217,7 @@ struct legalelement g_LegalElements[] = {
 	{ 69,  344, 0, 1, LEGALELEMENTTYPE_DOLBYLOGO,   0             },
 };
 
-Gfx *titleRenderLegal(Gfx *gdl)
+static Gfx *titleRenderLegal(Gfx *gdl)
 {
 	struct legalelement *elem;
 	struct legalelement *end;
@@ -335,7 +337,7 @@ bool g_LegalEnabled = true;
 bool g_PdLogoIsFirstTick = true;
 bool g_PdLogoTriggerExit = false;
 
-void titleInitPdLogo(void)
+static void titleInitPdLogo(void)
 {
 	u8 *nextaddr = var8009cca0;
 	u32 remaining;
@@ -430,7 +432,7 @@ void titleInitPdLogo(void)
 	}
 }
 
-void titleExitPdLogo(void)
+static void titleExitPdLogo(void)
 {
 	modelmgrFreeModel(g_TitleModel);
 	modelmgrFreeModel(g_TitleModelNLogo2);
@@ -440,7 +442,7 @@ void titleExitPdLogo(void)
 	joy00014810(true);
 }
 
-void titleTickPdLogo(void)
+static void titleTickPdLogo(void)
 {
 	viSetFovY(46);
 	viSetAspect(1.33333333f);
@@ -456,7 +458,7 @@ void titleTickPdLogo(void)
 			g_TitleMode = TITLEMODE_SKIP;
 			creditsRequestAltTitle();
 			g_TitleNextStage = STAGE_CREDITS; // for alt title screen
-			setNumPlayers(1);
+			g_NumPlayers = 1;
 			mainChangeToStage(g_TitleNextStage);
 
 			g_Vars.bondplayernum = 0;
@@ -483,7 +485,7 @@ void titleTickPdLogo(void)
 	}
 }
 
-Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, struct gfxvtx *vertices, u32 *colours)
+static Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, struct gfxvtx *vertices, u32 *colours)
 {
 	struct modelrenderdata renderdata = {NULL, true, 3};
 	s32 tmp2;
@@ -688,7 +690,7 @@ f32 g_PdLogoLightDirFrac = 0;
  *
  * Assumes the title mode is already PdLogo, but at an earlier point.
  */
-void titleSkipToPdTitle(void)
+static void titleSkipToPdTitle(void)
 {
 	g_PdLogoYRotCur = 0;
 	g_PdLogoYRotSpeed = 0;
@@ -725,7 +727,7 @@ void titleSkipToPdTitle(void)
 	musicStartTemporaryPrimary(MUSIC_TITLE2);
 }
 
-Gfx *titleRenderPdLogo(Gfx *gdl)
+static Gfx *titleRenderPdLogo(Gfx *gdl)
 {
 	struct modelrenderdata renderdata = { NULL, true, 3 }; // 2f0
 	Mtxf sp2b0;
@@ -1153,7 +1155,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 }
 
 
-void titleInitNintendoLogo(void)
+static void titleInitNintendoLogo(void)
 {
 	u8 *nextaddr = var8009cca0;
 
@@ -1179,7 +1181,7 @@ void titleInitNintendoLogo(void)
 	}
 }
 
-void titleExitNintendoLogo(void)
+static void titleExitNintendoLogo(void)
 {
 	modelmgrFreeModel(g_TitleModel);
 	joy00014810(true);
@@ -1191,7 +1193,7 @@ void titleExitNintendoLogo(void)
  * logo, the Nintendo logo sequence will play at double speed until it exits at
  * the 140 tick mark.
  */
-void titleTickNintendoLogo(void)
+static void titleTickNintendoLogo(void)
 {
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
@@ -1224,7 +1226,7 @@ void titleTickNintendoLogo(void)
 	}
 }
 
-Gfx *titleRenderNintendoLogo(Gfx *gdl)
+static Gfx *titleRenderNintendoLogo(Gfx *gdl)
 {
 	struct modelrenderdata renderdata = { NULL, true, 3 };
 	s32 i;
@@ -1313,7 +1315,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 	return gdl;
 }
 
-void titleInitRareLogo(void)
+static void titleInitRareLogo(void)
 {
 	u8 *nextaddr = var8009cca0;
 
@@ -1340,7 +1342,7 @@ void titleInitRareLogo(void)
 	}
 }
 
-void titleExitRareLogo(void)
+static void titleExitRareLogo(void)
 {
 	modelmgrFreeModel(g_TitleModel);
 	joy00014810(true);
@@ -1356,7 +1358,7 @@ void titleExitRareLogo(void)
  * early as possible, but if you press the button between 20-59 ticks it'll end
  * up taking longer than if you'd waited a second.
  */
-void titleTickRareLogo(void)
+static void titleTickRareLogo(void)
 {
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
@@ -1398,12 +1400,12 @@ void titleTickRareLogo(void)
 	}
 }
 
-f32 func0f019d0c(f32 arg0)
+static f32 func0f019d0c(f32 arg0)
 {
 	return ((1.0f - arg0) + (1.0f - arg0)) * M_PI - DEG2RAD(90);
 }
 
-Gfx *titleRenderRareLogo(Gfx *gdl)
+static Gfx *titleRenderRareLogo(Gfx *gdl)
 {
 	struct modelrenderdata renderdata = { NULL, true, 3 };
 	s32 i;
@@ -1562,21 +1564,11 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 
 s32 g_NumPlayers = 0;
 
-s32 getNumPlayers(void)
-{
-	return g_NumPlayers;
-}
-
-void setNumPlayers(s32 numplayers)
-{
-	g_NumPlayers = numplayers;
-}
-
-void titleInitSkip(void)
+static void titleInitSkip(void)
 {
 	g_TitleNextStage = STAGE_CITRAINING;
 
-	setNumPlayers(1);
+	g_NumPlayers = 1;
 
 	if (g_IsTitleDemo) {
 		g_TitleNextStage = STAGE_DEFECTION;
@@ -1593,12 +1585,12 @@ void titleInitSkip(void)
 	viBlack(true);
 }
 
-void titleInitNoController(void)
+static void titleInitNoController(void)
 {
 	g_TitleTimer = 0;
 }
 
-void titleTickNoController(void)
+static void titleTickNoController(void)
 {
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
@@ -1608,7 +1600,7 @@ void titleTickNoController(void)
 	g_TitleTimer += g_Vars.lvupdate60;
 }
 
-Gfx *titleRenderNoController(Gfx *gdl)
+static Gfx *titleRenderNoController(Gfx *gdl)
 {
 	s32 textheight;
 	s32 textwidth;

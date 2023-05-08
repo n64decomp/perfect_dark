@@ -18,7 +18,7 @@ struct marker {
 	f32 frac;
 };
 
-s32 healthbarMaybeInsertMarker(struct marker *markers, s32 *indexes, s32 maxlen, f32 fillfrac)
+static s32 healthbarMaybeInsertMarker(struct marker *markers, s32 *indexes, s32 maxlen, f32 fillfrac)
 {
 	s32 len = 0;
 	s32 i;
@@ -76,7 +76,7 @@ s32 healthbarMaybeInsertMarker(struct marker *markers, s32 *indexes, s32 maxlen,
 	return 0;
 }
 
-u32 healthbarChooseColour(u32 fillcol, u32 bgcol, f32 fillexcfade, f32 fillincfade, f32 frac)
+static u32 healthbarChooseColour(u32 fillcol, u32 bgcol, f32 fillexcfade, f32 fillincfade, f32 frac)
 {
 	f32 mult;
 	u32 r;

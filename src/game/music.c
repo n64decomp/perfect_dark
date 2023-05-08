@@ -14,6 +14,10 @@
 #define FADETYPE_STOP  0
 #define FADETYPE_PAUSE 1
 
+static void func0f16d430(void);
+static void musicQueueType5Event(void);
+static bool musicIsAnyPlayerInAmbientRoom(void);
+
 s32 g_MusicStageNum;
 struct musicevent g_MusicEventQueue[40];
 struct var800aaa38 var800aaa38[3];
@@ -76,7 +80,7 @@ void musicSetVolume(u16 volume)
 	g_MusicVolume = volume;
 }
 
-bool func0f16d0a8(s32 tracktype, s32 arg1)
+static bool func0f16d0a8(s32 tracktype, s32 arg1)
 {
 	s32 i;
 
@@ -93,7 +97,7 @@ bool func0f16d0a8(s32 tracktype, s32 arg1)
 	return false;
 }
 
-s32 func0f16d124(s32 tracktype)
+static s32 func0f16d124(s32 tracktype)
 {
 	s32 i;
 
@@ -191,13 +195,13 @@ void musicQueueStopAllEvent(void)
 	musicTickEvents();
 }
 
-void func0f16d430(void)
+static void func0f16d430(void)
 {
 	var800840d0 = var800840e0;
 	var800840e0 = 0;
 }
 
-void musicQueueType5Event(void)
+static void musicQueueType5Event(void)
 {
 	g_MusicEventQueue[g_MusicEventQueueLength].tracktype = TRACKTYPE_6;
 	g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_5;
@@ -220,7 +224,7 @@ void musicStartPrimary(f32 arg0)
 
 #define AMBIENTTRACK() (g_TemporaryAmbientTrack != -1 ? g_TemporaryAmbientTrack : stageGetAmbientTrack(g_MusicStageNum))
 
-void musicStartAmbient(f32 arg0)
+static void musicStartAmbient(f32 arg0)
 {
 	s32 pass = false;
 
@@ -247,7 +251,7 @@ void musicStartAmbient(f32 arg0)
 	}
 }
 
-bool musicIsAnyPlayerInAmbientRoom(void)
+static bool musicIsAnyPlayerInAmbientRoom(void)
 {
 	s32 i;
 
@@ -288,7 +292,7 @@ bool musicIsAnyPlayerInAmbientRoom(void)
 	return false;
 }
 
-void musicStartNrg(f32 arg0)
+static void musicStartNrg(f32 arg0)
 {
 	musicQueueStartEvent(TRACKTYPE_NRG, stageGetNrgTrack(g_MusicStageNum), arg0, musicGetVolume());
 }
@@ -409,13 +413,6 @@ void musicStartSoloDeath(void)
 	musicQueueType5Event();
 }
 
-void _musicStartMpDeath(f32 arg0)
-{
-	func0f16d430();
-	musicQueueStartEvent(TRACKTYPE_DEATH, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
-	musicQueueType5Event();
-}
-
 void musicStartMpDeath(void)
 {
 	func0f16d430();
@@ -430,7 +427,9 @@ void musicStartMpDeath(void)
 		musicQueueFadeEvent(TRACKTYPE_PRIMARY, 0.1f, FADETYPE_PAUSE);
 	}
 
-	_musicStartMpDeath(0);
+	func0f16d430();
+	musicQueueStartEvent(TRACKTYPE_DEATH, MUSIC_DEATH_MP, 0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
+	musicQueueType5Event();
 
 	g_MusicDeathTimer240 = TICKS(1200);
 	g_MusicMpDeathIsPlaying = true;

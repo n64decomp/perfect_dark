@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "n_synthInternals.h"
+#include "constants.h"
 
 Acmd *n_alAuxBusPull(s32 sampleOffset, Acmd *cmdptr, s32 fxBus, s32 *numpulls)
 {

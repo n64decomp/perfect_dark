@@ -2,8 +2,8 @@
 #include <string.h>
 #include "xstdio.h"
 
-short _Ldunscale(short *pex, printf_struct *px);
-void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp);
+static short _Ldunscale(short *pex, printf_struct *px);
+static void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp);
 
 const double pows[] = {10e0L, 10e1L, 10e3L, 10e7L, 10e15L, 10e31L, 10e63L, 10e127L, 10e255L};
 
@@ -171,7 +171,7 @@ void _Ldtob(printf_struct *args, char type)
 	_Genld(args, type, p, nsig, exp);
 }
 
-short _Ldunscale(short *pex, printf_struct *px)
+static short _Ldunscale(short *pex, printf_struct *px)
 {
 	unsigned short *ps = (unsigned short *)px;
 	short xchar = (ps[_D0] & _DMASK) >> _DOFF;
@@ -199,7 +199,7 @@ short _Ldunscale(short *pex, printf_struct *px)
 	return 0;
 }
 
-void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp)
+static void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp)
 {
 	const char point = '.';
 

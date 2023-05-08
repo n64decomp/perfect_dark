@@ -184,7 +184,7 @@ bool g_CreditsScrollStarted = false;
 bool g_CreditsAltTitleRequested = false;
 bool g_CreditsUsingAltTitle = false;
 
-void creditsMap9BgVertices(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
+static void creditsMap9BgVertices(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
 {
 	f32 a = arg2 * sinf(arg1) + arg3 * cosf(arg1);
 	f32 b = arg2 * cosf(arg1) - arg3 * sinf(arg1);
@@ -230,7 +230,7 @@ void creditsMap9BgVertices(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3
  * 7:  0      1800
  * 8:  1800   1800
  */
-void creditsInitBgVertices(struct gfxvtx *vertices, s32 z)
+static void creditsInitBgVertices(struct gfxvtx *vertices, s32 z)
 {
 	s32 i;
 
@@ -258,7 +258,7 @@ struct bgconfig g_CreditsBgConfigs[] = {
 	{ 0.01, { 2, 1, 2, 1, 0, 1, 2, 1, 2 }, { { 0x00ffff, 0x0000ff, 0x000000 }, { 0xffffff, 0xffffff, 0xffffff }, { 0xffffff, 0xffffff, 0xffffff } } },
 };
 
-void creditsChooseBgColours(struct gfxvtx *vertices, u32 *colours, s32 confignum, s32 alpha, s32 arg4)
+static void creditsChooseBgColours(struct gfxvtx *vertices, u32 *colours, s32 confignum, s32 alpha, s32 arg4)
 {
 #if PAL
 	s32 iVar1 = (s32)(g_CreditsBgConfigs[confignum].unk00 * g_CreditsCurFrame2 / (10.0f / 3.0f) + arg4) % 180;
@@ -326,7 +326,7 @@ struct creditsbgtype g_CreditsBgTypes[] = {
 	{ 10000, 1000,  -200, 0x2d, 220, 0 },
 };
 
-Gfx *creditsDrawBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 alpha, s32 arg5)
+static Gfx *creditsDrawBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 alpha, s32 arg5)
 {
 	struct gfxvtx *vertices;
 	u32 *colours;
@@ -384,7 +384,7 @@ Gfx *creditsDrawBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 al
 	return gdl;
 }
 
-void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move)
+static void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move)
 {
 	g_CreditsData->bglayers[dstindex].type = g_CreditsData->bglayers[srcindex].type;
 	g_CreditsData->bglayers[dstindex].rotspeed = g_CreditsData->bglayers[srcindex].rotspeed;
@@ -396,7 +396,7 @@ void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move)
 	}
 }
 
-Gfx *creditsDrawBackground(Gfx *gdl)
+static Gfx *creditsDrawBackground(Gfx *gdl)
 {
 	s32 s1[4] = {-1, -1, -1, -1};
 	u32 s5[4];
@@ -503,7 +503,7 @@ struct g_CreditParticleConfigs g_CreditParticleConfigs[] = {
  *
  * This is only called with max = 0.00223f.
  */
-f32 creditsRandInRange(f32 range)
+static f32 creditsRandInRange(f32 range)
 {
 	f32 value;
 
@@ -515,7 +515,7 @@ f32 creditsRandInRange(f32 range)
 	return value;
 }
 
-void creditsCreatePendingBgLayers(u32 mask)
+static void creditsCreatePendingBgLayers(u32 mask)
 {
 	s32 i;
 
@@ -534,7 +534,7 @@ void creditsCreatePendingBgLayers(u32 mask)
 	}
 }
 
-Gfx *creditsFillFramebuffer(Gfx *gdl, u32 colour)
+static Gfx *creditsFillFramebuffer(Gfx *gdl, u32 colour)
 {
 	gSPDisplayList(gdl++, &var800613a0);
 
@@ -547,7 +547,7 @@ Gfx *creditsFillFramebuffer(Gfx *gdl, u32 colour)
 	return gdl;
 }
 
-void creditsResetParticles(void)
+static void creditsResetParticles(void)
 {
 	f32 tmp;
 	s32 i;
@@ -590,7 +590,7 @@ void creditsResetParticles(void)
 	}
 }
 
-void creditsTickParticles(void)
+static void creditsTickParticles(void)
 {
 	s32 i;
 	f32 amount;
@@ -672,7 +672,7 @@ void creditsTickParticles(void)
 	}
 }
 
-void creditsGetParticlePos(struct coord *pos, struct particle *particle, s32 particlenum)
+static void creditsGetParticlePos(struct coord *pos, struct particle *particle, s32 particlenum)
 {
 	f32 sp4c;
 	f32 sp48;
@@ -754,7 +754,7 @@ void creditsGetParticlePos(struct coord *pos, struct particle *particle, s32 par
 	}
 }
 
-Gfx *creditsDrawParticles(Gfx *gdl)
+static Gfx *creditsDrawParticles(Gfx *gdl)
 {
 	u32 *colours;
 	u32 colour;
@@ -873,7 +873,7 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *creditsDrawBackgroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 opacity, f32 speed, f32 spread)
+static Gfx *creditsDrawBackgroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 opacity, f32 speed, f32 spread)
 {
 	f32 sp98;
 	u32 colour1;
@@ -909,7 +909,7 @@ Gfx *creditsDrawBackgroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontch
 	return gdl;
 }
 
-Gfx *creditsDrawForegroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 transfrac, s32 hdir, s32 vdir, s32 stretchtype)
+static Gfx *creditsDrawForegroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 transfrac, s32 hdir, s32 vdir, s32 stretchtype)
 {
 	f32 widthscale;
 	f32 heightscale;
@@ -956,7 +956,7 @@ Gfx *creditsDrawForegroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontch
 	return gdl;
 }
 
-void creditsResetSlides(void)
+static void creditsResetSlides(void)
 {
 	u8 pool[NUM_CORE_TEAM];
 	s32 i;
@@ -1129,7 +1129,7 @@ struct credit g_Credits[] = {
  * core team and are in a random order. The rest are in the same order as
  * defined in the g_Credits array.
  */
-struct credit *creditGetByRow(s32 row)
+static struct credit *creditGetByRow(s32 row)
 {
 	// If core team, use the mapping
 	if (g_CreditsData->creditnum > 0 && g_CreditsData->creditnum < ARRAYCOUNT(g_CreditsData->coreteammap)) {
@@ -1143,7 +1143,7 @@ struct credit *creditGetByRow(s32 row)
 	return &g_Credits[g_CreditsData->creditnum + row];
 }
 
-void creditsTickSlide(void)
+static void creditsTickSlide(void)
 {
 	struct credit *credit = creditGetByRow(0);
 	s32 i;
@@ -1193,7 +1193,7 @@ void creditsTickSlide(void)
 	}
 }
 
-Gfx *creditsDrawSlide(Gfx *gdl)
+static Gfx *creditsDrawSlide(Gfx *gdl)
 {
 	s32 i;
 	struct credit *credits[4];
@@ -1488,7 +1488,7 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 	return gdl;
 }
 
-void creditsTick(void)
+static void creditsTick(void)
 {
 	s32 i;
 
@@ -1631,7 +1631,7 @@ Gfx *creditsDraw(Gfx *gdl)
 	if (g_CreditsUsingAltTitle && joyGetButtonsPressedThisFrame(0, 0xffcf)) {
 		g_TitleNextStage = STAGE_CITRAINING;
 
-		setNumPlayers(1);
+		g_NumPlayers = 1;
 		mainChangeToStage(g_TitleNextStage);
 
 		g_Vars.bondplayernum = 0;

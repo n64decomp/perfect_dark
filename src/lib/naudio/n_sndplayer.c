@@ -20,10 +20,16 @@ s32 var8005f138 = 0;
 void (*g_SndpAddRefCallback)(ALSound *) = NULL;
 void (*g_SndpRemoveRefCallback)(ALSound *) = NULL;
 
+static ALMicroTime _n_sndpVoiceHandler(void *node);
+static void _n_handleEvent(N_ALSndpEvent *event);
 void sndpSetAddRefCallback(void *fn);
 void sndpSetRemoveRefCallback(void *fn);
-void sndpFreeState(struct sndstate *state);
-void func00033bc0(struct sndstate *state);
+static void sndpFreeState(struct sndstate *state);
+static void func00033bc0(struct sndstate *state);
+static void func00033090(struct sndstate *state);
+static void func00033100(struct sndstate *state);
+static void _removeEvents(ALEventQueue *evtq, N_ALSoundState *state, u16 typemask);
+static u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr);
 
 void n_alSndpNew(ALSndpConfig *config)
 {
@@ -74,7 +80,7 @@ void n_alSndpNew(ALSndpConfig *config)
 	g_SndPlayer->nextDelta = n_alEvtqNextEvent(&g_SndPlayer->evtq, &g_SndPlayer->nextEvent);
 }
 
-ALMicroTime _n_sndpVoiceHandler(void *node)
+static ALMicroTime _n_sndpVoiceHandler(void *node)
 {
 	N_ALSndPlayer *sndp = (N_ALSndPlayer *) node;
 	N_ALSndpEvent evt;
@@ -102,7 +108,7 @@ ALMicroTime _n_sndpVoiceHandler(void *node)
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-void _n_handleEvent(N_ALSndpEvent *event)
+static void _n_handleEvent(N_ALSndpEvent *event)
 {
 	ALVoiceConfig config;
 	ALSound *sound;
@@ -445,7 +451,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 	} while (!done && state && !isspecial);
 }
 
-void func00033090(struct sndstate *state)
+static void func00033090(struct sndstate *state)
 {
 	if (state->flags & SNDSTATEFLAG_04) {
 		n_alSynStopVoice(&state->voice);
@@ -458,7 +464,7 @@ void func00033090(struct sndstate *state)
 	_removeEvents(&g_SndPlayer->evtq, (N_ALSoundState *)state, 0xffff);
 }
 
-void func00033100(struct sndstate *state)
+static void func00033100(struct sndstate *state)
 {
 	N_ALSndpEvent evt;
 	f32 pitch = alCents2Ratio(state->sound->keyMap->detune) * state->pitch;
@@ -470,7 +476,7 @@ void func00033100(struct sndstate *state)
 	n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt.msg, 33333, 0);
 }
 
-void _removeEvents(ALEventQueue *evtq, N_ALSoundState *state, u16 typemask)
+static void _removeEvents(ALEventQueue *evtq, N_ALSoundState *state, u16 typemask)
 {
 	ALLink            *thisNode;
 	ALLink            *nextNode;
@@ -504,7 +510,7 @@ void _removeEvents(ALEventQueue *evtq, N_ALSoundState *state, u16 typemask)
 	osSetIntMask(mask);
 }
 
-u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr)
+static u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr)
 {
 	OSIntMask mask = osSetIntMask(1);
 	u16 numalloced;
@@ -531,7 +537,7 @@ void sndpSetAddRefCallback(void *fn)
 	g_SndpAddRefCallback = fn;
 }
 
-struct sndstate *func00033390(s32 arg0, ALSound *sound)
+static struct sndstate *func00033390(s32 arg0, ALSound *sound)
 {
 	struct sndstate *state;
 	ALKeyMap *keymap;
@@ -608,7 +614,7 @@ void sndpSetRemoveRefCallback(void *fn)
 	g_SndpRemoveRefCallback = fn;
 }
 
-void sndpFreeState(struct sndstate *state)
+static void sndpFreeState(struct sndstate *state)
 {
 	var8005f134--;
 
@@ -764,7 +770,7 @@ void audioStop(struct sndstate *state)
 	}
 }
 
-void func00033bc0(struct sndstate *state)
+static void func00033bc0(struct sndstate *state)
 {
 	N_ALEvent evt;
 
@@ -778,7 +784,7 @@ void func00033bc0(struct sndstate *state)
 	}
 }
 
-void func00033c30(u8 flags)
+static void func00033c30(u8 flags)
 {
 	OSIntMask mask = osSetIntMask(1);
 	N_ALEvent evt;
@@ -799,7 +805,7 @@ void func00033c30(u8 flags)
 	osSetIntMask(mask);
 }
 
-void func00033cf0(u8 flags)
+static void func00033cf0(u8 flags)
 {
 	OSIntMask mask = osSetIntMask(1);
 	N_ALEvent evt;

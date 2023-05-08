@@ -6,6 +6,8 @@
 #include "seq.h"
 #include "versions.h"
 
+static void __n_resetPerfChanState(N_ALSeqPlayer *seqp, s32 chan);
+
 void __n_unmapVoice(N_ALSeqPlayer *seqp, N_ALVoice *voice)
 {
 	N_ALVoiceState *prev = 0;
@@ -297,7 +299,7 @@ void __n_initChanState(N_ALSeqPlayer *seqp)
 	}
 }
 
-void __n_resetPerfChanState(N_ALSeqPlayer *seqp, s32 chan)
+static void __n_resetPerfChanState(N_ALSeqPlayer *seqp, s32 chan)
 {
 	seqp->chanState[chan].fxId = AL_FX_NONE;
 	seqp->chanState[chan].fxmix = AL_DEFAULT_FXMIX;

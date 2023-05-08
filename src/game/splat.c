@@ -41,8 +41,9 @@ f32 g_SplatMaxDistance = 180;
 f32 var8007f8b4 = 5;
 f32 var8007f8b8 = 50;
 
-bool splat0f149274(f32 arg0, struct prop *prop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 arg5, s32 arg6, struct chrdata *chr, s32 arg8);
-void splat0f14986c(struct splatdata *splatdata);
+static s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg, struct coord *arg4, struct coord *arg5, bool isskedar, s32 splattype, s32 timermax, struct chrdata *chr, s32 timerspeed);
+static bool splat0f149274(f32 arg0, struct prop *prop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 arg5, s32 arg6, struct chrdata *chr, s32 arg8);
+static void splat0f14986c(struct splatdata *splatdata);
 
 void splatTickChr(struct prop *prop)
 {
@@ -130,7 +131,7 @@ void splatsCreateForChrHit(struct prop *prop, struct shotdata *shotdata, struct 
 	}
 }
 
-s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg,
+static s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg,
 		struct coord *arg4, struct coord *arg5, bool isskedar, s32 splattype,
 		s32 timermax, struct chrdata *chr, s32 timerspeed)
 {
@@ -209,7 +210,7 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdata
 	return numdropped;
 }
 
-bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 splattype, s32 timermax, struct chrdata *chr, s32 timerspeed)
+static bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 splattype, s32 timermax, struct chrdata *chr, s32 timerspeed)
 {
 	struct prop **propptr;
 	struct prop *objprop;
@@ -361,7 +362,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	return false;
 }
 
-void splat0f14986c(struct splatdata *splat)
+static void splat0f14986c(struct splatdata *splat)
 {
 	f32 spac;
 	f32 spa8;

@@ -10,7 +10,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 texGetMask(s32 value)
+static s32 texGetMask(s32 value)
 {
 	if (value < 2) {
 		return 0;
@@ -47,7 +47,7 @@ s32 texGetMask(s32 value)
 	return 8;
 }
 
-s32 tex0f0b33f8(s32 width, s32 height, s32 lod)
+static s32 tex0f0b33f8(s32 width, s32 height, s32 lod)
 {
 	s32 sum = 0;
 
@@ -72,7 +72,7 @@ s32 tex0f0b33f8(s32 width, s32 height, s32 lod)
 	return sum;
 }
 
-s32 tex0f0b3468(s32 width, s32 height, s32 lod)
+static s32 tex0f0b3468(s32 width, s32 height, s32 lod)
 {
 	s32 sum = 0;
 
@@ -97,7 +97,7 @@ s32 tex0f0b3468(s32 width, s32 height, s32 lod)
 	return sum;
 }
 
-s32 tex0f0b34d8(s32 width, s32 height, s32 lod)
+static s32 tex0f0b34d8(s32 width, s32 height, s32 lod)
 {
 	s32 sum = 0;
 
@@ -122,7 +122,7 @@ s32 tex0f0b34d8(s32 width, s32 height, s32 lod)
 	return sum;
 }
 
-s32 tex0f0b3548(s32 width, s32 height, s32 lod)
+static s32 tex0f0b3548(s32 width, s32 height, s32 lod)
 {
 	s32 sum = 0;
 
@@ -147,7 +147,7 @@ s32 tex0f0b3548(s32 width, s32 height, s32 lod)
 	return sum;
 }
 
-void texSetRenderMode(Gfx **gdlptr, s32 arg1, s32 numcycles, s32 arg3)
+static void texSetRenderMode(Gfx **gdlptr, s32 arg1, s32 numcycles, s32 arg3)
 {
 	Gfx *gdl = *gdlptr;
 

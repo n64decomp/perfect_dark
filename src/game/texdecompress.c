@@ -10,6 +10,22 @@
 #include "data.h"
 #include "types.h"
 
+static s32 texAlignIndices(u8 *src, s32 width, s32 height, s32 format, u8 *dst);
+static void texBlur(u8 *pixels, s32 width, s32 height, s32 method, s32 chansize);
+static s32 texBuildLookup(u8 *lookup, s32 bitsperpixel);
+static s32 texChannelsToPixels(u8 *src, s32 width, s32 height, u8 *dst, s32 format);
+static s32 texFindClosestColourIndexIA(u16 *palette, s32 numcolours, s32 intensity, s32 alpha);
+static s32 texFindClosestColourIndexRGBA(u8 *palette, s32 numcolours, s32 r, s32 g, s32 b, s32 a);
+static void texInflateHuffman(u8 *dst, s32 numiterations, s32 chansize);
+static s32 texInflateLookup(s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format);
+static s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format);
+static void texInflateRle(u8 *dst, s32 blockstotal);
+static void texReadAlphaBits(u8 *dst, s32 count);
+static s32 texReadUncompressed(u8 *dst, s32 width, s32 height, s32 format);
+static s32 texShrinkNonPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format);
+static s32 texShrinkPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format, u16 *palette, s32 numcolours);
+static void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format);
+
 struct texture *g_Textures;
 struct texpool g_TexSharedPool;
 struct texcacheitem g_TexCacheItems[150];
@@ -106,6 +122,26 @@ s32 g_TexFormatLutModes[] = {
 	G_TT_IA16,
 };
 
+static void texSetBitstring(u8 *arg0)
+{
+	var800ab540 = arg0;
+	var800ab544 = 0;
+	var800ab548 = 0;
+}
+
+static s32 texReadBits(s32 arg0)
+{
+	while (var800ab548 < arg0) {
+		var800ab544 = *var800ab540 | var800ab544 << 8;
+		var800ab540++;
+		var800ab548 += 8;
+	}
+
+	var800ab548 -= arg0;
+
+	return var800ab544 >> var800ab548 & ((1 << arg0) - 1);
+}
+
 /**
  * Inflate images (levels of detail) from a zlib-compressed texture.
  *
@@ -131,7 +167,7 @@ s32 g_TexFormatLutModes[] = {
  *
  * The zlib data is prefixed with the standard 5-byte rarezip header.
  */
-s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
+static s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
 {
 	s32 i;
 	s32 imagebytesout;
@@ -286,7 +322,7 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
  *
  * Return the number of output bytes.
  */
-s32 texAlignIndices(u8 *src, s32 width, s32 height, s32 format, u8 *dst)
+static s32 texAlignIndices(u8 *src, s32 width, s32 height, s32 format, u8 *dst)
 {
 	u8 *outptr = dst;
 	s32 x;
@@ -312,7 +348,7 @@ s32 texAlignIndices(u8 *src, s32 width, s32 height, s32 format, u8 *dst)
 	return outptr - dst;
 }
 
-s32 texGetAverageRed(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
+static s32 texGetAverageRed(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 {
 	s32 value = 0;
 
@@ -334,7 +370,7 @@ s32 texGetAverageRed(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 	return value;
 }
 
-s32 texGetAverageGreen(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
+static s32 texGetAverageGreen(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 {
 	s32 value = 0;
 
@@ -356,7 +392,7 @@ s32 texGetAverageGreen(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 	return value;
 }
 
-s32 texGetAverageBlue(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
+static s32 texGetAverageBlue(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 {
 	s32 value = 0;
 
@@ -378,7 +414,7 @@ s32 texGetAverageBlue(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 	return value;
 }
 
-s32 texGetAverageAlpha(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
+static s32 texGetAverageAlpha(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 {
 	s32 value = 0
 		+ (colour1 & 1 ? 0xff : 0)
@@ -405,7 +441,7 @@ s32 texGetAverageAlpha(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
  *
  * Return the number of bytes written.
  */
-s32 texShrinkPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format, u16 *palette, s32 numcolours)
+static s32 texShrinkPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format, u16 *palette, s32 numcolours)
 {
 	s32 j;
 	s32 i;
@@ -578,7 +614,7 @@ s32 texShrinkPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format,
 	return 0;
 }
 
-s32 texFindClosestColourIndexRGBA(u8 *palette, s32 numcolours, s32 r, s32 g, s32 b, s32 a)
+static s32 texFindClosestColourIndexRGBA(u8 *palette, s32 numcolours, s32 r, s32 g, s32 b, s32 a)
 {
 	s32 minindex = 0;
 	s32 minvalue = 99999999;
@@ -608,7 +644,7 @@ s32 texFindClosestColourIndexRGBA(u8 *palette, s32 numcolours, s32 r, s32 g, s32
 	return minindex;
 }
 
-s32 texFindClosestColourIndexIA(u16 *palette, s32 numcolours, s32 intensity, s32 alpha)
+static s32 texFindClosestColourIndexIA(u16 *palette, s32 numcolours, s32 intensity, s32 alpha)
 {
 	s32 bestindex = 0;
 	s32 bestvalue = 99999999;
@@ -642,7 +678,7 @@ s32 texFindClosestColourIndexIA(u16 *palette, s32 numcolours, s32 intensity, s32
  * h = height in pixels
  * c = compression method (see TEXCOMPMETHOD constants)
  */
-s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
+static s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
 {
 	u8 scratch[0x2000];
 	u8 lookup[0x1000];
@@ -843,7 +879,7 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
  * If the source width is an odd number, the destination's final column is
  * calculated by sampling the final source column twice. Likewise for the height.
  */
-s32 texShrinkNonPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format)
+static s32 texShrinkNonPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format)
 {
 	s32 i;
 	s32 j;
@@ -1133,7 +1169,7 @@ s32 texShrinkNonPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 form
  * implementation only stores a list of frequencies. It uses the chansize
  * to know how many values there are.
  */
-void texInflateHuffman(u8 *dst, s32 numiterations, s32 chansize)
+static void texInflateHuffman(u8 *dst, s32 numiterations, s32 chansize)
 {
 	u16 frequencies[2048];
 	s16 nodes[2048][2];
@@ -1291,7 +1327,7 @@ void texInflateHuffman(u8 *dst, s32 numiterations, s32 chansize)
  * Every run must be followed by a literal block without the 1-bit marker.
  * The algorithm does not support back to back runs.
  */
-void texInflateRle(u8 *dst, s32 blockstotal)
+static void texInflateRle(u8 *dst, s32 blockstotal)
 {
 	s32 btfieldsize = texReadBits(3);
 	s32 rlfieldsize = texReadBits(3);
@@ -1362,7 +1398,7 @@ void texInflateRle(u8 *dst, s32 blockstotal)
  *
  * This function does NOT work with pixel formats of 8 bits or less.
  */
-s32 texBuildLookup(u8 *lookup, s32 bitsperpixel)
+static s32 texBuildLookup(u8 *lookup, s32 bitsperpixel)
 {
 	s32 numcolours = texReadBits(11);
 	s32 i;
@@ -1390,7 +1426,7 @@ s32 texBuildLookup(u8 *lookup, s32 bitsperpixel)
 	return numcolours;
 }
 
-s32 texGetBitSize(s32 decimal)
+static s32 texGetBitSize(s32 decimal)
 {
 	s32 count = 0;
 
@@ -1404,7 +1440,7 @@ s32 texGetBitSize(s32 decimal)
 	return count;
 }
 
-void texReadAlphaBits(u8 *dst, s32 count)
+static void texReadAlphaBits(u8 *dst, s32 count)
 {
 	s32 i;
 
@@ -1419,7 +1455,7 @@ void texReadAlphaBits(u8 *dst, s32 count)
  *
  * Return the number of output bytes.
  */
-s32 texReadUncompressed(u8 *dst, s32 width, s32 height, s32 format)
+static s32 texReadUncompressed(u8 *dst, s32 width, s32 height, s32 format)
 {
 	u32 *dst32 = (u32 *)(((u32)dst + 0xf) & ~0xf);
 	u16 *dst16 = (u16 *)(((u32)dst + 7) & ~7);
@@ -1505,7 +1541,7 @@ s32 texReadUncompressed(u8 *dst, s32 width, s32 height, s32 format)
  *
  * The existence and size of the channels depends on the pixel format.
  */
-s32 texChannelsToPixels(u8 *src, s32 width, s32 height, u8 *dst, s32 format)
+static s32 texChannelsToPixels(u8 *src, s32 width, s32 height, u8 *dst, s32 format)
 {
 	u32 *dst32 = (u32 *)dst;
 	u16 *dst16 = (u16 *)dst;
@@ -1647,7 +1683,7 @@ s32 texChannelsToPixels(u8 *src, s32 width, s32 height, u8 *dst, s32 format)
  *
  * Return the number of bytes written to dst.
  */
-s32 texInflateLookup(s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format)
+static s32 texInflateLookup(s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format)
 {
 	u32 *lookup32 = (u32 *)lookup;
 	u16 *lookup16 = (u16 *)lookup;
@@ -1740,7 +1776,7 @@ s32 texInflateLookup(s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours,
  * in the lookup table. If there are more than 256 colours then it must use
  * u16s, otherwise it expects u8s.
  */
-s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format)
+static s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format)
 {
 	s32 x;
 	s32 y;
@@ -1871,7 +1907,7 @@ s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *look
  * For textures with 32-bit colour values (in GBI format), swap every pair
  * within each word. For all other textures, swap every byte within each pair.
  */
-void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
+static void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
 {
 	s32 x;
 	s32 y;
@@ -1935,7 +1971,7 @@ void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
 /**
  * Blur the pixels in the image with the surrounding pixels.
  */
-void texBlur(u8 *pixels, s32 width, s32 height, s32 method, s32 chansize)
+static void texBlur(u8 *pixels, s32 width, s32 height, s32 method, s32 chansize)
 {
 	s32 x;
 	s32 y;
@@ -2024,7 +2060,7 @@ struct tex *texFindInPool(s32 texturenum, struct texpool *pool)
 	return NULL;
 }
 
-s32 texGetPoolFreeBytes(struct texpool *pool)
+static s32 texGetPoolFreeBytes(struct texpool *pool)
 {
 	return (s32) pool->rightpos - (s32) pool->leftpos;
 }

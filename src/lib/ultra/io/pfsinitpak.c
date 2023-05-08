@@ -3,8 +3,8 @@
 #include "controller.h"
 #include "siint.h"
 
-s32 __osPfsCheckRamArea(OSPfs* pfs);
-s32 func00007084(OSPfs *pfs);
+static s32 __osPfsCheckRamArea(OSPfs* pfs);
+static s32 func00007084(OSPfs *pfs);
 
 s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel, s32 *arg3)
 {
@@ -84,7 +84,7 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel, s32 *arg3)
 	return ret;
 }
 
-s32 __osPfsCheckRamArea(OSPfs* pfs)
+static s32 __osPfsCheckRamArea(OSPfs* pfs)
 {
 	s32 i = 0;
 	s32 ret = 0;
@@ -119,7 +119,7 @@ s32 __osPfsCheckRamArea(OSPfs* pfs)
 	return __osContRamWrite(pfs->queue, pfs->channel, 0, saveReg, 0);
 }
 
-s32 func00007084(OSPfs *pfs)
+static s32 func00007084(OSPfs *pfs)
 {
 	s32 ret;
 	u32 buffer[7];

@@ -37,6 +37,8 @@ extern u8 *_inflateSegmentStart;
 extern u8 *_inflateSegmentRomStart;
 extern u8 *_inflateSegmentRomEnd;
 
+static void bootPhase2(void *arg);
+
 s32 bootGetMemSize(void)
 {
 	return g_OsMemSize;
@@ -175,19 +177,20 @@ void *bootAllocateStack(s32 threadid, s32 size)
 	return g_StackAllocatedPos + size - 8;
 }
 
-void idleproc(void *data)
+static void idleproc(void *data)
 {
 	while (true);
 }
 
-void bootCreateIdleThread(void)
+static void bootPhase2(void *arg)
 {
 	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, bootAllocateStack(THREAD_IDLE, STACKSIZE_IDLE), THREADPRI_IDLE);
 	osStartThread(&g_IdleThread);
-}
 
-void bootCreateSchedThread(void)
-{
+	pimgrCreate();
+
+	osSetThreadPri(0, THREADPRI_MAIN);
+
 	osCreateMesgQueue(&g_SchedMesgQueue, var8008db48, ARRAYCOUNT(var8008db48));
 
 	if (osTvType == OS_TV_MPAL) {
@@ -197,18 +200,6 @@ void bootCreateSchedThread(void)
 	}
 
 	osScAddClient(&g_Sched, &var8008dca8, &g_SchedMesgQueue, 0);
-}
 
-void bootPhase2(void *arg)
-{
-	bootCreateIdleThread();
-	pimgrCreate();
-
-	if (argsParseDebugArgs()) {
-		osStopThread(NULL);
-	}
-
-	osSetThreadPri(0, THREADPRI_MAIN);
-	bootCreateSchedThread();
 	mainProc();
 }

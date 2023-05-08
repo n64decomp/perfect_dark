@@ -84,7 +84,7 @@ struct smoketype g_SmokeTypes[NUM_SMOKETYPES] = {
 #endif
 };
 
-Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, struct coord *coord, f32 size)
+static Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, struct coord *coord, f32 size)
 {
 	struct gfxvtx *vertices = gfxAllocateVertices(4);
 	struct colour *colours = (struct colour *)gfxAllocateColours(1);
@@ -261,7 +261,7 @@ Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, stru
 	return gdl;
 }
 
-struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type)
+static struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type)
 {
 	struct smoke *smoke = NULL;
 	s32 playercount = PLAYERCOUNT();
@@ -366,7 +366,7 @@ bool smokeCreateForHand(struct coord *pos, s16 *rooms, s16 type, s32 handnum)
  * smoke parts have a size of zero. Perhaps the caller is supposed to check if
  * this function returns false and reuse the zero-sized smoke parts if so?
  */
-bool smokeCreateWithSource(void *source, struct coord *pos, s16 *rooms, s16 type, bool srcispadeffect)
+static bool smokeCreateWithSource(void *source, struct coord *pos, s16 *rooms, s16 type, bool srcispadeffect)
 {
 	struct smoke *smoke;
 	s32 i;
@@ -435,7 +435,7 @@ struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type)
 	return smokeCreate(pos, rooms, type);
 }
 
-u32 smokeTick(struct prop *prop)
+static u32 smokeTick(struct prop *prop)
 {
 	s32 i;
 	s32 j;

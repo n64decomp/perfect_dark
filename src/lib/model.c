@@ -369,7 +369,7 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 	}
 }
 
-void modelNodeSetPosition(struct model *model, struct modelnode *node, struct coord *pos)
+static void modelNodeSetPosition(struct model *model, struct modelnode *node, struct coord *pos)
 {
 	switch (node->type & 0xff) {
 	case MODELNODETYPE_CHRINFO:
@@ -489,7 +489,7 @@ f32 model0001af80(struct model *model)
 	return model->filedata->unk10 * model->scale;
 }
 
-void model0001af98(struct coord *arg0, struct coord *arg1, f32 frac)
+static void model0001af98(struct coord *arg0, struct coord *arg1, f32 frac)
 {
 	arg0->x += (arg1->x - arg0->x) * frac;
 	arg0->y += (arg1->y - arg0->y) * frac;
@@ -521,14 +521,14 @@ f32 model0001afe8(f32 arg0, f32 angle, f32 mult)
 	return arg0;
 }
 
-void model0001b07c(struct coord *arg0, struct coord *arg1, f32 mult)
+static void model0001b07c(struct coord *arg0, struct coord *arg1, f32 mult)
 {
 	arg0->x = model0001afe8(arg0->x, arg1->x, mult);
 	arg0->y = model0001afe8(arg0->y, arg1->y, mult);
 	arg0->z = model0001afe8(arg0->z, arg1->z, mult);
 }
 
-void model0001b0e8(struct model *model, struct modelnode *node)
+static void model0001b0e8(struct model *model, struct modelnode *node)
 {
 	union modelrwdata *rwdata;
 	struct anim *anim = model->anim;
@@ -617,7 +617,7 @@ void model0001b3bc(struct model *model)
 	}
 }
 
-void model0001b400(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
+static void model0001b400(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
 {
 	struct anim *anim = model->anim;
 	union modelrodata *rodata = node->rodata;
@@ -721,7 +721,7 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 	}
 }
 
-void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, struct coord *rot, struct coord *pos, bool allowscale, struct coord *arg6)
+static void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, struct coord *rot, struct coord *pos, bool allowscale, struct coord *arg6)
 {
 	s32 nodetype = node->type;
 	struct modelrodata_position *rodata = &node->rodata->position;
@@ -835,7 +835,7 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 	}
 }
 
-void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, f32 rot[4], struct coord *pos, struct coord *arg5)
+static void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, f32 rot[4], struct coord *pos, struct coord *arg5)
 {
 	s32 nodetype = node->type;
 	struct modelrodata_position *rodata = &node->rodata->position;
@@ -939,7 +939,7 @@ void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct m
 	}
 }
 
-void model0001bfa8(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+static void model0001bfa8(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	struct anim *anim;
 	struct modelrodata_position *rodata = &node->rodata->position;
@@ -1069,7 +1069,7 @@ void model0001bfa8(struct modelrenderdata *renderdata, struct model *model, stru
 	}
 }
 
-void model0001c5b4(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
+static void model0001c5b4(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 	Mtxf *sp68;
@@ -1094,7 +1094,7 @@ void model0001c5b4(struct modelrenderdata *arg0, struct model *model, struct mod
 /**
  * For a distance node, set its target to visible based on distance.
  */
-void model0001c664(struct model *model, struct modelnode *node)
+static void model0001c664(struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
@@ -1168,7 +1168,7 @@ void modelAttachHead(struct model *model, struct modelnode *bodynode)
 	}
 }
 
-void model0001c868(struct modelnode *basenode, bool visible)
+static void model0001c868(struct modelnode *basenode, bool visible)
 {
 	union modelrodata *rodata = basenode->rodata;
 	struct modelnode *node1;
@@ -1222,14 +1222,14 @@ void model0001c868(struct modelnode *basenode, bool visible)
 	}
 }
 
-void modelRenderNodeReorder(struct model *model, struct modelnode *node)
+static void modelRenderNodeReorder(struct model *model, struct modelnode *node)
 {
 	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 
 	model0001c868(node, rwdata->reorder.visible);
 }
 
-void model0001c950(struct model *model, struct modelnode *node)
+static void model0001c950(struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
@@ -1369,7 +1369,7 @@ void model0001cc20(struct model *model)
 	}
 }
 
-void model0001cd18(struct modelrenderdata *arg0, struct model *model)
+static void model0001cd18(struct modelrenderdata *arg0, struct model *model)
 {
 	struct modelnode *node = model->filedata->rootnode;
 
@@ -1564,7 +1564,7 @@ f32 modelGetAbsAnimSpeed(struct model *model)
  * Constrain the given frame number to the bounds of the animation, unless the
  * animation is looping in which case wrap it to the other side.
  */
-s32 modelConstrainOrWrapAnimFrame(s32 frame, s16 animnum, f32 endframe)
+static s32 modelConstrainOrWrapAnimFrame(s32 frame, s16 animnum, f32 endframe)
 {
 	if (frame < 0) {
 		if (g_Anims[animnum].flags & ANIMFLAG_LOOP) {
@@ -1585,7 +1585,7 @@ s32 modelConstrainOrWrapAnimFrame(s32 frame, s16 animnum, f32 endframe)
 	return frame;
 }
 
-void modelCopyAnimForMerge(struct model *model, f32 merge)
+static void modelCopyAnimForMerge(struct model *model, f32 merge)
 {
 	struct anim *anim = model->anim;
 	struct modelnode *node;
@@ -1625,7 +1625,7 @@ void modelCopyAnimForMerge(struct model *model, f32 merge)
 	}
 }
 
-void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 merge)
+static void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 merge)
 {
 	struct anim *anim = model->anim;
 
@@ -1954,7 +1954,7 @@ void model0001e018(struct model *model, f32 arg1)
 	}
 }
 
-void model0001e14c(struct model *model, f32 arg1, f32 arg2)
+static void model0001e14c(struct model *model, f32 arg1, f32 arg2)
 {
 	struct anim *anim = model->anim;
 
@@ -1997,7 +1997,7 @@ bool model0001e2a8(void)
 	return var8005efdc;
 }
 
-void model0001e2b4(struct model *model, f32 curframe, f32 endframe, f32 curframe2, f32 endframe2)
+static void model0001e2b4(struct model *model, f32 curframe, f32 endframe, f32 curframe2, f32 endframe2)
 {
 	struct anim *anim = model->anim;
 
@@ -2627,7 +2627,7 @@ void model0001f314(struct model *model, s32 lvupdate240, bool arg2)
 	}
 }
 
-void model0001f7e0(struct modelrenderdata *renderdata)
+static void model0001f7e0(struct modelrenderdata *renderdata)
 {
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_1CYCLE);
@@ -2641,7 +2641,7 @@ void model0001f7e0(struct modelrenderdata *renderdata)
 	gDPSetCombineMode(renderdata->gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
 }
 
-void model0001f890(struct modelrenderdata *renderdata, bool arg1)
+static void model0001f890(struct modelrenderdata *renderdata, bool arg1)
 {
 	if (renderdata->unk30 == 7) {
 		if (arg1) {
@@ -2799,7 +2799,7 @@ void model0001f890(struct modelrenderdata *renderdata, bool arg1)
 	}
 }
 
-void model00020248(struct modelrenderdata *renderdata, bool arg1)
+static void model00020248(struct modelrenderdata *renderdata, bool arg1)
 {
 	if (renderdata->unk30 == 7) {
 		gDPPipeSync(renderdata->gdl++);
@@ -2954,7 +2954,7 @@ void model00020248(struct modelrenderdata *renderdata, bool arg1)
 	}
 }
 
-void model00020bdc(struct modelrenderdata *renderdata)
+static void model00020bdc(struct modelrenderdata *renderdata)
 {
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
@@ -2968,7 +2968,7 @@ void model00020bdc(struct modelrenderdata *renderdata)
 	gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 }
 
-void modelApplyCullMode(struct modelrenderdata *renderdata)
+static void modelApplyCullMode(struct modelrenderdata *renderdata)
 {
 	if (renderdata->cullmode == CULLMODE_NONE) {
 		gSPClearGeometryMode(renderdata->gdl++, G_CULL_BOTH);
@@ -2979,7 +2979,7 @@ void modelApplyCullMode(struct modelrenderdata *renderdata)
 	}
 }
 
-void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+static void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	struct modelrodata_gundl *rodata = &node->rodata->gundl;
 
@@ -3031,7 +3031,7 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 	}
 }
 
-void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+static void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 
@@ -3108,7 +3108,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
  * writes them to a newly allocated vertices table and queues the node's
  * displaylist to the renderdata's DL.
  */
-void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct modelnode *node)
+static void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct modelnode *node)
 {
 	if (renderdata->flags & 2) {
 		struct modelrodata_stargunfire *rodata = &node->rodata->stargunfire;
@@ -3172,12 +3172,12 @@ void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct model
 	}
 }
 
-void model000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
+static void model000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
 {
 	texSelect(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, NULL);
 }
 
-void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+static void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	u32 stack[3];
 	f32 negspc0;
@@ -3678,7 +3678,7 @@ s32 model000225d4(struct model *model, struct coord *arg1, struct coord *arg2, s
 	if (var) \
 		var = (void *)((u32)var + diff)
 
-void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 fileramaddr)
+static void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 fileramaddr)
 {
 	union modelrodata *rodata;
 	s32 diff = fileramaddr - vma;
@@ -3816,7 +3816,7 @@ void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 vma, u32 
 	}
 }
 
-s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
+static s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 {
 	u16 len = 0;
 	struct modelnode *node = basenode;

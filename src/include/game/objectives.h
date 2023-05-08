@@ -24,7 +24,6 @@ u32 objectiveGetDifficultyBits(s32 index);
 s32 objectiveCheck(s32 index);
 bool objectiveIsAllComplete(void);
 void objectivesDisableChecking(void);
-void objectivesShowHudmsg(char *buffer, s32 hudmsgtype);
 void objectivesCheckAll(void);
 void objectiveCheckHolograph(f32 sqdist);
 struct prop *chopperGetTargetProp(struct chopperobj *heli);

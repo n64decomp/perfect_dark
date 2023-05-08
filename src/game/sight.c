@@ -23,7 +23,7 @@
 /**
  * Return true if the prop is considered friendly (blue sight).
  */
-bool sightIsPropFriendly(struct prop *prop)
+static bool sightIsPropFriendly(struct prop *prop)
 {
 	if (prop == NULL) {
 		prop = g_Vars.currentplayer->lookingatprop.prop;
@@ -57,7 +57,7 @@ bool sightIsPropFriendly(struct prop *prop)
 /**
  * Return true if the given prop can be added to the target list.
  */
-bool sightCanTargetProp(struct prop *prop, s32 max)
+static bool sightCanTargetProp(struct prop *prop, s32 max)
 {
 	s32 i;
 
@@ -90,7 +90,7 @@ bool sightCanTargetProp(struct prop *prop, s32 max)
 /**
  * Return true if the sight should change colour when aiming at the given prop.
  */
-bool sightIsReactiveToProp(struct prop *prop)
+static bool sightIsReactiveToProp(struct prop *prop)
 {
 	if (prop->obj == NULL) {
 		return false;
@@ -122,7 +122,7 @@ bool sightIsReactiveToProp(struct prop *prop)
 	return true;
 }
 
-s32 sightFindFreeTargetIndex(s32 max)
+static s32 sightFindFreeTargetIndex(s32 max)
 {
 	s32 i;
 
@@ -144,7 +144,7 @@ void func0f0d7364(void)
 	}
 }
 
-void sightTick(bool sighton)
+static void sightTick(bool sighton)
 {
 	struct trackedprop *trackedprop;
 	u8 newtracktype;
@@ -307,7 +307,7 @@ void sightTick(bool sighton)
  * The arguments here are named for a left border,
  * but can be called for any of the four edges.
  */
-s32 sightCalculateBoxBound(s32 targetx, s32 viewleft, s32 timeelapsed, s32 timeend)
+static s32 sightCalculateBoxBound(s32 targetx, s32 viewleft, s32 timeelapsed, s32 timeend)
 {
 	s32 value;
 
@@ -331,7 +331,7 @@ s32 sightCalculateBoxBound(s32 targetx, s32 viewleft, s32 timeelapsed, s32 timee
  * 6 to label it as "5"
  * 7 or above to treat textid as a proper language text ID.
  */
-Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s32 time)
+static Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s32 time)
 {
 	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
@@ -415,7 +415,7 @@ Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s
 	return gdl;
 }
 
-Gfx *sightDrawAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 colour)
+static Gfx *sightDrawAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 colour)
 {
 	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
@@ -463,7 +463,7 @@ Gfx *sightDrawAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 colou
 	return gdl;
 }
 
-Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
+static Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 {
 	s32 radius;
 	s32 cornergap;
@@ -643,7 +643,7 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 	return gdl;
 }
 
-Gfx *sightDrawClassic(Gfx *gdl, bool sighton)
+static Gfx *sightDrawClassic(Gfx *gdl, bool sighton)
 {
 	struct textureconfig *tconfig = &g_TexGeCrosshairConfigs[0];
 	f32 spc4[2];
@@ -702,11 +702,6 @@ Gfx *sightDrawClassic(Gfx *gdl, bool sighton)
 	return gdl;
 }
 
-Gfx *sightDrawType2(Gfx *gdl, bool sighton)
-{
-	return sightDrawClassic(gdl, sighton);
-}
-
 #define COLOUR_LIGHTRED 0xff555564
 #define COLOUR_DARKRED  0xff0000b2
 #define COLOUR_GREEN    0x55ff5564
@@ -717,7 +712,7 @@ Gfx *sightDrawType2(Gfx *gdl, bool sighton)
 #define DIR_LEFT  2
 #define DIR_RIGHT 3
 
-Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
+static Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
 {
 	s32 points[6];
 	struct gfxvtx *vertices = gfxAllocateVertices(3);
@@ -794,7 +789,7 @@ Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
 	return gdl;
 }
 
-Gfx *sightDrawSkedar(Gfx *gdl, bool sighton)
+static Gfx *sightDrawSkedar(Gfx *gdl, bool sighton)
 {
 	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
@@ -978,7 +973,7 @@ Gfx *sightDrawSkedar(Gfx *gdl, bool sighton)
 	return gdl;
 }
 
-Gfx *sightDrawZoom(Gfx *gdl, bool sighton)
+static Gfx *sightDrawZoom(Gfx *gdl, bool sighton)
 {
 	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
@@ -1116,7 +1111,7 @@ Gfx *sightDrawZoom(Gfx *gdl, bool sighton)
 	return gdl;
 }
 
-Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
+static Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 {
 	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
@@ -1213,7 +1208,7 @@ Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 	return gdl;
 }
 
-Gfx *sightDrawTarget(Gfx *gdl)
+static Gfx *sightDrawTarget(Gfx *gdl)
 {
 	s32 x = (s32)g_Vars.currentplayer->crosspos[0];
 	s32 y = g_Vars.currentplayer->crosspos[1];
@@ -1234,7 +1229,7 @@ Gfx *sightDrawTarget(Gfx *gdl)
 	return gdl;
 }
 
-bool sightHasTargetWhileAiming(s32 sight)
+static bool sightHasTargetWhileAiming(s32 sight)
 {
 	if (sight == SIGHT_DEFAULT || sight == SIGHT_ZOOM) {
 		return true;
@@ -1270,12 +1265,6 @@ Gfx *sightDraw(Gfx *gdl, bool sighton, s32 sight)
 		break;
 	case SIGHT_CLASSIC:
 		gdl = sightDrawClassic(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
-		break;
-	case SIGHT_2:
-		gdl = sightDrawType2(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
-		break;
-	case SIGHT_3:
-		gdl = sightDrawDefault(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_SKEDAR:
 		gdl = sightDrawSkedar(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));

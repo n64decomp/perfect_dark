@@ -41,7 +41,7 @@ s32 mp3main00043dd0(struct asistream *stream)
 	return stream->unk201c - stream->unk3f88;
 }
 
-bool mp3main00043ef8(struct asistream *stream, s32 arg1)
+static bool mp3main00043ef8(struct asistream *stream, s32 arg1)
 {
 	s32 sp24;
 	s32 sp20;

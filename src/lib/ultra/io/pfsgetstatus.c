@@ -2,8 +2,8 @@
 #include "controller.h"
 #include "siint.h"
 
-void __osPfsRequestOneChannel(int channel, u8 cmd);
-void __osPfsGetOneChannelData(int channel, OSContStatus *data);
+static void __osPfsRequestOneChannel(int channel, u8 cmd);
+static void __osPfsGetOneChannelData(int channel, OSContStatus *data);
 
 extern u8 g_PfsPrevBank;
 
@@ -38,7 +38,7 @@ s32 __osPfsGetStatus(OSMesgQueue *queue, int channel)
 	return ret;
 }
 
-void __osPfsRequestOneChannel(int channel, u8 cmd)
+static void __osPfsRequestOneChannel(int channel, u8 cmd)
 {
 	u8 *ptr;
 	__OSContRequestFormatShort requestformat;
@@ -64,7 +64,7 @@ void __osPfsRequestOneChannel(int channel, u8 cmd)
 	*ptr = CONT_CMD_END;
 }
 
-void __osPfsGetOneChannelData(int channel, OSContStatus *data)
+static void __osPfsGetOneChannelData(int channel, OSContStatus *data)
 {
 	u8 *ptr;
 	__OSContRequestFormatShort requestformat;

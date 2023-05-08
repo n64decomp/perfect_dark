@@ -174,7 +174,7 @@ void beamCreateForHand(s32 handnum)
 	}
 }
 
-Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
+static Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 		f32 arg2, struct coord *headpos, u32 headcolour,
 		f32 arg5, struct coord *tailpos, u32 tailcolour)
 {
@@ -637,7 +637,7 @@ void beamTick(struct beam *beam)
 
 bool g_CasingsActive = false;
 
-struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx)
+static struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx)
 {
 	s32 i;
 	s32 j;
@@ -828,7 +828,7 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 	}
 }
 
-void casingRender(struct casing *casing, Gfx **gdlptr)
+static void casingRender(struct casing *casing, Gfx **gdlptr)
 {
 	Gfx *gdl = *gdlptr;
 	struct modelfiledata *modeldef = casing->modeldef;
@@ -1015,7 +1015,7 @@ void boltbeamsTick(void)
  * Additionally, populate the index pointer with the index of the lasersight
  * if it exists, or any free slot if it doesn't.
  */
-bool lasersightExists(s32 id, s32 *index)
+static bool lasersightExists(s32 id, s32 *index)
 {
 	s32 fallback = -1;
 	s32 exact = -1;

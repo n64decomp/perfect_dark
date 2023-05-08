@@ -211,7 +211,7 @@ void objectivesDisableChecking(void)
 	g_ObjectiveChecksDisabled = true;
 }
 
-void objectivesShowHudmsg(char *buffer, s32 hudmsgtype)
+static void objectivesShowHudmsg(char *buffer, s32 hudmsgtype)
 {
 	s32 prevplayernum = g_Vars.currentplayernum;
 	s32 i;

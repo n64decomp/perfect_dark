@@ -30,7 +30,12 @@
 #include "data.h"
 #include "types.h"
 
-s32 endscreenHandleDeclineMission(s32 operation, struct menuitem *item, union handlerdata *data)
+static void endscreenContinue(s32 context);
+static char *endscreenMenuTextTargetTime(struct menuitem *item);
+static char *endscreenMenuTextTimedCheatName(struct menuitem *item);
+static char *endscreenMenuTextCompletionCheatName(struct menuitem *item);
+
+static s32 endscreenHandleDeclineMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -40,7 +45,7 @@ s32 endscreenHandleDeclineMission(s32 operation, struct menuitem *item, union ha
 	return 0;
 }
 
-s32 endscreenHandleRetryMission(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 endscreenHandleRetryMission(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_TICK:
@@ -90,7 +95,7 @@ s32 endscreenHandleRetryMission(s32 operation, struct menudialogdef *dialogdef, 
 	return menudialog00103608(operation, dialogdef, data);
 }
 
-char *endscreenMenuTitleRetryMission(struct menudialogdef *dialogdef)
+static char *endscreenMenuTitleRetryMission(struct menudialogdef *dialogdef)
 {
 	char *name;
 	char *prefix;
@@ -107,7 +112,7 @@ char *endscreenMenuTitleRetryMission(struct menudialogdef *dialogdef)
 	return g_StringPointer;
 }
 
-char *endscreenMenuTitleNextMission(struct menudialogdef *dialogdef)
+static char *endscreenMenuTitleNextMission(struct menudialogdef *dialogdef)
 {
 	char *name;
 	char *prefix;
@@ -124,7 +129,7 @@ char *endscreenMenuTitleNextMission(struct menudialogdef *dialogdef)
 	return g_StringPointer;
 }
 
-s32 endscreenHandleReplayPreviousMission(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 endscreenHandleReplayPreviousMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stageindex--;
@@ -224,44 +229,44 @@ struct menudialogdef g_NextMissionMenuDialog = {
 	&g_PreAndPostMissionBriefingMenuDialog,
 };
 
-char *endscreenMenuTextNumKills(struct menuitem *item)
+static char *endscreenMenuTextNumKills(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", mpstatsGetPlayerKillCount());
 	return g_StringPointer;
 }
 
-char *endscreenMenuTextNumShots(struct menuitem *item)
+static char *endscreenMenuTextNumShots(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", mpstatsGetPlayerShotCountByRegion(SHOTREGION_TOTAL));
 	return g_StringPointer;
 }
 
-char *endscreenMenuTextNumHeadShots(struct menuitem *item)
+static char *endscreenMenuTextNumHeadShots(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", mpstatsGetPlayerShotCountByRegion(SHOTREGION_HEAD));
 	return g_StringPointer;
 }
 
-char *endscreenMenuTextNumBodyShots(struct menuitem *item)
+static char *endscreenMenuTextNumBodyShots(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", mpstatsGetPlayerShotCountByRegion(SHOTREGION_BODY));
 	return g_StringPointer;
 }
 
-char *endscreenMenuTextNumLimbShots(struct menuitem *item)
+static char *endscreenMenuTextNumLimbShots(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", mpstatsGetPlayerShotCountByRegion(SHOTREGION_LIMB));
 	return g_StringPointer;
 }
 
-char *endscreenMenuTextNumOtherShots(struct menuitem *item)
+static char *endscreenMenuTextNumOtherShots(struct menuitem *item)
 {
 	u32 total = mpstatsGetPlayerShotCountByRegion(SHOTREGION_GUN) + mpstatsGetPlayerShotCountByRegion(SHOTREGION_HAT);
 	sprintf(g_StringPointer, "%d", total);
 	return g_StringPointer;
 }
 
-char *endscreenMenuTextAccuracy(struct menuitem *item)
+static char *endscreenMenuTextAccuracy(struct menuitem *item)
 {
 	s32 total = mpstatsGetPlayerShotCountByRegion(SHOTREGION_TOTAL);
 	s32 numhead = mpstatsGetPlayerShotCountByRegion(SHOTREGION_HEAD);
@@ -287,7 +292,7 @@ char *endscreenMenuTextAccuracy(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *endscreenMenuTextMissionStatus(struct menuitem *item)
+static char *endscreenMenuTextMissionStatus(struct menuitem *item)
 {
 	if (g_CheatsActiveBank0 || g_CheatsActiveBank1) {
 		return langGet(L_MPWEAPONS_135); // "Cheated"
@@ -344,7 +349,7 @@ char *endscreenMenuTextMissionStatus(struct menuitem *item)
 	return langGet(L_OPTIONS_294); // "Completed"
 }
 
-char *endscreenMenuTextAgentStatus(struct menuitem *item)
+static char *endscreenMenuTextAgentStatus(struct menuitem *item)
 {
 	if (g_CheatsActiveBank0 || g_CheatsActiveBank1) {
 		return langGet(L_MPWEAPONS_134); // "Dishonored"
@@ -365,7 +370,7 @@ char *endscreenMenuTextAgentStatus(struct menuitem *item)
 	return langGet(L_OPTIONS_291); // "Active"
 }
 
-char *endscreenMenuTitleStageCompleted(struct menuitem *item)
+static char *endscreenMenuTitleStageCompleted(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s: %s\n",
 			langGet(g_StageNames[g_Menus[g_MpPlayerNum].endscreen.stageindex].name3),
@@ -374,7 +379,7 @@ char *endscreenMenuTitleStageCompleted(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *endscreenMenuTextCurrentStageName3(struct menuitem *item)
+static char *endscreenMenuTextCurrentStageName3(struct menuitem *item)
 {
 	char *name = langGet(g_StageNames[g_MissionConfig.stageindex].name3);
 	sprintf(g_StringPointer, "%s\n", name);
@@ -382,7 +387,7 @@ char *endscreenMenuTextCurrentStageName3(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *endscreenMenuTitleStageFailed(struct menuitem *item)
+static char *endscreenMenuTitleStageFailed(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s: %s\n",
 			langGet(g_StageNames[g_MissionConfig.stageindex].name3),
@@ -391,7 +396,7 @@ char *endscreenMenuTitleStageFailed(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *endscreenMenuTextMissionTime(struct menuitem *item)
+static char *endscreenMenuTextMissionTime(struct menuitem *item)
 {
 	formatTime(g_StringPointer, playerGetMissionTime(), TIMEPRECISION_SECONDS);
 	strcat(g_StringPointer, "\n");
@@ -399,7 +404,7 @@ char *endscreenMenuTextMissionTime(struct menuitem *item)
 	return g_StringPointer;
 }
 
-struct menudialogdef *endscreenAdvance(void)
+static struct menudialogdef *endscreenAdvance(void)
 {
 	g_MissionConfig.stageindex++;
 	g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
@@ -407,7 +412,7 @@ struct menudialogdef *endscreenAdvance(void)
 	return &g_NextMissionMenuDialog;
 }
 
-void endscreen0f10d770(void)
+static void endscreen0f10d770(void)
 {
 	func0f0f8bb4(&g_Menus[0].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
 	g_Menus[0].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
@@ -422,7 +427,7 @@ void endscreen0f10d770(void)
 	g_Menus[3].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
 }
 
-s32 endscreenHandleReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 endscreenHandleReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
@@ -527,7 +532,7 @@ struct menudialogdef g_2PMissionEndscreenObjectivesCompletedVMenuDialog = {
 /**
  * Displayed after Defense and Skedar Ruins completion screens.
  */
-s32 endscreenHandleContinueMission(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 endscreenHandleContinueMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		endscreenContinue(2);
@@ -572,7 +577,7 @@ struct menudialogdef g_MissionContinueOrReplyMenuDialog = {
  * 1 unsure - is invoked directly by menuTick
  * 2 when pressing continue
  */
-void endscreenContinue(s32 context)
+static void endscreenContinue(s32 context)
 {
 	if (g_Vars.antiplayernum >= 0) {
 		menuPopDialog();
@@ -598,18 +603,18 @@ void endscreenContinue(s32 context)
 								g_Vars.bondplayernum = 0;
 								g_Vars.coopplayernum = 1;
 								g_Vars.antiplayernum = -1;
-								setNumPlayers(2);
+								g_NumPlayers = 2;
 							} else {
 								g_Vars.bondplayernum = 0;
 								g_Vars.coopplayernum = -1;
 								g_Vars.antiplayernum = -1;
-								setNumPlayers(1);
+								g_NumPlayers = 1;
 							}
 						} else {
 							g_Vars.bondplayernum = 0;
 							g_Vars.coopplayernum = -1;
 							g_Vars.antiplayernum = -1;
-							setNumPlayers(1);
+							g_NumPlayers = 1;
 						}
 
 						lvSetDifficulty(g_MissionConfig.difficulty);
@@ -667,7 +672,7 @@ void endscreenContinue(s32 context)
 	}
 }
 
-s32 endscreenHandle2PCompleted(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 endscreenHandle2PCompleted(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Menus[g_MpPlayerNum].endscreen.unke1c = 0;
@@ -701,7 +706,7 @@ s32 endscreenHandle2PCompleted(s32 operation, struct menudialogdef *dialogdef, u
 	return 0;
 }
 
-s32 endscreenHandle2PFailed(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+static s32 endscreenHandle2PFailed(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Menus[g_MpPlayerNum].endscreen.unke1c = 0;
@@ -935,7 +940,7 @@ struct menuitem g_2PMissionEndscreenVMenuItems[] = {
  * 5 = timed cheat name
  * 6 = limb shots
  */
-s32 endscreenHandleCheatInfo(s32 operation, struct menuitem *item, union handlerdata *data)
+static s32 endscreenHandleCheatInfo(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_GETCOLOUR
 			&& ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x200) || item->param == 5)) {
@@ -1167,7 +1172,7 @@ struct menuitem g_MissionEndscreenMenuItems[] = {
 	{ MENUITEMTYPE_END },
 };
 
-char *endscreenMenuTextTimedCheatName(struct menuitem *item)
+static char *endscreenMenuTextTimedCheatName(struct menuitem *item)
 {
 	if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000300) {
 		return cheatGetName(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff);
@@ -1176,7 +1181,7 @@ char *endscreenMenuTextTimedCheatName(struct menuitem *item)
 	return NULL;
 }
 
-char *endscreenMenuTextCompletionCheatName(struct menuitem *item)
+static char *endscreenMenuTextCompletionCheatName(struct menuitem *item)
 {
 	if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000800) {
 		return cheatGetName((g_Menus[g_MpPlayerNum].endscreen.cheatinfo >> 16) & 0xff);
@@ -1185,7 +1190,7 @@ char *endscreenMenuTextCompletionCheatName(struct menuitem *item)
 	return NULL;
 }
 
-char *endscreenMenuTextTargetTime(struct menuitem *item)
+static char *endscreenMenuTextTargetTime(struct menuitem *item)
 {
 	s32 time;
 	s32 time2;
@@ -1206,7 +1211,7 @@ char *endscreenMenuTextTargetTime(struct menuitem *item)
 	return g_StringPointer;
 }
 
-void endscreenSetCoopCompleted(void)
+static void endscreenSetCoopCompleted(void)
 {
 	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0) {
 		if (g_GameFile.coopcompletions[g_MissionConfig.difficulty] & (1 << g_MissionConfig.stageindex)) {

@@ -35,14 +35,14 @@ u8 var8007f848 = 0;
 s32 g_IrBinocularRadius = PAL ? 102 : 90;
 s32 var8007f850 = 3;
 
-Gfx *bviewDrawIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+static Gfx *bviewDrawIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	gDPFillRectangle(gdl++, x1, y1, x2, y2);
 
 	return gdl;
 }
 
-Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s32 left, s32 width)
+static Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s32 left, s32 width)
 {
 	u32 image;
 	s32 width2;
@@ -110,7 +110,7 @@ Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s
 	return gdl;
 }
 
-Gfx *bviewDrawFisheyeRect(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)
+static Gfx *bviewDrawFisheyeRect(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)
 {
 	if (arg2 < 1) {
 		f32 tmp = arg4 * 0.5f;
@@ -124,7 +124,7 @@ Gfx *bviewDrawFisheyeRect(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)
 	return gdl;
 }
 
-Gfx *bviewPrepareStaticRgba16(Gfx *gdl, u32 colour, u32 alpha)
+static Gfx *bviewPrepareStaticRgba16(Gfx *gdl, u32 colour, u32 alpha)
 {
 	gDPPipeSync(gdl++);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0,
@@ -152,7 +152,7 @@ Gfx *bviewPrepareStaticRgba16(Gfx *gdl, u32 colour, u32 alpha)
 	return gdl;
 }
 
-Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
+static Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
 {
 	gDPPipeSync(gdl++);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_8b, 0, 0x0000, 5, 0,
@@ -382,7 +382,7 @@ Gfx *bviewDrawZoomBlur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 	return gdl;
 }
 
-f32 bview0f142d74(s32 arg0, f32 arg1, f32 arg2, f32 arg3)
+static f32 bview0f142d74(s32 arg0, f32 arg1, f32 arg2, f32 arg3)
 {
 	f32 result;
 	f32 value = arg2;
@@ -607,7 +607,7 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
  * These are each 1px high, and go from the edge of the circle to the edge of
  * the screen. There is one drawn on every row on both sides.
  */
-Gfx *bviewDrawEyespySideRect(Gfx *gdl, s32 *points, u8 r, u8 g, u8 b, u8 alpha)
+static Gfx *bviewDrawEyespySideRect(Gfx *gdl, s32 *points, u8 r, u8 g, u8 b, u8 alpha)
 {
 	struct gfxvtx *vertices = gfxAllocateVertices(4);
 	u32 *colours = gfxAllocateColours(2);

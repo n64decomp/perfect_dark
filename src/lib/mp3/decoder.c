@@ -2026,7 +2026,7 @@ bool mp3decInit(void)
 	return true;
 }
 
-bool mp3dec00040164(struct asistream *stream, u32 gr, u32 ch)
+static bool mp3dec00040164(struct asistream *stream, u32 gr, u32 ch)
 {
 	s32 sp1bc;
 	s32 sp1b8;
@@ -2166,7 +2166,7 @@ bool mp3dec00040164(struct asistream *stream, u32 gr, u32 ch)
 	return true;
 }
 
-bool mp3decUnpackScaleFac(struct asistream *stream, u32 gr, u32 ch)
+static bool mp3decUnpackScaleFac(struct asistream *stream, u32 gr, u32 ch)
 {
 	s32 i;
 	s32 sfb;
@@ -2236,7 +2236,7 @@ bool mp3decUnpackScaleFac(struct asistream *stream, u32 gr, u32 ch)
 	return true;
 }
 
-bool mp3dec00041600(struct asistream *stream, u32 gr, u32 ch)
+static bool mp3dec00041600(struct asistream *stream, u32 gr, u32 ch)
 {
 	const s32 sp70[2][3][3][4] = {
 		{
@@ -2410,7 +2410,7 @@ bool mp3dec00041600(struct asistream *stream, u32 gr, u32 ch)
 	return true;
 }
 
-bool mp3dec00042238(struct asistream *stream, u32 gr, u32 ch)
+static bool mp3dec00042238(struct asistream *stream, u32 gr, u32 ch)
 {
 	s32 sp64 = stream->unk2020;
 	s32 sp60;
@@ -2507,7 +2507,7 @@ bool mp3dec00042238(struct asistream *stream, u32 gr, u32 ch)
 	return true;
 }
 
-bool mp3dec000427d8(struct asistream *stream, u32 gr)
+static bool mp3dec000427d8(struct asistream *stream, u32 gr)
 {
 	const s16 *sp14 = var70057b9c[stream->version][stream->samplerateindex];
 	f32 *sp10 = stream->unk4f64[0][0].unk00;
@@ -2533,7 +2533,7 @@ bool mp3dec000427d8(struct asistream *stream, u32 gr)
 	return true;
 }
 
-bool mp3decReduceAliases(struct asistream *stream, u32 gr, u32 ch)
+static bool mp3decReduceAliases(struct asistream *stream, u32 gr, u32 ch)
 {
 	s32 i;
 

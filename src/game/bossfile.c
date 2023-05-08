@@ -22,6 +22,9 @@
 u8 g_AltTitleUnlocked;
 u8 g_AltTitleEnabled;
 
+static void bossfileLoad(void);
+static void bossfileSetDefaults(void);
+
 bool bossfileLoadFull(void)
 {
 	bossfileLoad();
@@ -29,7 +32,7 @@ bool bossfileLoadFull(void)
 	return true;
 }
 
-u32 bossfileFindFileId(void)
+static u32 bossfileFindFileId(void)
 {
 	struct pakfileheader header;
 	u32 fileids[513];
@@ -59,7 +62,7 @@ u32 bossfileFindFileId(void)
 	return candidate;
 }
 
-void bossfileLoad(void)
+static void bossfileLoad(void)
 {
 	bool failed = false;
 	struct savebuffer buffer;
@@ -166,7 +169,7 @@ void bossfileSave(void)
 	}
 }
 
-void bossfileSetDefaults(void)
+static void bossfileSetDefaults(void)
 {
 	g_BossFile.teamnames[0][0] = '\0';
 	g_BossFile.teamnames[1][0] = '\0';

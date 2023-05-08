@@ -3,9 +3,9 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 
-u32 __n_alCSeqGetTrackEvent(ALCSeq *seq, u32 track, N_ALEvent *event, s32 arg3);
-u8 __getTrackByte(ALCSeq *seq, u32 track);
-u32 __readVarLen(ALCSeq *seq,u32 track);
+static u32 __n_alCSeqGetTrackEvent(ALCSeq *seq, u32 track, N_ALEvent *event, s32 arg3);
+static u8 __getTrackByte(ALCSeq *seq, u32 track);
+static u32 __readVarLen(ALCSeq *seq,u32 track);
 
 void n_alCSeqNew(ALCSeq *seq, u8 *ptr)
 {
@@ -70,7 +70,7 @@ void n_alCSeqNextEvent(ALCSeq *seq, N_ALEvent *evt, s32 arg2)
 	seq->deltaFlag = 1;
 }
 
-u32 __n_alCSeqGetTrackEvent(ALCSeq *seq, u32 track, N_ALEvent *event, s32 arg3)
+static u32 __n_alCSeqGetTrackEvent(ALCSeq *seq, u32 track, N_ALEvent *event, s32 arg3)
 {
 	u32 offset;
 	u8 status, loopCt, curLpCt, *tmpPtr;
@@ -159,7 +159,7 @@ u32 __n_alCSeqGetTrackEvent(ALCSeq *seq, u32 track, N_ALEvent *event, s32 arg3)
 	return TRUE;
 }
 
-u8 __getTrackByte(ALCSeq *seq, u32 track)
+static u8 __getTrackByte(ALCSeq *seq, u32 track)
 {
 	u8 theByte;
 
@@ -207,7 +207,7 @@ u8 __getTrackByte(ALCSeq *seq, u32 track)
 	return theByte;
 }
 
-u32 __readVarLen(ALCSeq *seq, u32 track)
+static u32 __readVarLen(ALCSeq *seq, u32 track)
 {
 	u32 value;
 	u32 c;

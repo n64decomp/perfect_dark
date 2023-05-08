@@ -119,7 +119,7 @@ void *mempGetNextStageAllocation(void)
 	return next;
 }
 
-void *mempAllocFromBank(struct memorypool *pool, u32 size, u8 poolnum)
+static void *mempAllocFromBank(struct memorypool *pool, u32 size, u8 poolnum)
 {
 	u8 *allocation;
 
@@ -263,7 +263,7 @@ void mempDisablePool(u8 pool)
 	g_MempExpansionPools[pool].rightpos = g_MempExpansionPools[pool].end;
 }
 
-void *mempAllocFromBankRight(struct memorypool *pool, u32 size, u8 poolnum)
+static void *mempAllocFromBankRight(struct memorypool *pool, u32 size, u8 poolnum)
 {
 	u8 *allocation;
 

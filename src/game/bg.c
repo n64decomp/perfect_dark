@@ -42,6 +42,24 @@
 #include "gbiex.h"
 #include "types.h"
 
+static bool func0f15d08c(struct coord *a, struct coord *b);
+static void room0f164c64(s32 roomnum);
+static void bgExpandRoomToPortals(s32 roomnum);
+static void bgTickPortals(void);
+static void func0f164ab8(s32 portalnum);
+static void currentPlayerCalculateScreenProperties(void);
+static void bgFindRoomVtxBatches(s32 roomnum);
+static Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum);
+static Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum);
+static void bgTickRooms(void);
+static void bgChooseRoomsToLoad(void);
+static void bgLoadRoom(s32 roomnum);
+static void bgUnloadAllRooms(void);
+static void boxExpand(struct screenbox *a, struct screenbox *b);
+static Gfx *currentPlayerScissorWithinViewportF(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom);
+static void func0f15cd28(void);
+static Gfx *func0f164150(Gfx *gdl);
+
 #define BGCMD_END                               0x00
 #define BGCMD_PUSH                              0x01
 #define BGCMD_POP                               0x02
@@ -122,7 +140,7 @@ u32 g_BgNumRoomLoadCandidates = 0x00000000;
 u16 var8007fc3c = 0xfffe;
 s32 g_NumPortalThings = 0;
 
-void roomUnpauseProps(u32 roomnum, bool tintedglassonly)
+static void roomUnpauseProps(u32 roomnum, bool tintedglassonly)
 {
 	struct prop *prop;
 	struct defaultobj *obj;
@@ -161,7 +179,7 @@ void roomUnpauseProps(u32 roomnum, bool tintedglassonly)
 	}
 }
 
-void roomSetOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
+static void roomSetOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 {
 	s32 index;
 
@@ -252,7 +270,7 @@ struct var800a4640_00 *func0f158140(s32 roomnum)
 	return &var800a4640.unk000[index];
 }
 
-Gfx *bg0f158184(Gfx *gdl, struct xraydata *xraydata)
+static Gfx *bg0f158184(Gfx *gdl, struct xraydata *xraydata)
 {
 	struct gfxvtx *vertices;
 	u32 *colours;
@@ -308,7 +326,7 @@ Gfx *bg0f158184(Gfx *gdl, struct xraydata *xraydata)
 	return gdl;
 }
 
-Gfx *func0f158400(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 vertices2[3], s16 vertices3[3], u32 colour1, u32 colour2, u32 colour3)
+static Gfx *func0f158400(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 vertices2[3], s16 vertices3[3], u32 colour1, u32 colour2, u32 colour3)
 {
 	s16 sp30[3] = {-1, -1, -1};
 	s32 count = 0;
@@ -413,7 +431,7 @@ Gfx *func0f158400(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 ver
 	return gdl;
 }
 
-void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xraydata *xraydata)
+static void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xraydata *xraydata)
 {
 	f32 sp2c[3];
 	f32 f12;
@@ -482,7 +500,7 @@ void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xra
 	}
 }
 
-Gfx *func0f158d9c(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3[3], s16 arg4[3], s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
+static Gfx *func0f158d9c(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3[3], s16 arg4[3], s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
 {
 	s32 spa4[3];
 	s16 sp9c[3] = {0, 0, 0};
@@ -652,7 +670,7 @@ Gfx *func0f158d9c(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3[3],
 u32 var8007fc54 = 0;
 u32 g_BgCmdResult = BGRESULT_TRUE;
 
-Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
+static Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
 {
 	s32 i;
 	s32 stack;
@@ -746,7 +764,7 @@ Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
 	return gdl;
 }
 
-Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool recurse, s16 arg4[3])
+static Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool recurse, s16 arg4[3])
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -800,7 +818,7 @@ Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool r
 /**
  * Render the given room for the purpose of the FarSight or xray scanner.
  */
-Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
+static Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 {
 	struct coord sp54;
 	s16 sp40[3];
@@ -934,7 +952,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *bgRenderScene(Gfx *gdl)
+static Gfx *bgRenderScene(Gfx *gdl)
 {
 	s32 stagenum = g_Vars.stagenum;
 	s32 firstroomnum = -1;
@@ -1153,7 +1171,7 @@ Gfx *bgRenderArtifacts(Gfx *gdl)
 	return gdl;
 }
 
-void bgLoadFile(void *memaddr, u32 offset, u32 len)
+static void bgLoadFile(void *memaddr, u32 offset, u32 len)
 {
 	if (var8007fc04) {
 		bcopy(var8007fc08 + offset, memaddr, len);
@@ -1203,7 +1221,7 @@ f32 portal0f15b274(s32 portalnum)
 	return sum;
 }
 
-u8 func0f15b4c0(s32 portal)
+static u8 func0f15b4c0(s32 portal)
 {
 	s32 uVar2 = portal0f15b274(portal) / 10000.0f;
 
@@ -1879,7 +1897,7 @@ Gfx *currentPlayerScissorToViewport(Gfx *gdl)
 			g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewheight);
 }
 
-Gfx *currentPlayerScissorWithinViewportF(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom)
+static Gfx *currentPlayerScissorWithinViewportF(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom)
 {
 	gdl = currentPlayerScissorWithinViewport(gdl, viewleft, viewtop, ceil(viewright), ceil(viewbottom));
 
@@ -1909,7 +1927,7 @@ Gfx *currentPlayerScissorWithinViewport(Gfx *gdl, s32 viewleft, s32 viewtop, s32
 	return gdl;
 }
 
-void func0f15cd28(void)
+static void func0f15cd28(void)
 {
 	s32 i;
 
@@ -1920,7 +1938,7 @@ void func0f15cd28(void)
 	}
 }
 
-bool func0f15cd90(u32 room, struct screenbox *screen)
+static bool func0f15cd90(u32 room, struct screenbox *screen)
 {
 	s32 i;
 	struct coord roomscreenpos;
@@ -2004,7 +2022,7 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 	return true;
 }
 
-bool func0f15d08c(struct coord *a, struct coord *b)
+static bool func0f15d08c(struct coord *a, struct coord *b)
 {
 	Mtxf *matrix = camGetWorldToScreenMtxf();
 
@@ -2020,7 +2038,7 @@ bool func0f15d08c(struct coord *a, struct coord *b)
 	return true;
 }
 
-bool g_PortalGetScreenBbox(s32 portalnum, struct screenbox *box)
+static bool g_PortalGetScreenBbox(s32 portalnum, struct screenbox *box)
 {
 	s32 i;
 	s32 j;
@@ -2123,7 +2141,7 @@ bool g_PortalGetScreenBbox(s32 portalnum, struct screenbox *box)
 	return sp2ec;
 }
 
-bool boxGetIntersection(struct screenbox *a, struct screenbox *b)
+static bool boxGetIntersection(struct screenbox *a, struct screenbox *b)
 {
 	a->xmin = a->xmin > b->xmin ? a->xmin : b->xmin;
 	a->ymin = a->ymin > b->ymin ? a->ymin : b->ymin;
@@ -2143,7 +2161,7 @@ bool boxGetIntersection(struct screenbox *a, struct screenbox *b)
 	return true;
 }
 
-void boxExpand(struct screenbox *a, struct screenbox *b)
+static void boxExpand(struct screenbox *a, struct screenbox *b)
 {
 	a->xmin = a->xmin < b->xmin ? a->xmin : b->xmin;
 	a->ymin = a->ymin < b->ymin ? a->ymin : b->ymin;
@@ -2202,7 +2220,7 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 	return result;
 }
 
-Gfx *roomGetNextGdlInBlock(struct roomblock *block, Gfx *start, Gfx *end)
+static Gfx *roomGetNextGdlInBlock(struct roomblock *block, Gfx *start, Gfx *end)
 { \
 	Gfx *tmp; \
 	while (true) {
@@ -2235,7 +2253,7 @@ Gfx *roomGetNextGdlInBlock(struct roomblock *block, Gfx *start, Gfx *end)
 	return end;
 }
 
-Gfx *roomGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
+static Gfx *roomGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
 {
 	struct roomblock *opablocks = g_Rooms[roomnum].gfxdata->opablocks;
 	struct roomblock *xlublocks = g_Rooms[roomnum].gfxdata->xlublocks;
@@ -2269,7 +2287,7 @@ Gfx *roomGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
 	return xlugdl;
 }
 
-struct gfxvtx *roomFindVerticesForGdl(s32 roomnum, Gfx *gdl)
+static struct gfxvtx *roomFindVerticesForGdl(s32 roomnum, Gfx *gdl)
 {
 	struct roomblock *block = g_Rooms[roomnum].gfxdata->blocks;
 	u32 end = (u32)g_Rooms[roomnum].gfxdata->vertices;
@@ -2294,7 +2312,7 @@ struct gfxvtx *roomFindVerticesForGdl(s32 roomnum, Gfx *gdl)
 	return NULL;
 }
 
-void bgLoadRoom(s32 roomnum)
+static void bgLoadRoom(s32 roomnum)
 {
 	s32 size; // 2f4
 	s32 inflatedlen; // 2f0
@@ -2537,7 +2555,7 @@ void bgLoadRoom(s32 roomnum)
 }
 
 
-void bgUnloadRoom(s32 roomnum)
+static void bgUnloadRoom(s32 roomnum)
 {
 	u32 size;
 
@@ -2560,7 +2578,7 @@ void bgUnloadRoom(s32 roomnum)
 	g_Rooms[roomnum].loaded240 = 0;
 }
 
-void bgUnloadAllRooms(void)
+static void bgUnloadAllRooms(void)
 {
 	s32 i;
 
@@ -2636,7 +2654,7 @@ void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
  * If any rooms have reached the timer limit then unload them, but don't unload
  * more than 2 rooms per frame.
  */
-void bgTickRooms(void)
+static void bgTickRooms(void)
 {
 	s32 numunloaded = 0;
 	s32 i;
@@ -2662,7 +2680,7 @@ void bgTickRooms(void)
 	}
 }
 
-Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
+static Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 {
 	u32 v0;
 
@@ -2741,7 +2759,7 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 /**
  * Render the opaque layer of the room.
  */
-Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
+static Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
 {
 	if (g_Rooms[roomnum].loaded240 == 0) {
 		return gdl;
@@ -2761,7 +2779,7 @@ Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
 /**
  * Render the transparency layer of the room.
  */
-Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
+static Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 {
 	u32 stack;
 
@@ -2790,7 +2808,7 @@ Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 	return gdl;
 }
 
-s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 batchindex, struct gfxvtx *vertices, s32 type)
+static s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 batchindex, struct gfxvtx *vertices, s32 type)
 {
 	s32 i;
 	s32 j;
@@ -2868,7 +2886,7 @@ s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 
 	return batchindex;
 }
 
-void bgFindRoomVtxBatches(s32 roomnum)
+static void bgFindRoomVtxBatches(s32 roomnum)
 {
 	s32 i;
 	s32 batchindex = 0;
@@ -3648,7 +3666,7 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 	return hit;
 }
 
-bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct vtxbatch *batch, s32 roomnum, struct hitthing *hitthing)
+static bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct vtxbatch *batch, s32 roomnum, struct hitthing *hitthing)
 {
 	s16 stack;
 	s16 triref;
@@ -3876,7 +3894,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 	return hit;
 }
 
-s32 bg0f1612e4(struct coord *bbmin, struct coord *bbmax, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5)
+static s32 bg0f1612e4(struct coord *bbmin, struct coord *bbmax, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5)
 {
 	s32 i;
 	u8 bail = true;
@@ -4155,7 +4173,7 @@ bool roomContainsCoord(struct coord *pos, s16 roomnum)
 		&& copy.f[1] <= g_Rooms[roomnum].bbmax[1];
 }
 
-bool func0f161c08(struct coord *arg0, s16 roomnum)
+static bool func0f161c08(struct coord *arg0, s16 roomnum)
 {
 	s32 i;
 
@@ -4181,7 +4199,7 @@ bool func0f161c08(struct coord *arg0, s16 roomnum)
 	return true;
 }
 
-bool func0f161d30(struct coord *arg0, s16 roomnum)
+static bool func0f161d30(struct coord *arg0, s16 roomnum)
 {
 	s32 t5;
 	struct coord *next;
@@ -4416,12 +4434,12 @@ void bgFindRoomsByPos(struct coord *posarg, s16 *inrooms, s16 *aboverooms, s32 m
 	}
 }
 
-void bgCmdDisableRoom(s32 roomnum)
+static void bgCmdDisableRoom(s32 roomnum)
 {
 	g_Rooms[roomnum].flags |= ROOMFLAG_DISABLEDBYSCRIPT;
 }
 
-void bgCmdReset(void)
+static void bgCmdReset(void)
 {
 	var800a65c0.xmin = g_Vars.currentplayer->screenxminf;
 	var800a65c0.ymin = g_Vars.currentplayer->screenyminf;
@@ -4431,7 +4449,7 @@ void bgCmdReset(void)
 	g_BgCmdResult = BGRESULT_TRUE;
 }
 
-void bgCmdRestrictToPortal(s32 portalnum)
+static void bgCmdRestrictToPortal(s32 portalnum)
 {
 	if (g_BgCmdResult == BGRESULT_TRUE) {
 		if (PORTAL_IS_OPEN(portalnum)) {
@@ -4446,7 +4464,7 @@ void bgCmdRestrictToPortal(s32 portalnum)
 	}
 }
 
-void bgCmdTryEnableRoom(s32 roomnum)
+static void bgCmdTryEnableRoom(s32 roomnum)
 {
 	if (g_BgCmdResult == BGRESULT_TRUE && func0f15cd90(roomnum, &var800a65c0)) {
 		roomSetOnscreen(roomnum, 0, &var800a65c0);
@@ -4454,7 +4472,7 @@ void bgCmdTryEnableRoom(s32 roomnum)
 	}
 }
 
-void bgExecuteCommands(void)
+static void bgExecuteCommands(void)
 {
 	switch (g_Stages[g_StageIndex].bgfileid) {
 	case FILE_BG_ELD_SEG: // Villa
@@ -4979,7 +4997,7 @@ void bgExecuteCommands(void)
 	}
 }
 
-void bgTickPortalsXray(void)
+static void bgTickPortalsXray(void)
 {
 	struct coord vismax;
 	struct coord vismin;
@@ -5105,7 +5123,7 @@ void bgTickPortalsXray(void)
 	bgChooseRoomsToLoad();
 }
 
-void func0f1632d4(s16 roomnum1, s16 roomnum2, s16 draworder, struct screenbox *box)
+static void func0f1632d4(s16 roomnum1, s16 roomnum2, s16 draworder, struct screenbox *box)
 {
 	struct var800a4d00 *thing;
 	s32 i;
@@ -5179,7 +5197,7 @@ void func0f1632d4(s16 roomnum1, s16 roomnum2, s16 draworder, struct screenbox *b
 	}
 }
 
-void func0f163528(struct var800a4d00 *arg0)
+static void func0f163528(struct var800a4d00 *arg0)
 {
 	struct coord *campos;
 	s32 i;
@@ -5298,7 +5316,7 @@ void func0f163528(struct var800a4d00 *arg0)
 	}
 }
 
-bool func0f163904(void)
+static bool func0f163904(void)
 {
 	if (var800a4cf0.unk04 == var800a4cf0.index) {
 		return false;
@@ -5328,7 +5346,7 @@ bool func0f163904(void)
  * destroying the glass may make many rooms visible at once, and only one room
  * is loaded per tick.
  */
-void bgChooseRoomsToLoad(void)
+static void bgChooseRoomsToLoad(void)
 {
 	s32 i;
 	s32 j;
@@ -5426,7 +5444,7 @@ void bgChooseRoomsToLoad(void)
 	}
 }
 
-void bgTickPortals(void)
+static void bgTickPortals(void)
 {
 	s32 i;
 	s32 room;
@@ -5496,7 +5514,7 @@ void bgTickPortals(void)
 	}
 }
 
-Gfx *func0f164150(Gfx *gdl)
+static Gfx *func0f164150(Gfx *gdl)
 {
 	gdl = bgRenderScene(gdl);
 	gdl = currentPlayerScissorToViewport(gdl);
@@ -5647,7 +5665,7 @@ bool roomsAreNeighbours(s32 roomnum1, s32 roomnum2)
 	return false;
 }
 
-void currentPlayerCalculateScreenProperties(void)
+static void currentPlayerCalculateScreenProperties(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	f32 width = viGetWidth();
@@ -5696,7 +5714,7 @@ void currentPlayerCalculateScreenProperties(void)
 	}
 }
 
-void bgExpandRoomToPortals(s32 roomnum)
+static void bgExpandRoomToPortals(s32 roomnum)
 {
 	s32 i;
 	s32 j;
@@ -5727,14 +5745,14 @@ void bgExpandRoomToPortals(s32 roomnum)
 	if (count);
 }
 
-void portalSwapRooms(s32 portal)
+static void portalSwapRooms(s32 portal)
 {
 	s16 tmp = g_BgPortals[portal].roomnum1;
 	g_BgPortals[portal].roomnum1 = g_BgPortals[portal].roomnum2;
 	g_BgPortals[portal].roomnum2 = tmp;
 }
 
-void func0f164ab8(s32 portalnum)
+static void func0f164ab8(s32 portalnum)
 {
 	struct coord room1centre;
 	struct coord room2centre;
@@ -5788,7 +5806,7 @@ void func0f164ab8(s32 portalnum)
 	if (sp18);
 }
 
-void room0f164c64(s32 roomnum)
+static void room0f164c64(s32 roomnum)
 {
 	struct portalvertices *pvertices;
 	s32 i;

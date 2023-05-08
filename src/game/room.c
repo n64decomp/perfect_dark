@@ -14,7 +14,7 @@ s32 g_NextRoomMtx = 0;
 /**
  * Find a free mtx and return it.
  */
-struct roommtx *roomAllocateMtx(void)
+static struct roommtx *roomAllocateMtx(void)
 {
 	s32 i;
 
@@ -50,7 +50,7 @@ void roomPopulateMtx(Mtxf *mtx, s32 roomnum)
 	}
 }
 
-struct roommtx *roomTouchMtx(s32 roomnum)
+static struct roommtx *roomTouchMtx(s32 roomnum)
 {
 	s32 index = g_Rooms[roomnum].unk10[g_Vars.currentplayernum];
 	struct roommtx *roommtx;

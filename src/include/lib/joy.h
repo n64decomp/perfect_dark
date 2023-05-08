@@ -17,13 +17,10 @@ void joySetPfsTemporarilyPlugged(s8 index);
 void joyInit(void);
 void joyDisableTemporarily(void);
 void joyReset(void);
-void joy00013e84(void);
 u32 joyGetConnectedControllers(void);
 void joyConsumeSamples(struct joydata *joydata);
-void joy00014238(void);
 void joyDebugJoy(void);
 s32 joyStartReadData(OSMesgQueue *mq);
-void joyReadData(void);
 void joysTick(void);
 void joy00014810(bool value);
 s32 joyGetNumSamples(void);
@@ -37,7 +34,6 @@ s8 joyGetStickX(s8 contpadnum);
 s8 joyGetStickY(s8 contpadnum);
 u16 joyGetButtons(s8 contpadnum, u16 mask);
 u16 joyGetButtonsPressedThisFrame(s8 contpadnum, u16 mask);
-bool joyIsCyclicPollingEnabled(void);
 
 #if VERSION >= VERSION_NTSC_1_0
 void joyDisableCyclicPolling(void);
@@ -52,6 +48,5 @@ void joyGetContpadNumsForPlayer(s8 playernum, s32 *pad1, s32 *pad2);
 void joyStopRumble(s8 device, bool disablepolling);
 s32 joy000155b4(s8 device);
 s32 joy000155f4(s8 device);
-void joysTickRumble(void);
 
 #endif

@@ -1388,11 +1388,6 @@ bool aiIfAutoWalkFinished(s32 chrref)
 	return !(chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER && g_Vars.tickmode == TICKMODE_AUTOWALK);
 }
 
-bool aiIfCanHearAlarm(void)
-{
-	return chrCanHearAlarm(g_Vars.chrdata);
-}
-
 bool aiIfCanSeeAttackTarget(void)
 {
 	return (g_Vars.chrdata && g_Vars.chrdata->prop && chrCanSeeAttackTarget(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, true))

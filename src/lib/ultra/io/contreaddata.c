@@ -3,7 +3,7 @@
 #include "siint.h"
 #include "controller.h"
 
-void __osPackReadData(void);
+static void __osPackReadData(void);
 
 s32 osContStartReadData(OSMesgQueue *mq)
 {
@@ -45,7 +45,7 @@ void osContGetReadData(OSContPad *data)
 	}
 }
 
-void __osPackReadData(void)
+static void __osPackReadData(void)
 {
 	u8 *ptr;
 	__OSContReadFormat readformat;

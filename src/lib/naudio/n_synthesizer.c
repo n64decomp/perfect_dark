@@ -1,5 +1,7 @@
 #include "n_synthInternals.h"
 
+static void _n_collectPVoices(void);
+
 void n_alSynNew(ALSynConfig *c)
 {
 	s32 i;
@@ -89,8 +91,8 @@ void n_alSynNew(ALSynConfig *c)
 	n_syn->heap = hp;
 }
 
-s32 __n_nextSampleTime(ALPlayer **client);
-s32 _n_timeToSamplesNoRound(s32 micros);
+static s32 __n_nextSampleTime(ALPlayer **client);
+static s32 _n_timeToSamplesNoRound(s32 micros);
 
 Acmd *n_alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen)
 {
@@ -178,7 +180,7 @@ void _n_freeParam(ALParam *param)
 	n_syn->paramList = param;
 }
 
-void _n_collectPVoices(void)
+static void _n_collectPVoices(void)
 {
 	ALLink *dl;
 
@@ -197,7 +199,7 @@ void _n_freePVoice(N_PVoice *pvoice)
 	alLink((ALLink *)pvoice, &n_syn->pLameList);
 }
 
-s32 _n_timeToSamplesNoRound(s32 micros)
+static s32 _n_timeToSamplesNoRound(s32 micros)
 {
 	f32 tmp = ((f32)micros) * n_syn->outputRate / 1000000.0f + 0.5f;
 
@@ -209,7 +211,7 @@ s32 _n_timeToSamples(s32 micros)
 	return _n_timeToSamplesNoRound(micros) & ~0xf;
 }
 
-s32 __n_nextSampleTime(ALPlayer **client)
+static s32 __n_nextSampleTime(ALPlayer **client)
 {
 	ALMicroTime delta = 0x7fffffff;     /* max delta for s32 */
 	ALPlayer *cl;

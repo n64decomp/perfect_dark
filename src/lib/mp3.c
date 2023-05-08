@@ -26,7 +26,9 @@
 struct mp3vars g_Mp3Vars;
 struct asistream *g_AsiStream;
 
-s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
+static void func00038924(struct mp3vars *vars);
+static s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
+static void mp3Dma(void);
 
 extern f32 *var8009c6d8;
 extern f32 *var8009c6dc;
@@ -69,7 +71,7 @@ void mp3Init(ALHeap *heap)
 		g_Mp3Vars.var8009c3a6 = 0;
 	}
 
-	func00038b90(func00038ba8);
+	g_Mp3Vars.var8009c3dc = func00038ba8;
 }
 
 void mp3PlayFile(s32 romaddr, s32 filesize)
@@ -306,7 +308,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 	return 1;
 }
 
-void func00038924(struct mp3vars *vars)
+static void func00038924(struct mp3vars *vars)
 {
 	if (vars->var8009c39e != vars->var8009c3e4 || vars->var8009c39c != vars->var8009c3ec) {
 		if (vars->samples >= vars->var8009c3bc) {
@@ -352,12 +354,7 @@ void func00038924(struct mp3vars *vars)
 	}
 }
 
-void func00038b90(void *fn)
-{
-	g_Mp3Vars.var8009c3dc = fn;
-}
-
-s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
+static s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
 	u32 sp1c;
 	ALDMAproc proc;
@@ -380,7 +377,7 @@ s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 	return arg2;
 }
 
-void mp3Dma(void)
+static void mp3Dma(void)
 {
 	u32 state;
 	ALDMAproc proc;

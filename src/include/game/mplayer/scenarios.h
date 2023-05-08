@@ -29,5 +29,6 @@ bool scenarioRadarChr(Gfx **gdl, struct prop *prop);
 f32 scenarioChooseSpawnLocation(f32 chrradius, struct coord *pos, s16 *rooms, struct prop *prop);
 s32 scenarioGetMaxTeams(void);
 void scenarioHighlightRoom(s16 room, s32 *arg1, s32 *arg2, s32 *arg3);
+void pacHandleDeath(s32 aplayernum, s32 vplayernum);
 
 #endif

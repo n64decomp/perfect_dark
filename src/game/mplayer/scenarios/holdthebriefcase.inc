@@ -122,12 +122,12 @@ struct defaultobj *var800869ec = NULL;
 
 struct weaponobj g_HtbTokenObj;
 
-void htbInit(void)
+static void htbInit(void)
 {
 	g_ScenarioData.htb.token = NULL;
 }
 
-void htbAddPad(s16 padnum)
+static void htbAddPad(s16 padnum)
 {
 	struct scenariodata_htb *data = &g_ScenarioData.htb;
 
@@ -138,7 +138,7 @@ void htbAddPad(s16 padnum)
 	}
 }
 
-s32 htbNumProps(void)
+static s32 htbNumProps(void)
 {
 	return 1;
 }
@@ -164,7 +164,7 @@ void htbRemoveAmmoCrateAtPad(s16 padnum)
 	}
 }
 
-void htbReset(void)
+static void htbReset(void)
 {
 	s32 i;
 
@@ -259,13 +259,13 @@ void htbCreateToken(void)
 	}
 }
 
-void htbInitProps(void)
+static void htbInitProps(void)
 {
 	var800869ec = NULL;
 	htbCreateToken();
 }
 
-void htbTick(void)
+static void htbTick(void)
 {
 	s32 i;
 	u32 prevplayernum = g_Vars.currentplayernum;
@@ -336,7 +336,7 @@ void htbTick(void)
 	}
 }
 
-void htbTickChr(struct chrdata *chr)
+static void htbTickChr(struct chrdata *chr)
 {
 	if (chr) {
 		if (chr->aibot->hasbriefcase) {
@@ -373,7 +373,7 @@ void htbTickChr(struct chrdata *chr)
  *
  * PAL recognises that mins will always be 0 and simplifies the calculation.
  */
-Gfx *htbRenderHud(Gfx *gdl)
+static Gfx *htbRenderHud(Gfx *gdl)
 {
 	s32 time240;
 	s32 mins;
@@ -410,7 +410,7 @@ Gfx *htbRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void htbCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+static void htbCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
@@ -439,7 +439,7 @@ void htbCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score
 	*deaths = mpchr->numdeaths;
 }
 
-Gfx *htbRadarExtra(Gfx *gdl)
+static Gfx *htbRadarExtra(Gfx *gdl)
 {
 	if ((g_MpSetup.options & MPOPTION_HTB_SHOWONRADAR) &&
 			g_ScenarioData.htb.token != NULL &&
@@ -454,7 +454,7 @@ Gfx *htbRadarExtra(Gfx *gdl)
 	return gdl;
 }
 
-bool htbRadarChr(Gfx **gdl, struct prop *prop)
+static bool htbRadarChr(Gfx **gdl, struct prop *prop)
 {
 	if ((g_MpSetup.options & MPOPTION_HTB_SHOWONRADAR) &&
 			g_ScenarioData.htb.token &&
@@ -479,7 +479,7 @@ bool htbRadarChr(Gfx **gdl, struct prop *prop)
 	return false;
 }
 
-bool htbHighlightProp(struct prop *prop, s32 *colour)
+static bool htbHighlightProp(struct prop *prop, s32 *colour)
 {
 	if ((g_MpSetup.options & MPOPTION_HTB_HIGHLIGHTBRIEFCASE) && prop == g_ScenarioData.htb.token) {
 		colour[0] = 0;

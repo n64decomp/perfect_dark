@@ -9,8 +9,6 @@ void memaInit(void);
 void memaReset(void *ptr, u32 size);
 void memaPrint(void);
 void *memaAlloc(u32 size);
-s32 memaGrow(s32 addr, u32 amount);
-void _memaFree(s32 addr, s32 size);
 void memaFree(void *addr, s32 size);
 s32 memaGetLongestFree(void);
 bool memaRealloc(s32 addr, u32 oldsize, u32 newsize);

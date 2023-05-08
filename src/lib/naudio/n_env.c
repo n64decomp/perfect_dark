@@ -23,7 +23,7 @@ s16 n_eqpower[] = {
 	0x0b11, 0x097d, 0x07e9, 0x0654, 0x04c0, 0x032a, 0x0195, 0x0000,
 };
 
-Acmd *_pullSubFrame(N_PVoice *filter, s16 *inp, s16 *outp, s32 outCount, Acmd *p);
+static Acmd *_pullSubFrame(N_PVoice *filter, s16 *inp, s16 *outp, s32 outCount, Acmd *p);
 
 Acmd *n_alEnvmixerPull(N_PVoice *filter, s32 sampleOffset, Acmd *p)
 {
@@ -319,7 +319,7 @@ s32 n_alEnvmixerParam(N_PVoice *filter, s32 paramID, void *param)
 	return 0;
 }
 
-Acmd *_pullSubFrame(N_PVoice *filter, s16 *inp, s16 *outp, s32 outCount, Acmd *p)
+static Acmd *_pullSubFrame(N_PVoice *filter, s16 *inp, s16 *outp, s32 outCount, Acmd *p)
 {
 	Acmd *ptr = p;
 	N_PVoice *e = filter;

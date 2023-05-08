@@ -120,7 +120,7 @@ struct menudialogdef g_HtmOptionsMenuDialog = {
 
 struct weaponobj g_HtmUplinkObj;
 
-void htmInit(void)
+static void htmInit(void)
 {
 	g_ScenarioData.htm.uplink = NULL;
 }
@@ -128,23 +128,22 @@ void htmInit(void)
 /**
  * Add one for the data uplink.
  */
-s32 htmNumProps(void)
+static s32 htmNumProps(void)
 {
 	return HTM_NUM_TERMINALS + 1;
 }
 
-void htmAddPad(s16 padnum)
+static void htmAddPad(s16 padnum)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 
 	if (data->numpads < ARRAYCOUNT(g_ScenarioData.htm.padnums)) {
-
 		data->padnums[data->numpads] = padnum;
 		data->numpads++;
 	}
 }
 
-void htmReset(void)
+static void htmReset(void)
 {
 	s32 i;
 
@@ -255,7 +254,7 @@ void htbCreateUplink(void)
 	}
 }
 
-void htmInitProps(void)
+static void htmInitProps(void)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 	struct prop *prop = g_Vars.activeprops;
@@ -315,7 +314,7 @@ void htmInitProps(void)
 
 }
 
-void htmTick(void)
+static void htmTick(void)
 {
 	u8 stack[8];
 	s32 i;
@@ -376,7 +375,7 @@ void htmTick(void)
 	}
 }
 
-void htmTickChr(struct chrdata *chr)
+static void htmTickChr(struct chrdata *chr)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 	bool hasuplink;
@@ -523,7 +522,7 @@ void htmTickChr(struct chrdata *chr)
 	}
 }
 
-Gfx *htmRenderHud(Gfx *gdl)
+static Gfx *htmRenderHud(Gfx *gdl)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 	s32 dltime;
@@ -575,7 +574,7 @@ Gfx *htmRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void htmCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+static void htmCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
@@ -609,7 +608,7 @@ void htmCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score
 	*deaths = mpchr->numdeaths;
 }
 
-Gfx *htmRadarExtra(Gfx *gdl)
+static Gfx *htmRadarExtra(Gfx *gdl)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 	struct coord dist;
@@ -693,7 +692,7 @@ Gfx *htmRadarExtra(Gfx *gdl)
 	return gdl;
 }
 
-bool htmRadarChr(Gfx **gdl, struct prop *prop)
+static bool htmRadarChr(Gfx **gdl, struct prop *prop)
 {
 	if ((g_MpSetup.options & MPOPTION_HTM_SHOWONRADAR) && g_ScenarioData.htm.uplink) {
 		if (prop == g_ScenarioData.htm.uplink &&
@@ -717,7 +716,7 @@ bool htmRadarChr(Gfx **gdl, struct prop *prop)
 	return false;
 }
 
-bool htmHighlightProp(struct prop *prop, s32 *colour)
+static bool htmHighlightProp(struct prop *prop, s32 *colour)
 {
 	if (g_MpSetup.options & MPOPTION_HTM_HIGHLIGHTTERMINAL) {
 		bool highlight = false;

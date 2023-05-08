@@ -784,12 +784,16 @@ extern u8 _seqctlSegmentRomEnd;
 extern u8 _seqtblSegmentRomStart;
 extern u8 _sequencesSegmentRomStart;
 
+static u16 seqGetVolume(struct seqinstance *seq);
+static void sndTickNosedive(void);
+static void sndTickUfo(void);
+
 bool sndIsPlayingMp3(void)
 {
 	return g_SndCurMp3.playing;
 }
 
-u16 snd0000e9dc(void)
+static u16 snd0000e9dc(void)
 {
 	s32 result;
 
@@ -817,7 +821,7 @@ void sndSetSfxVolume(u16 volume)
 	g_SfxVolume = volume;
 }
 
-void snd0000ea80(u16 volume)
+static void snd0000ea80(u16 volume)
 {
 	u8 i;
 
@@ -844,7 +848,7 @@ void sndResetCurMp3(void)
 	g_SndCurMp3.prevgreeting = -1;
 }
 
-void sndLoadSfxCtl(void)
+static void sndLoadSfxCtl(void)
 {
 	s32 i;
 	u8 unalignedbuffer[256 + 16];
@@ -909,7 +913,7 @@ void sndLoadSfxCtl(void)
 	}
 }
 
-void sndIncrementAges(void)
+static void sndIncrementAges(void)
 {
 	s32 i;
 
@@ -920,7 +924,7 @@ void sndIncrementAges(void)
 	}
 }
 
-ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
+static ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 {
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
@@ -958,7 +962,7 @@ ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 	return s1;
 }
 
-ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
+static ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 {
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
@@ -996,7 +1000,7 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 	return s1;
 }
 
-ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
+static ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 {
 	u8 spaf[0x150];
 	u8 sp5f[0x150];
@@ -1034,7 +1038,7 @@ ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 	return s1;
 }
 
-ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
+static ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 {
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
@@ -1076,7 +1080,7 @@ ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 	return s1;
 }
 
-ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
+static ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
 {
 	u8 spaf[0x50];
 	u8 sp5f[0x50];
@@ -1226,7 +1230,7 @@ ALSound *sndLoadSound(s16 soundnum)
 	return &g_SndCache.sounds[cacheindex];
 }
 
-void seqInit(struct seqinstance *seq)
+static void seqInit(struct seqinstance *seq)
 {
 	u32 stack;
 	ALSeqpConfig config;
@@ -1249,7 +1253,7 @@ void seqInit(struct seqinstance *seq)
 	n_alCSPSetBank(seq->seqp, var80095204);
 }
 
-void sndAddRef(ALSound *sound)
+static void sndAddRef(ALSound *sound)
 {
 	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[44]) {
 		s32 cacheindex = sound - g_SndCache.sounds;
@@ -1257,7 +1261,7 @@ void sndAddRef(ALSound *sound)
 	}
 }
 
-void sndRemoveRef(ALSound *sound)
+static void sndRemoveRef(ALSound *sound)
 {
 	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[44]) {
 		s32 cacheindex = sound - g_SndCache.sounds;
@@ -1448,7 +1452,7 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 	return true;
 }
 
-u16 seqGetVolume(struct seqinstance *seq)
+static u16 seqGetVolume(struct seqinstance *seq)
 {
 	return g_SndDisabled ? 0x7fff : seq->volume;
 }
@@ -1943,7 +1947,7 @@ void sndStopNosedive(void)
 	}
 }
 
-void sndTickNosedive(void)
+static void sndTickNosedive(void)
 {
 	f32 percentage;
 
@@ -2023,7 +2027,7 @@ void sndStopUfo(void)
 	}
 }
 
-void sndTickUfo(void)
+static void sndTickUfo(void)
 {
 	f32 percentage;
 

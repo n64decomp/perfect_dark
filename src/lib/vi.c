@@ -487,7 +487,7 @@ Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar)
 	return gdl;
 }
 
-Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
+static Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
 {
 	vp[g_ViBackIndex].vp.vscale[0] = g_ViBackData->viewx * 2;
 	vp[g_ViBackIndex].vp.vtrans[0] = g_ViBackData->viewx * 2 + g_ViBackData->viewleft * 4;

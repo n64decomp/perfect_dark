@@ -5,8 +5,8 @@
 
 OSPifRam __osPfsPifRam;
 
-void __osPfsRequestData(u8 cmd);
-void __osPfsGetInitData(u8 *pattern, OSContStatus *data);
+static void __osPfsRequestData(u8 cmd);
+static void __osPfsGetInitData(u8 *pattern, OSContStatus *data);
 
 s32 osPfsIsPlug(OSMesgQueue *queue, u8 *pattern)
 {
@@ -61,7 +61,7 @@ s32 osPfsIsPlug(OSMesgQueue *queue, u8 *pattern)
 	}
 }
 
-void __osPfsRequestData(u8 cmd)
+static void __osPfsRequestData(u8 cmd)
 {
 	u8 *ptr;
 	__OSContRequestFormat requestformat;
@@ -87,7 +87,7 @@ void __osPfsRequestData(u8 cmd)
 	*ptr = CONT_CMD_END;
 }
 
-void __osPfsGetInitData(u8 *pattern, OSContStatus *data)
+static void __osPfsGetInitData(u8 *pattern, OSContStatus *data)
 {
 	u8 *ptr;
 	__OSContRequestFormat requestformat;

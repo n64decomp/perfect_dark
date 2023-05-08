@@ -2,7 +2,7 @@
 #include <ultraerror.h>
 #include "n_synthInternals.h"
 
-s32 _allocatePVoice(N_PVoice **pvoice, s16 priority);
+static s32 _allocatePVoice(N_PVoice **pvoice, s16 priority);
 
 s32 n_alSynAllocVoice(N_ALVoice *voice, ALVoiceConfig *vc)
 {
@@ -65,7 +65,7 @@ s32 n_alSynAllocVoice(N_ALVoice *voice, ALVoiceConfig *vc)
 	return (pvoice != 0);
 }
 
-s32 _allocatePVoice(N_PVoice **pvoice, s16 priority)
+static s32 _allocatePVoice(N_PVoice **pvoice, s16 priority)
 {
 	ALLink *dl;
 	N_PVoice *pv;

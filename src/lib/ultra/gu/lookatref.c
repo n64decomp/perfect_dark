@@ -1,6 +1,7 @@
 #include <ultra64.h>
+#include "constants.h"
 
-void guLookAtReflectF(float mf[4][4], LookAt *l,
+static void guLookAtReflectF(float mf[4][4], LookAt *l,
 		float xEye, float yEye, float zEye,
 		float xAt,  float yAt,  float zAt,
 		float xUp,  float yUp,  float zUp)

@@ -567,7 +567,7 @@ class App():
         self.emit_bnez_label(params[0])
 
     def ai_if_can_hear_alarm(self, params):
-        self.emit('jal', ['aiIfCanHearAlarm'])
+        self.emit('jal', ['alarmIsActive'])
         self.emit_bnez_label(params[0])
 
     def ai_if_can_see_attack_target(self, params):
@@ -1519,8 +1519,9 @@ class App():
         self.emit('jal', ['aiSetChrPreset'])
 
     def ai_set_countdown_timer(self, params):
-        self.emit('li.s', ['$f12', self.u16(params, 0) * 60])
-        self.emit('jal', ['countdownTimerSetValue60'])
+        self.emit('li.s', ['$f2', self.u16(params, 0) * 60])
+        self.emit('lui', ['$a0', '%hi(g_CountdownTimerValue60)'])
+        self.emit('swc1', ['$f2', '%lo(g_CountdownTimerValue60)($a0)'])
 
     def ai_set_cutscene_weapon(self, params):
         self.emit('li', ['$a0', '0x%02x' % params[0]])
@@ -1759,8 +1760,9 @@ class App():
         self.emit('jal', ['aiSpeak'])
 
     def ai_start_countdown_timer(self, params):
-        self.emit('li', ['$a0', '1'])
-        self.emit('jal', ['countdownTimerSetRunning'])
+        self.emit('li', ['$v1', '1'])
+        self.emit('lui', ['$a0', '%hi(g_CountdownTimerRunning)'])
+        self.emit('sw', ['$v1', '%lo(g_CountdownTimerRunning)($a0)'])
 
     def ai_start_patrol(self, params):
         self.emit('jal', ['aiStartPatrol'])
@@ -1772,8 +1774,8 @@ class App():
         self.emit('jal', ['musicEndTemporaryAmbient'])
 
     def ai_stop_countdown_timer(self, params):
-        self.emit('li', ['$a0', '0'])
-        self.emit('jal', ['countdownTimerSetRunning'])
+        self.emit('lui', ['$a0', '%hi(g_CountdownTimerRunning)'])
+        self.emit('sw', ['$zero', '%lo(g_CountdownTimerRunning)($a0)'])
 
     def ai_stop_cutscene_track(self, params):
         self.emit('jal', ['musicEndCutscene'])

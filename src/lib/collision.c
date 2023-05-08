@@ -18,6 +18,11 @@
 #define SURFACE_FLOOR   0
 #define SURFACE_CEILING 1
 
+static void cdGetGeoNormal(struct geo *geo, struct coord *normal);
+static void cdGetFloorCol(struct geo *geo, u16 *floorcol);
+static void cdGetFloorType(struct geo *geo, u8 *floortype);
+static s32 cdTestRampWall(struct geotilei *tile, struct coord *pos, f32 width, f32 y1, f32 y2);
+
 struct debugtri {
 	s16 vertices[3][3];
 	u8 unk12;
@@ -105,7 +110,7 @@ u32 cdGetGeoFlags(void)
 	return flags;
 }
 
-void cdClearResults(void)
+static void cdClearResults(void)
 {
 	var8009a8b4 = 0;
 	var8009a8ac = 0;
@@ -117,7 +122,7 @@ void cdClearResults(void)
 	var8005f038 = 0;
 }
 
-void cdSetObstacleVtxProp(struct coord *vtx1, struct coord *vtx2, struct prop *prop)
+static void cdSetObstacleVtxProp(struct coord *vtx1, struct coord *vtx2, struct prop *prop)
 {
 	g_CdEdgeVtx1 = *vtx1;
 
@@ -133,7 +138,7 @@ void cdSetObstacleVtxProp(struct coord *vtx1, struct coord *vtx2, struct prop *p
 	var8005f038 = 0;
 }
 
-void cdSetObstacleVtxPropFlt(struct coord *vtx1, struct coord *vtx2, struct prop *prop, f32 arg3)
+static void cdSetObstacleVtxPropFlt(struct coord *vtx1, struct coord *vtx2, struct prop *prop, f32 arg3)
 {
 	var8009a8b0 = arg3;
 
@@ -151,7 +156,7 @@ void cdSetObstacleVtxPropFlt(struct coord *vtx1, struct coord *vtx2, struct prop
 	var8005f038 = 0;
 }
 
-void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width)
+static void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width)
 {
 	struct widthxz sp34;
 	struct xz sp2c;
@@ -175,7 +180,7 @@ void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width)
 	var8009a8ac = 1;
 }
 
-void cdSetObstacleProp(struct prop *prop)
+static void cdSetObstacleProp(struct prop *prop)
 {
 	var8009a8b4 = 0;
 	var8009a8ac = 0;
@@ -187,7 +192,7 @@ void cdSetObstacleProp(struct prop *prop)
 	var8005f038 = 0;
 }
 
-void cdSetObstacleVtxColProp(struct coord *vtxpos1, struct coord *vtxpos2, struct coord *collisionpos, struct prop *prop)
+static void cdSetObstacleVtxColProp(struct coord *vtxpos1, struct coord *vtxpos2, struct coord *collisionpos, struct prop *prop)
 {
 	g_CdEdgeVtx1 = *vtxpos1;
 
@@ -205,7 +210,7 @@ void cdSetObstacleVtxColProp(struct coord *vtxpos1, struct coord *vtxpos2, struc
 	var8005f038 = 0;
 }
 
-void cdSetObstacleVtxColPropFltGeo(struct coord *vtxpos1, struct coord *vtxpos2, struct coord *collisionpos, struct prop *prop, f32 arg4, struct geo *geo)
+static void cdSetObstacleVtxColPropFltGeo(struct coord *vtxpos1, struct coord *vtxpos2, struct coord *collisionpos, struct prop *prop, f32 arg4, struct geo *geo)
 {
 	g_CdEdgeVtx1 = *vtxpos1;
 
@@ -245,13 +250,13 @@ bool cdGetSavedPos(struct coord *pos1, struct coord *pos2)
 	return g_CdHasSavedPos;
 }
 
-void cdSetSavedBlock(struct geoblock *block)
+static void cdSetSavedBlock(struct geoblock *block)
 {
 	g_CdSavedBlock = *block;
 	g_CdHasSavedBlock = true;
 }
 
-s32 cd00025410(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
+static s32 cd00025410(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
 {
 	f32 f0 = arg0 * arg3;
 	f32 f2 = arg1 * arg2;
@@ -275,7 +280,7 @@ s32 cd00025410(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
 	return 0;
 }
 
-s32 cd000254d8(struct coord *arg0, struct coord *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 *arg6)
+static s32 cd000254d8(struct coord *arg0, struct coord *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 *arg6)
 {
 	f32 sp54;
 	f32 sp50;
@@ -316,7 +321,7 @@ s32 cd000254d8(struct coord *arg0, struct coord *arg1, f32 arg2, f32 arg3, f32 a
 	return result;
 }
 
-f32 cd00025654(f32 x1, f32 z1, f32 x2, f32 z2, f32 x3, f32 z3)
+static f32 cd00025654(f32 x1, f32 z1, f32 x2, f32 z2, f32 x3, f32 z3)
 {
 	u32 stack[8];
 	f32 result;
@@ -330,7 +335,7 @@ f32 cd00025654(f32 x1, f32 z1, f32 x2, f32 z2, f32 x3, f32 z3)
 	return ((x3 - x1) * (z2 - z1) + -(x2 - x1) * (z3 - z1)) / result;
 }
 
-f32 cd00025724(f32 x1, f32 z1, f32 x2, f32 z2)
+static f32 cd00025724(f32 x1, f32 z1, f32 x2, f32 z2)
 {
 	x2 -= x1;
 	z2 -= z1;
@@ -338,7 +343,7 @@ f32 cd00025724(f32 x1, f32 z1, f32 x2, f32 z2)
 	return sqrtf(x2 * x2 + z2 * z2);
 }
 
-bool cd00025774(f32 x1, f32 z1, f32 x2, f32 z2, f32 x3, f32 z3)
+static bool cd00025774(f32 x1, f32 z1, f32 x2, f32 z2, f32 x3, f32 z3)
 {
 	f32 f0;
 	f32 f2;
@@ -357,7 +362,7 @@ bool cd00025774(f32 x1, f32 z1, f32 x2, f32 z2, f32 x3, f32 z3)
 	return (f18 < f16 && f16 < 0) || (f16 > 0 && f16 < f18);
 }
 
-void cd00025848(f32 tilex, f32 tilez, f32 tilewidth, f32 posx, f32 posz, f32 *x1, f32 *z1, f32 *x2, f32 *z2)
+static void cd00025848(f32 tilex, f32 tilez, f32 tilewidth, f32 posx, f32 posz, f32 *x1, f32 *z1, f32 *x2, f32 *z2)
 {
 	posx -= tilex;
 	posz -= tilez;
@@ -378,7 +383,7 @@ void cd00025848(f32 tilex, f32 tilez, f32 tilewidth, f32 posx, f32 posz, f32 *x1
 	*z2 = tilez + posz + posx;
 }
 
-void cdGetGeoNormal(struct geo *geo, struct coord *normal)
+static void cdGetGeoNormal(struct geo *geo, struct coord *normal)
 {
 	if (geo->type == GEOTYPE_TILE_I) {
 		struct geotilei *tile = (struct geotilei *) geo;
@@ -428,7 +433,7 @@ void cdGetGeoNormal(struct geo *geo, struct coord *normal)
 	}
 }
 
-void cdGetFloorCol(struct geo *geo, u16 *floorcol)
+static void cdGetFloorCol(struct geo *geo, u16 *floorcol)
 {
 	if (geo == NULL) {
 		*floorcol = 0xfff;
@@ -457,7 +462,7 @@ void cdGetFloorCol(struct geo *geo, u16 *floorcol)
 	}
 }
 
-void cdGetFloorType(struct geo *geo, u8 *floortype)
+static void cdGetFloorType(struct geo *geo, u8 *floortype)
 {
 	bool water = false;
 
@@ -497,7 +502,7 @@ void cdGetFloorType(struct geo *geo, u8 *floortype)
 	}
 }
 
-f32 cdFindGroundInIntTileAtVertex(struct geotilei *tile, f32 x, f32 z, s32 vertexindex)
+static f32 cdFindGroundInIntTileAtVertex(struct geotilei *tile, f32 x, f32 z, s32 vertexindex)
 {
 	struct coord sp7c;
 	struct coord sp70;
@@ -549,7 +554,7 @@ f32 cdFindGroundInIntTileAtVertex(struct geotilei *tile, f32 x, f32 z, s32 verte
 	return ground;
 }
 
-f32 cdFindGroundInIntTile(struct geotilei *tile, f32 x, f32 z)
+static f32 cdFindGroundInIntTile(struct geotilei *tile, f32 x, f32 z)
 {
 	s32 i = 1;
 	s32 ival = -1;
@@ -582,7 +587,7 @@ f32 cdFindGroundInIntTile(struct geotilei *tile, f32 x, f32 z)
 	return cdFindGroundInIntTileAtVertex(tile, x, z, i);
 }
 
-f32 cdFindGroundInFltTile(struct geotilef *tile, f32 x, f32 z)
+static f32 cdFindGroundInFltTile(struct geotilef *tile, f32 x, f32 z)
 {
 	struct coord sp24;
 	struct coord sp18;
@@ -621,7 +626,7 @@ f32 cdFindGroundInFltTile(struct geotilef *tile, f32 x, f32 z)
 	return ground;
 }
 
-bool cdIs2dPointInIntTile(struct geotilei *tile, f32 x, f32 z)
+static bool cdIs2dPointInIntTile(struct geotilei *tile, f32 x, f32 z)
 {
 	s32 result = -1;
 	s32 numvertices = tile->header.numvertices;
@@ -655,7 +660,7 @@ bool cdIs2dPointInIntTile(struct geotilei *tile, f32 x, f32 z)
 	return true;
 }
 
-bool cdIs2dPointInFltTile(struct geotilef *tile, f32 x, f32 z)
+static bool cdIs2dPointInFltTile(struct geotilef *tile, f32 x, f32 z)
 {
 	s32 result = -1;
 	s32 numvertices = tile->header.numvertices;
@@ -689,7 +694,7 @@ bool cdIs2dPointInFltTile(struct geotilef *tile, f32 x, f32 z)
 	return true;
 }
 
-bool cdIs2dPointInBlock(struct geoblock *tile, f32 x, f32 z)
+static bool cdIs2dPointInBlock(struct geoblock *tile, f32 x, f32 z)
 {
 	s32 result = -1;
 	s32 numvertices = tile->header.numvertices;
@@ -723,7 +728,7 @@ bool cdIs2dPointInBlock(struct geoblock *tile, f32 x, f32 z)
 	return true;
 }
 
-bool cdIs2dPointInCyl(struct geocyl *cyl, f32 x, f32 z)
+static bool cdIs2dPointInCyl(struct geocyl *cyl, f32 x, f32 z)
 {
 	f32 xdiff = x - cyl->x;
 	f32 zdiff = z - cyl->z;
@@ -815,7 +820,7 @@ void cdGetPropsOnPlatform(struct prop *platform, s16 *propnums, s32 maxlen)
 	propnums[len] = -1;
 }
 
-bool cd00026a04(struct coord *pos, u8 *start, u8 *end, u16 geoflags, s32 room, struct geo **tileptr, s32 *roomptr, f32 *groundptr, bool ceiling)
+static bool cd00026a04(struct coord *pos, u8 *start, u8 *end, u16 geoflags, s32 room, struct geo **tileptr, s32 *roomptr, f32 *groundptr, bool ceiling)
 {
 	bool result = false;
 	struct geo *geo = (struct geo *) start;
@@ -883,7 +888,7 @@ bool cd00026a04(struct coord *pos, u8 *start, u8 *end, u16 geoflags, s32 room, s
 	return result;
 }
 
-void cdFindClosestVertical(struct coord *pos, s16 *rooms, u16 geoflags, struct geo **geoptr, s16 *roomptr, f32 *groundptr, struct prop **propptr, bool ceiling)
+static void cdFindClosestVertical(struct coord *pos, s16 *rooms, u16 geoflags, struct geo **geoptr, s16 *roomptr, f32 *groundptr, struct prop **propptr, bool ceiling)
 {
 	s16 *roomptr2;
 	s32 roomnum;
@@ -940,7 +945,7 @@ void cdFindClosestVertical(struct coord *pos, s16 *rooms, u16 geoflags, struct g
 	}
 }
 
-bool cd0002709cIntTile(struct geotilei *tile, f32 x, f32 z, f32 radius, struct prop *prop, struct collision *collision)
+static bool cd0002709cIntTile(struct geotilei *tile, f32 x, f32 z, f32 radius, struct prop *prop, struct collision *collision)
 {
 	bool result = false;
 
@@ -977,7 +982,7 @@ bool cd0002709cIntTile(struct geotilei *tile, f32 x, f32 z, f32 radius, struct p
 	return result;
 }
 
-bool cd000272f8FltTile(struct geotilef *tile, f32 x, f32 z, f32 radius, struct prop *prop, struct collision *collision)
+static bool cd000272f8FltTile(struct geotilef *tile, f32 x, f32 z, f32 radius, struct prop *prop, struct collision *collision)
 {
 	bool result = false;
 
@@ -1080,9 +1085,7 @@ bool cd000276c8Cyl(struct geocyl *cyl, f32 x, f32 z, f32 radius, struct prop *pr
 	return result;
 }
 
-s32 cdTestRampWall(struct geotilei *tile, struct coord *pos, f32 width, f32 y1, f32 y2);
-
-void cdCollectGeoForCylFromList(struct coord *pos, f32 radius, u8 *start, u8 *end, u16 geoflags,
+static void cdCollectGeoForCylFromList(struct coord *pos, f32 radius, u8 *start, u8 *end, u16 geoflags,
 		bool checkvertical, f32 arg6, f32 arg7, struct prop *prop,
 		struct collision *collisions, s32 maxcollisions, s32 *numcollisions, s32 roomnum)
 {
@@ -1183,7 +1186,7 @@ void cdCollectGeoForCylFromList(struct coord *pos, f32 radius, u8 *start, u8 *en
 	}
 }
 
-void cdCollectGeoForCyl(struct coord *pos, f32 radius, s16 *rooms, u32 types, u16 geoflags, bool checkvertical, f32 ymax, f32 ymin, struct collision *collisions, s32 maxcollisions)
+static void cdCollectGeoForCyl(struct coord *pos, f32 radius, s16 *rooms, u32 types, u16 geoflags, bool checkvertical, f32 ymax, f32 ymin, struct collision *collisions, s32 maxcollisions)
 {
 	s16 *roomptr;
 	s32 roomnum;
@@ -1237,7 +1240,7 @@ end:
 	collisions[numcollisions].geo = NULL;
 }
 
-void cd00027f78(struct geotilei *tile, f32 arg1, f32 arg2, f32 arg3, struct prop *prop, struct collision *collisions, s32 maxcollisions, s32 *numcollisions)
+static void cd00027f78(struct geotilei *tile, f32 arg1, f32 arg2, f32 arg3, struct prop *prop, struct collision *collisions, s32 maxcollisions, s32 *numcollisions)
 {
 	s32 i;
 	s32 numvertices = tile->header.numvertices;
@@ -1279,7 +1282,7 @@ void cd00027f78(struct geotilei *tile, f32 arg1, f32 arg2, f32 arg3, struct prop
  * When collision checks are being done, tiles with this flag are passed to
  * this function which does a more extensive check.
  */
-s32 cdTestRampWall(struct geotilei *tile, struct coord *pos, f32 width, f32 y1, f32 y2)
+static s32 cdTestRampWall(struct geotilei *tile, struct coord *pos, f32 width, f32 y1, f32 y2)
 {
 	s32 count;
 	s32 i;
@@ -1363,7 +1366,7 @@ s32 cdTestRampWall(struct geotilei *tile, struct coord *pos, f32 width, f32 y1, 
 	return count;
 }
 
-void cd0002840c(struct geotilef *tile, f32 arg1, f32 arg2, f32 arg3, struct prop *prop, struct collision *collisions, s32 maxcollisions, s32 *numcollisions)
+static void cd0002840c(struct geotilef *tile, f32 arg1, f32 arg2, f32 arg3, struct prop *prop, struct collision *collisions, s32 maxcollisions, s32 *numcollisions)
 {
 	s32 i;
 	s32 numvertices = tile->header.numvertices;
@@ -1395,7 +1398,7 @@ void cd0002840c(struct geotilef *tile, f32 arg1, f32 arg2, f32 arg3, struct prop
 	}
 }
 
-void cd00028638(struct geoblock *block, f32 arg1, f32 arg2, f32 arg3, struct prop *prop, struct collision *collisions, s32 maxcollisions, s32 *numcollisions)
+static void cd00028638(struct geoblock *block, f32 arg1, f32 arg2, f32 arg3, struct prop *prop, struct collision *collisions, s32 maxcollisions, s32 *numcollisions)
 {
 	s32 i;
 	s32 numvertices = block->header.numvertices;
@@ -1427,7 +1430,7 @@ void cd00028638(struct geoblock *block, f32 arg1, f32 arg2, f32 arg3, struct pro
 	}
 }
 
-void cd0002885c(struct geocyl *cyl, f32 x, f32 z, f32 arg3, struct prop *prop, struct collision *collisions, s32 maxcollisions, s32 *numcollisions)
+static void cd0002885c(struct geocyl *cyl, f32 x, f32 z, f32 arg3, struct prop *prop, struct collision *collisions, s32 maxcollisions, s32 *numcollisions)
 {
 	f32 xdiff = x - cyl->x;
 	f32 zdiff = z - cyl->z;
@@ -1443,7 +1446,7 @@ void cd0002885c(struct geocyl *cyl, f32 x, f32 z, f32 arg3, struct prop *prop, s
 	}
 }
 
-void cdCollectGeoForCylMoveFromList(u8 *start, u8 *end, struct coord *pos, f32 radius, u16 geoflags,
+static void cdCollectGeoForCylMoveFromList(u8 *start, u8 *end, struct coord *pos, f32 radius, u16 geoflags,
 		bool checkvertical, f32 arg6, f32 arg7, struct prop *prop,
 		struct collision *collisions, s32 maxcollisions, s32 *numcollisions)
 {
@@ -1511,7 +1514,7 @@ void cdCollectGeoForCylMoveFromList(u8 *start, u8 *end, struct coord *pos, f32 r
 	}
 }
 
-void cdCollectGeoForCylMove(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 geoflags, bool checkvertical, f32 ymax, f32 ymin, struct collision *collisions, s32 maxcollisions)
+static void cdCollectGeoForCylMove(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 geoflags, bool checkvertical, f32 ymax, f32 ymin, struct collision *collisions, s32 maxcollisions)
 {
 	s16 *roomptr;
 	s32 roomnum;
@@ -1556,7 +1559,7 @@ void cdCollectGeoForCylMove(struct coord *pos, f32 width, s16 *rooms, u32 types,
 	collisions[numcollisions].geo = NULL;
 }
 
-void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collision *collisions)
+static void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collision *collisions)
 {
 	s32 i;
 	struct widthxz spf8;
@@ -1719,9 +1722,7 @@ void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisi
 	cdSetObstacleVtxPropFlt(&vtx1, &vtx2, collisions[bestindex].prop, bestvalue);
 }
 
-f32 cdFindGroundFromList(struct collision *collisions, struct coord *pos, struct collision **collisionptr, f32 width);
-
-f32 cdFindGroundFromList(struct collision *collisions, struct coord *pos, struct collision **collisionptr, f32 width)
+static f32 cdFindGroundFromList(struct collision *collisions, struct coord *pos, struct collision **collisionptr, f32 width)
 {
 	struct collision *collision;
 	s32 i;
@@ -2335,7 +2336,7 @@ s32 cdExamCylMove02(struct coord *origpos, struct coord *dstpos, f32 width, s16 
 	return result;
 }
 
-bool cd0002aac0IntTile(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilei *tile, struct coord *arg4, struct coord *arg5)
+static bool cd0002aac0IntTile(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilei *tile, struct coord *arg4, struct coord *arg5)
 {
 	s32 i;
 	u8 numvertices = tile->header.numvertices;
@@ -2352,7 +2353,7 @@ bool cd0002aac0IntTile(struct coord *arg0, struct coord *arg1, struct coord *arg
 	return false;
 }
 
-bool cd0002ab98FltTile(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilef *tile, struct coord *arg4, struct coord *arg5)
+static bool cd0002ab98FltTile(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilef *tile, struct coord *arg4, struct coord *arg5)
 {
 	s32 i;
 	u8 numvertices = tile->header.numvertices;
@@ -2367,7 +2368,7 @@ bool cd0002ab98FltTile(struct coord *arg0, struct coord *arg1, struct coord *arg
 	return false;
 }
 
-bool cd0002ac70IntTile(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilei *tile,
+static bool cd0002ac70IntTile(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilei *tile,
 		struct coord *arg4, struct coord *arg5, struct coord *arg6, bool arg7, f32 arg8, f32 arg9)
 {
 	bool result = false;
@@ -2451,7 +2452,7 @@ bool cd0002ac70IntTile(struct coord *arg0, struct coord *arg1, struct coord *arg
 	return result;
 }
 
-bool cd0002b128FltTile(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilef *tile,
+static bool cd0002b128FltTile(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilef *tile,
 		struct coord *arg4, struct coord *arg5, struct coord *arg6, bool arg7, f32 arg8, f32 arg9)
 {
 	bool result = false;
@@ -2535,7 +2536,7 @@ bool cd0002b128FltTile(struct coord *arg0, struct coord *arg1, struct coord *arg
 	return result;
 }
 
-bool cd0002b560Block(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geoblock *block,
+static bool cd0002b560Block(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geoblock *block,
 		struct coord *arg4, struct coord *arg5, struct coord *arg6, bool arg7, f32 arg8, f32 arg9)
 {
 	bool result = false;
@@ -2617,7 +2618,7 @@ bool cd0002b560Block(struct coord *arg0, struct coord *arg1, struct coord *arg2,
 	return result;
 }
 
-bool cd0002b954Cyl(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geocyl *cyl,
+static bool cd0002b954Cyl(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geocyl *cyl,
 		struct coord *arg4, struct coord *arg5, struct coord *arg6, bool arg7, f32 arg8, f32 arg9)
 {
 	bool result = false;
@@ -2696,7 +2697,7 @@ bool cd0002b954Cyl(struct coord *arg0, struct coord *arg1, struct coord *arg2, s
 	return result;
 }
 
-bool cdTestAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, u16 geoflags, bool checkvertical, s32 arg7, f32 arg8, f32 arg9)
+static bool cdTestAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, u16 geoflags, bool checkvertical, s32 arg7, f32 arg8, f32 arg9)
 {
 	struct geo *geo = (struct geo *) start;
 
@@ -2802,7 +2803,7 @@ bool cdTestAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg
 	return true;
 }
 
-void cd0002c328IntTile(struct geotilei *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+static void cd0002c328IntTile(struct geotilei *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
 	struct coord sp3c;
 	u32 stack[2];
@@ -2856,7 +2857,7 @@ void cd0002c328IntTile(struct geotilei *tile, struct coord *arg1, struct coord *
 	arg4->z = arg1->z + sp3c.f[2] * min;
 }
 
-void cd0002c528FltTile(struct geotilef *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+static void cd0002c528FltTile(struct geotilef *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
 	struct coord sp3c;
 	u32 stack[2];
@@ -2910,7 +2911,7 @@ void cd0002c528FltTile(struct geotilef *tile, struct coord *arg1, struct coord *
 	arg4->z = arg1->z + sp3c.f[2] * min;
 }
 
-bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4,
+static bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4,
 		u16 geoflags, bool checkvertical, s32 arg7, f32 ymax, f32 ymin, f32 *arg10, struct coord *arg11,
 		struct coord *arg12, struct coord *arg13, struct geo **geoptr, s32 roomnum)
 {
@@ -3136,7 +3137,7 @@ bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg
 	return !result;
 }
 
-bool cdTestAToB(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin)
+static bool cdTestAToB(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin)
 {
 	s32 roomnum;
 	s16 *roomptr;
@@ -3190,9 +3191,7 @@ bool cdTestAToB(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, 
 	return true;
 }
 
-s32 cdExamAToB(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin);
-
-s32 cdExamAToB(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin)
+static s32 cdExamAToB(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin)
 {
 	s32 roomnum;
 	s16 *roomptr;
@@ -3483,7 +3482,7 @@ bool cd0002ded8(struct coord *arg0, struct coord *arg1, struct prop *prop)
 /**
  * Return true if both blocks are not intersecting on the X/Z plane.
  */
-bool cdBlockExcludesBlockLaterally(struct geoblock *block1, struct geoblock *block2)
+static bool cdBlockExcludesBlockLaterally(struct geoblock *block1, struct geoblock *block2)
 {
 	u32 stack[4];
 	f32 zero = 0.0f;
@@ -3544,7 +3543,7 @@ bool cdBlockExcludesBlockLaterally(struct geoblock *block1, struct geoblock *blo
 	return false;
 }
 
-s32 cdTestBlockOverlapsGeolist(u8 *start, u8 *end, struct geoblock *block, u16 geoflags)
+static s32 cdTestBlockOverlapsGeolist(u8 *start, u8 *end, struct geoblock *block, u16 geoflags)
 {
 	struct geo *geo = (struct geo *) start;
 
@@ -3668,7 +3667,7 @@ s32 cdTestBlockOverlapsAnyProp(struct geoblock *geo, s16 *rooms, u32 types)
 	return result;
 }
 
-bool cd0002e680IntTile(struct geotilei *tile, s32 numvertices, struct coord *verts, struct coord *diffs, struct prop *prop, struct geoblock *block)
+static bool cd0002e680IntTile(struct geotilei *tile, s32 numvertices, struct coord *verts, struct coord *diffs, struct prop *prop, struct geoblock *block)
 {
 	bool result = false;
 	s32 i;
@@ -3703,7 +3702,7 @@ bool cd0002e680IntTile(struct geotilei *tile, s32 numvertices, struct coord *ver
 	return result;
 }
 
-bool cd0002e82cIntTile(struct geotilef *tile, s32 numvertices, struct coord *verts, struct coord *diffs, struct prop *prop, struct geoblock *block)
+static bool cd0002e82cIntTile(struct geotilef *tile, s32 numvertices, struct coord *verts, struct coord *diffs, struct prop *prop, struct geoblock *block)
 {
 	bool result = false;
 	s32 i;
@@ -3738,7 +3737,7 @@ bool cd0002e82cIntTile(struct geotilef *tile, s32 numvertices, struct coord *ver
 	return result;
 }
 
-bool cd0002e9d8Block(struct geoblock *thisblock, s32 numvertices, struct coord *verts, struct coord *diffs, struct prop *prop, struct geoblock *block)
+static bool cd0002e9d8Block(struct geoblock *thisblock, s32 numvertices, struct coord *verts, struct coord *diffs, struct prop *prop, struct geoblock *block)
 {
 	bool result = false;
 	s32 i;
@@ -3773,7 +3772,7 @@ bool cd0002e9d8Block(struct geoblock *thisblock, s32 numvertices, struct coord *
 	return result;
 }
 
-bool cd0002eb84Cyl(struct geocyl *cyl, s32 numvertices, struct coord *arg2, struct coord *arg3, struct prop *prop, struct geoblock *block)
+static bool cd0002eb84Cyl(struct geocyl *cyl, s32 numvertices, struct coord *arg2, struct coord *arg3, struct prop *prop, struct geoblock *block)
 {
 	bool result = false;
 	s32 i;
@@ -3808,7 +3807,7 @@ bool cd0002eb84Cyl(struct geocyl *cyl, s32 numvertices, struct coord *arg2, stru
 	return result;
 }
 
-bool cd0002ed30(u8 *start, u8 *end, struct geoblock *block, s32 numvertices, struct coord *verts, struct coord *diffs, u16 geoflags, struct prop *prop)
+static bool cd0002ed30(u8 *start, u8 *end, struct geoblock *block, s32 numvertices, struct coord *verts, struct coord *diffs, u16 geoflags, struct prop *prop)
 {
 	struct geo *geo = (struct geo *) start;
 
@@ -3938,7 +3937,7 @@ bool cd0002f02c(struct geoblock *block, s16 *rooms, s32 types)
 	return result;
 }
 
-bool cdIsNearlyInSightWithFlags(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 types, u16 geoflags)
+static bool cdIsNearlyInSightWithFlags(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 types, u16 geoflags)
 {
 	struct coord diff;
 	f32 x;

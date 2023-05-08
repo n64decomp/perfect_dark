@@ -29,7 +29,11 @@ f32 g_SkyWindSpeed = 1;
 f32 g_SunAlphaFracs[3] = {0};
 s32 g_SunFlareTimers240[3] = {0};
 
-void sky0f11f000(f32 left, f32 top, struct coord *arg2)
+static void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3, f32 arg4, struct skything38 *arg5);
+static Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, f32 arg4, bool textured);
+static Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, struct skything38 *arg4, f32 arg5);
+
+static void sky0f11f000(f32 left, f32 top, struct coord *arg2)
 {
 	Mtxf *mtx = camGetProjectionMtxF();
 	f32 pos[2];
@@ -41,7 +45,7 @@ void sky0f11f000(f32 left, f32 top, struct coord *arg2)
 	mtx4RotateVecInPlace(mtx, arg2);
 }
 
-bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
+static bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
 {
 	struct coord *campos = &g_Vars.currentplayer->cam_pos;
 	f32 f12 = 2.0f * arg0->y / sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2] + 0.0001f);
@@ -80,7 +84,7 @@ bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
 	return false;
 }
 
-bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2)
+static bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2)
 {
 	struct coord *campos = &g_Vars.currentplayer->cam_pos;
 	f32 f12 = -2.0f * arg0->y / sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2] + 0.0001f);
@@ -123,7 +127,7 @@ bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2)
  * Scale base based on the height percentage between base and ref...
  * except the new y is zero.
  */
-void sky0f11f384(struct coord *base, struct coord *ref, struct coord *out)
+static void sky0f11f384(struct coord *base, struct coord *ref, struct coord *out)
 {
 	f32 mult = base->y / (base->y - ref->y);
 
@@ -132,7 +136,7 @@ void sky0f11f384(struct coord *base, struct coord *ref, struct coord *out)
 	out->z = (ref->z - base->z) * mult + base->z;
 }
 
-f32 skyClamp(f32 value, f32 min, f32 max)
+static f32 skyClamp(f32 value, f32 min, f32 max)
 {
 	if (value < min) {
 		return min;
@@ -145,12 +149,14 @@ f32 skyClamp(f32 value, f32 min, f32 max)
 	return value;
 }
 
-f32 skyRound(f32 value)
+static f32 skyRound(f32 value)
 {
-	return (s32)(value + 0.5f);
+	f32 ret;
+	__asm__ ("round.w.s %0, %1" : "=f"(ret) : "f"(value));
+	return ret;
 }
 
-void skyChooseCloudVtxColour(struct skything18 *arg0, f32 arg1)
+static void skyChooseCloudVtxColour(struct skything18 *arg0, f32 arg1)
 {
 	struct environment *env = envGetCurrent();
 	f32 scale = 1.0f - arg1;
@@ -169,7 +175,7 @@ void skyChooseCloudVtxColour(struct skything18 *arg0, f32 arg1)
 	arg0->a = 0xff;
 }
 
-void sky0f11f6ec(struct skything18 *arg0, f32 arg1)
+static void sky0f11f6ec(struct skything18 *arg0, f32 arg1)
 {
 	struct environment *env = envGetCurrent();
 	f32 scale = 1.0f - arg1;
@@ -1250,7 +1256,7 @@ Gfx *skyRender(Gfx *gdl)
 	return gdl;
 }
 
-void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3, f32 arg4, struct skything38 *arg5)
+static void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3, f32 arg4, struct skything38 *arg5)
 {
 	f32 sp68[4];
 	f32 sp64;
@@ -1328,7 +1334,7 @@ void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3, f32 ar
 	arg5->a = arg0->a;
 }
 
-bool sky0f122ce8(struct skything38 *arg0, struct skything38 *arg1)
+static bool sky0f122ce8(struct skything38 *arg0, struct skything38 *arg1)
 {
 	f32 f0 = arg0->unk28 - arg1->unk28;
 	f32 f2 = arg0->unk2c - arg1->unk2c;
@@ -1336,7 +1342,7 @@ bool sky0f122ce8(struct skything38 *arg0, struct skything38 *arg1)
 	return f0 * f0 + f2 * f2 < 1.0f ? true : false;
 }
 
-Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, f32 arg4, bool textured)
+static Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, f32 arg4, bool textured)
 {
 	struct skything38 *sp484;
 	struct skything38 *sp480;
@@ -1838,7 +1844,7 @@ Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	return gdl;
 }
 
-Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, struct skything38 *arg4, f32 arg5)
+static Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, struct skything38 *arg4, f32 arg5)
 {
 	struct skything38 *sp4cc;
 	struct skything38 *sp4c8;
@@ -2364,7 +2370,7 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	return gdl;
 }
 
-void skyCreateArtifact(struct artifact *artifact, s32 x, s32 y)
+static void skyCreateArtifact(struct artifact *artifact, s32 x, s32 y)
 {
 	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
@@ -2379,7 +2385,7 @@ void skyCreateArtifact(struct artifact *artifact, s32 x, s32 y)
 	}
 }
 
-f32 sky0f125a1c(struct artifact *artifacts)
+static f32 sky0f125a1c(struct artifact *artifacts)
 {
 	f32 sum = 0;
 	s32 i;
@@ -2470,7 +2476,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 						// Sun's centre point is on-screen
 						f32 distfromedge;
 						f32 mindistfromedge;
-						artifacts = schedGetWriteArtifacts();
+						artifacts = g_ArtifactLists[g_SchedWriteArtifactsIndex];
 						onscreen = true;
 						mindistfromedge = 1000;
 
@@ -2562,7 +2568,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 					gDPSetTexturePersp(gdl++, G_TP_PERSP);
 					gDPSetTextureLOD(gdl++, G_TL_LOD);
 
-					sp124 = sky0f125a1c(&schedGetFrontArtifacts()[i * 8]);
+					sp124 = sky0f125a1c(&g_ArtifactLists[g_SchedFrontArtifactsIndex][i * 8]);
 				}
 
 				if (onscreen && sp124 > 0.0f) {
@@ -2582,7 +2588,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 /**
  * Render a sun and its artifacts.
  */
-Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
+static Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 {
 	s32 i;
 	f32 f2;
@@ -2732,7 +2738,7 @@ struct coord g_TeleportToLook = {0, 1, 0};
 /**
  * Render a sun and its artifacts if on screen.
  */
-Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
+static Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
 {
 	struct coord sp64;
 
@@ -2770,7 +2776,7 @@ Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
 /**
  * Render lens flares during teleport.
  */
-Gfx *sky0f126de8(Gfx *gdl)
+static Gfx *sky0f126de8(Gfx *gdl)
 {
 	f32 sp154 = g_20SecIntervalFrac * M_BADTAU;
 	s32 i;
@@ -2865,7 +2871,7 @@ Gfx *skyRenderArtifacts(Gfx *gdl)
 
 	for (i = 0; i < env->numsuns; i++) {
 		if (sun->lens_flare && g_SunPositions[i].z > 1) {
-			struct artifact *artifact = schedGetFrontArtifacts() + i * 8;
+			struct artifact *artifact = &g_ArtifactLists[g_SchedFrontArtifactsIndex][i * 8];
 			f32 value = sky0f125a1c(artifact);
 
 			if (value > 0.0f) {
@@ -2898,7 +2904,7 @@ void sky0f127334(s32 arg0, s32 arg1, s32 arg2)
 	}
 }
 
-s32 sky0f127490(s32 arg0, s32 arg1)
+static s32 sky0f127490(s32 arg0, s32 arg1)
 {
 	if (arg1 >= arg0) {
 		if (arg1 - arg0 > 8) {

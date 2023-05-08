@@ -156,17 +156,17 @@ void pacReset(void)
 
 }
 
-void pacInit(void)
+static void pacInit(void)
 {
 	pacReset();
 }
 
-void pacInitProps(void)
+static void pacInitProps(void)
 {
 	pacReset();
 }
 
-bool pacHighlightProp(struct prop *prop, s32 *colour)
+static bool pacHighlightProp(struct prop *prop, s32 *colour)
 {
 	struct scenariodata_pac *data = &g_ScenarioData.pac;
 
@@ -239,7 +239,7 @@ void pacHandleDeath(s32 aplayernum, s32 vplayernum)
 	}
 }
 
-void pacTick(void)
+static void pacTick(void)
 {
 	struct scenariodata_pac *data = &g_ScenarioData.pac;
 
@@ -261,7 +261,7 @@ void pacTick(void)
 	}
 }
 
-Gfx *pacRenderHud(Gfx *gdl)
+static Gfx *pacRenderHud(Gfx *gdl)
 {
 	struct scenariodata_pac *data = &g_ScenarioData.pac;
 	s32 time240;
@@ -302,7 +302,7 @@ Gfx *pacRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void pacCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+static void pacCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
@@ -337,7 +337,7 @@ void pacCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score
 	*arg3 = mpchr->numdeaths;
 }
 
-bool pacRadarChr(Gfx **gdl, struct prop *prop)
+static bool pacRadarChr(Gfx **gdl, struct prop *prop)
 {
 	struct scenariodata_pac *data = &g_ScenarioData.pac;
 	struct coord dist;

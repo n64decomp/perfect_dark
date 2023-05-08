@@ -95,8 +95,6 @@ typedef union {
 } ALSndpEvent;
 
 static  ALMicroTime     _sndpVoiceHandler(void *node);
-static  void            _handleEvent(ALSndPlayer *sndp, ALSndpEvent *event);
-static	void		_removeEvents(ALEventQueue *evtq, ALSoundState *state);
 static	s32		_DivS32ByF32 (s32 i, f32 f);
 
 #endif

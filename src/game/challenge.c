@@ -19,6 +19,8 @@
 #include "data.h"
 #include "types.h"
 
+static struct mpconfigfull *challengeLoadCurrent(u8 *buffer, s32 len);
+
 u8 g_MpFeaturesForceUnlocked[40];
 u8 g_MpFeaturesUnlocked[80];
 
@@ -58,7 +60,7 @@ struct challenge g_MpChallenges[NUM_CHALLENGES] = {
 	{ L_OPTIONS_435, MPCONFIG_CHALLENGE30 }, // "Challenge 30"
 };
 
-bool ChallengeIsAvailableToPlayer(s32 chrnum, s32 challengeindex)
+static bool challengeIsAvailableToPlayer(s32 chrnum, s32 challengeindex)
 {
 	if ((g_MpSetup.chrslots & (1 << chrnum)) == 0) {
 		return 0;
@@ -67,7 +69,7 @@ bool ChallengeIsAvailableToPlayer(s32 chrnum, s32 challengeindex)
 	return ((g_MpChallenges[challengeindex].availability & (2 << chrnum)) != 0);
 }
 
-bool challengeIsAvailableToAnyPlayer(s32 challengeindex)
+static bool challengeIsAvailableToAnyPlayer(s32 challengeindex)
 {
 	return (g_MpChallenges[challengeindex].availability & (((g_MpSetup.chrslots & 0xf) << 1) | 1)) != 0;
 }
@@ -187,7 +189,7 @@ void challengeDetermineUnlockedFeatures(void)
 
 		for (challengeindex = 0; challengeindex < 30; challengeindex++) {
 			for (prev = 0; prev < 4; prev++) {
-				if (ChallengeIsAvailableToPlayer(prev, challengeindex)) {
+				if (challengeIsAvailableToPlayer(prev, challengeindex)) {
 					for (i = 0; i < 16; i++) {
 						if (g_MpChallenges[challengeindex].unlockfeatures[i] == j) {
 							flag |= 2 << prev;
@@ -298,7 +300,10 @@ char *challengeGetNameBySlot(s32 slot)
 
 void challengeSetCurrentBySlot(s32 slotnum)
 {
+	s32 i;
+	u8 buffer[458];
 	s32 challengeindex;
+
 	g_MpChallengeIndex = 0;
 
 	for (challengeindex = 0; challengeindex != NUM_CHALLENGES; challengeindex++) {
@@ -312,7 +317,12 @@ void challengeSetCurrentBySlot(s32 slotnum)
 		}
 	}
 
-	challengeApply();
+	mpApplyConfig(challengeLoadCurrent(buffer, 458));
+	mpSetLock(MPLOCKTYPE_CHALLENGE, 5);
+
+	for (i = 0; i < 4; i++) {
+		g_PlayerConfigsArray[i].base.team = 0;
+	}
 }
 
 s32 challengeGetCurrent(void)
@@ -406,7 +416,7 @@ struct mpconfigfull *challengeLoadBySlot(s32 n, u8 *buffer, s32 len)
 	return 0;
 }
 
-struct mpconfigfull *challengeLoadCurrent(u8 *buffer, s32 len)
+static struct mpconfigfull *challengeLoadCurrent(u8 *buffer, s32 len)
 {
 	return challengeLoad(g_MpChallengeIndex, buffer, len);
 }
@@ -414,7 +424,7 @@ struct mpconfigfull *challengeLoadCurrent(u8 *buffer, s32 len)
 /**
  * This is adding featurenum to the array, provided it's unique.
  */
-s32 challengeForceUnlockFeature(s32 featurenum, u8 *array, s32 tail, s32 len)
+static s32 challengeForceUnlockFeature(s32 featurenum, u8 *array, s32 tail, s32 len)
 {
 	s32 i;
 
@@ -432,7 +442,7 @@ s32 challengeForceUnlockFeature(s32 featurenum, u8 *array, s32 tail, s32 len)
 	return tail;
 }
 
-s32 challengeForceUnlockSetupFeatures(struct mpsetup *setup, u8 *array, s32 len)
+static s32 challengeForceUnlockSetupFeatures(struct mpsetup *setup, u8 *array, s32 len)
 {
 	s32 index = 0;
 	s32 i;
@@ -617,19 +627,6 @@ void challengeRemoveForceUnlocks(void)
 	}
 
 	challengeDetermineUnlockedFeatures();
-}
-
-void challengeApply(void)
-{
-	s32 i;
-	u8 buffer[458];
-
-	mpApplyConfig(challengeLoadCurrent(buffer, 458));
-	mpSetLock(MPLOCKTYPE_CHALLENGE, 5);
-
-	for (i = 0; i < 4; i++) {
-		g_PlayerConfigsArray[i].base.team = 0;
-	}
 }
 
 s32 challengeRemovePlayerLock(void)
