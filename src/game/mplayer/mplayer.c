@@ -468,7 +468,7 @@ void mpInit(void)
 	g_MpSetup.fileguid.fileid = 0;
 	g_MpSetup.fileguid.deviceserial = 0;
 
-	strcpy(g_MpSetup.name, "");
+	g_MpSetup.name[0] = '\0';
 
 	for (i = 0; i < 6; i++) {
 		mpPlayerSetDefaults(i, false);

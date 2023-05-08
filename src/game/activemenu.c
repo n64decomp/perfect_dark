@@ -432,7 +432,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 		}
 
 		if (g_AmMenus[g_AmIndex].invindexes[slot] >= invGetCount()) {
-			strcpy(label, "");
+			label[0] = '\0';
 		} else {
 			if (invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
 				// Special case: "Cloak %d"
@@ -458,7 +458,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 		}
 		break;
 	case 1: // Function screen
-		strcpy(label, "");
+		label[0] = '\0';
 
 		if (slot == 4) {
 			strcpy(label, langGet(L_MISC_171)); // "Function"
@@ -486,7 +486,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 		}
 		break;
 	default: // Orders screen
-		strcpy(label, "");
+		label[0] = '\0';
 
 		if (g_MissionConfig.iscoop) {
 			if (slot == 4) {
