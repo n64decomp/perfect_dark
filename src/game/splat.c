@@ -45,6 +45,15 @@ static s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *s
 static bool splat0f149274(f32 arg0, struct prop *prop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 arg5, s32 arg6, struct chrdata *chr, s32 arg8);
 static void splat0f14986c(struct splatdata *splatdata);
 
+static f32 coordsGetDistance(struct coord *a, struct coord *b)
+{
+	f32 xdiff = b->x - a->x;
+	f32 ydiff = b->y - a->y;
+	f32 zdiff = b->z - a->z;
+
+	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+}
+
 void splatTickChr(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;

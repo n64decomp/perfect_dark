@@ -71,6 +71,81 @@ static void func0f004c6c(void);
 static f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 roomnum2, struct coord *pos2, s32 portalnum2, f32 *arg6);
 static void func0f005bb0(void);
 
+static s32 func0f177a54(u8 *arg0, s32 arg1, u8 *arg2, s32 arg3)
+{
+	s32 i = 0;
+	s32 v1 = 0;
+	s32 t0 = 0;
+
+	for (; i < arg1; i++) {
+		s32 index = i * arg3;
+
+		if (arg0[index] != 0) {
+			u8 *ptr = &arg0[index];
+
+			if (i != 0 && ptr[-arg3] == 0) {
+				arg2[v1++] = 0;
+
+				if (t0 == 255) {
+					arg2[v1++] = 200;
+					arg2[v1++] = 0;
+					t0 -= 200;
+				} else {
+					while (t0 > 255) {
+						arg2[v1++] = 255;
+						t0 -= 255;
+					}
+				}
+
+				arg2[v1++] = t0;
+				t0 = 0;
+			}
+
+			arg2[v1++] = arg0[index];
+		} else {
+			t0++;
+		}
+	}
+
+	arg2[v1++] = 0;
+	arg2[v1++] = 0;
+
+	return v1;
+}
+
+static s32 func0f177c8c(u8 *arg0, s32 *arg1, s32 *arg2)
+{
+	s32 result;
+
+	if (*arg1 == 0) {
+		*arg2 = -1;
+	}
+
+	while (arg0[*arg1] == 0) {
+		*arg1 += 1;
+
+		if (arg0[*arg1]) {
+			while (arg0[*arg1] == 255) {
+				*arg2 += 255;
+				*arg1 += 1;
+			}
+
+			*arg2 += arg0[*arg1];
+			*arg1 += 1;
+		} else {
+			return -1;
+		}
+	}
+
+	*arg2 += 1;
+
+	result = arg0[*arg1];
+
+	*arg1 += 1;
+
+	return result;
+}
+
 static u32 func0f000920(s32 portalnum1, s32 portalnum2)
 {
 	if (portalnum1 != portalnum2) {
@@ -505,11 +580,11 @@ void func0f001c0c(void)
 		return;
 	}
 
-	table1size = align16(g_Vars.roomcount * 4);
-	table2size = align16(g_NumPortals * 4);
-	table3size = align16(g_Vars.roomcount * 4);
-	table4size = align16((u32)var8009cae0 * (u32)var8009cae0);
-	sp68 = align16(g_Vars.roomcount * 8);
+	table1size = ALIGN16(g_Vars.roomcount * 4);
+	table2size = ALIGN16(g_NumPortals * 4);
+	table3size = ALIGN16(g_Vars.roomcount * 4);
+	table4size = ALIGN16((u32)var8009cae0 * (u32)var8009cae0);
+	sp68 = ALIGN16(g_Vars.roomcount * 8);
 
 	mempGetStageFree();
 
@@ -549,17 +624,17 @@ void func0f001c0c(void)
 
 	for (i = 1, table3size = 0; i < g_Vars.roomcount; i++) {
 		sp44[i] = func0f177a54((void *)(i * var8009cae0 + sp48), g_Vars.roomcount, (void *)(&s5[i * var8009cae0]), 1);
-		table3size += align4(sp44[i]);
+		table3size += ALIGN4(sp44[i]);
 	}
 
-	ptr = mempAlloc(align16(table3size), MEMPOOL_STAGE);
+	ptr = mempAlloc(ALIGN16(table3size), MEMPOOL_STAGE);
 
-	sp68 += align16(table3size);
+	sp68 += ALIGN16(table3size);
 
 	sp54 = 0;
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		s32 size = align4(sp44[i]);
+		s32 size = ALIGN4(sp44[i]);
 
 		var80061420[i].unk00 = ptr;
 
@@ -576,17 +651,15 @@ void func0f001c0c(void)
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		sp44[i] = func0f177a54((void *)(sp48 + i), g_Vars.roomcount, (void *)(&s5[i * var8009cae0]), var8009cae0);
 
-		table3size += align4(sp44[i]);
+		table3size += ALIGN4(sp44[i]);
 	}
 
-	ptr = mempAlloc(align16(table3size), MEMPOOL_STAGE);
-
-	align16(table3size);
+	ptr = mempAlloc(ALIGN16(table3size), MEMPOOL_STAGE);
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		var80061420[i].unk04 = ptr;
 
-		ptr += align4(sp44[i]);
+		ptr += ALIGN4(sp44[i]);
 
 		for (j = 0; j < sp44[i]; j++) {
 			var80061420[i].unk04[j] = *(&s5[i * var8009cae0] + j);
@@ -791,7 +864,7 @@ void func0f002a98(void)
 {
 	s32 i;
 
-	var8009cae0 = align4(g_Vars.roomcount);
+	var8009cae0 = ALIGN4(g_Vars.roomcount);
 	var80061458 = 0;
 	g_Vars.remakewallhitvtx = 0;
 
@@ -1540,11 +1613,11 @@ static void func0f004c6c(void)
 	u8 *ptr;
 	u8 *backupptr;
 
-	sp44 = align16(0x2000);
-	sp40 = align16(g_NumPortals * 4);
-	sp3c = align16(g_NumPortals * 0xc);
-	sp38 = align16(g_NumPortals * 4);
-	sp34 = align16(g_NumPortals * 2);
+	sp44 = ALIGN16(0x2000);
+	sp40 = ALIGN16(g_NumPortals * 4);
+	sp3c = ALIGN16(g_NumPortals * 0xc);
+	sp38 = ALIGN16(g_NumPortals * 4);
+	sp34 = ALIGN16(g_NumPortals * 2);
 
 	for (i = 0, s4 = sp38; i < g_NumPortals; i++) {
 		if (i != 0) {
@@ -1552,8 +1625,8 @@ static void func0f004c6c(void)
 		}
 	}
 
-	s4 = align16(s4);
-	ptr = mempAlloc(align16(s4), MEMPOOL_STAGE);
+	s4 = ALIGN16(s4);
+	ptr = mempAlloc(ALIGN16(s4), MEMPOOL_STAGE);
 	var80061430 = (void *)ptr;
 
 	ptr += sp38;
@@ -1572,8 +1645,6 @@ static void func0f004c6c(void)
 	s4 += sp40;
 	s4 += sp38;
 	s4 += g_NumPortals * sp34;
-
-	align16((s32)s4);
 
 	ptr = mempGetNextStageAllocation();
 	var8009cad0 = (void *)ptr;

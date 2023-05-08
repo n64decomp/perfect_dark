@@ -540,9 +540,9 @@ void wallhitsTick(void)
 
 					wallhit->vertices2 = gfxAllocateVertices(4);
 
-					midx = var800845dc.x; \
-					midy = var800845dc.y; \
-					midz = var800845dc.z;
+					midx = 0;
+					midy = 0;
+					midz = 0;
 
 					// Copy the vertices into a float array
 					for (j = 0; j < 4; j++) {
@@ -645,6 +645,13 @@ void wallhitCreate(struct coord *relpos, struct coord *arg1, struct coord *arg2,
 			NULL, mtxindex, arg9, chr,
 			width, height, 0xff, 0xff,
 			0, 0, 0, xlu);
+}
+
+static void func0f1770ac(struct coord *a, struct coord *b, struct coord *out)
+{
+	out->x = a->y * b->z - a->z * b->y;
+	out->y = -(a->x * b->z - a->z * b->x);
+	out->z = a->x * b->y - a->y * b->x;
 }
 
 void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
@@ -785,9 +792,9 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 		sp1ac.f[1] = relpos->y;
 		sp1ac.f[2] = relpos->z;
 
-		xiszero = ABS(arg1->x) < var800845d4 ? true : false;
-		yiszero = ABS(arg1->y) < var800845d4 ? true : false;
-		ziszero = ABS(arg1->z) < var800845d4 ? true : false;
+		xiszero = ABS(arg1->x) < 0.00001f ? true : false;
+		yiszero = ABS(arg1->y) < 0.00001f ? true : false;
+		ziszero = ABS(arg1->z) < 0.00001f ? true : false;
 
 		if (xiszero && ziszero) {
 			sp1f4.x = -1.0f;

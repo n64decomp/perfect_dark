@@ -4,9 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-f32 func0f1577f0(f32 arg0[2], f32 arg1[2], f32 arg2[2], f32 arg3[2]);
-f32 func0f1579cc(struct widthxz *arg0, struct xz *arg1, struct xz *arg2, struct xz *arg3);
-
 f32 cd00024e40(void);
 void cdGetEdge(struct coord *pos1, struct coord *pos2);
 f32 cd00024e98(void);

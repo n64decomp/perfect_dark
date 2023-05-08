@@ -1185,7 +1185,7 @@ void menugfxFreeParticles(void)
 
 u32 menugfxGetParticleArraySize(void)
 {
-	return align16(NUM_SUCCESS_PARTICLES * sizeof(struct coord));
+	return ALIGN16(NUM_SUCCESS_PARTICLES * sizeof(struct coord));
 }
 
 /**

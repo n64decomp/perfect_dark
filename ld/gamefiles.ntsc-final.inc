@@ -141,7 +141,6 @@
 	build/ROMID/game/modeldata/robot.o (section); \
 	build/ROMID/game/sky.o (section); \
 	build/ROMID/game/playermgr.o (section); \
-	build/ROMID/game/crc.o (section); \
 	build/ROMID/game/rng2.o (section); \
 	build/ROMID/game/vtxstore.o (section); \
 	build/ROMID/game/explosions.o (section); \
@@ -159,12 +158,10 @@
 	build/ROMID/game/options.o (section); \
 	build/ROMID/game/game_152fa0.o (section); \
 	build/ROMID/game/game_1531a0.o (section); \
-	build/ROMID/game/collisionutils.o (section); \
 	build/ROMID/game/bg.o (section); \
 	build/ROMID/game/bgbss.o (section); \
 	build/ROMID/game/game_165360.o (section); \
 	build/ROMID/game/stagetable.o (section); \
-	build/ROMID/game/gfxreplace.o (section); \
 	build/ROMID/game/env.o (section); \
 	build/ROMID/game/room.o (section); \
 	build/ROMID/game/file.o (section); \

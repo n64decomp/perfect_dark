@@ -354,7 +354,6 @@ static void mainInit(void)
 	mempResetPool(MEMPOOL_PERMANENT);
 
 	challengesInit();
-	utilsInit();
 	texInit();
 	lvInit();
 	cheatsInit();

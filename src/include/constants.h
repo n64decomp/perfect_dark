@@ -26,6 +26,7 @@
 #define ALIGN4(val)         ((((val) + 0x3) | 0x3) ^ 0x3)
 #define ALIGN8(val)         ((((val) + 0x7) | 0x7) ^ 0x7)
 #define ALIGN16(val)        ((((val) + 0xf) | 0xf) ^ 0xf)
+#define ALIGN32(val)        ((((val) + 0x1f) | 0x1f) ^ 0x1f)
 #define ALIGN64(val)        (((((u32)(val)) + 0x3f) | 0x3f) ^ 0x3f)
 #define ARRAYCOUNT(a)       (s32)(sizeof(a) / sizeof(a[0]))
 #define CHRRACE(chr)        (chr ? chr->race : RACE_HUMAN)

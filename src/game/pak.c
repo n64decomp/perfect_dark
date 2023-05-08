@@ -5,7 +5,6 @@
 #include "game/camdraw.h"
 #include "game/filelist.h"
 #include "game/menu.h"
-#include "game/crc.h"
 #include "game/gamefile.h"
 #include "game/pak.h"
 #include "game/utils.h"
@@ -186,7 +185,7 @@ static u32 pakGetBlockSize(s8 device)
 
 static u32 pakAlign(s8 device, u32 size)
 {
-	return pakGetBlockSize(device) == 0x20 ? align32(size) : align16(size);
+	return pakGetBlockSize(device) == 0x20 ? ALIGN32(size) : ALIGN16(size);
 }
 
 static s32 pakGetAlignedFileLenByBodyLen(s8 device, u32 bodylen)
@@ -970,7 +969,24 @@ void paksInit(void)
 
 static void pakCalculateChecksum(u8 *start, u8 *end, u16 *checksum)
 {
-	crcCalculateU16Pair(start, end, checksum);
+	u8 *ptr;
+	u32 salt = 0;
+	u64 seed = 0x8f809f473108b3c1;
+	u32 sum1 = 0;
+	u32 sum2 = 0;
+
+	for (ptr = start; ptr < end; ptr++, salt += 7) {
+		seed += *ptr << (salt & 0x0f);
+		sum1 ^= rngRotateSeed(&seed);
+	}
+
+	for (ptr = end - 1; ptr >= start; ptr--, salt += 3) {
+		seed += *ptr << (salt & 0x0f);
+		sum2 ^= rngRotateSeed(&seed);
+	}
+
+	checksum[0] = sum1 & 0xffff;
+	checksum[1] = sum2 & 0xffff;
 }
 
 static s32 _pakReadBodyAtGuid(s8 device, s32 fileid, u8 *body, s32 arg3)
@@ -1663,10 +1679,7 @@ static void pak0f11a32c(s8 device, u8 arg1)
 
 		if ((g_Paks[device].unk014 & 1) && g_Paks[device].headercache == NULL) {
 			g_Paks[device].headercachecount = 0;
-			g_Paks[device].headercache = mempAlloc(align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES), MEMPOOL_PERMANENT);
-
-			// Perhaps using the strings at var7f1b4318 through var7f1b43ac?
-			align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES);
+			g_Paks[device].headercache = mempAlloc(ALIGN32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES), MEMPOOL_PERMANENT);
 		}
 	}
 }

@@ -71,7 +71,7 @@ Gfx *func0f0d479c(Gfx *gdl)
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx1), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	if (var80070f10 == NULL) {
-		u32 size = align16(sizeof(Vp));
+		u32 size = ALIGN16(sizeof(Vp));
 		var80070f10 = gfxAllocate(size);
 
 		if (var80070f10 != NULL) {

@@ -405,7 +405,7 @@ static void func0f10898c(void)
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
-		memaFree(g_Menus[g_MpPlayerNum].fm.unke44, align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
+		memaFree(g_Menus[g_MpPlayerNum].fm.unke44, ALIGN16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 		break;
 	case FILEOP_LOAD_GAME:
 	case FILEOP_LOAD_MPPLAYER:
@@ -430,7 +430,7 @@ static void filemgrHandleSuccess(void)
 	case FILEOP_WRITE_MPSETUP:
 	case FILEOP_WRITE_MPPLAYER:
 		memaFree(g_Menus[g_MpPlayerNum].fm.unke44,
-				align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
+				ALIGN16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 		break;
 	case FILEOP_LOAD_GAME:
 		g_Vars.bossfileid = g_Menus[g_MpPlayerNum].fm.fileid;
@@ -1023,7 +1023,7 @@ static void func0f1097d0(s32 device)
 		var800a21e8.fileid = g_FileLists[0]->deviceguids[device].fileid;
 		var800a21e8.deviceserial = g_FileLists[0]->deviceguids[device].deviceserial;
 
-		thing = memaAlloc(align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
+		thing = memaAlloc(ALIGN16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 
 		if (thing) {
 			filemgrSaveOrLoad(&g_FilemgrFileToCopy, g_Menus[g_MpPlayerNum].fm.filetypeplusone + 103, (s32) thing);

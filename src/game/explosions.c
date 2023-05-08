@@ -610,6 +610,17 @@ static bool explosionOverlapsProp(struct explosion *exp, struct prop *prop, stru
 	return result;
 }
 
+static bool func0f1773c8(struct coord *a, struct coord *b)
+{
+	if (a->x < b->x && -b->x < a->x
+			&& a->y < b->y && -b->y < a->y
+			&& a->z < b->z && -b->z < a->z) {
+		return true;
+	}
+
+	return false;
+}
+
 static void explosionInflictDamage(struct prop *expprop)
 {
 	s32 stack;

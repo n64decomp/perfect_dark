@@ -34,7 +34,7 @@ void func0f110bf8(void)
 
 	for (i = 0; i < 4; i++) {
 		if (g_FileLists[i] != NULL) {
-			memaFree(g_FileLists[i], align16(sizeof(struct filelist)));
+			memaFree(g_FileLists[i], ALIGN16(sizeof(struct filelist)));
 			g_FileLists[i] = NULL;
 		}
 	}
@@ -46,8 +46,8 @@ void func0f110bf8(void)
 void filelistCreate(s32 listnum, u8 filetype)
 {
 	if (g_FileLists[listnum] == NULL) {
-		bgGarbageCollectRooms(align16(sizeof(struct filelist)), 1);
-		g_FileLists[listnum] = memaAlloc(align16(sizeof(struct filelist)));
+		bgGarbageCollectRooms(ALIGN16(sizeof(struct filelist)), 1);
+		g_FileLists[listnum] = memaAlloc(ALIGN16(sizeof(struct filelist)));
 	}
 
 	g_FileLists[listnum]->timeuntilupdate = 1;
