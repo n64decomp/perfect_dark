@@ -167,7 +167,7 @@ static s32 texReadBits(s32 arg0)
  *
  * The zlib data is prefixed with the standard 5-byte rarezip header.
  */
-static s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
+s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
 {
 	s32 i;
 	s32 imagebytesout;
@@ -678,7 +678,7 @@ static s32 texFindClosestColourIndexIA(u16 *palette, s32 numcolours, s32 intensi
  * h = height in pixels
  * c = compression method (see TEXCOMPMETHOD constants)
  */
-static s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
+s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
 {
 	u8 scratch[0x2000];
 	u8 lookup[0x1000];
