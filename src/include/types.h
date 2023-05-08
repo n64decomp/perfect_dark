@@ -5542,8 +5542,11 @@ struct bytelist {
 };
 
 struct stageallocation {
-	s32 stagenum;
-	char *string;
+	u8 stagenum;
+	u8 gfx;
+	u8 gfxtra;
+	u8 mvtx;
+	u16 ma;
 };
 
 struct contsample {

@@ -20,7 +20,6 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pak.h"
 #include "bss.h"
-#include "lib/args.h"
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/rng.h"
@@ -478,12 +477,7 @@ void mpInit(void)
 		func0f1881d4(i);
 	}
 
-	if (argFindByPrefix(1, "-mpwpnset")) {
-		char *value = argFindByPrefix(1, "-mpwpnset");
-		mpSetWeaponSet(*value - 0x30);
-	} else {
-		mpSetWeaponSet(0);
-	}
+	mpSetWeaponSet(0);
 
 	g_Vars.mplayerisrunning = false;
 	g_Vars.normmplayerisrunning = false;

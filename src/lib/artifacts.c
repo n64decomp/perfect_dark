@@ -4,7 +4,6 @@
 #include "constants.h"
 #include "game/menugfx.h"
 #include "bss.h"
-#include "lib/args.h"
 #include "lib/audiomgr.h"
 #include "lib/reset.h"
 #include "lib/rzip.h"

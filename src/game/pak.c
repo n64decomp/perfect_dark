@@ -9,7 +9,6 @@
 #include "game/pak.h"
 #include "game/utils.h"
 #include "bss.h"
-#include "lib/args.h"
 #include "lib/joy.h"
 #include "lib/lib_06440.h"
 #include "lib/main.h"
@@ -507,7 +506,7 @@ static PakErr2 pakReadHeaderAtOffset(s8 device, u32 offset, struct pakfileheader
 			return PAK_ERR2_INCOMPLETE;
 		}
 
-		if ((argFindByPrefix(1, "-forceversion") ? 1 : 0) != headerptr->version) {
+		if (headerptr->version != 0) {
 			return PAK_ERR2_VERSION;
 		}
 
@@ -2218,10 +2217,7 @@ static s32 pakWriteFileAtOffset(s8 device, u32 offset, u32 filetype, u8 *newdata
 	headerptr->fileid = fileid ? fileid : ++g_Paks[device].maxfileid;
 	headerptr->deviceserial = g_Paks[device].serial;
 	headerptr->filelen = filelen;
-
-	version = argFindByPrefix(1, "-forceversion") ? 1 : 0;
-
-	headerptr->version = version;
+	headerptr->version = 0;
 	headerptr->bodylen = bodylen;
 	headerptr->generation = generation;
 	headerptr->filetype = filetype;
@@ -2827,10 +2823,6 @@ static void pakProbeEeprom(void)
 
 	if (type == EEPROM_TYPE_16K) {
 		g_PakHasEeprom = true;
-
-		if (argFindByPrefix(1, "-scrub")) {
-			pakCreateFilesystem(SAVEDEVICE_GAMEPAK);
-		}
 	} else {
 		g_PakHasEeprom = false;
 	}

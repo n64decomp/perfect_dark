@@ -25,7 +25,6 @@
 #include "game/pad.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/args.h"
 #include "lib/dma.h"
 #include "lib/memp.h"
 #include "lib/model.h"
@@ -1386,8 +1385,8 @@ void setupLoadFiles(s32 stagenum)
 
 void setupCreateProps(s32 stagenum)
 {
-	s32 withchrs = !argFindByPrefix(1, "-nochr") && !argFindByPrefix(1, "-noprop");
-	s32 withobjs = !argFindByPrefix(1, "-noobj") && !argFindByPrefix(1, "-noprop");
+	s32 withchrs = true;
+	s32 withobjs = true;
 	s32 withhovercars;
 	s32 escstepx;
 	s32 escstepy;

@@ -6,7 +6,6 @@
 #include "constants.h"
 #include "game/menugfx.h"
 #include "bss.h"
-#include "lib/args.h"
 #include "lib/rzip.h"
 #include "lib/main.h"
 #include "lib/snd.h"

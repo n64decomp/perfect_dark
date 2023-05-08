@@ -3,7 +3,6 @@
 #include "game/gfxmemory.h"
 #include "game/stubs/game_175f50.h"
 #include "bss.h"
-#include "lib/args.h"
 #include "lib/rzip.h"
 #include "lib/dma.h"
 #include "lib/memp.h"
@@ -58,54 +57,35 @@ u32 g_VtxSizesByPlayerCount[] = {
 s32 g_GfxNumSwapsPerBuffer[2] = {0, 1};
 u32 g_GfxNumSwaps = 0x00000002;
 
-/**
- * Allocate graphics memory from the heap. Presumably called on stage load.
- *
- * Comments in this function are strings that appear in an XBLA debug build.
- * They were likely in the N64 version but ifdeffed out.
- */
+extern s32 g_StageNum;
+extern struct stageallocation g_StageAllocations8Mb[];
+
 void gfxReset(void)
 {
-	s32 stack;
+	s32 index = 0;
+	s32 gfx;
 
-	if (argFindByPrefix(1, "-mgfx")) {
-		// Argument specified master_dl_size\n
-		s32 gfx;
-		s32 gfxtra = 0;
-
-		gfx = strtol(argFindByPrefix(1, "-mgfx"), NULL, 0) * 1024;
-
-		if (argFindByPrefix(1, "-mgfxtra")) {
-			// ******** Extra specified but are we in the correct game mode I wonder???\n
-			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
-				// ******** Extra Display List Memeory Required\n
-				// ******** Shall steal from video buffer\n
-				// ******** If you try and run hi-res then\n
-				// ******** you're gonna shafted up the arse\n
-				// ******** so don't blame me\n
-				gfxtra = strtol(argFindByPrefix(1, "-mgfxtra"), NULL, 0) * 1024;
-			} else {
-				// ******** No we're not so there\n
-			}
+	while (g_StageAllocations8Mb[index].stagenum) {
+		if (g_StageNum == g_StageAllocations8Mb[index].stagenum) {
+			break;
 		}
 
-		// ******** Original Amount required = %dK ber buffer\n
-		// ******** Extra Amount required = %dK ber buffer\n
-		// ******** Total of %dK (Double Buffered)\n
-		g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] = gfx + gfxtra;
+		index++;
 	}
 
-	if (argFindByPrefix(1, "-mvtx")) {
-		// Argument specified mtxvtx_size\n
-		g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] = strtol(argFindByPrefix(1, "-mvtx"), NULL, 0) * 1024;
+	gfx = g_StageAllocations8Mb[index].gfx;
+
+	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
+		gfx += g_StageAllocations8Mb[index].gfxtra;
 	}
 
-	// %d Players : Allocating %d bytes for master dl's\n
+	g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] = gfx * 1024;
+	g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] = g_StageAllocations8Mb[index].mvtx * 1024;
+
 	g_GfxBuffers[0] = mempAlloc(g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, MEMPOOL_STAGE);
 	g_GfxBuffers[1] = g_GfxBuffers[0] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
 	g_GfxBuffers[2] = g_GfxBuffers[1] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
 
-	// Allocating %d bytes for mtxvtx space\n
 	g_VtxBuffers[0] = mempAlloc(g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, MEMPOOL_STAGE);
 	g_VtxBuffers[1] = g_VtxBuffers[0] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];
 	g_VtxBuffers[2] = g_VtxBuffers[1] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];

@@ -6,7 +6,6 @@
 #include "game/music.h"
 #include "bss.h"
 #include "lib/rzip.h"
-#include "lib/args.h"
 #include "lib/audiomgr.h"
 #include "lib/dma.h"
 #include "lib/snd.h"
@@ -1280,10 +1279,6 @@ void sndInit(void)
 
 	g_SndMp3Enabled = true;
 	g_SndMaxFxBusses = 2;
-
-	if (argFindByPrefix(1, "-nomp3")) {
-		g_SndMp3Enabled = false;
-	}
 
 	if (!g_SndDisabled) {
 		// Allocate memory for the audio heap,

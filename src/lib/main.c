@@ -44,7 +44,6 @@
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/audiomgr.h"
-#include "lib/args.h"
 #include "lib/boot.h"
 #include "lib/vm.h"
 #include "lib/rzip.h"
@@ -68,78 +67,54 @@
 extern u8 g_LvShowStats;
 extern u8 g_LvStatsPage;
 
-bool var8005d9b0 = false;
 s32 g_StageNum = STAGE_TITLE;
 u32 g_MainMemaHeapSize = 1024 * 300;
-s32 var8005d9c4 = 0;
 u32 g_MainNumGfxTasks = 0;
 bool g_MainIsEndscreen = false;
 s32 g_DoBootPakMenu = 0;
 
 struct stageallocation g_StageAllocations8Mb[] = {
-	{ STAGE_CITRAINING,    "-ml0 -me0 -mgfx120 -mvtx98 -ma100"             },
-	{ STAGE_DEFECTION,     "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_INVESTIGATION, "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_EXTRACTION,    "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_CHICAGO,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_G5BUILDING,    "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_VILLA,         "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_INFILTRATION,  "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500" },
-	{ STAGE_RESCUE,        "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500" },
-	{ STAGE_ESCAPE,        "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500" },
-	{ STAGE_AIRBASE,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_AIRFORCEONE,   "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_CRASHSITE,     "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_PELAGIC,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_DEEPSEA,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma200" },
-	{ STAGE_DEFENSE,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma100" },
-	{ STAGE_ATTACKSHIP,    "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma200" },
-	{ STAGE_SKEDARRUINS,   "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma200" },
-	{ STAGE_MP_SKEDAR,     "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_RAVINE,     "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_PIPES,      "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_G5BUILDING, "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_SEWERS,     "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_WAREHOUSE,  "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_BASE,       "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_COMPLEX,    "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_TEMPLE,     "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_FELICITY,   "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_AREA52,     "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_GRID,       "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_CARPARK,    "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_RUINS,      "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_FORTRESS,   "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_MP_VILLA,      "-ml0 -me0 -mgfx200 -mvtx200 -ma100"            },
-	{ STAGE_TEST_RUN,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP2,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP6,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP7,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP8,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP14,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP16,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP17,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP18,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP19,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_MP20,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_ASH,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
-	{ STAGE_28,            "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
-	{ STAGE_MBR,           "-ml0 -me0 -mgfx120 -mvtx100 -ma100"            },
-	{ STAGE_TEST_SILO,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_24,            "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
-	{ STAGE_MAIANSOS,      "-ml0 -me0 -mgfx120 -mvtx100 -ma500"            },
-	{ STAGE_RETAKING,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
-	{ STAGE_TEST_DEST,     "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
-	{ STAGE_2B,            "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
-	{ STAGE_WAR,           "-ml0 -me0 -mgfx120 -mvtx98 -ma100"             },
-	{ STAGE_TEST_UFF,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
-	{ STAGE_TEST_OLD,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
-	{ STAGE_DUEL,          "-ml0 -me0 -mgfx120 -mvtx100 -ma100"            },
-	{ STAGE_TEST_LAM,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
-	{ STAGE_TEST_ARCH,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
-	{ STAGE_TEST_LEN,      "-ml0 -me0 -mgfx120 -mvtx98 -ma300"             },
-	{ STAGE_TITLE,         "-ml0 -me0 -mgfx80 -mvtx20 -ma001"              },
-	{ 0,                   "-ml0 -me0 -mgfx120 -mvtx98 -ma300"             },
+	//                     gfx  gfxtra mvtx ma
+	{ STAGE_CITRAINING,    120, 0,     98,  100 },
+	{ STAGE_DEFECTION,     110, 80,    100, 100 },
+	{ STAGE_INVESTIGATION, 110, 80,    100, 100 },
+	{ STAGE_EXTRACTION,    110, 80,    100, 100 },
+	{ STAGE_CHICAGO,       110, 80,    100, 100 },
+	{ STAGE_G5BUILDING,    110, 80,    100, 100 },
+	{ STAGE_VILLA,         110, 80,    100, 100 },
+	{ STAGE_INFILTRATION,  110, 80,    100, 500 },
+	{ STAGE_RESCUE,        110, 80,    100, 500 },
+	{ STAGE_ESCAPE,        110, 80,    100, 500 },
+	{ STAGE_AIRBASE,       110, 80,    100, 100 },
+	{ STAGE_AIRFORCEONE,   110, 80,    100, 100 },
+	{ STAGE_CRASHSITE,     110, 80,    100, 100 },
+	{ STAGE_PELAGIC,       110, 80,    100, 100 },
+	{ STAGE_DEEPSEA,       110, 80,    100, 200 },
+	{ STAGE_DEFENSE,       110, 80,    100, 100 },
+	{ STAGE_ATTACKSHIP,    110, 80,    100, 200 },
+	{ STAGE_SKEDARRUINS,   110, 80,    100, 200 },
+	{ STAGE_MBR,           120, 0,     100, 100 },
+	{ STAGE_MAIANSOS,      120, 0,     100, 500 },
+	{ STAGE_WAR,           120, 0,     98,  100 },
+	{ STAGE_DUEL,          120, 0,     100, 100 },
+	{ STAGE_MP_SKEDAR,     200, 0,     200, 100 },
+	{ STAGE_MP_RAVINE,     200, 0,     200, 100 },
+	{ STAGE_MP_PIPES,      200, 0,     200, 100 },
+	{ STAGE_MP_G5BUILDING, 200, 0,     200, 100 },
+	{ STAGE_MP_SEWERS,     200, 0,     200, 100 },
+	{ STAGE_MP_WAREHOUSE,  200, 0,     200, 100 },
+	{ STAGE_MP_BASE,       200, 0,     200, 100 },
+	{ STAGE_MP_COMPLEX,    200, 0,     200, 100 },
+	{ STAGE_MP_TEMPLE,     200, 0,     200, 100 },
+	{ STAGE_MP_FELICITY,   200, 0,     200, 100 },
+	{ STAGE_MP_AREA52,     200, 0,     200, 100 },
+	{ STAGE_MP_GRID,       200, 0,     200, 100 },
+	{ STAGE_MP_CARPARK,    200, 0,     200, 100 },
+	{ STAGE_MP_RUINS,      200, 0,     200, 100 },
+	{ STAGE_MP_FORTRESS,   200, 0,     200, 100 },
+	{ STAGE_MP_VILLA,      200, 0,     200, 100 },
+	{ STAGE_TITLE,         80,  0,     20,  1   },
+	{ 0,                   120, 0,     98,  300 },
 };
 
 Gfx var8005dcc8[] = {
@@ -192,7 +167,6 @@ static void mainInit(void)
 	amgrInit();
 	varsInit();
 	viConfigureForLogos();
-	var8005d9b0 = 1;
 	joyInit();
 	osCreateMesgQueue(&queue, &msg, 1);
 
@@ -209,10 +183,6 @@ static void mainInit(void)
 
 		if (1);
 		if (1);
-	}
-
-	if (argFindByPrefix(1, "-level_") == NULL) {
-		var8005d9b0 = true;
 	}
 
 	// If holding start on any controller, open boot pak menu
@@ -342,10 +312,6 @@ static void mainInit(void)
 	func0f1a78b0();
 	filesInit();
 
-	if (var8005d9b0) {
-		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
-	}
-
 	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_setupdishasmSegmentEnd));
 	end = g_VmMarker;
 	mempSetHeap(start, end - start);
@@ -400,9 +366,6 @@ static void mainLoop(void)
 
 	func0f175f98();
 
-	var8005d9c4 = 0;
-	argGetLevel(&g_StageNum);
-
 	if (g_DoBootPakMenu) {
 		g_Vars.unk0004e4 = 0xfd;
 		g_StageNum = STAGE_BOOTPAKMENU;
@@ -413,10 +376,6 @@ static void mainLoop(void)
 
 		if (g_StageNum < STAGE_TITLE) {
 			func0f01b148(0);
-
-			if (argFindByPrefix(1, "-hard")) {
-				lvSetDifficulty(argFindByPrefix(1, "-hard")[0] - '0');
-			}
 		}
 	}
 
@@ -427,50 +386,21 @@ static void mainLoop(void)
 		g_MainNumGfxTasks = 0;
 		msg = NULL;
 		g_MainIsEndscreen = false;
+		index = 0;
 
-		if (var8005d9b0 && var8005d9c4 == 0) {
-			index = -1;
-
-			if (g_StageNum < STAGE_TITLE && g_NumPlayers >= 2) {
-				index = 0;
-
-				while (g_StageAllocations8Mb[index].stagenum) {
-					if (g_StageNum + 400 == g_StageAllocations8Mb[index].stagenum) {
-						break;
-					}
-
-					index++;
-				}
-
-				if (g_StageAllocations8Mb[index].stagenum == 0) {
-					index = -1;
-				}
+		while (g_StageAllocations8Mb[index].stagenum) {
+			if (g_StageNum == g_StageAllocations8Mb[index].stagenum) {
+				break;
 			}
 
-			if (index < 0) {
-				index = 0;
-
-				while (g_StageAllocations8Mb[index].stagenum) {
-					if (g_StageNum == g_StageAllocations8Mb[index].stagenum) {
-						break;
-					}
-
-					index++;
-				}
-			}
-
-			argSetString(g_StageAllocations8Mb[index].string);
+			index++;
 		}
-
-		var8005d9c4 = 0;
 
 		mempResetPool(MEMPOOL_7);
 		mempResetPool(MEMPOOL_STAGE);
 		filesStop(4);
 
-		if (argFindByPrefix(1, "-ma")) {
-			g_MainMemaHeapSize = strtol(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
-		}
+		g_MainMemaHeapSize = g_StageAllocations8Mb[index].ma * 1024;
 
 		memaReset(mempAlloc(g_MainMemaHeapSize, MEMPOOL_STAGE), g_MainMemaHeapSize);
 		langReset(g_StageNum);
@@ -479,11 +409,7 @@ static void mainLoop(void)
 		if (g_StageNum >= STAGE_TITLE) {
 			numplayers = 0;
 		} else {
-			if (argFindByPrefix(1, "-play")) {
-				numplayers = strtol(argFindByPrefix(1, "-play"), NULL, 0);
-			} else {
-				numplayers = 1;
-			}
+			numplayers = 1;
 
 			if (g_NumPlayers >= 2) {
 				numplayers = g_NumPlayers;
@@ -494,29 +420,16 @@ static void mainLoop(void)
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = -1;
-		} else if (argFindByPrefix(1, "-coop")) {
-			g_Vars.bondplayernum = 0;
-			g_Vars.coopplayernum = 1;
-			g_Vars.antiplayernum = -1;
-		} else if (argFindByPrefix(1, "-anti")) {
-			g_Vars.bondplayernum = 0;
-			g_Vars.coopplayernum = -1;
-			g_Vars.antiplayernum = 1;
 		}
 
 		playermgrAllocatePlayers(numplayers);
-
-		if (argFindByPrefix(1, "-mpbots")) {
-			g_Vars.lvmpbotlevel = 1;
-		}
 
 		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 			g_MpSetup.chrslots = 0x03;
 			mpReset();
 		} else if (g_Vars.perfectbuddynum) {
 			mpReset();
-		} else if (g_Vars.mplayerisrunning == false
-				&& (numplayers >= 2 || g_Vars.lvmpbotlevel || argFindByPrefix(1, "-play"))) {
+		} else if (g_Vars.mplayerisrunning == false && (numplayers >= 2 || g_Vars.lvmpbotlevel)) {
 			g_MpSetup.chrslots = 1;
 
 			if (numplayers >= 2) {
