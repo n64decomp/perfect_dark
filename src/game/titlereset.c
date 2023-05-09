@@ -10,12 +10,8 @@
 void titleReset(void)
 {
 	g_TitleMode = -1;
-	var800624d4 = 0;
-	var800624d8 = 0;
-	var800624dc = 0;
 	g_TitleDelayedTimer = 2;
 	g_TitleDelayedMode = -1;
-	var800624f4 = 1;
 
 	if (var800624f0) {
 		g_TitleNextMode = TITLEMODE_SKIP;

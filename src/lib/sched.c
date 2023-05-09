@@ -27,7 +27,6 @@ OSSched g_Sched;
 OSViMode var8008dcc0[2];
 OSViMode *var8008dd60[2];
 OSViMode var8008dd68[2];
-u32 var8008de08;
 s32 var8008de0c;
 s32 var8008de10;
 OSTimer g_SchedRspTimer;
@@ -340,7 +339,6 @@ void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 
 	osCreateViManager(OS_PRIORITY_VIMGR);
 
-	var8008de08 = osViModeTable[mode].comRegs.hStart;
 	var8008de0c = osViModeTable[mode].fldRegs[0].vStart;
 	var8008de10 = osViModeTable[mode].fldRegs[1].vStart;
 

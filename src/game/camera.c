@@ -19,7 +19,6 @@ struct coord var8009dd40;
 f32 var8009dd4c;
 struct coord var8009dd50;
 f32 var8009dd5c;
-struct coord var8009dd60;
 f32 var8009dd6c;
 
 void camSetScreenSize(f32 width, f32 height)
@@ -422,10 +421,6 @@ void cam0f0b5838(void)
 	var8009dd50.f[2] = -sp14 * mtx->m[0][2] - sp28 * mtx->m[2][2];
 
 	var8009dd5c = var8009dd50.f[0] * mtx->m[3][0] + var8009dd50.f[1] * mtx->m[3][1] + var8009dd50.f[2] * mtx->m[3][2];
-
-	var8009dd60.f[0] = -mtx->m[3][0];
-	var8009dd60.f[1] = -mtx->m[3][1];
-	var8009dd60.f[2] = -mtx->m[3][2];
 
 	var8009dd6c = mtx->m[2][0] * mtx->m[3][0] + mtx->m[2][1] * mtx->m[3][1] + mtx->m[2][2] * mtx->m[3][2];
 }

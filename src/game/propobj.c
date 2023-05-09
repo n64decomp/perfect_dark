@@ -131,7 +131,6 @@ u32 g_EmbedSide = 0x00000000;
 s16 var8006993c[3] = {0};
 u32 var80069944 = 0x00000000;
 f32 g_CctvWaitScale = 1;
-f32 g_CctvDamageRxScale = 1;
 f32 g_AutogunAccuracyScale = 1;
 f32 g_AutogunDamageTxScale = 1;
 f32 g_AutogunDamageRxScale = 1;

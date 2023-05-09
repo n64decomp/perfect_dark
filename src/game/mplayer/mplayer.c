@@ -3249,7 +3249,6 @@ s32 mpplayerfileSave(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 			return 0;
 		}
 
-		g_FilemgrLastPakError = ret;
 		return -1;
 	}
 
@@ -3277,7 +3276,6 @@ s32 mpplayerfileLoad(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 			return 0;
 		}
 
-		g_FilemgrLastPakError = ret;
 		return -1;
 	}
 
@@ -3563,7 +3561,6 @@ s32 mpsetupfileSave(s32 device, s32 fileid, u16 deviceserial)
 			return 0;
 		}
 
-		g_FilemgrLastPakError = ret;
 		return -1;
 	}
 
@@ -3588,10 +3585,6 @@ s32 mpsetupfileLoad(s32 device, s32 fileid, u16 deviceserial)
 
 			return 0;
 		}
-
-		g_FilemgrLastPakError = ret;
-
-		return -1;
 	}
 
 	return -1;

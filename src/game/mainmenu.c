@@ -3814,8 +3814,6 @@ s32 menuhandlerInventoryList(s32 operation, struct menuitem *item, union handler
 					bgunEquipWeapon2(HAND_LEFT, WEAPON_NONE);
 				}
 			}
-
-			var800711f0 = data->list.value;
 		}
 		break;
 	case MENUOP_GETSELECTEDINDEX:

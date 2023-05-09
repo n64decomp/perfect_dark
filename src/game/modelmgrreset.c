@@ -74,9 +74,6 @@ void modelmgrAllocateSlots(s32 numobjs, s32 numchrs)
 	s32 maxanimatedobjs = 20;
 	s32 numspare;
 
-	g_ModelNumObjs = numobjs;
-	g_ModelNumChrs = numchrs;
-
 	numspare = NUMSPARE();
 	g_MaxModels = numobjs + numspare + numchrs + maxanimatedobjs;
 	g_MaxAnims = numchrs + maxanimatedobjs;

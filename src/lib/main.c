@@ -373,10 +373,6 @@ static void mainLoop(void)
 
 	if (g_StageNum != STAGE_TITLE) {
 		titleSetNextStage(g_StageNum);
-
-		if (g_StageNum < STAGE_TITLE) {
-			func0f01b148(0);
-		}
 	}
 
 	rngSetSeed(osGetCount());

@@ -110,9 +110,7 @@ u32 *g_BgPrimaryData2;
 struct bgroom *g_BgRooms;
 struct bgportal *g_BgPortals;
 struct var800a4ccc *var800a4ccc;
-u8 *var800a4cd0;
 u8 *g_BgLightsFileData;
-f32 *g_BgTable5;
 s16 *g_RoomPortals;
 s16 var800a4ce4;
 s16 var800a4ce6;
@@ -123,8 +121,6 @@ s32 g_BgAlwaysRoom;
 
 bool g_BgPreload = false;
 s32 g_StageIndex = 1;
-u32 var8007fc04 = 0x00000000;
-u8 *var8007fc08 = NULL;
 
 s16 var8007fc0c = 0;
 s16 var8007fc10 = 0;
@@ -1172,11 +1168,7 @@ Gfx *bgRenderArtifacts(Gfx *gdl)
 
 static void bgLoadFile(void *memaddr, u32 offset, u32 len)
 {
-	if (var8007fc04) {
-		bcopy(var8007fc08 + offset, memaddr, len);
-	} else {
-		fileLoadPartToAddr(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
-	}
+	fileLoadPartToAddr(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
 }
 
 s32 stageGetIndex2(s32 stagenum)
@@ -1218,17 +1210,6 @@ f32 portal0f15b274(s32 portalnum)
 	}
 
 	return sum;
-}
-
-static u8 func0f15b4c0(s32 portal)
-{
-	s32 uVar2 = portal0f15b274(portal) / 10000.0f;
-
-	if (uVar2 > 0xff) {
-		uVar2 = 0xff;
-	}
-
-	return uVar2;
 }
 
 /**
@@ -1327,8 +1308,6 @@ void bgReset(s32 stagenum)
 	scratch = (u32) g_BgPrimaryData + inflatedsize - primcompsize;
 	scratch = ALIGN16(scratch + 0x8000);
 
-	g_LoadType = LOADTYPE_BG;
-
 	// Copy section 1 header + compressed primary to scratch space
 	bgLoadFile((u8 *) scratch, 0, ALIGN16(primcompsize + 15));
 
@@ -1393,12 +1372,6 @@ void bgReset(s32 stagenum)
 			g_BgLightsFileData = NULL;
 		} else {
 			g_BgLightsFileData = (u8 *)(g_BgPrimaryData2[4] + g_BgPrimaryData + 0xf1000000);
-		}
-
-		if (g_BgPrimaryData2[5] == 0) {
-			g_BgTable5 = NULL;
-		} else {
-			g_BgTable5 = (f32 *)(g_BgPrimaryData2[5] + g_BgPrimaryData + 0xf1000000);
 		}
 	}
 
@@ -1598,12 +1571,6 @@ void bgBuildTables(s32 stagenum)
 					}
 				}
 			}
-		}
-
-		var800a4cd0 = mempAlloc(ALIGN16(numportals == 0 ? 1 : numportals), MEMPOOL_STAGE);
-
-		for (i = 0; i < numportals; i++) {
-			var800a4cd0[i] = func0f15b4c0(i);
 		}
 
 		var800a4ccc = mempAlloc(ALIGN16(numportals * sizeof(struct var800a4ccc)), MEMPOOL_STAGE);

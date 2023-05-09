@@ -19,7 +19,6 @@ void tilesReset(void)
 		index = 0;
 	}
 
-	g_LoadType = LOADTYPE_TILES;
 	g_TileFileData.u8 = fileLoadToNew(g_Stages[index].tilefileid, FILELOADMETHOD_DEFAULT);
 	g_TileNumRooms = *g_TileFileData.u32;
 	g_TileRooms = g_TileFileData.u32 + 1;

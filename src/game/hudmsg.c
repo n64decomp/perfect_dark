@@ -45,8 +45,9 @@ u32 g_HudmsgColours[] = {
 	/*10*/ 0xaa55ff00, // purple
 };
 
-s32 g_HudPaddingY = 10;
-s32 g_HudPaddingX = 24;
+#define g_HudPaddingY 10
+#define g_HudPaddingX 24
+
 s32 g_NumHudMessages = 0;
 struct hudmessage *g_HudMessages = NULL;
 

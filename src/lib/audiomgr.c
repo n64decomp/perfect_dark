@@ -11,8 +11,6 @@
 #include "types.h"
 
 u64 var80091568;
-u64 var80091570;
-u64 var80091578;
 u64 var80091580;
 u64 var80091588;
 u64 var80091590;
@@ -20,7 +18,6 @@ AMAudioMgr g_AudioManager;
 OSScClient var800918d0;
 u32 var800918dc;
 u32 g_AmgrFreqPerTick;
-u32 var800918e4;
 s32 var800918e8;
 s32 var800918ec;
 void *g_AudioSp;
@@ -55,7 +52,6 @@ void amgrCreate(ALSynConfig *config)
 
 	g_AmgrFreqPerTick = g_AmgrFreqPerTick / 184 * 184 + 184;
 	var800918dc = g_AmgrFreqPerTick - 184;
-	var800918e4 = g_AmgrFreqPerTick + 80;
 	var8005cf94 = 0;
 
 	admaInit();
@@ -159,10 +155,8 @@ static void amgrMain(void *arg)
 			profileEnd(PROFILEMARKER_AUDIO);
 
 			var80091590 = osGetTime();
-			var80091570 = var80091590 - var80091588;
 
 			if (count % 240 == 0) {
-				var80091578 = var80091580 / 240;
 				var80091580 = 0; var80091568 = 0;
 			} else {
 				var80091580 = (var80091580 + var80091590) - var80091588;

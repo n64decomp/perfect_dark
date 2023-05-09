@@ -17,7 +17,6 @@
 
 #define SKYABS(val) (val >= 0.0f ? (val) : -(val))
 
-u32 g_SkyStageNum;
 bool g_SkyLightningActive;
 Mtxf var800a33a8;
 struct coord g_SunPositions[3]; // relative to centre screen, with a huge scale

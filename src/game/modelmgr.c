@@ -9,8 +9,6 @@
 
 struct model *g_ModelSlots;
 struct anim *g_AnimSlots;
-s32 g_ModelNumObjs;
-s32 g_ModelNumChrs;
 struct modelrwdatabinding *g_ModelRwdataBindings[3];
 
 s32 g_MaxModels = 0;

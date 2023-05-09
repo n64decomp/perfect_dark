@@ -176,7 +176,6 @@ struct creditsdata {
 
 f32 g_CreditsParticleRotationFrac;
 u32 g_CreditsCurFrame;
-u32 g_CreditsPrevFrame;
 u32 g_CreditsCurFrame2;
 struct creditsdata *g_CreditsData;
 
@@ -1506,7 +1505,6 @@ static void creditsTick(void)
 		}
 	}
 
-	g_CreditsPrevFrame = g_CreditsCurFrame;
 	g_CreditsCurFrame += g_Vars.diffframe240;
 	g_CreditsCurFrame2 += g_Vars.diffframe240;
 	g_CreditsParticleRotationFrac = (g_CreditsCurFrame2 % TICKS(4800)) / TICKS(4800.0f);

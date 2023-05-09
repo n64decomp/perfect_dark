@@ -16,7 +16,6 @@ s32 g_MinPropWallhits;
 u32 g_MaxPropWallhits;
 s32 g_MinBgWallhitsPerRoom;
 s32 g_MaxBgWallhitsPerRoom;
-u32 var8009cc6c;
 s32 var8009cc70;
 s32 var8009cc74;
 f32 g_WallhitTargetBloodRatio;
@@ -47,7 +46,6 @@ void wallhitReset(void)
 		g_MaxPropWallhits = 40;
 		g_MinBgWallhitsPerRoom = 1;
 		g_MaxBgWallhitsPerRoom = 25;
-		var8009cc6c = 20;
 		var8009cc70 = 5;
 		var8009cc74 = 15;
 		g_WallhitTargetBloodRatio = 0.3f;
@@ -59,7 +57,6 @@ void wallhitReset(void)
 		g_MaxPropWallhits = 100;
 		g_MinBgWallhitsPerRoom = 4;
 		g_MaxBgWallhitsPerRoom = 40;
-		var8009cc6c = 80;
 		var8009cc70 = 20;
 		var8009cc74 = 30;
 		g_WallhitTargetBloodRatio = 0.4f;
@@ -72,7 +69,6 @@ void wallhitReset(void)
 		g_MaxPropWallhits = 120;
 		g_MinBgWallhitsPerRoom = 10;
 		g_MaxBgWallhitsPerRoom = 60;
-		var8009cc6c = 180;
 		var8009cc70 = 25;
 		var8009cc74 = 40;
 		g_WallhitTargetBloodRatio = 0.5f;

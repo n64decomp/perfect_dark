@@ -134,11 +134,6 @@ void playerReset(void)
 	g_CutsceneFrameOverrun240 = 0;
 #endif
 
-	var8007072c = 1;
-	var80070738 = 0;
-	var8007073c = 0;
-
-	g_CurrentGeCreditsData = NULL;
 	g_Vars.currentplayer->bondexploding = false;
 	g_NumSpawnPoints = 0;
 	g_Vars.currentplayer->bondtankexplode = false;
@@ -231,11 +226,6 @@ void playerReset(void)
 				cmd = (struct cmd32 *)((u32)cmd + 12);
 				break;
 			case INTROCMD_CREDITOFFSET:
-				thing = (struct gecreditsdata *)((s32)g_GeCreditsData + cmd->param1);
-				g_CurrentGeCreditsData = thing;
-				while (thing->text1 || thing->text2) {
-					thing++;
-				}
 				cmd = (struct cmd32 *)((u32)cmd + 8);
 				break;
 			default:

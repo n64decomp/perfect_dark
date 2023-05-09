@@ -180,8 +180,6 @@ struct modelfiledata *modeldefLoad(u16 fileid, u8 *dst, s32 size, struct texpool
 {
 	struct modelfiledata *filedata;
 
-	g_LoadType = LOADTYPE_MODEL;
-
 	if (dst) {
 		filedata = fileLoadToAddr(fileid, FILELOADMETHOD_EXTRAMEM, dst, size);
 	} else {

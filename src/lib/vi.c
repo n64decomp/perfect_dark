@@ -311,7 +311,6 @@ void viUpdateMode(void)
 		var8008dcc0[g_ViSlot].comRegs.hStart = reg;
 		var8008dcc0[g_ViSlot].fldRegs[0].vStart = reg;
 		var8008dcc0[g_ViSlot].fldRegs[1].vStart = reg;
-		var8008de08 = reg;
 
 		v1 = g_ViBackData->bufy * 1024 / var8008dcc0[g_ViSlot].fldRegs[0].yScale;
 
@@ -344,7 +343,6 @@ void viUpdateMode(void)
 		reg = var8008dcc0[g_ViSlot].comRegs.hStart;
 		reg = ADD_LOW_AND_HI_16_MOD(reg, var8005d588);
 		var8008dcc0[g_ViSlot].comRegs.hStart = reg;
-		var8008de08 = reg;
 
 		reg = var8008dcc0[g_ViSlot].fldRegs[0].vStart;
 		reg = ADD_LOW_AND_HI_16_MOD(reg, var8005d58c);

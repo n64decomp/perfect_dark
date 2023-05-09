@@ -30,7 +30,6 @@ struct fileguid var800a21e8;
 
 struct fileguid g_FilemgrFileToDelete;
 
-s32 g_FilemgrLastPakError;
 struct gamefile g_GameFile;
 struct fileguid g_GameFileGuid;
 
@@ -726,7 +725,6 @@ bool filemgrSaveOrLoad(struct fileguid *guid, s32 fileop, u32 playernum)
 		g_Menus[g_MpPlayerNum].fm.fileop = fileop;
 		g_Menus[g_MpPlayerNum].fm.mpplayernum = playernum;
 		g_Menus[g_MpPlayerNum].fm.isretryingsave = 0;
-		g_FilemgrLastPakError = 0;
 	}
 
 	g_Menus[g_MpPlayerNum].fm.fileid = guid->fileid;

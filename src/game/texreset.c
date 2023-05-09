@@ -14,8 +14,6 @@
 extern u8 *g_TextureConfigSegment;
 extern u32 g_TexBase;
 extern Gfx *g_TexGdl3;
-extern struct textureconfig *g_TexRedLinesConfigs;
-extern struct textureconfig *g_TexSkyConfigs;
 
 extern u8 _textureconfigSegmentRomStart;
 extern u8 _textureconfigSegmentStart;
@@ -40,13 +38,11 @@ void texReset(void)
 	g_TexLaserConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcLaserConfigs);
 	g_TexGroup03Configs = (struct textureconfig *)(g_TexBase + (u32)g_TcGroup03Configs);
 	g_TexGeCrosshairConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcGeCrosshairConfigs);
-	g_TexRedLinesConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcRedLineConfigs);
 	g_TexShadowConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcGroup06Configs);
 	g_TexShieldConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcShieldConfigs);
 	g_TexShardConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcShardConfigs);
 	g_TexScreenConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcScreenConfigs);
 	g_TexWaterConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcWaterConfigs);
-	g_TexSkyConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcSkyConfigs);
 	g_TexLightGlareConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcLightGlareConfigs);
 	g_TexSparkConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcSparkConfigs);
 	g_TexGeneralConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcGeneralConfigs);

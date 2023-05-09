@@ -205,7 +205,6 @@ s32 gamefileLoad(s32 device)
 	if (device >= 0) {
 		savebufferClear(&buffer);
 		ret = pakReadBodyAtGuid(device, g_GameFileGuid.fileid, buffer.bytes, 0);
-		g_FilemgrLastPakError = ret;
 
 		if (ret == 0) {
 			cheatsInit();
@@ -408,7 +407,6 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 		func0f0d54c4(&buffer);
 
 		ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_GAME, buffer.bytes, &newfileid, 0);
-		g_FilemgrLastPakError = ret;
 
 		if (ret == 0) {
 			g_GameFileGuid.fileid = newfileid;

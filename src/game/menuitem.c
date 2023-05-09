@@ -2976,8 +2976,6 @@ static Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-u32 var800711f0 = 0x00000002;
-
 static bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 {
 	s32 i;

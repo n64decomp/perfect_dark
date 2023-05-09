@@ -11,8 +11,6 @@ volatile u8 g_DmaSlotsBusy[32];
 OSMesg g_DmaMesgs[32];
 OSMesgQueue g_DmaMesgQueue;
 
-u8 g_LoadType = 0;
-
 static void dmaWait(void);
 
 void dmaInit(void)

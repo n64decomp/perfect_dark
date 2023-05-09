@@ -37,7 +37,6 @@ struct gfxvtx *var8009cca8[2];
 u32 *var8009ccb0[2];
 u32 var8009ccb8;
 
-s16 g_TitleViewHeight = 480;
 bool g_IsTitleDemo = false;
 bool g_TitleButtonPressed = false;
 bool g_TitleFastForward = false;
@@ -46,15 +45,8 @@ s32 g_TitleNextMode = -1;
 u32 g_TitleDelayedTimer = 2;
 s32 g_TitleDelayedMode = -1;
 s32 g_TitleTimer = 0;
-u32 var800624d4 = 0x00000000;
-u32 var800624d8 = 0x00000000;
-u32 var800624dc = 0x00000000;
-u32 var800624e0 = 0x00000000;
 s32 g_TitleNextStage = -1; // appears to be used for more than just title
-s32 var800624e8 = 1;
-u32 var800624ec = 0x00000001;
 u32 var800624f0 = 0x00000000;
-s32 var800624f4 = 1;
 struct model *g_TitleModel = NULL;
 struct model *g_TitleModelNLogo2 = NULL;
 struct model *g_TitleModelPdTwo = NULL;
@@ -115,7 +107,6 @@ static void titleSetLight(Lights1 *light, u8 r, u8 g, u8 b, f32 luminosity, stru
 static void titleInitLegal(void)
 {
 	musicQueueStopAllEvent();
-	var800624f4 = 1;
 	g_TitleTimer = 0;
 	g_TitleButtonPressed = false;
 	g_TitleFastForward = false;
@@ -143,7 +134,6 @@ static void titleInitCheckControllers(void)
 
 static void titleExitCheckControllers(void)
 {
-	var800624e8 = 0;
 	viConfigureForLogos();
 	viSetMode(VIMODE_HI);
 	viBlack(false);
@@ -419,9 +409,6 @@ static void titleInitPdLogo(void)
 
 		if (1);
 		var8009ccb8 = 0;
-		var800624f4 = 1;
-
-		joy00014810(false);
 
 		g_PdLogoIsFirstTick = true;
 		g_PdLogoTriggerExit = false;
@@ -438,8 +425,6 @@ static void titleExitPdLogo(void)
 	modelmgrFreeModel(g_TitleModelNLogo2);
 	modelmgrFreeModel(g_TitleModelPdTwo);
 	modelmgrFreeModel(g_TitleModelPdThree);
-
-	joy00014810(true);
 }
 
 static void titleTickPdLogo(void)
@@ -1176,15 +1161,12 @@ static void titleInitNintendoLogo(void)
 		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
-		var800624f4 = 1;
-		joy00014810(false);
 	}
 }
 
 static void titleExitNintendoLogo(void)
 {
 	modelmgrFreeModel(g_TitleModel);
-	joy00014810(true);
 }
 
 /**
@@ -1331,10 +1313,7 @@ static void titleInitRareLogo(void)
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 
-		var800624f4 = 1;
-
 		musicQueueStopAllEvent();
-		joy00014810(false);
 
 		if (!g_IsTitleDemo) {
 			g_IsTitleDemo = true;
@@ -1345,7 +1324,6 @@ static void titleInitRareLogo(void)
 static void titleExitRareLogo(void)
 {
 	modelmgrFreeModel(g_TitleModel);
-	joy00014810(true);
 }
 
 /**
@@ -1626,7 +1604,7 @@ static Gfx *titleRenderNoController(Gfx *gdl)
 	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - (textwidth >> 1);
-	y = (g_TitleViewHeight / 2) - (textheight >> 1) - 12;
+	y = (480 / 2) - (textheight >> 1) - 12;
 
 	width = viGetWidth();
 	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
@@ -1636,7 +1614,7 @@ static Gfx *titleRenderNoController(Gfx *gdl)
 	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - (textwidth >> 1);
-	y = (g_TitleViewHeight / 2) - (textheight >> 1) + 12;
+	y = (480 / 2) - (textheight >> 1) + 12;
 
 	width = viGetWidth();
 	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
@@ -1656,14 +1634,14 @@ void titleSetNextMode(s32 mode)
 void titleTick(void)
 {
 #if PAL
-	viSetAspect(576.0f / g_TitleViewHeight * 1.1904761791229f);
+	viSetAspect(576.0f / 480 * 1.1904761791229f);
 #else
-	viSetAspect(576.0f / g_TitleViewHeight);
+	viSetAspect(576.0f / 480);
 #endif
-	viSetSize(576, g_TitleViewHeight);
-	viSetBufSize(576, g_TitleViewHeight);
-	playermgrSetViewSize(576, g_TitleViewHeight);
-	viSetViewSize(576, g_TitleViewHeight);
+	viSetSize(576, 480);
+	viSetBufSize(576, 480);
+	playermgrSetViewSize(576, 480);
+	viSetViewSize(576, 480);
 	playermgrSetViewPosition(0, 0);
 	viSetViewPosition(0, 0);
 

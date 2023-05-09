@@ -6,7 +6,6 @@
 
 void skyReset(u32 stagenum)
 {
-	g_SkyStageNum = stagenum;
 	g_SkyLightningActive = false;
 	g_SkyWindSpeed = 1;
 }

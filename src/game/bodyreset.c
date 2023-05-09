@@ -32,8 +32,6 @@ void bodiesReset(s32 stagenum)
 	}
 
 	var80062c80 = random() % g_NumBondBodies;
-	var80062b14 = 0;
-	var80062b18 = 0;
 
 	if (PLAYERCOUNT() >= 2) {
 		g_NumActiveHeadsPerGender = 4;

@@ -35,11 +35,10 @@ struct splatdata {
 	s32 timerspeed;
 };
 
-f32 var8007f8a0 = 0.15;
-f32 var8007f8a8 = 12;
-f32 g_SplatMaxDistance = 180;
-f32 var8007f8b4 = 5;
-f32 var8007f8b8 = 50;
+#define var8007f8b4 5
+#define var8007f8b8 50
+#define g_SplatMaxDistance 180
+#define var8007f8a8 12
 
 static s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg, struct coord *arg4, struct coord *arg5, bool isskedar, s32 splattype, s32 timermax, struct chrdata *chr, s32 timerspeed);
 static bool splat0f149274(f32 arg0, struct prop *prop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 arg5, s32 arg6, struct chrdata *chr, s32 arg8);
@@ -425,7 +424,7 @@ static void splat0f14986c(struct splatdata *splat)
 	}
 
 	distance = coordsGetDistance(&splat->gunpos, &splat->unk0c);
-	spa0 = var8007f8a0 * distance * sp9c;
+	spa0 = 0.15f * distance * sp9c;
 
 	if (var8007f8b8 < spa0) {
 		spa0 = var8007f8b8;

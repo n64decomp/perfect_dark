@@ -54,13 +54,11 @@ bool g_JoyQueuesCreated = false;
 bool g_JoyInitDone = false;
 bool g_JoyNeedsInit = true;
 u32 g_JoyCyclicPollDisableCount = 0;
-u32 var8005eec0 = 1;
 s32 g_JoyNextPfsStateIndex = 0;
 
 bool var8005eedc = true;
 s32 var8005eee0 = 0;
 s32 var8005eee4 = -1;
-u32 var8005eee8 = 0;
 u32 var8005eeec = 0;
 u32 var8005eef0 = 1;
 
@@ -175,8 +173,6 @@ void joyCheckPfs(s32 arg0)
 				|| (arg0 == 1 && var8005eee4 < 0 && var8005eee0 < -var8005eee4)) {
 			u8 bitpattern = 0;
 
-			var8005eee8++;
-
 			if (arg0) {
 				joyDisableCyclicPolling();
 			}
@@ -260,8 +256,6 @@ void joyReset(void)
 
 		osSendMesg(&g_JoyStartCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
 		osRecvMesg(&g_JoyStartCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
-
-		var8005eec0 = 1;
 	}
 }
 
@@ -474,11 +468,6 @@ void joysTick(void)
 			g_JoyBusy = true;
 		}
 	}
-}
-
-void joy00014810(bool value)
-{
-	var8005eec0 = value;
 }
 
 s32 joyGetNumSamples(void)

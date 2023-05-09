@@ -752,8 +752,6 @@ static bool weatherIsRoomWeatherProof(s32 room)
 	return false;
 }
 
-u32 var8007f0e0 = 0x00000001;
-
 static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 {
 	u8 stack[0x10];
@@ -1239,7 +1237,7 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 					if (s3) {
 						spd84[4] = osGetCount();
 
-						temp_f2_7 = var8007f0e0 * (1.0f + sp214 / (var8007f0f0 / 10.0f));
+						temp_f2_7 = 1.0f + sp214 / (var8007f0f0 / 10.0f);
 
 						sp198[0].f[0] += -sp218[1] * -temp_f2_7;
 						sp198[0].f[2] += sp218[0] * -temp_f2_7;

@@ -86,14 +86,6 @@ f32 g_MpSwirlAngleDegrees;
 f32 g_MpSwirlForwardSpeed;
 f32 g_MpSwirlDistance;
 s16 g_WarpType1Pad;
-struct warpparams *g_WarpType2Params;
-f32 g_WarpType3PosAngle;
-f32 g_WarpType3RotAngle;
-f32 g_WarpType3Range;
-f32 g_WarpType3Height;
-f32 g_WarpType3MoreHeight;
-u32 g_WarpType3Pad;
-s32 g_WarpType2HasDirection;
 s32 g_CutsceneCurAnimFrame60;
 
 s32 g_CutsceneCurAnimFrame240;
@@ -128,11 +120,6 @@ struct vimode g_ViModes[] = {
 	{ 440, 240, 440, 0.72727274894714, 1, 220, 0,  180, 0,  136, 0   }, // unused
 	{ 400, 300, 400, 1,                2, 300, 0,  300, 0,  300, 0   }, // unused
 };
-
-s32 var8007072c = 1;
-u32 var80070738 = 0;
-u32 var8007073c = 0;
-struct gecreditsdata *g_CurrentGeCreditsData = NULL;
 
 bool g_PlayersWithControl[] = {
 	true, true, true, true
@@ -1556,59 +1543,16 @@ static void playerExecutePreparedWarp(void)
 
 	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
 
-	if (g_WarpType1Pad >= 0) {
-		// Warp to an exact position with a static direction of 0, 0, 1.
-		// Used by device and holo training to warp player back to room,
-		// and Deep Sea teleports
-		memcampos = g_Pads[g_WarpType1Pad].pos;
+	// Warp to an exact position with a static direction of 0, 0, 1.
+	// Used by device and holo training to warp player back to room,
+	// and Deep Sea teleports
+	memcampos = g_Pads[g_WarpType1Pad].pos;
 
-		pos.x = memcampos.f[0];
-		pos.y = memcampos.f[1];
-		pos.z = memcampos.f[2];
+	pos.x = memcampos.f[0];
+	pos.y = memcampos.f[1];
+	pos.z = memcampos.f[2];
 
-		room = g_Pads[g_WarpType1Pad].room;
-	} else if (g_WarpType2Params) {
-		// Warp to an exact position with an optional direction.
-		// Used by AI command 00df, but that command is not used.
-		pos = g_WarpType2Params->pos;
-
-		room = g_Pads[g_WarpType2Params->pad].room;
-
-		memcampos = g_Pads[g_WarpType2Params->pad].pos;
-
-		if (1);
-
-		if (g_WarpType2HasDirection != 1) {
-			look.x = cosf(g_WarpType2Params->look[1]) * sinf(g_WarpType2Params->look[0]);
-			look.y = sinf(g_WarpType2Params->look[1]);
-			look.z = cosf(g_WarpType2Params->look[1]) * cosf(g_WarpType2Params->look[0]);
-		}
-	} else {
-		// Warp to a location within a specified range and angle of the pad,
-		// with options for the direction and height offset from the pad.
-		// Used by AI command 00f4, but that command is not used.
-		room = g_Pads[g_WarpType3Pad].room;
-
-		memcampos = g_Pads[g_WarpType3Pad].pos;
-
-		pos.x = memcampos.x + sinf(g_WarpType3PosAngle) * g_WarpType3Range + cosf(g_WarpType3PosAngle) * 0.0f;
-		pos.y = memcampos.y + g_WarpType3MoreHeight + g_WarpType3Height;
-		pos.z = memcampos.z + cosf(g_WarpType3PosAngle) * g_WarpType3Range + sinf(g_WarpType3PosAngle) * 0.0f;
-
-		look.x = memcampos.x + cosf(g_WarpType3PosAngle) * 0.0f - pos.f[0];
-		look.y = memcampos.y + g_WarpType3MoreHeight - pos.f[1];
-		look.z = memcampos.z + sinf(g_WarpType3PosAngle) * 0.0f - pos.f[2];
-
-		g_WarpType3PosAngle += g_WarpType3RotAngle * g_Vars.lvupdate60freal;
-
-		while (g_WarpType3PosAngle >= M_BADTAU) {
-			g_WarpType3PosAngle -= M_BADTAU;
-		}
-
-		while (g_WarpType3PosAngle < 0) {
-			g_WarpType3PosAngle += M_BADTAU;
-		}
-	}
+	room = g_Pads[g_WarpType1Pad].room;
 
 	player0f0c1ba4(&pos, &up, &look, &memcampos, room);
 }

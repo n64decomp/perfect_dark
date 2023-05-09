@@ -142,15 +142,10 @@ struct pak g_Paks[5];
 
 OSPfs g_Pfses[4];
 
-// This is likely g_DebugCutsceneLabelPtrs and/or g_DebugCutsceneLabelBuffers
-// but with reduced lengths
-
-u16 var80075cb0 = ROM_COMPANYCODE;
 char var80075cb4[] = "PerfDark";
 char var80075cc0[] = "PerfDark";
 
 u32 g_PakHasEeprom = false;
-u32 g_PakDebugPakCache = 1;
 
 char g_PakNoteGameName[] = {
 	N64CHAR('P'),
@@ -510,12 +505,10 @@ static PakErr2 pakReadHeaderAtOffset(s8 device, u32 offset, struct pakfileheader
 			return PAK_ERR2_VERSION;
 		}
 
-		if (g_PakDebugPakCache) {
-			pakSaveHeaderToCache(device, blocknum, (struct pakfileheader *) sp38);
+		pakSaveHeaderToCache(device, blocknum, (struct pakfileheader *) sp38);
 
-			if (!pakRetrieveHeaderFromCache(device, blocknum, headerptr)) {
-				return PAK_ERR2_CORRUPT;
-			}
+		if (!pakRetrieveHeaderFromCache(device, blocknum, headerptr)) {
+			return PAK_ERR2_CORRUPT;
 		}
 	}
 
@@ -2339,9 +2332,7 @@ static s32 pakWriteFileAtOffset(s8 device, u32 offset, u32 filetype, u8 *newdata
 
 	joyEnableCyclicPolling();
 
-	if (g_PakDebugPakCache) {
-		pakSaveHeaderToCache(device, offset / pakGetBlockSize(device), newheader);
-	}
+	pakSaveHeaderToCache(device, offset / pakGetBlockSize(device), newheader);
 
 	return 0;
 }
@@ -3006,7 +2997,7 @@ static s32 gbpakIdentifyGame(s8 device)
 		ok = false;
 	}
 
-	if (var80075cb0 == id.company_code) {
+	if (id.company_code == ROM_COMPANYCODE) {
 		// PerfDark or PerfDark
 		if (gbpakStrcmp(var80075cb4, id.game_title) || gbpakStrcmp(var80075cc0, id.game_title)) {
 			g_Paks[device].isgbcamera = false;

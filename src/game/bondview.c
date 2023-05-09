@@ -21,19 +21,13 @@
 #include "types.h"
 #include "gbiex.h"
 
-#ifdef AVOID_UB
-char var800a41c0[26];
-#else
-char var800a41c0[24];
-#endif
+#define g_IrBinocularRadius 90
 
 u8 g_IrScanlines[2][480];
 
 s32 var8007f840 = 0;
 u8 var8007f844 = 0;
 u8 var8007f848 = 0;
-s32 g_IrBinocularRadius = PAL ? 102 : 90;
-s32 var8007f850 = 3;
 
 static Gfx *bviewDrawIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
@@ -270,8 +264,6 @@ Gfx *bviewDrawSlayerRocketInterlace(Gfx *gdl, u32 colour, u32 alpha)
 		return gdl;
 	}
 
-	strcpy(var800a41c0, "interlaceGfx");
-
 	gDPPipeSync(gdl++);
 
 	increment = (2.6179938316345f - angle) / viewheight;
@@ -316,8 +308,6 @@ Gfx *bviewDrawFilmInterlace(Gfx *gdl, u32 colour, u32 alpha)
 	if (var8007f840 >= 2) {
 		return gdl;
 	}
-
-	strcpy(var800a41c0, "BlueInterlaceGfx");
 
 	gDPPipeSync(gdl++);
 
@@ -365,8 +355,6 @@ Gfx *bviewDrawZoomBlur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 	if (var8007f840 >= 2) {
 		return gdl;
 	}
-
-	strcpy(var800a41c0, "stretchBlurGfx");
 
 	gDPPipeSync(gdl++);
 
@@ -454,8 +442,6 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
 	if (var8007f840 >= 2) {
 		return gdl;
 	}
-
-	strcpy(var800a41c0, "blurGfxFisheye");
 
 	s3 = 1;
 
@@ -1597,8 +1583,6 @@ Gfx *bviewDrawNvLens(Gfx *gdl)
 		return gdl;
 	}
 
-	strcpy(var800a41c0, "Fullscreen_DrawFaultScope");
-
 	var8009caec = 0xbc;
 	var8009caef = 0xbe;
 	var8009caf0 = 0xde;
@@ -1669,15 +1653,13 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 	viewcentrex = (viewleft + viewright) / 2;
 
 	outerradius = g_IrBinocularRadius;
-	innerradius = g_IrBinocularRadius / var8007f850;
+	innerradius = g_IrBinocularRadius / 3;
 
 	var8007f840++;
 
 	if (var8007f840 >= 2) {
 		return gdl;
 	}
-
-	strcpy(var800a41c0, "Fullscreen_DrawFaultScope");
 
 	viewbottom = viewtop + viewheight;
 	viewcentrey = (viewtop + viewbottom) / 2;
@@ -1827,8 +1809,6 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 	if (var8007f840 >= 2) {
 		return gdl;
 	}
-
-	strcpy(var800a41c0, "BinocularViewGfx");
 
 	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
 		vsplit = true;

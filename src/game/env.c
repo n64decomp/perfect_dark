@@ -14,11 +14,8 @@ struct var800a6600 var800a6600;
 f32 var800a6618;
 f32 var800a661c;
 struct envtype1 *var800a6620;
-struct envtype1 *g_EnvTransitionFrom;
-struct envtype1 *g_EnvTransitionTo;
 
 f32 var80081050 = MAXFLOAT;
-f32 var80081054 = 0;
 struct environment g_Env = {900, 1000};
 
 //                   lensflare,    r,    g,    b,        x,       y,        z, texture size, orb size
@@ -150,7 +147,6 @@ void env0f1657f8(void)
 	var800a6618 = g_Env.fogmax * 0.001f;
 
 	var80081050 = (zrange.far - zrange.near) * var800a6618 + zrange.f[0];
-	var80081054 = (zrange.far - zrange.near) * var800a661c + zrange.f[0];
 
 	var800a6600.znear = zrange.near;
 	var800a6600.zfar = zrange.far;
@@ -267,14 +263,11 @@ void envChooseAndApply(s32 stagenum, bool allowoverride)
 	if (PLAYERCOUNT());
 
 	var80081050 = MAXFLOAT;
-	var80081054 = 0;
 
 	if (allowoverride) {
 		for (env1 = &g_EnvironmentsType1[0]; env1->stage != 0; env1++) {
 			if (env1->stage == stagenum + 900) {
 				var800a6620 = env1;
-				g_EnvTransitionFrom = env1;
-				g_EnvTransitionTo = env1 + 1;
 				envApplyType1(var800a6620);
 				return;
 			}
@@ -284,8 +277,6 @@ void envChooseAndApply(s32 stagenum, bool allowoverride)
 	for (env1 = &g_EnvironmentsType1[0]; env1->stage != 0; env1++) {
 		if (env1->stage == stagenum) {
 			var800a6620 = env1;
-			g_EnvTransitionFrom = env1;
-			g_EnvTransitionTo = env1 + 1;
 			envApplyType1(var800a6620);
 			return;
 		}

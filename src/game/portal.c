@@ -60,8 +60,6 @@
 #include "types.h"
 
 
-struct roomacousticdata *g_RoomAcousticData;
-struct var8009dd78 var8009dd78[10];
 u16 *g_PortalXluFracs;
 s32 g_NumPortalXluFracs;
 
@@ -135,74 +133,5 @@ void portalsReset(void)
 
 			prop = prop->next;
 		}
-	}
-}
-
-void acousticReset(void)
-{
-	s32 i;
-	s32 j;
-	u32 size = ALIGN16(g_Vars.roomcount * sizeof(struct roomacousticdata));
-	f32 range;
-	f32 width;
-	f32 height;
-	f32 depth;
-	f32 halfsurfacearea;
-
-
-	g_RoomAcousticData = mempAlloc(size, MEMPOOL_STAGE);
-
-	for (i = 0; i < g_Vars.roomcount; i++) {
-		bool allgood = true;
-
-		g_RoomAcousticData[i].roomvolume = 1;
-		g_RoomAcousticData[i].surfacearea = 1;
-
-		for (j = 0; j < 3; j++) {
-
-			range = g_Rooms[i].bbmax[j] - g_Rooms[i].bbmin[j];
-
-			if (range > 0) {
-				g_RoomAcousticData[i].roomvolume *= (g_Rooms[i].bbmax[j] - g_Rooms[i].bbmin[j]) / 100;
-			} else {
-				allgood = false;
-			}
-		}
-
-		if (allgood) {
-			if (g_Rooms[i].bbmin[0] < g_Rooms[i].bbmax[0]) {
-				width = g_Rooms[i].bbmax[0] - g_Rooms[i].bbmin[0];
-			} else {
-				width = -(g_Rooms[i].bbmax[0] - g_Rooms[i].bbmin[0]);
-			}
-
-			if (g_Rooms[i].bbmin[1] < g_Rooms[i].bbmax[1]) {
-				height = g_Rooms[i].bbmax[1] - g_Rooms[i].bbmin[1];
-			} else {
-				height = -(g_Rooms[i].bbmax[1] - g_Rooms[i].bbmin[1]);
-			}
-
-			if (g_Rooms[i].bbmin[2] < g_Rooms[i].bbmax[2]) {
-				depth = g_Rooms[i].bbmax[2] - g_Rooms[i].bbmin[2];
-			} else {
-				depth = -(g_Rooms[i].bbmax[2] - g_Rooms[i].bbmin[2]);
-			}
-
-			halfsurfacearea = width * height + width * depth + height * depth;
-
-			g_RoomAcousticData[i].surfacearea = halfsurfacearea + halfsurfacearea;
-		} else {
-			g_RoomAcousticData[i].surfacearea = 20000000;
-		}
-	}
-
-	for (j = 0; j < g_Vars.roomcount; j++) {
-		g_RoomAcousticData[j].unk08 = 0;
-		g_RoomAcousticData[j].unk04 = g_RoomAcousticData[j].unk08;
-	}
-
-	for (j = 0; j < ARRAYCOUNT(var8009dd78); j++) {
-		var8009dd78[j].unk00 = -1;
-		var8009dd78[j].unk04 = 0;
 	}
 }

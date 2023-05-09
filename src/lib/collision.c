@@ -33,13 +33,10 @@ s32 g_TileNumRooms;
 u32 *g_TileRooms;
 s32 var8009a8ac;
 f32 var8009a8b0;
-s32 var8009a8b4;
 struct coord g_CdEdgeVtx1;
 struct coord g_CdEdgeVtx2;
 struct prop *g_CdObstacleProp;
-s32 var8009a8d8;
 struct coord g_CdObstaclePos;
-s32 var8009a8ec;
 f32 var8009a8f0;
 bool g_CdHasSavedPos;
 struct coord g_CdPos1;
@@ -47,9 +44,7 @@ struct coord g_CdPos2;
 struct geoblock g_CdSavedBlock;
 struct geo *g_CdObstacleGeo;
 
-s32 var8005f030 = 0;
 bool g_CdHasSavedBlock = false;
-s32 var8005f038 = 0;
 
 static f32 func0f1577f0(f32 arg0[2], f32 arg1[2], f32 arg2[2], f32 arg3[2])
 {
@@ -278,14 +273,10 @@ u32 cdGetGeoFlags(void)
 
 static void cdClearResults(void)
 {
-	var8009a8b4 = 0;
 	var8009a8ac = 0;
 	g_CdObstacleProp = NULL;
-	var8009a8d8 = 0;
-	var8009a8ec = 0;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
-	var8005f038 = 0;
 }
 
 static void cdSetObstacleVtxProp(struct coord *vtx1, struct coord *vtx2, struct prop *prop)
@@ -294,14 +285,10 @@ static void cdSetObstacleVtxProp(struct coord *vtx1, struct coord *vtx2, struct 
 
 	g_CdEdgeVtx2 = *vtx2;
 
-	var8009a8b4 = 1;
 	var8009a8ac = 0;
 	g_CdObstacleProp = prop;
-	var8009a8d8 = 0;
-	var8009a8ec = 0;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
-	var8005f038 = 0;
 }
 
 static void cdSetObstacleVtxPropFlt(struct coord *vtx1, struct coord *vtx2, struct prop *prop, f32 arg3)
@@ -312,14 +299,10 @@ static void cdSetObstacleVtxPropFlt(struct coord *vtx1, struct coord *vtx2, stru
 
 	g_CdEdgeVtx2 = *vtx2;
 
-	var8009a8b4 = 1;
 	var8009a8ac = 1;
 	g_CdObstacleProp = prop;
-	var8009a8d8 = 0;
-	var8009a8ec = 0;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
-	var8005f038 = 0;
 }
 
 static void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width)
@@ -348,14 +331,10 @@ static void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width)
 
 static void cdSetObstacleProp(struct prop *prop)
 {
-	var8009a8b4 = 0;
 	var8009a8ac = 0;
 	g_CdObstacleProp = prop;
-	var8009a8d8 = 0;
-	var8009a8ec = 0;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
-	var8005f038 = 0;
 }
 
 static void cdSetObstacleVtxColProp(struct coord *vtxpos1, struct coord *vtxpos2, struct coord *collisionpos, struct prop *prop)
@@ -366,14 +345,10 @@ static void cdSetObstacleVtxColProp(struct coord *vtxpos1, struct coord *vtxpos2
 
 	g_CdObstaclePos = *collisionpos;
 
-	var8009a8b4 = 1;
 	var8009a8ac = 0;
 	g_CdObstacleProp = prop;
-	var8009a8d8 = 1;
-	var8009a8ec = 0;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
-	var8005f038 = 0;
 }
 
 static void cdSetObstacleVtxColPropFltGeo(struct coord *vtxpos1, struct coord *vtxpos2, struct coord *collisionpos, struct prop *prop, f32 arg4, struct geo *geo)
@@ -384,16 +359,12 @@ static void cdSetObstacleVtxColPropFltGeo(struct coord *vtxpos1, struct coord *v
 
 	g_CdObstaclePos = *collisionpos;
 
-	var8009a8b4 = 1;
 	var8009a8ac = 0;
 	g_CdObstacleProp = prop;
-	var8009a8d8 = 1;
 	var8009a8f0 = arg4;
-	var8009a8ec = 1;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
 	g_CdObstacleGeo = geo;
-	var8005f038 = 1;
 }
 
 void cdSetSavedPos(struct coord *pos1, struct coord *pos2)
@@ -3844,14 +3815,8 @@ static bool cd0002e680IntTile(struct geotilei *tile, s32 numvertices, struct coo
 	struct coord sp6c;
 
 	for (i = 0; i < numvertices; i++) {
-		if (var8005f030) {
-			s32 remaining = numvertices - i;
-			next = (remaining + numvertices - 2) % numvertices;
-			curr = remaining - 1;
-		} else {
-			next = (i + 1) % numvertices;
-			curr = i;
-		}
+		next = (i + 1) % numvertices;
+		curr = i;
 
 		if (cd0002ac70IntTile((struct coord *)((u32)verts + curr * sizeof(struct coord)),
 					(struct coord *)((u32)verts + next * sizeof(struct coord)),
@@ -3879,14 +3844,8 @@ static bool cd0002e82cIntTile(struct geotilef *tile, s32 numvertices, struct coo
 	struct coord sp6c;
 
 	for (i = 0; i < numvertices; i++) {
-		if (var8005f030) {
-			s32 remaining = numvertices - i;
-			next = (remaining + numvertices - 2) % numvertices;
-			curr = remaining - 1;
-		} else {
-			next = (i + 1) % numvertices;
-			curr = i;
-		}
+		next = (i + 1) % numvertices;
+		curr = i;
 
 		if (cd0002b128FltTile((struct coord *)((u32)verts + curr * sizeof(struct coord)),
 					(struct coord *)((u32)verts + next * sizeof(struct coord)),
@@ -3914,14 +3873,8 @@ static bool cd0002e9d8Block(struct geoblock *thisblock, s32 numvertices, struct 
 	struct coord sp6c;
 
 	for (i = 0; i < numvertices; i++) {
-		if (var8005f030) {
-			s32 remaining = numvertices - i;
-			next = (remaining + numvertices - 2) % numvertices;
-			curr = remaining - 1;
-		} else {
-			next = (i + 1) % numvertices;
-			curr = i;
-		}
+		next = (i + 1) % numvertices;
+		curr = i;
 
 		if (cd0002b560Block((struct coord *)((u32)verts + curr * sizeof(struct coord)),
 					(struct coord *)((u32)verts + next * sizeof(struct coord)),
@@ -3949,14 +3902,8 @@ static bool cd0002eb84Cyl(struct geocyl *cyl, s32 numvertices, struct coord *arg
 	struct coord sp6c;
 
 	for (i = 0; i < numvertices; i++) {
-		if (var8005f030) {
-			s32 remaining = numvertices - i;
-			next = (remaining + numvertices - 2) % numvertices;
-			curr = remaining - 1;
-		} else {
-			next = (i + 1) % numvertices;
-			curr = i;
-		}
+		next = (i + 1) % numvertices;
+		curr = i;
 
 		if (cd0002b954Cyl((struct coord *)((u32)arg2 + curr * sizeof(struct coord)),
 					(struct coord *)((u32)arg2 + next * sizeof(struct coord)),

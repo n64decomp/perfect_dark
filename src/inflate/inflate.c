@@ -52,8 +52,9 @@ static u16 mask_bits[] = {
 	0x01ff, 0x03ff, 0x07ff, 0x0fff, 0x1fff, 0x3fff, 0x7fff, 0xffff
 };
 
-u32 lbits = 9;
-u32 dbits = 6;
+#define lbits 9
+#define dbits 6
+
 u32 hufts = 0;
 
 /**

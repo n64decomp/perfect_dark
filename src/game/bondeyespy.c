@@ -25,11 +25,11 @@
 #include "data.h"
 #include "types.h"
 
+#define g_EyespyMaxHeight 160
+
 u8 g_EyespyPickup = false;
 u8 g_EyespyHit = EYESPYHIT_NONE;
 u8 g_EyespyPrevHit = EYESPYHIT_NONE;
-u8 var80070ecc = 0;
-f32 g_EyespyMaxHeight = 160;
 f32 g_EyespyMinHeight = 80;
 
 /**
@@ -1010,7 +1010,6 @@ void eyespyProcessInput(bool allowbuttons)
 
 	g_EyespyPrevHit = g_EyespyHit;
 	g_EyespyHit = EYESPYHIT_NONE;
-	var80070ecc = 0;
 
 	eyespyUpdateVertical();
 

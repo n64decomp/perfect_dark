@@ -56,7 +56,6 @@ struct blendsettings {
 
 struct blendsettings g_Blend;
 Gfx *var800a4634;
-Gfx *var800a4638;
 u32 var800a463c;
 
 s32 var8007fac4 = 0;
@@ -70,11 +69,7 @@ s32 var8007fadc = 0;
 s32 var8007fae0 = 0;
 u32 var8007fae4 = 0x00000000;
 u32 var8007fae8 = 0x00000000;
-u32 var8007faec = 0x00000000;
-u32 var8007faf0 = 0x00000000;
 
-struct font *g_FontTahoma2 = NULL;
-struct fontchar *g_FontTahoma1 = NULL;
 struct font *g_FontNumeric = NULL;
 struct fontchar *g_CharsNumeric = NULL;
 struct font *g_FontHandelGothicXs = NULL;
@@ -85,13 +80,6 @@ struct font *g_FontHandelGothicMd = NULL;
 struct fontchar *g_CharsHandelGothicMd = NULL;
 struct font *g_FontHandelGothicLg = NULL;
 struct fontchar *g_CharsHandelGothicLg = NULL;
-
-u32 var8007fb24 = 0x00000000;
-u32 var8007fb28 = 0x00000000;
-u32 var8007fb2c = 0x00000000;
-u32 var8007fb30 = 0x00000000;
-u32 var8007fb34 = 0x00000000;
-u32 var8007fb38 = 0x00000000;
 
 u16 var8007fb3c[] = {
 	0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00,
@@ -192,27 +180,17 @@ void textReset(void)
 	extern u8 _fontocramdSegmentRomStart,         _fontocramdSegmentRomEnd;
 	extern u8 _fontocralgSegmentRomStart,         _fontocralgSegmentRomEnd;
 
-	var8007faec = 0;
-	g_FontTahoma2 = NULL;
 	g_FontNumeric = NULL;
 	g_FontHandelGothicXs = NULL;
 	g_FontHandelGothicSm = NULL;
 	g_FontHandelGothicMd = NULL;
 	g_FontHandelGothicLg = NULL;
-	var8007fb24 = 0;
-	var8007fb2c = 0;
-	var8007fb34 = 0;
 
-	var8007faf0 = 0;
-	g_FontTahoma1 = NULL;
 	g_CharsNumeric = NULL;
 	g_CharsHandelGothicXs = NULL;
 	g_CharsHandelGothicSm = NULL;
 	g_CharsHandelGothicMd = NULL;
 	g_CharsHandelGothicLg = NULL;
-	var8007fb28 = 0;
-	var8007fb30 = 0;
-	var8007fb38 = 0;
 
 	var8007fac4 = 0;
 	g_TextRotated90 = false;
@@ -346,7 +324,6 @@ Gfx *text0f153ab0(Gfx *gdl)
 	allocation = gfxAllocate(sizeof(Gfx) * 530);
 
 	var800a4634 = allocation;
-	var800a4638 = allocation + 530;
 
 	gSPDisplayList(gdl++, var800a4634);
 

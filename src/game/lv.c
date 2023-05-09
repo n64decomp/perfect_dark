@@ -104,7 +104,6 @@ struct stagetableentry *g_CurrentStage;
 
 u32 var80084010 = 0;
 bool var80084014 = false;
-f32 var80084018 = 1;
 
 s32 g_Difficulty = DIFF_A;
 
@@ -394,7 +393,6 @@ void lvReset(s32 stagenum)
 			}
 		}
 
-		acousticReset();
 		portalsReset();
 		lightsReset();
 		setCurrentPlayerNum(0);
@@ -412,7 +410,6 @@ void lvReset(s32 stagenum)
 	}
 
 	modelmgrSetLvResetting(false);
-	var80084018 = 1;
 	schedResetArtifacts();
 	lvSetPaused(0);
 
@@ -1658,11 +1655,6 @@ Gfx *lvRender(Gfx *gdl)
 	return gdl;
 }
 
-
-u32 g_CutsceneTime240_60 = 0;
-
-
-
 static void lvResetSoloHandicaps(void)
 {
 	if (g_Vars.antiplayernum >= 0) {
@@ -1803,16 +1795,6 @@ static void lvUpdateSoloHandicaps(void)
 		g_PlayerDamageRxScale = 0.5f * frac;
 		g_ExplosionDamageTxScale = 0.25f * frac;
 	}
-}
-
-static void lvUpdateCutsceneTime(void)
-{
-	if (g_Vars.in_cutscene) {
-		g_CutsceneTime240_60 += g_Vars.lvupdate60;
-		return;
-	}
-
-	g_CutsceneTime240_60 = 0;
 }
 
 s32 lvGetSlowMotionType(void)
@@ -2102,7 +2084,6 @@ void lvTick(void)
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
 		musicTick();
 	} else {
-		lvUpdateCutsceneTime();
 		PROFILE(PROFILEMARKER_LVT_VTXSTORE, vtxstoreTick());
 		lvUpdateSoloHandicaps();
 		skyTick();

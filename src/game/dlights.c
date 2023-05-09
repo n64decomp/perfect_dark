@@ -50,7 +50,6 @@ f32 *var80061434 = NULL;
 bool *var80061438 = NULL;
 f32 var8006143c = 50;
 u32 var80061440 = 0x00000000;
-u32 var80061444 = 1;
 bool g_IsSwitchingGoggles = false;
 
 s32 var80061458 = 0x00000000;
@@ -546,9 +545,7 @@ void roomSetLightBroken(s32 roomnum, s32 lightnum)
 
 void lightsReset(void)
 {
-	if (var80061444) {
-		func0f004c6c();
-	}
+	func0f004c6c();
 }
 
 void func0f001c0c(void)
@@ -1847,8 +1844,7 @@ void func0f0056f4(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
 {
 	f32 dist;
 
-	if (!var80061444
-			|| PLAYERCOUNT() >= 3
+	if (PLAYERCOUNT() >= 3
 			|| roomnum1 == roomnum2
 			|| roomnum1 == -1
 			|| roomnum2 == -1) {

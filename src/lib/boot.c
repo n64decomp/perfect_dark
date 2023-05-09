@@ -23,7 +23,6 @@ OSScClient var8008dca8;
 u32 g_OsMemSize;
 
 u8 *g_StackLeftAddrs[7] = {0};
-u8 *g_StackRightAddrs[7] = {0};
 u8 *g_StackAllocatedPos = (u8 *) K0BASE + 4 * 1024 * 1024 - FRAMEBUFFER_SIZE;
 
 extern OSSched g_Sched;
@@ -112,7 +111,6 @@ void bootPhase1(void)
 	// Clear the stack allocation pointers
 	for (i = 0; i < ARRAYCOUNT(g_StackLeftAddrs); i++) {
 		g_StackLeftAddrs[i] = NULL;
-		g_StackRightAddrs[i] = NULL;
 	}
 
 	osInitialize();
@@ -161,7 +159,6 @@ void *bootAllocateStack(s32 threadid, s32 size)
 	s32 j;
 	u8 *tmp;
 
-	g_StackRightAddrs[threadid] = g_StackAllocatedPos;
 	size = (size + 0xf) & 0xfffffff0;
 
 	g_StackAllocatedPos -= size;

@@ -13,9 +13,6 @@
 glabel g_VmStateTable
 .space 4
 
-glabel g_VmInitialised
-.space 4
-
 glabel g_VmZipBuffer
 .space 4
 

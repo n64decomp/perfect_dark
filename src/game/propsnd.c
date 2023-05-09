@@ -21,11 +21,6 @@ struct audiochannel *g_AudioChannels = NULL;
 
 u32 g_AudioPrevUuid = 0x00000000;
 
-u32 var8006ae2c = 0x00000000;
-u32 var8006ae34 = 0x00000000;
-
-s16 var8006ae50 = -1;
-
 static void func0f092a98(s32 channelnum);
 static s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 *rooms, s16 soundnum, s32 arg6, f32 *arg7);
 static s32 propsnd0f094d78(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, f32 arg4, bool arg5, struct audiochannel *channel);
@@ -211,8 +206,6 @@ static void propsndTickChannel(s32 channelnum)
 				} else {
 					tmprooms = rooms;
 				}
-
-				var8006ae50 = channel->unk2c;
 
 				channel->unk04 = propsnd0f0946b0(pos, channel->unk34, channel->unk38, channel->unk3c,
 						tmprooms, channel->soundnum26, channel->unk10, &channel->unk4c);
@@ -835,7 +828,6 @@ static s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 
 	union soundnumhack sp68;
 	f32 sp64;
 	s16 sp62;
-	s32 s0;
 	s32 i;
 
 	sp64 = arg3 + 10.0f;
@@ -864,12 +856,6 @@ static s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 
 		}
 	}
 
-	if (var8006ae34 && var8006ae2c == sp6c.id) {
-		s0 = 1;
-	} else {
-		s0 = 0;
-	}
-
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		struct player *player = g_Vars.players[i];
 		s32 camroom;
@@ -880,7 +866,7 @@ static s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 
 			camroom = -1;
 		}
 
-		func0f0056f4(camroom, &player->cam_pos, sp62, pos, 0, &sp64, s0);
+		func0f0056f4(camroom, &player->cam_pos, sp62, pos, 0, &sp64, 0);
 	}
 
 	if (arg7 != NULL) {

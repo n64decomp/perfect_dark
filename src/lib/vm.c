@@ -67,9 +67,6 @@
  * mappings in the TLB are static.
  */
 
-u32 g_VmNumTlbMisses;
-u32 g_VmNumPageMisses;
-u32 g_VmNumPageReplaces;
 u8 *g_VmMarker;
 u32 g_VmRamEnd;
 u32 g_VmStateTableEnd;
@@ -82,7 +79,6 @@ extern u8 _gameSegmentEnd;
 extern u8 _gamezipSegmentRomStart;
 
 extern u32 *g_VmStateTable;
-extern u8 g_VmInitialised;
 extern u32 g_VmZipBuffer;
 extern u32 *g_VmZipTable;
 
@@ -167,8 +163,6 @@ void vmInit(void)
 	u8 *s7;
 	s32 statetablelen;
 
-	g_VmInitialised = true;
-
 	rzipInit();
 
 	if (bootGetMemSize() <= 0x400000) {
@@ -203,10 +197,6 @@ void vmInit(void)
 			s2 += rzipInflate(zip, s2, sp68);
 		}
 	}
-
-	g_VmNumTlbMisses = 0;
-	g_VmNumPageMisses = 0;
-	g_VmNumPageReplaces = 0;
 
 	osInvalICache(0, ICACHE_SIZE);
 }

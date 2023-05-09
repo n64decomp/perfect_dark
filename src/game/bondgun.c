@@ -90,8 +90,6 @@ struct fireslot g_Fireslots[NUM_FIRESLOTS];
 
 Lights1 var80070090 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0xb2, 0x4d, 0x2e);
 
-u32 var800700a8 = 0x00025800;
-
 u16 g_CartFileNums[] = {
 	FILE_GCARTRIDGE,
 	FILE_GCARTRIFLE,
@@ -3216,11 +3214,11 @@ u32 bgunCalculateGunMemCapacity(void)
 		case STAGE_VILLA:
 		case STAGE_AIRFORCEONE:
 		case STAGE_ATTACKSHIP:
-			 return var800700a8 + 0x6400;
+			 return 0x25800 + 0x6400;
 		}
 	}
 
-	return var800700a8;
+	return 0x25800;
 }
 
 void bgunFreeGunMem(void)
@@ -3387,9 +3385,6 @@ void bgunTickGunLoad(void)
 		}
 
 		// Load the model file to ptr
-		g_LoadType = LOADTYPE_GUN;
-
-
 		modeldef = fileLoadToAddr(player->gunctrl.loadfilenum, FILELOADMETHOD_EXTRAMEM, (u8 *)ptr, loadsize);
 
 		// Reserve some space for textures

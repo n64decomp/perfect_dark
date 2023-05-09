@@ -10,11 +10,7 @@ void titleInit(void)
 	g_TitleNextMode = TITLEMODE_LEGAL;
 	g_TitleTimer = 0;
 	g_TitleNextStage = -1;
-	var800624e0 = 0;
-	var800624e8 = 1;
-	var800624ec = 0;
 	var800624f0 = 0;
-	var800624f4 = 1;
 	g_MissionConfig.pdmodereaction = 0;
 	g_MissionConfig.pdmodehealth = 128;
 	g_MissionConfig.pdmodedamage = 128;

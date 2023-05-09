@@ -2042,8 +2042,6 @@ static void chrTickPoisoned(struct chrdata *chr)
 	}
 }
 
-f32 var800629e8 = 1;
-
 bool chrTickBeams(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;
@@ -2449,7 +2447,7 @@ s32 chrTick(struct prop *prop)
 			}
 
 			g_ModelJointPositionedFunc = NULL;
-			modelSetDistanceScale(var800629e8);
+			modelSetDistanceScale(1);
 
 			if (fulltick) {
 				colourTween(chr->shadecol, chr->nextcol);

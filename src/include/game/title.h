@@ -4,10 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-extern u32 var800624d4;
-extern u32 var800624d8;
-extern u32 var800624dc;
-
 extern s32 g_NumPlayers;
 
 void titleInit(void);

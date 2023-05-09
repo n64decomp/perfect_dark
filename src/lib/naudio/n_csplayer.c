@@ -65,8 +65,6 @@ f32 var8005f34c[100] = {
 	18.75, 19,   19.25, 19.5, 19.75, 20,   20.25, 20.5, 20.75, 21,
 };
 
-u32 var8005f4dc = 0x00000000;
-
 void func00039cd0(N_ALCSPlayer *seqp);
 static ALMicroTime __n_CSPVoiceHandler(void *node);
 
@@ -439,11 +437,9 @@ static void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp)
 		break;
 
 	case AL_SEQ_END_EVT:
-		if (!var8005f4dc) {
-			seqp->state = AL_STOPPING;
-			evt.type    = AL_SEQP_STOP_EVT;
-			n_alEvtqPostEvent(&seqp->evtq, &evt, AL_EVTQ_END, 0);
-		}
+		seqp->state = AL_STOPPING;
+		evt.type    = AL_SEQP_STOP_EVT;
+		n_alEvtqPostEvent(&seqp->evtq, &evt, AL_EVTQ_END, 0);
 		break;
 
 	case AL_TRACK_END:

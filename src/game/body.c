@@ -33,8 +33,6 @@ s32 g_NumMaleGuardHeads = 0;
 s32 g_NumFemaleGuardHeads = 0;
 s32 g_NumMaleGuardTeamHeads = 0;
 s32 g_NumFemaleGuardTeamHeads = 0;
-s32 var80062b14 = 0;
-s32 var80062b18 = 0;
 
 s32 g_BondBodies[] = {
 	BODY_DJBOND,

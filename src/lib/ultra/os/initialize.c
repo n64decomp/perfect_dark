@@ -17,10 +17,6 @@ extern s32 osAppNMIBuffer[];
 extern OSPiHandle CartRomHandle;
 extern OSPiHandle LeoDiskHandle;
 
-u32 __osFinalRom;
-
-OSTime osClockRate = 62500000;
-
 s32 osViClock = VI_NTSC_CLOCK;
 
 u32 _osShutdown = 0;
@@ -30,7 +26,6 @@ void osInitialize(void)
 {
 	u32 pifdata;
 
-	__osFinalRom = TRUE;
 	__osSetSR(__osGetSR() | SR_CU1);
 	__osSetFpcCsr(FPCSR_FS | FPCSR_EV);
 
@@ -59,8 +54,6 @@ void osInitialize(void)
 	LeoDiskHandle.relDuration = IO_READ(0xa4600030);
 
 	osMapTLBRdb();
-
-	osClockRate = osClockRate * 3 / 4;
 
 	if (osResetType == RESETTYPE_COLD) {
 		bzero(&osAppNMIBuffer, 0x40);
