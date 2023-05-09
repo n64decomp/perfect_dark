@@ -82,8 +82,6 @@
 	build/ROMID/game/acosfasinf.o (section); \
 	build/ROMID/game/game_096b20.o (section); \
 	build/ROMID/game/quaternion.o (section); \
-	build/ROMID/game/floor.o (section); \
-	build/ROMID/game/ceil.o (section); \
 	build/ROMID/game/game_097aa0.o (section); \
 	build/ROMID/game/invitems.o (section); \
 	build/ROMID/game/bondgun.o (section); \

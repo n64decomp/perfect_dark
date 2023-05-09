@@ -151,7 +151,7 @@ static f32 skyClamp(f32 value, f32 min, f32 max)
 
 static f32 skyRound(f32 value)
 {
-	f32 ret;
+	s32 ret;
 	__asm__ ("round.w.s %0, %1" : "=f"(ret) : "f"(value));
 	return ret;
 }
