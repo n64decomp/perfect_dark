@@ -1872,7 +1872,7 @@ bool mp3decInit(void)
 	u8 *sp258;
 	struct mp3decthing *sp254;
 	struct mp3decfourbytes *sp250;
-	const u8 sp248[] = { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
+	static u8 sp248[] = { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
 	s32 sp244;
 	u8 sp243;
 	s32 sp23c;
@@ -2033,7 +2033,7 @@ static bool mp3dec00040164(struct asistream *stream, u32 gr, u32 ch)
 	s32 sp1b4;
 	s32 sp1b0;
 
-	const s32 sp158[] = {
+	static s32 sp158[] = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		1, 1, 1, 1, 2, 2, 3, 3, 3, 2, 0,
 	};
@@ -2238,7 +2238,7 @@ static bool mp3decUnpackScaleFac(struct asistream *stream, u32 gr, u32 ch)
 
 static bool mp3dec00041600(struct asistream *stream, u32 gr, u32 ch)
 {
-	const s32 sp70[2][3][3][4] = {
+	static s32 sp70[2][3][3][4] = {
 		{
 			{ { 6,  5,  5,  5 }, { 9,  9,  9,  9 }, { 6,  9,  9,  9 } },
 			{ { 6,  5,  7,  3 }, { 9,  9,  12, 6 }, { 6,  9,  12, 6 } },

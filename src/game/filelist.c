@@ -144,7 +144,7 @@ void filelistsTick(void)
 
 static void filelistUpdate(struct filelist *list)
 {
-	const u32 sp3a88[] = {
+	static u32 sp3a88[] = {
 		PAKFILETYPE_GAME,
 		PAKFILETYPE_MPSETUP,
 		PAKFILETYPE_MPPLAYER,
@@ -163,7 +163,7 @@ static void filelistUpdate(struct filelist *list)
 	// Device order means controller paks then game pak (ie. SAVEDEVICE constant order)
 
 	// Mapping of display order to device order
-	const s8 dis2dev[] = {
+	static s8 dis2dev[] = {
 		SAVEDEVICE_GAMEPAK,
 		SAVEDEVICE_CONTROLLERPAK1,
 		SAVEDEVICE_CONTROLLERPAK2,
@@ -172,7 +172,7 @@ static void filelistUpdate(struct filelist *list)
 	};
 
 	// Mapping of device order to display order
-	const s8 dev2dis[] = { 1, 2, 3, 4, /* game pak */ 0 };
+	static s8 dev2dis[] = { 1, 2, 3, 4, /* game pak */ 0 };
 
 	list->numdevices = 0;
 

@@ -1588,7 +1588,7 @@ static bool pakCreateInitialFiles(s8 device)
 	s32 j;
 	u32 stack[2];
 
-	u32 filetypes[] = {
+	static u32 filetypes[] = {
 		PAKFILETYPE_BOSS,
 		PAKFILETYPE_CAMERA,
 		PAKFILETYPE_MPPLAYER,
@@ -1597,8 +1597,6 @@ static bool pakCreateInitialFiles(s8 device)
 	};
 
 	u32 filecounts[] = { 2, 3, 5, 5, 5 };
-
-	char *filenames[] = { "BOS\n", "CAM\n", "MPP\n", "MPG\n", "GAM" };
 
 	// Iterate all files on the pak and decrease the counts per filetype
 	if (pakGetFileIdsByType(device, PAKFILETYPE_ALL, fileids) != 0) {

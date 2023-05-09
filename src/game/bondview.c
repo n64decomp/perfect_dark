@@ -1798,7 +1798,7 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 	s32 x;
 	s32 y;
 
-	char directions[][3] = {
+	static char directions[][3] = {
 		{'n', '\0', '\0'},
 		{'n', 'e',  '\0'},
 		{'e', '\0', '\0'},

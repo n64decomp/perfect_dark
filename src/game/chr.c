@@ -4912,7 +4912,7 @@ static Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct pro
 	s32 cloakfade;
 	s32 cmcount;
 
-	s32 sp104[6][4] = {
+	static s32 sp104[6][4] = {
 		{ 0, 1, 3, 2 },
 		{ 7, 5, 4, 6 },
 		{ 5, 1, 0, 4 },

@@ -2145,7 +2145,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 static void menuGetTeamTitlebarColours(u32 *top, u32 *middle, u32 *bottom)
 {
-	const u32 colours[][3] = {
+	static u32 colours[][3] = {
 		// top, middle, bottom
 		{ 0xbf000000, 0x50000000, 0xff000000 },
 		{ 0xbfbf0000, 0x50500000, 0xffff0000 },
@@ -5359,7 +5359,7 @@ struct menudialogdef g_PakAttemptRepairMenuDialog = {
 
 static char *menuTextSaveDeviceName(struct menuitem *item)
 {
-	u16 devices[] = {
+	static u16 devices[] = {
 		L_OPTIONS_112, // "Controller Pak 1"
 		L_OPTIONS_113, // "Controller Pak 2"
 		L_OPTIONS_114, // "Controller Pak 3"

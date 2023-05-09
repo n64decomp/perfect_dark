@@ -677,7 +677,7 @@ static void frExecuteWeaponScript(s32 scriptindex)
 static void frSetTargetProps(void)
 {
 	s32 i;
-	u32 targets[] = {
+	static u32 targets[] = {
 		0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x11,
 		0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a,
 	};
@@ -2123,10 +2123,7 @@ u8 g_ChrBioSlot = 0;
 
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 {
-#ifdef AVOID_UB
-	static
-#endif
-	struct chrbio bios[] = {
+	static struct chrbio bios[] = {
 		// name, race, age, profile
 		/*0*/ { L_MISC_219, L_MISC_220, L_MISC_221, L_MISC_222 }, // Joanna Dark
 		/*1*/ { L_MISC_223, L_MISC_224, L_MISC_225, L_MISC_226 }, // Jonathan
@@ -2207,10 +2204,7 @@ s32 ciGetChrBioBodynumBySlot(s32 slot)
 
 struct miscbio *ciGetMiscBio(s32 index)
 {
-#ifdef AVOID_UB
-	static
-#endif
-	struct miscbio bios[] = {
+	static struct miscbio bios[] = {
 		// name, description
 		{ L_MISC_259, L_MISC_260 },
 		{ L_MISC_261, L_MISC_262 },
@@ -2292,10 +2286,7 @@ u8 g_HangarBioSlot = 0;
 
 struct hangarbio *ciGetHangarBio(s32 index)
 {
-#ifdef AVOID_UB
-	static
-#endif
-	struct hangarbio bios[] = {
+	static struct hangarbio bios[] = {
 		// name, description
 		{ L_MISC_290, L_MISC_313 }, // Carrington Institute
 		{ L_MISC_291, L_MISC_314 }, // Lucerne Tower
@@ -2600,26 +2591,13 @@ void dtEnd(void)
 
 static bool dtIsAvailable(s32 deviceindex)
 {
-	u8 flags[] = {
-		GAMEFILEFLAG_CI_UPLINK_DONE,
-		GAMEFILEFLAG_CI_ECMMINE_DONE,
-		GAMEFILEFLAG_CI_CAMSPY_DONE,
-		GAMEFILEFLAG_CI_NIGHTVISION_DONE,
-		GAMEFILEFLAG_CI_DOORDECODER_DONE,
-		GAMEFILEFLAG_CI_RTRACKER_DONE,
-		GAMEFILEFLAG_CI_IR_DONE,
-		GAMEFILEFLAG_CI_XRAY_DONE,
-		GAMEFILEFLAG_CI_DISGUISE_DONE,
-		GAMEFILEFLAG_CI_CLOAK_DONE,
-	};
-
 	deviceindex--;
 
 	if (deviceindex >= 10) {
 		return true;
 	}
 
-	if (deviceindex < 0 || gamefileHasFlag(flags[deviceindex])) {
+	if (deviceindex < 0 || gamefileHasFlag(GAMEFILEFLAG_CI_UPLINK_DONE - deviceindex)) {
 		return true;
 	}
 
@@ -2660,7 +2638,7 @@ s32 dtGetIndexBySlot(s32 wantindex)
 
 u32 dtGetWeaponByDeviceIndex(s32 deviceindex)
 {
-	u32 weapons[] = {
+	static u32 weapons[] = {
 		WEAPON_DATAUPLINK,
 		WEAPON_ECMMINE,
 		WEAPON_EYESPY,
@@ -2678,25 +2656,12 @@ u32 dtGetWeaponByDeviceIndex(s32 deviceindex)
 
 static u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
 {
-	u32 flags[] = {
-		STAGEFLAG_CI_TRIGGER_UPLINK,
-		STAGEFLAG_CI_TRIGGER_ECMMINE,
-		STAGEFLAG_CI_TRIGGER_CAMSPY,
-		STAGEFLAG_CI_TRIGGER_NIGHTVISION,
-		STAGEFLAG_CI_TRIGGER_DOORDECODER,
-		STAGEFLAG_CI_TRIGGER_RTRACKER,
-		STAGEFLAG_CI_TRIGGER_IR,
-		STAGEFLAG_CI_TRIGGER_XRAY,
-		STAGEFLAG_CI_TRIGGER_DISGUISE,
-		STAGEFLAG_CI_TRIGGER_CLOAK,
-	};
-
-	return flags[deviceindex];
+	return STAGEFLAG_CI_TRIGGER_UPLINK << deviceindex;
 }
 
 char *dtGetDescription(void)
 {
-	u32 texts[] = {
+	static u32 texts[] = {
 		/*0*/ L_MISC_280, // Data uplink
 		/*1*/ L_MISC_279, // ECM mine
 		/*2*/ L_MISC_271, // CamSpy
@@ -2714,38 +2679,12 @@ char *dtGetDescription(void)
 
 char *dtGetTip1(void)
 {
-	u32 texts[] = {
-		/*0*/ L_MISC_357,
-		/*1*/ L_MISC_358,
-		/*2*/ L_MISC_359,
-		/*3*/ L_MISC_360,
-		/*4*/ L_MISC_361,
-		/*5*/ L_MISC_362,
-		/*6*/ L_MISC_363,
-		/*7*/ L_MISC_364,
-		/*8*/ L_MISC_365,
-		/*9*/ L_MISC_366,
-	};
-
-	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
+	return langGet(L_MISC_357 + dtGetIndexBySlot(g_DtSlot));
 }
 
 char *dtGetTip2(void)
 {
-	u32 texts[] = {
-		/*0*/ L_MISC_367,
-		/*1*/ L_MISC_368,
-		/*2*/ L_MISC_369,
-		/*3*/ L_MISC_370,
-		/*4*/ L_MISC_371,
-		/*5*/ L_MISC_372,
-		/*6*/ L_MISC_373,
-		/*7*/ L_MISC_374,
-		/*8*/ L_MISC_375,
-		/*9*/ L_MISC_376,
-	};
-
-	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
+	return langGet(L_MISC_367 + dtGetIndexBySlot(g_DtSlot));
 }
 
 struct trainingdata *getHoloTrainingData(void)
@@ -2841,7 +2780,7 @@ void htEnd(void)
 	struct prop *prop;
 	s16 *propnum;
 	s16 propnums[256];
-	s16 rooms[5] = { 0x0016, 0x0017, 0x0018, 0x0019, -1 };
+	static s16 rooms[5] = { 0x0016, 0x0017, 0x0018, 0x0019, -1 };
 	struct waypoint *waypoints = g_StageSetup.waypoints;
 
 	g_HtData.intraining = false;
@@ -2927,78 +2866,27 @@ s32 htGetIndexBySlot(s32 slot)
 
 char *htGetName(s32 index)
 {
-	u32 texts[] = {
-		L_MISC_410, // "Holo 1 - Looking Around"
-		L_MISC_411, // "Holo 2 - Movement 1"
-		L_MISC_412, // "Holo 3 - Movement 2"
-		L_MISC_413, // "Holo 4 - Unarmed Combat 1"
-		L_MISC_414, // "Holo 5 - Unarmed Combat 2"
-		L_MISC_415, // "Holo 6 - Live Combat 1"
-		L_MISC_416, // "Holo 7 - Live Combat 2"
-	};
-
-	return langGet(texts[index]);
+	return langGet(L_MISC_410 + index);
 }
 
 static u32 func0f1a25c0(s32 index)
 {
-	u32 flags[] = {
-		STAGEFLAG_CI_IN_HOLO1,
-		STAGEFLAG_CI_IN_HOLO2,
-		STAGEFLAG_CI_IN_HOLO3,
-		STAGEFLAG_CI_IN_HOLO4,
-		STAGEFLAG_CI_IN_HOLO5,
-		STAGEFLAG_CI_IN_HOLO6,
-		STAGEFLAG_CI_IN_HOLO7,
-		STAGEFLAG_CI_GENERAL_PURPOSE,
-	};
-
-	return flags[index];
+	return STAGEFLAG_CI_IN_HOLO1 << index;
 }
 
 char *htGetDescription(void)
 {
-	u32 texts[] = {
-		L_MISC_336,
-		L_MISC_337,
-		L_MISC_338,
-		L_MISC_339,
-		L_MISC_340,
-		L_MISC_341,
-		L_MISC_342,
-	};
-
-	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
+	return langGet(L_MISC_336 + htGetIndexBySlot(var80088bb4));
 }
 
 char *htGetTip1(void)
 {
-	u32 texts[] = {
-		L_MISC_343, // "For greater precision..."
-		L_MISC_344, // "Think about where you want to go..."
-		L_MISC_345, // "Ducking enables you to..."
-		L_MISC_346, // "Attacking opponents from behind..."
-		L_MISC_347, // "Only stay close long enough..."
-		L_MISC_348, // "Don't hang around and wait..."
-		L_MISC_349, // "Go for the armed opponents..."
-	};
-
-	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
+	return langGet(L_MISC_343 + htGetIndexBySlot(var80088bb4));
 }
 
 char *htGetTip2(void)
 {
-	u32 texts[] = {
-		L_MISC_350, // "For greater precision..."
-		L_MISC_351, // "Sidestepping and strafing..."
-		L_MISC_352, // "Ducking enables you to..."
-		L_MISC_353, // "Attacking opponents from behind..."
-		L_MISC_354, // "Only stay close long enough..."
-		L_MISC_355, // "Don't hang around and wait..."
-		L_MISC_356, // "Go for the armed opponents..."
-	};
-
-	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
+	return langGet(L_MISC_350 + htGetIndexBySlot(var80088bb4));
 }
 
 static void frGetGoalTargetsText(char *buffer)
@@ -3132,14 +3020,6 @@ static bool frGetHudMiddleSubtext(char *buffer)
 
 static bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 {
-	u32 texts[] = {
-		L_MISC_423, // "ZONE 3"
-		L_MISC_424, // "ZONE 2"
-		L_MISC_425, // "ZONE 1"
-		L_MISC_426, // "BULL'S-EYE"
-		L_MISC_427, // "EXPLODED"
-	};
-
 	if (g_FrData.feedbackzone) {
 		g_FrData.feedbackttl -= g_Vars.lvupdate60;
 
@@ -3157,19 +3037,19 @@ static bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 
 		switch (g_FrData.feedbackzone) {
 		case FRZONE_RING3:
-			sprintf(zonebuffer, "%s", langGet(texts[0]));
+			sprintf(zonebuffer, "%s", langGet(L_MISC_423));
 			return true;
 		case FRZONE_RING2:
-			sprintf(zonebuffer, "%s", langGet(texts[1]));
+			sprintf(zonebuffer, "%s", langGet(L_MISC_424));
 			return true;
 		case FRZONE_RING1:
-			sprintf(zonebuffer, "%s", langGet(texts[2]));
+			sprintf(zonebuffer, "%s", langGet(L_MISC_425));
 			return true;
 		case FRZONE_BULLSEYE:
-			sprintf(zonebuffer, "%s", langGet(texts[3]));
+			sprintf(zonebuffer, "%s", langGet(L_MISC_426));
 			return true;
 		case FRZONE_EXPLODE:
-			sprintf(zonebuffer, "%s", langGet(texts[4]));
+			sprintf(zonebuffer, "%s", langGet(L_MISC_427));
 			return true;
 		}
 

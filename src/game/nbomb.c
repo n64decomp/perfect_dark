@@ -191,7 +191,7 @@ static s32 nbombCalculateAlpha(struct nbomb *nbomb)
 static Gfx *nbombCreateGdl(void)
 {
 	struct gfxvtx *vertices;
-	u32 gdlsizes[] = { 0x0a30, 0x0330 }; // 1 player, 2+ players
+	static u32 gdlsizes[] = { 0x0a30, 0x0330 }; // 1 player, 2+ players
 	Gfx *gdlstart;
 	Gfx *gdl;
 	s32 index = 0;
@@ -722,28 +722,13 @@ Gfx *gasRender(Gfx *gdl)
 	s32 i;
 	bool drawn = false;
 
-	const s32 gasrooms[] = {
-		0x92,
-		0x93,
-		0x94,
-		0x95,
-		0x96,
-		0x97,
-		0x98,
-		0x99,
-		0x9a,
-		0x91,
-		0x8f,
-		0x90,
-	};
-
 	if (g_Vars.stagenum == STAGE_ESCAPE) {
 		f32 intensityfrac = 1.0f;
 
 		campos = g_Vars.currentplayer->cam_pos;
 
 		for (i = 0; i < 12; i++) {
-			if (roomContainsCoord(&campos, gasrooms[i])) {
+			if (roomContainsCoord(&campos, 0x8f + i)) {
 				show = true;
 			}
 		}

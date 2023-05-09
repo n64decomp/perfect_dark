@@ -1147,7 +1147,7 @@ static void creditsTickSlide(void)
 {
 	struct credit *credit = creditGetByRow(0);
 	s32 i;
-	f32 durations[] = {4, 8, 12, 16}; // in seconds
+	static f32 durations[] = {4, 8, 12, 16}; // in seconds
 	f32 loadat = durations[credit->durationindex] + 2.0f + 0.142f * (g_CreditsData->numthisslide * 2 - 1);
 	f32 seconds;
 

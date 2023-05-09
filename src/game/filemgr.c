@@ -57,7 +57,7 @@ struct menudialogdef g_FilemgrRenameMenuDialog;
 
 static char *filemgrGetDeviceName(s32 index)
 {
-	u16 names[] = {
+	static u16 names[] = {
 		L_OPTIONS_112, // "Controller Pak 1"
 		L_OPTIONS_113, // "Controller Pak 2"
 		L_OPTIONS_114, // "Controller Pak 3"
@@ -294,22 +294,14 @@ struct menudialogdef g_FilemgrErrorMenuDialog = {
  */
 s32 filemgrGetDeviceNameOrStartIndex(s32 listnum, s32 operation, s32 optionindex)
 {
-	u16 names[] = {
-		L_OPTIONS_111, // "Game Pak"
-		L_OPTIONS_112, // "Controller Pak 1"
-		L_OPTIONS_113, // "Controller Pak 2"
-		L_OPTIONS_114, // "Controller Pak 3"
-		L_OPTIONS_115, // "Controller Pak 4"
-	};
-
 	s32 i;
 	s32 remaining = optionindex;
 
-	for (i = 0; i < ARRAYCOUNT(names); i++) {
+	for (i = 0; i < 5; i++) {
 		if (g_FileLists[listnum]->devicestartindexes[i] != -1) {
 			if (remaining == 0) {
 				if (operation == MENUOP_GETOPTGROUPTEXT) {
-					return (s32)langGet(names[i]);
+					return (s32)langGet(L_OPTIONS_111 + i);
 				}
 
 				return g_FileLists[listnum]->devicestartindexes[i];
@@ -324,53 +316,34 @@ s32 filemgrGetDeviceNameOrStartIndex(s32 listnum, s32 operation, s32 optionindex
 
 static char *filemgrMenuTextErrorTitle(struct menuitem *item)
 {
-	u16 messages[] = {
-		L_OPTIONS_331, // "Error Loading Game"
-		L_OPTIONS_332, // "Error Saving Game"
-		L_OPTIONS_333, // "Error Loading Player"
-		L_OPTIONS_334, // "Error Saving Player"
-		L_OPTIONS_335, // "Error Loading PerfectHead"
-		L_OPTIONS_336, // "Error Saving PerfectHead"
-		L_OPTIONS_337, // "Error Reading File"
-		L_OPTIONS_338, // "Error Writing File"
-		L_OPTIONS_339, // "Error"
-	};
-
 	switch (g_Menus[g_MpPlayerNum].fm.fileop) {
 	case FILEOP_LOAD_GAME:
 	case FILEOP_LOAD_MPSETUP:
-		return langGet(messages[0]);
+		return langGet(L_OPTIONS_331); // "Error Loading Game"
 	case FILEOP_SAVE_GAME_000:
 	case FILEOP_SAVE_GAME_001:
 	case FILEOP_SAVE_GAME_002:
 	case FILEOP_SAVE_MPSETUP:
-		return langGet(messages[1]);
+		return langGet(L_OPTIONS_332); // "Error Saving Game"
 	case FILEOP_LOAD_MPPLAYER:
-		return langGet(messages[2]);
+		return langGet(L_OPTIONS_333); // "Error Loading Player"
 	case FILEOP_SAVE_MPPLAYER:
-		return langGet(messages[3]);
+		return langGet(L_OPTIONS_334); // "Error Saving Player"
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
-		return langGet(messages[6]);
+		return langGet(L_OPTIONS_337); // "Error Reading File"
 	case FILEOP_WRITE_GAME:
 	case FILEOP_WRITE_MPSETUP:
 	case FILEOP_WRITE_MPPLAYER:
-		return langGet(messages[7]);
+		return langGet(L_OPTIONS_338); // "Error Writing File"
 	}
 
-	return langGet(messages[8]);
+	return langGet(L_OPTIONS_339); // "Error"
 }
 
 static char *filemgrMenuTextFileType(struct menuitem *item)
 {
-	u16 names[] = {
-		L_OPTIONS_103, // "Single Player Agent File"
-		L_OPTIONS_104, // "Combat Simulator Settings File"
-		L_OPTIONS_105, // "Combat Simulator Player File"
-		L_OPTIONS_106, // "PerfectHead Files"
-	};
-
 	switch (g_Menus[g_MpPlayerNum].fm.fileop) {
 	case FILEOP_SAVE_GAME_000:
 	case FILEOP_SAVE_GAME_001:
@@ -378,20 +351,20 @@ static char *filemgrMenuTextFileType(struct menuitem *item)
 	case FILEOP_WRITE_GAME:
 	case FILEOP_LOAD_GAME:
 	case FILEOP_READ_GAME:
-		return langGet(names[0]);
+		return langGet(L_OPTIONS_103); // "Single Player Agent File"
 	case FILEOP_SAVE_MPSETUP:
 	case FILEOP_WRITE_MPSETUP:
 	case FILEOP_LOAD_MPSETUP:
 	case FILEOP_READ_MPSETUP:
-		return langGet(names[1]);
+		return langGet(L_OPTIONS_104); // "Combat Simulator Settings File"
 	case FILEOP_SAVE_MPPLAYER:
 	case FILEOP_WRITE_MPPLAYER:
 	case FILEOP_LOAD_MPPLAYER:
 	case FILEOP_READ_MPPLAYER:
-		return langGet(names[2]);
+		return langGet(L_OPTIONS_105); // "Combat Simulator Player File"
 	}
 
-	return langGet(names[0]);
+	return langGet(L_OPTIONS_103); // "Single Player Agent File"
 }
 
 static void func0f10898c(void)
@@ -646,7 +619,7 @@ static bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 	s32 errno = 0;
 	bool showfilesaved = (g_Menus[g_MpPlayerNum].fm.isretryingsave & 1) != 0;
 
-	const s32 filetypes[] = {
+	static s32 filetypes[] = {
 		PAKFILETYPE_GAME,
 		PAKFILETYPE_MPSETUP,
 		PAKFILETYPE_MPPLAYER,
@@ -1015,8 +988,6 @@ struct menudialogdef g_PakNotOriginalMenuDialog = {
 
 static void func0f1097d0(s32 device)
 {
-	char *typenames[] = {"GAM", "MPG", "MPP", "CAM"};
-	const u32 typecodes[] = {0x80, 0x40, 0x20, 0x08};
 	void *thing;
 
 	if (g_FileLists[0]) {
@@ -1415,7 +1386,7 @@ struct menudialogdef g_FilemgrDuplicateNameMenuDialog = {
 
 static char *filemgrMenuTextLocationName2(struct menuitem *item)
 {
-	u16 names[] = {
+	static u16 names[] = {
 		L_OPTIONS_112, // "Controller Pak 1"
 		L_OPTIONS_113, // "Controller Pak 2"
 		L_OPTIONS_114, // "Controller Pak 3"

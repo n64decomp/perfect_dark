@@ -500,22 +500,7 @@ struct menudialogdef g_MpEndscreenTeamRankingMenuDialog = {
 
 static char *mpMenuTextPlacementWithSuffix(struct menuitem *item)
 {
-	u16 suffixes[] = {
-		L_MPMENU_264, // "1st"
-		L_MPMENU_265, // "2nd"
-		L_MPMENU_266, // "3rd"
-		L_MPMENU_267, // "4th"
-		L_MPMENU_268, // "5th"
-		L_MPMENU_269, // "6th"
-		L_MPMENU_270, // "7th"
-		L_MPMENU_271, // "8th"
-		L_MPMENU_272, // "9th"
-		L_MPMENU_273, // "10th"
-		L_MPMENU_274, // "11th"
-		L_MPMENU_275, // "12th"
-	};
-
-	return langGet(suffixes[g_PlayerConfigsArray[g_MpPlayerNum].base.placement]);
+	return langGet(L_MPMENU_264 + g_PlayerConfigsArray[g_MpPlayerNum].base.placement);
 }
 
 static s32 mpPlacementMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)

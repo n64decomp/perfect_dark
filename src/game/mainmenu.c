@@ -57,24 +57,8 @@ char *soloMenuTextDifficulty(struct menuitem *item)
 	}
 }
 
-u16 g_ControlStyleOptions[] = {
-	L_OPTIONS_239, // "1.1"
-	L_OPTIONS_240, // "1.2"
-	L_OPTIONS_241, // "1.3"
-	L_OPTIONS_242, // "1.4"
-	L_OPTIONS_243, // "2.1"
-	L_OPTIONS_244, // "2.2"
-	L_OPTIONS_245, // "2.3"
-	L_OPTIONS_246, // "2.4"
-};
-
 static s32 menuhandlerControlStyleImpl(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpindex)
 {
-	u16 categories[] = {
-		L_OPTIONS_237, // "Single"
-		L_OPTIONS_238, // "Double"
-	};
-
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 		mpindex = g_Vars.currentplayerstats->mpindex;
 	}
@@ -87,9 +71,9 @@ static s32 menuhandlerControlStyleImpl(s32 operation, struct menuitem *item, uni
 		data->list.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(g_ControlStyleOptions[data->list.value]);
+		return (s32) langGet(L_OPTIONS_239 + data->list.value);
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(categories[data->list.value]);
+		return (s32) langGet(L_OPTIONS_237 + data->list.value);
 	case MENUOP_GETGROUPSTARTINDEX:
 		data->list.groupstartindex = data->list.value == 0 ? 0 : 4;
 		break;
@@ -147,17 +131,12 @@ static s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union han
 	u32 playernum = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 		? g_Vars.currentplayerstats->mpindex : item->param3;
 
-	u16 options[] = {
-		L_OPTIONS_201, // "Hold"
-		L_OPTIONS_202, // "Toggle"
-	};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->dropdown.value]);
+		return (s32) langGet(L_OPTIONS_201 + data->dropdown.value);
 	case MENUOP_SET:
 		optionsSetAimControl(playernum, data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
@@ -171,19 +150,12 @@ static s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union han
 
 s32 menuhandlerSoundMode(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u16 options[] = {
-		L_OPTIONS_232, // "Mono"
-		L_OPTIONS_233, // "Stereo"
-		L_OPTIONS_234, // "Headphone"
-		L_OPTIONS_235, // "Surround"
-	};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 4;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->dropdown.value]);
+		return (s32) langGet(L_OPTIONS_232 + data->dropdown.value);
 	case MENUOP_SET:
 		sndSetSoundMode(data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
@@ -197,18 +169,12 @@ s32 menuhandlerSoundMode(s32 operation, struct menuitem *item, union handlerdata
 
 static s32 menuhandlerScreenSize(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u16 options[] = {
-		L_OPTIONS_220, // "Full"
-		L_OPTIONS_221, // "Wide"
-		L_OPTIONS_222, // "Cinema"
-	};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 3;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->dropdown.value]);
+		return (s32) langGet(L_OPTIONS_220 + data->dropdown.value);
 	case MENUOP_SET:
 		optionsSetScreenSize(data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
@@ -222,17 +188,12 @@ static s32 menuhandlerScreenSize(s32 operation, struct menuitem *item, union han
 
 s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u16 options[] = {
-		L_OPTIONS_223, // "Normal"
-		L_OPTIONS_224, // "16:9"
-	};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->dropdown.value]);
+		return (s32) langGet(L_OPTIONS_223 + data->dropdown.value);
 	case MENUOP_SET:
 		optionsSetScreenRatio(data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
@@ -244,54 +205,14 @@ s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
-#if PAL
-s32 menuhandlerLanguage(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	u16 labels[] = {
-		L_MPWEAPONS_262, // English
-		L_MPWEAPONS_263, // French
-		L_MPWEAPONS_264, // German
-		L_MPWEAPONS_265, // Italian
-		L_MPWEAPONS_266, // Spanish
-	};
-
-	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
-		data->dropdown.value = 5;
-		break;
-	case MENUOP_GETOPTIONTEXT:
-		return (s32)langGet(labels[data->dropdown.value]);
-	case MENUOP_SET:
-		g_Vars.language = data->dropdown.value;
-		langSetEuropean(g_Vars.language);
-		g_Vars.modifiedfiles |= MODFILE_GAME | MODFILE_BOSS;
-		break;
-	case MENUOP_GETSELECTEDINDEX:
-		data->dropdown.value = g_Vars.language;
-
-		if (data->dropdown.value > LANGUAGE_PAL_ES) {
-			data->dropdown.value = LANGUAGE_PAL_EN;
-		}
-		break;
-	}
-
-	return 0;
-}
-#endif
-
 s32 menuhandlerScreenSplit(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u16 options[] = {
-		L_OPTIONS_225, // "Horizontal"
-		L_OPTIONS_226, // "Vertical"
-	};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->dropdown.value]);
+		return (s32) langGet(L_OPTIONS_225 + data->dropdown.value);
 	case MENUOP_SET:
 		if (data->dropdown.value != (u32)optionsGetScreenSplit()) {
 			optionsSetScreenSplit(data->dropdown.value);
@@ -1276,14 +1197,6 @@ static s32 menuhandlerCoopFriendlyFire(s32 operation, struct menuitem *item, uni
 
 static s32 menuhandlerCoopBuddy(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	const u16 labels[] = {
-		L_OPTIONS_261, // "Human"
-		L_OPTIONS_262, // "1 Simulant"
-		L_OPTIONS_263, // "2 Simulants"
-		L_OPTIONS_264, // "3 Simulants"
-		L_OPTIONS_265, // "4 Simulants"
-	};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		{
@@ -1305,7 +1218,7 @@ static s32 menuhandlerCoopBuddy(s32 operation, struct menuitem *item, union hand
 				extra = 0;
 			}
 
-			return (s32)langGet(labels[data->dropdown.value + extra]);
+			return (s32)langGet(L_OPTIONS_261 + data->dropdown.value + extra);
 		}
 	case MENUOP_SET:
 		{
@@ -1415,14 +1328,12 @@ static s32 menuhandlerAntiRadar(s32 operation, struct menuitem *item, union hand
 
 static s32 menuhandlerAntiPlayer(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	const u16 labels[] = {L_OPTIONS_271, L_OPTIONS_272};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(labels[data->dropdown.value]);
+		return (s32) langGet(L_OPTIONS_271 + data->dropdown.value);
 	case MENUOP_SET:
 		g_Vars.pendingantiplayernum = data->dropdown.value;
 		g_Vars.modifiedfiles |= MODFILE_GAME;
@@ -1697,7 +1608,7 @@ static s32 func0f104720(s32 value)
 
 static s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	struct optiongroup groups[] = {
+	static struct optiongroup groups[] = {
 		{  0, L_OPTIONS_123 }, // "Mission 1"
 		{  3, L_OPTIONS_124 }, // "Mission 2"
 		{  4, L_OPTIONS_125 }, // "Mission 3"
@@ -3394,7 +3305,7 @@ static char *invMenuTextSecondaryFunction(struct menuitem *item)
 
 void func0f105948(s32 weaponnum)
 {
-	f32 gunconfig[][5] = {
+	static f32 gunconfig[][5] = {
 		{ 23.299999237061f,   -16.799999237061f,  -153.39999389648f,  6.4140100479126f, 0.48769000172615f },
 		{ 22.299999237061f,   -13.5f,             -216.60000610352f,  6.443009853363f,  0.34057000279427f },
 		{ 19.5f,              -31.89999961853f,   -154.89999389648f,  6.3730101585388f, 0.41813001036644f },
@@ -4247,7 +4158,7 @@ struct cutscenegroup {
 
 static s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	struct cutscenegroup groups[] = {
+	static struct cutscenegroup groups[] = {
 		{ /* 0*/  0, L_OPTIONS_436 }, // "Special"
 		{ /* 1*/  1, L_OPTIONS_438 }, // "Mission 1 - dataDyne Central"
 		{ /* 2*/  7, L_OPTIONS_439 },
@@ -4426,25 +4337,11 @@ static s32 menudialogMainMenu(s32 operation, struct menudialogdef *dialogdef, un
 
 static char *mainMenuTextLabel(struct menuitem *item)
 {
-	u16 nocheats[] = {
-		L_OPTIONS_117, // "Solo Missions"
-		L_OPTIONS_118, // "Combat Simulator"
-		L_OPTIONS_119, // "Co-Operative"
-		L_OPTIONS_120, // "Counter-Operative"
-	};
-
-	u16 withcheats[] = {
-		L_MPWEAPONS_130, // "Cheat Solo Missions"
-		L_MPWEAPONS_131, // "Cheat Combat Simulator"
-		L_MPWEAPONS_132, // "Cheat Co-Operative"
-		L_MPWEAPONS_133, // "Cheat Counter-Operative"
-	};
-
 	if (g_CheatsEnabledBank0 || g_CheatsEnabledBank1) {
-		return langGet(withcheats[item->param]);
+		return langGet(L_MPWEAPONS_130 + item->param);
 	}
 
-	return langGet(nocheats[item->param]);
+	return langGet(L_OPTIONS_117 + item->param);
 }
 
 struct menuitem g_MainMenuMenuItems[] = {

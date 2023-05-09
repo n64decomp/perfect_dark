@@ -1356,29 +1356,9 @@ struct mpweaponset g_MpWeaponSets[12] = {
 
 s32 g_MpWeaponSetNum = 0x00000000;
 
-u16 g_AwardNames[] = {
-	L_MPMENU_000, // "Most Suicidal"
-	L_MPMENU_001, // "Who Needs Ammo?"
-	L_MPMENU_002, // "Least Shielded"
-	L_MPMENU_003, // "Best Protected"
-	L_MPMENU_004, // "Marksmanship"
-	L_MPMENU_005, // "Most Professional"
-	L_MPMENU_006, // "Most Deadly"
-	L_MPMENU_007, // "Most Harmless"
-	L_MPMENU_008, // "Most Cowardly"
-	L_MPMENU_009, // "Most Frantic"
-	L_MPMENU_010, // "Most Honorable"
-	L_MPMENU_011, // "Most Dishonourable"
-	L_MPMENU_012, // "Shortest Life"
-	L_MPMENU_013, // "Longest Life"
-	L_MPMENU_014, // "Double Kill"
-	L_MPMENU_015, // "Triple Kill"
-	L_MPMENU_016, // "Quad Kill"
-};
-
 static void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 {
-	const u32 tiers[] = { 2, 4, 8, 16, 28, 60, 100, 150, 210, 300 };
+	static u32 tiers[] = { 2, 4, 8, 16, 28, 60, 100, 150, 210, 300 };
 	s32 tallies[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	s32 sum;
 	s32 i;
@@ -2045,7 +2025,7 @@ static void mpCalculateAwards(void)
 		while (numdone == 0) {
 			if (metrics[i].awards & (1 << awardindex)) {
 				metrics[i].awards &= ~(1 << awardindex);
-				g_Vars.players[i]->award1 = langGet(g_AwardNames[awardindex]);
+				g_Vars.players[i]->award1 = langGet(L_MPMENU_000 + awardindex);
 				numdone = 1;
 			}
 
@@ -2061,7 +2041,7 @@ static void mpCalculateAwards(void)
 
 			if (metrics[i].awards & (1 << awardindex)) {
 				metrics[i].awards &= ~(1 << awardindex);
-				g_Vars.players[i]->award2 = langGet(g_AwardNames[awardindex]);
+				g_Vars.players[i]->award2 = langGet(L_MPMENU_000 + awardindex);
 				numdone = 2;
 			}
 

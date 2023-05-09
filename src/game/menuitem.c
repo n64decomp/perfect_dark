@@ -3717,31 +3717,18 @@ static Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurende
 	s32 ry;
 	u16 textnum;
 	u32 colour;
-
-	u16 labels[] = {
-		/*0*/ L_MPWEAPONS_185, // "L/R BUTTONS:"
-		/*1*/ L_MPWEAPONS_186, // "UP C BUTTON:"
-		/*2*/ L_MPWEAPONS_187, // "LEFT/RIGHT C BUTTONS:"
-		/*3*/ L_MPWEAPONS_188, // "DOWN C BUTTON:"
-		/*4*/ L_MPWEAPONS_189, // "A BUTTON:"
-		/*5*/ L_MPWEAPONS_190, // "B BUTTON:"
-		/*6*/ L_MPWEAPONS_191, // "CONTROL STICK:"
-		/*7*/ L_MPWEAPONS_192, // "Z BUTTON:"
-		/*8*/ L_MPWEAPONS_193, // "+ CONTROL PAD:"
-	};
-
 	s32 i;
 
 	gdl = text0f153628(gdl);
 
-	for (i = 0; i < ARRAYCOUNT(labels); i++) {
+	for (i = 0; i < 9; i++) {
 		ry = i * 7 + context->y + pady;
 
 		// For the 2.x styles, only labels 4-7 are shown
 		if (curmode < CONTROLMODE_21 || (i >= 4 && i <= 7)) {
 			// Rendering a label such as "L/R BUTTONS:"
 			rx = context->x + padx + 76;
-			gdl = textRenderProjected(gdl, &rx, &ry, langGet(labels[i]),
+			gdl = textRenderProjected(gdl, &rx, &ry, langGet(L_MPWEAPONS_185 + i),
 					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, viGetWidth(), viGetHeight(), 0, 0);
 		}
 
@@ -3884,11 +3871,11 @@ static Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context
 
 	if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
 		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"
-				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].main.controlmode]),
+				langGet(L_OPTIONS_239 + g_Menus[g_MpPlayerNum].main.controlmode),
 				langGet(L_MPWEAPONS_215)); // "(Two-Handed)"
 	} else {
 		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"
-				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].main.controlmode]),
+				langGet(L_OPTIONS_239 + g_Menus[g_MpPlayerNum].main.controlmode),
 				langGet(L_MPWEAPONS_214)); // "(One-Handed)"
 	}
 

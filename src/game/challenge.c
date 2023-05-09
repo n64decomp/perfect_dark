@@ -371,7 +371,7 @@ struct mpconfigfull *challengeLoadConfig(s32 confignum, u8 *buffer, s32 len)
 	extern struct mpstrings _mpstringsSSegmentRomEnd;
 	extern struct mpstrings _mpstringsISegmentRomEnd;
 
-	s32 banks[][2] = {
+	static s32 banks[][2] = {
 		{ (s32)&_mpstringsESegmentRomStart, (s32)&_mpstringsESegmentRomEnd },
 		{ (s32)&_mpstringsJSegmentRomStart, (s32)&_mpstringsJSegmentRomEnd },
 		{ (s32)&_mpstringsPSegmentRomStart, (s32)&_mpstringsPSegmentRomEnd },

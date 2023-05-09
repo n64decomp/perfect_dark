@@ -268,30 +268,16 @@ static s32 frDifficultyMenuHandler(s32 operation, struct menuitem *item, union h
 
 static char *frMenuTextFailReason(struct menuitem *item)
 {
-	u16 reasons[] = {
-		L_MPMENU_456, // "Not Failed"
-		L_MPMENU_457, // "Out of Ammo"
-		L_MPMENU_458, // "Time Over"
-		L_MPMENU_459, // "Score Unattainable"
-		L_MPMENU_460, // "Too Inaccurate"
-	};
-
 	struct frdata *frdata = frGetData();
 
-	return langGet(reasons[frdata->failreason]);
+	return langGet(L_MPMENU_456 + frdata->failreason);
 }
 
 static char *frMenuTextDifficultyName(struct menuitem *item)
 {
-	u16 names[] = {
-		L_MPMENU_439, // "Bronze"
-		L_MPMENU_440, // "Silver"
-		L_MPMENU_441, // "Gold"
-	};
-
 	struct frdata *frdata = frGetData();
 
-	return langGet(names[frdata->difficulty]);
+	return langGet(L_MPMENU_439 + frdata->difficulty);
 }
 
 static char *frMenuTextTimeTakenValue(struct menuitem *item)
@@ -1241,17 +1227,10 @@ struct menudialogdef g_FrFailedMenuDialog = {
 
 static s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	struct optiongroup groups[2] = {
-		{ 0, L_MPMENU_421 }, // "Character Profiles"
-		{ 0, L_MPMENU_422 }, // "Other Information"
-	};
-
 	s32 numunlockedchrbios = ciGetNumUnlockedChrBios();
 	s32 numunlockedmiscbios = ciGetNumUnlockedMiscBios();
 	struct chrbio *chrbio;
 	struct miscbio *miscbio;
-
-	groups[1].offset = numunlockedchrbios;
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
@@ -1281,7 +1260,7 @@ static s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, 
 		data->list.value = 2;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(groups[data->list.value].name);
+		return (s32) langGet(L_MPMENU_421 + data->list.value);
 	case MENUOP_GETGROUPSTARTINDEX:
 		data->list.groupstartindex = data->list.value == 0 ? 0 : numunlockedchrbios;
 		break;
@@ -2216,15 +2195,9 @@ struct menudialogdef g_HtCompletedMenuDialog = {
 
 static s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	struct optiongroup groups[2] = {
-		{ 0, L_MPMENU_419 }, // "Locations"
-		{ 0, L_MPMENU_420 }, // "Vehicles"
-	};
-
 	s32 bioindex;
 	struct hangarbio *bio;
-
-	groups[1].offset = ciGetNumUnlockedLocationBios();
+	s32 numbios = ciGetNumUnlockedLocationBios();
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
@@ -2250,9 +2223,9 @@ static s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, 
 		data->list.value = 2;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(groups[data->list.value].name);
+		return (s32) langGet(L_MPMENU_419 + data->list.value);
 	case MENUOP_GETGROUPSTARTINDEX:
-		data->list.groupstartindex = data->list.value == 0 ? 0 : groups[1].offset;
+		data->list.groupstartindex = data->list.value == 0 ? 0 : numbios;
 		break;
 	}
 

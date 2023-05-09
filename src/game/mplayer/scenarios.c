@@ -108,12 +108,6 @@ static s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union 
 
 static s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u16 labels[] = {
-		L_MPMENU_240, // "Off"
-		L_MPMENU_241, // "On"
-		L_MPMENU_242, // "Smart"
-	};
-
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
 	case MENUOP_CHECKHIDDEN:
@@ -125,7 +119,7 @@ static s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union h
 		data->dropdown.value = 3;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32)langGet(labels[data->dropdown.value]);
+		return (s32)langGet(L_MPMENU_240 + data->dropdown.value);
 	case MENUOP_SET:
 		g_MpSetup.options &= ~(MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART);
 
@@ -291,7 +285,7 @@ struct scenariogroup {
 
 static s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	struct scenariogroup groups[] = {
+	static struct scenariogroup groups[] = {
 		{ 0, L_MPMENU_244 }, // "Free for All!"
 		{ 4, L_MPMENU_245 }, // "-Teamwork-"
 	};

@@ -1159,18 +1159,7 @@ void func0f09505c(struct sndstate *handle, struct coord *pos, f32 arg2, f32 arg3
 
 s32 propsndGetRandomSparkSound(void)
 {
-	s32 index = random() % 6;
-
-	s16 sounds[] = {
-		SFX_80B0,
-		SFX_80B1,
-		SFX_80B2,
-		SFX_80B3,
-		SFX_80B4,
-		SFX_80B5,
-	};
-
-	return sounds[index];
+	return SFX_80B0 + (random() % 6);
 }
 
 /**

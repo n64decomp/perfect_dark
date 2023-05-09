@@ -2595,10 +2595,10 @@ static Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f3
 	f32 f12;
 	f32 sp17c[2];
 	f32 sp174[2];
-	s32 sp15c[] = { 16, 32, 12, 32, 24, 64 }; // diameters?
-	s32 sp144[] = { 60, 80, 225, 275, 470, 570 }; // distances from the sun?
+	static s32 sp15c[] = { 16, 32, 12, 32, 24, 64 }; // diameters?
+	static s32 sp144[] = { 60, 80, 225, 275, 470, 570 }; // distances from the sun?
 
-	u32 colours[] = {
+	static u32 colours[] = {
 		0xff99ffff, // pinkish/purple
 		0x9999ffff, // blue
 		0x99ffffff, // very light blue

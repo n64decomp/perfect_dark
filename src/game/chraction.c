@@ -7519,21 +7519,7 @@ static void chrTickDie(struct chrdata *chr)
 	struct model *model = chr->model;
 	u32 race = CHRRACE(chr);
 
-	u16 thuds[] = {
-		SFX_THUD_808D,
-		SFX_THUD_808E,
-		SFX_THUD_808F,
-		SFX_THUD_8090,
-		SFX_THUD_8091,
-		SFX_THUD_8092,
-		SFX_THUD_8093,
-		SFX_THUD_8094,
-		SFX_THUD_8095,
-		SFX_THUD_8096,
-		SFX_THUD_8097,
-	};
-
-	u16 specialdiesounds[] = {
+	static u16 specialdiesounds[] = {
 		SFX_M1_NOOO, // "Noooo!"
 		SFX_M1_SCREAM, // Death scream
 		SFX_M2_NOOO, // "Noooo!"
@@ -7610,7 +7596,7 @@ static void chrTickDie(struct chrdata *chr)
 	// If due, play thud 1 sound
 	if (chr->act_die.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe1) {
 		if (chr->specialdie == 0) {
-			propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
+			propsnd0f0939f8(NULL, chr->prop, SFX_THUD_808D + thudindex, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		} else if (chr->specialdie != SPECIALDIE_OVERRAILING) {
 			propsnd0f0939f8(NULL, chr->prop, specialdiesounds[chr->specialdie - 1], -1,
@@ -7632,7 +7618,7 @@ static void chrTickDie(struct chrdata *chr)
 			propsnd0f0939f8(NULL, chr->prop, SFX_THUD_808E, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		} else {
-			propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
+			propsnd0f0939f8(NULL, chr->prop, SFX_THUD_808D + thudindex, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 
@@ -7661,20 +7647,6 @@ static void chrTickDie(struct chrdata *chr)
 
 static void chrTickDruggedComingUp(struct chrdata *chr)
 {
-	u16 thuds[] = {
-		SFX_THUD_808D,
-		SFX_THUD_808E,
-		SFX_THUD_808F,
-		SFX_THUD_8090,
-		SFX_THUD_8091,
-		SFX_THUD_8092,
-		SFX_THUD_8093,
-		SFX_THUD_8094,
-		SFX_THUD_8095,
-		SFX_THUD_8096,
-		SFX_THUD_8097,
-	};
-
 	chr->act_druggedcomingup.timer60 += g_Vars.lvupdate60;
 
 	if (chr->act_druggedcomingup.timer60 > 0) {
@@ -7739,25 +7711,11 @@ static void chrTickDruggedDrop(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
-	u16 thuds[] = {
-		SFX_THUD_808D,
-		SFX_THUD_808E,
-		SFX_THUD_808F,
-		SFX_THUD_8090,
-		SFX_THUD_8091,
-		SFX_THUD_8092,
-		SFX_THUD_8093,
-		SFX_THUD_8094,
-		SFX_THUD_8095,
-		SFX_THUD_8096,
-		SFX_THUD_8097,
-	};
-
 	static s32 thudindex = 0;
 
 	// If due, play thud 1 sound
 	if (chr->act_die.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe1) {
-		propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
+		propsnd0f0939f8(NULL, chr->prop, SFX_THUD_808D + thudindex, -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 		thudindex++;
@@ -7771,7 +7729,7 @@ static void chrTickDruggedDrop(struct chrdata *chr)
 
 	// If due, play thud 2 sound
 	if (chr->act_die.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe2) {
-		propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
+		propsnd0f0939f8(NULL, chr->prop, SFX_THUD_808D + thudindex, -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 		thudindex++;
@@ -14322,7 +14280,6 @@ void rebuildTeams(void)
 	s32 team;
 	s32 i;
 	struct chrdata *chr;
-	u8 teammasks[] = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
 
 	for (team = 0; team < 8; team++) {
 		if (team != 0) {
@@ -14332,7 +14289,7 @@ void rebuildTeams(void)
 		for (i = 0; i < numchrs; i++) {
 			chr = &g_ChrSlots[i];
 
-			if (chr->chrnum >= 0 && (chr->team & teammasks[team])) {
+			if (chr->chrnum >= 0 && (chr->team & (1 << team))) {
 				g_TeamList[index] = chr->chrnum;
 				index++;
 			}
@@ -14392,10 +14349,9 @@ void rebuildSquadrons(void)
 s16 *teamGetChrIds(s32 team_id)
 {
 	s32 i;
-	u8 lookup[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 
 	for (i = 0; i != MAX_TEAMS; i++) {
-		if (lookup[i] == team_id) {
+		if ((1 << i) == team_id) {
 			team_id = i;
 			break;
 		}

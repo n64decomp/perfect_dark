@@ -151,7 +151,7 @@ s16 mpChooseRandomStage(void)
 
 static s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	struct optiongroup groups[] = {
+	static struct optiongroup groups[] = {
 		{ 0,  L_MPMENU_116 }, // "Dark"
 		{ 13, L_MPMENU_117 }, // "Classic"
 		{ 16, L_MPMENU_118 }, // "Random"
@@ -249,19 +249,12 @@ static s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handle
 
 static s32 menuhandlerMpControlStyle(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u16 labels[] = {
-		L_OPTIONS_239, // "1.1"
-		L_OPTIONS_240, // "1.2"
-		L_OPTIONS_241, // "1.3"
-		L_OPTIONS_242, // "1.4"
-	};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 4;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(labels[data->dropdown.value]);
+		return (s32) langGet(L_OPTIONS_239 + data->dropdown.value);
 	case MENUOP_SET:
 		optionsSetControlMode(g_MpPlayerNum, data->dropdown.value);
 		break;
@@ -354,17 +347,12 @@ static s32 menuhandlerMpControlCheckbox(s32 operation, struct menuitem *item, un
 
 static s32 menuhandlerMpAimControl(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u16 labels[] = {
-		L_MPMENU_213, // "Hold"
-		L_MPMENU_214, // "Toggle"
-	};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(labels[data->dropdown.value]);
+		return (s32) langGet(L_MPMENU_213 + data->dropdown.value);
 	case MENUOP_SET:
 		optionsSetAimControl(g_MpPlayerNum, data->dropdown.value);
 		break;
@@ -1442,52 +1430,10 @@ struct menudialogdef g_MpCompletedChallengesMenuDialog = {
 
 static char *mpMenuTextUsernamePassword(struct menuitem *item)
 {
-	// Phrases included here to assist people searching the code for them:
-	// EnTROpIcDeCAy
-	// ZeRo-Tau
-
-	u8 username[] = {
-		'E' + 9 * 1,
-		'n' + 9 * 2,
-		'T' + 9 * 3,
-		'R' + 9 * 4,
-		'O' + 9 * 5,
-		'p' + 9 * 6,
-		'I' + 9 * 7,
-		'c' + 9 * 8,
-		'D' + 9 * 9,
-		'e' + 9 * 10,
-		'C' + 9 * 11,
-		'A' + 9 * 12,
-		'y' + 9 * 13,
-		'\n' + 9 * 14,
-		'\0' + 9 * 15,
-	};
-
-	u8 password[] = {
-		'Z' + 4 * 1,
-		'e' + 4 * 2,
-		'R' + 4 * 3,
-		'o' + 4 * 4,
-		'-' + 4 * 5,
-		'T' + 4 * 6,
-		'a' + 4 * 7,
-		'u' + 4 * 8,
-		'\n' + 4 * 9,
-		'\0' + 4 * 10,
-	};
-
-	u32 stack;
-	s32 i;
-
 	if (item->param == 0) {
-		for (i = 0; i < ARRAYCOUNT(username); i++) {
-			g_StringPointer[i] = username[i] - i * 9 - 9;
-		}
+		strcpy(g_StringPointer, "EnTROpIcDeCAy\n");
 	} else {
-		for (i = 0; i < ARRAYCOUNT(password); i++) {
-			g_StringPointer[i] = password[i] - i * 4 - 4;
-		}
+		strcpy(g_StringPointer, "ZeRo-Tau\n");
 	}
 
 	return g_StringPointer;
@@ -2496,7 +2442,7 @@ static s32 mpAddChangeSimulantMenuHandler(s32 operation, struct menuitem *item, 
 	s32 i;
 	s32 count = 0;
 
-	struct optiongroup groups[] = {
+	static struct optiongroup groups[] = {
 		{ 0, L_MPMENU_103 }, // "Normal Simulants"
 		{ 6, L_MPMENU_104 }, // "Special Simulants"
 	};
@@ -4343,13 +4289,6 @@ struct menudialogdef g_MpChallengesMenuDialog = {
 
 s32 menuhandlerMpLock(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u16 labels[] = {
-		L_MPMENU_045, // "None"
-		L_MPMENU_046, // "Last Winner"
-		L_MPMENU_047, // "Last Loser"
-		L_MPMENU_048, // "Random"
-	};
-
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = mpGetLockType() == MPLOCKTYPE_CHALLENGE ? 1 : 5;
@@ -4359,7 +4298,7 @@ s32 menuhandlerMpLock(s32 operation, struct menuitem *item, union handlerdata *d
 			return (s32) langGet(L_MPMENU_049); // "Challenge"
 		}
 		if (data->dropdown.value <= 3) {
-			return (s32) langGet(labels[data->dropdown.value]);
+			return (s32) langGet(L_MPMENU_045 + data->dropdown.value);
 		}
 		if (mpGetLockType() == MPLOCKTYPE_PLAYER) {
 			return (s32) g_PlayerConfigsArray[mpGetLockPlayerNum()].base.name;
