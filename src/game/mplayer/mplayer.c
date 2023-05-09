@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/camdraw.h"
 #include "game/title.h"
-#include "game/pdmode.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/player.h"
@@ -147,7 +146,7 @@ void mpStartMatch(void)
 		stagenum = mpChooseRandomStage();
 	}
 
-	titleSetNextStage(stagenum);
+	g_TitleNextStage = stagenum;
 	mainChangeToStage(stagenum);
 	g_NumPlayers = numplayers;
 	titleSetNextMode(TITLEMODE_SKIP);

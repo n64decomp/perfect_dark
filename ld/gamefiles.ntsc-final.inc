@@ -53,7 +53,6 @@
 	build/ROMID/game/bondgunstop.o (section); \
 	build/ROMID/game/title.o (section); \
 	build/ROMID/game/titleclear.o (section); \
-	build/ROMID/game/pdmode.o (section); \
 	build/ROMID/game/activemenutick.o (section); \
 	build/ROMID/game/menustop.o (section); \
 	build/ROMID/game/menutick.o (section); \

@@ -5,7 +5,6 @@
 #include "game/dlights.h"
 #include "game/footstep.h"
 #include "game/game_006900.h"
-#include "game/pdmode.h"
 #include "game/chr.h"
 #include "game/body.h"
 #include "game/prop.h"
@@ -4055,11 +4054,11 @@ static void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, str
 			headshotdamagescale = 25;
 		} else if (aprop && aprop->type == PROPTYPE_CHR && vprop->type == PROPTYPE_PLAYER) {
 			// Chr is attacking player
-			damage *= g_PlayerDamageRxScale * pdmodeGetEnemyDamage();
+			damage *= g_PlayerDamageRxScale * g_MissionConfig.pdmodedamagef;
 		}
 
 		if (vprop->type != PROPTYPE_PLAYER) {
-			damage /= pdmodeGetEnemyHealth();
+			damage /= g_MissionConfig.pdmodehealthf;
 		}
 
 		if (vprop->type == PROPTYPE_PLAYER) {
@@ -4076,11 +4075,11 @@ static void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, str
 			damage *= g_PlayerDamageTxScale;
 			headshotdamagescale = 25;
 		} else if (aprop && aprop->type == PROPTYPE_CHR && vprop->type == PROPTYPE_PLAYER) {
-			damage *= g_PlayerDamageRxScale * pdmodeGetEnemyDamage();
+			damage *= g_PlayerDamageRxScale * g_MissionConfig.pdmodedamagef;
 		}
 
 		if (vprop->type != PROPTYPE_PLAYER) {
-			damage /= pdmodeGetEnemyHealth();
+			damage /= g_MissionConfig.pdmodehealthf;
 		}
 
 		if (vprop->type == PROPTYPE_PLAYER) {
@@ -4097,11 +4096,11 @@ static void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, str
 			damage *= g_PlayerDamageTxScale;
 			headshotdamagescale = 25;
 		} else if (aprop && aprop != g_Vars.bond->prop && vprop == g_Vars.bond->prop) {
-			damage *= g_PlayerDamageRxScale * pdmodeGetEnemyDamage();
+			damage *= g_PlayerDamageRxScale * g_MissionConfig.pdmodedamagef;
 		}
 
 		if (vprop != g_Vars.bond->prop) {
-			damage /= pdmodeGetEnemyHealth();
+			damage /= g_MissionConfig.pdmodehealthf;
 		}
 
 		if (vprop == g_Vars.bond->prop) {
@@ -8661,10 +8660,10 @@ static void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, st
 		}
 
 		// Apply PD mode enemy accuracy setting (default 1 which is no op)
-		if (pdmodeGetEnemyAccuracy() <= 1) {
-			accuracy *= pdmodeGetEnemyAccuracy();
+		if (g_MissionConfig.pdmodeaccuracyf <= 1) {
+			accuracy *= g_MissionConfig.pdmodeaccuracyf;
 		} else {
-			accuracy *= 9 / (10.001f - pdmodeGetEnemyAccuracy());
+			accuracy *= 9 / (10.001f - g_MissionConfig.pdmodeaccuracyf);
 		}
 
 		// Apply difficulty multiplier (solo A = 0.6, SA = 0.8, PA = 1.175)

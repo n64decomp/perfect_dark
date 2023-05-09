@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/game_006900.h"
 #include "game/title.h"
-#include "game/pdmode.h"
 #include "game/bondgun.h"
 #include "game/player.h"
 #include "game/menugfx.h"

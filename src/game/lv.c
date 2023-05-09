@@ -47,7 +47,6 @@
 #include "game/nbomb.h"
 #include "game/objectives.h"
 #include "game/pak.h"
-#include "game/pdmode.h"
 #include "game/player.h"
 #include "game/playermgr.h"
 #include "game/playerreset.h"
@@ -1635,7 +1634,7 @@ Gfx *lvRender(Gfx *gdl)
 			lvSetDifficulty(DIFF_A);
 			g_MissionConfig.stageindex = g_Cutscenes[g_Vars.autocutgroupcur].mission;
 			g_MissionConfig.stagenum = g_Cutscenes[g_Vars.autocutgroupcur].stage;
-			titleSetNextStage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
+			g_TitleNextStage = g_Cutscenes[g_Vars.autocutgroupcur].stage;
 			mainChangeToStage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
 		}
 

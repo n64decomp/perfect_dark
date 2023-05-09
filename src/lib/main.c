@@ -24,7 +24,6 @@
 #include "game/stubs/game_00b200.h"
 #include "game/challenge.h"
 #include "game/title.h"
-#include "game/pdmode.h"
 #include "game/objectives.h"
 #include "game/endscreen.h"
 #include "game/playermgr.h"
@@ -372,7 +371,7 @@ static void mainLoop(void)
 	}
 
 	if (g_StageNum != STAGE_TITLE) {
-		titleSetNextStage(g_StageNum);
+		g_TitleNextStage = g_StageNum;
 	}
 
 	rngSetSeed(osGetCount());

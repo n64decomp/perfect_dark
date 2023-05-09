@@ -4,7 +4,6 @@
 #include "game/cheats.h"
 #include "game/setup.h"
 #include "game/title.h"
-#include "game/pdmode.h"
 #include "game/objectives.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
@@ -582,7 +581,7 @@ s32 menuhandlerAcceptMission(s32 operation, struct menuitem *item, union handler
 			g_Vars.restartlevel = true;
 		}
 
-		titleSetNextStage(g_MissionConfig.stagenum);
+		g_TitleNextStage = g_MissionConfig.stagenum;
 
 		if (g_MissionConfig.iscoop) {
 			if (g_Vars.numaibuddies == 0) {
@@ -982,6 +981,9 @@ static s32 menuhandlerSoloDifficulty(s32 operation, struct menuitem *item, union
 		break;
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
+		g_MissionConfig.pdmodehealthf = 1;
+		g_MissionConfig.pdmodedamagef = 1;
+		g_MissionConfig.pdmodeaccuracyf = 1;
 		g_MissionConfig.difficulty = item->param;
 		lvSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
@@ -1404,6 +1406,9 @@ static s32 menuhandlerCoopDifficulty(s32 operation, struct menuitem *item, union
 	switch (operation) {
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
+		g_MissionConfig.pdmodehealthf = 1;
+		g_MissionConfig.pdmodedamagef = 1;
+		g_MissionConfig.pdmodeaccuracyf = 1;
 		g_MissionConfig.difficulty = item->param;
 		lvSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
@@ -1476,6 +1481,9 @@ static s32 menuhandlerAntiDifficulty(s32 operation, struct menuitem *item, union
 	switch (operation) {
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
+		g_MissionConfig.pdmodehealthf = 1;
+		g_MissionConfig.pdmodedamagef = 1;
+		g_MissionConfig.pdmodeaccuracyf = 1;
 		g_MissionConfig.difficulty = item->param;
 		lvSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();

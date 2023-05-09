@@ -4,7 +4,6 @@
 #include "game/cheats.h"
 #include "game/game_006900.h"
 #include "game/title.h"
-#include "game/pdmode.h"
 #include "game/objectives.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
@@ -596,7 +595,7 @@ static void endscreenContinue(s32 context)
 						g_MissionConfig.stageindex++;
 						g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
 
-						titleSetNextStage(g_MissionConfig.stagenum);
+						g_TitleNextStage = g_MissionConfig.stagenum;
 
 						if (g_MissionConfig.iscoop) {
 							if (g_Vars.numaibuddies == 0) {
@@ -625,7 +624,7 @@ static void endscreenContinue(s32 context)
 				} else if (g_Vars.stagenum == STAGE_SKEDARRUINS) {
 					// Commit to starting credits
 					g_MissionConfig.stagenum = STAGE_CREDITS;
-					titleSetNextStage(g_MissionConfig.stagenum);
+					g_TitleNextStage = g_MissionConfig.stagenum;
 					lvSetDifficulty(g_MissionConfig.difficulty);
 					titleSetNextMode(TITLEMODE_SKIP);
 					mainChangeToStage(g_MissionConfig.stagenum);

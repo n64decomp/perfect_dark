@@ -3,7 +3,6 @@
 #include "game/bossfile.h"
 #include "game/game_006900.h"
 #include "game/title.h"
-#include "game/pdmode.h"
 #include "game/bondgun.h"
 #include "game/player.h"
 #include "game/menugfx.h"
@@ -495,7 +494,7 @@ void menuTick(void)
 							if (g_Vars.stagenum == STAGE_DEEPSEA) {
 								g_MissionConfig.stageindex++;
 								g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
-								titleSetNextStage(g_MissionConfig.stagenum);
+								g_TitleNextStage = g_MissionConfig.stagenum;
 								lvSetDifficulty(g_MissionConfig.difficulty);
 								titleSetNextMode(TITLEMODE_SKIP);
 								mainChangeToStage(g_MissionConfig.stagenum);
@@ -604,7 +603,7 @@ void menuTick(void)
 						g_BossFile.locktype = MPLOCKTYPE_NONE;
 					}
 
-					titleSetNextStage(STAGE_CITRAINING);
+					g_TitleNextStage = STAGE_CITRAINING;
 					g_NumPlayers = 1;
 					titleSetNextMode(TITLEMODE_SKIP);
 					mainChangeToStage(STAGE_CITRAINING);
@@ -616,7 +615,7 @@ void menuTick(void)
 					g_Vars.mplayerisrunning = false;
 					g_Vars.normmplayerisrunning = false;
 					g_Vars.lvmpbotlevel = 0;
-					titleSetNextStage(STAGE_CITRAINING);
+					g_TitleNextStage = STAGE_CITRAINING;
 					g_NumPlayers = 1;
 					titleSetNextMode(TITLEMODE_SKIP);
 					mainChangeToStage(STAGE_CITRAINING);
