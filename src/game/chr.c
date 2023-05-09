@@ -1055,6 +1055,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->timeshooter = 0;
 	chr->noblood = false;
 	chr->rtracked = false;
+	chr->myspecial = -1;
 
 	chr->goposhitcount = 0;
 
