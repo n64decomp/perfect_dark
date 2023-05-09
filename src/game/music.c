@@ -118,67 +118,59 @@ static s32 func0f16d124(s32 tracktype)
 
 void musicQueueStartEvent(u32 tracktype, u32 tracknum, f32 arg2, u16 volume)
 {
-	if (!g_SndDisabled) {
-		g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
-		g_MusicEventQueue[g_MusicEventQueueLength].tracknum = tracknum;
-		g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg2;
-		g_MusicEventQueue[g_MusicEventQueueLength].volume = volume;
-		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_PLAY;
-		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
-		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
-		g_MusicEventQueue[g_MusicEventQueueLength].failcount = 0;
-		g_MusicEventQueueLength++;
-	}
+	g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
+	g_MusicEventQueue[g_MusicEventQueueLength].tracknum = tracknum;
+	g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg2;
+	g_MusicEventQueue[g_MusicEventQueueLength].volume = volume;
+	g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_PLAY;
+	g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
+	g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
+	g_MusicEventQueue[g_MusicEventQueueLength].failcount = 0;
+	g_MusicEventQueueLength++;
 }
 
 void musicQueueStopEvent(s32 tracktype)
 {
-	if (!g_SndDisabled) {
-		g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
-		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_STOP;
-		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
-		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
-		g_MusicEventQueue[g_MusicEventQueueLength].failcount = 0;
-		g_MusicEventQueueLength++;
-	}
+	g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
+	g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_STOP;
+	g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
+	g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
+	g_MusicEventQueue[g_MusicEventQueueLength].failcount = 0;
+	g_MusicEventQueueLength++;
 }
 
 void musicQueueFadeEvent(s32 tracktype, f32 arg1, bool fadetopause)
 {
-	if (!g_SndDisabled) {
-		g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
-		g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg1;
-		g_MusicEventQueue[g_MusicEventQueueLength].fadetopause = fadetopause;
-		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_FADE;
-		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
-		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
-		g_MusicEventQueue[g_MusicEventQueueLength].failcount = 0;
-		g_MusicEventQueueLength++;
-	}
+	g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
+	g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg1;
+	g_MusicEventQueue[g_MusicEventQueueLength].fadetopause = fadetopause;
+	g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_FADE;
+	g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
+	g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
+	g_MusicEventQueue[g_MusicEventQueueLength].failcount = 0;
+	g_MusicEventQueueLength++;
 }
 
 void musicReset(void)
 {
 	s32 i;
 
-	if (!g_SndDisabled) {
-		for (i = 0; i < 4; i++) {
-			g_AudioXReasonsActive[i] = 0;
-			g_MusicXReasonMinDurations[i] = 0;
-			g_MusicXReasonMaxDurations[i] = 0;
-		}
-
-		func0f16d430();
-		musicQueueStopAllEvent();
-		musicQueueType5Event();
-
-		g_MusicSoloDeathIsPlaying = false;
-		g_MusicDeathTimer240 = 0;
-		g_MenuTrack = -1;
-		g_TemporaryPrimaryTrack = -1;
-		g_TemporaryAmbientTrack = -1;
-		g_MusicNrgIsActive = false;
+	for (i = 0; i < 4; i++) {
+		g_AudioXReasonsActive[i] = 0;
+		g_MusicXReasonMinDurations[i] = 0;
+		g_MusicXReasonMaxDurations[i] = 0;
 	}
+
+	func0f16d430();
+	musicQueueStopAllEvent();
+	musicQueueType5Event();
+
+	g_MusicSoloDeathIsPlaying = false;
+	g_MusicDeathTimer240 = 0;
+	g_MenuTrack = -1;
+	g_TemporaryPrimaryTrack = -1;
+	g_TemporaryAmbientTrack = -1;
+	g_MusicNrgIsActive = false;
 }
 
 void musicQueueStopAllEvent(void)

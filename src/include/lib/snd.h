@@ -19,7 +19,6 @@ void snd0000fe18(void);
 void snd0000fe20(void);
 void snd0000fe50(void);
 void sndTick(void);
-bool sndIsDisabled(void);
 void sndStartMp3ByFilenum(u32 filenum);
 void sndAdjust(struct sndstate **handle, s32 arg1, s32 arg2, s32 pan, s32 soundnum, f32 arg5, s32 arg6, s32 arg7, s32 arg8);
 struct sndstate *snd00010718(struct sndstate **handle, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8);

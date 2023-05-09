@@ -45,10 +45,6 @@ struct seqtable *g_SeqTable;
 u32 g_SeqBufferSize;
 ALIGNED16 struct sndcache g_SndCache;
 
-const char g_SndGuardString[] = "RUSSES SOUND GUARD STRING";
-
-bool g_SndDisabled = false;
-
 s32 g_SndNosediveVolume = 0;
 s32 g_SndNosediveAge240 = -1;
 s32 g_SndNosediveDuration240 = 0;
@@ -62,12 +58,9 @@ struct sndstate *g_SndUfoHandle = NULL;
 
 u16 g_SfxVolume = 32767;
 s32 g_SoundMode = SOUNDMODE_STEREO;
-bool g_SndMp3Enabled = false;
 
 s32 var8005ddd4 = 0;
 s32 var8005ddd8 = 0;
-
-u8 *g_SndGuardStringPtr = NULL;
 
 enum audioconfig_e {
 	AUDIOCONFIG_00,
@@ -1277,101 +1270,89 @@ void sndInit(void)
 
 	g_Vars.langfilteron = false;
 
-	g_SndMp3Enabled = true;
 	g_SndMaxFxBusses = 2;
 
-	if (!g_SndDisabled) {
-		// Allocate memory for the audio heap,
-		// clear it and give it to the audio library
-		u32 len = &_seqctlSegmentRomEnd - &_seqctlSegmentRomStart;
-		u8 *ptr = mempAlloc(heaplen, MEMPOOL_PERMANENT);
-		s32 i;
-		u8 *heapstart = ptr;
-		u8 *end = heapstart + heaplen;
-		ALBankFile *bankfile;
+	// Allocate memory for the audio heap,
+	// clear it and give it to the audio library
+	u32 len = &_seqctlSegmentRomEnd - &_seqctlSegmentRomStart;
+	u8 *ptr = mempAlloc(heaplen, MEMPOOL_PERMANENT);
+	s32 i;
+	u8 *heapstart = ptr;
+	u8 *end = heapstart + heaplen;
+	ALBankFile *bankfile;
 
-		while (ptr < end) {
-			*ptr = 0;
-			ptr++;
-		}
-
-		alHeapInit(&g_SndHeap, heapstart, heaplen);
-
-		// Allocate some space at the start of the heap for a string identifier.
-		// This might be used to determine if the heap has overflowed.
-		g_SndGuardStringPtr = alHeapAlloc(&g_SndHeap, 1, 32);
-		strcpy(g_SndGuardStringPtr, g_SndGuardString);
-
-		// Load sfx.ctl
-		sndLoadSfxCtl();
-
-		// Load seq.ctl
-		var80095200 = 0xffffffff;
-		bankfile = alHeapAlloc(&g_SndHeap, 1, len);
-		dmaExec(bankfile, (u32) &_seqctlSegmentRomStart, len);
-
-		// Load seq.tbl
-		alBnkfNew(bankfile, &_seqtblSegmentRomStart);
-
-		// Load the sequences table. To do this, load the header of the
-		// sequences segment and read the number of sequences, then allocate
-		// enough space for the table and load it.
-		var80095204 = bankfile->bankArray[0];
-		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, 0x10);
-		dmaExec(g_SeqTable, (u32) &_sequencesSegmentRomStart, 0x10);
-
-		len = g_SeqTable->count * sizeof(struct seqtableentry) + 4;
-		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
-		dmaExec(g_SeqTable, (u32) &_sequencesSegmentRomStart, (len + 0xf) & 0xfffffff0);
-
-		// Promote segment-relative offsets to ROM addresses
-		for (i = 0; i < g_SeqTable->count; i++) {
-			g_SeqTable->entries[i].romaddr += (u32) &_sequencesSegmentRomStart;
-		}
-
-		synconfig.maxVVoices = 44;
-		synconfig.maxPVoices = 30;
-		synconfig.maxUpdates = 64;
-		synconfig.dmaproc = NULL;
-		synconfig.outputRate = 0;
-		synconfig.heap = &g_SndHeap;
-		synconfig.maxFXbusses = g_SndMaxFxBusses;
-
-		for (i = 0; i < g_SndMaxFxBusses; i++) {
-			synconfig.fxTypes[i] = 6;
-		}
-
-		sndpconfig.maxEvents = 64;
-		sndpconfig.maxStates = 64;
-		sndpconfig.maxSounds = 20;
-		sndpconfig.unk10 = 9;
-		sndpconfig.heap = &g_SndHeap;
-
-		amgrCreate(&synconfig);
-
-		if (g_SndMp3Enabled) {
-
-			mp3Init(&g_SndHeap);
-			func00037f08(0x7fff, 1);
-			func00037f5c(0, true);
-
-		}
-
-		for (i = 0; i < 3; i++) {
-			seqInit(&g_SeqInstances[i]);
-		}
-
-
-		n_alSndpNew(&sndpconfig);
-
-
-		sndpSetAddRefCallback(sndAddRef);
-		sndpSetRemoveRefCallback(sndRemoveRef);
-
-		amgrStartThread();
-
-		sndSetSoundMode(g_SoundMode);
+	while (ptr < end) {
+		*ptr = 0;
+		ptr++;
 	}
+
+	alHeapInit(&g_SndHeap, heapstart, heaplen);
+
+	// Load sfx.ctl
+	sndLoadSfxCtl();
+
+	// Load seq.ctl
+	var80095200 = 0xffffffff;
+	bankfile = alHeapAlloc(&g_SndHeap, 1, len);
+	dmaExec(bankfile, (u32) &_seqctlSegmentRomStart, len);
+
+	// Load seq.tbl
+	alBnkfNew(bankfile, &_seqtblSegmentRomStart);
+
+	// Load the sequences table. To do this, load the header of the
+	// sequences segment and read the number of sequences, then allocate
+	// enough space for the table and load it.
+	var80095204 = bankfile->bankArray[0];
+	g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, 0x10);
+	dmaExec(g_SeqTable, (u32) &_sequencesSegmentRomStart, 0x10);
+
+	len = g_SeqTable->count * sizeof(struct seqtableentry) + 4;
+	g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
+	dmaExec(g_SeqTable, (u32) &_sequencesSegmentRomStart, (len + 0xf) & 0xfffffff0);
+
+	// Promote segment-relative offsets to ROM addresses
+	for (i = 0; i < g_SeqTable->count; i++) {
+		g_SeqTable->entries[i].romaddr += (u32) &_sequencesSegmentRomStart;
+	}
+
+	synconfig.maxVVoices = 44;
+	synconfig.maxPVoices = 30;
+	synconfig.maxUpdates = 64;
+	synconfig.dmaproc = NULL;
+	synconfig.outputRate = 0;
+	synconfig.heap = &g_SndHeap;
+	synconfig.maxFXbusses = g_SndMaxFxBusses;
+
+	for (i = 0; i < g_SndMaxFxBusses; i++) {
+		synconfig.fxTypes[i] = 6;
+	}
+
+	sndpconfig.maxEvents = 64;
+	sndpconfig.maxStates = 64;
+	sndpconfig.maxSounds = 20;
+	sndpconfig.unk10 = 9;
+	sndpconfig.heap = &g_SndHeap;
+
+	amgrCreate(&synconfig);
+
+	mp3Init(&g_SndHeap);
+	func00037f08(0x7fff, 1);
+	func00037f5c(0, true);
+
+	for (i = 0; i < 3; i++) {
+		seqInit(&g_SeqInstances[i]);
+	}
+
+
+	n_alSndpNew(&sndpconfig);
+
+
+	sndpSetAddRefCallback(sndAddRef);
+	sndpSetRemoveRefCallback(sndRemoveRef);
+
+	amgrStartThread();
+
+	sndSetSoundMode(g_SoundMode);
 }
 
 bool sndIsMp3(s16 soundnum)
@@ -1384,16 +1365,14 @@ bool sndIsMp3(s16 soundnum)
 
 bool snd0000fbc4(s16 arg0)
 {
-	if (!g_SndDisabled && g_SndMp3Enabled) {
-		if (func00037ea4() && g_SndCurMp3.unk08 != 0) {
-			return false;
-		}
-
-		func00037e1c();
-
-		g_SndCurMp3.playing = false;
-		g_SndCurMp3.responsetimer240 = -1;
+	if (func00037ea4() && g_SndCurMp3.unk08 != 0) {
+		return false;
 	}
+
+	func00037e1c();
+
+	g_SndCurMp3.playing = false;
+	g_SndCurMp3.responsetimer240 = -1;
 
 	return true;
 }
@@ -1408,10 +1387,6 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 	u8 scratch[1024 * 5];
 
 	s32 state = n_alCSPGetState(seq->seqp);
-
-	if (g_SndDisabled) {
-		return false;
-	}
 
 	seq->tracknum = tracknum;
 
@@ -1449,37 +1424,31 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 
 static u16 seqGetVolume(struct seqinstance *seq)
 {
-	return g_SndDisabled ? 0x7fff : seq->volume;
+	return seq->volume;
 }
 
 void seqSetVolume(struct seqinstance *seq, u16 volume)
 {
-	if (!g_SndDisabled) {
-		u32 tmp = var8005ecf8[seq->tracknum] * volume;
-		tmp >>=	15;
+	u32 tmp = var8005ecf8[seq->tracknum] * volume;
+	tmp >>=	15;
 
-		seq->volume = volume;
+	seq->volume = volume;
 
-		if (tmp > 0x7fff) {
-			tmp = 0x7fff;
-		}
-
-		n_alCSPSetVol(seq->seqp, tmp);
+	if (tmp > 0x7fff) {
+		tmp = 0x7fff;
 	}
+
+	n_alCSPSetVol(seq->seqp, tmp);
 }
 
 void snd0000fe20(void)
 {
-	if (g_SndMp3Enabled) {
-		func00037e38();
-	}
+	func00037e38();
 }
 
 void snd0000fe50(void)
 {
-	if (g_SndMp3Enabled) {
-		func00037e68();
-	}
+	func00037e68();
 }
 
 void sndTick(void)
@@ -1537,114 +1506,105 @@ void sndTick(void)
 		var8005edec = var8005ddd8;
 	}
 
-	if (!g_SndDisabled && g_SndMp3Enabled) {
-		if (g_Vars.stagenum == STAGE_AIRFORCEONE) {
-			sndTickNosedive();
-		} else if (g_Vars.stagenum == STAGE_ESCAPE) {
-			sndTickUfo();
+	if (g_Vars.stagenum == STAGE_AIRFORCEONE) {
+		sndTickNosedive();
+	} else if (g_Vars.stagenum == STAGE_ESCAPE) {
+		sndTickUfo();
+	}
+
+	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
+		s0 = musicGetVolume() > g_SfxVolume ? musicGetVolume() : g_SfxVolume;
+
+		if (s0 != snd0000e9dc()) {
+			snd0000ea80(s0);
 		}
-
-		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-			s0 = musicGetVolume() > g_SfxVolume ? musicGetVolume() : g_SfxVolume;
-
-			if (s0 != snd0000e9dc()) {
-				snd0000ea80(s0);
-			}
-		} else {
-			if (g_SfxVolume != snd0000e9dc()) {
-				snd0000ea80(g_SfxVolume);
-			}
+	} else {
+		if (g_SfxVolume != snd0000e9dc()) {
+			snd0000ea80(g_SfxVolume);
 		}
+	}
 
-		if (func00037ea4() == 0 && g_SndCurMp3.playing) {
-			if (g_SndCurMp3.unk08) {
-				mp3PlayFile(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
-				return;
-			}
-
-			switch (g_SndCurMp3.responsetype) {
-			case MP3RESPONSETYPE_ACKNOWLEDGE:
-			case MP3RESPONSETYPE_WHISPER:
-				g_SndCurMp3.responsetimer240 = TICKS(60);
-				break;
-			case MP3RESPONSETYPE_GREETING:
-				g_SndCurMp3.responsetimer240 = 1;
-				break;
-			}
-
-			g_SndCurMp3.playing = false;
+	if (func00037ea4() == 0 && g_SndCurMp3.playing) {
+		if (g_SndCurMp3.unk08) {
+			mp3PlayFile(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
 			return;
 		}
 
-		if (g_SndCurMp3.responsetimer240 > 0) {
-			g_SndCurMp3.responsetimer240 -= g_Vars.lvupdate240;
+		switch (g_SndCurMp3.responsetype) {
+		case MP3RESPONSETYPE_ACKNOWLEDGE:
+		case MP3RESPONSETYPE_WHISPER:
+			g_SndCurMp3.responsetimer240 = TICKS(60);
+			break;
+		case MP3RESPONSETYPE_GREETING:
+			g_SndCurMp3.responsetimer240 = 1;
+			break;
+		}
 
-			if (g_SndCurMp3.responsetimer240 <= 0) {
-				if (g_SndCurMp3.responsetype == MP3RESPONSETYPE_WHISPER) {
-					do {
-						index = random() % 4;
-					} while (index == g_SndCurMp3.prevwhisper);
+		g_SndCurMp3.playing = false;
+		return;
+	}
 
-					g_SndCurMp3.prevwhisper = index;
+	if (g_SndCurMp3.responsetimer240 > 0) {
+		g_SndCurMp3.responsetimer240 -= g_Vars.lvupdate240;
 
-					switch (index) {
-					case 0: sp50.packed = MP3_JO_WHISPER_RECEIVED; break;
-					case 1: sp50.packed = MP3_JO_WHISPER_UNDERSTOOD; break;
-					case 2: sp50.packed = MP3_JO_WHISPER_AFFIRMATIVE; break;
-					case 3: sp50.packed = MP3_JO_WHISPER_CONFIRMED; break;
-					}
-				} else if (g_SndCurMp3.responsetype == MP3RESPONSETYPE_ACKNOWLEDGE) {
-					do {
-						index = random() % 4;
-					} while (index == g_SndCurMp3.prevacknowledge);
+		if (g_SndCurMp3.responsetimer240 <= 0) {
+			if (g_SndCurMp3.responsetype == MP3RESPONSETYPE_WHISPER) {
+				do {
+					index = random() % 4;
+				} while (index == g_SndCurMp3.prevwhisper);
 
-					g_SndCurMp3.prevacknowledge = index;
+				g_SndCurMp3.prevwhisper = index;
 
-					switch (index) {
-					case 0: sp50.packed = MP3_JO_ACKNOWLEDGE_CONFIRMED; break;
-					case 1: sp50.packed = MP3_JO_ACKNOWLEDGE_UNDERSTOOD; break;
-					case 2: sp50.packed = MP3_JO_ACKNOWLEDGE_AFFIRMATIVE; break;
-					case 3: sp50.packed = MP3_JO_ACKNOWLEDGE_RECEIVED; break;
-					}
-				} else if (g_SndCurMp3.responsetype == MP3RESPONSETYPE_GREETING) {
-					do {
-						index = random() % 4;
-					} while (index == g_SndCurMp3.prevgreeting);
-
-					g_SndCurMp3.prevgreeting = index;
-
-					switch (index) {
-					case 0: sp50.packed = MP3_JO_GREETING_HELLO; break;
-					case 1: sp50.packed = MP3_JO_GREETING_HI; break;
-					case 2: sp50.packed = MP3_JO_GREETING_HEY; break;
-					case 3: sp50.packed = MP3_JO_GREETING_HIYA; break;
-					}
+				switch (index) {
+				case 0: sp50.packed = MP3_JO_WHISPER_RECEIVED; break;
+				case 1: sp50.packed = MP3_JO_WHISPER_UNDERSTOOD; break;
+				case 2: sp50.packed = MP3_JO_WHISPER_AFFIRMATIVE; break;
+				case 3: sp50.packed = MP3_JO_WHISPER_CONFIRMED; break;
 				}
+			} else if (g_SndCurMp3.responsetype == MP3RESPONSETYPE_ACKNOWLEDGE) {
+				do {
+					index = random() % 4;
+				} while (index == g_SndCurMp3.prevacknowledge);
 
-				g_SndCurMp3.responsetimer240 = -1;
-				sndStart(0, sp50.packed, 0, -1, -1, -1.0f, -1, -1);
+				g_SndCurMp3.prevacknowledge = index;
+
+				switch (index) {
+				case 0: sp50.packed = MP3_JO_ACKNOWLEDGE_CONFIRMED; break;
+				case 1: sp50.packed = MP3_JO_ACKNOWLEDGE_UNDERSTOOD; break;
+				case 2: sp50.packed = MP3_JO_ACKNOWLEDGE_AFFIRMATIVE; break;
+				case 3: sp50.packed = MP3_JO_ACKNOWLEDGE_RECEIVED; break;
+				}
+			} else if (g_SndCurMp3.responsetype == MP3RESPONSETYPE_GREETING) {
+				do {
+					index = random() % 4;
+				} while (index == g_SndCurMp3.prevgreeting);
+
+				g_SndCurMp3.prevgreeting = index;
+
+				switch (index) {
+				case 0: sp50.packed = MP3_JO_GREETING_HELLO; break;
+				case 1: sp50.packed = MP3_JO_GREETING_HI; break;
+				case 2: sp50.packed = MP3_JO_GREETING_HEY; break;
+				case 3: sp50.packed = MP3_JO_GREETING_HIYA; break;
+				}
 			}
+
+			g_SndCurMp3.responsetimer240 = -1;
+			sndStart(0, sp50.packed, 0, -1, -1, -1.0f, -1, -1);
 		}
 	}
-}
-
-bool sndIsDisabled(void)
-{
-	return g_SndDisabled;
 }
 
 void sndStartMp3ByFilenum(u32 filenum)
 {
 	union soundnumhack sfxref;
 
-	if (!g_SndDisabled && g_SndMp3Enabled) {
-		sfxref.packed = 0;
-		sfxref.unk02 = 0;
-		sfxref.mp3priority = 1; // high priority
-		sfxref.id = filenum;
+	sfxref.packed = 0;
+	sfxref.unk02 = 0;
+	sfxref.mp3priority = 1; // high priority
+	sfxref.id = filenum;
 
-		sndStart(0, sfxref.packed, NULL, -1, -1, -1, -1, -1);
-	}
+	sndStart(0, sfxref.packed, NULL, -1, -1, -1, -1, -1);
 }
 
 /**
@@ -1831,10 +1791,6 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg
 
 	sp44.packed = sound;
 
-	if (g_SndDisabled) {
-		return NULL;
-	}
-
 	sp40.packed = sp44.hasconfig ? g_AudioRussMappings[sp44.confignum].soundnum : sp44.packed;
 
 	if (sp40.id == SFX_0037 || sp40.id == SFX_0009) {
@@ -1866,63 +1822,61 @@ void sndStartMp3(s16 soundnum, s32 arg1, s32 arg2, s32 arg3)
 
 	sp24.packed = soundnum;
 
-	if (!g_SndDisabled) {
+	if (sp24.hasconfig) {
+		sp20.packed = g_AudioRussMappings[sp24.confignum].soundnum;
+		sp20.hasconfig = false;
+	} else {
+		sp20.packed = soundnum;
+	}
+
+	if (!g_SndCurMp3.playing
+			|| ((sp20.mp3priority != 1 || g_SndCurMp3.sfxref.mp3priority != 1)
+			 && sp20.mp3priority <= g_SndCurMp3.sfxref.mp3priority)) {
 		if (sp24.hasconfig) {
-			sp20.packed = g_AudioRussMappings[sp24.confignum].soundnum;
-			sp20.hasconfig = false;
-		} else {
-			sp20.packed = soundnum;
+			if (g_AudioConfigs[sp24.confignum].unk10 != -1) {
+				arg1 = g_AudioConfigs[sp24.confignum].unk10 * 32767 / 100;
+			}
+
+			if (g_AudioConfigs[sp24.confignum].unk14 != -1) {
+				arg2 = g_AudioConfigs[sp24.confignum].unk14;
+			}
+
+			// This is the same thing again
+			if (g_AudioConfigs[sp24.confignum].unk14 != -1) {
+				arg2 = g_AudioConfigs[sp24.confignum].unk14;
+			}
+
+			if (g_Vars.langfilteron && (g_AudioConfigs[sp24.confignum].flags & AUDIOCONFIGFLAG_OFFENSIVE)) {
+				arg1 = 0;
+			}
 		}
 
-		if (!g_SndCurMp3.playing
-				|| ((sp20.mp3priority != 1 || g_SndCurMp3.sfxref.mp3priority != 1)
-				 && sp20.mp3priority <= g_SndCurMp3.sfxref.mp3priority)) {
-			if (sp24.hasconfig) {
-				if (g_AudioConfigs[sp24.confignum].unk10 != -1) {
-					arg1 = g_AudioConfigs[sp24.confignum].unk10 * 32767 / 100;
-				}
+		arg1 = arg1 * snd0000e9dc() / 0x7fff;
 
-				if (g_AudioConfigs[sp24.confignum].unk14 != -1) {
-					arg2 = g_AudioConfigs[sp24.confignum].unk14;
-				}
+		g_SndCurMp3.romaddr = fileGetRomAddress(sp20.id);
+		g_SndCurMp3.romsize = fileGetRomSize(sp20.id);
 
-				// This is the same thing again
-				if (g_AudioConfigs[sp24.confignum].unk14 != -1) {
-					arg2 = g_AudioConfigs[sp24.confignum].unk14;
-				}
+		func00037f08(arg1, true);
+		func00037f5c(arg2, true);
 
-				if (g_Vars.langfilteron && (g_AudioConfigs[sp24.confignum].flags & AUDIOCONFIGFLAG_OFFENSIVE)) {
-					arg1 = 0;
-				}
-			}
+		mp3PlayFile(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
 
-			arg1 = arg1 * snd0000e9dc() / 0x7fff;
+		func00037f08(arg1, true);
+		func00037f5c(arg2, true);
 
-			g_SndCurMp3.romaddr = fileGetRomAddress(sp20.id);
-			g_SndCurMp3.romsize = fileGetRomSize(sp20.id);
+		g_SndCurMp3.sfxref.packed = sp20.packed;
+		g_SndCurMp3.playing = true;
+		g_SndCurMp3.responsetimer240 = -1;
+		g_SndCurMp3.responsetype = MP3RESPONSETYPE_NONE;
 
-			func00037f08(arg1, true);
-			func00037f5c(arg2, true);
+		if (g_SndCurMp3.sfxref.unk02 == 2) {
+			g_SndCurMp3.responsetype = MP3RESPONSETYPE_ACKNOWLEDGE;
+		} else if (g_SndCurMp3.sfxref.unk02 == 1) {
+			g_SndCurMp3.responsetype = MP3RESPONSETYPE_WHISPER;
+		}
 
-			mp3PlayFile(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
-
-			func00037f08(arg1, true);
-			func00037f5c(arg2, true);
-
-			g_SndCurMp3.sfxref.packed = sp20.packed;
-			g_SndCurMp3.playing = true;
-			g_SndCurMp3.responsetimer240 = -1;
-			g_SndCurMp3.responsetype = MP3RESPONSETYPE_NONE;
-
-			if (g_SndCurMp3.sfxref.unk02 == 2) {
-				g_SndCurMp3.responsetype = MP3RESPONSETYPE_ACKNOWLEDGE;
-			} else if (g_SndCurMp3.sfxref.unk02 == 1) {
-				g_SndCurMp3.responsetype = MP3RESPONSETYPE_WHISPER;
-			}
-
-			if ((sp24.hasconfig && (g_AudioConfigs[sp24.confignum].flags & AUDIOCONFIGFLAG_04)) || (arg3 & 1)) {
-				g_SndCurMp3.responsetype = MP3RESPONSETYPE_GREETING;
-			}
+		if ((sp24.hasconfig && (g_AudioConfigs[sp24.confignum].flags & AUDIOCONFIGFLAG_04)) || (arg3 & 1)) {
+			g_SndCurMp3.responsetype = MP3RESPONSETYPE_GREETING;
 		}
 	}
 }

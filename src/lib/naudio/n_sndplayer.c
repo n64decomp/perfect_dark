@@ -680,10 +680,6 @@ struct sndstate *func00033820(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32 pi
 	N_ALEvent evt;
 	N_ALEvent evt2;
 
-	if (sndIsDisabled()) {
-		return NULL;
-	}
-
 	if (soundnum != 0) {
 		do {
 			sound = sndLoadSound(soundnum);

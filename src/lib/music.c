@@ -194,147 +194,143 @@ void musicTickEvents(void)
 	s32 result;
 	struct musicevent *event;
 
-	if (!g_SndDisabled) {
-		if (g_MusicEventQueueLength);
+	for (i = 0; i < 3; i++) {
+		if (var800aaa38[i].unk04 == 0 && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
+			if (g_SeqInstances[i].seqp->chanState[0].unk0d <= var70053ca0[var800aaa38[i].tracktype]) {
+				n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
-		for (i = 0; i < 3; i++) {
-			if (var800aaa38[i].unk04 == 0 && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
-				if (g_SeqInstances[i].seqp->chanState[0].unk0d <= var70053ca0[var800aaa38[i].tracktype]) {
-					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
+				var800aaa38[i].tracktype = TRACKTYPE_NONE;
+				var800aaa38[i].unk04 = 0;
+				var800aaa38[i].unk08 = 0;
+				var800aaa38[i].unk0c = 0;
+			} else if (g_SeqInstances[i].seqp->chanState[0].unk0d == var800aaa38[i].unk0c) {
+				n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
-					var800aaa38[i].tracktype = TRACKTYPE_NONE;
-					var800aaa38[i].unk04 = 0;
-					var800aaa38[i].unk08 = 0;
-					var800aaa38[i].unk0c = 0;
-				} else if (g_SeqInstances[i].seqp->chanState[0].unk0d == var800aaa38[i].unk0c) {
-					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
-
-					var800aaa38[i].tracktype = TRACKTYPE_NONE;
-					var800aaa38[i].unk04 = 0;
-					var800aaa38[i].unk08 = 0;
-					var800aaa38[i].unk0c = 0;
-				}
+				var800aaa38[i].tracktype = TRACKTYPE_NONE;
+				var800aaa38[i].unk04 = 0;
+				var800aaa38[i].unk08 = 0;
+				var800aaa38[i].unk0c = 0;
 			}
 		}
+	}
 
-		// Figure out which events can be removed from the queue due to later
-		// events superseding them. This loop just marks those events as
-		// removable by setting their tracktype to none.
-		for (i = g_MusicEventQueueLength - 1; i >= 0; i--) {
-			event = &g_MusicEventQueue[i];
+	// Figure out which events can be removed from the queue due to later
+	// events superseding them. This loop just marks those events as
+	// removable by setting their tracktype to none.
+	for (i = g_MusicEventQueueLength - 1; i >= 0; i--) {
+		event = &g_MusicEventQueue[i];
 
-			if (event->eventtype == MUSICEVENTTYPE_5) {
+		if (event->eventtype == MUSICEVENTTYPE_5) {
+			continue;
+		}
+
+		if (event->tracktype == TRACKTYPE_NONE) {
+			continue;
+		}
+
+		for (j = i - 1; j >= 0; j--) {
+			struct musicevent *earlier = &g_MusicEventQueue[j];
+
+			if (event->eventtype == MUSICEVENTTYPE_STOPALL) {
+				earlier->tracktype = TRACKTYPE_NONE;
 				continue;
 			}
 
-			if (event->tracktype == TRACKTYPE_NONE) {
+			if (earlier->eventtype == MUSICEVENTTYPE_5) {
 				continue;
 			}
 
-			for (j = i - 1; j >= 0; j--) {
-				struct musicevent *earlier = &g_MusicEventQueue[j];
+			if (earlier->tracktype == TRACKTYPE_NONE) {
+				continue;
+			}
 
-				if (event->eventtype == MUSICEVENTTYPE_STOPALL) {
+			if (earlier->tracktype == event->tracktype) {
+				switch (event->eventtype) {
+				case MUSICEVENTTYPE_STOP:
 					earlier->tracktype = TRACKTYPE_NONE;
-					continue;
-				}
-
-				if (earlier->eventtype == MUSICEVENTTYPE_5) {
-					continue;
-				}
-
-				if (earlier->tracktype == TRACKTYPE_NONE) {
-					continue;
-				}
-
-				if (earlier->tracktype == event->tracktype) {
-					switch (event->eventtype) {
-					case MUSICEVENTTYPE_STOP:
+					break;
+				case MUSICEVENTTYPE_PLAY:
+					switch (earlier->eventtype) {
+					case MUSICEVENTTYPE_PLAY:
+					case MUSICEVENTTYPE_FADE:
 						earlier->tracktype = TRACKTYPE_NONE;
 						break;
-					case MUSICEVENTTYPE_PLAY:
-						switch (earlier->eventtype) {
-						case MUSICEVENTTYPE_PLAY:
-						case MUSICEVENTTYPE_FADE:
-							earlier->tracktype = TRACKTYPE_NONE;
-							break;
-						}
-						break;
-					case MUSICEVENTTYPE_FADE:
-						if (earlier->eventtype == MUSICEVENTTYPE_FADE) {
-							earlier->tracktype = TRACKTYPE_NONE;
-						}
-						break;
 					}
-				}
-			}
-		}
-
-		// Remove the marked events from the queue, shift the remaining
-		// events forward and recount the queue length.
-		for (i = 0, j = 0; i < g_MusicEventQueueLength; i++) {
-			if (g_MusicEventQueue[i].tracktype) {
-				g_MusicEventQueue[j] = g_MusicEventQueue[i];
-				j++;
-
-				g_MusicEventQueueLength += 0;
-			}
-		}
-
-		g_MusicEventQueueLength = j;
-
-		event = &g_MusicEventQueue[0];
-
-		if (var800840e0 == 0 || var800840e4 < g_Vars.diffframe240) {
-			var800840e4 = var800840e0;
-
-			while (g_MusicEventQueueLength) {
-				event->numattempts++;
-
-				result = RESULT_FAIL;
-
-				switch (event->eventtype) {
-				case MUSICEVENTTYPE_PLAY:
-					result = musicHandlePlayEvent(event, 0);
-					break;
-				case MUSICEVENTTYPE_STOP:
-					result = musicHandleStopEvent(event, 0);
 					break;
 				case MUSICEVENTTYPE_FADE:
-					result = musicHandleFadeEvent(event, 0);
-					break;
-				case MUSICEVENTTYPE_STOPALL:
-					result = musicHandleStopAllEvent(0);
-					break;
-				case MUSICEVENTTYPE_5:
-					result = musicHandleEvent5(event, 0);
-					break;
-				}
-
-				if (result != RESULT_FAIL) {
-					// Remove the item from the queue
-					g_MusicEventQueueLength--;
-
-					for (i = 0; i < g_MusicEventQueueLength; i++) {
-						g_MusicEventQueue[i] = g_MusicEventQueue[i + 1];
+					if (earlier->eventtype == MUSICEVENTTYPE_FADE) {
+						earlier->tracktype = TRACKTYPE_NONE;
 					}
-
-					// Break from processing further events on this frame
-					// if requested
-					if (result == RESULT_OK_BREAK) {
-						break;
-					}
-				} else {
 					break;
 				}
 			}
 		}
+	}
 
-		if (var800840e0) {
-			var800840e4 -= g_Vars.diffframe240;
-		} else {
-			var800840e4 = 0;
+	// Remove the marked events from the queue, shift the remaining
+	// events forward and recount the queue length.
+	for (i = 0, j = 0; i < g_MusicEventQueueLength; i++) {
+		if (g_MusicEventQueue[i].tracktype) {
+			g_MusicEventQueue[j] = g_MusicEventQueue[i];
+			j++;
+
+			g_MusicEventQueueLength += 0;
 		}
+	}
+
+	g_MusicEventQueueLength = j;
+
+	event = &g_MusicEventQueue[0];
+
+	if (var800840e0 == 0 || var800840e4 < g_Vars.diffframe240) {
+		var800840e4 = var800840e0;
+
+		while (g_MusicEventQueueLength) {
+			event->numattempts++;
+
+			result = RESULT_FAIL;
+
+			switch (event->eventtype) {
+			case MUSICEVENTTYPE_PLAY:
+				result = musicHandlePlayEvent(event, 0);
+				break;
+			case MUSICEVENTTYPE_STOP:
+				result = musicHandleStopEvent(event, 0);
+				break;
+			case MUSICEVENTTYPE_FADE:
+				result = musicHandleFadeEvent(event, 0);
+				break;
+			case MUSICEVENTTYPE_STOPALL:
+				result = musicHandleStopAllEvent(0);
+				break;
+			case MUSICEVENTTYPE_5:
+				result = musicHandleEvent5(event, 0);
+				break;
+			}
+
+			if (result != RESULT_FAIL) {
+				// Remove the item from the queue
+				g_MusicEventQueueLength--;
+
+				for (i = 0; i < g_MusicEventQueueLength; i++) {
+					g_MusicEventQueue[i] = g_MusicEventQueue[i + 1];
+				}
+
+				// Break from processing further events on this frame
+				// if requested
+				if (result == RESULT_OK_BREAK) {
+					break;
+				}
+			} else {
+				break;
+			}
+		}
+	}
+
+	if (var800840e0) {
+		var800840e4 -= g_Vars.diffframe240;
+	} else {
+		var800840e4 = 0;
 	}
 }
 
@@ -343,100 +339,98 @@ void musicTick(void)
 	s32 i;
 	bool playnrg = false;
 
-	if (!g_SndDisabled) {
-		if (g_MusicDeathTimer240 > 0
-				&& (g_Vars.normmplayerisrunning
-					|| (g_Vars.antiplayernum >= 0 && !g_Vars.bond->isdead)
-					|| (g_Vars.coopplayernum >= 0 && (!g_Vars.bond->isdead || !g_Vars.coop->isdead)))) {
-			// Someone is dying in MP, or anti is dying, or *one* person is dying in coop
-			g_MusicSilenceTimer60 = 0;
-			g_MusicDeathTimer240 -= g_Vars.lvupdate240;
+	if (g_MusicDeathTimer240 > 0
+			&& (g_Vars.normmplayerisrunning
+				|| (g_Vars.antiplayernum >= 0 && !g_Vars.bond->isdead)
+				|| (g_Vars.coopplayernum >= 0 && (!g_Vars.bond->isdead || !g_Vars.coop->isdead)))) {
+		// Someone is dying in MP, or anti is dying, or *one* person is dying in coop
+		g_MusicSilenceTimer60 = 0;
+		g_MusicDeathTimer240 -= g_Vars.lvupdate240;
 
-			if (g_MusicDeathTimer240 <= 0) {
-				musicEndDeath();
+		if (g_MusicDeathTimer240 <= 0) {
+			musicEndDeath();
 
-				// The death is complete. Are we due to start a new track?
-				if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning && g_MusicLife60 < g_MusicAge60) {
-					g_MusicAge60 = 0;
-					musicQueueStopEvent(TRACKTYPE_MENU);
-					musicQueueStopEvent(TRACKTYPE_DEATH);
-					musicQueueStopEvent(TRACKTYPE_PRIMARY);
-					musicQueueStartEvent(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
-				}
-			}
-		} else if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning && g_MusicLife60 < g_MusicAge60) {
-			// Due to start a new track. Fade out the old one,
-			// then start a 2 second time before starting the new one.
-			g_MusicAge60 = 0;
-			musicQueueFadeEvent(TRACKTYPE_PRIMARY, 2, 1);
-			g_MusicSilenceTimer60 = TICKS(120);
-		}
-
-		if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning) {
-			g_MusicAge60 += g_Vars.diffframe60;
-
-			// If the silence timer is set, it means we're transitioning between
-			// songs in multiplayer. Tick the timer down, and when it reaches
-			// zero start a new track.
-			if (g_MusicSilenceTimer60 > 0) {
-				g_MusicSilenceTimer60 -= g_Vars.diffframe60;
-
-				if (g_MusicSilenceTimer60 <= 0) {
-					musicQueueStopEvent(TRACKTYPE_MENU);
-					musicQueueStopEvent(TRACKTYPE_DEATH);
-					musicQueueStopEvent(TRACKTYPE_PRIMARY);
-					musicQueueStartEvent(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
-				}
+			// The death is complete. Are we due to start a new track?
+			if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning && g_MusicLife60 < g_MusicAge60) {
+				g_MusicAge60 = 0;
+				musicQueueStopEvent(TRACKTYPE_MENU);
+				musicQueueStopEvent(TRACKTYPE_DEATH);
+				musicQueueStopEvent(TRACKTYPE_PRIMARY);
+				musicQueueStartEvent(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
 			}
 		}
+	} else if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning && g_MusicLife60 < g_MusicAge60) {
+		// Due to start a new track. Fade out the old one,
+		// then start a 2 second time before starting the new one.
+		g_MusicAge60 = 0;
+		musicQueueFadeEvent(TRACKTYPE_PRIMARY, 2, 1);
+		g_MusicSilenceTimer60 = TICKS(120);
+	}
 
-		// Handle stopping of NRG tune
-		for (i = 0; i < 4; i++) {
-			if (g_AudioXReasonsActive[i] || g_MusicXReasonMinDurations[i] > 0) {
-				if (g_MusicXReasonMinDurations[i] >= g_Vars.lvupdate240) {
-					g_MusicXReasonMinDurations[i] -= g_Vars.lvupdate240;
+	if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning) {
+		g_MusicAge60 += g_Vars.diffframe60;
+
+		// If the silence timer is set, it means we're transitioning between
+		// songs in multiplayer. Tick the timer down, and when it reaches
+		// zero start a new track.
+		if (g_MusicSilenceTimer60 > 0) {
+			g_MusicSilenceTimer60 -= g_Vars.diffframe60;
+
+			if (g_MusicSilenceTimer60 <= 0) {
+				musicQueueStopEvent(TRACKTYPE_MENU);
+				musicQueueStopEvent(TRACKTYPE_DEATH);
+				musicQueueStopEvent(TRACKTYPE_PRIMARY);
+				musicQueueStartEvent(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
+			}
+		}
+	}
+
+	// Handle stopping of NRG tune
+	for (i = 0; i < 4; i++) {
+		if (g_AudioXReasonsActive[i] || g_MusicXReasonMinDurations[i] > 0) {
+			if (g_MusicXReasonMinDurations[i] >= g_Vars.lvupdate240) {
+				g_MusicXReasonMinDurations[i] -= g_Vars.lvupdate240;
+			} else {
+				g_MusicXReasonMinDurations[i] = 0;
+			}
+
+			if (g_MusicXReasonMaxDurations[i] != 0) {
+				if (g_MusicXReasonMaxDurations[i] >= g_Vars.lvupdate240) {
+					g_MusicXReasonMaxDurations[i] -= g_Vars.lvupdate240;
 				} else {
-					g_MusicXReasonMinDurations[i] = 0;
+					g_MusicXReasonMaxDurations[i] = 0;
 				}
 
 				if (g_MusicXReasonMaxDurations[i] != 0) {
-					if (g_MusicXReasonMaxDurations[i] >= g_Vars.lvupdate240) {
-						g_MusicXReasonMaxDurations[i] -= g_Vars.lvupdate240;
-					} else {
-						g_MusicXReasonMaxDurations[i] = 0;
+					if (g_AudioXReasonsActive[i] || g_MusicXReasonMinDurations[i]) {
+						playnrg = true;
 					}
-
-					if (g_MusicXReasonMaxDurations[i] != 0) {
-						if (g_AudioXReasonsActive[i] || g_MusicXReasonMinDurations[i]) {
-							playnrg = true;
-						}
-					} else {
-						g_AudioXReasonsActive[i] = 0;
-					}
+				} else {
+					g_AudioXReasonsActive[i] = 0;
 				}
 			}
 		}
-
-		if (g_Vars.lvupdate240 != 0) {
-			if (g_MusicNrgIsActive) {
-				if (!playnrg) {
-					musicDeactivateNrg();
-				}
-			} else {
-				if (playnrg && !g_Vars.dontplaynrg) {
-					musicActivateNrg();
-				}
-			}
-		}
-
-		// Check if the player is in an ambient room every 0.25 seconds
-		if (g_Vars.lvupdate240 > g_MusicNextAmbientTick240) {
-			musicTickAmbient();
-			g_MusicNextAmbientTick240 = TICKS(60);
-		} else {
-			g_MusicNextAmbientTick240 -= g_Vars.lvupdate240;
-		}
-
-		musicTickEvents();
 	}
+
+	if (g_Vars.lvupdate240 != 0) {
+		if (g_MusicNrgIsActive) {
+			if (!playnrg) {
+				musicDeactivateNrg();
+			}
+		} else {
+			if (playnrg && !g_Vars.dontplaynrg) {
+				musicActivateNrg();
+			}
+		}
+	}
+
+	// Check if the player is in an ambient room every 0.25 seconds
+	if (g_Vars.lvupdate240 > g_MusicNextAmbientTick240) {
+		musicTickAmbient();
+		g_MusicNextAmbientTick240 = TICKS(60);
+	} else {
+		g_MusicNextAmbientTick240 -= g_Vars.lvupdate240;
+	}
+
+	musicTickEvents();
 }
