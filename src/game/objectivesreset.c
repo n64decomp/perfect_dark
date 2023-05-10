@@ -10,7 +10,7 @@ void objectivesReset(void)
 {
 	s32 i;
 
-	if (mainGetStageNum() < STAGE_TITLE) {
+	if (g_StageNum < STAGE_TITLE) {
 		g_ObjectiveLastIndex = -1;
 
 		for (i = 0; i < ARRAYCOUNT(g_ObjectiveStatuses); i++) {

@@ -4,6 +4,10 @@
 #include "data.h"
 #include "types.h"
 
+extern bool g_LvIsPaused;
+extern s32 g_StageTimeElapsed60;
+extern s32 g_Difficulty;
+
 void lvInit(void);
 void lvReset(s32 stagenum);
 Gfx *lvRender(Gfx *gdl);
@@ -15,7 +19,6 @@ void lvConfigureFade(u32 color, s16 num_frames);
 bool lvIsFadeActive(void);
 void lvStop(void);
 bool lvIsPaused(void);
-s32 lvGetDifficulty(void);
 void lvSetDifficulty(s32 difficulty);
 void lvSetMpTimeLimit60(u32 limit);
 void lvSetMpScoreLimit(u32 limit);

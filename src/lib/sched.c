@@ -175,7 +175,7 @@ static void __scHandleRetrace(OSSched *sc)
 	 */
 	if (sc->alt && !g_Resetting) {
 		osStopTimer(&g_SchedRspTimer);
-		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), (OSMesg) OS_SC_RSP_MSG);
+		osSetTimer(&g_SchedRspTimer, 280000, 0, &g_AudioManager.audioFrameMsgQ, (OSMesg) OS_SC_RSP_MSG);
 
 		if (sc->nextAudTask && sc->curRSPTask->list.t.type == M_GFXTASK) {
 			osSpTaskYield();

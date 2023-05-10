@@ -21,7 +21,6 @@ extern u8 _textureconfigSegmentEnd;
 
 void texReset(void)
 {
-	s32 stage;
 	u32 len = &_textureconfigSegmentEnd - &_textureconfigSegmentStart;
 	s32 i;
 
@@ -62,6 +61,4 @@ void texReset(void)
 
 	texLoadFromDisplayList(g_TexGdl1, 0, 0);
 	texLoadFromDisplayList(g_TexGdl3, 0, 0);
-
-	stage = mainGetStageNum();
 }

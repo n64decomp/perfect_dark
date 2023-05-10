@@ -83,11 +83,6 @@ bool bmoveIsAutoAimEnabledForCurrentWeapon(void)
 	return bmoveIsAutoAimEnabled();
 }
 
-bool bmoveIsInSightAimMode(void)
-{
-	return g_Vars.currentplayer->insightaimmode;
-}
-
 void bmoveUpdateAutoAimProp(struct prop *prop, f32 x, f32 y)
 {
 	if (g_Vars.currentplayer->autoaimtime60 >= 0) {
@@ -203,11 +198,11 @@ static void bmoveUpdateSpeedTheta(void)
 static f32 bmoveGetSpeedVertaLimit(f32 value)
 {
 	if (value > 0) {
-		return (viGetFovY() * value * -0.7f) / 60.0f;
+		return (g_ViBackData->fovy * value * -0.7f) / 60.0f;
 	}
 
 	if (value < 0) {
-		return (viGetFovY() * -value * 0.7f) / 60.0f;
+		return (g_ViBackData->fovy * -value * 0.7f) / 60.0f;
 	}
 
 	return 0;
@@ -215,7 +210,7 @@ static f32 bmoveGetSpeedVertaLimit(f32 value)
 
 static void bmoveUpdateSpeedVerta(f32 value)
 {
-	f32 mult = viGetFovY() / 60.0f;
+	f32 mult = g_ViBackData->fovy / 60.0f;
 	f32 limit = bmoveGetSpeedVertaLimit(value);
 
 	if (value > 0) {
@@ -258,11 +253,11 @@ static void bmoveUpdateSpeedVerta(f32 value)
 static f32 bmoveGetSpeedThetaControlLimit(f32 value)
 {
 	if (value > 0) {
-		return (viGetFovY() * value * -0.7f) / 60.0f;
+		return (g_ViBackData->fovy * value * -0.7f) / 60.0f;
 	}
 
 	if (value < 0) {
-		return (viGetFovY() * -value * 0.7f) / 60.0f;
+		return (g_ViBackData->fovy * -value * 0.7f) / 60.0f;
 	}
 
 	return 0;
@@ -270,7 +265,7 @@ static f32 bmoveGetSpeedThetaControlLimit(f32 value)
 
 static void bmoveUpdateSpeedThetaControl(f32 value)
 {
-	f32 mult = viGetFovY() / 60.0f;
+	f32 mult = g_ViBackData->fovy / 60.0f;
 	f32 limit = bmoveGetSpeedThetaControlLimit(value);
 
 	if (value > 0) {
@@ -375,12 +370,11 @@ static f32 bmoveCalculateLookahead(void)
 	if (cdExamLos08(&spf0, spe0, &sp150,
 				CDTYPE_BG | CDTYPE_CLOSEDDOORS,
 				GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT) == CDRESULT_COLLISION) {
-		cdGetPos(&sp150);
 		flags = cdGetGeoFlags();
 
-		sp160 = sqrtf((sp150.x - spf0.x) * (sp150.x - spf0.x)
-				+ (sp150.y - spf0.y) * (sp150.y - spf0.y)
-				+ (sp150.z - spf0.z) * (sp150.z - spf0.z));
+		sp160 = sqrtf((g_CdObstaclePos.x - spf0.x) * (g_CdObstaclePos.x - spf0.x)
+				+ (g_CdObstaclePos.y - spf0.y) * (g_CdObstaclePos.y - spf0.y)
+				+ (g_CdObstaclePos.z - spf0.z) * (g_CdObstaclePos.z - spf0.z));
 	}
 
 	if (sp160 > 60.0f || (flags & GEOFLAG_FLOOR1)) {
@@ -573,10 +567,10 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 	f32 increment2;
 	f32 newverta;
 
-	controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
+	controlmode = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].controlmode;
 	weaponnum = bgunGetWeaponNum(HAND_RIGHT);
 	canmanualzoom = weaponHasAimFlag(weaponnum, INVAIMFLAG_MANUALZOOM);
-	contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
+	contpad1 = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad1;
 
 	c1stickx = allowc1x ? joyGetStickX(contpad1) : 0;
 	c1sticky = allowc1y ? joyGetStickY(contpad1) : 0;
@@ -650,12 +644,12 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 
 	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
 		if (g_Vars.currentplayer->isdead == false) {
-			if (controlmode == CONTROLMODE_23 || controlmode == CONTROLMODE_24 || controlmode == CONTROLMODE_22 || controlmode == CONTROLMODE_21) {
+			if (controlmode >= CONTROLMODE_21) {
 				// 2.1: ctrl1 stick = walk/turn, z = fire, ctrl2 stick = look/strafe, z = aim
 				// 2.2: ctrl1 stick = look,      z = fire, ctrl2 stick = walk/strafe, z = aim
 				// 2.3: ctrl1 stick = walk/turn, z = aim,  ctrl2 stick = look/strafe, z = fire
 				// 2.4: ctrl1 stick = look,      z = aim,  ctrl2 stick = walk/strafe, z = fire
-				contpad2 = (s8) optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
+				contpad2 = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad2;
 				c2stickx = (s8) joyGetStickX(contpad2);
 				c2sticky = (joyGetStickY(contpad2) << 24) >> 24;
 				c2buttons = joyGetButtons(contpad2, 0xffff);
@@ -741,7 +735,7 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 					}
 				}
 
-				if (!lvIsPaused()) {
+				if (!g_LvIsPaused) {
 					// Handle aiming
 					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
 						for (i = 0; i < numsamples; i++) {
@@ -1046,7 +1040,7 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 					}
 				}
 
-				if (!lvIsPaused()) {
+				if (!g_LvIsPaused) {
 					// Handle aiming
 					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
 						for (i = 0; i < numsamples; i++) {
@@ -1400,15 +1394,15 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 
 	bgunTickGameplay(movedata.triggeron);
 
-	if (g_Vars.bondvisible && (bgunIsFiring(HAND_RIGHT) || bgunIsFiring(HAND_LEFT))) {
+	if (g_Vars.bondvisible && (g_Vars.currentplayer->hands[HAND_RIGHT].firing || g_Vars.currentplayer->hands[HAND_LEFT].firing)) {
 		noiseradius = 0;
 
-		if (bgunIsFiring(HAND_RIGHT) && bgunGetNoiseRadius(HAND_RIGHT) > noiseradius) {
-			noiseradius = bgunGetNoiseRadius(HAND_RIGHT);
+		if (g_Vars.currentplayer->hands[HAND_RIGHT].firing && g_Vars.currentplayer->hands[HAND_RIGHT].noiseradius > noiseradius) {
+			noiseradius = g_Vars.currentplayer->hands[HAND_RIGHT].noiseradius;
 		}
 
-		if (bgunIsFiring(HAND_LEFT) && bgunGetNoiseRadius(HAND_LEFT) > noiseradius) {
-			noiseradius = bgunGetNoiseRadius(HAND_LEFT);
+		if (g_Vars.currentplayer->hands[HAND_LEFT].firing && g_Vars.currentplayer->hands[HAND_LEFT].noiseradius > noiseradius) {
+			noiseradius = g_Vars.currentplayer->hands[HAND_LEFT].noiseradius;
 		}
 
 		chrsCheckForNoise(noiseradius);
@@ -1444,19 +1438,19 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 
 			g_Vars.currentplayer->gunzoomfovs[1] = eraserfov;
 
-			mtx4TransformVec(camGetWorldToScreenMtxf(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
+			mtx4TransformVec(g_Vars.currentplayer->worldtoscreenmtx, &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
 
 			cam0f0b4eb8(&spa0, crosspos, eraserfov, g_Vars.currentplayer->c_perspaspect);
 
-			if (crosspos[0] < (camGetScreenLeft() + camGetScreenWidth() * 0.5f) - 20.0f) {
+			if (crosspos[0] < (g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth * 0.5f) - 20.0f) {
 				movedata.aimturnleftspeed = 0.25f;
-			} else if (crosspos[0] > camGetScreenLeft() + camGetScreenWidth() * 0.5f + 20.0f) {
+			} else if (crosspos[0] > g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth * 0.5f + 20.0f) {
 				movedata.aimturnrightspeed = 0.25f;
 			}
 
-			if (crosspos[1] < (camGetScreenTop() + camGetScreenHeight() * 0.5f) - 20.0f) {
+			if (crosspos[1] < (g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight * 0.5f) - 20.0f) {
 				movedata.speedvertaup = 0.25f;
-			} else if (crosspos[1] > camGetScreenTop() + camGetScreenHeight() * 0.5f + 20.0f) {
+			} else if (crosspos[1] > g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight * 0.5f + 20.0f) {
 				movedata.speedvertadown = 0.25f;
 			}
 		}
@@ -1587,7 +1581,7 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 			}
 		} else {
 			if (movedata.cannaturalpitch) {
-				tmp = viGetFovY() / 60.0f;
+				tmp = g_ViBackData->fovy / 60.0f;
 				fVar25 = movedata.analogpitch / 70.0f;
 
 				if (fVar25 > 1) {
@@ -1624,7 +1618,7 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 	}
 
 	if (movedata.cannaturalturn) {
-		tmp = viGetFovY() / 60.0f;
+		tmp = g_ViBackData->fovy / 60.0f;
 		fVar25 = movedata.analogturn / 70.0f;
 
 		if (fVar25 > 1) {
@@ -1683,8 +1677,6 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 		f32 x;
 		f32 y;
 
-		bgunSetAimType(0);
-
 		if (
 				(
 				 movedata.canautoaim
@@ -1736,7 +1728,6 @@ static void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons,
 	} else if (movedata.canmanualaim) {
 		// Adjust crosshair's position on screen
 		// when holding aim and moving stick
-		bgunSetAimType(0);
 		bgunSwivelWithoutDamp((movedata.c1stickxraw * 0.65f) / 80.0f, (movedata.c1stickyraw * 0.65f) / 80.0f);
 	}
 }

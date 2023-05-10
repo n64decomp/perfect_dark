@@ -277,7 +277,7 @@ static Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	mtx00015f04(nbomb->radius / 2000.0f, &sp88);
 	mtx4MultMtx4(&sp48, &sp88, &spc8);
 
-	mtx00015be0(camGetWorldToScreenMtxf(), &spc8);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &spc8);
 	mtx00016054(&spc8, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -638,10 +638,10 @@ Gfx *nbombRenderOverlay(Gfx *gdl)
 		colours = gfxAllocateColours(1);
 		vertices = gfxAllocateVertices(4);
 
-		viewleft = viGetViewLeft() * 10;
-		viewtop = viGetViewTop() * 10;
-		viewright = (s16) (viGetViewLeft() + viGetViewWidth()) * 10;
-		viewbottom = (s16) (viGetViewTop() + viGetViewHeight()) * 10;
+		viewleft = g_ViBackData->viewleft * 10;
+		viewtop = g_ViBackData->viewtop * 10;
+		viewright = (s16) (g_ViBackData->viewleft + g_ViBackData->viewx) * 10;
+		viewbottom = (s16) (g_ViBackData->viewtop + g_ViBackData->viewy) * 10;
 
 		s = (s32) (8.0f * g_20SecIntervalFrac * 128.0f * 32.0f) % 2048;
 		t = (s16) ((s32) (campos.f[1] * 8.0f) % 2048) + (s16) (2.0f * g_20SecIntervalFrac * 128.0f * 32.0f);
@@ -775,10 +775,10 @@ Gfx *gasRender(Gfx *gdl)
 		if (show) {
 			u32 *colours = gfxAllocateColours(1);
 			struct gfxvtx *vertices = gfxAllocateVertices(8);
-			s16 viewleft = viGetViewLeft() * 10;
-			s16 viewtop = viGetViewTop() * 10;
-			s16 viewright = (s16) (viGetViewLeft() + viGetViewWidth()) * 10;
-			s16 viewbottom = (s16) (viGetViewTop() + viGetViewHeight()) * 10;
+			s16 viewleft = g_ViBackData->viewleft * 10;
+			s16 viewtop = g_ViBackData->viewtop * 10;
+			s16 viewright = (s16) (g_ViBackData->viewleft + g_ViBackData->viewx) * 10;
+			s16 viewbottom = (s16) (g_ViBackData->viewtop + g_ViBackData->viewy) * 10;
 			f32 lookx = g_Vars.currentplayer->cam_look.x;
 			f32 lookz = g_Vars.currentplayer->cam_look.z;
 			f32 camposx = g_Vars.currentplayer->cam_pos.x;

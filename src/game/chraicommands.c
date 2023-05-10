@@ -1116,7 +1116,7 @@ f32 aiGetChrShield(s32 chrref)
 {
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
 
-	return chrGetShield(chr);
+	return chr->cshield;
 }
 
 bool aiIfRoomIsOnScreen(s32 padnum)
@@ -1186,7 +1186,7 @@ s32 aiGetNumPlayers(void)
 
 s32 aiGetNumTimesShot(void)
 {
-	return chrGetNumArghs(g_Vars.chrdata);
+	return g_Vars.chrdata->numarghs;
 }
 
 s32 aiGetObjDamage(s32 tagnum)
@@ -1208,7 +1208,7 @@ s32 aiGetSoundTimer(void)
 s32 aiGetTimer(void)
 {
 	if (g_Vars.chrdata) {
-		return chrGetTimer(g_Vars.chrdata);
+		return g_Vars.chrdata->timer60;
 	}
 
 	if (g_Vars.hovercar) {
@@ -1313,7 +1313,7 @@ void aiHideCutsceneChrs(void)
 {
 	s32 i;
 
-	for (i = chrsGetNumSlots() - 1; i >= 0; i--) {
+	for (i = g_NumChrSlots - 1; i >= 0; i--) {
 		if (g_ChrSlots[i].chrnum >= 0 && g_ChrSlots[i].prop &&
 				(g_ChrSlots[i].chrflags & (CHRCFLAG_UNPLAYABLE | CHRCFLAG_HIDDEN)) == 0) {
 			g_ChrSlots[i].hidden2 |= CHRH2FLAG_HIDDENFORCUTSCENE;
@@ -1950,16 +1950,16 @@ bool aiIfNeverBeenOnScreen(void)
 
 bool aiIfObjectiveComplete(s32 index)
 {
-	return index < objectiveGetCount()
+	return index < (g_ObjectiveLastIndex + 1)
 		&& g_ObjectiveStatuses[index] == OBJECTIVE_COMPLETE
-		&& objectiveGetDifficultyBits(index) & (1 << lvGetDifficulty());
+		&& objectiveGetDifficultyBits(index) & (1 << g_Difficulty);
 }
 
 bool aiIfObjectiveFailed(s32 index)
 {
-	return index < objectiveGetCount()
+	return index < (g_ObjectiveLastIndex + 1)
 		&& g_ObjectiveStatuses[index] == OBJECTIVE_FAILED
-		&& objectiveGetDifficultyBits(index) & (1 << lvGetDifficulty());
+		&& objectiveGetDifficultyBits(index) & (1 << g_Difficulty);
 }
 
 bool aiIfObjectDistanceToPadLessThan(s32 tagnum, s32 padnum, f32 distance)
@@ -2090,7 +2090,7 @@ bool aiIfSafety2LessThan(s32 limit)
 	score = 6;
 	numnearby = 0;
 
-	if (chrGetNumArghs(g_Vars.chrdata) > 0) {
+	if (g_Vars.chrdata->numarghs > 0) {
 		score -= 2;
 	}
 
@@ -3842,7 +3842,7 @@ void aiShowCutsceneChrs(void)
 {
 	s32 i;
 
-	for (i = chrsGetNumSlots() - 1; i >= 0; i--) {
+	for (i = g_NumChrSlots - 1; i >= 0; i--) {
 		if (g_ChrSlots[i].chrnum >= 0 && g_ChrSlots[i].prop && (g_ChrSlots[i].hidden2 & CHRH2FLAG_HIDDENFORCUTSCENE)) {
 			g_ChrSlots[i].hidden2 &= ~CHRH2FLAG_HIDDENFORCUTSCENE;
 			g_ChrSlots[i].chrflags &= ~CHRCFLAG_HIDDEN;
@@ -4106,7 +4106,7 @@ struct prop *aiTryEquipWeapon(s32 model, s32 weaponnum, u32 flags)
 				prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
 				break;
 			case WEAPON_K7AVENGER:
-				if (g_Vars.stagenum == STAGE_INVESTIGATION && lvGetDifficulty() == DIFF_PA) {
+				if (g_Vars.stagenum == STAGE_INVESTIGATION && g_Difficulty == DIFF_PA) {
 					prop = chrGiveWeapon(g_Vars.chrdata, model, weaponnum, flags);
 				} else {
 					prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);

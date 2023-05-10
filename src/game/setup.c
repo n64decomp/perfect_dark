@@ -282,7 +282,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 			objInitWithModelDef(obj, g_ModelStates[modelnum].filedata);
 		}
 
-		modelSetScale(obj->model, obj->model->scale * scale);
+		obj->model->scale *= scale;
 		return;
 	}
 
@@ -296,7 +296,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 				prop = objInitWithModelDef(obj, g_ModelStates[modelnum].filedata);
 			}
 
-			modelSetScale(obj->model, obj->model->scale * scale);
+			obj->model->scale *= scale;
 			propReparent(prop, chr->prop);
 		}
 	} else {
@@ -307,7 +307,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 				objInitWithModelDef(obj, g_ModelStates[modelnum].filedata);
 			}
 
-			modelSetScale(obj->model, obj->model->scale * scale);
+			obj->model->scale *= scale;
 			return;
 		}
 
@@ -444,11 +444,11 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 					mtx00015e80(yscale, &mtx);
 					mtx00015edc(zscale, &mtx);
 
-					modelSetScale(obj->model, obj->model->scale * maxscale);
+					obj->model->scale *= maxscale;
 				}
 			}
 
-			modelSetScale(obj->model, obj->model->scale * scale);
+			obj->model->scale *= scale;
 			mtx00015f04(obj->model->scale, &mtx);
 
 			if (obj->flags2 & OBJFLAG2_00020000) {
@@ -534,7 +534,7 @@ void setupPlaceWeapon(struct weaponobj *weapon, s32 cmdindex)
 						// Don't replace the K7 guard's weapon in Investigation
 						// because it would make an objective impossible.
 						// @bug: It's still replaced on PD mode difficulty.
-						if (g_Vars.stagenum != STAGE_INVESTIGATION || lvGetDifficulty() != DIFF_PA) {
+						if (g_Vars.stagenum != STAGE_INVESTIGATION || g_Difficulty != DIFF_PA) {
 							weapon->weaponnum = WEAPON_ROCKETLAUNCHER;
 							weapon->base.modelnum = MODEL_CHRDYROCKET;
 							weapon->base.extrascale = 256;
@@ -755,7 +755,7 @@ static void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdin
 
 		if (prop && monitor->base.embedment) {
 			monitor->base.hidden |= OBJHFLAG_EMBEDDED;
-			modelSetScale(monitor->base.model, monitor->base.model->scale * scale);
+			monitor->base.model->scale *= scale;
 			monitor->base.model->attachedtomodel = owner->model;
 
 			if (monitor->ownerpart == MODELPART_0000) {
@@ -995,7 +995,7 @@ static void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 				scale = zscale;
 			}
 
-			modelSetScale(door->base.model, door->base.model->scale * scale);
+			door->base.model->scale *= scale;
 		}
 
 		propActivate(prop);
@@ -1061,11 +1061,11 @@ void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing 
 			struct defaultobj *obj;
 			s32 wanttype = BRIEFINGTYPE_TEXT_PA;
 
-			if (lvGetDifficulty() == DIFF_A) {
+			if (g_Difficulty == DIFF_A) {
 				wanttype = BRIEFINGTYPE_TEXT_A;
 			}
 
-			if (lvGetDifficulty() == DIFF_SA) {
+			if (g_Difficulty == DIFF_SA) {
 				wanttype = BRIEFINGTYPE_TEXT_SA;
 			}
 
@@ -1339,7 +1339,7 @@ void setupCreateProps(s32 stagenum)
 			u32 diffflag = 0;
 			s32 index;
 
-			diffflag |= 1 << (lvGetDifficulty() + 4);
+			diffflag |= 1 << (g_Difficulty + 4);
 
 			if (g_Vars.mplayerisrunning) {
 				if (PLAYERCOUNT() == 2) {
@@ -1711,11 +1711,11 @@ void setupCreateProps(s32 stagenum)
 
 						briefingInsert(briefing);
 
-						if (lvGetDifficulty() == DIFF_A) {
+						if (g_Difficulty == DIFF_A) {
 							wanttype = BRIEFINGTYPE_TEXT_A;
 						}
 
-						if (lvGetDifficulty() == DIFF_SA) {
+						if (g_Difficulty == DIFF_SA) {
 							wanttype = BRIEFINGTYPE_TEXT_SA;
 						}
 
@@ -1830,7 +1830,6 @@ void setupCreateProps(s32 stagenum)
 
 						if (owner && owner->prop) {
 							obj->hidden |= OBJHFLAG_HASOWNER;
-							modelSetScale(obj->model, obj->model->scale);
 							propReparent(obj->prop, owner->prop);
 						}
 					}

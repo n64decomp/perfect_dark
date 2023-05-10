@@ -18,7 +18,6 @@
 #define SURFACE_FLOOR   0
 #define SURFACE_CEILING 1
 
-static void cdGetGeoNormal(struct geo *geo, struct coord *normal);
 static void cdGetFloorCol(struct geo *geo, u16 *floorcol);
 static void cdGetFloorType(struct geo *geo, u8 *floortype);
 static s32 cdTestRampWall(struct geotilei *tile, struct coord *pos, f32 width, f32 y1, f32 y2);
@@ -31,13 +30,13 @@ struct debugtri {
 union filedataptr g_TileFileData;
 s32 g_TileNumRooms;
 u32 *g_TileRooms;
-s32 var8009a8ac;
-f32 var8009a8b0;
+s32 g_Cd8009a8ac;
+f32 g_Cd8009a8b0;
 struct coord g_CdEdgeVtx1;
 struct coord g_CdEdgeVtx2;
 struct prop *g_CdObstacleProp;
 struct coord g_CdObstaclePos;
-f32 var8009a8f0;
+f32 g_Cd8009a8f0;
 bool g_CdHasSavedPos;
 struct coord g_CdPos1;
 struct coord g_CdPos2;
@@ -212,43 +211,6 @@ handlezero:
 	return (f32) sp60 * (1.0f / spac);
 }
 
-f32 cd00024e40(void)
-{
-	return var8009a8f0;
-}
-
-void cdGetEdge(struct coord *vtx1, struct coord *vtx2)
-{
-	*vtx1 = g_CdEdgeVtx1;
-
-	*vtx2 = g_CdEdgeVtx2;
-}
-
-f32 cd00024e98(void)
-{
-	return var8009a8b0;
-}
-
-s32 cd00024ea4(void)
-{
-	return var8009a8ac;
-}
-
-struct prop *cdGetObstacleProp(void)
-{
-	return g_CdObstacleProp;
-}
-
-void cdGetPos(struct coord *pos)
-{
-	*pos = g_CdObstaclePos;
-}
-
-void cdGetObstacleNormal(struct coord *normal)
-{
-	cdGetGeoNormal(g_CdObstacleGeo, normal);
-}
-
 u32 cdGetGeoFlags(void)
 {
 	u32 flags = 0;
@@ -273,7 +235,7 @@ u32 cdGetGeoFlags(void)
 
 static void cdClearResults(void)
 {
-	var8009a8ac = 0;
+	g_Cd8009a8ac = 0;
 	g_CdObstacleProp = NULL;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
@@ -285,7 +247,7 @@ static void cdSetObstacleVtxProp(struct coord *vtx1, struct coord *vtx2, struct 
 
 	g_CdEdgeVtx2 = *vtx2;
 
-	var8009a8ac = 0;
+	g_Cd8009a8ac = 0;
 	g_CdObstacleProp = prop;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
@@ -293,13 +255,13 @@ static void cdSetObstacleVtxProp(struct coord *vtx1, struct coord *vtx2, struct 
 
 static void cdSetObstacleVtxPropFlt(struct coord *vtx1, struct coord *vtx2, struct prop *prop, f32 arg3)
 {
-	var8009a8b0 = arg3;
+	g_Cd8009a8b0 = arg3;
 
 	g_CdEdgeVtx1 = *vtx1;
 
 	g_CdEdgeVtx2 = *vtx2;
 
-	var8009a8ac = 1;
+	g_Cd8009a8ac = 1;
 	g_CdObstacleProp = prop;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
@@ -325,13 +287,13 @@ static void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width)
 	sp24.x = g_CdEdgeVtx2.x;
 	sp24.z = g_CdEdgeVtx2.z;
 
-	var8009a8b0 = func0f1579cc(&sp34, &sp2c, &sp24, &sp1c);
-	var8009a8ac = 1;
+	g_Cd8009a8b0 = func0f1579cc(&sp34, &sp2c, &sp24, &sp1c);
+	g_Cd8009a8ac = 1;
 }
 
 static void cdSetObstacleProp(struct prop *prop)
 {
-	var8009a8ac = 0;
+	g_Cd8009a8ac = 0;
 	g_CdObstacleProp = prop;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
@@ -345,7 +307,7 @@ static void cdSetObstacleVtxColProp(struct coord *vtxpos1, struct coord *vtxpos2
 
 	g_CdObstaclePos = *collisionpos;
 
-	var8009a8ac = 0;
+	g_Cd8009a8ac = 0;
 	g_CdObstacleProp = prop;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
@@ -354,14 +316,11 @@ static void cdSetObstacleVtxColProp(struct coord *vtxpos1, struct coord *vtxpos2
 static void cdSetObstacleVtxColPropFltGeo(struct coord *vtxpos1, struct coord *vtxpos2, struct coord *collisionpos, struct prop *prop, f32 arg4, struct geo *geo)
 {
 	g_CdEdgeVtx1 = *vtxpos1;
-
 	g_CdEdgeVtx2 = *vtxpos2;
-
 	g_CdObstaclePos = *collisionpos;
-
-	var8009a8ac = 0;
+	g_Cd8009a8ac = 0;
 	g_CdObstacleProp = prop;
-	var8009a8f0 = arg4;
+	g_Cd8009a8f0 = arg4;
 	g_CdHasSavedPos = false;
 	g_CdHasSavedBlock = false;
 	g_CdObstacleGeo = geo;
@@ -370,7 +329,6 @@ static void cdSetObstacleVtxColPropFltGeo(struct coord *vtxpos1, struct coord *v
 void cdSetSavedPos(struct coord *pos1, struct coord *pos2)
 {
 	g_CdPos1 = *pos1;
-
 	g_CdPos2 = *pos2;
 
 	g_CdHasSavedPos = true;
@@ -380,7 +338,6 @@ bool cdGetSavedPos(struct coord *pos1, struct coord *pos2)
 {
 	if (g_CdHasSavedPos) {
 		*pos1 = g_CdPos1;
-
 		*pos2 = g_CdPos2;
 	}
 
@@ -520,7 +477,7 @@ static void cd00025848(f32 tilex, f32 tilez, f32 tilewidth, f32 posx, f32 posz, 
 	*z2 = tilez + posz + posx;
 }
 
-static void cdGetGeoNormal(struct geo *geo, struct coord *normal)
+void cdGetGeoNormal(struct geo *geo, struct coord *normal)
 {
 	if (geo->type == GEOTYPE_TILE_I) {
 		struct geotilei *tile = (struct geotilei *) geo;

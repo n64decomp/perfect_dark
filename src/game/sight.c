@@ -333,10 +333,10 @@ static s32 sightCalculateBoxBound(s32 targetx, s32 viewleft, s32 timeelapsed, s3
  */
 static Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s32 time)
 {
-	s32 viewleft = viGetViewLeft();
-	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewheight = viGetViewHeight();
+	s32 viewleft = g_ViBackData->viewleft;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewheight = g_ViBackData->viewy;
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 	u32 colour;
@@ -404,10 +404,10 @@ static Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 te
 				// textid 1 writes '0'
 				label[0] = textid + 0x2f;
 
-				gdl = textRender(gdl, &x, &y, label, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+				gdl = textRender(gdl, &x, &y, label, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 			} else {
 				char *text = langGet(textid);
-				gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+				gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 			}
 		}
 	}
@@ -417,10 +417,10 @@ static Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 te
 
 static Gfx *sightDrawAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 colour)
 {
-	s32 viewleft = viGetViewLeft();
-	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewheight = viGetViewHeight();
+	s32 viewleft = g_ViBackData->viewleft;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewheight = g_ViBackData->viewy;
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 
@@ -532,7 +532,7 @@ static Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 				// "Identify"
 				gdl = textRender(gdl, &textx, &texty, langGet(L_MISC_439),
 						g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0,
-						viGetWidth(), viGetHeight(), 0, 0);
+						g_ViBackData->x, g_ViBackData->y, 0, 0);
 			}
 
 			gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
@@ -791,10 +791,10 @@ static Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
 
 static Gfx *sightDrawSkedar(Gfx *gdl, bool sighton)
 {
-	s32 viewleft = viGetViewLeft();
-	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewheight = viGetViewHeight();
+	s32 viewleft = g_ViBackData->viewleft;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewheight = g_ViBackData->viewy;
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 	s32 paddingy = viewheight / 4;
@@ -975,10 +975,10 @@ static Gfx *sightDrawSkedar(Gfx *gdl, bool sighton)
 
 static Gfx *sightDrawZoom(Gfx *gdl, bool sighton)
 {
-	s32 viewleft = viGetViewLeft();
-	s32 viewtop = viGetViewTop();
-	s32 viewhalfwidth = viGetViewWidth() >> 1;
-	s32 viewhalfheight = viGetViewHeight() >> 1;
+	s32 viewleft = g_ViBackData->viewleft;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewhalfwidth = g_ViBackData->viewx >> 1;
+	s32 viewhalfheight = g_ViBackData->viewy >> 1;
 	s32 viewright = viewleft + viewhalfwidth * 2 - 1;
 	s32 viewbottom = viewtop + viewhalfheight * 2 - 1;
 	f32 maxfovy;
@@ -1113,10 +1113,10 @@ static Gfx *sightDrawZoom(Gfx *gdl, bool sighton)
 
 static Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 {
-	s32 viewleft = viGetViewLeft();
-	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewheight = viGetViewHeight();
+	s32 viewleft = g_ViBackData->viewleft;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewheight = g_ViBackData->viewy;
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 	s32 x = (s32)g_Vars.currentplayer->crosspos[0];

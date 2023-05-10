@@ -232,20 +232,10 @@ void mtx00016710(f32 mult, f32 mtx[4][4])
 	mtx[3][2] *= mult;
 }
 
-void mtx00016748(f32 arg0)
-{
-	var8005ef10[0] = 65536 * arg0;
-}
-
 void mtx00016760(void)
 {
 	g_Vars.unk000510 = var8005ef10[0];
 	var8005ef10[0] = 65536;
-}
-
-void mtx00016784(void)
-{
-	var8005ef10[0] = g_Vars.unk000510;
 }
 
 /**

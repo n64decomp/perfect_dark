@@ -36,8 +36,8 @@ void amTick(void)
 		}
 
 		if (g_Vars.currentplayer->activemenumode != AMMODE_CLOSED) {
-			s32 controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
-			s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
+			s32 controlmode = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].controlmode;
+			s8 contpadnum = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad1;
 			s32 numsamples = joyGetNumSamples();
 			s32 j;
 
@@ -143,7 +143,7 @@ void amTick(void)
 						|| controlmode == CONTROLMODE_24
 						|| controlmode == CONTROLMODE_22
 						|| controlmode == CONTROLMODE_21) {
-					s8 contpadnum2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
+					s8 contpadnum2 = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad2;
 					s8 cstickx2 = joyGetStickXOnSample(j, contpadnum2);
 					s8 csticky2 = joyGetStickYOnSample(j, contpadnum2);
 					u16 buttonsstate2 = joyGetButtonsOnSample(j, contpadnum2, 0xffff);

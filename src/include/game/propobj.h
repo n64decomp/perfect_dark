@@ -15,7 +15,6 @@ extern struct beam *g_ThrownLaptopBeams;
 
 void alarmActivate(void);
 void alarmDeactivate(void);
-bool alarmIsActive(void);
 s32 audioPlayFromProp(s32 channelnum, s16 soundnum, s32 arg2, struct prop *prop, s16 arg4, u16 arg5);
 void countdownTimerSetVisible(u32 reason, bool visible);
 bool doorCallLift(struct prop *doorprop, bool allowclose);

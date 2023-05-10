@@ -567,8 +567,9 @@ class App():
         self.emit_bnez_label(params[0])
 
     def ai_if_can_hear_alarm(self, params):
-        self.emit('jal', ['alarmIsActive'])
-        self.emit_bnez_label(params[0])
+        self.emit('lui', ['$a0', '%hi(g_AlarmTimer)'])
+        self.emit('lw', ['$v0', '%lo(g_AlarmTimer)($a0)'])
+        self.emit('bgtz', ['$v0', self.label_name(params[0])])
 
     def ai_if_can_see_attack_target(self, params):
         self.emit('jal', ['aiIfCanSeeAttackTarget'])
@@ -1118,7 +1119,8 @@ class App():
             self.emit_bnez_label(params[5])
 
     def ai_if_stage_is_not(self, params):
-        self.emit('jal', ['mainGetStageNum'])
+        self.emit('lui', ['$v0', '%hi(g_StageNum)'])
+        self.emit('lw', ['$v0', '%lo(g_StageNum)($v0)'])
         self.emit('li', ['$v1', params[0]])
         self.emit('bne', ['$v0', '$v1', self.label_name(params[1])])
 
@@ -1330,12 +1332,12 @@ class App():
 
     def ai_play_track_isolated(self, params):
         if params[0] == 101: # MUSIC_CI_TRAINING
-            self.emit('jal', ['optionsGetMusicVolume'])
+            self.emit('jal', ['musicGetVolume'])
             self.emit('sw', ['$v0', '0x10($sp)'])
             self.emit('li', ['$a0', params[0]])
             self.emit('jal', ['musicPlayTrackIsolated'])
             self.emit('lw', ['$a0', '0x10($sp)'])
-            self.emit('jal', ['optionsSetMusicVolume'])
+            self.emit('jal', ['musicSetVolume'])
         else:
             self.emit('li', ['$a0', params[0]])
             self.emit('jal', ['musicPlayTrackIsolated'])

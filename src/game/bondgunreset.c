@@ -202,7 +202,6 @@ void bgunReset(void)
 	g_Vars.currentplayer->gunshadecol[2] = 0xff;
 	g_Vars.currentplayer->gunshadecol[3] = 0;
 	g_Vars.currentplayer->resetshadecol = 1;
-	g_Vars.currentplayer->aimtype = 0;
 	g_Vars.currentplayer->crosspos[0] = 0;
 	g_Vars.currentplayer->crosspos[1] = 0;
 	g_Vars.currentplayer->crosspossum[0] = 0;

@@ -92,11 +92,6 @@ void mp3PlayFile(s32 romaddr, s32 filesize)
 	g_Mp3Vars.var8009c3e0 = 4;
 }
 
-void func00037e1c(void)
-{
-	g_Mp3Vars.var8009c3e0 = 3;
-}
-
 void func00037e38(void)
 {
 	if (g_Mp3Vars.var8009c3e0 == 1) {

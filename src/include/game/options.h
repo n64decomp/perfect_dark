@@ -1,27 +1,15 @@
 #ifndef IN_GAME_PDOPTIONS_H
 #define IN_GAME_PDOPTIONS_H
 #include <ultra64.h>
+#include "bss.h"
 #include "data.h"
 #include "types.h"
 
-s32 optionsGetControlMode(s32 mpchrnum);
-void optionsSetControlMode(s32 mpchrnum, s32 mode);
-s32 optionsGetContpadNum1(s32 mpchrnum);
-s32 optionsGetContpadNum2(s32 mpchrnum);
-s32 optionsGetForwardPitch(s32 mpchrnum);
-s32 optionsGetAutoAim(s32 mpchrnum);
-s32 optionsGetLookAhead(s32 mpchrnum);
-s32 optionsGetAimControl(s32 mpchrnum);
-s32 optionsGetSightOnScreen(s32 mpchrnum);
-s32 optionsGetAmmoOnScreen(s32 mpchrnum);
-s32 optionsGetShowGunFunction(s32 mpchrnum);
-s32 optionsGetAlwaysShowTarget(s32 mpchrnum);
-s32 optionsGetShowZoomRange(s32 mpchrnum);
-s32 optionsGetPaintball(s32 mpchrnum);
-s32 optionsGetShowMissionTime(s32 mpchrnum);
-u8 optionsGetInGameSubtitles(void);
-u8 optionsGetCutsceneSubtitles(void);
-s32 optionsGetHeadRoll(s32 mpchrnum);
+extern u8 g_InGameSubtitles;
+extern u8 g_CutsceneSubtitles;
+extern s32 g_ScreenSize;
+extern s32 g_ScreenRatio;
+extern u8 g_ScreenSplit;
 
 void optionsSetForwardPitch(s32 mpchrnum, bool enable);
 void optionsSetAutoAim(s32 mpchrnum, bool enable);
@@ -34,17 +22,72 @@ void optionsSetAlwaysShowTarget(s32 mpchrnum, bool enable);
 void optionsSetShowZoomRange(s32 mpchrnum, bool enable);
 void optionsSetPaintball(s32 mpchrnum, bool enable);
 void optionsSetShowMissionTime(s32 mpchrnum, bool enable);
-void optionsSetInGameSubtitles(s32 enable);
-void optionsSetCutsceneSubtitles(s32 enable);
 void optionsSetHeadRoll(s32 mpchrnum, bool enable);
 s32 optionsGetEffectiveScreenSize(void);
-s32 optionsGetScreenSize(void);
-void optionsSetScreenSize(s32 size);
-s32 optionsGetScreenRatio(void);
-void optionsSetScreenRatio(s32 ratio);
-u8 optionsGetScreenSplit(void);
-void optionsSetScreenSplit(u8 split);
-u16 optionsGetMusicVolume(void);
-void optionsSetMusicVolume(u16 volume);
+
+inline static void optionsSetControlMode(s32 mpchrnum, s32 mode)
+{
+	g_PlayerConfigsArray[mpchrnum].controlmode = mode;
+}
+
+inline static s32 optionsGetForwardPitch(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_FORWARDPITCH) != 0;
+}
+
+inline static s32 optionsGetAutoAim(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AUTOAIM) != 0;
+}
+
+inline static s32 optionsGetLookAhead(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_LOOKAHEAD) != 0;
+}
+
+inline static s32 optionsGetAimControl(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AIMCONTROL) != 0;
+}
+
+inline static s32 optionsGetSightOnScreen(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SIGHTONSCREEN) != 0;
+}
+
+inline static s32 optionsGetAmmoOnScreen(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AMMOONSCREEN) != 0;
+}
+
+inline static s32 optionsGetShowGunFunction(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SHOWGUNFUNCTION) != 0;
+}
+
+inline static s32 optionsGetAlwaysShowTarget(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_ALWAYSSHOWTARGET) != 0;
+}
+
+inline static s32 optionsGetShowZoomRange(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SHOWZOOMRANGE) != 0;
+}
+
+inline static s32 optionsGetPaintball(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_PAINTBALL) != 0;
+}
+
+inline static s32 optionsGetShowMissionTime(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SHOWMISSIONTIME) != 0;
+}
+
+inline static s32 optionsGetHeadRoll(s32 mpchrnum)
+{
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_HEADROLL) != 0;
+}
 
 #endif

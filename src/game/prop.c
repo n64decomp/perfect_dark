@@ -105,14 +105,6 @@ void propsSort(void)
 }
 
 /**
- * Enable a prop. This is the opposite of disabling (see propDisable below).
- */
-void propEnable(struct prop *prop)
-{
-	prop->flags |= PROPFLAG_ENABLED;
-}
-
-/**
  * Disable the given prop. Disabled props do not tick, do not render and do not
  * have any collision checks. This is commonly used for chrs who "spawn" later
  * in the level.
@@ -668,7 +660,7 @@ static struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2
 	}
 
 	if (hitbg && shotdata.gset.weaponnum != WEAPON_FARSIGHT) {
-		mtx4TransformVec(camGetWorldToScreenMtxf(), &sp694.unk00, &sp658);
+		mtx4TransformVec(g_Vars.currentplayer->worldtoscreenmtx, &sp694.unk00, &sp658);
 
 		if (shotdata.unk34 > -sp658.z) {
 			shotdata.unk34 = -sp658.z;
@@ -928,8 +920,8 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 		sp58.y -= 15 * RANDOMFRAC();
 	}
 
-	mtx4TransformVec(camGetProjectionMtxF(), &sp58, &sp40);
-	mtx4RotateVec(camGetProjectionMtxF(), &sp64, &sp4c);
+	mtx4TransformVec(g_Vars.currentplayer->projectionmtx, &sp58, &sp40);
+	mtx4RotateVec(g_Vars.currentplayer->projectionmtx, &sp64, &sp4c);
 
 	return shotCalculateHits(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
 }
@@ -944,8 +936,8 @@ static void shotCreate(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg
 	bgunCalculatePlayerShotSpread(&sp38, &sp44, handnum, dorandom);
 
 	if (arg3 > 0) {
-		mtx4TransformVec(camGetProjectionMtxF(), &sp38, &shootpos);
-		mtx4RotateVec(camGetProjectionMtxF(), &sp44, &shootdir);
+		mtx4TransformVec(g_Vars.currentplayer->projectionmtx, &sp38, &shootpos);
+		mtx4RotateVec(g_Vars.currentplayer->projectionmtx, &sp44, &shootdir);
 
 		shotCalculateHits(handnum, arg1, &sp38, &sp44, &shootpos, &shootdir, 0, 4294836224, arg4);
 
@@ -1115,10 +1107,10 @@ static void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg
 
 				bgunGetCrossPos(&x, &y);
 
-				spfc[0] = (x - camGetScreenLeft()) / (camGetScreenWidth() * 0.5f) - 1.0f;
-				spfc[1] = (y - camGetScreenTop()) / (camGetScreenHeight() * 0.5f) - 1.0f;
-				spf4[0] = camGetScreenHeight() * 0.16666667163372f;
-				spf4[1] = camGetScreenHeight() * 0.125f;
+				spfc[0] = (x - g_Vars.currentplayer->c_screenleft) / (g_Vars.currentplayer->c_screenwidth * 0.5f) - 1.0f;
+				spfc[1] = (y - g_Vars.currentplayer->c_screentop) / (g_Vars.currentplayer->c_screenheight * 0.5f) - 1.0f;
+				spf4[0] = g_Vars.currentplayer->c_screenheight * 0.16666667163372f;
+				spf4[1] = g_Vars.currentplayer->c_screenheight * 0.125f;
 
 				if (isglass) {
 					model = obj->model;
@@ -1164,10 +1156,10 @@ static void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg
 							if (!chrIsAvoiding(chr)) {
 								bgunCalculatePlayerShotSpread(&spb8, &vector, handnum, true);
 								skipthething = true;
-								mtx4RotateVecInPlace(camGetProjectionMtxF(), &vector);
+								mtx4RotateVecInPlace(g_Vars.currentplayer->projectionmtx, &vector);
 								bgunPlayPropHitSound(gset, prop, -1);
 
-								if (chr->model && chrGetShield(chr) > 0) {
+								if (chr->model && chr->cshield > 0) {
 									chrCalculateShieldHit(chr, &playerprop->pos, &vector, &node, &hitpart, &model, &side);
 								}
 
@@ -1213,8 +1205,8 @@ static void handTickAttack(s32 handnum)
 		g_Vars.currentplayer->hands[handnum].unk0d0f_02 = false;
 	}
 
-	if (bgunIsFiring(handnum)) {
-		s32 type = bgunGetAttackType(handnum);
+	if (g_Vars.currentplayer->hands[handnum].firing) {
+		s32 type = g_Vars.currentplayer->hands[handnum].attacktype;
 		s32 weaponnum = bgunGetWeaponNum(handnum);
 		struct gset gset;
 		bool cloaked;
@@ -1228,7 +1220,7 @@ static void handTickAttack(s32 handnum)
 		case HANDATTACKTYPE_SHOOT:
 			// Always execute if right hand, but if left hand then execute if
 			// right hand is not (ie. prevent firing both guns on the same tick)
-			if (handnum == HAND_RIGHT || !bgunIsFiring(HAND_RIGHT)) {
+			if (handnum == HAND_RIGHT || !g_Vars.currentplayer->hands[HAND_RIGHT].firing) {
 				chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
 				mpstatsIncrementPlayerShotCount2(&gset, 0);
 
@@ -2227,15 +2219,15 @@ static f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *a
 	}
 
 	if (sp50) {
-		top = camGetScreenTop();
-		bottom = camGetScreenTop() + camGetScreenHeight();
-		left = camGetScreenLeft();
-		right = camGetScreenLeft() + camGetScreenWidth();
+		top = g_Vars.currentplayer->c_screentop;
+		bottom = g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight;
+		left = g_Vars.currentplayer->c_screenleft;
+		right = g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth;
 	} else {
-		top = camGetScreenTop() + camGetScreenHeight() * 0.175f;
-		bottom = camGetScreenTop() + camGetScreenHeight() * 0.825f;
-		left = camGetScreenLeft() + camGetScreenWidth() * 0.25f;
-		right = camGetScreenLeft() + camGetScreenWidth() * 0.75f;
+		top = g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight * 0.175f;
+		bottom = g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight * 0.825f;
+		left = g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth * 0.25f;
+		right = g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth * 0.75f;
 	}
 
 	if (arg1->z > -2.5f) {
@@ -2273,8 +2265,8 @@ static f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *a
 				sp48 = sp48 * g_AutoAimScale;
 			}
 
-			sp4c = camGetScreenLeft() + 0.5f * camGetScreenWidth() >= (sp8c[0] + sp84[0]) * 0.5f - sp48
-				&& camGetScreenLeft() + 0.5f * camGetScreenWidth() <= (sp8c[0] + sp84[0]) * 0.5f + sp48
+			sp4c = g_Vars.currentplayer->c_screenleft + 0.5f * g_Vars.currentplayer->c_screenwidth >= (sp8c[0] + sp84[0]) * 0.5f - sp48
+				&& g_Vars.currentplayer->c_screenleft + 0.5f * g_Vars.currentplayer->c_screenwidth <= (sp8c[0] + sp84[0]) * 0.5f + sp48
 				&& left <= spa0[0]
 				&& right >= spa0[0];
 		}
@@ -2311,13 +2303,13 @@ static f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *a
 					arg4[0] = value;
 				}
 
-				if (camGetScreenLeft() + 0.5f * camGetScreenWidth() >= sp8c[0]
-						&& camGetScreenLeft() + 0.5f * camGetScreenWidth() <= sp84[0]) {
+				if (g_Vars.currentplayer->c_screenleft + 0.5f * g_Vars.currentplayer->c_screenwidth >= sp8c[0]
+						&& g_Vars.currentplayer->c_screenleft + 0.5f * g_Vars.currentplayer->c_screenwidth <= sp84[0]) {
 					result = 1;
-				} else if (camGetScreenLeft() + 0.5f * camGetScreenWidth() >= sp8c[0]) {
-					result = 1 - ((camGetScreenLeft() + 0.5f * camGetScreenWidth()) - sp84[0]) / sp48;
+				} else if (g_Vars.currentplayer->c_screenleft + 0.5f * g_Vars.currentplayer->c_screenwidth >= sp8c[0]) {
+					result = 1 - ((g_Vars.currentplayer->c_screenleft + 0.5f * g_Vars.currentplayer->c_screenwidth) - sp84[0]) / sp48;
 				} else {
-					result = 1 - (sp8c[0] - (camGetScreenLeft() + 0.5f * camGetScreenWidth())) / sp48;
+					result = 1 - (sp8c[0] - (g_Vars.currentplayer->c_screenleft + 0.5f * g_Vars.currentplayer->c_screenwidth)) / sp48;
 				}
 			}
 
@@ -2337,7 +2329,7 @@ static void farsightChooseTarget(void)
 	s32 i;
 
 	if (weaponnum == WEAPON_FARSIGHT) {
-		s32 numchrs = chrsGetNumSlots();
+		s32 numchrs = g_NumChrSlots;
 
 		for (i = numchrs - 1; i >= 0; i--) {
 			struct prop *prop = g_ChrSlots[i].prop;
@@ -2394,10 +2386,10 @@ static struct prop *autoaimFindBestCmpProp(f32 aimpos[2])
 				&& (trackedprop->x1 >= 0 || trackedprop->x2 >= 0)
 				&& (trackedprop->y1 >= 0 || trackedprop->y2 >= 0)) {
 			// Define the aim limits
-			f32 top = camGetScreenTop() + camGetScreenHeight() * 0.125f;
-			f32 bottom = camGetScreenTop() + camGetScreenHeight() * 0.875f;
-			f32 left = camGetScreenLeft() + camGetScreenWidth() * 0.125f;
-			f32 right = camGetScreenLeft() + camGetScreenWidth() * 0.875f;
+			f32 top = g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight * 0.125f;
+			f32 bottom = g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight * 0.875f;
+			f32 left = g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth * 0.125f;
+			f32 right = g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth * 0.875f;
 			struct chrdata *chr = NULL;
 
 			bestprop = trackedprop->prop;
@@ -2527,8 +2519,8 @@ static struct prop *autoaimFindGeneralProp(f32 aimpos[2])
 static void autoaimSetProp(struct prop *prop, f32 aimpos[2])
 {
 	if (prop) {
-		f32 x = (aimpos[0] - camGetScreenLeft()) / (camGetScreenWidth() * 0.5f) - 1;
-		f32 y = (aimpos[1] - camGetScreenTop()) / (camGetScreenHeight() * 0.5f) - 1;
+		f32 x = (aimpos[0] - g_Vars.currentplayer->c_screenleft) / (g_Vars.currentplayer->c_screenwidth * 0.5f) - 1;
+		f32 y = (aimpos[1] - g_Vars.currentplayer->c_screentop) / (g_Vars.currentplayer->c_screenheight * 0.5f) - 1;
 		bmoveUpdateAutoAimProp(prop, x, y);
 	} else {
 		bmoveUpdateAutoAimProp(NULL, 0, 0);

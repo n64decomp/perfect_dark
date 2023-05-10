@@ -1414,12 +1414,7 @@ void func0f02e3dc(struct coord *a, struct coord *b,struct coord *c, struct coord
 
 void func0f02e4f8(struct coord *arg0, struct coord *arg1, struct coord *dst)
 {
-	struct coord sp2c;
-	struct coord sp20;
-
-	cdGetEdge(&sp2c, &sp20);
-
-	func0f02e3dc(&sp2c, &sp20, arg0, arg1, dst);
+	func0f02e3dc(&g_CdEdgeVtx1, &g_CdEdgeVtx2, arg0, arg1, dst);
 }
 
 static f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 ymax, f32 ymin)
@@ -1428,7 +1423,6 @@ static f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 
 	struct coord sp50;
 	struct chrdata *chr = prop->chr;
 	f32 result;
-	struct coord sp3c;
 	f32 xdiff;
 	f32 zdiff;
 
@@ -1445,10 +1439,8 @@ static f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 
 	if (cdExamCylMove03(&prop->pos, prop->rooms, &sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 		result = arg2;
 	} else {
-		cdGetPos(&sp3c);
-
-		xdiff = sp3c.x - prop->pos.x;
-		zdiff = sp3c.z - prop->pos.z;
+		xdiff = g_CdObstaclePos.x - prop->pos.x;
+		zdiff = g_CdObstaclePos.z - prop->pos.z;
 
 		result = sqrtf(xdiff * xdiff + zdiff * zdiff);
 	}
@@ -3744,11 +3736,6 @@ static void chrChoke(struct chrdata *chr, s32 choketype)
 	}
 }
 
-f32 chrGetShield(struct chrdata *chr)
-{
-	return chr->cshield;
-}
-
 void chrSetShield(struct chrdata *chr, f32 amount)
 {
 	if (amount < 0) {
@@ -3776,9 +3763,9 @@ void chrSetShield(struct chrdata *chr, f32 amount)
 
 bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop, struct model *model, s32 side, s16 *arg5)
 {
-	if (chrGetShield(chr) > 0) {
+	if (chr->cshield > 0) {
 		if (node && (node->type & 0xff) == MODELNODETYPE_BBOX) {
-			shieldhitCreate(chr->prop, chrGetShield(chr), prop, node, model, side, arg5);
+			shieldhitCreate(chr->prop, chr->cshield, prop, node, model, side, arg5);
 		}
 
 		return true;
@@ -3840,7 +3827,7 @@ void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, st
 	struct model *model = NULL;
 	s32 side = 0;
 
-	if (chrGetShield(chr) >= 0 && chr->model) {
+	if (chr->cshield >= 0 && chr->model) {
 		chrCalculateShieldHit(chr, &chr->prop->pos, vector, &node, &hitpart, &model, &side);
 	}
 
@@ -3963,7 +3950,7 @@ static void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, str
 	// Don't damage if in CI training outside of training session
 	if (chr->prop == g_Vars.currentplayer->prop
 			&& g_Vars.currentplayer->training == false
-			&& mainGetStageNum() == STAGE_CITRAINING) {
+			&& g_StageNum == STAGE_CITRAINING) {
 		return;
 	}
 
@@ -4185,7 +4172,7 @@ static void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, str
 
 	// Handle shield damage
 	if (damageshield) {
-		shield = chrGetShield(chr);
+		shield = chr->cshield;
 
 		if (chr->aibot && chr->aibot->config->type == BOTTYPE_TURTLE) {
 			armourscale = 4;
@@ -4201,7 +4188,7 @@ static void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, str
 			if (prop2 && node && chr->model) {
 				func0f034080(chr, node, prop2, model, side, arg11);
 			} else {
-				shieldhitCreate(chr->prop, chrGetShield(chr), NULL, NULL, NULL, 0, 0);
+				shieldhitCreate(chr->prop, chr->cshield, NULL, NULL, NULL, 0, 0);
 			}
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_ONEHITKILLS)) {
@@ -4440,7 +4427,7 @@ static void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, str
 						chr->blurnumtimesdied++;
 					}
 
-					if (!lvIsPaused() && canchoke) {
+					if (!g_LvIsPaused && canchoke) {
 						chrChoke(chr, choketype);
 					}
 
@@ -6253,7 +6240,7 @@ bool chrCheckTargetInSight(struct chrdata *chr)
 			|| (sqdistance < 40000.0f && (angle < 1.9195564985275f || angle > 4.3626284599304f))) {
 		result = false;
 
-		if (sqdistance < env0f1657e4()) {
+		if (sqdistance < var80081050 * var80081050) {
 			f32 tmp;
 			s32 iVar8 = (sqrtf(sqdistance) * 0.0018749999580905f);
 			s32 tmp2;
@@ -7468,7 +7455,7 @@ static void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 {
 	s32 index = 0;
 	s32 numinrange = 0;
-	s32 numchrs = chrsGetNumSlots();
+	s32 numchrs = g_NumChrSlots;
 
 	if (g_Vars.antiplayernum >= 0 && chr->prop == g_Vars.anti->prop) {
 		return;
@@ -8724,13 +8711,13 @@ bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 
 				*gunpos = rodata->pos;
 
-				mtx00015be4(camGetProjectionMtxF(), spac, &sp6c);
+				mtx00015be4(g_Vars.currentplayer->projectionmtx, spac, &sp6c);
 				mtx4TransformVecInPlace(&sp6c, gunpos);
 				result = true;
 			} else if ((part1 = modelGetPart(model->filedata, MODELPART_0001))) {
 				sp64 = model0001a5cc(model, part1, 0);
 
-				mtx00015be4(camGetProjectionMtxF(), sp64, &sp24);
+				mtx00015be4(g_Vars.currentplayer->projectionmtx, sp64, &sp24);
 
 				gunpos->x = sp24.m[3][0];
 				gunpos->y = sp24.m[3][1];
@@ -8782,7 +8769,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 	f32 sides[6];
 	u32 stack3;
 
-	if (prop->type != PROPTYPE_PLAYER || g_Vars.normmplayerisrunning || chrGetShield(chr) > 0) {
+	if (prop->type != PROPTYPE_PLAYER || g_Vars.normmplayerisrunning || chr->cshield > 0) {
 		if (prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) {
 			bestnode = NULL;
 			bestvolume = MAXFLOAT;
@@ -8792,7 +8779,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 				mtx4TransformVec(worldtoscreenmtx, pos, &sp124);
 				mtx4RotateVec(worldtoscreenmtx, vector, &sp118);
 
-				isdifferentmtx = (camGetWorldToScreenMtxf() != worldtoscreenmtx);
+				isdifferentmtx = (g_Vars.currentplayer->worldtoscreenmtx != worldtoscreenmtx);
 				node = chr->model->filedata->rootnode;
 
 				while (node) {
@@ -9148,8 +9135,8 @@ static void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 				if (cdExamLos08(&gunpos, gunrooms, &hitpos, cdtypes, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 					hitsomething = true;
-					cdGetPos(&hitpos);
-					hitprop = cdGetObstacleProp();
+					hitpos = g_CdObstaclePos;
+					hitprop = g_CdObstacleProp;
 				}
 
 				chrSetPerimEnabled(chr, true);
@@ -9417,7 +9404,7 @@ static void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 							bgunPlayPropHitSound(&gset, targetprop, -1);
 
-							if (targetchr->model && chrGetShield(targetchr) > 0) {
+							if (targetchr->model && targetchr->cshield > 0) {
 								chrCalculateShieldHit(targetchr, &hitpos, &vector, &node, &hitpart, &model, &side);
 							}
 
@@ -9448,7 +9435,7 @@ static void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 									bgunPlayPropHitSound(&gset, hitprop, -1);
 
-									if (hitchr->model && chrGetShield(hitchr) > 0) {
+									if (hitchr->model && hitchr->cshield > 0) {
 										chrCalculateShieldHit(hitchr, &hitpos, &vector, &node, &hitpart, &model, &side);
 									}
 
@@ -9917,7 +9904,7 @@ static void robotAttack(struct chrdata *chr)
 		chr->unk348[0]->unk08 = -1;
 		chr->unk348[0]->unk0c = 0.85f;
 
-		if ((lvGetDifficulty() == DIFF_PA) * 0.2f) {
+		if ((g_Difficulty == DIFF_PA) * 0.2f) {
 			chr->unk348[0]->unk10 = 2.0f;
 		} else {
 			chr->unk348[0]->unk10 = 1.0f;
@@ -10861,7 +10848,8 @@ static bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, sp50, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spbc = true;
-		cdGetEdge(&spac, &spa0);
+		spac = g_CdEdgeVtx1;
+		spa0 = g_CdEdgeVtx2;
 		func0f044b68(&spac, &spa0, &spd4);
 	}
 
@@ -10876,7 +10864,8 @@ static bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, chrrooms, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spb8 = true;
-		cdGetEdge(&sp94, &sp88);
+		sp94 = g_CdEdgeVtx1;
+		sp88 = g_CdEdgeVtx2;
 		func0f044b68(&sp94, &sp88, &spd4);
 	}
 
@@ -10885,21 +10874,19 @@ static bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *
 		func0f044b68(&spa0, &sp88, &spd4);
 
 		*leftpos = spac;
-
 		*rightpos = sp88;
 	} else if (spbc) {
 		*leftpos = spac;
-
 		*rightpos = spa0;
 	} else if (spb8) {
 		*leftpos = sp94;
-
 		*rightpos = sp88;
 	} else if (cdExamCylMove07(chrpos, chrrooms, aimpos, sp40, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION
 			&& (!arg9 || cdExamCylMove01(chrpos, aimpos, chrradius, sp40, cdtypes, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
 		result = true;
 	} else {
-		cdGetEdge(leftpos, rightpos);
+		*leftpos = g_CdEdgeVtx1;
+		*rightpos = g_CdEdgeVtx2;
 		func0f044b68(leftpos, rightpos, &spd4);
 	}
 
@@ -10978,9 +10965,10 @@ static bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s1
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, sp50, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spbc = true;
-		cdGetEdge(&spac, &spa0);
+		spac = g_CdEdgeVtx1;
+		spa0 = g_CdEdgeVtx2;
 		func0f044b68(&spac, &spa0, &spd4);
-		value1 = cd00024e40();
+		value1 = g_Cd8009a8f0;
 	}
 
 	sp6c.x = chrpos->x - spcc;
@@ -10994,34 +10982,32 @@ static bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s1
 	if (cdExamCylMove07(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cdExamCylMove03(&sp6c, chrrooms, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
 		spb8 = true;
-		cdGetEdge(&sp94, &sp88);
+		sp94 = g_CdEdgeVtx1;
+		sp88 = g_CdEdgeVtx2;
 		func0f044b68(&sp94, &sp88, &spd4);
-		value2 = cd00024e40();
+		value2 = g_Cd8009a8f0;
 	}
 
 	if (spbc && spb8) {
 		if (value1 < value2) {
 			*leftpos = spac;
-
 			*rightpos = spa0;
 		} else {
 			*leftpos = sp94;
-
 			*rightpos = sp88;
 		}
 	} else if (spbc) {
 		*leftpos = spac;
-
 		*rightpos = spa0;
 	} else if (spb8) {
 		*leftpos = sp94;
-
 		*rightpos = sp88;
 	} else if (cdExamCylMove07(chrpos, chrrooms, aimpos, sp40, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION
 			&& (!hasobstacle || cdExamCylMove01(chrpos, aimpos, chrradius, sp40, cdtypes, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
 		result = true;
 	} else {
-		cdGetEdge(leftpos, rightpos);
+		*leftpos = g_CdEdgeVtx1;
+		*rightpos = g_CdEdgeVtx2;
 		func0f044b68(leftpos, rightpos, &spd4);
 	}
 
@@ -11123,7 +11109,7 @@ static struct prop *chrOpenDoor(struct chrdata *chr, struct coord *rangepos)
 	if (cdExamCylMove03(&chr->prop->pos, chr->prop->rooms, rangepos,
 				CDTYPE_BG | CDTYPE_CLOSEDDOORS | CDTYPE_AJARDOORS,
 				1, 0, 0) == CDRESULT_COLLISION) {
-		doorprop = cdGetObstacleProp();
+		doorprop = g_CdObstacleProp;
 	}
 
 	if (doorprop) {
@@ -12173,7 +12159,7 @@ void chraTick(struct chrdata *chr)
 
 		// Consider setting darkroomlist
 		if (chr->aidarkroomlist != NULL
-				&& roomGetBrightness(chr->prop->rooms[0]) < 25
+				&& g_Rooms[chr->prop->rooms[0]].brightness < 25
 				&& chr->ailist != chr->aidarkroomlist) {
 			chr->darkroomthing = true;
 		}
@@ -12323,7 +12309,7 @@ void chraTickBg(void)
 		return;
 	}
 
-	numchrs = chrsGetNumSlots();
+	numchrs = g_NumChrSlots;
 
 	// Calculate alive/dead counters. For *spawned* chrs that have died,
 	// allow 10 corpses and start fading if there's more.
@@ -12820,7 +12806,7 @@ void chrsClearRefsToPlayer(s32 playernum)
 			playerpropnum = g_Vars.coop->prop - g_Vars.props;
 		}
 
-		for (i = 0; i < chrsGetNumSlots(); i++) {
+		for (i = 0; i < g_NumChrSlots; i++) {
 			if (g_ChrSlots[i].p1p2 == playernum) {
 				g_ChrSlots[i].p1p2 = otherplayernum;
 			}
@@ -13109,11 +13095,6 @@ void chrRestartTimer(struct chrdata *chr)
 	chr->hidden |= CHRHFLAG_TIMER_RUNNING;
 }
 
-s32 chrGetTimer(struct chrdata *chr)
-{
-	return chr->timer60;
-}
-
 bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 {
 	struct prop *target = chrGetTargetProp(chr);
@@ -13140,7 +13121,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 
 				bgun0f0a0c08(&sp68, &sp56);
 				modelGetRootPosition(model, &sp44);
-				mtx4TransformVecInPlace(camGetWorldToScreenMtxf(), &sp44);
+				mtx4TransformVecInPlace(g_Vars.currentplayer->worldtoscreenmtx, &sp44);
 
 				if (func0f06b39c(&sp68, &sp56, &sp44, somefloat)) {
 					return true;
@@ -13158,11 +13139,6 @@ bool chrResetNearMiss(struct chrdata *chr)
 	chr->chrflags &= ~CHRCFLAG_NEAR_MISS;
 
 	return has_flag;
-}
-
-s32 chrGetNumArghs(struct chrdata *chr)
-{
-	return chr->numarghs;
 }
 
 bool chrSawInjury(struct chrdata *chr, u8 arg1)
@@ -14068,7 +14044,7 @@ bool chrRunFromPos(struct chrdata *chr, u32 goposflags, f32 rundist, struct coor
 		chrSetPerimEnabled(chr, false);
 
 		if (cdExamLos08(&chr->prop->pos, chr->prop->rooms, &delta, CDTYPE_ALL, GEOFLAG_WALL) == CDRESULT_COLLISION) {
-			cdGetPos(&delta);
+			delta = g_CdObstaclePos;
 		}
 
 		chrSetPerimEnabled(chr, true);
@@ -14202,10 +14178,8 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
 			f32 zdiff;
 			f32 tmp;
 
-			cdGetPos(pos);
-
-			xdiff = pos->x - chrpos.x;
-			zdiff = pos->z - chrpos.z;
+			xdiff = g_CdObstaclePos.x - chrpos.x;
+			zdiff = g_CdObstaclePos.z - chrpos.z;
 			tmp = sqrtf(xdiff * xdiff + zdiff * zdiff);
 			scale = (tmp - 50.0f) / tmp;
 
@@ -14274,7 +14248,7 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
  */
 void rebuildTeams(void)
 {
-	s32 numchrs = chrsGetNumSlots();
+	s32 numchrs = g_NumChrSlots;
 	s16 index = 7;
 	s32 team;
 	s32 i;
@@ -14315,7 +14289,7 @@ void rebuildTeams(void)
  */
 void rebuildSquadrons(void)
 {
-	s32 numchrs = chrsGetNumSlots();
+	s32 numchrs = g_NumChrSlots;
 	s16 index = 15;
 	s32 squadron;
 	s32 i;

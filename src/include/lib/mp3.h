@@ -6,7 +6,6 @@
 
 void mp3Init(ALHeap *heap);
 void mp3PlayFile(s32 romaddr, s32 filesize);
-void func00037e1c(void);
 void func00037e38(void);
 void func00037e68(void);
 s32 func00037ea4(void);

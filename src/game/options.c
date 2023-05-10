@@ -14,96 +14,6 @@ s32 g_ScreenSize = SCREENSIZE_FULL;
 s32 g_ScreenRatio = SCREENRATIO_NORMAL;
 u8 g_ScreenSplit = SCREENSPLIT_HORIZONTAL;
 
-s32 optionsGetControlMode(s32 mpchrnum)
-{
-	return g_PlayerConfigsArray[mpchrnum].controlmode;
-}
-
-void optionsSetControlMode(s32 mpchrnum, s32 mode)
-{
-	g_PlayerConfigsArray[mpchrnum].controlmode = mode;
-}
-
-s32 optionsGetContpadNum1(s32 mpchrnum)
-{
-	return g_PlayerConfigsArray[mpchrnum].contpad1;
-}
-
-s32 optionsGetContpadNum2(s32 mpchrnum)
-{
-	return g_PlayerConfigsArray[mpchrnum].contpad2;
-}
-
-s32 optionsGetForwardPitch(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_FORWARDPITCH) != 0;
-}
-
-s32 optionsGetAutoAim(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AUTOAIM) != 0;
-}
-
-s32 optionsGetLookAhead(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_LOOKAHEAD) != 0;
-}
-
-s32 optionsGetAimControl(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AIMCONTROL) != 0;
-}
-
-s32 optionsGetSightOnScreen(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SIGHTONSCREEN) != 0;
-}
-
-s32 optionsGetAmmoOnScreen(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AMMOONSCREEN) != 0;
-}
-
-s32 optionsGetShowGunFunction(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SHOWGUNFUNCTION) != 0;
-}
-
-s32 optionsGetAlwaysShowTarget(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_ALWAYSSHOWTARGET) != 0;
-}
-
-s32 optionsGetShowZoomRange(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SHOWZOOMRANGE) != 0;
-}
-
-s32 optionsGetPaintball(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_PAINTBALL) != 0;
-}
-
-s32 optionsGetShowMissionTime(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SHOWMISSIONTIME) != 0;
-}
-
-u8 optionsGetInGameSubtitles(void)
-{
-	return g_InGameSubtitles;
-}
-
-u8 optionsGetCutsceneSubtitles(void)
-{
-	return g_CutsceneSubtitles;
-}
-
-s32 optionsGetHeadRoll(s32 mpchrnum)
-{
-	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_HEADROLL) != 0;
-}
-
 void optionsSetForwardPitch(s32 mpchrnum, bool enable)
 {
 	if (enable) {
@@ -203,16 +113,6 @@ void optionsSetShowMissionTime(s32 mpchrnum, bool enable)
 	}
 }
 
-void optionsSetInGameSubtitles(s32 enable)
-{
-	g_InGameSubtitles = enable;
-}
-
-void optionsSetCutsceneSubtitles(s32 enable)
-{
-	g_CutsceneSubtitles = enable;
-}
-
 void optionsSetHeadRoll(s32 mpchrnum, bool enable)
 {
 	if (enable) {
@@ -245,44 +145,4 @@ s32 optionsGetEffectiveScreenSize(void)
 	}
 
 	return g_ScreenSize;
-}
-
-s32 optionsGetScreenSize(void)
-{
-	return g_ScreenSize;
-}
-
-void optionsSetScreenSize(s32 size)
-{
-	g_ScreenSize = size;
-}
-
-s32 optionsGetScreenRatio(void)
-{
-	return g_ScreenRatio;
-}
-
-void optionsSetScreenRatio(s32 ratio)
-{
-	g_ScreenRatio = ratio;
-}
-
-u8 optionsGetScreenSplit(void)
-{
-	return g_ScreenSplit;
-}
-
-void optionsSetScreenSplit(u8 split)
-{
-	g_ScreenSplit = split;
-}
-
-u16 optionsGetMusicVolume(void)
-{
-	return musicGetVolume();
-}
-
-void optionsSetMusicVolume(u16 volume)
-{
-	musicSetVolume(volume);
 }

@@ -47,7 +47,7 @@ static Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 
 		numparts = 2;
 		lrs[0] = width / numparts;
 
-		image = (u32) &fb[viGetWidth() * top + left] & 0x00ffffff;
+		image = (u32) &fb[g_ViBackData->x * top + left] & 0x00ffffff;
 
 		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
 		gDPLoadBlock(gdl++, tile, 0, 0, width / numparts - 1, 0);
@@ -64,7 +64,7 @@ static Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 
 
 		left += lrs[0];
 
-		image = (u32) &fb[viGetWidth() * top + left] & 0x00ffffff;
+		image = (u32) &fb[g_ViBackData->x * top + left] & 0x00ffffff;
 
 		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
 		gDPLoadBlock(gdl++, tile, 0, 0, lrs[0] - 1, 0);
@@ -82,7 +82,7 @@ static Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 
 	} else {
 		width2 = width;
 
-		image = (u32) &fb[viGetWidth() * top + left] & 0x00ffffff;
+		image = (u32) &fb[g_ViBackData->x * top + left] & 0x00ffffff;
 
 		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
 		gDPLoadBlock(gdl++, tile, 0, 0, width2 - 1, 0);
@@ -176,13 +176,13 @@ static Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewDrawMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 {
-	u16 *fb = viGetFrontBuffer();
-	s32 viewtop = viGetViewTop();
-	s32 viewheight = viGetViewHeight();
+	u16 *fb = g_ViFrontData->fb;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewheight = g_ViBackData->viewy;
 	f32 fxxx;
 	f32 fyyy;
-	s32 viewwidth = viGetViewWidth();
-	s32 viewleft = viGetViewLeft();
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewleft = g_ViBackData->viewleft;
 	f32 somefloat;
 	s32 newalpha;
 	s32 i;
@@ -220,11 +220,11 @@ Gfx *bviewDrawMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
  */
 Gfx *bviewDrawStatic(Gfx *gdl, u32 arg1, s32 arg2)
 {
-	u16 *fb = viGetFrontBuffer();
-	s32 viewtop = viGetViewTop();
-	s32 viewheight = viGetViewHeight();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewleft = viGetViewLeft();
+	u16 *fb = g_ViFrontData->fb;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewheight = g_ViBackData->viewy;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewleft = g_ViBackData->viewleft;
 	u16 *fb2 = (u16 *) PHYS_TO_K0(random() & 0xfff00);
 	s32 y;
 
@@ -248,12 +248,12 @@ Gfx *bviewDrawStatic(Gfx *gdl, u32 arg1, s32 arg2)
  */
 Gfx *bviewDrawSlayerRocketInterlace(Gfx *gdl, u32 colour, u32 alpha)
 {
-	u16 *fb = viGetBackBuffer();
-	s32 viewtop = viGetViewTop();
-	s32 viewheight = viGetViewHeight();
-	s32 viewwidth = viGetViewWidth();
+	u16 *fb = g_ViBackData->fb;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewheight = g_ViBackData->viewy;
+	s32 viewwidth = g_ViBackData->viewx;
 	s32 y;
-	s32 viewleft = viGetViewLeft();
+	s32 viewleft = g_ViBackData->viewleft;
 	f32 angle = 0.52359879016876f;
 	s32 offset = (s32)(g_20SecIntervalFrac * 600.0f) % 12;
 	f32 increment;
@@ -294,12 +294,12 @@ Gfx *bviewDrawSlayerRocketInterlace(Gfx *gdl, u32 colour, u32 alpha)
  */
 Gfx *bviewDrawFilmInterlace(Gfx *gdl, u32 colour, u32 alpha)
 {
-	u16 *fb = viGetBackBuffer();
-	s32 viewtop = viGetViewTop();
-	s32 viewheight = viGetViewHeight();
+	u16 *fb = g_ViBackData->fb;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewheight = g_ViBackData->viewy;
 	s32 y;
-	s32 viewwidth = viGetViewWidth();
-	s32 viewleft = viGetViewLeft();
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewleft = g_ViBackData->viewleft;
 	s32 offset = (s32)(g_20SecIntervalFrac * 600.0f) % 12;
 	u32 stack;
 
@@ -342,11 +342,11 @@ Gfx *bviewDrawFilmInterlace(Gfx *gdl, u32 colour, u32 alpha)
  */
 Gfx *bviewDrawZoomBlur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 {
-	u16 *fb = viGetFrontBuffer();
-	s32 viewtop = viGetViewTop();
-	s32 viewheight = viGetViewHeight();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewleft = viGetViewLeft();
+	u16 *fb = g_ViFrontData->fb;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewheight = g_ViBackData->viewy;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewleft = g_ViBackData->viewleft;
 	f32 somefloat;
 	s32 i;
 
@@ -404,7 +404,7 @@ static f32 bview0f142d74(s32 arg0, f32 arg1, f32 arg2, f32 arg3)
  */
 Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 startuptimer60, u8 hit)
 {
-	u16 *fb = viGetBackBuffer();
+	u16 *fb = g_ViBackData->fb;
 	s32 viewtop;
 	s32 viewheight;
 	f32 f26;
@@ -425,13 +425,13 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
 
 	f32 tmp;
 
-	viewtop = viGetViewTop();
-	viewheight = viGetViewHeight();
+	viewtop = g_ViBackData->viewtop;
+	viewheight = g_ViBackData->viewy;
 	halfheight = viewheight * 0.5f;
 	sqhalfheight = halfheight * halfheight;
 	f26 = -(halfheight + halfheight) / viewheight;
-	viewwidth = viGetViewWidth();
-	viewleft = viGetViewLeft();
+	viewwidth = g_ViBackData->viewx;
+	viewleft = g_ViBackData->viewleft;
 	startupfrac = 1.0f;
 	s2 = 0;
 
@@ -652,10 +652,10 @@ static Gfx *bviewDrawEyespySideRect(Gfx *gdl, s32 *points, u8 r, u8 g, u8 b, u8 
 Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 {
 	char text[256];
-	s32 viewleft = viGetViewLeft();
-	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewheight = viGetViewHeight();
+	s32 viewleft = g_ViBackData->viewleft;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewheight = g_ViBackData->viewy;
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 	s32 x;
@@ -690,7 +690,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 
 	chr = g_Vars.currentplayer->eyespy->prop->chr;
 
-	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
+	if (g_ScreenSplit == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
 		vsplit = true;
 	}
 
@@ -770,7 +770,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+			colourtextbright, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// "H/M"
 	sprintf(text, "%s %s%4.2f", langGet(L_MISC_074), "", g_Vars.currentplayer->eyespy->height * 0.01f);
@@ -782,7 +782,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+			colourtextbright, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// "Y/D"
 	sprintf(text, "%s %d", langGet(L_MISC_075), (s32)g_Vars.currentplayer->eyespy->theta);
@@ -794,7 +794,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+			colourtextbright, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// "P/D"
 	sprintf(text, "%s %d", langGet(L_MISC_076), (s32)g_Vars.currentplayer->eyespy->verta);
@@ -806,7 +806,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+			colourtextbright, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// "CI 2023"
 	sprintf(text, "%s", langGet(L_MISC_077));
@@ -818,7 +818,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+			colourtextdull, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 		sprintf(text, "%s", langGet(L_MISC_078)); // "YKK: 95935"
@@ -837,7 +837,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+			colourtextdull, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 		// "CAMSPY"
@@ -850,7 +850,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 		y2 = y + textheight; \
 		gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-				colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+				colourtextdull, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
 		// "DRUGSPY"
 		sprintf(text, "   %s", langGet(L_MISC_468));
@@ -862,7 +862,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 		y2 = y + textheight; \
 		gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-				colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+				colourtextdull, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 	} else {
 		// "BOMBSPY"
 		sprintf(text, "   %s", langGet(L_MISC_469));
@@ -874,7 +874,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 		y2 = y + textheight; \
 		gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-				colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+				colourtextdull, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 	}
 
 	// Model number
@@ -893,7 +893,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+			colourtextdull, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Gyrostat/dartammo text
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY
@@ -910,15 +910,15 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	y2 = y + textheight; \
 	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 	gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, viGetWidth(), viGetHeight(), 0, 0);
+			colourtextdull, colourglow, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	gdl = text0f153838(gdl);
 
 	{
-		s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
-		u16 buttonsdown = joyGetButtons(contpadnum, 0xffff); \
+		s8 contpadnum = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad1;
+		u16 buttonsdown = joyGetButtons(contpadnum, 0xffff);
 		u16 buttonsthisframe = joyGetButtonsPressedThisFrame(contpadnum, 0xffff);
-		s8 cstickx = joyGetStickX(contpadnum); \
+		s8 cstickx = joyGetStickX(contpadnum);
 		s8 csticky = joyGetStickY(contpadnum);
 		s32 xpos;
 		s32 tmpval;
@@ -1568,11 +1568,11 @@ u8 var8007f878 = 0;
 
 Gfx *bviewDrawNvLens(Gfx *gdl)
 {
-	u16 *fb = viGetBackBuffer();
-	s32 viewheight = viGetViewHeight();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewtop = viGetViewTop();
-	s32 viewleft = viGetViewLeft();
+	u16 *fb = g_ViBackData->fb;
+	s32 viewheight = g_ViBackData->viewy;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewleft = g_ViBackData->viewleft;
 	s32 viewbottom = viewtop + viewheight;
 	s32 roomvalue;
 	s32 y;
@@ -1627,11 +1627,11 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 {
 	s32 i;
 	s32 fadeincrement;
-	u16 *fb = viGetBackBuffer();
-	s32 viewheight = viGetViewHeight();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewtop = viGetViewTop();
-	s32 viewleft = viGetViewLeft();
+	u16 *fb = g_ViBackData->fb;
+	s32 viewheight = g_ViBackData->viewy;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewleft = g_ViBackData->viewleft;
 	s32 viewright;
 	s32 viewbottom;
 	s32 viewcentrex;
@@ -1766,11 +1766,11 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 
 Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 {
-	u16 *fb = viGetBackBuffer();
-	s32 viewtop = viGetViewTop();
-	s32 viewheight = viGetViewHeight();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewleft = viGetViewLeft();
+	u16 *fb = g_ViBackData->fb;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewheight = g_ViBackData->viewy;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewleft = g_ViBackData->viewleft;
 	char directiontext[32];
 	char hertztext[24];
 	char zoomtext[24];
@@ -1810,7 +1810,7 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 		return gdl;
 	}
 
-	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
+	if (g_ScreenSplit == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
 		vsplit = true;
 	}
 
@@ -1839,7 +1839,7 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 	sprintf(directiontext, "%s %s:%03d", arrows, &directions[(turnangle + 22) / 45], turnangle);
 	sprintf(hertztext, "%s %s%s%4.2fh", arrows, "", "", menuGetCosOscFrac(4) * 4.6f + 917.4f);
 
-	fovy = viGetFovY();
+	fovy = g_ViBackData->fovy;
 
 	if (fovy == 0 || fovy == 60.0f) {
 		fovy = 1;
@@ -1860,7 +1860,7 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 
 	y = lenstop - 7;
 	gdl = textRenderProjected(gdl, &x, &y, arrows,
-			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, viGetWidth(), viGetHeight(), 0, 0);
+			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Product name
 	strcpy(nametext, " JMBC");
@@ -1872,13 +1872,13 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 	strcat(nametext, " SCANNER\n");
 
 	gdl = textRenderProjected(gdl, &x, &y, nametext,
-			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, viGetWidth(), viGetHeight(), 0, 0);
+			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Hertz
 	x = viewleft + 75 * scale;
 	y = lenstop + lensheight + 1;
 	gdl = textRenderProjected(gdl, &x, &y, hertztext,
-			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, viGetWidth(), viGetHeight(), 0, 0);
+			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Zoom level
 	if (vsplit) {
@@ -1890,7 +1890,7 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 	}
 
 	gdl = textRenderProjected(gdl, &x, &y, zoomtext,
-			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, viGetWidth(), viGetHeight(), 0, 0);
+			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Direction
 	if (vsplit) {
@@ -1902,7 +1902,7 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
 	}
 
 	gdl = textRenderProjected(gdl, &x, &y, directiontext,
-			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, viGetWidth(), viGetHeight(), 0, 0);
+			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, g_ViBackData->x, g_ViBackData->y, 0, 0);
 	gdl = text0f153780(gdl);
 
 	gDPPipeSync(gdl++);
@@ -1976,10 +1976,10 @@ Gfx *bviewDrawHorizonScanner(Gfx *gdl)
  */
 Gfx *bviewDrawIrBinoculars(Gfx *gdl)
 {
-	s32 viewheight = viGetViewHeight();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewtop = viGetViewTop();
-	s32 viewleft = viGetViewLeft();
+	s32 viewheight = g_ViBackData->viewy;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewleft = g_ViBackData->viewleft;
 	s32 viewright = viewleft + viewwidth;
 	s32 viewbottom = viewtop + viewheight;
 	s32 leftx = viewleft + viewwidth / 3;

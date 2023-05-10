@@ -216,7 +216,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 
 	// Bullet holes: only crate the flame (explosion) if within 4 metres
 	if (type == EXPLOSIONTYPE_BULLETHOLE) {
-		f32 lodscale = camGetLodScaleZ();
+		f32 lodscale = g_Vars.currentplayer->c_lodscalez;
 		struct coord *campos = &g_Vars.currentplayer->cam_pos;
 		f32 xdist = exppos->x - campos->x;
 		f32 ydist = exppos->y - campos->y;
@@ -1213,7 +1213,7 @@ u32 explosionTickPlayer(struct prop *prop)
 	}
 
 	{
-		Mtxf *matrix = camGetWorldToScreenMtxf();
+		Mtxf *matrix = g_Vars.currentplayer->worldtoscreenmtx;
 
 		prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
 
@@ -1265,7 +1265,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->orthomtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = roomApplyMtx(gdl, roomnum);
 
@@ -1331,7 +1331,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			}
 		}
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->perspmtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 #if PAL
 		tmp = (g_ExplosionTypes[exp->type].flarespeed * 15.0f) * 0.83333331346512f;
@@ -1352,7 +1352,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 static Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4)
 {
 	struct gfxvtx *vertices = gfxAllocateVertices(4);
-	Mtxf *mtx = camGetProjectionMtxF();
+	Mtxf *mtx = g_Vars.currentplayer->projectionmtx;
 	struct coord spbc;
 	struct coord spb0;
 	struct coord spa4;

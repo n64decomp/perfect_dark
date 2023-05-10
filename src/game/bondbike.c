@@ -188,15 +188,13 @@ void bbikeHandleActivate(void)
 void bbikeApplyMoveData(struct movedata *data)
 {
 	struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
-	s8 contnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
+	s8 contnum = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad1;
 	f32 value1;
 	f32 tmp;
 
-	if ((optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_12
-				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_14
-				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_13
-				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_11)
-			&& !lvIsPaused()) {
+	if ((g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].controlmode >= CONTROLMODE_11
+				&& g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].controlmode <= CONTROLMODE_14)
+			&& !g_LvIsPaused) {
 		data->digitalstepleft = joyCountButtonsOnSpecificSamples(0, contnum, 0 | L_CBUTTONS);
 		data->digitalstepright = joyCountButtonsOnSpecificSamples(0, contnum, 0 | R_CBUTTONS);
 	}
@@ -288,7 +286,7 @@ void bbikeApplyMoveData(struct movedata *data)
 
 		cam0f0b4d04(&sp30, sp28);
 
-		g_Vars.currentplayer->gunextraaimy = -((sp28[1] - camGetScreenTop()) * 2.0f / camGetScreenHeight() - 1.0f) * 0.75f;
+		g_Vars.currentplayer->gunextraaimy = -((sp28[1] - g_Vars.currentplayer->c_screentop) * 2.0f / g_Vars.currentplayer->c_screenheight - 1.0f) * 0.75f;
 	}
 }
 
@@ -297,12 +295,8 @@ static void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2,
 	struct coord sp9c;
 	struct coord sp90;
 	struct coord sp84 = {0, 0, 0};
-	struct coord sp78;
-	struct coord sp6c;
 	struct coord sp60;
 	struct coord sp54;
-
-	cdGetEdge(&sp78, &sp6c);
 
 	sp60 = bike->prop->pos;
 
@@ -310,7 +304,7 @@ static void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2,
 	sp54.y = obstacle->prop->pos.y - bike->prop->pos.y;
 	sp54.z = obstacle->prop->pos.z - bike->prop->pos.z;
 
-	func0f02e3dc(&sp78, &sp6c, &sp60, &sp54, &sp9c);
+	func0f02e3dc(&g_CdEdgeVtx1, &g_CdEdgeVtx2, &sp60, &sp54, &sp9c);
 
 	sp90.x = arg1->f[0];
 	sp90.y = 0;
@@ -458,7 +452,7 @@ static s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 	s32 result = bbikeCalculateNewPosition(arg0, arg1);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		struct prop *obstacle = cdGetObstacleProp();
+		struct prop *obstacle = g_CdObstacleProp;
 
 		if (obstacle && g_Vars.lvupdate240 > 0) {
 			if (obstacle->type == PROPTYPE_CHR) {
@@ -586,7 +580,8 @@ static s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *a
 	s32 result = bbikeCalculateNewPositionWithPush(arg0, 0);
 
 	if (!result) {
-		cdGetEdge(arg1, arg2);
+		*arg1 = g_CdEdgeVtx1;
+		*arg2 = g_CdEdgeVtx2;
 	}
 
 	return result;
@@ -594,9 +589,9 @@ static s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *a
 
 static s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
-	if (cd00024ea4()) {
+	if (g_Cd8009a8ac) {
 		struct coord sp24;
-		f32 somefloat = cd00024e98();
+		f32 somefloat = g_Cd8009a8b0;
 		s32 someint;
 
 		sp24.x = arg0->x * somefloat * 0.25f;
@@ -610,7 +605,8 @@ static s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *a
 		}
 
 		if (someint == 0) {
-			cdGetEdge(arg3, arg4);
+			*arg3 = g_CdEdgeVtx1;
+			*arg4 = g_CdEdgeVtx2;
 
 			if (arg3->f[0] != arg1->f[0]
 					|| arg3->f[1] != arg1->f[1]

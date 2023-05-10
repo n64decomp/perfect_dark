@@ -414,16 +414,16 @@ static struct menudialogdef *endscreenAdvance(void)
 static void endscreen0f10d770(void)
 {
 	func0f0f8bb4(&g_Menus[0].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
-	g_Menus[0].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
+	g_Menus[0].unk840.unk004 = g_Vars.currentplayer->gunctrl.gunmem + menugfxGetParticleArraySize();
 
 	func0f0f8bb4(&g_Menus[1].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
-	g_Menus[1].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
+	g_Menus[1].unk840.unk004 = g_Vars.currentplayer->gunctrl.gunmem + menugfxGetParticleArraySize();
 
 	func0f0f8bb4(&g_Menus[2].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
-	g_Menus[2].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
+	g_Menus[2].unk840.unk004 = g_Vars.currentplayer->gunctrl.gunmem + menugfxGetParticleArraySize();
 
 	func0f0f8bb4(&g_Menus[3].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
-	g_Menus[3].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
+	g_Menus[3].unk840.unk004 = g_Vars.currentplayer->gunctrl.gunmem + menugfxGetParticleArraySize();
 }
 
 static s32 endscreenHandleReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data)
@@ -1463,14 +1463,14 @@ void endscreenPushCoop(void)
 			|| g_Vars.coop->aborted
 			|| !objectiveIsAllComplete()) {
 		// Failed or aborted
-		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 			menuPushRootDialog(&g_2PMissionEndscreenFailedVMenuDialog, MENUROOT_MPENDSCREEN);
 		} else {
 			menuPushRootDialog(&g_2PMissionEndscreenFailedHMenuDialog, MENUROOT_MPENDSCREEN);
 		}
 	} else {
 		// Completed
-		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 			menuPushRootDialog(&g_2PMissionEndscreenCompletedVMenuDialog, MENUROOT_MPENDSCREEN);
 		} else {
 			menuPushRootDialog(&g_2PMissionEndscreenCompletedHMenuDialog, MENUROOT_MPENDSCREEN);
@@ -1532,14 +1532,14 @@ void endscreenPushAnti(void)
 	if (g_Vars.currentplayer == g_Vars.bond) {
 		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete())) {
 			// Bond - failed or aborted
-			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			if (g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 				menuPushRootDialog(&g_2PMissionEndscreenFailedVMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
 				menuPushRootDialog(&g_2PMissionEndscreenFailedHMenuDialog, MENUROOT_MPENDSCREEN);
 			}
 		} else {
 			// Bond - completed
-			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			if (g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 				menuPushRootDialog(&g_2PMissionEndscreenCompletedVMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
 				menuPushRootDialog(&g_2PMissionEndscreenCompletedHMenuDialog, MENUROOT_MPENDSCREEN);
@@ -1550,14 +1550,14 @@ void endscreenPushAnti(void)
 	} else {
 		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete())) {
 			// Anti - completed
-			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			if (g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 				menuPushRootDialog(&g_2PMissionEndscreenCompletedVMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
 				menuPushRootDialog(&g_2PMissionEndscreenCompletedHMenuDialog, MENUROOT_MPENDSCREEN);
 			}
 		} else {
 			// Anti - failed or aborted
-			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			if (g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 				menuPushRootDialog(&g_2PMissionEndscreenFailedVMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
 				menuPushRootDialog(&g_2PMissionEndscreenFailedHMenuDialog, MENUROOT_MPENDSCREEN);

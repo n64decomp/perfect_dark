@@ -12,8 +12,6 @@ void setCurrentPlayerNum(s32 playernum);
 s32 playermgrGetPlayerNumByProp(struct prop *prop);
 void playermgrSetViewSize(s32 viewx, s32 viewy);
 void playermgrSetViewPosition(s32 viewleft, s32 viewtop);
-void playermgrSetFovY(f32 fovy);
-void playermgrSetAspectRatio(f32 aspect);
 s32 playermgrGetModelOfWeapon(s32 weapon);
 void playermgrDeleteWeapon(s32 hand);
 void playermgrCreateWeapon(s32 hand);

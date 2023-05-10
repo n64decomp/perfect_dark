@@ -102,7 +102,7 @@ s32 g_MiscSfxActiveTypes[3];
 struct stagetableentry *g_CurrentStage;
 
 u32 var80084010 = 0;
-bool var80084014 = false;
+bool g_LvIsPaused = false;
 
 s32 g_Difficulty = DIFF_A;
 
@@ -223,7 +223,7 @@ void lvReset(s32 stagenum)
 	g_FadeColour = 0;
 	g_FadeDelay = 0;
 
-	var80084014 = false;
+	g_LvIsPaused = false;
 	var80084010 = 0;
 
 	joy00013900();
@@ -467,10 +467,10 @@ static Gfx *lvRenderFade(Gfx *gdl)
 	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
 
 	gDPFillRectangle(gdl++,
-			viGetViewLeft(),
-			viGetViewTop() + inset,
-			viGetViewLeft() + viGetViewWidth() + 1,
-			viGetViewTop() + viGetViewHeight() - inset + 2);
+			g_ViBackData->viewleft,
+			g_ViBackData->viewtop + inset,
+			g_ViBackData->viewleft + g_ViBackData->viewx + 1,
+			g_ViBackData->viewtop + g_ViBackData->viewy - inset + 2);
 
 	return text0f153838(gdl);
 }
@@ -841,11 +841,11 @@ static Gfx *lvPrintRateGraph(Gfx *gdl)
 	if (g_FontHandelGothicXs) {
 		x = 120 + 15;
 		y = 7;
-		gdl = textRender(gdl, &x, &y, "60", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x, &y, "60", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 		x = 120 + 15;
 		y = 37;
-		gdl = textRender(gdl, &x, &y, "30", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x, &y, "30", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 	}
 
 	return gdl;
@@ -882,19 +882,19 @@ static Gfx *lvPrintCounter(Gfx *gdl, s32 *y, char *label, u32 cycles, u32 cycles
 
 	// Label
 	x = 10;
-	gdl = textRender(gdl, &x, y, label, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x, y, label, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Microseconds
 	sprintf(buffer, "%d", microseconds);
 	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 	x = 80 - textwidth;
-	gdl = textRender(gdl, &x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Percentage
 	sprintf(buffer, "(%d%%)\n", percentage);
 	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 	x = 120 - textwidth;
-	gdl = textRender(gdl, &x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Line
 	gdl = textSetPrimColour(gdl, colour);
@@ -938,19 +938,19 @@ static Gfx *lvPrintRateText(Gfx *gdl)
 		if (count) {
 			x = 10;
 			sprintf(buffer, "min %d", min);
-			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 			x = 50;
 			sprintf(buffer, "max %d", max);
-			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 			x = 90;
 			sprintf(buffer, "avg %d", sum / count);
-			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 			x = 130;
 			sprintf(buffer, "cur %d\n\n", (s32) (OS_CPU_COUNTER / g_Vars.diffframet));
-			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		}
 
 		{
@@ -965,28 +965,28 @@ static Gfx *lvPrintRateText(Gfx *gdl)
 			gdl = lvPrintCounter(gdl, &y, " main", counters[3], OS_CPU_COUNTER);
 			gdl = lvPrintCounter(gdl, &y, " sched", counters[4], OS_CPU_COUNTER);
 
-			gdl = textRender(gdl, &x, &y, "\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x, &y, "\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		}
 
 		x = 10;
 
 		if (g_ScBottleneck == 'C') {
-			gdl = textRender(gdl, &x, &y, "bottleneck CPU\n\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x3333ffa0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x, &y, "bottleneck CPU\n\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x3333ffa0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		} else if (g_ScBottleneck == 'R') {
-			gdl = textRender(gdl, &x, &y, "bottleneck RDP\n\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xff0000a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x, &y, "bottleneck RDP\n\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xff0000a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		} else if (g_ScBottleneck == 'V') {
-			gdl = textRender(gdl, &x, &y, "bottleneck VI\n\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x, &y, "bottleneck VI\n\n", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		}
 
 		sprintf(buffer, "mema free %d KB\n", memaGetLongestFree() / 1024);
-		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 		sprintf(buffer, "memp free %d KB\n", mempGetStageFree() / 1024);
-		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 		if (g_LvOom) {
 			sprintf(buffer, "mem%c OOM %x\n", g_LvOom, g_LvOomSize);
-			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xff0000a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xff0000a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		}
 	}
 
@@ -1061,9 +1061,9 @@ Gfx *lvRender(Gfx *gdl)
 		gdl = vi0000b1d0(gdl);
 
 		gDPSetScissorFrac(gdl++, 0,
-				viGetViewLeft() * 4.0f, viGetViewTop() * 4.0f,
-				(viGetViewLeft() + viGetViewWidth()) * 4.0f,
-				(viGetViewTop() + viGetViewHeight()) * 4.0f);
+				g_ViBackData->viewleft * 4.0f, g_ViBackData->viewtop * 4.0f,
+				(g_ViBackData->viewleft + g_ViBackData->viewx) * 4.0f,
+				(g_ViBackData->viewtop + g_ViBackData->viewy) * 4.0f);
 
 		gdl = titleRender(gdl);
 		gdl = lvRenderFade(gdl);
@@ -1076,7 +1076,7 @@ Gfx *lvRender(Gfx *gdl)
 		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
-		mtx00016748(1);
+		var8005ef10[0] = 65536;
 
 		gdl = vi0000b1d0(gdl);
 		gdl = viRenderViewportEdges(gdl);
@@ -1094,7 +1094,7 @@ Gfx *lvRender(Gfx *gdl)
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 
-		mtx00016748(1);
+		var8005ef10[0] = 65536;
 
 		gdl = vi0000b1d0(gdl);
 		gdl = currentPlayerScissorToViewport(gdl);
@@ -1112,7 +1112,7 @@ Gfx *lvRender(Gfx *gdl)
 		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
-		mtx00016748(1);
+		var8005ef10[0] = 65536;
 
 		gdl = vi0000b1a8(gdl);
 		gdl = vi0000b1d0(gdl);
@@ -1184,7 +1184,7 @@ Gfx *lvRender(Gfx *gdl)
 			viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 			viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 					g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
-			mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
+			var8005ef10[0] = 65536 * g_Vars.currentplayerstats->scale_bg2gfx;
 			env0f1657f8();
 			mblur0f176298();
 			gdl = vi0000b280(gdl);
@@ -1217,7 +1217,7 @@ Gfx *lvRender(Gfx *gdl)
 			} else if (var8009dfc0) {
 				gdl = viRenderViewportEdges(gdl);
 				gdl = currentPlayerScissorToViewport(gdl);
-				mtx00016748(1);
+				var8005ef10[0] = 65536;
 
 				if (g_Vars.currentplayer->menuisactive) {
 					PROFILE(PROFILEMARKER_LVR_MENU, gdl = menuRender(gdl));
@@ -1243,7 +1243,7 @@ Gfx *lvRender(Gfx *gdl)
 				// we are using the R-aimer in 1 player combat simulator, or
 				// we are using the R-aimer in 2+ player combat simulator with a gun that uses prop tracking, or
 				// we are playing Holo 1 (Looking Around), which uses lookingatprop
-				if ((bmoveIsInSightAimMode() && (
+				if ((g_Vars.currentplayer->insightaimmode && (
 								PLAYERCOUNT() == 1 || !g_Vars.normmplayerisrunning || weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)))
 						|| (g_Vars.stagenum == STAGE_CITRAINING && (g_StageFlags & 0x00040000))) {
 					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(HAND_RIGHT, 0, 0);
@@ -1290,7 +1290,7 @@ Gfx *lvRender(Gfx *gdl)
 
 					if (frIsInTraining()
 							&& g_Vars.currentplayer->lookingatprop.prop
-							&& bmoveIsInSightAimMode()) {
+							&& g_Vars.currentplayer->insightaimmode) {
 						func0f1a0924(g_Vars.currentplayer->lookingatprop.prop);
 					} else if (lvUpdateTrackedProp(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
 						g_Vars.currentplayer->lookingatprop.prop = NULL;
@@ -1552,9 +1552,9 @@ Gfx *lvRender(Gfx *gdl)
 						if (alpha) {
 							gdl = text0f153628(gdl);
 							gdl = text0f153a34(gdl,
-									viGetViewLeft(), viGetViewTop(),
-									viGetViewLeft() + viGetViewWidth(),
-									viGetViewTop() + viGetViewHeight(), 0xffffff00 | alpha);
+									g_ViBackData->viewleft, g_ViBackData->viewtop,
+									g_ViBackData->viewleft + g_ViBackData->viewx,
+									g_ViBackData->viewtop + g_ViBackData->viewy, 0xffffff00 | alpha);
 							gdl = text0f153780(gdl);
 						}
 					}
@@ -1573,13 +1573,13 @@ Gfx *lvRender(Gfx *gdl)
 					PROFILE(PROFILEMARKER_LVR_ACTIVEMENU, gdl = amRender(gdl));
 				}
 
-				mtx00016748(1);
+				var8005ef10[0] = 65536;
 
 				if (g_Vars.currentplayer->menuisactive) {
 					PROFILE(PROFILEMARKER_LVR_MENU, gdl = menuRender(gdl));
 				}
 
-				mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
+				var8005ef10[0] = 65536 * g_Vars.currentplayerstats->scale_bg2gfx;
 
 				if (g_Vars.mplayerisrunning) {
 					gdl = mpRenderModalText(gdl);
@@ -1647,7 +1647,7 @@ Gfx *lvRender(Gfx *gdl)
 		}
 	}
 
-	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
+	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, g_ViBackData->x, g_ViBackData->y);
 
 	gdl = lvPrint(gdl);
 
@@ -1848,7 +1848,7 @@ void lvTick(void)
 		g_Vars.players[j]->hands[HAND_RIGHT].hasdotinfo = false;
 	}
 
-	if (lvIsPaused()) {
+	if (g_LvIsPaused) {
 		g_Vars.lvupdate240 = 0;
 	} else if (mpIsPaused()) {
 		g_Vars.lvupdate240 = 0;
@@ -1999,7 +1999,7 @@ void lvTick(void)
 			break;
 		case 3: // sounding alarm and waiting for match end
 			{
-				if (g_MiscAudioHandle == NULL && !lvIsPaused()) {
+				if (g_MiscAudioHandle == NULL && !g_LvIsPaused) {
 					snd00010718(&g_MiscAudioHandle, 0, 0x7fff, 0x40, SFX_ALARM_DEFAULT, 1, 1, -1, 1);
 				}
 
@@ -2066,7 +2066,7 @@ void lvTick(void)
 
 	g_StageTimeElapsed60 += g_Vars.lvupdate60;
 
-	viSetUseZBuf(true);
+	g_ViBackData->usezbuf = true;
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
 		titleTick();
@@ -2129,7 +2129,7 @@ void lvTick(void)
 		PROFILE(PROFILEMARKER_LVT_MUSIC, musicTick());
 		PROFILE(PROFILEMARKER_LVT_PADEFFECTS, propsTickPadEffects());
 
-		if (mainGetStageNum() == STAGE_CITRAINING) {
+		if (g_StageNum == STAGE_CITRAINING) {
 			struct trainingdata *trainingdata = dtGetData();
 
 			if ((g_Vars.currentplayer->prop->rooms[0] < ROOM_DISH_HOLO1 || g_Vars.currentplayer->prop->rooms[0] > ROOM_DISH_HOLO4)
@@ -2227,17 +2227,7 @@ void lvSetPaused(bool paused)
 		pakEnableRumbleForAllPlayers();
 	}
 
-	var80084014 = paused;
-}
-
-bool lvIsPaused(void)
-{
-	return var80084014;
-}
-
-s32 lvGetDifficulty(void)
-{
-	return g_Difficulty;
+	g_LvIsPaused = paused;
 }
 
 void lvSetDifficulty(s32 difficulty)
@@ -2262,9 +2252,4 @@ void lvSetMpScoreLimit(u32 limit)
 void lvSetMpTeamScoreLimit(u32 limit)
 {
 	g_MpTeamScoreLimit = limit;
-}
-
-s32 lvGetStageTime60(void)
-{
-	return g_StageTimeElapsed60;
 }

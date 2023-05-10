@@ -189,7 +189,7 @@ static s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union hand
 			y = renderdata->y + 1;
 
 			gdl = text0f153628(gdl);
-			gdl = textRenderProjected(gdl, &x, &y, g_MpAllChrConfigPtrs[chrindex]->name, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRenderProjected(gdl, &x, &y, g_MpAllChrConfigPtrs[chrindex]->name, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 			gdl = text0f153780(gdl);
 			return (s32)gdl;
 		}
@@ -759,7 +759,7 @@ void amClose(void)
 static bool amIsCramped(void)
 {
 	return (g_AmMenus[g_AmIndex].screenindex == 0 && PLAYERCOUNT() >= 3)
-		|| (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
+		|| (PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL);
 }
 
 static void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
@@ -804,10 +804,10 @@ static void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		*y = (*y * 3) / 5;
 	}
 
-	*x += viGetViewLeft() + viGetViewWidth() / 2;
-	*y += viGetViewTop() + viGetViewHeight() / 2;
+	*x += g_ViBackData->viewleft + g_ViBackData->viewx / 2;
+	*y += g_ViBackData->viewtop + g_ViBackData->viewy / 2;
 
-	if ((playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || playercount >= 3) {
+	if ((playercount == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL) || playercount >= 3) {
 		if ((g_Vars.currentplayernum % 2) == 0) {
 			*x += 8;
 		} else {
@@ -848,7 +848,7 @@ static Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		wide = true;
 	}
 
-	if ((PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3) {
+	if ((PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3) {
 		if ((g_Vars.currentplayernum % 2) == 0) {
 			offset = 8;
 		} else {
@@ -874,19 +874,19 @@ static Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 		textMeasure(&textheight, &textwidth, aibotname, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft()
-			+ (s32)(viGetViewWidth() * 0.5f)
+		x = g_ViBackData->viewleft
+			+ (s32)(g_ViBackData->viewx * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
 		if (PLAYERCOUNT() >= 2) {
-			y = viGetViewTop() + 5;
+			y = g_ViBackData->viewtop + 5;
 		} else {
-			y = viGetViewTop() + 10;
+			y = g_ViBackData->viewtop + 10;
 		}
 
 		if (wide) {
-			x = viGetViewLeft() + 32;
+			x = g_ViBackData->viewleft + 32;
 		}
 
 		gdl = textRender(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
@@ -895,13 +895,13 @@ static Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
 		textMeasure(&textheight, &textwidth, weaponname, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft()
-			+ (s32)(viGetViewWidth() * 0.5f)
+		x = g_ViBackData->viewleft
+			+ (s32)(g_ViBackData->viewx * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
 		if (wide) {
-			x = viGetViewLeft() + 32;
+			x = g_ViBackData->viewleft + 32;
 		}
 
 		gdl = textRender(gdl, &x, &y, weaponname, g_AmFont1, g_AmFont2, -1,
@@ -913,19 +913,19 @@ static Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 		textMeasure(&textheight, &textwidth, title, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft()
-			+ (s32)(viGetViewWidth() * 0.5f)
+		x = g_ViBackData->viewleft
+			+ (s32)(g_ViBackData->viewx * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
 		if (PLAYERCOUNT() >= 2) {
-			y = viGetViewTop() + 5;
+			y = g_ViBackData->viewtop + 5;
 		} else {
-			y = viGetViewTop() + 10;
+			y = g_ViBackData->viewtop + 10;
 		}
 
 		if (wide) {
-			x = viGetViewLeft() + 32;
+			x = g_ViBackData->viewleft + 32;
 		}
 
 		gdl = textRender(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
@@ -1366,15 +1366,15 @@ Gfx *amRender(Gfx *gdl)
 		barheight = PLAYERCOUNT() >= 2 ? 7 : 11;
 		xoffset = 0;
 
-		if ((PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3) {
+		if ((PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3) {
 			xoffset = (g_Vars.currentplayernum & 1) == 0 ? 8 : -8;
 		}
 
 		if (PLAYERCOUNT() == 1 && optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
-			part1left = viGetViewLeft() + 32;
+			part1left = g_ViBackData->viewleft + 32;
 		} else {
-			part1left = (s32) (viGetViewWidth() * 0.5f)
-				+ (s32) (viGetViewLeft())
+			part1left = (s32) (g_ViBackData->viewx * 0.5f)
+				+ (s32) (g_ViBackData->viewleft)
 				- (s32) (barwidth * 0.5f)
 				+ xoffset;
 		}
@@ -1392,7 +1392,7 @@ Gfx *amRender(Gfx *gdl)
 		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 		gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 
-		y = viGetViewTop() + viGetViewHeight() - (PLAYERCOUNT() >= 2 ? 19 : 34);
+		y = g_ViBackData->viewtop + g_ViBackData->viewy - (PLAYERCOUNT() >= 2 ? 19 : 34);
 
 		if (redhealth) {
 			a2 = part1left + part1width - (s32) (part1width * (0.25f - healthfrac) * 4.0f);

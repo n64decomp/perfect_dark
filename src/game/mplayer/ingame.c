@@ -187,11 +187,7 @@ char *menutextPauseOrUnpause(s32 arg0)
 
 static char *menutextMatchTime(s32 arg0)
 {
-#if PAL
-	formatTime(g_StringPointer, lvGetStageTime60() * 60 / 50, TIMEPRECISION_SECONDS);
-#else
-	formatTime(g_StringPointer, lvGetStageTime60(), TIMEPRECISION_SECONDS);
-#endif
+	formatTime(g_StringPointer, g_StageTimeElapsed60, TIMEPRECISION_SECONDS);
 
 	return g_StringPointer;
 }
@@ -653,7 +649,7 @@ void mpPushPauseDialog(void)
 					menuPushRootDialog(&g_MpPausePlayerRankingMenuDialog, MENUROOT_MPPAUSE);
 				}
 			} else {
-				if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+				if (g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 					menuPushRootDialog(&g_2PMissionPauseVMenuDialog, MENUROOT_MPPAUSE);
 				} else {
 					menuPushRootDialog(&g_2PMissionPauseHMenuDialog, MENUROOT_MPPAUSE);

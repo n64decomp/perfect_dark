@@ -2038,7 +2038,7 @@ s32 frIsInTraining(void)
 
 	return g_Vars.currentplayer->prop->rooms[0] == ROOM_DISH_FIRINGRANGE
 		&& g_FrIsValidWeapon
-		&& mainGetStageNum() == STAGE_CITRAINING;
+		&& g_StageNum == STAGE_CITRAINING;
 }
 
 void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulercharge)
@@ -3077,7 +3077,7 @@ static Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *stri
 	gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 
 	gdl = textRender(gdl, &x2, &y2, string1,
-			g_CharsHandelGothicMd, g_FontHandelGothicMd, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
+			g_CharsHandelGothicMd, g_FontHandelGothicMd, fullcolour, halfalpha, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	if (string2) {
 		textMeasure(&textheight, &textwidth, string2, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
@@ -3087,7 +3087,7 @@ static Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *stri
 		gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 
 		gdl = textRender(gdl, &x2, &y2, string2,
-			g_CharsHandelGothicXs, g_FontHandelGothicXs, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
+			g_CharsHandelGothicXs, g_FontHandelGothicXs, fullcolour, halfalpha, g_ViBackData->x, g_ViBackData->y, 0, 0);
 	}
 
 	return gdl;
@@ -3102,7 +3102,7 @@ Gfx *frRenderHud(Gfx *gdl)
 	s32 alpha = 0xa0;
 	f32 mult;
 
-	if (viGetViewWidth() > 400) {
+	if (g_ViBackData->viewx > 400) {
 		mult = 2;
 	} else {
 		mult = 1;
@@ -3122,7 +3122,7 @@ Gfx *frRenderHud(Gfx *gdl)
 	red = frFormatTime(string1);
 	exists = frGetHudMiddleSubtext(string2);
 
-	gdl = frRenderHudElement(gdl, viGetViewWidth() >> 1, viGetViewTop() + 12,
+	gdl = frRenderHudElement(gdl, g_ViBackData->viewx >> 1, g_ViBackData->viewtop + 12,
 			string1, exists ? string2 : NULL,
 			red ? 0xff0000a0 : 0x00ff00a0,
 			alpha);
@@ -3130,19 +3130,19 @@ Gfx *frRenderHud(Gfx *gdl)
 	// Score
 	frGetScoreValue(string1);
 	frGetGoalScoreText(string2);
-	gdl = frRenderHudElement(gdl, viGetViewLeft() + 65.0f * mult, viGetViewTop() + 12,
+	gdl = frRenderHudElement(gdl, g_ViBackData->viewleft + 65.0f * mult, g_ViBackData->viewtop + 12,
 			string1, string2, 0x00ff00a0, alpha);
 
 	// Feedback
 	if (frGetFeedback(string1, string2)) {
-		gdl = frRenderHudElement(gdl,viGetViewLeft() + 65.0f * mult, viGetViewTop() + 40,
+		gdl = frRenderHudElement(gdl,g_ViBackData->viewleft + 65.0f * mult, g_ViBackData->viewtop + 40,
 				string1, string2, 0x00ff00a0, alpha);
 	}
 
 	if (g_FrData.goalaccuracy > 0) {
 		red = frGetMinAccuracy(string2, frGetAccuracy(string1));
 
-		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewWidth() - 70.0f * mult, viGetViewTop() + 12,
+		gdl = frRenderHudElement(gdl, g_ViBackData->viewleft + g_ViBackData->viewx - 70.0f * mult, g_ViBackData->viewtop + 12,
 				string1, string2,
 				red ? 0xff0000a0 : 0x00ff00a0,
 				alpha);
@@ -3154,7 +3154,7 @@ Gfx *frRenderHud(Gfx *gdl)
 			mult = 2.4;
 		}
 
-		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewWidth() - 70.0f * mult, viGetViewTop() + 12,
+		gdl = frRenderHudElement(gdl, g_ViBackData->viewleft + g_ViBackData->viewx - 70.0f * mult, g_ViBackData->viewtop + 12,
 				string1, string2, 0x00ff00a0, alpha);
 	}
 

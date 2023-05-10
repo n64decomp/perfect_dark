@@ -418,26 +418,6 @@ void viSetMode(s32 mode)
 	g_ViBackData->y = g_ViBackData->bufy = g_ViModeHeights[mode];
 }
 
-u16 *viGetBackBuffer(void)
-{
-	return g_ViBackData->fb;
-}
-
-u16 *viGetFrontBuffer(void)
-{
-	return g_ViFrontData->fb;
-}
-
-Vp *viGetCurrentPlayerViewport(void)
-{
-	return &g_Vars.currentplayer->viewport[g_ViBackIndex];
-}
-
-u16 viGetPerspScale(void)
-{
-	return g_ViPerspScale;
-}
-
 Gfx *vi0000ab78(Gfx *gdl)
 {
 	Mtxf sp110;
@@ -449,7 +429,7 @@ Gfx *vi0000ab78(Gfx *gdl)
 	u16 sp46;
 
 	guPerspectiveF(sp110.m, &sp46, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar + g_ViBackData->zfar, 1);
-	mtx4Copy(camGetWorldToScreenMtxf(), &sp90);
+	mtx4Copy(g_Vars.currentplayer->worldtoscreenmtx, &sp90);
 
 	sp90.m[3][0] = 0;
 	sp90.m[3][1] = 0;
@@ -502,8 +482,8 @@ static Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
-	camSetPerspectiveMtxL(var80092870);
-	camSetMtxF1754(&var80092830);
+	g_Vars.currentplayer->perspmtxl = var80092870;
+	g_Vars.currentplayer->mtxf1754 = &var80092830;
 
 	return gdl;
 }
@@ -531,8 +511,8 @@ Gfx *vi0000af00(Gfx *gdl, Vp *vp)
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
-	camSetPerspectiveMtxL(var80092870);
-	camSetMtxF1754(&var80092830);
+	g_Vars.currentplayer->perspmtxl = var80092870;
+	g_Vars.currentplayer->mtxf1754 = &var80092830;
 
 	return gdl;
 }
@@ -587,24 +567,24 @@ Gfx *viFillBuffer(Gfx *gdl)
 Gfx *viRenderViewportEdges(Gfx *gdl)
 {
 	gDPSetCycleType(gdl++, G_CYC_FILL);
-	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
+	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, g_ViBackData->x, g_ViBackData->y);
 	gDPSetFillColor(gdl++, GPACK_RGBA5551(0, 0, 0, 1) << 16 | GPACK_RGBA5551(0, 0, 0, 1));
 
 	if (PLAYERCOUNT() == 1
 			|| ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 				&& playerHasSharedViewport() && g_Vars.currentplayernum == 0)) {
 		// Single viewport
-		if (viGetViewTop() > 0) {
+		if (g_ViBackData->viewtop > 0) {
 			// Fill above
-			gDPFillRectangle(gdl++, 0, 0, viGetWidth() - 1, viGetViewTop() - 1);
+			gDPFillRectangle(gdl++, 0, 0, g_ViBackData->x - 1, g_ViBackData->viewtop - 1);
 			gDPPipeSync(gdl++);
 		}
 
-		if (viGetViewTop() + viGetViewHeight() < viGetHeight()) {
+		if (g_ViBackData->viewtop + g_ViBackData->viewy < g_ViBackData->y) {
 			// Fill below
 			gDPFillRectangle(gdl++,
-					0, viGetViewTop() + viGetViewHeight(),
-					viGetWidth() - 1, viGetHeight() - 1);
+					0, g_ViBackData->viewtop + g_ViBackData->viewy,
+					g_ViBackData->x - 1, g_ViBackData->y - 1);
 			gDPPipeSync(gdl++);
 		}
 	} else {
@@ -623,26 +603,26 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 
 			if (g_Vars.players[topplayernum]->viewtop > 0) {
 				// Fill above all viewports - full width
-				gDPFillRectangle(gdl++, 0, 0, viGetWidth() - 1, g_Vars.players[topplayernum]->viewtop - 1);
+				gDPFillRectangle(gdl++, 0, 0, g_ViBackData->x - 1, g_Vars.players[topplayernum]->viewtop - 1);
 				gDPPipeSync(gdl++);
 			}
 
-			if (g_Vars.players[bottomplayernum]->viewtop + g_Vars.players[bottomplayernum]->viewheight < viGetHeight()) {
+			if (g_Vars.players[bottomplayernum]->viewtop + g_Vars.players[bottomplayernum]->viewheight < g_ViBackData->y) {
 				// Fill below all viewports - full width
 				gDPFillRectangle(gdl++,
 						0, g_Vars.players[bottomplayernum]->viewtop + g_Vars.players[bottomplayernum]->viewheight,
-						viGetWidth() - 1, viGetHeight() - 1);
+						g_ViBackData->x - 1, g_ViBackData->y - 1);
 				gDPPipeSync(gdl++);
 			}
 
 			// Horizontal middle line
 			gDPFillRectangle(gdl++,
 					0, g_Vars.players[tmpplayernum]->viewtop - 1,
-					viGetWidth() - 1, g_Vars.players[tmpplayernum]->viewtop - 1);
+					g_ViBackData->x - 1, g_Vars.players[tmpplayernum]->viewtop - 1);
 			gDPPipeSync(gdl++);
 
 			if (PLAYERCOUNT() >= 3 ||
-					(PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)) {
+					(PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL)) {
 				if (PLAYERCOUNT() == 2) {
 					tmpplayernum = 0;
 				}
@@ -650,7 +630,7 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 				// Vertical middle line
 				gDPFillRectangle(gdl++,
 						g_Vars.players[tmpplayernum]->viewleft + g_Vars.players[tmpplayernum]->viewwidth, 0,
-						g_Vars.players[tmpplayernum]->viewleft + g_Vars.players[tmpplayernum]->viewwidth, viGetHeight() - 1);
+						g_Vars.players[tmpplayernum]->viewleft + g_Vars.players[tmpplayernum]->viewwidth, g_ViBackData->y - 1);
 				gDPPipeSync(gdl++);
 			}
 
@@ -658,7 +638,7 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 				// Blank square in P4 spot
 				gDPFillRectangle(gdl++,
 						g_Vars.players[tmpplayernum]->viewleft + g_Vars.players[tmpplayernum]->viewwidth + 1, g_Vars.players[tmpplayernum]->viewtop,
-						viGetWidth() - 1, viGetHeight() - 1);
+						g_ViBackData->x - 1, g_ViBackData->y - 1);
 				gDPPipeSync(gdl++);
 			}
 		}
@@ -667,36 +647,43 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 	return gdl;
 }
 
+static void camSetScreenSize(f32 width, f32 height)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->c_screenwidth = width;
+	player->c_screenheight = height;
+	player->c_halfwidth = width * 0.5f;
+	player->c_halfheight = height * 0.5f;
+}
+
+static void camSetScreenPosition(f32 left, f32 top)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->c_screenleft = left;
+	player->c_screentop = top;
+}
+
+static void camSetPerspective(f32 near, f32 fovy, f32 aspect)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->c_perspnear = near;
+	player->c_perspfovy = fovy;
+	player->c_perspaspect = aspect;
+}
+
 void viSetBufSize(s16 width, s16 height)
 {
 	g_ViBackData->bufx = width;
 	g_ViBackData->bufy = height;
 }
 
-s16 viGetBufWidth(void)
-{
-	return g_ViBackData->bufx;
-}
-
-s16 viGetBufHeight(void)
-{
-	return g_ViBackData->bufy;
-}
-
 void viSetSize(s16 width, s16 height)
 {
 	g_ViBackData->x = width;
 	g_ViBackData->y = height;
-}
-
-s16 viGetWidth(void)
-{
-	return g_ViBackData->x;
-}
-
-s16 viGetHeight(void)
-{
-	return g_ViBackData->y;
 }
 
 void viSetViewSize(s16 width, s16 height)
@@ -708,37 +695,12 @@ void viSetViewSize(s16 width, s16 height)
 	camSetScale();
 }
 
-s16 viGetViewWidth(void)
-{
-	return g_ViBackData->viewx;
-}
-
-s16 viGetViewHeight(void)
-{
-	return g_ViBackData->viewy;
-}
-
 void viSetViewPosition(s16 left, s16 top)
 {
 	g_ViBackData->viewleft = left;
 	g_ViBackData->viewtop = top;
 
 	camSetScreenPosition(g_ViBackData->viewleft, g_ViBackData->viewtop);
-}
-
-s16 viGetViewLeft(void)
-{
-	return g_ViBackData->viewleft;
-}
-
-s16 viGetViewTop(void)
-{
-	return g_ViBackData->viewtop;
-}
-
-void viSetUseZBuf(bool use)
-{
-	g_ViBackData->usezbuf = use;
 }
 
 void viSetFovY(f32 fovy)
@@ -757,11 +719,6 @@ void viSetAspect(f32 aspect)
 	camSetScale();
 }
 
-f32 viGetAspect(void)
-{
-	return g_ViBackData->aspect;
-}
-
 void viSetFovAspectAndSize(f32 fovy, f32 aspect, s16 width, s16 height)
 {
 	g_ViBackData->fovy = fovy;
@@ -772,11 +729,6 @@ void viSetFovAspectAndSize(f32 fovy, f32 aspect, s16 width, s16 height)
 	camSetScreenSize(g_ViBackData->viewx, g_ViBackData->viewy);
 	camSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
 	camSetScale();
-}
-
-f32 viGetFovY(void)
-{
-	return g_ViBackData->fovy;
 }
 
 void viSetZRange(f32 near, f32 far)

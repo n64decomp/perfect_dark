@@ -64,9 +64,9 @@ Gfx *mblur0f1762ac(Gfx *gdl)
 
 	if (g_Vars.normmplayerisrunning
 			&& (g_Vars.currentplayernum >= 2 || (PLAYERCOUNT() == 2 && g_Vars.currentplayernum == 1))) {
-		subamount = playerGetFbWidth() * playerGetFbHeight();
+		subamount = g_ViModes[VIRES_LO].fbwidth * g_ViModes[VIRES_LO].fbheight;
 
-		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 			subamount = 0;
 		}
 	} else {
@@ -89,23 +89,23 @@ Gfx *mblur0f1763f4(Gfx *gdl)
 
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetWidth(), OS_PHYSICAL_TO_K0(var800844f4));
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViBackData->x, OS_PHYSICAL_TO_K0(var800844f4));
 	gDPSetCycleType(gdl++, G_CYC_FILL);
 	gDPSetFillColor(gdl++, 0xfffcfffc);
-	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, playerGetFbWidth() * 4.0f, playerGetFbHeight() * 4.0f);
+	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, g_ViModes[VIRES_LO].fbwidth * 4.0f, g_ViModes[VIRES_LO].fbheight * 4.0f);
 
 	if (PLAYERCOUNT() <= 2) {
 		left = 0;
-		right = playerGetFbWidth() - 1;
+		right = g_ViModes[VIRES_LO].fbwidth - 1;
 	} else if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 2) {
 		left = 0;
-		right = playerGetFbWidth() / 2 - 1;
+		right = g_ViModes[VIRES_LO].fbwidth / 2 - 1;
 	} else {
-		left = playerGetFbWidth() / 2;
-		right = playerGetFbWidth() - 1;
+		left = g_ViModes[VIRES_LO].fbwidth / 2;
+		right = g_ViModes[VIRES_LO].fbwidth - 1;
 	}
 
-	gDPFillRectangle(gdl++, left, 0, right, playerGetFbHeight() - 1);
+	gDPFillRectangle(gdl++, left, 0, right, g_ViModes[VIRES_LO].fbheight - 1);
 	gDPPipeSync(gdl++);
 
 	return gdl;
@@ -143,12 +143,11 @@ Gfx *mblurRender(Gfx *gdl)
 	u16 *image;
 	s32 i;
 
-	viGetBackBuffer();
 	sp44 = mblur0f176668(g_SchedWriteArtifactsIndex);
 	g_SchedSpecialArtifactIndexes[g_SchedWriteArtifactsIndex] = 1;
 
 	gDPPipeSync(gdl++);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_PHYSICAL_TO_K0(sp44));
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViBackData->bufx, OS_PHYSICAL_TO_K0(sp44));
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, 320, 240);
 	gDPSetCycleType(gdl++, G_CYC_COPY);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -176,12 +175,12 @@ Gfx *mblurRender(Gfx *gdl)
 
 		if (artifacts[i].type != ARTIFACTTYPE_FREE) {
 			s2 = &sp44[s4];
-			image = &sp4c[artifacts[i].unk0c.u16_1 * viGetWidth()];
+			image = &sp4c[artifacts[i].unk0c.u16_1 * g_ViBackData->x];
 
 			gDPPipeSync(gdl++);
 			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
 			gDPLoadSync(gdl++);
-			gDPLoadBlock(gdl++, 5, 0, 0, viGetWidth() - 1, 0);
+			gDPLoadBlock(gdl++, 5, 0, 0, g_ViBackData->x - 1, 0);
 			gDPPipeSync(gdl++);
 
 			gSPTextureRectangle(gdl++,
@@ -199,8 +198,8 @@ Gfx *mblurRender(Gfx *gdl)
 	gDPPipeSync(gdl++);
 	gDPLoadSync(gdl++);
 	gDPTileSync(gdl++);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_PHYSICAL_TO_K0(viGetBackBuffer()));
-	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth() * 4.0f, viGetHeight() * 4.0f);
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViBackData->bufx, OS_PHYSICAL_TO_K0(g_ViBackData->fb));
+	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, g_ViBackData->x * 4.0f, g_ViBackData->y * 4.0f);
 	gSPSetGeometryMode(gdl++, G_ZBUFFER);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);

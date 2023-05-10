@@ -200,26 +200,7 @@ static void mainInit(void)
 		s32 numpages;
 		u8 scratch[1024 * 5 - 8];
 
-		// Choose where to place the temporary framebuffer.
-		// In 4MB mode, place it close to the end of memory,
-		// but before the thread stacks and VM system.
-		// In 8MB mode, put it at the end of the expansion pak.
-		if (bootGetMemSize() <= 4 * 1024 * 1024) {
-			addr = K0BASE + 4 * 1024 * 1024;
-			addr -= STACKSIZE_MAIN;
-			addr -= STACKSIZE_IDLE;
-			addr -= STACKSIZE_RMON;
-			addr -= STACKSIZE_SCHED;
-			addr -= STACKSIZE_AUDIO;
-			addr -= 8; // markers for stack overflow detection
-			addr -= g_VmNumPages * 8; // vm state table
-			addr -= 268 * 4096; // vm loaded pages buffer
-			addr -= addr % 0x2000; // align down to a multiple of 0x2000
-			addr -= 0x1c80; // buffer for single biggest game zip
-		} else {
-			addr = K0BASE + 8 * 1024 * 1024;
-		}
-
+		addr = K0BASE + 8 * 1024 * 1024;
 		addr -= 640 * 480 * 2; // the framebuffer itself
 		addr -= 0x40; // align down to a multiple of 0x40
 
@@ -606,11 +587,6 @@ void mainChangeToStage(s32 stagenum)
 	pak0f11c6d0();
 
 	g_MainChangeToStageNum = stagenum;
-}
-
-s32 mainGetStageNum(void)
-{
-	return g_StageNum;
 }
 
 void func0000e990(void)

@@ -76,7 +76,7 @@ void playermgrAllocatePlayers(s32 count)
 		playermgrAllocatePlayer(0);
 		setCurrentPlayerNum(0);
 
-		playermgrSetViewSize(playerGetFbWidth(), playerGetFbHeight());
+		playermgrSetViewSize(g_ViModes[VIRES_LO].fbwidth, g_ViModes[VIRES_LO].fbheight);
 
 		g_Vars.coop = NULL;
 		g_Vars.anti = NULL;
@@ -423,7 +423,6 @@ static void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->gunshadecol[2] = 0xff;
 	g_Vars.players[index]->gunshadecol[3] = 0;
 	g_Vars.players[index]->resetshadecol = true;
-	g_Vars.players[index]->aimtype = 0;
 	g_Vars.players[index]->lookingatprop.prop = NULL;
 
 	for (i = 0; i < 4; i++) {
@@ -683,16 +682,6 @@ void playermgrSetViewPosition(s32 viewleft, s32 viewtop)
 {
 	g_Vars.currentplayer->viewleft = viewleft;
 	g_Vars.currentplayer->viewtop = viewtop;
-}
-
-void playermgrSetFovY(f32 fovy)
-{
-	g_Vars.currentplayer->fovy = fovy;
-}
-
-void playermgrSetAspectRatio(f32 aspect)
-{
-	g_Vars.currentplayer->aspect = aspect;
 }
 
 s32 playermgrGetModelOfWeapon(s32 weapon)

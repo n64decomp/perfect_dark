@@ -4,13 +4,16 @@
 #include "data.h"
 #include "types.h"
 
-f32 cd00024e40(void);
-void cdGetEdge(struct coord *pos1, struct coord *pos2);
-f32 cd00024e98(void);
-s32 cd00024ea4(void);
-struct prop *cdGetObstacleProp(void);
-void cdGetPos(struct coord *pos);
-void cdGetObstacleNormal(struct coord *normal);
+extern s32 g_Cd8009a8ac;
+extern f32 g_Cd8009a8b0;
+extern f32 g_Cd8009a8f0;
+extern struct coord g_CdEdgeVtx1;
+extern struct coord g_CdEdgeVtx2;
+extern struct prop *g_CdObstacleProp;
+extern struct coord g_CdObstaclePos;
+extern struct geo *g_CdObstacleGeo;
+
+void cdGetGeoNormal(struct geo *geo, struct coord *normal);
 u32 cdGetGeoFlags(void);
 void cdSetSavedPos(struct coord *pos1, struct coord *pos2);
 bool cdGetSavedPos(struct coord *arg0, struct coord *arg1);

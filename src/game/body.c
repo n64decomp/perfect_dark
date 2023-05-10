@@ -240,7 +240,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyf
 	}
 
 	if (model) {
-		modelSetScale(model, scale);
+		model->scale = scale;
 		modelSetAnimScale(model, animscale);
 
 		if (headfiledata && !g_HeadsAndBodies[bodynum].unk00_01) {
@@ -354,9 +354,9 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 			return;
 		}
 
-		if (((packed->spawnflags & SPAWNFLAG_ONLYONA) && lvGetDifficulty() == DIFF_A)
-				|| ((packed->spawnflags & SPAWNFLAG_ONLYONSA) && lvGetDifficulty() == DIFF_SA)
-				|| ((packed->spawnflags & SPAWNFLAG_ONLYONPA) && lvGetDifficulty() == DIFF_PA)) {
+		if (((packed->spawnflags & SPAWNFLAG_ONLYONA) && g_Difficulty == DIFF_A)
+				|| ((packed->spawnflags & SPAWNFLAG_ONLYONSA) && g_Difficulty == DIFF_SA)
+				|| ((packed->spawnflags & SPAWNFLAG_ONLYONPA) && g_Difficulty == DIFF_PA)) {
 			// ok
 		} else {
 			return;

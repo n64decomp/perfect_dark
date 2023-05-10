@@ -113,16 +113,6 @@ struct envtype2 g_EnvironmentsType2[] = {
 	{ 0 },
 };
 
-struct environment *envGetCurrent(void)
-{
-	return &g_Env;
-}
-
-f32 env0f1657e4(void)
-{
-	return var80081050 * var80081050;
-}
-
 void env0f1657f8(void)
 {
 	struct zrange zrange;
@@ -138,7 +128,7 @@ void env0f1657f8(void)
 
 	viGetZRange(&zrange);
 
-	scale = currentPlayerGetScaleBg2Gfx();
+	scale = g_Vars.currentplayerstats->scale_bg2gfx;
 
 	zrange.near /= scale;
 	zrange.far /= scale;
@@ -196,12 +186,12 @@ static void envApplyType1(struct envtype1 *env)
 	g_Env.unk40 = env->unk28;
 
 	if (!env->unk06) {
-		var800a65e8 = NULL;
+		g_Env800a65e8 = NULL;
 	} else {
 		var800a65f0.x = env->unk06;
 		var800a65f0.y = env->unk08;
 		var800a65f0.z = env->unk0a;
-		var800a65e8 = &var800a65f0;
+		g_Env800a65e8 = &var800a65f0;
 	}
 
 	env0f1657f8();
@@ -241,12 +231,12 @@ static void envApplyType2(struct envtype2 *env)
 	g_Env.unk40 = env->unk30;
 
 	if (!env->unk08) {
-		var800a65e8 = NULL;
+		g_Env800a65e8 = NULL;
 	} else {
 		var800a65f0.x = env->unk08;
 		var800a65f0.y = env->unk0a;
 		var800a65f0.z = env->unk0c;
-		var800a65e8 = &var800a65f0;
+		g_Env800a65e8 = &var800a65f0;
 	}
 
 	g_FogEnabled = false;
@@ -347,7 +337,7 @@ bool env0f1666f8(struct coord *pos, f32 arg1)
 		return true;
 	}
 
-	mtx = camGetWorldToScreenMtxf();
+	mtx = g_Vars.currentplayer->worldtoscreenmtx;
 
 	sp24.x = pos->x - campos->x;
 	sp24.y = pos->y - campos->y;
@@ -360,11 +350,6 @@ bool env0f1666f8(struct coord *pos, f32 arg1)
 	}
 
 	return true;
-}
-
-struct coord *env0f1667e8(void)
-{
-	return var800a65e8;
 }
 
 s32 env0f1667f4(struct prop *prop, f32 arg1[4])

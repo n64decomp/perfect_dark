@@ -117,7 +117,7 @@ static void titleTickLegal(void)
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
 	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	g_ViBackData->usezbuf = false;
 
 	g_TitleTimer += g_Vars.lvupdate60;
 
@@ -143,7 +143,7 @@ static void titleTickCheckControllers(void)
 {
 	g_TitleTimer++;
 	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	g_ViBackData->usezbuf = false;
 
 	if (g_TitleTimer > 6) {
 		if ((joyGetConnectedControllers() & 1) == 0) {
@@ -262,7 +262,7 @@ static Gfx *titleRenderLegal(Gfx *gdl)
 
 			if (elem->type == LEGALELEMENTTYPE_LINE) {
 				gdl = text0f153780(gdl);
-				gdl = text0f153a34(gdl, elem->x, elem->y, viGetWidth(), elem->y + 2, 0x7f7fff7f);
+				gdl = text0f153a34(gdl, elem->x, elem->y, g_ViBackData->x, elem->y + 2, 0x7f7fff7f);
 				gdl = text0f153628(gdl);
 			} else if (elem->type == LEGALELEMENTTYPE_DOLBYLOGO) {
 				gdl = text0f153780(gdl);
@@ -313,7 +313,7 @@ static Gfx *titleRenderLegal(Gfx *gdl)
 			} else {
 				x = elem->x;
 				y = elem->y;
-				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 			}
 		}
 
@@ -344,7 +344,7 @@ static void titleInitPdLogo(void)
 		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO].filedata);
 
 		g_TitleModel = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO].filedata);
-		modelSetScale(g_TitleModel, 1);
+		g_TitleModel->scale = 1;
 		modelSetRootPosition(g_TitleModel, &coord);
 	}
 
@@ -357,7 +357,7 @@ static void titleInitPdLogo(void)
 		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO2].filedata);
 
 		g_TitleModelNLogo2 = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO2].filedata);
-		modelSetScale(g_TitleModelNLogo2, 1);
+		g_TitleModelNLogo2->scale = 1;
 		modelSetRootPosition(g_TitleModelNLogo2, &coord);
 	}
 
@@ -370,7 +370,7 @@ static void titleInitPdLogo(void)
 		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTWO].filedata);
 
 		g_TitleModelPdTwo = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTWO].filedata);
-		modelSetScale(g_TitleModelPdTwo, 1);
+		g_TitleModelPdTwo->scale = 1;
 		modelSetRootPosition(g_TitleModelPdTwo, &coord);
 	}
 
@@ -383,7 +383,7 @@ static void titleInitPdLogo(void)
 		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTHREE].filedata);
 
 		g_TitleModelPdThree = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTHREE].filedata);
-		modelSetScale(g_TitleModelPdThree, 1);
+		g_TitleModelPdThree->scale = 1;
 		modelSetRootPosition(g_TitleModelPdThree, &coord);
 	}
 
@@ -432,7 +432,7 @@ static void titleTickPdLogo(void)
 	viSetFovY(46);
 	viSetAspect(1.33333333f);
 	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	g_ViBackData->usezbuf = false;
 
 	g_TitleTimer += g_Vars.lvupdate60;
 	var8009ccb8 = 1 - var8009ccb8;
@@ -1159,7 +1159,7 @@ static void titleInitNintendoLogo(void)
 
 		modelCalculateRwDataLen(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
-		modelSetScale(g_TitleModel, 1);
+		g_TitleModel->scale = 1;
 		modelSetRootPosition(g_TitleModel, &coord);
 	}
 }
@@ -1180,7 +1180,7 @@ static void titleTickNintendoLogo(void)
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
 	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	g_ViBackData->usezbuf = false;
 
 	g_TitleTimer += g_Vars.lvupdate60;
 
@@ -1310,7 +1310,7 @@ static void titleInitRareLogo(void)
 
 		modelCalculateRwDataLen(g_ModelStates[MODEL_RARELOGO].filedata);
 		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_RARELOGO].filedata);
-		modelSetScale(g_TitleModel, 1);
+		g_TitleModel->scale = 1;
 		modelSetRootPosition(g_TitleModel, &coord);
 
 		musicQueueStopAllEvent();
@@ -1341,7 +1341,7 @@ static void titleTickRareLogo(void)
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
 	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	g_ViBackData->usezbuf = false;
 
 	if (g_TitleTimer < 0) {
 		g_TitleTimer++;
@@ -1573,7 +1573,7 @@ static void titleTickNoController(void)
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
 	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	g_ViBackData->usezbuf = false;
 
 	g_TitleTimer += g_Vars.lvupdate60;
 }
@@ -1606,8 +1606,8 @@ static Gfx *titleRenderNoController(Gfx *gdl)
 	x = 288 - (textwidth >> 1);
 	y = (480 / 2) - (textheight >> 1) - 12;
 
-	width = viGetWidth();
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
+	width = g_ViBackData->x;
+	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, g_ViBackData->y, 0, 0);
 
 	// Line 2
 	text = langGet(L_OPTIONS_072); // "please power off and attach a controller"
@@ -1616,8 +1616,8 @@ static Gfx *titleRenderNoController(Gfx *gdl)
 	x = 288 - (textwidth >> 1);
 	y = (480 / 2) - (textheight >> 1) + 12;
 
-	width = viGetWidth();
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
+	width = g_ViBackData->x;
+	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, g_ViBackData->y, 0, 0);
 
 	gdl = text0f153780(gdl);
 
@@ -1743,7 +1743,7 @@ void titleTick(void)
 		titleTickNoController();
 		break;
 	case TITLEMODE_SKIP:
-		viSetUseZBuf(false);
+		g_ViBackData->usezbuf = false;
 		titleSetNextMode(TITLEMODE_RARELOGO);
 		break;
 	}

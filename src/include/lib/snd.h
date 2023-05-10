@@ -4,8 +4,22 @@
 #include "data.h"
 #include "types.h"
 
+struct curmp3 {
+	union soundnumhack sfxref;
+	u32 playing;
+	u32 unk08;
+	s32 responsetimer240;
+	s32 prevwhisper;
+	s32 prevacknowledge;
+	s32 prevgreeting;
+	u32 romaddr;
+	u32 romsize;
+	s32 responsetype;
+};
+
+extern struct curmp3 g_SndCurMp3;
+
 bool sndIsFiltered(s32 audioid);
-bool sndIsPlayingMp3(void);
 void sndSetSfxVolume(u16 volume);
 void sndResetCurMp3(void);
 void sndSetSoundMode(s32 mode);

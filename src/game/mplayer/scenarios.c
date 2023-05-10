@@ -568,10 +568,10 @@ Gfx *scenarioRenderHud(Gfx *gdl)
 			colour = var80087ce4[radarGetTeamIndex(chr->team)];
 			gDPSetFillColor(gdl++, colour);
 
-			viewleft = viGetViewLeft();
-			viewright = viewleft + viGetViewWidth();
-			viewtop = viGetViewTop();
-			viewheight = viGetViewHeight();
+			viewleft = g_ViBackData->viewleft;
+			viewright = viewleft + g_ViBackData->viewx;
+			viewtop = g_ViBackData->viewtop;
+			viewheight = g_ViBackData->viewy;
 
 			if (playercount >= 3) {
 				if (cplayernum <= 1) {

@@ -210,10 +210,10 @@ Gfx *starsRender(Gfx *gdl)
 {
 	bool isddtower = false;
 	Mtxf mtx;
-	f32 viewleft = viGetViewLeft();
-	f32 viewright = viewleft + viGetViewWidth();
-	f32 viewtop = viGetViewTop();
-	f32 viewbottom = viewtop + viGetViewHeight();
+	f32 viewleft = g_ViBackData->viewleft;
+	f32 viewright = viewleft + g_ViBackData->viewx;
+	f32 viewtop = g_ViBackData->viewtop;
+	f32 viewbottom = viewtop + g_ViBackData->viewy;
 	s32 i;
 	f32 sp154;
 	struct coord sp148;
@@ -249,10 +249,10 @@ Gfx *starsRender(Gfx *gdl)
 		}
 	}
 
-	sp154 = cosf(0.017453199252486f * (90.0f - viGetFovY() / viGetAspect() * 0.5f));
+	sp154 = cosf(0.017453199252486f * (90.0f - g_ViBackData->fovy / g_ViBackData->aspect * 0.5f));
 
 	mtx4LoadIdentity(&mtx);
-	mtx00015be0(camGetWorldToScreenMtxf(), &mtx);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &mtx);
 
 	mtx.m[3][0] = 0.0f;
 	mtx.m[3][1] = 0.0f;

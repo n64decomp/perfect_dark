@@ -9,6 +9,6 @@
 
 void racesInit(void)
 {
-	modelSetVtxAllocatorFunc(&chrAllocateVertices);
+	g_ModelVtxAllocatorFunc = &chrAllocateVertices;
 	raceInitAnims();
 }

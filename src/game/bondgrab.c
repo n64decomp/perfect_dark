@@ -169,8 +169,6 @@ static void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj
 	struct coord spd4;
 	struct coord spc8;
 	struct coord spbc;
-	struct coord spb0;
-	struct coord spa4;
 	struct coord sp98;
 
 	if (g_Vars.lvupdate240 > 0) {
@@ -179,11 +177,9 @@ static void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj
 			sp98.y = g_Vars.currentplayer->prop->pos.y;
 			sp98.z = delta->z + g_Vars.currentplayer->prop->pos.z;
 
-			cdGetEdge(&spb0, &spa4);
-
-			spc8.x = spa4.z - spb0.z;
+			spc8.x = g_CdEdgeVtx2.z - g_CdEdgeVtx1.z;
 			spc8.y = 0.0f;
-			spc8.z = spb0.x - spa4.x;
+			spc8.z = g_CdEdgeVtx1.x - g_CdEdgeVtx2.x;
 
 			if (spc8.f[0] != 0.0f || spc8.f[2] != 0.0f) {
 				guNormalize(&spc8.x, &spc8.y, &spc8.z);
@@ -191,7 +187,7 @@ static void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj
 				spc8.z = 1.0f;
 			}
 
-			func0f02e3dc(&spb0, &spa4, &sp98, &spc8, &spd4);
+			func0f02e3dc(&g_CdEdgeVtx1, &g_CdEdgeVtx2, &sp98, &spc8, &spd4);
 
 			spbc.x = (sp98.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate60freal;
 			spbc.y = 0.0f;
@@ -202,12 +198,8 @@ static void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj
 			struct coord sp8c;
 			struct coord sp80;
 			struct coord sp74 = {0, 0, 0};
-			struct coord sp68;
-			struct coord sp5c;
 			struct coord sp50;
 			struct coord sp44;
-
-			cdGetEdge(&sp68, &sp5c);
 
 			if (cdGetSavedPos(&sp50, &sp44)) {
 				sp44.x -= sp50.x;
@@ -221,7 +213,7 @@ static void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj
 				sp44.z = obj->prop->pos.z - var8009de70->pos.z;
 			}
 
-			func0f02e3dc(&sp68, &sp5c, &sp50, &sp44, &sp8c);
+			func0f02e3dc(&g_CdEdgeVtx1, &g_CdEdgeVtx2, &sp50, &sp44, &sp8c);
 
 			sp80.x = delta->x;
 			sp80.y = 0.0f;
@@ -504,7 +496,7 @@ static bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, b
 	s32 result = bgrabCalculateNewPosition(delta, angle, arg2);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		struct prop *obstacle = cdGetObstacleProp();
+		struct prop *obstacle = g_CdObstacleProp;
 
 		if (obstacle && g_Vars.lvupdate240 > 0) {
 			if (obstacle->type == PROPTYPE_CHR) {
@@ -590,7 +582,8 @@ static bool bgrab0f0cdb68(f32 angle)
 	f32 ymax;
 	f32 ymin;
 
-	cdGetEdge(&spa4, &sp98);
+	spa4 = g_CdEdgeVtx1;
+	sp98 = g_CdEdgeVtx2;
 
 	sp7c = sp98.f[0] - spa4.f[0];
 	sp78 = sp98.f[2] - spa4.f[2];
@@ -690,7 +683,8 @@ static bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord 
 	bool result = bgrabCalculateNewPositiontWithPush(delta, 0, true);
 
 	if (!result) {
-		cdGetEdge(arg1, arg2);
+		*arg1 = g_CdEdgeVtx1;
+		*arg2 = g_CdEdgeVtx2;
 	}
 
 	return result;

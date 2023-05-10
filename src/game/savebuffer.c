@@ -30,8 +30,8 @@ static void func0f0d4690(Mtxf *mtx)
 	pos.y = PAL ? 136.25f : 120.25f;
 	pos.z = 0;
 
-	pos.x = (.5f - viGetWidth()) * 0.5f;
-	pos.y = (.5f + viGetHeight()) * 0.5f;
+	pos.x = (.5f - g_ViBackData->x) * 0.5f;
+	pos.y = (.5f + g_ViBackData->y) * 0.5f;
 	pos.z = 0;
 
 	mtx4SetTranslation(&pos, mtx);
@@ -60,12 +60,12 @@ Gfx *func0f0d479c(Gfx *gdl)
 	mtx4LoadIdentity(&mtx);
 
 	guFrustumF(mtx.m,
-			-(f32) viGetWidth() * 0.5f, viGetWidth() * 0.5f,
-			-(f32) viGetHeight() * 0.5f, viGetHeight() * 0.5f,
+			-(f32) g_ViBackData->x * 0.5f, g_ViBackData->x * 0.5f,
+			-(f32) g_ViBackData->y * 0.5f, g_ViBackData->y * 0.5f,
 			10, 10000, 1);
 
 	mtx00016054(&mtx, mtx1);
-	mtx00016784();
+	var8005ef10[0] = g_Vars.unk000510;
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx2), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx1), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -75,13 +75,13 @@ Gfx *func0f0d479c(Gfx *gdl)
 		var80070f10 = gfxAllocate(size);
 
 		if (var80070f10 != NULL) {
-			var80070f10->vp.vscale[0] = viGetWidth() << 1;
-			var80070f10->vp.vscale[1] = viGetHeight() << 1;
+			var80070f10->vp.vscale[0] = g_ViBackData->x << 1;
+			var80070f10->vp.vscale[1] = g_ViBackData->y << 1;
 			var80070f10->vp.vscale[2] = 1;
 			var80070f10->vp.vscale[3] = 0;
 
-			var80070f10->vp.vtrans[0] = viGetWidth() << 1;
-			var80070f10->vp.vtrans[1] = viGetHeight() << 1;
+			var80070f10->vp.vtrans[0] = g_ViBackData->x << 1;
+			var80070f10->vp.vtrans[1] = g_ViBackData->y << 1;
 			var80070f10->vp.vtrans[2] = 0x1ff;
 			var80070f10->vp.vtrans[3] = 0;
 		}
@@ -96,8 +96,8 @@ Gfx *func0f0d479c(Gfx *gdl)
 
 Gfx *func0f0d49c8(Gfx *gdl)
 {
-	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(viGetCurrentPlayerViewport()));
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(&g_Vars.currentplayer->viewport[g_ViBackIndex]));
+	gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->perspmtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	return gdl;
 }

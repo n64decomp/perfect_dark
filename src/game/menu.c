@@ -308,32 +308,32 @@ static Gfx *menuRenderBanner(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool big,
 	x = midx - textwidth / 2 + 2;
 	y += 2;
 	gdl = textRenderProjected(gdl, &x, &y, langGet(msgs[msgnum]),
-			chars, font, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+			chars, font, 0x000000ff, g_ViBackData->x, g_ViBackData->x, 0, 0);
 
 	// Render "Please Wait..." shadow
 	x = midx - waitwidth / 2 + 2;
 	y += 3;
 	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_495),
-			chars, font, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+			chars, font, 0x000000ff, g_ViBackData->x, g_ViBackData->x, 0, 0);
 
 	// Render the selected message proper
 	x = midx - textwidth / 2;
 	y = texttop;
 	gdl = textRenderProjected(gdl, &x, &y, langGet(msgs[msgnum]),
-			chars, font, 0xbfbfffff, viGetWidth(), viGetWidth(), 0, 0);
+			chars, font, 0xbfbfffff, g_ViBackData->x, g_ViBackData->x, 0, 0);
 
 	// Render "Please Wait..." proper
 	x = midx - waitwidth / 2;
 	y += 3;
 	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_495),
-			chars, font, 0xbfbfffff, viGetWidth(), viGetWidth(), 0, 0);
+			chars, font, 0xbfbfffff, g_ViBackData->x, g_ViBackData->x, 0, 0);
 
 	if (msgs[msgnum] == L_MPMENU_491) { // "Checking Controller Pak"
 		// Render "TM"
 		y = texttop - 1;
 		x = textwidth / 2 + midx - 7;
 		gdl = textRenderProjected(gdl, &x, &y, "TM",
-				g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xbfbfffff, viGetWidth(), viGetWidth(), 0, 0);
+				g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xbfbfffff, g_ViBackData->x, g_ViBackData->x, 0, 0);
 	}
 
 	gdl = text0f153780(gdl);
@@ -679,7 +679,7 @@ static void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height
 		*width = 240;
 
 		for (i = 0; i < 6; i++) {
-			if (g_Briefing.objectivenames[i] && (g_Briefing.objectivedifficulties[i] & (1 << lvGetDifficulty()))) {
+			if (g_Briefing.objectivenames[i] && (g_Briefing.objectivedifficulties[i] & (1 << g_Difficulty))) {
 				numobjectives++;
 			}
 		}
@@ -1308,8 +1308,8 @@ void menuPushDialog(struct menudialogdef *dialogdef)
 
 			menuOpenDialog(dialogdef, dialog, &g_Menus[g_MpPlayerNum]);
 
-			dialog->dstx = (viGetWidth() - dialog->width) / 2;
-			dialog->dsty = (viGetHeight() - dialog->height) / 2;
+			dialog->dstx = (g_ViBackData->x - dialog->width) / 2;
+			dialog->dsty = (g_ViBackData->y - dialog->height) / 2;
 
 			g_Menus[g_MpPlayerNum].fm.unke40_00 = true;
 			sibling = dialogdef->nextsibling;
@@ -1329,7 +1329,7 @@ void menuPushDialog(struct menudialogdef *dialogdef)
 					menuOpenDialog(sibling, dialog, &g_Menus[g_MpPlayerNum]);
 
 					dialog->dstx = dialog->x = -320;
-					dialog->dsty = dialog->y = (viGetHeight() - dialog->height) / 2;
+					dialog->dsty = dialog->y = (g_ViBackData->y - dialog->height) / 2;
 					dialog->type = 0;
 
 					sibling = sibling->nextsibling;
@@ -1576,7 +1576,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 		if (thing->unk004 == NULL) {
 			if (bgun0f09e004(1)) {
-				thing->unk004 = bgunGetGunMem();
+				thing->unk004 = g_Vars.currentplayer->gunctrl.gunmem;
 				thing->unk008 = bgunCalculateGunMemCapacity();
 			} else {
 				return gdl;
@@ -1902,8 +1902,8 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			sp390[0] = thing->unk510;
 			sp390[1] = thing->unk514;
 		} else {
-			sp390[0] = sp430 + viGetViewLeft() + viGetViewWidth() * 0.5f;
-			sp390[1] = sp42c + viGetViewTop() + viGetViewHeight() * 0.5f;
+			sp390[0] = sp430 + g_ViBackData->viewleft + g_ViBackData->viewx * 0.5f;
+			sp390[1] = sp42c + g_ViBackData->viewtop + g_ViBackData->viewy * 0.5f;
 		}
 
 		cam0f0b4c3c(sp390, &sp398, 1.0f);
@@ -1980,7 +1980,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		if (arg2 < 3) {
 			if (arg2 != 0) {
 				gdl = func0f0d49c8(gdl);
-				gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+				gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->perspmtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 			} else {
 				f32 aspect = (f32) (g_MenuScissorX2 - g_MenuScissorX1) / (f32) (g_MenuScissorY2 - g_MenuScissorY1);
 				u32 znear = 10;
@@ -2089,15 +2089,15 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 					spd0.z = sp3b4[index].m[3][2];
 
 					cam0f0b4d04(&spd0, spc8);
-					var8009de98 = (s32)spc8[0] - viGetWidth() / 2;
-					var8009de9c = (s32)spc8[1] - viGetHeight() / 2;
+					var8009de98 = (s32)spc8[0] - g_ViBackData->x / 2;
+					var8009de9c = (s32)spc8[1] - g_ViBackData->y / 2;
 				}
 			}
 		}
 
 		gSPSetLights1(gdl++, var80071468);
-		gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
-		gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
+		gSPLookAtX(gdl++, &g_Vars.currentplayer->lookat->l[0]);
+		gSPLookAtY(gdl++, &g_Vars.currentplayer->lookat->l[1]);
 
 		renderdata.unk30 = 1;
 		renderdata.envcolour = 0xffffffff;
@@ -2118,7 +2118,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			mtx00016054(&sp70, &thing->bodymodel.matrices[i]);
 		}
 
-		mtx00016784();
+		var8005ef10[0] = g_Vars.unk000510;
 
 		if (arg2 < 3) {
 			gdl = func0f0d479c(gdl);
@@ -2187,20 +2187,20 @@ Gfx *menuApplyScissor(Gfx *gdl)
 		g_ScissorY2 = 0;
 	}
 
-	if (g_ScissorX1 > viGetBufWidth()) {
-		g_ScissorX1 = viGetBufWidth();
+	if (g_ScissorX1 > g_ViBackData->bufx) {
+		g_ScissorX1 = g_ViBackData->bufx;
 	}
 
-	if (g_ScissorX2 > viGetBufWidth()) {
-		g_ScissorX2 = viGetBufWidth();
+	if (g_ScissorX2 > g_ViBackData->bufx) {
+		g_ScissorX2 = g_ViBackData->bufx;
 	}
 
-	if (g_ScissorY1 > viGetBufHeight()) {
-		g_ScissorY1 = viGetBufHeight();
+	if (g_ScissorY1 > g_ViBackData->bufy) {
+		g_ScissorY1 = g_ViBackData->bufy;
 	}
 
-	if (g_ScissorY2 > viGetBufHeight()) {
-		g_ScissorY2 = viGetBufHeight();
+	if (g_ScissorY2 > g_ViBackData->bufy) {
+		g_ScissorY2 = g_ViBackData->bufy;
 	}
 
 	if (g_ScissorX2 < g_ScissorX1) {
@@ -2379,13 +2379,13 @@ static Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu,
 			x = dialogleft + 3;
 			y = dialogtop + 3;
 
-			gdl = textRenderProjected(gdl, &x, &y, title, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour1 & 0xff, dialogwidth, viGetHeight(), 0, 0);
+			gdl = textRenderProjected(gdl, &x, &y, title, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour1 & 0xff, dialogwidth, g_ViBackData->y, 0, 0);
 
 			// Title proper
 			x = dialogleft + 2;
 			y = dialogtop + 2;
 
-			gdl = textRenderProjected(gdl, &x, &y, title, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour1, dialogwidth, viGetHeight(), 0, 0);
+			gdl = textRenderProjected(gdl, &x, &y, title, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour1, dialogwidth, g_ViBackData->y, 0, 0);
 
 			// In MP dialogs, render the player number in the top right
 			if (g_MenuData.root == MENUROOT_MPSETUP
@@ -2395,7 +2395,7 @@ static Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu,
 				x = dialogright - 9;
 				y = dialogtop + 2;
 
-				gdl = textRenderProjected(gdl, &x, &y, sp154[g_MpPlayerNum], g_CharsHandelGothicSm, g_FontHandelGothicSm, colour1, dialogwidth, viGetHeight(), 0, 0);
+				gdl = textRenderProjected(gdl, &x, &y, sp154[g_MpPlayerNum], g_CharsHandelGothicSm, g_FontHandelGothicSm, colour1, dialogwidth, g_ViBackData->y, 0, 0);
 			}
 		}
 
@@ -2451,10 +2451,10 @@ static Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu,
 
 	{
 		struct menulayer *layer;
-		s32 viewleft = viGetViewLeft();
-		s32 viewtop = viGetViewTop();
-		s32 viewright = (viGetViewLeft() + viGetViewWidth());
-		s32 viewbottom = viGetViewTop() + viGetViewHeight();
+		s32 viewleft = g_ViBackData->viewleft;
+		s32 viewtop = g_ViBackData->viewtop;
+		s32 viewright = (g_ViBackData->viewleft + g_ViBackData->viewx);
+		s32 viewbottom = g_ViBackData->viewtop + g_ViBackData->viewy;
 
 		g_MenuScissorX1 = dialogleft + 2;
 		g_MenuScissorX2 = dialogright - 2;
@@ -2718,11 +2718,11 @@ static Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu,
 				gdl = text0f153838(gdl);
 			}
 
-			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
-					viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, g_ViBackData->viewleft, g_ViBackData->viewtop,
+					g_ViBackData->viewleft + g_ViBackData->viewx, g_ViBackData->viewtop + g_ViBackData->viewy);
 		} else {
-			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
-					viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, g_ViBackData->viewleft, g_ViBackData->viewtop,
+					g_ViBackData->viewleft + g_ViBackData->viewx, g_ViBackData->viewtop + g_ViBackData->viewy);
 		}
 
 		// Render left/right chevrons and sibling dialog titles
@@ -2776,7 +2776,7 @@ static Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu,
 					x -= 3;
 				}
 
-				gdl = textRenderProjected(gdl, &y, &x, title, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffffff, dialogwidth, viGetHeight(), 0, 0);
+				gdl = textRenderProjected(gdl, &y, &x, title, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffffff, dialogwidth, g_ViBackData->y, 0, 0);
 
 				// Right/next title
 				nextindex = layer->cursibling + 1;
@@ -2797,7 +2797,7 @@ static Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu,
 					x += 3;
 				}
 
-				gdl = textRenderProjected(gdl, &y, &x, title, g_CharsHandelGothicXs, g_FontHandelGothicXs, -1, dialogwidth, viGetHeight(), 0, 0);
+				gdl = textRenderProjected(gdl, &y, &x, title, g_CharsHandelGothicXs, g_FontHandelGothicXs, -1, dialogwidth, g_ViBackData->y, 0, 0);
 				gdl = text0f153780(gdl);
 
 				textSetRotation90(false);
@@ -2821,14 +2821,14 @@ static void menuGetContPads(s8 *contpadnum1, s8 *contpadnum2)
 		*contpadnum2 = -1;
 		break;
 	default:
-		*contpadnum1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
+		*contpadnum1 = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad1;
 		*contpadnum2 = -1;
 
 		if (!g_Vars.normmplayerisrunning) {
-			s32 mode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
+			s32 mode = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].controlmode;
 
-			if (mode == CONTROLMODE_23 || mode == CONTROLMODE_24 || mode == CONTROLMODE_22 || mode == CONTROLMODE_21) {
-				*contpadnum2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
+			if (mode >= CONTROLMODE_21) {
+				*contpadnum2 = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad2;
 			}
 		}
 		break;
@@ -2916,10 +2916,10 @@ static void func0f0f7594(s32 arg0, s32 *vdir, s32 *hdir)
  */
 static void menuFindAvailableSize(s32 *leftptr, s32 *topptr, s32 *rightptr, s32 *bottomptr)
 {
-	s32 left = viGetViewLeft() + 20;
-	s32 top = viGetViewTop() + 4;
-	s32 right = (viGetViewLeft() + viGetViewWidth()) - 20;
-	s32 bottom = viGetViewTop() + viGetViewHeight() - 4;
+	s32 left = g_ViBackData->viewleft + 20;
+	s32 top = g_ViBackData->viewtop + 4;
+	s32 right = (g_ViBackData->viewleft + g_ViBackData->viewx) - 20;
+	s32 bottom = g_ViBackData->viewtop + g_ViBackData->viewy - 4;
 	s32 playernum;
 	u32 stack[2];
 
@@ -3024,7 +3024,7 @@ static void menuFindAvailableSize(s32 *leftptr, s32 *topptr, s32 *rightptr, s32 
 			}
 		}
 
-		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 			if (g_Menus[g_MpPlayerNum].playernum == 0) {
 				*leftptr += 22;
 			} else {
@@ -3078,7 +3078,7 @@ static void dialogCalculatePosition(struct menudialog *dialog)
 		}
 
 		if (hdir > 0) {
-			dialog->dstx = (viGetViewLeft() + viGetViewWidth()) + 4;
+			dialog->dstx = (g_ViBackData->viewleft + g_ViBackData->viewx) + 4;
 		}
 
 		if (vdir < 0) {
@@ -3086,7 +3086,7 @@ static void dialogCalculatePosition(struct menudialog *dialog)
 		}
 
 		if (vdir > 0) {
-			dialog->dsty = viGetViewTop() + viGetViewHeight() + 4;
+			dialog->dsty = g_ViBackData->viewtop + g_ViBackData->viewy + 4;
 		}
 	}
 }
@@ -3303,8 +3303,8 @@ static Gfx *menuRenderDialogs(Gfx *gdl)
 		if (g_MenuData.root == MENUROOT_MPPAUSE
 				|| g_MenuData.root == MENUROOT_PICKTARGET
 				|| g_MenuData.root == MENUROOT_MPENDSCREEN) {
-			var8009de98 = g_Menus[g_MpPlayerNum].curdialog->x + g_Menus[g_MpPlayerNum].curdialog->width / 2 - viGetWidth() / 2;
-			var8009de9c = g_Menus[g_MpPlayerNum].curdialog->y + g_Menus[g_MpPlayerNum].curdialog->height / 2 - viGetHeight() / 2;
+			var8009de98 = g_Menus[g_MpPlayerNum].curdialog->x + g_Menus[g_MpPlayerNum].curdialog->width / 2 - g_ViBackData->x / 2;
+			var8009de9c = g_Menus[g_MpPlayerNum].curdialog->y + g_Menus[g_MpPlayerNum].curdialog->height / 2 - g_ViBackData->y / 2;
 
 			gdl = menuRenderDialog(gdl, g_Menus[g_MpPlayerNum].curdialog, &g_Menus[g_MpPlayerNum], 0);
 		} else {
@@ -3352,10 +3352,10 @@ static Gfx *menuRenderDialogs(Gfx *gdl)
 
 				gdl = menuRenderBanner(gdl, xmin, ymin, xmax, ymax, false, g_Menus[g_MpPlayerNum].bannernum, 0, 0);
 			} else {
-				s32 xmin = viGetViewLeft();
-				s32 ymin = viGetViewTop();
-				s32 xmax = (viGetViewLeft() + viGetViewWidth());
-				s32 ymax = viGetViewTop() + viGetViewHeight();
+				s32 xmin = g_ViBackData->viewleft;
+				s32 ymin = g_ViBackData->viewtop;
+				s32 xmax = (g_ViBackData->viewleft + g_ViBackData->viewx);
+				s32 ymax = g_ViBackData->viewtop + g_ViBackData->viewy;
 
 				gdl = menuRenderBanner(gdl, xmin, ymin, xmax, ymax, true, g_Menus[g_MpPlayerNum].bannernum, 0, 0);
 			}
@@ -4663,7 +4663,7 @@ static Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 			u32 colour = 255 * frac;
 			gSPDisplayList(gdl++, var800613a0);
 			gdl = textSetPrimColour(gdl, colour);
-			gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
+			gDPFillRectangle(gdl++, 0, 0, g_ViBackData->x, g_ViBackData->y);
 			gdl = text0f153838(gdl);
 		}
 		break;
@@ -4672,7 +4672,7 @@ static Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 			// Fill with black
 			gSPDisplayList(gdl++, var800613a0);
 			gdl = textSetPrimColour(gdl, 0x000000ff);
-			gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
+			gDPFillRectangle(gdl++, 0, 0, g_ViBackData->x, g_ViBackData->y);
 			gdl = text0f153838(gdl);
 
 			// Render the success BG
@@ -4685,7 +4685,7 @@ static Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 				if (alpha) {
 					gSPDisplayList(gdl++, var800613a0);
 					gdl = textSetPrimColour(gdl, alpha);
-					gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
+					gDPFillRectangle(gdl++, 0, 0, g_ViBackData->x, g_ViBackData->y);
 					gdl = text0f153838(gdl);
 				}
 			}
@@ -4698,7 +4698,7 @@ static Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 			u32 channel = (1.0f - frac) * 255;
 			gSPDisplayList(gdl++, var800613a0);
 			gdl = textSetPrimColour(gdl, channel << 24 | channel << 16 | channel << 8 | 0xff);
-			gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
+			gDPFillRectangle(gdl++, 0, 0, g_ViBackData->x, g_ViBackData->y);
 			gdl = text0f153838(gdl);
 
 			// Render the failure BG
@@ -4721,17 +4721,17 @@ static Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 			gSPDisplayList(gdl++, var800613a0);
 			alpha = (1.0f - frac) * 255;
 			gdl = textSetPrimColour(gdl, 0xff000000 | alpha);
-			gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
+			gDPFillRectangle(gdl++, 0, 0, g_ViBackData->x, g_ViBackData->y);
 			gdl = text0f153838(gdl);
 		}
 		break;
 	case MENUBG_GRADIENT:
 		// Blue to red
-		gdl = menugfxRenderGradient(gdl, 0, 0, viGetWidth(), viGetHeight(), 0x00007f7f, 0x000000ff, 0x8f0000ff);
+		gdl = menugfxRenderGradient(gdl, 0, 0, g_ViBackData->x, g_ViBackData->y, 0x00007f7f, 0x000000ff, 0x8f0000ff);
 		break;
 	case MENUBG_CONEOPAQUE:
 		// Yellow to yellow (ie. not a gradient)
-		gdl = menugfxRenderGradient(gdl, 0, 0, viGetWidth(), viGetHeight(), 0x3f3f00ff, 0x7f0000ff, 0x3f3f00ff);
+		gdl = menugfxRenderGradient(gdl, 0, 0, g_ViBackData->x, g_ViBackData->y, 0x3f3f00ff, 0x7f0000ff, 0x3f3f00ff);
 		break;
 	}
 
@@ -4884,7 +4884,7 @@ Gfx *menuRender(Gfx *gdl)
 
 		g_MpPlayerNum = 0;
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->perspmtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		gSPDisplayList(gdl++, var800613a0);
 
 		text0f153b40();
@@ -4893,10 +4893,10 @@ Gfx *menuRender(Gfx *gdl)
 		if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
 			s32 i;
 			s32 j;
-			s32 viewleft = viGetViewLeft() + 20;
-			s32 viewtop = viGetViewTop() + 4;
-			s32 viewright = (viGetViewLeft() + viGetViewWidth()) - 20;
-			s32 viewbottom = viGetViewTop() + viGetViewHeight() - 4;
+			s32 viewleft = g_ViBackData->viewleft + 20;
+			s32 viewtop = g_ViBackData->viewtop + 4;
+			s32 viewright = (g_ViBackData->viewleft + g_ViBackData->viewx) - 20;
+			s32 viewbottom = g_ViBackData->viewtop + g_ViBackData->viewy - 4;
 			s32 textheight;
 			s32 textwidth;
 			bool renderit;
@@ -4987,7 +4987,7 @@ Gfx *menuRender(Gfx *gdl)
 							x = viewleft + 2;
 						}
 
-						gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, g_MenuData.playerjoinalpha[i] | 0x5070ff00, viGetWidth(), viGetHeight(), 0, 0);
+						gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, g_MenuData.playerjoinalpha[i] | 0x5070ff00, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 						if (g_Vars.mpsetupmenu == MPSETUPMENU_GENERAL && g_Vars.waitingtojoin[i]) {
 							// "Ready!"
@@ -4999,7 +4999,7 @@ Gfx *menuRender(Gfx *gdl)
 							colour = colourBlend(0x00ffff00, 0xffffff00, weight) | g_MenuData.playerjoinalpha[i];
 						}
 
-						gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
+						gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 					}
 				}
 			}
@@ -5013,10 +5013,10 @@ Gfx *menuRender(Gfx *gdl)
 	// Render banner messages, such as "Please Wait...",
 	// "Checking Controller Pak" and some unused game boy camera texts.
 	if (g_MenuData.bannernum != -1) {
-		s32 x1 = viGetViewLeft();
-		s32 y1 = viGetViewTop();
-		s32 x2 = viGetViewLeft() + viGetViewWidth();
-		s32 y2 = viGetViewTop() + viGetViewHeight();
+		s32 x1 = g_ViBackData->viewleft;
+		s32 y1 = g_ViBackData->viewtop;
+		s32 x2 = g_ViBackData->viewleft + g_ViBackData->viewx;
+		s32 y2 = g_ViBackData->viewtop + g_ViBackData->viewy;
 
 		s32 left = 0;
 		s32 right = 0;
@@ -5029,7 +5029,7 @@ Gfx *menuRender(Gfx *gdl)
 			}
 		}
 
-		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 			if (g_Vars.currentplayernum == 1) {
 				right = 15;
 			} else {
@@ -5496,13 +5496,13 @@ void func0f0fd494(struct coord *pos)
 
 	g_MenuData.unk5d5_04 = true;
 
-	matrix = camGetWorldToScreenMtxf();
+	matrix = g_Vars.currentplayer->worldtoscreenmtx;
 
 	mtx4TransformVec(matrix, pos, &coord);
 	cam0f0b4d04(&coord, xy);
 
-	g_MenuData.unk670 = (s32)xy[0] - viGetWidth() / 2;
-	g_MenuData.unk674 = (s32)xy[1] - viGetHeight() / 2;
+	g_MenuData.unk670 = (s32)xy[0] - g_ViBackData->x / 2;
+	g_MenuData.unk674 = (s32)xy[1] - g_ViBackData->y / 2;
 
 	g_MenuData.unk5d5_05 = false;
 }

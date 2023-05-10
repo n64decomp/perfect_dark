@@ -47,7 +47,6 @@ void shieldhitsRemoveByProp(struct prop *prop);
 void chr0f0295f8(f32 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha, bool arg4, s32 cmnum1, s32 cmnum2, s32 cmnum3, s32 cmnum4);
 void shieldhitsTick(void);
-s32 chrsGetNumSlots(void);
 struct gfxvtx *chrAllocateVertices(s32 numvertices);
 void chrsSetVar8006297c(u32 arg0);
 u32 chrsGetVar8006297c(void);
@@ -68,10 +67,14 @@ void chrUncloakTemporarily(struct chrdata *chr);
 void chr0f02472c(void);
 void chr0f028490(f32 arg1);
 struct chrdata *chrFindByLiteralId(s32 chrnum);
-struct prop *chrGetHeldProp(struct chrdata *chr, s32 hand);
 struct prop *chrGetHeldUsableProp(struct chrdata *chr, s32 hand);
 struct prop *chrGetTargetProp(struct chrdata *chr);
 bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end);
 void chrGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin);
+
+static inline struct prop *chrGetHeldProp(struct chrdata *chr, s32 hand)
+{
+	return chr->weapons_held[hand];
+}
 
 #endif

@@ -239,12 +239,12 @@ void dyntexTickRoom(s32 roomnum, struct gfxvtx *vertices)
 			break;
 		case DYNTEXTYPE_TELEPORTAL:
 			// Deep Sea - teleports enabled and not SA disabled
-			if (chrHasStageFlag(0, 0x00000100) && !chrHasStageFlag(0, 0x00010000)) {
+			if ((g_StageFlags & 0x00010100) == 0x00000100) {
 				dyntexUpdateLinear(vertices, type);
 			}
 			break;
 		case DYNTEXTYPE_POWERRING:
-			if (chrHasStageFlag(0, 0x00010000)) {
+			if (g_StageFlags & 0x00010000) {
 				// Attack Ship engines are destroyed
 				dyntexUpdateReset(vertices, type);
 			} else {
@@ -253,7 +253,7 @@ void dyntexTickRoom(s32 roomnum, struct gfxvtx *vertices)
 			}
 			break;
 		case DYNTEXTYPE_POWERJUICE:
-			if (!chrHasStageFlag(0, 0x00010000)) {
+			if ((g_StageFlags & 0x00010000) == 0) {
 				// Attack Ship engines are healthy
 				dyntexUpdateLinear(vertices, type);
 			}
@@ -393,14 +393,4 @@ void dyntexReset(void)
 
 	size3 = ALIGN64(g_DyntexRoomsMax * sizeof(struct dyntexroom));
 	g_DyntexRooms = mempAlloc(size3, MEMPOOL_STAGE);
-
-	if (g_DyntexVerticesMax);
-	if (g_DyntexTypesMax);
-	if (size1);
-}
-
-
-bool dyntexHasRoom(void)
-{
-	return g_DyntexCurRoom >= 0;
 }

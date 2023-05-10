@@ -1129,7 +1129,7 @@ void mpSetPaused(u8 mode)
  * or "Press START" if player has finished their death animation.
  *
  * @bug: When calling textRender(), viGetWidth() is used twice but it should be
- * viGetViewWidth() and viGetViewHeight(). These arguments to textRender() set
+ * g_ViBackData->viewx and g_ViBackData->viewy. These arguments to textRender() set
  * the crop box for the text, but the text doesn't extend past the box anyway
  * so it has no effect.
  */
@@ -1150,18 +1150,18 @@ Gfx *mpRenderModalText(Gfx *gdl)
 
 		strcpy(text, langGet(L_MPWEAPONS_040)); // "Paused"
 
-		x = viGetViewLeft() + viGetViewWidth() / 2;
+		x = g_ViBackData->viewleft + g_ViBackData->viewx / 2;
 
 		if (g_Menus[g_Vars.currentplayerstats->mpindex].curdialog) {
-			y = viGetViewTop() + 10;
+			y = g_ViBackData->viewtop + 10;
 		} else {
-			y = viGetViewTop() + viGetViewHeight() / 2;
+			y = g_ViBackData->viewtop + g_ViBackData->viewy / 2;
 		}
 
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, 0);
 		x -= textwidth / 2;
 
-		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, (red << 24) | 0x00ff00ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, (red << 24) | 0x00ff00ff, 0x000000ff, g_ViBackData->x, g_ViBackData->x, 0, 0);
 
 		gdl = text0f153780(gdl);
 	} else if (!g_MainIsEndscreen
@@ -1177,19 +1177,19 @@ Gfx *mpRenderModalText(Gfx *gdl)
 
 		strcpy(text, langGet(L_MPWEAPONS_039));
 
-		x = viGetViewLeft() + viGetViewWidth() / 2;
+		x = g_ViBackData->viewleft + g_ViBackData->viewx / 2;
 
-		y = viGetViewTop() + viGetViewHeight() / 2;
+		y = g_ViBackData->viewtop + g_ViBackData->viewy / 2;
 
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x -= textwidth / 2;
 
-		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, g_ViBackData->x, g_ViBackData->x, 0, 0);
 
 		if (g_Vars.currentplayer->deadtimer > 0) {
 			// Render countdown timer
-			s32 countdowny = viGetViewTop() + viGetViewHeight() / 2 + textheight + 2;
-			s32 countdownx = viGetViewLeft() + viGetViewWidth() / 2;
+			s32 countdowny = g_ViBackData->viewtop + g_ViBackData->viewy / 2 + textheight + 2;
+			s32 countdownx = g_ViBackData->viewleft + g_ViBackData->viewx / 2;
 
 			sprintf(text, "%d\n", (g_Vars.currentplayer->deadtimer + TICKS(60) - 1) / TICKS(60));
 
@@ -1197,7 +1197,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 			x = countdownx - textwidth / 2;
 			y = countdowny;
 
-			gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+			gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, g_ViBackData->x, g_ViBackData->x, 0, 0);
 		}
 
 		gdl = text0f153780(gdl);

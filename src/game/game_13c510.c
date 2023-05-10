@@ -139,13 +139,13 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 			s1 = &var800a41a0[g_Rooms[roomnum].gfxdata->lightsindex * 3];
 
 			roomPopulateMtx(&sp138, roomnum);
-			mtx00015f88(currentPlayerGetScaleBg2Gfx(), &sp138);
-			mtx4MultMtx4(camGetMtxF006c(), &sp138, &spf8);
+			mtx00015f88(g_Vars.currentplayerstats->scale_bg2gfx, &sp138);
+			mtx4MultMtx4(g_Vars.currentplayer->mtxf006c, &sp138, &spf8);
 
-			viewwidth = viGetViewWidth();
-			viewheight = viGetViewHeight();
-			viewleft = viGetViewLeft();
-			viewtop = viGetViewTop();
+			viewwidth = g_ViBackData->viewx;
+			viewheight = g_ViBackData->viewy;
+			viewleft = g_ViBackData->viewleft;
+			viewtop = g_ViBackData->viewtop;
 
 			for (i = 0; i < numlights; i++) {
 				origin.x = 0.0f;
@@ -308,7 +308,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 									&& yi >= (s32)viewtop
 									&& yi < (s32)(viewtop + viewheight)
 									&& f0 < 32576.0f) {
-								index = envGetCurrent()->numsuns;
+								index = g_Env.numsuns;
 								index *= 8;
 								artifact = artifacts;
 								artifact += index;
@@ -320,7 +320,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 
 								if (index < MAX_ARTIFACTS) {
 									artifact->unk04 = func0f13c574(f0) >> 2;
-									artifact->unk08 = &var800844f0[viGetWidth() * yi + xi];
+									artifact->unk08 = &var800844f0[g_ViBackData->x * yi + xi];
 									artifact->light = &roomlights[i];
 									artifact->type = ARTIFACTTYPE_GLARE;
 									artifact->unk0c.u16_2 = xi;
@@ -408,13 +408,13 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 	f32 f26;
 
 	artifacts = g_ArtifactLists[g_SchedFrontArtifactsIndex];
-	f30 = roomGetUnk5c(roomnum);
+	f30 = g_Rooms[roomnum].unk5c;
 
 	if (g_Rooms[roomnum].gfxdata == NULL || g_Rooms[roomnum].loaded240 == 0) {
 		return gdl;
 	}
 
-	for (i = envGetCurrent()->numsuns * 8; i < MAX_ARTIFACTS; i++) {
+	for (i = g_Env.numsuns * 8; i < MAX_ARTIFACTS; i++) {
 		struct light *light2 = artifacts[i].light;
 		count = 0;
 
@@ -469,7 +469,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 				s3[0] = func0f13d3c4(s3[0], t2 * 2);
 
 				if (t2 > 0) {
-					brightness = viGetFovY() * 0.017453292f;
+					brightness = g_ViBackData->fovy * 0.017453292f;
 					add = cosf(brightness) / sinf(brightness) * 14.6f;
 
 					if (lightIsHealthy(roomnum, lightindex - g_Rooms[roomnum].gfxdata->lightsindex)) {
@@ -508,7 +508,7 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 						lightscreenpos.f[l] = lightworldpos.f[l] - g_Vars.currentplayer->cam_pos.f[l];
 					}
 
-					mtx4RotateVecInPlace(camGetWorldToScreenMtxf(), &lightscreenpos);
+					mtx4RotateVecInPlace(g_Vars.currentplayer->worldtoscreenmtx, &lightscreenpos);
 
 					cam0f0b4d04(&lightscreenpos, spdc);
 
@@ -534,8 +534,8 @@ Gfx *artifactsRenderGlaresForRoom(Gfx *gdl, s32 roomnum)
 					f24 = g_CurrentStage->light_width * brightness * 0.01f;
 					f26 = g_CurrentStage->light_height * brightness * 0.01f;
 
-					f24 *= viGetViewWidth() * (1.0f / 240.0f) / camGetPerspAspect();
-					f26 *= viGetViewHeight() * (1.0f / 240.0f);
+					f24 *= g_ViBackData->viewx * (1.0f / 240.0f) / g_Vars.currentplayer->c_perspaspect;
+					f26 *= g_ViBackData->viewy * (1.0f / 240.0f);
 
 					if (brightness > 3.0f) {
 						f32 alpha = (light->colour & 0xf) * 17;

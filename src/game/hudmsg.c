@@ -75,18 +75,6 @@ static s32 hudmsgIsZoomRangeVisible(void)
 		&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON;
 }
 
-/**
- * hudmsgRenderMissionTimer calls viGetWidth (which returns an s16), then stores
- * the width in sp42 while it calls viGetHeight. However, when we do this it
- * stores the width to sp40 instead.
- *
- * Changing the definition of viGetHeight to return an s32 fixes this, but is
- * surely wrong and creates mismatches elsewhere. So we declare a new function
- * with the return type we need, and link it to the same address as viGetHeight
- * via the linker config.
- */
-extern s32 viGetHeight_hack(void);
-
 static Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 {
 	s32 x;
@@ -103,9 +91,9 @@ static Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 
 	textcolour = alpha;
 
-	viewleft = viGetViewLeft();
-	viewtop = viGetViewTop();
-	viewheight = viGetViewHeight();
+	viewleft = g_ViBackData->viewleft;
+	viewtop = g_ViBackData->viewtop;
+	viewheight = g_ViBackData->viewy;
 	playercount = PLAYERCOUNT();
 	playernum = g_Vars.currentplayernum;
 
@@ -118,16 +106,16 @@ static Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 	// Because of this, in 1 player the timer is drawn out of place when the
 	// screen split option is vertical and either the countdown timer is visible
 	// or a zoomable weapon is in use.
-	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && !g_CountdownTimerOff) {
+	if (g_ScreenSplit == SCREENSPLIT_VERTICAL && !g_CountdownTimerOff) {
 		timery -= 8;
 	}
 
-	if ((optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3) && hudmsgIsZoomRangeVisible()) {
+	if ((g_ScreenSplit == SCREENSPLIT_VERTICAL || playercount >= 3) && hudmsgIsZoomRangeVisible()) {
 		timery -= 8;
 	}
 
 	if (playercount == 2) {
-		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0) {
+		if (g_ScreenSplit != SCREENSPLIT_VERTICAL && playernum == 0) {
 			timery += 10;
 		} else {
 			timery += 2;
@@ -147,7 +135,7 @@ static Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 	// If this is a second player with their viewport on the right side of the
 	// screen, move the timer left a bit as the safe zone doesn't need to be
 	// considered.
-	if (playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && playernum == 1) {
+	if (playercount == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL && playernum == 1) {
 		viewleft -= 14;
 	} else if (playercount >= 3 && (playernum & 1) == 1) {
 		viewleft -= 14;
@@ -161,7 +149,7 @@ static Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 	x = viewleft + g_HudPaddingX + 3;
 	y = timery;
 
-	gdl = textRender(gdl, &x, &y, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, viGetWidth(), viGetHeight_hack(), 0, 0);
+	gdl = textRender(gdl, &x, &y, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	return gdl;
 }
@@ -189,10 +177,10 @@ static Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 	u32 colour;
 
 	colour = (alpha * 0xa0 / 255) | 0x00ff0000;
-	viewtop = viGetViewTop();
-	viewleft = viGetViewLeft();
-	viewhalfwidth = viGetViewWidth() >> 1;
-	viewheight = viGetViewHeight();
+	viewtop = g_ViBackData->viewtop;
+	viewleft = g_ViBackData->viewleft;
+	viewhalfwidth = g_ViBackData->viewx >> 1;
+	viewheight = g_ViBackData->viewy;
 	texty = viewheight + viewtop - 1;
 	maxzoom = 1.0f;
 	weaponnum = g_Vars.currentplayer->hands[0].gset.weaponnum;
@@ -205,7 +193,7 @@ static Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 	}
 
 	if (playercount == 2) {
-		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0) {
+		if (g_ScreenSplit != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0) {
 			texty += 10;
 		} else {
 			texty += 2;
@@ -244,7 +232,7 @@ static Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 	y2 = y + textheight;
 
 	gdl = text0f1538e4(gdl, &x, &y, &x2, &y2);
-	gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Divider
 	sprintf(text, "/");
@@ -256,7 +244,7 @@ static Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 	y2 = y + textheight;
 
 	gdl = text0f1538e4(gdl, &x, &y, &x2, &y2);
-	gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	// Right side - max zoom level
 	sprintf(text, "%s%s%4.2fX", "", "", maxzoom);
@@ -268,7 +256,7 @@ static Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha)
 	y2 = y + textheight;
 
 	gdl = text0f1538e4(gdl, &x, &y, &x2, &y2);
-	gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	return gdl;
 }
@@ -323,7 +311,7 @@ static s32 hudmsg0f0ddb1c(s32 *arg0, s32 arg1)
 
 	*arg0 = 24;
 
-	if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+	if (PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 		result -= *arg0 * 2 / 3;
 
 		if (g_Vars.currentplayernum == 0) {
@@ -501,12 +489,12 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 
 	if (type == HUDMSGTYPE_INGAMESUBTITLE) {
 		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-			if (!optionsGetCutsceneSubtitles()) {
+			if (!g_CutsceneSubtitles) {
 				return;
 			}
 
 			type = HUDMSGTYPE_CUTSCENESUBTITLE;
-		} else if (!optionsGetInGameSubtitles()) {
+		} else if (!g_InGameSubtitles) {
 			return;
 		}
 	}
@@ -730,7 +718,7 @@ static void hudmsgCalculatePosition(struct hudmessage *msg)
 		}
 	}
 
-	if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+	if (PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 		{
 			viewwidth -= offset;
 
@@ -750,7 +738,7 @@ static void hudmsgCalculatePosition(struct hudmessage *msg)
 		x = viewleft + v0 + msg->xmargin + 3;
 
 		if (PLAYERCOUNT() == 2
-				&& optionsGetScreenSplit() == SCREENSPLIT_VERTICAL
+				&& g_ScreenSplit == SCREENSPLIT_VERTICAL
 				&& (!g_InCutscene || g_MainIsEndscreen)) {
 			if (msg->playernum == 0) {
 				x += 15;
@@ -787,7 +775,7 @@ static void hudmsgCalculatePosition(struct hudmessage *msg)
 		y = viewtop + viewheight - msg->height - msg->ymargin - 14;
 
 		if (PLAYERCOUNT() == 2 && (g_InCutscene == 0 || g_MainIsEndscreen)) {
-			if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && msg->playernum == 0) {
+			if (g_ScreenSplit != SCREENSPLIT_VERTICAL && msg->playernum == 0) {
 				y += 8;
 			} else {
 				y += 3;
@@ -836,7 +824,7 @@ static void hudmsgCreateFromArgs(char *text, s32 type, s32 conf00, s32 conf01, s
 	char stacktext[400];
 	s32 writeindex;
 
-	if (type == HUDMSGTYPE_INGAMESUBTITLE && !optionsGetInGameSubtitles()) {
+	if (type == HUDMSGTYPE_INGAMESUBTITLE && !g_InGameSubtitles) {
 		return;
 	}
 
@@ -1099,7 +1087,7 @@ void hudmsgsTick(void)
 			} else {
 				// Most HUD messages play a swish sound effect
 				if (msg->timer == 0
-						&& !lvIsPaused()
+						&& !g_LvIsPaused
 						&& !mpIsPaused()
 						&& msg->type != HUDMSGTYPE_CUTSCENESUBTITLE
 						&& msg->type != HUDMSGTYPE_INGAMESUBTITLE
@@ -1250,14 +1238,14 @@ Gfx *hudmsgsRender(Gfx *gdl)
 			x = msg->x;
 			y = msg->y;
 
-			if (msg->type == HUDMSGTYPE_INGAMESUBTITLE && playerIsHealthVisible()) {
+			if (msg->type == HUDMSGTYPE_INGAMESUBTITLE && g_Vars.currentplayer->healthshowmode != HEALTHSHOWMODE_HIDDEN) {
 				y += (s32)(16.0f * playerGetHealthBarHeightFrac());
 			}
 
 			if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
 				gDPSetScissor(gdl++, 0,
 						(x - 4), 0,
-						(x + msg->width + 3), viGetBufHeight());
+						(x + msg->width + 3), g_ViBackData->bufy);
 			}
 
 			switch (msg->state) {
@@ -1298,11 +1286,11 @@ Gfx *hudmsgsRender(Gfx *gdl)
 					if (msg->boxed) {
 						gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, spc0);
 
-						gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
+						gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 					} else {
 						gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
 
-						gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
+						gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 					}
 
 					if (msg->alignv == 6) {
@@ -1323,11 +1311,11 @@ Gfx *hudmsgsRender(Gfx *gdl)
 
 					gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f);
 
-					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
+					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 				} else {
 					gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
 
-					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
+					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 				}
 				if (msg->alignv == 6) {
 					timerthing = 0;
@@ -1364,11 +1352,11 @@ Gfx *hudmsgsRender(Gfx *gdl)
 					if (msg->boxed) {
 						gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f - spa8);
 
-						gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
+						gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 					} else {
 						gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
 
-						gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
+						gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 					}
 
 					if (msg->alignv == 6) {
@@ -1382,8 +1370,8 @@ Gfx *hudmsgsRender(Gfx *gdl)
 
 			if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
 				gDPSetScissor(gdl++, 0,
-						viGetViewLeft(), viGetViewTop(),
-						viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+						g_ViBackData->viewleft, g_ViBackData->viewtop,
+						g_ViBackData->viewleft + g_ViBackData->viewx, g_ViBackData->viewtop + g_ViBackData->viewy);
 			}
 		}
 

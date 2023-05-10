@@ -7,10 +7,9 @@
 extern bool (*var8005efc4)(struct model *model, struct modelnode *node);
 extern struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices);
 extern void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx);
+extern bool var8005efdc;
 
 bool model00018680(struct modelrenderdata *renderdata, struct model *model);
-void modelSetDistanceScale(f32 value);
-void modelSetVtxAllocatorFunc(struct gfxvtx *(*fn)(s32 numvertices));
 s32 model0001a524(struct modelnode *node, s32 arg1);
 Mtxf *model0001a5cc(struct model *model, struct modelnode *node, s32 arg2);
 Mtxf *model0001a60c(struct model *model);
@@ -29,7 +28,6 @@ void modelSetRootPosition(struct model *model, struct coord *pos);
 void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *node, struct coord *pos);
 f32 model0001ae44(struct model *model);
 void model0001ae90(struct model *model, f32 angle);
-void modelSetScale(struct model *model, f32 scale);
 void modelSetAnimScale(struct model *model, f32 scale);
 f32 model0001af80(struct model *model);
 f32 model0001afe8(f32 arg0, f32 angle, f32 frac);
@@ -60,8 +58,6 @@ void modelSetAnimSpeedAuto(struct model *model, f32 arg1, f32 startframe);
 void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 frame);
 void modelSetAnim70(struct model *model, void *callback);
 void model0001e018(struct model *model, f32 startframe);
-void model0001e29c(bool value);
-bool model0001e2a8(void);
 void model0001ee18(struct model *model, s32 lvupdate240, bool arg2);
 void model0001f314(struct model *model, s32 lvupdate240, bool arg2);
 void modelRender(struct modelrenderdata *renderdata, struct model *model);

@@ -165,37 +165,32 @@ void vmInit(void)
 
 	rzipInit();
 
-	if (bootGetMemSize() <= 0x400000) {
-		while (1);
-	} else {
-		// Expansion pak is being used
-		t8 = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
-		s7 = (u8 *)(STACK_START - 8);
+	t8 = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
+	s7 = (u8 *)(STACK_START - 8);
 
-		// 0x803c0000 - (_gameSegmentLen aligned to 0x20000)
-		gameseg = (u8 *) &_gameSegmentStart;
+	// 0x803c0000 - (_gameSegmentLen aligned to 0x20000)
+	gameseg = (u8 *) &_gameSegmentStart;
 
-		s5 = (u32 *) 0x80600000;
-		g_VmMarker = (u8 *) s7;
-		sp1474 = t8 + 1;
+	s5 = (u32 *) 0x80600000;
+	g_VmMarker = (u8 *) s7;
+	sp1474 = t8 + 1;
 
-		// Load gamezips pointer list
-		dmaExec(s5, (u32) &_gamezipSegmentRomStart, ALIGN16((sp1474 + 1) << 2));
+	// Load gamezips pointer list
+	dmaExec(s5, (u32) &_gamezipSegmentRomStart, ALIGN16((sp1474 + 1) << 2));
 
-		// Make pointers absolute instead of relative to their segment
-		for (i = 0; i < sp1474; i++) { \
-			s5[i] += (u32) &_gamezipSegmentRomStart;
-		}
+	// Make pointers absolute instead of relative to their segment
+	for (i = 0; i < sp1474; i++) { \
+		s5[i] += (u32) &_gamezipSegmentRomStart;
+	}
 
-		// Load each zip from the ROM and inflate them to the game segment
-		s2 = gameseg;
-		chunkbuffer = (u8 *) ((u32)s5 - PAGE_SIZE * 2);
-		zip = chunkbuffer + 2;
+	// Load each zip from the ROM and inflate them to the game segment
+	s2 = gameseg;
+	chunkbuffer = (u8 *) ((u32)s5 - PAGE_SIZE * 2);
+	zip = chunkbuffer + 2;
 
-		for (i = 0; i < sp1474 - 1; i++) { \
-			dmaExec(chunkbuffer, s5[i], ALIGN16(s5[i + 1] - s5[i])); \
-			s2 += rzipInflate(zip, s2, sp68);
-		}
+	for (i = 0; i < sp1474 - 1; i++) { \
+		dmaExec(chunkbuffer, s5[i], ALIGN16(s5[i + 1] - s5[i])); \
+		s2 += rzipInflate(zip, s2, sp68);
 	}
 
 	osInvalICache(0, ICACHE_SIZE);

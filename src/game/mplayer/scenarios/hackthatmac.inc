@@ -541,11 +541,11 @@ static Gfx *htmRenderHud(Gfx *gdl)
 	dltime = data->dltime240[g_Vars.currentplayernum];
 
 	if (data->dlterminalnum != -1 && g_Vars.currentplayernum == data->dlplayernum) {
-		viewleft = viGetViewLeft();
-		viewright = viGetViewLeft() + viGetViewWidth();
-		viewtop = viGetViewTop();
+		viewleft = g_ViBackData->viewleft;
+		viewright = g_ViBackData->viewleft + g_ViBackData->viewx;
+		viewtop = g_ViBackData->viewtop;
 		t6 = (viewleft + viewright) / 2;
-		a1 = viGetViewWidth() / 3;
+		a1 = g_ViBackData->viewx / 3;
 		barleft = t6 - a1 / 2;
 		barright = t6 + a1 / 2;
 		s1 = barleft + (s32) (a1 * (dltime / TICKS(4800.0f)));

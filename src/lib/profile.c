@@ -217,19 +217,19 @@ Gfx *profileRenderCpuLine(Gfx *gdl, s32 x, s32 *y, char *label, s32 marker)
 	}
 
 	x2 = x;
-	gdl = textRender(gdl, &x2, y, label, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x2, y, label, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	sprintf(buffer, "%d", microseconds);
 	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 	x2 = x + 100 - textwidth;
-	gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	sprintf(buffer, "%d%%\n", percent);
 	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 	x2 = x + 130 - textwidth;
-	gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 	return gdl;
 }
@@ -316,21 +316,21 @@ Gfx *profileRenderDynamicSlot(Gfx *gdl, s32 x, s32 *y, s32 index)
 
 	if (slot->recursion) {
 		sprintf(buffer, "%s:%d  *RECURSION*\n", slot->file, slot->line);
-		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 	} else {
 		// Render this slot
 		sprintf(buffer, "%s:%d", slot->file, slot->line);
-		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 		sprintf(buffer, "%dus", (u32) OS_CYCLES_TO_USEC(slot->ticks));
 		textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 		x2 = 160 - textwidth;
-		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 		sprintf(buffer, "%d\n", slot->numiterations);
 		x2 = 170;
-		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 		// Render child slots
 		for (i = 0; i < ARRAYCOUNT(g_ProfileSlots); i++) {
@@ -343,13 +343,13 @@ Gfx *profileRenderDynamicSlot(Gfx *gdl, s32 x, s32 *y, s32 index)
 		// Render child "other" slot
 		if (childticks > 0) {
 			x2 = x + 5;
-			gdl = textRender(gdl, &x2, y, "other", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x2, y, "other", g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 			sprintf(buffer, "%dus\n", (u32) OS_CYCLES_TO_USEC(slot->ticks - childticks));
 			textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 			x2 = 160 - textwidth;
-			gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = textRender(gdl, &x2, y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		}
 	}
 

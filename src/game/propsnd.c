@@ -168,7 +168,7 @@ static void propsndTickChannel(s32 channelnum)
 			&& ((channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED)
 				|| (channel->flags & AUDIOCHANNELFLAG_0002)
 				|| (channel->flags & AUDIOCHANNELFLAG_1000)
-				|| ((channel->flags & AUDIOCHANNELFLAG_ISMP3) && sndIsPlayingMp3()))) {
+				|| ((channel->flags & AUDIOCHANNELFLAG_ISMP3) && g_SndCurMp3.playing))) {
 		struct coord *pos = NULL; // 50
 		s16 *rooms = NULL; // 4c
 		s32 sp48;
@@ -266,7 +266,7 @@ static void propsndTickChannel(s32 channelnum)
 			sp48 = channel->unk04;
 		}
 
-		if (lvIsPaused()
+		if (g_LvIsPaused
 				|| (mpIsPaused() && (channel->flags2 & AUDIOCHANNELFLAG2_0002))
 				|| (mpIsPaused() && PLAYERCOUNT() == 1)) {
 			channel->unk06 = -1;
@@ -357,7 +357,7 @@ static void propsndTickChannel(s32 channelnum)
 	} else {
 		if (channel->unk28 != 11) {
 			if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
-				if (!sndIsPlayingMp3()) {
+				if (!g_SndCurMp3.playing) {
 					if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
 						propDecrementSoundCount(channel->prop);
 					}

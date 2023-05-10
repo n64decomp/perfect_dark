@@ -64,11 +64,6 @@ struct chrdata *g_ChrSlots = NULL;
 
 s32 g_NumChrSlots = 0;
 
-s32 chrsGetNumSlots(void)
-{
-	return g_NumChrSlots;
-}
-
 void chrSetChrnum(struct chrdata *chr, s16 newnum)
 {
 	s16 oldnum = chr->chrnum;
@@ -170,7 +165,8 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 
 			moveok = true;
 		} else {
-			cdGetEdge(&sp78, &sp6c);
+			sp78 = g_CdEdgeVtx1;
+			sp6c = g_CdEdgeVtx2;
 
 			// Attempt to find a valid position - method #1
 			sp60.x = dstpos->x - prop->pos.x;
@@ -1364,7 +1360,7 @@ static void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			return;
 		}
 
-		mtx00015be0(camGetProjectionMtxF(), mtx);
+		mtx00015be0(g_Vars.currentplayer->projectionmtx, mtx);
 
 		sp138.x = mtx->m[3][0];
 		sp138.y = mtx->m[3][1];
@@ -1410,7 +1406,7 @@ static void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 		mtx->m[3][1] = sp138.y;
 		mtx->m[3][2] = sp138.z;
 
-		mtx00015be0(camGetWorldToScreenMtxf(), mtx);
+		mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, mtx);
 	} else {
 		if (g_CurModelChr->model->filedata->skel == &g_SkelChr) {
 			lshoulderjoint = 2;
@@ -1573,7 +1569,7 @@ static void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 					yrot += M_BADTAU;
 				}
 
-				mtx00015be0(camGetProjectionMtxF(), mtx);
+				mtx00015be0(g_Vars.currentplayer->projectionmtx, mtx);
 
 				sp70.x = mtx->m[3][0];
 				sp70.y = mtx->m[3][1];
@@ -1618,7 +1614,7 @@ static void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				mtx->m[3][1] = sp70.y;
 				mtx->m[3][2] = sp70.z;
 
-				mtx00015be0(camGetWorldToScreenMtxf(), mtx);
+				mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, mtx);
 			}
 		}
 	}
@@ -2332,7 +2328,7 @@ s32 chrTick(struct prop *prop)
 		}
 
 		if (cheatIsActive(CHEAT_DKMODE)) {
-			modelSetDistanceScale(0.3125f);
+			g_ModelDistanceScale = 0.3125f;
 		}
 
 		g_ModelJointPositionedFunc = &chrHandleJointPositioned;
@@ -2346,7 +2342,7 @@ s32 chrTick(struct prop *prop)
 			sp190.z = cosf(angle) * 19;
 
 			mtx4LoadTranslation(&sp190, &sp1a8);
-			mtx4MultMtx4InPlace(camGetWorldToScreenMtxf(), &sp1a8);
+			mtx4MultMtx4InPlace(g_Vars.currentplayer->worldtoscreenmtx, &sp1a8);
 			sp210.unk00 = &sp1a8;
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			u8 stack[0x14];
@@ -2363,13 +2359,13 @@ s32 chrTick(struct prop *prop)
 				sp17c.z = sinf(-sp178) * sp130;
 
 				mtx4LoadTranslation(&sp17c, &sp1a8);
-				mtx4MultMtx4InPlace(camGetWorldToScreenMtxf(), &sp1a8);
+				mtx4MultMtx4InPlace(g_Vars.currentplayer->worldtoscreenmtx, &sp1a8);
 				sp210.unk00 = &sp1a8;
 			} else {
-				sp210.unk00 = camGetWorldToScreenMtxf();
+				sp210.unk00 = g_Vars.currentplayer->worldtoscreenmtx;
 			}
 		} else {
-			sp210.unk00 = camGetWorldToScreenMtxf();
+			sp210.unk00 = g_Vars.currentplayer->worldtoscreenmtx;
 		}
 
 		sp210.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
@@ -2389,7 +2385,7 @@ s32 chrTick(struct prop *prop)
 			f32 xdiff;
 			f32 ydiff;
 			f32 zdiff;
-			f32 sp114 = camGetLodScaleZ();
+			f32 sp114 = g_Vars.currentplayer->c_lodscalez;
 			bool restore = false;
 			f32 prevfrac;
 			s32 prevframea;
@@ -2448,7 +2444,7 @@ s32 chrTick(struct prop *prop)
 			}
 
 			g_ModelJointPositionedFunc = NULL;
-			modelSetDistanceScale(1);
+			g_ModelDistanceScale = 1;
 
 			if (fulltick) {
 				colourTween(chr->shadecol, chr->nextcol);
@@ -2633,7 +2629,7 @@ static bool chr0f024738(struct chrdata *chr)
 								+ thing->unk06c.m[1][2] * campos->f[1]
 								+ thing->unk06c.m[2][2] * campos->f[2]) + thing->unk06c.m[3][2];
 
-						mtx00015be4(&thing->unk06c, camGetProjectionMtxF(), &thing->unk0ac);
+						mtx00015be4(&thing->unk06c, g_Vars.currentplayer->projectionmtx, &thing->unk0ac);
 						thing->unk00c = true;
 					}
 
@@ -2741,7 +2737,7 @@ static bool chr0f024b18(struct model *model, struct modelnode *node)
 							sp88.z = thing->bbox.zmin;
 						}
 
-						mtx00015be4(camGetWorldToScreenMtxf(), &thing->unk02c, &thing->unk0ec);
+						mtx00015be4(g_Vars.currentplayer->worldtoscreenmtx, &thing->unk02c, &thing->unk0ec);
 						mtx4TransformVec(&thing->unk0ec, &spa0, &sp70);
 						cam0f0b4dec(&sp70, thing->unk134);
 						mtx4TransformVec(&thing->unk0ec, &sp94, &sp70);
@@ -3243,7 +3239,7 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 		return;
 	}
 
-	if (chrGetShield(chr) > 0.0f) {
+	if (chr->cshield > 0.0f) {
 		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_DEFAULT);
 		return;
 	}
@@ -4070,7 +4066,7 @@ f32 chr0f0278a4(struct chrdata *chr)
 
 		result += highest;
 
-		if (chrGetShield(chr) > 0) {
+		if (chr->cshield > 0) {
 			result += 10;
 		}
 	} else {
@@ -4110,7 +4106,7 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 			}
 
 			if (spc0) {
-				if (chrGetShield(chr) > 0.0f) {
+				if (chr->cshield > 0.0f) {
 					var8005efc0 = 10.0f / model->scale;
 				}
 
@@ -4128,9 +4124,9 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 					while (spc0 > 0) {
 						if (func0f084594(model, node, &shotdata->unk00, &shotdata->unk0c, &sp88, &sp84, &sp80)) {
 							mtx4TransformVec(&model->matrices[sp84], &sp88.unk00, &spdc);
-							mtx4TransformVecInPlace(camGetProjectionMtxF(), &spdc);
+							mtx4TransformVecInPlace(g_Vars.currentplayer->projectionmtx, &spdc);
 							mtx4RotateVec(&model->matrices[sp84], &sp88.unk0c, &spd0);
-							mtx4RotateVecInPlace(camGetProjectionMtxF(), &spd0);
+							mtx4RotateVecInPlace(g_Vars.currentplayer->projectionmtx, &spd0);
 							break;
 						}
 
@@ -4142,8 +4138,8 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 					if (spc0 > 0) {
 						if (func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, &shotdata->unk00,
 									&shotdata->unk0c, &sp88.unk00, &sp70, &node, &spc0, &sp84, &sp80)) {
-							mtx4TransformVec(camGetProjectionMtxF(), &sp88.unk00, &spdc);
-							mtx4RotateVec(camGetProjectionMtxF(), &sp88.unk0c, &spd0);
+							mtx4TransformVec(g_Vars.currentplayer->projectionmtx, &sp88.unk00, &spdc);
+							mtx4RotateVec(g_Vars.currentplayer->projectionmtx, &sp88.unk0c, &spd0);
 						} else {
 							spc0 = 0;
 						}
@@ -4156,12 +4152,12 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 			}
 
 			if (spc0 > 0) {
-				mtx = camGetWorldToScreenMtxf();
+				mtx = g_Vars.currentplayer->worldtoscreenmtx;
 				sp68 = spdc.x * mtx->m[0][2] + spdc.y * mtx->m[1][2] + spdc.z * mtx->m[2][2] + mtx->m[3][2];
 				sp68 = -sp68;
 
 				if (sp68 < shotdata->unk34) {
-					func0f061fa8(shotdata, prop, sp68, spc0, node, &sp88, sp84, sp80, model, 1, chrGetShield(chr) > 0.0f, &spdc, &spd0);
+					func0f061fa8(shotdata, prop, sp68, spc0, node, &sp88, sp84, sp80, model, 1, chr->cshield > 0.0f, &spdc, &spd0);
 				}
 			}
 
@@ -4210,7 +4206,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 		sp98.y = shotdata->unk00.y - (hit->distance * shotdata->unk0c.y) / shotdata->unk0c.z;
 		sp98.z = shotdata->unk00.z - hit->distance;
 
-		mtx4TransformVec(camGetProjectionMtxF(), &sp98, &hitpos);
+		mtx4TransformVec(g_Vars.currentplayer->projectionmtx, &sp98, &hitpos);
 		bgunSetHitPos(&hitpos);
 		bgunPlayPropHitSound(&shotdata->gset, hit->prop, -1);
 
@@ -4220,7 +4216,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 		sp90[1] = hit->hitthing.unk00.y;
 		sp90[2] = hit->hitthing.unk00.z;
 
-		shield = chrGetShield(chr);
+		shield = chr->cshield;
 
 		func0f0341dc(chr, gsetGetDamage(&shotdata->gset), &shotdata->dir, &shotdata->gset,
 				g_Vars.currentplayer->prop, hit->hitpart, hit->prop, hit->node,
@@ -4370,11 +4366,6 @@ struct chrdata *chrFindByLiteralId(s32 chrnum)
 	}
 
 	return NULL;
-}
-
-struct prop *chrGetHeldProp(struct chrdata *chr, s32 hand)
-{
-	return chr->weapons_held[hand];
 }
 
 struct prop *chrGetHeldUsableProp(struct chrdata *chr, s32 hand)
@@ -4864,7 +4855,7 @@ static f32 propGetShieldThing(struct prop **propptr)
 	struct prop *prop = *propptr;
 
 	if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
-		return chrGetShield(prop->chr);
+		return prop->chr->cshield;
 	}
 
 	if (prop->type & (PROPTYPE_OBJ | PROPTYPE_WEAPON | PROPTYPE_DOOR)) {
@@ -4934,7 +4925,7 @@ static Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct pro
 	if (prop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))  {
 		struct chrdata *chr = prop->chr;
 		gap = 10.0f / chr->model->scale;
-		shieldamount = chrGetShield(chr);
+		shieldamount = chr->cshield;
 		cloakfade = chr->cloakfadefrac;
 		cmcount = chr->cmcount;
 	} else {
@@ -5809,35 +5800,35 @@ static Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop
 							screenpos[0] = 0.0f;
 						}
 
-						if (screenpos[0] > viGetWidth()) {
-							screenpos[0] = viGetWidth();
+						if (screenpos[0] > g_ViBackData->x) {
+							screenpos[0] = g_ViBackData->x;
 						}
 
 						if (screenpos[1] < 0.0f) {
 							screenpos[1] = 0.0f;
 						}
 
-						if (screenpos[1] > viGetHeight()) {
-							screenpos[1] = viGetHeight();
+						if (screenpos[1] > g_ViBackData->y) {
+							screenpos[1] = g_ViBackData->y;
 						}
 
 						uls = (s32)screenpos[0] - 8;
 						ult = (s32)screenpos[1] - 8;
 
-						if (uls < viGetViewLeft()) {
-							uls = viGetViewLeft();
+						if (uls < g_ViBackData->viewleft) {
+							uls = g_ViBackData->viewleft;
 						}
 
-						if (uls > viGetViewLeft() + viGetViewWidth() - 16) {
-							uls = viGetViewLeft() + viGetViewWidth() - 16;
+						if (uls > g_ViBackData->viewleft + g_ViBackData->viewx - 16) {
+							uls = g_ViBackData->viewleft + g_ViBackData->viewx - 16;
 						}
 
-						if (ult < viGetViewTop()) {
-							ult = viGetViewTop();
+						if (ult < g_ViBackData->viewtop) {
+							ult = g_ViBackData->viewtop;
 						}
 
-						if (ult > viGetViewTop() + viGetViewHeight() - 16) {
-							ult = viGetViewTop() + viGetViewHeight() - 16;
+						if (ult > g_ViBackData->viewtop + g_ViBackData->viewy - 16) {
+							ult = g_ViBackData->viewtop + g_ViBackData->viewy - 16;
 						}
 
 						lrs = uls + 15;
@@ -5846,8 +5837,8 @@ static Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop
 						gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, OS_K0_TO_PHYSICAL(var8009ccc0[index]));
 						gDPTileSync(gdl++);
 
-						gDPLoadTextureTile(gdl++, viGetBackBuffer(), G_IM_FMT_RGBA, G_IM_SIZ_16b,
-								viGetWidth(), 0, uls, ult, lrs, lrt,
+						gDPLoadTextureTile(gdl++, g_ViBackData->fb, G_IM_FMT_RGBA, G_IM_SIZ_16b,
+								g_ViBackData->x, 0, uls, ult, lrs, lrt,
 								0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP,
 								4, 4, G_TX_NOLOD, G_TX_NOLOD);
 
@@ -5885,8 +5876,8 @@ static Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop
 			gDPPipeSync(gdl++);
 			gDPLoadSync(gdl++);
 			gDPTileSync(gdl++);
-			gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_K0_TO_PHYSICAL(viGetBackBuffer()));
-			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
+			gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViBackData->bufx, OS_K0_TO_PHYSICAL(g_ViBackData->fb));
+			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, g_ViBackData->x, g_ViBackData->y);
 			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 			gDPSetRenderMode(gdl++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
 			gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
@@ -5901,7 +5892,7 @@ static Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop
 
 static Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 {
-	if (chrGetShield(chr) > 0 && g_Vars.lvupdate240 > 0) {
+	if (chr->cshield > 0 && g_Vars.lvupdate240 > 0) {
 		chr->cmcount++;
 
 		if (chr->cmcount > 300) {
@@ -5910,9 +5901,9 @@ static Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 	}
 
 	if ((chr->hidden2 & CHRH2FLAG_SHIELDHIT)
-			|| (chrGetShield(chr) > 0 && chr->cmcount < 10)
+			|| (chr->cshield > 0 && chr->cmcount < 10)
 			|| (chr->cloakfadefrac > 0 && !chr->cloakfadefinished)) {
-		if (chrGetShield(chr) > 0 && g_Vars.lvupdate240 > 0) {
+		if (chr->cshield > 0 && g_Vars.lvupdate240 > 0) {
 			s32 numiterations = (random() % 4) + 1;
 			s32 newcmnum = chr->cmnum2;
 			s32 candidate;

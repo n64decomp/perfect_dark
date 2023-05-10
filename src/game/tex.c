@@ -786,7 +786,7 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 
 	tex0f173a08();
 
-	spe0 = dyntexHasRoom();
+	spe0 = g_DyntexCurRoom >= 0;
 
 	if (spe0) {
 		for (j = 0; j < 16; j++) {

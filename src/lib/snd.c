@@ -20,18 +20,7 @@
 #include "data.h"
 #include "types.h"
 
-struct curmp3 {
-	union soundnumhack sfxref;
-	u32 playing;
-	u32 unk08;
-	s32 responsetimer240;
-	s32 prevwhisper;
-	s32 prevacknowledge;
-	s32 prevgreeting;
-	u32 romaddr;
-	u32 romsize;
-	s32 responsetype;
-};
+extern struct mp3vars g_Mp3Vars;
 
 s32 g_NumSounds;
 u32 *g_ALSoundRomOffsets;
@@ -780,11 +769,6 @@ static u16 seqGetVolume(struct seqinstance *seq);
 static void sndTickNosedive(void);
 static void sndTickUfo(void);
 
-bool sndIsPlayingMp3(void)
-{
-	return g_SndCurMp3.playing;
-}
-
 static u16 snd0000e9dc(void)
 {
 	s32 result;
@@ -1369,7 +1353,7 @@ bool snd0000fbc4(s16 arg0)
 		return false;
 	}
 
-	func00037e1c();
+	g_Mp3Vars.var8009c3e0 = 3;
 
 	g_SndCurMp3.playing = false;
 	g_SndCurMp3.responsetimer240 = -1;
@@ -1908,7 +1892,7 @@ static void sndTickNosedive(void)
 		if (percentage < 1.0f) { // less than 100% complete
 			percentage += 0.44f;
 
-			if (lvIsPaused()) {
+			if (g_LvIsPaused) {
 				// Fade out volume during pause instead of stopping abruptly
 				if (g_SndNosediveVolume > 0) {
 					g_SndNosediveVolume -= g_Vars.diffframe240 * PALUP(80);
@@ -1992,7 +1976,7 @@ static void sndTickUfo(void)
 				percentage = (percentage - 0.65f) / 0.35f * 0.8f + 1.0f;
 			}
 
-			if (lvIsPaused()) {
+			if (g_LvIsPaused) {
 				// Fade out volume during pause instead of stopping abruptly
 				if (g_SndUfoVolume > 0) {
 					g_SndUfoVolume -= g_Vars.diffframe240 * PALUP(120);

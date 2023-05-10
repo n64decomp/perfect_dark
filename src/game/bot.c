@@ -498,7 +498,7 @@ static bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 		shield = (struct shieldobj *)prop->obj;
 		ignore2 = false;
 
-		if (shield->amount <= chrGetShield(chr) * 0.125f) {
+		if (shield->amount <= chr->cshield * 0.125f) {
 			ignore2 = true;
 		} else if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE && chr->aibot->hasbriefcase) {
 			ignore2 = true;

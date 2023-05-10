@@ -303,7 +303,7 @@ void weatherTickRain(struct weatherdata *weather)
 
 		iVar10 = weather->unk58[i].unk00 * 32767.0f * weather->unk88;
 
-		if (lvIsPaused()) {
+		if (g_LvIsPaused) {
 			 iVar10 = 0;
 		}
 
@@ -851,7 +851,7 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	sp194 = 0;
 
 	mtx4LoadIdentity(&sp1c8);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp1c8);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &sp1c8);
 
 	sp1c8.m[3][0] = 0.0f;
 	sp1c8.m[3][1] = 0.0f;
@@ -1436,7 +1436,7 @@ static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	sp198 = 0;
 
 	mtx4LoadIdentity(&sp1cc);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp1cc);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &sp1cc);
 
 	sp1cc.m[3][0] = 0.0f;
 	sp1cc.m[3][1] = 0.0f;

@@ -107,11 +107,6 @@ struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum)
 	return NULL;
 }
 
-f32 handGetXShift(s32 handnum)
-{
-	return g_Vars.currentplayer->hands[handnum].xshift;
-}
-
 f32 func0f0b131c(s32 hand)
 {
 	f32 x;
@@ -121,7 +116,7 @@ f32 func0f0b131c(s32 hand)
 		weapon = weaponFindById(bgunGetWeaponNum2(0));
 		x = weapon->posx;
 
-		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 			x -= 3.5f;
 
 			if (g_Vars.currentplayernum == 0) {
@@ -132,7 +127,7 @@ f32 func0f0b131c(s32 hand)
 		weapon = weaponFindById(bgunGetWeaponNum2(1));
 		x = -weapon->posx;
 
-		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (PLAYERCOUNT() == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 			x += 3.5f;
 
 			if (g_Vars.currentplayernum == 0) {
@@ -416,7 +411,7 @@ f32 gsetGetDamage(struct gset *gset)
 		damage = (gset->unk063a / 3.0f + 1.0f) * damage;
 	}
 
-	if (bgunIsFiring(HAND_LEFT) && bgunIsFiring(HAND_RIGHT)) {
+	if (g_Vars.currentplayer->hands[HAND_LEFT].firing && g_Vars.currentplayer->hands[HAND_RIGHT].firing) {
 		damage += damage;
 	}
 

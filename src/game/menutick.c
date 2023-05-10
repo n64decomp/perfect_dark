@@ -565,7 +565,7 @@ void menuTick(void)
 			switch (g_MenuData.root) {
 			case MENUROOT_ENDSCREEN:
 				if (g_Vars.restartlevel) {
-					mainChangeToStage(mainGetStageNum());
+					mainChangeToStage(g_StageNum);
 				} else {
 					mainChangeToStage(STAGE_TITLE);
 				}
@@ -592,7 +592,7 @@ void menuTick(void)
 						&& ((!g_CheatsActiveBank0 && !g_CheatsActiveBank1) || isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty))) {
 					endscreenPushSolo();
 				} else if (g_Vars.restartlevel) {
-					mainChangeToStage(mainGetStageNum());
+					mainChangeToStage(g_StageNum);
 				} else {
 					mpSetPaused(MPPAUSEMODE_UNPAUSED);
 					g_Vars.mplayerisrunning = false;
@@ -645,7 +645,7 @@ void menuTick(void)
 			g_MenuData.unk5d5_01 = true;
 
 			if (g_Menus[0].unk840.unk004) {
-				bgunFreeGunMem();
+				g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_FREE;
 				g_Menus[0].unk840.unk004 = NULL;
 			}
 		}

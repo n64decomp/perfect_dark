@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+extern s32 g_DyntexCurRoom;
+
 void dyntexTickRoom(s32 roomnum, struct gfxvtx *vertices);
 void dyntexAddVertex(struct gfxvtx *vertex);
 void dyntexSetCurrentType(s16 type);

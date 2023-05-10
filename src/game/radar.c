@@ -262,10 +262,10 @@ Gfx *radarRender(Gfx *gdl)
 		return gdl;
 	}
 
-	g_RadarX = (viGetViewLeft() + viGetViewWidth()) - 41;
+	g_RadarX = (g_ViBackData->viewleft + g_ViBackData->viewx) - 41;
 
 	if (playercount == 2) {
-		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (g_ScreenSplit == SCREENSPLIT_VERTICAL) {
 			if (playernum == 0) {
 				g_RadarX += 16;
 			}
@@ -280,10 +280,10 @@ Gfx *radarRender(Gfx *gdl)
 		}
 	}
 
-	g_RadarY = viGetViewTop() + (PAL ? 29 : 26);
+	g_RadarY = g_ViBackData->viewtop + (PAL ? 29 : 26);
 
 	if (playercount == 2) {
-		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 1) {
+		if (g_ScreenSplit != SCREENSPLIT_VERTICAL && playernum == 1) {
 			g_RadarY -= 8;
 		}
 	} else if (playercount >= 3) {

@@ -220,7 +220,7 @@ extern struct screenbox var800a65c0;
 extern struct screenbox g_PortalScreenBbox;
 extern u32 g_FogEnabled;
 extern u32 var800a65e4;
-extern struct coord *var800a65e8;
+extern struct coord *g_Env800a65e8;
 extern u8 *var800a6660;
 extern s16 *var800a6664;
 extern s16 *var800a6668;

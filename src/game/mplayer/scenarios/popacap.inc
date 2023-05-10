@@ -275,8 +275,8 @@ static Gfx *pacRenderHud(Gfx *gdl)
 
 	if (g_Vars.currentplayernum == data->victims[data->victimindex] && !g_Vars.currentplayer->isdead) {
 		time240 = TICKS(60 * 240) - data->age240;
-		x = viGetViewLeft() + viGetViewWidth() / 2;
-		y = viGetViewTop() + 10;
+		x = g_ViBackData->viewleft + g_ViBackData->viewx / 2;
+		y = g_ViBackData->viewtop + 10;
 
 		if (time240 < 0) {
 			time240 = 0;
@@ -295,7 +295,7 @@ static Gfx *pacRenderHud(Gfx *gdl)
 		textheight += y;
 
 		gdl = text0f153990(gdl, x, y, textwidth, textheight);
-		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		gdl = text0f153780(gdl);
 	}
 

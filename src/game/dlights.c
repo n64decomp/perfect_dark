@@ -215,11 +215,6 @@ u8 func0f000b24(s32 roomnum)
 	return value;
 }
 
-u8 roomGetBrightness(s32 room)
-{
-	return g_Rooms[room].brightness & 0xff;
-}
-
 s32 func0f000c54(s32 roomnum)
 {
 	if (g_Rooms[roomnum].unk52 > 255) {
@@ -351,8 +346,8 @@ Gfx *lightsSetForRoom(Gfx *gdl, s16 roomnum)
 
 	gSPSetLights1(gdl++, (*lights));
 
-	gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
-	gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
+	gSPLookAtX(gdl++, &g_Vars.currentplayer->lookat->l[0]);
+	gSPLookAtY(gdl++, &g_Vars.currentplayer->lookat->l[1]);
 
 	return gdl;
 }
@@ -361,8 +356,8 @@ Gfx *lightsSetDefault(Gfx *gdl)
 {
 	gSPSetLights1(gdl++, var80061460);
 
-	gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
-	gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
+	gSPLookAtX(gdl++, &g_Vars.currentplayer->lookat->l[0]);
+	gSPLookAtY(gdl++, &g_Vars.currentplayer->lookat->l[1]);
 
 	return gdl;
 }
@@ -1916,7 +1911,7 @@ static void func0f005bb0(void)
 
 	g_Vars.currentplayer->usinggoggles = USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER);
 
-	if (USINGDEVICE(DEVICE_NIGHTVISION) && !lvIsPaused()) {
+	if (USINGDEVICE(DEVICE_NIGHTVISION) && !g_LvIsPaused) {
 		// Play the goggle's hum sound
 		if (g_Vars.currentplayer->nvhum == NULL) {
 			sndStart(var80095200, SFX_0505, &g_Vars.currentplayer->nvhum, -1, -1, -1.0f, -1, -1);

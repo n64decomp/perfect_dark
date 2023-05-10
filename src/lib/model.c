@@ -27,16 +27,6 @@ bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
 struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices) = NULL;
 void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx) = NULL;
 
-void modelSetDistanceScale(f32 scale)
-{
-	g_ModelDistanceScale = scale;
-}
-
-void modelSetVtxAllocatorFunc(struct gfxvtx *(*fn)(s32 numvertices))
-{
-	g_ModelVtxAllocatorFunc = fn;
-}
-
 s32 model0001a524(struct modelnode *node, s32 arg1)
 {
 	s32 index;
@@ -470,11 +460,6 @@ void model0001ae90(struct model *model, f32 angle)
 
 		rwdata->unk14 = angle;
 	}
-}
-
-void modelSetScale(struct model *model, f32 scale)
-{
-	model->scale = scale;
 }
 
 void modelSetAnimScale(struct model *model, f32 scale)
@@ -1104,7 +1089,7 @@ static void model0001c664(struct model *model, struct modelnode *node)
 	if (g_ModelDistanceDisabled || !mtx) {
 		distance = 0;
 	} else {
-		distance = -mtx->m[3][2] * camGetLodScaleZ();
+		distance = -mtx->m[3][2] * g_Vars.currentplayer->c_lodscalez;
 
 		if (g_ModelDistanceScale != 1) {
 			distance *= g_ModelDistanceScale;
@@ -1986,16 +1971,6 @@ static void model0001e14c(struct model *model, f32 arg1, f32 arg2)
 }
 
 bool var8005efdc = true;
-
-void model0001e29c(bool value)
-{
-	var8005efdc = value;
-}
-
-bool model0001e2a8(void)
-{
-	return var8005efdc;
-}
 
 static void model0001e2b4(struct model *model, f32 curframe, f32 endframe, f32 curframe2, f32 endframe2)
 {

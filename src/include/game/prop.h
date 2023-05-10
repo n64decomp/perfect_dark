@@ -11,7 +11,6 @@ void propsTick(void);
 void propsStop(void);
 
 void propsSort(void);
-void propEnable(struct prop *prop);
 void propDisable(struct prop *prop);
 struct prop *propAllocate(void);
 void propFree(struct prop *prop);
@@ -48,5 +47,10 @@ void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2
 void roomGetProps(s16 *room, s16 *propnums, s32 len);
 void propGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin);
 bool propUpdateGeometry(struct prop *prop, u8 **start, u8 **end);
+
+static inline void propEnable(struct prop *prop)
+{
+	prop->flags |= PROPFLAG_ENABLED;
+}
 
 #endif

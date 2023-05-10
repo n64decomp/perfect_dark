@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+extern struct ammotype g_AmmoTypes[];
+
 void bgunReset(void);
 
 void bgunStop(void);
@@ -12,16 +14,12 @@ void bgunPreload(void);
 s32 bgunGetMinClipQty(s32 weaponnum, s32 funcnum);
 s32 bgunTickIncState2(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 void bgunInitHandAnims(void);
-f32 bgunGetNoiseRadius(s32 handnum);
 void bgunCalculateBlend(s32 hand);
 void bgun0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
-u8 *bgunGetGunMem(void);
 u32 bgunCalculateGunMemCapacity(void);
-void bgunFreeGunMem(void);
 bool bgun0f09e004(s32 newowner);
 void bgunTickGunLoad(void);
 bool bgun0f09eae4(void);
-struct modelfiledata *bgunGetCartModeldef(void);
 void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf *matrix1, struct coord *velocity, Mtxf *matrix2, struct prop *prop, struct coord *pos);
 struct defaultobj *bgunCreateThrownProjectile2(struct chrdata *chr, struct gset *gset, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *velocity);
 void bgunCreateThrownProjectile(s32 handnum, struct gset *gset);
@@ -42,10 +40,7 @@ void bgunCycleForward(void);
 void bgunCycleBack(void);
 bool bgunHasAmmoForWeapon(s32 weaponnum);
 void bgunEquipWeapon2(s32 handnum, s32 weaponnum);
-s32 bgunIsFiring(s32 handnum);
-s32 bgunGetAttackType(s32 handnum);
 char *bgunGetName(s32 weaponnum);
-u16 bgunGetNameId(s32 weaponnum);
 char *bgunGetShortName(s32 arg0);
 void bgunReloadIfPossible(s32 handnum);
 void bgunSetAdjustPos(f32 angle);
@@ -64,7 +59,6 @@ s32 bgunConsiderToggleGunFunction(s32 usedowntime, bool trigpressed, bool fromac
 void bgun0f0a8c50(void);
 void bgunTickGameplay(bool triggeron);
 void bgunSetPassiveMode(bool enable);
-void bgunSetAimType(u32 aimtype);
 void bgunSetHitPos(struct coord *coord);
 void bgun0f0a9494(u32 operation);
 void bgun0f0a94d0(u32 operation, struct coord *pos, struct coord *rot);
@@ -72,7 +66,6 @@ void bgunSetGunAmmoVisible(u32 reason, bool enable);
 void bgunSetAmmoQuantity(s32 ammotype, s32 quantity);
 s32 bgunGetReservedAmmoCount(s32 type);
 s32 bgunGetAmmoCount(s32 ammotype);
-s32 bgunGetCapacityByAmmotype(s32 ammotype);
 void bgunGiveMaxAmmo(bool force);
 u32 bgunGetAmmoTypeForWeapon(u32 weaponnum, u32 func);
 s32 bgunGetAmmoQtyForWeapon(u32 weaponnum, u32 func);
@@ -89,5 +82,10 @@ Gfx *bgunDrawSight(Gfx *gdl);
 s32 bgunGetWeaponNum2(s32 handnum);
 void bgunFreeFireslotWrapper(s32 fireslot);
 void bgunFreeFireslot(s32 fireslot);
+
+static inline s32 bgunGetCapacityByAmmotype(s32 ammotype)
+{
+	return g_AmmoTypes[ammotype].capacity;
+}
 
 #endif

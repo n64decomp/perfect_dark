@@ -13,7 +13,6 @@ void amgrCreate(ALSynConfig *config);
 #endif
 
 void amgrStartThread(void);
-OSMesgQueue *amgrGetFrameMesgQueue(void);
 void amgrStopThread(void);
 
 #endif

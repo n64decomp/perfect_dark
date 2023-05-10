@@ -19,7 +19,6 @@ u32 xorBabeffff(u32 value);
 u32 xorBoobless(u32 value);
 void tagsReset(void);
 s32 objGetTagNum(struct defaultobj *obj);
-s32 objectiveGetCount(void);
 u32 objectiveGetDifficultyBits(s32 index);
 s32 objectiveCheck(s32 index);
 bool objectiveIsAllComplete(void);

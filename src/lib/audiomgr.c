@@ -111,11 +111,6 @@ void amgrStartThread(void)
 	g_AudioIsThreadRunning = true;
 }
 
-OSMesgQueue *amgrGetFrameMesgQueue(void)
-{
-	return &g_AudioManager.audioFrameMsgQ;
-}
-
 /**
  * This doesn't set g_AudioIsThreadRunning to false, but that's okay because
  * this is only called when resetting the console, and when that happens the

@@ -4,6 +4,11 @@
 #include "data.h"
 #include "types.h"
 
+extern struct rend_vidat *g_ViFrontData;
+extern struct rend_vidat *g_ViBackData;
+extern u8 g_ViBackIndex;
+extern u16 g_ViPerspScale;
+
 void viConfigureForLogos(void);
 void viConfigureForCopyright(u16 *fb);
 void viConfigureForLegal(void);
@@ -14,10 +19,6 @@ void viUpdateMode(void);
 void viShake(f32 intensity);
 void viSetMode(s32 mode);
 void viSet16Bit(void);
-u16 *viGetBackBuffer(void);
-u16 *viGetFrontBuffer(void);
-Vp *viGetCurrentPlayerViewport(void);
-u16 viGetPerspScale(void);
 Gfx *vi0000ab78(Gfx *gdl);
 Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar);
 Gfx *vi0000af00(Gfx *gdl, Vp *vp);
@@ -28,23 +29,12 @@ Gfx *vi0000b280(Gfx *gdl);
 Gfx *viFillBuffer(Gfx *gdl);
 Gfx *viRenderViewportEdges(Gfx *gdl);
 void viSetBufSize(s16 width, s16 height);
-s16 viGetBufWidth(void);
-s16 viGetBufHeight(void);
 void viSetSize(s16 width, s16 height);
-s16 viGetWidth(void);
-s16 viGetHeight(void);
 void viSetViewSize(s16 width, s16 height);
-s16 viGetViewWidth(void);
-s16 viGetViewHeight(void);
 void viSetViewPosition(s16 left, s16 top);
-s16 viGetViewLeft(void);
-s16 viGetViewTop(void);
-void viSetUseZBuf(bool use);
 void viSetFovY(f32 fovy);
 void viSetAspect(f32 aspect);
-f32 viGetAspect(void);
 void viSetFovAspectAndSize(f32 fovy, f32 aspect, s16 width, s16 height);
-f32 viGetFovY(void);
 void viSetZRange(f32 arg0, f32 arg1);
 void viGetZRange(struct zrange *zrange);
 Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b);

@@ -10,6 +10,7 @@
 #include "game/training.h"
 #include "game/gamefile.h"
 #include "game/mplayer/mplayer.h"
+#include "game/music.h"
 #include "game/pak.h"
 #include "game/options.h"
 #include "game/utils.h"
@@ -65,23 +66,23 @@ void gamefileApplyOptions(struct gamefile *file)
 	optionsSetShowMissionTime(player2, pakHasBitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, file->flags));
 	optionsSetPaintball(player2, pakHasBitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags));
 
-	optionsSetInGameSubtitles(pakHasBitflag(GAMEFILEFLAG_INGAMESUBTITLES, file->flags));
-	optionsSetCutsceneSubtitles(pakHasBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags));
+	g_InGameSubtitles = pakHasBitflag(GAMEFILEFLAG_INGAMESUBTITLES, file->flags);
+	g_CutsceneSubtitles = pakHasBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags);
 
 	// Duplicate
 	optionsSetPaintball(player2, pakHasBitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags));
 
 	g_Vars.langfilteron = pakHasBitflag(GAMEFILEFLAG_LANGFILTERON, file->flags);
 
-	optionsSetScreenSplit(pakHasBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags));
-	optionsSetScreenRatio(pakHasBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags));
+	g_ScreenSplit = pakHasBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags);
+	g_ScreenRatio = pakHasBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags);
 
 	if (pakHasBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, file->flags)) {
-		optionsSetScreenSize(SCREENSIZE_CINEMA);
+		g_ScreenSize = SCREENSIZE_CINEMA;
 	} else if (pakHasBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, file->flags)) {
-		optionsSetScreenSize(SCREENSIZE_WIDE);
+		g_ScreenSize = SCREENSIZE_WIDE;
 	} else {
-		optionsSetScreenSize(SCREENSIZE_FULL);
+		g_ScreenSize = SCREENSIZE_FULL;
 	}
 
 	g_Vars.pendingantiplayernum = pakHasBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags) ? 1 : 0;
@@ -103,7 +104,7 @@ void gamefileLoadDefaults(struct gamefile *file)
 	file->autostageindex = 0;
 	file->totaltime = 0;
 	sndSetSfxVolume(0x5000);
-	optionsSetMusicVolume(0x5000);
+	musicSetVolume(0x5000);
 	sndSetSoundMode(SOUNDMODE_STEREO);
 	optionsSetControlMode(player1, CONTROLMODE_11);
 	optionsSetControlMode(player2, CONTROLMODE_11);
@@ -228,7 +229,7 @@ s32 gamefileLoad(s32 device)
 				volume = 255;
 			}
 
-			optionsSetMusicVolume((volume & 0x1ff) * 128);
+			musicSetVolume((volume & 0x1ff) * 128);
 
 			sndSetSoundMode(savebufferReadBits(&buffer, 2));
 			optionsSetControlMode(p1index, savebufferReadBits(&buffer, 3));
@@ -333,15 +334,15 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 	pakSetBitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, g_GameFile.flags, optionsGetShowMissionTime(p2index));
 	pakSetBitflag(GAMEFILEFLAG_P2_PAINTBALL, g_GameFile.flags, optionsGetPaintball(p2index));
 
-	pakSetBitflag(GAMEFILEFLAG_SCREENSPLIT, g_GameFile.flags, optionsGetScreenSplit());
-	pakSetBitflag(GAMEFILEFLAG_SCREENRATIO, g_GameFile.flags, optionsGetScreenRatio());
+	pakSetBitflag(GAMEFILEFLAG_SCREENSPLIT, g_GameFile.flags, g_ScreenSplit);
+	pakSetBitflag(GAMEFILEFLAG_SCREENRATIO, g_GameFile.flags, g_ScreenRatio);
 
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, g_GameFile.flags, optionsGetScreenSize() == SCREENSIZE_WIDE);
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, g_GameFile.flags, optionsGetScreenSize() == SCREENSIZE_CINEMA);
+	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, g_GameFile.flags, g_ScreenSize == SCREENSIZE_WIDE);
+	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, g_GameFile.flags, g_ScreenSize == SCREENSIZE_CINEMA);
 
 	pakSetBitflag(GAMEFILEFLAG_HIRES, g_GameFile.flags, 0);
-	pakSetBitflag(GAMEFILEFLAG_INGAMESUBTITLES, g_GameFile.flags, optionsGetInGameSubtitles());
-	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, g_GameFile.flags, optionsGetCutsceneSubtitles());
+	pakSetBitflag(GAMEFILEFLAG_INGAMESUBTITLES, g_GameFile.flags, g_InGameSubtitles);
+	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, g_GameFile.flags, g_CutsceneSubtitles);
 	pakSetBitflag(GAMEFILEFLAG_LANGFILTERON, g_GameFile.flags, g_Vars.langfilteron);
 
 	pakSetBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_TIMEDMINE));
@@ -365,14 +366,14 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 		value = VOLUME(g_SfxVolume) >> 7;
 		savebufferOr(&buffer, value >> 2, 6);
 
-		value = optionsGetMusicVolume() >> 7;
+		value = musicGetVolume() >> 7;
 		savebufferOr(&buffer, value >> 2, 6);
 
 		value = g_SoundMode;
 		savebufferOr(&buffer, value, 2);
 
-		savebufferOr(&buffer, optionsGetControlMode(p1index), 3);
-		savebufferOr(&buffer, optionsGetControlMode(p2index), 3);
+		savebufferOr(&buffer, g_PlayerConfigsArray[p1index].controlmode, 3);
+		savebufferOr(&buffer, g_PlayerConfigsArray[p2index].controlmode, 3);
 
 		for (i = 0; i < 10; i++) {
 			savebufferOr(&buffer, g_GameFile.flags[i], 8);

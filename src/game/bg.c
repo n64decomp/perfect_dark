@@ -896,7 +896,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->orthomtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 
@@ -918,7 +918,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 	// Render props
 	gdl = currentPlayerScissorToViewport(gdl);
 
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->orthomtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	if (var800a4ce4); \
 	if (var8007fc2c); \
@@ -927,11 +927,11 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 			struct var800a4640_00 *thing = &var800a4640.unk000[k];
 
 			if (thing->draworder == i) {
-				gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+				gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->orthomtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 				gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 
-				gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+				gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->perspmtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 				if (thing->roomnum == -1) {
 					gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
@@ -1009,7 +1009,7 @@ static Gfx *bgRenderScene(Gfx *gdl)
 		if (g_StarsActive) {
 			gdl = text0f153628(gdl);
 
-			gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+			gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->orthomtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 			gdl = playerLoadMatrix(gdl);
 			gdl = envStopFog(gdl);
@@ -1024,7 +1024,7 @@ static Gfx *bgRenderScene(Gfx *gdl)
 
 		gdl = bgRenderRoomOpaque(gdl, g_BgAlwaysRoom);
 
-		gSPPerspNormalize(gdl++, viGetPerspScale());
+		gSPPerspNormalize(gdl++, g_ViPerspScale);
 	}
 
 	gdl = skyRenderSuns(gdl, false);
@@ -1065,7 +1065,7 @@ static Gfx *bgRenderScene(Gfx *gdl)
 		thing = &var800a4640.unk000[roomnum];
 
 		// Render prop opaque components - pre BG pass
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->perspmtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		gdl = envStopFog(gdl);
 
 		if (firstroomnum == thing->roomnum) {
@@ -1075,7 +1075,7 @@ static Gfx *bgRenderScene(Gfx *gdl)
 		gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPA_PREBG, roomnumsbyprop);
 
 		// Render BG opaque components
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->orthomtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 		gdl = envStartFog(gdl, false);
@@ -1083,7 +1083,7 @@ static Gfx *bgRenderScene(Gfx *gdl)
 		gdl = bgRenderRoomOpaque(gdl, thing->roomnum);
 
 		// Render prop opaque components - post BG pass
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->perspmtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = envStopFog(gdl);
 
@@ -1098,7 +1098,7 @@ static Gfx *bgRenderScene(Gfx *gdl)
 	gdl = currentPlayerScissorToViewport(gdl);
 
 	// Render wall hits
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->orthomtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 		for (i = 0; i < var8007fc2c; i++) {
@@ -1114,7 +1114,7 @@ static Gfx *bgRenderScene(Gfx *gdl)
 	for (i = var8007fc2c - 1; i >= 0; i--) {
 		roomnum = roomnums[i];
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->orthomtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		thing = &var800a4640.unk000[roomnum];
 
@@ -1124,7 +1124,7 @@ static Gfx *bgRenderScene(Gfx *gdl)
 
 		gdl = bgRenderRoomXlu(gdl, thing->roomnum);
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->perspmtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = envStopFog(gdl);
 
@@ -1453,7 +1453,7 @@ void bgBuildTables(s32 stagenum)
 		g_Vars.playerstats[i].scale_bg2gfx = g_Stages[g_StageIndex].unk18;
 	}
 
-	mtx00016748(1);
+	var8005ef10[0] = 65536;
 
 	if (var800a4920 == 0) {
 		numportals = 0;
@@ -1772,7 +1772,7 @@ void bgBuildTables(s32 stagenum)
 void bgStop(void)
 {
 	bgUnloadAllRooms();
-	mtx00016748(1);
+	var8005ef10[0] = 65536;
 }
 
 f32 func0f15c888(void)
@@ -1780,15 +1780,10 @@ f32 func0f15c888(void)
 	return g_Stages[g_StageIndex].unk1c / g_Stages[g_StageIndex].unk14;
 }
 
-f32 currentPlayerGetScaleBg2Gfx(void)
-{
-	return g_Vars.currentplayerstats->scale_bg2gfx;
-}
-
 void currentPlayerSetScaleBg2Gfx(f32 scale)
 {
 	g_Vars.currentplayerstats->scale_bg2gfx = g_Stages[g_StageIndex].unk18 * scale;
-	mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
+	var8005ef10[0] = 65536 * g_Vars.currentplayerstats->scale_bg2gfx;
 }
 
 void func0f15c920(void)
@@ -1990,7 +1985,7 @@ static bool func0f15cd90(u32 room, struct screenbox *screen)
 
 static bool func0f15d08c(struct coord *a, struct coord *b)
 {
-	Mtxf *matrix = camGetWorldToScreenMtxf();
+	Mtxf *matrix = g_Vars.currentplayer->worldtoscreenmtx;
 
 	*b = *a;
 
@@ -5272,7 +5267,7 @@ static void bgTickPortalsXray(void)
 	ymax = player->screenymaxf;
 
 	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT && player->gunsightoff == 0) {
-		player->eraserdepth = -500.0f / camGetLodScaleZ();
+		player->eraserdepth = -500.0f / g_Vars.currentplayer->c_lodscalez;
 	} else {
 		player->eraserdepth = -500.0f;
 	}
@@ -5281,7 +5276,7 @@ static void bgTickPortalsXray(void)
 	eraserpos.f[1] = 0.0f;
 	eraserpos.f[2] = player->eraserdepth;
 
-	mtx4TransformVecInPlace(camGetProjectionMtxF(), &eraserpos);
+	mtx4TransformVecInPlace(g_Vars.currentplayer->projectionmtx, &eraserpos);
 
 	player->eraserpos.f[0] = eraserpos.f[0];
 	player->eraserpos.f[1] = eraserpos.f[1];
@@ -5915,12 +5910,12 @@ bool roomsAreNeighbours(s32 roomnum1, s32 roomnum2)
 static void currentPlayerCalculateScreenProperties(void)
 {
 	struct player *player = g_Vars.currentplayer;
-	f32 width = viGetWidth();
+	f32 width = g_ViBackData->x;
 	u32 stack;
-	f32 height = viGetHeight();
+	f32 height = g_ViBackData->y;
 	u32 stack2;
 
-	player->screenxminf = viGetViewLeft();
+	player->screenxminf = g_ViBackData->viewleft;
 
 	if (player->screenxminf < 0) {
 		player->screenxminf = 0;
@@ -5930,7 +5925,7 @@ static void currentPlayerCalculateScreenProperties(void)
 		player->screenxminf = width;
 	}
 
-	player->screenyminf = viGetViewTop();
+	player->screenyminf = g_ViBackData->viewtop;
 
 	if (player->screenyminf < 0) {
 		player->screenyminf = 0;
@@ -5940,7 +5935,7 @@ static void currentPlayerCalculateScreenProperties(void)
 		player->screenyminf = height;
 	}
 
-	player->screenxmaxf = viGetViewLeft() + viGetViewWidth();
+	player->screenxmaxf = g_ViBackData->viewleft + g_ViBackData->viewx;
 
 	if (player->screenxmaxf < 0) {
 		player->screenxmaxf = 0;
@@ -5950,7 +5945,7 @@ static void currentPlayerCalculateScreenProperties(void)
 		player->screenxmaxf = width;
 	}
 
-	player->screenymaxf = viGetViewTop() + viGetViewHeight();
+	player->screenymaxf = g_ViBackData->viewtop + g_ViBackData->viewy;
 
 	if (player->screenymaxf < 0) {
 		player->screenymaxf = 0;

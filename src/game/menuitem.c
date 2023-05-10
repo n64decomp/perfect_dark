@@ -242,20 +242,20 @@ static Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 		g_ScissorY2 = 0;
 	}
 
-	if (g_ScissorX1 > viGetBufWidth()) {
-		g_ScissorX1 = viGetBufWidth();
+	if (g_ScissorX1 > g_ViBackData->bufx) {
+		g_ScissorX1 = g_ViBackData->bufx;
 	}
 
-	if (g_ScissorX2 > viGetBufWidth()) {
-		g_ScissorX2 = viGetBufWidth();
+	if (g_ScissorX2 > g_ViBackData->bufx) {
+		g_ScissorX2 = g_ViBackData->bufx;
 	}
 
-	if (g_ScissorY1 > viGetBufHeight()) {
-		g_ScissorY1 = viGetBufHeight();
+	if (g_ScissorY1 > g_ViBackData->bufy) {
+		g_ScissorY1 = g_ViBackData->bufy;
 	}
 
-	if (g_ScissorY2 > viGetBufHeight()) {
-		g_ScissorY2 = viGetBufHeight();
+	if (g_ScissorY2 > g_ViBackData->bufy) {
+		g_ScissorY2 = g_ViBackData->bufy;
 	}
 
 	if (g_ScissorX1 > g_ScissorX2) {
@@ -478,12 +478,12 @@ static Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 							sp8cright = 0;
 						}
 
-						if (sp94left > viGetWidth()) {
-							sp94left = viGetWidth();
+						if (sp94left > g_ViBackData->x) {
+							sp94left = g_ViBackData->x;
 						}
 
-						if (sp8cright > viGetWidth()) {
-							sp8cright = viGetWidth();
+						if (sp8cright > g_ViBackData->x) {
+							sp8cright = g_ViBackData->x;
 						}
 
 						gDPPipeSync(gdl++);
@@ -509,20 +509,20 @@ static Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 							g_ScissorY2 = 0;
 						}
 
-						if (g_ScissorX1 > viGetBufWidth()) {
-							g_ScissorX1 = viGetBufWidth();
+						if (g_ScissorX1 > g_ViBackData->bufx) {
+							g_ScissorX1 = g_ViBackData->bufx;
 						}
 
-						if (g_ScissorX2 > viGetBufWidth()) {
-							g_ScissorX2 = viGetBufWidth();
+						if (g_ScissorX2 > g_ViBackData->bufx) {
+							g_ScissorX2 = g_ViBackData->bufx;
 						}
 
-						if (g_ScissorY1 > viGetBufHeight()) {
-							g_ScissorY1 = viGetBufHeight();
+						if (g_ScissorY1 > g_ViBackData->bufy) {
+							g_ScissorY1 = g_ViBackData->bufy;
 						}
 
-						if (g_ScissorY2 > viGetBufHeight()) {
-							g_ScissorY2 = viGetBufHeight();
+						if (g_ScissorY2 > g_ViBackData->bufy) {
+							g_ScissorY2 = g_ViBackData->bufy;
 						}
 
 						if (g_ScissorX2 < g_ScissorX1) {
@@ -611,7 +611,7 @@ static Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 		y = context->y + context->height / 2;
 
 		// "< Empty >"
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_OPTIONS_313), chars, font, colour, context->width - left + context->x, viGetHeight(), sp128, 0);
+		gdl = textRenderProjected(gdl, &x, &y, langGet(L_OPTIONS_313), chars, font, colour, context->width - left + context->x, g_ViBackData->y, sp128, 0);
 	}
 
 	gdl = text0f153780(gdl);
@@ -1706,7 +1706,7 @@ static Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context
 	s32 i;
 
 	for (i = 0; i < 6; i++) {
-		if (g_Briefing.objectivenames[i] && g_Briefing.objectivedifficulties[i] & (1 << lvGetDifficulty())) {
+		if (g_Briefing.objectivenames[i] && g_Briefing.objectivedifficulties[i] & (1 << g_Difficulty)) {
 			gdl = menuitemObjectivesRenderOne(gdl,
 					context->dialog,
 					i, position, context->x, y, context->width, context->height,
@@ -2929,20 +2929,20 @@ static Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 		g_ScissorY2 = 0;
 	}
 
-	if (g_ScissorX1 > viGetBufWidth()) {
-		g_ScissorX1 = viGetBufWidth();
+	if (g_ScissorX1 > g_ViBackData->bufx) {
+		g_ScissorX1 = g_ViBackData->bufx;
 	}
 
-	if (g_ScissorX2 > viGetBufWidth()) {
-		g_ScissorX2 = viGetBufWidth();
+	if (g_ScissorX2 > g_ViBackData->bufx) {
+		g_ScissorX2 = g_ViBackData->bufx;
 	}
 
-	if (g_ScissorY1 > viGetBufHeight()) {
-		g_ScissorY1 = viGetBufHeight();
+	if (g_ScissorY1 > g_ViBackData->bufy) {
+		g_ScissorY1 = g_ViBackData->bufy;
 	}
 
-	if (g_ScissorY2 > viGetBufHeight()) {
-		g_ScissorY2 = viGetBufHeight();
+	if (g_ScissorY2 > g_ViBackData->bufy) {
+		g_ScissorY2 = g_ViBackData->bufy;
 	}
 
 	if (g_ScissorX2 < g_ScissorX1) {
@@ -3160,20 +3160,20 @@ static Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 		g_ScissorY2 = 0;
 	}
 
-	if (g_ScissorX1 > viGetBufWidth()) {
-		g_ScissorX1 = viGetBufWidth();
+	if (g_ScissorX1 > g_ViBackData->bufx) {
+		g_ScissorX1 = g_ViBackData->bufx;
 	}
 
-	if (g_ScissorX2 > viGetBufWidth()) {
-		g_ScissorX2 = viGetBufWidth();
+	if (g_ScissorX2 > g_ViBackData->bufx) {
+		g_ScissorX2 = g_ViBackData->bufx;
 	}
 
-	if (g_ScissorY1 > viGetBufHeight()) {
-		g_ScissorY1 = viGetBufHeight();
+	if (g_ScissorY1 > g_ViBackData->bufy) {
+		g_ScissorY1 = g_ViBackData->bufy;
 	}
 
-	if (g_ScissorY2 > viGetBufHeight()) {
-		g_ScissorY2 = viGetBufHeight();
+	if (g_ScissorY2 > g_ViBackData->bufy) {
+		g_ScissorY2 = g_ViBackData->bufy;
 	}
 
 	if (g_ScissorX2 < g_ScissorX1) {
@@ -3408,20 +3408,20 @@ static Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *contex
 			g_ScissorY2 = 0;
 		}
 
-		if (g_ScissorX1 > viGetBufWidth()) {
-			g_ScissorX1 = viGetBufWidth();
+		if (g_ScissorX1 > g_ViBackData->bufx) {
+			g_ScissorX1 = g_ViBackData->bufx;
 		}
 
-		if (g_ScissorX2 > viGetBufWidth()) {
-			g_ScissorX2 = viGetBufWidth();
+		if (g_ScissorX2 > g_ViBackData->bufx) {
+			g_ScissorX2 = g_ViBackData->bufx;
 		}
 
-		if (g_ScissorY1 > viGetBufHeight()) {
-			g_ScissorY1 = viGetBufHeight();
+		if (g_ScissorY1 > g_ViBackData->bufy) {
+			g_ScissorY1 = g_ViBackData->bufy;
 		}
 
-		if (g_ScissorY2 > viGetBufHeight()) {
-			g_ScissorY2 = viGetBufHeight();
+		if (g_ScissorY2 > g_ViBackData->bufy) {
+			g_ScissorY2 = g_ViBackData->bufy;
 		}
 
 		if (g_ScissorX2 < g_ScissorX1) {
@@ -3727,7 +3727,7 @@ static Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurende
 			// Rendering a label such as "L/R BUTTONS:"
 			rx = context->x + padx + 76;
 			gdl = textRenderProjected(gdl, &rx, &ry, langGet(L_MPWEAPONS_185 + i),
-					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, viGetWidth(), viGetHeight(), 0, 0);
+					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		}
 
 		textnum = menuitemControllerGetButtonAction(curmode, i);
@@ -3762,7 +3762,7 @@ static Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurende
 		}
 
 		gdl = textRenderProjected(gdl, &rx, &ry, langGet(textnum),
-				g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, viGetWidth(), viGetHeight(), 0, 0);
+				g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 	}
 
 	return text0f153780(gdl);
@@ -3880,7 +3880,7 @@ static Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context
 	x = context->x + 2;
 	y = context->y + 2;
 	gdl = textRenderProjected(gdl, &x, &y, text,
-			g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
+			g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 	gdl = text0f153780(gdl);
 
 	textcolour = colourBlend(colour, colour & 0xffffff00, textalpha);
@@ -3903,7 +3903,7 @@ static Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context
 
 		gdl = text0f153628(gdl);
 		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPWEAPONS_216), // "Hold weapon button for ..."
-				g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
+				g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		gdl = text0f153780(gdl);
 	}
 

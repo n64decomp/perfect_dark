@@ -385,8 +385,8 @@ static Gfx *htbRenderHud(Gfx *gdl)
 	char text[64];
 
 	if (invHasBriefcase()) {
-		x = viGetViewLeft() + viGetViewWidth() / 2;
-		y = viGetViewTop() + 10;
+		x = g_ViBackData->viewleft + g_ViBackData->viewx / 2;
+		y = g_ViBackData->viewtop + 10;
 
 		time240 = TICKS(7200) - g_Vars.currentplayerstats->tokenheldtime;
 
@@ -403,7 +403,7 @@ static Gfx *htbRenderHud(Gfx *gdl)
 		textheight += y;
 
 		gdl = text0f153990(gdl, x, y, textwidth, textheight);
-		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		gdl = text0f153780(gdl);
 	}
 

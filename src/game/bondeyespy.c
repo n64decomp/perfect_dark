@@ -184,7 +184,7 @@ static s32 eyespyCalculateNewPosition(struct coord *vel)
 		}
 
 		if (result == CDRESULT_COLLISION) {
-			prop = cdGetObstacleProp();
+			prop = g_CdObstacleProp;
 
 			if (prop && prop->type == PROPTYPE_PLAYER) {
 				playernum = g_Vars.currentplayernum;
@@ -218,7 +218,7 @@ static bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 	if (result != CDRESULT_NOCOLLISION) {
 		g_EyespyHit = EYESPYHIT_BG;
 
-		prop = cdGetObstacleProp();
+		prop = g_CdObstacleProp;
 
 		if (prop && g_Vars.lvupdate240 > 0) {
 			if (prop->type == PROPTYPE_DOOR) {
@@ -227,27 +227,6 @@ static bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 				g_EyespyHit = EYESPYHIT_DOOR;
 
 				if (door->doorflags & DOORFLAG_DAMAGEONCONTACT) {
-					f32 sp38[3];
-					struct coord sp2c;
-					struct coord sp20;
-
-					cdGetEdge(&sp2c, &sp20);
-
-					// Nothing is actually done with these coordinates...
-					// This code was likely copied from bondwalk then the bounce
-					// feature removed
-					sp38[0] = sp20.z - sp2c.z;
-					sp38[1] = 0;
-					sp38[2] = sp2c.x - sp20.x;
-
-					if (sp38[0] || sp38[2]) {
-						guNormalize(&sp38[0], &sp38[1], &sp38[2]);
-					} else {
-						sp38[2] = 1;
-					}
-
-					if (prop);
-
 					g_EyespyHit = EYESPYHIT_DAMAGE;
 				}
 			}
@@ -267,10 +246,10 @@ static bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 
 static s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
-	if (cd00024ea4()) {
+	if (g_Cd8009a8ac) {
 		struct coord sp24;
 		s32 someint;
-		f32 somefloat = cd00024e98();
+		f32 somefloat = g_Cd8009a8b0;
 		sp24.x = arg0->x * somefloat * 0.25f;
 		sp24.y = arg0->y * somefloat * 0.25f;
 		sp24.z = arg0->z * somefloat * 0.25f;
@@ -282,7 +261,8 @@ static s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *
 		}
 
 		if (someint == 0) {
-			cdGetEdge(arg3, arg4);
+			*arg3 = g_CdEdgeVtx1;
+			*arg4 = g_CdEdgeVtx2;
 
 			if (arg3->f[0] != arg1->f[0]
 					|| arg3->f[1] != arg1->f[1]
@@ -401,7 +381,8 @@ static s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *a
 	bool result = eyespyCalculateNewPositionWithPush(vel);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		cdGetEdge(arg1, arg2);
+		*arg1 = g_CdEdgeVtx1;
+		*arg2 = g_CdEdgeVtx2;
 	}
 
 	return result;
@@ -677,7 +658,7 @@ void eyespyProcessInput(bool allowbuttons)
 	f32 spcc;
 	f32 spc8;
 	f32 spc4;
-	s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
+	s8 contpad1 = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad1;
 	s8 c1stickx = joyGetStickX(contpad1);
 	s8 c2stickx;
 	s8 c1sticky = joyGetStickY(contpad1);
@@ -685,7 +666,7 @@ void eyespyProcessInput(bool allowbuttons)
 	u16 c1buttons = allowbuttons ? joyGetButtons(contpad1, 0xffff) : 0;
 	u16 c2buttons;
 	bool domovecentre = true;
-	s32 controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
+	s32 controlmode = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].controlmode;
 
 	bool aimpressed;
 	bool shootpressed;
@@ -703,7 +684,7 @@ void eyespyProcessInput(bool allowbuttons)
 	f32 tmp;
 
 	if (controlmode >= CONTROLMODE_21) {
-		contpad2 = (s8) optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
+		contpad2 = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].contpad2;
 		c2stickx = joyGetStickX(contpad2);
 		c2sticky = joyGetStickY(contpad2);
 

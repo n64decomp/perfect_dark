@@ -139,7 +139,7 @@ void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
 	// reaping on a random corpse and replace its entry in the array.
 	// So at the end, we'll have an array of up to six unreapable corpses and
 	// all other corpses will be flagged for reaping.
-	numchrs = chrsGetNumSlots();
+	numchrs = g_NumChrSlots;
 	tally = 0;
 
 	for (i = 0; i < numchrs; i++) {

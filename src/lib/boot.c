@@ -37,11 +37,6 @@ extern u8 *_inflateSegmentRomEnd;
 
 static void bootPhase2(void *arg);
 
-s32 bootGetMemSize(void)
-{
-	return g_OsMemSize;
-}
-
 u32 __osGetFpcCsr(void);
 u32 __osSetFpcCsr(u32 arg0);
 

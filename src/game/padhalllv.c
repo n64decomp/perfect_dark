@@ -128,7 +128,8 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 					checkmore[i] = false;
 				} else if (cdresult == CDRESULT_COLLISION) {
 					checkmore[i] = true;
-					cdGetEdge(&sp250[i], &sp1d8[i]);
+					sp250[i] = g_CdEdgeVtx1;
+					sp1d8[i] = g_CdEdgeVtx2;
 				} else {
 					closest = candwaypoints[i];
 					break;

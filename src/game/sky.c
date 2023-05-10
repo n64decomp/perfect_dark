@@ -34,11 +34,11 @@ static Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *ar
 
 static void sky0f11f000(f32 left, f32 top, struct coord *arg2)
 {
-	Mtxf *mtx = camGetProjectionMtxF();
+	Mtxf *mtx = g_Vars.currentplayer->projectionmtx;
 	f32 pos[2];
 
-	pos[0] = left + camGetScreenLeft();
-	pos[1] = top + camGetScreenTop() + envGetCurrent()->unk40;
+	pos[0] = left + g_Vars.currentplayer->c_screenleft;
+	pos[1] = top + g_Vars.currentplayer->c_screentop + g_Env.unk40;
 
 	cam0f0b4c3c(pos, arg2, 100);
 	mtx4RotateVecInPlace(mtx, arg2);
@@ -66,7 +66,7 @@ static bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
 	}
 
 	if (sp24 > 0.0f) {
-		sp2c = (envGetCurrent()->clouds_scale - campos->y) / sp24;
+		sp2c = (g_Env.clouds_scale - campos->y) / sp24;
 		f12_2 = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]) * sp2c;
 
 		if (f12_2 > 300000) {
@@ -105,7 +105,7 @@ static bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2)
 	}
 
 	if (sp24 < 0.0f) {
-		sp2c = (envGetCurrent()->water_scale - campos->y) / sp24;
+		sp2c = (g_Env.water_scale - campos->y) / sp24;
 		f12_2 = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]) * sp2c;
 
 		if (f12_2 > 300000) {
@@ -157,7 +157,7 @@ static f32 skyRound(f32 value)
 
 static void skyChooseCloudVtxColour(struct skything18 *arg0, f32 arg1)
 {
-	struct environment *env = envGetCurrent();
+	struct environment *env = &g_Env;
 	f32 scale = 1.0f - arg1;
 	f32 r = env->sky_r;
 	f32 g = env->sky_g;
@@ -176,7 +176,7 @@ static void skyChooseCloudVtxColour(struct skything18 *arg0, f32 arg1)
 
 static void sky0f11f6ec(struct skything18 *arg0, f32 arg1)
 {
-	struct environment *env = envGetCurrent();
+	struct environment *env = &g_Env;
 	f32 scale = 1.0f - arg1;
 	f32 r = env->sky_r;
 	f32 g = env->sky_g;
@@ -247,7 +247,7 @@ Gfx *skyRender(Gfx *gdl)
 	struct environment *env;
 
 	sp430 = false;
-	env = envGetCurrent();
+	env = &g_Env;
 
 	if (!env->clouds_enabled || g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 		if (PLAYERCOUNT() == 1) {
@@ -259,9 +259,9 @@ Gfx *skyRender(Gfx *gdl)
 				gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
 			}
 
-			gDPFillRectangle(gdl++, viGetViewLeft(), viGetViewTop(),
-					viGetViewLeft() + viGetViewWidth() - 1,
-					viGetViewTop() + viGetViewHeight() - 1);
+			gDPFillRectangle(gdl++, g_ViBackData->viewleft, g_ViBackData->viewtop,
+					g_ViBackData->viewleft + g_ViBackData->viewx - 1,
+					g_ViBackData->viewtop + g_ViBackData->viewy - 1);
 
 			gDPPipeSync(gdl++);
 			return gdl;
@@ -292,9 +292,9 @@ Gfx *skyRender(Gfx *gdl)
 	if (&sp6a4);
 
 	sky0f11f000(0.0f, 0.0f, &sp6a4);
-	sky0f11f000(camGetScreenWidth() - 0.1f, 0.0f, &sp698);
-	sky0f11f000(0.0f, camGetScreenHeight() - 0.1f, &sp68c);
-	sky0f11f000(camGetScreenWidth() - 0.1f, camGetScreenHeight() - 0.1f, &sp680);
+	sky0f11f000(g_Vars.currentplayer->c_screenwidth - 0.1f, 0.0f, &sp698);
+	sky0f11f000(0.0f, g_Vars.currentplayer->c_screenheight - 0.1f, &sp68c);
+	sky0f11f000(g_Vars.currentplayer->c_screenwidth - 0.1f, g_Vars.currentplayer->c_screenheight - 0.1f, &sp680);
 
 	sp538 = sky0f11f07c(&sp6a4, &sp644, &sp58c);
 	sp534 = sky0f11f07c(&sp698, &sp638, &sp588);
@@ -307,7 +307,7 @@ Gfx *skyRender(Gfx *gdl)
 	sky0f11f1fc(&sp680, &sp5c0, &sp560);
 
 	if (sp538 != sp530) {
-		sp54c = camGetScreenTop() + camGetScreenHeight() * (sp6a4.f[1] / (sp6a4.f[1] - sp68c.f[1]));
+		sp54c = g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight * (sp6a4.f[1] / (sp6a4.f[1] - sp68c.f[1]));
 
 		sky0f11f000(0.0f, sp54c, &sp65c);
 		sky0f11f384(&sp6a4, &sp68c, &sp65c);
@@ -318,9 +318,9 @@ Gfx *skyRender(Gfx *gdl)
 	}
 
 	if (sp534 != sp52c) {
-		sp548 = camGetScreenTop() + camGetScreenHeight() * (sp698.f[1] / (sp698.f[1] - sp680.f[1]));
+		sp548 = g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight * (sp698.f[1] / (sp698.f[1] - sp680.f[1]));
 
-		sky0f11f000(camGetScreenWidth() - 0.1f, sp548, &sp650);
+		sky0f11f000(g_Vars.currentplayer->c_screenwidth - 0.1f, sp548, &sp650);
 		sky0f11f384(&sp698, &sp680, &sp650);
 		sky0f11f07c(&sp650, &sp5f0, &sp570);
 		sky0f11f1fc(&sp650, &sp590, &sp550);
@@ -329,16 +329,16 @@ Gfx *skyRender(Gfx *gdl)
 	}
 
 	if (sp538 != sp534) {
-		sky0f11f000(camGetScreenLeft() + camGetScreenWidth() * (sp6a4.f[1] / (sp6a4.f[1] - sp698.f[1])), 0.0f, &sp674);
+		sky0f11f000(g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth * (sp6a4.f[1] / (sp6a4.f[1] - sp698.f[1])), 0.0f, &sp674);
 		sky0f11f384(&sp6a4, &sp698, &sp674);
 		sky0f11f07c(&sp674, &sp614, &sp57c);
 		sky0f11f1fc(&sp674, &sp5b4, &sp55c);
 	}
 
 	if (sp530 != sp52c) {
-		tmp = camGetScreenLeft() + camGetScreenWidth() * (sp68c.f[1] / (sp68c.f[1] - sp680.f[1]));
+		tmp = g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth * (sp68c.f[1] / (sp68c.f[1] - sp680.f[1]));
 
-		sky0f11f000(tmp, camGetScreenHeight() - 0.1f, &sp668);
+		sky0f11f000(tmp, g_Vars.currentplayer->c_screenheight - 0.1f, &sp668);
 		sky0f11f384(&sp68c, &sp680, &sp668);
 		sky0f11f07c(&sp668, &sp608, &sp578);
 		sky0f11f1fc(&sp668, &sp5a8, &sp558);
@@ -737,18 +737,18 @@ Gfx *skyRender(Gfx *gdl)
 		struct skything38 sp274[5];
 		s32 i;
 
-		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp3cc);
+		mtx4MultMtx4(g_Vars.currentplayer->mtxf1754, g_Vars.currentplayer->worldtoscreenmtx, &sp3cc);
 		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
 		mtx4MultMtx4(&sp3cc, &var800a33a8, &sp38c);
 
 		for (i = 0; i < s1; i++) {
 			sky0f1228d0(&sp43c[i], &sp38c, 130, 65535.0f, 65535.0f, &sp274[i]);
 
-			sp274[i].unk28 = skyClamp(sp274[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
-			sp274[i].unk2c = skyClamp(sp274[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
+			sp274[i].unk28 = skyClamp(sp274[i].unk28, g_Vars.currentplayer->c_screenleft * 4.0f, (g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth) * 4.0f - 1.0f);
+			sp274[i].unk2c = skyClamp(sp274[i].unk2c, g_Vars.currentplayer->c_screentop * 4.0f, (g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight) * 4.0f - 1.0f);
 
-			if (sp274[i].unk2c > camGetScreenTop() * 4.0f + 4.0f
-					&& sp274[i].unk2c < (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 4.0f) {
+			if (sp274[i].unk2c > g_Vars.currentplayer->c_screentop * 4.0f + 4.0f
+					&& sp274[i].unk2c < (g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight) * 4.0f - 4.0f) {
 				sp274[i].unk2c -= 4.0f;
 			}
 		}
@@ -1201,39 +1201,39 @@ Gfx *skyRender(Gfx *gdl)
 		struct skything38 sp94[5];
 		s32 i;
 
-		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp1ec);
+		mtx4MultMtx4(g_Vars.currentplayer->mtxf1754, g_Vars.currentplayer->worldtoscreenmtx, &sp1ec);
 		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
 		mtx4MultMtx4(&sp1ec, &var800a33a8, &sp1ac);
 
 		for (i = 0; i < s1; i++) {
 			sky0f1228d0(&sp4b4[i], &sp1ac, 130, 65535.0f, 65535.0f, &sp94[i]);
 
-			sp94[i].unk28 = skyClamp(sp94[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
-			sp94[i].unk2c = skyClamp(sp94[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
+			sp94[i].unk28 = skyClamp(sp94[i].unk28, g_Vars.currentplayer->c_screenleft * 4.0f, (g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth) * 4.0f - 1.0f);
+			sp94[i].unk2c = skyClamp(sp94[i].unk2c, g_Vars.currentplayer->c_screentop * 4.0f, (g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight) * 4.0f - 1.0f);
 		}
 
 		if (s1 == 4) {
 			if (((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) == 12) {
 				if (sp548 < sp54c) {
 					if (sp94[3].unk2c >= sp94[1].unk2c + 4.0f) {
-						sp94[0].unk28 = camGetScreenLeft() * 4.0f;
-						sp94[0].unk2c = camGetScreenTop() * 4.0f;
-						sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
-						sp94[1].unk2c = camGetScreenTop() * 4.0f;
-						sp94[2].unk28 = camGetScreenLeft() * 4.0f;
-						sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+						sp94[0].unk28 = g_Vars.currentplayer->c_screenleft * 4.0f;
+						sp94[0].unk2c = g_Vars.currentplayer->c_screentop * 4.0f;
+						sp94[1].unk28 = (g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth) * 4.0f - 1.0f;
+						sp94[1].unk2c = g_Vars.currentplayer->c_screentop * 4.0f;
+						sp94[2].unk28 = g_Vars.currentplayer->c_screenleft * 4.0f;
+						sp94[3].unk28 = (g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth) * 4.0f - 1.0f;
 
 						gdl = sky0f123fd4(gdl, &sp94[0], &sp94[1], &sp94[2], &sp94[3], 130.0f);
 					} else {
 						gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, true);
 					}
 				} else if (sp94[2].unk2c >= sp94[0].unk2c + 4.0f) {
-					sp94[0].unk28 = camGetScreenLeft() * 4.0f;
-					sp94[0].unk2c = camGetScreenTop() * 4.0f;
-					sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
-					sp94[1].unk2c = camGetScreenTop() * 4.0f;
-					sp94[2].unk28 = camGetScreenLeft() * 4.0f;
-					sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+					sp94[0].unk28 = g_Vars.currentplayer->c_screenleft * 4.0f;
+					sp94[0].unk2c = g_Vars.currentplayer->c_screentop * 4.0f;
+					sp94[1].unk28 = (g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth) * 4.0f - 1.0f;
+					sp94[1].unk2c = g_Vars.currentplayer->c_screentop * 4.0f;
+					sp94[2].unk28 = g_Vars.currentplayer->c_screenleft * 4.0f;
+					sp94[3].unk28 = (g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth) * 4.0f - 1.0f;
 
 					gdl = sky0f123fd4(gdl, &sp94[1], &sp94[0], &sp94[3], &sp94[2], 130.0f);
 				} else {
@@ -1295,13 +1295,13 @@ static void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3,
 	sp48[2] = sp68[2] * f0 * mult;
 	sp48[3] = sp68[3] * f0 * mult;
 
-	sp34 = camGetScreenWidth();
-	sp30 = camGetScreenWidth();
-	sp38[0] = sp48[0] * (sp34 + sp34) + (sp30 + sp30 + camGetScreenLeft() * 4);
+	sp34 = g_Vars.currentplayer->c_screenwidth;
+	sp30 = g_Vars.currentplayer->c_screenwidth;
+	sp38[0] = sp48[0] * (sp34 + sp34) + (sp30 + sp30 + g_Vars.currentplayer->c_screenleft * 4);
 
-	sp34 = camGetScreenHeight();
-	sp30 = camGetScreenHeight();
-	sp38[1] = -sp48[1] * (sp34 + sp34) + (sp30 + sp30 + camGetScreenTop() * 4);
+	sp34 = g_Vars.currentplayer->c_screenheight;
+	sp30 = g_Vars.currentplayer->c_screenheight;
+	sp38[1] = -sp48[1] * (sp34 + sp34) + (sp30 + sp30 + g_Vars.currentplayer->c_screentop * 4);
 
 	sp34 = 511.0f;
 	sp30 = 511.0f;
@@ -1323,7 +1323,7 @@ static void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3,
 	arg5->unk20 = sp60;
 	arg5->unk24 = sp64;
 	arg5->unk28 = sp38[0];
-	arg5->unk2c = sp38[1] - envGetCurrent()->unk40 * 4.0f;
+	arg5->unk2c = sp38[1] - g_Env.unk40 * 4.0f;
 	arg5->unk30 = sp38[2];
 	arg5->unk34 = f22;
 
@@ -2093,19 +2093,19 @@ static Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *ar
 		if (arg3->unk2c - arg4->unk2c < 1.0f) {
 			sp1bc = -1878.0f;
 		} else {
-			sp1bc = -(camGetScreenWidth() - 0.25f) / ((arg3->unk2c - arg4->unk2c) / 4.0f);
+			sp1bc = -(g_Vars.currentplayer->c_screenwidth - 0.25f) / ((arg3->unk2c - arg4->unk2c) / 4.0f);
 		}
 
 		gImmp1(gdl++, G_RDPHALF_1, (G_TRI_SHADE_TXTR << 24) | 0x00800000 | (u32) arg3->unk2c);
 		gImmp1(gdl++, G_RDPHALF_CONT, (s32) arg4->unk2c << 16 | (s32) arg1->unk2c);
 
-		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(camGetScreenLeft() + camGetScreenWidth() - 0.25f));
+		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth - 0.25f));
 		gImmp1(gdl++, G_RDPHALF_CONT, func0f152fa0(sp1bc));
 
-		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(camGetScreenLeft()));
+		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(g_Vars.currentplayer->c_screenleft));
 		gImmp1(gdl++, G_RDPHALF_CONT, func0f152fa0(0.0f));
 
-		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(camGetScreenLeft() + camGetScreenWidth() - 0.25f));
+		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth - 0.25f));
 		gImmp1(gdl++, G_RDPHALF_CONT, func0f152fa0(0.0f));
 	} else {
 		f32 sp198;
@@ -2113,19 +2113,19 @@ static Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *ar
 		if (arg3->unk2c - arg4->unk2c < 1.0f) {
 			sp198 = 1877.0f;
 		} else {
-			sp198 = (camGetScreenWidth() - 0.25f) / ((arg3->unk2c - arg4->unk2c) / 4.0f);
+			sp198 = (g_Vars.currentplayer->c_screenwidth - 0.25f) / ((arg3->unk2c - arg4->unk2c) / 4.0f);
 		}
 
 		gImmp1(gdl++, G_RDPHALF_1, 0xce000000 | (u32) arg3->unk2c);
 		gImmp1(gdl++, G_RDPHALF_CONT, (s32) arg4->unk2c << 16 | (s32) arg1->unk2c);
 
-		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(camGetScreenLeft()));
+		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(g_Vars.currentplayer->c_screenleft));
 		gImmp1(gdl++, G_RDPHALF_CONT, func0f152fa0(sp198));
 
-		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(camGetScreenLeft() + camGetScreenWidth() - 0.25f));
+		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth - 0.25f));
 		gImmp1(gdl++, G_RDPHALF_CONT, func0f152fa0(0.0f));
 
-		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(camGetScreenLeft()));
+		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(g_Vars.currentplayer->c_screenleft));
 		gImmp1(gdl++, G_RDPHALF_CONT, func0f152fa0(0.0f));
 	}
 
@@ -2371,13 +2371,13 @@ static Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *ar
 
 static void skyCreateArtifact(struct artifact *artifact, s32 x, s32 y)
 {
-	s32 viewleft = viGetViewLeft();
-	s32 viewtop = viGetViewTop();
-	s32 viewwidth = viGetViewWidth();
-	s32 viewheight = viGetViewHeight();
+	s32 viewleft = g_ViBackData->viewleft;
+	s32 viewtop = g_ViBackData->viewtop;
+	s32 viewwidth = g_ViBackData->viewx;
+	s32 viewheight = g_ViBackData->viewy;
 
 	if (x >= viewleft && x < viewleft + viewwidth && y >= viewtop && y < viewtop + viewheight) {
-		artifact->unk08 = &var800844f0[(s32)camGetScreenWidth() * y + x];
+		artifact->unk08 = &var800844f0[(s32)g_Vars.currentplayer->c_screenwidth * y + x];
 		artifact->unk0c.u16_2 = x;
 		artifact->unk0c.u16_1 = y;
 		artifact->type = ARTIFACTTYPE_CIRCLE;
@@ -2422,9 +2422,9 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 	bool onscreen;
 	f32 radius;
 
-	sp16c = camGetWorldToScreenMtxf();
-	sp168 = camGetMtxF1754();
-	env = envGetCurrent();
+	sp16c = g_Vars.currentplayer->worldtoscreenmtx;
+	sp168 = g_Vars.currentplayer->mtxf1754;
+	env = &g_Env;
 
 	xscale = 1;
 
@@ -2432,10 +2432,10 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 		return gdl;
 	}
 
-	viewleft = viGetViewLeft();
-	viewtop = viGetViewTop();
-	viewwidth = viGetViewWidth();
-	viewheight = viGetViewHeight();
+	viewleft = g_ViBackData->viewleft;
+	viewtop = g_ViBackData->viewtop;
+	viewwidth = g_ViBackData->viewx;
+	viewheight = g_ViBackData->viewy;
 
 	viewleftf = viewleft;
 	viewtopf = viewtop;
@@ -2460,7 +2460,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 			if (g_SunPositions[i].f[2] > 1.0f) {
 				g_SunScreenXPositions[i] = (g_SunPositions[i].f[0] / g_SunPositions[i].f[2] + 1.0f) * 0.5f * viewwidthf + viewleftf;
 				g_SunScreenYPositions[i] = (-g_SunPositions[i].f[1] / g_SunPositions[i].f[2] + 1.0f) * 0.5f * viewheightf + viewtopf;
-				radius = 60.0f / viGetFovY() * sun->texture_size;
+				radius = 60.0f / g_ViBackData->fovy * sun->texture_size;
 				onscreen = false;
 
 				if (g_SunScreenXPositions[i] >= viewleftf - radius
@@ -2613,8 +2613,8 @@ static Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f3
 
 	scale = 1;
 
-	sp128 = (x - viGetViewWidth() / 2.0f) * 0.01f;
-	sp124 = (y - viGetViewHeight() / 2.0f) * 0.01f;
+	sp128 = (x - g_ViBackData->viewx / 2.0f) * 0.01f;
+	sp124 = (y - g_ViBackData->viewy / 2.0f) * 0.01f;
 
 	// Render the sun
 	texSelect(&gdl, &g_TexLightGlareConfigs[6], 4, 0, 2, 1, NULL);
@@ -2633,7 +2633,7 @@ static Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f3
 			0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0,
 			0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0);
 
-	fovy = viGetFovY();
+	fovy = g_ViBackData->fovy;
 
 	gDPSetEnvColor(gdl++, 0xff, 0xff, 0xff, (s32) (arg6 * arg3 * 255.0f));
 	f2 = ((s32) ((60.0f / fovy) * (size * (0.5f + (0.5f * arg3)))));
@@ -2703,8 +2703,8 @@ static Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f3
 		func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[1].width, g_TexLightGlareConfigs[1].height, 0, 0, 0, 0, 0, 1);
 	}
 
-	sp128 = viGetViewWidth() / 2.0f - x;
-	sp124 = viGetViewHeight() / 2.0f - y;
+	sp128 = g_ViBackData->viewx / 2.0f - x;
+	sp124 = g_ViBackData->viewy / 2.0f - y;
 
 	f12 = (40.0f - sqrtf(sp128 * sp128 + sp124 * sp124)) * 0.0125f;
 
@@ -2745,16 +2745,16 @@ static Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
 	sp64.y = y;
 	sp64.z = z;
 
-	mtx4TransformVecInPlace(camGetWorldToScreenMtxf(), &sp64);
-	mtx4TransformVecInPlace(camGetMtxF1754(), &sp64);
+	mtx4TransformVecInPlace(g_Vars.currentplayer->worldtoscreenmtx, &sp64);
+	mtx4TransformVecInPlace(g_Vars.currentplayer->mtxf1754, &sp64);
 
 	if (sp64.z > 1.0f) {
 		f32 xpos;
 		f32 ypos;
-		s16 viewlefti = viGetViewLeft();
-		s16 viewtopi = viGetViewTop();
-		s16 viewwidthi = viGetViewWidth();
-		s16 viewheighti = viGetViewHeight();
+		s16 viewlefti = g_ViBackData->viewleft;
+		s16 viewtopi = g_ViBackData->viewtop;
+		s16 viewwidthi = g_ViBackData->viewx;
+		s16 viewheighti = g_ViBackData->viewy;
 		f32 viewleft = viewlefti;
 		f32 viewwidth = viewwidthi;
 		f32 viewtop = viewtopi;
@@ -2853,7 +2853,7 @@ static Gfx *sky0f126de8(Gfx *gdl)
  */
 Gfx *skyRenderArtifacts(Gfx *gdl)
 {
-	struct environment *env = envGetCurrent();
+	struct environment *env = &g_Env;
 	struct sun *sun;
 	s32 i;
 
@@ -2962,10 +2962,10 @@ Gfx *sky0f1274d8(Gfx *gdl)
 		gDPSetPrimColor(gdl++, 0, 0, (s32)r, (s32)g, (s32)b, (s32)a);
 
 		gDPFillRectangle(gdl++,
-				viGetViewLeft(),
-				viGetViewTop(),
-				viGetViewLeft() + viGetViewWidth(),
-				viGetViewTop() + viGetViewHeight());
+				g_ViBackData->viewleft,
+				g_ViBackData->viewtop,
+				g_ViBackData->viewleft + g_ViBackData->viewx,
+				g_ViBackData->viewtop + g_ViBackData->viewy);
 
 		gDPPipeSync(gdl++);
 	}

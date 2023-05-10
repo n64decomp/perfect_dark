@@ -539,7 +539,7 @@ static Gfx *creditsFillFramebuffer(Gfx *gdl, u32 colour)
 
 	gdl = textSetPrimColour(gdl, colour);
 
-	gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
+	gDPFillRectangle(gdl++, 0, 0, g_ViBackData->x, g_ViBackData->y);
 
 	gdl = text0f153838(gdl);
 
@@ -1537,7 +1537,7 @@ Gfx *creditsDraw(Gfx *gdl)
 	gdl = vi0000b1d0(gdl);
 	gdl = creditsFillFramebuffer(gdl, 0x000000ff);
 
-	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 120, viGetWidth() * 4.0f, (viGetHeight() - 30) * 4.0f);
+	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 120, g_ViBackData->x * 4.0f, (g_ViBackData->y - 30) * 4.0f);
 
 	creditsTick();
 

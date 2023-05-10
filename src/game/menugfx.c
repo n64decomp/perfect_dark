@@ -44,14 +44,14 @@
  */
 void menugfxCreateBlur(void)
 {
-	u8 *fb = (u8 *) viGetFrontBuffer();
+	u8 *fb = (u8 *) g_ViFrontData->fb;
 	s32 dstx;
 	s32 dsty;
 #if PAL
-	s32 fbwidthinbytes = viGetWidth() * 2;
-	f32 scale = viGetWidth() / 320.0f;
+	s32 fbwidthinbytes = g_ViBackData->x * 2;
+	f32 scale = g_ViBackData->x / 320.0f;
 #else
-	s32 fbwidthinbytes = PXTOBYTES(viGetWidth());
+	s32 fbwidthinbytes = PXTOBYTES(g_ViBackData->x);
 #endif
 	s32 srcx;
 	s32 srcy;
@@ -60,7 +60,7 @@ void menugfxCreateBlur(void)
 	u32 b;
 	u16 colour;
 
-	fb = (u8 *) viGetFrontBuffer();
+	fb = (u8 *) g_ViFrontData->fb;
 
 	for (dsty = 0; dsty < BLURIMG_HEIGHT; dsty++) {
 
@@ -1216,7 +1216,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 
 	// Initialise particles if they haven't been already
 	if (g_MenuParticles == NULL) {
-		g_MenuParticles = (struct coord *) bgunGetGunMem();
+		g_MenuParticles = (struct coord *) g_Vars.currentplayer->gunctrl.gunmem;
 
 		if (g_MenuParticles == NULL) {
 			return gdl;
@@ -1263,10 +1263,10 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 
 	if (gray) {
 		gdl = menugfxDrawPlane(gdl, -1000, -10, 2000, -10, 0x6060607f, 0x6060607f, MENUPLANE_05);
-		gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x9090907f, 0x9090907f, MENUPLANE_05);
+		gdl = menugfxDrawPlane(gdl, -1000, g_ViBackData->y + 10, 2000, g_ViBackData->y + 10, 0x9090907f, 0x9090907f, MENUPLANE_05);
 	} else {
 		gdl = menugfxDrawPlane(gdl, -1000, -10, 2000, -10, 0x0000947f, 0x0000947f, MENUPLANE_10);
-		gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x6200947f, 0x6200947f, MENUPLANE_06);
+		gdl = menugfxDrawPlane(gdl, -1000, g_ViBackData->y + 10, 2000, g_ViBackData->y + 10, 0x6200947f, 0x6200947f, MENUPLANE_06);
 	}
 
 	// Prepare stuff for drawing the particles

@@ -251,7 +251,7 @@ static bool musicIsAnyPlayerInAmbientRoom(void)
 		return false;
 	}
 
-	if (lvIsPaused()) {
+	if (g_LvIsPaused) {
 		return false;
 	}
 

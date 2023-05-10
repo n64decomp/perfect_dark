@@ -248,7 +248,7 @@ bool botactShootFarsight(struct chrdata *chr, s32 arg1, struct coord *vector, st
 						&& func0f06b39c(arg3, vector, &oppprop->pos, chr0f0278a4(oppchr))) {
 					bgunPlayPropHitSound(&gset, oppprop, -1);
 
-					if (oppchr->model && chrGetShield(oppchr) > 0) {
+					if (oppchr->model && oppchr->cshield > 0) {
 						chrCalculateShieldHit(oppchr, &oppprop->pos, vector, &node, &hitpart, &model, &side);
 					}
 

@@ -414,7 +414,7 @@ Gfx *sparksRender(Gfx *gdl)
 					gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
 
 					sp120 *= 0.2f;
-					sp120 *= viGetFovY() / 60.0f;
+					sp120 *= g_ViBackData->fovy / 60.0f;
 
 					mtx4LoadIdentity(&spd4);
 
@@ -424,7 +424,7 @@ Gfx *sparksRender(Gfx *gdl)
 					spd4.m[3][3] = 0.05f;
 
 					mtx4SetTranslation(&group->pos, &spd4);
-					mtx00015be0(camGetWorldToScreenMtxf(), &spd4);
+					mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &spd4);
 
 					mtx = gfxAllocateMatrix();
 					mtx00016054(&spd4, mtx);

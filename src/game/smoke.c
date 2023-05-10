@@ -88,7 +88,7 @@ static Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gd
 {
 	struct gfxvtx *vertices = gfxAllocateVertices(4);
 	struct colour *colours = (struct colour *)gfxAllocateColours(1);
-	Mtxf *mtx = camGetProjectionMtxF();
+	Mtxf *mtx = g_Vars.currentplayer->projectionmtx;
 	struct coord spa0;
 	struct coord sp94;
 	struct coord sp88;
@@ -593,7 +593,7 @@ u32 smokeTickPlayer(struct prop *prop)
 	}
 
 	{
-		Mtxf *matrix = camGetWorldToScreenMtxf();
+		Mtxf *matrix = g_Vars.currentplayer->worldtoscreenmtx;
 
 		prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
 
@@ -659,7 +659,7 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->orthomtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = roomApplyMtx(gdl, roomnum);
 
@@ -693,7 +693,7 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		gDPSetColorDither(gdl++, G_CD_BAYER);
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(g_Vars.currentplayer->perspmtxl), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	}
 
 	return gdl;

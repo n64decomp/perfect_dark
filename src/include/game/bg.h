@@ -15,7 +15,6 @@ void bgBuildTables(s32 stagenum);
 void bgStop(void);
 void func0f15c880(f32 arg0);
 f32 func0f15c888(void);
-f32 currentPlayerGetScaleBg2Gfx(void);
 void currentPlayerSetScaleBg2Gfx(f32 arg0);
 void func0f15c920(void);
 void bgTick(void);

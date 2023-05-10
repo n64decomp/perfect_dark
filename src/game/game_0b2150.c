@@ -69,8 +69,8 @@ void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, s32
 				yl = 0;
 			}
 
-			widthx4 = viGetWidth() * 4;
-			heightx4 = viGetHeight() * 4;
+			widthx4 = g_ViBackData->x * 4;
+			heightx4 = g_ViBackData->y * 4;
 
 			if (widthx4 < xh) {
 				xh = widthx4;

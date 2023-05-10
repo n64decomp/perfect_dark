@@ -185,7 +185,7 @@ bool doorCallLift(struct prop *doorprop, bool allowclose)
 						handled = false;
 					} else {
 						bool vacant = true;
-						s32 numchrslots = chrsGetNumSlots();
+						s32 numchrslots = g_NumChrSlots;
 						s32 i;
 
 						for (i = 0; i < PLAYERCOUNT(); i++) {
@@ -893,8 +893,8 @@ void func0f06803c(struct coord *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4
 	struct coord sp4c;
 	f32 sp44[2];
 
-	f32 aspect = viGetAspect();
-	f32 fovy = viGetFovY();
+	f32 aspect = g_ViBackData->aspect;
+	f32 fovy = g_ViBackData->fovy;
 
 	if (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY) {
 		if (g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active) {
@@ -1997,8 +1997,7 @@ static struct prop *objInit(struct defaultobj *obj, struct modelfiledata *fileda
 		obj->floorcol = 0xfff;
 		obj->model->obj = obj;
 		obj->model->unk01 = 0;
-
-		modelSetScale(obj->model, g_ModelStates[obj->modelnum].scale * (1.0f / 4096.0f));
+		obj->model->scale = g_ModelStates[obj->modelnum].scale * (1.0f / 4096.0f);
 
 		prop->type = PROPTYPE_OBJ;
 		prop->obj = obj;
@@ -2369,7 +2368,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 
 		// If obj is an occupied chair, remove the chr from it
 		if (obj->hidden & OBJHFLAG_OCCUPIEDCHAIR) {
-			s32 numchrs = chrsGetNumSlots();
+			s32 numchrs = g_NumChrSlots;
 			s32 i;
 
 			obj->hidden &= ~OBJHFLAG_OCCUPIEDCHAIR;
@@ -2483,23 +2482,15 @@ bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f3
 
 static bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5, f32 *arg6)
 {
-	struct coord sp3c;
-	struct coord sp30;
-	f32 f0;
-	struct coord sp20;
-
 	if (!cd0002ded8(arg1, arg2, prop)) {
-		cdGetEdge(&sp3c, &sp30);
-		cdGetPos(&sp20);
-
-		f0 = (sp20.f[0] - arg1->f[0]) * arg3->f[0]
-			+ (sp20.f[1] - arg1->f[1]) * arg3->f[1]
-			+ (sp20.f[2] - arg1->f[2]) * arg3->f[2];
+		f32 f0 = (g_CdObstaclePos.f[0] - arg1->f[0]) * arg3->f[0]
+			+ (g_CdObstaclePos.f[1] - arg1->f[1]) * arg3->f[1]
+			+ (g_CdObstaclePos.f[2] - arg1->f[2]) * arg3->f[2];
 
 		if (f0 < *arg6) {
 			*arg6 = f0;
 
-			*arg4 = sp20;
+			*arg4 = g_CdObstaclePos;
 
 			arg5->x = -arg3->x;
 			arg5->y = 0.0f;
@@ -2574,8 +2565,8 @@ static bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coor
 
 							*arg9 = sum2;
 
-							mtx4TransformVec(camGetProjectionMtxF(), &spfc, arg7);
-							mtx4RotateVec(camGetProjectionMtxF(), &spf0, arg8);
+							mtx4TransformVec(g_Vars.currentplayer->projectionmtx, &spfc, arg7);
+							mtx4RotateVec(g_Vars.currentplayer->projectionmtx, &spf0, arg8);
 
 							if (arg8->x != 0.0f || arg8->y != 0.0f || arg8->z != 0.0f) {
 								guNormalize(&arg8->x, &arg8->y, &arg8->z);
@@ -2645,7 +2636,7 @@ static bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coor
 
 						*arg9 = sum1;
 
-						mtx4TransformVec(camGetProjectionMtxF(), &spfc, arg7);
+						mtx4TransformVec(g_Vars.currentplayer->projectionmtx, &spfc, arg7);
 
 						if (spf0.f[0] * arg6->f[0] + spf0.f[1] * arg6->f[1] + spf0.f[2] * arg6->f[2] > 0.0f) {
 							spf0.f[0] = -spf0.f[0];
@@ -2653,7 +2644,7 @@ static bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coor
 							spf0.f[2] = -spf0.f[2];
 						}
 
-						mtx4RotateVec(camGetProjectionMtxF(), &spf0, arg8);
+						mtx4RotateVec(g_Vars.currentplayer->projectionmtx, &spf0, arg8);
 
 						if (arg8->f[0] != 0.0f || arg8->f[1] != 0.0f || arg8->f[2] != 0.0f) {
 							guNormalize(&arg8->x, &arg8->y, &arg8->z);
@@ -2866,7 +2857,7 @@ static bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *
 	struct modelnode *sp74 = NULL;
 	struct model *model = chr->model;
 
-	if (chrGetShield(chr) > 0.0f) {
+	if (chr->cshield > 0.0f) {
 		var8005efc0 = 10.0f / chr->model->scale;
 	}
 
@@ -2888,8 +2879,8 @@ static bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *
 
 							*arg9 = spec;
 
-							mtx4TransformVec(camGetProjectionMtxF(), &spb8, arg7);
-							mtx4RotateVec(camGetProjectionMtxF(), &spac, arg8);
+							mtx4TransformVec(g_Vars.currentplayer->projectionmtx, &spb8, arg7);
+							mtx4RotateVec(g_Vars.currentplayer->projectionmtx, &spac, arg8);
 
 							if (arg8->x != 0.0f || arg8->y != 0.0f || arg8->z != 0.0f) {
 								guNormalize(&arg8->x, &arg8->y, &arg8->z);
@@ -2920,8 +2911,8 @@ static bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *
 						&& func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, arg5, arg6, &sp7c.unk00, &spec, &spcc, &hitpart, &sp78, &sp74)
 						&& spec < *arg9) {
 					*arg9 = spec;
-					mtx4TransformVec(camGetProjectionMtxF(), &sp7c.unk00, arg7);
-					mtx4RotateVec(camGetProjectionMtxF(), &sp7c.unk0c, arg8);
+					mtx4TransformVec(g_Vars.currentplayer->projectionmtx, &sp7c.unk00, arg7);
+					mtx4RotateVec(g_Vars.currentplayer->projectionmtx, &sp7c.unk0c, arg8);
 
 					if (arg8->x != 0.0f || arg8->y != 0.0f || arg8->z != 0.0f) {
 						guNormalize(&arg8->x, &arg8->y, &arg8->z);
@@ -2996,11 +2987,11 @@ static bool projectileFindCollidingProp(struct prop *prop, struct coord *pos1, s
 
 	sp88 = *pos1;
 
-	mtx4TransformVecInPlace(camGetWorldToScreenMtxf(), &sp88);
+	mtx4TransformVecInPlace(g_Vars.currentplayer->worldtoscreenmtx, &sp88);
 
 	sp7c = sp98;
 
-	mtx4RotateVecInPlace(camGetWorldToScreenMtxf(), &sp7c);
+	mtx4RotateVecInPlace(g_Vars.currentplayer->worldtoscreenmtx, &sp7c);
 
 	spa8 = dist;
 
@@ -3136,8 +3127,8 @@ static s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord 
 
 				if (cdExamLos09(&prop->pos, spa0, &sp1c4, CDTYPE_BG) == CDRESULT_COLLISION) {
 					s0 = true;
-					cdGetPos(&hitthing.unk00);
-					cdGetObstacleNormal(&hitthing.unk0c);
+					hitthing.unk00 = g_CdObstaclePos;
+					cdGetGeoNormal(g_CdObstacleGeo, &hitthing.unk0c);
 				}
 			}
 
@@ -3235,11 +3226,9 @@ static bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coor
 			}
 
 			if (!result) {
-				cdGetEdge(&sp64, &sp58);
-
-				arg3->x = sp58.z - sp64.z;
+				arg3->x = g_CdEdgeVtx2.z - g_CdEdgeVtx1.z;
 				arg3->y = 0.0f;
-				arg3->z = sp64.x - sp58.x;
+				arg3->z = g_CdEdgeVtx1.x - g_CdEdgeVtx2.x;
 
 				if (arg3->x != 0.0f || arg3->z != 0.0f) {
 					guNormalize(&arg3->x, &arg3->y, &arg3->z);
@@ -3296,7 +3285,7 @@ static bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coor
 						}
 					}
 
-					f2 = cd00024e98() * 0.99f;
+					f2 = g_Cd8009a8b0 * 0.99f;
 
 					sp4c.x = sp8c.x * f2 + prop->pos.x;
 					sp4c.y = sp80.y;
@@ -3697,7 +3686,7 @@ static void knifePlayWooshSound(struct defaultobj *obj)
 			if (obj->projectile->lastwooshframe < g_Vars.lvframe60 - TICKS(6)) {
 				func0f0926bc(obj->prop, 1, 0xffff);
 
-				if (!lvIsPaused()) {
+				if (!g_LvIsPaused) {
 					propsnd0f0939f8(0, obj->prop, soundnums[index], -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 					obj->projectile->lastwooshframe = g_Vars.lvframe60;
 				}
@@ -3893,7 +3882,7 @@ static bool objEmbed(struct prop *prop, struct prop *parent, struct model *model
 			mtx3ToMtx4(obj->realrot, &sp34);
 			mtx4SetTranslation(&prop->pos, &sp34);
 			mtx00015be4(&sp34, &sp74, &sp134);
-			mtx00015be4(camGetProjectionMtxF(), sp24, &spf4);
+			mtx00015be4(g_Vars.currentplayer->projectionmtx, sp24, &spf4);
 			mtx000172f0(spf4.m, spb4.m);
 			mtx00015be4(&spb4, &sp134, &obj->embedment->matrix);
 
@@ -3995,7 +3984,7 @@ static bool propExplode(struct prop *prop, s32 exptype)
 			pos.y = mtx->m[3][1];
 			pos.z = mtx->m[3][2];
 
-			mtx4TransformVecInPlace(camGetProjectionMtxF(), &pos);
+			mtx4TransformVecInPlace(g_Vars.currentplayer->projectionmtx, &pos);
 		} else {
 			pos = parent->pos;
 		}
@@ -5393,7 +5382,7 @@ static void hovercarIncrementStep(struct hovercarobj *hovercar)
 static f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotation)
 {
 	f32 force = 1.0f;
-	struct prop *obstacle = cdGetObstacleProp();
+	struct prop *obstacle = g_CdObstacleProp;
 
 	if (obstacle && g_Vars.lvupdate240 > 0) {
 		if (obstacle->type & (PROPTYPE_CHR | PROPTYPE_PLAYER)) {
@@ -5406,8 +5395,6 @@ static f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32
 					&& (obstacleobj->flags3 & OBJFLAG3_PUSHABLE)) {
 				struct coord sp88;
 				struct coord obstaclevel = {0, 0, 0};
-				struct coord sp70;
-				struct coord sp64;
 				struct coord sp58;
 				struct coord sp4c;
 
@@ -5416,8 +5403,6 @@ static f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32
 				obstaclevel.z = movingvel->z * 0.5f / g_Vars.lvupdate60freal;
 
 				objApplyMomentum(obstacleobj, &obstaclevel, 0.0f, true, true);
-
-				cdGetEdge(&sp70, &sp64);
 
 				if (cdGetSavedPos(&sp58, &sp4c)) {
 					sp4c.x -= sp58.x;
@@ -5431,7 +5416,7 @@ static f32 objCollide(struct defaultobj *movingobj, struct coord *movingvel, f32
 					sp4c.z = obstacle->pos.z - movingobj->prop->pos.z;
 				}
 
-				func0f02e3dc(&sp70, &sp64, &sp58, &sp4c, &sp88);
+				func0f02e3dc(&g_CdEdgeVtx1, &g_CdEdgeVtx2, &sp58, &sp4c, &sp88);
 
 				force = 0.5f;
 
@@ -6122,7 +6107,8 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							sp3c4.y -= sp3d0.y;
 							sp3c4.z -= sp3d0.z;
 						} else {
-							cdGetEdge(&sp3d0, &sp3c4);
+							sp3d0 = g_CdEdgeVtx1;
+							sp3c4 = g_CdEdgeVtx2;
 
 							sp3d0.x -= sp3c4.x;
 							sp3d0.y -= sp3c4.y;
@@ -6154,7 +6140,8 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 						projectile->unk0dc += f0;
 
-						cdGetEdge(&sp3e8, &sp3dc);
+						sp3e8 = g_CdEdgeVtx1;
+						sp3dc = g_CdEdgeVtx2;
 
 						sp3f4.x = sp3dc.z - sp3e8.z;
 						sp3f4.y = 0.0f;
@@ -6609,7 +6596,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 										}
 									}
 								} else if ((hitprop->type & (PROPTYPE_CHR | PROPTYPE_PLAYER))
-										&& chrGetShield(hitprop->chr) > 0.0f) {
+										&& hitprop->chr->cshield > 0.0f) {
 									stick = false;
 								}
 							}
@@ -6627,7 +6614,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 										struct prop *ownerprop;
 
 										ownerprop = obj->projectile->ownerprop;
-										ownershield = chrGetShield(hitchr);
+										ownershield = hitchr->cshield;
 
 										func0f0341dc(hitchr, gsetGetDamage(&weapon->gset), &var8009ce78, &weapon->gset, ownerprop,
 												g_EmbedHitPart, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, var8006993c);
@@ -6642,7 +6629,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 													Mtxf *sp184;
 
 													sp184 = model0001a5cc(g_EmbedModel, g_EmbedNode, 0);
-													mtx4TransformVec(camGetWorldToScreenMtxf(), &sp5e8, &sp1c8);
+													mtx4TransformVec(g_Vars.currentplayer->worldtoscreenmtx, &sp5e8, &sp1c8);
 													mtx0001719c(sp184->m, sp188.m);
 													mtx4TransformVecInPlace(&sp188, &sp1c8);
 
@@ -7315,7 +7302,7 @@ static void doorInitMatrices(struct prop *prop)
 	Mtxf *matrices = model->matrices;
 
 	func0f08c424(door, matrices);
-	mtx00015be0(camGetWorldToScreenMtxf(), matrices);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, matrices);
 
 	if (model->filedata->skel == &g_Skel11) {
 		union modelrodata *rodata;
@@ -7899,7 +7886,7 @@ static void cctvInitMatrices(struct prop *prop, Mtxf *mtx)
 
 	mtx4TransformVecInPlace(mtx, &sp64);
 	mtx4SetTranslation(&sp64, &matrices[1]);
-	mtx00015be0(camGetWorldToScreenMtxf(), &matrices[1]);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &matrices[1]);
 }
 
 static void fanTick(struct prop *prop)
@@ -8093,7 +8080,7 @@ static void autogunTick(struct prop *prop)
 			if (g_Vars.normmplayerisrunning) {
 				numchrs = g_MpNumChrs;
 			} else {
-				numchrs = chrsGetNumSlots();
+				numchrs = g_NumChrSlots;
 			}
 
 			while (true) {
@@ -8450,7 +8437,7 @@ static void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	mtx4LoadYRotation(yrot, &matrices[1]);
 	mtx4SetTranslation(&sp4c, &matrices[1]);
 	mtx00015f04(autogun->base.model->scale, &matrices[1]);
-	mtx00015be0(camGetWorldToScreenMtxf(), &matrices[1]);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &matrices[1]);
 
 	node2 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0002);
 	rodata = node2->rodata;
@@ -8498,7 +8485,7 @@ static void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 
 static void autogunTickShoot(struct prop *autogunprop)
 {
-	if (!lvIsPaused()) {
+	if (!g_LvIsPaused) {
 		struct autogunobj *autogun = (struct autogunobj *) autogunprop->obj;
 		struct defaultobj *obj = autogunprop->obj;
 		bool fireleft = false;
@@ -8572,7 +8559,7 @@ static void autogunTickShoot(struct prop *autogunprop)
 						gunpos.z = 0.0f;
 					}
 
-					mtx00015be4(camGetProjectionMtxF(), sp108, &spc8);
+					mtx00015be4(g_Vars.currentplayer->projectionmtx, sp108, &spc8);
 					mtx4TransformVecInPlace(&spc8, &gunpos);
 
 					if (cdTestLos10(&autogunprop->pos, autogunprop->rooms, &gunpos, gunrooms, CDTYPE_BG, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
@@ -8600,9 +8587,8 @@ static void autogunTickShoot(struct prop *autogunprop)
 						|| (targetprop && (targetprop->type == PROPTYPE_CHR))
 						|| (g_Vars.antiplayernum >= 0 && targetprop && targetprop == g_Vars.anti->prop)) {
 					if (cdExamLos08(&gunpos, gunrooms, &hitpos, CDTYPE_ALL, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-						cdGetPos(&hitpos);
-
-						hitprop = cdGetObstacleProp();
+						hitpos = g_CdObstaclePos;
+						hitprop = g_CdObstacleProp;
 
 						// SP: If the hit prop is a chr and it's our target
 						// MP: If the hit prop is a chr
@@ -8631,7 +8617,7 @@ static void autogunTickShoot(struct prop *autogunprop)
 							if (fireleft || fireright) {
 								bgunPlayPropHitSound(&gset, hitprop, -1);
 
-								if (hitchr->model && chrGetShield(hitchr) > 0.0f) {
+								if (hitchr->model && hitchr->cshield > 0.0f) {
 									chrCalculateShieldHit(hitchr, &hitpos, &dir, &hitnode, &hitpart, &hitmodel, &hitside);
 								}
 
@@ -8649,9 +8635,8 @@ static void autogunTickShoot(struct prop *autogunprop)
 					if (cdExamLos08(&gunpos, gunrooms, &hitpos,
 								CDTYPE_ALL & ~CDTYPE_PLAYERS,
 								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-						cdGetPos(&hitpos);
-
-						hitprop = cdGetObstacleProp();
+						hitpos = g_CdObstaclePos;
+						hitprop = g_CdObstacleProp;
 						missed = true;
 					}
 
@@ -8679,8 +8664,7 @@ static void autogunTickShoot(struct prop *autogunprop)
 					if (cdExamLos08(&gunpos, gunrooms, &hitpos,
 								CDTYPE_DOORS | CDTYPE_BG,
 								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
-						cdGetPos(&hitpos);
-
+						hitpos = g_CdObstaclePos;
 						missed = true;
 					}
 
@@ -9534,7 +9518,6 @@ static void chopperTickFall(struct prop *chopperprop)
 		if (cdExamLos09(&chopperprop->pos, chopperprop->rooms, &newpos, CDTYPE_BG) == CDRESULT_COLLISION) {
 			struct coord sp74;
 			s16 room;
-			struct coord sp64;
 			f32 ground;
 			s16 newrooms[8];
 
@@ -9542,11 +9525,9 @@ static void chopperTickFall(struct prop *chopperprop)
 			ground = cdFindGroundAtCyl(&chopperprop->pos, 5, chopperprop->rooms, NULL, NULL);
 			chopperprop->pos.y -= 100;
 
-			cdGetPos(&sp64);
-
-			newpos.x = sp64.x;
+			newpos.x = g_CdObstaclePos.x;
 			newpos.y = ground + 20;
-			newpos.z = sp64.z;
+			newpos.z = g_CdObstaclePos.z;
 
 			func0f065e74(&chopperprop->pos, chopperprop->rooms, &newpos, newrooms);
 
@@ -9954,7 +9935,7 @@ static void hovercarTick(struct prop *prop)
 		if (active) {
 			if (cdExamCylMove03(&prop->pos, prop->rooms, &sp214,
 						CDTYPE_CLOSEDDOORS | CDTYPE_AJARDOORS, 0, 0, 0) == CDRESULT_COLLISION) {
-				doorprop = cdGetObstacleProp();
+				doorprop = g_CdObstacleProp;
 			}
 
 			if (doorprop) {
@@ -10207,7 +10188,7 @@ static void objInitMatrices(struct prop *prop)
 	} else {
 		mtx3ToMtx4(obj->realrot, &mtx);
 		mtx4SetTranslation(&prop->pos, &mtx);
-		mtx00015be4(camGetWorldToScreenMtxf(), &mtx, obj->model->matrices);
+		mtx00015be4(g_Vars.currentplayer->worldtoscreenmtx, &mtx, obj->model->matrices);
 
 		if (obj->type == OBJTYPE_CCTV) {
 			cctvInitMatrices(prop, &mtx);
@@ -10276,7 +10257,6 @@ void objTick(struct prop *prop)
 					newparent = setupGetObjByCmdIndex(cmdindex + padnum);
 
 					if (newparent && newparent->prop) {
-						modelSetScale(obj->model, obj->model->scale);
 						propReparent(obj->prop, newparent->prop);
 						silent = true;
 					}
@@ -10433,11 +10413,11 @@ s32 objTickPlayer(struct prop *prop)
 
 					sp556 = true;
 					sp476.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
-					sp476.unk00 = camGetWorldToScreenMtxf();
+					sp476.unk00 = g_Vars.currentplayer->worldtoscreenmtx;
 					model0001cebc(&sp476, model);
 
 					if (fulltick) {
-						mtx00015be4(camGetProjectionMtxF(), model->matrices, &sp412);
+						mtx00015be4(g_Vars.currentplayer->projectionmtx, model->matrices, &sp412);
 						mtx4ToMtx3(&sp412, obj->realrot);
 
 						sp400.x = sp412.m[3][0];
@@ -10525,7 +10505,7 @@ s32 objTickPlayer(struct prop *prop)
 
 			mtx3ToMtx4(obj->realrot, &sp248);
 			mtx4SetTranslation(&prop->pos, &sp248);
-			mtx4MultMtx4(camGetWorldToScreenMtxf(), &sp248, &sp152);
+			mtx4MultMtx4(g_Vars.currentplayer->worldtoscreenmtx, &sp248, &sp152);
 
 			sp556 = true;
 			sp312.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
@@ -10546,12 +10526,12 @@ s32 objTickPlayer(struct prop *prop)
 				if (modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 					modelmgrFreeAnim(model->anim);
 					model->anim = NULL;
-					mtx00015be4(camGetProjectionMtxF(), model->matrices, &sp248);
+					mtx00015be4(g_Vars.currentplayer->projectionmtx, model->matrices, &sp248);
 					mtx4ToMtx3(&sp248, obj->realrot);
 					tagnum = objGetTagNum(obj);
 
 					if (tagnum >= 0) {
-						numchrs = chrsGetNumSlots();
+						numchrs = g_NumChrSlots;
 
 						for (i = 0; i < numchrs; i++) {
 							if (g_ChrSlots[i].myspecial == tagnum) {
@@ -10609,7 +10589,7 @@ s32 objTickPlayer(struct prop *prop)
 			struct chopperobj *chopper = (struct chopperobj *)obj;
 
 			if (!chopper->dead) {
-				if (!lvIsPaused()) {
+				if (!g_LvIsPaused) {
 					if (chopper->attackmode == CHOPPERMODE_DEAD) {
 						// empty
 					} else if (chopper->attackmode == CHOPPERMODE_FALL) {
@@ -11630,7 +11610,7 @@ static void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata,
 		s32 sp60;
 
 		sp6c = 0;
-		sp6c += (obj->flags & OBJFLAG_00000200) && camGetOrthogonalMtxL();
+		sp6c += (obj->flags & OBJFLAG_00000200) && g_Vars.currentplayer->orthomtxl;
 
 		gdl = renderdata->gdl;
 
@@ -11716,7 +11696,7 @@ static void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata,
 		}
 
 		if (sp6c) {
-			gSPMatrix(gdl++, camGetOrthogonalMtxL(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+			gSPMatrix(gdl++, g_Vars.currentplayer->orthomtxl, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		}
 
 		renderdata->gdl = gdl;
@@ -11732,7 +11712,7 @@ static void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata,
 		}
 
 		if (sp6c) {
-			gSPMatrix(gdl++, camGetPerspectiveMtxL(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+			gSPMatrix(gdl++, g_Vars.currentplayer->perspmtxl, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		}
 
 		renderdata->gdl = gdl;
@@ -11790,7 +11770,7 @@ Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius,
 
 	mtx = gfxAllocateMatrix();
 	mtx4LoadYRotationWithTranslation(&pos, angle, &spc0);
-	mtx4MultMtx4(camGetWorldToScreenMtxf(), &spc0, &sp80);
+	mtx4MultMtx4(g_Vars.currentplayer->worldtoscreenmtx, &spc0, &sp80);
 	mtx00016054(&sp80, mtx);
 
 	for (i = 0; i < 4; i++) {
@@ -12418,7 +12398,7 @@ static void objBounce(struct defaultobj *obj, struct coord *arg1)
 
 		dir = *arg1;
 
-		mtx4RotateVecInPlace(camGetProjectionMtxF(), &dir);
+		mtx4RotateVecInPlace(g_Vars.currentplayer->projectionmtx, &dir);
 
 		projectile->speed.x += 3.3333333f * dir.x;
 		projectile->speed.z += 3.3333333f * dir.z;
@@ -12732,7 +12712,7 @@ bool objDrop(struct prop *prop, bool lazy)
 			if (!lazy && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 				// Do collision checks
 				Mtxf *sp48 = model0001a60c(model);
-				mtx00015be4(camGetProjectionMtxF(), sp48, &spf0);
+				mtx00015be4(g_Vars.currentplayer->projectionmtx, sp48, &spf0);
 				propSetPerimEnabled(root, false);
 
 				spe4.x = spf0.m[3][0];
@@ -13705,9 +13685,9 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 				}
 			}
 
-			mtx4TransformVec(camGetProjectionMtxF(), &spd8, &sp7c);
+			mtx4TransformVec(g_Vars.currentplayer->projectionmtx, &spd8, &sp7c);
 			mtx4RotateVec(&model->matrices[spe4], &hitthing1.unk0c, &sp70);
-			mtx4RotateVecInPlace(camGetProjectionMtxF(), &sp70);
+			mtx4RotateVecInPlace(g_Vars.currentplayer->projectionmtx, &sp70);
 
 			func0f061fa8(shotdata, prop, spd4, lVar3,
 					node1, &hitthing1, spe4, node2,
@@ -13776,7 +13756,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	sp110.y = shotdata->unk00.y - hit->distance * shotdata->unk0c.y / shotdata->unk0c.z;
 	sp110.z = shotdata->unk00.z - hit->distance;
 
-	mtx4TransformVecInPlace(camGetProjectionMtxF(), &sp110);
+	mtx4TransformVecInPlace(g_Vars.currentplayer->projectionmtx, &sp110);
 
 	if (!spfc && chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
 		spfc = true;
@@ -13940,7 +13920,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				spb0.y = shotdata->dir.y * 3.0f;
 				spb0.z = shotdata->dir.z * 3.0f;
 
-				mtx4MultMtx4(camGetProjectionMtxF(), &obj->model->matrices[hit->mtxindex], &sp58);
+				mtx4MultMtx4(g_Vars.currentplayer->projectionmtx, &obj->model->matrices[hit->mtxindex], &sp58);
 				mtx4TransformVec(&sp58, &hit->hitthing.unk00, &spa4);
 
 				pushdir = shotdata->dir;
@@ -14194,7 +14174,7 @@ bool propobjInteract(struct prop *prop)
 		// Button press sound
 		sndStart(var80095200, SFX_PRESS_SWITCH, NULL, -1, -1, -1, -1, -1);
 
-		if (alarmIsActive()) {
+		if (g_AlarmTimer > 0) {
 			alarmDeactivate();
 		} else {
 			alarmActivate();
@@ -14333,7 +14313,7 @@ static void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty)
 
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
-		&& !(playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
+		&& !(playercount == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL);
 
 	switch (ammotype) {
 	case AMMOTYPE_CLOAK:
@@ -14575,7 +14555,7 @@ static void ammotypeGetPickupMessage(char *dst, s32 ammotype, s32 qty)
 {
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
-		&& !(playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
+		&& !(playercount == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL);
 
 	*dst = '\0';
 
@@ -14732,7 +14712,7 @@ static void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 {
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
-		&& !(playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
+		&& !(playercount == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL);
 	s32 textid;
 	bool plural = false;
 
@@ -15015,7 +14995,7 @@ s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 				if (text == NULL) {
 					s32 playercount = PLAYERCOUNT();
 
-					if (playercount <= 2 && !(playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)) {
+					if (playercount <= 2 && !(playercount == 2 && g_ScreenSplit == SCREENSPLIT_VERTICAL)) {
 						text = langGet(L_PROPOBJ_041); // "Picked up a shield."
 					} else {
 						text = langGet(L_PROPOBJ_042); // "A shield."
@@ -15670,7 +15650,7 @@ void coordTriggerProxies(struct coord *pos, bool arg1)
 
 static void chrsTriggerProxies(void)
 {
-	s32 numchrs = chrsGetNumSlots();
+	s32 numchrs = g_NumChrSlots;
 	s32 i;
 
 	for (i = 0; i < numchrs; i++) {
@@ -15794,7 +15774,7 @@ static struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, 
 	if (prop && weapon->base.model) {
 		f32 scale = weapon->base.extrascale * (1.0f / 256.0f);
 
-		modelSetScale(weapon->base.model, weapon->base.model->scale * scale);
+		weapon->base.model->scale *= scale;
 
 		if (!chrEquipWeapon(weapon, chr)) {
 			propFree(prop);
@@ -17201,10 +17181,10 @@ s32 func0f08e5a8(s16 *rooms2, struct screenbox *box)
 f32 func0f08e6bc(struct prop *prop, f32 arg1)
 {
 	f32 result = 1;
-	struct coord *coord = env0f1667e8();
+	struct coord *coord = g_Env800a65e8;
 
 	if (coord != NULL && coord->z < prop->z) {
-		f32 scalez = camGetLodScaleZ();
+		f32 scalez = g_Vars.currentplayer->c_lodscalez;
 		f32 value = ((prop->z - coord->z) * 100.0f / arg1 + coord->z) * scalez;
 
 		if (value >= coord->y) {
@@ -17220,13 +17200,13 @@ f32 func0f08e6bc(struct prop *prop, f32 arg1)
 static bool func0f08e794(struct coord *coord, f32 arg1)
 {
 	bool result = true;
-	struct coord *ptr = env0f1667e8();
+	struct coord *ptr = g_Env800a65e8;
 	struct coord tmp;
 	f32 sp20;
 
 	if (ptr != NULL) {
 		struct coord *campos = &g_Vars.currentplayer->cam_pos;
-		Mtxf *mtx = camGetWorldToScreenMtxf();
+		Mtxf *mtx = g_Vars.currentplayer->worldtoscreenmtx;
 
 		tmp.x = coord->x - campos->x;
 		tmp.y = coord->y - campos->y;
@@ -17235,7 +17215,7 @@ static bool func0f08e794(struct coord *coord, f32 arg1)
 		sp20 = tmp.f[0] * mtx->m[0][0] + tmp.f[1] * mtx->m[0][1] + tmp.f[2] * mtx->m[0][2];
 
 		if (sp20 > ptr->z) {
-			f32 scalez = camGetLodScaleZ();
+			f32 scalez = g_Vars.currentplayer->c_lodscalez;
 			sp20 = ((sp20 - ptr->z) * 100 / arg1 + ptr->z) * scalez;
 
 			if (sp20 >= ptr->y) {
@@ -17495,7 +17475,7 @@ static void doorsCalcFrac(struct doorobj *door)
 				propSetPerimEnabled(loopprop, true);
 
 				if (cdresult == CDRESULT_COLLISION) {
-					struct prop *blockerprop = cdGetObstacleProp();
+					struct prop *blockerprop = g_CdObstacleProp;
 
 					if (blockerprop && blockerprop->type == PROPTYPE_CHR) {
 						struct chrdata *chr = blockerprop->chr;
@@ -18049,11 +18029,6 @@ void alarmDeactivate(void)
 	alarmStopAudio();
 }
 
-bool alarmIsActive(void)
-{
-	return g_AlarmTimer > 0;
-}
-
 void countdownTimerSetVisible(u32 reason, bool visible)
 {
 	if (visible) {
@@ -18071,13 +18046,13 @@ Gfx *countdownTimerRender(Gfx *gdl)
 
 	f32 value60 = g_CountdownTimerValue60;
 	u32 stack;
-	s32 viewright = viGetViewLeft() + (viGetViewWidth() >> 1);
-	s32 y = viGetViewTop() + viGetViewHeight() - 18;
+	s32 viewright = g_ViBackData->viewleft + (g_ViBackData->viewx >> 1);
+	s32 y = g_ViBackData->viewtop + g_ViBackData->viewy - 18;
 	s32 playercount = PLAYERCOUNT();
 	char *fmt = ":\n";
 
 	if (playercount == 2) {
-		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0) {
+		if (g_ScreenSplit != SCREENSPLIT_VERTICAL && g_Vars.currentplayernum == 0) {
 			y += 10;
 		} else {
 			y += 2;
@@ -18119,7 +18094,7 @@ Gfx *countdownTimerRender(Gfx *gdl)
 
 void alarmTick(void)
 {
-	if (alarmIsActive()) {
+	if (g_AlarmTimer > 0) {
 		s32 limit;
 		s16 sound;
 
@@ -18135,7 +18110,7 @@ void alarmTick(void)
 		default:                 sound = SFX_ALARM_DEFAULT; break;
 		}
 
-		if (!lvIsPaused()) {
+		if (!g_LvIsPaused) {
 			if (g_AlarmAudioHandle) {
 				// The sound is currently playing. Cycle between the left/right
 				// speaker for stereo or headphone mode.
@@ -18272,7 +18247,7 @@ void weaponCreateForPlayerDrop(s32 weaponnum)
 
 void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct coord *pos, struct coord *dir, u8 weaponnum, struct prop *targetprop)
 {
-	if (!lvIsPaused()) {
+	if (!g_LvIsPaused) {
 		bool blocked = false;
 		struct coord endpos;
 		u32 stack;
@@ -18385,8 +18360,8 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 						CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER| CDTYPE_BG,
 						GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 				blocked = true;
-				cdGetPos(&endpos);
-				obstacle = cdGetObstacleProp();
+				endpos = g_CdObstaclePos;
+				obstacle = g_CdObstacleProp;
 			}
 
 			propSetPerimEnabled(fromprop, true);

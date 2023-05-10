@@ -414,7 +414,7 @@ void playerReset(void)
 			&g_Vars.currentplayer->bond2.unk28,
 			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
 
-	numchrs = chrsGetNumSlots();
+	numchrs = g_NumChrSlots;
 
 	for (i = 0; i < numchrs; i++) {
 		chr = &g_ChrSlots[i];

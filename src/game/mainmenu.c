@@ -11,6 +11,7 @@
 #include "game/player.h"
 #include "game/menu.h"
 #include "game/mainmenu.h"
+#include "game/music.h"
 #include "game/filemgr.h"
 #include "game/inv.h"
 #include "game/game_1531a0.h"
@@ -81,7 +82,7 @@ static s32 menuhandlerControlStyleImpl(s32 operation, struct menuitem *item, uni
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-		data->list.value = optionsGetControlMode(mpindex);
+		data->list.value = g_PlayerConfigsArray[mpindex].controlmode;
 		g_Menus[g_MpPlayerNum].main.mpindex = mpindex;
 		break;
 	case MENUOP_LISTITEMFOCUS:
@@ -175,7 +176,7 @@ static s32 menuhandlerScreenSize(s32 operation, struct menuitem *item, union han
 	case MENUOP_GETOPTIONTEXT:
 		return (s32) langGet(L_OPTIONS_220 + data->dropdown.value);
 	case MENUOP_SET:
-		optionsSetScreenSize(data->dropdown.value);
+		g_ScreenSize = data->dropdown.value;
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
 	case MENUOP_GETSELECTEDINDEX:
@@ -194,11 +195,11 @@ s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerda
 	case MENUOP_GETOPTIONTEXT:
 		return (s32) langGet(L_OPTIONS_223 + data->dropdown.value);
 	case MENUOP_SET:
-		optionsSetScreenRatio(data->dropdown.value);
+		g_ScreenRatio = data->dropdown.value;
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-		data->dropdown.value = optionsGetScreenRatio();
+		data->dropdown.value = g_ScreenRatio;
 	}
 
 	return 0;
@@ -213,8 +214,8 @@ s32 menuhandlerScreenSplit(s32 operation, struct menuitem *item, union handlerda
 	case MENUOP_GETOPTIONTEXT:
 		return (s32) langGet(L_OPTIONS_225 + data->dropdown.value);
 	case MENUOP_SET:
-		if (data->dropdown.value != (u32)optionsGetScreenSplit()) {
-			optionsSetScreenSplit(data->dropdown.value);
+		if (data->dropdown.value != (u32)g_ScreenSplit) {
+			g_ScreenSplit = data->dropdown.value;
 
 			g_Vars.modifiedfiles |= MODFILE_GAME;
 
@@ -229,7 +230,7 @@ s32 menuhandlerScreenSplit(s32 operation, struct menuitem *item, union handlerda
 		}
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-		data->dropdown.value = optionsGetScreenSplit();
+		data->dropdown.value = g_ScreenSplit;
 		break;
 	}
 
@@ -282,9 +283,9 @@ static s32 menuhandlerInGameSubtitles(s32 operation, struct menuitem *item, unio
 {
 	switch (operation) {
 	case MENUOP_GET:
-		return optionsGetInGameSubtitles();
+		return g_InGameSubtitles;
 	case MENUOP_SET:
-		optionsSetInGameSubtitles(data->checkbox.value);
+		g_InGameSubtitles = data->checkbox.value;
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
@@ -295,9 +296,9 @@ static s32 menuhandlerCutsceneSubtitles(s32 operation, struct menuitem *item, un
 {
 	switch (operation) {
 	case MENUOP_GET:
-		return optionsGetCutsceneSubtitles();
+		return g_CutsceneSubtitles;
 	case MENUOP_SET:
-		optionsSetCutsceneSubtitles(data->checkbox.value);
+		g_CutsceneSubtitles = data->checkbox.value;
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
@@ -509,10 +510,10 @@ s32 menuhandlerMusicVolume(s32 operation, struct menuitem *item, union handlerda
 {
 	switch (operation) {
 	case MENUOP_GETSLIDER:
-		data->slider.value = optionsGetMusicVolume();
+		data->slider.value = musicGetVolume();
 		break;
 	case MENUOP_SET:
-		optionsSetMusicVolume(data->slider.value);
+		musicSetVolume(data->slider.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
@@ -1867,13 +1868,13 @@ static s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union ha
 		strcat(text, "\n");
 
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd,
-				renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+				renderdata->colour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 		// Draw last part of name
 		strcpy(text, langGet(g_StageNames[stageindex].name2));
 
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-				renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+				renderdata->colour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 		gdl = text0f153780(gdl);
 
@@ -3547,7 +3548,7 @@ static char *invMenuTextWeaponDescription(struct menuitem *item)
 
 		if (g_InventoryWeapon == WEAPON_NECKLACE
 				&& g_Vars.stagenum == STAGE_ATTACKSHIP
-				&& lvGetDifficulty() >= DIFF_PA) {
+				&& g_Difficulty >= DIFF_PA) {
 			// Phrases included here to assist people searching the code for them:
 			// CDV780322
 			// I8MOZYM8NDI85
@@ -3955,11 +3956,11 @@ s32 soloMenuDialogPauseStatus(s32 operation, struct menudialogdef *dialogdef, un
 		s32 wanttype = BRIEFINGTYPE_TEXT_PA;
 		s32 i;
 
-		if (lvGetDifficulty() == DIFF_A) {
+		if (g_Difficulty == DIFF_A) {
 			wanttype = BRIEFINGTYPE_TEXT_A;
 		}
 
-		if (lvGetDifficulty() == DIFF_SA) {
+		if (g_Difficulty == DIFF_SA) {
 			wanttype = BRIEFINGTYPE_TEXT_SA;
 		}
 
@@ -3978,7 +3979,7 @@ s32 soloMenuDialogPauseStatus(s32 operation, struct menudialogdef *dialogdef, un
 			briefing = briefing->next;
 		}
 
-		for (i = 0; i < objectiveGetCount(); i++) {
+		for (i = 0; i < (g_ObjectiveLastIndex + 1); i++) {
 			if (g_Objectives[i]) {
 				g_Briefing.objectivenames[i] = g_Objectives[i]->text;
 				g_Briefing.objectivedifficulties[i] = objectiveGetDifficultyBits(i);

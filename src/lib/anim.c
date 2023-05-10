@@ -106,16 +106,6 @@ void animsReset(void)
 	g_AnimHostEnabled = false;
 }
 
-s32 animGetNumFrames(s16 animnum)
-{
-	return g_Anims[animnum].numframes;
-}
-
-bool animHasFrames(s16 animnum)
-{
-	return animnum < g_NumAnimations && g_Anims[animnum].numframes > 0;
-}
-
 extern u8 _animationsSegmentRomStart;
 
 static u8 *animDma(u8 *dst, u32 segoffset, u32 len)

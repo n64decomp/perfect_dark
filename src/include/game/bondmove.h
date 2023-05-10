@@ -8,7 +8,6 @@ void bmoveSetControlDef(u32 controldef);
 void bmoveSetAutoMoveCentreEnabled(bool enabled);
 void bmoveSetAutoAim(bool enabled);
 bool bmoveIsAutoAimEnabledForCurrentWeapon(void);
-bool bmoveIsInSightAimMode(void);
 void bmoveUpdateAutoAimProp(struct prop *prop, f32 x, f32 y);
 struct prop *bmoveGetHoverbike(void);
 struct prop *bmoveGetGrabbedProp(void);

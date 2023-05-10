@@ -854,7 +854,7 @@ static Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, str
 	*x -= (tmp - 1) * xscale;
 	width *= xscale;
 
-	if (g_TextRotated90 || (*x > 0 && *x <= viGetWidth() && sp90 + curchar->baseline <= viGetHeight())) {
+	if (g_TextRotated90 || (*x > 0 && *x <= g_ViBackData->x && sp90 + curchar->baseline <= g_ViBackData->y)) {
 		if (savedx + width >= *x
 				&& savedy + height >= curchar->baseline + sp90
 				&& *x >= savedx
@@ -1101,8 +1101,8 @@ static Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, str
 	*x -= (tmp - 1) * var8007fad0;
 
 	if (*x > 0
-			&& *x <= viGetWidth()
-			&& sp38 + char1->baseline <= viGetHeight()
+			&& *x <= g_ViBackData->x
+			&& sp38 + char1->baseline <= g_ViBackData->y
 			&& *x <= arg6 + arg8
 			&& char1->baseline + sp38 <= arg7 + arg9
 			&& *x >= arg6

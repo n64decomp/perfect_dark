@@ -11,4 +11,4 @@ struct screenbox var800a65c0;
 struct screenbox g_PortalScreenBbox;
 u32 g_FogEnabled;
 u32 var800a65e4;
-struct coord *var800a65e8;
+struct coord *g_Env800a65e8;

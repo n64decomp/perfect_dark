@@ -143,11 +143,9 @@ static void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	abstarget.y = g_Vars.currentplayer->prop->pos.y;
 	abstarget.z = reltarget->z + g_Vars.currentplayer->prop->pos.z;
 
-	cdGetEdge(&globalthinga, &globalthingb);
-
-	vector.x = globalthingb.z - globalthinga.z;
+	vector.x = g_CdEdgeVtx2.z - g_CdEdgeVtx1.z;
 	vector.y = 0;
-	vector.z = globalthinga.x - globalthingb.x;
+	vector.z = g_CdEdgeVtx1.x - g_CdEdgeVtx2.x;
 
 	if (vector.f[0] != 0 || vector.f[2] != 0) {
 		guNormalize(&vector.x, &vector.y, &vector.z);
@@ -155,7 +153,7 @@ static void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 		vector.z = 1;
 	}
 
-	func0f02e3dc(&globalthinga, &globalthingb, &abstarget, &vector, &posunk);
+	func0f02e3dc(&g_CdEdgeVtx1, &g_CdEdgeVtx2, &abstarget, &vector, &posunk);
 
 	tween.x = (abstarget.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate60freal;
 	tween.y = 0;
@@ -332,7 +330,7 @@ static bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamo
 	s32 result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		struct prop *obstacle = cdGetObstacleProp();
+		struct prop *obstacle = g_CdObstacleProp;
 
 		if (obstacle && g_Vars.lvupdate240 > 0) {
 			if (obstacle->type == PROPTYPE_DOOR) {
@@ -343,11 +341,9 @@ static bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamo
 
 				if (door->doorflags & DOORFLAG_DAMAGEONCONTACT) {
 					if (!g_Vars.currentplayer->isdead) {
-						cdGetEdge(&sp84, &sp78);
-
-						sp90.x = sp78.f[2] - sp84.f[2];
+						sp90.x = g_CdEdgeVtx2.f[2] - g_CdEdgeVtx1.f[2];
 						sp90.y = 0;
-						sp90.z = sp84.f[0] - sp78.f[0];
+						sp90.z = g_CdEdgeVtx1.f[0] - g_CdEdgeVtx2.f[0];
 
 						if (sp90.f[0] || sp90.f[2]) {
 							guNormalize(&sp90.x, &sp90.y, &sp90.z);
@@ -473,7 +469,8 @@ static s32 bwalk0f0c4764(struct coord *delta, struct coord *arg1, struct coord *
 	s32 result = bwalkCalculateNewPositionWithPush(delta, 0, true, 0, types);
 
 	if (result == CDRESULT_COLLISION) {
-		cdGetEdge(arg1, arg2);
+		*arg1 = g_CdEdgeVtx1;
+		*arg2 = g_CdEdgeVtx2;
 	}
 
 	return result;
@@ -485,8 +482,8 @@ static s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 	struct coord quarter;
 	bool result;
 
-	if (cd00024ea4()) {
-		f32 mult = cd00024e98();
+	if (g_Cd8009a8ac) {
+		f32 mult = g_Cd8009a8b0;
 		quarter.x = a->x * mult * 0.25f;
 		quarter.y = a->y * mult * 0.25f;
 		quarter.z = a->z * mult * 0.25f;
@@ -497,7 +494,8 @@ static s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 		}
 
 		if (result == CDRESULT_COLLISION) {
-			cdGetEdge(d, e);
+			*d = g_CdEdgeVtx1;
+			*e = g_CdEdgeVtx2;
 
 			if (b->x != d->x
 					|| b->y != d->y
@@ -827,7 +825,7 @@ static void bwalkUpdateVertical(void)
 				g_Vars.currentplayer->vv_manground = sumground;
 			} else {
 				// Not enough room above. If on a hoverbike, blow it up
-				prop = cdGetObstacleProp();
+				prop = g_CdObstacleProp;
 
 				if (prop
 						&& g_Vars.currentplayer->prop->pos.y < prop->pos.y
@@ -894,7 +892,7 @@ static void bwalkUpdateVertical(void)
 					&& g_Vars.currentplayer->vv_ground < g_Vars.currentplayer->vv_manground - 30) {
 				// Not falling - but still at least 30 units off the ground.
 				// Must be something in the way...
-				prop = cdGetObstacleProp();
+				prop = g_CdObstacleProp;
 
 				if (prop) {
 					if (prop->type == PROPTYPE_CHR) {

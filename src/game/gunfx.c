@@ -108,7 +108,7 @@ void beamCreateForHand(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 	struct hand *hand = player->hands + handnum;
-	Mtxf *mtx = camGetWorldToScreenMtxf();
+	Mtxf *mtx = g_Vars.currentplayer->worldtoscreenmtx;
 	f32 tmp;
 
 	tmp = hand->hitpos.f[0] * mtx->m[0][2] + hand->hitpos.f[1] * mtx->m[1][2] + hand->hitpos.f[2] * mtx->m[2][2] + mtx->m[3][2];
@@ -186,7 +186,7 @@ static Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 	Mtxf *spc8;
 	u32 *colours = gfxAllocateColours(2);
 	Mtxf sp84;
-	Mtxf *worldtoscreenmtx = camGetWorldToScreenMtxf();
+	Mtxf *worldtoscreenmtx = g_Vars.currentplayer->worldtoscreenmtx;
 	struct coord sp74 = {0, 0, 0};
 	f32 mult;
 	u32 stack[2];
@@ -206,7 +206,7 @@ static Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 	spe4.f[1] /= length;
 	spe4.f[2] /= length;
 
-	mtx4TransformVec(camGetWorldToScreenMtxf(), headpos, &sp5c);
+	mtx4TransformVec(g_Vars.currentplayer->worldtoscreenmtx, headpos, &sp5c);
 
 	if (sp5c.f[0] * arg2 > 10000.0f || sp5c.f[0] * arg2 < -10000.0f) {
 		return gdl;
@@ -220,7 +220,7 @@ static Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 		return gdl;
 	}
 
-	mtx4TransformVec(camGetWorldToScreenMtxf(), tailpos, &sp5c);
+	mtx4TransformVec(g_Vars.currentplayer->worldtoscreenmtx, tailpos, &sp5c);
 
 	if (sp5c.f[0] * arg2 > 10000.0f || sp5c.f[0] * arg2 < -10000.0f) {
 		return gdl;
@@ -326,7 +326,7 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 		f32 spf0 = 1.4142f;
 		struct textureconfig *texconfig = &g_TexBeamConfigs[arg3]; // ec
 		s32 i;
-		Mtxf *worldtoscreenmtx = camGetWorldToScreenMtxf(); // e4
+		Mtxf *worldtoscreenmtx = g_Vars.currentplayer->worldtoscreenmtx; // e4
 		s32 j;
 		u32 stack1;
 		s32 spd8;
@@ -477,7 +477,7 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 						spcc.f[2] *= spc0[0] * 0.5f;
 					}
 
-					mtx4TransformVecInPlace(camGetProjectionMtxF(), &spcc);
+					mtx4TransformVecInPlace(g_Vars.currentplayer->projectionmtx, &spcc);
 
 					spcc.f[0] -= sp138.f[0];
 					spcc.f[1] -= sp138.f[1];
@@ -712,7 +712,7 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 
 	mtx4Copy(mtx, &spec);
 
-	modeldef = bgunGetCartModeldef();
+	modeldef = g_Vars.currentplayer->gunctrl.cartmodeldef;
 
 	if (modeldef != NULL) {
 		casing = casingCreate(modeldef, &spec);
@@ -862,7 +862,7 @@ static void casingRender(struct casing *casing, Gfx **gdlptr)
 
 	mtx00015f04(0.1000000089407f, &mtx);
 	mtx4SetTranslation(&casing->pos, &mtx);
-	mtx00015be4(camGetWorldToScreenMtxf(), &mtx, model.matrices);
+	mtx00015be4(g_Vars.currentplayer->worldtoscreenmtx, &mtx, model.matrices);
 
 	// Check if any coordinate is out of range
 	for (i = 0; i < 3; i++) {
@@ -1059,14 +1059,14 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 	u32 spi = 6;
 
 	mtx4LoadIdentity(&sp164);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp164);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &sp164);
 	mtx4LoadIdentity(&sp124);
-	mtx00015be0(camGetProjectionMtxF(), &sp124);
+	mtx00015be0(g_Vars.currentplayer->projectionmtx, &sp124);
 
 	sp124.m[3][0] = sp124.m[3][1] = sp124.m[3][2] = 0.0f;
 
 	mtx4LoadIdentity(&sp1b0);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp1b0);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &sp1b0);
 
 	campos = player->cam_pos;
 
@@ -1238,16 +1238,16 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 	texSelect(&gdl, &g_TexGeneralConfigs[3], 4, 0, 2, 1, NULL);
 	mtx4LoadIdentity(&sp14c);
 
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp14c);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &sp14c);
 	mtx4LoadIdentity(&sp10c);
-	mtx00015be0(camGetProjectionMtxF(), &sp10c);
+	mtx00015be0(g_Vars.currentplayer->projectionmtx, &sp10c);
 
 	sp10c.m[3][1] = 0;
 	sp10c.m[3][0] = 0;
 	sp10c.m[3][2] = 0;
 
 	mtx4LoadIdentity(&sp198);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp198);
+	mtx00015be0(g_Vars.currentplayer->worldtoscreenmtx, &sp198);
 
 	campos = player->cam_pos;
 

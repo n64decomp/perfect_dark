@@ -273,11 +273,7 @@ bool invHasSingleWeaponOrProp(s32 weaponnum)
 
 static s32 invAddOneIfCantHaveSlayer(s32 index)
 {
-	if (mainGetStageNum());
-
-	if (mainGetStageNum() != STAGE_ATTACKSHIP
-			&& mainGetStageNum() != STAGE_SKEDARRUINS
-			&& index >= WEAPON_SLAYER) {
+	if (g_StageNum != STAGE_ATTACKSHIP && g_StageNum != STAGE_SKEDARRUINS && index >= WEAPON_SLAYER) {
 		index++;
 	}
 
@@ -288,7 +284,7 @@ static s32 currentStageForbidsSlayer(void)
 {
 	bool value = 0;
 
-	if (mainGetStageNum() != STAGE_ATTACKSHIP && mainGetStageNum() != STAGE_SKEDARRUINS) {
+	if (g_StageNum != STAGE_ATTACKSHIP && g_StageNum != STAGE_SKEDARRUINS) {
 		value++;
 	}
 
@@ -304,7 +300,7 @@ static bool invCanHaveAllGunsWeapon(s32 weaponnum)
 	}
 
 	// @bug: The stage conditions need an OR. This condition can never pass.
-	if ((mainGetStageNum() == STAGE_ATTACKSHIP && mainGetStageNum() == STAGE_SKEDARRUINS)
+	if ((g_StageNum == STAGE_ATTACKSHIP && g_StageNum == STAGE_SKEDARRUINS)
 			&& weaponnum == WEAPON_SLAYER) {
 		canhave = true;
 	}
@@ -970,12 +966,12 @@ u16 invGetNameIdByIndex(s32 index)
 		if (g_Vars.currentplayer->equipallguns) {
 			if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
 				index++;
-				return bgunGetNameId(invAddOneIfCantHaveSlayer(index));
+				return g_Weapons[invAddOneIfCantHaveSlayer(index)]->name;
 			}
 		}
 	}
 
-	return bgunGetNameId(weaponnum);
+	return g_Weapons[weaponnum]->name;
 }
 
 char *invGetNameByIndex(s32 index)

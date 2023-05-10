@@ -259,7 +259,7 @@ static s32 menuhandlerMpControlStyle(s32 operation, struct menuitem *item, union
 		optionsSetControlMode(g_MpPlayerNum, data->dropdown.value);
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-		data->dropdown.value = optionsGetControlMode(g_MpPlayerNum);
+		data->dropdown.value = g_PlayerConfigsArray[g_MpPlayerNum].controlmode;
 		break;
 	}
 
@@ -614,7 +614,7 @@ static s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union h
 
 		gdl = textRenderProjected(gdl, &x, &y, name,
 				g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour,
-				viGetWidth(), viGetHeight(), 0, 0);
+				g_ViBackData->x, g_ViBackData->y, 0, 0);
 
 		gdl = text0f153780(gdl);
 
@@ -4135,7 +4135,7 @@ s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union hand
 		y = renderdata->y + 1;
 
 		gdl = text0f153628(gdl);
-		gdl = textRenderProjected(gdl, &x, &y, challengeGetNameBySlot(data->type19.unk04), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRenderProjected(gdl, &x, &y, challengeGetNameBySlot(data->type19.unk04), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, g_ViBackData->x, g_ViBackData->y, 0, 0);
 		gdl = text0f153780(gdl);
 
 		gDPPipeSync(gdl++);

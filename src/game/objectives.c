@@ -84,11 +84,6 @@ s32 objGetTagNum(struct defaultobj *obj)
 	return -1;
 }
 
-s32 objectiveGetCount(void)
-{
-	return g_ObjectiveLastIndex + 1;
-}
-
 u32 objectiveGetDifficultyBits(s32 index)
 {
 	if (index < 10 && g_Objectives[index]) {
@@ -194,10 +189,10 @@ bool objectiveIsAllComplete(void)
 {
 	s32 i;
 
-	for (i = 0; i < objectiveGetCount(); i++) {
+	for (i = 0; i < (g_ObjectiveLastIndex + 1); i++) {
 		u32 diffbits = objectiveGetDifficultyBits(i);
 
-		if ((1 << lvGetDifficulty() & diffbits) &&
+		if ((1 << g_Difficulty & diffbits) &&
 				objectiveCheck(i) != OBJECTIVE_COMPLETE) {
 			return false;
 		}
@@ -241,7 +236,7 @@ void objectivesCheckAll(void)
 			if (g_ObjectiveStatuses[i] != status) {
 				g_ObjectiveStatuses[i] = status;
 
-				if (objectiveGetDifficultyBits(i) & (1 << lvGetDifficulty())) {
+				if (objectiveGetDifficultyBits(i) & (1 << g_Difficulty)) {
 					sprintf(buffer, "%s %d: ", langGet(L_MISC_044), availableindex + 1); // "Objective"
 
 					// NTSC 1.0 and above shows objective messages to everyone,
@@ -263,7 +258,7 @@ void objectivesCheckAll(void)
 				anyfailed = true;
 			}
 
-			if (objectiveGetDifficultyBits(i) & (1 << lvGetDifficulty())) {
+			if (objectiveGetDifficultyBits(i) & (1 << g_Difficulty)) {
 				availableindex++;
 			}
 		}
@@ -306,14 +301,14 @@ void objectiveCheckHolograph(f32 maxdist)
 					f32 sp70[2];
 					func0f06803c(&sp9c, sp94, sp8c, sp78, sp70);
 
-					if (sp78[0] > camGetScreenLeft()
-							&& sp78[0] < camGetScreenLeft() + camGetScreenWidth()
-							&& sp70[0] > camGetScreenLeft()
-							&& sp70[0] < camGetScreenLeft() + camGetScreenWidth()
-							&& sp78[1] > camGetScreenTop()
-							&& sp78[1] < camGetScreenTop() + camGetScreenHeight()
-							&& sp70[1] > camGetScreenTop()
-							&& sp70[1] < camGetScreenTop() + camGetScreenHeight()) {
+					if (sp78[0] > g_Vars.currentplayer->c_screenleft
+							&& sp78[0] < g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth
+							&& sp70[0] > g_Vars.currentplayer->c_screenleft
+							&& sp70[0] < g_Vars.currentplayer->c_screenleft + g_Vars.currentplayer->c_screenwidth
+							&& sp78[1] > g_Vars.currentplayer->c_screentop
+							&& sp78[1] < g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight
+							&& sp70[1] > g_Vars.currentplayer->c_screentop
+							&& sp70[1] < g_Vars.currentplayer->c_screentop + g_Vars.currentplayer->c_screenheight) {
 						criteria->status = OBJECTIVE_COMPLETE;
 
 						if (g_Vars.stagenum == STAGE_CITRAINING) {
