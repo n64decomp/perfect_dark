@@ -10,10 +10,6 @@
 #include "data.h"
 #include "types.h"
 
-u64 var80091568;
-u64 var80091580;
-u64 var80091588;
-u64 var80091590;
 AMAudioMgr g_AudioManager;
 OSScClient var800918d0;
 u32 var800918dc;
@@ -132,7 +128,7 @@ static void amgrMain(void *arg)
 	s32 msg = 0;
 	AudioInfo *info = NULL;
 
-	static u32 var8005d514 = 1;
+	static bool first = true;
 
 	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, true);
 
@@ -141,7 +137,6 @@ static void amgrMain(void *arg)
 
 		switch (msg) {
 		case OS_SC_RSP_MSG:
-			var80091588 = osGetTime();
 			profileStart(PROFILEMARKER_AUDIO);
 			amgrHandleFrameMsg(g_AudioManager.audioInfo[g_AdmaCurFrame % 3], info);
 			admaReceiveAll();
@@ -149,23 +144,11 @@ static void amgrMain(void *arg)
 			count++;
 			profileEnd(PROFILEMARKER_AUDIO);
 
-			var80091590 = osGetTime();
-
-			if (count % 240 == 0) {
-				var80091580 = 0; var80091568 = 0;
-			} else {
-				var80091580 = (var80091580 + var80091590) - var80091588;
-			}
-
-			if (var80091568 < var80091590 - var80091588) {
-				var80091568 = var80091590 - var80091588;
-			}
-
-			if (var8005d514 == 0) {
+			if (!first) {
 				osRecvMesg(&g_AudioManager.audioReplyMsgQ, (OSMesg *) &info, OS_MESG_BLOCK);
 			}
 
-			var8005d514 = 0;
+			first = false;
 			amgrHandleDoneMsg(info);
 			break;
 		case OS_SC_PRE_NMI_MSG:
