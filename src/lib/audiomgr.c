@@ -58,7 +58,7 @@ void amgrCreate(ALSynConfig *config)
 	var800918ec = 2000;
 
 	for (i = 0; i < ARRAYCOUNT(g_AudioManager.ACMDList); i++) {
-		g_AudioManager.ACMDList[i] = alHeapAlloc(&g_SndHeap, 1, var800918ec * sizeof(Acmd));
+		g_AudioManager.ACMDList[i] = UNCACHED(alHeapAlloc(&g_SndHeap, 1, var800918ec * sizeof(Acmd)));
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_AudioManager.audioInfo); i++) {
