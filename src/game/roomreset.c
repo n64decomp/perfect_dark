@@ -15,6 +15,7 @@ void roomsReset(void)
 	var80082050 = PLAYERCOUNT() >= 2 ? 200 : 120;
 
 	g_RoomMtxes = mempAlloc(ALIGN16(var80082050 * sizeof(struct roommtx)), MEMPOOL_STAGE);
+	g_RoomMtxMtxes = UNCACHED(mempAlloc(ALIGN16(var80082050 * sizeof(Mtx)), MEMPOOL_STAGE));
 	g_NextRoomMtx = 0;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {

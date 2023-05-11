@@ -7,6 +7,7 @@
 #include "types.h"
 
 struct roommtx *g_RoomMtxes;
+Mtx *g_RoomMtxMtxes;
 
 s32 var80082050 = 0;
 s32 g_NextRoomMtx = 0;
@@ -80,7 +81,7 @@ static struct roommtx *roomTouchMtx(s32 roomnum)
 	roommtx->somefloat = var8005ef10[0];
 
 	roomPopulateMtx(&mtx, roomnum);
-	mtx00016054(&mtx, &roommtx->mtx);
+	mtx00016054(&mtx, (void *) &g_RoomMtxMtxes[roommtx->index]);
 
 	return roommtx;
 }
@@ -89,7 +90,7 @@ Gfx *roomApplyMtx(Gfx *gdl, s32 roomnum)
 {
 	struct roommtx *roommtx = roomTouchMtx(roomnum);
 
-	gSPMatrix(gdl++, &roommtx->mtx, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(gdl++, &g_RoomMtxMtxes[roommtx->index], G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	return gdl;
 }

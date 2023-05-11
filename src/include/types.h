@@ -6366,7 +6366,6 @@ struct xz {
 };
 
 struct roommtx {
-	Mtxf mtx;
 	u8 index;
 	s8 playernum;
 	s32 lvframe;
