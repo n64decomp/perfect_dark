@@ -51,7 +51,7 @@
 #include "lib/snd.h"
 #include "types.h"
 
-u8 *aiTick(u8 *ptr);
+u8 *aiTick(u8 *ptr, struct chrdata *chr);
 
 void chraiExecute(void *entity, s32 proptype)
 {
@@ -136,7 +136,7 @@ void chraiExecute(void *entity, s32 proptype)
 		}
 
 		// Execute the ailist
-		cmd = aiTick(cmd);
+		cmd = aiTick(cmd, g_Vars.chrdata);
 
 		if (g_Vars.chrdata) {
 			g_Vars.chrdata->aioffset = cmd;
@@ -146,19 +146,19 @@ void chraiExecute(void *entity, s32 proptype)
 	}
 }
 
-void aiTerminateCleanup(void)
+void aiTerminateCleanup(struct chrdata *chr)
 {
-	if (g_Vars.chrdata) {
-		g_Vars.chrdata->ailist = NULL;
+	if (chr) {
+		chr->ailist = NULL;
 
-		if (g_Vars.chrdata->model == NULL) {
+		if (chr->model == NULL) {
 			// It's a BG chr (1xxx script).
 			// Remove ourselves from the BG chrs array and shift the later ones back.
 			s32 myindex = -1;
 			s32 i;
 
 			for (i = 0; i < g_NumBgChrs; i++) {
-				if (g_Vars.chrdata == &g_BgChrs[i]) {
+				if (chr == &g_BgChrs[i]) {
 					myindex = i;
 					break;
 				}

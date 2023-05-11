@@ -38,16 +38,11 @@
 #include "game/training.h"
 #include "types.h"
 
-bool ai0045(s32 chrref)
+bool ai0045(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
-	return chr && chr->prop && chrHasLineOfSightToPos(g_Vars.chrdata, &chr->prop->pos, chr->prop->rooms);
-}
-
-bool ai0075(s32 value)
-{
-	return func0f04a4ec(g_Vars.chrdata, value);
+	return chr && chr->prop && chrHasLineOfSightToPos(self, &chr->prop->pos, chr->prop->rooms);
 }
 
 void ai00cf(s32 channel, s32 tagnum, bool thing)
@@ -64,17 +59,17 @@ void ai00d0(s32 padnum, s32 sound)
 	propsnd0f0939f8(0, NULL, sound, padnum, -1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 }
 
-void ai0139(u32 angle, s32 arg1, s32 arg2)
+void ai0139(struct chrdata *self, u32 angle, s32 arg1, s32 arg2)
 {
 	struct coord pos;
 
-	chr0f04c874(g_Vars.chrdata, angle, &pos, arg1, arg2);
+	chr0f04c874(self, angle, &pos, arg1, arg2);
 }
 
-void ai013e(void)
+void ai013e(struct chrdata *self)
 {
-	if (func0f03aca0(g_Vars.chrdata, 400, true) == 0 && chrAssignCoverAwayFromDanger(g_Vars.chrdata, 1000, 12000) != -1) {
-		chrGoToCover(g_Vars.chrdata, GOPOSFLAG_RUN);
+	if (func0f03aca0(self, 400, true) == 0 && chrAssignCoverAwayFromDanger(self, 1000, 12000) != -1) {
+		chrGoToCover(self, GOPOSFLAG_RUN);
 	}
 }
 
@@ -95,21 +90,19 @@ void ai016b(s32 channel, s32 tagnum, s32 thing1, s32 thing2, s32 thing3)
 	}
 }
 
-bool ai0176(void)
+bool ai0176(struct chrdata *self)
 {
-	if (g_Vars.chrdata->aibot->unk059 == 1) {
-		g_Vars.chrdata->aibot->unk059 = 0;
+	if (self->aibot->unk059 == 1) {
+		self->aibot->unk059 = 0;
 		return true;
 	}
 
 	return false;
 }
 
-bool ai01b4(void)
+bool ai01b4(struct chrdata *self)
 {
-	return g_Vars.chrdata
-		&& g_Vars.chrdata->prop
-		&& chr0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, 0, false);
+	return self && self->prop && chr0f01f264(self, &self->prop->pos, self->prop->rooms, 0, false);
 }
 
 void aiActivateLift(s32 liftnum, s32 tagnum)
@@ -121,34 +114,19 @@ void aiActivateLift(s32 liftnum, s32 tagnum)
 	}
 }
 
-void aiAddAlertness(s32 amount)
-{
-	incrementByte(&g_Vars.chrdata->alertness, amount);
-}
-
-void aiAddHealth(f32 amount)
-{
-	chrAddHealth(g_Vars.chrdata, amount);
-}
-
-void aiAddMorale(s32 amount)
-{
-	incrementByte(&g_Vars.chrdata->morale, amount);
-}
-
 void aiAssignSound(s32 soundnum, s32 channel)
 {
 	audioPlayFromProp(channel, soundnum, -1, NULL, 11, 0);
 }
 
-void aiAttackAmount(s32 value1, s32 value2)
+void aiAttackAmount(struct chrdata *self, s32 value1, s32 value2)
 {
-	chrTryAttackAmount(g_Vars.chrdata, 512, 0, value1, value2);
+	chrTryAttackAmount(self, 512, 0, value1, value2);
 }
 
-void aiAutoWalk(s32 chrref, s32 padnum, s32 walkspeed, s32 turnspeed, s32 lookup, s32 dist)
+void aiAutoWalk(struct chrdata *self, s32 chrref, s32 padnum, s32 walkspeed, s32 turnspeed, s32 lookup, s32 dist)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
@@ -159,7 +137,7 @@ void aiAutoWalk(s32 chrref, s32 padnum, s32 walkspeed, s32 turnspeed, s32 lookup
 	}
 }
 
-void aiChrBeginTeleport(s32 chrref, s32 padnum)
+void aiChrBeginTeleport(struct chrdata *self, s32 chrref, s32 padnum)
 {
 	f32 fvalue;
 	struct chrdata *chr;
@@ -170,7 +148,7 @@ void aiChrBeginTeleport(s32 chrref, s32 padnum)
 	struct sndstate *handle;
 	fvalue = 0.4;
 
-	chr = chrFindById(g_Vars.chrdata, chrref);
+	chr = chrFindById(self, chrref);
 	prevplayernum = g_Vars.currentplayernum;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -198,13 +176,13 @@ void aiChrBeginTeleport(s32 chrref, s32 padnum)
 	setCurrentPlayerNum(prevplayernum);
 }
 
-void aiChrEndTeleport(s32 chrref)
+void aiChrEndTeleport(struct chrdata *self, s32 chrref)
 {
 	struct chrdata *chr;
 	u32 playernum;
 	u32 prevplayernum;
 
-	chr = chrFindById(g_Vars.chrdata, chrref);
+	chr = chrFindById(self, chrref);
 	prevplayernum = g_Vars.currentplayernum;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -218,51 +196,51 @@ void aiChrEndTeleport(s32 chrref)
 	setCurrentPlayerNum(prevplayernum);
 }
 
-void aiCallRng(void)
+void aiCallRng(struct chrdata *self)
 {
-	g_Vars.chrdata->random = random() & 0xff;
+	self->random = random() & 0xff;
 }
 
-bool aiCheckCoverOutOfSight(void)
+bool aiCheckCoverOutOfSight(struct chrdata *self)
 {
-	return chrCheckCoverOutOfSight(g_Vars.chrdata, g_Vars.chrdata->cover, false);
+	return chrCheckCoverOutOfSight(self, self->cover, false);
 }
 
-void aiChrAddAlertness(s32 chrref, s32 amount)
+void aiChrAddAlertness(struct chrdata *self, s32 chrref, s32 amount)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop) {
 		incrementByte(&chr->alertness, amount);
 	}
 }
 
-void aiChrAddMotionBlur(s32 chrref, s32 amount)
+void aiChrAddMotionBlur(struct chrdata *self, s32 chrref, s32 amount)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chr->blurdrugamount += TICKS(amount);
 	}
 }
 
-bool aiChrCopyProperties(s32 srcchrref)
+bool aiChrCopyProperties(struct chrdata *self, s32 srcchrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, srcchrref);
+	struct chrdata *chr = chrFindById(self, srcchrref);
 
 	if (chr && chr->model) {
-		g_Vars.chrdata->hearingscale = chr->hearingscale;
-		g_Vars.chrdata->visionrange = chr->visionrange;
-		g_Vars.chrdata->padpreset1 = chr->padpreset1;
-		g_Vars.chrdata->chrpreset1 = chr->chrpreset1;
-		g_Vars.chrdata->flags = chr->flags;
-		g_Vars.chrdata->flags2 = chr->flags2;
-		g_Vars.chrdata->team = chr->team;
-		g_Vars.chrdata->squadron = chr->squadron;
-		g_Vars.chrdata->naturalanim = chr->naturalanim;
-		g_Vars.chrdata->myspecial = chr->myspecial;
-		g_Vars.chrdata->yvisang = chr->yvisang;
-		g_Vars.chrdata->teamscandist = chr->teamscandist;
+		self->hearingscale = chr->hearingscale;
+		self->visionrange = chr->visionrange;
+		self->padpreset1 = chr->padpreset1;
+		self->chrpreset1 = chr->chrpreset1;
+		self->flags = chr->flags;
+		self->flags2 = chr->flags2;
+		self->team = chr->team;
+		self->squadron = chr->squadron;
+		self->naturalanim = chr->naturalanim;
+		self->myspecial = chr->myspecial;
+		self->yvisang = chr->yvisang;
+		self->teamscandist = chr->teamscandist;
 
 		return true;
 	}
@@ -270,10 +248,10 @@ bool aiChrCopyProperties(s32 srcchrref)
 	return false;
 }
 
-void aiChrDamageChr(s32 chr1num, s32 chr2num, s32 hitpart)
+void aiChrDamageChr(struct chrdata *self, s32 chr1num, s32 chr2num, s32 hitpart)
 {
-	struct chrdata *chr1 = chrFindById(g_Vars.chrdata, chr1num);
-	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, chr2num);
+	struct chrdata *chr1 = chrFindById(self, chr1num);
+	struct chrdata *chr2 = chrFindById(self, chr2num);
 
 	if (chr1 && chr2 && chr1->prop && chr2->prop) {
 		struct prop *prop = chrGetHeldUsableProp(chr1, HAND_RIGHT);
@@ -297,14 +275,14 @@ void aiChrDamageChr(s32 chr1num, s32 chr2num, s32 hitpart)
 	}
 }
 
-void aiChrDoAnimation(s32 anim_id, s32 startframe, s32 endframe, s32 chranimflags, s32 timemerge, s32 chrref, s32 animspeed)
+void aiChrDoAnimation(struct chrdata *self, s32 chrref, s32 anim_id, s32 startframe, s32 endframe, s32 chranimflags, s32 timemerge, s32 animspeed)
 {
 	struct chrdata *chr = NULL;
 	f32 fstartframe;
 	f32 fendframe;
 
-	if (g_Vars.chrdata) {
-		chr = chrFindById(g_Vars.chrdata, chrref);
+	if (self) {
+		chr = chrFindById(self, chrref);
 	}
 
 	if (startframe == 0xffff) {
@@ -347,18 +325,18 @@ void aiChrDoAnimation(s32 anim_id, s32 startframe, s32 endframe, s32 chranimflag
 	}
 }
 
-void aiChrEmitSparks(s32 chrref)
+void aiChrEmitSparks(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chrDrCarollEmitSparks(chr);
 	}
 }
 
-void aiChrExplosions(s32 chrref)
+void aiChrExplosions(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
@@ -369,10 +347,10 @@ void aiChrExplosions(s32 chrref)
 	}
 }
 
-void aiChrGrabObject(s32 chrref, s32 tagnum)
+void aiChrGrabObject(struct chrdata *self, s32 chrref, s32 tagnum)
 {
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER && obj && obj->prop) {
 		u32 prevplayernum = g_Vars.currentplayernum;
@@ -389,9 +367,9 @@ void aiChrGrabObject(s32 chrref, s32 tagnum)
 	}
 }
 
-void aiChrKill(s32 chrref)
+void aiChrKill(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chr->actiontype = ACT_DEAD;
@@ -405,12 +383,12 @@ void aiChrKill(s32 chrref)
 	}
 }
 
-bool aiChrMoveToChr(s32 chrref, s32 chrref2)
+bool aiChrMoveToChr(struct chrdata *self, s32 chrref, s32 chrref2)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop) {
-		struct chrdata *chr2 = chrFindById(g_Vars.chrdata, chrref2);
+		struct chrdata *chr2 = chrFindById(self, chrref2);
 
 		if (chr2 && chr2->prop) {
 			f32 theta = chrGetInverseTheta(chr2);
@@ -421,9 +399,9 @@ bool aiChrMoveToChr(s32 chrref, s32 chrref2)
 	return false;
 }
 
-bool aiChrMoveToPad(s32 chrref, s32 padnum, bool allowonscreen)
+bool aiChrMoveToPad(struct chrdata *self, s32 chrref, s32 padnum, bool allowonscreen)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop) {
 		padnum = chrResolvePadId(chr, padnum);
@@ -443,9 +421,9 @@ bool aiChrMoveToPad(s32 chrref, s32 padnum, bool allowonscreen)
 	return false;
 }
 
-void aiChrSetCutsceneWeapon(s32 chrref, s32 weapon1num, s32 weapon2num)
+void aiChrSetCutsceneWeapon(struct chrdata *self, s32 chrref, s32 weapon1num, s32 weapon2num)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	s32 model_id = playermgrGetModelOfWeapon(weapon1num);
 	s32 fallback_model_id = playermgrGetModelOfWeapon(weapon2num);
 
@@ -494,9 +472,9 @@ void aiChrSetCutsceneWeapon(s32 chrref, s32 weapon1num, s32 weapon2num)
 	}
 }
 
-void aiChrSetFiringInCutscene(s32 chrref, bool firing)
+void aiChrSetFiringInCutscene(struct chrdata *self, s32 chrref, bool firing)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	struct coord from = {0, 0, 0};
 	struct coord to = {0, 0, 0};
 
@@ -510,23 +488,18 @@ void aiChrSetFiringInCutscene(s32 chrref, bool firing)
 	}
 }
 
-void aiChrSetFlag(s32 chrref, s32 bank, u32 flag)
+void aiChrSetChrflag(struct chrdata *self, s32 chrref, u32 flag)
 {
-	chrSetFlagsById(g_Vars.chrdata, chrref, flag, bank);
-}
-
-void aiChrSetChrflag(s32 chrref, u32 flag)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chr->chrflags |= flag;
 	}
 }
 
-void aiChrSetCloaked(s32 chrref, bool enable, bool withsound)
+void aiChrSetCloaked(struct chrdata *self, s32 chrref, bool enable, bool withsound)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && !chrIsDead(chr)) {
 		if (enable) {
@@ -537,37 +510,37 @@ void aiChrSetCloaked(s32 chrref, bool enable, bool withsound)
 	}
 }
 
-void aiChrSetHiddenFlag(s32 chrref, u32 flag)
+void aiChrSetHiddenFlag(struct chrdata *self, s32 chrref, u32 flag)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chr->hidden |= flag;
 	}
 }
 
-void aiChrSetTeam(s32 chrref, s32 team)
+void aiChrSetTeam(struct chrdata *self, s32 chrref, s32 team)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chr->team = team;
 	}
 }
 
-void aiChrToggleModelPart(s32 chrref, s32 partnum)
+void aiChrToggleModelPart(struct chrdata *self, s32 chrref, s32 partnum)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chrToggleModelPart(chr, partnum);
 	}
 }
 
-void aiChrToggleP1P2(s32 chrref)
+void aiChrToggleP1P2(struct chrdata *self, s32 chrref)
 {
 	if (g_Vars.coopplayernum >= 0) {
-		struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+		struct chrdata *chr = chrFindById(self, chrref);
 
 		if (chr) {
 			if (chr->p1p2 == g_Vars.bondplayernum && !g_Vars.coop->isdead) {
@@ -579,23 +552,18 @@ void aiChrToggleP1P2(s32 chrref)
 	}
 }
 
-void aiChrUnsetChrflag(s32 chrref, u32 flag)
+void aiChrUnsetChrflag(struct chrdata *self, s32 chrref, u32 flag)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chr->chrflags &= ~flag;
 	}
 }
 
-void aiChrUnsetFlag(s32 chrref, u32 flag, s32 bank)
+void aiChrUnsetHiddenFlag(struct chrdata *self, s32 chrref, u32 flag)
 {
-	chrUnsetFlagsById(g_Vars.chrdata, chrref, flag, bank);
-}
-
-void aiChrUnsetHiddenFlag(s32 chrref, u32 flag)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chr->hidden &= ~flag;
@@ -631,25 +599,25 @@ void aiCloseDoor(s32 tagnum)
 	}
 }
 
-bool aiConsiderGrenadeThrow(void)
+bool aiConsiderGrenadeThrow(struct chrdata *self)
 {
-	return chrConsiderGrenadeThrow(g_Vars.chrdata, 512, 0);
+	return chrConsiderGrenadeThrow(self, 512, 0);
 }
 
-void aiDamageChrByAmount(s32 chrref, f32 damage)
+void aiDamageChrByAmount(struct chrdata *self, s32 chrref, f32 damage)
 {
 	struct coord coord = {0, 0, 0};
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop) {
 		chrDamageByMisc(chr, damage, &coord, NULL, NULL);
 	}
 }
 
-void aiDamageAndPoisonChrByAmount(s32 chrref, f32 damage)
+void aiDamageAndPoisonChrByAmount(struct chrdata *self, s32 chrref, f32 damage)
 {
 	struct coord coord = {0, 0, 0};
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop) {
 		struct gset gset = {WEAPON_COMBATKNIFE, 0, 0, FUNC_POISON};
@@ -657,9 +625,9 @@ void aiDamageAndPoisonChrByAmount(s32 chrref, f32 damage)
 	}
 }
 
-void aiDamageChr(s32 chrref, s32 hitpart, u32 gset)
+void aiDamageChr(struct chrdata *self, s32 chrref, s32 hitpart, u32 gset)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	struct coord pos = {0, 0, 0};
 
 	if (chr && chr->prop) {
@@ -686,7 +654,7 @@ void aiDestroyObject(s32 tagnum)
 	}
 }
 
-bool aiDetectEnemy(f32 maxdist)
+bool aiDetectEnemy(struct chrdata *self, f32 maxdist)
 {
 	s16 *chrnums;
 	s32 team = 0;
@@ -695,7 +663,7 @@ bool aiDetectEnemy(f32 maxdist)
 
 	chrnums = teamGetChrIds(1);
 
-	if (!g_Vars.chrdata) {
+	if (!self) {
 		return false;
 	}
 
@@ -712,7 +680,7 @@ bool aiDetectEnemy(f32 maxdist)
 	do {
 		u8 teamvalue = (1 << team);
 
-		while (*chrnums != -2 && g_Vars.chrdata->team != teamvalue) {
+		while (*chrnums != -2 && self->team != teamvalue) {
 			struct chrdata *chr = chrFindByLiteralId(*chrnums);
 
 			if (chr && chr->prop
@@ -722,34 +690,34 @@ bool aiDetectEnemy(f32 maxdist)
 					&& chr->actiontype != ACT_DRUGGEDKO
 					&& chr->actiontype != ACT_DRUGGEDDROP
 					&& chr->actiontype != ACT_DRUGGEDCOMINGUP
-					&& chrCompareTeams(g_Vars.chrdata, chr, COMPARE_ENEMIES)
-					&& chr != g_Vars.chrdata
+					&& chrCompareTeams(self, chr, COMPARE_ENEMIES)
+					&& chr != self
 					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
 					&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
 					&& (chr->hidden & CHRHFLAG_DISGUISED) == 0
 					&& chr->team != TEAM_NONCOMBAT
 					&& (
-						(g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
+						(self->hidden & CHRHFLAG_PSYCHOSISED) == 0
 						|| (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0
 						|| (chr->hidden & CHRHFLAG_DONTSHOOTME))) {
-				f32 distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
+				f32 distance = chrGetDistanceToChr(self, chr->chrnum);
 
 				if (distance < maxdist && distance != 0 && distance < closestdist
-						&& chrCanSeeProp(g_Vars.chrdata, chr->prop)
+						&& chrCanSeeProp(self, chr->prop)
 						&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0) {
-					if (g_Vars.chrdata->yvisang == 0) {
+					if (self->yvisang == 0) {
 						closestdist = distance;
 						closesttarg = chr->chrnum;
 					} else {
-						s16 prevtarget = g_Vars.chrdata->target;
-						g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, chr->chrnum);
+						s16 prevtarget = self->target;
+						self->target = propGetIndexByChrId(self, chr->chrnum);
 
-						if (chrIsVerticalAngleToTargetWithin(g_Vars.chrdata, g_Vars.chrdata->yvisang)) {
+						if (chrIsVerticalAngleToTargetWithin(self, self->yvisang)) {
 							closestdist = distance;
 							closesttarg = chr->chrnum;
 						}
 
-						g_Vars.chrdata->target = prevtarget;
+						self->target = prevtarget;
 					}
 				}
 			}
@@ -768,14 +736,14 @@ bool aiDetectEnemy(f32 maxdist)
 	} while (team < 8);
 
 	if (closesttarg != -1) {
-		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, closesttarg);
+		self->target = propGetIndexByChrId(self, closesttarg);
 		return true;
 	}
 
 	return false;
 }
 
-bool aiDetectEnemyOnSameFloor(void)
+bool aiDetectEnemyOnSameFloor(struct chrdata *self)
 {
 	s32 team = 0;
 	f32 closestdist = 9999.9;
@@ -787,15 +755,15 @@ bool aiDetectEnemyOnSameFloor(void)
 	struct chrdata *chr;
 	s16 newtarget = -1;
 
-	if (g_Vars.chrdata->teamscandist == 0) {
+	if (self->teamscandist == 0) {
 		scandist = 1500;
-	} else if (g_Vars.chrdata->teamscandist == 255) {
+	} else if (self->teamscandist == 255) {
 		scandist = 9999;
 	} else {
-		scandist = g_Vars.chrdata->teamscandist * 40.0f;
+		scandist = self->teamscandist * 40.0f;
 	}
 
-	y = g_Vars.chrdata->prop->pos.y;
+	y = self->prop->pos.y;
 
 	while (team < 8) {
 		chr = chrFindByLiteralId(*chrnums);
@@ -808,17 +776,17 @@ bool aiDetectEnemyOnSameFloor(void)
 					&& chr->actiontype != ACT_DRUGGEDKO
 					&& chr->actiontype != ACT_DRUGGEDDROP
 					&& chr->actiontype != ACT_DRUGGEDCOMINGUP
-					&& chrCompareTeams(g_Vars.chrdata, chr, COMPARE_ENEMIES)
+					&& chrCompareTeams(self, chr, COMPARE_ENEMIES)
 					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
 					&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
 					&& (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0
 					&& y - chr->prop->pos.y > -200
 					&& y - chr->prop->pos.y < 200
-					&& ((g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
+					&& ((self->hidden & CHRHFLAG_PSYCHOSISED) == 0
 						|| (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0
 						|| (chr->hidden & CHRHFLAG_DONTSHOOTME))
-					&& g_Vars.chrdata->chrnum != chr->chrnum) {
-				distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
+					&& self->chrnum != chr->chrnum) {
+				distance = chrGetDistanceToChr(self, chr->chrnum);
 
 				if (distance < closestdist) {
 					if (distance < scandist || g_Vars.stagenum == STAGE_MAIANSOS) {
@@ -838,14 +806,14 @@ bool aiDetectEnemyOnSameFloor(void)
 	}
 
 	if (newtarget != -1) {
-		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, newtarget);
+		self->target = propGetIndexByChrId(self, newtarget);
 		return true;
 	}
 
 	return false;
 }
 
-void aiDoPresetAnimation(u32 value)
+void aiDoPresetAnimation(struct chrdata *self, u32 value)
 {
 	// These all appear to be talking animations
 	static u16 anims[] = {
@@ -867,26 +835,26 @@ void aiDoPresetAnimation(u32 value)
 	};
 
 	if (value == 255) {
-		chrTryStartAnim(g_Vars.chrdata, anims[7 + (random() % 8)], 0, -1, 0, 15, 0.5);
+		chrTryStartAnim(self, anims[7 + (random() % 8)], 0, -1, 0, 15, 0.5);
 	} else if (value == 254) {
-		struct prop *prop0 = chrGetHeldProp(g_Vars.chrdata, 1);
-		struct prop *prop1 = chrGetHeldProp(g_Vars.chrdata, 0);
+		struct prop *prop0 = chrGetHeldProp(self, 1);
+		struct prop *prop1 = chrGetHeldProp(self, 0);
 
 		if (weaponIsOneHanded(prop0) || weaponIsOneHanded(prop1)) {
-			chrTryStartAnim(g_Vars.chrdata, ANIM_FIX_GUN_JAM_EASY, 0, -1, 0, 5, 0.5);
+			chrTryStartAnim(self, ANIM_FIX_GUN_JAM_EASY, 0, -1, 0, 5, 0.5);
 		} else {
-			chrTryStartAnim(g_Vars.chrdata, ANIM_FIX_GUN_JAM_HARD, 0, -1, 0, 5, 0.5);
+			chrTryStartAnim(self, ANIM_FIX_GUN_JAM_HARD, 0, -1, 0, 5, 0.5);
 		}
 	} else if (value == 3) {
-		chrTryStartAnim(g_Vars.chrdata, anims[3 + (random() & 1)], 0, -1, 0, 15, 0.5);
+		chrTryStartAnim(self, anims[3 + (random() & 1)], 0, -1, 0, 15, 0.5);
 	} else {
-		chrTryStartAnim(g_Vars.chrdata, anims[value], 0, -1, 0, 15, 0.5);
+		chrTryStartAnim(self, anims[value], 0, -1, 0, 15, 0.5);
 	}
 }
 
-void aiChrDrawWeapon(s32 chrref, s32 weaponnum)
+void aiChrDrawWeapon(struct chrdata *self, s32 chrref, s32 weaponnum)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
@@ -898,9 +866,9 @@ void aiChrDrawWeapon(s32 chrref, s32 weaponnum)
 	}
 }
 
-void aiChrDrawWeaponInCutscene(s32 chrref, s32 weaponnum)
+void aiChrDrawWeaponInCutscene(struct chrdata *self, s32 chrref, s32 weaponnum)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
@@ -911,18 +879,18 @@ void aiChrDrawWeaponInCutscene(s32 chrref, s32 weaponnum)
 	}
 }
 
-void aiChrDropItems(s32 chrref)
+void aiChrDropItems(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop) {
 		chrDropConcealedItems(chr);
 	}
 }
 
-void aiChrDropWeapon(s32 chrref)
+void aiChrDropWeapon(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop) {
 		if (chr->prop->type == PROPTYPE_PLAYER) {
@@ -948,9 +916,9 @@ void aiChrDropWeapon(s32 chrref)
 	}
 }
 
-void aiDisableChr(s32 chrref)
+void aiDisableChr(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->model) {
 		propDeregisterRooms(chr->prop);
@@ -974,9 +942,9 @@ void aiDisableObj(s32 tagnum)
 	}
 }
 
-bool aiDuplicateChr(s32 chrref, u8 *ailist, u32 spawnflags)
+bool aiDuplicateChr(struct chrdata *self, s32 chrref, u8 *ailist, u32 spawnflags)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	struct chrdata *clone = NULL;
 	struct weaponobj *srcweapon1 = NULL;
 	struct prop *cloneprop = NULL;
@@ -989,7 +957,7 @@ bool aiDuplicateChr(s32 chrref, u8 *ailist, u32 spawnflags)
 	struct prop *cloneweapon1prop = NULL;
 
 	if (chr && (chr->chrflags & CHRCFLAG_CLONEABLE)) {
-		cloneprop = chrSpawnAtChr(g_Vars.chrdata, chr->bodynum, -1, chr->chrnum, ailist, spawnflags);
+		cloneprop = chrSpawnAtChr(self, chr->bodynum, -1, chr->chrnum, ailist, spawnflags);
 
 		if (cloneprop) {
 			clone = cloneprop->chr;
@@ -1052,9 +1020,9 @@ bool aiDuplicateChr(s32 chrref, u8 *ailist, u32 spawnflags)
 	return false;
 }
 
-void aiEnableChr(s32 chrref)
+void aiEnableChr(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->model) {
 		propActivate(chr->prop);
@@ -1092,53 +1060,23 @@ void aiEndLevel(void)
 	}
 }
 
-void aiFadeOut(void)
+bool aiFindCover(struct chrdata *self, u32 criteria)
 {
-	chrFadeOut(g_Vars.chrdata);
+	return self && self->prop && chrAssignCoverByCriteria(self, criteria, 0) != -1;
 }
 
-bool aiFindCover(u32 criteria)
+f32 aiGetChrShield(struct chrdata *self, s32 chrref)
 {
-	return g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, 0) != -1;
-}
-
-s32 aiGetAlertness(void)
-{
-	return g_Vars.chrdata->alertness;
-}
-
-f32 aiGetAngleToTarget(void)
-{
-	return chrGetAngleToTarget(g_Vars.chrdata);
-}
-
-f32 aiGetChrShield(s32 chrref)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	return chr->cshield;
 }
 
-bool aiIfRoomIsOnScreen(s32 padnum)
+bool aiIfRoomIsOnScreen(struct chrdata *self, s32 padnum)
 {
-	s32 roomnum = chrGetPadRoom(g_Vars.chrdata, padnum);
+	s32 roomnum = chrGetPadRoom(self, padnum);
 
 	return roomnum >= 0 && roomIsOnscreen(roomnum);
-}
-
-f32 aiGetDistanceFromTargetToPad(s32 pad)
-{
-	return chrGetDistanceFromTargetToPad(g_Vars.chrdata, pad);
-}
-
-f32 aiGetDistanceToChr(s32 chrref)
-{
-	return chrGetDistanceToChr(g_Vars.chrdata, chrref);
-}
-
-f32 aiGetDistanceToTarget(void)
-{
-	return chrGetDistanceToTarget(g_Vars.chrdata);
 }
 
 s32 aiGetHoverbotNextStep(void)
@@ -1184,11 +1122,6 @@ s32 aiGetNumPlayers(void)
 	return PLAYERCOUNT();
 }
 
-s32 aiGetNumTimesShot(void)
-{
-	return g_Vars.chrdata->numarghs;
-}
-
 s32 aiGetObjDamage(s32 tagnum)
 {
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
@@ -1200,15 +1133,10 @@ s32 aiGetObjDamage(s32 tagnum)
 	return obj->damage;
 }
 
-s32 aiGetSoundTimer(void)
+s32 aiGetTimer(struct chrdata *self)
 {
-	return g_Vars.chrdata->soundtimer;
-}
-
-s32 aiGetTimer(void)
-{
-	if (g_Vars.chrdata) {
-		return g_Vars.chrdata->timer60;
+	if (self) {
+		return self->timer60;
 	}
 
 	if (g_Vars.hovercar) {
@@ -1218,10 +1146,10 @@ s32 aiGetTimer(void)
 	return 0;
 }
 
-s32 aiGetRandom(void)
+s32 aiGetRandom(struct chrdata *self)
 {
-	if (g_Vars.chrdata) {
-		return g_Vars.chrdata->random;
+	if (self) {
+		return self->random;
 	}
 
 	if (g_Vars.hovercar) {
@@ -1231,10 +1159,10 @@ s32 aiGetRandom(void)
 	return 0;
 }
 
-void aiGiveObjectToChr(s32 tagnum, s32 chrref)
+void aiGiveObjectToChr(struct chrdata *self, s32 tagnum, s32 chrref)
 {
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (obj && obj->prop && chr && chr->prop) {
 		if (chr->prop->type == PROPTYPE_PLAYER) {
@@ -1271,24 +1199,14 @@ void aiGiveObjectToChr(s32 tagnum, s32 chrref)
 	}
 }
 
-void aiGoToCover(u32 speed)
+void aiGoToPadPreset(struct chrdata *self, s32 speed)
 {
-	chrGoToCover(g_Vars.chrdata, speed);
+	chrGoToPad(self, self->padpreset1, speed);
 }
 
-void aiGoToGun(void)
+void aiGrantControl(struct chrdata *self, s32 chrref)
 {
-	chrGoToProp(g_Vars.chrdata, g_Vars.chrdata->gunprop, GOPOSFLAG_JOG);
-}
-
-void aiGoToPadPreset(s32 speed)
-{
-	chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, speed);
-}
-
-void aiGrantControl(s32 chrref)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
@@ -1381,31 +1299,31 @@ bool aiIfAnyoneActivatedObject(s32 tagnum)
 	return false;
 }
 
-bool aiIfAutoWalkFinished(s32 chrref)
+bool aiIfAutoWalkFinished(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	return !(chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER && g_Vars.tickmode == TICKMODE_AUTOWALK);
 }
 
-bool aiIfCanSeeAttackTarget(void)
+bool aiIfCanSeeAttackTarget(struct chrdata *self)
 {
-	return (g_Vars.chrdata && g_Vars.chrdata->prop && chrCanSeeAttackTarget(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, true))
+	return (self && self->prop && chrCanSeeAttackTarget(self, &self->prop->pos, self->prop->rooms, true))
 		|| (g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar));
 }
 
-bool aiIfCanSeeTarget(void)
+bool aiIfCanSeeTarget(struct chrdata *self)
 {
-	return (g_Vars.chrdata && chrCanSeeTarget(g_Vars.chrdata))
+	return (self && chrCanSeeTarget(self))
 		|| (g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar));
 }
 
-bool aiIfChrActivatedObject(s32 chrref, s32 tagnum)
+bool aiIfChrActivatedObject(struct chrdata *self, s32 chrref, s32 tagnum)
 {
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
-		struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+		struct chrdata *chr = chrFindById(self, chrref);
 
 		if (chr && chr->prop) {
 			if (chr->prop == g_Vars.bond->prop && (obj->hidden & OBJHFLAG_ACTIVATED_BY_BOND)) {
@@ -1423,9 +1341,9 @@ bool aiIfChrActivatedObject(s32 chrref, s32 tagnum)
 	return false;
 }
 
-bool aiIfChrDead(s32 chrref)
+bool aiIfChrDead(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (!chr) {
 		return true;
@@ -1442,9 +1360,9 @@ bool aiIfChrDead(s32 chrref)
 	return false;
 }
 
-bool aiIfChrDeadish(s32 chrref)
+bool aiIfChrDeadish(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	bool dead = false;
 
 	if (!chr || !chr->prop) {
@@ -1466,9 +1384,9 @@ bool aiIfChrDeadish(s32 chrref)
 	return dead;
 }
 
-bool aiIfChrDeathAnimationFinished(s32 chrref)
+bool aiIfChrDeathAnimationFinished(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (!chr || !chr->prop) {
 		return true;
@@ -1482,31 +1400,31 @@ bool aiIfChrDeathAnimationFinished(s32 chrref)
 	return chr->actiontype == ACT_DEAD;
 }
 
-bool aiIfChrDistanceToPadGreaterThan(s32 chrref, s32 padnum, f32 distance)
+bool aiIfChrDistanceToPadGreaterThan(struct chrdata *self, s32 chrref, s32 padnum, f32 distance)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (padnum == 9000) {
-		padnum = g_Vars.chrdata->padpreset1;
+		padnum = self->padpreset1;
 	}
 
 	return chr && padnum < 9000 && chrGetSquaredDistanceToPad(chr, padnum) > distance * distance;
 }
 
-bool aiIfChrDistanceToPadLessThan(s32 chrref, s32 padnum, f32 distance)
+bool aiIfChrDistanceToPadLessThan(struct chrdata *self, s32 chrref, s32 padnum, f32 distance)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (padnum == 9000) {
-		padnum = g_Vars.chrdata->padpreset1;
+		padnum = self->padpreset1;
 	}
 
 	return chr && padnum < 9000 && chrGetSquaredDistanceToPad(chr, padnum) < distance * distance;
 }
 
-bool aiIfChrInjuredTarget(s32 chrref)
+bool aiIfChrInjuredTarget(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && (chr->chrflags & CHRCFLAG_INJUREDTARGET)) {
 		chr->chrflags &= ~CHRCFLAG_INJUREDTARGET;
@@ -1516,19 +1434,19 @@ bool aiIfChrInjuredTarget(s32 chrref)
 	return false;
 }
 
-bool aiIfChrInSameRoomAsPad(s32 chrref, s32 padnum)
+bool aiIfChrInSameRoomAsPad(struct chrdata *self, s32 chrref, s32 padnum)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
-	s32 room = chrGetPadRoom(g_Vars.chrdata, padnum);
+	struct chrdata *chr = chrFindById(self, chrref);
+	s32 room = chrGetPadRoom(self, padnum);
 
 	return room >= 0 && chr && chr->prop && chr->prop->rooms[0] == room;
 }
 
-bool aiIfChrInSearchRoom(s32 chrref)
+bool aiIfChrInSearchRoom(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
-	return chr && chr->prop && chr->prop->rooms[0] == g_Vars.chrdata->roomtosearch;
+	return chr && chr->prop && chr->prop->rooms[0] == self->roomtosearch;
 }
 
 bool aiIfCountdownTimerExpired(void)
@@ -1558,9 +1476,9 @@ bool aiIfEyespyNearG5Pad(s32 padnum)
 	return false;
 }
 
-bool aiIfChrAmmoQuantityLessThan(s32 chrref, s32 ammotype, s32 qty)
+bool aiIfChrAmmoQuantityLessThan(struct chrdata *self, s32 chrref, s32 ammotype, s32 qty)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	bool passes = false;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -1578,28 +1496,28 @@ bool aiIfChrAmmoQuantityLessThan(s32 chrref, s32 ammotype, s32 qty)
 	return passes;
 }
 
-bool aiIfChrKnockedOut(s32 chrref)
+bool aiIfChrKnockedOut(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	return ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER)
 			&& (!chr || !chr->model || chr->actiontype == ACT_DRUGGEDKO || chr->actiontype == ACT_DRUGGEDDROP || chr->actiontype == ACT_DRUGGEDCOMINGUP));
 }
 
-bool aiIfChrSameFloorDistanceToPadLessThan(s32 chrref, s32 padnum, f32 distance)
+bool aiIfChrSameFloorDistanceToPadLessThan(struct chrdata *self, s32 chrref, s32 padnum, f32 distance)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (padnum == 9000) {
-		padnum = g_Vars.chrdata->padpreset1;
+		padnum = self->padpreset1;
 	}
 
 	return chr && chrGetSameFloorDistanceToPad(chr, padnum) < distance;
 }
 
-bool aiIfShieldDamaged(s32 chrref)
+bool aiIfShieldDamaged(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && (chr->chrflags & CHRCFLAG_SHIELDDAMAGED)) {
 		chr->chrflags &= ~CHRCFLAG_SHIELDDAMAGED;
@@ -1609,56 +1527,46 @@ bool aiIfShieldDamaged(s32 chrref)
 	return false;
 }
 
-bool aiIfCheckFovWithTarget0(s32 angle)
+bool aiIfCheckFovWithTarget0(struct chrdata *self, s32 angle)
 {
-	return chrIsVerticalAngleToTargetWithin(g_Vars.chrdata, angle);
+	return chrIsVerticalAngleToTargetWithin(self, angle);
 }
 
-bool aiIfCheckFovWithTarget1(s32 angle)
+bool aiIfCheckFovWithTarget1(struct chrdata *self, s32 angle)
 {
-	return chrIsInTargetsFovX(g_Vars.chrdata, angle);
+	return chrIsInTargetsFovX(self, angle);
 }
 
-bool aiIfCheckFovWithTarget2(void)
+bool aiIfCheckFovWithTarget2(struct chrdata *self)
 {
-	return g_Vars.chrdata->yvisang && chrIsVerticalAngleToTargetWithin(g_Vars.chrdata, g_Vars.chrdata->yvisang) == 0;
+	return self->yvisang && chrIsVerticalAngleToTargetWithin(self, self->yvisang) == 0;
 }
 
-bool aiIfChrCanSeeTarget(void)
+bool aiIfChrHasChrflag(struct chrdata *self, s32 chrref, u32 flag)
 {
-	return chrCanSeeTargetWithExtraCheck(g_Vars.chrdata);
-}
-
-bool aiIfChrHasChrflag(s32 chrref, u32 flag)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	return chr && (chr->chrflags & flag) == flag;
 }
 
-bool aiIfChrHasFlag(s32 chrref, u32 flag, s32 bank)
+bool aiIfChrHasGun(struct chrdata *self, s32 chrref)
 {
-	return chrHasFlagById(g_Vars.chrdata, chrref, flag, bank);
-}
-
-bool aiIfChrHasGun(s32 chrref)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	return chr && chr->model && chr->gunprop == NULL;
 }
 
-bool aiIfChrHasHiddenFlag(s32 chrref, u32 flag)
+bool aiIfChrHasHiddenFlag(struct chrdata *self, s32 chrref, u32 flag)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	return chr && (chr->hidden & flag) == flag;
 }
 
-bool aiIfChrHasObject(s32 chrref, s32 tagnum)
+bool aiIfChrHasObject(struct chrdata *self, s32 chrref, s32 tagnum)
 {
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	bool hasprop = false;
 
 	if (obj && obj->prop && chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -1671,9 +1579,9 @@ bool aiIfChrHasObject(s32 chrref, s32 tagnum)
 	return hasprop;
 }
 
-bool aiIfChrHasWeaponEquipped(s32 chrref, s32 weaponnum)
+bool aiIfChrHasWeaponEquipped(struct chrdata *self, s32 chrref, s32 weaponnum)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	bool passes = false;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -1691,9 +1599,9 @@ bool aiIfChrHasWeaponEquipped(s32 chrref, s32 weaponnum)
 	return passes;
 }
 
-bool aiIfChrInSquadronDoingAction(s32 action)
+bool aiIfChrInSquadronDoingAction(struct chrdata *self, s32 action)
 {
-	s16 *chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
+	s16 *chrnums = squadronGetChrIds(self->squadron);
 
 	if (chrnums) {
 		for (; *chrnums != -2; chrnums++) {
@@ -1701,9 +1609,9 @@ bool aiIfChrInSquadronDoingAction(s32 action)
 
 			if (chr && chr->model && chrIsDead(chr) == false &&
 					chr->actiontype != ACT_DEAD &&
-					chrCompareTeams(g_Vars.chrdata, chr, COMPARE_FRIENDS) &&
-					g_Vars.chrdata->chrnum != chr->chrnum &&
-					chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500 &&
+					chrCompareTeams(self, chr, COMPARE_FRIENDS) &&
+					self->chrnum != chr->chrnum &&
+					chrGetDistanceToChr(self, chr->chrnum) < 3500 &&
 					chr->myaction == action) {
 				return true;
 			}
@@ -1720,15 +1628,15 @@ bool aiIfChrNotTalking(s32 chrref)
 	return chr && chr->propsoundcount == 0;
 }
 
-bool aiIfChrTarget(s32 chr1ref, s32 chr2ref)
+bool aiIfChrTarget(struct chrdata *self, s32 chr1ref, s32 chr2ref)
 {
-	struct chrdata *chr1 = chrFindById(g_Vars.chrdata, chr1ref);
-	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, chr2ref);
+	struct chrdata *chr1 = chrFindById(self, chr1ref);
+	struct chrdata *chr2 = chrFindById(self, chr2ref);
 
 	return chr2 && chr2->prop && chrGetTargetProp(chr1) == chr2->prop;
 }
 
-bool aiIfChrYGreaterThan(s32 chrref, f32 limit)
+bool aiIfChrYGreaterThan(struct chrdata *self, s32 chrref, f32 limit)
 {
 	struct chrdata *chr = NULL;
 
@@ -1743,13 +1651,13 @@ bool aiIfChrYGreaterThan(s32 chrref, f32 limit)
 			}
 		}
 	} else {
-		chr = chrFindById(g_Vars.chrdata, chrref);
+		chr = chrFindById(self, chrref);
 	}
 
 	return chr && chr->prop && chr->prop->pos.y > limit;
 }
 
-bool aiIfChrYLessThan(s32 chrref, f32 limit)
+bool aiIfChrYLessThan(struct chrdata *self, s32 chrref, f32 limit)
 {
 	struct chrdata *chr = NULL;
 
@@ -1764,7 +1672,7 @@ bool aiIfChrYLessThan(s32 chrref, f32 limit)
 			}
 		}
 	} else {
-		chr = chrFindById(g_Vars.chrdata, chrref);
+		chr = chrFindById(self, chrref);
 	}
 
 	return chr && chr->prop && chr->prop->pos.y < limit;
@@ -1775,21 +1683,16 @@ bool aiIfCoopMode(void)
 	return !g_Vars.normmplayerisrunning && g_MissionConfig.iscoop;
 }
 
-bool aiIfDangerousObjectNearby(void)
-{
-	return chrDetectDangerousObject(g_Vars.chrdata);
-}
-
-bool aiIfDistanceToGunLessThan(f32 distance)
+bool aiIfDistanceToGunLessThan(struct chrdata *self, f32 distance)
 {
 	f32 xdiff = 0;
 	f32 ydiff = 0;
 	f32 zdiff = 0;
 
-	if (g_Vars.chrdata->gunprop) {
-		xdiff = g_Vars.chrdata->prop->pos.x - g_Vars.chrdata->gunprop->pos.x;
-		ydiff = g_Vars.chrdata->prop->pos.y - g_Vars.chrdata->gunprop->pos.y;
-		zdiff = g_Vars.chrdata->prop->pos.z - g_Vars.chrdata->gunprop->pos.z;
+	if (self->gunprop) {
+		xdiff = self->prop->pos.x - self->gunprop->pos.x;
+		ydiff = self->prop->pos.y - self->gunprop->pos.y;
+		zdiff = self->prop->pos.z - self->gunprop->pos.z;
 	}
 
 	return ydiff < 200 && ydiff > -200
@@ -1833,9 +1736,9 @@ bool aiIfDoorState(s32 tagnum, u32 state)
 	return false;
 }
 
-bool aiIfGunLanded(void)
+bool aiIfGunLanded(struct chrdata *self)
 {
-	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
+	struct weaponobj *weapon = self->gunprop->weapon;
 
 	if ((weapon->base.hidden & OBJHFLAG_PROJECTILE) == 0) {
 		return true;
@@ -1844,9 +1747,9 @@ bool aiIfGunLanded(void)
 	return false;
 }
 
-bool aiIfGunUnclaimed(void)
+bool aiIfGunUnclaimed(struct chrdata *self)
 {
-	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
+	struct weaponobj *weapon = self->gunprop->weapon;
 
 	if (weapon && weapon->base.prop) {
 		weapon->base.flags |= OBJFLAG_00400000;
@@ -1856,49 +1759,14 @@ bool aiIfGunUnclaimed(void)
 	return false;
 }
 
-bool aiIfHasChrflag(u32 flag)
-{
-	return (g_Vars.chrdata->chrflags & flag) == flag;
-}
-
-bool aiIfHasFlagBank0(u32 flag)
-{
-	return (g_Vars.chrdata->flags & flag) != 0;
-}
-
-bool aiIfHasFlagBank1(u32 flag)
-{
-	return (g_Vars.chrdata->flags2 & flag) != 0;
-}
-
-bool aiIfHasOrders(void)
-{
-	return g_Vars.chrdata->orders;
-}
-
-bool aiIfHeardTargetRecently(void)
-{
-	return chrHeardTargetRecently(g_Vars.chrdata);
-}
-
-bool aiIfHearsTarget(void)
-{
-	return chrIsHearingTarget(g_Vars.chrdata);
-}
-
-bool aiIfIdle(void)
-{
-	return g_Vars.chrdata->actiontype == ACT_ANIM;
-}
-
 bool aiIfInCutscene(void)
 {
 	return g_Vars.in_cutscene;
 }
 
-bool aiIfInjured(s32 chrref)
+bool aiIfInjured(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && (chr->chrflags & CHRCFLAG_JUST_INJURED)) {
 		chr->chrflags &= ~CHRCFLAG_JUST_INJURED;
@@ -1923,31 +1791,6 @@ bool aiIfLiftStationary(s32 tagnum)
 	return false;
 }
 
-bool aiIfMoraleLessThan(s32 value)
-{
-	return g_Vars.chrdata->morale < value;
-}
-
-bool aiIfNaturalAnim(s32 naturalanim)
-{
-	return g_Vars.chrdata->naturalanim == naturalanim;
-}
-
-bool aiIfNearMiss(void)
-{
-	return chrResetNearMiss(g_Vars.chrdata);
-}
-
-bool aiIfNearlyInTargetsSight(u32 distance)
-{
-	return chrIsNearlyInTargetsSight(g_Vars.chrdata, distance);
-}
-
-bool aiIfNeverBeenOnScreen(void)
-{
-	return (g_Vars.chrdata->chrflags & CHRCFLAG_EVERONSCREEN) == 0;
-}
-
 bool aiIfObjectiveComplete(s32 index)
 {
 	return index < (g_ObjectiveLastIndex + 1)
@@ -1962,7 +1805,7 @@ bool aiIfObjectiveFailed(s32 index)
 		&& objectiveGetDifficultyBits(index) & (1 << g_Difficulty);
 }
 
-bool aiIfObjectDistanceToPadLessThan(s32 tagnum, s32 padnum, f32 distance)
+bool aiIfObjectDistanceToPadLessThan(struct chrdata *self, s32 tagnum, s32 padnum, f32 distance)
 {
 	f32 xdiff;
 	f32 ydiff;
@@ -1970,7 +1813,7 @@ bool aiIfObjectDistanceToPadLessThan(s32 tagnum, s32 padnum, f32 distance)
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
 
 	if (obj && obj->prop) {
-		padnum = chrResolvePadId(g_Vars.chrdata, padnum);
+		padnum = chrResolvePadId(self, padnum);
 
 		if (padnum >= 0) {
 			xdiff = obj->prop->pos.x - g_Pads[padnum].pos.x;
@@ -1995,10 +1838,10 @@ bool aiIfObjectHealthy(s32 tagnum)
 	return obj && obj->prop && objIsHealthy(obj);
 }
 
-bool aiIfObjectInRoom(s32 tagnum, s32 padnum)
+bool aiIfObjectInRoom(struct chrdata *self, s32 tagnum, s32 padnum)
 {
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
-	s32 roomnum = chrGetPadRoom(g_Vars.chrdata, padnum);
+	s32 roomnum = chrGetPadRoom(self, padnum);
 
 	return roomnum >= 0 && obj && obj->prop && roomnum == obj->prop->rooms[0];
 }
@@ -2010,27 +1853,22 @@ bool aiIfObjHasFlag2(s32 tagnum, u32 flag)
 	return obj && obj->prop && (obj->flags2 & flag) == flag;
 }
 
-bool aiIfOnScreen(void)
+bool aiIfOnScreen(struct chrdata *self)
 {
-	return g_Vars.chrdata->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK);
+	return self->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK);
 }
 
-bool aiIfOrders(s32 orders)
+bool aiIfPatrolling(struct chrdata *self)
 {
-	return g_Vars.chrdata->orders == orders;
+	return self->actiontype == ACT_PATROL
+		|| (self->actiontype == ACT_GOPOS && self->act_gopos.flags & GOPOSFLAG_FORPATHSTART);
 }
 
-bool aiIfPatrolling(void)
-{
-	return g_Vars.chrdata->actiontype == ACT_PATROL
-		|| (g_Vars.chrdata->actiontype == ACT_GOPOS && g_Vars.chrdata->act_gopos.flags & GOPOSFLAG_FORPATHSTART);
-}
-
-bool aiIfPlayerLookingAtObject(s32 chrref, s32 tagnum)
+bool aiIfPlayerLookingAtObject(struct chrdata *self, s32 chrref, s32 tagnum)
 {
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
 	bool pass = false;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
@@ -2054,9 +1892,9 @@ bool aiIfPlayerUsingCmpOrAr34(void)
 	return weaponnum == WEAPON_CMP150 || weaponnum == WEAPON_AR34;
 }
 
-bool aiIfPlayerUsingDevice(s32 chrref, s32 device)
+bool aiIfPlayerUsingDevice(struct chrdata *self, s32 chrref, s32 device)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	struct prop *prop = chr ? chr->prop : NULL;
 	u8 active = false;
 
@@ -2075,22 +1913,22 @@ bool aiIfPlayerUsingDevice(s32 chrref, s32 device)
 	return active;
 }
 
-bool aiIfPresetsTargetIsNotMyTarget(void)
+bool aiIfPresetsTargetIsNotMyTarget(struct chrdata *self)
 {
-	return g_Vars.chrdata->target != -1
-		&& (g_Vars.chrdata->chrpreset1 == -1 || g_Vars.chrdata->target != propGetIndexByChrId(g_Vars.chrdata, g_Vars.chrdata->chrpreset1));
+	return self->target != -1
+		&& (self->chrpreset1 == -1 || self->target != propGetIndexByChrId(self, self->chrpreset1));
 }
 
-bool aiIfSafety2LessThan(s32 limit)
+bool aiIfSafety2LessThan(struct chrdata *self, s32 limit)
 {
 	u8 score;
 	u8 numnearby;
-	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
+	s16 *chrnums = teamGetChrIds(self->team);
 
 	score = 6;
 	numnearby = 0;
 
-	if (g_Vars.chrdata->numarghs > 0) {
+	if (self->numarghs > 0) {
 		score -= 2;
 	}
 
@@ -2137,9 +1975,9 @@ bool aiIfSafety2LessThan(s32 limit)
 				&& !chrIsDead(chr)
 				&& chr->actiontype != ACT_DEAD
 				&& chr->alertness > 100
-				&& g_Vars.chrdata->squadron == chr->squadron
-				&& g_Vars.chrdata->chrnum != chr->chrnum
-				&& chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500) {
+				&& self->squadron == chr->squadron
+				&& self->chrnum != chr->chrnum
+				&& chrGetDistanceToChr(self, chr->chrnum) < 3500) {
 			numnearby++;
 		}
 
@@ -2159,23 +1997,13 @@ bool aiIfSafety2LessThan(s32 limit)
 	return score < limit;
 }
 
-bool aiIfSawDeath(s32 chrref)
-{
-	return chrSawDeath(g_Vars.chrdata, chrref);
-}
-
-bool aiIfSawInjury(s32 chrref)
-{
-	return chrSawInjury(g_Vars.chrdata, chrref);
-}
-
-bool aiIfSeesSuspiciousItem(void)
+bool aiIfSeesSuspiciousItem(struct chrdata *self)
 {
 	s16 *ptr;
 	struct prop *prop;
 	struct defaultobj *obj;
 	s16 propnums[256];
-	struct prop *chrprop = g_Vars.chrdata->prop;
+	struct prop *chrprop = self->prop;
 
 	roomGetProps(chrprop->rooms, &propnums[0], 256);
 
@@ -2186,16 +2014,15 @@ bool aiIfSeesSuspiciousItem(void)
 		obj = prop->obj;
 
 		if (prop->type == PROPTYPE_WEAPON) {
-			if ((obj->hidden & OBJHFLAG_SUSPICIOUS) && chrCanSeeProp(g_Vars.chrdata, prop)) {
+			if ((obj->hidden & OBJHFLAG_SUSPICIOUS) && chrCanSeeProp(self, prop)) {
 				return true;
 			}
 		} else if (prop->type == PROPTYPE_OBJ) {
-			if (((obj->hidden & OBJHFLAG_SUSPICIOUS) || !objIsHealthy(obj))
-					&& chrCanSeeProp(g_Vars.chrdata, prop)) {
+			if (((obj->hidden & OBJHFLAG_SUSPICIOUS) || !objIsHealthy(obj)) && chrCanSeeProp(self, prop)) {
 				return true;
 			}
 		} else if (prop->type == PROPTYPE_EXPLOSION) {
-			if (chrCanSeeProp(g_Vars.chrdata, prop)) {
+			if (chrCanSeeProp(self, prop)) {
 				return true;
 			}
 		}
@@ -2206,9 +2033,9 @@ bool aiIfSeesSuspiciousItem(void)
 	return false;
 }
 
-bool aiIfSkedar(s32 chrref)
+bool aiIfSkedar(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	return chr && chr->prop && CHRRACE(chr) == RACE_SKEDAR;
 }
@@ -2241,49 +2068,24 @@ bool aiIfSquadronIsDead(s32 squadron)
 	return !anyalive;
 }
 
-bool aiIfStopped(void)
+bool aiIfTargetIsPlayer(struct chrdata *self)
 {
-	return chrIsStopped(g_Vars.chrdata);
-}
-
-bool aiIfTargetInFov(s32 angle)
-{
-	return chrIsTargetInFov(g_Vars.chrdata, angle, 0);
-}
-
-bool aiIfTargetInSight(void)
-{
-	return chrCheckTargetInSight(g_Vars.chrdata);
-}
-
-bool aiIfTargetIsPlayer(void)
-{
-	struct prop *target = chrGetTargetProp(g_Vars.chrdata);
+	struct prop *target = chrGetTargetProp(self);
 
 	return target->type & (PROPTYPE_EYESPY | PROPTYPE_PLAYER);
 }
 
-bool aiIfTargetMovingAway(void)
+bool aiIfTargetMovingSlowly(struct chrdata *self)
 {
-	return chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) > 50;
-}
-
-bool aiIfTargetMovingCloser(void)
-{
-	return chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) < -50;
-}
-
-bool aiIfTargetMovingSlowly(void)
-{
-	s32 delta = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
+	s32 delta = chrGetDistanceLostToTargetInLastSecond(self);
 	s32 absdelta = delta > 0 ? delta : -delta;
 
 	return absdelta < 50;
 }
 
-bool aiIfChrTeleportFullWhite(s32 chrref)
+bool aiIfChrTeleportFullWhite(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	u32 prevplayernum = g_Vars.currentplayernum;
 	s32 mainpri;
 	f32 fvalue;
@@ -2353,9 +2155,9 @@ bool aiIfWeaponThrownOnObject(s32 weaponnum, s32 tagnum)
 	return false;
 }
 
-void aiIncreaseSquadronAlertness(s32 amount)
+void aiIncreaseSquadronAlertness(struct chrdata *self, s32 amount)
 {
-	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
+	s16 *chrnums = teamGetChrIds(self->team);
 
 	for (; *chrnums != -2; chrnums++) {
 		struct chrdata *chr = chrFindByLiteralId(*chrnums);
@@ -2364,22 +2166,17 @@ void aiIncreaseSquadronAlertness(s32 amount)
 				chr->model &&
 				!chrIsDead(chr) &&
 				chr->actiontype != ACT_DEAD &&
-				(g_Vars.chrdata->squadron == chr->squadron || g_Vars.chrdata->squadron == 255) &&
-				g_Vars.chrdata->chrnum != chr->chrnum &&
-				(chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 1000 || chrHasFlag(g_Vars.chrdata, CHRFLAG0_SQUADALERTANYDIST, BANK_0))) {
+				(self->squadron == chr->squadron || self->squadron == 255) &&
+				self->chrnum != chr->chrnum &&
+				(chrGetDistanceToChr(self, chr->chrnum) < 1000 || chrHasFlag(self, CHRFLAG0_SQUADALERTANYDIST, BANK_0))) {
 			incrementByte(&chr->alertness, amount);
 		}
 	}
 }
 
-void aiJogToPad(s32 padnum)
+void aiJogToPad(struct chrdata *self, s32 padnum)
 {
-	chrGoToPad(g_Vars.chrdata, padnum, GOPOSFLAG_JOG);
-}
-
-void aiKneel(void)
-{
-	chrTryKneel(g_Vars.chrdata);
+	chrGoToPad(self, padnum, GOPOSFLAG_JOG);
 }
 
 void aiLockDoor(s32 tagnum, u32 flags)
@@ -2392,9 +2189,9 @@ void aiLockDoor(s32 tagnum, u32 flags)
 	}
 }
 
-bool aiMiniSkedarTryPounce(void)
+bool aiMiniSkedarTryPounce(struct chrdata *self)
 {
-	return chrTrySkJump(g_Vars.chrdata, g_Vars.chrdata->pouncebits, 4, 14, 0);
+	return chrTrySkJump(self, self->pouncebits, 4, 14, 0);
 }
 
 void aiObjectDoAnimation(s32 anim_id, s32 tagnum, s32 arg2, s32 startframe)
@@ -2488,14 +2285,9 @@ void aiOpenDoor(s32 tagnum)
 	}
 }
 
-void aiPauseTimer(void)
+void aiPlaySoundFromChr(struct chrdata *self, s32 chrref, s32 channel, u32 thing2, u32 thing3)
 {
-	g_Vars.chrdata->hidden &= ~CHRHFLAG_TIMER_RUNNING;
-}
-
-void aiPlaySoundFromChr(s32 channel, s32 chrref, u32 thing2, u32 thing3)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop) {
 		audioPlayFromProp2(channel, -1, -1, chr->prop, 1, thing2, thing3, 0);
@@ -2518,61 +2310,51 @@ void aiPlaySoundFromProp(s32 channel, s32 tagnum, s32 soundnum, s32 unk1, s32 un
 	audioPlayFromProp(channel, soundnum, 0xffff, obj->prop, unk1, unk2);
 }
 
-void aiRecoverGun(void)
+void aiRecoverGun(struct chrdata *self)
 {
-	struct prop *prop = g_Vars.chrdata->gunprop;
-	g_Vars.chrdata->gunprop = NULL;
+	struct prop *prop = self->gunprop;
+	self->gunprop = NULL;
 
 	if (prop && prop->obj && prop->parent == NULL && prop->type == PROPTYPE_WEAPON) {
 		propDeregisterRooms(prop);
 		propDelist(prop);
 		propDisable(prop);
-		chrEquipWeapon(prop->weapon, g_Vars.chrdata);
+		chrEquipWeapon(prop->weapon, self);
 	}
 }
 
-void aiRemoveChr(s32 chrref)
+void aiRemoveChr(struct chrdata *self, s32 chrref)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop) {
 		chr->hidden |= 0x20;
 	}
 }
 
-void aiRemoveReferencesToChr(void)
+void aiRemoveReferencesToChr(struct chrdata *self)
 {
-	if (g_Vars.chrdata && g_Vars.chrdata->prop) {
-		chrClearReferences(g_Vars.chrdata->prop - g_Vars.props);
+	if (self && self->prop) {
+		chrClearReferences(self->prop - g_Vars.props);
 	}
 }
 
-void aiResetTimer(void)
+void aiRestartTimer(struct chrdata *self)
 {
-	g_Vars.chrdata->timer60 = 0;
-}
-
-void aiRestartTimer(void)
-{
-	if (g_Vars.chrdata) {
-		chrRestartTimer(g_Vars.chrdata);
+	if (self) {
+		chrRestartTimer(self);
 	} else if (g_Vars.hovercar) {
 		chopperRestartTimer(g_Vars.hovercar);
 	}
 }
 
-void aiResumeTimer(void)
-{
-	g_Vars.chrdata->hidden |= CHRHFLAG_TIMER_RUNNING;
-}
-
-u8 *aiReturn(void)
+u8 *aiReturn(struct chrdata *self)
 {
 	u8 *ailist = NULL;
 
-	if (g_Vars.chrdata) {
-		ailist = g_Vars.chrdata->aireturnlist;
-		g_Vars.chrdata->ailist = ailist;
+	if (self) {
+		ailist = self->aireturnlist;
+		self->ailist = ailist;
 	} else if (g_Vars.hovercar) {
 		ailist = g_Vars.hovercar->aireturnlist;
 	}
@@ -2580,24 +2362,24 @@ u8 *aiReturn(void)
 	return ailist;
 }
 
-void aiRetreatFromTarget(void)
+void aiRetreatFromTarget(struct chrdata *self)
 {
-	struct prop *target = chrGetTargetProp(g_Vars.chrdata);
-	chrRunFromPos(g_Vars.chrdata, GOPOSFLAG_RUN, 10000, &target->pos);
+	struct prop *target = chrGetTargetProp(self);
+	chrRunFromPos(self, GOPOSFLAG_RUN, 10000, &target->pos);
 }
 
-void aiRetreatToCover(void)
+void aiRetreatToCover(struct chrdata *self)
 {
-	chrAssignCoverByCriteria(g_Vars.chrdata, COVERCRITERIA_FURTHEREST
+	chrAssignCoverByCriteria(self, COVERCRITERIA_FURTHEREST
 			| COVERCRITERIA_DISTTOTARGET
 			| COVERCRITERIA_ONLYNEIGHBOURINGROOMS
 			| COVERCRITERIA_ROOMSFROMME, 0);
-	chrGoToCover(g_Vars.chrdata, GOPOSFLAG_RUN);
+	chrGoToCover(self, GOPOSFLAG_RUN);
 }
 
-void aiRevokeControl(s32 chrref, u32 flags)
+void aiRevokeControl(struct chrdata *self, s32 chrref, u32 flags)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
@@ -2619,9 +2401,9 @@ void aiRevokeControl(s32 chrref, u32 flags)
 	}
 }
 
-void aiRunToPad(s32 padnum)
+void aiRunToPad(struct chrdata *self, s32 padnum)
 {
-	chrGoToPad(g_Vars.chrdata, padnum, GOPOSFLAG_RUN);
+	chrGoToPad(self, padnum, GOPOSFLAG_RUN);
 }
 
 s16 g_CiMainQuips[][3] = {
@@ -2672,21 +2454,21 @@ s16 g_CiThanksQuips[] = {
 	MP3_CIFEM_THANKS3,
 };
 
-void aiSayCiStaffQuip(s32 ciquip, s32 channel)
+void aiSayCiStaffQuip(struct chrdata *self, s32 ciquip, s32 channel)
 {
 	s32 quip;
 
 	if (ciquip == CIQUIP_GREETING) {
-		quip = g_CiGreetingQuips[g_Vars.chrdata->morale][random() % 3];
+		quip = g_CiGreetingQuips[self->morale][random() % 3];
 	} else if (ciquip == CIQUIP_MAIN) {
-		quip = g_CiMainQuips[g_Vars.chrdata->morale][random() % 3];
+		quip = g_CiMainQuips[self->morale][random() % 3];
 	} else if (ciquip == CIQUIP_ANNOYED) {
-		quip = g_CiAnnoyedQuips[g_Vars.chrdata->morale][random() % 3];
+		quip = g_CiAnnoyedQuips[self->morale][random() % 3];
 	} else {
-		quip = g_CiThanksQuips[g_Vars.chrdata->morale];
+		quip = g_CiThanksQuips[self->morale];
 	}
 
-	audioPlayFromProp(channel, quip, 0, g_Vars.chrdata->prop, 9, 0);
+	audioPlayFromProp(channel, quip, 0, self->prop, 9, 0);
 }
 
 s16 g_GuardQuipBank[][4] = {
@@ -2939,7 +2721,7 @@ s16 g_MaianQuipBank[][4] = {
 	{ 0 },
 };
 
-void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 conditions, s32 special, s32 textrow, u32 colour)
+void aiSayQuip(struct chrdata *self, s32 chrref, s32 row, s32 probability, s32 soundgap, s32 conditions, s32 special, s32 textrow, u32 colour)
 {
 	u8 column; // 167
 	s16 audioid; // 164
@@ -2950,23 +2732,23 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 	s16 *chrnums; // 136
 	s16 (*bank)[4]; // 132
 	char *text; // 128
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref); // 124
+	struct chrdata *chr = chrFindById(self, chrref); // 124
 	u32 prevplayernum = g_Vars.currentplayernum; // 120
 	s32 distance; // 116 - not referenced
 	u32 playernum; // 108 - not referenced
-	u8 headshotted = (g_Vars.chrdata->hidden2 & CHRH2FLAG_HEADSHOTTED) & 0xff; // 107
+	u8 headshotted = (self->hidden2 & CHRH2FLAG_HEADSHOTTED) & 0xff; // 107
 	struct chrdata *loopchr; // 100
 
 	// Choose bank
 	// 2c0
-	if (CHRRACE(g_Vars.chrdata) == RACE_SKEDAR) {
+	if (CHRRACE(self) == RACE_SKEDAR) {
 		bank = g_SkedarQuipBank;
 
 		if (row > 5) {
 			row = 0;
 		}
 		// 2e0
-	} else if (g_Vars.chrdata->headnum == HEAD_MAIAN_S) {
+	} else if (self->headnum == HEAD_MAIAN_S) {
 		bank = g_MaianQuipBank;
 
 		if (row > 2) {
@@ -2974,11 +2756,11 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 		}
 		// 324
 	} else if (special == 0) {
-		if (g_Vars.chrdata->voicebox > 3) {
-			g_Vars.chrdata->voicebox = 3;
+		if (self->voicebox > 3) {
+			self->voicebox = 3;
 		}
 
-		bank = &g_GuardQuipBank[g_Vars.chrdata->voicebox * 41];
+		bank = &g_GuardQuipBank[self->voicebox * 41];
 	} else {
 		// 37c
 		bank = g_SpecialQuipBank;
@@ -2986,21 +2768,21 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 
 	// 37c
 	if (!row && probability && conditions) {
-		g_Vars.chrdata->soundtimer = 0;
+		self->soundtimer = 0;
 		return;
 	}
 
 	// 3bc
-	chrnums = teamGetChrIds(g_Vars.chrdata->team);
+	chrnums = teamGetChrIds(self->team);
 	numnearbychrs = 0;
 	issomeonetalking = false;
 
 	// Make it impossible for Elvis and Jon to use anything but special phrases
 	// 3f0
-	if ((g_Vars.chrdata->headnum == HEAD_ELVIS
-				|| g_Vars.chrdata->headnum == HEAD_THEKING
-				|| g_Vars.chrdata->headnum == HEAD_ELVIS_GOGS
-				|| g_Vars.chrdata->headnum == HEAD_JONATHAN) &&
+	if ((self->headnum == HEAD_ELVIS
+				|| self->headnum == HEAD_THEKING
+				|| self->headnum == HEAD_ELVIS_GOGS
+				|| self->headnum == HEAD_JONATHAN) &&
 			bank != g_SpecialQuipBank) {
 		probability = 0;
 	}
@@ -3026,7 +2808,7 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 
 	// If soundgap permits talking at this time and probability passes
 	// 494
-	if ((g_Vars.chrdata->soundgap == 0 || g_Vars.chrdata->soundgap * 60 < g_Vars.chrdata->soundtimer)
+	if ((self->soundgap == 0 || self->soundgap * 60 < self->soundtimer)
 			&& probability > (u8)random()) {
 		// Try and find a chr in the same squadron who is currently talking
 		// 4dc
@@ -3036,10 +2818,10 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 			if (loopchr && loopchr->model
 					&& !chrIsDead(loopchr)
 					&& loopchr->actiontype != ACT_DEAD
-					&& g_Vars.chrdata->squadron == loopchr->squadron
+					&& self->squadron == loopchr->squadron
 					&& loopchr->alertness >= 100
-					&& g_Vars.chrdata->chrnum != loopchr->chrnum
-					&& chrGetDistanceToChr(g_Vars.chrdata, loopchr->chrnum) < 7000) {
+					&& self->chrnum != loopchr->chrnum
+					&& chrGetDistanceToChr(self, loopchr->chrnum) < 7000) {
 				// 584
 				numnearbychrs++;
 
@@ -3062,11 +2844,11 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 			if ((special & 0x80) == 0) {
 				audioid = bank[row][1 + column];
 			} else {
-				audioid = bank[row][1 + g_Vars.chrdata->tude];
+				audioid = bank[row][1 + self->tude];
 			}
 
 			// 6a0
-			if (audioWasNotPlayedRecently(audioid) || CHRRACE(g_Vars.chrdata) == RACE_SKEDAR) {
+			if (audioWasNotPlayedRecently(audioid) || CHRRACE(self) == RACE_SKEDAR) {
 				// 6d4
 				audioMarkAsRecentlyPlayed(audioid);
 
@@ -3077,24 +2859,24 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 				}
 
 				// 700
-				g_Vars.chrdata->soundtimer = 0;
-				g_Vars.chrdata->soundgap = soundgap;
-				g_Vars.chrdata->propsoundcount++;
+				self->soundtimer = 0;
+				self->soundgap = soundgap;
+				self->propsoundcount++;
 
 				// 72c
 				if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
-					func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+					func0f0926bc(self->prop, 9, 0xffff);
 					// 7a8
-					propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+					propsnd0f0939f8(0, self->prop, audioid, -1,
 							-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
 				} else {
 					// Audio is "Stop moving", "Stop dodging" or "Stand still"
-					distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
+					distance = chrGetDistanceLostToTargetInLastSecond(self);
 
 					if (ABS(distance) > 50) {
-						func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+						func0f0926bc(self->prop, 9, 0xffff);
 						// 840
-						propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+						propsnd0f0939f8(0, self->prop, audioid, -1,
 								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
 					}
 				}
@@ -3112,7 +2894,7 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 						hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, colour);
 					}
 				} else if (textrow) {
-					text = langGet(g_QuipTexts[textrow - 1][1 + g_Vars.chrdata->tude]);
+					text = langGet(g_QuipTexts[textrow - 1][1 + self->tude]);
 
 					if (!sndIsFiltered(audioid)) {
 						// 904
@@ -3141,25 +2923,25 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 						audioid = 0x34d;
 					}
 
-					g_Vars.chrdata->soundtimer = 0;
-					g_Vars.chrdata->soundgap = soundgap;
-					g_Vars.chrdata->propsoundcount++;
+					self->soundtimer = 0;
+					self->soundgap = soundgap;
+					self->propsoundcount++;
 
 					// 9fc
 					if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
-						func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+						func0f0926bc(self->prop, 9, 0xffff);
 						// a80
-						propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+						propsnd0f0939f8(0, self->prop, audioid, -1,
 								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
 					} else {
 						// Audio is "Stop moving", "Stop dodging" or "Stand still"
 						// a90
-						distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
+						distance = chrGetDistanceLostToTargetInLastSecond(self);
 
 						if (ABS(distance) > 50) {
-							func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+							func0f0926bc(self->prop, 9, 0xffff);
 							// b28
-							propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+							propsnd0f0939f8(0, self->prop, audioid, -1,
 									-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
 						}
 					}
@@ -3174,34 +2956,15 @@ void aiSayQuip(s32 chrref, s32 row, s32 probability, s32 soundgap, s32 condition
 						}
 					}
 				} else {
-					g_Vars.chrdata->soundtimer = 0;
-					g_Vars.chrdata->soundgap = soundgap;
-					chrUnsetFlags(g_Vars.chrdata, CHRFLAG1_TALKINGTODISGUISE, BANK_1);
+					self->soundtimer = 0;
+					self->soundgap = soundgap;
+					chrUnsetFlags(self, CHRFLAG1_TALKINGTODISGUISE, BANK_1);
 				}
 			}
 		}
 	}
 
 	setCurrentPlayerNum(prevplayernum);
-}
-
-void aiSetAccuracy(s32 accuracy)
-{
-	g_Vars.chrdata->accuracyrating = accuracy;
-}
-
-void aiSetAction(s32 action, bool keeporders)
-{
-	g_Vars.chrdata->myaction = action;
-
-	if (!keeporders) {
-		g_Vars.chrdata->orders = 0;
-	}
-}
-
-void aiSetAlertness(s32 alertness)
-{
-	g_Vars.chrdata->alertness = alertness;
 }
 
 void aiSetAllRoomsAmbient(void)
@@ -3231,23 +2994,18 @@ bool aiSetCameraAnimation(s32 animnum)
 	return !g_Vars.currentplayer->haschrbody;
 }
 
-void aiSetChrflag(u32 flag)
+void aiSetChrHudpieceVisible(struct chrdata *self, s32 chrref, bool visible)
 {
-	g_Vars.chrdata->chrflags |= flag;
-}
-
-void aiSetChrHudpieceVisible(s32 chrref, bool visible)
-{
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr && chr->prop && chr->model) {
 		chrSetHudpieceVisible(chr, visible);
 	}
 }
 
-void aiSetChrList(s32 chrref, u8 *ailist)
+void aiSetChrList(struct chrdata *self, s32 chrref, u8 *ailist)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chr->ailist = ailist;
@@ -3256,22 +3014,11 @@ void aiSetChrList(s32 chrref, u8 *ailist)
 	}
 }
 
-void aiSetChrnum(s32 newnum)
-{
-	chrSetChrnum(g_Vars.chrdata, newnum);
-	g_Vars.chrdata->chrnum = newnum;
-}
-
-void aiSetChrPreset(s32 chr)
-{
-	chrSetChrPreset(g_Vars.chrdata, chr);
-}
-
-bool aiSetChrPresetToUnalertedTeammate(void)
+bool aiSetChrPresetToUnalertedTeammate(struct chrdata *self)
 {
 	f32 closest_distance = 30999.9;
 	s16 candidate_chrnum = -1;
-	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
+	s16 *chrnums = teamGetChrIds(self->team);
 
 	for (; *chrnums != -2; chrnums++) {
 		struct chrdata *chr = chrFindByLiteralId(*chrnums);
@@ -3284,9 +3031,9 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 				&& chr->actiontype != ACT_DRUGGEDDROP
 				&& chr->actiontype != ACT_DRUGGEDCOMINGUP
 				&& chr->alertness < 100
-				&& (g_Vars.chrdata->squadron == chr->squadron || g_Vars.chrdata->squadron == 0xff)
-				&& g_Vars.chrdata->chrnum != chr->chrnum) {
-			f32 distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
+				&& (self->squadron == chr->squadron || self->squadron == 0xff)
+				&& self->chrnum != chr->chrnum) {
+			f32 distance = chrGetDistanceToChr(self, chr->chrnum);
 
 			if (distance < closest_distance) {
 				closest_distance = distance;
@@ -3296,55 +3043,34 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 	}
 
 	if (candidate_chrnum != -1) {
-		chrSetChrPreset(g_Vars.chrdata, candidate_chrnum);
+		chrSetChrPreset(self, candidate_chrnum);
 		return true;
 	}
 
 	return false;
 }
 
-void aiSetChrSpecialDeathAnimation(s32 chrref, s32 specialdie)
+void aiSetChrSpecialDeathAnimation(struct chrdata *self, s32 chrref, s32 specialdie)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	if (chr) {
 		chr->specialdie = specialdie;
 	}
 }
 
-void aiSetChrTarget(s32 chrref, s32 chrpreset)
+void aiSetCoverUnused(s32 covernum)
 {
-	chrSetChrPresetByChrnum(g_Vars.chrdata, chrref, chrpreset);
-}
-
-void aiSetCoverUnused(void)
-{
-	if (g_Vars.chrdata->cover >= 0) {
-		coverSetInUse(g_Vars.chrdata->cover, false);
+	if (covernum >= 0) {
+		coverSetInUse(covernum, false);
 	}
 }
 
-void aiSetDarkRoomList(u8 *ailist)
+void aiSetDarkRoomList(struct chrdata *self, u8 *ailist)
 {
-	if (g_Vars.chrdata) {
-		g_Vars.chrdata->aidarkroomlist = ailist;
+	if (self) {
+		self->aidarkroomlist = ailist;
 	}
-}
-
-void aiSetDodgeRatingOnly(s32 rating)
-{
-	g_Vars.chrdata->dodgerating = rating;
-}
-
-void aiSetDodgeRatingMax(s32 rating)
-{
-	g_Vars.chrdata->maxdodgerating = rating;
-}
-
-void aiSetDodgeRatingBoth(s32 rating)
-{
-	g_Vars.chrdata->dodgerating = rating;
-	g_Vars.chrdata->maxdodgerating = rating;
 }
 
 void aiSetDoorOpen(s32 tagnum)
@@ -3363,9 +3089,9 @@ void aiSetDoorOpen(s32 tagnum)
 	}
 }
 
-void aiSetDrCarollImages(s32 chrref, s32 image1, s32 image2)
+void aiSetDrCarollImages(struct chrdata *self, s32 chrref, s32 image1, s32 image2)
 {
-	struct chrdata *drcaroll = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *drcaroll = chrFindById(self, chrref);
 
 	if (drcaroll) {
 		if (image2 == 7) {
@@ -3390,29 +3116,9 @@ void aiSetDrCarollImages(s32 chrref, s32 image1, s32 image2)
 	}
 }
 
-void aiSetFlagBank0(u32 flag)
+void aiSetLights(struct chrdata *self, s32 padnum, s32 operation, s32 arg2, s32 arg3, s32 arg4)
 {
-	g_Vars.chrdata->flags |= flag;
-}
-
-void aiSetFlagBank1(u32 flag)
-{
-	g_Vars.chrdata->flags2 |= flag;
-}
-
-void aiSetGrenadeProbability(s32 prob)
-{
-	g_Vars.chrdata->grenadeprob = prob;
-}
-
-void aiSetHearDistance(f32 distance)
-{
-	g_Vars.chrdata->hearingscale = distance;
-}
-
-void aiSetLights(s32 padnum, s32 operation, s32 arg2, s32 arg3, s32 arg4)
-{
-	s32 roomnum = chrGetPadRoom(g_Vars.chrdata, padnum);
+	s32 roomnum = chrGetPadRoom(self, padnum);
 
 	if (roomnum >= 0) {
 		switch (operation) {
@@ -3429,12 +3135,12 @@ void aiSetLights(s32 padnum, s32 operation, s32 arg2, s32 arg3, s32 arg4)
 	}
 }
 
-void aiSetMaxDamage(s32 chrref, f32 maxdamage)
+void aiSetMaxDamage(struct chrdata *self, s32 chrref, f32 maxdamage)
 {
 	if (g_Vars.hovercar) {
 		chopperSetMaxDamage(g_Vars.hovercar, maxdamage);
 	} else {
-		struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+		struct chrdata *chr = chrFindById(self, chrref);
 
 		if (chr && chr->prop && !chrIsDead(chr)
 					&& chr->actiontype != ACT_DEAD
@@ -3447,18 +3153,11 @@ void aiSetMaxDamage(s32 chrref, f32 maxdamage)
 	}
 }
 
-void aiSetMorale(s32 morale)
+void aiSetMyList(struct chrdata *self, u8 *ailist)
 {
-	g_Vars.chrdata->morale = morale;
-}
-
-u8 *aiSetMyList(u8 *ailist)
-{
-	if (g_Vars.chrdata) {
-		g_Vars.chrdata->ailist = ailist;
+	if (self) {
+		self->ailist = ailist;
 	}
-
-	return ailist;
 }
 
 void aiSetObjFlag(s32 tagnum, u32 flag)
@@ -3512,10 +3211,10 @@ void aiSetObjImage(s32 tagnum, s32 slot, s32 image)
 	}
 }
 
-void aiSetPadPreset(s32 padnum)
+void aiSetPadPreset(struct chrdata *self, s32 padnum)
 {
-	if (g_Vars.chrdata) {
-		chrSetPadPreset(g_Vars.chrdata, padnum);
+	if (self) {
+		chrSetPadPreset(self, padnum);
 	}
 }
 
@@ -3542,7 +3241,7 @@ u16 g_InvestigationPadMap[] = {
 	0x0259, 0x00ba,
 };
 
-void aiSetPadPresetToInvestigationTerminal(s32 tagnum)
+void aiSetPadPresetToInvestigationTerminal(struct chrdata *self, s32 tagnum)
 {
 	struct defaultobj *obj = g_ObjsByTag[tagnum];
 	s32 i;
@@ -3550,21 +3249,11 @@ void aiSetPadPresetToInvestigationTerminal(s32 tagnum)
 	if (obj) {
 		for (i = 0; i < sizeof(g_InvestigationPadMap) / sizeof(g_InvestigationPadMap[0]); i += 2) {
 			if (obj->pad == g_InvestigationPadMap[i]) {
-				chrSetPadPreset(g_Vars.chrdata, g_InvestigationPadMap[i + 1]);
+				chrSetPadPreset(self, g_InvestigationPadMap[i + 1]);
 				break;
 			}
 		}
 	}
-}
-
-bool aiSetPadPresetToTargetQuadrant(s32 quadrant)
-{
-	return chrSetPadPresetToWaypointWithinTargetQuadrant(g_Vars.chrdata, quadrant);
-}
-
-void aiSetPath(s32 pathid)
-{
-	chrSetPath(g_Vars.chrdata, pathid);
 }
 
 void aiSetPortalFlag(s32 portalnum, u32 flag)
@@ -3572,23 +3261,13 @@ void aiSetPortalFlag(s32 portalnum, u32 flag)
 	g_BgPortals[portalnum].flags |= flag;
 }
 
-void aiSetReactionSpeed(s32 speed)
+void aiSetReturnList(struct chrdata *self, s32 chrref, u8 *ailist)
 {
-	g_Vars.chrdata->speedrating = speed;
-}
-
-void aiSetRecoverySpeed(s32 speed)
-{
-	g_Vars.chrdata->arghrating = speed;
-}
-
-void aiSetReturnList(s32 chrref, u8 *ailist)
-{
-	if (g_Vars.chrdata) {
+	if (self) {
 		if (chrref == CHR_SELF) {
-			g_Vars.chrdata->aireturnlist = ailist;
+			self->aireturnlist = ailist;
 		} else {
-			struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+			struct chrdata *chr = chrFindById(self, chrref);
 
 			if (chr) {
 				chr->aireturnlist = ailist;
@@ -3604,87 +3283,82 @@ void aiSetRoomFlag(s32 roomnum, u32 flag)
 	g_Rooms[roomnum].flags |= flag;
 }
 
-void aiSetRoomToSearch(void)
+void aiSetRoomToSearch(struct chrdata *self)
 {
-	struct chrdata *target = chrFindById(g_Vars.chrdata, CHR_TARGET);
+	struct chrdata *target = chrFindById(self, CHR_TARGET);
 
 	if (target && target->prop) {
-		g_Vars.chrdata->roomtosearch = target->prop->rooms[0];
+		self->roomtosearch = target->prop->rooms[0];
 	}
 }
 
-void aiSetShield(f32 amount)
+void aiSetShield(struct chrdata *self, f32 amount)
 {
 	if (cheatIsActive(CHEAT_ENEMYSHIELDS) && amount < 8) {
 		amount = 8;
 	}
 
-	chrSetShield(g_Vars.chrdata, amount);
+	chrSetShield(self, amount);
 }
 
-void aiSetShootingAtMeList(u8 *ailist)
+void aiSetShootingAtMeList(struct chrdata *self, u8 *ailist)
 {
-	if (g_Vars.chrdata) {
-		g_Vars.chrdata->aishootingatmelist = ailist;
+	if (self) {
+		self->aishootingatmelist = ailist;
 	}
 }
 
-void aiSetShotList(u8 *ailist)
+void aiSetShotList(struct chrdata *self, u8 *ailist)
 {
-	if (g_Vars.chrdata) {
-		g_Vars.chrdata->aishotlist = ailist;
+	if (self) {
+		self->aishotlist = ailist;
 	}
 }
 
 void aiSetStageFlag(u32 flag)
 {
 	g_StageFlags |= flag;
-	g_ObjectivesDirty = true;
+	g_ObjectivesDirty = flag; // we just need a non-zero value; this avoids an li instruction
 }
 
-void aiSetSquadron(s32 squadron)
+void aiSetTargetChr(struct chrdata *self, s32 chrref)
 {
-	g_Vars.chrdata->squadron = squadron;
-}
+	if (self) {
+		s16 prop_id = propGetIndexByChrId(self, chrref);
 
-void aiSetTargetChr(s32 chrref)
-{
-	if (g_Vars.chrdata) {
-		s16 prop_id = propGetIndexByChrId(g_Vars.chrdata, chrref);
-
-		if (prop_id != g_Vars.chrdata->target) {
-			g_Vars.chrdata->lastvisibletarget60 = 0;
-			g_Vars.chrdata->lastseetarget60 = 0;
-			g_Vars.chrdata->lastheartarget60 = 0;
-			g_Vars.chrdata->hidden &= ~CHRHFLAG_IS_HEARING_TARGET;
-			g_Vars.chrdata->chrflags &= ~CHRCFLAG_NEAR_MISS;
-			g_Vars.chrdata->target = prop_id;
+		if (prop_id != self->target) {
+			self->lastvisibletarget60 = 0;
+			self->lastseetarget60 = 0;
+			self->lastheartarget60 = 0;
+			self->hidden &= ~CHRHFLAG_IS_HEARING_TARGET;
+			self->chrflags &= ~CHRCFLAG_NEAR_MISS;
+			self->target = prop_id;
 		}
 	} else if (g_Vars.hovercar) {
 		chopperSetTarget(g_Vars.hovercar, chrref);
 	}
 }
 
-bool aiSetTargetToEyespyIfInSight(void)
+bool aiSetTargetToEyespyIfInSight(struct chrdata *self)
 {
-	s16 prevtarget = g_Vars.chrdata->target;
-	struct eyespy *eyespy = g_Vars.players[g_Vars.chrdata->p1p2]->eyespy;
+	s16 prevtarget = self->target;
+	struct eyespy *eyespy = g_Vars.players[self->p1p2]->eyespy;
 
 	if (eyespy) {
 		struct chrdata *chr = eyespy->prop->chr;
-		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, chr->chrnum);
+		self->target = propGetIndexByChrId(self, chr->chrnum);
 
-		if (chrCheckTargetInSight(g_Vars.chrdata)) {
+		if (chrCheckTargetInSight(self)) {
 			return true;
 		}
 
-		g_Vars.chrdata->target = prevtarget;
+		self->target = prevtarget;
 	}
 
 	return false;
 }
 
-bool aiSetTeamOrders(void)
+bool aiSetTeamOrders(struct chrdata *self)
 {
 	struct chrnumaction *chraction;
 	s32 chrcount = 1;
@@ -3693,13 +3367,13 @@ bool aiSetTeamOrders(void)
 	s32 num;
 
 	// Get list of chrs in the current chr's squadron
-	chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
+	chrnums = squadronGetChrIds(self->squadron);
 
 	// Iterate chrs in squadron and build list of their actions.
 	// Put the current chr's action first.
 	chraction = chractions;
-	chraction->chrnum = g_Vars.chrdata->chrnum;
-	chraction->myaction = g_Vars.chrdata->myaction;
+	chraction->chrnum = self->chrnum;
+	chraction->myaction = self->myaction;
 	chraction++;
 
 	if (chrnums) {
@@ -3709,13 +3383,13 @@ bool aiSetTeamOrders(void)
 			if (chr && chr->model
 					&& !chrIsDead(chr)
 					&& chr->actiontype != ACT_DEAD
-					&& chrCompareTeams(g_Vars.chrdata, chr, COMPARE_FRIENDS)
-					&& g_Vars.chrdata->chrnum != chr->chrnum) {
+					&& chrCompareTeams(self, chr, COMPARE_FRIENDS)
+					&& self->chrnum != chr->chrnum) {
 				if (chr->myaction == MA_COVERWAIT
 						|| chr->myaction == MA_NORMAL
 						|| chr->myaction == MA_WAITING
 						|| chr->myaction == MA_SHOOTING) {
-					if (chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500) {
+					if (chrGetDistanceToChr(self, chr->chrnum) < 3500) {
 						chrcount++;
 						chraction->chrnum = chr->chrnum;
 						chraction->myaction = chr->myaction;
@@ -3754,7 +3428,7 @@ bool aiSetTeamOrders(void)
 			case MA_COVERSEEN:
 				if (!chrIsInTargetsFovX(chr, 30)) {
 					chr->orders = MA_SHOOTING;
-					g_Vars.chrdata->orders = MA_COVERGOTO;
+					self->orders = MA_COVERGOTO;
 				}
 				num++;
 				break;
@@ -3765,7 +3439,7 @@ bool aiSetTeamOrders(void)
 					chr->orders = MA_SHOOTING;
 				}
 				num++;
-				g_Vars.chrdata->orders = MA_FLANKLEFT;
+				self->orders = MA_FLANKLEFT;
 				break;
 			case MA_FLANKRIGHT:
 				if (chrIsInTargetsFovX(chr, 50)) {
@@ -3774,7 +3448,7 @@ bool aiSetTeamOrders(void)
 					chr->orders = MA_SHOOTING;
 				}
 				num++;
-				g_Vars.chrdata->orders = MA_FLANKRIGHT;
+				self->orders = MA_FLANKRIGHT;
 				break;
 			case MA_DODGE:
 				if (!chrIsInTargetsFovX(chr, 30) &&
@@ -3818,11 +3492,6 @@ bool aiSetTeamOrders(void)
 	return false;
 }
 
-void aiSetUnarmedDodgeRating(s32 rating)
-{
-	g_Vars.chrdata->unarmeddodgerating = rating;
-}
-
 void aiSetVehicleSpeed(f32 speedaim, f32 speedtime)
 {
 	if (g_Vars.hovercar) {
@@ -3831,10 +3500,10 @@ void aiSetVehicleSpeed(f32 speedaim, f32 speedtime)
 	}
 }
 
-void aiSetViewDistance(s32 value)
+void aiSetViewDistance(struct chrdata *self, s32 value)
 {
 	if (!cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-		g_Vars.chrdata->visionrange = value;
+		self->visionrange = value;
 	}
 }
 
@@ -3850,10 +3519,10 @@ void aiShowCutsceneChrs(void)
 	}
 }
 
-void aiShowHudmsg(s32 chrref, s32 textid)
+void aiShowHudmsg(struct chrdata *self, s32 chrref, s32 textid)
 {
 	char *text = langGet(textid);
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	u32 prevplayernum = g_Vars.currentplayernum;
 	u32 playernum = g_Vars.currentplayernum;
@@ -3867,10 +3536,10 @@ void aiShowHudmsg(s32 chrref, s32 textid)
 	setCurrentPlayerNum(prevplayernum);
 }
 
-void aiShowHudmsgTopMiddle(s32 chrref, s32 textid, s32 colour)
+void aiShowHudmsgTopMiddle(struct chrdata *self, s32 chrref, s32 textid, s32 colour)
 {
 	char *text = langGet(textid);
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 
 	u32 prevplayernum = g_Vars.currentplayernum;
 	u32 playernum = g_Vars.currentplayernum;
@@ -3980,9 +3649,9 @@ void aiShuffleRuinsPillars(void)
 	g_ObjsByTag[0x29] = g_ObjsByTag[mines[marked3index]];
 }
 
-void aiSpeak(s32 chrref, s32 text_id, s32 audio_id, s32 channel, s32 colour)
+void aiSpeak(struct chrdata *self, s32 chrref, s32 text_id, s32 audio_id, s32 channel, s32 colour)
 {
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, chrref);
+	struct chrdata *chr = chrFindById(self, chrref);
 	s32 prevplayernum = g_Vars.currentplayernum;
 	s32 playernum = prevplayernum;
 	u32 channelnum;
@@ -3995,13 +3664,13 @@ void aiSpeak(s32 chrref, s32 text_id, s32 audio_id, s32 channel, s32 colour)
 	setCurrentPlayerNum(playernum);
 
 	if (text && chrref != CHR_P1P2) {
-		func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+		func0f0926bc(self->prop, 9, 0xffff);
 	}
 
 	if (chrref == CHR_P1P2) {
-		channelnum = audioPlayFromProp(channel, audio_id, 0, g_Vars.chrdata->prop, 0, 512);
+		channelnum = audioPlayFromProp(channel, audio_id, 0, self->prop, 0, 512);
 	} else {
-		channelnum = audioPlayFromProp(channel, audio_id, 0, g_Vars.chrdata->prop, 9, 512);
+		channelnum = audioPlayFromProp(channel, audio_id, 0, self->prop, 9, 512);
 	}
 
 	if (text && !sndIsFiltered(audio_id)) {
@@ -4011,65 +3680,25 @@ void aiSpeak(s32 chrref, s32 text_id, s32 audio_id, s32 channel, s32 colour)
 	setCurrentPlayerNum(prevplayernum);
 }
 
-void aiStartPatrol(void)
+void aiStop(struct chrdata *self)
 {
-	chrTryStartPatrol(g_Vars.chrdata);
-}
-
-void aiStop(void)
-{
-	if (g_Vars.chrdata) {
-		chrTryStop(g_Vars.chrdata);
+	if (self) {
+		chrTryStop(self);
 	} else if (g_Vars.hovercar) {
 		chopperStop(g_Vars.hovercar);
 	}
 }
 
-void aiSubtractMorale(s32 amount)
-{
-	decrementByte(&g_Vars.chrdata->morale, amount);
-}
-
-void aiSurrender(void)
-{
-	chrTrySurrender(g_Vars.chrdata);
-}
-
-bool aiTryAttackKneel(u32 thingtype, u32 thingid)
-{
-	return chrTryAttackKneel(g_Vars.chrdata, thingtype, thingid);
-}
-
-bool aiTryAttackLie(u32 thingtype, u32 thingid)
-{
-	return chrTryAttackLie(g_Vars.chrdata, thingtype, thingid);
-}
-
-bool aiTryAttackRoll(void)
-{
-	return chrTryAttackRoll(g_Vars.chrdata);
-}
-
-bool aiTryAttackStand(u32 thingtype, u32 thingid)
-{
-	return chrTryAttackStand(g_Vars.chrdata, thingtype, thingid);
-}
-
-bool aiTryAttackWalk(void)
-{
-	return chrTryAttackWalk(g_Vars.chrdata);
-}
-
-struct prop *aiTryEquipWeapon(s32 model, s32 weaponnum, u32 flags)
+struct prop *aiTryEquipWeapon(struct chrdata *self, s32 model, s32 weaponnum, u32 flags)
 {
 	struct prop *prop = NULL;
 
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->model) {
+	if (self && self->prop && self->model) {
 		if (cheatIsActive(CHEAT_MARQUIS)) {
 			flags &= ~OBJFLAG_WEAPON_LEFTHANDED;
 			flags |= OBJFLAG_WEAPON_AICANNOTUSE;
 
-			prop = chrGiveWeapon(g_Vars.chrdata, model, weaponnum, flags);
+			prop = chrGiveWeapon(self, model, weaponnum, flags);
 		} else if (cheatIsActive(CHEAT_ENEMYROCKETS)) {
 			switch (weaponnum) {
 			case WEAPON_FALCON2:
@@ -4103,86 +3732,61 @@ struct prop *aiTryEquipWeapon(s32 model, s32 weaponnum, u32 flags)
 			case WEAPON_TIMEDMINE:
 			case WEAPON_PROXIMITYMINE:
 			case WEAPON_REMOTEMINE:
-				prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
+				prop = chrGiveWeapon(self, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
 				break;
 			case WEAPON_K7AVENGER:
 				if (g_Vars.stagenum == STAGE_INVESTIGATION && g_Difficulty == DIFF_PA) {
-					prop = chrGiveWeapon(g_Vars.chrdata, model, weaponnum, flags);
+					prop = chrGiveWeapon(self, model, weaponnum, flags);
 				} else {
-					prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
+					prop = chrGiveWeapon(self, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
 				}
 				break;
 			default:
-				prop = chrGiveWeapon(g_Vars.chrdata, model, weaponnum, flags);
+				prop = chrGiveWeapon(self, model, weaponnum, flags);
 				break;
 			}
 		} else {
-			prop = chrGiveWeapon(g_Vars.chrdata, model, weaponnum, flags);
+			prop = chrGiveWeapon(self, model, weaponnum, flags);
 		}
 	}
 
 	return prop;
 }
 
-bool aiTryFaceEntity(u32 entitytype, u32 entityid)
+bool aiTryJogToChr(struct chrdata *self, s32 chrref)
 {
-	return chrFaceEntity(g_Vars.chrdata, entitytype, entityid);
+	return chrGoToChr(self, chrref, GOPOSFLAG_JOG);
 }
 
-bool aiTryJogToChr(s32 chrref)
+bool aiTryJogToTarget(struct chrdata *self)
 {
-	return chrGoToChr(g_Vars.chrdata, chrref, GOPOSFLAG_JOG);
+	return chrGoToTarget(self, GOPOSFLAG_JOG);
 }
 
-bool aiTryJogToTarget(void)
+bool aiTryMelee(struct chrdata *self)
 {
-	return chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_JOG);
+	return self && chrTryPunch(self, 0);
 }
 
-bool aiTryJumpOut(void)
+bool aiTryModifyAttack(struct chrdata *self, u32 thingtype, u32 thingid)
 {
-	return chrTryJumpOut(g_Vars.chrdata);
-}
-
-bool aiTryMelee(void)
-{
-	return g_Vars.chrdata && chrTryPunch(g_Vars.chrdata, 0);
-}
-
-bool aiTryModifyAttack(u32 thingtype, u32 thingid)
-{
-	return (g_Vars.chrdata && chrTryModifyAttack(g_Vars.chrdata, thingtype, thingid))
+	return (self && chrTryModifyAttack(self, thingtype, thingid))
 		|| (g_Vars.hovercar && chopperAttack(g_Vars.hovercar));
 }
 
-bool aiTryRunSideways(void)
+bool aiTryRunToChr(struct chrdata *self, s32 chrref)
 {
-	return chrTryRunSideways(g_Vars.chrdata);
+	return chrGoToChr(self, chrref, GOPOSFLAG_RUN);
 }
 
-bool aiTryRunToChr(s32 chrref)
+bool aiTryRunToTarget(struct chrdata *self)
 {
-	return chrGoToChr(g_Vars.chrdata, chrref, GOPOSFLAG_RUN);
+	return chrGoToTarget(self, GOPOSFLAG_RUN);
 }
 
-bool aiTryRunToTarget(void)
+bool aiTryWalkToTarget(struct chrdata *self)
 {
-	return chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_RUN);
-}
-
-bool aiTrySidestep(void)
-{
-	return chrTrySidestep(g_Vars.chrdata);
-}
-
-struct prop *aiSpawnChrAtPad(s32 bodynum, s32 headnum, s32 padnum, u8 *ailist, u32 spawnflags)
-{
-	return chrSpawnAtPad(g_Vars.chrdata, bodynum, headnum, padnum, ailist, spawnflags);
-}
-
-bool aiTryWalkToTarget(void)
-{
-	return chrGoToTarget(g_Vars.chrdata, GOPOSFLAG_WALK);
+	return chrGoToTarget(self, GOPOSFLAG_WALK);
 }
 
 void aiUnlockDoor(s32 tagnum, u32 flags)
@@ -4202,21 +3806,6 @@ void aiUnsetAllRoomsAmbient(void)
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		g_Rooms[i].flags &= ~ROOMFLAG_PLAYAMBIENTTRACK;
 	}
-}
-
-void aiUnsetChrflag(u32 flag)
-{
-	g_Vars.chrdata->chrflags &= ~flag;
-}
-
-void aiUnsetFlagBank0(u32 flag)
-{
-	g_Vars.chrdata->flags &= ~flag;
-}
-
-void aiUnsetFlagBank1(u32 flag)
-{
-	g_Vars.chrdata->flags2 &= ~flag;
 }
 
 void aiUnsetObjFlag(s32 tagnum, u32 flag)
@@ -4254,12 +3843,12 @@ void aiUnsetRoomFlag(s32 roomnum, u32 flag)
 void aiUnsetStageFlag(u32 flag)
 {
 	g_StageFlags &= flag;
-	g_ObjectivesDirty = true;
+	g_ObjectivesDirty = flag; // we just need a non-zero value; this avoids an li instruction
 }
 
-void aiWalkToPad(s32 padnum)
+void aiWalkToPad(struct chrdata *self, s32 padnum)
 {
-	chrGoToPad(g_Vars.chrdata, padnum, GOPOSFLAG_WALK);
+	chrGoToPad(self, padnum, GOPOSFLAG_WALK);
 }
 
 void propDecrementSoundCount(struct prop *prop)

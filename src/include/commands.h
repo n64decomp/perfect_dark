@@ -3249,8 +3249,8 @@
  */
 #define set_chr_dodge_rating(value, whichprop) \
 	mkshort(0x01c6), \
-	value, \
-	whichprop,
+	whichprop, \
+	value,
 
 /**
  * This doesn't appear to be used.
