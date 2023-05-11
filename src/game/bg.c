@@ -50,10 +50,8 @@ static void currentPlayerCalculateScreenProperties(void);
 static void bgFindRoomVtxBatches(s32 roomnum);
 static Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum);
 static Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum);
-static void bgTickRooms(void);
 static void bgChooseRoomsToLoad(void);
 static void bgLoadRoom(s32 roomnum);
-static void bgUnloadAllRooms(void);
 static void boxExpand(struct screenbox *a, struct screenbox *b);
 static Gfx *currentPlayerScissorWithinViewportF(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom);
 static void func0f15cd28(void);
@@ -119,7 +117,6 @@ struct portalthing *g_PortalThings;
 struct var800a4cf0 var800a4cf0;
 s32 g_BgAlwaysRoom;
 
-bool g_BgPreload = false;
 s32 g_StageIndex = 1;
 
 s16 var8007fc0c = 0;
@@ -127,11 +124,9 @@ s16 var8007fc10 = 0;
 s32 g_NumRoomsWithGlares = 0;
 s32 g_CamRoom = 0x00000001;
 struct var800a4640_00 *var8007fc24 = &var800a4640.unk2d0;
-s32 var8007fc28 = 0;
 s32 var8007fc2c = 0;
 s32 var8007fc30 = 0;
 s32 var8007fc34 = 0;
-u32 g_BgNumRoomLoadCandidates = 0x00000000;
 u16 var8007fc3c = 0xfffe;
 s32 g_NumPortalThings = 0;
 
@@ -1272,18 +1267,6 @@ void bgReset(s32 stagenum)
 	g_BgUnloadDelay240 = 120;
 	g_BgUnloadDelay240_2 = 120;
 
-	switch (g_Vars.stagenum) {
-	case STAGE_INFILTRATION:
-	case STAGE_RESCUE:
-	case STAGE_ESCAPE:
-	case STAGE_MAIANSOS:
-		g_BgPreload = false;
-		break;
-	default:
-		g_BgPreload = true;
-		break;
-	}
-
 	g_StageIndex = stageGetIndex2(stagenum);
 
 	if (g_StageIndex < 0) {
@@ -1771,7 +1754,6 @@ void bgBuildTables(s32 stagenum)
 
 void bgStop(void)
 {
-	bgUnloadAllRooms();
 	var8005ef10[0] = 65536;
 }
 
@@ -1803,10 +1785,6 @@ void bgTick(void)
 	g_NumActiveRooms = 0;
 
 	func0f15c920();
-
-	if (!g_BgPreload && g_Vars.currentplayerindex == 0) {
-		bgTickRooms();
-	}
 
 	tickmode = g_Vars.tickmode;
 
@@ -2588,15 +2566,7 @@ static void bgLoadRoom(s32 roomnum)
 	// It must be big enough to fit both the inflated and compressed room data.
 	size = g_Rooms[roomnum].gfxdatalen;
 
-	if (g_BgPreload) {
-		allocation = mempAlloc(size, MEMPOOL_STAGE);
-	} else {
-		// Try to free enough bytes
-		bgGarbageCollectRooms(size, false);
-
-		// Make the allocation
-		allocation = memaAlloc(size);
-	}
+	allocation = mempAlloc(size, MEMPOOL_STAGE);
 
 	if (allocation != NULL) {
 		dyntexSetCurrentRoom(roomnum);
@@ -2739,11 +2709,7 @@ static void bgLoadRoom(s32 roomnum)
 		g_Rooms[roomnum].loaded240 = 1;
 
 		if (g_Rooms[roomnum].gfxdatalen != size) {
-			if (g_BgPreload) {
-				mempRealloc(allocation, g_Rooms[roomnum].gfxdatalen, MEMPOOL_STAGE);
-			} else {
-				memaRealloc((s32) allocation, size, g_Rooms[roomnum].gfxdatalen);
-			}
+			mempRealloc(allocation, g_Rooms[roomnum].gfxdatalen, MEMPOOL_STAGE);
 		}
 
 		// Update gdl pointers in the gfxdata so they point to the ones
@@ -2793,132 +2759,6 @@ static void bgLoadRoom(s32 roomnum)
 		g_Rooms[roomnum].colours = NULL;
 
 		dyntexSetCurrentRoom(-1);
-	}
-}
-
-
-static void bgUnloadRoom(s32 roomnum)
-{
-	u32 size;
-
-	if (g_BgPreload) {
-		return;
-	}
-
-	if (g_Rooms[roomnum].vtxbatches) {
-		size = ((g_Rooms[roomnum].numvtxbatches) * sizeof(struct vtxbatch) + 0xf) & ~0xf;
-		memaFree(g_Rooms[roomnum].vtxbatches, size);
-		g_Rooms[roomnum].vtxbatches = NULL;
-	}
-
-	if (g_Rooms[roomnum].gfxdatalen > 0) {
-		size = g_Rooms[roomnum].gfxdatalen;
-		memaFree(g_Rooms[roomnum].gfxdata, size);
-		g_Rooms[roomnum].gfxdata = NULL;
-	}
-
-	g_Rooms[roomnum].loaded240 = 0;
-}
-
-static void bgUnloadAllRooms(void)
-{
-	s32 i;
-
-	for (i = 1; i < g_Vars.roomcount; i++) {
-		if (g_Rooms[i].loaded240) {
-			bgUnloadRoom(i);
-		}
-	}
-}
-
-/**
- * Find rooms which were recently visible and not yet unloaded, and unload them
- * until the given bytesneeded amount is available in mema.
- *
- * Rooms are unloaded in order of least recently visible.
- *
- * If there's still not enough space after 30 unloads and the desparate argument
- * is true, do a final iteration through all the rooms and free everything
- * that's not visible.
- */
-void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
-{
-	s32 bytesfree = memaGetLongestFree();
-	s32 oldestroom;
-	s32 oldesttimer;
-	s32 count = 0;
-	s32 i;
-
-	if (g_BgPreload) {
-		return;
-	}
-
-	while (bytesfree < bytesneeded) {
-		oldestroom = 0;
-		oldesttimer = 0;
-
-		for (i = 1; i < g_Vars.roomcount; i++) {
-			if (g_Rooms[i].loaded240 > oldesttimer) {
-				oldestroom = i;
-				oldesttimer = g_Rooms[i].loaded240;
-			}
-		}
-
-		if (oldestroom != 0) {
-			bgUnloadRoom(oldestroom);
-			memaDefrag();
-		}
-
-		bytesfree = memaGetLongestFree();
-		count++;
-
-		if (count == 30) {
-			if (desparate == true) {
-				for (i = 1; i < g_Vars.roomcount; i++) {
-					if (g_Rooms[i].loaded240 > 8) {
-						bgUnloadRoom(i);
-						memaDefrag();
-
-						if (memaGetLongestFree() >= bytesneeded) {
-							return;
-						}
-					}
-				}
-			}
-
-			break;
-		}
-	}
-}
-
-/**
- * Increase the loaded240 timers for rooms which are no longer visible.
- * If any rooms have reached the timer limit then unload them, but don't unload
- * more than 2 rooms per frame.
- */
-static void bgTickRooms(void)
-{
-	s32 numunloaded = 0;
-	s32 i;
-
-	for (i = 1; i < g_Vars.roomcount; i++) {
-		if (g_Rooms[i].loaded240) {
-			g_Rooms[i].loaded240++;
-
-			if (g_Rooms[i].loaded240 >= g_BgUnloadDelay240) {
-				g_Rooms[i].loaded240 = g_BgUnloadDelay240;
-			}
-
-			if (g_Rooms[i].flags & ROOMFLAG_ONSCREEN) {
-				g_Rooms[i].loaded240 = 1;
-			}
-
-			if (numunloaded < 2 && g_Rooms[i].loaded240 == g_BgUnloadDelay240_2) {
-				bgUnloadRoom(i);
-				memaDefrag();
-				numunloaded++;
-			}
-		}
 	}
 }
 
@@ -3168,11 +3008,7 @@ static void bgFindRoomVtxBatches(s32 roomnum)
 
 			batchindex += xlucount;
 
-			if (g_BgPreload) {
-				batches = mempAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf, MEMPOOL_STAGE);
-			} else {
-				batches = memaAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf);
-			}
+			batches = mempAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf, MEMPOOL_STAGE);
 
 			if (batches != NULL) {
 				gdl = roomGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_OPA);
@@ -5594,77 +5430,6 @@ static void bgChooseRoomsToLoad(void)
 	s32 j;
 	u32 stack;
 
-	g_BgNumRoomLoadCandidates = 0;
-
-	if (!g_BgPreload) {
-		for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
-			if ((g_BgPortals[i].flags & PORTALFLAG_SKIP) == 0) {
-				s32 roomnum1 = g_BgPortals[i].roomnum1;
-				s32 roomnum2 = g_BgPortals[i].roomnum2;
-				s32 portalnum;
-
-				if ((g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) && (g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN) == 0) {
-					// From room1 to room2
-					g_Rooms[roomnum2].flags |= ROOMFLAG_STANDBY;
-
-					if (g_Rooms[roomnum2].loaded240 == 0) {
-						g_Rooms[roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
-						g_BgNumRoomLoadCandidates++;
-					}
-
-					roomUnpauseProps(roomnum2, true);
-
-					if (PORTAL_IS_CLOSED(i)) {
-						for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
-							portalnum = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
-
-							if (roomnum2 == g_BgPortals[portalnum].roomnum1) {
-								if (g_Rooms[g_BgPortals[portalnum].roomnum2].loaded240 == 0) {
-									g_Rooms[g_BgPortals[portalnum].roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
-									g_BgNumRoomLoadCandidates++;
-								}
-							} else {
-								if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
-									g_Rooms[g_BgPortals[portalnum].roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
-									g_BgNumRoomLoadCandidates++;
-								}
-							}
-						}
-					}
-				} else if ((g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN)
-						&& (g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) == 0) {
-					// From room2 to room1
-					g_Rooms[roomnum1].flags |= ROOMFLAG_STANDBY;
-
-					if (g_Rooms[roomnum1].loaded240 == 0) {
-						g_Rooms[roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
-						g_BgNumRoomLoadCandidates++;
-					}
-
-					roomUnpauseProps(roomnum1, true);
-
-					if (PORTAL_IS_CLOSED(i)) {
-						for (j = 0; j < g_Rooms[roomnum1].numportals; j++) {
-							portalnum = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + j];
-
-							if (roomnum1 == g_BgPortals[portalnum].roomnum1) {
-								if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
-									g_Rooms[g_BgPortals[portalnum].roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
-									g_BgNumRoomLoadCandidates++;
-								}
-							} else {
-								if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
-									g_Rooms[g_BgPortals[portalnum].roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
-									g_BgNumRoomLoadCandidates++;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
 	// Update visibility per player
 	if (g_Vars.mplayerisrunning) {
 		u8 flag1 = 0x01 << g_Vars.currentplayernum;
@@ -5760,77 +5525,6 @@ static Gfx *func0f164150(Gfx *gdl)
 {
 	gdl = bgRenderScene(gdl);
 	gdl = currentPlayerScissorToViewport(gdl);
-
-	if (g_Vars.currentplayerindex == 0) {
-		var8007fc28 -= g_Vars.lvupdate240;
-	}
-
-	if (var8007fc28 < 0) {
-		var8007fc28 = 0;
-	}
-
-	// Consider loading one room by finding the load candidate that is closest to the player
-	if (g_BgNumRoomLoadCandidates && var8007fc28 == 0 && var8007fc10 == 4 && g_Vars.tickmode == TICKMODE_NORMAL) {
-		struct player *player = g_Vars.currentplayer;
-		s32 i;
-		f32 value;
-		struct coord dist;
-		f32 bestvalue = MAXFLOAT;
-		s32 bestroomnum = 0;
-		f32 radius;
-
-		for (i = 1; i < g_Vars.roomcount; i++) {
-			if (!g_Rooms[i].loaded240 && (g_Rooms[i].flags & ROOMFLAG_LOADCANDIDATE)) {
-				dist.x = g_Vars.currentplayer->prop->pos.x - g_Rooms[i].centre.x;
-				dist.y = g_Vars.currentplayer->prop->pos.y - g_Rooms[i].centre.y;
-				dist.z = g_Vars.currentplayer->prop->pos.z - g_Rooms[i].centre.z;
-
-				value = dist.f[0] * dist.f[0] + dist.f[1] * dist.f[1] + dist.f[2] * dist.f[2];
-
-				radius = g_Rooms[i].radius;
-
-				if (var8009dd6c + radius < player->projectionmtx->m[2][0] * g_Rooms[i].centre.f[0]
-						+ player->projectionmtx->m[2][1] * g_Rooms[i].centre.f[1]
-						+ player->projectionmtx->m[2][2] * g_Rooms[i].centre.f[2]) {
-					value *= 3.0f;
-				}
-
-				if (var8009dd4c + radius < var8009dd40.f[0] * g_Rooms[i].centre.f[0]
-						+ var8009dd40.f[1] * g_Rooms[i].centre.f[1]
-						+ var8009dd40.f[2] * g_Rooms[i].centre.f[2]) {
-					value *= 1.5f;
-				}
-
-				if (var8009dd5c + radius < var8009dd50.f[0] * g_Rooms[i].centre.f[0]
-						+ var8009dd50.f[1] * g_Rooms[i].centre.f[1]
-						+ var8009dd50.f[2] * g_Rooms[i].centre.f[2]) {
-					value *= 1.5f;
-				}
-
-				if (var8009dd2c + radius < var8009dd20.f[0] * g_Rooms[i].centre.f[0]
-						+ var8009dd20.f[1] * g_Rooms[i].centre.f[1]
-						+ var8009dd20.f[2] * g_Rooms[i].centre.f[2]) {
-					value *= 2.0f;
-				}
-
-				if (var8009dd3c + radius < var8009dd30.f[0] * g_Rooms[i].centre.f[0]
-						+ var8009dd30.f[1] * g_Rooms[i].centre.f[1]
-						+ var8009dd30.f[2] * g_Rooms[i].centre.f[2]) {
-					value *= 2.0f;
-				}
-
-				if (value < bestvalue) {
-					bestvalue = value;
-					bestroomnum = i;
-				}
-			}
-		}
-
-		if (bestroomnum != 0) {
-			bgLoadRoom(bestroomnum);
-			var8007fc28 = 64;
-		}
-	}
 
 	return gdl;
 }
@@ -6255,11 +5949,94 @@ end:
 	rooms[len] = -1;
 }
 
+u8 g_BgPreloadInfiltration[][2] = {
+	{0x01, 0x2a},
+	{0x2e, 0x2e},
+	{0x31, 0x31},
+	{0x35, 0x36},
+	{0x3b, 0x3b},
+	{0x40, 0x52},
+	{0x58, 0x58},
+	{0x5f, 0x66},
+	{0x78, 0x78},
+	{0x8c, 0x8d},
+	{0x8f, 0x9a},
+	{0xfc, 0xff},
+};
+
+u16 g_BgPreloadRescue[][2] = {
+	{0x01, 0x0f},
+	{0x16, 0x1d},
+	{0x21, 0x22},
+	{0x2e, 0x2e},
+	{0x31, 0x31},
+	{0x37, 0x37},
+	{0x3b, 0x3b},
+	{0x3f, 0x4b},
+	{0x4d, 0x4d},
+	{0x4f, 0xcc},
+	{0xdd, 0xdd},
+	{0xe0, 0xe4},
+	{0xf2, 0x10e},
+};
+
+u16 g_BgPreloadEscape[][2] = {
+	{0x0f, 0x16},
+	{0x23, 0x40},
+	{0x45, 0x47},
+	{0x59, 0x5e},
+	{0x63, 0x72},
+	{0x78, 0x9f},
+	{0xa5, 0xad},
+	{0xb9, 0xb9},
+	{0xbd, 0xbd},
+	{0xbf, 0x10e},
+};
+
+u16 g_BgPreloadMaianSos[][2] = {
+	{0x01, 0x03},
+	{0x05, 0x08},
+	{0x0f, 0x0f},
+	{0x18, 0x1d},
+	{0x21, 0x22},
+	{0x26, 0x4d},
+	{0x4f, 0xd3},
+	{0xd5, 0xd8},
+	{0xdd, 0xdd},
+	{0xe0, 0xe5},
+	{0xf2, 0x10e},
+};
+
 void bgPreload(void)
 {
-	if (g_BgPreload) {
-		s32 i;
+	s32 i;
+	s32 j;
 
+	if (g_Vars.stagenum == STAGE_INFILTRATION) {
+		for (i = 0; i < ARRAYCOUNT(g_BgPreloadInfiltration); i++) {
+			for (j = g_BgPreloadInfiltration[i][0]; j <= g_BgPreloadInfiltration[i][1]; j++) {
+				bgLoadRoom(j);
+			}
+		}
+	} else if (g_Vars.stagenum == STAGE_RESCUE) {
+		for (i = 0; i < ARRAYCOUNT(g_BgPreloadRescue); i++) {
+			for (j = g_BgPreloadRescue[i][0]; j <= g_BgPreloadRescue[i][1]; j++) {
+				bgLoadRoom(j);
+			}
+		}
+	} else if (g_Vars.stagenum == STAGE_ESCAPE) {
+		for (i = 0; i < ARRAYCOUNT(g_BgPreloadEscape); i++) {
+			for (j = g_BgPreloadEscape[i][0]; j <= g_BgPreloadEscape[i][1]; j++) {
+				bgLoadRoom(j);
+			}
+		}
+	} else if (g_Vars.stagenum == STAGE_MAIANSOS) {
+		for (i = 0; i < ARRAYCOUNT(g_BgPreloadMaianSos); i++) {
+			for (j = g_BgPreloadMaianSos[i][0]; j <= g_BgPreloadMaianSos[i][1]; j++) {
+				bgLoadRoom(j);
+			}
+		}
+	} else {
 		for (i = 1; i < g_Vars.roomcount; i++) {
 			bgLoadRoom(i);
 		}

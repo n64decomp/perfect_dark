@@ -46,7 +46,6 @@ void func0f110bf8(void)
 void filelistCreate(s32 listnum, u8 filetype)
 {
 	if (g_FileLists[listnum] == NULL) {
-		bgGarbageCollectRooms(ALIGN16(sizeof(struct filelist)), 1);
 		g_FileLists[listnum] = memaAlloc(ALIGN16(sizeof(struct filelist)));
 	}
 
