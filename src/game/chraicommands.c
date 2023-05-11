@@ -1759,11 +1759,6 @@ bool aiIfGunUnclaimed(struct chrdata *self)
 	return false;
 }
 
-bool aiIfInCutscene(void)
-{
-	return g_Vars.in_cutscene;
-}
-
 bool aiIfInjured(struct chrdata *self, s32 chrref)
 {
 	struct chrdata *chr = chrFindById(self, chrref);
@@ -2031,13 +2026,6 @@ bool aiIfSeesSuspiciousItem(struct chrdata *self)
 	}
 
 	return false;
-}
-
-bool aiIfSkedar(struct chrdata *self, s32 chrref)
-{
-	struct chrdata *chr = chrFindById(self, chrref);
-
-	return chr && chr->prop && CHRRACE(chr) == RACE_SKEDAR;
 }
 
 bool aiIfSquadronIsDead(s32 squadron)

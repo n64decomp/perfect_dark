@@ -171,6 +171,61 @@ class App():
             self.emit('li', ['$t0', value])
             self.emit('sw', ['$t0', '0x%x($sp)' % stackoffset])
 
+    def get_shiftamount(self, flag):
+        i = 0
+        while i < 32:
+            if flag & 1:
+                if flag == 1:
+                    return 31 - i
+                else:
+                    return -1
+            flag >>= 1
+            i += 1
+        return -1
+
+    def emit_has_flag(self, reg, flag, label):
+        shiftamount = self.get_shiftamount(flag)
+        if shiftamount >= 0:
+            if shiftamount >= 1:
+                self.emit('sll', [reg, reg, shiftamount])
+            self.emit('bltz', [reg, self.label_name(label)])
+        elif flag & 0xffff0000:
+            self.emit('li', ['$t0', flag])
+            self.emit('and', [reg, reg, '$t0'])
+            self.emit('bnez', [reg, self.label_name(label)])
+        else:
+            self.emit('andi', [reg, reg, flag])
+            self.emit('bnez', [reg, self.label_name(label)])
+
+    def emit_not_has_flag(self, reg, flag, label):
+        shiftamount = self.get_shiftamount(flag)
+        if shiftamount >= 0:
+            if shiftamount >= 1:
+                self.emit('sll', [reg, reg, shiftamount])
+            self.emit('bgez', [reg, self.label_name(label)])
+        elif flag & 0xffff0000:
+            self.emit('li', ['$t0', flag])
+            self.emit('and', [reg, reg, '$t0'])
+            self.emit('beqz', [reg, self.label_name(label)])
+        else:
+            self.emit('andi', [reg, reg, flag])
+            self.emit('beqz', [reg, self.label_name(label)])
+
+    def emit_set_flag(self, reg, flag):
+        if flag & 0xffff0000:
+            self.emit('li', ['$t0', flag])
+            self.emit('or', ['$v0', '$v0', '$t0'])
+        else:
+            self.emit('ori', ['$v0', '$v0', flag])
+
+    def emit_unset_flag(self, reg, flag):
+        flag = (~flag) & 0xffffffff
+        if flag & 0xffff0000:
+            self.emit('li', ['$t0', flag])
+            self.emit('and', [reg, reg, '$t0'])
+        else:
+            self.emit('andi', [reg, reg, flag])
+
     def chr_field_offset(self, fieldname):
         map = {
             'accuracyrating':     0x2,
@@ -188,12 +243,16 @@ class App():
             'flags2':             0x120,
             'timer60':            0x124,
             'soundtimer':         0x128,
+            'team':               0x12d,
+            'cshield':            0x188,
             'cover':              0x29a,
             'myaction':           0x2a8,
             'orders':             0x2a9,
             'squadron':           0x2aa,
             'naturalanim':        0x2eb,
+            'race':               0x306,
             'gunprop':            0x308,
+            'specialdie':         0x337,
             'dodgerating':        0x36c,
             'maxdodgerating':     0x36d,
             'unarmeddodgerating': 0x36e,
@@ -334,10 +393,15 @@ class App():
         self.emit('b', [self.label_name(params[1])])
 
     def ai_chr_toggle_modelpart(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('li', ['$a2', '0x%02x' % params[1]])
-        self.emit('jal', ['aiChrToggleModelPart'])
+        if params[0] == 0xfd:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[1]])
+            self.emit('jal', ['chrToggleModelPart'])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('li', ['$a2', '0x%02x' % params[1]])
+            self.emit('jal', ['aiChrToggleModelPart'])
 
     def ai_chr_toggle_p1p2(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -486,9 +550,13 @@ class App():
         self.emit('jal', ['aiDoPresetAnimation'])
 
     def ai_drop_concealed_items(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('jal', ['aiChrDropItems'])
+        if params[0] == 0xfd:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('jal', ['chrDropConcealedItems'])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('jal', ['aiChrDropItems'])
 
     def ai_drop_gun_and_fade_out(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -639,7 +707,8 @@ class App():
         self.emit_bnez_label(params[1])
 
     def ai_if_camera_animating(self, params):
-        self.emit('jal', ['aiIfInCutscene'])
+        self.emit('lui', ['$v0', '%hi(g_Vars+0x4bc)'])
+        self.emit('lw', ['$v0', '%lo(g_Vars+0x4bc)($v0)'])
         self.emit_bnez_label(params[0])
 
     def ai_if_can_hear_alarm(self, params):
@@ -721,11 +790,16 @@ class App():
         self.emit_bnez_label(params[6])
 
     def ai_if_chr_has_hiddenflag(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
-        self.emit('jal', ['aiIfChrHasHiddenFlag'])
-        self.emit_bnez_label(params[5])
+        if params[0] == 0xfd:
+            flag = self.u32(params, 1)
+            self.emit('lw', ['$v0', self.chr_field('hidden')])
+            self.emit_has_flag('$v0', flag, params[5])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
+            self.emit('jal', ['aiIfChrHasHiddenFlag'])
+            self.emit_bnez_label(params[5])
 
     def ai_if_chr_has_object(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -777,10 +851,9 @@ class App():
         self.emit_bnez_label(params[1])
 
     def ai_if_chr_is_skedar(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('jal', ['aiIfSkedar'])
-        self.emit_bnez_label(params[1])
+        self.emit('lbu', ['$v0', self.chr_field('race')])
+        self.emit('li', ['$v1', 1])
+        self.emit('beq', ['$v0', '$v1', self.label_name(params[1])])
 
     def ai_if_chr_knockedout(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -815,9 +888,12 @@ class App():
         self.emit_bnez_label(params[1])
 
     def ai_if_chr_shield_lt(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('jal', ['aiGetChrShield'])
+        if params[0] == 0xfd:
+            self.emit('lwc1', ['$f0', self.chr_field('cshield')])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('jal', ['aiGetChrShield'])
         self.emit('li.s', ['$f2', self.u16(params, 1) / 10])
         self.emit('c.lt.s', ['$f0', '$f2'])
         self.emit('bc1t', [self.label_name(params[3])])
@@ -1002,10 +1078,14 @@ class App():
         self.emit_bnez_label(params[2]) # not a wrong index
 
     def ai_if_has_gun(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('jal', ['aiIfChrHasGun'])
-        self.emit_bnez_label(params[2]) # not a wrong index
+        if params[0] == 0xfd:
+            self.emit('lw', ['$v0', self.chr_field('gunprop')])
+            self.emit_beqz_label(params[2]) # not a wrong index
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('jal', ['aiIfChrHasGun'])
+            self.emit_bnez_label(params[2]) # not a wrong index
 
     def ai_if_has_orders(self, params):
         self.emit('lbu', ['$v0', self.chr_field('orders')])
@@ -1223,25 +1303,15 @@ class App():
         flag = self.u32(params, 0)
         fieldname = 'flags' if params[5] == 0 else 'flags2'
         self.emit('lw', ['$v0', self.chr_field(fieldname)])
-        if flag & 0xffff0000:
-            self.emit('li', ['$v1', '0x%08x' % flag])
-            self.emit('and', ['$v0', '$v0', '$v1'])
-        else:
-            self.emit('andi', ['$v0', '$v0', '0x%04x' % flag])
         if params[4] == 0:
-            self.emit_beqz_label(params[6])
+            self.emit_not_has_flag('$v0', flag, params[6])
         else:
-            self.emit_bnez_label(params[6])
+            self.emit_has_flag('$v0', flag, params[6])
 
     def ai_if_self_has_chrflag(self, params):
         flag = self.u32(params, 0)
         self.emit('lw', ['$v0', self.chr_field('chrflags')])
-        if flag & 0xffff0000:
-            self.emit('li', ['$v1', '0x%08x' % flag])
-            self.emit('and', ['$v0', '$v0', '$v1'])
-        else:
-            self.emit('andi', ['$v0', '$v0', '0x%04x' % flag])
-        self.emit('beq', ['$v0', '$v1', self.label_name(params[4])])
+        self.emit_has_flag('$v0', flag, params[4])
 
     def ai_if_sound_finished(self, params):
         self.emit('li', ['$a0', params[0]])
@@ -1252,15 +1322,10 @@ class App():
         flag = self.u32(params, 0)
         self.emit('lui', ['$a0', '%hi(g_StageFlags)'])
         self.emit('lw', ['$v0', '%lo(g_StageFlags)($a0)'])
-        if flag & 0xffff0000:
-            self.emit('li', ['$v1', '0x%08x' % flag])
-            self.emit('and', ['$v0', '$v0', '$v1'])
-        else:
-            self.emit('andi', ['$v0', '$v0', '0x%04x' % flag])
         if params[4] == 0:
-            self.emit_beqz_label(params[5])
+            self.emit_not_has_flag('$v0', flag, params[5])
         else:
-            self.emit_bnez_label(params[5])
+            self.emit_has_flag('$v0', flag, params[5])
 
     def ai_if_stage_is_not(self, params):
         self.emit('lui', ['$v0', '%hi(g_StageNum)'])
@@ -1438,8 +1503,7 @@ class App():
 
     def ai_pause_timer(self, params):
         self.emit('lw', ['$v0', self.chr_field('hidden')])
-        self.emit('li', ['$v1', -65])
-        self.emit('and', ['$v0', '$v0', '$v1'])
+        self.emit_set_flag('$v0', 0x40)
         self.emit('sw', ['$v0', self.chr_field('hidden')])
 
     def ai_play_cistaff_quip(self, params):
@@ -1538,9 +1602,14 @@ class App():
         self.emit('jal', ['bmoveSetModeForAllPlayers'])
 
     def ai_remove_chr(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('jal', ['aiRemoveChr'])
+        if params[0] == 0xfd:
+            self.emit('lw', ['$v0', self.chr_field('hidden')])
+            self.emit_set_flag('$v0', 0x20)
+            self.emit('sw', ['$v0', self.chr_field('hidden')])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('jal', ['aiRemoveChr'])
 
     def ai_remove_references_to_chr(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -1559,7 +1628,7 @@ class App():
 
     def ai_resume_timer(self, params):
         self.emit('lw', ['$v0', self.chr_field('hidden')])
-        self.emit('ori', ['$v0', '$v0', 0x40])
+        self.emit_set_flag('$v0', 0x40)
         self.emit('sw', ['$v0', self.chr_field('hidden')])
 
     def ai_retreat(self, params):
@@ -1646,10 +1715,15 @@ class App():
         self.emit('jal', ['aiSetAutogunTargetTeam'])
 
     def ai_set_chr_chrflag(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
-        self.emit('jal', ['aiChrSetChrflag'])
+        if params[0] == 0xfd:
+            self.emit('lw', ['$v0', self.chr_field('chrflags')])
+            self.emit_set_flag('$v0', self.u32(params, 1))
+            self.emit('sw', ['$v0', self.chr_field('chrflags')])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
+            self.emit('jal', ['aiChrSetChrflag'])
 
     def ai_set_chr_cloaked(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -1681,10 +1755,15 @@ class App():
         self.emit('jal', ['chrSetFlagsById'])
 
     def ai_set_chr_hiddenflag(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
-        self.emit('jal', ['aiChrSetHiddenFlag'])
+        if params[0] == 0xfd:
+            self.emit('lw', ['$v0', self.chr_field('hidden')])
+            self.emit_set_flag('$v0', self.u32(params, 1))
+            self.emit('sw', ['$v0', self.chr_field('hidden')])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
+            self.emit('jal', ['aiChrSetHiddenFlag'])
 
     def ai_set_chr_hudpiece_visible(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -1714,10 +1793,14 @@ class App():
         self.emit('jal', ['aiChrSetFiringInCutscene'])
 
     def ai_set_chr_special_death_animation(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('li', ['$a2', '0x%02x' % params[1]])
-        self.emit('jal', ['aiSetChrSpecialDeathAnimation'])
+        if params[0] == 0xfd:
+            self.emit('li', ['$v0', '0x%02x' % params[1]])
+            self.emit('sb', ['$v0', self.chr_field('specialdie')])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('li', ['$a2', '0x%02x' % params[1]])
+            self.emit('jal', ['aiSetChrSpecialDeathAnimation'])
 
     def ai_set_chr_target_chr(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -1726,10 +1809,14 @@ class App():
         self.emit('jal', ['chrSetChrPresetByChrnum'])
 
     def ai_set_chr_team(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('li', ['$a2', '0x%02x' % params[1]])
-        self.emit('jal', ['aiChrSetTeam'])
+        if params[0] == 0xfd:
+            self.emit('li', ['$v0', params[1]])
+            self.emit('sb', ['$v0', self.chr_field('team')])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('li', ['$a2', '0x%02x' % params[1]])
+            self.emit('jal', ['aiChrSetTeam'])
 
     def ai_set_chrpreset(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -1871,24 +1958,14 @@ class App():
         self.emit('jal', ['gamefileSetFlag'])
 
     def ai_set_self_chrflag(self, params):
-        flag = self.u32(params, 0)
         self.emit('lw', ['$v0', self.chr_field('chrflags')])
-        if flag & 0xffff0000:
-            self.emit('li', ['$v1', '0x%08x' % flag])
-            self.emit('or', ['$v0', '$v0', '$v1'])
-        else:
-            self.emit('ori', ['$v0', '$v0', flag])
+        self.emit_set_flag('$v0', self.u32(params, 0))
         self.emit('sw', ['$v0', self.chr_field('chrflags')])
 
     def ai_set_self_flag_bankx(self, params):
         field = 'flags' if params[4] == 0 else 'flags2'
-        flag = self.u32(params, 0)
         self.emit('lw', ['$v0', self.chr_field(field)])
-        if flag & 0xffff0000:
-            self.emit('li', ['$v1', '0x%08x' % flag])
-            self.emit('or', ['$v0', '$v0', '$v1'])
-        else:
-            self.emit('ori', ['$v0', '$v0', flag])
+        self.emit_set_flag('$v0', self.u32(params, 0))
         self.emit('sw', ['$v0', self.chr_field(field)])
 
     def ai_set_shield(self, params):
@@ -2231,10 +2308,15 @@ class App():
         self.emit('jal', ['aiUnlockDoor'])
 
     def ai_unset_chr_chrflag(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
-        self.emit('jal', ['aiChrUnsetChrflag'])
+        if params[0] == 0xfd:
+            self.emit('lw', ['$v0', self.chr_field('chrflags')])
+            self.emit_unset_flag('$v0', self.u32(params, 1))
+            self.emit('sw', ['$v0', self.chr_field('chrflags')])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
+            self.emit('jal', ['aiChrUnsetChrflag'])
 
     def ai_unset_chr_flag_bankx(self, params):
         self.emit('move', ['$a0', '$s0'])
@@ -2244,10 +2326,15 @@ class App():
         self.emit('jal', ['chrUnsetFlagsById'])
 
     def ai_unset_chr_hiddenflag(self, params):
-        self.emit('move', ['$a0', '$s0'])
-        self.emit('li', ['$a1', '0x%02x' % params[0]])
-        self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
-        self.emit('jal', ['aiChrUnsetHiddenFlag'])
+        if params[0] == 0xfd:
+            self.emit('lw', ['$v0', self.chr_field('hidden')])
+            self.emit_unset_flag('$v0', self.u32(params, 1))
+            self.emit('sw', ['$v0', self.chr_field('hidden')])
+        else:
+            self.emit('move', ['$a0', '$s0'])
+            self.emit('li', ['$a1', '0x%02x' % params[0]])
+            self.emit('li', ['$a2', '0x%08x' % self.u32(params, 1)])
+            self.emit('jal', ['aiChrUnsetHiddenFlag'])
 
     def ai_unset_object_flag(self, params):
         self.emit('li', ['$a0', '0x%02x' % params[0]])
@@ -2270,15 +2357,13 @@ class App():
 
     def ai_unset_self_chrflag(self, params):
         self.emit('lw', ['$v0', self.chr_field('chrflags')])
-        self.emit('li', ['$v1', '0x%08x' % ((~self.u32(params, 0)) & 0xffffffff)])
-        self.emit('nor', ['$v0', '$v0', '$v1'])
+        self.emit_unset_flag('$v0', self.u32(params, 0))
         self.emit('sw', ['$v0', self.chr_field('chrflags')])
 
     def ai_unset_self_flag_bankx(self, params):
         field = 'flags' if params[4] == 0 else 'flags2'
         self.emit('lw', ['$v0', self.chr_field(field)])
-        self.emit('li', ['$v1', '0x%08x' % ((~self.u32(params, 0)) & 0xffffffff)])
-        self.emit('nor', ['$v0', '$v0', '$v1'])
+        self.emit_unset_flag('$v0', self.u32(params, 0))
         self.emit('sw', ['$v0', self.chr_field(field)])
 
     def ai_unset_stage_flag(self, params):
