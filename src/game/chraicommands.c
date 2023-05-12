@@ -2065,8 +2065,8 @@ bool aiIfTargetIsPlayer(struct chrdata *self)
 
 bool aiIfTargetMovingSlowly(struct chrdata *self)
 {
-	s32 delta = chrGetDistanceLostToTargetInLastSecond(self);
-	s32 absdelta = delta > 0 ? delta : -delta;
+	f32 delta = chrGetDistanceLostToTargetInLastSecond(self);
+	f32 absdelta = absf(delta);
 
 	return absdelta < 50;
 }
@@ -2722,7 +2722,7 @@ void aiSayQuip(struct chrdata *self, s32 chrref, s32 row, s32 probability, s32 s
 	char *text; // 128
 	struct chrdata *chr = chrFindById(self, chrref); // 124
 	u32 prevplayernum = g_Vars.currentplayernum; // 120
-	s32 distance; // 116 - not referenced
+	f32 distance; // 116 - not referenced
 	u32 playernum; // 108 - not referenced
 	u8 headshotted = (self->hidden2 & CHRH2FLAG_HEADSHOTTED) & 0xff; // 107
 	struct chrdata *loopchr; // 100
@@ -2861,7 +2861,7 @@ void aiSayQuip(struct chrdata *self, s32 chrref, s32 row, s32 probability, s32 s
 					// Audio is "Stop moving", "Stop dodging" or "Stand still"
 					distance = chrGetDistanceLostToTargetInLastSecond(self);
 
-					if (ABS(distance) > 50) {
+					if (absf(distance) > 50) {
 						func0f0926bc(self->prop, 9, 0xffff);
 						// 840
 						propsnd0f0939f8(0, self->prop, audioid, -1,
@@ -2926,7 +2926,7 @@ void aiSayQuip(struct chrdata *self, s32 chrref, s32 row, s32 probability, s32 s
 						// a90
 						distance = chrGetDistanceLostToTargetInLastSecond(self);
 
-						if (ABS(distance) > 50) {
+						if (absf(distance) > 50) {
 							func0f0926bc(self->prop, 9, 0xffff);
 							// b28
 							propsnd0f0939f8(0, self->prop, audioid, -1,

@@ -1361,15 +1361,17 @@ class App():
         # follow label if return value > 50
         self.emit('move', ['$a0', '$s0'])
         self.emit('jal', ['chrGetDistanceLostToTargetInLastSecond'])
-        self.emit('slti', ['$v0', '$v0', 51])
-        self.emit_beqz_label(params[0])
+        self.emit('li.s', ['$f2', 50])
+        self.emit('c.lt.s', ['$f2', '$f0'])
+        self.emit('bc1t', [self.label_name(params[0])])
 
     def ai_if_target_moving_closer(self, params):
         # follow label if return value < -50
         self.emit('move', ['$a0', '$s0'])
         self.emit('jal', ['chrGetDistanceLostToTargetInLastSecond'])
-        self.emit('slti', ['$v0', '$v0', -50])
-        self.emit_bnez_label(params[0])
+        self.emit('li.s', ['$f2', -50])
+        self.emit('c.lt.s', ['$f0', '$f2'])
+        self.emit('bc1t', [self.label_name(params[0])])
 
     def ai_if_target_moving_slowly(self, params):
         self.emit('move', ['$a0', '$s0'])

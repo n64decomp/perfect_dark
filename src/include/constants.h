@@ -43,6 +43,13 @@
 #define FRAMEBUFFER_SIZE    (320 * 220 * sizeof(u16))
 #define UNCACHED(x)         ((void *)((u32)(x)|0xa0000000))
 
+static inline float absf(float value)
+{
+	float ret;
+	__asm__ ("abs.s %0, %1" : "=f"(ret) : "f"(value));
+	return ret;
+}
+
 static inline float sqrtf(float value)
 {
 	float ret;

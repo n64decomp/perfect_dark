@@ -14065,31 +14065,41 @@ void chrAddTargetToBdlist(struct chrdata *chr)
 
 		if (target) {
 			for (i = 0; i < g_Vars.lvupdate60; i++) {
-				chr->bdlist[chr->bdstart] = target->pos.x - chr->prop->pos.x;
-				chr->bdstart++;
-				chr->bdstart %= 60;
+				chr->bdlist[chr->bdstart + 0] = target->pos.x - chr->prop->pos.x;
+				chr->bdlist[chr->bdstart + 1] = target->pos.z - chr->prop->pos.z;
 
-				chr->bdlist[chr->bdstart] = target->pos.z - chr->prop->pos.z;
-				chr->bdstart++;
-				chr->bdstart %= 60;
+				chr->bdstart += 2;
+
+				if (chr->bdstart >= 60) {
+					chr->bdstart = 0;
+				}
 			}
 		}
 	}
 }
 
-s32 chrGetDistanceLostToTargetInLastSecond(struct chrdata *chr)
+f32 chrGetDistanceLostToTargetInLastSecond(struct chrdata *chr)
 {
-	s32 *bdlist = &chr->bdlist[0];
+	f32 *bdlist = &chr->bdlist[0];
 	s32 index = chr->bdstart;
-	u32 stack[2];
+	f32 olddist;
+	f32 curdist;
+	f32 x;
+	f32 z;
 
-	s32 x1 = bdlist[(index + 1) % 60];
-	s32 z1 = bdlist[index];
-	s32 olddist = sqrtf(x1 * x1 + z1 * z1);
+	x = bdlist[index + 1];
+	z = bdlist[index + 0];
+	olddist = sqrtf(x * x + z * z);
 
-	s32 x2 = bdlist[(index + 59) % 60];
-	s32 z2 = bdlist[(index + 58) % 60];
-	s32 curdist = sqrtf(x2 * x2 + z2 * z2);
+	index += 2;
+
+	if (index >= 60) {
+		index = 0;
+	}
+
+	x = bdlist[index + 1];
+	z = bdlist[index + 0];
+	curdist = sqrtf(x * x + z * z);
 
 	return curdist - olddist;
 }

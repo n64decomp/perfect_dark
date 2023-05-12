@@ -1251,7 +1251,7 @@ struct chrdata {
 #else
 	/*0x19c*/ s32 magicanim;
 #endif
-	/*0x1a0*/ s32 bdlist[60];
+	/*0x1a0*/ f32 bdlist[60];
 	/*0x290*/ u8 bdstart;
 	/*0x291*/ u8 goposhitcount;
 	/*0x292*/ s16 cover;
