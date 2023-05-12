@@ -7640,7 +7640,6 @@ void bgunRender(Gfx **gdlptr)
 	}
 
 	casingsRender(&gdl);
-	mblur0f176298();
 
 	gdl = mblur0f1762ac(gdl);
 	gdl = vi0000b1d0(gdl);

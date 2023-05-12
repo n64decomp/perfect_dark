@@ -11,14 +11,9 @@
 #include "data.h"
 #include "types.h"
 
-u32 var800ab7c0;
-u32 var800ab7c4;
-u16 var800ab7c8[0x180];
-u16 var800abac8[0x180];
-u16 var800abdc8[0x180];
+u16 var800ab7c8[3][0x180];
 
 u16 *var800844f0 = NULL;
-void *var800844f4 = NULL;
 
 static void mblurAllocate(void);
 
@@ -29,8 +24,7 @@ void *mblurGetAllocation(void)
 
 void mblurReset(s32 stagenum)
 {
-	var800844f0 = 0;
-	var800844f4 = 0;
+	var800844f0 = NULL;
 
 	if (stagenum != STAGE_TITLE) {
 		mblurAllocate();
@@ -39,22 +33,8 @@ void mblurReset(s32 stagenum)
 
 static void mblurAllocate(void)
 {
-	var800ab7c0 = 640;
-
-	if (g_Vars.normmplayerisrunning && PLAYERCOUNT() >= 2) {
-		var800ab7c4 = 220;
-	} else {
-		var800ab7c4 = 220;
-	}
-
-	var800844f0 = mempAlloc(var800ab7c0 * var800ab7c4 * 2 + 0x40, MEMPOOL_STAGE);
+	var800844f0 = mempAlloc(320 * 220 * 2 + 0x40, MEMPOOL_STAGE);
 	var800844f0 = (void *)(((u32) var800844f0 + 0x3f) & ~0x3f);
-	var800844f4 = var800844f0;
-}
-
-void mblur0f176298(void)
-{
-	var800844f4 = var800844f0;
 }
 
 Gfx *mblur0f1762ac(Gfx *gdl)
@@ -73,7 +53,7 @@ Gfx *mblur0f1762ac(Gfx *gdl)
 		subamount = 0;
 	}
 
-	addr = (u32)var800844f4 - subamount;
+	addr = (u32)var800844f0 - subamount;
 	addr &= ~0x3f;
 
 	gDPPipeSync(gdl++);
@@ -89,7 +69,7 @@ Gfx *mblur0f1763f4(Gfx *gdl)
 
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViBackData->x, OS_PHYSICAL_TO_K0(var800844f4));
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViBackData->x, OS_PHYSICAL_TO_K0(var800844f0));
 	gDPSetCycleType(gdl++, G_CYC_FILL);
 	gDPSetFillColor(gdl++, 0xfffcfffc);
 	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, g_ViModes[VIRES_LO].fbwidth * 4.0f, g_ViModes[VIRES_LO].fbheight * 4.0f);
@@ -115,18 +95,7 @@ static u16 *mblur0f176668(s32 arg0)
 {
 	u16 *addr;
 
-	if (arg0 == 0) {
-		addr = var800ab7c8;
-	}
-
-	if (arg0 == 1) {
-		addr = var800abac8;
-	}
-
-	if (arg0 == 2) {
-		addr = var800abdc8;
-	}
-
+	addr = var800ab7c8[arg0];
 	addr = (u16 *)(((u32)addr + 0x3f) & ~0x3f);
 
 	return addr;
@@ -135,7 +104,6 @@ static u16 *mblur0f176668(s32 arg0)
 Gfx *mblurRender(Gfx *gdl)
 {
 	struct artifact *artifacts = g_ArtifactLists[g_SchedWriteArtifactsIndex];
-	u32 stack;
 	u16 *sp4c = var800844f0;
 	u32 s4 = 0;
 	u16 *sp44;
@@ -171,8 +139,6 @@ Gfx *mblurRender(Gfx *gdl)
 	gDPTileSync(gdl++);
 
 	for (i = 0; i < MAX_ARTIFACTS; i++) {
-		if (1);
-
 		if (artifacts[i].type != ARTIFACTTYPE_FREE) {
 			s2 = &sp44[s4];
 			image = &sp4c[artifacts[i].unk0c.u16_1 * g_ViBackData->x];
@@ -190,8 +156,6 @@ Gfx *mblurRender(Gfx *gdl)
 
 			artifacts[i].unk0c.u16p = s2;
 			s4++;
-
-			if (s2);
 		}
 	}
 
@@ -204,8 +168,6 @@ Gfx *mblurRender(Gfx *gdl)
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 	gDPSetColorDither(gdl++, G_CD_BAYER);
-
-	if (sp44);
 
 	return gdl;
 }
