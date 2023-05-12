@@ -755,11 +755,9 @@ static bool weatherIsRoomWeatherProof(s32 room)
 static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 {
 	u8 stack[0x10];
-	s32 spdb0[10];
 	Mtxf *mtx;
 	s32 i;
 	s32 s0;
-	s32 spd84[8];
 	s32 spd80;
 	s32 spcb8[50];
 	struct coord spca8;
@@ -827,12 +825,6 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	if (g_Vars.lvupdate240 <= 0) {
 		spd80 = 0;
-	}
-
-	osGetCount();
-
-	for (i = 0; i != 10; i++) {
-		spdb0[i] = 0;
 	}
 
 	texSelect(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
@@ -1132,22 +1124,16 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
 
-	spd84[0] = osGetCount();
-
 	// 3ca4
 	for (p = 0; p < 500; p++) {
 		s3 = 1;
 
 		if (particledata->particles[p].active & 3) {
-			spd84[7] = osGetCount();
-
 			sp108.f[0] = particledata->unk3e80.f[0] + particledata->particles[p].pos.f[0];
 			sp108.f[1] = particledata->unk3e80.f[1] + particledata->particles[p].pos.f[1];
 			sp108.f[2] = particledata->unk3e80.f[2] + particledata->particles[p].pos.f[2];
 
 			if (cam0f0b5b9c(&sp108, 150)) {
-				spdb0[7] = spdb0[7] + osGetCount() - spd84[7];
-
 				sp218[0] = particledata->particles[p].pos.f[0];
 				sp218[1] = particledata->particles[p].pos.f[2];
 
@@ -1175,9 +1161,6 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						sp198[j].f[1] = particledata->particles[p].pos.f[1];
 						sp198[j].f[2] = particledata->particles[p].pos.f[2];
 					}
-
-					spd84[1] = osGetCount();
-					spd84[2] = osGetCount();
 
 					// 3e0c
 					if (var8007f0f4 && sp708 > 0) {
@@ -1212,8 +1195,6 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 							spc9c.f[2] = tmp3;
 						}
 
-						spd84[3] = osGetCount();
-
 						// 3f84
 						for (s0 = 0; s0 < sp708; s0++) {
 							if (spc9c.f[0] <= g_Rooms[spbbc[s0]].bbmax[0]
@@ -1227,16 +1208,10 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 								s3 = 0;
 							}
 						}
-
-						spdb0[3] = spdb0[3] + osGetCount() - spd84[3];
 					}
-
-					spdb0[2] = spdb0[2] + osGetCount() - spd84[2];
 
 					// 40b8
 					if (s3) {
-						spd84[4] = osGetCount();
-
 						temp_f2_7 = 1.0f + sp214 / (var8007f0f0 / 10.0f);
 
 						sp198[0].f[0] += -sp218[1] * -temp_f2_7;
@@ -1282,9 +1257,6 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 							}
 						}
 
-						spdb0[4] = spdb0[4] + osGetCount() - spd84[4];
-						spd84[5] = osGetCount();
-
 						v0_2[0].s = 0;
 						v0_2[0].t = 256;
 
@@ -1296,9 +1268,6 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 						v0_2[3].s = 0;
 						v0_2[3].t = 0;
-
-						spdb0[5] = spdb0[5] + osGetCount() - spd84[5];
-						spd84[6] = osGetCount();
 
 						v0_2[0].x = sp198[0].f[0];
 						v0_2[0].y = sp198[0].f[1];
@@ -1320,9 +1289,6 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						} else {
 							sp194++;
 						}
-
-						spdb0[6] = spdb0[6] + osGetCount() - spd84[6];
-						spdb0[1] = spdb0[1] + osGetCount() - spd84[1];
 					}
 				}
 			}
@@ -1344,8 +1310,6 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 			gDPTri3(gdl++, 0, 1, 2, 3, 4, 5, 6, 7, 8);
 		}
 	}
-
-	osGetCount();
 
 	return gdl;
 }
@@ -1629,16 +1593,11 @@ static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		s1 = true;
 
 		if (particledata->particles[s8].active & 3) {
-			sp1354 = osGetCount();
-
 			sp124.f[0] = particledata->particles[s8].pos.f[0] + particledata->unk3e80.f[0];
 			sp124.f[1] = particledata->particles[s8].pos.f[1] + particledata->unk3e80.f[1];
 			sp124.f[2] = particledata->particles[s8].pos.f[2] + particledata->unk3e80.f[2];
 
 			if (cam0f0b5b9c(&sp124, 5)) {
-				s32 count = osGetCount();
-				sp137c = sp137c + count - sp1354;
-
 				sp21c = particledata->particles[s8].pos.f[0];
 				sp220 = particledata->particles[s8].pos.f[2];
 

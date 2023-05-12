@@ -559,8 +559,6 @@ void func0f001c0c(void)
 	s32 j;
 	s32 stack[4];
 
-	osGetCount();
-
 	var80061440 = 0;
 
 	func0f0023b8();
@@ -577,8 +575,6 @@ void func0f001c0c(void)
 	table3size = ALIGN16(g_Vars.roomcount * 4);
 	table4size = ALIGN16((u32)var8009cae0 * (u32)var8009cae0);
 	sp68 = ALIGN16(g_Vars.roomcount * 8);
-
-	mempGetStageFree();
 
 	ptr = mblurGetAllocation();
 
@@ -667,10 +663,6 @@ void func0f001c0c(void)
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		g_Rooms[i].flags &= ~ROOMFLAG_ONSCREEN;
 	}
-
-	osGetCount();
-
-	if (sp68);
 }
 
 static f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2);
