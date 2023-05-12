@@ -9987,10 +9987,10 @@ static void chrTickRobotAttack(struct chrdata *chr)
 		if (act->numshots[0] <= 0 && act->numshots[1] <= 0) {
 			empty = true;
 
-			if (ABS(chr->gunroty[0]) < 0.03f
-					&& ABS(chr->gunrotx[0]) < 0.03f
-					&& ABS(chr->gunroty[1]) < 0.03f
-					&& ABS(chr->gunrotx[1]) < 0.03f) {
+			if (absf(chr->gunroty[0]) < 0.03f
+					&& absf(chr->gunrotx[0]) < 0.03f
+					&& absf(chr->gunroty[1]) < 0.03f
+					&& absf(chr->gunrotx[1]) < 0.03f) {
 				act->finished = true;
 			}
 		}
@@ -10485,7 +10485,7 @@ static bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f3
 
 		applyRotation(&finalangle, angle1, turnspeed, accel, accel + accel, maxspeed);
 
-		if (ABS(finalangle - angle1) < 0.01f) {
+		if (absf(finalangle - angle1) < 0.01f) {
 			*turnspeed = 0;
 			result = true;
 		}

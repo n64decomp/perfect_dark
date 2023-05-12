@@ -93,8 +93,6 @@ static void starInsert(s32 index, struct coord *arg1)
 	}
 }
 
-#define ABS2(value) ((value) < 0 ? -(value) : (value))
-
 void starsReset(void)
 {
 	s32 v0;
@@ -164,7 +162,7 @@ void starsReset(void)
 
 			guNormalize(&spd4.f[0], &spd4.f[1], &spd4.f[2]);
 
-			f0 = (ABS2(spd4.f[0]) > ABS2(spd4.f[1])) ? (ABS2(spd4.f[0]) > ABS2(spd4.f[2]) ? ABS2(spd4.f[0]) : ABS2(spd4.f[2])) : (ABS2(spd4.f[1]) > ABS2(spd4.f[2]) ? ABS2(spd4.f[1]) : ABS2(spd4.f[2]));
+			f0 = (absf(spd4.f[0]) > absf(spd4.f[1])) ? (absf(spd4.f[0]) > absf(spd4.f[2]) ? absf(spd4.f[0]) : absf(spd4.f[2])) : (absf(spd4.f[1]) > absf(spd4.f[2]) ? absf(spd4.f[1]) : absf(spd4.f[2]));
 
 			spc8.f[0] = spd4.f[0] / f0;
 			spc8.f[1] = spd4.f[1] / f0;

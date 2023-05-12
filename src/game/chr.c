@@ -1487,7 +1487,7 @@ static void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 						&& g_CurModelChr->actiontype != ACT_DEAD
 						&& g_CurModelChr->actiontype != ACT_DIE) {
 					zrot = g_CurModelChr->drugheadsway / 360.0f * M_BADTAU;
-					xrot -= (28.0f - ABS(g_CurModelChr->drugheadsway)) / 250.0f * M_BADTAU;
+					xrot -= (28.0f - absf(g_CurModelChr->drugheadsway)) / 250.0f * M_BADTAU;
 				}
 			}
 
@@ -2355,7 +2355,7 @@ s32 chrTick(struct prop *prop)
 				sp130 = bike->w * 1000;
 
 				sp17c.x = cosf(sp178) * sp130;
-				sp17c.y = ABS(bike->w) * 200 + 25;
+				sp17c.y = absf(bike->w) * 200 + 25;
 				sp17c.z = sinf(-sp178) * sp130;
 
 				mtx4LoadTranslation(&sp17c, &sp1a8);

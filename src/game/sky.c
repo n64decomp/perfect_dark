@@ -15,8 +15,6 @@
 #include "data.h"
 #include "types.h"
 
-#define SKYABS(val) (val >= 0.0f ? (val) : -(val))
-
 bool g_SkyLightningActive;
 Mtxf var800a33a8;
 struct coord g_SunPositions[3]; // relative to centre screen, with a huge scale
@@ -1629,23 +1627,23 @@ static Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *ar
 	sp354[0] = sp364[0] * sp47c->unk24;
 	sp358[0] = sp364[0] * 32767.0f;
 
-	sp330[0] = SKYABS(sp338[0]);
-	sp334[0] = SKYABS(sp33c[0]);
+	sp330[0] = absf(sp338[0]);
+	sp334[0] = absf(sp33c[0]);
 
-	if (sp330[0] < SKYABS(sp344[0])) {
-		sp330[0] = SKYABS(sp344[0]);
+	if (sp330[0] < absf(sp344[0])) {
+		sp330[0] = absf(sp344[0]);
 	}
 
-	if (sp334[0] < SKYABS(sp348[0])) {
-		sp334[0] = SKYABS(sp348[0]);
+	if (sp334[0] < absf(sp348[0])) {
+		sp334[0] = absf(sp348[0]);
 	}
 
-	if (sp330[0] < SKYABS(sp350[0])) {
-		sp330[0] = SKYABS(sp350[0]);
+	if (sp330[0] < absf(sp350[0])) {
+		sp330[0] = absf(sp350[0]);
 	}
 
-	if (sp334[0] < SKYABS(sp354[0])) {
-		sp334[0] = SKYABS(sp354[0]);
+	if (sp334[0] < absf(sp354[0])) {
+		sp334[0] = absf(sp354[0]);
 	}
 
 	sp310[0] = sp484->r + 0.5f;
@@ -1753,8 +1751,8 @@ static Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *ar
 	sp208[0] = sp368 * (1.0f / 32.0f);
 
 	for (i = 0; i < 8; i++) {
-		sp1d0[i] = SKYABS(sp290[i]) * (1.0f / 32.0f);
-		sp1b0[i] = SKYABS(sp2b0[i]) * (1.0f / 32.0f);
+		sp1d0[i] = absf(sp290[i]) * (1.0f / 32.0f);
+		sp1b0[i] = absf(sp2b0[i]) * (1.0f / 32.0f);
 	}
 
 	sp1a0[0] = sp200[0] + (2.0f * sp1d0[4]) + sp1b0[4];
@@ -2168,31 +2166,31 @@ static Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *ar
 	sp394[0] = sp3a8[0] * arg4->unk24;
 	sp398[0] = sp3a8[0] * 32767.0f;
 
-	sp364[0] = SKYABS(sp36c[0]);
-	sp368[0] = SKYABS(sp370[0]);
+	sp364[0] = absf(sp36c[0]);
+	sp368[0] = absf(sp370[0]);
 
-	if (sp364[0] < SKYABS(sp378[0])) {
-		sp364[0] = SKYABS(sp378[0]);
+	if (sp364[0] < absf(sp378[0])) {
+		sp364[0] = absf(sp378[0]);
 	}
 
-	if (sp368[0] < SKYABS(sp37c[0])) {
-		sp368[0] = SKYABS(sp37c[0]);
+	if (sp368[0] < absf(sp37c[0])) {
+		sp368[0] = absf(sp37c[0]);
 	}
 
-	if (sp364[0] < SKYABS(sp384[0])) {
-		sp364[0] = SKYABS(sp384[0]);
+	if (sp364[0] < absf(sp384[0])) {
+		sp364[0] = absf(sp384[0]);
 	}
 
-	if (sp368[0] < SKYABS(sp388[0])) {
-		sp368[0] = SKYABS(sp388[0]);
+	if (sp368[0] < absf(sp388[0])) {
+		sp368[0] = absf(sp388[0]);
 	}
 
-	if (sp364[0] < SKYABS(sp390[0])) {
-		sp364[0] = SKYABS(sp390[0]);
+	if (sp364[0] < absf(sp390[0])) {
+		sp364[0] = absf(sp390[0]);
 	}
 
-	if (sp368[0] < SKYABS(sp394[0])) {
-		sp368[0] = SKYABS(sp394[0]);
+	if (sp368[0] < absf(sp394[0])) {
+		sp368[0] = absf(sp394[0]);
 	}
 
 	sp354[0] = sp36c[0]; sp354[1] = sp370[0]; sp354[2] = sp374[0];
@@ -2279,8 +2277,8 @@ static Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *ar
 	sp23c[0] = sp3ac * (1.0f / 32.0f);
 
 	for (i = 0; i < 4; i++) {
-		sp214[i] = SKYABS(sp2d4[i]) * (1.0f / 32.0f);
-		sp1f4[i] = SKYABS(sp2f4[i]) * (1.0f / 32.0f);
+		sp214[i] = absf(sp2d4[i]) * (1.0f / 32.0f);
+		sp1f4[i] = absf(sp2f4[i]) * (1.0f / 32.0f);
 	}
 
 	sp1d4[0] = sp234[0] + (2.0f * sp214[0]) + sp1f4[0];

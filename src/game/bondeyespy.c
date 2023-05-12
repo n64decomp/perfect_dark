@@ -959,7 +959,7 @@ void eyespyProcessInput(bool allowbuttons)
 
 	// Update bob
 	if (spc4 == 0.0f) {
-		if (g_Vars.currentplayer->eyespy->bobactive || ABS(g_Vars.currentplayer->eyespy->vel.y) < 0.1f) {
+		if (g_Vars.currentplayer->eyespy->bobactive || absf(g_Vars.currentplayer->eyespy->vel.y) < 0.1f) {
 			g_Vars.currentplayer->eyespy->bobactive = true;
 			g_Vars.currentplayer->eyespy->bobtimer += g_Vars.lvupdate60;
 			g_Vars.currentplayer->eyespy->vel.y += 0.025f * g_Vars.currentplayer->eyespy->bobdir;

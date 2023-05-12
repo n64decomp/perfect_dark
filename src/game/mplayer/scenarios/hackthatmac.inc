@@ -462,7 +462,7 @@ static void htmTickChr(struct chrdata *chr)
 
 		rangexz = sqrtf(dist.x * dist.x + dist.z * dist.z);
 
-		rangey = ABS(dist.y);
+		rangey = absf(dist.y);
 
 		relangle = atan2f(dist.x, dist.z) * 57.295776367188f + angle;
 

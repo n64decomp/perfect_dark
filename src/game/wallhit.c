@@ -792,9 +792,9 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 		sp1ac.f[1] = relpos->y;
 		sp1ac.f[2] = relpos->z;
 
-		xiszero = ABS(arg1->x) < 0.00001f ? true : false;
-		yiszero = ABS(arg1->y) < 0.00001f ? true : false;
-		ziszero = ABS(arg1->z) < 0.00001f ? true : false;
+		xiszero = absf(arg1->x) < 0.00001f ? true : false;
+		yiszero = absf(arg1->y) < 0.00001f ? true : false;
+		ziszero = absf(arg1->z) < 0.00001f ? true : false;
 
 		if (xiszero && ziszero) {
 			sp1f4.x = -1.0f;

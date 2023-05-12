@@ -1751,15 +1751,15 @@ static f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 ro
 	sp64 = *sp68;
 
 	xdiff = pos1->x - pos2->x;
-	xdiff = xdiff > 0.0f ? xdiff : -xdiff;
+	xdiff = absf(xdiff);
 
 	if (xdiff < sp64) {
 		zdiff = pos1->z - pos2->z;
-		zdiff = zdiff > 0.0f ? zdiff : -zdiff;
+		zdiff = absf(zdiff);
 
 		if (zdiff < sp64) {
 			ydiff = pos1->y - pos2->y;
-			ydiff = ydiff > 0.0f ? ydiff : -ydiff;
+			ydiff = absf(ydiff);
 
 			if (ydiff < sp64) {
 				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
@@ -1781,11 +1781,11 @@ static f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 ro
 							sp64 -= sp50;
 
 							xdiff2 = sp44.x - pos1->x;
-							xdiff2 = xdiff2 > 0.0f ? xdiff2 : -xdiff2;
+							xdiff2 = absf(xdiff2);
 
 							if (xdiff2 < sp64) {
 								zdiff2 = sp44.z - pos1->z;
-								zdiff2 = zdiff2 > 0.0f ? zdiff2 : -zdiff2;
+								zdiff2 = absf(zdiff2);
 
 								if (zdiff2 < sp64) {
 									f32 sp38 = sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
@@ -1799,11 +1799,11 @@ static f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 ro
 										sp64 -= sp38;
 
 										xdiff3 = sp2c.x - pos2->x;
-										xdiff3 = xdiff3 > 0.0f ? xdiff3 : -xdiff3;
+										xdiff3 = absf(xdiff3);
 
 										if (xdiff3 < sp64) {
 											zdiff3 = sp2c.z - pos2->z;
-											zdiff3 = zdiff3 > 0.0f ? zdiff3 : -zdiff3;
+											zdiff3 = absf(zdiff3);
 
 											if (zdiff3 < sp64) {
 												f32 dist3 = sqrtf(xdiff3 * xdiff3 + zdiff3 * zdiff3);

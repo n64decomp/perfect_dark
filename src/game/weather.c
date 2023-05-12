@@ -19,8 +19,6 @@
 #include "data.h"
 #include "types.h"
 
-#define ABSF(val) ((val) > 0.0f ? (val) : -(val))
-
 static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2);
 static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2);
 
@@ -384,8 +382,8 @@ void weatherTickRain(struct weatherdata *weather)
 			lVar6 = 2;
 
 			// Reset particle
-			particle->pos.x = data->boundarymin.x + RANDOMFRAC() * (ABS(data->boundarymin.x) + ABS(data->boundarymax.x));
-			particle->pos.z = data->boundarymin.z + RANDOMFRAC() * (ABS(data->boundarymin.z) + ABS(data->boundarymax.z));
+			particle->pos.x = data->boundarymin.x + RANDOMFRAC() * (absf(data->boundarymin.x) + absf(data->boundarymax.x));
+			particle->pos.z = data->boundarymin.z + RANDOMFRAC() * (absf(data->boundarymin.z) + absf(data->boundarymax.z));
 
 			particle->unk1c = RANDOMFRAC() + 0.7f;
 
@@ -560,8 +558,8 @@ void weatherTickSnow(struct weatherdata *weather)
 		if (particle->pos.y < data->boundarymin.y) {
 			lVar7 = 2;
 
-			particle->pos.x = data->boundarymin.f[0] + RANDOMFRAC() * (ABS(data->boundarymin.f[0]) + ABS(data->boundarymax.f[0]));
-			particle->pos.z = data->boundarymin.f[2] + RANDOMFRAC() * (ABS(data->boundarymin.f[2]) + ABS(data->boundarymax.f[2]));
+			particle->pos.x = data->boundarymin.f[0] + RANDOMFRAC() * (absf(data->boundarymin.f[0]) + absf(data->boundarymax.f[0]));
+			particle->pos.z = data->boundarymin.f[2] + RANDOMFRAC() * (absf(data->boundarymin.f[2]) + absf(data->boundarymax.f[2]));
 
 			particle->unk1c = RANDOMFRAC() + 0.7f;
 
@@ -863,9 +861,9 @@ static Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	sp224.f[1] = sp230.f[1] - particledata->unk3e80.f[1];
 	sp224.f[2] = sp230.f[2] - particledata->unk3e80.f[2];
 
-	if (ABSF(sp224.f[0]) > ABSF(particledata->boundarymin.f[0]) + ABSF(particledata->boundarymax.f[0])
-			|| ABSF(sp224.f[1]) > ABSF(particledata->boundarymin.f[1]) + ABSF(particledata->boundarymax.f[1])
-			|| ABSF(sp224.f[2]) > ABSF(particledata->boundarymin.f[2]) + ABSF(particledata->boundarymax.f[2])) {
+	if (absf(sp224.f[0]) > absf(particledata->boundarymin.f[0]) + absf(particledata->boundarymax.f[0])
+			|| absf(sp224.f[1]) > absf(particledata->boundarymin.f[1]) + absf(particledata->boundarymax.f[1])
+			|| absf(sp224.f[2]) > absf(particledata->boundarymin.f[2]) + absf(particledata->boundarymax.f[2])) {
 		sp224.f[0] = particledata->boundaryrange.f[0] * 0.5f;
 		sp224.f[1] = particledata->boundaryrange.f[1] * 0.5f;
 		sp224.f[2] = particledata->boundaryrange.f[2] * 0.5f;
@@ -1420,9 +1418,9 @@ static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	sp228.f[1] = sp234.f[1] - particledata->unk3e80.f[1];
 	sp228.f[2] = sp234.f[2] - particledata->unk3e80.f[2];
 
-	if (ABSF(sp228.f[0]) > ABSF(particledata->boundarymin.f[0]) + ABSF(particledata->boundarymax.f[0])
-			|| ABSF(sp228.f[1]) > ABSF(particledata->boundarymin.f[1]) + ABSF(particledata->boundarymax.f[1])
-			|| ABSF(sp228.f[2]) > ABSF(particledata->boundarymin.f[2]) + ABSF(particledata->boundarymax.f[2])) {
+	if (absf(sp228.f[0]) > absf(particledata->boundarymin.f[0]) + absf(particledata->boundarymax.f[0])
+			|| absf(sp228.f[1]) > absf(particledata->boundarymin.f[1]) + absf(particledata->boundarymax.f[1])
+			|| absf(sp228.f[2]) > absf(particledata->boundarymin.f[2]) + absf(particledata->boundarymax.f[2])) {
 		sp228.f[0] = particledata->boundaryrange.f[0] * 0.5f;
 		sp228.f[1] = particledata->boundaryrange.f[1] * 0.5f;
 		sp228.f[2] = particledata->boundaryrange.f[2] * 0.5f;
@@ -1665,7 +1663,7 @@ static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 									}
 
 									// 5500
-									tmp = ABSF(f2) / var8007f100;
+									tmp = absf(f2) / var8007f100;
 									f2 = tmp;
 
 									// 5524
@@ -1681,7 +1679,7 @@ static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 										f2 = sp118.f[2] - sp264[j][11];
 									}
 
-									f2 = ABSF(f2) / var8007f100;
+									f2 = absf(f2) / var8007f100;
 
 									if (f2 > sp260) {
 										sp260 = f2;
@@ -1747,7 +1745,7 @@ static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 							f16 = particledata->particles[s8].pos.f[0] - particledata->boundarymax.f[0] + 150.0f;
 						}
 
-						f16 = ABSF(f16) / 150.0f;
+						f16 = absf(f16) / 150.0f;
 
 						if (f16 > sp260) {
 							sp260 = f16;
@@ -1765,7 +1763,7 @@ static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 							f16 = particledata->particles[s8].pos.f[1] - particledata->boundarymax.f[1] + 150.0f;
 						}
 
-						f16 = ABSF(f16) / 150.0f;
+						f16 = absf(f16) / 150.0f;
 
 						if (f16 > sp260) {
 							sp260 = f16;
@@ -1783,7 +1781,7 @@ static Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 							f16 = particledata->particles[s8].pos.f[2] - particledata->boundarymax.f[2] + 150.0f;
 						}
 
-						f16 = ABSF(f16) / 150.0f;
+						f16 = absf(f16) / 150.0f;
 
 						if (f16 > sp260) {
 							sp260 = f16;

@@ -253,12 +253,12 @@ static void propsndTickChannel(s32 channelnum)
 			f32 f12 = channel->unk04 - channel->unk06;
 			f32 f14 = g_Vars.lvupdate60 * (1.0f / 6000.0f) * channel->unk18;
 
-			if (ABS(f12) > 1.0f) {
+			if (absf(f12) > 1.0f) {
 				if (f14 > 1.0f) {
 					f14 = 1.0f;
 				}
 
-				if (ABS(f14 * f12) > 1.0f) {
+				if (absf(f14 * f12) > 1.0f) {
 					sp48 = channel->unk06 + (s32) (f14 * f12);
 				}
 			}
@@ -305,7 +305,7 @@ static void propsndTickChannel(s32 channelnum)
 			sp40 = -1;
 		}
 
-		if (sp3c > 0.0f && ABS(sp3c - channel->unk48) > 0.01f) {
+		if (sp3c > 0.0f && absf(sp3c - channel->unk48) > 0.01f) {
 			channel->unk48 = sp3c;
 		} else {
 			sp3c = -1.0f;
@@ -961,7 +961,7 @@ static s32 propsnd0f094b1c(struct coord *pos, s32 arg1, f32 arg2, struct audioch
 
 			sp3c *= arg2;
 
-			f2 = atan2f(ABSF(sp3c), ABSF(sp38));
+			f2 = atan2f(absf(sp3c), absf(sp38));
 
 			if (!(sp3c >= 0.0f) || !(sp38 >= 0.0f)) {
 				if (sp3c >= 0.0f) {

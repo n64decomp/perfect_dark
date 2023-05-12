@@ -315,10 +315,10 @@ Gfx *sparksRender(Gfx *gdl)
 	Mtxf spd4;
 
 	if (g_SparksAreActive) {
-		if (ABS(g_Vars.currentplayer->cam_look.y) > ABS(g_Vars.currentplayer->cam_look.x)) {
-			axis = ABS(g_Vars.currentplayer->cam_look.z) > ABS(g_Vars.currentplayer->cam_look.y) ? 2 : 1;
+		if (absf(g_Vars.currentplayer->cam_look.y) > absf(g_Vars.currentplayer->cam_look.x)) {
+			axis = absf(g_Vars.currentplayer->cam_look.z) > absf(g_Vars.currentplayer->cam_look.y) ? 2 : 1;
 		} else {
-			axis = ABS(g_Vars.currentplayer->cam_look.z) > ABS(g_Vars.currentplayer->cam_look.x) ? 2 : 0;
+			axis = absf(g_Vars.currentplayer->cam_look.z) > absf(g_Vars.currentplayer->cam_look.x) ? 2 : 0;
 		}
 
 		texSelect(&gdl, &g_TexSparkConfigs[0], 4, 0, 2, 1, NULL);
@@ -472,7 +472,7 @@ Gfx *sparksRender(Gfx *gdl)
 
 							switch (axis) {
 							case 0:
-								if (ABS(spark->speed.z) > ABS(spark->speed.y)) {
+								if (absf(spark->speed.z) > absf(spark->speed.y)) {
 									vertices[1].y = vertices[1].y - type->unk06 - group->age * type->unk0a - (s32)sp120;
 									vertices[2].y = vertices[2].y + type->unk06 + group->age * type->unk0a + (s32)sp120;
 								} else {
@@ -481,7 +481,7 @@ Gfx *sparksRender(Gfx *gdl)
 								}
 								break;
 							case 1:
-								if (ABS(spark->speed.x) > ABS(spark->speed.z)) {
+								if (absf(spark->speed.x) > absf(spark->speed.z)) {
 									vertices[1].z = vertices[1].z - type->unk06 - group->age * type->unk0a - (s32)sp120;
 									vertices[2].z = vertices[2].z + type->unk06 + group->age * type->unk0a + (s32)sp120;
 								} else {
@@ -490,7 +490,7 @@ Gfx *sparksRender(Gfx *gdl)
 								}
 								break;
 							case 2:
-								if (ABS(spark->speed.x) > ABS(spark->speed.y)) {
+								if (absf(spark->speed.x) > absf(spark->speed.y)) {
 									vertices[1].y = vertices[1].y - type->unk06 - group->age * type->unk0a - (s32)sp120;
 									vertices[2].y = vertices[2].y + type->unk06 + group->age * type->unk0a + (s32)sp120;
 								} else {
