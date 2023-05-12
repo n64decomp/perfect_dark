@@ -380,8 +380,11 @@ void viUpdateMode(void)
 
 	prevdata = g_ViBackData;
 
-	g_ViFrontIndex = (g_ViFrontIndex + 1) % 3;
-	g_ViBackIndex = (g_ViBackIndex + 1) % 3;
+	g_ViFrontIndex++;
+	g_ViBackIndex++;
+
+	WRAP(g_ViFrontIndex, 3);
+	WRAP(g_ViBackIndex, 3);
 
 	g_ViFrontData = g_ViDataArray + g_ViFrontIndex;
 	g_ViBackData = g_ViDataArray + g_ViBackIndex;

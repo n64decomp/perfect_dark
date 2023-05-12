@@ -31,8 +31,10 @@ void artifactsClear(void)
 
 void artifactsTick(void)
 {
-	g_SchedWriteArtifactsIndex = (g_SchedWriteArtifactsIndex + 1) % 3;
-	g_SchedFrontArtifactsIndex = (g_SchedFrontArtifactsIndex + 1) % 3;
+	g_SchedWriteArtifactsIndex++;
+	g_SchedFrontArtifactsIndex++;
+	WRAP(g_SchedWriteArtifactsIndex, 3);
+	WRAP(g_SchedFrontArtifactsIndex, 3);
 }
 
 static u16 func0f13c574(f32 arg0)

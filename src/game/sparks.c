@@ -93,7 +93,12 @@ static void sparkCreate(struct coord *pos, struct sparktype *type)
 	struct spark *spark;
 
 	spark = &g_Sparks[g_NextSparkIndex];
-	g_NextSparkIndex = (g_NextSparkIndex + 1) % 100;
+
+	g_NextSparkIndex++;
+
+	if (g_NextSparkIndex >= 100) {
+		g_NextSparkIndex = 0;
+	}
 
 	spark->pos.x = 0.0f;
 	spark->pos.y = 0.0f;
@@ -156,7 +161,12 @@ static void sparkgroupEnsureFreeSparkSlot(struct sparkgroup *group)
 
 	for (i = 0; i < 10; i++) {
 		if (&g_SparkGroups[i] != group && g_SparkGroups[i].startindex == g_NextSparkIndex) {
-			g_SparkGroups[i].startindex = (g_SparkGroups[i].startindex + 1) % 100;
+			g_SparkGroups[i].startindex++;
+
+			if (g_SparkGroups[i].startindex >= 100) {
+				g_SparkGroups[i].startindex = 0;
+			}
+
 			g_SparkGroups[i].numsparks--;
 
 			if (g_SparkGroups[i].numsparks == 0) {
@@ -200,7 +210,11 @@ void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *
 		}
 	}
 
-	g_NextSparkGroupIndex = (g_NextSparkGroupIndex + 1) % 10;
+	g_NextSparkGroupIndex++;
+
+	if (g_NextSparkGroupIndex >= 0) {
+		g_NextSparkGroupIndex = 0;
+	}
 
 	if (typenum == SPARKTYPE_SHALLOWWATER) {
 		if (group->age != 0) {
@@ -504,7 +518,11 @@ Gfx *sparksRender(Gfx *gdl)
 							gSP1Triangle(gdl++, 0, 1, 2, 0);
 						}
 
-						index = (index + 1) % ARRAYCOUNT(g_Sparks);
+						index++;
+
+						if (index >= ARRAYCOUNT(g_Sparks)) {
+							index = 0;
+						}
 					}
 				}
 			}

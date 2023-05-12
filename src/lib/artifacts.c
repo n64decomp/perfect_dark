@@ -73,5 +73,9 @@ void schedUpdatePendingArtifacts(void)
 
 	g_SchedSpecialArtifactIndexes[g_SchedPendingArtifactsIndex] = 0;
 
-	g_SchedPendingArtifactsIndex = (g_SchedPendingArtifactsIndex + 1) % 3;
+	g_SchedPendingArtifactsIndex++;
+
+	if (g_SchedPendingArtifactsIndex >= 3) {
+		g_SchedPendingArtifactsIndex = 0;
+	}
 }

@@ -611,7 +611,8 @@ static f32 cdFindGroundInIntTileAtVertex(struct geotilei *tile, f32 x, f32 z, s3
 		vertexindex = 1;
 	}
 
-	next = (vertexindex + 1) % tile->header.numvertices;
+	next = vertexindex + 1;
+	WRAP(next, tile->header.numvertices);
 
 	if (next == 0) {
 		next = 1;
@@ -727,9 +728,12 @@ static bool cdIs2dPointInIntTile(struct geotilei *tile, f32 x, f32 z)
 	s32 i;
 
 	for (i = 0; i < numvertices; i++) {
-		s32 next = (i + 1) % numvertices;
+		s32 next = i + 1;
+		f32 value;
 
-		f32 value = ((f32)tile->vertices[next][2] - (f32)tile->vertices[i][2]) * (x - tile->vertices[i][0])
+		WRAP(next, numvertices);
+
+		value = ((f32)tile->vertices[next][2] - (f32)tile->vertices[i][2]) * (x - tile->vertices[i][0])
 			- ((f32)tile->vertices[next][0] - (f32)tile->vertices[i][0]) * (z - tile->vertices[i][2]);
 
 		if (value != 0) {
@@ -761,9 +765,12 @@ static bool cdIs2dPointInFltTile(struct geotilef *tile, f32 x, f32 z)
 	s32 i;
 
 	for (i = 0; i < numvertices; i++) {
-		s32 next = (i + 1) % numvertices;
+		s32 next = i + 1;
+		f32 value;
 
-		f32 value = (tile->vertices[next].z - tile->vertices[i].z) * (x - tile->vertices[i].x)
+		WRAP(next, numvertices);
+
+		value = (tile->vertices[next].z - tile->vertices[i].z) * (x - tile->vertices[i].x)
 			- (tile->vertices[next].x - tile->vertices[i].x) * (z - tile->vertices[i].z);
 
 		if (value != 0) {
@@ -795,9 +802,12 @@ static bool cdIs2dPointInBlock(struct geoblock *tile, f32 x, f32 z)
 	s32 i;
 
 	for (i = 0; i < numvertices; i++) {
-		s32 next = (i + 1) % numvertices;
+		s32 next = i + 1;
+		f32 value;
 
-		f32 value = (tile->vertices[next][1] - tile->vertices[i][1]) * (x - tile->vertices[i][0])
+		WRAP(next, numvertices);
+
+		value = (tile->vertices[next][1] - tile->vertices[i][1]) * (x - tile->vertices[i][0])
 			- (tile->vertices[next][0] - tile->vertices[i][0]) * (z - tile->vertices[i][1]);
 
 		if (value != 0) {
@@ -1053,8 +1063,12 @@ static bool cd0002709cIntTile(struct geotilei *tile, f32 x, f32 z, f32 radius, s
 		s32 i;
 
 		for (i = 0; i < numvertices; i++) {
-			s32 next = (i + 1) % numvertices;
-			f32 value = cd00025654(tile->vertices[i][0], tile->vertices[i][2], tile->vertices[next][0], tile->vertices[next][2], x, z);
+			s32 next = i + 1;
+			f32 value;
+
+			WRAP(next, numvertices);
+
+			value = cd00025654(tile->vertices[i][0], tile->vertices[i][2], tile->vertices[next][0], tile->vertices[next][2], x, z);
 
 			if (value < 0) {
 				value = -value;
@@ -1090,8 +1104,12 @@ static bool cd000272f8FltTile(struct geotilef *tile, f32 x, f32 z, f32 radius, s
 		s32 i;
 
 		for (i = 0; i < numvertices; i++) {
-			s32 next = (i + 1) % numvertices;
-			f32 value = cd00025654(tile->vertices[i].x, tile->vertices[i].z, tile->vertices[next].x, tile->vertices[next].z, x, z);
+			s32 next = i + 1;
+			f32 value;
+
+			WRAP(next, numvertices);
+
+			value = cd00025654(tile->vertices[i].x, tile->vertices[i].z, tile->vertices[next].x, tile->vertices[next].z, x, z);
 
 			if (value < 0) {
 				value = -value;
@@ -1130,8 +1148,12 @@ s32 cd000274e0Block(struct geoblock *tile, f32 x, f32 z, f32 radius, struct prop
 		s32 i;
 
 		for (i = 0; i < numvertices; i++) {
-			s32 next = (i + 1) % numvertices;
-			f32 value = cd00025654(tile->vertices[i][0], tile->vertices[i][1],
+			s32 next = i + 1;
+			f32 value;
+
+			WRAP(next, numvertices);
+
+			value = cd00025654(tile->vertices[i][0], tile->vertices[i][1],
 					tile->vertices[next][0], tile->vertices[next][1],
 					x, z);
 
@@ -1340,7 +1362,9 @@ static void cd00027f78(struct geotilei *tile, f32 arg1, f32 arg2, f32 arg3, stru
 	s32 numvertices = tile->header.numvertices;
 
 	for (i = 0; i < numvertices; i++) {
-		s32 next = (i + 1) % numvertices;
+		s32 next = i + 1;
+
+		WRAP(next, numvertices);
 
 		if (tile->vertices[i][0] != tile->vertices[next][0] || tile->vertices[i][2] != tile->vertices[next][2]) {
 			f32 f0 = cd00025654(tile->vertices[i][0], tile->vertices[i][2], tile->vertices[next][0], tile->vertices[next][2], arg1, arg2);
@@ -1466,7 +1490,9 @@ static void cd0002840c(struct geotilef *tile, f32 arg1, f32 arg2, f32 arg3, stru
 	s32 numvertices = tile->header.numvertices;
 
 	for (i = 0; i < numvertices; i++) {
-		s32 next = (i + 1) % numvertices;
+		s32 next = i + 1;
+
+		WRAP(next, numvertices);
 
 		if (tile->vertices[i].x != tile->vertices[next].x || tile->vertices[i].z != tile->vertices[next].z) {
 			f32 f0 = cd00025654(tile->vertices[i].x, tile->vertices[i].z, tile->vertices[next].x, tile->vertices[next].z, arg1, arg2);
@@ -1498,7 +1524,9 @@ static void cd00028638(struct geoblock *block, f32 arg1, f32 arg2, f32 arg3, str
 	s32 numvertices = block->header.numvertices;
 
 	for (i = 0; i < numvertices; i++) {
-		s32 next = (i + 1) % numvertices;
+		s32 next = i + 1;
+
+		WRAP(next, numvertices);
 
 		if (block->vertices[i][0] != block->vertices[next][0] || block->vertices[i][1] != block->vertices[next][1]) {
 			f32 f0 = cd00025654(block->vertices[i][0], block->vertices[i][1], block->vertices[next][0], block->vertices[next][1], arg1, arg2);
@@ -1683,7 +1711,9 @@ static void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct 
 			spe0.z = dist->z;
 
 			curr = collisions[i].vertexindex;
-			next = (curr + 1) % tile->header.numvertices;
+			next = curr + 1;
+
+			WRAP(next, tile->header.numvertices);
 
 			spf0.x = tile->vertices[curr][0];
 			spf0.z = tile->vertices[curr][2];
@@ -1708,7 +1738,9 @@ static void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct 
 			spe0.z = dist->z;
 
 			curr = collisions[i].vertexindex;
-			next = (curr + 1) % tile->header.numvertices;
+			next = curr + 1;
+
+			WRAP(next, tile->header.numvertices);
 
 			spf0.x = tile->vertices[curr].x;
 			spf0.z = tile->vertices[curr].z;
@@ -1733,7 +1765,9 @@ static void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct 
 			spe0.z = dist->z;
 
 			curr = collisions[i].vertexindex;
-			next = (curr + 1) % block->header.numvertices;
+			next = curr + 1;
+
+			WRAP(next, block->header.numvertices);
 
 			spf0.x = block->vertices[curr][0];
 			spf0.z = block->vertices[curr][1];
@@ -1775,7 +1809,9 @@ static void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct 
 	if (collisions[bestindex].geo->type == GEOTYPE_TILE_I) {
 		struct geotilei *tile = (struct geotilei *) collisions[bestindex].geo;
 		s32 curr = collisions[bestindex].vertexindex;
-		s32 next = (curr + 1) % tile->header.numvertices;
+		s32 next = curr + 1;
+
+		WRAP(next, tile->header.numvertices);
 
 		vtx1.x = tile->vertices[curr][0];
 		vtx1.y = tile->vertices[curr][1];
@@ -1787,15 +1823,18 @@ static void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct 
 	} else if (collisions[bestindex].geo->type == GEOTYPE_TILE_F) {
 		struct geotilef *tile = (struct geotilef *) collisions[bestindex].geo;
 		s32 curr = collisions[bestindex].vertexindex;
-		s32 next = (curr + 1) % tile->header.numvertices;
+		s32 next = curr + 1;
+
+		WRAP(next, tile->header.numvertices);
 
 		vtx1 = tile->vertices[curr];
-
 		vtx2 = tile->vertices[next];
 	} else if (collisions[bestindex].geo->type == GEOTYPE_BLOCK) {
 		struct geoblock *block = (struct geoblock *) collisions[bestindex].geo;
 		s32 curr = collisions[bestindex].vertexindex;
-		s32 next = (curr + 1) % block->header.numvertices;
+		s32 next = curr + 1;
+
+		WRAP(next, block->header.numvertices);
 
 		vtx1.x = block->vertices[curr][0];
 		vtx1.y = pos->y;
@@ -1948,7 +1987,8 @@ static f32 cdFindGroundFromList(struct collision *collisions, struct coord *pos,
 							thisx = tile->vertices[i][0];
 							thisz = tile->vertices[i][2];
 
-							next = (i + 1) % numvertices;
+							next = i + 1;
+							WRAP(next, numvertices);
 
 							nextx = tile->vertices[next][0];
 							nextz = tile->vertices[next][2];
@@ -2023,7 +2063,8 @@ static f32 cdFindGroundFromList(struct collision *collisions, struct coord *pos,
 						thisx = tile->vertices[i].x;
 						thisz = tile->vertices[i].z;
 
-						next = (i + 1) % numvertices;
+						next = i + 1;
+						WRAP(next, numvertices);
 
 						nextx = tile->vertices[next].x;
 						nextz = tile->vertices[next].z;
@@ -2363,7 +2404,9 @@ s32 cdExamCylMove01(struct coord *pos, struct coord *pos2, f32 radius, s16 *room
 		if (collisions[0].geo->type == GEOTYPE_TILE_I) {
 			struct geotilei *tile = (struct geotilei *) collisions[0].geo;
 			s32 this = collisions[0].vertexindex;
-			s32 next = (this + 1) % collisions[0].geo->numvertices;
+			s32 next = this + 1;
+
+			WRAP(next, collisions[0].geo->numvertices);
 
 			sp70.x = tile->vertices[this][0];
 			sp70.y = tile->vertices[this][1];
@@ -2375,7 +2418,9 @@ s32 cdExamCylMove01(struct coord *pos, struct coord *pos2, f32 radius, s16 *room
 		} else /*854*/ if (collisions[0].geo->type == GEOTYPE_TILE_F) {
 			struct geotilef *tile = (struct geotilef *) collisions[0].geo;
 			s32 this = collisions[0].vertexindex;
-			s32 next = (this + 1) % collisions[0].geo->numvertices;
+			s32 next = this + 1;
+
+			WRAP(next, collisions[0].geo->numvertices);
 
 			sp70 = tile->vertices[this];
 
@@ -2383,7 +2428,9 @@ s32 cdExamCylMove01(struct coord *pos, struct coord *pos2, f32 radius, s16 *room
 		} else if (collisions[0].geo->type == GEOTYPE_BLOCK) {
 			struct geoblock *block = (struct geoblock *) collisions[0].geo;
 			s32 this = collisions[0].vertexindex;
-			s32 next = (this + 1) % collisions[0].geo->numvertices;
+			s32 next = this + 1;
+
+			WRAP(next, collisions[0].geo->numvertices);
 
 			sp70.x = block->vertices[this][0];
 			sp70.y = pos->y;
@@ -2486,7 +2533,8 @@ static bool cd0002ac70IntTile(struct coord *arg0, struct coord *arg1, struct coo
 			|| (arg0->y + arg8 >= ymin && arg1->y + arg9 <= ymax)
 			|| (arg0->y + arg9 <= ymax && arg1->y + arg8 >= ymin)) {
 		for (i = 0; i < numvertices; i++) {
-			next = (i + 1) % numvertices;
+			next = i + 1;
+			WRAP(next, numvertices);
 
 			if (cd000254d8(arg0, arg1, tile->vertices[i][0], tile->vertices[i][2], tile->vertices[next][0], tile->vertices[next][2], &spb8)) {
 				spa0[0] = arg0->x;
@@ -2522,13 +2570,18 @@ static bool cd0002ac70IntTile(struct coord *arg0, struct coord *arg1, struct coo
 			arg4->z = arg0->z + arg2->f[2] * f22;
 
 			if (arg5 != NULL && arg6 != NULL) {
+				s32 tmp;
+
 				arg5->x = tile->vertices[spb0][0];
 				arg5->y = arg4->y;
 				arg5->z = tile->vertices[spb0][2];
 
-				arg6->x = tile->vertices[(spb0 + 1) % numvertices][0];
+				tmp = spb0 + 1;
+				WRAP(tmp, numvertices);
+
+				arg6->x = tile->vertices[tmp][0];
 				arg6->y = arg4->y;
-				arg6->z = tile->vertices[(spb0 + 1) % numvertices][2];
+				arg6->z = tile->vertices[tmp][2];
 			}
 		} else if (!result && spb8) {
 			result = true;
@@ -2570,7 +2623,8 @@ static bool cd0002b128FltTile(struct coord *arg0, struct coord *arg1, struct coo
 			|| (arg0->y + arg8 >= ymin && arg1->y + arg9 <= ymax)
 			|| (arg0->y + arg9 <= ymax && arg1->y + arg8 >= ymin)) {
 		for (i = 0; i < numvertices; i++) {
-			next = (i + 1) % numvertices;
+			next = i + 1;
+			WRAP(next, numvertices);
 
 			if (cd000254d8(arg0, arg1, tile->vertices[i].x, tile->vertices[i].z, tile->vertices[next].x, tile->vertices[next].z, &spb8)) {
 				spa0[0] = arg0->x;
@@ -2606,13 +2660,18 @@ static bool cd0002b128FltTile(struct coord *arg0, struct coord *arg1, struct coo
 			arg4->z = arg0->z + arg2->f[2] * f22;
 
 			if (arg5 != NULL && arg6 != NULL) {
+				s32 tmp;
+
 				arg5->x = tile->vertices[spb0].x;
 				arg5->y = arg4->y;
 				arg5->z = tile->vertices[spb0].z;
 
-				arg6->x = tile->vertices[(spb0 + 1) % numvertices].x;
+				tmp = spb0 + 1;
+				WRAP(tmp, numvertices);
+
+				arg6->x = tile->vertices[tmp].x;
 				arg6->y = arg4->y;
-				arg6->z = tile->vertices[(spb0 + 1) % numvertices].z;
+				arg6->z = tile->vertices[tmp].z;
 			}
 		} else if (!result && spb8) {
 			result = true;
@@ -2652,7 +2711,8 @@ static bool cd0002b560Block(struct coord *arg0, struct coord *arg1, struct coord
 			|| (arg0->y + arg8 >= block->ymin && arg1->y + arg9 <= block->ymax)
 			|| (arg0->y + arg9 <= block->ymax && arg1->y + arg8 >= block->ymin)) {
 		for (i = 0; i < numvertices; i++) {
-			next = (i + 1) % numvertices;
+			next = i + 1;
+			WRAP(next, numvertices);
 
 			if (cd000254d8(arg0, arg1, block->vertices[i][0], block->vertices[i][1], block->vertices[next][0], block->vertices[next][1], &spb8)) {
 				spa0[0] = arg0->x;
@@ -2688,13 +2748,18 @@ static bool cd0002b560Block(struct coord *arg0, struct coord *arg1, struct coord
 			arg4->z = arg0->z + arg2->f[2] * f22;
 
 			if (arg5 != NULL && arg6 != NULL) {
+				s32 tmp;
+
 				arg5->x = block->vertices[spb0][0];
 				arg5->y = arg4->y;
 				arg5->z = block->vertices[spb0][1];
 
-				arg6->x = block->vertices[(spb0 + 1) % numvertices][0];
+				tmp = spb0 + 1;
+				WRAP(tmp, numvertices);
+
+				arg6->x = block->vertices[tmp][0];
 				arg6->y = arg4->y;
-				arg6->z = block->vertices[(spb0 + 1) % numvertices][1];
+				arg6->z = block->vertices[tmp][1];
 			}
 		} else if (!result && spb8) {
 			result = true;
@@ -3585,9 +3650,11 @@ static bool cdBlockExcludesBlockLaterally(struct geoblock *block1, struct geoblo
 	s32 i;
 
 	for (i = 0; i < numvertices0; i++) {
-		s32 next = (i + 1) % numvertices0;
+		s32 next = i + 1;
 		f64 diff1;
 		f64 diff2;
+
+		WRAP(next, numvertices0);
 
 		diff1 = block1->vertices[next][1] - (f64)block1->vertices[i][1];
 		diff2 = block1->vertices[i][0] - (f64)block1->vertices[next][0];
@@ -3599,8 +3666,10 @@ static bool cdBlockExcludesBlockLaterally(struct geoblock *block1, struct geoblo
 		} else {
 			f64 sum1 = block1->vertices[i][0] * diff1 + block1->vertices[i][1] * diff2;
 			f64 sum2;
-			s32 j = (next + 1) % numvertices0;
+			s32 j = next + 1;
 			s32 k;
+
+			WRAP(j, numvertices0);
 
 			while (j != i) {
 				sum2 = block1->vertices[j][0] * diff1 + block1->vertices[j][1] * diff2;
@@ -3613,7 +3682,8 @@ static bool cdBlockExcludesBlockLaterally(struct geoblock *block1, struct geoblo
 					break;
 				}
 
-				j = (j + 1) % numvertices0;
+				j = j + 1;
+				WRAP(j, numvertices0);
 			}
 
 			for (k = 0; k < numvertices1; k++) {
@@ -3772,7 +3842,8 @@ static bool cd0002e680IntTile(struct geotilei *tile, s32 numvertices, struct coo
 	struct coord sp6c;
 
 	for (i = 0; i < numvertices; i++) {
-		next = (i + 1) % numvertices;
+		next = i + 1;
+		WRAP(next, numvertices);
 		curr = i;
 
 		if (cd0002ac70IntTile((struct coord *)((u32)verts + curr * sizeof(struct coord)),
@@ -3801,7 +3872,8 @@ static bool cd0002e82cIntTile(struct geotilef *tile, s32 numvertices, struct coo
 	struct coord sp6c;
 
 	for (i = 0; i < numvertices; i++) {
-		next = (i + 1) % numvertices;
+		next = i + 1;
+		WRAP(next, numvertices);
 		curr = i;
 
 		if (cd0002b128FltTile((struct coord *)((u32)verts + curr * sizeof(struct coord)),
@@ -3830,7 +3902,8 @@ static bool cd0002e9d8Block(struct geoblock *thisblock, s32 numvertices, struct 
 	struct coord sp6c;
 
 	for (i = 0; i < numvertices; i++) {
-		next = (i + 1) % numvertices;
+		next = i + 1;
+		WRAP(next, numvertices);
 		curr = i;
 
 		if (cd0002b560Block((struct coord *)((u32)verts + curr * sizeof(struct coord)),
@@ -3859,7 +3932,8 @@ static bool cd0002eb84Cyl(struct geocyl *cyl, s32 numvertices, struct coord *arg
 	struct coord sp6c;
 
 	for (i = 0; i < numvertices; i++) {
-		next = (i + 1) % numvertices;
+		next = i + 1;
+		WRAP(next, numvertices);
 		curr = i;
 
 		if (cd0002b954Cyl((struct coord *)((u32)arg2 + curr * sizeof(struct coord)),
@@ -3954,7 +4028,8 @@ bool cd0002f02c(struct geoblock *block, s16 *rooms, s32 types)
 	}
 
 	for (i = 0; i < numvertices; i++) {
-		next = (i + 1) % numvertices;
+		next = i + 1;
+		WRAP(next, numvertices);
 
 		diffs[i].x = verts[next].x - verts[i].x;
 		diffs[i].y = verts[next].y - verts[i].y;

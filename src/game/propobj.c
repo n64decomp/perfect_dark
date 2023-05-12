@@ -88,7 +88,6 @@ static bool doorIsRangeEmpty(struct doorobj *door);
 static void func0f08c424(struct doorobj *door, Mtxf *matrix);
 static void objCreateDebris(struct defaultobj *obj, struct prop *prop);
 static struct defaultobj *debrisAllocate(void);
-static struct ammocrateobj *ammocrateAllocate(void);
 static void doorPlayOpeningSound(s32 soundtype, struct prop *prop);
 static void doorPlayOpenedSound(s32 soundtype, struct prop *prop);
 static void doorSetMode(struct doorobj *door, s32 newmode);
@@ -3420,9 +3419,6 @@ void applyRotation(f32 *angle, f32 maxrot, f32 *speed, f32 accel, f32 decel, f32
 	}
 }
 
-#define NEXT(i) ((i + 1) % 3)
-#define PREV(i) ((i + 2) % 3)
-
 /**
  * Make a projectile fall to the ground once it's hit a wall.
  *
@@ -3449,6 +3445,8 @@ static void projectileFall(struct defaultobj *obj, f32 arg1[3][3])
 	f32 sp58[3];
 	f32 sp4c[3];
 	f32 sp40[3];
+	s32 prev;
+	s32 next;
 
 	obj->hidden &= ~OBJHFLAG_00010000;
 
@@ -3499,7 +3497,11 @@ static void projectileFall(struct defaultobj *obj, f32 arg1[3][3])
 		if (obj->flags3 & (OBJFLAG3_00000008 | OBJFLAG3_00000200 | OBJFLAG3_08000000)) {
 			if (obj->flags3 & OBJFLAG3_00000008) {
 				for (i = 0; i < 3; i++) {
-					if (sp58[i] < sp58[NEXT(i)] && sp58[i] < sp58[PREV(i)]) {
+					next = i + 1;
+					prev = i + 2;
+					WRAP(next, 3);
+					WRAP(prev, 3);
+					if (sp58[i] < sp58[next] && sp58[i] < sp58[prev]) {
 						t4 = i;
 						break;
 					}
@@ -3508,33 +3510,43 @@ static void projectileFall(struct defaultobj *obj, f32 arg1[3][3])
 				t4 = 1;
 			}
 
-			if (sp40[(t4 + 2) % 3] <= sp40[(t4 + 1) % 3]) {
-				t2 = (t4 + 1) % 3;
-				t3 = (t4 + 2) % 3;
+			next = t4 + 1;
+			prev = t4 + 2;
+			WRAP(next, 3);
+			WRAP(prev, 3);
+
+			if (sp40[prev] <= sp40[next]) {
+				t2 = next;
+				t3 = prev;
 			} else {
-				t2 = (t4 + 2) % 3;
-				t3 = (t4 + 1) % 3;
+				t2 = prev;
+				t3 = next;
 			}
 		}
 
 		if (t2 < 0) {
 			for (i = 0; i < 3; i++) {
-				if (sp58[i] > sp58[NEXT(i)] * 3.0f && sp58[i] > sp58[PREV(i)] * 3.0f) {
+				next = i + 1;
+				prev = i + 2;
+				WRAP(next, 3);
+				WRAP(prev, 3);
+
+				if (sp58[i] > sp58[next] * 3.0f && sp58[i] > sp58[prev] * 3.0f) {
 					t2 = i;
 
-					if (sp58[NEXT(i)] > sp58[PREV(i)] * 2.0f) {
-						t4 = PREV(i);
-						t3 = NEXT(i);
-					} else if (sp58[PREV(i)] > sp58[NEXT(i)] * 2.0f) {
-						t4 = NEXT(i);
-						t3 = PREV(i);
+					if (sp58[next] > sp58[prev] * 2.0f) {
+						t4 = prev;
+						t3 = next;
+					} else if (sp58[prev] > sp58[next] * 2.0f) {
+						t4 = next;
+						t3 = prev;
 					} else {
 						if ((random() % 2) == 0) {
-							t4 = PREV(i);
-							t3 = NEXT(i);
+							t4 = prev;
+							t3 = next;
 						} else {
-							t4 = NEXT(i);
-							t3 = PREV(i);
+							t4 = next;
+							t3 = prev;
 						}
 					}
 					break;
@@ -3544,19 +3556,29 @@ static void projectileFall(struct defaultobj *obj, f32 arg1[3][3])
 
 		if (t2 < 0) {
 			for (i = 0; i < 3; i++) {
-				if (sp58[i] > sp58[NEXT(i)] * 3.0f || sp58[i] > sp58[PREV(i)] * 3.0f) {
-					if (sp58[i] > sp58[NEXT(i)] * 3.0f) {
-						t4 = NEXT(i);
-					} else if (sp58[i] > sp58[PREV(i)] * 3.0f) {
-						t4 = PREV(i);
+				next = i + 1;
+				prev = i + 2;
+				WRAP(next, 3);
+				WRAP(prev, 3);
+
+				if (sp58[i] > sp58[next] * 3.0f || sp58[i] > sp58[prev] * 3.0f) {
+					if (sp58[i] > sp58[next] * 3.0f) {
+						t4 = next;
+					} else if (sp58[i] > sp58[prev] * 3.0f) {
+						t4 = prev;
 					}
 
-					if (sp40[(t4 + 2) % 3] <= sp40[(t4 + 1) % 3]) {
-						t2 = (t4 + 1) % 3;
-						t3 = (t4 + 2) % 3;
+					next = t4 + 1;
+					prev = t4 + 2;
+					WRAP(next, 3);
+					WRAP(prev, 3);
+
+					if (sp40[prev] <= sp40[next]) {
+						t2 = next;
+						t3 = prev;
 					} else {
-						t2 = (t4 + 2) % 3;
-						t3 = (t4 + 1) % 3;
+						t2 = prev;
+						t3 = next;
 					}
 					break;
 				}
@@ -3565,15 +3587,20 @@ static void projectileFall(struct defaultobj *obj, f32 arg1[3][3])
 
 		if (t2 < 0) {
 			for (i = 0; i < 3; i++) {
-				if (sp40[i] >= sp40[NEXT(i)] && sp40[i] >= sp40[PREV(i)]) {
+				next = i + 1;
+				prev = i + 2;
+				WRAP(next, 3);
+				WRAP(prev, 3);
+
+				if (sp40[i] >= sp40[next] && sp40[i] >= sp40[prev]) {
 					t4 = i;
 
-					if (sp40[PREV(i)] <= sp40[NEXT(i)]) {
-						t3 = PREV(i);
-						t2 = NEXT(i);
+					if (sp40[prev] <= sp40[next]) {
+						t3 = prev;
+						t2 = next;
 					} else {
-						t2 = PREV(i);
-						t3 = NEXT(i);
+						t2 = prev;
+						t3 = next;
 					}
 					break;
 				}
@@ -3610,8 +3637,13 @@ static void projectileFall(struct defaultobj *obj, f32 arg1[3][3])
 		spc8.m[t2][2] = sp80;
 		spc8.m[t2][3] = 0.0f;
 
-		if (((obj->realrot[t4][1] >= 0.0f || (obj->flags3 & OBJFLAG3_08000000)) && t3 == ((t4 + 1) % 3))
-				|| (obj->realrot[t4][1] <= 0.0f && (obj->flags3 & OBJFLAG3_08000000) == 0 && t3 == (t4 + 2) % 3)) {
+		next = t4 + 1;
+		prev = t4 + 2;
+		WRAP(next, 3);
+		WRAP(prev, 3);
+
+		if (((obj->realrot[t4][1] >= 0.0f || (obj->flags3 & OBJFLAG3_08000000)) && t3 == next)
+				|| (obj->realrot[t4][1] <= 0.0f && (obj->flags3 & OBJFLAG3_08000000) == 0 && t3 == prev)) {
 			spc8.m[t3][0] = -sp80;
 			spc8.m[t3][1] = 0.0f;
 			spc8.m[t3][2] = sp84;
@@ -13488,61 +13520,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 
 		// This code appears to be unused...
 		// It appears to handle spawning a weapon when the ammo crate is shot.
-		if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
-			if (objGetDestroyedLevel(obj) == 1) {
-				u32 stack;
-				struct multiammocrateobj *crate = (struct multiammocrateobj *) obj;
-				s32 startindex = random() % ARRAYCOUNT(crate->slots);
-				s32 i = startindex;
-
-				do {
-					if (crate->slots[i].quantity > 0 && crate->slots[i].modelnum != 0xffff) {
-						struct ammocrateobj *newcrate = ammocrateAllocate();
-
-						if (newcrate) {
-							s32 modelnum = crate->slots[i].modelnum;
-
-							struct defaultobj tmp = {
-								256,                    // extrascale
-								0,                      // hidden2
-								OBJTYPE_AMMOCRATE,      // type
-								0,                      // modelnum
-								-1,                     // pad
-								OBJFLAG_00000001,       // flags
-								0,                      // flags2
-								0,                      // flags3
-								NULL,                   // prop
-								NULL,                   // model
-								1, 0, 0,                // realrot
-								0, 1, 0,
-								0, 0, 1,
-								0,                      // hidden
-								NULL,                   // geo
-								NULL,                   // projectile
-								0,                      // damage
-								1000,                   // maxdamage
-								0xff, 0xff, 0xff, 0x00, // shadecol
-								0xff, 0xff, 0xff, 0x00, // nextcol
-								0x0fff,                 // floorcol
-								0,                      // tiles
-							};
-
-							newcrate->base = tmp;
-							newcrate->base.modelnum = modelnum;
-							newcrate->ammotype = i + 1;
-
-							if (objInitWithModelDef(&newcrate->base, g_ModelStates[modelnum].filedata)) {
-								propReparent(newcrate->base.prop, obj->prop);
-							}
-
-							break;
-						}
-					}
-
-					i = (i + 1) % ARRAYCOUNT(crate->slots);
-				} while (i != startindex);
-			}
-		} else if (obj->type == OBJTYPE_CHOPPER) {
+		if (obj->type == OBJTYPE_CHOPPER) {
 			struct chopperobj *chopper = (struct chopperobj *) obj;
 
 			if (chopper->attackmode != CHOPPERMODE_FALL) {
@@ -15406,7 +15384,11 @@ static struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, str
 			}
 		}
 
-		i = (i + 1) % g_MaxWeaponSlots;
+		i++;
+
+		if (i >= g_MaxWeaponSlots) {
+			i = 0;
+		}
 
 		if (i == g_NextWeaponSlot) {
 			break;
@@ -15414,7 +15396,12 @@ static struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, str
 	}
 
 	if (sp44 >= 0) {
-		g_NextWeaponSlot = (sp44 + 1) % g_MaxWeaponSlots;
+		g_NextWeaponSlot = sp44 + 1;
+
+		if (g_NextWeaponSlot >= g_MaxWeaponSlots) {
+			g_NextWeaponSlot = 0;
+		}
+
 		return &g_WeaponSlots[sp44];
 	}
 
@@ -15429,7 +15416,12 @@ static struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, str
 			objFreePermanently(&g_WeaponSlots[sp40].base, true);
 		}
 
-		g_NextWeaponSlot = (sp40 + 1) % g_MaxWeaponSlots;
+		g_NextWeaponSlot = sp40 + 1;
+
+		if (g_NextWeaponSlot >= g_MaxWeaponSlots) {
+			g_NextWeaponSlot = 0;
+		}
+
 		return &g_WeaponSlots[sp40];
 	}
 
@@ -15446,7 +15438,12 @@ static struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, str
 			objFreePermanently(&g_WeaponSlots[sp3c].base, true);
 		}
 
-		g_NextWeaponSlot = (sp3c + 1) % g_MaxWeaponSlots;
+		g_NextWeaponSlot = sp3c + 1;
+
+		if (g_NextWeaponSlot >= g_MaxWeaponSlots) {
+			g_NextWeaponSlot = 0;
+		}
+
 		return &g_WeaponSlots[sp3c];
 	}
 
@@ -15456,41 +15453,6 @@ static struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, str
 		}
 
 		return sp48;
-	}
-
-	return NULL;
-}
-
-static struct ammocrateobj *ammocrateAllocate(void)
-{
-	s32 i;
-
-	// Try to find a free one
-	for (i = 0; i < g_MaxAmmoCrates; i++) {
-		if (g_AmmoCrates[i].base.prop == NULL) {
-			return &g_AmmoCrates[i];
-		}
-	}
-
-	// Find one that can be freed off-screen
-	for (i = 0; i < g_MaxAmmoCrates; i++) {
-		if ((g_AmmoCrates[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
-				&& (g_AmmoCrates[i].base.hidden2 & OBJH2FLAG_CANREGEN) == 0
-				&& g_AmmoCrates[i].base.prop->parent == NULL
-				&& (g_AmmoCrates[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0) {
-			objFreePermanently(&g_AmmoCrates[i].base, true);
-			return &g_AmmoCrates[i];
-		}
-	}
-
-	// Find one that can be freed on-screen
-	for (i = 0; i < g_MaxAmmoCrates; i++) {
-		if ((g_AmmoCrates[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
-				&& (g_AmmoCrates[i].base.hidden2 & OBJH2FLAG_CANREGEN) == 0
-				&& g_AmmoCrates[i].base.prop->parent == NULL) {
-			objFreePermanently(&g_AmmoCrates[i].base, true);
-			return &g_AmmoCrates[i];
-		}
 	}
 
 	return NULL;

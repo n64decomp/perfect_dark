@@ -13633,7 +13633,8 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 				}
 			}
 
-			index = (index + 1) % g_NumChrSlots;
+			index++;
+			WRAP(index, g_NumChrSlots);
 		} while (index != startindex);
 
 		if (replacechr) {

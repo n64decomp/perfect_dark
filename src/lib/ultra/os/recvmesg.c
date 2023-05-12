@@ -21,7 +21,12 @@ s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags)
 		*msg = mq->msg[mq->first];
 	}
 
-	mq->first = (mq->first + 1) % mq->msgCount;
+	mq->first++;
+
+	if (mq->first >= mq->msgCount) {
+		mq->first -= mq->msgCount;
+	}
+
 	mq->validCount--;
 
 	if (mq->fullqueue->next != NULL) {

@@ -1432,7 +1432,8 @@ static void botChooseGeneralTarget(struct chrdata *botchr)
 
 	// Advance the bot's internal pointer to the next chr
 	// and update stats about that chr
-	aibot->queryplayernum = (aibot->queryplayernum + 1) % g_MpNumChrs;
+	aibot->queryplayernum++;
+	WRAP(aibot->queryplayernum, g_MpNumChrs);
 
 	trychr = mpGetChrFromPlayerIndex(aibot->queryplayernum);
 
@@ -2598,7 +2599,8 @@ void botTickUnpaused(struct chrdata *chr)
 
 							index = random() % numtokens;
 
-							i = (index + 1) % numtokens;
+							i = index + 1;
+							WRAP(i, numtokens);
 
 							while (true) {
 								f32 sqdist = chrGetSquaredDistanceToCoord(chr, &tokens[i]->pos);
@@ -2612,10 +2614,9 @@ void botTickUnpaused(struct chrdata *chr)
 									break;
 								}
 
-								i = (i + 1) % numtokens;
+								i++;
+								WRAP(i, numtokens);
 							}
-
-							if (index);
 
 							// If the chosen token is not held then collect it,
 							// otherwise it's held by a teammate so go protect them

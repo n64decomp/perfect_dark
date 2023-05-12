@@ -354,9 +354,21 @@ void joyDebugJoy(void)
 		g_JoyData.buttonsreleased[i] = 0;
 
 		if (g_JoyData.curlast != g_JoyData.curstart) {
-			samplenum = (g_JoyData.curstart + 1) % 20; while (true) {
+			samplenum = g_JoyData.curstart + 1;
+
+			if (samplenum >= 20) {
+				samplenum = 0;
+			}
+
+			while (true) {
+				s32 prev = samplenum - 1;
+
+				if (prev < 0) {
+					prev = 19;
+				}
+
 				buttons1 = g_JoyData.samples[samplenum].pads[i].button;
-				buttons2 = g_JoyData.samples[(samplenum + 19) % 20].pads[i].button;
+				buttons2 = g_JoyData.samples[prev].pads[i].button;
 
 				g_JoyData.buttonspressed[i] |= buttons1 & ~buttons2;
 				g_JoyData.buttonsreleased[i] |= ~buttons1 & buttons2;
@@ -377,7 +389,11 @@ void joyDebugJoy(void)
 					break;
 				}
 
-				samplenum = (samplenum + 1) % 20;
+				samplenum++;
+
+				if (samplenum >= 20) {
+					samplenum = 0;
+				}
 			}
 		}
 	}
@@ -385,7 +401,11 @@ void joyDebugJoy(void)
 
 static void joyReadData(void)
 {
-	s32 index = (g_JoyData.nextlast + 1) % 20;
+	s32 index = g_JoyData.nextlast + 1;
+
+	if (index >= 20) {
+		index = 0;
+	}
 
 	if (index == g_JoyData.curstart) {
 		// If the sample queue is full, don't overwrite the oldest sample.
@@ -396,7 +416,11 @@ static void joyReadData(void)
 	osContGetReadData(g_JoyData.samples[index].pads);
 
 	g_JoyData.nextlast = index;
-	g_JoyData.nextsecondlast = (g_JoyData.nextlast + 19) % 20;
+	g_JoyData.nextsecondlast = g_JoyData.nextlast + 19;
+
+	if (g_JoyData.nextsecondlast >= 20) {
+		g_JoyData.nextsecondlast -= 20;
+	}
 }
 
 void joysTick(void)
@@ -472,11 +496,19 @@ void joysTick(void)
 
 s32 joyGetNumSamples(void)
 {
-	return (g_JoyData.curlast - g_JoyData.curstart + 20) % 20;
+	s32 tmp = g_JoyData.curlast - g_JoyData.curstart + 20;
+
+	if (tmp >= 20) {
+		tmp -= 20;
+	}
+
+	return tmp;
 }
 
 s32 joyGetStickXOnSample(s32 samplenum, s8 contpadnum)
 {
+	s32 tmp;
+
 	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
@@ -485,11 +517,19 @@ s32 joyGetStickXOnSample(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyData.samples[(g_JoyData.curstart + samplenum + 1) % 20].pads[contpadnum].stick_x;
+	tmp = g_JoyData.curstart + samplenum + 1;
+
+	if (tmp >= 20) {
+		tmp -= 20;
+	}
+
+	return g_JoyData.samples[tmp].pads[contpadnum].stick_x;
 }
 
 s32 joyGetStickYOnSample(s32 samplenum, s8 contpadnum)
 {
+	s32 tmp;
+
 	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
@@ -498,11 +538,19 @@ s32 joyGetStickYOnSample(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyData.samples[(g_JoyData.curstart + samplenum + 1) % 20].pads[contpadnum].stick_y;
+	tmp = g_JoyData.curstart + samplenum + 1;
+
+	if (tmp >= 20) {
+		tmp -= 20;
+	}
+
+	return g_JoyData.samples[tmp].pads[contpadnum].stick_y;
 }
 
 s32 joyGetStickYOnSampleIndex(s32 samplenum, s8 contpadnum)
 {
+	s32 tmp;
+
 	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
 	}
@@ -511,12 +559,19 @@ s32 joyGetStickYOnSampleIndex(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyData.samples[(g_JoyData.curstart + samplenum) % 20].pads[contpadnum].stick_y;
+	tmp = g_JoyData.curstart + samplenum;
+
+	if (tmp >= 20) {
+		tmp -= 20;
+	}
+
+	return g_JoyData.samples[tmp].pads[contpadnum].stick_y;
 }
 
 u16 joyGetButtonsOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 {
 	u16 button;
+	s32 tmp;
 
 	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
@@ -526,7 +581,13 @@ u16 joyGetButtonsOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button = g_JoyData.samples[(g_JoyData.curstart + samplenum + 1) % 20].pads[contpadnum].button;
+	tmp = g_JoyData.curstart + samplenum + 1;
+
+	if (tmp >= 20) {
+		tmp -= 20;
+	}
+
+	button = g_JoyData.samples[tmp].pads[contpadnum].button;
 
 	return button & mask;
 }
@@ -535,6 +596,7 @@ u16 joyGetButtonsPressedOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 {
 	u16 button1;
 	u16 button2;
+	s32 tmp;
 
 	if (g_JoyData.unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		return 0;
@@ -544,8 +606,21 @@ u16 joyGetButtonsPressedOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button1 = g_JoyData.samples[(g_JoyData.curstart + samplenum + 1) % 20].pads[contpadnum].button;
-	button2 = g_JoyData.samples[(g_JoyData.curstart + samplenum) % 20].pads[contpadnum].button;
+	tmp = g_JoyData.curstart + samplenum + 1;
+
+	if (tmp >= 20) {
+		tmp -= 20;
+	}
+
+	button1 = g_JoyData.samples[tmp].pads[contpadnum].button;
+
+	tmp = g_JoyData.curstart + samplenum;
+
+	if (tmp >= 20) {
+		tmp -= 20;
+	}
+
+	button2 = g_JoyData.samples[tmp].pads[contpadnum].button;
 
 	return (button1 & ~button2) & mask;
 }
@@ -572,7 +647,11 @@ s32 joyCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	i = (g_JoyData.curstart + 1) % 20;
+	i = g_JoyData.curstart + 1;
+
+	if (i >= 20) {
+		i -= 20;
+	}
 
 	while (true) {
 		if (checksamples == NULL || checksamples[index]) {
@@ -587,7 +666,12 @@ s32 joyCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 			break;
 		}
 
-		i = (i + 1) % 20;
+		i++;
+
+		if (i >= 20) {
+			i -= 20;
+		}
+
 		index++;
 	}
 

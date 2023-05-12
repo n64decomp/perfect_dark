@@ -3020,7 +3020,8 @@ static s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handl
 			return 0;
 		}
 
-		i = (start + 1) % numchrs;
+		i = start + 1;
+		WRAP(i, numchrs);
 
 		do {
 			struct mpchrconfig *mpchr = mpGetChrConfigBySlotNum(i);
@@ -3037,7 +3038,8 @@ static s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handl
 						chrsremaining--;
 						break;
 					} else {
-						teamnum = (teamnum + 1) % numteams;
+						teamnum++;
+						WRAP(teamnum, numteams);
 					}
 				}
 			} else {
@@ -3055,7 +3057,8 @@ static s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handl
 						chrsremaining--;
 						break;
 					} else {
-						teamnum = (teamnum + 1) % numteams;
+						teamnum++;
+						WRAP(teamnum, numteams);
 					}
 				}
 			}
@@ -3064,7 +3067,8 @@ static s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handl
 				break;
 			}
 
-			i = (i + 1) % numchrs;
+			i++;
+			WRAP(i, numchrs);
 		} while (true);
 
 		menuPopDialog();

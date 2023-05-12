@@ -569,10 +569,12 @@ void invChooseCycleForwardWeapon(s32 *ptr1, s32 *ptr2, bool arg2)
 		} else {
 			// Find next weapon
 			do {
-				candidate = (candidate + 1) % NUM_CYCLEABLE_WEAPONS;
+				candidate++;
+				WRAP(candidate, NUM_CYCLEABLE_WEAPONS);
 
 				if (candidate == WEAPON_NONE) {
-					candidate = (candidate + 1) % NUM_CYCLEABLE_WEAPONS;
+					candidate++;
+					WRAP(candidate, NUM_CYCLEABLE_WEAPONS);
 				}
 
 				if ((!arg2 || bgun0f0a1a10(candidate)) && invCanHaveAllGunsWeapon(candidate)) {

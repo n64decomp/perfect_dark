@@ -41,6 +41,7 @@
 #define PFS(device)         (device == SAVEDEVICE_GAMEPAK ? NULL : &g_Pfses[device])
 #define FRAMEBUFFER_SIZE    (320 * 220 * sizeof(u16))
 #define UNCACHED(x)         ((void *)((u32)(x)|0xa0000000))
+#define WRAP(var, limit)    if (var >= (limit)) var -= (limit)
 
 static inline float absf(float value)
 {

@@ -280,7 +280,8 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 			padsqdists[p] = -1.0f;
 		}
 
-		p = (p + 1) % numpads;
+		p++;
+		WRAP(p, numpads);
 
 		if (p == i) {
 			break;
@@ -310,9 +311,8 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 			padsqdists[p] = -1.0f;
 		}
 
-		if (numpads);
-
-		p = (p + 1) % numpads;
+		p++;
+		WRAP(p, numpads);
 
 		if (p == i) {
 			break;

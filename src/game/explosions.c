@@ -395,8 +395,10 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 							index = 2;
 						}
 
-						indexplus1 = (index + 1) % 3;
-						indexplus2 = (index + 2) % 3;
+						indexplus1 = index + 1;
+						indexplus2 = index + 2;
+						WRAP(indexplus1, 3);
+						WRAP(indexplus2, 3);
 
 						value1 = portalbbmax.f[indexplus1] - portalbbmin.f[indexplus1];
 						value2 = portalbbmax.f[indexplus2] - portalbbmin.f[indexplus2];

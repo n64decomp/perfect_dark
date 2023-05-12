@@ -99,7 +99,8 @@ void profileReset(void)
 {
 	s32 i;
 
-	g_ProfileIndex = (g_ProfileIndex + 1) % NUM_SAMPLES;
+	g_ProfileIndex++;
+	WRAP(g_ProfileIndex, NUM_SAMPLES);
 
 	for (i = 0; i < NUM_PROFILEMARKERS; i++) {
 		g_ProfileMarkers[g_ProfileIndex][i][0] = 0;

@@ -274,7 +274,8 @@ void anim00023d38(s16 animnum)
 
 	if (var8005f010[animnum] != 0xff) {
 		var8009a890[var8005f010[animnum]] = g_Vars.thisframestart240;
-		var8005f004 = (var8005f010[animnum] + 1) % 40;
+		var8005f004 = var8005f010[animnum] + 1;
+		WRAP(var8005f004, 40);
 	} else {
 		s32 tmp;
 		s32 bestindex = var8005f004;
@@ -299,7 +300,8 @@ void anim00023d38(s16 animnum)
 		var8005f010[animnum] = bestindex;
 		var8009a88c[bestindex] = animnum;
 		var8009a890[bestindex] = g_Vars.thisframestart240;
-		var8005f004 = (bestindex + 1) % 40;
+		var8005f004 = bestindex + 1;
+		WRAP(var8005f004, 40);
 	}
 }
 
