@@ -212,7 +212,7 @@ void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *
 
 	g_NextSparkGroupIndex++;
 
-	if (g_NextSparkGroupIndex >= 0) {
+	if (g_NextSparkGroupIndex >= 10) {
 		g_NextSparkGroupIndex = 0;
 	}
 
