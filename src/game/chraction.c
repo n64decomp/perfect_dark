@@ -14092,7 +14092,7 @@ f32 chrGetDistanceLostToTargetInLastSecond(struct chrdata *chr)
 	z = bdlist[index + 0];
 	olddist = sqrtf(x * x + z * z);
 
-	index += 2;
+	index += 58;
 
 	if (index >= 60) {
 		index = 0;
