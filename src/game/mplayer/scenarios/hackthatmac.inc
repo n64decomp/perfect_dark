@@ -440,7 +440,7 @@ static void htmTickChr(struct chrdata *chr)
 		struct coord *terminalpos = &data->terminals[data->dlterminalnum].prop->pos;
 		f32 angle;
 		f32 relangle;
-		f32 rangexz;
+		f32 sqrangexz;
 		f32 rangey;
 		struct coord *chrpos;
 		struct coord dist;
@@ -460,7 +460,7 @@ static void htmTickChr(struct chrdata *chr)
 		dist.y = terminalpos->y - chrpos->y;
 		dist.z = terminalpos->z - chrpos->z;
 
-		rangexz = sqrtf(dist.x * dist.x + dist.z * dist.z);
+		sqrangexz = dist.x * dist.x + dist.z * dist.z;
 
 		rangey = absf(dist.y);
 
@@ -480,10 +480,8 @@ static void htmTickChr(struct chrdata *chr)
 			relangle = -relangle;
 		}
 
-
-
-		if (rangexz > 250 || rangey > 200 || relangle > 45 || !holdinguplink) {
-			if (rangexz < 250 && rangey < 200) {
+		if (sqrangexz > 250 * 250 || rangey > 200 || relangle > 45 || !holdinguplink) {
+			if (sqrangexz < 250 * 250 && rangey < 200) {
 				data->playernuminrange = playernum;
 			} else {
 				data->playernuminrange = -1;
@@ -518,7 +516,6 @@ static void htmTickChr(struct chrdata *chr)
 				*time = 0;
 			}
 		}
-
 	}
 }
 
