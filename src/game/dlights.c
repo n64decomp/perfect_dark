@@ -12,7 +12,7 @@
 #include "game/bg.h"
 #include "game/file.h"
 #include "game/lv.h"
-#include "game/game_176080.h"
+#include "game/zbuf.h"
 #include "game/mplayer/scenarios.h"
 #include "game/portal.h"
 #include "game/propobj.h"
@@ -596,7 +596,19 @@ void func0f001c0c(void)
 
 	mempGetStageFree();
 
-	ptr = mblurGetAllocation();
+	/**
+	 * This lighting initialisation needs to build temporary tables in memory.
+	 * The memp system allows freeing of the most recent allocation *only*,
+	 * so it's not easy to build these tables and dispose of them afterwards.
+	 *
+	 * Instead of using memp, it uses the z-buffer as a temporary scratch space.
+	 * This is safe because there are no RDP tasks in progress at this point.
+	 * The game waits for them to complete before loading the stage.
+	 *
+	 * Note that for some stages the z-buffer allocation must be higher than the
+	 * lo-res size to support the lighting needs here.
+	 */
+	ptr = zbufGetAllocation();
 
 	var80061434 = (f32 *)ptr;
 	ptr += table1size;

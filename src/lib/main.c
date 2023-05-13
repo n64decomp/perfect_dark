@@ -36,7 +36,7 @@
 #include "game/music.h"
 #include "game/stubs/game_175f50.h"
 #include "game/game_175f90.h"
-#include "game/game_176080.h"
+#include "game/zbuf.h"
 #include "game/game_1a78b0.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pak.h"
@@ -1340,7 +1340,7 @@ void mainLoop(void)
 		gfxReset();
 		joyReset();
 		dhudReset();
-		mblurReset(g_StageNum);
+		zbufReset(g_StageNum);
 		lvReset(g_StageNum);
 		viReset(g_StageNum);
 		frametimeCalculate();

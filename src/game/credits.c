@@ -1772,7 +1772,7 @@ Gfx *creditsDraw(Gfx *gdl)
 
 	g_ScaleX = 1;
 
-	gdl = vi0000b280(gdl);
+	gdl = viPrepareZbuf(gdl);
 	gdl = vi0000b1d0(gdl);
 	gdl = creditsFillFramebuffer(gdl, 0x000000ff);
 

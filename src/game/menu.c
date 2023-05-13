@@ -1874,7 +1874,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		bool sp2f4;
 
 		if (arg2 < 3 && g_MenuData.unk5d5_03) {
-			gdl = vi0000b280(gdl);
+			gdl = viPrepareZbuf(gdl);
 			gdl = vi0000b1d0(gdl);
 
 			g_MenuData.unk5d5_03 = false;

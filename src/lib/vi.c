@@ -4,7 +4,7 @@
 #include "game/camera.h"
 #include "game/player.h"
 #include "game/file.h"
-#include "game/game_176080.h"
+#include "game/zbuf.h"
 #include "game/gfxmemory.h"
 #include "game/menu.h"
 #include "game/options.h"
@@ -1377,11 +1377,11 @@ Gfx *vi0000b1d0(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *vi0000b280(Gfx *gdl)
+Gfx *viPrepareZbuf(Gfx *gdl)
 {
 	if (g_ViBackData->usezbuf) {
-		gdl = mblur0f1762ac(gdl);
-		gdl = mblur0f1763f4(gdl);
+		gdl = zbufConfigureRdp(gdl);
+		gdl = zbufClear(gdl);
 	}
 
 	return gdl;

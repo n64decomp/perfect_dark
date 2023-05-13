@@ -25,7 +25,7 @@ Gfx *vi0000af00(Gfx *gdl, Vp *vp);
 Gfx *vi0000b0e8(Gfx *gdl, f32 fovy, f32 aspect);
 Gfx *vi0000b1a8(Gfx *gdl);
 Gfx *vi0000b1d0(Gfx *gdl);
-Gfx *vi0000b280(Gfx *gdl);
+Gfx *viPrepareZbuf(Gfx *gdl);
 Gfx *viFillBuffer(Gfx *gdl);
 Gfx *viRenderViewportEdges(Gfx *gdl);
 void viSetBufSize(s16 width, s16 height);

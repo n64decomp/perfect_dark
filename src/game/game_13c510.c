@@ -305,7 +305,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 							yi = func0f13c710(viewtop + (1.0f - spdc[1] * f20) * (viewheight * 0.5f));
 							f0 = (spdc[2] * f20 * 511.0f + 511.0f) * 32.0f;
 
-							if (var800844f0
+							if (g_ZbufPtr1
 									&& xi >= (s32)viewleft
 									&& xi < (s32)(viewleft + viewwidth)
 									&& yi >= (s32)viewtop
@@ -323,7 +323,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 
 								if (index < MAX_ARTIFACTS) {
 									artifact->unk04 = func0f13c574(f0) >> 2;
-									artifact->unk08 = &var800844f0[viGetWidth() * yi + xi];
+									artifact->unk08 = &g_ZbufPtr1[viGetWidth() * yi + xi];
 									artifact->light = &roomlights[i];
 									artifact->type = ARTIFACTTYPE_GLARE;
 									artifact->unk0c.u16_2 = xi;

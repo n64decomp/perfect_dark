@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "lib/sched.h"
 #include "game/player.h"
-#include "game/game_176080.h"
+#include "game/zbuf.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
 #include "bss.h"
@@ -11,64 +11,91 @@
 #include "data.h"
 #include "types.h"
 
-u32 var800ab7c0;
-u32 var800ab7c4;
-u16 var800ab7c8[0x180];
-u16 var800abac8[0x180];
-u16 var800abdc8[0x180];
+u32 g_ZbufWidth;
+u32 g_ZbufHeight;
+u16 g_ArtifactsCfb0[0x180];
+u16 g_ArtifactsCfb1[0x180];
+u16 g_ArtifactsCfb2[0x180];
 
-u16 *var800844f0 = NULL;
-void *var800844f4 = NULL;
+u16 *g_ZbufPtr1 = NULL;
+u16 *g_ZbufPtr2 = NULL;
 
-void *mblurGetAllocation(void)
+void *zbufGetAllocation(void)
 {
-	return var800844f0;
+	return g_ZbufPtr1;
 }
 
-void mblurReset(s32 stagenum)
+void zbufReset(s32 stagenum)
 {
-	var800844f0 = 0;
-	var800844f4 = 0;
+	g_ZbufPtr1 = NULL;
+	g_ZbufPtr2 = NULL;
 
 	if (stagenum != STAGE_TITLE) {
-		mblurAllocate();
+		zbufAllocate();
 	}
 }
 
-void mblurAllocate(void)
+/**
+ * In 4MB 2-player, the viewports are displayed with a vertical split and are
+ * only half a screen height (the top 25% and bottom 25% of the screen are
+ * black), so a half-height z-buffer is allocated.
+ *
+ * In 8MB, the full hi-res buffer is allocated. This makes sense for solo
+ * missions because the player can switch to hi-res mid game. For normal
+ * multiplayer this is wasteful but there's plenty of memory. For coop and anti
+ * this is also wasteful, and memory is tight. They could have saved 137.5 KB.
+ */
+void zbufAllocate(void)
 {
 	if (IS4MB()) {
-		var800ab7c0 = 320;
+		g_ZbufWidth = 320;
 
 		if (g_Vars.normmplayerisrunning && PLAYERCOUNT() >= 2) {
-			var800ab7c4 = 110;
+			g_ZbufHeight = 110;
 		} else {
-			var800ab7c4 = 220;
+			g_ZbufHeight = 220;
 		}
 	} else {
-		var800ab7c0 = 640;
+		g_ZbufWidth = 640;
 
 		if (g_Vars.normmplayerisrunning && PLAYERCOUNT() >= 2) {
-			var800ab7c4 = 220;
+			g_ZbufHeight = 220;
 		} else {
-			var800ab7c4 = 220;
+			g_ZbufHeight = 220;
 		}
 	}
 
-	var800844f0 = mempAlloc(var800ab7c0 * var800ab7c4 * 2 + 0x40, MEMPOOL_STAGE);
-	var800844f0 = (void *)(((uintptr_t) var800844f0 + 0x3f) & ~0x3f);
-	var800844f4 = var800844f0;
+	g_ZbufPtr1 = mempAlloc(g_ZbufWidth * g_ZbufHeight * sizeof(u16) + 0x40, MEMPOOL_STAGE);
+	g_ZbufPtr1 = (void *) (((uintptr_t) g_ZbufPtr1 + 0x3f) & ~0x3f);
+	g_ZbufPtr2 = g_ZbufPtr1;
 }
 
-void mblur0f176298(void)
+/**
+ * Note: There is only one z-buffer, so there is nothing to swap.
+ * Both of these pointers always have the same value.
+ *
+ * We assume this is a swap function due to the context in which it's called.
+ * Perhaps the developers implemented two buffers with swapping before realising
+ * they only needed one.
+ */
+void zbufSwap(void)
 {
-	var800844f4 = var800844f0;
+	g_ZbufPtr2 = g_ZbufPtr1;
 }
 
-Gfx *mblur0f1762ac(Gfx *gdl)
+/**
+ * In 8MB multiplayer, players on the bottom half of the screen have their
+ * z-buffer shifted backwards by half a screen. This is safe because it's using
+ * a scissor on the viewport.
+ *
+ * This allows the z-buffer allocation to be half a screen instead of a full
+ * screen, however zbufAllocate allocates the full hi-res screen for 8MB,
+ * so this benefit is not realised. The shifting code is likely from GE.
+ */
+Gfx *zbufConfigureRdp(Gfx *gdl)
 {
 	u32 subamount;
-	u32 addr;
+	uintptr_t addr;
 
 	if (g_Vars.normmplayerisrunning
 			&& (g_Vars.currentplayernum >= 2 || (PLAYERCOUNT() == 2 && g_Vars.currentplayernum == 1))) {
@@ -81,7 +108,7 @@ Gfx *mblur0f1762ac(Gfx *gdl)
 		subamount = 0;
 	}
 
-	addr = (uintptr_t)var800844f4 - subamount;
+	addr = (uintptr_t) g_ZbufPtr2 - subamount;
 	addr &= ~0x3f;
 
 	gDPPipeSync(gdl++);
@@ -90,14 +117,17 @@ Gfx *mblur0f1762ac(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *mblur0f1763f4(Gfx *gdl)
+/**
+ * Clear the current player's portion of the z-buffer.
+ */
+Gfx *zbufClear(Gfx *gdl)
 {
 	s32 left;
 	s32 right;
 
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetWidth(), OS_PHYSICAL_TO_K0(var800844f4));
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetWidth(), OS_PHYSICAL_TO_K0(g_ZbufPtr2));
 	gDPSetCycleType(gdl++, G_CYC_FILL);
 	gDPSetFillColor(gdl++, 0xfffcfffc);
 	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, playerGetFbWidth() * 4.0f, playerGetFbHeight() * 4.0f);
@@ -119,32 +149,32 @@ Gfx *mblur0f1763f4(Gfx *gdl)
 	return gdl;
 }
 
-u16 *mblur0f176668(s32 arg0)
+u16 *zbufGetArtifactsCfb(s32 index)
 {
 	u16 *addr;
 
-	if (arg0 == 0) {
-		addr = var800ab7c8;
+	if (index == 0) {
+		addr = g_ArtifactsCfb0;
 	}
 
-	if (arg0 == 1) {
-		addr = var800abac8;
+	if (index == 1) {
+		addr = g_ArtifactsCfb1;
 	}
 
-	if (arg0 == 2) {
-		addr = var800abdc8;
+	if (index == 2) {
+		addr = g_ArtifactsCfb2;
 	}
 
-	addr = (u16 *)(((uintptr_t)addr + 0x3f) & ~0x3f);
+	addr = (u16 *) (((uintptr_t) addr + 0x3f) & ~0x3f);
 
 	return addr;
 }
 
-Gfx *mblurRender(Gfx *gdl)
+Gfx *zbufDrawArtifactsOffscreen(Gfx *gdl)
 {
 	struct artifact *artifacts = schedGetWriteArtifacts();
 	u32 stack;
-	u16 *sp4c = var800844f0;
+	u16 *sp4c = g_ZbufPtr1;
 	u32 s4 = 0;
 	u16 *sp44;
 	u16 *s2;
@@ -152,7 +182,7 @@ Gfx *mblurRender(Gfx *gdl)
 	s32 i;
 
 	viGetBackBuffer();
-	sp44 = mblur0f176668(g_SchedWriteArtifactsIndex);
+	sp44 = zbufGetArtifactsCfb(g_SchedWriteArtifactsIndex);
 	g_SchedSpecialArtifactIndexes[g_SchedWriteArtifactsIndex] = 1;
 
 	gDPPipeSync(gdl++);

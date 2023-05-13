@@ -208,7 +208,7 @@
 	build/ROMID/game/game_175f90.o (section); \
 	build/ROMID/game/buildtime.o (section); \
 	build/ROMID/game/stubs/game_176000.o (section); \
-	build/ROMID/game/game_176080.o (section); \
+	build/ROMID/game/zbuf.o (section); \
 	build/ROMID/game/stagemusic.o (section); \
 	build/ROMID/game/utils.o (section); \
 	build/ROMID/game/mplayer/ingame.o (section); \

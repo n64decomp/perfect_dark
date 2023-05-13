@@ -31,7 +31,7 @@
 #include "game/file.h"
 #include "game/lv.h"
 #include "game/texdecompress.h"
-#include "game/game_176080.h"
+#include "game/zbuf.h"
 #include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
@@ -8383,10 +8383,10 @@ glabel var7f1aca90
 /*  f0a71e4:	100002d5 */ 	b	.L0f0a7d3c
 /*  f0a71e8:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f0a71ec:
-/*  f0a71ec:	0fc5d9ad */ 	jal	mblurRender
+/*  f0a71ec:	0fc5d9ad */ 	jal	zbufDrawArtifactsOffscreen
 /*  f0a71f0:	8fa4014c */ 	lw	$a0,0x14c($sp)
 /*  f0a71f4:	afa2014c */ 	sw	$v0,0x14c($sp)
-/*  f0a71f8:	0c002ca0 */ 	jal	vi0000b280
+/*  f0a71f8:	0c002ca0 */ 	jal	viPrepareZbuf
 /*  f0a71fc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a7200:	afa2014c */ 	sw	$v0,0x14c($sp)
 /*  f0a7204:	0c002c74 */ 	jal	vi0000b1d0
@@ -9083,9 +9083,9 @@ glabel var7f1aca90
 /*  f0a7c0c:	afb500e4 */ 	sw	$s5,0xe4($sp)
 /*  f0a7c10:	0fc2baf8 */ 	jal	casingsRender
 /*  f0a7c14:	27a4014c */ 	addiu	$a0,$sp,0x14c
-/*  f0a7c18:	0fc5d8a6 */ 	jal	mblur0f176298
+/*  f0a7c18:	0fc5d8a6 */ 	jal	zbufSwap
 /*  f0a7c1c:	00000000 */ 	nop
-/*  f0a7c20:	0fc5d8ab */ 	jal	mblur0f1762ac
+/*  f0a7c20:	0fc5d8ab */ 	jal	zbufConfigureRdp
 /*  f0a7c24:	8fa4014c */ 	lw	$a0,0x14c($sp)
 /*  f0a7c28:	afa2014c */ 	sw	$v0,0x14c($sp)
 /*  f0a7c2c:	0c002c74 */ 	jal	vi0000b1d0
@@ -9224,10 +9224,10 @@ glabel var7f1aca90
 /*  f0a71e4:	100002d5 */ 	b	.L0f0a7d3c
 /*  f0a71e8:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f0a71ec:
-/*  f0a71ec:	0fc5d9ad */ 	jal	mblurRender
+/*  f0a71ec:	0fc5d9ad */ 	jal	zbufDrawArtifactsOffscreen
 /*  f0a71f0:	8fa4014c */ 	lw	$a0,0x14c($sp)
 /*  f0a71f4:	afa2014c */ 	sw	$v0,0x14c($sp)
-/*  f0a71f8:	0c002ca0 */ 	jal	vi0000b280
+/*  f0a71f8:	0c002ca0 */ 	jal	viPrepareZbuf
 /*  f0a71fc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a7200:	afa2014c */ 	sw	$v0,0x14c($sp)
 /*  f0a7204:	0c002c74 */ 	jal	vi0000b1d0
@@ -9924,9 +9924,9 @@ glabel var7f1aca90
 /*  f0a7c0c:	afb500e4 */ 	sw	$s5,0xe4($sp)
 /*  f0a7c10:	0fc2baf8 */ 	jal	casingsRender
 /*  f0a7c14:	27a4014c */ 	addiu	$a0,$sp,0x14c
-/*  f0a7c18:	0fc5d8a6 */ 	jal	mblur0f176298
+/*  f0a7c18:	0fc5d8a6 */ 	jal	zbufSwap
 /*  f0a7c1c:	00000000 */ 	nop
-/*  f0a7c20:	0fc5d8ab */ 	jal	mblur0f1762ac
+/*  f0a7c20:	0fc5d8ab */ 	jal	zbufConfigureRdp
 /*  f0a7c24:	8fa4014c */ 	lw	$a0,0x14c($sp)
 /*  f0a7c28:	afa2014c */ 	sw	$v0,0x14c($sp)
 /*  f0a7c2c:	0c002c74 */ 	jal	vi0000b1d0
@@ -10065,10 +10065,10 @@ glabel var7f1aca90
 /*  f0a4f30:	100002cd */ 	beqz	$zero,.NB0f0a5a68
 /*  f0a4f34:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .NB0f0a4f38:
-/*  f0a4f38:	0fc5c4d5 */ 	jal	mblurRender
+/*  f0a4f38:	0fc5c4d5 */ 	jal	zbufDrawArtifactsOffscreen
 /*  f0a4f3c:	8fa40144 */ 	lw	$a0,0x144($sp)
 /*  f0a4f40:	afa20144 */ 	sw	$v0,0x144($sp)
-/*  f0a4f44:	0c002d00 */ 	jal	vi0000b280
+/*  f0a4f44:	0c002d00 */ 	jal	viPrepareZbuf
 /*  f0a4f48:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a4f4c:	afa20144 */ 	sw	$v0,0x144($sp)
 /*  f0a4f50:	0c002cd4 */ 	jal	vi0000b1d0
@@ -10756,9 +10756,9 @@ glabel var7f1aca90
 /*  f0a5938:	afb500dc */ 	sw	$s5,0xdc($sp)
 /*  f0a593c:	0fc2b250 */ 	jal	casingsRender
 /*  f0a5940:	27a40144 */ 	addiu	$a0,$sp,0x144
-/*  f0a5944:	0fc5c3ce */ 	jal	mblur0f176298
+/*  f0a5944:	0fc5c3ce */ 	jal	zbufSwap
 /*  f0a5948:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a594c:	0fc5c3d3 */ 	jal	mblur0f1762ac
+/*  f0a594c:	0fc5c3d3 */ 	jal	zbufConfigureRdp
 /*  f0a5950:	8fa40144 */ 	lw	$a0,0x144($sp)
 /*  f0a5954:	afa20144 */ 	sw	$v0,0x144($sp)
 /*  f0a5958:	0c002cd4 */ 	jal	vi0000b1d0
@@ -10862,8 +10862,8 @@ void bgunRender(Gfx **gdlptr)
 		return;
 	}
 
-	gdl = mblurRender(gdl);
-	gdl = vi0000b280(gdl);
+	gdl = zbufDrawArtifactsOffscreen(gdl);
+	gdl = viPrepareZbuf(gdl);
 	gdl = vi0000b1d0(gdl);
 
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
@@ -11083,9 +11083,9 @@ void bgunRender(Gfx **gdlptr)
 	}
 
 	casingsRender(&gdl);
-	mblur0f176298();
+	zbufSwap();
 
-	gdl = mblur0f1762ac(gdl);
+	gdl = zbufConfigureRdp(gdl);
 	gdl = vi0000b1d0(gdl);
 
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),

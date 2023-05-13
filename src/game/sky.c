@@ -2373,7 +2373,7 @@ void skyCreateArtifact(struct artifact *artifact, s32 x, s32 y)
 	s32 viewheight = viGetViewHeight();
 
 	if (x >= viewleft && x < viewleft + viewwidth && y >= viewtop && y < viewtop + viewheight) {
-		artifact->unk08 = &var800844f0[(s32)camGetScreenWidth() * y + x];
+		artifact->unk08 = &g_ZbufPtr1[(s32)camGetScreenWidth() * y + x];
 		artifact->unk0c.u16_2 = x;
 		artifact->unk0c.u16_1 = y;
 		artifact->type = ARTIFACTTYPE_CIRCLE;
@@ -2424,7 +2424,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 
 	xscale = 1;
 
-	if (env->numsuns <= 0 || !var800844f0 || g_Vars.mplayerisrunning) {
+	if (env->numsuns <= 0 || !g_ZbufPtr1 || g_Vars.mplayerisrunning) {
 		return gdl;
 	}
 
@@ -2876,7 +2876,7 @@ Gfx *skyRenderArtifacts(Gfx *gdl)
 		gdl = sky0f126de8(gdl);
 	}
 
-	if (env->numsuns <= 0 || !var800844f0 || g_Vars.mplayerisrunning) {
+	if (env->numsuns <= 0 || !g_ZbufPtr1 || g_Vars.mplayerisrunning) {
 		return gdl;
 	}
 
