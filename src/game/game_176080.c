@@ -33,7 +33,7 @@ void mblurReset(s32 stagenum)
 
 static void mblurAllocate(void)
 {
-	var800844f0 = mempAlloc(320 * 220 * 2 + 0x40, MEMPOOL_STAGE);
+	var800844f0 = mempAlloc(640 * 220 * 2 + 0x40, MEMPOOL_STAGE);
 	var800844f0 = (void *)(((u32) var800844f0 + 0x3f) & ~0x3f);
 }
 
