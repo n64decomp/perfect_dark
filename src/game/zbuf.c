@@ -44,24 +44,27 @@ void zbufReset(s32 stagenum)
  * missions because the player can switch to hi-res mid game. For normal
  * multiplayer this is wasteful but there's plenty of memory. For coop and anti
  * this is also wasteful, and memory is tight. They could have saved 137.5 KB.
+ *
+ * The allocation sizes need to enforce a minimum because the allocation is also
+ * used by lighting initialisation code.
  */
 void zbufAllocate(void)
 {
 	if (IS4MB()) {
-		g_ZbufWidth = 320;
+		g_ZbufWidth = MAX(320, FBALLOC_WIDTH_LO);
 
 		if (g_Vars.normmplayerisrunning && PLAYERCOUNT() >= 2) {
-			g_ZbufHeight = 110;
+			g_ZbufHeight = MAX(220, FBALLOC_HEIGHT_LO) / 2;
 		} else {
-			g_ZbufHeight = 220;
+			g_ZbufHeight = MAX(220, FBALLOC_HEIGHT_LO);
 		}
 	} else {
-		g_ZbufWidth = 640;
+		g_ZbufWidth = MAX(640, FBALLOC_WIDTH_HI);
 
 		if (g_Vars.normmplayerisrunning && PLAYERCOUNT() >= 2) {
-			g_ZbufHeight = 220;
+			g_ZbufHeight = MAX(220, FBALLOC_HEIGHT_HI);
 		} else {
-			g_ZbufHeight = 220;
+			g_ZbufHeight = MAX(220, FBALLOC_HEIGHT_HI);
 		}
 	}
 
@@ -187,7 +190,7 @@ Gfx *zbufDrawArtifactsOffscreen(Gfx *gdl)
 
 	gDPPipeSync(gdl++);
 	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_PHYSICAL_TO_K0(sp44));
-	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, 320, 240);
+	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, SCREEN_320, SCREEN_240);
 	gDPSetCycleType(gdl++, G_CYC_COPY);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0080, 4, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -217,7 +220,7 @@ Gfx *zbufDrawArtifactsOffscreen(Gfx *gdl)
 			image = &sp4c[artifacts[i].unk0c.u16_1 * viGetWidth()];
 
 			gDPPipeSync(gdl++);
-			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
+			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_320, image);
 			gDPLoadSync(gdl++);
 			gDPLoadBlock(gdl++, 5, 0, 0, viGetWidth() - 1, 0);
 			gDPPipeSync(gdl++);

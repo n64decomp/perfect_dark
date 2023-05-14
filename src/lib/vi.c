@@ -31,27 +31,27 @@ u8 g_ViBackIndex;
 struct rend_vidat g_ViDataArray[] = {
 	{
 		0, 0, 0, 0,
-		320, 220,         // x and y
-		60,               // fovy
-		1.4545454978943f, // aspect
-		30,               // znear
-		10000,            // zfar
-		320, 220,         // bufx and bufy
-		320, 220,         // viewx and viewy
-		0, 0,             // viewleft and viewtop
-		true,             // usezbuf
+		FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO,    // x and y
+		60,                                     // fovy
+		(f32) FBALLOC_WIDTH_LO / (f32) FBALLOC_HEIGHT_LO, // aspect
+		30,                                     // znear
+		10000,                                  // zfar
+		FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO,    // bufx and bufy
+		FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO,    // viewx and viewy
+		0, 0,                                   // viewleft and viewtop
+		true,                                   // usezbuf
 		0,
 	}, {
 		0, 0, 0, 0,
-		320, 220,         // x and y
-		60,               // fovy
-		1.4545454978943f, // aspect
-		30,               // znear
-		10000,            // zfar
-		320, 220,         // bufx and bufy
-		320, 220,         // viewx and viewy
-		0, 0,             // viewleft and viewtop
-		true,             // usezbuf
+		FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO,    // x and y
+		60,                                     // fovy
+		(f32) FBALLOC_WIDTH_LO / (f32) FBALLOC_HEIGHT_LO, // aspect
+		30,                                     // znear
+		10000,                                  // zfar
+		FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO,    // bufx and bufy
+		FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO,    // viewx and viewy
+		0, 0,                                   // viewleft and viewtop
+		true,                                   // usezbuf
 		0,
 	},
 };
@@ -74,13 +74,13 @@ void viConfigureForLogos(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 	if (IS4MB()) {
-		g_ViDataArray[0].y = 220;
-		g_ViDataArray[0].bufy = 220;
-		g_ViDataArray[0].viewy = 220;
+		g_ViDataArray[0].y = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[0].bufy = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[0].viewy = FBALLOC_HEIGHT_LO;
 
-		g_ViDataArray[1].y = 220;
-		g_ViDataArray[1].bufy = 220;
-		g_ViDataArray[1].viewy = 220;
+		g_ViDataArray[1].y = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[1].bufy = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[1].viewy = FBALLOC_HEIGHT_LO;
 
 		var8005d588 = 0;
 		var8005d58c = 0;
@@ -93,13 +93,13 @@ void viConfigureForLogos(void)
 	var8005d58c = 0;
 
 	if (IS4MB()) {
-		g_ViDataArray[0].y = 220;
-		g_ViDataArray[0].bufy = 220;
-		g_ViDataArray[0].viewy = 220;
+		g_ViDataArray[0].y = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[0].bufy = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[0].viewy = FBALLOC_HEIGHT_LO;
 
-		g_ViDataArray[1].y = 220;
-		g_ViDataArray[1].bufy = 220;
-		g_ViDataArray[1].viewy = 220;
+		g_ViDataArray[1].y = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[1].bufy = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[1].viewy = FBALLOC_HEIGHT_LO;
 	}
 #endif
 }
@@ -145,13 +145,13 @@ void viConfigureForLegal(void)
 	s32 i;
 
 	for (i = 0; i < 2; i++) {
-		g_ViDataArray[i].x = 320;
-		g_ViDataArray[i].bufx = 320;
-		g_ViDataArray[i].viewx = 320;
+		g_ViDataArray[i].x = FBALLOC_WIDTH_LO;
+		g_ViDataArray[i].bufx = FBALLOC_WIDTH_LO;
+		g_ViDataArray[i].viewx = FBALLOC_WIDTH_LO;
 
-		g_ViDataArray[i].y = 220;
-		g_ViDataArray[i].bufy = 220;
-		g_ViDataArray[i].viewy = 220;
+		g_ViDataArray[i].y = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[i].bufy = FBALLOC_HEIGHT_LO;
+		g_ViDataArray[i].viewy = FBALLOC_HEIGHT_LO;
 	}
 
 	g_Vars.fourmeg2player = false;
@@ -161,13 +161,8 @@ void viConfigureForLegal(void)
 #endif
 }
 
-const s16 g_ViModeWidths[] = {320, 320, 640};
-
-#if PAL
-const s16 g_ViModeHeights[] = {220, 220, 504};
-#else
-const s16 g_ViModeHeights[] = {220, 220, 440};
-#endif
+const s16 g_ViModeWidths[]  = {FBALLOC_WIDTH_LO,  FBALLOC_WIDTH_LO,  SCREEN_320 * 2};
+const s16 g_ViModeHeights[] = {FBALLOC_HEIGHT_LO, FBALLOC_HEIGHT_LO, (PAL ? 252 : 220) * 2};
 
 /**
  * Allocate the colour framebuffers for the given stage.
@@ -192,7 +187,7 @@ void viReset(s32 stagenum)
 	if (stagenum == STAGE_TITLE || stagenum == STAGE_TEST_OLD) {
 		if (IS4MB()) {
 			viSetMode(VIMODE_HI);
-			fbsize = 640 * 440 * 2;
+			fbsize = (FBALLOC_WIDTH_LO * 2) * (FBALLOC_HEIGHT_LO * 2) * 2;
 		} else {
 			viSetMode(VIMODE_HI);
 			fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * 2;
@@ -202,25 +197,21 @@ void viReset(s32 stagenum)
 
 		if (1);
 
-		fbsize = IS4MB() ? 320 * 220 * 2 : 320 * 220 * 4;
+		fbsize = IS4MB()
+			? FBALLOC_WIDTH_LO * FBALLOC_HEIGHT_LO * 2
+			: FBALLOC_WIDTH_HI * FBALLOC_HEIGHT_HI * 2;
 
 		if (IS4MB() && PLAYERCOUNT() == 2) {
+			// 4MB 2-player: The viewports are 110px tall
 #if VERSION >= VERSION_NTSC_1_0
-			fbsize = 320 * 220;
+			fbsize = FBALLOC_WIDTH_LO * (FBALLOC_HEIGHT_LO / 2) * 2;
 #else
-			fbsize = 320 * 240;
+			fbsize = SCREEN_320 * (SCREEN_240 / 2) * 2;
 #endif
 			g_Vars.fourmeg2player = true;
 		} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
-#if VERSION >= VERSION_JPN_FINAL
-			fbsize = 320 * 220 * 2;
-#elif VERSION >= VERSION_PAL_FINAL
-			fbsize = 320 * 266 * 2;
-#elif VERSION >= VERSION_PAL_BETA
-			fbsize = 320 * 252 * 2;
-#else
-			fbsize = 320 * 220 * 2;
-#endif
+			// PAL is using its correct size
+			fbsize = SCREEN_WIDTH_LO * SCREEN_HEIGHT_LO * 2;
 		}
 	}
 

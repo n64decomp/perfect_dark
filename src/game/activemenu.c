@@ -962,7 +962,7 @@ Gfx *amRenderText(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
 
 	x = left - (textwidth / 2);
 	y = top - 4;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_AmFont1, g_AmFont2, colour, 320, 240, 0, 0);
+	gdl = textRenderProjected(gdl, &x, &y, text, g_AmFont1, g_AmFont2, colour, SCREEN_320, SCREEN_240, 0, 0);
 
 	return gdl;
 }
@@ -1037,12 +1037,12 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 #if VERSION >= VERSION_JPN_FINAL
 		gdl = func0f1574d0jf(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
-				0x000000ff, 320, 240, 0, 0);
+				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
 #else
 		gdl = textRender(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
-				0x000000ff, 320, 240, 0, 0);
+				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
 		textMeasure(&textheight, &textwidth, weaponname, g_AmFont1, g_AmFont2, 0);
@@ -1059,7 +1059,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 #endif
 
 		gdl = textRender(gdl, &x, &y, weaponname, g_AmFont1, g_AmFont2, -1,
-				0x000000ff, 320, 240, 0, 0);
+				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 #endif
 
 		g_Vars.currentplayer->commandingaibot = g_MpAllChrPtrs[buddynum];
@@ -1087,10 +1087,10 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 #if VERSION >= VERSION_JPN_FINAL
 		gdl = func0f1574d0jf(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
-				0x000000ff, 320, 240, 0, 0);
+				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 #else
 		gdl = textRender(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
-				0x000000ff, 320, 240, 0, 0);
+				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 #endif
 	}
 

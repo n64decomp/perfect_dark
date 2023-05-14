@@ -8306,11 +8306,11 @@ void titleInitSkip(void)
 
 	if (IS4MB()) {
 		g_TitleNextStage = STAGE_4MBMENU;
-		viSetAspect(PAL ? 1.7316017150879f : 1.4545454978943f);
-		viSetSize(320, 220);
-		viSetBufSize(320, 220);
-		playermgrSetViewSize(320, 220);
-		viSetViewSize(320, 220);
+		viSetAspect(PAL ? 1.7316017150879f : ((f32) FBALLOC_WIDTH_LO / (f32) FBALLOC_HEIGHT_LO));
+		viSetSize(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
+		viSetBufSize(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
+		playermgrSetViewSize(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
+		viSetViewSize(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
 	}
 
 	mainChangeToStage(g_TitleNextStage);

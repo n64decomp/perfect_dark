@@ -1450,6 +1450,7 @@ void menuPushDialog(struct menudialogdef *dialogdef)
 			sibling = dialogdef->nextsibling;
 
 			while (sibling && layer->numsiblings < 5) {
+				// @bug:
 				// If this limit were to be reached, the game would soft lock
 				// because sibling is incremented inside the if-statement block.
 				if (g_Menus[g_MpPlayerNum].numdialogs < ARRAYCOUNT(g_Menus[0].dialogs)) {
@@ -1463,7 +1464,7 @@ void menuPushDialog(struct menudialogdef *dialogdef)
 
 					menuOpenDialog(sibling, dialog, &g_Menus[g_MpPlayerNum]);
 
-					dialog->dstx = dialog->x = -320;
+					dialog->dstx = dialog->x = -SCREEN_320;
 					dialog->dsty = dialog->y = (viGetHeight() - dialog->height) / 2;
 					dialog->type = 0;
 

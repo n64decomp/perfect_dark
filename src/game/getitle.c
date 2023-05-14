@@ -74,7 +74,7 @@ Gfx *getitle0f0155f0(Gfx *gdl, s32 arg1, u8 arg2)
 
 	{
 		u16 perspnorm;
-		guPerspective(&var8009cc80[var80062410], &perspnorm, 60, 320.0f / 240.0f, 100, 5000, 1);
+		guPerspective(&var8009cc80[var80062410], &perspnorm, 60, (f32) SCREEN_320 / (f32) SCREEN_240, 100, 5000, 1);
 		gSPPerspNormalize(gdl++, perspnorm);
 	}
 

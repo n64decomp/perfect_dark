@@ -114,34 +114,31 @@ s16 g_SpawnPoints[MAX_SPAWNPOINTS];
 s32 g_NumSpawnPoints;
 
 struct vimode g_ViModes[] = {
-	//  fbwidth
-	//  |    fbheight
-	//  |    |    width
-	//  |    |    |  yscale
-	//  |    |    |  |                 xscale
-	//  |    |    |  |                 |    fullheight
-	//  |    |    |  |                 |    |  fulltop
-	//  |    |    |  |                 |    |  |     wideheight
-	//  |    |    |  |                 |    |  |     |  widetop
-	//  |    |    |  |                 |    |  |     |  |     cinemaheight
-	//  |    |    |  |                 |    |  |     |  |     |  cinematop
-	//  |    |    |  |                 |    |  |     |  |     |  |
+	// fbwidth
+	// |               fbheight
+	// |               |                 width
+	// |               |                 |                yscale
+	// |               |                 |                |                 xscale
+	// |               |                 |                |                 |          fullheight
+	// |               |                 |                |                 |          |                 fulltop
+	// |               |                 |                |                 |          |                 |     wideheight
+	// |               |                 |                |                 |          |                 |     |  widetop
+	// |               |                 |                |                 |          |                 |     |  |     cinemaheight
+	// |               |                 |                |                 |          |                 |     |  |     |  cinematop
+	// |               |                 |                |                 |          |                 |     |  |     |  |
 #if VERSION >= VERSION_JPN_FINAL
-	{ 320, 220, 320, 1,                1, 220, 0,  180, 20, 136, 42  }, // default
-	{ 640, 220, 640, 0.5,              1, 220, 0,  180, 20, 136, 42  }, // hi-res
-#elif VERSION >= VERSION_PAL_FINAL
-	{ 320, 266, 320, 1,                1, 266, 0,  212, 20, 168, 42 }, // default
-	{ 448, 266, 448, 0.71428567171097, 1, 266, 0,  212, 20, 168, 42 }, // hi-res
+	{ SCREEN_WIDTH_LO, SCREEN_HEIGHT_LO, SCREEN_WIDTH_LO, 1,                VIMODE_LO, SCREEN_HEIGHT_LO, 0,  180, 20, 136, 42  }, // default
+	{ SCREEN_WIDTH_HI, SCREEN_HEIGHT_HI, SCREEN_WIDTH_HI, 0.5,              VIMODE_LO, SCREEN_HEIGHT_HI, 0,  180, 20, 136, 42  }, // hi-res
 #elif VERSION >= VERSION_PAL_BETA
-	{ 320, 252, 320, 1,                1, 252, 0,  212, 20, 168, 42 }, // default
-	{ 448, 252, 448, 0.71428567171097, 1, 252, 0,  212, 20, 168, 42 }, // hi-res
+	{ SCREEN_WIDTH_LO, SCREEN_HEIGHT_LO, SCREEN_WIDTH_LO, 1,                VIMODE_LO, SCREEN_HEIGHT_LO, 0,  212, 20, 168, 42 }, // default
+	{ SCREEN_WIDTH_HI, SCREEN_HEIGHT_HI, SCREEN_WIDTH_HI, 0.71428567171097, VIMODE_LO, SCREEN_HEIGHT_HI, 0,  212, 20, 168, 42 }, // hi-res
 #else
-	{ 320, 220, 320, 1,                1, 220, 0,  180, 20, 136, 42  }, // default
-	{ 640, 220, 640, 0.5,              1, 220, 0,  180, 20, 136, 42  }, // hi-res
-	{ 320, 480, 320, 2,                2, 440, 20, 360, 60, 272, 104 }, // unused
-	{ 440, 330, 440, 1,                1, 330, 0,  330, 0,  330, 0   }, // unused
-	{ 440, 240, 440, 0.72727274894714, 1, 220, 0,  180, 0,  136, 0   }, // unused
-	{ 400, 300, 400, 1,                2, 300, 0,  300, 0,  300, 0   }, // unused
+	{ SCREEN_WIDTH_LO, SCREEN_HEIGHT_LO, SCREEN_WIDTH_LO, 1,                VIMODE_LO, SCREEN_HEIGHT_LO, 0,  180, 20, 136, 42  }, // default
+	{ SCREEN_WIDTH_HI, SCREEN_HEIGHT_HI, SCREEN_WIDTH_HI, 0.5,              VIMODE_LO, SCREEN_HEIGHT_HI, 0,  180, 20, 136, 42  }, // hi-res
+	{ 320,             480,              320,             2,                VIMODE_HI, 440,              20, 360, 60, 272, 104 }, // unused
+	{ 440,             330,              440,             1,                VIMODE_LO, 330,              0,  330, 0,  330, 0   }, // unused
+	{ 440,             240,              440,             (1.0f / 1.375f),  VIMODE_LO, 220,              0,  180, 0,  136, 0   }, // unused
+	{ 400,             300,              400,             1,                VIMODE_HI, 300,              0,  300, 0,  300, 0   }, // unused
 #endif
 };
 
@@ -2735,17 +2732,17 @@ void playerResetLoResIf4Mb(void)
 {
 	if (IS4MB()) {
 #if VERSION >= VERSION_PAL_BETA
-		g_ViModes[VIRES_LO].fbwidth = 320;
-		g_ViModes[VIRES_LO].fbheight = 220;
-		g_ViModes[VIRES_LO].width = 320;
+		g_ViModes[VIRES_LO].fbwidth = FBALLOC_WIDTH_LO;
+		g_ViModes[VIRES_LO].fbheight = FBALLOC_HEIGHT_LO;
+		g_ViModes[VIRES_LO].width = FBALLOC_WIDTH_LO;
 		g_ViModes[VIRES_LO].yscale = 1;
-		g_ViModes[VIRES_LO].xscale = 1;
-		g_ViModes[VIRES_LO].fullheight = 220;
+		g_ViModes[VIRES_LO].xscale = VIMODE_LO;
+		g_ViModes[VIRES_LO].fullheight = FBALLOC_HEIGHT_LO;
 		g_ViModes[VIRES_LO].fulltop = 0;
 #else
-		g_ViModes[VIRES_LO].fbheight = 220;
+		g_ViModes[VIRES_LO].fbheight = FBALLOC_HEIGHT_LO;
 		g_ViModes[VIRES_LO].fulltop = 0;
-		g_ViModes[VIRES_LO].fullheight = 220;
+		g_ViModes[VIRES_LO].fullheight = FBALLOC_HEIGHT_LO;
 #endif
 
 		g_ViModes[VIRES_LO].wideheight = 180;

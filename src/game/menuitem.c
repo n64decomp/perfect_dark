@@ -49,7 +49,7 @@ s32 func0f0e5ce0(s32 value)
 	if (value < var800711a4) {
 		var800711a0++;
 
-		if (var800711a0 > 320) {
+		if (var800711a0 > SCREEN_320) {
 			var800711a0 = 0;
 		}
 	}

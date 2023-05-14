@@ -62,7 +62,7 @@ Gfx *bview0f141864(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 	s32 value = viGetWidth() * arg2 + arg4;
 
 	gDPPipeSync(gdl++);
-	gDPSetTextureImage(gdl++, G_IM_FMT_I, G_IM_SIZ_8b, 320, value * 2 + arg1);
+	gDPSetTextureImage(gdl++, G_IM_FMT_I, G_IM_SIZ_8b, SCREEN_320, value * 2 + arg1);
 	gDPLoadSync(gdl++);
 	gDPLoadBlock(gdl++, arg3, 0, 0, arg5 - 1, 0);
 
@@ -102,13 +102,13 @@ Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s
 	s32 numparts;
 	s32 lrs[1];
 
-	if (width > 320) {
+	if (width > SCREEN_WIDTH_LO) {
 		numparts = 2;
 		lrs[0] = width / numparts;
 
 		image = (uintptr_t) &fb[viGetWidth() * top + left] & 0x00ffffff;
 
-		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
+		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_320, image);
 		gDPLoadBlock(gdl++, tile, 0, 0, width / numparts - 1, 0);
 		gSPTextureRectangle(gdl++,
 				left << 2,
@@ -125,7 +125,7 @@ Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s
 
 		image = (uintptr_t) &fb[viGetWidth() * top + left] & 0x00ffffff;
 
-		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
+		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_320, image);
 		gDPLoadBlock(gdl++, tile, 0, 0, lrs[0] - 1, 0);
 
 		gSPTextureRectangle(gdl++,
@@ -143,7 +143,7 @@ Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s
 
 		image = (uintptr_t) &fb[viGetWidth() * top + left] & 0x00ffffff;
 
-		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, image);
+		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_320, image);
 		gDPLoadBlock(gdl++, tile, 0, 0, width2 - 1, 0);
 
 		numparts = (s32) (1024.0f / arg5);
@@ -614,7 +614,7 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
 			if (hit == EYESPYHIT_DAMAGE) {
 				alpha2 = (random() % 120) + 120;
 				colour = 0xff333300 | (alpha2 & 0xff);
-				f22 = ((random() % 32) + 220.0f) * (1.0f / 256.0f);
+				f22 = ((random() % 32) + (f32) FBALLOC_HEIGHT) * (1.0f / 256.0f);
 
 				gDPSetEnvColorViaWord(gdl++, colour);
 			} else {
@@ -837,9 +837,9 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 	u32 colourglow;
 #if PAL
 	s32 scale = 1;
-	f32 palscale = viewwidth > 320 ? 1.4f : 1.0f;
+	f32 palscale = viewwidth > SCREEN_WIDTH_LO ? 1.4f : 1.0f;
 #else
-	s32 scale = viewwidth > 320 ? 2 : 1;
+	s32 scale = viewwidth > SCREEN_WIDTH_LO ? 2 : 1;
 #endif
 #if VERSION >= VERSION_NTSC_1_0
 	bool vsplit = false;
@@ -1775,9 +1775,9 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 
 			value = 17 - value;
 
-			if (viewheight == 220) {
+			if (viewheight == FBALLOC_HEIGHT) {
 				yoffset = 10;
-			} else if (viewheight == 180) {
+			} else if (viewheight == 180) { // screen size: wide
 				barheight--;
 				yoffset = -8;
 			} else {
@@ -1796,7 +1796,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 			// Speed bars (left side)
 			y = viewtop + 58;
 
-			if (viewheight == 180) {
+			if (viewheight == 180) { // screen size: wide
 				y += 5;
 			}
 
@@ -1865,7 +1865,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 
 			y = viewtop + 46;
 
-			if (viewheight == 180) {
+			if (viewheight == 180) { // screen size: wide
 				y += 5;
 			}
 
@@ -2167,7 +2167,7 @@ Gfx *bviewDrawIrLens(Gfx *gdl)
 			// Rendering a line that overlaps the semicircle
 			// in the middle of the screen
 			f32 f0 = a0;
-			s32 semicirclewidth = sqrtf(sqinnerradius - (s32) (f0 * f0)) * (viewwidth / 320.0f);
+			s32 semicirclewidth = sqrtf(sqinnerradius - (s32) (f0 * f0)) * (viewwidth / (f32) SCREEN_WIDTH_LO);
 			s32 semicircleright = viewcentrex + semicirclewidth;
 			s32 rightsidewidth = viewwidth - semicircleright;
 
@@ -2534,7 +2534,7 @@ Gfx *bviewDrawIrBinoculars(Gfx *gdl)
 		s32 sqytocentre = ytocentre * ytocentre;
 
 		if (sqytocentre < sqradius) {
-			s32 xoffset = (viewwidth / 320.0f) * sqrtf(sqradius - sqytocentre);
+			s32 xoffset = (viewwidth / (f32) SCREEN_WIDTH_LO) * sqrtf(sqradius - sqytocentre);
 
 			// Left side
 			if (leftx - xoffset > viewleft) {

@@ -49,7 +49,7 @@ void menugfxCreateBlur(void)
 	s32 dsty;
 #if PAL
 	s32 fbwidthinbytes = viGetWidth() * 2;
-	f32 scale = viGetWidth() / 320.0f;
+	f32 scale = viGetWidth() / (f32) SCREEN_WIDTH_LO;
 #else
 	s32 fbwidthinbytes = PXTOBYTES(viGetWidth());
 #endif
@@ -154,14 +154,14 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	*(u16 *)&vertices[0].x = arg2;
 	*(u16 *)&vertices[0].y = arg3;
 	vertices[0].z = -10;
-	*(u16 *)&vertices[1].x = arg2 + 320 * 10u + 40;
+	*(u16 *)&vertices[1].x = arg2 + SCREEN_320 * 10u + 40;
 	*(u16 *)&vertices[1].y = arg3;
 	vertices[1].z = -10;
-	*(u16 *)&vertices[2].x = arg2 + 320 * 10u + 40;
-	*(u16 *)&vertices[2].y = arg3 + 240 * 10u + 50;
+	*(u16 *)&vertices[2].x = arg2 + SCREEN_320 * 10u + 40;
+	*(u16 *)&vertices[2].y = arg3 + SCREEN_240 * 10u + 50;
 	vertices[2].z = -10;
 	*(u16 *)&vertices[3].x = arg2;
-	*(u16 *)&vertices[3].y = arg3 + 240 * 10u + 50;
+	*(u16 *)&vertices[3].y = arg3 + SCREEN_240 * 10u + 50;
 	vertices[3].z = -10;
 #elif PAL
 	width = viGetWidth() * 10;
@@ -183,25 +183,25 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	*(u16 *)&vertices[0].x = arg2;
 	*(u16 *)&vertices[0].y = arg3;
 	vertices[0].z = -10;
-	*(u16 *)&vertices[1].x = arg2 + 320 * 10u + 40;
+	*(u16 *)&vertices[1].x = arg2 + SCREEN_320 * 10u + 40;
 	*(u16 *)&vertices[1].y = arg3;
 	vertices[1].z = -10;
-	*(u16 *)&vertices[2].x = arg2 + 320 * 10u + 40;
-	*(u16 *)&vertices[2].y = arg3 + 240 * 10u + 50;
+	*(u16 *)&vertices[2].x = arg2 + SCREEN_320 * 10u + 40;
+	*(u16 *)&vertices[2].y = arg3 + SCREEN_240 * 10u + 50;
 	vertices[2].z = -10;
 	*(u16 *)&vertices[3].x = arg2;
-	*(u16 *)&vertices[3].y = arg3 + 240 * 10u + 50;
+	*(u16 *)&vertices[3].y = arg3 + SCREEN_240 * 10u + 50;
 	vertices[3].z = -10;
 #endif
 
 	vertices[0].s = 0;
 	vertices[0].t = 0;
-	vertices[1].s = 1280;
+	vertices[1].s = SCREEN_320 * 4;
 	vertices[1].t = 0;
-	vertices[2].s = 1280;
-	vertices[2].t = 960;
+	vertices[2].s = SCREEN_320 * 4;
+	vertices[2].t = SCREEN_320 * 3;
 	vertices[3].s = 0;
-	vertices[3].t = 960;
+	vertices[3].t = SCREEN_320 * 3;
 
 	vertices[0].colour = 0;
 	vertices[1].colour = 0;

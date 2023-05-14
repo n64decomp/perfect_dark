@@ -3509,6 +3509,40 @@
 #define SAVEDEVICE_GAMEPAK        4
 #define SAVEDEVICE_INVALID        5
 
+// These constants are used when the game references 320 or 240 regardless of region.
+// They are sometimes used for things like scissor dimensions, despite never rendering
+// to these dimensions.
+#define SCREEN_320 320
+#define SCREEN_240 240
+
+// The framebuffer allocation sizes are mostly the same between versions.
+// Note that the height is the same regardless of lo/hi-res, but we use separate constants.
+// FBALLOC_HEIGHT (without the LO/HI suffix) is used when the game references this value
+// without knowing the resolution.
+#define FBALLOC_WIDTH_LO  320
+#define FBALLOC_HEIGHT_LO 220
+#define FBALLOC_WIDTH_HI  640
+#define FBALLOC_HEIGHT_HI 220
+#define FBALLOC_HEIGHT    220
+
+// Dimensions used for rendering
+#if VERSION == VERSION_PAL_FINAL
+#define SCREEN_WIDTH_LO  320
+#define SCREEN_HEIGHT_LO 266
+#define SCREEN_WIDTH_HI  448
+#define SCREEN_HEIGHT_HI 266
+#elif VERSION == VERSION_PAL_BETA
+#define SCREEN_WIDTH_LO  320
+#define SCREEN_HEIGHT_LO 252
+#define SCREEN_WIDTH_HI  448
+#define SCREEN_HEIGHT_HI 252
+#else
+#define SCREEN_WIDTH_LO  320
+#define SCREEN_HEIGHT_LO 220
+#define SCREEN_WIDTH_HI  640
+#define SCREEN_HEIGHT_HI 220
+#endif
+
 #define SCREENRATIO_NORMAL 0
 #define SCREENRATIO_16_9   1
 
