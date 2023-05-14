@@ -212,7 +212,7 @@ void viReset(s32 stagenum)
  */
 void viBlack(bool black)
 {
-	black += 2;
+	black += 3;
 	g_ViUnblackTimer = black;
 }
 

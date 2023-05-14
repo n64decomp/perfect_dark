@@ -36,7 +36,7 @@ s32 var8005ce74 = 0;
 f32 g_ViXScalesBySlot[2] = {1, 1};
 f32 g_ViYScalesBySlot[2] = {1, 1};
 u32 g_SchedViModesPending[2] = {false, false};
-s32 g_ViUnblackTimer = 3;
+s32 g_ViUnblackTimer = 4;
 s32 g_ViShakeDirection = 1;
 s32 g_ViShakeIntensity = 0;
 s32 g_ViShakeTimer = 0;
@@ -121,7 +121,7 @@ static void __scSwap(OSSched *sc, void *framebuffer)
 		g_SchedViModesPending[1 - var8005ce74] = false;
 	}
 
-	if (g_ViUnblackTimer != 0 && g_ViUnblackTimer < 3) {
+	if (g_ViUnblackTimer != 0 && g_ViUnblackTimer < 4) {
 		g_ViUnblackTimer--;
 	}
 
