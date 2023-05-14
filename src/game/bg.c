@@ -5428,7 +5428,24 @@ static void bgChooseRoomsToLoad(void)
 {
 	s32 i;
 	s32 j;
-	u32 stack;
+
+	for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
+		if ((g_BgPortals[i].flags & PORTALFLAG_SKIP) == 0) {
+			s32 roomnum1 = g_BgPortals[i].roomnum1;
+			s32 roomnum2 = g_BgPortals[i].roomnum2;
+			s32 portalnum;
+
+			if ((g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) && (g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN) == 0) {
+				// From room1 to room2
+				g_Rooms[roomnum2].flags |= ROOMFLAG_STANDBY;
+				roomUnpauseProps(roomnum2, true);
+			} else if ((g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN) && (g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) == 0) {
+				// From room2 to room1
+				g_Rooms[roomnum1].flags |= ROOMFLAG_STANDBY;
+				roomUnpauseProps(roomnum1, true);
+			}
+		}
+	}
 
 	// Update visibility per player
 	if (g_Vars.mplayerisrunning) {
