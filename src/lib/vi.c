@@ -28,7 +28,7 @@ u16 g_ViPerspScale;
 u8 g_ViFrontIndex;
 u8 g_ViBackIndex;
 
-struct rend_vidat g_ViDataArray[] = {
+struct rend_vidat g_ViDataArray[NUM_GFXTASKS] = {
 	{
 		0, 0, 0, 0,
 		FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO,    // x and y
@@ -115,7 +115,7 @@ void viConfigureForCopyright(u16 *texturedata)
 {
 	s32 i;
 
-	for (i = 0; i < 2; i++) {
+	for (i = 0; i < NUM_GFXTASKS; i++) {
 		g_FrameBuffers[i] = texturedata;
 
 		g_ViDataArray[i].x = 576;
@@ -144,7 +144,7 @@ void viConfigureForLegal(void)
 {
 	s32 i;
 
-	for (i = 0; i < 2; i++) {
+	for (i = 0; i < NUM_GFXTASKS; i++) {
 		g_ViDataArray[i].x = FBALLOC_WIDTH_LO;
 		g_ViDataArray[i].bufx = FBALLOC_WIDTH_LO;
 		g_ViDataArray[i].viewx = FBALLOC_WIDTH_LO;
@@ -187,10 +187,10 @@ void viReset(s32 stagenum)
 	if (stagenum == STAGE_TITLE || stagenum == STAGE_TEST_OLD) {
 		if (IS4MB()) {
 			viSetMode(VIMODE_HI);
-			fbsize = (FBALLOC_WIDTH_LO * 2) * (FBALLOC_HEIGHT_LO * 2) * 2;
+			fbsize = (FBALLOC_WIDTH_LO * 2) * (FBALLOC_HEIGHT_LO * 2) * NUM_FRAMEBUFFERS;
 		} else {
 			viSetMode(VIMODE_HI);
-			fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * 2;
+			fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * NUM_FRAMEBUFFERS;
 		}
 	} else {
 		viSetMode(VIMODE_LO);
@@ -198,24 +198,24 @@ void viReset(s32 stagenum)
 		if (1);
 
 		fbsize = IS4MB()
-			? FBALLOC_WIDTH_LO * FBALLOC_HEIGHT_LO * 2
-			: FBALLOC_WIDTH_HI * FBALLOC_HEIGHT_HI * 2;
+			? FBALLOC_WIDTH_LO * FBALLOC_HEIGHT_LO * NUM_FRAMEBUFFERS
+			: FBALLOC_WIDTH_HI * FBALLOC_HEIGHT_HI * NUM_FRAMEBUFFERS;
 
 		if (IS4MB() && PLAYERCOUNT() == 2) {
 			// 4MB 2-player: The viewports are 110px tall
 #if VERSION >= VERSION_NTSC_1_0
-			fbsize = FBALLOC_WIDTH_LO * (FBALLOC_HEIGHT_LO / 2) * 2;
+			fbsize = FBALLOC_WIDTH_LO * (FBALLOC_HEIGHT_LO / 2) * NUM_FRAMEBUFFERS;
 #else
-			fbsize = SCREEN_320 * (SCREEN_240 / 2) * 2;
+			fbsize = SCREEN_320 * (SCREEN_240 / 2) * NUM_FRAMEBUFFERS;
 #endif
 			g_Vars.fourmeg2player = true;
 		} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
 			// PAL is using its correct size
-			fbsize = SCREEN_WIDTH_LO * SCREEN_HEIGHT_LO * 2;
+			fbsize = SCREEN_WIDTH_LO * SCREEN_HEIGHT_LO * NUM_FRAMEBUFFERS;
 		}
 	}
 
-	ptr = mempAlloc(fbsize * 2 + 0x40, MEMPOOL_STAGE);
+	ptr = mempAlloc(fbsize * sizeof(u16) + 0x40, MEMPOOL_STAGE);
 
 	ptr = (u8 *)(((uintptr_t) ptr + 0x3f) & 0xffffffc0);
 
@@ -238,14 +238,14 @@ void viReset(s32 stagenum)
 
 /**
  * If black is true, set the video output to black indefinitely.
- * g_ViUnblackTimer is set to 3 which causes the timer to be paused.
+ * If black is false, unblack once all the framebuffers have been cycled through.
  *
- * If black is false, set the timer to 2. This causes it to tick down once per
- * frame and unblack once it reaches 0.
+ * The g_ViUnblackTimer value only ticks down when it's 2 or less,
+ * so passing true to this function makes it not tick.
  */
 void viBlack(bool black)
 {
-	black += 2;
+	black += NUM_FRAMEBUFFERS;
 	g_ViUnblackTimer = black;
 }
 
@@ -1156,15 +1156,15 @@ void viUpdateMode(void)
 	}
 
 	// 908
-	slot = (slot + 1) % 2;
+	slot = (slot + 1) % NUM_GFXTASKS;
 	g_ViSlot = slot;
 
 	g_RdpCurTask->framebuffer = g_ViIs16Bit ? g_ViBackData->fb : g_FrameBuffers[0];
 
 	prevdata = g_ViBackData;
 
-	g_ViFrontIndex = (g_ViFrontIndex + 1) % 2;
-	g_ViBackIndex = (g_ViBackIndex + 1) % 2;
+	g_ViFrontIndex = (g_ViFrontIndex + 1) % NUM_FRAMEBUFFERS;
+	g_ViBackIndex = (g_ViBackIndex + 1) % NUM_FRAMEBUFFERS;
 
 	g_ViFrontData = g_ViDataArray + g_ViFrontIndex;
 	g_ViBackData = g_ViDataArray + g_ViBackIndex;

@@ -77,7 +77,7 @@ void roomFreeMtx(s32 index)
 		roomUnlinkMtx(index, g_RoomMtxLinkedRooms[index]);
 	}
 
-	g_RoomMtxAges[index] = 2;
+	g_RoomMtxAges[index] = NUM_GFXTASKS;
 	g_RoomMtxBaseRooms[index] = -1;
 	g_RoomMtxScales[index] = 1;
 }
@@ -87,7 +87,7 @@ s32 roomAllocateMtx(void)
 	s32 i;
 
 	for (i = 0; i < g_RoomMtxNumSlots; i++) {
-		if (g_RoomMtxAges[i] >= 2 && g_RoomMtxBaseRooms[i] == -1) {
+		if (g_RoomMtxAges[i] >= NUM_GFXTASKS && g_RoomMtxBaseRooms[i] == -1) {
 			return i;
 		}
 	}

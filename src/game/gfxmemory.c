@@ -35,9 +35,9 @@
  * marker for the end of the second element's allocation.
  */
 
-u8 *g_GfxBuffers[3];
+u8 *g_GfxBuffers[NUM_GFXTASKS + 1];
 u32 var800aa58c;
-u8 *g_VtxBuffers[3];
+u8 *g_VtxBuffers[NUM_GFXTASKS + 1];
 u8 *g_GfxMemPos;
 u8 g_GfxActiveBufferIndex;
 u32 g_GfxRequestedDisplayList;
@@ -56,8 +56,8 @@ u32 g_VtxSizesByPlayerCount[] = {
 	0x00028000,
 };
 
-s32 g_GfxNumSwapsPerBuffer[2] = {0, 1};
-u32 g_GfxNumSwaps = 0x00000002;
+s32 g_GfxNumSwapsPerBuffer[NUM_GFXTASKS] = {0, 1};
+u32 g_GfxNumSwaps = 2;
 
 /**
  * Allocate graphics memory from the heap. Presumably called on stage load.
@@ -102,12 +102,12 @@ void gfxReset(void)
 	}
 
 	// %d Players : Allocating %d bytes for master dl's\n
-	g_GfxBuffers[0] = mempAlloc(g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, MEMPOOL_STAGE);
+	g_GfxBuffers[0] = mempAlloc(g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] * NUM_GFXTASKS, MEMPOOL_STAGE);
 	g_GfxBuffers[1] = g_GfxBuffers[0] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
 	g_GfxBuffers[2] = g_GfxBuffers[1] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
 
 	// Allocating %d bytes for mtxvtx space\n
-	g_VtxBuffers[0] = mempAlloc(g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, MEMPOOL_STAGE);
+	g_VtxBuffers[0] = mempAlloc(g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] * NUM_GFXTASKS, MEMPOOL_STAGE);
 	g_VtxBuffers[1] = g_VtxBuffers[0] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];
 	g_VtxBuffers[2] = g_VtxBuffers[1] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];
 
@@ -140,10 +140,15 @@ void *gfxAllocateMatrix(void)
 	return ptr;
 }
 
+/**
+ * sizeof(LookAt) is 0x10 and it consists of two Light structs of 0x8 each.
+ * The function allocates 0x8 for every count, so it could be allocating lights
+ * instead, however it's only used for LookAts so it's named as LookAt.
+ */
 void *gfxAllocateLookAt(s32 count)
 {
 	void *ptr = g_GfxMemPos;
-	g_GfxMemPos += count * 0x10;
+	g_GfxMemPos += count * (sizeof(LookAt) / 2);
 
 	return ptr;
 }
@@ -165,8 +170,6 @@ void *gfxAllocate(u32 size)
 
 	return ptr;
 }
-
-extern s32 g_GfxNumSwapsPerBuffer[2];
 
 void gfxSwapBuffers(void)
 {

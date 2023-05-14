@@ -60,9 +60,9 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
 void __scYield(OSSched *s);
 s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP);
 
-OSViMode var8008dcc0[2];
-OSViMode *var8008dd60[2];
-OSViMode var8008dd68[2];
+OSViMode var8008dcc0[NUM_GFXTASKS];
+OSViMode *var8008dd60[NUM_GFXTASKS];
+OSViMode var8008dd68[NUM_GFXTASKS];
 s32 var8008de08;
 s32 var8008de0c;
 s32 var8008de10;
@@ -82,10 +82,10 @@ u32 g_SchedCrashRenderInterval = 45000000;
 u32 g_SchedCrashLastRendered = 0;
 
 s32 var8005ce74 = 0;
-f32 g_ViXScalesBySlot[2] = {1, 1};
-f32 g_ViYScalesBySlot[2] = {1, 1};
-bool g_SchedViModesPending[2] = {false, false};
-s32 g_ViUnblackTimer = 3;
+f32 g_ViXScalesBySlot[NUM_GFXTASKS] = {1, 1};
+f32 g_ViYScalesBySlot[NUM_GFXTASKS] = {1, 1};
+bool g_SchedViModesPending[NUM_GFXTASKS] = {false, false};
+s32 g_ViUnblackTimer = NUM_FRAMEBUFFERS + 1;
 s32 g_ViShakeDirection = 1;
 s32 g_ViShakeIntensity = 0;
 s32 g_ViShakeTimer = 0;
@@ -661,7 +661,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 				g_SchedViModesPending[1 - var8005ce74] = false;
 			}
 
-			if (g_ViUnblackTimer != 0 && g_ViUnblackTimer < 3) {
+			if (g_ViUnblackTimer != 0 && g_ViUnblackTimer <= NUM_FRAMEBUFFERS) {
 				g_ViUnblackTimer--;
 			}
 

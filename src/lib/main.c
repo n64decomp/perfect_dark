@@ -419,7 +419,7 @@ void mainInit(void)
 			addr = K0BASE + 8 * 1024 * 1024;
 		}
 
-		addr -= 640 * 480 * 2; // the framebuffer itself
+		addr -= 640 * 480 * NUM_FRAMEBUFFERS; // the framebuffer itself
 		addr -= 0x40; // align down to a multiple of 0x40
 
 		fb = (u16 *) ALIGN64(PHYS_TO_K0(addr));
@@ -564,7 +564,7 @@ void mainInit(void)
 			addr = K0BASE + 8 * 1024 * 1024;
 		}
 
-		addr -= 640 * 480 * 2; // the framebuffer itself
+		addr -= 640 * 480 * NUM_FRAMEBUFFERS; // the framebuffer itself
 		addr -= 0x40; // align down to a multiple of 0x40
 
 		fb = (u16 *) ALIGN64(PHYS_TO_K0(addr));
@@ -1413,7 +1413,7 @@ void mainTick(void)
 	OSScMsg msg = {OS_SC_DONE_MSG};
 	s32 i;
 
-	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
+	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < NUM_GFXTASKS) {
 		frametimeCalculate();
 		profile00009a98();
 		profileReset();

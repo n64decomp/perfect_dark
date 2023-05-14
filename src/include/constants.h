@@ -2940,6 +2940,8 @@
 #define NUM_CYCLEABLE_WEAPONS 45
 #define NUM_EXPLOSIONTYPES    26
 #define NUM_FIRESLOTS         20
+#define NUM_FRAMEBUFFERS      2
+#define NUM_GFXTASKS          2
 #define NUM_MPBEAUHEADS       5
 #define NUM_MPBOTCOMMANDS     14
 #define NUM_MPBODIES          61

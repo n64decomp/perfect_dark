@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-u16 *g_FrameBuffers[2];
+u16 *g_FrameBuffers[NUM_FRAMEBUFFERS];
 
 void langInit(void)
 {

@@ -13,7 +13,7 @@ void roomsTick(void)
 		if (g_RoomMtxBaseRooms[i] >= 0) {
 			g_RoomMtxAges[i]++;
 
-			if (g_RoomMtxAges[i] > 1) {
+			if (g_RoomMtxAges[i] >= NUM_GFXTASKS) {
 				roomFreeMtx(i);
 			}
 		}
