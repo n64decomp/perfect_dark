@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include <sched.h>
 #include "lib/ailist.h"
+#include "lib/crash.h"
+#include "lib/fault.h"
 #include "lib/sched.h"
 #include "lib/vars.h"
 #include "constants.h"
@@ -162,6 +164,9 @@ static void mainInit(void)
 	u8 *start;
 	u8 *end;
 
+#ifdef DEBUG
+	faultInit();
+#endif
 	dmaInit();
 	amgrInit();
 	varsInit();
@@ -299,6 +304,9 @@ static void mainInit(void)
 	mempResetPool(MEMPOOL_8);
 	mempResetPool(MEMPOOL_PERMANENT);
 
+#ifdef DEBUG
+	crashReset();
+#endif
 	challengesInit();
 	texInit();
 	lvInit();

@@ -97,6 +97,7 @@ typedef struct {
     OSScTask    *nextGfxTask2;
     OSScTask    *curRSPTask;
     OSScTask    *curRDPTask;
+    u32         frameCount;
     u32         alt;
     OSMesgQueue *audmq;
     OSMesgQueue *gfxmq;

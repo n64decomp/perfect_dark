@@ -5,6 +5,7 @@
 #include "game/menugfx.h"
 #include "bss.h"
 #include "lib/audiomgr.h"
+#include "lib/crash.h"
 #include "lib/reset.h"
 #include "lib/rzip.h"
 #include "lib/main.h"
@@ -32,6 +33,14 @@ s32 var8008de10;
 OSTimer g_SchedRspTimer;
 u8 g_ScBottleneck = ' ';
 
+#ifdef DEBUG
+bool g_SchedCrashedUnexpectedly = false;
+bool g_SchedCrashEnable1 = false;
+bool g_SchedCrashEnable2 = false;
+u32 g_SchedCrashRenderInterval = 45000000;
+u32 g_SchedCrashLastRendered = 0;
+#endif
+
 s32 var8005ce74 = 0;
 f32 g_ViXScalesBySlot[2] = {1, 1};
 f32 g_ViYScalesBySlot[2] = {1, 1};
@@ -41,6 +50,54 @@ s32 g_ViShakeDirection = 1;
 s32 g_ViShakeIntensity = 0;
 s32 g_ViShakeTimer = 0;
 bool g_SchedIsFirstTask = true;
+
+#ifdef DEBUG
+void schedSetCrashEnable1(bool enable)
+{
+	g_SchedCrashEnable1 = enable;
+}
+
+void schedSetCrashedUnexpectedly(bool enable)
+{
+	g_SchedCrashedUnexpectedly = enable;
+}
+
+void schedSetCrashEnable2(bool enable)
+{
+	g_SchedCrashEnable2 = enable;
+}
+
+void schedSetCrashRenderInterval(u32 cycles)
+{
+	g_SchedCrashRenderInterval = cycles;
+}
+
+void schedRenderCrashOnBuffer(void *framebuffer)
+{
+	if ((g_SchedCrashEnable2 && g_SchedCrashEnable1) || g_SchedCrashedUnexpectedly) {
+		crashRenderFrame(framebuffer);
+		g_SchedCrashLastRendered = osGetCount();
+	}
+}
+
+extern u16 *g_FrameBuffers[3];
+
+void schedRenderCrashPeriodically(u32 framecount)
+{
+	if ((framecount & 0xf) == 0 && ((g_SchedCrashEnable2 && g_SchedCrashEnable1) || g_SchedCrashedUnexpectedly)) {
+		if (osGetCount() - g_SchedCrashLastRendered > g_SchedCrashRenderInterval) {
+			crashRenderFrame(g_FrameBuffers[0]);
+			crashRenderFrame(g_FrameBuffers[1]);
+			crashRenderFrame(g_FrameBuffers[2]);
+		}
+	}
+}
+
+void schedInitCrashLastRendered(void)
+{
+	g_SchedCrashLastRendered = osGetCount();
+}
+#endif
 
 static void __scExec(OSSched *sc, OSScTask *t)
 {
@@ -125,6 +182,9 @@ static void __scSwap(OSSched *sc, void *framebuffer)
 		g_ViUnblackTimer--;
 	}
 
+#ifdef DEBUG
+	schedRenderCrashOnBuffer(framebuffer);
+#endif
 	osViSwapBuffer(framebuffer);
 }
 
@@ -188,6 +248,11 @@ static void __scHandleRetrace(OSSched *sc)
 	}
 
 	joysTick();
+
+#ifdef DEBUG
+	sc->frameCount++;
+	schedRenderCrashPeriodically(sc->frameCount);
+#endif
 
 	if (sc->gfxmq) {
 		osSendMesg(sc->gfxmq, (OSMesg) OS_SC_RETRACE_MSG, OS_MESG_NOBLOCK);
@@ -323,6 +388,7 @@ void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 	sc->gfxmq = NULL;
 	sc->curRSPTask = NULL;
 	sc->curRDPTask = NULL;
+	sc->frameCount = 0;
 	sc->alt = 0;
 	sc->nextAudTask = NULL;
 	sc->nextGfxTask = NULL;
@@ -352,6 +418,9 @@ void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 	osSetEventMesg(OS_EVENT_DP, &sc->interruptQ, (OSMesg) &__scHandleRDP);
 
 	osViSetEvent(&sc->interruptQ, (OSMesg) &__scHandleRetrace, numFields);
+#ifdef DEBUG
+	schedInitCrashLastRendered();
+#endif
 	osCreateThread(sc->thread, THREAD_SCHED, &__scMain, sc, bootAllocateStack(THREAD_SCHED, STACKSIZE_SCHED), THREADPRI_SCHED);
 	osStartThread(sc->thread);
 }

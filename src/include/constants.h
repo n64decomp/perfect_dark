@@ -3930,8 +3930,13 @@ enum profilemarker {
 #define STACKSIZE_SCHED 0x400
 #define STACKSIZE_MAIN  0x9800
 #define STACKSIZE_AUDIO 0x1000
-#define STACKSIZE_FAULT 0
 #define STACKSIZE_RESET 0x100
+
+#ifdef DEBUG
+#define STACKSIZE_FAULT 0x2000
+#else
+#define STACKSIZE_FAULT 0
+#endif
 
 #define STACK_START (0x80400000 \
 		- FRAMEBUFFER_SIZE \

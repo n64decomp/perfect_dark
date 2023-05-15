@@ -55,6 +55,7 @@ extern u8 ailist_002c;
 extern u8 ailist_002d;
 
 extern u8 *g_StackLeftAddrs[7];
+extern u8 *g_StackRightAddrs[7];
 extern u8 *g_StackAllocatedPos;
 extern s32 var8005ce74;
 extern f32 g_ViXScalesBySlot[2];

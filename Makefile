@@ -68,6 +68,13 @@ ROMALLOCATION_GAME = 0x0d0000
 
 ROM_SIZE := 32
 
+# DEBUG - Enable (1) or disable (0) the debug menu and crash screen.
+#
+# When enabled, press C-up and C-down simultaneously to toggle the debug menu.
+# Note that some emulators have problems displaying the crash screen text.
+
+DEBUG = 0
+
 # ANTIALIAS
 #
 # Enable (1) or disable (0) antialias
@@ -173,6 +180,10 @@ DEFINES := \
     PAL=$(PAL) \
     PIRACYCHECKS=$(PIRACYCHECKS) \
     ROM_SIZE=$(ROM_SIZE)
+
+ifeq ($(DEBUG),1)
+    DEFINES := $(DEFINES) DEBUG=1
+endif
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 AS_DEFINES := $(foreach d,$(DEFINES),--defsym $(d)) --defsym _LANGUAGE_ASSEMBLY=1

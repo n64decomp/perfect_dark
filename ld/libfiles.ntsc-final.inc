@@ -31,6 +31,8 @@
 	build/ROMID/lib/audiodma.o (section); \
 	build/ROMID/lib/profile.o (section); \
 	build/ROMID/lib/vi.o (section); \
+	build/ROMID/lib/fault.o (section); \
+	build/ROMID/lib/crash.o (section); \
 	build/ROMID/lib/dma.o (section); \
 	build/ROMID/lib/main.o (section); \
 	build/ROMID/lib/snd.o (section); \
@@ -41,6 +43,7 @@
 	build/ROMID/lib/str.o (section); \
 	build/ROMID/lib/ultra/libc/sprintf.o (section); \
 	build/ROMID/lib/pimgr.o (section); \
+	build/ROMID/lib/debughud.o (section); \
 	build/ROMID/lib/joy.o (section); \
 	build/ROMID/lib/lib_15850.o (section); \
 	build/ROMID/lib/varsinit.o (section); \
@@ -55,6 +58,7 @@
 	build/ROMID/lib/collision.o (section); \
 	build/ROMID/lib/lib_2f490.o (section); \
 	build/ROMID/lib/rdp.o (section); \
+	build/ROMID/lib/rmon.o (section); \
 	build/ROMID/lib/ultra/audio/heap.o (section); \
 	build/ROMID/lib/naudio/n_sl.o (section); \
 	build/ROMID/lib/lib_2fc60.o (section); \
@@ -192,6 +196,7 @@
 	build/ROMID/lib/ultra/io/aigetlen.o (section); \
 	build/ROMID/lib/ultra/os/invaldcache.o (section); \
 	build/ROMID/lib/ultra/io/pidma.o (section); \
+	build/ROMID/lib/ultra/os/getcurrfaultthread.o (section); \
 	build/ROMID/lib/ultra/libc/xprintf.o (section); \
 	build/ROMID/lib/ultra/io/contquery.o (section); \
 	build/ROMID/lib/ultra/io/contreaddata.o (section); \
