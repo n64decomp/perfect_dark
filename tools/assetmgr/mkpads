@@ -86,7 +86,7 @@ class App():
 
         output = bytes()
         output += len(self.json['pads']).to_bytes(4, 'big')
-        output += len(self.json['cover']).to_bytes(4, 'big')
+        output += len([c for c in self.json['cover'] if not c['special']]).to_bytes(4, 'big')
         output += waypoints_start.to_bytes(4, 'big')
         output += waygroups_start.to_bytes(4, 'big')
         output += cover_start.to_bytes(4, 'big')
