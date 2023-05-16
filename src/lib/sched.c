@@ -117,7 +117,7 @@ static void __scExec(OSSched *sc, OSScTask *t)
 
 	sc->curRSPTask = t;
 
-	if (t->list.t.type == M_GFXTASK) {
+	if (t->state & OS_SC_NEEDS_RDP) {
 		sc->curRDPTask = t;
 	}
 }
@@ -129,7 +129,7 @@ static void __scTryDispatch(OSSched *sc)
 			OSScTask *t = sc->nextAudTask;
 			sc->nextAudTask = NULL;
 			__scExec(sc, t);
-		} else if (sc->curRDPTask == NULL && sc->queuedFB == NULL) {
+		} else if ((sc->curRDPTask == NULL || sc->curRDPTask == sc->nextGfxTask) && sc->queuedFB == NULL) {
 			OSScTask *t = sc->nextGfxTask;
 
 			if (t) {
@@ -270,7 +270,6 @@ static void __scHandleRSP(OSSched *sc)
 
 			sc->nextGfxTask2 = sc->nextGfxTask;
 			sc->nextGfxTask = t;
-			sc->curRDPTask = NULL;
 		} else {
 			t->state &= ~OS_SC_NEEDS_RSP;
 
