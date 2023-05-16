@@ -31,7 +31,6 @@
 	build/ROMID/lib/audiodma.o (section); \
 	build/ROMID/lib/profile.o (section); \
 	build/ROMID/lib/vi.o (section); \
-	build/ROMID/lib/fault.o (section); \
 	build/ROMID/lib/crash.o (section); \
 	build/ROMID/lib/dma.o (section); \
 	build/ROMID/lib/main.o (section); \
@@ -58,7 +57,6 @@
 	build/ROMID/lib/collision.o (section); \
 	build/ROMID/lib/lib_2f490.o (section); \
 	build/ROMID/lib/rdp.o (section); \
-	build/ROMID/lib/rmon.o (section); \
 	build/ROMID/lib/ultra/audio/heap.o (section); \
 	build/ROMID/lib/naudio/n_sl.o (section); \
 	build/ROMID/lib/lib_2fc60.o (section); \

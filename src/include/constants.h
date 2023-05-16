@@ -3933,7 +3933,7 @@ enum profilemarker {
 #define STACKSIZE_RESET 0x100
 
 #ifdef DEBUG
-#define STACKSIZE_FAULT 0x2000
+#define STACKSIZE_FAULT 0x400
 #else
 #define STACKSIZE_FAULT 0
 #endif

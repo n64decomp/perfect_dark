@@ -20,12 +20,13 @@
 
 #define MAX_COLOURS 32
 
+static void dhudClear(void);
+
 struct dhudchar {
 	char c;
 	u8 paletteindex;
 };
 
-#ifdef DEBUG
 struct dhudchar g_DHudCharBuffer[NUM_COLS][NUM_ROWS];
 Gfx g_DHudFgGbi[MAX_COLOURS];
 Gfx g_DHudBgGbi[MAX_COLOURS];
@@ -91,32 +92,9 @@ Gfx var80061218nb = gsSPEndDisplayList();
 Gfx var80061220nb = gsDPNoOp();
 Gfx g_DHudFgColour = gsDPSetPrimColor(0, 0, 0xff, 0xff, 0xff, 0);
 Gfx g_DHudBgColour = gsDPSetEnvColor(0, 0, 0, 0);
-#endif
-
-#ifdef DEBUG
-s32 dhud00013fe0nb(s32 arg0, s32 arg1)
-{
-	return 0;
-}
-#endif
-
-#ifdef DEBUG
-s32 dhud00013ff0nb(s32 arg0, s32 arg1)
-{
-	return 0;
-}
-#endif
-
-#ifdef DEBUG
-void dhud00014000nb(void)
-{
-	// empty
-}
-#endif
 
 void dhudInit(void)
 {
-#ifdef DEBUG
 	s32 i;
 	s32 x;
 	s32 y;
@@ -141,20 +119,16 @@ void dhudInit(void)
 		g_DHudFgGbiPtrs[i] = cmd;
 		g_DHudBgGbiPtrs[i] = cmd;
 	}
-#endif
 }
 
 void dhudReset(void)
 {
-#ifdef DEBUG
 	if (g_DHudInitialised) {
 		dhudClear();
 	}
-#endif
 }
 
-#ifdef DEBUG
-void dhudPutCharAt(s32 x, s32 y, char c)
+static void dhudPutCharAt(s32 x, s32 y, char c)
 {
 	s32 i;
 
@@ -180,21 +154,17 @@ havepalette:
 		g_DHudIsEmpty = false;
 	}
 }
-#endif
 
-void dhudResetPos(void)
+static void dhudResetPos(void)
 {
-#ifdef DEBUG
 	if (g_DHudInitialised) {
 		g_DHudPosX = g_DHudBaseX;
 		g_DHudPosY = g_DHudBaseY;
 	}
-#endif
 }
 
-void dhudClear(void)
+static void dhudClear(void)
 {
-#ifdef DEBUG
 	s32 x;
 	s32 y;
 
@@ -208,114 +178,13 @@ void dhudClear(void)
 		g_DHudIsEmpty = true;
 
 		dhudResetPos();
-		dhud00014000nb();
 
 		g_DHudNextPaletteIndex = 0;
 	}
-#endif
 }
-
-void dhudSetPos(s32 x, s32 y)
-{
-#ifdef DEBUG
-	if (g_DHudInitialised) {
-		x += g_DHudBaseX;
-		y += g_DHudBaseY;
-
-		if (y >= (g_ViBackData->y - 10) / CHAR_H) {
-			y = (g_ViBackData->y - 10) / CHAR_H - 1;
-		}
-
-		g_DHudPosX = x;
-		g_DHudPosY = y;
-	}
-#endif
-}
-
-void dhudSetFgColour(s32 r, s32 g, s32 b, s32 a)
-{
-#ifdef DEBUG
-	if (g_DHudInitialised) {
-		g_DHudFgColour.words.w1 = r << 24 | g << 16 | b << 8 | (255 - a);
-	}
-#endif
-}
-
-void dhudSetBgColour(s32 r, s32 g, s32 b, s32 a)
-{
-#ifdef DEBUG
-	if (g_DHudInitialised) {
-		g_DHudBgColour.words.w1 = r << 24 | g << 16 | b << 8 | (255 - a);
-	}
-#endif
-}
-
-void dhudPrintChar(u8 c)
-{
-#ifdef DEBUG
-	s32 maxwidth = (g_ViBackData->x - 13) / CHAR_W;
-	s32 maxheight = (g_ViBackData->y - 10) / CHAR_H;
-
-	if (g_DHudInitialised) {
-		if (c == '\0' || (c >= ' ' && c <= '~')) {
-			dhudPutCharAt(g_DHudPosX, g_DHudPosY, c);
-		}
-
-		g_DHudPosX++;
-
-		if (c == '\r' || c == '\n' || g_DHudPosX >= maxwidth) {
-			g_DHudPosX = g_DHudBaseX;
-			g_DHudPosY++;
-
-			if (g_DHudPosY >= maxheight) {
-				g_DHudPosY = g_DHudBaseY;
-			}
-		}
-	}
-#endif
-}
-
-#if VERSION != VERSION_PAL_BETA
-void dhudPrintCharAt(s32 x, s32 y, char c)
-{
-#ifdef DEBUG
-	if (g_DHudInitialised) {
-		dhudSetPos(x, y);
-		dhudPrintChar(c);
-	}
-#endif
-}
-#endif
-
-void dhudPrintString(char *str)
-{
-#ifdef DEBUG
-	if (g_DHudInitialised) {
-		while (*str != '\0') {
-			dhudPrintChar(*str++);
-		}
-	}
-#endif
-}
-
-#if VERSION != VERSION_PAL_BETA
-void dhudPrintStringAt(s32 x, s32 y, char *str)
-{
-#ifdef DEBUG
-	if (g_DHudInitialised) {
-		dhudSetPos(x, y);
-
-		while (*str != '\0') {
-			dhudPrintChar(*str++);
-		}
-	}
-#endif
-}
-#endif
 
 Gfx *dhudRender(Gfx *gdl)
 {
-#ifdef DEBUG
 	if (!g_DHudInitialised) {
 		return gdl;
 	}
@@ -407,7 +276,6 @@ Gfx *dhudRender(Gfx *gdl)
 			}
 		}
 	}
-#endif
 
 	return gdl;
 }

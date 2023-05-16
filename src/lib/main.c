@@ -2,7 +2,6 @@
 #include <sched.h>
 #include "lib/ailist.h"
 #include "lib/crash.h"
-#include "lib/fault.h"
 #include "lib/sched.h"
 #include "lib/vars.h"
 #include "constants.h"
@@ -165,7 +164,7 @@ static void mainInit(void)
 	u8 *end;
 
 #ifdef DEBUG
-	faultInit();
+	crashCreateThread();
 #endif
 	dmaInit();
 	amgrInit();

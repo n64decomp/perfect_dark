@@ -1,13 +1,14 @@
 #ifdef DEBUG
 
 #include <ultra64.h>
+#include <stdarg.h>
 #include "os_internal.h"
+#include "lib/libc/xprintf.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/tlb.h"
 #include "lib/crash.h"
 #include "lib/dma.h"
-#include "lib/rmon.h"
 #include "lib/sched.h"
 #include "lib/str.h"
 #include "lib/vi.h"
@@ -16,26 +17,14 @@
 
 #define MSG_FAULT 0x10
 
-#if VERSION >= VERSION_NTSC_1_0
 #define MAX_LINES 29
-#else
-#define MAX_LINES 31
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-char g_CrashMessage[70];
-#endif
 
 OSThread g_FaultThread;
 u8 g_FaultStack[STACKSIZE_FAULT];
 OSMesgQueue g_FaultMesgQueue;
 OSMesg g_FaultMesg;
 
-#if VERSION == VERSION_NTSC_BETA
-u8 g_CrashHasMessage = false;
-#else
 bool g_CrashEnabled = false;
-#endif
 
 s16 g_CrashCurX = 0;
 s16 g_CrashCurY = 0;
@@ -139,7 +128,6 @@ struct crashdescription g_CrashFpcsrDescriptions[] = {
 
 char (*g_CrashCharBuffer)[71] = NULL;
 
-#ifdef DEBUG
 u32 var8005f138nb[] = {
 	0x00000000, 0x22220200, 0x55000000, 0x05f5f500,
 	0x27427200, 0x05124500, 0x34255300, 0x22000000,
@@ -166,34 +154,28 @@ u32 var8005f138nb[] = {
 	0x00562500, 0x00552220, 0x00703700, 0x12242210,
 	0x02222220, 0x42212240, 0x005a0000,
 };
-#endif
 
 u16 *g_CrashFrameBuffer = NULL;
 
 extern u32 _libSegmentStart;
 extern u32 _libSegmentEnd;
 
-void faultproc(void *arg0);
-u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen);
-void crashPrintDescription(u32 mask, char *label, struct crashdescription *descriptions);
-void schedSetCrashedUnexpectedly(bool enable);
+static void faultproc(void *arg0);
+static u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen);
+static void crashPrintDescription(u32 mask, char *label, struct crashdescription *descriptions);
+static void crashAppendChar(char c);
+static void crashScroll(s32 numlines);
 
-#if VERSION < VERSION_NTSC_1_0
-void crashSetMessage(char *string)
-{
-	strncpy(g_CrashMessage, string, sizeof(g_CrashMessage));
-	g_CrashHasMessage = true;
-}
-#endif
+void schedSetCrashedUnexpectedly(bool enable);
 
 void crashCreateThread(void)
 {
 	osCreateMesgQueue(&g_FaultMesgQueue, &g_FaultMesg, 1);
-	osCreateThread(&g_FaultThread, THREAD_FAULT, faultproc, NULL, &g_FaultStack[1024], THREADPRI_FAULT);
+	osCreateThread(&g_FaultThread, THREAD_FAULT, faultproc, NULL, &g_FaultStack[STACKSIZE_FAULT], THREADPRI_FAULT);
 	osStartThread(&g_FaultThread);
 }
 
-void faultproc(void *arg0)
+static void faultproc(void *arg0)
 {
 	OSMesg msg = 0;
 	OSIntMask mask;
@@ -218,144 +200,14 @@ void faultproc(void *arg0)
 
 		osSetIntMask(mask);
 
-#if VERSION == VERSION_PAL_BETA
-		if (!g_CrashEnabled) {
-			continue;
-		}
-#endif
-
-#ifdef DEBUG
 		crashGenerate(curr, callstack, &tracelen);
 		schedSetCrashedUnexpectedly(true);
-#endif
 	}
 }
 
-#if VERSION == VERSION_NTSC_BETA
-u32 var8009710cnb;
-char *var80097110nb;
-char *var80097114nb;
-u32 var80097118nb[24];
-#endif
-
-#ifdef DEBUG
 char var80097178nb[MAX_LINES + 1][71];
-#endif
 
-/**
- * Given a pointer to an instruction and a stack frame pointer, attempt to find
- * the calling function. Return the address of the caller's stack frame and
- * populate regs with stack addresses where that register was saved. This can be
- * used to retrieve the RA value and invoke crashGetParentStackFrame again to
- * build a backtrace.
- *
- * origptr is a pointer to an instruction. This should be either the value of
- *     the PC register of the faulted thread, or an RA register if searching a
- *     parent.
- * minaddr is the memory address of the start of the code segment,
- *     ie. 0x70001050. This is used to prevent the function from walking out of
- *     the code segment.
- * origsp is the address of the stack frame for the given origptr.
- * regs is a pointer to an array of 32 words.
- *
- * The function works by walking backwards one instruction at a time, looking
- * for stack frame adjustments and stores of $ra to the stack. Once both of
- * these are are found, the function returns with this information.
- *
- * The function will return 0 if it can't reliably find the caller. This will
- * happen if the function being analysed didn't adjust the stack pointer or
- * store $ra in the stack. It can also fail if the function being analysed uses
- * returns within branches.
- */
-u32 crashGetParentStackFrame(u32 *origptr, u32 *minaddr, u32 origsp, u32 *regs)
-{
-	u32 sp = origsp;
-	u32 *ptr;
-	bool foundaddsp = false;
-	bool foundra = false;
-	s32 regid;
-	u32 instruction;
-	s16 value;
-
-	// Clear the regs array (note: reusing the instruction variable here)
-	for (instruction = 0; instruction < 32; instruction++) regs[instruction] = 0;
-
-	// Walk backwards through the instructions
-	for (ptr = origptr; ptr >= minaddr; ptr--) {
-		instruction = *ptr;
-		value = instruction & 0xffff;
-
-		if ((instruction & 0xffff0000) == 0x27bd0000) {
-			// Found an addiu $sp, $sp, <amount> instruction, which adjusts the
-			// stack pointer. These can exist near the start and end of any
-			// function. The "add" at the start is done with a negative value
-			// which increases the size of the stack, as the stack expands to
-			// the left. This function is interested in these negative adds,
-			// because it needs to reverse it and move the sp variable forward
-			// to the next stack frame (the frame of the caller).
-
-			foundaddsp = true;
-
-			if (value > 0) {
-				// Found the addiu sp at the end of the function. It's pretty
-				// rare to crash (or jump elsewhere) after restoring the sp,
-				// so this situation is not supported by this function.
-				break;
-			}
-
-			// Change sp to point to the caller's stack frame
-			sp -= (value >> 2) * 4;
-
-			if (foundra) {
-				break;
-			}
-		} else if ((instruction & 0xffe00000) == 0xafa00000) {
-			// Found a store word instruction that stores to the stack.
-			// The encoding of this instruction is:
-			//
-			//     oooooodd dddsssss iiiiiiii iiiiiiii
-			//
-			// Where:
-			//     o is the opcode (already known to be sw).
-			//     d is the destination register (already known to be $sp)
-			//     s is the source register
-			//     i is the offset to store to
-			//
-			// This looks for a store from $ra to the stack, so the value can
-			// be read from the stack and used to find the caller's address.
-
-			regid = (instruction >> 16) & 0x1f;
-			regs[regid] = sp + (value >> 2) * 4;
-
-			if (regid == 31) {
-				foundra = true;
-			}
-
-			if (foundaddsp && foundra) {
-				break;
-			}
-		} else if (instruction == 0x03e00008) {
-			// Found a jr $ra statement, which is a return. This will happen if
-			// this loop has walked out of the current function and into the one
-			// prior to it, so bail.
-
-			// It can also happen if the function has return statements within
-			// branches, but handling these correctly would involve a lot of
-			// complexity so that's unsupported. Because of this, this function
-			// can end the backtrace prematurely if it encounters a function
-			// that does this.
-			break;
-		}
-	}
-
-	if (foundaddsp && foundra) {
-		return sp;
-	}
-
-	return 0;
-}
-
-bool crashIsReturnAddress(u32 *instruction)
+static bool crashIsReturnAddress(u32 *instruction)
 {
 	if (((u32)instruction % 4) == 0
 			&& (u32)instruction >= (u32)tlbInit
@@ -374,139 +226,26 @@ bool crashIsReturnAddress(u32 *instruction)
 	return false;
 }
 
-#if VERSION < VERSION_NTSC_1_0
-s32 crashGetStrLen(char *str)
+static char *rmonProut(char *dst, const char *src, size_t count)
 {
 	s32 i = 0;
-	char c = *str++;
 
-	while (c != '\0') {
-		i++;
-
-		if (i >= 256) {
-			break;
-		}
-
-		c = *str++;
+	while (i != count) {
+		crashAppendChar(src[i++]);
 	}
 
-	return i;
+	return (char *) 1;
 }
-#endif
 
-#if VERSION < VERSION_NTSC_1_0
-u32 crash0000c52cnb(u32 romaddr)
+void rmonPrintf(const char *format, ...)
 {
-	u32 addr;
+	va_list ap;
+	va_start(ap, format);
 
-	dmaExec(var80097118nb, romaddr, 0x60);
-
-	var8009710cnb = var80097118nb[0];
-	var80097110nb = (char *)&var80097118nb[1];
-	var80097114nb = (char *)(crashGetStrLen(var80097110nb) + (u32)var80097110nb + 1);
-
-	addr = romaddr + crashGetStrLen(var80097110nb) + crashGetStrLen(var80097114nb) + 6;
-
-	if (addr % 4) {
-		addr = (addr | 3) + 1;
-	}
-
-	return addr;
+	_Printf(rmonProut, NULL, format, ap);
 }
-#endif
 
-#if VERSION < VERSION_NTSC_1_0
-bool crash0000c5d8nb(u32 arg0)
-{
-	u32 this = 0x00e00004;
-	u32 prev = 0x00e00004;
-
-	while (true) {
-		u32 next = crash0000c52cnb(this);
-
-		if (arg0 >= var8009710cnb) {
-			prev = this;
-
-			if (var8009710cnb == 0) {
-				return false;
-			}
-
-			this = next;
-		} else {
-			break;
-		}
-	}
-
-	crash0000c52cnb(prev);
-
-	return true;
-}
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-bool crash0000c660nb(void)
-{
-	crash0000c52cnb(0xe00000);
-
-	return var8009710cnb == 0x826475be;
-}
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-void crash0000c694nb(void)
-{
-	s32 numvalid = 0;
-	s32 i;
-
-	for (i = 0; i < 4; i++) {
-		if (var80097110nb[i] >= '!' && var80097110nb[i] <= 0x7f) {
-			numvalid++;
-		}
-	}
-
-	if (numvalid == 4) {
-		rmonPrintf("%.49s", var80097110nb);
-	} else {
-		rmonPrintf("???");
-	}
-}
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-void crash0000c714nb(void)
-{
-	s32 numvalid = 0;
-	s32 i;
-
-	for (i = 0; i < 4; i++) {
-		if (var80097114nb[i] >= '!' && var80097114nb[i] <= 0x7f) {
-			numvalid++;
-		}
-	}
-
-	if (numvalid == 4) {
-		rmonPrintf("%.41s", var80097114nb);
-	} else {
-		rmonPrintf("???");
-	}
-}
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-void crash0000c794nb(void)
-{
-	rmonPrintf("%08x", var8009710cnb);
-}
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-u32 crash0000c7c0nb(void)
-{
-	return var8009710cnb;
-}
-#endif
-
-u32 crashGetStackEnd(u32 sp, s32 tid)
+static u32 crashGetStackEnd(u32 sp, s32 tid)
 {
 	u32 start;
 	u32 end;
@@ -526,7 +265,7 @@ u32 crashGetStackEnd(u32 sp, s32 tid)
 	return (sp & 0xf0000000) | (end - start);
 }
 
-u32 crashGetStackStart(u32 sp, s32 tid)
+static u32 crashGetStackStart(u32 sp, s32 tid)
 {
 	u32 start;
 
@@ -544,7 +283,7 @@ u32 crashGetStackStart(u32 sp, s32 tid)
 	return sp & 0xf0000000;
 }
 
-bool crashIsDouble(f32 value)
+static bool crashIsDouble(f32 value)
 {
 	u32 bits = *(u32*)&value;
 	u32 fraction = bits & 0x7fffff;
@@ -553,7 +292,7 @@ bool crashIsDouble(f32 value)
 	return fraction == 0 || (exponent != 0 && exponent != 0xff);
 }
 
-void crashPrintFloat(s32 index, f32 value)
+static void crashPrintFloat(s32 index, f32 value)
 {
 	if (crashIsDouble(value)) {
 		rmonPrintf("%s%s%02d: % .7e ", "", "", index, (f64)value);
@@ -563,7 +302,7 @@ void crashPrintFloat(s32 index, f32 value)
 	}
 }
 
-void crashPrint2Floats(s32 index, f32 value1, f32 value2)
+static void crashPrint2Floats(s32 index, f32 value1, f32 value2)
 {
 	crashPrintFloat(index, value1);
 	rmonPrintf(" ");
@@ -572,7 +311,7 @@ void crashPrint2Floats(s32 index, f32 value1, f32 value2)
 	rmonPrintf("\n");
 }
 
-void crashPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3)
+static void crashPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3)
 {
 	crashPrintFloat(index, value1);
 	rmonPrintf(" ");
@@ -584,33 +323,21 @@ void crashPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3)
 	rmonPrintf("\n");
 }
 
-u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen)
+static u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen)
 {
 	s32 i;
 	u32 ptr;
 	u32 *sp;
 	u32 regs[32];
-#if VERSION == VERSION_NTSC_BETA
-	s32 j;
-	u32 *stackstart;
-	u32 *stackend;
-#else
 	u32 *stackend;
 	u32 *stackstart;
-#endif
 	__OSThreadContext *ctx = &thread->context;
 	bool done;
 	u32 *tmpsp;
-#if VERSION == VERSION_NTSC_BETA
-	s32 len;
-#endif
 
 	rmonPrintf("\n\nFAULT-\n");
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (!g_Vars.fourmeg2player)
-#endif
-	{
+	if (!g_Vars.fourmeg2player) {
 		// Print a stack trace in a dodgy way.
 		// It works by iterating through the stack allocation, looking for any
 		// values which could potentially be a return address, and prints them.
@@ -629,16 +356,9 @@ u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen)
 		rmonPrintf(".\n");
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	rmonPrintf("%H#@! Another Perfect Crash (tm)\n");
-#else
-	rmonPrintf("\nPerfect Crash (tm)\n\n");
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (!g_Vars.fourmeg2player)
-#endif
-	{
+	if (!g_Vars.fourmeg2player) {
 		// Print floating point registers
 		crashPrint2Floats(0, ctx->fp0.f.f_odd, ctx->fp0.f.f_even);
 		crashPrint3Floats(2, ctx->fp2.f.f_odd, ctx->fp2.f.f_even, ctx->fp4.f.f_odd);
@@ -665,13 +385,8 @@ u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen)
 	rmonPrintf("t9 0x%016llx gp 0x%016llx sp 0x%016llx\n", ctx->t9, ctx->gp, ctx->sp);
 	rmonPrintf("s8 0x%016llx ra 0x%016llx\n", ctx->s8, ctx->ra);
 
-#if VERSION >= VERSION_NTSC_1_0
 	rmonPrintf("TID %d epc %08x caus %08x fp %08x badv %08x sr %08x\n",
 			thread->id, ctx->pc, ctx->cause, ctx->fpcsr, ctx->badvaddr, ctx->sr);
-#else
-	rmonPrintf("TID %d epc %08x cause %08x fp %08x badv %08x sr %08x\n",
-			thread->id, ctx->pc, ctx->cause, ctx->fpcsr, ctx->badvaddr, ctx->sr);
-#endif
 
 	// Print the address of the faulted instruction, along with the instruction
 	// itself and the next three - presumably to help the developer locate it.
@@ -694,66 +409,6 @@ u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen)
 	stackstart = (u32 *) crashGetStackStart((u32)sp, thread->id);
 	ptr = ctx->pc;
 	*tracelen = 0;
-	rmonPrintf("nearl: ");
-
-	while (!done) {
-		sp = (u32 *) crashGetParentStackFrame((u32 *) ptr, &_libSegmentStart, (u32)sp, regs);
-		rmonPrintf(" %08x ", ptr);
-
-		callstack[*tracelen] = ptr;
-		*tracelen = *tracelen + 1;
-
-		if (i == 4) {
-			rmonPrintf("\n       ");
-		}
-
-		if (sp == NULL) {
-			sp = (u32 *)ctx->sp;
-		}
-
-		if (regs[31] == 0) {
-			ptr = ctx->ra;
-		} else {
-			ptr = *(u32 *)(regs[31]);
-		}
-
-		if (sp < stackstart || sp >= stackend || stackend == &sp[4] || ptr == 0) {
-			break;
-		}
-
-		done = i >= 9;
-		i++;
-	}
-
-#if VERSION == VERSION_NTSC_BETA
-	g_CrashCurY = 31;
-
-	if (g_CrashHasMessage) {
-		g_CrashCurX = 0;
-
-		for (len = 0; len < 71U; len++) {
-			if (g_CrashMessage[len] == '\0') {
-				break;
-			}
-		}
-
-		g_CrashCurX = (71 - len) / 2;
-
-		for (j = 0; j < len; j++) {
-			crashAppendChar(g_CrashMessage[j]);
-		}
-	} else {
-		g_CrashCurX = 32;
-
-		crashAppendChar('C');
-		crashAppendChar('R');
-		crashAppendChar('A');
-		crashAppendChar('S');
-		crashAppendChar('H');
-		crashAppendChar('E');
-		crashAppendChar('D');
-	}
-#endif
 
 	rmonPrintf("\n");
 	rmonPrintf("\n");
@@ -761,7 +416,7 @@ u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen)
 	return 0;
 }
 
-void crashPrintDescription(u32 mask, char *label, struct crashdescription *description)
+static void crashPrintDescription(u32 mask, char *label, struct crashdescription *description)
 {
 	bool first = true;
 	s32 i;
@@ -785,7 +440,7 @@ void crashPrintDescription(u32 mask, char *label, struct crashdescription *descr
 	rmonPrintf(">");
 }
 
-void crashPutChar(s32 x, s32 y, char c)
+static void crashPutChar(s32 x, s32 y, char c)
 {
 	if (c == '\t' || c == '\n') {
 		c = '\0';
@@ -800,7 +455,7 @@ void crashPutChar(s32 x, s32 y, char c)
 	}
 }
 
-void crashAppendChar(char c)
+static void crashAppendChar(char c)
 {
 	if (c == '\0') {
 		return;
@@ -835,7 +490,7 @@ void crashAppendChar(char c)
 	}
 }
 
-void crashScroll(s32 numlines)
+static void crashScroll(s32 numlines)
 {
 	s32 i;
 	s32 y;
@@ -857,7 +512,7 @@ void crashScroll(s32 numlines)
 /**
  * Render a character to the crash buffer.
  */
-void crashRenderChar(s32 x, s32 y, char c)
+static void crashRenderChar(s32 x, s32 y, char c)
 {
 	s32 i;
 	s32 j;
@@ -885,33 +540,21 @@ void crashRenderChar(s32 x, s32 y, char c)
 		fbpos = g_CrashFrameBuffer + x + y * width;
 	}
 
-#ifdef DEBUG
 	a2 = var8005f138nb[c - ' '];
-#else
-	a2 = 0;
-#endif
 
 	for (i = 0; i < 7; i++) {
 		for (j = 0; j < 4; j++) {
 			u32 gray = a2 & 0x80000000;
 
 			if (gray) {
-#if VERSION == VERSION_NTSC_BETA
-				fbpos[0] = GPACK_RGBA5551(0xff, 0xff, 0xff, 1);
-#else
 				fbpos[0] = GPACK_RGBA5551(0x78, 0x78, 0x78, 1);
-#endif
 			} else {
 				fbpos[0] = GPACK_RGBA5551(0, 0, 0, 1);
 			}
 
 			if (hires) {
 				if (gray) {
-#if VERSION == VERSION_NTSC_BETA
-					fbpos[1] = GPACK_RGBA5551(0xff, 0xff, 0xff, 1);
-#else
 					fbpos[1] = GPACK_RGBA5551(0x78, 0x78, 0x78, 1);
-#endif
 				} else {
 					fbpos[1] = GPACK_RGBA5551(0, 0, 0, 1);
 				}
@@ -938,14 +581,9 @@ void crashRenderChar(s32 x, s32 y, char c)
 
 void crashReset(void)
 {
-#ifdef DEBUG
 	g_CrashCharBuffer = var80097178nb;
-#else
-	g_CrashCharBuffer = NULL;
-#endif
 
 	if (g_CrashCharBuffer) {
-		// Unreachable
 		s32 x;
 		s32 y;
 
