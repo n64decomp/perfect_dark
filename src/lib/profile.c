@@ -136,7 +136,7 @@ void profileStartDynamic(char *file, s32 line)
 			slot->recursion = true;
 		} else {
 			slot->numiterations++;
-			slot->startticks = osGetCount();
+			slot->startticks = __osRunningThread->cycles_saved + (osGetCount() - __osRunningThread->cycles_at_dispatch);
 		}
 
 		g_ProfileCurrentSlot = slot;
@@ -150,7 +150,7 @@ void profileStartDynamic(char *file, s32 line)
 		slot->ticks = 0;
 		slot->numiterations = 1;
 		slot->recursion = false;
-		slot->startticks = osGetCount();
+		slot->startticks = __osRunningThread->cycles_saved + (osGetCount() - __osRunningThread->cycles_at_dispatch);
 
 		g_ProfileCurrentSlot = slot;
 	}
@@ -158,7 +158,7 @@ void profileStartDynamic(char *file, s32 line)
 
 void profileEndDynamic(char *file, s32 line)
 {
-	u32 count = osGetCount();
+	u32 now = __osRunningThread->cycles_saved + (osGetCount() - __osRunningThread->cycles_at_dispatch);
 	s32 i;
 	struct profileslot *slot = NULL;
 
@@ -170,7 +170,7 @@ void profileEndDynamic(char *file, s32 line)
 	}
 
 	if (slot) {
-		slot->ticks += count - slot->startticks;
+		slot->ticks += now - slot->startticks;
 		slot->startticks = 0;
 
 		g_ProfileCurrentSlot = slot->parent;
