@@ -1358,6 +1358,20 @@ void bgReset(s32 stagenum)
 		}
 	}
 
+	if (g_Vars.stagenum == STAGE_AIRFORCEONE) {
+		// Remove two unnecessary portals that cause rooms to be rendered when they needn't be
+		s32 i;
+		s32 numportals = 0;
+
+		for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
+			numportals++;
+		}
+
+		g_BgPortals[0x13] = g_BgPortals[numportals - 1]; // unlink rooms F and 13
+		g_BgPortals[0x15] = g_BgPortals[numportals - 2]; // unlink rooms 10 and 13
+		g_BgPortals[numportals - 2].verticesoffset = 0;
+	}
+
 	g_BgAlwaysRoom = -1;
 
 	if (stagenum == STAGE_INFILTRATION
@@ -1456,6 +1470,11 @@ void bgBuildTables(s32 stagenum)
 		// end of the portal array, which is the start of the vertice data.
 		offset = numportals * sizeof(struct bgportal);
 		offset += sizeof(struct bgportal);
+
+		if (g_Vars.stagenum == STAGE_AIRFORCEONE) {
+			// Compensate for the two removed portals in bgReset
+			offset += sizeof(struct bgportal) * 2;
+		}
 
 		// Because each group of vertices is variable length, the portals can't
 		// be iterated in order and have their offset calculated. The vertice
