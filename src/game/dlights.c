@@ -543,6 +543,8 @@ void lightsReset(void)
 	func0f004c6c();
 }
 
+extern struct rend_vidat *g_ViBackData;
+
 void func0f001c0c(void)
 {
 	s32 i;
@@ -576,7 +578,7 @@ void func0f001c0c(void)
 	table4size = ALIGN16((u32)var8009cae0 * (u32)var8009cae0);
 	sp68 = ALIGN16(g_Vars.roomcount * 8);
 
-	ptr = mblurGetAllocation();
+	ptr = (void *) g_ViBackData->fb;
 
 	var80061434 = (f32 *)ptr;
 	ptr += table1size;
@@ -590,7 +592,7 @@ void func0f001c0c(void)
 	sp48 = (u8 *)ptr;
 	ptr += table4size;
 
-	s5 = (u8 *)ptr;
+	s5 = (u8 *) mblurGetAllocation();
 
 	var80061420 = mempAlloc(sp68, MEMPOOL_STAGE);
 

@@ -385,6 +385,10 @@ static void mainLoop(void)
 
 		g_MainMemaHeapSize = g_StageAllocations8Mb[index].ma * 1024;
 
+		if (g_StageNum == STAGE_RESCUE && g_NumPlayers >= 2) {
+			g_MainMemaHeapSize = 0;
+		}
+
 		memaReset(mempAlloc(g_MainMemaHeapSize, MEMPOOL_STAGE), g_MainMemaHeapSize);
 		langReset(g_StageNum);
 		playermgrReset();
