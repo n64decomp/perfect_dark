@@ -40,7 +40,7 @@ glabel mtx4MultMtx4
 	mfc1   $t3, $f22
 	mfc1   $t4, $f23
 	mfc1   $t5, $f24
-	addiu  $t0, $zero, 0x4
+	addiu  $t0, $a2, 0x10
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
@@ -92,11 +92,10 @@ glabel mtx4MultMtx4
 	swc1   $f23, 0x1c($a2)
 	mul.s  $f23, $f19, $f15
 	add.s  $f22, $f22, $f21
-	addiu  $t0, $t0, -1
 	add.s  $f22, $f22, $f24
 	addiu  $a0, $a0, 0x4
 	add.s  $f22, $f22, $f23
-	bnez   $t0, .L00015a58
+	bne    $t0, $a2, .L00015a58
 	swc1   $f22, 0x2c($a2)
 	mtc1   $t1, $f20
 	mtc1   $t2, $f21
@@ -112,7 +111,7 @@ glabel mtx4RotateVec
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
-	addiu  $t0, $zero, 0x3
+	addiu  $t0, $a0, 0xc
 	lwc1   $f3, 0x0($a0)
 .L00015b28:
 	lwc1   $f4, 0x10($a0)
@@ -124,9 +123,8 @@ glabel mtx4RotateVec
 	mul.s  $f8, $f5, $f2
 	addiu  $a2, $a2, 0x4
 	add.s  $f16, $f9, $f8
-	addiu  $t0, $t0, -1
 	swc1   $f16, -0x4($a2)
-	bnez   $t0, .L00015b28
+	bne    $t0, $a0, .L00015b28
 	lwc1   $f3, 0x0($a0)
 	jr     $ra
  	nop
@@ -138,7 +136,7 @@ glabel mtx4TransformVec
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
-	addiu  $t0, $zero, 0x3
+	addiu  $t0, $a0, 0xc
 	lwc1   $f3, 0x0($a0)
 .L00015b7c:
 	lwc1   $f4, 0x10($a0)
@@ -150,9 +148,8 @@ glabel mtx4TransformVec
 	mul.s  $f8, $f5, $f2
 	addiu  $a2, $a2, 0x4
 	add.s  $f16, $f9, $f8
-	addiu  $t0, $t0, -1
 	swc1   $f16, -0x4($a2)
-	bnez   $t0, .L00015b7c
+	bne    $t0, $a0, .L00015b7c
 	lwc1   $f3, 0x0($a0)
 	lwc1   $f0, -0xc($a2)
 	lwc1   $f1, -0x8($a2)
@@ -187,7 +184,7 @@ glabel mtx00015be4
 	lwc1   $f9, 0x30($a1)
 	lwc1   $f10, 0x34($a1)
 	lwc1   $f11, 0x38($a1)
-	addiu  $t0, $zero, 0x3
+	addiu  $t0, $a0, 0xc
 .L00015c28:
 	lwc1   $f12, 0x0($a0)
 	addiu  $a0, $a0, 0x4
@@ -217,62 +214,62 @@ glabel mtx00015be4
 	mul.s  $f22, $f14, $f11
 	add.s  $f20, $f20, $f21
 	add.s  $f22, $f22, $f15
-	addiu  $t0, $t0, -1
 	add.s  $f22, $f20, $f22
 	addiu  $a2, $a2, 0x4
-	bnez   $t0, .L00015c28
+	bne    $t0, $a0, .L00015c28
 	swc1   $f22, 0x2c($a2)
 	lui    $at, 0x3f80
-	mtc1   $at, $f0
 	sw     $zero, 0x0($a2)
 	sw     $zero, 0x10($a2)
 	sw     $zero, 0x20($a2)
-	swc1   $f0, 0x30($a2)
+	sw     $at, 0x30($a2)
 	mtc1   $t1, $f20
 	mtc1   $t2, $f21
 	mtc1   $t3, $f22
 	jr     $ra
 	mtc1   $t4, $f23
 
-glabel mtx3Copy
-	addiu  $t0, $zero, 0x2
-.L00015cdc:
-	lw     $t1, 0x0($a0)
-	lw     $t2, 0x4($a0)
-	lw     $t3, 0x8($a0)
-	lw     $t4, 0xc($a0)
-	sw     $t1, 0x0($a1)
-	sw     $t2, 0x4($a1)
-	sw     $t3, 0x8($a1)
-	sw     $t4, 0xc($a1)
-	addiu  $t0, $t0, -1
-	addiu  $a0, $a0, 0x10
-	bnez   $t0, .L00015cdc
-	addiu  $a1, $a1, 0x10
-	lw     $t0, 0x0($a0)
-	jr     $ra
-	sw     $t0, 0x0($a1)
-
 glabel mtx4Copy
-	addiu  $t0, $zero, 0x4
-.L00015d1c:
-	lw     $t1, 0x0($a0)
-	lw     $t2, 0x4($a0)
-	lw     $t3, 0x8($a0)
-	lw     $t4, 0xc($a0)
-	sw     $t1, 0x0($a1)
-	sw     $t2, 0x4($a1)
-	sw     $t3, 0x8($a1)
-	sw     $t4, 0xc($a1)
-	addiu  $t0, $t0, -1
-	addiu  $a0, $a0, 0x10
-	bnez   $t0, .L00015d1c
-	addiu  $a1, $a1, 0x10
+	lw     $t0, 0x00($a0)
+	lw     $t1, 0x04($a0)
+	lw     $t2, 0x08($a0)
+	lw     $t3, 0x0c($a0)
+	lw     $t4, 0x10($a0)
+	lw     $t5, 0x14($a0)
+	lw     $t6, 0x18($a0)
+	sw     $t0, 0x00($a1)
+	sw     $t1, 0x04($a1)
+	sw     $t2, 0x08($a1)
+	sw     $t3, 0x0c($a1)
+	sw     $t4, 0x10($a1)
+	sw     $t5, 0x14($a1)
+	sw     $t6, 0x18($a1)
+	addiu  $a0, $a0, 0x1c
+	addiu  $a1, $a1, 0x1c
+
+glabel mtx3Copy
+	lw     $t0, 0x00($a0)
+	lw     $t1, 0x04($a0)
+	lw     $t2, 0x08($a0)
+	lw     $t3, 0x0c($a0)
+	lw     $t4, 0x10($a0)
+	lw     $t5, 0x14($a0)
+	lw     $t6, 0x18($a0)
+	lw     $t7, 0x1c($a0)
+	lw     $t8, 0x20($a0)
+	sw     $t0, 0x00($a1)
+	sw     $t1, 0x04($a1)
+	sw     $t2, 0x08($a1)
+	sw     $t3, 0x0c($a1)
+	sw     $t4, 0x10($a1)
+	sw     $t5, 0x14($a1)
+	sw     $t6, 0x18($a1)
+	sw     $t7, 0x1c($a1)
 	jr     $ra
- 	nop
+	sw     $t8, 0x20($a1)
 
 glabel mtx3ToMtx4
-	addiu  $t0, $zero, 0x3
+	addiu  $t0, $a1, 0x30
 	lui    $at, 0x3f80
 .L00015d60:
 	lw     $t1, 0x0($a0)
@@ -282,9 +279,8 @@ glabel mtx3ToMtx4
 	sw     $t2, 0x4($a1)
 	sw     $t3, 0x8($a1)
 	sw     $zero, 0xc($a1)
-	addiu  $t0, $t0, -1
 	addiu  $a1, $a1, 0x10
-	bnez   $t0, .L00015d60
+	bne    $t0, $a1, .L00015d60
 	addiu  $a0, $a0, 0xc
 	sw     $zero, 0x0($a1)
 	sw     $zero, 0x4($a1)
@@ -293,7 +289,7 @@ glabel mtx3ToMtx4
 	sw     $at, 0xc($a1)
 
 glabel mtx4ToMtx3
-	addiu  $t0, $zero, 0x3
+	addiu  $t0, $a0, 0x30
 .L00015da4:
 	lw     $t1, 0x0($a0)
 	lw     $t2, 0x4($a0)
@@ -301,9 +297,8 @@ glabel mtx4ToMtx3
 	sw     $t1, 0x0($a1)
 	sw     $t2, 0x4($a1)
 	sw     $t3, 0x8($a1)
-	addiu  $t0, $t0, -1
 	addiu  $a0, $a0, 0x10
-	bnez   $t0, .L00015da4
+	bne    $t0, $a0, .L00015da4
 	addiu  $a1, $a1, 0xc
 	jr     $ra
  	nop
@@ -399,7 +394,7 @@ glabel mtx00015edc
 	swc1   $f10, 0x28($a1)
 
 glabel mtx00015f04
-	addiu  $t0, $zero, 0x3
+	addiu  $t0, $a1, 0x30
 .L00015f08:
 	lwc1   $f4, 0x0($a1)
 	lwc1   $f6, 0x4($a1)
@@ -410,17 +405,16 @@ glabel mtx00015f04
 	mul.s  $f8, $f8, $f12
 	addiu  $a1, $a1, 0x10
 	mul.s  $f10, $f10, $f12
-	addiu  $t0, $t0, -1
 	swc1   $f4, -0x10($a1)
 	swc1   $f6, -0xc($a1)
 	swc1   $f8, -0x8($a1)
-	bnez   $t0, .L00015f08
+	bne    $t0, $a1, .L00015f08
 	swc1   $f10, -0x4($a1)
 	jr     $ra
  	nop
 
 glabel mtx00015f4c
-	addiu  $t0, $zero, 0x3
+	addiu  $t0, $a1, 0x30
 .L00015f50:
 	lwc1   $f4, 0x0($a1)
 	lwc1   $f6, 0x4($a1)
@@ -429,16 +423,15 @@ glabel mtx00015f4c
 	mul.s  $f6, $f6, $f12
 	addiu  $a1, $a1, 0x10
 	mul.s  $f8, $f8, $f12
-	addiu  $t0, $t0, -1
 	swc1   $f4, -0x10($a1)
 	swc1   $f6, -0xc($a1)
-	bnez   $t0, .L00015f50
+	bne    $t0, $a1, .L00015f50
 	swc1   $f8, -0x8($a1)
 	jr     $ra
  	nop
 
 glabel mtx00015f88
-	addiu  $t0, $zero, 0x3
+	addiu  $t0, $a1, 0xc
 .L00015f8c:
 	lwc1   $f4, 0x0($a1)
 	lwc1   $f6, 0x10($a1)
@@ -449,11 +442,10 @@ glabel mtx00015f88
 	mul.s  $f8, $f8, $f12
 	addiu  $a1, $a1, 0x4
 	mul.s  $f10, $f10, $f12
-	addiu  $t0, $t0, -1
 	swc1   $f4, -0x4($a1)
 	swc1   $f6, 0xc($a1)
 	swc1   $f8, 0x1c($a1)
-	bnez   $t0, .L00015f8c
+	bne    $t0, $a1, .L00015f8c
 	swc1   $f10, 0x2c($a1)
 	jr     $ra
  	nop
@@ -461,7 +453,7 @@ glabel mtx00015f88
 glabel mtx00016054
 	lui    $t2, %hi(var8005ef10)
 	addiu  $t2, $t2, %lo(var8005ef10)
-	addiu  $t0, $zero, 0x4
+	addiu  $t0, $a0, 0x40
 	lui    $t1, 0xffff
 	lwc1   $f0, 0x0($t2)
 	lwc1   $f2, 0x4($t2)
@@ -499,8 +491,7 @@ glabel mtx00016054
 	sw     $t7, 0x4($a1)
 	sw     $t2, 0x20($a1)
 	sw     $t5, 0x24($a1)
-	addiu  $t0, $t0, -1
-	bnez   $t0, .L0001606c
+	bne    $t0, $a0, .L0001606c
 	addiu  $a1, $a1, 0x8
 	jr     $ra
  	nop
