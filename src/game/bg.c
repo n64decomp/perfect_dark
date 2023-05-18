@@ -119,8 +119,6 @@ s32 g_BgAlwaysRoom;
 
 s32 g_StageIndex = 1;
 
-s16 var8007fc0c = 0;
-s16 var8007fc10 = 0;
 s32 g_NumRoomsWithGlares = 0;
 s32 g_CamRoom = 0x00000001;
 struct var800a4640_00 *var8007fc24 = &var800a4640.unk2d0;
@@ -232,13 +230,6 @@ static void roomSetOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 			}
 
 			roomUnpauseProps(roomnum, false);
-
-			if (g_Rooms[roomnum].loaded240 == 0 && var8007fc10 > 0) {
-				var8007fc10--;
-				bgLoadRoom(roomnum);
-			} else if (g_Rooms[roomnum].loaded240 == 0) {
-				var8007fc10--;
-			}
 		}
 	}
 }
@@ -819,17 +810,6 @@ static Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 	}
 
 	if (g_Rooms[roomnum].loaded240 == 0) {
-		if (var8007fc10 > 0) {
-			var8007fc10--;
-			bgLoadRoom(roomnum);
-		}
-	}
-
-	if (g_Rooms[roomnum].loaded240 == 0) {
-		var8007fc10--;
-	}
-
-	if (g_Rooms[roomnum].loaded240 == 0) {
 		return gdl;
 	}
 
@@ -844,8 +824,6 @@ static Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 	gdl = roomApplyMtx(gdl, roomnum);
 	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true, sp40);
 	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true, sp40);
-
-	g_Rooms[roomnum].loaded240 = 1;
 
 	return gdl;
 }
@@ -1011,10 +989,6 @@ static Gfx *bgRenderScene(Gfx *gdl)
 			gdl = starsRender(gdl);
 			gdl = text0f153780(gdl);
 			gdl = vi0000ab78(gdl);
-		}
-
-		if (!g_Rooms[g_BgAlwaysRoom].loaded240) {
-			bgLoadRoom(g_BgAlwaysRoom);
 		}
 
 		gdl = bgRenderRoomOpaque(gdl, g_BgAlwaysRoom);
@@ -1261,8 +1235,6 @@ void bgReset(s32 stagenum)
 	u32 section2start;
 	u32 section1compsize;
 	u32 scratch;
-
-	var8007fc0c = 8;
 
 	g_BgUnloadDelay240 = 120;
 	g_BgUnloadDelay240_2 = 120;
@@ -1764,8 +1736,6 @@ void bgBuildTables(s32 stagenum)
 		}
 	}
 
-	var8007fc10 = 200;
-
 	wallhitReset();
 	func0f002a98();
 	func0f001c0c();
@@ -1806,22 +1776,6 @@ void bgTick(void)
 	func0f15c920();
 
 	tickmode = g_Vars.tickmode;
-
-	if (tickmode == TICKMODE_NORMAL) {
-		var8007fc10 = 4;
-
-		if (var8007fc0c) {
-			var8007fc0c--;
-			var8007fc10 = 200;
-		}
-	} else {
-		var8007fc0c = 8;
-		var8007fc10 = 200;
-	}
-
-	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-		var8007fc10 = 100;
-	}
 
 	g_CamRoom = g_Vars.currentplayer->cam_room;
 
@@ -2577,10 +2531,6 @@ static void bgLoadRoom(s32 roomnum)
 		return;
 	}
 
-	if (g_Rooms[roomnum].loaded240) {
-		return;
-	}
-
 	// Determine how much memory to allocate.
 	// It must be big enough to fit both the inflated and compressed room data.
 	size = g_Rooms[roomnum].gfxdatalen;
@@ -2872,8 +2822,6 @@ static Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
 	gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true);
 	gdl = lightsSetDefault(gdl);
 
-	g_Rooms[roomnum].loaded240 = 1;
-
 	return gdl;
 }
 
@@ -2882,8 +2830,6 @@ static Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
  */
 static Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 {
-	u32 stack;
-
 	if (roomnum == 0 || roomnum >= g_Vars.roomcount) {
 		return gdl;
 	}
@@ -2895,15 +2841,8 @@ static Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 
 		roomHighlight(roomnum);
 
-		if (g_Rooms[roomnum].gfxdata);
-		if (g_Rooms[roomnum].gfxdata);
-
 		gdl = roomApplyMtx(gdl, roomnum);
 		gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true);
-
-		g_Rooms[roomnum].loaded240 = 1;
-	} else {
-		bgLoadRoom(roomnum);
 	}
 
 	return gdl;

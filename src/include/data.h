@@ -447,7 +447,6 @@ extern struct font *g_FontHandelGothicLg;
 extern struct fontchar *g_CharsHandelGothicLg;
 extern bool var8007fb9c;
 extern s32 g_StageIndex;
-extern s16 var8007fc0c;
 extern struct var800a4640_00 *var8007fc24;
 extern u16 var8007fc3c;
 extern s32 g_NumPortalThings;

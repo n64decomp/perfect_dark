@@ -1249,7 +1249,6 @@ static void playerTickChrBody(void)
 			}
 
 			offset1 = 0;
-			var8007fc0c = 8;
 
 			allocation = g_Vars.currentplayer->gunmem2;
 			model = (struct model *)(allocation + offset1);
