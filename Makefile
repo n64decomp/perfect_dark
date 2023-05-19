@@ -73,7 +73,7 @@ ROM_SIZE := 32
 # When enabled, press C-up and C-down simultaneously to toggle the debug menu.
 # Note that some emulators have problems displaying the crash screen text.
 
-DEBUG = 0
+DEBUG = 1
 
 # ANTIALIAS
 #
