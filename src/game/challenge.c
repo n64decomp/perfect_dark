@@ -354,7 +354,6 @@ struct mpconfigfull *challengeLoadConfig(s32 confignum, u8 *buffer, s32 len)
 	u8 buffer2[sizeof(struct mpstrings) + 40];
 	struct mpstrings *loadedstrings;
 	s32 bank;
-	u32 language_id = langGetFileNumOffset();
 	extern struct mpconfig _mpconfigsSegmentRomStart[];
 	extern struct mpstrings _mpstringsESegmentRomStart;
 	extern struct mpstrings _mpstringsJSegmentRomStart;
@@ -385,7 +384,7 @@ struct mpconfigfull *challengeLoadConfig(s32 confignum, u8 *buffer, s32 len)
 	mpconfig = dmaExecWithAutoAlign(buffer, (s32)&_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
 
 	// Load mpstrings
-	bank = banks[language_id][0];
+	bank = banks[0][0];
 	loadedstrings = dmaExecWithAutoAlign(buffer2, bank + confignum * sizeof(struct mpstrings), sizeof(struct mpstrings));
 
 	mpconfig->strings = *loadedstrings;

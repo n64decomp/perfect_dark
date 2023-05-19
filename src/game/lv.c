@@ -2169,11 +2169,6 @@ void lvStop(void)
 		audioStop(g_MiscAudioHandle);
 	}
 
-	if (g_Vars.stagenum < NUM_STAGES) {
-		s32 bank = langGetLangBankIndexFromStagenum(g_Vars.stagenum);
-		langClearBank(bank);
-	}
-
 	chrmgrStop();
 	explosionsStop();
 	smokeStop();

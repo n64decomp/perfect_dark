@@ -807,30 +807,11 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 					totalheight += lineheight;
 					relx = 0;
 				}
-			} else if (*text < 0x80) {
+			} else {
 				gdl = text0f154f38(gdl, &relx, &chars[*text - 0x21], &chars[prevchar - 0x21], font,
 						widthscale, heightscale, fx, fy);
 				prevchar = *text;
 				text += 1;
-			} else {
-				u16 codepoint = (text[0] & 0x7f) << 7 | (text[1] & 0x7f);
-				struct fontchar tmpchar = {0, 0, 12, 11};
-
-				if (1);
-
-				if (codepoint & 0x2000) {
-					tmpchar.width = 15;
-					tmpchar.height = 16;
-				}
-
-				if ((codepoint & 0x1fff) >= 0x3c8) {
-					codepoint = 2;
-				}
-
-				tmpchar.index = codepoint + 0x80;
-				tmpchar.pixeldata = (void *) lang0f16e3fc(codepoint);
-
-				text += 2;
 			}
 		}
 	}
@@ -1038,29 +1019,10 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 				}
 
 				*x = savedx;
-			} else if (*text < 0x80) {
+			} else {
 				gdl = text0f15568c(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21], font, savedx, savedy, width, height, arg9);
 				prevchar = *text;
 				text++;
-			} else {
-				u16 codepoint = ((*text & 0x7f) << 7) | (text[1] & 0x7f);
-				struct fontchar tmpchar = {0, 0, 12, 11};
-
-				if (codepoint & 0x2000) {
-					tmpchar.width = 15;
-					tmpchar.height = 16;
-				}
-
-				if ((codepoint & 0x1fff) >= 0x3c8) {
-					codepoint = 2;
-				}
-
-				tmpchar.index = codepoint + 0x80;
-				tmpchar.pixeldata = (void *)lang0f16e3fc(codepoint);
-
-				gdl = text0f15568c(gdl, x, y, &tmpchar, &tmpchar, font, savedx, savedy, width, height, arg9);
-
-				text += 2;
 			}
 		}
 	}
@@ -1236,30 +1198,11 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 			*y += lineheight;
 			prevchar = 'H';
 			text++;
-		} else if (*text < 0x80) {
+		} else {
 			gdl = textRenderChar(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21],
 					font, savedx, savedy, width * var8007fad0, height, arg10);
 			prevchar = *text;
 			text++;
-		} else {
-			u16 codepoint = ((*text & 0x7f) << 7) | (text[1] & 0x7f);
-			struct fontchar sp74 = {0, 0, 12, 11};
-
-			if (codepoint & 0x2000) {
-				sp74.width = 15;
-				sp74.height = 16;
-			}
-
-			if ((codepoint & 0x1fff) >= 0x3c8) {
-				codepoint = 2;
-			}
-
-			sp74.index = codepoint + 0x80;
-			sp74.pixeldata = (void *)lang0f16e3fc(codepoint);
-
-			gdl = textRenderChar(gdl, x, y, &sp74, &sp74, font, savedx, savedy, width * var8007fad0, height, arg10);
-
-			text += 2;
 		}
 	}
 

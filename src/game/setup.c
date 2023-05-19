@@ -1053,7 +1053,9 @@ void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing 
 
 		briefing->langbank = langGetLangBankIndexFromStagenum(stagenum);
 
-		langLoadToAddr(briefing->langbank, langbuffer, langbufferlen);
+		if (briefing->langbank) {
+			langLoadToAddr(briefing->langbank, langbuffer, langbufferlen);
+		}
 
 		start = (struct defaultobj *)((u32)setup + (u32)setup->props);
 
@@ -1139,6 +1141,7 @@ void setupLoadFiles(s32 stagenum)
 	struct stagesetup *setup;
 	u16 filenum;
 	bool modified;
+	s32 langbank;
 
 	g_PadEffects = NULL;
 	g_LastPadEffectIndex = -1;
@@ -1158,7 +1161,12 @@ void setupLoadFiles(s32 stagenum)
 
 		g_GeCreditsData = (u8 *)fileLoadToNew(filenum, FILELOADMETHOD_DEFAULT);
 		setup = (struct stagesetup *)g_GeCreditsData;
-		langLoad(langGetLangBankIndexFromStagenum(stagenum));
+
+		langbank = langGetLangBankIndexFromStagenum(stagenum);
+
+		if (langbank) {
+			langLoad(langbank);
+		}
 
 		g_StageSetup.intro = (s32 *)((u32)setup + (u32)setup->intro);
 		g_StageSetup.props = (u32 *)((u32)setup + (u32)setup->props);
