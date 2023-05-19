@@ -11,7 +11,7 @@ glabel osSetIntMask
 	lui   $t0, %hi(__osGlobalIntMask)
 	addiu $t0, $t0, %lo(__osGlobalIntMask)
 	lw    $t3, 0x0($t0)
-	addiu $at, $zero, -1
+	li    $at, -1
 	xor   $t0, $t3, $at
 	andi  $t0, $t0, 0xff00
 	or    $v0, $v0, $t0
@@ -19,7 +19,7 @@ glabel osSetIntMask
 	lw    $t2, 0xc($t2)
 	beqz  $t2, .L00048694
 	srl   $t1, $t3, 0x10
-	addiu $at, $zero, -1
+	li    $at, -1
 	xor   $t1, $t1, $at
 	andi  $t1, $t1, 0x3f
 	or    $t2, $t2, $t1

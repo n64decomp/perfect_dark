@@ -149,7 +149,7 @@ glabel modelasm00018680
 	sw     $zero, 0x7f8($sp)
 	lui    $at, 0x3f80
 	mtc1   $at, $f31
-	or     $t0, $sp, $zero
+	move   $t0, $sp
 	lw     $t1, 0x8($a1)
 	lhu    $t1, 0xe($t1)
 .L000186f8:
@@ -161,7 +161,7 @@ glabel modelasm00018680
 	lw     $a2, 0x20($a1)
 	beqz   $a2, .L000189cc
  	nop
-	or     $t0, $sp, $zero
+	move   $t0, $sp
 	addi   $t1, $zero, 0x0
 	lui    $t4, %hi(g_AnimToHeaderSlot)
 	addiu  $t4, $t4, %lo(g_AnimToHeaderSlot)
@@ -201,7 +201,7 @@ glabel modelasm00018680
 	c.eq.s $f1, $f0
 	bc1t   .L00018874
  	nop
-	or     $t0, $sp, $zero
+	move   $t0, $sp
 	addiu  $t0, $t0, 0x3c0
 	lw     $t1, 0x8($a1)
 	lhu    $t1, 0xe($t1)
@@ -212,7 +212,7 @@ glabel modelasm00018680
 	addiu  $t0, $t0, 0x8
 	lui    $at, 0x4580
 	mtc1   $at, $f2
-	or     $t0, $sp, $zero
+	move   $t0, $sp
 	mul.s  $f0, $f0, $f2
 	addi   $t1, $zero, 0x0
 	trunc.w.s $f0, $f0
@@ -255,7 +255,7 @@ glabel modelasm00018680
 	c.eq.s $f0, $f1
 	bc1t   .L000189cc
 	swc1   $f0, 0x7e0($sp)
-	or     $t0, $sp, $zero
+	move   $t0, $sp
 	addiu  $t0, $t0, 0x3c0
 	addi   $t1, $zero, 0x0
 	lui    $t4, %hi(g_AnimToHeaderSlot)
@@ -298,7 +298,7 @@ glabel modelasm00018680
  	nop
 	lui    $at, 0x4580
 	mtc1   $at, $f2
-	or     $t0, $sp, $zero
+	move   $t0, $sp
 	addiu  $t0, $t0, 0x3c0
 	mul.s  $f0, $f0, $f2
 	addi   $t1, $zero, 0x0
@@ -340,7 +340,7 @@ glabel modelasm00018680
 	lw     $a3, 0x8($a1)
 	lw     $gp, 0x0($a3)
 	lw     $s6, 0x4($a3)
-	or     $s7, $sp, $zero
+	move   $s7, $sp
 	beqz   $gp, .L000195c8
 	addiu  $v0, $v0, 0x1
 .L000189e4:
@@ -446,15 +446,15 @@ glabel modelasm00018680
 	mov.s  $f17, $f1
 	mov.s  $f18, $f2
 	mov.s  $f19, $f3
-	or     $t2, $s2, $zero
-	or     $t3, $s3, $zero
+	move   $t2, $s2
+	move   $t3, $s3
 	jal    modelasmPrepareRotMtx360
-	or     $t4, $s4, $zero
+	move   $t4, $s4
 	jal    modelasmMathPain2
  	nop
 	jal    modelasmMathPain1
 	lwc1   $f30, 0x7e0($sp)
-	addiu  $t0, $zero, 0x1
+	li     $t0, 0x1
 	sw     $t0, 0x7e4($sp)
 	lw     $t0, 0x7e8($sp)
 	swc1   $f0, 0x7e8($sp)
@@ -807,7 +807,7 @@ glabel modelasm00018680
 	c.le.s $f0, $f3
 	bc1f   .L000190b0
 	lw     $t1, 0x8($t1)
-	addiu  $t0, $zero, 0x1
+	li     $t0, 0x1
 	sw     $t0, 0x0($v0)
 	j      .L00019574
 	sw     $t1, 0x14($gp)
@@ -899,10 +899,10 @@ glabel modelasm00018680
 	mov.s  $f17, $f1
 	mov.s  $f18, $f2
 	mov.s  $f19, $f3
-	or     $t2, $s2, $zero
-	or     $t3, $s3, $zero
+	move   $t2, $s2
+	move   $t3, $s3
 	jal    modelasmPrepareRotMtx360
-	or     $t4, $s4, $zero
+	move   $t4, $s4
 	jal    modelasmMathPain2
  	nop
 	jal    modelasmMathPain1
@@ -1160,14 +1160,14 @@ glabel modelasm00018680
  	nop
 	lhu    $t0, 0x0($gp)
 	andi   $t0, $t0, 0xff
-	addiu  $at, $zero, 0x17
+	li     $at, 0x17
 	bne    $t0, $at, .L00019588
  	nop
 	sw     $t0, 0x7f8($sp)
 	bnez   $gp, .L00019588
  	nop
 .L000195c8:
-	addiu  $v0, $zero, 0x1
+	li     $v0, 0x1
 .L000195cc:
 	lw     $s0, 0x780($sp)
 	lw     $s1, 0x784($sp)
@@ -1229,7 +1229,7 @@ glabel modelasmIterateThings1
 	sll    $t8, $t8, 0x3
 	sub    $v0, $v0, $t8
 	lbu    $s8, 0x0($t6)
-	addiu  $gp, $zero, 0x8
+	li     $gp, 0x8
 	addiu  $t6, $t6, 0x1
 	sub    $gp, $gp, $v0
 	j      .L00019808
@@ -1242,17 +1242,17 @@ glabel modelasmIterateThings1
 	lbu    $v1, 0x2($t2)
 	add    $s0, $zero, $v0
 	lbu    $v1, 0x2($t2)
-	addiu  $s3, $zero, 0x10
+	li     $s3, 0x10
 	slt    $at, $v1, $s3
 	beqz   $at, .L00019718
-	addiu  $s3, $zero, 0x1
+	li     $s3, 0x1
 	addiu  $v0, $v1, -1
 	sllv   $s3, $s3, $v0
 	and    $s4, $s0, $s3
 	beqz   $s4, .L00019718
-	addiu  $s4, $zero, 0x10
+	li     $s4, 0x10
 	sub    $s4, $s4, $v1
-	addiu  $v0, $zero, 0x1
+	li     $v0, 0x1
 	sllv   $v0, $v0, $s4
 	addiu  $v0, $v0, -1
 	sllv   $v0, $v0, $v1
@@ -1268,17 +1268,17 @@ glabel modelasmIterateThings1
 	lbu    $v1, 0x5($t2)
 	add    $s1, $zero, $v0
 	lbu    $v1, 0x5($t2)
-	addiu  $s3, $zero, 0x10
+	li     $s3, 0x10
 	slt    $at, $v1, $s3
 	beqz   $at, .L0001977c
-	addiu  $s3, $zero, 0x1
+	li     $s3, 0x1
 	addiu  $v0, $v1, -1
 	sllv   $s3, $s3, $v0
 	and    $s4, $s1, $s3
 	beqz   $s4, .L0001977c
-	addiu  $s4, $zero, 0x10
+	li     $s4, 0x10
 	sub    $s4, $s4, $v1
-	addiu  $v0, $zero, 0x1
+	li     $v0, 0x1
 	sllv   $v0, $v0, $s4
 	addiu  $v0, $v0, -1
 	sllv   $v0, $v0, $v1
@@ -1294,17 +1294,17 @@ glabel modelasmIterateThings1
 	lbu    $v1, 0x8($t2)
 	add    $s2, $zero, $v0
 	lbu    $v1, 0x8($t2)
-	addiu  $s3, $zero, 0x10
+	li     $s3, 0x10
 	slt    $at, $v1, $s3
 	beqz   $at, .L000197e0
-	addiu  $s3, $zero, 0x1
+	li     $s3, 0x1
 	addiu  $v0, $v1, -1
 	sllv   $s3, $s3, $v0
 	and    $s4, $s2, $s3
 	beqz   $s4, .L000197e0
-	addiu  $s4, $zero, 0x10
+	li     $s4, 0x10
 	sub    $s4, $s4, $v1
-	addiu  $v0, $zero, 0x1
+	li     $v0, 0x1
 	sllv   $v0, $v0, $s4
 	addiu  $v0, $v0, -1
 	sllv   $v0, $v0, $v1
@@ -1335,7 +1335,7 @@ glabel modelasmIterateThings1
 	sll    $v1, $v1, 0x8
 	lbu    $v0, 0x1($t2)
 	addu   $v1, $v1, $v0
-	addiu  $v0, $zero, 0x10
+	li     $v0, 0x10
 	addu   $s0, $s0, $v1
 	sub    $v0, $v0, $t4
 	sllv   $s0, $s0, $v0
@@ -1347,7 +1347,7 @@ glabel modelasmIterateThings1
 	sll    $v1, $v1, 0x8
 	lbu    $v0, 0x4($t2)
 	addu   $v1, $v1, $v0
-	addiu  $v0, $zero, 0x10
+	li     $v0, 0x10
 	addu   $s1, $s1, $v1
 	sub    $v0, $v0, $t4
 	sllv   $s1, $s1, $v0
@@ -1359,7 +1359,7 @@ glabel modelasmIterateThings1
 	sll    $v1, $v1, 0x8
 	lbu    $v0, 0x7($t2)
 	addu   $v1, $v1, $v0
-	addiu  $v0, $zero, 0x10
+	li     $v0, 0x10
 	addu   $s2, $s2, $v1
 	sub    $v0, $v0, $t4
 	sllv   $s2, $s2, $v0
@@ -1409,7 +1409,7 @@ glabel modelasmIterateThings2
 	sll    $t8, $t8, 0x3
 	sub    $v0, $v0, $t8
 	lbu    $s8, 0x0($t6)
-	addiu  $gp, $zero, 0x8
+	li     $gp, 0x8
 	addiu  $t6, $t6, 0x1
 	sub    $gp, $gp, $v0
 	j      .L000199b8
@@ -1432,7 +1432,7 @@ glabel modelasmIterateThings2
 	sll    $t8, $t8, 0x3
 	sub    $v0, $v0, $t8
 	lbu    $s8, 0x0($t6)
-	addiu  $gp, $zero, 0x8
+	li     $gp, 0x8
 	addiu  $t6, $t6, 0x1
 	sub    $gp, $gp, $v0
 .L000199b4:
@@ -1452,7 +1452,7 @@ glabel modelasmIterateThings2
 	sll    $v1, $v1, 0x8
 	lbu    $v0, 0x1($t2)
 	addu   $v1, $v1, $v0
-	addiu  $v0, $zero, 0x10
+	li     $v0, 0x10
 	addu   $s0, $s0, $v1
 	sub    $v0, $v0, $t4
 	sllv   $s0, $s0, $v0
@@ -1464,7 +1464,7 @@ glabel modelasmIterateThings2
 	sll    $v1, $v1, 0x8
 	lbu    $v0, 0x4($t2)
 	addu   $v1, $v1, $v0
-	addiu  $v0, $zero, 0x10
+	li     $v0, 0x10
 	addu   $s1, $s1, $v1
 	sub    $v0, $v0, $t4
 	sllv   $s1, $s1, $v0
@@ -1476,7 +1476,7 @@ glabel modelasmIterateThings2
 	sll    $v1, $v1, 0x8
 	lbu    $v0, 0x7($t2)
 	addu   $v1, $v1, $v0
-	addiu  $v0, $zero, 0x10
+	li     $v0, 0x10
 	addu   $s2, $s2, $v1
 	sub    $v0, $v0, $t4
 	sllv   $s2, $s2, $v0
@@ -1606,7 +1606,7 @@ glabel modelasmReadFrameData
 	slti   $at, $s6, 0x4
 	bnez   $at, .L00019c24
  	nop
-	addiu  $s6, $zero, 0x4
+	li     $s6, 0x4
 .L00019c24:
 	andi   $s8, $t6, 0x3
 	addiu  $s8, $s8, -4
@@ -1616,7 +1616,7 @@ glabel modelasmReadFrameData
 	slt    $at, $s8, $s6
 	beqz   $at, .L00019c48
  	nop
-	or     $s6, $s8, $zero
+	move   $s6, $s8
 .L00019c48:
 	lui    $s8, %hi(var8005ef7c)
 	addiu  $s8, $s8, %lo(var8005ef7c)
@@ -1627,13 +1627,13 @@ glabel modelasmReadFrameData
 	lbu    $s8, 0x0($t6)
 	addiu  $t6, $t6, 0x1
 	j      .L00019be8
-	addiu  $gp, $zero, 0x8
+	li     $gp, 0x8
 	sll    $s8, $s8, 0x8
 	lbu    $s6, 0x1($t6)
 	or     $s8, $s8, $s6
 	addiu  $t6, $t6, 0x2
 	j      .L00019be8
-	addiu  $gp, $zero, 0x10
+	li     $gp, 0x10
 	sll    $s8, $s8, 0x8
 	lbu    $s6, 0x1($t6)
 	or     $s8, $s8, $s6
@@ -1642,7 +1642,7 @@ glabel modelasmReadFrameData
 	or     $s8, $s8, $s6
 	addiu  $t6, $t6, 0x3
 	j      .L00019be8
-	addiu  $gp, $zero, 0x18
+	li     $gp, 0x18
 	andi   $s6, $t6, 0x3
 	beqz   $s6, .L00019ce4
 	sll    $s8, $s8, 0x8
@@ -1656,12 +1656,12 @@ glabel modelasmReadFrameData
 	or     $s8, $s8, $s6
 	addiu  $t6, $t6, 0x4
 	j      .L00019be8
-	addiu  $gp, $zero, 0x20
+	li     $gp, 0x20
 .L00019ce4:
 	lw     $s8, 0x0($t6)
 	addiu  $t6, $t6, 0x4
 	j      .L00019be8
-	addiu  $gp, $zero, 0x20
+	li     $gp, 0x20
 .L00019cf4:
 	beqz   $v1, .L00019d14
 	sub    $gp, $gp, $v1
@@ -1695,7 +1695,7 @@ glabel modelasmGetNodeRwData
 	lw     $t3, 0x10($a1)
 	add    $t2, $t2, $t1
 	lbu    $t2, 0x0($t2)
-	addiu  $at, $zero, 0xff
+	li     $at, 0xff
 	beq    $t2, $at, .L00019d78
 	add    $t2, $t4, $t2
 	lhu    $t0, 0x0($t2)
@@ -1706,10 +1706,10 @@ glabel modelasmGetNodeRwData
 .L00019d84:
 	lw     $t1, 0x8($gp)
 	beqz   $t1, .L00019db0
-	or     $gp, $t1, $zero
+	move   $gp, $t1
 	lhu    $t1, 0x0($gp)
 	andi   $t1, $t1, 0xff
-	addiu  $at, $zero, 0x17
+	li     $at, 0x17
 	bne    $t1, $at, .L00019d84
  	nop
 	jal    modelasmGetNodeRwData
@@ -1750,7 +1750,7 @@ glabel modelGetNodeRwData
 	lw     $t3, 0x10($a0)
 	add    $t2, $t2, $t1
 	lbu    $t2, 0x0($t2)
-	addiu  $at, $zero, 0xff
+	li     $at, 0xff
 	beq    $t2, $at, .NB0001aefc
 	add    $t2, $t4, $t2
 	lhu    $t0, 0x0($t2)
@@ -1761,10 +1761,10 @@ glabel modelGetNodeRwData
 .NB0001af08:
 	lw     $t1, 0x8($a1)
 	beqz   $t1, .NB0001af34
-	or     $a1, $t1, $zero
+	move   $a1, $t1
 	lhu    $t1, 0x0($a1)
 	andi   $t1, $t1, 0xff
-	addiu  $at, $zero, 0x17
+	li     $at, 0x17
 	bne    $t1, $at, .NB0001af08
 	sll    $zero, $zero, 0x0
 	jal    modelGetNodeRwData
@@ -2048,7 +2048,7 @@ glabel modelasmMathPain4
 	sub.s  $f20, $f20, $f26
 
 glabel modelasmMtxMultiply
-	addiu  $t2, $zero, 0x3
+	li     $t2, 0x3
 .L0001a1c4:
 	lwc1   $f0, 0x0($t0)
 	addiu  $t0, $t0, 0x4
@@ -2093,9 +2093,9 @@ glabel modelasmFindNodeMtx
 .L0001a25c:
 	lh     $t1, 0x0($t0)
 	andi   $t1, $t1, 0xff
-	addiu  $t2, $zero, 0x1
+	li     $t2, 0x1
 	bne    $t1, $t2, .L0001a288
-	addiu  $t2, $zero, 0x2
+	li     $t2, 0x2
 	lw     $t2, 0x4($t0)
 	lhu    $t2, 0x2($t2)
 	sll    $t2, $t2, 0x6
@@ -2104,7 +2104,7 @@ glabel modelasmFindNodeMtx
 	add    $t0, $t1, $t2
 .L0001a288:
 	bne    $t1, $t2, .L0001a2a8
-	addiu  $t2, $zero, 0x15
+	li     $t2, 0x15
 	lw     $t2, 0x4($t0)
 	lhu    $t2, 0xe($t2)
 	sll    $t2, $t2, 0x6
@@ -2138,12 +2138,12 @@ glabel modelasmAcosOrAsin
 	bnez   $at, .L0001a308
  	nop
 	b      .L0001a318
-	addiu  $t2, $zero, 0x7fff
+	li     $t2, 0x7fff
 .L0001a308:
 	slti   $at, $t2, -32767
 	beqz   $at, .L0001a318
  	nop
-	addiu  $t2, $zero, -32767
+	li     $t2, -32767
 .L0001a318:
 	bgez   $t2, .L0001a324
 	add    $t3, $zero, $t2
@@ -2155,9 +2155,9 @@ glabel modelasmAcosOrAsin
 	lui    $t4, %hi(var8006ae90+252)
 	addiu  $t4, $t4, %lo(var8006ae90+252)
 	addi   $t3, $t3, -32736
-	addiu  $t5, $zero, 0x3
+	li     $t5, 0x3
 	b      .L0001a37c
-	addiu  $t6, $zero, 0x7
+	li     $t6, 0x7
 .L0001a348:
 	slti   $at, $t3, 0x7800
 	bnez   $at, .L0001a36c
@@ -2165,14 +2165,14 @@ glabel modelasmAcosOrAsin
 	lui    $t4, %hi(var8006ae90+124)
 	addiu  $t4, $t4, %lo(var8006ae90+124)
 	addi   $t3, $t3, -30720
-	addiu  $t5, $zero, 0x5
+	li     $t5, 0x5
 	b      .L0001a37c
-	addiu  $t6, $zero, 0x1f
+	li     $t6, 0x1f
 .L0001a36c:
 	lui    $t4, %hi(var8006ae90)
 	addiu  $t4, $t4, %lo(var8006ae90)
-	addiu  $t5, $zero, 0x9
-	addiu  $t6, $zero, 0x1ff
+	li     $t5, 0x9
+	li     $t6, 0x1ff
 .L0001a37c:
 	srav   $s0, $t3, $t5
 	sll    $s0, $s0, 0x1

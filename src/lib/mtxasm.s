@@ -41,7 +41,7 @@ glabel mtx4MultMtx4
 	mfc1   $t3, $f22
 	mfc1   $t4, $f23
 	mfc1   $t5, $f24
-	addiu  $t0, $zero, 0x4
+	li     $t0, 0x4
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
@@ -113,7 +113,7 @@ glabel mtx4RotateVec
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
-	addiu  $t0, $zero, 0x3
+	li     $t0, 0x3
 	lwc1   $f3, 0x0($a0)
 .L00015b28:
 	lwc1   $f4, 0x10($a0)
@@ -139,7 +139,7 @@ glabel mtx4TransformVec
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
-	addiu  $t0, $zero, 0x3
+	li     $t0, 0x3
 	lwc1   $f3, 0x0($a0)
 .L00015b7c:
 	lwc1   $f4, 0x10($a0)
@@ -188,7 +188,7 @@ glabel mtx00015be4
 	lwc1   $f9, 0x30($a1)
 	lwc1   $f10, 0x34($a1)
 	lwc1   $f11, 0x38($a1)
-	addiu  $t0, $zero, 0x3
+	li     $t0, 0x3
 .L00015c28:
 	lwc1   $f12, 0x0($a0)
 	addiu  $a0, $a0, 0x4
@@ -236,7 +236,7 @@ glabel mtx00015be4
 	mtc1   $t4, $f23
 
 glabel mtx3Copy
-	addiu  $t0, $zero, 0x2
+	li     $t0, 0x2
 .L00015cdc:
 	lw     $t1, 0x0($a0)
 	lw     $t2, 0x4($a0)
@@ -255,7 +255,7 @@ glabel mtx3Copy
 	sw     $t0, 0x0($a1)
 
 glabel mtx4Copy
-	addiu  $t0, $zero, 0x4
+	li     $t0, 0x4
 .L00015d1c:
 	lw     $t1, 0x0($a0)
 	lw     $t2, 0x4($a0)
@@ -273,7 +273,7 @@ glabel mtx4Copy
  	nop
 
 glabel mtx3ToMtx4
-	addiu  $t0, $zero, 0x3
+	li     $t0, 0x3
 	lui    $at, 0x3f80
 	mtc1   $at, $f4
 .L00015d60:
@@ -295,7 +295,7 @@ glabel mtx3ToMtx4
 	swc1   $f4, 0xc($a1)
 
 glabel mtx4ToMtx3
-	addiu  $t0, $zero, 0x3
+	li     $t0, 0x3
 .L00015da4:
 	lw     $t1, 0x0($a0)
 	lw     $t2, 0x4($a0)
@@ -401,7 +401,7 @@ glabel mtx00015edc
 	swc1   $f10, 0x28($a1)
 
 glabel mtx00015f04
-	addiu  $t0, $zero, 0x3
+	li     $t0, 0x3
 .L00015f08:
 	lwc1   $f4, 0x0($a1)
 	lwc1   $f6, 0x4($a1)
@@ -422,7 +422,7 @@ glabel mtx00015f04
  	nop
 
 glabel mtx00015f4c
-	addiu  $t0, $zero, 0x3
+	li     $t0, 0x3
 .L00015f50:
 	lwc1   $f4, 0x0($a1)
 	lwc1   $f6, 0x4($a1)
@@ -440,7 +440,7 @@ glabel mtx00015f4c
  	nop
 
 glabel mtx00015f88
-	addiu  $t0, $zero, 0x3
+	li     $t0, 0x3
 .L00015f8c:
 	lwc1   $f4, 0x0($a1)
 	lwc1   $f6, 0x10($a1)
@@ -469,7 +469,7 @@ glabel mtxGetObfuscatedRomBase
 	sw     $ra, 0x14($sp)
 	lui    $a0, %hi(__osPiAccessQueue)
 	addiu  $a0, $a0, %lo(__osPiAccessQueue)
-	addiu  $a1, $zero, 0
+	li     $a1, 0
 	jal    osRecvMesg
 	lui    $a2, 1
 	lui    $a0, 0xa45f
@@ -492,7 +492,7 @@ glabel mtxGetObfuscatedRomBase
 	sw     $v0, 0x18($sp)
 	lui    $a0, %hi(__osPiAccessQueue)
 	addiu  $a0, $a0, %lo(__osPiAccessQueue)
-	addiu  $a1, $zero, 0
+	li     $a1, 0
 	jal    osSendMesg
 	lui    $a2, 0
 	lw     $v0, 0x18($sp)
@@ -503,7 +503,7 @@ glabel mtxGetObfuscatedRomBase
 glabel mtxF2L
 	lui    $t2, %hi(var8005ef10)
 	addiu  $t2, $t2, %lo(var8005ef10)
-	addiu  $t0, $zero, 0x4
+	li     $t0, 0x4
 	lui    $t1, 0xffff
 	lwc1   $f0, 0x0($t2)
 	lwc1   $f2, 0x4($t2)

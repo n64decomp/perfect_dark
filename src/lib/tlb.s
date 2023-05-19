@@ -57,12 +57,12 @@ glabel tlbInit
 	mtc0   $t0, C0_PAGEMASK
 	lui    $t0, 0x7000
 	mtc0   $t0, C0_ENTRYHI
-	addiu  $t0, $zero, 0x1f
+	li     $t0, 0x1f
 	mtc0   $t0, C0_ENTRYLO0
 	lui    $t0, 0x1
 	ori    $t0, $t0, 0x1f
 	mtc0   $t0, C0_ENTRYLO1
-	addiu  $t0, $zero, 0
+	li     $t0, 0
 	mtc0   $t0, C0_INX
  	nop
  	tlbwi
@@ -78,15 +78,15 @@ glabel tlb000010a4
 	addiu  $sp, $sp, -8
 	sw     $ra, 0x0($sp)
 	mtc0   $zero, C0_CONTEXT
-	addiu  $t0, $zero, 0x2
+	li     $t0, 0x2
 	mtc0   $t0, C0_WIRED
-	addiu  $t1, $zero, 0x1ff
+	li     $t1, 0x1ff
 	lui    $at, %hi(var8008d264+0x2)
 	sh     $t1, %lo(var8008d264+0x2)($at)
 #if VERSION >= VERSION_NTSC_1_0
-	addiu  $a0, $zero, 268
+	li     $a0, 268
 #else
-	addiu  $a0, $zero, 266
+	li     $a0, 266
 #endif
 	lui    $at, %hi(g_VmInitialised+0x2)
 	sh     $a0, %lo(g_VmInitialised+0x2)($at)
@@ -107,7 +107,7 @@ glabel tlb000010a4
 	sw     $v0, %lo(var8008d268)($at)
 	lui    $v0, %hi(var8008d238)
 	addiu  $v0, $v0, %lo(var8008d238)
-	addiu  $a0, $zero, 0x21
+	li     $a0, 0x21
 	lui    $at, %hi(var8008d25c)
 	sw     $v0, %lo(var8008d25c)($at)
 	addu   $v1, $v0, $a0
@@ -119,7 +119,7 @@ glabel tlb000010a4
  	nop
 
 glabel tlb0000113c
-	addiu  $t0, $zero, 0xff
+	li     $t0, 0xff
 	lui    $v0, %hi(var8008d25c)
 	lw     $v0, %lo(var8008d25c)($v0)
 	lui    $v1, %hi(var8008d260)
@@ -129,13 +129,13 @@ glabel tlb0000113c
 	bne    $v0, $v1, .L00001150
 	addiu  $v0, $v0, 1
 #if VERSION >= VERSION_NTSC_1_0
-	addiu  $a0, $zero, 4
+	li     $a0, 4
 #else
-	addiu  $a0, $zero, 2
+	li     $a0, 2
 #endif
 	beqz   $a0, .L00001178
 	addiu  $a0, $a0, -1
-	addiu  $t0, $zero, 2
+	li     $t0, 2
 	sllv   $t0, $t0, $a0
 	addiu  $t0, $t0, -1
 	sb     $t0, 0x0($v1)
@@ -177,8 +177,8 @@ glabel tlbHandleMiss
 	lw     $s1, 0x8($s0)
 .L000011e0:
 	bnezl  $s1, .L000014c4
-	addiu  $t5, $zero, 0x1
-	addiu  $t5, $zero, 0x0
+	li     $t5, 0x1
+	li     $t5, 0x0
 	lui    $t1, %hi(var8008d25c)
 	lw     $t1, %lo(var8008d25c)($t1)
 	lui    $t2, %hi(var8008d260)
@@ -187,14 +187,14 @@ glabel tlbHandleMiss
 	lbu    $t0, 0x0($t1)
 	beqz   $t0, .L0000122c
  	nop
-	addiu  $t6, $zero, 0x0
-	addiu  $t7, $zero, 0x1
+	li     $t6, 0x0
+	li     $t7, 0x1
 .L00001210:
 	and    $t8, $t0, $t7
 	bnez   $t8, .L0000123c
  	nop
 	addiu  $t6, $t6, 0x1
-	addiu  $at, $zero, 0x8
+	li     $at, 0x8
 	bne    $t6, $at, .L00001210
 	sll    $t7, $t7, 0x1
 .L0000122c:
@@ -233,7 +233,7 @@ glabel tlbHandleMiss
 	lw     $t2, 0x0($t0)
 	lw     $t0, 0x4($t0)
 	subu   $t0, $t0, $t2
-	addiu  $t1, $zero, -16
+	li     $t1, -16
 	addiu  $t0, $t0, 0xf
 	and    $t6, $t0, $t1
 	lui    $t0, 0xa460
@@ -290,7 +290,7 @@ glabel tlbHandleMiss
 	addiu  $t0, $t0, 16
 	bnez   $s6, .L00001370
  	nop
-	addiu  $t0, $zero, 0x2
+	li     $t0, 0x2
 	lui    $at, 0xa460
 	sw     $t0, 0x10($at)
 .L00001370:
@@ -381,7 +381,7 @@ glabel tlbHandleMiss
 	bnez   $at, .L000014b4
 	addiu  $t0, $t0, 0x10
 .L000014c4:
-	addiu  $t0, $zero, OS_PM_4K
+	li     $t0, OS_PM_4K
 	mtc0   $t0, C0_PAGEMASK
 	mtc0   $s5, C0_ENTRYHI
  	nop
@@ -416,7 +416,7 @@ glabel tlbHandleMiss
 .L00001538:
 	bnez   $t5, .L00001568
  	nop
-	or     $t0, $s5, $zero
+	move   $t0, $s5
 	bnezl  $t9, .L0000154c
 	addiu  $t0, $t0, 0x1000
 .L0000154c:
@@ -464,16 +464,16 @@ glabel tlbHandleMiss
 	bne    $t1, $gp, .L000015ac
  	nop
 	j      .L000015ac
-	or     $t1, $s4, $zero
+	move   $t1, $s4
 .L000015cc:
 	subu   $t0, $t1, $s4
 	srl    $t0, $t0, 0x3
 	sll    $t0, $t0, 0xc
 	addu   $t0, $t0, $s8
-	addiu  $t2, $zero, -4096
+	li     $t2, -4096
 	and    $t0, $t0, $t2
 	mtc0   $t0, C0_ENTRYHI
-	addiu  $t0, $zero, 0x0
+	li     $t0, 0x0
 	mtc0   $t0, C0_PAGEMASK
  	nop
  	nop

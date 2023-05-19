@@ -21,11 +21,11 @@
  * the instruction, then reads the value out of the stack using that offset.
  */
 glabel getReturnAddress
-	or     $a0, $ra, $zero
-	addiu  $v0, $zero, -1
+	move   $a0, $ra
+	li     $v0, -1
 .loop:
 	lw     $t0, 0($a0)
-	addiu  $t2, $zero, 0x27bd
+	li     $t2, 0x27bd
 	srl    $t1, $t0, 16
 	beq    $t1, $t2, .foundtop
 	nop

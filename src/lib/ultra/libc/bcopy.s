@@ -40,9 +40,9 @@ glabel bcopy
 	move  $v0, $a3
 .L0004b1e4:
 	beqz  $v0, .L0004b248
-	addiu $at, $zero, 0x1
+	li    $at, 0x1
 	beq   $v0, $at, .L0004b22c
-	addiu $at, $zero, 0x2
+	li    $at, 0x2
 	beql  $v0, $at, .L0004b218
 	lh    $v0, 0x0($a0)
 	lb    $v0, 0x0($a0)
@@ -143,9 +143,9 @@ glabel bcopy
 	move  $v0, $a3
 .L0004b354:
 	beqz  $v0, .L0004b3b8
-	addiu $at, $zero, 0x3
+	li    $at, 0x3
 	beq   $v0, $at, .L0004b39c
-	addiu $at, $zero, 0x2
+	li    $at, 0x2
 	beql  $v0, $at, .L0004b388
 	lh    $v0, -0x2($a0)
 	lb    $v0, -0x1($a0)

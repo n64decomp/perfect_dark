@@ -14,14 +14,14 @@ glabel bcmp
 	andi  $t8, $t8, 0x3
 	beqz  $t8, .L0004e0cc
 	subu  $a2, $a2, $t8
-	or    $v0, $v1, $zero
+	move  $v0, $v1
 	lwl   $v0, 0x0($a0)
 	lwl   $v1, 0x0($a1)
 	addu  $a0, $a0, $t8
 	addu  $a1, $a1, $t8
 	bne   $v0, $v1, .L0004e1a4
 .L0004e0cc:
-	addiu $at, $zero, -4
+	li    $at, -4
 	and   $a3, $a2, $at
 	beqz  $a3, .L0004e174
 	subu  $a2, $a2, $a3
@@ -53,7 +53,7 @@ glabel bcmp
 	bnel  $a0, $a3, .L0004e120
 	lbu   $v0, 0x0($a0)
 .L0004e13c:
-	addiu $at, $zero, -4
+	li    $at, -4
 	and   $a3, $a2, $at
 	beqz  $a3, .L0004e174
 	subu  $a2, $a2, $a3
@@ -85,4 +85,4 @@ glabel bcmp
 	or    $v0, $zero, $zero
 .L0004e1a4:
 	jr    $ra
-	addiu $v0, $zero, 0x1
+	li    $v0, 0x1

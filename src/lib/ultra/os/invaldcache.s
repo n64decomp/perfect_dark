@@ -7,7 +7,7 @@
 glabel osInvalDCache
 	blez  $a1, .L0004e500
  	nop
-	addiu $t3, $zero, 0x2000
+	li    $t3, 0x2000
 	sltu  $at, $a1, $t3
 	beqz  $at, .L0004e508
  	nop

@@ -8,7 +8,7 @@
 
 glabel osWritebackDCacheAll
 	lui   $t0, 0x8000
-	addiu $t2, $zero, 0x2000
+	li    $t2, 0x2000
 	addu  $t1, $t0, $t2
 	addiu $t1, $t1, -16
 .L00048130:

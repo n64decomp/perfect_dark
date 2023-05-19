@@ -11,7 +11,7 @@ glabel __osDisableInt
 	lw     $t3, 0x0($t2)
 	andi   $t3, $t3, 0xff00
 	mfc0   $t0, $12
-	addiu  $at, $zero, -2
+	li     $at, -2
 	and    $t1, $t0, $at
 	mtc0   $t1, $12
 	andi   $v0, $t0, 0x1
@@ -27,7 +27,7 @@ glabel __osDisableInt
 	ori    $at, $at, 0xff
 	and    $t1, $t1, $at
 	or     $t1, $t1, $t2
-	addiu  $at, $zero, -2
+	li     $at, -2
 	and    $t1, $t1, $at
 	mtc0   $t1, $12
  	nop

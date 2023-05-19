@@ -7,7 +7,7 @@
 
 glabel func00047550
 	addiu  $sp, $sp, -0xd0
-	or     $t0, $sp, $zero
+	move   $t0, $sp
 	addiu  $t1, $t0, 0xd0
 .L0004755c:
 	sw     $zero, 0x0($t0)
@@ -17,11 +17,11 @@ glabel func00047550
 	addiu  $t0, $t0, 0x10
 	bne    $t0, $t1, .L0004755c
  	nop
-	or     $t2, $a0, $zero
-	or     $t3, $sp, $zero
+	move   $t2, $a0
+	move   $t3, $sp
 	addiu  $t4, $t3, 0x40
-	or     $t6, $t4, $zero
-	addiu  $t5, $zero, 0x3
+	move   $t6, $t4
+	li     $t5, 0x3
 .L0004758c:
 	lwc1   $f4, 0x14($t2)
 	lwc1   $f6, 0x10($t2)
@@ -293,13 +293,13 @@ glabel func00047550
 	addi   $t5, $t5, -1
 	bnez   $t5, .L0004758c
  	nop
-	or     $t0, $a2, $zero
-	or     $t1, $a3, $zero
-	or     $t4, $t6, $zero
+	move   $t0, $a2
+	move   $t1, $a3
+	move   $t4, $t6
 	andi   $a1, $a1, 0x1
 	beqz   $a1, .L00047a24
  	nop
-	addiu  $t5, $zero, 0x9
+	li     $t5, 0x9
 .L000479e0:
 	lwc1   $f4, 0x0($t4)
 	lwc1   $f6, 0x0($t1)
@@ -319,7 +319,7 @@ glabel func00047550
 	b      .L00047a50
  	nop
 .L00047a24:
-	addiu  $t5, $zero, 0x12
+	li     $t5, 0x12
 .L00047a28:
 	lwc1   $f4, 0x0($t4)
 	lwc1   $f6, 0x0($t1)
@@ -332,9 +332,9 @@ glabel func00047550
 	bnez   $t5, .L00047a28
  	nop
 .L00047a50:
-	or     $t1, $a3, $zero
+	move   $t1, $a3
 	addi   $t4, $t6, 0x48
-	addiu  $t5, $zero, 0x12
+	li     $t5, 0x12
 .L00047a5c:
 	lwc1   $f4, 0x0($t4)
 	swc1   $f4, 0x0($t1)

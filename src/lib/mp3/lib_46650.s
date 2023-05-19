@@ -198,7 +198,7 @@ glabel var70059df4
  */
 glabel func00046650
 	addiu  $sp, $sp, -0x90
-	or     $t0, $sp, $zero
+	move   $t0, $sp
 	addiu  $t1, $t0, 0x48
 	lwc1   $f4, 0x3c($a0)
 	lwc1   $f6, 0x40($a0)
@@ -782,10 +782,10 @@ glabel func00046650
  	nop
 	swc1   $f6, 0x10($t1)
 	swc1   $f4, 0x34($t1)
-	or     $t0, $t1, $zero
+	move   $t0, $t1
 	lw     $t1, 0xa0($sp)
-	or     $t2, $a2, $zero
-	or     $t3, $a3, $zero
+	move   $t2, $a2
+	move   $t3, $a3
 	andi   $a1, $a1, 0x1
 	beqz   $a1, .L000471b8
  	nop

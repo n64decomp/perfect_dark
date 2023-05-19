@@ -14,7 +14,7 @@ glabel bzero
 	swl   $zero, 0x0($a0)
 	addu  $a0, $a0, $v1
 .L0004b0e0:
-	addiu $at, $zero, -32
+	li    $at, -32
 	and   $a3, $a1, $at
 	beqz  $a3, .L0004b11c
 	subu  $a1, $a1, $a3
@@ -31,7 +31,7 @@ glabel bzero
 	bne   $a0, $a3, .L0004b0f4
 	sw    $zero, -0x4($a0)
 .L0004b11c:
-	addiu $at, $zero, -4
+	li    $at, -4
 	and   $a3, $a1, $at
 	beqz  $a3, .L0004b13c
 	subu  $a1, $a1, $a3

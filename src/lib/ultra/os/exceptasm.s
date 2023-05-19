@@ -79,7 +79,7 @@ glabel __osException
 	sd    $at, 0x20($k0)
 	mfc0  $k1, C0_SR
 	sw    $k1, 0x118($k0)
-	addiu $at, $zero, -4
+	li    $at, -4
 	and   $k1, $k1, $at
 	mtc0  $k1, C0_SR
 	sd    $t0, 0x58($k0)
@@ -135,7 +135,7 @@ glabel __osException
 	lui   $t0, %hi(__osGlobalIntMask)
 	addiu $t0, $t0, %lo(__osGlobalIntMask)
 	lw    $t0, 0x0($t0)
-	addiu $at, $zero, -1
+	li    $at, -1
 	xor   $t2, $t0, $at
 	lui   $at, 0xffff
 	andi  $t2, $t2, 0xff00
@@ -157,7 +157,7 @@ glabel __osException
 	addiu $t0, $t0, %lo(__osGlobalIntMask)
 	lw    $t0, 0x0($t0)
 	lw    $t4, 0x128($k0)
-	addiu $at, $zero, -1
+	li    $at, -1
 	srl   $t0, $t0, 0x10
 	xor   $t0, $t0, $at
 	andi  $t0, $t0, 0x3f
@@ -208,22 +208,22 @@ glabel __osException
 .L00003704:
 	mfc0  $t0, C0_CAUSE
 	sw    $t0, 0x120($k0)
-	addiu $t1, $zero, 0x2
+	li    $t1, 0x2
 	sh    $t1, 0x10($k0)
 	andi  $t1, $t0, 0x7c
-	addiu $t2, $zero, 0x8
+	li    $t2, 0x8
 	beq   $t1, $t2, .L000039e8
  	nop
-	addiu $t2, $zero, 0xc
+	li    $t2, 0xc
 	beq   $t1, $t2, .L000039f8
  	nop
-	addiu $t2, $zero, 0x24
+	li    $t2, 0x24
 	beql  $t1, $t2, .L00003a04
-	addiu $t1, $zero, 0x1
-	addiu $t2, $zero, 0x2c
+	li    $t1, 0x1
+	li    $t2, 0x2c
 	beq   $t1, $t2, .L00003b6c
  	nop
-	addiu $t2, $zero, 0x0
+	li    $t2, 0x0
 	bne   $t1, $t2, L00003a88
  	nop
 	and   $s0, $k1, $t0
@@ -245,18 +245,18 @@ glabel __osException
 	jr    $t2
  	nop
 .L00003790:
-	addiu $at, $zero, -8193
+	li    $at, -8193
 	b     .L00003758
 	and   $s0, $s0, $at
 .L0000379c:
-	addiu $at, $zero, -16385
+	li    $at, -16385
 	b     .L00003758
 	and   $s0, $s0, $at
 .L000037a8:
 	mfc0  $t1, C0_COMPARE
 	mtc0  $t1, C0_COMPARE
 	jal   send_mesg
-	addiu $a0, $zero, 0x18
+	li    $a0, 0x18
 	lui   $at, 0xffff
 	ori   $at, $at, 0x7fff
 	b     .L00003758
@@ -265,7 +265,7 @@ glabel __osException
 	lui   $t1, %hi(__osHwIntTable)
 	addiu $t1, $t1, %lo(__osHwIntTable)
 	lw    $t2, 0x8($t1)
-	addiu $at, $zero, -2049
+	li    $at, -2049
 	and   $s0, $s0, $at
 	beqz  $t2, .L000037fc
 	addi  $t1, $t1, 0x8
@@ -277,7 +277,7 @@ glabel __osException
  	nop
 .L000037fc:
 	jal   send_mesg
-	addiu $a0, $zero, 0x10
+	li    $a0, 0x10
 	b     .L0000375c
 	andi  $t1, $s0, 0xff00
 .L0000380c:
@@ -300,16 +300,16 @@ glabel __osException
 	beqz  $t4, .L0000386c
 	sw    $t1, 0x10($at)
 	jal   send_mesg
-	addiu $a0, $zero, 0x20
+	li    $a0, 0x20
 	beqzl $s1, .L00003944
-	addiu $at, $zero, -1025
+	li    $at, -1025
 	b     .L00003880
 	andi  $t1, $s1, 0x8
 .L0000386c:
 	jal   send_mesg
-	addiu $a0, $zero, 0x58
+	li    $a0, 0x58
 	beqzl $s1, .L00003944
-	addiu $at, $zero, -1025
+	li    $at, -1025
 	andi  $t1, $s1, 0x8
 .L00003880:
 	beqz  $t1, .L000038a0
@@ -317,21 +317,21 @@ glabel __osException
 	andi  $s1, $s1, 0x37
 	sw    $zero, 0x10($at)
 	jal   send_mesg
-	addiu $a0, $zero, 0x38
+	li    $a0, 0x38
 	beqzl $s1, .L00003944
-	addiu $at, $zero, -1025
+	li    $at, -1025
 .L000038a0:
 	andi  $t1, $s1, 0x4
 	beqzl $t1, .L000038d0
 	andi  $t1, $s1, 0x2
-	addiu $t1, $zero, 0x1
+	li    $t1, 0x1
 	lui   $at, 0xa450
 	andi  $s1, $s1, 0x3b
 	sw    $t1, 0xc($at)
 	jal   send_mesg
-	addiu $a0, $zero, 0x30
+	li    $a0, 0x30
 	beqzl $s1, .L00003944
-	addiu $at, $zero, -1025
+	li    $at, -1025
 	andi  $t1, $s1, 0x2
 .L000038d0:
 	beqz  $t1, .L000038f0
@@ -339,76 +339,76 @@ glabel __osException
 	andi  $s1, $s1, 0x3d
 	sw    $zero, 0x18($at)
 	jal   send_mesg
-	addiu $a0, $zero, 0x28
+	li    $a0, 0x28
 	beqzl $s1, .L00003944
-	addiu $at, $zero, -1025
+	li    $at, -1025
 .L000038f0:
 	andi  $t1, $s1, 0x10
 	beqzl $t1, .L00003920
 	andi  $t1, $s1, 0x20
-	addiu $t1, $zero, 0x2
+	li    $t1, 0x2
 	lui   $at, 0xa460
 	andi  $s1, $s1, 0x2f
 	sw    $t1, 0x10($at)
 	jal   send_mesg
-	addiu $a0, $zero, 0x40
+	li    $a0, 0x40
 	beqzl $s1, .L00003944
-	addiu $at, $zero, -1025
+	li    $at, -1025
 	andi  $t1, $s1, 0x20
 .L00003920:
 	beqzl $t1, .L00003944
-	addiu $at, $zero, -1025
-	addiu $t1, $zero, 0x800
+	li    $at, -1025
+	li    $t1, 0x800
 	lui   $at, 0xa430
 	andi  $s1, $s1, 0x1f
 	sw    $t1, 0x0($at)
 	jal   send_mesg
-	addiu $a0, $zero, 0x48
-	addiu $at, $zero, -1025
+	li    $a0, 0x48
+	li    $at, -1025
 .L00003944:
 	b     .L00003758
 	and   $s0, $s0, $at
 .L0000394c:
 	lw    $k1, 0x118($k0)
-	addiu $at, $zero, -4097
+	li    $at, -4097
 	lui   $t1, %hi(_osShutdown)
 	and   $k1, $k1, $at
 	sw    $k1, 0x118($k0)
 	addiu $t1, $t1, %lo(_osShutdown)
 	lw    $t2, 0x0($t1)
 	beqz  $t2, .L00003978
-	addiu $at, $zero, -4097
+	li    $at, -4097
 	b     .L00003a3c
 	and   $s0, $s0, $at
 .L00003978:
-	addiu $t2, $zero, 0x1
+	li    $t2, 0x1
 	sw    $t2, 0x0($t1)
 	jal   send_mesg
-	addiu $a0, $zero, 0x70
+	li    $a0, 0x70
 	lui   $t2, %hi(__osRunQueue)
 	lw    $t2, %lo(__osRunQueue)($t2)
-	addiu $at, $zero, -4097
+	li    $at, -4097
 	and   $s0, $s0, $at
 	lw    $k1, 0x118($t2)
 	and   $k1, $k1, $at
 	b     .L00003a3c
 	sw    $k1, 0x118($t2)
 .L000039a8:
-	addiu $at, $zero, -513
+	li    $at, -513
 	and   $t0, $t0, $at
 	mtc0  $t0, C0_CAUSE
 	jal   send_mesg
-	addiu $a0, $zero, 0x8
-	addiu $at, $zero, -513
+	li    $a0, 0x8
+	li    $at, -513
 	b     .L00003758
 	and   $s0, $s0, $at
 .L000039c8:
-	addiu $at, $zero, -257
+	li    $at, -257
 	and   $t0, $t0, $at
 	mtc0  $t0, C0_CAUSE
 	jal   send_mesg
-	addiu $a0, $zero, 0x0
-	addiu $at, $zero, -257
+	li    $a0, 0x0
+	li    $at, -257
 	b     .L00003758
 	and   $s0, $s0, $at
 .L000039e8:
@@ -419,20 +419,20 @@ glabel __osException
 .L000039f8:
 	j     L00003a88
  	nop
-	addiu $t1, $zero, 0x1
+	li    $t1, 0x1
 .L00003a04:
 	sh    $t1, 0x12($k0)
 	lw    $t1, 0x11c($k0)
-	addiu $at, $zero, 0x6
+	li    $at, 0x6
 	lw    $t1, 0x0($t1)
 	srl   $t1, $t1, 0x10
 	andi  $t1, $t1, 0xff
 	beq   $t1, $at, L00003a88
-	addiu $at, $zero, 0x7
+	li    $at, 0x7
 	beq   $t1, $at, L00003a88
  	nop
 	jal   send_mesg
-	addiu $a0, $zero, 0x50
+	li    $a0, 0x50
 	b     .L00003a3c
  	nop
 .L00003a3c:
@@ -460,14 +460,14 @@ glabel __osException
 glabel L00003a88
 	lui   $at, %hi(__osFaultedThread)
 	sw    $k0, %lo(__osFaultedThread)($at)
-	addiu $t1, $zero, 0x1
+	li    $t1, 0x1
 	sh    $t1, 0x10($k0)
-	addiu $t1, $zero, 0x2
+	li    $t1, 0x2
 	sh    $t1, 0x12($k0)
 	mfc0  $t2, C0_BADVADDR
 	sw    $t2, 0x124($k0)
 	jal   send_mesg
-	addiu $a0, $zero, 0x60
+	li    $a0, 0x60
 	j     .L00003d10
  	nop
 
@@ -491,7 +491,7 @@ glabel send_mesg
  	nop
 	break 0x7
 .L00003b00:
-	addiu $at, $zero, -1
+	li    $at, -1
 	bne   $t4, $at, .L00003b18
 	lui   $at, 0x8000
 	bne   $t5, $at, .L00003b18
@@ -524,12 +524,12 @@ glabel send_mesg
 	lui   $at, 0x3000
 	and   $t1, $t0, $at
 	srl   $t1, $t1, 0x1c
-	addiu $t2, $zero, 0x1
+	li    $t2, 0x1
 	bne   $t1, $t2, L00003a88
  	nop
 	lw    $k1, 0x118($k0)
 	lui   $at, 0x2000
-	addiu $t1, $zero, 0x1
+	li    $t1, 0x1
 	or    $k1, $k1, $at
 	sw    $t1, 0x18($k0)
 	b     .L00003a70
@@ -578,7 +578,7 @@ glabel __osEnqueueAndYield
 	lui   $t0, %hi(__osGlobalIntMask)
 	addiu $t0, $t0, %lo(__osGlobalIntMask)
 	lw    $t0, 0x0($t0)
-	addiu $at, $zero, -1
+	li    $at, -1
 	xor   $t0, $t0, $at
 	lui   $at, 0xffff
 	andi  $t0, $t0, 0xff00
@@ -596,7 +596,7 @@ glabel __osEnqueueAndYield
 	addiu $k0, $k0, %lo(__osGlobalIntMask)
 	lw    $k0, 0x0($k0)
 	lw    $t0, 0x128($a1)
-	addiu $at, $zero, -1
+	li    $at, -1
 	srl   $k0, $k0, 0x10
 	xor   $k0, $k0, $at
 	andi  $k0, $k0, 0x3f
@@ -646,7 +646,7 @@ glabel __osDispatchThread
 	addiu $a0, $a0, %lo(__osRunQueue)
 	lui   $at, %hi(__osRunningThread)
 	sw    $v0, %lo(__osRunningThread)($at)
-	addiu $t0, $zero, 0x4
+	li    $t0, 0x4
 	sh    $t0, 0x10($v0)
 	move  $k0, $v0
 	lui   $t0, %hi(__osGlobalIntMask)

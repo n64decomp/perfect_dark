@@ -8,7 +8,7 @@
 glabel __osProbeTLB
 	mfc0  $t0, C0_ENTRYHI
 	andi  $t1, $t0, 0xff
-	addiu $at, $zero, -8192
+	li    $at, -8192
 	and   $t2, $a0, $at
 	or    $t1, $t1, $t2
 	mtc0  $t1, C0_ENTRYHI
@@ -51,7 +51,7 @@ glabel __osProbeTLB
 	b     .L00051d3c
  	nop
 .L00051d38:
-	addiu $v0, $zero, -1
+	li    $v0, -1
 .L00051d3c:
 	mtc0  $t0, C0_ENTRYHI
 	jr    $ra

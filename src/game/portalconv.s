@@ -78,9 +78,9 @@ glabel portalConvertCoordinates
 	c.lt.s $f16, $f20
 	swc1   $f16, 0x8($t6)
 	bc1t   .L0f165474
-	addiu  $t4, $zero, 0x0
-	addiu  $t3, $zero, 0x1
-	addiu  $t4, $zero, 0x1
+	li     $t4, 0x0
+	li     $t3, 0x1
+	li     $t4, 0x1
 .L0f165474:
 	sw     $t4, 0xc($t6)
 	addiu  $t6, $t6, -16
@@ -89,7 +89,7 @@ glabel portalConvertCoordinates
 	beqz   $t3, .L0f1655a8
  	nop
 	addiu  $t0, $a2, 0x270
-	addiu  $v0, $zero, 0x0
+	li     $v0, 0x0
 	lw     $t1, 0x0($t0)
 	lw     $t2, 0x4($t0)
 	lw     $t3, 0x8($t0)
@@ -164,7 +164,7 @@ glabel portalConvertCoordinates
 	jr     $ra
 	mtc1   $t7, $f20
 .L0f1655a8:
-	addiu  $t0, $zero, 0x28
+	li     $t0, 0x28
 	sub    $t0, $t0, $v0
 	sw     $t0, 0x0($a1)
 	jr     $ra

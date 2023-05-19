@@ -7,7 +7,7 @@
 glabel osWritebackDCache
 	blez  $a1, .L0004adc8
  	nop
-	addiu $t3, $zero, 0x2000
+	li    $t3, 0x2000
 	sltu  $at, $a1, $t3
 	beqz  $at, .L0004add0
  	nop

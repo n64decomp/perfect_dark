@@ -6,7 +6,7 @@
 
 glabel mp3util000461c0
 	andi   $t4, $t0, 0x7
-	addiu  $t3, $zero, 0x8
+	li     $t3, 0x8
 	lbu    $t5, 0x0($a0)
 	lbu    $t2, 0x1($a0)
 	sll    $t1, $t5, 0x8
@@ -38,9 +38,9 @@ glabel mp3util000461c0
 .L00046238:
 	add    $t7, $zero, $s0
 	andi   $t1, $t0, 0x7
-	addiu  $t2, $zero, 0x80
+	li     $t2, 0x80
 	srlv   $t2, $t2, $t1
-	addiu  $t6, $zero, -1
+	li     $t6, -1
 .L0004624c:
 	and    $t4, $t5, $t2
 	beqzl  $t4, .L0004625c
@@ -51,7 +51,7 @@ glabel mp3util000461c0
 	sll    $t4, $t4, 0x2
 	bnez   $t2, .L00046278
 	add    $t7, $t7, $t4
-	addiu  $t2, $zero, 0x80
+	li     $t2, 0x80
 	addi   $a0, $a0, 0x1
 	lbu    $t5, 0x0($a0)
 .L00046278:
@@ -71,7 +71,7 @@ glabel mp3util00046290
 	add    $a0, $a0, $t2
 	andi   $t2, $t0, 0x7
 	sllv   $t1, $t1, $t2
-	addiu  $t2, $zero, 0x20
+	li     $t2, 0x20
 	sub    $t2, $t2, $s1
 	srlv   $v0, $t1, $t2
 	jr     $ra
@@ -85,7 +85,7 @@ glabel mp3utilGetBits
 	lwr    $t1, 0x3($a0)
 	andi   $t2, $t0, 0x7
 	sllv   $t1, $t1, $t2
-	addiu  $t2, $zero, 0x20
+	li     $t2, 0x20
 	sub    $t2, $t2, $a2
 	srlv   $v0, $t1, $t2
 	add    $t0, $t0, $a2
@@ -128,7 +128,7 @@ glabel mp3util000462f8
  	nop
 	beqz   $s1, .L00046398
 	add    $s6, $zero, $t1
-	addiu  $t2, $zero, 0xf
+	li     $t2, 0xf
 	bne    $v0, $t2, .L00046398
  	nop
 	jal    mp3util00046290
@@ -138,7 +138,7 @@ glabel mp3util000462f8
 	beqzl  $v0, .L000463d8
 	sb     $zero, 0x0($s4)
 	lb     $t1, 0x0($a0)
-	addiu  $t3, $zero, 0x7
+	li     $t3, 0x7
 	andi   $t2, $t0, 0x7
 	addi   $t4, $t2, 0x1
 	srl    $t4, $t4, 0x3
@@ -147,14 +147,14 @@ glabel mp3util000462f8
 	srlv   $t1, $t1, $t2
 	andi   $t1, $t1, 0x1
 	addi   $t0, $t0, 0x1
-	addiu  $t2, $zero, 0x1
+	li     $t2, 0x1
 	beqzl  $t1, .L000463d8
 	sb     $zero, 0x0($s4)
 	sb     $t2, 0x0($s4)
 .L000463d8:
 	beqz   $s1, .L000463fc
 	add    $s7, $zero, $v0
-	addiu  $t2, $zero, 0xf
+	li     $t2, 0xf
 	bne    $s6, $t2, .L000463fc
  	nop
 	jal    mp3util00046290
@@ -168,7 +168,7 @@ glabel mp3util000462f8
 	beqzl  $s6, .L00046448
 	sb     $zero, 0x1($s4)
 	lb     $t1, 0x0($a0)
-	addiu  $t3, $zero, 0x7
+	li     $t3, 0x7
 	andi   $t2, $t0, 0x7
 	addi   $t4, $t2, 0x1
 	srl    $t4, $t4, 0x3
@@ -177,7 +177,7 @@ glabel mp3util000462f8
 	srlv   $t1, $t1, $t2
 	andi   $t1, $t1, 0x1
 	addi   $t0, $t0, 0x1
-	addiu  $t2, $zero, 0x1
+	li     $t2, 0x1
 	beqzl  $t1, .L00046448
 	sb     $zero, 0x1($s4)
 	sb     $t2, 0x1($s4)
@@ -256,8 +256,8 @@ glabel mp3util000464a8
 	sh     $t5, 0x4($s3)
 	sh     $t6, 0x6($s3)
 	jal    mp3util00046290
-	addiu  $s1, $zero, 0x4
-	addiu  $s1, $zero, 0x3
+	li     $s1, 0x4
+	li     $s1, 0x3
 	sb     $v0, 0x0($s4)
 	beqz   $t3, .L0004657c
 	srlv   $t1, $v0, $s1
