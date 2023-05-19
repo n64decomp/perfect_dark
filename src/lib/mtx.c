@@ -456,30 +456,6 @@ void mtx4Align(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
 	guAlignF(mtx, angle, x, y, z);
 }
 
-void mtx4LoadRotationFrom(f32 src[4][4], f32 dst[4][4])
-{
-	dst[0][0] = src[0][0];
-	dst[0][1] = src[1][0];
-	dst[0][2] = src[2][0];
-
-	dst[1][0] = src[0][1];
-	dst[1][1] = src[1][1];
-	dst[1][2] = src[2][1];
-
-	dst[2][0] = src[0][2];
-	dst[2][1] = src[1][2];
-	dst[2][2] = src[2][2];
-
-	dst[3][0] = 0;
-	dst[3][1] = 0;
-	dst[3][2] = 0;
-
-	dst[0][3] = 0;
-	dst[1][3] = 0;
-	dst[2][3] = 0;
-	dst[3][3] = 1;
-}
-
 void mtx000170e4(f32 src[4][4], f32 dst[4][4])
 {
 	f32 tmp = (src[0][0] * src[0][0] + src[1][0] * src[1][0] + src[2][0] * src[2][0]);

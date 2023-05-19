@@ -8,8 +8,6 @@ static void guLookAtReflectF(float mf[4][4], LookAt *l,
 {
 	float len, xLook, yLook, zLook, xRight, yRight, zRight;
 
-	guMtxIdentF(mf);
-
 	xLook = xAt - xEye;
 	yLook = yAt - yEye;
 	zLook = zAt - zEye;

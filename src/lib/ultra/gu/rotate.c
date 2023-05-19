@@ -16,8 +16,6 @@ void guRotateF(float mf[4][4], float a, float x, float y, float z)
 	bc = y * z * t;
 	ca = z * x * t;
 
-	guMtxIdentF(mf);
-
 	t = x * x;
 	mf[0][0] = t + cosine * (1 - t);
 	mf[2][1] = bc - x * sine;
@@ -32,4 +30,13 @@ void guRotateF(float mf[4][4], float a, float x, float y, float z)
 	mf[2][2] = t + cosine * (1 - t);
 	mf[1][0] = ab - z * sine;
 	mf[0][1] = ab + z * sine;
+
+	mf[0][3] = 0;
+	mf[1][3] = 0;
+	mf[2][3] = 0;
+
+	mf[3][0] = 0;
+	mf[3][1] = 0;
+	mf[3][2] = 0;
+	mf[3][3] = 1;
 }

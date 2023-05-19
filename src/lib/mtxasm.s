@@ -450,13 +450,21 @@ glabel mtx00015f88
 	jr     $ra
  	nop
 
+glabel guMtxF2L
+	lui    $at, 0x4780
+	mtc1   $at, $f0
+	j      _mtxF2L
+	mtc1   $at, $f2
+
 glabel mtx00016054
 	lui    $t2, %hi(var8005ef10)
 	addiu  $t2, $t2, %lo(var8005ef10)
-	addiu  $t0, $a0, 0x40
-	lui    $t1, 0xffff
 	lwc1   $f0, 0x0($t2)
 	lwc1   $f2, 0x4($t2)
+
+glabel _mtxF2L
+	lui    $t1, 0xffff
+	addiu  $t0, $a0, 0x40
 .L0001606c:
 	lwc1   $f4, 0x0($a0)
 	lwc1   $f6, 0x4($a0)
@@ -495,3 +503,53 @@ glabel mtx00016054
 	addiu  $a1, $a1, 0x8
 	jr     $ra
  	nop
+
+glabel mtx4LoadRotationFrom
+	lw     $t0, 0x00($a0)
+	lw     $t1, 0x10($a0)
+	lw     $t2, 0x20($a0)
+	lw     $t3, 0x04($a0)
+	lw     $t4, 0x14($a0)
+	lw     $t5, 0x24($a0)
+	lw     $t6, 0x08($a0)
+	lw     $t7, 0x18($a0)
+	lw     $t8, 0x28($a0)
+	sw     $t0, 0x00($a1)
+	sw     $t1, 0x04($a1)
+	sw     $t2, 0x08($a1)
+	sw     $t3, 0x10($a1)
+	sw     $t4, 0x14($a1)
+	sw     $t5, 0x18($a1)
+	sw     $t6, 0x20($a1)
+	sw     $t7, 0x24($a1)
+	sw     $t8, 0x28($a1)
+	sw     $zero, 0x30($a1)
+	sw     $zero, 0x34($a1)
+	sw     $zero, 0x38($a1)
+	sw     $zero, 0x0c($a1)
+	sw     $zero, 0x1c($a1)
+	sw     $zero, 0x2c($a1)
+	lui    $at, 0x3f80
+	jr     $ra
+	sw     $at, 0x3c($a1)
+
+glabel guScaleF
+	lui    $at, 0x3f80
+	sw     $zero, 0x4($a0)
+	sw     $zero, 0x8($a0)
+	sw     $zero, 0xc($a0)
+	sw     $zero, 0x10($a0)
+	sw     $zero, 0x18($a0)
+	sw     $zero, 0x1c($a0)
+	sw     $zero, 0x20($a0)
+	sw     $zero, 0x24($a0)
+	sw     $zero, 0x2c($a0)
+	sw     $zero, 0x30($a0)
+	sw     $zero, 0x34($a0)
+	sw     $zero, 0x38($a0)
+	sw     $a1, 0x0($a0)
+	sw     $a2, 0x14($a0)
+	sw     $a3, 0x28($a0)
+	jr     $ra
+	sw     $at, 0x3c($a0)
+

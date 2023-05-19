@@ -1,5 +1,6 @@
 #include "guint.h"
 #include "constants.h"
+#include "lib/mtx.h"
 
 void guAlignF(float mf[4][4], float a, float x, float y, float z)
 {
@@ -12,8 +13,6 @@ void guAlignF(float mf[4][4], float a, float x, float y, float z)
 	s = sinf(a);
 	c = cosf(a);
 	h = sqrtf(x * x + z * z);
-
-	guMtxIdentF(mf);
 
 	if (h != 0) {
 		hinv = 1 / h;
@@ -37,5 +36,7 @@ void guAlignF(float mf[4][4], float a, float x, float y, float z)
 		mf[1][3] = 0;
 		mf[2][3] = 0;
 		mf[3][3] = 1;
+	} else {
+		mtx4LoadIdentity((Mtxf *) mf);
 	}
 }

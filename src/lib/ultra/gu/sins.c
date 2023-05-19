@@ -106,19 +106,19 @@ s16 sintable[] = {
 	0x7ffe, 0x7ffe, 0x7ffe, 0x7fff,
 };
 
-signed short sins(unsigned short x)
+signed int sins(unsigned int x)
 {
-	signed short val;
+	signed int val;
 
-	x >>= 4;
-
-	if (x & 0x400) {
-		val = sintable[0x3ff - (x & 0x3ff)];
-	} else {
-		val = sintable[x & 0x3ff];
-	}
+	x >>= 3;
 
 	if (x & 0x800) {
+		val = sintable[(0x7ff - (x & 0x7ff)) >> 1];
+	} else {
+		val = sintable[(x & 0x7fe) >> 1];
+	}
+
+	if (x & 0x1000) {
 		return -val;
 	} else {
 		return val;

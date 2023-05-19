@@ -4,20 +4,23 @@ void guFrustumF(float mf[4][4], float l, float r, float b, float t, float n, flo
 {
 	int i, j;
 
-	guMtxIdentF(mf);
+	mf[0][0] = 2 * n / (r - l) * scale;
+	mf[0][1] = 0;
+	mf[0][2] = 0;
+	mf[0][3] = 0;
 
-	mf[0][0] = 2 * n / (r - l);
-	mf[1][1] = 2 * n / (t - b);
-	mf[2][0] = (r + l) / (r - l);
-	mf[2][1] = (t + b) / (t - b);
-	mf[2][2] = -(f + n) / (f - n);
-	mf[2][3] = -1;
-	mf[3][2] = -2 * f * n / (f - n);
+	mf[1][0] = 0;
+	mf[1][1] = 2 * n / (t - b) * scale;
+	mf[1][2] = 0;
+	mf[1][3] = 0;
+
+	mf[2][0] = (r + l) / (r - l) * scale;
+	mf[2][1] = (t + b) / (t - b) * scale;
+	mf[2][2] = -(f + n) / (f - n) * scale;
+	mf[2][3] = -scale;
+
+	mf[3][0] = 0;
+	mf[3][1] = 0;
+	mf[3][2] = -2 * f * n / (f - n) * scale;
 	mf[3][3] = 0;
-
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < 4; j++) {
-			mf[i][j] *= scale;
-		}
-	}
 }

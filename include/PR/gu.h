@@ -185,8 +185,8 @@ extern int guRandom(void);
  */
 extern float sinf(float angle);
 extern float cosf(float angle);
-extern signed short sins (unsigned short angle);
-extern signed short coss (unsigned short angle);
+extern signed int sins (unsigned int angle);
+extern signed int coss (unsigned int angle);
 
 /*
  *  Dump routines for low-level display lists
