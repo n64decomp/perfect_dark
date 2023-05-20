@@ -1,8 +1,13 @@
 #include "asm_helper.h"
 #include "macros.inc"
+#include "PR/os_exception.h"
+#include "PR/os_message.h"
+#include "PR/os_thread.h"
 .set noat
 .set noreorder
 .set gp=64
+
+#define SIZEOF_OSEVENTSTATE 0x8
 
 .data
 
@@ -55,31 +60,29 @@ __osIntOffTable:
 .byte CART
 
 __osIntTable:
-.word .L00003a3c
-.word .L000039c8
-.word .L000039a8
-.word .L0000380c
-.word .L000037c8
-.word .L0000394c
-.word .L00003790
-.word .L0000379c
-.word .L000037a8
+.word .handle_intr_redispatch
+.word .handle_intr_sw1
+.word .handle_intr_sw2
+.word .handle_intr_rcp
+.word .handle_intr_cart
+.word .handle_intr_prenmi
+.word .handle_intr_ip6
+.word .handle_intr_ip7
+.word .handle_intr_counter
 
 .text
 
 glabel __osExceptionPreamble
-	lui   $k0, %hi(__osException)
-	addiu $k0, $k0, %lo(__osException)
+	la    $k0, __osException
 	jr    $k0
  	nop
 
 glabel __osException
-	lui   $k0, %hi(__osThreadSave)
-	addiu $k0, $k0, %lo(__osThreadSave)
+	la    $k0, __osThreadSave
 	sd    $at, 0x20($k0)
 	mfc0  $k1, C0_SR
 	sw    $k1, 0x118($k0)
-	li    $at, -4
+	li    $at, ~(SR_IE | SR_EXL)
 	and   $k1, $k1, $at
 	mtc0  $k1, C0_SR
 	sd    $t0, 0x58($k0)
@@ -87,9 +90,11 @@ glabel __osException
 	sd    $t2, 0x68($k0)
 	sw    $zero, 0x18($k0)
 	mfc0  $t0, C0_CAUSE
+
+	# Set t0 = &__osThreadSave
+	# Set k0 = __osRunningThread
 	move  $t0, $k0
-	lui   $k0, %hi(__osRunningThread)
-	lw    $k0, %lo(__osRunningThread)($k0)
+	lw    $k0, __osRunningThread
 	ld    $t1, 0x20($t0)
 	sd    $t1, 0x20($k0)
 	ld    $t1, 0x118($t0)
@@ -104,7 +109,7 @@ glabel __osException
 	mflo  $t0
 	sd    $t0, 0x108($k0)
 	mfhi  $t0
-	andi  $t1, $k1, 0xff00
+	andi  $t1, $k1, SR_IMASK
 	sd    $v0, 0x28($k0)
 	sd    $v1, 0x30($k0)
 	sd    $a0, 0x38($k0)
@@ -130,46 +135,49 @@ glabel __osException
 	sd    $sp, 0xf0($k0)
 	sd    $s8, 0xf8($k0)
 	sd    $ra, 0x100($k0)
-	beqz  $t1, .L00003628
+	beqz  $t1, .after_interrupt_mask
 	sd    $t0, 0x110($k0)
-	lui   $t0, %hi(__osGlobalIntMask)
-	addiu $t0, $t0, %lo(__osGlobalIntMask)
+
+	la    $t0, __osGlobalIntMask
 	lw    $t0, 0x0($t0)
-	li    $at, -1
+	li    $at, 0xffffffff
 	xor   $t2, $t0, $at
 	lui   $at, 0xffff
-	andi  $t2, $t2, 0xff00
+	andi  $t2, $t2, SR_IMASK
 	ori   $at, $at, 0xff
 	or    $t4, $t1, $t2
 	and   $t3, $k1, $at
-	andi  $t0, $t0, 0xff00
+	andi  $t0, $t0, SR_IMASK
 	or    $t3, $t3, $t4
 	and   $t1, $t1, $t0
 	and   $k1, $k1, $at
 	sw    $t3, 0x118($k0)
 	or    $k1, $k1, $t1
-.L00003628:
-	lui   $t1, 0xa430
-	lw    $t1, 0xc($t1)
-	beqzl $t1, .L00003664
+
+.after_interrupt_mask:
+	lw    $t1, PHYS_TO_K1(MI_INTR_MASK_REG)
+	beqzl $t1, .after_mi_interrupt_reg
 	sw    $t1, 0x128($k0)
-	lui   $t0, %hi(__osGlobalIntMask)
-	addiu $t0, $t0, %lo(__osGlobalIntMask)
+
+	la    $t0, __osGlobalIntMask
 	lw    $t0, 0x0($t0)
 	lw    $t4, 0x128($k0)
-	li    $at, -1
+	li    $at, 0xffffffff
 	srl   $t0, $t0, 0x10
 	xor   $t0, $t0, $at
 	andi  $t0, $t0, 0x3f
 	and   $t0, $t0, $t4
 	or    $t1, $t1, $t0
 	sw    $t1, 0x128($k0)
-.L00003664:
+
+.after_mi_interrupt_reg:
 	mfc0  $t0, C0_EPC
 	sw    $t0, 0x11c($k0)
+
 	lw    $t0, 0x18($k0)
-	beqz  $t0, .L00003704
+	beqz  $t0, .after_fp
  	nop
+
 	cfc1  $t0, $31
  	nop
 	sw    $t0, 0x12c($k0)
@@ -205,37 +213,48 @@ glabel __osException
 	sdc1  $f29, 0x218($k0)
 	sdc1  $f30, 0x220($k0)
 	sdc1  $f31, 0x228($k0)
-.L00003704:
+
+.after_fp:
 	mfc0  $t0, C0_CAUSE
 	sw    $t0, 0x120($k0)
-	li    $t1, 0x2
+
+	li    $t1, OS_STATE_RUNNABLE
 	sh    $t1, 0x10($k0)
-	andi  $t1, $t0, 0x7c
-	li    $t2, 0x8
-	beq   $t1, $t2, .L000039e8
+
+	andi  $t1, $t0, CAUSE_EXCMASK
+
+	li    $t2, EXC_RMISS
+	beq   $t1, $t2, .handle_rmiss
  	nop
-	li    $t2, 0xc
-	beq   $t1, $t2, .L000039f8
+
+	li    $t2, EXC_WMISS
+	beq   $t1, $t2, .handle_wmiss
  	nop
-	li    $t2, 0x24
-	beql  $t1, $t2, .L00003a04
-	li    $t1, 0x1
-	li    $t2, 0x2c
-	beq   $t1, $t2, .L00003b6c
+
+	li    $t2, EXC_BREAK
+	beql  $t1, $t2, .handle_break
+	li    $t1, OS_FLAG_CPU_BREAK
+
+	li    $t2, EXC_CPU
+	beq   $t1, $t2, .handle_cpu
  	nop
-	li    $t2, 0x0
-	bne   $t1, $t2, L00003a88
+
+	li    $t2, EXC_INT
+	bne   $t1, $t2, handle_fault
  	nop
+
+.handle_interrupt:
 	and   $s0, $k1, $t0
-.L00003758:
-	andi  $t1, $s0, 0xff00
-.L0000375c:
+
+.interrupt_loop_outer:
+	andi  $t1, $s0, CAUSE_IPMASK
+.interrupt_loop_inner:
 	srl   $t2, $t1, 0xc
-	bnez  $t2, .L00003770
+	bnez  $t2, .after_get_upper
  	nop
 	srl   $t2, $t1, 0x8
 	addi  $t2, $t2, 0x10
-.L00003770:
+.after_get_upper:
 	lui   $at, %hi(__osIntOffTable)
 	addu  $at, $at, $t2
 	lbu   $t2, %lo(__osIntOffTable)($at)
@@ -244,247 +263,254 @@ glabel __osException
 	lw    $t2, %lo(__osIntTable)($at)
 	jr    $t2
  	nop
-.L00003790:
-	li    $at, -8193
-	b     .L00003758
+
+.handle_intr_ip6:
+	li    $at, ~CAUSE_IP6
+	b     .interrupt_loop_outer
 	and   $s0, $s0, $at
-.L0000379c:
-	li    $at, -16385
-	b     .L00003758
+
+.handle_intr_ip7:
+	li    $at, ~CAUSE_IP7
+	b     .interrupt_loop_outer
 	and   $s0, $s0, $at
-.L000037a8:
+
+.handle_intr_counter:
 	mfc0  $t1, C0_COMPARE
 	mtc0  $t1, C0_COMPARE
 	jal   send_mesg
-	li    $a0, 0x18
-	lui   $at, 0xffff
-	ori   $at, $at, 0x7fff
-	b     .L00003758
+	li    $a0, OS_EVENT_COUNTER * SIZEOF_OSEVENTSTATE
+	li    $at, ~CAUSE_IP8
+	b     .interrupt_loop_outer
 	and   $s0, $s0, $at
-.L000037c8:
-	lui   $t1, %hi(__osHwIntTable)
-	addiu $t1, $t1, %lo(__osHwIntTable)
+
+.handle_intr_cart:
+	la    $t1, __osHwIntTable
 	lw    $t2, 0x8($t1)
-	li    $at, -2049
+	li    $at, ~CAUSE_IP4
 	and   $s0, $s0, $at
-	beqz  $t2, .L000037fc
+	beqz  $t2, .no_cart_override
 	addi  $t1, $t1, 0x8
 	jalr  $t2
 	lw    $sp, 0x4($t1)
-	beqz  $v0, .L000037fc
+	beqz  $v0, .no_cart_override
  	nop
-	b     .L00003a3c
+	b     .dispatch_thread
  	nop
-.L000037fc:
+.no_cart_override:
 	jal   send_mesg
-	li    $a0, 0x10
-	b     .L0000375c
-	andi  $t1, $s0, 0xff00
-.L0000380c:
-	lui   $t0, %hi(__osGlobalIntMask)
-	addiu $t0, $t0, %lo(__osGlobalIntMask)
+	li    $a0, OS_EVENT_CART * SIZEOF_OSEVENTSTATE
+	b     .interrupt_loop_inner
+	andi  $t1, $s0, CAUSE_IPMASK
+
+.handle_intr_rcp:
+	la    $t0, __osGlobalIntMask
 	lw    $t0, 0x0($t0)
-	lui   $s1, 0xa430
-	lw    $s1, 0x8($s1)
+	lw    $s1, PHYS_TO_K1(MI_INTR_REG)
 	srl   $t0, $t0, 0x10
 	and   $s1, $s1, $t0
 	andi  $t1, $s1, 0x1
-	beqzl $t1, .L00003880
+	beqzl $t1, .after_sp_break
 	andi  $t1, $s1, 0x8
-	lui   $t4, 0xa404
-	lw    $t4, 0x10($t4)
-	dli   $t1, 0x8008
-	lui   $at, 0xa404
-	andi  $t4, $t4, 0x300
+	lw    $t4, PHYS_TO_K1(SP_STATUS_REG)
+	li    $t1, SP_CLR_INTR | SP_CLR_SIG3
+	lui   $at, %hi(PHYS_TO_K1(SP_STATUS_REG))
+	andi  $t4, $t4, SP_STATUS_SIG1 | SP_STATUS_SIG2
 	andi  $s1, $s1, 0x3e
-	beqz  $t4, .L0000386c
-	sw    $t1, 0x10($at)
+	beqz  $t4, .sp_break
+	sw    $t1, %lo(PHYS_TO_K1(SP_STATUS_REG))($at)
 	jal   send_mesg
-	li    $a0, 0x20
-	beqzl $s1, .L00003944
-	li    $at, -1025
-	b     .L00003880
+	li    $a0, OS_EVENT_SP * SIZEOF_OSEVENTSTATE
+	beqzl $s1, .after_clear_all_interrupts
+	li    $at, ~CAUSE_IP3
+	b     .after_sp_break
 	andi  $t1, $s1, 0x8
-.L0000386c:
+.sp_break:
 	jal   send_mesg
-	li    $a0, 0x58
-	beqzl $s1, .L00003944
-	li    $at, -1025
+	li    $a0, OS_EVENT_SP_BREAK * SIZEOF_OSEVENTSTATE
+	beqzl $s1, .after_clear_all_interrupts
+	li    $at, ~CAUSE_IP3
 	andi  $t1, $s1, 0x8
-.L00003880:
-	beqz  $t1, .L000038a0
-	lui   $at, 0xa440
+.after_sp_break:
+	beqz  $t1, .after_clear_vi_current
+	lui   $at, %hi(PHYS_TO_K1(VI_CURRENT_REG))
 	andi  $s1, $s1, 0x37
-	sw    $zero, 0x10($at)
+	sw    $zero, %lo(PHYS_TO_K1(VI_CURRENT_REG))($at)
 	jal   send_mesg
-	li    $a0, 0x38
-	beqzl $s1, .L00003944
-	li    $at, -1025
-.L000038a0:
+	li    $a0, OS_EVENT_VI * SIZEOF_OSEVENTSTATE
+	beqzl $s1, .after_clear_all_interrupts
+	li    $at, ~CAUSE_IP3
+.after_clear_vi_current:
 	andi  $t1, $s1, 0x4
-	beqzl $t1, .L000038d0
+	beqzl $t1, .after_clear_ai_interrupt
 	andi  $t1, $s1, 0x2
-	li    $t1, 0x1
-	lui   $at, 0xa450
+	li    $t1, 1
+	lui   $at, %hi(PHYS_TO_K1(AI_STATUS_REG))
 	andi  $s1, $s1, 0x3b
-	sw    $t1, 0xc($at)
+	sw    $t1, %lo(PHYS_TO_K1(AI_STATUS_REG))($at)
 	jal   send_mesg
-	li    $a0, 0x30
-	beqzl $s1, .L00003944
-	li    $at, -1025
+	li    $a0, OS_EVENT_AI * SIZEOF_OSEVENTSTATE
+	beqzl $s1, .after_clear_all_interrupts
+	li    $at, ~CAUSE_IP3
 	andi  $t1, $s1, 0x2
-.L000038d0:
-	beqz  $t1, .L000038f0
-	lui   $at, 0xa480
+.after_clear_ai_interrupt:
+	beqz  $t1, .after_clear_si_interrupt
+	lui   $at, %hi(PHYS_TO_K1(SI_STATUS_REG))
 	andi  $s1, $s1, 0x3d
-	sw    $zero, 0x18($at)
+	sw    $zero, %lo(PHYS_TO_K1(SI_STATUS_REG))($at)
 	jal   send_mesg
-	li    $a0, 0x28
-	beqzl $s1, .L00003944
-	li    $at, -1025
-.L000038f0:
+	li    $a0, OS_EVENT_SI * SIZEOF_OSEVENTSTATE
+	beqzl $s1, .after_clear_all_interrupts
+	li    $at, ~CAUSE_IP3
+.after_clear_si_interrupt:
 	andi  $t1, $s1, 0x10
-	beqzl $t1, .L00003920
+	beqzl $t1, .after_clear_pi_interrupt
 	andi  $t1, $s1, 0x20
-	li    $t1, 0x2
-	lui   $at, 0xa460
+	li    $t1, PI_STATUS_CLR_INTR
+	lui   $at, %hi(PHYS_TO_K1(PI_STATUS_REG))
 	andi  $s1, $s1, 0x2f
-	sw    $t1, 0x10($at)
+	sw    $t1, %lo(PHYS_TO_K1(PI_STATUS_REG))($at)
 	jal   send_mesg
-	li    $a0, 0x40
-	beqzl $s1, .L00003944
-	li    $at, -1025
+	li    $a0, OS_EVENT_PI * SIZEOF_OSEVENTSTATE
+	beqzl $s1, .after_clear_all_interrupts
+	li    $at, ~CAUSE_IP3
 	andi  $t1, $s1, 0x20
-.L00003920:
-	beqzl $t1, .L00003944
-	li    $at, -1025
-	li    $t1, 0x800
-	lui   $at, 0xa430
+.after_clear_pi_interrupt:
+	beqzl $t1, .after_clear_dp_interrupt
+	li    $at, ~CAUSE_IP3
+	li    $t1, MI_CLR_DP_INTR
+	lui   $at, %hi(PHYS_TO_K1(MI_MODE_REG))
 	andi  $s1, $s1, 0x1f
-	sw    $t1, 0x0($at)
+	sw    $t1, %lo(PHYS_TO_K1(MI_MODE_REG))($at)
 	jal   send_mesg
-	li    $a0, 0x48
-	li    $at, -1025
-.L00003944:
-	b     .L00003758
+	li    $a0, OS_EVENT_DP * SIZEOF_OSEVENTSTATE
+	li    $at, ~CAUSE_IP3
+.after_clear_dp_interrupt:
+.after_clear_all_interrupts:
+	b     .interrupt_loop_outer
 	and   $s0, $s0, $at
-.L0000394c:
+
+.handle_intr_prenmi:
 	lw    $k1, 0x118($k0)
-	li    $at, -4097
+	li    $at, ~CAUSE_IP5
 	lui   $t1, %hi(_osShutdown)
 	and   $k1, $k1, $at
 	sw    $k1, 0x118($k0)
 	addiu $t1, $t1, %lo(_osShutdown)
 	lw    $t2, 0x0($t1)
-	beqz  $t2, .L00003978
-	li    $at, -4097
-	b     .L00003a3c
+	beqz  $t2, .not_shutting_down
+	li    $at, ~CAUSE_IP5
+	b     .dispatch_thread
 	and   $s0, $s0, $at
-.L00003978:
+.not_shutting_down:
 	li    $t2, 0x1
 	sw    $t2, 0x0($t1)
 	jal   send_mesg
-	li    $a0, 0x70
+	li    $a0, OS_EVENT_PRENMI * SIZEOF_OSEVENTSTATE
 	lui   $t2, %hi(__osRunQueue)
 	lw    $t2, %lo(__osRunQueue)($t2)
-	li    $at, -4097
+	li    $at, ~CAUSE_IP5
 	and   $s0, $s0, $at
 	lw    $k1, 0x118($t2)
 	and   $k1, $k1, $at
-	b     .L00003a3c
+	b     .dispatch_thread
 	sw    $k1, 0x118($t2)
-.L000039a8:
-	li    $at, -513
+
+.handle_intr_sw2:
+	li    $at, ~CAUSE_SW2
 	and   $t0, $t0, $at
 	mtc0  $t0, C0_CAUSE
 	jal   send_mesg
-	li    $a0, 0x8
-	li    $at, -513
-	b     .L00003758
+	li    $a0, OS_EVENT_SW2 * SIZEOF_OSEVENTSTATE
+	li    $at, ~CAUSE_SW2
+	b     .interrupt_loop_outer
 	and   $s0, $s0, $at
-.L000039c8:
-	li    $at, -257
+
+.handle_intr_sw1:
+	li    $at, ~CAUSE_SW1
 	and   $t0, $t0, $at
 	mtc0  $t0, C0_CAUSE
 	jal   send_mesg
-	li    $a0, 0x0
-	li    $at, -257
-	b     .L00003758
+	li    $a0, OS_EVENT_SW1 * SIZEOF_OSEVENTSTATE
+	li    $at, ~CAUSE_SW1
+	b     .interrupt_loop_outer
 	and   $s0, $s0, $at
-.L000039e8:
+
+.handle_rmiss:
 	jal   tlbHandleMiss
  	nop
-	b     .L00003a3c
+	b     .dispatch_thread
  	nop
-.L000039f8:
-	j     L00003a88
+
+.handle_wmiss:
+	j     handle_fault
  	nop
-	li    $t1, 0x1
-.L00003a04:
+
+	li    $t1, OS_FLAG_CPU_BREAK
+.handle_break:
 	sh    $t1, 0x12($k0)
 	lw    $t1, 0x11c($k0)
 	li    $at, 0x6
 	lw    $t1, 0x0($t1)
 	srl   $t1, $t1, 0x10
 	andi  $t1, $t1, 0xff
-	beq   $t1, $at, L00003a88
+	beq   $t1, $at, handle_fault
 	li    $at, 0x7
-	beq   $t1, $at, L00003a88
+	beq   $t1, $at, handle_fault
  	nop
 	jal   send_mesg
-	li    $a0, 0x50
-	b     .L00003a3c
+	li    $a0, OS_EVENT_CPU_BREAK * SIZEOF_OSEVENTSTATE
+	b     .dispatch_thread
  	nop
-.L00003a3c:
-	lui   $t2, %hi(__osRunQueue)
-	lw    $t2, %lo(__osRunQueue)($t2)
-	lw    $t1, 0x4($k0)
-	lw    $t3, 0x4($t2)
+
+.handle_intr_redispatch:
+.dispatch_thread:
+	lw    $t2, __osRunQueue
+	lw    $t1, 0x4($k0) # t1 = __osRunningThread->priority
+	lw    $t3, 0x4($t2) # t3 = __osRunQueue->priority
 	slt   $at, $t1, $t3
-	beqz  $at, .L00003a70
+	beqz  $at, .prepend_to_runqueue
  	nop
+ 	# The run queue has the higher priority thread -> queue the running thread
 	lui   $a0, %hi(__osRunQueue)
 	move  $a1, $k0
 	jal   __osEnqueueThread
 	addiu $a0, $a0, %lo(__osRunQueue)
-	j     .L00003d10
+	j     __osDispatchThread
  	nop
-.L00003a70:
-	lui   $t1, %hi(__osRunQueue)
-	addiu $t1, $t1, %lo(__osRunQueue)
+.prepend_to_runqueue:
+	la    $t1, __osRunQueue
 	lw    $t2, 0x0($t1)
 	sw    $t2, 0x0($k0)
-	j     .L00003d10
+	j     __osDispatchThread
 	sw    $k0, 0x0($t1)
 
-glabel L00003a88
+glabel handle_fault
 	lui   $at, %hi(__osFaultedThread)
 	sw    $k0, %lo(__osFaultedThread)($at)
-	li    $t1, 0x1
+	li    $t1, OS_STATE_STOPPED
 	sh    $t1, 0x10($k0)
-	li    $t1, 0x2
+	li    $t1, OS_FLAG_FAULT
 	sh    $t1, 0x12($k0)
 	mfc0  $t2, C0_BADVADDR
 	sw    $t2, 0x124($k0)
 	jal   send_mesg
-	li    $a0, 0x60
-	j     .L00003d10
+	li    $a0, OS_EVENT_FAULT * SIZEOF_OSEVENTSTATE
+	j     __osDispatchThread
  	nop
 
 glabel send_mesg
-	lui   $t2, %hi(__osEventStateTab)
-	addiu $t2, $t2, %lo(__osEventStateTab)
-	addu  $t2, $t2, $a0
-	lw    $t1, 0x0($t2)
+	la    $t2, __osEventStateTab
+	addu  $t2, $t2, $a0 # t2 = __OSEventState
+	lw    $t1, 0x0($t2) # t1 = message queue
 	move  $s2, $ra
-	beqz  $t1, .L00003b64
+	beqz  $t1, .send_mesg_return # No message queue
  	nop
-	lw    $t3, 0x8($t1)
-	lw    $t4, 0x10($t1)
+	lw    $t3, 0x8($t1)  # t3 = queue->validCount
+	lw    $t4, 0x10($t1) # t4 = queue->msgCount
 	slt   $at, $t3, $t4
-	beqz  $at, .L00003b64
+	beqz  $at, .send_mesg_return # Queue is full
  	nop
-	lw    $t5, 0xc($t1)
+	lw    $t5, 0xc($t1)  # t5 = queue->first
 	addu  $t5, $t5, $t3
 	div   $zero, $t5, $t4
 	bnez  $t4, .L00003b00
@@ -493,22 +519,22 @@ glabel send_mesg
 .L00003b00:
 	li    $at, -1
 	bne   $t4, $at, .L00003b18
-	lui   $at, 0x8000
+	li    $at, 0x80000000
 	bne   $t5, $at, .L00003b18
  	nop
 	break 0x6
 .L00003b18:
-	lw    $t4, 0x14($t1)
+	lw    $t4, 0x14($t1) # t4 = queue->msg
 	mfhi  $t5
 	sll   $t5, $t5, 0x2
 	addu  $t4, $t4, $t5
-	lw    $t5, 0x4($t2)
+	lw    $t5, 0x4($t2)  # t5 = eventstate->message
 	addiu $t2, $t3, 0x1
 	sw    $t5, 0x0($t4)
 	sw    $t2, 0x8($t1)
 	lw    $t2, 0x0($t1)
 	lw    $t3, 0x0($t2)
-	beqz  $t3, .L00003b64
+	beqz  $t3, .send_mesg_return
  	nop
 	jal   __osPopThread
 	move  $a0, $t1
@@ -517,30 +543,30 @@ glabel send_mesg
 	move  $a1, $t2
 	jal   __osEnqueueThread
 	addiu $a0, $a0, %lo(__osRunQueue)
-.L00003b64:
+.send_mesg_return:
 	jr    $s2
  	nop
-.L00003b6c:
-	lui   $at, 0x3000
+
+.handle_cpu:
+	li    $at, CAUSE_CEMASK
 	and   $t1, $t0, $at
-	srl   $t1, $t1, 0x1c
-	li    $t2, 0x1
-	bne   $t1, $t2, L00003a88
+	srl   $t1, $t1, CAUSE_CESHIFT
+	li    $t2, 1
+	bne   $t1, $t2, handle_fault
  	nop
 	lw    $k1, 0x118($k0)
-	lui   $at, 0x2000
-	li    $t1, 0x1
+	li    $at, SR_CU1
+	li    $t1, 1
 	or    $k1, $k1, $at
-	sw    $t1, 0x18($k0)
-	b     .L00003a70
-	sw    $k1, 0x118($k0)
+	sw    $t1, 0x18($k0)  # Set __osRunningThread->fp = 1
+	b     .prepend_to_runqueue
+	sw    $k1, 0x118($k0) # Set __osRunningThread->sr
 
 glabel __osEnqueueAndYield
-	lui   $a1, %hi(__osRunningThread)
-	lw    $a1, %lo(__osRunningThread)($a1)
+	lw    $a1, __osRunningThread
 	mfc0  $t0, C0_SR
 	lw    $k1, 0x18($a1)
-	ori   $t0, $t0, 0x2
+	ori   $t0, $t0, SR_EXL
 	sw    $t0, 0x118($a1)
 	sd    $s0, 0x98($a1)
 	sd    $s1, 0xa0($a1)
@@ -554,7 +580,7 @@ glabel __osEnqueueAndYield
 	sd    $sp, 0xf0($a1)
 	sd    $s8, 0xf8($a1)
 	sd    $ra, 0x100($a1)
-	beqz  $k1, .L00003c28
+	beqz  $k1, .after_store_fp
 	sw    $ra, 0x11c($a1)
 	cfc1  $k1, $31
 	sdc1  $f20, 0x1d0($a1)
@@ -570,15 +596,14 @@ glabel __osEnqueueAndYield
 	sdc1  $f30, 0x220($a1)
 	sdc1  $f31, 0x228($a1)
 	sw    $k1, 0x12c($a1)
-.L00003c28:
+.after_store_fp:
 	lw    $k1, 0x118($a1)
-	andi  $t1, $k1, 0xff00
-	beqzl $t1, .L00003c6c
-	lui   $k1, 0xa430
-	lui   $t0, %hi(__osGlobalIntMask)
-	addiu $t0, $t0, %lo(__osGlobalIntMask)
+	andi  $t1, $k1, SR_IMASK
+	beqzl $t1, .after_store_imask
+	la    $k1, PHYS_TO_K1(MI_MODE_REG)
+	la    $t0, __osGlobalIntMask
 	lw    $t0, 0x0($t0)
-	li    $at, -1
+	li    $at, 0xffffffff
 	xor   $t0, $t0, $at
 	lui   $at, 0xffff
 	andi  $t0, $t0, 0xff00
@@ -587,66 +612,73 @@ glabel __osEnqueueAndYield
 	and   $k1, $k1, $at
 	or    $k1, $k1, $t1
 	sw    $k1, 0x118($a1)
-	lui   $k1, 0xa430
-.L00003c6c:
-	lw    $k1, 0xc($k1)
-	beqz  $k1, .L00003ca0
+	lui   $k1, %hi(PHYS_TO_K1(MI_INTR_MASK_REG))
+.after_store_imask:
+	lw    $k1, %lo(PHYS_TO_K1(MI_INTR_MASK_REG))($k1)
+	beqz  $k1, .after_load_imask
  	nop
-	lui   $k0, %hi(__osGlobalIntMask)
-	addiu $k0, $k0, %lo(__osGlobalIntMask)
+	la    $k0, __osGlobalIntMask
 	lw    $k0, 0x0($k0)
 	lw    $t0, 0x128($a1)
-	li    $at, -1
+	li    $at, 0xffffffff
 	srl   $k0, $k0, 0x10
 	xor   $k0, $k0, $at
 	andi  $k0, $k0, 0x3f
 	and   $k0, $k0, $t0
 	or    $k1, $k1, $k0
-.L00003ca0:
-	beqz  $a0, .L00003cb0
+.after_load_imask:
+	beqz  $a0, .after_enqueue
 	sw    $k1, 0x128($a1)
 	jal   __osEnqueueThread
  	nop
-.L00003cb0:
-	j     .L00003d10
+.after_enqueue:
+	j     __osDispatchThread
  	nop
 
+/**
+ * a0 = OSThread **queue
+ * a1 = OSThread *thread
+ */
 glabel __osEnqueueThread
-	lw    $t8, 0x0($a0)
-	lw    $t7, 0x4($a1)
-	move  $t9, $a0
-	lw    $t6, 0x4($t8)
+	lw    $t8, 0x0($a0)  # t8 = queue->next
+	lw    $t7, 0x4($a1)  # t7 = thread->priority
+	move  $t9, $a0       # iter = queue
+	lw    $t6, 0x4($t8)  # t6 = queue->next->priority
 	slt   $at, $t6, $t7
-	bnezl $at, .L00003cf0
+	bnezl $at, .enqueue_here
 	lw    $t8, 0x0($t9)
+
 	move  $t9, $t8
-.L00003cd8:
+.enqueue_loop:
 	lw    $t8, 0x0($t8)
 	lw    $t6, 0x4($t8)
 	slt   $at, $t6, $t7
-	beqzl $at, .L00003cd8
+	beqzl $at, .enqueue_loop
 	move  $t9, $t8
-	lw    $t8, 0x0($t9)
-.L00003cf0:
-	sw    $t8, 0x0($a1)
-	sw    $a1, 0x0($t9)
-	jr    $ra
-	sw    $a0, 0x8($a1)
 
+	lw    $t8, 0x0($t9)
+.enqueue_here:
+	sw    $t8, 0x0($a1)  # thread->next = t8
+	sw    $a1, 0x0($t9)  # iter->next = thread
+	jr    $ra
+	sw    $a0, 0x8($a1)  # thread->queue = queue
+
+/**
+ * a0 = OSThread **queue
+ */
 glabel __osPopThread
- 	lw	$v0, 0x0($a0)
- 	lw	$t9, 0x0($v0)
+ 	lw	$v0, 0x0($a0)  # v0 = *queue
+ 	lw	$t9, 0x0($v0)  # t9 = v0->next
  	jr	$ra
- 	sw	$t9, 0x0($a0)
+ 	sw	$t9, 0x0($a0)  # *queue = t9
 
 glabel __osDispatchThread
-.L00003d10:
 	lui   $a0, %hi(__osRunQueue)
 	jal   __osPopThread
 	addiu $a0, $a0, %lo(__osRunQueue)
 	lui   $at, %hi(__osRunningThread)
 	sw    $v0, %lo(__osRunningThread)($at)
-	li    $t0, 0x4
+	li    $t0, OS_STATE_RUNNING
 	sh    $t0, 0x10($v0)
 	move  $k0, $v0
 	lui   $t0, %hi(__osGlobalIntMask)
@@ -654,9 +686,9 @@ glabel __osDispatchThread
 	addiu $t0, $t0, %lo(__osGlobalIntMask)
 	lw    $t0, 0x0($t0)
 	lui   $at, 0xffff
-	andi  $t1, $k1, 0xff00
+	andi  $t1, $k1, SR_IMASK
 	ori   $at, $at, 0xff
-	andi  $t0, $t0, 0xff00
+	andi  $t0, $t0, SR_IMASK
 	and   $t1, $t1, $t0
 	and   $k1, $k1, $at
 	or    $k1, $k1, $t1
@@ -697,7 +729,7 @@ glabel __osDispatchThread
 	lw    $k1, 0x11c($k0)
 	mtc0  $k1, C0_EPC
 	lw    $k1, 0x18($k0)
-	beqz  $k1, .L00003e80
+	beqz  $k1, .after_restore_fp
  	nop
 	lw    $k1, 0x12c($k0)
 	ctc1  $k1, $31
@@ -733,20 +765,18 @@ glabel __osDispatchThread
 	ldc1  $f29, 0x218($k0)
 	ldc1  $f30, 0x220($k0)
 	ldc1  $f31, 0x228($k0)
-.L00003e80:
+.after_restore_fp:
 	lw    $k1, 0x128($k0)
-	lui   $k0, %hi(__osGlobalIntMask)
-	addiu $k0, $k0, %lo(__osGlobalIntMask)
+	la    $k0, __osGlobalIntMask
 	lw    $k0, 0x0($k0)
 	srl   $k0, $k0, 0x10
 	and   $k1, $k1, $k0
 	sll   $k1, $k1, 0x1
-	lui   $k0, %hi(var70059e30)
-	addiu $k0, $k0, %lo(var70059e30)
+	la    $k0, var70059e30
 	addu  $k1, $k1, $k0
 	lhu   $k1, 0x0($k1)
-	lui   $k0, 0xa430
-	addiu $k0, $k0, 0xc
+	lui   $k0, %hi(PHYS_TO_K1(MI_INTR_MASK_REG))
+	addiu $k0, $k0, %lo(PHYS_TO_K1(MI_INTR_MASK_REG))
 	sw    $k1, 0x0($k0)
  	nop
  	nop
@@ -755,5 +785,5 @@ glabel __osDispatchThread
  	eret
 
 glabel __osCleanupThread
- 	jal	 osDestroyThread
- 	move $a0, $zero
+ 	jal	  osDestroyThread
+ 	move  $a0, $zero

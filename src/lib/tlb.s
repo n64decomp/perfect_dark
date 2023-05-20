@@ -492,7 +492,7 @@ glabel tlbHandleMiss
 	j      .L00001268
  	nop
 .L0000162c:
-	j      L00003a88
+	j      handle_fault
  	nop
 
 glabel tlbUnmapRange
