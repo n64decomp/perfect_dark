@@ -355,7 +355,7 @@ u32 crashGetParentStackFrame(u32 *origptr, u32 *minaddr, u32 origsp, u32 *regs)
 bool crashIsReturnAddress(u32 *instruction)
 {
 	if (((uintptr_t)instruction % 4) == 0
-			&& (uintptr_t)instruction >= (uintptr_t)tlbInit
+			&& (uintptr_t)instruction >= (uintptr_t)vmBoot
 			&& (uintptr_t)instruction <= (uintptr_t)&_libSegmentEnd) {
 		// This condition can never pass because 9 is masked out
 		if ((instruction[-2] & 0xfc00003c) == 9) {

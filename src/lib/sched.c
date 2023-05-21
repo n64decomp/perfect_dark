@@ -402,7 +402,7 @@ void __scHandleTasks(OSSched *sc)
 	{
 		u32 checksum = 0;
 		s32 *end = (s32 *)&bootAllocateStack;
-		s32 *ptr = (s32 *)&bootPhase1;
+		s32 *ptr = (s32 *)&boot;
 		s32 i;
 
 		while (ptr < end) {

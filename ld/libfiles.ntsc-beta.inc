@@ -1,5 +1,5 @@
 #define LIBFILES(section) \
-	build/ROMID/lib/tlb.o (section); \
+	build/ROMID/lib/vm.o (section); \
 	build/ROMID/lib/segments.o (section); \
 	build/ROMID/lib/boot.o (section); \
 	build/ROMID/lib/sched.o (section); \
@@ -27,7 +27,7 @@
 	build/ROMID/lib/ultra/io/conteeplongwrite.o (section); \
 	build/ROMID/lib/ultra/io/pfsresizefile.o (section); \
 	build/ROMID/lib/ultra/io/pfsinitpak.o (section); \
-	build/ROMID/lib/vm.o (section); \
+	build/ROMID/lib/vminit.o (section); \
 	build/ROMID/lib/rzip.o (section); \
 	build/ROMID/lib/audiomgr.o (section); \
 	build/ROMID/lib/audiodma.o (section); \

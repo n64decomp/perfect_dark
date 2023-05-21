@@ -412,9 +412,9 @@ void mainInit(void)
 			addr -= STACKSIZE_AUDIO;
 			addr -= 8; // markers for stack overflow detection
 			addr -= g_VmNumPages * 8; // vm state table
-			addr -= 268 * 4096; // vm loaded pages buffer
+			addr -= VM_NUM_SLOTS * VM_PAGE_SIZE; // vm loaded pages buffer
 			addr -= addr % 0x2000; // align down to a multiple of 0x2000
-			addr -= 0x1c80; // buffer for single biggest game zip
+			addr -= VM_BIGGEST_ZIP; // buffer for single biggest game zip
 		} else {
 			addr = K0BASE + 8 * 1024 * 1024;
 		}
@@ -557,9 +557,9 @@ void mainInit(void)
 			addr -= STACKSIZE_SCHED;
 			addr -= STACKSIZE_AUDIO;
 			addr -= g_VmNumPages * 8; // vm state table
-			addr -= 266 * 4096; // vm loaded pages buffer
+			addr -= VM_NUM_SLOTS * VM_PAGE_SIZE; // vm loaded pages buffer
 			addr -= addr % 0x2000; // align down to a multiple of 0x2000
-			addr -= 0x1c80; // buffer for single biggest game zip
+			addr -= VM_BIGGEST_ZIP; // buffer for single biggest game zip
 		} else {
 			addr = K0BASE + 8 * 1024 * 1024;
 		}

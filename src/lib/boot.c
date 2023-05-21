@@ -72,7 +72,7 @@ u32 __osSetFpcCsr(u32 arg0);
  * in RAM thanks to this but need to be relocated, and .data and lib need to be
  * unzipped too.
  */
-void bootPhase1(void)
+void boot(void)
 {
 	s32 datacomplen;
 	s32 inflatelen;
@@ -135,7 +135,7 @@ void bootPhase1(void)
 	}
 #endif
 
-	tlbUnmapRange(1, NTLBENTRIES);
+	vmUnmapRange(1, NTLBENTRIES);
 
 	// Clear the stack allocation pointers
 	for (i = 0; i < ARRAYCOUNT(g_StackLeftAddrs); i++) {
@@ -168,7 +168,7 @@ void bootPhase1(void)
 #endif
 
 	// Create and start the main thread
-	osCreateThread(&g_MainThread, THREAD_MAIN, bootPhase2, NULL, bootAllocateStack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
+	osCreateThread(&g_MainThread, THREAD_MAIN, bootCreateThreads, NULL, bootAllocateStack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
 	osStartThread(&g_MainThread);
 }
 
@@ -266,7 +266,7 @@ void bootCreateSchedThread(void)
 	g_SchedCmdQ = osScGetCmdQ(&g_Sched);
 }
 
-void bootPhase2(void *arg)
+void bootCreateThreads(void *arg)
 {
 	bootCreateIdleThread();
 	videbugCreate();

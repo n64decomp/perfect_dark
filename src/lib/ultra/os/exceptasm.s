@@ -436,7 +436,7 @@ glabel __osException
 	and   $s0, $s0, $at
 
 .handle_rmiss:
-	jal   tlbHandleMiss
+	jal   vmHandleMiss
  	nop
 	b     .dispatch_thread
  	nop

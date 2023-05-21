@@ -163,7 +163,7 @@ static void patch(Algo algo, char *patchfunc, char *sumfunc)
 void piracy_patch_checksums(void)
 {
 	// algorithm, patch function, sum function
-	patch(algo01, "__scHandleTasks", "bootPhase1");
+	patch(algo01, "__scHandleTasks", "boot");
 	patch(algo02, "cheatMenuHandleDialog", "__scHandleTasks");
 	patch(algo03, "botPickupProp", "doorFinishClose");
 	patch(algo04, "chrUncloak", "botPickupProp");

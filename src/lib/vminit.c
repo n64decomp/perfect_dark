@@ -7,6 +7,7 @@
 #include "lib/rzip.h"
 #include "lib/dma.h"
 #include "lib/lib_48150.h"
+#include "lib/vm.h"
 #include "data.h"
 #include "types.h"
 
@@ -74,7 +75,7 @@ u32 g_VmNumPageMisses;
 u32 g_VmNumPageReplaces;
 u8 *g_VmMarker;
 u32 g_VmRamEnd;
-u32 g_VmStateTableEnd;
+u32 g_VmVirtualToPhysicalTableEnd;
 
 #ifdef DEBUG
 u8 g_VmShowStats = false;
@@ -98,19 +99,11 @@ extern u8 _gameSegmentStart;
 extern u8 _gameSegmentEnd;
 extern u8 _gamezipSegmentRomStart;
 
-extern u32 var8008ae20;
-extern u32 *g_VmStateTable;
+extern u32 g_VmPhysicalSlots;
+extern u32 *g_VmVirtualToPhysicalTable;
 extern u8 g_VmInitialised;
 extern u32 g_VmZipBuffer;
 extern u32 *g_VmZipTable;
-
-#define PAGE_SIZE (1024 * 4)
-
-#if VERSION >= VERSION_NTSC_1_0
-#define MAX_LOADED_PAGES 268
-#else
-#define MAX_LOADED_PAGES 266
-#endif
 
 /**
  * Initialise the virtual memory.
@@ -152,7 +145,7 @@ extern u32 *g_VmZipTable;
  *   Addresses:              0x???       0x80220000 0x803f50b8 0x80400000
  *     Lengths:              0x6ec       0x1b99e0   0xaf48     0
  *
- * zip buffer: is sized as PAGE_SIZE * 2, which guarantees it's big enough to
+ * zip buffer: is sized as VM_PAGE_SIZE * 2, which guarantees it's big enough to
  *     hold any zip.
  * zip table: is the ROM offset table where each zip can be found.
  * game seg: is where the entire game segment is unzipped to.
@@ -214,14 +207,14 @@ void vmInit(void)
 	{
 		g_Is4Mb = true;
 
-		g_VmNumPages = (s32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
+		g_VmNumPages = (s32)((&_gameSegmentEnd - &_gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
 
-		g_VmRamEnd = 0x7f000000 + PAGE_SIZE * g_VmNumPages;
-		g_VmStateTableEnd = STACK_START;
+		g_VmRamEnd = 0x7f000000 + VM_PAGE_SIZE * g_VmNumPages;
+		g_VmVirtualToPhysicalTableEnd = STACK_START;
 		gameseg = (u8 *) (STACK_START - g_VmNumPages * 8);
-		g_VmStateTable = (u32 *) gameseg;
+		g_VmVirtualToPhysicalTable = (u32 *) gameseg;
 
-		numpages = (u32) (((uintptr_t) &_gameSegmentEnd - (uintptr_t) &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
+		numpages = (u32) (((uintptr_t) &_gameSegmentEnd - (uintptr_t) &_gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
 		numentries = numpages + 1;
 
 		g_VmZipTable = (u32 *) ((uintptr_t) ((u32 *) gameseg - (numentries + 4)) & ~0xf);
@@ -249,27 +242,27 @@ void vmInit(void)
 		s1 &= (u32) ~0xf;
 		g_VmZipBuffer = (uintptr_t) g_VmZipTable - s1;
 		g_VmZipBuffer &= ~0xf;
-		gameseg = (u8 *) (g_VmZipBuffer - MAX_LOADED_PAGES * PAGE_SIZE);
+		gameseg = (u8 *) (g_VmZipBuffer - VM_NUM_SLOTS * VM_PAGE_SIZE);
 		gameseg -= (uintptr_t) gameseg & 0x1fff;
-		var8008ae20 = (uintptr_t) gameseg;
+		g_VmPhysicalSlots = (uintptr_t) gameseg;
 		g_VmMarker = gameseg;
 
-		tlb000010a4();
+		vmInitVars();
 
 		// Clear the state table
-		ptr = g_VmStateTable;
+		ptr = g_VmVirtualToPhysicalTable;
 		statetablelen = (g_VmNumPages * 8) >> 2;
 
 		for (s1 = 0; s1 < statetablelen; s1++) {
 			ptr[s1] = 0;
 		}
 
-		tlb0000113c();
+		vmInitVacant();
 	} else {
 		// Expansion pak is being used
 		g_Is4Mb = numentries * false;
 
-		numpages = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
+		numpages = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
 		s7 = (u8 *) STACK_START;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -302,7 +295,7 @@ void vmInit(void)
 
 		// Load each zip from the ROM and inflate them to the game segment
 		s2 = gameseg;
-		chunkbuffer = (u8 *) ((uintptr_t) romaddrs - PAGE_SIZE * 2);
+		chunkbuffer = (u8 *) ((uintptr_t) romaddrs - VM_PAGE_SIZE * 2);
 		zip = chunkbuffer + 2;
 
 		for (ITER = 0; ITER < numentries2 - 1;) {

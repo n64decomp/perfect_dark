@@ -145,11 +145,11 @@ SECTIONS
 	END_SEG(preamble)
 
 	/**
-	/* tlbInit()'s address is 0x70001050, but preamble calls it by 0x80001050
+	/* vmBoot()'s address is 0x70001050, but preamble calls it by 0x80001050
 	 * due to it not being TLB mapped yet. So we set up this variable to allow
 	 * this to happen.
 	 */
-	tlbInitFromPreamble = tlbInit + 0x10000000;
+	vmBootFromPreamble = vmBoot + 0x10000000;
 
 	/***************************************************************************
 	 * lib

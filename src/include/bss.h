@@ -25,7 +25,7 @@ extern u32 g_VmNumPageMisses;
 extern u32 g_VmNumPageReplaces;
 extern u8 *g_VmMarker;
 extern u32 g_VmRamEnd;
-extern u32 g_VmStateTableEnd;
+extern u32 g_VmVirtualToPhysicalTableEnd;
 extern AMAudioMgr g_AudioManager;
 extern Mtx *var80092870;
 extern s32 g_SndMaxFxBusses;
