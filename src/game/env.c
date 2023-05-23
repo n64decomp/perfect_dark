@@ -155,7 +155,7 @@ void env0f1657f8(void)
 
 	viGetZRange(&zrange);
 
-	scale = currentPlayerGetScaleBg2Gfx();
+	scale = bgGetScaleBg2Gfx();
 
 	zrange.near /= scale;
 	zrange.far /= scale;

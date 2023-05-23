@@ -1003,7 +1003,7 @@ s32 setupGetPortalByPad(s32 padnum)
 	centre.y = centre.y - pad.up.y * mult;
 	centre.z = centre.z - pad.up.z * mult;
 
-	return bg0f164e8c(&centre, &coord);
+	return bgFindPortalBetweenPositions(&centre, &coord);
 }
 
 s32 setupGetPortalByDoorPad(s32 padnum)
@@ -1027,7 +1027,7 @@ s32 setupGetPortalByDoorPad(s32 padnum)
 	centre.y = centre.y - pad.normal.y * mult;
 	centre.z = centre.z - pad.normal.z * mult;
 
-	return bg0f164e8c(&centre, &coord);
+	return bgFindPortalBetweenPositions(&centre, &coord);
 }
 
 void setupCreateDoor(struct doorobj *door, s32 cmdindex)
@@ -1055,15 +1055,15 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 
 		// If the door has a portal, adjust the pad's bbox to match the portal's dimensions
 		if (portalnum >= 0) {
-			struct var800a4ccc *ptr = &var800a4ccc[portalnum];
-			f32 f0 = pad.pos.f[0] * ptr->coord.f[0] + pad.pos.f[1] * ptr->coord.f[1] + pad.pos.f[2] * ptr->coord.f[2];
+			struct portalmetric *ptr = &g_PortalMetrics[portalnum];
+			f32 f0 = pad.pos.f[0] * ptr->normal.f[0] + pad.pos.f[1] * ptr->normal.f[1] + pad.pos.f[2] * ptr->normal.f[2];
 			f32 min = ptr->min;
 			struct coord sp150;
 			f0 = (f0 - min) * (g_DoorScale - 1);
 
-			sp150.x = ptr->coord.x * f0;
-			sp150.y = ptr->coord.y * f0;
-			sp150.z = ptr->coord.z * f0;
+			sp150.x = ptr->normal.x * f0;
+			sp150.y = ptr->normal.y * f0;
+			sp150.z = ptr->normal.z * f0;
 
 			f0 = sp150.f[0] * pad.normal.f[0] + sp150.f[1] * pad.normal.f[1] + sp150.f[2] * pad.normal.f[2];
 			pad.bbox.xmin += f0;

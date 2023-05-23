@@ -662,7 +662,7 @@ void botCheckPickups(struct chrdata *chr)
 	roomsCopy(chr->prop->rooms, allrooms);
 
 	for (i = 0; chr->prop->rooms[i] != -1; i++) {
-		roomGetNeighbours(chr->prop->rooms[i], neighbours, 10);
+		bgRoomGetNeighbours(chr->prop->rooms[i], neighbours, 10);
 		roomsAppend(neighbours, allrooms, 20);
 	}
 
@@ -800,9 +800,9 @@ bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
 			}
 
 			if (chr->aibot->config->difficulty >= BOTDIFF_NORMAL) {
-				if (roomsAreNeighbours(chr->prop->rooms[0], target->rooms[0])
+				if (bgRoomsAreNeighbours(chr->prop->rooms[0], target->rooms[0])
 						|| chr->aibot->chrrooms[mpindex] == target->rooms[0]
-						|| roomsAreNeighbours(chr->aibot->chrrooms[mpindex], target->rooms[0])) {
+						|| bgRoomsAreNeighbours(chr->aibot->chrrooms[mpindex], target->rooms[0])) {
 					result = true;
 				}
 
@@ -870,7 +870,7 @@ s32 botTick(struct prop *prop)
 			aibot->cheap = true;
 
 			for (i = 0; prop->rooms[i] != -1; i++) {
-				if (roomIsOnscreen(prop->rooms[i]) || roomIsStandby(prop->rooms[i])) {
+				if (bgRoomIsOnscreen(prop->rooms[i]) || bgRoomIsStandby(prop->rooms[i])) {
 					aibot->cheap = false;
 					break;
 				}

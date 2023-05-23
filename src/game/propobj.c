@@ -2445,7 +2445,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 
 		if (glass->portalnum >= 0) {
 			portalSetXluFrac(glass->portalnum, 1);
-			portalSetOpen(glass->portalnum, true);
+			bgSetPortalOpenState(glass->portalnum, true);
 			g_BgPortals[glass->portalnum].flags |= PORTALFLAG_FORCEOPEN;
 		}
 	} else if (obj->type == OBJTYPE_GLASS) {
@@ -3262,12 +3262,13 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 			ptr++;
 		}
 
-		roomsGetActive(ptr, 100);
+		// Note this being appended to spcc
+		bgGetForceOnscreenRooms(ptr, 100);
 
 		for (i = 0; spcc[i] != -1; i++) {
 			s0 = false;
 
-			if (roomIsLoaded(spcc[i])) {
+			if (bgRoomIsLoaded(spcc[i])) {
 				if (bgTestHitInRoom(&prop->pos, &sp1c4, spcc[i], &hitthing)) {
 					hitthing.unk00.x *= scale;
 					hitthing.unk00.y *= scale;
@@ -10740,9 +10741,9 @@ void glassUpdatePortal(struct prop *prop, s32 playercount, bool *arg2)
 
 	if (glass->portalnum >= 0 && playercount == 1) {
 		if (glass->opacity == 255) {
-			portalSetOpen(glass->portalnum, false);
+			bgSetPortalOpenState(glass->portalnum, false);
 		} else {
-			portalSetOpen(glass->portalnum, true);
+			bgSetPortalOpenState(glass->portalnum, true);
 		}
 	}
 
@@ -13672,9 +13673,9 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	}
 
 	if ((obj->flags2 & OBJFLAG2_CANFILLVIEWPORT) == 0 && func0f08e5a8(prop->rooms, &screenbox) > 0) {
-		gdl = currentPlayerScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
+		gdl = bgScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 	} else {
-		gdl = currentPlayerScissorToViewport(gdl);
+		gdl = bgScissorToViewport(gdl);
 	}
 
 	renderdata.flags = sp84;
@@ -19285,14 +19286,14 @@ void func0f08d460(struct doorobj *door)
 void doorActivatePortal(struct doorobj *door)
 {
 	if (door->portalnum >= 0) {
-		portalSetOpen(door->portalnum, true);
+		bgSetPortalOpenState(door->portalnum, true);
 	}
 }
 
 void doorDeactivatePortal(struct doorobj *door)
 {
 	if (door->portalnum >= 0) {
-		portalSetOpen(door->portalnum, false);
+		bgSetPortalOpenState(door->portalnum, false);
 	}
 }
 
@@ -19811,30 +19812,30 @@ s32 func0f08e5a8(s16 *rooms2, struct screenbox *box)
 	s32 roomnum = *rooms;
 
 	while (roomnum != -1) {
-		struct var800a4640_00 *thing = func0f158140(roomnum);
+		struct drawslot *drawslot = bgGetRoomDrawSlot(roomnum);
 
-		if (thing != var8007fc24) {
+		if (drawslot != g_BgSpecialDrawSlot) {
 			if (result) {
-				if (box->xmin > thing->box.xmin) {
-					box->xmin = thing->box.xmin;
+				if (box->xmin > drawslot->box.xmin) {
+					box->xmin = drawslot->box.xmin;
 				}
 
-				if (box->ymin > thing->box.ymin) {
-					box->ymin = thing->box.ymin;
+				if (box->ymin > drawslot->box.ymin) {
+					box->ymin = drawslot->box.ymin;
 				}
 
-				if (box->xmax < thing->box.xmax) {
-					box->xmax = thing->box.xmax;
+				if (box->xmax < drawslot->box.xmax) {
+					box->xmax = drawslot->box.xmax;
 				}
 
-				if (box->ymax < thing->box.ymax) {
-					box->ymax = thing->box.ymax;
+				if (box->ymax < drawslot->box.ymax) {
+					box->ymax = drawslot->box.ymax;
 				}
 			} else {
-				box->xmin = thing->box.xmin;
-				box->ymin = thing->box.ymin;
-				box->xmax = thing->box.xmax;
-				box->ymax = thing->box.ymax;
+				box->xmin = drawslot->box.xmin;
+				box->ymin = drawslot->box.ymin;
+				box->xmax = drawslot->box.xmax;
+				box->ymax = drawslot->box.ymax;
 			}
 
 			result = true;

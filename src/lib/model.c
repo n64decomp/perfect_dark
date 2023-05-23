@@ -1148,7 +1148,7 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &translate1, &scale1);
 			}
 		} else if (sp128) {
-			f32 mult = func0f15c888();
+			f32 mult = bgGetStageTranslationThing();
 
 			translate1.x *= mult;
 			translate1.y *= mult;
@@ -1826,7 +1826,7 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 			f32 z;
 
 			if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
-				sp64 = func0f15c888();
+				sp64 = bgGetStageTranslationThing();
 				animLoadHeader(anim->animnum);
 				frameslot = animLoadFrame(anim->animnum, anim->framea);
 				animForgetFrameBirths();
@@ -2233,7 +2233,7 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 				}
 
 				if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
-					f20 = func0f15c888();
+					f20 = bgGetStageTranslationThing();
 
 					if (floorend != anim->framea) {
 						s0frame = modelConstrainOrWrapAnimFrame(floorend, anim->animnum, anim->endframe);

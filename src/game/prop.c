@@ -441,7 +441,7 @@ Gfx *propsRender(Gfx *gdl, s16 renderroomnum, s32 renderpass, s16 *roomnumsbypro
 		}
 	}
 
-	gdl = currentPlayerScissorToViewport(gdl);
+	gdl = bgScissorToViewport(gdl);
 
 	return gdl;
 }
@@ -688,7 +688,8 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 			roomsptr++;
 		}
 
-		roomsGetActive(roomsptr, 100);
+		// Note this is being appended to rooms
+		bgGetForceOnscreenRooms(roomsptr, 100);
 
 		for (i = 0; rooms[i] != -1; i++) {
 			if (bgTestHitInRoom(&shotdata.gunpos, &hitpos, rooms[i], &sp664)) {
@@ -2223,7 +2224,7 @@ void propsTickPadEffects(void)
 
 			padUnpack(effect->pad, PADFIELD_ROOM, &pad);
 
-			if (roomIsOnscreen(pad.room)) {
+			if (bgRoomIsOnscreen(pad.room)) {
 				switch (effect->effect) {
 				case PADEFFECT_SPARKS:
 				case PADEFFECT_SPARKS2:
@@ -2313,7 +2314,7 @@ void propsTestForPickup(void)
 		roomsCopy(g_Vars.currentplayer->prop->rooms, allrooms);
 
 		for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
-			roomGetNeighbours(g_Vars.currentplayer->prop->rooms[i], tmp, 10);
+			bgRoomGetNeighbours(g_Vars.currentplayer->prop->rooms[i], tmp, 10);
 			roomsAppend(tmp, allrooms, 20);
 		}
 
@@ -3069,7 +3070,7 @@ void func0f065d1c(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newr
 	index = 0;
 
 	for (i = 0; stackrooms[i] != -1; i++) {
-		if (roomContainsCoord(newpos, stackrooms[i])) {
+		if (bgRoomContainsCoord(newpos, stackrooms[i])) {
 			newrooms[index] = stackrooms[i];
 			index++;
 		}

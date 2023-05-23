@@ -56,7 +56,7 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 	allrooms[i] = -1;
 
 	for (i = 0; rooms[i] != -1; i++) {
-		roomGetNeighbours(rooms[i], neighbours, ARRAYCOUNT(neighbours));
+		bgRoomGetNeighbours(rooms[i], neighbours, ARRAYCOUNT(neighbours));
 		roomsAppend(neighbours, allrooms, ARRAYCOUNT(allrooms));
 	}
 

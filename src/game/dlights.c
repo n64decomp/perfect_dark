@@ -303,8 +303,8 @@ void roomSetDefaults(struct room *room)
 	room->br_settled_regional = 0;
 	room->lightop = LIGHTOP_NONE;
 	room->flags &= ~(ROOMFLAG_BRIGHTNESS_DIRTY_PERM | ROOMFLAG_LIGHTS_DIRTY | ROOMFLAG_RENDERALWAYS | ROOMFLAG_BRIGHTNESS_CALCED);
-	room->unk6c = 1;
-	room->unk70 = 1;
+	room->volume = 1;
+	room->surfacearea = 1;
 	room->lightop_cur_frac = 1;
 	room->lightop_to_frac = 0;
 	room->lightop_from_frac = 0;
@@ -579,7 +579,7 @@ void func0f001c0c(void)
 
 	var80061440 = 0;
 
-	func0f0023b8();
+	lightsCalculateRoomDimensions();
 
 	if (1);
 	for (g_NumPortals = 0; g_BgPortals[g_NumPortals].verticesoffset != 0; g_NumPortals++);
@@ -737,18 +737,18 @@ void func0f00215c(u8 *arg0)
 
 f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2)
 {
-	f32 fVar2 = 0;
+	f32 surfacearea = 0;
 	f32 result;
 
 	if (portalnum1 != -1) {
-		fVar2 = portal0f15b274(portalnum1);
+		surfacearea = bgCalculatePortalSurfaceArea(portalnum1);
 	}
 
-	result = (portal0f15b274(portalnum2) / (g_Rooms[roomnum].unk70 - fVar2)) * mult;
+	result = (bgCalculatePortalSurfaceArea(portalnum2) / (g_Rooms[roomnum].surfacearea - surfacearea)) * mult;
 	return result;
 }
 
-void func0f0023b8(void)
+void lightsCalculateRoomDimensions(void)
 {
 	s32 i;
 	s32 j;
@@ -756,23 +756,23 @@ void func0f0023b8(void)
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		bool valid = true;
 
-		g_Rooms[i].unk6c = 1.0f;
-		g_Rooms[i].unk70 = 1.0f;
+		g_Rooms[i].volume = 1.0f;
+		g_Rooms[i].surfacearea = 1.0f;
 
 		for (j = 0; j < 3; j++) {
 			f32 diff = g_Rooms[i].bbmax[j] - g_Rooms[i].bbmin[j];
 
 			if (diff > 0.0f) {
-				g_Rooms[i].unk6c *= (g_Rooms[i].bbmax[j] - g_Rooms[i].bbmin[j]) / 100.0f;
+				g_Rooms[i].volume *= (g_Rooms[i].bbmax[j] - g_Rooms[i].bbmin[j]) / 100.0f;
 			} else {
 				valid = false;
 			}
 		}
 
-		g_Rooms[i].unk6c += 1.0f;
+		g_Rooms[i].volume += 1.0f;
 
-		if (g_Rooms[i].unk6c > 60.0f) {
-			g_Rooms[i].unk6c = 60.0f;
+		if (g_Rooms[i].volume > 60.0f) {
+			g_Rooms[i].volume = 60.0f;
 		}
 
 		if (valid) {
@@ -792,9 +792,9 @@ void func0f0023b8(void)
 				zdiff = -zdiff;
 			}
 
-			g_Rooms[i].unk70 = 2.0f * (xdiff * ydiff + xdiff * zdiff + ydiff * zdiff);
+			g_Rooms[i].surfacearea = 2.0f * (xdiff * ydiff + xdiff * zdiff + ydiff * zdiff);
 		} else {
-			g_Rooms[i].unk70 = 20000000.0f;
+			g_Rooms[i].surfacearea = 20000000.0f;
 		}
 	}
 }
@@ -809,7 +809,7 @@ void func0f00259c(s32 roomnum)
 		var80061434[i] = 0.0f;
 	}
 
-	var80061434[roomnum] = sqrtf(g_Rooms[roomnum].unk6c) * 255.0f;
+	var80061434[roomnum] = sqrtf(g_Rooms[roomnum].volume) * 255.0f;
 	if (1);
 
 	if (g_Rooms[roomnum].numportals != 0) {
@@ -819,13 +819,13 @@ void func0f00259c(s32 roomnum)
 	}
 
 	for (i = 0; i < g_Rooms[roomnum].numportals; i++) {
-		f20 += portal0f15b274(g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i]);
+		f20 += bgCalculatePortalSurfaceArea(g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i]);
 	}
 
-	sp58 = (g_Rooms[roomnum].unk70 - f20) / g_Rooms[roomnum].unk70;
+	sp58 = (g_Rooms[roomnum].surfacearea - f20) / g_Rooms[roomnum].surfacearea;
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		var80061434[i] *= 3.0f / sqrtf(g_Rooms[i].unk6c);
+		var80061434[i] *= 3.0f / sqrtf(g_Rooms[i].volume);
 	}
 
 	if (var80061434[roomnum] > 255.0f) {
@@ -1570,8 +1570,8 @@ void roomHighlight(s32 roomnum)
 	f32 mult;
 	u32 stack;
 
-	if (var8007fc3c != g_Rooms[roomnum].unk56 && g_Rooms[roomnum].loaded240 != 0) {
-		g_Rooms[roomnum].unk56 = var8007fc3c;
+	if (g_BgFrameCount != g_Rooms[roomnum].hlupdatedframe && g_Rooms[roomnum].loaded240 != 0) {
+		g_Rooms[roomnum].hlupdatedframe = g_BgFrameCount;
 
 		if ((g_Rooms[roomnum].flags & ROOMFLAG_BRIGHTNESS_CALCED) == 0) {
 			g_Rooms[roomnum].flags |= ROOMFLAG_BRIGHTNESS_DIRTY_PERM;

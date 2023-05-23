@@ -3426,9 +3426,9 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		if (func0f08e5a8(prop->rooms, &screenbox) > 0 && (chr->chrflags & CHRCFLAG_UNPLAYABLE) == 0) {
-			gdl = currentPlayerScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
+			gdl = bgScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 		} else {
-			gdl = currentPlayerScissorToViewport(gdl);
+			gdl = bgScissorToViewport(gdl);
 		}
 
 		renderdata.flags = sp100;

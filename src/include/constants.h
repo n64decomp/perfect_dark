@@ -3482,7 +3482,7 @@
 #define ROOMFLAG_HASDYNTEX             0x0002 // Has dynamic textures such as water
 #define ROOMFLAG_ONSCREEN              0x0004
 #define ROOMFLAG_STANDBY               0x0008 // Neighbour of an onscreen room - usually loaded as well
-#define ROOMFLAG_0010                  0x0010
+#define ROOMFLAG_COMPLICATEDPORTALS    0x0010 // Room has portals that aren't on the room's bounding box
 #define ROOMFLAG_LOADCANDIDATE         0x0020 // Room is a good candidate for loading on this tick
 #define ROOMFLAG_BRIGHTNESS_CALCED     0x0040
 #define ROOMFLAG_RENDERALWAYS          0x0080

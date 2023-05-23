@@ -265,11 +265,11 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 					bestsqdist = sqdist;
 				}
 
-				if (roomIsOnPlayerScreen(pad.room, i)) {
+				if (bgRoomIsOnPlayerScreen(pad.room, i)) {
 					verybadpads[p] = true;
 				}
 
-				if (verybadpads[p] || roomIsOnPlayerStandby(pad.room, i)) {
+				if (verybadpads[p] || bgRoomIsOnPlayerStandby(pad.room, i)) {
 					badpads[p] = true;
 				}
 			}
@@ -279,7 +279,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 		tmppadrooms[0] = pad.room;
 		tmppadrooms[1] = -1;
 
-		roomGetNeighbours(pad.room, neighbours, 20);
+		bgRoomGetNeighbours(pad.room, neighbours, 20);
 
 		for (i = 0; i < g_BotCount; i++) {
 			if (g_MpBotChrPtrs[i]->prop
@@ -1873,7 +1873,7 @@ void playerTickCutscene(bool arg0)
 	struct coord scale;
 	u8 frameslot;
 	Mtxf rotmtx;
-	f32 translatescale = func0f15c888();
+	f32 translatescale = bgGetStageTranslationThing();
 	f32 fovy;
 	s32 endframe;
 	s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
@@ -2132,7 +2132,7 @@ void playerUpdateZoom(void)
 	}
 
 	stage = stageGetCurrent();
-	currentPlayerSetScaleBg2Gfx((1 - (1 - stage->unk34) * (1 - scale) * (10.f / 9.0f)) * scale);
+	bgSetScaleBg2Gfx((1 - (1 - stage->unk34) * (1 - scale) * (10.f / 9.0f)) * scale);
 }
 
 void playerStopAudioForPause(void)
@@ -4211,7 +4211,7 @@ void playerAllocateMatrices(struct coord *cam_pos, struct coord *cam_look, struc
 	s32 i;
 	s32 j;
 
-	scale = currentPlayerGetScaleBg2Gfx();
+	scale = bgGetScaleBg2Gfx();
 	playerSetGlobalDrawWorldOffset(g_Vars.currentplayer->cam_room);
 
 	g_Vars.currentplayer->mtxl005c = gfxAllocateMatrix();
@@ -4938,7 +4938,7 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 		// Remove values from sp54 (room numbers) if that room doesn't contain
 		// the coord, and shuffle the array back when removing values.
 		for (i = 0; sp54[i] != -1; i++) {
-			if (!roomContainsCoord(pos, sp54[i])) {
+			if (!bgRoomContainsCoord(pos, sp54[i])) {
 				s32 j;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -4967,8 +4967,8 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 
 		if (!done) {
 			for (i = 0; sp54[i] != -1; i++) {
-				if ((g_Rooms[sp54[i]].flags & ROOMFLAG_0010) == 0) {
-					if (func0f162128(pos, sp54[i])) {
+				if ((g_Rooms[sp54[i]].flags & ROOMFLAG_COMPLICATEDPORTALS) == 0) {
+					if (bgTestPosInRoom(pos, sp54[i])) {
 						playerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
 						done = true;
 						break;
@@ -4977,11 +4977,11 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 			}
 		}
 
-		// The same thing again but inverted flag check
+		// The same thing again but for rooms which have complicated portals
 		if (!done) {
 			for (i = 0; sp54[i] != -1; i++) {
-				if (g_Rooms[sp54[i]].flags & ROOMFLAG_0010) {
-					if (func0f162128(pos, sp54[i])) {
+				if (g_Rooms[sp54[i]].flags & ROOMFLAG_COMPLICATEDPORTALS) {
+					if (bgTestPosInRoom(pos, sp54[i])) {
 						playerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
 						done = true;
 						break;

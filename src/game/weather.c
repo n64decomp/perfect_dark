@@ -1572,7 +1572,7 @@ glabel var7f1b5780
 /*  f133958:	8e240000 */ 	lw	$a0,0x0($s1)
 /*  f13395c:	02602825 */ 	or	$a1,$s3,$zero
 /*  f133960:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f133964:	0fc5916a */ 	jal	roomGetNeighbours
+/*  f133964:	0fc5916a */ 	jal	bgRoomGetNeighbours
 /*  f133968:	00001025 */ 	or	$v0,$zero,$zero
 /*  f13396c:	1840004a */ 	blez	$v0,.L0f133a98
 /*  f133970:	26520001 */ 	addiu	$s2,$s2,0x1
@@ -2043,7 +2043,7 @@ glabel var7f1b5780
 /*  f13404c:	000e70c0 */ 	sll	$t6,$t6,0x3
 /*  f134050:	27ac0258 */ 	addiu	$t4,$sp,0x258
 /*  f134054:	01cc3021 */ 	addu	$a2,$t6,$t4
-/*  f134058:	0fc57c83 */ 	jal	func0f15f20c
+/*  f134058:	0fc57c83 */ 	jal	bgTestLineIntersectsIntBbox
 /*  f13405c:	24c7000c */ 	addiu	$a3,$a2,0xc
 /*  f134060:	50400003 */ 	beqzl	$v0,.L0f134070
 /*  f134064:	8fb90708 */ 	lw	$t9,0x708($sp)
@@ -2807,7 +2807,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 		// 3950
 		for (s2 = 0; s2 < s4; s2++) {
-			numneighbours = roomGetNeighbours(spcb8[s2], sp128, ARRAYCOUNT(sp128));
+			numneighbours = bgRoomGetNeighbours(spcb8[s2], sp128, ARRAYCOUNT(sp128));
 
 			// 396c
 			for (j2 = 0; j2 < numneighbours; j2++) {
@@ -2969,7 +2969,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 									&& spc9c.f[1] <= g_Rooms[spbbc[s0]].bbmax[1]
 									&& spca8.f[1] >= g_Rooms[spbbc[s0]].bbmin[1]
 									&& var8007f0f8
-									&& func0f15f20c(&spc90, &spfc, &sp258[s0][0], &sp258[s0][3])) {
+									&& bgTestLineIntersectsIntBbox(&spc90, &spfc, &sp258[s0][0], &sp258[s0][3])) {
 								s3 = 0;
 							}
 						}
@@ -3499,7 +3499,7 @@ glabel var7f1b5790
 /*  f134c68:	afa81268 */ 	sw	$t0,0x1268($sp)
 /*  f134c6c:	02602825 */ 	or	$a1,$s3,$zero
 /*  f134c70:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f134c74:	0fc5916a */ 	jal	roomGetNeighbours
+/*  f134c74:	0fc5916a */ 	jal	bgRoomGetNeighbours
 /*  f134c78:	00001025 */ 	or	$v0,$zero,$zero
 /*  f134c7c:	8fa81268 */ 	lw	$t0,0x1268($sp)
 /*  f134c80:	8fac00ac */ 	lw	$t4,0xac($sp)
@@ -4743,7 +4743,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	// 4c54
 	for (i = 0; i < sp1268; i++) {
-		numneighbours = roomGetNeighbours(sp126c[i], sp144, ARRAYCOUNT(sp144));
+		numneighbours = bgRoomGetNeighbours(sp126c[i], sp144, ARRAYCOUNT(sp144));
 
 		for (j2 = 0; j2 < numneighbours; j2++) {
 			a0 = true;

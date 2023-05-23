@@ -11,7 +11,7 @@ void stageParseTiles(void);
 
 void tilesReset(void)
 {
-	s32 index = stageGetIndex2(g_Vars.stagenum);
+	s32 index = bgGetStageIndex(g_Vars.stagenum);
 
 	if (index < 0) {
 		index = 0;

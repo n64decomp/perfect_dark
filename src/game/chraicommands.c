@@ -1507,7 +1507,7 @@ bool aiIfChrInOnScreenRoom(void)
 
 	if (chr && chr->prop) {
 		for (i = 0; chr->prop->rooms[i] != -1; i++) {
-			if (roomIsOnscreen(chr->prop->rooms[i])) {
+			if (bgRoomIsOnscreen(chr->prop->rooms[i])) {
 				pass = true;
 			}
 		}
@@ -1532,7 +1532,7 @@ bool aiIfRoomIsOnScreen(void)
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
-	if (room_id >= 0 && roomIsOnscreen(room_id)) {
+	if (room_id >= 0 && bgRoomIsOnscreen(room_id)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -4980,7 +4980,7 @@ bool aiObjectDoAnimation(void)
 			modelSetAnimPlaySpeed(obj->model, 1.2, 0);
 #endif
 			modelSetAnimation(obj->model, anim_id, 0, fstartframe, thing, 0);
-			modelSetAnimScale(obj->model, func0f15c888() * obj->model->scale * 100.0f);
+			modelSetAnimScale(obj->model, bgGetStageTranslationThing() * obj->model->scale * 100.0f);
 		}
 	}
 

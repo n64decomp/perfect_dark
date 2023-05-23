@@ -142,7 +142,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 			s1 = &var800a41a0[g_Rooms[roomnum].gfxdata->lightsindex * 3];
 
 			roomPopulateMtx(&sp138, roomnum);
-			mtx00015f88(currentPlayerGetScaleBg2Gfx(), &sp138);
+			mtx00015f88(bgGetScaleBg2Gfx(), &sp138);
 			mtx4MultMtx4(camGetMtxF006c(), &sp138, &spf8);
 
 			viewwidth = viGetViewWidth();

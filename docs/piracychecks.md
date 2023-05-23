@@ -140,7 +140,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Corrupts `bgReset` by writing 16 bytes of 0x12 to a random address within that function.
 
-### func0f15c920
+### bgTickCounter
 
 **When Called:** On every frame.
 

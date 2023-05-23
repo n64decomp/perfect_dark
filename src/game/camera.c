@@ -497,7 +497,7 @@ bool cam0f0b5b9c(struct coord *arg0, f32 arg1)
 	return true;
 }
 
-bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg2)
+bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct drawslot *drawslot)
 {
 	struct coord sp74;
 	f32 sp70;
@@ -522,7 +522,7 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 		return false;
 	}
 
-	sp38 = (arg2->box.xmin - g_Vars.currentplayer->c_screenleft - g_Vars.currentplayer->c_halfwidth) * g_Vars.currentplayer->c_scalex;
+	sp38 = (drawslot->box.xmin - g_Vars.currentplayer->c_screenleft - g_Vars.currentplayer->c_halfwidth) * g_Vars.currentplayer->c_scalex;
 
 	sp3c = 1.0f / sqrtf(sp38 * sp38 + 1.0f);
 	sp38 *= sp3c;
@@ -538,7 +538,7 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 		return false;
 	}
 
-	sp38 = -(arg2->box.xmax - g_Vars.currentplayer->c_screenleft - g_Vars.currentplayer->c_halfwidth) * g_Vars.currentplayer->c_scalex;
+	sp38 = -(drawslot->box.xmax - g_Vars.currentplayer->c_screenleft - g_Vars.currentplayer->c_halfwidth) * g_Vars.currentplayer->c_scalex;
 	sp30 = 1.0f / sqrtf(sp38 * sp38 + 1.0f);
 	sp38 *= sp30;
 	sp20 = -sp30;
@@ -553,7 +553,7 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 		return false;
 	}
 
-	sp34 = (g_Vars.currentplayer->c_halfheight - (arg2->box.ymin - g_Vars.currentplayer->c_screentop)) * g_Vars.currentplayer->c_scaley;
+	sp34 = (g_Vars.currentplayer->c_halfheight - (drawslot->box.ymin - g_Vars.currentplayer->c_screentop)) * g_Vars.currentplayer->c_scaley;
 	sp2c = 1.0f / sqrtf(sp34 * sp34 + 1.0f);
 	sp34 *= sp2c;
 	sp1c = -sp2c;
@@ -568,7 +568,7 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 		return false;
 	}
 
-	sp34 = -(g_Vars.currentplayer->c_halfheight - (arg2->box.ymax - g_Vars.currentplayer->c_screentop)) * g_Vars.currentplayer->c_scaley;
+	sp34 = -(g_Vars.currentplayer->c_halfheight - (drawslot->box.ymax - g_Vars.currentplayer->c_screentop)) * g_Vars.currentplayer->c_scaley;
 	sp28 = 1.0f / sqrtf(sp34 * sp34 + 1.0f);
 	sp34 *= sp28;
 	sp18 = -sp28;
@@ -587,27 +587,27 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 }
 
 /**
- * This function is building a struct var800a4640_00 on the stack so it can
- * pass it to camIsPosInScreenBox, however if we allocate this struct then it
- * uses too much stack and creates a mismatch.
+ * This function is building a drawslot on the stack so it can pass it to
+ * camIsPosInScreenBox, however if we allocate this struct then it uses too much
+ * stack and creates a mismatch.
  *
  * We resolve this by allocating a screenbox instead, which is a substruct of
- * var800a4640_00 and is all we need in this function. screenbox isn't at the
- * start of var800a4640_00 though, so we use a negative array index to pass the
+ * drawslot and is all we need in this function. screenbox isn't at the
+ * start of drawslot though, so we use a negative array index to pass the
  * correct address to camIsPosInScreenBox so it can interpret the pointer as a
- * struct var800a4640_00.
+ * drawslot.
  */
 bool camIsPosInFovAndVisibleRoom(s16 *rooms, struct coord *pos, f32 arg2)
 {
 	s32 i;
 	s16 room;
 	bool hasdata = false;
-	struct var800a4640_00 *thisthing;
+	struct drawslot *thisthing;
 	struct screenbox box;
 
 	for (i = 0, room = rooms[i]; room != -1; i++, room = rooms[i]) {
 		if (g_Rooms[room].flags & ROOMFLAG_ONSCREEN) {
-			thisthing = func0f158140(room);
+			thisthing = bgGetRoomDrawSlot(room);
 
 			if (hasdata == false) {
 				box.xmin = thisthing->box.xmin;
@@ -640,5 +640,5 @@ bool camIsPosInFovAndVisibleRoom(s16 *rooms, struct coord *pos, f32 arg2)
 		return false;
 	}
 
-	return camIsPosInScreenBox(pos, arg2, (struct var800a4640_00 *) (&box.array[-1][0]));
+	return camIsPosInScreenBox(pos, arg2, (struct drawslot *) (&box.array[-1][0]));
 }

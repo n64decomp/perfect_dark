@@ -15,7 +15,7 @@ u8 var800aacb8nb[0x140];
 struct var800a6538 var800a6538[16];
 u32 g_BgRoomTestsDisabled;
 u32 var800a65bc;
-struct screenbox var800a65c0;
+struct screenbox g_BgCmdScreenBox;
 struct screenbox g_PortalScreenBbox;
 u32 g_BgCmdThrowing;
 s32 g_BgNumLightsChecksum;

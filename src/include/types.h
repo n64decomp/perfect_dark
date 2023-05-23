@@ -3595,7 +3595,7 @@ struct room {
 	/*0x02*/ s16 loaded240; // 0 when unloaded, 1 when visible, ticks up to 120 when recently visible
 	/*0x04*/ u8 portalrecursioncount;
 	/*0x05*/ s8 numportals;
-	/*0x06*/ u8 unk06;
+	/*0x06*/ u8 snakecount;
 	/*0x07*/ u8 unk07;
 	/*0x08*/ s8 numlights;
 	/*0x09*/ u8 numwaypoints; // note: excludes waypoints with PADFLAG_AIDROP
@@ -3650,14 +3650,14 @@ struct room {
 	// such as gunfire or lightning.
 	/*0x52*/ s16 br_flash;
 	/*0x54*/ s16 lightop_timer240;
-	/*0x56*/ u16 unk56;
+	/*0x56*/ u16 hlupdatedframe;
 	/*0x58*/ struct colour *colours;
 	/*0x5c*/ f32 lightop_cur_frac;
 	/*0x60*/ f32 lightop_to_frac;
 	/*0x64*/ f32 lightop_from_frac;
 	/*0x68*/ f32 lightop_duration240;
-	/*0x6c*/ f32 unk6c;
-	/*0x70*/ f32 unk70;
+	/*0x6c*/ f32 volume;      // in metres
+	/*0x70*/ f32 surfacearea; // in centimetres
 	/*0x74*/ f32 highlightfrac_r;
 	/*0x78*/ f32 highlightfrac_g;
 	/*0x7c*/ f32 highlightfrac_b;
@@ -4496,19 +4496,19 @@ struct bgportal {
 	u8 flags;
 };
 
-struct portalthing {
-	u16 unk00;
-	s16 unk02;
-	u16 unk04;
-	s16 unk06;
+struct portalcamcacheitem {
+	u16 updatedframe1;
+	s16 side;
+	u16 updatedframe2;
+	s16 bboxisvalid;
 	s16 xmin;
 	s16 ymin;
 	s16 xmax;
 	s16 ymax;
 };
 
-struct var800a4ccc { // related to portals
-	struct coord coord;
+struct portalmetric { // related to portals
+	struct coord normal;
 	f32 min;
 	f32 max;
 };
@@ -5167,16 +5167,11 @@ struct bgcmd {
 	s32 param;
 };
 
-struct var800a4640_00 {
+struct drawslot {
 	s16 roomnum;
 	u8 unk02;
 	u8 draworder;
 	struct screenbox box;
-};
-
-struct var800a4640 {
-	/*0x000*/ struct var800a4640_00 unk000[60];
-	/*0x2d0*/ struct var800a4640_00 unk2d0;
 };
 
 struct zrange {
@@ -5189,21 +5184,21 @@ struct zrange {
 	};
 };
 
-struct var800a4d00 {
+struct bgsnakeitem {
 	/*0x00*/ s16 roomnum;
-	/*0x02*/ s16 roomnums[5];
-	/*0x0c*/ u8 draworder;
+	/*0x02*/ s16 fromroomnums[5];
+	/*0x0c*/ u8 depth;
 	/*0x0d*/ u8 numportals;
 	/*0x0e*/ s16 roomportallistoffset;
 	/*0x10*/ struct screenbox screenbox;
 };
 
-struct var800a4cf0 {
-	s16 unk00;
-	s16 index; // index into unk10
-	s16 unk04; // also an index into unk10
+struct bgsnake {
+	s16 count;
+	s16 headindex;
+	s16 tailindex;
 	struct zrange zrange;
-	struct var800a4d00 unk10[250];
+	struct bgsnakeitem items[250];
 };
 
 struct menuinputs {
@@ -5462,9 +5457,9 @@ struct boltbeam {
 	f32 speed;
 };
 
-struct var800a4ce8 {
-	u16 unk00;
-	s16 unk02;
+struct drawslotpointer {
+	u16 updatedframe;
+	s16 slotnum;
 };
 
 struct seqchannel {

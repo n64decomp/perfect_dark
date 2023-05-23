@@ -932,7 +932,7 @@ Gfx *gasRender(Gfx *gdl)
 		campos.z = g_Vars.currentplayer->cam_pos.z;
 
 		for (i = 0; i < 12; i++) {
-			if (roomContainsCoord(&campos, gasrooms[i])) {
+			if (bgRoomContainsCoord(&campos, gasrooms[i])) {
 				show = true;
 			}
 		}
@@ -950,7 +950,7 @@ Gfx *gasRender(Gfx *gdl)
 				intensityfrac = gasGetDoorFrac(0x32);
 			}
 		} else {
-			if (roomContainsCoord(&campos, 0x91)) {
+			if (bgRoomContainsCoord(&campos, 0x91)) {
 				// In the small room between the first two doors
 				f32 frac1 = gasGetDoorFrac(0x30);
 				f32 frac2 = gasGetDoorFrac(0x31);

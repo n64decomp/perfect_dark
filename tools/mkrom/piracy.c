@@ -174,7 +174,7 @@ void piracy_patch_checksums(void)
 	patch(algo09, "bgunTickGunLoad", "tagsReset");
 	patch(algo10, "explosionAlertChrs", "glassDestroy");
 	patch(algo11, "menuTickTimers", "mtxGetObfuscatedRomBase");
-	patch(algo12, "func0f15c920", "menuTickTimers");
+	patch(algo12, "bgTickCounter", "menuTickTimers");
 }
 
 /**

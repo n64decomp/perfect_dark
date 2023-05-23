@@ -3,6 +3,7 @@
 #include "game/atan2f.h"
 #include "game/padhalllv.h"
 #include "bss.h"
+#include "lib/lib_17ce0.h"
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
@@ -74,7 +75,18 @@ void portal00017dc4(s16 *rooms, s16 roomnum)
 	}
 }
 
-s32 portal00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2)
+/**
+ * Determine whether a line from pos1 to pos2 intersects the portal,
+ * and if so then in which direction.
+ *
+ * Return one of:
+ * PORTALINTERSECTION_NONE
+ * PORTALINTERSECTION_BEHINDTOFRONT
+ * PORTALINTERSECTION_FRONTTOBEHIND
+ *
+ * The portal's normal vector is the front.
+ */
+s32 portalCalculateIntersection(s32 portalnum, struct coord *pos1, struct coord *pos2)
 {
 	s32 i;
 	struct coord sp60;
@@ -92,22 +104,22 @@ s32 portal00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2)
 
 	lastside = 0;
 	pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
-	value1 = arg1->f[0] * (var800a4ccc + portalnum)->coord.f[0] + arg1->f[1] * (var800a4ccc + portalnum)->coord.f[1] + arg1->f[2] * (var800a4ccc + portalnum)->coord.f[2];
-	value2 = arg2->f[0] * (var800a4ccc + portalnum)->coord.f[0] + arg2->f[1] * (var800a4ccc + portalnum)->coord.f[1] + arg2->f[2] * (var800a4ccc + portalnum)->coord.f[2];
+	value1 = pos1->f[0] * (g_PortalMetrics + portalnum)->normal.f[0] + pos1->f[1] * (g_PortalMetrics + portalnum)->normal.f[1] + pos1->f[2] * (g_PortalMetrics + portalnum)->normal.f[2];
+	value2 = pos2->f[0] * (g_PortalMetrics + portalnum)->normal.f[0] + pos2->f[1] * (g_PortalMetrics + portalnum)->normal.f[1] + pos2->f[2] * (g_PortalMetrics + portalnum)->normal.f[2];
 
-	if (value1 < (var800a4ccc + portalnum)->min) {
-		if (value2 < (var800a4ccc + portalnum)->min) {
-			return 0;
+	if (value1 < (g_PortalMetrics + portalnum)->min) {
+		if (value2 < (g_PortalMetrics + portalnum)->min) {
+			return PORTALINTERSECTION_NONE;
 		}
-	} else if ((var800a4ccc + portalnum)->max < value1 && (var800a4ccc + portalnum)->max < value2) {
-		return 0;
+	} else if ((g_PortalMetrics + portalnum)->max < value1 && (g_PortalMetrics + portalnum)->max < value2) {
+		return PORTALINTERSECTION_NONE;
 	}
 
-	sp60.f[0] = arg2->f[0] - arg1->f[0];
-	sp60.f[1] = arg2->f[1] - arg1->f[1];
-	sp60.f[2] = arg2->f[2] - arg1->f[2];
+	sp60.f[0] = pos2->f[0] - pos1->f[0];
+	sp60.f[1] = pos2->f[1] - pos1->f[1];
+	sp60.f[2] = pos2->f[2] - pos1->f[2];
 
-	var8007fcb4 = (value1 + value2) * 0.5f - (var800a4ccc + portalnum)->min;
+	var8007fcb4 = (value1 + value2) * 0.5f - (g_PortalMetrics + portalnum)->min;
 
 	curr = &pvertices->vertices[0];
 	next = &pvertices->vertices[1];
@@ -128,21 +140,21 @@ s32 portal00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2)
 		tmp = sp34.f[0] * sp34.f[0] + sp34.f[1] * sp34.f[1] + sp34.f[2] * sp34.f[2];
 
 		if (tmp == 0.0f) {
-			return 0;
+			return PORTALINTERSECTION_NONE;
 		}
 
 		sp40[0] = sp34.f[0] * curr->f[0] + sp34.f[1] * curr->f[1] + sp34.f[2] * curr->f[2];
-		tmp = sp34.f[0] * arg1->f[0] + sp34.f[1] * arg1->f[1] + sp34.f[2] * arg1->f[2];
+		tmp = sp34.f[0] * pos1->f[0] + sp34.f[1] * pos1->f[1] + sp34.f[2] * pos1->f[2];
 
 		if (tmp < sp40[0]) {
 			if (lastside == 2) {
-				return 0;
+				return PORTALINTERSECTION_NONE;
 			}
 
 			lastside = 1;
 		} else {
 			if (lastside == 1) {
-				return 0;
+				return PORTALINTERSECTION_NONE;
 			}
 
 			lastside = 2;
@@ -152,7 +164,9 @@ s32 portal00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2)
 		next++;
 	}
 
-	return (value1 < (var800a4ccc + portalnum)->min) ? 1 : 2;
+	return (value1 < (g_PortalMetrics + portalnum)->min)
+		? PORTALINTERSECTION_BEHINDTOFRONT
+		: PORTALINTERSECTION_FRONTTOBEHIND;
 }
 
 void portal00018148(struct coord *pos1, struct coord *pos2, s16 *rooms1, s16 *rooms2, s16 *rooms3, s32 arg5)
@@ -178,7 +192,7 @@ void portal00018148(struct coord *pos1, struct coord *pos2, s16 *rooms1, s16 *ro
 	var8005ef20++;
 
 	if (var8005ef20 == 255) {
-		for (i = 0; i < g_NumPortalThings; i++) {
+		for (i = 0; i < g_BgNumPortalCameraCacheItems; i++) {
 			var8009a4e0[i][0] = 0xff;
 		}
 
@@ -198,23 +212,23 @@ void portal00018148(struct coord *pos1, struct coord *pos2, s16 *rooms1, s16 *ro
 
 				if (s1[0] != var8005ef20) {
 					s1[0] = var8005ef20;
-					s1[1] = portal00017e30(portalnum, pos1, pos2);
+					s1[1] = portalCalculateIntersection(portalnum, pos1, pos2);
 				}
 
-				if (s1[1] != 0) {
-					if (s1[1] == 1) {
+				if (s1[1] != PORTALINTERSECTION_NONE) {
+					if (s1[1] == PORTALINTERSECTION_BEHINDTOFRONT) {
 						if (roomnum == g_BgPortals[portalnum].roomnum1) {
 							portal00017dc4(rooms7c, g_BgPortals[portalnum].roomnum2);
 							portal00017dc4(rooms5c, g_BgPortals[portalnum].roomnum2);
-							s1[1] = 0;
+							s1[1] = PORTALINTERSECTION_NONE;
 						}
 					}
 
-					if (s1[1] == 2) {
+					if (s1[1] == PORTALINTERSECTION_FRONTTOBEHIND) {
 						if (roomnum == g_BgPortals[portalnum].roomnum2) {
 							portal00017dc4(rooms7c, g_BgPortals[portalnum].roomnum1);
 							portal00017dc4(rooms5c, g_BgPortals[portalnum].roomnum1);
-							s1[1] = 0;
+							s1[1] = PORTALINTERSECTION_NONE;
 						}
 					}
 				}

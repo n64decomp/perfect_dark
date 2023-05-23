@@ -14758,7 +14758,7 @@ bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance
 	roomsCopy(rooms, allrooms);
 
 	for (i = 0; rooms[i] != -1; i++) {
-		roomGetNeighbours(rooms[i], neighbours, 10);
+		bgRoomGetNeighbours(rooms[i], neighbours, 10);
 		roomsAppend(neighbours, allrooms, 20);
 	}
 
@@ -14935,14 +14935,14 @@ bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
 
 	if (env0f1666f8(pos, 0)) {
 		for (i = 0; rooms[i] != -1; i++) {
-			if (roomIsOnscreen(rooms[i])) {
+			if (bgRoomIsOnscreen(rooms[i])) {
 				break;
 			}
 		}
 
 		if (rooms[i] != -1) {
 			// Room is visible by player
-			offscreen = !camIsPosInScreenBox(pos, 200, func0f158140(rooms[i]));
+			offscreen = !camIsPosInScreenBox(pos, 200, bgGetRoomDrawSlot(rooms[i]));
 		}
 	}
 
@@ -15432,9 +15432,9 @@ s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 criteria, s32 refdist)
 				rooms[1] = -1;
 
 				if (criteria & COVERCRITERIA_ALLOWNEIGHBOURINGROOMS) {
-					roomGetNeighbours(roomprop->rooms[0], &rooms[1], 6);
+					bgRoomGetNeighbours(roomprop->rooms[0], &rooms[1], 6);
 				} else if (criteria & COVERCRITERIA_ONLYNEIGHBOURINGROOMS) {
-					roomGetNeighbours(roomprop->rooms[0], &rooms[0], 7);
+					bgRoomGetNeighbours(roomprop->rooms[0], &rooms[0], 7);
 				}
 
 				if (((criteria & COVERCRITERIA_0040) == 0 || !arrayIntersects(cover.rooms, rooms))

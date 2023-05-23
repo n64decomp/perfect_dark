@@ -1022,7 +1022,7 @@ Gfx *lvRender(Gfx *gdl)
 
 		gdl = vi0000b1d0(gdl);
 		gdl = viRenderViewportEdges(gdl);
-		gdl = currentPlayerScissorToViewport(gdl);
+		gdl = bgScissorToViewport(gdl);
 		gdl = menuRender(gdl);
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
@@ -1047,7 +1047,7 @@ Gfx *lvRender(Gfx *gdl)
 		mtx00016748(1);
 
 		gdl = vi0000b1d0(gdl);
-		gdl = currentPlayerScissorToViewport(gdl);
+		gdl = bgScissorToViewport(gdl);
 		gdl = menuRender(gdl);
 
 		if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
@@ -1148,7 +1148,7 @@ Gfx *lvRender(Gfx *gdl)
 			zbufSwap();
 			gdl = viPrepareZbuf(gdl);
 			gdl = vi0000b1d0(gdl);
-			gdl = currentPlayerScissorToViewport(gdl);
+			gdl = bgScissorToViewport(gdl);
 			artifactsClear();
 
 			if ((g_Vars.stagenum != STAGE_CITRAINING || (var80087260 <= 0 && g_MenuData.root != MENUROOT_MPSETUP))
@@ -1173,7 +1173,7 @@ Gfx *lvRender(Gfx *gdl)
 				g_Vars.lockscreen--;
 			} else if (var8009dfc0) {
 				gdl = viRenderViewportEdges(gdl);
-				gdl = currentPlayerScissorToViewport(gdl);
+				gdl = bgScissorToViewport(gdl);
 				mtx00016748(1);
 
 				if (g_Vars.currentplayer->menuisactive) {
@@ -1622,7 +1622,7 @@ Gfx *lvRender(Gfx *gdl)
 					spc8[j] = -1;
 
 					for (j = 0; sp9c[j] != -1; j++) {
-						roomGetNeighbours(sp9c[j], spb0, 10);
+						bgRoomGetNeighbours(sp9c[j], spb0, 10);
 						roomsAppend(spb0, spc8, 20);
 					}
 
@@ -2071,7 +2071,7 @@ void lvTick(void)
 								for (otherplayernum = 0; otherplayernum < PLAYERCOUNT(); otherplayernum++) {
 									if (playernum != otherplayernum
 											&& g_Vars.players[otherplayernum]->isdead == false
-											&& roomIsOnPlayerScreen(rooms[r], otherplayernum)) {
+											&& bgRoomIsOnPlayerScreen(rooms[r], otherplayernum)) {
 										foundnearbychr = true;
 									}
 								}

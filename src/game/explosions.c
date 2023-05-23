@@ -390,7 +390,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 				for (k = 0; k < g_Rooms[exproom].numportals; k++) {
 					portalnum = g_RoomPortals[g_Rooms[exproom].roomportallistoffset + k];
 
-					portalFindBbox(portalnum, &portalbbmin, &portalbbmax);
+					bgCalculatePortalBbox(portalnum, &portalbbmin, &portalbbmax);
 
 					if (bgIsBboxOverlapping(&portalbbmin, &portalbbmax, &spd4, &spc8)) {
 						otherroom2 = -1;
@@ -402,9 +402,9 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 							otherroom = g_BgPortals[portalnum].roomnum1;
 						}
 
-						spac.f[0] = (var800a4ccc + portalnum)->coord.f[0];
-						spac.f[1] = (var800a4ccc + portalnum)->coord.f[1];
-						spac.f[2] = (var800a4ccc + portalnum)->coord.f[2];
+						spac.f[0] = (g_PortalMetrics + portalnum)->normal.f[0];
+						spac.f[1] = (g_PortalMetrics + portalnum)->normal.f[1];
+						spac.f[2] = (g_PortalMetrics + portalnum)->normal.f[2];
 
 						if (spac.f[0] < 0.0f) {
 							spac.f[0] = -spac.f[0];
@@ -459,7 +459,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 							portalnum2 = g_RoomPortals[g_Rooms[otherroom].roomportallistoffset + j];
 
 							if (portalnum2 != portalnum) {
-								portalFindBbox(portalnum2, &portal2bbmin, &portal2bbmax);
+								bgCalculatePortalBbox(portalnum2, &portal2bbmin, &portal2bbmax);
 
 								if (portal2bbmin.f[indexplus1] <= portalbbmin.f[indexplus1] + 10.0f * mult
 										&& portal2bbmin.f[indexplus2] <= portalbbmin.f[indexplus2] + 10.0f * mult
@@ -1293,9 +1293,9 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		s32 tmp;
 
 		if (func0f08e5a8(prop->rooms, &screenbox) > 0) {
-			gdl = currentPlayerScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
+			gdl = bgScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 		} else {
-			gdl = currentPlayerScissorToViewport(gdl);
+			gdl = bgScissorToViewport(gdl);
 		}
 
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
