@@ -144,11 +144,11 @@ void func0f0b278c(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 twidth, u32 theight, u
 		gDPSetEnvColor(gdl++, r, g, b, alpha);
 
 		if (arg12) {
-			gDPSetCombineLERP(gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, 0, ENVIRONMENT, 0, COMBINED, 0, ENVIRONMENT, 0);
+			gDPSetCombineMode(gdl++, G_CC_TRILERP, G_CC_CUSTOM_03);
 		} else if (arg13) {
-			gDPSetCombineLERP(gdl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, COMBINED, 0, 0, 0, COMBINED);
+			gDPSetCombineMode(gdl++, G_CC_CUSTOM_00, G_CC_PASS2);
 		} else {
-			gDPSetCombineLERP(gdl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
+			gDPSetCombineMode(gdl++, G_CC_CUSTOM_00, G_CC_CUSTOM_00);
 		}
 
 		*gdlptr = gdl;

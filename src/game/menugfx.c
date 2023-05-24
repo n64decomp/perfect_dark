@@ -1837,7 +1837,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 	gDPSetAlphaCompare(gdl++, G_AC_NONE);
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
-	gDPSetCombineLERP(gdl++, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
+	gDPSetCombineMode(gdl++, G_CC_CUSTOM_04, G_CC_CUSTOM_04);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 

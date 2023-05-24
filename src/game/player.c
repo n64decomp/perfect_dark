@@ -4413,7 +4413,7 @@ Gfx *playerRenderShield(Gfx *gdl)
 		gDPSetRenderMode(gdl++, G_RM_PASS, G_RM_CLD_SURF2);
 		gDPSetEnvColor(gdl++, red, green, blue, (s32)(200 * f20));
 		gDPSetPrimColor(gdl++, 0, 0, 0xff, 0xff, 0xff, (s32)(175 * f20 * f20));
-		gDPSetCombineLERP(gdl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, COMBINED, 1, COMBINED, PRIMITIVE, COMBINED);
+		gDPSetCombineMode(gdl++, G_CC_CUSTOM_00, G_CC_CUSTOM_01);
 
 		func0f0b2740(&gdl, sp90, sp88, g_TexShieldConfigs->width, g_TexShieldConfigs->height,
 				(g_Vars.currentplayer->shieldshowrnd & 1) != 0,

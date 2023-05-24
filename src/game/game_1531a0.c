@@ -439,7 +439,7 @@ Gfx *textSetPrimColour(Gfx *gdl, u32 colour)
 
 Gfx *text0f153838(Gfx *gdl)
 {
-	gDPSetCombineLERP(gdl++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
+	gDPSetCombineMode(gdl++, G_CC_CUSTOM_02, G_CC_CUSTOM_02);
 
 	return gdl;
 }

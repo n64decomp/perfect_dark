@@ -1976,7 +1976,7 @@ MenuItemHandlerResult menuhandlerMissionList(s32 operation, struct menuitem *ite
 #if VERSION >= VERSION_NTSC_1_0
 		texSelect(&gdl, g_TexGeneralConfigs + 13 + stageindex, 2, 0, 2, true, NULL);
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
-		gDPSetCombineLERP(gdl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
+		gDPSetCombineMode(gdl++, G_CC_CUSTOM_00, G_CC_CUSTOM_00);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 		gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 255 / 256));
 #else

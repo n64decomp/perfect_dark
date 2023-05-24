@@ -2819,7 +2819,7 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 			gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour | 0xff);
-			gDPSetCombineLERP(renderdata->gdl++, TEXEL0, ENVIRONMENT, SHADE_ALPHA, ENVIRONMENT, TEXEL0, ENVIRONMENT, SHADE, ENVIRONMENT, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
+			gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_17, G_CC_CUSTOM_18);
 
 			if (renderdata->zbufferenabled) {
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
@@ -2839,7 +2839,7 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 			gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour);
-			gDPSetCombineLERP(renderdata->gdl++, TEXEL0, ENVIRONMENT, SHADE_ALPHA, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
+			gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_19, G_CC_CUSTOM_18);
 
 			if (renderdata->zbufferenabled) {
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
@@ -2855,7 +2855,7 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 				gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 				gDPSetEnvColorViaWord(renderdata->gdl++, 0xffffffff);
 				gDPSetPrimColor(renderdata->gdl++, 0, 0, 0, 0, 0, (renderdata->envcolour >> 8) & 0xff);
-				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, PRIMITIVE);
+				gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_CUSTOM_20);
 
 				if (renderdata->zbufferenabled) {
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
@@ -2875,7 +2875,7 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 				gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 				gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 				gDPSetEnvColor(renderdata->gdl++, 0, 0, 0, renderdata->envcolour);
-				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, 0, SHADE, ENVIRONMENT, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
+				gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_21, G_CC_CUSTOM_18);
 
 				if (renderdata->zbufferenabled) {
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_TEX_EDGE2);
@@ -2884,7 +2884,7 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 				}
 			} else {
 				gDPSetPrimColor(renderdata->gdl++, 0, 0, 0, 0, 0, (renderdata->envcolour >> 8) & 0xff);
-				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, SHADE, ENVIRONMENT, TEXEL0, 0, COMBINED, 0, SHADE, 0, 1, 0, PRIMITIVE, COMBINED);
+				gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_22, G_CC_CUSTOM_23);
 
 				if (renderdata->zbufferenabled) {
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_TEX_EDGE2);
@@ -2926,9 +2926,9 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 				gDPSetEnvColor(renderdata->gdl++, 0xff, 0xff, 0xff, alpha);
 
 				if (renderdata->envcolour & 0xff00) {
-					gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, SHADE, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
+					gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_24, G_CC_MODULATEIA2);
 				} else {
-					gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
+					gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_25, G_CC_MODULATEIA2);
 				}
 			} else {
 				gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
@@ -2943,7 +2943,7 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 			alpha = renderdata->envcolour & 0xff;
 
 			if (alpha < 255) {
-				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL0, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
+				gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_26, G_CC_MODULATEIA2);
 			} else {
 				gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 			}
@@ -2976,7 +2976,7 @@ void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 		gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour | 0x000000ff);
-		gDPSetCombineLERP(renderdata->gdl++, TEXEL0, ENVIRONMENT, SHADE_ALPHA, ENVIRONMENT, TEXEL0, ENVIRONMENT, SHADE, ENVIRONMENT, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
+		gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_17, G_CC_CUSTOM_18);
 
 		if (arg1) {
 			if (renderdata->zbufferenabled) {
@@ -2996,7 +2996,7 @@ void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 		gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour);
-		gDPSetCombineLERP(renderdata->gdl++, TEXEL0, ENVIRONMENT, SHADE_ALPHA, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
+		gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_19, G_CC_CUSTOM_18);
 
 		if (renderdata->zbufferenabled) {
 			gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
@@ -3012,7 +3012,7 @@ void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 			gDPSetPrimColor(renderdata->gdl++, 0, 0, 0, 0, 0, (renderdata->envcolour >> 8) & 0xff);
 
 			if (arg1) {
-				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, PRIMITIVE);
+				gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_CUSTOM_20);
 
 				if (renderdata->zbufferenabled) {
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
@@ -3020,7 +3020,7 @@ void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_OPA_SURF2);
 				}
 			} else {
-				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, PRIMITIVE);
+				gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_CUSTOM_20);
 
 				if (renderdata->zbufferenabled) {
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
@@ -3035,7 +3035,7 @@ void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 			gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour & 0xff);
 
 			if (arg1) {
-				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, 0, SHADE, ENVIRONMENT, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
+				gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_21, G_CC_CUSTOM_18);
 
 				if (renderdata->zbufferenabled) {
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_TEX_EDGE2);
@@ -3044,7 +3044,7 @@ void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 				}
 			} else {
 				gDPSetPrimColor(renderdata->gdl++, 0, 0, 0, 0, 0, (renderdata->envcolour >> 8) & 0xff);
-				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, SHADE, ENVIRONMENT, TEXEL0, 0, COMBINED, 0, SHADE, 0, 1, 0, PRIMITIVE, COMBINED);
+				gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_22, G_CC_CUSTOM_23);
 
 				if (renderdata->zbufferenabled) {
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_TEX_EDGE2);
@@ -3086,12 +3086,12 @@ void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 
 			if (arg1) {
 				if (renderdata->envcolour & 0xff00) {
-					gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, SHADE, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
+					gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_24, G_CC_MODULATEIA2);
 				} else {
-					gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
+					gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_25, G_CC_MODULATEIA2);
 				}
 			} else {
-				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL0, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
+				gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_26, G_CC_MODULATEIA2);
 			}
 		} else {
 			gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
