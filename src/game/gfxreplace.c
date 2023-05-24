@@ -1,20 +1,30 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/tex.h"
-#include "game/bg.h"
 #include "game/gfxreplace.h"
 #include "bss.h"
-#include "lib/vi.h"
 #include "data.h"
 #include "types.h"
 
-Gfx gbi_26a40[] = {
+/**
+ * When loading rooms, the game can scan the room's displaylists find/replace
+ * GBI commands.
+ *
+ * Each pair of elements in these groups are find/replace pairs.
+ */
+
+/**
+ * Unused.
+ */
+Gfx g_GfxGroup00[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
 	gsDPSetCombineMode(G_CC_CUSTOM_05, G_CC_PASS2),
 	0,
 };
 
-Gfx gbi_26a58[] = {
+/**
+ * Enable fog? (opaque displaylist)
+ */
+Gfx g_GfxGroup01[] = {
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_OPA_SURF2),
 	gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_OPA_SURF2),
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_OPA_TERR2),
@@ -31,6 +41,7 @@ Gfx gbi_26a58[] = {
 	gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_OPA_SURF2),
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_OPA_TERR2),
 	gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_OPA_TERR2),
+
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_06),
 	gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
@@ -39,6 +50,8 @@ Gfx gbi_26a58[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_08),
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_09, G_CC_CUSTOM_09),
+
+	// This is a duplicate of the previous block
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_06),
 	gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
@@ -47,6 +60,7 @@ Gfx gbi_26a58[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_08),
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_09, G_CC_CUSTOM_09),
+
 	gsDPSetCombineMode(G_CC_SHADE, G_CC_PASS2),
 	gsDPSetCombineMode(G_CC_CUSTOM_10, G_CC_PASS2),
 	gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
@@ -56,13 +70,17 @@ Gfx gbi_26a58[] = {
 	0,
 };
 
-Gfx gbi_26b90[] = {
+/**
+ * Enable fog? (translucent displaylist)
+ */
+Gfx g_GfxGroup05[] = {
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_XLU_DECAL2),
 	gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_DECAL2),
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_XLU_SURF2),
 	gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_SURF2),
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_TEX_EDGE2),
 	gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_TEX_EDGE2),
+
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_06),
 	gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
@@ -71,6 +89,8 @@ Gfx gbi_26b90[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_08),
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_09, G_CC_CUSTOM_09),
+
+	// This is a duplicate of the previous block
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_06),
 	gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
@@ -79,6 +99,7 @@ Gfx gbi_26b90[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_08),
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_09, G_CC_CUSTOM_09),
+
 	gsDPSetCombineMode(G_CC_SHADE, G_CC_PASS2),
 	gsDPSetCombineMode(G_CC_CUSTOM_10, G_CC_PASS2),
 	gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
@@ -88,7 +109,15 @@ Gfx gbi_26b90[] = {
 	0,
 };
 
-Gfx gbi_26c78[] = {
+/**
+ * Disable transparency effects (opaque displaylist).
+ *
+ * These are replacing SHADE with ENVIRONMENT in the alpha half of each mode.
+ *
+ * The source GBI commands use alpha transparency. The environment settings for
+ * each stage determines whether they should be preserved or disabled.
+ */
+Gfx g_GfxGroup06[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_06),
 	gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
@@ -97,6 +126,8 @@ Gfx gbi_26c78[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_08),
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_09, G_CC_CUSTOM_09),
+
+	// This is a duplicate of the previous block
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_06),
 	gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
@@ -105,6 +136,7 @@ Gfx gbi_26c78[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_08),
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_09, G_CC_CUSTOM_09),
+
 	gsDPSetCombineMode(G_CC_SHADE, G_CC_PASS2),
 	gsDPSetCombineMode(G_CC_CUSTOM_10, G_CC_PASS2),
 	gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
@@ -112,7 +144,10 @@ Gfx gbi_26c78[] = {
 	0,
 };
 
-Gfx gbi_26d20[] = {
+/**
+ * Disable transparency effects (translucent displaylist).
+ */
+Gfx g_GfxGroup07[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_06),
 	gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
@@ -121,6 +156,8 @@ Gfx gbi_26d20[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_08),
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_09, G_CC_CUSTOM_09),
+
+	// This is a duplicate of the previous block
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_06),
 	gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
@@ -129,6 +166,7 @@ Gfx gbi_26d20[] = {
 	gsDPSetCombineMode(G_CC_TRILERP, G_CC_CUSTOM_08),
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_09, G_CC_CUSTOM_09),
+
 	gsDPSetCombineMode(G_CC_SHADE, G_CC_PASS2),
 	gsDPSetCombineMode(G_CC_CUSTOM_10, G_CC_PASS2),
 	gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
@@ -136,7 +174,10 @@ Gfx gbi_26d20[] = {
 	0,
 };
 
-Gfx gbi_26dc8[] = {
+/**
+ * Unused.
+ */
+Gfx g_GfxGroup02[] = {
 	gsDPSetRenderMode(G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2),
 	gsDPSetRenderMode(G_RM_AA_ZB_TEX_EDGE, G_RM_AA_ZB_TEX_EDGE2),
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_XLU_SURF2),
@@ -144,7 +185,10 @@ Gfx gbi_26dc8[] = {
 	0,
 };
 
-Gfx gbi_26df0[] = {
+/**
+ * Unused.
+ */
+Gfx g_GfxGroup03[] = {
 	gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
 	gsDPSetRenderMode(G_RM_AA_ZB_OPA_TERR, G_RM_AA_ZB_OPA_TERR2),
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_OPA_SURF2),
@@ -152,13 +196,19 @@ Gfx gbi_26df0[] = {
 	0,
 };
 
-Gfx gbi_26e18[] = {
+/**
+ * Unused.
+ */
+Gfx g_GfxGroup04[] = {
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_XLU_SURF2),
 	gsDPSetRenderMode(G_RM_PASS, G_RM_ZB_CLD_SURF2),
 	0,
 };
 
-Gfx gbi_26e30[] = {
+/**
+ * Unused.
+ */
+Gfx g_GfxGroup08[] = {
 	gsDPSetCycleType(G_CYC_1CYCLE),
 	gsDPSetCycleType(G_CYC_2CYCLE),
 	gsDPSetRenderMode(G_RM_AA_OPA_TERR, G_RM_AA_OPA_TERR2),
@@ -168,7 +218,10 @@ Gfx gbi_26e30[] = {
 	0,
 };
 
-Gfx gbi_26e68[] = {
+/**
+ * Unused.
+ */
+Gfx g_GfxGroup09[] = {
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_12, G_CC_CUSTOM_12),
 	gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
@@ -200,7 +253,12 @@ Gfx gbi_26e68[] = {
 	0,
 };
 
-Gfx gbi_26f50[] = {
+/**
+ * Reverse of g_GfxGroup09.
+ *
+ * Unused.
+ */
+Gfx g_GfxGroup10[] = {
 	gsDPSetCombineMode(G_CC_CUSTOM_12, G_CC_CUSTOM_12),
 	gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
 	gsDPSetCombineMode(G_CC_CUSTOM_13, G_CC_CUSTOM_13),
@@ -230,28 +288,28 @@ Gfx gbi_26f50[] = {
 	gsDPSetCombineMode(G_CC_CUSTOM_14, G_CC_PASS2),
 	gsDPSetCombineMode(G_CC_SHADE, G_CC_PASS2),
 	0,
-};
-
-Gfx *var80081018[] = {
-	gbi_26a40,
-	gbi_26a58,
-	gbi_26dc8,
-	gbi_26df0,
-	gbi_26e18,
-	gbi_26b90,
-	gbi_26c78,
-	gbi_26d20,
-	gbi_26e30,
-	gbi_26e68,
-	gbi_26f50,
 };
 
 void gfxReplaceGbiCommands(Gfx *startgdl, Gfx *endgdl, s32 type)
 {
+	static Gfx *groups[] = {
+		g_GfxGroup00,
+		g_GfxGroup01,
+		g_GfxGroup02,
+		g_GfxGroup03,
+		g_GfxGroup04,
+		g_GfxGroup05,
+		g_GfxGroup06,
+		g_GfxGroup07,
+		g_GfxGroup08,
+		g_GfxGroup09,
+		g_GfxGroup10,
+	};
+
 	Gfx *gdl = startgdl;
 
 	while ((endgdl && gdl < endgdl) || (!endgdl && *(s8 *)gdl != G_ENDDL)) {
-		Gfx *src = var80081018[type];
+		Gfx *src = groups[type];
 
 		while (src->words.w0 != 0) {
 			if (src->words.w0 == gdl->words.w0 && src->words.w1 == gdl->words.w1) {
