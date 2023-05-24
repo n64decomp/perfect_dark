@@ -3156,13 +3156,13 @@ struct stagemusic {
 	s16 xtrack;
 };
 
-struct var800a6600 {
+struct shadesettings {
 	f32 znear;
 	f32 zfar;
 	u32 unk08;
 	u32 unk0c;
-	f32 unk10;
-	f32 unk14;
+	f32 alphafar;
+	f32 alphanear;
 };
 
 struct environment {
@@ -3175,7 +3175,7 @@ struct environment {
 	/*0x0c*/ struct sun *suns;
 	/*0x10*/ u8 clouds_enabled;
 	/*0x14*/ f32 clouds_scale;
-	/*0x18*/ s16 unk18;
+	/*0x18*/ s16 clouds_type;
 	/*0x1c*/ f32 clouds_r;
 	/*0x20*/ f32 clouds_g;
 	/*0x24*/ f32 clouds_b;
@@ -3185,7 +3185,7 @@ struct environment {
 	/*0x34*/ f32 water_r;
 	/*0x38*/ f32 water_g;
 	/*0x3c*/ f32 water_b;
-	/*0x40*/ f32 unk40;
+	/*0x40*/ f32 clouds_height;
 	/*0x44*/ f32 skyredfrac;
 	/*0x48*/ f32 skygreenfrac;
 	/*0x4c*/ f32 skybluefrac;
@@ -3201,13 +3201,13 @@ struct sun {
 	/*0x12*/ s16 orb_size;
 };
 
-struct envtype1 {
+struct fogenvironment {
 	/*0x00*/ s16 stage;
 	/*0x02*/ s16 near;
 	/*0x04*/ s16 far;
-	/*0x06*/ s16 unk06;
-	/*0x08*/ s16 unk08;
-	/*0x0a*/ s16 unk0a;
+	/*0x06*/ s16 opaperc;
+	/*0x08*/ s16 xluperc;
+	/*0x0a*/ s16 refdist;
 	/*0x0c*/ s16 fogmin;
 	/*0x0e*/ s16 fogmax;
 	/*0x10*/ u8 sky_r;
@@ -3217,27 +3217,26 @@ struct envtype1 {
 	/*0x14*/ struct sun *suns;
 	/*0x18*/ u8 clouds_enabled;
 	/*0x1a*/ s16 clouds_scale;
-	/*0x1c*/ u8 unk1c;
+	/*0x1c*/ u8 clouds_type;
 	/*0x1d*/ u8 clouds_r;
 	/*0x1e*/ u8 clouds_g;
 	/*0x1f*/ u8 clouds_b;
 	/*0x20*/ u8 water_enabled;
-	/*0x21*/ u8 unk21;
 	/*0x22*/ s16 water_scale;
 	/*0x24*/ u8 water_type;
 	/*0x25*/ u8 water_r;
 	/*0x26*/ u8 water_g;
 	/*0x27*/ u8 water_b;
-	/*0x28*/ u8 unk28;
+	/*0x28*/ u8 clouds_height;
 };
 
-struct envtype2 {
+struct nofogenvironment {
 	/*0x00*/ s32 stage;
 	/*0x04*/ s16 near;
 	/*0x06*/ s16 far;
-	/*0x08*/ s16 unk08;
-	/*0x0a*/ s16 unk0a;
-	/*0x0c*/ s16 unk0c;
+	/*0x08*/ s16 opaperc;
+	/*0x0a*/ s16 xluperc;
+	/*0x0c*/ s16 refdist;
 	/*0x0e*/ u8 sky_r;
 	/*0x0f*/ u8 sky_g;
 	/*0x10*/ u8 sky_b;
@@ -3248,15 +3247,15 @@ struct envtype2 {
 	/*0x1a*/ u8 clouds_g;
 	/*0x1b*/ u8 clouds_b;
 	/*0x1c*/ f32 clouds_scale;
-	/*0x20*/ s16 unk20;
+	/*0x20*/ s16 clouds_type;
 	/*0x22*/ u8 water_enabled;
 	/*0x23*/ u8 water_r;
 	/*0x24*/ u8 water_g;
 	/*0x25*/ u8 water_b;
 	/*0x28*/ f32 water_scale;
 	/*0x2c*/ s16 water_type;
-	/*0x30*/ f32 unk30;
-	/*0x34*/ u32 unk34;
+	/*0x30*/ f32 clouds_height;
+	/*0x34*/ bool transparency;
 };
 
 struct menuitemdata_controller {

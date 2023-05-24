@@ -35,7 +35,7 @@ extern u8 *g_TextureConfigSegment;
 extern u32 g_TexBase;
 extern Gfx *g_TexGdl3;
 extern struct textureconfig *g_TexRedLinesConfigs;
-extern struct textureconfig *g_TexSkyConfigs;
+extern struct textureconfig *g_TexGroup11Configs;
 
 extern u8 _textureconfigSegmentRomStart;
 extern u8 _textureconfigSegmentStart;
@@ -61,12 +61,12 @@ void texReset(void)
 	g_TexGroup03Configs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGroup03Configs);
 	g_TexGeCrosshairConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGeCrosshairConfigs);
 	g_TexRedLinesConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcRedLineConfigs);
-	g_TexShadowConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGroup06Configs);
+	g_TexShadowConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcShadowConfigs);
 	g_TexShieldConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcShieldConfigs);
 	g_TexShardConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcShardConfigs);
 	g_TexScreenConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcScreenConfigs);
-	g_TexWaterConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcWaterConfigs);
-	g_TexSkyConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcSkyConfigs);
+	g_TexSkyWaterConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcSkyWaterConfigs);
+	g_TexGroup11Configs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGroup11Configs);
 	g_TexLightGlareConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcLightGlareConfigs);
 	g_TexSparkConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcSparkConfigs);
 	g_TexGeneralConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGeneralConfigs);
@@ -98,11 +98,11 @@ void texReset(void)
 			texLoadFromConfig(&g_TexBeamConfigs[i]);
 		}
 
-		for (i = 0; i < ARRAYCOUNT(g_TcWaterConfigs); i++) {
-			texLoadFromConfig(&g_TexWaterConfigs[i]);
+		for (i = 0; i < ARRAYCOUNT(g_TcSkyWaterConfigs); i++) {
+			texLoadFromConfig(&g_TexSkyWaterConfigs[i]);
 		}
 
-		for (i = 0; i < ARRAYCOUNT(g_TcGroup06Configs); i++) {
+		for (i = 0; i < ARRAYCOUNT(g_TcShadowConfigs); i++) {
 			texLoadFromConfig(&g_TexShadowConfigs[i]);
 		}
 

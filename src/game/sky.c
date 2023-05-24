@@ -36,7 +36,7 @@ void sky0f11f000(f32 left, f32 top, struct coord *arg2)
 	f32 pos[2];
 
 	pos[0] = left + camGetScreenLeft();
-	pos[1] = top + camGetScreenTop() + envGetCurrent()->unk40;
+	pos[1] = top + camGetScreenTop() + envGetCurrent()->clouds_height;
 
 	cam0f0b4c3c(pos, arg2, 100);
 	mtx4RotateVecInPlace(mtx, arg2);
@@ -783,7 +783,7 @@ Gfx *skyRender(Gfx *gdl)
 		} else {
 			gDPPipeSync(gdl++);
 
-			texSelect(&gdl, &g_TexWaterConfigs[env->water_type], 1, 0, 2, 1, NULL);
+			texSelect(&gdl, &g_TexSkyWaterConfigs[env->water_type], 1, 0, 2, 1, NULL);
 
 			gDPSetRenderMode(gdl++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 
@@ -1181,7 +1181,7 @@ Gfx *skyRender(Gfx *gdl)
 
 	gDPPipeSync(gdl++);
 
-	texSelect(&gdl, &g_TexWaterConfigs[env->unk18], 1, 0, 2, 1, NULL);
+	texSelect(&gdl, &g_TexSkyWaterConfigs[env->clouds_type], 1, 0, 2, 1, NULL);
 
 	if (1);
 
@@ -1319,7 +1319,7 @@ void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3, f32 ar
 	arg5->unk20 = sp60;
 	arg5->unk24 = sp64;
 	arg5->unk28 = sp38[0];
-	arg5->unk2c = sp38[1] - envGetCurrent()->unk40 * 4.0f;
+	arg5->unk2c = sp38[1] - envGetCurrent()->clouds_height * 4.0f;
 	arg5->unk30 = sp38[2];
 	arg5->unk34 = f22;
 

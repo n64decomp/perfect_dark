@@ -3329,8 +3329,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 {
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
-	f32 sp108[4];
-	s32 sp104;
+	f32 shadecolourfracs[4];
+	s32 shademode;
 	s32 sp100;
 	s32 alpha;
 	struct eyespy *eyespy;
@@ -3366,7 +3366,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 	chrGetBloodColour(chr->bodynum, spec, NULL);
 	chr0f0246e4(spec);
-	alpha *= func0f08e6bc(prop, modelGetEffectiveScale(model));
+	alpha *= objCalculateFadeDistOpacityFrac(prop, modelGetEffectiveScale(model));
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 		f32 fadedist;
@@ -3408,14 +3408,14 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 	}
 
-	sp104 = env0f1667f4(prop, sp108);
+	shademode = envGetObjShadeMode(prop, shadecolourfracs);
 
 	if (chr->unk32c_18) {
 		propCalculateShadeColour(chr->prop, chr->nextcol, chr->floorcol);
 		chr->unk32c_18 = false;
 	}
 
-	if (sp104 && alpha > 0) {
+	if (shademode != SHADEMODE_XLU && alpha > 0) {
 		struct modelrenderdata renderdata = {0, 1, 3};
 		struct screenbox screenbox;
 		s32 colour[4]; // rgba levels, but allowing > 256 temporarily
@@ -3464,7 +3464,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			}
 		}
 
-		func0f069750(colour, sp104, sp108);
+		objMergeColourFracs(colour, shademode, shadecolourfracs);
 
 		// Configure colours for night vision if in use
 		if (USINGDEVICE(DEVICE_NIGHTVISION)) {
@@ -3591,8 +3591,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 						if (chr->chrflags & CHRCFLAG_NOSHADOW) {
 							shadowalpha = 0;
-						} else if (sp104 == 1) {
-							shadowalpha = (1.0f - sp108[3]) * ((alpha * 100) >> 8);
+						} else if (shademode == SHADEMODE_FRAC) {
+							shadowalpha = (1.0f - shadecolourfracs[3]) * ((alpha * 100) >> 8);
 						} else {
 							shadowalpha = (s32)(alpha * 100) >> 8;
 						}

@@ -3,120 +3,129 @@
 #include "game/tex.h"
 #include "game/camera.h"
 #include "game/bg.h"
+#include "game/env.h"
 #include "bss.h"
 #include "lib/vi.h"
 #include "data.h"
 #include "types.h"
 
-struct coord var800a65f0;
+bool g_FogEnabled;
+bool g_EnvHasTransparency;
+struct distfadesettings *g_EnvDistFadeSettingsPtr;
+struct distfadesettings g_EnvDistFadeSettings;
 u32 var800a65fc;
 
-struct var800a6600 var800a6600;
-f32 var800a6618;
-f32 var800a661c;
-struct envtype1 *var800a6620;
-struct envtype1 *g_EnvTransitionFrom;
-struct envtype1 *g_EnvTransitionTo;
+struct shadesettings g_EnvShadeSettings;
+f32 g_EnvFogMaxFrac;
+f32 g_EnvFogMinFrac;
+struct fogenvironment *g_EnvOrigFogEnvironment;
+struct fogenvironment *g_EnvTransitionFrom;
+struct fogenvironment *g_EnvTransitionTo;
 
-f32 var80081050 = MAXFLOAT;
-f32 var80081054 = 0;
+f32 g_EnvFogMax = MAXFLOAT;
+f32 g_EnvFogMin = 0;
 struct environment g_Env = {900, 1000};
 u32 var800810a8 = 0;
 u32 var800810ac = 0;
 
-//                   lensflare,    r,    g,    b,        x,       y,        z, texture size, orb size
-struct sun suns_00[]     = { 1, 0xff, 0xff, 0xff, -1000000,  200000,    50000, 20, 48 };
-struct sun suns_area51[] = { 0, 0xff, 0xe0, 0x80,  -200000,  310000,  1000000, 20, 48 };
-struct sun suns_villa[]  = { 1, 0xff, 0xff, 0xff, -1000000,  200000,    50000, 20, 48 };
-struct sun suns_ci[]     = { 1, 0xff, 0xff, 0xff,   400000,  600000, -1000000, 20, 48 };
+#define RGB(col) col >> 16, (col >> 8) & 0xff, col & 0xff
+#define NO_SUNS 0, NULL
+#define SUNS(arr) ARRAYCOUNT(arr), arr
+
+//                   lensflare,        colour,        x,       y,        z, texture size, orb size
+struct sun suns_00[]     = { 1, RGB(0xffffff), -1000000,  200000,    50000, 20, 48 };
+struct sun suns_area51[] = { 0, RGB(0xffe080),  -200000,  310000,  1000000, 20, 48 };
+struct sun suns_villa[]  = { 1, RGB(0xffffff), -1000000,  200000,    50000, 20, 48 };
+struct sun suns_ci[]     = { 1, RGB(0xffffff),   400000,  600000, -1000000, 20, 48 };
 
 struct sun suns_skedar[] = {
-	{ 1, 0xff, 0xff, 0xff,  -400000,  600000,  1000000, 20, 48 },
-	{ 1, 0xff, 0xff, 0xff,        0, 1000000,  1000000, 25, 60 },
-	{ 1, 0xff, 0xff, 0xff,   400000,  600000,  1000000, 15, 36 },
+	{ 1, RGB(0xffffff),  -400000,  600000,  1000000, 20, 48 },
+	{ 1, RGB(0xffffff),        0, 1000000,  1000000, 25, 60 },
+	{ 1, RGB(0xffffff),   400000,  600000,  1000000, 15, 36 },
 };
 
-struct sun suns_crashsite[] = { 1, 0xff, 0xd7, 0xf2,  1900000,  300000, -1400000, 22, 48 };
-struct sun suns_airbase[]   = { 1, 0xff, 0xd7, 0xf2, -1200000,  200000,   150000, 30, 60 };
+struct sun suns_crashsite[] = { 1, RGB(0xffd7f2),  1900000,  300000, -1400000, 22, 48 };
+struct sun suns_airbase[]   = { 1, RGB(0xffd7f2), -1200000,  200000,   150000, 30, 60 };
 
-struct envtype1 g_EnvironmentsType1[] = {
-	//                                                    |--- fog ----|  |---- sky -----|                     |----------- clouds -----------| |--------------- water ---------------|
-	// stage                near    far    06    08   0a     min     max     r     g     b     sun             e  scale    1c     r     g     b 20 21  scale type   r     g     b    28
-	{ STAGE_CRASHSITE,        15, 10000,    0,    0,   0, 0x03e2, 0x03e8, 0x9b, 0x2d, 0x1e, 1, suns_crashsite, 1,  1500, 0x00, 0xfa, 0xfa, 0x00, 0, 0, -5000, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ STAGE_PELAGIC,          15, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x2d, 0x3e, 0x60, 0, NULL,           1,  5000, 0x00, 0xf0, 0xf0, 0xf0, 0, 0, -2000, 0, 0x14, 0x21, 0x2b, 0x00 },
-	{ STAGE_VILLA,            15, 20000,    0,    0,   0, 0x03d5, 0x0417, 0x46, 0xa0, 0xff, 1, suns_villa,     1,  5000, 0x00, 0xff, 0xff, 0xff, 0, 0, -1850, 1, 0x00, 0xff, 0xff, 0x00 },
-	{ STAGE_PELAGIC + 900,    30, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x10, 0x30, 0x60, 0, NULL,           1,  5000, 0x00, 0xff, 0xff, 0xff, 0, 0, -1000, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ STAGE_24,                2, 25000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           1, 10000, 0x00, 0xff, 0xff, 0xff, 0, 0,     0, 1, 0x00, 0xff, 0xff, 0x07 },
-	{ STAGE_2B,                2,  2000, 2500, 3055, 750, 0x03bd, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1,  5000, 0x00, 0x3a, 0x11, 0x00, 0, 0, -1000, 1, 0x00, 0xff, 0xff, 0x14 },
-	{ STAGE_2B + 900,          2,  8000, 6000, 8000, 800, 0x03df, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1,  5000, 0x00, 0x3a, 0x11, 0x00, 0, 0, -1000, 1, 0x00, 0xff, 0xff, 0x00 },
-	{ 238,                    10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 10000, 0x00, 0x78, 0x78, 0x78, 0, 0,  -500, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 338,                    10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 10000, 0x00, 0x78, 0x78, 0x78, 0, 0,  -500, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 438,                    10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 10000, 0x00, 0x78, 0x78, 0x78, 0, 0,  -500, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 200,                    10,  7500,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0,     0, 0x00, 0x00, 0x00, 0x00, 0, 0,     0, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 300,                    10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0,     0, 0x00, 0x00, 0x00, 0x00, 0, 0,     0, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 400,                    10,  5000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0,     0, 0x00, 0x00, 0x00, 0x00, 0, 0,     0, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0,                       0,     0,    0,    0,   0, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0, NULL,           0,     0, 0x00, 0x00, 0x00, 0x00, 0, 0,     0, 0, 0x00, 0x00, 0x00, 0x00 },
+struct fogenvironment g_FogEnvironments[] = {
+	//                                   |- distfade --|  |- fog -|                                       |---------- clouds ---------|  |--------- water ---------|
+	// stage                near    far  opa%  xlu%  ref  min   max  sky colour                           e  scale  type  colour         e  scale type colour        clouds_height
+	{ STAGE_CRASHSITE,        15, 10000,    0,    0,   0, 994, 1000, RGB(0x9b2d1e), SUNS(suns_crashsite), 1,  1500,    0, RGB(0xfafa00), 0, -5000, 0, RGB(0x000000), 0  },
+	{ STAGE_PELAGIC,          15, 15000, 3333, 4444, 600, 995, 1000, RGB(0x2d3e60), NO_SUNS,              1,  5000,    0, RGB(0xf0f0f0), 0, -2000, 0, RGB(0x14212b), 0  },
+	{ STAGE_VILLA,            15, 20000,    0,    0,   0, 981, 1047, RGB(0x46a0ff), SUNS(suns_villa),     1,  5000,    0, RGB(0xffffff), 0, -1850, 1, RGB(0x00ffff), 0  },
+	{ STAGE_PELAGIC + 900,    30, 15000, 3333, 4444, 600, 995, 1000, RGB(0x103060), NO_SUNS,              1,  5000,    0, RGB(0xffffff), 0, -1000, 0, RGB(0x000000), 0  },
+	{ STAGE_24,                2, 25000,    0,    0,   0, 996, 1000, RGB(0x000000), NO_SUNS,              1, 10000,    0, RGB(0xffffff), 0,     0, 1, RGB(0x00ffff), 7  },
+	{ STAGE_2B,                2,  2000, 2500, 3055, 750, 957, 1000, RGB(0x201010), NO_SUNS,              1,  5000,    0, RGB(0x3a1100), 0, -1000, 1, RGB(0x00ffff), 20 },
+	{ STAGE_2B + 900,          2,  8000, 6000, 8000, 800, 991, 1000, RGB(0x201010), NO_SUNS,              1,  5000,    0, RGB(0x3a1100), 0, -1000, 1, RGB(0x00ffff), 0  },
+	{ 238,                    10,  6000,    0,    0,   0, 996, 1000, RGB(0x181818), NO_SUNS,              1, 10000,    0, RGB(0x787878), 0,  -500, 0, RGB(0x000000), 0  },
+	{ 338,                    10,  6000,    0,    0,   0, 996, 1000, RGB(0x181818), NO_SUNS,              1, 10000,    0, RGB(0x787878), 0,  -500, 0, RGB(0x000000), 0  },
+	{ 438,                    10,  6000,    0,    0,   0, 996, 1000, RGB(0x181818), NO_SUNS,              1, 10000,    0, RGB(0x787878), 0,  -500, 0, RGB(0x000000), 0  },
+	{ 200,                    10,  7500,    0,    0,   0, 996, 1000, RGB(0x000000), NO_SUNS,              0,     0,    0, RGB(0x000000), 0,     0, 0, RGB(0x000000), 0  },
+	{ 300,                    10,  6000,    0,    0,   0, 996, 1000, RGB(0x000000), NO_SUNS,              0,     0,    0, RGB(0x000000), 0,     0, 0, RGB(0x000000), 0  },
+	{ 400,                    10,  5000,    0,    0,   0, 996, 1000, RGB(0x000000), NO_SUNS,              0,     0,    0, RGB(0x000000), 0,     0, 0, RGB(0x000000), 0  },
+	{ 0,                       0,     0,    0,    0,   0,   0,    0, RGB(0x000000), NO_SUNS,              0,     0,    0, RGB(0x000000), 0,     0, 0, RGB(0x000000), 0  },
 };
 
-struct envtype2 g_EnvironmentsType2[] = {
-	//                                                                            |-------- clouds --------|     |------------ water ------------|
-	// stage             near    far 08 0a 0c     r     g     b     sun           e     r     g     b  scale 20  e     r     g     b   scale  type 30 34
-	{ -1,                  15, 10000, 0, 0, 0, 0x00, 0x10, 0x40, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_RESCUE,        15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_MAIANSOS,      15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_ATTACKSHIP,    15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_INFILTRATION,  15, 12000, 0, 0, 0, 0x00, 0x00, 0x00, 1, suns_area51,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_ESCAPE,        15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 1, suns_area51,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_TEST_ARCH,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_DEEPSEA,       15, 10000, 0, 0, 0, 0x05, 0x00, 0x00, 0, NULL,         0, 0x9b, 0x9b, 0x9b,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_TEST_DEST,     15, 10000, 0, 0, 0, 0x10, 0x30, 0x60, 0, NULL,         1, 0xe6, 0xe6, 0xe6,  3000, 0, 1, 0xff, 0xff, 0x96,   -150,    2, 0, 0 },
-	{ STAGE_TEST_LEN,      15, 10000, 0, 0, 0, 0x30, 0x40, 0x10, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_TEST_ASH,      15, 25000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_DEFENSE,       15, 10000, 0, 0, 0, 0x65, 0xb2, 0xff, 1, suns_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_CITRAINING,    15, 10000, 0, 0, 0, 0x65, 0xb2, 0xff, 1, suns_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_DUEL,          10, 10000, 0, 0, 0, 0x65, 0xb2, 0xff, 1, suns_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_RETAKING,      15, 10000, 0, 0, 0, 0x65, 0xb2, 0xff, 1, suns_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_DEFECTION,     10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_MBR,           10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_EXTRACTION,    10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_SKEDARRUINS,   15, 10000, 0, 0, 0, 0x65, 0x65, 0xff, 3, suns_skedar,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_WAR,           15, 10000, 0, 0, 0, 0x65, 0x65, 0xff, 3, suns_skedar,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_TEST_RUN,      15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_MP_SKEDAR,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_TEST_SILO,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_CHICAGO,       10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x50, 0x28, 0x0a,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_G5BUILDING,    15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x50, 0x28, 0x0a,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_AIRFORCEONE,   15, 20000, 0, 0, 0, 0x00, 0x10, 0x40, 0, NULL,         1, 0xff, 0xff, 0xff,  5000, 0, 1, 0xff, 0xff, 0xff,  -5000,    2, 0, 1 },
-	{ STAGE_MP_RAVINE,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x50, 0x28, 0x0a,  5000, 0, 0, 0x00, 0x00, 0x00, -31000,    0, 0, 1 },
-	{ STAGE_AIRBASE,       15, 20000, 0, 0, 0, 0x00, 0x10, 0x40, 1, suns_airbase, 1, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_INVESTIGATION, 15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_MP_PIPES,      15, 10000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x46, 0xc7, 0xba,  4500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_G5BUILDING, 15, 10000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x5a, 0x90, 0xa5,  4500, 0, 0, 0x00, 0x00, 0x00, -20000,    0, 0, 0 },
-	{ STAGE_MP_TEMPLE,     15, 10000, 0, 0, 0, 0x00, 0x10, 0x80, 0, NULL,         1, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0xff, 0xff,  -1850,    1, 0, 1 },
-	{ STAGE_MP_COMPLEX,    15, 10000, 0, 0, 0, 0x02, 0x00, 0x00, 0, NULL,         1, 0x82, 0xaa, 0xc8,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_UFF,      10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_OLD,      15, 30000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_LAM,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_BASE,       15, 20000, 0, 0, 0, 0x04, 0x00, 0x00, 0, NULL,         1, 0x82, 0xb4, 0x64,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP2,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x46, 0xc7, 0xba,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_AREA52,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x46, 0xc7, 0xba,  4500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_WAREHOUSE,  15, 10000, 0, 0, 0, 0x02, 0x00, 0x00, 0, NULL,         1, 0x82, 0xaa, 0xc8,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_CARPARK,    15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x64, 0xc8, 0x86,  5500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP6,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP7,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP8,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_RUINS,      15, 10000, 0, 0, 0, 0x03, 0x00, 0x00, 0, NULL,         1, 0x82, 0xe6, 0xaa,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_SEWERS,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x64, 0x64, 0x64,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_FELICITY,   10, 10000, 0, 0, 0, 0x04, 0x05, 0x00, 0, NULL,         1, 0x64, 0xd2, 0x82,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_FORTRESS,   15, 10000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x5a, 0x90, 0xa5,  5500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_VILLA,      15, 10000, 0, 0, 0, 0x88, 0x88, 0xdc, 0, NULL,         1, 0xff, 0xaa, 0x2a,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP14,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_GRID,       15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP16,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP17,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x64, 0xc8, 0x86, 10000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP18,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP19,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP20,     15, 20000, 0, 0, 0, 0x00, 0x10, 0x3c, 0, NULL,         1, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
+struct nofogenvironment g_NoFogEnvironments[] = {
+	//                                                                                                                                              clouds_height
+	//                                |distfade |                                     |--------- clouds ---------|  |----------- water ----------|  |  transparency
+	// stage             near    far  opa xlu ref  sky colour                         e  colour         scale type  e  colour          scale  type  |  |
+	{ -1,                  15, 10000,   0,  0,  0, RGB(0x001040), NO_SUNS,            0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 0 },
+	{ STAGE_RESCUE,        15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_MAIANSOS,      15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_ATTACKSHIP,    15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 0 },
+	{ STAGE_INFILTRATION,  15, 12000,   0,  0,  0, RGB(0x000000), SUNS(suns_area51),  0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_ESCAPE,        15, 10000,   0,  0,  0, RGB(0x000000), SUNS(suns_area51),  0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_TEST_ARCH,     15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 0 },
+	{ STAGE_DEEPSEA,       15, 10000,   0,  0,  0, RGB(0x050000), NO_SUNS,            0, RGB(0x9b9b9b),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 0 },
+	{ STAGE_TEST_DEST,     15, 10000,   0,  0,  0, RGB(0x103060), NO_SUNS,            1, RGB(0xe6e6e6),  3000,   0, 1, RGB(0xffff96),   -150,    2, 0, 0 },
+	{ STAGE_TEST_LEN,      15, 10000,   0,  0,  0, RGB(0x304010), NO_SUNS,            0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 0 },
+	{ STAGE_TEST_ASH,      15, 25000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_DEFENSE,       15, 10000,   0,  0,  0, RGB(0x65b2ff), SUNS(suns_ci),      0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_CITRAINING,    15, 10000,   0,  0,  0, RGB(0x65b2ff), SUNS(suns_ci),      0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_DUEL,          10, 10000,   0,  0,  0, RGB(0x65b2ff), SUNS(suns_ci),      0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_RETAKING,      15, 10000,   0,  0,  0, RGB(0x65b2ff), SUNS(suns_ci),      0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_DEFECTION,     10, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x3a1100),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_MBR,           10, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x3a1100),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_EXTRACTION,    10, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x3a1100),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_SKEDARRUINS,   15, 10000,   0,  0,  0, RGB(0x6565ff), SUNS(suns_skedar),  0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_WAR,           15, 10000,   0,  0,  0, RGB(0x6565ff), SUNS(suns_skedar),  0, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_TEST_RUN,      15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x3a1100),  5000,   0, 0, RGB(0x000000),      0,    0, 0, 1 },
+	{ STAGE_MP_SKEDAR,     15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            1, RGB(0x3a1100),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 1 },
+	{ STAGE_TEST_SILO,     15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            1, RGB(0x3a1100),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 1 },
+	{ STAGE_CHICAGO,       10, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            1, RGB(0x50280a),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 1 },
+	{ STAGE_G5BUILDING,    15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x50280a),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 1 },
+	{ STAGE_AIRFORCEONE,   15, 20000,   0,  0,  0, RGB(0x001040), NO_SUNS,            1, RGB(0xffffff),  5000,   0, 1, RGB(0xffffff),  -5000,    2, 0, 1 },
+	{ STAGE_MP_RAVINE,     15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            1, RGB(0x50280a),  5000,   0, 0, RGB(0x000000), -31000,    0, 0, 1 },
+	{ STAGE_AIRBASE,       15, 20000,   0,  0,  0, RGB(0x001040), SUNS(suns_airbase), 1, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 1 },
+	{ STAGE_INVESTIGATION, 15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 1 },
+	{ STAGE_MP_PIPES,      15, 10000,   0,  0,  0, RGB(0x000008), NO_SUNS,            1, RGB(0x46c7ba),  4500,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_G5BUILDING, 15, 10000,   0,  0,  0, RGB(0x000008), NO_SUNS,            1, RGB(0x5a90a5),  4500,   0, 0, RGB(0x000000), -20000,    0, 0, 0 },
+	{ STAGE_MP_TEMPLE,     15, 10000,   0,  0,  0, RGB(0x001080), NO_SUNS,            1, RGB(0xffffff),  5000,   0, 0, RGB(0x00ffff),  -1850,    1, 0, 1 },
+	{ STAGE_MP_COMPLEX,    15, 10000,   0,  0,  0, RGB(0x020000), NO_SUNS,            1, RGB(0x82aac8),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_UFF,      10, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_OLD,      15, 30000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_LAM,      15, 20000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_BASE,       15, 20000,   0,  0,  0, RGB(0x040000), NO_SUNS,            1, RGB(0x82b464),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP2,      15, 20000,   0,  0,  0, RGB(0x000008), NO_SUNS,            1, RGB(0x46c7ba),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_AREA52,     15, 10000,   0,  0,  0, RGB(0x000008), NO_SUNS,            1, RGB(0x46c7ba),  4500,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_WAREHOUSE,  15, 10000,   0,  0,  0, RGB(0x020000), NO_SUNS,            1, RGB(0x82aac8),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_CARPARK,    15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            1, RGB(0x64c886),  5500,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP6,      15, 20000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP7,      15, 20000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP8,      15, 20000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_RUINS,      15, 10000,   0,  0,  0, RGB(0x030000), NO_SUNS,            1, RGB(0x82e6aa),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_SEWERS,     15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            1, RGB(0x646464),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_FELICITY,   10, 10000,   0,  0,  0, RGB(0x040500), NO_SUNS,            1, RGB(0x64d282),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_FORTRESS,   15, 10000,   0,  0,  0, RGB(0x000008), NO_SUNS,            1, RGB(0x5a90a5),  5500,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_VILLA,      15, 10000,   0,  0,  0, RGB(0x8888dc), NO_SUNS,            1, RGB(0xffaa2a),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP14,     15, 20000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_MP_GRID,       15, 10000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP16,     15, 20000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP17,     15, 20000,   0,  0,  0, RGB(0x000000), NO_SUNS,            1, RGB(0x64c886), 10000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP18,     15, 20000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP19,     15, 20000,   0,  0,  0, RGB(0x000000), NO_SUNS,            0, RGB(0x1e1e1e),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP20,     15, 20000,   0,  0,  0, RGB(0x00103c), NO_SUNS,            1, RGB(0xffffff),  5000,   0, 0, RGB(0x000000),  -5000,    0, 0, 1 },
 	{ 0 },
 };
 
@@ -130,17 +139,17 @@ struct environment *envGetCurrent(void)
 	return &g_Env;
 }
 
-f32 env0f1657d8(void)
+f32 envGetFogMax(void)
 {
-	return var80081050;
+	return g_EnvFogMax;
 }
 
-f32 env0f1657e4(void)
+f32 envGetSquaredFogMax(void)
 {
-	return var80081050 * var80081050;
+	return g_EnvFogMax * g_EnvFogMax;
 }
 
-void env0f1657f8(void)
+void envTick(void)
 {
 	struct zrange zrange;
 	f32 scale;
@@ -160,28 +169,30 @@ void env0f1657f8(void)
 	zrange.near /= scale;
 	zrange.far /= scale;
 
-	var800a661c = g_Env.fogmin * 0.001f;
-	var800a6618 = g_Env.fogmax * 0.001f;
+	// g_Env.fogmin and fogmax are a percentage of the draw distance, where a
+	// value of 1000 is 100%. So this is changing it back to a frac (0-1).
+	g_EnvFogMinFrac = g_Env.fogmin * 0.001f;
+	g_EnvFogMaxFrac = g_Env.fogmax * 0.001f;
 
-	var80081050 = (zrange.far - zrange.near) * var800a6618 + zrange.f[0];
-	var80081054 = (zrange.far - zrange.near) * var800a661c + zrange.f[0];
+	g_EnvFogMax = (zrange.far - zrange.near) * g_EnvFogMaxFrac + zrange.f[0];
+	g_EnvFogMin = (zrange.far - zrange.near) * g_EnvFogMinFrac + zrange.f[0];
 
-	var800a6600.znear = zrange.near;
-	var800a6600.zfar = zrange.far;
+	g_EnvShadeSettings.znear = zrange.near;
+	g_EnvShadeSettings.zfar = zrange.far;
 
-	zfar = var800a6600.zfar;
-	znear = var800a6600.znear;
-	sp28 = 128.0f / (var800a6618 - var800a661c);
-	sp24 = (0.5f - var800a661c) * 256.0f / (var800a6618 - var800a661c);
+	zfar = g_EnvShadeSettings.zfar;
+	znear = g_EnvShadeSettings.znear;
+	sp28 = 128.0f / (g_EnvFogMaxFrac - g_EnvFogMinFrac);
+	sp24 = (0.5f - g_EnvFogMinFrac) * 256.0f / (g_EnvFogMaxFrac - g_EnvFogMinFrac);
 
-	var800a6600.unk10 = -sp28 * zfar * (znear + 1.0f) / (zfar - znear) / 255.0f;
-	var800a6600.unk14 = ((zfar + 1.0f) * sp28 / (zfar - znear) + sp24) / 255.0f;
+	g_EnvShadeSettings.alphafar = -sp28 * zfar * (znear + 1.0f) / (zfar - znear) / 255.0f;
+	g_EnvShadeSettings.alphanear = (sp28 * (zfar + 1.0f) / (zfar - znear) + sp24) / 255.0f;
 }
 
-void envApplyType1(struct envtype1 *env)
+void envApplyFogEnvironment(struct fogenvironment *env)
 {
 	g_FogEnabled = true;
-	var800a65e4 = 0;
+	g_EnvHasTransparency = false;
 
 	viSetZRange(env->near, env->far);
 
@@ -200,7 +211,7 @@ void envApplyType1(struct envtype1 *env)
 
 	g_Env.clouds_enabled = env->clouds_enabled;
 	g_Env.clouds_scale = env->clouds_scale;
-	g_Env.unk18 = env->unk1c;
+	g_Env.clouds_type = env->clouds_type;
 	g_Env.clouds_r = env->clouds_r;
 	g_Env.clouds_g = env->clouds_g;
 	g_Env.clouds_b = env->clouds_b;
@@ -211,21 +222,21 @@ void envApplyType1(struct envtype1 *env)
 	g_Env.water_r = env->water_r;
 	g_Env.water_g = env->water_g;
 	g_Env.water_b = env->water_b;
-	g_Env.unk40 = env->unk28;
+	g_Env.clouds_height = env->clouds_height;
 
-	if (!env->unk06) {
-		var800a65e8 = NULL;
+	if (!env->opaperc) {
+		g_EnvDistFadeSettingsPtr = NULL;
 	} else {
-		var800a65f0.x = env->unk06;
-		var800a65f0.y = env->unk08;
-		var800a65f0.z = env->unk0a;
-		var800a65e8 = &var800a65f0;
+		g_EnvDistFadeSettings.opaperc = env->opaperc;
+		g_EnvDistFadeSettings.xluperc = env->xluperc;
+		g_EnvDistFadeSettings.refdist = env->refdist;
+		g_EnvDistFadeSettingsPtr = &g_EnvDistFadeSettings;
 	}
 
-	env0f1657f8();
+	envTick();
 }
 
-void envApplyType2(struct envtype2 *env)
+void envApplyNoFogEnvironment(struct nofogenvironment *env)
 {
 	struct zrange zrange;
 
@@ -243,7 +254,7 @@ void envApplyType2(struct envtype2 *env)
 	g_Env.suns = env->suns;
 	g_Env.clouds_enabled = env->clouds_enabled;
 	g_Env.clouds_scale = env->clouds_scale;
-	g_Env.unk18 = env->unk20;
+	g_Env.clouds_type = env->clouds_type;
 
 	g_Env.clouds_r = env->clouds_r;
 	g_Env.clouds_g = env->clouds_g;
@@ -256,20 +267,20 @@ void envApplyType2(struct envtype2 *env)
 	g_Env.water_r = env->water_r;
 	g_Env.water_g = env->water_g;
 	g_Env.water_b = env->water_b;
-	g_Env.unk40 = env->unk30;
+	g_Env.clouds_height = env->clouds_height;
 
-	if (!env->unk08) {
-		var800a65e8 = NULL;
+	if (!env->opaperc) {
+		g_EnvDistFadeSettingsPtr = NULL;
 	} else {
-		var800a65f0.x = env->unk08;
-		var800a65f0.y = env->unk0a;
-		var800a65f0.z = env->unk0c;
-		var800a65e8 = &var800a65f0;
+		g_EnvDistFadeSettings.opaperc = env->opaperc;
+		g_EnvDistFadeSettings.xluperc = env->xluperc;
+		g_EnvDistFadeSettings.refdist = env->refdist;
+		g_EnvDistFadeSettingsPtr = &g_EnvDistFadeSettings;
 	}
 
 	g_FogEnabled = false;
 
-	var800a65e4 = env->unk34;
+	g_EnvHasTransparency = env->transparency;
 }
 
 void envDisableSky(void)
@@ -290,38 +301,42 @@ void envSetStageNum(s32 stagenum)
 
 void envChooseAndApply(s32 stagenum, bool allowoverride)
 {
-	struct envtype2 *finalenv = NULL;
-	struct envtype2 *env2;
-	struct envtype1 *env1;
+	struct nofogenvironment *finalenv = NULL;
+	struct nofogenvironment *env2;
+	struct fogenvironment *env1;
 
 	if (PLAYERCOUNT());
 
-	var80081050 = MAXFLOAT;
-	var80081054 = 0;
+	g_EnvFogMax = MAXFLOAT;
+	g_EnvFogMin = 0;
 
+	// If allowoverride is set, try to find an env1 with stage + 900.
+	// But allowoverride is never set, so this never happens.
 	if (allowoverride) {
-		for (env1 = &g_EnvironmentsType1[0]; env1->stage != 0; env1++) {
+		for (env1 = &g_FogEnvironments[0]; env1->stage != 0; env1++) {
 			if (env1->stage == stagenum + 900) {
-				var800a6620 = env1;
+				g_EnvOrigFogEnvironment = env1;
 				g_EnvTransitionFrom = env1;
 				g_EnvTransitionTo = env1 + 1;
-				envApplyType1(var800a6620);
+				envApplyFogEnvironment(g_EnvOrigFogEnvironment);
 				return;
 			}
 		}
 	}
 
-	for (env1 = &g_EnvironmentsType1[0]; env1->stage != 0; env1++) {
+	// Try to find an env1
+	for (env1 = &g_FogEnvironments[0]; env1->stage != 0; env1++) {
 		if (env1->stage == stagenum) {
-			var800a6620 = env1;
+			g_EnvOrigFogEnvironment = env1;
 			g_EnvTransitionFrom = env1;
 			g_EnvTransitionTo = env1 + 1;
-			envApplyType1(var800a6620);
+			envApplyFogEnvironment(g_EnvOrigFogEnvironment);
 			return;
 		}
 	}
 
-	for (env2 = &g_EnvironmentsType2[0]; env2->stage != 0; env2++) {
+	// Try to find an env2
+	for (env2 = &g_NoFogEnvironments[0]; env2->stage != 0; env2++) {
 		if (env2->stage == stagenum) {
 			finalenv = env2;
 		}
@@ -330,17 +345,17 @@ void envChooseAndApply(s32 stagenum, bool allowoverride)
 	if (env2);
 
 	if (finalenv == NULL) {
-		finalenv = &g_EnvironmentsType2[0];
+		finalenv = &g_NoFogEnvironments[0];
 	}
 
-	envApplyType2(finalenv);
+	envApplyNoFogEnvironment(finalenv);
 
-	var800a6620 = NULL;
+	g_EnvOrigFogEnvironment = NULL;
 }
 
 void envApplyTransitionFrac(f32 frac)
 {
-	static struct envtype1 tmp;
+	static struct fogenvironment tmp;
 
 	tmp = *g_EnvTransitionFrom;
 
@@ -357,7 +372,7 @@ void envApplyTransitionFrac(f32 frac)
 	tmp.sky_g &= 0xf8;
 	tmp.sky_b &= 0xf8;
 
-	envApplyType1(&tmp);
+	envApplyFogEnvironment(&tmp);
 }
 
 Gfx *envStartFog(Gfx *gdl, bool xlupass)
@@ -391,7 +406,7 @@ Gfx *envStopFog(Gfx *gdl)
 	return gdl;
 }
 
-bool env0f1666f8(struct coord *pos, f32 arg1)
+bool envIsPosInFogMaxDistance(struct coord *pos, f32 tolerance)
 {
 	struct coord sp24;
 	Mtxf *mtx;
@@ -416,44 +431,44 @@ bool env0f1666f8(struct coord *pos, f32 arg1)
 
 	tmp = sp24.f[0] * mtx->m[0][0] + sp24.f[1] * mtx->m[0][1] + sp24.f[2] * mtx->m[0][2];
 
-	if (var80081050 + arg1 < tmp) {
+	if (tmp > g_EnvFogMax + tolerance) {
 		return false;
 	}
 
 	return true;
 }
 
-struct coord *env0f1667e8(void)
+struct distfadesettings *envGetDistFadeSettings(void)
 {
-	return var800a65e8;
+	return g_EnvDistFadeSettingsPtr;
 }
 
-s32 env0f1667f4(struct prop *prop, f32 arg1[4])
+s32 envGetObjShadeMode(struct prop *prop, f32 out[4])
 {
 	if (!g_FogEnabled) {
-		return 2;
+		return SHADEMODE_OPA;
 	}
 
 	if (prop->z < 0.0f) {
-		return 2;
+		return SHADEMODE_OPA;
 	}
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-		return 2;
+		return SHADEMODE_OPA;
 	}
 
-	arg1[0] = g_Env.skyredfrac;
-	arg1[1] = g_Env.skygreenfrac;
-	arg1[2] = g_Env.skybluefrac;
-	arg1[3] = var800a6600.unk14 + var800a6600.unk10 / prop->z;
+	out[0] = g_Env.skyredfrac;
+	out[1] = g_Env.skygreenfrac;
+	out[2] = g_Env.skybluefrac;
+	out[3] = g_EnvShadeSettings.alphanear + g_EnvShadeSettings.alphafar / prop->z;
 
-	if (arg1[3] < 0.0f) {
-		return 2;
+	if (out[3] < 0.0f) {
+		return SHADEMODE_OPA;
 	}
 
-	if (arg1[3] > 1.0f) {
-		return 0;
+	if (out[3] > 1.0f) {
+		return SHADEMODE_XLU;
 	}
 
-	return 1;
+	return SHADEMODE_FRAC;
 }

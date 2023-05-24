@@ -116,7 +116,7 @@ struct textureconfig g_TcRedLineConfigs[] = {
 	/*0*/ { 0x0c31, 32,  32,  0, G_IM_FMT_RGBA, G_IM_SIZ_32b, G_TX_WRAP,   G_TX_WRAP   },
 };
 
-struct textureconfig g_TcGroup06Configs[] = {
+struct textureconfig g_TcShadowConfigs[] = {
 	/*0*/ { 0x000c, 32,  32,  0, G_IM_FMT_IA,   G_IM_SIZ_8b,  G_TX_CLAMP,  G_TX_CLAMP  },
 };
 
@@ -228,13 +228,13 @@ struct textureconfig g_TcScreenConfigs[] = {
 	/*95*/ { 0x0c8f, 32,  32,  5, G_IM_FMT_RGBA, G_IM_SIZ_16b, G_TX_WRAP,   G_TX_WRAP   },
 };
 
-struct textureconfig g_TcWaterConfigs[] = {
+struct textureconfig g_TcSkyWaterConfigs[] = {
 	/*0*/ { 0x0013, 64,  64,  0, G_IM_FMT_IA,   G_IM_SIZ_8b,  G_TX_WRAP,   G_TX_WRAP   },
 	/*1*/ { 0x0c90, 64,  64,  0, G_IM_FMT_I,    G_IM_SIZ_8b,  G_TX_WRAP,   G_TX_WRAP   },
 	/*2*/ { 0x0014, 32,  32,  5, G_IM_FMT_RGBA, G_IM_SIZ_16b, G_TX_WRAP,   G_TX_WRAP   },
 };
 
-struct textureconfig g_TcSkyConfigs[] = {
+struct textureconfig g_TcGroup11Configs[] = {
 	/*0*/ { 0x0001, 32,  28,  0, G_IM_FMT_RGBA, G_IM_SIZ_32b, G_TX_WRAP,   G_TX_CLAMP  },
 	/*1*/ { 0x0001, 32,  28,  0, G_IM_FMT_RGBA, G_IM_SIZ_32b, G_TX_WRAP,   G_TX_CLAMP  },
 	/*2*/ { 0x0001, 122, 18,  0, G_IM_FMT_IA,   G_IM_SIZ_8b,  G_TX_CLAMP,  G_TX_CLAMP  },

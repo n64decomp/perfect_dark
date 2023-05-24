@@ -3571,7 +3571,7 @@ glabel bgLoadRoom
 /*  f15e2b8:	24a90014 */ 	addiu	$t1,$a1,0x14
 /*  f15e2bc:	00e9082b */ 	sltu	$at,$a3,$t1
 /*  f15e2c0:	14200026 */ 	bnez	$at,.L0f15e35c
-/*  f15e2c4:	3c19800a */ 	lui	$t9,%hi(var800a65e4)
+/*  f15e2c4:	3c19800a */ 	lui	$t9,%hi(g_EnvHasTransparency)
 /*  f15e2c8:	90a20000 */ 	lbu	$v0,0x0($a1)
 .L0f15e2cc:
 /*  f15e2cc:	50400006 */ 	beqzl	$v0,.L0f15e2e8
@@ -3638,7 +3638,7 @@ glabel bgLoadRoom
 /*  f15e3a4:	10000014 */ 	b	.L0f15e3f8
 /*  f15e3a8:	00000000 */ 	nop
 .L0f15e3ac:
-/*  f15e3ac:	8f3965e4 */ 	lw	$t9,%lo(var800a65e4)($t9)
+/*  f15e3ac:	8f3965e4 */ 	lw	$t9,%lo(g_EnvHasTransparency)($t9)
 /*  f15e3b0:	3c0b800a */ 	lui	$t3,%hi(g_Rooms)
 /*  f15e3b4:	8fac0054 */ 	lw	$t4,0x54($sp)
 /*  f15e3b8:	1720000f */ 	bnez	$t9,.L0f15e3f8
@@ -4160,7 +4160,7 @@ glabel bgLoadRoom
 /*  f158ab0:	24a90014 */ 	addiu	$t1,$a1,0x14
 /*  f158ab4:	00e9082b */ 	sltu	$at,$a3,$t1
 /*  f158ab8:	14200026 */ 	bnez	$at,.NB0f158b54
-/*  f158abc:	3c0e800b */ 	lui	$t6,%hi(var800a65e4)
+/*  f158abc:	3c0e800b */ 	lui	$t6,%hi(g_EnvHasTransparency)
 /*  f158ac0:	90a20000 */ 	lbu	$v0,0x0($a1)
 .NB0f158ac4:
 /*  f158ac4:	50400006 */ 	beqzl	$v0,.NB0f158ae0
@@ -4227,7 +4227,7 @@ glabel bgLoadRoom
 /*  f158b9c:	10000014 */ 	beqz	$zero,.NB0f158bf0
 /*  f158ba0:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f158ba4:
-/*  f158ba4:	8dceaea4 */ 	lw	$t6,%lo(var800a65e4)($t6)
+/*  f158ba4:	8dceaea4 */ 	lw	$t6,%lo(g_EnvHasTransparency)($t6)
 /*  f158ba8:	3c18800b */ 	lui	$t8,%hi(g_Rooms)
 /*  f158bac:	8faf0050 */ 	lw	$t7,0x50($sp)
 /*  f158bb0:	15c0000f */ 	bnez	$t6,.NB0f158bf0
@@ -4530,7 +4530,7 @@ void bgLoadRoom(s32 roomnum)
 		if (g_FogEnabled) {
 			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->opablocks, 1);
 			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->xlublocks, 5);
-		} else if (var800a65e4 == 0) {
+		} else if (!g_EnvHasTransparency) {
 			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->opablocks, 6);
 			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->xlublocks, 7);
 		}

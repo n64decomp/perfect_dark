@@ -22,7 +22,7 @@ Gfx g_GfxGroup00[] = {
 };
 
 /**
- * Enable fog? (opaque displaylist)
+ * Enable fog (opaque displaylist)
  */
 Gfx g_GfxGroup01[] = {
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_OPA_SURF2),
@@ -71,7 +71,7 @@ Gfx g_GfxGroup01[] = {
 };
 
 /**
- * Enable fog? (translucent displaylist)
+ * Enable fog (translucent displaylist)
  */
 Gfx g_GfxGroup05[] = {
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_XLU_DECAL2),

@@ -6669,7 +6669,7 @@ bool chrCheckCanSeeTarget(struct chrdata *chr)
 			|| (sqdistance < 40000.0f && (angle < 1.9195564985275f || angle > 4.3626284599304f))) {
 		result = false;
 
-		if (sqdistance < env0f1657e4()) {
+		if (sqdistance < envGetSquaredFogMax()) {
 			f32 tmp;
 			s32 iVar8 = (sqrtf(sqdistance) * 0.0018749999580905f);
 			s32 tmp2;
@@ -14933,7 +14933,7 @@ bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
 	bool offscreen = true;
 	s32 i;
 
-	if (env0f1666f8(pos, 0)) {
+	if (envIsPosInFogMaxDistance(pos, 0)) {
 		for (i = 0; rooms[i] != -1; i++) {
 			if (bgRoomIsOnscreen(rooms[i])) {
 				break;

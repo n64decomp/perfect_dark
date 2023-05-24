@@ -20,7 +20,3 @@ struct screenbox g_PortalScreenBbox;
 u32 g_BgCmdThrowing;
 s32 g_BgNumLightsChecksum;
 s32 g_BgLightsOffsetChecksum;
-u32 var800a65dc;
-u32 g_FogEnabled;
-u32 var800a65e4;
-struct coord *var800a65e8;

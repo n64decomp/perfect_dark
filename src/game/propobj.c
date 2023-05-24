@@ -1724,26 +1724,26 @@ void colourTween(u8 *col, u8 *nextcol)
 	}
 }
 
-void func0f069750(s32 *arg0, s32 arg1, f32 arg2[4])
+void objMergeColourFracs(s32 *colour, s32 shademode, f32 fracs[4])
 {
-	if (arg1 == 1) {
+	if (shademode == SHADEMODE_FRAC) {
 		f32 tmp;
 
-		arg2[0] *= 255.0f;
-		arg2[1] *= 255.0f;
-		arg2[2] *= 255.0f;
+		fracs[0] *= 255.0f;
+		fracs[1] *= 255.0f;
+		fracs[2] *= 255.0f;
 
-		tmp = arg0[0];
-		arg0[0] = tmp + (arg2[0] - tmp) * arg2[3];
+		tmp = colour[0];
+		colour[0] = tmp + (fracs[0] - tmp) * fracs[3];
 
-		tmp = arg0[1];
-		arg0[1] = tmp + (arg2[1] - tmp) * arg2[3];
+		tmp = colour[1];
+		colour[1] = tmp + (fracs[1] - tmp) * fracs[3];
 
-		tmp = arg0[2];
-		arg0[2] = tmp + (arg2[2] - tmp) * arg2[3];
+		tmp = colour[2];
+		colour[2] = tmp + (fracs[2] - tmp) * fracs[3];
 
-		tmp = arg0[3];
-		arg0[3] = tmp + (255.0f - tmp) * arg2[3];
+		tmp = colour[3];
+		colour[3] = tmp + (255.0f - tmp) * fracs[3];
 	}
 }
 
@@ -13553,8 +13553,8 @@ Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl)
 
 Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 {
-	f32 spe8[4];
-	s32 spe4;
+	f32 shadecolourfracs[4];
+	s32 shademode;
 	struct defaultobj *obj = prop->obj;
 	struct modelrenderdata renderdata = {NULL, true, 3};
 	struct screenbox screenbox;
@@ -13576,14 +13576,14 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	f32 objdist;
 	s32 i;
 
-	spe4 = env0f1667f4(prop, spe8);
+	shademode = envGetObjShadeMode(prop, shadecolourfracs);
 
-	if (spe4 == 0) {
+	if (shademode == SHADEMODE_XLU) {
 		return gdl;
 	}
 
 	if (obj->type != OBJTYPE_TINTEDGLASS) {
-		frac = func0f08e6bc(prop, modelGetEffectiveScale(obj->model));
+		frac = objCalculateFadeDistOpacityFrac(prop, modelGetEffectiveScale(obj->model));
 
 		if (prop->timetoregen > 0 && prop->timetoregen < TICKS(60)) {
 			frac *= (TICKS(60.0f) - prop->timetoregen) * (PAL ? 0.019999999552965f : 0.016666667535901f);
@@ -13760,7 +13760,7 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		colour[3] = 0xff;
 	}
 
-	func0f069750(colour, spe4, spe8);
+	objMergeColourFracs(colour, shademode, shadecolourfracs);
 
 	if (USINGDEVICE(DEVICE_NIGHTVISION)) {
 		if ((obj->flags & OBJFLAG_PATHBLOCKER) == 0) {
@@ -19848,47 +19848,61 @@ s32 func0f08e5a8(s16 *rooms2, struct screenbox *box)
 	return result;
 }
 
-f32 func0f08e6bc(struct prop *prop, f32 arg1)
+/**
+ * If the stage's environment allows it, objects in the distance fade out after
+ * a certain point.
+ *
+ * The settings are not quite a opa/xlu distance. They are implemented as
+ * percentages of a reference distance.
+ *
+ * Example settings:
+ * refdist = 600
+ * opaperc = 3333 (600 + 33.33% of 600)
+ * xluperc = 4444 (600 + 44.44% of 600)
+ *
+ * This feature is only used on Pelagic II.
+ */
+f32 objCalculateFadeDistOpacityFrac(struct prop *prop, f32 modelscale)
 {
 	f32 result = 1;
-	struct coord *coord = env0f1667e8();
+	struct distfadesettings *settings = envGetDistFadeSettings();
 
-	if (coord != NULL && coord->z < prop->z) {
+	if (settings != NULL && prop->z > settings->refdist) {
 		f32 scalez = camGetLodScaleZ();
-		f32 value = ((prop->z - coord->z) * 100.0f / arg1 + coord->z) * scalez;
+		f32 distperc = ((prop->z - settings->refdist) * 100.0f / modelscale + settings->refdist) * scalez;
 
-		if (value >= coord->y) {
+		if (distperc >= settings->xluperc) {
 			result = 0;
-		} else if (value > coord->x) {
-			result = (coord->y - value) / (coord->y - coord->x);
+		} else if (distperc > settings->opaperc) {
+			result = (settings->xluperc - distperc) / (settings->xluperc - settings->opaperc);
 		}
 	}
 
 	return result;
 }
 
-bool func0f08e794(struct coord *coord, f32 arg1)
+bool posIsInObjFadeDistance(struct coord *pos, f32 modelscale)
 {
 	bool result = true;
-	struct coord *ptr = env0f1667e8();
+	struct distfadesettings *settings = envGetDistFadeSettings();
 	struct coord tmp;
 	f32 sp20;
 
-	if (ptr != NULL) {
+	if (settings != NULL) {
 		struct coord *campos = &g_Vars.currentplayer->cam_pos;
 		Mtxf *mtx = camGetWorldToScreenMtxf();
 
-		tmp.x = coord->x - campos->x;
-		tmp.y = coord->y - campos->y;
-		tmp.z = coord->z - campos->z;
+		tmp.x = pos->x - campos->x;
+		tmp.y = pos->y - campos->y;
+		tmp.z = pos->z - campos->z;
 
 		sp20 = tmp.f[0] * mtx->m[0][0] + tmp.f[1] * mtx->m[0][1] + tmp.f[2] * mtx->m[0][2];
 
-		if (sp20 > ptr->z) {
+		if (sp20 > settings->refdist) {
 			f32 scalez = camGetLodScaleZ();
-			sp20 = ((sp20 - ptr->z) * 100 / arg1 + ptr->z) * scalez;
+			sp20 = ((sp20 - settings->refdist) * 100 / modelscale + settings->refdist) * scalez;
 
-			if (sp20 >= ptr->y) {
+			if (sp20 >= settings->xluperc) {
 				result = false;
 			}
 		}
@@ -19909,7 +19923,7 @@ bool func0f08e8ac(struct prop *prop, struct coord *pos, f32 arg2, bool arg3)
 
 	while (roomnum != -1) {
 		if (g_Rooms[roomnum].flags & ROOMFLAG_ONSCREEN) {
-			if (env0f1666f8(pos, arg2) && (!arg3 || func0f08e794(pos, arg2))) {
+			if (envIsPosInFogMaxDistance(pos, arg2) && (!arg3 || posIsInObjFadeDistance(pos, arg2))) {
 				result = camIsPosInFovAndVisibleRoom(prop->rooms, pos, arg2);
 
 				if (result) {
@@ -19944,7 +19958,7 @@ bool posIsInDrawDistance(struct coord *pos)
 	f32 aggregate = x * x + y * y + z * z;
 	bool result = true;
 
-	if (aggregate > 1024000000) {
+	if (aggregate > 32000 * 32000) {
 		result = false;
 	}
 
