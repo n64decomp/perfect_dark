@@ -17,9 +17,24 @@
 
 #define SKYABS(val) (val >= 0.0f ? (val) : -(val))
 
+#define CORNERSTATE_NONE     0x0
+#define CORNERSTATE_BR       0x1
+#define CORNERSTATE_BL       0x2
+#define CORNERSTATE_BOTTOM   0x3
+#define CORNERSTATE_TR       0x4
+#define CORNERSTATE_RIGHT    0x5
+#define CORNERSTATE_TR_BL_BR 0x7
+#define CORNERSTATE_TL       0x8
+#define CORNERSTATE_LEFT     0xa
+#define CORNERSTATE_TL_BL_BR 0xb
+#define CORNERSTATE_TOP      0xc
+#define CORNERSTATE_TL_TR_BR 0xd
+#define CORNERSTATE_TL_TR_BL 0xe
+#define CORNERSTATE_FULL     0xf
+
 u32 g_SkyStageNum;
 bool g_SkyLightningActive;
-Mtxf var800a33a8;
+Mtxf g_SkyMtx;
 struct coord g_SunPositions[3]; // relative to centre screen, with a huge scale
 u32 var800a340c;
 f32 g_SunScreenXPositions[4];
@@ -30,7 +45,7 @@ f32 g_SkyWindSpeed = 1;
 f32 g_SunAlphaFracs[3] = {0};
 s32 g_SunFlareTimers240[3] = {0};
 
-void sky0f11f000(f32 left, f32 top, struct coord *arg2)
+void skyGetWorldPosFromScreenPos(f32 left, f32 top, struct coord *dst)
 {
 	Mtxf *mtx = camGetProjectionMtxF();
 	f32 pos[2];
@@ -38,14 +53,14 @@ void sky0f11f000(f32 left, f32 top, struct coord *arg2)
 	pos[0] = left + camGetScreenLeft();
 	pos[1] = top + camGetScreenTop() + envGetCurrent()->clouds_height;
 
-	cam0f0b4c3c(pos, arg2, 100);
-	mtx4RotateVecInPlace(mtx, arg2);
+	cam0f0b4c3c(pos, dst, 100);
+	mtx4RotateVecInPlace(mtx, dst);
 }
 
-bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
+bool skyIsScreenCornerInSky(struct coord *corner3dpos, struct coord *dstpos, f32 *dstfrac)
 {
 	struct coord *campos = &g_Vars.currentplayer->cam_pos;
-	f32 f12 = 2.0f * arg0->y / sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2] + 0.0001f);
+	f32 f12 = 2.0f * corner3dpos->y / sqrtf(corner3dpos->f[0] * corner3dpos->f[0] + corner3dpos->f[2] * corner3dpos->f[2] + 0.0001f);
 	f32 sp2c;
 	f32 f12_2;
 	f32 sp24;
@@ -55,25 +70,25 @@ bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
 		f12 = 1.0f;
 	}
 
-	*arg2 = 1.0f - f12;
+	*dstfrac = 1.0f - f12;
 
-	if (arg0->y == 0.0f) {
+	if (corner3dpos->y == 0.0f) {
 		sp24 = 0.01f;
 	} else {
-		sp24 = arg0->y;
+		sp24 = corner3dpos->y;
 	}
 
 	if (sp24 > 0.0f) {
 		sp2c = (envGetCurrent()->clouds_scale - campos->y) / sp24;
-		f12_2 = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]) * sp2c;
+		f12_2 = sqrtf(corner3dpos->f[0] * corner3dpos->f[0] + corner3dpos->f[2] * corner3dpos->f[2]) * sp2c;
 
 		if (f12_2 > 300000) {
 			sp2c *= 300000 / f12_2;
 		}
 
-		arg1->x = campos->x + sp2c * arg0->f[0];
-		arg1->y = campos->y + sp2c * sp24;
-		arg1->z = campos->z + sp2c * arg0->f[2];
+		dstpos->x = campos->x + sp2c * corner3dpos->f[0];
+		dstpos->y = campos->y + sp2c * sp24;
+		dstpos->z = campos->z + sp2c * corner3dpos->f[2];
 
 		return true;
 	}
@@ -81,10 +96,10 @@ bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
 	return false;
 }
 
-bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2)
+bool skyIsCornerInWater(struct coord *corner3dpos, struct coord *dstpos, f32 *dstfrac)
 {
 	struct coord *campos = &g_Vars.currentplayer->cam_pos;
-	f32 f12 = -2.0f * arg0->y / sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2] + 0.0001f);
+	f32 f12 = -2.0f * corner3dpos->y / sqrtf(corner3dpos->f[0] * corner3dpos->f[0] + corner3dpos->f[2] * corner3dpos->f[2] + 0.0001f);
 	f32 sp2c;
 	f32 f12_2;
 	f32 sp24;
@@ -94,25 +109,25 @@ bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2)
 		f12 = 1.0f;
 	}
 
-	*arg2 = 1.0f - f12;
+	*dstfrac = 1.0f - f12;
 
-	if (arg0->y == 0.0f) {
+	if (corner3dpos->y == 0.0f) {
 		sp24 = -0.01f;
 	} else {
-		sp24 = arg0->y;
+		sp24 = corner3dpos->y;
 	}
 
 	if (sp24 < 0.0f) {
 		sp2c = (envGetCurrent()->water_scale - campos->y) / sp24;
-		f12_2 = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]) * sp2c;
+		f12_2 = sqrtf(corner3dpos->f[0] * corner3dpos->f[0] + corner3dpos->f[2] * corner3dpos->f[2]) * sp2c;
 
 		if (f12_2 > 300000) {
 			sp2c *= 300000 / f12_2;
 		}
 
-		arg1->x = campos->x + sp2c * arg0->f[0];
-		arg1->y = campos->y + sp2c * sp24;
-		arg1->z = campos->z + sp2c * arg0->f[2];
+		dstpos->x = campos->x + sp2c * corner3dpos->f[0];
+		dstpos->y = campos->y + sp2c * sp24;
+		dstpos->z = campos->z + sp2c * corner3dpos->f[2];
 
 		return true;
 	}
@@ -124,7 +139,7 @@ bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2)
  * Scale base based on the height percentage between base and ref...
  * except the new y is zero.
  */
-void sky0f11f384(struct coord *base, struct coord *ref, struct coord *out)
+void skyCalculateEdgeVertex(struct coord *base, struct coord *ref, struct coord *out)
 {
 	f32 mult = base->y / (base->y - ref->y);
 
@@ -151,7 +166,7 @@ f32 skyRound(f32 value)
 	return (s32)(value + 0.5f);
 }
 
-void skyChooseCloudVtxColour(struct skything18 *arg0, f32 arg1)
+void skyChooseCloudVtxColour(struct skyvtx3d *arg0, f32 arg1)
 {
 	struct environment *env = envGetCurrent();
 	f32 scale = 1.0f - arg1;
@@ -170,7 +185,7 @@ void skyChooseCloudVtxColour(struct skything18 *arg0, f32 arg1)
 	arg0->a = 0xff;
 }
 
-void sky0f11f6ec(struct skything18 *arg0, f32 arg1)
+void skyChooseWaterVtxColour(struct skyvtx3d *arg0, f32 arg1)
 {
 	struct environment *env = envGetCurrent();
 	f32 scale = 1.0f - arg1;
@@ -186,10 +201,10 @@ void sky0f11f6ec(struct skything18 *arg0, f32 arg1)
 
 Gfx *skyRender(Gfx *gdl)
 {
-	struct coord sp6a4;
-	struct coord sp698;
-	struct coord sp68c;
-	struct coord sp680;
+	struct coord tl3dpos;
+	struct coord tr3dpos;
+	struct coord bl3dpos;
+	struct coord br3dpos;
 	struct coord sp674;
 	struct coord sp668;
 	struct coord sp65c;
@@ -228,15 +243,15 @@ Gfx *skyRender(Gfx *gdl)
 	f32 sp550;
 	f32 sp54c;
 	f32 sp548;
-	s32 s1;
+	s32 numvertices;
 	s32 j;
-	s32 k;
-	s32 sp538;
-	s32 sp534;
-	s32 sp530;
-	s32 sp52c;
-	struct skything18 sp4b4[5];
-	struct skything18 sp43c[5];
+	s32 cornerstate;
+	s32 tlcornerissky;
+	s32 trcornerissky;
+	s32 blcornerissky;
+	s32 brcornerissky;
+	struct skyvtx3d skyvertices3d[5];
+	struct skyvtx3d watervertices3d[5];
 	f32 tmp;
 	f32 scale;
 	bool sp430;
@@ -285,491 +300,511 @@ Gfx *skyRender(Gfx *gdl)
 
 	gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
 
-	if (&sp6a4);
+	if (&tl3dpos);
 
-	sky0f11f000(0.0f, 0.0f, &sp6a4);
-	sky0f11f000(camGetScreenWidth() - 0.1f, 0.0f, &sp698);
-	sky0f11f000(0.0f, camGetScreenHeight() - 0.1f, &sp68c);
-	sky0f11f000(camGetScreenWidth() - 0.1f, camGetScreenHeight() - 0.1f, &sp680);
+	skyGetWorldPosFromScreenPos(0.0f, 0.0f, &tl3dpos);
+	skyGetWorldPosFromScreenPos(camGetScreenWidth() - 0.1f, 0.0f, &tr3dpos);
+	skyGetWorldPosFromScreenPos(0.0f, camGetScreenHeight() - 0.1f, &bl3dpos);
+	skyGetWorldPosFromScreenPos(camGetScreenWidth() - 0.1f, camGetScreenHeight() - 0.1f, &br3dpos);
 
-	sp538 = sky0f11f07c(&sp6a4, &sp644, &sp58c);
-	sp534 = sky0f11f07c(&sp698, &sp638, &sp588);
-	sp530 = sky0f11f07c(&sp68c, &sp62c, &sp584);
-	sp52c = sky0f11f07c(&sp680, &sp620, &sp580);
+	tlcornerissky = skyIsScreenCornerInSky(&tl3dpos, &sp644, &sp58c);
+	trcornerissky = skyIsScreenCornerInSky(&tr3dpos, &sp638, &sp588);
+	blcornerissky = skyIsScreenCornerInSky(&bl3dpos, &sp62c, &sp584);
+	brcornerissky = skyIsScreenCornerInSky(&br3dpos, &sp620, &sp580);
 
-	sky0f11f1fc(&sp6a4, &sp5e4, &sp56c);
-	sky0f11f1fc(&sp698, &sp5d8, &sp568);
-	sky0f11f1fc(&sp68c, &sp5cc, &sp564);
-	sky0f11f1fc(&sp680, &sp5c0, &sp560);
+	skyIsCornerInWater(&tl3dpos, &sp5e4, &sp56c);
+	skyIsCornerInWater(&tr3dpos, &sp5d8, &sp568);
+	skyIsCornerInWater(&bl3dpos, &sp5cc, &sp564);
+	skyIsCornerInWater(&br3dpos, &sp5c0, &sp560);
 
-	if (sp538 != sp530) {
-		sp54c = camGetScreenTop() + camGetScreenHeight() * (sp6a4.f[1] / (sp6a4.f[1] - sp68c.f[1]));
+	// For each screen edge, check if one vertex is off-sky and the other is on-sky.
+	// If so, calculate where along the the edge the sky starts/ends.
+	if (tlcornerissky != blcornerissky) {
+		sp54c = camGetScreenTop() + camGetScreenHeight() * (tl3dpos.f[1] / (tl3dpos.f[1] - bl3dpos.f[1]));
 
-		sky0f11f000(0.0f, sp54c, &sp65c);
-		sky0f11f384(&sp6a4, &sp68c, &sp65c);
-		sky0f11f07c(&sp65c, &sp5fc, &sp574);
-		sky0f11f1fc(&sp65c, &sp59c, &sp554);
+		skyGetWorldPosFromScreenPos(0.0f, sp54c, &sp65c);
+		skyCalculateEdgeVertex(&tl3dpos, &bl3dpos, &sp65c);
+		skyIsScreenCornerInSky(&sp65c, &sp5fc, &sp574);
+		skyIsCornerInWater(&sp65c, &sp59c, &sp554);
 	} else {
 		sp54c = 0.0f;
 	}
 
-	if (sp534 != sp52c) {
-		sp548 = camGetScreenTop() + camGetScreenHeight() * (sp698.f[1] / (sp698.f[1] - sp680.f[1]));
+	if (trcornerissky != brcornerissky) {
+		sp548 = camGetScreenTop() + camGetScreenHeight() * (tr3dpos.f[1] / (tr3dpos.f[1] - br3dpos.f[1]));
 
-		sky0f11f000(camGetScreenWidth() - 0.1f, sp548, &sp650);
-		sky0f11f384(&sp698, &sp680, &sp650);
-		sky0f11f07c(&sp650, &sp5f0, &sp570);
-		sky0f11f1fc(&sp650, &sp590, &sp550);
+		skyGetWorldPosFromScreenPos(camGetScreenWidth() - 0.1f, sp548, &sp650);
+		skyCalculateEdgeVertex(&tr3dpos, &br3dpos, &sp650);
+		skyIsScreenCornerInSky(&sp650, &sp5f0, &sp570);
+		skyIsCornerInWater(&sp650, &sp590, &sp550);
 	} else {
 		sp548 = 0.0f;
 	}
 
-	if (sp538 != sp534) {
-		sky0f11f000(camGetScreenLeft() + camGetScreenWidth() * (sp6a4.f[1] / (sp6a4.f[1] - sp698.f[1])), 0.0f, &sp674);
-		sky0f11f384(&sp6a4, &sp698, &sp674);
-		sky0f11f07c(&sp674, &sp614, &sp57c);
-		sky0f11f1fc(&sp674, &sp5b4, &sp55c);
+	if (tlcornerissky != trcornerissky) {
+		skyGetWorldPosFromScreenPos(camGetScreenLeft() + camGetScreenWidth() * (tl3dpos.f[1] / (tl3dpos.f[1] - tr3dpos.f[1])), 0.0f, &sp674);
+		skyCalculateEdgeVertex(&tl3dpos, &tr3dpos, &sp674);
+		skyIsScreenCornerInSky(&sp674, &sp614, &sp57c);
+		skyIsCornerInWater(&sp674, &sp5b4, &sp55c);
 	}
 
-	if (sp530 != sp52c) {
-		tmp = camGetScreenLeft() + camGetScreenWidth() * (sp68c.f[1] / (sp68c.f[1] - sp680.f[1]));
+	if (blcornerissky != brcornerissky) {
+		tmp = camGetScreenLeft() + camGetScreenWidth() * (bl3dpos.f[1] / (bl3dpos.f[1] - br3dpos.f[1]));
 
-		sky0f11f000(tmp, camGetScreenHeight() - 0.1f, &sp668);
-		sky0f11f384(&sp68c, &sp680, &sp668);
-		sky0f11f07c(&sp668, &sp608, &sp578);
-		sky0f11f1fc(&sp668, &sp5a8, &sp558);
+		skyGetWorldPosFromScreenPos(tmp, camGetScreenHeight() - 0.1f, &sp668);
+		skyCalculateEdgeVertex(&bl3dpos, &br3dpos, &sp668);
+		skyIsScreenCornerInSky(&sp668, &sp608, &sp578);
+		skyIsCornerInWater(&sp668, &sp5a8, &sp558);
 	}
 
-	switch ((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) {
-	case 15:
-		s1 = 0;
-		scale = 0.033333335f;
-		break;
-	case 0:
-		s1 = 4;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5e4.f[0] * scale;
-		sp43c[0].unk04 = sp5e4.f[1] * scale;
-		sp43c[0].unk08 = sp5e4.f[2] * scale;
-		sp43c[1].unk00 = sp5d8.f[0] * scale;
-		sp43c[1].unk04 = sp5d8.f[1] * scale;
-		sp43c[1].unk08 = sp5d8.f[2] * scale;
-		sp43c[2].unk00 = sp5cc.f[0] * scale;
-		sp43c[2].unk04 = sp5cc.f[1] * scale;
-		sp43c[2].unk08 = sp5cc.f[2] * scale;
-		sp43c[3].unk00 = sp5c0.f[0] * scale;
-		sp43c[3].unk04 = sp5c0.f[1] * scale;
-		sp43c[3].unk08 = sp5c0.f[2] * scale;
-		sp43c[0].unk0c = sp5e4.f[0];
-		sp43c[0].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5d8.f[0];
-		sp43c[1].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp5cc.f[0];
-		sp43c[2].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
-		sp43c[3].unk0c = sp5c0.f[0];
-		sp43c[3].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
+	cornerstate = (tlcornerissky << 3) | (trcornerissky << 2) | (blcornerissky << 1) | brcornerissky;
 
-		sky0f11f6ec(&sp43c[0], sp56c);
-		sky0f11f6ec(&sp43c[1], sp568);
-		sky0f11f6ec(&sp43c[2], sp564);
-		sky0f11f6ec(&sp43c[3], sp560);
+	/**
+	 * Do maths stuff for the ground/water/below-horizon plane.
+	 *
+	 * The CORNERSTATE constants denote which corners are in the sky,
+	 * which is why these cases appear to be inverted.
+	 */
+	switch (cornerstate) {
+	case CORNERSTATE_FULL:
+		// All four screen corners are in the sky.
+		numvertices = 0;
+		scale = 1.0f / 30.0f;
 		break;
-	case 3:
-		s1 = 4;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5e4.f[0] * scale;
-		sp43c[0].unk04 = sp5e4.f[1] * scale;
-		sp43c[0].unk08 = sp5e4.f[2] * scale;
-		sp43c[1].unk00 = sp5d8.f[0] * scale;
-		sp43c[1].unk04 = sp5d8.f[1] * scale;
-		sp43c[1].unk08 = sp5d8.f[2] * scale;
-		sp43c[2].unk00 = sp59c.f[0] * scale;
-		sp43c[2].unk04 = sp59c.f[1] * scale;
-		sp43c[2].unk08 = sp59c.f[2] * scale;
-		sp43c[3].unk00 = sp590.f[0] * scale;
-		sp43c[3].unk04 = sp590.f[1] * scale;
-		sp43c[3].unk08 = sp590.f[2] * scale;
-		sp43c[0].unk0c = sp5e4.f[0];
-		sp43c[0].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5d8.f[0];
-		sp43c[1].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp59c.f[0];
-		sp43c[2].unk10 = sp59c.f[2] + g_SkyCloudOffset;
-		sp43c[3].unk0c = sp590.f[0];
-		sp43c[3].unk10 = sp590.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_NONE:
+		// All four screen corners are on the ground.
+		numvertices = 4;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5e4.f[0] * scale;
+		watervertices3d[0].y = sp5e4.f[1] * scale;
+		watervertices3d[0].z = sp5e4.f[2] * scale;
+		watervertices3d[1].x = sp5d8.f[0] * scale;
+		watervertices3d[1].y = sp5d8.f[1] * scale;
+		watervertices3d[1].z = sp5d8.f[2] * scale;
+		watervertices3d[2].x = sp5cc.f[0] * scale;
+		watervertices3d[2].y = sp5cc.f[1] * scale;
+		watervertices3d[2].z = sp5cc.f[2] * scale;
+		watervertices3d[3].x = sp5c0.f[0] * scale;
+		watervertices3d[3].y = sp5c0.f[1] * scale;
+		watervertices3d[3].z = sp5c0.f[2] * scale;
+		watervertices3d[0].s = sp5e4.f[0];
+		watervertices3d[0].t = sp5e4.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5d8.f[0];
+		watervertices3d[1].t = sp5d8.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp5cc.f[0];
+		watervertices3d[2].t = sp5cc.f[2] + g_SkyCloudOffset;
+		watervertices3d[3].s = sp5c0.f[0];
+		watervertices3d[3].t = sp5c0.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp56c);
-		sky0f11f6ec(&sp43c[1], sp568);
-		sky0f11f6ec(&sp43c[2], sp554);
-		sky0f11f6ec(&sp43c[3], sp550);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp56c);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp568);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp564);
+		skyChooseWaterVtxColour(&watervertices3d[3], sp560);
 		break;
-	case 12:
-		s1 = 4;
+	case CORNERSTATE_BOTTOM:
+		// The bottom corners are in the sky.
+		// This is possible by turning the drugspy upside down in Air Base.
+		numvertices = 4;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5e4.f[0] * scale;
+		watervertices3d[0].y = sp5e4.f[1] * scale;
+		watervertices3d[0].z = sp5e4.f[2] * scale;
+		watervertices3d[1].x = sp5d8.f[0] * scale;
+		watervertices3d[1].y = sp5d8.f[1] * scale;
+		watervertices3d[1].z = sp5d8.f[2] * scale;
+		watervertices3d[2].x = sp59c.f[0] * scale;
+		watervertices3d[2].y = sp59c.f[1] * scale;
+		watervertices3d[2].z = sp59c.f[2] * scale;
+		watervertices3d[3].x = sp590.f[0] * scale;
+		watervertices3d[3].y = sp590.f[1] * scale;
+		watervertices3d[3].z = sp590.f[2] * scale;
+		watervertices3d[0].s = sp5e4.f[0];
+		watervertices3d[0].t = sp5e4.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5d8.f[0];
+		watervertices3d[1].t = sp5d8.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp59c.f[0];
+		watervertices3d[2].t = sp59c.f[2] + g_SkyCloudOffset;
+		watervertices3d[3].s = sp590.f[0];
+		watervertices3d[3].t = sp590.f[2] + g_SkyCloudOffset;
+
+		skyChooseWaterVtxColour(&watervertices3d[0], sp56c);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp568);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp554);
+		skyChooseWaterVtxColour(&watervertices3d[3], sp550);
+		break;
+	case CORNERSTATE_TOP:
+		// The top corners are in the sky. A common occurrence.
+		numvertices = 4;
 		sp430 = true;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5c0.f[0] * scale;
-		sp43c[0].unk04 = sp5c0.f[1] * scale;
-		sp43c[0].unk08 = sp5c0.f[2] * scale;
-		sp43c[1].unk00 = sp5cc.f[0] * scale;
-		sp43c[1].unk04 = sp5cc.f[1] * scale;
-		sp43c[1].unk08 = sp5cc.f[2] * scale;
-		sp43c[2].unk00 = sp590.f[0] * scale;
-		sp43c[2].unk04 = sp590.f[1] * scale;
-		sp43c[2].unk08 = sp590.f[2] * scale;
-		sp43c[3].unk00 = sp59c.f[0] * scale;
-		sp43c[3].unk04 = sp59c.f[1] * scale;
-		sp43c[3].unk08 = sp59c.f[2] * scale;
-		sp43c[0].unk0c = sp5c0.f[0];
-		sp43c[0].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5cc.f[0];
-		sp43c[1].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp590.f[0];
-		sp43c[2].unk10 = sp590.f[2] + g_SkyCloudOffset;
-		sp43c[3].unk0c = sp59c.f[0];
-		sp43c[3].unk10 = sp59c.f[2] + g_SkyCloudOffset;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5c0.f[0] * scale;
+		watervertices3d[0].y = sp5c0.f[1] * scale;
+		watervertices3d[0].z = sp5c0.f[2] * scale;
+		watervertices3d[1].x = sp5cc.f[0] * scale;
+		watervertices3d[1].y = sp5cc.f[1] * scale;
+		watervertices3d[1].z = sp5cc.f[2] * scale;
+		watervertices3d[2].x = sp590.f[0] * scale;
+		watervertices3d[2].y = sp590.f[1] * scale;
+		watervertices3d[2].z = sp590.f[2] * scale;
+		watervertices3d[3].x = sp59c.f[0] * scale;
+		watervertices3d[3].y = sp59c.f[1] * scale;
+		watervertices3d[3].z = sp59c.f[2] * scale;
+		watervertices3d[0].s = sp5c0.f[0];
+		watervertices3d[0].t = sp5c0.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5cc.f[0];
+		watervertices3d[1].t = sp5cc.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp590.f[0];
+		watervertices3d[2].t = sp590.f[2] + g_SkyCloudOffset;
+		watervertices3d[3].s = sp59c.f[0];
+		watervertices3d[3].t = sp59c.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp560);
-		sky0f11f6ec(&sp43c[1], sp564);
-		sky0f11f6ec(&sp43c[2], sp550);
-		sky0f11f6ec(&sp43c[3], sp554);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp560);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp564);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp550);
+		skyChooseWaterVtxColour(&watervertices3d[3], sp554);
 		break;
-	case 10:
-		s1 = 4;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5d8.f[0] * scale;
-		sp43c[0].unk04 = sp5d8.f[1] * scale;
-		sp43c[0].unk08 = sp5d8.f[2] * scale;
-		sp43c[1].unk00 = sp5c0.f[0] * scale;
-		sp43c[1].unk04 = sp5c0.f[1] * scale;
-		sp43c[1].unk08 = sp5c0.f[2] * scale;
-		sp43c[2].unk00 = sp5b4.f[0] * scale;
-		sp43c[2].unk04 = sp5b4.f[1] * scale;
-		sp43c[2].unk08 = sp5b4.f[2] * scale;
-		sp43c[3].unk00 = sp5a8.f[0] * scale;
-		sp43c[3].unk04 = sp5a8.f[1] * scale;
-		sp43c[3].unk08 = sp5a8.f[2] * scale;
-		sp43c[0].unk0c = sp5d8.f[0];
-		sp43c[0].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5c0.f[0];
-		sp43c[1].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp5b4.f[0];
-		sp43c[2].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
-		sp43c[3].unk0c = sp5a8.f[0];
-		sp43c[3].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_LEFT:
+		// The left side corners are in the sky.
+		// This would happen if the camera rolls significantly.
+		numvertices = 4;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5d8.f[0] * scale;
+		watervertices3d[0].y = sp5d8.f[1] * scale;
+		watervertices3d[0].z = sp5d8.f[2] * scale;
+		watervertices3d[1].x = sp5c0.f[0] * scale;
+		watervertices3d[1].y = sp5c0.f[1] * scale;
+		watervertices3d[1].z = sp5c0.f[2] * scale;
+		watervertices3d[2].x = sp5b4.f[0] * scale;
+		watervertices3d[2].y = sp5b4.f[1] * scale;
+		watervertices3d[2].z = sp5b4.f[2] * scale;
+		watervertices3d[3].x = sp5a8.f[0] * scale;
+		watervertices3d[3].y = sp5a8.f[1] * scale;
+		watervertices3d[3].z = sp5a8.f[2] * scale;
+		watervertices3d[0].s = sp5d8.f[0];
+		watervertices3d[0].t = sp5d8.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5c0.f[0];
+		watervertices3d[1].t = sp5c0.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp5b4.f[0];
+		watervertices3d[2].t = sp5b4.f[2] + g_SkyCloudOffset;
+		watervertices3d[3].s = sp5a8.f[0];
+		watervertices3d[3].t = sp5a8.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp568);
-		sky0f11f6ec(&sp43c[1], sp560);
-		sky0f11f6ec(&sp43c[2], sp55c);
-		sky0f11f6ec(&sp43c[3], sp558);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp568);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp560);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp55c);
+		skyChooseWaterVtxColour(&watervertices3d[3], sp558);
 		break;
-	case 5:
-		s1 = 4;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5cc.f[0] * scale;
-		sp43c[0].unk04 = sp5cc.f[1] * scale;
-		sp43c[0].unk08 = sp5cc.f[2] * scale;
-		sp43c[1].unk00 = sp5e4.f[0] * scale;
-		sp43c[1].unk04 = sp5e4.f[1] * scale;
-		sp43c[1].unk08 = sp5e4.f[2] * scale;
-		sp43c[2].unk00 = sp5a8.f[0] * scale;
-		sp43c[2].unk04 = sp5a8.f[1] * scale;
-		sp43c[2].unk08 = sp5a8.f[2] * scale;
-		sp43c[3].unk00 = sp5b4.f[0] * scale;
-		sp43c[3].unk04 = sp5b4.f[1] * scale;
-		sp43c[3].unk08 = sp5b4.f[2] * scale;
-		sp43c[0].unk0c = sp5cc.f[0];
-		sp43c[0].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5e4.f[0];
-		sp43c[1].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp5a8.f[0];
-		sp43c[2].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
-		sp43c[3].unk0c = sp5b4.f[0];
-		sp43c[3].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_RIGHT:
+		// The right side corners are in the sky.
+		// This would happen if the camera rolls significantly.
+		numvertices = 4;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5cc.f[0] * scale;
+		watervertices3d[0].y = sp5cc.f[1] * scale;
+		watervertices3d[0].z = sp5cc.f[2] * scale;
+		watervertices3d[1].x = sp5e4.f[0] * scale;
+		watervertices3d[1].y = sp5e4.f[1] * scale;
+		watervertices3d[1].z = sp5e4.f[2] * scale;
+		watervertices3d[2].x = sp5a8.f[0] * scale;
+		watervertices3d[2].y = sp5a8.f[1] * scale;
+		watervertices3d[2].z = sp5a8.f[2] * scale;
+		watervertices3d[3].x = sp5b4.f[0] * scale;
+		watervertices3d[3].y = sp5b4.f[1] * scale;
+		watervertices3d[3].z = sp5b4.f[2] * scale;
+		watervertices3d[0].s = sp5cc.f[0];
+		watervertices3d[0].t = sp5cc.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5e4.f[0];
+		watervertices3d[1].t = sp5e4.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp5a8.f[0];
+		watervertices3d[2].t = sp5a8.f[2] + g_SkyCloudOffset;
+		watervertices3d[3].s = sp5b4.f[0];
+		watervertices3d[3].t = sp5b4.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp564);
-		sky0f11f6ec(&sp43c[1], sp56c);
-		sky0f11f6ec(&sp43c[2], sp558);
-		sky0f11f6ec(&sp43c[3], sp55c);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp564);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp56c);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp558);
+		skyChooseWaterVtxColour(&watervertices3d[3], sp55c);
 		break;
-	case 14:
-		s1 = 3;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5c0.f[0] * scale;
-		sp43c[0].unk04 = sp5c0.f[1] * scale;
-		sp43c[0].unk08 = sp5c0.f[2] * scale;
-		sp43c[1].unk00 = sp5a8.f[0] * scale;
-		sp43c[1].unk04 = sp5a8.f[1] * scale;
-		sp43c[1].unk08 = sp5a8.f[2] * scale;
-		sp43c[2].unk00 = sp590.f[0] * scale;
-		sp43c[2].unk04 = sp590.f[1] * scale;
-		sp43c[2].unk08 = sp590.f[2] * scale;
-		sp43c[0].unk0c = sp5c0.f[0];
-		sp43c[0].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5a8.f[0];
-		sp43c[1].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp590.f[0];
-		sp43c[2].unk10 = sp590.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_TL_TR_BL:
+		numvertices = 3;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5c0.f[0] * scale;
+		watervertices3d[0].y = sp5c0.f[1] * scale;
+		watervertices3d[0].z = sp5c0.f[2] * scale;
+		watervertices3d[1].x = sp5a8.f[0] * scale;
+		watervertices3d[1].y = sp5a8.f[1] * scale;
+		watervertices3d[1].z = sp5a8.f[2] * scale;
+		watervertices3d[2].x = sp590.f[0] * scale;
+		watervertices3d[2].y = sp590.f[1] * scale;
+		watervertices3d[2].z = sp590.f[2] * scale;
+		watervertices3d[0].s = sp5c0.f[0];
+		watervertices3d[0].t = sp5c0.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5a8.f[0];
+		watervertices3d[1].t = sp5a8.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp590.f[0];
+		watervertices3d[2].t = sp590.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp560);
-		sky0f11f6ec(&sp43c[1], sp558);
-		sky0f11f6ec(&sp43c[2], sp550);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp560);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp558);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp550);
 		break;
-	case 13:
-		s1 = 3;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5cc.f[0] * scale;
-		sp43c[0].unk04 = sp5cc.f[1] * scale;
-		sp43c[0].unk08 = sp5cc.f[2] * scale;
-		sp43c[1].unk00 = sp59c.f[0] * scale;
-		sp43c[1].unk04 = sp59c.f[1] * scale;
-		sp43c[1].unk08 = sp59c.f[2] * scale;
-		sp43c[2].unk00 = sp5a8.f[0] * scale;
-		sp43c[2].unk04 = sp5a8.f[1] * scale;
-		sp43c[2].unk08 = sp5a8.f[2] * scale;
-		sp43c[0].unk0c = sp5cc.f[0];
-		sp43c[0].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp59c.f[0];
-		sp43c[1].unk10 = sp59c.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp5a8.f[0];
-		sp43c[2].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_TL_TR_BR:
+		numvertices = 3;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5cc.f[0] * scale;
+		watervertices3d[0].y = sp5cc.f[1] * scale;
+		watervertices3d[0].z = sp5cc.f[2] * scale;
+		watervertices3d[1].x = sp59c.f[0] * scale;
+		watervertices3d[1].y = sp59c.f[1] * scale;
+		watervertices3d[1].z = sp59c.f[2] * scale;
+		watervertices3d[2].x = sp5a8.f[0] * scale;
+		watervertices3d[2].y = sp5a8.f[1] * scale;
+		watervertices3d[2].z = sp5a8.f[2] * scale;
+		watervertices3d[0].s = sp5cc.f[0];
+		watervertices3d[0].t = sp5cc.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp59c.f[0];
+		watervertices3d[1].t = sp59c.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp5a8.f[0];
+		watervertices3d[2].t = sp5a8.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp564);
-		sky0f11f6ec(&sp43c[1], sp554);
-		sky0f11f6ec(&sp43c[2], sp558);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp564);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp554);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp558);
 		break;
-	case 11:
-		s1 = 3;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5d8.f[0] * scale;
-		sp43c[0].unk04 = sp5d8.f[1] * scale;
-		sp43c[0].unk08 = sp5d8.f[2] * scale;
-		sp43c[1].unk00 = sp590.f[0] * scale;
-		sp43c[1].unk04 = sp590.f[1] * scale;
-		sp43c[1].unk08 = sp590.f[2] * scale;
-		sp43c[2].unk00 = sp5b4.f[0] * scale;
-		sp43c[2].unk04 = sp5b4.f[1] * scale;
-		sp43c[2].unk08 = sp5b4.f[2] * scale;
-		sp43c[0].unk0c = sp5d8.f[0];
-		sp43c[0].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp590.f[0];
-		sp43c[1].unk10 = sp590.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp5b4.f[0];
-		sp43c[2].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_TL_BL_BR:
+		numvertices = 3;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5d8.f[0] * scale;
+		watervertices3d[0].y = sp5d8.f[1] * scale;
+		watervertices3d[0].z = sp5d8.f[2] * scale;
+		watervertices3d[1].x = sp590.f[0] * scale;
+		watervertices3d[1].y = sp590.f[1] * scale;
+		watervertices3d[1].z = sp590.f[2] * scale;
+		watervertices3d[2].x = sp5b4.f[0] * scale;
+		watervertices3d[2].y = sp5b4.f[1] * scale;
+		watervertices3d[2].z = sp5b4.f[2] * scale;
+		watervertices3d[0].s = sp5d8.f[0];
+		watervertices3d[0].t = sp5d8.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp590.f[0];
+		watervertices3d[1].t = sp590.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp5b4.f[0];
+		watervertices3d[2].t = sp5b4.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp568);
-		sky0f11f6ec(&sp43c[1], sp550);
-		sky0f11f6ec(&sp43c[2], sp55c);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp568);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp550);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp55c);
 		break;
-	case 7:
-		s1 = 3;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5e4.f[0] * scale;
-		sp43c[0].unk04 = sp5e4.f[1] * scale;
-		sp43c[0].unk08 = sp5e4.f[2] * scale;
-		sp43c[1].unk00 = sp5b4.f[0] * scale;
-		sp43c[1].unk04 = sp5b4.f[1] * scale;
-		sp43c[1].unk08 = sp5b4.f[2] * scale;
-		sp43c[2].unk00 = sp59c.f[0] * scale;
-		sp43c[2].unk04 = sp59c.f[1] * scale;
-		sp43c[2].unk08 = sp59c.f[2] * scale;
-		sp43c[0].unk0c = sp5e4.f[0];
-		sp43c[0].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5b4.f[0];
-		sp43c[1].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp59c.f[0];
-		sp43c[2].unk10 = sp59c.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_TR_BL_BR:
+		numvertices = 3;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5e4.f[0] * scale;
+		watervertices3d[0].y = sp5e4.f[1] * scale;
+		watervertices3d[0].z = sp5e4.f[2] * scale;
+		watervertices3d[1].x = sp5b4.f[0] * scale;
+		watervertices3d[1].y = sp5b4.f[1] * scale;
+		watervertices3d[1].z = sp5b4.f[2] * scale;
+		watervertices3d[2].x = sp59c.f[0] * scale;
+		watervertices3d[2].y = sp59c.f[1] * scale;
+		watervertices3d[2].z = sp59c.f[2] * scale;
+		watervertices3d[0].s = sp5e4.f[0];
+		watervertices3d[0].t = sp5e4.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5b4.f[0];
+		watervertices3d[1].t = sp5b4.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp59c.f[0];
+		watervertices3d[2].t = sp59c.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp56c);
-		sky0f11f6ec(&sp43c[1], sp55c);
-		sky0f11f6ec(&sp43c[2], sp554);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp56c);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp55c);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp554);
 		break;
-	case 1:
-		s1 = 5;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5cc.f[0] * scale;
-		sp43c[0].unk04 = sp5cc.f[1] * scale;
-		sp43c[0].unk08 = sp5cc.f[2] * scale;
-		sp43c[1].unk00 = sp5e4.f[0] * scale;
-		sp43c[1].unk04 = sp5e4.f[1] * scale;
-		sp43c[1].unk08 = sp5e4.f[2] * scale;
-		sp43c[2].unk00 = sp5d8.f[0] * scale;
-		sp43c[2].unk04 = sp5d8.f[1] * scale;
-		sp43c[2].unk08 = sp5d8.f[2] * scale;
-		sp43c[3].unk00 = sp590.f[0] * scale;
-		sp43c[3].unk04 = sp590.f[1] * scale;
-		sp43c[3].unk08 = sp590.f[2] * scale;
-		sp43c[4].unk00 = sp5a8.f[0] * scale;
-		sp43c[4].unk04 = sp5a8.f[1] * scale;
-		sp43c[4].unk08 = sp5a8.f[2] * scale;
-		sp43c[0].unk0c = sp5cc.f[0];
-		sp43c[0].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5e4.f[0];
-		sp43c[1].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp5d8.f[0];
-		sp43c[2].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
-		sp43c[3].unk0c = sp590.f[0];
-		sp43c[3].unk10 = sp590.f[2] + g_SkyCloudOffset;
-		sp43c[4].unk0c = sp5a8.f[0];
-		sp43c[4].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_BR:
+		numvertices = 5;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5cc.f[0] * scale;
+		watervertices3d[0].y = sp5cc.f[1] * scale;
+		watervertices3d[0].z = sp5cc.f[2] * scale;
+		watervertices3d[1].x = sp5e4.f[0] * scale;
+		watervertices3d[1].y = sp5e4.f[1] * scale;
+		watervertices3d[1].z = sp5e4.f[2] * scale;
+		watervertices3d[2].x = sp5d8.f[0] * scale;
+		watervertices3d[2].y = sp5d8.f[1] * scale;
+		watervertices3d[2].z = sp5d8.f[2] * scale;
+		watervertices3d[3].x = sp590.f[0] * scale;
+		watervertices3d[3].y = sp590.f[1] * scale;
+		watervertices3d[3].z = sp590.f[2] * scale;
+		watervertices3d[4].x = sp5a8.f[0] * scale;
+		watervertices3d[4].y = sp5a8.f[1] * scale;
+		watervertices3d[4].z = sp5a8.f[2] * scale;
+		watervertices3d[0].s = sp5cc.f[0];
+		watervertices3d[0].t = sp5cc.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5e4.f[0];
+		watervertices3d[1].t = sp5e4.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp5d8.f[0];
+		watervertices3d[2].t = sp5d8.f[2] + g_SkyCloudOffset;
+		watervertices3d[3].s = sp590.f[0];
+		watervertices3d[3].t = sp590.f[2] + g_SkyCloudOffset;
+		watervertices3d[4].s = sp5a8.f[0];
+		watervertices3d[4].t = sp5a8.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp564);
-		sky0f11f6ec(&sp43c[1], sp56c);
-		sky0f11f6ec(&sp43c[2], sp568);
-		sky0f11f6ec(&sp43c[3], sp550);
-		sky0f11f6ec(&sp43c[4], sp558);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp564);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp56c);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp568);
+		skyChooseWaterVtxColour(&watervertices3d[3], sp550);
+		skyChooseWaterVtxColour(&watervertices3d[4], sp558);
 		break;
-	case 2:
-		s1 = 5;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5e4.f[0] * scale;
-		sp43c[0].unk04 = sp5e4.f[1] * scale;
-		sp43c[0].unk08 = sp5e4.f[2] * scale;
-		sp43c[1].unk00 = sp5d8.f[0] * scale;
-		sp43c[1].unk04 = sp5d8.f[1] * scale;
-		sp43c[1].unk08 = sp5d8.f[2] * scale;
-		sp43c[2].unk00 = sp5c0.f[0] * scale;
-		sp43c[2].unk04 = sp5c0.f[1] * scale;
-		sp43c[2].unk08 = sp5c0.f[2] * scale;
-		sp43c[3].unk00 = sp5a8.f[0] * scale;
-		sp43c[3].unk04 = sp5a8.f[1] * scale;
-		sp43c[3].unk08 = sp5a8.f[2] * scale;
-		sp43c[4].unk00 = sp59c.f[0] * scale;
-		sp43c[4].unk04 = sp59c.f[1] * scale;
-		sp43c[4].unk08 = sp59c.f[2] * scale;
-		sp43c[0].unk0c = sp5e4.f[0];
-		sp43c[0].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5d8.f[0];
-		sp43c[1].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp5c0.f[0];
-		sp43c[2].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
-		sp43c[3].unk0c = sp5a8.f[0];
-		sp43c[3].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
-		sp43c[4].unk0c = sp59c.f[0];
-		sp43c[4].unk10 = sp59c.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_BL:
+		numvertices = 5;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5e4.f[0] * scale;
+		watervertices3d[0].y = sp5e4.f[1] * scale;
+		watervertices3d[0].z = sp5e4.f[2] * scale;
+		watervertices3d[1].x = sp5d8.f[0] * scale;
+		watervertices3d[1].y = sp5d8.f[1] * scale;
+		watervertices3d[1].z = sp5d8.f[2] * scale;
+		watervertices3d[2].x = sp5c0.f[0] * scale;
+		watervertices3d[2].y = sp5c0.f[1] * scale;
+		watervertices3d[2].z = sp5c0.f[2] * scale;
+		watervertices3d[3].x = sp5a8.f[0] * scale;
+		watervertices3d[3].y = sp5a8.f[1] * scale;
+		watervertices3d[3].z = sp5a8.f[2] * scale;
+		watervertices3d[4].x = sp59c.f[0] * scale;
+		watervertices3d[4].y = sp59c.f[1] * scale;
+		watervertices3d[4].z = sp59c.f[2] * scale;
+		watervertices3d[0].s = sp5e4.f[0];
+		watervertices3d[0].t = sp5e4.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5d8.f[0];
+		watervertices3d[1].t = sp5d8.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp5c0.f[0];
+		watervertices3d[2].t = sp5c0.f[2] + g_SkyCloudOffset;
+		watervertices3d[3].s = sp5a8.f[0];
+		watervertices3d[3].t = sp5a8.f[2] + g_SkyCloudOffset;
+		watervertices3d[4].s = sp59c.f[0];
+		watervertices3d[4].t = sp59c.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp56c);
-		sky0f11f6ec(&sp43c[1], sp568);
-		sky0f11f6ec(&sp43c[2], sp560);
-		sky0f11f6ec(&sp43c[3], sp558);
-		sky0f11f6ec(&sp43c[4], sp554);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp56c);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp568);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp560);
+		skyChooseWaterVtxColour(&watervertices3d[3], sp558);
+		skyChooseWaterVtxColour(&watervertices3d[4], sp554);
 		break;
-	case 4:
-		s1 = 5;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5c0.f[0] * scale;
-		sp43c[0].unk04 = sp5c0.f[1] * scale;
-		sp43c[0].unk08 = sp5c0.f[2] * scale;
-		sp43c[1].unk00 = sp5cc.f[0] * scale;
-		sp43c[1].unk04 = sp5cc.f[1] * scale;
-		sp43c[1].unk08 = sp5cc.f[2] * scale;
-		sp43c[2].unk00 = sp5e4.f[0] * scale;
-		sp43c[2].unk04 = sp5e4.f[1] * scale;
-		sp43c[2].unk08 = sp5e4.f[2] * scale;
-		sp43c[3].unk00 = sp5b4.f[0] * scale;
-		sp43c[3].unk04 = sp5b4.f[1] * scale;
-		sp43c[3].unk08 = sp5b4.f[2] * scale;
-		sp43c[4].unk00 = sp590.f[0] * scale;
-		sp43c[4].unk04 = sp590.f[1] * scale;
-		sp43c[4].unk08 = sp590.f[2] * scale;
-		sp43c[0].unk0c = sp5c0.f[0];
-		sp43c[0].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5cc.f[0];
-		sp43c[1].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp5e4.f[0];
-		sp43c[2].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
-		sp43c[3].unk0c = sp5b4.f[0];
-		sp43c[3].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
-		sp43c[4].unk0c = sp590.f[0];
-		sp43c[4].unk10 = sp590.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_TR:
+		numvertices = 5;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5c0.f[0] * scale;
+		watervertices3d[0].y = sp5c0.f[1] * scale;
+		watervertices3d[0].z = sp5c0.f[2] * scale;
+		watervertices3d[1].x = sp5cc.f[0] * scale;
+		watervertices3d[1].y = sp5cc.f[1] * scale;
+		watervertices3d[1].z = sp5cc.f[2] * scale;
+		watervertices3d[2].x = sp5e4.f[0] * scale;
+		watervertices3d[2].y = sp5e4.f[1] * scale;
+		watervertices3d[2].z = sp5e4.f[2] * scale;
+		watervertices3d[3].x = sp5b4.f[0] * scale;
+		watervertices3d[3].y = sp5b4.f[1] * scale;
+		watervertices3d[3].z = sp5b4.f[2] * scale;
+		watervertices3d[4].x = sp590.f[0] * scale;
+		watervertices3d[4].y = sp590.f[1] * scale;
+		watervertices3d[4].z = sp590.f[2] * scale;
+		watervertices3d[0].s = sp5c0.f[0];
+		watervertices3d[0].t = sp5c0.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5cc.f[0];
+		watervertices3d[1].t = sp5cc.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp5e4.f[0];
+		watervertices3d[2].t = sp5e4.f[2] + g_SkyCloudOffset;
+		watervertices3d[3].s = sp5b4.f[0];
+		watervertices3d[3].t = sp5b4.f[2] + g_SkyCloudOffset;
+		watervertices3d[4].s = sp590.f[0];
+		watervertices3d[4].t = sp590.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp560);
-		sky0f11f6ec(&sp43c[1], sp564);
-		sky0f11f6ec(&sp43c[2], sp56c);
-		sky0f11f6ec(&sp43c[3], sp55c);
-		sky0f11f6ec(&sp43c[4], sp550);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp560);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp564);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp56c);
+		skyChooseWaterVtxColour(&watervertices3d[3], sp55c);
+		skyChooseWaterVtxColour(&watervertices3d[4], sp550);
 		break;
-	case 8:
-		s1 = 5;
-		scale = 0.033333335f;
-		sp43c[0].unk00 = sp5d8.f[0] * scale;
-		sp43c[0].unk04 = sp5d8.f[1] * scale;
-		sp43c[0].unk08 = sp5d8.f[2] * scale;
-		sp43c[1].unk00 = sp5c0.f[0] * scale;
-		sp43c[1].unk04 = sp5c0.f[1] * scale;
-		sp43c[1].unk08 = sp5c0.f[2] * scale;
-		sp43c[2].unk00 = sp5cc.f[0] * scale;
-		sp43c[2].unk04 = sp5cc.f[1] * scale;
-		sp43c[2].unk08 = sp5cc.f[2] * scale;
-		sp43c[3].unk00 = sp59c.f[0] * scale;
-		sp43c[3].unk04 = sp59c.f[1] * scale;
-		sp43c[3].unk08 = sp59c.f[2] * scale;
-		sp43c[4].unk00 = sp5b4.f[0] * scale;
-		sp43c[4].unk04 = sp5b4.f[1] * scale;
-		sp43c[4].unk08 = sp5b4.f[2] * scale;
-		sp43c[0].unk0c = sp5d8.f[0];
-		sp43c[0].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
-		sp43c[1].unk0c = sp5c0.f[0];
-		sp43c[1].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
-		sp43c[2].unk0c = sp5cc.f[0];
-		sp43c[2].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
-		sp43c[3].unk0c = sp59c.f[0];
-		sp43c[3].unk10 = sp59c.f[2] + g_SkyCloudOffset;
-		sp43c[4].unk0c = sp5b4.f[0];
-		sp43c[4].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
+	case CORNERSTATE_TL:
+		numvertices = 5;
+		scale = 1.0f / 30.0f;
+		watervertices3d[0].x = sp5d8.f[0] * scale;
+		watervertices3d[0].y = sp5d8.f[1] * scale;
+		watervertices3d[0].z = sp5d8.f[2] * scale;
+		watervertices3d[1].x = sp5c0.f[0] * scale;
+		watervertices3d[1].y = sp5c0.f[1] * scale;
+		watervertices3d[1].z = sp5c0.f[2] * scale;
+		watervertices3d[2].x = sp5cc.f[0] * scale;
+		watervertices3d[2].y = sp5cc.f[1] * scale;
+		watervertices3d[2].z = sp5cc.f[2] * scale;
+		watervertices3d[3].x = sp59c.f[0] * scale;
+		watervertices3d[3].y = sp59c.f[1] * scale;
+		watervertices3d[3].z = sp59c.f[2] * scale;
+		watervertices3d[4].x = sp5b4.f[0] * scale;
+		watervertices3d[4].y = sp5b4.f[1] * scale;
+		watervertices3d[4].z = sp5b4.f[2] * scale;
+		watervertices3d[0].s = sp5d8.f[0];
+		watervertices3d[0].t = sp5d8.f[2] + g_SkyCloudOffset;
+		watervertices3d[1].s = sp5c0.f[0];
+		watervertices3d[1].t = sp5c0.f[2] + g_SkyCloudOffset;
+		watervertices3d[2].s = sp5cc.f[0];
+		watervertices3d[2].t = sp5cc.f[2] + g_SkyCloudOffset;
+		watervertices3d[3].s = sp59c.f[0];
+		watervertices3d[3].t = sp59c.f[2] + g_SkyCloudOffset;
+		watervertices3d[4].s = sp5b4.f[0];
+		watervertices3d[4].t = sp5b4.f[2] + g_SkyCloudOffset;
 
-		sky0f11f6ec(&sp43c[0], sp568);
-		sky0f11f6ec(&sp43c[1], sp560);
-		sky0f11f6ec(&sp43c[2], sp564);
-		sky0f11f6ec(&sp43c[3], sp554);
-		sky0f11f6ec(&sp43c[4], sp55c);
+		skyChooseWaterVtxColour(&watervertices3d[0], sp568);
+		skyChooseWaterVtxColour(&watervertices3d[1], sp560);
+		skyChooseWaterVtxColour(&watervertices3d[2], sp564);
+		skyChooseWaterVtxColour(&watervertices3d[3], sp554);
+		skyChooseWaterVtxColour(&watervertices3d[4], sp55c);
 		break;
 	default:
 		return gdl;
 	}
 
-	if (s1 > 0) {
+	if (numvertices > 0) {
+		// Some corners are not in the sky, so consider water
 		Mtxf sp3cc;
 		Mtxf sp38c;
-		struct skything38 sp274[5];
+		struct skyvtx2d watervertices2d[5];
 		s32 i;
 
 		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp3cc);
-		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
-		mtx4MultMtx4(&sp3cc, &var800a33a8, &sp38c);
+		guScaleF(g_SkyMtx.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
+		mtx4MultMtx4(&sp3cc, &g_SkyMtx, &sp38c);
 
-		for (i = 0; i < s1; i++) {
-			sky0f1228d0(&sp43c[i], &sp38c, 130, 65535.0f, 65535.0f, &sp274[i]);
+		for (i = 0; i < numvertices; i++) {
+			skyConvertVertex(&watervertices3d[i], &sp38c, 130, 65535.0f, 65535.0f, &watervertices2d[i]);
 
-			sp274[i].unk28 = skyClamp(sp274[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
-			sp274[i].unk2c = skyClamp(sp274[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
+			watervertices2d[i].x = skyClamp(watervertices2d[i].x, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
+			watervertices2d[i].y = skyClamp(watervertices2d[i].y, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
 
-			if (sp274[i].unk2c > camGetScreenTop() * 4.0f + 4.0f
-					&& sp274[i].unk2c < (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 4.0f) {
-				sp274[i].unk2c -= 4.0f;
+			if (watervertices2d[i].y > camGetScreenTop() * 4.0f + 4.0f
+					&& watervertices2d[i].y < (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 4.0f) {
+				watervertices2d[i].y -= 4.0f;
 			}
 		}
 
 		if (!env->water_enabled) {
-			f32 f14 = 1279.0f;
-			f32 f16 = 959.0f;
-			f32 f2 = 0.0f;
-			f32 f12 = 0.0f;
+			f32 x1 = 1279.0f;
+			f32 y1 = 959.0f;
+			f32 x2 = 0.0f;
+			f32 y2 = 0.0f;
 
-			for (j = 0; j < s1; j++) {
-				if (sp274[j].unk28 < f14) {
-					f14 = sp274[j].unk28;
+			for (j = 0; j < numvertices; j++) {
+				if (watervertices2d[j].x < x1) {
+					x1 = watervertices2d[j].x;
 				}
 
-				if (sp274[j].unk28 > f2) {
-					f2 = sp274[j].unk28;
+				if (watervertices2d[j].x > x2) {
+					x2 = watervertices2d[j].x;
 				}
 
-				if (sp274[j].unk2c < f16) {
-					f16 = sp274[j].unk2c;
+				if (watervertices2d[j].y < y1) {
+					y1 = watervertices2d[j].y;
 				}
 
-				if (sp274[j].unk2c > f12) {
-					f12 = sp274[j].unk2c;
+				if (watervertices2d[j].y > y2) {
+					y2 = watervertices2d[j].y;
 				}
 			}
 
@@ -777,7 +812,7 @@ Gfx *skyRender(Gfx *gdl)
 			gDPSetCycleType(gdl++, G_CYC_FILL);
 			gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
 			gDPSetTexturePersp(gdl++, G_TP_NONE);
-			gDPFillRectangle(gdl++, (s32)(f14 * 0.25f), (s32)(f16 * 0.25f), (s32)(f2 * 0.25f), (s32)(f12 * 0.25f));
+			gDPFillRectangle(gdl++, (s32)(x1 * 0.25f), (s32)(y1 * 0.25f), (s32)(x2 * 0.25f), (s32)(y2 * 0.25f));
 			gDPPipeSync(gdl++);
 			gDPSetTexturePersp(gdl++, G_TP_PERSP);
 		} else {
@@ -787,393 +822,400 @@ Gfx *skyRender(Gfx *gdl)
 
 			gDPSetRenderMode(gdl++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 
-			if (s1 == 4) {
-				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[3], 130.0f, true);
+			if (numvertices == 4) {
+				gdl = skyRenderTri(gdl, &watervertices2d[0], &watervertices2d[1], &watervertices2d[3], 130.0f, true);
 
 				if (sp430) {
-					sp274[0].unk2c++;
-					sp274[1].unk2c++;
-					sp274[2].unk2c++;
-					sp274[3].unk2c++;
+					watervertices2d[0].y++;
+					watervertices2d[1].y++;
+					watervertices2d[2].y++;
+					watervertices2d[3].y++;
 				}
 
-				gdl = sky0f122d4c(gdl, &sp274[3], &sp274[2], &sp274[0], 130.0f, true);
-			} else if (s1 == 5) {
-				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[2], 130.0f, true);
-				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[2], &sp274[3], 130.0f, true);
-				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[3], &sp274[4], 130.0f, true);
-			} else if (s1 == 3) {
-				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[2], 130.0f, true);
+				gdl = skyRenderTri(gdl, &watervertices2d[3], &watervertices2d[2], &watervertices2d[0], 130.0f, true);
+			} else if (numvertices == 5) {
+				// 3 corners are on the ground
+				gdl = skyRenderTri(gdl, &watervertices2d[0], &watervertices2d[1], &watervertices2d[2], 130.0f, true);
+				gdl = skyRenderTri(gdl, &watervertices2d[0], &watervertices2d[2], &watervertices2d[3], 130.0f, true);
+				gdl = skyRenderTri(gdl, &watervertices2d[0], &watervertices2d[3], &watervertices2d[4], 130.0f, true);
+			} else if (numvertices == 3) {
+				// 1 corner is on the ground
+				gdl = skyRenderTri(gdl, &watervertices2d[0], &watervertices2d[1], &watervertices2d[2], 130.0f, true);
 			}
 		}
 	}
 
-	switch ((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) {
-	case 0:
+	/**
+	 * Maths for the upper half of the skydome.
+	 */
+	switch (cornerstate) {
+	case CORNERSTATE_NONE:
+		// All four screen corners are on the ground.
 		return gdl;
-	case 15:
-		s1 = 4;
-		sp4b4[0].unk00 = sp644.f[0] * scale;
-		sp4b4[0].unk04 = sp644.f[1] * scale;
-		sp4b4[0].unk08 = sp644.f[2] * scale;
-		sp4b4[1].unk00 = sp638.f[0] * scale;
-		sp4b4[1].unk04 = sp638.f[1] * scale;
-		sp4b4[1].unk08 = sp638.f[2] * scale;
-		sp4b4[2].unk00 = sp62c.f[0] * scale;
-		sp4b4[2].unk04 = sp62c.f[1] * scale;
-		sp4b4[2].unk08 = sp62c.f[2] * scale;
-		sp4b4[3].unk00 = sp620.f[0] * scale;
-		sp4b4[3].unk04 = sp620.f[1] * scale;
-		sp4b4[3].unk08 = sp620.f[2] * scale;
-		sp4b4[0].unk0c = sp644.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp638.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp62c.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[3].unk0c = sp620.f[0] * 0.1f;
-		sp4b4[3].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_FULL:
+		// All four screen corners are in the sky.
+		numvertices = 4;
+		skyvertices3d[0].x = sp644.f[0] * scale;
+		skyvertices3d[0].y = sp644.f[1] * scale;
+		skyvertices3d[0].z = sp644.f[2] * scale;
+		skyvertices3d[1].x = sp638.f[0] * scale;
+		skyvertices3d[1].y = sp638.f[1] * scale;
+		skyvertices3d[1].z = sp638.f[2] * scale;
+		skyvertices3d[2].x = sp62c.f[0] * scale;
+		skyvertices3d[2].y = sp62c.f[1] * scale;
+		skyvertices3d[2].z = sp62c.f[2] * scale;
+		skyvertices3d[3].x = sp620.f[0] * scale;
+		skyvertices3d[3].y = sp620.f[1] * scale;
+		skyvertices3d[3].z = sp620.f[2] * scale;
+		skyvertices3d[0].s = sp644.f[0] * 0.1f;
+		skyvertices3d[0].t = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp638.f[0] * 0.1f;
+		skyvertices3d[1].t = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp62c.f[0] * 0.1f;
+		skyvertices3d[2].t = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[3].s = sp620.f[0] * 0.1f;
+		skyvertices3d[3].t = sp620.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp58c);
-		skyChooseCloudVtxColour(&sp4b4[1], sp588);
-		skyChooseCloudVtxColour(&sp4b4[2], sp584);
-		skyChooseCloudVtxColour(&sp4b4[3], sp580);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp58c);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp588);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp584);
+		skyChooseCloudVtxColour(&skyvertices3d[3], sp580);
 		break;
-	case 12:
-		s1 = 4;
-		sp4b4[0].unk00 = sp644.f[0] * scale;
-		sp4b4[0].unk04 = sp644.f[1] * scale;
-		sp4b4[0].unk08 = sp644.f[2] * scale;
-		sp4b4[1].unk00 = sp638.f[0] * scale;
-		sp4b4[1].unk04 = sp638.f[1] * scale;
-		sp4b4[1].unk08 = sp638.f[2] * scale;
-		sp4b4[2].unk00 = sp5fc.f[0] * scale;
-		sp4b4[2].unk04 = sp5fc.f[1] * scale;
-		sp4b4[2].unk08 = sp5fc.f[2] * scale;
-		sp4b4[3].unk00 = sp5f0.f[0] * scale;
-		sp4b4[3].unk04 = sp5f0.f[1] * scale;
-		sp4b4[3].unk08 = sp5f0.f[2] * scale;
-		sp4b4[0].unk0c = sp644.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp638.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp5fc.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[3].unk0c = sp5f0.f[0] * 0.1f;
-		sp4b4[3].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_TOP:
+		numvertices = 4;
+		skyvertices3d[0].x = sp644.f[0] * scale;
+		skyvertices3d[0].y = sp644.f[1] * scale;
+		skyvertices3d[0].z = sp644.f[2] * scale;
+		skyvertices3d[1].x = sp638.f[0] * scale;
+		skyvertices3d[1].y = sp638.f[1] * scale;
+		skyvertices3d[1].z = sp638.f[2] * scale;
+		skyvertices3d[2].x = sp5fc.f[0] * scale;
+		skyvertices3d[2].y = sp5fc.f[1] * scale;
+		skyvertices3d[2].z = sp5fc.f[2] * scale;
+		skyvertices3d[3].x = sp5f0.f[0] * scale;
+		skyvertices3d[3].y = sp5f0.f[1] * scale;
+		skyvertices3d[3].z = sp5f0.f[2] * scale;
+		skyvertices3d[0].s = sp644.f[0] * 0.1f;
+		skyvertices3d[0].t = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp638.f[0] * 0.1f;
+		skyvertices3d[1].t = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp5fc.f[0] * 0.1f;
+		skyvertices3d[2].t = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[3].s = sp5f0.f[0] * 0.1f;
+		skyvertices3d[3].t = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp58c);
-		skyChooseCloudVtxColour(&sp4b4[1], sp588);
-		skyChooseCloudVtxColour(&sp4b4[2], sp574);
-		skyChooseCloudVtxColour(&sp4b4[3], sp570);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp58c);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp588);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp574);
+		skyChooseCloudVtxColour(&skyvertices3d[3], sp570);
 		break;
-	case 3:
-		s1 = 4;
-		sp4b4[0].unk00 = sp620.f[0] * scale;
-		sp4b4[0].unk04 = sp620.f[1] * scale;
-		sp4b4[0].unk08 = sp620.f[2] * scale;
-		sp4b4[1].unk00 = sp62c.f[0] * scale;
-		sp4b4[1].unk04 = sp62c.f[1] * scale;
-		sp4b4[1].unk08 = sp62c.f[2] * scale;
-		sp4b4[2].unk00 = sp5f0.f[0] * scale;
-		sp4b4[2].unk04 = sp5f0.f[1] * scale;
-		sp4b4[2].unk08 = sp5f0.f[2] * scale;
-		sp4b4[3].unk00 = sp5fc.f[0] * scale;
-		sp4b4[3].unk04 = sp5fc.f[1] * scale;
-		sp4b4[3].unk08 = sp5fc.f[2] * scale;
-		sp4b4[0].unk0c = sp620.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp62c.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp5f0.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[3].unk0c = sp5fc.f[0] * 0.1f;
-		sp4b4[3].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_BOTTOM:
+		numvertices = 4;
+		skyvertices3d[0].x = sp620.f[0] * scale;
+		skyvertices3d[0].y = sp620.f[1] * scale;
+		skyvertices3d[0].z = sp620.f[2] * scale;
+		skyvertices3d[1].x = sp62c.f[0] * scale;
+		skyvertices3d[1].y = sp62c.f[1] * scale;
+		skyvertices3d[1].z = sp62c.f[2] * scale;
+		skyvertices3d[2].x = sp5f0.f[0] * scale;
+		skyvertices3d[2].y = sp5f0.f[1] * scale;
+		skyvertices3d[2].z = sp5f0.f[2] * scale;
+		skyvertices3d[3].x = sp5fc.f[0] * scale;
+		skyvertices3d[3].y = sp5fc.f[1] * scale;
+		skyvertices3d[3].z = sp5fc.f[2] * scale;
+		skyvertices3d[0].s = sp620.f[0] * 0.1f;
+		skyvertices3d[0].t = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp62c.f[0] * 0.1f;
+		skyvertices3d[1].t = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp5f0.f[0] * 0.1f;
+		skyvertices3d[2].t = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[3].s = sp5fc.f[0] * 0.1f;
+		skyvertices3d[3].t = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp580);
-		skyChooseCloudVtxColour(&sp4b4[1], sp584);
-		skyChooseCloudVtxColour(&sp4b4[2], sp570);
-		skyChooseCloudVtxColour(&sp4b4[3], sp574);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp580);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp584);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp570);
+		skyChooseCloudVtxColour(&skyvertices3d[3], sp574);
 		break;
-	case 5:
-		s1 = 4;
-		sp4b4[0].unk00 = sp638.f[0] * scale;
-		sp4b4[0].unk04 = sp638.f[1] * scale;
-		sp4b4[0].unk08 = sp638.f[2] * scale;
-		sp4b4[1].unk00 = sp620.f[0] * scale;
-		sp4b4[1].unk04 = sp620.f[1] * scale;
-		sp4b4[1].unk08 = sp620.f[2] * scale;
-		sp4b4[2].unk00 = sp614.f[0] * scale;
-		sp4b4[2].unk04 = sp614.f[1] * scale;
-		sp4b4[2].unk08 = sp614.f[2] * scale;
-		sp4b4[3].unk00 = sp608.f[0] * scale;
-		sp4b4[3].unk04 = sp608.f[1] * scale;
-		sp4b4[3].unk08 = sp608.f[2] * scale;
-		sp4b4[0].unk0c = sp638.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp620.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp614.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[3].unk0c = sp608.f[0] * 0.1f;
-		sp4b4[3].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_RIGHT:
+		numvertices = 4;
+		skyvertices3d[0].x = sp638.f[0] * scale;
+		skyvertices3d[0].y = sp638.f[1] * scale;
+		skyvertices3d[0].z = sp638.f[2] * scale;
+		skyvertices3d[1].x = sp620.f[0] * scale;
+		skyvertices3d[1].y = sp620.f[1] * scale;
+		skyvertices3d[1].z = sp620.f[2] * scale;
+		skyvertices3d[2].x = sp614.f[0] * scale;
+		skyvertices3d[2].y = sp614.f[1] * scale;
+		skyvertices3d[2].z = sp614.f[2] * scale;
+		skyvertices3d[3].x = sp608.f[0] * scale;
+		skyvertices3d[3].y = sp608.f[1] * scale;
+		skyvertices3d[3].z = sp608.f[2] * scale;
+		skyvertices3d[0].s = sp638.f[0] * 0.1f;
+		skyvertices3d[0].t = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp620.f[0] * 0.1f;
+		skyvertices3d[1].t = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp614.f[0] * 0.1f;
+		skyvertices3d[2].t = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[3].s = sp608.f[0] * 0.1f;
+		skyvertices3d[3].t = sp608.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp588);
-		skyChooseCloudVtxColour(&sp4b4[1], sp580);
-		skyChooseCloudVtxColour(&sp4b4[2], sp57c);
-		skyChooseCloudVtxColour(&sp4b4[3], sp578);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp588);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp580);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp57c);
+		skyChooseCloudVtxColour(&skyvertices3d[3], sp578);
 		break;
-	case 10:
-		s1 = 4;
-		sp4b4[0].unk00 = sp62c.f[0] * scale;
-		sp4b4[0].unk04 = sp62c.f[1] * scale;
-		sp4b4[0].unk08 = sp62c.f[2] * scale;
-		sp4b4[1].unk00 = sp644.f[0] * scale;
-		sp4b4[1].unk04 = sp644.f[1] * scale;
-		sp4b4[1].unk08 = sp644.f[2] * scale;
-		sp4b4[2].unk00 = sp608.f[0] * scale;
-		sp4b4[2].unk04 = sp608.f[1] * scale;
-		sp4b4[2].unk08 = sp608.f[2] * scale;
-		sp4b4[3].unk00 = sp614.f[0] * scale;
-		sp4b4[3].unk04 = sp614.f[1] * scale;
-		sp4b4[3].unk08 = sp614.f[2] * scale;
-		sp4b4[0].unk0c = sp62c.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp644.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp608.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[3].unk0c = sp614.f[0] * 0.1f;
-		sp4b4[3].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_LEFT:
+		numvertices = 4;
+		skyvertices3d[0].x = sp62c.f[0] * scale;
+		skyvertices3d[0].y = sp62c.f[1] * scale;
+		skyvertices3d[0].z = sp62c.f[2] * scale;
+		skyvertices3d[1].x = sp644.f[0] * scale;
+		skyvertices3d[1].y = sp644.f[1] * scale;
+		skyvertices3d[1].z = sp644.f[2] * scale;
+		skyvertices3d[2].x = sp608.f[0] * scale;
+		skyvertices3d[2].y = sp608.f[1] * scale;
+		skyvertices3d[2].z = sp608.f[2] * scale;
+		skyvertices3d[3].x = sp614.f[0] * scale;
+		skyvertices3d[3].y = sp614.f[1] * scale;
+		skyvertices3d[3].z = sp614.f[2] * scale;
+		skyvertices3d[0].s = sp62c.f[0] * 0.1f;
+		skyvertices3d[0].t = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp644.f[0] * 0.1f;
+		skyvertices3d[1].t = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp608.f[0] * 0.1f;
+		skyvertices3d[2].t = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[3].s = sp614.f[0] * 0.1f;
+		skyvertices3d[3].t = sp614.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp584);
-		skyChooseCloudVtxColour(&sp4b4[1], sp58c);
-		skyChooseCloudVtxColour(&sp4b4[2], sp578);
-		skyChooseCloudVtxColour(&sp4b4[3], sp57c);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp584);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp58c);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp578);
+		skyChooseCloudVtxColour(&skyvertices3d[3], sp57c);
 		break;
-	case 1:
-		s1 = 3;
-		sp4b4[0].unk00 = sp620.f[0] * scale;
-		sp4b4[0].unk04 = sp620.f[1] * scale;
-		sp4b4[0].unk08 = sp620.f[2] * scale;
-		sp4b4[1].unk00 = sp608.f[0] * scale;
-		sp4b4[1].unk04 = sp608.f[1] * scale;
-		sp4b4[1].unk08 = sp608.f[2] * scale;
-		sp4b4[2].unk00 = sp5f0.f[0] * scale;
-		sp4b4[2].unk04 = sp5f0.f[1] * scale;
-		sp4b4[2].unk08 = sp5f0.f[2] * scale;
-		sp4b4[0].unk0c = sp620.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp608.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp5f0.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_BR:
+		numvertices = 3;
+		skyvertices3d[0].x = sp620.f[0] * scale;
+		skyvertices3d[0].y = sp620.f[1] * scale;
+		skyvertices3d[0].z = sp620.f[2] * scale;
+		skyvertices3d[1].x = sp608.f[0] * scale;
+		skyvertices3d[1].y = sp608.f[1] * scale;
+		skyvertices3d[1].z = sp608.f[2] * scale;
+		skyvertices3d[2].x = sp5f0.f[0] * scale;
+		skyvertices3d[2].y = sp5f0.f[1] * scale;
+		skyvertices3d[2].z = sp5f0.f[2] * scale;
+		skyvertices3d[0].s = sp620.f[0] * 0.1f;
+		skyvertices3d[0].t = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp608.f[0] * 0.1f;
+		skyvertices3d[1].t = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp5f0.f[0] * 0.1f;
+		skyvertices3d[2].t = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp580);
-		skyChooseCloudVtxColour(&sp4b4[1], sp578);
-		skyChooseCloudVtxColour(&sp4b4[2], sp570);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp580);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp578);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp570);
 		break;
-	case 2:
-		s1 = 3;
-		sp4b4[0].unk00 = sp62c.f[0] * scale;
-		sp4b4[0].unk04 = sp62c.f[1] * scale;
-		sp4b4[0].unk08 = sp62c.f[2] * scale;
-		sp4b4[1].unk00 = sp5fc.f[0] * scale;
-		sp4b4[1].unk04 = sp5fc.f[1] * scale;
-		sp4b4[1].unk08 = sp5fc.f[2] * scale;
-		sp4b4[2].unk00 = sp608.f[0] * scale;
-		sp4b4[2].unk04 = sp608.f[1] * scale;
-		sp4b4[2].unk08 = sp608.f[2] * scale;
-		sp4b4[0].unk0c = sp62c.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp5fc.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp608.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_BL:
+		numvertices = 3;
+		skyvertices3d[0].x = sp62c.f[0] * scale;
+		skyvertices3d[0].y = sp62c.f[1] * scale;
+		skyvertices3d[0].z = sp62c.f[2] * scale;
+		skyvertices3d[1].x = sp5fc.f[0] * scale;
+		skyvertices3d[1].y = sp5fc.f[1] * scale;
+		skyvertices3d[1].z = sp5fc.f[2] * scale;
+		skyvertices3d[2].x = sp608.f[0] * scale;
+		skyvertices3d[2].y = sp608.f[1] * scale;
+		skyvertices3d[2].z = sp608.f[2] * scale;
+		skyvertices3d[0].s = sp62c.f[0] * 0.1f;
+		skyvertices3d[0].t = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp5fc.f[0] * 0.1f;
+		skyvertices3d[1].t = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp608.f[0] * 0.1f;
+		skyvertices3d[2].t = sp608.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp584);
-		skyChooseCloudVtxColour(&sp4b4[1], sp574);
-		skyChooseCloudVtxColour(&sp4b4[2], sp578);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp584);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp574);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp578);
 		break;
-	case 4:
-		s1 = 3;
-		sp4b4[0].unk00 = sp638.f[0] * scale;
-		sp4b4[0].unk04 = sp638.f[1] * scale;
-		sp4b4[0].unk08 = sp638.f[2] * scale;
-		sp4b4[1].unk00 = sp5f0.f[0] * scale;
-		sp4b4[1].unk04 = sp5f0.f[1] * scale;
-		sp4b4[1].unk08 = sp5f0.f[2] * scale;
-		sp4b4[2].unk00 = sp614.f[0] * scale;
-		sp4b4[2].unk04 = sp614.f[1] * scale;
-		sp4b4[2].unk08 = sp614.f[2] * scale;
-		sp4b4[0].unk0c = sp638.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp5f0.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp614.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_TR:
+		numvertices = 3;
+		skyvertices3d[0].x = sp638.f[0] * scale;
+		skyvertices3d[0].y = sp638.f[1] * scale;
+		skyvertices3d[0].z = sp638.f[2] * scale;
+		skyvertices3d[1].x = sp5f0.f[0] * scale;
+		skyvertices3d[1].y = sp5f0.f[1] * scale;
+		skyvertices3d[1].z = sp5f0.f[2] * scale;
+		skyvertices3d[2].x = sp614.f[0] * scale;
+		skyvertices3d[2].y = sp614.f[1] * scale;
+		skyvertices3d[2].z = sp614.f[2] * scale;
+		skyvertices3d[0].s = sp638.f[0] * 0.1f;
+		skyvertices3d[0].t = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp5f0.f[0] * 0.1f;
+		skyvertices3d[1].t = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp614.f[0] * 0.1f;
+		skyvertices3d[2].t = sp614.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp588);
-		skyChooseCloudVtxColour(&sp4b4[1], sp570);
-		skyChooseCloudVtxColour(&sp4b4[2], sp57c);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp588);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp570);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp57c);
 		break;
-	case 8:
-		s1 = 3;
-		sp4b4[0].unk00 = sp644.f[0] * scale;
-		sp4b4[0].unk04 = sp644.f[1] * scale;
-		sp4b4[0].unk08 = sp644.f[2] * scale;
-		sp4b4[1].unk00 = sp614.f[0] * scale;
-		sp4b4[1].unk04 = sp614.f[1] * scale;
-		sp4b4[1].unk08 = sp614.f[2] * scale;
-		sp4b4[2].unk00 = sp5fc.f[0] * scale;
-		sp4b4[2].unk04 = sp5fc.f[1] * scale;
-		sp4b4[2].unk08 = sp5fc.f[2] * scale;
-		sp4b4[0].unk0c = sp644.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp614.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp5fc.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_TL:
+		numvertices = 3;
+		skyvertices3d[0].x = sp644.f[0] * scale;
+		skyvertices3d[0].y = sp644.f[1] * scale;
+		skyvertices3d[0].z = sp644.f[2] * scale;
+		skyvertices3d[1].x = sp614.f[0] * scale;
+		skyvertices3d[1].y = sp614.f[1] * scale;
+		skyvertices3d[1].z = sp614.f[2] * scale;
+		skyvertices3d[2].x = sp5fc.f[0] * scale;
+		skyvertices3d[2].y = sp5fc.f[1] * scale;
+		skyvertices3d[2].z = sp5fc.f[2] * scale;
+		skyvertices3d[0].s = sp644.f[0] * 0.1f;
+		skyvertices3d[0].t = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp614.f[0] * 0.1f;
+		skyvertices3d[1].t = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp5fc.f[0] * 0.1f;
+		skyvertices3d[2].t = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp58c);
-		skyChooseCloudVtxColour(&sp4b4[1], sp57c);
-		skyChooseCloudVtxColour(&sp4b4[2], sp574);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp58c);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp57c);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp574);
 		break;
-	case 14:
-		s1 = 5;
-		sp4b4[0].unk00 = sp62c.f[0] * scale;
-		sp4b4[0].unk04 = sp62c.f[1] * scale;
-		sp4b4[0].unk08 = sp62c.f[2] * scale;
-		sp4b4[1].unk00 = sp644.f[0] * scale;
-		sp4b4[1].unk04 = sp644.f[1] * scale;
-		sp4b4[1].unk08 = sp644.f[2] * scale;
-		sp4b4[2].unk00 = sp638.f[0] * scale;
-		sp4b4[2].unk04 = sp638.f[1] * scale;
-		sp4b4[2].unk08 = sp638.f[2] * scale;
-		sp4b4[3].unk00 = sp5f0.f[0] * scale;
-		sp4b4[3].unk04 = sp5f0.f[1] * scale;
-		sp4b4[3].unk08 = sp5f0.f[2] * scale;
-		sp4b4[4].unk00 = sp608.f[0] * scale;
-		sp4b4[4].unk04 = sp608.f[1] * scale;
-		sp4b4[4].unk08 = sp608.f[2] * scale;
-		sp4b4[0].unk0c = sp62c.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp644.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp638.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[3].unk0c = sp5f0.f[0] * 0.1f;
-		sp4b4[3].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[4].unk0c = sp608.f[0] * 0.1f;
-		sp4b4[4].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_TL_TR_BL:
+		numvertices = 5;
+		skyvertices3d[0].x = sp62c.f[0] * scale;
+		skyvertices3d[0].y = sp62c.f[1] * scale;
+		skyvertices3d[0].z = sp62c.f[2] * scale;
+		skyvertices3d[1].x = sp644.f[0] * scale;
+		skyvertices3d[1].y = sp644.f[1] * scale;
+		skyvertices3d[1].z = sp644.f[2] * scale;
+		skyvertices3d[2].x = sp638.f[0] * scale;
+		skyvertices3d[2].y = sp638.f[1] * scale;
+		skyvertices3d[2].z = sp638.f[2] * scale;
+		skyvertices3d[3].x = sp5f0.f[0] * scale;
+		skyvertices3d[3].y = sp5f0.f[1] * scale;
+		skyvertices3d[3].z = sp5f0.f[2] * scale;
+		skyvertices3d[4].x = sp608.f[0] * scale;
+		skyvertices3d[4].y = sp608.f[1] * scale;
+		skyvertices3d[4].z = sp608.f[2] * scale;
+		skyvertices3d[0].s = sp62c.f[0] * 0.1f;
+		skyvertices3d[0].t = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp644.f[0] * 0.1f;
+		skyvertices3d[1].t = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp638.f[0] * 0.1f;
+		skyvertices3d[2].t = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[3].s = sp5f0.f[0] * 0.1f;
+		skyvertices3d[3].t = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[4].s = sp608.f[0] * 0.1f;
+		skyvertices3d[4].t = sp608.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp584);
-		skyChooseCloudVtxColour(&sp4b4[1], sp58c);
-		skyChooseCloudVtxColour(&sp4b4[2], sp588);
-		skyChooseCloudVtxColour(&sp4b4[3], sp570);
-		skyChooseCloudVtxColour(&sp4b4[4], sp578);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp584);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp58c);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp588);
+		skyChooseCloudVtxColour(&skyvertices3d[3], sp570);
+		skyChooseCloudVtxColour(&skyvertices3d[4], sp578);
 		break;
-	case 13:
-		s1 = 5;
-		sp4b4[0].unk00 = sp644.f[0] * scale;
-		sp4b4[0].unk04 = sp644.f[1] * scale;
-		sp4b4[0].unk08 = sp644.f[2] * scale;
-		sp4b4[1].unk00 = sp638.f[0] * scale;
-		sp4b4[1].unk04 = sp638.f[1] * scale;
-		sp4b4[1].unk08 = sp638.f[2] * scale;
-		sp4b4[2].unk00 = sp620.f[0] * scale;
-		sp4b4[2].unk04 = sp620.f[1] * scale;
-		sp4b4[2].unk08 = sp620.f[2] * scale;
-		sp4b4[3].unk00 = sp608.f[0] * scale;
-		sp4b4[3].unk04 = sp608.f[1] * scale;
-		sp4b4[3].unk08 = sp608.f[2] * scale;
-		sp4b4[4].unk00 = sp5fc.f[0] * scale;
-		sp4b4[4].unk04 = sp5fc.f[1] * scale;
-		sp4b4[4].unk08 = sp5fc.f[2] * scale;
-		sp4b4[0].unk0c = sp644.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp638.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp620.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[3].unk0c = sp608.f[0] * 0.1f;
-		sp4b4[3].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[4].unk0c = sp5fc.f[0] * 0.1f;
-		sp4b4[4].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_TL_TR_BR:
+		numvertices = 5;
+		skyvertices3d[0].x = sp644.f[0] * scale;
+		skyvertices3d[0].y = sp644.f[1] * scale;
+		skyvertices3d[0].z = sp644.f[2] * scale;
+		skyvertices3d[1].x = sp638.f[0] * scale;
+		skyvertices3d[1].y = sp638.f[1] * scale;
+		skyvertices3d[1].z = sp638.f[2] * scale;
+		skyvertices3d[2].x = sp620.f[0] * scale;
+		skyvertices3d[2].y = sp620.f[1] * scale;
+		skyvertices3d[2].z = sp620.f[2] * scale;
+		skyvertices3d[3].x = sp608.f[0] * scale;
+		skyvertices3d[3].y = sp608.f[1] * scale;
+		skyvertices3d[3].z = sp608.f[2] * scale;
+		skyvertices3d[4].x = sp5fc.f[0] * scale;
+		skyvertices3d[4].y = sp5fc.f[1] * scale;
+		skyvertices3d[4].z = sp5fc.f[2] * scale;
+		skyvertices3d[0].s = sp644.f[0] * 0.1f;
+		skyvertices3d[0].t = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp638.f[0] * 0.1f;
+		skyvertices3d[1].t = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp620.f[0] * 0.1f;
+		skyvertices3d[2].t = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[3].s = sp608.f[0] * 0.1f;
+		skyvertices3d[3].t = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[4].s = sp5fc.f[0] * 0.1f;
+		skyvertices3d[4].t = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp58c);
-		skyChooseCloudVtxColour(&sp4b4[1], sp588);
-		skyChooseCloudVtxColour(&sp4b4[2], sp580);
-		skyChooseCloudVtxColour(&sp4b4[3], sp578);
-		skyChooseCloudVtxColour(&sp4b4[4], sp574);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp58c);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp588);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp580);
+		skyChooseCloudVtxColour(&skyvertices3d[3], sp578);
+		skyChooseCloudVtxColour(&skyvertices3d[4], sp574);
 		break;
-	case 11:
-		s1 = 5;
-		sp4b4[0].unk00 = sp620.f[0] * scale;
-		sp4b4[0].unk04 = sp620.f[1] * scale;
-		sp4b4[0].unk08 = sp620.f[2] * scale;
-		sp4b4[1].unk00 = sp62c.f[0] * scale;
-		sp4b4[1].unk04 = sp62c.f[1] * scale;
-		sp4b4[1].unk08 = sp62c.f[2] * scale;
-		sp4b4[2].unk00 = sp644.f[0] * scale;
-		sp4b4[2].unk04 = sp644.f[1] * scale;
-		sp4b4[2].unk08 = sp644.f[2] * scale;
-		sp4b4[3].unk00 = sp614.f[0] * scale;
-		sp4b4[3].unk04 = sp614.f[1] * scale;
-		sp4b4[3].unk08 = sp614.f[2] * scale;
-		sp4b4[4].unk00 = sp5f0.f[0] * scale;
-		sp4b4[4].unk04 = sp5f0.f[1] * scale;
-		sp4b4[4].unk08 = sp5f0.f[2] * scale;
-		sp4b4[0].unk0c = sp620.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp62c.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp644.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[3].unk0c = sp614.f[0] * 0.1f;
-		sp4b4[3].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[4].unk0c = sp5f0.f[0] * 0.1f;
-		sp4b4[4].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_TL_BL_BR:
+		numvertices = 5;
+		skyvertices3d[0].x = sp620.f[0] * scale;
+		skyvertices3d[0].y = sp620.f[1] * scale;
+		skyvertices3d[0].z = sp620.f[2] * scale;
+		skyvertices3d[1].x = sp62c.f[0] * scale;
+		skyvertices3d[1].y = sp62c.f[1] * scale;
+		skyvertices3d[1].z = sp62c.f[2] * scale;
+		skyvertices3d[2].x = sp644.f[0] * scale;
+		skyvertices3d[2].y = sp644.f[1] * scale;
+		skyvertices3d[2].z = sp644.f[2] * scale;
+		skyvertices3d[3].x = sp614.f[0] * scale;
+		skyvertices3d[3].y = sp614.f[1] * scale;
+		skyvertices3d[3].z = sp614.f[2] * scale;
+		skyvertices3d[4].x = sp5f0.f[0] * scale;
+		skyvertices3d[4].y = sp5f0.f[1] * scale;
+		skyvertices3d[4].z = sp5f0.f[2] * scale;
+		skyvertices3d[0].s = sp620.f[0] * 0.1f;
+		skyvertices3d[0].t = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp62c.f[0] * 0.1f;
+		skyvertices3d[1].t = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp644.f[0] * 0.1f;
+		skyvertices3d[2].t = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[3].s = sp614.f[0] * 0.1f;
+		skyvertices3d[3].t = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[4].s = sp5f0.f[0] * 0.1f;
+		skyvertices3d[4].t = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp580);
-		skyChooseCloudVtxColour(&sp4b4[1], sp584);
-		skyChooseCloudVtxColour(&sp4b4[2], sp58c);
-		skyChooseCloudVtxColour(&sp4b4[3], sp57c);
-		skyChooseCloudVtxColour(&sp4b4[4], sp570);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp580);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp584);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp58c);
+		skyChooseCloudVtxColour(&skyvertices3d[3], sp57c);
+		skyChooseCloudVtxColour(&skyvertices3d[4], sp570);
 		break;
-	case 7:
-		s1 = 5;
-		sp4b4[0].unk00 = sp638.f[0] * scale;
-		sp4b4[0].unk04 = sp638.f[1] * scale;
-		sp4b4[0].unk08 = sp638.f[2] * scale;
-		sp4b4[1].unk00 = sp620.f[0] * scale;
-		sp4b4[1].unk04 = sp620.f[1] * scale;
-		sp4b4[1].unk08 = sp620.f[2] * scale;
-		sp4b4[2].unk00 = sp62c.f[0] * scale;
-		sp4b4[2].unk04 = sp62c.f[1] * scale;
-		sp4b4[2].unk08 = sp62c.f[2] * scale;
-		sp4b4[3].unk00 = sp5fc.f[0] * scale;
-		sp4b4[3].unk04 = sp5fc.f[1] * scale;
-		sp4b4[3].unk08 = sp5fc.f[2] * scale;
-		sp4b4[4].unk00 = sp614.f[0] * scale;
-		sp4b4[4].unk04 = sp614.f[1] * scale;
-		sp4b4[4].unk08 = sp614.f[2] * scale;
-		sp4b4[0].unk0c = sp638.f[0] * 0.1f;
-		sp4b4[0].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[1].unk0c = sp620.f[0] * 0.1f;
-		sp4b4[1].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[2].unk0c = sp62c.f[0] * 0.1f;
-		sp4b4[2].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[3].unk0c = sp5fc.f[0] * 0.1f;
-		sp4b4[3].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
-		sp4b4[4].unk0c = sp614.f[0] * 0.1f;
-		sp4b4[4].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+	case CORNERSTATE_TR_BL_BR:
+		numvertices = 5;
+		skyvertices3d[0].x = sp638.f[0] * scale;
+		skyvertices3d[0].y = sp638.f[1] * scale;
+		skyvertices3d[0].z = sp638.f[2] * scale;
+		skyvertices3d[1].x = sp620.f[0] * scale;
+		skyvertices3d[1].y = sp620.f[1] * scale;
+		skyvertices3d[1].z = sp620.f[2] * scale;
+		skyvertices3d[2].x = sp62c.f[0] * scale;
+		skyvertices3d[2].y = sp62c.f[1] * scale;
+		skyvertices3d[2].z = sp62c.f[2] * scale;
+		skyvertices3d[3].x = sp5fc.f[0] * scale;
+		skyvertices3d[3].y = sp5fc.f[1] * scale;
+		skyvertices3d[3].z = sp5fc.f[2] * scale;
+		skyvertices3d[4].x = sp614.f[0] * scale;
+		skyvertices3d[4].y = sp614.f[1] * scale;
+		skyvertices3d[4].z = sp614.f[2] * scale;
+		skyvertices3d[0].s = sp638.f[0] * 0.1f;
+		skyvertices3d[0].t = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[1].s = sp620.f[0] * 0.1f;
+		skyvertices3d[1].t = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[2].s = sp62c.f[0] * 0.1f;
+		skyvertices3d[2].t = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[3].s = sp5fc.f[0] * 0.1f;
+		skyvertices3d[3].t = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+		skyvertices3d[4].s = sp614.f[0] * 0.1f;
+		skyvertices3d[4].t = sp614.f[2] * 0.1f + g_SkyCloudOffset;
 
-		skyChooseCloudVtxColour(&sp4b4[0], sp588);
-		skyChooseCloudVtxColour(&sp4b4[1], sp580);
-		skyChooseCloudVtxColour(&sp4b4[2], sp584);
-		skyChooseCloudVtxColour(&sp4b4[3], sp574);
-		skyChooseCloudVtxColour(&sp4b4[4], sp57c);
+		skyChooseCloudVtxColour(&skyvertices3d[0], sp588);
+		skyChooseCloudVtxColour(&skyvertices3d[1], sp580);
+		skyChooseCloudVtxColour(&skyvertices3d[2], sp584);
+		skyChooseCloudVtxColour(&skyvertices3d[3], sp574);
+		skyChooseCloudVtxColour(&skyvertices3d[4], sp57c);
 		break;
 	default:
 		return gdl;
@@ -1183,79 +1225,82 @@ Gfx *skyRender(Gfx *gdl)
 
 	texSelect(&gdl, &g_TexSkyWaterConfigs[env->clouds_type], 1, 0, 2, 1, NULL);
 
-	if (1);
-
 	gDPSetEnvColor(gdl++, env->sky_r, env->sky_g, env->sky_b, 0xff);
 	gDPSetCombineLERP(gdl++,
 			SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE,
 			SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE);
 
-	{
+	if (1) {
 		s32 stack;
 		Mtxf sp1ec;
 		Mtxf sp1ac;
-		struct skything38 sp94[5];
+		struct skyvtx2d skyvertices2d[5];
 		s32 i;
 
 		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp1ec);
-		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
-		mtx4MultMtx4(&sp1ec, &var800a33a8, &sp1ac);
+		guScaleF(g_SkyMtx.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
+		mtx4MultMtx4(&sp1ec, &g_SkyMtx, &sp1ac);
 
-		for (i = 0; i < s1; i++) {
-			sky0f1228d0(&sp4b4[i], &sp1ac, 130, 65535.0f, 65535.0f, &sp94[i]);
+		for (i = 0; i < numvertices; i++) {
+			skyConvertVertex(&skyvertices3d[i], &sp1ac, 130, 65535.0f, 65535.0f, &skyvertices2d[i]);
 
-			sp94[i].unk28 = skyClamp(sp94[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
-			sp94[i].unk2c = skyClamp(sp94[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
+			skyvertices2d[i].x = skyClamp(skyvertices2d[i].x, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
+			skyvertices2d[i].y = skyClamp(skyvertices2d[i].y, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
 		}
 
-		if (s1 == 4) {
-			if (((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) == 12) {
+		if (numvertices == 4) {
+			if (cornerstate == CORNERSTATE_TOP) {
 				if (sp548 < sp54c) {
-					if (sp94[3].unk2c >= sp94[1].unk2c + 4.0f) {
-						sp94[0].unk28 = camGetScreenLeft() * 4.0f;
-						sp94[0].unk2c = camGetScreenTop() * 4.0f;
-						sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
-						sp94[1].unk2c = camGetScreenTop() * 4.0f;
-						sp94[2].unk28 = camGetScreenLeft() * 4.0f;
-						sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+					if (skyvertices2d[3].y >= skyvertices2d[1].y + 4.0f) {
+						skyvertices2d[0].x = camGetScreenLeft() * 4.0f;
+						skyvertices2d[0].y = camGetScreenTop() * 4.0f;
+						skyvertices2d[1].x = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+						skyvertices2d[1].y = camGetScreenTop() * 4.0f;
+						skyvertices2d[2].x = camGetScreenLeft() * 4.0f;
+						skyvertices2d[3].x = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
 
-						gdl = sky0f123fd4(gdl, &sp94[0], &sp94[1], &sp94[2], &sp94[3], 130.0f);
+						gdl = skyRenderFull(gdl, &skyvertices2d[0], &skyvertices2d[1], &skyvertices2d[2], &skyvertices2d[3], 130.0f);
 					} else {
-						gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, true);
+						gdl = skyRenderTri(gdl, &skyvertices2d[0], &skyvertices2d[1], &skyvertices2d[2], 130.0f, true);
 					}
-				} else if (sp94[2].unk2c >= sp94[0].unk2c + 4.0f) {
-					sp94[0].unk28 = camGetScreenLeft() * 4.0f;
-					sp94[0].unk2c = camGetScreenTop() * 4.0f;
-					sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
-					sp94[1].unk2c = camGetScreenTop() * 4.0f;
-					sp94[2].unk28 = camGetScreenLeft() * 4.0f;
-					sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+				} else if (skyvertices2d[2].y >= skyvertices2d[0].y + 4.0f) {
+					skyvertices2d[0].x = camGetScreenLeft() * 4.0f;
+					skyvertices2d[0].y = camGetScreenTop() * 4.0f;
+					skyvertices2d[1].x = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+					skyvertices2d[1].y = camGetScreenTop() * 4.0f;
+					skyvertices2d[2].x = camGetScreenLeft() * 4.0f;
+					skyvertices2d[3].x = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
 
-					gdl = sky0f123fd4(gdl, &sp94[1], &sp94[0], &sp94[3], &sp94[2], 130.0f);
+					gdl = skyRenderFull(gdl, &skyvertices2d[1], &skyvertices2d[0], &skyvertices2d[3], &skyvertices2d[2], 130.0f);
 				} else {
-					gdl = sky0f122d4c(gdl, &sp94[1], &sp94[0], &sp94[3], 130.0f, true);
+					gdl = skyRenderTri(gdl, &skyvertices2d[1], &skyvertices2d[0], &skyvertices2d[3], 130.0f, true);
 				}
 			} else {
-				gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[3], 130.0f, true);
-				gdl = sky0f122d4c(gdl, &sp94[3], &sp94[2], &sp94[0], 130.0f, true);
+				gdl = skyRenderTri(gdl, &skyvertices2d[0], &skyvertices2d[1], &skyvertices2d[3], 130.0f, true);
+				gdl = skyRenderTri(gdl, &skyvertices2d[3], &skyvertices2d[2], &skyvertices2d[0], 130.0f, true);
 			}
-		} else if (s1 == 5) {
-			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, true);
-			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[2], &sp94[3], 130.0f, true);
-			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[3], &sp94[4], 130.0f, true);
-		} else if (s1 == 3) {
-			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, true);
+		} else if (numvertices == 5) {
+			// Three corners are in the sky
+			gdl = skyRenderTri(gdl, &skyvertices2d[0], &skyvertices2d[1], &skyvertices2d[2], 130.0f, true);
+			gdl = skyRenderTri(gdl, &skyvertices2d[0], &skyvertices2d[2], &skyvertices2d[3], 130.0f, true);
+			gdl = skyRenderTri(gdl, &skyvertices2d[0], &skyvertices2d[3], &skyvertices2d[4], 130.0f, true);
+		} else if (numvertices == 3) {
+			// One corner is in the sky
+			gdl = skyRenderTri(gdl, &skyvertices2d[0], &skyvertices2d[1], &skyvertices2d[2], 130.0f, true);
 		}
 	}
 
 	return gdl;
 }
 
-void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3, f32 arg4, struct skything38 *arg5)
+/**
+ * Convert a 3D vertex to 2D.
+ */
+void skyConvertVertex(struct skyvtx3d *srcvtx, Mtxf *mtx, u16 arg2, f32 arg3, f32 arg4, struct skyvtx2d *dstvtx)
 {
 	f32 sp68[4];
-	f32 sp64;
-	f32 sp60;
+	f32 t;
+	f32 s;
 	f32 f22;
 	f32 f0;
 	f32 sp48[4];
@@ -1266,13 +1311,13 @@ void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3, f32 ar
 
 	mult = arg2 / 65536.0f;
 
-	sp68[0] = (arg0->unk00 * arg1->m[0][0] + arg0->unk04 * arg1->m[1][0] + arg0->unk08 * arg1->m[2][0]) + arg1->m[3][0];
-	sp68[1] = (arg0->unk00 * arg1->m[0][1] + arg0->unk04 * arg1->m[1][1] + arg0->unk08 * arg1->m[2][1]) + arg1->m[3][1];
-	sp68[2] = (arg0->unk00 * arg1->m[0][2] + arg0->unk04 * arg1->m[1][2] + arg0->unk08 * arg1->m[2][2]) + arg1->m[3][2];
-	sp68[3] = (arg0->unk00 * arg1->m[0][3] + arg0->unk04 * arg1->m[1][3] + arg0->unk08 * arg1->m[2][3]) + arg1->m[3][3];
+	sp68[0] = (srcvtx->x * mtx->m[0][0] + srcvtx->y * mtx->m[1][0] + srcvtx->z * mtx->m[2][0]) + mtx->m[3][0];
+	sp68[1] = (srcvtx->x * mtx->m[0][1] + srcvtx->y * mtx->m[1][1] + srcvtx->z * mtx->m[2][1]) + mtx->m[3][1];
+	sp68[2] = (srcvtx->x * mtx->m[0][2] + srcvtx->y * mtx->m[1][2] + srcvtx->z * mtx->m[2][2]) + mtx->m[3][2];
+	sp68[3] = (srcvtx->x * mtx->m[0][3] + srcvtx->y * mtx->m[1][3] + srcvtx->z * mtx->m[2][3]) + mtx->m[3][3];
 
-	sp60 = arg0->unk0c * (arg3 * (1.0f / 65536.0f));
-	sp64 = arg0->unk10 * (arg4 * (1.0f / 65536.0f));
+	s = srcvtx->s * (arg3 * (1.0f / 65536.0f));
+	t = srcvtx->t * (arg4 * (1.0f / 65536.0f));
 
 	if (sp68[3] == 0.0f) {
 		f22 = 32767.0f;
@@ -1312,50 +1357,50 @@ void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, u16 arg2, f32 arg3, f32 ar
 	sp38[2] = skyClamp(sp38[2], 0.0f, 32767.0f);
 	sp38[3] = skyClamp(sp38[3], 0.0f, 32767.0f);
 
-	arg5->unk00 = sp68[0];
-	arg5->unk04 = sp68[1];
-	arg5->unk08 = sp68[2];
-	arg5->unk0c = sp68[3];
-	arg5->unk20 = sp60;
-	arg5->unk24 = sp64;
-	arg5->unk28 = sp38[0];
-	arg5->unk2c = sp38[1] - envGetCurrent()->clouds_height * 4.0f;
-	arg5->unk30 = sp38[2];
-	arg5->unk34 = f22;
+	dstvtx->unk00 = sp68[0];
+	dstvtx->unk04 = sp68[1];
+	dstvtx->unk08 = sp68[2];
+	dstvtx->unk0c = sp68[3];
+	dstvtx->s = s;
+	dstvtx->t = t;
+	dstvtx->x = sp38[0];
+	dstvtx->y = sp38[1] - envGetCurrent()->clouds_height * 4.0f;
+	dstvtx->unk30 = sp38[2];
+	dstvtx->unk34 = f22;
 
-	arg5->r = arg0->r;
-	arg5->g = arg0->g;
-	arg5->b = arg0->b;
-	arg5->a = arg0->a;
+	dstvtx->r = srcvtx->r;
+	dstvtx->g = srcvtx->g;
+	dstvtx->b = srcvtx->b;
+	dstvtx->a = srcvtx->a;
 }
 
-bool sky0f122ce8(struct skything38 *arg0, struct skything38 *arg1)
+bool skyVerticesAreSame(struct skyvtx2d *vtx0, struct skyvtx2d *vtx1)
 {
-	f32 f0 = arg0->unk28 - arg1->unk28;
-	f32 f2 = arg0->unk2c - arg1->unk2c;
+	f32 xdiff = vtx0->x - vtx1->x;
+	f32 ydiff = vtx0->y - vtx1->y;
 
-	return sqrtf(f0 * f0 + f2 * f2) < 1.0f ? true : false;
+	return sqrtf(xdiff * xdiff + ydiff * ydiff) < 1.0f ? true : false;
 }
 
-Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, f32 arg4, bool textured)
+Gfx *skyRenderTri(Gfx *gdl, struct skyvtx2d *vtx0, struct skyvtx2d *vtx1, struct skyvtx2d *vtx2, f32 arg4, bool textured)
 {
-	struct skything38 *sp484;
-	struct skything38 *sp480;
-	struct skything38 *sp47c;
+	struct skyvtx2d *svtx0;
+	struct skyvtx2d *svtx1;
+	struct skyvtx2d *svtx2;
 	s32 i;
-	f32 sp474;
-	f32 sp470;
-	f32 sp46c;
-	f32 sp468;
-	f32 sp464;
-	f32 sp460;
+	f32 xdiff1;
+	f32 ydiff1;
+	f32 xdiff2;
+	f32 ydiff2;
+	f32 xdiff3;
+	f32 ydiff3;
 
-	f32 sp45c[1];
-	f32 sp458[1];
-	f32 sp454[1];
-	f32 sp450[1];
-	f32 sp44c[1];
-	f32 sp448[1];
+	f32 svtx0y[1];
+	f32 svtx0x[1];
+	f32 svtx1y[1];
+	f32 svtx1x[1];
+	f32 svtx2y[1];
+	f32 svtx2x[1];
 
 	f32 sp444;
 	f32 sp440;
@@ -1452,24 +1497,24 @@ Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	f32 sp1a8[1];
 	f32 sp1a4[1];
 	f32 sp1a0[1];
-	struct skything38 *swap1;
-	struct skything38 *swap2;
-	struct skything38 *swap3;
+	struct skyvtx2d *swap1;
+	struct skyvtx2d *swap2;
+	struct skyvtx2d *swap3;
 	f32 sp190[1];
 	u32 stack3;
 
-	if (sky0f122ce8(arg1, arg2) || sky0f122ce8(arg2, arg3) || sky0f122ce8(arg3, arg1)) {
+	if (skyVerticesAreSame(vtx0, vtx1) || skyVerticesAreSame(vtx1, vtx2) || skyVerticesAreSame(vtx2, vtx0)) {
 		return gdl;
 	}
 
 	sp378 = arg4 / 65536.0f;
 
-	sp474 = arg2->unk28 - arg1->unk28;
-	sp470 = arg2->unk2c - arg1->unk2c;
-	sp46c = arg3->unk28 - arg1->unk28;
-	sp468 = arg3->unk2c - arg1->unk2c;
+	xdiff1 = vtx1->x - vtx0->x;
+	ydiff1 = vtx1->y - vtx0->y;
+	xdiff2 = vtx2->x - vtx0->x;
+	ydiff2 = vtx2->y - vtx0->y;
 
-	sp444 = ((sp46c * sp470) - (sp474 * sp468)) * (1.0f / 65536.0f);
+	sp444 = ((xdiff2 * ydiff1) - (xdiff1 * ydiff2)) * (1.0f / 65536.0f);
 
 	if (sp444 == 0.0f) {
 		return gdl;
@@ -1477,59 +1522,60 @@ Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 
 	sp440 = 1.0f / sp444;
 
-	sp484 = arg1;
-	sp480 = arg2;
-	sp47c = arg3;
+	// svtx = sorted vertex
+	svtx0 = vtx0;
+	svtx1 = vtx1;
+	svtx2 = vtx2;
 
-	if (sp480->unk2c < sp484->unk2c) {
-		swap1 = sp480;
-		sp480 = sp484;
-		sp484 = swap1;
-
-		sp444 *= -1.0f;
-		sp440 *= -1.0f;
-	}
-
-	if (sp47c->unk2c < sp480->unk2c) {
-		swap2 = sp480;
-		sp480 = sp47c;
-		sp47c = swap2;
+	if (svtx1->y < svtx0->y) {
+		swap1 = svtx1;
+		svtx1 = svtx0;
+		svtx0 = swap1;
 
 		sp444 *= -1.0f;
 		sp440 *= -1.0f;
 	}
 
-	if (sp480->unk2c < sp484->unk2c) {
-		swap3 = sp480;
-		sp480 = sp484;
-		sp484 = swap3;
+	if (svtx2->y < svtx1->y) {
+		swap2 = svtx1;
+		svtx1 = svtx2;
+		svtx2 = swap2;
 
 		sp444 *= -1.0f;
 		sp440 *= -1.0f;
 	}
 
-	sp420[0] = sp480->unk28 * 0.25f;
+	if (svtx1->y < svtx0->y) {
+		swap3 = svtx1;
+		svtx1 = svtx0;
+		svtx0 = swap3;
+
+		sp444 *= -1.0f;
+		sp440 *= -1.0f;
+	}
+
+	sp420[0] = svtx1->x * 0.25f;
 	sp424[0] = 0.0f;
-	sp428[0] = sp484->unk28 * 0.25f;
+	sp428[0] = svtx0->x * 0.25f;
 	sp42c[0] = 0.0f;
-	sp430[0] = sp484->unk28 * 0.25f;
+	sp430[0] = svtx0->x * 0.25f;
 	sp434[0] = 0.0f;
 	sp43c[0] = 0.0f;
 	sp438[0] = 0.0f;
 
-	sp448[0] = sp47c->unk28;
-	sp44c[0] = sp47c->unk2c;
-	sp450[0] = sp480->unk28;
-	sp454[0] = sp480->unk2c;
-	sp458[0] = sp484->unk28;
-	sp45c[0] = sp484->unk2c;
+	svtx2x[0] = svtx2->x;
+	svtx2y[0] = svtx2->y;
+	svtx1x[0] = svtx1->x;
+	svtx1y[0] = svtx1->y;
+	svtx0x[0] = svtx0->x;
+	svtx0y[0] = svtx0->y;
 
-	sp474 = sp450[0] - sp458[0];
-	sp470 = sp454[0] - sp45c[0];
-	sp46c = sp448[0] - sp458[0];
-	sp468 = sp44c[0] - sp45c[0];
-	sp464 = sp448[0] - sp450[0];
-	sp460 = sp44c[0] - sp454[0];
+	xdiff1 = svtx1x[0] - svtx0x[0];
+	ydiff1 = svtx1y[0] - svtx0y[0];
+	xdiff2 = svtx2x[0] - svtx0x[0];
+	ydiff2 = svtx2y[0] - svtx0y[0];
+	xdiff3 = svtx2x[0] - svtx1x[0];
+	ydiff3 = svtx2y[0] - svtx1y[0];
 
 	sp3fc[0] = 0.0f;
 	sp3f8[0] = 0.0f;
@@ -1546,43 +1592,43 @@ Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	sp39c[0] = 0.0f;
 	sp398[0] = 0.0f;
 
-	sp3e0[0] = sp464 / 4.0f;
-	sp3e4[0] = sp460 / 4.0f;
-	sp3e8[0] = sp474 / 4.0f;
-	sp3ec[0] = sp470 / 4.0f;
-	sp3f0[0] = sp46c / 4.0f;
-	sp3f4[0] = sp468 / 4.0f;
+	sp3e0[0] = xdiff3 / 4.0f;
+	sp3e4[0] = ydiff3 / 4.0f;
+	sp3e8[0] = xdiff1 / 4.0f;
+	sp3ec[0] = ydiff1 / 4.0f;
+	sp3f0[0] = xdiff2 / 4.0f;
+	sp3f4[0] = ydiff2 / 4.0f;
 
-	sp3c0[0] = sp464 * 4.0f;
-	sp3c4[0] = sp460 * 4.0f;
-	sp3c8[0] = sp474 * 4.0f;
-	sp3cc[0] = sp470 * 4.0f;
-	sp3d0[0] = sp46c * 4.0f;
-	sp3d4[0] = sp468 * 4.0f;
+	sp3c0[0] = xdiff3 * 4.0f;
+	sp3c4[0] = ydiff3 * 4.0f;
+	sp3c8[0] = xdiff1 * 4.0f;
+	sp3cc[0] = ydiff1 * 4.0f;
+	sp3d0[0] = xdiff2 * 4.0f;
+	sp3d4[0] = ydiff2 * 4.0f;
 
-	sp3a4[0] = 4.0f / sp460;
-	sp3ac[0] = 4.0f / sp470;
-	sp3b4[0] = 4.0f / sp468;
+	sp3a4[0] = 4.0f / ydiff3;
+	sp3ac[0] = 4.0f / ydiff1;
+	sp3b4[0] = 4.0f / ydiff2;
 
-	sp384[0] = sp464 / sp460;
-	sp38c[0] = sp474 / sp470;
-	sp394[0] = sp46c / sp468;
+	sp384[0] = xdiff3 / ydiff3;
+	sp38c[0] = xdiff1 / ydiff1;
+	sp394[0] = xdiff2 / ydiff2;
 
 	sp384[0] = skyClamp(sp384[0], -1878.0f, 1877.0f);
 	sp38c[0] = skyClamp(sp38c[0], -1878.0f, 1877.0f);
 	sp394[0] = skyClamp(sp394[0], -1878.0f, 1877.0f);
 
-	f2 = (sp484->unk2c * 0.25f);
+	f2 = (svtx0->y * 0.25f);
 	sp37c = f2 - (s32) f2;
 	sp408 = sp428[0] - skyRound(sp38c[0] * 8192.0f) * (1.0f / 8192.0f) * sp37c;
 	sp410 = sp430[0] - skyRound(sp394[0] * 8192.0f) * (1.0f / 8192.0f) * sp37c;
 
 	gImmp1(gdl++, G_RDPHALF_1, (textured ? (G_TRI_SHADE_TXTR << 24) : (G_TRI_FILL << 24))
 			| (sp444 < 0.0f ? 0x00800000 : 0)
-			| (u32) sp47c->unk2c);
-	gImmp1(gdl++, G_RDPHALF_CONT, (s32) sp480->unk2c << 16 | (s32) sp484->unk2c);
+			| (u32) svtx2->y);
+	gImmp1(gdl++, G_RDPHALF_CONT, (s32) svtx1->y << 16 | (s32) svtx0->y);
 
-	gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(sp480->unk28 * 0.25f));
+	gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(svtx1->x * 0.25f));
 	gImmp1(gdl++, G_RDPHALF_CONT, func0f152fa0(sp384[0]));
 
 	gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(sp410));
@@ -1595,9 +1641,9 @@ Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 		return gdl;
 	}
 
-	sp36c[0] = sp484->unk0c * sp378;
-	sp370[0] = sp480->unk0c * sp378;
-	sp374[0] = sp47c->unk0c * sp378;
+	sp36c[0] = svtx0->unk0c * sp378;
+	sp370[0] = svtx1->unk0c * sp378;
+	sp374[0] = svtx2->unk0c * sp378;
 
 	sp368 = sp36c[0];
 
@@ -1611,18 +1657,18 @@ Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 
 	sp368 *= 0.5f;
 
-	sp35c[0] = sp484->unk34 * sp368;
-	sp360[0] = sp480->unk34 * sp368;
-	sp364[0] = sp47c->unk34 * sp368;
+	sp35c[0] = svtx0->unk34 * sp368;
+	sp360[0] = svtx1->unk34 * sp368;
+	sp364[0] = svtx2->unk34 * sp368;
 
-	sp338[0] = sp35c[0] * sp484->unk20;
-	sp33c[0] = sp35c[0] * sp484->unk24;
+	sp338[0] = sp35c[0] * svtx0->s;
+	sp33c[0] = sp35c[0] * svtx0->t;
 	sp340[0] = sp35c[0] * 32767.0f;
-	sp344[0] = sp360[0] * sp480->unk20;
-	sp348[0] = sp360[0] * sp480->unk24;
+	sp344[0] = sp360[0] * svtx1->s;
+	sp348[0] = sp360[0] * svtx1->t;
 	sp34c[0] = sp360[0] * 32767.0f;
-	sp350[0] = sp364[0] * sp47c->unk20;
-	sp354[0] = sp364[0] * sp47c->unk24;
+	sp350[0] = sp364[0] * svtx2->s;
+	sp354[0] = sp364[0] * svtx2->t;
 	sp358[0] = sp364[0] * 32767.0f;
 
 	sp330[0] = SKYABS(sp338[0]);
@@ -1644,28 +1690,28 @@ Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 		sp334[0] = SKYABS(sp354[0]);
 	}
 
-	sp310[0] = sp484->r + 0.5f;
-	sp310[1] = sp484->g + 0.5f;
-	sp310[2] = sp484->b + 0.5f;
-	sp310[3] = sp484->a + 0.5f;
+	sp310[0] = svtx0->r + 0.5f;
+	sp310[1] = svtx0->g + 0.5f;
+	sp310[2] = svtx0->b + 0.5f;
+	sp310[3] = svtx0->a + 0.5f;
 
-	sp2f0[0] = sp480->r + 0.5f;
-	sp2f0[1] = sp480->g + 0.5f;
-	sp2f0[2] = sp480->b + 0.5f;
-	sp2f0[3] = sp480->a + 0.5f;
+	sp2f0[0] = svtx1->r + 0.5f;
+	sp2f0[1] = svtx1->g + 0.5f;
+	sp2f0[2] = svtx1->b + 0.5f;
+	sp2f0[3] = svtx1->a + 0.5f;
 
-	sp2d0[0] = sp47c->r + 0.5f;
-	sp2d0[1] = sp47c->g + 0.5f;
-	sp2d0[2] = sp47c->b + 0.5f;
-	sp2d0[3] = sp47c->a + 0.5f;
+	sp2d0[0] = svtx2->r + 0.5f;
+	sp2d0[1] = svtx2->g + 0.5f;
+	sp2d0[2] = svtx2->b + 0.5f;
+	sp2d0[3] = svtx2->a + 0.5f;
 
 	sp310[4] = sp338[0]; sp310[5] = sp33c[0]; sp310[6] = sp340[0];
 	sp2f0[4] = sp344[0]; sp2f0[5] = sp348[0]; sp2f0[6] = sp34c[0];
 	sp2d0[4] = sp350[0]; sp2d0[5] = sp354[0]; sp2d0[6] = sp358[0];
 
-	sp310[7] = sp484->unk30;
-	sp2f0[7] = sp480->unk30;
-	sp2d0[7] = sp47c->unk30;
+	sp310[7] = svtx0->unk30;
+	sp2f0[7] = svtx1->unk30;
+	sp2d0[7] = svtx2->unk30;
 
 	for (i = 0; i < 8; i++) {
 		sp2b0[i] = sp2f0[i] - sp310[i];
@@ -1839,11 +1885,15 @@ Gfx *sky0f122d4c(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	return gdl;
 }
 
-Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, struct skything38 *arg3, struct skything38 *arg4, f32 arg5)
+/**
+ * Render the sky when all four corners of the viewport are above the horizon.
+ * ie. The sky takes up the full screen.
+ */
+Gfx *skyRenderFull(Gfx *gdl, struct skyvtx2d *vtx0, struct skyvtx2d *vtx1, struct skyvtx2d *vtx2, struct skyvtx2d *vtx3, f32 arg5)
 {
-	struct skything38 *sp4cc;
-	struct skything38 *sp4c8;
-	struct skything38 *sp4c4;
+	struct skyvtx2d *sp4cc;
+	struct skyvtx2d *sp4c8;
+	struct skyvtx2d *sp4c4;
 	s32 i;
 	u32 stack;
 	f32 sp4b8;
@@ -1868,12 +1918,12 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	f32 sp46c[1];
 	f32 sp468[1];
 	f32 sp464[1];
-	struct skything38 *swap1;
-	struct skything38 *swap2;
-	struct skything38 *swap3;
+	struct skyvtx2d *swap1;
+	struct skyvtx2d *swap2;
+	struct skyvtx2d *swap3;
 	f32 sp454[1];
 	u32 stack07;
-	f32 sp44c[1];
+	f32 svtx2y[1];
 	u32 stack08;
 	u32 stack09;
 	f32 sp440[1];
@@ -1965,31 +2015,31 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	f32 sp1c4[1];
 	u32 stack16;
 
-	if (sky0f122ce8(arg1, arg2)
-			|| sky0f122ce8(arg2, arg3)
-			|| sky0f122ce8(arg3, arg1)
-			|| sky0f122ce8(arg4, arg1)
-			|| sky0f122ce8(arg4, arg2)
-			|| sky0f122ce8(arg4, arg3)) {
+	if (skyVerticesAreSame(vtx0, vtx1)
+			|| skyVerticesAreSame(vtx1, vtx2)
+			|| skyVerticesAreSame(vtx2, vtx0)
+			|| skyVerticesAreSame(vtx3, vtx0)
+			|| skyVerticesAreSame(vtx3, vtx1)
+			|| skyVerticesAreSame(vtx3, vtx2)) {
 		return gdl;
 	}
 
 	sp3c0 = arg5 * (1.0f / 65536.0f);
 
-	sp4b8 = arg2->unk28 - arg1->unk28;
-	sp4b4 = arg2->unk2c - arg1->unk2c;
-	sp4b0 = arg3->unk28 - arg1->unk28;
-	sp4ac = arg3->unk2c - arg1->unk2c;
+	sp4b8 = vtx1->x - vtx0->x;
+	sp4b4 = vtx1->y - vtx0->y;
+	sp4b0 = vtx2->x - vtx0->x;
+	sp4ac = vtx2->y - vtx0->y;
 
 	sp488 = ((sp4b0 * sp4b4) - (sp4b8 * sp4ac)) * (1.0f / 65536.0f);
 
 	sp484 = 1.0f / sp488;
 
-	sp4cc = arg1;
-	sp4c8 = arg2;
-	sp4c4 = arg3;
+	sp4cc = vtx0;
+	sp4c8 = vtx1;
+	sp4c4 = vtx2;
 
-	if (sp4c8->unk2c < sp4cc->unk2c) {
+	if (sp4c8->y < sp4cc->y) {
 		swap1 = sp4c8;
 		sp4c8 = sp4cc;
 		sp4cc = swap1;
@@ -1998,7 +2048,7 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 		sp484 *= -1.0f;
 	}
 
-	if (sp4c4->unk2c < sp4c8->unk2c) {
+	if (sp4c4->y < sp4c8->y) {
 		swap2 = sp4c8;
 		sp4c8 = sp4c4;
 		sp4c4 = swap2;
@@ -2007,7 +2057,7 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 		sp484 *= -1.0f;
 	}
 
-	if (sp4c8->unk2c < sp4cc->unk2c) {
+	if (sp4c8->y < sp4cc->y) {
 		swap3 = sp4c8;
 		sp4c8 = sp4cc;
 		sp4cc = swap3;
@@ -2016,21 +2066,21 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 		sp484 *= -1.0f;
 	}
 
-	sp464[0] = sp4c8->unk28 * 0.25f;
+	sp464[0] = sp4c8->x * 0.25f;
 	sp468[0] = 0.0f;
-	sp46c[0] = sp4cc->unk28 * 0.25f;
+	sp46c[0] = sp4cc->x * 0.25f;
 	sp470[0] = 0.0f;
-	sp474[0] = sp4cc->unk28 * 0.25f;
+	sp474[0] = sp4cc->x * 0.25f;
 	sp478[0] = 0.0f;
 	sp480[0] = 0.0f;
 	sp47c[0] = 0.0f;
 
-	sp48c[0] = sp4c4->unk28;
-	sp490[0] = sp4c4->unk2c;
-	sp494[0] = sp4c8->unk28;
-	sp498[0] = sp4c8->unk2c;
-	sp49c[0] = sp4cc->unk28;
-	sp4a0[0] = sp4cc->unk2c;
+	sp48c[0] = sp4c4->x;
+	sp490[0] = sp4c4->y;
+	sp494[0] = sp4c8->x;
+	sp498[0] = sp4c8->y;
+	sp49c[0] = sp4cc->x;
+	sp4a0[0] = sp4cc->y;
 
 	sp4b8 = sp494[0] - sp49c[0];
 	sp4b4 = sp498[0] - sp4a0[0];
@@ -2080,20 +2130,20 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	sp3d0[0] = skyClamp(sp3d0[0], -1878.0f, 1877.0f);
 	sp3d8[0] = skyClamp(sp3d8[0], -1878.0f, 1877.0f);
 
-	sp44c[0] = sp46c[0];
+	svtx2y[0] = sp46c[0];
 	sp454[0] = sp474[0];
 
-	if (arg1->unk28 < arg2->unk28) {
+	if (vtx0->x < vtx1->x) {
 		f32 sp1bc;
 
-		if (arg3->unk2c - arg4->unk2c < 1.0f) {
+		if (vtx2->y - vtx3->y < 1.0f) {
 			sp1bc = -1878.0f;
 		} else {
-			sp1bc = -(camGetScreenWidth() - 0.25f) / ((arg3->unk2c - arg4->unk2c) / 4.0f);
+			sp1bc = -(camGetScreenWidth() - 0.25f) / ((vtx2->y - vtx3->y) / 4.0f);
 		}
 
-		gImmp1(gdl++, G_RDPHALF_1, (G_TRI_SHADE_TXTR << 24) | 0x00800000 | (u32) arg3->unk2c);
-		gImmp1(gdl++, G_RDPHALF_CONT, (s32) arg4->unk2c << 16 | (s32) arg1->unk2c);
+		gImmp1(gdl++, G_RDPHALF_1, (G_TRI_SHADE_TXTR << 24) | 0x00800000 | (u32) vtx2->y);
+		gImmp1(gdl++, G_RDPHALF_CONT, (s32) vtx3->y << 16 | (s32) vtx0->y);
 
 		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(camGetScreenLeft() + camGetScreenWidth() - 0.25f));
 		gImmp1(gdl++, G_RDPHALF_CONT, func0f152fa0(sp1bc));
@@ -2106,14 +2156,14 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	} else {
 		f32 sp198;
 
-		if (arg3->unk2c - arg4->unk2c < 1.0f) {
+		if (vtx2->y - vtx3->y < 1.0f) {
 			sp198 = 1877.0f;
 		} else {
-			sp198 = (camGetScreenWidth() - 0.25f) / ((arg3->unk2c - arg4->unk2c) / 4.0f);
+			sp198 = (camGetScreenWidth() - 0.25f) / ((vtx2->y - vtx3->y) / 4.0f);
 		}
 
-		gImmp1(gdl++, G_RDPHALF_1, 0xce000000 | (u32) arg3->unk2c);
-		gImmp1(gdl++, G_RDPHALF_CONT, (s32) arg4->unk2c << 16 | (s32) arg1->unk2c);
+		gImmp1(gdl++, G_RDPHALF_1, 0xce000000 | (u32) vtx2->y);
+		gImmp1(gdl++, G_RDPHALF_CONT, (s32) vtx3->y << 16 | (s32) vtx0->y);
 
 		gImmp1(gdl++, G_RDPHALF_1, func0f152fa0(camGetScreenLeft()));
 		gImmp1(gdl++, G_RDPHALF_CONT, func0f152fa0(sp198));
@@ -2128,7 +2178,7 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	sp3b0[0] = sp4cc->unk0c * sp3c0;
 	sp3b4[0] = sp4c8->unk0c * sp3c0;
 	sp3b8[0] = sp4c4->unk0c * sp3c0;
-	sp3bc[0] = arg4->unk0c * sp3c0;
+	sp3bc[0] = vtx3->unk0c * sp3c0;
 
 	sp3ac = sp3b0[0];
 
@@ -2149,19 +2199,19 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	sp39c[0] = sp4cc->unk34 * sp3ac;
 	sp3a0[0] = sp4c8->unk34 * sp3ac;
 	sp3a4[0] = sp4c4->unk34 * sp3ac;
-	sp3a8[0] = arg4->unk34 * sp3ac;
+	sp3a8[0] = vtx3->unk34 * sp3ac;
 
-	sp36c[0] = sp39c[0] * sp4cc->unk20;
-	sp370[0] = sp39c[0] * sp4cc->unk24;
+	sp36c[0] = sp39c[0] * sp4cc->s;
+	sp370[0] = sp39c[0] * sp4cc->t;
 	sp374[0] = sp39c[0] * 32767.0f;
-	sp378[0] = sp3a0[0] * sp4c8->unk20;
-	sp37c[0] = sp3a0[0] * sp4c8->unk24;
+	sp378[0] = sp3a0[0] * sp4c8->s;
+	sp37c[0] = sp3a0[0] * sp4c8->t;
 	sp380[0] = sp3a0[0] * 32767.0f;
-	sp384[0] = sp3a4[0] * sp4c4->unk20;
-	sp388[0] = sp3a4[0] * sp4c4->unk24;
+	sp384[0] = sp3a4[0] * sp4c4->s;
+	sp388[0] = sp3a4[0] * sp4c4->t;
 	sp38c[0] = sp3a4[0] * 32767.0f;
-	sp390[0] = sp3a8[0] * arg4->unk20;
-	sp394[0] = sp3a8[0] * arg4->unk24;
+	sp390[0] = sp3a8[0] * vtx3->s;
+	sp394[0] = sp3a8[0] * vtx3->t;
 	sp398[0] = sp3a8[0] * 32767.0f;
 
 	sp364[0] = SKYABS(sp36c[0]);
@@ -2214,22 +2264,22 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	}
 
 	{
-		f32 mult = arg4->unk2c / arg3->unk2c;
+		f32 mult = vtx3->y / vtx2->y;
 
-		f32 sp170 = arg4->r + ((arg1->r - arg3->r) * mult);
-		f32 sp16c = arg4->g + ((arg1->g - arg3->g) * mult);
-		f32 sp168 = arg4->b + ((arg1->b - arg3->b) * mult);
-		f32 sp164 = arg4->a + ((arg1->a - arg3->a) * mult);
+		f32 sp170 = vtx3->r + ((vtx0->r - vtx2->r) * mult);
+		f32 sp16c = vtx3->g + ((vtx0->g - vtx2->g) * mult);
+		f32 sp168 = vtx3->b + ((vtx0->b - vtx2->b) * mult);
+		f32 sp164 = vtx3->a + ((vtx0->a - vtx2->a) * mult);
 
-		u32 sp160 = arg1->r * 65536.0f;
-		u32 sp15c = arg1->g * 65536.0f;
-		u32 sp158 = arg1->b * 65536.0f;
-		u32 sp154 = arg1->a * 65536.0f;
+		u32 sp160 = vtx0->r * 65536.0f;
+		u32 sp15c = vtx0->g * 65536.0f;
+		u32 sp158 = vtx0->b * 65536.0f;
+		u32 sp154 = vtx0->a * 65536.0f;
 
-		u32 sp150 = func0f152fa0((sp170 - arg1->r) / ((arg2->unk28 - arg1->unk28) * 0.25f));
-		u32 sp14c = func0f152fa0((sp16c - arg1->g) / ((arg2->unk28 - arg1->unk28) * 0.25f));
-		u32 sp148 = func0f152fa0((sp168 - arg1->b) / ((arg2->unk28 - arg1->unk28) * 0.25f));
-		u32 sp144 = func0f152fa0((sp164 - arg1->a) / ((arg2->unk28 - arg1->unk28) * 0.25f));
+		u32 sp150 = func0f152fa0((sp170 - vtx0->r) / ((vtx1->x - vtx0->x) * 0.25f));
+		u32 sp14c = func0f152fa0((sp16c - vtx0->g) / ((vtx1->x - vtx0->x) * 0.25f));
+		u32 sp148 = func0f152fa0((sp168 - vtx0->b) / ((vtx1->x - vtx0->x) * 0.25f));
+		u32 sp144 = func0f152fa0((sp164 - vtx0->a) / ((vtx1->x - vtx0->x) * 0.25f));
 
 		u32 sp140;
 		u32 sp13c;
@@ -2240,10 +2290,10 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 		u32 sp128;
 		u32 sp124;
 
-		sp140 = sp130 = func0f152fa0((arg3->r - arg1->r) / ((arg3->unk2c - arg1->unk2c) * 0.25f));
-		sp13c = sp12c = func0f152fa0((arg3->g - arg1->g) / ((arg3->unk2c - arg1->unk2c) * 0.25f));
-		sp138 = sp128 = func0f152fa0((arg3->b - arg1->b) / ((arg3->unk2c - arg1->unk2c) * 0.25f));
-		sp124 = sp134 = func0f152fa0((arg3->a - arg1->a) / ((arg3->unk2c - arg1->unk2c) * 0.25f));
+		sp140 = sp130 = func0f152fa0((vtx2->r - vtx0->r) / ((vtx2->y - vtx0->y) * 0.25f));
+		sp13c = sp12c = func0f152fa0((vtx2->g - vtx0->g) / ((vtx2->y - vtx0->y) * 0.25f));
+		sp138 = sp128 = func0f152fa0((vtx2->b - vtx0->b) / ((vtx2->y - vtx0->y) * 0.25f));
+		sp124 = sp134 = func0f152fa0((vtx2->a - vtx0->a) / ((vtx2->y - vtx0->y) * 0.25f));
 
 		gImmp1(gdl++, G_RDPHALF_1, (sp160 & 0xffff0000) | (sp15c & 0xffff0000) >> 16);
 		gImmp1(gdl++, G_RDPHALF_CONT, (sp158 & 0xffff0000) | (sp154 & 0xffff0000) >> 16);
@@ -2365,7 +2415,7 @@ Gfx *sky0f123fd4(Gfx *gdl, struct skything38 *arg1, struct skything38 *arg2, str
 	return gdl;
 }
 
-void skyCreateArtifact(struct artifact *artifact, s32 x, s32 y)
+void skyCreateSunArtifact(struct artifact *artifact, s32 x, s32 y)
 {
 	s32 viewleft = viGetViewLeft();
 	s32 viewtop = viGetViewTop();
@@ -2380,7 +2430,7 @@ void skyCreateArtifact(struct artifact *artifact, s32 x, s32 y)
 	}
 }
 
-f32 sky0f125a1c(struct artifact *artifacts)
+f32 skyGetArtifactGroupIntensityFrac(struct artifact *artifacts)
 {
 	f32 sum = 0;
 	s32 i;
@@ -2527,14 +2577,14 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 							g_SunAlphaFracs[i] = 1.0f;
 						}
 
-						skyCreateArtifact(&artifacts[i * 8 + 0], (s32)g_SunScreenXPositions[i] - 7, (s32)g_SunScreenYPositions[i] + 1);
-						skyCreateArtifact(&artifacts[i * 8 + 1], (s32)g_SunScreenXPositions[i] - 5, (s32)g_SunScreenYPositions[i] - 3);
-						skyCreateArtifact(&artifacts[i * 8 + 2], (s32)g_SunScreenXPositions[i] - 3, (s32)g_SunScreenYPositions[i] + 5);
-						skyCreateArtifact(&artifacts[i * 8 + 3], (s32)g_SunScreenXPositions[i] - 1, (s32)g_SunScreenYPositions[i] - 7);
-						skyCreateArtifact(&artifacts[i * 8 + 4], (s32)g_SunScreenXPositions[i] + 1, (s32)g_SunScreenYPositions[i] + 7);
-						skyCreateArtifact(&artifacts[i * 8 + 5], (s32)g_SunScreenXPositions[i] + 3, (s32)g_SunScreenYPositions[i] - 5);
-						skyCreateArtifact(&artifacts[i * 8 + 6], (s32)g_SunScreenXPositions[i] + 5, (s32)g_SunScreenYPositions[i] + 3);
-						skyCreateArtifact(&artifacts[i * 8 + 7], (s32)g_SunScreenXPositions[i] + 7, (s32)g_SunScreenYPositions[i] - 1);
+						skyCreateSunArtifact(&artifacts[i * 8 + 0], (s32)g_SunScreenXPositions[i] - 7, (s32)g_SunScreenYPositions[i] + 1);
+						skyCreateSunArtifact(&artifacts[i * 8 + 1], (s32)g_SunScreenXPositions[i] - 5, (s32)g_SunScreenYPositions[i] - 3);
+						skyCreateSunArtifact(&artifacts[i * 8 + 2], (s32)g_SunScreenXPositions[i] - 3, (s32)g_SunScreenYPositions[i] + 5);
+						skyCreateSunArtifact(&artifacts[i * 8 + 3], (s32)g_SunScreenXPositions[i] - 1, (s32)g_SunScreenYPositions[i] - 7);
+						skyCreateSunArtifact(&artifacts[i * 8 + 4], (s32)g_SunScreenXPositions[i] + 1, (s32)g_SunScreenYPositions[i] + 7);
+						skyCreateSunArtifact(&artifacts[i * 8 + 5], (s32)g_SunScreenXPositions[i] + 3, (s32)g_SunScreenYPositions[i] - 5);
+						skyCreateSunArtifact(&artifacts[i * 8 + 6], (s32)g_SunScreenXPositions[i] + 5, (s32)g_SunScreenYPositions[i] + 3);
+						skyCreateSunArtifact(&artifacts[i * 8 + 7], (s32)g_SunScreenXPositions[i] + 7, (s32)g_SunScreenYPositions[i] - 1);
 					}
 
 					if (1);
@@ -2569,7 +2619,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 					gDPSetTexturePersp(gdl++, G_TP_PERSP);
 					gDPSetTextureLOD(gdl++, G_TL_LOD);
 
-					sp124 = sky0f125a1c(&schedGetFrontArtifacts()[i * 8]);
+					sp124 = skyGetArtifactGroupIntensityFrac(&schedGetFrontArtifacts()[i * 8]);
 				}
 
 				if (onscreen && sp124 > 0.0f) {
@@ -2587,9 +2637,11 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 }
 
 /**
- * Render a sun and its artifacts.
+ * Render a lens flare.
+ *
+ * Used for the sun and the Deep Sea teleports.
  */
-Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
+Gfx *skyRenderFlare(Gfx *gdl, f32 x, f32 y, f32 intensityfrac, f32 size, s32 flaretimer240, f32 alphafrac)
 {
 	s32 i;
 	f32 f2;
@@ -2597,7 +2649,7 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 	f32 sp17c[2];
 	f32 sp174[2];
 	s32 sp15c[] = { 16, 32, 12, 32, 24, 64 }; // diameters?
-	s32 sp144[] = { 60, 80, 225, 275, 470, 570 }; // distances from the sun?
+	s32 sp144[] = { 60, 80, 225, 275, 470, 570 }; // distances from the source?
 
 	u32 colours[] = {
 		0xff99ffff, // pinkish/purple
@@ -2608,8 +2660,8 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 		0xff9999ff, // red
 	};
 
-	f32 sp128;
-	f32 sp124;
+	f32 xdist;
+	f32 ydist;
 	s32 scale;
 	f32 fovy;
 
@@ -2621,10 +2673,10 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 	}
 #endif
 
-	sp128 = (x - viGetViewWidth() / 2.0f) * 0.01f;
-	sp124 = (y - viGetViewHeight() / 2.0f) * 0.01f;
+	xdist = (x - viGetViewWidth() / 2.0f) * 0.01f;
+	ydist = (y - viGetViewHeight() / 2.0f) * 0.01f;
 
-	// Render the sun
+	// Render the source artifact (eg. the artifact that is on top of the sun)
 	texSelect(&gdl, &g_TexLightGlareConfigs[6], 4, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -2643,8 +2695,8 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 
 	fovy = viGetFovY();
 
-	gDPSetEnvColor(gdl++, 0xff, 0xff, 0xff, (s32) (arg6 * arg3 * 255.0f));
-	f2 = ((s32) ((60.0f / fovy) * (size * (0.5f + (0.5f * arg3)))));
+	gDPSetEnvColor(gdl++, 0xff, 0xff, 0xff, (s32) (alphafrac * intensityfrac * 255.0f));
+	f2 = ((s32) ((60.0f / fovy) * (size * (0.5f + (0.5f * intensityfrac)))));
 
 	sp17c[0] = x;
 	sp17c[1] = y;
@@ -2653,7 +2705,7 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 
 	func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[6].width, g_TexLightGlareConfigs[6].height, 0, 1, 1, 1, 0, 1);
 
-	// Render the artifacts
+	// Render the other artifacts
 	texSelect(&gdl, &g_TexLightGlareConfigs[1], 4, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -2675,14 +2727,14 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 		f32 f14;
 		f32 tmp;
 
-		if (arg5 < TICKS(90)) {
-			if (arg5 < TICKS(30)) {
-				f2 = arg5 * (1.0f / TICKS(30.0f));
+		if (flaretimer240 < TICKS(90)) {
+			if (flaretimer240 < TICKS(30)) {
+				f2 = flaretimer240 * (1.0f / TICKS(30.0f));
 			} else {
 				f2 = 1.0f;
 			}
 		} else {
-			f2 = (TICKS(180.0f) - (arg5 - TICKS(90))) * (1.0f / TICKS(180.0f)) * 0.5f;
+			f2 = (TICKS(180.0f) - (flaretimer240 - TICKS(90))) * (1.0f / TICKS(180.0f)) * 0.5f;
 
 			if (f2 < 0.0f) {
 				f2 =  0.0f;
@@ -2691,8 +2743,8 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 			f2 += 0.5f;
 		}
 
-		f12 = x - sp144[i] * sp128;
-		f14 = y - sp144[i] * sp124;
+		f12 = x - sp144[i] * xdist;
+		f14 = y - sp144[i] * ydist;
 
 		tmp = sp15c[i];
 
@@ -2700,7 +2752,7 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 				(colours[i] >> 24) & 0xff,
 				(colours[i] >> 16) & 0xff,
 				(colours[i] >> 8) & 0xff,
-				(s32) ((colours[i] & 0xff) * (arg6 * f2)));
+				(s32) ((colours[i] & 0xff) * (alphafrac * f2)));
 
 		sp17c[0] = f12;
 		sp17c[1] = f14;
@@ -2711,10 +2763,11 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 		func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[1].width, g_TexLightGlareConfigs[1].height, 0, 0, 0, 0, 0, 1);
 	}
 
-	sp128 = viGetViewWidth() / 2.0f - x;
-	sp124 = viGetViewHeight() / 2.0f - y;
+	// Check if the source is close to the center of the screen and create the bloom effect if so
+	xdist = viGetViewWidth() / 2.0f - x;
+	ydist = viGetViewHeight() / 2.0f - y;
 
-	f12 = (40.0f - sqrtf(sp128 * sp128 + sp124 * sp124)) * 0.0125f;
+	f12 = (40.0f - sqrtf(xdist * xdist + ydist * ydist)) * 0.0125f;
 
 	if (f12 < 0.0f) {
 		f12 = 0.0f;
@@ -2722,12 +2775,12 @@ Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
 
 	f12 += 0.1f;
 
-	if (arg5 <= g_Vars.lvupdate240) {
+	if (flaretimer240 <= g_Vars.lvupdate240) {
 		f12 = 0.0f;
 	}
 
 	if (f12 > 0.0f) {
-		sky0f127334(arg6 * f12 * 255.0f, arg6 * f12 * 255.0f, arg6 * f12 * 255.0f);
+		skySetOverexposure(alphafrac * f12 * 255.0f, alphafrac * f12 * 255.0f, alphafrac * f12 * 255.0f);
 	}
 
 	gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -2742,10 +2795,7 @@ struct coord g_TeleportToPos = {0, 0, 0};
 struct coord g_TeleportToUp = {0, 0, 1};
 struct coord g_TeleportToLook = {0, 1, 0};
 
-/**
- * Render a sun and its artifacts if on screen.
- */
-Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
+Gfx *skyRenderTeleportFlare(Gfx *gdl, f32 x, f32 y, f32 z, f32 size, f32 intensityfrac)
 {
 	struct coord sp64;
 
@@ -2773,7 +2823,7 @@ Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
 
 		if (xpos >= viewleft && xpos < viewleft + viewwidth
 				&& ypos >= viewtop && ypos < viewtop + viewheight) {
-			gdl = sky0f126384(gdl, xpos, ypos, arg5, arg4, TICKS(90), 1.0f);
+			gdl = skyRenderFlare(gdl, xpos, ypos, intensityfrac, size, TICKS(90), 1.0f);
 		}
 	}
 
@@ -2783,11 +2833,11 @@ Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
 /**
  * Render lens flares during teleport.
  */
-Gfx *sky0f126de8(Gfx *gdl)
+Gfx *skyRenderTeleportFlares(Gfx *gdl)
 {
 	f32 sp154 = g_20SecIntervalFrac * M_BADTAU;
 	s32 i;
-	f32 f20 = 0.0f;
+	f32 sizefrac = 0.0f;
 	f32 f20_2;
 	f32 f22;
 	f32 f22_3;
@@ -2796,29 +2846,29 @@ Gfx *sky0f126de8(Gfx *gdl)
 	f32 spd0[4];
 	Mtxf mtx;
 	f32 f24;
-	f32 f30;
+	f32 intensityfrac;
 
 	if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_PREENTER) {
-		f20 = g_Vars.currentplayer->teleporttime / 24.0f * 0.33f;
+		sizefrac = g_Vars.currentplayer->teleporttime / 24.0f * 0.33f;
 	} else if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_ENTERING) {
-		f20 = g_Vars.currentplayer->teleporttime / 48.0f * 0.66f + 0.33f;
+		sizefrac = g_Vars.currentplayer->teleporttime / 48.0f * 0.66f + 0.33f;
 	}
 
-	f30 = f20 * 6.0f;
-	f22 = f20 * 1.3f;
+	intensityfrac = sizefrac * 6.0f;
+	f22 = sizefrac * 1.3f;
 
 	if (f22 > 1.0f) {
 		f22 = 1.0f;
 	}
 
-	if (f30 > 1.0f) {
-		f30 = 1.0f;
+	if (intensityfrac > 1.0f) {
+		intensityfrac = 1.0f;
 	}
 
-	f20 *= 1.7f;
+	sizefrac *= 1.7f;
 
-	if (f20 > 1.0f) {
-		f20 = 1.0f;
+	if (sizefrac > 1.0f) {
+		sizefrac = 1.0f;
 	}
 
 	padUnpack(g_Vars.currentplayer->teleportpad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP, &pad);
@@ -2856,7 +2906,7 @@ Gfx *sky0f126de8(Gfx *gdl)
 		spe0.y += g_TeleportToPos.y;
 		spe0.z += g_TeleportToPos.z;
 
-		gdl = sky0f126c3c(gdl, spe0.x, spe0.y, spe0.z, f20 * 200, f30);
+		gdl = skyRenderTeleportFlare(gdl, spe0.x, spe0.y, spe0.z, sizefrac * 200, intensityfrac);
 	}
 
 	return gdl;
@@ -2873,7 +2923,7 @@ Gfx *skyRenderArtifacts(Gfx *gdl)
 
 	if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_PREENTER
 			|| g_Vars.currentplayer->teleportstate == TELEPORTSTATE_ENTERING) {
-		gdl = sky0f126de8(gdl);
+		gdl = skyRenderTeleportFlares(gdl);
 	}
 
 	if (env->numsuns <= 0 || !g_ZbufPtr1 || g_Vars.mplayerisrunning) {
@@ -2884,11 +2934,11 @@ Gfx *skyRenderArtifacts(Gfx *gdl)
 
 	for (i = 0; i < env->numsuns; i++) {
 		if (sun->lens_flare && g_SunPositions[i].z > 1) {
-			struct artifact *artifact = schedGetFrontArtifacts() + i * 8;
-			f32 value = sky0f125a1c(artifact);
+			struct artifact *artifacts = schedGetFrontArtifacts() + i * 8;
+			f32 intensityfrac = skyGetArtifactGroupIntensityFrac(artifacts);
 
-			if (value > 0.0f) {
-				gdl = sky0f126384(gdl, g_SunScreenXPositions[i], g_SunScreenYPositions[i], value, sun->orb_size, g_SunFlareTimers240[i], g_SunAlphaFracs[i]);
+			if (intensityfrac > 0.0f) {
+				gdl = skyRenderFlare(gdl, g_SunScreenXPositions[i], g_SunScreenYPositions[i], intensityfrac, sun->orb_size, g_SunFlareTimers240[i], g_SunAlphaFracs[i]);
 			}
 		}
 
@@ -2898,65 +2948,69 @@ Gfx *skyRenderArtifacts(Gfx *gdl)
 	return gdl;
 }
 
-void sky0f127334(s32 arg0, s32 arg1, s32 arg2)
+void skySetOverexposure(s32 r, s32 g, s32 b)
 {
-	g_Vars.currentplayer->unk1c28 = sqrtf(g_Vars.currentplayer->unk1c28 * g_Vars.currentplayer->unk1c28 + arg0 * arg0);
-	g_Vars.currentplayer->unk1c2c = sqrtf(g_Vars.currentplayer->unk1c2c * g_Vars.currentplayer->unk1c2c + arg1 * arg1);
-	g_Vars.currentplayer->unk1c30 = sqrtf(g_Vars.currentplayer->unk1c30 * g_Vars.currentplayer->unk1c30 + arg2 * arg2);
+	g_Vars.currentplayer->overexposurered = sqrtf(g_Vars.currentplayer->overexposurered * g_Vars.currentplayer->overexposurered + r * r);
+	g_Vars.currentplayer->overexposuregreen = sqrtf(g_Vars.currentplayer->overexposuregreen * g_Vars.currentplayer->overexposuregreen + g * g);
+	g_Vars.currentplayer->overexposureblue = sqrtf(g_Vars.currentplayer->overexposureblue * g_Vars.currentplayer->overexposureblue + b * b);
 
-	if (g_Vars.currentplayer->unk1c28 > 0xcc) {
-		g_Vars.currentplayer->unk1c28 = 0xcc;
+	if (g_Vars.currentplayer->overexposurered > 0xcc) {
+		g_Vars.currentplayer->overexposurered = 0xcc;
 	}
 
-	if (g_Vars.currentplayer->unk1c2c > 0xcc) {
-		g_Vars.currentplayer->unk1c2c = 0xcc;
+	if (g_Vars.currentplayer->overexposuregreen > 0xcc) {
+		g_Vars.currentplayer->overexposuregreen = 0xcc;
 	}
 
-	if (g_Vars.currentplayer->unk1c30 > 0xcc) {
-		g_Vars.currentplayer->unk1c30 = 0xcc;
+	if (g_Vars.currentplayer->overexposureblue > 0xcc) {
+		g_Vars.currentplayer->overexposureblue = 0xcc;
 	}
 }
 
-s32 sky0f127490(s32 arg0, s32 arg1)
+s32 skyCalculateOverexposureComponent(s32 old, s32 new)
 {
-	if (arg1 >= arg0) {
-		if (arg1 - arg0 > 8) {
-			return arg0 + 8;
+	if (new >= old) {
+		if (new - old > 8) {
+			return old + 8;
+		} else {
+			return new;
 		}
-
-		return arg1;
+	} else {
+		if (old - new > 8) {
+			return old - 8;
+		} else {
+			return new;
+		}
 	}
-
-	if (arg0 - arg1 > 8) {
-		return arg0 - 8;
-	}
-
-	return arg1;
 }
 
-Gfx *sky0f1274d8(Gfx *gdl)
+/**
+ * Overexposure is used when the player looks at the sun, and when night vision
+ * is overloaded. An almost-transparent rectangle is drawn across the viewport.
+ */
+Gfx *skyRenderOverexposure(Gfx *gdl)
 {
 	s32 value;
 	u32 stack;
 
-	g_Vars.currentplayer->unk1c28 = sky0f127490(g_Vars.currentplayer->unk1c34, g_Vars.currentplayer->unk1c28);
-	g_Vars.currentplayer->unk1c2c = sky0f127490(g_Vars.currentplayer->unk1c38, g_Vars.currentplayer->unk1c2c);
-	g_Vars.currentplayer->unk1c30 = sky0f127490(g_Vars.currentplayer->unk1c3c, g_Vars.currentplayer->unk1c30);
+	g_Vars.currentplayer->overexposurered = skyCalculateOverexposureComponent(g_Vars.currentplayer->prevoverexposurered, g_Vars.currentplayer->overexposurered);
+	g_Vars.currentplayer->overexposuregreen = skyCalculateOverexposureComponent(g_Vars.currentplayer->prevoverexposuregreen, g_Vars.currentplayer->overexposuregreen);
+	g_Vars.currentplayer->overexposureblue = skyCalculateOverexposureComponent(g_Vars.currentplayer->prevoverexposureblue, g_Vars.currentplayer->overexposureblue);
 
-	value = (g_Vars.currentplayer->unk1c28 > g_Vars.currentplayer->unk1c2c && g_Vars.currentplayer->unk1c28 > g_Vars.currentplayer->unk1c30)
-		? g_Vars.currentplayer->unk1c28
-		: g_Vars.currentplayer->unk1c2c > g_Vars.currentplayer->unk1c30
-		? g_Vars.currentplayer->unk1c2c
-		: g_Vars.currentplayer->unk1c30;
+	value = (g_Vars.currentplayer->overexposurered > g_Vars.currentplayer->overexposuregreen && g_Vars.currentplayer->overexposurered > g_Vars.currentplayer->overexposureblue)
+		? g_Vars.currentplayer->overexposurered
+		: g_Vars.currentplayer->overexposuregreen > g_Vars.currentplayer->overexposureblue
+		? g_Vars.currentplayer->overexposuregreen
+		: g_Vars.currentplayer->overexposureblue;
 
 	if (!g_InCutscene && EYESPYINACTIVE() && value > 0) {
-		f32 r = g_Vars.currentplayer->unk1c28 * (255.0f / value);
-		f32 g = g_Vars.currentplayer->unk1c2c * (255.0f / value);
-		f32 b = g_Vars.currentplayer->unk1c30 * (255.0f / value);
+		f32 r = g_Vars.currentplayer->overexposurered * (255.0f / value);
+		f32 g = g_Vars.currentplayer->overexposuregreen * (255.0f / value);
+		f32 b = g_Vars.currentplayer->overexposureblue * (255.0f / value);
 
-		f32 a = (g_Vars.currentplayer->unk1c28
-			+ g_Vars.currentplayer->unk1c2c
-			+ g_Vars.currentplayer->unk1c30) * (1.0f / 3.0f);
+		f32 a = (g_Vars.currentplayer->overexposurered
+			+ g_Vars.currentplayer->overexposuregreen
+			+ g_Vars.currentplayer->overexposureblue) * (1.0f / 3.0f);
 
 		gDPSetTexturePersp(gdl++, G_TP_NONE);
 		gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -2987,12 +3041,12 @@ Gfx *sky0f1274d8(Gfx *gdl)
 	gDPSetColorDither(gdl++, G_CD_BAYER);
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 
-	g_Vars.currentplayer->unk1c34 = g_Vars.currentplayer->unk1c28;
-	g_Vars.currentplayer->unk1c38 = g_Vars.currentplayer->unk1c2c;
-	g_Vars.currentplayer->unk1c3c = g_Vars.currentplayer->unk1c30;
-	g_Vars.currentplayer->unk1c28 = 0;
-	g_Vars.currentplayer->unk1c2c = 0;
-	g_Vars.currentplayer->unk1c30 = 0;
+	g_Vars.currentplayer->prevoverexposurered = g_Vars.currentplayer->overexposurered;
+	g_Vars.currentplayer->prevoverexposuregreen = g_Vars.currentplayer->overexposuregreen;
+	g_Vars.currentplayer->prevoverexposureblue = g_Vars.currentplayer->overexposureblue;
+	g_Vars.currentplayer->overexposurered = 0;
+	g_Vars.currentplayer->overexposuregreen = 0;
+	g_Vars.currentplayer->overexposureblue = 0;
 
 	return gdl;
 }

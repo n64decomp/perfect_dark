@@ -796,12 +796,12 @@ void playerLoadDefaults(void)
 	g_Vars.currentplayer->usinggoggles = false;
 	g_Vars.currentplayer->nvhum = NULL;
 	g_Vars.currentplayer->nvoverload = NULL;
-	g_Vars.currentplayer->unk1c28 = 0;
-	g_Vars.currentplayer->unk1c2c = 0;
-	g_Vars.currentplayer->unk1c30 = 0;
-	g_Vars.currentplayer->unk1c34 = 0;
-	g_Vars.currentplayer->unk1c38 = 0;
-	g_Vars.currentplayer->unk1c3c = 0;
+	g_Vars.currentplayer->overexposurered = 0;
+	g_Vars.currentplayer->overexposuregreen = 0;
+	g_Vars.currentplayer->overexposureblue = 0;
+	g_Vars.currentplayer->prevoverexposurered = 0;
+	g_Vars.currentplayer->prevoverexposuregreen = 0;
+	g_Vars.currentplayer->prevoverexposureblue = 0;
 }
 
 bool playerSpawnAnti(struct chrdata *hostchr, bool force)

@@ -2792,12 +2792,12 @@ struct player {
 	/*0x1c1c*/ bool usinggoggles; // using night vision or IR scanner
 	/*0x1c20*/ struct sndstate *nvhum;
 	/*0x1c24*/ struct sndstate *nvoverload;
-	/*0x1c28*/ s32 unk1c28;
-	/*0x1c2c*/ s32 unk1c2c;
-	/*0x1c30*/ s32 unk1c30;
-	/*0x1c34*/ s32 unk1c34;
-	/*0x1c38*/ s32 unk1c38;
-	/*0x1c3c*/ s32 unk1c3c;
+	/*0x1c28*/ s32 overexposurered;
+	/*0x1c2c*/ s32 overexposuregreen;
+	/*0x1c30*/ s32 overexposureblue;
+	/*0x1c34*/ s32 prevoverexposurered;
+	/*0x1c38*/ s32 prevoverexposuregreen;
+	/*0x1c3c*/ s32 prevoverexposureblue;
 	/*0x1c40*/ u32 joybutinhibit;
 	/*0x1c44*/ struct coord bondextrapos;
 	/*0x1c50*/ u8 menuisactive : 1;
@@ -6316,19 +6316,19 @@ struct texcacheitem {
 	u8 heights[7];
 };
 
-struct skything18 {
-	/*0x00*/ f32 unk00;
-	/*0x04*/ f32 unk04;
-	/*0x08*/ f32 unk08;
-	/*0x0c*/ f32 unk0c;
-	/*0x10*/ f32 unk10;
+struct skyvtx3d {
+	/*0x00*/ f32 x;
+	/*0x04*/ f32 y;
+	/*0x08*/ f32 z;
+	/*0x0c*/ f32 s;
+	/*0x10*/ f32 t;
 	/*0x14*/ u8 r;
 	/*0x15*/ u8 g;
 	/*0x16*/ u8 b;
 	/*0x17*/ u8 a;
 };
 
-struct skything38 {
+struct skyvtx2d {
 	/*0x00*/ f32 unk00;
 	/*0x04*/ f32 unk04;
 	/*0x08*/ f32 unk08;
@@ -6337,10 +6337,10 @@ struct skything38 {
 	/*0x14*/ f32 g;
 	/*0x18*/ f32 b;
 	/*0x1c*/ f32 a;
-	/*0x20*/ f32 unk20;
-	/*0x24*/ f32 unk24;
-	/*0x28*/ f32 unk28;
-	/*0x2c*/ f32 unk2c;
+	/*0x20*/ f32 s;
+	/*0x24*/ f32 t;
+	/*0x28*/ f32 x;
+	/*0x2c*/ f32 y;
 	/*0x30*/ f32 unk30;
 	/*0x34*/ f32 unk34;
 };

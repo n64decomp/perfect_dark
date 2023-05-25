@@ -1965,7 +1965,7 @@ Gfx *bviewDrawNvLens(Gfx *gdl)
 	brightness = roomGetFinalBrightness(g_Vars.currentplayer->prop->rooms[0]);
 
 	if (brightness > 128) {
-		sky0f127334(brightness, brightness, brightness);
+		skySetOverexposure(brightness, brightness, brightness);
 	}
 
 	if (g_Menus[g_Vars.currentplayerstats->mpindex].curdialog == NULL) {

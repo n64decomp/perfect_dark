@@ -1632,7 +1632,7 @@ Gfx *lvRender(Gfx *gdl)
 #endif
 				}
 
-				gdl = sky0f1274d8(gdl);
+				gdl = skyRenderOverexposure(gdl);
 				gdl = amRender(gdl);
 				mtx00016748(1);
 

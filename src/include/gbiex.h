@@ -121,7 +121,7 @@
 #define	gDPSetFogColorViaWord(pkt, rgba) gDPSetColor(pkt, G_SETFOGCOLOR, rgba)
 
 /**
- * gDPFillRectangle - a wrapper around gDPFillRectangle which applies
+ * gDPFillRectangleScaled - a wrapper around gDPFillRectangle which applies
  * g_ScaleX to the X coordinates.
  *
  * g_ScaleX is normally 1, but 2 when using hi-res.
