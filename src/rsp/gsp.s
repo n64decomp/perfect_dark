@@ -1,5 +1,43 @@
 .rsp
 
+// OSTask placed at end of DMEM (IMEM_START - sizeof(OSTask))
+.definelabel OSTask_addr, 0xfc0
+
+// OSTask data member offsets
+OSTask_flags            equ 0x04
+OSTask_ucode            equ 0x10
+OSTask_dram_stack       equ 0x20
+OSTask_output_buff      equ 0x28
+OSTask_output_buff_size equ 0x2c
+OSTask_data_ptr         equ 0x30
+OSTask_yield_data_ptr   equ 0x38
+
+// OSTask flags
+OS_TASK_YIELDED         equ 0x0001
+
+// Stack pointer offsets
+sp_n04               equ -0x04
+sp_02                equ 0x02
+sp_geometrymode      equ 0x04
+sp_06                equ 0x06
+sp_07                equ 0x07
+sp_08                equ 0x08
+sp_0c                equ 0x0c
+sp_10                equ 0x10
+sp_11                equ 0x11
+sp_12                equ 0x12
+sp_14                equ 0x14
+sp_18                equ 0x18
+sp_1c                equ 0x1c
+sp_dram_stack        equ 0x20
+sp_dram_stack_curpos equ 0x24
+sp_output_buff       equ 0x40
+sp_output_buff_size  equ 0x44
+sp_dl_nestlevel      equ 0x4a
+sp_dram_stack_end    equ 0x4c
+sp_90                equ (addr01a0 - stack)
+sp_f8                equ (lightcol + 0x18 - stack)
+
 // RDP status read flags
 DPC_STATUS_XBUS_DMA     equ 0x0001
 DPC_STATUS_DMA_BUSY     equ 0x0100
@@ -7,6 +45,15 @@ DPC_STATUS_START_VALID  equ 0x0400
 
 // RDP status write flags
 DPC_STATUS_CLR_XBUS     equ 0x0001
+
+SP_DRAM_STACK_SIZE      equ 0x280
+
+SP_STATUS_YIELD         equ 0x0080 /* SIG0 */
+SP_STATUS_SIG5          equ 0x1000
+SP_STATUS_SIG7          equ 0x4000
+
+DMA_READ                equ 0
+DMA_WRITE               equ 1
 
 .macro jumpTableEntry, addr
     .dh addr & 0xffff
@@ -32,176 +79,369 @@ OverlayEntry orga(Overlay3), orga(Overlay3End), Overlay3
 Overlay4Info:
 OverlayEntry orga(Overlay4), orga(Overlay4End), Overlay4
 
+addr0028:
 /* 0028 */ .word 0x0ffaf006, 0x7fff0000
+
+addr0030:
 /* 0030 */ .word 0x00000001, 0x0002ffff, 0x40000004, 0x06330200
+
+addr0040:
 /* 0040 */ .word 0x7ffffff8, 0x00080040, 0x00208000, 0x01cccccc
+
+addr0050:
 /* 0050 */ .word 0x0001ffff, 0x00010001, 0x0001ffff, 0x00010001
+
+addr0060:
 /* 0060 */ .word 0x00020002, 0x00020002, 0x00020002, 0x00020002
-/* 0070 */ .word 0x00010000, 0x00000001, 0x00000001, 0x00000001
-/* 0080 */ .word 0x00010000, 0x0000ffff, 0x00000001, 0x0000ffff
+
+clip:
+.area 0x20, 0
+    addr0070:
+    /* 0070 */ .word 0x00010000
+    .dh 0x0000
+
+    addr0076:
+    .dh 0x0001
+
+    .word 0x00000001, 0x00000001
+
+    /* 0080 */ .word 0x00010000, 0x0000ffff, 0x00000001, 0x0000ffff
+.endarea
+
 /* 0090 */ .word 0x00000000, 0x0001ffff, 0x00000000, 0x00000001
+
+addr00a0:
 /* 00a0 */ .dh load_lighting
 /* 00a2 */ .dh 0x7fff
-/* 00a4 */ .word 0x571d3a0c, 0x00010002, 0x01000200
-/* 00b0 */ .word 0x40000040
+/* 00a4 */ .dh 0x571d
+
+addr00a6:
+/* 00a6 */ .dh 0x3a0c
+/* 00a6 */ .dh 0x0001
+/* 00a6 */ .dh 0x0002
+/* 00a6 */ .dh 0x0100
+/* 00a6 */ .dh 0x0200
+/* 00b0 */ .dh 0x4000
+.dh 0x0040
+
+addr00b4:
 /* 00b4 */ .dh 0x0000
-/* 00b6 */ .dh overlay4_entry
+
+ptr_yield_with_dma_wait:
+/* 00b6 */ .dh yield_with_dma_wait
+
+mask_00ffffff:
 /* 00b8 */ .word 0x00ffffff
 
 /* 00bc */
+master_dispatch_table:
 .dh dispatch_dma
+addr00be:
 .dh sp_noop
 .dh dispatch_imm
 .dh dispatch_rdp
 
 /* 00c4 */
-/* 0x00 */ .dh sp_noop
-/* 0x01 */ .dh dma_mtx
-/* 0x02 */ .dh sp_noop
-/* 0x03 */ .dh dma_movemem
-/* 0x04 */ .dh dma_vtx
-/* 0x05 */ .dh sp_noop
-/* 0x06 */ .dh dma_dl
-/* 0x07 */ .dh dma_col // new in PD
-/* 0x08 */ .dh sp_noop
-/* 0x09 */ .dh sp_noop
+dma_dispatch_table:
+/* cmd 00 */ .dh sp_noop
+/* cmd 01 */ .dh dma_mtx
+/* cmd 02 */ .dh sp_noop
+/* cmd 03 */ .dh dma_movemem
+/* cmd 04 */ .dh dma_vtx
+/* cmd 05 */ .dh sp_noop
+/* cmd 06 */ .dh dma_dl
+/* cmd 07 */ .dh dma_col // new in PD
+/* cmd 08 */ .dh sp_noop
 
-.align 4
+/* 00d6 */
+imm_dispatch_table:
+/* cmd b0 */ .dh sp_noop
+/* cmd b1 */ .dh imm_tri4 // new in PD
+/* cmd b2 */ .dh imm_rdphalf_cont
+/* cmd b3 */ .dh imm_rdphalf_2
+/* cmd b4 */ .dh imm_rdphalf_1
+/* cmd b5 */ .dh sp_noop
+/* cmd b6 */ .dh imm_cleargeometrymode
+/* cmd b7 */ .dh imm_setgeometrymode
+/* cmd b8 */ .dh imm_enddl
+/* cmd b9 */ .dh imm_setothermode_l
+/* cmd ba */ .dh imm_setothermode_h
+/* cmd bb */ .dh imm_texture
+/* cmd bc */ .dh imm_moveword
+/* cmd bd */ .dh sp_noop // imm_popmtx removed in PD
+/* cmd be */ .dh sp_noop // imm_culldl removed in PD
+/* cmd bf */ .dh imm_tri1
 
-/* 00d8 */
-/* 0xb1 */ .dh imm_tri4 // new in PD
-/* 0xb2 */ .dh imm_rdphalf_cont
-/* 0xb3 */ .dh imm_rdphalf_2
-/* 0xb4 */ .dh imm_rdphalf_1
-/* 0xb5 */ .dh sp_noop
-/* 0xb6 */ .dh imm_cleargeometrymode
-/* 0xb7 */ .dh imm_setgeometrymode
-/* 0xb8 */ .dh imm_enddl
-/* 0xb9 */ .dh imm_setothermode_l
-/* 0xba */ .dh imm_setothermode_h
-/* 0xbb */ .dh imm_texture
-/* 0xbc */ .dh imm_moveword
-/* 0xbd */ .dh sp_noop // imm_popmtx removed in PD
-/* 0xbe */ .dh sp_noop // imm_culldl removed in PD
-/* 0xbf */ .dh imm_tri1
-
+/* 00f6 */
+addr00f6_table:
 .dh found_in
+
+addr00f8:
 .dh found_out
 .dh found_first_in
 .dh found_first_out
+
+addr00fe:
 .dh clip_draw_loop
+
+addr0100:
 .dh perform_clip
+
+addr0102:
 .dh next_clip
+
+addr0104:
 .dh dma_wait_dl
 
-.align 4
+addr0106:
+.dh 0x0000
 
+yield_data_ptr:
 /* 0108 */ .word 0x00000000, 0x00000000
-/* 0110 */ .word 0x0000ffff, 0x00000000, 0xef080cff, 0x00000000
-/* 0120 */ .word 0x00000000, 0x00000000, 0x00000000, 0x80000040
-/* 0130 */ .word 0x00000000, 0x00000000, 0x40004000, 0x00000000
-/* 0140 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
-/* 0150 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
-/* 0160 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
-/* 0170 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
-/* 0180 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
-/* 0190 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
+
+stack:
+.area 0x50, 0
+    perspnorm:
+    /* 0110 */ .word 0x0000ffff, 0x00000000, 0xef080cff, 0x00000000
+    /* 0120 */ .word 0x00000000, 0x00000000, 0x00000000
+
+    numlights:
+    .word 0x80000040
+    /* 0130 */ .word 0x00000000, 0x00000000
+
+    txtatt:
+    .word 0x40004000
+
+    .word 0x00000000
+    /* 0140 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
+    /* 0150 */ .word 0x00000000, 0x00000000
+
+    addr0158:
+    .word 0x00000000, 0x00000000
+.endarea
+
+segment_table:
+/* 0160 */ .fill 16 * 4, 0
+
+addr01a0:
 /* 01a0 */ .word 0x80000000, 0x80000000, 0x00000000, 0x00000000
+
+lookaty:
 /* 01b0 */ .word 0x00800000, 0x00800000, 0x7f000000, 0x00000000
 /* 01c0 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
+
+lookatx:
 /* 01d0 */ .word 0x00000000, 0x00000000, 0x007f0000, 0x00000000
 /* 01e0 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
+
+lightcol:
+light0:
 /* 01f0 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
 /* 0200 */ .word 0x00000000, 0x00000000, 0xe0011fff, 0x00040000
-/* 0210 */ .word 0xff000000, 0xff000000, 0x00000000, 0x00000000
-/* 0220 */ .word 0x000a141e, 0x28323c46, 0x505a646e, 0x78828c96
-/* 0230 */ .word 0x026001b0, 0x01d001f0, 0x021001f0, 0x01f001f0
-/* 0240 */ .word 0x01f001f0, 0x01f00138, 0x03300340, 0x03500320
-/* 0250 */ .word 0x012c0070, 0x01600270, 0x01f00360, 0x01100000
-/* 0260 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
-/* 0270 */ .word 0x01000000, 0x00ff0000
 
-/* 0278 */ .fill (0x800 - orga()), 0
+light1:
+/* 0210 */ .word 0xff000000, 0xff000000, 0x00000000, 0x00000000
+
+tens:
+/* 0220 */ .byte 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150
+
+/* 0230 */
+movemem_table:
+.dh viewport
+.dh lookaty
+.dh lookatx
+.dh light0
+.dh light1
+.dh light0
+.dh light0
+.dh light0
+.dh light0
+.dh light0
+.dh light0
+.dh txtatt
+.dh mtx320 + 0x10
+.dh mtx320 + 0x20
+.dh mtx320 + 0x30
+
+/* 024e */
+moveword_table:
+.dh mtx320
+.dh numlights
+.dh clip
+.dh segment_table
+.dh fog
+.dh lightcol
+.dh vtx_buffer
+.dh perspnorm
+
+.dh 0x0000
+
+viewport:
+/* 0260 */ .word 0x00000000, 0x00000000, 0x00000000, 0x00000000
+
+fog:
+/* 0270 */ .word 0x01000000
+
+/* 0274 */ .dh 0x00ff
+
+dl_call_stack:
+/* 0276 */ .fill 10 * 4, 0
+.align 4
+
+mtx2a0:
+/* 02a0 */ .fill 0x40, 0
+
+mtx2e0:
+/* 02e0 */ .fill 0x40, 0
+
+mtx320:
+/* 0320 */ .fill 0x40, 0
+
+vtx_buffer:
+/* 0360 */ .fill 16 * 0x28, 0
+
+col_buffer:
+/* 05e0 */ .fill 64 * 4, 0
+
+dl_buffer:
+/* 06e0 */ .fill (0x800 - orga()), 0
+
+/* 0820 */ tmp_buffer     equ dl_buffer + 40 * 8
+/* 0920 */ tri_buffer     equ tmp_buffer + 0x100
+/* 0a20 */ out_buffer     equ tri_buffer + 0x100
+/* 0e20 */ tridata_buffer equ out_buffer + 0x400
+/* 0e70 */ end            equ tridata_buffer + 0x50
+
+// These registers are saved when yielding, and there's no tris
+// during that time so they are written into tri_buffer
+savedgp  equ tri_buffer + 0x04
+savedk1  equ tri_buffer + 0x08
+savedk0  equ tri_buffer + 0x0c
+saveds7  equ tri_buffer + 0x10
 
 .close
 
 .create CODE_FILE, 0x04001080
 
 Overlay0:
-/* 04001080 0000 090005ee */  j     gsp_040017b8
-/* 04001084 0004 201d0110 */  addi  sp, r0, 0x110
+/* 04001080 0000 090005ee */  j     read_task1
+/* 04001084 0004 201d0110 */  addi  sp, r0, stack
+
+/**
+ * Overlay 1 flows into here.
+ */
 /* 04001088 0008 0d000447 */  jal   segmented_to_physical
 /* 0400108c 000c 03009820 */  add   s3, t8, r0
 /* 04001090 0010 0016a020 */  add   s4, r0, s6
 /* 04001094 0014 0d00044f */  jal   dma_read_write
-/* 04001098 0018 20110000 */  addi  s1, r0, 0x0
-.L0400109c:
-/* 0400109c 001c 842200bc */  lh    v0, 0xbc(at)
+/* 04001098 0018 20110000 */  addi  s1, r0, DMA_READ
+
+/**
+ * Expects at = 0, 2, 4 or 6 for GBI types 0x00-0x3f, 0x40-0x7f, 0x80-0xbf, 0xc0-0xff respectively
+ * Expects k1 = pointer to *next* command
+ * Expects t9 = word 0
+ * Expects t8 = word 1
+ * Sets v0 = upper 9 bits of first word
+ */
+.execute_command:
+/* 0400109c 001c 842200bc */  lh    v0, master_dispatch_table(at)
 /* 040010a0 0020 00400008 */  jr    v0
 /* 040010a4 0024 001915c2 */  srl   v0, t9, 23
 
 sp_noop:
 /* 040010a8 0028 40022000 */  mfc0  v0, SP_STATUS
-/* 040010ac 002c 30420080 */  andi  v0, v0, 0x80
-/* 040010b0 0030 14400006 */  bne   v0, r0, .L040010cc
+/* 040010ac 002c 30420080 */  andi  v0, v0, SP_STATUS_YIELD
+/* 040010b0 0030 14400006 */  bne   v0, r0, .handle_noop_yield
 /* 040010b4 0034 84150026 */  lh    s5, 0x26(r0)
 
-gsp_040010b8:
-/* 040010b8 0038 1f80ffe9 */  bgtz  gp, .L04001060
+/**
+ * Load displaylist commands if needed, then execute the next one in line.
+ * Expects gp = size of unread comments in dl_buffer
+ */
+main_loop:
+/* 040010b8 0038 1f80ffe9 */  bgtz  gp, .parse_and_execute_command
 /* 040010bc 003c 00000000 */  nop
 /* 040010c0 0040 09000435 */  j     load_displaylist
-/* 040010c4 0044 841f0104 */  lh    ra, 0x104(r0)
+/* 040010c4 0044 841f0104 */  lh    ra, addr0104(r0)
 
-gsp_040010c8:
-/* 040010c8 0048 841500b6 */  lh    s5, 0xb6(r0)
-.L040010cc:
+/**
+ * Load overlay 4 and jump to it.
+ * This overlay enters an infinite loop of copying DMEM to DRAM.
+ */
+handle_enddl_yield:
+/* 040010c8 0048 841500b6 */  lh    s5, ptr_yield_with_dma_wait(r0)
+.handle_noop_yield:
 /* 040010cc 004c 0900043f */  j     load_overlay
-/* 040010d0 0050 341e0020 */  ori   s8, r0, 0x20
+/* 040010d0 0050 341e0020 */  li    s8, Overlay4Info
 
+/**
+ * Fetch 40 GBI commands from DRAM and fill the dl_buffer.
+ * Return execution to the caller.
+ * Expects k0 = DRAM address to load from
+ * Returns k1 = pointer to start of dl_buffer in DMEM
+ * Returns gp = size remaining in buffer
+ */
 load_displaylist:
 /* 040010d4 0054 201c0140 */  addi  gp, r0, 0x140
 /* 040010d8 0058 001fa820 */  add   s5, r0, ra
-/* 040010dc 005c 201406e0 */  addi  s4, r0, 0x6e0
+/* 040010dc 005c 201406e0 */  addi  s4, r0, dl_buffer
 /* 040010e0 0060 001a9820 */  add   s3, r0, k0
 /* 040010e4 0064 2012013f */  addi  s2, r0, 0x13f
 /* 040010e8 0068 0d00044f */  jal   dma_read_write
-/* 040010ec 006c 20110000 */  addi  s1, r0, 0x0
+/* 040010ec 006c 20110000 */  addi  s1, r0, DMA_READ
 /* 040010f0 0070 02a00008 */  jr    s5
-/* 040010f4 0074 201b06e0 */  addi  k1, r0, 0x6e0
+/* 040010f4 0074 201b06e0 */  addi  k1, r0, dl_buffer
 
-load_overlay_fcn:
+/**
+ * Load an overlay and return to the caller's return address.
+ */
+load_overlay_and_continue:
 /* 040010f8 0078 001fa820 */  add   s5, r0, ra
 
+/**
+ * Expects s5: Address to jump to once loaded
+ * Expects s8: Pointer to entry in overlay table
+ */
 load_overlay:
 /* 040010fc 007c 8fd30000 */  lw    s3, 0x0(s8)
 /* 04001100 0080 87d20004 */  lh    s2, 0x4(s8)
 /* 04001104 0084 87d40006 */  lh    s4, 0x6(s8)
 /* 04001108 0088 0d00044f */  jal   dma_read_write
-/* 0400110c 008c 20110000 */  addi  s1, r0, 0x0
+/* 0400110c 008c 20110000 */  addi  s1, r0, DMA_READ
 /* 04001110 0090 0d000459 */  jal   dma_wait
 /* 04001114 0094 00000000 */  nop
 /* 04001118 0098 02a00008 */  jr    s5
 
+/**
+ * Expects s3: segmented address
+ * Returns s3: physical address
+ */
 segmented_to_physical:
-/* 0400111c 009c 8c0b00b8 */  lw    t3, 0xb8(r0)
+/* 0400111c 009c 8c0b00b8 */  lw    t3, mask_00ffffff(r0)
 /* 04001120 00a0 00136582 */  srl   t4, s3, 22
 /* 04001124 00a4 318c003c */  andi  t4, t4, 0x3c
 /* 04001128 00a8 026b9824 */  and   s3, s3, t3
 /* 0400112c 00ac 000c6820 */  add   t5, r0, t4
-/* 04001130 00b0 8dac0160 */  lw    t4, 0x160(t5)
+/* 04001130 00b0 8dac0160 */  lw    t4, segment_table(t5)
 /* 04001134 00b4 03e00008 */  jr    ra
 /* 04001138 00b8 026c9820 */  add   s3, s3, t4
 
+/**
+ * Expects s1: Operation: DMA_READ (0) or DMA_WRITE (1)
+ * Expects s2: Length to read/write
+ * Expects s3: DRAM address (main memory)
+ * Expects s4: DMEM address (SP memory)
+ */
 dma_read_write:
 /* 0400113c 00bc 400b2800 */  mfc0  t3, SP_DMA_FULL
 /* 04001140 00c0 1560fffe */  bne   t3, r0, dma_read_write
 /* 04001144 00c4 00000000 */  nop
 /* 04001148 00c8 40940000 */  mtc0  s4, SP_MEM_ADDR
-/* 0400114c 00cc 1e200003 */  bgtz  s1, .L0400115c
+/* 0400114c 00cc 1e200003 */  bgtz  s1, .dma_write
 /* 04001150 00d0 40930800 */  mtc0  s3, SP_DRAM_ADDR
 /* 04001154 00d4 03e00008 */  jr    ra
 /* 04001158 00d8 40921000 */  mtc0  s2, SP_RD_LEN
-.L0400115c:
+.dma_write:
 /* 0400115c 00dc 03e00008 */  jr    ra
 /* 04001160 00e0 40921800 */  mtc0  s2, SP_WR_LEN
 
@@ -212,12 +452,12 @@ dma_wait:
 /* 04001170 00f0 03e00008 */  jr    ra
 /* 04001174 00f4 00000000 */  nop
 
-gsp_04001178:
+write_to_output_buff:
 /* 04001178 00f8 001fa820 */  add   s5, r0, ra
-/* 0400117c 00fc 8fb30018 */  lw    s3, 0x18(sp)
-/* 04001180 0100 22f2f5e0 */  addi  s2, s7, 0xf5e0
-/* 04001184 0104 8fb70044 */  lw    s7, 0x44(sp)
-/* 04001188 0108 1a40001a */  blez  s2, .L040011f4
+/* 0400117c 00fc 8fb30018 */  lw    s3, sp_18(sp)
+/* 04001180 0100 22f2f5e0 */  addi  s2, s7, -(out_buffer)
+/* 04001184 0104 8fb70044 */  lw    s7, sp_output_buff_size(sp)
+/* 04001188 0108 1a40001a */  blez  s2, .nothing_to_write
 /* 0400118c 010c 0272a020 */  add   s4, s3, s2
 /* 04001190 0110 02f4a022 */  sub   s4, s7, s4
 /* 04001194 0114 06810008 */  bgez  s4, .L040011b8
@@ -227,7 +467,7 @@ gsp_04001178:
 /* 040011a0 0120 1680fffd */  bne   s4, r0, .L04001198
 .L040011a4:
 /* 040011a4 0124 40175000 */  mfc0  s7, DPC_CURRENT
-/* 040011a8 0128 8fb30040 */  lw    s3, 0x40(sp)
+/* 040011a8 0128 8fb30040 */  lw    s3, sp_output_buff(sp)
 /* 040011ac 012c 12f3fffd */  beq   s7, s3, .L040011a4
 /* 040011b0 0130 00000000 */  nop
 /* 040011b4 0134 40934000 */  mtc0  s3, DPC_START
@@ -242,19 +482,27 @@ gsp_04001178:
 .L040011d4:
 /* 040011d4 0154 0272b820 */  add   s7, s3, s2
 /* 040011d8 0158 2252ffff */  addi  s2, s2, -1
-/* 040011dc 015c 20140a20 */  addi  s4, r0, 0xa20
+/* 040011dc 015c 20140a20 */  addi  s4, r0, out_buffer
 /* 040011e0 0160 0d00044f */  jal   dma_read_write
-/* 040011e4 0164 20110001 */  addi  s1, r0, 0x1
+/* 040011e4 0164 20110001 */  addi  s1, r0, DMA_WRITE
 /* 040011e8 0168 0d000459 */  jal   dma_wait
-/* 040011ec 016c afb70018 */  sw    s7, 0x18(sp)
+/* 040011ec 016c afb70018 */  sw    s7, sp_18(sp)
 /* 040011f0 0170 40974800 */  mtc0  s7, DPC_END
-.L040011f4:
+.nothing_to_write:
 /* 040011f4 0174 02a00008 */  jr    s5
-/* 040011f8 0178 20170a20 */  addi  s7, r0, 0xa20
+/* 040011f8 0178 20170a20 */  addi  s7, r0, out_buffer
 
+/**
+ * Expects v0 = upper 9 bits of first word, shifted right to 0.
+ * By masking it with 0xfe, the 0x80 bit is dropped
+ * Eg. G_TRI4 has byte value 0xb1 (b1000000)
+ * v0 will be 0x162
+ * v0 & 0xfe = 0x62
+ * Hence subtracting 0x60 to calculate the correct offset in the dispatch table.
+ */
 dispatch_imm:
 /* 040011fc 017c 304200fe */  andi  v0, v0, 0xfe
-/* 04001200 0180 84420076 */  lh    v0, 0x76(v0)
+/* 04001200 0180 84420076 */  lh    v0, (imm_dispatch_table - 0x60)(v0)
 /* 04001204 0184 00400008 */  jr    v0
 /* 04001208 0188 9361ffff */  lbu   at, -1(k1)
 
@@ -271,10 +519,10 @@ imm_tri4:
 /* 04001230 01b0 239c0008 */  addi  gp, gp, 8
 /* 04001234 01b4 a7790002 */  sh    t9, 0x2(k1)
 /* 04001238 01b8 af780004 */  sw    t8, 0x4(k1)
-/* 0400123c 01bc 90210220 */  lbu   at, 0x220(at)
-/* 04001240 01c0 90420220 */  lbu   v0, 0x220(v0)
+/* 0400123c 01bc 90210220 */  lbu   at, tens(at)
+/* 04001240 01c0 90420220 */  lbu   v0, tens(v0)
 /* 04001244 01c4 09000496 */  j     .tri
-/* 04001248 01c8 90630220 */  lbu   v1, 0x220(v1)
+/* 04001248 01c8 90630220 */  lbu   v1, tens(v1)
 
 imm_tri1:
 /* 0400124c 01cc 9361fffd */  lbu   at, -3(k1)
@@ -285,40 +533,40 @@ imm_tri1:
 /* 04001258 01d8 00010880 */  sll   at, at, 2
 /* 0400125c 01dc 00021080 */  sll   v0, v0, 2
 /* 04001260 01e0 00031880 */  sll   v1, v1, 2
-/* 04001264 01e4 20210360 */  addi  at, at, 0x360
-/* 04001268 01e8 20420360 */  addi  v0, v0, 0x360
-/* 0400126c 01ec 20630360 */  addi  v1, v1, 0x360
-/* 04001270 01f0 ac010e20 */  sw    at, 0xe20(r0)
-/* 04001274 01f4 ac020e24 */  sw    v0, 0xe24(r0)
-/* 04001278 01f8 ac030e28 */  sw    v1, 0xe28(r0)
-/* 0400127c 01fc 09000670 */  j     gsp_040019c0
-/* 04001280 0200 841e00be */  lh    s8, 0xbe(r0)
+/* 04001264 01e4 20210360 */  addi  at, at, vtx_buffer
+/* 04001268 01e8 20420360 */  addi  v0, v0, vtx_buffer
+/* 0400126c 01ec 20630360 */  addi  v1, v1, vtx_buffer
+/* 04001270 01f0 ac010e20 */  sw    at, (tridata_buffer + 0)(r0)
+/* 04001274 01f4 ac020e24 */  sw    v0, (tridata_buffer + 4)(r0)
+/* 04001278 01f8 ac030e28 */  sw    v1, (tridata_buffer + 8)(r0)
+/* 0400127c 01fc 09000670 */  j     gsp_tri
+/* 04001280 0200 841e00be */  lh    s8, addr00be(r0)
 
 imm_moveword:
 /* 04001284 0204 9361fffb */  lbu   at, -5(k1)
 /* 04001288 0208 9762fff9 */  lhu   v0, -7(k1)
-/* 0400128c 020c 8425024e */  lh    a1, 0x24e(at)
+/* 0400128c 020c 8425024e */  lh    a1, moveword_table(at)
 /* 04001290 0210 00a22820 */  add   a1, a1, v0
 /* 04001294 0214 0900042a */  j     sp_noop
 /* 04001298 0218 acb80000 */  sw    t8, 0x0(a1)
 
 imm_texture:
-/* 0400129c 021c afb90010 */  sw    t9, 0x10(sp)
-/* 040012a0 0220 afb80014 */  sw    t8, 0x14(sp)
-/* 040012a4 0224 87a20006 */  lh    v0, 0x6(sp)
+/* 0400129c 021c afb90010 */  sw    t9, sp_10(sp)
+/* 040012a0 0220 afb80014 */  sw    t8, sp_14(sp)
+/* 040012a4 0224 87a20006 */  lh    v0, sp_06(sp)
 /* 040012a8 0228 3042fffd */  andi  v0, v0, 0xfffd
 /* 040012ac 022c 33230001 */  andi  v1, t9, 0x1
 /* 040012b0 0230 00031840 */  sll   v1, v1, 1
 /* 040012b4 0234 00431025 */  or    v0, v0, v1
 /* 040012b8 0238 0900042a */  j     sp_noop
-/* 040012bc 023c a7a20006 */  sh    v0, 0x6(sp)
+/* 040012bc 023c a7a20006 */  sh    v0, sp_06(sp)
 
 imm_setothermode_h:
 /* 040012c0 0240 090004b3 */  j     .setothermode
-/* 040012c4 0244 23a70008 */  addi  a3, sp, 0x8
+/* 040012c4 0244 23a70008 */  addi  a3, sp, sp_08
 
 imm_setothermode_l:
-/* 040012c8 0248 23a7000c */  addi  a3, sp, 12
+/* 040012c8 0248 23a7000c */  addi  a3, sp, sp_0c
 
 .setothermode:
 /* 040012cc 024c 8ce30000 */  lw    v1, 0x0(a3)
@@ -333,88 +581,104 @@ imm_setothermode_l:
 /* 040012f0 0270 00431024 */  and   v0, v0, v1
 /* 040012f4 0274 00581825 */  or    v1, v0, t8
 /* 040012f8 0278 ace30000 */  sw    v1, 0x0(a3)
-/* 040012fc 027c 8fb90008 */  lw    t9, 0x8(sp)
-/* 04001300 0280 090004e0 */  j     gsp_04001380
-/* 04001304 0284 8fb8000c */  lw    t8, 0xc(sp)
+/* 040012fc 027c 8fb90008 */  lw    t9, sp_08(sp)
+/* 04001300 0280 090004e0 */  j     dispatch_rdp_novirtaddr
+/* 04001304 0284 8fb8000c */  lw    t8, sp_0c(sp)
 
 imm_enddl:
-/* 04001308 0288 83a2004a */  lb    v0, 0x4a(sp)
+/* 04001308 0288 83a2004a */  lb    v0, sp_dl_nestlevel(sp)
 /* 0400130c 028c 2042fffc */  addi  v0, v0, -4
-/* 04001310 0290 0440ff6d */  bltz  v0, gsp_040010c8
-/* 04001314 0294 20430276 */  addi  v1, v0, 0x276
+/* 04001310 0290 0440ff6d */  bltz  v0, handle_enddl_yield
+/* 04001314 0294 20430276 */  addi  v1, v0, dl_call_stack
 /* 04001318 0298 8c7a0000 */  lw    k0, 0x0(v1)
-/* 0400131c 029c a3a2004a */  sb    v0, 0x4a(sp)
+/* 0400131c 029c a3a2004a */  sb    v0, sp_dl_nestlevel(sp)
 /* 04001320 02a0 0900042a */  j     sp_noop
 /* 04001324 02a4 201c0000 */  addi  gp, r0, 0x0
 
 imm_setgeometrymode:
-/* 04001328 02a8 8fa20004 */  lw    v0, 0x4(sp)
+/* 04001328 02a8 8fa20004 */  lw    v0, sp_geometrymode(sp)
 /* 0400132c 02ac 00581025 */  or    v0, v0, t8
 /* 04001330 02b0 0900042a */  j     sp_noop
-/* 04001334 02b4 afa20004 */  sw    v0, 0x4(sp)
+/* 04001334 02b4 afa20004 */  sw    v0, sp_geometrymode(sp)
 
 imm_cleargeometrymode:
-/* 04001338 02b8 8fa20004 */  lw    v0, 0x4(sp)
+/* 04001338 02b8 8fa20004 */  lw    v0, sp_geometrymode(sp)
 /* 0400133c 02bc 2003ffff */  addi  v1, r0, -1
 /* 04001340 02c0 00781826 */  xor   v1, v1, t8
 /* 04001344 02c4 00431024 */  and   v0, v0, v1
 /* 04001348 02c8 0900042a */  j     sp_noop
-/* 0400134c 02cc afa20004 */  sw    v0, 0x4(sp)
+/* 0400134c 02cc afa20004 */  sw    v0, sp_geometrymode(sp)
 
 imm_rdphalf_1:
-/* 04001350 02d0 0900042e */  j     gsp_040010b8
-/* 04001354 02d4 afb8fffc */  sw    t8, -4(sp)
+/* 04001350 02d0 0900042e */  j     main_loop
+/* 04001354 02d4 afb8fffc */  sw    t8, sp_n04(sp)
 
 imm_rdphalf_cont:
-/* 04001358 02d8 34020000 */  ori   v0, r0, 0x0
+/* 04001358 02d8 34020000 */  li    v0, 0
 
 imm_rdphalf_2:
-/* 0400135c 02dc 090004e0 */  j     gsp_04001380
-/* 04001360 02e0 8fb9fffc */  lw    t9, -4(sp)
+/* 0400135c 02dc 090004e0 */  j     dispatch_rdp_novirtaddr
+/* 04001360 02e0 8fb9fffc */  lw    t9, sp_n04(sp)
 
+/**
+ * Expects t9 = word 0
+ * Expects t8 = word 1
+ *
+ * The SETIMG commands (0xfd-0xff) have their segmented addresses converted here.
+ * The v0 + 0x18 operation is converting the negative commands into (mostly)
+ * positive ones.
+ *
+ * eg. 0xff (-1) + 3 + 0x18 = 26
+ * eg. 0xe4 (-28) + 3 + 0x18 = -1
+ */
 dispatch_rdp:
 /* 04001364 02e4 00191603 */  sra   v0, t9, 24
 /* 04001368 02e8 20420003 */  addi  v0, v0, 0x3
-/* 0400136c 02ec 04400004 */  bltz  v0, gsp_04001380
+/* 0400136c 02ec 04400004 */  bltz  v0, dispatch_rdp_novirtaddr
 /* 04001370 02f0 20420018 */  addi  v0, v0, 0x18
 /* 04001374 02f4 0d000447 */  jal   segmented_to_physical
 /* 04001378 02f8 03009820 */  add   s3, t8, r0
 /* 0400137c 02fc 0260c020 */  add   t8, s3, r0
 
-gsp_04001380:
+dispatch_rdp_novirtaddr:
 /* 04001380 0300 aef90000 */  sw    t9, 0x0(s7)
 /* 04001384 0304 aef80004 */  sw    t8, 0x4(s7)
-/* 04001388 0308 0d00045e */  jal   gsp_04001178
+/* 04001388 0308 0d00045e */  jal   write_to_output_buff
 /* 0400138c 030c 22f70008 */  addi  s7, s7, 0x8
 /* 04001390 0310 1c40ff45 */  bgtz  v0, sp_noop
 /* 04001394 0314 00000000 */  nop
-/* 04001398 0318 0900042e */  j     gsp_040010b8
+/* 04001398 0318 0900042e */  j     main_loop
 
+/**
+ * Expects v0 = upper 17 bits of first word, shifted right to 0.
+ * Sets at = first word second byte
+ * Sets a2 = first word second byte masked with 0xf
+ */
 dispatch_dma:
 /* 0400139c 031c 304201fe */  andi  v0, v0, 0x1fe
-/* 040013a0 0320 844200c4 */  lh    v0, 0xc4(v0)
+/* 040013a0 0320 844200c4 */  lh    v0, dma_dispatch_table(v0)
 /* 040013a4 0324 0d000459 */  jal   dma_wait
 /* 040013a8 0328 9361fff9 */  lbu   at, -7(k1)
 /* 040013ac 032c 00400008 */  jr    v0
 /* 040013b0 0330 3026000f */  andi  a2, at, 0xf
 
 dma_mtx:
-/* 040013b4 0334 ebbf031c */  sbv   $v31[6], 0x1c(sp)
+/* 040013b4 0334 ebbf031c */  sbv   $v31[6], sp_1c(sp)
 /* 040013b8 0338 30280001 */  andi  t0, at, 0x1
 /* 040013bc 033c 1500001b */  bne   t0, r0, .L0400142c
 /* 040013c0 0340 30270002 */  andi  a3, at, 0x2
-/* 040013c4 0344 201402a0 */  addi  s4, r0, 0x2a0
+/* 040013c4 0344 201402a0 */  addi  s4, r0, mtx2a0
 /* 040013c8 0348 30280004 */  andi  t0, at, 0x4
 /* 040013cc 034c 1100000a */  beq   t0, r0, gsp_040013f8
 /* 040013d0 0350 cada2003 */  lqv   $v26[0], 0x30(s6)
-/* 040013d4 0354 8fb30024 */  lw    s3, 0x24(sp)
-/* 040013d8 0358 8fa8004c */  lw    t0, 0x4c(sp)
-/* 040013dc 035c 20110001 */  addi  s1, r0, 0x1
+/* 040013d4 0354 8fb30024 */  lw    s3, sp_dram_stack_curpos(sp)
+/* 040013d8 0358 8fa8004c */  lw    t0, sp_dram_stack_end(sp)
+/* 040013dc 035c 20110001 */  addi  s1, r0, DMA_WRITE
 /* 040013e0 0360 22610040 */  addi  at, s3, 0x40
 /* 040013e4 0364 12680004 */  beq   s3, t0, gsp_040013f8
 /* 040013e8 0368 200c003f */  addi  t4, r0, 0x3f
 /* 040013ec 036c 0d00044f */  jal   dma_read_write
-/* 040013f0 0370 afa10024 */  sw    at, 0x24(sp)
+/* 040013f0 0370 afa10024 */  sw    at, sp_dram_stack_curpos(sp)
 /* 040013f4 0374 0d000459 */  jal   dma_wait
 
 gsp_040013f8:
@@ -426,19 +690,19 @@ gsp_040013f8:
 /* 0400140c 038c ea9c2001 */  sqv   $v28[0], 0x10(s4)
 
 gsp_04001410:
-/* 04001410 0390 20030320 */  addi  v1, r0, 0x320
+/* 04001410 0390 20030320 */  addi  v1, r0, mtx320
 /* 04001414 0394 ea9b2002 */  sqv   $v27[0], 0x20(s4)
 /* 04001418 0398 ea9d2000 */  sqv   $v29[0], 0x0(s4)
-/* 0400141c 039c 200102a0 */  addi  at, r0, 0x2a0
-/* 04001420 03a0 200202e0 */  addi  v0, r0, 0x2e0
+/* 0400141c 039c 200102a0 */  addi  at, r0, mtx2a0
+/* 04001420 03a0 200202e0 */  addi  v0, r0, mtx2e0
 /* 04001424 03a4 09000517 */  j     gsp_0400145c
-/* 04001428 03a8 841f00be */  lh    ra, 0xbe(r0)
+/* 04001428 03a8 841f00be */  lh    ra, addr00be(r0)
 .L0400142c:
 /* 0400142c 03ac cada2003 */  lqv   $v26[0], 0x30(s6)
 /* 04001430 03b0 090004fe */  j     gsp_040013f8
-/* 04001434 03b4 201402e0 */  addi  s4, r0, 0x2e0
+/* 04001434 03b4 201402e0 */  addi  s4, r0, mtx2e0
 .L04001438:
-/* 04001438 03b8 24030e20 */  addiu v1, r0, 0xe20
+/* 04001438 03b8 24030e20 */  addiu v1, r0, tridata_buffer
 /* 0400143c 03bc 00160821 */  addu  at, r0, s6
 /* 04001440 03c0 0d000517 */  jal   gsp_0400145c
 /* 04001444 03c4 00141021 */  addu  v0, r0, s4
@@ -478,10 +742,10 @@ gsp_0400145c:
 /* 040014bc 043c 00000000 */  nop
 
 gsp_040014c0:
-/* 040014c0 0440 20080260 */  addi  t0, r0, 0x260
-/* 040014c4 0444 c8032005 */  lqv   $v3[0], 0x50(r0)
+/* 040014c0 0440 20080260 */  addi  t0, r0, viewport
+/* 040014c4 0444 c8032005 */  lqv   $v3[0], addr0050(r0)
 /* 040014c8 0448 cbb30801 */  lsv   $v19[0], 0x2(sp)
-/* 040014cc 044c 87a30004 */  lh    v1, 0x4(sp)
+/* 040014cc 044c 87a30004 */  lh    v1, sp_geometrymode(sp)
 /* 040014d0 0450 c9001800 */  ldv   $v0[0], 0x0(t0)
 /* 040014d4 0454 c9011801 */  ldv   $v1[0], 0x8(t0)
 /* 040014d8 0458 c9001c00 */  ldv   $v0[8], 0x0(t0)
@@ -490,7 +754,7 @@ gsp_040014c0:
 /* 040014e4 0464 4a030007 */  vmudh $v0, $v0, $v3
 
 gsp_040014e8:
-/* 040014e8 0468 20080320 */  addi  t0, r0, 0x320
+/* 040014e8 0468 20080320 */  addi  t0, r0, mtx320
 /* 040014ec 046c c90b1803 */  ldv   $v11[0], 0x18(t0)
 /* 040014f0 0470 c90b1c03 */  ldv   $v11[8], 0x18(t0)
 /* 040014f4 0474 c90f1807 */  ldv   $v15[0], 0x38(t0)
@@ -513,29 +777,38 @@ gsp_040014fc:
 
 dma_movemem:
 /* 04001530 04b0 cac02000 */  lqv   $v0[0], 0x0(s6)
-/* 04001534 04b4 842501b0 */  lh    a1, 0x1b0(at)
+/* 04001534 04b4 842501b0 */  lh    a1, (movemem_table - 0x80)(at)
 /* 04001538 04b8 0900042a */  j     sp_noop
 /* 0400153c 04bc e8a02000 */  sqv   $v0[0], 0x0(a1)
 
+/**
+ * Expects at = first word second byte
+ * Expects a2 = index in vtx buffer to load to
+ * Expects k1 = pointer to *next* GBI command
+ * Expects s6 = pointer to input vertices (size 0x0c each)
+ *
+ * This function is converting input vertices (size 0xc) into RDP vertices (size 0x28).
+ * Vertices are processed two at a time.
+ */
 dma_vtx:
-/* 04001540 04c0 840800be */  lh    t0, 0xbe(r0)
-/* 04001544 04c4 a4080106 */  sh    t0, 0x106(r0)
+/* 04001540 04c0 840800be */  lh    t0, addr00be(r0)
+/* 04001544 04c4 a4080106 */  sh    t0, addr0106(r0)
 /* 04001548 04c8 00010902 */  srl   at, at, 4
-/* 0400154c 04cc 20250001 */  addi  a1, at, 0x1
-/* 04001550 04d0 8f68fffc */  lw    t0, -4(k1)
+/* 0400154c 04cc 20250001 */  addi  a1, at, 0x1       /* a1 = num vertices */
+/* 04001550 04d0 8f68fffc */  lw    t0, -4(k1)        /* t0 = load address */
 /* 04001554 04d4 31080004 */  andi  t0, t0, 0x4
 /* 04001558 04d8 02c8b020 */  add   s6, s6, t0
 /* 0400155c 04dc 20a90000 */  addi  t1, a1, 0x0
-/* 04001560 04e0 cac21000 */  llv   $v2[0], 0x0(s6)
-/* 04001564 04e4 cac21201 */  llv   $v2[4], 0x4(s6)
-/* 04001568 04e8 cac21403 */  llv   $v2[8], 0xc(s6)
-/* 0400156c 04ec cac21604 */  llv   $v2[12], 0x10(s6)
-/* 04001570 04f0 20070360 */  addi  a3, r0, 0x360
+/* 04001560 04e0 cac21000 */  llv   $v2[0], 0x0(s6)   /* load vtx0 x/y */
+/* 04001564 04e4 cac21201 */  llv   $v2[4], 0x4(s6)   /* load vtx0 z/flags/col*/
+/* 04001568 04e8 cac21403 */  llv   $v2[8], 0xc(s6)   /* load vtx1 x/y */
+/* 0400156c 04ec cac21604 */  llv   $v2[12], 0x10(s6) /* load vtx1 z/flags/col */
+/* 04001570 04f0 20070360 */  addi  a3, r0, vtx_buffer
 /* 04001574 04f4 00064140 */  sll   t0, a2, 5
 /* 04001578 04f8 000630c0 */  sll   a2, a2, 3
-/* 0400157c 04fc 00c84020 */  add   t0, a2, t0
+/* 0400157c 04fc 00c84020 */  add   t0, a2, t0        /* t0 = a2 * 0x28 */
 /* 04001580 0500 0d000530 */  jal   gsp_040014c0
-/* 04001584 0504 00e83820 */  add   a3, a3, t0
+/* 04001584 0504 00e83820 */  add   a3, a3, t0        /* a3 = dst in vtx_buffer */
 /* 04001588 0508 cbb11005 */  llv   $v17[0], 0x14(sp)
 /* 0400158c 050c 0d00053a */  jal   gsp_040014e8
 /* 04001590 0510 cbb11405 */  llv   $v17[8], 0x14(sp)
@@ -543,13 +816,13 @@ dma_vtx:
 /* 04001594 0514 4a826706 */  vmudn $v28, $v12, $v2[0h]
 /* 04001598 0518 cad21002 */  llv   $v18[0], 0x8(s6)
 /* 0400159c 051c 4a82470f */  vmadh $v28, $v8, $v2[0h]
-/* 040015a0 0520 92cf0007 */  lbu   t7, 0x7(s6)
+/* 040015a0 0520 92cf0007 */  lbu   t7, 0x7(s6)          /* t7 = vtx0 colour index */
 /* 040015a4 0524 4aa26f0e */  vmadn $v28, $v13, $v2[1h]
-/* 040015a8 0528 92d00013 */  lbu   s0, 0x13(s6)
+/* 040015a8 0528 92d00013 */  lbu   s0, 0x13(s6)         /* s0 = vtx1 colour index */
 /* 040015ac 052c 4aa24f0f */  vmadh $v28, $v9, $v2[1h]
-/* 040015b0 0530 8def05e0 */  lw    t7, 0x5e0(t7)
+/* 040015b0 0530 8def05e0 */  lw    t7, col_buffer(t7)
 /* 040015b4 0534 4ac2770e */  vmadn $v28, $v14, $v2[2h]
-/* 040015b8 0538 8e1005e0 */  lw    s0, 0x5e0(s0)
+/* 040015b8 0538 8e1005e0 */  lw    s0, col_buffer(s0)
 /* 040015bc 053c 4ac2570f */  vmadh $v28, $v10, $v2[2h]
 /* 040015c0 0540 30610002 */  andi  at, v1, 0x2
 /* 040015c4 0544 4b3f7f0e */  vmadn $v28, $v15, $v31[1]
@@ -562,7 +835,7 @@ gsp_040015d8:
 /* 040015d8 0558 4a119485 */  vmudm $v18, $v18, $v17
 
 gsp_040015dc:
-/* 040015dc 055c c815083b */  lsv   $v21[0], 0x76(r0)
+/* 040015dc 055c c815083b */  lsv   $v21[0], addr0076(r0)
 /* 040015e0 0560 4b15e506 */  vmudn $v20, $v28, $v21[0]
 /* 040015e4 0564 480deb00 */  mfc2  t5, $v29[6]
 /* 040015e8 0568 31ad8000 */  andi  t5, t5, 0x8000
@@ -616,15 +889,15 @@ gsp_040015dc:
 /* 040016a8 0628 cac21403 */  llv   $v2[8], 0xc(s6)
 /* 040016ac 062c cac21604 */  llv   $v2[12], 0x10(s6)
 /* 040016b0 0630 4a0029ce */  vmadn $v7, $v5, $v0
-/* 040016b4 0634 c81d1805 */  ldv   $v29[0], 0x28(r0)
+/* 040016b4 0634 c81d1805 */  ldv   $v29[0], addr0028(r0)
 /* 040016b8 0638 4a00218f */  vmadh $v6, $v4, $v0
-/* 040016bc 063c c81d1c05 */  ldv   $v29[8], 0x28(r0)
+/* 040016bc 063c c81d1c05 */  ldv   $v29[8], addr0028(r0)
 /* 040016c0 0640 4b1ff9ce */  vmadn $v7, $v31, $v31[0]
 /* 040016c4 0644 4a7d31a3 */  vge   $v6, $v6, $v29[1q]
 /* 040016c8 0648 acef0010 */  sw    t7, 0x10(a3)
 /* 040016cc 064c 1180000b */  beq   t4, r0, .L040016fc
 /* 040016d0 0650 4a5d31a0 */  vlt   $v6, $v6, $v29[0q]
-/* 040016d4 0654 c8032027 */  lqv   $v3[0], 0x270(r0)
+/* 040016d4 0654 c8032027 */  lqv   $v3[0], fog(r0)
 /* 040016d8 0658 4b032946 */  vmudn $v5, $v5, $v3[0]
 /* 040016dc 065c 4b03210f */  vmadh $v4, $v4, $v3[0]
 /* 040016e0 0660 4b232110 */  vadd  $v4, $v4, $v3[1]
@@ -654,19 +927,19 @@ gsp_040015dc:
 /* 0400173c 06bc 20e70050 */  addi  a3, a3, 0x50
 /* 04001740 06c0 1d20ff94 */  bgtz  t1, .L04001594
 .L04001744:
-/* 04001744 06c4 84080106 */  lh    t0, 0x106(r0)
+/* 04001744 06c4 84080106 */  lh    t0, addr0106(r0)
 /* 04001748 06c8 01000008 */  jr    t0
 /* 0400174c 06cc 00000000 */  nop
 
 dma_dl:
 /* 04001750 06d0 1c200007 */  bgtz  at, .L04001770
-/* 04001754 06d4 83a2004a */  lb    v0, 0x4a(sp)
+/* 04001754 06d4 83a2004a */  lb    v0, sp_dl_nestlevel(sp)
 /* 04001758 06d8 2044ffdc */  addi  a0, v0, -0x24
 /* 0400175c 06dc 1c80fe52 */  bgtz  a0, sp_noop
-/* 04001760 06e0 20430276 */  addi  v1, v0, 0x276
+/* 04001760 06e0 20430276 */  addi  v1, v0, dl_call_stack
 /* 04001764 06e4 20420004 */  addi  v0, v0, 0x4
 /* 04001768 06e8 ac7a0000 */  sw    k0, 0x0(v1)
-/* 0400176c 06ec a3a2004a */  sb    v0, 0x4a(sp)
+/* 0400176c 06ec a3a2004a */  sb    v0, sp_dl_nestlevel(sp)
 .L04001770:
 /* 04001770 06f0 0d000447 */  jal   segmented_to_physical
 /* 04001774 06f4 03009820 */  add   s3, t8, r0
@@ -674,35 +947,39 @@ dma_dl:
 /* 0400177c 06fc 0900042a */  j     sp_noop
 /* 04001780 0700 201c0000 */  addi  gp, r0, 0x0
 
+/**
+ * The requested colour list has been loaded to tmp_buffer,
+ * so this copies them into col_buffer.
+ */
 dma_col:
-/* 04001784 0704 8c240820 */  lw    a0, 0x820(at)
-/* 04001788 0708 ac2405e0 */  sw    a0, 0x5e0(at)
+/* 04001784 0704 8c240820 */  lw    a0, tmp_buffer(at)
+/* 04001788 0708 ac2405e0 */  sw    a0, col_buffer(at)
 /* 0400178c 070c 1c20fffd */  bgtz  at, dma_col
 /* 04001790 0710 2021fffc */  addi  at, at, -4
 /* 04001794 0714 0900042a */  j     sp_noop
 /* 04001798 0718 00000000 */  nop
 /* 0400179c 071c 00000000 */  nop
 .L040017a0:
-/* 040017a0 0720 341e0010 */  ori   s8, r0, 0x10
+/* 040017a0 0720 341e0010 */  li    s8, Overlay2Info
 /* 040017a4 0724 1000fe55 */  b     load_overlay
-/* 040017a8 0728 84150100 */  lh    s5, 0x100(r0)
+/* 040017a8 0728 84150100 */  lh    s5, addr0100(r0)
 
 load_lighting:
-/* 040017ac 072c 341e0018 */  ori   s8, r0, 0x18
+/* 040017ac 072c 341e0018 */  li    s8, Overlay3Info
 /* 040017b0 0730 1000fe52 */  b     load_overlay
-/* 040017b4 0734 841500a0 */  lh    s5, 0xa0(r0)
+/* 040017b4 0734 841500a0 */  lh    s5, addr00a0(r0)
 
-gsp_040017b8:
-/* 040017b8 0738 c81f2003 */  lqv   $v31[0], 0x30(r0)
-/* 040017bc 073c c81e2004 */  lqv   $v30[0], 0x40(r0)
-/* 040017c0 0740 8c040fc4 */  lw    a0, 0xfc4(r0)
-/* 040017c4 0744 30840001 */  andi  a0, a0, 0x1
-/* 040017c8 0748 14800035 */  bne   a0, r0, .L040018a0
+read_task1:
+/* 040017b8 0738 c81f2003 */  lqv   $v31[0], addr0030(r0)
+/* 040017bc 073c c81e2004 */  lqv   $v30[0], addr0040(r0)
+/* 040017c0 0740 8c040fc4 */  lw    a0, (OSTask_addr + OSTask_flags)(r0)
+/* 040017c4 0744 30840001 */  andi  a0, a0, OS_TASK_YIELDED
+/* 040017c8 0748 14800035 */  bne   a0, r0, .resume_yielded_task
 /* 040017cc 074c 00000000 */  nop
-/* 040017d0 0750 8c370028 */  lw    s7, 0x28(at)
-/* 040017d4 0754 8c23002c */  lw    v1, 0x2c(at)
-/* 040017d8 0758 afb70040 */  sw    s7, 0x40(sp)
-/* 040017dc 075c afa30044 */  sw    v1, 0x44(sp)
+/* 040017d0 0750 8c370028 */  lw    s7, OSTask_output_buff(at)
+/* 040017d4 0754 8c23002c */  lw    v1, OSTask_output_buff_size(at)
+/* 040017d8 0758 afb70040 */  sw    s7, sp_output_buff(sp)
+/* 040017dc 075c afa30044 */  sw    v1, sp_output_buff_size(sp)
 /* 040017e0 0760 40045800 */  mfc0  a0, DPC_STATUS
 /* 040017e4 0764 30840001 */  andi  a0, a0, DPC_STATUS_XBUS_DMA
 /* 040017e8 0768 1480000a */  bne   a0, r0, .L04001814
@@ -714,7 +991,7 @@ gsp_040017b8:
 /* 04001800 0780 00000000 */  nop
 /* 04001804 0784 10a40003 */  beq   a1, a0, .L04001814
 /* 04001808 0788 00000000 */  nop
-/* 0400180c 078c 0900060c */  j     gsp_04001830
+/* 0400180c 078c 0900060c */  j     read_task2
 /* 04001810 0790 34830000 */  ori   v1, a0, 0x0
 .L04001814:
 /* 04001814 0794 40045800 */  mfc0  a0, DPC_STATUS
@@ -725,10 +1002,11 @@ gsp_040017b8:
 /* 04001828 07a8 40834000 */  mtc0  v1, DPC_START
 /* 0400182c 07ac 40834800 */  mtc0  v1, DPC_END
 
-gsp_04001830:
-/* 04001830 07b0 afa30018 */  sw    v1, 0x18(sp)
-/* 04001834 07b4 20170a20 */  addi  s7, r0, 0xa20
-/* 04001838 07b8 8c250010 */  lw    a1, 0x10(at)
+read_task2:
+/* 04001830 07b0 afa30018 */  sw    v1, sp_18(sp)
+/* 04001834 07b4 20170a20 */  addi  s7, r0, out_buffer
+/* Promote overlay table offsets to pointers */
+/* 04001838 07b8 8c250010 */  lw    a1, OSTask_ucode(at)
 /* 0400183c 07bc 8c020008 */  lw    v0, Overlay1Info
 /* 04001840 07c0 8c030010 */  lw    v1, Overlay2Info
 /* 04001844 07c4 8c040018 */  lw    a0, Overlay3Info
@@ -741,33 +1019,34 @@ gsp_04001830:
 /* 04001860 07e0 ac030010 */  sw    v1, Overlay2Info
 /* 04001864 07e4 ac040018 */  sw    a0, Overlay3Info
 /* 04001868 07e8 ac060020 */  sw    a2, Overlay4Info
-/* 0400186c 07ec 0d00043e */  jal   load_overlay_fcn
-/* 04001870 07f0 201e0008 */  addi  s8, $zero, Overlay1Info
+/* Load overlay 1 */
+/* 0400186c 07ec 0d00043e */  jal   load_overlay_and_continue
+/* 04001870 07f0 201e0008 */  addi  s8, r0, Overlay1Info
 /* 04001874 07f4 0d000435 */  jal   load_displaylist
-/* 04001878 07f8 8c3a0030 */  lw    k0, 0x30(at)
-/* 0400187c 07fc 8c220020 */  lw    v0, 0x20(at)
-/* 04001880 0800 afa20020 */  sw    v0, 0x20(sp)
-/* 04001884 0804 afa20024 */  sw    v0, 0x24(sp)
-/* 04001888 0808 20420280 */  addi  v0, v0, 0x280
-/* 0400188c 080c afa2004c */  sw    v0, 0x4c(sp)
+/* 04001878 07f8 8c3a0030 */  lw    k0, OSTask_data_ptr(at)
+/* 0400187c 07fc 8c220020 */  lw    v0, OSTask_dram_stack(at)
+/* 04001880 0800 afa20020 */  sw    v0, sp_dram_stack (sp)
+/* 04001884 0804 afa20024 */  sw    v0, sp_dram_stack_curpos(sp)
+/* 04001888 0808 20420280 */  addi  v0, v0, SP_DRAM_STACK_SIZE
+/* 0400188c 080c afa2004c */  sw    v0, sp_dram_stack_end(sp)
 .L04001890:
 /* 04001890 0810 8c02fff8 */  lw    v0, -8(r0)
-/* 04001894 0814 ac020108 */  sw    v0, 0x108(r0)
+/* 04001894 0814 ac020108 */  sw    v0, yield_data_ptr(r0)
 /* 04001898 0818 09000416 */  j     dma_wait_dl
 /* 0400189c 081c 00000000 */  nop
-.L040018a0:
-/* 040018a0 0820 0d00043e */  jal   load_overlay_fcn
-/* 040018a4 0824 201e0008 */  addi  s8, r0, 0x8
-/* 040018a8 0828 8c170930 */  lw    s7, 0x930(r0)
-/* 040018ac 082c 8c1c0924 */  lw    gp, 0x924(r0)
-/* 040018b0 0830 8c1b0928 */  lw    k1, 0x928(r0)
+.resume_yielded_task:
+/* 040018a0 0820 0d00043e */  jal   load_overlay_and_continue
+/* 040018a4 0824 201e0008 */  addi  s8, r0, Overlay1Info
+/* 040018a8 0828 8c170930 */  lw    s7, saveds7(r0)
+/* 040018ac 082c 8c1c0924 */  lw    gp, savedgp(r0)
+/* 040018b0 0830 8c1b0928 */  lw    k1, savedk1(r0)
 /* 040018b4 0834 0900042a */  j     sp_noop
-/* 040018b8 0838 8c1a092c */  lw    k0, 0x92c(r0)
+/* 040018b8 0838 8c1a092c */  lw    k0, savedk0(r0)
 
 /* 040018bc 083c through 040019bc 093c */
 .fill 0x104, 0
 
-gsp_040019c0:
+gsp_tri:
 /* 040019c0 0940 846b0024 */  lh    t3, 0x24(v1)
 /* 040019c4 0944 84480024 */  lh    t0, 0x24(v0)
 /* 040019c8 0948 84290024 */  lh    t1, 0x24(at)
@@ -783,8 +1062,8 @@ gsp_040019c0:
 /* 040019ec 096c c82d1006 */  llv   $v13[0], 0x18(at)
 /* 040019f0 0970 c84e1006 */  llv   $v14[0], 0x18(v0)
 /* 040019f4 0974 c86f1006 */  llv   $v15[0], 0x18(v1)
-/* 040019f8 0978 8fad0004 */  lw    t5, 0x4(sp)
-/* 040019fc 097c 20080920 */  addi  t0, r0, 0x920
+/* 040019f8 0978 8fad0004 */  lw    t5, sp_geometrymode(sp)
+/* 040019fc 097c 20080920 */  addi  t0, r0, tri_buffer
 /* 04001a00 0980 cbb50801 */  lsv   $v21[0], 0x2(sp)
 /* 04001a04 0984 c8250803 */  lsv   $v5[0], 0x6(at)
 /* 04001a08 0988 4a0d7291 */  vsub  $v10, $v14, $v13
@@ -866,7 +1145,7 @@ gsp_04001a58:
 /* 04001b24 0aa4 0d000400 */  jal   gsp_04001000
 /* 04001b28 0aa8 20060080 */  addi  a2, r0, 0x80
 /* 04001b2c 0aac 04e00002 */  bltz  a3, .L04001b38
-/* 04001b30 0ab0 83a50007 */  lb    a1, 0x7(sp)
+/* 04001b30 0ab0 83a50007 */  lb    a1, sp_07(sp)
 /* 04001b34 0ab4 20060000 */  addi  a2, r0, 0x0
 .L04001b38:
 /* 04001b38 0ab8 4b9f2245 */  vmudm $v9, $v4, $v31[4]
@@ -874,7 +1153,7 @@ gsp_04001a58:
 /* 04001b40 0ac0 4b244a30 */  vrcp  $v8[1], $v4[1]
 /* 04001b44 0ac4 4b1f49f2 */  vrcph $v7[1], $v31[0]
 /* 04001b48 0ac8 34a500c8 */  ori   a1, a1, 0xc8
-/* 04001b4c 0acc 83a70012 */  lb    a3, 0x12(sp)
+/* 04001b4c 0acc 83a70012 */  lb    a3, sp_12(sp)
 /* 04001b50 0ad0 4b645a30 */  vrcp  $v8[3], $v4[3]
 /* 04001b54 0ad4 4b1f59f2 */  vrcph $v7[3], $v31[0]
 /* 04001b58 0ad8 4ba46a30 */  vrcp  $v8[5], $v4[5]
@@ -1152,7 +1431,7 @@ gsp_04001a58:
 /* 04001f8c 0f0c 4b9e6306 */  vmudn $v12, $v12, $v30[4]
 /* 04001f90 0f10 4b9e5acf */  vmadh $v11, $v11, $v30[4]
 /* 04001f94 0f14 4b1ffb0e */  vmadn $v12, $v31, $v31[0]
-/* 04001f98 0f18 93a70011 */  lbu   a3, 0x11(sp)
+/* 04001f98 0f18 93a70011 */  lbu   a3, sp_11(sp)
 /* 04001f9c 0f1c 00073822 */  sub   a3, r0, a3
 /* 04001fa0 0f20 10e00003 */  beq   a3, r0, .L04001fb0
 /* 04001fa4 0f24 48873000 */  mtc2  a3, $v6[0]
@@ -1172,7 +1451,7 @@ gsp_04001a58:
 /* 04001fd8 0f58 eaf10f78 */  ssv   $v17[14], -0x10(s7)
 /* 04001fdc 0f5c eaf20f79 */  ssv   $v18[14], -0xe(s7)
 .L04001fe0:
-/* 04001fe0 0f60 0d00045e */  jal   gsp_04001178
+/* 04001fe0 0f60 0d00045e */  jal   write_to_output_buff
 .L04001fe4:
 /* 04001fe4 0f64 00000000 */  nop
 /* 04001fe8 0f68 03c00008 */  jr    s8
@@ -1191,7 +1470,7 @@ gsp_04001000:
 /* 04001014 0f84 4b5fd686 */  vmudn $v26, $v26, $v31[2]
 /* 04001018 0f88 4b5fdecf */  vmadh $v27, $v27, $v31[2]
 /* 0400101c 0f8c 4b1ffe8e */  vmadn $v26, $v31, $v31[0]
-/* 04001020 0f90 c8172006 */  lqv   $v23[0], 0x60(r0)
+/* 04001020 0f90 c8172006 */  lqv   $v23[0], addr0060(r0)
 /* 04001024 0f94 4a1ffdac */  vxor  $v22, $v31, $v31
 /* 04001028 0f98 4a1cd604 */  vmudl $v24, $v26, $v28
 /* 0400102c 0f9c 4a1cde0d */  vmadm $v24, $v27, $v28
@@ -1208,8 +1487,12 @@ gsp_04001000:
 
 dma_wait_dl:
 /* 04001058 0fc8 0d000459 */  jal   dma_wait
-/* 0400105c 0fcc 201b06e0 */  addi  k1, r0, 0x6e0
-.L04001060:
+/* 0400105c 0fcc 201b06e0 */  addi  k1, r0, dl_buffer
+
+/**
+ * Expects k1 = pointer to command
+ */
+.parse_and_execute_command:
 /* 04001060 0fd0 8f790000 */  lw    t9, 0x0(k1)
 /* 04001064 0fd4 8f780004 */  lw    t8, 0x4(k1)
 /* 04001068 0fd8 00190f42 */  srl   at, t9, 29
@@ -1217,39 +1500,45 @@ dma_wait_dl:
 /* 04001070 0fe0 235a0008 */  addi  k0, k0, 0x8
 /* 04001074 0fe4 237b0008 */  addi  k1, k1, 0x8
 /* 04001078 0fe8 239cfff8 */  addi  gp, gp, -8
-/* 0400107c 0fec 1c200007 */  bgtz  at, .L0400109c
+/* 0400107c 0fec 1c200007 */  bgtz  at, .execute_command
 /* 04001080 0ff0 333201ff */  andi  s2, t9, 0x1ff
-/* 04001084 0ff4 20160820 */  addi  s6, r0, 0x820
+
+/**
+ * This statement is reached by DMA commands (0x00-0x3f).
+ * It runs off the end of overlay 1 and continues at 1088,
+ * which is near the start of overlay 0 (they overlap).
+ */
+/* 04001084 0ff4 20160820 */  addi  s6, r0, tmp_buffer
 Overlay1End:
 
 .headersize 0x040017a0 - orga()
 
 Overlay2:
 /* 040017a0 0ff8 10000006 */  b     perform_clip
-/* 040017a4 0ffc a41f0158 */  sh    ra, 0x158(r0)
+/* 040017a4 0ffc a41f0158 */  sh    ra, addr0158(r0)
 /* 040017a8 1000 00000000 */  nop
 /* 040017ac 1004 00000000 */  nop
-/* 040017b0 1008 341e0018 */  ori   s8, r0, 0x18
+/* 040017b0 1008 341e0018 */  li    s8, Overlay3Info
 /* 040017b4 100c 1000fe51 */  b     load_overlay
-/* 040017b8 1010 841500a0 */  lh    s5, 0xa0(r0)
+/* 040017b8 1010 841500a0 */  lh    s5, addr00a0(r0)
 
 perform_clip:
 /* 040017bc 1014 a4030980 */  sh    v1, 0x980(r0)
 /* 040017c0 1018 a4020982 */  sh    v0, 0x982(r0)
 /* 040017c4 101c a4010984 */  sh    at, 0x984(r0)
 /* 040017c8 1020 a4000986 */  sh    r0, 0x986(r0)
-/* 040017cc 1024 34070df8 */  ori   a3, r0, 0xdf8
-/* 040017d0 1028 341e0980 */  ori   s8, r0, 0x980
-/* 040017d4 102c 3406000c */  ori   a2, r0, 0xc
+/* 040017cc 1024 34070df8 */  li    a3, 0xdf8
+/* 040017d0 1028 341e0980 */  li    s8, 0x980
+/* 040017d4 102c 3406000c */  li    a2, 0xc
 
 next_clip:
 /* 040017d8 1030 03de2825 */  or    a1, s8, s8
 /* 040017dc 1034 3bde0014 */  xori  s8, s8, 0x14
 .L040017e0:
 /* 040017e0 1038 10c0006a */  beq   a2, r0, .L0400198c
-/* 040017e4 103c 84cb00a6 */  lh    t3, 0xa6(a2)
+/* 040017e4 103c 84cb00a6 */  lh    t3, addr00a6(a2)
 /* 040017e8 1040 20c6fffe */  addi  a2, a2, -2
-/* 040017ec 1044 34110000 */  ori   s1, r0, 0x0
+/* 040017ec 1044 34110000 */  li    s1, 0
 /* 040017f0 1048 00009025 */  or    s2, r0, r0
 
 found_in:
@@ -1279,20 +1568,20 @@ gsp_0400180c:
 /* 04001838 1090 0900066e */  j     gsp_040019b8
 .L0400183c:
 /* 0400183c 1094 024b9026 */  xor   s2, s2, t3
-/* 04001840 1098 862800f6 */  lh    t0, 0xf6(s1)
+/* 04001840 1098 862800f6 */  lh    t0, addr00f6_table(s1)
 /* 04001844 109c 22310002 */  addi  s1, s1, 0x2
 /* 04001848 10a0 01000008 */  jr    t0
-/* 0400184c 10a4 84080102 */  lh    t0, 0x102(r0)
+/* 0400184c 10a4 84080102 */  lh    t0, addr0102(r0)
 
 found_first_in:
 /* 04001850 10a8 488a6800 */  mtc2  t2, $v13[0]
 /* 04001854 10ac 02805025 */  or    t2, s4, r0
 /* 04001858 10b0 48146800 */  mfc2  s4, $v13[0]
 /* 0400185c 10b4 37ce0000 */  ori   t6, s8, 0x0
-/* 04001860 10b8 840800f8 */  lh    t0, 0xf8(r0)
+/* 04001860 10b8 840800f8 */  lh    t0, addr00f8(r0)
 
 found_first_out:
-/* 04001864 10bc a4080106 */  sh    t0, 0x106(r0)
+/* 04001864 10bc a4080106 */  sh    t0, addr0106(r0)
 /* 04001868 10c0 20e70028 */  addi  a3, a3, 0x28
 /* 0400186c 10c4 a5c70000 */  sh    a3, 0x0(t6)
 /* 04001870 10c8 a5c00002 */  sh    r0, 0x2(t6)
@@ -1301,7 +1590,7 @@ found_first_out:
 /* 0400187c 10d4 ca841800 */  ldv   $v4[0], 0x0(s4)
 /* 04001880 10d8 ca851801 */  ldv   $v5[0], 0x8(s4)
 /* 04001884 10dc 00064080 */  sll   t0, a2, 2
-/* 04001888 10e0 c901180e */  ldv   $v1[0], 0x70(t0)
+/* 04001888 10e0 c901180e */  ldv   $v1[0], addr0070(t0)
 /* 0400188c 10e4 4b7f0807 */  vmudh $v0, $v1, $v31[3]
 /* 04001890 10e8 4a012b06 */  vmudn $v12, $v5, $v1
 /* 04001894 10ec 4a0122cf */  vmadh $v11, $v4, $v1
@@ -1366,21 +1655,21 @@ found_first_out:
 /* 0400197c 11d4 8cef0000 */  lw    t7, 0x0(a3)
 /* 04001980 11d8 480a6800 */  mfc2  t2, $v13[0]
 /* 04001984 11dc 09000577 */  j     gsp_040015dc
-/* 04001988 11e0 34090001 */  ori   t1, r0, 0x1
+/* 04001988 11e0 34090001 */  li    t1, 1
 .L0400198c:
 /* 0400198c 11e4 84a80000 */  lh    t0, 0x0(a1)
-/* 04001990 11e8 a40800b4 */  sh    t0, 0xb4(r0)
-/* 04001994 11ec a4050106 */  sh    a1, 0x106(r0)
-/* 04001998 11f0 841e00fe */  lh    s8, 0xfe(r0)
+/* 04001990 11e8 a40800b4 */  sh    t0, addr00b4(r0)
+/* 04001994 11ec a4050106 */  sh    a1, addr0106(r0)
+/* 04001998 11f0 841e00fe */  lh    s8, addr00fe(r0)
 
 clip_draw_loop:
-/* 0400199c 11f4 84080106 */  lh    t0, 0x106(r0)
-/* 040019a0 11f8 840300b4 */  lh    v1, 0xb4(r0)
+/* 0400199c 11f4 84080106 */  lh    t0, addr0106(r0)
+/* 040019a0 11f8 840300b4 */  lh    v1, addr00b4(r0)
 /* 040019a4 11fc 85020002 */  lh    v0, 0x2(t0)
 /* 040019a8 1200 85010004 */  lh    at, 0x4(t0)
 /* 040019ac 1204 21080002 */  addi  t0, t0, 0x2
 /* 040019b0 1208 1420000e */  bne   at, r0, .L040019ec
-/* 040019b4 120c a4080106 */  sh    t0, 0x106(r0)
+/* 040019b4 120c a4080106 */  sh    t0, addr0106(r0)
 
 gsp_040019b8:
 /* 040019b8 1210 0900042a */  j     sp_noop
@@ -1390,21 +1679,21 @@ Overlay2End:
 .headersize 0x040017a0 - orga()
 
 Overlay3:
-/* 040017a0 1218 341e0010 */  ori   s8, r0, 0x10
+/* 040017a0 1218 341e0010 */  li    s8, Overlay2Info
 /* 040017a4 121c 1000fe55 */  b     load_overlay
-/* 040017a8 1220 84150100 */  lh    s5, 0x100(r0)
-/* 040017ac 1224 8c01012c */  lw    at, 0x12c(r0)
+/* 040017a8 1220 84150100 */  lh    s5, addr0100(r0)
+/* 040017ac 1224 8c01012c */  lw    at, numlights(r0)
 /* 040017b0 1228 acef0000 */  sw    t7, 0x0(a3)
 /* 040017b4 122c acf00004 */  sw    s0, 0x4(a3)
 /* 040017b8 1230 04200022 */  bltz  at, .L04001844
 /* 040017bc 1234 c8e43000 */  lpv   $v4[0], 0x0(a3)
-/* 040017c0 1238 c827383a */  luv   $v7[0], 0x1d0(at)
+/* 040017c0 1238 c827383a */  luv   $v7[0], lookatx(at)
 /* 040017c4 123c 4a1bdeec */  vxor  $v27, $v27, $v27
 .L040017c8:
 /* 040017c8 1240 4b1f39e3 */  vge   $v7, $v7, $v31[0]
-/* 040017cc 1244 c8253038 */  lpv   $v5[0], 0x1c0(at)
+/* 040017cc 1244 c8253038 */  lpv   $v5[0], (lookaty+0x10)(at)
 /* 040017d0 1248 4a07ded0 */  vadd  $v27, $v27, $v7
-/* 040017d4 124c c8273836 */  luv   $v7[0], 0x1b0(at)
+/* 040017d4 124c c8273836 */  luv   $v7[0], lookaty(at)
 /* 040017d8 1250 4b1f352a */  vor   $v20, $v6, $v31[0]
 /* 040017dc 1254 4a052180 */  vmulf $v6, $v4, $v5
 /* 040017e0 1258 4a6630d0 */  vadd  $v3, $v6, $v6[1q]
@@ -1420,8 +1709,8 @@ Overlay3:
 /* 04001808 1280 1100ff73 */  beq   t0, r0, gsp_040015d8
 /* 0400180c 1284 8cf00004 */  lw    s0, 0x4(a3)
 /* 04001810 1288 30680008 */  andi  t0, v1, 0x8
-/* 04001814 128c cba73012 */  lpv   $v7[0], 0x90(sp)
-/* 04001818 1290 c8061814 */  ldv   $v6[0], 0xa0(r0)
+/* 04001814 128c cba73012 */  lpv   $v7[0], sp_90(sp)
+/* 04001818 1290 c8061814 */  ldv   $v6[0], addr00a0(r0)
 /* 0400181c 1294 4a943d0e */  vmadn $v20, $v7, $v20[0h]
 /* 04001820 1298 11000006 */  beq   t0, r0, .L0400183c
 /* 04001824 129c 4b1ffc8d */  vmadm $v18, $v31, $v31[0]
@@ -1434,10 +1723,10 @@ Overlay3:
 /* 04001840 12b8 4b9f9490 */  vadd  $v18, $v18, $v31[4]
 .L04001844:
 /* 04001844 12bc 30210fff */  andi  at, at, 0xfff
-/* 04001848 12c0 ac01012c */  sw    at, 0x12c(r0)
+/* 04001848 12c0 ac01012c */  sw    at, numlights(r0)
 /* 0400184c 12c4 0d00053f */  jal   gsp_040014fc
-/* 04001850 12c8 200802a0 */  addi  t0, r0, 0x2a0
-/* 04001854 12cc 34080e20 */  ori   t0, r0, 0xe20
+/* 04001850 12c8 200802a0 */  addi  t0, r0, mtx2a0
+/* 04001854 12cc 34080e20 */  li    t0, tridata_buffer
 /* 04001858 12d0 e9085901 */  stv   $v8[2], 0x10(t0)
 /* 0400185c 12d4 e9085a02 */  stv   $v8[4], 0x20(t0)
 /* 04001860 12d8 e9085e03 */  stv   $v8[12], 0x30(t0)
@@ -1452,7 +1741,7 @@ Overlay3:
 /* 04001884 12fc c90c1802 */  ldv   $v12[0], 0x10(t0)
 /* 04001888 1300 c90d1804 */  ldv   $v13[0], 0x20(t0)
 /* 0400188c 1304 c90e1806 */  ldv   $v14[0], 0x30(t0)
-/* 04001890 1308 c8253037 */  lpv   $v5[0], 0x1b8(at)
+/* 04001890 1308 c8253037 */  lpv   $v5[0], (lookaty+0x08)(at)
 /* 04001894 130c 4b9f2940 */  vmulf $v5, $v5, $v31[4]
 /* 04001898 1310 4a856186 */  vmudn $v6, $v12, $v5[0h]
 /* 0400189c 1314 4aa5698e */  vmadn $v6, $v13, $v5[1h]
@@ -1482,48 +1771,56 @@ Overlay3:
 /* 040018fc 1374 4b0b31ce */  vmadn $v7, $v6, $v11[0]
 /* 04001900 1378 4b0b190f */  vmadh $v4, $v3, $v11[0]
 /* 04001904 137c 4b1ff9ce */  vmadn $v7, $v31, $v31[0]
-/* 04001908 1380 cba2181f */  ldv   $v2[0], 0xf8(sp)
+/* 04001908 1380 cba2181f */  ldv   $v2[0], sp_f8(sp)
 /* 0400190c 1384 4b0239e3 */  vge   $v7, $v7, $v2[0]
 /* 04001910 1388 4b2239e0 */  vlt   $v7, $v7, $v2[1]
 /* 04001914 138c 4b4239c6 */  vmudn $v7, $v7, $v2[2]
-/* 04001918 1390 e8273038 */  spv   $v7[0], 0x1c0(at)
-/* 0400191c 1394 8c2801c0 */  lw    t0, 0x1c0(at)
-/* 04001920 1398 ac2801c4 */  sw    t0, 0x1c4(at)
+/* 04001918 1390 e8273038 */  spv   $v7[0], (lookaty+0x10)(at)
+/* 0400191c 1394 8c2801c0 */  lw    t0, (lookaty+0x10)(at)
+/* 04001920 1398 ac2801c4 */  sw    t0, (lookaty+0x14)(at)
 /* 04001924 139c 1c20ffda */  bgtz  at, .L04001890
 /* 04001928 13a0 2021ffe0 */  addi  at, at, -0x20
 /* 0400192c 13a4 0900053a */  j     gsp_040014e8
-/* 04001930 13a8 841f00a0 */  lh    ra, 0xa0(r0)
+/* 04001930 13a8 841f00a0 */  lh    ra, addr00a0(r0)
 /* 04001934 13ac 00000000 */  nop
 Overlay3End:
 
 .headersize 0x040017a0 - orga()
 
+/**
+ * Overlay 4 (yield handler)
+ *
+ * Copies DMEM range 0-0x940 to yield_data_ptr,
+ * then enters an infinite loop of reloading the overlay and copying.
+ *
+ * The SP's status is set to SIG7 when dumping, and SIG5 when between dumps.
+ */
 Overlay4:
-/* 040017a0 13b0 090005f0 */  j     gsp_040017c0
+/* 040017a0 13b0 090005f0 */  j     write_yield_data
 /* 040017a4 13b4 00000000 */  nop
 
-overlay4_entry:
+yield_with_dma_wait:
 /* 040017a8 13b8 00000000 */  nop
 /* 040017ac 13bc 0d000459 */  jal   dma_wait
-/* 040017b0 13c0 34024000 */  ori   v0, r0, 0x4000
+/* 040017b0 13c0 34024000 */  li    v0, SP_STATUS_SIG7
 /* 040017b4 13c4 40822000 */  mtc0  v0, SP_STATUS
 /* 040017b8 13c8 0000000d */  break 0
 /* 040017bc 13cc 00000000 */  nop
 
-gsp_040017c0:
-/* 040017c0 13d0 34021000 */  ori   v0, r0, 0x1000
-/* 040017c4 13d4 ac1c0924 */  sw    gp, 0x924(r0)
-/* 040017c8 13d8 ac1b0928 */  sw    k1, 0x928(r0)
-/* 040017cc 13dc ac1a092c */  sw    k0, 0x92c(r0)
-/* 040017d0 13e0 ac170930 */  sw    s7, 0x930(r0)
-/* 040017d4 13e4 8c130108 */  lw    s3, 0x108(r0)
-/* 040017d8 13e8 34140000 */  ori   s4, r0, 0x0
-/* 040017dc 13ec 3412093f */  ori   s2, r0, 0x93f
+write_yield_data:
+/* 040017c0 13d0 34021000 */  li    v0, SP_STATUS_SIG5
+/* 040017c4 13d4 ac1c0924 */  sw    gp, savedgp(r0)
+/* 040017c8 13d8 ac1b0928 */  sw    k1, savedk1(r0)
+/* 040017cc 13dc ac1a092c */  sw    k0, savedk0(r0)
+/* 040017d0 13e0 ac170930 */  sw    s7, saveds7(r0)
+/* 040017d4 13e4 8c130108 */  lw    s3, yield_data_ptr(r0)
+/* 040017d8 13e8 34140000 */  li    s4, 0
+/* 040017dc 13ec 3412093f */  li    s2, 0x93f
 /* 040017e0 13f0 0d00044f */  jal   dma_read_write
-/* 040017e4 13f4 34110001 */  ori   s1, r0, 0x1
+/* 040017e4 13f4 34110001 */  li    s1, DMA_WRITE
 /* 040017e8 13f8 0d000459 */  jal   dma_wait
 /* 040017ec 13fc 00000000 */  nop
-/* 040017f0 1400 09000432 */  j     gsp_040010c8
+/* 040017f0 1400 09000432 */  j     handle_enddl_yield
 /* 040017f4 1404 40822000 */  mtc0  v0, SP_STATUS
 /* 040017f8 1408 00000000 */  nop
 /* 040017fc 140c 00000000 */  nop
