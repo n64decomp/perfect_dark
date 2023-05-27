@@ -26,7 +26,7 @@ Gfx *titleRenderLegal(Gfx *gdl);
 void titleInitPdLogo(void);
 void titleExitPdLogo(void);
 void titleTickPdLogo(void);
-Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, s32 arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, struct gfxvtx *vertices, u32 *colours);
+Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, s32 arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, Vtx *vertices, Col *colours);
 void titleSkipToPdTitle(void);
 Gfx *titleRenderPdLogo(Gfx *gdl);
 void titleInitRarePresents(void);

@@ -171,11 +171,11 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 {
 	struct coord spe4;
 	f32 length;
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 	struct coord spd0;
 	struct coord *campos = &g_Vars.currentplayer->cam_pos;
 	Mtxf *spc8;
-	u32 *colours = gfxAllocateColours(2);
+	Col *colours = gfxAllocateColours(2);
 	Mtxf sp84;
 	Mtxf *worldtoscreenmtx = camGetWorldToScreenMtxf();
 	struct coord sp74 = {0, 0, 0};
@@ -225,8 +225,8 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 		return gdl;
 	}
 
-	colours[0] = headcolour;
-	colours[1] = tailcolour;
+	colours[0].word = headcolour;
+	colours[1].word = tailcolour;
 
 	spd0.f[0] = (spe4.f[1] * (campos->f[2] - (headpos->f[2] + length * spe4.f[2]))) - (spe4.f[2] * (campos->f[1] - (headpos->f[1] + length * spe4.f[1])));
 	spd0.f[1] = (spe4.f[2] * (campos->f[0] - (headpos->f[0] + length * spe4.f[0]))) - (spe4.f[0] * (campos->f[2] - (headpos->f[2] + length * spe4.f[2])));
@@ -1441,12 +1441,12 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 	Mtxf sp148;
 
 	if (arg3 < 5 && beam->age >= 0) {
-		struct colour *colours = gfxAllocateColours(1); // 144
+		Col *colours = gfxAllocateColours(1); // 144
 		struct coord sp138;
 		struct coord *campos = &g_Vars.currentplayer->cam_pos; // 134
 		f32 sp130;
 		f32 sp12c = beam->mindist;
-		struct gfxvtx *vertices;
+		Vtx *vertices;
 		f32 sp124 = beam->dist;
 		struct coord sp118;
 		struct coord sp10c;
@@ -2247,8 +2247,8 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 		if (g_LaserSights[i].id != -1) {
 			struct coord pos;
 			struct coord rot;
-			u32 *colours;
-			struct gfxvtx *vertices;
+			Col *colours;
+			Vtx *vertices;
 
 			pos.x = g_LaserSights[i].dotpos.x;
 			pos.y = g_LaserSights[i].dotpos.y;
@@ -2260,8 +2260,8 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 
 			colours = gfxAllocateColours(2);
 
-			colours[0] = 0xff00005f;
-			colours[1] = 0xff00000f;
+			colours[0].word = 0xff00005f;
+			colours[1].word = 0xff00000f;
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
@@ -2431,12 +2431,12 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 
 	for (i = 0; i < 4; i++) {
 		if (g_LaserSights[i].id != -1) {
-			u32 *colours;
+			Col *colours;
 			struct coord spcc;
 			struct coord spc0;
 			struct coord spb4;
 			struct coord spa8;
-			struct gfxvtx *vertices;
+			Vtx *vertices;
 			struct coord sp98;
 
 			sp98.x = g_LaserSights[i].beamnear.x;
@@ -2477,8 +2477,8 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 
 			colours = gfxAllocateColours(2);
 
-			colours[0] = 0xff00005f;
-			colours[1] = 0xff00000f;
+			colours[0].word = 0xff00005f;
+			colours[1].word = 0xff00000f;
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 

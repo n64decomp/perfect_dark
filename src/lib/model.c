@@ -95,7 +95,7 @@ bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
 bool var8005efd8_2 = false;
 #endif
 
-struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices) = NULL;
+Vtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices) = NULL;
 void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx) = NULL;
 
 void modelSetDistanceChecksDisabled(bool disabled)
@@ -108,7 +108,7 @@ void modelSetDistanceScale(f32 scale)
 	g_ModelDistanceScale = scale;
 }
 
-void modelSetVtxAllocatorFunc(struct gfxvtx *(*fn)(s32 numvertices))
+void modelSetVtxAllocatorFunc(Vtx *(*fn)(s32 numvertices))
 {
 	g_ModelVtxAllocatorFunc = fn;
 }
@@ -3213,7 +3213,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 
 		if (rwdata->dl.gdl) {
-			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colourtable));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colours));
 
 			if (renderdata->cullmode) {
 				modelApplyCullMode(renderdata);
@@ -3251,7 +3251,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 
 		if (rwdata->dl.gdl && rodata->dl.mcount == 4 && rodata->dl.xlugdl) {
-			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colourtable));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colours));
 
 			if (renderdata->cullmode) {
 				modelApplyCullMode(renderdata);
@@ -3285,8 +3285,8 @@ void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct model
 		s32 i;
 
 		if (rodata->gdl) {
-			struct gfxvtx *src = (struct gfxvtx *) rodata->vertices;
-			struct gfxvtx *dst = g_ModelVtxAllocatorFunc(rodata->unk00 * 4);
+			Vtx *src = (Vtx *) rodata->vertices;
+			Vtx *dst = g_ModelVtxAllocatorFunc(rodata->unk00 * 4);
 
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(dst));
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL2, osVirtualToPhysical((void *)ALIGN8((uintptr_t)&rodata->vertices[rodata->unk00 << 2])));
@@ -3353,7 +3353,7 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 	f32 negspc0;
 	struct modelrodata_chrgunfire *rodata = &node->rodata->chrgunfire;
 	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 	f32 spf0;
 	f32 spec;
 	struct coord spe0;
@@ -3373,10 +3373,10 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 	f32 tmp;
 	struct coord sp9c;
 	struct coord sp90;
-	struct gfxvtx vtxtemplate = {0};
-	struct colour colourtemplate = {0xffffffff};
+	Vtx vtxtemplate = {0};
+	Col colourtemplate = {0xffffffff};
 	struct textureconfig *tconfig;
-	struct colour *colours;
+	Col *colours;
 	f32 distance;
 
 	if ((renderdata->flags & MODELRENDERFLAG_XLU) && rwdata->chrgunfire.visible) {
@@ -3437,7 +3437,7 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 
 		vertices = g_ModelVtxAllocatorFunc(4);
 
-		colours = (struct colour *) gfxAllocateColours(1);
+		colours = (Col *) gfxAllocateColours(1);
 
 		vertices[0] = vtxtemplate;
 		vertices[1] = vtxtemplate;
@@ -3880,7 +3880,7 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
 		case MODELNODETYPE_DL:
 			rodata = node->rodata;
 			PROMOTE(rodata->dl.vertices);
-			rodata->dl.colourtable = (void *)fileramaddr;
+			rodata->dl.colours = (void *)fileramaddr;
 			break;
 		case MODELNODETYPE_DISTANCE:
 			rodata = node->rodata;

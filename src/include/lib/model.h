@@ -5,12 +5,12 @@
 #include "types.h"
 
 extern bool (*var8005efc4)(struct model *model, struct modelnode *node);
-extern struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices);
+extern Vtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices);
 extern void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx);
 
 bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model);
 void modelSetDistanceScale(f32 value);
-void modelSetVtxAllocatorFunc(struct gfxvtx *(*fn)(s32 numvertices));
+void modelSetVtxAllocatorFunc(Vtx *(*fn)(s32 numvertices));
 s32 modelFindNodeMtxIndex(struct modelnode *node, s32 arg1);
 Mtxf *modelFindNodeMtx(struct model *model, struct modelnode *node, s32 arg2);
 Mtxf *modelGetRootMtx(struct model *model);

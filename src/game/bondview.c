@@ -746,8 +746,8 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
  */
 Gfx *bviewDrawEyespySideRect(Gfx *gdl, s32 *points, u8 r, u8 g, u8 b, u8 alpha)
 {
-	struct gfxvtx *vertices = gfxAllocateVertices(4);
-	u32 *colours = gfxAllocateColours(2);
+	Vtx *vertices = gfxAllocateVertices(4);
+	Col *colours = gfxAllocateColours(2);
 
 	vertices[0].x = points[0] * 10.0f;
 	vertices[0].y = points[1] * 10.0f;
@@ -765,8 +765,8 @@ Gfx *bviewDrawEyespySideRect(Gfx *gdl, s32 *points, u8 r, u8 g, u8 b, u8 alpha)
 	vertices[3].y = points[7] * 10.0f;
 	vertices[3].z = -10;
 
-	colours[0] = r << 0x18 | g << 0x10 | b << 8 | 0xff;
-	colours[1] = r << 0x18 | g << 0x10 | b << 8 | alpha;
+	colours[0].word = r << 0x18 | g << 0x10 | b << 8 | 0xff;
+	colours[1].word = r << 0x18 | g << 0x10 | b << 8 | alpha;
 
 	vertices[0].colour = 0;
 	vertices[1].colour = 0;

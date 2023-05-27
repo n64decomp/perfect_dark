@@ -13,10 +13,10 @@
  * 00FFFFFF	- offset in color table
  */
 #define gSPColor(pkt, v, n)                           \
-    gDma1p(pkt, G_COL, v, sizeof(u32)*(n),((n)-1)<<2)
+    gDma1p(pkt, G_COL, v, sizeof(Col)*(n),((n)-1)<<2)
 
 #define gsSPColor(v, n, v0)                        \
-    gsDma1p(G_COL, v, sizeof(u32)*(n), ((n)-1)<<2)
+    gsDma1p(G_COL, v, sizeof(Col)*(n), ((n)-1)<<2)
 
 /**
  * B1	rsp_tri4

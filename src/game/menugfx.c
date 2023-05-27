@@ -117,8 +117,8 @@ void menugfxCreateBlur(void)
 
 Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 {
-	u32 *colours;
-	struct gfxvtx *vertices;
+	Col *colours;
+	Vtx *vertices;
 #if VERSION >= VERSION_PAL_BETA
 	s32 width;
 	s32 height;
@@ -208,7 +208,7 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	vertices[2].colour = 0;
 	vertices[3].colour = 0;
 
-	colours[0] = colour;
+	colours[0].word = colour;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
@@ -218,7 +218,7 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	return gdl;
 }
 
-void func0f0e0cbc(s32 arg0, s32 arg1, s16 arg2, s16 arg3, struct gfxvtx *vertex, Mtxf *arg5)
+void func0f0e0cbc(s32 arg0, s32 arg1, s16 arg2, s16 arg3, Vtx *vertex, Mtxf *arg5)
 {
 	struct coord sp24;
 
@@ -280,8 +280,8 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
 Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	s32 i;
-	u32 *colours;
-	struct gfxvtx *vertices;
+	Col *colours;
+	Vtx *vertices;
 	u32 alphas[2];
 	s16 t5;
 	s16 s0;
@@ -377,10 +377,10 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	vertices[6].colour = 8;
 	vertices[7].colour = 8;
 
-	colours[0] = 0x00af0000 | alphas[0];
-	colours[1] = 0xffff0000 | alphas[0];
-	colours[2] = 0x00af0000 | alphas[1];
-	colours[3] = 0xffff0000 | alphas[1];
+	colours[0].word = 0x00af0000 | alphas[0];
+	colours[1].word = 0xffff0000 | alphas[0];
+	colours[2].word = 0x00af0000 | alphas[1];
+	colours[3].word = 0xffff0000 | alphas[1];
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 4);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
@@ -396,8 +396,8 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 
 Gfx *menugfxDrawDropdownBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
-	u32 *colours = gfxAllocateColours(3);
-	struct gfxvtx *vertices = gfxAllocateVertices(6);
+	Col *colours = gfxAllocateColours(3);
+	Vtx *vertices = gfxAllocateVertices(6);
 	u32 colour1;
 	u32 colour2;
 
@@ -446,9 +446,9 @@ Gfx *menugfxDrawDropdownBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	colour1 = text0f1543ac((x1 + x2) / 2, (y2 + y1) / 2, 0xffffffff) & 0xff;
 	colour2 = (text0f1543ac((x1 + x2) / 2, (y2 + y1) / 2, 0xffffff7f) & 0xff) | 0x00006f00;
 
-	colours[0] = colour1 | 0x00006f00;
-	colours[1] = colour2;
-	colours[2] = colour1 | 0x00003f00;
+	colours[0].word = colour1 | 0x00006f00;
+	colours[1].word = colour2;
+	colours[2].word = colour1 | 0x00003f00;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
@@ -464,8 +464,8 @@ Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3
 Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3)
 #endif
 {
-	u32 *colours = gfxAllocateColours(7);
-	struct gfxvtx *vertices = gfxAllocateVertices(9);
+	Col *colours = gfxAllocateColours(7);
+	Vtx *vertices = gfxAllocateVertices(9);
 	u32 alpha1;
 	u32 alpha2;
 
@@ -526,17 +526,17 @@ Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3
 	alpha2 = text0f1543ac((x1 + x2) / 2, (y1 + y2) / 2, 0xffffff7f) & 0xff;
 #endif
 
-	colours[0] = 0x00006f00 | alpha1;
-	colours[1] = 0x00006f00 | alpha2;
+	colours[0].word = 0x00006f00 | alpha1;
+	colours[1].word = 0x00006f00 | alpha2;
 #if VERSION >= VERSION_NTSC_1_0
-	colours[2] = 0x00003f00 | alpha2;
+	colours[2].word = 0x00003f00 | alpha2;
 #else
-	colours[2] = 0x00003f00 | alpha1;
+	colours[2].word = 0x00003f00 | alpha1;
 #endif
-	colours[3] = 0xffffff00;
-	colours[4] = (0x00006f00 | alpha2) & 0xffffff00;
-	colours[5] = (0x00003f00 | alpha1) & 0xffffff00;
-	colours[6] = 0x6f6f6f00 | alpha1;
+	colours[3].word = 0xffffff00;
+	colours[4].word = (0x00006f00 | alpha2) & 0xffffff00;
+	colours[5].word = (0x00003f00 | alpha1) & 0xffffff00;
+	colours[6].word = 0x6f6f6f00 | alpha1;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 7);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 9, 0);
@@ -737,8 +737,8 @@ glabel menugfxRenderGradient
 	// Mismatch: Goal has the if statement with empty contents
 Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourstart, u32 colourmid, u32 colourend)
 {
-	u32 *colours = gfxAllocateColours(3);
-	struct gfxvtx *vertices = gfxAllocateVertices(6);
+	Col *colours = gfxAllocateColours(3);
+	Vtx *vertices = gfxAllocateVertices(6);
 	s32 ymid;
 
 	gDPPipeSync(gdl++);
@@ -796,9 +796,9 @@ Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colours
 	vertices[5].y = ymid * 10;
 	vertices[5].colour = 8;
 
-	colours[0] = colourstart;
-	colours[2] = colourmid;
-	colours[1] = colourend;
+	colours[0].word = colourstart;
+	colours[2].word = colourmid;
+	colours[1].word = colourend;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
@@ -810,8 +810,8 @@ Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colours
 
 Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, u32 colour)
 {
-	u32 *colours = gfxAllocateColours(3);
-	struct gfxvtx *vertices = gfxAllocateVertices(6);
+	Col *colours = gfxAllocateColours(3);
+	Vtx *vertices = gfxAllocateVertices(6);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -855,9 +855,9 @@ Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, 
 	vertices[4].colour = 8;
 	vertices[5].colour = 8;
 
-	colours[0] = (colour & 0xffffff00) | 0x4f;
-	colours[1] = 0xffffffff;
-	colours[2] = 0x0000ff4f;
+	colours[0].word = (colour & 0xffffff00) | 0x4f;
+	colours[1].word = 0xffffffff;
+	colours[2].word = 0x0000ff4f;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
@@ -919,8 +919,8 @@ Gfx *menugfx0f0e2498(Gfx *gdl)
 
 Gfx *menugfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, bool arg7)
 {
-	struct gfxvtx *vertices;
-	u32 *colours;
+	Vtx *vertices;
+	Col *colours;
 
 	colours = gfxAllocateColours(2);
 	vertices = gfxAllocateVertices(4);
@@ -953,8 +953,8 @@ Gfx *menugfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 
 		vertices[3].colour = 4;
 	}
 
-	colours[0] = colour1;
-	colours[1] = colour2;
+	colours[0].word = colour1;
+	colours[1].word = colour2;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
@@ -1199,8 +1199,8 @@ Gfx *menugfxDrawFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1
  */
 Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1, u32 colour2)
 {
-	struct gfxvtx *vertices;
-	u32 *colours;
+	Vtx *vertices;
+	Col *colours;
 	s16 halfwidth;
 	s16 halfheight;
 	s16 relx;
@@ -1261,8 +1261,8 @@ Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction,
 	vertices[1].colour = 4;
 	vertices[2].colour = 4;
 
-	colours[0] = colour1;
-	colours[1] = colour2;
+	colours[0].word = colour1;
+	colours[1].word = colour2;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 3, 0);
@@ -1283,8 +1283,8 @@ Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction,
 Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1, u32 colour2, f32 arg7)
 {
 	u32 stack;
-	u32 *colours;
-	struct gfxvtx *vertices;
+	Col *colours;
+	Vtx *vertices;
 	s16 halfwidth;
 	s16 halfheight;
 	s16 relx;
@@ -1355,8 +1355,8 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u
 	vertices[2].colour = 4;
 	vertices[3].colour = 4;
 
-	colours[0] = colour1;
-	colours[1] = colour2;
+	colours[0].word = colour1;
+	colours[1].word = colour2;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
@@ -1753,8 +1753,8 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 {
 	Mtxf sp110;
 	Mtxf *modelmtx;
-	u32 *colours;
-	u32 *ptr;
+	Col *colours;
+	Col *ptr;
 	s32 i;
 	s32 j;
 	f32 f0;
@@ -1853,50 +1853,50 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 
 	if (gray) {
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[0] = 0xffffff00 | ((5 - j) * 127u / 5);
+			ptr[0].word = 0xffffff00 | ((5 - j) * 127u / 5);
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[1] = 0xaaaaaa00 | ((5 - j) * 16u / 5);
+			ptr[1].word = 0xaaaaaa00 | ((5 - j) * 16u / 5);
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[2] = 0xffffff00 | ((5 - j) * 127u / 5);
+			ptr[2].word = 0xffffff00 | ((5 - j) * 127u / 5);
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[3] = 0xaaaaaa00 | ((5 - j) * 16u / 5);
+			ptr[3].word = 0xaaaaaa00 | ((5 - j) * 16u / 5);
 			ptr += 4;
 			j++;
 		}
 	} else {
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[0] = 0xffffff00 | ((5 - j) * 127u / 5);
+			ptr[0].word = 0xffffff00 | ((5 - j) * 127u / 5);
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[1] = 0xaaaaff00 | ((5 - j) * 16u / 5);
+			ptr[1].word = 0xaaaaff00 | ((5 - j) * 16u / 5);
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[2] = 0xffffff00 | ((5 - j) * 127u / 5);
+			ptr[2].word = 0xffffff00 | ((5 - j) * 127u / 5);
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
 			if (colours);
-			ptr[3] = 0xffaaff00 | ((5 - j) * 16u / 5);
+			ptr[3].word = 0xffaaff00 | ((5 - j) * 16u / 5);
 			ptr += 4;
 			j++;
 		}
@@ -1928,7 +1928,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 				f32 invsine2 = -sine;
 				f32 invsine = -sine;
 				f32 invcosine = -cosine;
-				struct gfxvtx *vertices = gfxAllocateVertices(5);
+				Vtx *vertices = gfxAllocateVertices(5);
 
 				vertices[0].x = pos.f[0];
 				vertices[0].y = pos.f[1];

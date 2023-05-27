@@ -148,45 +148,45 @@ void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
 		s32 rand = random() % 100;
 
 		if (rand < 20) {
-			*(u32 *)g_Shards[g_NextShardNum].colours[0] = 0xbbbbbbf0;
-			*(u32 *)g_Shards[g_NextShardNum].colours[1] = 0xaaaaaaf0;
-			*(u32 *)g_Shards[g_NextShardNum].colours[2] = 0x777777f0;
+			g_Shards[g_NextShardNum].colours[0].word = 0xbbbbbbf0;
+			g_Shards[g_NextShardNum].colours[1].word = 0xaaaaaaf0;
+			g_Shards[g_NextShardNum].colours[2].word = 0x777777f0;
 		} else if (rand < 40) {
-			*(u32 *)g_Shards[g_NextShardNum].colours[0] = 0x000000f0;
-			*(u32 *)g_Shards[g_NextShardNum].colours[1] = 0x000000f0;
-			*(u32 *)g_Shards[g_NextShardNum].colours[2] = 0x000000f0;
+			g_Shards[g_NextShardNum].colours[0].word = 0x000000f0;
+			g_Shards[g_NextShardNum].colours[1].word = 0x000000f0;
+			g_Shards[g_NextShardNum].colours[2].word = 0x000000f0;
 		} else if (rand < 60) {
-			*(u32 *)g_Shards[g_NextShardNum].colours[0] = 0x553311f0;
-			*(u32 *)g_Shards[g_NextShardNum].colours[1] = 0x553311f0;
-			*(u32 *)g_Shards[g_NextShardNum].colours[2] = 0x553311f0;
+			g_Shards[g_NextShardNum].colours[0].word = 0x553311f0;
+			g_Shards[g_NextShardNum].colours[1].word = 0x553311f0;
+			g_Shards[g_NextShardNum].colours[2].word = 0x553311f0;
 		} else {
-			*(u32 *)g_Shards[g_NextShardNum].colours[0] = 0xddaa88f0;
-			*(u32 *)g_Shards[g_NextShardNum].colours[1] = 0xddaa88f0;
-			*(u32 *)g_Shards[g_NextShardNum].colours[2] = 0xddaa88f0;
+			g_Shards[g_NextShardNum].colours[0].word = 0xddaa88f0;
+			g_Shards[g_NextShardNum].colours[1].word = 0xddaa88f0;
+			g_Shards[g_NextShardNum].colours[2].word = 0xddaa88f0;
 		}
 	} else {
 		s32 i;
 		s32 j;
 
-		g_Shards[g_NextShardNum].colours[0][0] = 0x05;
-		g_Shards[g_NextShardNum].colours[0][1] = 0x05;
-		g_Shards[g_NextShardNum].colours[0][2] = 0x7e;
+		g_Shards[g_NextShardNum].colours[0].r = 0x05;
+		g_Shards[g_NextShardNum].colours[0].g = 0x05;
+		g_Shards[g_NextShardNum].colours[0].b = 0x7e;
 
-		g_Shards[g_NextShardNum].colours[1][0] = 0x05;
-		g_Shards[g_NextShardNum].colours[1][1] = 0xfb;
-		g_Shards[g_NextShardNum].colours[1][2] = 0x7e;
+		g_Shards[g_NextShardNum].colours[1].r = 0x05;
+		g_Shards[g_NextShardNum].colours[1].g = 0xfb;
+		g_Shards[g_NextShardNum].colours[1].b = 0x7e;
 
-		g_Shards[g_NextShardNum].colours[2][0] = 0xfb;
-		g_Shards[g_NextShardNum].colours[2][1] = 0xfb;
-		g_Shards[g_NextShardNum].colours[2][2] = 0x7e;
+		g_Shards[g_NextShardNum].colours[2].r = 0xfb;
+		g_Shards[g_NextShardNum].colours[2].g = 0xfb;
+		g_Shards[g_NextShardNum].colours[2].b = 0x7e;
 
 		for (i = 0; i < 3; i++) {
 			for (j = 0; j < 3; j++) {
-				g_Shards[g_NextShardNum].colours[i][j] = random() % 0xff;
+				g_Shards[g_NextShardNum].colours[i].bytes[j] = random() % 0xff;
 			}
 		}
 
-		g_Shards[g_NextShardNum].colours[0][3] = g_Shards[g_NextShardNum].colours[1][3] = g_Shards[g_NextShardNum].colours[2][3] = 0xff;
+		g_Shards[g_NextShardNum].colours[0].a = g_Shards[g_NextShardNum].colours[1].a = g_Shards[g_NextShardNum].colours[2].a = 0xff;
 	}
 
 	g_Shards[g_NextShardNum].rot.x = rotx;
@@ -272,7 +272,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 						gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 						if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-							u8 (*colours)[4] = gfxAllocateColours(3);
+							Col *colours = gfxAllocateColours(3);
 
 							if (g_Shards[i].age60 >= TICKS(100)) {
 								f32 frac = g_Shards[i].age60 / (PAL ? 41.666664123535f : 50.0f);
@@ -287,10 +287,10 @@ Gfx *shardsRenderWood(Gfx *gdl)
 							alphamult *= 0.5f;
 
 							for (j = 0; j < 3; j++) {
-								colours[j][0] = xraydist * 255.0f;
-								colours[j][1] = (1.0f - xraydist) * 255.0f;
-								colours[j][2] = 0;
-								colours[j][3] = g_Shards[g_NextShardNum].colours[j][3] * alphamult;
+								colours[j].r = xraydist * 255.0f;
+								colours[j].g = (1.0f - xraydist) * 255.0f;
+								colours[j].b = 0;
+								colours[j].a = g_Shards[g_NextShardNum].colours[j].a * alphamult;
 							}
 
 							gSPColor(gdl++, osVirtualToPhysical(colours), 3);
@@ -394,7 +394,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 						gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 						if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-							u8 (*colours)[4] = gfxAllocateColours(3);
+							Col *colours = gfxAllocateColours(3);
 
 							if (g_Shards[i].age60 >= TICKS(100)) {
 								f32 frac = g_Shards[i].age60 / (PAL ? 41.666664123535f : 50.0f);
@@ -409,10 +409,10 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 							alphamult *= 0.5f;
 
 							for (j = 0; j < 3; j++) {
-								colours[j][0] = xraydist * 255.0f;
-								colours[j][1] = (1.0f - xraydist) * 255.0f;
-								colours[j][2] = 0;
-								colours[j][3] = g_Shards[g_NextShardNum].colours[j][3] * alphamult;
+								colours[j].r = xraydist * 255.0f;
+								colours[j].g = (1.0f - xraydist) * 255.0f;
+								colours[j].b = 0;
+								colours[j].a = g_Shards[g_NextShardNum].colours[j].a * alphamult;
 							}
 
 							gSPColor(gdl++, osVirtualToPhysical(colours), 3);

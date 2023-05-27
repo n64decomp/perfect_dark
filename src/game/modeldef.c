@@ -117,7 +117,7 @@ void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 arg2, struct m
 	struct modelnode *node;
 	struct modelnode *prevnode;
 	uintptr_t gdl;
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 
 	allocsize = fileGetAllocationSize(filenum);
 	loadedsize = fileGetLoadedSize(filenum);

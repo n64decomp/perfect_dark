@@ -302,7 +302,7 @@ void doorsCheckAutomatic(void);
 void func0f08c424(struct doorobj *door, Mtxf *matrix);
 void doorGetBbox(struct doorobj *door, struct modelrodata_bbox *dst);
 void doorUpdateTiles(struct doorobj *door);
-void door0f08cb20(struct doorobj *door, struct gfxvtx *src, struct gfxvtx *dst, s32 numvertices);
+void door0f08cb20(struct doorobj *door, Vtx *src, Vtx *dst, s32 numvertices);
 void func0f08d3dc(struct doorobj *door);
 void func0f08d460(struct doorobj *door);
 void doorActivatePortal(struct doorobj *door);

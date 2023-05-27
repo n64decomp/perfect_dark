@@ -184,8 +184,8 @@ Gfx *func0f0d4c80(Gfx *gdl)
 
 Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, s32 type)
 {
-	u32 *colours;
-	struct gfxvtx *vertices;
+	Col *colours;
+	Vtx *vertices;
 	f32 tmp1;
 	s16 a1;
 	s16 t1;
@@ -361,8 +361,8 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 		vertices[3].colour = 4;
 	}
 
-	colours[0] = colour1;
-	colours[1] = colour2;
+	colours[0].word = colour1;
+	colours[1].word = colour2;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);

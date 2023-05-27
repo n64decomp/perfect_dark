@@ -1253,8 +1253,8 @@ Gfx *amRender(Gfx *gdl)
 {
 	struct chrdata *chr;
 	u32 flags;
-	u32 *colours;
-	struct gfxvtx *vertices;
+	Col *colours;
+	Vtx *vertices;
 	s32 mpchrnum;
 	s16 column;
 	s16 row;
@@ -1368,8 +1368,8 @@ Gfx *amRender(Gfx *gdl)
 		vertices[6].colour = 4;
 		vertices[7].colour = 4;
 
-		colours[0] = 0x22222200;
-		colours[1] = 0x0000004f;
+		colours[0].word = 0x22222200;
+		colours[1].word = 0x0000004f;
 
 		gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 		gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);

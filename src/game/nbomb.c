@@ -55,7 +55,7 @@ Gfx *func0f006c80(Gfx *gdl, struct coord *arg1, struct coord *arg2, struct coord
 	struct coord sp70;
 	struct coord sp64;
 	f32 dist;
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 
 	sp7c.x = arg2->x + arg1->x;
 	sp7c.y = arg2->y + arg1->y;
@@ -114,8 +114,8 @@ Gfx *func0f006c80(Gfx *gdl, struct coord *arg1, struct coord *arg2, struct coord
 Gfx *func0f0073ac(Gfx *gdl, struct coord *pos, f32 arg2)
 {
 	Mtxf *modelmtx = gfxAllocateMatrix();
-	struct gfxvtx *vertices;
-	u32 *colours;
+	Vtx *vertices;
+	Col *colours;
 	Mtxf sp104;
 	struct coord spf8[1];
 	struct coord spb0[] = {
@@ -180,7 +180,7 @@ Gfx *func0f0073ac(Gfx *gdl, struct coord *pos, f32 arg2)
 
 	colours = gfxAllocateColours(1);
 
-	colours[0] = 0xff00007f;
+	colours[0].word = 0xff00007f;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
@@ -213,7 +213,7 @@ Gfx *func0f0073ac(Gfx *gdl, struct coord *pos, f32 arg2)
 
 Gfx *func0f008558(Gfx *gdl, s32 depth)
 {
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 	struct coord sp5c[] = {
 		{ 0,  0,  1  },
 		{ 1,  0,  0  },
@@ -309,7 +309,7 @@ s32 nbombCalculateAlpha(struct nbomb *nbomb)
  */
 Gfx *nbombCreateGdl(void)
 {
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 	u32 gdlsizes[] = { 0x0a30, 0x0330 }; // 1 player, 2+ players
 	Gfx *gdlstart;
 	Gfx *gdl;
@@ -369,15 +369,15 @@ Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	Mtxf sp48;
 	struct coord sp3c;
 	u32 colour;
-	u32 *colours;
+	Col *colours;
 
 	mtx = gfxAllocateMatrix();
 	var80061644 = 2000.0f;
 	colour = nbombCalculateAlpha(nbomb);
 
 	colours = gfxAllocateColours(2);
-	colours[0] = colour;
-	colours[1] = 0xffffff00;
+	colours[0].word = colour;
+	colours[1].word = 0xffffff00;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
@@ -792,8 +792,8 @@ Gfx *nbombRenderOverlay(Gfx *gdl)
 	u32 stack2[2];
 	bool drawn = false;
 	s32 stack3;
-	u32 *colours;
-	struct gfxvtx *vertices;
+	Col *colours;
+	Vtx *vertices;
 	s16 viewleft;
 	s16 viewtop;
 	s16 viewright;
@@ -884,7 +884,7 @@ Gfx *nbombRenderOverlay(Gfx *gdl)
 		vertices[2].colour = 0;
 		vertices[3].colour = 0;
 
-		colours[0] = finalalpha;
+		colours[0].word = finalalpha;
 
 		gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 		gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
@@ -977,8 +977,8 @@ Gfx *gasRender(Gfx *gdl)
 		}
 
 		if (show) {
-			u32 *colours = gfxAllocateColours(1);
-			struct gfxvtx *vertices = gfxAllocateVertices(8);
+			Col *colours = gfxAllocateColours(1);
+			Vtx *vertices = gfxAllocateVertices(8);
 			s16 viewleft = viGetViewLeft() * 10;
 			s16 viewtop = viGetViewTop() * 10;
 			s16 viewright = (s16) (viGetViewLeft() + viGetViewWidth()) * 10;
@@ -1086,7 +1086,7 @@ Gfx *gasRender(Gfx *gdl)
 
 			alpha = 127.0f * alphafrac;
 
-			colours[0] = 0x3faf1100 | alpha;
+			colours[0].word = 0x3faf1100 | alpha;
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 			gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);

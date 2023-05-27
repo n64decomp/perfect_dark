@@ -1563,8 +1563,8 @@ void roomHighlight(s32 roomnum)
 	s32 blue;
 	s32 extra;
 	s32 numcolours;
-	struct colour *src;
-	struct colour *dst;
+	Col *src;
+	Col *dst;
 	u8 br_settled_regional;
 	s32 max;
 	f32 mult;
@@ -1583,8 +1583,8 @@ void roomHighlight(s32 roomnum)
 		g_Rooms[roomnum].colours = dst;
 
 		extra = g_Rooms[roomnum].br_flash;
-		src = (struct colour *)((uintptr_t)g_Rooms[roomnum].gfxdata->vertices + g_Rooms[roomnum].gfxdata->numvertices * sizeof(struct gfxvtx));
-		src = (struct colour *)ALIGN8((uintptr_t)src);
+		src = (Col *)((uintptr_t)g_Rooms[roomnum].gfxdata->vertices + g_Rooms[roomnum].gfxdata->numvertices * sizeof(Vtx));
+		src = (Col *)ALIGN8((uintptr_t)src);
 
 		if (g_Rooms[roomnum].flags & ROOMFLAG_RENDERALWAYS) {
 			g_Rooms[roomnum].colours = src;

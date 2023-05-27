@@ -1199,7 +1199,7 @@ s32 wallhit0f140750(struct coord *coord)
 Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 {
 	struct wallhit *wallhit;
-	struct colour *colours;
+	Col *colours;
 	s32 prevtexturenum;
 	s32 prev6b;
 
@@ -1262,7 +1262,7 @@ Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
 {
 	struct wallhit *wallhit;
-	struct colour *colours;
+	Col *colours;
 	s32 prevtexturenum;
 	s32 prev6b;
 
@@ -1319,7 +1319,7 @@ Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
 
 Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool xlu)
 {
-	struct colour *colours;
+	Col *colours;
 	struct defaultobj *obj = prop->obj;
 	bool hasany = false;
 	struct wallhit *wallhit;

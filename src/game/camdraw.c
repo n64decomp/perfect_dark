@@ -2651,7 +2651,7 @@ void func0f14f1d4(s16 *src, s32 len, s32 *dst)
 	}
 }
 
-s32 func0f14f2b4(struct modeldef *modeldef, struct gfxvtx **dst, u32 *len)
+s32 func0f14f2b4(struct modeldef *modeldef, Vtx **dst, u32 *len)
 {
 	struct modelnode *node1 = modelGetPart(modeldef, MODELPART_HEAD_0190);
 	struct modelnode *node2 = modelGetPart(modeldef, MODELPART_HEAD_0191);
@@ -2675,15 +2675,15 @@ s32 func0f14f2b4(struct modeldef *modeldef, struct gfxvtx **dst, u32 *len)
 		s32 size;
 
 		totalverts = node1numverts + node2numverts + node3numverts;
-		size = align16(totalverts * sizeof(struct gfxvtx));
+		size = align16(totalverts * sizeof(Vtx));
 
 		if (*dst == 0) {
 			*dst = func0f149d58(size, 4429, "camdraw.c");
 		}
 
-		memcpy(*dst, node1rodata->vertices, node1numverts * sizeof(struct gfxvtx));
-		memcpy(*dst + node1numverts, node2rodata->vertices, node2numverts * sizeof(struct gfxvtx));
-		memcpy(*dst + node1numverts + node2numverts, node3rodata->vertices, node3numverts * sizeof(struct gfxvtx));
+		memcpy(*dst, node1rodata->vertices, node1numverts * sizeof(Vtx));
+		memcpy(*dst + node1numverts, node2rodata->vertices, node2numverts * sizeof(Vtx));
+		memcpy(*dst + node1numverts + node2numverts, node3rodata->vertices, node3numverts * sizeof(Vtx));
 
 		if (len != NULL) {
 			*len = size;

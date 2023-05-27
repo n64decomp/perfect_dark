@@ -123,10 +123,10 @@ Gfx *gfxGetMasterDisplayList(void)
 	return (Gfx *)g_GfxBuffers[g_GfxActiveBufferIndex];
 }
 
-struct gfxvtx *gfxAllocateVertices(u32 count)
+Vtx *gfxAllocateVertices(u32 count)
 {
 	void *ptr = g_GfxMemPos;
-	g_GfxMemPos += count * sizeof(struct gfxvtx);
+	g_GfxMemPos += count * sizeof(Vtx);
 	g_GfxMemPos = (u8 *)ALIGN16((uintptr_t)g_GfxMemPos);
 
 	return ptr;
@@ -145,7 +145,7 @@ void *gfxAllocateMatrix(void)
  * The function allocates 0x8 for every count, so it could be allocating lights
  * instead, however it's only used for LookAts so it's named as LookAt.
  */
-void *gfxAllocateLookAt(s32 count)
+LookAt *gfxAllocateLookAt(s32 count)
 {
 	void *ptr = g_GfxMemPos;
 	g_GfxMemPos += count * (sizeof(LookAt) / 2);
@@ -153,10 +153,10 @@ void *gfxAllocateLookAt(s32 count)
 	return ptr;
 }
 
-void *gfxAllocateColours(s32 count)
+Col *gfxAllocateColours(s32 count)
 {
 	void *ptr = g_GfxMemPos;
-	count = ALIGN16(count * sizeof(u32));
+	count = ALIGN16(count * sizeof(Col));
 	g_GfxMemPos += count;
 
 	return ptr;

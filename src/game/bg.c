@@ -268,8 +268,8 @@ struct drawslot *bgGetRoomDrawSlot(s32 roomnum)
 
 Gfx *bgRenderXrayData(Gfx *gdl, struct xraydata *xraydata)
 {
-	struct gfxvtx *vertices;
-	u32 *colours;
+	Vtx *vertices;
+	Col *colours;
 	s32 numgroups;
 	s32 i;
 	s32 count;
@@ -283,7 +283,7 @@ Gfx *bgRenderXrayData(Gfx *gdl, struct xraydata *xraydata)
 			vertices[i].y = xraydata->vertices[i][1];
 			vertices[i].z = xraydata->vertices[i][2];
 			vertices[i].colour = i << 2;
-			colours[i] = xraydata->colours[i];
+			colours[i].word = xraydata->colours[i];
 		}
 
 		count = xraydata->numvertices;
@@ -1101,7 +1101,7 @@ glabel var7f1b75c4
 );
 #else
 // Mismatch: Regalloc and some reordered instructions
-Gfx *bgRenderGdlInXray(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
+Gfx *bgRenderGdlInXray(Gfx *gdl, Gfx *gdl2, Vtx *vertices, s16 arg3[3])
 {
 	s32 i;
 	s32 stack;
@@ -1140,7 +1140,7 @@ Gfx *bgRenderGdlInXray(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3]
 			s32 index = gdl2->bytes[1] & 0xf;
 			s32 numvertices = (((u32)gdl2->bytes[1] >> 4)) + 1;
 			s32 offset = (gdl2->words.w1 & 0xffffff);
-			struct gfxvtx *vtx = (struct gfxvtx *)((uintptr_t)vertices + offset);
+			Vtx *vtx = (Vtx *)((uintptr_t)vertices + offset);
 			u32 stack[4];
 
 			for (i = 0; i < numvertices; i++) {
@@ -3102,7 +3102,7 @@ Gfx *bgGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
 	return xlugdl;
 }
 
-struct gfxvtx *bgFindVerticesForGdl(s32 roomnum, Gfx *gdl)
+Vtx *bgFindVerticesForGdl(s32 roomnum, Gfx *gdl)
 {
 	struct roomblock *block = g_Rooms[roomnum].gfxdata->blocks;
 	uintptr_t end = (uintptr_t)g_Rooms[roomnum].gfxdata->vertices;
@@ -4377,11 +4377,11 @@ void bgLoadRoom(s32 roomnum)
 
 		// Promote offsets to pointers in the gfxdata header
 		if (g_Rooms[roomnum].gfxdata->vertices) {
-			g_Rooms[roomnum].gfxdata->vertices = (struct gfxvtx *)((uintptr_t)g_Rooms[roomnum].gfxdata->vertices - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
+			g_Rooms[roomnum].gfxdata->vertices = (Vtx *)((uintptr_t)g_Rooms[roomnum].gfxdata->vertices - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 		}
 
 		if (g_Rooms[roomnum].gfxdata->colours) {
-			g_Rooms[roomnum].gfxdata->colours = (u32 *)((uintptr_t)g_Rooms[roomnum].gfxdata->colours - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
+			g_Rooms[roomnum].gfxdata->colours = (Col *)((uintptr_t)g_Rooms[roomnum].gfxdata->colours - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 		}
 
 		if (g_Rooms[roomnum].gfxdata->opablocks) {
@@ -4406,10 +4406,10 @@ void bgLoadRoom(s32 roomnum)
 					block1->gdl = (Gfx *)((uintptr_t)block1->gdl - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->vertices != 0) {
-					block1->vertices = (struct gfxvtx *)((uintptr_t)block1->vertices - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
+					block1->vertices = (Vtx *)((uintptr_t)block1->vertices - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->colours != 0) {
-					block1->colours = (u32 *)((uintptr_t)block1->colours - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
+					block1->colours = (Col *)((uintptr_t)block1->colours - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				break;
 			case ROOMBLOCKTYPE_PARENT:
@@ -4420,10 +4420,10 @@ void bgLoadRoom(s32 roomnum)
 					block1->gdl = (Gfx *)((uintptr_t)block1->gdl - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->vertices != 0) {
-					block1->vertices = (struct gfxvtx *)((uintptr_t)block1->vertices - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
+					block1->vertices = (Vtx *)((uintptr_t)block1->vertices - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if (block1->colours != 0) {
-					block1->colours = (u32 *)((uintptr_t)block1->colours - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
+					block1->colours = (Col *)((uintptr_t)block1->colours - g_BgRooms[roomnum].unk00 + (uintptr_t)allocation);
 				}
 				if ((uintptr_t)block1->vertices < end1) {
 					end1 = (uintptr_t)block1->vertices;
@@ -4435,7 +4435,7 @@ void bgLoadRoom(s32 roomnum)
 		}
 
 		// Calculate the number of vertices and colours
-		g_Rooms[roomnum].gfxdata->numvertices = ((uintptr_t)g_Rooms[roomnum].gfxdata->colours - (uintptr_t)g_Rooms[roomnum].gfxdata->vertices) / sizeof(struct gfxvtx);
+		g_Rooms[roomnum].gfxdata->numvertices = ((uintptr_t)g_Rooms[roomnum].gfxdata->colours - (uintptr_t)g_Rooms[roomnum].gfxdata->vertices) / sizeof(Vtx);
 		g_Rooms[roomnum].gfxdata->numcolours = ((uintptr_t)bgGetNextGdlInLayer(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (uintptr_t)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
 
 		// Build arrays of pointers to gfx blocks and vtx blocks
@@ -4832,12 +4832,12 @@ Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 	return gdl;
 }
 
-s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 batchindex, struct gfxvtx *vertices, s32 type)
+s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 batchindex, Vtx *vertices, s32 type)
 {
 	s32 i;
 	s32 j;
 	s32 numvertices;
-	struct gfxvtx *batchvertices;
+	Vtx *batchvertices;
 
 	for (i = 0; gdl[i].dma.cmd != G_ENDDL; i++) {
 		if (gdl[i].dma.cmd == G_VTX) {
@@ -4851,7 +4851,7 @@ s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 
 			}
 
 			numvertices = (((u32)gdl[i].bytes[1] >> 4) & 0xf) + 1;
-			batchvertices = (struct gfxvtx *)((uintptr_t)vertices + (gdl[i].words.w1 & 0xffffff));
+			batchvertices = (Vtx *)((uintptr_t)vertices + (gdl[i].words.w1 & 0xffffff));
 
 			for (j = 0; j < numvertices; j++) {
 				f32 x = batchvertices[j].x;
@@ -4959,7 +4959,7 @@ void bgFindRoomVtxBatches(s32 roomnum)
 				g_Rooms[roomnum].vtxbatches = batches;
 
 				while (gdl) {
-					struct gfxvtx *vertices = bgFindVerticesForGdl(roomnum, gdl);
+					Vtx *vertices = bgFindVerticesForGdl(roomnum, gdl);
 					batchindex = bgPopulateVtxBatchType(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_OPA);
 					gdl = bgGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_OPA);
 				}
@@ -4968,7 +4968,7 @@ void bgFindRoomVtxBatches(s32 roomnum)
 					gdl = bgGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_XLU);
 
 					while (gdl) {
-						struct gfxvtx *vertices = bgFindVerticesForGdl(roomnum, gdl);
+						Vtx *vertices = bgFindVerticesForGdl(roomnum, gdl);
 						batchindex = bgPopulateVtxBatchType(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_XLU);
 						gdl = bgGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_XLU);
 					}
@@ -5120,7 +5120,7 @@ bool bgTestLineIntersectsBbox(struct coord *arg0, struct coord *arg1, struct coo
 }
 
 bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, Gfx *gdl,
-		Gfx *gdl2, struct gfxvtx *vertices, struct hitthing *hitthing)
+		Gfx *gdl2, Vtx *vertices, struct hitthing *hitthing)
 {
 	s16 stack;
 	s16 triref;
@@ -5133,7 +5133,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 	struct coord *point1;
 	struct coord *point2;
 	struct coord *point3;
-	struct gfxvtx *vtx;
+	Vtx *vtx;
 	Gfx *imggdl = NULL;
 	s32 texturenum;
 	f32 lowestsqdist = MAXFLOAT;
@@ -5162,7 +5162,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 			count = gdl->bytes[1] & 0xf;
 			offset = (gdl->words.w1 & 0xffffff);
 			numvertices = (((u32)gdl->bytes[1] >> 4) & 0xf) + 1;
-			vtx = (struct gfxvtx *)((uintptr_t)vertices + offset);
+			vtx = (Vtx *)((uintptr_t)vertices + offset);
 			vtx -= count;
 
 			ptr[0] = vtx->x;
@@ -5417,7 +5417,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 }
 
 bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2, struct coord *arg3,
-		Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, f32 *sqdistptr, struct hitthing *hitthing)
+		Gfx *gdl, Gfx *gdl2, Vtx *vertices, f32 *sqdistptr, struct hitthing *hitthing)
 {
 	s16 triref;
 	s32 i;
@@ -5430,7 +5430,7 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 	bool hit;
 	f32 tmp;
 	f32 sqdist;
-	struct gfxvtx *vtx;
+	Vtx *vtx;
 	struct coord *point1;
 	struct coord *point2;
 	struct coord *point3;
@@ -5463,7 +5463,7 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 			count = (gdl->bytes[1] & 0xf);
 			word = gdl->words.w1 & 0xffffff;
 			numvertices = ((u32)gdl->bytes[1] >> 4) + 1;
-			vtx = (struct gfxvtx *)((uintptr_t)vertices + word);
+			vtx = (Vtx *)((uintptr_t)vertices + word);
 
 			if (count < spdc) {
 				spdc = count;
@@ -5714,7 +5714,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 	struct coord spa4;
 	struct coord min;
 	struct coord max;
-	struct gfxvtx *vtx;
+	Vtx *vtx;
 	f32 *ptr;
 	Gfx *iter;
 	Gfx *tmpgdl;
@@ -5722,7 +5722,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 
 	vtx = bgFindVerticesForGdl(roomnum, gdl);
 	iter = &gdl[batch->gbicmdindex];
-	vtx = (struct gfxvtx *)((iter->words.w1 & 0xffffff) + (s32)vtx);
+	vtx = (Vtx *)((iter->words.w1 & 0xffffff) + (s32)vtx);
 	numvertices = (((u32)iter->bytes[1] >> 4) & 0xf) + 1;
 	ptr = var800a6470;
 

@@ -184,7 +184,7 @@ bool g_CreditsScrollStarted = false;
 bool g_CreditsAltTitleRequested = false;
 bool g_CreditsUsingAltTitle = false;
 
-void creditsMap4BgVertices(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
+void creditsMap4BgVertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
 {
 	f32 a = arg2 * sinf(arg1) + arg3 * cosf(arg1);
 	f32 b = arg2 * cosf(arg1) - arg3 * sinf(arg1);
@@ -202,7 +202,7 @@ void creditsMap4BgVertices(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3
 	vertices[3].t = (cosf(arg4 + 4.7123889923096f) - sinf(arg4 + 4.7123889923096f)) * arg6 + b;
 }
 
-void creditsMap9BgVertices(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
+void creditsMap9BgVertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
 {
 	f32 a = arg2 * sinf(arg1) + arg3 * cosf(arg1);
 	f32 b = arg2 * cosf(arg1) - arg3 * sinf(arg1);
@@ -248,7 +248,7 @@ void creditsMap9BgVertices(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3
  * 7:  0      1800
  * 8:  1800   1800
  */
-void creditsInitBgVertices(struct gfxvtx *vertices, s32 z)
+void creditsInitBgVertices(Vtx *vertices, s32 z)
 {
 	s32 i;
 
@@ -276,7 +276,7 @@ struct bgconfig g_CreditsBgConfigs[] = {
 	{ 0.01, { 2, 1, 2, 1, 0, 1, 2, 1, 2 }, { { 0x00ffff, 0x0000ff, 0x000000 }, { 0xffffff, 0xffffff, 0xffffff }, { 0xffffff, 0xffffff, 0xffffff } } },
 };
 
-void creditsChooseBgColours(struct gfxvtx *vertices, u32 *colours, s32 confignum, s32 alpha, s32 arg4)
+void creditsChooseBgColours(Vtx *vertices, Col *colours, s32 confignum, s32 alpha, s32 arg4)
 {
 #if PAL
 	s32 iVar1 = (s32)(g_CreditsBgConfigs[confignum].unk00 * g_CreditsCurFrame2 / (10.0f / 3.0f) + arg4) % 180;
@@ -307,15 +307,15 @@ void creditsChooseBgColours(struct gfxvtx *vertices, u32 *colours, s32 confignum
 	weightfrac = (iVar1 % 60) / 60.0f;
 	weight = 255.0f * weightfrac;
 
-	colours[0] = colourBlend(
+	colours[0].word = colourBlend(
 			g_CreditsBgConfigs[confignum].colours[colour2index][0] << 8,
 			g_CreditsBgConfigs[confignum].colours[colour1index][0] << 8, weight) | alpha;
 
-	colours[1] = colourBlend(
+	colours[1].word = colourBlend(
 			g_CreditsBgConfigs[confignum].colours[colour2index][1] << 8,
 			g_CreditsBgConfigs[confignum].colours[colour1index][1] << 8, weight) | alpha;
 
-	colours[2] = colourBlend(
+	colours[2].word = colourBlend(
 			g_CreditsBgConfigs[confignum].colours[colour2index][2] << 8,
 			g_CreditsBgConfigs[confignum].colours[colour1index][2] << 8, weight) | alpha;
 }
@@ -346,8 +346,8 @@ struct creditsbgtype g_CreditsBgTypes[] = {
 
 Gfx *creditsDrawBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 alpha, s32 arg5)
 {
-	struct gfxvtx *vertices;
-	u32 *colours;
+	Vtx *vertices;
+	Col *colours;
 	u32 stack;
 	f32 pan;
 	f32 b;
@@ -584,8 +584,8 @@ Gfx *creditsFillFramebuffer(Gfx *gdl, u32 colour)
  */
 Gfx *creditsRenderLine(Gfx *gdl, struct coord *from, struct coord *to)
 {
-	struct gfxvtx *vertices;
-	u32 *colours;
+	Vtx *vertices;
+	Col *colours;
 
 	colours = gfxAllocateColours(2);
 	vertices = gfxAllocateVertices(4);
@@ -611,8 +611,8 @@ Gfx *creditsRenderLine(Gfx *gdl, struct coord *from, struct coord *to)
 	vertices[2].colour = 4;
 	vertices[3].colour = 0;
 
-	colours[0] = 0xffffffff;
-	colours[1] = 0xffffffff;
+	colours[0].word = 0xffffffff;
+	colours[1].word = 0xffffffff;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
@@ -854,7 +854,7 @@ void creditsGetParticlePos(struct coord *pos, struct particle *particle, s32 par
 
 Gfx *creditsDrawParticles(Gfx *gdl)
 {
-	u32 *colours;
+	Col *colours;
 	u32 colour;
 	s32 i;
 	s32 j;
@@ -883,7 +883,7 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 		}
 
 		for (j = 0; j < 15; j++) {
-			colours[i + j * 4] = (colour & 0xffffff00) | ((colour & 0xff) * (15 - j) / 15);
+			colours[i + j * 4].word = (colour & 0xffffff00) | ((colour & 0xff) * (15 - j) / 15);
 		}
 	}
 
@@ -897,7 +897,7 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 				s32 offset;
 				u32 stack[3];
 				struct coord pos;
-				struct gfxvtx *vertices;
+				Vtx *vertices;
 				f32 sine = sinf(g_CreditsData->particles[i].rotation);
 				f32 cosine = cosf(g_CreditsData->particles[i].rotation);
 				f32 radius = g_CreditsData->particles[i].size * 10.0f + 25.0f;

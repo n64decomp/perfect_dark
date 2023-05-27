@@ -69,7 +69,7 @@ void shieldhitsTick(void);
 void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright);
 s32 chrsGetNumSlots(void);
 void chrRegister(s32 chrnum, s32 chrindex);
-struct gfxvtx *chrAllocateVertices(s32 numvertices);
+Vtx *chrAllocateVertices(s32 numvertices);
 void chrsSetVar8006297c(u32 arg0);
 u32 chrsGetVar8006297c(void);
 void chrsSetVar80062980(u32 arg0);

@@ -430,7 +430,7 @@ struct modelrodata_gundl { // type 0x04
 	Gfx *opagdl;
 	Gfx *xlugdl;
 	void *baseaddr;
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 	s16 numvertices;
 	s16 unk12;
 };
@@ -526,7 +526,7 @@ struct modelrodata_positionheld { // type 0x15
 
 struct modelrodata_stargunfire { // type 0x16
 	s32 unk00;
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 	Gfx *gdl;
 	void *baseaddr;
 };
@@ -538,8 +538,8 @@ struct modelrodata_headspot { // type 0x17
 struct modelrodata_dl { // type 0x18
 	/*0x00*/ Gfx *opagdl;
 	/*0x04*/ Gfx *xlugdl;
-	/*0x08*/ u32 *colourtable;
-	/*0x0c*/ struct gfxvtx *vertices; // colours follow this array
+	/*0x08*/ Col *colours;
+	/*0x0c*/ Vtx *vertices; // colours follow this array
 	/*0x10*/ s16 numvertices;
 	/*0x12*/ s16 mcount;
 	/*0x14*/ u16 rwdataindex;
@@ -663,23 +663,10 @@ struct modelrwdata_headspot { // type 0x17
 	void *rwdatas;
 };
 
-struct colour {
-	union {
-		u32 word;
-		u8 bytes[4];
-		struct {
-			u8 r;
-			u8 g;
-			u8 b;
-			u8 a;
-		};
-	};
-};
-
 struct modelrwdata_dl { // type 0x18
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 	Gfx *gdl;
-	struct colour *colours;
+	Col *colours;
 };
 
 union modelrwdata {
@@ -1521,7 +1508,7 @@ struct doorobj { // objtype 0x01
 	union {
 		struct {
 			/*0x98*/ struct coord unk98;
-			/*0xa4*/ struct gfxvtx *unka4;
+			/*0xa4*/ Vtx *unka4;
 		};
 		f32 mtx98[3][3];
 	};
@@ -3559,8 +3546,8 @@ struct roomblock {
 	union {
 		struct { // type 0 (leaf)
 			Gfx *gdl;
-			struct gfxvtx *vertices;
-			u32 *colours;
+			Vtx *vertices;
+			Col *colours;
 		};
 		struct { // type 1 (parent)
 			struct roomblock *child;
@@ -3570,8 +3557,8 @@ struct roomblock {
 };
 
 struct roomgfxdata {
-	/*0x00*/ struct gfxvtx *vertices;
-	/*0x04*/ u32 *colours;
+	/*0x00*/ Vtx *vertices;
+	/*0x04*/ Col *colours;
 	/*0x08*/ struct roomblock *opablocks;
 	/*0x0c*/ struct roomblock *xlublocks;
 	/*0x10*/ s16 lightsindex;
@@ -3650,7 +3637,7 @@ struct room {
 	/*0x52*/ s16 br_flash;
 	/*0x54*/ s16 lightop_timer240;
 	/*0x56*/ u16 hlupdatedframe;
-	/*0x58*/ struct colour *colours;
+	/*0x58*/ Col *colours;
 	/*0x5c*/ f32 lightop_cur_frac;
 	/*0x60*/ f32 lightop_to_frac;
 	/*0x64*/ f32 lightop_from_frac;
@@ -5641,21 +5628,6 @@ struct var80067e6c {
 	f32 value;
 };
 
-struct gfxvtx {
-	union {
-		struct {
-			/*0x00*/ s16 x;
-			/*0x02*/ s16 y;
-			/*0x04*/ s16 z;
-		};
-		s16 v[3];
-	};
-	/*0x06*/ u8 flags;
-	/*0x07*/ u8 colour;
-	/*0x08*/ s16 s;
-	/*0x0a*/ s16 t;
-};
-
 struct shard {
 	/*0x00*/ s16 room;
 	/*0x04*/ s32 age60;
@@ -5663,8 +5635,8 @@ struct shard {
 	/*0x14*/ struct coord rot;
 	/*0x20*/ struct coord vel;
 	/*0x2c*/ struct coord rotspeed;
-	/*0x38*/ struct gfxvtx vertices[3];
-	/*0x5c*/ u8 colours[3][4];
+	/*0x38*/ Vtx vertices[3];
+	/*0x5c*/ Col colours[3];
 	/*0x68*/ u8 type;
 };
 
@@ -5738,13 +5710,13 @@ struct stageheadlimit {
 };
 
 struct wallhit {
-	/*0x00*/ struct gfxvtx vertices[4];
-	/*0x30*/ struct colour basecolours[4];  // without room lighting applied
-	/*0x40*/ struct colour finalcolours[4]; // with room lighting applied
+	/*0x00*/ Vtx vertices[4];
+	/*0x30*/ Col basecolours[4];  // without room lighting applied
+	/*0x40*/ Col finalcolours[4]; // with room lighting applied
 	/*0x50*/ struct coord relpos; // position relative to room or prop's pos
 	/*0x5c*/ struct prop *chrprop;
 	/*0x60*/ struct prop *objprop;
-	/*0x64*/ struct gfxvtx *vertices2; // overridden vertices for when blood is expanding
+	/*0x64*/ Vtx *vertices2; // overridden vertices for when blood is expanding
 	/*0x68*/ s16 roomnum;
 	/*0x6a*/ u8 texturenum;
 	/*0x6b*/ u8 unk6b;
@@ -6008,9 +5980,9 @@ struct warpparams {
 struct hitthing {
 	struct coord unk00;
 	struct coord unk0c;
-	struct gfxvtx *unk18;
-	struct gfxvtx *unk1c;
-	struct gfxvtx *unk20;
+	Vtx *unk18;
+	Vtx *unk1c;
+	Vtx *unk20;
 	Gfx *tricmd;
 	s16 unk28;
 	s16 texturenum;

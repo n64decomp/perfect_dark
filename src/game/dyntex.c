@@ -73,45 +73,45 @@ s32 g_DyntexRoomsCount = 0;
 s32 g_DyntexTypesCount = 0;
 s32 g_DyntexVerticesCount = 0;
 
-void dyntexUpdateLinear(struct gfxvtx *vertices, struct dyntextype *type)
+void dyntexUpdateLinear(Vtx *vertices, struct dyntextype *type)
 {
 	s16 tmp = (s32) (g_Lv80SecIntervalFrac * 10.0f * 4096.0f) % 4096;
 	s32 i;
 
 	for (i = 0; i < type->numvertices; i++) {
-		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+		Vtx *vertex = (Vtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
 
 		vertex->t = g_DyntexVertices[type->vertexlistoffset + i].t + tmp;
 		vertex->s = g_DyntexVertices[type->vertexlistoffset + i].s;
 	}
 }
 
-void dyntexUpdateReset(struct gfxvtx *vertices, struct dyntextype *type)
+void dyntexUpdateReset(Vtx *vertices, struct dyntextype *type)
 {
 	s32 i;
 
 	for (i = 0; i < type->numvertices; i++) {
-		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+		Vtx *vertex = (Vtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
 
 		vertex->s = 0;
 		vertex->t = 0;
 	}
 }
 
-void dyntexUpdateMonitor(struct gfxvtx *vertices, struct dyntextype *type)
+void dyntexUpdateMonitor(Vtx *vertices, struct dyntextype *type)
 {
 	s16 tmp = (s32) (g_Lv80SecIntervalFrac * 4.0f * 4096.0f) % 4096;
 	s32 i;
 
 	for (i = 0; i < type->numvertices; i++) {
-		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+		Vtx *vertex = (Vtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
 
 		vertex->t = g_DyntexVertices[type->vertexlistoffset + i].t - tmp;
 		vertex->s = g_DyntexVertices[type->vertexlistoffset + i].s;
 	}
 }
 
-void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type)
+void dyntexUpdateOcean(Vtx *vertices, struct dyntextype *type)
 {
 	f32 f24 = g_Lv80SecIntervalFrac * 5.0f;
 	f32 angle;
@@ -124,7 +124,7 @@ void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type)
 	mainOverrideVariable("ripsize", &ripsize);
 
 	for (i = 0; i < type->numvertices; i++) {
-		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+		Vtx *vertex = (Vtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
 
 		angle = ((g_DyntexVertices[type->vertexlistoffset + i].t % modula) / (f32) modula + f24) * M_BADTAU;
 		vertex->t = g_DyntexVertices[type->vertexlistoffset + i].t + (s16) (sinf(angle) * ripsize);
@@ -134,20 +134,20 @@ void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexUpdateArrows(struct gfxvtx *vertices, struct dyntextype *type)
+void dyntexUpdateArrows(Vtx *vertices, struct dyntextype *type)
 {
 	s32 tmp = ((s32) ((1.0f - g_Lv80SecIntervalFrac) * 60.0f * 8.0f) % 8) * 256;
 	s32 i;
 
 	for (i = 0; i < type->numvertices; i++) {
-		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+		Vtx *vertex = (Vtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
 
 		vertex->s = g_DyntexVertices[type->vertexlistoffset + i].s + tmp;
 		vertex->t = g_DyntexVertices[type->vertexlistoffset + i].t;
 	}
 }
 
-void dyntexTickRoom(s32 roomnum, struct gfxvtx *vertices)
+void dyntexTickRoom(s32 roomnum, Vtx *vertices)
 {
 	s32 index = -1;
 	s32 i;
@@ -182,7 +182,7 @@ void dyntexTickRoom(s32 roomnum, struct gfxvtx *vertices)
 
 			// @bug: Using i for both outer and inner loops
 			for (i = 0; i < type->numvertices; i++) {
-				struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+				Vtx *vertex = (Vtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
 
 				g_DyntexVertices[type->vertexlistoffset + i].s = vertex->s;
 				g_DyntexVertices[type->vertexlistoffset + i].t = vertex->t;
@@ -270,7 +270,7 @@ void dyntexTickRoom(s32 roomnum, struct gfxvtx *vertices)
 	g_DyntexRooms[index].updatedframe = g_Vars.lvframenum;
 }
 
-void dyntexAddVertex(struct gfxvtx *vertex)
+void dyntexAddVertex(Vtx *vertex)
 {
 	if (g_DyntexCurRoom < 0) {
 		return;

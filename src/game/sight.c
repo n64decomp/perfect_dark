@@ -889,8 +889,8 @@ Gfx *sightDrawType2(Gfx *gdl, bool sighton)
 Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
 {
 	s32 points[6];
-	struct gfxvtx *vertices = gfxAllocateVertices(3);
-	u32 *colours = gfxAllocateColours(2);
+	Vtx *vertices = gfxAllocateVertices(3);
+	Col *colours = gfxAllocateColours(2);
 
 	switch (dir) {
 	case DIR_UP:
@@ -949,8 +949,8 @@ Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
 
 #define RGBA(r, g, b, a) (((r) & 0xff) << 24 | ((g) & 0xff) << 16 | ((b) & 0xff) << 8 | ((a) & 0xff))
 
-	colours[0] = colour;
-	colours[1] = RGBA((colour >> 24) & 0xff, (colour >> 16) & 0xff, (colour >> 8) & 0xff, 0x08);
+	colours[0].word = colour;
+	colours[1].word = RGBA((colour >> 24) & 0xff, (colour >> 16) & 0xff, (colour >> 8) & 0xff, 0x08);
 
 	vertices[0].colour = 0;
 	vertices[1].colour = 4;
@@ -1295,8 +1295,8 @@ Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 	s32 viewbottom = viewtop + viewheight - 1;
 	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX;
 	s32 y = g_Vars.currentplayer->crosspos[1];
-	struct gfxvtx *vertices;
-	u32 *colours;
+	Vtx *vertices;
+	Col *colours;
 	s32 inner[4];
 	bool hasprop = g_Vars.currentplayer->lookingatprop.prop != NULL;
 	u32 colour = 0xff000060;
@@ -1351,8 +1351,8 @@ Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 	vertices[7].y = inner[2] * 10;
 	vertices[7].z = -10;
 
-	colours[0] = 0x00ff000f;
-	colours[1] = hasprop ? colour : 0x00ff0044;
+	colours[0].word = 0x00ff000f;
+	colours[1].word = hasprop ? colour : 0x00ff0044;
 
 	vertices[0].colour = 0;
 	vertices[1].colour = 0;

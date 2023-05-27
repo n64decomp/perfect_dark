@@ -311,7 +311,7 @@ Gfx *sparksRender(Gfx *gdl)
 	s32 k;
 	struct coord *campos;
 	struct sparktype *type;
-	struct colour *colours;
+	Col *colours;
 	s32 index;
 	f32 sp13c;
 	f32 sp138;
@@ -447,7 +447,7 @@ Gfx *sparksRender(Gfx *gdl)
 						struct spark *spark = &g_Sparks[index];
 
 						if (spark->ttl != 0) {
-							struct gfxvtx *vertices = gfxAllocateVertices(3);
+							Vtx *vertices = gfxAllocateVertices(3);
 							f32 f2;
 
 							for (k = 0; k < 3; k++) {

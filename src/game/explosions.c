@@ -1289,7 +1289,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	if (roomnum != -1) {
 		struct screenbox screenbox;
 		struct coord *coord = roomGetPosPtr(roomnum);
-		u32 *colour;
+		Col *colours;
 		s32 tmp;
 
 		if (func0f08e5a8(prop->rooms, &screenbox) > 0) {
@@ -1305,10 +1305,10 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 		gSPDisplayList(gdl++, g_TexGdl2);
 
-		colour = gfxAllocateColours(1);
+		colours = gfxAllocateColours(1);
 
 		if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-			*colour = 0xffffffff;
+			colours[0].word = 0xffffffff;
 		} else if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 			u32 alpha = 0x80;
 			u32 red;
@@ -1332,15 +1332,15 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			red = expdist * 127.0f;
 			green = (1.0f - expdist) * 127.0f;
 
-			*colour = red << 24 | green << 16 | alpha | 0x80800000;
+			colours[0].word = red << 24 | green << 16 | alpha | 0x80800000;
 		} else {
 			static u32 var8007e93c = 0xffffffff;
 			mainOverrideVariable("ecol", &var8007e93c);
-			*colour = 0xffffffff;
-			*colour = var8007e93c;
+			colours[0].word = 0xffffffff;
+			colours[0].word = var8007e93c;
 		}
 
-		gSPColor(gdl++, osVirtualToPhysical(colour), 1);
+		gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 
 		for (i = 14; i >= 0; i--) {
 			gDPSetTextureImage(gdl++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, g_ExplosionTexturePairs[i].texturenum1);
@@ -1388,7 +1388,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4)
 {
-	struct gfxvtx *vertices = gfxAllocateVertices(4);
+	Vtx *vertices = gfxAllocateVertices(4);
 	Mtxf *mtx = camGetProjectionMtxF();
 	struct coord spbc;
 	struct coord spb0;

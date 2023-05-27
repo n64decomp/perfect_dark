@@ -2513,7 +2513,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	s32 sp708;
 	s32 sp258[50][6];
 	bool s3;
-	struct gfxvtx *s3_2;
+	Vtx *s3_2;
 	s32 s4;
 	struct weatherparticledata *particledata;
 	struct weatherparticle *particle;
@@ -2524,7 +2524,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	f32 f0;
 	f32 sp218[2];
 	f32 sp214;
-	struct gfxvtx *vertices; // 210
+	Vtx *vertices; // 210
 	f32 frac;
 	s32 a0;
 	Mtxf sp1c8;
@@ -2533,8 +2533,8 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	s32 j2;
 	s32 k;
-	u32 *colours;
-	struct gfxvtx *v0_2;
+	Col *colours;
+	Vtx *v0_2;
 	f32 sp174;
 	s32 numneighbours;
 	s32 j;
@@ -2873,8 +2873,8 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	}
 
 	colours = gfxAllocateColours(2);
-	colours[0] = var8007f0e4;
-	colours[1] = var8007f0e8;
+	colours[0].word = var8007f0e4;
+	colours[1].word = var8007f0e8;
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
@@ -4588,7 +4588,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	f32 sp264[50][12];
 	f32 sp260;
 	s32 s7;
-	u32 *colours;
+	Col *colours;
 	f32 *fptr;
 	f32 f0;
 	s32 numneighbours;
@@ -4601,9 +4601,9 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	f32 sp220;
 	f32 sp21c;
 	Mtxf *mtx;
-	struct gfxvtx *vertices; // 214
-	struct gfxvtx *v0;
-	struct gfxvtx *v0_2;
+	Vtx *vertices; // 214
+	Vtx *v0;
+	Vtx *v0_2;
 	Mtxf sp1cc;
 	struct coord sp19c[4];
 	s32 sp198;
@@ -4835,7 +4835,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	colours = gfxAllocateColours(16);
 
 	for (j = 0; j < 16; j++) {
-		colours[j] = (var8007f10c & 0xffffff00) | ((0xff * 17 - j * 0xff) / 17);
+		colours[j].word = (var8007f10c & 0xffffff00) | ((0xff * 17 - j * 0xff) / 17);
 	}
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 16);

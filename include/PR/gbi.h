@@ -977,32 +977,31 @@
  *
  */
 
-/*
- * Vertex (set up for use with colors)
- */
 typedef struct {
-	short          ob[3]; /* x, y, z */
-	unsigned short flag;
-	short          tc[2]; /* texture coord */
-	unsigned char  cn[4]; /* color & alpha */
-} Vtx_t;
-
-/*
- * Vertex (set up for use with normals)
- */
-typedef struct {
-	short          ob[3]; /* x, y, z */
-	unsigned short flag;
-	short          tc[2]; /* texture coord */
-	signed char    n[3];  /* normal */
-	unsigned char  a;     /* alpha  */
-} Vtx_tn;
+	union {
+		struct {
+			/*0x00*/ s16 x;
+			/*0x02*/ s16 y;
+			/*0x04*/ s16 z;
+		};
+		s16 v[3];
+	};
+	/*0x06*/ u8 flags;
+	/*0x07*/ u8 colour;
+	/*0x08*/ s16 s;
+	/*0x0a*/ s16 t;
+} Vtx;
 
 typedef union {
-	Vtx_t         v;                         /* Use this one for colors  */
-	Vtx_tn        n;                         /* Use this one for normals */
-	long long int force_structure_alignment;
-} Vtx;
+    u32 word;
+    u8 bytes[4];
+    struct {
+        u8 r;
+        u8 g;
+        u8 b;
+        u8 a;
+    };
+} Col;
 
 /*
  * Sprite structure
@@ -1601,8 +1600,8 @@ typedef union {
 #define gSPMatrix(pkt, m, p) gDma1p(pkt, G_MTX, m, sizeof(Mtx), p)
 #define gsSPMatrix(m, p)     gsDma1p(G_MTX, m, sizeof(Mtx), p)
 
-#define gSPVertex(pkt, v, n, v0)                                     \
-    gDma1p(pkt, G_VTX, v, sizeof(struct gfxvtx)*(n),((n)-1)<<4|(v0))
+#define gSPVertex(pkt, v, n, v0)                           \
+    gDma1p(pkt, G_VTX, v, sizeof(Vtx)*(n),((n)-1)<<4|(v0))
 
 #define gsSPVertex(v, n, v0)                            \
     gsDma1p(G_VTX, v, sizeof(Vtx)*(n), ((n)-1)<<4|(v0))

@@ -138,14 +138,14 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 	s32 shieldmarkerindexes[12];
 	s32 armourmarkerindexes[8];
 	s32 traumamarkerindexes[8];
-	struct gfxvtx *vertices;
-	u32 *colours;
-	u32 *shieldcolours;
-	u32 *armourcolours;
-	u32 *traumacolours;
-	struct gfxvtx *shieldvertices;
-	struct gfxvtx *armourvertices;
-	struct gfxvtx *traumavertices;
+	Vtx *vertices;
+	Col *colours;
+	Col *shieldcolours;
+	Col *armourcolours;
+	Col *traumacolours;
+	Vtx *shieldvertices;
+	Vtx *armourvertices;
+	Vtx *traumavertices;
 	f32 shieldfillincfade;
 	f32 shieldfillexcfade;
 	f32 armourfillincfade;
@@ -449,7 +449,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		shieldvertices->colour = (i + i) << 2;
 		shieldvertices++;
 
-		*shieldcolours = colour;
+		shieldcolours->word = colour;
 		shieldcolours++;
 
 		shieldvertices->x = (s32)marker->x2 + offx;
@@ -458,7 +458,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		shieldvertices->colour = (i + i + 1) << 2;
 		shieldvertices++;
 
-		*shieldcolours = colour;
+		shieldcolours->word = colour;
 		shieldcolours++;
 	}
 
@@ -483,7 +483,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		armourvertices->colour = (i + i) << 2;
 		armourvertices++;
 
-		*armourcolours = colour;
+		armourcolours->word = colour;
 		armourcolours++;
 
 		armourvertices->x = (s32)marker->x2 + offx;
@@ -492,7 +492,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		armourvertices->colour = (i + i + 1) << 2;
 		armourvertices++;
 
-		*armourcolours = colour;
+		armourcolours->word = colour;
 		armourcolours++;
 	}
 
@@ -517,7 +517,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		traumavertices->colour = (i + i) << 2;
 		traumavertices++;
 
-		*traumacolours = colour;
+		traumacolours->word = colour;
 		traumacolours++;
 
 		traumavertices->x = (s32)marker->x2 + offx;
@@ -526,7 +526,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		traumavertices->colour = (i + i + 1) << 2;
 		traumavertices++;
 
-		*traumacolours = colour;
+		traumacolours->word = colour;
 		traumacolours++;
 	}
 
@@ -561,7 +561,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 	// Both are required for a match.
 	gDma1p(gdl++, G_VTX,
 			osVirtualToPhysical(vertices + 12),
-			numvertsremaining * (s32) sizeof(struct gfxvtx),
+			numvertsremaining * (s32) sizeof(Vtx),
 			(numverts - 12 - 1) << 4);
 
 	gSPTri4(gdl++, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5);

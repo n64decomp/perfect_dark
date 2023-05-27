@@ -1708,8 +1708,8 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 	s16 sp34;
 	s16 sp32;
 	s16 sp30;
-	struct gfxvtx *vertices;
-	u32 *colours;
+	Vtx *vertices;
+	Col *colours;
 	s32 tmp;
 
 	tmp = (font->kerning[prevchar->kerningindex * 13 + curchar->kerningindex] + var8007fac4);
@@ -1760,7 +1760,7 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 	vertices = gfxAllocateVertices(4);
 
 	colours = gfxAllocateColours(1);
-	colours[0] = 0xff0000ff;
+	colours[0].word = 0xff0000ff;
 
 	vertices[0].z = -10;
 	vertices[1].z = -10;

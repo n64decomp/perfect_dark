@@ -2858,7 +2858,7 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 	f32 sp98 = MAXFLOAT;
 	Gfx *s4;
 	Gfx *s6;
-	struct gfxvtx *vertices;
+	Vtx *vertices;
 	struct modelnode *sp88;
 	struct modelnode *sp84 = NULL;
 	bool s7;
@@ -2914,13 +2914,13 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 
 				if (rwdata->gdl != NULL) {
 					if (rwdata->gdl == rodata->dl.opagdl) {
-						s4 = (Gfx *)((uintptr_t)rodata->dl.colourtable + ((uintptr_t)rodata->dl.opagdl & 0xffffff));
+						s4 = (Gfx *)((uintptr_t)rodata->dl.colours + ((uintptr_t)rodata->dl.opagdl & 0xffffff));
 					} else {
 						s4 = rwdata->gdl;
 					}
 
 					if (rodata->dl.xlugdl != NULL) {
-						s6 = (Gfx *)((uintptr_t)rodata->dl.colourtable + ((uintptr_t)rodata->dl.xlugdl & 0xffffff));
+						s6 = (Gfx *)((uintptr_t)rodata->dl.colours + ((uintptr_t)rodata->dl.xlugdl & 0xffffff));
 					}
 
 					vertices = rwdata->vertices;
@@ -2938,7 +2938,7 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 						s6 = (Gfx *)(base + ((uintptr_t)node->rodata->gundl.xlugdl & 0xffffff));
 					}
 
-					vertices = (struct gfxvtx *)base;
+					vertices = (Vtx *)base;
 				}
 			}
 			break;
@@ -13019,8 +13019,8 @@ struct tvcmd {
 Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen *screen, Gfx *gdl, s32 arg4, s32 arg5)
 {
 	if (node && (node->type & 0xff) == MODELNODETYPE_DL) {
-		struct gfxvtx *vertices = gfxAllocateVertices(4); // b4
-		struct colour *colours = gfxAllocateColours(1); // b0
+		Vtx *vertices = gfxAllocateVertices(4); // b4
+		Col *colours = gfxAllocateColours(1); // b0
 		Gfx *savedgdl = gdl++; // ac
 		union modelrodata *rodata = node->rodata; // a8
 		union modelrwdata *rwdata = modelGetNodeRwData(model, node); // a4
@@ -13462,8 +13462,8 @@ Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius,
 	Mtxf spc0;
 	Mtxf sp80;
 	Mtxf *mtx;
-	struct gfxvtx *vertices;
-	u32 *colours;
+	Vtx *vertices;
+	Col *colours;
 	struct coord pos;
 	struct textureconfig *tconfig;
 	s32 i;
@@ -13479,7 +13479,7 @@ Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius,
 
 	tconfig = &g_TexShadowConfigs[0];
 
-	colours[0] = colour;
+	colours[0].word = colour;
 
 	pos.x = x;
 	pos.y = y + 2.0f;
@@ -13571,8 +13571,8 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	struct modelrodata_dl *dldata1;
 	struct modelrwdata_dl *dldata2;
 	f32 fadedist;
-	struct colour *oldcolours;
-	struct colour *newcolours;
+	Col *oldcolours;
+	Col *newcolours;
 	f32 objdist;
 	s32 i;
 
@@ -13660,8 +13660,8 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			node = func0f0687e4(obj->model);
 			dldata1 = &node->rodata->dl;
 			dldata2 = (struct modelrwdata_dl *) modelGetNodeRwData(obj->model, node);
-			oldcolours = (struct colour *) ((((uintptr_t) &dldata1->vertices[dldata1->numvertices] + 7) | 7) ^ 7);
-			newcolours = (struct colour *) gfxAllocateColours(dldata1->numcolours);
+			oldcolours = (Col *) ((((uintptr_t) &dldata1->vertices[dldata1->numvertices] + 7) | 7) ^ 7);
+			newcolours = (Col *) gfxAllocateColours(dldata1->numcolours);
 
 			for (i = 0; i < dldata1->numcolours; i++) {
 				newcolours[i] = oldcolours[i];
@@ -13956,7 +13956,7 @@ void objDeform(struct defaultobj *obj, s32 level)
 			if (modelIsNodeNotTvscreen(modeldef, node) && parentbbox == bbox) {
 				struct modelrodata_dl *rodata = &node->rodata->dl;
 				struct modelrwdata_dl *rwdata = (struct modelrwdata_dl *)&model->rwdatas[rodata->rwdataindex];
-				struct gfxvtx *vertices = vtxstoreAllocate(rodata->numvertices, VTXSTORETYPE_OBJVTX, node, objGetDestroyedLevel(obj));
+				Vtx *vertices = vtxstoreAllocate(rodata->numvertices, VTXSTORETYPE_OBJVTX, node, objGetDestroyedLevel(obj));
 
 				if (vertices) {
 					if (rwdata->vertices != rodata->vertices) {
@@ -13979,7 +13979,7 @@ void objDeform(struct defaultobj *obj, s32 level)
 				}
 
 				if ((uintptr_t)rwdata->colours == ALIGN8((uintptr_t)&rodata->vertices[rodata->numvertices])) {
-					struct colour *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_OBJCOL, NULL, 0);
+					Col *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_OBJCOL, NULL, 0);
 
 					if (colours) {
 						for (i = 0; i < rodata->numcolours; i++) {
@@ -14958,7 +14958,7 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 	Mtxf *spd0 = NULL;
 	bool done = false;
 	struct modelnode *node = nodearg;
-	struct gfxvtx *vertices = NULL;
+	Vtx *vertices = NULL;
 
 	while (node && !done) {
 		u32 type = node->type & 0xff;
@@ -14973,13 +14973,13 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 
 				if (rwdata->gdl != NULL) {
 					if (rwdata->gdl == rodata->opagdl) {
-						s3 = (Gfx *)((uintptr_t)rodata->colourtable + ((u32)rodata->opagdl & 0xffffff));
+						s3 = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->opagdl & 0xffffff));
 					} else {
 						s3 = rwdata->gdl;
 					}
 
 					if (rodata->xlugdl != NULL) {
-						s5 = (void *)((uintptr_t)rodata->colourtable + ((u32)rodata->xlugdl & 0xffffff));
+						s5 = (void *)((uintptr_t)rodata->colours + ((u32)rodata->xlugdl & 0xffffff));
 					}
 
 					vertices = rwdata->vertices;
@@ -17686,7 +17686,7 @@ void modelFreeVertices(s32 vtxstoretype, struct model *model)
 					rwdata->dl.vertices = rodata->dl.vertices;
 				}
 
-				if ((uintptr_t)rwdata->dl.colours != ALIGN8((uintptr_t)rodata->dl.vertices + rodata->dl.numvertices * sizeof(struct gfxvtx))) {
+				if ((uintptr_t)rwdata->dl.colours != ALIGN8((uintptr_t)rodata->dl.vertices + rodata->dl.numvertices * sizeof(Vtx))) {
 					if (vtxstoretype == VTXSTORETYPE_OBJVTX) {
 						newtype = VTXSTORETYPE_OBJCOL;
 					} else {
@@ -17695,7 +17695,7 @@ void modelFreeVertices(s32 vtxstoretype, struct model *model)
 
 					vtxstoreFree(newtype, rwdata->dl.colours);
 
-					rwdata->dl.colours = (struct colour *)ALIGN8((uintptr_t)rodata->dl.vertices + rodata->dl.numvertices * sizeof(struct gfxvtx));
+					rwdata->dl.colours = (Col *)ALIGN8((uintptr_t)rodata->dl.vertices + rodata->dl.numvertices * sizeof(Vtx));
 				}
 			}
 			break;
@@ -19190,7 +19190,7 @@ void doorUpdateTiles(struct doorobj *door)
 #define NEXT2() (j + 2) % 4
 #define NEXT3() (j + 3) % 4
 
-void door0f08cb20(struct doorobj *door, struct gfxvtx *src, struct gfxvtx *dst, s32 numvertices)
+void door0f08cb20(struct doorobj *door, Vtx *src, Vtx *dst, s32 numvertices)
 {
 	s32 i;
 	s32 j;
@@ -19207,8 +19207,8 @@ void door0f08cb20(struct doorobj *door, struct gfxvtx *src, struct gfxvtx *dst, 
 	}
 
 	for (i = 0; i < numvertices / 4; i++) {
-		struct gfxvtx *psrc = &src[i * 4];
-		struct gfxvtx *pdst = &dst[i * 4];
+		Vtx *psrc = &src[i * 4];
+		Vtx *pdst = &dst[i * 4];
 
 		for (j = 0; j < 4; j++) {
 			if (j == 0) {
@@ -19341,7 +19341,7 @@ struct prop *doorInit(struct doorobj *door, struct coord *pos, Mtxf *mtx, s16 *r
 			if (door->doorflags & DOORFLAG_0004) {
 				struct modelnode *node = func0f0687e4(door->base.model);
 				rodata = node->rodata;
-				door->unka4 = mempAlloc(ALIGN16(rodata->dl.numvertices * sizeof(struct gfxvtx)), MEMPOOL_STAGE);
+				door->unka4 = mempAlloc(ALIGN16(rodata->dl.numvertices * sizeof(Vtx)), MEMPOOL_STAGE);
 			} else {
 				door->unka4 = NULL;
 			}

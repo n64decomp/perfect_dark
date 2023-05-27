@@ -34,8 +34,8 @@
 
 u8 *var8009cca0;
 u32 var8009cca4;
-struct gfxvtx *var8009cca8[2];
-u32 *var8009ccb0[2];
+Vtx *var8009cca8[2];
+Col *var8009ccb0[2];
 u32 var8009ccb8;
 
 #if VERSION == VERSION_JPN_FINAL
@@ -639,7 +639,7 @@ void titleInitPdLogo(void)
 	{
 		struct modelrodata_dl *rodata = (struct modelrodata_dl *)modelGetPartRodata(g_ModelStates[MODEL_PDTWO].modeldef, MODELPART_LOGO_0002);
 
-		size = ALIGN8(rodata->numvertices * sizeof(struct gfxvtx));
+		size = ALIGN8(rodata->numvertices * sizeof(Vtx));
 
 		var8009cca8[0] = (void *)nextaddr;
 
@@ -649,7 +649,7 @@ void titleInitPdLogo(void)
 
 		nextaddr += size;
 		remaining -= size;
-		size = ALIGN8(rodata->numcolours * sizeof(struct colour));
+		size = ALIGN8(rodata->numcolours * sizeof(Col));
 		var8009ccb0[0] = (void *)nextaddr;
 
 		nextaddr += size;
@@ -736,14 +736,14 @@ void titleTickPdLogo(void)
 	}
 }
 
-Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, struct gfxvtx *vertices, u32 *colours)
+Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, Vtx *vertices, Col *colours)
 {
 	struct modelrenderdata renderdata = {NULL, true, 3};
 	s32 tmp2;
 	s32 i;
 	s32 j;
-	struct gfxvtx *sp100;
-	struct colour *spfc;
+	Vtx *sp100;
+	Col *spfc;
 	union modelrwdata *tmp;
 	struct modelrwdata_dl *rwdata;
 	struct modelnode *node1;
@@ -755,11 +755,11 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 	s32 alpha1;
 	s32 spcc[3];
 	f32 spc0[3];
-	struct gfxvtx *a3;
+	Vtx *a3;
 	s32 alpha2;
-	struct gfxvtx *t0;
-	struct colour *s1;
-	struct colour *s2;
+	Vtx *t0;
+	Col *s1;
+	Col *s2;
 	Mtxf sp6c;
 
 	tmp = modelGetNodeRwData(model, modelGetPart(model->definition, MODELPART_LOGO_0000));
@@ -802,7 +802,7 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 	}
 
 	sp100 = vertices;
-	spfc = (void *)colours;
+	spfc = colours;
 
 	for (i = 0; i < 4; i++) {
 		if (i == 0) {
@@ -830,8 +830,8 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 				rwdata = modelGetNodeRwData(model, node2);
 			}
 
-			s1 = (struct colour *)ALIGN8(s5rodata->numvertices * sizeof(struct gfxvtx) + (s32)s5rodata->vertices);
-			s2 = (struct colour *)ALIGN8(s1rodata->numvertices * (s32) sizeof(struct gfxvtx) + (s32)s1rodata->vertices);
+			s1 = (Col *)ALIGN8(s5rodata->numvertices * sizeof(Vtx) + (s32)s5rodata->vertices);
+			s2 = (Col *)ALIGN8(s1rodata->numvertices * (s32) sizeof(Vtx) + (s32)s1rodata->vertices);
 
 			a3 = s5rodata->vertices;
 			t0 = s1rodata->vertices;
@@ -874,7 +874,7 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 				spfc[j].a = alpha2;
 			}
 
-			sp100 = (void *)ALIGN8(s5rodata->numvertices * sizeof(struct gfxvtx) + (s32)sp100);
+			sp100 = (void *)ALIGN8(s5rodata->numvertices * sizeof(Vtx) + (s32)sp100);
 			spfc = (void *)ALIGN8(s5rodata->numcolours * sizeof(u32) + (s32)spfc);
 		}
 	}

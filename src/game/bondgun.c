@@ -6392,9 +6392,9 @@ void bgunExecuteModelCmdList(s32 *ptr)
 				break;
 			case 5:
 				rwdata = (union modelrwdata *)ptr[1];
-				rwdata->dl.vertices = (struct gfxvtx *)ptr[2];
+				rwdata->dl.vertices = (Vtx *)ptr[2];
 				rwdata->dl.gdl = (Gfx *)ptr[3];
-				rwdata->dl.colours = (struct colour *)ptr[4];
+				rwdata->dl.colours = (Col *)ptr[4];
 				ptr += 5;
 				break;
 			}
