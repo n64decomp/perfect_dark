@@ -27,7 +27,7 @@ struct menudialogdef g_CheatsBuddiesMenuDialog;
 #define m
 #define s
 
-struct cheat g_Cheats[NUM_CHEATS] = {
+struct cheat g_Cheats[] = {
 	{ L_MPWEAPONS_075, TIME(2 m,  3 s),   SOLOSTAGEINDEX_EXTRACTION,     DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // Hurricane Fists
 #if VERSION >= VERSION_NTSC_1_0
 	{ L_MPWEAPONS_076, TIME(1 m, 40 s),   SOLOSTAGEINDEX_G5BUILDING,     DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // Cloaking Device
@@ -271,7 +271,7 @@ void cheatsReset(void)
 	}
 
 	// Set any "always on" cheats to active and properly activate all active cheats
-	for (cheat_id = 0; cheat_id != NUM_CHEATS; cheat_id++) {
+	for (cheat_id = 0; cheat_id < ARRAYCOUNT(g_Cheats); cheat_id++) {
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_ALWAYSON) {
 			if (cheatIsUnlocked(cheat_id)) {
 				if (cheat_id < 32) {
@@ -526,8 +526,8 @@ char *cheatGetMarquee(struct menuitem *arg0)
 			if (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) {
 				sprintf(g_CheatMarqueeString, "%s %s %s %s %s",
 						langGet(L_MPWEAPONS_137), // "Complete"
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name1),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name2),
 						langGet(L_MPWEAPONS_138), // "for cheat:"
 						&cheatname
 				);
@@ -544,8 +544,8 @@ char *cheatGetMarquee(struct menuitem *arg0)
 
 				sprintf(g_CheatMarqueeString, "%s %s %s %s %s %s %d:%02d %s %s",
 						langGet(L_MPWEAPONS_137), // "Complete"
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name1),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name2),
 						langGet(L_MPWEAPONS_139), // "on"
 						&difficultyname,
 						langGet(L_MPWEAPONS_140), // "in under"
@@ -609,8 +609,8 @@ char *cheatGetMarquee(struct menuitem *arg0)
 			if (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) {
 				sprintf(g_CheatMarqueeString, "%s %s: %s %s %s",
 						langGet(L_MPWEAPONS_137), // "Complete"
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name1),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name2),
 						langGet(L_MPWEAPONS_138), // "for cheat:"
 						&cheatname
 				);
@@ -627,8 +627,8 @@ char *cheatGetMarquee(struct menuitem *arg0)
 
 				sprintf(g_CheatMarqueeString, "%s %s: %s %s %s %s %d:%02d %s %s",
 						langGet(L_MPWEAPONS_137), // "Complete"
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name1),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name2),
 						langGet(L_MPWEAPONS_139), // "on"
 						&difficultyname,
 						langGet(L_MPWEAPONS_140), // "in under"
@@ -688,8 +688,8 @@ char *cheatGetMarquee(struct menuitem *arg0)
 			if (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) {
 				sprintf(g_CheatMarqueeString, "%s %s: %s %s %s",
 						langGet(L_MPWEAPONS_137), // "Complete"
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name1),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name2),
 						langGet(L_MPWEAPONS_138), // "for cheat:"
 						&cheatname
 				);
@@ -706,8 +706,8 @@ char *cheatGetMarquee(struct menuitem *arg0)
 
 				sprintf(g_CheatMarqueeString, "%s %s: %s %s %s %s %d:%02d %s %s",
 						langGet(L_MPWEAPONS_137), // "Complete"
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name1),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name2),
 						langGet(L_MPWEAPONS_139), // "on"
 						&difficultyname,
 						langGet(L_MPWEAPONS_140), // "in under"
@@ -757,8 +757,8 @@ char *cheatGetMarquee(struct menuitem *arg0)
 			if (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) {
 				sprintf(g_StringPointer, "%s %s: %s %s %s",
 						langGet(L_MPWEAPONS_137), // "Complete"
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name1),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name2),
 						langGet(L_MPWEAPONS_138), // "for cheat:"
 						&cheatname
 				);
@@ -775,8 +775,8 @@ char *cheatGetMarquee(struct menuitem *arg0)
 
 				sprintf(g_StringPointer, "%s %s: %s %s %s %s %d:%02d %s %s",
 						langGet(L_MPWEAPONS_137), // "Complete"
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-						langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name1),
+						langGet(g_SoloStages[g_Cheats[cheat_id].stage_index].name2),
 						langGet(L_MPWEAPONS_139), // "on"
 						&difficultyname,
 						langGet(L_MPWEAPONS_140), // "in under"
@@ -817,7 +817,7 @@ s32 cheatGetByTimedStageIndex(s32 stage_index, s32 difficulty)
 {
 	s32 cheat_id;
 
-	for (cheat_id = 0; cheat_id < NUM_CHEATS; cheat_id++) {
+	for (cheat_id = 0; cheat_id < ARRAYCOUNT(g_Cheats); cheat_id++) {
 		if (g_Cheats[cheat_id].stage_index == stage_index &&
 				g_Cheats[cheat_id].difficulty == difficulty &&
 				(g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) == 0 &&
@@ -835,7 +835,7 @@ s32 cheatGetByCompletedStageIndex(s32 stage_index)
 {
 	s32 cheat_id;
 
-	for (cheat_id = 0; cheat_id < NUM_CHEATS; cheat_id++) {
+	for (cheat_id = 0; cheat_id < ARRAYCOUNT(g_Cheats); cheat_id++) {
 		if (g_Cheats[cheat_id].stage_index == stage_index && (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION)) {
 			return cheat_id;
 		}

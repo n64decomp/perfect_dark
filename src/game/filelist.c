@@ -24,7 +24,7 @@
 
 s32 var800a2330[5];
 
-struct filelist *g_FileLists[] = { NULL, NULL, NULL, NULL };
+struct filelist *g_FileLists[MAX_PLAYERS] = { NULL };
 bool var80075bd0[] = { true, true, true, true };
 bool var80075be0[] = { false, false, false, false };
 u32 var80075bf0 = false;
@@ -38,7 +38,7 @@ void func0f110bf8(void)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_FileLists); i++) {
 		if (g_FileLists[i] != NULL) {
 			memaFree(g_FileLists[i], align16(sizeof(struct filelist)));
 			g_FileLists[i] = NULL;
@@ -71,7 +71,7 @@ s32 filelistFindOrCreate(u8 filetype)
 	s32 bestindex = -1;
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_FileLists); i++) {
 		if (g_FileLists[i]) {
 			if (g_FileLists[i]->filetype == filetype) {
 				return i;
@@ -106,7 +106,7 @@ void filelistsTick(void)
 	static bool var80075bf4 = false;
 
 	if (!var80075bf4) {
-		for (i = 0; i < 5; i++) {
+		for (i = 0; i < ARRAYCOUNT(var800a2330); i++) {
 			var800a2330[i] = -1;
 		}
 
@@ -114,14 +114,14 @@ void filelistsTick(void)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	for (i = 0, updateall = false; i < 5; i++) {
+	for (i = 0, updateall = false; i < ARRAYCOUNT(var800a2330); i++) {
 		if (pak0f1167d8(i) && var800a2330[i] != pakGetUnk264(i)) {
 			updateall = true;
 			var800a2330[i] = pakGetUnk264(i);
 		}
 	}
 #else
-	for (i = 0, updateall = false; i < 5; i++) {
+	for (i = 0, updateall = false; i < ARRAYCOUNT(var800a2330); i++) {
 		s32 tmp = pakGetUnk264(i);
 
 		pak0f11698c(i);
@@ -137,7 +137,7 @@ void filelistsTick(void)
 	}
 #endif
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_FileLists); i++) {
 		if (g_FileLists[i] != NULL) {
 			g_FileLists[i]->updatedthisframe = false;
 
@@ -163,7 +163,7 @@ void filelistsTick(void)
 		}
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(var80075bd0); i++) {
 		var80075bd0[i] = false;
 	}
 }
@@ -203,7 +203,7 @@ void filelistUpdate(struct filelist *list)
 	list->numdevices = 0;
 
 	// Iterating in display order (game pak then controller paks)
-	for (i = 0, len = 0; i < 5; i++) {
+	for (i = 0, len = 0; i < ARRAYCOUNT(dis2dev); i++) {
 		list->unk305[dis2dev[i]] = 0;
 		list->devicestartindexes[i] = -1;
 

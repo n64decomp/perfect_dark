@@ -22,7 +22,7 @@
 
 struct casing g_Casings[20];
 struct boltbeam g_BoltBeams[8];
-struct lasersight g_LaserSights[4];
+struct lasersight g_LaserSights[MAX_PLAYERS];
 
 void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to)
 {
@@ -2132,7 +2132,7 @@ void boltbeamsTick(void)
 {
 	s32 i;
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_BoltBeams); i++) {
 		if (g_BoltBeams[i].unk00 != -1 && g_BoltBeams[i].tickmode == BOLTBEAMTICKMODE_AUTOMATIC) {
 			f32 length = sqrtf(
 					(g_BoltBeams[i].tailpos.f[0] - g_BoltBeams[i].headpos.f[0]) * (g_BoltBeams[i].tailpos.f[0] - g_BoltBeams[i].headpos.f[0]) +
@@ -2243,7 +2243,7 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_LaserSights); i++) {
 		if (g_LaserSights[i].id != -1) {
 			struct coord pos;
 			struct coord rot;
@@ -2429,7 +2429,7 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_LaserSights); i++) {
 		if (g_LaserSights[i].id != -1) {
 			Col *colours;
 			struct coord spcc;

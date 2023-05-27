@@ -12,7 +12,7 @@ void vtxstoreReset(void)
 	s32 num;
 	s32 val;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_VtxstoreTypes); i++) {
 		if (PLAYERCOUNT() >= 2) {
 			val = g_VtxstoreTypes[i].valifmp;
 			num = g_VtxstoreTypes[i].numifmp;

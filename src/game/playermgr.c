@@ -15,7 +15,7 @@ void playermgrInit(void)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		g_Vars.playerstats[i].damagescale = 1;
 	}
 
@@ -30,14 +30,17 @@ void playermgrReset(void)
 	g_Vars.players[1] = NULL;
 	g_Vars.players[2] = NULL;
 	g_Vars.players[3] = NULL;
+
 	g_Vars.currentplayer = NULL;
 	g_Vars.currentplayerindex = 0;
 	g_Vars.currentplayerstats = NULL;
 	g_Vars.currentplayernum = 0;
+
 	g_Vars.playerorder[0] = 0;
 	g_Vars.playerorder[1] = 1;
 	g_Vars.playerorder[2] = 2;
 	g_Vars.playerorder[3] = 3;
+
 	g_Vars.bond = NULL;
 	g_Vars.coop = NULL;
 	g_Vars.anti = NULL;
@@ -432,7 +435,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->aimtype = 0;
 	g_Vars.players[index]->lookingatprop.prop = NULL;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		g_Vars.players[index]->trackedprops[i].prop = NULL;
 	}
 
@@ -588,7 +591,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->introanimnum = 0;
 	g_Vars.players[index]->lastsighton = 0;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		g_Vars.players[index]->targetset[i] = 0;
 	}
 
@@ -599,7 +602,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->model.anim = &g_Vars.players[index]->unk01c0;
 
 	g_Vars.players[index]->eyespy = NULL;
-	g_Vars.players[index]->eyespydarts = 8;
+	g_Vars.players[index]->eyespydarts = MAX_EYESPYDARTS;
 
 	g_Vars.players[index]->autocontrol_aimpad = 0;
 	g_Vars.players[index]->autocontrol_lookup = 0;
@@ -799,13 +802,13 @@ void playermgrShuffle(void)
 	s32 i;
 
 	// Order them ascending
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		g_Vars.playerorder[i] = i;
 	}
 
 	// Randomly swap numbers with later elements
-	for (i = 0; i != 3; i++) {
-		s32 otherindex = random() % (4 - i);
+	for (i = 0; i < MAX_PLAYERS - 1; i++) {
+		s32 otherindex = random() % (MAX_PLAYERS - i);
 		s32 tmp = g_Vars.playerorder[i];
 
 		g_Vars.playerorder[i] = g_Vars.playerorder[i + otherindex];
@@ -818,7 +821,7 @@ s32 playermgrGetOrderOfPlayer(s32 playernum)
 	s32 index = 0;
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		s32 thisnum = g_Vars.playerorder[i];
 
 		if (playernum == thisnum) {
@@ -837,7 +840,7 @@ s32 playermgrGetPlayerAtOrder(s32 ordernum)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		if (g_Vars.players[g_Vars.playerorder[i]]) {
 			if (ordernum == 0) {
 				return g_Vars.playerorder[i];

@@ -186,7 +186,7 @@ void wallhitFree(struct wallhit *wallhit)
 	g_WallhitsNumUsed--;
 	g_WallhitsNumFree++;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(wallhit->basecolours); i++) {
 		wallhit->basecolours[i].a = 0;
 		wallhit->finalcolours[i].a = 0;
 	}
@@ -519,7 +519,7 @@ void wallhitsTick(void)
 					midz = var800845dc.z;
 
 					// Copy the vertices into a float array
-					for (j = 0; j < 4; j++) {
+					for (j = 0; j < ARRAYCOUNT(wallhit->vertices); j++) {
 						spc8[j].x = wallhit->vertices[j].x;
 						spc8[j].y = wallhit->vertices[j].y;
 						spc8[j].z = wallhit->vertices[j].z;
@@ -528,7 +528,7 @@ void wallhitsTick(void)
 					// Sum the vertices and divide them by 4 to get the centre
 					minindex = 0;
 
-					for (j = 0; j < 4; j++) {
+					for (j = 0; j < ARRAYCOUNT(spc8); j++) {
 						midx = midx + spc8[j].x;
 						midy = midy + spc8[j].y;
 						midz = midz + spc8[j].z;
@@ -545,7 +545,7 @@ void wallhitsTick(void)
 					midz = 0.25f * midz;
 
 					// Calculate and apply the new size
-					for (j = 0; j < 4; j++) {
+					for (j = 0; j < ARRAYCOUNT(spc8); j++) {
 						s32 j2;
 						f32 xradius = spc8[j].x - midx;
 						f32 yradius = spc8[j].y - midy;
@@ -570,7 +570,7 @@ void wallhitsTick(void)
 					;
 				}
 
-				for (j = 0; j < 4; j++) {
+				for (j = 0; j < ARRAYCOUNT(wallhit->basecolours); j++) {
 					u32 alpha;
 
 					if (f22 > 1.0f) {
@@ -589,7 +589,7 @@ void wallhitsTick(void)
 				if (wallhit->inuse) {
 					wallhit->vertices2 = NULL;
 
-					for (j = 0; j < 4; j++) {
+					for (j = 0; j < ARRAYCOUNT(wallhit->basecolours); j++) {
 						wallhit->finalcolours[j].a = wallhit->basecolours[j].a;
 					}
 				} else {
@@ -1031,7 +1031,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 		wallhit->createdframe = g_Vars.lvframenum;
 		wallhit->unk6f_05 = false;
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(sp17c); i++) {
 			struct coord sp58;
 			s16 x;
 			s16 y;
@@ -1088,7 +1088,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 				alpha = 0;
 			}
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < ARRAYCOUNT(wallhit->basecolours); i++) {
 				switch (type) {
 				case WALLHITTYPE_BULLET:
 					r = g = b = 255 - (random() % 40);
@@ -1463,7 +1463,7 @@ void wallhitsRecolour(void)
 			}
 
 			if (room > 0) {
-				for (j = 0; j < 4; j++) {
+				for (j = 0; j < ARRAYCOUNT(wallhit->basecolours); j++) {
 					wallhit->finalcolours[j].r = wallhit->basecolours[j].r * r;
 					wallhit->finalcolours[j].g = wallhit->basecolours[j].g * g;
 					wallhit->finalcolours[j].b = wallhit->basecolours[j].b * b;

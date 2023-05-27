@@ -444,7 +444,7 @@ f32 bmoveCalculateLookahead(void)
 	}
 
 	if (sp160 > 60.0f || (flags & GEOFLAG_FLOOR1)) {
-		for (i = 0; i < 5; i++) {
+		for (i = 0; i < ARRAYCOUNT(populated); i++) {
 			populated[i] = false;
 			value = (i + 1) * sp160 * 0.2f;
 
@@ -487,7 +487,7 @@ f32 bmoveCalculateLookahead(void)
 		for (i = 0; i < numpopulated - 1; i++) {
 			indextoremove = -1;
 
-			for (j = 0; j < 5; j++) {
+			for (j = 0; j < ARRAYCOUNT(populated); j++) {
 				if (populated[j]) {
 					if (indextoremove < 0) {
 						indextoremove = j;
@@ -511,7 +511,7 @@ f32 bmoveCalculateLookahead(void)
 			}
 		}
 
-		for (i = 0; i < 5; i++) {
+		for (i = 0; i < ARRAYCOUNT(populated); i++) {
 			if (populated[i]) {
 				result = angles[i];
 				break;

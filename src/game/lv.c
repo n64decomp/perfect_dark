@@ -781,7 +781,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 		}
 
 		if (pass) {
-			for (i = 0; i != 4; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
 				if (g_Vars.currentplayer->trackedprops[i].prop == prop) {
 					pass = false;
 				}
@@ -808,7 +808,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 				(prop->pos.f[1] - playerpos->f[1]) * (prop->pos.f[1] - playerpos->f[1]) +
 				(prop->pos.f[2] - playerpos->f[2]) * (prop->pos.f[2] - playerpos->f[2]);
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
 				if (!activeslots[i]) {
 					index = i;
 				}
@@ -816,7 +816,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 
 			if (index == -1) {
 				// No slots available - consider replacing the furtherest
-				for (i = 0; i != 4; i++) {
+				for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
 					if (distances[i] > furtherestdist) {
 						furtherestdist = distances[i];
 						index = i;
@@ -911,8 +911,8 @@ void lvFindThreats(void)
 {
 	s32 i;
 	struct prop *prop;
-	f32 distances[] = {0, 0, 0, 0};
-	s32 activeslots[] = {false, false, false, false};
+	f32 distances[ARRAYCOUNT(g_Vars.currentplayer->trackedprops)] = {0};
+	s32 activeslots[ARRAYCOUNT(g_Vars.currentplayer->trackedprops)] = {false};
 	struct prop **propptr = g_Vars.endonscreenprops - 1;
 	struct coord campos;
 
@@ -2378,7 +2378,7 @@ void lvStop(void)
 		audioStop(g_MiscAudioHandle);
 	}
 
-	if (g_Vars.stagenum < NUM_STAGES) {
+	if (g_Vars.stagenum < STAGE_TITLE) {
 		s32 bank = langGetLangBankIndexFromStagenum(g_Vars.stagenum);
 		langClearBank(bank);
 		stub0f015270();
@@ -2401,7 +2401,7 @@ void lvStop(void)
 	musicStop();
 	hudmsgsStop();
 
-	if (g_Vars.stagenum < NUM_STAGES) {
+	if (g_Vars.stagenum < STAGE_TITLE) {
 		bgStop();
 	}
 

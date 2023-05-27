@@ -35,9 +35,9 @@ struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
 s32 g_MpNumChrs;
 u32 var800ac534;
 struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
-u8 g_MpSimulantDifficultiesPerNumPlayers[MAX_BOTS][4];
-struct mpplayerconfig g_PlayerConfigsArray[6];
-u8 g_AmBotCommands[16];
+u8 g_MpSimulantDifficultiesPerNumPlayers[MAX_BOTS][MAX_PLAYERS];
+struct mpplayerconfig g_PlayerConfigsArray[MAX_MPPLAYERCONFIGS];
+u8 g_AmBotCommands[9];
 struct mpsetup g_MpSetup;
 struct bossfile g_BossFile;
 u32 var800acc1c;
@@ -152,7 +152,7 @@ void mpStartMatch(void)
 		g_MpSetup.options &= ~(MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART);
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			numplayers++;
 		}
@@ -195,12 +195,12 @@ void mpReset(void)
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 		struct mpplayerconfig tmp;
 
-		tmp = g_PlayerConfigsArray[4];
-		g_PlayerConfigsArray[4] = g_PlayerConfigsArray[0];
+		tmp = g_PlayerConfigsArray[MAX_PLAYERS];
+		g_PlayerConfigsArray[MAX_PLAYERS] = g_PlayerConfigsArray[0];
 		g_PlayerConfigsArray[0] = tmp;
 
-		tmp = g_PlayerConfigsArray[5];
-		g_PlayerConfigsArray[5] = g_PlayerConfigsArray[1];
+		tmp = g_PlayerConfigsArray[MAX_PLAYERS + 1];
+		g_PlayerConfigsArray[MAX_PLAYERS + 1] = g_PlayerConfigsArray[1];
 		g_PlayerConfigsArray[1] = tmp;
 
 		// Player index 0
@@ -231,7 +231,7 @@ void mpReset(void)
 
 		g_MpNumChrs = 2;
 	} else {
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				g_Vars.playerstats[mpindex].mpindex = i;
 
@@ -240,7 +240,6 @@ void mpReset(void)
 
 				mpCalculatePlayerTitle(&g_PlayerConfigsArray[i]);
 
-
 				g_PlayerConfigsArray[i].newtitle = g_PlayerConfigsArray[i].title;
 				g_MpNumChrs++;
 				mpindex++;
@@ -248,7 +247,7 @@ void mpReset(void)
 		}
 	}
 
-	for (i = 0; i != MAX_MPCHRS; i++) {
+	for (i = 0; i < MAX_MPCHRS; i++) {
 		struct mpchrconfig *mpchr = MPCHR(i);
 
 		func0f187838(mpchr);
@@ -283,7 +282,7 @@ void mpReset(void)
 	}
 
 	// Assign aibot commands to active menu slots
-	for (i = 0; i < 9; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_AmBotCommands); i++) {
 		g_AmBotCommands[i] = AIBOTCMD_NORMAL;
 	}
 
@@ -433,9 +432,9 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 	g_PlayerConfigsArray[playernum].survivormedals = 0;
 	g_PlayerConfigsArray[playernum].title = MPPLAYERTITLE_BEGINNER;
 
-	if (playernum < 4) {
-		for (i = 0; i < 30; i++) {
-			for (j = 1; j <= 4; j++) {
+	if (playernum < MAX_PLAYERS) {
+		for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
+			for (j = 1; j <= MAX_PLAYERS; j++) {
 				challengeSetCompletedByPlayerWithNumPlayers(playernum, i, j, false);
 			}
 		}
@@ -443,7 +442,7 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 		challengeDetermineUnlockedFeatures();
 	}
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_PlayerConfigsArray); i++) {
 		g_PlayerConfigsArray[playernum].gunfuncs[i] = 0;
 	}
 }
@@ -486,7 +485,7 @@ void mpInit(void)
 
 	strcpy(g_MpSetup.name, "");
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_PlayerConfigsArray); i++) {
 		mpPlayerSetDefaults(i, false);
 	}
 
@@ -496,7 +495,7 @@ void mpInit(void)
 
 	if (argFindByPrefix(1, "-mpwpnset")) {
 		char *value = argFindByPrefix(1, "-mpwpnset");
-		mpSetWeaponSet(*value - 0x30);
+		mpSetWeaponSet(*value - '0');
 	} else {
 		mpSetWeaponSet(0);
 	}
@@ -514,7 +513,7 @@ void mpInit(void)
 	challengeForceUnlockBotFeatures();
 
 	for (i = 0; i < ARRAYCOUNT(g_PlayerConfigsArray); i++) {
-		for (j = 0; j < 6; j++) {
+		for (j = 0; j < ARRAYCOUNT(g_PlayerConfigsArray[i].gunfuncs); j++) {
 			g_PlayerConfigsArray[i].gunfuncs[j] = 0;
 		}
 	}
@@ -529,7 +528,7 @@ void mpGetTeamsWithDefaultName(u8 *mask)
 
 	*mask = 0;
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
 		if (strcmp(g_BossFile.teamnames[i], langGet(L_OPTIONS_008 + i)) == 0) {
 			*mask |= 1 << i;
 		}
@@ -542,7 +541,7 @@ void mpSetTeamNamesToDefault(u8 mask)
 {
 	s32 i;
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
 		if (mask & (1 << i)) {
 			strcpy(g_BossFile.teamnames[i], langGet(L_OPTIONS_008 + i));
 		}
@@ -560,14 +559,14 @@ void mpSetDefaultNamesIfEmpty(void)
 	}
 
 	// Team names
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
 		if (g_BossFile.teamnames[i][0] == '\0') {
 			strcpy(g_BossFile.teamnames[i], langGet(L_OPTIONS_008 + i)); // "Red", "Yellow" etc
 		}
 	}
 
 	// Player names
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		if (g_PlayerConfigsArray[i].base.name[0] == '\0') {
 			sprintf(g_PlayerConfigsArray[i].base.name, "%s %d\n", langGet(L_MISC_437), i + 1); // "Player 1" etc
 		}
@@ -584,7 +583,7 @@ s32 mpCalculateTeamScoreLimit(void)
 			&& (g_MpSetup.scenario == MPSCENARIO_COMBAT || g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL)) {
 		s32 numchrs = 0;
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				numchrs++;
 			}
@@ -810,15 +809,15 @@ s32 mpGetTeamRankings(struct ranking *rankings)
 {
 	s32 i;
 	s32 count;
-	s32 apparentscores[8];
-	u32 rankablescores[8];
+	s32 apparentscores[MAX_TEAMS];
+	u32 rankablescores[MAX_TEAMS];
 	u32 bestrankablescore;
 	s32 thisteamnum;
 
 	count = 0;
 
 	// Calculate scores for each team
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < MAX_TEAMS; i++) {
 		apparentscores[i] = -8000;
 		rankablescores[i] = mpCalculateTeamScore(i, &apparentscores[i]);
 	}
@@ -831,7 +830,7 @@ s32 mpGetTeamRankings(struct ranking *rankings)
 		thisteamnum = -8000;
 
 		// Check which team has the best remaining score
-		for (i = 0; i < 8; i++) {
+		for (i = 0; i < MAX_TEAMS; i++) {
 			if (apparentscores[7 - i] > -8000 && rankablescores[7 - i] >= bestrankablescore) {
 				thisteamnum = 7 - i;
 				bestrankablescore = rankablescores[thisteamnum];
@@ -955,7 +954,7 @@ struct mpweapon *mpGetMpWeaponByLocation(s32 locationindex)
 		if (v0 > 0) {
 			slot++;
 
-			if (slot >= 6) {
+			if (slot >= ARRAYCOUNT(g_MpSetup.weapons)) {
 				slot = 0;
 
 				if (a2 == v0) {
@@ -1015,29 +1014,29 @@ s32 func0f188f9c(s32 arg0)
 	return i + arg0;
 }
 
-s32 func0f189058(s32 arg0)
+s32 func0f189058(bool full)
 {
-	return mpCountWeaponSetThing(arg0 ? 15 : 12);
+	return mpCountWeaponSetThing(full ? ARRAYCOUNT(g_MpWeaponSets) + 3 : ARRAYCOUNT(g_MpWeaponSets));
 }
 
 s32 func0f189088(void)
 {
-	return mpCountWeaponSetThing(14);
+	return mpCountWeaponSetThing(ARRAYCOUNT(g_MpWeaponSets) + 2);
 }
 
 char *mpGetWeaponSetName(s32 index)
 {
 	index = func0f188f9c(index);
 
-	if (index < 0 || index >= 14) {
+	if (index < 0 || index >= ARRAYCOUNT(g_MpWeaponSets) + 2) {
 		return langGet(L_MPWEAPONS_041); // "Custom"
 	}
 
-	if (index == 13) {
+	if (index == ARRAYCOUNT(g_MpWeaponSets) + 1) {
 		return langGet(L_MPWEAPONS_042); // "Random"
 	}
 
-	if (index == 12) {
+	if (index == ARRAYCOUNT(g_MpWeaponSets)) {
 		return langGet(L_MPWEAPONS_043); // "Random Five"
 	}
 
@@ -1051,7 +1050,7 @@ void func0f18913c(void)
 	u8 *ptr;
 	s32 j;
 
-	for (i = 0; !done && i < 12; i++) {
+	for (i = 0; !done && i < ARRAYCOUNT(g_MpWeaponSets); i++) {
 		if (challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
 				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
 				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
@@ -1066,7 +1065,7 @@ void func0f18913c(void)
 		if (ptr != NULL) {
 			bool ok = true;
 
-			for (j = 0; j < 6; j++) {
+			for (j = 0; j < ARRAYCOUNT(g_MpWeaponSets[j].slots); j++) {
 				s32 weaponnum = ptr[j];
 
 				if (weaponnum == WEAPON_MPSHIELD) {
@@ -1097,7 +1096,7 @@ void mpApplyWeaponSet(void)
 	s32 i;
 	u8 *ptr;
 
-	if (g_MpWeaponSetNum >= 0 && g_MpWeaponSetNum < 12) {
+	if (g_MpWeaponSetNum >= 0 && g_MpWeaponSetNum < ARRAYCOUNT(g_MpWeaponSets)) {
 		if (challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[0])
 				&& challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[1])
 				&& challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[2])
@@ -1110,7 +1109,7 @@ void mpApplyWeaponSet(void)
 		}
 
 		if (ptr != NULL) {
-			for (i = 0; i < 6; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
 				u32 j;
 				bool done = false;
 				s32 mpweaponnum = MPWEAPON_NONE;
@@ -1135,7 +1134,7 @@ void mpApplyWeaponSet(void)
 	} else if (g_MpWeaponSetNum == WEAPONSET_RANDOM) {
 		s32 numoptions = mpGetNumWeaponOptions();
 
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
 			mpSetWeaponSlot(i, random() % numoptions);
 		}
 	} else if (g_MpWeaponSetNum == WEAPONSET_RANDOMFIVE) {
@@ -1157,7 +1156,7 @@ void mpSetWeaponSet(s32 weaponsetnum)
 
 void func0f1895e8(void)
 {
-	if (g_MpWeaponSetNum < 12) {
+	if (g_MpWeaponSetNum < ARRAYCOUNT(g_MpWeaponSets)) {
 		mpApplyWeaponSet();
 	}
 }
@@ -1505,7 +1504,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 #define MULT(val) (val)
 #endif
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->kills >= tiers[i] * MULT(20)) {
 			tallies[0]++;
 		} else {
@@ -1513,7 +1512,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 		}
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->gameswon >= tiers[i] * MULT(1)) {
 			tallies[1]++;
 		} else {
@@ -1521,7 +1520,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 		}
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->accuracymedals >= tiers[i] * MULT(1)) {
 			tallies[2]++;
 		} else {
@@ -1529,7 +1528,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 		}
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->headshotmedals >= tiers[i] * MULT(1)) {
 			tallies[3]++;
 		} else {
@@ -1537,7 +1536,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 		}
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->killmastermedals >= tiers[i] * MULT(1)) {
 			tallies[4]++;
 		} else {
@@ -1545,7 +1544,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 		}
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->time >= tiers[i] * MULT(1200)) {
 			tallies[5]++;
 		} else {
@@ -1553,7 +1552,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 		}
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->distance >= tiers[i] * MULT(100)) {
 			tallies[6]++;
 		} else {
@@ -1561,7 +1560,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 		}
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->damagedealt >= tiers[i] * MULT(1)) {
 			tallies[7]++;
 		} else {
@@ -1569,7 +1568,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 		}
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->ammoused >= tiers[i] * MULT(500)) {
 			tallies[8]++;
 		} else {
@@ -1577,7 +1576,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 		}
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tiers); i++) {
 		if (mpplayer->survivormedals >= tiers[i] * MULT(1)) {
 			tallies[9]++;
 		} else {
@@ -1587,7 +1586,7 @@ void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 
 	sum = 0;
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(tallies); i++) {
 		sum = sum + tallies[i];
 	}
 
@@ -1615,7 +1614,7 @@ const char var7f1b8b44[] = "";
 const char var7f1b8b48[] = "Player %d TitleCalc ============\n";
 #endif
 
-struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
+struct mphead g_MpBeauHeads[] = {
 	// head, require feature
 	{ HEAD_BEAU2, 0 },
 	{ HEAD_BEAU3, 0 },
@@ -1624,12 +1623,12 @@ struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
 	{ HEAD_BEAU6, 0 },
 };
 
-struct mphead g_MpHeads[NUM_MPHEADS] = {
+struct mphead g_MpHeads[] = {
 	// head, require feature
 	{ /*0x00*/ HEAD_DARK_COMBAT,  0                          },
 	{ /*0x01*/ HEAD_DARK_FROCK,   MPFEATURE_CHR_CI           },
 	{ /*0x02*/ HEAD_DARKAQUA,     MPFEATURE_CHR_PELAGIC      },
-	{ /*0x03*/ HEAD_DARK_SNOW,    MPFEATURE_4A               },
+	{ /*0x03*/ HEAD_DARK_SNOW,    MPFEATURE_CHR_DARKSNOW               },
 	{ /*0x04*/ HEAD_ELVIS,        MPFEATURE_CHR_ELVIS        },
 	{ /*0x05*/ HEAD_ELVIS_GOGS,   MPFEATURE_CHR_ELVIS        },
 	{ /*0x06*/ HEAD_CARRINGTON,   0                          },
@@ -1763,7 +1762,6 @@ u32 g_BotHeads[] = {
 #endif
 };
 
-// 2d74c
 struct botprofile g_BotProfiles[] = {
 	// type,           difficulty,      name,       body,                 require feature
 	{ BOTTYPE_GENERAL, BOTDIFF_MEAT,    L_MISC_088, MPBODY_DD_GUARD,      0                         },
@@ -1786,70 +1784,69 @@ struct botprofile g_BotProfiles[] = {
 	{ BOTTYPE_VENGE,   BOTDIFF_NORMAL,  L_MISC_105, MPBODY_ALASKAN_GUARD, 0                         },
 };
 
-// 2d7dc
-struct mpbody g_MpBodies[NUM_MPBODIES] = {
-	// global body ID,                name,             head,             require feature
-	/*0x00*/ { BODY_DARK_COMBAT,      L_OPTIONS_016,    HEAD_DARK_COMBAT, 0               },
-	/*0x01*/ { BODY_DARK_TRENCH,      L_OPTIONS_017,    HEAD_DARK_COMBAT, MPFEATURE_CHR_JOTRENCH    },
-	/*0x02*/ { BODY_DARK_FROCK,       L_OPTIONS_018,    HEAD_DARK_FROCK,  MPFEATURE_CHR_CI    },
-	/*0x03*/ { BODY_DARK_RIPPED,      L_OPTIONS_019,    HEAD_DARK_FROCK,  MPFEATURE_CHR_CI    },
-	/*0x04*/ { BODY_DARK_AF1,         L_OPTIONS_020,    HEAD_DARK_COMBAT, MPFEATURE_CHR_AF1    },
-	/*0x05*/ { BODY_DARK_LEATHER,     L_MPWEAPONS_156, HEAD_DARK_COMBAT, MPFEATURE_CHR_G5    },
+struct mpbody g_MpBodies[] = {
+	// global body ID,                name,            head,             require feature
+	/*0x00*/ { BODY_DARK_COMBAT,      L_OPTIONS_016,   HEAD_DARK_COMBAT, 0                          },
+	/*0x01*/ { BODY_DARK_TRENCH,      L_OPTIONS_017,   HEAD_DARK_COMBAT, MPFEATURE_CHR_JOTRENCH     },
+	/*0x02*/ { BODY_DARK_FROCK,       L_OPTIONS_018,   HEAD_DARK_FROCK,  MPFEATURE_CHR_CI           },
+	/*0x03*/ { BODY_DARK_RIPPED,      L_OPTIONS_019,   HEAD_DARK_FROCK,  MPFEATURE_CHR_CI           },
+	/*0x04*/ { BODY_DARK_AF1,         L_OPTIONS_020,   HEAD_DARK_COMBAT, MPFEATURE_CHR_AF1          },
+	/*0x05*/ { BODY_DARK_LEATHER,     L_MPWEAPONS_156, HEAD_DARK_COMBAT, MPFEATURE_CHR_G5           },
 	/*0x06*/ { BODY_DARK_NEGOTIATOR,  L_MPWEAPONS_157, HEAD_DARK_COMBAT, MPFEATURE_CHR_VILLACHRS    },
-	/*0x07*/ { BODY_DARKWET,          L_OPTIONS_021,    HEAD_DARKAQUA,    MPFEATURE_CHR_PELAGIC    },
-	/*0x08*/ { BODY_DARKAQUALUNG,     L_OPTIONS_022,    HEAD_DARKAQUA,    MPFEATURE_CHR_PELAGIC    },
-	/*0x09*/ { BODY_DARKSNOW,         L_OPTIONS_023,    HEAD_DARK_SNOW,   MPFEATURE_4A    },
-	/*0x0a*/ { BODY_DARKLAB,          L_OPTIONS_024,    HEAD_DARK_COMBAT, MPFEATURE_CHR_INFILTRATION    },
-	/*0x0b*/ { BODY_THEKING,          L_OPTIONS_025,    HEAD_ELVIS,       MPFEATURE_CHR_ELVIS    },
-	/*0x0c*/ { BODY_ELVIS1,           L_OPTIONS_026,    HEAD_ELVIS,       MPFEATURE_CHR_ELVIS    },
-	/*0x0d*/ { BODY_ELVISWAISTCOAT,   L_MPWEAPONS_158, HEAD_ELVIS,       MPFEATURE_CHR_ELVIS    },
-	/*0x0e*/ { BODY_CARRINGTON,       L_OPTIONS_027,    HEAD_CARRINGTON,  0               },
-	/*0x0f*/ { BODY_CARREVENINGSUIT,  L_OPTIONS_028,    HEAD_CARRINGTON,  MPFEATURE_CHR_CI    },
-	/*0x10*/ { BODY_MRBLONDE,         L_OPTIONS_029,    HEAD_MRBLONDE,    MPFEATURE_CHR_MRBLONDE    },
-	/*0x11*/ { BODY_CASSANDRA,        L_OPTIONS_030,    HEAD_CASSANDRA,   0               },
-	/*0x12*/ { BODY_TRENT,            L_OPTIONS_031,    HEAD_TRENT,       MPFEATURE_CHR_TRENT    },
-	/*0x13*/ { BODY_JONATHAN,         L_OPTIONS_032,    HEAD_JONATHAN,    MPFEATURE_4C    },
-	/*0x14*/ { BODY_CILABTECH,        L_OPTIONS_033,    1000,             0               },
-	/*0x15*/ { BODY_CIFEMTECH,        L_OPTIONS_034,    1000,             0               },
-	/*0x16*/ { BODY_CISOLDIER,        L_OPTIONS_035,    1000,             0               },
-	/*0x17*/ { BODY_DDSHOCK,          L_OPTIONS_036,    HEAD_DDSHOCK,     0               },
-	/*0x18*/ { BODY_FEM_GUARD,        L_OPTIONS_037,    1000,             MPFEATURE_CHR_FEMGUARD    },
-	/*0x19*/ { BODY_DD_SECGUARD,      L_OPTIONS_038,    1000,             0               },
-	/*0x1a*/ { BODY_DD_GUARD,         L_OPTIONS_039,    1000,             0               },
-	/*0x1b*/ { BODY_DD_SHOCK_INF,     L_OPTIONS_040,    1000,             0               },
-	/*0x1c*/ { BODY_SECRETARY,        L_OPTIONS_041,    1000,             0               },
-	/*0x1d*/ { BODY_OFFICEWORKER,     L_OPTIONS_042,    1000,             MPFEATURE_CHR_OFFICEWORKER    },
-	/*0x1e*/ { BODY_OFFICEWORKER2,    L_OPTIONS_043,    1000,             MPFEATURE_CHR_OFFICEWORKER    },
-	/*0x1f*/ { BODY_NEGOTIATOR,       L_OPTIONS_044,    1000,             MPFEATURE_CHR_VILLACHRS    },
-	/*0x20*/ { BODY_DDSNIPER,         L_OPTIONS_045,    HEAD_DDSNIPER,    MPFEATURE_CHR_VILLACHRS    },
-	/*0x21*/ { BODY_G5_GUARD,         L_OPTIONS_046,    1000,             MPFEATURE_CHR_G5    },
-	/*0x22*/ { BODY_G5_SWAT_GUARD,    L_OPTIONS_047,    1000,             MPFEATURE_CHR_G5    },
-	/*0x23*/ { BODY_CIAGUY,           L_OPTIONS_048,    1000,             MPFEATURE_CHR_CIAFBI    },
-	/*0x24*/ { BODY_FBIGUY,           L_OPTIONS_049,    1000,             MPFEATURE_CHR_CIAFBI    },
-	/*0x25*/ { BODY_AREA51GUARD,      L_OPTIONS_050,    1000,             MPFEATURE_CHR_INFILTRATION    },
-	/*0x26*/ { BODY_A51TROOPER,       L_OPTIONS_051,    1000,             MPFEATURE_CHR_INFILTRATION    },
-	/*0x27*/ { BODY_A51AIRMAN,        L_OPTIONS_052,    1000,             MPFEATURE_CHR_INFILTRATION    },
-	/*0x28*/ { BODY_OVERALL,          L_OPTIONS_053,    1000,             MPFEATURE_CHR_INFILTRATION    },
-	/*0x29*/ { BODY_STRIPES,          L_OPTIONS_054,    1000,             MPFEATURE_CHR_STRIPES    },
-	/*0x2a*/ { BODY_LABTECH,          L_OPTIONS_055,    1000,             MPFEATURE_CHR_LABTECH    },
-	/*0x2b*/ { BODY_FEMLABTECH,       L_OPTIONS_056,    1000,             MPFEATURE_CHR_LABTECH    },
-	/*0x2c*/ { BODY_DD_LABTECH,       L_OPTIONS_057,    1000,             MPFEATURE_CHR_LABTECH    },
-	/*0x2d*/ { BODY_BIOTECH,          L_OPTIONS_058,    HEAD_BIOTECH,     MPFEATURE_CHR_BIOTECH    },
-	/*0x2e*/ { BODY_ALASKAN_GUARD,    L_OPTIONS_059,    1000,             MPFEATURE_CHR_ALASKANGUARD    },
-	/*0x2f*/ { BODY_PILOTAF1,         L_OPTIONS_060,    1000,             MPFEATURE_CHR_AF1    },
-	/*0x30*/ { BODY_STEWARD,          L_OPTIONS_061,    1000,             MPFEATURE_CHR_AF1    },
-	/*0x31*/ { BODY_STEWARDESS,       L_OPTIONS_062,    1000,             MPFEATURE_CHR_AF1    },
-	/*0x32*/ { BODY_STEWARDESS_COAT,  L_OPTIONS_063,    1000,             MPFEATURE_CHR_AF1    },
-	/*0x33*/ { BODY_PRESIDENT,        L_OPTIONS_064,    HEAD_PRESIDENT,   MPFEATURE_CHR_CI    },
-	/*0x34*/ { BODY_NSA_LACKEY,       L_OPTIONS_065,    1000,             MPFEATURE_CHR_NSALACKEY    },
-	/*0x35*/ { BODY_PRES_SECURITY,    L_OPTIONS_066,    1000,             MPFEATURE_CHR_PRESSECURITY    },
-	/*0x36*/ { BODY_PRESIDENT_CLONE2, L_OPTIONS_067,    HEAD_PRESIDENT,   MPFEATURE_CHR_PRESCLONE    },
-	/*0x37*/ { BODY_PELAGIC_GUARD,    L_OPTIONS_068,    1000,             MPFEATURE_CHR_PELAGIC    },
-	/*0x38*/ { BODY_MAIAN_SOLDIER,    L_OPTIONS_069,    HEAD_MAIAN_S,     MPFEATURE_CHR_ELVIS    },
-	/*0x39*/ { BODY_CONNERY,          L_OPTIONS_070,    1000,             MPFEATURE_8BOTS },
-	/*0x3a*/ { BODY_MOORE,            L_OPTIONS_070,    1000,             MPFEATURE_8BOTS },
-	/*0x3b*/ { BODY_DALTON,           L_OPTIONS_070,    1000,             MPFEATURE_8BOTS },
-	/*0x3c*/ { BODY_DJBOND,           L_OPTIONS_070,    1000,             MPFEATURE_8BOTS },
+	/*0x07*/ { BODY_DARKWET,          L_OPTIONS_021,   HEAD_DARKAQUA,    MPFEATURE_CHR_PELAGIC      },
+	/*0x08*/ { BODY_DARKAQUALUNG,     L_OPTIONS_022,   HEAD_DARKAQUA,    MPFEATURE_CHR_PELAGIC      },
+	/*0x09*/ { BODY_DARKSNOW,         L_OPTIONS_023,   HEAD_DARK_SNOW,   MPFEATURE_CHR_DARKSNOW     },
+	/*0x0a*/ { BODY_DARKLAB,          L_OPTIONS_024,   HEAD_DARK_COMBAT, MPFEATURE_CHR_INFILTRATION },
+	/*0x0b*/ { BODY_THEKING,          L_OPTIONS_025,   HEAD_ELVIS,       MPFEATURE_CHR_ELVIS        },
+	/*0x0c*/ { BODY_ELVIS1,           L_OPTIONS_026,   HEAD_ELVIS,       MPFEATURE_CHR_ELVIS        },
+	/*0x0d*/ { BODY_ELVISWAISTCOAT,   L_MPWEAPONS_158, HEAD_ELVIS,       MPFEATURE_CHR_ELVIS        },
+	/*0x0e*/ { BODY_CARRINGTON,       L_OPTIONS_027,   HEAD_CARRINGTON,  0                          },
+	/*0x0f*/ { BODY_CARREVENINGSUIT,  L_OPTIONS_028,   HEAD_CARRINGTON,  MPFEATURE_CHR_CI           },
+	/*0x10*/ { BODY_MRBLONDE,         L_OPTIONS_029,   HEAD_MRBLONDE,    MPFEATURE_CHR_MRBLONDE     },
+	/*0x11*/ { BODY_CASSANDRA,        L_OPTIONS_030,   HEAD_CASSANDRA,   0                          },
+	/*0x12*/ { BODY_TRENT,            L_OPTIONS_031,   HEAD_TRENT,       MPFEATURE_CHR_TRENT        },
+	/*0x13*/ { BODY_JONATHAN,         L_OPTIONS_032,   HEAD_JONATHAN,    MPFEATURE_CHR_JONATHAN     },
+	/*0x14*/ { BODY_CILABTECH,        L_OPTIONS_033,   1000,             0                          },
+	/*0x15*/ { BODY_CIFEMTECH,        L_OPTIONS_034,   1000,             0                          },
+	/*0x16*/ { BODY_CISOLDIER,        L_OPTIONS_035,   1000,             0                          },
+	/*0x17*/ { BODY_DDSHOCK,          L_OPTIONS_036,   HEAD_DDSHOCK,     0                          },
+	/*0x18*/ { BODY_FEM_GUARD,        L_OPTIONS_037,   1000,             MPFEATURE_CHR_FEMGUARD     },
+	/*0x19*/ { BODY_DD_SECGUARD,      L_OPTIONS_038,   1000,             0                          },
+	/*0x1a*/ { BODY_DD_GUARD,         L_OPTIONS_039,   1000,             0                          },
+	/*0x1b*/ { BODY_DD_SHOCK_INF,     L_OPTIONS_040,   1000,             0                          },
+	/*0x1c*/ { BODY_SECRETARY,        L_OPTIONS_041,   1000,             0                          },
+	/*0x1d*/ { BODY_OFFICEWORKER,     L_OPTIONS_042,   1000,             MPFEATURE_CHR_OFFICEWORKER },
+	/*0x1e*/ { BODY_OFFICEWORKER2,    L_OPTIONS_043,   1000,             MPFEATURE_CHR_OFFICEWORKER },
+	/*0x1f*/ { BODY_NEGOTIATOR,       L_OPTIONS_044,   1000,             MPFEATURE_CHR_VILLACHRS    },
+	/*0x20*/ { BODY_DDSNIPER,         L_OPTIONS_045,   HEAD_DDSNIPER,    MPFEATURE_CHR_VILLACHRS    },
+	/*0x21*/ { BODY_G5_GUARD,         L_OPTIONS_046,   1000,             MPFEATURE_CHR_G5           },
+	/*0x22*/ { BODY_G5_SWAT_GUARD,    L_OPTIONS_047,   1000,             MPFEATURE_CHR_G5           },
+	/*0x23*/ { BODY_CIAGUY,           L_OPTIONS_048,   1000,             MPFEATURE_CHR_CIAFBI       },
+	/*0x24*/ { BODY_FBIGUY,           L_OPTIONS_049,   1000,             MPFEATURE_CHR_CIAFBI       },
+	/*0x25*/ { BODY_AREA51GUARD,      L_OPTIONS_050,   1000,             MPFEATURE_CHR_INFILTRATION },
+	/*0x26*/ { BODY_A51TROOPER,       L_OPTIONS_051,   1000,             MPFEATURE_CHR_INFILTRATION },
+	/*0x27*/ { BODY_A51AIRMAN,        L_OPTIONS_052,   1000,             MPFEATURE_CHR_INFILTRATION },
+	/*0x28*/ { BODY_OVERALL,          L_OPTIONS_053,   1000,             MPFEATURE_CHR_INFILTRATION },
+	/*0x29*/ { BODY_STRIPES,          L_OPTIONS_054,   1000,             MPFEATURE_CHR_STRIPES      },
+	/*0x2a*/ { BODY_LABTECH,          L_OPTIONS_055,   1000,             MPFEATURE_CHR_LABTECH      },
+	/*0x2b*/ { BODY_FEMLABTECH,       L_OPTIONS_056,   1000,             MPFEATURE_CHR_LABTECH      },
+	/*0x2c*/ { BODY_DD_LABTECH,       L_OPTIONS_057,   1000,             MPFEATURE_CHR_LABTECH      },
+	/*0x2d*/ { BODY_BIOTECH,          L_OPTIONS_058,   HEAD_BIOTECH,     MPFEATURE_CHR_BIOTECH      },
+	/*0x2e*/ { BODY_ALASKAN_GUARD,    L_OPTIONS_059,   1000,             MPFEATURE_CHR_ALASKANGUARD },
+	/*0x2f*/ { BODY_PILOTAF1,         L_OPTIONS_060,   1000,             MPFEATURE_CHR_AF1          },
+	/*0x30*/ { BODY_STEWARD,          L_OPTIONS_061,   1000,             MPFEATURE_CHR_AF1          },
+	/*0x31*/ { BODY_STEWARDESS,       L_OPTIONS_062,   1000,             MPFEATURE_CHR_AF1          },
+	/*0x32*/ { BODY_STEWARDESS_COAT,  L_OPTIONS_063,   1000,             MPFEATURE_CHR_AF1          },
+	/*0x33*/ { BODY_PRESIDENT,        L_OPTIONS_064,   HEAD_PRESIDENT,   MPFEATURE_CHR_CI           },
+	/*0x34*/ { BODY_NSA_LACKEY,       L_OPTIONS_065,   1000,             MPFEATURE_CHR_NSALACKEY    },
+	/*0x35*/ { BODY_PRES_SECURITY,    L_OPTIONS_066,   1000,             MPFEATURE_CHR_PRESSECURITY },
+	/*0x36*/ { BODY_PRESIDENT_CLONE2, L_OPTIONS_067,   HEAD_PRESIDENT,   MPFEATURE_CHR_PRESCLONE    },
+	/*0x37*/ { BODY_PELAGIC_GUARD,    L_OPTIONS_068,   1000,             MPFEATURE_CHR_PELAGIC      },
+	/*0x38*/ { BODY_MAIAN_SOLDIER,    L_OPTIONS_069,   HEAD_MAIAN_S,     MPFEATURE_CHR_ELVIS        },
+	/*0x39*/ { BODY_CONNERY,          L_OPTIONS_070,   1000,             MPFEATURE_8BOTS            },
+	/*0x3a*/ { BODY_MOORE,            L_OPTIONS_070,   1000,             MPFEATURE_8BOTS            },
+	/*0x3b*/ { BODY_DALTON,           L_OPTIONS_070,   1000,             MPFEATURE_8BOTS            },
+	/*0x3c*/ { BODY_DJBOND,           L_OPTIONS_070,   1000,             MPFEATURE_8BOTS            },
 };
 
 u32 g_MpMaleHeads[] = {
@@ -1921,7 +1918,7 @@ void mpCalculateAwards(void)
 	s32 j;
 	s32 prevplayernum;
 	s32 duration60;
-	struct awardmetrics metrics[4];
+	struct awardmetrics metrics[MAX_PLAYERS];
 
 	// @bug: playerrankings should have 12 elements. Because it's too small,
 	// overflow occurs in mpGetPlayerRankings. The overflow writes into the
@@ -2413,12 +2410,12 @@ void mpEndMatch(void)
 
 s32 mpGetNumHeads2(void)
 {
-	return NUM_MPHEADS;
+	return ARRAYCOUNT(g_MpHeads);
 }
 
 s32 mpGetNumHeads(void)
 {
-	return NUM_MPHEADS;
+	return ARRAYCOUNT(g_MpHeads);
 }
 
 s32 mpGetHeadId(u8 headnum)
@@ -2438,18 +2435,22 @@ s32 mpGetBeauHeadId(u8 headnum)
 
 s32 mpGetNumBeauHeads(void)
 {
-	return NUM_MPBEAUHEADS;
+	return ARRAYCOUNT(g_MpBeauHeads);
 }
 
 u32 mpGetNumBodies(void)
 {
-	return NUM_MPBODIES;
+	return ARRAYCOUNT(g_MpBodies);
 }
 
 s32 mpGetBodyId(u8 bodynum)
 {
-	if (bodynum >= 62) {
-		if (bodynum == 62) {
+	/**
+	 * @bug: bodynum 61 (0x3d) would cause an array overflow.
+	 * ARRAYCOUNT(g_MpBodies) is 61.
+	 */
+	if (bodynum > ARRAYCOUNT(g_MpBodies)) {
+		if (bodynum == ARRAYCOUNT(g_MpBodies) + 1) {
 			return BODY_DRCAROLL;
 		}
 
@@ -2464,37 +2465,36 @@ s32 mpGetMpbodynumByBodynum(u16 bodynum)
 	s32 i;
 
 	if (bodynum == BODY_DRCAROLL) {
-		return 62; // NUM_MPBODIES + 1
+		return ARRAYCOUNT(g_MpBodies) + 1;
 	}
 
-	for (i = 0; i != NUM_MPBODIES; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpBodies); i++) {
 		if (g_MpBodies[i].bodynum == bodynum) {
 			return i;
 		}
 	}
 
-	// @bug: Should return 0 as a fallback, not the first body's bodynum
 	return g_MpBodies[0].bodynum;
 }
 
 char *mpGetBodyName(u8 mpbodynum)
 {
-	// Possible @bug: This should probably be >=
-	if (mpbodynum > NUM_MPBODIES) {
+	// @bug: This should be >=
+	if (mpbodynum > ARRAYCOUNT(g_MpBodies)) {
 		mpbodynum = 0;
 	}
 
 	return langGet(g_MpBodies[mpbodynum].name);
 }
 
-u8 mpGetBodyRequiredFeature(u8 bodynum)
+u8 mpGetBodyRequiredFeature(u8 mpbodynum)
 {
-	// Possible @bug: This should probably be >=
-	if (bodynum > NUM_MPBODIES) {
-		bodynum = 0;
+	// @bug: This should be >=
+	if (mpbodynum > ARRAYCOUNT(g_MpBodies)) {
+		mpbodynum = 0;
 	}
 
-	return g_MpBodies[bodynum].requirefeature;
+	return g_MpBodies[mpbodynum].requirefeature;
 }
 
 s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
@@ -2536,8 +2536,8 @@ void mpFindUnusedHeadAndBody(u8 *mpheadnum, u8 *mpbodynum)
 
 	do {
 		available = true;
-		trympheadnum = random() % NUM_MPHEADS;
-		trympbodynum = random() % NUM_MPBODIES;
+		trympheadnum = random() % ARRAYCOUNT(g_MpHeads);
+		trympbodynum = random() % ARRAYCOUNT(g_MpBodies);
 
 		for (i = 0; i < MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
@@ -2628,7 +2628,7 @@ void mpCalculateLockIfLastWinnerOrLoser(void)
 	}
 }
 
-struct mptrack g_MpTracks[NUM_MPTRACKS] = {
+struct mptrack g_MpTracks[] = {
 	// Audio ID, duration, name, unlock after stage
 	/*0x00*/ { MUSIC_DARK_COMBAT,     160, L_MISC_124, -1 }, // "Dark Combat"
 	/*0x01*/ { MUSIC_SKEDAR_MYSTERY,  170, L_MISC_125, -1 }, // "Skedar Mystery"
@@ -2680,7 +2680,7 @@ bool mpIsTrackUnlocked(s32 tracknum)
 	bool unlocked = false;
 	u32 i;
 
-	if (stageindex < 0 || stageindex >= NUM_SOLONORMALSTAGES) {
+	if (stageindex < 0 || stageindex > SOLOSTAGEINDEX_SKEDARRUINS) {
 		unlocked = true;
 	} else {
 		for (i = 0; i != 3; i++) {
@@ -2713,7 +2713,7 @@ s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
 	s32 i;
 	s32 numunlocked = 0;
 
-	for (i = 0; i != NUM_MPTRACKS; i++) {
+	for (i = 0; i != ARRAYCOUNT(g_MpTracks); i++) {
 		if (mpIsTrackUnlocked(i)) {
 			if (numunlocked == slotindex) {
 				break;
@@ -2728,7 +2728,7 @@ s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
 
 s32 mpGetNumUnlockedTracks(void)
 {
-	return mpGetTrackSlotIndex(NUM_MPTRACKS);
+	return mpGetTrackSlotIndex(ARRAYCOUNT(g_MpTracks));
 }
 
 s32 mpGetTrackMusicNum(s32 slotindex)
@@ -2794,7 +2794,7 @@ void mpEnableAllMultiTracks(void)
 {
 	s32 i;
 
-	for (i = 0; i != 6; i++) {
+	for (i = 0; i != ARRAYCOUNT(g_BossFile.multipletracknums); i++) {
 		g_BossFile.multipletracknums[i] = 0xff;
 	}
 }
@@ -2803,7 +2803,7 @@ void mpDisableAllMultiTracks(void)
 {
 	s32 i;
 
-	for (i = 0; i != 6; i++) {
+	for (i = 0; i != ARRAYCOUNT(g_BossFile.multipletracknums); i++) {
 		g_BossFile.multipletracknums[i] = 0;
 	}
 }
@@ -2812,7 +2812,7 @@ void mpRandomiseMultiTracks(void)
 {
 	s32 i;
 
-	for (i = 0; i != 6; i++) {
+	for (i = 0; i != ARRAYCOUNT(g_BossFile.multipletracknums); i++) {
 		g_BossFile.multipletracknums[i] = random();
 	}
 }
@@ -3004,7 +3004,7 @@ void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
 	g_BotConfigsArray[botnum].type = g_BotProfiles[profilenum].type;
 	g_BotConfigsArray[botnum].difficulty = g_BotProfiles[profilenum].difficulty;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		g_MpSimulantDifficultiesPerNumPlayers[botnum][i] = g_BotConfigsArray[botnum].difficulty;
 	}
 
@@ -3037,7 +3037,7 @@ void mpSetBotDifficulty(s32 botnum, s32 difficulty)
 
 	g_BotConfigsArray[botnum].difficulty = difficulty;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		g_MpSimulantDifficultiesPerNumPlayers[botnum][i] = g_BotConfigsArray[botnum].difficulty;
 	}
 }
@@ -3227,7 +3227,7 @@ s32 func0f18d074(s32 index)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		if (&g_PlayerConfigsArray[i].base == g_MpAllChrConfigPtrs[index]) {
 			return i;
 		}
@@ -3355,8 +3355,8 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 	g_PlayerConfigsArray[playernum].controlmode = savebufferReadBits(buffer, 2);
 	g_PlayerConfigsArray[playernum].options = savebufferReadBits(buffer, 12);
 
-	for (i = 0; i < 30; i++) {
-		for (j = 1; j < 5; j++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
+		for (j = 1; j < MAX_PLAYERS + 1; j++) {
 			challengeSetCompletedByPlayerWithNumPlayers(playernum, i, j, savebufferReadBits(buffer, 1));
 		}
 	}
@@ -3488,8 +3488,8 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 	savebufferOr(buffer, g_PlayerConfigsArray[playernum].controlmode, 2);
 	savebufferOr(buffer, g_PlayerConfigsArray[playernum].options, 12);
 
-	for (i = 0; i < 30; i++) {
-		for (j = 1; j < 5; j++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
+		for (j = 1; j < MAX_PLAYERS + 1; j++) {
 			savebufferOr(buffer, challengeIsCompletedByPlayerWithNumPlayers(playernum, i, j), 1);
 		}
 	}
@@ -3563,7 +3563,7 @@ s32 mpplayerfileLoad(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 	return -1;
 }
 
-struct mppreset g_MpPresets[NUM_MPPRESETS] = {
+struct mppreset g_MpPresets[] = {
 	{ L_MPWEAPONS_025, MPCONFIG_NOSHIELD   }, // "No Shield"
 	{ L_MPWEAPONS_026, MPCONFIG_AUTOMATICS }, // "Automatics"
 	{ L_MPWEAPONS_027, MPCONFIG_ROCKETS    }, // "Rocket Launcher"
@@ -3582,14 +3582,14 @@ struct mppreset g_MpPresets[NUM_MPPRESETS] = {
 
 s32 mpGetNumPresets(void)
 {
-	return NUM_MPPRESETS;
+	return ARRAYCOUNT(g_MpPresets);
 }
 
 bool mpIsPresetUnlocked(s32 presetnum)
 {
 	s32 i;
 
-	for (i = 0; i != 16; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpPresets[presetnum].requirefeatures); i++) {
 		if (!challengeIsFeatureUnlocked(g_MpPresets[presetnum].requirefeatures[i]) &&
 				g_MpPresets[presetnum].requirefeatures[i] != MPFEATURE_WEAPON_SHIELD) {
 			return false;
@@ -3604,7 +3604,7 @@ s32 mpGetNumUnlockedPresets(void)
 	s32 numunlocked = 0;
 	s32 i;
 
-	for (i = 0; i != NUM_MPPRESETS; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpPresets); i++) {
 		if (mpIsPresetUnlocked(i)) {
 			numunlocked++;
 		}
@@ -3617,7 +3617,7 @@ char *mpGetPresetNameBySlot(s32 slot)
 {
 	s32 i;
 
-	for (i = 0; i != 14; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpPresets); i++) {
 		if (mpIsPresetUnlocked(i)) {
 			if (slot == 0) {
 				return langGet(g_MpPresets[i].name);
@@ -3678,7 +3678,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 	for (i = 0; i < MAX_BOTS; i++) {
 		g_BotConfigsArray[i].type = config->config.simulants[i].type;
 
-		for (j = 0; j < 4; j++) {
+		for (j = 0; j < MAX_PLAYERS; j++) {
 			g_MpSimulantDifficultiesPerNumPlayers[i][j] = config->config.simulants[i].difficulties[j];
 		}
 
@@ -3701,7 +3701,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 	}
 
 	if (!challengeIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
 			if (g_MpSetup.weapons[i] == MPWEAPON_SHIELD) {
 				g_MpSetup.weapons[i] = MPWEAPON_NONE;
 			}
@@ -3719,7 +3719,7 @@ void mp0f18dec4(s32 slot)
 	s32 confignum = 0;
 	u32 i;
 
-	for (i = 0; i < 14; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpPresets); i++) {
 		if (mpIsPresetUnlocked(i)) {
 			if (slot == 0) {
 				confignum = g_MpPresets[i].confignum;
@@ -3767,7 +3767,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 		g_BotConfigsArray[i].type = savebufferReadBits(buffer, 5);
 		g_BotConfigsArray[i].difficulty = savebufferReadBits(buffer, 3);
 
-		for (j = 0; j < 4; j++) {
+		for (j = 0; j < MAX_PLAYERS; j++) {
 			g_MpSimulantDifficultiesPerNumPlayers[i][j] = g_BotConfigsArray[i].difficulty;
 		}
 
@@ -3782,7 +3782,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 
 	mpGenerateBotNames();
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
 		g_MpSetup.weapons[i] = savebufferReadBits(buffer, 7);
 	}
 
@@ -3792,7 +3792,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 	g_MpSetup.scorelimit = savebufferReadBits(buffer, 7);
 	g_MpSetup.teamscorelimit = savebufferReadBits(buffer, 9);
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		g_PlayerConfigsArray[i].base.team = savebufferReadBits(buffer, 3);
 	}
 
@@ -3848,7 +3848,7 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 		savebufferOr(buffer, g_BotConfigsArray[i].base.team, 3);
 	}
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
 		savebufferOr(buffer, g_MpSetup.weapons[i], 7);
 	}
 
@@ -3856,7 +3856,7 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 	savebufferOr(buffer, g_MpSetup.scorelimit, 7);
 	savebufferOr(buffer, g_MpSetup.teamscorelimit, 9);
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		savebufferOr(buffer, g_PlayerConfigsArray[i].base.team, 3);
 	}
 }

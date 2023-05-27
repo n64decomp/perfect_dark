@@ -12,13 +12,13 @@
 #include "data.h"
 #include "types.h"
 
-struct prop *g_DangerousProps[MAX_DANGEROUSPROPS];
+struct prop *g_DangerousProps[12];
 
 void resetSomeStageThings(void)
 {
 	s32 i;
 
-	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_DangerousProps); i++) {
 		g_DangerousProps[i] = NULL;
 	}
 
@@ -123,8 +123,8 @@ void stageAllocateBgChrs(void)
 		}
 	}
 
-	g_TeamList = mempAlloc(0x210, MEMPOOL_STAGE);
-	g_SquadronList = mempAlloc(0x220, MEMPOOL_STAGE);
+	g_TeamList = mempAlloc((MAX_CHRSPERTEAM + 1) * MAX_TEAMS * sizeof(s16), MEMPOOL_STAGE);
+	g_SquadronList = mempAlloc((MAX_CHRSPERSQUADRON + 1) * MAX_SQUADRONS * sizeof(s16), MEMPOOL_STAGE);
 }
 
 void stageLoadAllAilistModels(void)

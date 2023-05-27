@@ -1338,7 +1338,7 @@ void func0f14bdbc(s32 index)
 
 	thing->unk094 = 0;
 
-	for (i = 0; i < 30; i++) {
+	for (i = 0; i < ARRAYCOUNT(thing->unk098); i++) {
 		thing->unk098[i] = 0xff;
 		thing->unk0b6[i] = 0xff;
 	}
@@ -1381,26 +1381,26 @@ void func0f14bec8(s32 index)
 		pak0f11d9c4(index, NULL, thing->unk098, 0);
 		thing->unk0f4 = 2;
 
-		for (i = 0; i < 30; i++) {
+		for (i = 0; i < ARRAYCOUNT(thing->unk098); i++) {
 			if (thing->unk098[i] != 0xff) {
 				thing->unk098[i] += 2;
 			}
 		}
 
-		for (i = 0, thing->unk094 = 0; i < 30; i++) {
+		for (i = 0, thing->unk094 = 0; i < ARRAYCOUNT(thing->unk098); i++) {
 			if (thing->unk098[i] != 0xff) {
 				thing->unk0b6[thing->unk094] = thing->unk098[i];
 				thing->unk094++;
 			}
 		}
 
-		for (i = thing->unk094; i < 30; i++) {
+		for (i = thing->unk094; i < ARRAYCOUNT(thing->unk0b6); i++) {
 			thing->unk0b6[i] = 0xff;
 		}
 
 		if (thing->unk094);
 
-		for (i = 0; i < 30; i++);
+		for (i = 0; i < ARRAYCOUNT(thing->unk0b6); i++);
 
 		pak0f1171b4(func0f14a5a4(), 3, 0);
 		pak0f11d478(func0f14a5a4());
@@ -1501,7 +1501,7 @@ void func0f14c3a4(s32 index)
 			thing->unk0dc[i] = 0;
 		}
 
-		for (i = 0; i < 30; i++) {
+		for (i = 0; i < ARRAYCOUNT(thing->unk098); i++) {
 			thing->unk094 = 0;
 			thing->unk098[i] = 0xff;
 			thing->unk0b6[i] = 0xff;
@@ -1567,7 +1567,7 @@ void func0f14c50c(struct var8007f8e0 *dst, struct var8007f8e0 *src, u32 line, ch
 	dst->fileguid.fileid = src->fileguid.fileid;
 	dst->fileguid.deviceserial = src->fileguid.deviceserial;
 
-	for (i = 0; i != 7; i++) {
+	for (i = 0; i < ARRAYCOUNT(dst->unk3d0); i++) {
 		dst->unk3d0[i] = src->unk3d0[i];
 	}
 
@@ -2148,11 +2148,11 @@ s32 func0f14dfc0(struct var8007f8e0 *arg0, s32 arg1, s32 arg2)
 
 	len = 0;
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(sp28); i++) {
 		s32 bestvalue = 9999;
 		s32 bestindex = -1;
 
-		for (j = 0; j < 5; j++) {
+		for (j = 0; j < ARRAYCOUNT(sp28); j++) {
 			if (sp28[j] < bestvalue) {
 				bestindex = j;
 				bestvalue = sp28[j];
@@ -2522,13 +2522,13 @@ void func0f14ee18(u32 arg0)
 }
 
 // @bug? Nothing is done with tmp
-void func0f14eeb0(f32 *arg0)
+void func0f14eeb0(f32 arg0[7])
 {
 	struct var8007f8e0 *thing1 = func0f14a06c(-1);
 	struct var8007f8e0 *thing2 = func0f14a06c(-2);
 	s32 i;
 
-	for (i = 0; i < 7; i++) {
+	for (i = 0; i < ARRAYCOUNT(thing1->unk3d0); i++) {
 		f32 tmp = arg0[i];
 
 		if (tmp > 1.9f) {
@@ -2553,10 +2553,11 @@ void func0f14eeb0(f32 *arg0)
 
 void func0f14ef50(f32 *arg0)
 {
+	struct var8007f8e0 *thing;
 	s32 i;
 
-	for (i = 0; i < 7; i++) {
-		struct var8007f8e0 *thing = func0f14a06c(-2);
+	for (i = 0; i < ARRAYCOUNT(thing->unk3d0); i++) {
+		thing = func0f14a06c(-2);
 
 		arg0[i] = thing->unk3d0[i];
 	}
@@ -3195,7 +3196,7 @@ bool pheadLoadFile(s8 device, s32 fileid, u16 serial, s32 arg3)
 		s0->unk3f4_03 = true;
 		s0->unk3f4_00 = true;
 
-		for (i = 0; i < 7; i++) {
+		for (i = 0; i < ARRAYCOUNT(s0->unk3d0); i++) {
 			s0->unk3d0[i] = file.unk90[i] / 1000.0f;
 		}
 

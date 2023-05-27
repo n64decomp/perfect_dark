@@ -2577,7 +2577,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	osGetCount();
 
-	for (i = 0; i != 10; i++) {
+	for (i = 0; i != ARRAYCOUNT(spdb0); i++) {
 		spdb0[i] = 0;
 	}
 

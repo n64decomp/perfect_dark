@@ -69,7 +69,7 @@
 struct sndstate *g_CasingAudioHandles[2];
 s32 var8009d0d8;
 u32 fill2;
-struct sndstate *g_BgunAudioHandles[4];
+struct sndstate *g_BgunAudioHandles[MAX_PLAYERS];
 s32 var8009d0dc;
 u32 fill2_2;
 s32 var8009d0f0[3];
@@ -94,12 +94,12 @@ f32 var8009d140;
 struct hand *var8009d144;
 s32 var8009d148;
 u32 var8009d14c;
-struct fireslot g_Fireslots[NUM_FIRESLOTS];
+struct fireslot g_Fireslots[20];
 #elif VERSION >= VERSION_NTSC_1_0
 struct sndstate *g_CasingAudioHandles[2];
 s32 var8009d0d8;
 s32 var8009d0dc;
-struct sndstate *g_BgunAudioHandles[4];
+struct sndstate *g_BgunAudioHandles[MAX_PLAYERS];
 s32 var8009d0f0[3];
 u32 var8009d0fc;
 u32 var8009d100;
@@ -122,7 +122,7 @@ f32 var8009d140;
 struct hand *var8009d144;
 s32 var8009d148;
 u32 var8009d14c;
-struct fireslot g_Fireslots[NUM_FIRESLOTS];
+struct fireslot g_Fireslots[20];
 #else
 s32 var8009d0dc;
 u32 var800a1800nb;
@@ -150,8 +150,8 @@ s32 var8009d148;
 u32 var8009d14c;
 struct sndstate *g_CasingAudioHandles[2];
 s32 var8009d0d8;
-struct sndstate *g_BgunAudioHandles[4];
-struct fireslot g_Fireslots[NUM_FIRESLOTS];
+struct sndstate *g_BgunAudioHandles[MAX_PLAYERS];
+struct fireslot g_Fireslots[20];
 u32 fill2[1];
 #endif
 
@@ -475,7 +475,7 @@ void bgunTickUnequippedReload(void)
 	s32 j;
 
 	for (i = 0; i < 2; i++) {
-		for (j = 0; j < 4; j++) {
+		for (j = 0; j < ARRAYCOUNT(g_Vars.currentplayer->hands[i].gunroundsspent); j++) {
 			u16 spent = g_Vars.currentplayer->hands[i].gunroundsspent[j];
 
 			if (spent > g_Vars.lvupdate60) {
@@ -1688,7 +1688,7 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 		}
 
 		if (hand->count60 >= TICKS(23)
-				|| !weaponGetModelNum2(info->weaponnum)
+				|| !weaponGetFileNum2(info->weaponnum)
 				|| !weaponHasFlag(info->weaponnum, WEAPONFLAG_00000040)
 				|| weaponHasFlag(info->weaponnum, WEAPONFLAG_00000080)) {
 			hand->mode = HANDMODE_NONE;
@@ -3117,7 +3117,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 		}
 
 		if (hand->count60 >= delay
-				|| !weaponGetModelNum2(info->weaponnum)
+				|| !weaponGetFileNum2(info->weaponnum)
 				|| !weaponHasFlag(info->weaponnum, WEAPONFLAG_00000040)
 				|| weaponHasFlag(info->weaponnum, WEAPONFLAG_00000080)) {
 			hand->mode = HANDMODE_NONE;
@@ -3999,7 +3999,7 @@ void bgunTickMasterLoad(void)
 				handfilenum = FILE_GCOMBATHANDSLOD;
 			}
 
-			filenum = weaponGetModelNum(newweaponnum);
+			filenum = weaponGetFileNum(newweaponnum);
 
 			if (player->gunctrl.masterloadstate != MASTERLOADSTATE_LOADED || newweaponnum != player->gunctrl.gunmemtype) {
 				if (filenum) {
@@ -6978,7 +6978,7 @@ void bgunUpdateSniperRifle(struct modeldef *modeldef, u8 *allocation)
 	nodes[2] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_SCOPE3);
 	nodes[3] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_SCOPE4);
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(nodes); i++) {
 		if (nodes[i]) {
 			f32 f20 = f26 * 4.0f;
 			mtxindex = modelFindNodeMtxIndex(nodes[i], 0);
@@ -8271,7 +8271,7 @@ s8 bgunFreeFireslotWrapper(s32 slotnum)
 s8 bgunFreeFireslot(s32 fireslot_id)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	if (fireslot_id >= 0 && fireslot_id < NUM_FIRESLOTS) {
+	if (fireslot_id >= 0 && fireslot_id < ARRAYCOUNT(g_Fireslots)) {
 		g_Fireslots[fireslot_id].endlvframe = -1;
 	}
 #else

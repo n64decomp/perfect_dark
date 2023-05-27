@@ -26,7 +26,7 @@
 #include "data.h"
 #include "types.h"
 
-struct activemenu g_AmMenus[4];
+struct activemenu g_AmMenus[MAX_PLAYERS];
 struct fontchar *g_AmFont1;
 struct font *g_AmFont2;
 s32 g_AmIndex;
@@ -535,7 +535,7 @@ void amReset(void)
 			g_AmMenus[i].favourites[g_AmMapping[index]] = WEAPON_UNARMED;
 			index++;
 
-			for (j = 0; j < ARRAYCOUNT(g_MpSetup.weapons); j++) {
+			for (j = 0; j < MIN(ARRAYCOUNT(g_AmMapping), ARRAYCOUNT(g_MpSetup.weapons)); j++) {
 				s32 weaponnum = g_MpWeapons[g_MpSetup.weapons[j]].weaponnum;
 
 				switch (weaponnum) {
@@ -577,7 +577,7 @@ s16 amCalculateSlotWidth(void)
 	u32 flags;
 	char text[32];
 
-	for (i = 0; i != 9; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_AmBotCommands); i++) {
 		amGetSlotDetails(i, &flags, text);
 		textMeasure(&textheight, &textwidth, text, g_AmFont1, g_AmFont2, 0);
 

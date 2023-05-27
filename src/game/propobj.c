@@ -486,7 +486,7 @@ s32 objCalculateGeoBlockVertices(f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32 zmi
 	sp270[7][0] = mtx00max + mtx10max + mtx20max;
 	sp270[7][1] = mtx02max + mtx12max + mtx22max;
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < ARRAYCOUNT(sp270); i++) {
 		for (j = 0; j < len; j++) {
 			f32 tmp = 0.001f;
 			f64 f0 = tmp;
@@ -4815,7 +4815,7 @@ s32 glassCalculateOpacity(struct coord *pos, f32 xludist, f32 opadist, f32 arg3)
 	return opacity;
 }
 
-struct prop *g_Lifts[MAX_LIFTS] = {NULL};
+struct prop *g_Lifts[10] = {NULL};
 
 struct hovtype g_HovTypes[] = {
 #if PAL
@@ -4876,7 +4876,7 @@ void func0f070bd0(struct modelrodata_type19 *rodata, f32 rot[3][3], struct coord
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(rodata->vertices); i++) {
 		vertices[i].x = pos->x + rot[0][0] * rodata->vertices[i].x + rot[1][0] * rodata->vertices[i].y + rot[2][0] * rodata->vertices[i].z;
 		vertices[i].y = pos->y + rot[0][1] * rodata->vertices[i].x + rot[1][1] * rodata->vertices[i].y + rot[2][1] * rodata->vertices[i].z;
 		vertices[i].z = pos->z + rot[0][2] * rodata->vertices[i].x + rot[1][2] * rodata->vertices[i].y + rot[2][2] * rodata->vertices[i].z;
@@ -4929,7 +4929,7 @@ void func0f070ca0(struct defaultobj *obj, struct geotilef *tile, u32 flags, stru
 
 void liftActivate(struct prop *prop, u8 liftnum)
 {
-	if (liftnum > 0 && liftnum <= MAX_LIFTS) {
+	if (liftnum > 0 && liftnum <= ARRAYCOUNT(g_Lifts)) {
 		g_Lifts[liftnum - 1] = prop;
 	}
 }
@@ -4939,7 +4939,7 @@ struct prop *liftFindByPad(s16 padnum)
 	struct pad pad;
 	padUnpack(padnum, PADFIELD_LIFT, &pad);
 
-	if (pad.liftnum <= 0 || pad.liftnum > MAX_LIFTS) {
+	if (pad.liftnum <= 0 || pad.liftnum > ARRAYCOUNT(g_Lifts)) {
 		return NULL;
 	}
 
@@ -15711,7 +15711,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 			mtx4TransformVec(obj->model->matrices, &sp110, &spec);
 			tmp = -spec.z;
 
-			for (i = 0; i < 10; i++) {
+			for (i = 0; i < ARRAYCOUNT(shotdata->hits); i++) {
 				if (shotdata->hits[i].prop && shotdata->hits[i].prop != spe4 && shotdata->hits[i].distance > tmp) {
 					shotdata->hits[i].prop = NULL;
 				}

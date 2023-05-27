@@ -704,7 +704,7 @@ MenuItemHandlerResult mpChallengesListHandler(s32 operation, struct menuitem *it
 
 		gdl = text0f153628(gdl);
 
-		name = xhallengeGetName(g_MpPlayerNum, challengeindex);
+		name = challengeGetName2(g_MpPlayerNum, challengeindex);
 
 		gdl = textRenderProjected(gdl, &x, &y, name,
 				g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour,
@@ -1190,7 +1190,7 @@ struct menuitem g_MpWeaponsMenuItems[] = {
 		0,
 		MENUITEMFLAG_DROPDOWN_BELOW | MENUITEMFLAG_LOCKABLEMINOR | MENUITEMFLAG_MPWEAPONSLOT,
 		L_MPMENU_177, // "2:"
-		0x00000001,
+		1,
 		menuhandlerMpWeaponSlot,
 	},
 	{
@@ -1198,7 +1198,7 @@ struct menuitem g_MpWeaponsMenuItems[] = {
 		0,
 		MENUITEMFLAG_DROPDOWN_BELOW | MENUITEMFLAG_LOCKABLEMINOR | MENUITEMFLAG_MPWEAPONSLOT,
 		L_MPMENU_178, // "3:"
-		0x00000002,
+		2,
 		menuhandlerMpWeaponSlot,
 	},
 	{
@@ -1206,7 +1206,7 @@ struct menuitem g_MpWeaponsMenuItems[] = {
 		0,
 		MENUITEMFLAG_DROPDOWN_BELOW | MENUITEMFLAG_LOCKABLEMINOR | MENUITEMFLAG_MPWEAPONSLOT,
 		L_MPMENU_179, // "4:"
-		0x00000003,
+		3,
 		menuhandlerMpWeaponSlot,
 	},
 	{
@@ -1214,7 +1214,7 @@ struct menuitem g_MpWeaponsMenuItems[] = {
 		0,
 		MENUITEMFLAG_DROPDOWN_BELOW | MENUITEMFLAG_LOCKABLEMINOR | MENUITEMFLAG_MPWEAPONSLOT,
 		L_MPMENU_180, // "5:"
-		0x00000004,
+		4,
 		menuhandlerMpWeaponSlot,
 	},
 	{
@@ -1222,7 +1222,7 @@ struct menuitem g_MpWeaponsMenuItems[] = {
 		0,
 		MENUITEMFLAG_DROPDOWN_BELOW | MENUITEMFLAG_LOCKABLEMINOR | MENUITEMFLAG_MPWEAPONSLOT,
 		L_MPMENU_181, // "6:"
-		0x00000005,
+		5,
 		menuhandlerMpWeaponSlot,
 	},
 	{
@@ -2154,7 +2154,7 @@ MenuItemHandlerResult mpLoadPlayerMenuHandler(s32 operation, struct menuitem *it
 		file = &g_FileLists[0]->files[data->list.value];
 		available = true;
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (file->fileid == g_PlayerConfigsArray[i].fileguid.fileid
 					&& file->deviceserial == g_PlayerConfigsArray[i].fileguid.deviceserial) {
 				if ((g_MpSetup.chrslots & (1 << i)) == 0) {
@@ -2296,7 +2296,7 @@ MenuItemHandlerResult menuhandlerMpRestoreHandicapDefaults(s32 operation, struct
 	if (operation == MENUOP_SET) {
 		s32 i;
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			g_PlayerConfigsArray[i].handicap = 0x80;
 		}
 	}
@@ -4826,7 +4826,7 @@ void mpConfigureQuickTeamPlayers(void)
 		case MPQUICKTEAM_PLAYERSTEAMS:
 			g_MpSetup.options |= MPOPTION_TEAMSENABLED;
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < MAX_PLAYERS; i++) {
 				g_PlayerConfigsArray[i].base.team = g_Vars.mpplayerteams[i];
 			}
 
@@ -4834,7 +4834,7 @@ void mpConfigureQuickTeamPlayers(void)
 		case MPQUICKTEAM_PLAYERSVSSIMS:
 			g_MpSetup.options |= MPOPTION_TEAMSENABLED;
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < MAX_PLAYERS; i++) {
 				g_PlayerConfigsArray[i].base.team = 0;
 			}
 
@@ -4842,7 +4842,7 @@ void mpConfigureQuickTeamPlayers(void)
 		case MPQUICKTEAM_PLAYERSIMTEAMS:
 			g_MpSetup.options |= MPOPTION_TEAMSENABLED;
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < MAX_PLAYERS; i++) {
 				g_PlayerConfigsArray[i].base.team = i;
 			}
 
@@ -5039,7 +5039,7 @@ MenuItemHandlerResult mpQuickTeamSimulantDifficultyHandler(s32 operation, struct
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < NUM_BOTDIFFS; i++) {
 			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
 			}
@@ -5048,7 +5048,7 @@ MenuItemHandlerResult mpQuickTeamSimulantDifficultyHandler(s32 operation, struct
 		data->dropdown.value = count;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < NUM_BOTDIFFS; i++) {
 			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->dropdown.value) {
 					return (s32) langGet(i + L_MISC_082);
@@ -5065,7 +5065,9 @@ MenuItemHandlerResult mpQuickTeamSimulantDifficultyHandler(s32 operation, struct
 		data->dropdown.value = g_Vars.mpsimdifficulty;
 		break;
 	case MENUOP_CHECKHIDDEN:
-		if (g_Vars.mpquickteam != 1 && g_Vars.mpquickteam != 3 && g_Vars.mpquickteam != 4) {
+		if (g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSANDSIMS
+				&& g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSVSSIMS
+				&& g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSIMTEAMS) {
 			return true;
 		}
 	}
@@ -5139,7 +5141,7 @@ void mpCloseDialogsForNewSetup(void)
 	s32 k;
 
 	// Loop through each player
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		g_MpPlayerNum = i;
 
 		// If they have a menu open

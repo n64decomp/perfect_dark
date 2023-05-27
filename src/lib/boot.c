@@ -39,8 +39,8 @@ u32 var8005ce00 = 0;
 u32 var8005ce04 = 0;
 u32 var8005ce08 = 0;
 u32 var8005ce0c = 0;
-u8 *g_StackLeftAddrs[7] = {0};
-u8 *g_StackRightAddrs[7] = {0};
+u8 *g_StackLeftAddrs[NUM_THREADS] = {0};
+u8 *g_StackRightAddrs[NUM_THREADS] = {0};
 u8 *g_StackAllocatedPos = (u8 *) K0BASE + 4 * 1024 * 1024;
 u32 var8005ce4c = 0x00000002;
 u32 var8005ce50 = 0x10000000;
@@ -287,7 +287,7 @@ void bootCountUnusedStack(void)
 {
 	s32 threadid;
 
-	for (threadid = 0; threadid < 7; threadid++) {
+	for (threadid = 0; threadid < NUM_THREADS; threadid++) {
 		u8 *left = g_StackLeftAddrs[threadid];
 		u8 *right = g_StackRightAddrs[threadid];
 
@@ -307,7 +307,7 @@ void bootCheckStackOverflow(void)
 {
 	s32 threadid;
 
-	for (threadid = 0; threadid < 7; threadid++) {
+	for (threadid = 0; threadid < NUM_THREADS; threadid++) {
 		if (g_StackLeftAddrs[threadid] != NULL) {
 			u32 *ptr = (u32 *) g_StackLeftAddrs[threadid];
 			s32 i;

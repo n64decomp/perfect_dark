@@ -238,7 +238,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->random1 = random();
 					aibot->random1ttl60 = 0;
 
-					for (i = 0; i < 6; i++) {
+					for (i = 0; i < ARRAYCOUNT(aibot->killsbygunfunc); i++) {
 						aibot->killsbygunfunc[i][0] = 0.0f;
 						aibot->killsbygunfunc[i][1] = 0.0f;
 

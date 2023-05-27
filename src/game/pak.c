@@ -218,13 +218,13 @@ const char g_N64FontCodeMap[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRST
 const char var7f1b3ad4[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorPakFatal\n";
 const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorNoPakPresent\n";
 
-struct pak g_Paks[5];
+struct pak g_Paks[5]; // controller paks + EEPROM
 
 #if VERSION >= VERSION_NTSC_1_0
 u32 var800a317c;
 #endif
 
-OSPfs g_Pfses[4];
+OSPfs g_Pfses[MAX_PLAYERS];
 u32 var800a3320;
 u32 var800a3324;
 u32 var800a3328;
@@ -1593,11 +1593,11 @@ void paksInit(void)
 
 	g_Vars.unk0004e4 = 0;
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 		pakInit(i);
 	}
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 #if VERSION >= VERSION_JPN_FINAL
 		pak0f11a32c(i, 7, 2054, "pak/pak.c");
 #elif VERSION >= VERSION_PAL_BETA
@@ -1627,13 +1627,13 @@ void paksInit(void)
 	s8 i;
 	s32 j;
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 		pakInit(i);
 	}
 
 	g_Vars.paksconnected2 = 0x1f;
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 		pak0f11a32c(i, 7, 1929, "pak.c");
 	}
 
@@ -4413,7 +4413,7 @@ void pak0f11c6d0(void)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		switch (g_Paks[i].unk010) {
 		case PAK010_02:
 		case PAK010_03:
@@ -4484,13 +4484,13 @@ void pakExecuteDebugOperations(void)
 
 	pak0f11ca30();
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 		if (g_Paks[i].unk014) {
 			pak0f11df94(i);
 		}
 	}
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 		switch (g_Paks[i].unk010) {
 		case PAK010_02:
 		case PAK010_03:
@@ -4550,7 +4550,7 @@ void pakExecuteDebugOperations(void)
 	pak0f11ca30();
 	pakDumpPak();
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 		if (g_Paks[i].unk014) {
 			pak0f11df94(i);
 		}
@@ -4612,7 +4612,7 @@ void pak0f11ca30(void)
 		s32 i;
 
 		if ((g_Vars.unk0004e4 & 0xf) == 0) {
-			for (i = 0; i < 5; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 				if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & (1 << i)) {
 					if (thing == 0xff) {
 						thing = joyShiftPfsStates();
@@ -4641,7 +4641,7 @@ void pak0f11ca30(void)
 		u8 newvalue = var80075d10;
 		s32 i;
 
-		for (i = 0; i < 5; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 			u32 thisbit = 1 << i;
 
 			if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & thisbit) {
@@ -5362,7 +5362,7 @@ void paksStop(bool disablepolling)
 {
 	s8 i;
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 		s32 type = g_Paks[i].type;
 
 		if (type);
@@ -5425,14 +5425,14 @@ void pakDisableRumbleForAllPlayers(void)
 	s32 i;
 
 #if VERSION >= VERSION_NTSC_1_0
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		if (g_Paks[i].type == PAKTYPE_RUMBLE) {
 			g_Paks[i].rumblestate = RUMBLESTATE_DISABLED_STOPPING;
 			joyStopRumble(i, true);
 		}
 	}
 #else
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		pakDisableRumbleForPlayer(i);
 	}
 #endif
@@ -5443,13 +5443,13 @@ void pakEnableRumbleForAllPlayers(void)
 	s32 i;
 
 #if VERSION >= VERSION_NTSC_FINAL
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		if (g_Paks[i].type == PAKTYPE_RUMBLE && g_Paks[i].rumblestate == RUMBLESTATE_DISABLED_STOPPED) {
 			g_Paks[i].rumblestate = RUMBLESTATE_ENABLING;
 		}
 	}
 #else
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		pakEnableRumbleForPlayer(i);
 	}
 #endif
@@ -6004,7 +6004,7 @@ s8 pakFindBySerial(s32 findserial)
 	s8 device = -1;
 	s32 i;
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 		if (pak0f116aec(i)) {
 			s32 serial = pakGetSerial(i);
 
@@ -6035,7 +6035,7 @@ bool gbpakIsAnyPerfectDark(void)
 {
 	s8 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		if (gbpakIdentifyGame(i) == GBGAME_PD) {
 			return true;
 		}

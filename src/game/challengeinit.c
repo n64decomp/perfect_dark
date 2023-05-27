@@ -12,7 +12,7 @@ void challengesInit(void)
 	u8 buffer[0x1ca];
 	s32 i;
 
-	for (i = 0; i < 30; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
 		g_MpChallenges[i].availability = 0;
 		g_MpChallenges[i].completions[0] = 0;
 		g_MpChallenges[i].completions[1] = 0;

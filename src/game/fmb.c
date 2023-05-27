@@ -72,7 +72,7 @@ void fmbReset(void)
 	} else {
 		g_FileState = FILESTATE_SELECTED;
 
-		for (i = 0; i != 6; i++) {
+		for (i = 0; i != MAX_MPPLAYERCONFIGS; i++) {
 			mpPlayerSetDefaults(i, true);
 		}
 

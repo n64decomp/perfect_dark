@@ -155,7 +155,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 				origin.y = 0.0f;
 				origin.z = 0.0f;
 
-				for (j = 0; j < 4; j++) {
+				for (j = 0; j < ARRAYCOUNT(roomlights[i].bbox); j++) {
 					origin.x += roomlights[i].bbox[j].x;
 					origin.y += roomlights[i].bbox[j].y;
 					origin.z += roomlights[i].bbox[j].z;
@@ -277,7 +277,7 @@ void artifactsCalculateGlaresForRoom(s32 roomnum)
 				}
 
 				if (s1[i * 3 + 1] > 0) {
-					for (j = 0; j < 4; j++) {
+					for (j = 0; j < ARRAYCOUNT(roomlights[i].bbox); j++) {
 						spec.x = origin.x + (roomlights[i].bbox[j].x - origin.x) * 0.6f;
 						spec.y = origin.y + (roomlights[i].bbox[j].y - origin.y) * 0.6f;
 						spec.z = origin.z + (roomlights[i].bbox[j].z - origin.z) * 0.6f;

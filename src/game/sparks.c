@@ -162,7 +162,7 @@ void sparkgroupEnsureFreeSparkSlot(struct sparkgroup *group)
 {
 	s32 i;
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_SparkGroups); i++) {
 		if (&g_SparkGroups[i] != group && g_SparkGroups[i].startindex == g_NextSparkIndex) {
 			g_SparkGroups[i].startindex = (g_SparkGroups[i].startindex + 1) % 100;
 			g_SparkGroups[i].numsparks--;
@@ -208,13 +208,13 @@ void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *
 		}
 	}
 
-	g_NextSparkGroupIndex = (g_NextSparkGroupIndex + 1) % 10;
+	g_NextSparkGroupIndex = (g_NextSparkGroupIndex + 1) % ARRAYCOUNT(g_SparkGroups);
 
 	if (typenum == SPARKTYPE_SHALLOWWATER) {
 		if (group->age != 0) {
 			s32 newindex = -1;
 
-			for (i = 0; i < 10 && newindex < 0; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_SparkGroups) && newindex < 0; i++) {
 				if (g_SparkGroups[i].age == 0) {
 					newindex = i;
 				}

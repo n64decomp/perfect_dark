@@ -19,7 +19,7 @@ void sparksTick(void)
 		group = &g_SparkGroups[0];
 
 		// Iterate spark groups
-		for (i = 0; i != 10; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_SparkGroups); i++) {
 			type = &g_SparkTypes[group->type];
 
 			if (group->age >= type->maxage) {

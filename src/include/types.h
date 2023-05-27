@@ -70,7 +70,7 @@ struct playerstats {
 	/*0x00*/ s32 shotcount[7];
 	/*0x1c*/ s32 killcount;
 	/*0x20*/ s32 ggkillcount;
-	/*0x24*/ s32 kills[4];
+	/*0x24*/ s32 kills[MAX_PLAYERS];
 	/*0x34*/ s32 drawplayercount;
 	/*0x38*/ f32 distance;
 	/*0x3c*/ s32 backshotcount;
@@ -137,9 +137,9 @@ struct g_vars {
 	/*0x058*/ s32 thisframestart240;   // current frame's start time in 240ths (incrementing)
 	/*0x05c*/ f32 diffframe240freal;
 	/*0x060*/ s16 *waypointnums; // ordered by room asc, padnum asc
-	/*0x064*/ struct player *players[4];
-	/*0x074*/ struct playerstats playerstats[4];
-	/*0x274*/ u32 playerorder[4];
+	/*0x064*/ struct player *players[MAX_PLAYERS];
+	/*0x074*/ struct playerstats playerstats[MAX_PLAYERS];
+	/*0x274*/ u32 playerorder[MAX_PLAYERS];
 	/*0x284*/ struct player *currentplayer;
 	/*0x288*/ struct playerstats *currentplayerstats;
 	/*0x28c*/ s32 currentplayernum; // 0-3 - controller numbers I think
@@ -210,13 +210,13 @@ struct g_vars {
 	/*0x488*/ s32 totalkills;
 	/*0x48c*/ bool useperimshoot;
 	/*0x490*/ s32 mpsetupmenu;
-	/*0x494*/ s8 waitingtojoin[4];
+	/*0x494*/ s8 waitingtojoin[MAX_PLAYERS];
 	/*0x498*/ s32 unk000498;
 	/*0x49c*/ bool usingadvsetup;
 	/*0x4a0*/ s32 unk0004a0;
 	/*0x4a4*/ s32 mpquickteamnumsims;
 	/*0x4a8*/ s32 mpsimdifficulty;
-	/*0x4ac*/ s8 mpplayerteams[4];
+	/*0x4ac*/ s8 mpplayerteams[MAX_PLAYERS];
 	/*0x4b0*/ u32 mpquickteam;
 	/*0x4b4*/ s32 stagenum;
 	/*0x4b8*/ struct prop *aibuddies[4];
@@ -231,7 +231,7 @@ struct g_vars {
 	/*0x4d6*/ s8 autocutfinished; // true if cutscene reached natural end
 	/*0x4d7*/ s8 autocutgroupskip; // true if pressed start during auto cutscene
 	/*0x4d8*/ s32 joydisableframestogo;
-	/*0x4dc*/ u8 playertojoymap[4];
+	/*0x4dc*/ u8 playertojoymap[MAX_PLAYERS];
 	/*0x4e0*/ u8 fourmeg2player;
 	/*0x4e1*/ u8 remakewallhitvtx;
 	/*0x4e2*/ u8 cutsceneskip60ths;
@@ -808,11 +808,11 @@ struct aibot {
 	/*0x208*/ s32 unk208;
 	/*0x20c*/ s32 random1ttl60;
 	/*0x210*/ u32 random1;
-	/*0x214*/ f32 killsbygunfunc[6][2];
-	/*0x244*/ f32 suicidesbygunfunc[6][2];
-	/*0x274*/ s32 equipdurations60[6][2];
+	/*0x214*/ f32 killsbygunfunc[NUM_MPWEAPONSLOTS][2];
+	/*0x244*/ f32 suicidesbygunfunc[NUM_MPWEAPONSLOTS][2];
+	/*0x274*/ s32 equipdurations60[NUM_MPWEAPONSLOTS][2];
 	/*0x2a4*/ s32 unk2a4;
-	/*0x2a8*/ s32 unk2a8[6];
+	/*0x2a8*/ s32 unk2a8[NUM_MPWEAPONSLOTS];
 	/*0x2c0*/ s32 dampensuicidesttl60;
 
 	/**
@@ -1381,7 +1381,7 @@ struct projectile {
 	/*0x0ec*/ f32 unk0ec;
 	/*0x0f0*/ f32 unk0f0;
 	/*0x0f4*/ s32 smoketimer240;
-	/*0x0f8*/ s16 waypads[6];
+	/*0x0f8*/ s16 waypads[MAX_CHRWAYPOINTS];
 	/*0x104*/ u8 numwaypads;
 	/*0x105*/ u8 step;
 	/*0x108*/ struct prop *pickupby;
@@ -3091,7 +3091,7 @@ struct stagetableentry {
 
 struct mpweaponset {
 	/*0x00*/ u16 name;
-	/*0x02*/ u8 slots[6];
+	/*0x02*/ u8 slots[NUM_MPWEAPONSLOTS];
 	/*0x08*/ u8 requirefeatures[4];
 	/*0x0c*/ u8 unk0c;
 	/*0x0d*/ u8 unk0d;
@@ -3128,7 +3128,7 @@ struct mptrack {
 	s16 unlockstage;
 };
 
-struct stageoverviewentry {
+struct solostage {
 	/*0x00*/ u32 stagenum;
 	/*0x04*/ u8 unk04;
 	/*0x06*/ u16 name1; // "dataDyne Central"
@@ -4325,13 +4325,13 @@ struct mpsetup {
 	 * Bits 0xf000 are probably not used
 	 */
 	/*0x800acb9e*/ u16 chrslots;
-	/*0x800acba0*/ u8 weapons[6];
+	/*0x800acba0*/ u8 weapons[NUM_MPWEAPONSLOTS];
 	/*0x800acba6*/ u8 paused;
 	/*0x800acba8*/ struct fileguid fileguid;
 };
 
 struct bossfile {
-	/*0x00*/ char teamnames[8][12];
+	/*0x00*/ char teamnames[MAX_TEAMS][12];
 	/*0x60*/ u8 locktype;
 	/*0x61*/ u8 unk89;
 	/*0x62*/ u8 usingmultipletunes;
@@ -4386,7 +4386,7 @@ struct challenge {
 	// Same structure as availability, however each byte determines how many
 	// players it was completed with. So completions[0] is for completions with
 	// a single player and completions[3] is for completions with 4 players.
-	/*0x05*/ u8 completions[4];
+	/*0x05*/ u8 completions[MAX_PLAYERS];
 
 	// Array of features which will become unlocked once the challenge is
 	// available. The array is automatically populated at runtime based on what
@@ -5013,7 +5013,7 @@ struct menudata {
 	/*0x014*/ u8 bg;
 	/*0x015*/ u8 nextbg;
 	/*0x016*/ u8 screenshottimer;
-	/*0x017*/ u8 playerjoinalpha[4];
+	/*0x017*/ u8 playerjoinalpha[MAX_PLAYERS];
 	/*0x01b*/ s8 bannernum;
 	/*0x01c*/ struct menu840 unk01c;
 	/*0x5d4*/ u8 unk5d4;
@@ -5209,12 +5209,12 @@ struct mpconfigsim {
 	u8 mpheadnum;
 	u8 mpbodynum;
 	u8 team;
-	u8 difficulties[4]; // per player count
+	u8 difficulties[MAX_PLAYERS];
 };
 
 struct mpconfig {
 	struct mpsetup setup;
-	struct mpconfigsim simulants[8];
+	struct mpconfigsim simulants[MAX_BOTS];
 };
 
 struct mpweapon {
@@ -5231,7 +5231,7 @@ struct mpweapon {
 
 struct mpstrings {
 	char description[200];
-	char aibotnames[8][15];
+	char aibotnames[MAX_BOTS][15];
 };
 
 struct mpconfigfull {
@@ -5579,21 +5579,6 @@ struct stageallocation {
 	char *string;
 };
 
-struct contsample {
-	OSContPad pads[4];
-};
-
-struct joydata {
-	struct contsample samples[20];
-	s32 curlast;
-	s32 curstart;
-	s32 nextlast;
-	s32 nextsecondlast;
-	u16 buttonspressed[4];
-	u16 buttonsreleased[4];
-	s32 unk200;
-};
-
 struct guncmd {
 	u8 type;
 	u8 unk01;
@@ -5744,7 +5729,7 @@ struct wallhit {
  * The first item in the propnums array is -2 if this chunk is unallocated.
  */
 struct roomproplistchunk {
-	s16 propnums[8];
+	s16 propnums[MAX_PROPSPERROOMCHUNK + 1];
 };
 
 struct nbomb {

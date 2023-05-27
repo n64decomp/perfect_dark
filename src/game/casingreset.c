@@ -15,7 +15,7 @@ void casingsReset(void)
 	var8009d0d8 = 0;
 
 	for (i = 0; i != ARRAYCOUNT(g_BgunAudioHandles); i++) {
-		g_BgunAudioHandles[i] = 0;
+		g_BgunAudioHandles[i] = NULL;
 	}
 
 	end = g_Casings + ARRAYCOUNT(g_Casings);

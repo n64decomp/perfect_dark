@@ -14,7 +14,7 @@ void explosionsStop(void)
 	viShake(0);
 
 	if (g_Explosions) {
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < MAX_EXPLOSIONS; i++) {
 			if (g_Explosions[i].prop) {
 				propDelist(g_Explosions[i].prop);
 				propDisable(g_Explosions[i].prop);

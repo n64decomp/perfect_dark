@@ -1414,7 +1414,7 @@ void chrRemove(struct prop *prop, bool free)
 		if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
 			s32 i;
 
-			for (i = 0; i < g_Vars.numaibuddies && i < 4; i++) {
+			for (i = 0; i < g_Vars.numaibuddies && i < ARRAYCOUNT(g_Vars.aibuddies); i++) {
 				if (g_Vars.aibuddies[i] == prop) {
 					g_Vars.aibuddies[i] = NULL;
 				}
@@ -5530,8 +5530,8 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 
 		vertices = gfxAllocateVertices(24);
 
-		for (i = 0; i < 6; i++) {
-			for (j = 0; j < 4; j++) {
+		for (i = 0; i < ARRAYCOUNT(sp104); i++) {
+			for (j = 0; j < ARRAYCOUNT(sp104[i]); j++) {
 				vertices[j] = vtxtemplate;
 				vertices[j].x = sp180[sp104[i][j]][0];
 				vertices[j].y = sp180[sp104[i][j]][1];
@@ -5657,8 +5657,8 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 				st4 = 512;
 			}
 
-			for (i = 0; i < 6; i++) {
-				for (j = 0; j < 4; j++) {
+			for (i = 0; i < ARRAYCOUNT(sp104); i++) {
+				for (j = 0; j < ARRAYCOUNT(sp104[i]); j++) {
 					vertices[j] = vtxtemplate;
 					vertices[j].x = sp180[sp104[i][j]][0];
 					vertices[j].y = sp180[sp104[i][j]][1];
@@ -5716,8 +5716,8 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 
 			vertices = gfxAllocateVertices(30);
 
-			for (i = 0; i < 6; i++) {
-				for (j = 0; j < 4; j++) {
+			for (i = 0; i < ARRAYCOUNT(sp104); i++) {
+				for (j = 0; j < ARRAYCOUNT(sp104[i]); j++) {
 					vertices[j] = vtxtemplate;
 					vertices[j].x = sp180[sp104[i][j]][0];
 					vertices[j].y = sp180[sp104[i][j]][1];
@@ -5796,7 +5796,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 				colours[0].a = (s32) alpha4;
 			}
 
-			for (j = 0; j < 8; j++) {
+			for (j = 0; j < ARRAYCOUNT(sp180); j++) {
 				vertices[j] = vtxtemplate;
 				vertices[j].x = sp180[j][0];
 				vertices[j].y = sp180[j][1];
@@ -5957,7 +5957,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 
 			vertices = gfxAllocateVertices(30);
 
-			for (j = 0; j < 4; j++) {
+			for (j = 0; j < ARRAYCOUNT(sp104[side]); j++) {
 				vertices[j] = vtxtemplate;
 				vertices[j].x = sp180[sp104[side][j]][0];
 				vertices[j].y = sp180[sp104[side][j]][1];
@@ -5996,7 +5996,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 
 			vertices += 5;
 
-			for (j = 0; j < 4; j++) {
+			for (j = 0; j < ARRAYCOUNT(sp104[side]); j++) {
 				s32 next = (j + 1) % 4;
 				u32 stack;
 
@@ -6076,7 +6076,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 				vertices += 5;
 			}
 
-			for (j = 0; j < 4; j++) {
+			for (j = 0; j < ARRAYCOUNT(sp104[side]); j++) {
 				vertices[j] = vtxtemplate;
 				vertices[j].x = sp180[sp104[side][3 - j]][0];
 				vertices[j].y = sp180[sp104[side][3 - j]][1];
@@ -6581,7 +6581,9 @@ void shieldhitsTick(void)
 
 void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright)
 {
-	if (drcaroll && imageleft >= 0 && imageleft < 6 && imageright >= 0 && imageright < 6) {
+	if (drcaroll
+			&& imageleft >= DRCAROLLIMAGE_EYESDEFAULT && imageleft <= DRCAROLLIMAGE_BINARY
+			&& imageright >= DRCAROLLIMAGE_EYESDEFAULT && imageright <= DRCAROLLIMAGE_BINARY) {
 		struct model *model = drcaroll->model;
 		struct modelnode *nodes[2];
 		union modelrwdata *rwdata;
@@ -6596,7 +6598,7 @@ void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imagerigh
 			nodes[0] = modelGetPart(model->definition, i);
 			nodes[1] = modelGetPart(model->definition, i + 6);
 
-			for (j = 0; j < 2; j++) {
+			for (j = 0; j < ARRAYCOUNT(nodes); j++) {
 				if (nodes[j]) {
 					rwdata = modelGetNodeRwData(model, nodes[j]);
 

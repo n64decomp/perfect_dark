@@ -70,7 +70,7 @@ void mempSetHeap(u8 *heapstart, u32 heaplen)
 	s32 i;
 	u8 *extraend;
 
-	for (i = 0; i < 9; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MempOnboardPools); i++) {
 		g_MempOnboardPools[i].start = 0;
 		g_MempOnboardPools[i].leftpos = 0;
 		g_MempOnboardPools[i].rightpos = 0;
@@ -106,7 +106,7 @@ void mempSetHeap(u8 *heapstart, u32 heaplen)
 		g_MempExpansionPools[MEMPOOL_STAGE].rightpos = extraend;
 	}
 
-	for (i = 0; i < 9; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MempOnboardPools); i++) {
 		g_MempOnboardPools[i].end = g_MempOnboardPools[i].rightpos;
 		g_MempExpansionPools[i].end = g_MempExpansionPools[i].rightpos;
 	}

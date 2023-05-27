@@ -25,7 +25,7 @@ struct fileguid g_FilemgrFileToCopy;
 struct fileguid var800a21e8;
 
 #if VERSION >= VERSION_JPN_FINAL
-struct fileguid g_FilemgrFileToDelete[4];
+struct fileguid g_FilemgrFileToDelete[MAX_PLAYERS];
 #else
 struct fileguid g_FilemgrFileToDelete;
 #endif
@@ -669,7 +669,7 @@ void filemgrEraseCorruptFile(void)
 		pakDeleteFile(device, g_Menus[g_MpPlayerNum].fm.fileid);
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_FileLists); i++) {
 		if (g_FileLists[i]) {
 			g_FileLists[i]->timeuntilupdate = 1;
 		}
@@ -986,7 +986,7 @@ void filemgrDeleteCurrentFile(void)
 		filemgrPushErrorDialog(FILEERROR_DELETEFAILED);
 	} else {
 		// If deleting a loaded MP player, reset them to default
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (g_FilemgrFileToDelete[g_MpPlayerNum].fileid == g_PlayerConfigsArray[i].fileguid.fileid
 					&& g_FilemgrFileToDelete[g_MpPlayerNum].deviceserial == g_PlayerConfigsArray[i].fileguid.deviceserial) {
 				mpPlayerSetDefaults(i, true);
@@ -1013,7 +1013,7 @@ void filemgrDeleteCurrentFile(void)
 		filemgrPushErrorDialog(FILEERROR_DELETEFAILED);
 	} else {
 		// If deleting a loaded MP player, reset them to default
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (g_FilemgrFileToDelete.fileid == g_PlayerConfigsArray[i].fileguid.fileid
 					&& g_FilemgrFileToDelete.deviceserial == g_PlayerConfigsArray[i].fileguid.deviceserial) {
 				mpPlayerSetDefaults(i, true);
@@ -1850,7 +1850,7 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 	}
 
 	// JPN adds this loop
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {
 		if (i != g_MpPlayerNum
 				&& g_Menus[i].curdialog
 				&& g_Menus[i].curdialog->definition == &g_FilemgrConfirmDeleteMenuDialog
@@ -1860,7 +1860,7 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 		}
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		if ((g_MpSetup.chrslots & (1 << i))
 				&& g_PlayerConfigsArray[i].fileguid.fileid == file->fileid
 				&& g_PlayerConfigsArray[i].fileguid.deviceserial == file->deviceserial) {
@@ -1998,7 +1998,7 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 		return true;
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		if ((g_MpSetup.chrslots & (1 << i))
 				&& g_PlayerConfigsArray[i].fileguid.fileid == file->fileid
 				&& g_PlayerConfigsArray[i].fileguid.deviceserial == file->deviceserial) {
@@ -2436,7 +2436,7 @@ MenuDialogHandlerResult pakChoosePakMenuDialog(s32 operation, struct menudialogd
 		if (g_Vars.stagenum != STAGE_BOOTPAKMENU) {
 			s32 i;
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < MAX_PLAYERS; i++) {
 				if (g_Menus[g_MpPlayerNum].fm.unke24 & (1 << i)) {
 					g_Vars.unk0004e4 &= 0xfff0;
 					g_Vars.unk0004e4 |= 0x0008;
@@ -2461,7 +2461,7 @@ MenuDialogHandlerResult pakChoosePakMenuDialog(s32 operation, struct menudialogd
 		{
 			s32 i;
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < MAX_PLAYERS; i++) {
 				if (g_Menus[g_MpPlayerNum].fm.unke24 & (1 << i)) {
 					pak0f1169c8(i, STAGE_BOOTPAKMENU == g_Vars.stagenum);
 				}
@@ -2677,8 +2677,8 @@ MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct me
 
 			if (stage > 0) {
 				sprintf(buffer, "%s %s",
-						langGet(g_StageNames[stage - 1].name1),
-						langGet(g_StageNames[stage - 1].name2));
+						langGet(g_SoloStages[stage - 1].name1),
+						langGet(g_SoloStages[stage - 1].name2));
 			} else {
 				// "New Recruit"
 				strcpy(buffer, langGet(L_OPTIONS_404));
@@ -2773,7 +2773,7 @@ MenuDialogHandlerResult filemgrMainMenuDialog(s32 operation, struct menudialogde
 		mpInit();
 
 		// Set MP player names to "Player 1" through 4 if blank
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (g_PlayerConfigsArray[i].base.name[0] == '\0') {
 				sprintf(g_PlayerConfigsArray[i].base.name, "%s %d\n", langGet(L_MISC_437), i + 1);
 			}

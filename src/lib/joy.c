@@ -31,8 +31,27 @@
  * sample in the next partition.
  */
 
-struct joydata g_JoyData[2];
-s32 g_JoyDisableCooldown[4];
+#define NUM_DATA    2
+#define NUM_SAMPLES 20
+#define NUM_PADS    MAXCONTROLLERS
+
+struct contsample {
+	OSContPad pads[NUM_PADS];
+};
+
+struct joydata {
+	struct contsample samples[NUM_SAMPLES];
+	s32 curlast;
+	s32 curstart;
+	s32 nextlast;
+	s32 nextsecondlast;
+	u16 buttonspressed[NUM_PADS];
+	u16 buttonsreleased[NUM_PADS];
+	s32 unk200;
+};
+
+struct joydata g_JoyData[NUM_DATA];
+s32 g_JoyDisableCooldown[NUM_PADS];
 OSMesgQueue g_PiMesgQueue;
 OSMesg g_PiMesgBuf[10];
 OSMesg g_JoyStopCyclicPollingMesgBuf[1];
@@ -43,7 +62,7 @@ OSMesg g_JoyStartCyclicPollingMesgBuf[1];
 OSMesgQueue g_JoyStartCyclicPollingMesgQueue;
 OSMesg g_JoyStartCyclicPollingDoneMesgBuf[1];
 OSMesgQueue g_JoyStartCyclicPollingDoneMesgQueue;
-OSContStatus var80099f38[4];
+OSContStatus g_JoyContStatuses[NUM_PADS];
 #if VERSION >= VERSION_NTSC_1_0
 u8 g_JoyPfsStates[100];
 u32 var80099fac;
@@ -59,10 +78,10 @@ u32 var8005ee68 = 0;
 
 // Number of times per pad that different inputs were attempted to be read
 // when controller was disconnected or not ready.
-u32 g_JoyBadReadsStickX[4] = {0};
-u32 g_JoyBadReadsStickY[4] = {0};
-u32 g_JoyBadReadsButtons[4] = {0};
-u32 g_JoyBadReadsButtonsPressed[4] = {0};
+u32 g_JoyBadReadsStickX[NUM_PADS] = {0};
+u32 g_JoyBadReadsStickY[NUM_PADS] = {0};
+u32 g_JoyBadReadsButtons[NUM_PADS] = {0};
+u32 g_JoyBadReadsButtonsPressed[NUM_PADS] = {0};
 
 u8 g_JoyConnectedControllers = 0;
 bool g_JoyQueuesCreated = false;
@@ -182,7 +201,7 @@ s32 joyShiftPfsStates(void)
 #if VERSION >= VERSION_NTSC_1_0
 void joyRecordPfsState(u8 pfsstate)
 {
-	if (g_JoyNextPfsStateIndex + 1 >= 100) {
+	if (g_JoyNextPfsStateIndex + 1 >= ARRAYCOUNT(g_JoyPfsStates)) {
 		joyShiftPfsStates();
 	}
 
@@ -292,14 +311,14 @@ void joyInit(void)
 	var8005eec4 = NULL;
 	var8005eec8 = NULL;
 
-	for (i = 0; i < 2; i++) {
+	for (i = 0; i < NUM_DATA; i++) {
 		g_JoyData[i].curlast = 0;
 		g_JoyData[i].curstart = 0;
 		g_JoyData[i].nextlast = 0;
 		g_JoyData[i].nextsecondlast = 0;
 		g_JoyData[i].unk200 = -1;
 
-		for (j = 0; j < 4; j++) {
+		for (j = 0; j < NUM_PADS; j++) {
 			g_JoyData[i].samples[0].pads[j].button = 0;
 			g_JoyData[i].samples[0].pads[j].stick_x = 0;
 			g_JoyData[i].samples[0].pads[j].stick_y = 0;
@@ -307,7 +326,7 @@ void joyInit(void)
 		}
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < NUM_PADS; i++) {
 		g_JoyDisableCooldown[i] = 0;
 	}
 }
@@ -324,7 +343,7 @@ void joyDisableTemporarily(void)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < NUM_PADS; i++) {
 		g_JoyDisableCooldown[i] = TICKS(60);
 	}
 }
@@ -348,7 +367,7 @@ void joyReset(void)
 
 void joy00013e84(void)
 {
-	static u8 var8005ef00 = 0xff;
+	static u8 prevconnected = 0xff;
 
 	// osContInit should be called only once. The first time this function is
 	// called it'll take the first branch here, and all subsequent calls will
@@ -356,10 +375,10 @@ void joy00013e84(void)
 	if (g_JoyNeedsInit) {
 		s32 i;
 		g_JoyNeedsInit = false;
-		osContInit(&g_PiMesgQueue, &g_JoyConnectedControllers, var80099f38);
+		osContInit(&g_PiMesgQueue, &g_JoyConnectedControllers, g_JoyContStatuses);
 		g_JoyInitDone = true;
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < NUM_PADS; i++) {
 			joyStopRumble(i, false);
 		}
 	} else {
@@ -368,10 +387,10 @@ void joy00013e84(void)
 
 		osContStartQuery(&g_PiMesgQueue);
 		osRecvMesg(&g_PiMesgQueue, NULL, OS_MESG_BLOCK);
-		osContGetQuery(var80099f38);
+		osContGetQuery(g_JoyContStatuses);
 
-		for (i = 0; i < 4; i++) {
-			if (var80099f38[i].errno & CONT_NO_RESPONSE_ERROR) {
+		for (i = 0; i < ARRAYCOUNT(g_JoyContStatuses); i++) {
+			if (g_JoyContStatuses[i].errno & CONT_NO_RESPONSE_ERROR) {
 				slots -= 1 << i;
 			}
 		}
@@ -379,17 +398,17 @@ void joy00013e84(void)
 		g_JoyConnectedControllers = slots;
 	}
 
-	if (var8005ef00 != g_JoyConnectedControllers) {
+	if (prevconnected != g_JoyConnectedControllers) {
 		s32 i = 0;
 		s32 index = 0;
 
-		for (; i < 4; i++) {
+		for (; i < NUM_PADS; i++) {
 			if (g_JoyConnectedControllers & (1 << i)) {
 				g_Vars.playertojoymap[index++] = i;
 			}
 		}
 
-		var8005ef00 = g_JoyConnectedControllers;
+		prevconnected = g_JoyConnectedControllers;
 	}
 }
 
@@ -401,13 +420,13 @@ s8 contGetFreeSlot(void)
 		return g_JoyDataPtr->unk200;
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < NUM_PADS; i++) {
 		if ((g_JoyConnectedControllers & (1 << i)) == 0) {
 			return i;
 		}
 	}
 
-	return 4;
+	return NUM_PADS;
 }
 
 u32 joyGetConnectedControllers(void)
@@ -440,14 +459,15 @@ void joyConsumeSamples(struct joydata *joydata)
 	joydata->curstart = joydata->curlast;
 	joydata->curlast = joydata->nextlast;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < NUM_PADS; i++) {
 		joydata->buttonspressed[i] = 0;
 		joydata->buttonsreleased[i] = 0;
 
 		if (joydata->curlast != joydata->curstart) {
-			samplenum = (joydata->curstart + 1) % 20; while (true) {
+			samplenum = (joydata->curstart + 1) % NUM_SAMPLES; \
+			while (true) {
 				buttons1 = joydata->samples[samplenum].pads[i].button;
-				buttons2 = joydata->samples[(samplenum + 19) % 20].pads[i].button;
+				buttons2 = joydata->samples[(samplenum + NUM_SAMPLES - 1) % NUM_SAMPLES].pads[i].button;
 
 				joydata->buttonspressed[i] |= buttons1 & ~buttons2;
 				joydata->buttonsreleased[i] |= ~buttons1 & buttons2;
@@ -468,7 +488,7 @@ void joyConsumeSamples(struct joydata *joydata)
 					break;
 				}
 
-				samplenum = (samplenum + 1) % 20;
+				samplenum = (samplenum + 1) % NUM_SAMPLES;
 			}
 		}
 	}
@@ -506,7 +526,7 @@ void joy00014238(void)
 	if (!doingit) {
 		doingit = true;
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < NUM_PADS; i++) {
 			if (joy000155f4(i) == PAK010_13) {
 				pakSetUnk010(i, PAK010_11);
 			}
@@ -587,7 +607,7 @@ s32 joyStartReadData(OSMesgQueue *mq)
 
 void joyReadData(void)
 {
-	s32 index = (g_JoyData[0].nextlast + 1) % 20;
+	s32 index = (g_JoyData[0].nextlast + 1) % NUM_SAMPLES;
 
 	if (index == g_JoyData[0].curstart) {
 		// If the sample queue is full, don't overwrite the oldest sample.
@@ -598,7 +618,7 @@ void joyReadData(void)
 	osContGetReadData(g_JoyData[0].samples[index].pads);
 
 	g_JoyData[0].nextlast = index;
-	g_JoyData[0].nextsecondlast = (g_JoyData[0].nextlast + 19) % 20;
+	g_JoyData[0].nextsecondlast = (g_JoyData[0].nextlast + NUM_SAMPLES - 1) % NUM_SAMPLES;
 }
 
 void joysHandleRetrace(void)
@@ -618,7 +638,7 @@ void joysHandleRetrace(void)
 			joyReadData();
 
 			// Check if error state has changed for any controller
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < NUM_PADS; i++) {
 				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
 						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
 					joy00013e84();
@@ -670,7 +690,7 @@ void joysHandleRetrace(void)
 			joyReadData();
 
 			// Check if error state has changed for any controller
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < NUM_PADS; i++) {
 				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
 						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
 					joy00013e84();
@@ -694,7 +714,7 @@ void joysHandleRetrace(void)
 			if (count >= 60) {
 				s32 i;
 
-				for (i = 0; i < 4; i++) {
+				for (i = 0; i < NUM_PADS; i++) {
 					if (g_JoyBadReadsStickX[i] || g_JoyBadReadsStickY[i] || g_JoyBadReadsButtons[i] || g_JoyBadReadsButtonsPressed[i]) {
 						g_JoyBadReadsStickX[i] = 0;
 						g_JoyBadReadsStickY[i] = 0;
@@ -716,7 +736,7 @@ void joy00014810(bool value)
 
 s32 joyGetNumSamples(void)
 {
-	return (g_JoyDataPtr->curlast - g_JoyDataPtr->curstart + 20) % 20;
+	return (g_JoyDataPtr->curlast - g_JoyDataPtr->curstart + NUM_SAMPLES) % NUM_SAMPLES;
 }
 
 s32 joyGetStickXOnSample(s32 samplenum, s8 contpadnum)
@@ -730,7 +750,7 @@ s32 joyGetStickXOnSample(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_x;
+	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % NUM_SAMPLES].pads[contpadnum].stick_x;
 }
 
 s32 joyGetStickYOnSample(s32 samplenum, s8 contpadnum)
@@ -744,7 +764,7 @@ s32 joyGetStickYOnSample(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_y;
+	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % NUM_SAMPLES].pads[contpadnum].stick_y;
 }
 
 s32 joyGetStickYOnSampleIndex(s32 samplenum, s8 contpadnum)
@@ -758,7 +778,7 @@ s32 joyGetStickYOnSampleIndex(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum) % 20].pads[contpadnum].stick_y;
+	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum) % NUM_SAMPLES].pads[contpadnum].stick_y;
 }
 
 u16 joyGetButtonsOnSample(s32 samplenum, s8 contpadnum, u16 mask)
@@ -774,7 +794,7 @@ u16 joyGetButtonsOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
+	button = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % NUM_SAMPLES].pads[contpadnum].button;
 
 	return button & mask;
 }
@@ -793,8 +813,8 @@ u16 joyGetButtonsPressedOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button1 = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
-	button2 = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum) % 20].pads[contpadnum].button;
+	button1 = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % NUM_SAMPLES].pads[contpadnum].button;
+	button2 = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum) % NUM_SAMPLES].pads[contpadnum].button;
 
 	return (button1 & ~button2) & mask;
 }
@@ -822,7 +842,7 @@ s32 joyCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	i = (g_JoyDataPtr->curstart + 1) % 20;
+	i = (g_JoyDataPtr->curstart + 1) % NUM_SAMPLES;
 
 	while (true) {
 		if (checksamples == NULL || checksamples[index]) {
@@ -837,7 +857,7 @@ s32 joyCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 			break;
 		}
 
-		i = (i + 1) % 20;
+		i = (i + 1) % NUM_SAMPLES;
 		index++;
 	}
 
@@ -987,7 +1007,7 @@ void joyDestroy(void)
 	osCreateMesgQueue(&g_PiMesgQueue, g_PiMesgBuf, ARRAYCOUNT(g_PiMesgBuf));
 	osSetEventMesg(OS_EVENT_SI, &g_PiMesgQueue, 0);
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < NUM_PADS; i++) {
 		if (osMotorProbe(&g_PiMesgQueue, PFS(i), i) == 0) {
 			osMotorStop(PFS(i));
 			osMotorStop(PFS(i));
@@ -1072,7 +1092,7 @@ void joysTickRumble(void)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < NUM_PADS; i++) {
 		if (g_Paks[i].unk010 == PAK010_11 && g_Paks[i].type == PAKTYPE_RUMBLE) {
 			switch (g_Paks[i].rumblestate) {
 			case RUMBLESTATE_ENABLED_STARTING:

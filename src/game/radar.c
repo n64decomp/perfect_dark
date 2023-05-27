@@ -351,7 +351,7 @@ Gfx *radarRender(Gfx *gdl)
 
 	// Draw dots for coop AI buddies
 	if (!g_Vars.normmplayerisrunning && g_MissionConfig.iscoop) {
-		for (i = 0; i < g_Vars.numaibuddies && i < 4; i++) {
+		for (i = 0; i < g_Vars.numaibuddies && i < ARRAYCOUNT(g_Vars.aibuddies); i++) {
 			struct prop *prop = g_Vars.aibuddies[i];
 
 			if (prop
@@ -369,7 +369,7 @@ Gfx *radarRender(Gfx *gdl)
 	}
 
 	// Draw dots for MP simulants
-	if (g_Vars.normmplayerisrunning != 0) {
+	if (g_Vars.normmplayerisrunning) {
 		for (i = 0; i < g_BotCount; i++) {
 			if (!chrIsDead(g_MpBotChrPtrs[i])
 					&& (g_MpBotChrPtrs[i]->hidden & CHRHFLAG_CLOAKED) == 0

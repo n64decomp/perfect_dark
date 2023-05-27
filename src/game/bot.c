@@ -1157,30 +1157,30 @@ void bot0f1921f8(struct chrdata *chr, f32 *move)
 #endif
 }
 
-u32 g_MpBotCommands[NUM_MPBOTCOMMANDS] = {
-	L_MISC_175, // "Follow"
-	L_MISC_176, // "Attack"
-	L_MISC_177, // "Defend"
-	L_MISC_178, // "Hold"
-	L_MISC_179, // "Normal"
-	L_MISC_180, // "Download"
-	L_MISC_181, // "Get Case"
-	L_MISC_182, // "Tag Box"
-	L_MISC_209, // "Save Case"
-	L_MISC_210, // "Def Hill"
-	L_MISC_211, // "Hold Hill"
-	L_MISC_212, // "Get Case"
-	L_MISC_213, // "Pop Cap"
-	L_MISC_214, // "Protect"
-};
-
 char *botGetCommandName(s32 command)
 {
-	if (command < 0 || command >= NUM_MPBOTCOMMANDS) {
+	static u32 names[] = {
+		L_MISC_175, // "Follow"
+		L_MISC_176, // "Attack"
+		L_MISC_177, // "Defend"
+		L_MISC_178, // "Hold"
+		L_MISC_179, // "Normal"
+		L_MISC_180, // "Download"
+		L_MISC_181, // "Get Case"
+		L_MISC_182, // "Tag Box"
+		L_MISC_209, // "Save Case"
+		L_MISC_210, // "Def Hill"
+		L_MISC_211, // "Hold Hill"
+		L_MISC_212, // "Get Case"
+		L_MISC_213, // "Pop Cap"
+		L_MISC_214, // "Protect"
+	};
+
+	if (command < 0 || command >= ARRAYCOUNT(names)) {
 		return langGet(L_MISC_179); // "Normal"
 	}
 
-	return langGet(g_MpBotCommands[command]);
+	return langGet(names[command]);
 }
 
 void botApplyAttack(struct chrdata *chr, struct prop *prop)
@@ -1790,14 +1790,14 @@ void botScheduleReload(struct chrdata *chr, s32 handnum)
 struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
 {
 	struct aibot *aibot = chr->aibot;
-	s32 weaponnums[6];
-	s32 scores1[6];
-	s32 scores2[6];
-	struct prop *weapproplist[6];
-	f32 weapdistlist[6];
+	s32 weaponnums[NUM_MPWEAPONSLOTS];
+	s32 scores1[NUM_MPWEAPONSLOTS];
+	s32 scores2[NUM_MPWEAPONSLOTS];
+	struct prop *weapproplist[NUM_MPWEAPONSLOTS];
+	f32 weapdistlist[NUM_MPWEAPONSLOTS];
 	struct prop *ammoproplist[33];
 	f32 ammodistlist[33];
-	struct invitem *invitems[6];
+	struct invitem *invitems[NUM_MPWEAPONSLOTS];
 	s32 i;
 	s32 j;
 	struct prop *prop;
@@ -2326,7 +2326,7 @@ s32 botGetNumOpponentsInHill(struct chrdata *chr)
 {
 	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
 	struct mpchrconfig *loopmpchr;
-	s32 countsperteam[8] = {0};
+	s32 countsperteam[MAX_TEAMS] = {0};
 	s32 max = 0;
 	s32 i;
 
@@ -2342,7 +2342,7 @@ s32 botGetNumOpponentsInHill(struct chrdata *chr)
 		}
 	}
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < ARRAYCOUNT(countsperteam); i++) {
 		if (countsperteam[i] > max) {
 			max = countsperteam[i];
 		}

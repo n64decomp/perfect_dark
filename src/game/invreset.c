@@ -18,7 +18,7 @@ void invReset(void)
 		g_Vars.currentplayer->equipallguns = false;
 	}
 
-	for (i = 0; i != 10; i++) {
+	for (i = 0; i != ARRAYCOUNT(g_Vars.currentplayer->gunheldarr); i++) {
 		g_Vars.currentplayer->gunheldarr[i].totaltime240_60 = -1;
 	}
 }

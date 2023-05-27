@@ -413,7 +413,7 @@ void frInitLighting(void)
 	if (g_FrData.donelighting == false) {
 		s32 roomnum;
 
-		for (roomnum = 7; roomnum < 10; roomnum++) {
+		for (roomnum = ROOM_DISH_0007; roomnum <= ROOM_DISH_0009; roomnum++) {
 			roomSetLightOp(roomnum, LIGHTOP_TRANSITION, 50, 100, TICKS(32));
 		}
 
@@ -432,7 +432,7 @@ void frRestoreLighting(void)
 	if (g_FrData.donelighting == true) {
 		s32 roomnum;
 
-		for (roomnum = 7; roomnum < 10; roomnum++) {
+		for (roomnum = ROOM_DISH_0007; roomnum <= ROOM_DISH_0009; roomnum++) {
 			roomSetLightOp(roomnum, LIGHTOP_TRANSITION, 100, 50, TICKS(8));
 		}
 
@@ -1330,7 +1330,7 @@ void frEndSession(bool hidetargets)
 		for (i = 0; i < g_MaxExplosions; i++) {
 			g_Explosions[i].age = 256;
 
-			for (j = 0; j < 40; j++) {
+			for (j = 0; j < ARRAYCOUNT(g_Explosions[i].parts); j++) {
 				g_Explosions[i].parts[j].frame = 0;
 			}
 		}
@@ -1339,7 +1339,7 @@ void frEndSession(bool hidetargets)
 		for (i = 0; i < g_MaxSmokes; i++) {
 			g_Smokes[i].age = 256;
 
-			for (j = 0; j < 10; j++) {
+			for (j = 0; j < ARRAYCOUNT(g_Smokes[i].parts); j++) {
 				g_Smokes[i].parts[j].size = 0;
 			}
 		}
@@ -1534,7 +1534,7 @@ bool frIsAmmoWasted(void)
 		}
 
 		// Check if there are any explosions
-		for (i = 0; i != 6; i++) {
+		for (i = 0; i != MAX_EXPLOSIONS; i++) {
 			if (g_Explosions[i].prop) {
 				return false;
 			}
@@ -2182,7 +2182,7 @@ void func0f1a0924(struct prop *prop)
 
 		modelGetScreenCoords(obj->model, &sp56, &sp64, &sp60, &sp68);
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
 			if (g_Vars.currentplayer->trackedprops[i].prop == prop) {
 				return;
 			}
@@ -2407,7 +2407,7 @@ s32 ciGetNumUnlockedChrBios(void)
 	s32 count = 0;
 	s32 bodynum;
 
-	for (bodynum = 0; bodynum < NUM_BODIES; bodynum++) {
+	for (bodynum = 0; bodynum < ARRAYCOUNT(g_HeadsAndBodies) - 1; bodynum++) {
 		if (ciIsChrBioUnlocked(bodynum)) {
 			count++;
 		}
@@ -2421,7 +2421,7 @@ s32 ciGetChrBioBodynumBySlot(s32 slot)
 	s32 index = -1;
 	s32 bodynum;
 
-	for (bodynum = 0; bodynum < NUM_BODIES; bodynum++) {
+	for (bodynum = 0; bodynum < ARRAYCOUNT(g_HeadsAndBodies) - 1; bodynum++) {
 		if (ciIsChrBioUnlocked(bodynum)) {
 			index++;
 		}
@@ -2877,7 +2877,7 @@ bool dtIsAvailable(s32 deviceindex)
 
 	deviceindex--;
 
-	if (deviceindex >= 10) {
+	if (deviceindex >= ARRAYCOUNT(flags)) {
 		return true;
 	}
 
@@ -2893,7 +2893,7 @@ s32 dtGetNumAvailable(void)
 	s32 count = 0;
 	s32 i;
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < NUM_DEVICETESTS; i++) {
 		if (dtIsAvailable(i)) {
 			count++;
 		}
@@ -2907,7 +2907,7 @@ s32 dtGetIndexBySlot(s32 wantindex)
 	s32 index = -1;
 	s32 i;
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < NUM_DEVICETESTS; i++) {
 		if (dtIsAvailable(i)) {
 			index++;
 		}
@@ -3199,7 +3199,7 @@ s32 htGetNumUnlocked(void)
 	s32 count = 0;
 	s32 i;
 
-	for (i = 0; i < 7; i++) {
+	for (i = 0; i < NUM_HOLOTESTS; i++) {
 		if (htIsUnlocked(i)) {
 			count++;
 		}
@@ -3213,7 +3213,7 @@ s32 htGetIndexBySlot(s32 slot)
 	s32 index = -1;
 	s32 i;
 
-	for (i = 0; i < 7; i++) {
+	for (i = 0; i < NUM_HOLOTESTS; i++) {
 		if (htIsUnlocked(i)) {
 			index++;
 		}

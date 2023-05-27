@@ -122,17 +122,17 @@ void ctcInit(void)
 	s32 i, j, k;
 	g_MpSetup.options |= MPOPTION_TEAMSENABLED;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.spawnpadsperteam); i++) {
 		s32 j;
 		g_ScenarioData.ctc.spawnpadsperteam[i].homepad = i;
 		g_ScenarioData.ctc.spawnpadsperteam[i].numspawnpads = 0;
 
-		for (j = 0; j < 6; j++) {
+		for (j = 0; j < ARRAYCOUNT(g_ScenarioData.ctc.spawnpadsperteam[i].spawnpads); j++) {
 			g_ScenarioData.ctc.spawnpadsperteam[i].spawnpads[j] = -1;
 		}
 	}
 
-	for (i = 0; i != 4; i++) {
+	for (i = 0; i != ARRAYCOUNT(g_ScenarioData.ctc.playercountsperteam); i++) {
 		g_ScenarioData.ctc.playercountsperteam[i] = 0;
 		g_ScenarioData.ctc.teamindexes[i] = -1;
 	}
@@ -169,7 +169,7 @@ void ctcInitProps(void)
 	struct weaponobj *tmp;
 	s32 mpindex;
 	u32 stack;
-	bool teamsdone[4];
+	bool teamsdone[ARRAYCOUNT(g_ScenarioData.ctc.playercountsperteam)];
 
 	struct weaponobj template = {
 		256,                    // extrascale
@@ -208,17 +208,17 @@ void ctcInitProps(void)
 	s32 j;
 	s32 k;
 
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < 6; j++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.spawnpadsperteam); i++) {
+		for (j = 0; j < ARRAYCOUNT(g_ScenarioData.ctc.spawnpadsperteam[i].spawnpads); j++) {
 		}
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(teamsdone); i++) {
 		teamsdone[i] = false;
 		g_ScenarioData.ctc.playercountsperteam[i] = 0;
 	}
 
-	for (i = 0; i != 4; i++) {
+	for (i = 0; i != ARRAYCOUNT(g_ScenarioData.ctc.teamindexes); i++) {
 		do {
 			g_ScenarioData.ctc.teamindexes[i] = random() % 4;
 		} while (teamsdone[g_ScenarioData.ctc.teamindexes[i]]);
@@ -258,21 +258,21 @@ void ctcInitProps(void)
 		}
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.playercountsperteam); i++) {
 		if (g_ScenarioData.ctc.playercountsperteam[i] == 0) {
 			g_ScenarioData.ctc.teamindexes[i] = -1;
 		}
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.teamindexes); i++) {
 		// empty
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.tokens); i++) {
 		g_ScenarioData.ctc.tokens[i] = NULL;
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.baserooms); i++) {
 		g_ScenarioData.ctc.baserooms[i] = -1;
 	}
 
@@ -336,7 +336,7 @@ void ctcInitProps(void)
 		g_ScenarioData.ctc.baserooms[3] = g_ScenarioData.ctc.tokens[3]->rooms[0];
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.playercountsperteam); i++) {
 		if (g_ScenarioData.ctc.playercountsperteam[i] && g_ScenarioData.ctc.baserooms[i] != -1) {
 			roomSetLightOp(g_ScenarioData.ctc.baserooms[i], LIGHTOP_HIGHLIGHT, 0, 0, 0);
 		}
@@ -481,7 +481,7 @@ bool ctcIsRoomHighlighted(s16 room)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.teamindexes); i++) {
 		if (g_ScenarioData.ctc.baserooms[i] == room && g_ScenarioData.ctc.teamindexes[i] != -1) {
 			return true;
 		}
@@ -494,7 +494,7 @@ void ctcHighlightRoom(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.baserooms); i++) {
 		if (g_ScenarioData.ctc.baserooms[i] == roomnum) {
 			u32 colour = g_TeamColours[i];
 			f32 a = *arg1;

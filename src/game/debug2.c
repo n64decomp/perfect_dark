@@ -480,7 +480,7 @@ void debugUpdateMenu(void)
 	if (g_DebugCurMenu == DEBUGMENU_MAIN) {
 		dmenuSetMenu(g_DebugMenuLabels, g_DebugMenuPositions, g_DebugMenuOffsets);
 	} else if (g_DebugCurMenu == DEBUGMENU_CUTSCENE) {
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_DebugCutsceneLabelPtrs); i++) {
 			g_DebugCutsceneLabelPtrs[i] = g_DebugCutsceneLabelBuffers[i];
 		}
 

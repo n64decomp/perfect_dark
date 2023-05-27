@@ -20,6 +20,9 @@
 #define MAX_LINES 31
 #endif
 
+#define CHAR_W 4
+#define CHAR_H 7
+
 #if VERSION < VERSION_NTSC_1_0
 char g_CrashMessage[70];
 #endif
@@ -888,8 +891,8 @@ void crashRenderChar(s32 x, s32 y, char c)
 	a2 = 0;
 #endif
 
-	for (i = 0; i < 7; i++) {
-		for (j = 0; j < 4; j++) {
+	for (i = 0; i < CHAR_H; i++) {
+		for (j = 0; j < CHAR_W; j++) {
 			u32 gray = a2 & 0x80000000;
 
 			if (gray) {
@@ -963,13 +966,13 @@ void crashRenderFrame(u16 *fb)
 
 	g_CrashFrameBuffer = (u16 *) PHYS_TO_K1(fb);
 
-	width = (viGetWidth() - 13) / 4;
-	height = (viGetHeight() - 10) / 7 - 1;
+	width = (viGetWidth() - 13) / CHAR_W;
+	height = (viGetHeight() - 10) / CHAR_H - 1;
 
 	if (g_CrashCharBuffer != NULL) {
 		for (y = 0; y < height && y < MAX_LINES; y++) {
 			for (x = 0; x < width - 5 && x < 71; x++) {
-				crashRenderChar(20 + x * 4, 7 + y * 7, g_CrashCharBuffer[y][x]);
+				crashRenderChar(20 + x * CHAR_W, CHAR_H + y * CHAR_H, g_CrashCharBuffer[y][x]);
 			}
 		}
 	}

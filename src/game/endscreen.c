@@ -105,7 +105,7 @@ char *endscreenMenuTitleRetryMission(struct menudialogdef *dialogdef)
 	}
 
 	prefix = langGet(L_OPTIONS_296); // "Retry"
-	name = langGet(g_StageNames[g_MissionConfig.stageindex].name3);
+	name = langGet(g_SoloStages[g_MissionConfig.stageindex].name3);
 
 	sprintf(g_StringPointer, "%s: %s\n", prefix, name);
 
@@ -122,7 +122,7 @@ char *endscreenMenuTitleNextMission(struct menudialogdef *dialogdef)
 	}
 
 	prefix = langGet(L_OPTIONS_297); // "Next Mission"
-	name = langGet(g_StageNames[g_MissionConfig.stageindex].name3);
+	name = langGet(g_SoloStages[g_MissionConfig.stageindex].name3);
 
 	sprintf(g_StringPointer, "%s: %s\n", prefix, name);
 
@@ -133,7 +133,7 @@ MenuItemHandlerResult endscreenHandleReplayPreviousMission(s32 operation, struct
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stageindex--;
-		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
+		g_MissionConfig.stagenum = g_SoloStages[g_MissionConfig.stageindex].stagenum;
 	}
 
 	return menuhandlerAcceptMission(operation, NULL, data);
@@ -374,11 +374,11 @@ char *endscreenMenuTitleStageCompleted(struct menuitem *item)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	sprintf(g_StringPointer, "%s: %s\n",
-			langGet(g_StageNames[g_Menus[g_MpPlayerNum].endscreen.stageindex].name3),
+			langGet(g_SoloStages[g_Menus[g_MpPlayerNum].endscreen.stageindex].name3),
 			langGet(L_OPTIONS_276)); // "Completed"
 #else
 	sprintf(g_StringPointer, "%s: %s\n",
-			langGet(g_StageNames[g_MissionConfig.stageindex].name3),
+			langGet(g_SoloStages[g_MissionConfig.stageindex].name3),
 			langGet(L_OPTIONS_276)); // "Completed"
 #endif
 
@@ -388,7 +388,7 @@ char *endscreenMenuTitleStageCompleted(struct menuitem *item)
 #if VERSION >= VERSION_NTSC_1_0
 char *endscreenMenuTextCurrentStageName3(struct menuitem *item)
 {
-	char *name = langGet(g_StageNames[g_MissionConfig.stageindex].name3);
+	char *name = langGet(g_SoloStages[g_MissionConfig.stageindex].name3);
 	sprintf(g_StringPointer, "%s\n", name);
 
 	return g_StringPointer;
@@ -398,7 +398,7 @@ char *endscreenMenuTextCurrentStageName3(struct menuitem *item)
 char *endscreenMenuTitleStageFailed(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s: %s\n",
-			langGet(g_StageNames[g_MissionConfig.stageindex].name3),
+			langGet(g_SoloStages[g_MissionConfig.stageindex].name3),
 			langGet(L_OPTIONS_277)); // "Failed"
 
 	return g_StringPointer;
@@ -427,7 +427,7 @@ struct menudialogdef *endscreenAdvance(void)
 #endif
 
 	g_MissionConfig.stageindex++;
-	g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
+	g_MissionConfig.stagenum = g_SoloStages[g_MissionConfig.stageindex].stagenum;
 
 	return &g_NextMissionMenuDialog;
 }
@@ -451,7 +451,7 @@ void endscreen0f10d770(void)
 MenuItemHandlerResult endscreenHandleReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
+		g_MissionConfig.stagenum = g_SoloStages[g_MissionConfig.stageindex].stagenum;
 		return menuhandlerAcceptMission(operation, NULL, data);
 	}
 
@@ -621,7 +621,7 @@ void endscreenContinue(s32 context)
 					} else {
 						// Commit to starting next stage
 						g_MissionConfig.stageindex++;
-						g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
+						g_MissionConfig.stagenum = g_SoloStages[g_MissionConfig.stageindex].stagenum;
 
 						titleSetNextStage(g_MissionConfig.stagenum);
 
@@ -730,7 +730,7 @@ MenuDialogHandlerResult endscreenHandle2PCompleted(s32 operation, struct menudia
 								menuPopDialog();
 							} else {
 								g_MissionConfig.stageindex++;
-								g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
+								g_MissionConfig.stagenum = g_SoloStages[g_MissionConfig.stageindex].stagenum;
 
 								titleSetNextStage(g_MissionConfig.stagenum);
 								lvSetDifficulty(g_MissionConfig.difficulty);

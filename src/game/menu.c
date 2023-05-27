@@ -63,13 +63,13 @@ u32 var8009dfc4;
 struct briefing g_Briefing;
 u32 var8009dfe4;
 struct missionconfig g_MissionConfig;
-struct menu g_Menus[4];
+struct menu g_Menus[MAX_PLAYERS];
 struct menudata g_MenuData;
 s32 g_MenuScissorX1;
 s32 g_MenuScissorX2;
 s32 g_MenuScissorY1;
 s32 g_MenuScissorY2;
-Vp var800a2048[4][2];
+Vp var800a2048[MAX_PLAYERS][2];
 
 #if VERSION >= VERSION_NTSC_1_0
 struct menudialogdef g_PakCannotReadGameBoyMenuDialog;
@@ -392,7 +392,7 @@ struct menudfc *func0f0f1338(struct menuitem *item)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus[0].unkdfc); i++) {
 		if (g_Menus[g_MpPlayerNum].unkdfc[i].item == item) {
 			return &g_Menus[g_MpPlayerNum].unkdfc[i];
 		}
@@ -431,7 +431,7 @@ void func0f0f1418(void)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus[0].unkdfc); i++) {
 		if (g_Menus[g_MpPlayerNum].unkdfc[i].item) {
 #if VERSION >= VERSION_PAL_BETA
 			g_Menus[g_MpPlayerNum].unkdfc[i].unk04 += g_Vars.diffframe60freal / 60.0f;
@@ -446,7 +446,7 @@ void func0f0f1494(void)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus[0].unkdfc); i++) {
 		g_Menus[g_MpPlayerNum].unkdfc[i].item = NULL;
 	}
 }
@@ -771,7 +771,7 @@ void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struc
 		numobjectives = 0;
 		*width = 240;
 
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_Briefing.objectivenames); i++) {
 			if (g_Briefing.objectivenames[i] && (g_Briefing.objectivedifficulties[i] & (1 << lvGetDifficulty()))) {
 				numobjectives++;
 			}
@@ -1496,7 +1496,7 @@ bool func0f0f3220(s32 arg0)
 	if (g_MenuData.unk669[arg0] == 4) {
 		s32 prevplayernum = g_MpPlayerNum;
 
-		for (i = 3; i >= 0; i--) {
+		for (i = ARRAYCOUNT(g_Menus) - 1; i >= 0; i--) {
 			if (g_Menus[i].curdialog) {
 				g_MpPlayerNum = i;
 			}
@@ -1543,7 +1543,7 @@ void func0f0f3220(s32 arg0)
 	if (g_MenuData.unk669[arg0] == 4) {
 		s32 prevplayernum = g_MpPlayerNum;
 
-		for (i = 3; i >= 0; i--) {
+		for (i = ARRAYCOUNT(g_Menus) - 1; i >= 0; i--) {
 			if (g_Menus[i].curdialog) {
 				g_MpPlayerNum = i;
 			}
@@ -3421,7 +3421,7 @@ void func0f0f820c(struct menudialogdef *dialogdef, s32 root)
 	s32 i;
 	s32 prevplayernum = g_MpPlayerNum;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {
 		if (g_Menus[i].curdialog) {
 			g_MpPlayerNum = i;
 			func0f0f8120();
@@ -3460,7 +3460,7 @@ void func0f0f8300(void)
 	s32 i;
 
 	if (g_MenuData.count == 0) {
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_MenuData.playerjoinalpha); i++) {
 			g_MenuData.playerjoinalpha[i] = 0;
 		}
 	}
@@ -3757,7 +3757,7 @@ void menuReset(void)
 		texLoadFromConfig(&g_TexGeneralConfigs[35]);
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {
 		g_Menus[i].unk840.unk004 = NULL;
 	}
 
@@ -3788,7 +3788,7 @@ void menuReset(void)
 			func0f0f8bb4(&g_MenuData.unk01c, 0xc800, 1);
 		}
 
-		g_MenuData.unk01c.unk00c = 0x259;
+		g_MenuData.unk01c.unk00c = FILE_GHUDPIECE;
 		g_MenuData.unk01c.unk524 = g_MenuData.unk01c.unk54c = -M_PI;
 		g_MenuData.unk01c.unk520 = g_MenuData.unk01c.unk548 = 0;
 		g_MenuData.unk01c.unk528 = g_MenuData.unk01c.unk550 = 0;
@@ -3804,7 +3804,7 @@ void menuReset(void)
 	g_MenuData.unk5d4 = 0;
 	g_MenuData.unk5d5_05 = false;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {
 		g_Menus[i].curdialog = NULL;
 		g_Menus[i].depth = 0;
 		g_Menus[i].numdialogs = 0;
@@ -3829,7 +3829,7 @@ void menuReset(void)
 	g_MenuData.nextbg = 255;
 	g_MenuData.bannernum = -1;
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_MenuData.unk669); i++) {
 		g_MenuData.unk669[i] = 0xff;
 	}
 
@@ -5294,7 +5294,7 @@ Gfx *menuRender(Gfx *gdl)
 		} else {
 			s32 i;
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < MAX_PLAYERS; i++) {
 				g_MpPlayerNum = i;
 				gdl = menuRenderDialogs(gdl);
 			}
@@ -5327,7 +5327,7 @@ Gfx *menuRender(Gfx *gdl)
 
 			gdl = text0f153628(gdl);
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < MAX_PLAYERS; i++) {
 				// Figure out what text will be displayed. The text calculated
 				// here is for measuring purposes only and isn't rendered.
 				// Amusingly, there's a %d placeholder in the text which isn't
@@ -5344,7 +5344,7 @@ Gfx *menuRender(Gfx *gdl)
 						if (g_Vars.mpsetupmenu == MPSETUPMENU_GENERAL) {
 							renderit = true;
 
-							for (j = 0; j < 4; j++) {
+							for (j = 0; j < ARRAYCOUNT(g_Vars.waitingtojoin); j++) {
 								if (g_Vars.waitingtojoin[j]) {
 									renderit = false;
 								}

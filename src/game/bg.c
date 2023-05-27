@@ -2101,7 +2101,7 @@ void bgBuildTables(s32 stagenum)
 	bgSetStageTranslationThing(g_Stages[g_StageIndex].unk14);
 	chr0f028490(g_Stages[g_StageIndex].unk14);
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < MAX_PLAYERS; i++) {
 		g_Vars.playerstats[i].scale_bg2gfx = g_Stages[g_StageIndex].unk18;
 	}
 
@@ -6939,7 +6939,7 @@ void bgAddToSnake(s16 fromroomnum, s16 roomnum, s16 depth, struct screenbox *box
 
 		while (i != g_BgSnake.headindex) {
 			if (item->roomnum == roomnum) {
-				for (j = 0; j < 5; j++) {
+				for (j = 0; j < ARRAYCOUNT(item->fromroomnums); j++) {
 					if (item->fromroomnums[j] == -1) {
 						bgExpandBox(&item->screenbox, box);
 						item->fromroomnums[j] = fromroomnum;
@@ -6972,7 +6972,7 @@ void bgAddToSnake(s16 fromroomnum, s16 roomnum, s16 depth, struct screenbox *box
 
 	g_Rooms[roomnum].snakecount++;
 
-	for (i = 1; i < 5; i++) {
+	for (i = 1; i < ARRAYCOUNT(item->fromroomnums); i++) {
 		item->fromroomnums[i] = -1;
 	}
 

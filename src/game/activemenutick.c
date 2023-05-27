@@ -275,7 +275,7 @@ void amTick(void)
 							}
 						} else {
 							// Bot command screen, in multiplayer
-							if (g_AmBotCommands[g_AmMenus[g_AmIndex].slotnum] == MPBOTCOMMAND_ATTACK) {
+							if (g_AmBotCommands[g_AmMenus[g_AmIndex].slotnum] == AIBOTCMD_ATTACK) {
 								amOpenPickTarget();
 							} else if (g_AmMenus[g_AmIndex].allbots == false) {
 								gotonextscreen = true;

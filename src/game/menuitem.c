@@ -23,7 +23,7 @@
 #include "data.h"
 #include "types.h"
 
-u8 g_MpSelectedPlayersForStats[4];
+u8 g_MpSelectedPlayersForStats[MAX_PLAYERS];
 
 #if VERSION >= VERSION_NTSC_1_0
 s32 g_ScissorX1 = 0;
@@ -1791,7 +1791,7 @@ Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
 	s32 position = 1;
 	s32 i;
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Briefing.objectivenames); i++) {
 		if (g_Briefing.objectivenames[i] && g_Briefing.objectivedifficulties[i] & (1 << lvGetDifficulty())) {
 			gdl = menuitemObjectivesRenderOne(gdl,
 					context->dialog,

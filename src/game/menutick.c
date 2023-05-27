@@ -47,7 +47,7 @@ void menuCountDialogs(void)
 	s32 i;
 	g_MenuData.count = 0;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {
 		if (g_Menus[i].curdialog) {
 			g_MenuData.count++;
 		}
@@ -77,7 +77,7 @@ void menuTick(void)
 
 	menuCountDialogs();
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {
 		if (i);
 
 		if (g_Menus[i].openinhibit > 0) {
@@ -97,7 +97,7 @@ void menuTick(void)
 		s32 bVar12 = 50;
 		s32 bVar11 = false;
 
-		for (j = 0; j < 4; j++) {
+		for (j = 0; j < ARRAYCOUNT(g_Menus); j++) {
 			if (g_Menus[j].curdialog) {
 				if (g_Menus[j].curdialog->state == MENUDIALOGSTATE_OPENING
 						|| g_Menus[j].curdialog->state == MENUDIALOGSTATE_POPULATING
@@ -224,7 +224,7 @@ void menuTick(void)
 					g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 				}
 
-				for (i = 0; i < 4; i++) {
+				for (i = 0; i < MAX_PLAYERS; i++) {
 					g_Vars.waitingtojoin[i] = false;
 
 					if (g_MpSetup.chrslots & (1 << i)) {
@@ -291,7 +291,7 @@ void menuTick(void)
 
 			g_MpNumJoined = 0;
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {
 				if (g_Menus[i].curdialog) {
 					g_Menus[i].playernum = g_MpNumJoined++;
 
@@ -305,7 +305,7 @@ void menuTick(void)
 			challengePerformSanityChecks();
 		}
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			g_MpPlayerNum = i;
 
 			if (g_Menus[g_MpPlayerNum].curdialog) {
@@ -317,7 +317,7 @@ void menuTick(void)
 			}
 		}
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			g_MpPlayerNum = i;
 
 			if (g_Menus[g_MpPlayerNum].curdialog) {
@@ -341,7 +341,7 @@ void menuTick(void)
 							// Limit to 2 players? But in a roundabout kind of way
 							canjoin = true;
 
-							for (j = 0; j < 4; j++) {
+							for (j = 0; j < MAX_PLAYERS; j++) {
 								if (g_Vars.waitingtojoin[j]) {
 									canjoin = false;
 								}
@@ -488,7 +488,7 @@ void menuTick(void)
 	g_MpPlayerNum = 0;
 	sp344 = false;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {
 		if (g_Menus[i].curdialog) {
 			sp344 = true;
 		}
@@ -527,12 +527,12 @@ void menuTick(void)
 					func0f0fd548(4);
 				}
 
-				for (i = 0; i < 4; i++) {
+				for (i = 0; i < MAX_PLAYERS; i++) {
 					if (g_MpSetup.chrslots & (1 << i)) {
 						if (g_Vars.coopplayernum >= 0) {
 							if (g_Vars.stagenum == STAGE_DEEPSEA) {
 								g_MissionConfig.stageindex++;
-								g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
+								g_MissionConfig.stagenum = g_SoloStages[g_MissionConfig.stageindex].stagenum;
 								titleSetNextStage(g_MissionConfig.stagenum);
 								lvSetDifficulty(g_MissionConfig.difficulty);
 								titleSetNextMode(TITLEMODE_SKIP);

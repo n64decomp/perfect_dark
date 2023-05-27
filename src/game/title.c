@@ -545,7 +545,7 @@ void titleInitPdLogo(void)
 				var8009d34cjf = 0.99f * var8009d34cjf + 0.01f;
 			}
 
-			for (j = 0; j < 3; j++) {
+			for (j = 0; j < ARRAYCOUNT(var8009d358jf) - 1; j++) {
 				var8009d358jf[j] = var8009d358jf[j + 1];
 			}
 

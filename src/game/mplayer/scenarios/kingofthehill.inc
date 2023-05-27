@@ -176,7 +176,7 @@ void kohInit(void)
 	g_ScenarioData.koh.colourfracg = 1;
 	g_ScenarioData.koh.colourfracb = 0.25;
 
-	for (i = 0; i < 9; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.koh.hillpads); i++) {
 		g_ScenarioData.koh.hillpads[i] = -1;
 	}
 }
@@ -229,7 +229,7 @@ void kohTick(void)
 	f32 targetg;
 	f32 targetb;
 	char text[64];
-	s32 teamsinhill[8];
+	s32 teamsinhill[MAX_TEAMS];
 	struct pad pad;
 	struct prop *chrsinhill[MAX_MPCHRS];
 	struct prop *prop;
@@ -333,7 +333,7 @@ void kohTick(void)
 		// chrs in the hill. During development, this array likely stored a
 		// count of that team's chrs but was later changed to just be 0 or 1
 		// to denote if they have any chrs in the hill.
-		for (s0 = 0; s0 < 8; s0++) {
+		for (s0 = 0; s0 < ARRAYCOUNT(teamsinhill); s0++) {
 			teamsinhill[s0] = 0;
 		}
 
@@ -353,7 +353,7 @@ void kohTick(void)
 		} else {
 			if (numteamsinhill == 1) {
 				// Set hillteam for later
-				for (hillteam = 0; hillteam < 8; hillteam++) {
+				for (hillteam = 0; hillteam < MAX_TEAMS; hillteam++) {
 					if (teamsinhill[hillteam]) {
 						break;
 					}
@@ -365,13 +365,13 @@ void kohTick(void)
 				// only contains values 0 or 1 so it effectively does nothing.
 				mostchrs = 0;
 
-				for (s0 = 0; s0 < 8; s0++) {
+				for (s0 = 0; s0 < MAX_TEAMS; s0++) {
 					if (teamsinhill[s0] > mostchrs) {
 						mostchrs = teamsinhill[s0];
 					}
 				}
 
-				for (s0 = 0; s0 < 8; s0++) {
+				for (s0 = 0; s0 < MAX_TEAMS; s0++) {
 					if (teamsinhill[s0] != mostchrs) {
 						teamsinhill[s0] = false;
 					}
@@ -381,7 +381,7 @@ void kohTick(void)
 				// the hill. Or rather, because the teamsinhill array only
 				// contains 0 or 1 values, this is just recounting the number of
 				// teams who have presence in the hill.
-				for (s0 = 0; s0 < 8; s0++) {
+				for (s0 = 0; s0 < MAX_TEAMS; s0++) {
 					if (teamsinhill[s0]) {
 						dualoccupancy++;
 					}
@@ -391,7 +391,7 @@ void kohTick(void)
 
 				// Set the hillteam to whoever was holding it previously
 				// so the hill remains the same colour
-				for (hillteam = 0; hillteam < 8; hillteam++) {
+				for (hillteam = 0; hillteam < MAX_TEAMS; hillteam++) {
 					if (teamsinhill[hillteam] && hillteam == g_ScenarioData.koh.occupiedteam) {
 						break;
 					}

@@ -119,7 +119,7 @@ void bossfileLoad(void)
 
 		g_Vars.language = savebufferReadBits(&buffer, 4);
 
-		for (i = 0; i < 8; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
 			savebufferReadString(&buffer, g_BossFile.teamnames[i], 1);
 		}
 
@@ -131,7 +131,7 @@ void bossfileLoad(void)
 			g_BossFile.tracknum = tracknum;
 		}
 
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_BossFile.multipletracknums); i++) {
 			g_BossFile.multipletracknums[i] = savebufferReadBits(&buffer, 8);
 		}
 
@@ -167,7 +167,7 @@ void bossfileSave(void)
 	savebufferOr(&buffer, g_BossFile.unk89, 1);
 	savebufferOr(&buffer, g_Vars.language, 4);
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
 		func0f0d55a4(&buffer, g_BossFile.teamnames[i]);
 	}
 
@@ -177,7 +177,7 @@ void bossfileSave(void)
 		savebufferOr(&buffer, g_BossFile.tracknum, 8);
 	}
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_BossFile.multipletracknums); i++) {
 		savebufferOr(&buffer, g_BossFile.multipletracknums[i], 8);
 	}
 

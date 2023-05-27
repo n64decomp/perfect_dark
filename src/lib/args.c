@@ -74,7 +74,7 @@ bool argsParseDebugArgs(void)
 	if (rmonIsDisabled()) {
 		g_ArgBuffer[0] = 0;
 	} else {
-		for (i = 0; i < 30; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_ArgBuffer); i++) {
 			osPiReadIo(devaddr, &g_ArgBuffer[i]);
 			devaddr += 4;
 		}

@@ -41,7 +41,7 @@ struct menudialogdef g_CinemaMenuDialog;
 
 char *menuTextCurrentStageName(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%s\n", langGet(g_StageNames[g_MissionConfig.stageindex].name3));
+	sprintf(g_StringPointer, "%s\n", langGet(g_SoloStages[g_MissionConfig.stageindex].name3));
 	return g_StringPointer;
 }
 
@@ -762,7 +762,7 @@ char *soloMenuTitleStageOverview(struct menudialogdef *dialogdef)
 	}
 
 	sprintf(g_StringPointer, "%s: %s\n",
-			langGet(g_StageNames[g_MissionConfig.stageindex].name3),
+			langGet(g_SoloStages[g_MissionConfig.stageindex].name3),
 			langGet(L_OPTIONS_273));
 
 	return g_StringPointer;
@@ -995,7 +995,7 @@ bool isStageDifficultyUnlocked(s32 stageindex, s32 difficulty)
 	// Handle normal missions
 	if (stageindex <= SOLOSTAGEINDEX_SKEDARRUINS && difficulty <= DIFF_PA) {
 		// Defection is always unlocked on all difficulties
-		if (g_StageNames[stageindex].stagenum == STAGE_DEFECTION) {
+		if (g_SoloStages[stageindex].stagenum == STAGE_DEFECTION) {
 			return true;
 		}
 
@@ -1014,7 +1014,7 @@ bool isStageDifficultyUnlocked(s32 stageindex, s32 difficulty)
 		}
 
 		if (stageindex > 0) {
-			if (g_StageNames[stageindex].stagenum != STAGE_SKEDARRUINS) {
+			if (g_SoloStages[stageindex].stagenum != STAGE_SKEDARRUINS) {
 				// For normal stages prior to Skedar Ruins, test if the
 				// prior stage is complete on the same difficulty or higher.
 				for (d = difficulty; d <= DIFF_PA; d++) {
@@ -1058,7 +1058,7 @@ bool isStageDifficultyUnlocked(s32 stageindex, s32 difficulty)
 		// querying SA or higher, grant the difficulty if the stage is complete
 		// on the prior difficulty or higher.
 		if (difficulty >= DIFF_SA) {
-			if (g_StageNames[stageindex].stagenum != STAGE_SKEDARRUINS) {
+			if (g_SoloStages[stageindex].stagenum != STAGE_SKEDARRUINS) {
 				// Check if all normal stages are complete on any difficulty
 				for (s = 0; s <= SOLOSTAGEINDEX_SKEDARRUINS; s++) {
 					for (d = DIFF_A; d <= DIFF_PA; d++) {
@@ -1732,7 +1732,7 @@ struct menudialogdef g_AntiMissionDifficultyMenuDialog = {
 	NULL,
 };
 
-struct stageoverviewentry g_StageNames[NUM_SOLOSTAGES] = {
+struct solostage g_SoloStages[NUM_SOLOSTAGES] = {
 	// stage,             unk04,
 	{ STAGE_DEFECTION,     0x0c, L_OPTIONS_133, L_OPTIONS_134, L_MPWEAPONS_124 },
 	{ STAGE_INVESTIGATION, 0x0d, L_OPTIONS_135, L_OPTIONS_136, L_MPWEAPONS_172 },
@@ -1759,13 +1759,13 @@ struct stageoverviewentry g_StageNames[NUM_SOLOSTAGES] = {
 
 s32 getNumUnlockedSpecialStages(void)
 {
-	s32 next = 0;
+	s32 count = 0;
 	s32 offsetforduel = 1;
 	s32 i;
 
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_GameFile.besttimes[0]); i++) {
 		if (g_GameFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][i]) {
-			next = i + 1;
+			count = i + 1;
 		}
 	}
 
@@ -1779,7 +1779,7 @@ s32 getNumUnlockedSpecialStages(void)
 		}
 	}
 
-	return next + offsetforduel;
+	return count + offsetforduel;
 }
 
 s32 func0f104720(s32 value)
@@ -1787,7 +1787,7 @@ s32 func0f104720(s32 value)
 	s32 next = 0;
 	s32 d;
 
-	for (d = 0; d != 3; d++) {
+	for (d = 0; d < ARRAYCOUNT(g_GameFile.besttimes[0]); d++) {
 		if (g_GameFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][d]) {
 			next = d + 1;
 		}
@@ -1841,10 +1841,10 @@ MenuItemHandlerResult menuhandlerMissionList(s32 operation, struct menuitem *ite
 	case MENUOP_GETOPTIONCOUNT:
 		data->list.value = 0;
 
-		for (i = 0; i < 17; i++) {
+		for (i = 0; i <= SOLOSTAGEINDEX_SKEDARRUINS; i++) {
 			stageiscomplete = false;
 
-			for (j = 0; j < 3; j++) {
+			for (j = 0; j < ARRAYCOUNT(g_GameFile.besttimes[i]); j++) {
 				if (g_GameFile.besttimes[i][j] != 0) {
 					stageiscomplete = true;
 				}
@@ -1873,11 +1873,11 @@ MenuItemHandlerResult menuhandlerMissionList(s32 operation, struct menuitem *ite
 		if (data->list.value < data->list.unk04u32) {
 			// Regular stage such as "dataDyne Central - Defection"
 			// Return the name before the dash, such as "dataDyne Central"
-			return (s32) langGet(g_StageNames[data->list.value].name1);
+			return (s32) langGet(g_SoloStages[data->list.value].name1);
 		}
 
 		// Special stages have no dash and suffix, so just return the name
-		return (s32) langGet(g_StageNames[func0f104720(data->list.value - data->list.unk04u32)].name1);
+		return (s32) langGet(g_SoloStages[func0f104720(data->list.value - data->list.unk04u32)].name1);
 	case MENUOP_SET:
 		sp188 = data->list.value;
 		menuhandlerMissionList(MENUOP_GETOPTIONCOUNT, item, &sp178);
@@ -1889,7 +1889,7 @@ MenuItemHandlerResult menuhandlerMissionList(s32 operation, struct menuitem *ite
 
 		g_Vars.mplayerisrunning = false;
 		g_Vars.normmplayerisrunning = false;
-		g_MissionConfig.stagenum = g_StageNames[sp188].stagenum;
+		g_MissionConfig.stagenum = g_SoloStages[sp188].stagenum;
 		g_MissionConfig.stageindex = sp188;
 
 		if (g_MissionConfig.iscoop) {
@@ -2072,14 +2072,14 @@ MenuItemHandlerResult menuhandlerMissionList(s32 operation, struct menuitem *ite
 		gdl = text0f153628(gdl);
 
 		// Draw first part of name
-		strcpy(text, langGet(g_StageNames[stageindex].name1));
+		strcpy(text, langGet(g_SoloStages[stageindex].name1));
 		strcat(text, "\n");
 
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd,
 				renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 
 		// Draw last part of name
-		strcpy(text, langGet(g_StageNames[stageindex].name2));
+		strcpy(text, langGet(g_SoloStages[stageindex].name2));
 
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
@@ -3777,7 +3777,7 @@ void func0f105948(s32 weaponnum)
 
 		g_Menus[g_MpPlayerNum].unk840.unk000 = 8;
 		g_Menus[g_MpPlayerNum].unk840.unk010 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk00c = weaponGetModelNum(weaponnum);
+		g_Menus[g_MpPlayerNum].unk840.unk00c = weaponGetFileNum(weaponnum);
 		g_Menus[g_MpPlayerNum].unk840.unk538 = 0;
 		g_Menus[g_MpPlayerNum].unk840.unk510 = 0;
 		g_Menus[g_MpPlayerNum].unk840.unk53c = 0;
@@ -4372,7 +4372,7 @@ char *soloMenuTitlePauseStatus(struct menudialogdef *dialogdef)
 	}
 
 	sprintf(g_StringPointer, "%s: %s\n",
-			langGet(g_StageNames[g_MissionConfig.stageindex].name3),
+			langGet(g_SoloStages[g_MissionConfig.stageindex].name3),
 			langGet(L_OPTIONS_172));
 
 	return g_StringPointer;

@@ -6,7 +6,6 @@
 
 extern u32 g_MpChallengeIndex;
 extern struct mpconfigfull *g_MpCurrentChallengeConfig;
-extern struct challenge g_MpChallenges[NUM_CHALLENGES];
 
 void challengesInit(void);
 
@@ -40,7 +39,7 @@ void challengeLoadAndStoreCurrent(u8 *buffer, s32 len);
 void challengeUnsetCurrent(void);
 bool challengeIsLoaded(void);
 s32 challengeGetAutoFocusedIndex(s32 mpchrnum);
-char *xhallengeGetName(s32 playernum, s32 challengeindex);
+char *challengeGetName2(s32 playernum, s32 challengeindex);
 bool challengeIsCompletedByPlayerWithNumPlayers2(s32 mpchrnum, s32 index, s32 numplayers);
 bool challengeIsCompletedByAnyPlayerWithNumPlayers(s32 index, s32 numplayers);
 void challengeSetCompletedByAnyPlayerWithNumPlayers(s32 index, s32 numplayers, bool completed);

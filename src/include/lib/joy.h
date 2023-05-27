@@ -19,7 +19,6 @@ void joyDisableTemporarily(void);
 void joyReset(void);
 void joy00013e84(void);
 u32 joyGetConnectedControllers(void);
-void joyConsumeSamples(struct joydata *joydata);
 void joy00014238(void);
 void joyDebugJoy(void);
 s32 joyStartReadData(OSMesgQueue *mq);

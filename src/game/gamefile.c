@@ -231,8 +231,8 @@ void gamefileLoadDefaults(struct gamefile *file)
 		}
 	}
 
-	for (i = 0; i < 30; i++) {
-		for (j = 1; j != 5; j++) {
+	for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
+		for (j = 1; j < MAX_PLAYERS + 1; j++) {
 			challengeSetCompletedByAnyPlayerWithNumPlayers(i, j, false);
 		}
 	}
@@ -313,32 +313,32 @@ s32 gamefileLoad(s32 device)
 			optionsSetControlMode(p1index, savebufferReadBits(&buffer, 3));
 			optionsSetControlMode(p2index, savebufferReadBits(&buffer, 3));
 
-			for (i = 0; i < 10; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_GameFile.flags); i++) {
 				g_GameFile.flags[i] = savebufferReadBits(&buffer, 8);
 			}
 
 			g_GameFile.unk1e = savebufferReadBits(&buffer, 16);
 
-			for (i = 0; i < NUM_SOLOSTAGES; i++) {
-				for (j = 0; j < 3; j++) {
+			for (i = 0; i < ARRAYCOUNT(g_GameFile.besttimes); i++) {
+				for (j = 0; j < ARRAYCOUNT(g_GameFile.besttimes[i]); j++) {
 					g_GameFile.besttimes[i][j] = savebufferReadBits(&buffer, 12);
 				}
 			}
 
-			for (i = 0; i < 30; i++) {
-				for (j = 1; j < 5; j++) {
+			for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
+				for (j = 1; j < MAX_PLAYERS + 1; j++) {
 					challengeSetCompletedByAnyPlayerWithNumPlayers(i, j, savebufferReadBits(&buffer, 1));
 				}
 			}
 
 			challengeDetermineUnlockedFeatures();
 
-			for (i = 0; i < 3; i++) {
-				g_GameFile.coopcompletions[i] = savebufferReadBits(&buffer, 21);
+			for (i = 0; i < ARRAYCOUNT(g_GameFile.coopcompletions); i++) {
+				g_GameFile.coopcompletions[i] = savebufferReadBits(&buffer, NUM_SOLOSTAGES);
 			}
 
-			for (i = 0; i < 9; i++) {
-				s32 numbits = i == 8 ? 2 : 8;
+			for (i = 0; i < ARRAYCOUNT(g_GameFile.firingrangescores); i++) {
+				s32 numbits = i == ARRAYCOUNT(g_GameFile.firingrangescores) - 1 ? 2 : 8;
 				g_GameFile.firingrangescores[i] = savebufferReadBits(&buffer, numbits);
 			}
 
@@ -482,29 +482,29 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 		savebufferOr(&buffer, optionsGetControlMode(p1index), 3);
 		savebufferOr(&buffer, optionsGetControlMode(p2index), 3);
 
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_GameFile.flags); i++) {
 			savebufferOr(&buffer, g_GameFile.flags[i], 8);
 		}
 
 		savebufferOr(&buffer, g_GameFile.unk1e, 16);
 
-		for (i = 0; i < NUM_SOLOSTAGES; i++) {
-			for (j = 0; j < 3; j++) {
+		for (i = 0; i < ARRAYCOUNT(g_GameFile.besttimes); i++) {
+			for (j = 0; j < ARRAYCOUNT(g_GameFile.besttimes[i]); j++) {
 				savebufferOr(&buffer, g_GameFile.besttimes[i][j], 12);
 			}
 		}
 
-		for (i = 0; i < 30; i++) {
-			for (j = 1; j < 5; j++) {
+		for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
+			for (j = 1; j < MAX_PLAYERS + 1; j++) {
 				savebufferOr(&buffer, challengeIsCompletedByAnyPlayerWithNumPlayers(i, j), 1);
 			}
 		}
 
-		for (i = 0; i < 3; i++) {
-			savebufferOr(&buffer, g_GameFile.coopcompletions[i], 21);
+		for (i = 0; i < ARRAYCOUNT(g_GameFile.coopcompletions); i++) {
+			savebufferOr(&buffer, g_GameFile.coopcompletions[i], NUM_SOLOSTAGES);
 		}
 
-		for (i = 0; i < 9; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_GameFile.firingrangescores); i++) {
 			savebufferOr(&buffer, g_GameFile.firingrangescores[i], i == 8 ? 2 : 8);
 		}
 

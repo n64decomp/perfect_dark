@@ -467,8 +467,8 @@ void playerReset(void)
 	g_Vars.currentplayer->tickdiefinished = false;
 	g_Vars.currentplayer->chokehandle = NULL;
 
-	for (i = 0; i != 4; i++) {
-		g_Vars.aibuddies[i] = 0;
+	for (i = 0; i < ARRAYCOUNT(g_Vars.aibuddies); i++) {
+		g_Vars.aibuddies[i] = NULL;
 	}
 
 	playerChooseBodyAndHead(&bodynum, &headnum, 0);

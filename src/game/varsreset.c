@@ -64,13 +64,13 @@ void varsResetRoomProps(void)
 	s32 j;
 
 	g_RoomPropListChunkIndexes = mempAlloc(ALIGN16(g_Vars.roomcount * sizeof(s16)), MEMPOOL_STAGE);
-	g_RoomPropListChunks = mempAlloc(256 * sizeof(struct roomproplistchunk), MEMPOOL_STAGE);
+	g_RoomPropListChunks = mempAlloc(MAX_ROOMPROPLISTCHUNKS * sizeof(struct roomproplistchunk), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		g_RoomPropListChunkIndexes[i] = -1;
 	}
 
-	for (i = 0; i < 256; i++) {
+	for (i = 0; i < MAX_ROOMPROPLISTCHUNKS; i++) {
 		g_RoomPropListChunks[i].propnums[0] = -2;
 
 		for (j = 1; j < ARRAYCOUNT(g_RoomPropListChunks[i].propnums); j++) {

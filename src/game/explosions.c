@@ -38,7 +38,7 @@ u32 var8007e4ac = 0x0000004b;
 u32 var8007e4b0 = 0x000001e0;
 u32 var8007e4b4 = 0x000000a8;
 
-struct explosiontype g_ExplosionTypes[NUM_EXPLOSIONTYPES] = {
+struct explosiontype g_ExplosionTypes[] = {
 	//       rangeh
 	//       |    rangev
 	//       |    |    changerateh
@@ -217,7 +217,7 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 			struct explosiontype *type = &g_ExplosionTypes[0];
 			s32 i;
 
-			for (i = 0; i != NUM_EXPLOSIONTYPES - 1; i++) {
+			for (i = 0; i != ARRAYCOUNT(g_ExplosionTypes) - 1; i++) {
 				type->rangeh = 80;
 				type->rangev = 60;
 				type->changerateh = 15;
@@ -330,7 +330,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 			expprop->pos.y = exppos->y;
 			expprop->pos.z = exppos->z;
 
-			for (i = 0; exprooms[i] != -1 && i < 7; i++) {
+			for (i = 0; exprooms[i] != -1 && i < ARRAYCOUNT(expprop->rooms) - 1; i++) {
 				expprop->rooms[i] = exprooms[i];
 
 				roomFlashLighting(exprooms[i], g_ExplosionTypes[type].rangeh, 255);

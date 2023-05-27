@@ -573,7 +573,7 @@ void nbombsTick(void)
 		g_NbombsActive = false;
 	}
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
 		if (g_Vars.lvupdate240 != 0 && g_Nbombs[i].age240 >= 0) {
 			nbombTick(&g_Nbombs[i]);
 
@@ -621,7 +621,7 @@ void nbombsTick(void)
 	}
 
 	if (g_Vars.lvupdate240 == 0) {
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
 			if (g_Nbombs[i].age240 >= 0) {
 				if (g_Nbombs[i].audiohandle20 && sndGetState(g_Nbombs[i].audiohandle20) != AL_STOPPED) {
 					audioStop(g_Nbombs[i].audiohandle20);
@@ -646,7 +646,7 @@ Gfx *nbombsRender(Gfx *gdl)
 	s32 i;
 	Gfx *subgdl = NULL;
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
 		if (g_Nbombs[i].age240 >= 0) {
 			if (!subgdl) {
 				subgdl = nbombCreateGdl();
@@ -671,7 +671,7 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 
 	g_NbombsActive = true;
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
 		if (g_Nbombs[i].age240 == -1
 #if VERSION >= VERSION_NTSC_1_0
 				&& g_Nbombs[i].audiohandle20 == NULL
@@ -910,18 +910,18 @@ Gfx *gasRender(Gfx *gdl)
 	bool drawn = false;
 
 	const s32 gasrooms[] = {
-		0x92,
-		0x93,
-		0x94,
-		0x95,
-		0x96,
-		0x97,
-		0x98,
-		0x99,
-		0x9a,
-		0x91,
-		0x8f,
-		0x90,
+		ROOM_LUE_0092,
+		ROOM_LUE_0093,
+		ROOM_LUE_0094,
+		ROOM_LUE_0095,
+		ROOM_LUE_0096,
+		ROOM_LUE_0097,
+		ROOM_LUE_0098,
+		ROOM_LUE_0099,
+		ROOM_LUE_009A,
+		ROOM_LUE_0091,
+		ROOM_LUE_008F,
+		ROOM_LUE_0090,
 	};
 
 	if (g_Vars.stagenum == STAGE_ESCAPE) {
@@ -931,7 +931,7 @@ Gfx *gasRender(Gfx *gdl)
 		campos.y = g_Vars.currentplayer->cam_pos.y;
 		campos.z = g_Vars.currentplayer->cam_pos.z;
 
-		for (i = 0; i < 12; i++) {
+		for (i = 0; i < ARRAYCOUNT(gasrooms); i++) {
 			if (bgRoomContainsCoord(&campos, gasrooms[i])) {
 				show = true;
 			}

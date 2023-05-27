@@ -91,11 +91,11 @@ void utilsInit(void)
 	var800ac0e8[0] = mempAlloc(allocsize, MEMPOOL_8);
 
 	if (var800ac0e8[0] != NULL) {
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(var800ac0e8); i++) {
 			var800ac0e8[i] = var800ac0e8[0] + ((i * 100) << 4);
 		}
 	} else {
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(var800ac0e8); i++) {
 			var800ac0e8[i] = NULL;
 		}
 	}
@@ -367,7 +367,7 @@ void utilsReset(void)
 {
 	s32 i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(var800ac0f8); i++) {
 		var800ac0f8[i] = 0;
 	}
 }

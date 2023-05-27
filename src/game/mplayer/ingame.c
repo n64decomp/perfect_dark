@@ -644,7 +644,7 @@ MenuItemHandlerResult mpAwardsMenuHandler(s32 operation, struct menuitem *item, 
 		s32 i;
 		u32 colour;
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (g_PlayerConfigsArray[g_MpPlayerNum].medals & (1 << i)) {
 				switch (i) {
 				case 0: colour = 0xff7f7fff; break; // killmaster - red

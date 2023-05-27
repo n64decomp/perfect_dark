@@ -110,7 +110,7 @@ f32 g_CutsceneCurTotalFrame60f;
 s32 g_CutsceneTweenDuration60;
 f32 g_CutsceneTweenFrac; // 0 when bars across the top and bottom, 1 when fullscreen
 u32 var8009de34;
-s16 g_SpawnPoints[MAX_SPAWNPOINTS];
+s16 g_SpawnPoints[24];
 s32 g_NumSpawnPoints;
 
 struct vimode g_ViModes[] = {

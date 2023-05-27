@@ -8022,7 +8022,7 @@ void chrTickStand(struct chrdata *chr)
 
 	sp6c = sp70 = chrGetInverseTheta(chr);
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < ARRAYCOUNT(sp74); i++) {
 		sp6c += 0.7852731347084f;
 
 		if (sp6c >= M_BADTAU) {
@@ -8032,14 +8032,14 @@ void chrTickStand(struct chrdata *chr)
 		sp74[i] = func0f02e550(chr->prop, sp6c, 1000, CDTYPE_BG, 0, 1);
 	}
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < ARRAYCOUNT(sp44); i++) {
 		sp44[i] = i;
 	}
 
-	for (i = 0; i < 7; i++) {
+	for (i = 0; i < ARRAYCOUNT(sp44) - 1; i++) {
 		index = i;
 
-		for (j = index + 1; j < 8; j++) {
+		for (j = index + 1; j < ARRAYCOUNT(sp44); j++) {
 			if (sp74[sp44[j]] < sp74[sp44[index]]) {
 				index = j;
 			}
@@ -9740,7 +9740,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 					sides[4] = z;
 					sides[5] = -z;
 
-					for (i = 0; i < 6; i++) {
+					for (i = 0; i < ARRAYCOUNT(sides); i++) {
 						if (sides[i] > bestvolume) {
 							bestvolume = sides[i];
 							*sideptr = i;
@@ -11242,7 +11242,7 @@ void propPrintDangerous(void)
 
 	osSyncPrintf("Current dangerous items:");
 
-	for (i = 0; i < MAX_DANGEROUSPROPS; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_DangerousProps); i++) {
 		struct prop *prop = g_DangerousProps[i];
 
 		if (prop) {
@@ -11263,7 +11263,7 @@ void propUnsetDangerous(struct prop *prop)
 {
 	s32 i;
 
-	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_DangerousProps); i++) {
 		if (g_DangerousProps[i] == prop) {
 			g_DangerousProps[i] = NULL;
 			return;
@@ -11275,7 +11275,7 @@ void propSetDangerous(struct prop *prop)
 {
 	s32 i;
 
-	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_DangerousProps); i++) {
 		if (g_DangerousProps[i] == NULL) {
 			g_DangerousProps[i] = prop;
 			return;
@@ -11343,7 +11343,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 {
 	s32 i;
 
-	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_DangerousProps); i++) {
 		struct prop *prop = g_DangerousProps[i];
 		bool pass = false;
 
@@ -15902,7 +15902,7 @@ void rebuildTeams(void)
 	struct chrdata *chr;
 	u8 teammasks[] = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
 
-	for (team = 0; team < 8; team++) {
+	for (team = 0; team < ARRAYCOUNT(teammasks); team++) {
 		if (team != 0) {
 			g_TeamList[team - 1] = index;
 		}
@@ -15919,7 +15919,7 @@ void rebuildTeams(void)
 		g_TeamList[index] = -2;
 		index++;
 
-		if (index >= 264) {
+		if (index >= (MAX_CHRSPERTEAM + 1) * MAX_TEAMS) {
 			break;
 		}
 	}
@@ -15942,7 +15942,7 @@ void rebuildSquadrons(void)
 	s32 squadron;
 	s32 i;
 
-	for (squadron = 0; squadron < 16; squadron++) {
+	for (squadron = 0; squadron < MAX_SQUADRONS; squadron++) {
 		if (squadron != 0) {
 			g_SquadronList[squadron - 1] = index;
 		}
@@ -15961,7 +15961,7 @@ void rebuildSquadrons(void)
 		g_SquadronList[index] = -2;
 		index++;
 
-		if (index >= 272) {
+		if (index >= (MAX_CHRSPERSQUADRON + 1) * MAX_SQUADRONS) {
 			break;
 		}
 	}
@@ -15972,7 +15972,7 @@ s16 *teamGetChrIds(s32 team_id)
 	s32 i;
 	u8 lookup[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 
-	for (i = 0; i != MAX_TEAMS; i++) {
+	for (i = 0; i < MAX_TEAMS; i++) {
 		if (lookup[i] == team_id) {
 			team_id = i;
 			break;
@@ -16007,7 +16007,7 @@ void audioMarkAsRecentlyPlayed(s16 audioid)
 {
 	g_RecentQuipsPlayed[g_RecentQuipsIndex++] = audioid;
 
-	if (g_RecentQuipsIndex > 4) {
+	if (g_RecentQuipsIndex >= ARRAYCOUNT(g_RecentQuipsPlayed)) {
 		g_RecentQuipsIndex = 0;
 	}
 }
@@ -16016,7 +16016,7 @@ bool audioWasNotPlayedRecently(s16 audioid)
 {
 	u8 i;
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_RecentQuipsPlayed); i++) {
 		if (g_RecentQuipsPlayed[i] == audioid) {
 			return false;
 		}

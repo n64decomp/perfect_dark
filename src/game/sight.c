@@ -166,7 +166,7 @@ void sightTick(bool sighton)
 
 	g_Vars.currentplayer->sighttimer240 += g_Vars.lvupdate240;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->targetset); i++) {
 		if (g_Vars.currentplayer->targetset[i] > TICKS(512)) {
 			if (g_Vars.currentplayer->targetset[i] < (VERSION >= VERSION_PAL_BETA ? TICKS(1020) : 1024) - g_Vars.lvupdate240) {
 				g_Vars.currentplayer->targetset[i] += g_Vars.lvupdate240;
@@ -194,7 +194,7 @@ void sightTick(bool sighton)
 
 	if (newtracktype != g_Vars.currentplayer->sighttracktype) {
 		if (newtracktype == SIGHTTRACKTYPE_THREATDETECTOR) {
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
 				g_Vars.currentplayer->trackedprops[i].prop = NULL;
 			}
 		}
@@ -212,12 +212,12 @@ void sightTick(bool sighton)
 	}
 
 	if (sighton && g_Vars.currentplayer->lastsighton == false && newtracktype != SIGHTTRACKTYPE_THREATDETECTOR) {
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
 			g_Vars.currentplayer->trackedprops[i].prop = NULL;
 		}
 	}
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
 		trackedprop = &g_Vars.currentplayer->trackedprops[i];
 
 		if (trackedprop->prop && !sightIsReactiveToProp(trackedprop->prop)) {
@@ -736,7 +736,7 @@ Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 		break;
 	case SIGHTTRACKTYPE_FOLLOWLOCKON:
 	case SIGHTTRACKTYPE_THREATDETECTOR:
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
 			trackedprop = &g_Vars.currentplayer->trackedprops[i];
 
 			if (trackedprop->prop) {

@@ -13,6 +13,32 @@
 #define false 0
 #define true  1
 
+#define MAX_ARTIFACTS          120
+#define MAX_BOTS               8
+#define MAX_CHRSPERSQUADRON    16
+#define MAX_CHRSPERTEAM        32
+#define MAX_CHRWAYPOINTS       6
+#define MAX_EXPLOSIONS         6
+#define MAX_EYESPYDARTS        8
+#define MAX_MPCHRS             (MAX_PLAYERS + MAX_BOTS)
+#define MAX_MPPLAYERCONFIGS    (MAX_PLAYERS + 2)
+#define MAX_OBJECTIVES         10
+#define MAX_PLAYERS            4
+#define MAX_PROPSPERROOMCHUNK  7
+#define MAX_ROOMPROPLISTCHUNKS 256
+#define MAX_SQUADRONS          16
+#define MAX_TEAMS              8
+
+#define NUM_BOTDIFFS          6
+#define NUM_CYCLEABLE_WEAPONS 45
+#define NUM_DEVICETESTS       10
+#define NUM_FRAMEBUFFERS      2
+#define NUM_GFXTASKS          2
+#define NUM_HOLOTESTS         7
+#define NUM_MPWEAPONSLOTS     6
+#define NUM_SOLOSTAGES        21
+#define NUM_TEXTURES          (VERSION == VERSION_JPN_FINAL ? 3511 : 3503)
+
 #define osSyncPrintf
 
 #define S32_MAX  2147483647
@@ -34,12 +60,21 @@
 #define IS8MB()             (g_Is4Mb != true)
 #define LINEHEIGHT          (VERSION == VERSION_JPN_FINAL ? 14 : 11)
 #define MIXCOLOUR(dialog, property) dialog->transitionfrac < 0.0f ? g_MenuColourPalettes[dialog->type].property : colourBlend(g_MenuColourPalettes[dialog->type2].property, g_MenuColourPalettes[dialog->type].property, dialog->colourweight)
-#define MPCHR(index)        ((index) < 4 ? &g_PlayerConfigsArray[index].base : &g_BotConfigsArray[(index) - 4].base)
-#define PLAYERCOUNT()       ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
+#define MPCHR(index)        ((index) < MAX_PLAYERS ? &g_PlayerConfigsArray[index].base : &g_BotConfigsArray[(index) - MAX_PLAYERS].base)
 #define RANDOMFRAC()        (random() * (1.0f / U32_MAX))
 #define SECSTOTIME240(secs) (secs * 240)
 #define SECSTOTIME60(secs)  (secs * 60)
 #define PFS(device)         (device == SAVEDEVICE_GAMEPAK ? NULL : &g_Pfses[device])
+
+#if MAX_PLAYERS >= 4
+#define PLAYERCOUNT()       ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
+#elif MAX_PLAYERS >= 3
+#define PLAYERCOUNT()       ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
+#elif MAX_PLAYERS >= 2
+#define PLAYERCOUNT()       ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0))
+#else
+#define PLAYERCOUNT()       1
+#endif
 
 #define VALIDWEAPON()       (g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED && g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST)
 #define FUNCISSEC()         (VALIDWEAPON() && (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->gunctrl.weaponnum - 1) & 7))))
@@ -1515,17 +1550,6 @@
 #define MA_PUNCHING        54
 #define MA_END             55
 
-#define MAX_ARTIFACTS      120
-#define MAX_CHRWAYPOINTS   6
-#define MAX_DANGEROUSPROPS 12
-#define MAX_LIFTS          10
-#define MAX_MPCHRS         (4 + MAX_BOTS)
-#define MAX_OBJECTIVES     10
-#define MAX_BOTS           8
-#define MAX_SPAWNPOINTS    24
-#define MAX_SQUADRONS      16
-#define MAX_TEAMS          8
-
 #define MEDAL_KILLMASTER 0x01
 #define MEDAL_HEADSHOT   0x02
 #define MEDAL_ACCURACY   0x04
@@ -2583,21 +2607,6 @@
 #define MPBODY_DALTON           0x3b
 #define MPBODY_DJBOND           0x3c
 
-#define MPBOTCOMMAND_FOLLOW   0
-#define MPBOTCOMMAND_ATTACK   1
-#define MPBOTCOMMAND_DEFEND   2
-#define MPBOTCOMMAND_HOLD     3
-#define MPBOTCOMMAND_NORMAL   4
-#define MPBOTCOMMAND_DOWNLOAD 5
-#define MPBOTCOMMAND_GETCASE  6
-#define MPBOTCOMMAND_TAGBOX   7
-#define MPBOTCOMMAND_SAVECASE 8
-#define MPBOTCOMMAND_DEFHILL  9
-#define MPBOTCOMMAND_HOLDHILL 10
-#define MPBOTCOMMAND_GETCASE2 11
-#define MPBOTCOMMAND_POPCAP   12
-#define MPBOTCOMMAND_PROTECT  13
-
 #define MPCONFIG_TEMPLE      0x00
 #define MPCONFIG_PISTOLS     0x01
 #define MPCONFIG_FARSIGHT    0x02
@@ -2720,11 +2729,11 @@
 #define MPFEATURE_CHR_PELAGIC            0x45
 #define MPFEATURE_CHR_JOTRENCH           0x46
 #define MPFEATURE_CHR_JOSNOW             0x47
-#define MPFEATURE_CHR_JONATHAN           0x48
+#define MPFEATURE_48                     0x48
 #define MPFEATURE_49                     0x49
-#define MPFEATURE_4A                     0x4a
+#define MPFEATURE_CHR_DARKSNOW           0x4a
 #define MPFEATURE_4B                     0x4b
-#define MPFEATURE_4C                     0x4c
+#define MPFEATURE_CHR_JONATHAN           0x4c
 #define MPFEATURE_SCENARIO_PAC           0x4d
 #define MPFEATURE_SCENARIO_HTM           0x4e
 #define MPFEATURE_WEAPON_LASER           0x4f
@@ -2933,27 +2942,6 @@
 #define MUSICEVENTTYPE_FADE        3
 #define MUSICEVENTTYPE_STOPALL     4
 #define MUSICEVENTTYPE_SETINTERVAL 5
-
-#define NUM_BODIES            151
-#define NUM_CHALLENGES        30
-#define NUM_CHEATS            42
-#define NUM_CYCLEABLE_WEAPONS 45
-#define NUM_EXPLOSIONTYPES    26
-#define NUM_FIRESLOTS         20
-#define NUM_FRAMEBUFFERS      2
-#define NUM_GFXTASKS          2
-#define NUM_MPBEAUHEADS       5
-#define NUM_MPBOTCOMMANDS     14
-#define NUM_MPBODIES          61
-#define NUM_MPHEADS           (VERSION == VERSION_JPN_FINAL ? 74 : 75)
-#define NUM_MPPRESETS         14
-#define NUM_MPTRACKS          42
-#define NUM_RACES             5
-#define NUM_SMOKETYPES        23
-#define NUM_SOLONORMALSTAGES  17
-#define NUM_SOLOSTAGES        21
-#define NUM_STAGES            90
-#define NUM_TEXTURES          (VERSION == VERSION_JPN_FINAL ? 3511 : 3503)
 
 #define OBJECTIVE_INCOMPLETE 0
 #define OBJECTIVE_COMPLETE   1
@@ -4043,6 +4031,7 @@
 #define THREAD_AUDIO 4
 #define THREAD_FAULT 5
 #define THREAD_RESET 6
+#define NUM_THREADS  7
 
 #define THREADPRI_IDLE  0
 #define THREADPRI_MAIN  10

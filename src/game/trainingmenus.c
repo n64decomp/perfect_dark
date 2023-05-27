@@ -57,7 +57,7 @@ MenuItemHandlerResult frDetailsOkMenuHandler(s32 operation, struct menuitem *ite
 
 			g_FrWeaponNum = weapon;
 
-			for (i = 0; i < 4; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->hands[0].gunroundsspent); i++) {
 				g_Vars.currentplayer->hands[0].gunroundsspent[i] = 0;
 				g_Vars.currentplayer->hands[1].gunroundsspent[i] = 0;
 			}

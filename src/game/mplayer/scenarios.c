@@ -1160,7 +1160,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 				// their home case. ie. A point has just been scored
 				mpchr->numpoints++;
 
-				for (i = 0; i < 4; i++) {
+				for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.tokens); i++) {
 					if (g_ScenarioData.ctc.tokens[i] == chr->prop) {
 						break;
 					}
@@ -1354,7 +1354,7 @@ void scenarioHandleDroppedToken(struct chrdata *chr, struct prop *prop)
 	s16 rooms[2];
 
 	if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.tokens); i++) {
 			if (chr->prop == g_ScenarioData.ctc.tokens[i]) {
 				objFreeProjectile(&weapon->base);
 

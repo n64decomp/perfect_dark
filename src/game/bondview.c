@@ -1730,7 +1730,7 @@ Gfx *bviewDrawEyespyMetrics(Gfx *gdl)
 			}
 #endif
 
-			for (i = 0; i < 8; i++) {
+			for (i = 0; i < MAX_EYESPYDARTS; i++) {
 				if (i >= g_Vars.currentplayer->eyespydarts) {
 					brightness2 = 0x88;
 				}

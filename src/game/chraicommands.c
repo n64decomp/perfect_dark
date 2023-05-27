@@ -4784,9 +4784,10 @@ bool aiSetObjImage(void)
 			struct singlemonitorobj *sm = (struct singlemonitorobj *) obj;
 			tvscreenSetImageByNum(&sm->screen, cmd[4]);
 		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
+			struct multimonitorobj *mm = (struct multimonitorobj *) obj;
 			u8 slot = cmd[3];
-			if (slot < 4) {
-				struct multimonitorobj *mm = (struct multimonitorobj *) obj;
+
+			if (slot < ARRAYCOUNT(mm->screens)) {
 				tvscreenSetImageByNum(&mm->screens[slot], cmd[4]);
 			}
 		}
@@ -9041,7 +9042,7 @@ bool aiSayQuip(void)
 				audioid = 0;
 
 				// 92c
-				for (i = 1; i < 4; i++) {
+				for (i = 1; i < ARRAYCOUNT(g_GuardQuipBank[row]); i++) {
 					if (audioWasNotPlayedRecently(g_GuardQuipBank[row][i])
 							&& audioWasNotPlayedRecently(bank[row][i])) {
 						audioid = bank[row][i];

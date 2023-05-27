@@ -221,7 +221,7 @@ void musicReset(void)
 	s32 i;
 
 	if (!g_SndDisabled) {
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_AudioXReasonsActive); i++) {
 			g_AudioXReasonsActive[i] = 0;
 			g_MusicXReasonMinDurations[i] = 0;
 			g_MusicXReasonMaxDurations[i] = 0;
@@ -680,7 +680,7 @@ void musicUnsetXReason(s32 reason)
 	if (reason >= 0) {
 		g_AudioXReasonsActive[reason] = false;
 	} else {
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_AudioXReasonsActive); i++) {
 			g_AudioXReasonsActive[i] = false;
 			g_MusicXReasonMinDurations[i] = 0;
 			g_MusicXReasonMaxDurations[i] = 0;

@@ -653,7 +653,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 	shotdata.unk34 = arg7;
 
-	for (i = 0; i != 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(shotdata.hits); i++) {
 		shotdata.hits[i].prop = NULL;
 		shotdata.hits[i].hitpart = 0;
 		shotdata.hits[i].node = NULL;
@@ -762,7 +762,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	}
 
 	if (arg1) {
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < ARRAYCOUNT(shotdata.hits); i++) {
 			hitprop = shotdata.hits[i].prop;
 
 			if (hitprop && !(laserstream && shotdata.hits[i].distance > 300)) {
@@ -913,7 +913,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 		hitindex = 0;
 
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < ARRAYCOUNT(shotdata.hits); i++) {
 			if (shotdata.hits[i].prop && shotdata.hits[i].distance < range) {
 				hitaprop = true;
 				hitindex = i;
@@ -940,7 +940,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 		// For laser stream, bail early once the laser's range is reached.
 		done = false;
 
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < ARRAYCOUNT(shotdata.hits); i++) {
 			hitprop = shotdata.hits[i].prop;
 
 			if (hitprop && !done) {
@@ -1027,7 +1027,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 		f32 mostdist = 0;
 		f32 prevmostdist = 0;
 
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < ARRAYCOUNT(shotdata->hits); i++) {
 			if (shotdata->hits[i].prop && shotdata->hits[i].unk4c) {
 				count++;
 
@@ -1047,7 +1047,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 				shotdata->unk34 = arg2;
 			}
 
-			for (i = 0; i < 10; i++) {
+			for (i = 0; i < ARRAYCOUNT(shotdata->hits); i++) {
 				if (shotdata->hits[i].prop && !shotdata->hits[i].unk4c && shotdata->hits[i].distance > prevmostdist) {
 					shotdata->hits[i].prop = NULL;
 				}
@@ -1060,7 +1060,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 	}
 
 	if (arg10) {
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < ARRAYCOUNT(shotdata->hits); i++) {
 			if (shotdata->hits[i].prop && shotdata->hits[i].distance > arg2) {
 				shotdata->hits[i].prop = NULL;
 			}
@@ -1069,7 +1069,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 		shotdata->unk34 = arg2;
 	}
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < ARRAYCOUNT(shotdata->hits); i++) {
 		if (shotdata->hits[i].prop == NULL) {
 			struct hit *hit = &shotdata->hits[i];
 
@@ -2916,7 +2916,7 @@ bool propTryAddToChunk(s16 propnum, s32 chunkindex)
 {
 	s32 i;
 
-	for (i = 0; i < 7; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_RoomPropListChunks[chunkindex].propnums) - 1; i++) {
 		if (g_RoomPropListChunks[chunkindex].propnums[i] < 0) {
 			g_RoomPropListChunks[chunkindex].propnums[i] = propnum;
 			return true;
@@ -2931,14 +2931,14 @@ s32 roomAllocatePropListChunk(s32 room, s32 prevchunkindex)
 	s32 i;
 	s32 j;
 
-	for (i = 0; i < 256; i++) {
+	for (i = 0; i < MAX_ROOMPROPLISTCHUNKS; i++) {
 		if (g_RoomPropListChunks[i].propnums[0] == -2) {
-			for (j = 0; j < 8; j++) {
+			for (j = 0; j < ARRAYCOUNT(g_RoomPropListChunks[i].propnums); j++) {
 				g_RoomPropListChunks[i].propnums[j] = -1;
 			}
 
 			if (prevchunkindex >= 0) {
-				g_RoomPropListChunks[prevchunkindex].propnums[7] = i;
+				g_RoomPropListChunks[prevchunkindex].propnums[MAX_PROPSPERROOMCHUNK] = i;
 			} else {
 				g_RoomPropListChunkIndexes[room] = i;
 			}
@@ -2966,7 +2966,7 @@ void propRegisterRoom(struct prop *prop, s16 room)
 			}
 
 			prev = chunkindex;
-			chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
+			chunkindex = g_RoomPropListChunks[chunkindex].propnums[MAX_PROPSPERROOMCHUNK];
 		}
 
 		// Allocate a new chunk
@@ -2993,7 +2993,7 @@ void propDeregisterRoom(struct prop *prop, s16 room)
 			s32 j;
 
 			// Iterate propnums in this chunk
-			for (j = 0; j < 7; j++) {
+			for (j = 0; j < MAX_PROPSPERROOMCHUNK; j++) {
 				if (g_RoomPropListChunks[chunkindex].propnums[j] == propnum) {
 					g_RoomPropListChunks[chunkindex].propnums[j] = -1;
 					removed = true;
@@ -3007,9 +3007,9 @@ void propDeregisterRoom(struct prop *prop, s16 room)
 				g_RoomPropListChunks[chunkindex].propnums[0] = -2;
 
 				if (prev >= 0) {
-					g_RoomPropListChunks[prev].propnums[7] = g_RoomPropListChunks[chunkindex].propnums[7];
+					g_RoomPropListChunks[prev].propnums[MAX_PROPSPERROOMCHUNK] = g_RoomPropListChunks[chunkindex].propnums[MAX_PROPSPERROOMCHUNK];
 				} else {
-					g_RoomPropListChunkIndexes[room] = g_RoomPropListChunks[chunkindex].propnums[7];
+					g_RoomPropListChunkIndexes[room] = g_RoomPropListChunks[chunkindex].propnums[MAX_PROPSPERROOMCHUNK];
 				}
 			} else {
 				prev = chunkindex;
@@ -3019,7 +3019,7 @@ void propDeregisterRoom(struct prop *prop, s16 room)
 				return;
 			}
 
-			chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
+			chunkindex = g_RoomPropListChunks[chunkindex].propnums[MAX_PROPSPERROOMCHUNK];
 		}
 	}
 }
@@ -3164,7 +3164,7 @@ void roomGetProps(s16 *rooms, s16 *propnums, s32 len)
 		// Iterate the chunks
 		while (chunkindex >= 0) {
 			// Iterate the propnums within each chunk
-			for (i = 0; i < 7; i++) {
+			for (i = 0; i < MAX_PROPSPERROOMCHUNK; i++) {
 				s16 propnum = g_RoomPropListChunks[chunkindex].propnums[i];
 
 				if (propnum >= 0) {
@@ -3187,7 +3187,7 @@ void roomGetProps(s16 *rooms, s16 *propnums, s32 len)
 				}
 			}
 
-			chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
+			chunkindex = g_RoomPropListChunks[chunkindex].propnums[MAX_PROPSPERROOMCHUNK];
 		}
 
 		rooms++;
@@ -3208,17 +3208,17 @@ void propsDefragRoomProps(void)
 		s32 previndex = g_RoomPropListChunkIndexes[i];
 
 		if (previndex >= 0) {
-			s32 nextindex = g_RoomPropListChunks[previndex].propnums[7];
+			s32 nextindex = g_RoomPropListChunks[previndex].propnums[MAX_PROPSPERROOMCHUNK];
 
 			// Iterate this room's chunks but skip the first
 			while (nextindex >= 0) {
 				// Iterate propnums within this chunk
-				for (j = 0; j < 7; j++) {
+				for (j = 0; j < MAX_PROPSPERROOMCHUNK; j++) {
 					// If this propnum is unallocated
 					if (g_RoomPropListChunks[previndex].propnums[j] < 0) {
 						// Iterate forward through the chunk list and find a
 						// propnum to move back to the prev chunk
-						for (k = 0; k < 7; k++) {
+						for (k = 0; k < MAX_PROPSPERROOMCHUNK; k++) {
 							if (g_RoomPropListChunks[nextindex].propnums[k] >= 0) {
 								g_RoomPropListChunks[previndex].propnums[j] = g_RoomPropListChunks[nextindex].propnums[k];
 								g_RoomPropListChunks[nextindex].propnums[k] = -1;
@@ -3227,18 +3227,18 @@ void propsDefragRoomProps(void)
 						}
 
 						// Check if there are more propnums in the future chunk
-						for (; k < 7; k++) {
+						for (; k < MAX_PROPSPERROOMCHUNK; k++) {
 							if (g_RoomPropListChunks[nextindex].propnums[k] >= 0) {
 								break;
 							}
 						}
 
-						if (k == 7) {
+						if (k == MAX_PROPSPERROOMCHUNK) {
 							// There's no more propnums, so this chunk can be removed
 							g_RoomPropListChunks[nextindex].propnums[0] = -2;
-							g_RoomPropListChunks[previndex].propnums[7] = g_RoomPropListChunks[nextindex].propnums[7];
+							g_RoomPropListChunks[previndex].propnums[MAX_PROPSPERROOMCHUNK] = g_RoomPropListChunks[nextindex].propnums[MAX_PROPSPERROOMCHUNK];
 
-							nextindex = g_RoomPropListChunks[previndex].propnums[7];
+							nextindex = g_RoomPropListChunks[previndex].propnums[MAX_PROPSPERROOMCHUNK];
 
 							if (nextindex < 0) {
 								break;
@@ -3249,7 +3249,7 @@ void propsDefragRoomProps(void)
 
 				if (nextindex >= 0) {
 					previndex = nextindex;
-					nextindex = g_RoomPropListChunks[nextindex].propnums[7];
+					nextindex = g_RoomPropListChunks[nextindex].propnums[MAX_PROPSPERROOMCHUNK];
 				}
 			}
 		}

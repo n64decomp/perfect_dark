@@ -444,7 +444,7 @@ bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct co
 {
 	struct waypoint *from = waypointFindClosestToPos(frompos, fromrooms);
 	struct waypoint *to = waypointFindClosestToPos(topos, torooms);
-	struct waypoint *waypoints[6];
+	struct waypoint *waypoints[MAX_CHRWAYPOINTS];
 	s32 numwaypoints;
 
 	if (from && to) {

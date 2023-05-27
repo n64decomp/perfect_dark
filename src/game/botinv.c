@@ -895,7 +895,7 @@ void botinvTick(struct chrdata *chr)
 	if (aibot->dampensuicidesttl60 < 0) {
 		aibot->dampensuicidesttl60 = TICKS(3600) + random() % TICKS(60);
 
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < ARRAYCOUNT(aibot->suicidesbygunfunc); i++) {
 			aibot->suicidesbygunfunc[i][0] *= 0.9f;
 			aibot->suicidesbygunfunc[i][1] *= 0.9f;
 		}
@@ -907,7 +907,7 @@ void botinvTick(struct chrdata *chr)
 	if (aibot->unk2a4 < 0) {
 		aibot->unk2a4 = TICKS(600) + random() % TICKS(3000);
 
-		for (i = 0; i < 6; i++) {
+		for (i = 0; i < ARRAYCOUNT(aibot->unk2a8); i++) {
 			if (aibot->config->difficulty == BOTDIFF_MEAT) {
 				aibot->unk2a8[i] = random() % 200 - 100; // -100 to +100
 			} else if (aibot->config->difficulty == BOTDIFF_EASY) {

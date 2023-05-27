@@ -223,7 +223,7 @@ bool lightGetBboxCentre(s32 roomnum, u32 lightnum, struct coord *pos)
 	pos->y = 0;
 	pos->z = 0;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < ARRAYCOUNT(light->bbox); i++) {
 		pos->x += light->bbox[i].x;
 		pos->y += light->bbox[i].y;
 		pos->z += light->bbox[i].z;

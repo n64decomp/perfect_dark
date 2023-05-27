@@ -38,9 +38,6 @@
 #include "types.h"
 
 s32 g_SetupCurMpLocation;
-u32 var8009cc34;
-u32 var8009cc38;
-u32 var8009cc3c;
 
 struct tvscreen var80061a80 = {
 	g_TvCmdlist00, // cmdlist
@@ -1250,7 +1247,7 @@ void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing 
 				wanttype = BRIEFINGTYPE_TEXT_SA;
 			}
 
-			for (i = 0; (u32)(i < 6); i++) {
+			for (i = 0; (u32)(i < ARRAYCOUNT(briefing->objectivenames)); i++) {
 				briefing->objectivenames[i] = 0;
 			}
 
@@ -1477,7 +1474,7 @@ void setupCreateProps(s32 stagenum)
 	escstepy = 0;
 	g_Vars.textoverrides = NULL;
 
-	for (j = 0; j != 6; j++) {
+	for (j = 0; j != ARRAYCOUNT(g_Briefing.objectivenames); j++) {
 		g_Briefing.objectivenames[j] = 0;
 		g_Briefing.objectivedifficulties[j] = 0;
 	}
@@ -1643,7 +1640,7 @@ void setupCreateProps(s32 stagenum)
 						lift->levelcur = 0;
 						lift->levelaim = 0;
 
-						for (i = 0; i < 4; i++) {
+						for (i = 0; i < ARRAYCOUNT(lift->doors); i++) {
 							if (lift->doors[i]) {
 								lift->doors[i] = (struct doorobj *)setupGetCmdByIndex(index + *(s32*)&lift->doors[i]);
 							}

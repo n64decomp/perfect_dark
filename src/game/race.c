@@ -93,7 +93,7 @@ void raceInitAnims(void)
 	s32 race;
 	s32 i;
 
-	for (race = 0; race < 5; race++) {
+	for (race = 0; race < ARRAYCOUNT(g_AnimTablesByRace); race++) {
 		for (i = 0; g_AnimTablesByRace[race][i].hitpart != -1; i++) {
 			if (g_AnimTablesByRace[race][i].deathanims) {
 				g_AnimTablesByRace[race][i].deathanimcount = raceCountAnims(g_AnimTablesByRace[race][i].deathanims);

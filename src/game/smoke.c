@@ -21,7 +21,7 @@ s32 g_MaxSmokes;
 Mtx var800a3448;
 Mtx var800a3488;
 
-struct smoketype g_SmokeTypes[NUM_SMOKETYPES] = {
+struct smoketype g_SmokeTypes[] = {
 	//       duration
 	//       |    fadespeed
 	//       |    |   spreadspeed
@@ -308,7 +308,7 @@ struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type)
 			prop->pos.y = pos->y;
 			prop->pos.z = pos->z;
 
-			for (i = 0; rooms[i] != -1 && i < 7; i++) {
+			for (i = 0; rooms[i] != -1 && i < ARRAYCOUNT(prop->rooms) - 1; i++) {
 				prop->rooms[i] = rooms[i];
 			}
 
@@ -340,7 +340,7 @@ bool smokeCreateForHand(struct coord *pos, s16 *rooms, s16 type, s32 handnum)
 			bool fail = false;
 
 			if (g_Smokes[i].age < g_SmokeTypes[g_Smokes[i].type].duration) {
-				for (j = 0; j < 10; j++) {
+				for (j = 0; j < ARRAYCOUNT(g_Smokes[i].parts); j++) {
 					if (g_Smokes[i].parts[j].size == 0) {
 						fail = true;
 					}
@@ -385,7 +385,7 @@ bool smokeCreateWithSource(void *source, struct coord *pos, s16 *rooms, s16 type
 				bool fail = false;
 
 				if (g_Smokes[i].age < g_SmokeTypes[g_Smokes[i].type].duration) {
-					for (j = 0; j < 10; j++) {
+					for (j = 0; j < ARRAYCOUNT(g_Smokes[i].parts); j++) {
 						if (g_Smokes[i].parts[j].size == 0) {
 							fail = true;
 						}
@@ -464,7 +464,7 @@ u32 smokeTick(struct prop *prop)
 
 		part = smoke->parts;
 
-		for (j = 0; j < 10; j++) {
+		for (j = 0; j < ARRAYCOUNT(smoke->parts); j++) {
 			if (part->size != 0.0f) {
 				part->pos.y += g_SmokeTypes[smoke->type].unk1c;
 				part->size += g_SmokeTypes[smoke->type].unk18;
@@ -491,7 +491,7 @@ u32 smokeTick(struct prop *prop)
 			if (smoke->age % g_SmokeTypes[smoke->type].spreadspeed == 1) {
 				part = smoke->parts;
 
-				for (j = 0; j < 10; j++) {
+				for (j = 0; j < ARRAYCOUNT(smoke->parts); j++) {
 					if (smoke->parts[j].size == 0.0f) {
 						if (g_SmokeTypes[smoke->type].size == 0) {
 							part->size = (RANDOMFRAC() * 0.5f + 1.0f) * 0.33f;
@@ -549,7 +549,7 @@ u32 smokeTick(struct prop *prop)
 	bbmax.y = prop->pos.y + 1.0f;
 	bbmax.z = prop->pos.z + 1.0f;
 
-	for (j = 0; j < 10; j++) {
+	for (j = 0; j < ARRAYCOUNT(smoke->parts); j++) {
 		if (smoke->parts[j].size != 0.0f) {
 			for (k = 0; k < 3; k++) {
 				if (bbmin.f[k] > smoke->parts[j].pos.f[k] - smoke->parts[j].size) {
@@ -568,7 +568,7 @@ u32 smokeTick(struct prop *prop)
 	if (smoke->age > g_SmokeTypes[smoke->type].spreadspeed) {
 		free = true;
 
-		for (j = 0; j < 10; j++) {
+		for (j = 0; j < ARRAYCOUNT(smoke->parts); j++) {
 			if (smoke->parts[j].size > 0.0f) {
 				free = false;
 				break;

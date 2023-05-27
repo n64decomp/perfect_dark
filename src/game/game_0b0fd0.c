@@ -220,9 +220,15 @@ void currentPlayerZoomOut(f32 fovpersec)
 	s32 index = -1;
 
 	switch (bgunGetWeaponNum2(0)) {
-	case WEAPON_SNIPERRIFLE:    index = 0; break;
-	case WEAPON_FARSIGHT:   index = 1; break;
-	case WEAPON_HORIZONSCANNER: index = 2; break;
+	case WEAPON_SNIPERRIFLE:
+		index = 0;
+		break;
+	case WEAPON_FARSIGHT:
+		index = 1;
+		break;
+	case WEAPON_HORIZONSCANNER:
+		index = 2;
+		break;
 	}
 
 	if (index >= 0) {
@@ -245,9 +251,15 @@ void currentPlayerZoomIn(f32 fovpersec)
 	s32 index = -1;
 
 	switch (bgunGetWeaponNum2(0)) {
-	case WEAPON_SNIPERRIFLE:    index = 0; break;
-	case WEAPON_FARSIGHT:   index = 1; break;
-	case WEAPON_HORIZONSCANNER: index = 2; break;
+	case WEAPON_SNIPERRIFLE:
+		index = 0;
+		break;
+	case WEAPON_FARSIGHT:
+		index = 1;
+		break;
+	case WEAPON_HORIZONSCANNER:
+		index = 2;
+		break;
 	}
 
 	if (index >= 0) {
@@ -371,7 +383,7 @@ void currentPlayerSetDeviceActive(s32 weaponnum, bool active)
 	}
 }
 
-u16 weaponGetModelNum(s32 weaponnum)
+u16 weaponGetFileNum(s32 weaponnum)
 {
 	struct weapon *weapon = NULL;
 
@@ -390,9 +402,9 @@ u16 weaponGetModelNum(s32 weaponnum)
 	return 0;
 }
 
-u16 weaponGetModelNum2(s32 weaponnum)
+u16 weaponGetFileNum2(s32 weaponnum)
 {
-	return weaponGetModelNum(weaponnum);
+	return weaponGetFileNum(weaponnum);
 }
 
 void gsetPopulateFromCurrentPlayer(s32 handnum, struct gset *gset)
