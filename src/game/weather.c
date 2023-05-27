@@ -2876,7 +2876,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	colours[0] = var8007f0e4;
 	colours[1] = var8007f0e8;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
 	spd84[0] = osGetCount();
 
@@ -3059,8 +3059,8 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						v0_2[2].z = sp198[2].f[2];
 
 						if (sp194 == 3) {
-							gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 12);
-							gDPTri4(gdl++, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+							gSPVertex(gdl++, osVirtualToPhysical(vertices), 12, 0);
+							gSPTri4(gdl++, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
 							sp194 = 0;
 
 						} else {
@@ -3076,18 +3076,18 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	}
 
 	if (sp194 > 0) {
-		gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 12);
+		gSPVertex(gdl++, osVirtualToPhysical(vertices), 12, 0);
 
 		if (sp194 == 1) {
-			gDPTri1(gdl++, 0, 1, 2);
+			gSPTri1(gdl++, 0, 1, 2);
 		}
 
 		if (sp194 == 2) {
-			gDPTri2(gdl++, 0, 1, 2, 3, 4, 5);
+			gSPTri2(gdl++, 0, 1, 2, 3, 4, 5);
 		}
 
 		if (sp194 == 3) {
-			gDPTri3(gdl++, 0, 1, 2, 3, 4, 5, 6, 7, 8);
+			gSPTri3(gdl++, 0, 1, 2, 3, 4, 5, 6, 7, 8);
 		}
 	}
 
@@ -4838,7 +4838,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		colours[j] = (var8007f10c & 0xffffff00) | ((0xff * 17 - j * 0xff) / 17);
 	}
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 16);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 16);
 
 	// 51f8
 	for (s8 = 0; s8 < 500; s8++) {
@@ -5087,8 +5087,8 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						vertices[sp198 * 4 + 3].z = sp19c[3].f[2];
 
 						if (sp198 == 1) {
-							gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
-							gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
+							gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
+							gSPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
 							sp198 = 0;
 						} else {
 							sp198 = 1;
@@ -5100,8 +5100,8 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	}
 
 	if (sp198 > 0) {
-		gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
-		gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+		gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
+		gSPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 	}
 
 	return gdl;

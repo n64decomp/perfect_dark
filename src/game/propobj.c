@@ -13304,9 +13304,9 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 
 		gSPMatrix(gdl++, osVirtualToPhysical(model->matrices), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPSegment(gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(vertices));
-		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-		gDPSetVerticeArray(gdl++, SPSEGMENT_MODEL_VTX << 24, 4);
-		gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
+		gSPColor(gdl++, osVirtualToPhysical(colours), 1);
+		gSPVertex(gdl++, SPSEGMENT_MODEL_VTX << 24, 4, 0);
+		gSPTri2(gdl++, 0, 1, 2, 0, 2, 3);
 		gSPEndDisplayList(gdl++);
 
 		gSPBranchList(savedgdl++, gdl);
@@ -13522,9 +13522,9 @@ Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius,
 	gSPSetGeometryMode(gdl++, G_CULL_BACK);
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
-	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 1);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
+	gSPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 
 	return gdl;
 }

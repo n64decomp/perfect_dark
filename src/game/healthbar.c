@@ -537,32 +537,42 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 	gDPSetCombineMode(gdl++, G_CC_SHADE, G_CC_SHADE);
 
+	// Same as gSPColor but casts the sizeof to an s32, which is required for a match.
+#define gSPColor2(pkt, v, n) \
+	gDma1p(pkt, G_COL, v, (s32)sizeof(u32)*(n),((n)-1)<<2)
+
 	// Draw shield
 	// There's between 20 and 24 colours and vertices to load here.
 	// The colours are loaded all at once, but the vertices are split into two.
 	numverts = numshieldmarkers * 2;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), numverts);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 14);
+	gSPColor2(gdl++, osVirtualToPhysical(colours), numverts);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 14, 0);
 
-	gDPTri4(gdl++, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5);
-	gDPTri4(gdl++, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9);
-	gDPTri4(gdl++, 8, 9, 10, 9, 10, 11, 10, 11, 12, 11, 12, 13);
+	gSPTri4(gdl++, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5);
+	gSPTri4(gdl++, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9);
+	gSPTri4(gdl++, 8, 9, 10, 9, 10, 11, 10, 11, 12, 11, 12, 13);
 
 	// numvertsremaining will be 8-12
 	numvertsremaining = numverts - 12U;
 
-	gDPSetVerticeArrayRaw(gdl++, osVirtualToPhysical(vertices + 12), (numverts - 13) << 4, numvertsremaining * (s32)sizeof(struct gfxvtx));
+	// This is a macro expansion of gSPVertex but cases the sizeof to an s32,
+	// and separates numvertsremaining and numverts - 12.
+	// Both are required for a match.
+	gDma1p(gdl++, G_VTX,
+			osVirtualToPhysical(vertices + 12),
+			numvertsremaining * (s32) sizeof(struct gfxvtx),
+			(numverts - 12 - 1) << 4);
 
-	gDPTri4(gdl++, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5);
+	gSPTri4(gdl++, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5);
 
 	if (numvertsremaining < 10) {
-		gDPTri2(gdl++, 4, 5, 6, 5, 6, 7);
+		gSPTri2(gdl++, 4, 5, 6, 5, 6, 7);
 	} else {
-		gDPTri4(gdl++, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9);
+		gSPTri4(gdl++, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9);
 
 		if (numvertsremaining >= 12) {
-			gDPTri2(gdl++, 8, 9, 10, 9, 10, 11);
+			gSPTri2(gdl++, 8, 9, 10, 9, 10, 11);
 		}
 	}
 
@@ -570,19 +580,19 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 	numverts = numarmourmarkers * 2;
 	coloursize = numverts * 4;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours + 24), numverts);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices + 24), numverts);
+	gSPColor2(gdl++, osVirtualToPhysical(colours + 24), numverts);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices + 24), numverts, 0);
 
-	gDPTri4(gdl++, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5);
-	gDPTri4(gdl++, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9);
+	gSPTri4(gdl++, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5);
+	gSPTri4(gdl++, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9);
 
 	if (coloursize < 56) {
-		gDPTri2(gdl++, 8, 9, 10, 9, 10, 11);
+		gSPTri2(gdl++, 8, 9, 10, 9, 10, 11);
 	} else {
-		gDPTri4(gdl++, 8, 9, 10, 9, 10, 11, 10, 11, 12, 11, 12, 13);
+		gSPTri4(gdl++, 8, 9, 10, 9, 10, 11, 10, 11, 12, 11, 12, 13);
 
 		if (coloursize >= 64) {
-			gDPTri2(gdl++, 12, 13, 14, 13, 14, 15);
+			gSPTri2(gdl++, 12, 13, 14, 13, 14, 15);
 		}
 	}
 
@@ -590,19 +600,19 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 	numverts = numtraumamarkers * 2;
 	coloursize = numverts * 4;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours + 40), numverts);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices + 40), numverts);
+	gSPColor2(gdl++, osVirtualToPhysical(colours + 40), numverts);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices + 40), numverts, 0);
 
-	gDPTri4(gdl++, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5);
-	gDPTri4(gdl++, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9);
+	gSPTri4(gdl++, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5);
+	gSPTri4(gdl++, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9);
 
 	if (coloursize < 56) {
-		gDPTri2(gdl++, 8, 9, 10, 9, 10, 11);
+		gSPTri2(gdl++, 8, 9, 10, 9, 10, 11);
 	} else {
-		gDPTri4(gdl++, 8, 9, 10, 9, 10, 11, 10, 11, 12, 11, 12, 13);
+		gSPTri4(gdl++, 8, 9, 10, 9, 10, 11, 10, 11, 12, 11, 12, 13);
 
 		if (coloursize >= 64) {
-			gDPTri2(gdl++, 12, 13, 14, 13, 14, 15);
+			gSPTri2(gdl++, 12, 13, 14, 13, 14, 15);
 		}
 	}
 

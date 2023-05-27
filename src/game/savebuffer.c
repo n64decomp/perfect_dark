@@ -364,9 +364,9 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 	colours[0] = colour1;
 	colours[1] = colour2;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
-	gDPTri2(gdl++, 0, 1, 3, 3, 2, 0);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
+	gSPTri2(gdl++, 0, 1, 3, 3, 2, 0);
 
 	return gdl;
 }

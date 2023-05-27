@@ -96,7 +96,7 @@
 #define G_VTX           4
 #define G_RESERVED1     5 /* not implemeted */
 #define G_DL            6
-#define G_RESERVED2     7 /* not implemeted */
+#define G_COL           7 /* new in PD */
 #define G_RESERVED3     8 /* not implemeted */
 #define G_SPRITE2D_BASE 9 /* sprite command */
 
@@ -1601,12 +1601,11 @@ typedef union {
 #define gSPMatrix(pkt, m, p) gDma1p(pkt, G_MTX, m, sizeof(Mtx), p)
 #define gsSPMatrix(m, p)     gsDma1p(G_MTX, m, sizeof(Mtx), p)
 
-#define gSPVertex(pkt, v, n, v0)                           \
-    gDma1p(pkt, G_VTX, v, sizeof(Vtx)*(n),((n)-1)<<4|(v0)) \
+#define gSPVertex(pkt, v, n, v0)                                     \
+    gDma1p(pkt, G_VTX, v, sizeof(struct gfxvtx)*(n),((n)-1)<<4|(v0))
 
 #define gsSPVertex(v, n, v0)                            \
     gsDma1p(G_VTX, v, sizeof(Vtx)*(n), ((n)-1)<<4|(v0))
-
 
 #define gSPViewport(pkt,v)                                   \
     gDma1p((pkt), G_MOVEMEM, (v), sizeof(Vp), G_MV_VIEWPORT)

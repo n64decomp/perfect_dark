@@ -293,17 +293,17 @@ Gfx *shardsRenderWood(Gfx *gdl)
 								colours[j][3] = g_Shards[g_NextShardNum].colours[j][3] * alphamult;
 							}
 
-							gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
+							gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 						} else {
 							if (g_Shards[i].room != prevroom) {
 								gdl = lightsSetForRoom(gdl, g_Shards[i].room);
 								prevroom = g_Shards[i].room;
 							}
 
-							gDPSetColorArray(gdl++, osVirtualToPhysical(g_Shards[i].colours), 3);
+							gSPColor(gdl++, osVirtualToPhysical(g_Shards[i].colours), 3);
 						}
 
-						gDPSetVerticeArray(gdl++, osVirtualToPhysical(g_Shards[i].vertices), 3);
+						gSPVertex(gdl++, osVirtualToPhysical(g_Shards[i].vertices), 3, 0);
 						gSP1Triangle(gdl++, 0, 1, 2, 0);
 					}
 				}
@@ -415,17 +415,17 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 								colours[j][3] = g_Shards[g_NextShardNum].colours[j][3] * alphamult;
 							}
 
-							gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
+							gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 						} else {
 							if (g_Shards[i].room != prevroom) {
 								gdl = lightsSetForRoom(gdl, g_Shards[i].room);
 								prevroom = g_Shards[i].room;
 							}
 
-							gDPSetColorArray(gdl++, osVirtualToPhysical(g_Shards[i].colours), 3);
+							gSPColor(gdl++, osVirtualToPhysical(g_Shards[i].colours), 3);
 						}
 
-						gDPSetVerticeArray(gdl++, osVirtualToPhysical(g_Shards[i].vertices), 3);
+						gSPVertex(gdl++, osVirtualToPhysical(g_Shards[i].vertices), 3, 0);
 						gSP1Triangle(gdl++, 0, 1, 2, 0);
 					}
 				}

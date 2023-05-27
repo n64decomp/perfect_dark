@@ -421,7 +421,7 @@ Gfx *sparksRender(Gfx *gdl)
 						colours[1].a *= frac;
 					}
 
-					gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+					gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
 					sp120 *= 0.2f;
 					sp120 *= viGetFovY() / 60.0f;
@@ -510,7 +510,7 @@ Gfx *sparksRender(Gfx *gdl)
 								break;
 							}
 
-							gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 3);
+							gSPVertex(gdl++, osVirtualToPhysical(vertices), 3, 0);
 							gSP1Triangle(gdl++, 0, 1, 2, 0);
 						}
 

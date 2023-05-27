@@ -93,10 +93,10 @@ Gfx *func0f006c80(Gfx *gdl, struct coord *arg1, struct coord *arg2, struct coord
 	MAKEVERTEX(1, sp70);
 	MAKEVERTEX(2, sp64);
 
-	gDPSetVerticeArrayRaw(gdl++, osVirtualToPhysical(vertices), arg7 | 0x20, 3 * sizeof(struct gfxvtx));
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 3, arg7);
 
 	if (depth == 0) {
-		gDPTri4(gdl++,
+		gSPTri4(gdl++,
 				arg4, arg7, arg7 + 2,
 				arg5, arg7 + 1, arg7,
 				arg6, arg7 + 2, arg7 + 1,
@@ -182,8 +182,8 @@ Gfx *func0f0073ac(Gfx *gdl, struct coord *pos, f32 arg2)
 
 	colours[0] = 0xff00007f;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 1);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
 
 	gdl = func0f006c80(gdl, &spb0[0], &spb0[4], &spb0[1], 0, 4, 1, 6, 2);
 	gdl = func0f006c80(gdl, &spb0[1], &spb0[4], &spb0[2], 1, 4, 2, 6, 2);
@@ -201,7 +201,7 @@ Gfx *func0f0073ac(Gfx *gdl, struct coord *pos, f32 arg2)
 	MAKEVERTEX(4, spb0[4]);
 	MAKEVERTEX(5, spb0[5]);
 
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
 
 	gdl = func0f006c80(gdl, &spb0[2], &spb0[4], &spb0[3], 2, 4, 3, 6, 2);
 	gdl = func0f006c80(gdl, &spb0[3], &spb0[4], &spb0[0], 3, 4, 0, 6, 2);
@@ -236,7 +236,7 @@ Gfx *func0f008558(Gfx *gdl, s32 depth)
 	MAKEVERTEX(4, sp5c[4]);
 	MAKEVERTEX(5, sp5c[5]);
 
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
 
 	gdl = func0f006c80(gdl, &sp5c[0], &sp5c[4], &sp5c[1], 0, 4, 1, 6, depth);
 	gdl = func0f006c80(gdl, &sp5c[1], &sp5c[4], &sp5c[2], 1, 4, 2, 6, depth);
@@ -254,7 +254,7 @@ Gfx *func0f008558(Gfx *gdl, s32 depth)
 	MAKEVERTEX(4, sp5c[4]);
 	MAKEVERTEX(5, sp5c[5]);
 
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
 
 	gdl = func0f006c80(gdl, &sp5c[2], &sp5c[4], &sp5c[3], 2, 4, 3, 6, depth);
 	gdl = func0f006c80(gdl, &sp5c[3], &sp5c[4], &sp5c[0], 3, 4, 0, 6, depth);
@@ -344,7 +344,7 @@ Gfx *nbombCreateGdl(void)
 	vertices[0].x = vertices[0].z;
 	vertices[0].s = vertices[0].t;
 
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 1);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 1, 0);
 
 	if (index != 0) {
 		u32 stack;
@@ -379,7 +379,7 @@ Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	colours[0] = colour;
 	colours[1] = 0xffffff00;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
 	sp3c.x = 0;
 	sp3c.y = 0;
@@ -886,10 +886,10 @@ Gfx *nbombRenderOverlay(Gfx *gdl)
 
 		colours[0] = finalalpha;
 
-		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-		gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+		gSPColor(gdl++, osVirtualToPhysical(colours), 1);
+		gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
 
-		gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+		gSPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 	}
 
 	if (drawn) {
@@ -1088,10 +1088,10 @@ Gfx *gasRender(Gfx *gdl)
 
 			colours[0] = 0x3faf1100 | alpha;
 
-			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-			gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
+			gSPColor(gdl++, osVirtualToPhysical(colours), 1);
+			gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
 
-			gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
+			gSPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
 		}
 	}
 

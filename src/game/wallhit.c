@@ -1239,15 +1239,15 @@ Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 			colours[2] = wallhit->finalcolours[2];
 			colours[3] = wallhit->finalcolours[3];
 
-			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 4);
+			gSPColor(gdl++, osVirtualToPhysical(colours), 4);
 
 			if (wallhit->vertices2 != NULL) {
-				gDPSetVerticeArray(gdl++, wallhit->vertices2, 4);
+				gSPVertex(gdl++, wallhit->vertices2, 4, 0);
 			} else {
-				gDPSetVerticeArray(gdl++, osVirtualToPhysical(&wallhit->vertices), 4);
+				gSPVertex(gdl++, osVirtualToPhysical(&wallhit->vertices), 4, 0);
 			}
 
-			gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
+			gSPTri2(gdl++, 0, 1, 2, 0, 2, 3);
 		}
 
 		wallhit = wallhit->localnext;
@@ -1297,15 +1297,15 @@ Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
 			colours[2] = wallhit->finalcolours[2];
 			colours[3] = wallhit->finalcolours[3];
 
-			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 4);
+			gSPColor(gdl++, osVirtualToPhysical(colours), 4);
 
 			if (wallhit->vertices2 != NULL) {
-				gDPSetVerticeArray(gdl++, wallhit->vertices2, 4);
+				gSPVertex(gdl++, wallhit->vertices2, 4, 0);
 			} else {
-				gDPSetVerticeArray(gdl++, osVirtualToPhysical(&wallhit->vertices), 4);
+				gSPVertex(gdl++, osVirtualToPhysical(&wallhit->vertices), 4, 0);
 			}
 
-			gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
+			gSPTri2(gdl++, 0, 1, 2, 0, 2, 3);
 		}
 
 		wallhit = wallhit->localnext;
@@ -1384,15 +1384,15 @@ Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool xlu)
 			colours[2] = wallhit->finalcolours[2];
 			colours[3] = wallhit->finalcolours[3];
 
-			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 4);
+			gSPColor(gdl++, osVirtualToPhysical(colours), 4);
 
 			if (wallhit->vertices2 != NULL) {
-				gDPSetVerticeArray(gdl++, wallhit->vertices2, 4);
+				gSPVertex(gdl++, wallhit->vertices2, 4, 0);
 			} else {
-				gDPSetVerticeArray(gdl++, osVirtualToPhysical(&wallhit->vertices), 4);
+				gSPVertex(gdl++, osVirtualToPhysical(&wallhit->vertices), 4, 0);
 			}
 
-			gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
+			gSPTri2(gdl++, 0, 1, 2, 0, 2, 3);
 		}
 
 		wallhit = wallhit->localnext;

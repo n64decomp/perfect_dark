@@ -287,10 +287,10 @@ Gfx *bgRenderXrayData(Gfx *gdl, struct xraydata *xraydata)
 		}
 
 		count = xraydata->numvertices;
-		gDPSetColorArray(gdl++, colours, count);
+		gSPColor(gdl++, colours, count);
 
 		count = xraydata->numvertices;
-		gDPSetVerticeArray(gdl++, vertices, count);
+		gSPVertex(gdl++, vertices, count, 0);
 
 		numgroups = (xraydata->numtris - 1) / 4 + 1;
 
@@ -308,7 +308,7 @@ Gfx *bgRenderXrayData(Gfx *gdl, struct xraydata *xraydata)
 #endif
 
 		for (i = 0; i < numgroups; i++) {
-			gDPTri4(gdl++,
+			gSPTri4(gdl++,
 					xraydata->tris[i * 4 + 0][0], xraydata->tris[i * 4 + 0][1], xraydata->tris[i * 4 + 0][2],
 					xraydata->tris[i * 4 + 1][0], xraydata->tris[i * 4 + 1][1], xraydata->tris[i * 4 + 1][2],
 					xraydata->tris[i * 4 + 2][0], xraydata->tris[i * 4 + 2][1], xraydata->tris[i * 4 + 2][2],
@@ -4924,7 +4924,7 @@ void bgFindRoomVtxBatches(s32 roomnum)
 		if (gdl != NULL) {
 			while (gdl) {
 				for (i = 0; gdl[i].dma.cmd != G_ENDDL; i++) {
-					// if gDPSetVerticeArray
+					// if gSPVertex
 					if (gdl[i].dma.cmd == G_VTX) {
 						batchindex++;
 					}
@@ -4939,7 +4939,7 @@ void bgFindRoomVtxBatches(s32 roomnum)
 
 			while (gdl) {
 				for (i = 0; gdl[i].dma.cmd != G_ENDDL; i++) {
-					// if gDPSetVerticeArray
+					// if gSPVertex
 					if (gdl[i].dma.cmd == G_VTX) {
 						xlucount++;
 					}

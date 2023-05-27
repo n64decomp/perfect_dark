@@ -1371,12 +1371,12 @@ Gfx *amRender(Gfx *gdl)
 		colours[0] = 0x22222200;
 		colours[1] = 0x0000004f;
 
-		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
-		gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
+		gSPColor(gdl++, osVirtualToPhysical(colours), 2);
+		gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
 
-		gDPTri2(gdl++, 4, 5, 6, 6, 7, 4);
-		gDPTri4(gdl++, 0, 4, 7, 7, 3, 0, 0, 1, 5, 5, 4, 0);
-		gDPTri4(gdl++, 1, 2, 6, 6, 5, 1, 6, 2, 3, 3, 7, 6);
+		gSPTri2(gdl++, 4, 5, 6, 6, 7, 4);
+		gSPTri4(gdl++, 0, 4, 7, 7, 3, 0, 0, 1, 5, 5, 4, 0);
+		gSPTri4(gdl++, 1, 2, 6, 6, 5, 1, 6, 2, 3, 3, 7, 6);
 
 		gdl = func0f0d49c8(gdl);
 

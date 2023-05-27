@@ -1789,10 +1789,10 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 	vertices[3].s = sp36;
 	vertices[3].t = sp30;
 
-	gDPSetColorArray(gdl++, colours, 1);
-	gDPSetVerticeArray(gdl++, vertices, 4);
+	gSPColor(gdl++, colours, 1);
+	gSPVertex(gdl++, vertices, 4, 0);
 
-	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+	gSPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 
 	*arg1 += curchar->width;
 

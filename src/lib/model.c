@@ -3491,9 +3491,9 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 
 		gSPSetGeometryMode(renderdata->gdl++, G_CULL_BACK);
 		gSPMatrix(renderdata->gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-		gDPSetColorArray(renderdata->gdl++, osVirtualToPhysical(colours), 1);
-		gDPSetVerticeArray(renderdata->gdl++, osVirtualToPhysical(vertices), 4);
-		gDPTri2(renderdata->gdl++, 0, 1, 2, 2, 3, 0);
+		gSPColor(renderdata->gdl++, osVirtualToPhysical(colours), 1);
+		gSPVertex(renderdata->gdl++, osVirtualToPhysical(vertices), 4, 0);
+		gSPTri2(renderdata->gdl++, 0, 1, 2, 2, 3, 0);
 	}
 }
 

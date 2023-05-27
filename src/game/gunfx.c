@@ -285,12 +285,12 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 
 	gSPClearGeometryMode(gdl++, G_CULL_BACK);
 	gSPMatrix(gdl++, osVirtualToPhysical(spc8), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
 	texSelect(&gdl, texconfig, 4, 1, 2, true, NULL);
 
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
-	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
+	gSPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 
 	return gdl;
 }
@@ -1712,22 +1712,22 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 					gDPSetTextureLOD(gdl++, G_TL_TILE);
 					gDPSetTextureConvert(gdl++, G_TC_FILT);
 					gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
-					gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
+					gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 
 					if (beam->weaponnum == WEAPON_LASER) {
 						texSelect(&gdl, &g_TexGroup03Configs[0], 4, arg2, 2, true, NULL);
 
-						gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
-						gDPTri2(gdl++, 4, 5, 6, 4, 5, 7);
+						gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
+						gSPTri2(gdl++, 4, 5, 6, 4, 5, 7);
 
 						texSelect(&gdl, texconfig, 4, arg2, 2, true, NULL);
 
-						gDPTri2(gdl++, 0, 2, 3, 0, 3, 1);
+						gSPTri2(gdl++, 0, 2, 3, 0, 3, 1);
 					} else {
 						texSelect(&gdl, texconfig, 4, arg2, 2, true, NULL);
 
-						gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
-						gDPTri2(gdl++, 0, 2, 3, 0, 3, 1);
+						gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
+						gSPTri2(gdl++, 0, 2, 3, 0, 3, 1);
 					}
 				}
 			}
@@ -2263,7 +2263,7 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 			colours[0] = 0xff00005f;
 			colours[1] = 0xff00000f;
 
-			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+			gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
 			if (g_LaserSights[i].unk28 > 0.0f) {
 				if (!(g_LaserSights[i].dotpos.f[0] < 0.0000001f) || !(g_LaserSights[i].dotpos.f[0] > -0.000001f)
@@ -2367,9 +2367,9 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 					vertices[3].y = pos.f[1] + (-f20 * f00) + (-f20 * spc8);
 					vertices[3].z = pos.f[2] + (-f20 * f24) + (-f20 * spc4);
 
-					gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+					gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
 
-					gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+					gSPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 				}
 			}
 		}
@@ -2480,7 +2480,7 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 			colours[0] = 0xff00005f;
 			colours[1] = 0xff00000f;
 
-			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+			gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
 			vertices = gfxAllocateVertices(6);
 
@@ -2528,9 +2528,9 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 			vertices[5].y = spcc.f[1] + (400 * spb4.f[1]) + (spa8.f[1] * 15.0f);
 			vertices[5].z = spcc.f[2] + (400 * spb4.f[2]) + (spa8.f[2] * 15.0f);
 
-			gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+			gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
 
-			gDPTri4(gdl++, 0, 1, 2, 2, 3, 1, 2, 3, 5, 2, 5, 4);
+			gSPTri4(gdl++, 0, 1, 2, 2, 3, 1, 2, 3, 5, 2, 5, 4);
 		}
 	}
 

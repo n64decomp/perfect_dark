@@ -253,10 +253,10 @@ Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, stru
 	vertices[3].t = 1760;
 	vertices[3].colour = 0;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 1);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
 
-	gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
+	gSPTri2(gdl++, 0, 1, 2, 0, 2, 3);
 
 	return gdl;
 }

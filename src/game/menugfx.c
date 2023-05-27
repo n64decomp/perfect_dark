@@ -210,10 +210,10 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 
 	colours[0] = colour;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 1);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
 
-	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+	gSPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 
 	return gdl;
 }
@@ -382,13 +382,13 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	colours[2] = 0x00af0000 | alphas[1];
 	colours[3] = 0xffff0000 | alphas[1];
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 4);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 4);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
 
 	if (g_20SecIntervalFrac > 0.5f) {
-		gDPTri4(gdl++, 4, 5, 6, 6, 7, 4, 0, 1, 2, 2, 3, 0);
+		gSPTri4(gdl++, 4, 5, 6, 6, 7, 4, 0, 1, 2, 2, 3, 0);
 	} else {
-		gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
+		gSPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
 	}
 
 	return gdl;
@@ -450,10 +450,10 @@ Gfx *menugfxDrawDropdownBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	colours[1] = colour2;
 	colours[2] = colour1 | 0x00003f00;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
 
-	gDPTri4(gdl++, 0, 1, 3, 3, 2, 0, 2, 3, 4, 4, 3, 5);
+	gSPTri4(gdl++, 0, 1, 3, 3, 2, 0, 2, 3, 4, 4, 3, 5);
 
 	return gdl;
 }
@@ -538,11 +538,11 @@ Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3
 	colours[5] = (0x00003f00 | alpha1) & 0xffffff00;
 	colours[6] = 0x6f6f6f00 | alpha1;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 7);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 9);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 7);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 9, 0);
 
-	gDPTri4(gdl++, 0, 1, 3, 3, 2, 0, 2, 3, 4, 4, 3, 5);
-	gDPTri4(gdl++, 1, 6, 7, 7, 3, 1, 3, 7, 8, 8, 5, 3);
+	gSPTri4(gdl++, 0, 1, 3, 3, 2, 0, 2, 3, 4, 4, 3, 5);
+	gSPTri4(gdl++, 1, 6, 7, 7, 3, 1, 3, 7, 8, 8, 5, 3);
 
 	gdl = menugfxDrawShimmer(gdl, x1, y1, x2, y1 + 1, (alpha1 & 0xff) >> 2, 1, 0x28, 0);
 	gdl = menugfxDrawShimmer(gdl, x1, y2, x2, y2 + 1, (alpha1 & 0xff) >> 2, 0, 0x28, 1);
@@ -800,9 +800,9 @@ Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colours
 	colours[2] = colourmid;
 	colours[1] = colourend;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
-	gDPTri4(gdl++, 0, 1, 5, 5, 4, 0, 2, 3, 4, 4, 5, 2);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
+	gSPTri4(gdl++, 0, 1, 5, 5, 4, 0, 2, 3, 4, 4, 5, 2);
 
 	return gdl;
 }
@@ -859,15 +859,15 @@ Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, 
 	colours[1] = 0xffffffff;
 	colours[2] = 0x0000ff4f;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
 
-	gDPTri1(gdl++, 3, 4, 5);
+	gSPTri1(gdl++, 3, 4, 5);
 
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 
-	gDPTri1(gdl++, 0, 1, 2);
+	gSPTri1(gdl++, 0, 1, 2);
 
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
@@ -956,9 +956,9 @@ Gfx *menugfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 
 	colours[0] = colour1;
 	colours[1] = colour2;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
-	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
+	gSPTri2(gdl++, 0, 1, 2, 2, 3, 0);
 
 	return gdl;
 }
@@ -1264,9 +1264,9 @@ Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction,
 	colours[0] = colour1;
 	colours[1] = colour2;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 3);
-	gDPTri1(gdl++, 0, 1, 2);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 3, 0);
+	gSPTri1(gdl++, 0, 1, 2);
 
 	return gdl;
 }
@@ -1358,9 +1358,9 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u
 	colours[0] = colour1;
 	colours[1] = colour2;
 
-	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
-	gDPTri2(gdl++, 0, 1, 3, 3, 2, 0);
+	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
+	gSPTri2(gdl++, 0, 1, 3, 3, 2, 0);
 
 	return gdl;
 }
@@ -1906,7 +1906,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 		struct coord pos;
 		u32 stack[5];
 
-		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 20);
+		gSPColor(gdl++, osVirtualToPhysical(colours), 20);
 
 		// Draw the particles
 		for (i = NUM_SUCCESS_PARTICLES - 1; i >= 0; i--) {
@@ -1956,9 +1956,9 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 				vertices[3].colour = (s3 * 4 + (i % 2) * 2 + 1) * 4;
 				vertices[4].colour = (s3 * 4 + (i % 2) * 2 + 1) * 4;
 
-				gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 5);
+				gSPVertex(gdl++, osVirtualToPhysical(vertices), 5, 0);
 
-				gDPTri4(gdl++, 0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 1);
+				gSPTri4(gdl++, 0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 1);
 			}
 		}
 	}

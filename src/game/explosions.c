@@ -1340,7 +1340,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			*colour = var8007e93c;
 		}
 
-		gDPSetColorArray(gdl++, osVirtualToPhysical(colour), 1);
+		gSPColor(gdl++, osVirtualToPhysical(colour), 1);
 
 		for (i = 14; i >= 0; i--) {
 			gDPSetTextureImage(gdl++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, g_ExplosionTexturePairs[i].texturenum1);
@@ -1543,9 +1543,9 @@ Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx 
 		vertices[j].colour = 0;
 	}
 
-	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
 
-	gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
+	gSPTri2(gdl++, 0, 1, 2, 0, 2, 3);
 
 	return gdl;
 }

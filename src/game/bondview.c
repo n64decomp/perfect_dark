@@ -773,12 +773,12 @@ Gfx *bviewDrawEyespySideRect(Gfx *gdl, s32 *points, u8 r, u8 g, u8 b, u8 alpha)
 	vertices[2].colour = 4;
 	vertices[3].colour = 4;
 
-	gDPSetColorArray(gdl++, colours, 2);
-	gDPSetVerticeArray(gdl++, vertices, 4);
+	gSPColor(gdl++, colours, 2);
+	gSPVertex(gdl++, vertices, 4, 0);
 
 	if (colours);
 
-	gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
+	gSPTri2(gdl++, 0, 1, 2, 0, 2, 3);
 
 	return gdl;
 }

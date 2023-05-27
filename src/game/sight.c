@@ -956,9 +956,9 @@ Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
 	vertices[1].colour = 4;
 	vertices[2].colour = 4;
 
-	gDPSetColorArray(gdl++, colours, 2);
-	gDPSetVerticeArray(gdl++, vertices, 3);
-	gDPTri1(gdl++, 0, 1, 2);
+	gSPColor(gdl++, colours, 2);
+	gSPVertex(gdl++, vertices, 3, 0);
+	gSPTri1(gdl++, 0, 1, 2);
 
 	return gdl;
 }
@@ -1364,9 +1364,9 @@ Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 	vertices[7].colour = 4;
 
 	// Draw the main 4 triangles
-	gDPSetColorArray(gdl++, colours, 2);
-	gDPSetVerticeArray(gdl++, vertices, 8);
-	gDPTri4(gdl++, 0, 4, 5, 5, 3, 6, 7, 6, 1, 4, 7, 2);
+	gSPColor(gdl++, colours, 2);
+	gSPVertex(gdl++, vertices, 8, 0);
+	gSPTri4(gdl++, 0, 4, 5, 5, 3, 6, 7, 6, 1, 4, 7, 2);
 
 	gdl = func0f0d49c8(gdl);
 	gdl = textSetPrimColour(gdl, 0x00ff0028);
