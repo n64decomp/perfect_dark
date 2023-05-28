@@ -127,9 +127,11 @@ void botcmdTickDistMode(struct chrdata *chr)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (newmode != BOTDISTMODE_BACKUP || !insight || aibot->unk050 != targetprop) {
-		aibot->unk050 = NULL;
-		aibot->unk09d = 0;
+	if (newmode == BOTDISTMODE_BACKUP && insight && aibot->distoverrideprop == targetprop) {
+		// don't unset
+	} else {
+		aibot->distoverrideprop = NULL;
+		aibot->distoverridetimer60 = 0;
 	}
 
 	if (newmode == BOTDISTMODE_OK) {
@@ -137,17 +139,24 @@ void botcmdTickDistMode(struct chrdata *chr)
 			newmode = BOTDISTMODE_ADVANCE;
 		}
 	} else if (newmode == BOTDISTMODE_BACKUP) {
+		// If the bot is too close to the target, it'll try to back up. But if
+		// the target goes out of sight during the back up, the bot needs to
+		// advance again, regardless of the distance to the target.
+		// When the target returns to sight, force the distance mode to be okay
+		// for a random duration before returning to the normal distmode behaviour.
+		// This likely prevents them from going into a backup/advance loop as
+		// they go around a corner.
 		if (!insight) {
 			newmode = BOTDISTMODE_ADVANCE;
-			aibot->unk050 = targetprop;
-			aibot->unk09d = TICKS(20) + (random() % TICKS(120));
-		} else if (aibot->unk050) {
-			if (aibot->unk09d > g_Vars.lvupdate60) {
-				aibot->unk09d -= g_Vars.lvupdate60;
+			aibot->distoverrideprop = targetprop;
+			aibot->distoverridetimer60 = TICKS(20) + (random() % TICKS(120));
+		} else if (aibot->distoverrideprop) {
+			if (g_Vars.lvupdate60 < aibot->distoverridetimer60) {
+				aibot->distoverridetimer60 -= g_Vars.lvupdate60;
 				newmode = BOTDISTMODE_OK;
 			} else {
-				aibot->unk050 = NULL;
-				aibot->unk09d = 0;
+				aibot->distoverrideprop = NULL;
+				aibot->distoverridetimer60 = 0;
 			}
 		}
 	}

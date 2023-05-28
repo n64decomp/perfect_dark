@@ -576,11 +576,15 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 			if (VAR(lvupdate240) > 0) {
 #if VERSION >= VERSION_NTSC_1_0
-				if (chr->aibot->unk078 != 0) {
+				if (chr->aibot->forceslowupdates != 0) {
+					// forceslowupdates is set when the bot is being saved from
+					// falling out of bounds due to high lag. It forces them to
+					// update in smaller increments, which gives a higher chance
+					// of their collision detecting working correctly.
 					if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
-						chr->aibot->unk078 = 0;
+						chr->aibot->forceslowupdates = 0;
 					} else {
-						chr->aibot->unk078--;
+						chr->aibot->forceslowupdates--;
 
 						if (lvupdate240 >= 25) {
 							lvupdate60f = 4.0f;
@@ -824,11 +828,15 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 #if VERSION >= VERSION_NTSC_1_0
 					if (chr->aibot
-							&& chr->aibot->unk078 == 0
+							&& chr->aibot->forceslowupdates == 0
 							&& ground < -100000
 							&& g_Vars.lvupdate60 >= 5
 							&& (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) == 0) {
-						chr->aibot->unk078 = 10;
+						// The new position has no ground and is offscreen,
+						// So they're about to fall out of the geometry.
+						// Run the previous calculations but using their current
+						// position instead. This holds them in place.
+						chr->aibot->forceslowupdates = 10;
 
 						arg2->x = prop->pos.x;
 						arg2->y = prop->pos.y;
@@ -838,7 +846,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 						lvupdate60freal = 0.0f;
 
-						ground = cdFindGroundInfoAtCyl(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
+						ground = cdFindGroundInfoAtCyl(arg2, chr->radius, spfc,
+								&chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 					}
 #endif
 
@@ -2094,11 +2103,11 @@ void chrUpdateCloak(struct chrdata *chr)
 					&& !chrIsDead(chr)
 					&& botactGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
-					chr->aibot->unk2c4 += LVUPDATE60FREAL() * 0.4f;
+					chr->aibot->rcpcloaktimer60 += LVUPDATE60FREAL() * 0.4f;
 
-					if (chr->aibot->unk2c4 >= 1) {
-						qty = chr->aibot->unk2c4;
-						chr->aibot->unk2c4 -= qty;
+					if (chr->aibot->rcpcloaktimer60 >= 1) {
+						qty = chr->aibot->rcpcloaktimer60;
+						chr->aibot->rcpcloaktimer60 -= qty;
 
 						if (chr->aibot->loadedammo[0] > 0) {
 							chr->aibot->loadedammo[0] -= qty;
@@ -2322,11 +2331,11 @@ bool chrTickBeams(struct prop *prop)
 		beamTick(&g_Fireslots[chr->fireslots[1]].beam);
 	}
 
-	if (chr->aibot && chr->aibot->unk058 > 0) {
-		if (chr->aibot->unk058 > g_Vars.lvupdate60) {
-			chr->aibot->unk058 -= g_Vars.lvupdate60;
+	if (chr->aibot && chr->aibot->fadeintimer60 > 0) {
+		if (chr->aibot->fadeintimer60 > g_Vars.lvupdate60) {
+			chr->aibot->fadeintimer60 -= g_Vars.lvupdate60;
 		} else {
-			chr->aibot->unk058 = 0;
+			chr->aibot->fadeintimer60 = 0;
 		}
 	}
 
@@ -3360,8 +3369,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		alpha = chr->fadealpha;
 	}
 
-	if (chr->aibot && chr->aibot->unk058 > 0) {
-		alpha = (f32)alpha * (TICKS(120) - chr->aibot->unk058) * (PAL ? 0.01f : 0.0083333337679505f);
+	if (chr->aibot && chr->aibot->fadeintimer60 > 0) {
+		alpha = (f32)alpha * (TICKS(120) - chr->aibot->fadeintimer60) * (1.0f / TICKS(120));
 	}
 
 	chrGetBloodColour(chr->bodynum, spec, NULL);

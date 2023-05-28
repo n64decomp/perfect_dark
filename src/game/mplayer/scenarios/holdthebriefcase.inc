@@ -352,15 +352,15 @@ void htbTickChr(struct chrdata *chr)
 {
 	if (chr) {
 		if (chr->aibot->hasbriefcase) {
-			chr->aibot->unk0a0 += g_Vars.lvupdate240;
+			chr->aibot->htbheldtimer60 += g_Vars.lvupdate240;
 
-			if (chr->aibot->unk0a0 >= TICKS(7200)) {
+			if (chr->aibot->htbheldtimer60 >= TICKS(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)]->numpoints++;
-				chr->aibot->unk0a0 = 0;
+				chr->aibot->htbheldtimer60 = 0;
 			}
 		} else {
-			chr->aibot->unk0a0 = 0;
+			chr->aibot->htbheldtimer60 = 0;
 		}
 	} else {
 		if (invHasBriefcase()) {

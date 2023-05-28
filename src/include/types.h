@@ -708,67 +708,57 @@ struct aibot {
 	/*0x020*/ s32 weaponnum;
 	/*0x024*/ s32 loadedammo[2]; // amount of ammo in current clip
 	/*0x02c*/ s16 timeuntilreload60[2];
-	/*0x030*/ u32 unk030; // timer of some sort
+	/*0x030*/ u32 unk030; // unused
 	/*0x034*/ s32 throwtimer60;
-	/*0x038*/ u32 unk038;
+	/*0x038*/ u32 unk038; // unused
 	/*0x03c*/ s16 punchtimer60[2];
-	/*0x040*/ f32 unk040;
+	/*0x040*/ f32 unk040; // unused
 	/*0x044*/ struct prop *skrocket;
 	/*0x048*/ s16 hillpadnum;
 	/*0x04a*/ s16 hillcovernum;
-	/*0x04c*/ u8 unk04c_00 : 1;
+	/*0x04c*/ u8 inhill : 1;
 	/*0x04c*/ u8 ismeleeweapon : 1;
 	/*0x04c*/ u8 gunfunc : 1;
-	/*0x04c*/ u8 unk04c_03 : 1;
-	/*0x04c*/ u8 unk04c_04 : 1;
+	/*0x04c*/ u8 unk04c_03 : 1; // unused
+	/*0x04c*/ u8 unk04c_04 : 1; // unused
 	/*0x04c*/ u8 hasuplink : 1;
 	/*0x04c*/ u8 cloakdeviceenabled : 1;
 	/*0x04d*/ u8 burstsdone[2];
 	/*0x04f*/ u8 teamisonlyai : 1;
-	/*0x050*/ struct prop *unk050;
-	/*0x054*/ u32 unk054;
-	/*0x058*/ u8 unk058; // related to fireslots
-	/*0x059*/ u8 unk059;
+	/*0x050*/ struct prop *distoverrideprop;
+	/*0x054*/ u32 unk054; // unused
+	/*0x058*/ u8 fadeintimer60;
+	/*0x059*/ u8 respawning;
 	/*0x05c*/ s32 nextbullettimer60[2];
-
-	/**
-	 * 0x0001 = has unlimited ammo (darksim?)
-	 * 0x0004 = detected dangerous prop
-	 * 0x1000 = using remote mines
-	 */
-	/*0x064*/ u16 unk064;
-
-	/*0x068*/ struct attackanimconfig *unk068;
-	/*0x06c*/ f32 unk06c;
-	/*0x070*/ f32 unk070;
+	/*0x064*/ u16 flags;
+	/*0x068*/ struct attackanimconfig *attackanimconfig;
+	/*0x06c*/ f32 speedmultforwards;
+	/*0x070*/ f32 speedmultsideways;
 	/*0x074*/ s8 distmode;
-	/*0x075*/ s8 unk075;
 	/*0x076*/ s16 lastkilledbyplayernum;
-	/*0x078*/ u8 unk078;
+	/*0x078*/ u8 forceslowupdates;
 	/*0x079*/ u8 command;
 	/*0x07a*/ s16 defendholdrooms[1];
-	/*0x07c*/ u32 unk07c;
-	/*0x080*/ u32 unk080;
-	/*0x084*/ u32 unk084;
-	/*0x088*/ u32 unk088;
+	/*0x07c*/ u32 unk07c; // unused
+	/*0x080*/ u32 unk080; // unused
+	/*0x084*/ u32 unk084; // unused
+	/*0x088*/ u32 unk088; // unused
 	/*0x08c*/ struct coord defendholdpos;
-	/*0x098*/ f32 unk098;
+	/*0x098*/ f32 defendholdrot;
 	/*0x09c*/ u8 hasbriefcase : 1; // htb
 	/*0x09c*/ u8 hascase : 1;      // ctc
 	/*0x09c*/ u8 rcp120cloakenabled : 1;
 	/*0x09c*/ u8 canseecloaked : 1;
-	/*0x09c*/ u8 unk09c_04 : 1;
-	/*0x09c*/ u8 unk09c_05 : 1;
-	/*0x09c*/ u8 unk09c_06 : 1;
+	/*0x09c*/ u8 unk09c_04 : 3; // unused
 	/*0x09c*/ u8 cheap : 1; // True if aibot is not in any visible room
-	/*0x09d*/ u8 unk09d;
-	/*0x0a0*/ s32 unk0a0;
-	/*0x0a4*/ f32 unk0a4;
+	/*0x09d*/ u8 distoverridetimer60;
+	/*0x0a0*/ s32 htbheldtimer60;
+	/*0x0a4*/ f32 roty;
 	/*0x0a8*/ f32 angleoffset;
 	/*0x0ac*/ f32 speedtheta;
-	/*0x0b0*/ f32 unk0b0; // likely to be the turn angle to 360 degrees, in radians
-	/*0x0b4*/ f32 unk0b4;
-	/*0x0b8*/ f32 unk0b8;
+	/*0x0b0*/ f32 lookangle; // likely to be the turn angle to 360 degrees, in radians
+	/*0x0b4*/ f32 moveratex;
+	/*0x0b8*/ f32 moveratey;
 	/*0x0bc*/ s32 lastknownhill;
 	/*0x0c0*/ s32 attackpropnum;
 	/*0x0c4*/ bool cyclonedischarging[2];
@@ -794,32 +784,27 @@ struct aibot {
 	/*0x16c*/ u8 chrsinsight[MAX_MPCHRS];
 	/*0x178*/ s32 chrslastseen60[MAX_MPCHRS];
 	/*0x1a8*/ s16 chrrooms[MAX_MPCHRS];
-	/*0x1c0*/ f32 unk1c0;
-	/*0x1c4*/ f32 unk1c4;
-	/*0x1c8*/ f32 unk1c8;
-	/*0x1cc*/ s32 unk1cc;
-	/*0x1d0*/ u32 unk1d0;
-	/*0x1d4*/ f32 unk1d4;
+	/*0x1c0*/ f32 extraangle;
+	/*0x1c4*/ f32 extraanglerate;
+	/*0x1c8*/ f32 extraanglebase;
+	/*0x1cc*/ s32 random3ttl60;
+	/*0x1d0*/ u32 random3;
+	/*0x1d4*/ f32 targetinsighttemperature;
 	/*0x1d8*/ s32 abortattacktimer60;
 	/*0x1dc*/ bool canbreakdefend;
 	/*0x1e0*/ bool canbreakfollow;
-	/*0x1e4*/ s32 unk1e4;
+	/*0x1e4*/ s32 realignangleframe;
 	/*0x1e8*/ struct waypoint *waypoints[8];
-	/*0x208*/ s32 unk208;
+	/*0x208*/ s32 numwaystepstotarget;
 	/*0x20c*/ s32 random1ttl60;
 	/*0x210*/ u32 random1;
 	/*0x214*/ f32 killsbygunfunc[NUM_MPWEAPONSLOTS][2];
 	/*0x244*/ f32 suicidesbygunfunc[NUM_MPWEAPONSLOTS][2];
 	/*0x274*/ s32 equipdurations60[NUM_MPWEAPONSLOTS][2];
-	/*0x2a4*/ s32 unk2a4;
-	/*0x2a8*/ s32 unk2a8[NUM_MPWEAPONSLOTS];
+	/*0x2a4*/ s32 equipextrascorestimer60;
+	/*0x2a8*/ s32 equipextrascores[NUM_MPWEAPONSLOTS];
 	/*0x2c0*/ s32 dampensuicidesttl60;
-
-	/**
-	 * Some kind of cloak counter? Ticks up while cloaked. Over 1 causes RCP120
-	 * ammo to be removed, and when this happens this value is decreased.
-	 */
-	/*0x2c4*/ f32 unk2c4;
+	/*0x2c4*/ f32 rcpcloaktimer60;
 
 	/**
 	 * 120 when target is in sight
@@ -833,8 +818,8 @@ struct aibot {
 	/*0x2cc*/ s32 random2ttl60;
 	/*0x2d0*/ u32 random2;
 	/*0x2d4*/ f32 randomfrac;
-	/*0x2d8*/ u32 unk2d8;
-	/*0x2dc*/ u32 unk2dc;
+	/*0x2d8*/ u32 unk2d8; // unused
+	/*0x2dc*/ u32 unk2dc; // unused
 };
 
 struct geo {

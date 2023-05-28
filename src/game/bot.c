@@ -133,7 +133,7 @@ void botReset(struct chrdata *chr, u8 respawning)
 			aibot->burstsdone[0] = 0;
 			aibot->burstsdone[1] = 0;
 			aibot->skrocket = NULL;
-			aibot->unk0a0 = 0;
+			aibot->htbheldtimer60 = 0;
 			aibot->hasbriefcase = false;
 			aibot->hascase = false;
 			aibot->cloakdeviceenabled = false;
@@ -141,8 +141,8 @@ void botReset(struct chrdata *chr, u8 respawning)
 			aibot->unk04c_04 = false;
 			aibot->unk04c_03 = false;
 			aibot->hasuplink = false;
-			aibot->unk064 = 0;
-			aibot->unk04c_00 = false;
+			aibot->flags = 0;
+			aibot->inhill = false;
 			aibot->hillpadnum = -1;
 			aibot->hillcovernum = -1;
 			aibot->lastknownhill = -1;
@@ -163,8 +163,8 @@ void botReset(struct chrdata *chr, u8 respawning)
 			aibot->targetinsight = 0;
 			aibot->queryplayernum = 0;
 			aibot->unk040 = 0;
-			aibot->unk06c = 0;
-			aibot->unk070 = 0;
+			aibot->speedmultforwards = 0;
+			aibot->speedmultsideways = 0;
 			aibot->maulercharge[1] = 0;
 			aibot->maulercharge[0] = 0;
 			aibot->shotspeed.x = 0;
@@ -180,22 +180,21 @@ void botReset(struct chrdata *chr, u8 respawning)
 			}
 
 			aibot->waypoints[0] = NULL;
-			aibot->unk208 = 0;
+			aibot->numwaystepstotarget = 0;
 			aibot->random1 = random();
 			aibot->random1ttl60 = 0;
 			aibot->targetcloaktimer60 = 0;
 			aibot->canseecloaked = 0;
+			aibot->rcpcloaktimer60 = 0;
 			aibot->random2ttl60 = 0;
-			aibot->unk2c4 = 0;
-
 			aibot->random2 = random();
 			aibot->randomfrac = RANDOMFRAC();
 			aibot->cheap = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
-			aibot->unk078 = 0;
-			aibot->unk050 = 0;
-			aibot->unk09d = 0;
+			aibot->forceslowupdates = 0;
+			aibot->distoverrideprop = NULL;
+			aibot->distoverridetimer60 = 0;
 #endif
 		}
 
@@ -204,15 +203,20 @@ void botReset(struct chrdata *chr, u8 respawning)
 		}
 
 		if (aibot->config->difficulty == BOTDIFF_DARK) {
-			aibot->unk064 &= ~1;
+			// @bug: This is unsetting the UNLIMITEDAMMO flag rather than setting it.
+			// It could have been intentional - they could have experimented with
+			// darksims having unlimited ammo during development before disabling
+			// the feature - but then it would make more sense to remove the flag
+			// rather than invert it.
+			aibot->flags &= ~BOTFLAG_UNLIMITEDAMMO;
 
 			if (mpHasShield()) {
 				chr->cshield = 8;
 			}
 		}
 
-		aibot->unk059 = 1;
-		aibot->unk058 = TICKS(120);
+		aibot->respawning = true;
+		aibot->fadeintimer60 = TICKS(120);
 	}
 }
 
@@ -245,12 +249,12 @@ void botSpawn(struct chrdata *chr, u8 respawning)
 		thing = scenarioChooseSpawnLocation(chr->radius, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_WARPONSCREEN;
 		chrMoveToPos(chr, &pos, rooms, thing, true);
-		chr->aibot->unk0a4 = modelGetChrRotY(chr->model);
+		chr->aibot->roty = modelGetChrRotY(chr->model);
 		chr->aibot->angleoffset = 0;
 		chr->aibot->speedtheta = 0;
-		chr->aibot->unk0b0 = modelGetChrRotY(chr->model);
-		chr->aibot->unk0b4 = 0;
-		chr->aibot->unk0b8 = 0;
+		chr->aibot->lookangle = modelGetChrRotY(chr->model);
+		chr->aibot->moveratex = 0;
+		chr->aibot->moveratey = 0;
 		func0f02e9a0(chr, 0);
 	}
 }
@@ -730,16 +734,16 @@ bool botApplyMovement(struct chrdata *chr)
 
 	aibot = chr->aibot;
 
-	angle = chrGetInverseTheta(chr) - func0f03e578(chr);
+	angle = chrGetInverseTheta(chr) - chrGetRotY(chr);
 
 	if (angle < 0) {
 		angle += M_BADTAU;
 	}
 
-	speedforwards = aibot->unk06c * cosf(angle) - sinf(angle) * aibot->unk070;
-	speedsideways = aibot->unk06c * sinf(angle) + cosf(angle) * aibot->unk070;
+	speedforwards = aibot->speedmultforwards * cosf(angle) - sinf(angle) * aibot->speedmultsideways;
+	speedsideways = aibot->speedmultforwards * sinf(angle) + cosf(angle) * aibot->speedmultsideways;
 
-	playerChooseThirdPersonAnimation(chr, botGuessCrouchPos(chr), speedsideways, speedforwards, aibot->speedtheta, &aibot->angleoffset, &aibot->unk068);
+	playerChooseThirdPersonAnimation(chr, botGuessCrouchPos(chr), speedsideways, speedforwards, aibot->speedtheta, &aibot->angleoffset, &aibot->attackanimconfig);
 
 	angle2 = chrGetInverseTheta(chr) - aibot->angleoffset;
 
@@ -807,11 +811,12 @@ bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
 				}
 
 				if (chr->aibot->config->difficulty == BOTDIFF_NORMAL) {
-					if (chr->aibot->unk208 > 0 && chr->aibot->unk208 < 4) {
+					if (chr->aibot->numwaystepstotarget > 0 && chr->aibot->numwaystepstotarget < 4) {
 						result = true;
 					}
 				} else {
-					if (chr->aibot->unk208 > 0 && chr->aibot->unk208 < 5) {
+					// Higher than BOTDIFF_NORMAL
+					if (chr->aibot->numwaystepstotarget > 0 && chr->aibot->numwaystepstotarget < 5) {
 						result = true;
 					}
 				}
@@ -821,7 +826,7 @@ bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
 		if (!arg1
 				&& (chr->aibot->config->difficulty == BOTDIFF_MEAT || chr->aibot->config->difficulty == BOTDIFF_EASY)
 				&& !chrGoPosIsWaiting(chr)) {
-			f32 tmp = func0f03e578(chr);
+			f32 tmp = chrGetRotY(chr);
 			f32 angle = atan2f(target->pos.x - chr->prop->pos.x, target->pos.z - chr->prop->pos.z) - tmp;
 
 			if (angle < 0) {
@@ -900,22 +905,22 @@ s32 botTick(struct prop *prop)
 			} else if (botIsAboutToAttack(chr, false)) {
 				struct prop *target = chrGetTargetProp(chr);
 				targetangle = chrGetAngleToPos(chr, &target->pos);
-				targetangle = oldangle + targetangle + aibot->unk1c0;
+				targetangle = oldangle + targetangle + aibot->extraangle;
 			} else if (chr->myaction == MA_AIBOTDOWNLOAD && g_ScenarioData.htm.dlterminalnum != -1) {
 				targetangle = chrGetAngleToPos(chr, &g_ScenarioData.htm.terminals[g_ScenarioData.htm.dlterminalnum].prop->pos);
 				targetangle = oldangle + targetangle;
 			} else if (chr->myaction == MA_AIBOTFOLLOW
 					&& aibot->followingplayernum >= 0
 					&& aibot->chrdistances[aibot->followingplayernum] < 300
-					&& aibot->unk1e4 >= g_Vars.lvframe60 - TICKS(60)
+					&& aibot->realignangleframe >= g_Vars.lvframe60 - TICKS(60)
 					&& aibot->config->difficulty != BOTDIFF_MEAT) {
 				targetangle = chrGetInverseTheta(g_MpAllChrPtrs[aibot->followingplayernum]);
 			} else if (chr->myaction == MA_AIBOTDEFEND
-					&& aibot->unk1e4 >= g_Vars.lvframe60 - TICKS(60)
+					&& aibot->realignangleframe >= g_Vars.lvframe60 - TICKS(60)
 					&& aibot->config->difficulty != BOTDIFF_MEAT) {
-				targetangle = aibot->unk098;
+				targetangle = aibot->defendholdrot;
 			} else {
-				targetangle = func0f03e578(chr);
+				targetangle = chrGetRotY(chr);
 			}
 
 			while (targetangle >= M_BADTAU) {
@@ -994,25 +999,25 @@ s32 botTick(struct prop *prop)
 				bool left = chr->weapons_held[HAND_LEFT] ? true : false;
 				bool right = (0, chr->weapons_held[HAND_RIGHT] ? true : false);
 
-				func0f03e9f4(chr, aibot->unk068, left, right, 0);
+				func0f03e9f4(chr, aibot->attackanimconfig, left, right, 0);
 			} else {
 				chrResetAimEndProperties(chr);
 			}
 
 			if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD) {
-				aibot->unk06c = 0;
-				aibot->unk070 = 0;
+				aibot->speedmultforwards = 0;
+				aibot->speedmultsideways = 0;
 			} else if (aibot->skrocket) {
-				aibot->unk06c = 0;
-				aibot->unk070 = 0;
-				aibot->unk1e4 = g_Vars.lvframe60;
+				aibot->speedmultforwards = 0;
+				aibot->speedmultsideways = 0;
+				aibot->realignangleframe = g_Vars.lvframe60;
 			} else if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_WAITING) == 0) {
-				aibot->unk06c = 1;
-				aibot->unk070 = 0;
+				aibot->speedmultforwards = 1;
+				aibot->speedmultsideways = 0;
 			} else {
-				aibot->unk06c = 0;
-				aibot->unk070 = 0;
-				aibot->unk1e4 = g_Vars.lvframe60;
+				aibot->speedmultforwards = 0;
+				aibot->speedmultsideways = 0;
+				aibot->realignangleframe = g_Vars.lvframe60;
 			}
 		}
 
@@ -1099,8 +1104,8 @@ void bot0f1921f8(struct chrdata *chr, f32 *move)
 	f32 sine;
 	u32 stack[4];
 	f32 sp30[2];
-	f32 fVar7;
-	f32 fVar8;
+	f32 speedsideways;
+	f32 speedforwards;
 	f32 speed;
 	f32 tmp;
 
@@ -1114,45 +1119,44 @@ void bot0f1921f8(struct chrdata *chr, f32 *move)
 		return;
 	}
 
-	fVar7 = chr->aibot->unk070;
-	fVar8 = chr->aibot->unk06c;
+	speedsideways = chr->aibot->speedmultsideways;
+	speedforwards = chr->aibot->speedmultforwards;
 
 	speed = botCalculateMaxSpeed(chr);
 
-	fVar7 *= speed;
-	fVar8 *= speed;
+	speedsideways *= speed;
+	speedforwards *= speed;
 
-	sp50 = func0f03e578(chr);
+	sp50 = chrGetRotY(chr);
 
 	cosine = cosf(sp50);
 	sine = sinf(sp50);
 
-	sp30[0] = fVar7 * cosine + fVar8 * sine;
-	sp30[1] = -fVar7 * sine + fVar8 * cosine;
+	sp30[0] = speedsideways * cosine + speedforwards * sine;
+	sp30[1] = -speedsideways * sine + speedforwards * cosine;
 
 	move[0] = 0;
 	move[1] = 0;
-
 
 #if VERSION >= VERSION_NTSC_1_0
 	tmp = (PAL ? 0.065f : 0.055000007152557f) * arg3 / numupdates;
 
 	for (i = 0; i < numupdates; i++) {
-		chr->aibot->unk0b4 = (PAL ? 0.935f : 0.945f) * chr->aibot->unk0b4 + sp30[0];
-		chr->aibot->unk0b8 = (PAL ? 0.935f : 0.945f) * chr->aibot->unk0b8 + sp30[1];
+		chr->aibot->moveratex = (PAL ? 0.935f : 0.945f) * chr->aibot->moveratex + sp30[0];
+		chr->aibot->moveratey = (PAL ? 0.935f : 0.945f) * chr->aibot->moveratey + sp30[1];
 
-		move[0] += chr->aibot->unk0b4 * tmp;
-		move[1] += chr->aibot->unk0b8 * tmp;
+		move[0] += chr->aibot->moveratex * tmp;
+		move[1] += chr->aibot->moveratey * tmp;
 	}
 #else
 	tmp = (PAL ? 0.065f : 0.055000007152557f) * g_Vars.lvupdate60freal / g_Vars.lvupdate240;
 
 	for (i = 0; i < g_Vars.lvupdate240; i++) {
-		chr->aibot->unk0b4 = (PAL ? 0.935f : 0.945f) * chr->aibot->unk0b4 + sp30[0];
-		chr->aibot->unk0b8 = (PAL ? 0.935f : 0.945f) * chr->aibot->unk0b8 + sp30[1];
+		chr->aibot->moveratex = (PAL ? 0.935f : 0.945f) * chr->aibot->moveratex + sp30[0];
+		chr->aibot->moveratey = (PAL ? 0.935f : 0.945f) * chr->aibot->moveratey + sp30[1];
 
-		move[0] += chr->aibot->unk0b4 * tmp;
-		move[1] += chr->aibot->unk0b8 * tmp;
+		move[0] += chr->aibot->moveratex * tmp;
+		move[1] += chr->aibot->moveratey * tmp;
 	}
 #endif
 }
@@ -1204,25 +1208,25 @@ void botApplyProtect(struct chrdata *chr, struct prop *prop)
 	chr->aibot->forcemainloop = true;
 }
 
-void botApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
+void botApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle)
 {
 	chr->aibot->command = AIBOTCMD_DEFEND;
 	chr->aibot->defendholdpos.x = pos->x;
 	chr->aibot->defendholdpos.y = pos->y;
 	chr->aibot->defendholdpos.z = pos->z;
 	roomsCopy(room, chr->aibot->defendholdrooms);
-	chr->aibot->unk098 = arg3;
+	chr->aibot->defendholdrot = angle;
 	chr->aibot->forcemainloop = true;
 }
 
-void botApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
+void botApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle)
 {
 	chr->aibot->command = AIBOTCMD_HOLD;
 	chr->aibot->defendholdpos.x = pos->x;
 	chr->aibot->defendholdpos.y = pos->y;
 	chr->aibot->defendholdpos.z = pos->z;
 	roomsCopy(room, chr->aibot->defendholdrooms);
-	chr->aibot->unk098 = arg3;
+	chr->aibot->defendholdrot = angle;
 	chr->aibot->forcemainloop = true;
 }
 
@@ -1308,7 +1312,7 @@ void botSetTarget(struct chrdata *botchr, s32 propnum)
 		botchr->target = propnum;
 		botchr->aibot->shootdelaytimer60 = 0;
 		botchr->aibot->waypoints[0] = NULL;
-		botchr->aibot->unk208 = 0;
+		botchr->aibot->numwaystepstotarget = 0;
 
 		if (botchr->aibot->targetinsight && otherchr) {
 			botchr->aibot->targetcloaktimer60 = TICKS(120);
@@ -1387,18 +1391,18 @@ void bot0f192a74(struct chrdata *chr)
 	f32 fVar11;
 	f32 tmp;
 
-	aibot->unk1cc -= g_Vars.lvupdate60;
+	aibot->random3ttl60 -= g_Vars.lvupdate60;
 
-	if (aibot->unk1cc <= 0) {
-		aibot->unk1d0 = random();
-		aibot->unk1cc = TICKS(20) + random() % TICKS(20);
+	if (aibot->random3ttl60 <= 0) {
+		aibot->random3 = random();
+		aibot->random3ttl60 = TICKS(20) + random() % TICKS(20);
 	}
 
 	if (g_Vars.lvupdate240 > 0) {
 		if (aibot->targetinsight) {
-			aibot->unk1d4 += g_Vars.diffframe60;
+			aibot->targetinsighttemperature += g_Vars.diffframe60;
 		} else {
-			aibot->unk1d4 -= g_Vars.diffframe60;
+			aibot->targetinsighttemperature -= g_Vars.diffframe60;
 		}
 
 		tmp = g_BotDifficulties[diff].unk10 * (aibot->speedtheta * g_Vars.lvupdate60f);
@@ -1407,23 +1411,23 @@ void bot0f192a74(struct chrdata *chr)
 			tmp = -tmp;
 		}
 
-		aibot->unk1d4 -= tmp;
+		aibot->targetinsighttemperature -= tmp;
 	}
 
-	if (aibot->unk1d4 > aibot->shootdelaytimer60) {
-		aibot->unk1d4 = aibot->shootdelaytimer60;
+	if (aibot->targetinsighttemperature > aibot->shootdelaytimer60) {
+		aibot->targetinsighttemperature = aibot->shootdelaytimer60;
 	}
 
-	if (aibot->unk1d4 < 0) {
-		aibot->unk1d4 = 0;
+	if (aibot->targetinsighttemperature < 0) {
+		aibot->targetinsighttemperature = 0;
 	}
 
-	if (aibot->unk1d4 >= g_BotDifficulties[diff].unk0c) {
-		aibot->unk1d4 = g_BotDifficulties[diff].unk0c;
+	if (aibot->targetinsighttemperature >= g_BotDifficulties[diff].unk0c) {
+		aibot->targetinsighttemperature = g_BotDifficulties[diff].unk0c;
 		fVar12 = 0;
 		fVar11 = 0;
 	} else {
-		tmp = (g_BotDifficulties[diff].unk0c - aibot->unk1d4) / g_BotDifficulties[diff].unk0c;
+		tmp = (g_BotDifficulties[diff].unk0c - aibot->targetinsighttemperature) / g_BotDifficulties[diff].unk0c;
 		fVar12 = g_BotDifficulties[diff].unk04 * tmp;
 		fVar11 = g_BotDifficulties[diff].unk08 * tmp;
 	}
@@ -1442,17 +1446,17 @@ void bot0f192a74(struct chrdata *chr)
 		fVar11 = g_BotDifficulties[diff].unk18;
 	}
 
-	aibot->unk1c8 = (fVar11 - fVar12) * (aibot->unk1d0 & 0xffff) * 0.000015259021893144f + fVar12;
+	aibot->extraanglebase = (fVar11 - fVar12) * (aibot->random3 & 0xffff) * 0.000015259021893144f + fVar12;
 
-	if (aibot->unk1d0 & 0x10000) {
-		aibot->unk1c8 = -aibot->unk1c8;
+	if (aibot->random3 & 0x10000) {
+		aibot->extraanglebase = -aibot->extraanglebase;
 	}
 
 	for (i = 0; i < g_Vars.lvupdate240; i++) {
-		aibot->unk1c4 = aibot->unk1c4 * (PAL ? 0.97f : 0.97500002384186f) + aibot->unk1c8;
+		aibot->extraanglerate = aibot->extraanglerate * (PAL ? 0.97f : 0.97500002384186f) + aibot->extraanglebase;
 	}
 
-	aibot->unk1c0 = aibot->unk1c4 * (PAL ? 0.029999971389771f : 0.024999976158142f);
+	aibot->extraangle = aibot->extraanglerate * (PAL ? 0.029999971389771f : 0.024999976158142f);
 }
 
 /**
@@ -2763,7 +2767,7 @@ void botTickUnpaused(struct chrdata *chr)
 							aibot->gotopos.y = token->pos.y;
 							aibot->gotopos.z = token->pos.z;
 							roomsCopy(token->rooms, aibot->gotorooms);
-							aibot->unk04c_00 = false;
+							aibot->inhill = false;
 						}
 					}
 				} else if (aibot->command == AIBOTCMD_DEFHILL) {
@@ -2791,7 +2795,7 @@ void botTickUnpaused(struct chrdata *chr)
 								aibot->gotopos.y = posinhill.y;
 								aibot->gotopos.z = posinhill.z;
 								roomsCopy(g_ScenarioData.koh.hillrooms, aibot->gotorooms);
-								aibot->unk04c_00 = (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) != 0;
+								aibot->inhill = (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) != 0;
 								aibot->hillpadnum = padnuminhill;
 								aibot->hillcovernum = covernuminhill;
 								aibot->lastknownhill = g_ScenarioData.koh.hillrooms[0];
@@ -2813,7 +2817,7 @@ void botTickUnpaused(struct chrdata *chr)
 							aibot->gotopos.y = posinhill.y;
 							aibot->gotopos.z = posinhill.z;
 							roomsCopy(g_ScenarioData.koh.hillrooms, aibot->gotorooms);
-							aibot->unk04c_00 = (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) != 0;
+							aibot->inhill = (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) != 0;
 							aibot->hillpadnum = padnuminhill;
 							aibot->hillcovernum = covernuminhill;
 							aibot->lastknownhill = g_ScenarioData.koh.hillrooms[0];
@@ -2958,7 +2962,7 @@ void botTickUnpaused(struct chrdata *chr)
 						aibot->gotopos.z = pad.pos.z;
 						aibot->gotorooms[0] = pad.room;
 						aibot->gotorooms[1] = -1;
-						aibot->unk04c_00 = false;
+						aibot->inhill = false;
 					}
 				} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
 					// If the bot has the uplink, go to the terminal
@@ -3253,10 +3257,10 @@ void botTickUnpaused(struct chrdata *chr)
 				chr->myaction = MA_AIBOTMAINLOOP;
 			}
 		} else if (chr->myaction == MA_AIBOTGOTOPOS) {
-			if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL && aibot->unk04c_00) {
+			if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL && aibot->inhill) {
 				if (aibot->lastknownhill != g_ScenarioData.koh.hillrooms[0]) {
 					// Someone scored the hill
-					aibot->unk04c_00 = false;
+					aibot->inhill = false;
 				} else if (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
 					// empty
 				} else if (aibot->hillpadnum >= 0) {
@@ -3303,7 +3307,7 @@ void botTickUnpaused(struct chrdata *chr)
 			if (first && last) {
 				s32 hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
 				waypointSetHashThing(hash, hash);
-				aibot->unk208 = waypointFindRoute(last, first, aibot->waypoints, ARRAYCOUNT(aibot->waypoints));
+				aibot->numwaystepstotarget = waypointFindRoute(last, first, aibot->waypoints, ARRAYCOUNT(aibot->waypoints));
 				waypointSetHashThing(0, 0);
 			}
 		}
@@ -3475,7 +3479,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 										chrUncloakTemporarily(chr);
 										botactTryRemoveAmmoFromReserve(aibot, aibot->weaponnum, aibot->gunfunc, 1);
-										botact0f19a37c(chr);
+										botactThrow(chr);
 
 										func = weaponGetFunctionById(aibot->weaponnum, aibot->gunfunc);
 

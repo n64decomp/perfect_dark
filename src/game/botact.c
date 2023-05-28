@@ -83,7 +83,7 @@ s32 botactGetAmmoQuantityByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnu
 	s32 equippedammotype;
 
 	if (aibot) {
-		if (aibot->unk064 & 1) {
+		if (aibot->flags & BOTFLAG_UNLIMITEDAMMO) {
 			ammotype = botactGetAmmoTypeByFunction(weaponnum, funcnum);
 			qty = bgunGetCapacityByAmmotype(ammotype);
 		} else {
@@ -109,7 +109,7 @@ s32 botactGetAmmoQuantityByType(struct aibot *aibot, s32 ammotype, bool include_
 	s32 qty = 0;
 
 	if (aibot) {
-		if (aibot->unk064 & 1) {
+		if (aibot->flags & BOTFLAG_UNLIMITEDAMMO) {
 			qty = bgunGetCapacityByAmmotype(ammotype);
 		} else {
 			qty = aibot->ammoheld[ammotype];
@@ -140,7 +140,7 @@ s32 botactTryRemoveAmmoFromReserve(struct aibot *aibot, s32 weaponnum, s32 funcn
 		return 0;
 	}
 
-	if (aibot->unk064 & 1) {
+	if (aibot->flags & BOTFLAG_UNLIMITEDAMMO) {
 		return tryqty;
 	}
 
@@ -167,7 +167,7 @@ void botactGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32
 	s32 max;
 	s32 *heldquantity = &aibot->ammoheld[botactGetAmmoTypeByFunction(weaponnum, funcnum)];
 
-	if (aibot && (aibot->unk064 & 1) == 0 && qty > 0) {
+	if (aibot && (aibot->flags & BOTFLAG_UNLIMITEDAMMO) == 0 && qty > 0) {
 		dprint();
 		*heldquantity += qty;
 
@@ -188,7 +188,7 @@ void botactGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity)
 	s32 max;
 	s32 *heldquantity = &aibot->ammoheld[ammotype];
 
-	if (!aibot || (aibot->unk064 & 1) || quantity <= 0) {
+	if (!aibot || (aibot->flags & BOTFLAG_UNLIMITEDAMMO) || quantity <= 0) {
 		return;
 	}
 
@@ -336,7 +336,7 @@ s32 botactGetWeaponByAmmoType(s32 ammotype)
 	return 0;
 }
 
-void botact0f19a37c(struct chrdata *chr)
+void botactThrow(struct chrdata *chr)
 {
 	struct coord sp228 = {0, 0, 0};
 	Mtxf sp164;
@@ -399,7 +399,7 @@ void botact0f19a37c(struct chrdata *chr)
 	bgunCreateThrownProjectile2(chr, &gset, &prop->pos, prop->rooms, &sp164, &sp228);
 
 	if (gset.weaponnum == WEAPON_REMOTEMINE) {
-		chr->aibot->unk064 |= 0x1000;
+		chr->aibot->flags |= BOTFLAG_THREWREMOTEMINE;
 	}
 }
 

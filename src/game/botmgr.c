@@ -134,7 +134,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					}
 
 					aibot->aibotnum = aibotnum;
-					aibot->unk064 = 0;
+					aibot->flags = 0;
 					aibot->gotoprop = NULL;
 					aibot->timeuntilreload60[0] = 0;
 					aibot->timeuntilreload60[1] = 0;
@@ -142,8 +142,8 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->unk040 = 0.0f;
 					aibot->loadedammo[0] = 0;
 					aibot->loadedammo[1] = 0;
-					aibot->unk058 = 0;
-					aibot->unk059 = 0;
+					aibot->fadeintimer60 = 0;
+					aibot->respawning = false;
 					aibot->nextbullettimer60[0] = 0;
 					aibot->nextbullettimer60[1] = 0;
 #if VERSION < VERSION_PAL_BETA
@@ -155,15 +155,15 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->attackingplayernum = -1;
 					aibot->followingplayernum = -1;
 					aibot->dangerouspropnum = -1;
-					aibot->unk068 = 0;
-					aibot->unk06c = 0.0f;
-					aibot->unk070 = 0.0f;
+					aibot->attackanimconfig = NULL;
+					aibot->speedmultforwards = 0.0f;
+					aibot->speedmultsideways = 0.0f;
 					aibot->distmode = -1;
 					aibot->lastkilledbyplayernum = -1;
 					aibot->feudplayernum = -1;
 					aibot->command = AIBOTCMD_NORMAL;
-					aibot->unk098 = 0.0f;
 
+					aibot->defendholdrot = 0.0f;
 					aibot->defendholdpos.x = pos.x;
 					aibot->defendholdpos.y = pos.y;
 					aibot->defendholdpos.z = pos.z;
@@ -173,7 +173,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->burstsdone[0] = 0;
 					aibot->burstsdone[1] = 0;
 					aibot->skrocket = NULL;
-					aibot->unk0a0 = 0;
+					aibot->htbheldtimer60 = 0;
 
 					aibot->gunfunc = FUNC_PRIMARY;
 					aibot->ismeleeweapon = true;
@@ -185,7 +185,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->unk04c_04 = false;
 					aibot->unk04c_03 = false;
 					aibot->hasuplink = false;
-					aibot->unk04c_00 = false;
+					aibot->inhill = false;
 
 					aibot->hillpadnum = -1;
 					aibot->hillcovernum = -1;
@@ -201,13 +201,13 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->reaperspeed[HAND_RIGHT] = 0;
 					aibot->maulercharge[HAND_LEFT] = 0.0f;
 					aibot->maulercharge[HAND_RIGHT] = 0.0f;
-					aibot->unk0a4 = modelGetChrRotY(chr->model);
+					aibot->roty = modelGetChrRotY(chr->model);
 					aibot->angleoffset = 0.0f;
 					aibot->speedtheta = 0.0f;
-					aibot->unk0b0 = modelGetChrRotY(chr->model);
+					aibot->lookangle = modelGetChrRotY(chr->model);
 
-					aibot->unk0b4 = 0.0f;
-					aibot->unk0b8 = 0.0f;
+					aibot->moveratex = 0.0f;
+					aibot->moveratey = 0.0f;
 					aibot->shotspeed.x = 0.0f;
 					aibot->shotspeed.y = 0.0f;
 					aibot->shotspeed.z = 0.0f;
@@ -226,15 +226,15 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 						aibot->chrrooms[i] = -1;
 					}
 
-					aibot->unk1c0 = 0.0f;
-					aibot->unk1c4 = 0.0f;
-					aibot->unk1c8 = 0.0f;
-					aibot->unk1cc = -1;
-					aibot->unk1d0 = 0;
-					aibot->unk1d4 = 0.0f;
-					aibot->unk1e4 = -1;
+					aibot->extraangle = 0.0f;
+					aibot->extraanglerate = 0.0f;
+					aibot->extraanglebase = 0.0f;
+					aibot->random3ttl60 = -1;
+					aibot->random3 = 0;
+					aibot->targetinsighttemperature = 0.0f;
+					aibot->realignangleframe = -1;
 					aibot->waypoints[0] = NULL;
-					aibot->unk208 = 0;
+					aibot->numwaystepstotarget = 0;
 					aibot->random1 = random();
 					aibot->random1ttl60 = 0;
 
@@ -248,12 +248,12 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 						aibot->equipdurations60[i][0] = 0;
 						aibot->equipdurations60[i][1] = 0;
 
-						aibot->unk2a8[i] = 0;
+						aibot->equipextrascores[i] = 0;
 					}
 
-					aibot->unk2a4 = 0;
+					aibot->equipextrascorestimer60 = 0;
 					aibot->dampensuicidesttl60 = 0;
-					aibot->unk2c4 = 0.0f;
+					aibot->rcpcloaktimer60 = 0.0f;
 					aibot->targetcloaktimer60 = 0;
 					aibot->canseecloaked = false;
 
@@ -262,9 +262,9 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->randomfrac = RANDOMFRAC();
 					aibot->cheap = false;
 #if VERSION >= VERSION_NTSC_1_0
-					aibot->unk078 = 0;
-					aibot->unk050 = 0;
-					aibot->unk09d = 0;
+					aibot->forceslowupdates = 0;
+					aibot->distoverrideprop = NULL;
+					aibot->distoverridetimer60 = 0;
 #endif
 				} else {
 					g_MpBotChrPtrs[--g_BotCount] = NULL;

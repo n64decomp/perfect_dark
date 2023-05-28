@@ -797,7 +797,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 				extra = 30;
 			}
 
-			extra += chr->aibot->unk2a8[weaponindex];
+			extra += chr->aibot->equipextrascores[weaponindex];
 
 			score1 += extra;
 			score2 += extra;
@@ -901,19 +901,19 @@ void botinvTick(struct chrdata *chr)
 		}
 	}
 
-	// Every 10-60 seconds, generate new unk2a8 values
-	aibot->unk2a4 -= g_Vars.lvupdate60;
+	// Every 10-60 seconds, generate new equipextrascores
+	aibot->equipextrascorestimer60 -= g_Vars.lvupdate60;
 
-	if (aibot->unk2a4 < 0) {
-		aibot->unk2a4 = TICKS(600) + random() % TICKS(3000);
+	if (aibot->equipextrascorestimer60 < 0) {
+		aibot->equipextrascorestimer60 = TICKS(600) + random() % TICKS(3000);
 
-		for (i = 0; i < ARRAYCOUNT(aibot->unk2a8); i++) {
+		for (i = 0; i < ARRAYCOUNT(aibot->equipextrascores); i++) {
 			if (aibot->config->difficulty == BOTDIFF_MEAT) {
-				aibot->unk2a8[i] = random() % 200 - 100; // -100 to +100
+				aibot->equipextrascores[i] = random() % 200 - 100; // -100 to +100
 			} else if (aibot->config->difficulty == BOTDIFF_EASY) {
-				aibot->unk2a8[i] = random() % 100 - 50; // -50 to +50
+				aibot->equipextrascores[i] = random() % 100 - 50; // -50 to +50
 			} else {
-				aibot->unk2a8[i] = random() % 30 - 15; // -15 to +15
+				aibot->equipextrascores[i] = random() % 30 - 15; // -15 to +15
 			}
 		}
 	}

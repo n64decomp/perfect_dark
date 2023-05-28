@@ -6076,7 +6076,7 @@ u8 func0028_aibot_dead[] = {
 	dprint 'l','i','s','t',':',' ','a','i','d','e','a','d',0,
 
 	beginloop(0x0d)
-		cmd0176_if_something(/*goto*/ 0x16)
+		if_bot_respawning(/*goto*/ 0x16)
 	endloop(0x0d)
 
 	label(0x16)

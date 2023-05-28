@@ -8832,7 +8832,7 @@ void chrUpdateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool wi
 f32 chrGetInverseTheta(struct chrdata *chr)
 {
 	if (chr->aibot) {
-		return chr->aibot->unk0b0;
+		return chr->aibot->lookangle;
 	}
 
 	if (chr->model == NULL && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -8854,27 +8854,27 @@ f32 chrGetInverseTheta(struct chrdata *chr)
 void chrSetLookAngle(struct chrdata *chr, f32 angle)
 {
 	if (chr->aibot) {
-		chr->aibot->unk0b0 = angle;
+		chr->aibot->lookangle = angle;
 	} else {
 		modelSetChrRotY(chr->model, angle);
 	}
 }
 
-f32 func0f03e578(struct chrdata *chr)
+f32 chrGetRotY(struct chrdata *chr)
 {
 	if (chr->aibot) {
-		return chr->aibot->unk0a4;
+		return chr->aibot->roty;
+	} else {
+		return modelGetChrRotY(chr->model);
 	}
-
-	return modelGetChrRotY(chr->model);
 }
 
-void func0f03e5b0(struct chrdata *chr, f32 arg1)
+void chrSetRotY(struct chrdata *chr, f32 roty)
 {
 	if (chr->aibot) {
-		chr->aibot->unk0a4 = arg1;
+		chr->aibot->roty = roty;
 	} else {
-		modelSetChrRotY(chr->model, arg1);
+		modelSetChrRotY(chr->model, roty);
 	}
 }
 
@@ -8890,7 +8890,7 @@ f32 chrGetAimAngle(struct chrdata *chr)
 	}
 
 	if (chr->aibot) {
-		if (chr->aibot->unk068) {
+		if (chr->aibot->attackanimconfig) {
 			// empty
 		}
 	} else if (chr->actiontype == ACT_ATTACK
@@ -11364,7 +11364,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 				chr->runfrompos.z = g_DangerousProps[i]->pos.z;
 
 				if (chr->aibot) {
-					chr->aibot->unk064 |= 0x0004;
+					chr->aibot->flags |= BOTFLAG_AVOIDINGDANGEROUSPROP;
 					chr->aibot->dangerouspropnum = i;
 				}
 
@@ -11374,7 +11374,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 	}
 
 	if (chr->aibot) {
-		chr->aibot->unk064 &= ~0x0004;
+		chr->aibot->flags &= ~BOTFLAG_AVOIDINGDANGEROUSPROP;
 		chr->aibot->dangerouspropnum = -1;
 	}
 
@@ -11402,7 +11402,7 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 
 	result = false;
 	angle1 = atan2f(xdiff, zdiff);
-	finalangle = func0f03e578(chr);
+	finalangle = chrGetRotY(chr);
 	angle2 = angle1 - finalangle;
 
 	if (finalangle > angle1) {
@@ -11466,7 +11466,7 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 		}
 	}
 
-	func0f03e5b0(chr, finalangle);
+	chrSetRotY(chr, finalangle);
 
 	return result;
 }

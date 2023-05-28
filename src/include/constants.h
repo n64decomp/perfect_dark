@@ -384,6 +384,10 @@
 #define BOTDISTMODE_ADVANCE 3
 #define BOTDISTMODE_GOTO    4
 
+#define BOTFLAG_UNLIMITEDAMMO         0x0001
+#define BOTFLAG_AVOIDINGDANGEROUSPROP 0x0004
+#define BOTFLAG_THREWREMOTEMINE       0x1000
+
 #define BOTTYPE_GENERAL 0
 #define BOTTYPE_PEACE   1  // Collects weapons but doesn't engage in combat
 #define BOTTYPE_SHIELD  2  // Prioritises full shield before combat

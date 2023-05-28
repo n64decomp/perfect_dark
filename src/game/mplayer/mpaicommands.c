@@ -19,7 +19,7 @@ bool aiMpInitSimulants(void)
 /**
  * @cmd 0176
  */
-bool ai0176(void)
+bool aiIfBotRespawning(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct aibot *aibot;
@@ -35,9 +35,9 @@ bool ai0176(void)
 
 	aibot = g_Vars.chrdata->aibot;
 
-	if (aibot->unk059 == 1) {
+	if (aibot->respawning == true) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
-		aibot->unk059 = 0;
+		aibot->respawning = false;
 	} else {
 		g_Vars.aioffset += 3;
 	}

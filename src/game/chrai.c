@@ -385,7 +385,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0173*/ aiChrCopyProperties,
 	/*0x0174*/ aiIfCutsceneButtonPressed,
 	/*0x0175*/ ai0175,
-	/*0x0176*/ ai0176,
+	/*0x0176*/ aiIfBotRespawning,
 	/*0x0177*/ aiPlayerAutoWalk,
 	/*0x0178*/ aiIfPlayerAutoWalkFinished,
 	/*0x0179*/ ai0179,

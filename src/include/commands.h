@@ -3408,7 +3408,7 @@
 /**
  *
  */
-#define cmd0176_if_something(label) \
+#define if_bot_respawning(label) \
 	mkshort(0x0176), \
 	label,
 
