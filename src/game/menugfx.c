@@ -252,15 +252,15 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
 	gdl = text0f153838(gdl);
 
 	if (dialog->transitionfrac < 0.0f) {
-		leftcolour = g_MenuColourPalettes[dialog->type].unk00;
+		leftcolour = g_MenuColours[dialog->type].dialog_border1;
 	} else {
-		leftcolour = colourBlend(g_MenuColourPalettes[dialog->type2].unk00, g_MenuColourPalettes[dialog->type].unk00, dialog->colourweight);
+		leftcolour = colourBlend(g_MenuColours[dialog->type2].dialog_border1, g_MenuColours[dialog->type].dialog_border1, dialog->colourweight);
 	}
 
 	if (dialog->transitionfrac < 0.0f) {
-		rightcolour = g_MenuColourPalettes[dialog->type].unk08;
+		rightcolour = g_MenuColours[dialog->type].dialog_border2;
 	} else {
-		rightcolour = colourBlend(g_MenuColourPalettes[dialog->type2].unk08, g_MenuColourPalettes[dialog->type].unk08, dialog->colourweight);
+		rightcolour = colourBlend(g_MenuColours[dialog->type2].dialog_border2, g_MenuColours[dialog->type].dialog_border2, dialog->colourweight);
 	}
 
 	// Right, left, bottom border

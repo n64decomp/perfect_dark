@@ -4,9 +4,9 @@
 #include "data.h"
 #include "types.h"
 
-extern const struct menucolourpalette g_MenuColourPalettes[];
-extern const struct menucolourpalette g_MenuColourPalettes2[];
-extern const struct menucolourpalette g_MenuColourPalettes3[];
+extern const struct menucolourpalette g_MenuColours[];
+extern const struct menucolourpalette g_MenuWave1Colours[];
+extern const struct menucolourpalette g_MenuWave2Colours[];
 
 void menuTick(void);
 

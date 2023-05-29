@@ -162,7 +162,7 @@ Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16
 	s32 y;
 	u32 colour;
 
-	colour = MIXCOLOUR(dialog, unk2c);
+	colour = MIXCOLOUR(dialog, listgroup_headerbg);
 
 	if (dialog->dimmed) {
 		colour = (colourBlend(colour, 0, 0x2c) & 0xffffff00) | (colour & 0xff);
@@ -179,13 +179,13 @@ Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16
 	x = x1 + 3;
 	y = y1 + 2;
 
-	colour = MIXCOLOUR(dialog, unk30);
+	colour = MIXCOLOUR(dialog, listgroup_headerfg);
 
 	if (dialog->dimmed) {
 		colour = (colourBlend(colour, 0, 0x2c) & 0xffffff00) | (colour & 0xff);
 	}
 
-	textSetWaveColours(g_MenuColourPalettes3[dialog->type].unk30, g_MenuColourPalettes2[dialog->type].unk30);
+	textSetWaveColours(g_MenuWave2Colours[dialog->type].listgroup_headerfg, g_MenuWave1Colours[dialog->type].listgroup_headerfg);
 
 	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, width, height, 0, 0);
 
@@ -405,13 +405,13 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 
 		// Iterate the options to be drawn
 		while (!done2) {
-			colour = MIXCOLOUR(context->dialog, unfocused);
+			colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 			if (context->dialog->dimmed) {
 				colour = (colourBlend(colour, 0x00000000, 127) & 0xffffff00) | (colour & 0xff);
 			}
 
-			textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
+			textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
 			if (optionindex == nextgroupstartindex) {
 				// Draw a group header. Note that optionindex is not incremented
@@ -456,7 +456,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 						u32 spb0;
 						u32 weight = menuGetSinOscFrac(40.0f) * 255.0f;
 
-						spb0 = MIXCOLOUR(context->dialog, focused);
+						spb0 = MIXCOLOUR(context->dialog, item_focused_inner);
 						colour = colourBlend(colour, colour & 0xff, 127);
 						colour = colourBlend(colour, spb0, weight);
 
@@ -640,7 +640,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 		gdl = menuApplyScissor(gdl);
 	} else {
 		// The list has no options in it
-		colour = MIXCOLOUR(context->dialog, unfocused);
+		colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 		if (context->dialog->dimmed) {
 			colour = (colourBlend(colour, 0x00000000, 0x0000007f) & 0xffffff00) | (colour & 0xff);
@@ -845,7 +845,7 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 	y = context->y;
 	text = menuResolveParam2Text(context->item);
 
-	colour = MIXCOLOUR(context->dialog, unfocused);
+	colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 	if (context->dialog->dimmed) {
 		colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
@@ -855,32 +855,32 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 		if ((context->focused & 2) != 0) {
 			u32 tmpcolour;
 			u32 weight = menuGetSinOscFrac(20) * 255.0f; \
-			tmpcolour = MIXCOLOUR(context->dialog, focused);
+			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
 			colour = colourBlend(colour, colour & 0xff, 0x7f);
 			colour = colourBlend(colour, tmpcolour, weight);
 		} else {
 			u32 tmpcolour;
 			u32 weight = menuGetSinOscFrac(40) * 255.0f; \
-			tmpcolour = MIXCOLOUR(context->dialog, focused);
+			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
 			colour = colourBlend(colour, colour & 0xff, 0x7f);
 			colour = colourBlend(colour, tmpcolour, weight);
 		}
 
-		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].focused, g_MenuColourPalettes2[context->dialog->type].focused);
+		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_focused_inner, g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	} else {
-		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
+		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
 	if (menuIsItemDisabled(context->item, context->dialog)) {
-		colour = MIXCOLOUR(context->dialog, disabled);
+		colour = MIXCOLOUR(context->dialog, item_disabled);
 
 		if (context->dialog->dimmed) {
 			colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 		}
 
-		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].disabled, g_MenuColourPalettes2[context->dialog->type].disabled);
+		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_disabled, g_MenuWave1Colours[context->dialog->type].item_disabled);
 	}
 
 	gdl = text0f153628(gdl);
@@ -1109,8 +1109,8 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 	label[2] = '\0';
 
 	textSetWaveColours(
-			g_MenuColourPalettes3[context->dialog->type].unfocused,
-			g_MenuColourPalettes2[context->dialog->type].unfocused);
+			g_MenuWave2Colours[context->dialog->type].item_unfocused,
+			g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
 	// Draw input field background
 	gdl = textSetPrimColour(gdl, 0x0000ff7f);
@@ -1141,11 +1141,11 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 	alpha = menuGetSinOscFrac(40) * 255;
 
 	if (context->dialog->transitionfrac < 0) {
-		cursorcolour = g_MenuColourPalettes[context->dialog->type].focused;
+		cursorcolour = g_MenuColours[context->dialog->type].item_focused_inner;
 	} else {
 		cursorcolour = colourBlend(
-				g_MenuColourPalettes[context->dialog->type2].focused,
-				g_MenuColourPalettes[context->dialog->type].focused,
+				g_MenuColours[context->dialog->type2].item_focused_inner,
+				g_MenuColours[context->dialog->type].item_focused_inner,
 				context->dialog->colourweight);
 	}
 
@@ -1183,11 +1183,11 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 	for (col = 0; col < 10; col++) {
 		for (row = 0; row < 5; row++) {
 			if (context->dialog->transitionfrac < 0) {
-				textcolour = g_MenuColourPalettes[context->dialog->type].unfocused;
+				textcolour = g_MenuColours[context->dialog->type].item_unfocused;
 			} else {
 				textcolour = colourBlend(
-						g_MenuColourPalettes[context->dialog->type2].unfocused,
-						g_MenuColourPalettes[context->dialog->type].unfocused,
+						g_MenuColours[context->dialog->type2].item_unfocused,
+						g_MenuColours[context->dialog->type].item_unfocused,
 						context->dialog->colourweight);
 			}
 
@@ -1205,11 +1205,11 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 				alpha = menuGetSinOscFrac(40) * 255;
 
 				if (context->dialog->transitionfrac < 0) {
-					tmpcolour = g_MenuColourPalettes[context->dialog->type].focused;
+					tmpcolour = g_MenuColours[context->dialog->type].item_focused_inner;
 				} else {
 					tmpcolour = colourBlend(
-							g_MenuColourPalettes[context->dialog->type2].focused,
-							g_MenuColourPalettes[context->dialog->type].focused,
+							g_MenuColours[context->dialog->type2].item_focused_inner,
+							g_MenuColours[context->dialog->type].item_focused_inner,
 							context->dialog->colourweight);
 				}
 
@@ -1259,11 +1259,11 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 					// Dim the OK button if string is empty
 					if (index == 3 && menuitemKeyboardIsStringEmptyOrSpaces(data->string)) {
 						if (context->dialog->transitionfrac < 0) {
-							textcolour = g_MenuColourPalettes[context->dialog->type].disabled;
+							textcolour = g_MenuColours[context->dialog->type].item_disabled;
 						} else {
 							textcolour = colourBlend(
-									g_MenuColourPalettes[context->dialog->type2].disabled,
-									g_MenuColourPalettes[context->dialog->type].disabled,
+									g_MenuColours[context->dialog->type2].item_disabled,
+									g_MenuColours[context->dialog->type].item_disabled,
 									context->dialog->colourweight);
 						}
 
@@ -1272,16 +1272,16 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 						}
 
 						textSetWaveColours(
-								g_MenuColourPalettes3[context->dialog->type].disabled,
-								g_MenuColourPalettes2[context->dialog->type].disabled);
+								g_MenuWave2Colours[context->dialog->type].item_disabled,
+								g_MenuWave1Colours[context->dialog->type].item_disabled);
 					}
 
 					gdl = textRenderProjected(gdl, &x, &y, langGet(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, textcolour, context->width, context->height, 0, 0);
 
 					if (index == 3 && menuitemKeyboardIsStringEmptyOrSpaces(data->string)) {
 						textSetWaveColours(
-								g_MenuColourPalettes3[context->dialog->type].unfocused,
-								g_MenuColourPalettes2[context->dialog->type].unfocused);
+								g_MenuWave2Colours[context->dialog->type].item_unfocused,
+								g_MenuWave1Colours[context->dialog->type].item_unfocused);
 					}
 				}
 			} else {
@@ -1576,11 +1576,11 @@ Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 	u32 colour;
 
 	if (context->dialog->transitionfrac < 0) {
-		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
+		colour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[context->dialog->type2].unfocused,
-				g_MenuColourPalettes[context->dialog->type].unfocused,
+				g_MenuColours[context->dialog->type2].item_unfocused,
+				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
@@ -1641,13 +1641,13 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 	mainOverrideVariable("brcol", &var800711e8);
 	sp120 = langGet(g_Briefing.objectivenames[index]);
 	y = objy;
-	sp12c = MIXCOLOUR(dialog, unfocused);
+	sp12c = MIXCOLOUR(dialog, item_unfocused);
 
 	if (dialog->dimmed) {
 		sp12c = (colourBlend(sp12c, 0, 0x2c) & 0xffffff00) | (sp12c & 0xff);
 	}
 
-	textSetWaveColours(g_MenuColourPalettes3[dialog->type].unfocused, g_MenuColourPalettes2[dialog->type].unfocused);
+	textSetWaveColours(g_MenuWave2Colours[dialog->type].item_unfocused, g_MenuWave1Colours[dialog->type].item_unfocused);
 	buffer[0] = '\0';
 
 	// Render objective number
@@ -1684,7 +1684,7 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 		}
 
 		if (dialog != g_Menus[g_MpPlayerNum].curdialog) {
-			spc8 = g_MenuColourPalettes[0].unfocused;
+			spc8 = g_MenuColours[0].item_unfocused;
 		}
 
 		textMeasure(&textheight, &textwidth, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
@@ -1835,11 +1835,11 @@ Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
 		renderdata.width = context->width;
 
 		if (context->dialog->transitionfrac < 0) {
-			renderdata.colour = g_MenuColourPalettes[context->dialog->type].focused;
+			renderdata.colour = g_MenuColours[context->dialog->type].item_focused_inner;
 		} else {
 			renderdata.colour = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].focused,
-					g_MenuColourPalettes[context->dialog->type].focused,
+					g_MenuColours[context->dialog->type2].item_focused_inner,
+					g_MenuColours[context->dialog->type].item_focused_inner,
 					context->dialog->colourweight);
 		}
 
@@ -1902,11 +1902,11 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 
 	if (context->item->flags & MENUITEMFLAG_LABEL_ALTCOLOUR) {
 		if (context->dialog->transitionfrac < 0) {
-			colour1 = g_MenuColourPalettes[context->dialog->type].checkedunfocused;
+			colour1 = g_MenuColours[context->dialog->type].checkbox_checked_unfocused;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].checkedunfocused,
-					g_MenuColourPalettes[context->dialog->type].checkedunfocused,
+					g_MenuColours[context->dialog->type2].checkbox_checked_unfocused,
+					g_MenuColours[context->dialog->type].checkbox_checked_unfocused,
 					context->dialog->colourweight);
 		}
 
@@ -1915,15 +1915,15 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
-				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
+				g_MenuWave2Colours[context->dialog->type].checkbox_checked_unfocused,
+				g_MenuWave1Colours[context->dialog->type].checkbox_checked_unfocused);
 	} else {
 		if (context->dialog->transitionfrac < 0) {
-			colour1 = g_MenuColourPalettes[context->dialog->type].unfocused;
+			colour1 = g_MenuColours[context->dialog->type].item_unfocused;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].unfocused,
-					g_MenuColourPalettes[context->dialog->type].unfocused,
+					g_MenuColours[context->dialog->type2].item_unfocused,
+					g_MenuColours[context->dialog->type].item_unfocused,
 					context->dialog->colourweight);
 		}
 
@@ -1932,17 +1932,17 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].unfocused,
-				g_MenuColourPalettes2[context->dialog->type].unfocused);
+				g_MenuWave2Colours[context->dialog->type].item_unfocused,
+				g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
 	if (menuIsItemDisabled(context->item, context->dialog)) {
 		if (context->dialog->transitionfrac < 0) {
-			colour1 = g_MenuColourPalettes[context->dialog->type].disabled;
+			colour1 = g_MenuColours[context->dialog->type].item_disabled;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].disabled,
-					g_MenuColourPalettes[context->dialog->type].disabled,
+					g_MenuColours[context->dialog->type2].item_disabled,
+					g_MenuColours[context->dialog->type].item_disabled,
 					context->dialog->colourweight);
 		}
 
@@ -1951,8 +1951,8 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].disabled,
-				g_MenuColourPalettes2[context->dialog->type].disabled);
+				g_MenuWave2Colours[context->dialog->type].item_disabled,
+				g_MenuWave1Colours[context->dialog->type].item_disabled);
 	}
 
 	menudfc = func0f0f1338(context->item);
@@ -2068,11 +2068,11 @@ Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
 	s32 x3;
 
 	if (context->dialog->transitionfrac < 0) {
-		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
+		colour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[context->dialog->type2].unfocused,
-				g_MenuColourPalettes[context->dialog->type].unfocused,
+				g_MenuColours[context->dialog->type2].item_unfocused,
+				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
@@ -2131,11 +2131,11 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 	text = menuResolveParam2Text(context->item);
 
 	if (context->dialog->transitionfrac < 0) {
-		leftcolour = g_MenuColourPalettes[context->dialog->type].unfocused;
+		leftcolour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
 		leftcolour = colourBlend(
-				g_MenuColourPalettes[context->dialog->type2].unfocused,
-				g_MenuColourPalettes[context->dialog->type].unfocused,
+				g_MenuColours[context->dialog->type2].item_unfocused,
+				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
@@ -2147,38 +2147,38 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 
 	if (context->focused) {
 		// Mismatch: The addiu and lui at eb030 and eb034 are swapped. The addiu
-		// is adding the lower half of the address of g_MenuColourPalettes for
+		// is adding the lower half of the address of g_MenuColours for
 		// use in the else branch. The lui is loading a value into $at for the
 		// float to u32 conversion for weight.
 		u32 colour2;
 		u32 weight = menuGetSinOscFrac(40) * 255; \
 		if (context->dialog->transitionfrac < 0) { \
-			colour2 = g_MenuColourPalettes[context->dialog->type].focused; \
+			colour2 = g_MenuColours[context->dialog->type].item_focused_inner; \
 		} else { \
 			colour2 = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].focused,
-					g_MenuColourPalettes[context->dialog->type].focused,
+					g_MenuColours[context->dialog->type2].item_focused_inner,
+					g_MenuColours[context->dialog->type].item_focused_inner,
 					context->dialog->colourweight);
 		}
 
 		leftcolour = colourBlend(colourBlend(leftcolour, leftcolour & 0x000000ff, 127), colour2, weight);
 
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].focused,
-				g_MenuColourPalettes2[context->dialog->type].focused);
+				g_MenuWave2Colours[context->dialog->type].item_focused_inner,
+				g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	} else {
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].unfocused,
-				g_MenuColourPalettes2[context->dialog->type].unfocused);
+				g_MenuWave2Colours[context->dialog->type].item_unfocused,
+				g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
 	if (menuIsItemDisabled(context->item, context->dialog)) {
 		if (context->dialog->transitionfrac < 0) {
-			leftcolour = g_MenuColourPalettes[context->dialog->type].disabled;
+			leftcolour = g_MenuColours[context->dialog->type].item_disabled;
 		} else {
 			leftcolour = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].disabled,
-					g_MenuColourPalettes[context->dialog->type].disabled,
+					g_MenuColours[context->dialog->type2].item_disabled,
+					g_MenuColours[context->dialog->type].item_disabled,
 					context->dialog->colourweight);
 		}
 
@@ -2189,8 +2189,8 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 		rightcolour = leftcolour;
 
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].disabled,
-				g_MenuColourPalettes2[context->dialog->type].disabled);
+				g_MenuWave2Colours[context->dialog->type].item_disabled,
+				g_MenuWave1Colours[context->dialog->type].item_disabled);
 	}
 
 	if (context->item->flags & MENUITEMFLAG_SELECTABLE_CENTRE) {
@@ -2292,7 +2292,7 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 	label = menuResolveParam2Text(context->item);
 	markerx = context->x + context->width + slidervalue * 75 / context->item->param3 - 82;
 
-	colour = MIXCOLOUR(context->dialog, unfocused);
+	colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 	if (context->dialog->dimmed) {
 		colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
@@ -2303,20 +2303,20 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 			u32 tmpcolour;
 			u32 weight = menuGetSinOscFrac(40) * 255.0f;
 
-			tmpcolour = MIXCOLOUR(context->dialog, focused);
+			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
 			colour = colourBlend(colour, colour & 0xff, 0x7f);
 			colour = colourBlend(colour, tmpcolour, weight) | 0xff;
 		}
 
-		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].focused, g_MenuColourPalettes2[context->dialog->type].focused);
+		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_focused_inner, g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	} else {
-		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
+		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
 	gdl = menugfxRenderSlider(gdl, context->x + context->width - 82, context->y + extray + 5, context->x + context->width - 7, context->y + extray + 11, markerx, colour);
 
-	colour = MIXCOLOUR(context->dialog, unfocused);
+	colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 	if (context->dialog->dimmed) {
 		colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
@@ -2326,22 +2326,22 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 		if (context->focused & 2) {
 			u32 tmpcolour;
 			u32 weight = menuGetSinOscFrac(20) * 255.0f;
-			tmpcolour = MIXCOLOUR(context->dialog, focused);
+			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
 			colour = colourBlend(colour, colour & 0xff, 0x7f);
 			colour = colourBlend(colour, tmpcolour, weight);
 		} else {
 			u32 tmpcolour;
 			u32 weight = menuGetSinOscFrac(40) * 255.0f;
-			tmpcolour = MIXCOLOUR(context->dialog, focused);
+			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
 			colour = colourBlend(colour, colour & 0xff, 0x7f);
 			colour = colourBlend(colour, tmpcolour, weight);
 		}
 
-		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].focused, g_MenuColourPalettes2[context->dialog->type].focused);
+		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_focused_inner, g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	} else {
-		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
+		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
 	gdl = text0f153628(gdl);
@@ -2363,13 +2363,13 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 		x = context->x + context->width - textwidth - 7;
 		y = context->y + 2;
 
-		colour = MIXCOLOUR(context->dialog, unfocused);
+		colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 		if (context->dialog->dimmed) {
 			colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 		}
 
-		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
+		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
 		colour = (colour & 0xffffff00) | ((colour & 0xff) >> 1);
 		gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
@@ -2504,11 +2504,11 @@ Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
 		u32 weight = menuGetSinOscFrac(40) * 255;
 
 		if (context->dialog->transitionfrac < 0) {
-			colour1 = g_MenuColourPalettes[context->dialog->type].focused;
+			colour1 = g_MenuColours[context->dialog->type].item_focused_inner;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].focused,
-					g_MenuColourPalettes[context->dialog->type].focused,
+					g_MenuColours[context->dialog->type2].item_focused_inner,
+					g_MenuColours[context->dialog->type].item_focused_inner,
 					context->dialog->colourweight);
 		}
 
@@ -2626,11 +2626,11 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		checked = true;
 
 		if (context->dialog->transitionfrac < 0) {
-			maincolour = g_MenuColourPalettes[context->dialog->type].checkedunfocused;
+			maincolour = g_MenuColours[context->dialog->type].checkbox_checked_unfocused;
 		} else {
 			maincolour = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].checkedunfocused,
-					g_MenuColourPalettes[context->dialog->type].checkedunfocused,
+					g_MenuColours[context->dialog->type2].checkbox_checked_unfocused,
+					g_MenuColours[context->dialog->type].checkbox_checked_unfocused,
 					context->dialog->colourweight);
 		}
 
@@ -2639,15 +2639,15 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
-				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
+				g_MenuWave2Colours[context->dialog->type].checkbox_checked_unfocused,
+				g_MenuWave1Colours[context->dialog->type].checkbox_checked_unfocused);
 	} else {
 		if (context->dialog->transitionfrac < 0) {
-			maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
+			maincolour = g_MenuColours[context->dialog->type].item_unfocused;
 		} else {
 			maincolour = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].unfocused,
-					g_MenuColourPalettes[context->dialog->type].unfocused,
+					g_MenuColours[context->dialog->type2].item_unfocused,
+					g_MenuColours[context->dialog->type].item_unfocused,
 					context->dialog->colourweight);
 		}
 
@@ -2656,42 +2656,42 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].unfocused,
-				g_MenuColourPalettes2[context->dialog->type].unfocused);
+				g_MenuWave2Colours[context->dialog->type].item_unfocused,
+				g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
 	gdl = text0f153628(gdl);
 
 	if (context->focused) {
 		// Mismatch: The addiu and lui at ec8fc and ec900 are swapped. The addiu
-		// is adding the lower half of the address of g_MenuColourPalettes for
+		// is adding the lower half of the address of g_MenuColours for
 		// use in the else branch. The lui is loading a value into $at for the
 		// float to u32 conversion for weight.
 		u32 focuscolour;
 		u32 weight = menuGetSinOscFrac(40) * 255; \
 		if (context->dialog->transitionfrac < 0) { \
-			focuscolour = g_MenuColourPalettes[context->dialog->type].focused;
+			focuscolour = g_MenuColours[context->dialog->type].item_focused_inner;
 		} else {
 			focuscolour = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].focused,
-					g_MenuColourPalettes[context->dialog->type].focused,
+					g_MenuColours[context->dialog->type2].item_focused_inner,
+					g_MenuColours[context->dialog->type].item_focused_inner,
 					context->dialog->colourweight);
 		}
 
 		maincolour = colourBlend(colourBlend(maincolour, maincolour & 0xff, 127), focuscolour, weight);
 
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].focused,
-				g_MenuColourPalettes2[context->dialog->type].focused);
+				g_MenuWave2Colours[context->dialog->type].item_focused_inner,
+				g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	}
 
 	if (menuIsItemDisabled(context->item, context->dialog)) {
 		if (context->dialog->transitionfrac < 0) {
-			maincolour = g_MenuColourPalettes[context->dialog->type].disabled;
+			maincolour = g_MenuColours[context->dialog->type].item_disabled;
 		} else {
 			maincolour = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].disabled,
-					g_MenuColourPalettes[context->dialog->type].disabled,
+					g_MenuColours[context->dialog->type2].item_disabled,
+					g_MenuColours[context->dialog->type].item_disabled,
 					context->dialog->colourweight);
 		}
 
@@ -2700,8 +2700,8 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		textSetWaveColours(
-				g_MenuColourPalettes3[context->dialog->type].disabled,
-				g_MenuColourPalettes2[context->dialog->type].disabled);
+				g_MenuWave2Colours[context->dialog->type].item_disabled,
+				g_MenuWave1Colours[context->dialog->type].item_disabled);
 
 		fillcolour = 0x7f002faf;
 	}
@@ -2848,11 +2848,11 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	y = context->y + 2;
 
 	if (context->dialog->transitionfrac < 0) {
-		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
+		colour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[context->dialog->type2].unfocused,
-				g_MenuColourPalettes[context->dialog->type].unfocused,
+				g_MenuColours[context->dialog->type2].item_unfocused,
+				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
@@ -2861,8 +2861,8 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	textSetWaveColours(
-			g_MenuColourPalettes3[context->dialog->type].unfocused,
-			g_MenuColourPalettes2[context->dialog->type].unfocused);
+			g_MenuWave2Colours[context->dialog->type].item_unfocused,
+			g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
 	gdl = text0f153628(gdl);
 
@@ -3031,11 +3031,11 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->dialog->transitionfrac < 0) {
-		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
+		colour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[context->dialog->type2].unfocused,
-				g_MenuColourPalettes[context->dialog->type].unfocused,
+				g_MenuColours[context->dialog->type2].item_unfocused,
+				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
@@ -3281,11 +3281,11 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->dialog->transitionfrac < 0) {
-		textcolour = g_MenuColourPalettes[context->dialog->type].unfocused;
+		textcolour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
 		textcolour = colourBlend(
-				g_MenuColourPalettes[context->dialog->type2].unfocused,
-				g_MenuColourPalettes[context->dialog->type].unfocused,
+				g_MenuColours[context->dialog->type2].item_unfocused,
+				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
@@ -3313,11 +3313,11 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	dialog = context->dialog;
 
 	if (dialog->transitionfrac < 0) {
-		linecolour1 = g_MenuColourPalettes[dialog->type].unk00;
+		linecolour1 = g_MenuColours[dialog->type].dialog_border1;
 	} else {
 		linecolour1 = colourBlend(
-				g_MenuColourPalettes[dialog->type2].unk00,
-				g_MenuColourPalettes[dialog->type].unk00,
+				g_MenuColours[dialog->type2].dialog_border1,
+				g_MenuColours[dialog->type].dialog_border1,
 				dialog->colourweight);
 	}
 
@@ -3326,11 +3326,11 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (dialog->transitionfrac < 0) {
-		linecolour2 = g_MenuColourPalettes[dialog->type].unk08;
+		linecolour2 = g_MenuColours[dialog->type].dialog_border2;
 	} else {
 		linecolour2 = colourBlend(
-				g_MenuColourPalettes[dialog->type2].unk08,
-				g_MenuColourPalettes[dialog->type].unk08,
+				g_MenuColours[dialog->type2].dialog_border2,
+				g_MenuColours[dialog->type].dialog_border2,
 				dialog->colourweight);
 	}
 
@@ -3534,11 +3534,11 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	weight = menuGetSinOscFrac(40) * 255;
 
 	if (context->dialog->transitionfrac < 0) {
-		selectioncolour = g_MenuColourPalettes[context->dialog->type].focused;
+		selectioncolour = g_MenuColours[context->dialog->type].item_focused_inner;
 	} else {
 		selectioncolour = colourBlend(
-				g_MenuColourPalettes[context->dialog->type2].focused,
-				g_MenuColourPalettes[context->dialog->type].focused,
+				g_MenuColours[context->dialog->type2].item_focused_inner,
+				g_MenuColours[context->dialog->type].item_focused_inner,
 				context->dialog->colourweight);
 	}
 
@@ -3551,11 +3551,11 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 
 	// "Suicides" heading
 	if (context->dialog->transitionfrac < 0) {
-		maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
+		maincolour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
 		maincolour = colourBlend(
-				g_MenuColourPalettes[context->dialog->type2].unfocused,
-				g_MenuColourPalettes[context->dialog->type].unfocused,
+				g_MenuColours[context->dialog->type2].item_unfocused,
+				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
@@ -3603,11 +3603,11 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 
 	if (mpGetNumChrs() >= 2) {
 		if (context->dialog->transitionfrac < 0) {
-			maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
+			maincolour = g_MenuColours[context->dialog->type].item_unfocused;
 		} else {
 			maincolour = colourBlend(
-					g_MenuColourPalettes[context->dialog->type2].unfocused,
-					g_MenuColourPalettes[context->dialog->type].unfocused,
+					g_MenuColours[context->dialog->type2].item_unfocused,
+					g_MenuColours[context->dialog->type].item_unfocused,
 					context->dialog->colourweight);
 		}
 
@@ -4236,11 +4236,11 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = text0f153628(gdl);
 
 	if (dialog->transitionfrac < 0) {
-		colour = g_MenuColourPalettes[dialog->type].unfocused;
+		colour = g_MenuColours[dialog->type].item_unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[dialog->type2].unfocused,
-				g_MenuColourPalettes[dialog->type].unfocused,
+				g_MenuColours[dialog->type2].item_unfocused,
+				g_MenuColours[dialog->type].item_unfocused,
 				dialog->colourweight);
 	}
 
@@ -4249,8 +4249,8 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	textSetWaveColours(
-			g_MenuColourPalettes3[dialog->type].unfocused,
-			g_MenuColourPalettes2[dialog->type].unfocused);
+			g_MenuWave2Colours[dialog->type].item_unfocused,
+			g_MenuWave1Colours[dialog->type].item_unfocused);
 
 	if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
 		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"

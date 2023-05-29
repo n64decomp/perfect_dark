@@ -5526,21 +5526,21 @@ struct menurendercontext {
 };
 
 struct menucolourpalette {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unfocused;
-	/*0x1c*/ u32 disabled;
-	/*0x20*/ u32 focused;
-	/*0x24*/ u32 checkedunfocused;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
+	/*0x00*/ u32 dialog_border1;
+	/*0x04*/ u32 dialog_titlebg;
+	/*0x08*/ u32 dialog_border2;
+	/*0x0c*/ u32 dialog_titlefg;
+	/*0x10*/ u32 dialog_bodybg;
+	/*0x14*/ u32 unused14;
+	/*0x18*/ u32 item_unfocused;
+	/*0x1c*/ u32 item_disabled;
+	/*0x20*/ u32 item_focused_inner;
+	/*0x24*/ u32 checkbox_checked_unfocused;
+	/*0x28*/ u32 item_focused_outer;
+	/*0x2c*/ u32 listgroup_headerbg;
+	/*0x30*/ u32 listgroup_headerfg;
+	/*0x34*/ u32 unused34;
+	/*0x38*/ u32 unused38;
 };
 
 struct bytelist {

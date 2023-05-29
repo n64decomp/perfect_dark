@@ -85,7 +85,7 @@ struct menudialogdef g_PakRepairFailedMenuDialog;
 struct menudialogdef g_PakRepairSuccessMenuDialog;
 
 #if VERSION >= VERSION_JPN_FINAL
-const struct menucolourpalette g_MenuColourPalettes[] = {
+const struct menucolourpalette g_MenuColours[] = {
 	{ 0x20202000, 0x20202000, 0x20202000, 0x4f4f4f00, 0x00000000, 0x00000000, 0x4f4f4f00, 0x4f4f4f00, 0x4f4f4f00, 0x4f4f4f00, 0x00000000, 0x00000000, 0x4f4f4f00, 0x00000000, 0x00000000 },
 	{ 0x0060bf7f, 0x0000507f, 0x00f0ff7f, 0xffffffff, 0x00002f9f, 0x00006f7f, 0x00ffffff, 0x007f7fff, 0xffffffff, 0x8fffffff, 0x000044ff, 0x000030ff, 0x7f7fffff, 0xffffffff, 0x6644ff7f },
 	{ 0xbf00007f, 0x5000007f, 0xff00007f, 0xffff00ff, 0x2f00009f, 0x6f00007f, 0xff9070ff, 0x7f0000ff, 0xffff00ff, 0xffa090ff, 0x440000ff, 0x003000ff, 0xffff00ff, 0xffffffff, 0xff44447f },
@@ -94,7 +94,7 @@ const struct menucolourpalette g_MenuColourPalettes[] = {
 	{ 0xaaaaaaff, 0xaaaaaa7f, 0xaaaaaaff, 0xffffffff, 0xffffff9f, 0xffffffff, 0xffffffff, 0xffffffff, 0xff8888ff, 0xffffffff, 0x00000000, 0xffffff5f, 0xffffffff, 0xffffff7f, 0xffffffff },
 };
 #else
-const struct menucolourpalette g_MenuColourPalettes[] = {
+const struct menucolourpalette g_MenuColours[] = {
 	{ 0x20202000, 0x20202000, 0x20202000, 0x4f4f4f00, 0x00000000, 0x00000000, 0x4f4f4f00, 0x4f4f4f00, 0x4f4f4f00, 0x4f4f4f00, 0x00000000, 0x00000000, 0x4f4f4f00, 0x00000000, 0x00000000 },
 	{ 0x0060bf7f, 0x0000507f, 0x00f0ff7f, 0xffffffff, 0x00002f7f, 0x00006f7f, 0x00ffffff, 0x007f7fff, 0xffffffff, 0x8fffffff, 0x000044ff, 0x000030ff, 0x7f7fffff, 0xffffffff, 0x6644ff7f },
 	{ 0xbf00007f, 0x5000007f, 0xff00007f, 0xffff00ff, 0x2f00007f, 0x6f00007f, 0xff7050ff, 0x7f0000ff, 0xffff00ff, 0xff9070ff, 0x440000ff, 0x003000ff, 0xffff00ff, 0xffffffff, 0xff44447f },
@@ -104,7 +104,7 @@ const struct menucolourpalette g_MenuColourPalettes[] = {
 };
 #endif
 
-const struct menucolourpalette g_MenuColourPalettes2[] = {
+const struct menucolourpalette g_MenuWave1Colours[] = {
 	{ 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x4f4f4f00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x00000000 },
 	{ 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x006f6faf, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x00000000 },
 	{ 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x006f6faf, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x00000000 },
@@ -113,7 +113,7 @@ const struct menucolourpalette g_MenuColourPalettes2[] = {
 	{ 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffff5f, 0xffffffff, 0xffffff7f, 0xffffffff },
 };
 
-const struct menucolourpalette g_MenuColourPalettes3[] = {
+const struct menucolourpalette g_MenuWave2Colours[] = {
 	{ 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x4f4f4f00, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x00000000 },
 	{ 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x006f6faf, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x00000000 },
 	{ 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x006f6faf, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x00000000 },
@@ -2481,7 +2481,7 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 	}
 #endif
 
-	colour1 = MIXCOLOUR(dialog, unk28);
+	colour1 = MIXCOLOUR(dialog, item_focused_outer);
 
 	text0f156030(colour1);
 
@@ -2526,9 +2526,9 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 
 	title = menuResolveDialogTitle(dialog->definition);
 
-	colour1 = MIXCOLOUR(dialog, unk00);
-	colour2 = MIXCOLOUR(dialog, unk04);
-	colour3 = MIXCOLOUR(dialog, unk08);
+	colour1 = MIXCOLOUR(dialog, dialog_border1);
+	colour2 = MIXCOLOUR(dialog, dialog_titlebg);
+	colour3 = MIXCOLOUR(dialog, dialog_border2);
 
 	gSPClearGeometryMode(gdl++, G_ZBUFFER);
 
@@ -2595,9 +2595,9 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 				"4\n",
 			};
 
-			colour1 = MIXCOLOUR(dialog, unk0c);
+			colour1 = MIXCOLOUR(dialog, dialog_titlefg);
 
-			textSetWaveColours(g_MenuColourPalettes3[dialog->type].unk0c, g_MenuColourPalettes2[dialog->type].unk0c);
+			textSetWaveColours(g_MenuWave2Colours[dialog->type].dialog_titlefg, g_MenuWave1Colours[dialog->type].dialog_titlefg);
 
 			// Title shadow
 			x = dialogleft + 3;
@@ -2645,13 +2645,13 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 		dialogbottom = dialogtop + LINEHEIGHT;
 	}
 
-	colour1 = MIXCOLOUR(dialog, unk10);
+	colour1 = MIXCOLOUR(dialog, dialog_bodybg);
 
 	if (dialog->dimmed) {
 		colour1 = (colourBlend(colour1, 0x00000000, 44) & 0xffffff00) | (colour1 & 0xff);
 	}
 
-	colour2 = MIXCOLOUR(dialog, unk14);
+	colour2 = MIXCOLOUR(dialog, unused14);
 
 	// Draw the dialog's background and outer borders
 	if (!lightweight) {
@@ -2665,7 +2665,7 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 
 		// No dialog has this flag, so this branch is unused
 		if (dialog->definition->flags & MENUDIALOGFLAG_DISABLETITLEBAR) {
-			gdl = menugfxDrawDialogBorderLine(gdl, dialogleft + 1, dialogtop + LINEHEIGHT, dialogright - 1, dialogtop + LINEHEIGHT + 1, MIXCOLOUR(dialog, unk00), MIXCOLOUR(dialog, unk08));
+			gdl = menugfxDrawDialogBorderLine(gdl, dialogleft + 1, dialogtop + LINEHEIGHT, dialogright - 1, dialogtop + LINEHEIGHT + 1, MIXCOLOUR(dialog, dialog_border1), MIXCOLOUR(dialog, dialog_border2));
 		}
 	}
 
@@ -2761,7 +2761,7 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 				cury = dialogtop + LINEHEIGHT + 1 + dialog->scroll;
 				prevwaslist = false;
 
-				sp120 = MIXCOLOUR(dialog, unfocused);
+				sp120 = MIXCOLOUR(dialog, item_unfocused);
 				sp120 = (sp120 & 0xffffff00) | 0x3f;
 
 				colindex = dialog->colstart + i;
@@ -2837,7 +2837,7 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 							u32 colour;
 							u32 colour2;
 
-							colour2 = MIXCOLOUR(dialog, unk28);
+							colour2 = MIXCOLOUR(dialog, item_focused_outer);
 							colour = colourBlend(colour2, colour2 & 0xffffff00, 127);
 
 							gdl = textSetPrimColour(gdl, colour);
@@ -2968,7 +2968,7 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 			u32 colour;
 			u32 weight = menuGetSinOscFrac(10) * 255.0f;
 
-			colour1 = MIXCOLOUR(dialog, unk00);
+			colour1 = MIXCOLOUR(dialog, dialog_border1);
 			colour = colourBlend(0xffffffff, colour1, weight);
 
 			gdl = menugfxDrawDialogChevron(gdl, dialogleft - 5, (dialogtop + dialogbottom) / 2, 9, 1, colour, colour, menuGetSinOscFrac(20));
