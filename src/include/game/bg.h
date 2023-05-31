@@ -12,7 +12,7 @@ Gfx *bgRenderXrayData(Gfx *gdl, struct xraydata *xraydata);
 Gfx *bgAddXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 vertices2[3], s16 vertices3[3], u32 colour1, u32 colour2, u32 colour3);
 void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xraydata *xraydata);
 Gfx *bgProcessXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3[3], s16 arg4[3], s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10);
-Gfx *bgRenderGdlInXray(Gfx *gdl, Gfx *gdl2, Vtx *vertices, s16 arg3[3]);
+Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3]);
 Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *blocks, bool recurse, s16 arg4[3]);
 Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum);
 Gfx *bgRenderSceneInXray(Gfx *gdl);
