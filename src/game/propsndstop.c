@@ -6,18 +6,18 @@
 #include "data.h"
 #include "types.h"
 
-void propsndStop(void)
+void psStop(void)
 {
 	s32 i;
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
-		if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_ISMP3) {
-			snd0000fbc4(g_AudioChannels[i].soundnum26);
-			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_ISMP3;
-			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0002;
-		} else if (g_AudioChannels[i].audiohandle && sndGetState(g_AudioChannels[i].audiohandle) != AL_STOPPED) {
-			audioStop(g_AudioChannels[i].audiohandle);
-			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0002;
+		if (g_PsChannels[i].flags & PSFLAG_ISMP3) {
+			sndStopMp3(g_PsChannels[i].soundnum26);
+			g_PsChannels[i].flags &= ~PSFLAG_ISMP3;
+			g_PsChannels[i].flags &= ~PSFLAG_REPEATING;
+		} else if (g_PsChannels[i].audiohandle && sndGetState(g_PsChannels[i].audiohandle) != AL_STOPPED) {
+			audioStop(g_PsChannels[i].audiohandle);
+			g_PsChannels[i].flags &= ~PSFLAG_REPEATING;
 		}
 	}
 }

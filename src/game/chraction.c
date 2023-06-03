@@ -3046,7 +3046,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 					g_Vars.currentplayer->eyespy->prop->rooms, EXPLOSIONTYPE_EYESPY, 0);
 			invRemoveItemByNum(WEAPON_EYESPY);
 
-			func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
+			psStopSound(g_Vars.currentplayer->eyespy->prop, PSTYPE_GENERAL, 0xffff);
 			g_Vars.currentplayer->eyespy = NULL;
 			setCurrentPlayerNum(prevplayernum);
 
@@ -4035,11 +4035,11 @@ void chrChoke(struct chrdata *chr, s32 choketype)
 				sndStart(var80095200, soundnum, &g_Vars.players[playernum]->chokehandle, -1, -1, -1, -1, -1);
 			}
 		} else {
-			func0f0926bc(chr->prop, 9, 0);
+			psStopSound(chr->prop, PSTYPE_CHRTALK, 0);
 
-			if (!func0f092610(chr->prop, 13)) {
-				propsnd0f0939f8(NULL, chr->prop, soundnum, -1,
-						-1, 0, 0, 13, NULL, -1, NULL, -1, -1, -1, -1);
+			if (!psPropHasSoundWithContext(chr->prop, PSTYPE_CHRCHOKE)) {
+				psCreate(NULL, chr->prop, soundnum, -1,
+						-1, 0, 0, PSTYPE_CHRCHOKE, NULL, -1, NULL, -1, -1, -1, -1);
 			}
 		}
 	}
@@ -4579,8 +4579,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			u16 sounds[] = { SFX_HIT_METAL_807B, SFX_HIT_METAL_8079, SFX_HATHIT_807C };
 			damage = 0;
 
-			propsnd0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
-					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+			psCreate(NULL, chr->prop, sounds[random() % 3], -1,
+					-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 	}
 
@@ -4915,7 +4915,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			// Handle one-hit knockouts
 			if (onehitko && chr->aibot == NULL && race == RACE_HUMAN) {
 				chrKnockOut(chr, angle, hitpart, gset);
-				func0f0926bc(chr->prop, 9, 0);
+				psStopSound(chr->prop, PSTYPE_CHRTALK, 0);
 
 				if (canchoke) {
 					chrChoke(chr, choketype);
@@ -8126,8 +8126,8 @@ void chrTickAnim(struct chrdata *chr)
 			&& modelGetCurAnimFrame(chr->model) >= 42
 			&& (g_Vars.lvframenum % 2) == 0
 			&& chrGetDistanceToCurrentPlayer(chr) < 800) {
-		propsnd0f0939f8(NULL, chr->prop, SFX_0037, -1,
-				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, chr->prop, SFX_0037, -1,
+				-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 	}
 
 	if (chr->sleep <= 0 && chr->act_anim.slowupdate) {
@@ -8347,7 +8347,7 @@ void chrTickDie(struct chrdata *chr)
 
 	if (race == RACE_ROBOT) {
 		struct prop *prop = chr->prop;
-		func0f0926bc(prop, 1, 0xffff);
+		psStopSound(prop, PSTYPE_GENERAL, 0xffff);
 		explosionCreateSimple(prop, &prop->pos, prop->rooms, EXPLOSIONTYPE_8, g_Vars.currentplayernum);
 		chr->hidden |= CHRHFLAG_DELETING;
 		return;
@@ -8367,8 +8367,8 @@ void chrTickDie(struct chrdata *chr)
 				SFX_DRCAROLL_YOU_WERE_SUPPOSED,
 			};
 
-			propsnd0f0939f8(NULL, chr->prop, phrases[random() % 5], -1,
-					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			psCreate(NULL, chr->prop, phrases[random() % 5], -1,
+					-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			chr->voicebox = 0;
 		}
 
@@ -8383,15 +8383,15 @@ void chrTickDie(struct chrdata *chr)
 
 		if (g_DrCarollDyingTimer > TICKS(310)) {
 			// Explode
-			func0f0926bc(prop, 1, 0xffff);
+			psStopSound(prop, PSTYPE_GENERAL, 0xffff);
 			explosionCreateSimple(prop, &prop->pos, prop->rooms, EXPLOSIONTYPE_8, g_Vars.currentplayernum);
 			chrBeginDead(chr);
 		} else if (chr->soundtimer > (s32)var80068080) {
 			// Play shield damage sound
 			chr->soundtimer = 0;
 			var80068080 -= 5;
-			propsnd0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
-					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			psCreate(NULL, prop, SFX_SHIELD_DAMAGE, -1,
+					-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_ELECTRICAL);
 		}
 
@@ -8402,11 +8402,11 @@ void chrTickDie(struct chrdata *chr)
 	// If due, play thud 1 sound
 	if (chr->act_die.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe1) {
 		if (chr->specialdie == 0) {
-			propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
-					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			psCreate(NULL, chr->prop, thuds[thudindex], -1,
+					-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 		} else if (chr->specialdie != SPECIALDIE_OVERRAILING) {
-			propsnd0f0939f8(NULL, chr->prop, specialdiesounds[chr->specialdie - 1], -1,
-					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			psCreate(NULL, chr->prop, specialdiesounds[chr->specialdie - 1], -1,
+					-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 		}
 
 		thudindex++;
@@ -8421,11 +8421,11 @@ void chrTickDie(struct chrdata *chr)
 	// If due, play thud 2 sound
 	if (chr->act_die.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe2) {
 		if (chr->specialdie < 5) {
-			propsnd0f0939f8(NULL, chr->prop, SFX_THUD_808E, -1,
-					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			psCreate(NULL, chr->prop, SFX_THUD_808E, -1,
+					-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 		} else {
-			propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
-					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			psCreate(NULL, chr->prop, thuds[thudindex], -1,
+					-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 		}
 
 		thudindex++;
@@ -8549,8 +8549,8 @@ void chrTickDruggedDrop(struct chrdata *chr)
 
 	// If due, play thud 1 sound
 	if (chr->act_die.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe1) {
-		propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
-				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, chr->prop, thuds[thudindex], -1,
+				-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 		thudindex++;
 
@@ -8563,8 +8563,8 @@ void chrTickDruggedDrop(struct chrdata *chr)
 
 	// If due, play thud 2 sound
 	if (chr->act_die.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe2) {
-		propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
-				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, chr->prop, thuds[thudindex], -1,
+				-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 		thudindex++;
 
@@ -8807,11 +8807,13 @@ void chrUpdateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool wi
 
 			if (playsound) {
 #if VERSION >= VERSION_NTSC_1_0
-				propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0x11, NULL, -1, NULL, -1, -1, -1, -1);
+				psCreate(NULL, chr->prop, soundnum, -1, -1,
+						PSFLAG_0400, PSFLAG2_PRINTABLE, PSTYPE_CHRSHOOT, NULL, -1, NULL, -1, -1, -1, -1);
 				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
 				chr->hidden2 |= CHRH2FLAG_FIRESOUNDDONE;
 #else
-				propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0, NULL, -1, NULL, -1, -1, -1, -1);
+				psCreate(NULL, chr->prop, soundnum, -1, -1,
+						PSFLAG_0400, PSFLAG2_PRINTABLE, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
 				chr->hidden |= CHRHFLAG_FIRESOUNDDONE;
 
@@ -10235,8 +10237,8 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 								// Play sound
 								if (func->soundnum > 0) {
-									propsnd0f0939f8(NULL, projectileobj->base.prop, func->soundnum, -1,
-											-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+									psCreate(NULL, projectileobj->base.prop, func->soundnum, -1,
+											-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 								}
 							}
 						}
@@ -13183,8 +13185,8 @@ void chrTickSkJump(struct chrdata *chr)
 					SFX_SKEDAR_ROAR_0534,
 				};
 
-				propsnd0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
-						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+				psCreate(NULL, chr->prop, sounds[random() % 3], -1,
+						-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 				modelSetAnimation(chr->model, ANIM_SKEDAR_JUMPAIR, 0, 0, -1, 16);
 				modelSetAnimSpeed(chr->model, 1, 0);
 			}
@@ -16237,7 +16239,7 @@ bool chrIsAvoiding(struct chrdata *chr)
 void chrDrCarollEmitSparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
-		propsnd0f0939f8(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 		sparksCreate(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, SPARKTYPE_ELECTRICAL);
 	}
 }

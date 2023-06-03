@@ -808,7 +808,7 @@ u8 func1002_intro[] = {
 	endloop(0x0b)
 
 	label(0x39)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
@@ -884,113 +884,113 @@ u8 func0c01_outro[] = {
 	restart_timer
 
 	wait_until(46, 0x3c)
-	play_sound(SFX_0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_CUTSCENE)
 
 	wait_until(160, 0x3d)
-	play_sound(SFX_0172, CHANNEL_10)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_042D, 0x00, 0x00)
+	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_042D, PSTYPE_NONE, 0)
 
 	wait_until(180, 0x3b)
-	speak(CHR_BOND, L_DAM_039, MP3_0465, CHANNEL_10, COLOR_06_WHITE) // "Right. The diving operation has been disrupted on ..."
+	speak(CHR_BOND, L_DAM_039, MP3_0465, CHANNEL_CUTSCENE, COLOR_06_WHITE) // "Right. The diving operation has been disrupted on ..."
 
 	wait_until(200, 0x48)
-	play_sound(SFX_0173, CHANNEL_10)
+	play_sound(SFX_0173, CHANNEL_CUTSCENE)
 
 	wait_until(232, 0x49)
-	play_sound(SFX_0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_CUTSCENE)
 
 	wait_until(254, 0x4a)
-	play_sound(SFX_0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_CUTSCENE)
 
 	wait_until(272, 0x66)
 
 	wait_until(374, 0x4b)
-	play_sound(SFX_0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_CUTSCENE)
 
 	wait_until(415, 0x4c)
-	play_sound(SFX_0173, CHANNEL_10)
+	play_sound(SFX_0173, CHANNEL_CUTSCENE)
 
 	wait_until(454, 0x4d)
-	play_sound(SFX_0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_CUTSCENE)
 
 	wait_until(532, 0x4e)
-	play_sound(SFX_0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_CUTSCENE)
 
 	wait_until(570, 0x4f)
-	speak(CHR_BOND, L_DAM_040, MP3_0466, CHANNEL_10, COLOR_09_BLUE) // "I hope the government don't want to use this ship ..."
+	speak(CHR_BOND, L_DAM_040, MP3_0466, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "I hope the government don't want to use this ship ..."
 
 	wait_until(582, 0x50)
-	play_sound(SFX_0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_CUTSCENE)
 
 	wait_until(666, 0x51)
-	play_sound(SFX_0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_CUTSCENE)
 
 	wait_until(706, 0x52)
-	play_sound(SFX_0173, CHANNEL_10)
+	play_sound(SFX_0173, CHANNEL_CUTSCENE)
 
 	wait_until(736, 0x64)
-	play_sound(SFX_05A8, CHANNEL_10)
+	play_sound(SFX_05A8, CHANNEL_CUTSCENE)
 
 	wait_until(806, 0x53)
-	play_sound(SFX_809F, CHANNEL_10)
+	play_sound(SFX_809F, CHANNEL_CUTSCENE)
 
 	wait_until(854, 0x54)
-	play_sound(SFX_0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_CUTSCENE)
 
 	wait_until(876, 0x55)
-	play_sound(SFX_0173, CHANNEL_10)
+	play_sound(SFX_0173, CHANNEL_CUTSCENE)
 
 	wait_until(906, 0x56)
-	play_sound(SFX_0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_CUTSCENE)
 
 	wait_until(926, 0x57)
-	play_sound(SFX_80A2, CHANNEL_10)
+	play_sound(SFX_80A2, CHANNEL_CUTSCENE)
 
 	wait_until(950, 0x58)
-	speak(CHR_BOND, L_DAM_041, MP3_0467, CHANNEL_10, COLOR_06_WHITE) // "Do you think we were a little heavy-handed?"
+	speak(CHR_BOND, L_DAM_041, MP3_0467, CHANNEL_CUTSCENE, COLOR_06_WHITE) // "Do you think we were a little heavy-handed?"
 
 	wait_until(1088, 0x59)
-	play_sound(SFX_80A3, CHANNEL_10)
+	play_sound(SFX_80A3, CHANNEL_CUTSCENE)
 
 	wait_until(1152, 0x5a)
-	play_sound(SFX_0176, CHANNEL_10)
+	play_sound(SFX_0176, CHANNEL_CUTSCENE)
 
 	wait_until(1190, 0x5b)
-	speak(CHR_BOND, L_DAM_042, MP3_0468, CHANNEL_10, COLOR_09_BLUE) // "Naaahhhh."
+	speak(CHR_BOND, L_DAM_042, MP3_0468, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Naaahhhh."
 
 	wait_until(1228, 0x5c)
-	play_sound(SFX_0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_CUTSCENE)
 
 	wait_until(1258, 0x5d)
-	play_sound(SFX_0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_CUTSCENE)
 
 	wait_until(1260, 0x5e)
-	play_sound(SFX_05B4, CHANNEL_10)
+	play_sound(SFX_05B4, CHANNEL_CUTSCENE)
 
 	wait_until(1300, 0x5f)
-	play_sound(SFX_JO_LANDING_05B6, CHANNEL_10)
-	play_sound(SFX_0171, CHANNEL_10)
+	play_sound(SFX_JO_LANDING_05B6, CHANNEL_CUTSCENE)
+	play_sound(SFX_0171, CHANNEL_CUTSCENE)
 
 	wait_until(1309, 0x65)
-	play_sound(SFX_0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_CUTSCENE)
 
 	wait_until(1358, 0x60)
-	play_sound(SFX_0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_CUTSCENE)
 
 	wait_until(1382, 0x61)
-	play_sound(SFX_EXPLOSION_8098, CHANNEL_10)
+	play_sound(SFX_EXPLOSION_8098, CHANNEL_CUTSCENE)
 
 	wait_until(1480, 0x62)
-	play_sound(SFX_80A3, CHANNEL_10)
+	play_sound(SFX_80A3, CHANNEL_CUTSCENE)
 
 	wait_until(1480, 0x63)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_GRATE, SFX_00C1, 0x00, 0x00)
+	play_sound_from_object2(0x0a, OBJ_OUTRO_GRATE, SFX_00C1, PSTYPE_NONE, 0)
 
 	wait_until(1500, 0x67)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_042D, 0x00, 0x00)
+	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_042D, PSTYPE_NONE, 0)
 
 	wait_until(1590, 0x68)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_0434, 0x00, 0x00)
+	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_0434, PSTYPE_NONE, 0)
 
 	beginloop(0x0b)
 		if_camera_animating(/*goto*/ 0x07)
@@ -1125,7 +1125,7 @@ u8 func100a_reactor_switch[] = {
 	mute_channel(CHANNEL_0)
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_8147, CHANNEL_0)
-	control_sound_from_object(CHANNEL_0, OBJ_REACTOR_SWITCH, TRUE)
+	set_object_sound_playing(CHANNEL_0, OBJ_REACTOR_SWITCH, TRUE)
 	set_lights_state(0x007f, LIGHTOP_TRANSITION, 255, 6, 120)
 	set_object_image(OBJ_REACTOR_SWITCH, 0, TVCMDLIST_12)
 	set_object_image(OBJ_REACTOR_SWITCH, 1, TVCMDLIST_12)
@@ -2326,7 +2326,7 @@ u8 func1015_shuffle_hatchswitches[] = {
  \
 	label(0x07) \
 	assign_sound(SFX_043A, CHANNEL_7) \
-	control_sound_from_object(CHANNEL_7, switch, TRUE) \
+	set_object_sound_playing(CHANNEL_7, switch, TRUE) \
 	set_object_image(switch, 0, TVCMDLIST_14) \
 	set_stage_flag(flag) \
  \
@@ -2381,40 +2381,40 @@ u8 func101a_badhatchswitches[] = {
 	// 1
 	label(0x0b)
 	assign_sound(SFX_043A, CHANNEL_7)
-	control_sound_from_object(CHANNEL_7, OBJ_BADHATCHSWITCH1, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_BADHATCHSWITCH1, TRUE)
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
-	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH1, FALSE)
+	set_object_sound_playing(CHANNEL_6, OBJ_BADHATCHSWITCH1, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH1, 0, TVCMDLIST_0F)
 	goto_next(0x04)
 
 	// 2
 	label(0x0c)
 	assign_sound(SFX_043A, CHANNEL_7)
-	control_sound_from_object(CHANNEL_7, OBJ_BADHATCHSWITCH2, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_BADHATCHSWITCH2, TRUE)
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
-	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH2, FALSE)
+	set_object_sound_playing(CHANNEL_6, OBJ_BADHATCHSWITCH2, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH2, 0, TVCMDLIST_0F)
 	goto_next(0x04)
 
 	// 3
 	label(0x0d)
 	assign_sound(SFX_043A, CHANNEL_7)
-	control_sound_from_object(CHANNEL_7, OBJ_BADHATCHSWITCH3, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_BADHATCHSWITCH3, TRUE)
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
-	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH3, FALSE)
+	set_object_sound_playing(CHANNEL_6, OBJ_BADHATCHSWITCH3, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH3, 0, TVCMDLIST_0F)
 	goto_next(0x04)
 
 	// 4
 	label(0x0e)
 	assign_sound(SFX_043A, CHANNEL_7)
-	control_sound_from_object(CHANNEL_7, OBJ_BADHATCHSWITCH4, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_BADHATCHSWITCH4, TRUE)
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
-	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH4, FALSE)
+	set_object_sound_playing(CHANNEL_6, OBJ_BADHATCHSWITCH4, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH4, 0, TVCMDLIST_0F)
 	goto_next(0x04)
 
@@ -2442,7 +2442,7 @@ u8 func101a_badhatchswitches[] = {
 u8 func101b_reactor_hum[] = {
 	yield
 	assign_sound(SFX_8146, CHANNEL_1)
-	play_sound_from_object(CHANNEL_1, OBJ_REACTOR_SWITCH, 1, 2000, 3000)
+	play_repeating_sound_from_object(CHANNEL_1, OBJ_REACTOR_SWITCH, 1, 2000, 3000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

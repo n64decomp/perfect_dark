@@ -1443,7 +1443,7 @@ u8 func1004_elevator_unlocking[] = {
 	label(0x20)
 	show_hudmsg(CHR_TARGET, L_ARK_014) // "Accessing elevator controls..."
 	assign_sound(SFX_8116, CHANNEL_6)
-	control_sound_from_object(CHANNEL_6, 0x01, TRUE)
+	set_object_sound_playing(CHANNEL_6, 0x01, TRUE)
 	restart_timer
 
 	beginloop(0x22)
@@ -2426,7 +2426,7 @@ u8 func100d_intro[] = {
 
 	label(0x5d)
 	set_stage_flag(STAGEFLAG_FOYER_LIGHTS_OFF)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	mute_channel(CHANNEL_7)
 
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
@@ -2604,10 +2604,10 @@ u8 func0412_outro[] = {
 	play_sound(SFX_FOOTSTEP_80CB, -1)
 
 	outro_wait_until(1505, 0x6e)
-	play_sound(SFX_FIRE_SHOTGUN, CHANNEL_10)
+	play_sound(SFX_FIRE_SHOTGUN, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1520, 0x6f)
-	play_sound(SFX_FIRE_SHOTGUN, CHANNEL_10)
+	play_sound(SFX_FIRE_SHOTGUN, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1526, 0x70)
 	set_chr_shooting_in_cutscene(CHR_BOND, TRUE)
@@ -2624,13 +2624,13 @@ u8 func0412_outro[] = {
 	set_chr_shooting_in_cutscene(CHR_BOND, FALSE)
 
 	outro_wait_until(1554, 0x71)
-	play_sound(SFX_ARGH_FEMALE_000D, CHANNEL_10)
+	play_sound(SFX_ARGH_FEMALE_000D, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1600, 0x74)
-	play_sound(SFX_ARGH_FEMALE_000E, CHANNEL_10)
+	play_sound(SFX_ARGH_FEMALE_000E, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1734, 0x72)
-	play_sound(SFX_THUD_808D, CHANNEL_10)
+	play_sound(SFX_THUD_808D, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1890, 0x75)
 	play_sound(SFX_0425, -1)

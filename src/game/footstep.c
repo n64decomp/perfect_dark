@@ -187,9 +187,9 @@ void footstepCheckDefault(struct chrdata *chr)
 
 					if (soundnum != -1 && chr->footstep != 0) {
 #if VERSION >= VERSION_NTSC_1_0
-						propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 1024, 0, 16, NULL, -1, NULL, -1, -1, -1, -1);
+						psCreate(NULL, chr->prop, soundnum, -1, -1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, NULL, -1, NULL, -1, -1, -1, -1);
 #else
-						propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+						psCreate(NULL, chr->prop, soundnum, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 #endif
 					}
 
@@ -267,11 +267,11 @@ void footstepCheckMagic(struct chrdata *chr)
 
 				if (soundnum != -1 && chr->footstep != 0) {
 #if VERSION >= VERSION_NTSC_1_0
-					propsnd0f0939f8(NULL, chr->prop, soundnum, -1,
-							-1, 1024, 0, 16, NULL, -1, NULL, -1, -1, -1, -1);
+					psCreate(NULL, chr->prop, soundnum, -1,
+							-1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, NULL, -1, NULL, -1, -1, -1, -1);
 #else
-					propsnd0f0939f8(NULL, chr->prop, soundnum, -1,
-							-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+					psCreate(NULL, chr->prop, soundnum, -1,
+							-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 #endif
 				}
 			}

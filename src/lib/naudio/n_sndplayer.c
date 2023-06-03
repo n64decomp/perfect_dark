@@ -339,7 +339,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 
 			if (state->state == AL_PLAYING) {
 				tmppan = state->pan - AL_PAN_CENTER + sound->samplePan;
-				pan = MIN(MAX(tmppan, 0), 127);
+				pan = MIN(MAX(tmppan, AL_PAN_LEFT), AL_PAN_RIGHT);
 
 				n_alSynSetPan(&state->voice, pan);
 			}

@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "../lib/naudio/n_sndp.h"
 #include "game/bondmove.h"
 #include "game/cheats.h"
 #include "game/chraction.h"
@@ -821,17 +822,17 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 							case GUNCMD_PLAYSOUND:
 #if VERSION >= VERSION_NTSC_1_0
 								if (hasspeed) {
-									snd00010718(0, 0, 0x7fff, 0x40, cmd->unk04, speed, 1, -1, 1);
+									snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, cmd->unk04, speed, 1, -1, 1);
 									hasspeed = false;
 								} else {
-									snd00010718(0, 0, 0x7fff, 0x40, cmd->unk04, 1.0f, 1, -1, 1);
+									snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, cmd->unk04, 1.0f, 1, -1, 1);
 								}
 #else
 								audiohandle = sndStart(var80095200, cmd->unk04, NULL, -1, -1, -1, -1, -1);
 
 								if (hasspeed && audiohandle) {
 									hasspeed = false;
-									audioPostEvent(audiohandle, 16, *(s32 *)&speed);
+									audioPostEvent(audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 								}
 #endif
 								break;
@@ -1987,7 +1988,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 
 					tmp = 1.0f - frac * 0.4f;
 
-					audioPostEvent(handle, 16, *(s32 *) &tmp);
+					audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *) &tmp);
 				}
 
 			}
@@ -2605,7 +2606,7 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				handle = sndStart(var80095200, SFX_HIT_WATER, NULL, -1, -1, -1, -1, -1);
 
 				if (handle) {
-					audioPostEvent(handle, 16, *(s32 *)&speed);
+					audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 				}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2631,7 +2632,7 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				handle = sndStart(var80095200, SFX_FIREEMPTY, NULL, -1, -1, -1, -1, -1);
 
 				if (handle) {
-					audioPostEvent(handle, 16, *(s32 *)&speed);
+					audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 				}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -3012,7 +3013,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					handle1 = sndStart(var80095200, SFX_EQUIP_HORIZONSCANNER, 0, -1, -1, -1, -1, -1);
 
 					if (handle1) {
-						audioPostEvent(handle1, 16, *(s32 *)&speed1);
+						audioPostEvent(handle1, AL_SNDP_PITCH_EVT, *(s32 *)&speed1);
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -3055,7 +3056,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					handle2 = sndStart(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
 					if (handle2) {
-						audioPostEvent(handle2, 16, *(s32 *)&speed2);
+						audioPostEvent(handle2, AL_SNDP_PITCH_EVT, *(s32 *)&speed2);
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -3073,7 +3074,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					handle3 = sndStart(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
 					if (handle3) {
-						audioPostEvent(handle3, 16, *(s32 *)&speed3);
+						audioPostEvent(handle3, AL_SNDP_PITCH_EVT, *(s32 *)&speed3);
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -4406,8 +4407,8 @@ struct defaultobj *bgunCreateThrownProjectile2(struct chrdata *chr, struct gset 
 			obj->projectile->unk08c = 0.1f;
 			obj->projectile->pickuptimer240 = TICKS(240);
 
-			propsnd0f0939f8(NULL, obj->prop, SFX_THROW, -1,
-					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+			psCreate(NULL, obj->prop, SFX_THROW, -1,
+					-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 	}
 
@@ -4902,7 +4903,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 						weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
 
 						if (funcdef->soundnum > 0) {
-							propsnd0f0939f8(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+							psCreate(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 						}
 
 						if (funcdef->base.base.flags & FUNCFLAG_FLYBYWIRE) {
@@ -4978,7 +4979,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 					weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
 
 					if (funcdef->soundnum > 0) {
-						propsnd0f0939f8(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+						psCreate(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 					}
 
 					if (funcdef->base.base.flags & FUNCFLAG_FLYBYWIRE) {
@@ -6920,17 +6921,17 @@ void bgunUpdateReaper(struct hand *hand, struct modeldef *modeldef)
 
 	if (hand->audiohandle != NULL) {
 		f32 sp34 = hand->matmot3 / 0.50f + 0.4f;
-		s32 a2 = 0x7fff;
+		s32 volume = AL_VOL_FULL;
 
 		if (hand->matmot3 < 0.1f) {
 			audioStop(hand->audiohandle);
 		} else {
 			if (hand->matmot3 < 0.6f) {
-				a2 = (hand->matmot3 - 0.1f) * 32767.0f / 0.5f;
+				volume = (hand->matmot3 - 0.1f) * AL_VOL_FULL / 0.5f;
 			}
 
-			audioPostEvent(hand->audiohandle, 8, a2);
-			audioPostEvent(hand->audiohandle, 0x10, *(s32 *)&sp34);
+			audioPostEvent(hand->audiohandle, AL_SNDP_VOL_EVT, volume);
+			audioPostEvent(hand->audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&sp34);
 		}
 	}
 
@@ -8083,7 +8084,7 @@ void bgunTickMaulerCharge(void)
 				if (hand->matmot1 < 0.1f || !charging) {
 					audioStop(hand->audiohandle);
 				} else {
-					audioPostEvent(hand->audiohandle, 16, *(s32 *)&speed);
+					audioPostEvent(hand->audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 				}
 			}
 		}
@@ -11134,7 +11135,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			|| gset->weaponnum == WEAPON_TRACERBUG
 			|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
 			|| gset->weaponnum == WEAPON_ECMMINE) {
-		propsnd0f0939f8(NULL, prop, SFX_80AA, -1, -1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+		psCreate(NULL, prop, SFX_80AA, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 		return;
 	}
 
@@ -11145,8 +11146,8 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			struct chrdata *chr = prop->chr;
 			s16 soundnum = -1;
 			bool overridden = false;
-			s32 spac;
-			s32 spa8;
+			s32 vol;
+			s32 pan;
 
 			if (chrGetShield(chr) > 0) {
 				soundnum = SFX_SHIELD_DAMAGE;
@@ -11170,13 +11171,13 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			}
 
 			if (soundnum != -1) {
-				propsnd0f094ef4(&prop->pos, prop->rooms, soundnum, &spac, &spa8);
+				psGetTheoreticalVolPan(&prop->pos, prop->rooms, soundnum, &vol, &pan);
 
-				if (spac) {
+				if (vol) {
 					sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 
 					if (*handle) {
-						sndAdjust(handle, 0, spac, spa8, soundnum, 1, 1, -1, 1);
+						sndAdjust(handle, 0, vol, pan, soundnum, 1, 1, -1, 1);
 					}
 				}
 			}
@@ -11187,8 +11188,8 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 		} else {
 			s16 soundnum = -1;
 			bool overridden = false;
-			s32 sp90;
-			s32 sp8c;
+			s32 vol;
+			s32 pan;
 			u32 stack;
 
 			if (texturenum == 10000) {
@@ -11221,13 +11222,13 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			}
 
 			if (soundnum != -1) {
-				propsnd0f094ef4(&prop->pos, prop->rooms, soundnum, &sp90, &sp8c);
+				psGetTheoreticalVolPan(&prop->pos, prop->rooms, soundnum, &vol, &pan);
 
-				if (sp90) {
+				if (vol) {
 					sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 
 					if (*handle) {
-						sndAdjust(handle, 0, sp90, sp8c, soundnum, 1, 1, -1, 1);
+						sndAdjust(handle, 0, vol, pan, soundnum, 1, 1, -1, 1);
 					}
 				}
 			}
@@ -11254,7 +11255,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			}
 
 			if (*handle && soundnum != -1) {
-				func0f09505c(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, 0x7fff, 0);
+				psApplyVolPan(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, AL_VOL_FULL, 0);
 			}
 		}
 	}
@@ -11279,7 +11280,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			|| gset->weaponnum == WEAPON_TRACERBUG
 			|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
 			|| gset->weaponnum == WEAPON_ECMMINE) {
-		propsnd0f0939f8(NULL, prop, SFX_80AA, -1, -1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+		psCreate(NULL, prop, SFX_80AA, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 		return;
 	}
 
@@ -11317,7 +11318,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			}
 
 			if (*handle) {
-				func0f09505c(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, 0x7fff, 0);
+				psApplyVolPan(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, AL_VOL_FULL, 0);
 			}
 
 			if (overridden) {
@@ -11362,7 +11363,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			}
 
 			if (*handle) {
-				func0f09505c(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, 0x7fff, 0);
+				psApplyVolPan(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, AL_VOL_FULL, 0);
 			}
 
 			if (overridden) {
@@ -11385,7 +11386,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			}
 
 			if (*handle) {
-				func0f09505c(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, 0x7fff, 0);
+				psApplyVolPan(*handle, &prop->pos, 400, 2500, 3000, prop->rooms, soundnum, AL_VOL_FULL, 0);
 			}
 		}
 	}
@@ -11401,13 +11402,13 @@ void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 texturenum)
 			sndStart(var80095200, SFX_HIT_GLASS, handle, -1, -1, -1, -1, -1);
 
 			if (*handle) {
-				func0f09505c(*handle, pos, 400, 2500, 3000, rooms, SFX_HIT_GLASS, 0x7fff, 0);
+				psApplyVolPan(*handle, pos, 400, 2500, 3000, rooms, SFX_HIT_GLASS, AL_VOL_FULL, 0);
 			}
 		}
 	}
 }
 
-void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s16 *arg3)
+void bgunPlayBgHitSound(struct gset *gset, struct coord *hitpos, s32 texturenum, s16 *rooms)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	struct sndstate **handle;
@@ -11478,7 +11479,7 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 		}
 
 		if (*handle != NULL) {
-			func0f09505c(*handle, arg1, 400, 2500, 3000, arg3, soundnum, 0x7fff, 0);
+			psApplyVolPan(*handle, hitpos, 400, 2500, 3000, rooms, soundnum, AL_VOL_FULL, 0);
 		}
 
 		if (overridden) {
@@ -11503,7 +11504,7 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 				}
 
 				if (*handle != NULL) {
-					func0f09505c(*handle, arg1, 400, 2500, 3000, arg3, soundnum, 0x7fff, 0);
+					psApplyVolPan(*handle, hitpos, 400, 2500, 3000, rooms, soundnum, AL_VOL_FULL, 0);
 				}
 			}
 		}
@@ -11571,7 +11572,7 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 		}
 
 		if (*handle != NULL) {
-			func0f09505c(*handle, arg1, 400, 2500, 3000, arg3, soundnum, 0x7fff, 0);
+			psApplyVolPan(*handle, hitpos, 400, 2500, 3000, rooms, soundnum, AL_VOL_FULL, 0);
 		}
 
 		if (overridden) {
@@ -11596,7 +11597,7 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 			}
 
 			if (*handle != NULL) {
-				func0f09505c(*handle, arg1, 400, 2500, 3000, arg3, soundnum, 0x7fff, 0);
+				psApplyVolPan(*handle, hitpos, 400, 2500, 3000, rooms, soundnum, AL_VOL_FULL, 0);
 			}
 		}
 	}

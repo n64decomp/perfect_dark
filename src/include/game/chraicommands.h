@@ -210,12 +210,12 @@
 /*0x00cc*/ bool aiShowHudmsgTopMiddle(void);
 /*0x00cd*/ bool aiSpeak(void);
 /*0x00ce*/ bool aiPlaySound(void);
-/*0x00cf*/ bool ai00cf(void);
-/*0x00d0*/ bool ai00d0(void);
-/*0x00d1*/ bool ai00d1(void);
-/*0x00d2*/ bool ai00d2(void);
+/*0x00cf*/ bool aiSetObjectSoundPlaying(void);
+/*0x00d0*/ bool aiPlayRepeatingSoundFromPad(void);
+/*0x00d1*/ bool aiSetObjectSoundVolume(void);
+/*0x00d2*/ bool aiSetObjectSoundVolumeByDistance(void);
 /*0x00d3*/ bool aiAudioMuteChannel(void);
-/*0x00d4*/ bool ai00d4(void);
+/*0x00d4*/ bool aiIfObjectSoundVolumeLessThan(void);
 /*0x00d5*/ bool aiHovercarBeginPath(void);
 /*0x00d6*/ bool aiSetVehicleSpeed(void);
 /*0x00d7*/ bool aiSetRotorSpeed(void);
@@ -311,7 +311,7 @@
 /*0x0135*/ bool aiIfHasOrders(void);
 /*0x0136*/ bool aiRetreat(void);
 /*0x0137*/ bool aiIfChrInSquadronDoingAction(void);
-/*0x0138*/ bool aiIfChannelIdle(void);
+/*0x0138*/ bool aiIfChannelFree(void);
 /*0x0139*/ bool ai0139(void);
 /*0x013a*/ bool aiSetChrPresetToUnalertedTeammate(void);
 /*0x013b*/ bool aiSetSquadron(void);
@@ -341,7 +341,7 @@
 /*0x0168*/ bool aiIfShieldDamaged(void);
 /*0x0169*/ bool aiIfNaturalAnim(void);
 /*0x016a*/ bool aiIfY(void);
-/*0x016b*/ bool ai016b(void);
+/*0x016b*/ bool aiPlayRepeatingSoundFromObject(void);
 /*0x016c*/ bool aiNoOp016c(void);
 /*0x016d*/ bool aiChrAdjustMotionBlur(void);
 /*0x016e*/ bool aiDamageChrByAmount(void);
@@ -355,7 +355,7 @@
 /*0x0176*/ bool aiIfBotRespawning(void);
 /*0x0177*/ bool aiPlayerAutoWalk(void);
 /*0x0178*/ bool aiIfPlayerAutoWalkFinished(void);
-/*0x0179*/ bool ai0179(void);
+/*0x0179*/ bool aiPlaySoundFromEntity(void);
 /*0x017a*/ bool aiIfLosToAttackTarget(void);
 /*0x017b*/ bool aiIfChrKnockedOut(void);
 /*0x017c*/ bool aiAssignSound(void);

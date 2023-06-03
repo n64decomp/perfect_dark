@@ -2512,7 +2512,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 			}
 		}
 
-		func0f0926bc(obj->prop, 1, 0xffff);
+		psStopSound(obj->prop, PSTYPE_GENERAL, 0xffff);
 		shieldhitsRemoveByProp(obj->prop);
 
 		chrClearReferences(obj->prop - g_Vars.props);
@@ -3282,7 +3282,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 						struct coord spa4 = {0, 0, 0};
 						s0 = false;
 						sparksCreate(prop->rooms[0], prop, &hitthing.unk00, &spa4, &hitthing.unk0c, SPARKTYPE_DEEPWATER);
-						propsnd0f0939f8(0, prop, SFX_HIT_WATER, -1, -1, 1024, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+						psCreate(0, prop, SFX_HIT_WATER, -1, -1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 						obj->hidden |= OBJHFLAG_DELETING;
 					}
 				}
@@ -3882,16 +3882,16 @@ void knifePlayWooshSound(struct defaultobj *obj)
 			s32 index = random() % ARRAYCOUNT(soundnums);
 
 			if (obj->projectile->lastwooshframe < g_Vars.lvframe60 - TICKS(6)) {
-				func0f0926bc(obj->prop, 1, 0xffff);
+				psStopSound(obj->prop, PSTYPE_GENERAL, 0xffff);
 
 				if (!lvIsPaused()) {
-					propsnd0f0939f8(0, obj->prop, soundnums[index], -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+					psCreate(0, obj->prop, soundnums[index], -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 					obj->projectile->lastwooshframe = g_Vars.lvframe60;
 				}
 			}
 		} else {
 			obj->hidden &= ~OBJHFLAG_THROWNKNIFE;
-			func0f0926bc(obj->prop, 1, 0xffff);
+			psStopSound(obj->prop, PSTYPE_GENERAL, 0xffff);
 		}
 	}
 }
@@ -5302,7 +5302,7 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 			hov->flags &= ~1;
 
 			if (obj->type == OBJTYPE_HOVERBIKE) {
-				propsnd0f0939f8(NULL, obj->prop, SFX_BIKE_PULSE, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				psCreate(NULL, obj->prop, SFX_BIKE_PULSE, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 			}
 		}
 
@@ -7396,14 +7396,14 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 						if (cdresult == CDRESULT_COLLISION) {
 							if (projectile->unk0a4 < g_Vars.lvframenum - 2) {
 								if (weapon->weaponnum == WEAPON_COMBATKNIFE || weapon->weaponnum == WEAPON_COMBATKNIFE) {
-									propsnd0f0939f8(0, prop, SFX_808B, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+									psCreate(0, prop, SFX_808B, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 								} else if (weapon->weaponnum == WEAPON_GRENADE && weapon->gunfunc == FUNC_SECONDARY) {
 									u16 sp100[] = {SFX_0027, SFX_0028, SFX_0029, SFX_002A};
 
-									propsnd0f0939f8(0, prop, sp100[random() % 4], -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-									propsnd0f0939f8(0, prop, SFX_EYESPYHIT, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+									psCreate(0, prop, sp100[random() % 4], -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+									psCreate(0, prop, SFX_EYESPYHIT, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 								} else {
-									propsnd0f0939f8(0, prop, SFX_EYESPYHIT, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+									psCreate(0, prop, SFX_EYESPYHIT, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 								}
 							}
 
@@ -7667,14 +7667,14 @@ void doorTick(struct prop *doorprop)
 		if (door->frac > soundpoint) {
 			if (prevfrac <= soundpoint) {
 				// frac increased past the soundpoint
-				propsnd0f0939f8(NULL, doorprop, SFX_DOOR_8014, -1,
-						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+				psCreate(NULL, doorprop, SFX_DOOR_8014, -1,
+						-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 			}
 		} else {
 			if (prevfrac > soundpoint) {
 				// frac decreased past the soundpoint
-				propsnd0f0939f8(NULL, doorprop, SFX_DOOR_8015, -1,
-						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+				psCreate(NULL, doorprop, SFX_DOOR_8015, -1,
+						-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 			}
 		}
 	}
@@ -9345,7 +9345,7 @@ void autogunTickShoot(struct prop *autogunprop)
 			if (autogun->allowsoundframe < g_Vars.lvframe60) {
 				s32 soundgap = 2;
 
-				func0f0926bc(autogunprop, 1, 0xffff);
+				psStopSound(autogunprop, PSTYPE_GENERAL, 0xffff);
 
 				if (!friendly) {
 					s32 soundnum = SFX_806F;
@@ -9359,7 +9359,7 @@ void autogunTickShoot(struct prop *autogunprop)
 						soundgap = 4;
 					}
 
-					propsnd0f0939f8(NULL, autogunprop, soundnum, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+					psCreate(NULL, autogunprop, soundnum, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				}
 
 				autogun->allowsoundframe = soundgap + g_Vars.lvframe60;
@@ -9906,9 +9906,9 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 	if (chopper->power > 0.45f && !firing && (chopper->base.flags2 & OBJFLAG2_INVISIBLE) == 0 && objIsHealthy(&chopper->base)) {
 		soundnum = g_Vars.stagenum == STAGE_EXTRACTION ? SFX_810D : SFX_8110;
 
-		propsnd0f09294c(prop, soundnum, 6);
+		psCreateIfNotDupe(prop, soundnum, PSTYPE_CHOPPERHUM2);
 	} else {
-		func0f0926bc(prop, 6, 0xffff);
+		psStopSound(prop, PSTYPE_CHOPPERHUM2, 0xffff);
 	}
 
 	chopper->roty = curroty;
@@ -9943,9 +9943,9 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 	if ((chopper->base.flags2 & OBJFLAG2_INVISIBLE) == 0 && objIsHealthy(&chopper->base)) {
 		soundnum = g_Vars.stagenum == STAGE_EXTRACTION ? SFX_SHIP_HUM : SFX_810F;
 
-		propsnd0f09294c(prop, soundnum, 5);
+		psCreateIfNotDupe(prop, soundnum, PSTYPE_CHOPPERHUM1);
 	} else {
-		func0f0926bc(prop, 5, 0xffff);
+		psStopSound(prop, PSTYPE_CHOPPERHUM1, 0xffff);
 	}
 }
 
@@ -10026,7 +10026,7 @@ void chopperTickFall(struct prop *chopperprop)
 		// The Extraction chopper falls without any collision checks and is
 		// reaped once it reaches the lower barrier
 		if (chopperprop->pos.y < -30000) {
-			func0f0926bc(chopperprop, 1, 0xffff);
+			psStopSound(chopperprop, PSTYPE_GENERAL, 0xffff);
 			obj->hidden |= OBJHFLAG_DELETING;
 		} else {
 			chopperIncrementMovement(chopperprop, goalroty, chopper->rotx < 0 ? M_PI : -M_PI, &speed, false);
@@ -10110,7 +10110,7 @@ void chopperTickFall(struct prop *chopperprop)
 			sp74.y = 1;
 			sp74.z = 0;
 
-			func0f0926bc(chopperprop, 1, 0xffff);
+			psStopSound(chopperprop, PSTYPE_GENERAL, 0xffff);
 
 			explosionCreate(NULL, &chopperprop->pos, chopperprop->rooms, EXPLOSIONTYPE_ROCKET, 0, true, &newpos, room, &sp74);
 
@@ -10421,7 +10421,7 @@ void hovercarTick(struct prop *prop)
 		sp1e4.y = hovercar->base.realrot[1][1] * ymin + prop->pos.y;
 		sp1e4.z = hovercar->base.realrot[1][2] * ymin + prop->pos.z;
 
-		func0f0926bc(prop, 1, 0xffff);
+		psStopSound(prop, PSTYPE_GENERAL, 0xffff);
 		explosionCreate(NULL, &prop->pos, prop->rooms, EXPLOSIONTYPE_7, g_Vars.currentplayernum, true, &sp1e4, sp1d6, &sp1d8);
 		hovercar->base.hidden |= OBJHFLAG_DELETING;
 		return;
@@ -10435,7 +10435,7 @@ void hovercarTick(struct prop *prop)
 			if (hovercar->sparkstimer60 < 0) {
 				hovercar->sparkstimer60 = TICKS(50);
 
-				propsnd0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1, -1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+				psCreate(NULL, prop, SFX_SHIELD_DAMAGE, -1, -1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 				sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_DEFAULT);
 			}
@@ -10919,8 +10919,8 @@ u32 objTick(struct prop *prop)
 
 			if (!silent) {
 				// Play respawn sound
-				propsnd0f0939f8(NULL, prop, SFX_REGEN, -1,
-						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+				psCreate(NULL, prop, SFX_REGEN, -1,
+						-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			}
 		}
 	}
@@ -11247,7 +11247,7 @@ s32 objTickPlayer(struct prop *prop)
 					}
 				}
 			} else {
-				func0f0926bc(prop, 1, 0xffff);
+				psStopSound(prop, PSTYPE_GENERAL, 0xffff);
 			}
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverpropTick(prop, sp592);
@@ -13847,7 +13847,7 @@ void objDeform(struct defaultobj *obj, s32 level)
 	s32 axis;
 	s32 chance;
 
-	func0f0926bc(obj->prop, 15, 0xffff);
+	psStopSound(obj->prop, PSTYPE_COMMHUB, 0xffff);
 
 	salt = 0;
 
@@ -16795,8 +16795,8 @@ s32 propPlayPickupSound(struct prop *prop, s32 weapon)
 		sound = SFX_PICKUP_GUN;
 	}
 
-	return propsnd0f0939f8(NULL, prop, sound, -1,
-			-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+	return psCreate(NULL, prop, sound, -1,
+			-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 }
 
 void weaponPlayPickupSound(s32 weaponnum)
@@ -19381,7 +19381,7 @@ void doorPlayOpeningSound(s32 soundtype, struct prop *prop)
 	s32 sound2 = 0;
 	s32 sound3 = 0;
 
-	func0f0926bc(prop, 12, 0xffff);
+	psStopSound(prop, PSTYPE_DOOR, 0xffff);
 
 	if (g_Vars.in_cutscene
 			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
@@ -19430,22 +19430,22 @@ void doorPlayOpeningSound(s32 soundtype, struct prop *prop)
 
 	if (sound1) {
 #if VERSION >= VERSION_NTSC_1_0
-		propsnd0f0939f8(NULL, prop, sound1, -1,
-				-1, 1024, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound1, -1,
+				-1, PSFLAG_0400, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #else
-		propsnd0f0939f8(NULL, prop, sound1, -1,
-				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound1, -1,
+				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
 
 	if (sound2) {
-		propsnd0f0939f8(NULL, prop, sound2, -1,
-				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound2, -1,
+				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 	}
 
 	if (sound3) {
-		propsnd0f0939f8(NULL, prop, sound3, -1,
-				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound3, -1,
+				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 	}
 }
 
@@ -19458,7 +19458,7 @@ void doorPlayClosingSound(s32 soundtype, struct prop *prop)
 	s32 sound2 = 0;
 	s32 sound3 = 0;
 
-	func0f0926bc(prop, 12, 0xffff);
+	psStopSound(prop, PSTYPE_DOOR, 0xffff);
 
 	if (g_Vars.in_cutscene
 			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
@@ -19494,22 +19494,22 @@ void doorPlayClosingSound(s32 soundtype, struct prop *prop)
 
 	if (sound1) {
 #if VERSION >= VERSION_NTSC_1_0
-		propsnd0f0939f8(NULL, prop, sound1, -1,
-				-1, 1024, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound1, -1,
+				-1, PSFLAG_0400, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #else
-		propsnd0f0939f8(NULL, prop, sound1, -1,
-				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound1, -1,
+				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
 
 	if (sound2) {
-		propsnd0f0939f8(NULL, prop, sound2, -1,
-				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound2, -1,
+				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 	}
 
 	if (sound3) {
-		propsnd0f0939f8(NULL, prop, sound3, -1,
-				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound3, -1,
+				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 	}
 }
 
@@ -19517,7 +19517,7 @@ void doorPlayOpenedSound(s32 soundtype, struct prop *prop)
 {
 	s32 sound = 0;
 
-	func0f0926bc(prop, 12, 0xffff);
+	psStopSound(prop, PSTYPE_DOOR, 0xffff);
 
 	if (g_Vars.in_cutscene
 			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
@@ -19557,11 +19557,11 @@ void doorPlayOpenedSound(s32 soundtype, struct prop *prop)
 
 	if (sound) {
 #if VERSION >= VERSION_NTSC_1_0
-		propsnd0f0939f8(NULL, prop, sound, -1,
-				-1, 1024, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound, -1,
+				-1, PSFLAG_0400, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #else
-		propsnd0f0939f8(NULL, prop, sound, -1,
-				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound, -1,
+				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
 }
@@ -19570,7 +19570,7 @@ void doorPlayClosedSound(s32 soundtype, struct prop *prop)
 {
 	s32 sound = 0;
 
-	func0f0926bc(prop, 12, 0xffff);
+	psStopSound(prop, PSTYPE_DOOR, 0xffff);
 
 	if (g_Vars.in_cutscene
 			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
@@ -19607,11 +19607,11 @@ void doorPlayClosedSound(s32 soundtype, struct prop *prop)
 
 	if (sound) {
 #if VERSION >= VERSION_NTSC_1_0
-		propsnd0f0939f8(NULL, prop, sound, -1,
-				-1, 1024, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound, -1,
+				-1, PSFLAG_0400, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #else
-		propsnd0f0939f8(NULL, prop, sound, -1,
-				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, prop, sound, -1,
+				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
 }
@@ -20001,11 +20001,11 @@ void doorCreateSparks(struct doorobj *door)
 		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_ENVIRONMENTAL5);
 	}
 
-	propsnd0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
-			-1, 0, 0, 0, &sp88, -1, door->base.prop->rooms, -1, -1, -1, -1);
+	psCreate(NULL, door->base.prop, psGetRandomSparkSound(), -1,
+			-1, 0, 0, PSTYPE_NONE, &sp88, -1, door->base.prop->rooms, -1, -1, -1, -1);
 
-	propsnd0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
-			-1, 0, 0, 0, &sp7c, -1, door->base.prop->rooms, -1, -1, -1, -1);
+	psCreate(NULL, door->base.prop, psGetRandomSparkSound(), -1,
+			-1, 0, 0, PSTYPE_NONE, &sp7c, -1, door->base.prop->rooms, -1, -1, -1, -1);
 
 	for (i = 0; door->base.prop->rooms[i] != -1; i++) {
 		roomFlashLighting(door->base.prop->rooms[i], 128, 200);
@@ -20056,7 +20056,7 @@ bool doorCalcIntendedFrac(struct doorobj *door)
 
 				if (random() % 2) {
 					dothething = true;
-					func0f0926bc(door->base.prop, 12, 0xffff);
+					psStopSound(door->base.prop, PSTYPE_DOOR, 0xffff);
 					door->mode = DOORMODE_IDLE;
 					door->lastopen60 = g_Vars.lvframe60;
 				}
@@ -20069,7 +20069,7 @@ bool doorCalcIntendedFrac(struct doorobj *door)
 						doorCreateSparks(loopdoor);
 
 						if (dothething) {
-							func0f0926bc(loopdoor->base.prop, 12, 0xffff);
+							psStopSound(loopdoor->base.prop, PSTYPE_DOOR, 0xffff);
 							loopdoor->mode = DOORMODE_IDLE;
 							loopdoor->lastopen60 = g_Vars.lvframe60;
 						}
@@ -20800,7 +20800,7 @@ void gasTick(void)
 				}
 
 				if (g_GasAudioHandle) {
-					func0f09505c(g_GasAudioHandle, &g_GasPos, 400, 2500, 3000, g_Vars.currentplayer->prop->rooms, soundnum, 0x7fff, 0);
+					psApplyVolPan(g_GasAudioHandle, &g_GasPos, 400, 2500, 3000, g_Vars.currentplayer->prop->rooms, soundnum, AL_VOL_FULL, 0);
 				}
 			} else if (g_GasAudioHandle && sndGetState(g_GasAudioHandle)) {
 				audioStop(g_GasAudioHandle);
@@ -20974,7 +20974,7 @@ void alarmTick(void)
 					g_AlarmSpeakerDirection *= -1;
 				}
 
-				sndAdjust(&g_AlarmAudioHandle, 0, 0x7fff, g_AlarmSpeakerWeight, -1, -1, 0, -1, 1);
+				sndAdjust(&g_AlarmAudioHandle, 0, AL_VOL_FULL, g_AlarmSpeakerWeight, -1, -1, 0, -1, true);
 			} else {
 				// The alarm finished, or this is the first one.
 				// Start the sound again.
@@ -21145,23 +21145,23 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 		if (arg1 && arg1->unk08 < g_Vars.lvframe60) {
 			switch (weaponnum) {
 			case WEAPON_CHOPPERGUN:
-				func0f0926bc(fromprop, 7, 0xffff);
-				propsnd0f0939f8(0, fromprop, SFX_810E, -1, -1, 0, 0, 7, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				psStopSound(fromprop, PSTYPE_CHOPPERGUN, 0xffff);
+				psCreate(0, fromprop, SFX_810E, -1, -1, 0, 0, PSTYPE_CHOPPERGUN, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 4;
 				break;
 			case WEAPON_RCP45:
-				func0f0926bc(fromprop, 1, 0xffff);
-				propsnd0f0939f8(0, fromprop, SFX_805A, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				psStopSound(fromprop, PSTYPE_GENERAL, 0xffff);
+				psCreate(0, fromprop, SFX_805A, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 2;
 				break;
 			case WEAPON_WATCHLASER:
-				func0f0926bc(fromprop, 1, 0xffff);
-				propsnd0f0939f8(0, fromprop, SFX_8043, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				psStopSound(fromprop, PSTYPE_GENERAL, 0xffff);
+				psCreate(0, fromprop, SFX_8043, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 8;
 				break;
 			default:
-				func0f0926bc(fromprop, 1, 0xffff);
-				propsnd0f0939f8(0, fromprop, SFX_8045, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				psStopSound(fromprop, PSTYPE_GENERAL, 0xffff);
+				psCreate(0, fromprop, SFX_8045, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 2;
 				break;
 			}
@@ -21215,7 +21215,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 						rocket->base.projectile->unk014 = sp120.y;
 						rocket->base.projectile->unk018 = sp120.z;
 
-						propsnd0f0939f8(NULL, rocket->base.prop, SFX_LAUNCH_ROCKET_8053, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+						psCreate(NULL, rocket->base.prop, SFX_LAUNCH_ROCKET_8053, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 					}
 				}
 			}

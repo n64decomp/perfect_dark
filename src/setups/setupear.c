@@ -1110,7 +1110,7 @@ u8 func0404_scientist[] = {
 	set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT3)
 	say_quip(CHR_TARGET, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
 	assign_sound(SFX_01C3, CHANNEL_5)
-	control_sound_from_object(CHANNEL_5, OBJ_GOODTERM3, TRUE)
+	set_object_sound_playing(CHANNEL_5, OBJ_GOODTERM3, TRUE)
 	goto_next(0x0f)
 
 	label(0x06)
@@ -1127,7 +1127,7 @@ u8 func0404_scientist[] = {
 	set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT1)
 	say_quip(CHR_TARGET, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
 	assign_sound(SFX_01C3, CHANNEL_5)
-	control_sound_from_object(CHANNEL_5, OBJ_GOODTERM1, TRUE)
+	set_object_sound_playing(CHANNEL_5, OBJ_GOODTERM1, TRUE)
 	goto_next(0x0f)
 
 	label(0x2f)
@@ -1144,7 +1144,7 @@ u8 func0404_scientist[] = {
 	set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT2)
 	say_quip(CHR_TARGET, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
 	assign_sound(SFX_01C3, CHANNEL_5)
-	control_sound_from_object(CHANNEL_5, OBJ_GOODTERM2, TRUE)
+	set_object_sound_playing(CHANNEL_5, OBJ_GOODTERM2, TRUE)
 	goto_next(0x0f)
 
 	label(0x0f)
@@ -1268,7 +1268,7 @@ u8 func0406_nasty_scientist[] = {
 	label(0x30)
 	set_stage_flag(STAGEFLAG_ALARM3_ACTIVE)
 	assign_sound(SFX_TYPING_8118, CHANNEL_6)
-	control_sound_from_object(CHANNEL_6, OBJ_GOODTERM3, TRUE)
+	set_object_sound_playing(CHANNEL_6, OBJ_GOODTERM3, TRUE)
 	goto_next(0x0f)
 
 	label(0x06)
@@ -1278,7 +1278,7 @@ u8 func0406_nasty_scientist[] = {
 	label(0x30)
 	set_stage_flag(STAGEFLAG_ALARM1_ACTIVE)
 	assign_sound(SFX_TYPING_8118, CHANNEL_6)
-	control_sound_from_object(CHANNEL_6, OBJ_GOODTERM1, TRUE)
+	set_object_sound_playing(CHANNEL_6, OBJ_GOODTERM1, TRUE)
 	goto_next(0x0f)
 
 	label(0x2f)
@@ -1288,7 +1288,7 @@ u8 func0406_nasty_scientist[] = {
 	label(0x30)
 	set_stage_flag(STAGEFLAG_ALARM2_ACTIVE)
 	assign_sound(SFX_TYPING_8118, CHANNEL_6)
-	control_sound_from_object(CHANNEL_6, OBJ_GOODTERM2, TRUE)
+	set_object_sound_playing(CHANNEL_6, OBJ_GOODTERM2, TRUE)
 	goto_next(0x0f)
 
 	label(0x11)
@@ -1328,7 +1328,7 @@ u8 func1009_weaponscache[] = {
 	show_hudmsg(CHR_TARGET, L_EAR_098) // "Secret weapons compartment opened."
 	play_sound(SFX_00F7, -1)
 	assign_sound(SFX_043B, CHANNEL_5)
-	control_sound_from_object(CHANNEL_5, OBJ_CMP150_1, TRUE)
+	set_object_sound_playing(CHANNEL_5, OBJ_CMP150_1, TRUE)
 	disable_object(OBJ_CACHEDOOR1)
 	disable_object(OBJ_CACHEDOOR2)
 	unset_object_flag(OBJ_CMP150_1, OBJFLAG_UNCOLLECTABLE)
@@ -1379,7 +1379,7 @@ u8 func1002_bot_activation_terminal[] = {
 		// Activating prior to reprogramming
 		play_sound(SFX_01CA, -1)
 		assign_sound(SFX_01C5, CHANNEL_3)
-		play_sound_from_object(CHANNEL_3, OBJ_PURPLEBOT, 1, 600, 800)
+		play_repeating_sound_from_object(CHANNEL_3, OBJ_PURPLEBOT, 1, 600, 800)
 		show_hudmsg(CHR_TARGET, L_EAR_015) // "Maintenance robots activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE)
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE_NOPROGRAM)
@@ -1678,7 +1678,7 @@ u8 func1006_terminal_activation[] = {
 		label(0x2f)
 		show_hudmsg(CHR_TARGET, L_EAR_028) // "Powering down active systems."
 		assign_sound(SFX_01C3, CHANNEL_5)
-		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM1, TRUE)
+		set_object_sound_playing(CHANNEL_5, OBJ_GOODTERM1, TRUE)
 		restart_timer
 
 		beginloop(0x0a)
@@ -1707,7 +1707,7 @@ u8 func1006_terminal_activation[] = {
 		label(0x2f)
 		show_hudmsg(CHR_TARGET, L_EAR_028) // "Powering down active systems."
 		assign_sound(SFX_01C3, CHANNEL_5)
-		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM2, TRUE)
+		set_object_sound_playing(CHANNEL_5, OBJ_GOODTERM2, TRUE)
 		restart_timer
 
 		beginloop(0x0e)
@@ -1736,7 +1736,7 @@ u8 func1006_terminal_activation[] = {
 		label(0x2f)
 		show_hudmsg(CHR_TARGET, L_EAR_028) // "Powering down active systems."
 		assign_sound(SFX_01C3, CHANNEL_5)
-		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM3, TRUE)
+		set_object_sound_playing(CHANNEL_5, OBJ_GOODTERM3, TRUE)
 		restart_timer
 
 		beginloop(0x10)
@@ -1854,7 +1854,7 @@ u8 func1007_uplink[] = {
 		restart_timer
 		set_stage_flag(STAGEFLAG_UPLINK_SEARCHING)
 		assign_sound(SFX_01BF, CHANNEL_5)
-		control_sound_from_object(CHANNEL_5, OBJ_UPLINKPC, TRUE)
+		set_object_sound_playing(CHANNEL_5, OBJ_UPLINKPC, TRUE)
 
 		beginloop(0x14)
 			if_object_in_good_condition(OBJ_UPLINKPC, /*goto*/ 0x30)
@@ -1871,7 +1871,7 @@ u8 func1007_uplink[] = {
 		label(0x06)
 		mute_channel(CHANNEL_5)
 		assign_sound(SFX_01C1, CHANNEL_6)
-		control_sound_from_object(CHANNEL_6, OBJ_UPLINKPC, TRUE)
+		set_object_sound_playing(CHANNEL_6, OBJ_UPLINKPC, TRUE)
 		show_hudmsg(CHR_TARGET, L_EAR_039) // "Password located - bypassing lock."
 		yield
 		show_hudmsg(CHR_TARGET, L_EAR_017) // "Security doors unlocked."
@@ -1884,7 +1884,7 @@ u8 func1007_uplink[] = {
 
 		label(0x06)
 		assign_sound(SFX_043B, CHANNEL_6)
-		control_sound_from_object(CHANNEL_6, 0x22, TRUE)
+		set_object_sound_playing(CHANNEL_6, 0x22, TRUE)
 		reloop(0x04)
 
 		// Moved away from PC or switched weapon
@@ -1893,7 +1893,7 @@ u8 func1007_uplink[] = {
 		mute_channel(CHANNEL_5)
 		mute_channel(CHANNEL_6)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		control_sound_from_object(CHANNEL_6, OBJ_UPLINKPC, TRUE)
+		set_object_sound_playing(CHANNEL_6, OBJ_UPLINKPC, TRUE)
 		restart_timer
 
 		beginloop(0x16)
@@ -1916,7 +1916,7 @@ u8 func1007_uplink[] = {
 		mute_channel(CHANNEL_5)
 		mute_channel(CHANNEL_6)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		control_sound_from_object(CHANNEL_6, OBJ_UPLINKPC, TRUE)
+		set_object_sound_playing(CHANNEL_6, OBJ_UPLINKPC, TRUE)
 		restart_timer
 
 		beginloop(0x17)
@@ -2274,16 +2274,16 @@ u8 func0416_intro[] = {
 	play_sound(SFX_01D5, CHANNEL_7)
 
 	wait_until(250, 0x57)
-	play_sound(SFX_00EC, CHANNEL_10)
+	play_sound(SFX_00EC, CHANNEL_CUTSCENE)
 
 	wait_until(270, 0x58)
-	play_sound(SFX_0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_CUTSCENE)
 
 	wait_until(290, 0x59)
-	play_sound(SFX_0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_CUTSCENE)
 
 	wait_until(320, 0x5a)
-	play_sound(SFX_0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_CUTSCENE)
 
 	wait_until(380, 0x5b)
 	open_door(0x24)
@@ -2727,17 +2727,17 @@ u8 func1012_start_laser_sound[] = {
 	label(0x04)
 	yield
 	assign_sound(SFX_8119, CHANNEL_0)
-	play_sound_from_object(CHANNEL_0, 0x28, 1, 300, 400)
+	play_repeating_sound_from_object(CHANNEL_0, 0x28, 1, 300, 400)
 	label(0x2f)
 	assign_sound(SFX_811A, CHANNEL_1)
-	play_sound_from_object(CHANNEL_1, 0x2d, 1, 300, 400)
+	play_repeating_sound_from_object(CHANNEL_1, 0x2d, 1, 300, 400)
 	label(0x2f)
 	assign_sound(SFX_8119, CHANNEL_2)
-	play_sound_from_object(CHANNEL_2, 0x32, 1, 300, 400)
+	play_repeating_sound_from_object(CHANNEL_2, 0x32, 1, 300, 400)
 	assign_sound(SFX_01C5, CHANNEL_3)
-	play_sound_from_object(CHANNEL_3, 0x38, 1, 600, 800)
+	play_repeating_sound_from_object(CHANNEL_3, 0x38, 1, 600, 800)
 	assign_sound(SFX_01C5, CHANNEL_4)
-	play_sound_from_object(CHANNEL_4, 0x37, 1, 600, 800)
+	play_repeating_sound_from_object(CHANNEL_4, 0x37, 1, 600, 800)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

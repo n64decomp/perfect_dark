@@ -1965,7 +1965,7 @@ u8 func100c_medpack_activation[] = {
 #else
 	assign_sound(SFX_043C, CHANNEL_7)
 #endif
-	control_sound_from_object(CHANNEL_7, OBJ_HOVERBED, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_HOVERBED, TRUE)
 	restart_timer
 
 	beginloop(0x12)
@@ -1978,7 +1978,7 @@ u8 func100c_medpack_activation[] = {
 #else
 	assign_sound(SFX_047C, CHANNEL_7)
 #endif
-	control_sound_from_object(CHANNEL_7, OBJ_HOVERBED, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_HOVERBED, TRUE)
 	restart_timer
 
 	beginloop(0x08)
@@ -1993,7 +1993,7 @@ u8 func100c_medpack_activation[] = {
 #else
 	assign_sound(SFX_043D, CHANNEL_7)
 #endif
-	control_sound_from_object(CHANNEL_7, 0x00, TRUE)
+	set_object_sound_playing(CHANNEL_7, 0x00, TRUE)
 	show_hudmsg(CHR_P1P2, L_TRA_035) // "Alien medpack has been administered."
 	yield
 
@@ -2113,7 +2113,7 @@ u8 func100f_terminals[] = {
 		// Terminal 1
 		label(0x08)
 		assign_sound(SFX_043A, CHANNEL_7)
-		control_sound_from_object(CHANNEL_7, OBJ_TERMINAL1, TRUE)
+		set_object_sound_playing(CHANNEL_7, OBJ_TERMINAL1, TRUE)
 		if_stage_flag_eq(STAGEFLAG_HANGAR_X_MUSIC_STARTED, TRUE, /*goto*/ 0x32)
 		show_hudmsg(CHR_P1P2, L_TRA_080) // "Console is not active."
 		goto_next(0x0f)
@@ -2134,7 +2134,7 @@ u8 func100f_terminals[] = {
 		// Terminal 2
 		label(0x0a)
 		assign_sound(SFX_043A, CHANNEL_7)
-		control_sound_from_object(CHANNEL_7, OBJ_TERMINAL2, TRUE)
+		set_object_sound_playing(CHANNEL_7, OBJ_TERMINAL2, TRUE)
 		if_stage_flag_eq(STAGEFLAG_HANGAR_X_MUSIC_STARTED, TRUE, /*goto*/ 0x32)
 		show_hudmsg(CHR_P1P2, L_TRA_080) // "Console is not active."
 		goto_next(0x0f)
@@ -2659,24 +2659,24 @@ u8 func1002_intro[] = {
 	play_sound(SFX_01B9, CHANNEL_6)
 
 	wait_until(1334, 0x80)
-	play_sound(SFX_00FB, CHANNEL_10)
+	play_sound(SFX_00FB, CHANNEL_CUTSCENE)
 
 	wait_until(1342, 0x81)
-	play_sound(SFX_00FB, CHANNEL_10)
+	play_sound(SFX_00FB, CHANNEL_CUTSCENE)
 
 	wait_until(1353, 0x82)
-	play_sound(SFX_00F9, CHANNEL_10)
+	play_sound(SFX_00F9, CHANNEL_CUTSCENE)
 
 	wait_until(1362, 0x83)
 
 	wait_until(1372, 0x84)
-	play_sound(SFX_00FA, CHANNEL_10)
+	play_sound(SFX_00FA, CHANNEL_CUTSCENE)
 
 	wait_until(1388, 0x85)
 	play_sound(SFX_01BA, CHANNEL_5)
 
 	wait_until(1396, 0x86)
-	play_sound(SFX_00FC, CHANNEL_10)
+	play_sound(SFX_00FC, CHANNEL_CUTSCENE)
 
 	wait_until(1432, 0xbf)
 	open_door(0x10)
@@ -2700,8 +2700,8 @@ u8 func1002_intro[] = {
 	play_sound(SFX_01B9, CHANNEL_6)
 
 	wait_until(1730, 0x95)
-	play_sound(SFX_00FE, CHANNEL_10)
-	play_sound(SFX_00FA, CHANNEL_10)
+	play_sound(SFX_00FE, CHANNEL_CUTSCENE)
+	play_sound(SFX_00FA, CHANNEL_CUTSCENE)
 
 	wait_until(1736, 0x96)
 	speak(CHR_BOND, L_TRA_063, MP3_0438, CHANNEL_7, COLOR_02_WHITE) // "Let's see how that overconfident thief deals with ..."
@@ -2714,13 +2714,13 @@ u8 func1002_intro[] = {
 	close_door(0x10)
 
 	wait_until(1826, 0x9f)
-	play_sound(SFX_00FD, CHANNEL_10)
+	play_sound(SFX_00FD, CHANNEL_CUTSCENE)
 
 	wait_until(1834, 0xa0)
-	play_sound(SFX_00FD, CHANNEL_10)
+	play_sound(SFX_00FD, CHANNEL_CUTSCENE)
 
 	wait_until(1850, 0xa1)
-	play_sound(SFX_00FA, CHANNEL_10)
+	play_sound(SFX_00FA, CHANNEL_CUTSCENE)
 
 	wait_until(1926, 0xa4)
 	play_sound(SFX_0163, CHANNEL_5)
@@ -2759,53 +2759,53 @@ u8 func1002_intro[] = {
 	speak(CHR_BOND, L_TRA_065, MP3_043A, CHANNEL_7, COLOR_02_WHITE) // "Noooo, that wasn't meant to happen!"
 
 	wait_until(2725, 0xb1)
-	play_sound(SFX_0429, CHANNEL_10)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
 
 	wait_until(2748, 0xb2)
-	play_sound(SFX_0429, CHANNEL_10)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
 
 	wait_until(2768, 0x97)
-	play_sound(SFX_0429, CHANNEL_10)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
 
 	wait_until(2810, 0x98)
-	play_sound(SFX_0429, CHANNEL_10)
-	play_sound(SFX_0429, CHANNEL_10)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
 
 	wait_until(2877, 0x99)
-	play_sound(SFX_0429, CHANNEL_10)
-	play_sound(SFX_0429, CHANNEL_10)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
 
 	wait_until(2904, 0xb3)
-	play_sound(SFX_0429, CHANNEL_10)
-	play_sound(SFX_0429, CHANNEL_10)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
 
 	wait_until(2924, 0xb5)
-	play_sound(SFX_0429, CHANNEL_10)
-	play_sound(SFX_0429, CHANNEL_10)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
+	play_sound(SFX_0429, CHANNEL_CUTSCENE)
 
 	wait_until(2930, 0xb4)
-	play_sound(SFX_COUGH_04AF, CHANNEL_10)
+	play_sound(SFX_COUGH_04AF, CHANNEL_CUTSCENE)
 
 	wait_until(3024, 0x89)
-	play_sound(SFX_00FA, CHANNEL_10)
-	play_sound(SFX_00F9, CHANNEL_10)
+	play_sound(SFX_00FA, CHANNEL_CUTSCENE)
+	play_sound(SFX_00F9, CHANNEL_CUTSCENE)
 
 	wait_until(3060, 0xb0)
-	play_sound(SFX_COUGH_04B0, CHANNEL_10)
+	play_sound(SFX_COUGH_04B0, CHANNEL_CUTSCENE)
 
 	wait_until(3178, 0xb6)
 	play_sound(SFX_007D, CHANNEL_6)
 
 	wait_until(3242, 0xb7)
 	play_sound(SFX_01DC, CHANNEL_6)
-	play_sound(SFX_00FC, CHANNEL_10)
+	play_sound(SFX_00FC, CHANNEL_CUTSCENE)
 
 	wait_until(3290, 0xb8)
 	play_sound(SFX_01DC, CHANNEL_6)
-	play_sound(SFX_00FD, CHANNEL_10)
+	play_sound(SFX_00FD, CHANNEL_CUTSCENE)
 
 	wait_until(3334, 0xb9)
-	play_sound(SFX_00FA, CHANNEL_10)
+	play_sound(SFX_00FA, CHANNEL_CUTSCENE)
 
 	wait_until(3894, 0xba)
 	speak(CHR_BOND, L_TRA_067, MP3_043B, CHANNEL_7, COLOR_09_BLUE) // "You idiot! We'd better get out of here."
@@ -2833,7 +2833,7 @@ u8 func1002_intro[] = {
 	set_stage_flag(STAGEFLAG_GAS_ON)
 	mute_channel(CHANNEL_7)
 	mute_channel(CHANNEL_6)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
@@ -3080,7 +3080,7 @@ u8 func101b_gas_sound[] = {
 	label(0x04)
 	yield
 	assign_sound(SFX_816A, CHANNEL_0)
-	play_sound_from_object(CHANNEL_0, 0x2b, 1, 8000, 3000)
+	play_repeating_sound_from_object(CHANNEL_0, 0x2b, 1, 8000, 3000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3394,7 +3394,7 @@ u8 func101a_medpack_switch[] = {
 
 	label(0x32)
 	assign_sound(SFX_043A, CHANNEL_7)
-	control_sound_from_object(CHANNEL_7, OBJ_MEDPACK_SWITCH, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_MEDPACK_SWITCH, TRUE)
 	show_hudmsg(CHR_P1P2, L_TRA_054) // "Medical containment doors unlocked."
 	unlock_door(0x12, 0x40)
 	unlock_door(0x13, 0x40)

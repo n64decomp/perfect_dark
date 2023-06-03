@@ -1536,7 +1536,7 @@ u8 func0c01_midcutscene[] = {
 		label(0x06)
 
 	wait_until(114, 0x63)
-	speak(CHR_BOND, L_PAM_035, MP3_046D, CHANNEL_10, COLOR_09_BLUE) // "Here goes. I just hope dataDyne haven't done anyth..."
+	speak(CHR_BOND, L_PAM_035, MP3_046D, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Here goes. I just hope dataDyne haven't done anyth..."
 
 	wait_until(300, 0x64)
 	play_sound(SFX_0171, CHANNEL_2)
@@ -1548,10 +1548,10 @@ u8 func0c01_midcutscene[] = {
 	play_sound(SFX_0423, CHANNEL_5)
 
 	wait_until(440, 0x1a)
-	play_sound(SFX_04F7, CHANNEL_10)
+	play_sound(SFX_04F7, CHANNEL_CUTSCENE)
 
 	wait_until(490, 0x6b)
-	speak(CHR_BOND, L_PAM_036, MP3_046E, CHANNEL_10, COLOR_04_ORANGE) // "Virus detected."
+	speak(CHR_BOND, L_PAM_036, MP3_046E, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "Virus detected."
 
 	wait_until(570, 0x69)
 
@@ -1566,7 +1566,7 @@ u8 func0c01_midcutscene[] = {
 
 	label(0x06)
 	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESFROWNING, DRCAROLLIMAGE_EYESFROWNING)
-	speak(CHR_BOND, L_PAM_037, MP3_046F, CHANNEL_10, COLOR_09_BLUE) // "Me and my big mouth."
+	speak(CHR_BOND, L_PAM_037, MP3_046F, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Me and my big mouth."
 
 	wait_until(700, 0x6d)
 	play_sound(SFX_0172, CHANNEL_6)
@@ -1585,7 +1585,7 @@ u8 func0c01_midcutscene[] = {
 	goto_first(0x71)
 
 	label(0x06)
-	speak(CHR_BOND, L_PAM_038, MP3_0470, CHANNEL_10, COLOR_04_ORANGE) // "Commencing countermeasures. Commenc..... *** ooOOo..."
+	speak(CHR_BOND, L_PAM_038, MP3_0470, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "Commencing countermeasures. Commenc..... *** ooOOo..."
 
 	wait_until_with_images(746, 0x73, DRCAROLLIMAGE_EYESFROWNING, DRCAROLLIMAGE_RANDOM)
 	play_sound(SFX_0128, CHANNEL_5)
@@ -1691,7 +1691,7 @@ u8 func0c01_midcutscene[] = {
 	play_sound(SFX_0171, CHANNEL_3)
 
 	wait_until_with_images(1500, 0xd4, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
-	speak(CHR_BOND, L_PAM_039, MP3_0471, CHANNEL_10, COLOR_09_BLUE) // "Dr. Caroll? Are you in control again? Can you stop..."
+	speak(CHR_BOND, L_PAM_039, MP3_0471, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Dr. Caroll? Are you in control again? Can you stop..."
 	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_EYESDEFAULT)
 
 	wait_until(1534, 0xd6)
@@ -1704,7 +1704,7 @@ u8 func0c01_midcutscene[] = {
 	play_sound(SFX_0175, CHANNEL_5)
 
 	wait_until(1810, 0xe3)
-	speak(CHR_BOND, L_PAM_040, MP3_0472, CHANNEL_10, COLOR_04_ORANGE) // "Yes, I'm back again, my dear. But the program has ..."
+	speak(CHR_BOND, L_PAM_040, MP3_0472, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "Yes, I'm back again, my dear. But the program has ..."
 
 	wait_until(1810, 0xe5)
 	play_sound(SFX_0177, CHANNEL_3)
@@ -1714,10 +1714,10 @@ u8 func0c01_midcutscene[] = {
 
 	wait_until(2378, 0xe9)
 	mute_channel(CHANNEL_7)
-	speak(CHR_BOND, L_PAM_041, MP3_0473, CHANNEL_10, COLOR_09_BLUE) // "What do you mean?"
+	speak(CHR_BOND, L_PAM_041, MP3_0473, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "What do you mean?"
 
 	wait_until(2510, 0xea)
-	speak(CHR_BOND, L_PAM_042, MP3_0474, CHANNEL_10, COLOR_04_ORANGE) // "When the program has run, I will have control of a..."
+	speak(CHR_BOND, L_PAM_042, MP3_0474, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "When the program has run, I will have control of a..."
 
 	wait_until(3126, 0xf5)
 	play_sound(SFX_012B, CHANNEL_5)
@@ -1806,7 +1806,7 @@ u8 func0c01_midcutscene[] = {
 	endloop(0x08)
 
 	label(0x57)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	mute_channel(CHANNEL_7)
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_5)
@@ -2050,27 +2050,27 @@ u8 func1002_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2_SCOPE, WEAPON_NONE)
 
 	wait_until(0, 0x63)
-	play_sound_from_object2(CHANNEL_5, 0x07, SFX_DOOR_81AA, 0x00, 0x00)
+	play_sound_from_object2(CHANNEL_5, 0x07, SFX_DOOR_81AA, PSTYPE_NONE, 0)
 
 	wait_until(260, 0x8a)
-	play_sound(SFX_FOOTSTEP_80D5, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80D5, CHANNEL_CUTSCENE)
 
 	wait_until(280, 0x8b)
-	play_sound(SFX_FOOTSTEP_80D4, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80D4, CHANNEL_CUTSCENE)
 
 	wait_until(300, 0x89)
 	play_sound(SFX_CLOAK_ON, CHANNEL_7)
 	set_chr_hiddenflag(0x40, CHRHFLAG_CLOAKED)
-	play_sound(SFX_FOOTSTEP_80D7, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80D7, CHANNEL_CUTSCENE)
 
 	wait_until(320, 0x8c)
-	play_sound(SFX_FOOTSTEP_80D6, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80D6, CHANNEL_CUTSCENE)
 
 	wait_until(852, 0x64)
 	play_sound(SFX_0171, CHANNEL_7)
 
 	wait_until(1210, 0x65)
-	speak(CHR_BOND, L_PAM_031, MP3_0469, CHANNEL_10, COLOR_04_ORANGE) // "This doesn't seem normal. No one's around."
+	speak(CHR_BOND, L_PAM_031, MP3_0469, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "This doesn't seem normal. No one's around."
 
 	wait_until(1266, 0x66)
 	play_sound(SFX_0172, CHANNEL_7)
@@ -2080,10 +2080,10 @@ u8 func1002_intro[] = {
 
 	wait_until(1430, 0x6b)
 	mute_channel(CHANNEL_5)
-	play_sound_from_object2(CHANNEL_5, 0x07, SFX_81A9, 0x00, 0x00)
+	play_sound_from_object2(CHANNEL_5, 0x07, SFX_81A9, PSTYPE_NONE, 0)
 
 	wait_until(1522, 0x6c)
-	speak(CHR_BOND, L_PAM_032, MP3_046A, CHANNEL_10, COLOR_09_BLUE) // "No signs of conflict. No spent ammo cases or bulle..."
+	speak(CHR_BOND, L_PAM_032, MP3_046A, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "No signs of conflict. No spent ammo cases or bulle..."
 
 	wait_until(1548, 0x6d)
 	play_sound(SFX_0174, CHANNEL_7)
@@ -2098,7 +2098,7 @@ u8 func1002_intro[] = {
 	play_sound(SFX_0177, CHANNEL_7)
 
 	wait_until(1945, 0x71)
-	speak(CHR_BOND, L_PAM_033, MP3_046B, CHANNEL_10, COLOR_04_ORANGE) // "But there ought to be a rear guard at least. It ma..."
+	speak(CHR_BOND, L_PAM_033, MP3_046B, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "But there ought to be a rear guard at least. It ma..."
 
 	wait_until(1958, 0x72)
 	play_sound(SFX_0178, CHANNEL_7)
@@ -2128,7 +2128,7 @@ u8 func1002_intro[] = {
 	play_sound(SFX_0178, CHANNEL_7)
 
 	wait_until(2420, 0x7b)
-	speak(CHR_BOND, L_PAM_034, MP3_046C, CHANNEL_10, COLOR_09_BLUE) // "There has to be someone farther inside. Cover me."
+	speak(CHR_BOND, L_PAM_034, MP3_046C, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "There has to be someone farther inside. Cover me."
 
 	wait_until(2426, 0x7c)
 	play_sound(SFX_0171, CHANNEL_7)
@@ -2183,7 +2183,7 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_5)
 	mute_channel(CHANNEL_4)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	remove_chr(0x40)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -3662,7 +3662,7 @@ u8 func041e_init_sa_megaweapon_miniskedar[] = {
  \
 	label(0x06) \
 	assign_sound(SFX_8147, CHANNEL_7) \
-	control_sound_from_object(CHANNEL_7, mine, TRUE) \
+	set_object_sound_playing(CHANNEL_7, mine, TRUE) \
 	yield \
 	destroy_object(mine) \
 	destroy_object(glass1) \

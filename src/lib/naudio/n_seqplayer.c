@@ -302,7 +302,7 @@ void __n_resetPerfChanState(N_ALSeqPlayer *seqp, s32 chan)
 	seqp->chanState[chan].fxId = AL_FX_NONE;
 	seqp->chanState[chan].fxmix = AL_DEFAULT_FXMIX;
 	seqp->chanState[chan].pan = AL_PAN_CENTER;
-	seqp->chanState[chan].vol = AL_VOL_FULL;
+	seqp->chanState[chan].vol = _AL_VOL_FULL;
 	seqp->chanState[chan].priority = AL_DEFAULT_PRIORITY;
 	seqp->chanState[chan].sustain = 0;
 	seqp->chanState[chan].bendRange = 200;

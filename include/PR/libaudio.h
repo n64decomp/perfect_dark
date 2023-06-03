@@ -71,14 +71,15 @@ extern "C" {
 typedef s32     ALMicroTime;
 typedef u8      ALPan;
 
-#define AL_PAN_CENTER   64
-#define AL_PAN_LEFT     0
-#define AL_PAN_RIGHT    127
-#define AL_VOL_FULL     127
-#define AL_KEY_MIN      0
-#define AL_KEY_MAX      127
-#define AL_DEFAULT_FXMIX	0
-#define AL_SUSTAIN      63
+#define AL_PAN_CENTER    64
+#define AL_PAN_LEFT      0
+#define AL_PAN_RIGHT     127
+#define _AL_VOL_FULL     127    /* SDK/internal value */
+#define AL_VOL_FULL      0x7fff /* But the game uses this mostly */
+#define AL_KEY_MIN       0
+#define AL_KEY_MAX       127
+#define AL_DEFAULT_FXMIX 0
+#define AL_SUSTAIN       63
 
 /***********************************************************************
  * Error handling

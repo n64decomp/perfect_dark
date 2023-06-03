@@ -1350,7 +1350,7 @@ u8 func1008_check_console[] = {
 
 	label(0x2c)
 	assign_sound(SFX_8111, CHANNEL_0)
-	play_sound_from_object(CHANNEL_0, OBJ_CONSOLE, 1, 300, 400)
+	play_repeating_sound_from_object(CHANNEL_0, OBJ_CONSOLE, 1, 300, 400)
 	show_hudmsg(CHR_BOND, L_SEV_009) // "Distress signal has been sent."
 	set_stage_flag(STAGEFLAG_CONSOLE_ACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1623,19 +1623,19 @@ u8 func041b_outro[] = {
 	play_sound(SFX_0085, CHANNEL_6)
 
 	wait_until(205, 0x6e)
-	play_sound(SFX_04F2, CHANNEL_10)
+	play_sound(SFX_04F2, CHANNEL_CUTSCENE)
 
 	wait_until(210, 0x6f)
-	play_sound(SFX_0045, CHANNEL_10)
+	play_sound(SFX_0045, CHANNEL_CUTSCENE)
 
 	wait_until(214, 0x70)
-	play_sound(SFX_ARGH_MAIAN_05E0, CHANNEL_10)
+	play_sound(SFX_ARGH_MAIAN_05E0, CHANNEL_CUTSCENE)
 
 	wait_until(260, 0x71)
-	play_sound(SFX_007B, CHANNEL_10)
+	play_sound(SFX_007B, CHANNEL_CUTSCENE)
 
 	wait_until(270, 0x72)
-	play_sound(SFX_M0_GRAB_A_BODY_BAG, CHANNEL_10)
+	play_sound(SFX_M0_GRAB_A_BODY_BAG, CHANNEL_CUTSCENE)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)

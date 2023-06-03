@@ -5,15 +5,15 @@
 #include "data.h"
 #include "types.h"
 
-void propsndReset(void)
+void psReset(void)
 {
 	s32 i;
 
-	g_AudioChannels = mempAlloc(ALIGN16((IS4MB() ? 30 : 40) * sizeof(struct audiochannel)), MEMPOOL_STAGE);
+	g_PsChannels = mempAlloc(ALIGN16((IS4MB() ? 30 : 40) * sizeof(struct pschannel)), MEMPOOL_STAGE);
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
-		g_AudioChannels[i].flags = AUDIOCHANNELFLAG_IDLE;
-		g_AudioChannels[i].audiohandle = NULL;
-		g_AudioChannels[i].unk4c = -1;
+		g_PsChannels[i].flags = PSFLAG_FREE;
+		g_PsChannels[i].audiohandle = NULL;
+		g_PsChannels[i].distance = -1;
 	}
 }

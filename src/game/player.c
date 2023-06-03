@@ -3221,7 +3221,7 @@ void playerTick(bool arg0)
 			eyespy->deployed = false;
 			eyespy->held = true;
 			eyespy->active = false;
-			func0f0926bc(eyespy->prop, 1, 0xffff);
+			psStopSound(eyespy->prop, PSTYPE_GENERAL, 0xffff);
 			chr->chrflags |= CHRCFLAG_HIDDEN;
 			chr->chrflags |= CHRCFLAG_INVINCIBLE;
 			g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;

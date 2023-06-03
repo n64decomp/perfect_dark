@@ -878,28 +878,28 @@ u8 func0425_outro[] = {
 		label(0x02)
 
 	wait_until(38, 0x92)
-	play_sound(SFX_FOOTSTEP_80C4, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80C4, CHANNEL_CUTSCENE)
 
 	wait_until(84, 0x93)
-	play_sound(SFX_FOOTSTEP_80C5, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80C5, CHANNEL_CUTSCENE)
 
 	wait_until(130, 0x94)
-	play_sound(SFX_FOOTSTEP_80C6, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80C6, CHANNEL_CUTSCENE)
 
 	wait_until(176, 0x95)
-	play_sound(SFX_FOOTSTEP_80C7, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80C7, CHANNEL_CUTSCENE)
 
 	wait_until(220, 0x96)
-	play_sound(SFX_FOOTSTEP_80C4, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80C4, CHANNEL_CUTSCENE)
 
 	wait_until(274, 0x97)
-	play_sound(SFX_FOOTSTEP_80C5, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80C5, CHANNEL_CUTSCENE)
 
 	wait_until(320, 0x98)
-	play_sound(SFX_FOOTSTEP_80C6, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80C6, CHANNEL_CUTSCENE)
 
 	wait_until(365, 0x99)
-	play_sound(SFX_FOOTSTEP_80C7, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80C7, CHANNEL_CUTSCENE)
 
 	beginloop(0x04)
 		if_camera_animating(/*goto*/ 0x31)
@@ -911,7 +911,7 @@ u8 func0425_outro[] = {
 	endloop(0x04)
 
 	label(0x48)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	label(0x02)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -1741,7 +1741,7 @@ u8 func1007_console_activation[] = {
 	show_hudmsg(CHR_P1P2, L_CAVE_035) // "System shutdown initiated..."
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_01B9, CHANNEL_1)
-	control_sound_from_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
+	set_object_sound_playing(CHANNEL_1, OBJ_CONSOLE, TRUE)
 	restart_timer
 
 	beginloop(0x04)
@@ -1756,7 +1756,7 @@ u8 func1007_console_activation[] = {
 	set_object_image(OBJ_CONSOLE, 0, TVCMDLIST_14)
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_0479, CHANNEL_1)
-	control_sound_from_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
+	set_object_sound_playing(CHANNEL_1, OBJ_CONSOLE, TRUE)
 	show_hudmsg(CHR_P1P2, L_CAVE_036) // "Security systems have been shut down."
 	set_stage_flag(STAGEFLAG_SECURITY_SHUT_DOWN)
 	unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED)
@@ -2358,7 +2358,7 @@ u8 func100d_laser_panel[] = {
 
 		label(0x04)
 		assign_sound(SFX_043A, CHANNEL_7)
-		control_sound_from_object(CHANNEL_7, OBJ_LASER_PANEL, TRUE)
+		set_object_sound_playing(CHANNEL_7, OBJ_LASER_PANEL, TRUE)
 		show_hudmsg(CHR_P1P2, L_CAVE_045) // "Laser grid access denied."
 	endloop(0x00)
 
@@ -2956,16 +2956,16 @@ u8 func0404_laser_guard[] = {
 u8 func1016_console_noises[] = {
 	yield
 	assign_sound(SFX_8141, CHANNEL_0)
-	play_sound_from_object(CHANNEL_0, 0x04, 1, 600, 800)
+	play_repeating_sound_from_object(CHANNEL_0, 0x04, 1, 600, 800)
 	yield
 	assign_sound(SFX_8143, CHANNEL_2)
-	play_sound_from_object(CHANNEL_2, 0x05, 1, 500, 1000)
+	play_repeating_sound_from_object(CHANNEL_2, 0x05, 1, 500, 1000)
 	yield
-	play_sound_from_pad(PAD_CAVE_0114, SFX_81A7)
+	play_repeating_sound_from_pad(PAD_CAVE_0114, SFX_81A7)
 	yield
-	play_sound_from_pad(PAD_CAVE_0115, SFX_81A7)
+	play_repeating_sound_from_pad(PAD_CAVE_0115, SFX_81A7)
 	yield
-	play_sound_from_pad(PAD_CAVE_01AC, SFX_811B)
+	play_repeating_sound_from_pad(PAD_CAVE_01AC, SFX_811B)
 
 	label(0x42)
 	restart_timer
@@ -3004,7 +3004,7 @@ u8 func1016_console_noises[] = {
 	yield
 	yield
 	assign_sound(SFX_8112, CHANNEL_1)
-	play_sound_from_object(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
+	play_repeating_sound_from_object(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
 	goto_first(0x42)
 
 	// Rand 2
@@ -3020,7 +3020,7 @@ u8 func1016_console_noises[] = {
 	yield
 	yield
 	assign_sound(SFX_813F, CHANNEL_1)
-	play_sound_from_object(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
+	play_repeating_sound_from_object(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
 	goto_first(0x42)
 
 	// Rand 3
@@ -3036,7 +3036,7 @@ u8 func1016_console_noises[] = {
 	yield
 	yield
 	assign_sound(SFX_8140, CHANNEL_1)
-	play_sound_from_object(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
+	play_repeating_sound_from_object(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
 	goto_first(0x42)
 
 	label(0x09)
@@ -3639,168 +3639,168 @@ u8 func1003_intro[] = {
 	speak(CHR_BOND, L_CAVE_055, MP3_0447, CHANNEL_7, COLOR_09_BLUE) // "Agent Dark in position. I can see the main entranc..."
 
 	wait_until(312, 0x89)
-	play_sound(SFX_0594, CHANNEL_10)
+	play_sound(SFX_0594, CHANNEL_CUTSCENE)
 
 	wait_until(346, 0x8a)
-	play_sound(SFX_0595, CHANNEL_10)
+	play_sound(SFX_0595, CHANNEL_CUTSCENE)
 
 	wait_until(580, 0x76)
-	speak(CHR_BOND, L_CAVE_056, MP3_0448, CHANNEL_10, COLOR_06_WHITE) // "Excellent, Joanna. That cable car is your way in....."
+	speak(CHR_BOND, L_CAVE_056, MP3_0448, CHANNEL_CUTSCENE, COLOR_06_WHITE) // "Excellent, Joanna. That cable car is your way in....."
 
 	wait_until(968, 0x8b)
-	play_sound(SFX_0596, CHANNEL_10)
+	play_sound(SFX_0596, CHANNEL_CUTSCENE)
 
 	wait_until(1315, 0x77)
-	speak(CHR_BOND, L_CAVE_057, MP3_07DB, CHANNEL_10, COLOR_09_BLUE) // "That they're probably innocent of any involvement ..."
+	speak(CHR_BOND, L_CAVE_057, MP3_07DB, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "That they're probably innocent of any involvement ..."
 
 	wait_until(1411, 0x8e)
 	play_sound(SFX_04AF, CHANNEL_0)
 
 	wait_until(1735, 0x85)
 	mute_channel(CHANNEL_0)
-	play_sound(SFX_04EA, CHANNEL_10)
+	play_sound(SFX_04EA, CHANNEL_CUTSCENE)
 
 	wait_until(1800, 0x86)
-	play_sound(SFX_04EB, CHANNEL_10)
+	play_sound(SFX_04EB, CHANNEL_CUTSCENE)
 
 	wait_until(1890, 0x87)
-	play_sound(SFX_04EC, CHANNEL_10)
+	play_sound(SFX_04EC, CHANNEL_CUTSCENE)
 
 	wait_until(1900, 0x78)
 	speak(CHR_BOND, L_CAVE_058, MP3_0449, CHANNEL_5, COLOR_06_WHITE) // "I don't know how far the conspiracy has spread thr..."
 
 	wait_until(1970, 0x8c)
-	play_sound(SFX_0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_CUTSCENE)
 
 	wait_until(1980, 0x88)
 
 	wait_until(2013, 0x8d)
-	play_sound(SFX_0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_CUTSCENE)
 
 	wait_until(2048, 0x8f)
-	play_sound(SFX_0596, CHANNEL_10)
+	play_sound(SFX_0596, CHANNEL_CUTSCENE)
 
 	wait_until(2076, 0x92)
-	play_sound(SFX_0161, CHANNEL_10)
+	play_sound(SFX_0161, CHANNEL_CUTSCENE)
 
 	wait_until(2088, 0x93)
-	play_sound(SFX_0162, CHANNEL_10)
+	play_sound(SFX_0162, CHANNEL_CUTSCENE)
 
 	wait_until(2116, 0x94)
-	play_sound(SFX_0163, CHANNEL_10)
+	play_sound(SFX_0163, CHANNEL_CUTSCENE)
 
 	wait_until(2140, 0x95)
-	play_sound(SFX_0164, CHANNEL_10)
+	play_sound(SFX_0164, CHANNEL_CUTSCENE)
 
 	wait_until(2154, 0x96)
-	play_sound(SFX_0165, CHANNEL_10)
+	play_sound(SFX_0165, CHANNEL_CUTSCENE)
 
 	wait_until(2184, 0x97)
-	play_sound(SFX_0166, CHANNEL_10)
+	play_sound(SFX_0166, CHANNEL_CUTSCENE)
 
 	wait_until(2202, 0x98)
-	play_sound(SFX_0167, CHANNEL_10)
+	play_sound(SFX_0167, CHANNEL_CUTSCENE)
 
 	wait_until(2246, 0x99)
-	play_sound(SFX_0168, CHANNEL_10)
+	play_sound(SFX_0168, CHANNEL_CUTSCENE)
 
 	wait_until(2296, 0x9a)
-	play_sound(SFX_0161, CHANNEL_10)
+	play_sound(SFX_0161, CHANNEL_CUTSCENE)
 
 	wait_until(2332, 0x9b)
-	play_sound(SFX_0162, CHANNEL_10)
+	play_sound(SFX_0162, CHANNEL_CUTSCENE)
 
 	wait_until(2376, 0x9c)
-	play_sound(SFX_0165, CHANNEL_10)
+	play_sound(SFX_0165, CHANNEL_CUTSCENE)
 
 	wait_until(2418, 0x9d)
-	play_sound(SFX_0163, CHANNEL_10)
+	play_sound(SFX_0163, CHANNEL_CUTSCENE)
 
 	wait_until(2446, 0x9e)
-	play_sound(SFX_0164, CHANNEL_10)
+	play_sound(SFX_0164, CHANNEL_CUTSCENE)
 
 	wait_until(2486, 0x9f)
-	play_sound(SFX_0168, CHANNEL_10)
+	play_sound(SFX_0168, CHANNEL_CUTSCENE)
 
 	wait_until(2526, 0xa0)
-	play_sound(SFX_0166, CHANNEL_10)
+	play_sound(SFX_0166, CHANNEL_CUTSCENE)
 
 	wait_until(2558, 0xa1)
-	play_sound(SFX_0167, CHANNEL_10)
+	play_sound(SFX_0167, CHANNEL_CUTSCENE)
 
 	wait_until(2674, 0xa2)
-	play_sound(SFX_0168, CHANNEL_10)
+	play_sound(SFX_0168, CHANNEL_CUTSCENE)
 
 	wait_until(2700, 0x79)
 	speak(CHR_BOND, L_CAVE_059, MP3_044A, CHANNEL_7, COLOR_09_BLUE) // "Yes, and protect him from his abductors. Do you ha..."
 
 	wait_until(2704, 0xa3)
-	play_sound(SFX_0161, CHANNEL_10)
+	play_sound(SFX_0161, CHANNEL_CUTSCENE)
 
 	wait_until(2720, 0xa4)
-	play_sound(SFX_0163, CHANNEL_10)
+	play_sound(SFX_0163, CHANNEL_CUTSCENE)
 
 	wait_until(2770, 0xa5)
-	play_sound(SFX_0164, CHANNEL_10)
+	play_sound(SFX_0164, CHANNEL_CUTSCENE)
 
 	wait_until(2796, 0xa6)
-	play_sound(SFX_0167, CHANNEL_10)
+	play_sound(SFX_0167, CHANNEL_CUTSCENE)
 
 	wait_until(2812, 0xa7)
-	play_sound(SFX_0168, CHANNEL_10)
+	play_sound(SFX_0168, CHANNEL_CUTSCENE)
 
 	wait_until(2830, 0xa8)
-	play_sound(SFX_0162, CHANNEL_10)
+	play_sound(SFX_0162, CHANNEL_CUTSCENE)
 
 	wait_until(2846, 0xa9)
-	play_sound(SFX_0164, CHANNEL_10)
+	play_sound(SFX_0164, CHANNEL_CUTSCENE)
 
 	wait_until(2856, 0xaa)
-	play_sound(SFX_0165, CHANNEL_10)
+	play_sound(SFX_0165, CHANNEL_CUTSCENE)
 
 	wait_until(2890, 0xab)
-	play_sound(SFX_0166, CHANNEL_10)
+	play_sound(SFX_0166, CHANNEL_CUTSCENE)
 
 	wait_until(2946, 0xac)
-	play_sound(SFX_0163, CHANNEL_10)
+	play_sound(SFX_0163, CHANNEL_CUTSCENE)
 
 	wait_until(2976, 0xad)
-	play_sound(SFX_0164, CHANNEL_10)
+	play_sound(SFX_0164, CHANNEL_CUTSCENE)
 
 	wait_until(3008, 0xae)
-	play_sound(SFX_0167, CHANNEL_10)
+	play_sound(SFX_0167, CHANNEL_CUTSCENE)
 
 	wait_until(3116, 0xaf)
-	play_sound(SFX_0164, CHANNEL_10)
+	play_sound(SFX_0164, CHANNEL_CUTSCENE)
 
 	wait_until(3154, 0xb0)
-	play_sound(SFX_0165, CHANNEL_10)
+	play_sound(SFX_0165, CHANNEL_CUTSCENE)
 
 	wait_until(3188, 0xb1)
-	play_sound(SFX_0163, CHANNEL_10)
+	play_sound(SFX_0163, CHANNEL_CUTSCENE)
 
 	wait_until(3230, 0xb2)
-	play_sound(SFX_0164, CHANNEL_10)
+	play_sound(SFX_0164, CHANNEL_CUTSCENE)
 
 	wait_until(3250, 0x7a)
 	speak(CHR_BOND, L_CAVE_060, MP3_044B, CHANNEL_5, COLOR_06_WHITE) // "Only vague suspicions, and I won't distract you wi..."
 
 	wait_until(3387, 0xb3)
-	play_sound(SFX_0166, CHANNEL_10)
+	play_sound(SFX_0166, CHANNEL_CUTSCENE)
 
 	wait_until(3427, 0xb4)
-	play_sound(SFX_0167, CHANNEL_10)
+	play_sound(SFX_0167, CHANNEL_CUTSCENE)
 
 	wait_until(3448, 0xb5)
-	play_sound(SFX_0168, CHANNEL_10)
+	play_sound(SFX_0168, CHANNEL_CUTSCENE)
 
 	wait_until(3656, 0xb6)
-	play_sound(SFX_0163, CHANNEL_10)
+	play_sound(SFX_0163, CHANNEL_CUTSCENE)
 
 	wait_until(3723, 0x90)
 
 	wait_until(3796, 0x91)
-	play_sound(SFX_04FC, CHANNEL_10)
+	play_sound(SFX_04FC, CHANNEL_CUTSCENE)
 
 	beginloop(0x04)
 		if_camera_animating(/*goto*/ 0x31)
@@ -3817,7 +3817,7 @@ u8 func1003_intro[] = {
 	mute_channel(CHANNEL_5)
 	mute_channel(CHANNEL_4)
 	mute_channel(CHANNEL_0)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	disable_object(0x22)
 	disable_object(0x2f)
 	label(0x02)

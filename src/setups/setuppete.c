@@ -818,7 +818,7 @@ u8 func1026_uplink[] = {
 		label(0x03)
 		show_hudmsg(CHR_P1P2, L_PETE_019) // "Accessing hovercab navigation systems."
 		assign_sound(SFX_0456, CHANNEL_7)
-		control_sound_from_object(CHANNEL_7, OBJ_TAXI, TRUE)
+		set_object_sound_playing(CHANNEL_7, OBJ_TAXI, TRUE)
 		restart_timer
 
 		beginloop(0x05)
@@ -832,7 +832,7 @@ u8 func1026_uplink[] = {
 		show_hudmsg(CHR_P1P2, L_PETE_021) // "Hovercab navigation systems reprogrammed."
 		mute_channel(CHANNEL_7)
 		assign_sound(SFX_01C1, CHANNEL_7)
-		control_sound_from_object(CHANNEL_7, OBJ_TAXI, TRUE)
+		set_object_sound_playing(CHANNEL_7, OBJ_TAXI, TRUE)
 		yield
 		set_stage_flag(STAGEFLAG_TAXI_REPROGRAMMED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -845,7 +845,7 @@ u8 func1026_uplink[] = {
 		yield
 		yield
 		assign_sound(SFX_0457, CHANNEL_4)
-		play_sound_from_object(CHANNEL_4, OBJ_TAXI, 1, 300, 400)
+		play_repeating_sound_from_object(CHANNEL_4, OBJ_TAXI, 1, 300, 400)
 		restart_timer
 
 		beginloop(0x1d)
@@ -902,7 +902,7 @@ u8 func040d_limo[] = {
 	object_do_animation(ANIM_02D6, OBJ_LIMO, 0x04, 0xffff)
 
 	assign_sound(SFX_BIKE_ENGINE, CHANNEL_1)
-	play_sound_from_object(CHANNEL_1, OBJ_LIMO, 1, 2400, 3200)
+	play_repeating_sound_from_object(CHANNEL_1, OBJ_LIMO, 1, 2400, 3200)
 	if_stage_flag_eq(STAGEFLAG_TRACERBUG_PLACED, TRUE, /*goto*/ 0x03)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x03)
 	set_stage_flag(STAGEFLAG_LIMO_ESCAPED)
@@ -941,7 +941,7 @@ u8 func040c_taxi[] = {
 	// Take off
 	label(0x03)
 	assign_sound(SFX_8000, CHANNEL_0)
-	play_sound_from_object(CHANNEL_0, OBJ_TAXI, 1, 2400, 3200)
+	play_repeating_sound_from_object(CHANNEL_0, OBJ_TAXI, 1, 2400, 3200)
 	object_do_animation(ANIM_0168, OBJ_TAXI, 0x04, 0xffff)
 	set_object_flag2(OBJ_TAXI, OBJFLAG2_CANFILLVIEWPORT)
 
@@ -2399,10 +2399,10 @@ u8 func040a_intro_from_gameplay[] = {
 
 u8 func101f_setup_robot_noise[] = {
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object2(CHANNEL_2, CHR_ROBOT, SFX_80B9, 0x00, 0x02)
+	play_sound_from_object2(CHANNEL_2, CHR_ROBOT, SFX_80B9, PSTYPE_NONE, PSFLAG_REPEATING)
 #else
 	play_sound(SFX_80B9, CHANNEL_2)
-	play_sound_from_object(CHANNEL_2, CHR_ROBOT, 0, 900, 1500)
+	play_repeating_sound_from_object(CHANNEL_2, CHR_ROBOT, 0, 900, 1500)
 #endif
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2759,7 +2759,7 @@ u8 func040b_outro[] = {
 
 	label(0x2e)
 	mute_channel(CHANNEL_7)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	label(0x04)
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)

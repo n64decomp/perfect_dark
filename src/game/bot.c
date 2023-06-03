@@ -306,8 +306,8 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 			}
 
 			// Pickup sound
-			propsnd0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
-				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			psCreate(NULL, prop, SFX_PICKUP_AMMO, -1,
+				-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 
@@ -357,8 +357,8 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 			}
 
 			// Pickup sound
-			propsnd0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
-				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			psCreate(NULL, prop, SFX_PICKUP_AMMO, -1,
+				-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 		}
@@ -410,8 +410,8 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 		{
 			struct shieldobj *shield = (struct shieldobj *)prop->obj;
 
-			propsnd0f0939f8(NULL, prop, SFX_PICKUP_SHIELD, -1,
-				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			psCreate(NULL, prop, SFX_PICKUP_SHIELD, -1,
+				-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 			chrSetShield(chr, shield->amount * 8);
 			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);

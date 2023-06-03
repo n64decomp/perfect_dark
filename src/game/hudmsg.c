@@ -555,7 +555,7 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 	s32 audioduration60;
 	struct hudmsgtype *config;
 
-	audioduration60 = propsndGetDuration60(audiochannelnum);
+	audioduration60 = psGetDuration60(audiochannelnum);
 
 	if (type == HUDMSGTYPE_INGAMESUBTITLE) {
 		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
@@ -1161,7 +1161,7 @@ void hudmsgsTick(void)
 		previd = msg->id;
 
 		if (msg->channelnum >= 0) {
-			msg->opacity = propsndGetSubtitleOpacity(msg->channelnum);
+			msg->opacity = psGetSubtitleOpacity(msg->channelnum);
 		} else {
 			msg->opacity = 0xff;
 		}
@@ -1285,7 +1285,7 @@ void hudmsgsTick(void)
 
 			// Subtitles have an audio channel number and are hidden when the audio stops
 			if (msg->channelnum >= 0) {
-				if (audioIsChannelIdle(msg->channelnum)) {
+				if (psIsChannelFree(msg->channelnum)) {
 					hide = true;
 				} else if (msg->flags & HUDMSGFLAG_FORCEOFF) {
 					msg->flags &= ~HUDMSGFLAG_FORCEOFF;

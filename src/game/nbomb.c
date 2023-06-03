@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "../lib/naudio/n_sndp.h"
 #include "game/chraction.h"
 #include "game/dlights.h"
 #include "game/game_006900.h"
@@ -567,7 +568,7 @@ void nbombsTick(void)
 {
 	s32 i;
 	s32 youngest240 = 20000;
-	s32 somevalue;
+	s32 volume;
 
 	if (g_Vars.lvupdate240 != 0) {
 		g_NbombsActive = false;
@@ -585,7 +586,7 @@ void nbombsTick(void)
 		}
 	}
 
-	somevalue = 0;
+	volume = 0;
 
 	if (youngest240 < TICKS(350)) {
 		if (g_Vars.lvupdate240 != 0) {
@@ -593,21 +594,21 @@ void nbombsTick(void)
 				sndStart(var80095200, SFX_SHIP_HUM, &g_NbombAudioHandle, -1, -1, -1, -1, -1);
 			}
 
-			somevalue = 32767;
+			volume = AL_VOL_FULL;
 
 			if (g_NbombAudioHandle) {
 				f32 speed = menuGetSinOscFrac(20) * 0.02f + 0.4f;
 
 				if (youngest240 > TICKS(300)) {
-					somevalue = (1.0f - (f32)(youngest240 - TICKS(300)) / (PAL ? 41.0f : 50.0f)) * 32767.0f;
+					volume = (1.0f - (f32)(youngest240 - TICKS(300)) / (PAL ? 41.0f : 50.0f)) * AL_VOL_FULL;
 				}
 
 				if (youngest240 >= TICKS(350)) {
-					somevalue = 0;
+					volume = 0;
 				}
 
-				audioPostEvent(g_NbombAudioHandle, 8, somevalue);
-				audioPostEvent(g_NbombAudioHandle, 16, *(s32 *)&speed);
+				audioPostEvent(g_NbombAudioHandle, AL_SNDP_VOL_EVT, volume);
+				audioPostEvent(g_NbombAudioHandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 		} else {
 			if (g_NbombAudioHandle && sndGetState(g_NbombAudioHandle) != AL_STOPPED) {
@@ -705,7 +706,7 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 		if (g_Nbombs[index].audiohandle20) {
 			union audioparam param;
 			param.f32 = 0.4f;
-			audioPostEvent(g_Nbombs[index].audiohandle20, 16, param.s32);
+			audioPostEvent(g_Nbombs[index].audiohandle20, AL_SNDP_PITCH_EVT, param.s32);
 		}
 	}
 
@@ -715,7 +716,7 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 		if (g_Nbombs[index].audiohandle24) {
 			union audioparam param;
 			param.f32 = 0.4f;
-			audioPostEvent(g_Nbombs[index].audiohandle24, 16, param.s32);
+			audioPostEvent(g_Nbombs[index].audiohandle24, AL_SNDP_PITCH_EVT, param.s32);
 		}
 	}
 #else
@@ -727,7 +728,7 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 	if (g_Nbombs[index].audiohandle20) {
 		union audioparam param;
 		param.f32 = 0.4f;
-		audioPostEvent(g_Nbombs[index].audiohandle20, 16, param.s32);
+		audioPostEvent(g_Nbombs[index].audiohandle20, AL_SNDP_PITCH_EVT, param.s32);
 	}
 
 	sndStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
@@ -735,7 +736,7 @@ void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 	if (g_Nbombs[index].audiohandle24) {
 		union audioparam param;
 		param.f32 = 0.4f;
-		audioPostEvent(g_Nbombs[index].audiohandle24, 16, param.s32);
+		audioPostEvent(g_Nbombs[index].audiohandle24, AL_SNDP_PITCH_EVT, param.s32);
 	}
 #endif
 }

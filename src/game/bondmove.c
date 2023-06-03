@@ -1965,7 +1965,7 @@ void bmoveTick(bool allowc1x, bool allowc1y, bool allowc1buttons, bool ignorec2)
 				sound = footstepChooseSound(chr, distance > 10);
 
 				if (sound != -1) {
-					snd00010718(0, 0, 0x7fff, 0x40, sound, 1, 1, -1, 1);
+					snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, sound, 1, 1, -1, true);
 				}
 			}
 		}

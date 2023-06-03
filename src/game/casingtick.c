@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "../lib/naudio/n_sndp.h"
 #include "game/casing.h"
 #include "bss.h"
 #include "lib/snd.h"
@@ -47,7 +48,7 @@ void casingTick(struct casing *casing)
 			sndStart(var80095200, SFX_8051, &g_CasingAudioHandles[i], -1, -1, -1.0f, -1, -1);
 
 			if (g_CasingAudioHandles[i]) {
-				audioPostEvent(g_CasingAudioHandles[i], 0x10, *(s32 *)&sp58);
+				audioPostEvent(g_CasingAudioHandles[i], AL_SNDP_PITCH_EVT, *(s32 *)&sp58);
 			}
 		}
 

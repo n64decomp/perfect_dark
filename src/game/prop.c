@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "../lib/naudio/n_sndp.h"
 #include "game/bondmove.h"
 #include "game/bondwalk.h"
 #include "game/chraction.h"
@@ -475,7 +476,7 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
 			handle = sndStart(var80095200, soundnum, NULL, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				audioPostEvent(handle, 0x10, *(s32 *)&speed);
+				audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 
 			osSetThreadPri(0, prevpri);
@@ -483,12 +484,12 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
 			handle = sndStart(var80095200, soundnum, NULL, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				audioPostEvent(handle, 0x10, *(s32 *)&speed);
+				audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 #endif
 		} else {
-			propsnd0f0939f8(NULL, prop, soundnum, -1,
-					-1, 0, 0, 0, NULL, speed, NULL, -1, -1, -1, -1);
+			psCreate(NULL, prop, soundnum, -1,
+					-1, 0, 0, PSTYPE_NONE, NULL, speed, NULL, -1, -1, -1, -1);
 		}
 	}
 }
@@ -538,7 +539,7 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
 			handle = sndStart(var80095200, soundnum, 0, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				audioPostEvent(handle, 0x10, *(s32 *)&speed);
+				audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 
 			osSetThreadPri(0, prevpri);
@@ -546,11 +547,11 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
 			handle = sndStart(var80095200, soundnum, 0, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				audioPostEvent(handle, 0x10, *(s32 *)&speed);
+				audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 #endif
 		} else {
-			propsnd0f0939f8(NULL, prop, soundnum, -1, -1, 0, 0, 0, NULL, speed, NULL, -1, -1, -1, -1);
+			psCreate(NULL, prop, soundnum, -1, -1, 0, 0, PSTYPE_NONE, NULL, speed, NULL, -1, -1, -1, -1);
 		}
 	}
 }
@@ -2201,7 +2202,7 @@ void propsTickPlayer(bool islastplayer)
 
 	if (islastplayer) {
 		alarmTick();
-		propsndTick();
+		psTick();
 		propsDefragRoomProps();
 	}
 
@@ -2239,19 +2240,19 @@ void propsTickPadEffects(void)
 
 					if ((random() % 2048) <= 50) {
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
-						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+						psCreate(NULL, NULL, psGetRandomSparkSound(), -1, -1, 0, 0, PSTYPE_NONE, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 
 					if ((random() % 2048) <= 15) {
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL2);
-						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+						psCreate(NULL, NULL, psGetRandomSparkSound(), -1, -1, 0, 0, PSTYPE_NONE, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 
 					if ((random() % 2048) <= 5) {
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL1);
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_ENVIRONMENTAL3);
-						propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+						psCreate(NULL, NULL, psGetRandomSparkSound(), -1, -1, 0, 0, PSTYPE_NONE, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 					break;
 				case PADEFFECT_OUTROSMOKE:

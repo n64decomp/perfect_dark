@@ -1696,7 +1696,7 @@ u8 func1007_bomb_logic[] = {
 	disable_object(OBJ_BOND_BOMB)
 	disable_object(OBJ_COOP_BOMB)
 	assign_sound(SFX_8144, CHANNEL_1)
-	play_sound_from_object(CHANNEL_1, OBJ_PLANTED_BOMB, 1, 600, 1200)
+	play_repeating_sound_from_object(CHANNEL_1, OBJ_PLANTED_BOMB, 1, 600, 1200)
 	unset_object_flag2(OBJ_PLANTED_BOMB, OBJFLAG2_INVISIBLE)
 	set_object_image(OBJ_PLANTED_BOMB, 0, TVCMDLIST_0F)
 	unset_object_flag(OBJ_PLANTED_BOMB, OBJFLAG_INVINCIBLE)
@@ -2001,18 +2001,18 @@ u8 func0416_intro[] = {
 		label(0x06)
 
 	wait_until(106, 0xb1)
-	play_sound(SFX_0162, CHANNEL_10)
-	play_sound(SFX_047A, CHANNEL_10)
+	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFX_047A, CHANNEL_CUTSCENE)
 
 	wait_until(107, 0xb3)
 	open_door(OBJ_LOBBYDOOR_LEFT)
 	open_door(OBJ_LOBBYDOOR_RIGHT)
 
 	wait_until(170, 0xb2)
-	play_sound(SFX_0163, CHANNEL_10)
+	play_sound(SFX_0163, CHANNEL_CUTSCENE)
 
 	wait_until(246, 0xb6)
-	play_sound(SFX_0161, CHANNEL_10)
+	play_sound(SFX_0161, CHANNEL_CUTSCENE)
 
 	wait_until(280, 0xb7)
 	close_door(OBJ_LOBBYDOOR_LEFT)
@@ -2036,7 +2036,7 @@ u8 func0416_intro[] = {
 	unset_object_flag2(0x62, OBJFLAG2_INVISIBLE)
 	set_object_flag(0x61, OBJFLAG_00000100)
 	set_object_flag(0x62, OBJFLAG_00000100)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)

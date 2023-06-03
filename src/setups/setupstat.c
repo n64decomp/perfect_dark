@@ -1117,7 +1117,7 @@ u8 func1002_intro[] = {
 
 	// Timer expired - play a sound (explosion?)
 	label(0x06)
-	play_sound(SFX_MAIAN_05E2, CHANNEL_10)
+	play_sound(SFX_MAIAN_05E2, CHANNEL_CUTSCENE)
 
 	// Wait for camera to finish or button to be pressed
 	beginloop(0x08)
@@ -1130,7 +1130,7 @@ u8 func1002_intro[] = {
 
 	// Outro done
 	label(0x82)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ANTI, CHRHFLAG_00020000)
@@ -1195,7 +1195,7 @@ u8 func040b_outro[] = {
 
 	// Play sound
 	label(0x06)
-	play_sound(SFX_MAIAN_05E3, CHANNEL_10)
+	play_sound(SFX_MAIAN_05E3, CHANNEL_CUTSCENE)
 
 	// Wait 70 frames or for button press
 	beginloop(0x97)
@@ -1205,7 +1205,7 @@ u8 func040b_outro[] = {
 
 	// Play sound
 	label(0x06)
-	play_sound(SFX_MAIAN_05E5, CHANNEL_10)
+	play_sound(SFX_MAIAN_05E5, CHANNEL_CUTSCENE)
 
 	// Wait 180 frames or for button press
 	beginloop(0x98)
@@ -1215,7 +1215,7 @@ u8 func040b_outro[] = {
 
 	// Play sound
 	label(0x06)
-	play_sound(SFX_MAIAN_05E7, CHANNEL_10)
+	play_sound(SFX_MAIAN_05E7, CHANNEL_CUTSCENE)
 
 	// Wait for outro to finish
 	beginloop(0x08)
@@ -1228,7 +1228,7 @@ u8 func040b_outro[] = {
 
 	label(0x82)
 	label(0x06)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

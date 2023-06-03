@@ -896,8 +896,8 @@ bool frExecuteTargetScript(s32 targetnum)
 			} else {
 				if (g_FrNumSounds < 3) {
 					g_FrNumSounds++;
-					propsnd0f0939f8(NULL, g_FrData.targets[targetnum].prop, SFX_FR_CONVEYER, -1,
-							-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+					psCreate(NULL, g_FrData.targets[targetnum].prop, SFX_FR_CONVEYER, -1,
+							-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 				}
 
 				g_FrData.targets[targetnum].travelspeed = script[offset + 2] / 60.0f * g_FrData.speed;
@@ -949,7 +949,7 @@ void frHideAllTargets(void)
 
 		target->flags2 |= OBJFLAG2_INVISIBLE;
 
-		func0f0926bc(prop, 1, 0xffff);
+		psStopSound(prop, PSTYPE_GENERAL, 0xffff);
 	}
 }
 
@@ -1684,7 +1684,7 @@ void frTick(void)
 						&& g_FrData.targets[i].silent == false
 						&& g_FrData.targets[i].travelling) {
 					g_FrData.targets[i].silent = true;
-					func0f0926bc(g_FrData.targets[i].prop, 1, 0xffff);
+					psStopSound(g_FrData.targets[i].prop, PSTYPE_GENERAL, 0xffff);
 				}
 			}
 
@@ -1714,7 +1714,7 @@ void frTick(void)
 
 			for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
 				if (g_FrData.targets[i].prop) {
-					func0f0926bc(g_FrData.targets[i].prop, 1, 0xffff);
+					psStopSound(g_FrData.targets[i].prop, PSTYPE_GENERAL, 0xffff);
 				}
 			}
 
@@ -1749,7 +1749,7 @@ void frTick(void)
 						&& g_FrData.targets[i].silent == false
 						&& g_FrData.targets[i].travelling) {
 					g_FrData.targets[i].silent = true;
-					func0f0926bc(g_FrData.targets[i].prop, 1, 0xffff);
+					psStopSound(g_FrData.targets[i].prop, PSTYPE_GENERAL, 0xffff);
 				}
 			}
 
@@ -1777,7 +1777,7 @@ void frTick(void)
 					&& g_FrData.targets[i].silent == false
 					&& g_FrData.targets[i].travelling) {
 				g_FrData.targets[i].silent = true;
-				func0f0926bc(g_FrData.targets[i].prop, 1, 0xffff);
+				psStopSound(g_FrData.targets[i].prop, PSTYPE_GENERAL, 0xffff);
 			}
 		}
 		return;
@@ -1874,8 +1874,8 @@ void frTick(void)
 
 			if (g_FrData.targets[i].travelling && g_FrData.targets[i].silent && g_FrData.targets[i].travelspeed != -1) {
 				g_FrData.targets[i].silent = false;
-				propsnd0f0939f8(NULL, g_FrData.targets[i].prop, SFX_FR_CONVEYER, -1,
-						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+				psCreate(NULL, g_FrData.targets[i].prop, SFX_FR_CONVEYER, -1,
+						-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			}
 
 			if (g_FrData.targets[i].angle > 2.2915925979614f && g_FrData.targets[i].angle < 3.9915928840637f) {
@@ -1909,7 +1909,7 @@ void frTick(void)
 
 				if (g_FrNumSounds && g_FrData.targets[i].travelling) {
 					g_FrNumSounds--;
-					func0f0926bc(prop, 1, 0xffff);
+					psStopSound(prop, PSTYPE_GENERAL, 0xffff);
 				}
 
 				if (g_FrNumSounds);
@@ -2054,9 +2054,9 @@ void frTick(void)
 							g_FrNumSounds--;
 						}
 
-						func0f0926bc(prop, 1, 0xffff);
-						propsnd0f0939f8(NULL, prop, SFX_FR_CONVEYER_STOP, -1,
-								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+						psStopSound(prop, PSTYPE_GENERAL, 0xffff);
+						psCreate(NULL, prop, SFX_FR_CONVEYER_STOP, -1,
+								-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 						if (g_FrNumSounds);
 					}
@@ -2763,7 +2763,7 @@ void dtRestorePlayer(void)
 
 		chr->chrflags |= CHRCFLAG_HIDDEN;
 
-		func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
+		psStopSound(g_Vars.currentplayer->eyespy->prop, PSTYPE_GENERAL, 0xffff);
 
 		g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;
 	}

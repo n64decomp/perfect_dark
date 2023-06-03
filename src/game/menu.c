@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "../lib/naudio/n_sndp.h"
 #include "game/camdraw.h"
 #include "game/game_006900.h"
 #include "game/body.h"
@@ -132,9 +133,9 @@ s32 g_MpPlayerNum = 0;
 void menuPlaySound(s32 menusound)
 {
 	s32 sound = -1;
-	s32 flag1 = false;
-	s32 flag2 = false;
-	f32 speed = 1;
+	s32 setpitch = false;
+	s32 setvol = false;
+	f32 pitch = 1;
 
 	switch (menusound) {
 	case MENUSOUND_SWIPE:
@@ -150,9 +151,9 @@ void menuPlaySound(s32 menusound)
 		sound = SFX_MENU_SELECT;
 		break;
 	case MENUSOUND_ERROR:
-		speed = 0.4f;
+		pitch = 0.4f;
 		sound = SFX_MENU_ERROR;
-		flag1 = true;
+		setpitch = true;
 		break;
 	case MENUSOUND_EXPLOSION:
 		sound = SFX_EXPLOSION_8098;
@@ -168,14 +169,14 @@ void menuPlaySound(s32 menusound)
 		break;
 	case MENUSOUND_KEYBOARDFOCUS:
 		sound = SFX_PICKUP_AMMO;
-		flag1 = true;
-		flag2 = true;
-		speed = 3.5f;
+		setpitch = true;
+		setvol = true;
+		pitch = 3.5f;
 		break;
 	case MENUSOUND_KEYBOARDCANCEL:
 		sound = SFX_MENU_CANCEL;
-		flag1 = true;
-		speed = 0.41904801130295f;
+		setpitch = true;
+		pitch = 0.41904801130295f;
 		break;
 	}
 
@@ -189,12 +190,12 @@ void menuPlaySound(s32 menusound)
 
 		handle = sndStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
 
-		if (handle && flag1) {
-			audioPostEvent(handle, 16, *(s32 *)&speed);
+		if (handle && setpitch) {
+			audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&pitch);
 		}
 
-		if (handle && flag2) {
-			audioPostEvent(handle, 8, 0x4000);
+		if (handle && setvol) {
+			audioPostEvent(handle, AL_SNDP_VOL_EVT, 0x4000);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0

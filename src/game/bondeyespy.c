@@ -664,11 +664,11 @@ bool eyespyTryLaunch(void)
 		chr->chrflags &= ~CHRCFLAG_INVINCIBLE;
 
 #if VERSION >= VERSION_NTSC_1_0
-		propsnd0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
-				-1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
+				-1, PSFLAG_REPEATING, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 #else
-		propsnd0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
-				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		psCreate(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
+				-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
 
@@ -1059,16 +1059,16 @@ void eyespyProcessInput(bool allowbuttons)
 
 		switch (g_EyespyHit) {
 		case EYESPYHIT_BG:
-			snd00010718(NULL, 0, 16000, 0x40, SFX_EYESPYHIT, 1, 1, -1, 1);
+			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFX_EYESPYHIT, 1, 1, -1, 1);
 			break;
 		case EYESPYHIT_OBJ:
-			snd00010718(NULL, 0, 16000, 0x40, SFX_EYESPYHIT, 1, 1, -1, 1);
+			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFX_EYESPYHIT, 1, 1, -1, 1);
 			break;
 		case EYESPYHIT_DOOR:
-			snd00010718(NULL, 0, 16000, 0x40, SFX_EYESPYHIT, 1, 1, -1, 1);
+			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFX_EYESPYHIT, 1, 1, -1, 1);
 			break;
 		case EYESPYHIT_CHR:
-			snd00010718(NULL, 0, 16000, 0x40, SFX_EYESPYHIT, 1, 1, -1, 1);
+			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFX_EYESPYHIT, 1, 1, -1, 1);
 			break;
 		case EYESPYHIT_DAMAGE:
 			sndStart(var80095200, SFX_PICKUP_LASER, NULL, -1, -1, -1, -1, -1);
@@ -1084,7 +1084,7 @@ void eyespyProcessInput(bool allowbuttons)
 	}
 
 	tmp = g_Vars.currentplayer->eyespy->speed / 1600.0f;
-	func0f093790(g_Vars.currentplayer->eyespy->prop, tmp * 400.0f);
+	psSetVolume(g_Vars.currentplayer->eyespy->prop, tmp * 400.0f);
 
 	angle = 180 - g_Vars.currentplayer->eyespy->theta;
 
@@ -1171,7 +1171,7 @@ void eyespyProcessInput(bool allowbuttons)
 
 		weaponPlayPickupSound(WEAPON_EYESPY);
 		currentPlayerQueuePickupWeaponHudmsg(WEAPON_EYESPY, false);
-		func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
+		psStopSound(g_Vars.currentplayer->eyespy->prop, PSTYPE_GENERAL, 0xffff);
 		chrClearReferences(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
 	}
 

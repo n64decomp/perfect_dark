@@ -3445,13 +3445,13 @@ struct audiorussmapping {
 };
 
 struct audioconfig {
-	f32 unk00;
-	f32 unk04;
-	f32 unk08;
-	f32 unk0c;
-	s32 unk10;
-	s32 unk14;
-	u32 unk18;
+	f32 dist1; // full volume within dist1
+	f32 dist2; // dist1 to dist2 -> taper volume using curve
+	f32 dist3; // dist2 to dist3 -> scale volume linearly to zero
+	f32 pitch;
+	s32 volpercentage;
+	s32 pan;
+	s32 volchangespeed;
 	u32 flags;
 };
 
@@ -5610,37 +5610,37 @@ struct shard {
 	/*0x68*/ u8 type;
 };
 
-struct audiochannel {
+struct pschannel {
 	/*0x00*/ struct sndstate *audiohandle;
-	/*0x04*/ s16 unk04;
-	/*0x06*/ s16 unk06;
-	/*0x08*/ s16 unk08;
-	/*0x0a*/ s16 unk0a;
-	/*0x0c*/ s16 unk0c;
-	/*0x0e*/ s16 unk0e;
-	/*0x10*/ s16 unk10;
-	/*0x12*/ u16 unk12;
-	/*0x14*/ s16 unk14;
+	/*0x04*/ s16 targetvol;
+	/*0x06*/ s16 currentvol;
+	/*0x08*/ s16 currentpan;
+	/*0x0a*/ s16 targetpan;
+	/*0x0c*/ s16 targetfx;
+	/*0x0e*/ s16 currentfx;
+	/*0x10*/ s16 vol10;
+	/*0x12*/ s16 vol12;
+	/*0x14*/ s16 degrees;
 	/*0x16*/ s16 unk16;
-	/*0x18*/ s16 unk18;
-	/*0x1a*/ u8 unk1a;
-	/*0x1c*/ s32 unk1c;
-	/*0x20*/ s32 unk20;
+	/*0x18*/ s16 volchangespeed;
+	/*0x1a*/ u8 fxbus;
+	/*0x1c*/ s32 volchangetimer60;
+	/*0x20*/ s32 pitchchangespeed;
 	/*0x24*/ s16 padnum;
 	/*0x26*/ s16 soundnum26;
-	/*0x28*/ s16 unk28;
-	/*0x2a*/ u16 unk2a;
-	/*0x2c*/ s16 unk2c;
+	/*0x28*/ s16 type;
+	/*0x2a*/ u16 unk2a; // unused
+	/*0x2c*/ s16 soundnum2c;
 	/*0x2e*/ s16 channelnum;
 	/*0x30*/ u16 flags;
 	/*0x32*/ u16 flags2;
-	/*0x34*/ f32 unk34;
-	/*0x38*/ f32 unk38;
-	/*0x3c*/ f32 unk3c;
-	/*0x40*/ f32 unk40;
-	/*0x44*/ f32 unk44;
-	/*0x48*/ f32 unk48;
-	/*0x4c*/ f32 unk4c;
+	/*0x34*/ f32 dist1; // full volume within dist1
+	/*0x38*/ f32 dist2; // dist1 to dist2 -> taper volume using curve
+	/*0x3c*/ f32 dist3; // dist2 to dist3 -> scale volume linearly to zero
+	/*0x40*/ f32 unk40; // unused
+	/*0x44*/ f32 targetpitch;
+	/*0x48*/ f32 currentpitch;
+	/*0x4c*/ f32 distance;
 	/*0x50*/ struct prop *prop;
 	/*0x54*/ struct coord *posptr;
 	/*0x58*/ struct coord pos;

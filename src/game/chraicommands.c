@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "constants.h"
+#include "../lib/naudio/n_sndp.h"
 #include "constants.h"
 #include "game/bondmove.h"
 #include "game/cheats.h"
@@ -4435,13 +4435,13 @@ bool aiSpeak(void)
 	setCurrentPlayerNum(playernum);
 
 	if (text && cmd[2] != CHR_P1P2) {
-		func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
+		psStopSound(g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0xffff);
 	}
 
 	if (cmd[2] == CHR_P1P2) {
-		channelnum = audioPlayFromProp((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, 0, 512);
+		channelnum = psPlayFromProp((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, PSTYPE_NONE, PSFLAG_FORHUDMSG);
 	} else {
-		channelnum = audioPlayFromProp((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, 9, 512);
+		channelnum = psPlayFromProp((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, PSFLAG_FORHUDMSG);
 	}
 
 	if (text && !sndIsFiltered(audio_id)) {
@@ -4463,7 +4463,7 @@ bool aiPlaySound(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
-	audioPlayFromProp((s8)cmd[4], audio_id, 0, NULL, 0, 0);
+	psPlayFromProp((s8)cmd[4], audio_id, 0, NULL, PSTYPE_NONE, 0);
 
 	g_Vars.aioffset += 5;
 
@@ -4478,7 +4478,7 @@ bool aiAssignSound(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
-	audioPlayFromProp((s8)cmd[4], audio_id, -1, NULL, 11, 0);
+	psPlayFromProp((s8)cmd[4], audio_id, -1, NULL, PSTYPE_MARKER, 0);
 
 	g_Vars.aioffset += 5;
 
@@ -4493,7 +4493,7 @@ bool aiAudioMuteChannel(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s8 channel = (s8)cmd[2];
 
-	audioMuteChannel(channel);
+	psMuteChannel(channel);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -4502,12 +4502,12 @@ bool aiAudioMuteChannel(void)
 /**
  * @cmd 0138
  */
-bool aiIfChannelIdle(void)
+bool aiIfChannelFree(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s8 channel = (s8) cmd[2];
 
-	if (audioIsChannelIdle(channel)) {
+	if (psIsChannelFree(channel)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -4519,13 +4519,13 @@ bool aiIfChannelIdle(void)
 /**
  * @cmd 00d1
  */
-bool ai00d1(void)
+bool aiSetObjectSoundVolume(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	s16 audio_id = cmd[4] | (cmd[3] << 8);
-	u16 thing = cmd[6] | (cmd[5] << 8);
+	s16 volume = cmd[4] | (cmd[3] << 8);
+	u16 volchangetimer60 = cmd[6] | (cmd[5] << 8);
 
-	audioPlayFromProp2((s8)cmd[2], audio_id, -1, NULL, thing, 2500, 3000, 0);
+	psModify((s8)cmd[2], volume, -1, NULL, volchangetimer60, 2500, 3000, 0);
 
 	g_Vars.aioffset += 7;
 
@@ -4535,14 +4535,14 @@ bool ai00d1(void)
 /**
  * @cmd 00d2
  */
-bool ai00d2(void)
+bool aiSetObjectSoundVolumeByDistance(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	f32 thing1 = cmd[4] | (cmd[3] << 8);
-	u16 thing2 = cmd[6] | (cmd[5] << 8);
-	s32 audio_id = func0f0927d4(thing1, 400, 2500, 3000, 32767);
+	f32 playerdist = cmd[4] | (cmd[3] << 8);
+	u16 volchangetimer60 = cmd[6] | (cmd[5] << 8);
+	s32 volume = psCalculateVolumeFromDistance(playerdist, 400, 2500, 3000, AL_VOL_FULL);
 
-	audioPlayFromProp2((s8)cmd[2], audio_id, -1, NULL, thing2, 2500, 3000, 0);
+	psModify((s8)cmd[2], volume, -1, NULL, volchangetimer60, 2500, 3000, 0);
 
 	g_Vars.aioffset += 7;
 
@@ -4552,14 +4552,14 @@ bool ai00d2(void)
 /**
  * @cmd 00cf
  */
-bool ai00cf(void)
+bool aiSetObjectSoundPlaying(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
-	u16 thing = cmd[5] | (cmd[4] << 8);
+	u16 volchangetimer60 = cmd[5] | (cmd[4] << 8);
 
 	if (obj && obj->prop) {
-		audioPlayFromProp2((s8)cmd[2], -1, -1, obj->prop, thing, 2500, 3000, 0);
+		psModify((s8)cmd[2], -1, -1, obj->prop, volchangetimer60, 2500, 3000, 0);
 	}
 
 	g_Vars.aioffset += 6;
@@ -4570,24 +4570,24 @@ bool ai00cf(void)
 /**
  * @cmd 016b
  */
-bool ai016b(void)
+bool aiPlayRepeatingSoundFromObject(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	u16 thing1 = cmd[5] | (cmd[4] << 8);
-	u16 thing2 = cmd[7] | (cmd[6] << 8);
-	u16 thing3 = cmd[9] | (cmd[8] << 8);
+	u16 dist2 = cmd[7] | (cmd[6] << 8);
+	u16 dist3 = cmd[9] | (cmd[8] << 8);
 
 	if (obj && obj->prop) {
-		s32 thing1again;
+		s32 volchangetimer60;
 
 		if (thing1 == 0) {
-			thing1again = -1;
+			volchangetimer60 = -1;
 		} else {
-			thing1again = thing1;
+			volchangetimer60 = thing1;
 		}
 
-		audioPlayFromProp2((s8)cmd[2], -1, -1, obj->prop, thing1again, thing2, thing3, 2);
+		psModify((s8)cmd[2], -1, -1, obj->prop, volchangetimer60, dist2, dist3, PSFLAG_REPEATING);
 	}
 
 	g_Vars.aioffset += 10;
@@ -4598,24 +4598,24 @@ bool ai016b(void)
 /**
  * @cmd 0179
  */
-bool ai0179(void)
+bool aiPlaySoundFromEntity(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u16 thing1 = cmd[5] | (cmd[4] << 8);
-	u16 thing2 = cmd[7] | (cmd[6] << 8);
-	u16 thing3 = cmd[9] | (cmd[8] << 8);
+	u16 volchangetimer60 = cmd[5] | (cmd[4] << 8);
+	u16 dist2 = cmd[7] | (cmd[6] << 8);
+	u16 dist3 = cmd[9] | (cmd[8] << 8);
 
 	if (cmd[10] == 0) {
 		struct defaultobj *obj = objFindByTagId(cmd[3]);
 
 		if (obj && obj->prop) {
-			audioPlayFromProp2((s8)cmd[2], -1, -1, obj->prop, thing1, thing2, thing3, 0);
+			psModify((s8)cmd[2], -1, -1, obj->prop, volchangetimer60, dist2, dist3, 0);
 		}
 	} else {
 		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
 		if (chr && chr->prop) {
-			audioPlayFromProp2((s8)cmd[2], -1, -1, chr->prop, thing1, thing2, thing3, 0);
+			psModify((s8)cmd[2], -1, -1, chr->prop, volchangetimer60, dist2, dist3, 0);
 		}
 	}
 
@@ -4627,13 +4627,13 @@ bool ai0179(void)
 /**
  * @cmd 00d0
  */
-bool ai00d0(void)
+bool aiPlayRepeatingSoundFromPad(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 padnum = cmd[4] | (cmd[3] << 8);
 	s16 sound = cmd[6] | (cmd[5] << 8);
 
-	propsnd0f0939f8(0, NULL, sound, padnum, -1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+	psCreate(0, NULL, sound, padnum, -1, PSFLAG_REPEATING, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 	g_Vars.aioffset += 7;
 
@@ -4643,12 +4643,12 @@ bool ai00d0(void)
 /**
  * @cmd 00d4
  */
-bool ai00d4(void)
+bool aiIfObjectSoundVolumeLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	s16 thing = cmd[4] | (cmd[3] << 8);
+	s16 value = cmd[4] | (cmd[3] << 8);
 
-	if (channelGetUnk06((s8)cmd[2]) < thing) {
+	if (psGetVolume((s8)cmd[2]) < value) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
 	} else {
 		g_Vars.aioffset += 6;
@@ -5321,7 +5321,7 @@ bool aiSetDoorOpen(void)
 		door->mode = 0;
 		doorUpdateTiles(door);
 		doorActivatePortal(door);
-		func0f0926bc(door->base.prop, 1, 0xffff);
+		psStopSound(door->base.prop, PSTYPE_GENERAL, 0xffff);
 	}
 
 	g_Vars.aioffset += 3;
@@ -6991,16 +6991,16 @@ bool aiSayQuip(void)
 					g_Vars.chrdata->propsoundcount++;
 
 					if (!AUDIO_NEEDS_MOVEMENT(audioid)) {
-						func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
-						propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
-								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+						psStopSound(g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0xffff);
+						psCreate(0, g_Vars.chrdata->prop, audioid, -1,
+								-1, PSFLAG_FORPROP, 0, PSTYPE_CHRTALK, 0, -1, 0, -1, -1, -1, -1);
 					} else {
 						distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
 
 						if (ABS(distance) > 50) {
-							func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
-							propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
-									-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+							psStopSound(g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0xffff);
+							psCreate(0, g_Vars.chrdata->prop, audioid, -1,
+									-1, PSFLAG_FORPROP, 0, PSTYPE_CHRTALK, 0, -1, 0, -1, -1, -1, -1);
 						}
 					}
 
@@ -7054,16 +7054,16 @@ bool aiSayQuip(void)
 						g_Vars.chrdata->propsoundcount++;
 
 						if (!AUDIO_NEEDS_MOVEMENT(audioid)) {
-							func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
-							propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
-									-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+							psStopSound(g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0xffff);
+							psCreate(0, g_Vars.chrdata->prop, audioid, -1,
+									-1, PSFLAG_FORPROP, 0, PSTYPE_CHRTALK, 0, -1, 0, -1, -1, -1, -1);
 						} else {
 							distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
 
 							if (ABS(distance) > 50) {
-								func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
-								propsnd0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
-										-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+								psStopSound(g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0xffff);
+								psCreate(0, g_Vars.chrdata->prop, audioid, -1,
+										-1, PSFLAG_FORPROP, 0, PSTYPE_CHRTALK, 0, -1, 0, -1, -1, -1, -1);
 							}
 						}
 
@@ -8740,22 +8740,22 @@ bool aiSayCiStaffQuip(void)
 
 	if (cmd[2] == CIQUIP_GREETING) {
 		quip = g_CiGreetingQuips[g_Vars.chrdata->morale][random() % 3];
-		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
+		psPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
 	}
 
 	if (cmd[2] == CIQUIP_MAIN) {
 		quip = g_CiMainQuips[g_Vars.chrdata->morale][random() % 3];
-		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
+		psPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
 	}
 
 	if (cmd[2] == CIQUIP_ANNOYED) {
 		quip = g_CiAnnoyedQuips[g_Vars.chrdata->morale][random() % 3];
-		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
+		psPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
 	}
 
 	if (cmd[2] == CIQUIP_THANKS) {
 		quip = g_CiThanksQuips[g_Vars.chrdata->morale];
-		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
+		psPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
 	}
 
 	g_Vars.aioffset += 4;
@@ -9273,7 +9273,7 @@ bool aiChrBeginOrEndTeleport(void)
 		handle = sndStart(var80095200, SFX_RELOAD_FARSIGHT, NULL, -1, -1, -1, -1, -1);
 
 		if (handle) {
-			audioPostEvent(handle, 16, *(u32 *)&fvalue);
+			audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(u32 *)&fvalue);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -9324,7 +9324,7 @@ bool aiIfChrTeleportFullWhite(void)
 		handle = sndStart(var80095200, SFX_FIRE_SHOTGUN, NULL, -1, -1, -1, -1, -1);
 
 		if (handle) {
-			audioPostEvent(handle, 16, *(u32 *)&fvalue);
+			audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(u32 *)&fvalue);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -9771,13 +9771,13 @@ bool aiPlaySoundFromProp(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[5] | (cmd[4] << 8);
-	s32 volumemaybe = cmd[7] | (cmd[6] << 8);
-	u16 unk1 = cmd[10] | (cmd[10] << 8); // @bug: Using 10 twice
+	s32 volume = cmd[7] | (cmd[6] << 8);
+	u16 flags = cmd[10] | (cmd[10] << 8); // @bug: Using 10 twice
 	s32 channel = (s8)cmd[2];
-	s16 unk2 = cmd[8];
+	s16 type = cmd[8];
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 
-	audioPlayFromProp(channel, audio_id, volumemaybe, obj->prop, unk2, unk1);
+	psPlayFromProp(channel, audio_id, volume, obj->prop, type, flags);
 
 	g_Vars.aioffset += 11;
 

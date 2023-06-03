@@ -84,10 +84,10 @@ void bbikeExit(void)
 	rotation = bikeobj->w;
 
 	objApplyMomentum(obj, &speed, rotation, false, false);
-	func0f0926bc(g_Vars.currentplayer->hoverbike, 1, 0xffff);
-	func0f0926bc(g_Vars.currentplayer->prop, 1, 0xffff);
-	propsnd0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_PULSE, -1,
-			-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+	psStopSound(g_Vars.currentplayer->hoverbike, PSTYPE_GENERAL, 0xffff);
+	psStopSound(g_Vars.currentplayer->prop, PSTYPE_GENERAL, 0xffff);
+	psCreate(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_PULSE, -1,
+			-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 	obj->flags |= OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY;
 }
@@ -878,9 +878,9 @@ void bbikeTick(void)
 
 			sp200 *= 300.0f;
 
-			func0f093630(g_Vars.currentplayer->hoverbike, var80070f04, -1);
-			func0f093790(g_Vars.currentplayer->hoverbike, var80070f04 * 300.0f);
-			func0f093790(g_Vars.currentplayer->prop, sp200);
+			psSetPitch(g_Vars.currentplayer->hoverbike, var80070f04, -1);
+			psSetVolume(g_Vars.currentplayer->hoverbike, var80070f04 * 300.0f);
+			psSetVolume(g_Vars.currentplayer->prop, sp200);
 		}
 
 		if (1);
@@ -968,16 +968,16 @@ void bbikeTick(void)
 		if (g_Vars.currentplayer->bondentert >= 1.0f) {
 			g_Vars.currentplayer->bondvehiclemode = VEHICLEMODE_ENGINESTART;
 
-			func0f0926bc(g_Vars.currentplayer->hoverbike, 1, 0xffff);
+			psStopSound(g_Vars.currentplayer->hoverbike, PSTYPE_GENERAL, 0xffff);
 
-			propsnd0f0939f8(NULL, g_Vars.currentplayer->prop, SFX_BIKE_TAKEOFF, -1,
-					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+			psCreate(NULL, g_Vars.currentplayer->prop, SFX_BIKE_TAKEOFF, -1,
+					-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 
-			propsnd0f0939f8(NULL, g_Vars.currentplayer->prop, SFX_BIKE_PULSE, -1,
-					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+			psCreate(NULL, g_Vars.currentplayer->prop, SFX_BIKE_PULSE, -1,
+					-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 
-			propsnd0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_ENGINE, -1,
-					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+			psCreate(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_ENGINE, -1,
+					-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 
 		quaternion0f097044(&g_Vars.currentplayer->bondentermtx, spa4);

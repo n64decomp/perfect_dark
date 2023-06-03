@@ -1971,7 +1971,7 @@
  * The channel argument should be a CHANNEL constant.
  * The bool argument should be TRUE to play or FALSE to stop.
  */
-#define control_sound_from_object(channel, object, bool) \
+#define set_object_sound_playing(channel, object, bool) \
 	mkshort(0x00cf), \
 	channel, \
 	object, \
@@ -1981,23 +1981,23 @@
 /**
  * Plays a sound coming from the given pad.
  */
-#define play_sound_from_pad(pad, sound) \
+#define play_repeating_sound_from_pad(pad, sound) \
 	mkshort(0x00d0), \
 	0x00, \
 	mkshort(pad), \
 	mkshort(sound),
 
-#define cmd00d1(channel, audio_id, u1) \
+#define set_object_sound_volume(channel, volume, volchangetimer60) \
 	mkshort(0x00d1), \
 	channel, \
-	mkshort(audio_id), \
-	mkshort(u1),
+	mkshort(volume), \
+	mkshort(volchangetimer60),
 
-#define cmd00d2(channel, audio_id, u1) \
+#define set_object_sound_volume_by_distance(channel, distance, volchangetimer60) \
 	mkshort(0x00d2), \
 	channel, \
-	mkshort(audio_id), \
-	mkshort(u1),
+	mkshort(distance), \
+	mkshort(volchangetimer60),
 
 /**
  * Stops the given audio channel.
@@ -2008,10 +2008,13 @@
 	mkshort(0x00d3), \
 	channel,
 
-#define cmd00d4(channel, u2, label) \
+/**
+ * Follows the label if the object's volume is less than the given volume.
+ */
+#define if_object_sound_volume_less_than(channel, volume, label) \
 	mkshort(0x00d4), \
 	channel, \
-	mkshort(u2), \
+	mkshort(volume), \
 	label,
 
 /**
@@ -3291,17 +3294,17 @@
 	label,
 
 /**
- * Play a sound from the given object.
+ * Play a sound from the given object repeatedly.
  *
  * Typically used to make terminals hum.
  */
-#define play_sound_from_object(channel, object, u1, u2, u3) \
+#define play_repeating_sound_from_object(channel, object, volchangetimer60, dist2, dist3) \
 	mkshort(0x016b), \
 	channel, \
 	object, \
-	mkshort(u1), \
-	mkshort(u2), \
-	mkshort(u3),
+	mkshort(volchangetimer60), \
+	mkshort(dist2), \
+	mkshort(dist3),
 
 #define noop016c \
 	mkshort(0x016c),
@@ -4280,16 +4283,15 @@
 	mkshort(distance / 10), \
 	label,
 
-#define play_sound_from_object2(channel, object, sound, u1, u2) \
+#define play_sound_from_object2(channel, object, sound, type, flags) \
 	mkshort(0x01d9), \
 	channel, \
 	object, \
 	mkshort(sound), \
 	0xff, \
 	0xff, \
-	u1, \
-	0x00, \
-	u2,
+	type, \
+	mkshort(flags),
 
 /**
  * Unsure exactly how this works. I think it replaces the main level theme with

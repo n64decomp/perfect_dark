@@ -367,7 +367,7 @@ void lvReset(s32 stagenum)
 	objectivesReset();
 	vtxstoreReset();
 	modelmgrReset();
-	propsndReset();
+	psReset();
 	setupLoadFiles(stagenum);
 	scenarioReset();
 	varsReset();
@@ -2207,7 +2207,7 @@ void lvTick(void)
 					&& g_MiscAudioHandle == NULL
 					&& !lvIsPaused()
 					&& nexttime < TICKS(g_MpTimeLimit60)) {
-				snd00010718(&g_MiscAudioHandle, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
+				snd00010718(&g_MiscAudioHandle, 0, AL_VOL_FULL, AL_PAN_CENTER, SFX_ALARM_DEFAULT, 1, 1, -1, true);
 			}
 		}
 
@@ -2397,7 +2397,7 @@ void lvStop(void)
 	objectivesStop();
 	stub0f015260();
 	bgunStop();
-	propsndStop();
+	psStop();
 	musicStop();
 	hudmsgsStop();
 

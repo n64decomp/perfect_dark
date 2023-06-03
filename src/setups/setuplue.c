@@ -1142,11 +1142,11 @@ u8 func1405_antenna_switch[] = {
 		label(0x2e)
 		if_stage_flag_eq(STAGEFLAG_ANTENNA_LOWERED, TRUE, /*goto*/ 0x06)
 #if VERSION >= VERSION_NTSC_1_0
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, 0x00, 0x00)
-		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, 0x00, 0x02)
+		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, PSTYPE_NONE, 0)
+		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, PSTYPE_NONE, PSFLAG_REPEATING)
 #else
 		assign_sound(SFX_00CD, CHANNEL_1)
-		control_sound_from_object(CHANNEL_1, OBJ_ANTENNA_SWITCH, TRUE)
+		set_object_sound_playing(CHANNEL_1, OBJ_ANTENNA_SWITCH, TRUE)
 #endif
 		set_object_image(OBJ_ANTENNA_SWITCH, 0, TVCMDLIST_12)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
@@ -1171,18 +1171,18 @@ u8 func1405_antenna_switch[] = {
 		label(0x2e)
 		mute_channel(CHANNEL_1)
 #if VERSION >= VERSION_NTSC_1_0
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, 0x00, 0x00)
+		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, PSTYPE_NONE, 0)
 #endif
 		set_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		reloop(0x04)
 
 		label(0x06)
 #if VERSION >= VERSION_NTSC_1_0
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, 0x00, 0x00)
-		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, 0x00, 0x02)
+		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, PSTYPE_NONE, 0)
+		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, PSTYPE_NONE, PSFLAG_REPEATING)
 #else
 		assign_sound(SFX_00CD, CHANNEL_1)
-		control_sound_from_object(CHANNEL_1, OBJ_ANTENNA_SWITCH, TRUE)
+		set_object_sound_playing(CHANNEL_1, OBJ_ANTENNA_SWITCH, TRUE)
 #endif
 		set_object_image(OBJ_ANTENNA_SWITCH, 0, TVCMDLIST_13)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
@@ -1207,7 +1207,7 @@ u8 func1405_antenna_switch[] = {
 		label(0x2e)
 		mute_channel(CHANNEL_1)
 #if VERSION >= VERSION_NTSC_1_0
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, 0x00, 0x00)
+		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, PSTYPE_NONE, 0)
 #endif
 		set_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
@@ -1876,13 +1876,13 @@ u8 func040e_outro[] = {
 	set_chr_shooting_in_cutscene(CHR_JONATHAN, FALSE)
 
 	wait_until(296, 0x79)
-	play_sound(SFX_HIT_CHR, CHANNEL_10)
+	play_sound(SFX_HIT_CHR, CHANNEL_CUTSCENE)
 
 	wait_until(310, 0x7a)
-	play_sound(SFX_ARGH_MALE_0090, CHANNEL_10)
+	play_sound(SFX_ARGH_MALE_0090, CHANNEL_CUTSCENE)
 
 	wait_until(392, 0x69)
-	play_sound(SFX_THUD_808E, CHANNEL_10)
+	play_sound(SFX_THUD_808E, CHANNEL_CUTSCENE)
 
 	wait_until(406, 0x6c)
 	speak(CHR_P1P2, L_LUE_069, MP3_0423, CHANNEL_5, COLOR_07_RED) // "If what?"
@@ -1897,7 +1897,7 @@ u8 func040e_outro[] = {
 	play_sound(SFX_0177, CHANNEL_7)
 
 	wait_until(464, 0x6d)
-	play_sound(SFX_007D, CHANNEL_10)
+	play_sound(SFX_007D, CHANNEL_CUTSCENE)
 
 	wait_until(472, 0x6e)
 	speak(CHR_P1P2, L_LUE_070, MP3_0424, CHANNEL_5, COLOR_09_BLUE) // "If you'd been discovered yet. And frankly, if this..."
@@ -2096,40 +2096,40 @@ u8 func0410_intro[] = {
 	restart_timer
 
 	wait_until(1, 0x69)
-	speak(CHR_BOND, L_LUE_066, MP3_0420, CHANNEL_10, COLOR_09_BLUE) // "Agent Dark Mission Log, 1028 hours. Against my bet..."
+	speak(CHR_BOND, L_LUE_066, MP3_0420, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Agent Dark Mission Log, 1028 hours. Against my bet..."
 
 	wait_until(340, 0x6a)
-	play_sound(SFX_FOOTSTEP_80D5, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80D5, CHANNEL_CUTSCENE)
 
 	wait_until(364, 0x6b)
-	play_sound(SFX_04B0, CHANNEL_10)
+	play_sound(SFX_04B0, CHANNEL_CUTSCENE)
 
 	wait_until(458, 0x6c)
-	play_sound(SFX_046E, CHANNEL_10)
+	play_sound(SFX_046E, CHANNEL_CUTSCENE)
 
-	play_sound(SFX_FOOTSTEP_80D5, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80D5, CHANNEL_CUTSCENE)
 	wait_until(496, 0x6d)
-	play_sound(SFX_FOOTSTEP_80CC, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80CC, CHANNEL_CUTSCENE)
 
-	play_sound(SFX_FOOTSTEP_80CD, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80CD, CHANNEL_CUTSCENE)
 	wait_until(638, 0x6e)
 
 	wait_until(688, 0x6f)
-	play_sound(SFX_JO_LANDING_046F, CHANNEL_10)
-	play_sound(SFX_FOOTSTEP_80CE, CHANNEL_10)
-	play_sound(SFX_FOOTSTEP_80CF, CHANNEL_10)
+	play_sound(SFX_JO_LANDING_046F, CHANNEL_CUTSCENE)
+	play_sound(SFX_FOOTSTEP_80CE, CHANNEL_CUTSCENE)
+	play_sound(SFX_FOOTSTEP_80CF, CHANNEL_CUTSCENE)
 
 	wait_until(750, 0x70)
-	play_sound(SFX_016A, CHANNEL_10)
+	play_sound(SFX_016A, CHANNEL_CUTSCENE)
 
 	wait_until(815, 0x71)
-	play_sound(SFX_016B, CHANNEL_10)
+	play_sound(SFX_016B, CHANNEL_CUTSCENE)
 
 	wait_until(844, 0x72)
-	play_sound(SFX_016C, CHANNEL_10)
+	play_sound(SFX_016C, CHANNEL_CUTSCENE)
 
 	wait_until(908, 0x73)
-	play_sound(SFX_0169, CHANNEL_10)
+	play_sound(SFX_0169, CHANNEL_CUTSCENE)
 
 	wait_until(916, 0x74)
 
@@ -2143,7 +2143,7 @@ u8 func0410_intro[] = {
 	endloop(0x0c)
 
 	label(0x54)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	mute_channel(CHANNEL_7)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -2200,7 +2200,7 @@ u8 func1010_bunker_lighting[] = {
 	mute_channel(CHANNEL_0)
 	yield
 	assign_sound(SFX_ALARM_INFILTRATION, CHANNEL_0)
-	play_sound_from_object(CHANNEL_0, 0x10, 1, 800, 1100)
+	play_repeating_sound_from_object(CHANNEL_0, 0x10, 1, 800, 1100)
 	set_lights_state(0x0009, LIGHTOP_TRANSITION, 255, 50, 120)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0e)
 	restart_timer
@@ -2478,7 +2478,7 @@ u8 func1011_bunker_explosives[] = {
 	destroy_object(OBJ_RADAR_TERMINAL)
 	mute_channel(CHANNEL_0)
 	assign_sound(SFX_0479, CHANNEL_0)
-	control_sound_from_object(CHANNEL_0, OBJ_RADAR_TERMINAL, TRUE)
+	set_object_sound_playing(CHANNEL_0, OBJ_RADAR_TERMINAL, TRUE)
 	restart_timer
 
 	beginloop(0x0b)
@@ -2601,7 +2601,7 @@ u8 func1016_trigger_interceptor[] = {
 u8 func1017_radar_terminal_noise[] = {
 	yield
 	assign_sound(SFX_8146, CHANNEL_0)
-	play_sound_from_object(CHANNEL_0, OBJ_RADAR_TERMINAL, 1, 800, 1100)
+	play_repeating_sound_from_object(CHANNEL_0, OBJ_RADAR_TERMINAL, 1, 800, 1100)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

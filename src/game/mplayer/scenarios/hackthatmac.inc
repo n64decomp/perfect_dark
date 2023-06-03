@@ -444,8 +444,8 @@ void htmTickChr(struct chrdata *chr)
 #else
 							hudmsgCreateWithFlags(langGet(L_MPWEAPONS_018), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "Starting download."
 #endif
-							propsnd0f0939f8(NULL, data->terminals[data->dlterminalnum].prop, SFX_01BF, -1,
-									-1, 2, 2, 0, NULL, -1, NULL, -1, -1, -1, -1);
+							psCreate(NULL, data->terminals[data->dlterminalnum].prop, SFX_01BF, -1,
+									-1, PSFLAG_REPEATING, PSFLAG2_MPPAUSABLE, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 						}
 					}
 				} else {
@@ -455,7 +455,7 @@ void htmTickChr(struct chrdata *chr)
 #else
 						hudmsgCreateWithFlags(langGet(L_MPWEAPONS_019), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "You need to use the Data Uplink."
 #endif
-						snd00010718(NULL, 0, 0x7fff, 0x40, SFX_01CC, 1, 1, -1, 1);
+						snd00010718(NULL, 0, AL_VOL_FULL, AL_PAN_CENTER, SFX_01CC, 1, 1, -1, 1);
 					}
 				}
 			}
@@ -528,8 +528,8 @@ void htmTickChr(struct chrdata *chr)
 #else
 				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_017), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
-				func0f0926bc(data->terminals[data->dlterminalnum].prop, 1, 0xffff);
-				snd00010718(NULL, 0, 0x7fff, 0x40, SFX_01CC, 1, 1, -1, 1);
+				psStopSound(data->terminals[data->dlterminalnum].prop, PSTYPE_GENERAL, 0xffff);
+				snd00010718(NULL, 0, AL_VOL_FULL, AL_PAN_CENTER, SFX_01CC, 1, 1, -1, 1);
 			}
 
 			data->dlterminalnum = -1;
@@ -549,8 +549,8 @@ void htmTickChr(struct chrdata *chr)
 #else
 					hudmsgCreateWithFlags(langGet(L_MPWEAPONS_016), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
-					func0f0926bc(data->terminals[data->dlterminalnum].prop, 1, 0xffff);
-					snd00010718(NULL, 0, 0x7fff, 0x40, SFX_01C1, 1, 1, -1, 1);
+					psStopSound(data->terminals[data->dlterminalnum].prop, PSTYPE_GENERAL, 0xffff);
+					snd00010718(NULL, 0, AL_VOL_FULL, AL_PAN_CENTER, SFX_01C1, 1, 1, -1, 1);
 				}
 
 				data->dlterminalnum = -1;

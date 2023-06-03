@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "../lib/naudio/n_sndp.h"
 #include "game/dlights.h"
 #include "game/tex.h"
 #include "game/camera.h"
@@ -2776,7 +2777,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						}
 
 						sndAdjust(&weather->audiohandles[3], 0, a2, -1, weather->unkf8, 1, 1, -1, 1);
-						audioPostEvent(weather->audiohandles[3], 0x10, *(s32 *)&sp174);
+						audioPostEvent(weather->audiohandles[3], AL_SNDP_PITCH_EVT, *(s32 *)&sp174);
 					}
 				}
 			}

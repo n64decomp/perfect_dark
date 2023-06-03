@@ -1161,7 +1161,7 @@ u8 func100a_autopilot_switch[] = {
 	// Switch pressed
 	label(0x06)
 	assign_sound(SFX_043A, CHANNEL_7)
-	control_sound_from_object(CHANNEL_7, OBJ_AUTOPILOT_SWITCH, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_AUTOPILOT_SWITCH, TRUE)
 	set_object_image(OBJ_AUTOPILOT_SWITCH, 0, TVCMDLIST_13)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 	yield
@@ -2110,7 +2110,7 @@ u8 func1002_intro[] = {
 	wait_until(2654, 0x7b)
 	speak(CHR_BOND, L_RIT_078, MP3_0451, CHANNEL_7, COLOR_05_GREEN) // "My last chance? Ha! You fool. That was yours."
 	close_door(0x15)
-	play_sound(SFX_DOOR_8008, CHANNEL_10)
+	play_sound(SFX_DOOR_8008, CHANNEL_CUTSCENE)
 
 	wait_until(2680, 0x9f)
 
@@ -2136,7 +2136,7 @@ u8 func1002_intro[] = {
 	endloop(0x08)
 
 	label(0x7d)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2d)
 	set_chr_hiddenflag(CHR_COOP, CHRHFLAG_DISGUISED)
@@ -3513,7 +3513,7 @@ u8 func0423_outro[] = {
 	speak(CHR_BOND, L_RIT_080, MP3_0453, CHANNEL_7, COLOR_06_WHITE) // "Piece of cake, Joanna. Watch this!"
 
 	outro_wait_until(1045, 0x65)
-	play_sound(SFX_0063, CHANNEL_10)
+	play_sound(SFX_0063, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1050, 0x78)
 	speak(CHR_BOND, L_RIT_081, MP3_0454, CHANNEL_7, COLOR_06_WHITE) // "Uh-oh."
@@ -3565,7 +3565,7 @@ u8 func0423_outro[] = {
 	endloop(0x08)
 
 	label(0x5f)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	label(0x06)
 	stop_cutscene_track
 	configure_environment(0x0000, AIENVCMD_STOPNOSEDIVE, 0)
@@ -3665,7 +3665,7 @@ u8 func101a_equipment_switch[] = {
 	open_door(0x1c)
 	show_hudmsg(CHR_P1P2, L_RIT_061) // "Cargo bay has been raised."
 	assign_sound(SFX_043A, CHANNEL_7)
-	control_sound_from_object(CHANNEL_7, OBJ_EQUIPMENT_SWITCH, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_EQUIPMENT_SWITCH, TRUE)
 	unset_object_flag(0x1b, OBJFLAG_DEACTIVATED)
 	yield
 	yield
@@ -3729,7 +3729,7 @@ u8 func101b_hoverbike_switch[] = {
 	show_hudmsg(CHR_P1P2, L_RIT_060) // "Cargo bay has been lowered."
 	set_savefile_flag(GAMEFILEFLAG_CRASHSITE_BIKE)
 	assign_sound(SFX_043A, CHANNEL_7)
-	control_sound_from_object(CHANNEL_7, OBJ_HOVERBIKE_SWITCH, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_HOVERBIKE_SWITCH, TRUE)
 	unset_object_flag(0x1f, OBJFLAG_DEACTIVATED)
 	restart_timer
 

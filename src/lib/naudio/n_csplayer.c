@@ -609,7 +609,7 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 				sp90 = inst->tremType;
 			}
 
-			oscValue = (f32)AL_VOL_FULL; /* set this as a default */
+			oscValue = (f32)_AL_VOL_FULL; /* set this as a default */
 
 			if (sp90) {
 				if (seqp->initOsc) {

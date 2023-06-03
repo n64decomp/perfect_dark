@@ -1614,7 +1614,7 @@ u8 func0414_programmer[] = {
 	// Phone ringing
 	label(0x06)
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object2(CHANNEL_4, OBJ_PCMONITOR, SFX_8109, 0x0f, 0x02)
+	play_sound_from_object2(CHANNEL_4, OBJ_PCMONITOR, SFX_8109, PSTYPE_COMMHUB, 0x02)
 #else
 	speak(CHR_TARGET, -1, SFX_8109, CHANNEL_4, COLOR_00_GREEN)
 #endif
@@ -2043,7 +2043,7 @@ u8 func100e_check_ecm_mines[] = {
 		yield
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_8113, CHANNEL_0)
-		control_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, TRUE)
+		set_object_sound_playing(CHANNEL_0, OBJ_SECURITYHUB, TRUE)
 		show_hudmsg(CHR_BOND, L_AME_076) // "Internal security system temporarily disabled."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_COMPLETE)
 		reloop(0x00)
@@ -2054,7 +2054,7 @@ u8 func100e_check_ecm_mines[] = {
 		yield
 		mute_channel(CHANNEL_1)
 		assign_sound(SFX_8113, CHANNEL_1)
-		control_sound_from_object(CHANNEL_1, OBJ_EXTCOMMSHUB, TRUE)
+		set_object_sound_playing(CHANNEL_1, OBJ_EXTCOMMSHUB, TRUE)
 		show_hudmsg(CHR_BOND, L_AME_077) // "External communications hub disabled."
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_COMPLETE)
 		reloop(0x00)
@@ -2261,7 +2261,7 @@ u8 func1007_uplinking[] = {
 		restart_timer
 		show_hudmsg(CHR_TARGET, L_AME_046) // "ACCESS DENIED - password needed."
 		assign_sound(SFX_01C0, CHANNEL_7)
-		control_sound_from_object(CHANNEL_7, OBJ_PC, FALSE)
+		set_object_sound_playing(CHANNEL_7, OBJ_PC, FALSE)
 
 		beginloop(0xaf)
 			if_timer_gt(120, /*goto*/ 0x06)
@@ -2274,7 +2274,7 @@ u8 func1007_uplinking[] = {
 		label(0xae)
 		show_hudmsg(CHR_TARGET, L_AME_044) // "File download initiated."
 		assign_sound(SFX_01BF, CHANNEL_7)
-		control_sound_from_object(CHANNEL_7, OBJ_PC, TRUE)
+		set_object_sound_playing(CHANNEL_7, OBJ_PC, TRUE)
 		restart_timer
 
 		// @bug: Missing check for player still having uplink equipped
@@ -2287,7 +2287,7 @@ u8 func1007_uplinking[] = {
 		label(0xad)
 		mute_channel(CHANNEL_7)
 		assign_sound(SFX_01C1, CHANNEL_7)
-		control_sound_from_object(CHANNEL_7, OBJ_PC, TRUE)
+		set_object_sound_playing(CHANNEL_7, OBJ_PC, TRUE)
 		show_hudmsg(CHR_TARGET, L_AME_045) // "File download completed."
 		yield
 		set_stage_flag(STAGEFLAG_DOWNLOAD_COMPLETE)
@@ -2297,7 +2297,7 @@ u8 func1007_uplinking[] = {
 		show_hudmsg(CHR_TARGET, L_AME_074) // "Datalink broken - connection terminated."
 		mute_channel(CHANNEL_7)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		play_sound_from_object(CHANNEL_6, OBJ_PC, 1, 300, 400)
+		play_repeating_sound_from_object(CHANNEL_6, OBJ_PC, 1, 300, 400)
 		restart_timer
 
 		beginloop(0x11)
@@ -2312,7 +2312,7 @@ u8 func1007_uplinking[] = {
 		show_hudmsg(CHR_TARGET, L_AME_075) // "Datalink error - incomplete file download."
 		mute_channel(CHANNEL_7)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		play_sound_from_object(CHANNEL_6, OBJ_PC, 1, 300, 400)
+		play_repeating_sound_from_object(CHANNEL_6, OBJ_PC, 1, 300, 400)
 		restart_timer
 
 		beginloop(0x13)
@@ -2369,7 +2369,7 @@ u8 func1008_doorswitch[] = {
 
 	label(0x06)
 	assign_sound(SFX_043B, CHANNEL_7)
-	control_sound_from_object(CHANNEL_7, OBJ_OFFICEDOOR1, TRUE)
+	set_object_sound_playing(CHANNEL_7, OBJ_OFFICEDOOR1, TRUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3228,7 +3228,7 @@ u8 func0416_outro[] = {
 	endloop(0xb6)
 
 	label(0x06)
-	play_sound(SFX_0165, CHANNEL_10)
+	play_sound(SFX_0165, CHANNEL_CUTSCENE)
 
 	beginloop(0xb7)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3236,7 +3236,7 @@ u8 func0416_outro[] = {
 	endloop(0xb7)
 
 	label(0x06)
-	play_sound(SFX_0167, CHANNEL_10)
+	play_sound(SFX_0167, CHANNEL_CUTSCENE)
 
 	beginloop(0xb8)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3244,7 +3244,7 @@ u8 func0416_outro[] = {
 	endloop(0xb8)
 
 	label(0x06)
-	play_sound(SFX_01DC, CHANNEL_10)
+	play_sound(SFX_01DC, CHANNEL_CUTSCENE)
 
 	beginloop(0xb9)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3252,7 +3252,7 @@ u8 func0416_outro[] = {
 	endloop(0xb9)
 
 	label(0x06)
-	play_sound(SFX_01D8, CHANNEL_10)
+	play_sound(SFX_01D8, CHANNEL_CUTSCENE)
 
 	beginloop(0xba)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3260,7 +3260,7 @@ u8 func0416_outro[] = {
 	endloop(0xba)
 
 	label(0x06)
-	play_sound(SFX_01DA, CHANNEL_10)
+	play_sound(SFX_01DA, CHANNEL_CUTSCENE)
 
 	beginloop(0xbb)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3268,7 +3268,7 @@ u8 func0416_outro[] = {
 	endloop(0xbb)
 
 	label(0x06)
-	play_sound(VERSION >= VERSION_NTSC_1_0 ? SFX_80F6 : SFX_01D9, CHANNEL_10)
+	play_sound(VERSION >= VERSION_NTSC_1_0 ? SFX_80F6 : SFX_01D9, CHANNEL_CUTSCENE)
 
 	beginloop(0xbc)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3276,7 +3276,7 @@ u8 func0416_outro[] = {
 	endloop(0xbc)
 
 	label(0x06)
-	play_sound(SFX_01DB, CHANNEL_10)
+	play_sound(SFX_01DB, CHANNEL_CUTSCENE)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)
@@ -3293,7 +3293,7 @@ u8 func0416_outro[] = {
 	endloop(0x08)
 
 	label(0xbd)
-	mute_channel(CHANNEL_10)
+	mute_channel(CHANNEL_CUTSCENE)
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3332,13 +3332,13 @@ u8 func1003_start_intro[] = {
 u8 func1010_start_hub_humms[] = {
 	yield
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object2(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, 0x0f, 0x02)
+	play_sound_from_object2(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, PSTYPE_COMMHUB, 0x02)
 	yield
-	play_sound_from_object2(CHANNEL_1, OBJ_EXTCOMMSHUB, SFX_8111, 0x0f, 0x02)
+	play_sound_from_object2(CHANNEL_1, OBJ_EXTCOMMSHUB, SFX_8111, PSTYPE_COMMHUB, 0x02)
 #else
-	play_sound_from_object2(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, 0x0f, 0x00)
+	play_sound_from_object2(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, PSTYPE_COMMHUB, 0x00)
 	yield
-	play_sound_from_object2(CHANNEL_1, OBJ_SECURITYHUB, SFX_0004, 0x0f, 0x00)
+	play_sound_from_object2(CHANNEL_1, OBJ_SECURITYHUB, SFX_0004, PSTYPE_COMMHUB, 0x00)
 #endif
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

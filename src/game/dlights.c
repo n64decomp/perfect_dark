@@ -507,7 +507,7 @@ bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
 				soundpos.z = light->bbox[0].z;
 
 				roomSetLightBroken(roomnum, i);
-				propsnd0f0939f8(0, 0, SFX_HIT_GLASS, -1, -1, 0x400, 0, 0, &soundpos, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+				psCreate(0, 0, SFX_HIT_GLASS, -1, -1, PSFLAG_0400, 0, PSTYPE_NONE, &soundpos, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
 				return true;
 			}
 		}
@@ -1064,7 +1064,7 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 			}
 
 			roomFlashLighting(roomnum, 64, 80);
-			propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0x400, 0, 0x10, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+			psCreate(NULL, NULL, psGetRandomSparkSound(), -1, -1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
 			return true;
 		}
 	} else {

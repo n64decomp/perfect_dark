@@ -5,6 +5,7 @@
 #include "game/lv.h"
 #include "game/music.h"
 #include "bss.h"
+#include "naudio/n_sndp.h"
 #include "lib/rzip.h"
 #include "lib/args.h"
 #include "lib/audiomgr.h"
@@ -65,13 +66,13 @@ s32 g_SndUfoDuration240 = 0;
 struct sndstate *g_SndNosediveHandle = NULL;
 struct sndstate *g_SndUfoHandle = NULL;
 
-u16 g_SfxVolume = 32767;
+u16 g_SfxVolume = AL_VOL_FULL;
 s32 g_SoundMode = (VERSION >= VERSION_NTSC_1_0 ? SOUNDMODE_STEREO : SOUNDMODE_SURROUND);
 bool g_SndMp3Enabled = false;
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 var8005ddd4 = 0;
-s32 var8005ddd8 = 0;
+s32 g_SndNumPlaying = 0;
+s32 g_SndMostEverPlaying = 0;
 s32 var8005dddc = 0;
 #endif
 
@@ -688,7 +689,7 @@ struct audioconfig g_AudioConfigs[] = {
 	{ /*57*/   50,  180,  250, -1, 100, -1, 200, AUDIOCONFIGFLAG_01 },
 	{ /*58*/  100,  400,  600, -1, 100, -1, 200, AUDIOCONFIGFLAG_01 },
 	{ /*59*/  700, 1100, 1400, -1, 100, -1, 200, AUDIOCONFIGFLAG_01 },
-	{ /*60*/  400, 2500, 3000, -1, 100, -1,   0, AUDIOCONFIGFLAG_04 },
+	{ /*60*/  400, 2500, 3000, -1, 100, -1,   0, AUDIOCONFIGFLAG_RESPONDHELLO },
 #if VERSION >= VERSION_NTSC_1_0
 	{ /*61*/  300,  900, 1100, -1, 100, -1,   0, 0 },
 	{ /*62*/ 1000, 2500, 3000, -1, 100, -1,   0, AUDIOCONFIGFLAG_08 },
@@ -1563,7 +1564,7 @@ bool sndIsMp3(s16 soundnum)
 	return tmp.mp3priority != 0;
 }
 
-bool snd0000fbc4(s16 arg0)
+bool sndStopMp3(s16 arg0)
 {
 	if (!g_SndDisabled && g_SndMp3Enabled) {
 		if (func00037ea4() && g_SndCurMp3.unk08 != 0) {
@@ -1660,7 +1661,7 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 
 u16 seqGetVolume(struct seqinstance *seq)
 {
-	return g_SndDisabled ? 0x7fff : seq->volume;
+	return g_SndDisabled ? AL_VOL_FULL : seq->volume;
 }
 
 void seqSetVolume(struct seqinstance *seq, u16 volume)
@@ -1671,8 +1672,8 @@ void seqSetVolume(struct seqinstance *seq, u16 volume)
 
 		seq->volume = volume;
 
-		if (tmp > 0x7fff) {
-			tmp = 0x7fff;
+		if (tmp > AL_VOL_FULL) {
+			tmp = AL_VOL_FULL;
 		}
 
 		n_alCSPSetVol(seq->seqp, tmp);
@@ -1719,7 +1720,7 @@ void sndTick(void)
 	s32 stack;
 
 #if VERSION >= VERSION_NTSC_1_0
-	static s32 var8005edec = -1;
+	static s32 g_SndMostEverPlaying2 = -1;
 
 	sndIncrementAges();
 
@@ -1729,14 +1730,14 @@ void sndTick(void)
 	curtime = sndpGetCurTime();
 	state = sndpGetHeadState();
 
-	var8005ddd4 = 0;
+	g_SndNumPlaying = 0;
 	i = 0;
 
 	while (state) {
 		stateptrs[i] = state;
 		states[i] = *state;
 
-		var8005ddd4++;
+		g_SndNumPlaying++;
 
 		if ((state->flags & SNDSTATEFLAG_02) == 0
 				&& stateptrs[i]->state == AL_PLAYING
@@ -1753,12 +1754,12 @@ void sndTick(void)
 
 	osSetThreadPri(0, prevpri);
 
-	if (var8005ddd8 < var8005ddd4) {
-		var8005ddd8 = var8005ddd4;
+	if (g_SndNumPlaying > g_SndMostEverPlaying) {
+		g_SndMostEverPlaying = g_SndNumPlaying;
 	}
 
-	if (var8005edec != var8005ddd8) {
-		var8005edec = var8005ddd8;
+	if (g_SndMostEverPlaying != g_SndMostEverPlaying2) {
+		g_SndMostEverPlaying2 = g_SndMostEverPlaying;
 	}
 #endif
 
@@ -1927,27 +1928,27 @@ bool sndIsFiltered(s32 audio_id)
 	return false;
 }
 
-void sndAdjust(struct sndstate **handle, s32 arg1, s32 arg2, s32 pan, s32 soundnum, f32 arg5, s32 arg6, s32 arg7, s32 arg8)
+void sndAdjust(struct sndstate **handle, bool ismp3, s32 vol, s32 pan, s32 soundnum, f32 pitch, s32 fxbus, s32 fxmixarg, bool forcefxmix)
 {
-	s32 sp24 = -1;
+	s32 fxmix = -1;
 	union soundnumhack sp20;
 	union soundnumhack sp1c;
 	struct audioconfig *config;
 
-	if (arg8 || arg7 != -1) {
-		if (arg7 != -1) {
-			sp24 = arg7;
+	if (forcefxmix || fxmixarg != -1) {
+		if (fxmixarg != -1) {
+			fxmix = fxmixarg;
 		} else {
-			sp24 = 0;
+			fxmix = 0;
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (pan != -1 && g_SoundMode == SOUNDMODE_SURROUND && (pan & 0x80)) {
-			sp24 += 128;
+			fxmix += 128;
 		}
 #else
 		if (g_SoundMode == SOUNDMODE_SURROUND && (pan & 0x80)) {
-			sp24 += 128;
+			fxmix += 128;
 		}
 #endif
 	}
@@ -1965,24 +1966,24 @@ void sndAdjust(struct sndstate **handle, s32 arg1, s32 arg2, s32 pan, s32 soundn
 
 			config = &g_AudioConfigs[index];
 
-			if (config->unk10 != 100) {
-				arg2 = arg2 * config->unk10 / 100;
+			if (config->volpercentage != 100) {
+				vol = vol * config->volpercentage / 100;
 			}
 
-			if (config->unk14 != -1) {
-				pan = config->unk14;
+			if (config->pan != -1) {
+				pan = config->pan;
 			}
 
 			if (g_Vars.langfilteron && (config->flags & AUDIOCONFIGFLAG_OFFENSIVE)) {
-				arg2 = 0;
+				vol = 0;
 			}
 		}
 	}
 
-	if (arg1 != 0) {
-		if (arg2 != -1) {
-			arg2 = arg2 * snd0000e9dc() / 32767;
-			func00037f08(arg2, true);
+	if (ismp3) {
+		if (vol != -1) {
+			vol = vol * snd0000e9dc() / AL_VOL_FULL;
+			func00037f08(vol, true);
 		}
 
 		if (pan != -1) {
@@ -1991,28 +1992,28 @@ void sndAdjust(struct sndstate **handle, s32 arg1, s32 arg2, s32 pan, s32 soundn
 	}
 
 	if (*handle != NULL) {
-		if (arg2 != -1) {
-			audioPostEvent(*handle, 8, arg2);
+		if (vol != -1) {
+			audioPostEvent(*handle, AL_SNDP_VOL_EVT, vol);
 		}
 
 		if (pan != -1) {
-			audioPostEvent(*handle, 4, pan & 0x7f);
+			audioPostEvent(*handle, AL_SNDP_PAN_EVT, pan & 0x7f);
 		}
 
-		if (arg5 != -1.0f) {
-			audioPostEvent(*handle, 0x10, *(s32 *)&arg5);
+		if (pitch != -1.0f) {
+			audioPostEvent(*handle, AL_SNDP_PITCH_EVT, *(s32 *)&pitch);
 		}
 
-		if (sp24 != -1) {
-			audioPostEvent(*handle, 0x100, sp24);
+		if (fxmix != -1) {
+			audioPostEvent(*handle, AL_SNDP_FX_EVT, fxmix);
 		}
 	}
 }
 
-struct sndstate *snd00010718(struct sndstate **handle, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8)
+struct sndstate *snd00010718(struct sndstate **handle, s32 flags, s32 volume, s32 pan, s32 soundnum, f32 pitch, s32 fxbus, s32 fxmixarg, bool forcefxmix)
 {
 	OSPri prevpri = osGetThreadPri(NULL);
-	s32 t0 = -1;
+	s32 fxmix = -1;
 	struct sndstate *state;
 	union soundnumhack sp30;
 	union soundnumhack sp2c;
@@ -2020,26 +2021,26 @@ struct sndstate *snd00010718(struct sndstate **handle, s32 arg1, s32 arg2, s32 a
 
 	osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 
-	if (arg8 || arg7 != -1) {
-		if (arg7 != -1) {
-			t0 = arg7;
+	if (forcefxmix || fxmixarg != -1) {
+		if (fxmixarg != -1) {
+			fxmix = fxmixarg;
 		} else {
-			t0 = 0;
+			fxmix = 0;
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (arg3 != -1 && g_SoundMode == SOUNDMODE_SURROUND && (arg3 & 0x80)) {
-			t0 += 128;
+		if (pan != -1 && g_SoundMode == SOUNDMODE_SURROUND && (pan & 0x80)) {
+			fxmix += 128;
 		}
 #else
-		if (g_SoundMode == SOUNDMODE_SURROUND && (arg3 & 0x80)) {
-			t0 += 128;
+		if (g_SoundMode == SOUNDMODE_SURROUND && (pan & 0x80)) {
+			fxmix += 128;
 		}
 #endif
 	}
 
-	if (arg4) {
-		sp30.packed = arg4;
+	if (soundnum) {
+		sp30.packed = soundnum;
 
 		if (sp30.hasconfig) {
 			s32 index = g_AudioRussMappings[sp30.confignum].audioconfig_index;
@@ -2047,48 +2048,46 @@ struct sndstate *snd00010718(struct sndstate **handle, s32 arg1, s32 arg2, s32 a
 			sp2c.packed = g_AudioRussMappings[sp30.confignum].soundnum;
 			sp2c.hasconfig = false;
 
-			arg4 = sp2c.packed;
+			soundnum = sp2c.packed;
 
 			config = &g_AudioConfigs[index];
 
-			if (config->unk10 != 100) {
-				arg2 = arg2 * config->unk10 / 100;
+			if (config->volpercentage != 100) {
+				volume = volume * config->volpercentage / 100;
 			}
 
-			if (config->unk14 != -1) {
-				arg3 = config->unk14;
+			if (config->pan != -1) {
+				pan = config->pan;
 			}
 
 			if (g_Vars.langfilteron && (config->flags & AUDIOCONFIGFLAG_OFFENSIVE)) {
-				arg2 = 0;
+				volume = 0;
 			}
 		}
 	}
 
-	state = sndStart(var80095200, arg4, handle, arg2, arg3, arg5, arg6, t0);
+	state = sndStart(var80095200, soundnum, handle, volume, pan, pitch, fxbus, fxmix);
 
 	osSetThreadPri(0, prevpri);
 
 	return state;
 }
 
-struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7)
+struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 volumearg, s32 panarg, f32 pitcharg, s32 fxbusarg, s32 fxmixarg)
 {
 	union soundnumhack sp44;
 	union soundnumhack sp40;
-	u8 sp3f;
-	u8 sp3e;
-	u8 sp3d;
-	u8 sp3c;
-	u16 sp3a;
-	u16 sp38;
-	f32 sp34;
+	u8 fxmix;
+	u8 fxbus;
+	u8 pan;
+	u16 volume;
+	f32 pitch;
 
-	sp3f = arg7 != -1 ? arg7 : 0;
-	sp3e = arg6 != -1 ? arg6 : 1;
-	sp3d = arg4 != -1 ? arg4 : 64;
-	sp3a = arg3 != -1 ? arg3 : 0x7fff;
-	sp34 = arg5 > 0.0f ? arg5 : 1.0f;
+	fxmix = fxmixarg != -1 ? fxmixarg : 0;
+	fxbus = fxbusarg != -1 ? fxbusarg : 1;
+	pan = panarg != -1 ? panarg : AL_PAN_CENTER;
+	volume = volumearg != -1 ? volumearg : AL_VOL_FULL;
+	pitch = pitcharg > 0.0f ? pitcharg : 1.0f;
 
 	sp44.packed = sound;
 
@@ -2103,7 +2102,7 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg
 	}
 
 	if (sndIsMp3(sp40.packed)) {
-		sndStartMp3(sp40.packed, sp3a, sp3d, 0);
+		sndStartMp3(sp40.packed, volume, pan, 0);
 
 		if (handle != NULL) {
 			*handle = NULL;
@@ -2114,12 +2113,12 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (sp40.id < (u32)g_NumSounds) {
-		return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
+		return func00033820(arg0, sp40.id, volume, pan & 0x7f, pitch, fxmix, IS4MB() ? 0 : fxbus, handle);
 	}
 
 	return NULL;
 #else
-	return func00033820(arg0, sp40.id, sp3a, sp3d & 0x7f, sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
+	return func00033820(arg0, sp40.id, volume, pan & 0x7f, pitch, fxmix, IS4MB() ? 0 : fxbus, handle);
 #endif
 }
 
@@ -2133,7 +2132,7 @@ const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
 const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
 const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
 
-void sndStartMp3(s16 soundnum, s32 arg1, s32 arg2, s32 arg3)
+void sndStartMp3(s16 soundnum, s32 volume, s32 pan, s32 responseflags)
 {
 	union soundnumhack sp24;
 	union soundnumhack sp20;
@@ -2152,36 +2151,36 @@ void sndStartMp3(s16 soundnum, s32 arg1, s32 arg2, s32 arg3)
 				|| ((sp20.mp3priority != 1 || g_SndCurMp3.sfxref.mp3priority != 1)
 				 && sp20.mp3priority <= g_SndCurMp3.sfxref.mp3priority)) {
 			if (sp24.hasconfig) {
-				if (g_AudioConfigs[sp24.confignum].unk10 != -1) {
-					arg1 = g_AudioConfigs[sp24.confignum].unk10 * 32767 / 100;
+				if (g_AudioConfigs[sp24.confignum].volpercentage != -1) {
+					volume = g_AudioConfigs[sp24.confignum].volpercentage * AL_VOL_FULL / 100;
 				}
 
-				if (g_AudioConfigs[sp24.confignum].unk14 != -1) {
-					arg2 = g_AudioConfigs[sp24.confignum].unk14;
+				if (g_AudioConfigs[sp24.confignum].pan != -1) {
+					pan = g_AudioConfigs[sp24.confignum].pan;
 				}
 
 				// This is the same thing again
-				if (g_AudioConfigs[sp24.confignum].unk14 != -1) {
-					arg2 = g_AudioConfigs[sp24.confignum].unk14;
+				if (g_AudioConfigs[sp24.confignum].pan != -1) {
+					pan = g_AudioConfigs[sp24.confignum].pan;
 				}
 
 				if (g_Vars.langfilteron && (g_AudioConfigs[sp24.confignum].flags & AUDIOCONFIGFLAG_OFFENSIVE)) {
-					arg1 = 0;
+					volume = 0;
 				}
 			}
 
-			arg1 = arg1 * snd0000e9dc() / 0x7fff;
+			volume = volume * snd0000e9dc() / AL_VOL_FULL;
 
 			g_SndCurMp3.romaddr = fileGetRomAddress(sp20.id);
 			g_SndCurMp3.romsize = fileGetRomSize(sp20.id);
 
-			func00037f08(arg1, true);
-			func00037f5c(arg2, true);
+			func00037f08(volume, true);
+			func00037f5c(pan, true);
 
 			mp3PlayFile(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
 
-			func00037f08(arg1, true);
-			func00037f5c(arg2, true);
+			func00037f08(volume, true);
+			func00037f5c(pan, true);
 
 			g_SndCurMp3.sfxref.packed = sp20.packed;
 			g_SndCurMp3.playing = true;
@@ -2194,7 +2193,7 @@ void sndStartMp3(s16 soundnum, s32 arg1, s32 arg2, s32 arg3)
 				g_SndCurMp3.responsetype = MP3RESPONSETYPE_WHISPER;
 			}
 
-			if ((sp24.hasconfig && (g_AudioConfigs[sp24.confignum].flags & AUDIOCONFIGFLAG_04)) || (arg3 & 1)) {
+			if ((sp24.hasconfig && (g_AudioConfigs[sp24.confignum].flags & AUDIOCONFIGFLAG_RESPONDHELLO)) || (responseflags & 1)) {
 				g_SndCurMp3.responsetype = MP3RESPONSETYPE_GREETING;
 			}
 		}
@@ -2239,7 +2238,7 @@ void sndTickNosedive(void)
 				}
 
 				if (g_SndNosediveVolume) {
-					sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, 64, -1, percentage, 0, -1, 1);
+					sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 				} else if (g_SndNosediveHandle != NULL) {
 					audioStop(g_SndNosediveHandle);
 					g_SndNosediveHandle = NULL;
@@ -2259,7 +2258,7 @@ void sndTickNosedive(void)
 					}
 				}
 
-				sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, 64, -1, percentage, 0, -1, 1);
+				sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 			}
 		} else {
 			// Reached the configured fade out point
@@ -2272,7 +2271,7 @@ void sndTickNosedive(void)
 			}
 
 			if (g_SndNosediveVolume) {
-				sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, 64, -1, -1, 0, -1, 1);
+				sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, -1, 0, -1, 1);
 			} else if (g_SndNosediveHandle != NULL) {
 				audioStop(g_SndNosediveHandle);
 				g_SndNosediveHandle = NULL;
@@ -2323,7 +2322,7 @@ void sndTickUfo(void)
 				}
 
 				if (g_SndUfoVolume) {
-					sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, 64, -1, percentage, 0, -1, 1);
+					sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 				} else if (g_SndUfoHandle != NULL) {
 					audioStop(g_SndUfoHandle);
 					g_SndUfoHandle = NULL;
@@ -2335,15 +2334,15 @@ void sndTickUfo(void)
 				}
 
 				// Fade in over about 2.4 seconds
-				if (g_SndUfoVolume < 32767) {
+				if (g_SndUfoVolume < AL_VOL_FULL) {
 					g_SndUfoVolume += g_Vars.diffframe240 * PALUP(40);
 
-					if (g_SndUfoVolume > 32767) {
-						g_SndUfoVolume = 32767;
+					if (g_SndUfoVolume > AL_VOL_FULL) {
+						g_SndUfoVolume = AL_VOL_FULL;
 					}
 				}
 
-				sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, 64, -1, percentage, 0, -1, 1);
+				sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 			}
 		} else {
 			// Reached the configured fade out point
@@ -2356,7 +2355,7 @@ void sndTickUfo(void)
 			}
 
 			if (g_SndUfoVolume) {
-				sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, 64, -1, -1, 0, -1, 1);
+				sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, -1, 0, -1, 1);
 			} else if (g_SndUfoHandle != NULL) {
 				audioStop(g_SndUfoHandle);
 				g_SndUfoHandle = NULL;
