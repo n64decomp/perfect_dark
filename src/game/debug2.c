@@ -407,7 +407,7 @@ s32 var80078790nb = 0;
 bool g_DebugFootsteps = true;
 bool g_DebugAllChallenges = false;
 bool g_DebugAllBuddies = false;
-#if VERSION == VERSION_PAL_BETA
+#if VERSION >= VERSION_NTSC_1_0
 bool g_DebugSetComplete = false;
 #endif
 bool g_DebugAllTraining = false;
@@ -1107,7 +1107,7 @@ bool debugIsAllBuddiesEnabled(void)
 	return g_DebugAllBuddies;
 }
 
-#if VERSION == VERSION_PAL_BETA
+#if VERSION >= VERSION_NTSC_1_0
 bool debugIsSetCompleteEnabled(void)
 {
 	return g_DebugSetComplete;

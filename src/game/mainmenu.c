@@ -1282,9 +1282,11 @@ s32 getMaxAiBuddies(void)
 	}
 
 #if VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 	if (debugIsAllBuddiesEnabled()) {
 		max = 4;
 	}
+#endif
 #endif
 
 	return max;
@@ -1394,9 +1396,11 @@ MenuItemHandlerResult menuhandlerCoopBuddy(s32 operation, struct menuitem *item,
 				maxbuddies = 1;
 			}
 
+#ifdef DEBUG
 			if (debugIsAllBuddiesEnabled()) {
 				maxbuddies = 4;
 			}
+#endif
 
 			data->dropdown.value = human + maxbuddies;
 		}

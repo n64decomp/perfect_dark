@@ -1501,7 +1501,9 @@ void mainTick(void)
 		profileSetMarker(PROFILE_MAINTICK_END);
 
 #if VERSION == VERSION_PAL_BETA
+#ifdef DEBUG
 		debug0f119a80nb();
+#endif
 #endif
 	}
 }

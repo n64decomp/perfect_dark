@@ -813,7 +813,7 @@ void challengeConsiderMarkingComplete(void)
 {
 	bool result = challengeIsCompleteForEndscreen();
 
-#if VERSION == VERSION_PAL_BETA
+#if VERSION >= VERSION_NTSC_1_0 && defined(DEBUG)
 	if ((g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0) && (result || debugIsSetCompleteEnabled()))
 #elif VERSION >= VERSION_NTSC_1_0
 	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0 && result)

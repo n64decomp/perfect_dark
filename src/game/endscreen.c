@@ -1458,7 +1458,7 @@ void endscreenPrepare(void)
 #endif
 
 		// Push the endscreen
-#if VERSION == VERSION_PAL_BETA
+#if VERSION >= VERSION_NTSC_1_0 && defined(DEBUG)
 		if ((g_Vars.currentplayer->isdead || g_Vars.currentplayer->aborted || !objectiveIsAllComplete()) && !debugIsSetCompleteEnabled())
 #else
 		if (g_Vars.currentplayer->isdead || g_Vars.currentplayer->aborted || !objectiveIsAllComplete())
@@ -1509,7 +1509,7 @@ void endscreenPrepare(void)
 			g_GameFile.autostageindex = g_MissionConfig.stageindex;
 			g_GameFile.autodifficulty = g_MissionConfig.difficulty;
 
-#if VERSION == VERSION_PAL_BETA
+#if VERSION >= VERSION_NTSC_1_0 && defined(DEBUG)
 			if (g_CheatsActiveBank0 == 0
 					&& g_CheatsActiveBank1 == 0
 					&& g_MissionConfig.pdmode == false
@@ -1687,7 +1687,7 @@ void endscreenPushCoop(void)
 
 	g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
-#if VERSION == VERSION_PAL_BETA
+#if VERSION >= VERSION_NTSC_1_0 && defined(DEBUG)
 	if (((g_Vars.bond->isdead && g_Vars.coop->isdead)
 			|| g_Vars.bond->aborted
 			|| g_Vars.coop->aborted
@@ -1737,7 +1737,7 @@ void endscreenPushSolo(void)
 	g_MpPlayerNum = 0;
 	g_Menus[g_MpPlayerNum].playernum = 0;
 
-#if VERSION == VERSION_PAL_BETA
+#if VERSION >= VERSION_NTSC_1_0 && defined(DEBUG)
 	if (((g_Vars.bond->isdead && g_Vars.coop->isdead)
 			|| g_Vars.bond->aborted
 			|| g_Vars.coop->aborted
@@ -1786,7 +1786,7 @@ void endscreenPushAnti(void)
 	g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
 	if (g_Vars.currentplayer == g_Vars.bond) {
-#if VERSION == VERSION_PAL_BETA
+#if VERSION >= VERSION_NTSC_1_0 && defined(DEBUG)
 		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()) && !debugIsSetCompleteEnabled())
 #else
 		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()))
@@ -1809,7 +1809,7 @@ void endscreenPushAnti(void)
 
 		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
 	} else {
-#if VERSION == VERSION_PAL_BETA
+#if VERSION >= VERSION_NTSC_1_0 && defined(DEBUG)
 		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()) && !debugIsSetCompleteEnabled())
 #else
 		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()))

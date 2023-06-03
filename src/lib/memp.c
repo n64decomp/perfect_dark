@@ -187,6 +187,7 @@ void *mempAlloc(u32 len, u8 pool)
 	}
 
 #if VERSION < VERSION_NTSC_1_0
+#ifdef DEBUG
 	if (pool != MEMPOOL_8 && pool != MEMPOOL_7 && len) {
 		char buffer[80];
 		u32 stack;
@@ -206,6 +207,7 @@ void *mempAlloc(u32 len, u8 pool)
 		crashSetMessage(buffer);
 		CRASH();
 	}
+#endif
 #endif
 
 	return allocation;

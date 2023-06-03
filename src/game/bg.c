@@ -1211,7 +1211,9 @@ Gfx *bgRenderScene(Gfx *gdl)
 	}
 
 #if VERSION < VERSION_NTSC_1_0
+#ifdef DEBUG
 	debug0f119a80nb();
+#endif
 #endif
 
 	return gdl;

@@ -289,6 +289,7 @@ void memaPrint(void)
 
 	memaDefragPass(&g_MemaHeap);
 
+#ifdef DEBUG
 #if VERSION == VERSION_PAL_BETA
 	if (debugIsMemInfoEnabled()) {
 		dhudSetFgColour(0xff, 0xff, 0xff, 0xff);
@@ -391,6 +392,7 @@ void memaPrint(void)
 		dhudPrintString(buffer);
 		line++;
 	}
+#endif
 #endif
 }
 
