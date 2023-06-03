@@ -5674,11 +5674,6 @@ struct vtxstoretype {
 	s32 numallocated;
 };
 
-struct stageheadlimit {
-	u8 stagenum;
-	u8 maxheads;
-};
-
 struct wallhit {
 	/*0x00*/ Vtx vertices[4];
 	/*0x30*/ Col basecolours[4];  // without room lighting applied

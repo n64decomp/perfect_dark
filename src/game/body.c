@@ -26,8 +26,8 @@
 
 s32 g_NumActiveHeadsPerGender;
 u32 var8009cd24;
-u32 g_ActiveMaleHeads[8];
-u32 g_ActiveFemaleHeads[8];
+s32 g_ActiveMaleHeads[8];
+s32 g_ActiveFemaleHeads[8];
 
 s32 g_NumBondBodies = 0;
 s32 g_NumMaleGuardHeads = 0;
