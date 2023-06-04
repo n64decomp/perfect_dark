@@ -147,8 +147,8 @@ void menuTick(void)
 			if (g_MenuData.nextbg == 0) {
 				var8009dfc0 = false;
 
-				if (g_Vars.currentplayer->gunctrl.gunmemowner) {
-					g_Vars.currentplayer->gunctrl.unk1583_06 = true;
+				if (g_Vars.currentplayer->gunctrl.gunmemowner != GUNMEMOWNER_BONDGUN) {
+					g_Vars.currentplayer->gunctrl.loadall = true;
 				}
 			}
 

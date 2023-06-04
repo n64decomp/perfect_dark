@@ -66,6 +66,9 @@
 #define MASTERLOADSTATE_CARTS  3
 #define MASTERLOADSTATE_LOADED 4
 
+// Max downwards pitch when changing guns or reloading a classic gun
+#define MAX_PITCH 0.87252569198608f
+
 #if VERSION >= VERSION_PAL_BETA
 struct sndstate *g_CasingAudioHandles[2];
 s32 var8009d0d8;
@@ -158,8 +161,8 @@ u32 fill2[1];
 
 Lights1 var80070090 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0xb2, 0x4d, 0x2e);
 
-u32 var800700a8 = 0x00025800;
-u32 var800700ac = 0x0001e000;
+u32 g_BgunGunMemBaseSizeDefault = 150 * 1024;
+u32 g_BgunGunMemBaseSize4Mb2P = 120 * 1024;
 
 u16 g_CartFileNums[] = {
 	FILE_GCARTRIDGE,
@@ -756,7 +759,7 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 							}
 							break;
 						case GUNCMD_REPEATUNTILFULL:
-							if (hand->unk0cc8_03 && s2 >= cmd->unk02 && s4 < cmd->unk02 && s4 < s2) {
+							if (hand->incrementalreloading && s2 >= cmd->unk02 && s4 < cmd->unk02 && s4 < s2) {
 #if VERSION >= VERSION_PAL_BETA
 								f32 sp78 = s2;
 
@@ -899,7 +902,7 @@ void bgunStartAnimation(struct guncmd *cmd, s32 handnum, struct hand *hand)
 		hand->animload = cmd->unk02;
 		hand->animmode = HANDANIMMODE_IDLE;
 		hand->unk0cc8_01 = 0;
-		hand->unk0cc8_03 = false;
+		hand->incrementalreloading = false;
 		hand->unk0ce8 = cmd;
 		hand->animloopcount = 0;
 		hand->unk0cc8_02 = 0;
@@ -985,7 +988,7 @@ void bgunResetAnim(struct hand *hand)
 	hand->animload = -1;
 	hand->animmode = HANDANIMMODE_IDLE;
 	hand->unk0cc8_01 = false;
-	hand->unk0cc8_03 = false;
+	hand->incrementalreloading = false;
 	hand->unk0ce8 = NULL;
 	hand->animloopcount = 0;
 	hand->unk0cc8_02 = false;
@@ -1313,7 +1316,7 @@ s32 bgunTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand,
 				if (info->weaponnum != WEAPON_NONE) {
 					g_Vars.currentplayer->doautoselect = false;
 
-					hand->mode = HANDMODE_1;
+					hand->mode = HANDMODE_ATTACK;
 					hand->count = 0;
 					hand->count60 = 0;
 					hand->triggerreleased = false;
@@ -1364,7 +1367,7 @@ s32 bgunTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand,
 	return 0;
 }
 
-void bgun0f099780(struct hand *hand, f32 angle)
+void bgunSetArmPitch(struct hand *hand, f32 angle)
 {
 	hand->useposrot = true;
 
@@ -1385,7 +1388,7 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 		return lvupdate;
 	}
 
-	if (hand->stateminor == 0) {
+	if (hand->stateminor == HANDSTATEMINOR_AUTOSWITCH_UNEQUIP) {
 		s32 delay = TICKS(16);
 
 		if (g_Vars.normmplayerisrunning) {
@@ -1393,13 +1396,13 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 		}
 
 		if (hand->stateframes >= delay) {
-			hand->stateminor++;
+			hand->stateminor++; // to HANDSTATEMINOR_AUTOSWITCH_DELETE
 		} else {
-			bgun0f099780(hand, hand->stateframes * 0.87252569198608f / delay);
+			bgunSetArmPitch(hand, hand->stateframes * MAX_PITCH / delay);
 		}
 	}
 
-	if (hand->stateminor == 1) {
+	if (hand->stateminor == HANDSTATEMINOR_AUTOSWITCH_DELETE) {
 		hand->lastdirvalid = false;
 #if VERSION < VERSION_PAL_BETA
 		hand->animframeincfreal = hand->animframeinc;
@@ -1414,7 +1417,7 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 			bgunFreeHeldRocket(handnum);
 
 			hand->mode = HANDMODE_6;
-			hand->stateminor = 2;
+			hand->stateminor = HANDSTATEMINOR_AUTOSWITCH_2;
 			hand->count = 0;
 			return 0;
 		}
@@ -1473,7 +1476,7 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 							hand->pausetime60 = TICKS(17);
 							hand->count60 = 0;
 							hand->count = -1;
-							hand->stateminor = 2;
+							hand->stateminor = HANDSTATEMINOR_AUTOSWITCH_2;
 						}
 
 						return lvupdate;
@@ -1489,7 +1492,7 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 			}
 		}
 
-		bgun0f099780(hand, 0.87252569198608f);
+		bgunSetArmPitch(hand, MAX_PITCH);
 	}
 
 	return 0;
@@ -1519,30 +1522,30 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 	}
 
 	if (hand->statecycles == 0) {
-		struct hand *hand2 = &g_Vars.currentplayer->hands[1 - handnum];
+		struct hand *otherhand = &g_Vars.currentplayer->hands[1 - handnum];
 
 		hand->gs_int1 = -1;
 		hand->gs_int2 = 0;
 
-		if (hand2->state == HANDSTATE_RELOAD && hand2->stateframes < TICKS(20)) {
-			hand->stateminor = 9;
+		if (otherhand->state == HANDSTATE_RELOAD && otherhand->stateframes < TICKS(20)) {
+			hand->stateminor = HANDSTATEMINOR_RELOAD_WAIT;
 		}
 	}
 
-	if (hand->stateminor == 9) {
-		struct hand *hand2 = &g_Vars.currentplayer->hands[1 - handnum];
+	if (hand->stateminor == HANDSTATEMINOR_RELOAD_WAIT) {
+		struct hand *otherhand = &g_Vars.currentplayer->hands[1 - handnum];
 
-		if (hand2->state == HANDSTATE_RELOAD && hand2->stateframes < TICKS(20)) {
+		if (otherhand->state == HANDSTATE_RELOAD && otherhand->stateframes < TICKS(20)) {
 			return 0;
 		}
 
 		hand->stateframes = 0;
 		hand->statecycles = 0;
-		hand->stateminor = 0;
+		hand->stateminor = HANDSTATEMINOR_RELOAD_MAIN;
 		hand->statelastframe = 0;
 	}
 
-	if (hand->stateminor == 0) {
+	if (hand->stateminor == HANDSTATEMINOR_RELOAD_MAIN) {
 		if (hand->statecycles == 0) {
 			if (func && (func->ammoindex == 0 || func->ammoindex == 1)) {
 				if (info->definition->ammos[func->ammoindex]->reload_animation
@@ -1552,14 +1555,14 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 					hand->unk0d0e_07 = true;
 
 					if (info->definition->ammos[func->ammoindex]->flags & AMMOFLAG_INCREMENTALRELOAD) {
-						hand->unk0cc8_03 = true;
+						hand->incrementalreloading = true;
 					}
 
 					if (info->weaponnum == WEAPON_GRENADE || info->weaponnum == WEAPON_NBOMB) {
 						hand->ejectstate = EJECTSTATE_INACTIVE;
 					}
 				} else {
-					hand->stateminor++;
+					hand->stateminor++; // to HANDSTATEMINOR_RELOAD_LOWER
 				}
 			} else {
 				if (bgunSetState(handnum, HANDSTATE_IDLE)) {
@@ -1577,11 +1580,11 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 						value = bgun0f098ca0(hand->gset.weaponfunc, info, hand);
 
 						if (value >= 2) {
-							hand->unk0cc8_03 = false;
+							hand->incrementalreloading = false;
 						}
 
 						if (value == -1) {
-							hand->unk0cc8_03 = false;
+							hand->incrementalreloading = false;
 						}
 					}
 				} else {
@@ -1589,12 +1592,12 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 				}
 
 				if (hand->triggeron) {
-					hand->unk0cc8_03 = false;
+					hand->incrementalreloading = false;
 				}
 
 #if VERSION >= VERSION_JPN_FINAL
 				if (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY) {
-					hand->unk0cc8_03 = false;
+					hand->incrementalreloading = false;
 				}
 #endif
 			} else {
@@ -1616,19 +1619,19 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 		}
 	}
 
-	if (hand->stateminor == 1) {
+	if (hand->stateminor == HANDSTATEMINOR_RELOAD_LOWER) {
 		if (hand->count60 > TICKS(15) || !hand->visible) {
 			hand->mode = HANDMODE_11;
-			hand->stateminor++;
+			hand->stateminor++; // to HANDSTATEMINOR_RELOAD_SOUND
 			hand->pausetime60 = TICKS(17);
 			hand->count60 = 0;
 			hand->count = 0;
 		} else {
-			bgun0f099780(hand, (hand->count60 * 0.87252569198608f) / TICKS(16));
+			bgunSetArmPitch(hand, hand->count60 * MAX_PITCH / TICKS(16));
 		}
 	}
 
-	if (hand->stateminor == 2) {
+	if (hand->stateminor == HANDSTATEMINOR_RELOAD_SOUND) {
 		if (hand->count == 0) {
 			if (info->weaponnum == WEAPON_COMBATKNIFE
 					&& func->ammoindex >= 0
@@ -1643,7 +1646,7 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 
 			if (g_Vars.lvupdate240 > 0
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
-					&& bgun0f09dd7c()
+					&& bgunIsLoaded()
 					&& !g_PlayerInvincible
 					&& !g_Vars.currentplayer->isdead) {
 				switch (info->weaponnum) {
@@ -1671,15 +1674,15 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 
 		if (hand->count60 >= hand->pausetime60 && hand->count >= 2) {
 			hand->mode = HANDMODE_12;
-			hand->stateminor++;
+			hand->stateminor++; // to HANDSTATEMINOR_RELOAD_RAISE
 			hand->count60 = 0;
 			hand->count = 0;
 		} else {
-			bgun0f099780(hand, 0.87252569198608f);
+			bgunSetArmPitch(hand, MAX_PITCH);
 		}
 	}
 
-	if (hand->stateminor == 3) {
+	if (hand->stateminor == HANDSTATEMINOR_RELOAD_RAISE) {
 		if (info->weaponnum == WEAPON_COMBATKNIFE) {
 			hand->animmode = HANDANIMMODE_IDLE;
 		}
@@ -1700,7 +1703,7 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 				return lvupdate;
 			}
 		} else {
-			bgun0f099780(hand, (TICKS(23) - hand->count60) * 0.87252569198608f / TICKS(23));
+			bgunSetArmPitch(hand, (TICKS(23) - hand->count60) * MAX_PITCH / TICKS(23));
 		}
 	}
 
@@ -2170,7 +2173,7 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 		return true;
 	}
 
-	if (hand->stateminor == 0) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_SHOOT_0) {
 		sp64 = 1;
 
 		mainOverrideVariable("gkef", &var80070128);
@@ -2191,13 +2194,13 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 		}
 
 		if (sp64) {
-			hand->stateminor = 1;
+			hand->stateminor = HANDSTATEMINOR_ATTACK_SHOOT_1;
 		}
 
 		hand->matmot2 = hand->gs_float1;
 	}
 
-	if (hand->stateminor == 1) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_SHOOT_1) {
 		sp60 = bgun0f09a3f8(hand, func);
 
 		if ((func->type & 0xff00) == 0x100) {
@@ -2215,7 +2218,7 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 		}
 
 		if (sp60 < 0 || sp60 == 2) {
-			hand->stateminor = 2;
+			hand->stateminor = HANDSTATEMINOR_ATTACK_SHOOT_2;
 		}
 
 		hand->matmot2 = hand->gs_float1;
@@ -2231,7 +2234,7 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 		return false;
 	}
 
-	if (hand->stateminor == 2) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_SHOOT_2) {
 		if (hand->stateflags & HANDSTATEFLAG_00000020) {
 			sp68 = bgun0f09aba4(hand, info, handnum, (struct weaponfunc_shoot *) func);
 		} else {
@@ -2266,11 +2269,11 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 		return true;
 	}
 
-	if (hand->stateminor == 0) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_THROW_0) {
 		if (hand->statecycles == 0) {
 			if (func->base.flags & FUNCFLAG_DISCARDWEAPON) {
 				invRemoveItemByNum(hand->gset.weaponnum);
-				g_Vars.currentplayer->gunctrl.unk1583_04 = true;
+				g_Vars.currentplayer->gunctrl.throwing = true;
 #if VERSION >= VERSION_NTSC_1_0
 				bgunSwitchToPrevious();
 #else
@@ -2292,23 +2295,23 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 			}
 
 			if (bgun0f098a44(hand, 2)) {
-				hand->stateminor = 1;
+				hand->stateminor = HANDSTATEMINOR_ATTACK_THROW_1;
 				hand->unk0cc8_01 = false;
 			}
 		} else {
-			hand->stateminor = 1;
+			hand->stateminor = HANDSTATEMINOR_ATTACK_THROW_1;
 		}
 	}
 
-	if (hand->stateminor == 1) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_THROW_1) {
 		hand->firing = true;
 		hand->attacktype = HANDATTACKTYPE_THROWPROJECTILE;
 		hand->loadedammo[func->base.ammoindex]--;
-		hand->stateminor = 2;
+		hand->stateminor = HANDSTATEMINOR_ATTACK_THROW_2;
 		return false;
 	}
 
-	if (hand->stateminor == 2) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_THROW_2) {
 		if (hand->stateframes > TICKS(func->recoverytime60)) {
 			return true;
 		}
@@ -2326,7 +2329,7 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 	// This state is only used after having a grenade explode in the player's
 	// hand. It waits 4 seconds before finishing, which means the player won't
 	// pull out another grenade until the flames have cleared.
-	if (hand->stateminor == 55) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_THROW_GRENADEWAIT) {
 		bgunResetAnim(hand);
 
 		if (hand->stateframes > TICKS(func->activatetime60 + 240)) {
@@ -2345,7 +2348,7 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 		hand->firing = true;
 		hand->attacktype = HANDATTACKTYPE_THROWPROJECTILE;
 		hand->loadedammo[func->base.ammoindex]--;
-		hand->stateminor = 55;
+		hand->stateminor = HANDSTATEMINOR_ATTACK_THROW_GRENADEWAIT;
 
 		return false;
 	}
@@ -2402,7 +2405,7 @@ bool bgunTickIncAttackingMelee(s32 handnum, struct hand *hand)
 		return false;
 	}
 
-	if (hand->stateminor == 0) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_MELEE_0) {
 		if (hand->statecycles == 0) {
 			hand->firing = true;
 			hand->attacktype = HANDATTACKTYPE_MELEENOUNCLOAK;
@@ -2419,20 +2422,20 @@ bool bgunTickIncAttackingMelee(s32 handnum, struct hand *hand)
 			}
 
 			if (bgun0f098a44(hand, 2)) {
-				hand->stateminor = 1;
+				hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_1;
 				hand->unk0cc8_01 = false;
 			}
 		} else {
-			hand->stateminor = 1;
+			hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_1;
 		}
 	}
 
-	if (hand->stateminor == 3 && bgun0f098a44(hand, 3)) {
-		hand->stateminor = 1;
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_MELEE_3 && bgun0f098a44(hand, 3)) {
+		hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_1;
 		hand->unk0cc8_01 = false;
 	}
 
-	if (hand->stateminor == 1) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_MELEE_1) {
 		hand->firing = true;
 		hand->attacktype = HANDATTACKTYPE_MELEE;
 
@@ -2446,20 +2449,20 @@ bool bgunTickIncAttackingMelee(s32 handnum, struct hand *hand)
 
 		if (func->fire_animation) {
 			if (func->fire_animation && !bgun0f098a44(hand, 3)) {
-				hand->stateminor = 3;
+				hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_3;
 			} else {
-				hand->stateminor = 2;
+				hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_2;
 			}
 		}
 
 		if (cheatIsActive(CHEAT_HURRICANEFISTS)) {
-			hand->stateminor = 2;
+			hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_2;
 		}
 
 		return false;
 	}
 
-	if (hand->stateminor == 2) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_MELEE_2) {
 		if (!bgunIsAnimBusy(hand)) {
 			return true;
 		}
@@ -2486,11 +2489,11 @@ bool bgunTickIncAttackingSpecial(struct hand *hand)
 		return true;
 	}
 
-	if (hand->stateminor == 0) {
-		hand->stateminor = 1;
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_SPECIAL_START) {
+		hand->stateminor = HANDSTATEMINOR_ATTACK_SPECIAL_EXECUTE;
 	}
 
-	if (hand->stateminor == 1) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_SPECIAL_EXECUTE) {
 		hand->firing = true;
 		hand->attacktype = func->specialfunc;
 
@@ -2498,11 +2501,11 @@ bool bgunTickIncAttackingSpecial(struct hand *hand)
 			hand->loadedammo[func->base.ammoindex]--;
 		}
 
-		hand->stateminor = 2;
+		hand->stateminor = HANDSTATEMINOR_ATTACK_SPECIAL_RECOVER;
 		return false;
 	}
 
-	if (hand->stateminor == 2) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_SPECIAL_RECOVER) {
 		if (hand->stateframes > TICKS(func->recoverytime60)) {
 			return true;
 		}
@@ -2725,7 +2728,7 @@ bool bgunIsReadyToSwitch(s32 handnum)
 	// Dont switch if... something firing range related
 	if (g_FrIsValidWeapon
 			&& frGetWeaponBySlot(frGetSlot()) == player->hands[HAND_RIGHT].gset.weaponnum
-			&& g_Vars.currentplayer->gunctrl.unk1583_04 == false) {
+			&& g_Vars.currentplayer->gunctrl.throwing == false) {
 		return false;
 	}
 
@@ -2733,7 +2736,7 @@ bool bgunIsReadyToSwitch(s32 handnum)
 	if (handnum == HAND_RIGHT
 			&& player->hands[HAND_LEFT].inuse
 			&& player->hands[HAND_LEFT].state == HANDSTATE_AUTOSWITCH
-			&& player->hands[HAND_LEFT].stateminor == 0) {
+			&& player->hands[HAND_LEFT].stateminor == HANDSTATEMINOR_AUTOSWITCH_UNEQUIP) {
 		return false;
 	}
 
@@ -2773,9 +2776,9 @@ bool bgunCanFreeWeapon(s32 handnum)
 	struct player *player = g_Vars.currentplayer;
 
 	if (player->hands[handnum].state == HANDSTATE_CHANGEGUN
-			&& player->hands[handnum].stateminor == 2
+			&& player->hands[handnum].stateminor == HANDSTATEMINOR_CHANGEGUN_LOAD
 			&& player->hands[handnum].count >= 3
-			&& player->gunctrl.unk1583_04 == false) {
+			&& player->gunctrl.throwing == false) {
 		return true;
 	}
 
@@ -2787,7 +2790,7 @@ bool bgun0f09bf44(s32 handnum)
 	bool result = true;
 	struct player *player = g_Vars.currentplayer;
 
-	if (!bgun0f09dd7c()) {
+	if (!bgunIsLoaded()) {
 		result = false;
 	}
 
@@ -2823,12 +2826,13 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 		}
 	}
 
-	// Handle unequip animation
-	if (hand->stateminor == 0) {
+	// Handle unequip animation. Wait in this state until the animation is
+	// finished, or skip this state if there is no animation to play.
+	if (hand->stateminor == HANDSTATEMINOR_CHANGEGUN_UNEQUIP) {
 		bool skipanim = false;
 
 		if (weaponHasFlag(info->weaponnum, WEAPONFLAG_THROWABLE)
-				&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
+				&& !(info->weaponnum == WEAPON_REMOTEMINE && handnum == HAND_LEFT)
 				&& bgun0f098ca0(0, info, hand) < 0) {
 			skipanim = true;
 		}
@@ -2842,7 +2846,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 				if (hand->statecycles == 0) {
 					bgunStartAnimation(weapon->unequip_animation, handnum, hand);
 				} else if (hand->animmode == HANDANIMMODE_IDLE) {
-					hand->stateminor++;
+					hand->stateminor++; // to HANDSTATEMINOR_CHANGEGUN_LOWER
 				}
 			} else {
 				hand->stateflags |= HANDSTATEFLAG_00000001;
@@ -2851,22 +2855,22 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					return 0;
 				}
 
-				hand->stateminor++;
+				hand->stateminor++; // to HANDSTATEMINOR_CHANGEGUN_LOWER
 			}
 		} else {
-			hand->stateminor++;
+			hand->stateminor++; // to HANDSTATEMINOR_CHANGEGUN_LOWER
 		}
 
-		if (hand->stateminor == 1) {
+		if (hand->stateminor == HANDSTATEMINOR_CHANGEGUN_LOWER) {
 			hand->stateframes = 0;
 		}
 	}
 
-	// Handle possible delay between gun disappearing and new one equipping,
-	// as well as throwing the gun if that's what we're doing
-	if (hand->stateminor == 1) {
+	// For classic guns, handle lowering it to offscreen.
+	// Throw the gun if that's what the player is doing.
+	if (hand->stateminor == HANDSTATEMINOR_CHANGEGUN_LOWER) {
 		s32 delay = TICKS(16);
-		bool somebool = false;
+		bool throwing = false;
 		u32 stack2;
 
 		hand->count = 0;
@@ -2883,39 +2887,41 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 			delay = 1;
 		}
 
-		if (hand->ejecttype == EJECTTYPE_GUN && (hand->ejectstate == EJECTSTATE_INIT || hand->ejectstate == EJECTSTATE_AIRBORNE)) {
-			somebool = true;
+		if (hand->ejecttype == EJECTTYPE_GUN
+				&& (hand->ejectstate == EJECTSTATE_INIT || hand->ejectstate == EJECTSTATE_AIRBORNE)) {
+			throwing = true;
 		}
 
-		if (g_Vars.currentplayer->gunctrl.unk1583_04 == 1) {
-			somebool = true;
+		if (g_Vars.currentplayer->gunctrl.throwing == true) {
+			throwing = true;
 		}
 
 		if (hand->stateframes >= delay) {
-			if (!somebool) {
+			if (!throwing) {
 				if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
 					playermgrDeleteWeapon(handnum);
 				}
 
 				bgunFreeHeldRocket(handnum);
 				hand->mode = HANDMODE_6;
-				hand->stateminor++;
+				hand->stateminor++; // to HANDSTATEMINOR_CHANGEGUN_LOAD
 			} else {
-				bgun0f099780(hand, 0.87252569198608f);
+				bgunSetArmPitch(hand, MAX_PITCH);
 
-				if (g_Vars.currentplayer->gunctrl.unk1583_04 == 1 && hand->inuse) {
+				if (g_Vars.currentplayer->gunctrl.throwing == true && hand->inuse) {
 					hand->firing = true;
 					hand->attacktype = HANDATTACKTYPE_THROWPROJECTILE;
 					hand->gset.weaponfunc = FUNC_SECONDARY;
 				}
 			}
 		} else {
-			bgun0f099780(hand, hand->stateframes * 0.87252569198608f / delay);
+			bgunSetArmPitch(hand, hand->stateframes * MAX_PITCH / delay);
 		}
 	}
 
-	// Handle equip animation
-	if (hand->stateminor == 2) {
+	// Wait for the new gun to be loaded, then start its equip animation
+	// (if any) and move on to the next state.
+	if (hand->stateminor == HANDSTATEMINOR_CHANGEGUN_LOAD) {
 		hand->animmode = HANDANIMMODE_IDLE;
 
 		if (hand->pausechange == 0 || hand->pausetime60 <= hand->count60) {
@@ -2928,14 +2934,14 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					}
 				}
 			} else {
-				if (bgun0f09dd7c()) {
+				if (bgunIsLoaded()) {
 					if (info->definition->equip_animation) {
 						bgunStartAnimation(info->definition->equip_animation, handnum, hand);
 						hand->unk0cc8_02 = true;
 					}
 
-					hand->mode = HANDMODE_8;
-					hand->stateminor++;
+					hand->mode = HANDMODE_EQUIP;
+					hand->stateminor++; // to HANDSTATEMINOR_CHANGEGUN_RAISE
 					hand->count60 = 0;
 					hand->count = 0;
 				}
@@ -2943,12 +2949,12 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 		}
 
 		if (hand->mode == HANDMODE_6 || hand->mode == HANDMODE_7) {
-			bgun0f099780(hand, 0.87252569198608f);
+			bgunSetArmPitch(hand, MAX_PITCH);
 		}
 	}
 
-	// Handle delay if new weapon has no equip animation, and play sound
-	if (hand->stateminor == 3) {
+	// Handle raising the new gun and playing the equipped sound effect.
+	if (hand->stateminor == HANDSTATEMINOR_CHANGEGUN_RAISE) {
 		s32 delay = TICKS(23);
 
 		if (g_Vars.normmplayerisrunning) {
@@ -2972,7 +2978,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
 					&& bgun0f098ca0(0, info, hand) < 0
 					&& bgunSetState(handnum, HANDSTATE_AUTOSWITCH)) {
-				hand->stateminor = 1;
+				hand->stateminor = HANDSTATEMINOR_AUTOSWITCH_DELETE;
 				return lvupdate;
 			}
 
@@ -2980,7 +2986,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 
 			if (g_Vars.lvupdate240 > 0
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
-					&& bgun0f09dd7c()
+					&& bgunIsLoaded()
 					&& !g_PlayerInvincible
 					&& !g_Vars.currentplayer->isdead) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -3122,7 +3128,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 				|| !weaponHasFlag(info->weaponnum, WEAPONFLAG_00000040)
 				|| weaponHasFlag(info->weaponnum, WEAPONFLAG_00000080)) {
 			hand->mode = HANDMODE_NONE;
-			hand->stateminor++;
+			hand->stateminor++; // to HANDSTATEMINOR_CHANGEGUN_EQUIP
 
 			if (weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00004000) == 0) {
 				hand->unk0cc8_02 = false;
@@ -3131,12 +3137,12 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 			hand->count60 = 0;
 			hand->count = 0;
 		} else {
-			bgun0f099780(hand, (delay - hand->count60) * 0.87252569198608f / delay);
+			bgunSetArmPitch(hand, (delay - hand->count60) * MAX_PITCH / delay);
 		}
 	}
 
 	// Wait for equip animation to finish then go to idle state
-	if (hand->stateminor == 4) {
+	if (hand->stateminor == HANDSTATEMINOR_CHANGEGUN_EQUIP) {
 		if (info->definition->equip_animation && !weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00004000)) {
 			if (hand->animmode == HANDANIMMODE_IDLE) {
 				if (bgunSetState(handnum, HANDSTATE_IDLE)) {
@@ -3585,13 +3591,13 @@ void bgun0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 	}
 }
 
-bool bgun0f09dd7c(void)
+bool bgunIsLoaded(void)
 {
-	if (g_Vars.currentplayer->gunctrl.gunmemowner) {
+	if (g_Vars.currentplayer->gunctrl.gunmemowner != GUNMEMOWNER_BONDGUN) {
 		return false;
 	}
 
-	return g_Vars.currentplayer->gunctrl.gunmemtype == 0
+	return g_Vars.currentplayer->gunctrl.gunmemtype == WEAPON_NONE
 		|| (g_Vars.currentplayer->gunctrl.gunmemnew < 0
 				&& g_Vars.currentplayer->gunctrl.masterloadstate == MASTERLOADSTATE_LOADED);
 }
@@ -3601,7 +3607,7 @@ u32 bgunGetGunMemType(void)
 	return g_Vars.currentplayer->gunctrl.gunmemtype;
 }
 
-struct modeldef *bgun0f09dddc(void)
+struct modeldef *bgunGetGunModeldef(void)
 {
 	return g_Vars.currentplayer->gunctrl.gunmodeldef;
 }
@@ -3614,7 +3620,7 @@ u8 *bgunGetGunMem(void)
 u32 bgunCalculateGunMemCapacity(void)
 {
 	if (IS4MB() && PLAYERCOUNT() == 2) {
-		return var800700ac;
+		return g_BgunGunMemBaseSize4Mb2P;
 	}
 
 	if (PLAYERCOUNT() == 1) {
@@ -3624,11 +3630,11 @@ u32 bgunCalculateGunMemCapacity(void)
 		case STAGE_VILLA:
 		case STAGE_AIRFORCEONE:
 		case STAGE_ATTACKSHIP:
-			 return var800700a8 + 0x6400;
+			 return g_BgunGunMemBaseSizeDefault + 25 * 1024;
 		}
 	}
 
-	return var800700a8;
+	return g_BgunGunMemBaseSizeDefault;
 }
 
 void bgunFreeGunMem(void)
@@ -3650,7 +3656,7 @@ void bgunSetGunMemWeapon(s32 weaponnum)
 	}
 }
 
-void bgun0f09df9c(void)
+void bgunEnterFlux(void)
 {
 	s32 i;
 	struct casing *end;
@@ -3658,8 +3664,8 @@ void bgun0f09df9c(void)
 
 	g_Vars.currentplayer->gunctrl.handfilenum = 0xffff;
 	g_Vars.currentplayer->gunctrl.handmodeldef = NULL;
-	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
-	g_Vars.currentplayer->gunctrl.unk15a4 = 0;
+	g_Vars.currentplayer->gunctrl.handmemloadptr = 0;
+	g_Vars.currentplayer->gunctrl.handmemloadremaining = 0;
 	g_Vars.currentplayer->gunctrl.masterloadstate = MASTERLOADSTATE_FLUX;
 	g_Vars.currentplayer->gunctrl.gunloadstate = GUNLOADSTATE_FLUX;
 
@@ -3674,7 +3680,7 @@ void bgun0f09df9c(void)
 	g_CasingsActive = false;
 }
 
-bool bgun0f09e004(s32 newowner)
+bool bgunChangeGunMem(s32 newowner)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -3700,8 +3706,8 @@ bool bgun0f09e004(s32 newowner)
 			}
 
 			player->gunctrl.gunmemtype = -1;
-			bgun0f09df9c();
-			player->gunctrl.unk1583_06 = true;
+			bgunEnterFlux();
+			player->gunctrl.loadall = true;
 			unlock = true;
 			break;
 		case GUNMEMOWNER_CHRBODY:
@@ -3826,7 +3832,7 @@ void bgunTickGunLoad(void)
 
 		osSyncPrintf("BriGun:  Texture Block at 0x%08x size %d, endp 0x%08x\n");
 
-		texInitPool(&player->gunctrl.unk15c0, (u8 *)end, remaining);
+		texInitPool(&player->gunctrl.texpool, (u8 *)end, remaining);
 
 		// Tidy up the model
 		modelPromoteTypeToPointer(modeldef);
@@ -3858,7 +3864,7 @@ void bgunTickGunLoad(void)
 
 			if (modeldef->texconfigs[i].texturenum < NUM_TEXTURES) {
 				osSyncPrintf("BriGun:  Uncompress %d of %d\n", i, modeldef->numtexconfigs);
-				texLoad(&modeldef->texconfigs[i].texturenum, &player->gunctrl.unk15c0, true);
+				texLoad(&modeldef->texconfigs[i].texturenum, &player->gunctrl.texpool, true);
 				modeldef->texconfigs[i].unk0b = 1;
 			}
 
@@ -3888,7 +3894,7 @@ void bgunTickGunLoad(void)
 		*fileinfo = player->gunctrl.fileinfo;
 		modeldef = *player->gunctrl.loadtomodeldef;
 
-		modeldef0f1a7560(modeldef, player->gunctrl.loadfilenum, 0x05000000, modeldef, &player->gunctrl.unk15c0, false);
+		modeldef0f1a7560(modeldef, player->gunctrl.loadfilenum, 0x05000000, modeldef, &player->gunctrl.texpool, false);
 
 		fileGetInflatedSize(player->gunctrl.loadfilenum);
 		fileGetLoadedSize(player->gunctrl.loadfilenum);
@@ -3901,7 +3907,7 @@ void bgunTickGunLoad(void)
 		osSyncPrintf("BriGun:  DL waste space %d from %d (Used %d, Ramlen %d, ObSize %d)\n");
 		osSyncPrintf("Increase GUNSAVESIZE to %d!!!\n");
 
-		newvalue = ALIGN64(texGetPoolLeftPos(&player->gunctrl.unk15c0));
+		newvalue = ALIGN64(texGetPoolLeftPos(&player->gunctrl.texpool));
 		remaining = *player->gunctrl.loadmemremaining;
 		remaining -= (s32)(newvalue - *player->gunctrl.loadmemptr);
 
@@ -3988,7 +3994,7 @@ void bgunTickMasterLoad(void)
 	s32 bodynum;
 	s32 headnum;
 
-	if ((player->gunctrl.gunmemowner == GUNMEMOWNER_BONDGUN || bgun0f09e004(GUNMEMOWNER_BONDGUN)) && player->gunctrl.gunmemnew >= 0) {
+	if ((player->gunctrl.gunmemowner == GUNMEMOWNER_BONDGUN || bgunChangeGunMem(GUNMEMOWNER_BONDGUN)) && player->gunctrl.gunmemnew >= 0) {
 		if (player->gunctrl.gunlocktimer == 0) {
 			newweaponnum = player->gunctrl.gunmemnew;
 
@@ -4047,13 +4053,13 @@ void bgunTickMasterLoad(void)
 						if (hashands) {
 							if (handfilenum != player->gunctrl.handfilenum) {
 								if (player->gunctrl.gunloadstate == GUNLOADSTATE_FLUX) {
-									player->gunctrl.unk15a0 = bgunGetGunMem();
-									player->gunctrl.unk15a4 = bgunCalculateGunMemCapacity();
+									player->gunctrl.handmemloadptr = bgunGetGunMem();
+									player->gunctrl.handmemloadremaining = bgunCalculateGunMemCapacity();
 									player->gunctrl.gunloadstate = GUNLOADSTATE_MODEL;
 									player->gunctrl.loadfilenum = handfilenum;
 									player->gunctrl.loadtomodeldef = &player->gunctrl.handmodeldef;
-									player->gunctrl.loadmemptr = (u32 *) &player->gunctrl.unk15a0;
-									player->gunctrl.loadmemremaining = (u32 *) &player->gunctrl.unk15a4;
+									player->gunctrl.loadmemptr = (u32 *) &player->gunctrl.handmemloadptr;
+									player->gunctrl.loadmemremaining = (u32 *) &player->gunctrl.handmemloadremaining;
 								}
 
 								bgunTickGunLoad();
@@ -4067,21 +4073,21 @@ void bgunTickMasterLoad(void)
 						} else {
 							player->gunctrl.handfilenum = 0;
 							player->gunctrl.handmodeldef = NULL;
-							player->gunctrl.unk15a0 = bgunGetGunMem();
-							player->gunctrl.unk15a4 = bgunCalculateGunMemCapacity();
+							player->gunctrl.handmemloadptr = bgunGetGunMem();
+							player->gunctrl.handmemloadremaining = bgunCalculateGunMemCapacity();
 						}
 
 						player->gunctrl.masterloadstate = MASTERLOADSTATE_GUN;
 						player->gunctrl.gunloadstate = GUNLOADSTATE_FLUX;
 					} else if (player->gunctrl.masterloadstate == MASTERLOADSTATE_GUN) {
 						if (player->gunctrl.gunloadstate == GUNLOADSTATE_FLUX) {
-							player->gunctrl.unk15a8 = (u8 *) player->gunctrl.unk15a0;
-							player->gunctrl.unk15ac = player->gunctrl.unk15a4;
+							player->gunctrl.memloadptr = (u8 *) player->gunctrl.handmemloadptr;
+							player->gunctrl.memloadremaining = player->gunctrl.handmemloadremaining;
 							player->gunctrl.gunloadstate = GUNLOADSTATE_MODEL;
 							player->gunctrl.loadfilenum = filenum;
 							player->gunctrl.loadtomodeldef = &player->gunctrl.gunmodeldef;
-							player->gunctrl.loadmemptr = (u32 *) &player->gunctrl.unk15a8;
-							player->gunctrl.loadmemremaining = (u32 *) &player->gunctrl.unk15ac;
+							player->gunctrl.loadmemptr = (u32 *) &player->gunctrl.memloadptr;
+							player->gunctrl.loadmemremaining = (u32 *) &player->gunctrl.memloadremaining;
 						}
 
 						bgunTickGunLoad();
@@ -4122,8 +4128,8 @@ void bgunTickMasterLoad(void)
 											player->gunctrl.loadfilenum = filenum;
 											player->gunctrl.gunloadstate = GUNLOADSTATE_MODEL;
 											player->gunctrl.loadtomodeldef = &player->gunctrl.cartmodeldef;
-											player->gunctrl.loadmemptr = (u32 *) &player->gunctrl.unk15a8;
-											player->gunctrl.loadmemremaining = (u32 *) &player->gunctrl.unk15ac;
+											player->gunctrl.loadmemptr = (u32 *) &player->gunctrl.memloadptr;
+											player->gunctrl.loadmemremaining = (u32 *) &player->gunctrl.memloadremaining;
 											break;
 										}
 
@@ -4149,34 +4155,34 @@ void bgunTickMasterLoad(void)
 								modelInit(&hand->handmodel, player->gunctrl.handmodeldef, (union modelrwdata **)hand->handsavedata, false);
 							}
 
-							hand->unk0dcc = (s32 *) player->gunctrl.unk15a8;
+							hand->unk0dcc = (s32 *) player->gunctrl.memloadptr;
 
-							value = bgunCreateModelCmdList(&hand->gunmodel, player->gunctrl.gunmodeldef->rootnode, (s32 *) player->gunctrl.unk15a8);
+							value = bgunCreateModelCmdList(&hand->gunmodel, player->gunctrl.gunmodeldef->rootnode, (s32 *) player->gunctrl.memloadptr);
 
 							sum += value;
-							player->gunctrl.unk15a8 += value;
-							player->gunctrl.unk15ac -= value;
+							player->gunctrl.memloadptr += value;
+							player->gunctrl.memloadremaining -= value;
 
 							if (player->gunctrl.handmodeldef != 0) {
-								hand->unk0dd0 = (s32 *) player->gunctrl.unk15a8;
+								hand->unk0dd0 = (s32 *) player->gunctrl.memloadptr;
 
-								value = bgunCreateModelCmdList(&hand->handmodel, player->gunctrl.handmodeldef->rootnode, (s32 *) player->gunctrl.unk15a8);
+								value = bgunCreateModelCmdList(&hand->handmodel, player->gunctrl.handmodeldef->rootnode, (s32 *) player->gunctrl.memloadptr);
 
 								sum += value;
-								player->gunctrl.unk15a8 += value;
-								player->gunctrl.unk15ac -= value;
+								player->gunctrl.memloadptr += value;
+								player->gunctrl.memloadremaining -= value;
 							}
 						}
 
 						hand = &player->hands[0];
 						hand->unk0dd4 = -1;
 
-						if (player->gunctrl.unk15ac > 3200) {
-							hand->unk0dd8 = (Mtxf *) player->gunctrl.unk15a8;
-							player->gunctrl.unk15a8 += 3200;
-							player->gunctrl.unk15ac -= 3200;
+						if (player->gunctrl.memloadremaining > 50 * sizeof(Mtxf)) {
+							hand->unk0dd8 = (Mtxf *) player->gunctrl.memloadptr;
+							player->gunctrl.memloadptr += 50 * sizeof(Mtxf);
+							player->gunctrl.memloadremaining -= 50 * sizeof(Mtxf);
 						} else {
-							hand->unk0dd8 = 0;
+							hand->unk0dd8 = NULL;
 						}
 
 						bgunCalculateGunMemCapacity();
@@ -4213,17 +4219,31 @@ void bgunTickLoad(void)
 	}
 }
 
-bool bgun0f09eae4(void)
+/**
+ * Load all gun data (models, hands etc) again after returning from a different
+ * gunmem type. For example, after returning from a cutscene, pause menu or from
+ * controlling the eyespy.
+ *
+ * Gun data is typically loaded over several frames when switching, but that
+ * cannot happen here as the gun must be available for the next frame.
+ *
+ * If the previous gun mem owner cannot release its memory right now,
+ * lockscreen will be set. This causes the game to repaint the previous frame.
+ *
+ * Return false on success, or true if the load all should be retried on the
+ * next frame.
+ */
+bool bgunLoadAll(void)
 {
 	// PAL adds a check for the eyespy being used
 #if VERSION >= VERSION_PAL_BETA
 	if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)) {
-		g_Vars.currentplayer->gunctrl.unk1583_06 = false;
+		g_Vars.currentplayer->gunctrl.loadall = false;
 		return false;
 	}
 #endif
 
-	bgun0f09df9c();
+	bgunEnterFlux();
 
 	if (g_Vars.currentplayer->gunctrl.weaponnum != WEAPON_NONE) {
 		g_Vars.currentplayer->gunctrl.gunmemnew = g_Vars.currentplayer->gunctrl.weaponnum;
@@ -4236,7 +4256,7 @@ bool bgun0f09eae4(void)
 	}
 
 	if (g_Vars.currentplayer->gunctrl.gunmemowner != GUNMEMOWNER_BONDGUN) {
-		bgun0f09e004(GUNMEMOWNER_BONDGUN);
+		bgunChangeGunMem(GUNMEMOWNER_BONDGUN);
 
 		if (g_Vars.currentplayer->gunctrl.gunmemowner != GUNMEMOWNER_BONDGUN) {
 			g_Vars.lockscreen = true;
@@ -4244,13 +4264,13 @@ bool bgun0f09eae4(void)
 		}
 	}
 
-	bgun0f09df9c();
+	bgunEnterFlux();
 
 	do {
 		bgunTickMasterLoad();
-	} while (!bgun0f09dd7c());
+	} while (!bgunIsLoaded());
 
-	g_Vars.currentplayer->gunctrl.unk1583_06 = false;
+	g_Vars.currentplayer->gunctrl.loadall = false;
 
 	return false;
 }
@@ -5476,9 +5496,9 @@ void bgunTickSwitch2(void)
 			}
 
 			if (previnuse) {
-				player->gunctrl.unk1583_01 = true;
+				player->gunctrl.prevwasdualwielding = true;
 			} else {
-				player->gunctrl.unk1583_01 = false;
+				player->gunctrl.prevwasdualwielding = false;
 			}
 
 			g_Vars.currentplayer->gunctrl.invertgunfunc = false;
@@ -5537,7 +5557,7 @@ void bgunTickSwitch2(void)
 
 			ctrl->curfnstr = 0;
 			ctrl->fnstrtimer = 0;
-			ctrl->unk1583_04 = false;
+			ctrl->throwing = false;
 		}
 	} else {
 		if (((player->hands[HAND_LEFT].inuse && !player->gunctrl.dualwielding)
@@ -5613,14 +5633,14 @@ void bgunSwitchToPrevious(void)
 			bgunEquipWeapon2(HAND_RIGHT, player->gunctrl.prevweaponnum);
 
 			dualweaponnum = invHasDoubleWeaponIncAllGuns(player->gunctrl.prevweaponnum, player->gunctrl.prevweaponnum)
-				* player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
+				* player->gunctrl.prevweaponnum * player->gunctrl.prevwasdualwielding;
 			bgunEquipWeapon2(HAND_LEFT, dualweaponnum);
 		} else {
 			bgunAutoSwitchWeapon();
 		}
 #else
 		bgunEquipWeapon2(HAND_RIGHT, player->gunctrl.prevweaponnum);
-		bgunEquipWeapon2(HAND_LEFT, player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01);
+		bgunEquipWeapon2(HAND_LEFT, player->gunctrl.prevweaponnum * player->gunctrl.prevwasdualwielding);
 #endif
 	}
 }
@@ -5637,7 +5657,7 @@ void bgunCycleForward(void)
 
 		if (weaponnum1 > WEAPON_PSYCHOSISGUN || weaponnum2 > WEAPON_PSYCHOSISGUN) {
 			weaponnum1 = player->gunctrl.prevweaponnum;
-			weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
+			weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.prevwasdualwielding;
 		} else {
 			invChooseCycleForwardWeapon(&weaponnum1, &weaponnum2, false);
 		}
@@ -5668,7 +5688,7 @@ void bgunCycleBack(void)
 
 		if (weaponnum1 > WEAPON_PSYCHOSISGUN || weaponnum2 > WEAPON_PSYCHOSISGUN) {
 			weaponnum1 = player->gunctrl.prevweaponnum;
-			weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
+			weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.prevwasdualwielding;
 		} else {
 			invChooseCycleBackWeapon(&weaponnum1, &weaponnum2, false);
 		}
@@ -6294,7 +6314,7 @@ void bgunDisarm(struct prop *attackerprop)
 
 				if ((func->type & 0xff) == INVENTORYFUNCTYPE_THROW
 						&& player->hands[i].state == HANDSTATE_ATTACK
-						&& player->hands[i].stateminor == 0) {
+						&& player->hands[i].stateminor == HANDSTATEMINOR_ATTACK_THROW_0) {
 					drop = false;
 					bgunCreateThrownProjectile(i + 2, &player->hands[i].gset);
 				}
@@ -7366,7 +7386,7 @@ void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s3
 	f32 ground;
 	bool createbeam = true;
 
-	g_Vars.currentplayer->gunctrl.unk1583_04 = false;
+	g_Vars.currentplayer->gunctrl.throwing = false;
 
 	if (funcdef) {
 		ground = g_Vars.currentplayer->vv_ground;
@@ -7580,7 +7600,7 @@ void bgun0f0a5550(s32 handnum)
 			|| weaponHasFlag(weaponnum, WEAPONFLAG_00000080)
 			|| hand->mode == HANDMODE_6
 			|| hand->mode == HANDMODE_7
-			|| !bgun0f09dd7c()
+			|| !bgunIsLoaded()
 			|| hand->inuse == false
 			|| bgunGetGunMemType() == 0) {
 		hand->visible = false;
@@ -7776,7 +7796,7 @@ void bgun0f0a5550(s32 handnum)
 			}
 
 			if (player->hands[handnum].state == HANDSTATE_CHANGEGUN
-					&& player->hands[handnum].stateminor < 2
+					&& player->hands[handnum].stateminor <= HANDSTATEMINOR_CHANGEGUN_LOWER
 					&& weapondef->unequip_animation != NULL) {
 				a0 = false;
 			}
@@ -8104,7 +8124,7 @@ void bgunTickGameplay2(void)
 	}
 #endif
 
-	if (player->gunctrl.unk1583_06) {
+	if (player->gunctrl.loadall) {
 		// empty
 	} else {
 		bgunTickLoad();

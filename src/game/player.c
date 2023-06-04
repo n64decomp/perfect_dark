@@ -1344,7 +1344,7 @@ void playerTickChrBody(void)
 		if (!g_Vars.mplayerisrunning || (IS4MB() && PLAYERCOUNT() == 1)) {
 			// 1 player
 			if (g_Vars.currentplayer->gunmem2 == NULL) {
-				if (!var8009dfc0 && bgun0f09e004(2)) {
+				if (!var8009dfc0 && bgunChangeGunMem(GUNMEMOWNER_CHRBODY)) {
 					g_Vars.currentplayer->gunmem2 = bgunGetGunMem();
 				} else {
 					if (var8009dfc0);

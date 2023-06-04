@@ -8,7 +8,7 @@
 #include "data.h"
 #include "types.h"
 
-extern u32 var800700ac;
+extern u32 g_BgunGunMemBaseSize4Mb2P;
 
 void bgunReset(void)
 {
@@ -142,15 +142,15 @@ void bgunReset(void)
 	};
 
 	if (IS4MB() && PLAYERCOUNT() == 2) {
-		i = ALIGN16(var800700ac);
+		i = ALIGN16(g_BgunGunMemBaseSize4Mb2P);
 	} else {
 		i = ALIGN16(bgunCalculateGunMemCapacity());
 	}
 
 	g_Vars.currentplayer->gunctrl.gunmem = mempAlloc(i, MEMPOOL_STAGE);
 	g_Vars.currentplayer->gunctrl.handfilenum = 0;
-	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
-	g_Vars.currentplayer->gunctrl.unk15a4 = 0;
+	g_Vars.currentplayer->gunctrl.handmemloadptr = 0;
+	g_Vars.currentplayer->gunctrl.handmemloadremaining = 0;
 	g_Vars.currentplayer->gunctrl.masterloadstate = 0;
 	g_Vars.currentplayer->gunctrl.gunloadstate = 0;
 	g_Vars.currentplayer->gunctrl.gunmemtype = 0;
@@ -158,9 +158,9 @@ void bgunReset(void)
 	g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_CHRBODY;
 	g_Vars.currentplayer->gunctrl.gunlocktimer = 0;
 
-	g_Vars.currentplayer->gunctrl.unk1583_06 = true;
+	g_Vars.currentplayer->gunctrl.loadall = true;
 	g_Vars.currentplayer->gunctrl.dualwielding = false;
-	g_Vars.currentplayer->gunctrl.unk1583_04 = false;
+	g_Vars.currentplayer->gunctrl.throwing = false;
 
 	g_Vars.currentplayer->gunctrl.switchtoweaponnum = -1;
 	g_Vars.currentplayer->gunctrl.fnfader = 0;

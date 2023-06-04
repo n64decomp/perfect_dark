@@ -1669,7 +1669,7 @@ void frTick(void)
 	f32 sp98[3][3];
 
 	if (g_FrIsValidWeapon
-			&& g_Vars.currentplayer->gunctrl.unk1583_04 == 0
+			&& g_Vars.currentplayer->gunctrl.throwing == false
 			&& invHasSingleWeaponIncAllGuns(frGetWeaponBySlot(g_FrData.slot))) {
 		bgunEquipWeapon(frGetWeaponBySlot(g_FrData.slot));
 	}

@@ -1745,7 +1745,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		}
 
 		if (thing->unk004 == NULL) {
-			if (bgun0f09e004(1)) {
+			if (bgunChangeGunMem(GUNMEMOWNER_INVMENU)) {
 				thing->unk004 = bgunGetGunMem();
 				thing->unk008 = bgunCalculateGunMemCapacity();
 			} else {

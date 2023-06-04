@@ -1160,12 +1160,12 @@ Gfx *lvRender(Gfx *gdl)
 				}
 
 				var80084050++;
-			} else if (g_Vars.currentplayer->gunctrl.unk1583_06
+			} else if (g_Vars.currentplayer->gunctrl.loadall
 					&& var80075d60 == 2
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
 					&& var8009dfc0 == 0) {
-				g_Vars.currentplayer->gunctrl.unk1583_06 = bgun0f09eae4();
+				g_Vars.currentplayer->gunctrl.loadall = bgunLoadAll();
 			}
 
 			if (g_Vars.lockscreen) {

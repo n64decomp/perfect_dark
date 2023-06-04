@@ -2221,7 +2221,7 @@ struct hand {
 	/*0x0cc4*/ s32 animmode;
 	/*0x0cc8*/ u8 unk0cc8_01 : 1;
 	/*0x0cc8*/ u8 unk0cc8_02 : 1;
-	/*0x0cc8*/ u8 unk0cc8_03 : 1;
+	/*0x0cc8*/ u8 incrementalreloading : 1;
 	/*0x0cc8*/ u8 unk0cc8_04 : 3;
 	/*0x0cc8*/ u8 unk0cc8_07 : 1;
 	/*0x0cc8*/ u8 unk0cc8_08 : 1;
@@ -2298,12 +2298,12 @@ struct gunctrl {
 	/*0x1581*/ s8 prevweaponnum; // previously drawn weapon, switched to when throwing Dragon/Laptop or when ammo depleted
 	/*0x1582*/ s8 switchtoweaponnum; // weaponnum to change to
 	/*0x1583*/ u8 dualwielding : 1;
-	/*0x1583*/ u8 unk1583_01 : 1;
+	/*0x1583*/ u8 prevwasdualwielding : 1;
 	/*0x1583*/ u8 invertgunfunc : 1;
 	/*0x1583*/ u8 gangsta : 1;
-	/*0x1583*/ u8 unk1583_04 : 1;
+	/*0x1583*/ u8 throwing : 1;
 	/*0x1583*/ u8 wantammo : 1;
-	/*0x1583*/ u8 unk1583_06 : 1;
+	/*0x1583*/ u8 loadall : 1;
 	/*0x1583*/ u8 passivemode : 1;
 	/*0x1584*/ s32 gunmemnew; // a weapon number, -1 when not changing guns
 	/*0x1588*/ s32 gunmemtype; // also a weapon number
@@ -2312,17 +2312,17 @@ struct gunctrl {
 	/*0x1594*/ struct modeldef *handmodeldef;
 	/*0x1598*/ struct modeldef *cartmodeldef;
 	/*0x159c*/ u16 handfilenum;
-	/*0x15a0*/ u8 *unk15a0;
-	/*0x15a4*/ s32 unk15a4;
-	/*0x15a8*/ u8 *unk15a8;
-	/*0x15ac*/ u32 unk15ac;
+	/*0x15a0*/ u8 *handmemloadptr;
+	/*0x15a4*/ s32 handmemloadremaining;
+	/*0x15a8*/ u8 *memloadptr;
+	/*0x15ac*/ u32 memloadremaining;
 	/*0x15b0*/ u8 masterloadstate;
 	/*0x15b1*/ u8 gunloadstate;
 	/*0x15b2*/ u16 loadfilenum;
 	/*0x15b4*/ struct modeldef **loadtomodeldef;
 	/*0x15b8*/ u32 *loadmemptr;
 	/*0x15bc*/ u32 *loadmemremaining;
-	/*0x15c0*/ struct texpool unk15c0;
+	/*0x15c0*/ struct texpool texpool;
 	/*0x15d0*/ u32 nexttexturetoload;
 	/*0x15d4*/ struct fileinfo fileinfo;
 	/*0x15dc*/ struct abmag abmag;
