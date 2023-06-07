@@ -2416,13 +2416,13 @@
 #define MODELPART_LIFT_WALL3             0x0003 // type19
 #define MODELPART_LOGO_0000              0x0000 // toggle
 #define MODELPART_LOGO_0001              0x0001 // toggle
-#define MODELPART_LOGO_0002              0x0002 // dl
+#define MODELPART_LOGO_FRONTSIDE         0x0002 // dl
 #define MODELPART_LOGO_0003              0x0003 // dl
-#define MODELPART_LOGO_0004              0x0004 // dl
+#define MODELPART_LOGO_RIGHTSIDE         0x0004 // dl
 #define MODELPART_LOGO_0005              0x0005 // dl
-#define MODELPART_LOGO_0006              0x0006 // dl
+#define MODELPART_LOGO_BACKSIDE          0x0006 // dl
 #define MODELPART_LOGO_0007              0x0007 // dl
-#define MODELPART_LOGO_0008              0x0008 // dl
+#define MODELPART_LOGO_LEFTSIDE          0x0008 // dl
 #define MODELPART_LOGO_0009              0x0009 // dl
 #define MODELPART_LOGO_0110              0x0110 // toggle
 #define MODELPART_LOGO_0500              0x0500 // toggle
