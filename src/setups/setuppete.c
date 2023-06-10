@@ -2399,9 +2399,9 @@ u8 func040a_intro_from_gameplay[] = {
 
 u8 func101f_setup_robot_noise[] = {
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object2(CHANNEL_2, CHR_ROBOT, SFX_80B9, PSTYPE_NONE, PSFLAG_REPEATING)
+	play_sound_from_object2(CHANNEL_2, CHR_ROBOT, SFX_80B9_THUNDER, PSTYPE_NONE, PSFLAG_REPEATING)
 #else
-	play_sound(SFX_80B9, CHANNEL_2)
+	play_sound(SFX_80B9_THUNDER, CHANNEL_2)
 	play_repeating_sound_from_object(CHANNEL_2, CHR_ROBOT, 0, 900, 1500)
 #endif
 	set_ailist(CHR_SELF, GAILIST_IDLE)
