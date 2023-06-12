@@ -191,12 +191,12 @@ class App():
             flags |= PADFLAG_AIWALKDIRECT
         if pad['aidrop']:
             flags |= PADFLAG_AIDROP
+        if pad['aicrouch']:
+            flags |= PADFLAG_AICROUCH
+        if pad['aiignorey']:
+            flags |= PADFLAG_AIIGNOREY
         if pad['aiduck']:
             flags |= PADFLAG_AIDUCK
-        if pad['flag00008000']:
-            flags |= PADFLAG_8000
-        if pad['flag00010000']:
-            flags |= PADFLAG_10000
 
         return flags
 
@@ -338,9 +338,9 @@ PADFLAG_AIWAITLIFT      = 0x0400
 PADFLAG_AIONLIFT        = 0x0800
 PADFLAG_AIWALKDIRECT    = 0x1000
 PADFLAG_AIDROP          = 0x2000
-PADFLAG_AIDUCK          = 0x4000
-PADFLAG_8000            = 0x8000
-PADFLAG_10000           = 0x10000
+PADFLAG_AICROUCH        = 0x4000
+PADFLAG_AIIGNOREY       = 0x8000
+PADFLAG_AIDUCK          = 0x10000
 
 app = App()
 app.run()

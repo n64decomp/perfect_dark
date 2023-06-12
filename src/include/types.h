@@ -1051,15 +1051,10 @@ struct act_gopos {
 	// the chr has line of sight (through doors) to the next or next + 1 then
 	// the index can be changed to that one and the chr will run straight to it.
 	// This index will always be 0, 1 or 2. When it reaches 3 the pathfinding is
-	// recalculated, the array replaced with a new one and index set to 0.
+	// recalculated, the array is replaced with a new one and index is set to 0.
 	/*0x064*/ u8 curindex;
 
-	// x....... = walking directly to pad due to PADFLAG_AIWALKDIRECT
-	// .x...... = ducking due to PADFLAG_AIDUCK
-	// ....x... = on preset path
-	// ......xx = speed
 	/*0x065*/ u8 flags;
-
 	/*0x066*/ u16 restartttl;
 	/*0x068*/ struct waydata waydata;
 	/*0x0ac*/ f32 turnspeed;

@@ -27,9 +27,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -59,9 +59,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -91,9 +91,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -123,9 +123,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -155,9 +155,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -187,9 +187,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -219,9 +219,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -251,9 +251,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -283,9 +283,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -315,9 +315,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -347,9 +347,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -379,9 +379,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -411,9 +411,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -443,9 +443,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -475,9 +475,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -507,9 +507,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -539,9 +539,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -571,9 +571,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -603,9 +603,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -635,9 +635,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -667,9 +667,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -699,9 +699,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -731,9 +731,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -763,9 +763,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -795,9 +795,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -827,9 +827,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -859,9 +859,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -891,9 +891,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -923,9 +923,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -955,9 +955,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -987,9 +987,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1019,9 +1019,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1051,9 +1051,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1083,9 +1083,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1115,9 +1115,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1147,9 +1147,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1179,9 +1179,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1211,9 +1211,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1243,9 +1243,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1275,9 +1275,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1307,9 +1307,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1339,9 +1339,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1371,9 +1371,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1403,9 +1403,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1435,9 +1435,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1467,9 +1467,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1499,9 +1499,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1531,9 +1531,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1563,9 +1563,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1595,9 +1595,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1627,9 +1627,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1659,9 +1659,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1691,9 +1691,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1723,9 +1723,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1755,9 +1755,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1787,9 +1787,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1819,9 +1819,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1851,9 +1851,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1883,9 +1883,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1915,9 +1915,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1947,9 +1947,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -1979,9 +1979,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2011,9 +2011,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2043,9 +2043,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2075,9 +2075,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2107,9 +2107,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2139,9 +2139,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2171,9 +2171,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2203,9 +2203,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2235,9 +2235,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2267,9 +2267,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2299,9 +2299,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2331,9 +2331,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2363,9 +2363,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2395,9 +2395,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2427,9 +2427,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2459,9 +2459,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2491,9 +2491,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2523,9 +2523,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2555,9 +2555,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2587,9 +2587,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2619,9 +2619,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2651,9 +2651,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2683,9 +2683,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2715,9 +2715,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2747,9 +2747,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2779,9 +2779,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2811,9 +2811,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2843,9 +2843,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2875,9 +2875,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2907,9 +2907,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2939,9 +2939,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -2971,9 +2971,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3003,9 +3003,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3035,9 +3035,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3067,9 +3067,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3099,9 +3099,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3131,9 +3131,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3163,9 +3163,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3195,9 +3195,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3227,9 +3227,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3259,9 +3259,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3291,9 +3291,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3323,9 +3323,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3355,9 +3355,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3387,9 +3387,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3419,9 +3419,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3451,9 +3451,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3483,9 +3483,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3515,9 +3515,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3547,9 +3547,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3579,9 +3579,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3611,9 +3611,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3643,9 +3643,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3675,9 +3675,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3707,9 +3707,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3739,9 +3739,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3771,9 +3771,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3803,9 +3803,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3835,9 +3835,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3867,9 +3867,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3899,9 +3899,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3931,9 +3931,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3963,9 +3963,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -3995,9 +3995,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4027,9 +4027,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4059,9 +4059,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4091,9 +4091,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4123,9 +4123,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4155,9 +4155,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4187,9 +4187,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4219,9 +4219,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4251,9 +4251,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4283,9 +4283,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4315,9 +4315,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4347,9 +4347,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4379,9 +4379,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4411,9 +4411,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4443,9 +4443,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4475,9 +4475,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4507,9 +4507,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4539,9 +4539,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4571,9 +4571,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4603,9 +4603,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4635,9 +4635,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4667,9 +4667,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4699,9 +4699,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4731,9 +4731,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4763,9 +4763,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4795,9 +4795,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4827,9 +4827,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4859,9 +4859,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4891,9 +4891,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4923,9 +4923,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4955,9 +4955,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -4987,9 +4987,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5019,9 +5019,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5051,9 +5051,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5083,9 +5083,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5115,9 +5115,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5147,9 +5147,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5179,9 +5179,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5211,9 +5211,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5243,9 +5243,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5275,9 +5275,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5307,9 +5307,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5339,9 +5339,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5371,9 +5371,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5403,9 +5403,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5435,9 +5435,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5467,9 +5467,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5499,9 +5499,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5531,9 +5531,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5563,9 +5563,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5595,9 +5595,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5627,9 +5627,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5659,9 +5659,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5691,9 +5691,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5723,9 +5723,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5755,9 +5755,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5787,9 +5787,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5819,9 +5819,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5851,9 +5851,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": true,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5883,9 +5883,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5915,9 +5915,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5947,9 +5947,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -5979,9 +5979,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6011,9 +6011,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6043,9 +6043,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6075,9 +6075,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6107,9 +6107,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6139,9 +6139,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6171,9 +6171,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6203,9 +6203,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6235,9 +6235,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6267,9 +6267,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6299,9 +6299,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6331,9 +6331,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6363,9 +6363,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6395,9 +6395,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6427,9 +6427,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6459,9 +6459,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6491,9 +6491,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6523,9 +6523,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6555,9 +6555,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6587,9 +6587,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6619,9 +6619,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6651,9 +6651,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6683,9 +6683,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6715,9 +6715,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6747,9 +6747,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6779,9 +6779,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6811,9 +6811,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6843,9 +6843,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6875,9 +6875,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6907,9 +6907,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6939,9 +6939,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -6971,9 +6971,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7003,9 +7003,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7035,9 +7035,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7067,9 +7067,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7099,9 +7099,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7131,9 +7131,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7163,9 +7163,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7195,9 +7195,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7227,9 +7227,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7259,9 +7259,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7291,9 +7291,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7323,9 +7323,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7355,9 +7355,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7387,9 +7387,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7419,9 +7419,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7451,9 +7451,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7483,9 +7483,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7515,9 +7515,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7547,9 +7547,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7579,9 +7579,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7611,9 +7611,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7643,9 +7643,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7675,9 +7675,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7707,9 +7707,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7739,9 +7739,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7771,9 +7771,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7803,9 +7803,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7835,9 +7835,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7867,9 +7867,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -7899,9 +7899,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
-            "aiduck": true,
-            "flag00008000": false,
-            "flag00010000": false,
+            "aicrouch": true,
+            "aiignorey": false,
+            "aiduck": false,
             "liftnum": 0
         },
         {
@@ -7931,9 +7931,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
-            "aiduck": true,
-            "flag00008000": false,
-            "flag00010000": false,
+            "aicrouch": true,
+            "aiignorey": false,
+            "aiduck": false,
             "liftnum": 0
         },
         {
@@ -7963,9 +7963,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
-            "aiduck": true,
-            "flag00008000": false,
-            "flag00010000": false,
+            "aicrouch": true,
+            "aiignorey": false,
+            "aiduck": false,
             "liftnum": 0
         },
         {
@@ -7995,9 +7995,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
-            "aiduck": true,
-            "flag00008000": false,
-            "flag00010000": false,
+            "aicrouch": true,
+            "aiignorey": false,
+            "aiduck": false,
             "liftnum": 0
         },
         {
@@ -8027,9 +8027,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
-            "aiduck": true,
-            "flag00008000": false,
-            "flag00010000": false,
+            "aicrouch": true,
+            "aiignorey": false,
+            "aiduck": false,
             "liftnum": 0
         },
         {
@@ -8059,9 +8059,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8091,9 +8091,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8123,9 +8123,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8155,9 +8155,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8187,9 +8187,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8219,9 +8219,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8251,9 +8251,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8283,9 +8283,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8315,9 +8315,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8347,9 +8347,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8379,9 +8379,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8411,9 +8411,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8443,9 +8443,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8475,9 +8475,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8507,9 +8507,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8539,9 +8539,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8571,9 +8571,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8603,9 +8603,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8635,9 +8635,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8667,9 +8667,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8699,9 +8699,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8731,9 +8731,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8763,9 +8763,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8795,9 +8795,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
-            "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": true,
+            "aicrouch": false,
+            "aiignorey": false,
+            "aiduck": true,
             "liftnum": 0
         },
         {
@@ -8827,9 +8827,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
-            "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": true,
+            "aicrouch": false,
+            "aiignorey": false,
+            "aiduck": true,
             "liftnum": 0
         },
         {
@@ -8859,9 +8859,9 @@
             "aionlift": false,
             "aiwalkdirect": true,
             "aidrop": false,
-            "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": true,
+            "aicrouch": false,
+            "aiignorey": false,
+            "aiduck": true,
             "liftnum": 0
         },
         {
@@ -8891,9 +8891,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
-            "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": true,
+            "aicrouch": false,
+            "aiignorey": false,
+            "aiduck": true,
             "liftnum": 0
         },
         {
@@ -8923,9 +8923,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
-            "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": true,
+            "aicrouch": false,
+            "aiignorey": false,
+            "aiduck": true,
             "liftnum": 0
         },
         {
@@ -8955,9 +8955,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -8987,9 +8987,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -9019,9 +9019,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -9051,9 +9051,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -9083,9 +9083,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         },
         {
@@ -9115,9 +9115,9 @@
             "aionlift": false,
             "aiwalkdirect": false,
             "aidrop": false,
+            "aicrouch": false,
+            "aiignorey": false,
             "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
             "liftnum": 0
         }
     ],

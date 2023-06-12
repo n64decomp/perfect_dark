@@ -622,9 +622,9 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		if (chr->aibot != NULL) {
 			chr->height = 185.0f;
 
-			if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_WALKDIRECT)) {
+			if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_DUCK)) {
 				chr->height = 135.0f;
-			} else if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_DUCK)) {
+			} else if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_CROUCH)) {
 				chr->height = 90.0f;
 			} else if (cd0002a13c(&chr->prop->pos, chr->radius * 1.1f,
 						chr->manground + 185.0f - chr->prop->pos.y,

@@ -6155,7 +6155,7 @@ bool chrGoToRoomPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 gopos
 #endif
 		chr->sleep = 0;
 		chr->liftaction = 0;
-		chr->act_gopos.flags &= ~(GOPOSFLAG_WALKDIRECT | GOPOSFLAG_DUCK | GOPOSFLAG_WAITING);
+		chr->act_gopos.flags &= ~(GOPOSFLAG_DUCK | GOPOSFLAG_CROUCH | GOPOSFLAG_WAITING);
 		chrGoPosGetCurWaypointInfo(chr, &curwppos, curwprooms);
 
 		if ((!isgopos || ismagic)
@@ -12741,7 +12741,7 @@ void chrTickGoPos(struct chrdata *chr)
 	s16 curwprooms[8];
 	u32 curwpflags;
 
-	chr->act_gopos.flags &= ~(GOPOSFLAG_DUCK | GOPOSFLAG_WALKDIRECT);
+	chr->act_gopos.flags &= ~(GOPOSFLAG_CROUCH | GOPOSFLAG_DUCK);
 
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
 		if (modelIsAnimMerging(chr->model)) {
@@ -12831,8 +12831,8 @@ void chrTickGoPos(struct chrdata *chr)
 		chrNavTickMagic(chr, &chr->act_gopos.waydata, func0f0370a8(chr), &curwppos, curwprooms);
 	} else {
 		bool advance = false;
-		bool sp188;
-		bool sp184;
+		bool arrivingxyz;
+		bool arrivingxz;
 		f32 sp180;
 		f32 sp176;
 		f32 sp172;
@@ -12848,21 +12848,19 @@ void chrTickGoPos(struct chrdata *chr)
 		if (waypoint) {
 			padUnpack(waypoint->padnum, PADFIELD_FLAGS | PADFIELD_POS, &pad);
 
-			// Both of these functions are calculating something with the coords
-			// and are returning a boolean. There are no write operations.
-			sp188 = posIsArrivingAtPos(&chr->prevpos, &prop->pos, &pad.pos, 30);
-			sp184 = posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &pad.pos, 30);
+			arrivingxyz = posIsArrivingAtPos(&chr->prevpos, &prop->pos, &pad.pos, 30);
+			arrivingxz = posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &pad.pos, 30);
 
-			if (pad.flags & PADFLAG_AIDUCK) {
+			if (pad.flags & PADFLAG_AICROUCH) {
+				chr->act_gopos.flags |= GOPOSFLAG_CROUCH;
+			} else if (pad.flags & PADFLAG_AIDUCK) {
 				chr->act_gopos.flags |= GOPOSFLAG_DUCK;
-			} else if (pad.flags & PADFLAG_10000) {
-				chr->act_gopos.flags |= GOPOSFLAG_WALKDIRECT;
 			}
 
 			if ((pad.flags & PADFLAG_AIWAITLIFT) || (pad.flags & PADFLAG_AIONLIFT)) {
-				advance = chrGoPosUpdateLiftAction(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoPosGetNextPadNum(chr));
+				advance = chrGoPosUpdateLiftAction(chr, pad.flags, arrivingxz, arrivingxyz, waypoint->padnum, chrGoPosGetNextPadNum(chr));
 			} else {
-				if (sp188 || (sp184 && (chr->inlift || (pad.flags & PADFLAG_8000)))) {
+				if (arrivingxyz || (arrivingxz && (chr->inlift || (pad.flags & PADFLAG_AIIGNOREY)))) {
 					advance = true;
 				}
 			}

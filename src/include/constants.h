@@ -1202,8 +1202,8 @@
 #define GOPOSFLAG_INIT         0x04
 #define GOPOSFLAG_FORPATHSTART 0x08
 #define GOPOSFLAG_WAITING      0x20 // for a door to open, or at/in lift
-#define GOPOSFLAG_DUCK         0x40
-#define GOPOSFLAG_WALKDIRECT   0x80 // walk directly to next pad even if next+1 is in sight
+#define GOPOSFLAG_CROUCH       0x40
+#define GOPOSFLAG_DUCK         0x80
 
 #define GOPOSMASK_SPEED        (GOPOSFLAG_WALK | GOPOSFLAG_JOG | GOPOSFLAG_RUN)
 
@@ -3256,12 +3256,12 @@
 #define PADFLAG_HASBBOXDATA     0x0200
 #define PADFLAG_AIWAITLIFT      0x0400
 #define PADFLAG_AIONLIFT        0x0800
-#define PADFLAG_AIWALKDIRECT    0x1000
+#define PADFLAG_AIWALKDIRECT    0x1000 // walk directly to this pad even if this+1 is in sight (eg. for catwalks)
 #define PADFLAG_AIDROP          0x2000
-#define PADFLAG_AIDUCK          0x4000
-#define PADFLAG_8000            0x8000
-#define PADFLAG_10000           0x10000
-#define PADFLAG_AIBOTINUSE           0x20000
+#define PADFLAG_AICROUCH        0x4000
+#define PADFLAG_AIIGNOREY       0x8000 // for ledges/drops, AI will advance to next waypoint if they fall over or under it
+#define PADFLAG_AIDUCK          0x10000
+#define PADFLAG_AIBOTINUSE      0x20000
 
 #define PAK010_00 0
 #define PAK010_01 1
