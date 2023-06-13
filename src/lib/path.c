@@ -13,10 +13,10 @@ void objSetBlockedPathUnblocked(struct defaultobj *blocker, bool unblocked)
 		while (bp) {
 			if (bp->blocker == blocker) {
 				if (unblocked) {
-					waypointEnableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
+					navEnableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
 					break;
 				} else {
-					waypointDisableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
+					navDisableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
 					break;
 				}
 			}

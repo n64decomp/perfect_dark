@@ -5515,14 +5515,11 @@ void chrGoPosAdvanceWaypoint(struct chrdata *chr)
 		chr->act_gopos.curindex++;
 	} else {
 		struct waypoint *from = chr->act_gopos.waypoints[chr->act_gopos.curindex];
-		u32 hash;
 		chr->act_gopos.curindex = 1;
 
-		hash = (g_Vars.lvframe60 >> 9) * 0x80 + chr->chrnum * 8;
-
-		waypointSetHashThing(hash, hash);
-		waypointFindRoute(from, chr->act_gopos.target, chr->act_gopos.waypoints, MAX_CHRWAYPOINTS);
-		waypointSetHashThing(0, 0);
+		navSetSeed(CHRNAVSEED(chr), CHRNAVSEED(chr));
+		navFindRoute(from, chr->act_gopos.target, chr->act_gopos.waypoints, MAX_CHRWAYPOINTS);
+		navSetSeed(0, 0);
 	}
 
 	chrGoPosInitExpensive(chr);
@@ -6109,11 +6106,9 @@ bool chrGoToRoomPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 gopos
 	lastwaypoint = waypointFindClosestToPos(pos, room);
 
 	if (nextwaypoint && lastwaypoint) {
-		waypointSetHashThing(
-				((g_Vars.lvframe60 >> 9) << 7) + chr->chrnum * 8,
-				((g_Vars.lvframe60 >> 9) << 7) + chr->chrnum * 8);
-		numwaypoints = waypointFindRoute(nextwaypoint, lastwaypoint, waypoints, MAX_CHRWAYPOINTS);
-		waypointSetHashThing(0, 0);
+		navSetSeed(CHRNAVSEED(chr), CHRNAVSEED(chr));
+		numwaypoints = navFindRoute(nextwaypoint, lastwaypoint, waypoints, MAX_CHRWAYPOINTS);
+		navSetSeed(0, 0);
 	}
 
 	if (numwaypoints > 1) {
@@ -14636,42 +14631,33 @@ s32 chrFindWaypointWithinPosQuadrant(struct coord *pos, s16 *rooms, f32 angle, u
 
 bool func0f04a4ec(struct chrdata *chr, u8 quadrant)
 {
-	if (quadrant == QUADRANT_2NDWPTOTARGET || quadrant == QUADRANT_20) {
+	if (quadrant == QUADRANT_TOWARDSTARGET || quadrant == QUADRANT_AWAYFROMTARGET) {
 		struct prop *prop = chr->prop;
 		struct prop *target = chrGetTargetProp(chr);
 
-		struct waypoint *fromwp = waypointFindClosestToPos(&prop->pos, prop->rooms);
-		struct waypoint *towp = waypointFindClosestToPos(&target->pos, target->rooms);
+		struct waypoint *chrwp = waypointFindClosestToPos(&prop->pos, prop->rooms);
+		struct waypoint *tarwp = waypointFindClosestToPos(&target->pos, target->rooms);
 
-		// @dangerous: I'm creating an array overflow here to get a match.
-		// waypoints should have len 3 but this causes a mismatch due to too
-		// much stack usage. If compiling using anything other than IDO and -O2
-		// then this will need to be changed to 3.
+		struct waypoint *waypoints[3];
 		s32 numwaypoints;
-		struct waypoint *waypoints[2];
-		u32 hash;
 
-		if (fromwp && towp) {
-			if (quadrant == QUADRANT_2NDWPTOTARGET) {
-				hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
-
-				waypointSetHashThing(hash, hash);
-				numwaypoints = waypointFindRoute(fromwp, towp, waypoints, 3);
-				waypointSetHashThing(0, 0);
+		if (chrwp && tarwp) {
+			if (quadrant == QUADRANT_TOWARDSTARGET) {
+				navSetSeed(CHRNAVSEED(chr), CHRNAVSEED(chr));
+				numwaypoints = navFindRoute(chrwp, tarwp, waypoints, 3);
+				navSetSeed(0, 0);
 
 				if (numwaypoints >= 3) {
 					chr->padpreset1 = waypoints[1]->padnum;
 					return true;
 				}
 			} else {
-				hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
+				navSetSeed(CHRNAVSEED(chr), CHRNAVSEED(chr));
+				chrwp = navChooseRetreatPoint(chrwp, tarwp);
+				navSetSeed(0, 0);
 
-				waypointSetHashThing(hash, hash);
-				fromwp = func0f1155e0(fromwp, towp);
-				waypointSetHashThing(0, 0);
-
-				if (fromwp) {
-					chr->padpreset1 = fromwp->padnum;
+				if (chrwp) {
+					chr->padpreset1 = chrwp->padnum;
 					return true;
 				}
 			}
@@ -14694,7 +14680,7 @@ bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 quadr
 	s32 padnum;
 	struct prop *prop;
 
-	if (quadrant == QUADRANT_2NDWPTOTARGET || quadrant == QUADRANT_20) {
+	if (quadrant == QUADRANT_TOWARDSTARGET || quadrant == QUADRANT_AWAYFROMTARGET) {
 		return func0f04a4ec(chr, quadrant);
 	}
 
@@ -14901,12 +14887,10 @@ bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr)
 		towp = waypointFindClosestToPos(&target->pos, target->rooms);
 
 		if (fromwp && towp) {
-			u32 hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
-
 			// Note from/to are swapped here, so the route is from target to chr
-			waypointSetHashThing(hash, hash);
-			numwaypoints = waypointFindRoute(towp, fromwp, waypoints, 5);
-			waypointSetHashThing(0, 0);
+			navSetSeed(CHRNAVSEED(chr), CHRNAVSEED(chr));
+			numwaypoints = navFindRoute(towp, fromwp, waypoints, 5);
+			navSetSeed(0, 0);
 
 			if (numwaypoints >= 3) {
 				for (i = 0; waypoints[i] != NULL; i++) {

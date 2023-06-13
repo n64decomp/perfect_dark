@@ -53,6 +53,7 @@
 #define ALIGN16(val)        ((((val) + 0xf) | 0xf) ^ 0xf)
 #define ALIGN64(val)        (((((u32)(val)) + 0x3f) | 0x3f) ^ 0x3f)
 #define ARRAYCOUNT(a)       (s32)(sizeof(a) / sizeof(a[0]))
+#define CHRNAVSEED(chr)     ((g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8)
 #define CHRRACE(chr)        (chr ? chr->race : RACE_HUMAN)
 #define CRASH()             *(u8 *)0 = 69
 #define CYCLES_PER_FRAME    ((s32) OS_CPU_COUNTER / (PAL ? 50 : 60))
@@ -3446,12 +3447,12 @@
 #define PSTYPE_FOOTSTEP    16
 #define PSTYPE_CHRSHOOT    17
 
-#define QUADRANT_BACK          0x01
-#define QUADRANT_SIDE1         0x02
-#define QUADRANT_SIDE2         0x04
-#define QUADRANT_FRONT         0x08
-#define QUADRANT_2NDWPTOTARGET 0x10 // second waypoint on route to target
-#define QUADRANT_20            0x20
+#define QUADRANT_BACK           0x01
+#define QUADRANT_SIDE1          0x02
+#define QUADRANT_SIDE2          0x04
+#define QUADRANT_FRONT          0x08
+#define QUADRANT_TOWARDSTARGET  0x10
+#define QUADRANT_AWAYFROMTARGET 0x20
 
 #define QUIP_ATTACK1            0
 #define QUIP_ATTACK2            1

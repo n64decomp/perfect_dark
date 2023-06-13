@@ -684,14 +684,14 @@ union modelrwdata {
 struct waygroup {
 	s32 *neighbours;
 	s32 *waypoints;
-	s32 unk08;
+	s32 step;
 };
 
 struct waypoint {
 	s32 padnum;
 	s32 *neighbours; // most significant two bits are booleans, remaining bits are waypoint index
 	s32 groupnum;
-	s32 unk0c;
+	s32 step;
 };
 
 struct aibot {

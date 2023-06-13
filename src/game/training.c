@@ -3132,7 +3132,7 @@ void htBegin(void)
 	chrSetStageFlag(NULL, func0f1a25c0(htGetIndexBySlot(var80088bb4)));
 
 	// Disable segment leading out of the door
-	waypointDisableSegment(&waypoints[0x20], &waypoints[0x31]);
+	navDisableSegment(&waypoints[0x20], &waypoints[0x31]);
 
 	g_Vars.currentplayer->training = true;
 	bgunSetPassiveMode(false);
@@ -3153,7 +3153,7 @@ void htEnd(void)
 	chrUnsetStageFlag(NULL, func0f1a25c0(htGetIndexBySlot(var80088bb4)));
 
 	// Enable segment leading out of the door
-	waypointEnableSegment(&waypoints[0x20], &waypoints[0x31]);
+	navEnableSegment(&waypoints[0x20], &waypoints[0x31]);
 
 	g_Vars.currentplayer->training = false;
 	roomGetProps(rooms, propnums, 256);

@@ -3305,10 +3305,9 @@ void botTickUnpaused(struct chrdata *chr)
 			struct waypoint *last = waypointFindClosestToPos(&targetprop->pos, targetprop->rooms);
 
 			if (first && last) {
-				s32 hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
-				waypointSetHashThing(hash, hash);
-				aibot->numwaystepstotarget = waypointFindRoute(last, first, aibot->waypoints, ARRAYCOUNT(aibot->waypoints));
-				waypointSetHashThing(0, 0);
+				navSetSeed(CHRNAVSEED(chr), CHRNAVSEED(chr));
+				aibot->numwaystepstotarget = navFindRoute(last, first, aibot->waypoints, ARRAYCOUNT(aibot->waypoints));
+				navSetSeed(0, 0);
 			}
 		}
 
@@ -3317,6 +3316,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 		// Iterate both hands and handle shooting
 		{
+			u32 stack;
 			bool firingright = false;
 			s32 i;
 

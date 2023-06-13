@@ -448,11 +448,9 @@ bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct co
 	s32 numwaypoints;
 
 	if (from && to) {
-		s32 hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
-
-		waypointSetHashThing(hash, hash);
-		numwaypoints = waypointFindRoute(from, to, waypoints, 6);
-		waypointSetHashThing(0, 0);
+		navSetSeed(CHRNAVSEED(chr), CHRNAVSEED(chr));
+		numwaypoints = navFindRoute(from, to, waypoints, 6);
+		navSetSeed(0, 0);
 
 		if (numwaypoints > 1) {
 			s32 i = 0;
