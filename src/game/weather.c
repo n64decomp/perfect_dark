@@ -1300,7 +1300,6 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 							vertices[vtxindex + 1].s = 256;
 							vertices[vtxindex + 1].t = 256;
 							vertices[vtxindex + 2].s = 256;
-
 							vertices[vtxindex + 3].t = 0;
 							vertices[vtxindex + 3].s = 0;
 							vertices[vtxindex + 2].t = 0;
@@ -2831,29 +2830,29 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	struct weatherparticle *particle;
 	s32 j;
 	s32 k;
-	s32 s8;
-	f32 tmp;
-	u32 sp137c;
-	u8 stack[0x3c];
-	u32 sp1354;
+	s32 p;
+	u32 sp137c[1];
+	u32 stack[15];
+	u32 sp1354[1];
 	bool a0;
 	bool s1;
+	f32 f22 = 0.0f;
 	s32 sp126c[50];
 	s32 sp1268;
 	f32 sp1168[8][4][2];
 	struct coord sp115c;
 	struct coord sp1150;
-	struct coord sp1144;
+	f32 sp114c;
+	f32 sp1148;
+	f32 sp1144;
 	s32 j2;
 	s32 sp1078[50];
 	struct coord spe20[50];
 	struct coord spbc8[50];
-	f32 f0_2;
 	f32 sp264[50][12];
 	f32 sp260;
 	s32 s7;
 	Col *colours;
-	f32 *fptr;
 	f32 f0;
 	s32 numneighbours;
 	f32 f20;
@@ -2861,17 +2860,14 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	f32 f0_3;
 	struct coord sp234;
 	struct coord sp228;
-	f32 f0_4;
 	f32 sp220;
 	f32 sp21c;
 	Mtxf *mtx;
 	Vtx *vertices; // 214
-	Vtx *v0;
-	Vtx *v0_2;
+	Vtx *vtxbatch;
 	Mtxf sp1cc;
 	struct coord sp19c[4];
 	s32 sp198;
-	s32 stack3[3];
 	f32 f24;
 	s32 i; // 184
 	struct coord sp178;
@@ -2882,14 +2878,14 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	f32 f26;
 	f32 sp108;
 	f32 f16;
-	s32 index;
-	s32 stack2[2];
+	s32 numcolours = 16;
+	f32 range = 150.0f;
 
 	static u32 var8007f100 = 50;
-	static u32 var8007f104 = 5;
-	static u32 var8007f108 = 10;
-	static u32 var8007f10c = 0x8888aaff;
-	static u32 var8007f110 = 0xffffff7f;
+	static u32 snowwidth = 5;
+	static u32 snowheight = 10;
+	static u32 snowcol1 = 0x8888aaff;
+	static u32 snowcol2 = 0xffffff7f;
 
 	s7 = 0;
 	sp1268 = 0;
@@ -2906,10 +2902,10 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 			0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0,
 			0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
 
-	mainOverrideVariable("snowwidth", &var8007f104);
-	mainOverrideVariable("snowheight", &var8007f108);
-	mainOverrideVariable("snowcol1", &var8007f10c);
-	mainOverrideVariable("snowcol2", &var8007f110);
+	mainOverrideVariable("snowwidth", &snowwidth);
+	mainOverrideVariable("snowheight", &snowheight);
+	mainOverrideVariable("snowcol1", &snowcol1);
+	mainOverrideVariable("snowcol2", &snowcol2);
 
 	particledata = weather->particledata[arg2];
 
@@ -2939,14 +2935,14 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	if (ABSF(sp228.f[0]) > ABSF(particledata->boundarymin.f[0]) + ABSF(particledata->boundarymax.f[0])
 			|| ABSF(sp228.f[1]) > ABSF(particledata->boundarymin.f[1]) + ABSF(particledata->boundarymax.f[1])
 			|| ABSF(sp228.f[2]) > ABSF(particledata->boundarymin.f[2]) + ABSF(particledata->boundarymax.f[2])) {
-		sp228.f[0] = particledata->boundaryrange.f[0] * 0.5f;
-		sp228.f[1] = particledata->boundaryrange.f[1] * 0.5f;
-		sp228.f[2] = particledata->boundaryrange.f[2] * 0.5f;
+		sp228.f[0] = particledata->boundaryrange.f[0] / 2.0f;
+		sp228.f[1] = particledata->boundaryrange.f[1] / 2.0f;
+		sp228.f[2] = particledata->boundaryrange.f[2] / 2.0f;
 	}
 
 	// 4ac8
-	for (s8 = 0; s8 < 500; s8++) {
-		particle = &particledata->particles[s8];
+	for (p = 0; p < 500; p++) {
+		particle = &particledata->particles[p];
 
 		// x
 		f0 = particle->pos.f[0] - particledata->boundarymin.f[0] - sp228.f[0];
@@ -3020,15 +3016,15 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 				}
 
 				if (a0) {
-					if (sp178.f[0] < g_Rooms[sp144[j2]].bbmin[0] || g_Rooms[sp144[j2]].bbmax[0] < sp16c.f[0]) {
+					if (sp178.f[0] < g_Rooms[sp144[j2]].bbmin[0] || sp16c.f[0] > g_Rooms[sp144[j2]].bbmax[0]) {
 						a0 = false;
 					}
 
-					if (sp178.f[1] < g_Rooms[sp144[j2]].bbmin[1] || g_Rooms[sp144[j2]].bbmax[1] < sp16c.f[1]) {
+					if (sp178.f[1] < g_Rooms[sp144[j2]].bbmin[1] || sp16c.f[1] > g_Rooms[sp144[j2]].bbmax[1]) {
 						a0 = false;
 					}
 
-					if (sp178.f[2] < g_Rooms[sp144[j2]].bbmin[2] || g_Rooms[sp144[j2]].bbmax[2] < sp16c.f[2]) {
+					if (sp178.f[2] < g_Rooms[sp144[j2]].bbmin[2] || sp16c.f[2] > g_Rooms[sp144[j2]].bbmax[2]) {
 						a0 = false;
 					}
 				}
@@ -3061,24 +3057,24 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 				// empty
 			}
 		}
+
 	}
 
 	// 4ea4
 	for (j = 0; j < s7; j++) {
-		if (1);
-
-		sp264[j][6] = sp264[j][0] = g_Rooms[sp1078[j]].bbmin[0] / 1 - var8007f104;
-		sp264[j][9] = sp264[j][3] = g_Rooms[sp1078[j]].bbmax[0] / 1 + var8007f104;
+		if (0);
+		sp264[j][6] = sp264[j][0] = g_Rooms[sp1078[j]].bbmin[0] / 1 - snowwidth;
+		sp264[j][9] = sp264[j][3] = g_Rooms[sp1078[j]].bbmax[0] / 1 + snowwidth;
 		sp264[j][6] -= var8007f100;
 		sp264[j][9] += var8007f100;
 
-		sp264[j][7] = sp264[j][1] = g_Rooms[sp1078[j]].bbmin[1] / 1 - var8007f104;
-		sp264[j][10] = sp264[j][4] = g_Rooms[sp1078[j]].bbmax[1] / 1 + var8007f104;
+		sp264[j][7] = sp264[j][1] = g_Rooms[sp1078[j]].bbmin[1] / 1 - snowwidth;
+		sp264[j][10] = sp264[j][4] = g_Rooms[sp1078[j]].bbmax[1] / 1 + snowwidth;
 		sp264[j][7] -= var8007f100;
 		sp264[j][10] += var8007f100;
 
-		sp264[j][8] = sp264[j][2] = g_Rooms[sp1078[j]].bbmin[2] / 1 - var8007f104;
-		sp264[j][11] = sp264[j][5] = g_Rooms[sp1078[j]].bbmax[2] / 1 + var8007f104;
+		sp264[j][8] = sp264[j][2] = g_Rooms[sp1078[j]].bbmin[2] / 1 - snowwidth;
+		sp264[j][11] = sp264[j][5] = g_Rooms[sp1078[j]].bbmax[2] / 1 + snowwidth;
 		sp264[j][8] -= var8007f100;
 		sp264[j][11] += var8007f100;
 	}
@@ -3087,53 +3083,51 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	for (j = 0; j < 8; j++) {
 		sp1168[j][0][0] = sinf(particledata->unk3ec8[j]);
 		sp1168[j][0][1] = cosf(particledata->unk3ec8[j]);
-		sp1168[j][1][0] = sinf(particledata->unk3ec8[j] + 1.5707963705063f);
-		sp1168[j][1][1] = cosf(particledata->unk3ec8[j] + 1.5707963705063f);
+		sp1168[j][1][0] = sinf(particledata->unk3ec8[j] + M_PI * 0.5f);
+		sp1168[j][1][1] = cosf(particledata->unk3ec8[j] + M_PI * 0.5f);
 		sp1168[j][2][0] = sinf(particledata->unk3ec8[j] + M_PI);
 		sp1168[j][2][1] = cosf(particledata->unk3ec8[j] + M_PI);
-		sp1168[j][3][0] = sinf(particledata->unk3ec8[j] + 4.7123889923096f);
-		sp1168[j][3][1] = cosf(particledata->unk3ec8[j] + 4.7123889923096f);
+		sp1168[j][3][0] = sinf(particledata->unk3ec8[j] + M_PI * 1.5f);
+		sp1168[j][3][1] = cosf(particledata->unk3ec8[j] + M_PI * 1.5f);
 	}
 
 	// 514c
-	colours = gfxAllocateColours(16);
+	colours = gfxAllocateColours(numcolours);
 
-	for (j = 0; j < 16; j++) {
-		colours[j].word = (var8007f10c & 0xffffff00) | ((0xff * 17 - j * 0xff) / 17);
+	for (j = 0; j < numcolours; j++) {
+		u32 alpha = ((numcolours + 1) * 255 - j * 255) / (numcolours + 1);
+		colours[j].word = (snowcol1 & 0xffffff00) | alpha;
 	}
 
-	gSPColor(gdl++, osVirtualToPhysical(colours), 16);
+	gSPColor(gdl++, osVirtualToPhysical(colours), numcolours);
 
 	// 51f8
-	for (s8 = 0; s8 < 500; s8++) {
+	for (p = 0; p < 500; p++) {
+		struct weatherparticle *particle = &particledata->particles[p];
+		s32 tmp2;
 		s1 = true;
 
-		if (particledata->particles[s8].active & 3) {
-			sp1354 = osGetCount();
+		if (particle->active & 3) {
+			sp1354[0] = osGetCount();
 
-			sp124.f[0] = particledata->particles[s8].pos.f[0] + particledata->unk3e80.f[0];
-			sp124.f[1] = particledata->particles[s8].pos.f[1] + particledata->unk3e80.f[1];
-			sp124.f[2] = particledata->particles[s8].pos.f[2] + particledata->unk3e80.f[2];
+			sp124.f[0] = particle->pos.f[0] + particledata->unk3e80.f[0];
+			sp124.f[1] = particle->pos.f[1] + particledata->unk3e80.f[1];
+			sp124.f[2] = particle->pos.f[2] + particledata->unk3e80.f[2];
 
 			if (cam0f0b5b9c(&sp124, 5)) {
-				s32 count = osGetCount();
-				sp137c = sp137c + count - sp1354;
+				sp137c[0] = sp137c[0] + osGetCount() - sp1354[0];
 
-				sp21c = particledata->particles[s8].pos.f[0];
-				sp220 = particledata->particles[s8].pos.f[2];
+				sp21c = particle->pos.f[0];
+				sp220 = particle->pos.f[2];
 
 				f20 = sqrtf(sp220 * sp220 + sp21c * sp21c);
 
 				if (f20 < 0.00001f) {
 					// empty
 				} else {
-					s32 tmp2 = sp198 * 4;
-
 					if (sp198 == 0) {
 						vertices = gfxAllocateVertices(8);
 					}
-
-					v0_2 = &vertices[tmp2];
 
 					sp260 = 0.0f;
 
@@ -3141,19 +3135,19 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 					sp220 /= f20;
 
 					for (j = 0; j < 4; j++) {
-						v0_2[j].s = 0;
-						v0_2[j].t = 0;
+						vertices[j + sp198 * 4].s = 0;
+						vertices[j + sp198 * 4].t = 0;
 
-						sp19c[j].f[0] = particledata->particles[s8].pos.f[0];
-						sp19c[j].f[1] = particledata->particles[s8].pos.f[1];
-						sp19c[j].f[2] = particledata->particles[s8].pos.f[2];
+						sp19c[j].f[0] = particle->pos.f[0];
+						sp19c[j].f[1] = particle->pos.f[1];
+						sp19c[j].f[2] = particle->pos.f[2];
 					}
 
 					// 5344
 					if (s7 > 0) {
-						sp118.f[0] = particledata->particles[s8].pos.f[0] + particledata->unk3e80.f[0];
-						sp118.f[1] = particledata->particles[s8].pos.f[1] + particledata->unk3e80.f[1];
-						sp118.f[2] = particledata->particles[s8].pos.f[2] + particledata->unk3e80.f[2];
+						sp118.f[0] = particle->pos.f[0] + particledata->unk3e80.f[0];
+						sp118.f[1] = particle->pos.f[1] + particledata->unk3e80.f[1];
+						sp118.f[2] = particle->pos.f[2] + particledata->unk3e80.f[2];
 
 						for (j = 0; j < s7; j++) {
 							// 5398
@@ -3186,12 +3180,11 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 									}
 
 									// 5500
-									tmp = ABSF(f2) / var8007f100;
-									f2 = tmp;
+									f2 = ABSF(f2) / var8007f100;
 
 									// 5524
-									if (tmp > sp260) {
-										sp260 = tmp;
+									if (f2 > sp260) {
+										sp260 = f2;
 									}
 
 									if (sp264[j][2] > sp118.f[2]) {
@@ -3215,60 +3208,57 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 					// 559c
 					if (s1) {
 						s32 j;
+						f32 val1;
+						f32 val2;
+						f32 val3;
 
-						f0_3 = sqrtf(particledata->particles[s8].pos.f[0] * particledata->particles[s8].pos.f[0]
-								+ particledata->particles[s8].pos.f[1] * particledata->particles[s8].pos.f[1]
-								+ particledata->particles[s8].pos.f[2] * particledata->particles[s8].pos.f[2]);
+						tmp2 = sp198 * 4;
 
-						f24 = particledata->particles[s8].pos.f[0] / f0_3;
-						sp108 = particledata->particles[s8].pos.f[1] / f0_3;
-						f26 = particledata->particles[s8].pos.f[2] / f0_3;
+						if (range);
+
+						f0_3 = sqrtf(particle->pos.f[0] * particle->pos.f[0]
+								+ particle->pos.f[1] * particle->pos.f[1]
+								+ particle->pos.f[2] * particle->pos.f[2]);
+
+						f24 = particle->pos.f[0] / f0_3;
+						sp108 = particle->pos.f[1] / f0_3;
+						f26 = particle->pos.f[2] / f0_3;
 
 						// 55fc
-						f0_4 = sqrtf(f24 * f24 + f26 * f26);
+						f0_3 = sqrtf(f24 * f24 + f26 * f26);
 
-						sp1144.f[0] = sp108 * (f26 / f0_4);
-						sp1144.f[1] = -f0_4;
-						sp1144.f[2] = sp108 * (f24 / f0_4);
+						val2 = f24 / f0_3;
+						val1 = f26 / f0_3;
+						val3 = -val2;
+
+						sp114c = sp108 * val2;
+						sp1148 = -f0_3;
+						sp1144 = sp108 * val1;
 
 						sp115c.f[0] = -sp220;
 						sp115c.f[1] = 1.0f;
 						sp115c.f[2] = sp21c;
 
 						// 5720
-						index = (s8 >> 2) & 7;
-
 						for (j = 0; j < 4; j++) {
-							f32 a;
-							f32 b;
-							f32 c;
-
-							a = var8007f104 * (f26 / f0_4) * sp1168[index][j][0];
-							b = 0.0f;
-							c = var8007f104 * -(f24 / f0_4) * sp1168[index][j][0];
-
-							a += var8007f104 * sp1144.f[2] * sp1168[index][j][1];
-							b += var8007f104 * sp1144.f[1] * sp1168[index][j][1];
-							c += var8007f104 * sp1144.f[0] * sp1168[index][j][1];
-
-							sp19c[j].f[1] += b;
-							sp19c[j].f[0] += a;
-							sp19c[j].f[2] += c;
+							sp19c[j].f[0] += snowwidth * val1 * sp1168[(p >> 2) & 7][j][0] + snowwidth * sp114c * sp1168[(p >> 2) & 7][j][1];
+							sp19c[j].f[1] += snowwidth *  f22 * sp1168[(p >> 2) & 7][j][0] + snowwidth * sp1148 * sp1168[(p >> 2) & 7][j][1];
+							sp19c[j].f[2] += snowwidth * val3 * sp1168[(p >> 2) & 7][j][0] + snowwidth * sp1144 * sp1168[(p >> 2) & 7][j][1];
 						}
 
 						// 5784
 						// x
 						f16 = 0.0f;
 
-						if (particledata->particles[s8].pos.f[0] < particledata->boundarymin.f[0] + 150.0f) {
-							f16 = particledata->particles[s8].pos.f[0] - particledata->boundarymin.f[0] - 150.0f;
+						if (particle->pos.f[0] < particledata->boundarymin.f[0] + range) {
+							f16 = particle->pos.f[0] - particledata->boundarymin.f[0] - range;
 						}
 
-						if (particledata->particles[s8].pos.f[0] > particledata->boundarymax.f[0] - 150.0f) {
-							f16 = particledata->particles[s8].pos.f[0] - particledata->boundarymax.f[0] + 150.0f;
+						if (particle->pos.f[0] > particledata->boundarymax.f[0] - range) {
+							f16 = particle->pos.f[0] - particledata->boundarymax.f[0] + range;
 						}
 
-						f16 = ABSF(f16) / 150.0f;
+						f16 = ABSF(f16) / range;
 
 						if (f16 > sp260) {
 							sp260 = f16;
@@ -3278,15 +3268,15 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						// y
 						f16 = 0.0f;
 
-						if (particledata->particles[s8].pos.f[1] < particledata->boundarymin.f[1] + 150.0f) {
-							f16 = particledata->particles[s8].pos.f[1] - particledata->boundarymin.f[1] - 150.0f;
+						if (particle->pos.f[1] < particledata->boundarymin.f[1] + range) {
+							f16 = particle->pos.f[1] - particledata->boundarymin.f[1] - range;
 						}
 
-						if (particledata->particles[s8].pos.f[1] > particledata->boundarymax.f[1] - 150.0f) {
-							f16 = particledata->particles[s8].pos.f[1] - particledata->boundarymax.f[1] + 150.0f;
+						if (particle->pos.f[1] > particledata->boundarymax.f[1] - range) {
+							f16 = particle->pos.f[1] - particledata->boundarymax.f[1] + range;
 						}
 
-						f16 = ABSF(f16) / 150.0f;
+						f16 = ABSF(f16) / range;
 
 						if (f16 > sp260) {
 							sp260 = f16;
@@ -3296,59 +3286,77 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						// z
 						f16 = 0.0f;
 
-						if (particledata->particles[s8].pos.f[2] < particledata->boundarymin.f[2] + 150.0f) {
-							f16 = particledata->particles[s8].pos.f[2] - particledata->boundarymin.f[2] - 150.0f;
+						if (particle->pos.f[2] < particledata->boundarymin.f[2] + range) {
+							f16 = particle->pos.f[2] - particledata->boundarymin.f[2] - range;
 						}
 
-						if (particledata->particles[s8].pos.f[2] > particledata->boundarymax.f[2] - 150.0f) {
-							f16 = particledata->particles[s8].pos.f[2] - particledata->boundarymax.f[2] + 150.0f;
+						if (particle->pos.f[2] > particledata->boundarymax.f[2] - range) {
+							f16 = particle->pos.f[2] - particledata->boundarymax.f[2] + range;
 						}
 
-						f16 = ABSF(f16) / 150.0f;
+						f16 = ABSF(f16) / range;
 
 						if (f16 > sp260) {
 							sp260 = f16;
 						}
 
 						// 5978
+						vertices[tmp2 + 0].colour = (s32) (sp260 * 16.0f) * 4;
+						vertices[tmp2 + 1].colour = (s32) (sp260 * 16.0f) * 4;
+						vertices[tmp2 + 2].colour = (s32) (sp260 * 16.0f) * 4;
+						vertices[tmp2 + 3].colour = (s32) (sp260 * 16.0f) * 4;
+
+						// Note: Goal writes all the S's first then T's. XBLA uses ST pairs.
+						// And the rain function uses a different order too.
 						{
-							s16 a;
-							s16 b;
+							u16 x1;
+							u16 y1;
+							u16 x2;
+							u16 y2;
 
-							b = (s16) (((s8 & 2) >> 1) * 8);
-							a = (s16) ((s8 & 1) * 8);
+							y2 += 0;
+							x1 = ((p & 1) >> 0) * 8;
+							y1 = ((p & 2) >> 1) * 8;
+							x2 = x1 + 8;
+							y2 = y1 + 8;
 
-							vertices[sp198 * 4 + 0].colour = (s32) (sp260 * 16.0f) * 4;
-							vertices[sp198 * 4 + 1].colour = (s32) (sp260 * 16.0f) * 4;
-							vertices[sp198 * 4 + 2].colour = (s32) (sp260 * 16.0f) * 4;
-							vertices[sp198 * 4 + 3].colour = (s32) (sp260 * 16.0f) * 4;
+							vertices[tmp2 + 0].s = x1 * 32;
+							vertices[tmp2 + 0].t = y2 * 32;
+							vertices[tmp2 + 1].s = x2 * 32;
+							vertices[tmp2 + 1].t = y2 * 32;
+							vertices[tmp2 + 2].s = x2 * 32;
+							vertices[tmp2 + 2].t = y1 * 32;
+							vertices[tmp2 + 3].s = x1 * 32;
+							vertices[tmp2 + 3].t = y1 * 32;
 
-							vertices[sp198 * 4 + 0].s = (s16) (a) * 32;
-							vertices[sp198 * 4 + 1].s = (s16) (a + 8) * 32;
-							vertices[sp198 * 4 + 2].s = (s16) (a + 8) * 32;
-							vertices[sp198 * 4 + 3].s = (s16) (a) * 32;
+							// rain order:
+							//vertices[tmp2 + 0].t = y2 * 32;
+							//vertices[tmp2 + 1].s = x2 * 32;
+							//vertices[tmp2 + 1].t = y2 * 32;
+							//vertices[tmp2 + 2].s = x2 * 32;
+							//vertices[tmp2 + 3].t = y1 * 32;
+							//vertices[tmp2 + 3].s = x1 * 32;
+							//vertices[tmp2 + 2].t = y1 * 32;
+							//vertices[tmp2 + 0].s = x1 * 32;
 
-							vertices[sp198 * 4 + 0].t = (s16) (b + 8) * 32;
-							vertices[sp198 * 4 + 1].t = (s16) (b + 8) * 32;
-							vertices[sp198 * 4 + 2].t = (s16) (b) * 32;
-							vertices[sp198 * 4 + 3].t = (s16) (b) * 32;
+							if (sp198 && sp198 && sp198);
 						}
 
-						vertices[sp198 * 4 + 0].x = sp19c[0].f[0];
-						vertices[sp198 * 4 + 0].y = sp19c[0].f[1];
-						vertices[sp198 * 4 + 0].z = sp19c[0].f[2];
+						vertices[tmp2 + 0].x = sp19c[0].f[0];
+						vertices[tmp2 + 0].y = sp19c[0].f[1];
+						vertices[tmp2 + 0].z = sp19c[0].f[2];
 
-						vertices[sp198 * 4 + 1].x = sp19c[1].f[0];
-						vertices[sp198 * 4 + 1].y = sp19c[1].f[1];
-						vertices[sp198 * 4 + 1].z = sp19c[1].f[2];
+						vertices[tmp2 + 1].x = sp19c[1].f[0];
+						vertices[tmp2 + 1].y = sp19c[1].f[1];
+						vertices[tmp2 + 1].z = sp19c[1].f[2];
 
-						vertices[sp198 * 4 + 2].x = sp19c[2].f[0];
-						vertices[sp198 * 4 + 2].y = sp19c[2].f[1];
-						vertices[sp198 * 4 + 2].z = sp19c[2].f[2];
+						vertices[tmp2 + 2].x = sp19c[2].f[0];
+						vertices[tmp2 + 2].y = sp19c[2].f[1];
+						vertices[tmp2 + 2].z = sp19c[2].f[2];
 
-						vertices[sp198 * 4 + 3].x = sp19c[3].f[0];
-						vertices[sp198 * 4 + 3].y = sp19c[3].f[1];
-						vertices[sp198 * 4 + 3].z = sp19c[3].f[2];
+						vertices[tmp2 + 3].x = sp19c[3].f[0];
+						vertices[tmp2 + 3].y = sp19c[3].f[1];
+						vertices[tmp2 + 3].z = sp19c[3].f[2];
 
 						if (sp198 == 1) {
 							gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
