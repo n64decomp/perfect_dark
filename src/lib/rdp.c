@@ -75,7 +75,7 @@ void rdpInit(void)
 	g_RdpOutBufferEnd = (u16 *) ((uintptr_t) g_RdpOutBufferStart + size);
 }
 
-void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
+void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, s32 msg)
 {
 	OSScTask *sctask;
 	OSTask *task;
@@ -100,7 +100,7 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 	sctask->next = NULL;
 	sctask->flags = OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP | OS_SC_LAST_TASK | OS_SC_SWAPBUFFER;
 	sctask->msgQ = &g_MainMesgQueue;
-	sctask->msg = msg;
+	sctask->msg = (void *) msg;
 	sctask->framebuffer = g_RdpCurTask->framebuffer;
 
 	osWritebackDCacheAll();

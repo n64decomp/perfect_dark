@@ -311,7 +311,6 @@ extern u8 _copyrightSegmentRomStart;
 extern u8 _copyrightSegmentRomEnd;
 extern u8 _bssSegmentEnd;
 
-#if !MATCHING || VERSION >= VERSION_NTSC_1_0
 /**
  * Initialise various subsystems, display the copyright or accessing pak texture,
  * then initialise more subsystems.
@@ -321,6 +320,7 @@ void mainInit(void)
 	s32 x;
 	s32 dsty;
 	OSMesg msg;
+	u16 *texture;
 	OSTimer timer;
 	OSMesgQueue queue;
 	s32 i;
@@ -329,7 +329,6 @@ void mainInit(void)
 	s32 srcy;
 	u32 addr;
 	u8 *start;
-	u8 *end;
 
 	faultInit();
 	dmaInit();
@@ -390,11 +389,10 @@ void mainInit(void)
 #endif
 
 	{
+		s32 numpages;
 		OSMesg receivedmsg = NULL;
 		OSScMsg scdonemsg = { OS_SC_DONE_MSG };
-		u16 *texture;
-		s32 numpages;
-		u8 scratch[1024 * 5 - 8];
+		u8 scratch[1024 * 5];
 #if PAL
 		u32 stack[2];
 #endif
@@ -431,18 +429,13 @@ void mainInit(void)
 		// DMA the compressed texture from the ROM to the framebuffer.
 		// It's using the framebuffer as a temporary data buffer.
 		if (g_DoBootPakMenu) {
-			start = &_accessingpakSegmentRomStart;
-			end = &_accessingpakSegmentRomEnd;
-			dmaExec(fb, (romptr_t) start, end - start);
+			dmaExec(fb, (romptr_t) &_accessingpakSegmentRomStart, &_accessingpakSegmentRomEnd - &_accessingpakSegmentRomStart);
 		} else {
-			start = &_copyrightSegmentRomStart;
-			end = &_copyrightSegmentRomEnd;
-			dmaExec(fb, (romptr_t) start, end - start);
+			dmaExec(fb, (romptr_t) &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
 		}
 
 		// This is required for a match
 		numpages = g_VmNumPages;
-
 		if ((f64) numpages && (f64) numpages);
 
 		// Unzip the compressed texture from fb to texture
@@ -494,11 +487,9 @@ void mainInit(void)
 		while (j < 6) {
 			osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_BLOCK);
 
-			i = (s32) &scdonemsg;
-
 			if (*(s16 *) receivedmsg == OS_SC_RETRACE_MSG) {
 				viUpdateMode();
-				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (void *) i);
+				rdpCreateTask(var8005dcc8, var8005dcc8 + ARRAYCOUNT(var8005dcc8), 0, (s32) &scdonemsg);
 				j++;
 			}
 		}
@@ -537,11 +528,10 @@ void mainInit(void)
 			&& joyGetButtons(1, START_BUTTON) == 0
 			&& joyGetButtons(2, START_BUTTON) == 0
 			&& joyGetButtons(3, START_BUTTON) == 0) {
+		s32 numpages;
 		OSMesg receivedmsg = NULL;
 		OSScMsg scdonemsg = { OS_SC_DONE_MSG };
 		u8 scratch[1024 * 5];
-		u16 *texture;
-		s32 numpages;
 
 		g_DoBootPakMenu = false;
 
@@ -575,9 +565,10 @@ void mainInit(void)
 
 		// DMA the compressed texture from the ROM to the framebuffer.
 		// It's using the framebuffer as a temporary data buffer.
-		start = &_copyrightSegmentRomStart;
-		end = &_copyrightSegmentRomEnd;
-		dmaExec(fb, (romptr_t) start, end - start);
+		dmaExec(fb, (romptr_t) &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
+
+		numpages = g_VmNumPages;
+		if ((f64) numpages && (f64) numpages);
 
 		// Unzip the compressed texture from fb to texture
 		rzipInflate(fb, texture, scratch);
@@ -586,11 +577,10 @@ void mainInit(void)
 		// because that's where the texture will go.
 		// The increment here is too small, so some pixels are zeroed twice.
 		for (dsty = 0; dsty < (480 - 48) * 640; dsty += 576) {
-			for (x = 0; x < 640; x++) {
-				fb[dsty + x] = 0;
-			}
-
 			if (1);
+			for (i = 0; i < 640; i++) {
+				fb[dsty + i] = 0;
+			}
 		}
 
 		// Copy the texture to the framebuffer.
@@ -612,20 +602,16 @@ void mainInit(void)
 		g_RdpOutBufferStart = texture;
 		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
 
-		while (osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0) {
-			if (i);
-		}
+		while (osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0);
 
 		i = 0;
 
 		while (i < 6) {
 			osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_BLOCK);
 
-			j = (s32) &scdonemsg;
-
 			if (*(s16 *) receivedmsg == OS_SC_RETRACE_MSG) {
 				viUpdateMode();
-				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (void *) j);
+				rdpCreateTask(var8005dcc8, var8005dcc8 + ARRAYCOUNT(var8005dcc8), 0, (s32) &scdonemsg);
 				i++;
 			}
 		}
@@ -645,8 +631,8 @@ void mainInit(void)
 	}
 
 	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_bssSegmentEnd));
-	end = g_VmMarker;
-	mempSetHeap(start, end - start);
+	if (g_VmMarker);
+	mempSetHeap(start, g_VmMarker - start);
 
 	mempResetPool(MEMPOOL_8);
 	mempResetPool(MEMPOOL_PERMANENT);
@@ -694,394 +680,6 @@ void mainInit(void)
 	}
 #endif
 }
-#else
-const char var70053a98[] = "-level_";
-const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
-
-u32 var8005dd1c = 0x00020000;
-u32 var8005dd20 = 0x00000000;
-u32 var8005dd24 = 0x00000000;
-u32 var8005dd28 = 0x00000000;
-u32 var8005dd2c = 0x00000000;
-u32 var8005dd30 = 0x00000000;
-u32 var8005dd34 = 0x00000000;
-u32 var8005dd38 = 0x00000000;
-
-GLOBAL_ASM(
-glabel mainInit
-/*     da80:	27bdeb20 */ 	addiu	$sp,$sp,-5344
-/*     da84:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*     da88:	afb20030 */ 	sw	$s2,0x30($sp)
-/*     da8c:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*     da90:	0c003060 */ 	jal	faultInit
-/*     da94:	afb00028 */ 	sw	$s0,0x28($sp)
-/*     da98:	0c0035b4 */ 	jal	dmaInit
-/*     da9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     daa0:	0c0022f0 */ 	jal	amgrInit
-/*     daa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     daa8:	0c0059d4 */ 	jal	varsInit
-/*     daac:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dab0:	0c004994 */ 	jal	mempInit
-/*     dab4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dab8:	0c004beb */ 	jal	memaInit
-/*     dabc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dac0:	0c004fea */ 	jal	videbugInit
-/*     dac4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dac8:	0c002714 */ 	jal	viConfigureForLogos
-/*     dacc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dad0:	0c00c456 */ 	jal	rmonIsDisabled
-/*     dad4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dad8:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
-/*     dadc:	0c0052b6 */ 	jal	joyInit
-/*     dae0:	ac22f2d0 */ 	sw	$v0,%lo(var8005d9b0)($at)
-/*     dae4:	27b11498 */ 	addiu	$s1,$sp,0x1498
-/*     dae8:	27b214d4 */ 	addiu	$s2,$sp,0x14d4
-/*     daec:	02402825 */ 	or	$a1,$s2,$zero
-/*     daf0:	02202025 */ 	or	$a0,$s1,$zero
-/*     daf4:	0c0125c4 */ 	jal	osCreateMesgQueue
-/*     daf8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     dafc:	00008025 */ 	or	$s0,$zero,$zero
-/*     db00:	3c070047 */ 	lui	$a3,0x47
-.NB0000db04:
-/*     db04:	240e0000 */ 	addiu	$t6,$zero,0x0
-/*     db08:	240f0000 */ 	addiu	$t7,$zero,0x0
-/*     db0c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     db10:	afae0010 */ 	sw	$t6,0x10($sp)
-/*     db14:	34e7868c */ 	ori	$a3,$a3,0x868c
-/*     db18:	27a414b0 */ 	addiu	$a0,$sp,0x14b0
-/*     db1c:	24060000 */ 	addiu	$a2,$zero,0x0
-/*     db20:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     db24:	0c0127bc */ 	jal	osSetTimer
-/*     db28:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     db2c:	02202025 */ 	or	$a0,$s1,$zero
-/*     db30:	02402825 */ 	or	$a1,$s2,$zero
-/*     db34:	0c0126b0 */ 	jal	osRecvMesg
-/*     db38:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     db3c:	24010001 */ 	addiu	$at,$zero,0x1
-/*     db40:	56010006 */ 	bnel	$s0,$at,.NB0000db5c
-/*     db44:	2a010002 */ 	slti	$at,$s0,0x2
-/*     db48:	0c005310 */ 	jal	joyReset
-/*     db4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     db50:	10000007 */ 	beqz	$zero,.NB0000db70
-/*     db54:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     db58:	2a010002 */ 	slti	$at,$s0,0x2
-.NB0000db5c:
-/*     db5c:	54200004 */ 	bnezl	$at,.NB0000db70
-/*     db60:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     db64:	0c005477 */ 	jal	joyDebugJoy
-/*     db68:	00000000 */ 	sll	$zero,$zero,0x0
-/*     db6c:	26100001 */ 	addiu	$s0,$s0,0x1
-.NB0000db70:
-/*     db70:	24010004 */ 	addiu	$at,$zero,0x4
-/*     db74:	5601ffe3 */ 	bnel	$s0,$at,.NB0000db04
-/*     db78:	3c070047 */ 	lui	$a3,0x47
-/*     db7c:	3c057005 */ 	lui	$a1,%hi(var70053a98)
-/*     db80:	24a550e8 */ 	addiu	$a1,$a1,%lo(var70053a98)
-/*     db84:	0c004e18 */ 	jal	argFindByPrefix
-/*     db88:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     db8c:	14400004 */ 	bnez	$v0,.NB0000dba0
-/*     db90:	3c198000 */ 	lui	$t9,%hi(osTvType)
-/*     db94:	24180001 */ 	addiu	$t8,$zero,0x1
-/*     db98:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
-/*     db9c:	ac38f2d0 */ 	sw	$t8,%lo(var8005d9b0)($at)
-.NB0000dba0:
-/*     dba0:	8f390300 */ 	lw	$t9,%lo(osTvType)($t9)
-/*     dba4:	24010001 */ 	addiu	$at,$zero,0x1
-/*     dba8:	00002025 */ 	or	$a0,$zero,$zero
-/*     dbac:	13210005 */ 	beq	$t9,$at,.NB0000dbc4
-/*     dbb0:	24090001 */ 	addiu	$t1,$zero,0x1
-/*     dbb4:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
-/*     dbb8:	ac29f2d0 */ 	sw	$t1,%lo(var8005d9b0)($at)
-.NB0000dbbc:
-/*     dbbc:	1000ffff */ 	beqz	$zero,.NB0000dbbc
-/*     dbc0:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0000dbc4:
-/*     dbc4:	0c005790 */ 	jal	joyGetButtons
-/*     dbc8:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*     dbcc:	1440009e */ 	bnez	$v0,.NB0000de48
-/*     dbd0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     dbd4:	0c005790 */ 	jal	joyGetButtons
-/*     dbd8:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*     dbdc:	1440009a */ 	bnez	$v0,.NB0000de48
-/*     dbe0:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     dbe4:	0c005790 */ 	jal	joyGetButtons
-/*     dbe8:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*     dbec:	14400096 */ 	bnez	$v0,.NB0000de48
-/*     dbf0:	24040003 */ 	addiu	$a0,$zero,0x3
-/*     dbf4:	0c005790 */ 	jal	joyGetButtons
-/*     dbf8:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*     dbfc:	14400092 */ 	bnez	$v0,.NB0000de48
-/*     dc00:	3c0b8006 */ 	lui	$t3,%hi(var8005dd1c)
-/*     dc04:	afa01478 */ 	sw	$zero,0x1478($sp)
-/*     dc08:	256bf63c */ 	addiu	$t3,$t3,%lo(var8005dd1c)
-/*     dc0c:	8d610000 */ 	lw	$at,0x0($t3)
-/*     dc10:	8d6e0004 */ 	lw	$t6,0x4($t3)
-/*     dc14:	27aa1458 */ 	addiu	$t2,$sp,0x1458
-/*     dc18:	ad410000 */ 	sw	$at,0x0($t2)
-/*     dc1c:	8d610008 */ 	lw	$at,0x8($t3)
-/*     dc20:	ad4e0004 */ 	sw	$t6,0x4($t2)
-/*     dc24:	8d6e000c */ 	lw	$t6,0xc($t3)
-/*     dc28:	ad410008 */ 	sw	$at,0x8($t2)
-/*     dc2c:	8d610010 */ 	lw	$at,0x10($t3)
-/*     dc30:	ad4e000c */ 	sw	$t6,0xc($t2)
-/*     dc34:	8d6e0014 */ 	lw	$t6,0x14($t3)
-/*     dc38:	ad410010 */ 	sw	$at,0x10($t2)
-/*     dc3c:	8d610018 */ 	lw	$at,0x18($t3)
-/*     dc40:	ad4e0014 */ 	sw	$t6,0x14($t2)
-/*     dc44:	8d6e001c */ 	lw	$t6,0x1c($t3)
-/*     dc48:	ad410018 */ 	sw	$at,0x18($t2)
-/*     dc4c:	3c018006 */ 	lui	$at,%hi(g_DoBootPakMenu)
-/*     dc50:	ad4e001c */ 	sw	$t6,0x1c($t2)
-/*     dc54:	0c013d4c */ 	jal	osGetMemSize
-/*     dc58:	ac20f2f4 */ 	sw	$zero,%lo(g_DoBootPakMenu)($at)
-/*     dc5c:	3c010040 */ 	lui	$at,0x40
-/*     dc60:	34210001 */ 	ori	$at,$at,0x1
-/*     dc64:	0041082b */ 	sltu	$at,$v0,$at
-/*     dc68:	1020000e */ 	beqz	$at,.NB0000dca4
-/*     dc6c:	3c0301fb */ 	lui	$v1,%hi(_copyrightSegmentRomStart)
-/*     dc70:	3c0f8006 */ 	lui	$t7,%hi(g_VmNumPages)
-/*     dc74:	8defe720 */ 	lw	$t7,%lo(g_VmNumPages)($t7)
-/*     dc78:	3c19803f */ 	lui	$t9,0x803f
-/*     dc7c:	373950c0 */ 	ori	$t9,$t9,0x50c0
-/*     dc80:	3c01ffef */ 	lui	$at,0xffef
-/*     dc84:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*     dc88:	03381023 */ 	subu	$v0,$t9,$t8
-/*     dc8c:	34216000 */ 	ori	$at,$at,0x6000
-/*     dc90:	00411021 */ 	addu	$v0,$v0,$at
-/*     dc94:	30491fff */ 	andi	$t1,$v0,0x1fff
-/*     dc98:	00491023 */ 	subu	$v0,$v0,$t1
-/*     dc9c:	10000002 */ 	beqz	$zero,.NB0000dca8
-/*     dca0:	2442e380 */ 	addiu	$v0,$v0,-7296
-.NB0000dca4:
-/*     dca4:	3c028080 */ 	lui	$v0,0x8080
-.NB0000dca8:
-/*     dca8:	3c01fff6 */ 	lui	$at,0xfff6
-/*     dcac:	3421a000 */ 	ori	$at,$at,0xa000
-/*     dcb0:	00411021 */ 	addu	$v0,$v0,$at
-/*     dcb4:	2442ffc0 */ 	addiu	$v0,$v0,-64
-/*     dcb8:	3c018000 */ 	lui	$at,0x8000
-/*     dcbc:	00418825 */ 	or	$s1,$v0,$at
-/*     dcc0:	2631003f */ 	addiu	$s1,$s1,0x3f
-/*     dcc4:	362d003f */ 	ori	$t5,$s1,0x3f
-/*     dcc8:	3c0a01fb */ 	lui	$t2,%hi(_copyrightSegmentRomEnd)
-/*     dccc:	2465bac0 */ 	addiu	$a1,$v1,%lo(_copyrightSegmentRomStart)
-/*     dcd0:	254ac5f0 */ 	addiu	$t2,$t2,%lo(_copyrightSegmentRomEnd)
-/*     dcd4:	39a4003f */ 	xori	$a0,$t5,0x3f
-/*     dcd8:	00808825 */ 	or	$s1,$a0,$zero
-/*     dcdc:	0c003664 */ 	jal	dmaExec
-/*     dce0:	01453023 */ 	subu	$a2,$t2,$a1
-/*     dce4:	3c01ffff */ 	lui	$at,0xffff
-/*     dce8:	342141e0 */ 	ori	$at,$at,0x41e0
-/*     dcec:	02219021 */ 	addu	$s2,$s1,$at
-/*     dcf0:	02402825 */ 	or	$a1,$s2,$zero
-/*     dcf4:	02202025 */ 	or	$a0,$s1,$zero
-/*     dcf8:	0c001da4 */ 	jal	rzipInflate
-/*     dcfc:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*     dd00:	3c050004 */ 	lui	$a1,0x4
-/*     dd04:	34a53800 */ 	ori	$a1,$a1,0x3800
-/*     dd08:	00003825 */ 	or	$a3,$zero,$zero
-/*     dd0c:	24040500 */ 	addiu	$a0,$zero,0x500
-/*     dd10:	00075840 */ 	sll	$t3,$a3,0x1
-.NB0000dd14:
-/*     dd14:	022b1821 */ 	addu	$v1,$s1,$t3
-/*     dd18:	00001025 */ 	or	$v0,$zero,$zero
-.NB0000dd1c:
-/*     dd1c:	00627021 */ 	addu	$t6,$v1,$v0
-/*     dd20:	24420002 */ 	addiu	$v0,$v0,0x2
-/*     dd24:	1444fffd */ 	bne	$v0,$a0,.NB0000dd1c
-/*     dd28:	a5c00000 */ 	sh	$zero,0x0($t6)
-/*     dd2c:	24e70240 */ 	addiu	$a3,$a3,0x240
-/*     dd30:	00e5082a */ 	slt	$at,$a3,$a1
-/*     dd34:	5420fff7 */ 	bnezl	$at,.NB0000dd14
-/*     dd38:	00075840 */ 	sll	$t3,$a3,0x1
-/*     dd3c:	00003825 */ 	or	$a3,$zero,$zero
-/*     dd40:	00003025 */ 	or	$a2,$zero,$zero
-/*     dd44:	240503f6 */ 	addiu	$a1,$zero,0x3f6
-.NB0000dd48:
-/*     dd48:	00077840 */ 	sll	$t7,$a3,0x1
-/*     dd4c:	0006c840 */ 	sll	$t9,$a2,0x1
-/*     dd50:	02592021 */ 	addu	$a0,$s2,$t9
-/*     dd54:	022f1821 */ 	addu	$v1,$s1,$t7
-/*     dd58:	00001025 */ 	or	$v0,$zero,$zero
-.NB0000dd5c:
-/*     dd5c:	0082c021 */ 	addu	$t8,$a0,$v0
-/*     dd60:	97090000 */ 	lhu	$t1,0x0($t8)
-/*     dd64:	00626821 */ 	addu	$t5,$v1,$v0
-/*     dd68:	24420002 */ 	addiu	$v0,$v0,0x2
-/*     dd6c:	1445fffb */ 	bne	$v0,$a1,.NB0000dd5c
-/*     dd70:	a5a9008a */ 	sh	$t1,0x8a($t5)
-/*     dd74:	24c601fb */ 	addiu	$a2,$a2,0x1fb
-/*     dd78:	28c15f10 */ 	slti	$at,$a2,0x5f10
-/*     dd7c:	1420fff2 */ 	bnez	$at,.NB0000dd48
-/*     dd80:	24e70240 */ 	addiu	$a3,$a3,0x240
-/*     dd84:	0c002b0c */ 	jal	viSetMode
-/*     dd88:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     dd8c:	0c00273c */ 	jal	viConfigureForCopyright
-/*     dd90:	02202025 */ 	or	$a0,$s1,$zero
-/*     dd94:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferStart)
-/*     dd98:	3c118009 */ 	lui	$s1,%hi(g_MainMesgQueue)
-/*     dd9c:	ac321554 */ 	sw	$s2,%lo(g_RdpOutBufferStart)($at)
-/*     dda0:	26310160 */ 	addiu	$s1,$s1,%lo(g_MainMesgQueue)
-/*     dda4:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferEnd)
-/*     dda8:	264c0800 */ 	addiu	$t4,$s2,0x800
-/*     ddac:	ac2c1550 */ 	sw	$t4,%lo(g_RdpOutBufferEnd)($at)
-/*     ddb0:	02202025 */ 	or	$a0,$s1,$zero
-/*     ddb4:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*     ddb8:	0c0126b0 */ 	jal	osRecvMesg
-/*     ddbc:	00003025 */ 	or	$a2,$zero,$zero
-/*     ddc0:	14400006 */ 	bnez	$v0,.NB0000dddc
-/*     ddc4:	02202025 */ 	or	$a0,$s1,$zero
-.NB0000ddc8:
-/*     ddc8:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*     ddcc:	0c0126b0 */ 	jal	osRecvMesg
-/*     ddd0:	00003025 */ 	or	$a2,$zero,$zero
-/*     ddd4:	5040fffc */ 	beqzl	$v0,.NB0000ddc8
-/*     ddd8:	02202025 */ 	or	$a0,$s1,$zero
-.NB0000dddc:
-/*     dddc:	3c128006 */ 	lui	$s2,%hi(var8005dcc8)
-/*     dde0:	00008025 */ 	or	$s0,$zero,$zero
-/*     dde4:	2652f5e8 */ 	addiu	$s2,$s2,%lo(var8005dcc8)
-/*     dde8:	02202025 */ 	or	$a0,$s1,$zero
-.NB0000ddec:
-/*     ddec:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*     ddf0:	0c0126b0 */ 	jal	osRecvMesg
-/*     ddf4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     ddf8:	8faa1478 */ 	lw	$t2,0x1478($sp)
-/*     ddfc:	24010001 */ 	addiu	$at,$zero,0x1
-/*     de00:	27ae1458 */ 	addiu	$t6,$sp,0x1458
-/*     de04:	854b0000 */ 	lh	$t3,0x0($t2)
-/*     de08:	5561000b */ 	bnel	$t3,$at,.NB0000de38
-/*     de0c:	2a010006 */ 	slti	$at,$s0,0x6
-/*     de10:	0c002871 */ 	jal	viUpdateMode
-/*     de14:	afae0054 */ 	sw	$t6,0x54($sp)
-/*     de18:	3c058006 */ 	lui	$a1,%hi(var8005dcf0)
-/*     de1c:	24a5f610 */ 	addiu	$a1,$a1,%lo(var8005dcf0)
-/*     de20:	02402025 */ 	or	$a0,$s2,$zero
-/*     de24:	00003025 */ 	or	$a2,$zero,$zero
-/*     de28:	0c00c411 */ 	jal	rdpCreateTask
-/*     de2c:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*     de30:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     de34:	2a010006 */ 	slti	$at,$s0,0x6
-.NB0000de38:
-/*     de38:	5420ffec */ 	bnezl	$at,.NB0000ddec
-/*     de3c:	02202025 */ 	or	$a0,$s1,$zero
-/*     de40:	10000004 */ 	beqz	$zero,.NB0000de54
-/*     de44:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0000de48:
-/*     de48:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*     de4c:	3c018006 */ 	lui	$at,%hi(g_DoBootPakMenu)
-/*     de50:	ac2ff2f4 */ 	sw	$t7,%lo(g_DoBootPakMenu)($at)
-.NB0000de54:
-/*     de54:	0c001c6c */ 	jal	vmInit
-/*     de58:	00000000 */ 	sll	$zero,$zero,0x0
-/*     de5c:	0fc68554 */ 	jal	func0f1a78b0
-/*     de60:	00000000 */ 	sll	$zero,$zero,0x0
-/*     de64:	0fc585fd */ 	jal	filesInit
-/*     de68:	00000000 */ 	sll	$zero,$zero,0x0
-/*     de6c:	0fc5c2fc */ 	jal	stub0f175f50
-/*     de70:	00000000 */ 	sll	$zero,$zero,0x0
-/*     de74:	0fc5c30c */ 	jal	func0f175f90
-/*     de78:	00000000 */ 	sll	$zero,$zero,0x0
-/*     de7c:	3c198006 */ 	lui	$t9,%hi(var8005d9b0)
-/*     de80:	8f39f2d0 */ 	lw	$t9,%lo(var8005d9b0)($t9)
-/*     de84:	13200003 */ 	beqz	$t9,.NB0000de94
-/*     de88:	3c047005 */ 	lui	$a0,%hi(var70053aa0)
-/*     de8c:	0c004dd3 */ 	jal	argSetString
-/*     de90:	248450f0 */ 	addiu	$a0,$a0,%lo(var70053aa0)
-.NB0000de94:
-/*     de94:	3c04800b */ 	lui	$a0,%hi(_bssSegmentEnd)
-/*     de98:	0c013100 */ 	jal	osVirtualToPhysical
-/*     de9c:	24841a70 */ 	addiu	$a0,$a0,%lo(_bssSegmentEnd)
-/*     dea0:	3c038009 */ 	lui	$v1,%hi(g_VmMarker)
-/*     dea4:	8c6330f0 */ 	lw	$v1,%lo(g_VmMarker)($v1)
-/*     dea8:	3c018000 */ 	lui	$at,0x8000
-/*     deac:	00412025 */ 	or	$a0,$v0,$at
-/*     deb0:	0c004996 */ 	jal	mempSetHeap
-/*     deb4:	00642823 */ 	subu	$a1,$v1,$a0
-/*     deb8:	0c004ab1 */ 	jal	mempResetPool
-/*     debc:	24040008 */ 	addiu	$a0,$zero,0x8
-/*     dec0:	0c004ab1 */ 	jal	mempResetPool
-/*     dec4:	24040006 */ 	addiu	$a0,$zero,0x6
-/*     dec8:	0c003535 */ 	jal	crashReset
-/*     decc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     ded0:	0fc02bb0 */ 	jal	challengesInit
-/*     ded4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     ded8:	0fc5c69f */ 	jal	utilsInit
-/*     dedc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dee0:	0c000dbc */ 	jal	func000034d0
-/*     dee4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dee8:	0fc02b90 */ 	jal	texInit
-/*     deec:	00000000 */ 	sll	$zero,$zero,0x0
-/*     def0:	0fc00000 */ 	jal	langInit
-/*     def4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     def8:	0fc5890e */ 	jal	lvInit
-/*     defc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df00:	0fc40c5b */ 	jal	cheatsInit
-/*     df04:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df08:	0c003c68 */ 	jal	func0000e9c0
-/*     df0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df10:	0fc53628 */ 	jal	textInit
-/*     df14:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df18:	0c005002 */ 	jal	dhudInit
-/*     df1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df20:	0fc48954 */ 	jal	playermgrInit
-/*     df24:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df28:	0fc59ef0 */ 	jal	frametimeInit
-/*     df2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df30:	0fc02bac */ 	jal	stub0f00b200
-/*     df34:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df38:	0c002708 */ 	jal	profileInit
-/*     df3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df40:	0fc0021c */ 	jal	stub0f000870
-/*     df44:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df48:	0fc00220 */ 	jal	smokesInit
-/*     df4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df50:	0fc00238 */ 	jal	stub0f0008e0
-/*     df54:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df58:	0fc0023c */ 	jal	stub0f0008f0
-/*     df5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df60:	0fc00240 */ 	jal	stub0f000900
-/*     df64:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df68:	0fc02b8c */ 	jal	stub0f00b180
-/*     df6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df70:	0fc00244 */ 	jal	stub0f000910
-/*     df74:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df78:	0fc00210 */ 	jal	stub0f000840
-/*     df7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df80:	0fc60985 */ 	jal	mpInit
-/*     df84:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df88:	0fc512be */ 	jal	pheadInit
-/*     df8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df90:	0fc44b4c */ 	jal	paksInit
-/*     df94:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df98:	0fc512e3 */ 	jal	pheadInit2
-/*     df9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfa0:	0c0091e8 */ 	jal	animsInit
-/*     dfa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfa8:	0fc00040 */ 	jal	racesInit
-/*     dfac:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfb0:	0fc0004c */ 	jal	bodiesInit
-/*     dfb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfb8:	0fc00214 */ 	jal	stub0f000850
-/*     dfbc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfc0:	0fc00218 */ 	jal	stub0f000860
-/*     dfc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfc8:	0fc00024 */ 	jal	titleInit
-/*     dfcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfd0:	0c002767 */ 	jal	viConfigureForLegal
-/*     dfd4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfd8:	0c00281a */ 	jal	viBlack
-/*     dfdc:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     dfe0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*     dfe4:	3c018006 */ 	lui	$at,%hi(var8005dd18)
-/*     dfe8:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*     dfec:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*     dff0:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*     dff4:	ac20f638 */ 	sw	$zero,%lo(var8005dd18)($at)
-/*     dff8:	03e00008 */ 	jr	$ra
-/*     dffc:	27bd14e0 */ 	addiu	$sp,$sp,0x14e0
-);
-#endif
 
 u32 var8005dd3c = 0x00000000;
 u32 var8005dd40 = 0x00000000;
@@ -1494,7 +1092,7 @@ void mainTick(void)
 			viUpdateMode();
 		}
 
-		rdpCreateTask(gdlstart, gdl, 0, &msg);
+		rdpCreateTask(gdlstart, gdl, 0, (s32) &msg);
 		g_MainNumGfxTasks++;
 		memaPrint();
 		func0f16cf94();
