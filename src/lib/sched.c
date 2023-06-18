@@ -64,8 +64,8 @@ OSViMode var8008dcc0[NUM_GFXTASKS];
 OSViMode *var8008dd60[NUM_GFXTASKS];
 OSViMode var8008dd68[NUM_GFXTASKS];
 s32 var8008de08;
-s32 var8008de0c;
-s32 var8008de10;
+s32 g_ViCurVStart0;
+s32 g_ViCurVStart1;
 u32 var8008de14;
 OSTimer g_SchedRspTimer;
 u32 g_SchedDpCounters[4];
@@ -159,8 +159,8 @@ void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 	osCreateViManager(OS_PRIORITY_VIMGR);
 
 	var8008de08 = osViModeTable[mode].comRegs.hStart;
-	var8008de0c = osViModeTable[mode].fldRegs[0].vStart;
-	var8008de10 = osViModeTable[mode].fldRegs[1].vStart;
+	g_ViCurVStart0 = osViModeTable[mode].fldRegs[0].vStart;
+	g_ViCurVStart1 = osViModeTable[mode].fldRegs[1].vStart;
 
 	var8008dd60[0] = &var8008dd68[0];
 	var8008dd60[1] = &var8008dd68[1];
@@ -574,7 +574,7 @@ void __scHandleRDP(OSSched *sc)
 	if (sc->curRDPTask != NULL) {
 		schedUpdatePendingArtifacts();
 
-		if (var8005dd18 == 0) {
+		if (g_MainIsBooting == 0) {
 			schedConsiderScreenshot();
 		}
 

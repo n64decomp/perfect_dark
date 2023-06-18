@@ -30,7 +30,7 @@ extern u32 __osGlobalIntMask;
 extern s32 g_VmNumPages;
 extern u8 g_LoadType;
 extern s32 g_MainIsEndscreen;
-extern s32 var8005dd18;
+extern s32 g_MainIsBooting;
 extern bool g_MainIsDebugMenuOpen;
 extern bool g_SndDisabled;
 extern u16 g_SfxVolume;

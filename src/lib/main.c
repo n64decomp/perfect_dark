@@ -303,7 +303,7 @@ Gfx var8005dcf0[] = {
 	gsSPEndDisplayList(),
 };
 
-s32 var8005dd18 = 1;
+s32 g_MainIsBooting = 1;
 
 extern u8 _accessingpakSegmentRomStart;
 extern u8 _accessingpakSegmentRomEnd;
@@ -672,7 +672,7 @@ void mainInit(void)
 	viConfigureForLegal();
 	viBlack(true);
 
-	var8005dd18 = 0;
+	g_MainIsBooting = 0;
 
 #if VERSION >= VERSION_PAL_BETA && VERSION < VERSION_JPN_FINAL
 	if (g_DoBootPakMenu) {

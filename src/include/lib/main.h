@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-extern s32 var8005dd18;
+extern s32 g_MainIsBooting;
 
 void mainInit(void);
 void mainProc(void);
