@@ -1248,9 +1248,9 @@ void frEndSession(bool hidetargets)
 	s32 j;
 	s16 propnums[256];
 	s16 *propnumptr;
-	s16 rooms[20];
+	RoomNum rooms[20];
 	u32 stack1;
-	s16 rooms2[10];
+	RoomNum rooms2[10];
 	u32 stack2;
 
 	if (g_FrDataLoaded) {
@@ -1507,8 +1507,8 @@ bool frIsAmmoWasted(void)
 	s32 ammototal[2];
 	s16 *propnumptr;
 	s16 propnums[258];
-	s16 rooms20[22];
-	s16 rooms10[12];
+	RoomNum rooms20[22];
+	RoomNum rooms10[12];
 	u32 stack[4];
 	s32 ammotype;
 	struct hand *hand;
@@ -3144,7 +3144,7 @@ void htEnd(void)
 	struct prop *prop;
 	s16 *propnum;
 	s16 propnums[256];
-	s16 rooms[5] = { 0x0016, 0x0017, 0x0018, 0x0019, -1 };
+	RoomNum rooms[5] = { 0x0016, 0x0017, 0x0018, 0x0019, -1 };
 	struct waypoint *waypoints = g_StageSetup.waypoints;
 
 	g_HtData.intraining = false;

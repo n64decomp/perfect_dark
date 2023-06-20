@@ -28,15 +28,15 @@
 void setupPreparePads(void)
 {
 	struct packedpad *packedpad;
-	s16 *roomsptr;
+	RoomNum *roomsptr;
 	s32 padnum;
 	s32 numpads;
 	s32 roomnum;
 	struct pad pad;
 	struct waypoint *waypoint;
 	struct waygroup *waygroup;
-	s16 inrooms[24];
-	s16 aboverooms[22];
+	RoomNum inrooms[24];
+	RoomNum aboverooms[22];
 	s32 offset;
 
 	g_PadsFile = (struct padsfileheader *)g_StageSetup.padfiledata;

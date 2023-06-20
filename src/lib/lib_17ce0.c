@@ -59,7 +59,7 @@ void portal00018e74nb(s32 portalnum)
  * The list is assumed to have 16 slots, with the last being reserved for the
  * -1 terminator.
  */
-void portal00017dc4(s16 *rooms, s16 roomnum)
+void portal00017dc4(RoomNum *rooms, RoomNum roomnum)
 {
 	s32 i;
 
@@ -169,16 +169,16 @@ s32 portalCalculateIntersection(s32 portalnum, struct coord *pos1, struct coord 
 		: PORTALINTERSECTION_FRONTTOBEHIND;
 }
 
-void portal00018148(struct coord *pos1, struct coord *pos2, s16 *rooms1, s16 *rooms2, s16 *rooms3, s32 arg5)
+void portal00018148(struct coord *pos1, struct coord *pos2, RoomNum *rooms1, RoomNum *rooms2, RoomNum *rooms3, s32 arg5)
 {
 	s32 i;
 	s32 j;
 	s32 roomnum;
 	s32 numportals;
 	s16 *portalnums;
-	s16 rooms9c[16];
-	s16 rooms7c[16];
-	s16 rooms5c[16];
+	RoomNum rooms9c[16];
+	RoomNum rooms7c[16];
+	RoomNum rooms5c[16];
 
 	for (i = 0; i < 8; i++) {
 		rooms9c[i] = rooms1[i];

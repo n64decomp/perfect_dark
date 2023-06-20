@@ -18,7 +18,7 @@ u32 botactGetProjectileThrowInterval(u32 weapon);
 s32 botactGetWeaponByAmmoType(s32 ammotype);
 void botactThrow(struct chrdata *chr);
 s32 botactGetShootInterval60(s32 weaponnum, s32 funcnum);
-bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct coord *topos, s16 *fromrooms, s16 *torooms, struct projectile *projectile);
+bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct coord *topos, RoomNum *fromrooms, RoomNum *torooms, struct projectile *projectile);
 void botactGetRocketNextStepPos(u16 padnum, struct coord *pos);
 void botactCreateSlayerRocket(struct chrdata *chr);
 

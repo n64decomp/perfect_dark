@@ -17,11 +17,11 @@ void wallhitRemoveOne(void);
 void wallhitsTick(void);
 
 void wallhitCreate(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
-		s16 arg4[3], s16 texnum, s16 room, struct prop *objprop,
+		s16 arg4[3], s16 texnum, RoomNum room, struct prop *objprop,
 		s8 mtxindex, s8 arg9, struct chrdata *chr, bool xlu);
 
 void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
-		s16 arg4[3], s16 texnum, s16 room, struct prop *objprop,
+		s16 arg4[3], s16 texnum, RoomNum room, struct prop *objprop,
 		struct prop *chrprop, s8 mtxindex, s8 arg10, struct chrdata *chr,
 		f32 width, f32 height, u8 minalpha, u8 maxalpha,
 		s32 rotdeg, u32 timermax, u32 timerspeed, bool xlu);

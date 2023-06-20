@@ -1520,7 +1520,7 @@ f32 chrGetAttackEntityRelativeAngle(struct chrdata *chr, s32 attackflags, s32 en
 {
 	f32 angle;
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 
 	if (attackflags & ATTACKFLAG_AIMFORWARD) {
 		return 0;
@@ -5109,13 +5109,13 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 	}
 }
 
-bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coord *arg3, struct coord *arg4, s32 arg5)
+bool func0f03645c(struct chrdata *chr, struct coord *arg1, RoomNum *arg2, struct coord *arg3, struct coord *arg4, s32 arg5)
 {
 	bool result = false;
 	f32 ymax;
 	f32 ymin;
 	f32 radius;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	struct prop *prop = chr->prop;
 
 	chrGetBbox(prop, &radius, &ymax, &ymin);
@@ -5132,7 +5132,7 @@ bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coo
 	return result;
 }
 
-bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 types)
+bool func0f03654c(struct chrdata *chr, struct coord *pos, RoomNum *rooms, struct coord *pos2, RoomNum *rooms2, struct coord *vector, f32 arg6, u32 types)
 {
 	struct coord tmp;
 	f32 a;
@@ -5144,7 +5144,7 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coo
 	f32 radius;
 	struct coord sp5c;
 	struct coord sp50;
-	s16 sp40[8];
+	RoomNum sp40[8];
 	f32 mult;
 
 	prop = chr->prop;
@@ -5302,15 +5302,15 @@ bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance)
 	return propchrHasClearLineToPos(prop, &dstpos, &vector);
 }
 
-bool chrIsRoomOffScreen(struct chrdata *chr, struct coord *waypos, s16 *wayrooms)
+bool chrIsRoomOffScreen(struct chrdata *chr, struct coord *waypos, RoomNum *wayrooms)
 {
 	struct prop *prop = chr->prop;
-	s16 sp7c[20];
+	RoomNum sp7c[20];
 	u32 stack;
 	s32 i;
-	s16 sp64[8];
+	RoomNum sp64[8];
 	bool offscreen = true;
-	s16 sp50[8];
+	RoomNum sp50[8];
 
 	if ((chr->hidden & CHRHFLAG_CLOAKED) == 0 || USINGDEVICE(DEVICE_IRSCANNER)) {
 		func0f065dfc(&prop->pos, prop->rooms, waypos, sp64, sp7c, 20);
@@ -5364,7 +5364,7 @@ void chrGoPosInitMagic(struct chrdata *chr, struct waydata *waydata, struct coor
 	chrSetLookAngle(chr, angle);
 }
 
-void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
+void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, RoomNum *rooms, u32 *flags)
 {
 	struct waypoint *waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 	struct pad pad;
@@ -5396,7 +5396,7 @@ void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos,
 	}
 }
 
-void chrGoPosGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms)
+void chrGoPosGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 {
 	chrGoPosGetCurWaypointInfoWithFlags(chr, pos, rooms, NULL);
 }
@@ -5421,7 +5421,7 @@ s32 chrGoPosCalculateBaseTtl(struct chrdata *chr)
 	f32 zdiff;
 	u32 stack;
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	f32 speed;
 
 	chrGoPosGetCurWaypointInfo(chr, &pos, rooms);
@@ -5487,7 +5487,7 @@ void chrGoPosConsiderRestart(struct chrdata *chr)
 void chrGoPosInitExpensive(struct chrdata *chr)
 {
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 
 	chrGoPosGetCurWaypointInfo(chr, &pos, rooms);
 
@@ -5600,7 +5600,7 @@ s16 chrPatrolCalculatePadNum(struct chrdata *chr, s32 numsteps)
 	return *padnumptr;
 }
 
-void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
+void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, RoomNum *rooms, u32 *flags)
 {
 	s32 padnum = chrPatrolCalculatePadNum(chr, 0);
 	struct pad pad;
@@ -5619,14 +5619,14 @@ void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos
 	}
 }
 
-void chrPatrolGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms)
+void chrPatrolGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 {
 	chrPatrolGetCurWaypointInfoWithFlags(chr, pos, rooms, NULL);
 }
 
 void func0f037580(struct chrdata *chr)
 {
-	s16 rooms[8];
+	RoomNum rooms[8];
 
 	chr->act_patrol.waydata.mode = WAYMODE_INIT;
 	chr->act_patrol.waydata.iter = 0;
@@ -5645,26 +5645,26 @@ void func0f0375b0(struct chrdata *chr)
 	func0f037580(chr);
 }
 
-void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, struct coord *arg3, s16 *rooms)
+void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, struct coord *arg3, RoomNum *rooms)
 {
-	s16 sp118[8];
+	RoomNum sp118[8];
 	f32 ymax;
 	f32 ymin;
 	f32 radius;
 	f32 ground;
 	u16 floorcol;
 	u8 floortype;
-	s16 floorroom;
+	RoomNum floorroom;
 	struct coord spf4;
 	struct prop *prop = chr->prop;
 	union modelrwdata *rwdata;
 	struct waypoint *waypoint;
 	struct coord spdc;
-	s16 spcc[8];
+	RoomNum spcc[8];
 	u32 stack[4];
 	struct pad pad;
 	struct coord sp5c;
-	s16 sp4c[8];
+	RoomNum sp4c[8];
 
 	chr->invalidmove = 0;
 	chr->lastmoveok60 = g_Vars.lvframe60;
@@ -5773,7 +5773,7 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
  */
 void chrCalculatePosition(struct chrdata *chr, struct coord *pos)
 {
-	s16 rooms[8];
+	RoomNum rooms[8];
 	f32 frac;
 
 	if (chr->actiontype == ACT_PATROL && chr->act_patrol.waydata.mode == WAYMODE_MAGIC) {
@@ -6075,7 +6075,7 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 	}
 }
 
-bool chrGoToRoomPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 goposflags)
+bool chrGoToRoomPos(struct chrdata *chr, struct coord *pos, RoomNum *room, u32 goposflags)
 {
 	struct prop *prop = chr->prop;
 	struct waypoint *nextwaypoint;
@@ -6083,7 +6083,7 @@ bool chrGoToRoomPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 gopos
 	struct waypoint *waypoints[MAX_CHRWAYPOINTS];
 	s32 i;
 	struct coord curwppos;
-	s16 curwprooms[8];
+	RoomNum curwprooms[8];
 	s32 isgopos = chr->actiontype == ACT_GOPOS
 		&& (chr->act_gopos.flags & GOPOSMASK_SPEED) == (goposflags & 0xff & GOPOSMASK_SPEED)
 		&& !chrGoPosIsWaiting(chr);
@@ -6249,15 +6249,15 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 	s32 *padnumptr;
 	struct pad pad;
 	struct coord nextpos;
-	s16 nextrooms[8];
-	s16 rooms[8];
+	RoomNum nextrooms[8];
+	RoomNum rooms[8];
 	f32 ymax;
 	f32 ymin;
 	f32 radius;
 	f32 bestdistance = 0;
 	s32 nextstep = -1;
 	struct prop *prop = chr->prop;
-	s16 sp60[2];
+	RoomNum sp60[2];
 
 	if (CHRRACE(chr) != RACE_EYESPY) {
 		// Do some kind of collision test with the pad to resume from...
@@ -6361,11 +6361,11 @@ void chrRecordLastVisibleTargetTime(struct chrdata *chr)
 	chr->lastvisibletarget60 = g_Vars.lvframe60;
 }
 
-bool chrHasLosToEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, bool allowextraheight, u32 attackflags, u32 entityid)
+bool chrHasLosToEntity(struct chrdata *chr, struct coord *chrpos, RoomNum *chrrooms, bool allowextraheight, u32 attackflags, u32 entityid)
 {
 	bool result = false;
 	struct coord targetpos;
-	s16 targetrooms[8];
+	RoomNum targetrooms[8];
 	struct prop *targetprop;
 	struct chrdata *targetchr;
 	u32 types;
@@ -6404,7 +6404,7 @@ bool chrHasLosToEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms,
 
 				if (allowextraheight && (chr->chrflags & CHRCFLAG_LOSEXTRAHEIGHT)) {
 					struct coord frompos;
-					s16 fromrooms[8];
+					RoomNum fromrooms[8];
 
 					frompos.x = chrpos->x;
 					frompos.y = chrpos->y + 70;
@@ -6451,7 +6451,7 @@ bool chrHasLosToEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms,
 	return result;
 }
 
-bool chrHasLosToAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool allowextraheight)
+bool chrHasLosToAttackTarget(struct chrdata *chr, struct coord *pos, RoomNum *rooms, bool allowextraheight)
 {
 	u32 attackflags = ATTACKFLAG_AIMATTARGET;
 	u32 entityid = 0;
@@ -6464,16 +6464,16 @@ bool chrHasLosToAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms,
 	return chrHasLosToEntity(chr, pos, rooms, allowextraheight, attackflags, entityid);
 }
 
-bool chrHasLosToChr(struct chrdata *chr, struct chrdata *target, s16 *room)
+bool chrHasLosToChr(struct chrdata *chr, struct chrdata *target, RoomNum *room)
 {
 	bool cansee = false;
 	u32 stack;
-	s16 sp88[] = {-1, 0, 0, 0, 0, 0, 0, 0};
+	RoomNum sp88[] = {-1, 0, 0, 0, 0, 0, 0, 0};
 
 	if (!botIsTargetInvisible(chr, target)) {
 		struct prop *prop = chr->prop;
 		struct coord pos;
-		s16 rooms[8];
+		RoomNum rooms[8];
 
 		pos.x = prop->pos.x;
 		pos.y = chr->ground + chr->height - 20;
@@ -6529,12 +6529,12 @@ bool chrHasLosToTarget(struct chrdata *chr)
 	return cansee;
 }
 
-bool chrHasLosToPos(struct chrdata *chr, struct coord *pos, s16 *rooms)
+bool chrHasLosToPos(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 {
 	struct prop *prop = chr->prop;
 	bool result = false;
 	struct coord eyepos;
-	s16 chrrooms[8];
+	RoomNum chrrooms[8];
 
 	eyepos.x = prop->pos.x;
 	eyepos.y = chr->ground + chr->height - 20;
@@ -6558,7 +6558,7 @@ bool chrHasLosToPos(struct chrdata *chr, struct coord *pos, s16 *rooms)
  * Wasteful because this function calculates angles then does nothing with them.
  * chrHasLosToPos is called with the same arguments regardless.
  */
-bool chrHasLosToPosWasteful(struct chrdata *chr, struct coord *pos, s16 *rooms)
+bool chrHasLosToPosWasteful(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 {
 	f32 facingangle = chrGetInverseTheta(chr);
 	f32 posangle = atan2f(pos->x - chr->prop->pos.x, pos->z - chr->prop->pos.z);
@@ -7122,7 +7122,7 @@ bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 goposflags)
 		if (padnum >= 0)
 #endif
 		{
-			s16 rooms[2];
+			RoomNum rooms[2];
 			struct pad pad;
 
 			padUnpack(padnum, PADFIELD_ROOM | PADFIELD_POS, &pad);
@@ -7234,8 +7234,8 @@ bool chrGoToProp(struct chrdata *chr, struct prop *prop, u32 goposflags)
 
 bool chrGoToPos(struct chrdata *chr, struct coord *pos, u32 goposflags)
 {
-	s16 inrooms[21];
-	s16 aboverooms[21];
+	RoomNum inrooms[21];
+	RoomNum aboverooms[21];
 
 	if (chrIsReadyForOrders(chr)) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -7246,7 +7246,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, u32 goposflags)
 		if (g_NumChrsSeenPlayerRecently2 < 10)
 #endif
 		{
-			s16 *rooms = NULL;
+			RoomNum *rooms = NULL;
 
 			bgFindRoomsByPos(pos, inrooms, aboverooms, 20, NULL);
 
@@ -7372,7 +7372,7 @@ bool chrTryRunFromTarget(struct chrdata *chr)
 	f32 ymin;
 	f32 radius;
 	struct coord dst;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	struct coord diff;
 	f32 distance;
 
@@ -7492,7 +7492,7 @@ bool chrGoToCoverProp(struct chrdata *chr)
 					f32 propheight;
 					f32 chrheight;
 					struct coord dstpos;
-					s16 dstrooms[8];
+					RoomNum dstrooms[8];
 
 					propGetBbox(prop, &propradius, &propymax, &propymin);
 					propGetBbox(chrprop, &chrradius, &chrymax, &chrymin);
@@ -9032,7 +9032,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 		f32 sqdist;
 		bool holdturn;
 		struct coord targetpos;
-		s16 targetrooms[8];
+		RoomNum targetrooms[8];
 
 		sp178 = targetprop->pos.x - chrprop->pos.x;
 		sp174 = targetprop->pos.y - chrprop->pos.y;
@@ -9867,10 +9867,10 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 		bool shotdue;
 		bool makebeam;
 		struct coord gunpos;
-		s16 gunrooms[8];
+		RoomNum gunrooms[8];
 		struct coord hitpos;
 		bool hitsomething;
-		s16 hitrooms[8];
+		RoomNum hitrooms[8];
 		bool queriedhitrooms;
 		s32 tickspershot;
 
@@ -11771,7 +11771,7 @@ void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2)
  * This is similar to chrNavCheckForObstacle. The difference between the two are
  * not yet understood.
  */
-bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, s32 arg9)
+bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, RoomNum *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, s32 arg9)
 {
 	struct coord spd4;
 	f32 spd0;
@@ -11791,8 +11791,8 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
 	f32 radius2;
 	struct coord sp6c;
 	struct coord sp60;
-	s16 sp50[8];
-	s16 sp40[8];
+	RoomNum sp50[8];
+	RoomNum sp40[8];
 	struct prop *prop = chr->prop;
 
 	chrGetBbox(prop, &radius2, &ymax, &ymin);
@@ -11928,7 +11928,7 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
  * This is similar to chrNavCanSeeNextPos. The only difference is this one uses
  * the value1 and value2 variables.
  */
-bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, bool hasobstacle)
+bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, RoomNum *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, bool hasobstacle)
 {
 	struct coord spd4;
 	f32 spd0;
@@ -11950,8 +11950,8 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 	f32 radius2;
 	struct coord sp6c;
 	struct coord sp60;
-	s16 sp50[8];
-	s16 sp40[8];
+	RoomNum sp50[8];
+	RoomNum sp40[8];
 	struct prop *prop = chr->prop;
 
 	chrGetBbox(prop, &radius2, &ymax, &ymin);
@@ -12656,7 +12656,7 @@ bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, b
 			// Waiting for door to close or lift to arrive at destination
 			if (arg2 || chr->liftaction == LIFTACTION_WAITINGONLIFT) {
 				// Continue waiting
-				s16 rooms[] = {0, -1};
+				RoomNum rooms[] = {0, -1};
 				u32 stack2;
 
 				rooms[0] = nextpad.room;
@@ -12727,13 +12727,13 @@ void chrTickGoPos(struct chrdata *chr)
 {
 	struct waypoint *waypoint;
 	struct coord nextpos;
-	s16 nextrooms[8];
+	RoomNum nextrooms[8];
 	struct prop *prop = chr->prop;
 	bool enteringmagic = false;
 	struct pad pad;
 	bool sp240 = true;
 	struct coord curwppos;
-	s16 curwprooms[8];
+	RoomNum curwprooms[8];
 	u32 curwpflags;
 
 	chr->act_gopos.flags &= ~(GOPOSFLAG_CROUCH | GOPOSFLAG_DUCK);
@@ -13025,7 +13025,7 @@ void chrTickPatrol(struct chrdata *chr)
 	bool enteringmagic;
 	u32 flags = 0;
 	struct coord sp58;
-	s16 sp48[8];
+	RoomNum sp48[8];
 	s32 arrivinglaterally;
 	s32 arriving;
 	bool advance;
@@ -13742,7 +13742,7 @@ f32 chrGetAngleToTarget(struct chrdata *chr)
 	return chrGetAngleToPos(chr, &prop->pos);
 }
 
-void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, s16 *rooms)
+void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, RoomNum *rooms)
 {
 	struct prop *targetprop;
 	struct chrdata *targetchr;
@@ -14585,7 +14585,7 @@ bool waypointIsWithin90DegreesOfPosAngle(struct waypoint *waypoint, struct coord
  * those are in the quadrant then no further checks are made and the function
  * returns -1.
  */
-s32 chrFindWaypointWithinPosQuadrant(struct coord *pos, s16 *rooms, f32 angle, u8 quadrant)
+s32 chrFindWaypointWithinPosQuadrant(struct coord *pos, RoomNum *rooms, f32 angle, u8 quadrant)
 {
 	struct waypoint *waypoint = waypointFindClosestToPos(pos, rooms);
 	s32 neighbournum;
@@ -14716,7 +14716,7 @@ bool chrSetChrPresetToChrNearSelf(u8 checktype, struct chrdata *chr, f32 distanc
 bool chrSetChrPresetToChrNearPad(u32 checktype, struct chrdata *chr, f32 distance, s32 padnum)
 {
 	struct pad pad;
-	s16 rooms[2];
+	RoomNum rooms[2];
 
 	padnum = chrResolvePadId(chr, padnum);
 	padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
@@ -14727,19 +14727,19 @@ bool chrSetChrPresetToChrNearPad(u32 checktype, struct chrdata *chr, f32 distanc
 	return chrSetChrPresetToChrNearPos(checktype, chr, distance, &pad.pos, rooms);
 }
 
-bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, s16 *rooms)
+bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, RoomNum *rooms)
 {
 	s32 i;
 	s16 *propnumptr;
 	s16 propnums[256];
-	s16 allrooms[21];
+	RoomNum allrooms[21];
 	f32 xmin = pos->x - distance;
 	f32 xmax = pos->x + distance;
 	f32 ymin = pos->y - distance;
 	f32 ymax = pos->y + distance;
 	f32 zmin = pos->z - distance;
 	f32 zmax = pos->z + distance;
-	s16 neighbours[11];
+	RoomNum neighbours[11];
 
 	roomsCopy(rooms, allrooms);
 
@@ -14912,7 +14912,7 @@ bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr)
 	return false;
 }
 
-bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
+bool chrIsPosOffScreen(struct coord *pos, RoomNum *rooms)
 {
 	bool offscreen = true;
 	s32 i;
@@ -14943,12 +14943,12 @@ bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
  * If the spawn cannot happen, the function return false.
  */
 #if VERSION >= VERSION_NTSC_1_0
-bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool force, bool onlysurrounding)
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, RoomNum *rooms, f32 angle, bool allowonscreen, bool force, bool onlysurrounding)
 {
 	struct coord testpos;
 	s32 i;
 	u32 types;
-	s16 testrooms[8];
+	RoomNum testrooms[8];
 	f32 ymin;
 	f32 ymax = 200;
 	f32 curangle = angle;
@@ -15030,12 +15030,12 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
  * ntsc-beta's version of this function doesn't have the onlysurrounding argument
  * nor out of bounds checking, and lacks the reduction for the volume test.
  */
-bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool force)
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, RoomNum *rooms, f32 angle, bool allowonscreen, bool force)
 {
 	struct coord testpos;
 	s32 i;
 	u32 types;
-	s16 testrooms[8];
+	RoomNum testrooms[8];
 	f32 curangle = angle;
 
 	if (force) {
@@ -15084,11 +15084,11 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angl
  * triggered, but the function will not attempt to spawn the chr until the next
  * time it's called.
  */
-struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *rooms, f32 angle, u8 *ailist, u32 spawnflags)
+struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, RoomNum *rooms, f32 angle, u8 *ailist, u32 spawnflags)
 {
 	struct prop *prop;
 	struct coord pos2;
-	s16 rooms2[8];
+	RoomNum rooms2[8];
 	s32 stack;
 
 	if (chrsGetNumFree() > 1) {
@@ -15199,7 +15199,7 @@ struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_
 {
 	s32 resolved_pad_id = chrResolvePadId(basechr, pad_id);
 	struct pad pad;
-	s16 room[2];
+	RoomNum room[2];
 	f32 fvalue;
 	padUnpack(resolved_pad_id, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
 	fvalue = atan2f(pad.look.x, pad.look.z);
@@ -15253,10 +15253,10 @@ void func0f04b740(void)
 	// empty
 }
 
-bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle, bool force)
+bool chrMoveToPos(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 angle, bool force)
 {
 	struct coord pos2;
-	s16 rooms2[8];
+	RoomNum rooms2[8];
 	bool result = false;
 	u32 nodetype;
 	union modelrwdata *rwdata;
@@ -15356,7 +15356,7 @@ bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool soft)
 
 s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 criteria, s32 refdist)
 {
-	s16 rooms[8];
+	RoomNum rooms[8];
 	struct cover cover;
 	struct covercandidate tmp;
 	s32 oldcover;
@@ -15619,7 +15619,7 @@ bool chrRunFromPos(struct chrdata *chr, u32 goposflags, f32 rundist, struct coor
 {
 	f32 curdistfrompos;
 	struct coord delta;
-	s16 rooms[8];
+	RoomNum rooms[8];
 
 	if (chrIsReadyForOrders(chr)) {
 		delta.x = chr->prop->pos.x - frompos->x;
@@ -16010,12 +16010,12 @@ bool audioWasNotPlayedRecently(s16 audioid)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
+Gfx *chrsRenderChrStats(Gfx *gdl, RoomNum *rooms)
 {
 	return gdl;
 }
 #else
-Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
+Gfx *chrsRenderChrStats(Gfx *gdl, RoomNum *rooms)
 {
 	s32 x;
 	s32 y;
@@ -16127,7 +16127,7 @@ void chrAvoid(struct chrdata *chr)
 	f32 zdiff;
 	f32 halfchrradius;
 	f32 chrangle = modelGetChrRotY(chr->model);
-	s16 dstrooms[8];
+	RoomNum dstrooms[8];
 	struct coord dstpos;
 
 	// @bug: This shouldn't be here, and the perim is not enabled again

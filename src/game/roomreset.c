@@ -15,10 +15,10 @@ void roomsReset(void)
 	g_RoomMtxNumSlots = PLAYERCOUNT() >= 2 ? 200 : 120;
 
 	g_RoomMtxAges = mempAlloc(ALIGN16(g_RoomMtxNumSlots), MEMPOOL_STAGE);
-	g_RoomMtxLinkedRooms = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(s16)), MEMPOOL_STAGE);
-	g_RoomMtxBaseRooms = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(s16)), MEMPOOL_STAGE);
-	g_RoomMtxScales = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(f32)), MEMPOOL_STAGE);
-	g_RoomMtxMatrices = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(Mtxf)), MEMPOOL_STAGE);
+	g_RoomMtxLinkedRooms = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxLinkedRooms)), MEMPOOL_STAGE);
+	g_RoomMtxBaseRooms = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxBaseRooms)), MEMPOOL_STAGE);
+	g_RoomMtxScales = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxScales)), MEMPOOL_STAGE);
+	g_RoomMtxMatrices = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxMatrices)), MEMPOOL_STAGE);
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		g_Vars.players[i]->lastroomforoffset = -1;

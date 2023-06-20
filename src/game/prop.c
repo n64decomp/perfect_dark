@@ -391,11 +391,11 @@ Gfx *propRender(Gfx *gdl, struct prop *prop, bool xlupass)
  * terminal in the pre-bg pass and the screen in the post-bg pass, likely to
  * avoid Z-fighting issues.
  */
-Gfx *propsRender(Gfx *gdl, s16 renderroomnum, s32 renderpass, s16 *roomnumsbyprop)
+Gfx *propsRender(Gfx *gdl, RoomNum renderroomnum, s32 renderpass, RoomNum *roomnumsbyprop)
 {
 	struct prop **ptr;
 	struct prop *prop;
-	s16 *proprooms;
+	RoomNum *proprooms;
 
 	if (renderpass == RENDERPASS_OPA_PREBG || renderpass == RENDERPASS_OPA_POSTBG) {
 		// Iterate onscreen props near to far
@@ -592,22 +592,22 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	s32 sparktype;
 
 #ifdef AVOID_UB
-	s16 rooms[131];
+	RoomNum rooms[131];
 #else
-	s16 rooms[124];
+	RoomNum rooms[124];
 #endif
 
-	s16 spc8[8];
-	s16 spb8[8];
+	RoomNum spc8[8];
+	RoomNum spb8[8];
 	s32 uVar6;
-	s16 *roomsptr;
+	RoomNum *roomsptr;
 	struct prop *prop;
 	struct coord spa0;
 	struct defaultobj *obj;
 	bool doexplosiveshells;
 	struct coord sp8c;
-	s16 sp7c[8];
-	s16 sp6c[8];
+	RoomNum sp7c[8];
+	RoomNum sp6c[8];
 	struct prop *hitprop;
 
 	bgun0f0a9494(arg6);
@@ -1688,7 +1688,7 @@ void propsTickPlayer(bool islastplayer)
 	s32 savedslotupdate240_60;
 	f32 savedslotupdate240f;
 	struct g_vars *vars = &g_Vars;
-	s16 *rooms;
+	RoomNum *rooms;
 	u8 mostindex;
 	u8 leastindex;
 	u8 runstateindex;
@@ -2215,8 +2215,8 @@ void propsTickPadEffects(void)
 	struct pad pad;
 	u32 stack;
 	struct coord up;
-	s16 rooms[2];
-	s16 rooms2[2];
+	RoomNum rooms[2];
+	RoomNum rooms2[2];
 	s32 type;
 
 	if (g_LastPadEffectIndex >= 0) {
@@ -2306,8 +2306,8 @@ void propsTestForPickup(void)
 	s16 *propnumptr;
 	s32 i;
 	s16 propnums[256];
-	s16 allrooms[21];
-	s16 tmp[11];
+	RoomNum allrooms[21];
+	RoomNum tmp[11];
 
 	if (g_Vars.currentplayer->bondmovemode != MOVEMODE_CUTSCENE
 			&& !g_PlayerInvincible
@@ -2853,10 +2853,10 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 	return result;
 }
 
-void roomsCopy(s16 *src, s16 *dst)
+void roomsCopy(RoomNum *src, RoomNum *dst)
 {
-	s16 *srcptr = src;
-	s16 *dstptr = dst;
+	RoomNum *srcptr = src;
+	RoomNum *dstptr = dst;
 	s32 val;
 
 	while ((val = *srcptr) != -1) {
@@ -2871,7 +2871,7 @@ void roomsCopy(s16 *src, s16 *dst)
 /**
  * Append newrooms to dstrooms without duplicates.
  */
-void roomsAppend(s16 *newrooms, s16 *dstrooms, s32 maxlen)
+void roomsAppend(RoomNum *newrooms, RoomNum *dstrooms, s32 maxlen)
 {
 	s32 i;
 
@@ -2887,12 +2887,12 @@ void roomsAppend(s16 *newrooms, s16 *dstrooms, s32 maxlen)
 	}
 }
 
-bool arrayIntersects(s16 *a, s16 *b)
+bool arrayIntersects(RoomNum *a, RoomNum *b)
 {
-	s16 *aptr = a;
-	s16 aval = *aptr;
-	s16 *bptr;
-	s16 bval;
+	RoomNum *aptr = a;
+	RoomNum aval = *aptr;
+	RoomNum *bptr;
+	RoomNum bval;
 
 	while (aval != -1) {
 		bptr = b; bval = *bptr;
@@ -2951,7 +2951,7 @@ s32 roomAllocatePropListChunk(s32 room, s32 prevchunkindex)
 	return -1;
 }
 
-void propRegisterRoom(struct prop *prop, s16 room)
+void propRegisterRoom(struct prop *prop, RoomNum room)
 {
 	s32 prev = -1;
 	s32 i;
@@ -2979,7 +2979,7 @@ void propRegisterRoom(struct prop *prop, s16 room)
 	}
 }
 
-void propDeregisterRoom(struct prop *prop, s16 room)
+void propDeregisterRoom(struct prop *prop, RoomNum room)
 {
 	bool removed = false;
 	s32 prev = -1;
@@ -3033,8 +3033,8 @@ void propDeregisterRoom(struct prop *prop, s16 room)
  */
 void propDeregisterRooms(struct prop *prop)
 {
-	s16 *rooms = prop->rooms;
-	s16 room = *rooms;
+	RoomNum *rooms = prop->rooms;
+	RoomNum room = *rooms;
 
 	while (room != -1) {
 		propDeregisterRoom(prop, room);
@@ -3050,8 +3050,8 @@ void propDeregisterRooms(struct prop *prop)
  */
 void propRegisterRooms(struct prop *prop)
 {
-	s16 *rooms = prop->rooms;
-	s16 room = *rooms;
+	RoomNum *rooms = prop->rooms;
+	RoomNum room = *rooms;
 
 	while (room != -1) {
 		propRegisterRoom(prop, room);
@@ -3060,9 +3060,9 @@ void propRegisterRooms(struct prop *prop)
 	}
 }
 
-void func0f065d1c(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms, s16 *morerooms, u32 arg5)
+void func0f065d1c(struct coord *pos, RoomNum *rooms, struct coord *newpos, RoomNum *newrooms, RoomNum *morerooms, u32 arg5)
 {
-	s16 stackrooms[8];
+	RoomNum stackrooms[8];
 	s32 index;
 	s32 i;
 
@@ -3080,12 +3080,12 @@ void func0f065d1c(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newr
 	newrooms[index] = -1;
 }
 
-void func0f065dd8(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms)
+void func0f065dd8(struct coord *pos, RoomNum *rooms, struct coord *newpos, RoomNum *newrooms)
 {
 	func0f065d1c(pos, rooms, newpos, newrooms, NULL, 0);
 }
 
-void func0f065dfc(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms, s16 *morerooms, u32 arg5)
+void func0f065dfc(struct coord *pos, RoomNum *rooms, struct coord *newpos, RoomNum *newrooms, RoomNum *morerooms, u32 arg5)
 {
 	func0f065d1c(pos, rooms, newpos, newrooms, morerooms, arg5);
 
@@ -3098,16 +3098,16 @@ void func0f065dfc(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newr
 	}
 }
 
-void func0f065e74(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms)
+void func0f065e74(struct coord *pos, RoomNum *rooms, struct coord *newpos, RoomNum *newrooms)
 {
 	func0f065dfc(pos, rooms, newpos, newrooms, NULL, 0);
 }
 
-void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *dstrooms)
+void func0f065e98(struct coord *pos, RoomNum *rooms, struct coord *pos2, RoomNum *dstrooms)
 {
-	s16 inrooms[21];
-	s16 aboverooms[21];
-	s16 *ptr = NULL;
+	RoomNum inrooms[21];
+	RoomNum aboverooms[21];
+	RoomNum *ptr = NULL;
 	s32 i;
 
 	bgFindRoomsByPos(pos2, inrooms, aboverooms, 20, NULL);
@@ -3148,10 +3148,10 @@ void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *dstroo
  * to get 256 props in a small space without exhausing the memory of the
  * console, you could potentially achieve arbitrary code execution.
  */
-void roomGetProps(s16 *rooms, s16 *propnums, s32 len)
+void roomGetProps(RoomNum *rooms, s16 *propnums, s32 len)
 {
 	s16 *writeptr = propnums;
-	s32 room;
+	RoomNum room;
 	s32 i;
 	s32 j;
 

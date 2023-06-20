@@ -81,18 +81,18 @@ struct explosiontype g_ExplosionTypes[] = {
 	/*25*/ { 640, 480, 32,  11.2, 1600, 1000, 1000, 180, 2, 5, SMOKETYPE_NONE,         0x80a4, 4     },
 };
 
-bool explosionCreateSimple(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum)
+bool explosionCreateSimple(struct prop *prop, struct coord *pos, RoomNum *rooms, s16 type, s32 playernum)
 {
 	return explosionCreate(prop, pos, rooms, type, playernum, false, NULL, 0, NULL);
 }
 
-bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum)
+bool explosionCreateComplex(struct prop *prop, struct coord *pos, RoomNum *rooms, s16 type, s32 playernum)
 {
 	struct coord sp100;
 	struct coord sp88;
 	struct explosiontype *etype;
 	bool makescorch = true;
-	s16 room;
+	RoomNum room;
 	f32 y;
 	struct prop *collisionprop;
 
@@ -232,8 +232,8 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 #endif
 }
 
-bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exprooms,
-		s16 type, s32 playernum, bool makescorch, struct coord *arg6, s16 room, struct coord *arg8)
+bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exprooms,
+		s16 type, s32 playernum, bool makescorch, struct coord *arg6, RoomNum room, struct coord *arg8)
 {
 	u32 stack;
 	struct explosion *exp = NULL;
@@ -314,8 +314,8 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 			struct coord portal2bbmax;
 			struct coord spd4;
 			struct coord spc8;
-			s16 otherroom;
-			s16 otherroom2;
+			RoomNum otherroom;
+			RoomNum otherroom2;
 			f32 mult = 1;
 			s32 stack4;
 			s32 portalnum2;
@@ -626,7 +626,7 @@ bool explosionOverlapsProp(struct explosion *exp, struct prop *prop, struct coor
 {
 	bool result = false;
 	s32 i;
-	s16 rooms[8];
+	RoomNum rooms[8];
 
 	if (exp->type == EXPLOSIONTYPE_HUGE25) {
 		result = true;

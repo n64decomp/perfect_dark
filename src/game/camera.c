@@ -597,10 +597,10 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct drawslot *drawslot)
  * correct address to camIsPosInScreenBox so it can interpret the pointer as a
  * drawslot.
  */
-bool camIsPosInFovAndVisibleRoom(s16 *rooms, struct coord *pos, f32 arg2)
+bool camIsPosInFovAndVisibleRoom(RoomNum *rooms, struct coord *pos, f32 arg2)
 {
 	s32 i;
-	s16 room;
+	RoomNum room;
 	bool hasdata = false;
 	struct drawslot *thisthing;
 	struct screenbox box;
@@ -640,5 +640,5 @@ bool camIsPosInFovAndVisibleRoom(s16 *rooms, struct coord *pos, f32 arg2)
 		return false;
 	}
 
-	return camIsPosInScreenBox(pos, arg2, (struct drawslot *) (&box.array[-1][0]));
+	return camIsPosInScreenBox(pos, arg2, (struct drawslot *) &(((u8 *) &box)[-((uintptr_t) &(((struct drawslot *)0)->box))]));
 }

@@ -311,7 +311,7 @@ void roomSetDefaults(struct room *room)
 	room->lightop_duration240 = 0;
 }
 
-Gfx *lightsSetForRoom(Gfx *gdl, s16 roomnum)
+Gfx *lightsSetForRoom(Gfx *gdl, RoomNum roomnum)
 {
 	Lights1 *lights = gfxAllocate(sizeof(Lights1));
 
@@ -989,7 +989,7 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 			f32 rand1 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
 			f32 rand2 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
 			s32 sparktype = -1;
-			s16 smokerooms[2];
+			RoomNum smokerooms[2];
 			struct bgroom *room;
 
 			spc8.x = light->bbox[1].x - light->bbox[0].x;

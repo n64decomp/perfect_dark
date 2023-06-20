@@ -19,7 +19,7 @@ struct shard *g_Shards;
 s32 g_NextShardNum = 0;
 bool g_ShardsActive = false;
 
-void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type);
+void shardCreate(RoomNum room, struct coord *pos, f32 rotx, f32 size, s32 type);
 
 void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmin, f32 relxmax, f32 relymin, f32 relymax, s32 type, struct prop *prop)
 {
@@ -111,7 +111,7 @@ void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmi
 	}
 }
 
-void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
+void shardCreate(RoomNum room, struct coord *pos, f32 rotx, f32 size, s32 type)
 {
 	f32 velx = RANDOMFRAC() * 2.0f - 1.0f;
 	f32 vely = RANDOMFRAC() * 1.12f - 0.12f;
@@ -211,7 +211,7 @@ void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
 Gfx *shardsRenderWood(Gfx *gdl)
 {
 	if (g_ShardsActive) {
-		s16 prevroom = 0;
+		RoomNum prevroom = 0;
 		s32 i;
 		Mtxf shardmtx;
 		s32 j;
@@ -325,7 +325,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 Gfx *shardsRenderGlass(Gfx *gdl)
 {
 	if (g_ShardsActive) {
-		s16 prevroom = 0;
+		RoomNum prevroom = 0;
 		s32 i;
 		Mtxf shardmtx;
 		s32 j;

@@ -19,6 +19,7 @@ typedef s32 PakErr1;
 typedef s32 PakErr2;
 typedef s32 MenuDialogHandlerResult;
 typedef intptr_t MenuItemHandlerResult;
+typedef s16 RoomNum;
 
 // Float version of a graphics matrix, which has higher precision than an Mtx.
 // Matrices are stored as Mtxfs then converted to an Mtx when passed to the GPU.
@@ -292,7 +293,7 @@ struct prop {
 	/*0x1c*/ struct prop *child;
 	/*0x20*/ struct prop *next;
 	/*0x24*/ struct prop *prev;
-	/*0x28*/ s16 rooms[8];
+	/*0x28*/ RoomNum rooms[8];
 	/*0x38*/ u16 lastupdateframe;
 	/*0x3a*/ u16 propupdate240;
 	/*0x3c*/ u8 propupdate60err;
@@ -738,7 +739,7 @@ struct aibot {
 	/*0x076*/ s16 lastkilledbyplayernum;
 	/*0x078*/ u8 forceslowupdates;
 	/*0x079*/ u8 command;
-	/*0x07a*/ s16 defendholdrooms[1];
+	/*0x07a*/ RoomNum defendholdrooms[1];
 	/*0x07c*/ u32 unk07c; // unused
 	/*0x080*/ u32 unk080; // unused
 	/*0x084*/ u32 unk084; // unused
@@ -770,7 +771,7 @@ struct aibot {
 	/*0x0e0*/ s16 reaperspeed[2];
 	/*0x0e4*/ f32 maulercharge[2];
 	/*0x0ec*/ struct coord gotopos;
-	/*0x0f8*/ s16 gotorooms[8];
+	/*0x0f8*/ RoomNum gotorooms[8];
 	/*0x108*/ struct coord shotspeed; // "boost" when aibot is shot
 	/*0x114*/ s32 feudplayernum;
 	/*0x118*/ s32 commandtimer60;
@@ -783,7 +784,7 @@ struct aibot {
 	/*0x13c*/ f32 chrdistances[MAX_MPCHRS];
 	/*0x16c*/ u8 chrsinsight[MAX_MPCHRS];
 	/*0x178*/ s32 chrslastseen60[MAX_MPCHRS];
-	/*0x1a8*/ s16 chrrooms[MAX_MPCHRS];
+	/*0x1a8*/ RoomNum chrrooms[MAX_MPCHRS];
 	/*0x1c0*/ f32 extraangle;
 	/*0x1c4*/ f32 extraanglerate;
 	/*0x1c8*/ f32 extraanglebase;
@@ -1040,7 +1041,7 @@ struct act_patrol {
 
 struct act_gopos {
 	/*0x02c*/ struct coord endpos;
-	/*0x038*/ s16 endrooms[8];
+	/*0x038*/ RoomNum endrooms[8];
 	/*0x048*/ struct waypoint *target; // Target/final waypoint
 
 	// Array of pointers to the next couple of waypoints. Recalculated each time
@@ -1243,9 +1244,9 @@ struct chrdata {
 	/*0x2ae*/ u16 unk2ae;
 	/*0x2b0*/ u8 tude;
 	/*0x2b1*/ u8 voicebox;
-	/*0x2b2*/ s16 floorroom;
+	/*0x2b2*/ RoomNum floorroom;
 	/*0x2b4*/ u32 unk2b4;
-	/*0x2b8*/ s16 oldrooms[8];
+	/*0x2b8*/ RoomNum oldrooms[8];
 	/*0x2c8*/ struct coord runfrompos;
 	/*0x2d4*/ struct aibot *aibot;
 	/*0x2d8*/ s16 blurdrugamount;
@@ -2463,7 +2464,7 @@ struct player {
 	/*0x0278*/ f32 shieldshowrot;
 	/*0x027c*/ u32 shieldshowrnd;
 	/*0x0280*/ f32 shieldshowtime;
-	/*0x0284*/ s16 bondprevrooms[8];
+	/*0x0284*/ RoomNum bondprevrooms[8];
 	/*0x0294*/ f32 liftground;
 	/*0x0298*/ struct prop *lift;
 	/*0x029c*/ f32 ladderupdown;
@@ -2659,7 +2660,7 @@ struct player {
 	/*0x19a4*/ f32 speedgo;
 	/*0x19a8*/ s32 sighttimer240;
 	/*0x19ac*/ s32 crouchoffsetreal;
-	/*0x19b0*/ s16 floorroom;
+	/*0x19b0*/ RoomNum floorroom;
 	/*0x19b2*/ u8 unk19b2;
 	/*0x19b3*/ u8 dostartnewlife;
 	/*0x19b4*/ f32 crouchoffsetsmall;
@@ -2805,7 +2806,7 @@ struct coverdefinition {
 struct cover {
 	/*0x00*/ struct coord *pos;
 	/*0x04*/ struct coord *look;
-	/*0x08*/ s16 rooms[2];
+	/*0x08*/ RoomNum rooms[2];
 	/*0x0c*/ u16 flags;
 };
 
@@ -4423,7 +4424,7 @@ struct scenariodata_koh {
 	/*0x800ac118*/ s16 movehill;
 	/*0x800ac11a*/ s16 hillindex;
 	/*0x800ac11c*/ s16 hillcount;
-	/*0x800ac11e*/ s16 hillrooms[2];
+	/*0x800ac11e*/ RoomNum hillrooms[2];
 	/*0x800ac122*/ s16 hillpads[9];
 	/*0x800ac134*/ struct coord hillpos;
 	/*0x800ac140*/ f32 colourfracr;
@@ -4440,7 +4441,7 @@ struct ctcspawnpadsperteam {
 struct scenariodata_ctc {
 	/*0x00*/ s16 playercountsperteam[4];
 	/*0x08*/ s16 teamindexes[4];
-	/*0x10*/ s16 baserooms[4];
+	/*0x10*/ RoomNum baserooms[4];
 	/*0x18*/ struct ctcspawnpadsperteam spawnpadsperteam[4];
 	/*0x58*/ struct prop *tokens[4];
 };
@@ -4589,8 +4590,8 @@ struct explosionpart {
 struct explosionbb {
 	struct coord bbmin;
 	struct coord bbmax;
-	s16 room;
-	s16 room2;
+	RoomNum room;
+	RoomNum room2;
 };
 
 struct explosion {
@@ -4598,7 +4599,7 @@ struct explosion {
 	struct prop *source; // Prop of the thing that created the explosion
 	struct explosionpart parts[40];
 	/*0x3c8*/ s16 age;
-	/*0x3ca*/ s16 room;
+	/*0x3ca*/ RoomNum room;
 	/*0x3cc*/ s8 type;
 	/*0x3cd*/ s8 makescorch;
 	/*0x3ce*/ s8 owner;
@@ -5134,7 +5135,7 @@ struct bgcmd {
 };
 
 struct drawslot {
-	s16 roomnum;
+	RoomNum roomnum;
 	u8 unk02;
 	u8 draworder;
 	struct screenbox box;
@@ -5151,8 +5152,8 @@ struct zrange {
 };
 
 struct bgsnakeitem {
-	/*0x00*/ s16 roomnum;
-	/*0x02*/ s16 fromroomnums[5];
+	/*0x00*/ RoomNum roomnum;
+	/*0x02*/ RoomNum fromroomnums[5];
 	/*0x0c*/ u8 depth;
 	/*0x0d*/ u8 numportals;
 	/*0x0e*/ s16 roomportallistoffset;
@@ -5594,7 +5595,7 @@ struct var80067e6c {
 };
 
 struct shard {
-	/*0x00*/ s16 room;
+	/*0x00*/ RoomNum room;
 	/*0x04*/ s32 age60;
 	/*0x08*/ struct coord pos;
 	/*0x14*/ struct coord rot;
@@ -5639,7 +5640,7 @@ struct pschannel {
 	/*0x50*/ struct prop *prop;
 	/*0x54*/ struct coord *posptr;
 	/*0x58*/ struct coord pos;
-	/*0x64*/ s16 rooms[8];
+	/*0x64*/ RoomNum rooms[8];
 #if VERSION >= VERSION_NTSC_1_0
 	/*0x74*/ u32 uuid;
 #endif
@@ -5677,7 +5678,7 @@ struct wallhit {
 	/*0x5c*/ struct prop *chrprop;
 	/*0x60*/ struct prop *objprop;
 	/*0x64*/ Vtx *vertices2; // overridden vertices for when blood is expanding
-	/*0x68*/ s16 roomnum;
+	/*0x68*/ RoomNum roomnum;
 	/*0x6a*/ u8 texturenum;
 	/*0x6b*/ u8 unk6b;
 	/*0x6c*/ u8 mtxindex;

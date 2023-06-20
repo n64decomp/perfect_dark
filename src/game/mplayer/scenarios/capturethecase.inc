@@ -457,7 +457,7 @@ void ctcAddPad(s32 *cmd)
 	}
 }
 
-bool ctcChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4)
+bool ctcChooseSpawnLocation(f32 arg0, struct coord *pos, RoomNum *rooms, struct prop *prop, f32 *arg4)
 {
 	struct chrdata *chr = prop->chr;
 	s32 index = radarGetTeamIndex(chr->team);
@@ -477,7 +477,7 @@ s32 ctcGetMaxTeams(void)
 	return 4;
 }
 
-bool ctcIsRoomHighlighted(s16 room)
+bool ctcIsRoomHighlighted(RoomNum room)
 {
 	s32 i;
 
@@ -490,7 +490,7 @@ bool ctcIsRoomHighlighted(s16 room)
 	return false;
 }
 
-void ctcHighlightRoom(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
+void ctcHighlightRoom(RoomNum roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
 {
 	s32 i;
 

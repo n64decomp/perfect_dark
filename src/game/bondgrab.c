@@ -284,7 +284,7 @@ bool bgrabTryMoveUpwards(f32 y)
 {
 	bool result;
 	struct coord newpos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	f32 ymax;
 	f32 ymin;
 	f32 radius;
@@ -320,7 +320,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 	s32 cdresult = CDRESULT_NOCOLLISION;
 	s32 i;
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	bool ismoving = false;
 	f32 ymax;
 	f32 ymin;

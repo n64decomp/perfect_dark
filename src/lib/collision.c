@@ -962,9 +962,9 @@ bool cd00026a04(struct coord *pos, u8 *start, u8 *end, u16 geoflags, s32 room, s
 	return result;
 }
 
-void cdFindClosestVertical(struct coord *pos, s16 *rooms, u16 geoflags, struct geo **geoptr, s16 *roomptr, f32 *groundptr, struct prop **propptr, bool ceiling)
+void cdFindClosestVertical(struct coord *pos, RoomNum *rooms, u16 geoflags, struct geo **geoptr, RoomNum *roomptr, f32 *groundptr, struct prop **propptr, bool ceiling)
 {
-	s16 *roomptr2;
+	RoomNum *roomptr2;
 	s32 roomnum;
 	u8 *start;
 	u8 *end;
@@ -1262,9 +1262,9 @@ void cdCollectGeoForCylFromList(struct coord *pos, f32 radius, u8 *start, u8 *en
 	}
 }
 
-void cdCollectGeoForCyl(struct coord *pos, f32 radius, s16 *rooms, u32 types, u16 geoflags, bool checkvertical, f32 ymax, f32 ymin, struct collision *collisions, s32 maxcollisions)
+void cdCollectGeoForCyl(struct coord *pos, f32 radius, RoomNum *rooms, u32 types, u16 geoflags, bool checkvertical, f32 ymax, f32 ymin, struct collision *collisions, s32 maxcollisions)
 {
-	s16 *roomptr;
+	RoomNum *roomptr;
 	s32 roomnum;
 	u8 *start;
 	u8 *end;
@@ -1590,9 +1590,9 @@ void cdCollectGeoForCylMoveFromList(u8 *start, u8 *end, struct coord *pos, f32 r
 	}
 }
 
-void cdCollectGeoForCylMove(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 geoflags, bool checkvertical, f32 ymax, f32 ymin, struct collision *collisions, s32 maxcollisions)
+void cdCollectGeoForCylMove(struct coord *pos, f32 width, RoomNum *rooms, u32 types, u16 geoflags, bool checkvertical, f32 ymax, f32 ymin, struct collision *collisions, s32 maxcollisions)
 {
-	s16 *roomptr;
+	RoomNum *roomptr;
 	s32 roomnum;
 	u8 *start;
 	u8 *end;
@@ -2139,7 +2139,7 @@ f32 cdFindGroundFromList(struct collision *collisions, struct coord *pos, struct
  * There is nothing specific to ladders in this function, but it's only used
  * for finding ladders.
  */
-bool cdFindLadder(struct coord *pos, f32 width, f32 ymax, f32 ymin, s16 *rooms, u16 geoflags, struct coord *laddernormal)
+bool cdFindLadder(struct coord *pos, f32 width, f32 ymax, f32 ymin, RoomNum *rooms, u16 geoflags, struct coord *laddernormal)
 {
 	struct collision collisions[2];
 
@@ -2167,7 +2167,7 @@ bool cdFindLadder(struct coord *pos, f32 width, f32 ymax, f32 ymin, s16 *rooms, 
 	return false;
 }
 
-bool cd0002a13c(struct coord *pos, f32 radius, f32 ymax, f32 ymin, s16 *rooms, u16 geoflags)
+bool cd0002a13c(struct coord *pos, f32 radius, f32 ymax, f32 ymin, RoomNum *rooms, u16 geoflags)
 {
 	struct collision collisions[2];
 
@@ -2180,8 +2180,8 @@ bool cd0002a13c(struct coord *pos, f32 radius, f32 ymax, f32 ymin, s16 *rooms, u
 	return false;
 }
 
-f32 cdFindGroundInfoAtCyl(struct coord *pos, f32 radius, s16 *rooms, u16 *floorcol,
-		u8 *floortype, u16 *floorflags, s16 *floorroom, s32 *inlift, struct prop **lift)
+f32 cdFindGroundInfoAtCyl(struct coord *pos, f32 radius, RoomNum *rooms, u16 *floorcol,
+		u8 *floortype, u16 *floorflags, RoomNum *floorroom, s32 *inlift, struct prop **lift)
 {
 	struct collision collisions[21];
 	struct collision *sp72 = NULL;
@@ -2244,15 +2244,15 @@ f32 cdReturnZero(void)
 	return 0;
 }
 
-f32 cdFindGroundAtCyl(struct coord *pos, f32 radius, s16 *rooms, u16 *floorcol, u8 *floortype)
+f32 cdFindGroundAtCyl(struct coord *pos, f32 radius, RoomNum *rooms, u16 *floorcol, u8 *floortype)
 {
 	return cdFindGroundInfoAtCyl(pos, radius, rooms, floorcol, floortype, NULL, NULL, NULL, NULL);
 }
 
-f32 cdFindFloorYColourTypeAtPos(struct coord *pos, s16 *rooms, u16 *floorcol, u8 *floortype)
+f32 cdFindFloorYColourTypeAtPos(struct coord *pos, RoomNum *rooms, u16 *floorcol, u8 *floortype)
 {
 	struct geo *geo;
-	s16 sp30[2];
+	RoomNum sp30[2];
 	f32 sp2c;
 	f32 result = -4294967296;
 
@@ -2273,10 +2273,10 @@ f32 cdFindFloorYColourTypeAtPos(struct coord *pos, s16 *rooms, u16 *floorcol, u8
 	return result;
 }
 
-s32 cdFindFloorRoomAtPos(struct coord *pos, s16 *nearrooms)
+s32 cdFindFloorRoomAtPos(struct coord *pos, RoomNum *nearrooms)
 {
 	struct geo *geo;
-	s16 room;
+	RoomNum room;
 	f32 sp2c;
 
 	cdFindClosestVertical(pos, nearrooms, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2, &geo, &room, &sp2c, 0, SURFACE_FLOOR);
@@ -2285,13 +2285,13 @@ s32 cdFindFloorRoomAtPos(struct coord *pos, s16 *nearrooms)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s16 cdFindFloorRoomYColourFlagsAtPos(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr)
+RoomNum cdFindFloorRoomYColourFlagsAtPos(struct coord *pos, RoomNum *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr)
 #else
-s16 cdFindFloorRoomYColourFlagsAtPos(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr)
+RoomNum cdFindFloorRoomYColourFlagsAtPos(struct coord *pos, RoomNum *rooms, f32 *arg2, u16 *floorcolptr)
 #endif
 {
 	struct geo *geo;
-	s16 room;
+	RoomNum room;
 	f32 sp2c;
 
 	cdFindClosestVertical(pos, rooms, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2, &geo, &room, &sp2c, NULL, SURFACE_FLOOR);
@@ -2314,13 +2314,13 @@ s16 cdFindFloorRoomYColourFlagsAtPos(struct coord *pos, s16 *rooms, f32 *arg2, u
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s16 cdFindCeilingRoomYColourFlagsAtPos(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr)
+RoomNum cdFindCeilingRoomYColourFlagsAtPos(struct coord *pos, RoomNum *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr)
 #else
-s16 cdFindCeilingRoomYColourFlagsAtPos(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr)
+RoomNum cdFindCeilingRoomYColourFlagsAtPos(struct coord *pos, RoomNum *rooms, f32 *arg2, u16 *floorcolptr)
 #endif
 {
 	struct geo *geo;
-	s16 sp32;
+	RoomNum sp32;
 	f32 sp2c;
 
 	cdFindClosestVertical(pos, rooms, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2, &geo, &sp32, &sp2c, NULL, SURFACE_CEILING);
@@ -2342,10 +2342,10 @@ s16 cdFindCeilingRoomYColourFlagsAtPos(struct coord *pos, s16 *rooms, f32 *arg2,
 	return sp32;
 }
 
-s16 cdFindFloorRoomYColourNormalPropAtPos(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, struct coord *normal, struct prop **propptr)
+RoomNum cdFindFloorRoomYColourNormalPropAtPos(struct coord *pos, RoomNum *rooms, f32 *arg2, u16 *floorcol, struct coord *normal, struct prop **propptr)
 {
 	struct geo *geo;
-	s16 room;
+	RoomNum room;
 	f32 sp2c;
 
 	cdFindClosestVertical(pos, rooms, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2, &geo, &room, &sp2c, propptr, SURFACE_FLOOR);
@@ -2362,10 +2362,10 @@ s16 cdFindFloorRoomYColourNormalPropAtPos(struct coord *pos, s16 *rooms, f32 *ar
 	return room;
 }
 
-s16 cdFindCeilingRoomYColourFlagsNormalAtPos(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, u16 *flagsptr, struct coord *normal)
+RoomNum cdFindCeilingRoomYColourFlagsNormalAtPos(struct coord *pos, RoomNum *rooms, f32 *arg2, u16 *floorcol, u16 *flagsptr, struct coord *normal)
 {
 	struct geo *geo;
-	s16 sp32;
+	RoomNum sp32;
 	f32 sp2c;
 
 	cdFindClosestVertical(pos, rooms, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2, &geo, &sp32, &sp2c, NULL, SURFACE_CEILING);
@@ -2389,7 +2389,7 @@ s16 cdFindCeilingRoomYColourFlagsNormalAtPos(struct coord *pos, s16 *rooms, f32 
 /**
  * Tests if a cylinder volume fits in the given position.
  */
-s32 cdTestVolume(struct coord *pos, f32 width, s16 *rooms, s32 types, bool checkvertical, f32 ymax, f32 ymin)
+s32 cdTestVolume(struct coord *pos, f32 width, RoomNum *rooms, s32 types, bool checkvertical, f32 ymax, f32 ymin)
 {
 	struct collision collisions[2];
 	bool result = true;
@@ -2404,7 +2404,7 @@ s32 cdTestVolume(struct coord *pos, f32 width, s16 *rooms, s32 types, bool check
 	return result;
 }
 
-s32 cdExamCylMove01(struct coord *pos, struct coord *pos2, f32 radius, s16 *rooms, s32 types, bool checkvertical, f32 ymax, f32 ymin)
+s32 cdExamCylMove01(struct coord *pos, struct coord *pos2, f32 radius, RoomNum *rooms, s32 types, bool checkvertical, f32 ymax, f32 ymin)
 {
 	struct collision collisions[2];
 	s32 cdresult;
@@ -2469,7 +2469,7 @@ s32 cdExamCylMove01(struct coord *pos, struct coord *pos2, f32 radius, s16 *room
 	return cdresult;
 }
 
-s32 cdExamCylMove02(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dstrooms, s32 types, bool checkvertical, f32 ymax, f32 ymin)
+s32 cdExamCylMove02(struct coord *origpos, struct coord *dstpos, f32 width, RoomNum *dstrooms, s32 types, bool checkvertical, f32 ymax, f32 ymin)
 {
 	struct collision collisions[21];
 	struct coord dist;
@@ -3337,10 +3337,10 @@ bool cdExamAToBGeolist(u8 *start, u8 *end, struct coord *arg2, struct coord *arg
 	return !result;
 }
 
-bool cdTestAToB(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin)
+bool cdTestAToB(struct coord *pos, struct coord *coord2, RoomNum *rooms, u32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin)
 {
 	s32 roomnum;
-	s16 *roomptr;
+	RoomNum *roomptr;
 	u8 *start;
 	u8 *end;
 	struct coord sp27c;
@@ -3391,10 +3391,10 @@ bool cdTestAToB(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, 
 	return true;
 }
 
-s32 cdExamAToB(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin)
+s32 cdExamAToB(struct coord *arg0, struct coord *arg1, RoomNum *rooms, s32 types, u16 geoflags, bool checkvertical, s32 arg6, f32 ymax, f32 ymin)
 {
 	s32 roomnum;
-	s16 *roomptr;
+	RoomNum *roomptr;
 	u8 *start;
 	u8 *end;
 	struct coord sp2c4;
@@ -3451,21 +3451,21 @@ s32 cdExamAToB(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u1
 	return !sp2c0;
 }
 
-bool cdTestCylMove01(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 ymax, f32 ymin)
+bool cdTestCylMove01(struct coord *pos, RoomNum *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 ymax, f32 ymin)
 {
-	s16 sp44[21];
-	s16 sp34[8];
+	RoomNum sp44[21];
+	RoomNum sp34[8];
 
 	portal00018148(pos, targetpos, rooms, sp34, sp44, 20);
 
 	return cdTestAToB(pos, targetpos, sp44, types, GEOFLAG_WALL, CHECKVERTICAL_NO, arg4, ymax, ymin);
 }
 
-s32 cdTestCylMove02(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms2, u32 types, s32 arg5, f32 ymax, f32 ymin)
+s32 cdTestCylMove02(struct coord *pos, RoomNum *rooms, struct coord *coord2, RoomNum *rooms2, u32 types, s32 arg5, f32 ymax, f32 ymin)
 {
 	s32 result;
-	s16 sp44[20];
-	s16 sp34[8];
+	RoomNum sp44[20];
+	RoomNum sp34[8];
 
 	func0f065d1c(pos, rooms, coord2, sp34, sp44, 20);
 
@@ -3478,29 +3478,29 @@ s32 cdTestCylMove02(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *ro
 	return result;
 }
 
-s32 cdExamCylMove03(struct coord *pos, s16 *rooms, struct coord *arg2, u32 types, u32 arg4, f32 ymax, f32 ymin)
+s32 cdExamCylMove03(struct coord *pos, RoomNum *rooms, struct coord *arg2, u32 types, u32 arg4, f32 ymax, f32 ymin)
 {
-	s16 sp44[21];
-	s16 sp34[8];
+	RoomNum sp44[21];
+	RoomNum sp34[8];
 
 	portal00018148(pos, arg2, rooms, sp34, sp44, 20);
 
 	return cdExamAToB(pos, arg2, sp44, types, GEOFLAG_WALL, CHECKVERTICAL_NO, arg4, ymax, ymin);
 }
 
-s32 cdTestCylMove04(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
+s32 cdTestCylMove04(struct coord *arg0, RoomNum *arg1, struct coord *arg2, RoomNum *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
 {
-	s16 rooms[21];
+	RoomNum rooms[21];
 
 	portal00018148(arg0, arg2, arg1, arg3, rooms, 20);
 
 	return cdTestAToB(arg0, arg2, rooms, types, GEOFLAG_WALL, CHECKVERTICAL_NO, arg5, ymax, ymin);
 }
 
-s32 cdExamCylMove05(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s32 types, bool arg5, f32 ymax, f32 ymin)
+s32 cdExamCylMove05(struct coord *pos, RoomNum *rooms, struct coord *pos2, RoomNum *rooms2, s32 types, bool arg5, f32 ymax, f32 ymin)
 {
-	s16 sp44[21];
-	s16 sp34[8];
+	RoomNum sp44[21];
+	RoomNum sp34[8];
 	s32 result;
 
 	func0f065d1c(pos, rooms, pos2, sp34, sp44, 20);
@@ -3515,10 +3515,10 @@ s32 cdExamCylMove05(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *room
 	return result;
 }
 
-s32 cdExamCylMove06(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 width, s32 types, s32 arg6, f32 ymax, f32 ymin)
+s32 cdExamCylMove06(struct coord *arg0, RoomNum *arg1, struct coord *arg2, RoomNum *arg3, f32 width, s32 types, s32 arg6, f32 ymax, f32 ymin)
 {
-	s16 sp5c[21];
-	s16 sp4c[8];
+	RoomNum sp5c[21];
+	RoomNum sp4c[8];
 	struct coord sp40;
 	s32 result;
 
@@ -3540,18 +3540,18 @@ s32 cdExamCylMove06(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3
 	return result;
 }
 
-s32 cdExamCylMove07(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
+s32 cdExamCylMove07(struct coord *arg0, RoomNum *arg1, struct coord *arg2, RoomNum *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
 {
-	s16 rooms[21];
+	RoomNum rooms[21];
 
 	portal00018148(arg0, arg2, arg1, arg3, rooms, 20);
 
 	return cdExamAToB(arg0, arg2, rooms, types, GEOFLAG_WALL, CHECKVERTICAL_NO, arg5, ymax, ymin);
 }
 
-s32 cdExamCylMove08(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 width, u32 types, s32 arg6, f32 ymax, f32 ymin)
+s32 cdExamCylMove08(struct coord *arg0, RoomNum *arg1, struct coord *arg2, RoomNum *arg3, f32 width, u32 types, s32 arg6, f32 ymax, f32 ymin)
 {
-	s16 rooms[21];
+	RoomNum rooms[21];
 	struct coord sp40;
 	s32 result;
 
@@ -3570,26 +3570,26 @@ s32 cdExamCylMove08(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3
 	return result;
 }
 
-bool cdTestLos03(struct coord *viewpos, s16 *rooms, struct coord *targetpos, u32 types, u16 geoflags)
+bool cdTestLos03(struct coord *viewpos, RoomNum *rooms, struct coord *targetpos, u32 types, u16 geoflags)
 {
-	s16 sp44[21];
-	s16 sp34[8];
+	RoomNum sp44[21];
+	RoomNum sp34[8];
 
 	portal00018148(viewpos, targetpos, rooms, sp34, sp44, 20);
 
 	return cdTestAToB(viewpos, targetpos, sp44, types, geoflags, CHECKVERTICAL_YES, 1, 0, 0);
 }
 
-bool cdTestLos04(struct coord *frompos, s16 *fromrooms, struct coord *topos, s32 types)
+bool cdTestLos04(struct coord *frompos, RoomNum *fromrooms, struct coord *topos, s32 types)
 {
 	return cdTestLos03(frompos, fromrooms, topos, types, GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT);
 }
 
-bool cdTestLos05(struct coord *coord, s16 *rooms, struct coord *coord2, s16 *rooms2, s32 types, u16 geoflags)
+bool cdTestLos05(struct coord *coord, RoomNum *rooms, struct coord *coord2, RoomNum *rooms2, s32 types, u16 geoflags)
 {
 	bool result;
-	s16 sp44[20];
-	s16 sp34[8];
+	RoomNum sp44[20];
+	RoomNum sp34[8];
 
 	func0f065d1c(coord, rooms, coord2, sp34, sp44, 20);
 
@@ -3602,15 +3602,15 @@ bool cdTestLos05(struct coord *coord, s16 *rooms, struct coord *coord2, s16 *roo
 	return result;
 }
 
-bool cdTestLos06(struct coord *arg0, s16 *rooms1, struct coord *arg2, s16 *rooms2, u32 types)
+bool cdTestLos06(struct coord *arg0, RoomNum *rooms1, struct coord *arg2, RoomNum *rooms2, u32 types)
 {
 	return cdTestLos05(arg0, rooms1, arg2, rooms2, types, GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT);
 }
 
-bool cdTestLos07(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s16 *rooms3, u32 types, u16 geoflags)
+bool cdTestLos07(struct coord *pos, RoomNum *rooms, struct coord *pos2, RoomNum *rooms2, RoomNum *rooms3, u32 types, u16 geoflags)
 {
 	bool result;
-	s16 sp34[20];
+	RoomNum sp34[20];
 
 	func0f065d1c(pos, rooms, pos2, rooms3, sp34, 20);
 
@@ -3623,31 +3623,31 @@ bool cdTestLos07(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2,
 	return result;
 }
 
-s32 cdExamLos08(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u16 geoflags)
+s32 cdExamLos08(struct coord *pos, RoomNum *rooms, struct coord *pos2, u32 types, u16 geoflags)
 {
-	s16 sp44[21];
-	s16 sp34[8];
+	RoomNum sp44[21];
+	RoomNum sp34[8];
 
 	portal00018148(pos, pos2, rooms, sp34, sp44, 20);
 
 	return cdExamAToB(pos, pos2, sp44, types, geoflags, CHECKVERTICAL_YES, 1, 0, 0);
 }
 
-s32 cdExamLos09(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types)
+s32 cdExamLos09(struct coord *pos, RoomNum *rooms, struct coord *pos2, u32 types)
 {
 	return cdExamLos08(pos, rooms, pos2, types, GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT);
 }
 
-s32 cdTestLos10(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, u16 geoflags)
+s32 cdTestLos10(struct coord *arg0, RoomNum *arg1, struct coord *arg2, RoomNum *arg3, u32 types, u16 geoflags)
 {
-	s16 rooms[21];
+	RoomNum rooms[21];
 
 	portal00018148(arg0, arg2, arg1, arg3, rooms, 20);
 
 	return cdTestAToB(arg0, arg2, rooms, types, geoflags, CHECKVERTICAL_YES, 1, 0, 0);
 }
 
-s32 cdTestLos11(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types)
+s32 cdTestLos11(struct coord *arg0, RoomNum *arg1, struct coord *arg2, RoomNum *arg3, u32 types)
 {
 	return cdTestLos10(arg0, arg1, arg2, arg3, types, GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT);
 }
@@ -3811,13 +3811,13 @@ s32 cdTestBlockOverlapsGeolist(u8 *start, u8 *end, struct geoblock *block, u16 g
  * and is also used in a sanity check to make sure a moved object hasn't moved
  * into the player's position.
  */
-s32 cdTestBlockOverlapsAnyProp(struct geoblock *geo, s16 *rooms, u32 types)
+s32 cdTestBlockOverlapsAnyProp(struct geoblock *geo, RoomNum *rooms, u32 types)
 {
 	s32 result = CDRESULT_NOCOLLISION;
 	s32 roomnum;
 	u8 *start;
 	u8 *end;
-	s16 *roomptr;
+	RoomNum *roomptr;
 	s16 propnums[256];
 	s16 *propnumptr;
 
@@ -4065,7 +4065,7 @@ bool cd0002ed30(u8 *start, u8 *end, struct geoblock *block, s32 numvertices, str
 	return true;
 }
 
-bool cd0002f02c(struct geoblock *block, s16 *rooms, s32 types)
+bool cd0002f02c(struct geoblock *block, RoomNum *rooms, s32 types)
 {
 	s32 numvertices = block->header.numvertices;
 	s32 i;
@@ -4093,7 +4093,7 @@ bool cd0002f02c(struct geoblock *block, s16 *rooms, s32 types)
 	}
 
 	if (types & CDTYPE_BG) {
-		s16 *roomsptr = rooms;
+		RoomNum *roomsptr = rooms;
 		s32 roomnum = *roomsptr;
 
 		while (roomnum != -1) {
@@ -4232,7 +4232,7 @@ void cd0002f2fc(u32 arg0, u32 arg1)
 	// empty
 }
 
-bool cdIsNearlyInSightWithFlags(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 types, u16 geoflags)
+bool cdIsNearlyInSightWithFlags(struct coord *viewpos, RoomNum *rooms, struct coord *targetpos, f32 distance, s32 types, u16 geoflags)
 {
 	struct coord diff;
 	f32 x;
@@ -4271,7 +4271,7 @@ bool cdIsNearlyInSightWithFlags(struct coord *viewpos, s16 *rooms, struct coord 
 	return false;
 }
 
-bool cdIsNearlyInSight(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 types)
+bool cdIsNearlyInSight(struct coord *viewpos, RoomNum *rooms, struct coord *targetpos, f32 distance, s32 types)
 {
 	return cdIsNearlyInSightWithFlags(viewpos, rooms, targetpos, distance, types, GEOFLAG_BLOCK_SIGHT);
 }

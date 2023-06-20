@@ -107,7 +107,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 	struct hoverbikeobj *bike;
 	f32 angle;
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	s32 result;
 	f32 ymax;
 	f32 ymin;
@@ -371,11 +371,11 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 {
 	s32 result = CDRESULT_NOCOLLISION;
 	struct coord dstpos;
-	s16 dstrooms[8];
+	RoomNum dstrooms[8];
 	struct hov hov;
 	bool hasvel = false;
 	struct hoverbikeobj *bike = (struct hoverbikeobj *) g_Vars.currentplayer->hoverbike->obj;
-	s16 spa8[20];
+	RoomNum spa8[20];
 	f32 xdiff;
 	f32 zdiff;
 	f32 ymax;
@@ -530,7 +530,7 @@ void bbikeUpdateVertical(struct coord *pos)
 {
 	struct defaultobj *bike = g_Vars.currentplayer->hoverbike->obj;
 	f32 angle;
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 	bool newinlift;
 	struct prop *lift = NULL;
 	f32 ground;

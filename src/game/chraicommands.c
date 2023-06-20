@@ -2361,7 +2361,7 @@ bool aiObjectMoveToPad(void)
 	u16 padnum = cmd[4] | (cmd[3] << 8);
 	Mtxf matrix;
 	struct pad pad;
-	s16 rooms[2];
+	RoomNum rooms[2];
 
 	if (obj && obj->prop) {
 		padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_ROOM, &pad);
@@ -5184,7 +5184,7 @@ bool aiChrMoveToPad(void)
 	bool pass = false;
 	f32 theta;
 	struct pad pad;
-	s16 rooms[2];
+	RoomNum rooms[2];
 	struct chrdata *chr2;
 
 	if (chr && chr->prop) {
@@ -9611,7 +9611,7 @@ bool aiSetDrCarollImages(void)
 bool aiSetRoomFlag(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	s16 roomnum = cmd[3] | cmd[2] << 8;
+	RoomNum roomnum = cmd[3] | cmd[2] << 8;
 	s16 flag = cmd[5] | cmd[4] << 8;
 
 	g_Rooms[roomnum].flags |= flag;
@@ -9658,7 +9658,7 @@ bool aiShowCutsceneChrs(void)
 bool aiConfigureEnvironment(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	s16 room_id = (cmd[3] | (cmd[2] << 8));
+	RoomNum room_id = (cmd[3] | (cmd[2] << 8));
 	s32 value = cmd[5];
 	s32 i;
 

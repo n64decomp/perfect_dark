@@ -4280,7 +4280,7 @@ struct modeldef *bgunGetCartModeldef(void)
 	return g_Vars.currentplayer->gunctrl.cartmodeldef;
 }
 
-void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf *matrix1, struct coord *velocity, Mtxf *matrix2, struct prop *prop, struct coord *pos)
+void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, RoomNum *rooms, Mtxf *matrix1, struct coord *velocity, Mtxf *matrix2, struct prop *prop, struct coord *pos)
 {
 	struct prop *objprop = obj->prop;
 
@@ -4325,7 +4325,7 @@ void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, stru
 {
 	struct prop *objprop = obj->prop;
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 
 	if (objprop) {
 		struct prop *playerprop = g_Vars.currentplayer->prop;
@@ -4348,7 +4348,7 @@ void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, stru
 	}
 }
 
-struct defaultobj *bgunCreateThrownProjectile2(struct chrdata *chr, struct gset *gset, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *velocity)
+struct defaultobj *bgunCreateThrownProjectile2(struct chrdata *chr, struct gset *gset, struct coord *pos, RoomNum *rooms, Mtxf *arg4, struct coord *velocity)
 {
 	struct defaultobj *obj = NULL;
 	struct weaponfunc *basefunc;
@@ -4457,7 +4457,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 	struct weaponobj *weapon;
 	struct coord muzzlepos;
 	struct coord spawnpos;
-	s16 spawnrooms[8];
+	RoomNum spawnrooms[8];
 	bool droppinggrenade = false;
 	struct hand *hand;
 	struct coord aimpos;
@@ -6748,7 +6748,7 @@ void bgunUpdateSmoke(struct hand *hand, s32 handnum, s32 weaponnum, struct weapo
 
 	if (hand->createsmoke && (hand->state != HANDSTATE_ATTACK || hand->forcecreatesmoke)) {
 		struct coord smokepos;
-		s16 smokerooms[2];
+		RoomNum smokerooms[2];
 		s32 smoketype = SMOKETYPE_MUZZLE_AUTOMATIC;
 
 		switch (weaponnum) {
@@ -11413,7 +11413,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 #endif
 }
 
-void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 texturenum)
+void bgunPlayGlassHitSound(struct coord *pos, RoomNum *rooms, s32 texturenum)
 {
 	if (g_Vars.lvupdate240 > 0) {
 		struct sndstate **handle = bgunAllocateAudioHandle();
@@ -11428,7 +11428,7 @@ void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 texturenum)
 	}
 }
 
-void bgunPlayBgHitSound(struct gset *gset, struct coord *hitpos, s32 texturenum, s16 *rooms)
+void bgunPlayBgHitSound(struct gset *gset, struct coord *hitpos, s32 texturenum, RoomNum *rooms)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	struct sndstate **handle;

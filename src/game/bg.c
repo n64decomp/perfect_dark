@@ -86,12 +86,12 @@ u32 var800a4920;
 u32 g_BgSection3;
 struct room *g_Rooms;
 u8 *g_MpRoomVisibility;
-s16 g_BgForceOnscreenRooms[350];
+RoomNum g_BgForceOnscreenRooms[350];
 s32 g_BgNumForceOnscreenRooms;
 u16 g_BgUnloadDelay240;
 u16 g_BgUnloadDelay240_2;
 u32 var800a4bf4;
-s16 g_GlareRooms[100];
+RoomNum g_GlareRooms[100];
 u32 *g_BgPrimaryData2;
 struct bgroom *g_BgRooms;
 struct bgportal *g_BgPortals;
@@ -135,7 +135,7 @@ void bgUnpausePropsInRoom(u32 roomnum, bool tintedglassonly)
 	struct prop *prop;
 	struct defaultobj *obj;
 	s16 *propnumptr;
-	s16 rooms[2];
+	RoomNum rooms[2];
 	s16 propnums[256];
 
 	rooms[0] = roomnum;
@@ -869,11 +869,11 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 
 Gfx *bgRenderSceneInXray(Gfx *gdl)
 {
-	s16 *roomnumptr;
-	s16 *room;
+	RoomNum *roomnumptr;
+	RoomNum *room;
 	s16 i;
 	s32 j;
-	s16 roomnumsbyprop[200];
+	RoomNum roomnumsbyprop[200];
 	struct prop *prop;
 	struct prop **ptr;
 	s32 k;
@@ -969,15 +969,15 @@ Gfx *bgRenderScene(Gfx *gdl)
 	s32 firstroomnum = -1;
 	s32 i;
 	s32 roomnum;
-	s16 roomnumsbyprop[200];
+	RoomNum roomnumsbyprop[200];
 	struct prop **ptr;
 	struct drawslot *thing;
-	s16 *roomnumptr;
+	RoomNum *roomnumptr;
 	struct prop *prop;
 	s16 tmp;
-	s16 *room;
+	RoomNum *room;
 	s16 roomorder[60];
-	s16 roomnums[60];
+	RoomNum roomnums[60];
 
 	g_NumRoomsWithGlares = 0;
 
@@ -4619,7 +4619,7 @@ bool bgRoomIsLoaded(s32 room)
 	return g_Rooms[room].loaded240;
 }
 
-bool bgRoomContainsCoord(struct coord *pos, s16 roomnum)
+bool bgRoomContainsCoord(struct coord *pos, RoomNum roomnum)
 {
 	struct coord copy;
 	copy.x = pos->x;
@@ -4646,7 +4646,7 @@ bool bgRoomContainsCoord(struct coord *pos, s16 roomnum)
  * - The normal points towards the front of the portal.
  * - The room on the front side is roomnum2.
  */
-bool bgTestPosInRoomCheap(struct coord *pos, s16 roomnum)
+bool bgTestPosInRoomCheap(struct coord *pos, RoomNum roomnum)
 {
 	s32 i;
 
@@ -4672,7 +4672,7 @@ bool bgTestPosInRoomCheap(struct coord *pos, s16 roomnum)
 	return true;
 }
 
-bool bgTestPosInRoomExpensive(struct coord *pos, s16 roomnum)
+bool bgTestPosInRoomExpensive(struct coord *pos, RoomNum roomnum)
 {
 	s32 t5;
 	struct coord *next;
@@ -4780,7 +4780,7 @@ bool bgTestPosInRoomExpensive(struct coord *pos, s16 roomnum)
 	return true;
 }
 
-bool bgTestPosInRoom(struct coord *pos, s16 roomnum)
+bool bgTestPosInRoom(struct coord *pos, RoomNum roomnum)
 {
 	if (g_Rooms[roomnum].flags & ROOMFLAG_COMPLICATEDPORTALS) {
 		return bgTestPosInRoomExpensive(pos, roomnum);
@@ -4809,7 +4809,7 @@ bool bgTestPosInRoom(struct coord *pos, s16 roomnum)
  * to pos and writes the room number to the bestroom pointer. The bestroom
  * pointer is a pointer to a single s16 rather than an array.
  */
-void bgFindRoomsByPos(struct coord *posarg, s16 *inrooms, s16 *aboverooms, s32 max, s16 *bestroom)
+void bgFindRoomsByPos(struct coord *posarg, RoomNum *inrooms, RoomNum *aboverooms, s32 max, RoomNum *bestroom)
 {
 	s32 inlen = 0;
 	s32 abovelen = 0;
@@ -5332,7 +5332,7 @@ void bgTickPortalsXray(void)
 	bgChooseRoomsToLoad();
 }
 
-void bgAddToSnake(s16 fromroomnum, s16 roomnum, s16 depth, struct screenbox *box)
+void bgAddToSnake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct screenbox *box)
 {
 	struct bgsnakeitem *item;
 	s32 i;
@@ -5419,10 +5419,10 @@ void bgConsumeSnakeItem(struct bgsnakeitem *item)
 	s32 i;
 	s16 portalnum;
 	s16 prevvalidcount;
-	s16 prevfoundroom;
-	s16 newfoundroom;
+	RoomNum prevfoundroom;
+	RoomNum newfoundroom;
 	s16 side;
-	s16 tmp;
+	RoomNum tmp;
 	bool pass;
 	struct portalmetric *metric;
 	struct screenbox prevbox;
@@ -5832,7 +5832,7 @@ Gfx *bgRenderSceneAndLoadCandidate(Gfx *gdl)
 	return gdl;
 }
 
-s32 bgGetForceOnscreenRooms(s16 *rooms, s32 len)
+s32 bgGetForceOnscreenRooms(RoomNum *rooms, s32 len)
 {
 	s32 i;
 
@@ -5845,7 +5845,7 @@ s32 bgGetForceOnscreenRooms(s16 *rooms, s32 len)
 	return i;
 }
 
-s32 bgRoomGetNeighbours(s32 roomnum, s16 *dstrooms, s32 len)
+s32 bgRoomGetNeighbours(s32 roomnum, RoomNum *dstrooms, s32 len)
 {
 	s32 count = 0;
 	s32 i;
@@ -5991,7 +5991,7 @@ bool bgPortalExists(s32 portalnum)
 
 void bgPortalSwapRooms(s32 portal)
 {
-	s16 tmp = g_BgPortals[portal].roomnum1;
+	RoomNum tmp = g_BgPortals[portal].roomnum1;
 	g_BgPortals[portal].roomnum1 = g_BgPortals[portal].roomnum2;
 	g_BgPortals[portal].roomnum2 = tmp;
 }
@@ -6210,10 +6210,10 @@ void bgCalculatePortalBbox(s32 portalnum, struct coord *bbmin, struct coord *bbm
 	}
 }
 
-void bgFindEnteredRooms(struct coord *bbmin, struct coord *bbmax, s16 *rooms, s32 maxlen, bool arg4)
+void bgFindEnteredRooms(struct coord *bbmin, struct coord *bbmax, RoomNum *rooms, s32 maxlen, bool arg4)
 {
-	s16 room;
-	s16 otherroom;
+	RoomNum room;
+	RoomNum otherroom;
 	s32 portalnum;
 	struct coord propbbmin;
 	struct coord propbbmax;

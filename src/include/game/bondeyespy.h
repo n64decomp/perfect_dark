@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-f32 eyespyFindGround(s16 *floorroom);
+f32 eyespyFindGround(RoomNum *floorroom);
 s32 eyespyTryMoveUpwards(f32 yvel);
 s32 eyespyCalculateNewPosition(struct coord *vel);
 bool eyespyCalculateNewPositionWithPush(struct coord *vel);

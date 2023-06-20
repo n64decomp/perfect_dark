@@ -989,7 +989,7 @@ struct defaultobj *objFindByPadNum(s32 padnum)
 	return NULL;
 }
 
-struct defaultobj *objFindByPos(struct coord *pos, s16 *rooms)
+struct defaultobj *objFindByPos(struct coord *pos, RoomNum *rooms)
 {
 	struct prop *prop = g_Vars.activeprops;
 	u8 *sp38;
@@ -1353,7 +1353,7 @@ struct modelrodata_bbox *objFindBboxRodata(struct defaultobj *obj)
 	return modelFindBboxRodata(obj->model);
 }
 
-s32 objGetAverageBrightnessInRooms(s16 *rooms, s32 brightnesstype)
+s32 objGetAverageBrightnessInRooms(RoomNum *rooms, s32 brightnesstype)
 {
 	s32 brightness = 0;
 	s32 i;
@@ -2142,7 +2142,7 @@ struct prop *objInitWithAutoModel(struct defaultobj *obj)
 	return objInitWithModelDef(obj, g_ModelStates[obj->modelnum].modeldef);
 }
 
-void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, s16 *rooms)
+void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, RoomNum *rooms)
 {
 	struct prop *prop = obj->prop;
 
@@ -2171,13 +2171,13 @@ f32 func0f06a620(struct defaultobj *obj)
 	return 4;
 }
 
-void func0f06a650(struct defaultobj *obj, struct coord *pos, Mtxf *arg2, s16 *rooms)
+void func0f06a650(struct defaultobj *obj, struct coord *pos, Mtxf *arg2, RoomNum *rooms)
 {
 	struct modelrodata_bbox *bbox;
-	s16 room;
+	RoomNum room;
 	f32 sp3c;
 	struct coord newpos;
-	s16 newrooms[2];
+	RoomNum newrooms[2];
 
 	bbox = modelFindBboxRodata(obj->model);
 
@@ -2201,14 +2201,14 @@ void func0f06a650(struct defaultobj *obj, struct coord *pos, Mtxf *arg2, s16 *ro
 	}
 }
 
-void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, s16 *rooms, struct coord *centre)
+void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, RoomNum *rooms, struct coord *centre)
 {
 	struct modelrodata_bbox *bbox = modelFindBboxRodata(obj->model);
 	f32 min = objGetLocalYMin(bbox);
 	f32 max = objGetLocalYMax(bbox);
 	struct coord pos2;
 	Mtxf sp70;
-	s16 rooms2[8];
+	RoomNum rooms2[8];
 	f32 curval;
 	f32 y;
 	f32 maxval;
@@ -2327,12 +2327,12 @@ void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, s16 *ro
 	func0f06a580(obj, &pos2, &sp70, rooms2);
 }
 
-void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, s16 *rooms, struct coord *arg4)
+void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, RoomNum *rooms, struct coord *arg4)
 {
 	struct modelrodata_bbox *bbox;
 	f32 mult;
 	struct coord newpos;
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 	Mtxf sp5c;
 	Mtxf sp1c;
 
@@ -3108,7 +3108,7 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 	return result;
 }
 
-bool projectileFindCollidingProp(struct prop *prop, struct coord *pos1, struct coord *pos2, u32 cdtypes, struct coord *arg4, struct coord *arg5, s16 *rooms)
+bool projectileFindCollidingProp(struct prop *prop, struct coord *pos1, struct coord *pos2, u32 cdtypes, struct coord *arg4, struct coord *arg5, RoomNum *rooms)
 {
 	bool result = false;
 	f32 dist;
@@ -3232,9 +3232,9 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 	struct coord sp1c4;
 	u32 stack;
 	bool s0;
-	s16 spcc[120];
-	s16 *ptr;
-	s16 spb8[8];
+	RoomNum spcc[120];
+	RoomNum *ptr;
+	RoomNum spb8[8];
 	s32 i;
 	f32 scale = 1.0f;
 
@@ -3287,7 +3287,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 					}
 				}
 			} else {
-				s16 spa0[2];
+				RoomNum spa0[2];
 				spa0[0] = spcc[i];
 				spa0[1] = -1;
 
@@ -3377,7 +3377,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	bool sp98 = false;
 	struct coord sp8c;
 	struct coord sp80;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	struct coord sp64;
 	struct coord sp58;
 	struct coord sp4c;
@@ -3966,7 +3966,7 @@ void objLand2(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	struct modelrodata_bbox *bbox = modelFindBboxRodata(obj->model);
 	f32 ymin = objGetLocalYMin(bbox);
 	struct prop *prop = obj->prop;
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 
 	func0f06e9cc(arg2, &sp40);
 	mtx00015f04(obj->model->scale, &sp40);
@@ -3987,7 +3987,7 @@ void boltLand(struct weaponobj *weapon, struct coord *arg1)
 	s32 beamnum;
 	f32 zmax;
 	struct prop *prop;
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 
 	bbox = modelFindBboxRodata(weapon->base.model);
 	prop = weapon->base.prop;
@@ -4023,7 +4023,7 @@ void knifeLand(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	struct modelrodata_bbox *bbox = modelFindBboxRodata(obj->model);
 	f32 zero = 0.0f;
 	struct prop *prop = obj->prop;
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 	struct coord sp1c;
 
 	// @bug? Should these be assigned to zero?
@@ -4175,7 +4175,7 @@ bool propExplode(struct prop *prop, s32 exptype)
 	if (prop->parent) {
 		struct prop *parent = prop->parent;
 		struct coord pos;
-		s16 rooms[8];
+		RoomNum rooms[8];
 
 		while (parent->parent) {
 			parent = parent->parent;
@@ -5159,10 +5159,10 @@ f32 objGetHov04(struct defaultobj *obj)
 	return result;
 }
 
-void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos, s16 *rooms, f32 matrix[3][3])
+void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos, RoomNum *rooms, f32 matrix[3][3])
 {
 	f32 ground;
-	s16 testrooms[8];
+	RoomNum testrooms[8];
 	struct coord testpos;
 
 	if (g_Vars.lvframe60 > hov->nexttick60) {
@@ -5194,8 +5194,8 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 	struct modelrodata_bbox *bbox;
 	struct coord sp1b4;
 	struct coord sp1a8;
-	s16 sp198[8];
-	s16 sp188[8];
+	RoomNum sp198[8];
+	RoomNum sp188[8];
 	Mtxf sp148;
 	Mtxf sp108;
 	Mtxf spc8;
@@ -5206,7 +5206,7 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 	f32 spb4;
 	f32 xrot;
 	f32 spac;
-	s16 sp9c[8];
+	RoomNum sp9c[8];
 	struct coord sp90;
 	bool sp8c;
 	f32 radius;
@@ -5481,7 +5481,7 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 	f32 sp460[3][3];
 	f32 yrot;
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	struct hov prevhov;
 	struct hov *hov = NULL;
 	union geounion geounion;
@@ -5632,7 +5632,7 @@ void hovercarStartNextPath(struct hovercarobj *hovercar)
 	s32 *pads;
 	struct pad pad;
 	Mtxf matrix;
-	s16 rooms[2];
+	RoomNum rooms[2];
 
 	hovercarFindNextPath(hovercar);
 
@@ -6008,7 +6008,7 @@ bool rocketTickFbw(struct weaponobj *rocket)
 	struct coord newpos;
 	struct coord dir;
 	u32 stack[2];
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 
 	if (projectile->ownerprop && projectile->ownerprop->type == PROPTYPE_CHR) {
 		ownerchr = projectile->ownerprop->chr;
@@ -6185,7 +6185,7 @@ s32 projectileLaunch(struct defaultobj *obj, struct projectile *projectile, stru
 	}
 
 	if (cdresult == CDRESULT_NOCOLLISION) {
-		s16 rooms[8];
+		RoomNum rooms[8];
 
 		func0f065e74(&prop->pos, prop->rooms, &projectile->nextsteppos, rooms);
 
@@ -6197,7 +6197,7 @@ s32 projectileLaunch(struct defaultobj *obj, struct projectile *projectile, stru
 		roomsCopy(rooms, prop->rooms);
 	} else if (cdresult != CDRESULT_NOCOLLISION && obj->type == OBJTYPE_WEAPON) {
 		struct weaponobj *weapon = (struct weaponobj *)obj;
-		s16 rooms[8];
+		RoomNum rooms[8];
 
 		if (weapon->weaponnum == WEAPON_ROCKET || weapon->weaponnum == WEAPON_HOMINGROCKET) {
 			weapon->timer240 = 0;
@@ -6228,7 +6228,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 	bool result = false;
 	struct prop *prop = obj->prop;
 	struct coord sp5c8;
-	s16 sp5b8[8];
+	RoomNum sp5b8[8];
 	struct coord sp5ac;
 	f32 sp5a8;
 	struct coord sp59c;
@@ -6662,7 +6662,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				result = true;
 			} else if (projectile->flags & PROJECTILEFLAG_AIRBORNE) {
 				f32 sp390;
-				s16 roomnum;
+				RoomNum roomnum;
 				struct coord sp380;
 				f32 sp37c;
 				f32 realrot[3][3];
@@ -7147,7 +7147,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 
 					if (!handled) {
 						if (cdresult != CDRESULT_COLLISION) {
-							s16 rooms[8];
+							RoomNum rooms[8];
 
 							func0f065e74(&prop->pos, prop->rooms, &sp5dc, rooms);
 
@@ -7158,7 +7158,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 							propDeregisterRooms(prop);
 							roomsCopy(rooms, prop->rooms);
 						} else {
-							s16 rooms[8];
+							RoomNum rooms[8];
 
 							if (g_EmbedProp && (g_EmbedProp->type == PROPTYPE_CHR || g_EmbedProp->type == PROPTYPE_PLAYER)) {
 								sp5dc.x = prop->pos.x;
@@ -7444,7 +7444,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				if (projectile->speed.f[0] != 0.0f || projectile->speed.f[2] != 0.0f || projectile->unk060 < 1.0f) {
 					f32 f12;
 					f32 spa4;
-					s16 roomnum;
+					RoomNum roomnum;
 					s32 i;
 					f32 sp98 = objGetRotatedLocalYMinByMtx3(objFindBboxRodata(obj), obj->realrot);
 #if VERSION >= VERSION_NTSC_1_0
@@ -7882,7 +7882,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 
 					if (g_Vars.players[playernum]->inlift && !g_Vars.players[playernum]->onladder && !g_Vars.players[playernum]->isfalling) {
 						struct coord sp78;
-						s16 sp68[8];
+						RoomNum sp68[8];
 						f32 ydist = newpos->y - prevpos->y;
 
 						if (ydist != 0.0f) {
@@ -7975,7 +7975,7 @@ void liftTick(struct prop *prop)
 	f32 frac;
 	s32 move;
 	struct coord newpos;
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 	struct coord prevpos;
 #if VERSION >= VERSION_NTSC_1_0
 	f32 prevdist;
@@ -9009,11 +9009,11 @@ void autogunTickShoot(struct prop *autogunprop)
 
 			if (fireleft || fireright) {
 				struct coord gunpos;
-				s16 gunrooms[8];
+				RoomNum gunrooms[8];
 				struct coord dir;
 				bool missed = false;
 				struct coord hitpos;
-				s16 hitrooms[8];
+				RoomNum hitrooms[8];
 				bool makebeam = (autogun->firecount % 4) == 0;
 				struct prop *targetprop = autogun->target;
 				struct modelnode *flashnode;
@@ -9773,7 +9773,7 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 {
 	struct defaultobj *obj = prop->obj;
 	struct chopperobj *chopper = (struct chopperobj *)obj;
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 	struct coord newpos;
 	f32 curroty;
 	f32 currotx;
@@ -10066,10 +10066,10 @@ void chopperTickFall(struct prop *chopperprop)
 
 		if (cdExamLos09(&chopperprop->pos, chopperprop->rooms, &newpos, CDTYPE_BG) == CDRESULT_COLLISION) {
 			struct coord sp74;
-			s16 room;
+			RoomNum room;
 			struct coord sp64;
 			f32 ground;
-			s16 newrooms[8];
+			RoomNum newrooms[8];
 
 			chopperprop->pos.y += 100;
 			ground = cdFindGroundAtCyl(&chopperprop->pos, 5, chopperprop->rooms, NULL, NULL);
@@ -10369,7 +10369,7 @@ void hovercarTick(struct prop *prop)
 	bool stopping;
 	struct pad pad;
 	struct coord sp214;
-	s16 sp210[2];
+	RoomNum sp210[2];
 	struct hovercarobj *hovercar = (struct hovercarobj *) prop->obj;
 	struct defaultobj *obj = &hovercar->base;
 	u32 stack;
@@ -10380,11 +10380,11 @@ void hovercarTick(struct prop *prop)
 	struct prop *doorprop;
 	struct coord sp1e4;
 	struct coord sp1d8;
-	s16 sp1d6;
+	RoomNum sp1d6;
 	f32 x;
 	f32 z;
 	struct coord sp1c0;
-	s16 sp1b0[8];
+	RoomNum sp1b0[8];
 	struct modelrodata_bbox *bbox;
 	f32 ymin;
 	s32 *padnum;
@@ -10397,7 +10397,7 @@ void hovercarTick(struct prop *prop)
 	f32 sp180;
 	f32 sp15c[3][3];
 	struct coord sp150;
-	s16 sp140[8];
+	RoomNum sp140[8];
 	f32 tmp2;
 	f32 sp138;
 	struct coord sp12c;
@@ -11026,7 +11026,7 @@ s32 objTickPlayer(struct prop *prop)
 				struct modelrenderdata sp476 = {0, 1, 3};
 				Mtxf sp412;
 				struct coord sp400;
-				s16 sp384[8];
+				RoomNum sp384[8];
 				struct hov *hov = NULL;
 
 				if (fulltick) {
@@ -11112,7 +11112,7 @@ s32 objTickPlayer(struct prop *prop)
 			struct modelrenderdata sp312 = {0, 1, 3};
 			Mtxf sp248;
 			struct coord sp236;
-			s16 sp220[8];
+			RoomNum sp220[8];
 			s32 numchrs;
 			Mtxf sp152;
 			s32 sp148;
@@ -14387,7 +14387,7 @@ bool objDrop(struct prop *prop, bool lazy)
 	struct model *model;
 	Mtxf spf0;
 	struct coord spe4;
-	s16 rooms[8];
+	RoomNum rooms[8];
 
 	if ((obj->hidden & OBJHFLAG_EMBEDDED) && obj->embedment->projectile) {
 		struct projectile *projectile2 = obj->embedment->projectile;
@@ -14704,7 +14704,7 @@ void objCheckDestroyed(struct defaultobj *obj, struct coord *pos, s32 playernum)
 		struct prop *prop = obj->prop;
 		struct prop *rootprop = prop;
 		s16 exptype = g_PropExplosionTypes[8 + obj->modelnum];
-		s16 rooms[8];
+		RoomNum rooms[8];
 
 		// If in Deep Sea outro
 		if (g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneAnimNum == ANIM_CUT_PAM_OUTRO_CAM) {
@@ -18761,7 +18761,7 @@ s32 weaponTestForPickup(struct prop *prop)
 	return objTestForPickup(prop);
 }
 
-void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
+void weaponSetGunfireVisible(struct prop *prop, bool visible, RoomNum room)
 {
 	u32 stack[4];
 	bool flash = false;
@@ -19297,12 +19297,12 @@ void doorDeactivatePortal(struct doorobj *door)
 	}
 }
 
-struct prop *doorInit(struct doorobj *door, struct coord *pos, Mtxf *mtx, s16 *rooms, struct coord *coord, struct coord *centre)
+struct prop *doorInit(struct doorobj *door, struct coord *pos, Mtxf *mtx, RoomNum *rooms, struct coord *coord, struct coord *centre)
 {
 	struct prop *prop;
 	union modelrodata *rodata;
 	Mtxf sp38;
-	s16 sp28[8];
+	RoomNum sp28[8];
 
 	door->base.flags |= OBJFLAG_00000100;
 	prop = objInitWithAutoModel(&door->base);
@@ -19805,10 +19805,10 @@ s32 doorIsOpen(struct doorobj *door)
 	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) && door->frac >= door->maxfrac;
 }
 
-s32 func0f08e5a8(s16 *rooms2, struct screenbox *box)
+s32 func0f08e5a8(RoomNum *rooms2, struct screenbox *box)
 {
 	bool result = false;
-	s16 *rooms = rooms2;
+	RoomNum *rooms = rooms2;
 	s32 roomnum = *rooms;
 
 	while (roomnum != -1) {
@@ -19913,8 +19913,8 @@ bool posIsInObjFadeDistance(struct coord *pos, f32 modelscale)
 
 bool func0f08e8ac(struct prop *prop, struct coord *pos, f32 arg2, bool arg3)
 {
-	s16 *rooms;
-	s32 roomnum;
+	RoomNum *rooms;
+	RoomNum roomnum;
 	bool result = false;
 	u32 stack;
 
@@ -21123,7 +21123,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 		f32 z;
 		f32 sqdist;
 		struct prop *obstacle = NULL;
-		s16 sp1c8[8];
+		RoomNum sp1c8[8];
 		u8 forcebeam = false;
 		struct beam beam;
 		struct coord frompos;

@@ -186,7 +186,7 @@ bool setup0f092304(struct defaultobj *obj, struct coord *arg1, struct coord *arg
 	return setupGetObjBbox(obj, &obj->prop->pos, obj->realrot, arg1, arg2);
 }
 
-void setup0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], s16 *rooms)
+void setup0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], RoomNum *rooms)
 {
 	struct coord a;
 	struct coord b;

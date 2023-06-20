@@ -73,12 +73,12 @@ void navSetSeed(u32 upper, u32 lower)
  * The function will return NULL if there are no waypoints at all within the
  * position's room or its neighbours.
  */
-struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
+struct waypoint *waypointFindClosestToPos(struct coord *pos, RoomNum *rooms)
 {
 	struct waypoint *closest = NULL;
-	s16 allrooms[30];
+	RoomNum allrooms[30];
 	s32 candlen = 0;
-	s16 neighbours[10];
+	RoomNum neighbours[10];
 	s32 i;
 	s32 j;
 	struct waypoint *candwaypoints[10];
@@ -152,7 +152,7 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 		// Check which candidates have line of sight
 		for (i = 0; i < candlen; i++) {
 			struct pad pad;
-			s16 padrooms[8];
+			RoomNum padrooms[8];
 
 			padUnpack(candwaypoints[i]->padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
 
@@ -185,10 +185,10 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
 			for (i = 0; i < candlen; i++) {
 				if (checkmore[i] && (sp250[i].x != sp1d8[i].x || sp250[i].z != sp1d8[i].z)) {
 					struct pad pad;
-					s16 padrooms[8];
+					RoomNum padrooms[8];
 					struct coord sp98;
 					struct coord tmppos;
-					s16 tmprooms[8];
+					RoomNum tmprooms[8];
 					f32 mult;
 
 					padUnpack(candwaypoints[i]->padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);

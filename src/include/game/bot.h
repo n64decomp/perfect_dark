@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-bool botroomFindPos(s16 room, struct coord *pos, f32 *angleptr, s32 *padnumptr, s32 *covernumptr);
+bool botroomFindPos(RoomNum room, struct coord *pos, f32 *angleptr, s32 *padnumptr, s32 *covernumptr);
 
 bool botIsDizzy(struct chrdata *chr);
 void botReset(struct chrdata *chr, u8 respawning);
@@ -45,8 +45,8 @@ char *botGetCommandName(s32 command);
 void botApplyAttack(struct chrdata *chr, struct prop *prop);
 void botApplyFollow(struct chrdata *chr, struct prop *prop);
 void botApplyProtect(struct chrdata *chr, struct prop *prop);
-void botApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle);
-void botApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle);
+void botApplyDefend(struct chrdata *chr, struct coord *pos, RoomNum *room, f32 angle);
+void botApplyHold(struct chrdata *chr, struct coord *pos, RoomNum *room, f32 angle);
 void botApplyScenarioCommand(struct chrdata *chr, u32 arg1);
 bool botCanFollow(struct chrdata *leader, struct chrdata *follower);
 s32 botFindTeammateToFollow(struct chrdata *chr, f32 range);

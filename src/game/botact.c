@@ -440,7 +440,7 @@ s32 botactGetShootInterval60(s32 weaponnum, s32 funcnum)
  *
  * Return true if a route was found, false if not.
  */
-bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct coord *topos, s16 *fromrooms, s16 *torooms, struct projectile *projectile)
+bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct coord *topos, RoomNum *fromrooms, RoomNum *torooms, struct projectile *projectile)
 {
 	struct waypoint *from = waypointFindClosestToPos(frompos, fromrooms);
 	struct waypoint *to = waypointFindClosestToPos(topos, torooms);
@@ -479,7 +479,7 @@ bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct co
 void botactGetRocketNextStepPos(u16 padnum, struct coord *pos)
 {
 	struct pad pad;
-	s16 rooms[2];
+	RoomNum rooms[2];
 
 	padUnpack(padnum, PADFIELD_ROOM | PADFIELD_POS, &pad);
 

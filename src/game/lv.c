@@ -1607,9 +1607,9 @@ Gfx *lvRender(Gfx *gdl)
 						|| debugIsChrStatsEnabled()
 						|| debug0f11ee40()) {
 #if VERSION < VERSION_NTSC_1_0
-					s16 spc8[21];
-					s16 spb0[11];
-					s16 sp9c[10];
+					RoomNum spc8[21];
+					RoomNum spb0[11];
+					RoomNum sp9c[10];
 					s32 j;
 
 					sp9c[0] = g_Vars.currentplayer->memcamroom;
@@ -2063,7 +2063,7 @@ void lvTick(void)
 					// Check if another player is in a nearby room
 					for (playernum = 0; playernum < PLAYERCOUNT() && !foundnearbychr; playernum++) {
 						if (g_Vars.players[playernum]->isdead == false) {
-							s16 *rooms = g_Vars.players[playernum]->prop->rooms;
+							RoomNum *rooms = g_Vars.players[playernum]->prop->rooms;
 							s32 r;
 
 							for (r = 0; rooms[r] != -1 && !foundnearbychr; r++) {

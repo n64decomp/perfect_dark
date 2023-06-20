@@ -39,7 +39,7 @@ u32 g_EyespyMaxFallSpeed = 3000;
  * position 50 units above the current position, or less if the eyespy is near
  * the top of its height range.
  */
-f32 eyespyFindGround(s16 *floorroom)
+f32 eyespyFindGround(RoomNum *floorroom)
 {
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
 	s32 inlift;
@@ -75,7 +75,7 @@ s32 eyespyTryMoveUpwards(f32 yvel)
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
 	struct chrdata *chr = prop->chr;
 	struct coord dstpos;
-	s16 dstrooms[8];
+	RoomNum dstrooms[8];
 	s32 types;
 	u32 stack;
 	f32 f0;
@@ -118,9 +118,9 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 	struct prop *eyespyprop = g_Vars.currentplayer->eyespy->prop;
 	struct chrdata *chr = eyespyprop->chr;
 	struct coord dstpos;
-	s16 dstrooms[8];
-	s16 floorroom;
-	s16 sp74[24];
+	RoomNum dstrooms[8];
+	RoomNum floorroom;
+	RoomNum sp74[24];
 	s32 types;
 	s32 i;
 	f32 ymin;
@@ -713,7 +713,7 @@ void eyespyProcessInput(bool allowbuttons)
 	f32 angle;
 	f32 ascendspeed = 0.0f;
 	f32 prevverta = g_Vars.currentplayer->eyespy->verta;
-	s16 prevrooms[8];
+	RoomNum prevrooms[8];
 	s32 contpad2;
 	u32 stack[5];
 	f32 tmp;

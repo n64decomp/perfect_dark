@@ -389,7 +389,7 @@ void setupCreateObject(struct defaultobj *obj, s32 cmdindex)
 	struct coord centre;
 	f32 scale;
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	struct prop *prop2;
 	u32 flag40;
 	u32 stack;
@@ -1084,7 +1084,7 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 		struct prop *prop;
 		s32 siblingcmdindex;
 		struct coord pos;
-		s16 rooms[8];
+		RoomNum rooms[8];
 		Mtxf finalmtx;
 		struct coord centre;
 		Mtxf zrotmtx;
