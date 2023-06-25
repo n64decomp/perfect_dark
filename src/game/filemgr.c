@@ -2187,7 +2187,7 @@ MenuItemHandlerResult pakDeleteGameNoteMenuHandler(s32 operation, struct menuite
 
 		g_Menus[g_MpPlayerNum].fm.device1 = g_Menus[g_MpPlayerNum].fm.device;
 
-		if (result) {
+		if (result != PAK_ERR1_OK) {
 			filemgrPushErrorDialog(FILEERROR_DELETENOTEFAILED);
 		}
 	}
@@ -2314,14 +2314,14 @@ MenuDialogHandlerResult pakGameNotesMenuDialog(s32 operation, struct menudialogd
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog
 				&& g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
-			s32 value = pak0f1168c4(g_Menus[g_MpPlayerNum].fm.device, &g_EditingPak);
+			PakErr1 ret = pak0f1168c4(g_Menus[g_MpPlayerNum].fm.device, &g_EditingPak);
 
-			if (value) {
+			if (ret != PAK_ERR1_OK) {
 				menuCloseDialog();
 				g_EditingPak = NULL;
 				g_Menus[g_MpPlayerNum].fm.device1 = g_Menus[g_MpPlayerNum].fm.device;
 
-				if (value == 1) {
+				if (ret == PAK_ERR1_NOPAK) {
 					filemgrPushErrorDialog(FILEERROR_PAKREMOVED);
 				}
 
@@ -2403,7 +2403,7 @@ char *pakMenuTextEditingPakName(struct menuitem *item)
 MenuItemHandlerResult pakSelectionMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
-		if (!pakIsMemoryPak((s8)item->param)) {
+		if (!mempakIsOkay((s8)item->param)) {
 			return true;
 		}
 	}
@@ -2426,7 +2426,7 @@ MenuDialogHandlerResult pakChoosePakMenuDialog(s32 operation, struct menudialogd
 #if VERSION >= VERSION_NTSC_1_0
 	switch (operation) {
 	case MENUOP_OPEN:
-		joy0001398c(3);
+		joySetPfsPollInterval(3);
 		g_Menus[g_MpPlayerNum].fm.unke24 = 0;
 		break;
 	case MENUOP_TICK:
@@ -2438,20 +2438,20 @@ MenuDialogHandlerResult pakChoosePakMenuDialog(s32 operation, struct menudialogd
 
 			for (i = 0; i < MAX_PLAYERS; i++) {
 				if (g_Menus[g_MpPlayerNum].fm.unke24 & (1 << i)) {
-					g_Vars.unk0004e4 &= 0xfff0;
-					g_Vars.unk0004e4 |= 0x0008;
-					g_Vars.unk0004e4 |= 1 << (i + 8);
+					g_Vars.pakstocheck &= 0xfff0;
+					g_Vars.pakstocheck |= 0x0008;
+					g_Vars.pakstocheck |= 1 << (i + 8);
 				}
 			}
 		}
-		joy000139c8();
+		joySetDefaultPfsPollInterval();
 		break;
 	}
 #else
 	switch (operation) {
 	case MENUOP_OPEN:
-		joy0001398c(3);
-		joy0001398c(-1);
+		joySetPfsPollInterval(3);
+		joySetPfsPollInterval(-1);
 		g_Menus[g_MpPlayerNum].fm.unke24 = 0;
 		break;
 	case MENUOP_TICK:
@@ -2467,7 +2467,7 @@ MenuDialogHandlerResult pakChoosePakMenuDialog(s32 operation, struct menudialogd
 				}
 			}
 		}
-		joy000139c8();
+		joySetDefaultPfsPollInterval();
 		pak0f1189d0();
 		break;
 	}

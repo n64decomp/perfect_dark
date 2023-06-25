@@ -5623,7 +5623,7 @@ MenuDialogHandlerResult menudialog000fcd48(s32 operation, struct menudialogdef *
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog
 				&& g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
-				&& joy000155b4(g_Menus[g_MpPlayerNum].fm.device3) == 0) {
+				&& joyGetPakState(g_Menus[g_MpPlayerNum].fm.device3) == PAKSTATE_NOPAK) {
 			func0f0f3704(&g_PakRemovedMenuDialog);
 		}
 	}
@@ -5655,12 +5655,12 @@ MenuItemHandlerResult menuhandlerRepairPak(s32 operation, struct menuitem *item,
 	return 0;
 }
 
-void func0f0fce8c(struct menudialogdef *dialogdef, s32 playernum, s32 arg2)
+void menuPushPakDialogForPlayer(struct menudialogdef *dialogdef, s32 playernum, s32 paknum)
 {
 	s32 prevplayernum = g_MpPlayerNum;
 
 	g_MpPlayerNum = playernum;
-	g_Menus[g_MpPlayerNum].fm.device3 = arg2;
+	g_Menus[g_MpPlayerNum].fm.device3 = paknum;
 
 	if (g_Menus[g_MpPlayerNum].curdialog == NULL) {
 		if (PLAYERCOUNT() == 1) {
@@ -5880,11 +5880,11 @@ MenuItemHandlerResult menuhandlerRetrySavePak(s32 operation, struct menuitem *it
 		menuPopDialog();
 
 #if VERSION >= VERSION_NTSC_1_0
-		g_Vars.unk0004e4 &= 0xfff0;
-		g_Vars.unk0004e4 |= 8;
-		g_Vars.unk0004e4 |= 1 << ((u8)g_Menus[g_MpPlayerNum].fm.device3 + 8);
+		g_Vars.pakstocheck &= 0xfff0;
+		g_Vars.pakstocheck |= 0x0008;
+		g_Vars.pakstocheck |= 1 << ((u8)g_Menus[g_MpPlayerNum].fm.device3 + 8);
 #else
-		pak0f1169c8(g_Menus[g_MpPlayerNum].fm.device3, 0);
+		pak0f1169c8(g_Menus[g_MpPlayerNum].fm.device3, false);
 #endif
 	}
 
@@ -5904,18 +5904,18 @@ MenuItemHandlerResult menuhandlerWarnRepairPak(s32 operation, struct menuitem *i
 	return 0;
 }
 
-u32 func0f0fd118(u32 playernum)
+s32 menuPakNumToPlayerNum(s32 paknum)
 {
 	u32 result = 0;
 
 	if (g_Vars.normmplayerisrunning) {
-		if (g_MpSetup.chrslots & (1 << playernum)) {
-			result = playernum;
+		if (g_MpSetup.chrslots & (1 << paknum)) {
+			result = paknum;
 		}
 	} else {
 		if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 				&& PLAYERCOUNT() >= 2
-				&& playernum == 1) {
+				&& paknum == 1) {
 			result = 1;
 		}
 	}
@@ -5923,9 +5923,9 @@ u32 func0f0fd118(u32 playernum)
 	return result;
 }
 
-bool func0f0fd1f4(s32 arg0, s32 arg1)
+bool menuIsReadyForPakError(s32 paknum, s32 pakerrordialog)
 {
-	s32 playernum = func0f0fd118(arg0);
+	s32 playernum = menuPakNumToPlayerNum(paknum);
 	bool result = true;
 
 	if (g_Vars.lvframenum < 20) {
@@ -5950,8 +5950,7 @@ bool func0f0fd1f4(s32 arg0, s32 arg1)
 				|| g_Menus[playernum].curdialog->definition == &g_PakAttemptRepairMenuDialog
 				|| g_Menus[playernum].curdialog->definition == &g_PakRemovedMenuDialog
 				|| g_Menus[playernum].curdialog->definition == &g_PakRepairSuccessMenuDialog
-				|| g_Menus[playernum].curdialog->definition == &g_PakRepairFailedMenuDialog
-				) {
+				|| g_Menus[playernum].curdialog->definition == &g_PakRepairFailedMenuDialog) {
 			result = false;
 		}
 	} else if (g_MenuData.nextbg != 255 || g_MenuData.bg || g_MenuData.unk5d4) {
@@ -5961,21 +5960,21 @@ bool func0f0fd1f4(s32 arg0, s32 arg1)
 	return result;
 }
 
-void func0f0fd320(s32 arg0, s32 arg1)
+void menuPushPakErrorDialog(s32 paknum, s32 pakerrordialog)
 {
 	s32 prevplayernum = g_MpPlayerNum;
-	s32 playernum = func0f0fd118(arg0);
+	s32 playernum = menuPakNumToPlayerNum(paknum);
 	bool found;
 	s32 i;
 
 	g_MpPlayerNum = playernum;
 
-	switch (arg1) {
-	case 1:
-	case 2:
-		func0f0fce8c(&g_PakDamagedMenuDialog, playernum, arg0);
+	switch (pakerrordialog) {
+	case PAKERRORDIALOG_CORRUPT:
+	case PAKERRORDIALOG_DEVICEERROR:
+		menuPushPakDialogForPlayer(&g_PakDamagedMenuDialog, playernum, paknum);
 		break;
-	case 0:
+	case PAKERRORDIALOG_FULL:
 		found = false;
 
 		for (i = 0; i < g_Menus[g_MpPlayerNum].depth; i++) {
@@ -5986,15 +5985,15 @@ void func0f0fd320(s32 arg0, s32 arg1)
 		}
 
 		if (!found) {
-			func0f0fce8c(&g_PakFullMenuDialog, playernum, arg0);
+			menuPushPakDialogForPlayer(&g_PakFullMenuDialog, playernum, paknum);
 		}
 		break;
 #if VERSION >= VERSION_NTSC_1_0
-	case 3:
-		func0f0fce8c(&g_PakCannotReadGameBoyMenuDialog, playernum, arg0);
+	case PAKERRORDIALOG_GB_UNREADABLE:
+		menuPushPakDialogForPlayer(&g_PakCannotReadGameBoyMenuDialog, playernum, paknum);
 		break;
-	case 4:
-		func0f0fce8c(&g_PakDataLostMenuDialog, playernum, arg0);
+	case PAKERRORDIALOG_DATALOST:
+		menuPushPakDialogForPlayer(&g_PakDataLostMenuDialog, playernum, paknum);
 		break;
 #endif
 	}

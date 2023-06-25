@@ -101,84 +101,66 @@ u32 var8005eed4 = 0;
 u8 var8005eed8 = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
-bool var8005eedc = true;
-s32 var8005eee0 = 0;
-s32 var8005eee4 = -1;
-u32 var8005eee8 = 0;
-u32 var8005eeec = 0;
-u32 var8005eef0 = 1;
+bool g_JoyPfsPollMasterEnabled = true;
+s32 g_JoyPfsPollInterval = 0;
+s32 g_JoyPfsPollTimeRemaining = -1;
+u32 g_JoyPfsPollCount = 0;
+bool g_JoyPfsPollEnabled = false;
+bool g_JoyCyclicPollingLocked = true;
 #else
 u32 var800612c8nb = 3;
 u8 var800612ccnb = 0;
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void joy00013900(void)
+void joyLockCyclicPolling(void)
 {
-	if (var8005eef0) {
+	if (g_JoyCyclicPollingLocked) {
 		joyDisableCyclicPolling();
-		var8005eef0 = false;
+		g_JoyCyclicPollingLocked = false;
 	}
 }
 
-void joy00013938(void)
+void joyUnlockCyclicPolling(void)
 {
-	if (!var8005eef0) {
+	if (!g_JoyCyclicPollingLocked) {
 		joyEnableCyclicPolling();
-		var8005eef0 = true;
+		g_JoyCyclicPollingLocked = true;
 	}
 }
 
-void joy00013974(u32 value)
+void joySetPfsPollEnabled(bool enabled)
 {
-	var8005eeec = value;
+	g_JoyPfsPollEnabled = enabled;
+}
+
+bool joyIsPfsPollEnabled(void)
+{
+	return g_JoyPfsPollEnabled;
 }
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-u32 joy00013980(void)
-{
-	return var8005eeec;
-}
-#endif
-
-/**
- * Note: Some of the variables in this file are misnamed in NTSC beta.
- * @TODO: Untangle these.
- */
-void joy0001398c(s32 value)
+void joySetPfsPollInterval(s32 value)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	var8005eee4 = var8005eee0 = value * 11000;
+	g_JoyPfsPollTimeRemaining = g_JoyPfsPollInterval = value * 11000;
 #else
 	g_JoyNextPfsStateIndex = value;
 #endif
 }
 
-void joy000139c8(void)
+void joySetDefaultPfsPollInterval(void)
 {
-	joy0001398c(VERSION >= VERSION_NTSC_1_0 ? 10 : 30);
+	joySetPfsPollInterval(VERSION >= VERSION_NTSC_1_0 ? 10 : 30);
 }
 
-#if VERSION < VERSION_NTSC_1_0
-// Same function as the one a couple above, just relocated
-u32 joy00013980(void)
-{
-#if VERSION >= VERSION_NTSC_1_0
-	return var8005eeec;
-#else
-	return var8005eed8;
-#endif
-}
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
 /**
  * Remove an item from the beginning of the g_JoyPfsStates array,
  * shift the rest of the array back and return the removed item.
  */
 s32 joyShiftPfsStates(void)
 {
+#if VERSION >= VERSION_NTSC_1_0
 	s32 pfsstate = 0;
 	s32 i;
 
@@ -195,8 +177,10 @@ s32 joyShiftPfsStates(void)
 	}
 
 	return pfsstate;
-}
+#else
+	return var8005eed8;
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void joyRecordPfsState(u8 pfsstate)
@@ -215,68 +199,69 @@ void joyRecordPfsState(u8 pfsstate)
 #if VERSION >= VERSION_NTSC_1_0
 /**
  * Scan controllers for controller paks, but only under certain conditions.
- * Seems to be timer based, or can be forced by passing 2 as arg0.
+ *
+ * force 0 = poll based on the configured poll frequency and if not disabled
+ * force 1 = poll based on the configured poll frequency even if disabled
+ * force 2 = poll now
  */
-void joyCheckPfs(s32 arg0)
+void joyPollPfs(s32 force)
 {
-	static u32 thiscount = 0; // 8005eef4
-	static u32 prevcount = 0; // 8005eef8
-	static u32 doingit = false; // 8005eefc
+	static u32 thiscount = 0;
+	static u32 prevcount = 0;
+	static u32 doingit = false;
 	u32 diffcount;
 	u32 value;
 
-	if (var8005eedc
-			&& (arg0 == 2 || (var8005eee0 && (arg0 || ((g_JoyCyclicPollDisableCount == 0 || var8005eef0 == 0) && var8005eeec))))
+	if (g_JoyPfsPollMasterEnabled
+			&& (force == 2 || (g_JoyPfsPollInterval && (force || ((g_JoyCyclicPollDisableCount == 0 || !g_JoyCyclicPollingLocked) && g_JoyPfsPollEnabled))))
 			&& !doingit) {
 		doingit = true;
 		prevcount = thiscount;
 		thiscount = osGetCount();
 		diffcount = (thiscount - prevcount) / 256;
-		value = var8005eee0 * 2;
+		value = g_JoyPfsPollInterval * 2;
 
 		if (diffcount > value) {
 			diffcount = value;
 		}
 
-		var8005eee4 -= diffcount;
+		g_JoyPfsPollTimeRemaining -= diffcount;
 
-		if (var8005eee4 < 0
-				|| arg0 == 2
-				|| (arg0 == 1 && var8005eee4 < 0 && var8005eee0 < -var8005eee4)) {
+		if (g_JoyPfsPollTimeRemaining < 0
+				|| force == 2
+				|| (force == 1 && g_JoyPfsPollTimeRemaining < 0 && -g_JoyPfsPollTimeRemaining > g_JoyPfsPollInterval)) {
 			u8 bitpattern = 0;
 
-			var8005eee8++;
+			g_JoyPfsPollCount++;
 
-			if (arg0) {
+			if (force) {
 				joyDisableCyclicPolling();
 			}
 
 			osPfsIsPlug(&g_PiMesgQueue, &bitpattern);
 
-			if (arg0) {
+			if (force) {
 				joyEnableCyclicPolling();
 			}
 
-			bitpattern |= 0x10;
+			bitpattern |= 0x10; // eeprom
 
 			joyRecordPfsState(bitpattern);
 
-			var8005eee4 = var8005eee0;
+			g_JoyPfsPollTimeRemaining = g_JoyPfsPollInterval;
 		}
 
 		doingit = false;
 	}
 
 #if VERSION < VERSION_PAL_BETA
-	if (arg0) {
-		// empty
-	}
+	if (force);
 #endif
 }
 #endif
 
 /**
- * "Temporarily" because the next time joyCheckPfs runs, the true state will be
+ * "Temporarily" because the next time joyPollPfs runs, the true state will be
  * recorded.
  *
  * Note that var8005eed8 is always zero, so this record will suggest that this
@@ -527,8 +512,8 @@ void joy00014238(void)
 		doingit = true;
 
 		for (i = 0; i < NUM_PADS; i++) {
-			if (joy000155f4(i) == PAK010_13) {
-				pakSetUnk010(i, PAK010_11);
+			if (joyGetPakState2(i) == PAKSTATE_13) {
+				pakSetState(i, PAKSTATE_READY);
 			}
 		}
 
@@ -551,8 +536,8 @@ void joyDebugJoy(void)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (g_Vars.paksconnected) {
-		joyCheckPfs(1);
+	if (g_Vars.paksneededformenu) {
+		joyPollPfs(1);
 	}
 #endif
 
@@ -652,7 +637,7 @@ void joysHandleRetrace(void)
 		var8005ee68++;
 
 #if VERSION >= VERSION_NTSC_1_0
-		joyCheckPfs(0);
+		joyPollPfs(0);
 #endif
 		return;
 	}
@@ -678,7 +663,7 @@ void joysHandleRetrace(void)
 	if (g_JoyInitDone) {
 #if VERSION >= VERSION_NTSC_1_0
 		if (var8005ee68) {
-			joyCheckPfs(0);
+			joyPollPfs(0);
 			return;
 		}
 #endif
@@ -701,7 +686,7 @@ void joysHandleRetrace(void)
 			joy00014238();
 
 #if VERSION >= VERSION_NTSC_1_0
-			joyCheckPfs(0);
+			joyPollPfs(0);
 #else
 			joy0001509cnb();
 #endif
@@ -1078,14 +1063,14 @@ void joyStopRumble(s8 arg0, bool disablepolling)
 	}
 }
 
-s32 joy000155b4(s8 device)
+s32 joyGetPakState(s8 device)
 {
-	return g_Paks[device].unk010;
+	return g_Paks[device].state;
 }
 
-s32 joy000155f4(s8 device)
+s32 joyGetPakState2(s8 device)
 {
-	return joy000155b4(device);
+	return joyGetPakState(device);
 }
 
 void joysTickRumble(void)
@@ -1093,7 +1078,7 @@ void joysTickRumble(void)
 	s32 i;
 
 	for (i = 0; i < NUM_PADS; i++) {
-		if (g_Paks[i].unk010 == PAK010_11 && g_Paks[i].type == PAKTYPE_RUMBLE) {
+		if (g_Paks[i].state == PAKSTATE_READY && g_Paks[i].type == PAKTYPE_RUMBLE) {
 			switch (g_Paks[i].rumblestate) {
 			case RUMBLESTATE_ENABLED_STARTING:
 				g_Paks[i].rumblestate = RUMBLESTATE_ENABLED_RUMBLING;

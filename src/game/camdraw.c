@@ -948,7 +948,7 @@ void func0f14aee0(void)
 		thing->unk078 = 0;
 
 		pak0f117150(i, thing->unk0d8);
-		pak0f1171b4(SAVEDEVICE_CONTROLLERPAK1, 3, 0);
+		pak0f1171b4(SAVEDEVICE_CONTROLLERPAK1, PAK00C_03, 0);
 		func0f14aed0(i);
 
 		thing->unk094 = 0;
@@ -1200,7 +1200,7 @@ void func0f14b8ac(s32 index)
 		}
 
 		switch (pakGetUnk008(func0f14a5a4())) {
-		case 12:
+		case PAK008_12:
 			func0f14a95c();
 			func0f14aa48();
 			func0f14e790(var800a45a0->unk470);
@@ -1209,10 +1209,10 @@ void func0f14b8ac(s32 index)
 			func0f14a16c(1);
 			func0f14bc04();
 			break;
-		case 1:
+		case PAK008_01:
 			pak0f11d4dc(func0f14a5a4());
 			break;
-		case 11:
+		case PAK008_11:
 			pak0f11d9c4(func0f14a5a4(), var800a45a0->unk470, 0, 0);
 			func0f14d064(index, var800a45a0->unk470);
 			pak0f11d478(func0f14a5a4());
@@ -1320,7 +1320,7 @@ void func0f14bd34(s32 index)
 	struct var8007f8dc *thing = &var8007f8dc[index];
 
 	if (thing->unk080 != -1) {
-		pak0f1171b4(func0f14a5a4(), 3, 0);
+		pak0f1171b4(func0f14a5a4(), PAK00C_03, 0);
 		pak0f11d540(func0f14a5a4(), thing->unk0b6[thing->unk080]);
 	}
 }
@@ -1402,7 +1402,7 @@ void func0f14bec8(s32 index)
 
 		for (i = 0; i < ARRAYCOUNT(thing->unk0b6); i++);
 
-		pak0f1171b4(func0f14a5a4(), 3, 0);
+		pak0f1171b4(func0f14a5a4(), PAK00C_03, 0);
 		pak0f11d478(func0f14a5a4());
 		break;
 	case 3:
@@ -1446,7 +1446,7 @@ void func0f14c1cc(s32 index)
 
 	switch (thing->unk0f4) {
 	case 0:
-		pak0f1171b4(func0f14a5a4(), 0, 0);
+		pak0f1171b4(func0f14a5a4(), PAK00C_00, 0);
 		pak0f11d5b0(func0f14a5a4());
 		thing->unk0f4 = 1;
 		break;
@@ -1510,13 +1510,13 @@ void func0f14c3a4(s32 index)
 		pak0f11d620(func0f14a5a4());
 
 		switch (pakGetUnk008(func0f14a5a4())) {
-		case 1:
+		case PAK008_01:
 			func0f14c1cc(index);
 			break;
-		case 11:
+		case PAK008_11:
 			func0f14bec8(index);
 			break;
-		case 12:
+		case PAK008_12:
 			func0f14bdbc(index);
 			break;
 		}
@@ -1712,7 +1712,7 @@ void func0f14cdb8(s32 index, u8 *arg1)
 void func0f14ce84(void)
 {
 	if (pak0f11d3f8(func0f14a5a4())) {
-		if (pakGetUnk008(func0f14a5a4()) != 12) {
+		if (pakGetUnk008(func0f14a5a4()) != PAK008_12) {
 			var8007f8dc[func0f14a5a4()].unk0f8 = 1;
 			var8007f8dc[func0f14a5a4()].unk0d4_00 = false;
 
@@ -1739,7 +1739,7 @@ void func0f14cf6c(void)
 		case 4:
 		case 5:
 		case 6:
-			pak0f1171b4(func0f14a5a4(), 3, 0);
+			pak0f1171b4(func0f14a5a4(), PAK00C_03, 0);
 			g_MpPlayerNum = 0;
 			menuSetBanner(-1, false);
 			break;
@@ -1762,7 +1762,7 @@ void func0f14d064(s32 index, u8 *arg1)
 		g_MpPlayerNum = index;
 		menuSetBanner(MENUBANNER_CALIBRATINGCAMERA, false);
 		func0f14a16c(1);
-		pak0f1171b4(func0f14a5a4(), 1, 1);
+		pak0f1171b4(func0f14a5a4(), PAK00C_01, 1);
 		thing->unk0f8 = 3;
 		return;
 	}
@@ -1801,12 +1801,12 @@ void func0f14d064(s32 index, u8 *arg1)
 	}
 
 	if (thing->unk0f8 == 6) {
-		pak0f1171b4(func0f14a5a4(), 3, 0);
+		pak0f1171b4(func0f14a5a4(), PAK00C_03, 0);
 		thing->unk0f8 = 6;
 		thing->unk100 = thing->unk0fc;
 		g_MpPlayerNum = index;
 		menuSetBanner(-1, false);
-		pak0f1171b4(func0f14a5a4(), 3, 0);
+		pak0f1171b4(func0f14a5a4(), PAK00C_03, 0);
 		var8007f8dc[var800a45a0->unk000].unk0d4_04 = true;
 		thing->unk0f8 = 0;
 	}

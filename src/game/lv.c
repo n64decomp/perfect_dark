@@ -241,7 +241,7 @@ void lvReset(s32 stagenum)
 	var80084010 = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
-	joy00013900();
+	joyLockCyclicPolling();
 
 	g_Vars.joydisableframestogo = 10;
 #else
@@ -252,8 +252,8 @@ void lvReset(s32 stagenum)
 	}
 #endif
 
-	g_Vars.paksconnected2 = 0;
-	g_Vars.paksconnected = 0;
+	g_Vars.paksneededforgame = 0;
+	g_Vars.paksneededformenu = 0;
 	g_Vars.stagenum = stagenum;
 
 	cheatsReset();
@@ -1997,7 +1997,7 @@ void lvTick(void)
 	lvCheckPauseStateChanged();
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (g_Vars.unk0004e4) {
+	if (g_Vars.pakstocheck) {
 		paksTick();
 	}
 #endif
@@ -2006,7 +2006,7 @@ void lvTick(void)
 		g_Vars.joydisableframestogo--;
 	} else if (g_Vars.joydisableframestogo == 0) {
 #if VERSION >= VERSION_NTSC_1_0
-		joy00013938();
+		joyUnlockCyclicPolling();
 #else
 		if (!joyIsCyclicPollingEnabled()) {
 			joyEnableCyclicPolling(3278, "lv.c");
@@ -2017,9 +2017,9 @@ void lvTick(void)
 				|| g_Vars.stagenum == STAGE_BOOTPAKMENU
 				|| g_Vars.stagenum == STAGE_CREDITS
 				|| g_Vars.stagenum == STAGE_4MBMENU) {
-			g_Vars.paksconnected2 = 0;
+			g_Vars.paksneededforgame = 0;
 		} else {
-			g_Vars.paksconnected2 = 31;
+			g_Vars.paksneededforgame = 0x1f;
 			pakEnableRumbleForAllPlayers();
 		}
 

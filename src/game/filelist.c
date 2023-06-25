@@ -22,7 +22,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 var800a2330[5];
+s32 g_FilelistKnownPlugCounts[5];
 
 struct filelist *g_FileLists[MAX_PLAYERS] = { NULL };
 bool var80075bd0[] = { true, true, true, true };
@@ -60,7 +60,7 @@ void filelistCreate(s32 listnum, u8 filetype)
 	g_FileLists[listnum]->filetype = filetype;
 
 	if (var80062944 == 0) {
-		joy0001398c(3);
+		joySetPfsPollInterval(3);
 	}
 
 	var80062944 = 1;
@@ -92,9 +92,9 @@ s32 filelistFindOrCreate(u8 filetype)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f110d90(s32 device)
+void filelistInvalidatePak(s32 device)
 {
-	var800a2330[device] = -1;
+	g_FilelistKnownPlugCounts[device] = -1;
 }
 #endif
 
@@ -103,36 +103,36 @@ void filelistsTick(void)
 	u32 updateall;
 	u32 update;
 	s32 i;
-	static bool var80075bf4 = false;
+	static bool doneinit = false;
 
-	if (!var80075bf4) {
-		for (i = 0; i < ARRAYCOUNT(var800a2330); i++) {
-			var800a2330[i] = -1;
+	if (!doneinit) {
+		for (i = 0; i < ARRAYCOUNT(g_FilelistKnownPlugCounts); i++) {
+			g_FilelistKnownPlugCounts[i] = -1;
 		}
 
-		var80075bf4 = true;
+		doneinit = true;
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	for (i = 0, updateall = false; i < ARRAYCOUNT(var800a2330); i++) {
-		if (pak0f1167d8(i) && var800a2330[i] != pakGetUnk264(i)) {
+	for (i = 0, updateall = false; i < ARRAYCOUNT(g_FilelistKnownPlugCounts); i++) {
+		if (pak0f1167d8(i) && pakGetPlugCount(i) != g_FilelistKnownPlugCounts[i]) {
 			updateall = true;
-			var800a2330[i] = pakGetUnk264(i);
+			g_FilelistKnownPlugCounts[i] = pakGetPlugCount(i);
 		}
 	}
 #else
-	for (i = 0, updateall = false; i < ARRAYCOUNT(var800a2330); i++) {
-		s32 tmp = pakGetUnk264(i);
+	for (i = 0, updateall = false; i < ARRAYCOUNT(g_FilelistKnownPlugCounts); i++) {
+		s32 plugcount = pakGetPlugCount(i);
 
 		pak0f11698c(i);
 
 		if (pak0f1167d8(i)) {
-			tmp = 0;
+			plugcount = 0;
 		}
 
-		if (var800a2330[i] != tmp) {
+		if (g_FilelistKnownPlugCounts[i] != plugcount) {
 			updateall = true;
-			var800a2330[i] = tmp;
+			g_FilelistKnownPlugCounts[i] = plugcount;
 		}
 	}
 #endif

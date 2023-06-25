@@ -223,8 +223,8 @@ struct g_vars {
 	/*0x4b8*/ struct prop *aibuddies[4];
 	/*0x4c8*/ u32 dontplaynrg; // allow X music to be played (NRG = energy track)
 	/*0x4cc*/ s32 in_cutscene;
-	/*0x4d0*/ u8 paksconnected;
-	/*0x4d1*/ u8 paksconnected2;
+	/*0x4d0*/ u8 paksneededformenu;
+	/*0x4d1*/ u8 paksneededforgame;
 	/*0x4d2*/ s8 autocutnum; // cutscene scene number (0, 1 or 2), set to -1 while loading cutscene
 	/*0x4d3*/ s8 autocutplaying; // true if playing a cutscene via the menu, false when a button is pressed
 	/*0x4d4*/ s8 autocutgroupcur; // index into g_Cutscenes
@@ -239,9 +239,9 @@ struct g_vars {
 	/*0x4e3*/ u8 langfilteron;
 
 	// 000f = Counter: if 10-15 then ticks down 1 per 7 frames, if under 10 then 1 per frame.
-	// 00f0 = One bit per pak. Does something with the pak if counter expired.
-	// 0f00 = One bit per pak. Does something with the pak if counter expired (likely opposite of the above).
-	/*0x4e4*/ u16 unk0004e4;
+	// 00f0 = One bit per pak. These paks are checked and ticked.
+	// 0f00 = One bit per pak. These paks are checked but not ticked.
+	/*0x4e4*/ u16 pakstocheck;
 
 	/*0x4e8*/ u32 unk0004e8;
 	/*0x4ec*/ u32 unk0004ec;
@@ -4688,12 +4688,12 @@ struct pak {
 	/*0x004*/ u32 rumblestate;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;
-	/*0x010*/ s32 unk010;
-	/*0x014*/ u8 unk014;
+	/*0x010*/ s32 state;
+	/*0x014*/ u8 features;
 	/*0x018*/ struct pakdata pakdata;
 	/*0x25c*/ u32 maxfileid;
 	/*0x260*/ u32 serial;
-	/*0x264*/ u32 unk264;
+	/*0x264*/ u32 plugcount;
 	/*0x268*/ u32 unk268;
 	/*0x26c*/ u32 unk26c;
 	/*0x270*/ u32 unk270;
@@ -4720,7 +4720,7 @@ struct pak {
 	/*0x2b8*/ u8 isgbpd : 1;
 	/*0x2b8*/ u8 unk2b8_05 : 1;
 	/*0x2b8*/ u8 unk2b8_06 : 1;
-	/*0x2b8*/ u8 unk2b8_07 : 1;
+	/*0x2b8*/ u8 showdatalost : 1;
 	/*0x2b9*/ u8 unk2b9;
 	/*0x2ba*/ u8 unk2ba;
 	/*0x2bb*/ u8 unk2bb;

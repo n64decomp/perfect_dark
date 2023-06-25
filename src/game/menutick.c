@@ -697,7 +697,7 @@ void menuTick(void)
 		}
 	}
 
-	g_Vars.paksconnected = 0;
+	g_Vars.paksneededformenu = 0;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		s32 mpindex = -1;
@@ -731,7 +731,7 @@ void menuTick(void)
 			case MENUROOT_4MBMAINMENU:
 			case MENUROOT_TRAINING:
 				if (g_Menus[mpindex].curdialog) {
-					g_Vars.paksconnected = 0x1f;
+					g_Vars.paksneededformenu = 0x1f;
 				}
 				break;
 			}

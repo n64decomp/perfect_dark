@@ -768,7 +768,7 @@ void mainLoop(void)
 
 	if (g_DoBootPakMenu) {
 #if VERSION >= VERSION_NTSC_1_0
-		g_Vars.unk0004e4 = 0xfd;
+		g_Vars.pakstocheck = 0xfd;
 #endif
 		g_StageNum = STAGE_BOOTPAKMENU;
 	}
