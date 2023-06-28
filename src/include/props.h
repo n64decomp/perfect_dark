@@ -186,14 +186,14 @@
 
 #define hoverbike(scale, model, pad, flags, flags2, flags3, maxdamage) \
 	_generic_object(0x33, scale, model, pad, flags, flags2, flags3, maxdamage), \
-	_mkword(_mkshort(HOVTYPE_BIKE, TRUE), 0), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	_mkword(_mkshort(HOVTYPE_BIKE, HOVFLAG_FIRSTTICK), 0), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 #define endprops \
 	0x34,
 
 #define hover_prop(scale, model, pad, flags, flags2, flags3, maxdamage, hovtype) \
 	_generic_object(0x35, scale, model, pad, flags, flags2, flags3, maxdamage), \
-	_mkword(_mkshort(hovtype, TRUE), 0), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	_mkword(_mkshort(hovtype, HOVFLAG_FIRSTTICK), 0), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 #define fan(scale, model, pad, flags, flags2, flags3, maxdamage, maxspeed, accel, on) \
 	_generic_object(0x36, scale, model, pad, flags, flags2, flags3, maxdamage), \

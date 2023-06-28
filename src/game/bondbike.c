@@ -281,10 +281,10 @@ void bbikeApplyMoveData(struct movedata *data)
 
 		sp3c = -bike->exreal;
 
-		if (bike->hov.unk14 < M_PI) {
-			sp3c += -bike->hov.unk14 * 0.8f;
+		if (bike->hov.bobpitchcur < M_PI) {
+			sp3c += -bike->hov.bobpitchcur * 0.8f;
 		} else {
-			sp3c += (M_BADTAU - bike->hov.unk14) * 0.8f;
+			sp3c += (M_BADTAU - bike->hov.bobpitchcur) * 0.8f;
 		}
 
 		if (sp3c < 0) {

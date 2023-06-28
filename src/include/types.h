@@ -1419,21 +1419,21 @@ struct tvscreen {
 struct hov {
 	/*0x00*/ u8 type;
 	/*0x01*/ u8 flags;
-	/*0x04*/ f32 unk04;
-	/*0x08*/ f32 unk08;
-	/*0x0c*/ f32 unk0c;
-	/*0x10*/ f32 unk10;
-	/*0x14*/ f32 unk14;
-	/*0x18*/ f32 unk18;
-	/*0x1c*/ f32 unk1c;
-	/*0x20*/ f32 unk20;
-	/*0x24*/ f32 unk24;
-	/*0x28*/ f32 unk28;
-	/*0x2c*/ f32 unk2c;
-	/*0x30*/ f32 unk30;
+	/*0x04*/ f32 bobycur;
+	/*0x08*/ f32 bobytarget;
+	/*0x0c*/ f32 bobyspeed;
+	/*0x10*/ f32 yrot;
+	/*0x14*/ f32 bobpitchcur;
+	/*0x18*/ f32 bobpitchtarget;
+	/*0x1c*/ f32 bobpitchspeed;
+	/*0x20*/ f32 bobrollcur;
+	/*0x24*/ f32 bobrolltarget;
+	/*0x28*/ f32 bobrollspeed;
+	/*0x2c*/ f32 groundpitch;
+	/*0x30*/ f32 y;
 	/*0x34*/ f32 ground;
-	/*0x38*/ s32 nexttick60; // framenum of when next tick should occur
-	/*0x3c*/ s32 prevtick60; // framenum of when hov was last ticked
+	/*0x38*/ s32 prevframe60;
+	/*0x3c*/ s32 prevgroundframe60;
 };
 
 struct defaultobj {
@@ -6279,19 +6279,19 @@ struct skyvtx2d {
 };
 
 struct hovtype {
-	/*0x00*/ f32 unk00;
-	/*0x04*/ f32 unk04;
-	/*0x08*/ f32 unk08;
-	/*0x0c*/ f32 unk0c;
-	/*0x10*/ f32 unk10;
-	/*0x14*/ f32 unk14;
-	/*0x18*/ f32 unk18;
-	/*0x1c*/ f32 unk1c;
-	/*0x20*/ f32 unk20;
-	/*0x24*/ f32 unk24;
-	/*0x28*/ f32 unk28;
-	/*0x2c*/ f32 unk2c;
-	/*0x30*/ f32 unk30;
+	/*0x00*/ f32 bobymid;
+	/*0x04*/ f32 bobyminradius;
+	/*0x08*/ f32 bobyrandradius;
+	/*0x0c*/ f32 bobyaccel;
+	/*0x10*/ f32 bobymaxspeed;
+	/*0x14*/ f32 bobpitchminangle;
+	/*0x18*/ f32 bobpitchrandangle;
+	/*0x1c*/ f32 bobpitchaccel;
+	/*0x20*/ f32 bobpitchmaxspeed;
+	/*0x24*/ f32 bobrollminangle;
+	/*0x28*/ f32 bobrollrandangle;
+	/*0x2c*/ f32 bobrollaccel;
+	/*0x30*/ f32 bobrollmaxspeed;
 };
 
 struct modelrwdatabinding {

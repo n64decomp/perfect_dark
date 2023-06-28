@@ -1773,11 +1773,11 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *)obj;
-			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
+			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].bobymid + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverbike->hov.ground + 20.0f;
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
-			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
+			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].bobymid + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverprop->hov.ground + 20.0f;
 		} else {
 			cyl->ymin = mtx.m[3][1] + objGetRotatedLocalYMinByMtx4(bbox, &mtx);
@@ -1796,11 +1796,11 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *)obj;
-			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
+			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].bobymid + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverbike->hov.ground + 20.0f;
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
-			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
+			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].bobymid + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverprop->hov.ground + 20.0f;
 		}
 	}
@@ -4817,20 +4817,15 @@ s32 glassCalculateOpacity(struct coord *pos, f32 xludist, f32 opadist, f32 arg3)
 
 struct prop *g_Lifts[10] = {NULL};
 
+#define BOB(minamount, randamount, accel, maxspeed) \
+	minamount, randamount, PALUPF(accel), PALUPF(maxspeed)
+
 struct hovtype g_HovTypes[] = {
-#if PAL
-	/* HOVTYPE_BED   */ { 90,  1, 2, 0.0012, 1.200000000, 0.0062821852043271, 0.0062821852043271, 0.000012564370990731, 0.00037693112972192, 0.0062821852043271, 0.0062821852043271, 0.000012564370990731, 0.00037693112972192 },
-	/* HOVTYPE_BIKE  */ { 80,  1, 3, 0.0030, 0.120000004, 0.0125643704086540, 0.0188465546816590, 0.000025128741981462, 0.00075386225944385, 0.0125643704086540, 0.0188465546816590, 0.000025128741981462, 0.00075386225944385 },
-	/* HOVTYPE_CRATE */ { 70,  2, 4, 0.0012, 1.200000000, 0.0062821852043271, 0.0125643704086540, 0.000012564370990731, 0.00037693112972192, 0.0062821852043271, 0.0125643704086540, 0.000012564370990731, 0.00037693112972192 },
-	/* HOVTYPE_3     */ { 170, 2, 2, 0.0012, 1.200000000, 0.0031410926021636, 0.0031410926021636, 0.000006282185495365, 0.00022615866328124, 0.0031410926021636, 0.0031410926021636, 0.000006282185495365, 0.00022615866328124 },
-	/* HOVTYPE_4     */ { 170, 2, 2, 0.0012, 1.200000000, 0.0031410926021636, 0.0031410926021636, 0.000006282185495365, 0.00022615866328124, 0.0031410926021636, 0.0031410926021636, 0.000006282185495365, 0.00022615866328124 },
-#else
-	/* HOVTYPE_BED   */ { 90,  1, 2, 0.0010, 1.000000000, 0.0062821852043271, 0.0062821852043271, 0.000010470308552613, 0.00031410926021636, 0.0062821852043271, 0.0062821852043271, 0.000010470308552613, 0.00031410926021636 },
-	/* HOVTYPE_BIKE  */ { 80,  1, 3, 0.0025, 0.100000000, 0.0125643704086540, 0.0188465546816590, 0.000020940617105225, 0.00062821852043271, 0.0125643704086540, 0.0188465546816590, 0.000020940617105225, 0.00062821852043271 },
-	/* HOVTYPE_CRATE */ { 70,  2, 4, 0.0010, 1.000000000, 0.0062821852043271, 0.0125643704086540, 0.000010470308552613, 0.00031410926021636, 0.0062821852043271, 0.0125643704086540, 0.000010470308552613, 0.00031410926021636 },
-	/* HOVTYPE_3     */ { 170, 2, 2, 0.0010, 1.000000000, 0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905, 0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905 },
-	/* HOVTYPE_4     */ { 170, 2, 2, 0.0010, 1.000000000, 0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905, 0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905 },
-#endif
+	/* HOVTYPE_BED   */ { 90,  BOB(1, 2, 0.0010, 1.0), BOB(0.0062821852043271, 0.0062821852043271, 0.000010470308552613, 0.00031410926021636), BOB(0.0062821852043271, 0.0062821852043271, 0.000010470308552613, 0.00031410926021636) },
+	/* HOVTYPE_BIKE  */ { 80,  BOB(1, 3, 0.0025, 0.1), BOB(0.0125643704086540, 0.0188465546816590, 0.000020940617105225, 0.00062821852043271), BOB(0.0125643704086540, 0.0188465546816590, 0.000020940617105225, 0.00062821852043271) },
+	/* HOVTYPE_CRATE */ { 70,  BOB(2, 4, 0.0010, 1.0), BOB(0.0062821852043271, 0.0125643704086540, 0.000010470308552613, 0.00031410926021636), BOB(0.0062821852043271, 0.0125643704086540, 0.000010470308552613, 0.00031410926021636) },
+	/* HOVTYPE_3     */ { 170, BOB(2, 2, 0.0010, 1.0), BOB(0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905), BOB(0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905) },
+	/* HOVTYPE_4     */ { 170, BOB(2, 2, 0.0010, 1.0), BOB(0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905), BOB(0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905) },
 };
 
 void func0f070a1c(struct modelrodata_bbox *bbox, f32 rot[3][3], struct coord *pos, struct coord *vertices)
@@ -5135,7 +5130,13 @@ void liftGoToStop(struct liftobj *lift, s32 stopnum)
 	}
 }
 
-f32 objGetHov04(struct defaultobj *obj)
+/**
+ * For hover crates, hover bikes and hover beds.
+ *
+ * The value returned is the distance between the object's ground (when not falling)
+ * and its Y value. For crates, the value returned is typically between 65 and 75 (cm).
+ */
+f32 objGetHovBobOffsetY(struct defaultobj *obj)
 {
 	struct hov *hov = NULL;
 	f32 result;
@@ -5149,7 +5150,7 @@ f32 objGetHov04(struct defaultobj *obj)
 	}
 
 	if (hov) {
-		result = hov->unk04;
+		result = hov->bobycur;
 	} else {
 		struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 		f32 value = objGetRotatedLocalYMinByMtx3(bbox, obj->realrot);
@@ -5165,7 +5166,7 @@ void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos,
 	RoomNum testrooms[8];
 	struct coord testpos;
 
-	if (g_Vars.lvframe60 > hov->nexttick60) {
+	if (g_Vars.lvframe60 > hov->prevframe60) {
 		testpos.x = pos->x;
 		testpos.y = pos->y - 50;
 		testpos.z = pos->z;
@@ -5180,7 +5181,7 @@ void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos,
 		}
 
 		hov->ground = ground;
-		hov->prevtick60 = g_Vars.lvframe60;
+		hov->prevgroundframe60 = g_Vars.lvframe60;
 	}
 }
 
@@ -5203,30 +5204,31 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 	struct hovtype *type;
 	f32 spbc;
 	f32 spb8;
-	f32 spb4;
+	f32 groundangle;
 	f32 xrot;
-	f32 spac;
+	f32 ground;
 	RoomNum sp9c[8];
 	struct coord sp90;
-	bool sp8c;
+	bool moved;
 	f32 radius;
 	f32 ymax;
 	f32 ymin;
 
-	if (g_Vars.lvframe60 > hov->nexttick60) {
+	if (g_Vars.lvframe60 > hov->prevframe60) {
 		prop = obj->prop;
 		bbox = objFindBboxRodata(obj);
 		type = &g_HovTypes[hov->type];
-		sp8c = false;
+		moved = false;
 
-		if (hov->prevtick60 < g_Vars.lvframe60) {
+		if (g_Vars.lvframe60 > hov->prevgroundframe60) {
 			hovUpdateGround(obj, hov, &prop->pos, prop->rooms, obj->realrot);
 		}
 
-		hov->nexttick60 = g_Vars.lvframe60;
+		hov->prevframe60 = g_Vars.lvframe60;
 
+		// Calculate ground angle
 		if (obj->flags & OBJFLAG_DEACTIVATED) {
-			spb4 = 0.0f;
+			groundangle = 0.0f;
 		} else {
 			if (obj->flags3 & OBJFLAG3_GEOCYL) {
 				objGetBbox(prop, &radius, &ymax, &ymin);
@@ -5237,8 +5239,8 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 				sp1cc = bbox->zmax * 0.9f * obj->model->scale;
 			}
 
-			spbc = cosf(hov->unk10);
-			spb8 = sinf(hov->unk10);
+			spbc = cosf(hov->yrot);
+			spb8 = sinf(hov->yrot);
 
 			sp1b4.x = prop->pos.x + sp1d0 * spb8;
 			sp1b4.y = prop->pos.y;
@@ -5265,81 +5267,84 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 			ground2 = cdFindGroundAtCyl(&sp1a8, 5, sp188, NULL, NULL);
 
 			if (ground1 >= -30000.0f && ground2 >= -30000.0f) {
-				spb4 = atan2f(ground1 - ground2, sp1cc - sp1d0);
+				groundangle = atan2f(ground1 - ground2, sp1cc - sp1d0);
 
-				if (spb4 >= M_PI) {
-					spb4 -= M_BADTAU;
+				if (groundangle >= M_PI) {
+					groundangle -= M_BADTAU;
 				}
 			} else if (ground1 >= -30000.0f) {
-				spb4 = atan2f(ground1 - hov->ground, -sp1d0);
+				groundangle = atan2f(ground1 - hov->ground, -sp1d0);
 
-				if (spb4 >= M_PI) {
-					spb4 -= M_BADTAU;
+				if (groundangle >= M_PI) {
+					groundangle -= M_BADTAU;
 				}
 			} else if (ground2 >= -30000.0f) {
-				spb4 = atan2f(hov->ground - ground2, sp1cc);
+				groundangle = atan2f(hov->ground - ground2, sp1cc);
 
-				if (spb4 >= M_PI) {
-					spb4 -= M_BADTAU;
+				if (groundangle >= M_PI) {
+					groundangle -= M_BADTAU;
 				}
 			} else {
-				spb4 = 0.0f;
+				groundangle = 0.0f;
 			}
 		}
 
-		spac = hov->ground;
+		ground = hov->ground;
 
 		if (obj->hidden & OBJHFLAG_GRABBED) {
-			if (spac < g_Vars.currentplayer->vv_ground - 70.0f) {
-				spac = g_Vars.currentplayer->vv_ground;
+			if (g_Vars.currentplayer->vv_ground - 70.0f > ground) {
+				ground = g_Vars.currentplayer->vv_ground;
 			}
 		}
 
-		if (hov->flags & 1) {
-			sp8c = true;
-			hov->unk04 = hov->unk08 = type->unk00;
-			hov->unk30 = spac;
-			hov->flags &= ~1;
+		if (hov->flags & HOVFLAG_FIRSTTICK) {
+			moved = true;
+			hov->bobycur = hov->bobytarget = type->bobymid;
+			hov->y = ground;
+			hov->flags &= ~HOVFLAG_FIRSTTICK;
 
 			if (obj->type == OBJTYPE_HOVERBIKE) {
 				psCreate(NULL, obj->prop, SFX_BIKE_PULSE, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 			}
 		}
 
-		applySpeed(&hov->unk04, hov->unk08, &hov->unk0c, type->unk0c, type->unk0c, type->unk10);
+		// Update Y bob
+		applySpeed(&hov->bobycur, hov->bobytarget, &hov->bobyspeed, type->bobyaccel, type->bobyaccel, type->bobymaxspeed);
 
-		if (hov->unk08 >= type->unk00 && hov->unk08 <= hov->unk04) {
-			hov->unk0c = 0.0f;
-			hov->unk08 = type->unk00 - type->unk04 - RANDOMFRAC() * type->unk08;
-		} else if (hov->unk08 < type->unk00 && hov->unk08 >= hov->unk04) {
-			hov->unk0c = 0.0f;
-			hov->unk08 = type->unk00 + type->unk04 + RANDOMFRAC() * type->unk08;
+		if (hov->bobytarget >= type->bobymid && hov->bobycur >= hov->bobytarget) {
+			hov->bobyspeed = 0.0f;
+			hov->bobytarget = type->bobymid - type->bobyminradius - RANDOMFRAC() * type->bobyrandradius;
+		} else if (hov->bobytarget < type->bobymid && hov->bobycur <= hov->bobytarget) {
+			hov->bobyspeed = 0.0f;
+			hov->bobytarget = type->bobymid + type->bobyminradius + RANDOMFRAC() * type->bobyrandradius;
 		}
 
-		applyRotation(&hov->unk14, hov->unk18, &hov->unk1c, type->unk1c, type->unk1c, type->unk20);
+		// Update pitch bob
+		applyRotation(&hov->bobpitchcur, hov->bobpitchtarget, &hov->bobpitchspeed, type->bobpitchaccel, type->bobpitchaccel, type->bobpitchmaxspeed);
 
-		if (hov->unk14 == hov->unk18) {
-			if (hov->unk1c <= 2.0f * type->unk1c && hov->unk1c >= 2.0f * -type->unk1c) {
-				hov->unk1c = 0.0f;
+		if (hov->bobpitchcur == hov->bobpitchtarget) {
+			if (hov->bobpitchspeed <= 2.0f * type->bobpitchaccel && hov->bobpitchspeed >= 2.0f * -type->bobpitchaccel) {
+				hov->bobpitchspeed = 0.0f;
 
-				if (hov->unk18 < M_PI) {
-					hov->unk18 = M_BADTAU - type->unk14 - RANDOMFRAC() * type->unk18;
+				if (hov->bobpitchtarget < M_PI) {
+					hov->bobpitchtarget = M_BADTAU - type->bobpitchminangle - RANDOMFRAC() * type->bobpitchrandangle;
 				} else {
-					hov->unk18 = type->unk14 + RANDOMFRAC() * type->unk18;
+					hov->bobpitchtarget = type->bobpitchminangle + RANDOMFRAC() * type->bobpitchrandangle;
 				}
 			}
 		}
 
-		applyRotation(&hov->unk20, hov->unk24, &hov->unk28, type->unk2c, type->unk2c, type->unk30);
+		// Update roll bob
+		applyRotation(&hov->bobrollcur, hov->bobrolltarget, &hov->bobrollspeed, type->bobrollaccel, type->bobrollaccel, type->bobrollmaxspeed);
 
-		if (hov->unk20 == hov->unk24) {
-			if (hov->unk28 <= 2.0f * type->unk2c && hov->unk28 >= 2.0f * -type->unk2c) {
-				hov->unk28 = 0.0f;
+		if (hov->bobrollcur == hov->bobrolltarget) {
+			if (hov->bobrollspeed <= 2.0f * type->bobrollaccel && hov->bobrollspeed >= 2.0f * -type->bobrollaccel) {
+				hov->bobrollspeed = 0.0f;
 
-				if (hov->unk24 < M_PI) {
-					hov->unk24 = M_BADTAU - type->unk24 - RANDOMFRAC() * type->unk28;
+				if (hov->bobrolltarget < M_PI) {
+					hov->bobrolltarget = M_BADTAU - type->bobrollminangle - RANDOMFRAC() * type->bobrollrandangle;
 				} else {
-					hov->unk24 = type->unk24 + RANDOMFRAC() * type->unk28;
+					hov->bobrolltarget = type->bobrollminangle + RANDOMFRAC() * type->bobrollrandangle;
 				}
 			}
 		}
@@ -5349,12 +5354,12 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 			f32 f12;
 			f32 f2;
 
-			hov->unk2c += (spb4 - hov->unk2c) * (PAL ? 0.0893f : 0.075f);
+			hov->groundpitch += (groundangle - hov->groundpitch) * (PAL ? 0.0893f : 0.075f);
 
-			f0 = spac - hov->unk30;
+			f0 = ground - hov->y;
 			f12 = (PAL ? 0.102000005f : 0.085f);
 
-			if (hov->unk30 < hov->ground) {
+			if (hov->y < hov->ground) {
 				if (f0 >= 0.0f) {
 					f2 = f0;
 				} else {
@@ -5388,28 +5393,28 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 				}
 			}
 
-			hov->unk30 += f0;
+			hov->y += f0;
 
 			if (f0 > 1.0f || f0 < -1.0f) {
-				sp8c = true;
+				moved = true;
 			}
 		}
 
-		if (sp8c) {
+		if (moved) {
 			func0f069c70(obj, true, true);
 		}
 
-		if (hov->unk30 < hov->ground - 5.0f || hov->unk30 > hov->ground + 5.0f) {
+		if (hov->y < hov->ground - 5.0f || hov->y > hov->ground + 5.0f) {
 			obj->flags |= OBJFLAG_HOVERCAR_ISHOVERBOT;
 		} else {
 			obj->flags &= ~OBJFLAG_HOVERCAR_ISHOVERBOT;
 		}
 
-		prop->pos.y = objGetHov04(obj) + hov->unk30;
+		prop->pos.y = objGetHovBobOffsetY(obj) + hov->y;
 
-		mtx4LoadZRotation(hov->unk20, &sp148);
+		mtx4LoadZRotation(hov->bobrollcur, &sp148);
 
-		xrot = hov->unk2c + hov->unk14;
+		xrot = hov->groundpitch + hov->bobpitchcur;
 
 		if (xrot >= M_BADTAU) {
 			xrot -= M_BADTAU;
@@ -5419,7 +5424,7 @@ void hovTick(struct defaultobj *obj, struct hov *hov)
 
 		mtx4LoadXRotation(xrot, &sp108);
 		mtx00015be0(&sp108, &sp148);
-		mtx4LoadYRotation(hov->unk10, &sp108);
+		mtx4LoadYRotation(hov->yrot, &sp108);
 		mtx00015be0(&sp108, &sp148);
 		mtx00015f04(obj->model->scale, &sp148);
 
@@ -5455,10 +5460,10 @@ f32 hoverpropGetTurnAngle(struct defaultobj *obj)
 
 	if (obj->type == OBJTYPE_HOVERPROP) {
 		struct hoverpropobj *hoverprop = (struct hoverpropobj *)obj;
-		angle = hoverprop->hov.unk10;
+		angle = hoverprop->hov.yrot;
 	} else if (obj->type == OBJTYPE_HOVERBIKE) {
 		struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)obj;
-		angle = hoverbike->hov.unk10;
+		angle = hoverbike->hov.yrot;
 	}
 
 	return angle;
@@ -5468,10 +5473,10 @@ void hoverpropSetTurnAngle(struct defaultobj *obj, f32 angle)
 {
 	if (obj->type == OBJTYPE_HOVERPROP) {
 		struct hoverpropobj *hoverprop = (struct hoverpropobj *)obj;
-		hoverprop->hov.unk10 = angle;
+		hoverprop->hov.yrot = angle;
 	} else if (obj->type == OBJTYPE_HOVERBIKE) {
 		struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)obj;
-		hoverbike->hov.unk10 = angle;
+		hoverbike->hov.yrot = angle;
 	}
 }
 
@@ -6649,7 +6654,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 					ground = cdFindGroundAtCyl(&prop->pos, 2, prop->rooms, &obj->floorcol, NULL);
 
 					if (ground > -30000.0f) {
-						prop->pos.y = ground + objGetHov04(obj);
+						prop->pos.y = ground + objGetHovBobOffsetY(obj);
 					}
 				}
 
@@ -7814,7 +7819,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 					}
 
 					if (hov) {
-						hov->unk30 += newpos->y - prevpos->y;
+						hov->y += newpos->y - prevpos->y;
 						hov->ground += newpos->y - prevpos->y;
 					}
 
@@ -10546,7 +10551,7 @@ void hovercarTick(struct prop *prop)
 	// during acceleration can cause the hovercar to exceed its max speed.
 	if (hovercar->speedtime60 >= 0) {
 		if (1);
-		if (hovercar->speedtime60 <= g_Vars.lvupdate60freal) {
+		if (g_Vars.lvupdate60freal >= hovercar->speedtime60) {
 			hovercar->speed = hovercar->speedaim;
 		} else {
 			hovercar->speed += (hovercar->speedaim - hovercar->speed) * g_Vars.lvupdate60freal / hovercar->speedtime60;
@@ -11085,13 +11090,13 @@ s32 objTickPlayer(struct prop *prop)
 							hovUpdateGround(obj, hov, &prop->pos, prop->rooms, obj->realrot);
 							hoverpropSetTurnAngle(obj, atan2f(sp412.m[2][0], sp412.m[2][2]));
 
-							hov->unk14 = 0;
-							hov->unk1c = 0;
-							hov->unk20 = 0;
-							hov->unk28 = 0;
-							hov->unk30 = hov->ground;
-							hov->unk04 = prop->pos.y - hov->ground;
-							hov->unk0c = 0;
+							hov->bobpitchcur = 0;
+							hov->bobpitchspeed = 0;
+							hov->bobrollcur = 0;
+							hov->bobrollspeed = 0;
+							hov->y = hov->ground;
+							hov->bobycur = prop->pos.y - hov->ground;
+							hov->bobyspeed = 0;
 						}
 
 						if ((obj->flags & OBJFLAG_IGNOREFLOORCOLOUR) == 0) {

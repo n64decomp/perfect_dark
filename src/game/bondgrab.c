@@ -84,7 +84,7 @@ void bgrabInit(void)
 
 		if (hov) {
 			g_Vars.currentplayer->grabbedrotoffset =
-				hov->unk10 - (M_BADTAU - (g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f);
+				hov->yrot - (M_BADTAU - (g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f);
 
 			if (g_Vars.currentplayer->grabbedrotoffset >= M_BADTAU) {
 				g_Vars.currentplayer->grabbedrotoffset -= M_BADTAU;
@@ -448,7 +448,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 				- g_Vars.currentplayer->vv_theta * M_BADTAU / 360.0f
 				+ -angle
 				+ g_Vars.currentplayer->grabbedrotoffset
-				- hov->unk10
+				- hov->yrot
 				+ rotextra;
 
 			while (sp78 >= M_PI) {
@@ -1207,7 +1207,7 @@ void bgrabTick(void)
 		if (g_Vars.currentplayer->grabbedprop) {
 			// Determine if the grabbed prop should be force released
 			f32 ydiff = g_Vars.currentplayer->grabbedprop->pos.y
-				- objGetHov04(g_Vars.currentplayer->grabbedprop->obj)
+				- objGetHovBobOffsetY(g_Vars.currentplayer->grabbedprop->obj)
 				- g_Vars.currentplayer->vv_manground;
 
 			struct prop *grabbedprop = g_Vars.currentplayer->grabbedprop;

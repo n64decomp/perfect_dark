@@ -1184,21 +1184,21 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 
 void setupCreateHov(struct defaultobj *obj, struct hov *hov)
 {
-	hov->unk04 = 0;
-	hov->unk08 = 0;
-	hov->unk0c = 0;
-	hov->unk10 = atan2f(obj->realrot[2][0], obj->realrot[2][2]);
-	hov->unk14 = 0;
-	hov->unk18 = 0;
-	hov->unk1c = 0;
-	hov->unk20 = 0;
-	hov->unk24 = 0;
-	hov->unk28 = 0;
-	hov->unk2c = 0;
-	hov->unk30 = 0;
+	hov->bobycur = 0;
+	hov->bobytarget = 0;
+	hov->bobyspeed = 0;
+	hov->yrot = atan2f(obj->realrot[2][0], obj->realrot[2][2]);
+	hov->bobpitchcur = 0;
+	hov->bobpitchtarget = 0;
+	hov->bobpitchspeed = 0;
+	hov->bobrollcur = 0;
+	hov->bobrolltarget = 0;
+	hov->bobrollspeed = 0;
+	hov->groundpitch = 0;
+	hov->y = 0;
 	hov->ground = 0;
-	hov->nexttick60 = -1;
-	hov->prevtick60 = -1;
+	hov->prevframe60 = -1;
+	hov->prevgroundframe60 = -1;
 }
 
 void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing *briefing)
