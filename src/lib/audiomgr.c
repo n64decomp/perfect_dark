@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "lib/boot.h"
 #include "lib/sched.h"
+#include "naudio/n_synthInternals.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/audiodma.h"
@@ -85,8 +86,8 @@ void amgrCreate(ALSynConfig *config)
 		g_AmgrFreqPerTick++;
 	}
 
-	g_AmgrFreqPerTick = g_AmgrFreqPerTick / 184 * 184 + 184;
-	var800918dc = g_AmgrFreqPerTick - 184;
+	g_AmgrFreqPerTick = g_AmgrFreqPerTick / SAMPLES * SAMPLES + SAMPLES;
+	var800918dc = g_AmgrFreqPerTick - SAMPLES;
 	var800918e4 = g_AmgrFreqPerTick + 80;
 	var8005cf94 = 0;
 
@@ -108,8 +109,7 @@ void amgrCreate(ALSynConfig *config)
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_AudioManager.audioInfo); i++) {
-		// @todo: Find out why AudioInfo is only 0x60
-		g_AudioManager.audioInfo[i] = alHeapAlloc(&g_SndHeap, 1, 0x60);
+		g_AudioManager.audioInfo[i] = alHeapAlloc(&g_SndHeap, 1, sizeof(AudioInfo));
 		g_AudioManager.audioInfo[i]->frameSamples = 0;
 		g_AudioManager.audioInfo[i]->data = alHeapAlloc(&g_SndHeap, 1, PAL ? 3688 : 1024 * 3);
 	}

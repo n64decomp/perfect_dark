@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+#define TITLE_ALLOCSIZE 1024 * 286
+
 extern u32 var800624d4;
 extern u32 var800624d8;
 extern u32 var800624dc;

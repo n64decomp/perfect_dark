@@ -532,10 +532,10 @@ void titleInitPdLogo(void)
 
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_NLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_NLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, TITLE_ALLOCSIZE, 0);
 		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO].fileid));
 		nextaddr += size;
-		remaining = 0x47800 - size;
+		remaining = TITLE_ALLOCSIZE - size;
 		modelAllocateRwData(g_ModelStates[MODEL_NLOGO].modeldef);
 
 		g_TitleModel = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO].modeldef);
@@ -1782,7 +1782,7 @@ void titleInitNintendoLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_ModelStates[MODEL_NINTENDOLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_NINTENDOLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, TITLE_ALLOCSIZE, 0);
 
 		modelAllocateRwData(g_ModelStates[MODEL_NINTENDOLOGO].modeldef);
 		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_NINTENDOLOGO].modeldef);
@@ -1941,7 +1941,7 @@ void titleInitRareLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_ModelStates[MODEL_RARELOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_RARELOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, TITLE_ALLOCSIZE, 0);
 
 		modelAllocateRwData(g_ModelStates[MODEL_RARELOGO].modeldef);
 		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_RARELOGO].modeldef);

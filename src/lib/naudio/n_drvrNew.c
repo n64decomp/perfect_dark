@@ -175,11 +175,11 @@ void n_alFxNew(ALFx **fx_ar, ALSynConfig *c, s16 bus, ALHeap *hp)
 	r->base[1] = alHeapAlloc(hp, r->length, sizeof(s16));
 	r->input[1] = r->base[1];
 
-	for (k=0; k < r->length; k++) {
+	for (k = 0; k < r->length; k++) {
 		r->base[0][k] = r->base[1][k] = 0;
 	}
 
-	for ( i=0; i<r->section_count; i++ ){
+	for (i = 0; i < r->section_count; i++) {
 		d = &r->delay[i];
 		d->input  = param[j++];
 		d->output = param[j++];

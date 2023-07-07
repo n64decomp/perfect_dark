@@ -208,7 +208,7 @@ struct fx {
 	s16 unk00;
 	s16 unk02;
 	s32 unk04;
-	s16 unk08[8];
+	s16 unk08[16];
 };
 
 typedef struct N_ALVoiceState_s {

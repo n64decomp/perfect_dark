@@ -23,6 +23,24 @@
 #include "data.h"
 #include "types.h"
 
+#define MAX_SEQ_SIZE_4MB 1024 * 14
+#define MAX_SEQ_SIZE_8MB 1024 * 18
+
+#define NUM_CACHE_SLOTS 45
+#define NUM_KEYTHINGS 9
+
+struct sndcache {
+	/*0x0000*/ u16 *indexes; // indexed by sfxnum, value is cache index (0-44) or 0xffff
+	/*0x0004*/ u8 refcounts[NUM_CACHE_SLOTS];
+	/*0x0032*/ u16 ages[NUM_CACHE_SLOTS];
+	/*0x008c*/ ALEnvelope envelopes[NUM_CACHE_SLOTS];
+	/*0x035c*/ ALKeyMap keymaps[NUM_CACHE_SLOTS];
+	/*0x046c*/ ALWaveTable wavetables[NUM_CACHE_SLOTS];
+	/*0x07f0*/ ALADPCMBook books[NUM_CACHE_SLOTS];
+	/*0x3658*/ ALADPCMloop loops[NUM_CACHE_SLOTS];
+	/*0x3e14*/ ALSound sounds[NUM_CACHE_SLOTS];
+};
+
 struct curmp3 {
 	union soundnumhack sfxref;
 	u32 playing;
@@ -882,7 +900,7 @@ void sndSetSfxVolume(u16 volume)
 	}
 #endif
 
-	for (i = 0; i < 9; i++) {
+	for (i = 0; i < NUM_KEYTHINGS; i++) {
 		func00033f44(i, volume);
 	}
 
@@ -899,7 +917,7 @@ void snd0000ea80(u16 volume)
 	}
 #endif
 
-	for (i = 0; i < 9; i++) {
+	for (i = 0; i < NUM_KEYTHINGS; i++) {
 		func00033f44(i, volume);
 	}
 }
@@ -976,7 +994,7 @@ void sndLoadSfxCtl(void)
 		g_SndCache.indexes[i] = -1;
 	}
 
-	for (i = 0; i < 45; i++) {
+	for (i = 0; i < NUM_CACHE_SLOTS; i++) {
 #if VERSION >= VERSION_NTSC_1_0
 		g_SndCache.ages[i] = 1;
 #else
@@ -992,7 +1010,7 @@ void sndIncrementAges(void)
 {
 	s32 i;
 
-	for (i = 0; i < 45; i++) {
+	for (i = 0; i < NUM_CACHE_SLOTS; i++) {
 		if (g_SndCache.refcounts[i] == 0 && g_SndCache.ages[i] < 32000) {
 			g_SndCache.ages[i]++;
 		}
@@ -1314,7 +1332,7 @@ ALSound *sndLoadSound(s16 soundnum)
 		oldestindex = -1;
 		oldestage = 0;
 
-		for (i = 0; i < 45; i++) {
+		for (i = 0; i < NUM_CACHE_SLOTS; i++) {
 			if (g_SndCache.refcounts[i] == 0) {
 #if VERSION >= VERSION_NTSC_1_0
 				if (g_SndCache.ages[i] > oldestage) {
@@ -1383,9 +1401,9 @@ void seqInit(struct seqinstance *seq)
 	func00030c98(&config);
 
 	if (IS4MB()) {
-		g_SeqBufferSize = 0x3800;
+		g_SeqBufferSize = MAX_SEQ_SIZE_4MB;
 	} else {
-		g_SeqBufferSize = 0x4800;
+		g_SeqBufferSize = MAX_SEQ_SIZE_8MB;
 	}
 
 	seq->data = alHeapAlloc(&g_SndHeap, 1, g_SeqBufferSize);
@@ -1398,7 +1416,7 @@ void seqInit(struct seqinstance *seq)
 
 void sndAddRef(ALSound *sound)
 {
-	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[44]) {
+	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[NUM_CACHE_SLOTS - 1]) {
 		s32 cacheindex = sound - g_SndCache.sounds;
 		g_SndCache.refcounts[cacheindex]++;
 	}
@@ -1406,7 +1424,7 @@ void sndAddRef(ALSound *sound)
 
 void sndRemoveRef(ALSound *sound)
 {
-	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[44]) {
+	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[NUM_CACHE_SLOTS - 1]) {
 		s32 cacheindex = sound - g_SndCache.sounds;
 		g_SndCache.refcounts[cacheindex]--;
 	}
@@ -1417,7 +1435,7 @@ void sndInit(void)
 	ALSndpConfig sndpconfig;
 	ALSynConfig synconfig;
 #if VERSION >= VERSION_PAL_BETA
-		u32 settings[3];
+	u32 settings[3];
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
@@ -1469,7 +1487,7 @@ void sndInit(void)
 
 		// Allocate some space at the start of the heap for a string identifier.
 		// This might be used to determine if the heap has overflowed.
-		g_SndGuardStringPtr = alHeapAlloc(&g_SndHeap, 1, 32);
+		g_SndGuardStringPtr = alHeapAlloc(&g_SndHeap, 1, ALIGN16(sizeof(g_SndGuardString)));
 		strcpy(g_SndGuardStringPtr, g_SndGuardString);
 
 		// Load sfx.ctl
@@ -1492,7 +1510,7 @@ void sndInit(void)
 
 		len = g_SeqTable->count * sizeof(struct seqtableentry) + 4;
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
-		dmaExec(g_SeqTable, (romptr_t) &_sequencesSegmentRomStart, (len + 0xf) & 0xfffffff0);
+		dmaExec(g_SeqTable, (romptr_t) &_sequencesSegmentRomStart, (len + 0xf) & ~0xf);
 
 		// Promote segment-relative offsets to ROM addresses
 		for (i = 0; i < g_SeqTable->count; i++) {
@@ -1514,7 +1532,7 @@ void sndInit(void)
 		sndpconfig.maxEvents = 64;
 		sndpconfig.maxStates = 64;
 		sndpconfig.maxSounds = 20;
-		sndpconfig.unk10 = 9;
+		sndpconfig.unk10 = NUM_KEYTHINGS;
 		sndpconfig.heap = &g_SndHeap;
 
 #if VERSION >= VERSION_PAL_BETA
@@ -1537,7 +1555,7 @@ void sndInit(void)
 			osSyncPrintf("RWI : MP3 player Initialising Done\n");
 		}
 
-		for (i = 0; i < 3; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 			seqInit(&g_SeqInstances[i]);
 		}
 

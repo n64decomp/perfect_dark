@@ -36,18 +36,18 @@ void n_alSynNew(ALSynConfig *c)
 	for (i = 0; i < n_syn->maxAuxBusses; i++) {
 		n_syn->auxBus[i].sourceCount = 0;
 		n_syn->auxBus[i].maxSources = c->maxPVoices;
-		n_syn->auxBus[i].sources = alHeapAlloc(hp, c->maxPVoices, 4);
+		n_syn->auxBus[i].sources = alHeapAlloc(hp, c->maxPVoices, sizeof(void *));
 
 		if (c->fxTypes[i]) {
 			n_syn->auxBus[i].fx = n_alSynAllocFX(i, c, hp);
 		} else {
-			n_syn->auxBus[i].fx = 0;
+			n_syn->auxBus[i].fx = NULL;
 		}
 
 		n_syn->auxBus[i].unk44 = alHeapAlloc(hp, 1, sizeof(struct auxbus44));
-		n_syn->auxBus[i].unk44->unk02 = 0;
-		n_syn->auxBus[i].unk44->unk2c = alHeapAlloc(hp, 1, 8);
-		n_syn->auxBus[i].unk44->unk30 = alHeapAlloc(hp, 1, 8);
+		n_syn->auxBus[i].unk44->fx.unk02 = 0;
+		n_syn->auxBus[i].unk44->unk2c = alHeapAlloc(hp, 1, sizeof(POLEF_STATE));
+		n_syn->auxBus[i].unk44->unk30 = alHeapAlloc(hp, 1, sizeof(POLEF_STATE));
 	}
 
 	/******* main new *******************************/

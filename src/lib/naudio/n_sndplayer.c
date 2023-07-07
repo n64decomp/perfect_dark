@@ -41,7 +41,7 @@ void n_alSndpNew(ALSndpConfig *config)
 	g_SndPlayer->sndState = ptr;
 
 	// Init the event queue
-	ptr = alHeapAlloc(config->heap, 1, config->maxEvents * 0x1c);
+	ptr = alHeapAlloc(config->heap, 1, config->maxEvents * sizeof(N_ALEventListItem));
 	n_alEvtqNew(&g_SndPlayer->evtq, ptr, config->maxEvents);
 
 	g_SndpFreeStatesHead = g_SndPlayer->sndState;

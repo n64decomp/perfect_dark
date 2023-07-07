@@ -281,7 +281,7 @@ ALMicroTime __n_CSPVoiceHandler(void *node)
 				ALFxRef fx = func0003e5b8(seqp->nextEvent.msg.evt19.unk00);
 
 				if (fx) {
-					func0003e674((struct fx *) fx, seqp->nextEvent.msg.evt19.unk01, &seqp->nextEvent.msg.evt19.param);
+					func0003e674(fx, seqp->nextEvent.msg.evt19.unk01, &seqp->nextEvent.msg.evt19.param);
 				}
 			}
 			break;

@@ -5788,7 +5788,6 @@ typedef struct AudioInfo_s {
 	short         *data;          /* Output data pointer */
 	short         frameSamples;   /* # of samples synthesized in this frame */
 	OSScTask      task;           /* scheduler structure */
-	AudioMsg      msg;            /* completion message */
 } AudioInfo;
 
 typedef struct {
@@ -5896,12 +5895,7 @@ struct mp3vars {
 	/*0x38*/ struct mp3thing *var8009c3c8;
 	/*0x3c*/ s32 var8009c3cc;
 	/*0x40*/ s32 var8009c3d0;
-
-	union {
-		/*0x44*/ u32 *var8009c3d4;
-		/*0x44*/ u32 *var8009c3d4_arr[1];
-	};
-
+	/*0x44*/ u32 *var8009c3d4[1];
 	/*0x48*/ u32 var8009c3d8;
 	/*0x4c*/ void *var8009c3dc;
 	/*0x50*/ u32 var8009c3e0;
@@ -5911,18 +5905,6 @@ struct mp3vars {
 	/*0x5e*/ s16 var8009c3ee;
 	/*0x60*/ u8 var8009c3f0;
 	/*0x61*/ u8 var8009c3f1;
-};
-
-struct sndcache {
-	/*0x0000*/ u16 *indexes; // indexed by sfxnum, value is cache index (0-44) or 0xffff
-	/*0x0004*/ u8 refcounts[45];
-	/*0x0032*/ u16 ages[45];
-	/*0x008c*/ ALEnvelope envelopes[45];
-	/*0x035c*/ ALKeyMap keymaps[45];
-	/*0x046c*/ ALWaveTable wavetables[45];
-	/*0x07f0*/ ALADPCMBook books[45];
-	/*0x3658*/ ALADPCMloop loops[45];
-	/*0x3e14*/ ALSound sounds[45];
 };
 
 struct rdptask {

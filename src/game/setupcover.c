@@ -13,7 +13,7 @@ void coverAllocateSpecial(u16 *specialcovernums)
 {
 	s32 i;
 
-	g_SpecialCoverNums = mempAlloc(ALIGN16(g_NumSpecialCovers * sizeof(u16)), MEMPOOL_STAGE);
+	g_SpecialCoverNums = mempAlloc(ALIGN16(g_NumSpecialCovers * sizeof(g_SpecialCoverNums[0])), MEMPOOL_STAGE);
 
 	if (g_SpecialCoverNums != NULL) {
 		for (i = 0; i < g_NumSpecialCovers; i++) {
@@ -34,9 +34,9 @@ void setupPrepareCover(void)
 	RoomNum inrooms[21];
 	RoomNum aboverooms[21];
 
-	g_CoverFlags = mempAlloc(ALIGN16(numcovers * sizeof(u16)), MEMPOOL_STAGE);
-	g_CoverRooms = mempAlloc(ALIGN16(numcovers * sizeof(s32)), MEMPOOL_STAGE);
-	g_CoverCandidates = mempAlloc(ALIGN16(numcovers * 0x10), MEMPOOL_STAGE);
+	g_CoverFlags = mempAlloc(ALIGN16(numcovers * sizeof(g_CoverFlags[0])), MEMPOOL_STAGE);
+	g_CoverRooms = mempAlloc(ALIGN16(numcovers * sizeof(g_CoverRooms[0])), MEMPOOL_STAGE);
+	g_CoverCandidates = mempAlloc(ALIGN16(numcovers * sizeof(g_CoverCandidates[0])), MEMPOOL_STAGE);
 
 	g_NumSpecialCovers = 0;
 	g_SpecialCoverNums = NULL;
