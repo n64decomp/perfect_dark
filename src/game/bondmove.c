@@ -914,7 +914,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 										if (g_Vars.currentplayer->invdowntime > -1
 												&& joyGetButtonsOnSample(i, shootpad, shootallowedbuttons & Z_TRIG) == 0) {
 											if (g_Vars.currentplayer->invdowntime > TICKS(15)) {
-												amOpen();
+												/* amOpen(); */
 												g_Vars.currentplayer->invdowntime = -1;
 											} else {
 												g_Vars.currentplayer->invdowntime++;
@@ -1285,7 +1285,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 										if (g_Vars.currentplayer->invdowntime >= 0 && joyGetButtonsOnSample(i, contpad1, shootbuttons & c1allowedbuttons) == 0) {
 											// Holding A and haven't pressed Z
 											if (g_Vars.currentplayer->invdowntime > TICKS(15)) {
-												amOpen();
+												/* amOpen(); */
 												g_Vars.currentplayer->invdowntime = -1;
 											} else {
 												g_Vars.currentplayer->invdowntime++;
@@ -1390,6 +1390,31 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 					for (i = 0; i < numsamples; i++) {
 						if (joyGetButtonsOnSample(i, contpad1, c1allowedbuttons & X_BUTTON)) {
 							movedata.alt1tapcount++;
+						}
+					}
+
+
+					// Handle radial menu (D-Down)
+					for (i = 0; i < numsamples; i++) {
+						if (joyGetButtonsOnSample(i, contpad1, c1allowedbuttons & D_JPAD)) {
+							if (g_Vars.currentplayer->amdowntime < -2) {
+								g_Vars.currentplayer->amdowntime += numsamples;
+
+								if (g_Vars.currentplayer->amdowntime > -3) {
+									g_Vars.currentplayer->amdowntime = 0;
+								}
+							} else {
+								if (g_Vars.currentplayer->amdowntime >= 0) {
+									if (joyGetButtonsPressedOnSample(i, contpad1, c1allowedbuttons & D_JPAD)) {
+										amOpen();
+										g_Vars.currentplayer->amdowntime = -1;
+									} else {
+										g_Vars.currentplayer->amdowntime++;
+									}
+								}
+							}
+						} else {
+							g_Vars.currentplayer->amdowntime = 0;
 						}
 					}
 

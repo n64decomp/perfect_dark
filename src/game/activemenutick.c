@@ -64,7 +64,7 @@ void amTick(void)
 				g_AmMenus[g_AmIndex].allbots = false;
 
 				if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
-					buttonsstate = buttonsstate & A_BUTTON;
+					buttonsstate = buttonsstate & D_JPAD;
 					cstickx = 0;
 					csticky = 0;
 					buttonspressed = 0;
@@ -76,7 +76,7 @@ void amTick(void)
 						stayopen = true;
 					}
 
-					if (buttonsstate & A_BUTTON) {
+					if (buttonsstate & D_JPAD) {
 #if VERSION >= VERSION_JPN_FINAL
 						if (g_Vars.currentplayer->numaibuddies > 0) {
 							g_AmMenus[g_AmIndex].allbots = true;
@@ -86,7 +86,7 @@ void amTick(void)
 #endif
 					}
 				} else {
-					if (buttonsstate & A_BUTTON) {
+					if (buttonsstate & D_JPAD) {
 						stayopen = true;
 					}
 
@@ -145,10 +145,14 @@ void amTick(void)
 					u16 buttonspressed2 = joyGetButtonsPressedOnSample(j, contpadnum2, 0xffff);
 
 					if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
-						buttonsstate2 = buttonsstate2 & A_BUTTON;
+						buttonsstate2 = buttonsstate2 & D_JPAD;
 						cstickx2 = 0;
 						csticky2 = 0;
 						buttonspressed2 = 0;
+					}
+
+					if (buttonsstate2 & D_JPAD) {
+						stayopen = true;
 					}
 
 					if (buttonspressed2 & Z_TRIG) {

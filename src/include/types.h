@@ -2817,6 +2817,7 @@ struct player {
 	/*0x1c68*/ u32 unk1c68;
 	/*0x1c6c*/ u32 unk1c6c;
 	s16 altdowntime; // for alt-modes, used like invdowntime and amdowntime
+	s16 amdowntime; // for alt-modes, used like invdowntime and amdowntime
 };
 
 struct ailist {
