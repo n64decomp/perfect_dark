@@ -11699,7 +11699,7 @@ s32 bgunConsiderToggleGunFunction(s32 usedowntime, bool trigpressed, bool fromac
 		}
 
 		// Don't do anything if B hasn't been held for 50/60ths of a second
-		if (usedowntime < TICKS(50)) {
+		if (ABS(usedowntime) < 0) {
 			return USETIMER_CONTINUE;
 		}
 

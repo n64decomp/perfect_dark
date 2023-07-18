@@ -806,6 +806,8 @@ void playerLoadDefaults(void)
 	g_Vars.currentplayer->prevoverexposurered = 0;
 	g_Vars.currentplayer->prevoverexposuregreen = 0;
 	g_Vars.currentplayer->prevoverexposureblue = 0;
+	g_Vars.currentplayer->amdowntime = 0;
+	g_Vars.currentplayer->altdowntime = 0;
 }
 
 bool playerSpawnAnti(struct chrdata *hostchr, bool force)

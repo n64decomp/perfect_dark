@@ -1349,6 +1349,43 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 						}
 					}
 
+
+					// handle L button
+					for (i = 0; i< numsamples; i++) {
+						if (joyGetButtonsOnSample(i, contpad1, c1allowedbuttons & L_TRIG)) {
+							if (g_Vars.currentplayer->altdowntime >= -1) {
+								if (joyGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)
+										&& g_Vars.currentplayer->altdowntime >= 0
+										&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->altdowntime, true, false) != USETIMER_CONTINUE) {
+									g_Vars.currentplayer->altdowntime = -3;
+								}
+
+								if (g_Vars.currentplayer->altdowntime != -4) {
+									if (g_Vars.currentplayer->altdowntime <= 0) {
+										g_Vars.currentplayer->altdowntime++;
+									}
+								}
+							} else  {
+								if (g_Vars.currentplayer->altdowntime == -2) {
+									bgunConsiderToggleGunFunction(g_Vars.currentplayer->altdowntime, false, false);
+									g_Vars.currentplayer->altdowntime = -4;
+								}
+							}
+						} else {
+							// Released L
+							if (g_Vars.currentplayer->altdowntime != 0) {
+								s32 result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->altdowntime, (g_Vars.currentplayer->altdowntime == -3 ? true: false), false);
+
+								if (result == USETIMER_STOP) {
+									g_Vars.currentplayer->altdowntime = -1;
+								} else if (result == USETIMER_REPEAT) {
+									g_Vars.currentplayer->altdowntime = -2;
+								}
+							}
+							g_Vars.currentplayer->altdowntime = 0;
+						}
+					}
+
 					// Handle ALT1 / MI Reload Hack
 					for (i = 0; i < numsamples; i++) {
 						if (joyGetButtonsOnSample(i, contpad1, c1allowedbuttons & X_BUTTON)) {
