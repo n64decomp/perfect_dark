@@ -208,8 +208,8 @@ void bbikeApplyMoveData(struct movedata *data)
 				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_13
 				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_11)
 			&& !lvIsPaused()) {
-		data->digitalstepleft = joyCountButtonsOnSpecificSamples(0, contnum, L_JPAD | L_CBUTTONS);
-		data->digitalstepright = joyCountButtonsOnSpecificSamples(0, contnum, R_JPAD | R_CBUTTONS);
+		data->digitalstepleft = joyCountButtonsOnSpecificSamples(0, contnum, L_CBUTTONS);
+		data->digitalstepright = joyCountButtonsOnSpecificSamples(0, contnum,R_CBUTTONS);
 	}
 
 	// Forward/back

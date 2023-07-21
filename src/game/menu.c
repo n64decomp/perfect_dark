@@ -2143,7 +2143,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 			modelGetRootPosition(&thing->bodymodel, &oldpos);
 
-			if (joyGetButtons(0, L_TRIG)) {
+			if (joyGetButtons(0, R_TRIG)) {
 				modelSetRootPosition(&thing->bodymodel, &newpos);
 			}
 		}
@@ -4617,10 +4617,6 @@ void menuProcessInput(void)
 				inputs.shoulder = 1;
 			}
 
-			if (buttons & L_TRIG) {
-				inputs.shoulder = 1;
-			}
-
 			if ((stickx < 0 ? -stickx : stickx) < (thisstickx < 0 ? -thisstickx : thisstickx)) {
 				stickx = thisstickx;
 			}
@@ -4661,37 +4657,6 @@ void menuProcessInput(void)
 				xtapdir = 1;
 			}
 
-			if (buttons & U_JPAD) {
-				yhelddir = -1;
-			}
-
-			if (buttonsnow & U_JPAD) {
-				ytapdir = -1;
-			}
-
-			if (buttons & D_JPAD) {
-				yhelddir = 1;
-			}
-
-			if (buttonsnow & D_JPAD) {
-				ytapdir = 1;
-			}
-
-			if (buttons & L_JPAD) {
-				xhelddir = -1;
-			}
-
-			if (buttonsnow & L_JPAD) {
-				xtapdir = -1;
-			}
-
-			if (buttons & R_JPAD) {
-				xhelddir = 1;
-			}
-
-			if (buttonsnow & R_JPAD) {
-				xtapdir = 1;
-			}
 		}
 
 		// Prevent select and going back on the same frame

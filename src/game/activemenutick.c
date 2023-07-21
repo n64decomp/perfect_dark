@@ -72,7 +72,7 @@ void amTick(void)
 
 				// JPN fixes the bug that's documented in amChangeScreen
 				if (controlmode == CONTROLMODE_13 || controlmode == CONTROLMODE_14) {
-					if ((buttonsstate & R_TRIG) || (buttonsstate & L_TRIG)) {
+					if ((buttonsstate & R_TRIG)) {
 						stayopen = true;
 					}
 
@@ -90,7 +90,7 @@ void amTick(void)
 						stayopen = true;
 					}
 
-					if ((buttonsstate & R_TRIG) || (buttonsstate & L_TRIG)) {
+					if ((buttonsstate & R_TRIG)) {
 #if VERSION >= VERSION_JPN_FINAL
 						if (g_Vars.currentplayer->numaibuddies > 0) {
 							g_AmMenus[g_AmIndex].allbots = true;
@@ -134,22 +134,6 @@ void amTick(void)
 					column = 2;
 				}
 
-				if (buttonsstate & U_JPAD) {
-					row = 0;
-				}
-
-				if (buttonsstate & D_JPAD) {
-					row = 2;
-				}
-
-				if (buttonsstate & L_JPAD) {
-					column = 0;
-				}
-
-				if (buttonsstate & R_JPAD) {
-					column = 2;
-				}
-
 				if (controlmode == CONTROLMODE_23
 						|| controlmode == CONTROLMODE_24
 						|| controlmode == CONTROLMODE_22
@@ -165,10 +149,6 @@ void amTick(void)
 						cstickx2 = 0;
 						csticky2 = 0;
 						buttonspressed2 = 0;
-					}
-
-					if (buttonsstate2 & A_BUTTON) {
-						stayopen = true;
 					}
 
 					if (buttonspressed2 & Z_TRIG) {
@@ -188,22 +168,6 @@ void amTick(void)
 					}
 
 					if (buttonsstate2 & R_CBUTTONS) {
-						column = 2;
-					}
-
-					if (buttonsstate2 & U_JPAD) {
-						row = 0;
-					}
-
-					if (buttonsstate2 & D_JPAD) {
-						row = 2;
-					}
-
-					if (buttonsstate2 & L_JPAD) {
-						column = 0;
-					}
-
-					if (buttonsstate2 & R_JPAD) {
 						column = 2;
 					}
 
