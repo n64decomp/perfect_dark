@@ -169,7 +169,8 @@ DEFINES := \
     MATCHING=$(MATCHING) \
     PAL=$(PAL) \
     PIRACYCHECKS=$(PIRACYCHECKS) \
-    ROM_SIZE=$(ROM_SIZE)
+    ROM_SIZE=$(ROM_SIZE) \
+    PLATFORM_N64=1
 
 ifeq ($(DEBUG),1)
     DEFINES := $(DEFINES) DEBUG=1
@@ -296,6 +297,7 @@ INCLUDES = \
     -I include \
     -I include/PR \
     -I src/include \
+    -I src/include/lib/libc \
     -I src/generated/$(ROMID) \
     -I src/lib/ultra/audio \
 

@@ -9,6 +9,7 @@
 #include "lib/main.h"
 #include "data.h"
 #include "types.h"
+#include "platform.h"
 
 /**
  * Officially, the NTSC versions are American English only, while the PAL
@@ -213,9 +214,9 @@ u32 langGetLangBankIndexFromStagenum(s32 stagenum)
 	return bank;
 }
 
-extern u8 _fontjpnSegmentRomStart;
-extern u8 _fontjpnsingleSegmentRomStart;
-extern u8 _fontjpnmultiSegmentRomStart;
+extern u8 EXT_SEG _fontjpnSegmentRomStart;
+extern u8 EXT_SEG _fontjpnsingleSegmentRomStart;
+extern u8 EXT_SEG _fontjpnmultiSegmentRomStart;
 
 struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
 {
@@ -403,7 +404,7 @@ char *langGet(s32 textid)
 	u32 addr;
 
 	if (bank && bank[textindex]) {
-		addr = (uintptr_t)bank + bank[textindex];
+		addr = (uintptr_t)bank + PD_BE32(bank[textindex]);
 	} else {
 		addr = 0;
 	}

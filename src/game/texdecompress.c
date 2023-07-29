@@ -2084,7 +2084,7 @@ void texLoadFromDisplayList(Gfx *gdl, struct texpool *pool, s32 arg2)
 	}
 }
 
-extern u8 _texturesdataSegmentRomStart;
+extern u8 EXT_SEG _texturesdataSegmentRomStart;
 
 /**
  * Load and decompress a texture from ROM.
@@ -2179,7 +2179,7 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 
 			// Copy the compressed texture to RAM
 			dmaExec(alignedcompbuffer,
-					(romptr_t) &_texturesdataSegmentRomStart + (thisoffset & 0xfffffff8),
+					(romptr_t) REF_SEG _texturesdataSegmentRomStart + (thisoffset & 0xfffffff8),
 					((u32) (nextoffset - thisoffset) + 0x1f) >> 4 << 4);
 
 			compptr = (u8 *) alignedcompbuffer + (thisoffset & 7);
@@ -2263,7 +2263,12 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 				pool->rightpos->next = 0;
 
 				if (tail != NULL) {
-					tail->next = (uintptr_t) pool->rightpos & 0xffffff;
+					tail->next = (uintptr_t) pool->rightpos
+					#ifdef PLATFORM_N64
+						& 0xffffff;
+					#else
+						;
+					#endif
 				} else {
 					pool->head = pool->rightpos;
 				}

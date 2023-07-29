@@ -43,6 +43,9 @@
 #include "data.h"
 #include "gbiex.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "preprocess.h"
+#endif
 
 #define BGCMD_END                               0x00
 #define BGCMD_PUSH                              0x01
@@ -1492,6 +1495,9 @@ void bgReset(s32 stagenum)
 	// Copy section 1 header to stack and parse into variables
 	header = (u8 *)ALIGN16((uintptr_t)headerbuffer);
 	bgLoadFile(header, 0, 0x40);
+#ifndef PLATFORM_N64
+	preprocessBgSection1Header(header, 0x40);
+#endif
 	inflatedsize = *(u32 *)&header[0];
 	section1compsize = *(u32 *)&header[4];
 	primcompsize = *(u32 *)&header[8];
@@ -1516,6 +1522,10 @@ void bgReset(s32 stagenum)
 	scratch += 0xc;
 	bgInflate((u8 *) scratch, g_BgPrimaryData, primcompsize);
 
+#ifndef PLATFORM_N64
+	preprocessBgSection1(g_BgPrimaryData, 0x0f000000);
+#endif
+
 	// Shrink the allocation (ie. free the scratch space)
 	mempRealloc(g_BgPrimaryData, inflatedsize, MEMPOOL_STAGE);
 
@@ -1523,6 +1533,9 @@ void bgReset(s32 stagenum)
 	section2start = section1compsize + 0xc;
 
 	bgLoadFile(header, section2start, 0x40);
+#ifndef PLATFORM_N64
+	preprocessBgSection2Header(header, 0x40);
+#endif
 
 	inflatedsize = (*(u16 *) &header[0] & 0x7fff) - 1;
 	section2compsize = *(u16 *) &header[2];
@@ -1551,6 +1564,10 @@ void bgReset(s32 stagenum)
 
 	// Iterate texture IDs and ensure they're loaded
 	inflatedsize = (*(u16 *) &header[0] & 0x7fff) >> 1;
+
+#ifndef PLATFORM_N64
+	preprocessBgSection2((u8 *)section2, inflatedsize);
+#endif
 
 	for (i = 0; i ^ inflatedsize; i++) {
 		texLoadFromTextureNum(section2[i] & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff, NULL);
@@ -1891,6 +1908,9 @@ void bgBuildTables(s32 stagenum)
 		// Load and read the header
 		header = (u8 *)ALIGN16((uintptr_t)headerbuffer);
 		bgLoadFile(header, g_BgSection3, 0x40);
+#ifndef PLATFORM_N64
+		preprocessBgSection3Header(header, 0x40);
+#endif
 		inflatedsize = (*(u16 *)&header[0] & 0x7fff) - 1;
 		section3compsize = *(u16 *)&header[2];
 		inflatedsize = (inflatedsize | 0xf) + 1;
@@ -1909,6 +1929,9 @@ void bgBuildTables(s32 stagenum)
 
 		bgLoadFile(scratch, g_BgSection3 + 4, ((section3compsize - 1) | 0xf) + 1);
 		bgInflate(scratch, section3, section3compsize);
+#ifndef PLATFORM_N64
+		preprocessBgSection3(section3, section3compsize);
+#endif
 
 		// Section 3 starts with a table of room bounding boxes
 		bboxptr = (s16 *) section3;
@@ -1965,6 +1988,10 @@ void bgBuildTables(s32 stagenum)
 
 			numlightsptr++;
 		}
+
+#ifndef PLATFORM_N64
+		preprocessBgLights(g_BgLightsFileData, 0);
+#endif
 
 		// Free the section 3 allocation
 		mempRealloc(section3, 0, MEMPOOL_STAGE);
@@ -2795,6 +2822,9 @@ void bgLoadRoom(s32 roomnum)
 
 		// Inflate the data to the left side of the allocation
 		inflatedlen = bgInflate(memaddr, allocation, g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00);
+#ifndef PLATFORM_N64
+		preprocessBgRoom(allocation, g_BgRooms[roomnum].unk00);
+#endif
 
 		g_Rooms[roomnum].gfxdata = (struct roomgfxdata *)allocation;
 

@@ -1,6 +1,13 @@
 #ifndef IN_MATH_H
 #define IN_MATH_H
 
+#ifndef PLATFORM_N64
+#include_next <math.h>
+#undef M_PI
+#undef M_TAU
+#undef errno // fuck off
+#endif
+
 // @bug?
 #define M_BADPI 3.141092641f
 #define M_PI    3.141592741f

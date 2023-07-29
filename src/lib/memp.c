@@ -43,6 +43,11 @@
  * memp memory is to load a new stage which wipes the stage pool.
  */
 
+#ifndef PLATFORM_N64
+// TODO: set this in a config or something
+#define MEMP_EXPANSION_POOL_SIZE (8 * 1024 * 1024)
+#endif
+
 struct memorypool {
 	/*0x00*/ u8 *start;
 	/*0x04*/ u8 *leftpos;
@@ -82,6 +87,15 @@ void mempSetHeap(u8 *heapstart, u32 heaplen)
 		g_MempExpansionPools[i].prevallocation = 0;
 	}
 
+#ifndef PLATFORM_N64
+	// separate the heap space into onboard and expansion
+	u32 expansionlen = 0;
+	if (heaplen > MEMP_EXPANSION_POOL_SIZE) {
+		heaplen -= MEMP_EXPANSION_POOL_SIZE;
+		expansionlen = MEMP_EXPANSION_POOL_SIZE;
+	}
+#endif
+
 	g_MempOnboardPools[MEMPOOL_0].start = heapstart;
 	g_MempOnboardPools[MEMPOOL_0].rightpos = heapstart + heaplen;
 	g_MempOnboardPools[MEMPOOL_PERMANENT].start = heapstart;
@@ -89,6 +103,7 @@ void mempSetHeap(u8 *heapstart, u32 heaplen)
 	g_MempOnboardPools[MEMPOOL_STAGE].start = heapstart;
 	g_MempOnboardPools[MEMPOOL_STAGE].rightpos = heapstart + heaplen;
 
+#ifdef PLATFORM_N64
 	// If 8MB, reserve the entire expansion pak for the stage pool
 #if VERSION >= VERSION_NTSC_1_0
 	extraend = (u8 *) K0BASE + bootGetMemSize();
@@ -105,6 +120,12 @@ void mempSetHeap(u8 *heapstart, u32 heaplen)
 		g_MempExpansionPools[MEMPOOL_STAGE].start = (u8 *) K0BASE + 4 * 1024 * 1024;
 		g_MempExpansionPools[MEMPOOL_STAGE].rightpos = extraend;
 	}
+#else
+	if (expansionlen) {
+		g_MempExpansionPools[MEMPOOL_STAGE].start = heapstart + heaplen;
+		g_MempExpansionPools[MEMPOOL_STAGE].rightpos = heapstart + heaplen + expansionlen;
+	}
+#endif
 
 	for (i = 0; i < ARRAYCOUNT(g_MempOnboardPools); i++) {
 		g_MempOnboardPools[i].end = g_MempOnboardPools[i].rightpos;

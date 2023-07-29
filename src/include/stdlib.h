@@ -1,5 +1,12 @@
-#ifndef __STDLIB_H__
-#define __STDLIB_H__
+#ifndef __N64_STDLIB_H__
+#define __N64_STDLIB_H__
+
+#ifndef PLATFORM_N64
+
+#include_next <stdlib.h>
+#undef errno // fuck off
+
+#else // PLATFORM_N64
 
 #ifndef	NULL
 #define NULL	0
@@ -18,4 +25,7 @@ typedef struct ldiv_t
 
 lldiv_t lldiv(long long num, long long denom);
 ldiv_t ldiv(long num, long denom);
-#endif /* !__STDLIB_H__ */
+
+#endif // PLATFORM_N64
+
+#endif /* !__N64_STDLIB_H__ */

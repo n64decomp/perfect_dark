@@ -305,11 +305,11 @@ Gfx var8005dcf0[] = {
 
 s32 g_MainIsBooting = 1;
 
-extern u8 _accessingpakSegmentRomStart;
-extern u8 _accessingpakSegmentRomEnd;
-extern u8 _copyrightSegmentRomStart;
-extern u8 _copyrightSegmentRomEnd;
-extern u8 _bssSegmentEnd;
+extern u8 EXT_SEG _accessingpakSegmentRomStart;
+extern u8 EXT_SEG _accessingpakSegmentRomEnd;
+extern u8 EXT_SEG _copyrightSegmentRomStart;
+extern u8 EXT_SEG _copyrightSegmentRomEnd;
+extern u8 EXT_SEG _bssSegmentEnd;
 
 /**
  * Initialise various subsystems, display the copyright or accessing pak texture,
@@ -429,9 +429,9 @@ void mainInit(void)
 		// DMA the compressed texture from the ROM to the framebuffer.
 		// It's using the framebuffer as a temporary data buffer.
 		if (g_DoBootPakMenu) {
-			dmaExec(fb, (romptr_t) &_accessingpakSegmentRomStart, &_accessingpakSegmentRomEnd - &_accessingpakSegmentRomStart);
+			dmaExec(fb, (romptr_t) REF_SEG _accessingpakSegmentRomStart, REF_SEG _accessingpakSegmentRomEnd - REF_SEG _accessingpakSegmentRomStart);
 		} else {
-			dmaExec(fb, (romptr_t) &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
+			dmaExec(fb, (romptr_t) REF_SEG _copyrightSegmentRomStart, REF_SEG _copyrightSegmentRomEnd - REF_SEG _copyrightSegmentRomStart);
 		}
 
 		// This is required for a match
@@ -630,7 +630,7 @@ void mainInit(void)
 		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
 	}
 
-	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_bssSegmentEnd));
+	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(REF_SEG _bssSegmentEnd));
 	if (g_VmMarker);
 	mempSetHeap(start, g_VmMarker - start);
 

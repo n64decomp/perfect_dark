@@ -39,17 +39,17 @@ s32 g_AnimMaxHeaderLength = 608;
 bool g_AnimHostEnabled = false;
 u8 *g_AnimHostSegment = NULL;
 
-extern u8 _animationsTableRomStart;
-extern u8 _animationsTableRomEnd;
+extern u8 EXT_SEG _animationsTableRomStart;
+extern u8 EXT_SEG _animationsTableRomEnd;
 
 void animsInit(void)
 {
 	s32 i;
 	u32 *ptr;
-	u32 tablelen = ALIGN64(&_animationsTableRomEnd - &_animationsTableRomStart);
+	u32 tablelen = ALIGN64(REF_SEG _animationsTableRomEnd - REF_SEG _animationsTableRomStart);
 
 	ptr = mempAlloc(tablelen, MEMPOOL_PERMANENT);
-	dmaExec(ptr, (romptr_t) &_animationsTableRomStart, tablelen);
+	dmaExec(ptr, (romptr_t) REF_SEG _animationsTableRomStart, tablelen);
 
 	g_NumAnimations = g_NumRomAnimations = ptr[0];
 	g_Anims = g_RomAnims = (struct animtableentry *)&ptr[1];
@@ -131,7 +131,7 @@ s32 animGetNumAnimations(void)
 	return g_NumAnimations;
 }
 
-extern u8 _animationsSegmentRomStart;
+extern u8 EXT_SEG _animationsSegmentRomStart;
 
 u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 {
@@ -140,7 +140,7 @@ u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 		return dst;
 	}
 
-	return dmaExecWithAutoAlign(dst, (romptr_t) &_animationsSegmentRomStart + segoffset, len);
+	return dmaExecWithAutoAlign(dst, (romptr_t) REF_SEG _animationsSegmentRomStart + segoffset, len);
 }
 
 /**

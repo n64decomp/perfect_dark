@@ -23,5 +23,7 @@ void schedIncrementFrontArtifacts(void);
 void schedUpdatePendingArtifacts(void);
 void schedConsiderScreenshot(void);
 void schedSetCrashedUnexpectedly(bool enable);
+void schedStartFrame(OSSched *sc);
+void schedEndFrame(OSSched *sc);
 
 #endif

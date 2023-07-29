@@ -1,3 +1,4 @@
+#ifdef PLATFORM_N64
 #include <ultra64.h>
 #include <stdarg.h>
 #include "constants.h"
@@ -6,6 +7,11 @@
 #include "lib/libc/xprintf.h"
 #include "data.h"
 #include "types.h"
+#else
+#include <stdio.h>
+#include <stdarg.h>
+#include "types.h"
+#endif
 
 void rmonproc()
 {
@@ -69,5 +75,11 @@ void rmonPrintf(const char *format, ...)
 	va_list ap;
 	va_start(ap, format);
 
+#ifdef PLATFORM_N64
 	_Printf(rmonProut, NULL, format, ap);
+#else
+	fprintf(stderr, "rmonPrintf: ");
+	vfprintf(stderr, format, ap);
+	va_end(ap);
+#endif
 }

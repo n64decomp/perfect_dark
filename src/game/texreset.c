@@ -37,20 +37,26 @@ extern Gfx *g_TexGdl3;
 extern struct textureconfig *g_TexRedLinesConfigs;
 extern struct textureconfig *g_TexGroup11Configs;
 
-extern u8 _textureconfigSegmentRomStart;
-extern u8 _textureconfigSegmentStart;
-extern u8 _textureconfigSegmentEnd;
+extern u8 EXT_SEG _textureconfigSegmentRomStart;
+extern u8 EXT_SEG _textureconfigSegmentStart;
+extern u8 EXT_SEG _textureconfigSegmentEnd;
 
 void texReset(void)
 {
 	s32 stage;
+#ifdef PLATFORM_N64
 	u32 len = &_textureconfigSegmentEnd - &_textureconfigSegmentStart;
+#endif
 	s32 i;
 
+#ifdef PLATFORM_N64
 	g_TextureConfigSegment = mempAlloc(len, MEMPOOL_STAGE);
 	dmaExec(g_TextureConfigSegment, (romptr_t)&_textureconfigSegmentRomStart, len);
-
 	g_TexBase = (uintptr_t)g_TextureConfigSegment - ROM_SIZE * 1024 * 1024;
+#else
+	g_TexBase = 0;
+#endif
+
 	g_TexGdl1 = (Gfx *)(g_TexBase + (uintptr_t)g_TcGdl1);
 	g_TexGdl2 = (Gfx *)(g_TexBase + (uintptr_t)g_TcGdl2);
 	g_TexGdl3 = (Gfx *)(g_TexBase + (uintptr_t)g_TcGdl3);
@@ -72,7 +78,12 @@ void texReset(void)
 	g_TexGeneralConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcGeneralConfigs);
 	g_TexRadarConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcRadarConfigs);
 
+#ifdef PLATFORM_N64
 	g_TexNumConfigs = (len - (uintptr_t)&g_TcWallhitConfigs + ROM_SIZE * 1024 * 1024) / sizeof(struct textureconfig);
+#else
+	// TODO: load this shit externally for fuck's sake
+	g_TexNumConfigs = 18 + 5 + 6 + 2 + 96 + 3 + 6 + 10 + 1 + 56 + 1;
+#endif
 	g_TexWords = mempAlloc(ALIGN16(g_TexNumConfigs * 4), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_TexNumConfigs; i++) {

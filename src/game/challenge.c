@@ -367,41 +367,55 @@ bool challengeIsCompletedByChrWithNumPlayersBySlot(s32 mpchrnum, s32 slot, s32 n
 	return false;
 }
 
+#ifdef PLATFORM_N64
+#define BTYPE s32
+#else
+#define BTYPE uintptr_t
+#endif
+
 struct mpconfigfull *challengeLoadConfig(s32 confignum, u8 *buffer, s32 len)
 {
 	struct mpconfigfull *mpconfig;
 	u8 buffer2[sizeof(struct mpstrings) + 40];
 	struct mpstrings *loadedstrings;
-	s32 bank;
+	BTYPE bank;
 	u32 language_id = langGetFileNumOffset();
+#ifdef PLATFORM_N64
 	extern struct mpconfig _mpconfigsSegmentRomStart[];
-	extern struct mpstrings _mpstringsESegmentRomStart;
-	extern struct mpstrings _mpstringsJSegmentRomStart;
-	extern struct mpstrings _mpstringsPSegmentRomStart;
-	extern struct mpstrings _mpstringsGSegmentRomStart;
-	extern struct mpstrings _mpstringsFSegmentRomStart;
-	extern struct mpstrings _mpstringsSSegmentRomStart;
-	extern struct mpstrings _mpstringsISegmentRomStart;
-	extern struct mpstrings _mpstringsESegmentRomEnd;
-	extern struct mpstrings _mpstringsJSegmentRomEnd;
-	extern struct mpstrings _mpstringsPSegmentRomEnd;
-	extern struct mpstrings _mpstringsGSegmentRomEnd;
-	extern struct mpstrings _mpstringsFSegmentRomEnd;
-	extern struct mpstrings _mpstringsSSegmentRomEnd;
-	extern struct mpstrings _mpstringsISegmentRomEnd;
+#else
+	extern u8 EXT_SEG _mpconfigsSegmentRomStart;
+#endif
+	extern struct mpstrings EXT_SEG _mpstringsESegmentRomStart;
+	extern struct mpstrings EXT_SEG _mpstringsJSegmentRomStart;
+	extern struct mpstrings EXT_SEG _mpstringsPSegmentRomStart;
+	extern struct mpstrings EXT_SEG _mpstringsGSegmentRomStart;
+	extern struct mpstrings EXT_SEG _mpstringsFSegmentRomStart;
+	extern struct mpstrings EXT_SEG _mpstringsSSegmentRomStart;
+	extern struct mpstrings EXT_SEG _mpstringsISegmentRomStart;
+	extern struct mpstrings EXT_SEG _mpstringsESegmentRomEnd;
+	extern struct mpstrings EXT_SEG _mpstringsJSegmentRomEnd;
+	extern struct mpstrings EXT_SEG _mpstringsPSegmentRomEnd;
+	extern struct mpstrings EXT_SEG _mpstringsGSegmentRomEnd;
+	extern struct mpstrings EXT_SEG _mpstringsFSegmentRomEnd;
+	extern struct mpstrings EXT_SEG _mpstringsSSegmentRomEnd;
+	extern struct mpstrings EXT_SEG _mpstringsISegmentRomEnd;
 
-	s32 banks[][2] = {
-		{ (s32)&_mpstringsESegmentRomStart, (s32)&_mpstringsESegmentRomEnd },
-		{ (s32)&_mpstringsJSegmentRomStart, (s32)&_mpstringsJSegmentRomEnd },
-		{ (s32)&_mpstringsPSegmentRomStart, (s32)&_mpstringsPSegmentRomEnd },
-		{ (s32)&_mpstringsGSegmentRomStart, (s32)&_mpstringsGSegmentRomEnd },
-		{ (s32)&_mpstringsFSegmentRomStart, (s32)&_mpstringsFSegmentRomEnd },
-		{ (s32)&_mpstringsSSegmentRomStart, (s32)&_mpstringsSSegmentRomEnd },
-		{ (s32)&_mpstringsISegmentRomStart, (s32)&_mpstringsISegmentRomEnd },
+	BTYPE banks[][2] = {
+		{ (BTYPE)REF_SEG _mpstringsESegmentRomStart, (BTYPE)REF_SEG _mpstringsESegmentRomEnd },
+		{ (BTYPE)REF_SEG _mpstringsJSegmentRomStart, (BTYPE)REF_SEG _mpstringsJSegmentRomEnd },
+		{ (BTYPE)REF_SEG _mpstringsPSegmentRomStart, (BTYPE)REF_SEG _mpstringsPSegmentRomEnd },
+		{ (BTYPE)REF_SEG _mpstringsGSegmentRomStart, (BTYPE)REF_SEG _mpstringsGSegmentRomEnd },
+		{ (BTYPE)REF_SEG _mpstringsFSegmentRomStart, (BTYPE)REF_SEG _mpstringsFSegmentRomEnd },
+		{ (BTYPE)REF_SEG _mpstringsSSegmentRomStart, (BTYPE)REF_SEG _mpstringsSSegmentRomEnd },
+		{ (BTYPE)REF_SEG _mpstringsISegmentRomStart, (BTYPE)REF_SEG _mpstringsISegmentRomEnd },
 	};
 
 	// Load mpconfigs
-	mpconfig = dmaExecWithAutoAlign(buffer, (s32)&_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
+#ifdef PLATFORM_N64
+	mpconfig = dmaExecWithAutoAlign(buffer, (BTYPE)&_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
+#else
+	mpconfig = dmaExecWithAutoAlign(buffer, (BTYPE)REF_SEG _mpconfigsSegmentRomStart + confignum * sizeof(struct mpconfig), sizeof(struct mpconfig));
+#endif
 
 	// Load mpstrings
 	bank = banks[language_id][0];

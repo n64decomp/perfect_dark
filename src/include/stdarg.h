@@ -1,5 +1,5 @@
-#ifndef STDARG_H
-#define STDARG_H
+#ifndef N64_STDARG_H
+#define N64_STDARG_H
 
 // When not building with IDO, use the builtin vaarg macros for portability.
 #ifndef __sgi

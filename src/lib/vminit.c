@@ -95,9 +95,9 @@ s32 g_VmNumPages = 0;
 
 u32 var8005cf88 = 0;
 
-extern u8 _gameSegmentStart;
-extern u8 _gameSegmentEnd;
-extern u8 _gamezipSegmentRomStart;
+extern u8 EXT_SEG _gameSegmentStart;
+extern u8 EXT_SEG _gameSegmentEnd;
+extern u8 EXT_SEG _gamezipSegmentRomStart;
 
 extern u32 g_VmPhysicalSlots;
 extern u32 *g_VmVirtualToPhysicalTable;
@@ -207,24 +207,24 @@ void vmInit(void)
 	{
 		g_Is4Mb = true;
 
-		g_VmNumPages = (s32)((&_gameSegmentEnd - &_gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
+		g_VmNumPages = (s32)((REF_SEG _gameSegmentEnd - REF_SEG _gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
 
 		g_VmRamEnd = 0x7f000000 + VM_PAGE_SIZE * g_VmNumPages;
 		g_VmVirtualToPhysicalTableEnd = STACK_START;
 		gameseg = (u8 *) (STACK_START - g_VmNumPages * 8);
 		g_VmVirtualToPhysicalTable = (u32 *) gameseg;
 
-		numpages = (u32) (((uintptr_t) &_gameSegmentEnd - (uintptr_t) &_gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
+		numpages = (u32) (((uintptr_t) REF_SEG _gameSegmentEnd - (uintptr_t) REF_SEG _gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
 		numentries = numpages + 1;
 
 		g_VmZipTable = (u32 *) ((uintptr_t) ((u32 *) gameseg - (numentries + 4)) & ~0xf);
 
 		// Load gamezips pointer list
-		dmaExec(g_VmZipTable, (romptr_t) &_gamezipSegmentRomStart, ALIGN16((numentries + 1) << 2));
+		dmaExec(g_VmZipTable, (romptr_t) REF_SEG _gamezipSegmentRomStart, ALIGN16((numentries + 1) << 2));
 
 		// Make pointers absolute instead of relative to their segment
 		for (pagenum = 0; pagenum < numentries; pagenum++) {
-			g_VmZipTable[pagenum] += (romptr_t) &_gamezipSegmentRomStart;
+			g_VmZipTable[pagenum] += (romptr_t) REF_SEG _gamezipSegmentRomStart;
 		}
 
 		// Find the size of the biggest compressed zip
@@ -262,14 +262,14 @@ void vmInit(void)
 		// Expansion pak is being used
 		g_Is4Mb = numentries * false;
 
-		numpages = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
+		numpages = (u32)((REF_SEG _gameSegmentEnd - REF_SEG _gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
 		s7 = (u8 *) STACK_START;
 
 #if VERSION >= VERSION_NTSC_1_0
 		numentries = numpages + 1;
-		gameseg = (u8 *) ((uintptr_t) (s7 - (u8 *) ALIGN64((uintptr_t) &_gameSegmentEnd - (uintptr_t) &_gameSegmentStart)) & 0xfffe0000);
+		gameseg = (u8 *) ((uintptr_t) (s7 - (u8 *) ALIGN64((uintptr_t) REF_SEG _gameSegmentEnd - (uintptr_t) REF_SEG _gameSegmentStart)) & 0xfffe0000);
 #else
-		gameseg = (u8 *) ((uintptr_t) (s7 - (u8 *) ALIGN64((uintptr_t) &_gameSegmentEnd - (uintptr_t) &_gameSegmentStart)) & 0xfffe0000);
+		gameseg = (u8 *) ((uintptr_t) (s7 - (u8 *) ALIGN64((uintptr_t) REF_SEG _gameSegmentEnd - (uintptr_t) REF_SEG _gameSegmentStart)) & 0xfffe0000);
 		numentries = numpages + 1;
 #endif
 
@@ -278,7 +278,7 @@ void vmInit(void)
 		numentries2 = numentries;
 
 		// Load gamezips pointer list
-		dmaExec(romaddrs, (romptr_t) &_gamezipSegmentRomStart, ALIGN16((numentries2 + 1) << 2));
+		dmaExec(romaddrs, (romptr_t) REF_SEG _gamezipSegmentRomStart, ALIGN16((numentries2 + 1) << 2));
 
 		if (pagenum);
 
@@ -290,7 +290,7 @@ void vmInit(void)
 
 		// Make pointers absolute instead of relative to their segment
 		for (ITER = 0; ITER < numentries2; ITER++) { \
-			romaddrs[ITER] += (romptr_t) &_gamezipSegmentRomStart;
+			romaddrs[ITER] += (romptr_t) REF_SEG _gamezipSegmentRomStart;
 		}
 
 		// Load each zip from the ROM and inflate them to the game segment

@@ -4,6 +4,14 @@
 #include "constants.h"
 #include "types.h"
 
+#ifdef PLATFORM_N64
+#define EXT_SEG
+#define REF_SEG &
+#else
+#define EXT_SEG *
+#define REF_SEG
+#endif
+
 #define bool s32
 #define ubool u32
 

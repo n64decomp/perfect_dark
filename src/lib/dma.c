@@ -28,8 +28,9 @@ void dmaInit(void)
 	osCreateMesgQueue(&g_DmaMesgQueue, g_DmaMesgs, ARRAYCOUNT(g_DmaMesgs));
 }
 
-void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
+void dmaStart(void *memaddr, romptr_t romaddr, u32 len, bool priority)
 {
+#ifdef PLATFORM_N64
 	u32 numiterations;
 	u32 remainder;
 	s32 i;
@@ -73,6 +74,9 @@ void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
 
 		osPiStartDma(&g_DmaIoMsgs[i], priority, 0, romaddr, memaddr, remainder, &g_DmaMesgQueue);
 	}
+#else // PLATFORM_N64
+	bcopy((const void *)romaddr, memaddr, len);
+#endif // PLATFORM_N64
 }
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -121,6 +125,7 @@ void dmaCheckPiracy(void *memaddr, u32 len)
 
 void dmaWait(void)
 {
+#ifdef PLATFORM_N64
 	u32 stack;
 	OSIoMesg *msg;
 	s32 i;
@@ -137,9 +142,10 @@ void dmaWait(void)
 		g_DmaSlotsBusy[i] = false;
 		g_DmaNumSlotsBusy--;
 	}
+#endif
 }
 
-void dmaExec(void *memaddr, u32 romaddr, u32 len)
+void dmaExec(void *memaddr, romptr_t romaddr, u32 len)
 {
 	dmaStart(memaddr, romaddr, len, false);
 	dmaWait();
@@ -148,7 +154,7 @@ void dmaExec(void *memaddr, u32 romaddr, u32 len)
 #endif
 }
 
-void dmaExecHighPriority(void *memaddr, u32 romaddr, u32 len)
+void dmaExecHighPriority(void *memaddr, romptr_t romaddr, u32 len)
 {
 	dmaStart(memaddr, romaddr, len, true);
 	dmaWait();
@@ -172,7 +178,7 @@ void dmaExecHighPriority(void *memaddr, u32 romaddr, u32 len)
  * If a length of zero is passed, no DMA is done. This can be used to retrieve
  * the memory address that would have been returned.
  */
-void *dmaExecWithAutoAlign(void *memaddr, u32 romaddr, u32 len)
+void *dmaExecWithAutoAlign(void *memaddr, romptr_t romaddr, u32 len)
 {
 	u32 alignedrom = ALIGN2(romaddr);
 	u32 alignedmem = ALIGN16((uintptr_t) memaddr);

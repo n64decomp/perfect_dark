@@ -4237,7 +4237,11 @@ void ammocrateTick(struct prop *prop)
  * function with the third argument and link it to the same address as
  * nbombCreateStorm via the linker config.
  */
+#ifdef PLATFORM_N64
 void nbombCreateStorm_hack(struct coord *pos, struct prop *ownerprop, struct prop *nbombprop);
+#else
+#define nbombCreateStorm_hack(x, y, z) nbombCreateStorm(x, y)
+#endif
 
 /**
  * Handles the following:
@@ -14251,7 +14255,7 @@ void objApplyMomentum(struct defaultobj *obj, struct coord *speed, f32 rotation,
 }
 
 #if PIRACYCHECKS
-extern u8 _blankSegmentRomStart;
+extern u8 EXT_SEG _blankSegmentRomStart;
 
 /**
  * This function is called whenever a player exits a lift as well as on tick
@@ -14294,7 +14298,7 @@ void piracyRestore(void)
 	}
 
 	// Copy the writeaddr/copylen pairs from ROM to the buffer
-	dmaExec(ptr, (romptr_t) &_blankSegmentRomStart, 0x40);
+	dmaExec(ptr, (romptr_t) REF_SEG _blankSegmentRomStart, 0x40);
 
 	// Calculate what needs to be copied and where
 	i = 0;
@@ -14312,7 +14316,7 @@ void piracyRestore(void)
 
 	// Copy it
 	if (copylen != 0) {
-		dmaExec((void *) writeaddr, (romptr_t) &_blankSegmentRomStart + readoffset, copylen);
+		dmaExec((void *) writeaddr, (romptr_t) REF_SEG _blankSegmentRomStart + readoffset, copylen);
 	}
 
 	// Increment the index, so the next time the function is called

@@ -1,5 +1,8 @@
-#ifndef __STRING_H__
-#define __STRING_H__
+#ifndef __N64_STRING_H__
+#define __N64_STRING_H__
+
+#ifdef PLATFORM_N64
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -52,4 +55,12 @@ extern size_t strlen(const char *);
 #ifdef __cplusplus
 }
 #endif
-#endif /* !__STRING_H__ */
+
+#else
+
+#include_next <string.h>
+#undef errno // fuck off
+
+#endif
+
+#endif /* !__N64_STRING_H__ */

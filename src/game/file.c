@@ -10,6 +10,9 @@
 #include "lib/rzip.h"
 #include "data.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "romdata.h"
+#endif
 
 /**
  * This file contains functions relating to ROM asset files.
@@ -49,6 +52,14 @@
  * functions that support this theory.
  */
 
+/**
+ * Currently the port just takes the filename from the filename[] array and feeds it
+ * into its own FS API that just loads it from disk. The whole file number/slot system
+ * is still mostly intact as a kludge. This will probably be removed later and reworked
+ * to just use filenames.
+ */
+
+#ifdef PLATFORM_N64
 extern void *_file_bg_sev_seg;
 extern void *_file_bg_silo_seg;
 extern void *_file_bg_stat_seg;
@@ -2068,7 +2079,9 @@ extern void *_file_Asaucerexp1M;
 extern void *_file_PjaplogoZ;
 extern void *_file_PjappdZ;
 #endif
+
 extern void *_filenamesSegmentRomStart;
+#endif // PLATFORM_N64
 
 struct fileinfo g_FileInfo[NUM_FILES];
 
@@ -2076,6 +2089,7 @@ struct fileinfo g_FileInfo[NUM_FILES];
 u32 var800aa570;
 #endif
 
+#ifdef PLATFORM_N64
 u32 g_FileTable[] = {
 	/*0x0000*/ 0,
 	/*0x0001*/ (uintptr_t) &_file_bg_sev_seg,
@@ -4099,14 +4113,22 @@ u32 g_FileTable[] = {
 #endif
 	(uintptr_t) &_filenamesSegmentRomStart,
 };
+#else // PLATFORM_N64
+u32 g_FileTable[NUM_FILES + 1]; // TODO: this is only used to get the filenum, remove this
+#endif // PLATFORM_N64
 
 romptr_t fileGetRomAddress(s32 filenum)
 {
+#ifdef PLATFORM_N64
 	return (romptr_t) g_FileTable[filenum];
+#else
+	return (romptr_t) romdataFileGetData(filenum);
+#endif
 }
 
 u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)
 {
+#ifdef PLATFORM_N64
 	u32 size;
 
 	if (filetableaddr[1]) {
@@ -4116,6 +4138,10 @@ u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)
 	}
 
 	return size;
+#else
+	const s32 size = romdataFileGetSize(filetableaddr - g_FileTable);
+	return (size < 0) ? 0 : size;
+#endif
 }
 
 s32 fileGetRomSize(s32 filenum)
@@ -4128,9 +4154,21 @@ u32 file0f166ea8(u32 *filetableaddr)
 	return 0;
 }
 
-void fileLoad(u8 *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info)
+void fileLoad(u8 *dst, u32 allocationlen, romptr_t *romaddrptr, struct fileinfo *info)
 {
+#ifndef PLATFORM_N64
+	// load the file first
+	const s32 filenum = (u32 *)romaddrptr - g_FileTable;
+	u32 romsize = 0;
+	u8 *filedata = romdataFileLoad(filenum, &romsize);
+	if (!filedata) {
+		return;
+	}
+	romaddrptr = (romptr_t *)&filedata;
+#else
 	u32 romsize = fileGetRomSizeByTableAddress(romaddrptr);
+#endif
+
 	u8 buffer[5 * 1024];
 
 	if (allocationlen == 0) {
@@ -4167,6 +4205,12 @@ void fileLoad(u8 *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info
 			info->loadedsize = result;
 		}
 	}
+
+#ifndef PLATFORM_N64
+	// byteswap/preprocess file according to g_LoadType right after inflating it
+	const u32 dstsize = allocationlen ? info->loadedsize : romsize; 
+	romdataFilePreprocess(filenum, g_LoadType, dst, dstsize);
+#endif
 }
 
 void filesInit(void)
@@ -4181,7 +4225,9 @@ void filesInit(void)
 		info->loadedsize = 0;
 		info->allocsize = 0;
 
+#ifdef PLATFORM_N64
 		fileGetRomSizeByTableAddress((u32 *)(g_FileTable + i));
+#endif
 
 		if (g_FileTable);
 		if (g_FileInfo);
@@ -4195,7 +4241,16 @@ void fileLoadPartToAddr(u16 filenum, void *memaddr, s32 offset, u32 len)
 	u32 stack[2];
 
 	if (fileGetRomSizeByTableAddress((u32 *)&g_FileTable[filenum])) {
+#ifdef PLATFORM_N64
 		dmaExec(memaddr, (romptr_t) g_FileTable[filenum] + offset, len);
+#else
+		const u8 *src = romdataFileGetData(filenum);
+		if (src) {
+			dmaExec(memaddr, (uintptr_t) src + offset, len);
+		}
+		// this intentionally does not execute romdataFilePreprocess,
+		// because bg files are loaded and inflated in parts
+#endif
 	}
 }
 
@@ -4207,13 +4262,17 @@ u32 fileGetInflatedSize(s32 filenum)
 #if VERSION < VERSION_NTSC_1_0
 	char message[128];
 #endif
-	u32 romaddr;
+	uintptr_t romaddr;
 
 	romaddrptr = &g_FileTable[filenum];
 
 	if (1);
 
+#ifdef PLATFORM_N64
 	romaddr = *romaddrptr;
+#else
+	romaddr = (uintptr_t)romdataFileGetData(filenum);
+#endif
 	ptr = (u8 *) ((uintptr_t) &buffer[0x10] & ~0xf);
 
 	if (romaddr == 0) {
@@ -4272,6 +4331,9 @@ void *fileLoadToNew(s32 filenum, u32 method)
 void fileRemove(s32 filenum)
 {
 	g_FileTable[filenum] = 0;
+#ifndef PLATFORM_N64
+	romdataFileFree(filenum);
+#endif
 }
 
 void *fileLoadToAddr(s32 filenum, s32 method, u8 *ptr, u32 size)

@@ -283,12 +283,14 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 	g_AmgrCurrentCmdList->flags = OS_SC_NEEDS_RSP;
 	g_AmgrCurrentCmdList->list.t.type = M_AUDTASK;
 	g_AmgrCurrentCmdList->list.t.flags = 0;
+#ifdef PLATFORM_N64
 	g_AmgrCurrentCmdList->list.t.ucode_boot = (u64 *) &rspbootTextStart;
 	g_AmgrCurrentCmdList->list.t.ucode_boot_size = (uintptr_t) &rspbootTextEnd - (uintptr_t) &rspbootTextStart;
 	g_AmgrCurrentCmdList->list.t.ucode = (u64 *) &aspTextStart;
 	g_AmgrCurrentCmdList->list.t.ucode_data = (u64 *) &aspDataStart;
 	g_AmgrCurrentCmdList->list.t.ucode_size = SP_UCODE_SIZE;
 	g_AmgrCurrentCmdList->list.t.ucode_data_size = SP_UCODE_DATA_SIZE;
+#endif
 	g_AmgrCurrentCmdList->list.t.data_ptr = (u64 *) datastart;
 	g_AmgrCurrentCmdList->list.t.data_size = (cmd - datastart) * sizeof(Acmd);
 	g_AmgrCurrentCmdList->list.t.yield_data_ptr = NULL;

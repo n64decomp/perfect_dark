@@ -298,6 +298,7 @@ void mtx00015f88(f32 mult, Mtxf *mtx)
 
 u32 mtxGetObfuscatedRomBase(void)
 {
+#ifdef PLATFORM_N64
 	u32 value;
 
 	osRecvMesg(&__osPiAccessQueue, NULL, OS_MESG_BLOCK * 0x10000);
@@ -312,6 +313,9 @@ u32 mtxGetObfuscatedRomBase(void)
 	osSendMesg(&__osPiAccessQueue, 0, 0);
 
 	return value;
+#else
+	return 0;
+#endif
 }
 
 void mtxF2L(Mtxf *src, Mtxf *dst)

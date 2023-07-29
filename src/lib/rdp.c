@@ -83,6 +83,7 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, s32 msg)
 	sctask = &g_RdpCurTask->sctask;
 	task = &sctask->list;
 
+#ifdef PLATFORM_N64
 	task->t.ucode_boot = (u64 *) rspbootTextStart;
 	task->t.ucode_boot_size = (uintptr_t) rspbootTextEnd - (uintptr_t) rspbootTextStart;
 
@@ -90,6 +91,7 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, s32 msg)
 
 	task->t.ucode = (u64 *) &gspTextStart;
 	task->t.ucode_data = (u64 *) &gspDataStart;
+#endif
 	task->t.output_buff = (u64 *)g_RdpOutBufferStart;
 	task->t.output_buff_size = (u64 *)g_RdpOutBufferEnd;
 	task->t.data_ptr = (u64 *) gdlstart;

@@ -11,9 +11,16 @@
 
 #define bool s32
 #define ubool u32
+
+#ifdef PLATFORM_N64
 #define intptr_t s32
 #define uintptr_t u32
 #define romptr_t u32
+#else
+#include <stdint.h>
+#undef errno // fuck off
+#define romptr_t uintptr_t
+#endif
 
 typedef s32 PakErr1;
 typedef s32 PakErr2;
@@ -6239,7 +6246,11 @@ struct tex {
 	/*0x0c*/ u32 lutmodeindex : 2;
 	/*0x0c*/ u32 unk0c_02 : 1;
 	/*0x0c*/ u32 unk0c_03 : 1;
+#ifdef PLATFORM_N64
 	/*0x0c*/ u32 next : 24;
+#else
+	/*0x0c*/ uintptr_t next;
+#endif
 };
 
 struct texcacheitem {
