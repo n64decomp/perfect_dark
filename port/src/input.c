@@ -40,7 +40,8 @@ s32 inputInit(void)
 
 	const s32 numJoys = SDL_NumJoysticks();
 
-	s32 ret = 0;
+	s32 ret = 1; // always report first controller as connected
+
 	for (s32 jidx = 0, cidx = 0; jidx < numJoys && cidx < INPUT_MAX_CONTROLLERS; ++jidx) {
 		if (SDL_IsGameController(jidx)) {
 			pads[cidx] = SDL_GameControllerOpen(jidx);
@@ -108,7 +109,7 @@ s32 inputControllerConnected(s32 idx)
 	if (idx < 0 || idx >= INPUT_MAX_CONTROLLERS) {
 		return 0;
 	}
-	return !!pads[idx];
+	return !idx || !!pads[idx]; // always report first controller as connected
 }
 
 s32 inputRumbleSupported(s32 idx)
