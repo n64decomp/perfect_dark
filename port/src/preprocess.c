@@ -15,7 +15,7 @@
 #define PD_BEFIELD_PTR(x) x = (void *)PD_BE32((u32)x)
 
 #define PD_PTR_BASE(x, b) (void *)((u8 *)b + (u32)x)
-#define PD_PTR_BASEOFS(x, b, d) (void *)((u8 *)b + (u32)x - d)
+#define PD_PTR_BASEOFS(x, b, d) (void *)((u8 *)b - d + (u32)x)
 
 static inline void preprocessALWaveTable(ALWaveTable *tbl, u8 *bankBase)
 {
@@ -128,11 +128,15 @@ static inline void preprocessALBank(ALBank *bank, u8 *bankBase)
 static inline void preprocessGfx(Gfx *gdl)
 {
 	while (gdl) {
-		const u8 opcode = gdl->bytes[0];
+		const s8 opcode = (s8)gdl->bytes[0];
 		PD_BEFIELD_I32(gdl->words.w0);
 		PD_BEFIELD_I32(gdl->words.w1);
-		if (opcode == G_ENDDL) {
+		printf("swapped opcode %4d %08x %08x\n", opcode, gdl->words.w0, gdl->words.w1);
+		fflush(stdout);
+		if (opcode == (s8)G_ENDDL) {
 			break;
+		} else if (opcode == (s8)G_DL) {
+			// preprocessGfx();
 		}
 		++gdl;
 	}
@@ -149,8 +153,6 @@ static inline void preprocessVtx(Vtx *vtx)
 
 static void preprocessModelGunDL(struct modelrodata_gundl *gundl, u8 *base, u32 ofs)
 {
-	PD_BEFIELD_PTR(gundl->opagdl);
-	PD_BEFIELD_PTR(gundl->xlugdl);
 	PD_BEFIELD_PTR(gundl->baseaddr);
 	PD_BEFIELD_PTR(gundl->vertices);
 	PD_BEFIELD_I32(gundl->numvertices);
@@ -161,14 +163,18 @@ static void preprocessModelGunDL(struct modelrodata_gundl *gundl, u8 *base, u32 
 		preprocessVtx(vtx);
 	}
 
-	preprocessGfx(PD_PTR_BASEOFS(gundl->opagdl, base, ofs));
-	preprocessGfx(PD_PTR_BASEOFS(gundl->xlugdl, base, ofs));
+	if (gundl->opagdl) {
+		PD_BEFIELD_PTR(gundl->opagdl);
+		preprocessGfx(PD_PTR_BASEOFS(gundl->opagdl, base, ofs));
+	}
+	if (gundl->xlugdl) {
+		PD_BEFIELD_PTR(gundl->xlugdl);
+		preprocessGfx(PD_PTR_BASEOFS(gundl->xlugdl, base, ofs));
+	}
 }
 
 static void preprocessModelDL(struct modelrodata_dl *dl, u8 *base, u32 ofs)
 {
-	PD_BEFIELD_PTR(dl->opagdl);
-	PD_BEFIELD_PTR(dl->xlugdl);
 	PD_BEFIELD_PTR(dl->colours);
 	PD_BEFIELD_PTR(dl->vertices);
 
@@ -182,135 +188,141 @@ static void preprocessModelDL(struct modelrodata_dl *dl, u8 *base, u32 ofs)
 		preprocessVtx(vtx);
 	}
 
-	preprocessGfx(PD_PTR_BASEOFS(dl->opagdl, base, ofs));
-	preprocessGfx(PD_PTR_BASEOFS(dl->xlugdl, base, ofs));
+	if (dl->opagdl) {
+		PD_BEFIELD_PTR(dl->opagdl);
+		preprocessGfx(PD_PTR_BASEOFS(dl->opagdl, base, ofs));
+	}
+	if (dl->xlugdl) {
+		PD_BEFIELD_PTR(dl->xlugdl);
+		preprocessGfx(PD_PTR_BASEOFS(dl->xlugdl, base, ofs));
+	}
 }
 
 static void preprocessModelNode(struct modelnode *node, u8 *base, u32 ofs)
 {
-	PD_BEFIELD_I16(node->type);
-	PD_BEFIELD_PTR(node->child);
-	PD_BEFIELD_PTR(node->next);
-	PD_BEFIELD_PTR(node->parent);
+	while (node) {
+		PD_BEFIELD_I16(node->type);
+		PD_BEFIELD_PTR(node->child);
+		PD_BEFIELD_PTR(node->next);
+		PD_BEFIELD_PTR(node->parent);
+		PD_BEFIELD_PTR(node->rodata);
 
-	if (!node->rodata) {
-		return;
-	}
+		if (node->rodata) {
+			union modelrodata* ro = PD_PTR_BASEOFS(node->rodata, base, ofs);
 
-	PD_BEFIELD_PTR(node->rodata);
-	union modelrodata* ro = PD_PTR_BASEOFS(node->rodata, base, ofs);
-
-	switch (node->type & 0xff) {
-		case MODELNODETYPE_CHRINFO:
-			PD_BEFIELD_I16(ro->chrinfo.animpart);
-			PD_BEFIELD_I16(ro->chrinfo.mtxindex);
-			PD_BEFIELD_I16(ro->chrinfo.rwdataindex);
-			PD_BEFIELD_F32(ro->chrinfo.unk04);
-			break;
-		case MODELNODETYPE_POSITION:
-			PD_BEFIELD_F32(ro->position.drawdist);
-			PD_BEFIELD_F32(ro->position.pos.x);
-			PD_BEFIELD_F32(ro->position.pos.y);
-			PD_BEFIELD_F32(ro->position.pos.z);
-			PD_BEFIELD_I16(ro->position.part);
-			PD_BEFIELD_I16(ro->position.mtxindex0);
-			PD_BEFIELD_I16(ro->position.mtxindex1);
-			PD_BEFIELD_I16(ro->position.mtxindex2);
-			break;
-		case MODELNODETYPE_GUNDL:
-			preprocessModelGunDL(&ro->gundl, base, ofs);
-			break;
-		case MODELNODETYPE_05:
-			break;
-		case MODELNODETYPE_DISTANCE:
-			PD_BEFIELD_F32(ro->distance.near);
-			PD_BEFIELD_F32(ro->distance.far);
-			PD_BEFIELD_I16(ro->distance.rwdataindex);
-			PD_BEFIELD_PTR(ro->distance.target);
-			// TODO: assuming target points to one of the nodes we'll swap by following node->next
-			break;
-		case MODELNODETYPE_REORDER:
-			PD_BEFIELD_F32(ro->reorder.unk00);
-			PD_BEFIELD_F32(ro->reorder.unk04);
-			PD_BEFIELD_F32(ro->reorder.unk08);
-			PD_BEFIELD_F32(ro->reorder.unk0c[0]);
-			PD_BEFIELD_F32(ro->reorder.unk0c[1]);
-			PD_BEFIELD_F32(ro->reorder.unk0c[2]);
-			PD_BEFIELD_I16(ro->reorder.rwdataindex);
-			PD_BEFIELD_I16(ro->reorder.side);
-			break;
-		case MODELNODETYPE_BBOX:
-			PD_BEFIELD_F32(ro->bbox.xmin);
-			PD_BEFIELD_F32(ro->bbox.xmax);
-			PD_BEFIELD_F32(ro->bbox.ymin);
-			PD_BEFIELD_F32(ro->bbox.ymax);
-			PD_BEFIELD_F32(ro->bbox.zmin);
-			PD_BEFIELD_F32(ro->bbox.zmax);
-			PD_BEFIELD_I32(ro->bbox.hitpart);
-			break;
-		case MODELNODETYPE_0B:
-			PD_BEFIELD_PTR(ro->type0b.baseaddr);
-			PD_BEFIELD_I16(ro->type0b.rwdataindex);
-			PD_BEFIELD_I32(ro->type0b.unk00);
-			PD_BEFIELD_PTR(ro->type0b.unk3c);
-			// TODO: do we need to swap the rest of the words?
-			break;
-		case MODELNODETYPE_CHRGUNFIRE:
-			PD_BEFIELD_PTR(ro->chrgunfire.baseaddr);
-			PD_BEFIELD_PTR(ro->chrgunfire.texture);
-			PD_BEFIELD_I16(ro->chrgunfire.rwdataindex);
-			PD_BEFIELD_F32(ro->chrgunfire.pos.x);
-			PD_BEFIELD_F32(ro->chrgunfire.pos.y);
-			PD_BEFIELD_F32(ro->chrgunfire.pos.z);
-			PD_BEFIELD_F32(ro->chrgunfire.dim.x);
-			PD_BEFIELD_F32(ro->chrgunfire.dim.y);
-			PD_BEFIELD_F32(ro->chrgunfire.dim.z);
-			PD_BEFIELD_F32(ro->chrgunfire.unk1c);
-			// TODO: do we swap contents of *texture or is it part of mdl->textureconfigs[]?
-			break;
-		case MODELNODETYPE_0D:
-			PD_BEFIELD_PTR(ro->type0d.baseaddr);
-			PD_BEFIELD_PTR(ro->type0d.unk10);
-			PD_BEFIELD_PTR(ro->type0d.unk14);
-			// TODO: do we need to swap the rest of the words?
-			break;
-		case MODELNODETYPE_0E:
-		case MODELNODETYPE_0F:
-			break;
-		case MODELNODETYPE_11:
-			PD_BEFIELD_PTR(ro->type11.unk14);
-			// TODO: do we need to swap the rest of the words?
-			break;
-		case MODELNODETYPE_TOGGLE:
-			PD_BEFIELD_I16(ro->toggle.rwdataindex);
-			PD_BEFIELD_PTR(ro->toggle.target);
-			// TODO: assuming target points to one of the nodes we'll swap by following node->next
-			break;
-		case MODELNODETYPE_DL:
-			preprocessModelDL(&ro->dl, base, ofs);
-			break;
-		case 0x19:
-			PD_BEFIELD_I32(ro->type19.numvertices);
-			for (s32 i = 0; i < ARRAYCOUNT(ro->type19.vertices); ++i) {
-				PD_BEFIELD_F32(ro->type19.vertices[i].x);
-				PD_BEFIELD_F32(ro->type19.vertices[i].y);
-				PD_BEFIELD_F32(ro->type19.vertices[i].z);
+			switch (node->type & 0xff) {
+				case MODELNODETYPE_CHRINFO:
+					PD_BEFIELD_I16(ro->chrinfo.animpart);
+					PD_BEFIELD_I16(ro->chrinfo.mtxindex);
+					PD_BEFIELD_I16(ro->chrinfo.rwdataindex);
+					PD_BEFIELD_F32(ro->chrinfo.unk04);
+					break;
+				case MODELNODETYPE_POSITION:
+					PD_BEFIELD_F32(ro->position.drawdist);
+					PD_BEFIELD_F32(ro->position.pos.x);
+					PD_BEFIELD_F32(ro->position.pos.y);
+					PD_BEFIELD_F32(ro->position.pos.z);
+					PD_BEFIELD_I16(ro->position.part);
+					PD_BEFIELD_I16(ro->position.mtxindex0);
+					PD_BEFIELD_I16(ro->position.mtxindex1);
+					PD_BEFIELD_I16(ro->position.mtxindex2);
+					break;
+				case MODELNODETYPE_GUNDL:
+					preprocessModelGunDL(&ro->gundl, base, ofs);
+					break;
+				case MODELNODETYPE_05:
+					break;
+				case MODELNODETYPE_DISTANCE:
+					PD_BEFIELD_F32(ro->distance.near);
+					PD_BEFIELD_F32(ro->distance.far);
+					PD_BEFIELD_I16(ro->distance.rwdataindex);
+					PD_BEFIELD_PTR(ro->distance.target);
+					// TODO: assuming target points to one of the nodes we'll swap by following node->next
+					break;
+				case MODELNODETYPE_REORDER:
+					PD_BEFIELD_F32(ro->reorder.unk00);
+					PD_BEFIELD_F32(ro->reorder.unk04);
+					PD_BEFIELD_F32(ro->reorder.unk08);
+					PD_BEFIELD_F32(ro->reorder.unk0c[0]);
+					PD_BEFIELD_F32(ro->reorder.unk0c[1]);
+					PD_BEFIELD_F32(ro->reorder.unk0c[2]);
+					PD_BEFIELD_I16(ro->reorder.rwdataindex);
+					PD_BEFIELD_I16(ro->reorder.side);
+					break;
+				case MODELNODETYPE_BBOX:
+					PD_BEFIELD_F32(ro->bbox.xmin);
+					PD_BEFIELD_F32(ro->bbox.xmax);
+					PD_BEFIELD_F32(ro->bbox.ymin);
+					PD_BEFIELD_F32(ro->bbox.ymax);
+					PD_BEFIELD_F32(ro->bbox.zmin);
+					PD_BEFIELD_F32(ro->bbox.zmax);
+					PD_BEFIELD_I32(ro->bbox.hitpart);
+					break;
+				case MODELNODETYPE_0B:
+					PD_BEFIELD_PTR(ro->type0b.baseaddr);
+					PD_BEFIELD_I16(ro->type0b.rwdataindex);
+					PD_BEFIELD_I32(ro->type0b.unk00);
+					PD_BEFIELD_PTR(ro->type0b.unk3c);
+					// TODO: do we need to swap the rest of the words?
+					break;
+				case MODELNODETYPE_CHRGUNFIRE:
+					PD_BEFIELD_PTR(ro->chrgunfire.baseaddr);
+					PD_BEFIELD_PTR(ro->chrgunfire.texture);
+					PD_BEFIELD_I16(ro->chrgunfire.rwdataindex);
+					PD_BEFIELD_F32(ro->chrgunfire.pos.x);
+					PD_BEFIELD_F32(ro->chrgunfire.pos.y);
+					PD_BEFIELD_F32(ro->chrgunfire.pos.z);
+					PD_BEFIELD_F32(ro->chrgunfire.dim.x);
+					PD_BEFIELD_F32(ro->chrgunfire.dim.y);
+					PD_BEFIELD_F32(ro->chrgunfire.dim.z);
+					PD_BEFIELD_F32(ro->chrgunfire.unk1c);
+					// TODO: do we swap contents of *texture or is it part of mdl->textureconfigs[]?
+					break;
+				case MODELNODETYPE_0D:
+					PD_BEFIELD_PTR(ro->type0d.baseaddr);
+					PD_BEFIELD_PTR(ro->type0d.unk10);
+					PD_BEFIELD_PTR(ro->type0d.unk14);
+					// TODO: do we need to swap the rest of the words?
+					break;
+				case MODELNODETYPE_0E:
+				case MODELNODETYPE_0F:
+					break;
+				case MODELNODETYPE_11:
+					PD_BEFIELD_PTR(ro->type11.unk14);
+					// TODO: do we need to swap the rest of the words?
+					break;
+				case MODELNODETYPE_TOGGLE:
+					PD_BEFIELD_I16(ro->toggle.rwdataindex);
+					PD_BEFIELD_PTR(ro->toggle.target);
+					// TODO: assuming target points to one of the nodes we'll swap by following node->next
+					break;
+				case MODELNODETYPE_DL:
+					preprocessModelDL(&ro->dl, base, ofs);
+					break;
+				case 0x19:
+					PD_BEFIELD_I32(ro->type19.numvertices);
+					for (s32 i = 0; i < ARRAYCOUNT(ro->type19.vertices); ++i) {
+						PD_BEFIELD_F32(ro->type19.vertices[i].x);
+						PD_BEFIELD_F32(ro->type19.vertices[i].y);
+						PD_BEFIELD_F32(ro->type19.vertices[i].z);
+					}
+					break;
+				default:
+					fprintf(stderr, "preprocessModelNode: node at %p: unknown node->type: 0x%02x\n", node, node->type & 0xff);
+					break;
 			}
-			break;
-		default:
-			fprintf(stderr, "preprocessModelNode: node at %p: unknown node->type: 0x%02x\n", node, node->type & 0xff);
-			break;
-	}
+		}
 
-	if (node->child) {
-		node = PD_PTR_BASEOFS(node->child, base, ofs);
-	} else {
-		while (node) {
-			if (node->next) {
-				node = PD_PTR_BASEOFS(node->next, base, ofs);
-				break;
+		if (node->child) {
+			node = PD_PTR_BASEOFS(node->child, base, ofs);
+		} else {
+			while (node) {
+				if (node->next) {
+					node = PD_PTR_BASEOFS(node->next, base, ofs);
+					break;
+				}
+				node = node->parent ? PD_PTR_BASEOFS(node->parent, base, ofs) : NULL;
 			}
-			node = PD_PTR_BASEOFS(node->parent, base, ofs);
 		}
 	}
 }
@@ -700,7 +712,7 @@ void preprocessSetupFile(u8 *data, u32 size)
 
 void preprocessModelFile(u8 *data, u32 size)
 {
-	preprocessModel(data, size);
+	preprocessModel(data, 0x5000000);
 }
 
 void preprocessGunFile(u8 *data, u32 size)

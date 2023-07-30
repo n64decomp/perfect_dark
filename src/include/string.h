@@ -59,7 +59,6 @@ extern size_t strlen(const char *);
 #else
 
 #include_next <string.h>
-#undef errno // fuck off
 
 #endif
 

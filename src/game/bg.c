@@ -708,8 +708,8 @@ Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
 			// empty
 		} else if (readgdl[0] == G_VTX) {
 			Gfx *cmd = (Gfx *) readgdl;
-			s32 dmemindex = cmd->bytes[1] & 0xf;
-			s32 numvertices = ((u32) cmd->bytes[1] >> 4) + 1;
+			s32 dmemindex = cmd->bytes[GFX_W0_BYTE(1)] & 0xf;
+			s32 numvertices = ((u32) cmd->bytes[GFX_W0_BYTE(1)] >> 4) + 1;
 			u32 offset = cmd->words.w1 & 0xffffff;
 
 			for (i = 0; i < numvertices; i++) {
@@ -3608,9 +3608,9 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 			break;
 		} else if (gdl->dma.cmd == G_VTX) {
 			ptr = var800a6470;
-			count = gdl->bytes[1] & 0xf;
+			count = gdl->bytes[GFX_W0_BYTE(1)] & 0xf;
 			offset = (gdl->words.w1 & 0xffffff);
-			numvertices = (((u32)gdl->bytes[1] >> 4) & 0xf) + 1;
+			numvertices = (((u32) gdl->bytes[GFX_W0_BYTE(1)] >> 4) & 0xf) + 1;
 			vtx = (Vtx *)((uintptr_t)vertices + offset);
 			vtx -= count;
 
@@ -3909,9 +3909,9 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 			i = word / sizeof(Mtxf);
 			mtx = &model->matrices[i];
 		} else if (gdl->dma.cmd == G_VTX) {
-			count = (gdl->bytes[1] & 0xf);
+			count = (gdl->bytes[GFX_W0_BYTE(1)] & 0xf);
 			word = gdl->words.w1 & 0xffffff;
-			numvertices = ((u32)gdl->bytes[1] >> 4) + 1;
+			numvertices = ((u32) gdl->bytes[GFX_W0_BYTE(1)] >> 4) + 1;
 			vtx = (Vtx *)((uintptr_t)vertices + word);
 
 			if (count < spdc) {
@@ -4172,7 +4172,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 	vtx = bgFindVerticesForGdl(roomnum, gdl);
 	iter = &gdl[batch->gbicmdindex];
 	vtx = (Vtx *)((iter->words.w1 & 0xffffff) + (s32)vtx);
-	numvertices = (((u32)iter->bytes[1] >> 4) & 0xf) + 1;
+	numvertices = (((u32) iter->bytes[GFX_W0_BYTE(1)] >> 4) & 0xf) + 1;
 	ptr = var800a6470;
 
 	while (numvertices > 0) {
@@ -4302,7 +4302,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 
 											tmpgdl = iter;
 
-											while (tmpgdl->bytes[0] != G_SETTIMG && tmpgdl > gdl) {
+											while (tmpgdl->bytes[GFX_W0_BYTE(0)] != G_SETTIMG && tmpgdl > gdl) {
 												tmpgdl--;
 											}
 

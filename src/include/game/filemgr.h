@@ -15,7 +15,7 @@ void filemgrSetDevice1ByFile(struct filelistfile *file);
 void filemgrSetFileToDelete(struct filelistfile *file, s32 filetype);
 char *filemgrMenuTextFailReason(struct menuitem *item);
 char *filemgrMenuTextDeviceNameForError(struct menuitem *item);
-void filemgrPushErrorDialog(u16 errno);
+void filemgrPushErrorDialog(u16 errnum);
 s32 filemgrGetDeviceNameOrStartIndex(s32 listnum, s32 operation, s32 optionindex);
 char *filemgrMenuTextErrorTitle(struct menuitem *item);
 char *filemgrMenuTextFileType(struct menuitem *item);

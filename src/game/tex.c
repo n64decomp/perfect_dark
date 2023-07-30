@@ -978,7 +978,7 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 				Vtx *vtx;
 
 				if (spe0) {
-					start = s5->bytes[1] & 0xf;
+					start = s5->bytes[GFX_W0_BYTE(1)] & 0xf;
 					count = s5->vtx.unk08 + 1;
 					vtx = (Vtx *)(s5->dma.addr & 0x00ffffff);
 

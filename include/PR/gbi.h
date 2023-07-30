@@ -1356,12 +1356,21 @@ typedef struct {
 } GsetothermodeH;
 
 typedef struct {
+#ifdef PLATFORM_BIG_ENDIAN
 	unsigned char  cmd;
 	unsigned char  lodscale;
 	unsigned char  tile;
 	unsigned char  on;
 	unsigned short s;
 	unsigned short t;
+#else
+	unsigned char  on;
+	unsigned char  tile;
+	unsigned char  lodscale;
+	unsigned char  cmd;
+	unsigned short t;
+	unsigned short s;
+#endif
 } Gtexture;
 
 typedef struct {
@@ -1542,6 +1551,14 @@ typedef union {
 	GunkC0         unkc0;
 	long long int  force_structure_alignment;
 } Gfx;
+
+#ifdef PLATFORM_N64
+#define GFX_W0_BYTE(i) (i)
+#define GFX_W1_BYTE(i) (4 + (i))
+#else
+#define GFX_W0_BYTE(i) (3 - (i))
+#define GFX_W1_BYTE(i) (7 - (i))
+#endif
 
 /*
  * Macros to assemble the graphics display list

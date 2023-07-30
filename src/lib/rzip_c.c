@@ -3,9 +3,6 @@
 
 #include <zlib.h>
 
-// OSContPad has a field called errno because fuck you
-#undef errno
-
 #include "lib/rzip.h"
 
 void *var80091558; // g_RzipUnused

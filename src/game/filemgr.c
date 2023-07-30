@@ -295,7 +295,7 @@ char *filemgrMenuTextFailReason(struct menuitem *item)
 		L_OPTIONS_330, // "Game note delete failed."
 	};
 
-	return langGet(reasons[g_Menus[g_MpPlayerNum].fm.errno]);
+	return langGet(reasons[g_Menus[g_MpPlayerNum].fm.errnum]);
 }
 
 /**
@@ -314,7 +314,7 @@ MenuItemHandlerResult filemgrDeviceNameForErrorMenuHandler(s32 operation, struct
 			return true;
 		}
 
-		switch (g_Menus[g_MpPlayerNum].fm.errno) {
+		switch (g_Menus[g_MpPlayerNum].fm.errnum) {
 		case FILEERROR_OUTOFMEMORY:
 		case FILEERROR_ALREADYLOADED:
 		case FILEERROR_PAKDAMAGED:
@@ -336,7 +336,7 @@ char *filemgrMenuTextDeviceNameForError(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s", filemgrGetDeviceName(g_Menus[g_MpPlayerNum].fm.device1 & 0x7f));
 
-	if (g_Menus[g_MpPlayerNum].fm.errno != FILEERROR_PAKREMOVED) {
+	if (g_Menus[g_MpPlayerNum].fm.errnum != FILEERROR_PAKREMOVED) {
 		s32 i = 0;
 
 		while (g_StringPointer[i] != '\0') {
@@ -363,9 +363,9 @@ const char var7f1b3024[] = "MyResult: %d\n";
 const char var7f1b3034[] = "PakOperationSearch>> Search for pak: %x = %d\n";
 #endif
 
-void filemgrPushErrorDialog(u16 errno)
+void filemgrPushErrorDialog(u16 errnum)
 {
-	g_Menus[g_MpPlayerNum].fm.errno = errno;
+	g_Menus[g_MpPlayerNum].fm.errnum = errnum;
 
 	menuPushDialog(&g_FilemgrErrorMenuDialog);
 }
@@ -788,7 +788,7 @@ void filemgrRetrySave(s32 context)
 
 bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 {
-	s32 errno = 0;
+	s32 errnum = 0;
 	bool showfilesaved = (g_Menus[g_MpPlayerNum].fm.isretryingsave & 1) != 0;
 
 	const s32 filetypes[] = {
@@ -806,18 +806,18 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 		// fall through
 	case FILEOP_SAVE_GAME_000:
 	case FILEOP_SAVE_GAME_001:
-		errno = gamefileSave(device,
+		errnum = gamefileSave(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_SAVE_MPPLAYER:
-		errno = mpplayerfileSave(
+		errnum = mpplayerfileSave(
 				(s32) g_Menus[g_MpPlayerNum].fm.unke44, device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_SAVE_MPSETUP:
-		errno = mpsetupfileSave(device,
+		errnum = mpsetupfileSave(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		showfilesaved = true;
@@ -829,24 +829,24 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 #if VERSION >= VERSION_NTSC_1_0
 		func0f0d5690(g_Menus[g_MpPlayerNum].fm.unke44, g_Menus[g_MpPlayerNum].fm.filename);
 #endif
-		errno = pakSaveAtGuid(device,
+		errnum = pakSaveAtGuid(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				filetypes[g_Menus[g_MpPlayerNum].fm.fileop - 6],
 				g_Menus[g_MpPlayerNum].fm.unke44, &newfileid, NULL);
 		var80075bd0[g_Menus[g_MpPlayerNum].fm.fileop - 6] = 1;
 		break;
 	case FILEOP_LOAD_GAME:
-		errno = gamefileLoad(device);
+		errnum = gamefileLoad(device);
 		break;
 	case FILEOP_LOAD_MPPLAYER:
-		errno = mpplayerfileLoad(
+		errnum = mpplayerfileLoad(
 				(s32) g_Menus[g_MpPlayerNum].fm.unke44,
 				device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_LOAD_MPSETUP:
-		errno = mpsetupfileLoad(device,
+		errnum = mpsetupfileLoad(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
@@ -854,35 +854,35 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
 #if VERSION >= VERSION_NTSC_1_0
-		errno = pakReadBodyAtGuid(device, g_Menus[g_MpPlayerNum].fm.fileid, g_Menus[g_MpPlayerNum].fm.unke44, 0);
+		errnum = pakReadBodyAtGuid(device, g_Menus[g_MpPlayerNum].fm.fileid, g_Menus[g_MpPlayerNum].fm.unke44, 0);
 #else
-		errno = pakReadBodyAtGuid(device, g_Menus[g_MpPlayerNum].fm.fileid, g_Menus[g_MpPlayerNum].fm.unke44,
+		errnum = pakReadBodyAtGuid(device, g_Menus[g_MpPlayerNum].fm.fileid, g_Menus[g_MpPlayerNum].fm.unke44,
 				g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.fileop - FILEOP_READ_GAME]);
 #endif
 		break;
 	}
 
-	if (errno == 0 && closeonsuccess) {
+	if (errnum == 0 && closeonsuccess) {
 		menuCloseDialog();
 	}
 
 	if (FILEOP_IS_SAVE(g_Menus[g_MpPlayerNum].fm.fileop)) {
-		if (errno == 0) {
+		if (errnum == 0) {
 			filemgrHandleSuccess();
 		}
 
-		if (showfilesaved && errno == 0) {
+		if (showfilesaved && errnum == 0) {
 			menuPushDialog(&g_FilemgrFileSavedMenuDialog);
 		}
 	} else {
-		if (errno == 0) {
+		if (errnum == 0) {
 			filemgrHandleSuccess();
 		}
 	}
 
 	menuUpdateCurFrame();
 
-	return errno;
+	return errnum;
 }
 
 #if VERSION >= VERSION_NTSC_1_0

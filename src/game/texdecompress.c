@@ -1909,6 +1909,7 @@ s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *look
  */
 void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
 {
+#ifdef PLATFORM_N64 // I'm assuming this is required on N64 because the GPU reads them in words
 	s32 x;
 	s32 y;
 	s32 alignedwidth;
@@ -1966,6 +1967,7 @@ void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
 			row += alignedwidth * 2;
 		}
 	}
+#endif
 }
 
 /**
@@ -2074,10 +2076,10 @@ void texLoadFromDisplayList(Gfx *gdl, struct texpool *pool, s32 arg2)
 {
 	u8 *bytes = (u8 *)gdl;
 
-	while (bytes[0] != (u8)G_ENDDL) {
+	while (bytes[GFX_W0_BYTE(0)] != (u8)G_ENDDL) {
 		// Look for GBI sequence: fd...... abcd....
-		if (bytes[0] == G_SETTIMG && bytes[4] == 0xab && bytes[5] == 0xcd) {
-			texLoad((s32 *)((s32)bytes + 4), pool, arg2);
+		if (bytes[GFX_W0_BYTE(0)] == G_SETTIMG && bytes[GFX_W1_BYTE(0)] == 0xab && bytes[GFX_W1_BYTE(1)] == 0xcd) {
+			texLoad((s32 *)((uintptr_t)bytes + 4), pool, arg2);
 		}
 
 		bytes += 8;

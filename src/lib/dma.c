@@ -117,8 +117,9 @@ void dmaCheckPiracy(void *memaddr, u32 len)
 			ptr[i] ^= data;
 		}
 #endif
-
+#ifdef PLATFORM_N64 // we're actually using g_LoadType for something on pc, the value gets reset later
 		g_LoadType = LOADTYPE_NONE;
+#endif
 	}
 }
 #endif

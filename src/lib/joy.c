@@ -322,7 +322,7 @@ void joyInit(void)
 			g_JoyData[i].samples[0].pads[j].button = 0;
 			g_JoyData[i].samples[0].pads[j].stick_x = 0;
 			g_JoyData[i].samples[0].pads[j].stick_y = 0;
-			g_JoyData[i].samples[0].pads[j].errno = 0;
+			g_JoyData[i].samples[0].pads[j].errnum = 0;
 		}
 	}
 
@@ -390,7 +390,7 @@ void joy00013e84(void)
 		osContGetQuery(g_JoyContStatuses);
 
 		for (i = 0; i < ARRAYCOUNT(g_JoyContStatuses); i++) {
-			if (g_JoyContStatuses[i].errno & CONT_NO_RESPONSE_ERROR) {
+			if (g_JoyContStatuses[i].errnum & CONT_NO_RESPONSE_ERROR) {
 				slots -= 1 << i;
 			}
 		}
@@ -639,8 +639,8 @@ void joysHandleRetrace(void)
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < NUM_PADS; i++) {
-				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
-						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
+				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errnum == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errnum != 0)
+						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errnum != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errnum == 0)) {
 					joy00013e84();
 					break;
 				}
@@ -691,8 +691,8 @@ void joysHandleRetrace(void)
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < NUM_PADS; i++) {
-				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
-						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
+				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errnum == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errnum != 0)
+						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errnum != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errnum == 0)) {
 					joy00013e84();
 					break;
 				}

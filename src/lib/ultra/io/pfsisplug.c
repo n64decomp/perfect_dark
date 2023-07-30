@@ -50,7 +50,7 @@ s32 osPfsIsPlug(OSMesgQueue *queue, u8 *pattern)
 
 		if (crc_error_cnt < 1) {
 			for (channel = 0; channel < __osMaxControllers; channel++) {
-				if (data[channel].errno == 0 && (data[channel].status & CONT_CARD_ON) != 0) {
+				if (data[channel].errnum == 0 && (data[channel].status & CONT_CARD_ON) != 0) {
 					bits |= 1 << channel;
 				}
 			}
@@ -99,9 +99,9 @@ void __osPfsGetInitData(u8 *pattern, OSContStatus *data)
 
 	for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContRequestFormat)) {
 		requestformat = *(__OSContRequestFormat *)ptr;
-		data->errno = CHNL_ERR(requestformat);
+		data->errnum = CHNL_ERR(requestformat);
 
-		if (data->errno == 0) {
+		if (data->errnum == 0) {
 			data->type = (requestformat.typel << 8) | (requestformat.typeh);
 			data->status = requestformat.status;
 			bits |= 1 << i;

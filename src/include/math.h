@@ -5,7 +5,6 @@
 #include_next <math.h>
 #undef M_PI
 #undef M_TAU
-#undef errno // fuck off
 #endif
 
 // @bug?

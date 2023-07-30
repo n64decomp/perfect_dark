@@ -18,7 +18,6 @@
 #define romptr_t u32
 #else
 #include <stdint.h>
-#undef errno // fuck off
 #define romptr_t uintptr_t
 #endif
 
@@ -3765,7 +3764,7 @@ struct menudata_filemgr {
 	};
 	/*0xe2c*/ s32 unke2c;
 	/*0xe30*/ u32 unke30;
-	/*0xe34*/ u16 errno;
+	/*0xe34*/ u16 errnum;
 	/*0xe38*/ struct filelistfile *filetodelete;
 	/*0xe3c*/ u8 device1;
 	/*0xe3d*/ u8 filetypetodelete;

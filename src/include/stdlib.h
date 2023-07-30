@@ -4,7 +4,6 @@
 #ifndef PLATFORM_N64
 
 #include_next <stdlib.h>
-#undef errno // fuck off
 
 #else // PLATFORM_N64
 

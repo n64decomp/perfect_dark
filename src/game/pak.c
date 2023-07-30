@@ -1406,7 +1406,7 @@ s32 _pakCreateCameraFile(s8 device, s32 *outfileid)
 bool pakResizeNote(s8 device, s32 numpages)
 {
 	s32 stack1[2];
-	s32 errno;
+	s32 errnum;
 	struct pak *devicedata;
 	s32 stack2[2];
 	OSPfsState *note;
@@ -1416,10 +1416,10 @@ bool pakResizeNote(s8 device, s32 numpages)
 	pakQueryNumFreePages(device);
 
 	numbytes = numpages * 256;
-	errno = _pakResizeNote(PFS(device), ROM_COMPANYCODE, ROM_GAMECODE, g_PakNoteGameName, g_PakNoteExtName, numbytes);
-	pakHandleResult(errno, device, true, LINE_1802);
+	errnum = _pakResizeNote(PFS(device), ROM_COMPANYCODE, ROM_GAMECODE, g_PakNoteGameName, g_PakNoteExtName, numbytes);
+	pakHandleResult(errnum, device, true, LINE_1802);
 
-	if (errno == PAK_ERR1_OK) {
+	if (errnum == PAK_ERR1_OK) {
 		devicedata = &g_Paks[device];
 		note = &devicedata->pakdata.notes[devicedata->pdnoteindex];
 

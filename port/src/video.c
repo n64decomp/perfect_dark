@@ -4,9 +4,9 @@
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
 
-#include "../n64-fast3d-engine/gfx_pc.h"
-#include "../n64-fast3d-engine/gfx_sdl2.h"
-#include "../n64-fast3d-engine/gfx_opengl.h"
+#include "../fast3d/gfx_pc.h"
+#include "../fast3d/gfx_sdl2.h"
+#include "../fast3d/gfx_opengl.h"
 
 static struct GfxWindowManagerAPI *wmAPI;
 static struct GfxRenderingAPI *renderingAPI;

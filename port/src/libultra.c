@@ -199,9 +199,9 @@ void osContGetReadData(OSContPad *pad)
 		pad->stick_x = 0;
 		pad->stick_y = 0;
 		if (inputReadController(i, pad) < 0) {
-			pad->errno = CONT_NO_RESPONSE_ERROR;
+			pad->errnum = CONT_NO_RESPONSE_ERROR;
 		} else {
-			pad->errno = 0;
+			pad->errnum = 0;
 		}
 	}
 }
@@ -216,11 +216,11 @@ void osContGetQuery(OSContStatus *status)
 	// also always 4 status structs here
 	for (s32 i = 0; i < MAXCONTROLLERS; ++i, ++status) {
 		if (inputControllerConnected(i)) {
-			status->errno = 0;
+			status->errnum = 0;
 			status->type = CONT_ABSOLUTE;
 			status->status = 1;
 		} else {
-			status->errno = CONT_NO_RESPONSE_ERROR;
+			status->errnum = CONT_NO_RESPONSE_ERROR;
 			status->type = 0;
 			status->status = 0;
 		}
