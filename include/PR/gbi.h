@@ -1534,11 +1534,12 @@ typedef union {
 	Gtri           tri;
 	Gtri4          tri4;
 	Gline3D        line;
+	Gtexture       texture;
+#ifdef PLATFORM_N64                           /* the rest is not needed on other platforms and some of em screw up the size */
 	Gpopmtx        popmtx;
 	Gsegment       segment;
 	GsetothermodeH setothermodeH;
 	GsetothermodeL setothermodeL;
-	Gtexture       texture;
 	Gperspnorm     perspnorm;
 	Gsetimg        setimg;
 	Gsetcombine    setcombine;
@@ -1548,6 +1549,7 @@ typedef union {
 	Gloadtile      loadtile;                  /* use for loadblock also, th is dxt */
 	Gsettilesize   settilesize;
 	Gloadtlut      loadtlut;
+#endif
 	GunkC0         unkc0;
 	long long int  force_structure_alignment;
 } Gfx;
