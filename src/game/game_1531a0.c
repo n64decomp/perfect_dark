@@ -373,7 +373,7 @@ void textReset(void)
 		}
 #else
 		// This unused GE font exists in NTSC but was removed in the PAL version
-		textLoadFont(REF_SEG _fonttahomaSegmentRomStart, &_fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
+		textLoadFont(REF_SEG _fonttahomaSegmentRomStart, REF_SEG _fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
 
 		textLoadFont(REF_SEG _fontnumericSegmentRomStart, REF_SEG _fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
 		textLoadFont(REF_SEG _fonthandelgothicxsSegmentRomStart, REF_SEG _fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
