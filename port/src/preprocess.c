@@ -125,18 +125,25 @@ static inline void preprocessALBank(ALBank *bank, u8 *bankBase)
 	}
 }
 
-static inline void preprocessGfx(Gfx *gdl)
+static inline void preprocessGfx(Gfx *gdl, u8 *base, uintptr_t ofs)
 {
 	while (gdl) {
 		const s8 opcode = (s8)gdl->bytes[0];
 		PD_BEFIELD_I32(gdl->words.w0);
 		PD_BEFIELD_I32(gdl->words.w1);
-		printf("swapped opcode %4d %08x %08x\n", opcode, gdl->words.w0, gdl->words.w1);
-		fflush(stdout);
 		if (opcode == (s8)G_ENDDL) {
 			break;
 		} else if (opcode == (s8)G_DL) {
-			// preprocessGfx();
+			/*
+			if ((gdl->words.w0 >> 16) & ((1U << 1) - 1) == 0) {
+				if (gdl->words.w1) {
+					preprocessGfx(PD_PTR_BASEOFS(gdl->words.w1, base, ofs), base, ofs);
+				}
+			} else {
+				gdl = PD_PTR_BASEOFS(gdl->words.w1, base, ofs);
+				--gdl;
+			}
+			*/
 		}
 		++gdl;
 	}
@@ -155,7 +162,7 @@ static void preprocessModelGunDL(struct modelrodata_gundl *gundl, u8 *base, u32 
 {
 	PD_BEFIELD_PTR(gundl->baseaddr);
 	PD_BEFIELD_PTR(gundl->vertices);
-	PD_BEFIELD_I32(gundl->numvertices);
+	PD_BEFIELD_I16(gundl->numvertices);
 	PD_BEFIELD_I16(gundl->unk12);
 
 	Vtx *vtx = PD_PTR_BASEOFS(gundl->vertices, base, ofs);
@@ -165,11 +172,11 @@ static void preprocessModelGunDL(struct modelrodata_gundl *gundl, u8 *base, u32 
 
 	if (gundl->opagdl) {
 		PD_BEFIELD_PTR(gundl->opagdl);
-		preprocessGfx(PD_PTR_BASEOFS(gundl->opagdl, base, ofs));
+		preprocessGfx(PD_PTR_BASEOFS(gundl->opagdl, base, ofs), base, ofs);
 	}
 	if (gundl->xlugdl) {
 		PD_BEFIELD_PTR(gundl->xlugdl);
-		preprocessGfx(PD_PTR_BASEOFS(gundl->xlugdl, base, ofs));
+		preprocessGfx(PD_PTR_BASEOFS(gundl->xlugdl, base, ofs), base, ofs);
 	}
 }
 
@@ -190,17 +197,19 @@ static void preprocessModelDL(struct modelrodata_dl *dl, u8 *base, u32 ofs)
 
 	if (dl->opagdl) {
 		PD_BEFIELD_PTR(dl->opagdl);
-		preprocessGfx(PD_PTR_BASEOFS(dl->opagdl, base, ofs));
+		preprocessGfx(PD_PTR_BASEOFS(dl->opagdl, base, ofs), base, ofs);
 	}
 	if (dl->xlugdl) {
 		PD_BEFIELD_PTR(dl->xlugdl);
-		preprocessGfx(PD_PTR_BASEOFS(dl->xlugdl, base, ofs));
+		preprocessGfx(PD_PTR_BASEOFS(dl->xlugdl, base, ofs), base, ofs);
 	}
 }
 
 static void preprocessModelNode(struct modelnode *node, u8 *base, u32 ofs)
 {
 	while (node) {
+		printf("swap node %p type %04x\n", node, node->type);
+		fflush(stdout);
 		PD_BEFIELD_I16(node->type);
 		PD_BEFIELD_PTR(node->child);
 		PD_BEFIELD_PTR(node->next);
@@ -248,6 +257,8 @@ static void preprocessModelNode(struct modelnode *node, u8 *base, u32 ofs)
 					PD_BEFIELD_F32(ro->reorder.unk0c[2]);
 					PD_BEFIELD_I16(ro->reorder.rwdataindex);
 					PD_BEFIELD_I16(ro->reorder.side);
+					PD_BEFIELD_PTR(ro->reorder.unk18);
+					PD_BEFIELD_PTR(ro->reorder.unk1c);
 					break;
 				case MODELNODETYPE_BBOX:
 					PD_BEFIELD_F32(ro->bbox.xmin);
@@ -321,7 +332,11 @@ static void preprocessModelNode(struct modelnode *node, u8 *base, u32 ofs)
 					node = PD_PTR_BASEOFS(node->next, base, ofs);
 					break;
 				}
-				node = node->parent ? PD_PTR_BASEOFS(node->parent, base, ofs) : NULL;
+				if (node->parent) {
+					node = PD_PTR_BASEOFS(node->parent, base, ofs);
+				} else {
+					node = NULL;
+				}
 			}
 		}
 	}
@@ -869,7 +884,7 @@ void preprocessBgRoom(u8 *data, u32 ofs) {
 			case ROOMBLOCKTYPE_LEAF:
 				if (blk->gdl) {
 					PD_BEFIELD_PTR(blk->gdl);
-					preprocessGfx(PD_PTR_BASEOFS(blk->gdl, data, ofs));
+					preprocessGfx(PD_PTR_BASEOFS(blk->gdl, data, ofs), data, ofs);
 				}
 				break;
 			case ROOMBLOCKTYPE_PARENT:
