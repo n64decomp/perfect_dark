@@ -1339,9 +1339,11 @@ void preprocessBgRoom(u8 *data, u32 ofs) {
 	PD_SWAP_PTR(rgfx->xlublocks);
 	PD_SWAP_PTR(rgfx->colours);
 
+	// numvertices is actually 0 in the data because fuck you
+	const s32 numverts = ((uintptr_t) rgfx->colours - (uintptr_t) rgfx->vertices) / sizeof(Vtx);
 	Vtx *vertices = PD_PTR_BASEOFS(rgfx->vertices, data, ofs);
 	Vtx *vtx = vertices;
-	for (s32 i = 0; i < rgfx->numvertices; ++i, ++vtx) {
+	for (s32 i = 0; i < numverts; ++i, ++vtx) {
 		preprocessVtx(vtx);
 	}
 
