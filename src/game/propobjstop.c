@@ -5,14 +5,15 @@
 #include "bss.h"
 #include "data.h"
 #include "types.h"
+#include "platform.h"
 
 void objsStop(void)
 {
 	u32 *ptr = g_StageSetup.props;
 
 	if (ptr) {
-		while ((u8)ptr[0] != OBJTYPE_END) {
-			switch ((u8)ptr[0]) {
+		while ((u8)PD_BE32(ptr[0]) != OBJTYPE_END) {
+			switch ((u8)PD_BE32(ptr[0])) {
 			case OBJTYPE_DOOR:
 			case OBJTYPE_BASIC:
 			case OBJTYPE_KEY:

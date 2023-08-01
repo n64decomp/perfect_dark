@@ -1,5 +1,7 @@
 *.o
 *.pyc
+*.dll
+*.exe
 pd.*.z64
 build
 extracted

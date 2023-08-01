@@ -9839,7 +9839,11 @@ bool aiIfMusicEventQueueIsEmpty(void)
 {
 	f32 value = (u64)osGetCount() * 64 / 3000;
 
+#ifdef PLATFORM_N64
 	if (g_MusicEventQueueLength) {
+#else // don't hang when sound is disabled
+	if (g_MusicEventQueueLength && !g_SndDisabled) {
+#endif
 		g_Vars.aioffset += 4;
 	} else {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;

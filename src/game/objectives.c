@@ -22,6 +22,7 @@
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
+#include "platform.h"
 
 struct objective *g_Objectives[MAX_OBJECTIVES];
 u32 g_ObjectiveStatuses[MAX_OBJECTIVES];
@@ -210,11 +211,11 @@ s32 objectiveCheck(s32 index)
 			// iteration of the while loop below will skip past it.
 			u32 *cmd = (u32 *)g_Objectives[index];
 
-			while ((u8)cmd[0] != OBJTYPE_ENDOBJECTIVE) {
+			while ((u8)PD_BE32(cmd[0]) != OBJTYPE_ENDOBJECTIVE) {
 				// The status of this requirement
 				s32 reqstatus = OBJECTIVE_COMPLETE;
 
-				switch ((u8)cmd[0]) {
+				switch ((u8)PD_BE32(cmd[0])) {
 				case OBJECTIVETYPE_DESTROYOBJ:
 					{
 						struct defaultobj *obj = objFindByTagId(cmd[1]);

@@ -11,6 +11,7 @@
 #include "bss.h"
 #include "data.h"
 #include "types.h"
+#include "platform.h"
 
 struct stagesetup g_StageSetup;
 u8 *g_GeCreditsData;
@@ -23,7 +24,7 @@ u32 setupGetCmdLength(u32 *cmd)
 	mainOverrideVariable("crash1", &crash1);
 #endif
 
-	switch ((u8)cmd[0]) {
+	switch ((u8)PD_BE32(cmd[0])) {
 	case OBJTYPE_CHR:                return 11;
 	case OBJTYPE_DOOR:               return 55;
 	case OBJTYPE_DOORSCALE:          return 2;
@@ -98,7 +99,7 @@ u32 *setupGetCmdByIndex(s32 wantindex)
 	if (wantindex >= 0 && cmd) {
 		s32 cmdindex = 0;
 
-		while ((u8)cmd[0] != OBJTYPE_END) {
+		while ((u8)PD_BE32(cmd[0]) != OBJTYPE_END) {
 			if (cmdindex == wantindex) {
 				return cmd;
 			}
@@ -118,7 +119,7 @@ s32 setupGetCmdIndexByTag(struct tag *tag)
 	if (cmd) {
 		s32 cmdindex = 0;
 
-		while ((u8)cmd[0] != OBJTYPE_END) {
+		while ((u8)PD_BE32(cmd[0]) != OBJTYPE_END) {
 			if ((struct tag *)cmd == tag) {
 				return cmdindex;
 			}
@@ -138,7 +139,7 @@ u32 setupGetCmdIndexByProp(struct prop *prop)
 	if (cmd) {
 		s32 cmdindex = 0;
 
-		while ((u8)cmd[0] != OBJTYPE_END) {
+		while ((u8)PD_BE32(cmd[0]) != OBJTYPE_END) {
 			if ((struct prop *)cmd[5] == prop) {
 				return cmdindex;
 			}
@@ -216,7 +217,7 @@ struct defaultobj *setupGetObjByCmdIndex(u32 cmdindex)
 	u32 *cmd = setupGetCmdByIndex(cmdindex);
 
 	if (cmd) {
-		switch ((u8)cmd[0]) {
+		switch ((u8)PD_BE32(cmd[0])) {
 		case OBJTYPE_DOOR:
 		case OBJTYPE_BASIC:
 		case OBJTYPE_KEY:
@@ -309,8 +310,8 @@ struct defaultobj *setupFindObjForReuse(s32 wanttype, struct defaultobj **offscr
 	u32 *cmd = g_StageSetup.props;
 
 	if (cmd) {
-		while ((u8)cmd[0] != OBJTYPE_END) {
-			if ((wanttype & 0xff) == (u8)cmd[0]) {
+		while ((u8)PD_BE32(cmd[0]) != OBJTYPE_END) {
+			if ((wanttype & 0xff) == (u8)PD_BE32(cmd[0])) {
 				struct defaultobj *obj = (struct defaultobj *)cmd;
 
 				if (obj->prop == NULL) {

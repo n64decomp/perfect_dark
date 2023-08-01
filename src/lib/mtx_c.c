@@ -320,6 +320,7 @@ u32 mtxGetObfuscatedRomBase(void)
 
 void mtxF2L(Mtxf *src, Mtxf *dst)
 {
+#ifndef GBI_FLOATS
 	u32 src00 = (s32) (src->m[0][0] * var8005ef10[0]);
 	u32 src01 = (s32) (src->m[0][1] * var8005ef10[0]);
 	u32 src02 = (s32) (src->m[0][2] * var8005ef10[0]);
@@ -354,4 +355,7 @@ void mtxF2L(Mtxf *src, Mtxf *dst)
 	dst->l[3][1] = src22 << 16 | (src23 & 0xffff);
 	dst->l[3][2] = src30 << 16 | (src31 & 0xffff);
 	dst->l[3][3] = src32 << 16 | (src33 & 0xffff);
+#else
+	bcopy(src, dst, sizeof(*dst));
+#endif
 }

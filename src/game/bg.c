@@ -3299,7 +3299,7 @@ s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 
 				batches[batchindex].bbmax.f[j] = -32768.0f;
 			}
 
-			numvertices = (((u32)gdl[i].bytes[1] >> 4) & 0xf) + 1;
+			numvertices = (((u32)gdl[i].bytes[GFX_W0_BYTE(1)] >> 4) & 0xf) + 1;
 			batchvertices = (Vtx *)((uintptr_t)vertices + (gdl[i].words.w1 & 0xffffff));
 
 			for (j = 0; j < numvertices; j++) {

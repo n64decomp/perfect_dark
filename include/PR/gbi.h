@@ -1291,10 +1291,17 @@ typedef union {
  *  Graphics DMA Packet
  */
 typedef struct {
+#ifdef PLATFORM_BIG_ENDIAN
 	int          cmd:8;
 	unsigned int par:8;
 	unsigned int len:16;
 	unsigned int addr;
+#else // NOTE: changing signedness mid int will break up the bitfield on normal platforms, even BE
+	int len:16;
+	int par:8;
+	int cmd:8;
+	unsigned int addr;
+#endif
 } Gdma;
 
 /*
@@ -1500,6 +1507,7 @@ typedef struct {
 // xxxxxxxx 11223344 44555566 66666777
 // 88888888 99999999 9999aaaa aaaaaaaa
 typedef struct {
+#ifdef PLATFORM_BIG_ENDIAN
 	unsigned int cmd:8;
 	unsigned int unk08:2;
 	unsigned int unk0a:2;
@@ -1511,6 +1519,19 @@ typedef struct {
 	unsigned int unk20:8;
 	unsigned int tile1:12;
 	unsigned int tile2:12;
+#else
+	unsigned int subcmd:3;
+	unsigned int flags:7;
+	unsigned int unk12:4;
+	unsigned int unk0e:4;
+	unsigned int unk0c:2;
+	unsigned int unk0a:2;
+	unsigned int unk08:2;
+	unsigned int cmd:8;
+	unsigned int tile2:12;
+	unsigned int tile1:12;
+	unsigned int unk20:8;
+#endif
 } GunkC0;
 
 typedef struct {
@@ -1554,7 +1575,7 @@ typedef union {
 	long long int  force_structure_alignment;
 } Gfx;
 
-#ifdef PLATFORM_N64
+#ifdef PLATFORM_BIG_ENDIAN
 #define GFX_W0_BYTE(i) (i)
 #define GFX_W1_BYTE(i) (4 + (i))
 #else

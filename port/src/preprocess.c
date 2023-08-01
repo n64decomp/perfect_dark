@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
 #include <PR/libaudio.h>
@@ -8,11 +9,39 @@
 #include "bss.h"
 #include "preprocess.h"
 #include "romdata.h"
+#include "game/setuputils.h"
 
-#define PD_BEFIELD_I16(x) x = PD_BE16(x)
-#define PD_BEFIELD_I32(x) x = PD_BE32(x)
-#define PD_BEFIELD_F32(x) *(u32 *)&x = PD_BE32(*(u32 *)&x)
-#define PD_BEFIELD_PTR(x) x = (void *)PD_BE32((u32)x)
+/*
+#define PD_SWAP_VAL(x)
+#define PD_SWAP_VAL(x)
+#define PD_SWAP_VAL(u32 *)&x)
+#define PD_SWAP_PTR(x) x = (void *)PD_BE32((u32)x)
+#define PD_SWAP_VAL(v) \
+	PD_SWAP_VAL(v.x); \
+	PD_SWAP_VAL(v.y); \
+	PD_SWAP_VAL(v.z)
+*/
+
+static inline f32 swapF32(f32 x) { *(u32 *)&x = PD_BE32(*(u32 *)&x); return x; }
+static inline u32 swapU32(u32 x) { return PD_BE32(x); }
+static inline s32 swapS32(s32 x) { return PD_BE32(x); }
+static inline u16 swapU16(u16 x) { return PD_BE16(x); }
+static inline s16 swapS16(s16 x) { return PD_BE16(x); }
+static inline void *swapPtr(void **x) { return (void *)PD_BEPTR((uintptr_t)x); }
+static inline struct coord swapCrd(struct coord crd) { crd.x = swapF32(crd.x); crd.y = swapF32(crd.y); crd.z = swapF32(crd.z); return crd; }
+static inline u32 swapUnk(u32 x) { assert(0 && "unknown type"); return x; }
+
+#define PD_SWAP_VAL(x) x = _Generic((x), \
+	f32: swapF32, \
+	u32: swapU32, \
+	s32: swapS32, \
+	u16: swapU16, \
+	s16: swapS16, \
+	struct coord: swapCrd, \
+	default: swapUnk	\
+)(x)
+
+#define PD_SWAP_PTR(x) x = swapPtr((void *)(x))
 
 #define PD_PTR_BASE(x, b) (void *)((u8 *)b + (u32)x)
 #define PD_PTR_BASEOFS(x, b, d) (void *)((u8 *)b - d + (u32)x)
@@ -24,41 +53,41 @@ static inline void preprocessALWaveTable(ALWaveTable *tbl, u8 *bankBase)
 		return;
 	}
 
-	PD_BEFIELD_I32(tbl->len);
-	PD_BEFIELD_PTR(tbl->base);
+	PD_SWAP_VAL(tbl->len);
+	PD_SWAP_PTR(tbl->base);
 
 	if (tbl->type == AL_ADPCM_WAVE) {
 		if (tbl->waveInfo.adpcmWave.loop ) {
-			PD_BEFIELD_PTR(tbl->waveInfo.adpcmWave.loop);
+			PD_SWAP_PTR(tbl->waveInfo.adpcmWave.loop);
 			ALADPCMloop *loop = PD_PTR_BASE(tbl->waveInfo.adpcmWave.loop, bankBase);
-			PD_BEFIELD_I32(loop->count);
-			PD_BEFIELD_I32(loop->start);
-			PD_BEFIELD_I32(loop->end);
+			PD_SWAP_VAL(loop->count);
+			PD_SWAP_VAL(loop->start);
+			PD_SWAP_VAL(loop->end);
 			/* TODO: this goes into the mixer -- swapping not required?
 			for (s32 i = 0; i < 16; ++i) {
-				PD_BEFIELD_I16(loop->state[i]);
+				PD_SWAP_VAL(loop->state[i]);
 			}
 			*/
 		}
 		if (tbl->waveInfo.adpcmWave.book) {
-			PD_BEFIELD_PTR(tbl->waveInfo.adpcmWave.book);
+			PD_SWAP_PTR(tbl->waveInfo.adpcmWave.book);
 			ALADPCMBook *book = PD_PTR_BASE(tbl->waveInfo.adpcmWave.book, bankBase);
-			PD_BEFIELD_I32(book->npredictors);
-			PD_BEFIELD_I32(book->order);
+			PD_SWAP_VAL(book->npredictors);
+			PD_SWAP_VAL(book->order);
 			/* TODO: this goes into the mixer -- swapping not required?
 			const s32 bookSize = book->order * book->npredictors * ADPCMVSIZE;
 			for (s32 i = 0; i < bookSize && i < 128; ++i) {
-				PD_BEFIELD_I16(book->book[i]);
+				PD_SWAP_VAL(book->book[i]);
 			}
 			*/
 		}
 	} else if (tbl->type == AL_RAW16_WAVE) {
 		if (tbl->waveInfo.rawWave.loop) {
-			PD_BEFIELD_PTR(tbl->waveInfo.rawWave.loop);
+			PD_SWAP_PTR(tbl->waveInfo.rawWave.loop);
 			ALRawLoop *loop = PD_PTR_BASE(tbl->waveInfo.rawWave.loop, bankBase);
-			PD_BEFIELD_I32(loop->count);
-			PD_BEFIELD_I32(loop->start);
-			PD_BEFIELD_I32(loop->end);
+			PD_SWAP_VAL(loop->count);
+			PD_SWAP_VAL(loop->start);
+			PD_SWAP_VAL(loop->end);
 		}
 	}
 }
@@ -71,19 +100,19 @@ static inline void preprocessALSound(ALSound *snd, u8 *bankBase)
 	}
 
 	if (snd->envelope) {
-		PD_BEFIELD_PTR(snd->envelope);
+		PD_SWAP_PTR(snd->envelope);
 		ALEnvelope *env = PD_PTR_BASE(snd->envelope, bankBase);
-		PD_BEFIELD_I32(env->attackTime);
-		PD_BEFIELD_I32(env->releaseTime);
-		PD_BEFIELD_I32(env->decayTime);
+		PD_SWAP_VAL(env->attackTime);
+		PD_SWAP_VAL(env->releaseTime);
+		PD_SWAP_VAL(env->decayTime);
 	}
 
 	if (snd->keyMap) {
-		PD_BEFIELD_PTR(snd->keyMap);
+		PD_SWAP_PTR(snd->keyMap);
 	}
 
 	if (snd->wavetable) {
-		PD_BEFIELD_PTR(snd->wavetable);
+		PD_SWAP_PTR(snd->wavetable);
 		preprocessALWaveTable(PD_PTR_BASE(snd->wavetable, bankBase), bankBase);
 	}
 }
@@ -95,11 +124,11 @@ static inline void preprocessALInstrument(ALInstrument *inst, u8 *bankBase)
 		return;
 	}
 
-	PD_BEFIELD_I16(inst->bendRange);
-	PD_BEFIELD_I16(inst->soundCount);
+	PD_SWAP_VAL(inst->bendRange);
+	PD_SWAP_VAL(inst->soundCount);
 
 	for (s16 i = 0; i < inst->soundCount; ++i) {
-		PD_BEFIELD_PTR(inst->soundArray[i]);
+		PD_SWAP_PTR(inst->soundArray[i]);
 		preprocessALSound(PD_PTR_BASE(inst->soundArray[i], bankBase), bankBase);
 	}
 }
@@ -111,16 +140,16 @@ static inline void preprocessALBank(ALBank *bank, u8 *bankBase)
 		return;
 	}
 
-	PD_BEFIELD_I32(bank->sampleRate);
-	PD_BEFIELD_I16(bank->instCount);
+	PD_SWAP_VAL(bank->sampleRate);
+	PD_SWAP_VAL(bank->instCount);
 
 	if (bank->percussion) {
-		PD_BEFIELD_PTR(bank->percussion);
+		PD_SWAP_PTR(bank->percussion);
 		preprocessALInstrument(PD_PTR_BASE(bank->percussion, bankBase), bankBase);
 	}
 
 	for (s16 i = 0; i < bank->instCount; ++i) {
-		PD_BEFIELD_PTR(bank->instArray[i]);
+		PD_SWAP_PTR(bank->instArray[i]);
 		preprocessALInstrument(PD_PTR_BASE(bank->instArray[i], bankBase), bankBase);
 	}
 }
@@ -129,8 +158,8 @@ static inline void preprocessGfx(Gfx *gdl, u8 *base, uintptr_t ofs)
 {
 	while (gdl) {
 		const s8 opcode = (s8)gdl->bytes[0];
-		PD_BEFIELD_I32(gdl->words.w0);
-		PD_BEFIELD_I32(gdl->words.w1);
+		PD_SWAP_VAL(gdl->words.w0);
+		PD_SWAP_VAL(gdl->words.w1);
 		if (opcode == (s8)G_ENDDL) {
 			break;
 		} else if (opcode == (s8)G_DL) {
@@ -151,19 +180,19 @@ static inline void preprocessGfx(Gfx *gdl, u8 *base, uintptr_t ofs)
 
 static inline void preprocessVtx(Vtx *vtx)
 {
-	PD_BEFIELD_I16(vtx->x);
-	PD_BEFIELD_I16(vtx->y);
-	PD_BEFIELD_I16(vtx->z);
-	PD_BEFIELD_I16(vtx->s);
-	PD_BEFIELD_I16(vtx->t);
+	PD_SWAP_VAL(vtx->x);
+	PD_SWAP_VAL(vtx->y);
+	PD_SWAP_VAL(vtx->z);
+	PD_SWAP_VAL(vtx->s);
+	PD_SWAP_VAL(vtx->t);
 }
 
 static void preprocessModelGunDL(struct modelrodata_gundl *gundl, u8 *base, u32 ofs)
 {
-	PD_BEFIELD_PTR(gundl->baseaddr);
-	PD_BEFIELD_PTR(gundl->vertices);
-	PD_BEFIELD_I16(gundl->numvertices);
-	PD_BEFIELD_I16(gundl->unk12);
+	PD_SWAP_PTR(gundl->baseaddr);
+	PD_SWAP_PTR(gundl->vertices);
+	PD_SWAP_VAL(gundl->numvertices);
+	PD_SWAP_VAL(gundl->unk12);
 
 	Vtx *vtx = PD_PTR_BASEOFS(gundl->vertices, base, ofs);
 	for (s16 i = 0; i < gundl->numvertices; ++i, ++vtx) {
@@ -171,24 +200,24 @@ static void preprocessModelGunDL(struct modelrodata_gundl *gundl, u8 *base, u32 
 	}
 
 	if (gundl->opagdl) {
-		PD_BEFIELD_PTR(gundl->opagdl);
+		PD_SWAP_PTR(gundl->opagdl);
 		preprocessGfx(PD_PTR_BASEOFS(gundl->opagdl, base, ofs), base, ofs);
 	}
 	if (gundl->xlugdl) {
-		PD_BEFIELD_PTR(gundl->xlugdl);
+		PD_SWAP_PTR(gundl->xlugdl);
 		preprocessGfx(PD_PTR_BASEOFS(gundl->xlugdl, base, ofs), base, ofs);
 	}
 }
 
 static void preprocessModelDL(struct modelrodata_dl *dl, u8 *base, u32 ofs)
 {
-	PD_BEFIELD_PTR(dl->colours);
-	PD_BEFIELD_PTR(dl->vertices);
+	PD_SWAP_PTR(dl->colours);
+	PD_SWAP_PTR(dl->vertices);
 
-	PD_BEFIELD_I16(dl->numvertices);
-	PD_BEFIELD_I16(dl->numcolours);
-	PD_BEFIELD_I16(dl->mcount);
-	PD_BEFIELD_I16(dl->rwdataindex);
+	PD_SWAP_VAL(dl->numvertices);
+	PD_SWAP_VAL(dl->numcolours);
+	PD_SWAP_VAL(dl->mcount);
+	PD_SWAP_VAL(dl->rwdataindex);
 
 	Vtx *vtx = PD_PTR_BASEOFS(dl->vertices, base, ofs);
 	for (s16 i = 0; i < dl->numvertices; ++i, ++vtx) {
@@ -196,11 +225,11 @@ static void preprocessModelDL(struct modelrodata_dl *dl, u8 *base, u32 ofs)
 	}
 
 	if (dl->opagdl) {
-		PD_BEFIELD_PTR(dl->opagdl);
+		PD_SWAP_PTR(dl->opagdl);
 		preprocessGfx(PD_PTR_BASEOFS(dl->opagdl, base, ofs), base, ofs);
 	}
 	if (dl->xlugdl) {
-		PD_BEFIELD_PTR(dl->xlugdl);
+		PD_SWAP_PTR(dl->xlugdl);
 		preprocessGfx(PD_PTR_BASEOFS(dl->xlugdl, base, ofs), base, ofs);
 	}
 }
@@ -208,33 +237,29 @@ static void preprocessModelDL(struct modelrodata_dl *dl, u8 *base, u32 ofs)
 static void preprocessModelNode(struct modelnode *node, u8 *base, u32 ofs)
 {
 	while (node) {
-		printf("swap node %p type %04x\n", node, node->type);
-		fflush(stdout);
-		PD_BEFIELD_I16(node->type);
-		PD_BEFIELD_PTR(node->child);
-		PD_BEFIELD_PTR(node->next);
-		PD_BEFIELD_PTR(node->parent);
-		PD_BEFIELD_PTR(node->rodata);
+		PD_SWAP_VAL(node->type);
+		PD_SWAP_PTR(node->child);
+		PD_SWAP_PTR(node->next);
+		PD_SWAP_PTR(node->parent);
+		PD_SWAP_PTR(node->rodata);
 
 		if (node->rodata) {
 			union modelrodata* ro = PD_PTR_BASEOFS(node->rodata, base, ofs);
 
 			switch (node->type & 0xff) {
 				case MODELNODETYPE_CHRINFO:
-					PD_BEFIELD_I16(ro->chrinfo.animpart);
-					PD_BEFIELD_I16(ro->chrinfo.mtxindex);
-					PD_BEFIELD_I16(ro->chrinfo.rwdataindex);
-					PD_BEFIELD_F32(ro->chrinfo.unk04);
+					PD_SWAP_VAL(ro->chrinfo.animpart);
+					PD_SWAP_VAL(ro->chrinfo.mtxindex);
+					PD_SWAP_VAL(ro->chrinfo.rwdataindex);
+					PD_SWAP_VAL(ro->chrinfo.unk04);
 					break;
 				case MODELNODETYPE_POSITION:
-					PD_BEFIELD_F32(ro->position.drawdist);
-					PD_BEFIELD_F32(ro->position.pos.x);
-					PD_BEFIELD_F32(ro->position.pos.y);
-					PD_BEFIELD_F32(ro->position.pos.z);
-					PD_BEFIELD_I16(ro->position.part);
-					PD_BEFIELD_I16(ro->position.mtxindex0);
-					PD_BEFIELD_I16(ro->position.mtxindex1);
-					PD_BEFIELD_I16(ro->position.mtxindex2);
+					PD_SWAP_VAL(ro->position.drawdist);
+					PD_SWAP_VAL(ro->position.pos);
+					PD_SWAP_VAL(ro->position.part);
+					PD_SWAP_VAL(ro->position.mtxindex0);
+					PD_SWAP_VAL(ro->position.mtxindex1);
+					PD_SWAP_VAL(ro->position.mtxindex2);
 					break;
 				case MODELNODETYPE_GUNDL:
 					preprocessModelGunDL(&ro->gundl, base, ofs);
@@ -242,80 +267,74 @@ static void preprocessModelNode(struct modelnode *node, u8 *base, u32 ofs)
 				case MODELNODETYPE_05:
 					break;
 				case MODELNODETYPE_DISTANCE:
-					PD_BEFIELD_F32(ro->distance.near);
-					PD_BEFIELD_F32(ro->distance.far);
-					PD_BEFIELD_I16(ro->distance.rwdataindex);
-					PD_BEFIELD_PTR(ro->distance.target);
+					PD_SWAP_VAL(ro->distance.near);
+					PD_SWAP_VAL(ro->distance.far);
+					PD_SWAP_VAL(ro->distance.rwdataindex);
+					PD_SWAP_PTR(ro->distance.target);
 					// TODO: assuming target points to one of the nodes we'll swap by following node->next
 					break;
 				case MODELNODETYPE_REORDER:
-					PD_BEFIELD_F32(ro->reorder.unk00);
-					PD_BEFIELD_F32(ro->reorder.unk04);
-					PD_BEFIELD_F32(ro->reorder.unk08);
-					PD_BEFIELD_F32(ro->reorder.unk0c[0]);
-					PD_BEFIELD_F32(ro->reorder.unk0c[1]);
-					PD_BEFIELD_F32(ro->reorder.unk0c[2]);
-					PD_BEFIELD_I16(ro->reorder.rwdataindex);
-					PD_BEFIELD_I16(ro->reorder.side);
-					PD_BEFIELD_PTR(ro->reorder.unk18);
-					PD_BEFIELD_PTR(ro->reorder.unk1c);
+					PD_SWAP_VAL(ro->reorder.unk00);
+					PD_SWAP_VAL(ro->reorder.unk04);
+					PD_SWAP_VAL(ro->reorder.unk08);
+					PD_SWAP_VAL(ro->reorder.unk0c[0]);
+					PD_SWAP_VAL(ro->reorder.unk0c[1]);
+					PD_SWAP_VAL(ro->reorder.unk0c[2]);
+					PD_SWAP_VAL(ro->reorder.rwdataindex);
+					PD_SWAP_VAL(ro->reorder.side);
+					PD_SWAP_PTR(ro->reorder.unk18);
+					PD_SWAP_PTR(ro->reorder.unk1c);
 					break;
 				case MODELNODETYPE_BBOX:
-					PD_BEFIELD_F32(ro->bbox.xmin);
-					PD_BEFIELD_F32(ro->bbox.xmax);
-					PD_BEFIELD_F32(ro->bbox.ymin);
-					PD_BEFIELD_F32(ro->bbox.ymax);
-					PD_BEFIELD_F32(ro->bbox.zmin);
-					PD_BEFIELD_F32(ro->bbox.zmax);
-					PD_BEFIELD_I32(ro->bbox.hitpart);
+					PD_SWAP_VAL(ro->bbox.xmin);
+					PD_SWAP_VAL(ro->bbox.xmax);
+					PD_SWAP_VAL(ro->bbox.ymin);
+					PD_SWAP_VAL(ro->bbox.ymax);
+					PD_SWAP_VAL(ro->bbox.zmin);
+					PD_SWAP_VAL(ro->bbox.zmax);
+					PD_SWAP_VAL(ro->bbox.hitpart);
 					break;
 				case MODELNODETYPE_0B:
-					PD_BEFIELD_PTR(ro->type0b.baseaddr);
-					PD_BEFIELD_I16(ro->type0b.rwdataindex);
-					PD_BEFIELD_I32(ro->type0b.unk00);
-					PD_BEFIELD_PTR(ro->type0b.unk3c);
+					PD_SWAP_PTR(ro->type0b.baseaddr);
+					PD_SWAP_VAL(ro->type0b.rwdataindex);
+					PD_SWAP_VAL(ro->type0b.unk00);
+					PD_SWAP_PTR(ro->type0b.unk3c);
 					// TODO: do we need to swap the rest of the words?
 					break;
 				case MODELNODETYPE_CHRGUNFIRE:
-					PD_BEFIELD_PTR(ro->chrgunfire.baseaddr);
-					PD_BEFIELD_PTR(ro->chrgunfire.texture);
-					PD_BEFIELD_I16(ro->chrgunfire.rwdataindex);
-					PD_BEFIELD_F32(ro->chrgunfire.pos.x);
-					PD_BEFIELD_F32(ro->chrgunfire.pos.y);
-					PD_BEFIELD_F32(ro->chrgunfire.pos.z);
-					PD_BEFIELD_F32(ro->chrgunfire.dim.x);
-					PD_BEFIELD_F32(ro->chrgunfire.dim.y);
-					PD_BEFIELD_F32(ro->chrgunfire.dim.z);
-					PD_BEFIELD_F32(ro->chrgunfire.unk1c);
+					PD_SWAP_PTR(ro->chrgunfire.baseaddr);
+					PD_SWAP_PTR(ro->chrgunfire.texture);
+					PD_SWAP_VAL(ro->chrgunfire.rwdataindex);
+					PD_SWAP_VAL(ro->chrgunfire.pos);
+					PD_SWAP_VAL(ro->chrgunfire.dim);
+					PD_SWAP_VAL(ro->chrgunfire.unk1c);
 					// TODO: do we swap contents of *texture or is it part of mdl->textureconfigs[]?
 					break;
 				case MODELNODETYPE_0D:
-					PD_BEFIELD_PTR(ro->type0d.baseaddr);
-					PD_BEFIELD_PTR(ro->type0d.unk10);
-					PD_BEFIELD_PTR(ro->type0d.unk14);
+					PD_SWAP_PTR(ro->type0d.baseaddr);
+					PD_SWAP_PTR(ro->type0d.unk10);
+					PD_SWAP_PTR(ro->type0d.unk14);
 					// TODO: do we need to swap the rest of the words?
 					break;
 				case MODELNODETYPE_0E:
 				case MODELNODETYPE_0F:
 					break;
 				case MODELNODETYPE_11:
-					PD_BEFIELD_PTR(ro->type11.unk14);
+					PD_SWAP_PTR(ro->type11.unk14);
 					// TODO: do we need to swap the rest of the words?
 					break;
 				case MODELNODETYPE_TOGGLE:
-					PD_BEFIELD_I16(ro->toggle.rwdataindex);
-					PD_BEFIELD_PTR(ro->toggle.target);
+					PD_SWAP_VAL(ro->toggle.rwdataindex);
+					PD_SWAP_PTR(ro->toggle.target);
 					// TODO: assuming target points to one of the nodes we'll swap by following node->next
 					break;
 				case MODELNODETYPE_DL:
 					preprocessModelDL(&ro->dl, base, ofs);
 					break;
 				case 0x19:
-					PD_BEFIELD_I32(ro->type19.numvertices);
+					PD_SWAP_VAL(ro->type19.numvertices);
 					for (s32 i = 0; i < ARRAYCOUNT(ro->type19.vertices); ++i) {
-						PD_BEFIELD_F32(ro->type19.vertices[i].x);
-						PD_BEFIELD_F32(ro->type19.vertices[i].y);
-						PD_BEFIELD_F32(ro->type19.vertices[i].z);
+						PD_SWAP_VAL(ro->type19.vertices[i]);
 					}
 					break;
 				default:
@@ -347,56 +366,478 @@ static inline void preprocessPadData(u8 *ptr)
 	// for some insane reason pads are packed
 	// header is always 1 word, the rest of the fields depends on the flags
 	u32 *header = (u32 *) ptr;
-	PD_BEFIELD_I32(header[0]);
+	PD_SWAP_VAL(header[0]);
+
+	const u32 flags = header[0] >> 14;
 
 	ptr += 4;
 
-	if ((*header >> 14) & PADFLAG_INTPOS) {
+	if (flags & PADFLAG_INTPOS) {
 		// position is 3x s16
 		s16 *sbuffer = (s16 *) ptr;
-		PD_BEFIELD_I16(sbuffer[0]);
-		PD_BEFIELD_I16(sbuffer[1]);
-		PD_BEFIELD_I16(sbuffer[2]);
+		PD_SWAP_VAL(sbuffer[0]);
+		PD_SWAP_VAL(sbuffer[1]);
+		PD_SWAP_VAL(sbuffer[2]);
 		ptr += 8;
 	} else {
 		// position is 3x f32
 		f32 *fbuffer = (f32 *) ptr;
-		PD_BEFIELD_F32(fbuffer[0]);
-		PD_BEFIELD_F32(fbuffer[1]);
-		PD_BEFIELD_F32(fbuffer[2]);
+		PD_SWAP_VAL(fbuffer[0]);
+		PD_SWAP_VAL(fbuffer[1]);
+		PD_SWAP_VAL(fbuffer[2]);
 		ptr += 12;
 	}
 
-	if (!((*header >> 14) & (PADFLAG_UPALIGNTOX | PADFLAG_UPALIGNTOY | PADFLAG_UPALIGNTOZ))) {
+	if (!(flags & (PADFLAG_UPALIGNTOX | PADFLAG_UPALIGNTOY | PADFLAG_UPALIGNTOZ))) {
 		// up vector, 3x f32
 		f32 *fbuffer = (f32 *) ptr;
-		PD_BEFIELD_F32(fbuffer[0]);
-		PD_BEFIELD_F32(fbuffer[1]);
-		PD_BEFIELD_F32(fbuffer[2]);
+		PD_SWAP_VAL(fbuffer[0]);
+		PD_SWAP_VAL(fbuffer[1]);
+		PD_SWAP_VAL(fbuffer[2]);
 		ptr += 12;
 	}
 
-	if (!((*header >> 14) & (PADFLAG_LOOKALIGNTOX | PADFLAG_LOOKALIGNTOY | PADFLAG_LOOKALIGNTOZ))) {
+	if (!(flags & (PADFLAG_LOOKALIGNTOX | PADFLAG_LOOKALIGNTOY | PADFLAG_LOOKALIGNTOZ))) {
 		// look vector, 3x f32
 		f32 *fbuffer = (f32 *) ptr;
-		PD_BEFIELD_F32(fbuffer[0]);
-		PD_BEFIELD_F32(fbuffer[1]);
-		PD_BEFIELD_F32(fbuffer[2]);
+		PD_SWAP_VAL(fbuffer[0]);
+		PD_SWAP_VAL(fbuffer[1]);
+		PD_SWAP_VAL(fbuffer[2]);
 		ptr += 12;
 	}
 
-	if ((*header >> 14) & PADFLAG_HASBBOXDATA) {
+	if (flags & PADFLAG_HASBBOXDATA) {
 		// bbox, 3x f32 mins + 3x f32 maxs
 		f32 *fbuffer = (f32 *) ptr;
-		PD_BEFIELD_F32(fbuffer[0]);
-		PD_BEFIELD_F32(fbuffer[1]);
-		PD_BEFIELD_F32(fbuffer[2]);
-		PD_BEFIELD_F32(fbuffer[3]);
-		PD_BEFIELD_F32(fbuffer[4]);
-		PD_BEFIELD_F32(fbuffer[5]);
+		PD_SWAP_VAL(fbuffer[0]);
+		PD_SWAP_VAL(fbuffer[1]);
+		PD_SWAP_VAL(fbuffer[2]);
+		PD_SWAP_VAL(fbuffer[3]);
+		PD_SWAP_VAL(fbuffer[4]);
+		PD_SWAP_VAL(fbuffer[5]);
 	}
 }
 
+static inline void preprocessDefaultPropObj(struct defaultobj *obj)
+{
+	PD_SWAP_PTR(obj->projectile);
+	PD_SWAP_PTR(obj->geoblock);
+	PD_SWAP_PTR(obj->prop);
+	PD_SWAP_PTR(obj->model);
+	PD_SWAP_VAL(obj->flags);
+	PD_SWAP_VAL(obj->flags2);
+	PD_SWAP_VAL(obj->flags3);
+	PD_SWAP_VAL(obj->hidden);
+	PD_SWAP_VAL(obj->damage);
+	PD_SWAP_VAL(obj->maxdamage);
+	PD_SWAP_VAL(obj->extrascale);
+	PD_SWAP_VAL(obj->floorcol);
+	PD_SWAP_VAL(obj->modelnum);
+	PD_SWAP_VAL(obj->pad);
+	for (s32 i = 0; i < 3; ++i) {
+		for (s32 j = 0; j < 3; ++j) {
+			PD_SWAP_VAL(obj->realrot[i][j]);
+		}
+	}
+}
+
+static inline void preprocessDefaultPropObjHdr(struct defaultobj *obj)
+{
+	// don't touch the other fields
+	PD_SWAP_VAL(obj->extrascale);
+}
+
+static inline void preprocessTvScreenPropObj(struct tvscreen *scr)
+{
+	PD_SWAP_PTR(scr->cmdlist);
+	PD_SWAP_PTR(scr->tconfig);
+	PD_SWAP_VAL(scr->offset);
+	PD_SWAP_VAL(scr->pause60);
+	PD_SWAP_VAL(scr->rot);
+	PD_SWAP_VAL(scr->xscale);
+	PD_SWAP_VAL(scr->xscalefrac);
+	PD_SWAP_VAL(scr->xscaleinc);
+	PD_SWAP_VAL(scr->xscaleold);
+	PD_SWAP_VAL(scr->xscalenew);
+	PD_SWAP_VAL(scr->yscale);
+	PD_SWAP_VAL(scr->yscalefrac);
+	PD_SWAP_VAL(scr->yscaleinc);
+	PD_SWAP_VAL(scr->yscaleold);
+	PD_SWAP_VAL(scr->yscalenew);
+	PD_SWAP_VAL(scr->xmid);
+	PD_SWAP_VAL(scr->xmidfrac);
+	PD_SWAP_VAL(scr->xmidinc);
+	PD_SWAP_VAL(scr->xmidold);
+	PD_SWAP_VAL(scr->xmidnew);
+	PD_SWAP_VAL(scr->ymid);
+	PD_SWAP_VAL(scr->ymidfrac);
+	PD_SWAP_VAL(scr->ymidinc);
+	PD_SWAP_VAL(scr->ymidold);
+	PD_SWAP_VAL(scr->ymidnew);
+	PD_SWAP_VAL(scr->colfrac);
+	PD_SWAP_VAL(scr->colinc);
+}
+
+static inline void preprocessHovPropObj(struct hov *hov)
+{
+	PD_SWAP_VAL(hov->unk04);
+	PD_SWAP_VAL(hov->unk08);
+	PD_SWAP_VAL(hov->unk0c);
+	PD_SWAP_VAL(hov->unk10);
+	PD_SWAP_VAL(hov->unk14);
+	PD_SWAP_VAL(hov->unk18);
+	PD_SWAP_VAL(hov->unk1c);
+	PD_SWAP_VAL(hov->unk20);
+	PD_SWAP_VAL(hov->unk24);
+	PD_SWAP_VAL(hov->unk28);
+	PD_SWAP_VAL(hov->unk2c);
+	PD_SWAP_VAL(hov->unk30);
+	PD_SWAP_VAL(hov->ground);
+}
+
+static void preprocessPropObj(struct defaultobj *obj)
+{
+	printf("props obj %02x at %p\n", obj->type, obj);
+	fflush(stdout);
+	// TODO: help me jesus
+	switch (obj->type) {
+		case OBJTYPE_GRENADEPROB:
+			struct grenadeprobobj *grenadeprob = (struct grenadeprobobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_VAL(grenadeprob->chrnum);
+			PD_SWAP_VAL(grenadeprob->probability);
+			break;
+		case OBJTYPE_CHR:
+			struct packedchr *chr = (struct packedchr *)obj;
+			PD_SWAP_VAL(chr->chrindex);
+			PD_SWAP_VAL(chr->spawnflags);
+			PD_SWAP_VAL(chr->chrnum);
+			PD_SWAP_VAL(chr->padnum);
+			PD_SWAP_VAL(chr->ailistnum);
+			PD_SWAP_VAL(chr->padpreset);
+			PD_SWAP_VAL(chr->chrpreset);
+			PD_SWAP_VAL(chr->hearscale);
+			PD_SWAP_VAL(chr->viewdist);
+			PD_SWAP_VAL(chr->flags);
+			PD_SWAP_VAL(chr->flags2);
+			PD_SWAP_VAL(chr->chair);
+			PD_SWAP_VAL(chr->convtalk);
+			break;
+		case OBJTYPE_DOOR:
+			struct doorobj *door = (struct doorobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_PTR(door->sibling);
+			PD_SWAP_VAL(door->maxfrac);
+			PD_SWAP_VAL(door->perimfrac);
+			PD_SWAP_VAL(door->accel);
+			PD_SWAP_VAL(door->decel);
+			PD_SWAP_VAL(door->maxspeed);
+			PD_SWAP_VAL(door->frac);
+			PD_SWAP_VAL(door->fracspeed);
+			PD_SWAP_VAL(door->startpos);
+			PD_SWAP_VAL(door->keyflags);
+			PD_SWAP_VAL(door->autoclosetime);
+			PD_SWAP_VAL(door->doorflags);
+			PD_SWAP_VAL(door->doortype);
+			PD_SWAP_VAL(door->fadealpha);
+			PD_SWAP_VAL(door->xludist);
+			PD_SWAP_VAL(door->opadist);
+			break;
+		case OBJTYPE_DOORSCALE:
+			struct doorscaleobj *doorsc = (struct doorscaleobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_VAL(doorsc->scale);
+			break;
+		case OBJTYPE_WEAPON:
+			struct weaponobj *wpn = (struct weaponobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_PTR(wpn->dualweapon);
+			PD_SWAP_VAL(wpn->team);
+			break;
+		case OBJTYPE_KEY:
+			struct keyobj *key = (struct keyobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_VAL(key->keyflags);
+			break;
+		case OBJTYPE_CCTV:
+			struct cctvobj *cctv = (struct cctvobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_VAL(cctv->yzero);
+			PD_SWAP_VAL(cctv->yrot);
+			PD_SWAP_VAL(cctv->yleft);
+			PD_SWAP_VAL(cctv->yright);
+			PD_SWAP_VAL(cctv->yspeed);
+			PD_SWAP_VAL(cctv->ymaxspeed);
+			PD_SWAP_VAL(cctv->maxdist);
+			PD_SWAP_VAL(cctv->xzero);
+			PD_SWAP_VAL(cctv->seebondtime60);
+			break;
+		case OBJTYPE_AUTOGUN:
+			struct autogunobj *agun = (struct autogunobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_VAL(agun->targetpad);
+			PD_SWAP_VAL(agun->yzero);
+			PD_SWAP_VAL(agun->ymaxleft);
+			PD_SWAP_VAL(agun->ymaxright);
+			PD_SWAP_VAL(agun->yrot);
+			PD_SWAP_VAL(agun->yspeed);
+			PD_SWAP_VAL(agun->xzero);
+			PD_SWAP_VAL(agun->xrot);
+			PD_SWAP_VAL(agun->xspeed);
+			PD_SWAP_VAL(agun->maxspeed);
+			PD_SWAP_VAL(agun->aimdist);
+			PD_SWAP_VAL(agun->barrelspeed);
+			PD_SWAP_VAL(agun->barrelrot);
+			PD_SWAP_VAL(agun->allowsoundframe);
+			PD_SWAP_PTR(agun->target);
+			break;
+		case OBJTYPE_SINGLEMONITOR:
+			struct singlemonitorobj *mon = (struct singlemonitorobj *)obj;
+			preprocessDefaultPropObj(obj);
+			preprocessTvScreenPropObj((struct tvscreen *)&mon->screen);
+			PD_SWAP_VAL(mon->owneroffset);
+			break;
+		case OBJTYPE_MULTIMONITOR:
+			struct multimonitorobj *mmon = (struct multimonitorobj *)obj;
+			preprocessDefaultPropObj(obj);
+			preprocessTvScreenPropObj((struct tvscreen *)&mmon->screens[0]);
+			preprocessTvScreenPropObj((struct tvscreen *)&mmon->screens[1]);
+			preprocessTvScreenPropObj((struct tvscreen *)&mmon->screens[2]);
+			preprocessTvScreenPropObj((struct tvscreen *)&mmon->screens[3]);
+			break;
+		case OBJTYPE_SHIELD:
+			struct shieldobj *shld = (struct shieldobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_VAL(shld->initialamount);
+			PD_SWAP_VAL(shld->amount);
+			break;
+		case OBJTYPE_TINTEDGLASS:
+			struct tintedglassobj *tgls = (struct tintedglassobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_VAL(tgls->xludist);
+			PD_SWAP_VAL(tgls->opadist);
+			PD_SWAP_VAL(tgls->opacity);
+			PD_SWAP_VAL(tgls->portalnum);
+			PD_SWAP_VAL(tgls->unk64);
+			break;
+		case OBJTYPE_LIFT:
+			struct liftobj *lift = (struct liftobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_PTR(lift->doors[0]);
+			PD_SWAP_PTR(lift->doors[1]);
+			PD_SWAP_PTR(lift->doors[2]);
+			PD_SWAP_PTR(lift->doors[3]);
+			PD_SWAP_VAL(lift->pads[0]);
+			PD_SWAP_VAL(lift->pads[1]);
+			PD_SWAP_VAL(lift->pads[2]);
+			PD_SWAP_VAL(lift->pads[3]);
+			PD_SWAP_VAL(lift->dist);
+			PD_SWAP_VAL(lift->speed);
+			PD_SWAP_VAL(lift->accel);
+			PD_SWAP_VAL(lift->maxspeed);
+			break;
+		case OBJTYPE_HOVERPROP:
+			struct hoverpropobj *hprop = (struct hoverpropobj *)obj;
+			preprocessDefaultPropObj(obj);
+			preprocessHovPropObj(&hprop->hov);
+			break;
+		case OBJTYPE_HOVERBIKE:
+			struct hoverbikeobj *hbike = (struct hoverbikeobj *)obj;
+			preprocessDefaultPropObj(obj);
+			preprocessHovPropObj(&hbike->hov);
+			break;
+		case OBJTYPE_FAN:
+			struct fanobj *fan = (struct fanobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_VAL(fan->yrot);
+			PD_SWAP_VAL(fan->yrotprev);
+			PD_SWAP_VAL(fan->ymaxspeed);
+			PD_SWAP_VAL(fan->yspeed);
+			PD_SWAP_VAL(fan->yaccel);
+			break;
+		case OBJTYPE_GLASS:
+			struct glassobj *gls = (struct glassobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_VAL(gls->portalnum);
+			break;
+		case OBJTYPE_AMMOCRATE:
+			struct ammocrateobj *ammo = (struct ammocrateobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_VAL(ammo->ammotype);
+			break;
+		case OBJTYPE_MULTIAMMOCRATE:
+			struct multiammocrateobj *mammo = (struct multiammocrateobj *)obj;
+			preprocessDefaultPropObj(obj);
+			for (s32 i = 0; i < ARRAYCOUNT(mammo->slots); ++i) {
+				PD_SWAP_VAL(mammo->slots[i].modelnum);
+				PD_SWAP_VAL(mammo->slots[i].quantity);
+			}
+			break;
+		case OBJTYPE_TRUCK:
+			struct truckobj *truck = (struct truckobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_PTR(truck->ailist);
+			break;
+		case OBJTYPE_HOVERCAR:
+			struct hovercarobj *car = (struct hovercarobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_PTR(car->ailist);
+			break;
+		case OBJTYPE_CHOPPER:
+			struct chopperobj *chop = (struct chopperobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_PTR(chop->ailist);
+			break;
+		case OBJTYPE_HELI:
+			struct heliobj *heli = (struct heliobj *)obj;
+			preprocessDefaultPropObj(obj);
+			PD_SWAP_PTR(heli->ailist);
+			break;
+		case OBJTYPE_TAG:
+			struct tag *tag = (struct tag *)obj;
+			PD_SWAP_PTR(tag->next);
+			PD_SWAP_PTR(tag->obj);
+			PD_SWAP_VAL(tag->cmdoffset);
+			PD_SWAP_VAL(tag->tagnum);
+			break;
+		case OBJTYPE_RENAMEOBJ:
+			struct textoverride *over = (struct textoverride *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(over->next);
+			PD_SWAP_PTR(over->obj);
+			PD_SWAP_VAL(over->objoffset);
+			PD_SWAP_VAL(over->weapon);
+			PD_SWAP_VAL(over->obtaintext);
+			PD_SWAP_VAL(over->ownertext);
+			PD_SWAP_VAL(over->inventorytext);
+			PD_SWAP_VAL(over->inventory2text);
+			PD_SWAP_VAL(over->pickuptext);
+			break;
+		case OBJTYPE_BRIEFING:
+			struct briefingobj *brief = (struct briefingobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(brief->next);
+			PD_SWAP_VAL(brief->type);
+			PD_SWAP_VAL(brief->text);
+			break;
+		case OBJTYPE_CAMERAPOS:
+			struct cameraposobj *campos = (struct cameraposobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_VAL(campos->x);
+			PD_SWAP_VAL(campos->y);
+			PD_SWAP_VAL(campos->z);
+			PD_SWAP_VAL(campos->theta);
+			PD_SWAP_VAL(campos->verta);
+			PD_SWAP_VAL(campos->pad);
+			break;
+		case OBJTYPE_BEGINOBJECTIVE:
+			struct objective *objective = (struct objective *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_VAL(objective->index);
+			PD_SWAP_VAL(objective->text);
+			PD_SWAP_VAL(objective->unk0c);
+			break;
+		case OBJTYPE_ENDOBJECTIVE:
+			break;
+		case OBJTYPE_PADEFFECT:
+			struct padeffectobj *padeff = (struct padeffectobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_VAL(padeff->pad);
+			PD_SWAP_VAL(padeff->effect);
+			break;
+		case OBJTYPE_LINKGUNS:
+			struct linkgunsobj *linkg = (struct linkgunsobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_VAL(linkg->offset1);
+			PD_SWAP_VAL(linkg->offset2);
+			break;
+		case OBJTYPE_LINKLIFTDOOR:
+			struct linkliftdoorobj *linkd = (struct linkliftdoorobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(linkd->door);
+			PD_SWAP_PTR(linkd->lift);
+			PD_SWAP_PTR(linkd->next);
+			break;
+		case OBJTYPE_SAFEITEM:
+			struct safeitemobj *linki = (struct safeitemobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(linki->item);
+			PD_SWAP_PTR(linki->safe);
+			PD_SWAP_PTR(linki->door);
+			PD_SWAP_PTR(linki->next);
+			break;
+		case OBJTYPE_PADLOCKEDDOOR:
+			struct padlockeddoorobj *linkp = (struct padlockeddoorobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(linkp->door);
+			PD_SWAP_PTR(linkp->lock);
+			PD_SWAP_PTR(linkp->next);
+			break;
+		case OBJTYPE_CONDITIONALSCENERY:
+			struct linksceneryobj *links = (struct linksceneryobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(links->trigger);
+			PD_SWAP_PTR(links->unexp);
+			PD_SWAP_PTR(links->exp);
+			PD_SWAP_PTR(links->next);
+			break;
+		case OBJTYPE_BLOCKEDPATH:
+			struct blockedpathobj *blkp = (struct blockedpathobj *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(blkp->blocker);
+			PD_SWAP_PTR(blkp->next);
+			PD_SWAP_VAL(blkp->waypoint1);
+			PD_SWAP_VAL(blkp->waypoint2);
+			break;
+		case OBJTYPE_MINE:
+		case OBJTYPE_ESCASTEP:
+		case OBJTYPE_HANGINGMONITORS:
+		case OBJTYPE_BASIC:
+		case OBJTYPE_ALARM:
+		case OBJTYPE_DEBRIS:
+		case OBJTYPE_GASBOTTLE:
+		case OBJTYPE_29:
+		case OBJTYPE_SAFE:
+		case OBJTYPE_HAT:
+			preprocessDefaultPropObj(obj);
+			break;
+		case OBJECTIVETYPE_ENTERROOM:
+			struct criteria_roomentered *obte = (struct criteria_roomentered *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(obte->next);
+			PD_SWAP_VAL(obte->pad);
+			PD_SWAP_VAL(obte->status);
+			break;
+		case OBJECTIVETYPE_THROWINROOM:
+			struct criteria_throwinroom *obtt = (struct criteria_throwinroom *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(obtt->next);
+			PD_SWAP_VAL(obtt->unk04);
+			PD_SWAP_VAL(obtt->pad);
+			PD_SWAP_VAL(obtt->status);
+			break;
+		case OBJECTIVETYPE_HOLOGRAPH:
+			struct criteria_holograph *obth = (struct criteria_holograph *)obj;
+			preprocessDefaultPropObjHdr(obj);
+			PD_SWAP_PTR(obth->next);
+			PD_SWAP_VAL(obth->obj);
+			PD_SWAP_VAL(obth->status);
+			break;
+		case OBJECTIVETYPE_DESTROYOBJ:
+		case OBJECTIVETYPE_COMPFLAGS:
+		case OBJECTIVETYPE_FAILFLAGS:
+		case OBJECTIVETYPE_COLLECTOBJ:
+		case OBJECTIVETYPE_THROWOBJ:
+			u32 *cmd = (u32 *)obj;
+			PD_SWAP_VAL(cmd[1]);
+			break;
+		default:
+			fprintf(stderr, "unknown objtype: %02x @ %p\n", obj->type, obj);
+			fflush(stderr);
+			__builtin_trap();
+			break;
+	}
+}
 
 void preprocessAnimations(u8 *data, u32 size)
 {
@@ -407,14 +848,14 @@ void preprocessAnimations(u8 *data, u32 size)
 	u32 *animtbl = (void *)(data + size - 0x38a0);
 	_animationsTableRomStart = (u8 *)animtbl;
 	_animationsTableRomEnd = data + size;
-	PD_BEFIELD_I32(*animtbl);
+	PD_SWAP_VAL(*animtbl);
 	const u32 count = *animtbl++;
 	struct animtableentry *anim = (struct animtableentry *)animtbl;
 	for (u32 i = 0; i < count; ++i, ++anim) {
-		PD_BEFIELD_I16(anim->numframes);
-		PD_BEFIELD_I16(anim->bytesperframe);
-		PD_BEFIELD_I16(anim->headerlen);
-		PD_BEFIELD_I32(anim->data);
+		PD_SWAP_VAL(anim->numframes);
+		PD_SWAP_VAL(anim->bytesperframe);
+		PD_SWAP_VAL(anim->headerlen);
+		PD_SWAP_VAL(anim->data);
 	}
 }
 
@@ -423,12 +864,12 @@ void preprocessMpConfigs(u8 *data, u32 size)
 	const u32 count = size / sizeof(struct mpconfig);
 	struct mpconfig *cfg = (struct mpconfig *)data;
 	for (u32 i = 0; i < count; ++i, ++cfg) {
-		PD_BEFIELD_I32(cfg->setup.options);
-		PD_BEFIELD_I16(cfg->setup.teamscorelimit);
-		PD_BEFIELD_I16(cfg->setup.chrslots);
+		PD_SWAP_VAL(cfg->setup.options);
+		PD_SWAP_VAL(cfg->setup.teamscorelimit);
+		PD_SWAP_VAL(cfg->setup.chrslots);
 		// TODO: are these required or are they always 0?
-		PD_BEFIELD_I16(cfg->setup.fileguid.deviceserial);
-		PD_BEFIELD_I32(cfg->setup.fileguid.fileid);
+		PD_SWAP_VAL(cfg->setup.fileguid.deviceserial);
+		PD_SWAP_VAL(cfg->setup.fileguid.fileid);
 	}
 }
 
@@ -437,12 +878,12 @@ void preprocessFont(u8 *data, u32 size)
 	struct font *fnt = (struct font *)data;
 
 	for (s32 i = 0; i < ARRAYCOUNT(fnt->kerning); ++i) {
-		PD_BEFIELD_I32(fnt->kerning[i]);
+		PD_SWAP_VAL(fnt->kerning[i]);
 	}
 
 	for (s32 i = 0; i < ARRAYCOUNT(fnt->chars); ++i) {
-		PD_BEFIELD_I32(fnt->chars[i].kerningindex);
-		PD_BEFIELD_PTR(fnt->chars[i].pixeldata);
+		PD_SWAP_VAL(fnt->chars[i].kerningindex);
+		PD_SWAP_PTR(fnt->chars[i].pixeldata);
 	}
 }
 
@@ -454,11 +895,11 @@ void preprocessJpnFont(u8 *data, u32 size)
 void preprocessALBankFile(u8 *data, u32 size)
 {
 	ALBankFile *bankf = (ALBankFile *)data;
-	PD_BEFIELD_I16(bankf->revision);
-	PD_BEFIELD_I16(bankf->bankCount);
+	PD_SWAP_VAL(bankf->revision);
+	PD_SWAP_VAL(bankf->bankCount);
 
 	for (s16 i = 0; i < bankf->bankCount; ++i) {
-		PD_BEFIELD_PTR(bankf->bankArray[i]);
+		PD_SWAP_PTR(bankf->bankArray[i]);
 		preprocessALBank(PD_PTR_BASE(bankf->bankArray[i], data), data);
 	}
 }
@@ -466,12 +907,12 @@ void preprocessALBankFile(u8 *data, u32 size)
 void preprocessSequences(u8 *data, u32 size)
 {
 	struct seqtable *seq = (struct seqtable *)data;
-	PD_BEFIELD_I16(seq->count);
+	PD_SWAP_VAL(seq->count);
 
 	for (s16 i = 0; i < seq->count; ++i) {
-		PD_BEFIELD_I16(seq->entries[i].binlen);
-		PD_BEFIELD_I16(seq->entries[i].ziplen);
-		PD_BEFIELD_I32(seq->entries[i].romaddr);
+		PD_SWAP_VAL(seq->entries[i].binlen);
+		PD_SWAP_VAL(seq->entries[i].ziplen);
+		PD_SWAP_VAL(seq->entries[i].romaddr);
 	}
 }
 
@@ -481,7 +922,7 @@ void preprocessFiringRange(u8 *data, u32 size)
 	// probably no sense supporting custom sizes either
 	u16 *texts = (u16 *)data;
 	for (s32 i = 0; i < 9; ++i) {
-		PD_BEFIELD_I16(texts[i]);
+		PD_SWAP_VAL(texts[i]);
 	}
 }
 
@@ -501,14 +942,14 @@ void preprocessModel(u8 *base, u32 ofs)
 {
 	struct modeldef *mdl = (struct modeldef *)base;
 
-	PD_BEFIELD_I16(mdl->nummatrices);
-	PD_BEFIELD_I16(mdl->numparts);
-	PD_BEFIELD_I16(mdl->numtexconfigs);
-	PD_BEFIELD_I16(mdl->rwdatalen);
-	PD_BEFIELD_F32(mdl->scale);
+	PD_SWAP_VAL(mdl->nummatrices);
+	PD_SWAP_VAL(mdl->numparts);
+	PD_SWAP_VAL(mdl->numtexconfigs);
+	PD_SWAP_VAL(mdl->rwdatalen);
+	PD_SWAP_VAL(mdl->scale);
 
 	if (mdl->skel) {
-		PD_BEFIELD_PTR(mdl->skel);
+		PD_SWAP_PTR(mdl->skel);
 		if ((u32)mdl->skel >= 0x10000) {
 			// skeleton is a pointer instead of an index
 			// preprocessSkeleton((struct skeleton *)(base + (u32)mdl->skel)); // TODO
@@ -516,27 +957,27 @@ void preprocessModel(u8 *base, u32 ofs)
 	}
 
 	if (mdl->parts) {
-		PD_BEFIELD_PTR(mdl->parts);
+		PD_SWAP_PTR(mdl->parts);
 		struct modelnode **parts = PD_PTR_BASEOFS(mdl->parts, base, ofs);
 		for (s16 i = 0; i < mdl->numparts; ++i) {
-			PD_BEFIELD_PTR(parts[i]);
+			PD_SWAP_PTR(parts[i]);
 		}
 		s16 *partnums = (s16 *)&parts[mdl->numparts];
 		for (s16 i = 0; i < mdl->numparts; ++i) {
-			PD_BEFIELD_I16(partnums[i]);
+			PD_SWAP_VAL(partnums[i]);
 		}
 	}
 
 	if (mdl->texconfigs) {
-		PD_BEFIELD_PTR(mdl->texconfigs);
+		PD_SWAP_PTR(mdl->texconfigs);
 		struct textureconfig *texconfigs = PD_PTR_BASEOFS(mdl->texconfigs, base, ofs);
 		for (s16 i = 0; i < mdl->numtexconfigs; ++i) {
-			PD_BEFIELD_I32(texconfigs[i].texturenum);
+			PD_SWAP_VAL(texconfigs[i].texturenum);
 		}
 	}
 
 	if (mdl->rootnode) {
-		PD_BEFIELD_PTR(mdl->rootnode);
+		PD_SWAP_PTR(mdl->rootnode);
 		preprocessModelNode(PD_PTR_BASEOFS(mdl->rootnode, base, ofs), base, ofs);
 	}
 }
@@ -545,7 +986,7 @@ void preprocessLangFile(u8 *data, u32 size)
 {
 	// lang banks are just an offset table + text data right after
 	// offsets are from the beginning of the bank
-	// however we cannot preprocess them in advance because the length of the
+	// however we cannot byteswap them in advance because the length of the
 	// offset table is unknown, so that's done in lang.c on demand instead
 }
 
@@ -553,49 +994,72 @@ void preprocessPadsFile(u8 *data, u32 size)
 {
 	struct padsfileheader *hdr = (void *)data;
 
-	PD_BEFIELD_I32(hdr->numpads);
-	PD_BEFIELD_I32(hdr->numcovers);
+	PD_SWAP_VAL(hdr->numpads);
+	PD_SWAP_VAL(hdr->numcovers);
 
 	for (s32 i = 0; i < hdr->numpads; ++i) {
 		if (hdr->padoffsets[i]) {
-			PD_BEFIELD_I32(hdr->padoffsets[i]);
+			PD_SWAP_VAL(hdr->padoffsets[i]);
 			preprocessPadData(PD_PTR_BASE(hdr->padoffsets[i], hdr));
 		}
 	}
 
 	if (hdr->numcovers && hdr->coversoffset) {
-		PD_BEFIELD_I32(hdr->coversoffset);
+		PD_SWAP_VAL(hdr->coversoffset);
 		struct coverdefinition *def = PD_PTR_BASE(hdr->coversoffset, hdr);
 		for (s32 i = 0; i < hdr->numcovers; ++i, ++def) {
-			PD_BEFIELD_I16(def->flags);
-			PD_BEFIELD_F32(def->look.x);
-			PD_BEFIELD_F32(def->look.y);
-			PD_BEFIELD_F32(def->look.z);
-			PD_BEFIELD_F32(def->pos.x);
-			PD_BEFIELD_F32(def->pos.y);
-			PD_BEFIELD_F32(def->pos.z);
+			PD_SWAP_VAL(def->flags);
+			PD_SWAP_VAL(def->look.x);
+			PD_SWAP_VAL(def->look.y);
+			PD_SWAP_VAL(def->look.z);
+			PD_SWAP_VAL(def->pos.x);
+			PD_SWAP_VAL(def->pos.y);
+			PD_SWAP_VAL(def->pos.z);
 		}
 	}
 
 	if (hdr->waypointsoffset) {
-		PD_BEFIELD_I32(hdr->waypointsoffset);
+		PD_SWAP_VAL(hdr->waypointsoffset);
 		struct waypoint *wp = PD_PTR_BASE(hdr->waypointsoffset, hdr);
-		while (wp->padnum) {
-			PD_BEFIELD_I32(wp->padnum);
-			PD_BEFIELD_I32(wp->groupnum);
-			PD_BEFIELD_I32(wp->step);
-			PD_BEFIELD_PTR(wp->neighbours);
+		while (wp->padnum >= 0) {
+			PD_SWAP_VAL(wp->padnum);
+			PD_SWAP_VAL(wp->groupnum);
+			PD_SWAP_VAL(wp->step);
+			if (wp->neighbours) {
+				PD_SWAP_PTR(wp->neighbours);
+				s32 *nbr = PD_PTR_BASE(wp->neighbours, hdr);
+				// the terminator is 0xFFFFFFFF, negative in both BE and LE,
+				// same for the other s32 lists
+				while (*nbr >= 0) {
+					PD_SWAP_VAL(*nbr);
+					++nbr;
+				}
+			}
 			++wp;
 		}
 	}
 
 	if (hdr->waygroupsoffset) {
-		PD_BEFIELD_I32(hdr->waygroupsoffset);
+		PD_SWAP_VAL(hdr->waygroupsoffset);
 		struct waygroup *wg = PD_PTR_BASE(hdr->waygroupsoffset, hdr);
 		while (wg->neighbours) {
-			PD_BEFIELD_PTR(wg->neighbours);
-			PD_BEFIELD_PTR(wg->waypoints);
-			PD_BEFIELD_I32(wg->step);
+			PD_SWAP_VAL(wg->step);
+			if (wg->neighbours) {
+				PD_SWAP_PTR(wg->neighbours);
+				s32 *nbr = PD_PTR_BASE(wg->neighbours, hdr);
+				while (*nbr >= 0) {
+					PD_SWAP_VAL(*nbr);
+					++nbr;
+				}
+			}
+			if (wg->waypoints) {
+				PD_SWAP_PTR(wg->waypoints);
+				s32 *wgwp = PD_PTR_BASE(wg->waypoints, hdr);
+				while (*wgwp >= 0) {
+					PD_SWAP_VAL(*wgwp);
+					++wgwp;
+				}
+			}
 			++wg;
 		}
 	}
@@ -604,64 +1068,65 @@ void preprocessPadsFile(u8 *data, u32 size)
 void preprocessTilesFile(u8 *data, u32 size)
 {
 	u32 *roomTable = (u32 *)data;
-	PD_BEFIELD_I32(roomTable[0]);
+	PD_SWAP_VAL(roomTable[0]);
 
 	const u32 numRooms = roomTable[0];
 	++roomTable;
 
 	u32 *rooms = roomTable;
-	for (u32 i = 0; i < numRooms; ++i) {
-		PD_BEFIELD_I32(rooms[i]);
+	// rooms[numRooms] is the end offset
+	for (u32 i = 0; i <= numRooms; ++i) {
+		PD_SWAP_VAL(rooms[i]);
 	}
 
 	struct geo *geo = (struct geo *)(data + rooms[0]);
 	struct geo *end = (struct geo *)(data + rooms[numRooms]);
 
 	while (geo < end) {
-		PD_BEFIELD_I16(geo->flags);
+		PD_SWAP_VAL(geo->flags);
 		switch (geo->type) {
 			case GEOTYPE_TILE_I: {
 				struct geotilei *tile = (struct geotilei *)geo;
-				PD_BEFIELD_I16(tile->floorcol);
-				PD_BEFIELD_I16(tile->floortype);
+				PD_SWAP_VAL(tile->floorcol);
+				PD_SWAP_VAL(tile->floortype);
 				for (u32 i = 0; i < geo->numvertices; ++i) {
-					PD_BEFIELD_I16(tile->vertices[i][0]);
-					PD_BEFIELD_I16(tile->vertices[i][1]);
-					PD_BEFIELD_I16(tile->vertices[i][2]);
+					PD_SWAP_VAL(tile->vertices[i][0]);
+					PD_SWAP_VAL(tile->vertices[i][1]);
+					PD_SWAP_VAL(tile->vertices[i][2]);
 				}
 				geo = (struct geo *)((u8 *)geo + (uintptr_t)(geo->numvertices - 0x40) * 6 + 0x18e);
 				break;
 			}
 			case GEOTYPE_TILE_F: {
 				struct geotilef *tile = (struct geotilef *)geo;
-				PD_BEFIELD_I16(tile->floorcol);
-				PD_BEFIELD_I16(tile->floortype);
+				PD_SWAP_VAL(tile->floorcol);
+				PD_SWAP_VAL(tile->floortype);
 				for (u32 i = 0; i < geo->numvertices; ++i) {
-					PD_BEFIELD_F32(tile->vertices[i].x);
-					PD_BEFIELD_F32(tile->vertices[i].y);
-					PD_BEFIELD_F32(tile->vertices[i].z);
+					PD_SWAP_VAL(tile->vertices[i].x);
+					PD_SWAP_VAL(tile->vertices[i].y);
+					PD_SWAP_VAL(tile->vertices[i].z);
 				}
 				geo = (struct geo *)((u8 *)geo + (uintptr_t)(geo->numvertices - 0x40) * 12 + 0x310);
 				break;
 			}
 			case GEOTYPE_BLOCK: {
 				struct geoblock *blk = (struct geoblock *)geo;
-				PD_BEFIELD_F32(blk->ymin);
-				PD_BEFIELD_F32(blk->ymax);
+				PD_SWAP_VAL(blk->ymin);
+				PD_SWAP_VAL(blk->ymax);
 				for (u32 i = 0; i < geo->numvertices; ++i) {
-					PD_BEFIELD_F32(blk->vertices[i][0]);
-					PD_BEFIELD_F32(blk->vertices[i][1]);
+					PD_SWAP_VAL(blk->vertices[i][0]);
+					PD_SWAP_VAL(blk->vertices[i][1]);
 				}
 				geo = (struct geo *)((u8 *)geo + sizeof(struct geoblock));
 				break;
 			}
 			case GEOTYPE_CYL: {
 				struct geocyl *cyl = (struct geocyl *)geo;
-				PD_BEFIELD_F32(cyl->x);
-				PD_BEFIELD_F32(cyl->z);
-				PD_BEFIELD_F32(cyl->radius);
-				PD_BEFIELD_F32(cyl->ymin);
-				PD_BEFIELD_F32(cyl->ymax);
+				PD_SWAP_VAL(cyl->x);
+				PD_SWAP_VAL(cyl->z);
+				PD_SWAP_VAL(cyl->radius);
+				PD_SWAP_VAL(cyl->ymin);
+				PD_SWAP_VAL(cyl->ymax);
 				geo = (struct geo *)((u8 *)geo + sizeof(struct geocyl));
 				break;
 			}
@@ -676,9 +1141,9 @@ void preprocessSetupFile(u8 *data, u32 size)
 	struct stagesetup *set = (void *)data;
 
 	if (set->intro) {
-		PD_BEFIELD_PTR(set->intro);
+		PD_SWAP_PTR(set->intro);
 		for (s32 *p = PD_PTR_BASE(set->intro, set); (u8 *)p < data + size; ++p) {
-			PD_BEFIELD_I32(*p);
+			PD_SWAP_VAL(*p);
 			if (*p == 0x0c /*endintro*/) {
 				break;
 			}
@@ -686,39 +1151,42 @@ void preprocessSetupFile(u8 *data, u32 size)
 	}
 
 	if (set->props) {
-		PD_BEFIELD_PTR(set->props);
-		for (s32 *p = PD_PTR_BASE(set->props, set); (u8 *)p < data + size; ++p) {
-			PD_BEFIELD_I32(*p);
-			if (*p == 0x34 /*endprops*/) {
-				break;
-			}
+		PD_SWAP_PTR(set->props);
+		// commands are casted to non-trivial structs elsewhere, so we'll have to parse the fucking list
+		// and swap each type by hand
+		struct defaultobj *obj = PD_PTR_BASE(set->props, set);
+		while (obj->type != OBJTYPE_END) {
+			preprocessPropObj(obj);
+			obj = (struct defaultobj *)((u32 *)obj + setupGetCmdLength((u32 *)obj));
 		}
 	}
 
 	if (set->paths) {
-		PD_BEFIELD_PTR(set->paths);
+		PD_SWAP_PTR(set->paths);
 		struct path *p = PD_PTR_BASE(set->paths, set);
 		while ((u8 *)p < data + size && p->pads) {
-			PD_BEFIELD_PTR(p->pads);
-			PD_BEFIELD_I16(p->len);
+			PD_SWAP_PTR(p->pads);
 			s32 *pp = PD_PTR_BASE(p->pads, set);
 			while ((u8 *)pp < data + size) {
-				PD_BEFIELD_I32(*pp);
+				PD_SWAP_VAL(*pp);
 				if (*pp < 0) {
 					break;
 				}
+				++pp;
 			}
+			++p;
 		}
 	}
 
 	if (set->ailists) {
-		PD_BEFIELD_PTR(set->ailists);
+		PD_SWAP_PTR(set->ailists);
 		struct ailist *p = PD_PTR_BASE(set->ailists, set);
 		while ((u8 *)p < data + size && p->list) {
-			PD_BEFIELD_I32(p->id);
-			PD_BEFIELD_PTR(p->list);
+			PD_SWAP_VAL(p->id);
+			PD_SWAP_PTR(p->list);
 			// the actual command lists are made up of variable length instructions,
 			// but they don't do any wonky word casting, so they should probably work as is
+			++p;
 		}
 	}
 
@@ -738,9 +1206,9 @@ void preprocessGunFile(u8 *data, u32 size)
 void preprocessBgSection1Header(u8 *data, u32 size)
 {
 	u32 *header = (u32 *)data;
-	PD_BEFIELD_I32(header[0]); // inflatedsize
-	PD_BEFIELD_I32(header[1]); // section1size
-	PD_BEFIELD_I32(header[2]); // primcompsize
+	PD_SWAP_VAL(header[0]); // inflatedsize
+	PD_SWAP_VAL(header[1]); // section1size
+	PD_SWAP_VAL(header[2]); // primcompsize
 }
 
 void preprocessBgSection1(u8 *data, u32 ofs) {
@@ -753,25 +1221,25 @@ void preprocessBgSection1(u8 *data, u32 ofs) {
 		u32 stanofs;
 	} __attribute__((packed)) *header = (void *)data;
 
-	PD_BEFIELD_I32(header->unk00);
-	PD_BEFIELD_I32(header->roomsofs);
-	PD_BEFIELD_I32(header->portalsofs);
+	PD_SWAP_VAL(header->unk00);
+	PD_SWAP_VAL(header->roomsofs);
+	PD_SWAP_VAL(header->portalsofs);
 
 	struct bgroom *rm = PD_PTR_BASEOFS(header->roomsofs, data, ofs);
-	for (; rm->unk00; ++rm) {
-		PD_BEFIELD_I32(rm->unk00);
-		PD_BEFIELD_F32(rm->pos.x);
-		PD_BEFIELD_F32(rm->pos.y);
-		PD_BEFIELD_F32(rm->pos.z);
+	for (++rm; rm->unk00; ++rm) {
+		PD_SWAP_VAL(rm->unk00);
+		PD_SWAP_VAL(rm->pos.x);
+		PD_SWAP_VAL(rm->pos.y);
+		PD_SWAP_VAL(rm->pos.z);
 	}
 
 	struct bgportal *portals = PD_PTR_BASEOFS(header->portalsofs, data, ofs);
 	s32 numportals = 0;
 	u32 offset = 0;
 	for (struct bgportal *prt = portals; prt->verticesoffset; ++prt) {
-		PD_BEFIELD_I16(prt->verticesoffset);
-		PD_BEFIELD_I16(prt->roomnum1);
-		PD_BEFIELD_I16(prt->roomnum2);
+		PD_SWAP_VAL(prt->verticesoffset);
+		PD_SWAP_VAL(prt->roomnum1);
+		PD_SWAP_VAL(prt->roomnum2);
 		++numportals;
 		offset += sizeof(struct bgportal);
 	}
@@ -785,28 +1253,33 @@ void preprocessBgSection1(u8 *data, u32 ofs) {
 			}
 		}
 		struct portalvertices *pverts = PD_PTR_BASE(offset, portals);
-		for (u32 i = 0; i < pverts->count; ++i) {
-			PD_BEFIELD_F32(pverts->vertices[i].x);
-			PD_BEFIELD_F32(pverts->vertices[i].y);
-			PD_BEFIELD_F32(pverts->vertices[i].z);
+		if (pverts->count == 0) {
+			break;
 		}
+		for (u32 i = 0; i < pverts->count; ++i) {
+			PD_SWAP_VAL(pverts->vertices[i].x);
+			PD_SWAP_VAL(pverts->vertices[i].y);
+			PD_SWAP_VAL(pverts->vertices[i].z);
+		}
+		offset += pverts->count * 12;
+		offset += 4;
 	}
 
 	if (header->commandsofs) {
-		PD_BEFIELD_I32(header->commandsofs);
+		PD_SWAP_VAL(header->commandsofs);
 		struct bgcmd *cmd = PD_PTR_BASEOFS(header->commandsofs, data, ofs);
 		for (; cmd->type != 0x00; cmd++) {
-			PD_BEFIELD_I32(cmd->param);
+			PD_SWAP_VAL(cmd->param);
 		}
 	}
 
 	if (header->lightsofs) {
-		PD_BEFIELD_I32(header->lightsofs);
+		PD_SWAP_VAL(header->lightsofs);
 		// data swapping done later in preprocessBgLights
 	}
 
 	if (header->stanofs) {
-		PD_BEFIELD_I32(header->stanofs);
+		PD_SWAP_VAL(header->stanofs);
 		// unused, so won't swap the contents
 	}
 }
@@ -814,8 +1287,8 @@ void preprocessBgSection1(u8 *data, u32 ofs) {
 void preprocessBgSection2Header(u8 *data, u32 size)
 {
 	u16 *header = (u16 *)data;
-	PD_BEFIELD_I16(header[0]); // inflatedsize
-	PD_BEFIELD_I16(header[1]); // section2compsize
+	PD_SWAP_VAL(header[0]); // inflatedsize
+	PD_SWAP_VAL(header[1]); // section2compsize
 }
 
 void preprocessBgSection2(u8 *data, u32 size)
@@ -823,15 +1296,15 @@ void preprocessBgSection2(u8 *data, u32 size)
 	// section2 is a texture id list
 	u16 *section2 = (u16 *)data;
 	for (s32 i = 0; i < size; ++i) {
-		PD_BEFIELD_I16(section2[i]);
+		PD_SWAP_VAL(section2[i]);
 	}
 }
 
 void preprocessBgSection3Header(u8 *data, u32 size)
 {
 	u16 *header = (u16 *)data;
-	PD_BEFIELD_I16(header[0]);
-	PD_BEFIELD_I16(header[1]);
+	PD_SWAP_VAL(header[0]);
+	PD_SWAP_VAL(header[1]);
 }
 
 void preprocessBgSection3(u8 *data, u32 size)
@@ -839,32 +1312,32 @@ void preprocessBgSection3(u8 *data, u32 size)
 	// room bounding boxes, 6x s16 per room
 	s16 *bbox = (s16 *)data;
 	for (s32 i = 1; i < g_Vars.roomcount; ++i) {
-		PD_BEFIELD_I16(*bbox); ++bbox;
-		PD_BEFIELD_I16(*bbox); ++bbox;
-		PD_BEFIELD_I16(*bbox); ++bbox;
-		PD_BEFIELD_I16(*bbox); ++bbox;
-		PD_BEFIELD_I16(*bbox); ++bbox;
-		PD_BEFIELD_I16(*bbox); ++bbox;
+		PD_SWAP_VAL(*bbox); ++bbox;
+		PD_SWAP_VAL(*bbox); ++bbox;
+		PD_SWAP_VAL(*bbox); ++bbox;
+		PD_SWAP_VAL(*bbox); ++bbox;
+		PD_SWAP_VAL(*bbox); ++bbox;
+		PD_SWAP_VAL(*bbox); ++bbox;
 	}
 
 	// gfxdatalen list
 	u16 *gfxdatalen = (u16 *)bbox;
 	for (s32 i = 1; i < g_Vars.roomcount; ++i) {
-		PD_BEFIELD_I16(*gfxdatalen); ++gfxdatalen;
+		PD_SWAP_VAL(*gfxdatalen); ++gfxdatalen;
 	}
 }
 
 void preprocessBgRoom(u8 *data, u32 ofs) {
 	struct roomgfxdata *rgfx = (void *)data;
 
-	PD_BEFIELD_I16(rgfx->numvertices);
-	PD_BEFIELD_I16(rgfx->numcolours);
-	PD_BEFIELD_I16(rgfx->numlights);
-	PD_BEFIELD_I16(rgfx->lightsindex);
-	PD_BEFIELD_PTR(rgfx->vertices);
-	PD_BEFIELD_PTR(rgfx->opablocks);
-	PD_BEFIELD_PTR(rgfx->xlublocks);
-	PD_BEFIELD_PTR(rgfx->colours);
+	PD_SWAP_VAL(rgfx->numvertices);
+	PD_SWAP_VAL(rgfx->numcolours);
+	PD_SWAP_VAL(rgfx->numlights);
+	PD_SWAP_VAL(rgfx->lightsindex);
+	PD_SWAP_PTR(rgfx->vertices);
+	PD_SWAP_PTR(rgfx->opablocks);
+	PD_SWAP_PTR(rgfx->xlublocks);
+	PD_SWAP_PTR(rgfx->colours);
 
 	Vtx *vertices = PD_PTR_BASEOFS(rgfx->vertices, data, ofs);
 	Vtx *vtx = vertices;
@@ -879,22 +1352,24 @@ void preprocessBgRoom(u8 *data, u32 ofs) {
 	struct coord *tmp;
 
 	for (; blk + 1 <= end; blk++) {
-		PD_BEFIELD_PTR(blk->next);
+		PD_SWAP_PTR(blk->next);
 		switch (blk->type) {
 			case ROOMBLOCKTYPE_LEAF:
 				if (blk->gdl) {
-					PD_BEFIELD_PTR(blk->gdl);
+					PD_SWAP_PTR(blk->gdl);
 					preprocessGfx(PD_PTR_BASEOFS(blk->gdl, data, ofs), data, ofs);
 				}
+				PD_SWAP_PTR(blk->vertices);
+				PD_SWAP_PTR(blk->colours);
 				break;
 			case ROOMBLOCKTYPE_PARENT:
-				PD_BEFIELD_PTR(blk->child);
-				PD_BEFIELD_PTR(blk->unk0c);
+				PD_SWAP_PTR(blk->child);
+				PD_SWAP_PTR(blk->unk0c);
 				tmp = PD_PTR_BASEOFS(blk->unk0c, data, ofs);
 				for (s32 i = 0; i < 2; ++i) {
-					PD_BEFIELD_F32(tmp[i].x);
-					PD_BEFIELD_F32(tmp[i].y);
-					PD_BEFIELD_F32(tmp[i].z);
+					PD_SWAP_VAL(tmp[i].x);
+					PD_SWAP_VAL(tmp[i].y);
+					PD_SWAP_VAL(tmp[i].z);
 				}
 				if ((u8 *)tmp < (u8 *)end) {
 					end = (void *)tmp;
@@ -916,12 +1391,12 @@ void preprocessBgLights(u8 *data, u32 ofs)
 	for (s32 i = 0; i < g_Vars.roomcount; ++i) {
 		if (g_Rooms[i].numlights) {
 			struct light *lit = &lbase[g_Rooms[i].lightindex];
-			for (s32 i = 0; i < g_Rooms[i].numlights; ++i, ++lit) {
-				PD_BEFIELD_I16(lit->bbox->x);
-				PD_BEFIELD_I16(lit->bbox->y);
-				PD_BEFIELD_I16(lit->bbox->z);
-				PD_BEFIELD_I16(lit->colour); // TODO: required?
-				PD_BEFIELD_I16(lit->roomnum);
+			for (s32 j = 0; j < g_Rooms[i].numlights; ++j, ++lit) {
+				PD_SWAP_VAL(lit->bbox->x);
+				PD_SWAP_VAL(lit->bbox->y);
+				PD_SWAP_VAL(lit->bbox->z);
+				PD_SWAP_VAL(lit->colour); // TODO: required?
+				PD_SWAP_VAL(lit->roomnum);
 			}
 		}
 	}

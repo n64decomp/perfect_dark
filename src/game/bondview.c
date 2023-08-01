@@ -97,6 +97,7 @@ Gfx *bview0f141a20(Gfx *gdl, s32 top, s32 height, s32 left, s32 width)
 
 Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s32 left, s32 width)
 {
+#ifdef PLATFORM_N64
 	uintptr_t image;
 	s32 width2;
 	s32 numparts;
@@ -161,6 +162,10 @@ Gfx *bviewCopyPixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5, s
 	}
 
 	return gdl;
+#else // PLATFORM_N64
+	// TODO: add an extended GBI opcode for this
+	return gdl;
+#endif // PLATFORM_N64
 }
 
 Gfx *bviewDrawFisheyeRect(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)

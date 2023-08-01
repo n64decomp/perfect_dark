@@ -313,9 +313,15 @@ struct prop {
 };
 
 struct packedpad {
+#ifdef PLATFORM_BIG_ENDIAN
+	s32 liftnum : 4;
 	s32 flags : 18;
 	s32 room : 10;
+#else
 	s32 liftnum : 4;
+	s32 room : 10;
+	s32 flags : 18;
+#endif
 };
 
 struct pad {

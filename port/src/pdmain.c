@@ -73,9 +73,6 @@
 #include "data.h"
 #include "types.h"
 
-#include "video.h"
-#include "input.h"
-
 extern u8 *g_MempHeap;
 extern u32 g_MempHeapSize;
 
