@@ -2,35 +2,57 @@
 #define GFX_PC_H
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
+#include <unordered_map>
+#include <list>
+#include <cstddef>
 
-#ifndef _LANGUAGE_C
-#define _LANGUAGE_C
-#endif
 #include <PR/gbi.h>
+
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+
+extern uintptr_t gfxFramebuffer;
 
 struct GfxRenderingAPI;
 struct GfxWindowManagerAPI;
 
-struct GfxDimensions {
-    uint32_t width, height;
-    float aspect_ratio;
+struct TextureCacheKey {
+    const uint8_t* texture_addr;
+    const uint8_t* palette_addrs[2];
+    uint8_t fmt, siz;
+    uint8_t palette_index;
+
+    bool operator==(const TextureCacheKey&) const noexcept = default;
+
+    struct Hasher {
+        size_t operator()(const TextureCacheKey& key) const noexcept {
+            uintptr_t addr = (uintptr_t)key.texture_addr;
+            return (size_t)(addr ^ (addr >> 5));
+        }
+    };
 };
 
-extern struct GfxDimensions gfx_current_dimensions;
+typedef std::unordered_map<TextureCacheKey, struct TextureCacheValue, TextureCacheKey::Hasher> TextureCacheMap;
+typedef std::pair<const TextureCacheKey, struct TextureCacheValue> TextureCacheNode;
 
-#ifdef __cplusplus
+struct TextureCacheValue {
+    uint32_t texture_id;
+    uint8_t cms, cmt;
+    bool linear_filter;
+
+    std::list<struct TextureCacheMapIter>::iterator lru_location;
+};
+
+struct TextureCacheMapIter {
+    TextureCacheMap::iterator it;
+};
+
 extern "C" {
-#endif
 
-void gfx_init(struct GfxWindowManagerAPI *wapi, struct GfxRenderingAPI *rapi, const char *game_name, bool start_in_fullscreen);
-struct GfxRenderingAPI *gfx_get_current_rendering_api(void);
-void gfx_start_frame(void);
-void gfx_run(Gfx *commands);
-void gfx_end_frame(void);
+#include "gfx_api.h"
 
-#ifdef __cplusplus
 }
-#endif
 
 #endif
