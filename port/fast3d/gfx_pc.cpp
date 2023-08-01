@@ -54,10 +54,11 @@ using namespace std;
 #define RATIO_X (gfx_current_dimensions.width / (2.0f * HALF_SCREEN_WIDTH))
 #define RATIO_Y (gfx_current_dimensions.height / (2.0f * HALF_SCREEN_HEIGHT))
 
-#define MAX_BUFFERED 256
+#define MAX_BUFFERED 512
 // #define MAX_LIGHTS 2
 #define MAX_LIGHTS 32
 #define MAX_VERTICES 250
+#define MAX_VERTEX_COLORS 64
 
 #define TEXTURE_CACHE_MAX_SIZE 500
 
@@ -65,9 +66,13 @@ using namespace std;
 #define C1(pos, width) ((cmd->words.w1 >> (pos)) & ((1U << width) - 1))
 
 struct RGBA {
+    uint8_t r, g, b, a;
+};
+
+struct NormalColor {
     union {
         struct { uint8_t r, g, b, a; };
-        struct { uint8_t n[4]; };
+        struct { uint8_t x, y, z, w; };
     };
 };
 
@@ -123,7 +128,7 @@ static struct RSP {
 
     struct LoadedVertex loaded_vertices[MAX_VERTICES + 4];
 
-    struct RGBA vertex_colors[64];
+    const struct NormalColor *vertex_colors; //[MAX_VERTEX_COLORS];
 } rsp;
 
 struct RawTexMetadata {
@@ -980,7 +985,7 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
         short U = v->s * rsp.texture_scaling_factor.s >> 16;
         short V = v->t * rsp.texture_scaling_factor.t >> 16;
 
-        struct RGBA* vcn = &rsp.vertex_colors[v->colour];
+        const struct NormalColor *vcn = &rsp.vertex_colors[v->colour >> 2];
 
         if (rsp.geometry_mode & G_LIGHTING) {
             if (rsp.lights_changed) {
@@ -1000,9 +1005,9 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
 
             for (int i = 0; i < rsp.current_num_lights - 1; i++) {
                 float intensity = 0;
-                intensity += vcn->n[0] * rsp.current_lights_coeffs[i][0];
-                intensity += vcn->n[1] * rsp.current_lights_coeffs[i][1];
-                intensity += vcn->n[2] * rsp.current_lights_coeffs[i][2];
+                intensity += vcn->x * rsp.current_lights_coeffs[i][0];
+                intensity += vcn->y * rsp.current_lights_coeffs[i][1];
+                intensity += vcn->z * rsp.current_lights_coeffs[i][2];
                 intensity /= 127.0f;
                 if (intensity > 0.0f) {
                     r += intensity * rsp.current_lights[i].col[0];
@@ -1017,12 +1022,12 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
 
             if (rsp.geometry_mode & G_TEXTURE_GEN) {
                 float dotx = 0, doty = 0;
-                dotx += vcn->n[0] * rsp.current_lookat_coeffs[0][0];
-                dotx += vcn->n[1] * rsp.current_lookat_coeffs[0][1];
-                dotx += vcn->n[2] * rsp.current_lookat_coeffs[0][2];
-                doty += vcn->n[0] * rsp.current_lookat_coeffs[1][0];
-                doty += vcn->n[1] * rsp.current_lookat_coeffs[1][1];
-                doty += vcn->n[2] * rsp.current_lookat_coeffs[1][2];
+                dotx += vcn->x * rsp.current_lookat_coeffs[0][0];
+                dotx += vcn->y * rsp.current_lookat_coeffs[0][1];
+                dotx += vcn->z * rsp.current_lookat_coeffs[0][2];
+                doty += vcn->x * rsp.current_lookat_coeffs[1][0];
+                doty += vcn->y * rsp.current_lookat_coeffs[1][1];
+                doty += vcn->z * rsp.current_lookat_coeffs[1][2];
 
                 dotx /= 127.0f;
                 doty /= 127.0f;
@@ -2136,10 +2141,14 @@ static void gfx_sp_set_other_mode(uint32_t shift, uint32_t num_bits, uint64_t mo
     rdp.palette_fmt = rdp.other_mode_h & (3U << G_MDSFT_TEXTLUT);
 }
 
-static void gfx_sp_set_vertex_colors(uint32_t count, struct RGBA* rgba) {
-    for (uint32_t i = 0; i < count; ++i) {
-        rsp.vertex_colors[i] = rgba[i];
-    }
+static void gfx_sp_set_vertex_colors(uint32_t count, const struct NormalColor *vcn) {
+    // common sense dictates that we should copy the colors as the command is supposed to do,
+    // but it actually doesn't seem to matter
+    // SUPPORT_CHECK(count <= sizeof(rsp.vertex_colors) / sizeof(rsp.vertex_colors[0]));
+    // for (uint32_t i = 0; i < count; ++i) {
+    //     rsp.vertex_colors[i] = vcn[i];
+    // }
+    rsp.vertex_colors = vcn;
 }
 
 static void gfx_dp_set_other_mode(uint32_t h, uint32_t l) {
@@ -2148,18 +2157,21 @@ static void gfx_dp_set_other_mode(uint32_t h, uint32_t l) {
 }
 
 // TODO: figure out a proper way to deal with this shit, this won't work
-static inline void* seg_addr(uintptr_t w1) {
+static inline void *seg_addr(uintptr_t w1) {
     // any address higher than 0x0fffffff is not segmented
     if ((w1 & 0xf0000000) == 0) {
-        // maybe segmented, check if we have that segment loaded
         // seg 0 is reserved and doesn't count here
         const uintptr_t seg = (w1 & 0x0f000000) >> 24;
-        if (seg && segmentPointers[seg]) {
-            // we do but we can't really confirm whether or not it is actually segmented
-            const uintptr_t addr = (w1 & 0x00ffffff);
-            if (addr > 512 * 1024)
-                return (void *) w1; // PROBABLY isn't segmented because no seg should be that big
-            return (void *)(addr + segmentPointers[seg]);
+        // only segments 2-6 and 13-15 are used in PD
+        if ((seg >= 2 && seg <= 6) || (seg >= 13)) {
+            // maybe segmented, check if we have that segment loaded
+            if (seg && segmentPointers[seg]) {
+                // we do but we can't really confirm whether or not it is actually segmented
+                const uintptr_t addr = (w1 & 0x00ffffff);
+                if (addr > 512 * 1024)
+                    return (void *) w1; // PROBABLY isn't segmented because no seg should be that big
+                return (void *)(addr + segmentPointers[seg]);
+            }
         }
     }
     return (void *) w1;
@@ -2299,7 +2311,7 @@ static void gfx_run_dl(Gfx* cmd) {
 #endif
                 break;
             case G_COL:
-                gfx_sp_set_vertex_colors(C0(0, 16) / 4, (struct RGBA *)seg_addr(cmd->words.w1));
+                gfx_sp_set_vertex_colors(C0(0, 16) / 4, (struct NormalColor *)seg_addr(cmd->words.w1));
                 break;
 
             // RDP Commands:
