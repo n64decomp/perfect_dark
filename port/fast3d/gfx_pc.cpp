@@ -201,6 +201,7 @@ int32_t gfx_current_window_position_y;
 struct GfxDimensions gfx_current_dimensions;
 static struct GfxDimensions gfx_prev_dimensions;
 struct XYWidthHeight gfx_current_game_window_viewport;
+struct XYWidthHeight gfx_current_native_viewport;
 
 static bool game_renders_to_framebuffer;
 static int game_framebuffer;

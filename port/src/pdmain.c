@@ -237,8 +237,10 @@ void mainInit(void)
 	g_VmShowStats = 0;
 
 	// no copyright screen
+	viSetMode(VIMODE_HI);
 	viConfigureForLegal();
 	viBlack(true);
+	viUpdateMode();
 
 	filesInit();
 

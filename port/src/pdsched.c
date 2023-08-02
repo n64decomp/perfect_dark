@@ -197,19 +197,9 @@ void __scUpdateViMode(void)
 	var8005ce74 = (var8005ce74 + 1) % 2;
 
 	if (g_SchedViModesPending[1 - var8005ce74]) {
-		if (var8008dd60[1 - var8005ce74]->comRegs.width != var8008dcc0[1 - var8005ce74].comRegs.width
-				|| var8008dd60[1 - var8005ce74]->comRegs.xScale != var8008dcc0[1 - var8005ce74].comRegs.xScale
-				|| var8008dd60[1 - var8005ce74]->fldRegs[0].yScale != var8008dcc0[1 - var8005ce74].fldRegs[0].yScale
-				|| var8008dd60[1 - var8005ce74]->fldRegs[1].yScale != var8008dcc0[1 - var8005ce74].fldRegs[1].yScale
-				|| var8008dd60[1 - var8005ce74]->fldRegs[0].origin != var8008dcc0[1 - var8005ce74].fldRegs[0].origin
-				|| var8008dd60[1 - var8005ce74]->fldRegs[1].origin != var8008dcc0[1 - var8005ce74].fldRegs[1].origin) {
-			osViSetMode(var8008dd60[1 - var8005ce74]);
-			osViBlack(g_ViUnblackTimer);
-			osViSetXScale(g_ViXScalesBySlot[1 - var8005ce74]);
-			osViSetYScale(g_ViYScalesBySlot[1 - var8005ce74]);
-			osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_DITHER_FILTER_ON);
-		}
-
+		// TODO: make this a little less awkward
+		extern struct rend_vidat *g_ViBackData;
+		videoUpdateNativeResolution(g_ViBackData->bufx, g_ViBackData->bufy);
 		g_SchedViModesPending[1 - var8005ce74] = false;
 	}
 

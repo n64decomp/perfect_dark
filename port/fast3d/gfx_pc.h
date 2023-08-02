@@ -10,8 +10,8 @@
 
 #include <PR/gbi.h>
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH (gfx_current_native_viewport.width)
+#define SCREEN_HEIGHT (gfx_current_native_viewport.height)
 
 extern uintptr_t gfxFramebuffer;
 
