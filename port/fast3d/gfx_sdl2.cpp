@@ -175,7 +175,7 @@ static inline void sync_framerate_with_timer(void) {
 }
 
 static void gfx_sdl_swap_buffers_begin(void) {
-    sync_framerate_with_timer();
+    //sync_framerate_with_timer();
     SDL_GL_SwapWindow(wnd);
 }
 
