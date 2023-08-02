@@ -328,6 +328,19 @@ static void preprocessModelNode(struct modelnode *node, u8 *base, u32 ofs)
 					PD_SWAP_PTR(ro->toggle.target);
 					// TODO: assuming target points to one of the nodes we'll swap by following node->next
 					break;
+				case MODELNODETYPE_POSITIONHELD:
+					PD_SWAP_VAL(ro->positionheld.mtxindex);
+					PD_SWAP_VAL(ro->positionheld.pos);
+					break;
+				case MODELNODETYPE_STARGUNFIRE:
+					PD_SWAP_VAL(ro->stargunfire.unk00);
+					PD_SWAP_PTR(ro->stargunfire.gdl);
+					PD_SWAP_PTR(ro->stargunfire.vertices);
+					PD_SWAP_PTR(ro->stargunfire.baseaddr);
+					break;
+				case MODELNODETYPE_HEADSPOT:
+					PD_SWAP_VAL(ro->headspot.rwdataindex);
+					break;
 				case MODELNODETYPE_DL:
 					preprocessModelDL(&ro->dl, base, ofs);
 					break;
@@ -497,8 +510,6 @@ static inline void preprocessHovPropObj(struct hov *hov)
 
 static void preprocessPropObj(struct defaultobj *obj)
 {
-	printf("props obj %02x at %p\n", obj->type, obj);
-	fflush(stdout);
 	// TODO: help me jesus
 	switch (obj->type) {
 		case OBJTYPE_GRENADEPROB:
