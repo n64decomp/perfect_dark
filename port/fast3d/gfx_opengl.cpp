@@ -85,22 +85,30 @@ static void gfx_opengl_vertex_array_set_attribs(struct ShaderProgram* prg) {
     size_t pos = 0;
 
     for (int i = 0; i < prg->num_attribs; i++) {
-        glEnableVertexAttribArray(prg->attrib_locations[i]);
-        glVertexAttribPointer(prg->attrib_locations[i], prg->attrib_sizes[i], GL_FLOAT, GL_FALSE,
-                              num_floats * sizeof(float), (void*)(pos * sizeof(float)));
+        if (prg->attrib_locations[i] >= 0) {
+            glEnableVertexAttribArray(prg->attrib_locations[i]);
+            glVertexAttribPointer(prg->attrib_locations[i], prg->attrib_sizes[i], GL_FLOAT, GL_FALSE,
+                                num_floats * sizeof(float), (void*)(pos * sizeof(float)));
+        }
         pos += prg->attrib_sizes[i];
     }
 }
 
 static void gfx_opengl_set_uniforms(struct ShaderProgram* prg) {
-    glUniform1i(prg->frame_count_location, frame_count);
-    glUniform1f(prg->noise_scale_location, current_noise_scale);
+    if (prg->frame_count_location >= 0) {
+        glUniform1i(prg->frame_count_location, frame_count);
+    }
+    if (prg->noise_scale_location >= 0) {
+        glUniform1f(prg->noise_scale_location, current_noise_scale);
+    }
 }
 
 static void gfx_opengl_unload_shader(struct ShaderProgram* old_prg) {
     if (old_prg != NULL) {
         for (int i = 0; i < old_prg->num_attribs; i++) {
-            glDisableVertexAttribArray(old_prg->attrib_locations[i]);
+            if (old_prg->attrib_locations[i] >= 0) {
+                glDisableVertexAttribArray(old_prg->attrib_locations[i]);
+            }
         }
     }
 }
@@ -223,11 +231,11 @@ static void append_formula(char* buf, size_t* len, uint8_t c[2][4], bool do_sing
 }
 
 static struct ShaderProgram* gfx_opengl_create_and_load_new_shader(uint64_t shader_id0, uint32_t shader_id1) {
-    struct CCFeatures cc_features;
+    struct CCFeatures cc_features = { 0 };
     gfx_cc_get_features(shader_id0, shader_id1, &cc_features);
 
-    char vs_buf[1024];
-    char fs_buf[6000];
+    char vs_buf[2048];
+    char fs_buf[8192];
     size_t vs_len = 0;
     size_t fs_len = 0;
     size_t num_floats = 4;
@@ -652,7 +660,7 @@ static struct ShaderProgram* gfx_opengl_create_and_load_new_shader(uint64_t shad
     prg->num_floats = num_floats;
     prg->num_attribs = cnt;
 
-    gfx_opengl_load_shader(prg);
+    glUseProgram(shader_program);
 
     if (cc_features.used_textures[0]) {
         GLint sampler_location = glGetUniformLocation(shader_program, "uTex0");
@@ -681,6 +689,8 @@ static struct ShaderProgram* gfx_opengl_create_and_load_new_shader(uint64_t shad
 
     prg->frame_count_location = glGetUniformLocation(shader_program, "frame_count");
     prg->noise_scale_location = glGetUniformLocation(shader_program, "noise_scale");
+
+    gfx_opengl_load_shader(prg);
 
     return prg;
 }
