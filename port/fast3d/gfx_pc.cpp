@@ -54,13 +54,13 @@ using namespace std;
 #define RATIO_X (gfx_current_dimensions.width / (2.0f * HALF_SCREEN_WIDTH))
 #define RATIO_Y (gfx_current_dimensions.height / (2.0f * HALF_SCREEN_HEIGHT))
 
-#define MAX_BUFFERED 512
+#define MAX_BUFFERED 256
 // #define MAX_LIGHTS 2
 #define MAX_LIGHTS 32
 #define MAX_VERTICES 250
 #define MAX_VERTEX_COLORS 64
 
-#define TEXTURE_CACHE_MAX_SIZE 500
+#define TEXTURE_CACHE_MAX_SIZE 1024
 
 #define C0(pos, width) ((cmd->words.w0 >> (pos)) & ((1U << width) - 1))
 #define C1(pos, width) ((cmd->words.w1 >> (pos)) & ((1U << width) - 1))
@@ -137,7 +137,8 @@ struct RawTexMetadata {
 };
 
 static struct RDP {
-    const uint8_t* palettes[2];
+    uint16_t palette[256];
+    const uint8_t* palette_addrs[2];
     uint32_t palette_fmt;
     struct {
         const uint8_t* addr;
@@ -175,6 +176,7 @@ static struct RDP {
     uint32_t other_mode_l, other_mode_h;
     uint64_t combine_mode;
     bool grayscale;
+    bool tex_lod;
 
     uint8_t prim_lod_fraction;
     struct RGBA env_color, prim_color, fog_color, fill_color, grayscale_color;
@@ -295,7 +297,7 @@ static const char* acmux_to_string(uint32_t acmux) {
 static void gfx_generate_cc(struct ColorCombiner* comb, const ColorCombinerKey& key) {
     bool is_2cyc = (key.options & (uint64_t)SHADER_OPT_2CYC) != 0;
 
-    uint8_t c[2][2][4];
+    uint8_t c[2][2][4] = { { { 0 } } };
     uint64_t shader_id0 = 0;
     uint32_t shader_id1 = key.options;
     uint8_t shader_input_mapping[2][7] = { { 0 } };
@@ -400,6 +402,7 @@ static void gfx_generate_cc(struct ColorCombiner* comb, const ColorCombinerKey& 
                     case G_CCMUX_PRIMITIVE_ALPHA:
                     case G_CCMUX_PRIM_LOD_FRAC:
                     case G_CCMUX_SHADE:
+                    case G_CCMUX_SHADE_ALPHA:
                     case G_CCMUX_ENVIRONMENT:
                     case G_CCMUX_ENV_ALPHA:
                     case G_CCMUX_LOD_FRACTION:
@@ -739,6 +742,7 @@ static inline void palette_to_rgba32(const uint16_t palentry, uint8_t *rgba32_bu
         rgba32_buf[3] = alpha;
     } else {
         // assume G_TT_RGBA16
+        
         const uint8_t a = palentry & 1;
         const uint8_t r = palentry >> 11;
         const uint8_t g = (palentry >> 6) & 0x1f;
@@ -758,7 +762,7 @@ static void import_texture_ci4(int tile, bool importReplacement) {
         rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].full_image_line_size_bytes;
     const uint32_t line_size_bytes = rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].line_size_bytes;
     const uint32_t pal_idx = rdp.texture_tile[tile].palette; // 0-15
-    const uint16_t* palette = (const uint16_t *)(rdp.palettes[pal_idx / 8] + (pal_idx % 8) * 16 * 2); // 16 pixel entries, 16 bits each
+    const uint16_t* palette = (const uint16_t *)(rdp.palette + pal_idx * 16); // 16 pixel entries, 16 bits each
     SUPPORT_CHECK(full_image_line_size_bytes == line_size_bytes);
 
     for (uint32_t i = 0; i < size_bytes * 2; i++) {
@@ -789,8 +793,7 @@ static void import_texture_ci8(int tile, bool importReplacement) {
     for (uint32_t i = 0, j = 0; i < size_bytes; j += full_image_line_size_bytes - line_size_bytes) {
         for (uint32_t k = 0; k < line_size_bytes; i++, k++, j++) {
             const uint8_t idx = addr[j];
-            const uint16_t c = *(const uint16_t *)(rdp.palettes[idx / 128] + (idx % 128) * 2);
-            palette_to_rgba32(c, tex_upload_buffer + 4 * i);
+            palette_to_rgba32(rdp.palette[idx], tex_upload_buffer + 4 * i);
         }
     }
 
@@ -807,6 +810,12 @@ static void import_texture_ci8(int tile, bool importReplacement) {
 }
 
 static void import_texture(int i, int tile, bool importReplacement) {
+    if (rdp.tex_lod) {
+        // import the base level, don't care about the mips
+        // FIXME: this shouldn't even get here in that case, what the fuck?
+        tile = rdp.first_tile_index;
+    }
+
     const uint8_t fmt = rdp.texture_tile[tile].fmt;
     const uint8_t siz = rdp.texture_tile[tile].siz;
     const uint32_t texFlags = rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].tex_flags;
@@ -815,10 +824,11 @@ static void import_texture(int i, int tile, bool importReplacement) {
 
     const RawTexMetadata* metadata = &rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].raw_tex_metadata;
     const uint8_t* orig_addr = rdp.loaded_texture[tmem_index].addr;
+    SUPPORT_CHECK(orig_addr);
 
     TextureCacheKey key;
     if (fmt == G_IM_FMT_CI) {
-        key = { orig_addr, { rdp.palettes[0], rdp.palettes[1] }, fmt, siz, palette_index };
+        key = { orig_addr, { rdp.palette_addrs[0], rdp.palette_addrs[1] }, fmt, siz, palette_index };
     } else {
         key = { orig_addr, {}, fmt, siz, palette_index };
     }
@@ -1444,6 +1454,10 @@ static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bo
                     case G_CCMUX_SHADE:
                         color = &v_arr[i]->color;
                         break;
+                    case G_CCMUX_SHADE_ALPHA:
+                        tmp.r = tmp.g = tmp.b = v_arr[i]->color.a;
+                        color = &tmp;
+                        break;
                     case G_CCMUX_ENVIRONMENT:
                         color = &rdp.env_color;
                         break;
@@ -1609,14 +1623,20 @@ static void gfx_calc_and_set_viewport(const Vp_t* viewport) {
 }
 
 static void gfx_sp_movemem(uint8_t index, uint8_t offset, const void* data) {
+    const Light *lookat;
     switch (index) {
         case G_MV_VIEWPORT:
             gfx_calc_and_set_viewport((const Vp_t*)data);
             break;
         case G_MV_LOOKATY:
         case G_MV_LOOKATX:
-            //memcpy(rsp.current_lookat_coeffs + (index - G_MV_LOOKATY) / 2, data, sizeof(Light_t));
-            //rsp.lights_changed = 1;
+            // this is only really used for guLookAtReflect
+            index = (index - G_MV_LOOKATY) / 2;
+            lookat = (const Light *)data;
+            rsp.current_lookat_coeffs[index][0] = (float)lookat->l.dir[0] / 127.f;
+            rsp.current_lookat_coeffs[index][1] = (float)lookat->l.dir[1] / 127.f;
+            rsp.current_lookat_coeffs[index][2] = (float)lookat->l.dir[2] / 127.f;
+            rsp.lights_changed = 1;
             break;
 #ifdef F3DEX_GBI_2
         case G_MV_LIGHT: {
@@ -1670,7 +1690,7 @@ static void gfx_sp_texture(uint16_t sc, uint16_t tc, uint8_t level, uint8_t tile
         rdp.textures_changed[1] = true;
     }
 
-    //rdp.first_tile_index = tile;
+    rdp.first_tile_index = tile;
 }
 
 static void gfx_dp_set_scissor(uint32_t mode, uint32_t ulx, uint32_t uly, uint32_t lrx, uint32_t lry) {
@@ -1703,7 +1723,7 @@ static void gfx_dp_set_tile(uint8_t fmt, uint32_t siz, uint32_t line, uint32_t t
                             uint32_t shifts) {
     // OTRTODO:
     // SUPPORT_CHECK(tmem == 0 || tmem == 256);
-
+    static uint32_t max_tmem = 0;
     if (cms == G_TX_WRAP && masks == G_TX_NOMASK) {
         cms = G_TX_CLAMP;
     }
@@ -1724,10 +1744,9 @@ static void gfx_dp_set_tile(uint8_t fmt, uint32_t siz, uint32_t line, uint32_t t
         int bp = 0;
     }
 
+    // assume one texture is loaded at address 0 and another texture at any other address
     rdp.texture_tile[tile].tmem = tmem;
-    // rdp.texture_tile[tile].tmem_index = tmem / 256; // tmem is the 64-bit word offset, so 256 words means 2 kB
-    rdp.texture_tile[tile].tmem_index =
-        tmem != 0; // assume one texture is loaded at address 0 and another texture at any other address
+    rdp.texture_tile[tile].tmem_index = tmem / 256;
     rdp.textures_changed[0] = true;
     rdp.textures_changed[1] = true;
 }
@@ -1741,18 +1760,38 @@ static void gfx_dp_set_tile_size(uint8_t tile, uint16_t uls, uint16_t ult, uint1
     rdp.textures_changed[1] = true;
 }
 
-static void gfx_dp_load_tlut(uint8_t tile, uint32_t high_index) {
+static void gfx_dp_load_tlut(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t lrs, uint32_t lrt) {
     // SUPPORT_CHECK(tile == G_TX_LOADTILE);
     SUPPORT_CHECK(rdp.texture_to_load.siz == G_IM_SIZ_16b);
-    SUPPORT_CHECK((rdp.texture_tile[tile].tmem == 256) || (rdp.texture_tile[tile].tmem == 384 && high_index == 127));
+    SUPPORT_CHECK(rdp.texture_tile[tile].tmem >= 256);
+
+    rdp.texture_tile[tile].uls = uls;
+    rdp.texture_tile[tile].ult = ult;
+    rdp.texture_tile[tile].lrs = lrs;
+    rdp.texture_tile[tile].lrt = lrt;
+
+    const uint32_t width = (lrs - uls + 1);
+    const uint32_t height = (lrt - ult + 1);
+    const uint32_t pitch = rdp.texture_to_load.width + 1;
+    const uint32_t count =  width * height;
+    const uint16_t *base = (const uint16_t *)rdp.texture_to_load.addr + pitch * ult + uls;
 
     if (rdp.texture_tile[tile].tmem == 256) {
-        rdp.palettes[0] = rdp.texture_to_load.addr;
-        if (high_index >= 255) {
-            rdp.palettes[1] = rdp.texture_to_load.addr + 2 * 128;
+        rdp.palette_addrs[0] = (const uint8_t *)base;
+        if (count >= 256) {
+            rdp.palette_addrs[1] = (const uint8_t *)(base + 128);
         }
     } else {
-        rdp.palettes[1] = rdp.texture_to_load.addr;
+        rdp.palette_addrs[1] = (const uint8_t *)base;
+    }
+
+    const uint32_t palofs = rdp.texture_tile[tile].tmem - 256;
+    SUPPORT_CHECK(palofs + count <= 256);
+
+    const uint16_t *src = base;
+    uint16_t *dst = rdp.palette + palofs;
+    for (uint32_t i = 0; i < count; ++i) {
+        *dst++ = PD_BE16(*src++);
     }
 }
 
@@ -2077,7 +2116,7 @@ static void gfx_dp_texture_rectangle(int32_t ulx, int32_t uly, int32_t lrx, int3
         rdp.textures_changed[0] = true;
         rdp.textures_changed[1] = true;
     }
-    //rdp.first_tile_index = tile;
+    rdp.first_tile_index = tile;
 
     gfx_draw_rectangle(ulx, uly, lrx, lry);
     if (saved_tile != tile) {
@@ -2139,6 +2178,7 @@ static void gfx_sp_set_other_mode(uint32_t shift, uint32_t num_bits, uint64_t mo
     rdp.other_mode_l = (uint32_t)om;
     rdp.other_mode_h = (uint32_t)(om >> 32);
     rdp.palette_fmt = rdp.other_mode_h & (3U << G_MDSFT_TEXTLUT);
+    rdp.tex_lod = rdp.other_mode_h & (1U << G_MDSFT_TEXTLOD);
 }
 
 static void gfx_sp_set_vertex_colors(uint32_t count, const struct NormalColor *vcn) {
@@ -2190,8 +2230,7 @@ static void gfx_run_dl(Gfx* cmd) {
 
     for (;;) {
         uint32_t opcode = cmd->words.w0 >> 24;
-        // printf("DL %p OP %02x W0 %08x W1 %08x\n", cmd, opcode, cmd->words.w0, cmd->words.w1);
-
+        // gfx_print_cmd(cmd);
         switch (opcode) {
                 // RSP commands:
             case G_NOOP:
@@ -2337,7 +2376,7 @@ static void gfx_run_dl(Gfx* cmd) {
                 gfx_dp_set_tile_size(C1(24, 3), C0(12, 12), C0(0, 12), C1(12, 12), C1(0, 12));
                 break;
             case G_LOADTLUT:
-                gfx_dp_load_tlut(C1(24, 3), C1(14, 10));
+                gfx_dp_load_tlut(C1(24, 3), C0(14, 10), C0(2, 10), C1(14, 10), C1(2, 10));
                 break;
             case G_SETENVCOLOR:
                 gfx_dp_set_env_color(C1(24, 8), C1(16, 8), C1(8, 8), C1(0, 8));
