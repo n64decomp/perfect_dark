@@ -1001,6 +1001,11 @@ static void gfx_adjust_width_height_for_scale(uint32_t& width, uint32_t& height)
 static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* vertices) {
     SUPPORT_CHECK(n_vertices <= MAX_VERTICES);
 
+    // seems like PD likes to use fog color/alpha without enabling G_FOG
+    const bool use_fog = (rsp.geometry_mode & G_FOG) || 
+        (rdp.other_mode_l >> 30) == G_BL_CLR_FOG ||
+        (rdp.other_mode_l >> 26) == G_BL_A_FOG;
+
     for (size_t i = 0; i < n_vertices; i++, dest_index++) {
         const Vtx* v = &vertices[i];
         struct LoadedVertex* d = &rsp.loaded_vertices[dest_index];
@@ -1114,8 +1119,7 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
         d->z = z;
         d->w = w;
 
-        // seems like PD uses the fog color without setting G_FOG sometimes
-        if ((rsp.geometry_mode & G_FOG) || (rdp.other_mode_l >> 30) == G_BL_CLR_FOG) {
+        if (use_fog) {
             if (fabsf(w) < 0.001f) {
                 // To avoid division by zero
                 w = 0.001f;
