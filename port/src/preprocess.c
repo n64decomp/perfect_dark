@@ -1405,11 +1405,13 @@ void preprocessBgLights(u8 *data, u32 ofs)
 		if (g_Rooms[i].numlights) {
 			struct light *lit = &lbase[g_Rooms[i].lightindex];
 			for (s32 j = 0; j < g_Rooms[i].numlights; ++j, ++lit) {
-				PD_SWAP_VAL(lit->bbox->x);
-				PD_SWAP_VAL(lit->bbox->y);
-				PD_SWAP_VAL(lit->bbox->z);
-				PD_SWAP_VAL(lit->colour); // TODO: required?
+				PD_SWAP_VAL(lit->colour);
 				PD_SWAP_VAL(lit->roomnum);
+				for (s32 k = 0; k < ARRAYCOUNT(lit->bbox); ++k) {
+					PD_SWAP_VAL(lit->bbox[k].x);
+					PD_SWAP_VAL(lit->bbox[k].y);
+					PD_SWAP_VAL(lit->bbox[k].z);
+				}
 			}
 		}
 	}
