@@ -1909,7 +1909,7 @@ s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *look
  */
 void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
 {
-#ifdef PLATFORM_N64 // I'm assuming this is required on N64 because the GPU reads them in words
+#ifdef PLATFORM_N64 // the N64 GPU wants interleaved data, we don't
 	s32 x;
 	s32 y;
 	s32 alignedwidth;
