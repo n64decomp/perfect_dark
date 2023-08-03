@@ -1114,7 +1114,8 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
         d->z = z;
         d->w = w;
 
-        if (rsp.geometry_mode & G_FOG) {
+        // seems like PD uses the fog color without setting G_FOG sometimes
+        if ((rsp.geometry_mode & G_FOG) || (rdp.other_mode_l >> 30) == G_BL_CLR_FOG) {
             if (fabsf(w) < 0.001f) {
                 // To avoid division by zero
                 w = 0.001f;
