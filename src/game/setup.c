@@ -1220,7 +1220,11 @@ void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing 
 		}
 
 		setupfilenum = g_Stages[stageindex].setupfileid;
+#ifdef PLATFORM_N64 // bug?
 		g_LoadType = LOADTYPE_LANG;
+#else
+		g_LoadType = LOADTYPE_SETUP;
+#endif
 
 		fileLoadToAddr(setupfilenum, FILELOADMETHOD_DEFAULT, buffer, bufferlen);
 
