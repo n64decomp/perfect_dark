@@ -4,31 +4,64 @@
 #include <PR/os_cont.h>
 #include "input.h"
 
+#define MAX_BINDS 4
+#define TRIG_THRESHOLD (30 * 256)
+
 static SDL_GameController *pads[INPUT_MAX_CONTROLLERS];
 static SDL_Haptic *haptics[INPUT_MAX_CONTROLLERS];
-
-static const u16 buttonMap[] = {
-	/* SDL_CONTROLLER_BUTTON_A             */ A_BUTTON,
-	/* SDL_CONTROLLER_BUTTON_B             */ B_BUTTON,
-	/* SDL_CONTROLLER_BUTTON_X             */ Z_TRIG,
-	/* SDL_CONTROLLER_BUTTON_Y             */ Z_TRIG,
-	/* SDL_CONTROLLER_BUTTON_BACK          */ START_BUTTON,
-	/* SDL_CONTROLLER_BUTTON_GUIDE         */ 0,
-	/* SDL_CONTROLLER_BUTTON_START         */ START_BUTTON,
-	/* SDL_CONTROLLER_BUTTON_LEFTSTICK     */ 0,
-	/* SDL_CONTROLLER_BUTTON_RIGHTSTICK    */ 0,
-	/* SDL_CONTROLLER_BUTTON_LEFTSHOULDER  */ L_TRIG,
-	/* SDL_CONTROLLER_BUTTON_RIGHTSHOULDER */ R_TRIG,
-	/* SDL_CONTROLLER_BUTTON_DPAD_UP       */ U_JPAD,
-	/* SDL_CONTROLLER_BUTTON_DPAD_DOWN     */ D_JPAD,
-	/* SDL_CONTROLLER_BUTTON_DPAD_LEFT     */ L_JPAD,
-	/* SDL_CONTROLLER_BUTTON_DPAD_RIGHT    */ R_JPAD,
-};
-
-static const u16 buttonTrigLeft = Z_TRIG;
-static const u16 buttonTrigRight = Z_TRIG;
+static u32 binds[MAXCONTROLLERS][CK_TOTAL_COUNT][MAX_BINDS]; // [i][CK_][b] = [VK_]
 
 static s32 connectedMask = 0;
+
+static s32 mouseLocked = 0;
+static s32 mouseX, mouseY;
+static s32 mouseDX, mouseDY;
+static u32 mouseButtons;
+
+void inputSetDefaultKeyBinds(void) {
+	// TODO: make VK constants for all these
+	static const u32 kbbinds[][3] = {
+		{ CK_A,          SDL_SCANCODE_Q,     0                   },
+		{ CK_B,          SDL_SCANCODE_E,     0                   },
+		{ CK_LTRIG,      VK_MOUSE_RIGHT,     SDL_SCANCODE_Z      },
+		{ CK_RTRIG,      VK_MOUSE_X1,        SDL_SCANCODE_X      },
+		{ CK_ZTRIG,      VK_MOUSE_LEFT,      SDL_SCANCODE_SPACE  },
+		{ CK_START,      VK_MOUSE_LEFT,      SDL_SCANCODE_RETURN },
+		{ CK_DPAD_D,     SDL_SCANCODE_DOWN,  0                   },
+		{ CK_DPAD_U,     SDL_SCANCODE_UP,    0                   },
+		{ CK_DPAD_R,     SDL_SCANCODE_RIGHT, 0                   },
+		{ CK_DPAD_L,     SDL_SCANCODE_LEFT,  0                   },
+		{ CK_STICK_XNEG, SDL_SCANCODE_A,     0                   },
+		{ CK_STICK_XPOS, SDL_SCANCODE_D,     0                   },
+		{ CK_STICK_YNEG, SDL_SCANCODE_S,     0                   },
+		{ CK_STICK_YPOS, SDL_SCANCODE_W,     0                   },
+	};
+
+	static const u32 joybinds[][2] = {
+		{ CK_LTRIG,      SDL_CONTROLLER_BUTTON_LEFTSHOULDER,  },
+		{ CK_RTRIG,      SDL_CONTROLLER_BUTTON_RIGHTSHOULDER, },
+		{ CK_ZTRIG,      VK_JOY1_RTRIG,                       },
+		{ CK_START,      SDL_CONTROLLER_BUTTON_START,         },
+		{ CK_DPAD_D,     SDL_CONTROLLER_BUTTON_DPAD_DOWN,     },
+		{ CK_DPAD_U,     SDL_CONTROLLER_BUTTON_DPAD_UP,       },
+		{ CK_DPAD_R,     SDL_CONTROLLER_BUTTON_DPAD_RIGHT,    },
+		{ CK_DPAD_L,     SDL_CONTROLLER_BUTTON_DPAD_LEFT,     },
+	};
+
+	for (u32 i = 0; i < sizeof(kbbinds) / sizeof(kbbinds[0]); ++i) {
+		for (s32 j = 1; j < 3; ++j) {
+			if (kbbinds[i][j]) {
+				inputKeyBind(0, kbbinds[i][0], j - 1, kbbinds[i][j]);
+			}
+		}
+	}
+
+	for (u32 i = 0; i < sizeof(joybinds) / sizeof(joybinds[0]); ++i) {
+		for (s32 j = 0; j < INPUT_MAX_CONTROLLERS; ++j) {
+			inputKeyBind(j, joybinds[i][0], -1, joybinds[i][1]);
+		}
+	}
+}
 
 s32 inputInit(void)
 {
@@ -60,15 +93,49 @@ s32 inputInit(void)
 		}
 	}
 
+	inputSetDefaultKeyBinds();
+
 	connectedMask = ret;
 
 	return ret;
 }
 
+static inline s32 inputBindPressed(const s32 idx, const u32 ck)
+{
+	for (s32 i = 0; i < MAX_BINDS; ++i) {
+		if (binds[idx][ck][i]) {
+			if (inputKeyPressed(binds[idx][ck][i])) {
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
+
 s32 inputReadController(s32 idx, OSContPad *npad)
 {
-	if (idx < 0 || idx >= INPUT_MAX_CONTROLLERS || !pads[idx] || !npad) {
+	if (idx < 0 || idx >= INPUT_MAX_CONTROLLERS  || !npad) {
 		return -1;
+	}
+
+	for (u32 i = 0; i < CONT_NUM_BUTTONS; ++i) {
+		if (inputBindPressed(idx, i)) {
+			npad->button |= 1U << i;
+		}
+	}
+
+	const s32 xdiff = (inputBindPressed(idx, CK_STICK_XPOS) - inputBindPressed(idx, CK_STICK_XNEG));
+	const s32 ydiff = (inputBindPressed(idx, CK_STICK_YPOS) - inputBindPressed(idx, CK_STICK_YNEG));
+	npad->stick_x = xdiff < 0 ? -0x80 : (xdiff > 0 ? 0x7F : 0);
+	npad->stick_y = ydiff < 0 ? -0x80 : (ydiff > 0 ? 0x7F : 0);
+
+	npad->mouse_x = mouseX;
+	npad->mouse_y = mouseY;
+	npad->mouse_dx = mouseDX;
+	npad->mouse_dy = mouseDY;
+
+	if (!pads[idx]) {
+		return 0;
 	}
 
 	const s16 leftX = SDL_GameControllerGetAxis(pads[idx], SDL_CONTROLLER_AXIS_LEFTX);
@@ -83,14 +150,6 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 	if (rightY < -0x4000) npad->button |= U_CBUTTONS;
 	if (rightY > +0x4000) npad->button |= D_CBUTTONS;
 
-	for (size_t i = 0; i < sizeof(buttonMap) / sizeof(*buttonMap); ++i) {
-		if (buttonMap[i]) {
-			if (SDL_GameControllerGetButton(pads[idx], i)) {
-				npad->button |= buttonMap[i];
-			}
-		}
-	}
-
 	const s32 stickY = -leftY / 0x100;
 	npad->stick_x = leftX / 0x100;
 	npad->stick_y = (stickY == 128) ? 127 : stickY;
@@ -101,6 +160,18 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 void inputUpdate(void)
 {
 	SDL_GameControllerUpdate();
+
+	int mx, my;
+	mouseButtons = SDL_GetMouseState(&mx, &my);
+	if (mouseLocked) {
+		SDL_GetRelativeMouseState(&mouseDX, &mouseDY);
+	} else {
+		mouseDX = mx - mouseX;
+		mouseDY = my - mouseY;
+	}
+	mouseX = mx;
+	mouseY = my;
+
 	// TODO: handle controller changes
 }
 
@@ -135,4 +206,56 @@ void inputRumble(s32 idx, f32 strength, f32 time)
 s32 inputControllerMask(void)
 {
 	return connectedMask;
+}
+
+void inputKeyBind(s32 idx, u32 cbtn, s32 bind, u32 vk) {
+	if (idx < 0 || idx >= INPUT_MAX_CONTROLLERS || bind >= MAX_BINDS || cbtn >= CK_TOTAL_COUNT) {
+		return;
+	}
+
+	if (bind < 0) {
+		for (s32 i = 0; i < MAX_BINDS; ++i) {
+			if (binds[idx][cbtn][i] == 0) {
+				bind = i;
+				break;
+			}
+		}
+		if (bind < 0) {
+			bind = MAX_BINDS - 1; // just overwrite last
+		}
+	}
+
+	binds[idx][cbtn][bind] = vk;
+}
+
+s32 inputKeyPressed(u32 vk)
+{
+	if (vk >= VK_KEYBOARD_BEGIN && vk < VK_MOUSE_BEGIN) {
+		const u8 *state = SDL_GetKeyboardState(NULL);
+		return state[vk - VK_KEYBOARD_BEGIN];
+	} else if (vk >= VK_MOUSE_BEGIN && vk < VK_JOY_BEGIN) {
+		return mouseButtons & SDL_BUTTON(vk - VK_MOUSE_BEGIN + 1);
+	} else if (vk >= VK_JOY_BEGIN && vk < VK_TOTAL_COUNT) {
+		vk -= VK_JOY_BEGIN;
+		const s32 idx = vk / INPUT_MAX_CONTROLLER_BUTTONS;
+		if (idx < 0 || idx >= INPUT_MAX_CONTROLLERS || !pads[idx]) {
+			return 0;
+		}
+		// triggers
+		if (idx == 30 || idx == 31) {
+			const s32 trig = SDL_CONTROLLER_AXIS_TRIGGERLEFT + idx - 30;
+			return SDL_GameControllerGetAxis(pads[idx], trig) > TRIG_THRESHOLD;
+		}
+		return SDL_GameControllerGetButton(pads[idx], vk % INPUT_MAX_CONTROLLER_BUTTONS);
+	}
+	return 0;
+}
+
+void inputLockMouse(s32 lock) {
+	mouseLocked = !!lock;
+	SDL_SetRelativeMouseMode(mouseLocked);
+}
+
+s32 inputIsMouseLocked(void) {
+	return mouseLocked;
 }

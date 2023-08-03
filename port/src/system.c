@@ -41,6 +41,7 @@ void sysFatalError(const char *fmt, ...)
 	va_end(ap);
 
 	fprintf(stderr, "FATAL ERROR: %s\n", errmsg);
+	fflush(stderr);
 
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Fatal error", errmsg, NULL);
 	exit(1);
