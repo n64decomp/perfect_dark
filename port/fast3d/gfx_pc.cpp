@@ -36,7 +36,8 @@ std::stack<std::string> currentDir;
 
 using namespace std;
 
-#define SEG_ADDR(seg, addr) (addr | (seg << 24) | 1)
+#define ALIGN(x, a) (((x) + (a - 1)) & ~(a - 1))
+
 #define SUPPORT_CHECK(x) if(!(x)) __builtin_trap() // assert(x)
 
 // SCALE_M_N: upscale/downscale M-bit integer to N-bit
@@ -80,6 +81,7 @@ struct LoadedVertex {
     float x, y, z, w;
     float u, v;
     struct RGBA color;
+    uint8_t fog;
     uint8_t clip_rej;
 };
 
@@ -724,19 +726,15 @@ static void import_texture_i8(int tile, bool importReplacement) {
     uint32_t full_image_line_size_bytes =
         rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].full_image_line_size_bytes;
     const uint32_t line_size_bytes = rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].line_size_bytes;
-
     // FIXME: for some fucking reason this only works correctly if you IGNORE the alignment
-    full_image_line_size_bytes = line_size_bytes;
+    // SUPPORT_CHECK(full_image_line_size_bytes == line_size_bytes);
 
-    uint8_t *dst = tex_upload_buffer;
-    for (uint32_t k = 0; k < size_bytes; k += line_size_bytes, addr += full_image_line_size_bytes) {
-        for (uint32_t i = 0; i < line_size_bytes; i++, dst += 4) {
-            const uint8_t intensity = addr[i];
-            dst[0] = intensity;
-            dst[1] = intensity;
-            dst[2] = intensity;
-            dst[3] = 255; // can be intensity instead?
-        }
+    for (uint32_t i = 0; i < size_bytes; i++) {
+        uint8_t intensity = addr[i];
+        tex_upload_buffer[4 * i + 0] = intensity;
+        tex_upload_buffer[4 * i + 1] = intensity;
+        tex_upload_buffer[4 * i + 2] = intensity;
+        tex_upload_buffer[4 * i + 3] = 255;
     }
 
     const uint32_t width = rdp.texture_tile[tile].line_size_bytes;
@@ -1131,11 +1129,12 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
             }
 
             float fog_z = z * winv * rsp.fog_mul + rsp.fog_offset;
-            fog_z = clampf(fog_z, 0.f, 255.f);
-            d->color.a = fog_z; // Use alpha variable to store fog factor
+            d->fog = clampf(fog_z, 0.f, 255.f);
         } else {
-            d->color.a = vcn->a;
+            d->fog = 0;
         }
+
+        d->color.a = vcn->a; // can be required for SHADE_ALPHA even if fog is enabled
     }
 }
 
@@ -1232,7 +1231,7 @@ static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bo
     uint64_t cc_options = 0;
     bool use_alpha =
         (rdp.other_mode_l & (3 << 20)) == (G_BL_CLR_MEM << 20) && (rdp.other_mode_l & (3 << 16)) == (G_BL_1MA << 16);
-    bool use_fog = (rdp.other_mode_l >> 30) == G_BL_CLR_FOG;
+    bool use_fog = ((rdp.other_mode_l >> 30) == G_BL_CLR_FOG) || ((rdp.other_mode_l >> 26) == G_BL_A_FOG);
     bool texture_edge = (rdp.other_mode_l & CVG_X_ALPHA) == CVG_X_ALPHA;
     bool use_noise = (rdp.other_mode_l & (3U << G_MDSFT_ALPHACOMPARE)) == G_AC_DITHER;
     bool use_2cyc = (rdp.other_mode_h & (3U << G_MDSFT_CYCLETYPE)) == G_CYC_2CYCLE;
@@ -1461,7 +1460,7 @@ static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bo
             buf_vbo[buf_vbo_len++] = rdp.fog_color.r / 255.0f;
             buf_vbo[buf_vbo_len++] = rdp.fog_color.g / 255.0f;
             buf_vbo[buf_vbo_len++] = rdp.fog_color.b / 255.0f;
-            buf_vbo[buf_vbo_len++] = v_arr[i]->color.a / 255.0f; // fog factor (not alpha)
+            buf_vbo[buf_vbo_len++] = v_arr[i]->fog / 255.0f; // fog factor
         }
 
         if (use_grayscale) {
@@ -1473,7 +1472,7 @@ static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bo
 
         for (int j = 0; j < num_inputs; j++) {
             struct RGBA* color = 0;
-            struct RGBA tmp;
+            struct RGBA tmp = { 0 };
             for (int k = 0; k < 1 + (use_alpha ? 1 : 0); k++) {
                 switch (comb->shader_input_mapping[k][j]) {
                         // Note: CCMUX constants and ACMUX constants used here have same value, which is why this works
@@ -1507,7 +1506,7 @@ static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bo
                         break;
                     }
                     case G_CCMUX_LOD_FRACTION: {
-                        if (rdp.other_mode_l & G_TL_LOD) {
+                        if (rdp.other_mode_h & G_TL_LOD) {
                             // "Hack" that works for Bowser - Peach painting
                             float distance_frac = (v1->w - 3000.0f) / 3000.0f;
                             if (distance_frac < 0.0f) {
@@ -1518,7 +1517,7 @@ static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bo
                             }
                             tmp.r = tmp.g = tmp.b = tmp.a = distance_frac * 255.0f;
                         } else {
-                            tmp.r = tmp.g = tmp.b = tmp.a = 255.0f;
+                            tmp.r = tmp.g = tmp.b = tmp.a = 255;
                         }
                         color = &tmp;
                         break;
@@ -2187,7 +2186,7 @@ static void gfx_sp_set_other_mode(uint32_t shift, uint32_t num_bits, uint64_t mo
     rdp.other_mode_l = (uint32_t)om;
     rdp.other_mode_h = (uint32_t)(om >> 32);
     rdp.palette_fmt = rdp.other_mode_h & (3U << G_MDSFT_TEXTLUT);
-    rdp.tex_lod = rdp.other_mode_h & (1U << G_MDSFT_TEXTLOD);
+    rdp.tex_lod = (rdp.other_mode_h & G_TL_LOD) != 0;
 }
 
 static void gfx_sp_set_vertex_colors(uint32_t count, const struct NormalColor *vcn) {
