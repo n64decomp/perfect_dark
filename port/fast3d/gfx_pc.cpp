@@ -832,14 +832,14 @@ static void import_texture(int i, int tile, bool importReplacement) {
     const uint32_t tmem_index = rdp.texture_tile[tile].tmem_index;
     const uint8_t palette_index = rdp.texture_tile[tile].palette;
 
-    if (rdp.tex_lod && !tmem_index) {
+    if (rdp.tex_lod && tile == rdp.first_tile_index) {
         // set up miplevel 0
-        rdp.loaded_texture[0].line_size_bytes = rdp.texture_tile[tile].width << siz >> 1;
-        rdp.loaded_texture[0].full_image_line_size_bytes = rdp.texture_tile[tile].line_size_bytes;
-        rdp.loaded_texture[0].full_size_bytes = rdp.loaded_texture[0].full_image_line_size_bytes * rdp.texture_tile[tile].height;
-        rdp.loaded_texture[0].size_bytes = rdp.loaded_texture[0].line_size_bytes * rdp.texture_tile[tile].height;
-        rdp.loaded_texture[0].orig_size_bytes = rdp.loaded_texture[0].size_bytes;
-        rdp.loaded_texture[0].addr = rdp.texture_to_load.addr;
+        rdp.loaded_texture[tmem_index].line_size_bytes = rdp.texture_tile[tile].width << siz >> 1;
+        rdp.loaded_texture[tmem_index].full_image_line_size_bytes = rdp.texture_tile[tile].line_size_bytes;
+        rdp.loaded_texture[tmem_index].full_size_bytes = rdp.loaded_texture[tmem_index].full_image_line_size_bytes * rdp.texture_tile[tile].height;
+        rdp.loaded_texture[tmem_index].size_bytes = rdp.loaded_texture[tmem_index].line_size_bytes * rdp.texture_tile[tile].height;
+        rdp.loaded_texture[tmem_index].orig_size_bytes = rdp.loaded_texture[tmem_index].size_bytes;
+        rdp.loaded_texture[tmem_index].addr = rdp.texture_to_load.addr;
     }
 
     const RawTexMetadata* metadata = &rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].raw_tex_metadata;
@@ -1648,20 +1648,16 @@ static void gfx_calc_and_set_viewport(const Vp_t* viewport) {
 }
 
 static void gfx_sp_movemem(uint8_t index, uint8_t offset, const void* data) {
-    const Light *lookat;
     switch (index) {
         case G_MV_VIEWPORT:
             gfx_calc_and_set_viewport((const Vp_t*)data);
             break;
         case G_MV_LOOKATY:
         case G_MV_LOOKATX:
-            // this is only really used for guLookAtReflect
+            // I think this is only really used for guLookAtReflect
             index = (index - G_MV_LOOKATY) / 2;
-            lookat = (const Light *)data;
-            rsp.current_lookat_coeffs[index][0] = (float)lookat->l.dir[0] / 127.f;
-            rsp.current_lookat_coeffs[index][1] = (float)lookat->l.dir[1] / 127.f;
-            rsp.current_lookat_coeffs[index][2] = (float)lookat->l.dir[2] / 127.f;
-            rsp.lights_changed = 1;
+            rsp.lookat[!index] = ((const Light *)data)->l;
+            rsp.lights_changed = true;
             break;
 #ifdef F3DEX_GBI_2
         case G_MV_LIGHT: {
