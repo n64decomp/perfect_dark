@@ -1211,7 +1211,7 @@ void preprocessModelFile(u8 *data, u32 size)
 
 void preprocessGunFile(u8 *data, u32 size)
 {
-	preprocessModel(data, size);
+	preprocessModel(data, 0x5000000);
 }
 
 void preprocessBgSection1Header(u8 *data, u32 size)
