@@ -466,12 +466,14 @@ char *menuResolveText(uintptr_t thing, void *dialogoritem)
 		return langGet((u32)thing);
 	}
 
+#ifdef PLATFORM_N64 // unreliable otherwise, the above check should be enough?
 	if (thing > (uintptr_t)func0f1a78b0) {
 #if VERSION < VERSION_NTSC_1_0
 		CRASH();
 #endif
 		return NULL;
 	}
+#endif
 
 	// Function pointer
 	if (handler) {

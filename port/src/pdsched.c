@@ -266,10 +266,18 @@ void schedEndFrame(OSSched *sc)
 	}
 
 	inputUpdate();
-	joysHandleRetrace();
+
+	joyStartReadData(&g_PiMesgQueue);
+	joyReadData();
+	joy00014238();
+
 	sndHandleRetrace();
 	schedRenderCrashPeriodically(sc->frameCount);
 	videoEndFrame();
+
+	if (g_MainIsBooting == 0) {
+		schedConsiderScreenshot();
+	}
 
 	// check for vid mode changes
 	__scUpdateViMode();
@@ -374,5 +382,16 @@ void schedUpdatePendingArtifacts(void)
 
 void schedConsiderScreenshot(void)
 {
+	if (g_MenuData.screenshottimer == 1) {
+		// TODO
+		// if (IS8MB()) {
+		// 	menugfxCreateBlur();
+		// }
 
+		g_MenuData.screenshottimer = 0;
+	}
+
+	if (g_MenuData.screenshottimer >= 2) {
+		g_MenuData.screenshottimer--;
+	}
 }

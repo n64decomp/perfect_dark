@@ -124,7 +124,10 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	s32 height;
 #endif
 
-	if (IS4MB()) {
+#ifdef PLATFORM_N64 // TODO
+	if (IS4MB())
+#endif
+	{
 		return menugfxRenderGradient(gdl, 0, 0, viGetWidth(), viGetHeight(), 0xff, 0xff, 0xff);
 	}
 

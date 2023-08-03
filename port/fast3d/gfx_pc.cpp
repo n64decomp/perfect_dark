@@ -58,7 +58,7 @@ using namespace std;
 #define MAX_BUFFERED 256
 // #define MAX_LIGHTS 2
 #define MAX_LIGHTS 32
-#define MAX_VERTICES 250
+#define MAX_VERTICES 240
 #define MAX_VERTEX_COLORS 64
 
 #define TEXTURE_CACHE_MAX_SIZE 1024
@@ -730,7 +730,7 @@ static void import_texture_i8(int tile, bool importReplacement) {
     // SUPPORT_CHECK(full_image_line_size_bytes == line_size_bytes);
 
     for (uint32_t i = 0; i < size_bytes; i++) {
-        uint8_t intensity = addr[i];
+        const uint8_t intensity = addr[i];
         tex_upload_buffer[4 * i + 0] = intensity;
         tex_upload_buffer[4 * i + 1] = intensity;
         tex_upload_buffer[4 * i + 2] = intensity;
@@ -861,7 +861,8 @@ static void import_texture(int i, int tile, bool importReplacement) {
         } else if (siz == G_IM_SIZ_32b) {
             import_texture_rgba32(tile, importReplacement);
         } else {
-            abort();
+            // abort(); // OTRTODO: Sometimes, seemingly randomly, we end up here. Could be a bad dlist, could be
+            // something F3D does not have supported. Further investigation is needed.
         }
     } else if (fmt == G_IM_FMT_IA) {
         if (siz == G_IM_SIZ_4b) {
