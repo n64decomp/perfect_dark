@@ -1022,9 +1022,9 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 		case (u8) G_TRI1:
 			if (animated) {
 				if (s5->texture.cmd == (u8) G_TRI1) {
-					sp90[s5->tri.tri.v[0] / 10] = 1;
-					sp90[s5->tri.tri.v[1] / 10] = 1;
-					sp90[s5->tri.tri.v[2] / 10] = 1;
+					sp90[s5->tri.tri.v[GFX_TRI_VTX(0)] / 10] = 1;
+					sp90[s5->tri.tri.v[GFX_TRI_VTX(1)] / 10] = 1;
+					sp90[s5->tri.tri.v[GFX_TRI_VTX(2)] / 10] = 1;
 				} else {
 					Gfx *tmp = s5;
 

@@ -1029,9 +1029,20 @@ typedef union {
  * Triangle face
  */
 typedef struct {
+#ifdef PLATFORM_BIG_ENDIAN
 	unsigned char flag;
 	unsigned char v[3];
+#else
+	unsigned char v[3]; // reverse order
+	unsigned char flag;
+#endif
 } Tri;
+
+#ifdef PLATFORM_BIG_ENDIAN
+#define GFX_TRI_VTX(i) (i)
+#else
+#define GFX_TRI_VTX(i) (2 - i)
+#endif
 
 /*
  * 4x4 matrix, fixed point s15.16 format.
@@ -1308,12 +1319,18 @@ typedef struct {
  * Graphics Immediate Mode Packet types
  */
 typedef struct {
+#ifdef PLATFORM_BIG_ENDIAN
 	int cmd:8;
 	int pad:24;
+#else
+    int pad:24;
+    int cmd:8;
+#endif
 	Tri tri;
 } Gtri;
 
 typedef struct {
+#ifdef PLATFORM_BIG_ENDIAN
 	unsigned char cmd:8;
 	unsigned char pad:8;
 	unsigned char z4:4;
@@ -1328,6 +1345,22 @@ typedef struct {
 	unsigned char x2:4;
 	unsigned char y1:4;
 	unsigned char x1:4;
+#else
+	unsigned char z1:4;
+	unsigned char z2:4;
+	unsigned char z3:4;
+	unsigned char z4:4;
+	unsigned char pad:8;
+	unsigned char cmd:8;
+	unsigned char x1:4;
+	unsigned char y1:4;
+	unsigned char x2:4;
+	unsigned char y2:4;
+	unsigned char x3:4;
+	unsigned char y3:4;
+	unsigned char x4:4;
+	unsigned char y4:4;
+#endif
 } Gtri4;
 
 typedef struct {

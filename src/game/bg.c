@@ -725,9 +725,9 @@ Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
 			}
 		} else if (readgdl[0] == G_TRI1) {
 			Gfx *cmd = (Gfx *) readgdl;
-			s16 x = cmd->tri.tri.v[0] / 10;
-			s16 y = cmd->tri.tri.v[1] / 10;
-			s16 z = cmd->tri.tri.v[2] / 10;
+			s16 x = cmd->tri.tri.v[GFX_TRI_VTX(0)] / 10;
+			s16 y = cmd->tri.tri.v[GFX_TRI_VTX(1)] / 10;
+			s16 z = cmd->tri.tri.v[GFX_TRI_VTX(2)] / 10;
 
 			gdl = bgProcessXrayTri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
 		} else if (readgdl[0] == G_TRI4) {
@@ -3714,9 +3714,9 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 			if (gdl->dma.cmd == G_TRI1) {
 				trisremaining = 0;
 				triref = 0;
-				points[0] = gdl->tri.tri.v[0] / 10;
-				points[1] = gdl->tri.tri.v[1] / 10;
-				points[2] = gdl->tri.tri.v[2] / 10;
+				points[0] = gdl->tri.tri.v[GFX_TRI_VTX(0)] / 10;
+				points[1] = gdl->tri.tri.v[GFX_TRI_VTX(1)] / 10;
+				points[2] = gdl->tri.tri.v[GFX_TRI_VTX(2)] / 10;
 			} else if (gdl->dma.cmd == G_TRI4) {
 				tri4gdl = gdl;
 				trisremaining = 3;
@@ -4001,9 +4001,9 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 			if (gdl->dma.cmd == G_TRI1) {
 				i = 0;
 				triref = 0;
-				points[0] = gdl->tri.tri.v[0] / 10;
-				points[1] = gdl->tri.tri.v[1] / 10;
-				points[2] = gdl->tri.tri.v[2] / 10;
+				points[0] = gdl->tri.tri.v[GFX_TRI_VTX(0)] / 10;
+				points[1] = gdl->tri.tri.v[GFX_TRI_VTX(1)] / 10;
+				points[2] = gdl->tri.tri.v[GFX_TRI_VTX(2)] / 10;
 			} else if (gdl->dma.cmd == G_TRI4) {
 				tri4gdl = gdl;
 				i = 3;
@@ -4199,9 +4199,9 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 		if (iter->dma.cmd == G_TRI1) {
 			trisremaining = 0;
 			triref = 0;
-			points[0] = iter->tri.tri.v[0] / 10;
-			points[1] = iter->tri.tri.v[1] / 10;
-			points[2] = iter->tri.tri.v[2] / 10;
+			points[0] = iter->tri.tri.v[GFX_TRI_VTX(0)] / 10;
+			points[1] = iter->tri.tri.v[GFX_TRI_VTX(1)] / 10;
+			points[2] = iter->tri.tri.v[GFX_TRI_VTX(2)] / 10;
 		} else if (iter->dma.cmd == G_TRI4) {
 			tri4gdl = iter;
 			trisremaining = 3;
