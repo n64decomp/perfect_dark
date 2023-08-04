@@ -307,17 +307,17 @@ void creditsChooseBgColours(Vtx *vertices, Col *colours, s32 confignum, s32 alph
 	weightfrac = (iVar1 % 60) / 60.0f;
 	weight = 255.0f * weightfrac;
 
-	colours[0].word = colourBlend(
+	colours[0].word = PD_BE32(colourBlend(
 			g_CreditsBgConfigs[confignum].colours[colour2index][0] << 8,
-			g_CreditsBgConfigs[confignum].colours[colour1index][0] << 8, weight) | alpha;
+			g_CreditsBgConfigs[confignum].colours[colour1index][0] << 8, weight) | alpha);
 
-	colours[1].word = colourBlend(
+	colours[1].word = PD_BE32(colourBlend(
 			g_CreditsBgConfigs[confignum].colours[colour2index][1] << 8,
-			g_CreditsBgConfigs[confignum].colours[colour1index][1] << 8, weight) | alpha;
+			g_CreditsBgConfigs[confignum].colours[colour1index][1] << 8, weight) | alpha);
 
-	colours[2].word = colourBlend(
+	colours[2].word = PD_BE32(colourBlend(
 			g_CreditsBgConfigs[confignum].colours[colour2index][2] << 8,
-			g_CreditsBgConfigs[confignum].colours[colour1index][2] << 8, weight) | alpha;
+			g_CreditsBgConfigs[confignum].colours[colour1index][2] << 8, weight) | alpha);
 }
 
 struct creditsbgtype {
@@ -883,7 +883,7 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 		}
 
 		for (j = 0; j < 15; j++) {
-			colours[i + j * 4].word = (colour & 0xffffff00) | ((colour & 0xff) * (15 - j) / 15);
+			colours[i + j * 4].word = PD_BE32((colour & 0xffffff00) | ((colour & 0xff) * (15 - j) / 15));
 		}
 	}
 

@@ -399,17 +399,17 @@ Gfx *sparksRender(Gfx *gdl)
 					colours = gfxAllocateColours(2);
 
 					if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-						colours[0].word = type->unk1c;
-						colours[1].word = type->unk20;
+						colours[0].word = PD_BE32(type->unk1c);
+						colours[1].word = PD_BE32(type->unk20);
 					} else if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 						v1 = ((u32) (sp13c * 255.0f) << 24) | ((u32) ((1.0f - sp13c) * 255.0f) << 16);
 
 						// @bug? Second part also reads from type->unk1c
-						colours[0].word = v1 | (u32) (sp138 * (f32) (type->unk1c & 0xff)) | 0x3f00;
-						colours[1].word = v1 | (u32) (sp138 * (f32) (type->unk1c & 0xff)) | 0x3f00;
+						colours[0].word = PD_BE32(v1 | (u32) (sp138 * (f32) (type->unk1c & 0xff)) | 0x3f00);
+						colours[1].word = PD_BE32(v1 | (u32) (sp138 * (f32) (type->unk1c & 0xff)) | 0x3f00);
 					} else {
-						colours[0].word = type->unk1c;
-						colours[1].word = type->unk20;
+						colours[0].word = PD_BE32(type->unk1c);
+						colours[1].word = PD_BE32(type->unk20);
 					}
 
 					if (type->unk12 < type->maxage && type->unk12 < group->age) {

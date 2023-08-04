@@ -286,7 +286,7 @@ Gfx *bgRenderXrayData(Gfx *gdl, struct xraydata *xraydata)
 			vertices[i].y = xraydata->vertices[i][1];
 			vertices[i].z = xraydata->vertices[i][2];
 			vertices[i].colour = i << 2;
-			colours[i].word = xraydata->colours[i];
+			colours[i].word = PD_BE32(xraydata->colours[i]);
 		}
 
 		count = xraydata->numvertices;

@@ -181,7 +181,7 @@ Gfx *func0f0073ac(Gfx *gdl, struct coord *pos, f32 arg2)
 
 	colours = gfxAllocateColours(1);
 
-	colours[0].word = 0xff00007f;
+	colours[0].word = PD_BE32(0xff00007f);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
@@ -377,8 +377,8 @@ Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	colour = nbombCalculateAlpha(nbomb);
 
 	colours = gfxAllocateColours(2);
-	colours[0].word = colour;
-	colours[1].word = 0xffffff00;
+	colours[0].word = PD_BE32(colour);
+	colours[1].word = PD_BE32(0xffffff00);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
@@ -885,7 +885,7 @@ Gfx *nbombRenderOverlay(Gfx *gdl)
 		vertices[2].colour = 0;
 		vertices[3].colour = 0;
 
-		colours[0].word = finalalpha;
+		colours[0].word = PD_BE32(finalalpha);
 
 		gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 		gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
@@ -1087,7 +1087,7 @@ Gfx *gasRender(Gfx *gdl)
 
 			alpha = 127.0f * alphafrac;
 
-			colours[0].word = 0x3faf1100 | alpha;
+			colours[0].word = PD_BE32(0x3faf1100 | alpha);
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 			gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);

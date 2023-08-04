@@ -5,7 +5,6 @@
 #include "bss.h"
 #include "data.h"
 #include "types.h"
-#include "platform.h"
 
 void objsStop(void)
 {

@@ -1131,8 +1131,8 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		}
 
 		colours = gfxAllocateColours(2);
-		colours[0].word = raincol1;
-		colours[1].word = raincol2;
+		colours[0].word = PD_BE32(raincol1);
+		colours[1].word = PD_BE32(raincol2);
 
 		gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
@@ -3096,7 +3096,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	for (j = 0; j < numcolours; j++) {
 		u32 alpha = ((numcolours + 1) * 255 - j * 255) / (numcolours + 1);
-		colours[j].word = (snowcol1 & 0xffffff00) | alpha;
+		colours[j].word = PD_BE32((snowcol1 & 0xffffff00) | alpha);
 	}
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), numcolours);

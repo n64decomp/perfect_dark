@@ -211,7 +211,7 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	vertices[2].colour = 0;
 	vertices[3].colour = 0;
 
-	colours[0].word = colour;
+	colours[0].word = PD_BE32(colour);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
@@ -380,10 +380,10 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	vertices[6].colour = 8;
 	vertices[7].colour = 8;
 
-	colours[0].word = 0x00af0000 | alphas[0];
-	colours[1].word = 0xffff0000 | alphas[0];
-	colours[2].word = 0x00af0000 | alphas[1];
-	colours[3].word = 0xffff0000 | alphas[1];
+	colours[0].word = PD_BE32(0x00af0000 | alphas[0]);
+	colours[1].word = PD_BE32(0xffff0000 | alphas[0]);
+	colours[2].word = PD_BE32(0x00af0000 | alphas[1]);
+	colours[3].word = PD_BE32(0xffff0000 | alphas[1]);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 4);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
@@ -449,9 +449,9 @@ Gfx *menugfxDrawDropdownBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	colour1 = text0f1543ac((x1 + x2) / 2, (y2 + y1) / 2, 0xffffffff) & 0xff;
 	colour2 = (text0f1543ac((x1 + x2) / 2, (y2 + y1) / 2, 0xffffff7f) & 0xff) | 0x00006f00;
 
-	colours[0].word = colour1 | 0x00006f00;
-	colours[1].word = colour2;
-	colours[2].word = colour1 | 0x00003f00;
+	colours[0].word = PD_BE32(colour1 | 0x00006f00);
+	colours[1].word = PD_BE32(colour2);
+	colours[2].word = PD_BE32(colour1 | 0x00003f00);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
@@ -529,17 +529,17 @@ Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3
 	alpha2 = text0f1543ac((x1 + x2) / 2, (y1 + y2) / 2, 0xffffff7f) & 0xff;
 #endif
 
-	colours[0].word = 0x00006f00 | alpha1;
-	colours[1].word = 0x00006f00 | alpha2;
+	colours[0].word = PD_BE32(0x00006f00 | alpha1);
+	colours[1].word = PD_BE32(0x00006f00 | alpha2);
 #if VERSION >= VERSION_NTSC_1_0
-	colours[2].word = 0x00003f00 | alpha2;
+	colours[2].word = PD_BE32(0x00003f00 | alpha2);
 #else
-	colours[2].word = 0x00003f00 | alpha1;
+	colours[2].word = PD_BE32(0x00003f00 | alpha1);
 #endif
-	colours[3].word = 0xffffff00;
-	colours[4].word = (0x00006f00 | alpha2) & 0xffffff00;
-	colours[5].word = (0x00003f00 | alpha1) & 0xffffff00;
-	colours[6].word = 0x6f6f6f00 | alpha1;
+	colours[3].word = PD_BE32(0xffffff00);
+	colours[4].word = PD_BE32((0x00006f00 | alpha2) & 0xffffff00);
+	colours[5].word = PD_BE32((0x00003f00 | alpha1) & 0xffffff00);
+	colours[6].word = PD_BE32(0x6f6f6f00 | alpha1);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 7);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 9, 0);
@@ -799,9 +799,9 @@ Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colours
 	vertices[5].y = ymid * 10;
 	vertices[5].colour = 8;
 
-	colours[0].word = colourstart;
-	colours[2].word = colourmid;
-	colours[1].word = colourend;
+	colours[0].word = PD_BE32(colourstart);
+	colours[2].word = PD_BE32(colourmid);
+	colours[1].word = PD_BE32(colourend);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
@@ -858,9 +858,9 @@ Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, 
 	vertices[4].colour = 8;
 	vertices[5].colour = 8;
 
-	colours[0].word = (colour & 0xffffff00) | 0x4f;
-	colours[1].word = 0xffffffff;
-	colours[2].word = 0x0000ff4f;
+	colours[0].word = PD_BE32((colour & 0xffffff00) | 0x4f);
+	colours[1].word = PD_BE32(0xffffffff);
+	colours[2].word = PD_BE32(0x0000ff4f);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 6, 0);
@@ -956,8 +956,8 @@ Gfx *menugfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 
 		vertices[3].colour = 4;
 	}
 
-	colours[0].word = colour1;
-	colours[1].word = colour2;
+	colours[0].word = PD_BE32(colour1);
+	colours[1].word = PD_BE32(colour2);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
@@ -1264,8 +1264,8 @@ Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction,
 	vertices[1].colour = 4;
 	vertices[2].colour = 4;
 
-	colours[0].word = colour1;
-	colours[1].word = colour2;
+	colours[0].word = PD_BE32(colour1);
+	colours[1].word = PD_BE32(colour2);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 3, 0);
@@ -1358,8 +1358,8 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u
 	vertices[2].colour = 4;
 	vertices[3].colour = 4;
 
-	colours[0].word = colour1;
-	colours[1].word = colour2;
+	colours[0].word = PD_BE32(colour1);
+	colours[1].word = PD_BE32(colour2);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
@@ -1856,50 +1856,50 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 
 	if (gray) {
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[0].word = 0xffffff00 | ((5 - j) * 127u / 5);
+			ptr[0].word = PD_BE32(0xffffff00 | ((5 - j) * 127u / 5));
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[1].word = 0xaaaaaa00 | ((5 - j) * 16u / 5);
+			ptr[1].word = PD_BE32(0xaaaaaa00 | ((5 - j) * 16u / 5));
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[2].word = 0xffffff00 | ((5 - j) * 127u / 5);
+			ptr[2].word = PD_BE32(0xffffff00 | ((5 - j) * 127u / 5));
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[3].word = 0xaaaaaa00 | ((5 - j) * 16u / 5);
+			ptr[3].word = PD_BE32(0xaaaaaa00 | ((5 - j) * 16u / 5));
 			ptr += 4;
 			j++;
 		}
 	} else {
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[0].word = 0xffffff00 | ((5 - j) * 127u / 5);
+			ptr[0].word = PD_BE32(0xffffff00 | ((5 - j) * 127u / 5));
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[1].word = 0xaaaaff00 | ((5 - j) * 16u / 5);
+			ptr[1].word = PD_BE32(0xaaaaff00 | ((5 - j) * 16u / 5));
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
-			ptr[2].word = 0xffffff00 | ((5 - j) * 127u / 5);
+			ptr[2].word = PD_BE32(0xffffff00 | ((5 - j) * 127u / 5));
 			ptr += 4;
 			j++;
 		}
 
 		for (j = 0, ptr = colours; j < 5;) {
 			if (colours);
-			ptr[3].word = 0xffaaff00 | ((5 - j) * 16u / 5);
+			ptr[3].word = PD_BE32(0xffaaff00 | ((5 - j) * 16u / 5));
 			ptr += 4;
 			j++;
 		}

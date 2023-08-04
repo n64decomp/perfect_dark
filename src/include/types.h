@@ -8,6 +8,9 @@
 #include "pads.h"
 #include "tiles.h"
 #include "gbi.h"
+#ifndef PLATFORM_N64
+#include "platform.h"
+#endif
 
 #define bool s32
 #define ubool u32

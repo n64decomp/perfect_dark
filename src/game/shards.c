@@ -148,21 +148,21 @@ void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
 		s32 rand = random() % 100;
 
 		if (rand < 20) {
-			g_Shards[g_NextShardNum].colours[0].word = 0xbbbbbbf0;
-			g_Shards[g_NextShardNum].colours[1].word = 0xaaaaaaf0;
-			g_Shards[g_NextShardNum].colours[2].word = 0x777777f0;
+			g_Shards[g_NextShardNum].colours[0].word = PD_BE32(0xbbbbbbf0);
+			g_Shards[g_NextShardNum].colours[1].word = PD_BE32(0xaaaaaaf0);
+			g_Shards[g_NextShardNum].colours[2].word = PD_BE32(0x777777f0);
 		} else if (rand < 40) {
-			g_Shards[g_NextShardNum].colours[0].word = 0x000000f0;
-			g_Shards[g_NextShardNum].colours[1].word = 0x000000f0;
-			g_Shards[g_NextShardNum].colours[2].word = 0x000000f0;
+			g_Shards[g_NextShardNum].colours[0].word = PD_BE32(0x000000f0);
+			g_Shards[g_NextShardNum].colours[1].word = PD_BE32(0x000000f0);
+			g_Shards[g_NextShardNum].colours[2].word = PD_BE32(0x000000f0);
 		} else if (rand < 60) {
-			g_Shards[g_NextShardNum].colours[0].word = 0x553311f0;
-			g_Shards[g_NextShardNum].colours[1].word = 0x553311f0;
-			g_Shards[g_NextShardNum].colours[2].word = 0x553311f0;
+			g_Shards[g_NextShardNum].colours[0].word = PD_BE32(0x553311f0);
+			g_Shards[g_NextShardNum].colours[1].word = PD_BE32(0x553311f0);
+			g_Shards[g_NextShardNum].colours[2].word = PD_BE32(0x553311f0);
 		} else {
-			g_Shards[g_NextShardNum].colours[0].word = 0xddaa88f0;
-			g_Shards[g_NextShardNum].colours[1].word = 0xddaa88f0;
-			g_Shards[g_NextShardNum].colours[2].word = 0xddaa88f0;
+			g_Shards[g_NextShardNum].colours[0].word = PD_BE32(0xddaa88f0);
+			g_Shards[g_NextShardNum].colours[1].word = PD_BE32(0xddaa88f0);
+			g_Shards[g_NextShardNum].colours[2].word = PD_BE32(0xddaa88f0);
 		}
 	} else {
 		s32 i;

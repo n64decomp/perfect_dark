@@ -225,8 +225,8 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 		return gdl;
 	}
 
-	colours[0].word = headcolour;
-	colours[1].word = tailcolour;
+	colours[0].word = PD_BE32(headcolour);
+	colours[1].word = PD_BE32(tailcolour);
 
 	spd0.f[0] = (spe4.f[1] * (campos->f[2] - (headpos->f[2] + length * spe4.f[2]))) - (spe4.f[2] * (campos->f[1] - (headpos->f[1] + length * spe4.f[1])));
 	spd0.f[1] = (spe4.f[2] * (campos->f[0] - (headpos->f[0] + length * spe4.f[0]))) - (spe4.f[0] * (campos->f[2] - (headpos->f[2] + length * spe4.f[2])));
@@ -347,7 +347,7 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 		}
 
 		if (beam->weaponnum == -1 || beam->weaponnum == WEAPON_CYCLONE) {
-			colours[0].word = 0xffffff7f;
+			colours[0].word = PD_BE32(0xffffff7f);
 		} else {
 			colours[0].word = 0xffffffff;
 		}
@@ -1119,8 +1119,8 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 
 			colours = gfxAllocateColours(2);
 
-			colours[0].word = 0xff00005f;
-			colours[1].word = 0xff00000f;
+			colours[0].word = PD_BE32(0xff00005f);
+			colours[1].word = PD_BE32(0xff00000f);
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
@@ -1336,8 +1336,8 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 
 			colours = gfxAllocateColours(2);
 
-			colours[0].word = 0xff00005f;
-			colours[1].word = 0xff00000f;
+			colours[0].word = PD_BE32(0xff00005f);
+			colours[1].word = PD_BE32(0xff00000f);
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 

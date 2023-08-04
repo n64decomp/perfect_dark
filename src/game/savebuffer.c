@@ -361,8 +361,8 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 		vertices[3].colour = 4;
 	}
 
-	colours[0].word = colour1;
-	colours[1].word = colour2;
+	colours[0].word = PD_BE32(colour1);
+	colours[1].word = PD_BE32(colour2);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);

@@ -949,8 +949,8 @@ Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
 
 #define RGBA(r, g, b, a) (((r) & 0xff) << 24 | ((g) & 0xff) << 16 | ((b) & 0xff) << 8 | ((a) & 0xff))
 
-	colours[0].word = colour;
-	colours[1].word = RGBA((colour >> 24) & 0xff, (colour >> 16) & 0xff, (colour >> 8) & 0xff, 0x08);
+	colours[0].word = PD_BE32(colour);
+	colours[1].word = PD_BE32(RGBA((colour >> 24) & 0xff, (colour >> 16) & 0xff, (colour >> 8) & 0xff, 0x08));
 
 	vertices[0].colour = 0;
 	vertices[1].colour = 4;
@@ -1351,8 +1351,8 @@ Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 	vertices[7].y = inner[2] * 10;
 	vertices[7].z = -10;
 
-	colours[0].word = 0x00ff000f;
-	colours[1].word = hasprop ? colour : 0x00ff0044;
+	colours[0].word = PD_BE32(0x00ff000f);
+	colours[1].word = PD_BE32(hasprop ? colour : 0x00ff0044);
 
 	vertices[0].colour = 0;
 	vertices[1].colour = 0;
