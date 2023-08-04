@@ -128,17 +128,17 @@ ifneq (,$(findstring windows,$(TARGET_PLATFORM)))
   TOOLCHAIN := $(TOOLCHAIN_ARCH)-w64-mingw32
   TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
   TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lz -lopengl32
-  # HACKHACKHACK: big one, done to avoid possible collisions with segmented addresses
-  # by default windows places imagebase for 32-bit EXEs at 0x00400000, so it could easily overflow 0x01000000
-  # proper solution required instead of this bullshit, like patching all segmented pointers to have the LSB set
+  # setting --image-base=0x10000000 on windows usually leads to the cheeky fucker placing the heap
+  # behind the image, which is almost guaranteed to trip the segment check
   TARGET_CFLAGS += -fno-pie
-  TARGET_LDFLAGS += -Wl,-no-pie -Wl,--image-base=0x12000000
+  TARGET_LDFLAGS += -Wl,-no-pie
 else # TODO
   TOOLCHAIN := $(TOOLCHAIN_ARCH)-linux-gnu
   TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
   TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lGL -lz
-  # HACKHACKHACK: see above
+  # HACKHACKHACK: big one, done to avoid possible collisions with segmented addresses
   # I think 32-bit Linux USUALLY places imagebase at 0x08000000-ish, so it's already in rsp seg territory
+  # proper solution required instead of this bullshit, like patching all segmented pointers to have the LSB set
   TARGET_CFLAGS += -fno-pie
   TARGET_LDFLAGS += -Wl,-no-pie -Wl,--section-start=.text=0x10000000
 endif
