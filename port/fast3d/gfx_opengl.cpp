@@ -763,6 +763,10 @@ static void gfx_opengl_set_depth_test_and_mask(bool depth_test, bool z_upd) {
     }
 }
 
+static void gfx_opengl_set_depth_range(float znear, float zfar) {
+    glDepthRange(znear, zfar);
+}
+
 static void gfx_opengl_set_zmode_decal(bool zmode_decal) {
     if (zmode_decal) {
         glPolygonOffset(-2, -2);
@@ -1000,6 +1004,7 @@ struct GfxRenderingAPI gfx_opengl_api = {
     gfx_opengl_upload_texture,
     gfx_opengl_set_sampler_parameters,
     gfx_opengl_set_depth_test_and_mask,
+    gfx_opengl_set_depth_range,
     gfx_opengl_set_zmode_decal,
     gfx_opengl_set_viewport,
     gfx_opengl_set_scissor,

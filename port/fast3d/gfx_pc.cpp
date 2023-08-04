@@ -123,6 +123,8 @@ static struct RSP {
 
     uint32_t extra_geometry_mode;
 
+    float depth_zfar;
+
     struct {
         // U0.16
         uint16_t s, t;
@@ -192,6 +194,7 @@ static struct RDP {
 
 static struct RenderingState {
     uint8_t depth_test_and_mask; // 1: depth test, 2: depth mask
+    float depth_zfar;
     bool decal_mode;
     bool alpha_blend;
     struct XYWidthHeight viewport, scissor;
@@ -1207,6 +1210,11 @@ static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bo
         gfx_rapi->set_depth_test_and_mask(depth_test, depth_mask);
         rendering_state.depth_test_and_mask = depth_test_and_mask;
     }
+    if (rsp.depth_zfar != rendering_state.depth_zfar) {
+        gfx_flush();
+        gfx_rapi->set_depth_range(0.0f, rsp.depth_zfar);
+        rendering_state.depth_zfar = rsp.depth_zfar;
+    }
 
     bool zmode_decal = (rdp.other_mode_l & ZMODE_DEC) == ZMODE_DEC;
     if (zmode_decal != rendering_state.decal_mode) {
@@ -1705,6 +1713,18 @@ static void gfx_sp_moveword(uint8_t index, uint16_t offset, uintptr_t data) {
             break;
         case G_MW_SEGMENT:
             segmentPointers[(offset >> 2) & 0xff] = data;
+            break;
+        case G_MW_PERSPNORM:
+            // the default z range is around [100, 10000]
+            // data is 2 / (znear + zfar) represented as a 0.16 fixed point
+            // => (znear + zfar) = (2 / (data / 65536)) = 131072 / data
+            constexpr float full_range_mul = 1.f / 11000.f; // that's around the biggest value I got when testing
+            if (data == 0) {
+                rsp.depth_zfar = 1.f;
+            } else {
+                // sometimes this will overshoot 1 but GL can handle that
+                rsp.depth_zfar =((131072.f * full_range_mul) / (float)data);
+            }
             break;
     }
 }
@@ -2515,6 +2535,8 @@ extern "C" void gfx_init(struct GfxWindowManagerAPI* wapi, struct GfxRenderingAP
         int max_tex_size = min(8192, gfx_rapi->get_max_texture_size());
         tex_upload_buffer = (uint8_t*)malloc(max_tex_size * max_tex_size * 4);
     }
+
+    rsp.depth_zfar = 1.0f;
 }
 
 extern "C" void gfx_destroy(void) {
