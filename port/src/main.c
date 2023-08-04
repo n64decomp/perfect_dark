@@ -13,9 +13,6 @@
 #include "romdata.h"
 #include "system.h"
 
-#define WIN32_LEAN_AND_MEAN 1
-#include <windows.h>
-
 u32 g_OsMemSize = 0;
 u8 g_Is4Mb = 0;
 s8 g_Resetting = false;
@@ -73,7 +70,6 @@ int main(int argc, const char **argv)
 
 	printf("memp heap at %p - %p\n", g_MempHeap, g_MempHeap + g_MempHeapSize);
 	printf("rom  file at %p - %p\n", g_RomFile, g_RomFile + g_RomFileSize);
-	printf("exe  data at %p\n", GetModuleHandleA(NULL));
 
 	mainProc();
 
