@@ -1,5 +1,5 @@
 #include <PR/ultratypes.h>
-#include <PR/sched.h>
+#include <PR/ultrasched.h>
 #include "lib/boot.h"
 #include "lib/sched.h"
 #include "constants.h"

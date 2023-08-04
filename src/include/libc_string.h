@@ -58,6 +58,7 @@ extern size_t strlen(const char *);
 
 #else
 
+#include <stddef.h>
 #include_next <string.h>
 
 #endif

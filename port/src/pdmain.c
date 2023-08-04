@@ -2,7 +2,7 @@
 #include <assert.h>
 
 #include <ultra64.h>
-#include <PR/sched.h>
+#include <PR/ultrasched.h>
 #include "lib/sched.h"
 #include "lib/vars.h"
 #include "constants.h"

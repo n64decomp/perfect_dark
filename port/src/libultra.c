@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdint.h>
 #include <string.h>
 #include <PR/os_internal.h>
 #include <PR/rcp.h>
@@ -425,21 +426,21 @@ OSIntMask osSetIntMask(OSIntMask mask)
 /* libc compatibility wrappers */
 
 #ifndef HAVE_BZERO
-void bzero(void *ptr, s32 size)
+void bzero(void *ptr, size_t size)
 {
 	memset(ptr, 0, size);
 }
 #endif
 
 #ifndef HAVE_BCOPY
-void bcopy(const void *src, void *dst, s32 n)
+void bcopy(const void *src, void *dst, size_t n)
 {
 	memcpy(dst, src, n);
 }
 #endif
 
 #ifndef HAVE_BCMP
-s32 bcmp(const void *s1, const void *s2, s32 n)
+s32 bcmp(const void *s1, const void *s2, size_t n)
 {
 	return memcmp(s1, s2, n);
 }

@@ -56,38 +56,38 @@ DEBUG = 0
 
 # Detect host platform if not specified.
 ifeq ($(HOST_PLATFORM),)
-	ifeq ($(OS),Windows_NT)
-		# assume msys for now
-		UNAME_OS := $(shell uname -s)
-		ifneq (,$(findstring MINGW64,$(UNAME_OS)))
-			HOST_PLATFORM := x86_64-windows
-		else
-			HOST_PLATFORM := i686-windows
-		endif
-	else # TODO
-		UNAME_ARCH := $(shell uname -p)
-		UNAME_OS := $(shell uname -s)
-		UNAME_OS := `echo $(UNAME_OS) | tr A-Z a-z`
-		HOST_PLATFORM := $(UNAME_ARCH)-$(UNAME_OS)
-	endif
+  ifeq ($(OS),Windows_NT)
+    # assume msys for now
+    UNAME_OS := $(shell uname -s)
+    ifneq (,$(findstring MINGW64,$(UNAME_OS)))
+      HOST_PLATFORM := x86_64-windows
+    else
+      HOST_PLATFORM := i686-windows
+    endif
+  else # TODO
+    UNAME_ARCH := $(shell uname -p)
+    UNAME_OS := $(shell uname -s)
+    UNAME_OS := $(shell echo $(UNAME_OS) | tr A-Z a-z)
+    HOST_PLATFORM := $(UNAME_ARCH)-$(UNAME_OS)
+  endif
 endif
 
 $(info Host platform: $(HOST_PLATFORM))
 
 # Set target platform to host platform if not specified.
 ifeq ($(TARGET_PLATFORM),)
-	TARGET_PLATFORM := $(HOST_PLATFORM)
+  TARGET_PLATFORM := $(HOST_PLATFORM)
 endif
 
 $(info Target platform: $(TARGET_PLATFORM))
 
 # Set whether the target arch is 64- or 32-bit.
 ifneq (,$(findstring 64,$(TARGET_PLATFORM)))
-	# TODO: we're not 64-bit compatible yet
-	$(error 64-bit target platforms are not supported yet.)
-	TARGET_64BIT = 1
+  # TODO: we're not 64-bit compatible yet
+  $(error 64-bit target platforms are not supported yet)
+  TARGET_64BIT = 1
 else # TODO
-	TARGET_64BIT = 0
+  TARGET_64BIT = 0
 endif
 
 # Set whether the target is big-endian or little-endian.
@@ -95,21 +95,21 @@ TARGET_BIG_ENDIAN = 0 # TODO
 
 # The VERSION constant is used in the source to handle version-specific code.
 ifeq ($(ROMID),ntsc-final)
-	VERSION = 2
+  VERSION = 2
 else
-	$(error ROM version $(VERSION) is not supported.)
+  $(error ROM version $(VERSION) is not supported)
 endif
 
 DEFINES := \
-	VERSION=$(VERSION) \
-	MATCHING=0 \
-	PAL=0 \
-	PIRACYCHECKS=0 \
-	ROM_SIZE=$(ROM_SIZE) \
-	_LANGUAGE_C=1
+  VERSION=$(VERSION) \
+  MATCHING=0 \
+  PAL=0 \
+  PIRACYCHECKS=0 \
+  ROM_SIZE=$(ROM_SIZE) \
+  _LANGUAGE_C=1
 
 ifeq ($(DEBUG),1)
-	DEFINES := $(DEFINES) DEBUG=1
+  DEFINES := $(DEFINES) DEBUG=1
 endif
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
@@ -119,19 +119,28 @@ B_DIR := build/$(ROMID)-port
 E_DIR := extracted/$(ROMID)
 
 ifneq (,$(findstring x86_64,$(TARGET_PLATFORM)))
-	TOOLCHAIN_ARCH := x86_64
+  TOOLCHAIN_ARCH := x86_64
 else # TODO
-	TOOLCHAIN_ARCH := i686
+  TOOLCHAIN_ARCH := i686
 endif
 
 ifneq (,$(findstring windows,$(TARGET_PLATFORM)))
-	TOOLCHAIN := $(TOOLCHAIN_ARCH)-w64-mingw32
-	TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lz -lopengl32
-	TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
+  TOOLCHAIN := $(TOOLCHAIN_ARCH)-w64-mingw32
+  TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
+  TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lz -lopengl32
+  # HACKHACKHACK: big one, done to avoid possible collisions with segmented addresses
+  # by default windows places imagebase for 32-bit EXEs at 0x00400000, so it could easily overflow 0x01000000
+  # proper solution required instead of this bullshit, like patching all segmented pointers to have the LSB set
+  TARGET_CFLAGS += -fno-pie
+  TARGET_LDFLAGS += -Wl,-no-pie -Wl,--image-base=0x12000000
 else # TODO
-	TOOLCHAIN := $(TOOLCHAIN_ARCH)-linux-gnu
-	TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lGL -lz
-	TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
+  TOOLCHAIN := $(TOOLCHAIN_ARCH)-linux-gnu
+  TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
+  TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lGL -lz
+  # HACKHACKHACK: see above
+  # I think 32-bit Linux USUALLY places imagebase at 0x08000000-ish, so it's already in rsp seg territory
+  TARGET_CFLAGS += -fno-pie
+  TARGET_LDFLAGS += -Wl,-no-pie -Wl,--section-start=.text=0x10000000
 endif
 
 # These are still used in the port, but only to generate headers.
@@ -141,41 +150,41 @@ TILES_JSON_FILES := $(shell find $(A_DIR) -path '*/tiles/*.json')
 
 C_FILES := $(shell find src/game port -name '*.c')
 C_FILES := $(C_FILES) \
-	$(wildcard src/lib/mp3/*.c) \
-	$(wildcard src/lib/naudio/*.c) \
-	$(wildcard src/lib/ultra/audio/*.c) \
-	$(wildcard src/lib/ultra/gu/*.c) \
-	src/lib/ultra/io/vimodentsclan1.c \
-	src/lib/ultra/io/vimodepallan1.c \
-	src/lib/ultra/io/vimodempallan1.c \
-	src/lib/ultra/io/vitbl.c \
-	$(wildcard src/lib/a*.c) \
-	src/lib/base.c \
-	src/lib/collision.c \
-	src/lib/debughud.c \
-	src/lib/dma.c \
-	src/lib/fault.c \
-	src/lib/joy.c \
-	$(wildcard src/lib/lib_*.c) \
-	src/lib/mema.c \
-	src/lib/memp.c \
-	src/lib/model.c \
-	src/lib/modelasm_c.c \
-	src/lib/mp3.c \
-	src/lib/mtx_c.c \
-	src/lib/mtx.c \
-	src/lib/music.c \
-	src/lib/path.c \
-	src/lib/profile.c \
-	src/lib/rdp.c \
-	src/lib/rmon.c \
-	src/lib/rng_c.c \
-	src/lib/rzip_c.c \
-	src/lib/snd.c \
-	src/lib/speaker.c \
-	src/lib/varsinit.c \
-	src/lib/vi.c \
-	src/textureconfig.c
+  $(wildcard src/lib/mp3/*.c) \
+  $(wildcard src/lib/naudio/*.c) \
+  $(wildcard src/lib/ultra/audio/*.c) \
+  $(wildcard src/lib/ultra/gu/*.c) \
+  src/lib/ultra/io/vimodentsclan1.c \
+  src/lib/ultra/io/vimodepallan1.c \
+  src/lib/ultra/io/vimodempallan1.c \
+  src/lib/ultra/io/vitbl.c \
+  $(wildcard src/lib/a*.c) \
+  src/lib/base.c \
+  src/lib/collision.c \
+  src/lib/debughud.c \
+  src/lib/dma.c \
+  src/lib/fault.c \
+  src/lib/joy.c \
+  $(wildcard src/lib/lib_*.c) \
+  src/lib/mema.c \
+  src/lib/memp.c \
+  src/lib/model.c \
+  src/lib/modelasm_c.c \
+  src/lib/mp3.c \
+  src/lib/mtx_c.c \
+  src/lib/mtx.c \
+  src/lib/music.c \
+  src/lib/path.c \
+  src/lib/profile.c \
+  src/lib/rdp.c \
+  src/lib/rmon.c \
+  src/lib/rng_c.c \
+  src/lib/rzip_c.c \
+  src/lib/snd.c \
+  src/lib/speaker.c \
+  src/lib/varsinit.c \
+  src/lib/vi.c \
+  src/textureconfig.c
 
 CXX_FILES :=$(shell find port -name '*.cpp')
 
@@ -185,39 +194,39 @@ CXX_O_FILES := $(patsubst %.cpp, $(B_DIR)/%.o, $(CXX_FILES))
 O_FILES := $(C_O_FILES) $(CXX_O_FILES)
 
 INCLUDES = \
-	-I include \
-	-I include/PR \
-	-I src/include \
-	-I src/generated/$(ROMID) \
-	-I src/lib/ultra/audio \
-	-I port/include
+  -I include \
+  -I include/PR \
+  -I src/include \
+  -I src/generated/$(ROMID) \
+  -I src/lib/ultra/audio \
+  -I port/include
 
-CC := $(TOOLCHAIN)-gcc -std=gnu11
-CXX := $(TOOLCHAIN)-g++ -std=gnu++20
+CC := $(TOOLCHAIN)-gcc -std=c11
+CXX := $(TOOLCHAIN)-g++ -std=c++20
 ifneq (,$(CXX_O_FILES))
-	LD := $(CXX)
+  LD := $(CXX)
 else
-	LD := $(CC)
+  LD := $(CC)
 endif
 
 $(C_O_FILES): OPT_LVL := $(GCC_OPT_LVL)
 
 COMMON_CFLAGS := $(C_DEFINES) -DAVOID_UB=1 $(INCLUDES) $(TARGET_CFLAGS) -g \
-	-fno-inline-functions \
-	-fno-strict-aliasing \
-	-funsigned-char \
-	-fwrapv \
-	-Wall \
-	-Wno-address \
-	-Wno-aggressive-loop-optimizations \
-	-Wno-int-in-bool-context \
-	-Wno-misleading-indentation \
-	-Wno-missing-braces \
-	-Wno-multichar \
-	-Wno-tautological-compare \
-	-Wno-unused-but-set-variable \
-	-Wno-unused-value \
-	-Wno-unused-variable
+  -fno-inline-functions \
+  -fno-strict-aliasing \
+  -funsigned-char \
+  -fwrapv \
+  -Wall \
+  -Wno-address \
+  -Wno-aggressive-loop-optimizations \
+  -Wno-int-in-bool-context \
+  -Wno-misleading-indentation \
+  -Wno-missing-braces \
+  -Wno-multichar \
+  -Wno-tautological-compare \
+  -Wno-unused-but-set-variable \
+  -Wno-unused-value \
+  -Wno-unused-variable
 
 CFLAGS := $(COMMON_CFLAGS) -Wno-pointer-sign
 CXXFLAGS := $(COMMON_CFLAGS) -Wno-unused-function
@@ -251,4 +260,5 @@ allclean:
 #	rm -rf src/generated
 
 codeclean:
-	find $(B_DIR)/game $(B_DIR)/inflate $(B_DIR)/lib -name '*.o' -delete
+	find $(B_DIR)/game $(B_DIR)/inflate $(B_DIR)/lib $(B_DIR)/port -name '*.o' -delete
+

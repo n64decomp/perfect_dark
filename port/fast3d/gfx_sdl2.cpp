@@ -3,6 +3,9 @@
 #ifdef __MINGW32__
 // mingw has its nanosleep implementation in pthread.h for some reson
 #include <pthread.h>
+#else
+#include <unistd.h>
+#include <time.h>
 #endif
 
 #include "gfx_window_manager_api.h"
