@@ -11,12 +11,10 @@
 #include "data.h"
 #include "types.h"
 
-struct var80075c00 var80075c00[] = {
+struct headanim g_HeadAnims[] = {
 	{ ANIM_002B, 9.5, 27, 0, 0,   1.5 },
 	{ ANIM_0029, 7.5, 17, 0, 1.5, 100 },
 };
-
-struct coord var80075c30 = {0, 0, 0};
 
 void bheadFlipAnimation(void)
 {
@@ -96,7 +94,7 @@ void bheadUpdateRot(struct coord *lookvel, struct coord *upvel)
 	g_Vars.currentplayer->headup.z = g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headdamp);
 }
 
-void bheadSetdamp(f32 headdamp)
+void bheadSetDamp(f32 headdamp)
 {
 	if (headdamp != g_Vars.currentplayer->headdamp) {
 		f32 divisor = 1.0f - headdamp;
@@ -112,7 +110,7 @@ void bheadSetdamp(f32 headdamp)
 
 void bheadUpdate(f32 arg0, f32 arg1)
 {
-	struct coord headpos = var80075c30;
+	struct coord headpos = {0, 0, 0};
 	struct coord lookvel = {0, 0, 1};
 	struct coord upvel = {0, 1, 0};
 	f32 animspeed = 0;
@@ -120,7 +118,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 	if (animHasFrames(g_Vars.currentplayer->model.anim->animnum)) {
 		animspeed = modelGetAbsAnimSpeed(&g_Vars.currentplayer->model);
 
-		if (g_Vars.currentplayer->headanim == 0) {
+		if (g_Vars.currentplayer->headanim == HEADANIM_RESTING) {
 			if (animspeed > 0.69999998807907f) {
 				g_Vars.currentplayer->headamplitude = 1;
 			} else if (animspeed > 0.1f) {
@@ -131,7 +129,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 
 			g_Vars.currentplayer->sideamplitude = g_Vars.currentplayer->headamplitude;
 		} else {
-			if (g_Vars.currentplayer->headanim == 1) {
+			if (g_Vars.currentplayer->headanim == HEADANIM_MOVING) {
 				g_Vars.currentplayer->headamplitude = 0.89999997615814f;
 				g_Vars.currentplayer->sideamplitude = 0.5f;
 			} else {
@@ -197,9 +195,9 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			g_Vars.currentplayer->headwalkingtime60 += g_Vars.lvupdate60;
 
 			if (g_Vars.currentplayer->headwalkingtime60 > TICKS(60)) {
-				bheadSetdamp(PAL ? 0.9785f : 0.982f);
+				bheadSetDamp(PAL ? 0.9785f : 0.982f);
 			} else {
-				bheadSetdamp(PAL ? 0.99699f : 0.99748998880386f);
+				bheadSetDamp(PAL ? 0.99699f : 0.99748998880386f);
 			}
 		} else {
 			lookvel.x = g_Vars.currentplayer->bondheadmatrices[0].m[2][0];
@@ -210,7 +208,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			upvel.y = g_Vars.currentplayer->bondheadmatrices[0].m[1][1];
 			upvel.z = g_Vars.currentplayer->bondheadmatrices[0].m[1][2];
 
-			bheadSetdamp(PAL ? 0.952f : 0.96f);
+			bheadSetDamp(PAL ? 0.952f : 0.96f);
 		}
 	} else {
 		g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
@@ -222,7 +220,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 		headpos.z = 0;
 
 		g_Vars.currentplayer->headwalkingtime60 = 0;
-		bheadSetdamp(PAL ? 0.99699f : 0.99748998880386f);
+		bheadSetDamp(PAL ? 0.99699f : 0.99748998880386f);
 
 		if (bmoveGetCrouchPos() != CROUCHPOS_SQUAT) {
 			g_Vars.currentplayer->standfrac +=
@@ -261,31 +259,31 @@ void bheadAdjustAnimation(f32 speed)
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 	s32 i;
 
-	speed *= var80075c00[1].unk0c;
+	speed *= g_HeadAnims[HEADANIM_MOVING].translateperframe;
 
-	for (i = 0; i < 2; i++) {
-		if (var80075c00[i].unk14 * var80075c00[i].unk0c >= speed) {
-			s32 headanim = g_Vars.currentplayer->headanim;
+	for (i = 0; i < ARRAYCOUNT(g_HeadAnims); i++) {
+		if (g_HeadAnims[i].maxspeed * g_HeadAnims[i].translateperframe >= speed) {
+			s32 prevheadanim = g_Vars.currentplayer->headanim;
 
-			if (i != headanim) {
+			if (i != prevheadanim) {
 				f32 startframe = 0.0f;
 
-				if (headanim >= 0) {
-					startframe = (g_Vars.currentplayer->model.anim->frame - var80075c00[headanim].loopframe)
-						/ (var80075c00[headanim].endframe - var80075c00[headanim].loopframe);
-					startframe = var80075c00[i].loopframe + (var80075c00[i].endframe - var80075c00[i].loopframe) * startframe;
+				if (prevheadanim >= 0) {
+					startframe = (g_Vars.currentplayer->model.anim->frame - g_HeadAnims[prevheadanim].loopframe)
+						/ (g_HeadAnims[prevheadanim].endframe - g_HeadAnims[prevheadanim].loopframe);
+					startframe = g_HeadAnims[i].loopframe + (g_HeadAnims[i].endframe - g_HeadAnims[i].loopframe) * startframe;
 				}
 
-				modelSetAnimation(&g_Vars.currentplayer->model, var80075c00[i].animnum,
+				modelSetAnimation(&g_Vars.currentplayer->model, g_HeadAnims[i].animnum,
 						g_Vars.currentplayer->model.anim->flip, startframe, 0.5f, 12);
-				modelSetAnimLooping(&g_Vars.currentplayer->model, var80075c00[i].loopframe, false);
-				modelSetAnimEndFrame(&g_Vars.currentplayer->model, var80075c00[i].endframe);
+				modelSetAnimLooping(&g_Vars.currentplayer->model, g_HeadAnims[i].loopframe, false);
+				modelSetAnimEndFrame(&g_Vars.currentplayer->model, g_HeadAnims[i].endframe);
 
 				modelSetAnimFlipFunction(&g_Vars.currentplayer->model, bheadFlipAnimation);
 				g_Vars.currentplayer->headanim = i;
 			}
 
-			speed = speed / var80075c00[i].unk0c;
+			speed = speed / g_HeadAnims[i].translateperframe;
 
 			modelSetAnimSpeed(&g_Vars.currentplayer->model, speed * 0.5f, 0);
 			break;
@@ -309,11 +307,11 @@ void bheadSetSpeed(f32 speed)
 f32 bheadGetBreathingValue(void)
 {
 	if (g_Vars.currentplayer->headanim >= 0) {
-		f32 a = g_Vars.currentplayer->bondbreathing * 0.012500001f + 0.004166667f;
+		f32 a = g_Vars.currentplayer->bondbreathing * 0.012500001f + (1.0f / 240.0f);
 		f32 b = modelGetAbsAnimSpeed(&g_Vars.currentplayer->model);
 
 		if (b > 0) {
-			f32 c = b / (var80075c00[g_Vars.currentplayer->headanim].endframe - var80075c00[g_Vars.currentplayer->headanim].loopframe);
+			f32 c = b / (g_HeadAnims[g_Vars.currentplayer->headanim].endframe - g_HeadAnims[g_Vars.currentplayer->headanim].loopframe);
 
 			if (c < a) {
 				c = a;

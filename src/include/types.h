@@ -4810,13 +4810,13 @@ struct animtable {
 	s32 injuryanimcount;
 };
 
-struct var80075c00 {
+struct headanim {
 	s16 animnum;
 	f32 loopframe;
 	f32 endframe;
-	f32 unk0c;
-	f32 unk10;
-	f32 unk14;
+	f32 translateperframe;
+	f32 minspeed;
+	f32 maxspeed;
 };
 
 struct vimode {

@@ -1038,7 +1038,7 @@ void bgrab0f0ce924(void)
 		g_Vars.currentplayer->speedforwards += sp70;
 		g_Vars.currentplayer->speedsideways += sp6c;
 
-		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate60freal;
+		mult = g_HeadAnims[HEADANIM_MOVING].translateperframe * 0.5f * g_Vars.lvupdate60freal;
 		sp88 = mult * g_Vars.currentplayer->speedsideways;
 
 		speedsideways = g_Vars.currentplayer->speedsideways * 0.8f;
@@ -1149,7 +1149,7 @@ void bgrab0f0ce924(void)
 			sp3c = -1.0f;
 		}
 
-		if (g_Vars.currentplayer->headanim == 1) {
+		if (g_Vars.currentplayer->headanim == HEADANIM_MOVING) {
 			breathing *= 1.2f;
 		}
 

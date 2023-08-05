@@ -1543,7 +1543,7 @@ void bwalk0f0c69b8(void)
 			g_Vars.currentplayer->bondbreathing = 1.0f;
 		}
 
-		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate60freal;
+		mult = g_HeadAnims[HEADANIM_MOVING].translateperframe * 0.5f * g_Vars.lvupdate60freal;
 		spe0 = (g_Vars.currentplayer->speedsideways * spc0 + spc4) * mult;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1728,7 +1728,7 @@ void bwalk0f0c69b8(void)
 		sp40 = -1.0f;
 	}
 
-	if (g_Vars.currentplayer->headanim == 1) {
+	if (g_Vars.currentplayer->headanim == HEADANIM_MOVING) {
 		breathing *= 1.2f;
 	}
 

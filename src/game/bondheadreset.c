@@ -39,7 +39,7 @@ void bheadReset(void)
 	modelSetScale(&g_Vars.currentplayer->model, 0.1000000089407f);
 	modelSetAnimPlaySpeed(&g_Vars.currentplayer->model, (PAL ? 1.2f : 1), 0);
 
-	g_Vars.currentplayer->headanim = 0;
+	g_Vars.currentplayer->headanim = HEADANIM_RESTING;
 	g_Vars.currentplayer->headdamp = (PAL ? 0.9166f : 0.93f);
 	g_Vars.currentplayer->headwalkingtime60 = 0;
 	g_Vars.currentplayer->headamplitude = 1;
@@ -87,10 +87,10 @@ void bheadReset(void)
 	g_Vars.currentplayer->standup[1].z = 0;
 	g_Vars.currentplayer->standcnt = 0;
 
-	for (i = 0; i < 2; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_HeadAnims); i++) {
 		s32 translate[3];
-		func0f0125a0(var80075c00[i].animnum, var80075c00[i].loopframe, var80075c00[i].endframe, translate);
-		var80075c00[i].unk0c = (translate[2] * 0.1000000089407f) / (var80075c00[i].endframe - var80075c00[i].loopframe);
+		func0f0125a0(g_HeadAnims[i].animnum, g_HeadAnims[i].loopframe, g_HeadAnims[i].endframe, translate);
+		g_HeadAnims[i].translateperframe = (translate[2] * 0.1000000089407f) / (g_HeadAnims[i].endframe - g_HeadAnims[i].loopframe);
 	}
 
 	{
@@ -112,17 +112,13 @@ void bheadReset(void)
 		g_Vars.currentplayer->standbodyoffset.z = g_Vars.currentplayer->bondheadmatrices[1].m[3][2] - g_Vars.currentplayer->bondheadmatrices[0].m[3][2];
 
 		modelSetAnimation(&g_Vars.currentplayer->model,
-				var80075c00[g_Vars.currentplayer->headanim].animnum,
+				g_HeadAnims[g_Vars.currentplayer->headanim].animnum,
 				0,
-				var80075c00[g_Vars.currentplayer->headanim].loopframe,
+				g_HeadAnims[g_Vars.currentplayer->headanim].loopframe,
 				0.5f, 0);
 
-		modelSetAnimLooping(&g_Vars.currentplayer->model,
-				var80075c00[g_Vars.currentplayer->headanim].loopframe, 0);
-
-		modelSetAnimEndFrame(&g_Vars.currentplayer->model,
-				var80075c00[g_Vars.currentplayer->headanim].endframe);
-
+		modelSetAnimLooping(&g_Vars.currentplayer->model, g_HeadAnims[g_Vars.currentplayer->headanim].loopframe, 0);
+		modelSetAnimEndFrame(&g_Vars.currentplayer->model, g_HeadAnims[g_Vars.currentplayer->headanim].endframe);
 		modelSetAnimFlipFunction(&g_Vars.currentplayer->model, bheadFlipAnimation);
 
 		bheadUpdateIdleRoll();

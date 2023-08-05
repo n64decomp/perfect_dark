@@ -640,8 +640,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 			bmove0f0cb904(&chr->aibot->shotspeed);
 
-			arg2->x += chr->aibot->shotspeed.x * var80075c00[1].unk0c * VAR(lvupdate60freal) * 0.5f;
-			arg2->z += chr->aibot->shotspeed.z * var80075c00[1].unk0c * VAR(lvupdate60freal) * 0.5f;
+			arg2->x += chr->aibot->shotspeed.x * g_HeadAnims[HEADANIM_MOVING].translateperframe * VAR(lvupdate60freal) * 0.5f;
+			arg2->z += chr->aibot->shotspeed.z * g_HeadAnims[HEADANIM_MOVING].translateperframe * VAR(lvupdate60freal) * 0.5f;
 		}
 
 		if (chr->actiontype == ACT_DIE && chr->act_die.timeextra > 0.0f) {

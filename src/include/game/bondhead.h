@@ -10,7 +10,7 @@ void bheadFlipAnimation(void);
 void bheadUpdateIdleRoll(void);
 void bheadUpdatePos(struct coord *vel);
 void bheadUpdateRot(struct coord *lookvel, struct coord *upvel);
-void bheadSetdamp(f32 headdamp);
+void bheadSetDamp(f32 headdamp);
 void bheadUpdate(f32 arg0, f32 arg1);
 void bheadAdjustAnimation(f32 speed);
 void bheadStartDeathAnimation(s16 animnum, u32 flip, f32 fstarttime, f32 speed);

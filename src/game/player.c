@@ -5589,7 +5589,7 @@ void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 sp
 					}
 				} else if (turnspeed < 0.4f
 						|| (chr->prop->type == PROPTYPE_PLAYER
-							&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->headanim == 0)) {
+							&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->headanim == HEADANIM_RESTING)) {
 					turnmode = TURNMODE_STAND_SOFTTURN;
 					speed = 2.0f * turnspeed;
 
