@@ -160,7 +160,11 @@ void gamefileLoadDefaults(struct gamefile *file)
 	optionsSetMusicVolume(0x7f80);
 #endif
 	sndSetSoundMode(SOUNDMODE_STEREO);
+#ifdef PLATFORM_N64
 	optionsSetControlMode(player1, CONTROLMODE_11);
+#else
+	optionsSetControlMode(player1, CONTROLMODE_12);
+#endif
 	optionsSetControlMode(player2, CONTROLMODE_11);
 	pakClearAllBitflags(file->flags);
 
@@ -168,7 +172,11 @@ void gamefileLoadDefaults(struct gamefile *file)
 	pakSetBitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags, AIMCONTROL_HOLD);
 	pakSetBitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, file->flags, true);
+#ifdef PLATFORM_N64
 	pakSetBitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags, true);
+#else
+	pakSetBitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags, false);
+#endif
 	pakSetBitflag(GAMEFILEFLAG_P1_AMMOONSCREEN, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_P1_HEADROLL, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags, true);

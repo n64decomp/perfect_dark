@@ -38,6 +38,9 @@
 #include "lib/anim.h"
 #include "data.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "input.h"
+#endif
 
 void bmoveSetControlDef(u32 controldef)
 {
@@ -571,6 +574,10 @@ void bmoveResetMoveData(struct movedata *data)
 	data->analogpitch = 0;
 	data->analogstrafe = 0;
 	data->analogwalk = 0;
+#ifndef PLATFORM_N64
+	data->freelookdx = 0.0f;
+	data->freelookdy = 0.0f;
+#endif
 }
 
 /**
@@ -688,6 +695,12 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 	movedata.analogpitch = movedata.c1stickysafe;
 	movedata.analogwalk = movedata.c1stickysafe;
 
+#ifndef PLATFORM_N64
+	if ((PLAYERCOUNT() == 1) && inputMouseIsLocked()) {
+		inputMouseGetNormalizedDelta(&movedata.freelookdx, &movedata.freelookdy);
+	}
+#endif
+
 	// Pausing
 	if (g_Vars.currentplayer->isdead == false) {
 		if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && (c1buttonsthisframe & START_BUTTON)) {
@@ -781,6 +794,10 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 					movedata.analogwalk = g_Vars.currentplayer->autocontrol_y;
 					movedata.analogturn = g_Vars.currentplayer->autocontrol_x;
 					movedata.analogpitch = 0;
+#ifndef PLATFORM_N64
+					movedata.freelookdx = 0.0f;
+					movedata.freelookdy = 0.0f;
+#endif
 				}
 
 				if (controlmode == CONTROLMODE_21 || controlmode == CONTROLMODE_22) {
@@ -1155,6 +1172,11 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 						movedata.speedvertaup = 0;
 						movedata.cannaturalturn = !g_Vars.currentplayer->insightaimmode;
 
+#ifndef PLATFORM_N64
+						movedata.cannaturalpitch = movedata.cannaturalpitch || (movedata.freelookdy != 0.0f);
+						movedata.cannaturalturn = movedata.cannaturalturn  || (movedata.freelookdx != 0.0f);
+#endif
+
 						if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
 							movedata.digitalstepforward = (g_Vars.currentplayer->autocontrol_y > 0);
 							movedata.digitalstepback = (g_Vars.currentplayer->autocontrol_y < 0);
@@ -1162,6 +1184,10 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 							movedata.analogwalk = 0;
 							movedata.analogturn = g_Vars.currentplayer->autocontrol_x;
 							movedata.analogpitch = 0;
+#ifndef PLATFORM_N64
+							movedata.freelookdx = 0.0f;
+							movedata.freelookdy = 0.0f;
+#endif
 						}
 					} else {
 						// 1.1 or 1.3
@@ -1200,6 +1226,10 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 							movedata.analogwalk = g_Vars.currentplayer->autocontrol_y;
 							movedata.analogturn = g_Vars.currentplayer->autocontrol_x;
 							movedata.analogpitch = 0;
+#ifndef PLATFORM_N64
+							movedata.freelookdx = 0.0f;
+							movedata.freelookdy = 0.0f;
+#endif
 						}
 					}
 
@@ -1668,6 +1698,12 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 					fVar25 *= -fVar25;
 				}
 
+#ifndef PLATFORM_N64
+				if (movedata.freelookdy) {
+					fVar25 += tmp * movedata.freelookdy;
+				}
+#endif
+
 				g_Vars.currentplayer->speedverta = -fVar25 * tmp;
 			} else if (movedata.speedvertadown > 0) {
 				bmoveUpdateSpeedVerta(movedata.speedvertadown);
@@ -1704,6 +1740,12 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 		} else {
 			fVar25 *= -fVar25;
 		}
+
+#ifndef PLATFORM_N64
+		if (movedata.freelookdx) {
+			fVar25 += tmp * movedata.freelookdx;
+		}
+#endif
 
 		g_Vars.currentplayer->speedthetacontrol = fVar25 * tmp;
 	} else if (movedata.aimturnleftspeed > 0) {

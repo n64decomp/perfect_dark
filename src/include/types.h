@@ -5278,6 +5278,10 @@ struct movedata {
 	/*0xa0*/ s32 analogpitch;
 	/*0xa4*/ s32 analogstrafe;
 	/*0xa8*/ s32 analogwalk;
+#ifndef PLATFORM_N64
+	/*    */ f32 freelookdx; // how much the mouse moved ...
+	/*    */ f32 freelookdy; // ... in normalized window coordinates
+#endif
 };
 
 struct attackanimgroup {

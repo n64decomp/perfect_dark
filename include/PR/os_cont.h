@@ -60,12 +60,6 @@ typedef struct {
 	u16     button;
 	s8      stick_x;		/* -80 <= stick_x <= 80 */
 	s8      stick_y;		/* -80 <= stick_y <= 80 */
-#ifndef PLATFORM_N64	/* for that sick mouselook */
-	s32     mouse_x;
-	s32     mouse_y;
-	s32     mouse_dx;
-	s32     mouse_dy;
-#endif
 	u8	errnum;
 } OSContPad;
 

@@ -96,7 +96,17 @@ void inputRumble(s32 idx, f32 strength, f32 time);
 void inputLockMouse(s32 lock);
 
 // returns the current state of the above
-s32 inputIsMouseLocked(void);
+s32 inputMouseIsLocked(void);
+
+// returns mouse position in window
+void inputMouseGetPosition(s32 *x, s32 *y);
+
+// returns changes in mouse position since last frame
+void inputMouseGetDelta(s32 *dx, s32 *dy);
+
+// returns changes in mouse position since last frame, in normalized window coordinates scaled by sensitivity
+void inputMouseGetNormalizedDelta(f32 *dx, f32 *dy);
+
 
 // call this every frame
 void inputUpdate(void);

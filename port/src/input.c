@@ -3,6 +3,7 @@
 #include <PR/os_thread.h>
 #include <PR/os_cont.h>
 #include "input.h"
+#include "video.h"
 
 #define MAX_BINDS 4
 #define TRIG_THRESHOLD (30 * 256)
@@ -18,23 +19,26 @@ static s32 mouseX, mouseY;
 static s32 mouseDX, mouseDY;
 static u32 mouseButtons;
 
+static f32 mouseSensX = 0.33f;
+static f32 mouseSensY = 0.33f;
+
 void inputSetDefaultKeyBinds(void) {
 	// TODO: make VK constants for all these
 	static const u32 kbbinds[][3] = {
-		{ CK_A,          SDL_SCANCODE_Q,     0                   },
-		{ CK_B,          SDL_SCANCODE_E,     0                   },
-		{ CK_LTRIG,      VK_MOUSE_RIGHT,     SDL_SCANCODE_Z      },
-		{ CK_RTRIG,      VK_MOUSE_X1,        SDL_SCANCODE_X      },
-		{ CK_ZTRIG,      VK_MOUSE_LEFT,      SDL_SCANCODE_SPACE  },
-		{ CK_START,      VK_MOUSE_LEFT,      SDL_SCANCODE_RETURN },
-		{ CK_DPAD_D,     SDL_SCANCODE_DOWN,  0                   },
-		{ CK_DPAD_U,     SDL_SCANCODE_UP,    0                   },
-		{ CK_DPAD_R,     SDL_SCANCODE_RIGHT, 0                   },
-		{ CK_DPAD_L,     SDL_SCANCODE_LEFT,  0                   },
-		{ CK_STICK_XNEG, SDL_SCANCODE_A,     0                   },
-		{ CK_STICK_XPOS, SDL_SCANCODE_D,     0                   },
-		{ CK_STICK_YNEG, SDL_SCANCODE_S,     0                   },
-		{ CK_STICK_YPOS, SDL_SCANCODE_W,     0                   },
+		{ CK_A,          SDL_SCANCODE_Q,      0                   },
+		{ CK_B,          SDL_SCANCODE_E,      0                   },
+		{ CK_RTRIG,      VK_MOUSE_RIGHT,      SDL_SCANCODE_Z      },
+		{ CK_LTRIG,      VK_MOUSE_X1,         SDL_SCANCODE_X      },
+		{ CK_ZTRIG,      VK_MOUSE_LEFT,       SDL_SCANCODE_SPACE  },
+		{ CK_START,      SDL_SCANCODE_RETURN, 0                   },
+		{ CK_DPAD_D,     SDL_SCANCODE_S,      0                   },
+		{ CK_DPAD_U,     SDL_SCANCODE_W,      0                   },
+		{ CK_DPAD_R,     SDL_SCANCODE_D,      0                   },
+		{ CK_DPAD_L,     SDL_SCANCODE_A,      0                   },
+		{ CK_STICK_XNEG, SDL_SCANCODE_LEFT,   0                   },
+		{ CK_STICK_XPOS, SDL_SCANCODE_RIGHT,  0                   },
+		{ CK_STICK_YNEG, SDL_SCANCODE_DOWN,   0                   },
+		{ CK_STICK_YPOS, SDL_SCANCODE_UP,     0                   },
 	};
 
 	static const u32 joybinds[][2] = {
@@ -129,11 +133,6 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 	npad->stick_x = xdiff < 0 ? -0x80 : (xdiff > 0 ? 0x7F : 0);
 	npad->stick_y = ydiff < 0 ? -0x80 : (ydiff > 0 ? 0x7F : 0);
 
-	npad->mouse_x = mouseX;
-	npad->mouse_y = mouseY;
-	npad->mouse_dx = mouseDX;
-	npad->mouse_dy = mouseDY;
-
 	if (!pads[idx]) {
 		return 0;
 	}
@@ -161,16 +160,24 @@ void inputUpdate(void)
 {
 	SDL_GameControllerUpdate();
 
-	int mx, my;
+	s32 mx, my;
 	mouseButtons = SDL_GetMouseState(&mx, &my);
+
 	if (mouseLocked) {
 		SDL_GetRelativeMouseState(&mouseDX, &mouseDY);
 	} else {
 		mouseDX = mx - mouseX;
 		mouseDY = my - mouseY;
 	}
+
 	mouseX = mx;
 	mouseY = my;
+
+	if (!mouseLocked && (mouseButtons & SDL_BUTTON_LMASK)) {
+		inputLockMouse(1);
+	} else if (mouseLocked && inputKeyPressed(VK_ESCAPE)) {
+		inputLockMouse(0);
+	}
 
 	// TODO: handle controller changes
 }
@@ -256,6 +263,23 @@ void inputLockMouse(s32 lock) {
 	SDL_SetRelativeMouseMode(mouseLocked);
 }
 
-s32 inputIsMouseLocked(void) {
+s32 inputMouseIsLocked(void) {
 	return mouseLocked;
+}
+
+void inputMouseGetPosition(s32 *x, s32 *y) {
+	if (x) *x = mouseX;
+	if (y) *y = mouseY;
+}
+
+void inputMouseGetDelta(s32 *dx, s32 *dy) {
+	if (dx) *dx = mouseDX;
+	if (dy) *dy = mouseDY;
+}
+
+void inputMouseGetNormalizedDelta(f32 *dx, f32 *dy) {
+	s32 w, h;
+	SDL_GetWindowSize(videoGetWindowHandle(), &w, &h); 
+	if (dx) *dx = mouseSensX * (float)mouseDX * ((float)w / 480.f) * 0.1f;
+	if (dy) *dy = mouseSensY * (float)mouseDY * ((float)h / 480.f) * 0.1f;
 }
