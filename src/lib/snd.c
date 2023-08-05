@@ -22,6 +22,9 @@
 #include "lib/speaker.h"
 #include "data.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "preprocess.h"
+#endif
 
 struct curmp3 {
 	union soundnumhack sfxref;
@@ -1628,6 +1631,9 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 	dmaExec(zipstart, g_SeqTable->entries[seq->tracknum].romaddr, ziplen);
 
 	ziplen = rzipInflate(zipstart, binstart, scratch);
+#ifndef PLATFORM_N64
+	preprocessALCMidiHdr(binstart, ziplen);
+#endif
 
 #if VERSION < VERSION_NTSC_1_0
 	if (ziplen == 0) {

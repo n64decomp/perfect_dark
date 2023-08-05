@@ -10,6 +10,7 @@ void preprocessMpConfigs(u8 *data, u32 size);
 void preprocessFont(u8 *data, u32 size);
 void preprocessJpnFont(u8 *data, u32 size);
 void preprocessALBankFile(u8 *data, u32 size);
+void preprocessALCMidiHdr(u8 *data, u32 size);
 void preprocessSequences(u8 *data, u32 size);
 void preprocessFiringRange(u8 *data, u32 size);
 void preprocessTexturesList(u8 *data, u32 size);

@@ -48,7 +48,7 @@ static inline u32 swapUnk(u32 x) { assert(0 && "unknown type"); return x; }
 
 static inline void preprocessALWaveTable(ALWaveTable *tbl, u8 *bankBase)
 {
-	if ((uintptr_t)tbl->base < 0x02000000) {
+	if ((uintptr_t)tbl->base < 0x02000000 && tbl->len >= 0) {
 		// already swapped (maybe come up with a better check)
 		return;
 	}
@@ -94,7 +94,7 @@ static inline void preprocessALWaveTable(ALWaveTable *tbl, u8 *bankBase)
 
 static inline void preprocessALSound(ALSound *snd, u8 *bankBase)
 {
-	if ((uintptr_t)snd->wavetable < 0x02000000) {
+	if ((uintptr_t)snd->wavetable < 0x02000000 && (uintptr_t)snd->envelope < 0x02000000 && (uintptr_t)snd->keyMap < 0x02000000) {
 		// already swapped (maybe come up with a better check)
 		return;
 	}
@@ -119,7 +119,7 @@ static inline void preprocessALSound(ALSound *snd, u8 *bankBase)
 
 static inline void preprocessALInstrument(ALInstrument *inst, u8 *bankBase)
 {
-	if ((uintptr_t)inst->soundArray[0] < 0x02000000) {
+	if ((uintptr_t)inst->soundArray[0] < 0x0500000 && inst->bendRange >= 0) {
 		// already swapped (maybe come up with a better check)
 		return;
 	}
@@ -135,7 +135,7 @@ static inline void preprocessALInstrument(ALInstrument *inst, u8 *bankBase)
 
 static inline void preprocessALBank(ALBank *bank, u8 *bankBase)
 {
-	if ((uintptr_t)bank->instArray[0] < 0x02000000) {
+	if ((uintptr_t)bank->sampleRate <= 48000) {
 		// already swapped (maybe come up with a better check)
 		return;
 	}
@@ -912,6 +912,15 @@ void preprocessALBankFile(u8 *data, u32 size)
 	for (s16 i = 0; i < bankf->bankCount; ++i) {
 		PD_SWAP_PTR(bankf->bankArray[i]);
 		preprocessALBank(PD_PTR_BASE(bankf->bankArray[i], data), data);
+	}
+}
+
+void preprocessALCMidiHdr(u8 *data, u32 size)
+{
+	ALCMidiHdr *hdr = (ALCMidiHdr *)data;
+	PD_SWAP_VAL(hdr->division);
+	for (s32 i = 0; i < ARRAYCOUNT(hdr->trackOffset); ++i) {
+		PD_SWAP_VAL(hdr->trackOffset[i]);
 	}
 }
 
