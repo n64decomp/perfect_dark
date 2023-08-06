@@ -265,6 +265,8 @@ typedef short RESAMPLE_STATE[16];
  */
 typedef short ENVMIX_STATE[40];
 
+#ifdef PLATFORM_N64
+
 /*
  * Macros to assemble the audio command list
  */
@@ -401,6 +403,12 @@ typedef short ENVMIX_STATE[40];
 	_a->words.w0 = _SHIFTL(A_LOADADPCM, 24, 8) | _SHIFTL(c, 0, 24);	\
         _a->words.w1 = (unsigned int) d;                                \
 }
+
+#else // PLATFORM_N64
+
+#include "mixer.h"
+
+#endif
 
 #endif /* _LANGUAGE_C */
 

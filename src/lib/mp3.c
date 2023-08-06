@@ -9,6 +9,8 @@
  * These two ABI commands are used in this file, but the format of the data
  * doesn't match the format used by n_audio's ABI.
  */
+#ifdef PLATFORM_N64
+
 #define	acmd07(pkt, a, b)                                    \
 {                                                            \
 	Acmd *_a = (Acmd *)pkt;                                  \
@@ -22,6 +24,15 @@
 	_a->words.w0 = _SHIFTL(0x08, 24, 8); \
 	_a->words.w1 = a;                    \
 }
+
+#else
+
+#include "mixer.h"
+
+#define	acmd07(pkt, a, b) aPlayMP3(pkt, a, b)
+#define	acmd08(pkt, a) do { } while(0)
+
+#endif
 
 struct mp3vars g_Mp3Vars;
 struct asistream *g_AsiStream;

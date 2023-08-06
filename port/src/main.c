@@ -55,12 +55,12 @@ int main(int argc, const char **argv)
 	fsInit();
 	videoInit();
 	inputInit();
+	audioInit();
 	romdataInit();
 
 	bootCreateSched();
 
 	g_OsMemSize = osGetMemSize();
-	g_SndDisabled = true; // for now
 
 	g_MempHeapSize = g_OsMemSize;
 	g_MempHeap = calloc(1, g_MempHeapSize);

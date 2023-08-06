@@ -8,6 +8,7 @@
 #include "system.h"
 #include "input.h"
 #include "video.h"
+#include "audio.h"
 
 #define EEPROM_SIZE (EEP16K_MAXBLOCKS * 8)
 #define EEPROM_FNAME "eeprom.bin"
@@ -165,11 +166,12 @@ s32 osAiSetFrequency(u32 frequency)
 
 u32 osAiGetLength(void)
 {
-	return 0;
+	return audioGetBytesBuffered();
 }
 
 s32 osAiSetNextBuffer(void *bufPtr, u32 size)
 {
+	audioSetNextBuffer(bufPtr, size);
 	return 0;
 }
 

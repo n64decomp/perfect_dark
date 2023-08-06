@@ -1445,7 +1445,11 @@ void sndInit(void)
 
 		g_SndMp3Enabled = false;
 	} else {
+#ifdef PLATFORM_N64
 		g_SndMp3Enabled = true;
+#else
+		g_SndMp3Enabled = false; // TODO
+#endif
 		g_SndMaxFxBusses = 2;
 
 		if (argFindByPrefix(1, "-nomp3")) {

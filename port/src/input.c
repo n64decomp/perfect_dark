@@ -19,8 +19,8 @@ static s32 mouseX, mouseY;
 static s32 mouseDX, mouseDY;
 static u32 mouseButtons;
 
-static f32 mouseSensX = 0.33f;
-static f32 mouseSensY = 0.33f;
+static f32 mouseSensX = 0.25f;
+static f32 mouseSensY = 0.25f;
 
 void inputSetDefaultKeyBinds(void) {
 	// TODO: make VK constants for all these

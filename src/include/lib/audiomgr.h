@@ -16,4 +16,8 @@ void amgrStartThread(void);
 OSMesgQueue *amgrGetFrameMesgQueue(void);
 void amgrStopThread(void);
 
+#ifndef PLATFORM_N64
+void amgrFrame(void);
+#endif
+
 #endif

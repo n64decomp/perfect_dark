@@ -22,7 +22,9 @@
 #include "types.h"
 
 #include "video.h"
+#include "audio.h"
 #include "input.h"
+#include "mixer.h"
 
 /*
  * private typedefs and defines
@@ -220,7 +222,7 @@ void __scUpdateViMode(void)
 void schedSubmitTask(OSSched *sc, OSScTask *t)
 {
 	if (sc->doAudio && t->list.t.type == M_AUDTASK) {
-		// TODO: audio frame
+		// send this into the mixer
 	} else if (t->list.t.type == M_GFXTASK) {
 		videoSubmitCommands((Gfx *)t->list.t.data_ptr);
 	}
@@ -229,6 +231,15 @@ void schedSubmitTask(OSSched *sc, OSScTask *t)
 void schedStartFrame(OSSched *sc)
 {
 	videoStartFrame();
+}
+
+void schedAudioFrame(OSSched *sc)
+{
+	if (!g_SndDisabled)
+	{
+		amgrFrame();
+		audioEndFrame();
+	}
 }
 
 /**
@@ -272,6 +283,7 @@ void schedEndFrame(OSSched *sc)
 	joy00014238();
 
 	sndHandleRetrace();
+	schedAudioFrame(sc);
 	schedRenderCrashPeriodically(sc->frameCount);
 	videoEndFrame();
 

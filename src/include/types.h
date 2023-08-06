@@ -3436,17 +3436,29 @@ struct surfacetype {
 union soundnumhack {
 	s16 packed;
 
+#ifdef PLATFORM_BIG_ENDIAN
 	struct {
 		u16 hasconfig : 1;
 		u16 confignum : 15;
 	};
-
 	struct {
 		u16 hasconfig2 : 1;
 		u16 unk02 : 2;
 		u16 mp3priority : 2;
 		u16 id : 11;
 	};
+#else
+	struct {
+		u16 confignum : 15;
+		u16 hasconfig : 1;
+	};
+	struct {
+		u16 id : 11;
+		u16 mp3priority : 2;
+		u16 unk02 : 2;
+		u16 hasconfig2 : 1;
+	};
+#endif
 };
 
 struct audiorussmapping {

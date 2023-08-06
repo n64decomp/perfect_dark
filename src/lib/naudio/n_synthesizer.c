@@ -143,7 +143,7 @@ Acmd *n_alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen)
 		nOut = MIN(n_syn->maxOutSamples, outLen);
 
 		cmdPtr = cmdlEnd;
-		n_syn->sv_dramout = (intptr_t) lOutBuf;
+		n_syn->sv_dramout = (uintptr_t) lOutBuf;
 
 		cmdlEnd = n_alSavePull(n_syn->curSamples, cmdPtr);
 

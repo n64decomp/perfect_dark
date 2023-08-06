@@ -254,7 +254,11 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 
 	admaBeginFrame();
 
+#ifdef PLATFORM_N64
 	somevalue = IO_READ(OS_PHYSICAL_TO_K1(AI_LEN_REG)) / 4;
+#else
+	somevalue = osAiGetLength() / 4;
+#endif
 	datastart = g_AudioManager.ACMDList[var8005cf90];
 	outbuffer = (s16 *) osVirtualToPhysical(info->data);
 
@@ -307,3 +311,35 @@ void amgrHandleDoneMsg(AudioInfo *info)
 		firsttime = false;
 	}
 }
+
+#ifndef PLATFORM_N64
+void amgrFrame(void)
+{
+	static AudioInfo *prevInfo = NULL;
+	static s32 count = 0;
+
+	var80091588 = osGetTime();
+
+	AudioInfo *next = g_AudioManager.audioInfo[g_AdmaCurFrame % 3];
+	amgrHandleFrameMsg(next, prevInfo);
+	admaReceiveAll();
+
+	prevInfo = next;
+
+	count++;
+
+	var80091590 = osGetTime();
+	var80091570 = var80091590 - var80091588;
+
+	if (count % 240 == 0) {
+		var80091578 = var80091580 / 240;
+		var80091580 = 0; var80091568 = 0;
+	} else {
+		var80091580 = (var80091580 + var80091590) - var80091588;
+	}
+
+	if (var80091568 < var80091590 - var80091588) {
+		var80091568 = var80091590 - var80091588;
+	}
+}
+#endif
