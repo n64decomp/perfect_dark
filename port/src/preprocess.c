@@ -63,23 +63,19 @@ static inline void preprocessALWaveTable(ALWaveTable *tbl, u8 *bankBase)
 			PD_SWAP_VAL(loop->count);
 			PD_SWAP_VAL(loop->start);
 			PD_SWAP_VAL(loop->end);
-			/* TODO: this goes into the mixer -- swapping not required?
 			for (s32 i = 0; i < 16; ++i) {
 				PD_SWAP_VAL(loop->state[i]);
 			}
-			*/
 		}
 		if (tbl->waveInfo.adpcmWave.book) {
 			PD_SWAP_PTR(tbl->waveInfo.adpcmWave.book);
 			ALADPCMBook *book = PD_PTR_BASE(tbl->waveInfo.adpcmWave.book, bankBase);
 			PD_SWAP_VAL(book->npredictors);
 			PD_SWAP_VAL(book->order);
-			/* TODO: this goes into the mixer -- swapping not required?
 			const s32 bookSize = book->order * book->npredictors * ADPCMVSIZE;
 			for (s32 i = 0; i < bookSize && i < 128; ++i) {
 				PD_SWAP_VAL(book->book[i]);
 			}
-			*/
 		}
 	} else if (tbl->type == AL_RAW16_WAVE) {
 		if (tbl->waveInfo.rawWave.loop) {
