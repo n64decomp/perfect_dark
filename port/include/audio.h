@@ -5,6 +5,7 @@
 
 s32 audioInit(void);
 s32 audioGetBytesBuffered(void);
+s32 audioGetSamplesBuffered(void);
 void audioSetNextBuffer(const s16 *buf, u32 len);
 void audioEndFrame(void);
 

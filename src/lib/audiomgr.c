@@ -258,6 +258,10 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 	somevalue = IO_READ(OS_PHYSICAL_TO_K1(AI_LEN_REG)) / 4;
 #else
 	somevalue = osAiGetLength() / 4;
+	// HACK: only allow small frames if really needed
+	if (somevalue < 1100) {
+		somevalue = 248;
+	}
 #endif
 	datastart = g_AudioManager.ACMDList[var8005cf90];
 	outbuffer = (s16 *) osVirtualToPhysical(info->data);

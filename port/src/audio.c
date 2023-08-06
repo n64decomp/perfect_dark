@@ -3,9 +3,6 @@
 #include <SDL.h>
 #include "audio.h"
 
-#define SAMPLES_HIGH 736
-#define SAMPLES_LOW 720
-
 static SDL_AudioDeviceID dev;
 static const s16 *nextBuf;
 static u32 nextSize = 0;
@@ -19,7 +16,7 @@ s32 audioInit(void)
 
 	SDL_AudioSpec want, have;
 	SDL_zero(want);
-	want.freq = 22020;
+	want.freq = 22020; // TODO: this might cause trouble for some platforms
 	want.format = AUDIO_S16SYS;
 	want.channels = 2;
 	want.samples = 512;
@@ -43,6 +40,11 @@ s32 audioGetBytesBuffered(void)
 	return SDL_GetQueuedAudioSize(dev);
 }
 
+s32 audioGetSamplesBuffered(void)
+{
+	return audioGetBytesBuffered() / 4;
+}
+
 void audioSetNextBuffer(const s16 *buf, u32 len)
 {
 	nextBuf = buf;
@@ -52,7 +54,9 @@ void audioSetNextBuffer(const s16 *buf, u32 len)
 void audioEndFrame(void)
 {
 	if (nextBuf && nextSize) {
-		SDL_QueueAudio(dev, nextBuf, nextSize);
+		if (audioGetSamplesBuffered() < 8192) {
+			SDL_QueueAudio(dev, nextBuf, nextSize);
+		}
 		nextBuf = NULL;
 		nextSize = 0;
 	}
