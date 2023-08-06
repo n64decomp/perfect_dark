@@ -5903,7 +5903,11 @@ struct mp3thing {
 };
 
 struct mp3vars {
+#ifdef PLATFORM_N64
 	/*0x00*/ s32 romaddr;
+#else
+	/*0x00*/ uintptr_t romaddr;
+#endif
 	/*0x04*/ struct asistream *var8009c394;
 	/*0x08*/ u8 *var8009c398;
 	/*0x0c*/ s16 var8009c39c;

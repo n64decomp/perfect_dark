@@ -34,7 +34,7 @@ void aEnvMixerImpl(uint8_t flags, ENVMIX_STATE state, int16_t some_vol);
 void aSetVolumeImpl(uint8_t flags, int16_t v, int16_t t, int16_t r);
 void aPoleFilterImpl(uint8_t flags, int16_t gain, uint32_t t, uint32_t addr);
 void aDisableImpl(uint16_t outp, uint32_t b, uint32_t c);
-void aPlayMP3Impl(uint32_t a, const void *b);
+void aPlayMP3Impl(const void *mp3file, u32 mp3size, void *out);
 
 #define aDisable(pkt, o, b, c) aDisableImpl(o, b, c)
 #define aClearBuffer(pkt, d, c) aClearBufferImpl(d, c)
@@ -50,6 +50,6 @@ void aPlayMP3Impl(uint32_t a, const void *b);
 #define aEnvMixer(pkt, f, t, s) aEnvMixerImpl(f, s, t)
 #define aSetVolume(pkt, f, v, t, r) aSetVolumeImpl(f, v, t, r)
 #define aPoleFilter(pkt, f, g, t, s) aPoleFilterImpl(f, g, t, s)
-#define aPlayMP3(pkt, a, b) aPlayMP3Impl(a, b)
+#define aPlayMP3(pkt, a, b, c) aPlayMP3Impl(a, b, c)
 
 #endif

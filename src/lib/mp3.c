@@ -31,7 +31,7 @@
 
 #include "mixer.h"
 
-#define	acmd07(pkt, a, b) aPlayMP3(pkt, a, b)
+#define	acmd07(pkt, a, b, c) aPlayMP3(pkt, a, b, c)
 #define	acmd08(pkt, a) do { } while(0)
 
 #endif
@@ -247,7 +247,12 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 
 				for (i = 0; i < sp5c; i++) {
 					acmd08((*cmd)++, osVirtualToPhysical(g_Mp3Vars.var8009c3d4[i]));
+#ifdef PLATFORM_N64
 					acmd07((*cmd)++, g_Mp3Vars.var8009c3d8, osVirtualToPhysical(sp58));
+#else
+					// hijack the command to pass the entirety of the mp3 data to the mixer
+					acmd07((*cmd)++, g_Mp3Vars.romaddr, g_Mp3Vars.filesize, osVirtualToPhysical(sp58));
+#endif
 
 					sp58++;
 				}

@@ -52,7 +52,11 @@ struct curmp3 {
 	s32 prevwhisper;
 	s32 prevacknowledge;
 	s32 prevgreeting;
+#ifdef PLATFORM_N64
 	u32 romaddr;
+#else
+	uintptr_t romaddr;
+#endif
 	u32 romsize;
 	s32 responsetype;
 };
@@ -1463,11 +1467,7 @@ void sndInit(void)
 
 		g_SndMp3Enabled = false;
 	} else {
-#ifdef PLATFORM_N64
 		g_SndMp3Enabled = true;
-#else
-		g_SndMp3Enabled = false; // TODO
-#endif
 		g_SndMaxFxBusses = 2;
 
 		if (argFindByPrefix(1, "-nomp3")) {
