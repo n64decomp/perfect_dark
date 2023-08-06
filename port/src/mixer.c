@@ -5,7 +5,6 @@
 #include "mixer.h"
 #include "platform.h"
 
-/*
 #ifdef __SSE4_1__
 #include <immintrin.h>
 #define HAS_SSE41 1
@@ -18,10 +17,6 @@
 #define HAS_SSE41 0
 #define HAS_NEON 0
 #endif
-*/
-
-#define HAS_SSE41 0
-#define HAS_NEON 0
 
 #pragma GCC optimize ("unroll-loops")
 
