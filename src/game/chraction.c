@@ -13761,7 +13761,11 @@ void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, s
 		pos->z = targetchr->prop->pos.z;
 
 		if (targetchr) {
-			chr = targetprop->chr;
+#ifdef PLATFORM_N64
+			chr = targetprop->chr; // bug? targetprop is never set before this
+#else
+			chr = targetchr;
+#endif
 		} else {
 			chr = NULL;
 		}
