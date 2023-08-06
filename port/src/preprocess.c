@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <assert.h>
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
@@ -35,10 +36,22 @@ static inline u32 swapUnk(u32 x) { assert(0 && "unknown type"); return x; }
 #define PD_PTR_BASE(x, b) (void *)((u8 *)b + (u32)x)
 #define PD_PTR_BASEOFS(x, b, d) (void *)((u8 *)b - d + (u32)x)
 
+// HACK: to prevent double-swapping stuff, flag swapped offsets in a bitmap
+
+static u8 swapmap[0x40000 >> 3];
+
+static inline u32 alreadySwapped(const intptr_t addr) {
+	const u32 mask = (1 << (addr & 3));
+	const u32 old = swapmap[addr >> 3] & mask;
+	if (!old) {
+		swapmap[addr >> 3] |= mask;
+	}
+	return old;
+}
+
 static inline void preprocessALWaveTable(ALWaveTable *tbl, u8 *bankBase)
 {
-	if ((uintptr_t)tbl->base < 0x02000000 && tbl->len >= 0) {
-		// already swapped (maybe come up with a better check)
+	if (alreadySwapped((u8 *)tbl - bankBase)) {
 		return;
 	}
 
@@ -79,8 +92,7 @@ static inline void preprocessALWaveTable(ALWaveTable *tbl, u8 *bankBase)
 
 static inline void preprocessALSound(ALSound *snd, u8 *bankBase)
 {
-	if ((uintptr_t)snd->wavetable < 0x02000000 && (uintptr_t)snd->envelope < 0x02000000 && (uintptr_t)snd->keyMap < 0x02000000) {
-		// already swapped (maybe come up with a better check)
+	if (alreadySwapped((u8 *)snd - bankBase)) {
 		return;
 	}
 
@@ -104,8 +116,7 @@ static inline void preprocessALSound(ALSound *snd, u8 *bankBase)
 
 static inline void preprocessALInstrument(ALInstrument *inst, u8 *bankBase)
 {
-	if ((uintptr_t)inst->soundArray[0] < 0x0500000 && inst->bendRange >= 0) {
-		// already swapped (maybe come up with a better check)
+	if (alreadySwapped((u8 *)inst - bankBase)) {
 		return;
 	}
 
@@ -120,8 +131,7 @@ static inline void preprocessALInstrument(ALInstrument *inst, u8 *bankBase)
 
 static inline void preprocessALBank(ALBank *bank, u8 *bankBase)
 {
-	if ((uintptr_t)bank->sampleRate <= 48000) {
-		// already swapped (maybe come up with a better check)
+	if (alreadySwapped((u8 *)bank - bankBase)) {
 		return;
 	}
 
@@ -878,6 +888,8 @@ void preprocessJpnFont(u8 *data, u32 size)
 
 void preprocessALBankFile(u8 *data, u32 size)
 {
+	memset(swapmap, 0, sizeof(swapmap));
+
 	ALBankFile *bankf = (ALBankFile *)data;
 	PD_SWAP_VAL(bankf->revision);
 	PD_SWAP_VAL(bankf->bankCount);
