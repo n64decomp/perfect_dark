@@ -397,7 +397,7 @@ f32 bmoveCalculateLookahead(void)
 	struct coord sp100;
 	u32 stack;
 	struct coord spf0;
-	s16 spe0[8];
+	RoomNum spe0[8];
 	s32 i;
 	f32 angle;
 	f32 value;
@@ -406,9 +406,9 @@ f32 bmoveCalculateLookahead(void)
 	u32 stack6;
 	struct coord spbc;
 	struct coord spb0;
-	s16 spa0[8];
-	s16 sp90[8];
-	s16 sp80[8];
+	RoomNum spa0[8];
+	RoomNum sp90[8];
+	RoomNum sp80[8];
 	s32 j;
 	f32 sp78;
 	s32 indextoremove;
@@ -1850,7 +1850,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 	}
 }
 
-void bmoveFindEnteredRoomsByPos(struct player *player, struct coord *mid, s16 *rooms)
+void bmoveFindEnteredRoomsByPos(struct player *player, struct coord *mid, RoomNum *rooms)
 {
 	struct coord bbmin;
 	struct coord bbmax;
@@ -1868,7 +1868,7 @@ void bmoveFindEnteredRoomsByPos(struct player *player, struct coord *mid, s16 *r
 	bgFindEnteredRooms(&bbmin, &bbmax, rooms, 7, false);
 }
 
-void bmoveFindEnteredRooms(struct player *player, s16 *rooms)
+void bmoveFindEnteredRooms(struct player *player, RoomNum *rooms)
 {
 	bmoveFindEnteredRoomsByPos(player, &player->prop->pos, rooms);
 }

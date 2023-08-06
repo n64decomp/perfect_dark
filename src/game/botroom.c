@@ -46,16 +46,16 @@
  * It's likely that these don't ever overflow, or they overflow minimally which
  * has no serious effect, but this should be investigated further.
  */
-bool botroomFindPos(s16 room, struct coord *pos, f32 *angleptr, s32 *padnumptr, s32 *covernumptr)
+bool botroomFindPos(RoomNum room, struct coord *pos, f32 *angleptr, s32 *padnumptr, s32 *covernumptr)
 {
 	s32 i;
 	struct waypoint *waypoint;
 	s32 waypointnum;
-	s32 covernums[40]; /// written to stack
+	s32 covernums[40];
 	s32 covercount;
-	struct cover cover; // written to stack
-	s16 rooms[2]; // written to stack
-	s32 padnums[40]; // written to stack
+	struct cover cover;
+	RoomNum rooms[2];
+	s32 padnums[40];
 	s32 padcount;
 	s32 totalcount;
 	struct pad pad;

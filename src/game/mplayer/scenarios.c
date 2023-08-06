@@ -64,10 +64,10 @@ struct mpscenario {
 	Gfx *(*radarextrafunc)(Gfx *gdl);
 	bool (*radarchrfunc)(Gfx **gdl, struct prop *prop);
 	bool (*highlightpropfunc)(struct prop *prop, s32 *colour);
-	bool (*spawnfunc)(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4);
+	bool (*spawnfunc)(f32 arg0, struct coord *pos, RoomNum *rooms, struct prop *prop, f32 *arg4);
 	s32 (*maxteamsfunc)(void);
-	bool (*isroomhighlightedfunc)(s16 room);
-	void (*highlightroomfunc)(s16 room, s32 *arg1, s32 *arg2, s32 *arg3);
+	bool (*isroomhighlightedfunc)(RoomNum room);
+	void (*highlightroomfunc)(RoomNum room, s32 *arg1, s32 *arg2, s32 *arg3);
 	void *unk3c; // never hooked into nor fired
 	void (*readsavefunc)(struct savebuffer *buffer);
 	void (*writesavefunc)(struct savebuffer *buffer);
@@ -791,7 +791,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
  *
  * CTC uses this to ensure the chrs spawn near their base.
  */
-f32 scenarioChooseSpawnLocation(f32 chrradius, struct coord *pos, s16 *rooms, struct prop *prop)
+f32 scenarioChooseSpawnLocation(f32 chrradius, struct coord *pos, RoomNum *rooms, struct prop *prop)
 {
 	f32 result;
 
@@ -917,7 +917,7 @@ s32 scenarioGetMaxTeams(void)
 /**
  * This callback is unused.
  */
-bool scenarioIsRoomHighlighted(s16 room)
+bool scenarioIsRoomHighlighted(RoomNum room)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc) {
 		return g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc(room);
@@ -931,7 +931,7 @@ bool scenarioIsRoomHighlighted(s16 room)
  *
  * Used in CTC for the team bases and in KOH for the hill.
  */
-void scenarioHighlightRoom(s16 room, s32 *arg1, s32 *arg2, s32 *arg3)
+void scenarioHighlightRoom(RoomNum room, s32 *arg1, s32 *arg2, s32 *arg3)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].highlightroomfunc) {
 		g_MpScenarios[g_MpSetup.scenario].highlightroomfunc(room, arg1, arg2, arg3);
@@ -1351,7 +1351,7 @@ void scenarioHandleDroppedToken(struct chrdata *chr, struct prop *prop)
 	struct defaultobj *obj;
 	struct pad pad;
 	Mtxf mtx;
-	s16 rooms[2];
+	RoomNum rooms[2];
 
 	if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
 		for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.tokens); i++) {

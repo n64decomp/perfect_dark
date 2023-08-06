@@ -187,7 +187,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 {
 	bool result;
 	struct coord newpos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	u32 stack;
 	u32 types;
 	f32 ymax;
@@ -235,9 +235,9 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 	s32 result = CDRESULT_NOCOLLISION;
 	f32 halfradius;
 	struct coord dstpos;
-	s16 dstrooms[8];
+	RoomNum dstrooms[8];
 	bool copyrooms = false;
-	s16 sp64[22];
+	RoomNum sp64[22];
 	s32 types;
 	f32 ymax;
 	f32 ymin;
@@ -392,7 +392,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 			} else if (obstacle->type == PROPTYPE_CHR) {
 				struct chrdata *chr = obstacle->chr;
 				struct coord newpos;
-				s16 newrooms[8];
+				RoomNum newrooms[8];
 				f32 movingdist;
 				f32 xdist;
 				f32 zdist;
@@ -713,10 +713,10 @@ void bwalkUpdateVertical(void)
 	f32 ground;
 	bool onladder;
 	bool onladder2 = false;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	struct coord testpos;
 	struct coord newpos;
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 	s32 newinlift;
 	struct prop *lift = NULL;
 	f32 sumground;
@@ -1543,7 +1543,7 @@ void bwalk0f0c69b8(void)
 			g_Vars.currentplayer->bondbreathing = 1.0f;
 		}
 
-		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate60freal;
+		mult = g_HeadAnims[HEADANIM_MOVING].translateperframe * 0.5f * g_Vars.lvupdate60freal;
 		spe0 = (g_Vars.currentplayer->speedsideways * spc0 + spc4) * mult;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1728,7 +1728,7 @@ void bwalk0f0c69b8(void)
 		sp40 = -1.0f;
 	}
 
-	if (g_Vars.currentplayer->headanim == 1) {
+	if (g_Vars.currentplayer->headanim == HEADANIM_MOVING) {
 		breathing *= 1.2f;
 	}
 

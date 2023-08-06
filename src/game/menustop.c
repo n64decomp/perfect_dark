@@ -32,7 +32,7 @@ void menuStop(void)
 	if (var80062944) {
 		var80062944 = 0;
 		var80062948 = 0;
-		joy000139c8();
+		joySetDefaultPfsPollInterval();
 		func0f110bf8();
 	}
 }

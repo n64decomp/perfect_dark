@@ -11,17 +11,6 @@
 #include "romdata.h"
 #include "game/setuputils.h"
 
-/*
-#define PD_SWAP_VAL(x)
-#define PD_SWAP_VAL(x)
-#define PD_SWAP_VAL(u32 *)&x)
-#define PD_SWAP_PTR(x) x = (void *)PD_BE32((u32)x)
-#define PD_SWAP_VAL(v) \
-	PD_SWAP_VAL(v.x); \
-	PD_SWAP_VAL(v.y); \
-	PD_SWAP_VAL(v.z)
-*/
-
 static inline f32 swapF32(f32 x) { *(u32 *)&x = PD_BE32(*(u32 *)&x); return x; }
 static inline u32 swapU32(u32 x) { return PD_BE32(x); }
 static inline s32 swapS32(s32 x) { return PD_BE32(x); }
@@ -489,19 +478,7 @@ static inline void preprocessTvScreenPropObj(struct tvscreen *scr)
 
 static inline void preprocessHovPropObj(struct hov *hov)
 {
-	PD_SWAP_VAL(hov->unk04);
-	PD_SWAP_VAL(hov->unk08);
-	PD_SWAP_VAL(hov->unk0c);
-	PD_SWAP_VAL(hov->unk10);
-	PD_SWAP_VAL(hov->unk14);
-	PD_SWAP_VAL(hov->unk18);
-	PD_SWAP_VAL(hov->unk1c);
-	PD_SWAP_VAL(hov->unk20);
-	PD_SWAP_VAL(hov->unk24);
-	PD_SWAP_VAL(hov->unk28);
-	PD_SWAP_VAL(hov->unk2c);
-	PD_SWAP_VAL(hov->unk30);
-	PD_SWAP_VAL(hov->ground);
+	// don't think anything actually has to be swapped here
 }
 
 static void preprocessPropObj(struct defaultobj *obj)

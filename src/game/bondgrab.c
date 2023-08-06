@@ -84,7 +84,7 @@ void bgrabInit(void)
 
 		if (hov) {
 			g_Vars.currentplayer->grabbedrotoffset =
-				hov->unk10 - (M_BADTAU - (g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f);
+				hov->yrot - (M_BADTAU - (g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f);
 
 			if (g_Vars.currentplayer->grabbedrotoffset >= M_BADTAU) {
 				g_Vars.currentplayer->grabbedrotoffset -= M_BADTAU;
@@ -284,7 +284,7 @@ bool bgrabTryMoveUpwards(f32 y)
 {
 	bool result;
 	struct coord newpos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	f32 ymax;
 	f32 ymin;
 	f32 radius;
@@ -320,7 +320,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 	s32 cdresult = CDRESULT_NOCOLLISION;
 	s32 i;
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 	bool ismoving = false;
 	f32 ymax;
 	f32 ymin;
@@ -448,7 +448,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 				- g_Vars.currentplayer->vv_theta * M_BADTAU / 360.0f
 				+ -angle
 				+ g_Vars.currentplayer->grabbedrotoffset
-				- hov->unk10
+				- hov->yrot
 				+ rotextra;
 
 			while (sp78 >= M_PI) {
@@ -1038,7 +1038,7 @@ void bgrab0f0ce924(void)
 		g_Vars.currentplayer->speedforwards += sp70;
 		g_Vars.currentplayer->speedsideways += sp6c;
 
-		mult = var80075c00[1].unk0c * 0.5f * g_Vars.lvupdate60freal;
+		mult = g_HeadAnims[HEADANIM_MOVING].translateperframe * 0.5f * g_Vars.lvupdate60freal;
 		sp88 = mult * g_Vars.currentplayer->speedsideways;
 
 		speedsideways = g_Vars.currentplayer->speedsideways * 0.8f;
@@ -1149,7 +1149,7 @@ void bgrab0f0ce924(void)
 			sp3c = -1.0f;
 		}
 
-		if (g_Vars.currentplayer->headanim == 1) {
+		if (g_Vars.currentplayer->headanim == HEADANIM_MOVING) {
 			breathing *= 1.2f;
 		}
 
@@ -1207,7 +1207,7 @@ void bgrabTick(void)
 		if (g_Vars.currentplayer->grabbedprop) {
 			// Determine if the grabbed prop should be force released
 			f32 ydiff = g_Vars.currentplayer->grabbedprop->pos.y
-				- objGetHov04(g_Vars.currentplayer->grabbedprop->obj)
+				- objGetHovBobOffsetY(g_Vars.currentplayer->grabbedprop->obj)
 				- g_Vars.currentplayer->vv_manground;
 
 			struct prop *grabbedprop = g_Vars.currentplayer->grabbedprop;

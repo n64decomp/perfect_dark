@@ -47,8 +47,8 @@
  */
 
 u8 *g_RoomMtxAges;
-s16 *g_RoomMtxLinkedRooms;
-s16 *g_RoomMtxBaseRooms;
+RoomNum *g_RoomMtxLinkedRooms;
+RoomNum *g_RoomMtxBaseRooms;
 f32 *g_RoomMtxScales;
 Mtxf *g_RoomMtxMatrices;
 

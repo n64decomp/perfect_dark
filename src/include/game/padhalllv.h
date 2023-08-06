@@ -5,7 +5,7 @@
 #include "types.h"
 
 void navSetSeed(u32 upper, u32 lower);
-struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms);
+struct waypoint *waypointFindClosestToPos(struct coord *pos, RoomNum *rooms);
 struct waygroup *waygroupChooseNeighbour(s32 *groupnums, s32 step, u32 ignoremask);
 void waygroupSetStepIfUndiscovered(s32 *groupnums, s32 step, u32 ignoremask);
 bool waygroupDiscoverOneStep(struct waygroup *group, s32 step, u32 ignoremask);

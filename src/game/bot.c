@@ -227,7 +227,7 @@ void botSpawn(struct chrdata *chr, u8 respawning)
 	struct defaultobj *obj;
 	struct aibot *aibot = chr->aibot;
 	struct coord pos;
-	s16 rooms[8];
+	RoomNum rooms[8];
 
 	if (chr->prop) {
 		prop = chr->prop->child;
@@ -660,8 +660,8 @@ void botCheckPickups(struct chrdata *chr)
 	s32 i;
 	s16 *propnumptr;
 	s16 propnums[260];
-	s16 allrooms[22];
-	s16 neighbours[12];
+	RoomNum allrooms[22];
+	RoomNum neighbours[12];
 
 	roomsCopy(chr->prop->rooms, allrooms);
 
@@ -1208,7 +1208,7 @@ void botApplyProtect(struct chrdata *chr, struct prop *prop)
 	chr->aibot->forcemainloop = true;
 }
 
-void botApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle)
+void botApplyDefend(struct chrdata *chr, struct coord *pos, RoomNum *room, f32 angle)
 {
 	chr->aibot->command = AIBOTCMD_DEFEND;
 	chr->aibot->defendholdpos.x = pos->x;
@@ -1219,7 +1219,7 @@ void botApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle
 	chr->aibot->forcemainloop = true;
 }
 
-void botApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle)
+void botApplyHold(struct chrdata *chr, struct coord *pos, RoomNum *room, f32 angle)
 {
 	chr->aibot->command = AIBOTCMD_HOLD;
 	chr->aibot->defendholdpos.x = pos->x;
@@ -1521,7 +1521,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 	s32 i;
 	s32 j;
 	bool distancesdone[MAX_MPCHRS];
-	s16 room = -1;
+	RoomNum room = -1;
 	struct chrdata *trychr;
 	s32 playernum;
 

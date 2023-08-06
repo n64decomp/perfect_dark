@@ -214,6 +214,16 @@
 #define JOYARGS(line) line, "pak.c"
 #endif
 
+#if VERSION >= VERSION_NTSC_1_0
+#define SETBANNER(banner) if (var80075d14) { menuSetBanner(banner, true); }
+#else
+#define SETBANNER(banner) menuSetBanner(banner, true)
+#endif
+
+#define PAKFEATURE_MEMORY  0x01
+#define PAKFEATURE_RUMBLE  0x02
+#define PAKFEATURE_GAMEBOY 0x04
+
 const char g_N64FontCodeMap[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
 const char var7f1b3ad4[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorPakFatal\n";
 const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorNoPakPresent\n";
@@ -313,7 +323,7 @@ char g_PakNoteGameName[] = {
 char g_PakNoteExtName[] = {0, 0, 0, 0};
 
 u32 var80075d0c = 0x00000000;
-u8 var80075d10 = 0;
+u8 g_PaksPlugged = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
 bool var80075d14 = true;
@@ -363,15 +373,15 @@ u32 pakGenerateSerial(s8 device)
 }
 #endif
 
-bool pakIsMemoryPak(s8 device)
+bool mempakIsOkay(s8 device)
 {
 	if (g_Paks[device].type == PAKTYPE_MEMORY) {
-		switch (g_Paks[device].unk010) {
-		case PAK010_14:
-		case PAK010_15:
-		case PAK010_19:
-		case PAK010_20:
-		case PAK010_22:
+		switch (g_Paks[device].state) {
+		case PAKSTATE_MEM_ENTER_DEVICEERROR:
+		case PAKSTATE_MEM_ENTER_CORRUPT:
+		case PAKSTATE_MEM_DEVICEERROR:
+		case PAKSTATE_MEM_CORRUPT:
+		case PAKSTATE_22:
 			return false;
 		}
 
@@ -406,12 +416,12 @@ bool pakDeleteFile(s8 device, s32 fileid)
 	return _pakDeleteFile(device, fileid);
 }
 
-s32 pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name)
+PakErr1 pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name)
 {
 	return _pakDeleteGameNote(device, company_code, game_code, game_name, ext_name);
 }
 
-s32 pak0f1168c4(s8 device, struct pakdata **arg1)
+PakErr1 pak0f1168c4(s8 device, struct pakdata **arg1)
 {
 	return pak0f116df0(device, arg1);
 }
@@ -445,7 +455,7 @@ void pak0f11698c(s8 device)
 void pak0f116994(void)
 {
 	if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
-		g_Vars.unk0004e4 = 0xf8;
+		g_Vars.pakstocheck = 0xf8;
 	}
 }
 #endif
@@ -457,68 +467,68 @@ void pak0f1169bc(u32 arg0, u32 arg1)
 }
 #endif
 
-void pak0f1169c8(s8 device, s32 arg1)
+void pak0f1169c8(s8 device, bool tick)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	u8 prevvalue = g_Vars.paksconnected;
+	u8 prevvalue = g_Vars.paksneededformenu;
 
-	g_Vars.paksconnected = 0x1f;
+	g_Vars.paksneededformenu = 0x1f;
 
-	if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & (1 << device)) {
-		var80075d10 &= ~(1 << device);
+	if ((g_Vars.paksneededforgame | g_Vars.paksneededformenu) & (1 << device)) {
+		g_PaksPlugged &= ~(1 << device);
 
-		pak0f11ca30();
-		pak0f11ca30();
+		pakCheckPlugged();
+		pakCheckPlugged();
 
-		if (arg1) {
-			var8005eedc = false;
+		if (tick) {
+			g_JoyPfsPollMasterEnabled = false;
 
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
 
-			var8005eedc = true;
+			g_JoyPfsPollMasterEnabled = true;
 		}
 	}
 
-	g_Vars.paksconnected = prevvalue;
+	g_Vars.paksneededformenu = prevvalue;
 #else
-	if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & (1 << device)) {
-		var80075d10 &= ~(1 << device);
+	if ((g_Vars.paksneededforgame | g_Vars.paksneededformenu) & (1 << device)) {
+		g_PaksPlugged &= ~(1 << device);
 
-		pak0f11ca30();
+		pakCheckPlugged();
 
-		if (arg1) {
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
-			pak0f11df94(device);
+		if (tick) {
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
+			pakTickState(device);
 		}
 	}
 #endif
 }
 
-bool pak0f116aec(s8 device)
+bool mempakIsReady(s8 device)
 {
-	if (g_Paks[device].unk010 == PAK010_11 && g_Paks[device].type == PAKTYPE_MEMORY) {
+	if (g_Paks[device].state == PAKSTATE_READY && g_Paks[device].type == PAKTYPE_MEMORY) {
 		return true;
 	}
 
 	return false;
 }
 
-bool pak0f116b5c(s8 device)
+bool mempakIsReadyOrFull(s8 device)
 {
-	if ((g_Paks[device].unk010 == PAK010_11
-				|| g_Paks[device].unk010 == PAK010_16
-				|| g_Paks[device].unk010 == PAK010_21)
+	if ((g_Paks[device].state == PAKSTATE_READY
+				|| g_Paks[device].state == PAKSTATE_MEM_ENTER_FULL
+				|| g_Paks[device].state == PAKSTATE_MEM_FULL)
 			&& g_Paks[device].type == PAKTYPE_MEMORY) {
 		return true;
 	}
@@ -532,7 +542,7 @@ void pak0f116bdc(s8 device, u8 *arg1, u8 *arg2)
 	*arg2 = g_Paks[device].unk2bb;
 }
 
-void pak0f116c2c(s8 index)
+void pakSetTemporarilyPlugged(s8 index)
 {
 	joySetPfsTemporarilyPlugged(index);
 }
@@ -559,45 +569,45 @@ ubool pak0f116d4c(s8 device)
 	return g_Paks[device].unk2b8_05 && !g_Paks[device].isgbcamera;
 }
 
-void pakSetUnk010(s8 device, s32 value)
+void pakSetState(s8 device, s32 state)
 {
-	g_Paks[device].unk010 = value;
+	g_Paks[device].state = state;
 }
 
-s32 pak0f116df0(s8 device, struct pakdata **pakdata)
+PakErr1 pak0f116df0(s8 device, struct pakdata **pakdata)
 {
 	*pakdata = NULL;
 
-	if (pak0f116b5c(device)) {
+	if (mempakIsReadyOrFull(device)) {
 		if (pakQueryTotalUsage(device)) {
 			*pakdata = &g_Paks[device].pakdata;
-			return 0;
+			return PAK_ERR1_OK;
 		}
 
-		return 2;
+		return PAK_ERR1_NEWPAK;
 	}
 
-	return 1;
+	return PAK_ERR1_NOPAK;
 }
 
-s32 _pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name)
+PakErr1 _pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name)
 {
 	s32 result;
 
-	if (pak0f116b5c(device)) {
+	if (mempakIsReadyOrFull(device)) {
 		joyDisableCyclicPolling(JOYARGS(738));
 		result = pakDeleteGameNote3(PFS(device), company_code, game_code, game_name, ext_name);
 		joyEnableCyclicPolling(JOYARGS(740));
 
 		if (pakHandleResult(result, device, true, LINE_825)) {
 			g_Paks[device].unk2b8_02 = 1;
-			return 0;
+			return PAK_ERR1_OK;
 		}
 
-		return 2;
+		return PAK_ERR1_NEWPAK;
 	}
 
-	return 1;
+	return PAK_ERR1_NOPAK;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -657,9 +667,9 @@ s32 _pakDeleteFile(s8 device, s32 fileid)
 }
 #endif
 
-s32 pakGetUnk264(s8 device)
+s32 pakGetPlugCount(s8 device)
 {
-	return g_Paks[device].unk264;
+	return g_Paks[device].plugcount;
 }
 
 u32 pakGetMaxFileSize(s8 device)
@@ -1078,7 +1088,7 @@ PakErr1 _pakReadWriteBlock(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 le
 	u32 newaddress;
 
 #if VERSION >= VERSION_NTSC_1_0
-	joyCheckPfs(2);
+	joyPollPfs(2);
 #endif
 
 	if (pfs) {
@@ -1441,7 +1451,7 @@ bool pakResizeNote(s8 device, s32 numpages)
 void pak0f1184d8(s8 device, u32 *arg1, bool *arg2)
 {
 	if (device != SAVEDEVICE_GAMEPAK) {
-		if (g_Paks[device].type != PAKTYPE_MEMORY || g_Paks[device].unk010 != PAK010_11) {
+		if (!(g_Paks[device].type == PAKTYPE_MEMORY && g_Paks[device].state == PAKSTATE_READY)) {
 			pak0f1185e0(device, g_Paks[SAVEDEVICE_GAMEPAK].unk2bd & 0x0f, 1);
 			device = SAVEDEVICE_GAMEPAK;
 		}
@@ -1574,7 +1584,7 @@ u32 pak0f118674(s8 device, u32 filetype, s32 *outfileid)
 		return 4;
 	}
 
-	g_Paks[device].unk010 = PAK010_16;
+	g_Paks[device].state = PAKSTATE_MEM_ENTER_FULL;
 	g_Paks[device].type = PAKTYPE_MEMORY;
 
 	return 4;
@@ -1588,53 +1598,53 @@ void pak0f1189d0(void)
 void paksInit(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	u8 prevvalue = g_Vars.paksconnected;
+	u8 prevvalue = g_Vars.paksneededformenu;
 	s8 i;
 
-	g_Vars.unk0004e4 = 0;
+	g_Vars.pakstocheck = 0;
 
 	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
-		pakInit(i);
+		pakSetDefaults(i);
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 #if VERSION >= VERSION_JPN_FINAL
-		pak0f11a32c(i, 7, 2054, "pak/pak.c");
+		pakSetFeatures(i, PAKFEATURE_MEMORY | PAKFEATURE_RUMBLE | PAKFEATURE_GAMEBOY, 2054, "pak/pak.c");
 #elif VERSION >= VERSION_PAL_BETA
-		pak0f11a32c(i, 7, 2049, "pak.c");
+		pakSetFeatures(i, PAKFEATURE_MEMORY | PAKFEATURE_RUMBLE | PAKFEATURE_GAMEBOY, 2049, "pak.c");
 #elif VERSION >= VERSION_NTSC_FINAL
-		pak0f11a32c(i, 7, 2049, "pak/pak.c");
+		pakSetFeatures(i, PAKFEATURE_MEMORY | PAKFEATURE_RUMBLE | PAKFEATURE_GAMEBOY, 2049, "pak/pak.c");
 #else
-		pak0f11a32c(i, 7, 2016, "pak.c");
+		pakSetFeatures(i, PAKFEATURE_MEMORY | PAKFEATURE_RUMBLE | PAKFEATURE_GAMEBOY, 2016, "pak.c");
 #endif
 	}
 
 	pakProbeEeprom();
 	joyRecordPfsState(0x10);
 
-	g_Vars.paksconnected = 0x10;
+	g_Vars.paksneededformenu = 0x10;
 
-	pak0f1169c8(SAVEDEVICE_GAMEPAK, 1);
+	pak0f1169c8(SAVEDEVICE_GAMEPAK, true);
 	bossfileLoadFull();
 
 	gamefileLoadDefaults(&g_GameFile);
 	gamefileApplyOptions(&g_GameFile);
 
 	g_GameFileGuid.deviceserial = 0;
-	g_Vars.unk0004e4 = 0xf5;
-	g_Vars.paksconnected = prevvalue;
+	g_Vars.pakstocheck = 0xf5;
+	g_Vars.paksneededformenu = prevvalue;
 #else
 	s8 i;
 	s32 j;
 
 	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
-		pakInit(i);
+		pakSetDefaults(i);
 	}
 
-	g_Vars.paksconnected2 = 0x1f;
+	g_Vars.paksneededforgame = 0x1f;
 
 	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
-		pak0f11a32c(i, 7, 1929, "pak.c");
+		pakSetFeatures(i, PAKFEATURE_MEMORY | PAKFEATURE_RUMBLE | PAKFEATURE_GAMEBOY, 1929, "pak.c");
 	}
 
 	pakProbeEeprom();
@@ -1665,7 +1675,7 @@ void paksInit(void)
 	gamefileApplyOptions(&g_GameFile);
 
 	g_GameFileGuid.deviceserial = 0;
-	g_Vars.paksconnected2 = 0;
+	g_Vars.paksneededforgame = 0;
 #endif
 }
 
@@ -1923,18 +1933,18 @@ u32 pak0f119298(s8 device)
 		return 1;
 	}
 
-	switch (g_Paks[device].unk010) {
-	case PAK010_11:
+	switch (g_Paks[device].state) {
+	case PAKSTATE_READY:
 		return 0;
-	case PAK010_17:
+	case PAKSTATE_17:
 		return 14;
-	case PAK010_18:
+	case PAKSTATE_18:
 		return 4;
-	case PAK010_03:
-	case PAK010_04:
-	case PAK010_05:
-	case PAK010_06:
-	case PAK010_07:
+	case PAKSTATE_MEM_DISPATCH:
+	case PAKSTATE_MEM_PRE_PREPARE:
+	case PAKSTATE_MEM_PREPARE:
+	case PAKSTATE_MEM_POST_PREPARE:
+	case PAKSTATE_07:
 		return 13;
 	}
 
@@ -2750,17 +2760,17 @@ void paksReset(void)
 	// empty
 }
 
-s32 pakGetUnk014(s8 device)
+s32 pakGetFeatures(s8 device)
 {
-	return g_Paks[device].unk014;
+	return g_Paks[device].features;
 }
 
-void pak0f11a32c(s8 device, u8 arg1, u32 line, char *file)
+void pakSetFeatures(s8 device, u8 features, u32 line, char *file)
 {
-	if (g_Paks[device].unk014 == 0) {
-		g_Paks[device].unk014 = arg1;
+	if (g_Paks[device].features == 0) {
+		g_Paks[device].features = features;
 
-		if ((g_Paks[device].unk014 & 1) && g_Paks[device].headercache == NULL) {
+		if ((g_Paks[device].features & PAKFEATURE_MEMORY) && g_Paks[device].headercache == NULL) {
 			g_Paks[device].headercachecount = 0;
 			g_Paks[device].headercache = mempAlloc(align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES), MEMPOOL_PERMANENT);
 
@@ -2771,15 +2781,13 @@ void pak0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 	}
 }
 
-void pak0f11a3dc(s8 device, u32 arg1, u32 arg2)
+void pakRemoveAllFeatures(s8 device, u32 arg1, u32 arg2)
 {
-	if (g_Paks[device].unk014) {
-		g_Paks[device].unk014 = 0;
+	if (g_Paks[device].features) {
+		g_Paks[device].features = 0;
 	}
 
-	if (g_Paks[device].unk014) {
-		// empty
-	}
+	if (g_Paks[device].features);
 }
 
 const char var7f1b4294[] = "Pak %d - Pak_StartOne called from line %d in %s -> Flags = %0x\n";
@@ -2814,25 +2822,25 @@ const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished\n";
 const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished";
 #endif
 
-void pakInit(s8 device)
+void pakSetDefaults(s8 device)
 {
 	g_Paks[device].unk274 = 3;
-	g_Paks[device].unk014 = 0;
+	g_Paks[device].features = 0;
 	g_Paks[device].type = PAKTYPE_NONE;
-	g_Paks[device].unk008 = 1;
+	g_Paks[device].unk008 = PAK008_01;
 	g_Paks[device].rumblestate = RUMBLESTATE_1;
-	g_Paks[device].unk00c = 3;
-	g_Paks[device].unk010 = PAK010_00;
+	g_Paks[device].unk00c = PAK00C_03;
+	g_Paks[device].state = PAKSTATE_NOPAK;
 	g_Paks[device].pdnoteindex = -1;
 	g_Paks[device].unk2b8_01 = 0;
 	g_Paks[device].unk2b8_05 = 0;
 	g_Paks[device].isgbcamera = 0;
 	g_Paks[device].unk2b8_02 = 0;
 	g_Paks[device].unk2bd = 128;
-	g_Paks[device].unk264 = 0;
+	g_Paks[device].plugcount = 0;
 	g_Paks[device].unk2b8_06 = 0;
 #if VERSION >= VERSION_NTSC_1_0
-	g_Paks[device].unk2b8_07 = 0;
+	g_Paks[device].showdatalost = false;
 #endif
 	g_Paks[device].headercache = NULL;
 	g_Paks[device].unk2c4 = NULL;
@@ -2889,7 +2897,7 @@ bool pakQueryTotalUsage(s8 device)
 		return false;
 	}
 
-	for (i = 0; i < 16; i++) {
+	for (i = 0; i < ARRAYCOUNT(noteerrors); i++) {
 		noteerrors[i] = pakQueryNoteState(PFS(device), i, &pak->pakdata.notes[i]);
 
 		if (noteerrors[i] != PAK_ERR1_OK) {
@@ -2899,7 +2907,7 @@ bool pakQueryTotalUsage(s8 device)
 		}
 	}
 
-	for (i = 0, pak->pakdata.pagesused = 0; i < 16; i++) {
+	for (i = 0, pak->pakdata.pagesused = 0; i < ARRAYCOUNT(noteerrors); i++) {
 		if (noteerrors[i] == PAK_ERR1_OK) {
 			pak->pakdata.pagesused += (pak->pakdata.notes[i].file_size + 255) >> 8;
 		}
@@ -2954,7 +2962,7 @@ bool pak0f1147b8nb(s8 device)
 		return false;
 	}
 
-	g_Paks[device].unk010 = 3;
+	g_Paks[device].state = PAKSTATE_MEM_DISPATCH;
 
 	if (device == SAVEDEVICE_GAMEPAK) {
 		pakExecuteDebugOperations();
@@ -3008,7 +3016,7 @@ bool mempakPrepare(s8 device)
 	pakQueryTotalUsage(device);
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (g_Paks[device].unk010 == PAK010_01) {
+	if (g_Paks[device].state == PAKSTATE_UNPLUGGING) {
 		return false;
 	}
 #endif
@@ -3045,11 +3053,11 @@ bool mempakPrepare(s8 device)
 	pakQueryPdSize(device);
 
 #if VERSION >= VERSION_NTSC_1_0
-	g_Paks[device].unk2b8_07 = false;
+	g_Paks[device].showdatalost = false;
 #endif
 
 	g_Paks[device].headercachecount = 0;
-	g_Paks[device].unk010 = PAK010_11;
+	g_Paks[device].state = PAKSTATE_READY;
 
 	if (device && device && device);
 
@@ -3077,7 +3085,7 @@ bool mempakPrepare(s8 device)
 			}
 
 			if (device != SAVEDEVICE_GAMEPAK) {
-				g_Paks[device].unk2b8_07 = true;
+				g_Paks[device].showdatalost = true;
 			}
 		}
 	}
@@ -3089,18 +3097,18 @@ bool mempakPrepare(s8 device)
 			g_Paks[device].maxfileid = maxfileid;
 
 			if (pakGetFileIdsByType(device, PAKFILETYPE_TERMINATOR, fileids) == 0 && pakCreateInitialFiles(device)) {
-				g_Paks[device].unk010 = (device == SAVEDEVICE_GAMEPAK) ? PAK010_11 : PAK010_06;
+				g_Paks[device].state = (device == SAVEDEVICE_GAMEPAK) ? PAKSTATE_READY : PAKSTATE_MEM_POST_PREPARE;
 
-				func0f110d90(device);
+				filelistInvalidatePak(device);
 
 				return true;
 			}
 		}
 	}
 
-	g_Paks[device].unk010 = PAK010_22;
+	g_Paks[device].state = PAKSTATE_22;
 
-	func0f110d90(device);
+	filelistInvalidatePak(device);
 
 	return false;
 #else
@@ -3121,7 +3129,7 @@ bool mempakPrepare(s8 device)
 	pakGetFileIdsByType(device, PAKFILETYPE_TERMINATOR, fileids);
 	pakCreateInitialFiles(device);
 
-	g_Paks[device].unk010 = (device == SAVEDEVICE_GAMEPAK) ? PAK010_11 : PAK010_06;
+	g_Paks[device].state = (device == SAVEDEVICE_GAMEPAK) ? PAKSTATE_READY : PAKSTATE_MEM_POST_PREPARE;
 
 	return true;
 #endif
@@ -3145,7 +3153,7 @@ bool pakProbe(s8 device)
 	ret = pakInitPak(&g_PiMesgQueue, PFS(device), device, NULL);
 
 	if (pakHandleResult(ret, device, true, LINE_3829)) {
-		g_Paks[device].unk010 = PAK010_03;
+		g_Paks[device].state = PAKSTATE_MEM_DISPATCH;
 
 		if (device == SAVEDEVICE_GAMEPAK) {
 			pakExecuteDebugOperations();
@@ -3171,9 +3179,9 @@ bool pakProbe(s8 device)
 
 			if (pakHandleResult(ret, device, false, LINE_3865)) {
 				g_Paks[device].type = PAKTYPE_RUMBLE;
-				g_Paks[device].unk010 = PAK010_11;
+				g_Paks[device].state = PAKSTATE_READY;
 				g_Paks[device].rumblestate = RUMBLESTATE_1;
-				g_Paks[device].unk264++;
+				g_Paks[device].plugcount++;
 
 				plugged = true;
 				done = true;
@@ -3189,12 +3197,12 @@ bool pakProbe(s8 device)
 				if (pakHandleResult(ret, device, false, LINE_3889)) {
 					if (IS4MB()) {
 						g_Paks[device].type = PAKTYPE_NONE;
-						g_Paks[device].unk010 = PAK010_22;
+						g_Paks[device].state = PAKSTATE_22;
 					} else {
 						g_Paks[device].type = PAKTYPE_GAMEBOY;
-						g_Paks[device].unk010 = PAK010_08;
+						g_Paks[device].state = PAKSTATE_GB_PRE_PREPARE;
 						g_Paks[device].unk2b8_01 = false;
-						g_Paks[device].unk264++;
+						g_Paks[device].plugcount++;
 					}
 
 					plugged = true;
@@ -3254,21 +3262,21 @@ void pak0f114dd4nb(s8 device)
 	pak->pdnoteindex = -1;
 	pak->unk2b8_01 = false;
 	pak->type = PAKTYPE_NONE;
-	pak->unk008 = 1;
+	pak->unk008 = PAK008_01;
 	pak->rumblestate = RUMBLESTATE_1;
-	pak->unk00c = 3;
+	pak->unk00c = PAK00C_03;
 
 	if (pakProbe(device)) {
-		if (pak->unk014 & 1) {
+		if (pak->features & PAKFEATURE_MEMORY) {
 			if (pak0f1147b8nb(device)) {
-				pak->unk264++;
+				pak->plugcount++;
 				return;
 			}
 
 			if (1);
 		}
 
-		if (pak->unk014 & 2) {
+		if (pak->features & PAKFEATURE_RUMBLE) {
 			if (device != SAVEDEVICE_GAMEPAK) {
 				joyDisableCyclicPolling(3514, "pak.c");
 				ret = osMotorProbe(&g_PiMesgQueue, PFS(device), device);
@@ -3276,8 +3284,8 @@ void pak0f114dd4nb(s8 device)
 
 				if (pakHandleResult(ret, device, 1, 3518)) {
 					pak->type = PAKTYPE_RUMBLE;
-					pak->unk010 = PAK010_11;
-					pak->unk264++;
+					pak->state = PAKSTATE_READY;
+					pak->plugcount++;
 					return;
 				}
 			} else {
@@ -3285,10 +3293,10 @@ void pak0f114dd4nb(s8 device)
 			}
 		}
 
-		if (pak->unk014 & 4) {
-			pak->unk010 = PAK010_08;
+		if (pak->features & PAKFEATURE_GAMEBOY) {
+			pak->state = PAKSTATE_GB_PRE_PREPARE;
 			pak->unk2b8_01 = false;
-			pak->unk264++;
+			pak->plugcount++;
 		}
 	}
 }
@@ -3445,7 +3453,7 @@ s32 pakCreateFilesystem(s8 device)
 
 s32 pak0f11b6ec(s8 device)
 {
-	if (g_Paks[device].unk010 == PAK010_11 && g_Paks[device].type == PAKTYPE_MEMORY) {
+	if (g_Paks[device].state == PAKSTATE_READY && g_Paks[device].type == PAKTYPE_MEMORY) {
 		return 3;
 	}
 
@@ -4265,9 +4273,9 @@ bool pakRepair(s8 device)
 {
 	s32 result;
 
-	switch (g_Paks[device].unk010) {
-	case PAK010_14:
-	case PAK010_19:
+	switch (g_Paks[device].state) {
+	case PAKSTATE_MEM_ENTER_DEVICEERROR:
+	case PAKSTATE_MEM_DEVICEERROR:
 		break;
 	default:
 		joyDisableCyclicPolling(JOYARGS(4425));
@@ -4275,20 +4283,20 @@ bool pakRepair(s8 device)
 		joyEnableCyclicPolling(JOYARGS(4427));
 
 		if (result == PAK_ERR1_OK) {
-			g_Paks[device].unk010 = PAK010_02;
+			g_Paks[device].state = PAKSTATE_PROBE;
 			return true;
 		}
 
 		pakHandleResult(result, device, false, LINE_4801);
 
 #if VERSION >= VERSION_NTSC_1_0
-		g_Paks[device].unk010 = PAK010_22;
+		g_Paks[device].state = PAKSTATE_22;
 #endif
 		break;
 	}
 
 #if VERSION < VERSION_NTSC_1_0
-	g_Paks[device].unk010 = PAK010_22;
+	g_Paks[device].state = PAKSTATE_22;
 #endif
 
 	return false;
@@ -4314,22 +4322,22 @@ bool pakHandleResult(s32 err1, s8 device, bool arg2, u32 line)
 #if VERSION >= VERSION_NTSC_1_0
 		case PAK_ERR1_NOPAK:
 			g_Paks[device].type = PAKTYPE_MEMORY;
-			g_Paks[device].unk010 = PAK010_01;
+			g_Paks[device].state = PAKSTATE_UNPLUGGING;
 			break;
 #endif
 		case PAK_ERR1_DEVICE:
 			g_Paks[device].type = PAKTYPE_MEMORY;
-			g_Paks[device].unk010 = PAK010_14;
+			g_Paks[device].state = PAKSTATE_MEM_ENTER_DEVICEERROR;
 			break;
 		case PAK_ERR1_INCONSISTENT:
 		case PAK_ERR1_IDFATAL:
 			g_Paks[device].type = PAKTYPE_MEMORY;
-			g_Paks[device].unk010 = PAK010_15;
+			g_Paks[device].state = PAKSTATE_MEM_ENTER_CORRUPT;
 			break;
 		case PAK_ERR1_DATAFULL:
 		case PAK_ERR1_DIRFULL:
 			g_Paks[device].type = PAKTYPE_MEMORY;
-			g_Paks[device].unk010 = PAK010_16;
+			g_Paks[device].state = PAKSTATE_MEM_ENTER_FULL;
 			break;
 		}
 	}
@@ -4364,40 +4372,40 @@ void paksTick(void)
 {
 	s32 i;
 
-	if (g_Vars.unk0004e4) {
+	if (g_Vars.pakstocheck) {
 		g_MpPlayerNum = 0;
 
 		menuSetBanner(MENUBANNER_CHECKINGPAK, true);
 
 		var80075d14 = false;
 
-		if (g_Vars.unk0004e4 & 0x0f) {
-			joy00013974(0);
+		if (g_Vars.pakstocheck & 0x0f) {
+			joySetPfsPollEnabled(0);
 
 			// Waiting for some timer
-			if ((g_Vars.unk0004e4 & 0x0f) > 9) {
+			if ((g_Vars.pakstocheck & 0x0f) >= 10) {
 				if ((g_Vars.lvframenum % 7) == 0) {
-					g_Vars.unk0004e4--;
+					g_Vars.pakstocheck--;
 				}
 			} else {
-				g_Vars.unk0004e4--;
+				g_Vars.pakstocheck--;
 			}
 		} else {
-			joyCheckPfs(2);
+			joyPollPfs(2);
 
 			for (i = 0; i < 4; i++) {
-				if (g_Vars.unk0004e4 & (1 << (i + 4))) {
+				if (g_Vars.pakstocheck & (1 << (i + 4))) {
 					pak0f1169c8(i, true);
-					g_Vars.unk0004e4 &= ~(1 << (i + 4));
-				} else if (g_Vars.unk0004e4 & (1 << (i + 8))) {
+					g_Vars.pakstocheck &= ~(1 << (i + 4));
+				} else if (g_Vars.pakstocheck & (1 << (i + 8))) {
 					pak0f1169c8(i, false);
-					g_Vars.unk0004e4 &= ~(1 << (i + 8));
+					g_Vars.pakstocheck &= ~(1 << (i + 8));
 				}
 			}
 
-			if (!joy00013980()) {
-				joy00013974(1);
-				joy000139c8();
+			if (!joyIsPfsPollEnabled()) {
+				joySetPfsPollEnabled(true);
+				joySetDefaultPfsPollInterval();
 			}
 
 			menuSetBanner(-1, true);
@@ -4414,21 +4422,21 @@ void pak0f11c6d0(void)
 	s32 i;
 
 	for (i = 0; i < MAX_PLAYERS; i++) {
-		switch (g_Paks[i].unk010) {
-		case PAK010_02:
-		case PAK010_03:
-		case PAK010_04:
-		case PAK010_05:
-		case PAK010_06:
-			g_Paks[i].unk010 = PAK010_01;
-			var80075d10 &= ~(1 << i);
+		switch (g_Paks[i].state) {
+		case PAKSTATE_PROBE:
+		case PAKSTATE_MEM_DISPATCH:
+		case PAKSTATE_MEM_PRE_PREPARE:
+		case PAKSTATE_MEM_PREPARE:
+		case PAKSTATE_MEM_POST_PREPARE:
+			g_Paks[i].state = PAKSTATE_UNPLUGGING;
+			g_PaksPlugged &= ~(1 << i);
 			g_MpPlayerNum = i;
 			menuSetBanner(-1, true);
 			break;
 		}
 	}
 
-	var8005eedc = true;
+	g_JoyPfsPollMasterEnabled = true;
 }
 #endif
 
@@ -4436,7 +4444,7 @@ void pakExecuteDebugOperations(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	static u32 g_PakDebugDumpEeprom = 0;
-	s32 pass = false;
+	bool disablepolling = false;
 	s8 i;
 
 	mainOverrideVariable("forcescrub", &g_PakDebugForceScrub);
@@ -4482,30 +4490,30 @@ void pakExecuteDebugOperations(void)
 		g_PakDebugForceScrub = false;
 	}
 
-	pak0f11ca30();
+	pakCheckPlugged();
 
 	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
-		if (g_Paks[i].unk014) {
-			pak0f11df94(i);
+		if (g_Paks[i].features) {
+			pakTickState(i);
 		}
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
-		switch (g_Paks[i].unk010) {
-		case PAK010_02:
-		case PAK010_03:
-		case PAK010_04:
-		case PAK010_05:
-		case PAK010_06:
-			pass = true;
+		switch (g_Paks[i].state) {
+		case PAKSTATE_PROBE:
+		case PAKSTATE_MEM_DISPATCH:
+		case PAKSTATE_MEM_PRE_PREPARE:
+		case PAKSTATE_MEM_PREPARE:
+		case PAKSTATE_MEM_POST_PREPARE:
+			disablepolling = true;
 			break;
 		}
 	}
 
-	if (pass) {
-		var8005eedc = false;
+	if (disablepolling) {
+		g_JoyPfsPollMasterEnabled = false;
 	} else {
-		var8005eedc = true;
+		g_JoyPfsPollMasterEnabled = true;
 	}
 #else
 	static u32 g_PakDebugDumpEeprom = 0;
@@ -4547,12 +4555,12 @@ void pakExecuteDebugOperations(void)
 		g_PakDebugForceScrub = false;
 	}
 
-	pak0f11ca30();
+	pakCheckPlugged();
 	pakDumpPak();
 
 	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
-		if (g_Paks[i].unk014) {
-			pak0f11df94(i);
+		if (g_Paks[i].features) {
+			pakTickState(i);
 		}
 	}
 #endif
@@ -4602,62 +4610,66 @@ const char var7f1ae9acnb[] = "Pak -> Connector Check Failed";
 const char var7f1ae9ccnb[] = "Pak -> osGbpakReadId - Failed";
 #endif
 
-void pak0f11ca30(void)
+void pakCheckPlugged(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE || g_MenuData.count > 0) {
-		u8 oldvalue = var80075d10;
-		u8 newvalue = var80075d10;
-		u8 thing = 0xff;
+		u8 oldplugged = g_PaksPlugged;
+		u8 newplugged = g_PaksPlugged;
+		u8 paksconnected = 0xff;
 		s32 i;
 
-		if ((g_Vars.unk0004e4 & 0xf) == 0) {
+		if ((g_Vars.pakstocheck & 0xf) == 0) {
 			for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
-				if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & (1 << i)) {
-					if (thing == 0xff) {
-						thing = joyShiftPfsStates();
+				if ((g_Vars.paksneededforgame | g_Vars.paksneededformenu) & (1 << i)) {
+					if (paksconnected == 0xff) {
+						paksconnected = joyShiftPfsStates();
 					}
 
-					if (((thing & (1 << i)) != (oldvalue & (1 << i)))) {
-						if ((thing & (1 << i))) {
-							g_Paks[i].unk010 = PAK010_02;
-							newvalue |= (1 << i);
+					if (((paksconnected & (1 << i)) != (oldplugged & (1 << i)))) {
+						if ((paksconnected & (1 << i))) {
+							// pak connected
+							g_Paks[i].state = PAKSTATE_PROBE;
+							newplugged |= (1 << i);
 						} else {
-							g_Paks[i].unk010 = PAK010_01;
-							newvalue &= ~(1 << i);
-							func0f110d90(i);
+							// pak unplugged
+							g_Paks[i].state = PAKSTATE_UNPLUGGING;
+							newplugged &= ~(1 << i);
+							filelistInvalidatePak(i);
 						}
 					}
 				}
 			}
 
-			var80075d10 = newvalue;
+			g_PaksPlugged = newplugged;
 		}
 	}
 #else
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		u32 thing = joy00013980();
-		u8 oldvalue = var80075d10;
-		u8 newvalue = var80075d10;
+		u32 paksconnected = joyShiftPfsStates();
+		u8 oldplugged = g_PaksPlugged;
+		u8 newplugged = g_PaksPlugged;
 		s32 i;
 
 		for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
 			u32 thisbit = 1 << i;
 
-			if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & thisbit) {
-				if ((thing & thisbit) != (oldvalue & thisbit)) {
-					if (thing & thisbit) {
-						g_Paks[i].unk010 = PAK010_02;
-						newvalue |= thisbit;
+			if ((g_Vars.paksneededforgame | g_Vars.paksneededformenu) & thisbit) {
+				if ((paksconnected & thisbit) != (oldplugged & thisbit)) {
+					if (paksconnected & thisbit) {
+						// pak connected
+						g_Paks[i].state = PAKSTATE_PROBE;
+						newplugged |= thisbit;
 					} else {
-						g_Paks[i].unk010 = PAK010_01;
-						newvalue &= ~thisbit;
+						// pak unplugged
+						g_Paks[i].state = PAKSTATE_UNPLUGGING;
+						newplugged &= ~thisbit;
 					}
 				}
 			}
 		}
 
-		var80075d10 = newvalue;
+		g_PaksPlugged = newplugged;
 	}
 #endif
 }
@@ -4913,7 +4925,7 @@ bool gbpak0f11cef8(s8 device)
 		}
 	}
 
-	pak->unk008 = 1;
+	pak->unk008 = PAK008_01;
 
 	return true;
 }
@@ -5054,7 +5066,7 @@ u32 var80075d5c = 0x00000000;
 s32 pak0f11d3f8(s8 device)
 {
 	if (g_Paks[device].type == PAKTYPE_GAMEBOY
-			&& (g_Paks[device].unk010 == PAK010_11 || g_Paks[device].unk010 == PAK010_12 || g_Paks[device].unk010 == PAK010_13)) {
+			&& (g_Paks[device].state == PAKSTATE_READY || g_Paks[device].state == PAKSTATE_12 || g_Paks[device].state == PAKSTATE_13)) {
 		return true;
 	}
 
@@ -5063,8 +5075,8 @@ s32 pak0f11d3f8(s8 device)
 
 bool pak0f11d478(s8 device)
 {
-	if (g_Paks[device].unk008 == 11) {
-		g_Paks[device].unk008 = 1;
+	if (g_Paks[device].unk008 == PAK008_11) {
+		g_Paks[device].unk008 = PAK008_01;
 		return true;
 	}
 
@@ -5073,8 +5085,8 @@ bool pak0f11d478(s8 device)
 
 bool pak0f11d4dc(s8 device)
 {
-	if (g_Paks[device].unk008 == 1 || g_Paks[device].unk008 == 0) {
-		g_Paks[device].unk008 = 2;
+	if (g_Paks[device].unk008 == PAK008_01 || g_Paks[device].unk008 == PAK008_00) {
+		g_Paks[device].unk008 = PAK008_02;
 		g_Paks[device].unk270 = 0;
 	}
 
@@ -5083,8 +5095,8 @@ bool pak0f11d4dc(s8 device)
 
 s32 pak0f11d540(s8 device, s32 arg1)
 {
-	if (g_Paks[device].unk008 == 1 || g_Paks[device].unk008 == 0) {
-		g_Paks[device].unk008 = 4;
+	if (g_Paks[device].unk008 == PAK008_01 || g_Paks[device].unk008 == PAK008_00) {
+		g_Paks[device].unk008 = PAK008_04;
 		g_Paks[device].unk270 = arg1;
 		return true;
 	}
@@ -5094,8 +5106,8 @@ s32 pak0f11d540(s8 device, s32 arg1)
 
 s32 pak0f11d5b0(s8 device)
 {
-	if (g_Paks[device].unk008 == 1 || g_Paks[device].unk008 == 0) {
-		g_Paks[device].unk008 = 4;
+	if (g_Paks[device].unk008 == PAK008_01 || g_Paks[device].unk008 == PAK008_00) {
+		g_Paks[device].unk008 = PAK008_04;
 		g_Paks[device].unk270 = 1;
 		return true;
 	}
@@ -5105,8 +5117,8 @@ s32 pak0f11d5b0(s8 device)
 
 void pak0f11d620(s8 device)
 {
-	if (g_Paks[device].unk010 == PAK010_11) {
-		g_Paks[device].unk010 = PAK010_12;
+	if (g_Paks[device].state == PAKSTATE_READY) {
+		g_Paks[device].state = PAKSTATE_12;
 	}
 }
 
@@ -5140,20 +5152,20 @@ bool gbpak0f11d680(s8 device, bool arg1)
 	u16 size;
 
 	switch (g_Paks[device].unk00c) {
-	case 0:
+	case PAK00C_00:
 		offset = 0x1a0;
 		size = 0x40;
 		arg1 = true;
 		break;
-	case 1:
+	case PAK00C_01:
 		offset = g_Paks[device].unk278 * 0x100 + 0x660;
 		size = 0x40;
 		break;
-	case 2:
+	case PAK00C_02:
 		offset = g_Paks[device].unk278 * 0x100 + 0x440;
 		size = 0x80;
 		break;
-	case 3:
+	case PAK00C_03:
 		offset = g_Paks[device].unk278 * var80075ccc;
 		size = var80075ccc;
 		break;
@@ -5172,22 +5184,22 @@ bool gbpak0f11d680(s8 device, bool arg1)
 bool pak0f11d7c4(s8 device)
 {
 	switch (g_Paks[device].unk00c) {
-	case 0:
+	case PAK00C_00:
 		if (g_Paks[device].unk278 == 1) {
 			return true;
 		}
 		break;
-	case 1:
+	case PAK00C_01:
 		if (g_Paks[device].unk278 == 4) {
 			return true;
 		}
 		break;
-	case 2:
+	case PAK00C_02:
 		if (g_Paks[device].unk278 == 8) {
 			return true;
 		}
 		break;
-	case 3:
+	case PAK00C_03:
 		if (g_Paks[device].unk278 == 0x1000 / var80075ccc) {
 			return true;
 		}
@@ -5255,7 +5267,7 @@ void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
 	u32 j;
 
 	switch (g_Paks[device].unk00c) {
-	case 0:
+	case PAK00C_00:
 		if (arg2 != NULL) {
 			u8 *src = &g_Paks[device].unk2c4[0x1b2];
 			s32 i;
@@ -5265,7 +5277,7 @@ void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
 			}
 		}
 		break;
-	case 1:
+	case PAK00C_01:
 		if (arg1 != NULL) {
 			pakConvertFromGbcImage(g_Paks[device].unk2c4, sp60);
 
@@ -5276,7 +5288,7 @@ void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
 			}
 		}
 		break;
-	case 2:
+	case PAK00C_02:
 		if (arg1 != NULL) {
 			pakConvertFromGbcImage(g_Paks[device].unk2c4, sp60);
 
@@ -5287,7 +5299,7 @@ void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
 			}
 		}
 		break;
-	case 3:
+	case PAK00C_03:
 		if (arg1 != NULL) {
 			pakConvertFromGbcImage(g_Paks[device].unk2c4, arg1);
 		}
@@ -5327,7 +5339,7 @@ void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
 #if VERSION >= VERSION_NTSC_1_0
 void pakRumble(s32 device, f32 numsecs, s32 onduration, s32 offduration)
 {
-	if (g_Paks[device].unk010 == PAK010_11
+	if (g_Paks[device].state == PAKSTATE_READY
 			&& g_Paks[device].type == PAKTYPE_RUMBLE
 			&& g_Paks[device].rumblestate != RUMBLESTATE_DISABLED_STOPPING
 			&& g_Paks[device].rumblestate != RUMBLESTATE_DISABLED_STOPPED
@@ -5344,7 +5356,7 @@ void pakRumble(s8 device, f32 numsecs, s32 onduration, s32 offduration)
 {
 	u8 index = g_Vars.playertojoymap[device];
 
-	if (g_Paks[index].unk010 == PAK010_11
+	if (g_Paks[index].state == PAKSTATE_READY
 			&& g_Paks[index].type == PAKTYPE_RUMBLE
 			&& g_Paks[index].rumblestate != RUMBLESTATE_DISABLED_STOPPING
 			&& g_Paks[index].rumblestate != RUMBLESTATE_DISABLED_STOPPED
@@ -5469,96 +5481,78 @@ void pakDumpPak(void)
 
 void pak0f117f94nb(s8 device);
 
-void pak0f11df94(s8 device)
+void pakTickState(s8 device)
 {
 #if VERSION == VERSION_NTSC_1_0
-	if (g_Paks[device].unk2b8_07) {
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
+	if (g_Paks[device].showdatalost) {
+		SETBANNER(-1);
 
-		if (func0f0fd1f4(device, 4)) {
-			func0f0fd320(device, 4);
-			g_Paks[device].unk2b8_07 = false;
+		if (menuIsReadyForPakError(device, PAKERRORDIALOG_DATALOST)) {
+			menuPushPakErrorDialog(device, PAKERRORDIALOG_DATALOST);
+			g_Paks[device].showdatalost = false;
 		}
 	}
 #endif
 
-	switch (g_Paks[device].unk010) {
-	case PAK010_00:
+	switch (g_Paks[device].state) {
+	case PAKSTATE_NOPAK:
 		break;
-	case PAK010_01:
-		g_Paks[device].unk010 = PAK010_00;
-		g_Paks[device].unk264++;
+	case PAKSTATE_UNPLUGGING:
+		g_Paks[device].state = PAKSTATE_NOPAK;
+		g_Paks[device].plugcount++;
 #if VERSION >= VERSION_NTSC_FINAL
-		g_Paks[device].unk2b8_07 = false;
+		g_Paks[device].showdatalost = false;
 #endif
 		g_Paks[device].type = PAKTYPE_NONE;
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
-#else
-		menuSetBanner(-1, true);
-#endif
-
+		SETBANNER(-1);
 		func0f14aed0(device);
 		break;
-	case PAK010_02:
+	case PAKSTATE_PROBE:
 #if VERSION >= VERSION_NTSC_1_0
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
-
+		SETBANNER(-1);
 		pakProbe(device);
 #else
 		pak0f114dd4nb(device);
 #endif
 		func0f14aed0(device);
 		break;
-	case PAK010_03:
+	case PAKSTATE_MEM_DISPATCH:
 #if VERSION >= VERSION_NTSC_1_0
-		if (g_Vars.paksconnected & (1 << device))
+		if (g_Vars.paksneededformenu & (1 << device))
 #else
-		if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & (1 << device))
+		if ((g_Vars.paksneededforgame | g_Vars.paksneededformenu) & (1 << device))
 #endif
 		{
 			if (device == SAVEDEVICE_GAMEPAK) {
-				g_Paks[device].unk010 = PAK010_05;
+				g_Paks[device].state = PAKSTATE_MEM_PREPARE;
 			} else {
-				g_Paks[device].unk010 = PAK010_04;
+				g_Paks[device].state = PAKSTATE_MEM_PRE_PREPARE;
 			}
 		} else {
-			g_Paks[device].unk010 = PAK010_07;
+			g_Paks[device].state = PAKSTATE_07;
 		}
 		break;
-	case PAK010_07:
+	case PAKSTATE_07:
 #if VERSION >= VERSION_NTSC_1_0
-		if (g_Vars.paksconnected & (1 << device))
+		if (g_Vars.paksneededformenu & (1 << device))
 #else
-		if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & (1 << device))
+		if ((g_Vars.paksneededforgame | g_Vars.paksneededformenu) & (1 << device))
 #endif
 		{
-			g_Paks[device].unk010 = PAK010_02;
+			g_Paks[device].state = PAKSTATE_PROBE;
 		}
 		break;
 	default:
 		break;
-	case PAK010_04:
+	case PAKSTATE_MEM_PRE_PREPARE:
 		g_MpPlayerNum = device;
 
-#if VERSION >= VERSION_NTSC_1_0
-		if (var80075d14) {
-			menuSetBanner(MENUBANNER_CHECKINGPAK, true);
-		}
-#else
-		menuSetBanner(MENUBANNER_CHECKINGPAK, true);
-#endif
+		SETBANNER(MENUBANNER_CHECKINGPAK);
 
-		g_Paks[device].unk010 = PAK010_05;
+		g_Paks[device].state = PAKSTATE_MEM_PREPARE;
 		break;
-	case PAK010_05:
+	case PAKSTATE_MEM_PREPARE:
 #if VERSION >= VERSION_NTSC_1_0
 		joyDisableCyclicPolling();
 		mempakPrepare(device);
@@ -5567,26 +5561,19 @@ void pak0f11df94(s8 device)
 		mempakPrepare(device);
 #endif
 		break;
-	case PAK010_06:
-#if VERSION >= VERSION_NTSC_1_0
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
-#else
-		menuSetBanner(-1, true);
-#endif
-
-		g_Paks[device].unk010 = PAK010_11;
+	case PAKSTATE_MEM_POST_PREPARE:
+		SETBANNER(-1);
+		g_Paks[device].state = PAKSTATE_READY;
 		break;
-	case PAK010_08:
+	case PAKSTATE_GB_PRE_PREPARE:
 		if (func0f14aea0(device)) {
-			g_Paks[device].unk010 = PAK010_09;
+			g_Paks[device].state = PAKSTATE_GB_PREPARE;
 		}
 		break;
-	case PAK010_09:
+	case PAKSTATE_GB_PREPARE:
 #if VERSION >= VERSION_NTSC_1_0
-		g_Paks[device].unk008 = 0;
-		g_Paks[device].unk010 = PAK010_10;
+		g_Paks[device].unk008 = PAK008_00;
+		g_Paks[device].state = PAKSTATE_GB_POST_PREPARE1;
 #else
 		{
 			s32 ret;
@@ -5597,151 +5584,113 @@ void pak0f11df94(s8 device)
 
 			if (ret == 0) {
 				g_Paks[device].type = PAKTYPE_GAMEBOY;
-				g_Paks[device].unk008 = 0;
-				g_Paks[device].unk010 = PAK010_10;
+				g_Paks[device].unk008 = PAK008_00;
+				g_Paks[device].state = PAKSTATE_GB_POST_PREPARE1;
 			} else {
 				gbpakHandleError(ret);
 				g_Paks[device].type = PAKTYPE_GAMEBOY_ERROR;
-				g_Paks[device].unk010 = PAK010_00;
+				g_Paks[device].state = PAKSTATE_NOPAK;
 			}
 		}
 #endif
 		break;
-	case PAK010_10:
-		g_Paks[device].unk010 = PAK010_24;
+	case PAKSTATE_GB_POST_PREPARE1:
+		g_Paks[device].state = PAKSTATE_GB_POST_PREPARE2;
 		break;
-	case PAK010_24:
-		g_Paks[device].unk010 = PAK010_25;
+	case PAKSTATE_GB_POST_PREPARE2:
+		g_Paks[device].state = PAKSTATE_GB_POST_PREPARE3;
 		break;
-	case PAK010_25:
-		g_Paks[device].unk010 = PAK010_11;
+	case PAKSTATE_GB_POST_PREPARE3:
+		g_Paks[device].state = PAKSTATE_READY;
 		break;
-	case PAK010_12:
+	case PAKSTATE_12:
 #if VERSION >= VERSION_NTSC_1_0
-		g_Paks[device].unk010 = PAK010_11;
+		g_Paks[device].state = PAKSTATE_READY;
 #else
 		if (g_Paks[device].type == PAKTYPE_GAMEBOY) {
 			joyDisableCyclicPolling(5960, "pak.c");
 			pak0f117f94nb(device);
 			joyEnableCyclicPolling(5962, "pak.c");
 
-			g_Paks[device].unk010 = PAK010_13;
+			g_Paks[device].state = PAKSTATE_13;
 		} else {
-			g_Paks[device].unk010 = PAK010_11;
+			g_Paks[device].state = PAKSTATE_READY;
 		}
 #endif
 		break;
-	case PAK010_13:
+	case PAKSTATE_13:
 		break;
-	case PAK010_15:
+	case PAKSTATE_MEM_ENTER_CORRUPT:
+		SETBANNER(-1);
+
 #if VERSION >= VERSION_NTSC_1_0
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
-
-		if ((g_Vars.paksconnected & (1 << device)) && func0f0fd1f4(device, 1)) {
-			func0f0fd320(device, 1);
-			g_Paks[device].unk010 = PAK010_20;
-		} else {
-			// empty
-		}
-#else
-		menuSetBanner(-1, true);
-
-		if (func0f0fd1f4(device, 1)) {
-			func0f0fd320(device, 1);
-			g_Paks[device].unk010 = PAK010_20;
-		} else {
-			// empty
-		}
+		if ((g_Vars.paksneededformenu & (1 << device)))
 #endif
+		{
+			if (menuIsReadyForPakError(device, PAKERRORDIALOG_CORRUPT)) {
+				menuPushPakErrorDialog(device, PAKERRORDIALOG_CORRUPT);
+				g_Paks[device].state = PAKSTATE_MEM_CORRUPT;
+			} else {
+				// empty
+			}
+		}
 		break;
 #if VERSION >= VERSION_NTSC_1_0
-	case PAK010_26:
-		if (func0f0fd1f4(device, 3)) {
-			func0f0fd320(device, 3);
-			g_Paks[device].unk010 = PAK010_27;
+	case PAKSTATE_GB_OPEN_UNREADABLE:
+		if (menuIsReadyForPakError(device, PAKERRORDIALOG_GB_UNREADABLE)) {
+			menuPushPakErrorDialog(device, PAKERRORDIALOG_GB_UNREADABLE);
+			g_Paks[device].state = PAKSTATE_GB_IDLE_UNREADABLE;
 		}
 		break;
-	case PAK010_27:
-		g_Paks[device].unk010 = PAK010_11;
+	case PAKSTATE_GB_IDLE_UNREADABLE:
+		g_Paks[device].state = PAKSTATE_READY;
 		break;
 #endif
-	case PAK010_14:
-#if VERSION >= VERSION_NTSC_1_0
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
+	case PAKSTATE_MEM_ENTER_DEVICEERROR:
+		SETBANNER(-1);
 
-		if (((g_Vars.paksconnected & (1 << device))) && func0f0fd1f4(device, 2)) {
-			func0f0fd320(device, 2);
-			g_Paks[device].unk010 = PAK010_19;
-		} else {
-			// empty
-		}
-#else
-		menuSetBanner(-1, true);
-
-		if (func0f0fd1f4(device, 2)) {
-			func0f0fd320(device, 2);
-			g_Paks[device].unk010 = PAK010_19;
-		} else {
-			// empty
-		}
-#endif
-		break;
-	case PAK010_16:
 #if VERSION >= VERSION_NTSC_1_0
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
-
-		if ((g_Vars.paksconnected & (1 << device)) && func0f0fd1f4(device, 0)) {
-			func0f0fd320(device, 0);
-			g_Paks[device].unk010 = PAK010_21;
-		} else {
-			// empty
-		}
-#else
-		menuSetBanner(-1, true);
-
-		if (func0f0fd1f4(device, 0)) {
-			func0f0fd320(device, 0);
-			g_Paks[device].unk010 = PAK010_21;
-		} else {
-			// empty
-		}
+		if (g_Vars.paksneededformenu & (1 << device))
 #endif
+		{
+			if (menuIsReadyForPakError(device, PAKERRORDIALOG_DEVICEERROR)) {
+				menuPushPakErrorDialog(device, PAKERRORDIALOG_DEVICEERROR);
+				g_Paks[device].state = PAKSTATE_MEM_DEVICEERROR;
+			} else {
+				// empty
+			}
+		}
 		break;
-	case PAK010_21:
+	case PAKSTATE_MEM_ENTER_FULL:
+		SETBANNER(-1);
+
 #if VERSION >= VERSION_NTSC_1_0
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
-#else
-		menuSetBanner(-1, true);
+		if (g_Vars.paksneededformenu & (1 << device))
 #endif
+		{
+			if (menuIsReadyForPakError(device, PAKERRORDIALOG_FULL)) {
+				menuPushPakErrorDialog(device, PAKERRORDIALOG_FULL);
+				g_Paks[device].state = PAKSTATE_MEM_FULL;
+			} else {
+				// empty
+			}
+		}
 		break;
-	case PAK010_22:
-#if VERSION >= VERSION_NTSC_1_0
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
-#else
-		menuSetBanner(-1, true);
-#endif
+	case PAKSTATE_MEM_FULL:
+		SETBANNER(-1);
+		break;
+	case PAKSTATE_22:
+		SETBANNER(-1);
 		break;
 	}
 
 #if VERSION >= VERSION_NTSC_FINAL
-	if (g_Paks[device].unk2b8_07) {
-		if (var80075d14) {
-			menuSetBanner(-1, true);
-		}
+	if (g_Paks[device].showdatalost) {
+		SETBANNER(-1);
 
-		if (func0f0fd1f4(device, 4)) {
-			func0f0fd320(device, 4);
-			g_Paks[device].unk2b8_07 = false;
+		if (menuIsReadyForPakError(device, PAKERRORDIALOG_DATALOST)) {
+			menuPushPakErrorDialog(device, PAKERRORDIALOG_DATALOST);
+			g_Paks[device].showdatalost = false;
 		}
 	}
 #endif
@@ -5786,57 +5735,57 @@ void pak0f117f94nb(s8 device)
 	if (pak);
 	if (pak);
 
-	if (pak->unk008 == 12) {
+	if (pak->unk008 == PAK008_12) {
 		pak->unk2b8_05 = gbpakIdentifyGame(device);
 
 		if (pak->unk2b8_05 && pak->isgbcamera) {
-			pak->unk008 = 0;
+			pak->unk008 = PAK008_00;
 		}
 	}
 
 	if (!pak->unk2b8_05) {
 		func0f14cf6c();
-		pak->unk008 = 12;
+		pak->unk008 = PAK008_12;
 		return;
 	}
 
-	if (pak->unk008 != 1) {
-		if (pak->unk008 == 0) {
+	if (pak->unk008 != PAK008_01) {
+		if (pak->unk008 == PAK008_00) {
 			gbpak0f11cef8(device);
 			return;
 		}
 
-		if (pak->unk008 == 2) {
+		if (pak->unk008 == PAK008_02) {
 			gbpak0f11cef8(device);
-			pak->unk008 = 3;
+			pak->unk008 = PAK008_03;
 		}
 
-		if (pak->unk008 == 3) {
+		if (pak->unk008 == PAK008_03) {
 			if (pak0f116d1cnb(device) == 0) {
-				pak->unk008 = 4;
+				pak->unk008 = PAK008_04;
 			}
 		}
 
-		if (pak->unk008 == 4) {
-			pak->unk008 = pak->unk2b8_06 ? 5 : 8;
+		if (pak->unk008 == PAK008_04) {
+			pak->unk008 = pak->unk2b8_06 ? PAK008_05 : PAK008_08;
 		}
 
-		if (pak->unk008 == 5) {
+		if (pak->unk008 == PAK008_05) {
 			gbpak0f11cef8(device);
-			pak->unk008 = 6;
+			pak->unk008 = PAK008_06;
 		}
 
-		if (pak->unk008 == 6) {
+		if (pak->unk008 == PAK008_06) {
 			if (pak0f116d1cnb(device) == 0) {
-				pak->unk008 = 7;
+				pak->unk008 = PAK008_07;
 			}
 		}
 
-		if (pak->unk008 == 7) {
-			pak->unk008 = 8;
+		if (pak->unk008 == PAK008_07) {
+			pak->unk008 = PAK008_08;
 		}
 
-		if (pak->unk008 == 8) {
+		if (pak->unk008 == PAK008_08) {
 			s32 i;
 
 			for (i = 0; i < 0x1000; i++) {
@@ -5844,12 +5793,12 @@ void pak0f117f94nb(s8 device)
 			}
 
 			gbpak0f1172c8nb(device, pak->unk270);
-			pak->unk008 = 9;
+			pak->unk008 = PAK008_09;
 		}
 
-		if (pak->unk008 == 9) {
+		if (pak->unk008 == PAK008_09) {
 			if (gbpak0f11d680(device, pakGetUnk270(device)) && pak0f11d7c4(device)) {
-				pakSetUnk008(device, 11);
+				pakSetUnk008(device, PAK008_11);
 			}
 		}
 	}
@@ -5858,7 +5807,7 @@ void pak0f117f94nb(s8 device)
 
 void pak0f11e3bc(s8 device)
 {
-	g_Paks[device].unk008 = 0;
+	g_Paks[device].unk008 = PAK008_00;
 }
 
 void pakProbeEeprom(void)
@@ -6005,7 +5954,7 @@ s8 pakFindBySerial(s32 findserial)
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_Paks); i++) {
-		if (pak0f116aec(i)) {
+		if (mempakIsReady(i)) {
 			s32 serial = pakGetSerial(i);
 
 			if (findserial == serial) {
@@ -6135,7 +6084,7 @@ s32 gbpakIdentifyGame(s8 device)
 		return game;
 	}
 
-	g_Paks[device].unk010 = PAK010_26;
+	g_Paks[device].state = PAKSTATE_GB_OPEN_UNREADABLE;
 	return GBGAME_OTHER;
 #else
 	OSGbpakId id;

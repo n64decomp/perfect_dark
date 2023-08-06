@@ -197,7 +197,7 @@ void chrSetPerimEnabled(struct chrdata *chr, bool enable)
  * pos and rooms for the chr. It does collision checks and updates dstpos and
  * dstrooms to valid ones if needed.
  */
-void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstrooms, bool arg3)
+void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, RoomNum *dstrooms, bool arg3)
 {
 	f32 ymax;
 	f32 ymin;
@@ -210,7 +210,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	f32 halfradius;
 	struct defaultobj *chair = NULL;
 	s32 cdresult;
-	s16 sp84[20];
+	RoomNum sp84[20];
 #if VERSION < VERSION_NTSC_1_0
 	s32 i;
 #endif
@@ -478,14 +478,14 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, bool arg4)
+bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg3, bool arg4)
 #else
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3)
+bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg3)
 #endif
 {
 	bool result;
 	struct coord newpos;
-	s16 newrooms[8];
+	RoomNum newrooms[8];
 	f32 ymax;
 	f32 ymin;
 	f32 radius;
@@ -520,7 +520,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	struct prop *lift;
 	s32 i;
 	f32 ground;
-	s16 spfc[8];
+	RoomNum spfc[8];
 	f32 manground = chr->manground;
 	s32 race = CHRRACE(chr);
 	f32 yincrement = 0.0f;
@@ -531,7 +531,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	f32 lvupdate60f;
 	f32 lvupdate60freal;
 	struct coord spd0;
-	s16 spc0[8];
+	RoomNum spc0[8];
 #endif
 
 	// NTSC beta reads g_Vars lvupdate properties throughout this function,
@@ -640,8 +640,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 			bmove0f0cb904(&chr->aibot->shotspeed);
 
-			arg2->x += chr->aibot->shotspeed.x * var80075c00[1].unk0c * VAR(lvupdate60freal) * 0.5f;
-			arg2->z += chr->aibot->shotspeed.z * var80075c00[1].unk0c * VAR(lvupdate60freal) * 0.5f;
+			arg2->x += chr->aibot->shotspeed.x * g_HeadAnims[HEADANIM_MOVING].translateperframe * VAR(lvupdate60freal) * 0.5f;
+			arg2->z += chr->aibot->shotspeed.z * g_HeadAnims[HEADANIM_MOVING].translateperframe * VAR(lvupdate60freal) * 0.5f;
 		}
 
 		if (chr->actiontype == ACT_DIE && chr->act_die.timeextra > 0.0f) {
@@ -775,9 +775,9 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			arg2->y -= chr->manground;
 		} else {
 			struct coord *sp98;
-			s16 *sp94;
+			RoomNum *sp94;
 			struct coord sp88;
-			s16 sp78[8];
+			RoomNum sp78[8];
 			f32 ground;
 			struct modelnode *node;
 			u16 nodetype;
@@ -1290,7 +1290,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 }
 
 struct prop *chr0f020b14(struct prop *prop, struct model *model,
-		struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist)
+		struct coord *pos, RoomNum *rooms, f32 faceangle, u8 *ailist)
 {
 	struct chrdata *chr;
 	struct coord testpos;
@@ -1345,7 +1345,7 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	return prop;
 }
 
-struct prop *chrAllocate(struct model *model, struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist)
+struct prop *chrAllocate(struct model *model, struct coord *pos, RoomNum *rooms, f32 faceangle, u8 *ailist)
 {
 	struct prop *prop = propAllocate();
 
@@ -1871,7 +1871,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 	}
 }
 
-void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
+void chr0f021fa8(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 {
 	struct coord lower;
 	struct coord upper;
@@ -1904,7 +1904,7 @@ void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	bgFindEnteredRooms(&lower, &upper, rooms, 7, true);
 }
 
-void chr0f022084(struct chrdata *chr, s16 *room)
+void chr0f022084(struct chrdata *chr, RoomNum *room)
 {
 	chr0f021fa8(chr, &chr->prop->pos, room);
 }

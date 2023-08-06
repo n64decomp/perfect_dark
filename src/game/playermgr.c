@@ -327,7 +327,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->resetheadrot = true;
 	g_Vars.players[index]->resetheadtick = true;
 
-	g_Vars.players[index]->headanim = 0;
+	g_Vars.players[index]->headanim = HEADANIM_RESTING;
 	g_Vars.players[index]->headdamp = (PAL ? 0.9166f : 0.93f);
 	g_Vars.players[index]->headwalkingtime60 = 0;
 	g_Vars.players[index]->headamplitude = 1;

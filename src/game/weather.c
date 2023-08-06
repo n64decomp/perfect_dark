@@ -856,7 +856,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		u32 stack2;
 		struct coord distcamtobbmax;
 		struct coord distcamtobbmin;
-		s16 neighbours[20];
+		RoomNum neighbours[20];
 
 		particledata = weather->particledata[arg2];
 		numtris = 0;
@@ -2872,7 +2872,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	s32 i; // 184
 	struct coord sp178;
 	struct coord sp16c;
-	s16 sp144[20];
+	RoomNum sp144[20];
 	struct coord sp124;
 	struct coord sp118;
 	f32 f26;

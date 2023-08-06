@@ -13,7 +13,7 @@ void coverAllocateSpecial(u16 *specialcovernums)
 {
 	s32 i;
 
-	g_SpecialCoverNums = mempAlloc(ALIGN16(g_NumSpecialCovers * sizeof(u16)), MEMPOOL_STAGE);
+	g_SpecialCoverNums = mempAlloc(ALIGN16(g_NumSpecialCovers * sizeof(g_SpecialCoverNums[0])), MEMPOOL_STAGE);
 
 	if (g_SpecialCoverNums != NULL) {
 		for (i = 0; i < g_NumSpecialCovers; i++) {
@@ -26,17 +26,17 @@ void setupPrepareCover(void)
 {
 	s32 i;
 	s32 numcovers = g_PadsFile->numcovers;
-	s16 *roomsptr;
+	RoomNum *roomsptr;
 	f32 scale = 1;
 	struct coord aimpos;
 	struct cover cover;
 	u16 specialcovernums[1024];
-	s16 inrooms[21];
-	s16 aboverooms[21];
+	RoomNum inrooms[21];
+	RoomNum aboverooms[21];
 
-	g_CoverFlags = mempAlloc(ALIGN16(numcovers * sizeof(u16)), MEMPOOL_STAGE);
-	g_CoverRooms = mempAlloc(ALIGN16(numcovers * sizeof(s32)), MEMPOOL_STAGE);
-	g_CoverCandidates = mempAlloc(ALIGN16(numcovers * 0x10), MEMPOOL_STAGE);
+	g_CoverFlags = mempAlloc(ALIGN16(numcovers * sizeof(g_CoverFlags[0])), MEMPOOL_STAGE);
+	g_CoverRooms = mempAlloc(ALIGN16(numcovers * sizeof(g_CoverRooms[0])), MEMPOOL_STAGE);
+	g_CoverCandidates = mempAlloc(ALIGN16(numcovers * sizeof(g_CoverCandidates[0])), MEMPOOL_STAGE);
 
 	g_NumSpecialCovers = 0;
 	g_SpecialCoverNums = NULL;
@@ -80,7 +80,7 @@ void setupPrepareCover(void)
 					s32 room = cdFindFloorRoomAtPos(cover.pos, roomsptr);
 
 					if (room > 0) {
-						g_CoverRooms[i] = (s16)room;
+						g_CoverRooms[i] = (RoomNum)room;
 					} else {
 						g_CoverRooms[i] = roomsptr[0];
 					}
@@ -106,7 +106,7 @@ void setupPrepareCover(void)
 						s32 aimroom = cdFindFloorRoomAtPos(&aimpos, roomsptr);
 
 						if (aimroom > 0) {
-							g_CoverFlags[i] |= (g_CoverRooms[i] == (s16)aimroom) ? COVERFLAG_AIMSAMEROOM : COVERFLAG_AIMDIFFROOM;
+							g_CoverFlags[i] |= (g_CoverRooms[i] == (RoomNum)aimroom) ? COVERFLAG_AIMSAMEROOM : COVERFLAG_AIMDIFFROOM;
 						} else {
 							g_CoverFlags[i] |= (g_CoverRooms[i] == roomsptr[0]) ? COVERFLAG_AIMSAMEROOM : COVERFLAG_AIMDIFFROOM;
 						}

@@ -245,9 +245,9 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	struct prop *objprop;
 	struct hitthing hitthing;
 	struct hitthing besthitthing;
-	s16 rooms[32];
-	s16 gunrooms[8];
-	s16 endrooms[8];
+	RoomNum rooms[32];
+	RoomNum gunrooms[8];
+	RoomNum endrooms[8];
 	struct coord endpos;
 	s32 i;
 	struct coord *sp50c;
@@ -422,7 +422,7 @@ void splat0f14986c(struct splatdata *splat)
 	bool sp84 = splat->isskedar & 1;
 	bool translucent = splat->translucent;
 	f32 distance;
-	s16 smokerooms[2];
+	RoomNum smokerooms[2];
 
 	texnum = WALLHITTEX_BLOOD1 + (random() % 3);
 

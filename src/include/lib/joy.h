@@ -4,15 +4,15 @@
 #include "data.h"
 #include "types.h"
 
-void joy00013900(void);
-void joy00013938(void);
-void joy00013974(u32 value);
-u32 joy00013980(void);
-void joy0001398c(s32 value);
-void joy000139c8(void);
+void joyLockCyclicPolling(void);
+void joyUnlockCyclicPolling(void);
+void joySetPfsPollEnabled(bool enabled);
+bool joyIsPfsPollEnabled(void);
+void joySetPfsPollInterval(s32 value);
+void joySetDefaultPfsPollInterval(void);
 s32 joyShiftPfsStates(void);
 void joyRecordPfsState(u8 pfsstate);
-void joyCheckPfs(s32 arg0);
+void joyPollPfs(s32 force);
 void joySetPfsTemporarilyPlugged(s8 index);
 void joyInit(void);
 void joyDisableTemporarily(void);
@@ -49,8 +49,8 @@ void joyEnableCyclicPolling(s32 line, char *file);
 void joyDestroy(void);
 void joyGetContpadNumsForPlayer(s8 playernum, s32 *pad1, s32 *pad2);
 void joyStopRumble(s8 device, bool disablepolling);
-s32 joy000155b4(s8 device);
-s32 joy000155f4(s8 device);
+s32 joyGetPakState(s8 device);
+s32 joyGetPakState2(s8 device);
 void joysTickRumble(void);
 
 #endif

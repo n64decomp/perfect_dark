@@ -28,7 +28,7 @@ void botmgrRemoveAll(void)
 
 void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 {
-	s16 rooms[1];
+	RoomNum rooms[1];
 	struct prop *prop;
 	struct chrdata *chr;
 	struct aibot *aibot;

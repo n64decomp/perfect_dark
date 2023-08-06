@@ -19,7 +19,7 @@ bool lightIsVulnerable(s32 roomnum, s32 lightnum);
 bool lightIsOn(s32 roomnum, s32 lightnum);
 void roomSetFlashBrightness(s32 roomnum, s32 value);
 void roomSetDefaults(struct room *room);
-Gfx *lightsSetForRoom(Gfx *gdl, s16 roomnum);
+Gfx *lightsSetForRoom(Gfx *gdl, RoomNum roomnum);
 Gfx *lightsSetDefault(Gfx *gdl);
 void roomInitLights(s32 roomnum);
 bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum);

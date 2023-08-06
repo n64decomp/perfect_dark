@@ -4334,11 +4334,11 @@
  * Gets the distance from chr to pad, but only if they are on the same floor
  * (ie. Y difference is less than 150).
  */
-#define if_chr_same_floor_distance_to_pad_lt(chr, pad, distance, label) \
+#define if_chr_same_floor_distance_to_pad_lt(chr, distance, pad, label) \
 	mkshort(0x01df), \
 	chr, \
-	mkshort(pad), \
 	mkshort(distance / 10), \
+	mkshort(pad), \
 	label,
 
 /**

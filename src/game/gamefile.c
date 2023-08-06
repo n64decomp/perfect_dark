@@ -170,7 +170,7 @@ void gamefileLoadDefaults(struct gamefile *file)
 
 	pakSetBitflag(GAMEFILEFLAG_P1_FORWARDPITCH, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags, AIMCONTROL_HOLD);
+	pakSetBitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, file->flags, true);
 #ifdef PLATFORM_N64
 	pakSetBitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags, true);
@@ -188,7 +188,7 @@ void gamefileLoadDefaults(struct gamefile *file)
 
 	pakSetBitflag(GAMEFILEFLAG_P2_FORWARDPITCH, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_P2_AUTOAIM, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P2_AIMCONTROL, file->flags, AIMCONTROL_HOLD);
+	pakSetBitflag(GAMEFILEFLAG_P2_AIMCONTROL, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_P2_LOOKAHEAD, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_P2_AMMOONSCREEN, file->flags, true);
@@ -206,8 +206,8 @@ void gamefileLoadDefaults(struct gamefile *file)
 	pakSetBitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags, false);
 
-	pakSetBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags, SCREENSPLIT_HORIZONTAL);
-	pakSetBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags, SCREENRATIO_NORMAL);
+	pakSetBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, file->flags, false);
 	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, file->flags, false);
 
@@ -223,7 +223,7 @@ void gamefileLoadDefaults(struct gamefile *file)
 	pakSetBitflag(GAMEFILEFLAG_COOPRADARON, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, file->flags, true);
 	pakSetBitflag(GAMEFILEFLAG_ANTIRADARON, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags, 1);
+	pakSetBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags, true);
 
 #if VERSION >= VERSION_PAL_BETA
 	pakSetBitflag(GAMEFILEFLAG_LANGBIT1, g_GameFile.flags, ((g_Vars.language & 0x01) == 0x01));

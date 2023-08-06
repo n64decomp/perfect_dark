@@ -431,7 +431,7 @@ void nbombInflictDamage(struct nbomb *nbomb)
 	s16 propnums[256];
 	struct coord bbmin;
 	struct coord bbmax;
-	s16 roomnums[54];
+	RoomNum roomnums[54];
 	s16 *propnumptr;
 	s32 i;
 	struct gset gset;

@@ -110,7 +110,7 @@ struct cmd32 {
 void playerReset(void)
 {
 	struct coord pos = {0, 0, 0};
-	s16 rooms[8];
+	RoomNum rooms[8];
 	f32 turnanglerad = 0;
 	f32 groundy;
 	bool hasdefaultweapon = false;

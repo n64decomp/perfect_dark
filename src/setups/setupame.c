@@ -1600,14 +1600,14 @@ u8 func0414_programmer[] = {
 	beginloop(0x91)
 #if VERSION >= VERSION_NTSC_1_0
 		set_target_chr(CHR_BOND)
-		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 80, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 800, PAD_AME_007C, /*goto*/ 0x06)
 		set_target_chr(CHR_COOP)
-		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 80, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 800, PAD_AME_007C, /*goto*/ 0x06)
 #else
 		set_target_chr(CHR_BOND)
-		if_chr_distance_to_pad_lt(CHR_TARGET, 800, 124, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_TARGET, 800, PAD_AME_007C, /*goto*/ 0x06)
 		set_target_chr(CHR_COOP)
-		if_chr_distance_to_pad_lt(CHR_TARGET, 800, 124, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_TARGET, 800, PAD_AME_007C, /*goto*/ 0x06)
 #endif
 	endloop(0x91)
 
@@ -1623,14 +1623,14 @@ u8 func0414_programmer[] = {
 	beginloop(0x92)
 #if VERSION >= VERSION_NTSC_1_0
 		set_target_chr(CHR_BOND)
-		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, PAD_AME_0014, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 200, PAD_AME_007C, /*goto*/ 0x06)
 		set_target_chr(CHR_COOP)
-		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, PAD_AME_0014, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 200, PAD_AME_007C, /*goto*/ 0x06)
 #else
 		set_target_chr(CHR_BOND)
-		if_chr_distance_to_pad_lt(CHR_TARGET, 200, 124, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_TARGET, 200, PAD_AME_007C, /*goto*/ 0x06)
 		set_target_chr(CHR_COOP)
-		if_chr_distance_to_pad_lt(CHR_TARGET, 200, 124, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_TARGET, 200, PAD_AME_007C, /*goto*/ 0x06)
 #endif
 	endloop(0x92)
 

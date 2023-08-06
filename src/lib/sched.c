@@ -352,7 +352,7 @@ void __scHandleRetrace(OSSched *sc)
 	schedRenderCrashPeriodically(sc->frameCount);
 }
 
-extern struct sndcache g_SndCache;
+extern u8 g_SndCache;
 
 /**
  * __scHandleTasks is called both on retrace and when the RDP completes a task.
@@ -411,7 +411,7 @@ void __scHandleTasks(OSSched *sc)
 		}
 
 		if (checksum != CHECKSUM_PLACEHOLDER) {
-			u8 *addr = (u8 *) &g_SndCache;
+			u8 *addr = &g_SndCache;
 
 			for (i = 0; i < 40; i++) {
 				addr[4 + i] = 0xff;

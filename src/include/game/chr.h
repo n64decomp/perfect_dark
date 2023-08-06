@@ -6,24 +6,24 @@
 
 void chrSetChrnum(struct chrdata *chr, s16 chrnum);
 void chrDeregister(s32 chrnum);
-void chrCalculatePushPos(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3);
+void chrCalculatePushPos(struct chrdata *chr, struct coord *pos, RoomNum *rooms, bool arg3);
 
 #if VERSION >= VERSION_NTSC_1_0
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, bool arg4);
+bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg3, bool arg4);
 #else
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3);
+bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg3);
 #endif
 
 bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f32 *mangroundptr);
 s32 chrsGetNumFree(void);
 s16 chrsGetNextUnusedChrnum(void);
-struct prop *chr0f020b14(struct prop *prop, struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
+struct prop *chr0f020b14(struct prop *prop, struct model *model, struct coord *pos, RoomNum *rooms, f32 arg3, u8 *ailist);
 void chrRemove(struct prop *prop, bool free);
 void chrUpdateAimProperties(struct chrdata *chr);
 void chrFlinchBody(struct chrdata *chr);
 void chrFlinchHead(struct chrdata *chr, f32 arg1);
 f32 chrGetFlinchAmount(struct chrdata *chr);
-void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms);
+void chr0f021fa8(struct chrdata *chr, struct coord *pos, RoomNum *rooms);
 void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, bool arg2);
 void chr0f022214(struct chrdata *chr, struct prop *child, bool fulltick);
 void chrUpdateCloak(struct chrdata *chr);
@@ -80,9 +80,9 @@ f32 chrGetMaxDamage(struct chrdata *chr);
 void chrAddHealth(struct chrdata *chr, f32 health);
 f32 chrGetArmor(struct chrdata *chr);
 void chrInit(struct prop *prop, u8 *ailist);
-struct prop *chrAllocate(struct model *model, struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist);
+struct prop *chrAllocate(struct model *model, struct coord *pos, RoomNum *rooms, f32 faceangle, u8 *ailist);
 void chrClearReferences(s32 propnum);
-void chr0f022084(struct chrdata *chr, s16 *room);
+void chr0f022084(struct chrdata *chr, RoomNum *room);
 void chr0f0220ac(struct chrdata *chr);
 void chrCloak(struct chrdata *chr, bool arg1);
 void chrUncloak(struct chrdata *chr, bool value);

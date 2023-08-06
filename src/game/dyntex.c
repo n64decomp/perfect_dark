@@ -354,7 +354,7 @@ void dyntexSetCurrentType(s16 type)
 	g_DyntexCurType = type;
 }
 
-void dyntexSetCurrentRoom(s16 roomnum)
+void dyntexSetCurrentRoom(RoomNum roomnum)
 {
 	s32 i;
 

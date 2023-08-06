@@ -456,7 +456,7 @@ void objectiveCheckRoomEntered(s32 currentroom)
 	}
 }
 
-void objectiveCheckThrowInRoom(s32 arg0, s16 *inrooms)
+void objectiveCheckThrowInRoom(s32 arg0, RoomNum *inrooms)
 {
 	struct criteria_throwinroom *criteria = g_ThrowInRoomCriterias;
 
@@ -465,7 +465,7 @@ void objectiveCheckThrowInRoom(s32 arg0, s16 *inrooms)
 			s32 room = chrGetPadRoom(NULL, criteria->pad);
 
 			if (room >= 0) {
-				s16 requirerooms[2];
+				RoomNum requirerooms[2];
 				requirerooms[0] = room;
 				requirerooms[1] = -1;
 

@@ -7,7 +7,7 @@
 void dyntexTickRoom(s32 roomnum, Vtx *vertices);
 void dyntexAddVertex(Vtx *vertex);
 void dyntexSetCurrentType(s16 type);
-void dyntexSetCurrentRoom(s16 roomnum);
+void dyntexSetCurrentRoom(RoomNum roomnum);
 void dyntexReset(void);
 bool dyntexHasRoom(void);
 

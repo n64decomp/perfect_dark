@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include <n_libaudio.h>
 #include "naudio/n_abi.h"
+#include "ultra/audio/synthInternals.h"
+#include "naudio/n_synthInternals.h"
 #include "lib/mp3.h"
 #include "mp3/mp3.h"
 #include "types.h"
@@ -53,19 +55,18 @@ void mp3Init(ALHeap *heap)
 #endif
 
 	g_AsiStream = alHeapAlloc(heap, sizeof(struct asistream), 1);
-	var8005f6f8 = alHeapAlloc(heap, 1, 0x2200);
-	var8005f6fc = alHeapAlloc(heap, 1, 0x2200);
+	var8005f6f8 = alHeapAlloc(heap, 1, 34 * 256 * sizeof(var8005f6f8[0]));
+	var8005f6fc = alHeapAlloc(heap, 1, 34 * 256 * sizeof(var8005f6fc[0]));
 
-	var8009c6d8 = alHeapAlloc(heap, 256 * sizeof(f32), 1);
-	var8009c6dc = alHeapAlloc(heap, 256 * sizeof(f32), 1);
+	var8009c6d8 = alHeapAlloc(heap, 256 * sizeof(var8009c6d8[0]), 1);
+	var8009c6dc = alHeapAlloc(heap, 256 * sizeof(var8009c6dc[0]), 1);
 	var8009c640 = alHeapAlloc(heap, 10500 * sizeof(struct mp3decfourbytes), 1);
-	var8009c644 = alHeapAlloc(heap, 8192 * sizeof(f32), 1);
+	var8009c644 = alHeapAlloc(heap, 8192 * sizeof(var8009c644[0]), 1);
 
 	mp3mainInit();
 
-	g_Mp3Vars.var8009c398 = alHeapAlloc(heap, 1, 0x50);
-	*(u8 **)((uintptr_t)&g_Mp3Vars+0x44) = alHeapAlloc(heap, 1, 0x440);
-
+	g_Mp3Vars.var8009c398 = alHeapAlloc(heap, 1, ALIGN16(sizeof(ALEnvMixer)));
+	g_Mp3Vars.var8009c3d4[0] = alHeapAlloc(heap, 1, 0x440);
 	g_Mp3Vars.var8009c3e0 = 0;
 	g_Mp3Vars.var8009c3e4 = 0x7fff;
 	g_Mp3Vars.var8009c3ec = g_Mp3Vars.var8009c3ee = 0x40;
@@ -180,8 +181,8 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 	struct mp3thing *sp58;
 	struct mp3thing *sp54 = NULL;
 	s32 sp50;
-	s32 sp4c = 0x4e0;
-	s32 sp48 = 0x650;
+	s32 sp4c = N_AL_MAIN_L_OUT;
+	s32 sp48 = N_AL_MAIN_R_OUT;
 
 	if (g_Mp3Vars.var8009c3ec != g_Mp3Vars.var8009c3ee) {
 		sp60 = g_Mp3Vars.var8009c3ee - g_Mp3Vars.var8009c3ec;
@@ -212,7 +213,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 				g_Mp3Vars.var8009c3d0 = 0;
 				g_Mp3Vars.var8009c3d8 = 0;
 
-				bzero(*(u32 **)&g_Mp3Vars.var8009c3d4, 0x440);
+				bzero(g_Mp3Vars.var8009c3d4[0], 0x440);
 			}
 		} else {
 			g_Mp3Vars.var8009c3f0--;
@@ -245,7 +246,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 				g_Mp3Vars.var8009c3c8 = sp58;
 
 				for (i = 0; i < sp5c; i++) {
-					acmd08((*cmd)++, osVirtualToPhysical(g_Mp3Vars.var8009c3d4_arr[i]));
+					acmd08((*cmd)++, osVirtualToPhysical(g_Mp3Vars.var8009c3d4[i]));
 					acmd07((*cmd)++, g_Mp3Vars.var8009c3d8, osVirtualToPhysical(sp58));
 
 					sp58++;
@@ -294,7 +295,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 		func00038924(&g_Mp3Vars);
 
 		if (!g_Mp3Vars.var8009c3f1) {
-			aClearBuffer((*cmd)++, 0x4e0, 0x2e0);
+			aClearBuffer((*cmd)++, N_AL_MAIN_L_OUT, N_AL_TEMP_2);
 
 			if (g_Mp3Vars.var8009c3b4) {
 				g_Mp3Vars.var8009c3b4 = 0;
@@ -313,7 +314,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 				n_aEnvMixer((*cmd)++, 0, 0, osVirtualToPhysical(g_Mp3Vars.var8009c398));
 			}
 
-			g_Mp3Vars.samples += 184;
+			g_Mp3Vars.samples += SAMPLES;
 
 			if (g_Mp3Vars.samples > g_Mp3Vars.var8009c3bc) {
 				g_Mp3Vars.samples = g_Mp3Vars.var8009c3bc;
@@ -367,7 +368,7 @@ void func00038924(struct mp3vars *vars)
 		}
 
 		vars->samples = 0;
-		vars->var8009c3bc = (vars->var8009c3e8 + 183) / 184 * 184;
+		vars->var8009c3bc = SAMPLE184(vars->var8009c3e8);
 		vars->var8009c3b4 = 1;
 	}
 }

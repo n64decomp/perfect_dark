@@ -28,6 +28,7 @@ typedef s32 PakErr1;
 typedef s32 PakErr2;
 typedef s32 MenuDialogHandlerResult;
 typedef intptr_t MenuItemHandlerResult;
+typedef s16 RoomNum;
 
 // Float version of a graphics matrix, which has higher precision than an Mtx.
 // Matrices are stored as Mtxfs then converted to an Mtx when passed to the GPU.
@@ -231,8 +232,8 @@ struct g_vars {
 	/*0x4b8*/ struct prop *aibuddies[4];
 	/*0x4c8*/ u32 dontplaynrg; // allow X music to be played (NRG = energy track)
 	/*0x4cc*/ s32 in_cutscene;
-	/*0x4d0*/ u8 paksconnected;
-	/*0x4d1*/ u8 paksconnected2;
+	/*0x4d0*/ u8 paksneededformenu;
+	/*0x4d1*/ u8 paksneededforgame;
 	/*0x4d2*/ s8 autocutnum; // cutscene scene number (0, 1 or 2), set to -1 while loading cutscene
 	/*0x4d3*/ s8 autocutplaying; // true if playing a cutscene via the menu, false when a button is pressed
 	/*0x4d4*/ s8 autocutgroupcur; // index into g_Cutscenes
@@ -247,9 +248,9 @@ struct g_vars {
 	/*0x4e3*/ u8 langfilteron;
 
 	// 000f = Counter: if 10-15 then ticks down 1 per 7 frames, if under 10 then 1 per frame.
-	// 00f0 = One bit per pak. Does something with the pak if counter expired.
-	// 0f00 = One bit per pak. Does something with the pak if counter expired (likely opposite of the above).
-	/*0x4e4*/ u16 unk0004e4;
+	// 00f0 = One bit per pak. These paks are checked and ticked.
+	// 0f00 = One bit per pak. These paks are checked but not ticked.
+	/*0x4e4*/ u16 pakstocheck;
 
 	/*0x4e8*/ u32 unk0004e8;
 	/*0x4ec*/ u32 unk0004ec;
@@ -301,7 +302,7 @@ struct prop {
 	/*0x1c*/ struct prop *child;
 	/*0x20*/ struct prop *next;
 	/*0x24*/ struct prop *prev;
-	/*0x28*/ s16 rooms[8];
+	/*0x28*/ RoomNum rooms[8];
 	/*0x38*/ u16 lastupdateframe;
 	/*0x3a*/ u16 propupdate240;
 	/*0x3c*/ u8 propupdate60err;
@@ -753,7 +754,7 @@ struct aibot {
 	/*0x076*/ s16 lastkilledbyplayernum;
 	/*0x078*/ u8 forceslowupdates;
 	/*0x079*/ u8 command;
-	/*0x07a*/ s16 defendholdrooms[1];
+	/*0x07a*/ RoomNum defendholdrooms[1];
 	/*0x07c*/ u32 unk07c; // unused
 	/*0x080*/ u32 unk080; // unused
 	/*0x084*/ u32 unk084; // unused
@@ -785,7 +786,7 @@ struct aibot {
 	/*0x0e0*/ s16 reaperspeed[2];
 	/*0x0e4*/ f32 maulercharge[2];
 	/*0x0ec*/ struct coord gotopos;
-	/*0x0f8*/ s16 gotorooms[8];
+	/*0x0f8*/ RoomNum gotorooms[8];
 	/*0x108*/ struct coord shotspeed; // "boost" when aibot is shot
 	/*0x114*/ s32 feudplayernum;
 	/*0x118*/ s32 commandtimer60;
@@ -798,7 +799,7 @@ struct aibot {
 	/*0x13c*/ f32 chrdistances[MAX_MPCHRS];
 	/*0x16c*/ u8 chrsinsight[MAX_MPCHRS];
 	/*0x178*/ s32 chrslastseen60[MAX_MPCHRS];
-	/*0x1a8*/ s16 chrrooms[MAX_MPCHRS];
+	/*0x1a8*/ RoomNum chrrooms[MAX_MPCHRS];
 	/*0x1c0*/ f32 extraangle;
 	/*0x1c4*/ f32 extraanglerate;
 	/*0x1c8*/ f32 extraanglebase;
@@ -1055,7 +1056,7 @@ struct act_patrol {
 
 struct act_gopos {
 	/*0x02c*/ struct coord endpos;
-	/*0x038*/ s16 endrooms[8];
+	/*0x038*/ RoomNum endrooms[8];
 	/*0x048*/ struct waypoint *target; // Target/final waypoint
 
 	// Array of pointers to the next couple of waypoints. Recalculated each time
@@ -1258,9 +1259,9 @@ struct chrdata {
 	/*0x2ae*/ u16 unk2ae;
 	/*0x2b0*/ u8 tude;
 	/*0x2b1*/ u8 voicebox;
-	/*0x2b2*/ s16 floorroom;
+	/*0x2b2*/ RoomNum floorroom;
 	/*0x2b4*/ u32 unk2b4;
-	/*0x2b8*/ s16 oldrooms[8];
+	/*0x2b8*/ RoomNum oldrooms[8];
 	/*0x2c8*/ struct coord runfrompos;
 	/*0x2d4*/ struct aibot *aibot;
 	/*0x2d8*/ s16 blurdrugamount;
@@ -1433,21 +1434,21 @@ struct tvscreen {
 struct hov {
 	/*0x00*/ u8 type;
 	/*0x01*/ u8 flags;
-	/*0x04*/ f32 unk04;
-	/*0x08*/ f32 unk08;
-	/*0x0c*/ f32 unk0c;
-	/*0x10*/ f32 unk10;
-	/*0x14*/ f32 unk14;
-	/*0x18*/ f32 unk18;
-	/*0x1c*/ f32 unk1c;
-	/*0x20*/ f32 unk20;
-	/*0x24*/ f32 unk24;
-	/*0x28*/ f32 unk28;
-	/*0x2c*/ f32 unk2c;
-	/*0x30*/ f32 unk30;
+	/*0x04*/ f32 bobycur;
+	/*0x08*/ f32 bobytarget;
+	/*0x0c*/ f32 bobyspeed;
+	/*0x10*/ f32 yrot;
+	/*0x14*/ f32 bobpitchcur;
+	/*0x18*/ f32 bobpitchtarget;
+	/*0x1c*/ f32 bobpitchspeed;
+	/*0x20*/ f32 bobrollcur;
+	/*0x24*/ f32 bobrolltarget;
+	/*0x28*/ f32 bobrollspeed;
+	/*0x2c*/ f32 groundpitch;
+	/*0x30*/ f32 y;
 	/*0x34*/ f32 ground;
-	/*0x38*/ s32 nexttick60; // framenum of when next tick should occur
-	/*0x3c*/ s32 prevtick60; // framenum of when hov was last ticked
+	/*0x38*/ s32 prevframe60;
+	/*0x3c*/ s32 prevgroundframe60;
 };
 
 struct defaultobj {
@@ -2478,7 +2479,7 @@ struct player {
 	/*0x0278*/ f32 shieldshowrot;
 	/*0x027c*/ u32 shieldshowrnd;
 	/*0x0280*/ f32 shieldshowtime;
-	/*0x0284*/ s16 bondprevrooms[8];
+	/*0x0284*/ RoomNum bondprevrooms[8];
 	/*0x0294*/ f32 liftground;
 	/*0x0298*/ struct prop *lift;
 	/*0x029c*/ f32 ladderupdown;
@@ -2674,7 +2675,7 @@ struct player {
 	/*0x19a4*/ f32 speedgo;
 	/*0x19a8*/ s32 sighttimer240;
 	/*0x19ac*/ s32 crouchoffsetreal;
-	/*0x19b0*/ s16 floorroom;
+	/*0x19b0*/ RoomNum floorroom;
 	/*0x19b2*/ u8 unk19b2;
 	/*0x19b3*/ u8 dostartnewlife;
 	/*0x19b4*/ f32 crouchoffsetsmall;
@@ -2820,7 +2821,7 @@ struct coverdefinition {
 struct cover {
 	/*0x00*/ struct coord *pos;
 	/*0x04*/ struct coord *look;
-	/*0x08*/ s16 rooms[2];
+	/*0x08*/ RoomNum rooms[2];
 	/*0x0c*/ u16 flags;
 };
 
@@ -4450,7 +4451,7 @@ struct scenariodata_koh {
 	/*0x800ac118*/ s16 movehill;
 	/*0x800ac11a*/ s16 hillindex;
 	/*0x800ac11c*/ s16 hillcount;
-	/*0x800ac11e*/ s16 hillrooms[2];
+	/*0x800ac11e*/ RoomNum hillrooms[2];
 	/*0x800ac122*/ s16 hillpads[9];
 	/*0x800ac134*/ struct coord hillpos;
 	/*0x800ac140*/ f32 colourfracr;
@@ -4467,7 +4468,7 @@ struct ctcspawnpadsperteam {
 struct scenariodata_ctc {
 	/*0x00*/ s16 playercountsperteam[4];
 	/*0x08*/ s16 teamindexes[4];
-	/*0x10*/ s16 baserooms[4];
+	/*0x10*/ RoomNum baserooms[4];
 	/*0x18*/ struct ctcspawnpadsperteam spawnpadsperteam[4];
 	/*0x58*/ struct prop *tokens[4];
 };
@@ -4616,8 +4617,8 @@ struct explosionpart {
 struct explosionbb {
 	struct coord bbmin;
 	struct coord bbmax;
-	s16 room;
-	s16 room2;
+	RoomNum room;
+	RoomNum room2;
 };
 
 struct explosion {
@@ -4625,7 +4626,7 @@ struct explosion {
 	struct prop *source; // Prop of the thing that created the explosion
 	struct explosionpart parts[40];
 	/*0x3c8*/ s16 age;
-	/*0x3ca*/ s16 room;
+	/*0x3ca*/ RoomNum room;
 	/*0x3cc*/ s8 type;
 	/*0x3cd*/ s8 makescorch;
 	/*0x3ce*/ s8 owner;
@@ -4714,12 +4715,12 @@ struct pak {
 	/*0x004*/ u32 rumblestate;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;
-	/*0x010*/ s32 unk010;
-	/*0x014*/ u8 unk014;
+	/*0x010*/ s32 state;
+	/*0x014*/ u8 features;
 	/*0x018*/ struct pakdata pakdata;
 	/*0x25c*/ u32 maxfileid;
 	/*0x260*/ u32 serial;
-	/*0x264*/ u32 unk264;
+	/*0x264*/ u32 plugcount;
 	/*0x268*/ u32 unk268;
 	/*0x26c*/ u32 unk26c;
 	/*0x270*/ u32 unk270;
@@ -4746,7 +4747,7 @@ struct pak {
 	/*0x2b8*/ u8 isgbpd : 1;
 	/*0x2b8*/ u8 unk2b8_05 : 1;
 	/*0x2b8*/ u8 unk2b8_06 : 1;
-	/*0x2b8*/ u8 unk2b8_07 : 1;
+	/*0x2b8*/ u8 showdatalost : 1;
 	/*0x2b9*/ u8 unk2b9;
 	/*0x2ba*/ u8 unk2ba;
 	/*0x2bb*/ u8 unk2bb;
@@ -4836,13 +4837,13 @@ struct animtable {
 	s32 injuryanimcount;
 };
 
-struct var80075c00 {
+struct headanim {
 	s16 animnum;
 	f32 loopframe;
 	f32 endframe;
-	f32 unk0c;
-	f32 unk10;
-	f32 unk14;
+	f32 translateperframe;
+	f32 minspeed;
+	f32 maxspeed;
 };
 
 struct vimode {
@@ -5161,7 +5162,7 @@ struct bgcmd {
 };
 
 struct drawslot {
-	s16 roomnum;
+	RoomNum roomnum;
 	u8 unk02;
 	u8 draworder;
 	struct screenbox box;
@@ -5178,8 +5179,8 @@ struct zrange {
 };
 
 struct bgsnakeitem {
-	/*0x00*/ s16 roomnum;
-	/*0x02*/ s16 fromroomnums[5];
+	/*0x00*/ RoomNum roomnum;
+	/*0x02*/ RoomNum fromroomnums[5];
 	/*0x0c*/ u8 depth;
 	/*0x0d*/ u8 numportals;
 	/*0x0e*/ s16 roomportallistoffset;
@@ -5625,7 +5626,7 @@ struct var80067e6c {
 };
 
 struct shard {
-	/*0x00*/ s16 room;
+	/*0x00*/ RoomNum room;
 	/*0x04*/ s32 age60;
 	/*0x08*/ struct coord pos;
 	/*0x14*/ struct coord rot;
@@ -5670,7 +5671,7 @@ struct pschannel {
 	/*0x50*/ struct prop *prop;
 	/*0x54*/ struct coord *posptr;
 	/*0x58*/ struct coord pos;
-	/*0x64*/ s16 rooms[8];
+	/*0x64*/ RoomNum rooms[8];
 #if VERSION >= VERSION_NTSC_1_0
 	/*0x74*/ u32 uuid;
 #endif
@@ -5708,7 +5709,7 @@ struct wallhit {
 	/*0x5c*/ struct prop *chrprop;
 	/*0x60*/ struct prop *objprop;
 	/*0x64*/ Vtx *vertices2; // overridden vertices for when blood is expanding
-	/*0x68*/ s16 roomnum;
+	/*0x68*/ RoomNum roomnum;
 	/*0x6a*/ u8 texturenum;
 	/*0x6b*/ u8 unk6b;
 	/*0x6c*/ u8 mtxindex;
@@ -5818,7 +5819,6 @@ typedef struct AudioInfo_s {
 	short         *data;          /* Output data pointer */
 	short         frameSamples;   /* # of samples synthesized in this frame */
 	OSScTask      task;           /* scheduler structure */
-	AudioMsg      msg;            /* completion message */
 } AudioInfo;
 
 typedef struct {
@@ -5926,12 +5926,7 @@ struct mp3vars {
 	/*0x38*/ struct mp3thing *var8009c3c8;
 	/*0x3c*/ s32 var8009c3cc;
 	/*0x40*/ s32 var8009c3d0;
-
-	union {
-		/*0x44*/ u32 *var8009c3d4;
-		/*0x44*/ u32 *var8009c3d4_arr[1];
-	};
-
+	/*0x44*/ u32 *var8009c3d4[1];
 	/*0x48*/ u32 var8009c3d8;
 	/*0x4c*/ void *var8009c3dc;
 	/*0x50*/ u32 var8009c3e0;
@@ -5941,18 +5936,6 @@ struct mp3vars {
 	/*0x5e*/ s16 var8009c3ee;
 	/*0x60*/ u8 var8009c3f0;
 	/*0x61*/ u8 var8009c3f1;
-};
-
-struct sndcache {
-	/*0x0000*/ u16 *indexes; // indexed by sfxnum, value is cache index (0-44) or 0xffff
-	/*0x0004*/ u8 refcounts[45];
-	/*0x0032*/ u16 ages[45];
-	/*0x008c*/ ALEnvelope envelopes[45];
-	/*0x035c*/ ALKeyMap keymaps[45];
-	/*0x046c*/ ALWaveTable wavetables[45];
-	/*0x07f0*/ ALADPCMBook books[45];
-	/*0x3658*/ ALADPCMloop loops[45];
-	/*0x3e14*/ ALSound sounds[45];
 };
 
 struct rdptask {
@@ -6313,19 +6296,19 @@ struct skyvtx2d {
 };
 
 struct hovtype {
-	/*0x00*/ f32 unk00;
-	/*0x04*/ f32 unk04;
-	/*0x08*/ f32 unk08;
-	/*0x0c*/ f32 unk0c;
-	/*0x10*/ f32 unk10;
-	/*0x14*/ f32 unk14;
-	/*0x18*/ f32 unk18;
-	/*0x1c*/ f32 unk1c;
-	/*0x20*/ f32 unk20;
-	/*0x24*/ f32 unk24;
-	/*0x28*/ f32 unk28;
-	/*0x2c*/ f32 unk2c;
-	/*0x30*/ f32 unk30;
+	/*0x00*/ f32 bobymid;
+	/*0x04*/ f32 bobyminradius;
+	/*0x08*/ f32 bobyrandradius;
+	/*0x0c*/ f32 bobyaccel;
+	/*0x10*/ f32 bobymaxspeed;
+	/*0x14*/ f32 bobpitchminangle;
+	/*0x18*/ f32 bobpitchrandangle;
+	/*0x1c*/ f32 bobpitchaccel;
+	/*0x20*/ f32 bobpitchmaxspeed;
+	/*0x24*/ f32 bobrollminangle;
+	/*0x28*/ f32 bobrollrandangle;
+	/*0x2c*/ f32 bobrollaccel;
+	/*0x30*/ f32 bobrollmaxspeed;
 };
 
 struct modelrwdatabinding {

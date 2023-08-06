@@ -232,7 +232,7 @@ void psTickChannel(s32 channelnum)
 #endif
 	{
 		struct coord *pos = NULL;
-		s16 *rooms = NULL;
+		RoomNum *rooms = NULL;
 		s32 newvol;
 		s32 newpan;
 		s32 newfx;
@@ -261,7 +261,7 @@ void psTickChannel(s32 channelnum)
 			}
 		} else {
 			if (pos && rooms) {
-				s16 *tmprooms;
+				RoomNum *tmprooms;
 
 				if (channel->flags & PSFLAG_IGNOREROOMS) {
 					tmprooms = NULL;
@@ -645,7 +645,7 @@ void psStopOneShootChannel(struct prop *prop)
 
 s16 psCreate(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 padnum,
 		s32 vol, u16 flags, u16 flags2, s32 type,
-		struct coord *pos, f32 pitch, s16 *rooms, s32 room,
+		struct coord *pos, f32 pitch, RoomNum *rooms, s32 room,
 		f32 dist1, f32 dist2, f32 dist3)
 {
 	union soundnumhack spac;
@@ -1123,12 +1123,12 @@ void psModify(s32 channelnum, s32 volume, s16 padnum, struct prop *prop, s32 vol
 	}
 }
 
-s32 psCalculateVol(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, s16 *rooms, s16 soundnum, s32 arg6, f32 *playerdistptr)
+s32 psCalculateVol(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, RoomNum *rooms, s16 soundnum, s32 arg6, f32 *playerdistptr)
 {
 	union soundnumhack sp6c;
 	union soundnumhack sp68;
 	f32 playerdist;
-	s16 roomnum;
+	RoomNum roomnum;
 	s32 s0;
 	s32 i;
 
@@ -1382,7 +1382,7 @@ s32 psCalculatePan(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, f32 playe
  * If the given soundnum were to play at the given world position, calculate the
  * final volume and pan and write them to the vol and pan pointers.
  */
-void psGetTheoreticalVolPan(struct coord *pos, s16 *rooms, s16 soundnum, s32 *vol, s32 *pan)
+void psGetTheoreticalVolPan(struct coord *pos, RoomNum *rooms, s16 soundnum, s32 *vol, s32 *pan)
 {
 	f32 dist1;
 	f32 dist2;
@@ -1434,7 +1434,7 @@ void psGetTheoreticalVolPan(struct coord *pos, s16 *rooms, s16 soundnum, s32 *vo
 }
 #endif
 
-void psApplyVolPan(struct sndstate *handle, struct coord *pos, f32 dist1, f32 dist2, f32 dist3, s16 *rooms, s16 soundnum, s32 arg7, f32 *distanceptr)
+void psApplyVolPan(struct sndstate *handle, struct coord *pos, f32 dist1, f32 dist2, f32 dist3, RoomNum *rooms, s16 soundnum, s32 arg7, f32 *distanceptr)
 {
 	union soundnumhack sp5c;
 	union soundnumhack sp58;

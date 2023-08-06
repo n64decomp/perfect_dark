@@ -211,7 +211,7 @@ s32 g_NumDeathAnimations = 0;
  * @dangerous: If there are too many pads (24+) in the setup then array
  * overflows may occur.
  */
-f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms, struct prop *prop, s16 *pads, s32 numpads)
+f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, RoomNum *dstrooms, struct prop *prop, s16 *pads, s32 numpads)
 {
 	u8 verybadpads[24];
 	u8 badpads[24];
@@ -226,7 +226,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 	// "sl" prefixes are for shortlist
 	s16 slpadindexes[8];
 	struct coord slpositions[4];
-	s16 slrooms[4][8];
+	RoomNum slrooms[4][8];
 	f32 slangles[4];
 	s32 sllen = 0;
 
@@ -237,9 +237,9 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 	u8 stack2[0x10];
 	struct pad pad;
 	s32 stack3[2];
-	s16 tmppadrooms[2];
+	RoomNum tmppadrooms[2];
 	f32 bestsqdist;
-	s16 neighbours[20];
+	RoomNum neighbours[20];
 
 	// Iterate all spawn pads and populate the category arrays
 	for (p = 0; p < numpads; p++) {
@@ -472,7 +472,7 @@ f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms
 	return dstangle;
 }
 
-f32 playerChooseGeneralSpawnLocation(f32 chrradius, struct coord *pos, s16 *rooms, struct prop *prop)
+f32 playerChooseGeneralSpawnLocation(f32 chrradius, struct coord *pos, RoomNum *rooms, struct prop *prop)
 {
 	return playerChooseSpawnLocation(chrradius, pos, rooms, prop, g_SpawnPoints, g_NumSpawnPoints);
 }
@@ -480,7 +480,7 @@ f32 playerChooseGeneralSpawnLocation(f32 chrradius, struct coord *pos, s16 *room
 void playerStartNewLife(void)
 {
 	struct coord pos = {0, 0, 0};
-	s16 rooms[8];
+	RoomNum rooms[8];
 	f32 angle;
 	s32 *cmd = g_StageSetup.intro;
 	f32 groundy;
@@ -3366,9 +3366,9 @@ void playerTick(bool arg0)
 					rocket->base.realrot[0][0] * rocket->base.realrot[0][0] +
 					rocket->base.realrot[1][0] * rocket->base.realrot[1][0] +
 					rocket->base.realrot[2][0] * rocket->base.realrot[2][0]);
-			s16 inrooms[21];
-			s16 aboverooms[21];
-			s16 bestroom;
+			RoomNum inrooms[21];
+			RoomNum aboverooms[21];
+			RoomNum bestroom;
 			s16 outofbounds = false;
 
 			sp2b8[0][0] = rocket->base.realrot[0][0] / sp2a8;
@@ -4921,14 +4921,14 @@ void playerSetCameraMode(s32 mode)
 	g_Vars.currentplayer->cameramode = mode;
 }
 
-void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms2)
+void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, RoomNum *rooms2)
 {
 	bool done = false;
-	s16 inrooms[21];
-	s16 aboverooms[21];
-	s16 sp54[8];
-	s16 bestroom;
-	s16 tmp;
+	RoomNum inrooms[21];
+	RoomNum aboverooms[21];
+	RoomNum sp54[8];
+	RoomNum bestroom;
+	RoomNum tmp;
 	s32 i;
 	s32 room;
 
@@ -5022,7 +5022,7 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 
 void player0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom)
 {
-	s16 rooms[2];
+	RoomNum rooms[2];
 	rooms[0] = memcamroom;
 	rooms[1] = -1;
 
@@ -5589,7 +5589,7 @@ void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 sp
 					}
 				} else if (turnspeed < 0.4f
 						|| (chr->prop->type == PROPTYPE_PLAYER
-							&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->headanim == 0)) {
+							&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->headanim == HEADANIM_RESTING)) {
 					turnmode = TURNMODE_STAND_SOFTTURN;
 					speed = 2.0f * turnspeed;
 

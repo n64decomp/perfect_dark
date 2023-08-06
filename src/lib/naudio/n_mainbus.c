@@ -32,15 +32,14 @@ Acmd *n_alMainBusPull(s32 sampleOffset, Acmd *p)
 			aMix(ptr++, 0, 0x7fff, N_AL_AUX_L_OUT, N_AL_MAIN_L_OUT);
 		}
 
-		if (n_syn->auxBus[i].unk44->unk02 > 0) {
+		if (n_syn->auxBus[i].unk44->fx.unk02 > 0) {
 			struct auxbus44 *bus44 = n_syn->auxBus[i].unk44;
 
 			if (bus44->unk28) {
-				// @todo: Remove cast
-				func0003ba64((struct fx *)bus44, n_syn->outputRate);
+				func0003ba64(&bus44->fx, n_syn->outputRate);
 			}
 
-			n_aLoadADPCM(ptr++, 32, osVirtualToPhysical(&bus44->unk08));
+			n_aLoadADPCM(ptr++, 32, osVirtualToPhysical(&bus44->fx.unk08));
 
 			n_aPoleFilter(ptr++, 0, N_AL_MAIN_L_OUT, 0, osVirtualToPhysical(bus44->unk2c) & 0xffffff);
 			n_aPoleFilter(ptr++, 0, N_AL_MAIN_R_OUT, 0, osVirtualToPhysical(bus44->unk30) & 0xffffff);

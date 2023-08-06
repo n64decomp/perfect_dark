@@ -346,7 +346,7 @@ s32 bodyChooseHead(s32 bodynum)
 void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 {
 	struct pad pad;
-	s16 rooms[2];
+	RoomNum rooms[2];
 	struct chrdata *chr;
 	struct modeldef *headmodeldef;
 	struct model *model;
@@ -531,9 +531,9 @@ void bodyAllocateChr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	}
 }
 
-struct prop *bodyAllocateEyespy(struct pad *pad, s16 room)
+struct prop *bodyAllocateEyespy(struct pad *pad, RoomNum room)
 {
-	s16 rooms[2];
+	RoomNum rooms[2];
 	struct prop *prop;
 	struct chrdata *chr;
 	struct model *model;

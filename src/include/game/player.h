@@ -4,8 +4,8 @@
 #include "data.h"
 #include "types.h"
 
-f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms, struct prop *prop, s16 *spawnpads, s32 numspawnpads);
-f32 playerChooseGeneralSpawnLocation(f32 chrradius, struct coord *pos, s16 *rooms, struct prop *prop);
+f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, RoomNum *dstrooms, struct prop *prop, s16 *spawnpads, s32 numspawnpads);
+f32 playerChooseGeneralSpawnLocation(f32 chrradius, struct coord *pos, RoomNum *rooms, struct prop *prop);
 void playerStartNewLife(void);
 void playerLoadDefaults(void);
 bool playerSpawnAnti(struct chrdata *chr, s32 param_2);
@@ -63,7 +63,7 @@ void playerDie(bool force);
 void playerDieByShooter(u32 shooter, bool force);
 void playerCheckIfShotInBack(s32 attackerplayernum, f32 x, f32 z);
 f32 playerGetHealthBarHeightFrac(void);
-void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms);
+void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, RoomNum *rooms);
 void player0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom);
 void player0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look);
 void playersClearMemCamRoom(void);

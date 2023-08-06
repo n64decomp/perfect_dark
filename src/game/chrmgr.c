@@ -33,8 +33,8 @@ void chrmgrReset(void)
 	g_ChrIndexes = NULL;
 	var80062960 = mempAlloc(ALIGN16(15 * sizeof(struct var80062960)), MEMPOOL_STAGE);
 
-	for (i = 0; i < 20; i++) {
-		var8009ccc0[i] = (void *)ALIGN64(mempAlloc(0x240, MEMPOOL_STAGE));
+	for (i = 0; i < ARRAYCOUNT(var8009ccc0); i++) {
+		var8009ccc0[i] = (void *)ALIGN64(mempAlloc(16 * 16 * sizeof(u16) + 0x40, MEMPOOL_STAGE));
 	}
 
 	resetSomeStageThings();
@@ -54,8 +54,8 @@ void chrmgrConfigure(s32 numchrs)
 	}
 
 	g_NumChrs = 0;
-	g_Chrnums = mempAlloc(ALIGN16(g_NumChrSlots * 2), MEMPOOL_STAGE);
-	g_ChrIndexes = mempAlloc(ALIGN16(g_NumChrSlots * 2), MEMPOOL_STAGE);
+	g_Chrnums = mempAlloc(ALIGN16(g_NumChrSlots * sizeof(g_Chrnums[0])), MEMPOOL_STAGE);
+	g_ChrIndexes = mempAlloc(ALIGN16(g_NumChrSlots * sizeof(g_ChrIndexes[0])), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumChrSlots; i++) {
 		g_Chrnums[i] = -1;

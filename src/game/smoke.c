@@ -261,7 +261,7 @@ Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, stru
 	return gdl;
 }
 
-struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type)
+struct smoke *smokeCreate(struct coord *pos, RoomNum *rooms, s16 type)
 {
 	struct smoke *smoke = NULL;
 	s32 playercount = PLAYERCOUNT();
@@ -326,7 +326,7 @@ struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type)
 	return smoke;
 }
 
-bool smokeCreateForHand(struct coord *pos, s16 *rooms, s16 type, s32 handnum)
+bool smokeCreateForHand(struct coord *pos, RoomNum *rooms, s16 type, s32 handnum)
 {
 	struct smoke *smoke;
 	s32 i;
@@ -368,7 +368,7 @@ bool smokeCreateForHand(struct coord *pos, s16 *rooms, s16 type, s32 handnum)
  * smoke parts have a size of zero. Perhaps the caller is supposed to check if
  * this function returns false and reuse the zero-sized smoke parts if so?
  */
-bool smokeCreateWithSource(void *source, struct coord *pos, s16 *rooms, s16 type, bool srcispadeffect)
+bool smokeCreateWithSource(void *source, struct coord *pos, RoomNum *rooms, s16 type, bool srcispadeffect)
 {
 	struct smoke *smoke;
 	s32 i;
@@ -415,7 +415,7 @@ void smokeCreateAtProp(struct prop *prop, s16 type)
 	smokeCreateWithSource(prop, &prop->pos, prop->rooms, type, false);
 }
 
-void smokeCreateAtPadEffect(struct padeffectobj *effect, struct coord *pos, s16 *rooms, s16 type)
+void smokeCreateAtPadEffect(struct padeffectobj *effect, struct coord *pos, RoomNum *rooms, s16 type)
 {
 	smokeCreateWithSource(effect, pos, rooms, type, true);
 }
@@ -432,7 +432,7 @@ void smokeClearForProp(struct prop *prop)
 	}
 }
 
-struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type)
+struct smoke *smokeCreateSimple(struct coord *pos, RoomNum *rooms, s16 type)
 {
 	return smokeCreate(pos, rooms, type);
 }
