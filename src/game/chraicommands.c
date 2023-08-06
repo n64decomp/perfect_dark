@@ -9839,11 +9839,20 @@ bool aiIfMusicEventQueueIsEmpty(void)
 {
 	f32 value = (u64)osGetCount() * 64 / 3000;
 
+#ifdef PLATFORM_N64 // will hang forever until the audio thread wakes it up
 	if (g_MusicEventQueueLength) {
+#else	// HACK: will wait 1 frame and get on with it
+	static bool waited = false;
+	if (g_MusicEventQueueLength && !waited) {
+		waited = true;
+#endif
 		g_Vars.aioffset += 4;
 	} else {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+#ifndef PLATFORM_N64
+		waited = false;
+#endif
 	}
 
 	return false;
