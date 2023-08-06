@@ -319,16 +319,43 @@ void amgrHandleDoneMsg(AudioInfo *info)
 #ifndef PLATFORM_N64
 void amgrFrame(void)
 {
-	static AudioInfo *prevInfo = NULL;
+	static AudioInfo *previnfo = NULL;
 	static s32 count = 0;
 
 	var80091588 = osGetTime();
 
-	AudioInfo *next = g_AudioManager.audioInfo[g_AdmaCurFrame % 3];
-	amgrHandleFrameMsg(next, prevInfo);
+	AudioInfo *info = g_AudioManager.audioInfo[g_AdmaCurFrame % 3];
+
+	admaBeginFrame();
+
+	const s32 somevalue = osAiGetLength() / 4;
+	Acmd *datastart = g_AudioManager.ACMDList[var8005cf90];
+	s16 *outbuffer = (s16 *) osVirtualToPhysical(info->data);
+
+	if (previnfo) {
+		osAiSetNextBuffer(previnfo->data, previnfo->frameSamples * 4);
+	}
+
+	if (somevalue > 1100 && var8005cf94 == 0) {
+		// already a lot queued, render 1 naudio frame (184 samples) this frame
+		info->frameSamples = 184;
+		var8005cf94 = 2;
+	} else {
+		// have space in audio queue, render 2 naudio frames this frame
+		info->frameSamples = 368;
+
+		if (var8005cf94 != 0) {
+			var8005cf94--;
+		}
+	}
+
+	Acmd *cmd = n_alAudioFrame(datastart, &var800918e8, outbuffer, info->frameSamples);
+
+	var8005cf90 ^= 1;
+
 	admaReceiveAll();
 
-	prevInfo = next;
+	previnfo = info;
 
 	count++;
 

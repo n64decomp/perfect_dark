@@ -235,13 +235,10 @@ void schedStartFrame(OSSched *sc)
 
 void schedAudioFrame(OSSched *sc)
 {
-	// audio ticks at 30hz
-	static s32 runFrame = 0;
-	if (!g_SndDisabled && runFrame) {
+	if (!g_SndDisabled) {
 		amgrFrame();
 		audioEndFrame();
 	}
-	runFrame ^= 1;
 }
 
 /**
