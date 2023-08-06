@@ -2555,11 +2555,19 @@ extern "C" void gfx_start_frame(void) {
     gfx_wapi->get_dimensions(&gfx_current_window_dimensions.width, &gfx_current_window_dimensions.height,
                              &gfx_current_window_position_x, &gfx_current_window_position_y);
 
-    if (gfx_current_dimensions.height == 0) {
+    if (gfx_current_window_dimensions.height == 0) {
         // Avoid division by zero
-        gfx_current_dimensions.height = 1;
+        gfx_current_window_dimensions.height = 1;
     }
-    gfx_current_dimensions.aspect_ratio = (float)gfx_current_dimensions.width / (float)gfx_current_dimensions.height;
+
+    // for now ensure that the game renders in a centered 4:3 window
+    // proper 16:9 support requires some fixes, namely the sky, fullscreen fades and room culling
+    gfx_current_dimensions.aspect_ratio = 4.0f / 3.0f;
+    gfx_current_dimensions.height = gfx_current_window_dimensions.height;
+    gfx_current_dimensions.width = gfx_current_dimensions.height * gfx_current_dimensions.aspect_ratio;
+    gfx_current_game_window_viewport.width = gfx_current_dimensions.width;
+    gfx_current_game_window_viewport.height = gfx_current_dimensions.height;
+    gfx_current_game_window_viewport.x = (gfx_current_window_dimensions.width - gfx_current_dimensions.width) / 2;
 
     if (gfx_current_dimensions.height != gfx_prev_dimensions.height) {
         for (auto& fb : framebuffers) {
