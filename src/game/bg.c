@@ -710,7 +710,7 @@ Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
 			Gfx *cmd = (Gfx *) readgdl;
 			s32 dmemindex = cmd->bytes[GFX_W0_BYTE(1)] & 0xf;
 			s32 numvertices = ((u32) cmd->bytes[GFX_W0_BYTE(1)] >> 4) + 1;
-			u32 offset = cmd->words.w1 & 0xffffff;
+			u32 offset = UNSEGADDR(cmd->words.w1) & 0xffffff;
 
 			for (i = 0; i < numvertices; i++) {
 				Vtx *vtx = (Vtx *) (verticesu8 + offset);
@@ -3300,7 +3300,7 @@ s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 
 			}
 
 			numvertices = (((u32)gdl[i].bytes[GFX_W0_BYTE(1)] >> 4) & 0xf) + 1;
-			batchvertices = (Vtx *)((uintptr_t)vertices + (gdl[i].words.w1 & 0xffffff));
+			batchvertices = (Vtx *)((uintptr_t)vertices + (UNSEGADDR(gdl[i].words.w1) & 0xffffff));
 
 			for (j = 0; j < numvertices; j++) {
 				f32 x = batchvertices[j].x;
@@ -3609,7 +3609,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 		} else if (gdl->dma.cmd == G_VTX) {
 			ptr = var800a6470;
 			count = gdl->bytes[GFX_W0_BYTE(1)] & 0xf;
-			offset = (gdl->words.w1 & 0xffffff);
+			offset = (UNSEGADDR(gdl->words.w1) & 0xffffff);
 			numvertices = (((u32) gdl->bytes[GFX_W0_BYTE(1)] >> 4) & 0xf) + 1;
 			vtx = (Vtx *)((uintptr_t)vertices + offset);
 			vtx -= count;
@@ -3814,7 +3814,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 											|| (imggdl->words.w1 & 0x05000000) == 0x05000000) {
 										texturenum = -1;
 									} else {
-										s32 tmp = PHYS_TO_K0(imggdl->words.w1 - 8);
+										s32 tmp = PHYS_TO_K0(UNSEGADDR(imggdl->words.w1) - 8);
 										texturenum = *(s16 *) tmp;
 									}
 
@@ -3905,12 +3905,12 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 			}
 			break;
 		} else if (gdl->dma.cmd == G_MTX) {
-			word = gdl->words.w1 & 0xffffff;
+			word = UNSEGADDR(gdl->words.w1) & 0xffffff;
 			i = word / sizeof(Mtxf);
 			mtx = &model->matrices[i];
 		} else if (gdl->dma.cmd == G_VTX) {
 			count = (gdl->bytes[GFX_W0_BYTE(1)] & 0xf);
-			word = gdl->words.w1 & 0xffffff;
+			word = UNSEGADDR(gdl->words.w1) & 0xffffff;
 			numvertices = ((u32) gdl->bytes[GFX_W0_BYTE(1)] >> 4) + 1;
 			vtx = (Vtx *)((uintptr_t)vertices + word);
 
@@ -4171,7 +4171,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 
 	vtx = bgFindVerticesForGdl(roomnum, gdl);
 	iter = &gdl[batch->gbicmdindex];
-	vtx = (Vtx *)((iter->words.w1 & 0xffffff) + (s32)vtx);
+	vtx = (Vtx *)((UNSEGADDR(iter->words.w1) & 0xffffff) + (s32)vtx);
 	numvertices = (((u32) iter->bytes[GFX_W0_BYTE(1)] >> 4) & 0xf) + 1;
 	ptr = var800a6470;
 
@@ -4311,7 +4311,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 													|| (tmpgdl->words.w1 & 0x05000000) == 0x05000000) {
 												texturenum = -1;
 											} else {
-												s32 tmp = tmpgdl->words.w1 - 8;
+												s32 tmp = UNSEGADDR(tmpgdl->words.w1) - 8;
 												texturenum = *(s16 *) PHYS_TO_K0(tmp);
 											}
 

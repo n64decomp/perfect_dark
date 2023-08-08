@@ -157,18 +157,24 @@ static inline void preprocessGfx(Gfx *gdl, u8 *base, uintptr_t ofs)
 		PD_SWAP_VAL(gdl->words.w1);
 		if (opcode == (s8)G_ENDDL) {
 			break;
-		} else if (opcode == (s8)G_DL) {
-			/*
-			if ((gdl->words.w0 >> 16) & ((1U << 1) - 1) == 0) {
-				if (gdl->words.w1) {
-					preprocessGfx(PD_PTR_BASEOFS(gdl->words.w1, base, ofs), base, ofs);
-				}
-			} else {
-				gdl = PD_PTR_BASEOFS(gdl->words.w1, base, ofs);
-				--gdl;
-			}
-			*/
 		}
+
+		// mark all addresses in the DL as segmented
+		switch (opcode) {
+			case (s8)G_SETTIMG:
+			case (s8)G_SETCIMG:
+			case (s8)G_SETZIMG:
+			case G_MOVEMEM:
+			case G_MTX:
+			case G_VTX:
+			case G_COL:
+			case G_DL:
+				gdl->words.w1 |= 1;
+				break;
+			default:
+				break;
+		}
+
 		++gdl;
 	}
 }
@@ -197,10 +203,12 @@ static void preprocessModelGunDL(struct modelrodata_gundl *gundl, u8 *base, u32 
 	if (gundl->opagdl) {
 		PD_SWAP_PTR(gundl->opagdl);
 		preprocessGfx(PD_PTR_BASEOFS(gundl->opagdl, base, ofs), base, ofs);
+		gundl->opagdl = SEGADDR(gundl->opagdl);
 	}
 	if (gundl->xlugdl) {
 		PD_SWAP_PTR(gundl->xlugdl);
 		preprocessGfx(PD_PTR_BASEOFS(gundl->xlugdl, base, ofs), base, ofs);
+		gundl->xlugdl = SEGADDR(gundl->xlugdl);
 	}
 }
 
@@ -222,10 +230,12 @@ static void preprocessModelDL(struct modelrodata_dl *dl, u8 *base, u32 ofs)
 	if (dl->opagdl) {
 		PD_SWAP_PTR(dl->opagdl);
 		preprocessGfx(PD_PTR_BASEOFS(dl->opagdl, base, ofs), base, ofs);
+		dl->opagdl = SEGADDR(dl->opagdl);
 	}
 	if (dl->xlugdl) {
 		PD_SWAP_PTR(dl->xlugdl);
 		preprocessGfx(PD_PTR_BASEOFS(dl->xlugdl, base, ofs), base, ofs);
+		dl->xlugdl = SEGADDR(dl->xlugdl);
 	}
 }
 
@@ -329,9 +339,13 @@ static void preprocessModelNode(struct modelnode *node, u8 *base, u32 ofs)
 					break;
 				case MODELNODETYPE_STARGUNFIRE:
 					PD_SWAP_VAL(ro->stargunfire.unk00);
-					PD_SWAP_PTR(ro->stargunfire.gdl);
 					PD_SWAP_PTR(ro->stargunfire.vertices);
 					PD_SWAP_PTR(ro->stargunfire.baseaddr);
+					if (ro->stargunfire.gdl) {
+						PD_SWAP_PTR(ro->stargunfire.gdl);
+						preprocessGfx(PD_PTR_BASEOFS(ro->stargunfire.gdl, base, ofs), base, ofs);
+						ro->stargunfire.gdl = SEGADDR(ro->stargunfire.gdl);
+					}
 					break;
 				case MODELNODETYPE_HEADSPOT:
 					PD_SWAP_VAL(ro->headspot.rwdataindex);

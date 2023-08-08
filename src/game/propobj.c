@@ -2914,13 +2914,13 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 
 				if (rwdata->gdl != NULL) {
 					if (rwdata->gdl == rodata->dl.opagdl) {
-						s4 = (Gfx *)((uintptr_t)rodata->dl.colours + ((uintptr_t)rodata->dl.opagdl & 0xffffff));
+						s4 = (Gfx *)((uintptr_t)rodata->dl.colours + ((uintptr_t)UNSEGADDR(rodata->dl.opagdl) & 0xffffff));
 					} else {
 						s4 = rwdata->gdl;
 					}
 
 					if (rodata->dl.xlugdl != NULL) {
-						s6 = (Gfx *)((uintptr_t)rodata->dl.colours + ((uintptr_t)rodata->dl.xlugdl & 0xffffff));
+						s6 = (Gfx *)((uintptr_t)rodata->dl.colours + ((uintptr_t)UNSEGADDR(rodata->dl.xlugdl) & 0xffffff));
 					}
 
 					vertices = rwdata->vertices;
@@ -2932,10 +2932,10 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 				if (node->rodata->gundl.opagdl != NULL) {
 					s32 base = (intptr_t)node->rodata->gundl.baseaddr;
 
-					s4 = (Gfx *)(base + ((uintptr_t)node->rodata->gundl.opagdl & 0xffffff));
+					s4 = (Gfx *)(base + ((uintptr_t)UNSEGADDR(node->rodata->gundl.opagdl) & 0xffffff));
 
 					if (node->rodata->gundl.xlugdl != NULL) {
-						s6 = (Gfx *)(base + ((uintptr_t)node->rodata->gundl.xlugdl & 0xffffff));
+						s6 = (Gfx *)(base + ((uintptr_t)UNSEGADDR(node->rodata->gundl.xlugdl) & 0xffffff));
 					}
 
 					vertices = (Vtx *)base;
@@ -13314,7 +13314,7 @@ Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen
 		gSPMatrix(gdl++, osVirtualToPhysical(model->matrices), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPSegment(gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(vertices));
 		gSPColor(gdl++, osVirtualToPhysical(colours), 1);
-		gSPVertex(gdl++, SPSEGMENT_MODEL_VTX << 24, 4, 0);
+		gSPVertex(gdl++, SEGADDR(SPSEGMENT_MODEL_VTX << 24), 4, 0);
 		gSPTri2(gdl++, 0, 1, 2, 0, 2, 3);
 		gSPEndDisplayList(gdl++);
 
@@ -14982,13 +14982,13 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 
 				if (rwdata->gdl != NULL) {
 					if (rwdata->gdl == rodata->opagdl) {
-						s3 = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->opagdl & 0xffffff));
+						s3 = (Gfx *)((uintptr_t)rodata->colours + ((u32)UNSEGADDR(rodata->opagdl) & 0xffffff));
 					} else {
 						s3 = rwdata->gdl;
 					}
 
 					if (rodata->xlugdl != NULL) {
-						s5 = (void *)((uintptr_t)rodata->colours + ((u32)rodata->xlugdl & 0xffffff));
+						s5 = (void *)((uintptr_t)rodata->colours + ((u32)UNSEGADDR(rodata->xlugdl) & 0xffffff));
 					}
 
 					vertices = rwdata->vertices;
@@ -15000,10 +15000,10 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 				struct modelrodata_gundl *rodata = &node->rodata->gundl;
 
 				if (rodata->opagdl != NULL) {
-					s3 = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)rodata->opagdl & 0xffffff));
+					s3 = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)UNSEGADDR(rodata->opagdl) & 0xffffff));
 
 					if (rodata->xlugdl != NULL) {
-						s5 = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)rodata->xlugdl & 0xffffff));
+						s5 = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)UNSEGADDR(rodata->xlugdl) & 0xffffff));
 					}
 
 					vertices = (void *)(uintptr_t)rodata->baseaddr;

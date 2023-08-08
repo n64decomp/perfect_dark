@@ -3731,13 +3731,13 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			// use the space... after the model definition's colour table?
 			// Let's hope that's not being used by other instances...
 			if (rwdata->gdl == rodata->opagdl) {
-				gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((uintptr_t)rodata->opagdl & 0xffffff));
+				gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((uintptr_t)UNSEGADDR(rodata->opagdl) & 0xffffff));
 			} else {
 				gdlptr = rwdata->gdl;
 			}
 
 			if (rodata->xlugdl) {
-				gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((uintptr_t)rodata->xlugdl & 0xffffff));
+				gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((uintptr_t)UNSEGADDR(rodata->xlugdl) & 0xffffff));
 			} else {
 				gdlptr2 = NULL;
 			}
@@ -3745,7 +3745,11 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			// Iterate the primary DL, and once the end is reached
 			// iterate the secondary DL if we have one.
 			while (true) {
+#ifdef PLATFORM_N64
 				op = *(s8 *)&gdlptr->words.w0;
+#else
+				op = (s8)gdlptr->bytes[GFX_W0_BYTE(0)];
+#endif
 
 				if (op == G_ENDDL) {
 					if (gdlptr2) {
@@ -3761,12 +3765,12 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 					// Note: We should have found an MTX op before VTX.
 					if (op == G_VTX) {
 						u8 *ptr = (u8 *)&gdlptr->words.w0;
-						u32 word = gdlptr->words.w1 & 0xffffff;
+						u32 word = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 						s32 numverts;
 						s32 i;
 
 						vertices = (Vtx *)((uintptr_t)rodata->vertices + word);
-						numverts = (u32)ptr[1] / 16 + 1;
+						numverts = (u32)ptr[GFX_W0_BYTE(1)] / 16 + 1;
 
 						if (posnode) {
 							for (i = 0; i < numverts; i++) {
@@ -3785,7 +3789,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 							}
 						}
 					} else if (op == G_MTX) {
-						u32 addr = gdlptr->words.w1 & 0xffffff;
+						u32 addr = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 						posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 						modelNodeGetModelRelativePosition(model, posnode, &spd4);
 
@@ -3850,19 +3854,23 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			}
 
 			if (rwdata->gdl == rodata->opagdl) {
-				gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->opagdl & 0xffffff));
+				gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((u32)UNSEGADDR(rodata->opagdl) & 0xffffff));
 			} else {
 				gdlptr = rwdata->gdl;
 			}
 
 			if (rodata->xlugdl) {
-				gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->xlugdl & 0xffffff));
+				gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((u32)UNSEGADDR(rodata->xlugdl) & 0xffffff));
 			} else {
 				gdlptr2 = NULL;
 			}
 
 			while (true) {
+#ifdef PLATFORM_N64
 				s32 op = *(s8 *)&gdlptr->words.w0;
+#else
+				s32 op = (s8)gdlptr->bytes[GFX_W0_BYTE(0)];
+#endif
 
 				if (op == G_ENDDL) {
 					if (gdlptr2) {
@@ -3878,9 +3886,9 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 					// Note: We should have found an MTX op before VTX.
 					if (op == G_VTX) {
 						u8 *ptr = (u8 *)&gdlptr->words.w0;
-						u32 word = gdlptr->words.w1 & 0xffffff;
+						u32 word = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 						Vtx *vertices = (Vtx *)((uintptr_t)rodata->vertices + word);
-						s32 numverts = (u32)ptr[1] / 16 + 1;
+						s32 numverts = (u32)ptr[GFX_W0_BYTE(1)] / 16 + 1;
 						s32 i;
 
 						if (posnode) {
@@ -3915,11 +3923,11 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 							}
 						}
 					} else if (op == G_MTX) {
-						u32 addr = gdlptr->words.w1 & 0xffffff;
+						u32 addr = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 						posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 						modelNodeGetModelRelativePosition(model, posnode, &spd4);
 					} else if (op == G_COL) {
-						spac = gdlptr->words.w1 & 0xffffff;
+						spac = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 					}
 
 					gdlptr++;
@@ -4006,13 +4014,13 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 			// use the space... after the model definition's colour table?
 			// Let's hope that's not being used by other instances...
 			if (rwdata->gdl == rodata->opagdl) {
-				gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->opagdl & 0xffffff));
+				gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((u32)UNSEGADDR(rodata->opagdl) & 0xffffff));
 			} else {
 				gdlptr = rwdata->gdl;
 			}
 
 			if (rodata->xlugdl) {
-				gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->xlugdl & 0xffffff));
+				gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((u32)UNSEGADDR(rodata->xlugdl) & 0xffffff));
 			} else {
 				gdlptr2 = NULL;
 			}
@@ -4020,7 +4028,11 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 			// Iterate the primary DL, and once the end is reached
 			// iterate the secondary DL if we have one.
 			while (true) {
+#ifdef PLATFORM_N64
 				op = *(s8 *)&gdlptr->words.w0;
+#else
+				op = (s8)gdlptr->bytes[GFX_W0_BYTE(0)];
+#endif
 
 				if (op == G_ENDDL) {
 					if (gdlptr2) {
@@ -4036,12 +4048,12 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 					// Note: We should have found an MTX op before VTX.
 					if (op == G_VTX) {
 						u8 *ptr = (u8 *)&gdlptr->words.w0;
-						u32 word = gdlptr->words.w1 & 0xffffff;
+						u32 word = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 						s32 numverts;
 						s32 i;
 
 						vertices = (Vtx *)((uintptr_t)rodata->vertices + word);
-						numverts = (u32)ptr[1] / 16 + 1;
+						numverts = (u32)ptr[GFX_W0_BYTE(1)] / 16 + 1;
 
 						if (posnode) {
 							for (i = 0; i < numverts; i++) {
@@ -4060,7 +4072,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 							}
 						}
 					} else if (op == G_MTX) {
-						u32 addr = gdlptr->words.w1 & 0xffffff;
+						u32 addr = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 						posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 						modelNodeGetModelRelativePosition(model, posnode, &spd4);
 
@@ -4144,19 +4156,23 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 				}
 
 				if (rwdata->gdl == rodata->opagdl) {
-					gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->opagdl & 0xffffff));
+					gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((u32)UNSEGADDR(rodata->opagdl) & 0xffffff));
 				} else {
 					gdlptr = rwdata->gdl;
 				}
 
 				if (rodata->xlugdl) {
-					gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->xlugdl & 0xffffff));
+					gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((u32)UNSEGADDR(rodata->xlugdl) & 0xffffff));
 				} else {
 					gdlptr2 = NULL;
 				}
 
 				while (true) {
-					s32 op = *(s8 *)&gdlptr->words.w0;
+#ifdef PLATFORM_N64
+				s32 op = *(s8 *)&gdlptr->words.w0;
+#else
+				s32 op = (s8)gdlptr->bytes[GFX_W0_BYTE(0)];
+#endif
 
 					if (op == G_ENDDL) {
 						if (gdlptr2) {
@@ -4172,9 +4188,9 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 						// Note: We should have found an MTX op before VTX.
 						if (op == G_VTX) {
 							u8 *ptr = (u8 *)&gdlptr->words.w0;
-							u32 word = gdlptr->words.w1 & 0xffffff;
+							u32 word = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 							Vtx *vertices = (Vtx *)((uintptr_t)rodata->vertices + word);
-							s32 numverts = (u32)ptr[1] / 16 + 1;
+							s32 numverts = (u32)ptr[GFX_W0_BYTE(1)] / 16 + 1;
 							s32 i;
 
 							if (posnode) {
@@ -4213,11 +4229,11 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 								}
 							}
 						} else if (op == G_MTX) {
-							u32 addr = gdlptr->words.w1 & 0xffffff;
+							u32 addr = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 							posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 							modelNodeGetModelRelativePosition(model, posnode, &spd4);
 						} else if (op == G_COL) {
-							spac = gdlptr->words.w1 & 0xffffff;
+							spac = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 						}
 
 						gdlptr++;
@@ -4335,19 +4351,23 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 				if (rwdata->vertices != rodata->vertices
 						&& (uintptr_t)rwdata->colours != ALIGN8((uintptr_t)&rodata->vertices[rodata->numvertices])) {
 					if (rwdata->gdl == rodata->opagdl) {
-						gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((s32)rodata->opagdl & 0xffffff));
+						gdlptr = (Gfx *)((uintptr_t)rodata->colours + ((s32)UNSEGADDR(rodata->opagdl) & 0xffffff));
 					} else {
 						gdlptr = rwdata->gdl;
 					}
 
 					if (rodata->xlugdl) {
-						gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((s32)rodata->xlugdl & 0xffffff));
+						gdlptr2 = (Gfx *)((uintptr_t)rodata->colours + ((s32)UNSEGADDR(rodata->xlugdl) & 0xffffff));
 					} else {
 						gdlptr2 = NULL;
 					}
 
 					while (true) {
+#ifdef PLATFORM_N64
 						s32 op = *(s8 *)&gdlptr->words.w0;
+#else
+						s32 op = (s8)gdlptr->bytes[GFX_W0_BYTE(0)];
+#endif
 
 						if (op == G_ENDDL) {
 							if (gdlptr2 == NULL) {
@@ -4365,11 +4385,11 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 							if (op == G_VTX) {
 								// Iterate the vertex table and fudge them
 								u8 *ptr = (u8 *)&gdlptr->words.w0;
-								s32 word = gdlptr->words.w1 & 0xffffff;
+								s32 word = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 								s32 numverts;
 
 								vertices = (Vtx *)((uintptr_t)rwdata->vertices + word);
-								numverts = (u32)ptr[1] / 16 + 1;
+								numverts = (u32)ptr[GFX_W0_BYTE(1)] / 16 + 1;
 
 								if (posnode) {
 									for (i = 0; i < numverts; i++) {
@@ -4397,7 +4417,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 								}
 							} else if (op == G_MTX) {
 								// Get the position of the node relative to the model
-								u32 addr = gdlptr->words.w1 & 0xffffff;
+								u32 addr = UNSEGADDR(gdlptr->words.w1) & 0xffffff;
 								posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
 								modelNodeGetModelRelativePosition(model, posnode, &pos);
 							}

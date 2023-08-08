@@ -2226,25 +2226,17 @@ static void gfx_dp_set_other_mode(uint32_t h, uint32_t l) {
     rdp.other_mode_l = l;
 }
 
-// TODO: figure out a proper way to deal with this shit, this won't work
 static inline void *seg_addr(uintptr_t w1) {
-    // any address higher than 0x0fffffff is not segmented
-    if ((w1 & 0xf0000000) == 0) {
+    // all segmented addresses have the least significant bit set
+    if (w1 & 1) {
         // seg 0 is reserved and doesn't count here
         const uintptr_t seg = (w1 & 0x0f000000) >> 24;
-        // only segments 2-6 and 13-15 are used in PD
-        if ((seg >= 2 && seg <= 6) || (seg >= 13)) {
-            // maybe segmented, check if we have that segment loaded
-            if (seg && segmentPointers[seg]) {
-                // we do but we can't really confirm whether or not it is actually segmented
-                const uintptr_t addr = (w1 & 0x00ffffff);
-                if (addr > 512 * 1024)
-                    return (void *) w1; // PROBABLY isn't segmented because no seg should be that big
-                return (void *)(addr + segmentPointers[seg]);
-            }
+        if (seg && segmentPointers[seg]) {
+            const uintptr_t addr = (w1 & 0x00fffffe);
+            return (void *)(segmentPointers[seg] + addr);
         }
     }
-    return (void *) w1;
+    return (void *)w1;
 }
 
 uintptr_t clearMtx;

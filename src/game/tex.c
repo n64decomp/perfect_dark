@@ -980,7 +980,7 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 				if (spe0) {
 					start = s5->bytes[GFX_W0_BYTE(1)] & 0xf;
 					count = s5->vtx.unk08 + 1;
-					vtx = (Vtx *)(s5->dma.addr & 0x00ffffff);
+					vtx = (Vtx *)(UNSEGADDR(s5->dma.addr) & 0x00ffffff);
 
 					for (i = start; i < start + count; i++) {
 						if (animated && sp90[i]) {
@@ -998,7 +998,7 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 					Vtx *vtx;
 					s32 i;
 
-					offset = s5->dma.addr & 0x00ffffff;
+					offset = UNSEGADDR(s5->dma.addr) & 0x00ffffff;
 					vtx = (Vtx *) (arg4 + offset);
 
 					for (i = 0; i < count; i++) {

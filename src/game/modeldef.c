@@ -128,12 +128,12 @@ void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 arg2, struct m
 	s5 = gdl;
 
 	if (gdl) {
-		s32 v1 = allocsize - (loadedsize - (s32)(((uintptr_t)modeldef + (gdl & 0xffffff)) - (uintptr_t)modeldef));
-		sp84 = (s32)v1 + (s32)((uintptr_t)modeldef - ((uintptr_t)modeldef + (gdl & 0xffffff)));
+		s32 v1 = allocsize - (loadedsize - (s32)(((uintptr_t)modeldef + (UNSEGADDR(gdl) & 0xffffff)) - (uintptr_t)modeldef));
+		sp84 = (s32)v1 + (s32)((uintptr_t)modeldef - ((uintptr_t)modeldef + (UNSEGADDR(gdl) & 0xffffff)));
 
-		texCopyGdls((Gfx *)((uintptr_t)modeldef + (gdl & 0xffffff)),
+		texCopyGdls((Gfx *)((uintptr_t)modeldef + (UNSEGADDR(gdl) & 0xffffff)),
 				(Gfx *)(v1 + (uintptr_t)modeldef),
-				loadedsize - (s32)(((uintptr_t)modeldef + (gdl & 0xffffff)) - (uintptr_t)modeldef));
+				loadedsize - (s32)(((uintptr_t)modeldef + (UNSEGADDR(gdl) & 0xffffff)) - (uintptr_t)modeldef));
 		texLoadFromConfigs(modeldef->texconfigs, modeldef->numtexconfigs, texpool, (uintptr_t)modeldef2 - arg2);
 
 		while (node) {
@@ -143,9 +143,9 @@ void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 arg2, struct m
 			modelIterateDisplayLists(modeldef, &node, (Gfx **) &gdl);
 
 			if (gdl) {
-				s4 = gdl - s0;
+				s4 = UNSEGADDR(gdl) - UNSEGADDR(s0);
 			} else {
-				s4 = loadedsize + (uintptr_t)modeldef - (uintptr_t)modeldef - (s0 & 0xffffff);
+				s4 = loadedsize + (uintptr_t)modeldef - (uintptr_t)modeldef - (UNSEGADDR(s0) & 0xffffff);
 			}
 
 			modelNodeReplaceGdl(modeldef, prevnode, (Gfx *) s0, (Gfx *) s5);
@@ -157,10 +157,10 @@ void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 arg2, struct m
 				vertices = NULL;
 			}
 
-			s5 += texLoadFromGdl((Gfx *)((uintptr_t)modeldef + (s0 & 0xffffff) + sp84), s4, (Gfx *)((uintptr_t)modeldef + (s5 & 0xffffff)), texpool, (u8 *) vertices);
+			s5 += texLoadFromGdl((Gfx *)((uintptr_t)modeldef + (UNSEGADDR(s0) & 0xffffff) + sp84), s4, (Gfx *)((uintptr_t)modeldef + (UNSEGADDR(s5) & 0xffffff)), texpool, (u8 *) vertices);
 		}
 
-		fileSetSize(filenum, modeldef, (((uintptr_t)modeldef + (s5 & 0xffffff)) - (uintptr_t)modeldef + 0xf) & ~0xf, arg5);
+		fileSetSize(filenum, modeldef, (((uintptr_t)modeldef + (UNSEGADDR(s5) & 0xffffff)) - (uintptr_t)modeldef + 0xf) & ~0xf, arg5);
 	}
 }
 

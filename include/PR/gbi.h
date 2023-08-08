@@ -1568,12 +1568,21 @@ typedef struct {
 } GunkC0;
 
 typedef struct {
+#ifdef PLATFORM_BIG_ENDIAN
 	unsigned int cmd:8;
 	unsigned int unk08:4;
 	unsigned int unk0c:4;
 	unsigned int unk10:16;
 	unsigned int seg:8;
 	unsigned int offset:24;
+#else
+	unsigned int unk10:16;
+	unsigned int unk0c:4;
+	unsigned int unk08:4;
+	unsigned int cmd:8;
+	unsigned int offset:24;
+	unsigned int seg:8;
+#endif
 } Gvtx;
 
 /*
@@ -1919,6 +1928,15 @@ typedef union {
 
 #define gsSPSegment(segment, base)            \
     gsMoveWd(G_MW_SEGMENT, (segment)*4, base)
+
+#ifdef PLATFORM_N64
+#define SEGADDR(x) x
+#define UNSEGADDR(x) x
+#else
+// we mark all segmented addresses so that it'll be easier to recognize them later
+#define SEGADDR(x) ((void *)((uintptr_t)(x) | 1))
+#define UNSEGADDR(x) ((uintptr_t)(x) & ~1)
+#endif
 
 /*
  * Clipping Macros
