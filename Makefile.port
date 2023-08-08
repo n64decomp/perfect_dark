@@ -128,19 +128,10 @@ ifneq (,$(findstring windows,$(TARGET_PLATFORM)))
   TOOLCHAIN := $(TOOLCHAIN_ARCH)-w64-mingw32
   TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
   TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lz -lopengl32
-  # setting --image-base=0x10000000 on windows usually leads to the cheeky fucker placing the heap
-  # behind the image, which is almost guaranteed to trip the segment check
-  TARGET_CFLAGS += -fno-pie
-  TARGET_LDFLAGS += -Wl,-no-pie
 else # TODO
   TOOLCHAIN := $(TOOLCHAIN_ARCH)-linux-gnu
   TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
   TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lGL -lz
-  # HACKHACKHACK: big one, done to avoid possible collisions with segmented addresses
-  # I think 32-bit Linux USUALLY places imagebase at 0x08000000-ish, so it's already in rsp seg territory
-  # proper solution required instead of this bullshit, like patching all segmented pointers to have the LSB set
-  TARGET_CFLAGS += -fno-pie
-  TARGET_LDFLAGS += -Wl,-no-pie -Wl,--section-start=.text=0x10000000
 endif
 
 # These are still used in the port, but only to generate headers.
