@@ -104,6 +104,9 @@ struct skeleton *g_Skeletons[] = {
 	&g_SkelWireFence,
 	&g_SkelRemoteMine,
 	&g_SkelBB,
+#ifdef AVOID_UB
+	NULL // terminate list for sure
+#endif
 };
 
 void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 arg2, struct modeldef *modeldef2, struct texpool *texpool, bool arg5)

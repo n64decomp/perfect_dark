@@ -187,6 +187,9 @@ extern struct attackanimconfig g_AttackAnimLightWalk;
 extern struct attackanimconfig g_AttackAnimLightRun;
 extern struct attackanimconfig g_AttackAnimDualWalk;
 extern struct attackanimconfig g_AttackAnimDualRun;
+#ifdef AVOID_UB
+extern struct attackanimconfig *g_AttackAnimArray[];
+#endif
 extern u32 g_StageFlags;
 extern struct chrdata *g_BgChrs;
 extern s16 *g_BgChrnums;

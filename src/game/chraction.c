@@ -1306,6 +1306,21 @@ struct attackanimconfig g_AttackAnimDualRun         = { ANIM_006E, 0, 0, 0, 0, -
 struct attackanimconfig g_AttackAnimDualCrossedWalk = { ANIM_006D, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
 struct attackanimconfig g_AttackAnimDualCrossedRun  = { ANIM_006F, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
 
+#ifdef AVOID_UB
+// don't depend on global var order
+struct attackanimconfig *g_AttackAnimArray[] = {
+	&g_AttackAnimHeavyWalk,
+	&g_AttackAnimHeavyRun,
+	&g_AttackAnimLightWalk,
+	&g_AttackAnimLightRun,
+	&g_AttackAnimDualWalk,
+	&g_AttackAnimDualRun,
+	&g_AttackAnimDualCrossedWalk,
+	&g_AttackAnimDualCrossedRun,
+	NULL
+};
+#endif
+
 struct attackanimconfig var80067c50[] = {
 	{ ANIM_0057, 0, 0, 1.5707963705063, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0, 0 },
 	{ ANIM_0056, 0, 0, 4.7123889923096, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0, 0 },

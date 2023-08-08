@@ -114,7 +114,9 @@ void amgrCreate(ALSynConfig *config)
 		g_AudioManager.audioInfo[i]->data = alHeapAlloc(&g_SndHeap, 1, PAL ? 3688 : 1024 * 3);
 	}
 
+#ifndef AVOID_UB // these will be used after this scope ends, triggering a big boom
 	{
+#endif
 		s32 sp590[] = { 0x00000001, 0x000014a0, 0x00000000, 0x00001358, 0x00004d0c, 0x00000000, 0x000053ff, 0x00000000, 0x00000000, 0x00000000 };
 		s32 sp568[] = { 0x00000001, 0x000001b8, 0x00000000, 0x00000068, 0x00004000, 0x00000000, 0x00007fff, 0x00001db0, 0x00001b58, 0x00000000 };
 		s32 sp540[] = { 0x00000001, 0x000001b8, 0x00000000, 0x00000068, 0x00000000, 0x00005fff, 0x00007fff, 0x0000017c, 0x000001f4, 0x00000000 };
@@ -138,7 +140,9 @@ void amgrCreate(ALSynConfig *config)
 				config->params[i] = (s32 *) (IS4MB() ? sp198 : sp068);
 			}
 		}
+#ifndef AVOID_UB
 	}
+#endif
 
 	n_alInit(&g_AudioManager.g, config);
 	func00030bfc(0, 60);

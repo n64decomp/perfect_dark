@@ -2370,6 +2370,12 @@ bool mp3dec00040164(struct asistream *stream, u32 gr, u32 ch)
 				sp1b4 = var700579b8[sp1bc].unk2e[sfb] * 3;
 			}
 		} else {
+#ifdef AVOID_UB
+			if (sfb > 20) {
+				// avoid going out of unk00[] bounds
+				sp1b8 = 0;
+			} else
+#endif
 			sp1b8 = var700579b8[sp1bc].unk00[++sfb + 1];
 		}
 	}

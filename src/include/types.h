@@ -190,7 +190,11 @@ struct g_vars {
 	/*0x35b*/ u8 alwaystick;
 	/*0x35c*/ u16 updateframe;
 	/*0x35e*/ u16 prevupdateframe;
+#ifdef AVOID_UB // there will be an OOB access otherwise; this does fuck up the offsets here though
+	/*0x360*/ struct propstate propstates[8];
+#else
 	/*0x360*/ struct propstate propstates[7];
+#endif
 	/*0x424*/ struct chrdata *chrdata;
 	/*0x428*/ struct truckobj *truck;
 	/*0x42c*/ struct heliobj *heli;

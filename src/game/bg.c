@@ -3810,8 +3810,12 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 									hit = true;
 
 									if (imggdl == NULL
-											|| (imggdl->words.w1 & 0x0f000000) == 0x0f000000
-											|| (imggdl->words.w1 & 0x05000000) == 0x05000000) {
+#ifdef PLATFORM_N64
+										|| (imggdl->words.w1 & 0x0f000000) == 0x0f000000
+										|| (imggdl->words.w1 & 0x05000000) == 0x05000000) {
+#else // not sure if the above check even works right on N64, but we can test easily for seg addresses
+										|| (imggdl->words.w1 & 1)) {
+#endif
 										texturenum = -1;
 									} else {
 										s32 tmp = PHYS_TO_K0(UNSEGADDR(imggdl->words.w1) - 8);
@@ -4307,8 +4311,12 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 											}
 
 											if (tmpgdl == gdl
+#ifdef PLATFORM_N64
 													|| (tmpgdl->words.w1 & 0x0f000000) == 0x0f000000
 													|| (tmpgdl->words.w1 & 0x05000000) == 0x05000000) {
+#else // not sure if the above check even works right on N64, but we can test easily for seg addresses
+													|| (tmpgdl->words.w1 & 1)) {
+#endif
 												texturenum = -1;
 											} else {
 												s32 tmp = UNSEGADDR(tmpgdl->words.w1) - 8;
