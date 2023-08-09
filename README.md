@@ -2,7 +2,8 @@
 
 This repository contains a work-in-progress port of the [Perfect Dark decompilation](https://github.com/n64decomp/perfect_dark) to modern platforms.
 
-To run the port, you must already have a Perfect Dark ROM, specifically the ntsc-final/revision 1 version (md5 `e03b088b6ac9e0080440efed07c1e40f`).
+To run the port, you must already have a Perfect Dark ROM, specifically the ntsc-final/revision 1 version  
+(md5 `e03b088b6ac9e0080440efed07c1e40f`).
 
 ## Status
 
@@ -27,7 +28,7 @@ except for janky mouselook, arbitrary 4:3 resolution support and somewhat expand
 2. Run `make -f Makefile.port` in the `perfect_dark` directory.
 3. The resulting executable will be at `build/ntsc-final-port/pd.exe`.
 
-If cross-compiling, specify the target platform on the `make` command line like so:
+If cross-compiling, specify the target platform on the `make` command line like so:  
 ```make -f Makefile.port TARGET_PLATFORM=i686-linux```
 
 Currently only `i686-linux` and `i686-windows` are supported, using `i686-linux-gnu-gcc` and `i686-w64-mingw32-gcc` as compilers, respectively.
