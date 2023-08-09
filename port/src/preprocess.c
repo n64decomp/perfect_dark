@@ -98,10 +98,12 @@ static inline void preprocessALSound(ALSound *snd, u8 *bankBase)
 
 	if (snd->envelope) {
 		PD_SWAP_PTR(snd->envelope);
-		ALEnvelope *env = PD_PTR_BASE(snd->envelope, bankBase);
-		PD_SWAP_VAL(env->attackTime);
-		PD_SWAP_VAL(env->releaseTime);
-		PD_SWAP_VAL(env->decayTime);
+		if (!alreadySwapped((intptr_t)snd->envelope)) {
+			ALEnvelope *env = PD_PTR_BASE(snd->envelope, bankBase);
+			PD_SWAP_VAL(env->attackTime);
+			PD_SWAP_VAL(env->releaseTime);
+			PD_SWAP_VAL(env->decayTime);
+		}
 	}
 
 	if (snd->keyMap) {
