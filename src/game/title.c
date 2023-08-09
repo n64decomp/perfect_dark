@@ -258,6 +258,9 @@ struct legalelement {
 	s16 unused06;
 	s16 type;
 	u16 textid;
+#ifndef PLATFORM_N64
+	const char *textptr;
+#endif
 };
 
 struct legalelement g_LegalElements[] = {
@@ -351,6 +354,11 @@ Gfx *titleRenderLegal(Gfx *gdl)
 			case LEGALELEMENTTYPE_BLUETEXTLG:
 				font1 = g_CharsHandelGothicLg;
 				font2 = g_FontHandelGothicLg;
+#if !defined(PLATFORM_N64) && defined(VERSION_HASH)
+				if (elem->textid == L_OPTIONS_084) {
+					elem->textptr = VERSION_HASH " (" VERSION_TARGET ")";
+				}
+#endif
 				break;
 			case LEGALELEMENTTYPE_WHITETEXTLG:
 				font1 = g_CharsHandelGothicLg;
@@ -484,7 +492,12 @@ Gfx *titleRenderLegal(Gfx *gdl)
 #else
 				x = elem->x;
 				y = elem->y;
+#ifdef PLATFORM_N64
 				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+#else
+				const char *textptr = elem->textptr ? elem->textptr : langGet(elem->textid);
+				gdl = textRenderProjected(gdl, &x, &y, textptr, font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+#endif
 #endif
 			}
 		}

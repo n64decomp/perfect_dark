@@ -100,8 +100,15 @@ else
   $(error ROM version $(VERSION) is not supported)
 endif
 
+VERSION_HASH := $(shell git rev-parse --short HEAD)
+VERSION_TARGET := $(TARGET_PLATFORM)
+VERSION_ROMID := $(ROMID)
+
 DEFINES := \
   VERSION=$(VERSION) \
+  VERSION_HASH=\"$(VERSION_HASH)\" \
+  VERSION_TARGET=\"$(VERSION_TARGET)\" \
+  VERSION_ROMID=\"$(VERSION_ROMID)\" \
   MATCHING=0 \
   PAL=0 \
   PIRACYCHECKS=0 \
