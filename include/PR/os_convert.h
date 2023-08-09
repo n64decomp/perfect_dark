@@ -35,6 +35,9 @@ extern "C" {
 #endif
 
 #include <PR/ultratypes.h>
+#ifndef PLATFORM_N64
+#include <stdint.h>
+#endif
 
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 
