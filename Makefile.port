@@ -230,10 +230,6 @@ LDFLAGS := $(TARGET_LDFLAGS)
 # (We use this a lot)
 export ROMID
 
-# Signal to the tooling that we only need the header files generated.
-HEADERS_ONLY := 1
-export HEADERS_ONLY
-
 BIN := $(B_DIR)/pd.exe
 
 default: $(BIN)
