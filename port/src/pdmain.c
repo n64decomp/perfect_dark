@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <assert.h>
 
 #include <ultra64.h>
 #include <PR/ultrasched.h>
@@ -77,7 +76,6 @@ extern u8 *g_MempHeap;
 extern u32 g_MempHeapSize;
 
 void rngSetSeed(u32 seed);
-void schedFrame(OSSched *sc);
 
 bool var8005d9b0 = false;
 s32 g_StageNum = STAGE_TITLE;
@@ -200,14 +198,6 @@ struct stageallocation g_StageAllocations4Mb[] = {
 };
 
 Gfx var8005dcc8[] = {
-	gsSPSegment(0x00, 0x00000000),
-	gsSPDisplayList(&var800613a0),
-	gsSPDisplayList(&var80061380),
-	gsDPFullSync(),
-	gsSPEndDisplayList(),
-};
-
-Gfx var8005dcf0[] = {
 	gsSPSegment(0x00, 0x00000000),
 	gsSPDisplayList(&var800613a0),
 	gsSPDisplayList(&var80061380),
@@ -522,8 +512,8 @@ void mainLoop(void)
 
 void mainTick(void)
 {
-	Gfx *gdl;
-	Gfx *gdlstart;
+	Gfx *gdl = NULL;
+	Gfx *gdlstart = NULL;
 	OSScMsg msg = {OS_SC_DONE_MSG};
 	s32 i;
 

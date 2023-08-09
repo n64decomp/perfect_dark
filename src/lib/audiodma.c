@@ -10,7 +10,11 @@
 
 struct admaitem {
 	ALLink node;
+#ifdef PLATFORM_N64
 	s32 startaddr;
+#else
+	uintptr_t startaddr;
+#endif
 	s32 lastframe;
 	u8 *ptr;
 };
@@ -46,14 +50,23 @@ void admaInit(void)
  * that this buffer was last used in this frame. This is important for the
  * admaBeginFrame routine.
  */
+#ifdef PLATFORM_N64
 s32 admaExec(s32 offset, s32 len, void *state)
+#else
+uintptr_t admaExec(uintptr_t offset, s32 len, void *state)
+#endif
 {
 	void *foundbuffer;
 	s32 delta;
 	struct admaitem *item = g_AdmaState.firstused;
 	struct admaitem *lastitem = NULL;
+#ifdef PLATFORM_N64
 	s32 end = offset + len;
 	s32 buffend;
+#else
+	uintptr_t end = offset + len;
+	uintptr_t buffend;
+#endif
 
 	// Check to see if a buffer already contains the sample
 	while (item) {

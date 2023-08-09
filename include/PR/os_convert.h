@@ -97,9 +97,13 @@ extern "C" {
 
 /* Address translation routines and macros */
 
+#ifdef PLATFORM_N64
 extern u32		 osVirtualToPhysical(void *);
 extern void *		 osPhysicalToVirtual(u32);
-
+#else
+extern uintptr_t	osVirtualToPhysical(void *);
+extern void *		 osPhysicalToVirtual(uintptr_t);
+#endif
 
 #endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

@@ -8,6 +8,7 @@
 #include "bss.h"
 
 #include "video.h"
+#include "audio.h"
 #include "input.h"
 #include "fs.h"
 #include "romdata.h"

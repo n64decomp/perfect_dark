@@ -511,6 +511,14 @@ void aEnvMixerImpl(uint8_t flags, ENVMIX_STATE state, int16_t rvol) {
     int16_t *wet[2] = {BUF_S16(OFS_AUX_L), BUF_S16(OFS_AUX_R)};
     int nsamples = NUM_SAMPLES;
 
+    struct {
+        int32_t t[2];
+        int32_t rate[2];
+        int16_t tgt[2];
+        int16_t voldry;
+        int16_t volwet;
+    } *savedstate = (void *)state;
+
     rspa.vol[1] = rvol; // why the fuck is this here?
 
     // naudio uses a linear envelope
@@ -521,21 +529,20 @@ void aEnvMixerImpl(uint8_t flags, ENVMIX_STATE state, int16_t rvol) {
 
     if (flags & A_INIT) {
         for (int i = 0; i < 2; ++i) {
-            t[i] = rspa.vol[i] << 16;
-            tgt[i] = rspa.target[i] << 16;
+           t[i] = rspa.vol[i] << 16;
             rate[i] = rspa.rate[i] >> 3;
+            tgt[i] = rspa.target[i] << 16;
         }
         voldry = rspa.vol_dry;
         volwet = rspa.vol_wet;
     } else {
         for (int i = 0; i < 2; ++i) {
-            int16_t *base = state + i * 4;
-            t[i] = base[0];
-            tgt[i] = base[1] << 16;
-            rate[i] = *(int32_t *)&base[2];
+            t[i] = savedstate->t[i];
+            rate[i] = savedstate->rate[i];
+            tgt[i] = savedstate->tgt[i] << 16;
         }
-        voldry = state[8];
-        volwet = state[9];
+        voldry = savedstate->voldry;
+        volwet = savedstate->volwet;
     }
 
     #ifdef PLATFORM_BIG_ENDIAN
@@ -574,16 +581,15 @@ void aEnvMixerImpl(uint8_t flags, ENVMIX_STATE state, int16_t rvol) {
         }
     }
 
-    for (int i = 0; i < 2; ++i) {
-        int16_t *base = state + i * 4;
-        base[0] = t[i];
-        base[1] = tgt[i] >> 16;
-        *(int32_t *)&base[2] = rate[i];
-    }
-    state[8] = voldry;
-    state[9] = volwet;
-
     #undef XOR
+
+    for (int i = 0; i < 2; ++i) {
+        savedstate->t[i] = t[i];
+        savedstate->rate[i] = rate[i];
+        savedstate->tgt[i] = tgt[i] >> 16;
+    }
+    savedstate->voldry = voldry;
+    savedstate->volwet = volwet;
 }
 
 // flags is always 0 in PD

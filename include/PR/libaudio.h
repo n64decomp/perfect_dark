@@ -120,7 +120,11 @@ typedef struct ALLink_s {
 void    alUnlink(ALLink *element);
 void    alLink(ALLink *element, ALLink *after);
 
+#ifdef PLATFORM_N64
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
+#else
+typedef uintptr_t (*ALDMAproc)(uintptr_t addr, s32 len, void *state);
+#endif
 typedef ALDMAproc (*ALDMANew)(void *state);
 
 void    alCopy(void *src, void *dest, s32 len);

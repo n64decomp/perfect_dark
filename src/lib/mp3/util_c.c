@@ -77,9 +77,9 @@ s32 mp3util000462f8(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
 		} else {
 			cVar1 = *(s8 *)piVar4;
 			uVar3 = uVar5 & 7;
-			piVar4 = (s32 *)((u8 *)piVar4 + (uVar3 + 1 >> 3));
+			piVar4 = (s32 *)((u8 *)piVar4 + ((uVar3 + 1) >> 3));
 			uVar5 = uVar5 + 1;
-			if (((u32)cVar1 >> (7 - uVar3 & 0x1f) & 1) == 0) {
+			if (((u32)cVar1 >> ((7 - uVar3) & 0x1f) & 1) == 0) {
 				*puVar7 = 0;
 			} else {
 				*puVar7 = 1;
@@ -97,9 +97,9 @@ s32 mp3util000462f8(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
 		} else {
 			cVar1 = *(s8 *)piVar4;
 			uVar2 = uVar5 & 7;
-			piVar4 = (s32 *)((u8 *)piVar4 + (uVar2 + 1 >> 3));
+			piVar4 = (s32 *)((u8 *)piVar4 + ((uVar2 + 1) >> 3));
 			uVar5 = uVar5 + 1;
-			if (((u32)cVar1 >> (7 - uVar2 & 0x1f) & 1) == 0) {
+			if (((u32)cVar1 >> ((7 - uVar2) & 0x1f) & 1) == 0) {
 				puVar7[1] = 0;
 			} else {
 				puVar7[1] = 1;
