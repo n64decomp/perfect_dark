@@ -936,12 +936,18 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 						} else if (vs->phase == AL_PHASE_SUSTREL) {
 							vs->phase = AL_PHASE_RELEASE;
 
+#ifdef AVOID_UB
+							chanstate = &seqp->chanState[chan];
+#endif
 							// @bug: chanstate is uninitialised
 							if (chanstate->unk24) {
 								__n_seqpReleaseVoice((N_ALSeqPlayer*)seqp,
 										&vs->voice,
 										(seqp->chanState[chan].releaseTime < AL_USEC_PER_FRAME ? AL_USEC_PER_FRAME : seqp->chanState[chan].releaseTime));
 							} else {
+#ifdef AVOID_UB
+								vstate = __n_lookupVoice((N_ALSeqPlayer*)seqp, key, chan);
+#endif
 								__n_seqpReleaseVoice((N_ALSeqPlayer*)seqp,
 										&vs->voice,
 										vstate->sound->envelope->releaseTime < AL_USEC_PER_FRAME ? AL_USEC_PER_FRAME : vstate->sound->envelope->releaseTime);
