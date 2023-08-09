@@ -1,62 +1,42 @@
-# Perfect Dark Decompilation
+# Perfect Dark port
 
-This repository contains a complete decompilation of Perfect Dark for the Nintendo 64.
+This repository contains a work-in-progress port of the [Perfect Dark decompilation](https://github.com/n64decomp/perfect_dark) to modern platforms.
 
-The project aims to be a matching decompilation. When a matching decompilation is compiled with the same compiler that the original developers used, the output will be exactly the same as the retail game, byte for byte.
-
-To build the project, you must already have a Perfect Dark ROM. The project can build the exact same ROM from decomp's source code combined with assets that it extracts from your base ROM.
+To run the port, you must already have a Perfect Dark ROM, specifically the ntsc-final/revision 1 version (md5 `e03b088b6ac9e0080440efed07c1e40f`).
 
 ## Status
 
-See the [Perfect Dark Decompilation Status Page](https://ryandwyer.gitlab.io/pdstatus/).
+Currently only 32-bit platforms are supported, namely x86 Windows and Linux.
 
-All versions of the game are fully decompiled but a small handful of functions are not yet byte-matching even though they are functionally the same. The status page doesn't show these as 100% because it counts matching functions only.
+The game is in a somewhat functional but probably unstable state.
+There are major graphical issues, minor audio issues and possibly other issues.
+Splitscreen modes currently do not work.
 
-## Installation Requirements
+There are currently no "extra features" implemented, such as widescreen,
+except for janky mouselook, arbitrary 4:3 resolution support and somewhat expanded heap size.
 
-For Arch Linux:
+## Running
 
-* Install these packages: `binutils fakeroot gcc make python vim`
-* Install from AUR: `armips`
-* Install from AUR: a MIPS binutils package of your choice (eg. `mips-elf-binutils`)
-* Install from AUR: a MIPS gcc package of your choice (eg. `mips-elf-gcc`)
+1. Create a directory named `data` next to `pd.exe`.
+2. Put your Perfect Dark ROM named `pd.ntsc-final.z64` into it.
+3. Run `pd.exe`.
 
-For Debian and Ubuntu:
+## Building
 
-* Install these packages: `binutils-mips-linux-gnu build-essential gcc-mips-linux-gnu libc6-dev-i386 libcapstone-dev make`
-* Compile and install `armips`
+1. Ensure you have SDL2, libGL and ZLib installed on your system.
+2. Run `make -f Makefile.port` in the `perfect_dark` directory.
+3. The resulting executable will be at `build/ntsc-final-port/pd.exe`.
 
-## ROM Versions
+If cross-compiling, specify the target platform on the `make` command line like so:
+```make -f Makefile.port TARGET_PLATFORM=i686-linux```
 
-Perfect Dark has six known versions:
+Currently only `i686-linux` and `i686-windows` are supported, using `i686-linux-gnu-gcc` and `i686-w64-mingw32-gcc` as compilers, respectively.
 
-| ROM ID     | Description                                 | MD5 Checksum                     |
-|------------|---------------------------------------------|----------------------------------|
-| ntsc-beta  | NTSC 6.4 beta                               | aa93f4df16fceada399a749f5ad2f273 |
-| ntsc-1.0   | NTSC 8.7 final (the initial, buggy release) | 7f4171b0c8d17815be37913f535e4e93 |
-| ntsc-final | NTSC 8.7 final                              | e03b088b6ac9e0080440efed07c1e40f |
-| pal-beta   | PAL 28.7 beta                               | ad2de210a3455ba5ec541f0c78d91444 |
-| pal-final  | PAL 8.7 final                               | d9b5cd305d228424891ce38e71bc9213 |
-| jpn-final  | JPN 8.9 final                               | 538d2b75945eae069b29c46193e74790 |
+## Credits
 
-The project uses the `$ROMID` environment variable to know which version to work with. If not set, it defaults to `ntsc-final`. You can change it by running something like `export ROMID=ntsc-1.0`.
-
-## Extracting the base ROM
-
-1. Save your existing ROM file into the root of the repository with the name `pd.ntsc-final.z64`. It should not be byteswapped (the first four bytes should be `0x80371240`).
-2. Run `make extract`.
-
-This will extract assets to `src/assets`. If any asset already exists then it will not be overwritten. This means you can modify assets as desired, and your changes will not be overwritten if you run the extract command again.
-
-The extract command will also create an `extracted/ntsc-final` directory. This directory contains some compiled code segments from the ROM and is only used for comparison purposes.
-
-## Compiling
-
-* Run `git submodule update --init --recursive`. You only have to do this once.
-* Run `make -j` to build the ROM. The ROM will be written to `build/ntsc-final/pd.z64`.
-
-## How do I know the built files are matching?
-
-Run `make` followed by `make test`. If `make test` produces no output then the compiled project is matching.
-
-You can also md5sum your base ROM with the built ROM and check they have the same hash: `md5sum pd.ntsc-final.z64 build/ntsc-final/pd.z64`.
+* the original [decompilation project](https://github.com/n64decomp/perfect_dark) authors;
+* doomhack for the only other publicly available [PD porting effort](https://github.com/doomhack/perfect_dark) I could find;
+* [sm64-port](https://github.com/sm64-port/sm64-port) authors for the audio mixer and some other changes;
+* [Ship of Harkinian team](https://github.com/Kenix3/libultraship/tree/main/src/graphic/Fast3D), Emill and MaikelChan for the libultraship version of fast3d that this port uses;
+* lieff for [minimp3](https://github.com/lieff/minimp3);
+* probably more I'm forgetting.
