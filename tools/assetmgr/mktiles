@@ -27,7 +27,8 @@ class App():
         self.room_names = self.json['rooms'].keys()
 
         self.make_header()
-        self.make_object()
+        if '--headers-only' not in sys.argv:
+            self.make_object()
 
     def load_data(self):
         fd = open(sys.argv[1], 'r')

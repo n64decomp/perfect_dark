@@ -19,7 +19,8 @@ def main():
     if sys.argv[2] == 'en':
         make_header(rows, shortname)
 
-    make_object(rows, basename, sys.argv[2])
+    if '--headers-only' not in sys.argv:
+        make_object(rows, basename, sys.argv[2])
 
 def get_shortname(basename):
     return re.match(r'^[a-z0-9]+', basename)[0]

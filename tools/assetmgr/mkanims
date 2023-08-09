@@ -3,6 +3,7 @@
 import assetmgr
 import json
 import os
+import sys
 
 def main():
     fd = open('src/assets/%s/animations.json' % os.environ['ROMID'], 'r')
@@ -11,7 +12,8 @@ def main():
 
     rows = json.loads(data)
 
-    make_object(rows)
+    if '--headers-only' not in sys.argv:
+        make_object(rows)
     make_header(rows)
 
 def make_header(rows):

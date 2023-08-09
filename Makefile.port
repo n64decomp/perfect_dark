@@ -116,7 +116,7 @@ C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 
 A_DIR := src/assets/$(ROMID)
 B_DIR := build/$(ROMID)-port
-E_DIR := extracted/$(ROMID)
+G_DIR := src/generated/$(ROMID)
 
 ifneq (,$(findstring x86_64,$(TARGET_PLATFORM)))
   TOOLCHAIN_ARCH := x86_64
@@ -135,9 +135,12 @@ else # TODO
 endif
 
 # These are still used in the port, but only to generate headers.
-LANG_JSON_FILES := $(shell find $(A_DIR) -path '*/lang/*.json')
-PADS_JSON_FILES := $(shell find $(A_DIR) -path '*/pads/*.json')
-TILES_JSON_FILES := $(shell find $(A_DIR) -path '*/tiles/*.json')
+JSON_FILES := $(shell find $(A_DIR) -path '*/lang/*.json')
+JSON_FILES += $(shell find $(A_DIR) -path '*/pads/*.json')
+JSON_FILES += $(shell find $(A_DIR) -path '*/tiles/*.json')
+JSON_FILES += $(wildcard $(A_DIR)/*.json)
+
+JSON_HEADERS := $(patsubst $(A_DIR)/%.json, $(G_DIR)/%.h, $(JSON_FILES))
 
 C_FILES := $(shell find src/game port -name '*.c')
 C_FILES := $(C_FILES) \
@@ -227,11 +230,45 @@ LDFLAGS := $(TARGET_LDFLAGS)
 # (We use this a lot)
 export ROMID
 
+# Signal to the tooling that we only need the header files generated.
+HEADERS_ONLY := 1
+export HEADERS_ONLY
+
 BIN := $(B_DIR)/pd.exe
 
 default: $(BIN)
 
-$(BIN): $(O_FILES)
+################################################################################
+# Asset Manager header generation
+
+# Anims
+$(G_DIR)/animations.h: $(A_DIR)/animations.json
+	tools/assetmgr/mkanims --headers-only
+
+# Lang
+$(G_DIR)/lang/%.h: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $< en --headers-only
+
+# Pads
+$(G_DIR)/pads/%.h: $(A_DIR)/pads/%.json
+	tools/assetmgr/mkpads $< --headers-only
+
+# Sequences
+$(G_DIR)/sequences.h: $(A_DIR)/sequences.json
+	tools/assetmgr/mksequences --headers-only
+
+# Textures
+$(G_DIR)/textures.h: $(A_DIR)/textures.json
+	tools/assetmgr/mktextures --headers-only
+
+# Tiles
+$(G_DIR)/tiles/%.h: $(A_DIR)/tiles/%.json
+	tools/assetmgr/mktiles $< --headers-only
+
+################################################################################
+# Generic compilation rules
+
+$(BIN): $(JSON_HEADERS) $(O_FILES)
 	$(LD) $(COMMON_CFLAGS) $(OPT_LVL) -o $(BIN) $^ $(LDFLAGS)
 
 $(B_DIR)/%.o: %.c
@@ -242,14 +279,15 @@ $(B_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) -c $(CXXFLAGS) $(OPT_LVL) -o $@ $<
 
+################################################################################
+# Clean rules
+
 clean:
 	rm -rf build/$(ROMID)-port
-#	rm -rf src/generated/$(ROMID)
 
 allclean:
 	rm -rf build/*
-#	rm -rf src/generated
+	rm -rf src/generated
 
 codeclean:
 	find $(B_DIR)/game $(B_DIR)/inflate $(B_DIR)/lib $(B_DIR)/port -name '*.o' -delete
-
