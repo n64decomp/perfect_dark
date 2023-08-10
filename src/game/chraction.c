@@ -8490,6 +8490,12 @@ void chrTickDruggedComingUp(struct chrdata *chr)
 		chrUncloak(chr, true);
 
 		chr->actiontype = ACT_DRUGGEDDROP;
+#ifdef AVOID_UB
+		// the function that checks notifychrindex checks for ACT_DRUGGEDDROP,
+		// so in theory it could check it before the drop animation is finished,
+		// which will cause a crash. or at least I think that's what's happening
+		chr->act_die.notifychrindex = 0;
+#endif
 
 		while (!done) {
 			if (i >= 0
