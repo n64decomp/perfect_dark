@@ -1030,28 +1030,24 @@ void preprocessPadsFile(u8 *data, u32 size)
 		struct coverdefinition *def = PD_PTR_BASE(hdr->coversoffset, hdr);
 		for (s32 i = 0; i < hdr->numcovers; ++i, ++def) {
 			PD_SWAP_VAL(def->flags);
-			PD_SWAP_VAL(def->look.x);
-			PD_SWAP_VAL(def->look.y);
-			PD_SWAP_VAL(def->look.z);
-			PD_SWAP_VAL(def->pos.x);
-			PD_SWAP_VAL(def->pos.y);
-			PD_SWAP_VAL(def->pos.z);
+			PD_SWAP_VAL(def->look);
+			PD_SWAP_VAL(def->pos);
 		}
 	}
 
 	if (hdr->waypointsoffset) {
 		PD_SWAP_VAL(hdr->waypointsoffset);
 		struct waypoint *wp = PD_PTR_BASE(hdr->waypointsoffset, hdr);
-		while (wp->padnum >= 0) {
+		// the terminator is 0xFFFFFFFF, same for the s32 lists
+		// TODO: the game checks for >= 0, so maybe something's terminated with a random negative number?
+		while (wp->padnum != (s32)0xFFFFFFFF) {
 			PD_SWAP_VAL(wp->padnum);
 			PD_SWAP_VAL(wp->groupnum);
 			PD_SWAP_VAL(wp->step);
 			if (wp->neighbours) {
 				PD_SWAP_PTR(wp->neighbours);
 				s32 *nbr = PD_PTR_BASE(wp->neighbours, hdr);
-				// the terminator is 0xFFFFFFFF, negative in both BE and LE,
-				// same for the other s32 lists
-				while (*nbr >= 0) {
+				while (*nbr != (s32)0xFFFFFFFF) {
 					PD_SWAP_VAL(*nbr);
 					++nbr;
 				}
@@ -1068,7 +1064,7 @@ void preprocessPadsFile(u8 *data, u32 size)
 			if (wg->neighbours) {
 				PD_SWAP_PTR(wg->neighbours);
 				s32 *nbr = PD_PTR_BASE(wg->neighbours, hdr);
-				while (*nbr >= 0) {
+				while (*nbr != (s32)0xFFFFFFFF) {
 					PD_SWAP_VAL(*nbr);
 					++nbr;
 				}
@@ -1076,7 +1072,7 @@ void preprocessPadsFile(u8 *data, u32 size)
 			if (wg->waypoints) {
 				PD_SWAP_PTR(wg->waypoints);
 				s32 *wgwp = PD_PTR_BASE(wg->waypoints, hdr);
-				while (*wgwp >= 0) {
+				while (*wgwp != (s32)0xFFFFFFFF) {
 					PD_SWAP_VAL(*wgwp);
 					++wgwp;
 				}
