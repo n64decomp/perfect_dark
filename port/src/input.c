@@ -19,8 +19,8 @@ static s32 mouseX, mouseY;
 static s32 mouseDX, mouseDY;
 static u32 mouseButtons;
 
-static f32 mouseSensX = 0.25f;
-static f32 mouseSensY = 0.25f;
+static f32 mouseSensX = 1.5f;
+static f32 mouseSensY = 1.5f;
 
 void inputSetDefaultKeyBinds(void) {
 	// TODO: make VK constants for all these
@@ -280,6 +280,6 @@ void inputMouseGetDelta(s32 *dx, s32 *dy) {
 void inputMouseGetNormalizedDelta(f32 *dx, f32 *dy) {
 	s32 w, h;
 	SDL_GetWindowSize(videoGetWindowHandle(), &w, &h); 
-	if (dx) *dx = mouseSensX * (float)mouseDX * ((float)w / 480.f) * 0.1f;
-	if (dy) *dy = mouseSensY * (float)mouseDY * ((float)h / 480.f) * 0.1f;
+	if (dx) *dx = mouseSensX * (float)mouseDX / 100.0f;
+	if (dy) *dy = mouseSensY * (float)mouseDY / 100.0f;
 }
