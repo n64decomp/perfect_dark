@@ -72,19 +72,22 @@ ifeq ($(HOST_PLATFORM),)
   endif
 endif
 
-$(info Host platform: $(HOST_PLATFORM))
-
 # Set target platform to host platform if not specified.
 ifeq ($(TARGET_PLATFORM),)
   TARGET_PLATFORM := $(HOST_PLATFORM)
 endif
 
-$(info Target platform: $(TARGET_PLATFORM))
+ifeq (,$(findstring clean,$(MAKECMDGOALS)))
+  $(info Host platform: $(HOST_PLATFORM))
+  $(info Target platform: $(TARGET_PLATFORM))
+endif
 
 # Set whether the target arch is 64- or 32-bit.
 ifneq (,$(findstring 64,$(TARGET_PLATFORM)))
-  # TODO: we're not 64-bit compatible yet
-  $(error 64-bit target platforms are not supported yet)
+  # TODO: we're not 64-bit compatible yet, error out if building the actual game
+  ifeq (,$(findstring clean,$(MAKECMDGOALS)))
+    $(error 64-bit target platforms are not supported yet)
+  endif
   TARGET_64BIT = 1
 else # TODO
   TARGET_64BIT = 0
@@ -125,20 +128,21 @@ A_DIR := src/assets/$(ROMID)
 B_DIR := build/$(ROMID)-port
 G_DIR := src/generated/$(ROMID)
 
-ifneq (,$(findstring x86_64,$(TARGET_PLATFORM)))
-  TOOLCHAIN_ARCH := x86_64
-else # TODO
-  TOOLCHAIN_ARCH := i686
-endif
-
 ifneq (,$(findstring windows,$(TARGET_PLATFORM)))
-  TOOLCHAIN := $(TOOLCHAIN_ARCH)-w64-mingw32
   TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
   TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lz -lopengl32
+  # on windows/mingw we need this to be built with a 32-bit compiler so it finds the correct libs
+  TOOLCHAIN := i686-w64-mingw32-
 else # TODO
-  TOOLCHAIN := $(TOOLCHAIN_ARCH)-linux-gnu
   TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
   TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lGL -lz
+endif
+
+# On x86_64 gcc add -m32 to CFLAGS if building a 32-bit executable.
+ifneq (,$(findstring x86_64,$(HOST_PLATFORM))$(findstring x86_64,$(TOOLCHAIN)))
+  ifneq (1,$(TARGET_64BIT))
+    TARGET_CFLAGS += -m32
+  endif
 endif
 
 # These are still used in the port, but only to generate headers.
@@ -202,8 +206,9 @@ INCLUDES = \
   -I src/lib/ultra/audio \
   -I port/include
 
-CC := $(TOOLCHAIN)-gcc -std=c11
-CXX := $(TOOLCHAIN)-g++ -std=c++20
+TOOLCHAIN ?=
+CC := $(TOOLCHAIN)gcc -std=c11
+CXX := $(TOOLCHAIN)g++ -std=c++20
 ifneq (,$(CXX_O_FILES))
   LD := $(CXX)
 else
