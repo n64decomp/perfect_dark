@@ -1846,6 +1846,8 @@ static void gfx_dp_load_tlut(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t 
     for (uint32_t i = 0; i < count; ++i) {
         *dst++ = PD_BE16(*src++);
     }
+
+    rdp.textures_changed[0] = rdp.textures_changed[1] = true;
 }
 
 static void gfx_dp_load_block(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t lrs, uint32_t dxt) {
