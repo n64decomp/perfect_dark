@@ -65,7 +65,7 @@ ifeq ($(HOST_PLATFORM),)
       HOST_PLATFORM := i686-windows
     endif
   else # TODO
-    UNAME_ARCH := $(shell uname -p)
+    UNAME_ARCH := $(shell uname -m)
     UNAME_OS := $(shell uname -s)
     UNAME_OS := $(shell echo $(UNAME_OS) | tr A-Z a-z)
     HOST_PLATFORM := $(UNAME_ARCH)-$(UNAME_OS)
@@ -83,7 +83,7 @@ ifeq (,$(findstring clean,$(MAKECMDGOALS)))
 endif
 
 # Set whether the target arch is 64- or 32-bit.
-ifneq (,$(findstring 64,$(TARGET_PLATFORM)))
+ifneq (,$(findstring 64,$(TARGET_PLATFORM))$(findstring armv8,$(TARGET_PLATFORM)))
   # TODO: we're not 64-bit compatible yet, error out if building the actual game
   ifeq (,$(findstring clean,$(MAKECMDGOALS)))
     $(error 64-bit target platforms are not supported yet)
