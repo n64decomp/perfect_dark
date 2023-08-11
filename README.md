@@ -31,7 +31,9 @@ except for janky mouselook, arbitrary 4:3 resolution support and somewhat expand
 If cross-compiling, specify the target platform on the `make` command line like so:  
 ```make -f Makefile.port TARGET_PLATFORM=i686-linux```
 
-Currently only `i686-linux` and `i686-windows` are supported, using `i686-linux-gnu-gcc` and `i686-w64-mingw32-gcc` as compilers, respectively.
+Currently only `i686-linux` and `i686-windows` are supported, using `gcc -m32` and `i686-w64-mingw32-gcc` as compilers, respectively.  
+This means that on Windows you have to build this under a 32-bit MinGW environment and on Linux you need to have `gcc-multilib` and `g++-multilib` (or your distro's analogues) installed.  
+Alternate compilers can be specified by passing `TOOLCHAIN=i686-whatever-` as a command line argument.
 
 ## Credits
 
