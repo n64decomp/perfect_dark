@@ -865,8 +865,7 @@ static void import_texture(int i, int tile, bool importReplacement) {
         } else if (siz == G_IM_SIZ_32b) {
             import_texture_rgba32(tile, importReplacement);
         } else {
-            // abort(); // OTRTODO: Sometimes, seemingly randomly, we end up here. Could be a bad dlist, could be
-            // something F3D does not have supported. Further investigation is needed.
+            abort();
         }
     } else if (fmt == G_IM_FMT_IA) {
         if (siz == G_IM_SIZ_4b) {
@@ -1778,6 +1777,11 @@ static void gfx_dp_set_tile(uint8_t fmt, uint32_t siz, uint32_t line, uint32_t t
         cmt = G_TX_CLAMP;
     }
 
+    if (fmt == G_IM_FMT_RGBA && siz < G_IM_SIZ_16b) {
+        // HACK: sometimes the game will submit G_IM_FMT_RGBA, G_IM_SIZ_8b/4b, intending it to read as I8/I4
+        fmt = G_IM_FMT_I;
+    }
+
     rdp.texture_tile[tile].palette = palette; // palette should set upper 4 bits of color index in 4b mode
     rdp.texture_tile[tile].fmt = fmt;
     rdp.texture_tile[tile].siz = siz;
@@ -1870,11 +1874,7 @@ static void gfx_dp_load_block(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t
     rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].masked = false;
     rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].blended = false;
 
-    if (rdp.tex_lod) {
-        rdp.textures_changed[0] = rdp.textures_changed[1] = true;
-    } else {
-        rdp.textures_changed[rdp.texture_tile[tile].tmem_index > 6] = true;
-    }
+    rdp.textures_changed[0] = rdp.textures_changed[1] = true;
 }
 
 static void gfx_dp_load_tile(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t lrs, uint32_t lrt) {
@@ -1925,11 +1925,7 @@ static void gfx_dp_load_tile(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t 
     rdp.texture_tile[tile].width = ((lrs - uls) >> G_TEXTURE_IMAGE_FRAC) + 1;
     rdp.texture_tile[tile].height = ((lrt - ult) >> G_TEXTURE_IMAGE_FRAC) + 1;
 
-    if (rdp.tex_lod) {
-        rdp.textures_changed[0] = rdp.textures_changed[1] = true;
-    } else {
-        rdp.textures_changed[rdp.texture_tile[tile].tmem_index > 6] = true;
-    }
+    rdp.textures_changed[0] = rdp.textures_changed[1] = true;
 }
 
 /*static uint8_t color_comb_component(uint32_t v) {
