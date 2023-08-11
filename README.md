@@ -8,6 +8,8 @@ To run the port, you must already have a Perfect Dark ROM, specifically the ntsc
 ## Status
 
 Currently only 32-bit platforms are supported, namely x86 Windows and Linux.
+Note that 32-bit binaries will still work on 64-bit versions of those platforms,
+though you might have to install some additional libraries.
 
 The game is in a somewhat functional but probably unstable state.
 There are major graphical issues, minor audio issues and possibly other issues.
