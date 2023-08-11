@@ -2480,6 +2480,12 @@ static void gfx_run_dl(Gfx* cmd) {
             case G_RDPSETOTHERMODE:
                 gfx_dp_set_other_mode(C0(0, 24), cmd->words.w1);
                 break;
+            case (uint8_t)G_RDPHALF_1:
+            case (uint8_t)G_RDPHALF_2:
+            case (uint8_t)G_RDPHALF_CONT:
+                // TODO: skyRender uses these to render some types of skies and skybox water
+                // by issuing low-level ucode commands G_TRI_FILL and G_TRI_SHADE_TXTR
+                break;
             case G_RDPPIPESYNC:
             case G_RDPFULLSYNC:
             case G_RDPLOADSYNC:
