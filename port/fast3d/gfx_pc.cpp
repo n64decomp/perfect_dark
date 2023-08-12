@@ -112,6 +112,8 @@ static struct RSP {
     float P_matrix[4][4];
 
     Light_t lookat[2];
+    bool lookat_enabled;
+
     Light_t current_lights[MAX_LIGHTS + 1];
     float current_lights_coeffs[MAX_LIGHTS][3];
     float current_lookat_coeffs[2][3]; // lookat_x, lookat_y
@@ -912,7 +914,14 @@ static void gfx_transposed_matrix_mul(float res[3], const float a[3], const floa
 }
 
 static void calculate_normal_dir(const Light_t* light, float coeffs[3]) {
-    float light_dir[3] = { light->dir[0] / 127.0f, light->dir[1] / 127.0f, light->dir[2] / 127.0f };
+    const float light_dir[3] = { light->dir[0] / 127.f, light->dir[1] / 127.f, light->dir[2] / 127.f };
+
+    gfx_transposed_matrix_mul(coeffs, light_dir, rsp.modelview_matrix_stack[rsp.modelview_matrix_stack_size - 1]);
+    gfx_normalize_vector(coeffs);
+}
+
+static void calculate_normal_dir(const struct NormalColor *vcn, float coeffs[3]) {
+    const float light_dir[3] = { vcn->x / 127.f, vcn->y / 127.f, vcn->z / 127.f };
 
     gfx_transposed_matrix_mul(coeffs, light_dir, rsp.modelview_matrix_stack[rsp.modelview_matrix_stack_size - 1]);
     gfx_normalize_vector(coeffs);
@@ -1029,10 +1038,10 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
                 for (int i = 0; i < rsp.current_num_lights - 1; i++) {
                     calculate_normal_dir(&rsp.current_lights[i], rsp.current_lights_coeffs[i]);
                 }
-                /*static const Light_t lookat_x = {{0, 0, 0}, 0, {0, 0, 0}, 0, {127, 0, 0}, 0};
-                static const Light_t lookat_y = {{0, 0, 0}, 0, {0, 0, 0}, 0, {0, 127, 0}, 0};*/
-                calculate_normal_dir(&rsp.lookat[0], rsp.current_lookat_coeffs[0]);
-                calculate_normal_dir(&rsp.lookat[1], rsp.current_lookat_coeffs[1]);
+                if (rsp.lookat_enabled) {
+                    calculate_normal_dir(&rsp.lookat[0], rsp.current_lookat_coeffs[0]);
+                    calculate_normal_dir(&rsp.lookat[1], rsp.current_lookat_coeffs[1]);
+                }
                 rsp.lights_changed = false;
             }
 
@@ -1059,15 +1068,21 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
 
             if (rsp.geometry_mode & G_TEXTURE_GEN) {
                 float dotx = 0, doty = 0;
-                dotx += vcn->x * rsp.current_lookat_coeffs[0][0];
-                dotx += vcn->y * rsp.current_lookat_coeffs[0][1];
-                dotx += vcn->z * rsp.current_lookat_coeffs[0][2];
-                doty += vcn->x * rsp.current_lookat_coeffs[1][0];
-                doty += vcn->y * rsp.current_lookat_coeffs[1][1];
-                doty += vcn->z * rsp.current_lookat_coeffs[1][2];
-
-                dotx /= 127.0f;
-                doty /= 127.0f;
+                if (rsp.lookat_enabled) {
+                    dotx += vcn->x * rsp.current_lookat_coeffs[0][0];
+                    dotx += vcn->y * rsp.current_lookat_coeffs[0][1];
+                    dotx += vcn->z * rsp.current_lookat_coeffs[0][2];
+                    doty += vcn->x * rsp.current_lookat_coeffs[1][0];
+                    doty += vcn->y * rsp.current_lookat_coeffs[1][1];
+                    doty += vcn->z * rsp.current_lookat_coeffs[1][2];
+                    dotx /= 127.0f;
+                    doty /= 127.0f;
+                } else {
+                    float tvcn[3];
+                    calculate_normal_dir(vcn, tvcn);
+                    dotx = tvcn[0];
+                    doty = tvcn[1];
+                }
 
                 dotx = clampf(dotx, -1.0f, 1.0f);
                 doty = clampf(doty, -1.0f, 1.0f);
@@ -1668,8 +1683,9 @@ static void gfx_sp_movemem(uint8_t index, uint8_t offset, const void* data) {
         case G_MV_LOOKATY:
         case G_MV_LOOKATX:
             // I think this is only really used for guLookAtReflect
-            index = (index - G_MV_LOOKATY) / 2;
-            rsp.lookat[!index] = ((const Light *)data)->l;
+            index = !((index - G_MV_LOOKATY) / 2);
+            rsp.lookat[index] = ((const Light *)data)->l;
+            rsp.lookat_enabled = (index == 0) || (rsp.lookat[1].dir[0] || rsp.lookat[1].dir[1]);
             rsp.lights_changed = true;
             break;
 #ifdef F3DEX_GBI_2
@@ -2533,6 +2549,10 @@ extern "C" void gfx_init(struct GfxWindowManagerAPI* wapi, struct GfxRenderingAP
     }
 
     rsp.depth_zfar = 1.0f;
+
+    rsp.lookat[0].dir[0] = rsp.lookat[1].dir[1] = 0x7F;
+    rsp.current_lookat_coeffs[0][0] = rsp.current_lookat_coeffs[1][1] = 1.f;
+    rsp.lookat_enabled = true;
 }
 
 extern "C" void gfx_destroy(void) {
