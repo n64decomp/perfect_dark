@@ -164,7 +164,7 @@ static struct RDP {
         struct RawTexMetadata raw_tex_metadata;
         bool masked;
         bool blended;
-    } loaded_texture[8];
+    } loaded_texture[3];
     struct {
         uint8_t fmt;
         uint8_t siz;
@@ -175,7 +175,8 @@ static struct RDP {
         uint16_t tmem;               // 0-511, in 64-bit word units
         uint32_t line_size_bytes;
         uint8_t palette;
-        uint8_t tmem_index; // 0 or 1 for offset 0 kB or offset 2 kB, respectively
+        uint8_t tmem_index; // 0 or 1 for offset 0 kB or offset 2 kB, respectively; 2 if this is a mip
+        uint8_t level;
     } texture_tile[8];
     bool textures_changed[2];
 
@@ -1752,6 +1753,8 @@ static void gfx_sp_texture(uint16_t sc, uint16_t tc, uint8_t level, uint8_t tile
         rdp.textures_changed[1] = true;
     }
 
+    rdp.texture_tile[tile].level = level;
+
     rdp.first_tile_index = tile;
 }
 
@@ -1812,8 +1815,14 @@ static void gfx_dp_set_tile(uint8_t fmt, uint32_t siz, uint32_t line, uint32_t t
     }
 
     // assume one texture is loaded at address 0 and another texture at any other address
+    const int max_lod = rdp.texture_tile[rdp.first_tile_index].level;
+    const int this_lod = tile - rdp.first_tile_index;
     rdp.texture_tile[tile].tmem = tmem;
-    rdp.texture_tile[tile].tmem_index = (rdp.tex_lod && tile < 6) ? tile : 6 + (tmem > 0);
+    if (max_lod && this_lod > 0 && this_lod <= max_lod) {
+        rdp.texture_tile[tile].tmem_index = 2; // a mip for rdp.first_tile_index
+    } else {
+        rdp.texture_tile[tile].tmem_index = (tmem != 0);
+    }
     rdp.textures_changed[0] = true;
     rdp.textures_changed[1] = true;
 }
@@ -1892,6 +1901,7 @@ static void gfx_dp_load_block(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t
     rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].masked = false;
     rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].blended = false;
 
+    // LoadBlock will probably affect both textures
     rdp.textures_changed[0] = rdp.textures_changed[1] = true;
 }
 
@@ -1943,7 +1953,11 @@ static void gfx_dp_load_tile(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t 
     rdp.texture_tile[tile].width = ((lrs - uls) >> G_TEXTURE_IMAGE_FRAC) + 1;
     rdp.texture_tile[tile].height = ((lrt - ult) >> G_TEXTURE_IMAGE_FRAC) + 1;
 
-    rdp.textures_changed[0] = rdp.textures_changed[1] = true;
+    if (rdp.texture_tile[tile].tmem_index == 2) {
+        rdp.textures_changed[0] = rdp.textures_changed[1] = true;
+    } else {
+        rdp.textures_changed[rdp.texture_tile[tile].tmem_index] = true;
+    }
 }
 
 /*static uint8_t color_comb_component(uint32_t v) {
