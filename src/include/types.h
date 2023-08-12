@@ -30,6 +30,12 @@ typedef s32 MenuDialogHandlerResult;
 typedef intptr_t MenuItemHandlerResult;
 typedef s16 RoomNum;
 
+#ifdef PLATFORM_N64
+#define texnum_t s32
+#else
+#define texnum_t uintptr_t
+#endif
+
 // Float version of a graphics matrix, which has higher precision than an Mtx.
 // Matrices are stored as Mtxfs then converted to an Mtx when passed to the GPU.
 // Mtxs use a union and a long long int to force alignments. Mtxfs are not
@@ -3829,7 +3835,7 @@ struct menudata_training {
 
 struct textureconfig {
 	union {
-		s32 texturenum;
+		texnum_t texturenum;
 		u8 *textureptr;
 	};
 	u8 width;
@@ -5767,8 +5773,8 @@ struct var8009dd78 {
 };
 
 struct texturepair {
-	s32 texturenum1;
-	s32 texturenum2;
+	texnum_t texturenum1;
+	texnum_t texturenum2;
 };
 
 struct collision {

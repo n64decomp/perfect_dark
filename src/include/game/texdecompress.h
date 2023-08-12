@@ -32,7 +32,7 @@ struct tex *texFindInPool(s32 texturenum, struct texpool *pool);
 s32 texGetPoolFreeBytes(struct texpool *pool);
 u8 *texGetPoolLeftPos(struct texpool *pool);
 void texLoadFromDisplayList(Gfx *gdl, struct texpool *pool, s32 arg2);
-void texLoad(s32 *updateword, struct texpool *pool, bool arg2);
+void texLoad(texnum_t *updateword, struct texpool *pool, bool arg2);
 void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct texpool *pool, s32 arg3);
 void texLoadFromTextureNum(u32 arg0, struct texpool *pool);
 

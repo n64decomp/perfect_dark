@@ -2079,7 +2079,7 @@ void texLoadFromDisplayList(Gfx *gdl, struct texpool *pool, s32 arg2)
 	while (bytes[GFX_W0_BYTE(0)] != (u8)G_ENDDL) {
 		// Look for GBI sequence: fd...... abcd....
 		if (bytes[GFX_W0_BYTE(0)] == G_SETTIMG && bytes[GFX_W1_BYTE(0)] == 0xab && bytes[GFX_W1_BYTE(1)] == 0xcd) {
-			texLoad((s32 *)((uintptr_t)bytes + 4), pool, arg2);
+			texLoad((texnum_t *)((uintptr_t)bytes + 4), pool, arg2);
 		}
 
 		bytes += 8;
@@ -2123,7 +2123,7 @@ extern u8 EXT_SEG _texturesdataSegmentRomStart;
  * z = texture is compressed with zlib
  * l = number of levels of detail within the texture
  */
-void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
+void texLoad(texnum_t *updateword, struct texpool *pool, bool arg2)
 {
 	u8 compbuffer[4 * 1024 + 0x40];
 	u8 *compptr;
@@ -2305,7 +2305,7 @@ void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct te
 
 void texLoadFromTextureNum(u32 texturenum, struct texpool *pool)
 {
-	s32 texturenumcopy = texturenum;
+	texnum_t texturenumcopy = texturenum;
 
 	texLoad(&texturenumcopy, pool, true);
 }
