@@ -21,6 +21,7 @@ jobs:
           update: true
           install: >-
             git
+            make
             mingw-w64-i686-toolchain
             mingw-w64-i686-SDL2
             mingw-w64-i686-zlib
@@ -43,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
-        run: sudo apt-get install git gcc g++ make libsdl2-dev zlib1g-dev
+        run: sudo apt-get install git gcc g++ gcc-multilib g++-multilib make libsdl2-dev zlib1g-dev
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Build pd.exe
