@@ -2841,7 +2841,7 @@ struct padsfileheader {
 	s32 waypointsoffset;
 	s32 waygroupsoffset;
 	s32 coversoffset;
-	s16 padoffsets[1];
+	u16 padoffsets[1];
 };
 
 struct stagesetup {
