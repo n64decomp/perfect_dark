@@ -581,6 +581,8 @@ static void preprocessPropObj(struct defaultobj *obj)
 			PD_SWAP_VAL(cctv->maxdist);
 			PD_SWAP_VAL(cctv->xzero);
 			PD_SWAP_VAL(cctv->seebondtime60);
+			PD_SWAP_VAL(cctv->lookatpadnum);
+			PD_SWAP_VAL(cctv->toleft);
 			break;
 		case OBJTYPE_AUTOGUN:
 			struct autogunobj *agun = (struct autogunobj *)obj;
@@ -767,6 +769,7 @@ static void preprocessPropObj(struct defaultobj *obj)
 			PD_SWAP_PTR(linkd->door);
 			PD_SWAP_PTR(linkd->lift);
 			PD_SWAP_PTR(linkd->next);
+			PD_SWAP_VAL(linkd->stopnum);
 			break;
 		case OBJTYPE_SAFEITEM:
 			struct safeitemobj *linki = (struct safeitemobj *)obj;
