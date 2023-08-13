@@ -577,7 +577,9 @@ static void import_texture_rgba16(int tile, bool importReplacement) {
     const uint32_t full_image_line_size_bytes =
         rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].full_image_line_size_bytes;
     const uint32_t line_size_bytes = rdp.loaded_texture[rdp.texture_tile[tile].tmem_index].line_size_bytes;
-    SUPPORT_CHECK(full_image_line_size_bytes == line_size_bytes);
+    // SUPPORT_CHECK(full_image_line_size_bytes == line_size_bytes);
+    // TODO: this trips in some places with a garbage size in full_image_line_size_bytes
+    // probably wherever framebuffer effects are used
 
     uint8_t *dest = tex_upload_buffer;
     for (uint32_t i = 0; i < size_bytes / 2; i++, dest += 4) {
@@ -1796,6 +1798,10 @@ static void gfx_dp_set_tile(uint8_t fmt, uint32_t siz, uint32_t line, uint32_t t
     if (fmt == G_IM_FMT_RGBA && siz < G_IM_SIZ_16b) {
         // HACK: sometimes the game will submit G_IM_FMT_RGBA, G_IM_SIZ_8b/4b, intending it to read as I8/I4
         fmt = G_IM_FMT_I;
+    } else if (fmt == G_IM_FMT_IA && siz == G_IM_SIZ_32b) {
+        // HACK: ... and sometimes it submits this, apparently intending it to be I8
+        fmt = G_IM_FMT_I;
+        siz = G_IM_SIZ_8b;
     }
 
     rdp.texture_tile[tile].palette = palette; // palette should set upper 4 bits of color index in 4b mode
