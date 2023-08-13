@@ -700,13 +700,13 @@ Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
 	xraydata.numvertices = 0;
 
 	while (true) {
-		if (readgdl[0] == G_ENDDL) {
+		if (readgdl[GFX_W0_BYTE(0)] == G_ENDDL) {
 			break;
 		}
 
-		if (readgdl[0] == G_MTX) {
+		if (readgdl[GFX_W0_BYTE(0)] == G_MTX) {
 			// empty
-		} else if (readgdl[0] == G_VTX) {
+		} else if (readgdl[GFX_W0_BYTE(0)] == G_VTX) {
 			Gfx *cmd = (Gfx *) readgdl;
 			s32 dmemindex = cmd->bytes[GFX_W0_BYTE(1)] & 0xf;
 			s32 numvertices = ((u32) cmd->bytes[GFX_W0_BYTE(1)] >> 4) + 1;
@@ -723,14 +723,14 @@ Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
 
 				offset += sizeof(Vtx);
 			}
-		} else if (readgdl[0] == G_TRI1) {
+		} else if (readgdl[GFX_W0_BYTE(0)] == G_TRI1) {
 			Gfx *cmd = (Gfx *) readgdl;
 			s16 x = cmd->tri.tri.v[GFX_TRI_VTX(0)] / 10;
 			s16 y = cmd->tri.tri.v[GFX_TRI_VTX(1)] / 10;
 			s16 z = cmd->tri.tri.v[GFX_TRI_VTX(2)] / 10;
 
 			gdl = bgProcessXrayTri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
-		} else if (readgdl[0] == G_TRI4) {
+		} else if (readgdl[GFX_W0_BYTE(0)] == G_TRI4) {
 			Gfx *cmd = (Gfx *) readgdl;
 			s16 x;
 			s16 y;
