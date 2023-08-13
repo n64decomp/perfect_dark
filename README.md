@@ -20,6 +20,9 @@ except for janky mouselook, arbitrary 4:3 resolution support and somewhat expand
 
 ## Running
 
+You can get the latest Windows and Linux binaries from the latest CI run in the Actions tab.  
+Note that you must already have a Perfect Dark ROM to run the game, as specified above.
+
 1. Create a directory named `data` next to `pd.exe`.
 2. Put your Perfect Dark ROM named `pd.ntsc-final.z64` into it.
 3. Run `pd.exe`.
