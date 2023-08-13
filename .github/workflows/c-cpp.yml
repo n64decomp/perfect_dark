@@ -1,0 +1,61 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "port" ]
+  pull_request:
+    branches: [ "port" ]
+  workflow_dispatch:
+
+jobs:
+  build-i686-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - name: Install MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW32
+          update: true
+          install: >-
+            git
+            mingw-w64-i686-toolchain
+            mingw-w64-i686-SDL2
+            mingw-w64-i686-zlib
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build pd.exe
+        run: make -f Makefile.port -j
+      - name: Prepare artifact for packaging
+        run: |
+          mkdir -p bin/data
+          cp build/ntsc-final-port/pd.exe bin/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pd-i686-windows
+          path: bin/
+          retention-days: 0
+
+  build-i686-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get install git gcc g++ make libsdl2-dev zlib1g-dev
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build pd.exe
+        run: make -f Makefile.port TARGET_PLATFORM=i686-linux -j
+      - name: Prepare artifact for packaging
+        run: |
+          mkdir -p bin/data
+          cp build/ntsc-final-port/pd.exe bin/pd
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pd-i686-linux
+          path: bin/
+          retention-days: 0
+      
