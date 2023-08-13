@@ -1236,7 +1236,7 @@ void preprocessBgSection1(u8 *data, u32 ofs) {
 		u32 commandsofs;
 		u32 lightsofs;
 		u32 stanofs;
-	} __attribute__((packed)) *header = (void *)data;
+	} *header = (void *)data;
 
 	PD_SWAP_VAL(header->unk00);
 	PD_SWAP_VAL(header->roomsofs);
@@ -1245,41 +1245,28 @@ void preprocessBgSection1(u8 *data, u32 ofs) {
 	struct bgroom *rm = PD_PTR_BASEOFS(header->roomsofs, data, ofs);
 	for (++rm; rm->unk00; ++rm) {
 		PD_SWAP_VAL(rm->unk00);
-		PD_SWAP_VAL(rm->pos.x);
-		PD_SWAP_VAL(rm->pos.y);
-		PD_SWAP_VAL(rm->pos.z);
+		PD_SWAP_VAL(rm->pos);
 	}
 
 	struct bgportal *portals = PD_PTR_BASEOFS(header->portalsofs, data, ofs);
 	s32 numportals = 0;
-	u32 offset = 0;
 	for (struct bgportal *prt = portals; prt->verticesoffset; ++prt) {
-		PD_SWAP_VAL(prt->verticesoffset);
-		PD_SWAP_VAL(prt->roomnum1);
-		PD_SWAP_VAL(prt->roomnum2);
 		++numportals;
-		offset += sizeof(struct bgportal);
 	}
-	offset += sizeof(struct bgportal);
 
-	// see bgBuildTables for an explanation of what the fuck this is
-	for (s32 i = 1; 1; i++) {
-		for (s32 j = 0; j < numportals; j++) {
-			if (portals[j].verticesoffset == i) {
-				portals[j].verticesoffset = offset;
-			}
+	for (s32 i = 0; i < numportals; ++i) {
+		PD_SWAP_VAL(portals[i].verticesoffset);
+		PD_SWAP_VAL(portals[i].roomnum1);
+		PD_SWAP_VAL(portals[i].roomnum2);
+	}
+
+	uintptr_t pvoffset = sizeof(portals[0]) * (numportals + 1);
+	for (s32 i = 0; i < numportals; i++) {
+		struct portalvertices *pverts = PD_PTR_BASE(pvoffset, portals);
+		for (u32 j = 0; j < pverts->count; ++j) {
+			PD_SWAP_VAL(pverts->vertices[j]);
 		}
-		struct portalvertices *pverts = PD_PTR_BASE(offset, portals);
-		if (pverts->count == 0) {
-			break;
-		}
-		for (u32 i = 0; i < pverts->count; ++i) {
-			PD_SWAP_VAL(pverts->vertices[i].x);
-			PD_SWAP_VAL(pverts->vertices[i].y);
-			PD_SWAP_VAL(pverts->vertices[i].z);
-		}
-		offset += pverts->count * 12;
-		offset += 4;
+		pvoffset += 4 + pverts->count * 12;
 	}
 
 	if (header->commandsofs) {
