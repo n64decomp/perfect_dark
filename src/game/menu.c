@@ -2311,8 +2311,15 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		}
 
 		gSPSetLights1(gdl++, var80071468);
+#ifdef AVOID_UB
+		// during the credits camGetLookAt() can return NULL
+		if (camGetLookAt()) {
+#endif
 		gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
 		gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
+#ifdef AVOID_UB
+		}
+#endif
 
 		renderdata.unk30 = 1;
 		renderdata.envcolour = 0xffffffff;
