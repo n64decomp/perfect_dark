@@ -7,6 +7,7 @@
 
 #define MAX_BINDS 4
 #define TRIG_THRESHOLD (30 * 256)
+#define DEFAULT_DEADZONE 4096
 
 static SDL_GameController *pads[INPUT_MAX_CONTROLLERS];
 static SDL_Haptic *haptics[INPUT_MAX_CONTROLLERS];
@@ -21,6 +22,17 @@ static u32 mouseButtons;
 
 static f32 mouseSensX = 1.5f;
 static f32 mouseSensY = 1.5f;
+
+// NOTE: default is inverted for 1.2
+static u32 axisMap[2][2] = {
+	{ SDL_CONTROLLER_AXIS_RIGHTX, SDL_CONTROLLER_AXIS_RIGHTY }, // stick x/y
+	{ SDL_CONTROLLER_AXIS_LEFTX,  SDL_CONTROLLER_AXIS_LEFTY  }, // cbuttons x/y
+};
+
+static u32 deadzone[2][2] = {
+	{ DEFAULT_DEADZONE, DEFAULT_DEADZONE },
+	{ DEFAULT_DEADZONE, DEFAULT_DEADZONE },
+};
 
 void inputSetDefaultKeyBinds(void) {
 	// TODO: make VK constants for all these
@@ -42,14 +54,17 @@ void inputSetDefaultKeyBinds(void) {
 	};
 
 	static const u32 joybinds[][2] = {
-		{ CK_LTRIG,      SDL_CONTROLLER_BUTTON_LEFTSHOULDER,  },
-		{ CK_RTRIG,      SDL_CONTROLLER_BUTTON_RIGHTSHOULDER, },
-		{ CK_ZTRIG,      VK_JOY1_RTRIG,                       },
-		{ CK_START,      SDL_CONTROLLER_BUTTON_START,         },
-		{ CK_DPAD_D,     SDL_CONTROLLER_BUTTON_DPAD_DOWN,     },
-		{ CK_DPAD_U,     SDL_CONTROLLER_BUTTON_DPAD_UP,       },
-		{ CK_DPAD_R,     SDL_CONTROLLER_BUTTON_DPAD_RIGHT,    },
-		{ CK_DPAD_L,     SDL_CONTROLLER_BUTTON_DPAD_LEFT,     },
+		{ CK_A,          SDL_CONTROLLER_BUTTON_A             },
+		{ CK_B,          SDL_CONTROLLER_BUTTON_B             },
+		{ CK_LTRIG,      SDL_CONTROLLER_BUTTON_LEFTSHOULDER  },
+		{ CK_RTRIG,      SDL_CONTROLLER_BUTTON_RIGHTSHOULDER },
+		{ CK_ZTRIG,      VK_JOY1_LTRIG - VK_JOY1_BEGIN       },
+		{ CK_ZTRIG,      VK_JOY1_RTRIG - VK_JOY1_BEGIN       },
+		{ CK_START,      SDL_CONTROLLER_BUTTON_START         },
+		{ CK_DPAD_D,     SDL_CONTROLLER_BUTTON_DPAD_DOWN     },
+		{ CK_DPAD_U,     SDL_CONTROLLER_BUTTON_DPAD_UP       },
+		{ CK_DPAD_R,     SDL_CONTROLLER_BUTTON_DPAD_RIGHT    },
+		{ CK_DPAD_L,     SDL_CONTROLLER_BUTTON_DPAD_LEFT     },
 	};
 
 	for (u32 i = 0; i < sizeof(kbbinds) / sizeof(kbbinds[0]); ++i) {
@@ -62,7 +77,7 @@ void inputSetDefaultKeyBinds(void) {
 
 	for (u32 i = 0; i < sizeof(joybinds) / sizeof(joybinds[0]); ++i) {
 		for (s32 j = 0; j < INPUT_MAX_CONTROLLERS; ++j) {
-			inputKeyBind(j, joybinds[i][0], -1, joybinds[i][1]);
+			inputKeyBind(j, joybinds[i][0], -1, VK_JOY_BEGIN + j * INPUT_MAX_CONTROLLER_BUTTONS + joybinds[i][1]);
 		}
 	}
 }
@@ -122,6 +137,8 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 		return -1;
 	}
 
+	npad->button = 0;
+
 	for (u32 i = 0; i < CONT_NUM_BUTTONS; ++i) {
 		if (inputBindPressed(idx, i)) {
 			npad->button |= 1U << i;
@@ -137,21 +154,27 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 		return 0;
 	}
 
-	const s16 leftX = SDL_GameControllerGetAxis(pads[idx], SDL_CONTROLLER_AXIS_LEFTX);
-	const s16 leftY = SDL_GameControllerGetAxis(pads[idx], SDL_CONTROLLER_AXIS_LEFTY);
-	const s16 rightX = SDL_GameControllerGetAxis(pads[idx], SDL_CONTROLLER_AXIS_RIGHTX);
-	const s16 rightY = SDL_GameControllerGetAxis(pads[idx], SDL_CONTROLLER_AXIS_RIGHTY);
-
-	npad->button = 0;
+	const s16 leftX = SDL_GameControllerGetAxis(pads[idx], axisMap[0][0]);
+	const s16 leftY = SDL_GameControllerGetAxis(pads[idx], axisMap[0][1]);
+	const s16 rightX = SDL_GameControllerGetAxis(pads[idx], axisMap[1][0]);
+	const s16 rightY = SDL_GameControllerGetAxis(pads[idx], axisMap[1][1]);
 
 	if (rightX < -0x4000) npad->button |= L_CBUTTONS;
 	if (rightX > +0x4000) npad->button |= R_CBUTTONS;
 	if (rightY < -0x4000) npad->button |= U_CBUTTONS;
 	if (rightY > +0x4000) npad->button |= D_CBUTTONS;
 
-	const s32 stickY = -leftY / 0x100;
-	npad->stick_x = leftX / 0x100;
-	npad->stick_y = (stickY == 128) ? 127 : stickY;
+	const s32 leftMag = leftX * leftX + leftY * leftY;
+	const s32 deadzoneMag = deadzone[0][0] * deadzone[0][0] + deadzone[0][1] * deadzone[0][1];
+	if (leftMag > deadzoneMag) {
+		const s32 stickY = -leftY / 0x100;
+		if (!npad->stick_x) {
+			npad->stick_x = leftX / 0x100;
+		}
+		if (!npad->stick_y) {
+			npad->stick_y = (stickY == 128) ? 127 : stickY;
+		}
+	}
 
 	return 0;
 }
@@ -179,7 +202,19 @@ void inputUpdate(void)
 		inputLockMouse(0);
 	}
 
-	// TODO: handle controller changes
+	for (s32 i = 0; i < INPUT_MAX_CONTROLLERS; ++i) {
+		if (pads[i] && !SDL_GameControllerGetAttached(pads[i])) {
+			// this controller has been disconnected, nuke it
+			SDL_GameControllerClose(pads[i]);
+			pads[i] = NULL;
+			// don't clear the first controller
+			if (i) {
+				connectedMask &= ~(1 << i);
+			}
+		}
+	}
+
+	// TODO: handle freshly connected controllers
 }
 
 s32 inputControllerConnected(s32 idx)
@@ -248,12 +283,13 @@ s32 inputKeyPressed(u32 vk)
 		if (idx < 0 || idx >= INPUT_MAX_CONTROLLERS || !pads[idx]) {
 			return 0;
 		}
+		vk = vk % INPUT_MAX_CONTROLLER_BUTTONS;
 		// triggers
-		if (idx == 30 || idx == 31) {
-			const s32 trig = SDL_CONTROLLER_AXIS_TRIGGERLEFT + idx - 30;
+		if (vk == 30 || vk == 31) {
+			const s32 trig = SDL_CONTROLLER_AXIS_TRIGGERLEFT + vk - 30;
 			return SDL_GameControllerGetAxis(pads[idx], trig) > TRIG_THRESHOLD;
 		}
-		return SDL_GameControllerGetButton(pads[idx], vk % INPUT_MAX_CONTROLLER_BUTTONS);
+		return SDL_GameControllerGetButton(pads[idx], vk);
 	}
 	return 0;
 }
