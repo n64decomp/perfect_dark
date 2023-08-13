@@ -852,6 +852,63 @@ static void preprocessPropObj(struct defaultobj *obj)
 	}
 }
 
+static void preprocessIntroScript(s32 *cmd)
+{
+	while (cmd[0] != PD_BE32(INTROCMD_END)) {
+		PD_SWAP_VAL(cmd[0]);
+		switch (cmd[0]) {
+			case INTROCMD_HILL:
+			case INTROCMD_OUTFIT:
+			case INTROCMD_CREDITOFFSET:
+			case INTROCMD_4:
+				PD_SWAP_VAL(cmd[1]);
+				cmd += 2;
+				break;
+			case INTROCMD_SPAWN:
+			case INTROCMD_CASE:
+			case INTROCMD_CASERESPAWN:
+			case INTROCMD_WATCHTIME:
+				PD_SWAP_VAL(cmd[1]);
+				PD_SWAP_VAL(cmd[2]);
+				cmd += 3;
+				break;
+			case INTROCMD_AMMO:
+			case INTROCMD_WEAPON:
+				PD_SWAP_VAL(cmd[1]);
+				PD_SWAP_VAL(cmd[2]);
+				PD_SWAP_VAL(cmd[3]);
+				cmd += 4;
+				break;
+			case INTROCMD_3:
+				PD_SWAP_VAL(cmd[1]);
+				PD_SWAP_VAL(cmd[2]);
+				PD_SWAP_VAL(cmd[3]);
+				PD_SWAP_VAL(cmd[4]);
+				PD_SWAP_VAL(cmd[5]);
+				PD_SWAP_VAL(cmd[6]);
+				PD_SWAP_VAL(cmd[7]);
+				cmd += 8;
+				break;
+			case INTROCMD_6:
+				PD_SWAP_VAL(cmd[1]);
+				PD_SWAP_VAL(cmd[2]);
+				PD_SWAP_VAL(cmd[3]);
+				PD_SWAP_VAL(cmd[4]);
+				PD_SWAP_VAL(cmd[5]);
+				PD_SWAP_VAL(cmd[6]);
+				PD_SWAP_VAL(cmd[7]);
+				PD_SWAP_VAL(cmd[8]);
+				PD_SWAP_VAL(cmd[9]);
+				cmd += 10;
+				break;
+			default:
+				cmd += 1;
+				break;
+		}
+	}
+	PD_SWAP_VAL(cmd[0]);
+}
+
 void preprocessAnimations(u8 *data, u32 size)
 {
 	// set the anim table pointers as well
@@ -1161,13 +1218,10 @@ void preprocessSetupFile(u8 *data, u32 size)
 	struct stagesetup *set = (void *)data;
 
 	if (set->intro) {
+		// intro commands are made up of a command id + up to 3 args, which can have any value, even 0x0c (end marker)
+		// so we have to swap each type by hand here as well
 		PD_SWAP_PTR(set->intro);
-		for (s32 *p = PD_PTR_BASE(set->intro, set); (u8 *)p < data + size; ++p) {
-			PD_SWAP_VAL(*p);
-			if (*p == 0x0c /*endintro*/) {
-				break;
-			}
-		}
+		preprocessIntroScript(PD_PTR_BASE(set->intro, set));
 	}
 
 	if (set->props) {
