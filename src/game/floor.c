@@ -21,7 +21,7 @@ f32 floorf(f32 value)
 	return fvalue - 1;
 }
 
-s32 floor(f32 value)
+s32 floortoint(f32 value)
 {
 	s32 ivalue;
 

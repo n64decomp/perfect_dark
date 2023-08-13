@@ -1718,7 +1718,7 @@ s32 modelConstrainOrWrapAnimFrame(s32 frame, s16 animnum, f32 endframe)
 			frame = 0;
 		}
 	} else if (endframe >= 0 && frame > (s32)endframe) {
-		frame = ceil(endframe);
+		frame = ceiltoint(endframe);
 	} else if (frame >= animGetNumFrames(animnum)) {
 		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
 			frame = frame % animGetNumFrames(animnum);
@@ -2091,7 +2091,7 @@ void modelSetAnimFrame(struct model *model, f32 frame)
 	struct anim *anim = model->anim;
 
 	if (anim) {
-		framea = floor(frame);
+		framea = floortoint(frame);
 		forwards = anim->speed >= 0;
 
 		frameb = (forwards ? framea + 1 : framea - 1);
@@ -2120,7 +2120,7 @@ void modelSetAnimFrame2(struct model *model, f32 frame1, f32 frame2)
 		modelSetAnimFrame(model, frame1);
 
 		if (anim->animnum2) {
-			s32 framea = floor(frame2);
+			s32 framea = floortoint(frame2);
 			s32 frameb;
 			bool forwards = anim->speed2 >= 0;
 
@@ -2225,11 +2225,11 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 				}
 
 				if (forwards) {
-					floorcur = floor(curframe) + 1;
-					floorend = floor(endframe);
+					floorcur = floortoint(curframe) + 1;
+					floorend = floortoint(endframe);
 				} else {
-					floorcur = ceil(curframe) - 1;
-					floorend = ceil(endframe);
+					floorcur = ceiltoint(curframe) - 1;
+					floorend = ceiltoint(endframe);
 				}
 
 				if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
@@ -2464,8 +2464,8 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 				}
 
 				if (anim->animnum2 && (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
-					s32 floorcur2 = floor(curframe2);
-					s32 floorend2 = floor(endframe2);
+					s32 floorcur2 = floortoint(curframe2);
+					s32 floorend2 = floortoint(endframe2);
 
 					if ((forwards && floorcur2 < floorend2) || (!forwards && floorend2 < floorcur2)) {
 						if (rwdata->unk02 != 0) {

@@ -2213,7 +2213,7 @@ Gfx *bgScissorToViewport(Gfx *gdl)
 
 Gfx *bgScissorWithinViewportF(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom)
 {
-	gdl = bgScissorWithinViewport(gdl, viewleft, viewtop, ceil(viewright), ceil(viewbottom));
+	gdl = bgScissorWithinViewport(gdl, viewleft, viewtop, ceiltoint(viewright), ceiltoint(viewbottom));
 
 	return gdl;
 }

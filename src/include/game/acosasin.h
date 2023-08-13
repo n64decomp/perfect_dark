@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u16 acos(s16 arg0);
-s16 asin(s16 arg0);
+u16 acosx(s16 arg0);
+s16 asinx(s16 arg0);
 
 #endif

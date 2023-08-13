@@ -40,7 +40,7 @@ s32 raceInitAnimGroup(struct attackanimconfig *configs)
 	struct attackanimconfig *config = configs;
 
 	while (config->animnum != 0) {
-		u16 angle = raceGetAnimSumAngleAsInt(config->animnum, 0, floor(config->unk04));
+		u16 angle = raceGetAnimSumAngleAsInt(config->animnum, 0, floortoint(config->unk04));
 
 		if (config->unk04 > 0) {
 			if (angle < 0x8000) {
@@ -67,7 +67,7 @@ s32 raceInitAnimConfigSingle(struct attackanimconfig *config)
 
 
 	if (config->animnum != 0) {
-		u16 angle = raceGetAnimSumAngleAsInt(config->animnum, 0, floor(config->unk04));
+		u16 angle = raceGetAnimSumAngleAsInt(config->animnum, 0, floortoint(config->unk04));
 
 		if (config->unk04 > 0) {
 			if (angle < 0x8000) {

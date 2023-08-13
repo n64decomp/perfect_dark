@@ -21,7 +21,7 @@ f32 ceilf(f32 value)
 	return fvalue + 1;
 }
 
-s32 ceil(f32 value)
+s32 ceiltoint(f32 value)
 {
 	s32 ivalue;
 

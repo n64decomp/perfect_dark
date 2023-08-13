@@ -5,6 +5,6 @@
 #include "types.h"
 
 f32 floorf(f32 value);
-s32 floor(f32 value);
+s32 floortoint(f32 value);
 
 #endif

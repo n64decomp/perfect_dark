@@ -57,7 +57,7 @@ s32 func0f096890(s32 arg0)
 	return value - (((value - nextvalue) * (arg0 & mask)) >> shiftamount);
 }
 
-u16 acos(s16 arg0)
+u16 acosx(s16 arg0)
 {
 	s32 value = arg0 >= 0 ? arg0 : -arg0;
 
@@ -70,7 +70,7 @@ u16 acos(s16 arg0)
 	return value;
 }
 
-s16 asin(s16 arg0)
+s16 asinx(s16 arg0)
 {
 	s32 value = arg0 >= 0 ? arg0 : -arg0;
 
