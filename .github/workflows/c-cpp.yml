@@ -33,6 +33,7 @@ jobs:
         run: |
           mkdir -p bin/data
           cp build/ntsc-final-port/pd.exe bin/
+          cp /mingw32/bin/{SDL2.dll,zlib1.dll,libgcc_s_dw2-1.dll,libwinpthread-1.dll} bin/
           touch bin/data/put_your_rom_here.txt
       - name: Upload artifact
         uses: actions/upload-artifact@v3

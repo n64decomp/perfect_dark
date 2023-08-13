@@ -130,7 +130,7 @@ G_DIR := src/generated/$(ROMID)
 
 ifneq (,$(findstring windows,$(TARGET_PLATFORM)))
   TARGET_CFLAGS := $(shell pkg-config sdl2 --cflags-only-I)
-  TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lz -lopengl32
+  TARGET_LDFLAGS := $(shell pkg-config sdl2 --libs) -lz -lopengl32 -static-libstdc++
   # on windows/mingw we need this to be built with a 32-bit compiler so it finds the correct libs
   TOOLCHAIN := i686-w64-mingw32-
 else # TODO
