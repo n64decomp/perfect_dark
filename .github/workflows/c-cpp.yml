@@ -33,6 +33,7 @@ jobs:
         run: |
           mkdir -p bin/data
           cp build/ntsc-final-port/pd.exe bin/
+          touch bin/data/put_your_rom_here.txt
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -56,6 +57,7 @@ jobs:
         run: |
           mkdir -p bin/data
           cp build/ntsc-final-port/pd.exe bin/pd
+          touch bin/data/put_your_rom_here.txt
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
