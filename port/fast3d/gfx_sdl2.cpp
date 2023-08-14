@@ -39,6 +39,10 @@ static void set_fullscreen(bool on, bool call_callback) {
         return;
     }
     fullscreen_state = on;
+    SDL_SetWindowFullscreen(wnd, on ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+    if (call_callback && on_fullscreen_changed_callback) {
+        on_fullscreen_changed_callback(on);
+    }
 }
 
 static void gfx_sdl_get_active_window_refresh_rate(uint32_t* refresh_rate) {
@@ -101,6 +105,8 @@ static void gfx_sdl_init(const char* game_name, const char* gfx_api_name, bool s
     }
 
     qpc_freq = SDL_GetPerformanceFrequency();
+
+    set_fullscreen(start_in_fullscreen, false);
 }
 
 static void gfx_sdl_close(void) {
@@ -132,6 +138,12 @@ static void gfx_sdl_handle_events(void) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
+            case SDL_KEYDOWN:
+                if (event.key.keysym.sym == SDLK_RETURN && (event.key.keysym.mod & KMOD_ALT)) {
+                    // alt-enter received, switch fullscreen state
+                    set_fullscreen(!fullscreen_state, true);
+                }
+                break;
             case SDL_WINDOWEVENT:
                 if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
                     SDL_GL_GetDrawableSize(wnd, &window_width, &window_height);
