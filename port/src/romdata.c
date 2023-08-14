@@ -70,7 +70,7 @@ static struct romfile fileSlots[ROMDATA_MAX_FILES];
 	ROMSEG_DECL_SEG(mpstringsF,         0x7df820,  0x3700,   NULL                    ) \
 	ROMSEG_DECL_SEG(mpstringsS,         0x7e2f20,  0x3700,   NULL                    ) \
 	ROMSEG_DECL_SEG(mpstringsI,         0x7e6620,  0x3700,   NULL                    ) \
-	ROMSEG_DECL_SEG(firingrange,        0x7e9d20,  0x1550,   preprocessFiringRange   ) \
+	ROMSEG_DECL_SEG(firingrange,        0x7e9d20,  0x1550,   NULL                    ) \
 	ROMSEG_DECL_SEG(fonttahoma,         0x7f7860,  0x0,      preprocessFont          ) \
 	ROMSEG_DECL_SEG(fontnumeric,        0x7f8b20,  0x0,      preprocessFont          ) \
 	ROMSEG_DECL_SEG(fonthandelgothicsm, 0x7f9d30,  0x0,      preprocessFont          ) \

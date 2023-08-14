@@ -997,16 +997,6 @@ void preprocessSequences(u8 *data, u32 size)
 	}
 }
 
-void preprocessFiringRange(u8 *data, u32 size)
-{
-	// u16 texts[9] is the first and only thing we care about here
-	// probably no sense supporting custom sizes either
-	u16 *texts = (u16 *)data;
-	for (s32 i = 0; i < 9; ++i) {
-		PD_SWAP_VAL(texts[i]);
-	}
-}
-
 void preprocessTexturesList(u8 *data, u32 size)
 {
 	struct texture *tex = (struct texture *)data;
