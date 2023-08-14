@@ -2540,8 +2540,8 @@ extern "C" void gfx_init(struct GfxWindowManagerAPI* wapi, struct GfxRenderingAP
     gfx_rapi->update_framebuffer_parameters(0, width, height, 1, false, true, true, true);
     gfx_current_dimensions.internal_mul = 1;
     gfx_msaa_level = 1;
-    gfx_current_dimensions.width = width;
-    gfx_current_dimensions.height = height;
+    gfx_current_game_window_viewport.width = gfx_current_dimensions.width = width;
+    gfx_current_game_window_viewport.height = gfx_current_dimensions.height = height;
     game_framebuffer = gfx_rapi->create_framebuffer();
     game_framebuffer_msaa_resolved = gfx_rapi->create_framebuffer();
 

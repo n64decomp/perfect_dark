@@ -25,8 +25,6 @@ s32 videoInit(void)
 	renderingAPI = &gfx_opengl_api;
 	gfx_current_native_viewport.width = 320;
 	gfx_current_native_viewport.height = 240;
-	gfx_current_game_window_viewport.width = 640;
-	gfx_current_game_window_viewport.height = 480;
 	gfx_init(wmAPI, renderingAPI, "PD", false, 640, 480, 100, 100);
 	initDone = true;
 	return 0;
