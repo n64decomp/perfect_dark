@@ -341,12 +341,18 @@ static void preprocessModelNode(struct modelnode *node, u8 *base, u32 ofs)
 					break;
 				case MODELNODETYPE_STARGUNFIRE:
 					PD_SWAP_VAL(ro->stargunfire.unk00);
-					PD_SWAP_PTR(ro->stargunfire.vertices);
 					PD_SWAP_PTR(ro->stargunfire.baseaddr);
 					if (ro->stargunfire.gdl) {
 						PD_SWAP_PTR(ro->stargunfire.gdl);
 						preprocessGfx(PD_PTR_BASEOFS(ro->stargunfire.gdl, base, ofs), base, ofs);
 						ro->stargunfire.gdl = SEGADDR(ro->stargunfire.gdl);
+					}
+					if (ro->stargunfire.vertices) {
+						PD_SWAP_PTR(ro->stargunfire.vertices);
+						Vtx *vtx = PD_PTR_BASEOFS(ro->stargunfire.vertices, base, ofs);
+						for (s32 i = 0; i < 4 * ro->stargunfire.unk00; ++i, ++vtx) {
+							preprocessVtx(vtx);
+						}
 					}
 					break;
 				case MODELNODETYPE_HEADSPOT:
