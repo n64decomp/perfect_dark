@@ -372,7 +372,7 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 
 	func0f187fbc(playernum);
 
-	g_PlayerConfigsArray[playernum].controlmode = CONTROLMODE_11;
+	g_PlayerConfigsArray[playernum].controlmode = CONTROLMODE_12;
 
 	g_PlayerConfigsArray[playernum].options = OPTION_LOOKAHEAD
 		| OPTION_SIGHTONSCREEN
