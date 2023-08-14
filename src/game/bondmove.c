@@ -1842,8 +1842,14 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			x = g_Vars.currentplayer->speedtheta * 0.3f + g_Vars.currentplayer->gunextraaimx;
 			y = -g_Vars.currentplayer->speedverta * 0.1f + g_Vars.currentplayer->gunextraaimy;
 #else
-			const f32 xscale = 320.f / (f32)videoGetWidth();
-			const f32 yscale = 240.f / (f32)videoGetHeight();
+			f32 xscale, yscale;
+			if (movedata.freelookdx || movedata.freelookdy) {
+				xscale = 320.f / (f32)videoGetWidth();
+				yscale = 240.f / (f32)videoGetHeight();
+			} else {
+				xscale = 1.f;
+				yscale = 1.f;
+			}
 			x = g_Vars.currentplayer->speedtheta * 0.3f * xscale + g_Vars.currentplayer->gunextraaimx;
 			y = -g_Vars.currentplayer->speedverta * 0.1f * yscale + g_Vars.currentplayer->gunextraaimy;
 #endif
