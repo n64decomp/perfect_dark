@@ -31,6 +31,15 @@
 #include "data.h"
 #include "types.h"
 #include "string.h"
+#ifndef PLATFORM_N64
+#include "video.h"
+#endif
+
+#ifdef PLATFORM_N64
+#define TITLE_ASPECT 1.33333333f
+#else
+#define TITLE_ASPECT (videoGetAspect())
+#endif
 
 u8 *var8009cca0;
 u32 var8009cca4;
@@ -171,7 +180,7 @@ void titleExitLegal(void)
 void titleTickLegal(void)
 {
 	viSetFovY(60);
-	viSetAspect(1.33333333f);
+	viSetAspect(TITLE_ASPECT);
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
@@ -677,7 +686,7 @@ void titleExitPdLogo(void)
 void titleTickPdLogo(void)
 {
 	viSetFovY(46);
-	viSetAspect(1.33333333f);
+	viSetAspect(TITLE_ASPECT);
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
@@ -1669,7 +1678,7 @@ void titleExitRarePresents(void)
 void titleTickRarePresents(void)
 {
 	viSetFovY(60);
-	viSetAspect(1.33333333f);
+	viSetAspect(TITLE_ASPECT);
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
@@ -1821,7 +1830,7 @@ void titleExitNintendoLogo(void)
 void titleTickNintendoLogo(void)
 {
 	viSetFovY(60);
-	viSetAspect(1.33333333f);
+	viSetAspect(TITLE_ASPECT);
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
@@ -1991,7 +2000,7 @@ void titleExitRareLogo(void)
 void titleTickRareLogo(void)
 {
 	viSetFovY(60);
-	viSetAspect(1.33333333f);
+	viSetAspect(TITLE_ASPECT);
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
@@ -2262,7 +2271,7 @@ void titleExitNoController(void)
 void titleTickNoController(void)
 {
 	viSetFovY(60);
-	viSetAspect(1.33333333f);
+	viSetAspect(TITLE_ASPECT);
 	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
@@ -2385,7 +2394,7 @@ void titleExitNoExpansion(void)
 void titleTickNoExpansion(void)
 {
 	viSetFovY(60);
-	viSetAspect(1.33333333f);
+	viSetAspect(TITLE_ASPECT);
 	viSetZRange(100, 10000);
 	viSetUseZBuf(0);
 
@@ -2464,10 +2473,14 @@ s32 titleGetMode(void)
 
 void titleTick(void)
 {
+#ifdef PLATFORM_N64
 #if PAL
 	viSetAspect(576.0f / g_TitleViewHeight * 1.1904761791229f);
 #else
 	viSetAspect(576.0f / g_TitleViewHeight);
+#endif
+#else
+	viSetAspect(videoGetAspect());
 #endif
 	viSetSize(576, g_TitleViewHeight);
 	viSetBufSize(576, g_TitleViewHeight);
