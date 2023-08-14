@@ -90,3 +90,18 @@ void videoUpdateNativeResolution(const int w, const int h)
 	gfx_current_native_viewport.width = w;
 	gfx_current_native_viewport.height = h;
 }
+
+s32 videoGetWidth(void)
+{
+	return gfx_current_dimensions.width;
+}
+
+s32 videoGetHeight(void)
+{
+	return gfx_current_dimensions.height;
+}
+
+f32 videoGetAspect(void)
+{
+	return gfx_current_dimensions.aspect_ratio;
+}

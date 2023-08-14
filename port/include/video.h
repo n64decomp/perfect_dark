@@ -14,4 +14,8 @@ void *videoGetWindowHandle(void);
 
 void videoUpdateNativeResolution(const int w, const int h);
 
+s32 videoGetWidth(void);
+s32 videoGetHeight(void);
+f32 videoGetAspect(void);
+
 #endif

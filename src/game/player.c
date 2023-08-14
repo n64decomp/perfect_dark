@@ -1,7 +1,4 @@
 #include <ultra64.h>
-#ifndef PLATFORM_N64
-#include "../fast3d/gfx_api.h"
-#endif
 #include "constants.h"
 #include "game/bondeyespy.h"
 #include "game/bondmove.h"
@@ -73,6 +70,9 @@
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "video.h"
+#endif
 
 s32 g_DefaultWeapons[2];
 f32 g_MpSwirlRotateSpeed;
@@ -3002,7 +3002,7 @@ f32 player0f0bd358(void)
 #ifdef PLATFORM_N64
 	return result;
 #else
-	return result * (((float)gfx_current_window_dimensions.width / gfx_current_window_dimensions.height) / (4.0f / 3.0f));
+	return result * (videoGetAspect() / (4.0f / 3.0f));
 #endif
 }
 
