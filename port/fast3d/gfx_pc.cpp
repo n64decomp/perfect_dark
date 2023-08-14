@@ -996,7 +996,11 @@ static float gfx_adjust_x_for_aspect_ratio(float x) {
     if (fbActive) {
         return x;
     } else {
+#ifdef PLATFORM_N64
         return x * (4.0f / 3.0f) / ((float)gfx_current_dimensions.width / (float)gfx_current_dimensions.height);
+#else
+        return x * ((float)gfx_current_window_dimensions.width / gfx_current_window_dimensions.height) / ((float)gfx_current_dimensions.width / (float)gfx_current_dimensions.height);
+#endif
     }
 }
 
@@ -2582,9 +2586,13 @@ extern "C" void gfx_start_frame(void) {
         gfx_current_window_dimensions.height = 1;
     }
 
+#ifdef PLATFORM_N64
+    gfx_current_dimensions.aspect_ratio = 4.0f / 3.0f;
+#else
     // for now ensure that the game renders in a centered 4:3 window
     // proper 16:9 support requires some fixes, namely the sky, fullscreen fades and room culling
-    gfx_current_dimensions.aspect_ratio = 4.0f / 3.0f;
+    gfx_current_dimensions.aspect_ratio = (float)gfx_current_window_dimensions.width / gfx_current_window_dimensions.height;
+#endif
     gfx_current_dimensions.height = gfx_current_window_dimensions.height;
     gfx_current_dimensions.width = gfx_current_dimensions.height * gfx_current_dimensions.aspect_ratio;
     gfx_current_game_window_viewport.width = gfx_current_dimensions.width;

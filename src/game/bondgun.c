@@ -10897,11 +10897,15 @@ void bgunRender(Gfx **gdlptr)
 	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
 		f32 f2;
 
+#ifdef PLATFORM_N64
 		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 			f2 = player0f0bd358() * 1.3333334f;
 		} else {
 			f2 = player0f0bd358();
 		}
+#else
+		f2 = player0f0bd358();
+#endif
 
 		gdl = vi0000b0e8(gdl, 60, f2);
 	}

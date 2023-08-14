@@ -1827,6 +1827,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				bgunSwivelWithDamp(x, y, g_Vars.currentplayer->autoaimdamp);
 			}
 		} else {
+#ifdef PLATFORM_N64
 			// This code moves the crosshair as the player turns and makes
 			// it return to the centre when not affected by anything else.
 			if (g_Vars.currentplayer->autoaimdamp < (PAL ? 0.974f : 0.979f)) {
@@ -1841,6 +1842,10 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			y = -g_Vars.currentplayer->speedverta * 0.1f + g_Vars.currentplayer->gunextraaimy;
 
 			bgunSwivelWithDamp(x, y, PAL ? 0.955f : 0.963f);
+#else
+			bgunSetAimType(0);
+			bgunSwivelWithoutDamp((movedata.c1stickxraw * 0.65f) / 80.0f, (movedata.c1stickyraw * 0.65f) / 80.0f);
+#endif
 		}
 	} else if (movedata.canmanualaim) {
 		// Adjust crosshair's position on screen

@@ -1,4 +1,7 @@
 #include <ultra64.h>
+#ifndef PLATFORM_N64
+#include "../fast3d/gfx_api.h"
+#endif
 #include "constants.h"
 #include "game/bondeyespy.h"
 #include "game/bondmove.h"
@@ -2996,7 +2999,11 @@ f32 player0f0bd358(void)
 	result = (f32)width / (f32)height;
 	result = g_ViModes[g_ViRes].yscale * result;
 
+#ifdef PLATFORM_N64
 	return result;
+#else
+	return result * (((float)gfx_current_window_dimensions.width / gfx_current_window_dimensions.height) / (4.0f / 3.0f));
+#endif
 }
 
 void playerUpdateShake(void)
@@ -3152,11 +3159,15 @@ void playerTick(bool arg0)
 	var800800f0jf = 0;
 #endif
 
+#ifdef PLATFORM_N64
 	if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 		aspectratio = player0f0bd358() * 1.33333333f;
 	} else {
 		aspectratio = player0f0bd358();
 	}
+#else
+	aspectratio = player0f0bd358();
+#endif
 
 #if PAL
 	aspectratio *= 1.1904761791229f;
