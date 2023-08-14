@@ -838,8 +838,8 @@ static void import_texture(int i, int tile, bool importReplacement) {
     const uint32_t tmem_index = rdp.texture_tile[tile].tmem_index;
     const uint8_t palette_index = rdp.texture_tile[tile].palette;
 
-    if (rdp.tex_lod && tile == rdp.first_tile_index) {
-        // set up miplevel 0
+    if ((rdp.tex_lod && tile == rdp.first_tile_index) || !rdp.loaded_texture[tmem_index].addr) {
+        // set up miplevel 0; also acts as a catch-all for when .addr is NULL because my texture loader sucks
         rdp.loaded_texture[tmem_index].line_size_bytes = rdp.texture_tile[tile].line_size_bytes;
         rdp.loaded_texture[tmem_index].full_image_line_size_bytes = rdp.texture_tile[tile].line_size_bytes;
         rdp.loaded_texture[tmem_index].full_size_bytes = rdp.loaded_texture[tmem_index].full_image_line_size_bytes * rdp.texture_tile[tile].height;
