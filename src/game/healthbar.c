@@ -449,7 +449,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		shieldvertices->colour = (i + i) << 2;
 		shieldvertices++;
 
-		shieldcolours->word = colour;
+		shieldcolours->word = PD_BE32(colour);
 		shieldcolours++;
 
 		shieldvertices->x = (s32)marker->x2 + offx;
@@ -458,7 +458,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		shieldvertices->colour = (i + i + 1) << 2;
 		shieldvertices++;
 
-		shieldcolours->word = colour;
+		shieldcolours->word = PD_BE32(colour);
 		shieldcolours++;
 	}
 
@@ -483,7 +483,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		armourvertices->colour = (i + i) << 2;
 		armourvertices++;
 
-		armourcolours->word = colour;
+		armourcolours->word = PD_BE32(colour);
 		armourcolours++;
 
 		armourvertices->x = (s32)marker->x2 + offx;
@@ -492,7 +492,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		armourvertices->colour = (i + i + 1) << 2;
 		armourvertices++;
 
-		armourcolours->word = colour;
+		armourcolours->word = PD_BE32(colour);
 		armourcolours++;
 	}
 
@@ -517,7 +517,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		traumavertices->colour = (i + i) << 2;
 		traumavertices++;
 
-		traumacolours->word = colour;
+		traumacolours->word = PD_BE32(colour);
 		traumacolours++;
 
 		traumavertices->x = (s32)marker->x2 + offx;
@@ -526,7 +526,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 		traumavertices->colour = (i + i + 1) << 2;
 		traumavertices++;
 
-		traumacolours->word = colour;
+		traumacolours->word = PD_BE32(colour);
 		traumacolours++;
 	}
 

@@ -2689,6 +2689,10 @@ Gfx *playerRenderHealthBar(Gfx *gdl)
 	gDPSetCombineMode(gdl++, G_CC_SHADE, G_CC_SHADE);
 	gDPSetPrimColorViaWord(gdl++, 0, 0, 0xe6e6e600);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+#ifndef PLATFORM_N64
+	// bug?
+	gSPClearGeometryMode(gdl++, G_ZBUFFER);
+#endif
 
 	gdl = healthbarDraw(gdl, NULL, 0, 0);
 
