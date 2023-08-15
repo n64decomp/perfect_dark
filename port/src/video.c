@@ -114,3 +114,8 @@ f32 videoGetAspect(void)
 {
 	return gfx_current_dimensions.aspect_ratio;
 }
+
+void videoResetTextureCache(void)
+{
+	gfx_texture_cache_clear();
+}

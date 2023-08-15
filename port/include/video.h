@@ -18,4 +18,6 @@ s32 videoGetWidth(void);
 s32 videoGetHeight(void);
 f32 videoGetAspect(void);
 
+void videoResetTextureCache(void);
+
 #endif

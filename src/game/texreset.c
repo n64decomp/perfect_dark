@@ -10,6 +10,9 @@
 #include "data.h"
 #include "textureconfig.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "video.h"
+#endif
 
 void texSetBitstring(u8 *arg0)
 {
@@ -130,6 +133,9 @@ void texReset(void)
 	for (s32 i = 4; i < ARRAYCOUNT(tcptrs); ++i) {
 		g_TexNumConfigs += tcptrs[i].count;
 	}
+
+	// reset backend texture cache
+	videoResetTextureCache();
 #endif
 
 	g_TexWords = mempAlloc(ALIGN16(g_TexNumConfigs * 4), MEMPOOL_STAGE);
