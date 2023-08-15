@@ -169,7 +169,7 @@ s32 configSave(const char *fname)
 		}
 	}
 
-	fclose(f);
+	fsFileClose(f);
 	return 1;
 }
 
@@ -262,6 +262,8 @@ s32 configLoad(const char *fname)
 			configSetFromString(keyBuf, value);
 		}
 	}
+
+	fsFileClose(f);
 
 	return 1;
 }
