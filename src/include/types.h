@@ -1519,6 +1519,10 @@ struct keyobj { // objtype 0x04
 	u32 keyflags;
 };
 
+struct alarmobj { // objtype 0x05
+	struct defaultobj base;
+};
+
 struct cctvobj { // objtype 0x06
 	struct defaultobj base;
 
@@ -1653,6 +1657,10 @@ struct linkgunsobj { // objtype 0x0e
 	s16 offset2;
 };
 
+struct debrisobj { // objtype 0x0f
+	struct defaultobj base;
+};
+
 struct hatobj { // objtype 0x11
 	struct defaultobj base;
 };
@@ -1685,6 +1693,7 @@ struct shieldobj { // objtype 0x15
 	struct defaultobj base;
 	/*0x5c*/ f32 initialamount;
 	/*0x60*/ f32 amount;
+	/*0x64*/ u32 unk64;
 };
 
 struct tag { // objtype 0x16
@@ -1709,6 +1718,10 @@ struct briefingobj { // objtype 0x23
 	u32 type;
 	u32 text;
 	struct briefingobj *next;
+};
+
+struct gasbottleobj { // objtype 0x24
+	struct defaultobj base;
 };
 
 struct padlockeddoorobj { // objtype 0x26
@@ -1757,7 +1770,7 @@ struct glassobj { // objtype 0x2a
 };
 
 struct safeobj { // objtype 0x2b
-	u32 unk00;
+	struct defaultobj base;
 };
 
 struct safeitemobj {
