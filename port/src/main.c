@@ -12,6 +12,7 @@
 #include "input.h"
 #include "fs.h"
 #include "romdata.h"
+#include "config.h"
 #include "system.h"
 
 u32 g_OsMemSize = 0;
@@ -54,12 +55,15 @@ void bootCreateSched(void)
 int main(int argc, const char **argv)
 {
 	fsInit();
+	configInit();
 	videoInit();
 	inputInit();
 	audioInit();
 	romdataInit();
 
 	bootCreateSched();
+
+	osMemSize = configGetInt("Game.MemorySize", 16) * 1024 * 1024;
 
 	g_OsMemSize = osGetMemSize();
 

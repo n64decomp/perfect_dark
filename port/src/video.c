@@ -4,6 +4,8 @@
 #include <string.h>
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
+#include "config.h"
+#include "video.h"
 
 #include "../fast3d/gfx_api.h"
 #include "../fast3d/gfx_sdl.h"
@@ -25,7 +27,16 @@ s32 videoInit(void)
 	renderingAPI = &gfx_opengl_api;
 	gfx_current_native_viewport.width = 320;
 	gfx_current_native_viewport.height = 240;
-	gfx_init(wmAPI, renderingAPI, "PD", false, 640, 480, 100, 100);
+
+	const s32 w = configGetInt("Video.DefaultWidth", 640);
+	const s32 h = configGetInt("Video.DefaultHeight", 480);
+	const bool fs = configGetInt("Video.DefaultFullscreen", false);
+
+	gfx_init(wmAPI, renderingAPI, "PD", fs, w, h, 100, 100);
+
+	wmAPI->set_swap_interval(configGetInt("Video.VSync", 1));
+	wmAPI->set_target_fps(configGetInt("Video.FramerateLimit", 0)); // disabled because vsync is on
+
 	initDone = true;
 	return 0;
 }

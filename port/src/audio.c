@@ -1,11 +1,13 @@
 #include <PR/ultratypes.h>
 #include <stdio.h>
 #include <SDL.h>
+#include "config.h"
 #include "audio.h"
 
 static SDL_AudioDeviceID dev;
 static const s16 *nextBuf;
 static u32 nextSize = 0;
+static u32 queueLimit = 8192;
 
 s32 audioInit(void)
 {
@@ -19,7 +21,7 @@ s32 audioInit(void)
 	want.freq = 22020; // TODO: this might cause trouble for some platforms
 	want.format = AUDIO_S16SYS;
 	want.channels = 2;
-	want.samples = 512;
+	want.samples = configGetInt("Audio.BufferSize", 512);
 	want.callback = NULL;
 
 	nextBuf = NULL;
@@ -29,6 +31,8 @@ s32 audioInit(void)
 		fprintf(stderr, "SDL_OpenAudio error: %s\n", SDL_GetError());
 		return -1;
 	}
+
+	queueLimit = configGetInt("Audio.QueueLimit", 8192);
 
 	SDL_PauseAudioDevice(dev, 0);
 
@@ -54,7 +58,7 @@ void audioSetNextBuffer(const s16 *buf, u32 len)
 void audioEndFrame(void)
 {
 	if (nextBuf && nextSize) {
-		if (audioGetSamplesBuffered() < 8192) {
+		if (audioGetSamplesBuffered() < queueLimit) {
 			SDL_QueueAudio(dev, nextBuf, nextSize);
 		}
 		nextBuf = NULL;

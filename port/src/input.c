@@ -4,6 +4,7 @@
 #include <PR/os_cont.h>
 #include "input.h"
 #include "video.h"
+#include "config.h"
 
 #define MAX_BINDS 4
 #define TRIG_THRESHOLD (30 * 256)
@@ -15,6 +16,7 @@ static u32 binds[MAXCONTROLLERS][CK_TOTAL_COUNT][MAX_BINDS]; // [i][CK_][b] = [V
 
 static s32 connectedMask = 0;
 
+static s32 mouseEnabled = 1;
 static s32 mouseLocked = 0;
 static s32 mouseX, mouseY;
 static s32 mouseDX, mouseDY;
@@ -23,16 +25,13 @@ static u32 mouseButtons;
 static f32 mouseSensX = 1.5f;
 static f32 mouseSensY = 1.5f;
 
-// NOTE: default is inverted for 1.2
+// NOTE: by default this gets inverted for 1.2
 static u32 axisMap[2][2] = {
-	{ SDL_CONTROLLER_AXIS_RIGHTX, SDL_CONTROLLER_AXIS_RIGHTY }, // stick x/y
-	{ SDL_CONTROLLER_AXIS_LEFTX,  SDL_CONTROLLER_AXIS_LEFTY  }, // cbuttons x/y
+	{ SDL_CONTROLLER_AXIS_LEFTX,  SDL_CONTROLLER_AXIS_LEFTY  },
+	{ SDL_CONTROLLER_AXIS_RIGHTX, SDL_CONTROLLER_AXIS_RIGHTY },
 };
 
-static u32 deadzone[2][2] = {
-	{ DEFAULT_DEADZONE, DEFAULT_DEADZONE },
-	{ DEFAULT_DEADZONE, DEFAULT_DEADZONE },
-};
+static u32 deadzone[2] = { DEFAULT_DEADZONE, DEFAULT_DEADZONE };
 
 void inputSetDefaultKeyBinds(void) {
 	// TODO: make VK constants for all these
@@ -114,6 +113,21 @@ s32 inputInit(void)
 
 	inputSetDefaultKeyBinds();
 
+	mouseEnabled = configGetInt("Input.MouseEnabled", 1);
+	mouseSensX = configGetFloat("Input.MouseSpeedX", 1.5f);
+	mouseSensY = configGetFloat("Input.MouseSpeedY", 1.5f);
+
+	deadzone[0] = configGetInt("Input.LStickDeadzone", DEFAULT_DEADZONE);
+	deadzone[1] = configGetInt("Input.RStickDeadzone", DEFAULT_DEADZONE);
+
+	if (configGetInt("Input.SwapSticks", 1)) {
+		// invert axis map
+		axisMap[0][0] = SDL_CONTROLLER_AXIS_RIGHTX;
+		axisMap[0][1] = SDL_CONTROLLER_AXIS_RIGHTY;
+		axisMap[1][0] = SDL_CONTROLLER_AXIS_LEFTX;
+		axisMap[1][1] = SDL_CONTROLLER_AXIS_LEFTY;
+	}
+
 	connectedMask = ret;
 
 	return ret;
@@ -165,7 +179,7 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 	if (rightY > +0x4000) npad->button |= D_CBUTTONS;
 
 	const s32 leftMag = leftX * leftX + leftY * leftY;
-	const s32 deadzoneMag = deadzone[0][0] * deadzone[0][0] + deadzone[0][1] * deadzone[0][1];
+	const s32 deadzoneMag = deadzone[0] * deadzone[0] + deadzone[0] * deadzone[0];
 	if (leftMag > deadzoneMag) {
 		const s32 stickY = -leftY / 0x100;
 		if (!npad->stick_x) {
@@ -179,10 +193,8 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 	return 0;
 }
 
-void inputUpdate(void)
+static inline void inputUpdateMouse(void)
 {
-	SDL_GameControllerUpdate();
-
 	s32 mx, my;
 	mouseButtons = SDL_GetMouseState(&mx, &my);
 
@@ -200,6 +212,15 @@ void inputUpdate(void)
 		inputLockMouse(1);
 	} else if (mouseLocked && inputKeyPressed(VK_ESCAPE)) {
 		inputLockMouse(0);
+	}
+}
+
+void inputUpdate(void)
+{
+	SDL_GameControllerUpdate();
+
+	if (mouseEnabled) {
+		inputUpdateMouse();
 	}
 
 	for (s32 i = 0; i < INPUT_MAX_CONTROLLERS; ++i) {

@@ -22,6 +22,7 @@ struct GfxWindowManagerAPI {
     bool (*can_disable_vsync)(void);
     void *(*get_window_handle)(void);
     void (*set_window_title)(const char *);
+    void (*set_swap_interval)(int);
 };
 
 #endif

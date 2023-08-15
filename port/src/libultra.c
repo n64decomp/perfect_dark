@@ -9,9 +9,10 @@
 #include "input.h"
 #include "video.h"
 #include "audio.h"
+#include "fs.h"
 
 #define EEPROM_SIZE (EEP16K_MAXBLOCKS * 8)
-#define EEPROM_FNAME "eeprom.bin"
+#define EEPROM_FNAME "./eeprom.bin"
 #define OS_COUNTER_RATE 46875000ULL
 
 u64 osClockRate = OS_CLOCK_RATE;
@@ -252,7 +253,7 @@ s32 osEepromLongRead(OSMesgQueue *mq, u8 address, u8 *buffer, int nbytes)
 {
 	u8 content[EEPROM_SIZE];
 	s32 ret = -1;
-	FILE *fp = fopen(EEPROM_FNAME, "rb");
+	FILE *fp = fsFileOpenRead(EEPROM_FNAME);
 	if (fp == NULL) {
 		return -1;
 	}
@@ -260,7 +261,7 @@ s32 osEepromLongRead(OSMesgQueue *mq, u8 address, u8 *buffer, int nbytes)
 		memcpy(buffer, content + address * 8, nbytes);
 		ret = 0;
 	}
-	fclose(fp);
+	fsFileClose(fp);
 	return ret;
 }
 
@@ -271,12 +272,12 @@ s32 osEepromLongWrite(OSMesgQueue *mq, u8 address, u8 *buffer, int nbytes)
 		osEepromLongRead(mq, 0, content, EEPROM_SIZE);
 	}
 	memcpy(content + address * 8, buffer, nbytes);
-	FILE* fp = fopen(EEPROM_FNAME, "wb");
+	FILE* fp = fsFileOpenWrite(EEPROM_FNAME);
 	if (fp == NULL) {
 		return -1;
 	}
 	s32 ret = fwrite(content, 1, EEPROM_SIZE, fp) == EEPROM_SIZE ? 0 : -1;
-	fclose(fp);
+	fsFileClose(fp);
 	return ret;
 }
 

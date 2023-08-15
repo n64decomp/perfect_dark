@@ -8,4 +8,6 @@ u64 sysGetTicksPerSecond(void);
 
 void sysFatalError(const char *fmt, ...) __attribute__((noreturn));
 
+void sysGetExecutablePath(char *outPath, const u32 outLen);
+
 #endif

@@ -1,18 +1,20 @@
 #ifndef _IN_FS_H
 #define _IN_FS_H
 
-#include <limits.h>
+#include <stdio.h>
 #include <PR/ultratypes.h>
 
-#ifdef PATH_MAX
-#define FS_MAXPATH PATH_MAX
-#else
 #define FS_MAXPATH 1024
-#endif
 
 s32 fsInit(void);
 
+const char *fsFullPath(const char *relPath);
+
 void *fsFileLoad(const char *name, u32 *outSize);
 s32 fsFileSize(const char *name);
+
+FILE *fsFileOpenWrite(const char *name);
+FILE *fsFileOpenRead(const char *name);
+void fsFileClose(FILE *f);
 
 #endif

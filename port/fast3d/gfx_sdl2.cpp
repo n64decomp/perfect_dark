@@ -27,7 +27,7 @@ static void (*on_fullscreen_changed_callback)(bool is_now_fullscreen);
 
 static uint64_t previous_time;
 
-static int target_fps = 60;
+static int target_fps = 120; // above 60 since vsync is enabled by default
 
 static uint64_t qpc_freq;
 
@@ -190,7 +190,9 @@ static inline void sync_framerate_with_timer(void) {
 }
 
 static void gfx_sdl_swap_buffers_begin(void) {
-    //sync_framerate_with_timer();
+    if (target_fps) {
+        sync_framerate_with_timer();
+    }
     SDL_GL_SwapWindow(wnd);
 }
 
@@ -218,6 +220,11 @@ static void gfx_sdl_set_window_title(const char *title) {
     SDL_SetWindowTitle(wnd, title);
 }
 
+static void gfx_sdl_set_swap_interval(int interval) {
+    SDL_GL_SetSwapInterval(interval);
+    vsync_enabled = (interval != 0);
+}
+
 struct GfxWindowManagerAPI gfx_sdl = { 
     gfx_sdl_init,
     gfx_sdl_close,
@@ -234,5 +241,6 @@ struct GfxWindowManagerAPI gfx_sdl = {
     gfx_sdl_set_target_fps,
     gfx_sdl_can_disable_vsync,
     gfx_sdl_get_window_handle,
-    gfx_sdl_set_window_title
+    gfx_sdl_set_window_title,
+    gfx_sdl_set_swap_interval,
 };

@@ -7,7 +7,7 @@
 #include "platform.h"
 
 #define MINIMP3_IMPLEMENTATION
-#include "minimp3.h"
+#include "external/minimp3.h"
 
 #ifdef __SSE4_1__
 #include <immintrin.h>

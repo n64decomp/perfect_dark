@@ -46,3 +46,22 @@ void sysFatalError(const char *fmt, ...)
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Fatal error", errmsg, NULL);
 	exit(1);
 }
+
+void sysGetExecutablePath(char *outPath, const u32 outLen)
+{
+	// try asking SDL
+	char *sdlPath = SDL_GetBasePath();
+	if (sdlPath && *sdlPath) {
+		// -1 to trim trailing slash
+		const u32 len = strlen(sdlPath) - 1;
+		if (len < outLen) {
+			memcpy(outPath, sdlPath, len);
+			outPath[len] = '\0';
+		}
+	} else if (outLen > 1) {
+		// give up, use working directory instead
+		outPath[0] = '.';
+		outPath[1] = '\0';
+	}
+	SDL_free(sdlPath);
+}

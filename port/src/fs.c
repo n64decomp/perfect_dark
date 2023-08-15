@@ -4,18 +4,14 @@
 #include <limits.h>
 #include <sys/stat.h>
 #include <PR/ultratypes.h>
+#include "config.h"
+#include "system.h"
 #include "fs.h"
 
-#ifdef PATH_MAX
-#define FS_MAXPATH PATH_MAX
-#else
-#define FS_MAXPATH 1024
-#endif
-
-#define FS_BASEDIR "data"
 #define FS_MAX_FILES 2048
 
 static char baseDir[FS_MAXPATH + 1];
+static char exeDir[FS_MAXPATH + 1];
 
 static struct {
 	char *name[FS_MAXPATH + 1];
@@ -23,17 +19,40 @@ static struct {
 	void *data;
 } fileSlots[FS_MAX_FILES];
 
-static const char *fsFullPath(const char *relPath)
+const char *fsFullPath(const char *relPath)
 {
-	static char pathBuf[FS_MAXPATH];
-	snprintf(pathBuf, sizeof(pathBuf), "%s/%s", baseDir, relPath);
+	static char pathBuf[FS_MAXPATH + 1];
+
+	if (relPath[0] == '!') {
+		// path relative to the exe
+		const u32 len = strlen(exeDir);
+		if (len > 0) {
+			memcpy(pathBuf, exeDir, len);
+			strncpy(pathBuf + len, relPath + 1, FS_MAXPATH - len);
+			return pathBuf;
+		}
+	} else if (relPath[0] == '.') {
+		// user explicitly wants working directory
+		return relPath;
+	}
+
+	// path relative to basedir
+	snprintf(pathBuf, FS_MAXPATH, "%s/%s", baseDir, relPath);
 	return pathBuf;
 }
 
 s32 fsInit(void)
 {
-	// TODO: support appdata/home/whatever
-	strcpy(baseDir, FS_BASEDIR);
+	sysGetExecutablePath(exeDir, FS_MAXPATH);
+
+	// get path to data dir and expand it if needed
+	const char *path = configGetString("Game.BaseDir", "./data");
+	if (path[0] == '!') {
+		strncpy(baseDir, fsFullPath(path), FS_MAXPATH);
+	} else {
+		strncpy(baseDir, path, FS_MAXPATH);
+	}
+
 	return 0;
 }
 
@@ -86,4 +105,19 @@ s32 fsFileSize(const char *name)
 	} else {
 		return st.st_size;
 	}
+}
+
+FILE *fsFileOpenWrite(const char *name)
+{
+	return fopen(fsFullPath(name), "wb");
+}
+
+FILE *fsFileOpenRead(const char *name)
+{
+	return fopen(fsFullPath(name), "rb");
+}
+
+void fsFileClose(FILE *f)
+{
+	fclose(f);
 }
