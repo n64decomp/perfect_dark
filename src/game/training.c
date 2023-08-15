@@ -2077,7 +2077,11 @@ void frTick(void)
 					cloaked = chr->hidden & CHRHFLAG_CLOAKED;
 
 					if (cloaked) {
+#ifdef PLATFORM_N64
 						if (g_FrData.targets[i].angle == M_PI) {
+#else
+						if (g_FrData.targets[i].angle != 0 && !g_FrData.targets[i].rotating) {
+#endif
 							g_FrData.targets[i].timeuntilrotate = TICKS(60);
 							g_FrData.targets[i].rotatetoangle = 0;
 							g_FrData.targets[i].rotatespeed = -M_PI / 90;
