@@ -1577,7 +1577,7 @@ s32 texChannelsToPixels(u8 *src, s32 width, s32 height, u8 *dst, s32 format)
 	case TEXFORMAT_RGBA16:
 		for (y = 0; y < height; y++) {
 			for (x = 0; x < width; x++) {
-				dst16[x] = src[pos] << 11 | src[pos + mult] << 6 | src[pos + mult * 2] << 1 | src[pos + mult * 3];
+				dst16[x] = PD_BE16(src[pos] << 11 | src[pos + mult] << 6 | src[pos + mult * 2] << 1 | src[pos + mult * 3]);
 				pos++;
 			}
 
