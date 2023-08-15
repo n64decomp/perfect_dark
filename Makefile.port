@@ -244,7 +244,7 @@ export ROMID
 
 BIN := $(B_DIR)/pd.exe
 
-default: $(BIN)
+default: $(JSON_HEADERS) $(BIN)
 
 ################################################################################
 # Asset Manager header generation
@@ -276,7 +276,7 @@ $(G_DIR)/tiles/%.h: $(A_DIR)/tiles/%.json
 ################################################################################
 # Generic compilation rules
 
-$(BIN): $(JSON_HEADERS) $(O_FILES)
+$(BIN): $(O_FILES)
 	$(LD) $(COMMON_CFLAGS) $(OPT_LVL) -o $(BIN) $^ $(LDFLAGS)
 
 $(B_DIR)/%.o: %.c
