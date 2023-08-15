@@ -827,7 +827,9 @@ static void gfx_opengl_init(void) {
     glBindVertexArray(opengl_vao);
 #endif
 
-    // glEnable(GL_DEPTH_CLAMP); // GL4 only
+    if (GLAD_GL_ARB_depth_clamp) {
+        glEnable(GL_DEPTH_CLAMP);
+    }
     glDepthFunc(GL_LEQUAL);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

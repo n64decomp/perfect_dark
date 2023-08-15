@@ -2133,10 +2133,7 @@ static void gfx_dp_texture_rectangle(int32_t ulx, int32_t uly, int32_t lrx, int3
     // dsdx and dtdy are S5.10
     // lrx, lry, ulx, uly are U10.2
     // lrs, lrt are S10.5
-    if (flip) {
-        dsdx = -dsdx;
-        dtdy = -dtdy;
-    }
+
     int16_t width = !flip ? lrx - ulx : lry - uly;
     int16_t height = !flip ? lry - uly : lrx - ulx;
     float lrs = ((uls << 7) + dsdx * width) >> 7;
