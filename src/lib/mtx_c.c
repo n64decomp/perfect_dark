@@ -146,7 +146,17 @@ void mtx00015be4(Mtxf *arg0, Mtxf *arg1, Mtxf *dst)
 
 void mtx3Copy(f32 src[3][3], f32 dst[3][3])
 {
-	dst = src;
+	dst[0][0] = src[0][0];
+	dst[0][1] = src[0][1];
+	dst[0][2] = src[0][2];
+
+	dst[1][0] = src[1][0];
+	dst[1][1] = src[1][1];
+	dst[1][2] = src[1][2];
+
+	dst[2][0] = src[2][0];
+	dst[2][1] = src[2][1];
+	dst[2][2] = src[2][2];
 }
 
 void mtx4Copy(Mtxf *src, Mtxf *dst)
