@@ -853,7 +853,7 @@ static void preprocessPropObj(struct defaultobj *obj)
 		default:
 			fprintf(stderr, "unknown objtype: %02x @ %p\n", obj->type, obj);
 			fflush(stderr);
-			__builtin_trap();
+			assert(0 && "Unknown object type in prop list");
 			break;
 	}
 }

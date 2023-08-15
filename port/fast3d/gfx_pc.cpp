@@ -38,7 +38,7 @@ using namespace std;
 
 #define ALIGN(x, a) (((x) + (a - 1)) & ~(a - 1))
 
-#define SUPPORT_CHECK(x) if(!(x)) __builtin_trap() // assert(x)
+#define SUPPORT_CHECK(x) assert(x)
 
 // SCALE_M_N: upscale/downscale M-bit integer to N-bit
 #define SCALE_5_8(VAL_) (((VAL_)*0xFF) / 0x1F)
@@ -2511,7 +2511,8 @@ static void gfx_run_dl(Gfx* cmd) {
                 break;
             default:
                 fprintf(stderr, "gfx: unknown opcode %d, words %08x %08x\n", (s8)opcode, cmd->words.w0, cmd->words.w1);
-                __builtin_trap();
+                fflush(stderr);
+                SUPPORT_CHECK(0 && "Unknown GBI opcode");
                 break;
         }
         ++cmd;
