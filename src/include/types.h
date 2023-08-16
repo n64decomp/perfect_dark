@@ -1544,6 +1544,10 @@ struct keyobj { // objtype 0x04
 	u32 keyflags;
 };
 
+struct alarmobj { // objtype 0x05
+	struct defaultobj base;
+};
+
 struct cctvobj { // objtype 0x06
 	struct defaultobj base;
 
@@ -1678,6 +1682,10 @@ struct linkgunsobj { // objtype 0x0e
 	s16 offset2;
 };
 
+struct debrisobj { // objtype 0x0f
+	struct defaultobj base;
+};
+
 struct hatobj { // objtype 0x11
 	struct defaultobj base;
 };
@@ -1710,6 +1718,7 @@ struct shieldobj { // objtype 0x15
 	struct defaultobj base;
 	/*0x5c*/ f32 initialamount;
 	/*0x60*/ f32 amount;
+	/*0x64*/ u32 unk64;
 };
 
 struct tag { // objtype 0x16
@@ -1734,6 +1743,10 @@ struct briefingobj { // objtype 0x23
 	u32 type;
 	u32 text;
 	struct briefingobj *next;
+};
+
+struct gasbottleobj { // objtype 0x24
+	struct defaultobj base;
 };
 
 struct padlockeddoorobj { // objtype 0x26
@@ -1782,7 +1795,7 @@ struct glassobj { // objtype 0x2a
 };
 
 struct safeobj { // objtype 0x2b
-	u32 unk00;
+	struct defaultobj base;
 };
 
 struct safeitemobj {
@@ -3259,15 +3272,19 @@ struct menuitemdata_controller {
 	s8 prevmode;
 };
 
+struct menuitemdata_list {
+	s16 curoffsety;
+	s16 index;
+	s16 targetoffsety;
+	s16 viewheight;
+};
+
 struct menuitemdata_dropdown {
-	u16 unk00;
-	u16 unk02;
-	s16 unk04;
-	u16 unk06;
-	u16 unk08;
-	u16 unk0a;
+	struct menuitemdata_list list;
+	u16 unk08; // unused
+	u16 unk0a; // unused
 	s16 scrolloffset;
-	u16 unk0e;
+	u16 unk0e; // unused
 };
 
 struct menuitemdata_keyboard {
@@ -3278,18 +3295,11 @@ struct menuitemdata_keyboard {
 	u8 capseffective : 1; // Same as above, but inverted if holding L or R
 };
 
-struct menuitemdata_list {
-	s16 unk00;
-	s16 unk02;
-	s16 unk04;
-	s16 unk06;
-};
-
 struct menuitemdata_marquee {
 	u16 totalmoved;
-	u16 sum;
-	u16 unk04;
-	u16 unk06;
+	u16 texthash;
+	u16 viewwidth;
+	u16 unk06; // unused
 };
 
 struct menuitemdata_ranking {
@@ -3297,15 +3307,17 @@ struct menuitemdata_ranking {
 };
 
 struct menuitemdata_scrollable {
-	s16 unk00;
-	s16 unk02;
-	s16 unk04;
-	s16 unk06;
-	s16 unk08;
+	s16 scrolloffset;
+	s16 unk02; // unused
+	s16 maxscrolloffset;
+	s16 dialogheight;
+#if VERSION >= VERSION_PAL_BETA
+	s16 language;
+#endif
 };
 
 struct menuitemdata_slider {
-	s16 unk00;
+	s16 multiplier;
 };
 
 union menuitemdata {
@@ -3355,27 +3367,8 @@ struct handlerdata_list {
 	s32 unk0c;
 };
 
-struct handlerdata_list2 {
-	s16 unk00;
-	s16 unk02;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-};
-
 struct handlerdata_slider {
-	union {
-		u32 value;
-		struct {
-#ifdef PLATFORM_BIG_ENDIAN
-			s16 unk00;
-			u16 unk02;
-#else
-			s16 unk02;
-			u16 unk00;
-#endif
-		};
-	};
+	u32 value;
 	char *label;
 };
 
@@ -3409,7 +3402,6 @@ union handlerdata {
 	struct handlerdata_carousel carousel;
 	struct handlerdata_checkbox checkbox;
 	struct handlerdata_list list;
-	struct handlerdata_list2 list2;
 	struct handlerdata_dropdown dropdown;
 	struct handlerdata_keyboard keyboard;
 	struct handlerdata_label label;

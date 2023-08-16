@@ -114,7 +114,7 @@ s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
 	return s1;
 }
 
-s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item)
+s16 menuitemListGetOffsetY(s16 optionindex, struct menuitem *item)
 {
 	union handlerdata data;
 	bool done;
@@ -125,8 +125,8 @@ s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item)
 		return 0;
 	}
 
-	if (arg0 < 0) {
-		arg0 = 0;
+	if (optionindex < 0) {
+		optionindex = 0;
 	}
 
 	data.list.value = 0;
@@ -134,7 +134,7 @@ s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item)
 	item->handler(MENUOP_GETOPTGROUPCOUNT, item, &data);
 
 	if (data.list.value == 0) {
-		return arg0 * g_LineHeight;
+		return optionindex * g_LineHeight;
 	}
 
 	done = false;
@@ -146,14 +146,14 @@ s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item)
 	for (data.list.value = 0; !done && data.list.values32 < numgroups; data.list.value++) {
 		item->handler(MENUOP_GETGROUPSTARTINDEX, item, &data);
 
-		if (arg0 >= data.list.groupstartindex) {
+		if (optionindex >= data.list.groupstartindex) {
 			numlines++;
 		} else {
 			done = true;
 		}
 	}
 
-	return arg0 * g_LineHeight + numlines * LINEHEIGHT;
+	return optionindex * g_LineHeight + numlines * LINEHEIGHT;
 }
 
 Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16 height, char *text, struct menudialog *dialog)
@@ -301,7 +301,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 	halfheight /= g_LineHeight;
 	halfheight *= g_LineHeight;
 
-	itemdata->unk06 = context->height;
+	itemdata->viewheight = context->height;
 
 	if (context->item->type == MENUITEMTYPE_DROPDOWN || context->item->type == MENUITEMTYPE_PLAYERSTATS) {
 		gdl = menugfxDrawDropdownBackground(gdl, context->x, context->y, context->x + context->width, context->y + context->height);
@@ -329,8 +329,8 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 	context->item->handler(MENUOP_GETOPTIONCOUNT, context->item, &sp15c);
 	numoptions = sp15c.list.value;
 
-	tmp = itemdata->unk00 - halfheight;
-	firstonscreenoptionindex = menuitem0f0e5d2c(itemdata->unk00 - halfheight, context->item);
+	tmp = itemdata->curoffsety - halfheight;
+	firstonscreenoptionindex = menuitem0f0e5d2c(itemdata->curoffsety - halfheight, context->item);
 	y = context->y + tmp;
 
 	gdl = text0f153628(gdl);
@@ -339,7 +339,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 
 	sp15c.list.unk04 = 0;
 
-	s4 = menuitem0f0e5ef8(optionindex, context->item) + halfheight - itemdata->unk00;
+	s4 = menuitemListGetOffsetY(optionindex, context->item) + halfheight - itemdata->curoffsety;
 
 	sp14c.list.value = 0;
 	sp14c.list.unk0c = 0;
@@ -452,7 +452,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 						colour |= 0xffffff00;
 					}
 
-					if (optionindex == itemdata->unk02 && context->focused) {
+					if (optionindex == itemdata->index && context->focused) {
 						u32 spb0;
 						u32 weight = menuGetSinOscFrac(40.0f) * 255.0f;
 
@@ -485,7 +485,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 						renderdata.y = context->y + s4;
 						renderdata.width = context->width;
 						renderdata.colour = colour;
-						renderdata.unk10 = optionindex == itemdata->unk02;
+						renderdata.unk10 = optionindex == itemdata->index;
 
 						sp94left = renderdata.x;
 						sp90top = renderdata.y;
@@ -683,40 +683,40 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 	}
 
 	if (item->type == MENUITEMTYPE_DROPDOWN || item->type == MENUITEMTYPE_PLAYERSTATS) {
-		min = data->list.unk06 / 2;
+		min = data->list.viewheight / 2;
 		min = min / g_LineHeight;
 		min *= g_LineHeight;
 
-		data->list.unk04 = menuitem0f0e5ef8(data->list.unk02, item);
+		data->list.targetoffsety = menuitemListGetOffsetY(data->list.index, item);
 
-		if (data->list.unk04 < min) {
-			data->list.unk04 = min;
+		if (data->list.targetoffsety < min) {
+			data->list.targetoffsety = min;
 		}
 
 		item->handler(MENUOP_GETOPTIONCOUNT, item, &handlerdata);
 
-		max = handlerdata.list2.unk02 * g_LineHeight - data->list.unk06 + min;
+		max = (s16) handlerdata.list.value * g_LineHeight - data->list.viewheight + min;
 
-		if (data->list.unk04 > max) {
-			data->list.unk04 = max;
+		if (data->list.targetoffsety > max) {
+			data->list.targetoffsety = max;
 		}
 	}
 
-	if (data->list.unk00 != data->list.unk04) {
-		f0 = data->list.unk00;
-		prev = data->list.unk00;
+	if (data->list.curoffsety != data->list.targetoffsety) {
+		f0 = data->list.curoffsety;
+		prev = data->list.curoffsety;
 
 		for (i = 0; i < g_Vars.diffframe60; i++) {
-			f0 = data->list.unk04 * (PAL ? 0.404f : 0.35f) + (PAL ? 0.59599995613098f : 0.65f) * f0;
+			f0 = data->list.targetoffsety * (PAL ? 0.404f : 0.35f) + (PAL ? 0.59599995613098f : 0.65f) * f0;
 		}
 
-		data->list.unk00 = f0;
+		data->list.curoffsety = f0;
 
-		if (data->list.unk00 != data->list.unk04 && prev == data->list.unk00) {
-			if (data->list.unk00 < data->list.unk04) {
-				data->list.unk00++;
+		if (data->list.curoffsety != data->list.targetoffsety && prev == data->list.curoffsety) {
+			if (data->list.curoffsety < data->list.targetoffsety) {
+				data->list.curoffsety++;
 			} else {
-				data->list.unk00--;
+				data->list.curoffsety--;
 			}
 		}
 	}
@@ -727,27 +727,27 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 		if (handlerdata.list.value) {
 			last = handlerdata.list.value - 1;
 
-			if (data->list.unk02 > last) {
-				data->list.unk02 = last;
-				data->list.unk04 = menuitem0f0e5ef8(data->list.unk02, item);
+			if (data->list.index > last) {
+				data->list.index = last;
+				data->list.targetoffsety = menuitemListGetOffsetY(data->list.index, item);
 			}
 
 			if (inputs->updown) {
-				prev2 = data->list.unk02;
-				data->list.unk02 += inputs->updown;
+				prev2 = data->list.index;
+				data->list.index += inputs->updown;
 
-				if (data->list.unk02 < 0) {
-					data->list.unk02 = handlerdata.list.value - 1;
+				if (data->list.index < 0) {
+					data->list.index = handlerdata.list.value - 1;
 				}
 
-				if (data->list.unk02 >= (s16)handlerdata.list.value) {
-					data->list.unk02 = 0;
+				if (data->list.index >= (s16)handlerdata.list.value) {
+					data->list.index = 0;
 				}
 
-				data->list.unk04 = menuitem0f0e5ef8(data->list.unk02, item);
+				data->list.targetoffsety = menuitemListGetOffsetY(data->list.index, item);
 
-				if (prev2 != data->list.unk02) {
-					handlerdata.list.value = data->list.unk02;
+				if (prev2 != data->list.index) {
+					handlerdata.list.value = data->list.index;
 					item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
 
 					menuPlaySound(MENUSOUND_SUBFOCUS);
@@ -755,7 +755,7 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 			}
 
 			if (inputs->select) {
-				handlerdata.list.value = data->list.unk02;
+				handlerdata.list.value = data->list.index;
 				handlerdata.list.unk04 = 0;
 
 				if (inputs->start) {
@@ -775,7 +775,7 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 		}
 	}
 
-	tmp = data->list.unk02;
+	tmp = data->list.index;
 	handlerdata.list.value = tmp;
 	handlerdata.list.unk04 = 1;
 	handlerdata.list.unk0c = tmp;
@@ -784,8 +784,8 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 	item->handler(MENUOP_25, item, &handlerdata);
 
 	if (handlerdata.list.unk0c != handlerdata.list.value) {
-		data->list.unk02 = handlerdata.list.value;
-		data->list.unk04 = menuitem0f0e5ef8(data->list.unk02, item);
+		data->list.index = handlerdata.list.value;
+		data->list.targetoffsety = menuitemListGetOffsetY(data->list.index, item);
 	}
 
 	return true;
@@ -797,8 +797,8 @@ void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
 	union handlerdata handlerdata;
 	union handlerdata handlerdata2;
 
-	data->dropdown.unk00 = 0;
-	data->dropdown.unk02 = 0;
+	data->dropdown.list.curoffsety = 0;
+	data->dropdown.list.index = 0;
 	data->dropdown.unk08 = 0;
 	data->dropdown.unk0a = 0;
 
@@ -816,7 +816,7 @@ void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
 	item->handler(MENUOP_GETSELECTEDINDEX, item, &handlerdata);
 
 	if (handlerdata.dropdown.value < 0xffff) {
-		data->dropdown.unk02 = handlerdata.dropdown.value;
+		data->dropdown.list.index = (u16) handlerdata.dropdown.value;
 	} else {
 		// The value won't fit in unk02.
 		// Maybe MENUOP_25 is getting a scaled-down value?
@@ -825,10 +825,10 @@ void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
 		handlerdata.dropdown.unk04 = 0;
 
 		item->handler(MENUOP_25, item, &handlerdata);
-		data->dropdown.unk02 = handlerdata.dropdown.value;
+		data->dropdown.list.index = handlerdata.dropdown.value;
 	}
 
-	data->dropdown.unk04 = menuitem0f0e5ef8(data->dropdown.unk02, item);
+	data->dropdown.list.targetoffsety = menuitemListGetOffsetY(data->dropdown.list.index, item);
 
 	item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
 }
@@ -2269,7 +2269,7 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 
 	if (context->item->handler != NULL) {
 		context->item->handler(MENUOP_GETSLIDER, context->item, &data);
-		slidervalue = data.slider.unk02;
+		slidervalue = (s16) data.slider.value;
 	} else {
 		slidervalue = 0;
 	}
@@ -2393,7 +2393,7 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 		if (tickflags & MENUTICKFLAG_DIALOGISDIMMED) {
 			if (item->handler) {
 				item->handler(MENUOP_GETSLIDER, item, &handlerdata);
-				index = (s16)handlerdata.slider.value;
+				index = (s16) handlerdata.slider.value;
 			} else {
 				index = 0;
 			}
@@ -2402,20 +2402,20 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 					&& g_Menus[g_MpPlayerNum].xrepeatmode == MENUREPEATMODE_SLOW) {
 				index = index + inputs->leftright;
 			} else {
-				f0 = data->slider.unk00 / 1000.0f;
-				f0 = (f0 * 100.0f) / item->param3;
+				f0 = data->slider.multiplier / 1000.0f;
+				f0 = f0 * 100.0f / item->param3;
 #if VERSION >= VERSION_PAL_BETA
 				f0 = f0 + inputs->leftrightheld * g_Vars.diffframe60freal;
 #else
 				f0 = f0 + inputs->leftrightheld * g_Vars.diffframe60;
 #endif
-				f0 = (item->param3 * f0) / 100.0f;
+				f0 = item->param3 * f0 / 100.0f;
 
 				tmp = f0;
 				f0 -= tmp;
 				index += tmp;
 
-				data->slider.unk00 = f0 * 1000.0f;
+				data->slider.multiplier = f0 * 1000.0f;
 			}
 
 			if (inputs->xaxis < 0) {
@@ -2431,8 +2431,8 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 					index = index + inputs->leftright;
 				}
 			} else {
-				f0 = data->slider.unk00 / 1000.0f;
-				f0 = (f0 * 100.0f) / item->param3;
+				f0 = data->slider.multiplier / 1000.0f;
+				f0 = f0 * 100.0f / item->param3;
 
 				if (inputs->xaxis < 0) {
 					f2 = -f14;
@@ -2441,7 +2441,7 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 				}
 
 				if (f2 > 20) {
-					f2 = (f2 - 20) * 0.0625f;
+					f2 = (f2 - 20) / 16.0f;
 #if VERSION >= VERSION_PAL_BETA
 					f2 *= g_Vars.diffframe60freal;
 #else
@@ -2455,11 +2455,11 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 					}
 				}
 
-				f0 = (item->param3 * f0) / 100.0f;
+				f0 = item->param3 * f0 / 100.0f;
 				tmp = f0;
 				f0 -= tmp;
 				index += tmp;
-				data->slider.unk00 = f0 * 1000.0f;
+				data->slider.multiplier = f0 * 1000.0f;
 			}
 
 			if (index < 0) {
@@ -2492,7 +2492,7 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 
 void menuitemSliderInit(union menuitemdata *data)
 {
-	data->slider.unk00 = 0;
+	data->slider.multiplier = 0;
 }
 
 Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
@@ -2870,20 +2870,20 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 3;
 	y = context->y + 3;
 	gdl = textRenderProjected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-			0x000000ff, context->width - 4, context->height - 4, -data->unk00, 0);
+			0x000000ff, context->width - 4, context->height - 4, -data->scrolloffset, 0);
 
 	// Heading text (red)
 	x = context->x + 2;
 	y = context->y + 2;
 	gdl = textRenderProjected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-			0xff4444ff, context->width - 4, context->height - 4, -data->unk00, 0);
+			0xff4444ff, context->width - 4, context->height - 4, -data->scrolloffset, 0);
 
 	// Body text
 	x = menuIsScrollableUnscrollable(context->item) ? context->x + 5 : context->x + 12;
 	y = context->y + 2;
 
 	gdl = textRenderProjected(gdl, &x, &y, bodytext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-			colour, context->width - 4, context->height - 1, -data->unk00, 0);
+			colour, context->width - 4, context->height - 1, -data->scrolloffset, 0);
 
 	return text0f153780(gdl);
 }
@@ -2893,9 +2893,9 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 	u32 stack;
 
 #if VERSION >= VERSION_PAL_BETA
-	if ((s16)dialog->height != data->scrollable.unk06 || data->scrollable.unk08 != g_LanguageId) {
+	if ((s16)dialog->height != data->scrollable.dialogheight || data->scrollable.language != g_LanguageId) {
 #else
-	if ((s16)dialog->height != data->scrollable.unk06) {
+	if ((s16)dialog->height != data->scrollable.dialogheight) {
 #endif
 		char wrapped[8000] = "";
 		char *rawtext;
@@ -2907,7 +2907,7 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 		s16 rowheight;
 
 #if VERSION >= VERSION_PAL_BETA
-		data->scrollable.unk08 = g_LanguageId;
+		data->scrollable.language = g_LanguageId;
 #endif
 
 		dialogFindItem(dialog, item, &rowindex, &colindex);
@@ -2929,17 +2929,17 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 
 		textMeasure(&height, &width, wrapped, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
-		data->scrollable.unk04 = height - rowheight + 5;
+		data->scrollable.maxscrolloffset = height - rowheight + 5;
 
-		if (data->scrollable.unk04 < -10) {
-			data->scrollable.unk04 = -10;
+		if (data->scrollable.maxscrolloffset < -10) {
+			data->scrollable.maxscrolloffset = -10;
 		}
 
-		data->scrollable.unk06 = dialog->height;
+		data->scrollable.dialogheight = dialog->height;
 	}
 
 	if (menuIsScrollableUnscrollable(item)) {
-		data->scrollable.unk00 = 0;
+		data->scrollable.scrolloffset = 0;
 	} else if (tickflags & MENUTICKFLAG_ITEMISFOCUSED) {
 		f32 floatval;
 		s32 intval = 0;
@@ -2970,14 +2970,14 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 #else
 		intval += inputs->updownheld * 2 * g_Vars.diffframe60;
 #endif
-		data->scrollable.unk00 += intval;
+		data->scrollable.scrolloffset += intval;
 
-		if (data->scrollable.unk00 < -10) {
-			data->scrollable.unk00 = -10;
+		if (data->scrollable.scrolloffset < -10) {
+			data->scrollable.scrolloffset = -10;
 		}
 
-		if (data->scrollable.unk00 > data->scrollable.unk04) {
-			data->scrollable.unk00 = data->scrollable.unk04;
+		if (data->scrollable.scrolloffset > data->scrollable.maxscrolloffset) {
+			data->scrollable.scrolloffset = data->scrollable.maxscrolloffset;
 		}
 	}
 
@@ -2986,8 +2986,8 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 
 void menuitemScrollableInit(union menuitemdata *data)
 {
-	data->scrollable.unk06 = -1;
-	data->scrollable.unk00 = -10;
+	data->scrollable.dialogheight = -1;
+	data->scrollable.scrolloffset = -10;
 }
 
 Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
@@ -3162,7 +3162,7 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 
 	textRestoreBlends();
 
-	data->unk04 = context->width;
+	data->viewwidth = context->width;
 
 	return gdl;
 }
@@ -3177,7 +3177,7 @@ bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 	struct fontchar *font1;
 	struct font *font2;
 	s32 increment;
-	u16 sum = 0;
+	u16 texthash = 0;
 	char *text = menuResolveParam2Text(item);
 	s32 limit;
 
@@ -3201,17 +3201,17 @@ bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 	i = 0;
 
 	while (text[i] != '\0') {
-		sum += text[i];
+		texthash += text[i];
 		i++;
 	}
 
-	if (data->marquee.sum != sum) {
+	if (data->marquee.texthash != texthash) {
 		data->marquee.totalmoved = 0;
-		data->marquee.sum = sum;
+		data->marquee.texthash = texthash;
 	}
 
 	textMeasure(&textheight, &textwidth, text, font1, font2, 0);
-	limit = data->marquee.unk04 + textwidth;
+	limit = data->marquee.viewwidth + textwidth;
 	increment = g_Vars.diffframe60 / 2;
 
 	if (increment <= 0) {
@@ -3230,7 +3230,7 @@ bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 void menuitemMarqueeInit(union menuitemdata *data)
 {
 	data->marquee.totalmoved = 0;
-	data->marquee.unk04 = 50;
+	data->marquee.viewwidth = 50;
 	data->marquee.unk06 = 0;
 }
 
