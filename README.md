@@ -15,8 +15,9 @@ The game is in a somewhat functional but probably unstable state.
 There are major graphical issues, minor audio issues and possibly other issues.
 Splitscreen modes currently do not work.
 
-There are currently no "extra features" implemented, such as widescreen,
-except for janky mouselook, arbitrary 4:3 resolution support and somewhat expanded heap size.
+There are currently no "extra features" implemented
+except for janky mouselook, arbitrary resolution support (with partial widescreen support)
+and somewhat expanded heap size.
 
 ## Running
 
