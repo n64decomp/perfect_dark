@@ -32,7 +32,7 @@ void func0f0f1494(void);
 char *menuResolveText(uintptr_t thing, void *dialogoritem);
 char *menuResolveParam2Text(struct menuitem *item);
 char *menuResolveDialogTitle(struct menudialogdef *dialogdef);
-void func0f0f15a4(struct menuitem *item, s32 *arg1);
+void menuGetItemBlocksRequired(struct menuitem *item, s32 *arg1);
 void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struct menudialog *dialog);
 void func0f0f1d6c(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu);
 void dialog0f0f1ef4(struct menudialog *dialog);

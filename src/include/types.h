@@ -3247,15 +3247,19 @@ struct menuitemdata_controller {
 	s8 prevmode;
 };
 
+struct menuitemdata_list {
+	s16 curoffsety;
+	s16 index;
+	s16 targetoffsety;
+	s16 viewheight;
+};
+
 struct menuitemdata_dropdown {
-	u16 unk00;
-	u16 unk02;
-	s16 unk04;
-	u16 unk06;
-	u16 unk08;
-	u16 unk0a;
+	struct menuitemdata_list list;
+	u16 unk08; // unused
+	u16 unk0a; // unused
 	s16 scrolloffset;
-	u16 unk0e;
+	u16 unk0e; // unused
 };
 
 struct menuitemdata_keyboard {
@@ -3266,18 +3270,11 @@ struct menuitemdata_keyboard {
 	u8 capseffective : 1; // Same as above, but inverted if holding L or R
 };
 
-struct menuitemdata_list {
-	s16 unk00;
-	s16 unk02;
-	s16 unk04;
-	s16 unk06;
-};
-
 struct menuitemdata_marquee {
 	u16 totalmoved;
-	u16 sum;
-	u16 unk04;
-	u16 unk06;
+	u16 texthash;
+	u16 viewwidth;
+	u16 unk06; // unused
 };
 
 struct menuitemdata_ranking {
@@ -3285,15 +3282,17 @@ struct menuitemdata_ranking {
 };
 
 struct menuitemdata_scrollable {
-	s16 unk00;
-	s16 unk02;
-	s16 unk04;
-	s16 unk06;
-	s16 unk08;
+	s16 scrolloffset;
+	s16 unk02; // unused
+	s16 maxscrolloffset;
+	s16 dialogheight;
+#if VERSION >= VERSION_PAL_BETA
+	s16 language;
+#endif
 };
 
 struct menuitemdata_slider {
-	s16 unk00;
+	s16 multiplier;
 };
 
 union menuitemdata {
@@ -3343,22 +3342,8 @@ struct handlerdata_list {
 	s32 unk0c;
 };
 
-struct handlerdata_list2 {
-	s16 unk00;
-	s16 unk02;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-};
-
 struct handlerdata_slider {
-	union {
-		u32 value;
-		struct {
-			u16 unk00;
-			s16 unk02;
-		};
-	};
+	u32 value;
 	char *label;
 };
 
@@ -3392,7 +3377,6 @@ union handlerdata {
 	struct handlerdata_carousel carousel;
 	struct handlerdata_checkbox checkbox;
 	struct handlerdata_list list;
-	struct handlerdata_list2 list2;
 	struct handlerdata_dropdown dropdown;
 	struct handlerdata_keyboard keyboard;
 	struct handlerdata_label label;

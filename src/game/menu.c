@@ -491,7 +491,7 @@ char *menuResolveDialogTitle(struct menudialogdef *dialogdef)
 	return menuResolveText(dialogdef->title, dialogdef);
 }
 
-void func0f0f15a4(struct menuitem *item, s32 *arg1)
+void menuGetItemBlocksRequired(struct menuitem *item, s32 *numwords)
 {
 	switch (item->type) {
 	case MENUITEMTYPE_SLIDER:
@@ -499,31 +499,31 @@ void func0f0f15a4(struct menuitem *item, s32 *arg1)
 	case MENUITEMTYPE_RANKING:
 	case MENUITEMTYPE_14:
 	case MENUITEMTYPE_18:
-		*arg1 = 1;
+		*numwords = 1;
 		break;
 #if VERSION < VERSION_PAL_BETA
 	case MENUITEMTYPE_SCROLLABLE:
 #endif
 	case MENUITEMTYPE_MARQUEE:
 	case MENUITEMTYPE_CONTROLLER:
-		*arg1 = 2;
+		*numwords = 2;
 		break;
 	case MENUITEMTYPE_LIST:
 #if VERSION >= VERSION_PAL_BETA
 	case MENUITEMTYPE_SCROLLABLE:
 #endif
-		*arg1 = 3;
+		*numwords = 3;
 		break;
 	case MENUITEMTYPE_DROPDOWN:
-		*arg1 = 4;
+		*numwords = 4;
 		break;
 	case MENUITEMTYPE_PLAYERSTATS:
-		*arg1 = 5;
+		*numwords = 5;
 		break;
 	case MENUITEMTYPE_KEYBOARD:
 	case MENUITEMTYPE_10:
 	case MENUITEMTYPE_16:
-		*arg1 = 3;
+		*numwords = 3;
 		break;
 	}
 }
@@ -888,7 +888,7 @@ void func0f0f1d6c(struct menudialogdef *dialogdef, struct menudialog *dialog, st
 			}
 
 			numblocksthisitem = -1;
-			func0f0f15a4(item, &numblocksthisitem);
+			menuGetItemBlocksRequired(item, &numblocksthisitem);
 
 			if (numblocksthisitem != -1) {
 				menu->rows[rowindex].blockindex = blockindex;
