@@ -3367,8 +3367,13 @@ struct handlerdata_slider {
 	union {
 		u32 value;
 		struct {
-			u16 unk00;
+#ifdef PLATFORM_BIG_ENDIAN
+			s16 unk00;
+			u16 unk02;
+#else
 			s16 unk02;
+			u16 unk00;
+#endif
 		};
 	};
 	char *label;
