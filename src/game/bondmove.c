@@ -697,7 +697,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 	movedata.analogwalk = movedata.c1stickysafe;
 
 #ifndef PLATFORM_N64
-	if ((PLAYERCOUNT() == 1) && inputMouseIsLocked()) {
+	if (inputMouseIsLocked() && g_Vars.currentplayernum == 0 && (allowc1x || allowc1y)) {
 		inputMouseGetScaledDelta(&movedata.freelookdx, &movedata.freelookdy);
 	}
 #endif
