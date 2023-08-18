@@ -19,6 +19,7 @@ s32 videoGetNativeHeight(void);
 s32 videoGetWidth(void);
 s32 videoGetHeight(void);
 f32 videoGetAspect(void);
+f32 videoGetPlayerFovY(void);
 
 void videoResetTextureCache(void);
 

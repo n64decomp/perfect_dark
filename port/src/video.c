@@ -19,7 +19,9 @@ static bool initDone = false;
 static u32 dlcount = 0;
 static u32 frames = 0;
 static u32 framesPerSec = 0;
-static double startTime, endTime, fpsTime;
+static f64 startTime, endTime, fpsTime;
+
+static f32 playerFovY = 60.f;
 
 s32 videoInit(void)
 {
@@ -27,6 +29,8 @@ s32 videoInit(void)
 	renderingAPI = &gfx_opengl_api;
 	gfx_current_native_viewport.width = 320;
 	gfx_current_native_viewport.height = 240;
+
+	playerFovY = configGetFloat("Video.FovY", 60.f);
 
 	const s32 w = configGetInt("Video.DefaultWidth", 640);
 	const s32 h = configGetInt("Video.DefaultHeight", 480);
@@ -123,6 +127,11 @@ s32 videoGetHeight(void)
 f32 videoGetAspect(void)
 {
 	return gfx_current_dimensions.aspect_ratio;
+}
+
+f32 videoGetPlayerFovY(void)
+{
+	return playerFovY;
 }
 
 void videoResetTextureCache(void)

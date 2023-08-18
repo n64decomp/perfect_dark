@@ -3125,14 +3125,22 @@ void playerConfigureVi(void)
 	var800800f0jf = 0;
 #endif
 
+#ifdef PLATFORM_N64
 	playermgrSetFovY(60);
+#else
+	playermgrSetFovY(videoGetPlayerFovY());
+#endif
 	playermgrSetAspectRatio(ratio);
 	playermgrSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
 	playermgrSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 
 	viSetMode(g_ViModes[g_ViRes].xscale);
 
+#ifdef PLATFORM_N64
 	viSetFovAspectAndSize(60, ratio, playerGetViewportWidth(), playerGetViewportHeight());
+#else
+	viSetFovAspectAndSize(videoGetPlayerFovY(), ratio, playerGetViewportWidth(), playerGetViewportHeight());
+#endif
 
 	viSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 	viSetSize(playerGetFbWidth(), playerGetFbHeight());
@@ -3195,13 +3203,21 @@ void playerTick(bool arg0)
 		return;
 	}
 
+#ifdef PLATFORM_N64
 	playermgrSetFovY(60);
+#else
+	playermgrSetFovY(videoGetPlayerFovY());
+#endif
 	playermgrSetAspectRatio(aspectratio);
 	playermgrSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
 	playermgrSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 
 	viSetMode(g_ViModes[g_ViRes].xscale);
+#ifdef PLATFORM_N64
 	viSetFovAspectAndSize(60, aspectratio, playerGetViewportWidth(), playerGetViewportHeight());
+#else
+	viSetFovAspectAndSize(videoGetPlayerFovY(), aspectratio, playerGetViewportWidth(), playerGetViewportHeight());
+#endif
 	viSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 	viSetSize(playerGetFbWidth(), playerGetFbHeight());
 	viSetBufSize(playerGetFbWidth(), playerGetFbHeight());

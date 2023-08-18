@@ -7491,6 +7491,32 @@ void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s3
 	}
 }
 
+#ifndef PLATFORM_N64
+
+// offset calculation from NeonNyan/perfect-dark
+
+static inline f32 bgunGetFovOffsetZ(void)
+{
+	const f32 fovdelta = videoGetPlayerFovY() - 60.f;
+	if (fovdelta < -0.01f || fovdelta > 0.01f) {
+		return fovdelta / 3.f;
+	} else {
+		return 0.f;
+	}
+}
+
+static inline f32 bgunGetFovOffsetY(void)
+{
+	const f32 fovdelta = videoGetPlayerFovY() - 60.f;
+	if (fovdelta < -0.01f || fovdelta > 0.01f) {
+		return fovdelta / (2.75f * 4.f);
+	} else {
+		return 0.f;
+	}
+}
+
+#endif
+
 void bgun0f0a5550(s32 handnum)
 {
 	u8 *mtxallocation;
@@ -7581,6 +7607,12 @@ void bgun0f0a5550(s32 handnum)
 
 	sp274.y += player->guncloseroffset * 5.0f / -90.0f * 50.0f;
 	sp274.z -= player->guncloseroffset * 15.0f / -90.0f * 50.0f;
+
+#ifndef PLATFORM_N64
+	// adjust viewmodel position for different FOVs
+	sp274.y -= bgunGetFovOffsetY();
+	sp274.z += bgunGetFovOffsetZ();
+#endif
 
 	if (hand->firing && shootfunc && g_Vars.lvupdate240 != 0 && shootfunc->recoilsettings != NULL) {
 		sp274.x += (RANDOMFRAC() - 0.5f) * shootfunc->recoilsettings->xrange * hand->finalmult[0];

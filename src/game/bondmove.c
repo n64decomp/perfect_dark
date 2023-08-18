@@ -1517,7 +1517,11 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 	}
 
 	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && !g_MainIsEndscreen) {
+#ifdef PLATFORM_N64
 		zoomfov = 60;
+#else
+		zoomfov = videoGetPlayerFovY();
+#endif
 
 		// FarSight in secondary function
 		if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT
@@ -1526,9 +1530,15 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				&& g_Vars.currentplayer->autoeraserdist > 0) {
 			eraserfov = cam0f0b49b8(500.0f / g_Vars.currentplayer->autoeraserdist);
 
+#ifdef PLATFORM_N64
 			if (eraserfov > 60) {
 				eraserfov = 60;
 			}
+#else
+			if (eraserfov > videoGetPlayerFovY()) {
+				eraserfov = videoGetPlayerFovY();
+			}
+#endif
 
 			if (eraserfov < 2) {
 				eraserfov = 2;
@@ -1562,9 +1572,15 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			zoomfov = currentPlayerGetGunZoomFov();
 		}
 
+#ifdef PLATFORM_N64
 		if (zoomfov <= 0) {
 			zoomfov = 60;
 		}
+#else
+		if (zoomfov <= 0) {
+			zoomfov = videoGetPlayerFovY();
+		}
+#endif
 
 		playerTweenFovY(zoomfov);
 		playerUpdateZoom();
