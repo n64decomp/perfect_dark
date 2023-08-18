@@ -86,7 +86,11 @@ extern Mtx *var8009cc80;
 extern Mtx *var8009cc84;
 extern Mtx *var8009cc88;
 extern u8 *var8009cca0;
+#ifdef PLATFORM_N64
 extern void *var8009ccc0[20];
+#else
+extern int var8009ccc0[20];
+#endif
 extern s32 g_NumChrs;
 extern s16 *g_Chrnums;
 extern s16 *g_ChrIndexes;

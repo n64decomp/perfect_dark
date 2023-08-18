@@ -134,6 +134,26 @@ f32 videoGetPlayerFovY(void)
 	return playerFovY;
 }
 
+s32 videoCreateFramebuffer(u32 w, u32 h)
+{
+	return gfx_create_framebuffer(w, h);
+}
+
+void videoSetFramebuffer(s32 target)
+{
+	return gfx_set_framebuffer(target, 1.f);
+}
+
+void videoResetFramebuffer(void)
+{
+	return gfx_reset_framebuffer();
+}
+
+void videoCopyFramebuffer(s32 dst, s32 src, s32 left, s32 top)
+{
+	gfx_copy_framebuffer(dst, src, left, top);
+}
+
 void videoResetTextureCache(void)
 {
 	gfx_texture_cache_clear();

@@ -21,6 +21,11 @@ s32 videoGetHeight(void);
 f32 videoGetAspect(void);
 f32 videoGetPlayerFovY(void);
 
+s32 videoCreateFramebuffer(u32 w, u32 h);
+void videoSetFramebuffer(s32 target);
+void videoResetFramebuffer(void);
+void videoCopyFramebuffer(s32 dst, s32 src, s32 left, s32 top);
+
 void videoResetTextureCache(void);
 
 #endif

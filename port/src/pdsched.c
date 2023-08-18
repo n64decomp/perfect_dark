@@ -394,10 +394,9 @@ void schedUpdatePendingArtifacts(void)
 void schedConsiderScreenshot(void)
 {
 	if (g_MenuData.screenshottimer == 1) {
-		// TODO
-		// if (IS8MB()) {
-		// 	menugfxCreateBlur();
-		// }
+		if (IS8MB()) {
+			menugfxCreateBlur();
+		}
 
 		g_MenuData.screenshottimer = 0;
 	}

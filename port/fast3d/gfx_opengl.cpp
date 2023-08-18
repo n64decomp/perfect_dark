@@ -808,8 +808,10 @@ typedef void (APIENTRY *DEBUGPROC)(GLenum source,
     const void *userParam);
 
 static void APIENTRY gl_debug(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *msg, const void *p) {
-    if (severity > 0x826B)
+    if (severity > 0x826B) {
         printf("GL: from %04x: type %04x: %s\n", source, type, msg);
+        fflush(stdout);
+    }
 }
 
 static void gfx_opengl_init(void) {
@@ -944,14 +946,18 @@ static void gfx_opengl_update_framebuffer_parameters(int fb_id, uint32_t width, 
     fb.invert_y = opengl_invert_y;
 }
 
-void gfx_opengl_start_draw_to_framebuffer(int fb_id, float noise_scale) {
-    Framebuffer& fb = framebuffers[fb_id];
-
-    if (noise_scale != 0.0f) {
-        current_noise_scale = 1.0f / noise_scale;
+bool gfx_opengl_start_draw_to_framebuffer(int fb_id, float noise_scale) {
+    if (fb_id < (int)framebuffers.size()) {
+        Framebuffer& fb = framebuffers[fb_id];
+        if (noise_scale != 0.0f) {
+            current_noise_scale = 1.0f / noise_scale;
+        }
+        glBindFramebuffer(GL_FRAMEBUFFER, fb.fbo);
+        current_framebuffer = fb_id;
+        return true;
+    } else {
+        return false;
     }
-    glBindFramebuffer(GL_FRAMEBUFFER, fb.fbo);
-    current_framebuffer = fb_id;
 }
 
 void gfx_opengl_clear_framebuffer() {
@@ -981,6 +987,52 @@ void gfx_opengl_select_texture_fb(int fb_id) {
     // glDisable(GL_DEPTH_TEST);
     glActiveTexture(GL_TEXTURE0 + 0);
     glBindTexture(GL_TEXTURE_2D, framebuffers[fb_id].clrbuf);
+}
+
+void gfx_opengl_copy_framebuffer(int fb_dst, int fb_src, int left, int top) {
+    if (fb_dst >= (int)framebuffers.size() || fb_src >= (int)framebuffers.size()) {
+        return;
+    }
+
+    const Framebuffer& src = framebuffers[fb_src];
+    const Framebuffer& dst = framebuffers[fb_dst];
+
+    int srcX0, srcY0, srcX1, srcY1;
+    int dstX0, dstY0, dstX1, dstY1;
+
+    dstX0 = dstY0 = 0;
+    dstX1 = dst.width;
+    dstY1 = dst.height;
+
+    if (left >= 0 && top >= 0) {
+        // unscaled rect copy
+        srcX0 = left;
+        srcY0 = top;
+        srcX1 = left + dst.width;
+        srcY1 = top + dst.height;
+    } else {
+        // scaled full copy
+        srcX0 = 0;
+        srcY0 = 0;
+        srcX1 = src.width;
+        srcY1 = src.height;
+    }
+
+    if (fb_src == 0) {
+        // flip the dst rect to mirror the image vertically
+        std::swap(dstY0, dstY1);
+    }
+
+    glDisable(GL_SCISSOR_TEST);
+
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, src.fbo);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, dst.fbo);
+
+    glBlitFramebuffer(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, framebuffers[current_framebuffer].fbo);
+
+    glEnable(GL_SCISSOR_TEST);
 }
 
 void gfx_opengl_set_texture_filter(FilteringMode mode) {
@@ -1020,6 +1072,7 @@ struct GfxRenderingAPI gfx_opengl_api = {
     gfx_opengl_create_framebuffer,
     gfx_opengl_update_framebuffer_parameters,
     gfx_opengl_start_draw_to_framebuffer,
+    gfx_opengl_copy_framebuffer,
     gfx_opengl_clear_framebuffer,
     gfx_opengl_resolve_msaa_color_buffer,
     gfx_opengl_get_framebuffer_texture_id,

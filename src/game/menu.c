@@ -5059,9 +5059,23 @@ Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 			// Render the blurred background texture with full alpha
 			gdl = menugfxRenderBgBlur(gdl, 0xffffff00 | alpha, 0, 0);
 
+#ifdef PLATFORM_N64
 			// Render it twice more with half alpha and offset
 			gdl = menugfxRenderBgBlur(gdl, 0xffffff00 | alpha >> 1, -30, -30);
 			gdl = menugfxRenderBgBlur(gdl, 0xffffff00 | alpha >> 1, 30, 30);
+#else
+			// HACK: we don't actually blur anything on the CPU, so
+			// render it offset to all cardinal and ordinal directions to achieve crappy box blur
+			const s32 card[2] = { -30, 30 };
+			const s32 ord[2] = { -21, 21 }; // 30 / sqrt(2)
+			const u32 rgba = 0xffffff00 | alpha >> 3;
+			for (s32 i = 0; i < 2; ++i) {
+				gdl = menugfxRenderBgBlur(gdl, rgba, 0, card[i]);
+				gdl = menugfxRenderBgBlur(gdl, rgba, card[i], 0);
+				gdl = menugfxRenderBgBlur(gdl, rgba, ord[0], ord[i]);
+				gdl = menugfxRenderBgBlur(gdl, rgba, ord[i], ord[0]);
+			}
+#endif
 		}
 		break;
 	case MENUBG_BLACK:
