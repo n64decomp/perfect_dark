@@ -6,6 +6,9 @@
 #include "lib/memp.h"
 #include "data.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "video.h"
+#endif
 
 void chrmgrReset(void)
 {
@@ -34,7 +37,13 @@ void chrmgrReset(void)
 	var80062960 = mempAlloc(ALIGN16(15 * sizeof(struct var80062960)), MEMPOOL_STAGE);
 
 	for (i = 0; i < ARRAYCOUNT(var8009ccc0); i++) {
+#ifdef PLATFORM_N64
 		var8009ccc0[i] = (void *)ALIGN64(mempAlloc(16 * 16 * sizeof(u16) + 0x40, MEMPOOL_STAGE));
+#else
+		if (!var8009ccc0[i]) {
+			var8009ccc0[i] = videoCreateFramebuffer(16, 16);
+		}
+#endif
 	}
 
 	resetSomeStageThings();

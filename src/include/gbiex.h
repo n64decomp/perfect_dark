@@ -180,4 +180,40 @@
 #define G_CC_CUSTOM_26  TEXEL1,    TEXEL0,      LOD_FRACTION, TEXEL0,      TEXEL0,    0,           ENVIRONMENT,   0
 #define G_CC_CUSTOM_27  PRIMITIVE, ENVIRONMENT, TEXEL0,       ENVIRONMENT, PRIMITIVE, ENVIRONMENT, TEXEL0,        ENVIRONMENT
 
+#ifndef PLATFORM_N64
+
+/* Extended RDP commands */
+
+#define G_SETFB_EXT         0x21
+#define G_COPYFB_EXT        0x41
+#define G_SETTIMG_FB_EXT    0x23
+#define G_INVALTEXCACHE_EXT 0x34
+
+/* Extended RDP command macros */
+
+#define gDPSetFramebufferTargetEXT(pkt, f, s, w, i) \
+    gSetImage(pkt, G_SETFB_EXT, f, s, w, i)
+
+#define gDPSetFramebufferTextureEXT(pkt, f, s, w, i) \
+    gSetImage(pkt, G_SETTIMG_FB_EXT, f, s, w, i)
+
+#define gDPCopyFramebufferEXT(pkt, dst, src, uls, ult)         \
+{                                                              \
+    Gfx *_g = (Gfx *)(pkt);                                    \
+                                                               \
+    _g->words.w0 = _SHIFTL(G_COPYFB_EXT, 24, 8)                \
+        | _SHIFTL(dst, 12, 12) | _SHIFTL(src, 0, 12);          \
+    _g->words.w1 = _SHIFTL(uls, 16, 16) | _SHIFTL(ult, 0, 16); \
+}
+
+#define gDPInvalTexCacheEXT(pkt, addr)                 \
+{                                                      \
+    Gfx *_g = (Gfx *)(pkt);                            \
+                                                       \
+    _g->words.w0 = _SHIFTL(G_INVALTEXCACHE_EXT, 24, 8) \
+    _g->words.w1 = (uintptr_t)(addr);                  \
+}
+
+#endif
+
 #endif

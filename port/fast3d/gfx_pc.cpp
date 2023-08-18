@@ -2397,6 +2397,12 @@ static void gfx_run_dl(Gfx* cmd) {
                 gfx_dp_set_texture_image(C0(21, 3), C0(19, 2), C0(0, 10), imgData, texFlags, rawTexMetdata, (void*)i);
                 break;
             }
+            case G_SETTIMG_FB_EXT:
+                gfx_flush();
+                gfx_rapi->select_texture_fb(cmd->words.w1);
+                rdp.textures_changed[0] = false;
+                rdp.textures_changed[1] = false;
+                break;
             case G_LOADBLOCK:
                 gfx_dp_load_block(C1(24, 3), C0(12, 12), C0(0, 12), C1(12, 12), C1(0, 12));
                 break;
@@ -2490,8 +2496,29 @@ static void gfx_run_dl(Gfx* cmd) {
             case G_SETCIMG:
                 gfx_dp_set_color_image(C0(21, 3), C0(19, 2), C0(0, 11), seg_addr(cmd->words.w1));
                 break;
+            case G_SETFB_EXT:
+                gfx_flush();
+                if (cmd->words.w1) {
+                    // don't care about noise here
+                    gfx_set_framebuffer(cmd->words.w1, 1.f);
+                    fbActive = true;
+                } else {
+                    gfx_reset_framebuffer();
+                    fbActive = false;
+                }
+                break;
+            case G_COPYFB_EXT:
+                gfx_copy_framebuffer(C0(12, 12), C0(0, 12), C1(16, 16), C1(0, 16));
+                break;
             case G_RDPSETOTHERMODE:
                 gfx_dp_set_other_mode(C0(0, 24), cmd->words.w1);
+                break;
+            case G_INVALTEXCACHE_EXT:
+                if (cmd->words.w1) {
+                    gfx_texture_cache_delete((const uint8_t *)seg_addr(cmd->words.w1));
+                } else {
+                    gfx_texture_cache_clear();
+                }
                 break;
             case (uint8_t)G_RDPHALF_1:
             case (uint8_t)G_RDPHALF_2:
@@ -2700,6 +2727,17 @@ extern "C" void gfx_set_framebuffer(int fb, float noise_scale) {
     gfx_rapi->clear_framebuffer();
 }
 
-extern "C" void gfx_reset_framebuffer() {
+extern "C" void gfx_copy_framebuffer(int fb_dst, int fb_src, int left, int top) {
+    if (fb_src == 0 && left > 0 && top > 0) {
+        // upscale the position
+        left = left * gfx_current_dimensions.width / gfx_current_native_viewport.width;
+        top = top * gfx_current_dimensions.height / gfx_current_native_viewport.height;
+        // flip Y
+        top = gfx_current_dimensions.height - top - 1;
+    }
+    gfx_rapi->copy_framebuffer(fb_dst, fb_src, left, top);
+}
+
+extern "C" void gfx_reset_framebuffer(void) {
     gfx_rapi->start_draw_to_framebuffer(0, (float)gfx_current_dimensions.height / SCREEN_HEIGHT);
 }

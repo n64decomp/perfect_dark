@@ -47,10 +47,18 @@
 #include "data.h"
 #include "gbiex.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "video.h"
+#endif
 
 void rng2SetSeed(u32 seed);
 
+#ifdef PLATFORM_N64
 void *var8009ccc0[20];
+#else
+s32 var8009ccc0[20];
+#endif
+
 s32 g_NumChrs;
 s16 *g_Chrnums;
 s16 *g_ChrIndexes;
@@ -6234,13 +6242,21 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 
 							gDPPipeSync(gdl++);
 							gDPSetTextureLUT(gdl++, G_TT_NONE);
+#ifndef PLATFORM_N64
 							gDPLoadTextureBlock(gdl++, var8009ccc0[index], G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
+#endif
 							gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 							gDPSetRenderMode(gdl++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
 							gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 							gSPTexture(gdl++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 							gDPSetTextureFilter(gdl++, G_TF_BILERP);
 							gDPSetColorDither(gdl++, G_CD_BAYER);
+#ifndef PLATFORM_N64
+							gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, (((16 * G_IM_SIZ_16b_BYTES)+7)>>3), 0, 0, 0,
+								G_TX_MIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_MIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
+							gDPSetTileSize(gdl++, G_TX_RENDERTILE, 0, 0, 16 << G_TEXTURE_IMAGE_FRAC, 16 << G_TEXTURE_IMAGE_FRAC);
+							gDPSetFramebufferTextureEXT(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, var8009ccc0[index]);
+#endif
 
 							gdl = chrRenderShieldComponent(gdl, NULL, prop1, model, node, -7, -1, -1, 255);
 						} else {
@@ -6396,16 +6412,25 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 						lrs = uls + 15;
 						lrt = ult + 15;
 
+#ifdef PLATFORM_N64
 						gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, OS_K0_TO_PHYSICAL(var8009ccc0[index]));
 						gDPTileSync(gdl++);
-
 						gDPLoadTextureTile(gdl++, viGetBackBuffer(), G_IM_FMT_RGBA, G_IM_SIZ_16b,
 								viGetWidth(), 0, uls, ult, lrs, lrt,
 								0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP,
 								4, 4, G_TX_NOLOD, G_TX_NOLOD);
-
 						gDPPipeSync(gdl++);
 						gSPTextureRectangle(gdl++, 0, 0, 60, 60, G_TX_RENDERTILE, 0, 0, 4096, 1024);
+#else
+						gDPCopyFramebufferEXT(gdl++, var8009ccc0[index], 0, uls, ult);
+						gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b,
+							((((lrs - uls + 1) * G_IM_SIZ_16b_BYTES)+7)>>3), 0, 0, 0,
+							G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD,
+							G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
+						gDPSetTileSize(gdl++, G_TX_RENDERTILE,
+							uls << G_TEXTURE_IMAGE_FRAC, ult << G_TEXTURE_IMAGE_FRAC,
+							lrs << G_TEXTURE_IMAGE_FRAC, lrt << G_TEXTURE_IMAGE_FRAC);
+#endif
 					}
 				}
 			}

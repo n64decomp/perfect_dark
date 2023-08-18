@@ -40,6 +40,9 @@ void gfx_set_target_fps(int);
 void gfx_set_maximum_frame_latency(int latency);
 void gfx_texture_cache_clear(void);
 int gfx_create_framebuffer(uint32_t width, uint32_t height);
+void gfx_set_framebuffer(int fb, float noise_scale) ;
+void gfx_reset_framebuffer(void);
+void gfx_copy_framebuffer(int fb_dst, int fb_src, int left, int top);
 void gfx_get_pixel_depth_prepare(float x, float y);
 uint16_t gfx_get_pixel_depth(float x, float y);
 

@@ -17,6 +17,9 @@
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "video.h"
+#endif
 
 #define NUM_SUCCESS_PARTICLES 280
 
@@ -25,6 +28,10 @@
 #define SAMPLE_WIDTH  8
 #define SAMPLE_HEIGHT 8
 #define PXTOBYTES(val) ((val) * 2)
+
+#ifndef PLATFORM_N64
+s32 g_MenuBlurFb = 0;
+#endif
 
 /**
  * Blur the gameplay background for the pause menu.
@@ -44,6 +51,7 @@
  */
 void menugfxCreateBlur(void)
 {
+#ifdef PLATFORM_N64
 	u8 *fb = (u8 *) viGetFrontBuffer();
 	s32 dstx;
 	s32 dsty;
@@ -113,20 +121,25 @@ void menugfxCreateBlur(void)
 	}
 
 	g_ScaleX = 1;
+#else
+	if (g_MenuBlurFb == 0) {
+		g_MenuBlurFb = videoCreateFramebuffer(BLURIMG_WIDTH, BLURIMG_HEIGHT);
+	}
+	// copy full viewport and downscale to 40x30
+	videoCopyFramebuffer(g_MenuBlurFb, 0, -1, -1);
+#endif
 }
 
 Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 {
 	Col *colours;
 	Vtx *vertices;
-#if VERSION >= VERSION_PAL_BETA
+#if (VERSION >= VERSION_PAL_BETA) || !defined(PLATFORM_N64)
 	s32 width;
 	s32 height;
 #endif
 
-#ifdef PLATFORM_N64 // TODO
 	if (IS4MB())
-#endif
 	{
 		return menugfxRenderGradient(gdl, 0, 0, viGetWidth(), viGetHeight(), 0xff, 0xff, 0xff);
 	}
@@ -140,6 +153,11 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	gDPLoadTextureBlock(gdl++, g_BlurBuffer, G_IM_FMT_RGBA, G_IM_SIZ_16b, BLURIMG_WIDTH, BLURIMG_HEIGHT, 0,
 			G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP,
 			G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+
+#ifndef PLATFORM_N64
+	// let gDPLoadTextureBlock above set the size, then overwrite the texture selection with our fb texture
+	gDPSetFramebufferTextureEXT(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, BLURIMG_WIDTH, g_MenuBlurFb);
+#endif
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -166,7 +184,7 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	*(u16 *)&vertices[3].x = arg2;
 	*(u16 *)&vertices[3].y = arg3 + SCREEN_240 * 10u + 50;
 	vertices[3].z = -10;
-#elif PAL
+#elif PAL || !defined(PLATFORM_N64)
 	width = viGetWidth() * 10;
 	height = viGetHeight() * 10;
 
