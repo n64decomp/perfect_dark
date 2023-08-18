@@ -262,11 +262,14 @@ void inputRumble(s32 idx, f32 strength, f32 time)
 		return;
 	}
 	if (SDL_GameControllerHasRumble(pads[idx])) {
-		if (strength < 0.f) {
+		if (strength <= 0.f) {
 			strength = 0.f;
+			time = 0.f;
+		} else {
+			strength *= 65535.f;
+			time *= 1000.f;
 		}
-		strength *= 65535.f;
-		SDL_GameControllerRumble(pads[idx], (u16)strength, (u16)strength, (u32)(time * 1000.f));
+		SDL_GameControllerRumble(pads[idx], (u16)strength, (u16)strength, (u32)time);
 	}
 }
 

@@ -207,7 +207,7 @@ void osContGetQuery(OSContStatus *status)
 		if (inputControllerConnected(i)) {
 			status->errnum = 0;
 			status->type = CONT_ABSOLUTE;
-			status->status = 1;
+			status->status = CONT_CARD_ON;
 		} else {
 			status->errnum = CONT_NO_RESPONSE_ERROR;
 			status->type = 0;
@@ -287,13 +287,19 @@ s32 osPfsIsPlug(OSMesgQueue *queue, u8 *pattern)
 {
 	if (pattern) {
 		*pattern = 0;
+		for (s32 i = 0; i < MAXCONTROLLERS; ++i) {
+			if (inputRumbleSupported(i)) {
+				*pattern |= 1 << i;
+			}
+		}
 	}
 	return 0;
 }
 
 s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel, s32 *arg3)
 {
-	return PFS_ERR_NOPACK;
+	// if rumble is supported, indicate that we have a rumble pak instead
+	return inputRumbleSupported(channel) ? PFS_ERR_DEVICE : PFS_ERR_NOPACK;
 }
 
 s32 osPfsChecker(OSPfs *pfs)
