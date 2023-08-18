@@ -24,6 +24,9 @@
 #include "lib/collision.h"
 #include "data.h"
 #include "types.h"
+#ifndef PLATFORM_N64
+#include "input.h"
+#endif
 
 u8 g_EyespyPickup = false;
 u8 g_EyespyHit = EYESPYHIT_NONE;
@@ -894,6 +897,24 @@ void eyespyProcessInput(bool allowbuttons)
 				playerPause(MENUROOT_MAINMENU);
 			} else {
 				mpPushPauseDialog();
+			}
+		}
+#endif
+
+#ifndef PLATFORM_N64
+		if (g_Vars.currentplayernum == 0) {
+			f32 mdx, mdy;
+			inputMouseGetScaledDelta(&mdx, &mdy);
+			if (mdx || mdy) {
+				mdx *= g_Vars.lvupdate60freal;
+				mdy *= g_Vars.lvupdate60freal;
+				g_Vars.currentplayer->eyespy->theta += mdx * 1.5f;
+				// hold aim to move up and down, release to look up and down
+				if (aimpressed) {
+					ascendspeed -= mdy;
+				} else {
+					g_Vars.currentplayer->eyespy->verta -= mdy * 1.5f;
+				}
 			}
 		}
 #endif

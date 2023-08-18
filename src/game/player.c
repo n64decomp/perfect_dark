@@ -72,6 +72,7 @@
 #include "types.h"
 #ifndef PLATFORM_N64
 #include "video.h"
+#include "input.h"
 #endif
 
 s32 g_DefaultWeapons[2];
@@ -3539,6 +3540,17 @@ void playerTick(bool arg0)
 
 				sp178 = sticky * LVUPDATE60FREAL() * 0.00025f;
 				sp174 = -stickx * LVUPDATE60FREAL() * 0.00025f;
+
+#ifndef PLATFORM_N64
+				if (g_Vars.currentplayernum == 0) {
+					f32 mdx, mdy;
+					inputMouseGetScaledDelta(&mdx, &mdy);
+					if (mdx || mdy) {
+						sp178 += mdy * LVUPDATE60FREAL() * 0.0025f;
+						sp174 -= mdx * LVUPDATE60FREAL() * 0.0025f;
+					}
+				}
+#endif
 
 				f20 = sqrtf(sp2ac.f[0] * sp2ac.f[0] + sp2ac.f[2] * sp2ac.f[2]);
 

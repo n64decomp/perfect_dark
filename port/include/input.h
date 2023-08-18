@@ -107,6 +107,7 @@ void inputMouseGetPosition(s32 *x, s32 *y);
 void inputMouseGetRawDelta(s32 *dx, s32 *dy);
 
 // returns changes in mouse position since last frame, scaled by sensitivity
+// returns 0, 0 when the mouse is not locked into the window
 void inputMouseGetScaledDelta(f32 *dx, f32 *dy);
 
 // call this every frame

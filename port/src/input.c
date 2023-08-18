@@ -363,8 +363,14 @@ void inputMouseGetRawDelta(s32 *dx, s32 *dy)
 
 void inputMouseGetScaledDelta(f32 *dx, f32 *dy)
 {
-	s32 w, h;
-	SDL_GetWindowSize(videoGetWindowHandle(), &w, &h); 
-	if (dx) *dx = mouseSensX * (f32)mouseDX / 100.0f;
-	if (dy) *dy = mouseSensY * (f32)mouseDY / 100.0f;
+	f32 mdx, mdy;
+	if (mouseLocked) {
+		mdx = mouseSensX * (f32)mouseDX / 100.0f;
+		mdy = mouseSensY * (f32)mouseDY / 100.0f;
+	} else {
+		mdx = 0.f;
+		mdy = 0.f;
+	}
+	if (dx) *dx = mdx;
+	if (dy) *dy = mdy;
 }
