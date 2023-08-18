@@ -7497,22 +7497,12 @@ void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s3
 
 static inline f32 bgunGetFovOffsetZ(void)
 {
-	const f32 fovdelta = videoGetPlayerFovY() - 60.f;
-	if (fovdelta < -0.01f || fovdelta > 0.01f) {
-		return fovdelta / 3.f;
-	} else {
-		return 0.f;
-	}
+	return (videoGetPlayerFovY() - 60.f) / 3.f;
 }
 
 static inline f32 bgunGetFovOffsetY(void)
 {
-	const f32 fovdelta = videoGetPlayerFovY() - 60.f;
-	if (fovdelta < -0.01f || fovdelta > 0.01f) {
-		return fovdelta / (2.75f * 4.f);
-	} else {
-		return 0.f;
-	}
+	return (videoGetPlayerFovY() - 60.f) / (2.75f * 4.f);
 }
 
 #endif
