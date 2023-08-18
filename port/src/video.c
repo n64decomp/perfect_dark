@@ -94,10 +94,20 @@ void *videoGetWindowHandle(void)
 	return NULL;
 }
 
-void videoUpdateNativeResolution(const int w, const int h)
+void videoUpdateNativeResolution(s32 w, s32 h)
 {
 	gfx_current_native_viewport.width = w;
 	gfx_current_native_viewport.height = h;
+}
+
+s32 videoGetNativeWidth(void)
+{
+	return gfx_current_native_viewport.width;
+}
+
+s32 videoGetNativeHeight(void)
+{
+	return gfx_current_native_viewport.height;
 }
 
 s32 videoGetWidth(void)

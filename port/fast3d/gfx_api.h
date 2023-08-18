@@ -6,6 +6,9 @@
 #include <stdbool.h>
 #endif
 
+#include "gfx_rendering_api.h"
+#include "gfx_window_manager_api.h"
+
 struct XYWidthHeight {
     int16_t x, y;
     uint32_t width, height;

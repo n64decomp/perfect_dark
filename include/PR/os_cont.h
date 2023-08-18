@@ -127,6 +127,8 @@ typedef struct {
 #define CONT_DOWN   0x0400
 #define CONT_LEFT   0x0200
 #define CONT_RIGHT  0x0100
+#define CONT_EXTRA1 0x0080
+#define CONT_EXTRA0 0x0040
 #define CONT_L      0x0020
 #define CONT_R      0x0010
 #define CONT_E      0x0008
@@ -150,6 +152,8 @@ typedef struct {
 #define L_CBUTTONS	CONT_C
 #define R_CBUTTONS	CONT_F
 #define D_CBUTTONS	CONT_D
+#define X_BUTTON		CONT_EXTRA0
+#define Y_BUTTON		CONT_EXTRA1
 
 /* Controller error number */
 

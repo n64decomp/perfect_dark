@@ -12,7 +12,9 @@ void videoEndFrame(void);
 
 void *videoGetWindowHandle(void);
 
-void videoUpdateNativeResolution(const int w, const int h);
+void videoUpdateNativeResolution(s32 w, s32 h);
+s32 videoGetNativeWidth(void);
+s32 videoGetNativeHeight(void);
 
 s32 videoGetWidth(void);
 s32 videoGetHeight(void);

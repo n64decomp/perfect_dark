@@ -698,7 +698,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 #ifndef PLATFORM_N64
 	if ((PLAYERCOUNT() == 1) && inputMouseIsLocked()) {
-		inputMouseGetNormalizedDelta(&movedata.freelookdx, &movedata.freelookdy);
+		inputMouseGetScaledDelta(&movedata.freelookdx, &movedata.freelookdy);
 	}
 #endif
 

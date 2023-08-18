@@ -236,7 +236,7 @@ s32 __osMotorAccess(OSPfs *pfs, s32 cmd)
 		return PFS_ERR_NOPACK;
 	}
 
-	const f32 strength = (cmd == MOTOR_START) ? INPUT_RUMBLE_STRENGTH : 0.f;
+	const f32 strength = (f32)(cmd == MOTOR_START);
 	inputRumble(pfs->channel, strength, 5.f); // hope someone turns it off in those 5 seconds
 
 	return 0;
