@@ -34,6 +34,7 @@ struct configentry {
 	{ "Video.FramerateLimit",    CONFIG_S32, { .s32val = 0        } },
 	{ "Video.FovY",              CONFIG_F32, { .f32val = 60.f     } },
 	{ "Video.TextureFilter",     CONFIG_S32, { .s32val = 1        } },
+	{ "Video.MSAA",              CONFIG_S32, { .s32val = 0        } },
 	/* Audio */
 	{ "Audio.BufferSize",        CONFIG_S32, { .s32val = 512      } },
 	{ "Audio.QueueLimit",        CONFIG_S32, { .s32val = 8192     } },
