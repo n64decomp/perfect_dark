@@ -1209,8 +1209,13 @@ void bwalkUpdateTheta(void)
 	f32 rotateamount;
 	struct coord delta = {0, 0, 0};
 
+#ifdef PLATFORM_N64
 	// Turn speed is calculated from the chr's height
 	mult = 159.0f / g_Vars.currentplayer->vv_eyeheight;
+#else
+	// Same turn speed for all heights
+	mult = 1.f;
+#endif
 	rotateamount = g_Vars.currentplayer->speedtheta * mult
 		* g_Vars.lvupdate60freal * 0.0174505133f * 3.5f;
 
@@ -1362,11 +1367,13 @@ void bwalkApplyMoveData(struct movedata *data)
 
 void bwalkUpdateSpeedTheta(void)
 {
+#ifdef PLATFORM_N64
 	if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
 		g_Vars.currentplayer->speedtheta *= 0.5f;
 	} else if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
 		g_Vars.currentplayer->speedtheta *= 0.75f;
 	}
+#endif
 }
 
 void bwalk0f0c69b8(void)
