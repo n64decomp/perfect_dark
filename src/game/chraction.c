@@ -15014,12 +15014,21 @@ bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, RoomNum *rooms, f32 
 		}
 	}
 
+#ifdef PLATFORM_N64
 	// Try 60cm in 8 directions
 	for (i = 0; i < 8; i++) {
 		testpos.x = pos->x + sinf(curangle) * 60;
 		testpos.y = pos->y;
 		testpos.z = pos->z + cosf(curangle) * 60;
-
+#else
+	// On Defection some floating point precision issues result in P2 being placed in the way of P1's cutscene animation,
+	// which makes P1 start stuck in P2 in coop, so the distance is increased to 80 to avoid that
+	const f32 distance = (g_Vars.stagenum == STAGE_DEFECTION) ? 80.f : 60.f;
+	for (i = 0; i < 8; i++) {
+		testpos.x = pos->x + sinf(curangle) * distance;
+		testpos.y = pos->y;
+		testpos.z = pos->z + cosf(curangle) * distance;
+#endif
 		if ((onlysurrounding && cdTestCylMove04(pos, rooms, &testpos, testrooms, CDTYPE_ALL & ~CDTYPE_PLAYERS, 1, ymax, -200) != CDRESULT_COLLISION)
 				|| (!onlysurrounding && cdTestLos11(pos, rooms, &testpos, testrooms, CDTYPE_BG))) {
 			chr0f021fa8(NULL, &testpos, testrooms);
