@@ -10,6 +10,9 @@
 #define TRIG_THRESHOLD (30 * 256)
 #define DEFAULT_DEADZONE 4096
 
+#define WHEEL_UP_MASK SDL_BUTTON(VK_MOUSE_WHEEL_UP - VK_MOUSE_BEGIN + 1)
+#define WHEEL_DN_MASK SDL_BUTTON(VK_MOUSE_WHEEL_DN - VK_MOUSE_BEGIN + 1)
+
 static SDL_GameController *pads[INPUT_MAX_CONTROLLERS];
 static u32 binds[MAXCONTROLLERS][CK_TOTAL_COUNT][MAX_BINDS]; // [i][CK_][b] = [VK_]
 
@@ -20,6 +23,7 @@ static s32 mouseLocked = 0;
 static s32 mouseX, mouseY;
 static s32 mouseDX, mouseDY;
 static u32 mouseButtons;
+static s32 mouseWheel = 0;
 
 static f32 mouseSensX = 1.5f;
 static f32 mouseSensY = 1.5f;
@@ -87,6 +91,49 @@ void inputSetDefaultKeyBinds(void)
 	}
 }
 
+static int inputEventFilter(void *data, SDL_Event *event)
+{
+	switch (event->type) {
+		case SDL_CONTROLLERDEVICEADDED:
+			for (s32 i = 0; i < INPUT_MAX_CONTROLLERS; ++i) {
+				if (!pads[i]) {
+					pads[i] = SDL_GameControllerOpen(event->cdevice.which);
+					if (pads[i]) {
+						connectedMask |= (1 << i);
+					}
+					break;
+				}
+			}
+			break;
+
+		case SDL_CONTROLLERDEVICEREMOVED: {
+			SDL_GameController *ctrl = SDL_GameControllerFromInstanceID(event->cdevice.which);
+			if (ctrl) {
+				for (s32 i = 0; i < INPUT_MAX_CONTROLLERS; ++i) {
+					if (pads[i] == ctrl) {
+						SDL_GameControllerClose(pads[i]);
+						pads[i] = NULL;
+						if (i) {
+							connectedMask &= ~(1 << i);
+						}
+						break;
+					}
+				}
+			}
+			break;
+		}
+
+		case SDL_MOUSEWHEEL:
+			mouseWheel = event->wheel.y;
+			break;
+
+		default:
+			break;
+	}
+
+	return 0;
+}
+
 s32 inputInit(void)
 {
 	if (!SDL_WasInit(SDL_INIT_GAMECONTROLLER)) {
@@ -109,6 +156,9 @@ s32 inputInit(void)
 			}
 		}
 	}
+
+	// since the main event loop is elsewhere, we can receive some events we need using a watcher
+	SDL_AddEventWatch(inputEventFilter, NULL);
 
 	inputSetDefaultKeyBinds();
 
@@ -199,6 +249,14 @@ static inline void inputUpdateMouse(void)
 	s32 mx, my;
 	mouseButtons = SDL_GetMouseState(&mx, &my);
 
+	if (mouseWheel > 0) {
+		mouseButtons |= WHEEL_UP_MASK;
+	} else if (mouseWheel < 0) {
+		mouseButtons |= WHEEL_DN_MASK;
+	}
+
+	mouseWheel = 0;
+
 	if (mouseLocked) {
 		SDL_GetRelativeMouseState(&mouseDX, &mouseDY);
 	} else {
@@ -223,21 +281,6 @@ void inputUpdate(void)
 	if (mouseEnabled) {
 		inputUpdateMouse();
 	}
-
-	for (s32 i = 0; i < INPUT_MAX_CONTROLLERS; ++i) {
-		if (pads[i] && !SDL_GameControllerGetAttached(pads[i])) {
-			// this controller has been disconnected, nuke it
-			SDL_GameControllerSetPlayerIndex(pads[i], -1);
-			SDL_GameControllerClose(pads[i]);
-			pads[i] = NULL;
-			// don't clear the first controller
-			if (i) {
-				connectedMask &= ~(1 << i);
-			}
-		}
-	}
-
-	// TODO: handle freshly connected controllers
 }
 
 s32 inputControllerConnected(s32 idx)
