@@ -12,7 +12,7 @@ struct GfxClipParameters {
     bool invert_y;
 };
 
-enum FilteringMode { FILTER_THREE_POINT, FILTER_LINEAR, FILTER_NONE };
+enum FilteringMode { FILTER_NONE, FILTER_LINEAR, FILTER_THREE_POINT };
 
 struct GfxRenderingAPI {
     const char* (*get_name)(void);

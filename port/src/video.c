@@ -41,6 +41,10 @@ s32 videoInit(void)
 	wmAPI->set_swap_interval(configGetInt("Video.VSync", 1));
 	wmAPI->set_target_fps(configGetInt("Video.FramerateLimit", 0)); // disabled because vsync is on
 
+	u32 filter = configGetInt("Video.TextureFilter", FILTER_LINEAR);
+	if (filter > FILTER_THREE_POINT) filter = FILTER_THREE_POINT;
+	renderingAPI->set_texture_filter((enum FilteringMode)filter);
+
 	initDone = true;
 	return 0;
 }
