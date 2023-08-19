@@ -1827,7 +1827,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 						modelAllocateRwData(thing->headmodeldef);
 					}
 
-					modelInit(&thing->bodymodel, thing->bodymodeldef, &thing->unk110, true);
+					modelInit(&thing->bodymodel, thing->bodymodeldef, thing->unk110, true);
 					animInit(&thing->bodyanim);
 
 					thing->bodymodel.rwdatalen = 256;
@@ -1846,7 +1846,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 					fileGetLoadedSize(thing->unk00c);
 					modelAllocateRwData(thing->bodymodeldef);
-					modelInit(&thing->bodymodel, thing->bodymodeldef, &thing->unk110, true);
+					modelInit(&thing->bodymodel, thing->bodymodeldef, thing->unk110, true);
 					animInit(&thing->bodyanim);
 
 					thing->bodymodel.rwdatalen = 256;
@@ -2249,7 +2249,6 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 		renderdata.unk00 = &thing->unk014;
 		renderdata.unk10 = thing->bodymodel.matrices;
-
 		modelSetMatricesWithAnim(&renderdata, &thing->bodymodel);
 
 		if (thing->bodymodeldef->skel == &g_SkelHudPiece) {
@@ -2330,6 +2329,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		renderdata.gdl = gdl;
 		renderdata.zbufferenabled = true;
 		modelRender(&renderdata, &thing->bodymodel);
+
 		gdl = renderdata.gdl;
 
 		mtx00016760();

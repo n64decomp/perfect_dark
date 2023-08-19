@@ -818,7 +818,11 @@ glabel modelasm00018680
 	beqz   $a1, .L000194a0
 	lw     $t0, 0x4($gp)
 	lhu    $t2, 0x0($a2)
+#ifdef AVOID_UB
+	beqz   $t2, .L0001946c
+#else
 	beqz   $a2, .L0001946c
+#endif
 	lhu    $t1, 0x0($t0)
 	mtc1   $zero, $f29
 	lwc1   $f30, 0x7e0($sp)

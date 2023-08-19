@@ -463,7 +463,9 @@ else ifeq ($(COMPILER), gcc)
 
     $(C_O_FILES): OPT_LVL := $(GCC_OPT_LVL)
 
-    CFLAGS := $(C_DEFINES) -DAVOID_UB=1 $(INCLUDES) \
+    C_DEFINES += -DAVOID_UB
+
+    CFLAGS := $(C_DEFINES) $(INCLUDES) \
         -EB \
         -march=vr4300 \
         -mabi=32 \
