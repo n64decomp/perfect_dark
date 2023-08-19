@@ -453,7 +453,12 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 			if (model) {
 				t1 = node->rodata->chrinfo.animpart;
 
-				if (anim) {
+#ifdef AVOID_UB
+				if (anim->animnum)
+#else
+				if (anim)
+#endif
+				{
 					if (f30 != 0.0f) {
 						if (anim->flip) {
 							t2ptr8 = skeleton->things[t1];
