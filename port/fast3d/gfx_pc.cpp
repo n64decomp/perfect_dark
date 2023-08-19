@@ -32,7 +32,6 @@
 #include "gfx_screen_config.h"
 
 uintptr_t gfxFramebuffer;
-std::stack<std::string> currentDir;
 
 using namespace std;
 
@@ -1769,13 +1768,11 @@ static void gfx_dp_set_scissor(uint32_t mode, uint32_t ulx, uint32_t uly, uint32
     rdp.viewport_or_scissor_changed = true;
 }
 
-static void gfx_dp_set_texture_image(uint32_t format, uint32_t size, uint32_t width, const char* texPath,
-                                     uint32_t texFlags, RawTexMetadata rawTexMetdata, const void* addr) {
+static void gfx_dp_set_texture_image(uint32_t format, uint32_t size, uint32_t width, uint32_t tex_flags, const void* addr) {
     rdp.texture_to_load.addr = (const uint8_t*)addr;
     rdp.texture_to_load.siz = size;
     rdp.texture_to_load.width = width;
-    rdp.texture_to_load.tex_flags = texFlags;
-    rdp.texture_to_load.raw_tex_metadata = rawTexMetdata;
+    rdp.texture_to_load.tex_flags = tex_flags;
 }
 
 static void gfx_dp_set_tile(uint8_t fmt, uint32_t siz, uint32_t line, uint32_t tmem, uint8_t tile, uint32_t palette,
@@ -2385,16 +2382,12 @@ static void gfx_run_dl(Gfx* cmd) {
 #endif
                 break;
             case G_COL:
-                gfx_sp_set_vertex_colors(C0(0, 16) / 4, (struct NormalColor *)seg_addr(cmd->words.w1));
+                gfx_sp_set_vertex_colors(C0(0, 16) / 4, (NormalColor *)seg_addr(cmd->words.w1));
                 break;
 
             // RDP Commands:
             case G_SETTIMG: {
-                uintptr_t i = (uintptr_t)seg_addr(cmd->words.w1);
-                char* imgData = (char*)i;
-                uint32_t texFlags = 0;
-                RawTexMetadata rawTexMetdata = {};
-                gfx_dp_set_texture_image(C0(21, 3), C0(19, 2), C0(0, 10), imgData, texFlags, rawTexMetdata, (void*)i);
+                gfx_dp_set_texture_image(C0(21, 3), C0(19, 2), C0(0, 10), 0, seg_addr(cmd->words.w1));
                 break;
             }
             case G_SETTIMG_FB_EXT:
@@ -2676,7 +2669,6 @@ extern "C" void gfx_run(Gfx* commands) {
     gfx_run_dl(commands);
     gfx_flush();
     gfxFramebuffer = 0;
-    currentDir = std::stack<std::string>();
 
     if (game_renders_to_framebuffer) {
         gfx_rapi->start_draw_to_framebuffer(0, 1);
