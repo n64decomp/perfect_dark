@@ -23,7 +23,7 @@ void amTick(void)
 		g_AmIndex = g_Vars.currentplayernum;
 
 		if (g_AmMenus[g_AmIndex].togglefunc) {
-			if (bgunConsiderToggleGunFunction(60, false, true) > 0) {
+			if (bgunConsiderToggleGunFunction(60, false, true, 0) > 0) {
 				g_AmMenus[g_AmIndex].togglefunc = false;
 			}
 		} else {

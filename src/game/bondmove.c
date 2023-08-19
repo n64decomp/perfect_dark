@@ -941,13 +941,13 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 								if (g_Vars.currentplayer->usedowntime >= -1) {
 									if (joyGetButtonsPressedOnSample(i, shootpad, shootallowedbuttons & Z_TRIG)
 											&& g_Vars.currentplayer->usedowntime > -1
-											&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, true, false) != USETIMER_CONTINUE) {
+											&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, true, false, 0) != USETIMER_CONTINUE) {
 										g_Vars.currentplayer->usedowntime = -3;
 									}
 
 									if (g_Vars.currentplayer->usedowntime > -1) {
 										if (g_Vars.currentplayer->usedowntime > TICKS(25)) {
-											result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false);
+											result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false, 0);
 
 											if (result == USETIMER_STOP) {
 												g_Vars.currentplayer->usedowntime = -1;
@@ -961,7 +961,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 										}
 									}
 								} else if (g_Vars.currentplayer->usedowntime >= -2) {
-									bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false);
+									bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false, 0);
 								}
 							} else {
 								// Released B - activate or reload
@@ -1313,13 +1313,13 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 								if (g_Vars.currentplayer->usedowntime >= -1) {
 									if (joyGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)
 											&& g_Vars.currentplayer->usedowntime >= 0
-											&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, true, false) != USETIMER_CONTINUE) {
+											&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, true, false, 0) != USETIMER_CONTINUE) {
 										g_Vars.currentplayer->usedowntime = -3;
 									}
 
 									if (g_Vars.currentplayer->usedowntime >= 0) {
 										if (g_Vars.currentplayer->usedowntime > TICKS(25)) {
-											s32 result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false);
+											s32 result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false, 0);
 
 											if (result == USETIMER_STOP) {
 												g_Vars.currentplayer->usedowntime = -1;
@@ -1334,7 +1334,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 									}
 								} else {
 									if (g_Vars.currentplayer->usedowntime >= -2) {
-										bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false);
+										bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, false, false, 0);
 									}
 								}
 							} else {
@@ -1356,7 +1356,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 							if (g_Vars.currentplayer->altdowntime >= -1) {
 								if (joyGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)
 										&& g_Vars.currentplayer->altdowntime >= 0
-										&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->altdowntime, true, false) != USETIMER_CONTINUE) {
+										&& bgunConsiderToggleGunFunction(g_Vars.currentplayer->altdowntime, true, false, true) != USETIMER_CONTINUE) {
 									g_Vars.currentplayer->altdowntime = -3;
 								}
 
@@ -1367,14 +1367,14 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 								}
 							} else  {
 								if (g_Vars.currentplayer->altdowntime == -2) {
-									bgunConsiderToggleGunFunction(g_Vars.currentplayer->altdowntime, false, false);
+									bgunConsiderToggleGunFunction(g_Vars.currentplayer->altdowntime, false, false, true);
 									g_Vars.currentplayer->altdowntime = -4;
 								}
 							}
 						} else {
 							// Released L
 							if (g_Vars.currentplayer->altdowntime != 0) {
-								s32 result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->altdowntime, (g_Vars.currentplayer->altdowntime == -3 ? true: false), false);
+								s32 result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->altdowntime, (g_Vars.currentplayer->altdowntime == -3 ? true: false), false, true);
 
 								if (result == USETIMER_STOP) {
 									g_Vars.currentplayer->altdowntime = -1;
