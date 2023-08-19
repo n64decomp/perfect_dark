@@ -185,7 +185,11 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	*(u16 *)&vertices[3].y = arg3 + SCREEN_240 * 10u + 50;
 	vertices[3].z = -10;
 #elif PAL || !defined(PLATFORM_N64)
+#ifdef PLATFORM_N64
 	width = viGetWidth() * 10;
+#else
+	width = SCREEN_320 * 10;
+#endif
 	height = viGetHeight() * 10;
 
 	*(u16 *)&vertices[0].x = arg2;
