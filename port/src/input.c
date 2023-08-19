@@ -9,6 +9,7 @@
 #define MAX_BINDS 4
 #define TRIG_THRESHOLD (30 * 256)
 #define DEFAULT_DEADZONE 4096
+#define DEFAULT_DEADZONE_RY 6144
 
 #define WHEEL_UP_MASK SDL_BUTTON(VK_MOUSE_WHEEL_UP - VK_MOUSE_BEGIN + 1)
 #define WHEEL_DN_MASK SDL_BUTTON(VK_MOUSE_WHEEL_DN - VK_MOUSE_BEGIN + 1)
@@ -36,7 +37,16 @@ static u32 axisMap[2][2] = {
 	{ SDL_CONTROLLER_AXIS_RIGHTX, SDL_CONTROLLER_AXIS_RIGHTY },
 };
 
-static u32 deadzone[2] = { DEFAULT_DEADZONE, DEFAULT_DEADZONE };
+static f32 stickSens[42] = {
+	// index == SDL_CONTROLLER_AXIS_*
+	1.f, 1.f, 1.f, 1.f
+};
+
+static s32 deadzone[4] = {
+	// index == SDL_CONTROLLER_AXIS_*
+	DEFAULT_DEADZONE, DEFAULT_DEADZONE,
+	DEFAULT_DEADZONE, DEFAULT_DEADZONE_RY,
+};
 
 void inputSetDefaultKeyBinds(void)
 {
@@ -170,8 +180,15 @@ s32 inputInit(void)
 
 	rumbleScale = configGetFloat("Input.RumbleScale", 0.333f);
 
-	deadzone[0] = configGetInt("Input.LStickDeadzone", DEFAULT_DEADZONE);
-	deadzone[1] = configGetInt("Input.RStickDeadzone", DEFAULT_DEADZONE);
+	deadzone[0] = configGetInt("Input.LStickDeadzoneX", DEFAULT_DEADZONE);
+	deadzone[1] = configGetInt("Input.LStickDeadzoneY", DEFAULT_DEADZONE);
+	deadzone[2] = configGetInt("Input.RStickDeadzoneX", DEFAULT_DEADZONE);
+	deadzone[3] = configGetInt("Input.RStickDeadzoneY", DEFAULT_DEADZONE_RY);
+
+	stickSens[0] = configGetFloat("Input.LStickScaleX", 1.f);
+	stickSens[1] = configGetFloat("Input.LStickScaleY", 1.f);
+	stickSens[2] = configGetFloat("Input.RStickScaleX", 1.f);
+	stickSens[3] = configGetFloat("Input.RStickScaleY", 1.f);
 
 	if (configGetInt("Input.SwapSticks", 1)) {
 		// invert axis map
@@ -203,6 +220,24 @@ static inline s32 inputBindPressed(const s32 idx, const u32 ck)
 	return 0;
 }
 
+static inline s32 inputAxisScale(s32 x, const s32 deadzone, const f32 scale)
+{
+	if (abs(x) < deadzone) {
+		return 0;
+	} else {
+		// rescale to fit the non-deadzone range
+		if (x < 0) {
+			x += deadzone;
+		} else {
+			x -= deadzone;
+		}
+		x = x * 32768 / (32768 - deadzone);
+		// scale with sensitivity
+		x *= scale;
+		return (x > 32767) ? 32767 : ((x < -32768) ? -32768 : x);
+	}
+}
+
 s32 inputReadController(s32 idx, OSContPad *npad)
 {
 	if (idx < 0 || idx >= INPUT_MAX_CONTROLLERS  || !npad) {
@@ -226,26 +261,28 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 		return 0;
 	}
 
-	const s16 leftX = SDL_GameControllerGetAxis(pads[idx], axisMap[0][0]);
-	const s16 leftY = SDL_GameControllerGetAxis(pads[idx], axisMap[0][1]);
-	const s16 rightX = SDL_GameControllerGetAxis(pads[idx], axisMap[1][0]);
-	const s16 rightY = SDL_GameControllerGetAxis(pads[idx], axisMap[1][1]);
+	s32 leftX = SDL_GameControllerGetAxis(pads[idx], axisMap[0][0]);
+	s32 leftY = SDL_GameControllerGetAxis(pads[idx], axisMap[0][1]);
+	s32 rightX = SDL_GameControllerGetAxis(pads[idx], axisMap[1][0]);
+	s32 rightY = SDL_GameControllerGetAxis(pads[idx], axisMap[1][1]);
+
+	leftX = inputAxisScale(leftX, deadzone[axisMap[0][0]], stickSens[axisMap[0][0]]);
+	leftY = inputAxisScale(leftY, deadzone[axisMap[0][1]], stickSens[axisMap[0][1]]);
+	rightX = inputAxisScale(rightX, deadzone[axisMap[1][0]], stickSens[axisMap[1][0]]);
+	rightY = inputAxisScale(rightY, deadzone[axisMap[1][1]], stickSens[axisMap[1][1]]);
 
 	if (rightX < -0x4000) npad->button |= L_CBUTTONS;
 	if (rightX > +0x4000) npad->button |= R_CBUTTONS;
 	if (rightY < -0x4000) npad->button |= U_CBUTTONS;
 	if (rightY > +0x4000) npad->button |= D_CBUTTONS;
 
-	const s32 leftMag = leftX * leftX + leftY * leftY;
-	const s32 deadzoneMag = deadzone[0] * deadzone[0] + deadzone[0] * deadzone[0];
-	if (leftMag > deadzoneMag) {
-		const s32 stickY = -leftY / 0x100;
-		if (!npad->stick_x) {
-			npad->stick_x = leftX / 0x100;
-		}
-		if (!npad->stick_y) {
-			npad->stick_y = (stickY == 128) ? 127 : stickY;
-		}
+	if (!npad->stick_x && leftX) {
+		npad->stick_x = leftX / 0x100;
+	}
+
+	const s32 stickY = -leftY / 0x100;
+	if (!npad->stick_y && stickY) {
+		npad->stick_y = (stickY == 128) ? 127 : stickY;
 	}
 
 	return 0;
