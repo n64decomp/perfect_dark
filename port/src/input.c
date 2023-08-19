@@ -137,16 +137,18 @@ static int inputEventFilter(void *data, SDL_Event *event)
 s32 inputInit(void)
 {
 	if (!SDL_WasInit(SDL_INIT_GAMECONTROLLER)) {
-		if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) != 0) {
-			return -1;
-		}
+		SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
 	}
 
 	const s32 numJoys = SDL_NumJoysticks();
 
 	s32 ret = 1; // always report first controller as connected
 
-	for (s32 jidx = 0, cidx = 0; jidx < numJoys && cidx < INPUT_MAX_CONTROLLERS; ++jidx) {
+	// if this is set to 1, keyboard will count as a separate controller on its own,
+	// so the first connected gamepad will go to player 2 instead of player 1
+	const s32 cstart = configGetInt("Input.FirstGamepadNum", 0);
+
+	for (s32 jidx = 0, cidx = cstart; jidx < numJoys && cidx < INPUT_MAX_CONTROLLERS; ++jidx) {
 		if (SDL_IsGameController(jidx)) {
 			pads[cidx] = SDL_GameControllerOpen(jidx);
 			if (pads[cidx]) {
@@ -177,6 +179,11 @@ s32 inputInit(void)
 		axisMap[0][1] = SDL_CONTROLLER_AXIS_RIGHTY;
 		axisMap[1][0] = SDL_CONTROLLER_AXIS_LEFTX;
 		axisMap[1][1] = SDL_CONTROLLER_AXIS_LEFTY;
+	}
+
+	const s32 overrideMask = (1 << configGetInt("Input.FakeGamepads", 0)) - 1;
+	if (overrideMask) {
+		ret = overrideMask;
 	}
 
 	connectedMask = ret;
@@ -288,7 +295,7 @@ s32 inputControllerConnected(s32 idx)
 	if (idx < 0 || idx >= INPUT_MAX_CONTROLLERS) {
 		return 0;
 	}
-	return !idx || !!pads[idx]; // always report first controller as connected
+	return pads[idx] || (connectedMask & (1 << idx));
 }
 
 s32 inputRumbleSupported(s32 idx)
