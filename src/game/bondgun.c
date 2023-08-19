@@ -4149,10 +4149,10 @@ void bgunTickMasterLoad(void)
 						for (i = 0; i < 2; i++) {
 							hand = &player->hands[i];
 
-							modelInit(&hand->gunmodel, player->gunctrl.gunmodeldef, (union modelrwdata **)hand->unk0a6c, 0);
+							modelInit(&hand->gunmodel, player->gunctrl.gunmodeldef, hand->unk0a6c, 0);
 
 							if (player->gunctrl.handmodeldef != 0) {
-								modelInit(&hand->handmodel, player->gunctrl.handmodeldef, (union modelrwdata **)hand->handsavedata, false);
+								modelInit(&hand->handmodel, player->gunctrl.handmodeldef, hand->handsavedata, false);
 							}
 
 							hand->unk0dcc = (s32 *) player->gunctrl.memloadptr;

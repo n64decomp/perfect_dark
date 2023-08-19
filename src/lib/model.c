@@ -383,7 +383,7 @@ f32 modelGetScreenDistance(struct model *model)
 void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 {
 	u32 index = 0;
-	union modelrwdata **rwdatas = model->rwdatas;
+	u32 *rwdatas = model->rwdatas;
 
 	switch (node->type & 0xff) {
 	case MODELNODETYPE_CHRINFO:
@@ -4181,7 +4181,7 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 	}
 }
 
-void modelInit(struct model *model, struct modeldef *modeldef, union modelrwdata **rwdatas, bool resetanim)
+void modelInit(struct model *model, struct modeldef *modeldef, u32 *rwdatas, bool resetanim)
 {
 	struct modelnode *node;
 

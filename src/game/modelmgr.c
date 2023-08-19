@@ -105,7 +105,7 @@ void modelmgrPrintCounts(void)
 struct model *modelmgrInstantiateModel(struct modeldef *modeldef, bool withanim)
 {
 	struct model *model = NULL;
-	union modelrwdata **rwdatas = NULL;
+	u32 *rwdatas = NULL;
 	s16 datalen = -1;
 	s32 i;
 

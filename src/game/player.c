@@ -1324,7 +1324,7 @@ void playerTickChrBody(void)
 		s32 headnum = HEAD_DARK_COMBAT;
 		bool sp60 = false;
 		struct model *model = NULL;
-		union modelrwdata **rwdatas;
+		u32 *rwdatas;
 		u32 stack3[2];
 
 		g_Vars.currentplayer->haschrbody = true;
@@ -1372,7 +1372,7 @@ void playerTickChrBody(void)
 			offset1 += sizeof(struct anim);
 			offset1 = ALIGN64(offset1);
 
-			rwdatas = (union modelrwdata **)(allocation + offset1);
+			rwdatas = (u32 *)(allocation + offset1);
 			osSyncPrintf("Gunmem: savedata 0x%08x\n", (uintptr_t)rwdatas);
 			offset1 += 0x400;
 			offset1 = ALIGN64(offset1);

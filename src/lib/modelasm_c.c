@@ -1166,7 +1166,7 @@ u8 var8005ef90[] = {
 static union modelrwdata *modelasmGetNodeRwData(struct model *model, struct modelnode *node, bool is_head)
 {
 	u32 index = 0;
-	union modelrwdata **rwdatas = model->rwdatas;
+	u32 *rwdatas = model->rwdatas;
 	u8 type = node->type & 0xff;
 
 	if (type < ARRAYCOUNT(var8005ef90)) {
@@ -1194,7 +1194,7 @@ static union modelrwdata *modelasmGetNodeRwData(struct model *model, struct mode
 void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 {
 	u32 index = 0;
-	union modelrwdata **rwdatas = model->rwdatas;
+	u32 *rwdatas = model->rwdatas;
 	u8 type = node->type & 0xff;
 
 	if (type < ARRAYCOUNT(var8005ef90)) {

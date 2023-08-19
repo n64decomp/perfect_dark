@@ -101,7 +101,7 @@ void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 arg1, uintptr_
 s32 modelCalculateRwDataIndexes(struct modelnode *node);
 void modelAllocateRwData(struct modeldef *modeldef);
 void modelInitRwData(struct model *model, struct modelnode *node);
-void modelInit(struct model *model, struct modeldef *modeldef, union modelrwdata **rwdatas, bool resetanim);
+void modelInit(struct model *model, struct modeldef *modeldef, u32 *rwdatas, bool resetanim);
 void animInit(struct anim *anim);
 void modelAttachHead(struct model *model, struct modeldef *arg1, struct modelnode *node, struct modeldef *arg3);
 void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **nodeptr, Gfx **gdlptr);
