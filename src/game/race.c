@@ -125,5 +125,5 @@ void raceInitAnims(void)
 	}
 
 	raceInitAnimGroup(g_RollAttackAnims);
-	raceInitAnimGroup(&g_AttackAnimHeavyWalk);
+	raceInitAnimGroup(g_WalkAttackAnims);
 }
