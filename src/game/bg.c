@@ -45,6 +45,7 @@
 #include "types.h"
 #ifndef PLATFORM_N64
 #include "preprocess.h"
+#include "system.h"
 #endif
 
 #define BGCMD_END                               0x00
@@ -2789,12 +2790,23 @@ void bgLoadRoom(s32 roomnum)
 			alloclen += 1024;
 		}
 	} else {
+#ifdef PLATFORM_N64
 		alloclen = memaGetLongestFree();
+#else
+		// probably never reaches here in practice as all rooms have gfxdatalen
+		// alloc 10k and hope for the best
+		alloclen = 10240;
+#endif
 	}
 
+#ifdef PLATFORM_N64
 	bgGarbageCollectRooms(alloclen, false);
 
 	allocation = memaAlloc(alloclen);
+#else
+	// allocate room data from heap to not take up mema space
+	allocation = sysMemAlloc(alloclen);
+#endif
 
 	if (allocation != NULL) {
 		dyntexSetCurrentRoom(roomnum);
@@ -2943,9 +2955,11 @@ void bgLoadRoom(s32 roomnum)
 
 		g_Rooms[roomnum].loaded240 = 1;
 
+#ifdef PLATFORM_N64
 		if (g_Rooms[roomnum].gfxdatalen != alloclen) {
 			memaRealloc((intptr_t) allocation, alloclen, g_Rooms[roomnum].gfxdatalen);
 		}
+#endif
 
 		// Update gdl pointers in the gfxdata so they point to the ones
 		// that have been processed by textLoadFromGdl.
@@ -3030,14 +3044,22 @@ void bgUnloadRoom(s32 roomnum)
 	u32 size;
 
 	if (g_Rooms[roomnum].vtxbatches) {
+#ifdef PLATFORM_N64
 		size = ((g_Rooms[roomnum].numvtxbatches) * sizeof(struct vtxbatch) + 0xf) & ~0xf;
 		memaFree(g_Rooms[roomnum].vtxbatches, size);
+#else
+		sysMemFree(g_Rooms[roomnum].vtxbatches);
+#endif
 		g_Rooms[roomnum].vtxbatches = NULL;
 	}
 
 	if (g_Rooms[roomnum].gfxdatalen > 0) {
+#ifdef PLATFORM_N64
 		size = g_Rooms[roomnum].gfxdatalen;
 		memaFree(g_Rooms[roomnum].gfxdata, size);
+#else
+		sysMemFree(g_Rooms[roomnum].gfxdata);
+#endif
 		g_Rooms[roomnum].gfxdata = NULL;
 	}
 
@@ -3067,6 +3089,7 @@ void bgUnloadAllRooms(void)
  */
 void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
 {
+#ifdef PLATFORM_N64 // don't need this on PC as rooms are allocated from heap
 	s32 bytesfree = memaGetLongestFree();
 	s32 oldestroom;
 	s32 oldesttimer;
@@ -3114,6 +3137,7 @@ void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
 			break;
 		}
 	}
+#endif
 }
 
 /**
@@ -3404,7 +3428,11 @@ void bgFindRoomVtxBatches(s32 roomnum)
 
 			batchindex += xlucount;
 
+#ifdef PLATFORM_N64
 			batches = memaAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf);
+#else
+			batches = sysMemAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf);
+#endif
 
 			if (batches != NULL) {
 				gdl = bgGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_OPA);
