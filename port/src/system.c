@@ -65,3 +65,18 @@ void sysGetExecutablePath(char *outPath, const u32 outLen)
 	}
 	SDL_free(sdlPath);
 }
+
+void *sysMemAlloc(const u32 size)
+{
+	return malloc(size);
+}
+
+void *sysMemZeroAlloc(const u32 size)
+{
+	return calloc(1, size);
+}
+
+void sysMemFree(void *ptr)
+{
+	free(ptr);
+}
