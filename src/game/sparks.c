@@ -425,6 +425,9 @@ Gfx *sparksRender(Gfx *gdl)
 
 					sp120 *= 0.2f;
 					sp120 *= viGetFovY() / 60.0f;
+#ifndef PLATFORM_N64 // adjust scale for port
+					sp120 *= (float)(SCREEN_WIDTH_LO * SCREEN_HEIGHT_LO) / (float)(SCREEN_WIDTH_HI * SCREEN_HEIGHT_HI);
+#endif
 
 					mtx4LoadIdentity(&spd4);
 
