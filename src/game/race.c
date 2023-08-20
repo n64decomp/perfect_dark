@@ -59,33 +59,6 @@ s32 raceInitAnimGroup(struct attackanimconfig *configs)
 	return count;
 }
 
-#ifdef AVOID_UB
-// TODO: make raceInitAnimGroup call this or something
-s32 raceInitAnimConfigSingle(struct attackanimconfig *config)
-{
-	s32 count = 0;
-
-
-	if (config->animnum != 0) {
-		u16 angle = raceGetAnimSumAngleAsInt(config->animnum, 0, floortoint(config->unk04));
-
-		if (config->unk04 > 0) {
-			if (angle < 0x8000) {
-				config->unk08 = angle * 0.00009585853695171f / config->unk04;
-			} else {
-				config->unk08 = (angle * 0.00009585853695171f - M_BADTAU) / config->unk04;
-			}
-		} else {
-			config->unk08 = 0;
-		}
-
-		count++;
-	}
-
-	return count;
-}
-#endif
-
 void raceInitAnimGroups(struct attackanimgroup **groups)
 {
 	s32 i;
@@ -152,13 +125,5 @@ void raceInitAnims(void)
 	}
 
 	raceInitAnimGroup(g_RollAttackAnims);
-
-#ifdef AVOID_UB
-	// don't depend on globalvar order
-	for (s32 i = 0; g_AttackAnimArray[i]; ++i) {
-		raceInitAnimConfigSingle(g_AttackAnimArray[i]);
-	}
-#else
-	raceInitAnimGroup(&g_AttackAnimHeavyWalk);
-#endif
+	raceInitAnimGroup(g_WalkAttackAnims);
 }

@@ -97,6 +97,14 @@
 #include "lib/vi.h"
 #include "types.h"
 
+#ifdef PLATFORM_N64
+// game runs at ~30, so slomo = 1/2 of 30fps
+#define LV_SLOMO_TICK_CAP TICKS(4)
+#else
+// game runs at 60+, so slomo = 1/2 of 60fps
+#define LV_SLOMO_TICK_CAP TICKS(2)
+#endif
+
 struct sndstate *g_MiscSfxAudioHandles[3];
 u32 var800aa5bc;
 s32 g_MiscSfxActiveTypes[3];
@@ -2056,8 +2064,8 @@ void lvTick(void)
 
 		if (slowmo == SLOWMOTION_ON) {
 			if (g_Vars.speedpillon == false || g_Vars.in_cutscene) {
-				if (g_Vars.lvupdate240 > 4) {
-					g_Vars.lvupdate240 = 4;
+				if (g_Vars.lvupdate240 > LV_SLOMO_TICK_CAP) {
+					g_Vars.lvupdate240 = LV_SLOMO_TICK_CAP;
 				}
 			}
 		} else if (slowmo == SLOWMOTION_SMART) {
@@ -2087,25 +2095,25 @@ void lvTick(void)
 					}
 
 					if (foundnearbychr) {
-						if (g_Vars.lvupdate240 > 4) {
-							g_Vars.lvupdate240 = 4;
+						if (g_Vars.lvupdate240 > LV_SLOMO_TICK_CAP) {
+							g_Vars.lvupdate240 = LV_SLOMO_TICK_CAP;
 						}
 					} else {
-						if (g_Vars.lvupdate240 > 8) {
-							g_Vars.lvupdate240 = 8;
+						if (g_Vars.lvupdate240 > TICKS(8)) {
+							g_Vars.lvupdate240 = TICKS(8);
 						}
 					}
 				} else {
-					if (g_Vars.lvupdate240 > 4) {
-						g_Vars.lvupdate240 = 4;
+					if (g_Vars.lvupdate240 > LV_SLOMO_TICK_CAP) {
+						g_Vars.lvupdate240 = LV_SLOMO_TICK_CAP;
 					}
 				}
 			}
 		} else {
 			// Slow motion settings are off
 			if (g_Vars.speedpillon && g_Vars.in_cutscene == false) {
-				if (g_Vars.lvupdate240 > 4) {
-					g_Vars.lvupdate240 = 4;
+				if (g_Vars.lvupdate240 > LV_SLOMO_TICK_CAP) {
+					g_Vars.lvupdate240 = LV_SLOMO_TICK_CAP;
 				}
 			}
 		}

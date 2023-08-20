@@ -1790,7 +1790,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 #ifndef PLATFORM_N64
 				if (movedata.freelookdy) {
-					fVar25 += tmp * movedata.freelookdy;
+					fVar25 += movedata.freelookdy;
 				}
 #endif
 
@@ -1833,7 +1833,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 #ifndef PLATFORM_N64
 		if (movedata.freelookdx) {
-			fVar25 += tmp * movedata.freelookdx;
+			fVar25 += movedata.freelookdx;
 		}
 #endif
 

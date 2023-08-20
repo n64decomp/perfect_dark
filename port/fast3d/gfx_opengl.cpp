@@ -744,7 +744,7 @@ static uint32_t gfx_cm_to_opengl(uint32_t val) {
 }
 
 static void gfx_opengl_set_sampler_parameters(int tile, bool linear_filter, uint32_t cms, uint32_t cmt) {
-    const GLint filter = linear_filter && current_filter_mode == FILTER_LINEAR ? GL_LINEAR : GL_NEAREST;
+    const GLint filter = linear_filter && (current_filter_mode == FILTER_LINEAR) ? GL_LINEAR : GL_NEAREST;
     glActiveTexture(GL_TEXTURE0 + tile);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
@@ -972,11 +972,13 @@ void gfx_opengl_clear_framebuffer() {
 void gfx_opengl_resolve_msaa_color_buffer(int fb_id_target, int fb_id_source) {
     Framebuffer& fb_dst = framebuffers[fb_id_target];
     Framebuffer& fb_src = framebuffers[fb_id_source];
+    glDisable(GL_SCISSOR_TEST);
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fb_dst.fbo);
     glBindFramebuffer(GL_READ_FRAMEBUFFER, fb_src.fbo);
     glBlitFramebuffer(0, 0, fb_src.width, fb_src.height, 0, 0, fb_dst.width, fb_dst.height, GL_COLOR_BUFFER_BIT,
                       GL_NEAREST);
     glBindFramebuffer(GL_FRAMEBUFFER, current_framebuffer);
+    glEnable(GL_SCISSOR_TEST);
 }
 
 void* gfx_opengl_get_framebuffer_texture_id(int fb_id) {

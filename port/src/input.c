@@ -9,6 +9,10 @@
 #define MAX_BINDS 4
 #define TRIG_THRESHOLD (30 * 256)
 #define DEFAULT_DEADZONE 4096
+#define DEFAULT_DEADZONE_RY 6144
+
+#define WHEEL_UP_MASK SDL_BUTTON(VK_MOUSE_WHEEL_UP - VK_MOUSE_BEGIN + 1)
+#define WHEEL_DN_MASK SDL_BUTTON(VK_MOUSE_WHEEL_DN - VK_MOUSE_BEGIN + 1)
 
 static SDL_GameController *pads[INPUT_MAX_CONTROLLERS];
 static u32 binds[MAXCONTROLLERS][CK_TOTAL_COUNT][MAX_BINDS]; // [i][CK_][b] = [VK_]
@@ -20,6 +24,7 @@ static s32 mouseLocked = 0;
 static s32 mouseX, mouseY;
 static s32 mouseDX, mouseDY;
 static u32 mouseButtons;
+static s32 mouseWheel = 0;
 
 static f32 mouseSensX = 1.5f;
 static f32 mouseSensY = 1.5f;
@@ -32,7 +37,16 @@ static u32 axisMap[2][2] = {
 	{ SDL_CONTROLLER_AXIS_RIGHTX, SDL_CONTROLLER_AXIS_RIGHTY },
 };
 
-static u32 deadzone[2] = { DEFAULT_DEADZONE, DEFAULT_DEADZONE };
+static f32 stickSens[42] = {
+	// index == SDL_CONTROLLER_AXIS_*
+	1.f, 1.f, 1.f, 1.f
+};
+
+static s32 deadzone[4] = {
+	// index == SDL_CONTROLLER_AXIS_*
+	DEFAULT_DEADZONE, DEFAULT_DEADZONE,
+	DEFAULT_DEADZONE, DEFAULT_DEADZONE_RY,
+};
 
 void inputSetDefaultKeyBinds(void)
 {
@@ -91,19 +105,64 @@ void inputSetDefaultKeyBinds(void)
 	}
 }
 
+static int inputEventFilter(void *data, SDL_Event *event)
+{
+	switch (event->type) {
+		case SDL_CONTROLLERDEVICEADDED:
+			for (s32 i = 0; i < INPUT_MAX_CONTROLLERS; ++i) {
+				if (!pads[i]) {
+					pads[i] = SDL_GameControllerOpen(event->cdevice.which);
+					if (pads[i]) {
+						connectedMask |= (1 << i);
+					}
+					break;
+				}
+			}
+			break;
+
+		case SDL_CONTROLLERDEVICEREMOVED: {
+			SDL_GameController *ctrl = SDL_GameControllerFromInstanceID(event->cdevice.which);
+			if (ctrl) {
+				for (s32 i = 0; i < INPUT_MAX_CONTROLLERS; ++i) {
+					if (pads[i] == ctrl) {
+						SDL_GameControllerClose(pads[i]);
+						pads[i] = NULL;
+						if (i) {
+							connectedMask &= ~(1 << i);
+						}
+						break;
+					}
+				}
+			}
+			break;
+		}
+
+		case SDL_MOUSEWHEEL:
+			mouseWheel = event->wheel.y;
+			break;
+
+		default:
+			break;
+	}
+
+	return 0;
+}
+
 s32 inputInit(void)
 {
 	if (!SDL_WasInit(SDL_INIT_GAMECONTROLLER)) {
-		if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) != 0) {
-			return -1;
-		}
+		SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
 	}
 
 	const s32 numJoys = SDL_NumJoysticks();
 
 	s32 ret = 1; // always report first controller as connected
 
-	for (s32 jidx = 0, cidx = 0; jidx < numJoys && cidx < INPUT_MAX_CONTROLLERS; ++jidx) {
+	// if this is set to 1, keyboard will count as a separate controller on its own,
+	// so the first connected gamepad will go to player 2 instead of player 1
+	const s32 cstart = configGetInt("Input.FirstGamepadNum", 0);
+
+	for (s32 jidx = 0, cidx = cstart; jidx < numJoys && cidx < INPUT_MAX_CONTROLLERS; ++jidx) {
 		if (SDL_IsGameController(jidx)) {
 			pads[cidx] = SDL_GameControllerOpen(jidx);
 			if (pads[cidx]) {
@@ -114,6 +173,9 @@ s32 inputInit(void)
 		}
 	}
 
+	// since the main event loop is elsewhere, we can receive some events we need using a watcher
+	SDL_AddEventWatch(inputEventFilter, NULL);
+
 	inputSetDefaultKeyBinds();
 
 	mouseEnabled = configGetInt("Input.MouseEnabled", 1);
@@ -122,8 +184,15 @@ s32 inputInit(void)
 
 	rumbleScale = configGetFloat("Input.RumbleScale", 0.333f);
 
-	deadzone[0] = configGetInt("Input.LStickDeadzone", DEFAULT_DEADZONE);
-	deadzone[1] = configGetInt("Input.RStickDeadzone", DEFAULT_DEADZONE);
+	deadzone[0] = configGetInt("Input.LStickDeadzoneX", DEFAULT_DEADZONE);
+	deadzone[1] = configGetInt("Input.LStickDeadzoneY", DEFAULT_DEADZONE);
+	deadzone[2] = configGetInt("Input.RStickDeadzoneX", DEFAULT_DEADZONE);
+	deadzone[3] = configGetInt("Input.RStickDeadzoneY", DEFAULT_DEADZONE_RY);
+
+	stickSens[0] = configGetFloat("Input.LStickScaleX", 1.f);
+	stickSens[1] = configGetFloat("Input.LStickScaleY", 1.f);
+	stickSens[2] = configGetFloat("Input.RStickScaleX", 1.f);
+	stickSens[3] = configGetFloat("Input.RStickScaleY", 1.f);
 
 	if (configGetInt("Input.SwapSticks", 1)) {
 		// invert axis map
@@ -131,6 +200,11 @@ s32 inputInit(void)
 		axisMap[0][1] = SDL_CONTROLLER_AXIS_RIGHTY;
 		axisMap[1][0] = SDL_CONTROLLER_AXIS_LEFTX;
 		axisMap[1][1] = SDL_CONTROLLER_AXIS_LEFTY;
+	}
+
+	const s32 overrideMask = (1 << configGetInt("Input.FakeGamepads", 0)) - 1;
+	if (overrideMask) {
+		ret = overrideMask;
 	}
 
 	connectedMask = ret;
@@ -148,6 +222,24 @@ static inline s32 inputBindPressed(const s32 idx, const u32 ck)
 		}
 	}
 	return 0;
+}
+
+static inline s32 inputAxisScale(s32 x, const s32 deadzone, const f32 scale)
+{
+	if (abs(x) < deadzone) {
+		return 0;
+	} else {
+		// rescale to fit the non-deadzone range
+		if (x < 0) {
+			x += deadzone;
+		} else {
+			x -= deadzone;
+		}
+		x = x * 32768 / (32768 - deadzone);
+		// scale with sensitivity
+		x *= scale;
+		return (x > 32767) ? 32767 : ((x < -32768) ? -32768 : x);
+	}
 }
 
 s32 inputReadController(s32 idx, OSContPad *npad)
@@ -173,26 +265,28 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 		return 0;
 	}
 
-	const s16 leftX = SDL_GameControllerGetAxis(pads[idx], axisMap[0][0]);
-	const s16 leftY = SDL_GameControllerGetAxis(pads[idx], axisMap[0][1]);
-	const s16 rightX = SDL_GameControllerGetAxis(pads[idx], axisMap[1][0]);
-	const s16 rightY = SDL_GameControllerGetAxis(pads[idx], axisMap[1][1]);
+	s32 leftX = SDL_GameControllerGetAxis(pads[idx], axisMap[0][0]);
+	s32 leftY = SDL_GameControllerGetAxis(pads[idx], axisMap[0][1]);
+	s32 rightX = SDL_GameControllerGetAxis(pads[idx], axisMap[1][0]);
+	s32 rightY = SDL_GameControllerGetAxis(pads[idx], axisMap[1][1]);
+
+	leftX = inputAxisScale(leftX, deadzone[axisMap[0][0]], stickSens[axisMap[0][0]]);
+	leftY = inputAxisScale(leftY, deadzone[axisMap[0][1]], stickSens[axisMap[0][1]]);
+	rightX = inputAxisScale(rightX, deadzone[axisMap[1][0]], stickSens[axisMap[1][0]]);
+	rightY = inputAxisScale(rightY, deadzone[axisMap[1][1]], stickSens[axisMap[1][1]]);
 
 	if (rightX < -0x4000) npad->button |= L_CBUTTONS;
 	if (rightX > +0x4000) npad->button |= R_CBUTTONS;
 	if (rightY < -0x4000) npad->button |= U_CBUTTONS;
 	if (rightY > +0x4000) npad->button |= D_CBUTTONS;
 
-	const s32 leftMag = leftX * leftX + leftY * leftY;
-	const s32 deadzoneMag = deadzone[0] * deadzone[0] + deadzone[0] * deadzone[0];
-	if (leftMag > deadzoneMag) {
-		const s32 stickY = -leftY / 0x100;
-		if (!npad->stick_x) {
-			npad->stick_x = leftX / 0x100;
-		}
-		if (!npad->stick_y) {
-			npad->stick_y = (stickY == 128) ? 127 : stickY;
-		}
+	if (!npad->stick_x && leftX) {
+		npad->stick_x = leftX / 0x100;
+	}
+
+	const s32 stickY = -leftY / 0x100;
+	if (!npad->stick_y && stickY) {
+		npad->stick_y = (stickY == 128) ? 127 : stickY;
 	}
 
 	return 0;
@@ -202,6 +296,14 @@ static inline void inputUpdateMouse(void)
 {
 	s32 mx, my;
 	mouseButtons = SDL_GetMouseState(&mx, &my);
+
+	if (mouseWheel > 0) {
+		mouseButtons |= WHEEL_UP_MASK;
+	} else if (mouseWheel < 0) {
+		mouseButtons |= WHEEL_DN_MASK;
+	}
+
+	mouseWheel = 0;
 
 	if (mouseLocked) {
 		SDL_GetRelativeMouseState(&mouseDX, &mouseDY);
@@ -227,21 +329,6 @@ void inputUpdate(void)
 	if (mouseEnabled) {
 		inputUpdateMouse();
 	}
-
-	for (s32 i = 0; i < INPUT_MAX_CONTROLLERS; ++i) {
-		if (pads[i] && !SDL_GameControllerGetAttached(pads[i])) {
-			// this controller has been disconnected, nuke it
-			SDL_GameControllerSetPlayerIndex(pads[i], -1);
-			SDL_GameControllerClose(pads[i]);
-			pads[i] = NULL;
-			// don't clear the first controller
-			if (i) {
-				connectedMask &= ~(1 << i);
-			}
-		}
-	}
-
-	// TODO: handle freshly connected controllers
 }
 
 s32 inputControllerConnected(s32 idx)
@@ -249,7 +336,7 @@ s32 inputControllerConnected(s32 idx)
 	if (idx < 0 || idx >= INPUT_MAX_CONTROLLERS) {
 		return 0;
 	}
-	return !idx || !!pads[idx]; // always report first controller as connected
+	return pads[idx] || (connectedMask & (1 << idx));
 }
 
 s32 inputRumbleSupported(s32 idx)

@@ -2730,6 +2730,9 @@ s32 chrTick(struct prop *prop)
 			f32 prevfrac2;
 			s32 prevframe2a;
 
+#ifndef PLATFORM_N64 // always interpolate animation
+			anim = model->anim;
+#else
 			if (g_Vars.normmplayerisrunning) {
 				if (g_MpSetup.options & (MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART)) {
 					limit = 2000 * 2000;
@@ -2775,6 +2778,7 @@ s32 chrTick(struct prop *prop)
 					}
 				}
 			}
+#endif
 
 			modelSetMatricesWithAnim(&sp210, model);
 

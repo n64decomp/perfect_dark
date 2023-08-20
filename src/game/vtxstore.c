@@ -46,7 +46,7 @@ struct vtxstoretype g_VtxstoreTypes[] = {
  * Search all props and their model data for something, and replace it with
  * something else.
  */
-void vtxstoreFixRefs(union modelrwdata *find, union modelrwdata *replacement)
+void vtxstoreFixRefs(void *find, void *replacement)
 {
 	u32 stack;
 	struct prop *prop = g_Vars.activeprops;
@@ -64,8 +64,8 @@ void vtxstoreFixRefs(union modelrwdata *find, union modelrwdata *replacement)
 				case MODELNODETYPE_DL:
 					rodata = &node->rodata->dl;
 
-					if (model->rwdatas[rodata->rwdataindex] == find) {
-						model->rwdatas[rodata->rwdataindex] = replacement;
+					if (model->rwdatas[rodata->rwdataindex] == (u32) find) {
+						model->rwdatas[rodata->rwdataindex] = (u32) replacement;
 					}
 					break;
 				case MODELNODETYPE_DISTANCE:

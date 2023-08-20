@@ -33,7 +33,7 @@ s32 portalConvertCoordinates(s32 portalnum, s32 *start, struct portalthing2 *thi
 		right->coord.y += mtx->m[3][1];
 		right->coord.z += mtx->m[3][2];
 
-		if (right->coord.z <= 0.0f) {
+		if (right->coord.z < 0.0f) {
 			right->behind = false;
 		} else {
 			right->behind = true;
@@ -72,14 +72,14 @@ s32 portalConvertCoordinates(s32 portalnum, s32 *start, struct portalthing2 *thi
 				left++;
 				numfinalvertices++;
 
-				mult = -(right[0].coord.z / (right[1].coord.z - right[0].coord.z));
+				mult = -right[0].coord.z / (right[1].coord.z - right[0].coord.z);
 				left->coord.x = (right[1].coord.x - right[0].coord.x) * mult + right[0].coord.x;
 				left->coord.y = (right[1].coord.y - right[0].coord.y) * mult + right[0].coord.y;
 				left->coord.z = 0.0f;
 				left++;
 				numfinalvertices++;
-			} else {
-				mult = -(right[0].coord.z / (right[1].coord.z - right[0].coord.z));
+			} else if (value == 2) {
+				mult = -right[0].coord.z / (right[1].coord.z - right[0].coord.z);
 				left->coord.x = (right[1].coord.x - right[0].coord.x) * mult + right[0].coord.x;
 				left->coord.y = (right[1].coord.y - right[0].coord.y) * mult + right[0].coord.y;
 				left->coord.z = 0.0f;

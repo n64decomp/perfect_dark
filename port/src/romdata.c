@@ -149,7 +149,7 @@ static inline void romdataLoadRom(void)
 		sysFatalError("Data segment too small (%u), need at least %u.", dataSegLen, ROMDATA_FILES_OFS);
 	}
 
-	u8 *dataSeg = calloc(1, dataSegLen);
+	u8 *dataSeg = sysMemAlloc(dataSegLen);
 	if (!dataSeg) {
 		sysFatalError("Could not allocate %u bytes for data segment.", dataSegLen);
 	}

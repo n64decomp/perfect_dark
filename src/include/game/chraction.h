@@ -4,16 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-extern struct attackanimconfig var800656c0[];
-extern struct attackanimconfig var80065be0[];
-extern struct attackanimconfig var800663d8[];
-extern struct attackanimconfig g_AttackAnimHeavyWalk;
-extern struct attackanimconfig g_AttackAnimHeavyRun;
-extern struct attackanimconfig g_AttackAnimLightWalk;
-extern struct attackanimconfig g_AttackAnimLightRun;
-extern struct attackanimconfig g_AttackAnimDualWalk;
-extern struct attackanimconfig g_AttackAnimDualRun;
-
 f32 func0f02dff0(s16 animnum);
 bool chrGoPosIsWaiting(struct chrdata *chr);
 bool weaponIsOneHanded(struct prop *prop);

@@ -6,7 +6,7 @@
 
 void vtxstoreReset(void);
 
-void vtxstoreFixRefs(union modelrwdata *find, union modelrwdata *replacement);
+void vtxstoreFixRefs(void *find, void *replacement);
 void vtxstoreTick(void);
 void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level);
 void vtxstoreFree(s32 type, void *arg1);

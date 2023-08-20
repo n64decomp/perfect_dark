@@ -9,6 +9,7 @@ extern Vtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices);
 extern void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx);
 
 bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model);
+void modelSetDistanceChecksDisabled(bool disabled);
 void modelSetDistanceScale(f32 value);
 void modelSetVtxAllocatorFunc(Vtx *(*fn)(s32 numvertices));
 s32 modelFindNodeMtxIndex(struct modelnode *node, s32 arg1);
@@ -101,7 +102,7 @@ void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 arg1, uintptr_
 s32 modelCalculateRwDataIndexes(struct modelnode *node);
 void modelAllocateRwData(struct modeldef *modeldef);
 void modelInitRwData(struct model *model, struct modelnode *node);
-void modelInit(struct model *model, struct modeldef *modeldef, union modelrwdata **rwdatas, bool resetanim);
+void modelInit(struct model *model, struct modeldef *modeldef, u32 *rwdatas, bool resetanim);
 void animInit(struct anim *anim);
 void modelAttachHead(struct model *model, struct modeldef *arg1, struct modelnode *node, struct modeldef *arg3);
 void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **nodeptr, Gfx **gdlptr);

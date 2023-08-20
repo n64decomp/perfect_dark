@@ -36,10 +36,19 @@ s32 videoInit(void)
 	const s32 h = configGetInt("Video.DefaultHeight", 480);
 	const bool fs = configGetInt("Video.DefaultFullscreen", false);
 
+	gfx_msaa_level = configGetInt("Video.MSAA", 0);
+	if (gfx_msaa_level < 1 || gfx_msaa_level > 16) {
+		gfx_msaa_level = 1;
+	}
+
 	gfx_init(wmAPI, renderingAPI, "PD", fs, w, h, 100, 100);
 
 	wmAPI->set_swap_interval(configGetInt("Video.VSync", 1));
 	wmAPI->set_target_fps(configGetInt("Video.FramerateLimit", 0)); // disabled because vsync is on
+
+	u32 filter = configGetInt("Video.TextureFilter", FILTER_LINEAR);
+	if (filter > FILTER_THREE_POINT) filter = FILTER_THREE_POINT;
+	renderingAPI->set_texture_filter((enum FilteringMode)filter);
 
 	initDone = true;
 	return 0;

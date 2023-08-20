@@ -453,7 +453,12 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 			if (model) {
 				t1 = node->rodata->chrinfo.animpart;
 
-				if (anim) {
+#ifdef AVOID_UB
+				if (anim->animnum)
+#else
+				if (anim)
+#endif
+				{
 					if (f30 != 0.0f) {
 						if (anim->flip) {
 							t2ptr8 = skeleton->things[t1];
@@ -1166,7 +1171,7 @@ u8 var8005ef90[] = {
 static union modelrwdata *modelasmGetNodeRwData(struct model *model, struct modelnode *node, bool is_head)
 {
 	u32 index = 0;
-	union modelrwdata **rwdatas = model->rwdatas;
+	u32 *rwdatas = model->rwdatas;
 	u8 type = node->type & 0xff;
 
 	if (type < ARRAYCOUNT(var8005ef90)) {
@@ -1194,7 +1199,7 @@ static union modelrwdata *modelasmGetNodeRwData(struct model *model, struct mode
 void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 {
 	u32 index = 0;
-	union modelrwdata **rwdatas = model->rwdatas;
+	u32 *rwdatas = model->rwdatas;
 	u8 type = node->type & 0xff;
 
 	if (type < ARRAYCOUNT(var8005ef90)) {
@@ -1611,7 +1616,7 @@ f32 sinf(f32 radians)
 		if (t0 < 310) {
 			f14 = radians * 0.31830987334251f;
 
-			t1 = (s32) (f14 + 0.5f);
+			t1 = (s32) (f14 > 0.0f ? f14 + 0.5f : f14 - 0.5f);
 			f14 = t1;
 
 			f15 = M_PI;

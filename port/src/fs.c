@@ -78,7 +78,7 @@ void *fsFileLoad(const char *name, u32 *outSize)
 
 	void *buf = NULL;
 	if (size) {
-		buf = calloc(1, size + 1); // sick hack for a free null terminator
+		buf = sysMemZeroAlloc(size + 1); // sick hack for a free null terminator
 		if (!buf) {
 			fprintf(stderr, "fsFileLoad: could not alloc %d bytes for file: %s\n", size, fullName);
 			fclose(f);
