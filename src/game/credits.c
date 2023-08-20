@@ -684,7 +684,7 @@ void creditsTickParticles(void)
 		}
 	} else {
 #if VERSION >= VERSION_NTSC_1_0
-		if (RANDOMFRAC() < 0.007f && joyGetButtons(0, L_TRIG | R_TRIG) == 0) {
+		if (RANDOMFRAC() < 0.007f && joyGetButtons(0, R_TRIG) == 0) {
 			g_CreditsData->particlecolourindex1 = random() % 4;
 			g_CreditsData->particlecolourweight = 0;
 		}
@@ -697,7 +697,7 @@ void creditsTickParticles(void)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (RANDOMFRAC() < 0.002f && joyGetButtons(0, L_TRIG | R_TRIG) == 0) {
+	if (RANDOMFRAC() < 0.002f && joyGetButtons(0, R_TRIG) == 0) {
 		g_CreditsData->particlemovetype = random() % 5;
 	}
 #else
@@ -1681,7 +1681,7 @@ void creditsTick(void)
 	static u32 type = 0xffff;
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (joyGetButtonsPressedThisFrame(0, L_TRIG)) {
+	if (joyGetButtonsPressedThisFrame(0, R_TRIG)) {
 		creditsCreatePendingBgLayers(0xffffffff);
 	}
 #endif
@@ -1721,7 +1721,7 @@ void creditsTick(void)
 
 	if (g_CreditsData->slidesenabled) {
 		creditsTickSlide();
-	} else if (RANDOMFRAC() < 0.01f && !joyGetButtons(0, L_TRIG | R_TRIG)) {
+	} else if (RANDOMFRAC() < 0.01f && !joyGetButtons(0, R_TRIG)) {
 		creditsCreatePendingBgLayers(0xffffffff);
 	}
 

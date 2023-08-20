@@ -2816,6 +2816,8 @@ struct player {
 	/*0x1c64*/ s32 unk1c64;
 	/*0x1c68*/ u32 unk1c68;
 	/*0x1c6c*/ u32 unk1c6c;
+	s16 altdowntime; // for alt-modes, used like invdowntime and amdowntime
+	s16 amdowntime; // for alt-modes, used like invdowntime and amdowntime
 };
 
 struct ailist {
@@ -5047,6 +5049,7 @@ struct movedata {
 	/*    */ f32 freelookdx; // how much the mouse moved ...
 	/*    */ f32 freelookdy; // ... in normalized window coordinates
 #endif
+	/*0xac*/ s32 alt1tapcount;
 };
 
 struct attackanimgroup {

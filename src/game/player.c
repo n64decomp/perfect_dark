@@ -806,6 +806,8 @@ void playerLoadDefaults(void)
 	g_Vars.currentplayer->prevoverexposurered = 0;
 	g_Vars.currentplayer->prevoverexposuregreen = 0;
 	g_Vars.currentplayer->prevoverexposureblue = 0;
+	g_Vars.currentplayer->amdowntime = 0;
+	g_Vars.currentplayer->altdowntime = 0;
 }
 
 bool playerSpawnAnti(struct chrdata *hostchr, bool force)
@@ -3518,7 +3520,7 @@ void playerTick(bool arg0)
 								explode = true;
 							}
 
-							if (joyGetButtons(contpad1, B_BUTTON | Z_TRIG | L_TRIG | R_TRIG)) {
+							if (joyGetButtons(contpad1, B_BUTTON | Z_TRIG | R_TRIG)) {
 								slow = true;
 							}
 						} else {
@@ -3526,7 +3528,7 @@ void playerTick(bool arg0)
 								explode = true;
 							}
 
-							if (joyGetButtons(contpad1, A_BUTTON | B_BUTTON | L_TRIG | R_TRIG)) {
+							if (joyGetButtons(contpad1, A_BUTTON | B_BUTTON | R_TRIG)) {
 								slow = true;
 							}
 						}
@@ -4101,7 +4103,7 @@ void playerTick(bool arg0)
 
 		if (!lvIsPaused()
 				&& arg0
-				&& joyGetButtonsPressedThisFrame(contpad1, A_BUTTON | B_BUTTON | Z_TRIG | START_BUTTON | L_TRIG | R_TRIG)) {
+				&& joyGetButtonsPressedThisFrame(contpad1, A_BUTTON | B_BUTTON | Z_TRIG | START_BUTTON | R_TRIG)) {
 			var8007074c = 2;
 
 			if (playerIsFadeComplete()) {

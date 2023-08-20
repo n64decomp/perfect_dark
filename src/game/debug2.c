@@ -580,26 +580,6 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 		var80075d68 = -2;
 	}
 
-	if (buttonsthisframe & L_JPAD) {
-		dmenuNavigateLeft();
-		var80075d68 = -2;
-	}
-
-	if (buttonsthisframe & R_JPAD) {
-		dmenuNavigateRight();
-		var80075d68 = -2;
-	}
-
-	if (buttonsthisframe & U_JPAD) {
-		dmenuNavigateUp();
-		var80075d68 = -2;
-	}
-
-	if (buttonsthisframe & D_JPAD) {
-		dmenuNavigateDown();
-		var80075d68 = -2;
-	}
-
 	if (buttonsthisframe & (A_BUTTON | START_BUTTON)) {
 		if (g_DebugCurMenu == DEBUGMENU_CUTSCENE) {
 			if (dmenuGetSelectedOption() == 0) {
