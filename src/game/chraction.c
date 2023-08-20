@@ -1297,29 +1297,20 @@ struct attackanimconfig g_RollAttackAnims[] = {
 	{ 0, 0,  0, 0,               0,  -1,  0,  0,   0,  0,  0,  0,   0,                0,                  0,                0,                 0,               0               },
 };
 
-struct attackanimconfig g_AttackAnimHeavyWalk       = { ANIM_0030, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 1.3999999761581, 1.2999999523163 };
-struct attackanimconfig g_AttackAnimHeavyRun        = { ANIM_0031, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 1.1000000238419, 1.2000000476837 };
-struct attackanimconfig g_AttackAnimLightWalk       = { ANIM_0052, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-struct attackanimconfig g_AttackAnimLightRun        = { ANIM_0055, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-struct attackanimconfig g_AttackAnimDualWalk        = { ANIM_006C, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-struct attackanimconfig g_AttackAnimDualRun         = { ANIM_006E, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-struct attackanimconfig g_AttackAnimDualCrossedWalk = { ANIM_006D, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-struct attackanimconfig g_AttackAnimDualCrossedRun  = { ANIM_006F, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-
-#ifdef AVOID_UB
-// don't depend on global var order
-struct attackanimconfig *g_AttackAnimArray[] = {
-	&g_AttackAnimHeavyWalk,
-	&g_AttackAnimHeavyRun,
-	&g_AttackAnimLightWalk,
-	&g_AttackAnimLightRun,
-	&g_AttackAnimDualWalk,
-	&g_AttackAnimDualRun,
-	&g_AttackAnimDualCrossedWalk,
-	&g_AttackAnimDualCrossedRun,
-	NULL
-};
+struct attackanimconfig g_WalkAttackAnims[] = {
+	{ ANIM_0030, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 1.3999999761581, 1.2999999523163 },
+	{ ANIM_0031, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 1.1000000238419, 1.2000000476837 },
+	{ ANIM_0052, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               },
+	{ ANIM_0055, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               },
+	{ ANIM_006C, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               },
+	{ ANIM_006E, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               },
+	{ ANIM_006D, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               },
+	{ ANIM_006F, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               },
+#ifndef PLATFORM_N64
+	// ensure this is terminated
+	{ 0, 0, 0, 0,               0, -1, 0, 0, 0,  0,  0, 0, 0,                0,                 0,                0,                 0, 0 },
 #endif
+};
 
 struct attackanimconfig var80067c50[] = {
 	{ ANIM_0057, 0, 0, 1.5707963705063, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0, 0 },
@@ -2385,9 +2376,9 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 
 		if (style == 0) {
 			if (run) {
-				animcfg = &g_AttackAnimLightRun;
+				animcfg = &g_WalkAttackAnims[3];
 			} else {
-				animcfg = &g_AttackAnimLightWalk;
+				animcfg = &g_WalkAttackAnims[2];
 			}
 
 			if (flip) {
@@ -2397,17 +2388,17 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 			}
 		} else if (style == 1) {
 			if (run) {
-				animcfg = &g_AttackAnimDualRun;
+				animcfg = &g_WalkAttackAnims[5];
 			} else {
-				animcfg = &g_AttackAnimDualWalk;
+				animcfg = &g_WalkAttackAnims[4];
 			}
 
 			firing[HAND_LEFT] = firing[HAND_RIGHT] = true;
 		} else {
 			if (run) {
-				animcfg = &g_AttackAnimDualCrossedRun;
+				animcfg = &g_WalkAttackAnims[7];
 			} else {
-				animcfg = &g_AttackAnimDualCrossedWalk;
+				animcfg = &g_WalkAttackAnims[6];
 			}
 
 			firing[HAND_LEFT] = firing[HAND_RIGHT] = true;
@@ -2417,9 +2408,9 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 			flip = (bool)leftgun != false;
 
 			if (run) {
-				animcfg = &g_AttackAnimLightRun;
+				animcfg = &g_WalkAttackAnims[3];
 			} else {
-				animcfg = &g_AttackAnimLightWalk;
+				animcfg = &g_WalkAttackAnims[2];
 			}
 
 			if (flip) {
@@ -2431,9 +2422,9 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 			flip = (bool)leftgun != false;
 
 			if (run) {
-				animcfg = &g_AttackAnimHeavyRun;
+				animcfg = &g_WalkAttackAnims[1];
 			} else {
-				animcfg = &g_AttackAnimHeavyWalk;
+				animcfg = &g_WalkAttackAnims[0];
 			}
 
 			if (flip) {

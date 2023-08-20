@@ -181,15 +181,7 @@ extern struct attackanimgroup *g_KneelHeavyAttackAnims[][32];
 extern struct attackanimgroup *g_KneelLightAttackAnims[][32];
 extern struct attackanimgroup *g_KneelDualAttackAnims[][32];
 extern struct attackanimconfig g_RollAttackAnims[];
-extern struct attackanimconfig g_AttackAnimHeavyWalk;
-extern struct attackanimconfig g_AttackAnimHeavyRun;
-extern struct attackanimconfig g_AttackAnimLightWalk;
-extern struct attackanimconfig g_AttackAnimLightRun;
-extern struct attackanimconfig g_AttackAnimDualWalk;
-extern struct attackanimconfig g_AttackAnimDualRun;
-#ifdef AVOID_UB
-extern struct attackanimconfig *g_AttackAnimArray[];
-#endif
+extern struct attackanimconfig g_WalkAttackAnims[];
 extern u32 g_StageFlags;
 extern struct chrdata *g_BgChrs;
 extern s16 *g_BgChrnums;
