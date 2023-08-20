@@ -1307,14 +1307,18 @@ void preprocessBgSection1(u8 *data, u32 ofs) {
 		++numportals;
 	}
 
+	s32 maxbatchnum = 0;
 	for (s32 i = 0; i < numportals; ++i) {
 		PD_SWAP_VAL(portals[i].verticesoffset);
 		PD_SWAP_VAL(portals[i].roomnum1);
 		PD_SWAP_VAL(portals[i].roomnum2);
+		if (portals[i].verticesoffset > maxbatchnum) {
+			maxbatchnum = portals[i].verticesoffset;
+		}
 	}
 
 	uintptr_t pvoffset = sizeof(portals[0]) * (numportals + 1);
-	for (s32 i = 0; i < numportals; i++) {
+	for (s32 i = 0; i <= maxbatchnum; i++) {
 		struct portalvertices *pverts = PD_PTR_BASE(pvoffset, portals);
 		for (u32 j = 0; j < pverts->count; ++j) {
 			PD_SWAP_VAL(pverts->vertices[j]);
