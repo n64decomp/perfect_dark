@@ -19,10 +19,15 @@ There are currently no "extra features" implemented
 except for janky mouselook, arbitrary resolution support (with partial widescreen support)
 and somewhat expanded heap size.
 
+## Download
+
+Latest [automatic builds](https://github.com/fgsfdsfgs/perfect_dark/actions) for supported platforms:
+* [i686-windows](https://nightly.link/fgsfdsfgs/perfect_dark/workflows/c-cpp/port/pd-i686-windows.zip)
+* [i686-linux](https://nightly.link/fgsfdsfgs/perfect_dark/workflows/c-cpp/port/pd-i686-windows.zip)
+
 ## Running
 
-You can get the latest Windows and Linux binaries from the latest CI run in the Actions tab.  
-Note that you must already have a Perfect Dark ROM to run the game, as specified above.
+You must already have a Perfect Dark ROM to run the game, as specified above.
 
 1. Create a directory named `data` next to `pd.exe`.
 2. Put your Perfect Dark ROM named `pd.ntsc-final.z64` into it.
