@@ -16,6 +16,8 @@
 #define WHEEL_DN_MASK SDL_BUTTON(VK_MOUSE_WHEEL_DN - VK_MOUSE_BEGIN + 1)
 
 static SDL_GameController *pads[INPUT_MAX_CONTROLLERS];
+static s32 rumbleSupported[INPUT_MAX_CONTROLLERS];
+
 static u32 binds[MAXCONTROLLERS][CK_TOTAL_COUNT][MAX_BINDS]; // [i][CK_][b] = [VK_]
 
 static s32 connectedMask = 0;
@@ -49,7 +51,7 @@ static s32 deadzone[4] = {
 	DEFAULT_DEADZONE, DEFAULT_DEADZONE_RY,
 };
 
-static s32 rumbleSupported[INPUT_MAX_CONTROLLERS];
+static s32 stickCButtons = 1;
 
 void inputSetDefaultKeyBinds(void)
 {
@@ -226,6 +228,8 @@ s32 inputInit(void)
 	stickSens[2] = configGetFloat("Input.RStickScaleX", 1.f);
 	stickSens[3] = configGetFloat("Input.RStickScaleY", 1.f);
 
+	stickCButtons = configGetInt("Input.StickCButtons", 1);
+
 	if (configGetInt("Input.SwapSticks", 1)) {
 		// invert axis map
 		axisMap[0][0] = SDL_CONTROLLER_AXIS_RIGHTX;
@@ -305,19 +309,25 @@ s32 inputReadController(s32 idx, OSContPad *npad)
 	rightX = inputAxisScale(rightX, deadzone[axisMap[1][0]], stickSens[axisMap[1][0]]);
 	rightY = inputAxisScale(rightY, deadzone[axisMap[1][1]], stickSens[axisMap[1][1]]);
 
-	if (rightX < -0x4000) npad->button |= L_CBUTTONS;
-	if (rightX > +0x4000) npad->button |= R_CBUTTONS;
-	if (rightY < -0x4000) npad->button |= U_CBUTTONS;
-	if (rightY > +0x4000) npad->button |= D_CBUTTONS;
+	if (stickCButtons) {
+		if (rightX < -0x4000) npad->button |= L_CBUTTONS;
+		if (rightX > +0x4000) npad->button |= R_CBUTTONS;
+		if (rightY < -0x4000) npad->button |= U_CBUTTONS;
+		if (rightY > +0x4000) npad->button |= D_CBUTTONS;
+	}
 
 	if (!npad->stick_x && leftX) {
 		npad->stick_x = leftX / 0x100;
 	}
 
-	const s32 stickY = -leftY / 0x100;
+	s32 stickY = -leftY / 0x100;
 	if (!npad->stick_y && stickY) {
 		npad->stick_y = (stickY == 128) ? 127 : stickY;
 	}
+
+	stickY = -rightY / 0x100;
+	npad->rstick_y = (stickY == 128) ? 127 : stickY;
+	npad->rstick_x = rightX / 0x100;
 
 	return 0;
 }

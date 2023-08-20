@@ -61,6 +61,10 @@ typedef struct {
 	s8      stick_x;		/* -80 <= stick_x <= 80 */
 	s8      stick_y;		/* -80 <= stick_y <= 80 */
 	u8	errnum;
+#ifndef PLATFORM_N64
+	s8      rstick_x;
+	s8      rstick_y;
+#endif
 } OSContPad;
 
 typedef struct {

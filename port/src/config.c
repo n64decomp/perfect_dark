@@ -51,6 +51,7 @@ struct configentry {
 	{ "Input.RStickScaleX",      CONFIG_F32, { .f32val = 1.f      } },
 	{ "Input.RStickScaleY",      CONFIG_F32, { .f32val = 1.f      } },
 	{ "Input.SwapSticks",        CONFIG_S32, { .s32val = 1        } },
+	{ "Input.StickCButtons",     CONFIG_S32, { .s32val = 1        } },
 	{ "Input.RumbleScale",       CONFIG_F32, { .f32val = 0.333f   } },
 	{ "Input.FirstGamepadNum",   CONFIG_S32, { .s32val = 0        } },
 	{ "Input.FakeGamepads",      CONFIG_S32, { .s32val = 0        } },
