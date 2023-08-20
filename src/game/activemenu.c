@@ -609,6 +609,9 @@ void amChangeScreen(s32 step)
 		if (g_AmMenus[g_AmIndex].allbots) {
 			// Weapon selection, second function, and bot command menu
 
+#ifndef PLATFORM_N64 // fix for port
+			maxscreenindex = g_Vars.currentplayer->numaibuddies > 0 ? 2 : 1;
+#else
 			// @bug: This is missing a check to see if there are any bots on
 			// your team. In most cases this isn't a problem because the player
 			// opens the screen for a single bot then uses R to switch to all
@@ -618,6 +621,7 @@ void amChangeScreen(s32 step)
 			// part runs first and sets the screen index to an invalid value,
 			// causing a crash.
 			maxscreenindex = 2;
+#endif
 		} else {
 			// Weapon selection, second function and one for each AI buddy
 			maxscreenindex = g_Vars.currentplayer->numaibuddies + 1;
