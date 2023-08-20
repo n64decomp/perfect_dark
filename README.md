@@ -35,15 +35,24 @@ You must already have a Perfect Dark ROM to run the game, as specified above.
 
 ## Building
 
-1. Ensure you have SDL2, libGL and ZLib installed on your system.
-2. Run `make -f Makefile.port` in the `perfect_dark` directory.
-3. The resulting executable will be at `build/ntsc-final-port/pd.exe`.
+### Windows
 
-If cross-compiling, specify the target platform on the `make` command line like so:  
-```make -f Makefile.port TARGET_PLATFORM=i686-linux```
+1. Install MSYS2.
+2. Open the MINGW32 prompt.
+3. Install dependencies: `pacman -S mingw-w64-i686-toolchain mingw-w64-i686-SDL2 mingw-w64-i686-zlib make git`
+4. Run `make -f Makefile.port` in the `perfect_dark` directory.
+5. The resulting executable will be at `build/ntsc-final-port/pd.exe`.
+
+### Linux
+
+1. Ensure you have gcc, g++ and 32-bit versions of SDL2, libGL and ZLib installed on your system.
+   * On a 64-bit system you also need to have `gcc-multilib` and `g++-multilib` (or your distro's analogues) installed.
+2. Run the following command in the `perfect_dark` directory:
+   * On a 64-bit system: ```make -f Makefile.port TARGET_PLATFORM=i686-linux```
+   * On a 32-bit system: ```make -f Makefile.port```
+3. The resulting executable will be at `build/ntsc-final-port/pd.exe`.  
 
 Currently only `i686-linux` and `i686-windows` are supported, using `gcc -m32` and `i686-w64-mingw32-gcc` as compilers, respectively.  
-This means that on Windows you have to build this under a 32-bit MinGW environment and on Linux you need to have `gcc-multilib` and `g++-multilib` (or your distro's analogues) installed.  
 Alternate compilers can be specified by passing `TOOLCHAIN=i686-whatever-` as a command line argument.
 
 ## Credits
