@@ -9,6 +9,7 @@ extern Vtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices);
 extern void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx);
 
 bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model);
+void modelSetDistanceChecksDisabled(bool disabled);
 void modelSetDistanceScale(f32 value);
 void modelSetVtxAllocatorFunc(Vtx *(*fn)(s32 numvertices));
 s32 modelFindNodeMtxIndex(struct modelnode *node, s32 arg1);

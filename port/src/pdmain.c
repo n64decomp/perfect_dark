@@ -59,6 +59,7 @@
 #include "lib/snd.h"
 #include "lib/memp.h"
 #include "lib/mema.h"
+#include "lib/model.h"
 #include "lib/profile.h"
 #include "lib/videbug.h"
 #include "lib/debughud.h"
@@ -263,6 +264,8 @@ void mainInit(void)
 	racesInit();
 	bodiesInit();
 	titleInit();
+
+	modelSetDistanceChecksDisabled(true); // don't use LODs
 
 	g_MainIsBooting = 0;
 }
