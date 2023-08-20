@@ -13,10 +13,9 @@ though you might have to install some additional libraries.
 
 The game is in a somewhat functional but probably unstable state.
 There are major graphical issues, minor audio issues and possibly other issues.
-Splitscreen modes currently do not work.
 
 There are currently no "extra features" implemented
-except for janky mouselook, arbitrary resolution support (with partial widescreen support)
+except for janky mouselook, arbitrary resolution support (with partial widescreen support), some extra controls
 and somewhat expanded heap size.
 
 ## Download
