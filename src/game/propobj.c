@@ -17598,7 +17598,11 @@ s32 objTestForPickup(struct prop *prop)
 		}
 	}
 
-	if (g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f < -0.7852731347084f) {
+#ifndef PLATFORM_N64 // adjust pickup threshold (from -45 to -60)
+	if (g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f < -60.0f * M_BADTAU / 360.0f) {
+#else
+	if (g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f < -45.0f * M_BADTAU / 360.0f) {
+#endif
 		if (g_Vars.currentplayer->magnetattracttime < 0) {
 			return TICKOP_NONE;
 		}
