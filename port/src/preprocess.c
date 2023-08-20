@@ -1318,7 +1318,7 @@ void preprocessBgSection1(u8 *data, u32 ofs) {
 	}
 
 	uintptr_t pvoffset = sizeof(portals[0]) * (numportals + 1);
-	for (s32 i = 0; i <= maxbatchnum; i++) {
+	for (s32 i = 1; i <= maxbatchnum; i++) {
 		struct portalvertices *pverts = PD_PTR_BASE(pvoffset, portals);
 		for (u32 j = 0; j < pverts->count; ++j) {
 			PD_SWAP_VAL(pverts->vertices[j]);
