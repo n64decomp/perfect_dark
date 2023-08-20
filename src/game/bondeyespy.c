@@ -937,6 +937,19 @@ void eyespyProcessInput(bool allowbuttons)
 		g_Vars.currentplayer->eyespy->verta -= pitchspeed * 0.0625f * g_Vars.lvupdate60freal;
 
 		if (prevverta != g_Vars.currentplayer->eyespy->verta) {
+#ifndef PLATFORM_N64 // limit eyespy range to 75 degrees
+			while (g_Vars.currentplayer->eyespy->verta > 90.0f) {
+				g_Vars.currentplayer->eyespy->verta -= 360.0f;
+			}
+
+			if (g_Vars.currentplayer->eyespy->verta < -75.0f) {
+				g_Vars.currentplayer->eyespy->verta = -75.0f;
+			}
+
+			if (g_Vars.currentplayer->eyespy->verta > 75.0f) {
+				g_Vars.currentplayer->eyespy->verta = 75.0f;
+			}
+#endif
 			while (g_Vars.currentplayer->eyespy->verta < 0.0f) {
 				g_Vars.currentplayer->eyespy->verta += 360.0f;
 			}
