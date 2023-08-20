@@ -77,7 +77,7 @@ void amTick(void)
 					}
 
 					if (buttonsstate & A_BUTTON) {
-#if VERSION >= VERSION_JPN_FINAL
+#if VERSION >= VERSION_JPN_FINAL || !defined(PLATFORM_N64)
 						if (g_Vars.currentplayer->numaibuddies > 0) {
 							g_AmMenus[g_AmIndex].allbots = true;
 						}
@@ -91,7 +91,7 @@ void amTick(void)
 					}
 
 					if ((buttonsstate & R_TRIG) || (buttonsstate & L_TRIG)) {
-#if VERSION >= VERSION_JPN_FINAL
+#if VERSION >= VERSION_JPN_FINAL || !defined(PLATFORM_N64)
 						if (g_Vars.currentplayer->numaibuddies > 0) {
 							g_AmMenus[g_AmIndex].allbots = true;
 						}
