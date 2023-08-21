@@ -1939,8 +1939,8 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				xscale = 1.f;
 				yscale = 1.f;
 			}
-			x = g_Vars.currentplayer->speedtheta * 0.3f * xscale + g_Vars.currentplayer->gunextraaimx;
-			y = -g_Vars.currentplayer->speedverta * 0.1f * yscale + g_Vars.currentplayer->gunextraaimy;
+			x = g_Vars.currentplayer->speedtheta * 0.3f * crosshairSway * xscale + g_Vars.currentplayer->gunextraaimx;
+			y = -g_Vars.currentplayer->speedverta * 0.1f * crosshairSway * yscale + g_Vars.currentplayer->gunextraaimy;
 #endif
 
 			bgunSwivelWithDamp(x, y, PAL ? 0.955f : 0.963f);

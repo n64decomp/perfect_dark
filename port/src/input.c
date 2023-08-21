@@ -53,6 +53,8 @@ static s32 deadzone[4] = {
 
 static s32 stickCButtons = 1;
 
+f32 crosshairSway = 1.f;
+
 void inputSetDefaultKeyBinds(void)
 {
 	// TODO: make VK constants for all these
@@ -242,6 +244,8 @@ s32 inputInit(void)
 	if (overrideMask) {
 		connectedMask = overrideMask;
 	}
+
+	crosshairSway = configGetFloat("Input.CrosshairSway", 1.f);
 
 	return connectedMask;
 }

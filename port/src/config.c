@@ -55,6 +55,7 @@ struct configentry {
 	{ "Input.RumbleScale",       CONFIG_F32, { .f32val = 0.333f   } },
 	{ "Input.FirstGamepadNum",   CONFIG_S32, { .s32val = 0        } },
 	{ "Input.FakeGamepads",      CONFIG_S32, { .s32val = 0        } },
+	{ "Input.CrosshairSway",     CONFIG_F32, { .f32val = 1.f      } },
 	/* Game */
 	{ "Game.BaseDir",            CONFIG_STR, { .strval = "./data" } },
 	{ "Game.MemorySize",         CONFIG_S32, { .s32val = 16       } },

@@ -4,6 +4,10 @@
 #include "data.h"
 #include "types.h"
 
+#ifndef PLATFORM_N64
+extern f32 crosshairSway;
+#endif
+
 void bmoveSetControlDef(u32 controldef);
 void bmoveSetAutoMoveCentreEnabled(bool enabled);
 void bmoveSetAutoAimY(bool enabled);
