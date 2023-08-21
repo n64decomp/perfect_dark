@@ -229,11 +229,9 @@ MenuDialogHandlerResult frTrainingInfoMenuDialog(s32 operation, struct menudialo
 		break;
 	case MENUOP_TICK:
 		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
-			g_Menus[g_MpPlayerNum].unk840.unk574 -= g_Vars.diffframe60;
-			g_Menus[g_MpPlayerNum].unk840.unk54c = 18.849555969238f * g_20SecIntervalFrac;
-			g_Menus[g_MpPlayerNum].unk840.unk524 = 18.849555969238f * g_20SecIntervalFrac;
-			g_Menus[g_MpPlayerNum].unk840.unk528 = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk550 = 0;
+			g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 -= g_Vars.diffframe60;
+			g_Menus[g_MpPlayerNum].menumodel.curroty = g_Menus[g_MpPlayerNum].menumodel.newroty = 18.849555969238f * g_20SecIntervalFrac;
+			g_Menus[g_MpPlayerNum].menumodel.currotz = g_Menus[g_MpPlayerNum].menumodel.newrotz = 0;
 		}
 		break;
 	case MENUOP_CLOSE:
@@ -1538,14 +1536,14 @@ MenuDialogHandlerResult ciCharacterProfileMenuDialog(s32 operation, struct menud
 	case MENUOP_OPEN:
 		if (bodynum == BODY_DRCAROLL) {
 			scale = 0.7f;
-			g_Menus[g_MpPlayerNum].unk840.unk554 = -1;
+			g_Menus[g_MpPlayerNum].menumodel.zoom = -1;
 		} else {
-			g_Menus[g_MpPlayerNum].unk840.unk554 = 30;
+			g_Menus[g_MpPlayerNum].menumodel.zoom = 30;
 			scale = 1.0f;
 		}
 
-		g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
-		g_Menus[g_MpPlayerNum].unk840.unk580 = 0;
+		g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 = TICKS(120);
+		g_Menus[g_MpPlayerNum].menumodel.removingpiece = false;
 
 #if VERSION == VERSION_PAL_FINAL
 		if (g_ViRes != VIRES_HI) {
@@ -1585,14 +1583,15 @@ MenuDialogHandlerResult ciCharacterProfileMenuDialog(s32 operation, struct menud
 			scale = 0.8f;
 		}
 
-		func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, x, y, 0, 0, 0, 0, scale, 7);
+		menuConfigureModel(&g_Menus[g_MpPlayerNum].menumodel, x, y, 0, 0, 0, 0, scale,
+				MENUMODELFLAG_HASSCALE | MENUMODELFLAG_HASPOSITION | MENUMODELFLAG_HASROTATION);
 
-		g_Menus[g_MpPlayerNum].unk840.unk510 = 8.2f;
-		g_Menus[g_MpPlayerNum].unk840.unk514 = -4.1f;
-		g_Menus[g_MpPlayerNum].unk840.unk51c = 0.00393f;
-		g_Menus[g_MpPlayerNum].unk840.unk524 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk54c = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
+		g_Menus[g_MpPlayerNum].menumodel.curposx = 8.2f;
+		g_Menus[g_MpPlayerNum].menumodel.curposy = -4.1f;
+		g_Menus[g_MpPlayerNum].menumodel.curscale = 0.00393f;
+		g_Menus[g_MpPlayerNum].menumodel.curroty = 0;
+		g_Menus[g_MpPlayerNum].menumodel.newroty = 0;
+		g_Menus[g_MpPlayerNum].menumodel.rottimer60 = TICKS(60);
 		break;
 	case MENUOP_CLOSE:
 		break;
@@ -1612,10 +1611,10 @@ MenuDialogHandlerResult ciCharacterProfileMenuDialog(s32 operation, struct menud
 				{ 255 },
 			};
 
-			g_Menus[g_MpPlayerNum].unk840.partvisibility = vis;
-			g_Menus[g_MpPlayerNum].unk840.unk05c = 318;
+			g_Menus[g_MpPlayerNum].menumodel.partvisibility = vis;
+			g_Menus[g_MpPlayerNum].menumodel.newanimnum = ANIM_013E;
 		} else {
-			g_Menus[g_MpPlayerNum].unk840.unk05c = 106;
+			g_Menus[g_MpPlayerNum].menumodel.newanimnum = ANIM_006A;
 		}
 
 		if (bodynum == BODY_THEKING) {
@@ -1624,23 +1623,21 @@ MenuDialogHandlerResult ciCharacterProfileMenuDialog(s32 operation, struct menud
 				{ 255 },
 			};
 
-			g_Menus[g_MpPlayerNum].unk840.partvisibility = vis;
+			g_Menus[g_MpPlayerNum].menumodel.partvisibility = vis;
 		}
 
-		g_Menus[g_MpPlayerNum].unk840.unk00c = 0xffff;
-		g_Menus[g_MpPlayerNum].unk840.unk00c |= (mpheadnum << 16);
-		g_Menus[g_MpPlayerNum].unk840.unk00c |= (mpbodynum << 24);
+		g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_MP_HEADBODY(mpheadnum, mpbodynum);
 
-		if (g_Menus[g_MpPlayerNum].unk840.unk578 > 0) {
-			g_Menus[g_MpPlayerNum].unk840.unk578 -= g_Vars.diffframe60;
+		if (g_Menus[g_MpPlayerNum].menumodel.rottimer60 > 0) {
+			g_Menus[g_MpPlayerNum].menumodel.rottimer60 -= g_Vars.diffframe60;
 		} else {
 #if VERSION >= VERSION_PAL_BETA
-			f32 tmp = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
+			f32 roty = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60freal;
 #else
-			f32 tmp = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
+			f32 roty = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60f;
 #endif
-			g_Menus[g_MpPlayerNum].unk840.unk54c = tmp;
-			g_Menus[g_MpPlayerNum].unk840.unk524 = tmp;
+			g_Menus[g_MpPlayerNum].menumodel.newroty = roty;
+			g_Menus[g_MpPlayerNum].menumodel.curroty = roty;
 		}
 
 		break;
@@ -1887,58 +1884,54 @@ MenuDialogHandlerResult dtTrainingDetailsMenuDialog(s32 operation, struct menudi
 #if VERSION == VERSION_PAL_FINAL
 			if (g_ViRes == VIRES_HI) {
 				if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
+					g_Menus[g_MpPlayerNum].menumodel.newposx = 84;
+					g_Menus[g_MpPlayerNum].menumodel.curposx = 84;
 				} else {
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 104;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 104;
+					g_Menus[g_MpPlayerNum].menumodel.newposx = 104;
+					g_Menus[g_MpPlayerNum].menumodel.curposx = 104;
 				}
 			} else {
 				if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 64;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 64;
+					g_Menus[g_MpPlayerNum].menumodel.newposx = 64;
+					g_Menus[g_MpPlayerNum].menumodel.curposx = 64;
 				} else {
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
+					g_Menus[g_MpPlayerNum].menumodel.newposx = 84;
+					g_Menus[g_MpPlayerNum].menumodel.curposx = 84;
 				}
 			}
 #elif VERSION == VERSION_PAL_BETA
 			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-				g_Menus[g_MpPlayerNum].unk840.unk538 = 64;
-				g_Menus[g_MpPlayerNum].unk840.unk510 = 64;
+				g_Menus[g_MpPlayerNum].menumodel.newposx = 64;
+				g_Menus[g_MpPlayerNum].menumodel.curposx = 64;
 			} else {
-				g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
-				g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
+				g_Menus[g_MpPlayerNum].menumodel.newposx = 84;
+				g_Menus[g_MpPlayerNum].menumodel.curposx = 84;
 			}
 #else
 			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-				g_Menus[g_MpPlayerNum].unk840.unk538 = 70;
-				g_Menus[g_MpPlayerNum].unk840.unk510 = 70;
+				g_Menus[g_MpPlayerNum].menumodel.newposx = 70;
+				g_Menus[g_MpPlayerNum].menumodel.curposx = 70;
 			} else {
-				g_Menus[g_MpPlayerNum].unk840.unk538 = 90;
-				g_Menus[g_MpPlayerNum].unk840.unk510 = 90;
+				g_Menus[g_MpPlayerNum].menumodel.newposx = 90;
+				g_Menus[g_MpPlayerNum].menumodel.curposx = 90;
 			}
 #endif
 
-			g_Menus[g_MpPlayerNum].unk840.unk544 /= 2.5f;
+			g_Menus[g_MpPlayerNum].menumodel.newscale /= 2.5f;
 		}
 		break;
 	case MENUOP_CLOSE:
 		break;
 	case MENUOP_TICK:
 		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
-			s32 weaponnum = dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot));
-
-			if (weaponnum == WEAPON_DISGUISE41) {
-				g_Menus[g_MpPlayerNum].unk840.unk05c = ANIM_006A;
-				g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
-				g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
+			if (dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot)) == WEAPON_DISGUISE41) {
+				g_Menus[g_MpPlayerNum].menumodel.newanimnum = ANIM_006A;
+				g_Menus[g_MpPlayerNum].menumodel.rottimer60 = TICKS(60);
+				g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 = TICKS(120);
 			}
 
-			g_Menus[g_MpPlayerNum].unk840.unk54c = 18.849555969238f * g_20SecIntervalFrac;
-			g_Menus[g_MpPlayerNum].unk840.unk524 = 18.849555969238f * g_20SecIntervalFrac;
-			g_Menus[g_MpPlayerNum].unk840.unk550 = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk528 = 0;
+			g_Menus[g_MpPlayerNum].menumodel.curroty = g_Menus[g_MpPlayerNum].menumodel.newroty = 18.849555969238f * g_20SecIntervalFrac;
+			g_Menus[g_MpPlayerNum].menumodel.currotz = g_Menus[g_MpPlayerNum].menumodel.newrotz = 0;
 		}
 		break;
 	}
@@ -2651,15 +2644,11 @@ MenuDialogHandlerResult ciHangarHolographMenuDialog(s32 operation, struct menudi
 
 		switch (operation) {
 		case MENUOP_OPEN:
-			g_Menus[g_MpPlayerNum].unk840.unk548 = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk520 = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk54c = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk524 = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk538 = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk510 = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk53c = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk514 = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk51c = 0;
+			g_Menus[g_MpPlayerNum].menumodel.currotx = g_Menus[g_MpPlayerNum].menumodel.newrotx = 0;
+			g_Menus[g_MpPlayerNum].menumodel.curroty = g_Menus[g_MpPlayerNum].menumodel.newroty = 0;
+			g_Menus[g_MpPlayerNum].menumodel.curposx = g_Menus[g_MpPlayerNum].menumodel.newposx = 0;
+			g_Menus[g_MpPlayerNum].menumodel.curposy = g_Menus[g_MpPlayerNum].menumodel.newposy = 0;
+			g_Menus[g_MpPlayerNum].menumodel.curscale = 0;
 			break;
 		case MENUOP_CLOSE:
 			break;
@@ -2675,29 +2664,24 @@ MenuDialogHandlerResult ciHangarHolographMenuDialog(s32 operation, struct menudi
 					offset = items[index].y_offset;
 					size = items[index].size * 0.001f;
 
-					g_Menus[g_MpPlayerNum].unk840.unk544 = size;
-					g_Menus[g_MpPlayerNum].unk840.unk514 = offset;
-					g_Menus[g_MpPlayerNum].unk840.unk53c = offset;
+					g_Menus[g_MpPlayerNum].menumodel.newscale = size;
+					g_Menus[g_MpPlayerNum].menumodel.curposy = offset;
+					g_Menus[g_MpPlayerNum].menumodel.newposy = offset;
 
-					if (g_Menus[g_MpPlayerNum].unk840.unk00c != items[index].fileid) {
-						g_Menus[g_MpPlayerNum].unk840.unk000 = 8;
+					if (g_Menus[g_MpPlayerNum].menumodel.newparams != items[index].fileid) {
+						g_Menus[g_MpPlayerNum].menumodel.loaddelay = 8;
 					}
 
-					g_Menus[g_MpPlayerNum].unk840.unk00c = items[index].fileid;
-					g_Menus[g_MpPlayerNum].unk840.unk54c = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
-					g_Menus[g_MpPlayerNum].unk840.unk524 += 0.01f * g_Vars.diffframe60freal;
-					g_Menus[g_MpPlayerNum].unk840.partvisibility = g_BioPartVisibility;
+					g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_FILENUM(items[index].fileid);
+					g_Menus[g_MpPlayerNum].menumodel.newroty = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60freal;
+					g_Menus[g_MpPlayerNum].menumodel.curroty += 0.01f * g_Vars.diffframe60freal;
+					g_Menus[g_MpPlayerNum].menumodel.partvisibility = g_BioPartVisibility;
 				} else {
-					g_Menus[g_MpPlayerNum].unk840.unk548 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk520 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk54c = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk524 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk538 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk510 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk53c = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk514 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk544 = 0;
-					g_Menus[g_MpPlayerNum].unk840.unk51c = 0;
+					g_Menus[g_MpPlayerNum].menumodel.currotx = g_Menus[g_MpPlayerNum].menumodel.newrotx = 0;
+					g_Menus[g_MpPlayerNum].menumodel.curroty = g_Menus[g_MpPlayerNum].menumodel.newroty = 0;
+					g_Menus[g_MpPlayerNum].menumodel.curposx = g_Menus[g_MpPlayerNum].menumodel.newposx = 0;
+					g_Menus[g_MpPlayerNum].menumodel.curposy = g_Menus[g_MpPlayerNum].menumodel.newposy = 0;
+					g_Menus[g_MpPlayerNum].menumodel.curscale = g_Menus[g_MpPlayerNum].menumodel.newscale = 0;
 				}
 #else
 				if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
@@ -2709,18 +2693,18 @@ MenuDialogHandlerResult ciHangarHolographMenuDialog(s32 operation, struct menudi
 					offset = items[index].y_offset;
 					size = items[index].size * 0.001f;
 
-					g_Menus[g_MpPlayerNum].unk840.unk544 = size;
-					g_Menus[g_MpPlayerNum].unk840.unk514 = offset;
-					g_Menus[g_MpPlayerNum].unk840.unk53c = offset;
-					g_Menus[g_MpPlayerNum].unk840.unk00c = items[index].fileid;
+					g_Menus[g_MpPlayerNum].menumodel.newscale = size;
+					g_Menus[g_MpPlayerNum].menumodel.curposy = offset;
+					g_Menus[g_MpPlayerNum].menumodel.newposy = offset;
+					g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_FILENUM(items[index].fileid);
 #if VERSION >= VERSION_PAL_BETA
-					g_Menus[g_MpPlayerNum].unk840.unk54c = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
-					g_Menus[g_MpPlayerNum].unk840.unk524 += 0.01f * g_Vars.diffframe60freal;
+					g_Menus[g_MpPlayerNum].menumodel.newroty = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60freal;
+					g_Menus[g_MpPlayerNum].menumodel.curroty += 0.01f * g_Vars.diffframe60freal;
 #else
-					g_Menus[g_MpPlayerNum].unk840.unk54c = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
-					g_Menus[g_MpPlayerNum].unk840.unk524 += 0.01f * g_Vars.diffframe60f;
+					g_Menus[g_MpPlayerNum].menumodel.newroty = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60f;
+					g_Menus[g_MpPlayerNum].menumodel.curroty += 0.01f * g_Vars.diffframe60f;
 #endif
-					g_Menus[g_MpPlayerNum].unk840.partvisibility = g_BioPartVisibility;
+					g_Menus[g_MpPlayerNum].menumodel.partvisibility = g_BioPartVisibility;
 				}
 #endif
 			}

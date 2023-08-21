@@ -21,8 +21,8 @@ Vp var80070f10;
 
 s32 var8009de90;
 s32 var8009de94;
-s32 var8009de98;
-s32 var8009de9c;
+s32 g_MenuProjectFromX;
+s32 g_MenuProjectFromY;
 
 void func0f0d4690(Mtxf *mtx)
 {
@@ -317,8 +317,8 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 	vertices[1].y = y2;
 	vertices[1].z = -10;
 
-	tmp1 = (f32) var8009de98 * a1 / scale;
-	tmp2 = (f32) var8009de9c * a1 / scale;
+	tmp1 = (f32) g_MenuProjectFromX * a1 / scale;
+	tmp2 = (f32) g_MenuProjectFromY * a1 / scale;
 
 	vertices[2].x = vertices[0].v[0] + (s16) tmp1;
 	vertices[2].y = vertices[0].v[1] + (s16) tmp2;

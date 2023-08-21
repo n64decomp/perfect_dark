@@ -3815,71 +3815,70 @@ struct perfectheadtexturelist {
 	struct textureconfig selectedtexture;
 };
 
-struct menu840 {
-	/*0x000*/ u8 unk000;
-	/*0x001*/ u8 unk001;
+struct menumodel {
+	/*0x000*/ u8 loaddelay;
 	/*0x002*/ s16 headnum;
-	/*0x004*/ u8 *unk004;
-	/*0x008*/ u32 unk008;
-	/*0x00c*/ u32 unk00c;
-	/*0x010*/ s32 unk010;
-	/*0x014*/ Mtxf unk014;
+	/*0x004*/ u8 *allocstart;
+	/*0x008*/ u32 alloclen;
+	/*0x00c*/ u32 newparams;
+	/*0x010*/ u32 curparams;
+	/*0x014*/ Mtxf mtx;
 	/*0x054*/ struct modeldef *bodymodeldef;
 	/*0x058*/ struct modeldef *headmodeldef;
-	/*0x05c*/ s16 unk05c;
-	/*0x05e*/ s16 unk05e;
+	/*0x05c*/ s16 newanimnum;
+	/*0x05e*/ s16 curanimnum;
 	/*0x060*/ struct model bodymodel;
 	/*0x084*/ struct anim bodyanim;
-	/*0x110*/ u32 unk110[256];
-	/*0x510*/ f32 unk510;
-	/*0x514*/ f32 unk514;
-	/*0x518*/ f32 unk518;
-	/*0x51c*/ f32 unk51c;
-	/*0x520*/ f32 unk520;
-	/*0x524*/ f32 unk524;
-	/*0x528*/ f32 unk528;
-	/*0x52c*/ f32 unk52c;
-	/*0x530*/ f32 unk530;
-	/*0x534*/ f32 unk534;
-	/*0x538*/ f32 unk538;
-	/*0x53c*/ f32 unk53c;
-	/*0x540*/ f32 unk540;
-	/*0x544*/ f32 unk544;
-	/*0x548*/ f32 unk548;
-	/*0x54c*/ f32 unk54c;
-	/*0x550*/ f32 unk550;
-	/*0x554*/ f32 unk554;
-	/*0x558*/ f32 unk558;
-	/*0x55c*/ f32 unk55c;
-	/*0x560*/ s16 unk560;
-	/*0x564*/ f32 unk564;
-	/*0x568*/ u8 unk568;
+	/*0x110*/ u32 rwdata[256];
+	/*0x510*/ f32 curposx;
+	/*0x514*/ f32 curposy;
+	/*0x518*/ f32 curposz;
+	/*0x51c*/ f32 curscale;
+	/*0x520*/ f32 currotx;
+	/*0x524*/ f32 curroty;
+	/*0x528*/ f32 currotz;
+	/*0x52c*/ f32 displacex;
+	/*0x530*/ f32 displacey;
+	/*0x534*/ f32 displacez;
+	/*0x538*/ f32 newposx;
+	/*0x53c*/ f32 newposy;
+	/*0x540*/ f32 newposz;
+	/*0x544*/ f32 newscale;
+	/*0x548*/ f32 newrotx;
+	/*0x54c*/ f32 newroty;
+	/*0x550*/ f32 newrotz;
+	/*0x554*/ f32 zoom; // character selection: far = 100, near = 370
+	/*0x558*/ f32 unk558; // unused
+	/*0x55c*/ f32 unk55c; // unused
+	/*0x560*/ s16 unk560; // unused
+	/*0x564*/ f32 configurefrac;
+	/*0x568*/ u8 flags;
 	/*0x56a*/ s16 bodynum;
-	/*0x56c*/ u32 unk56c;
-	/*0x570*/ u32 unk570;
-	/*0x574*/ s32 unk574;
-	/*0x578*/ s32 unk578;
-	/*0x57c*/ u32 unk57c;
-	/*0x580*/ u32 unk580;
-	/*0x584*/ u32 unk584;
-	/*0x588*/ u32 unk588;
-	/*0x58c*/ u32 unk58c;
-	/*0x590*/ u32 unk590;
-	/*0x594*/ u32 unk594;
-	/*0x598*/ u32 unk598;
-	/*0x59c*/ u32 unk59c;
-	/*0x5a0*/ u32 unk5a0;
-	/*0x5a4*/ u32 unk5a4;
-	/*0x5a8*/ u32 unk5a8;
-	/*0x5ac*/ u32 unk5ac;
-	/*0x5b0*/ u8 unk5b0;
-	/*0x5b1*/ u8 unk5b1_01 : 1;
-	/*0x5b1*/ u8 unk5b1_02 : 1;
-	/*0x5b1*/ u8 unk5b1_03 : 1;
-	/*0x5b1*/ u8 unk5b1_04 : 1;
-	/*0x5b1*/ u8 unk5b1_05 : 1;
-	/*0x5b1*/ u8 unk5b1_06 : 1;
-	/*0x5b1*/ u8 unk5b1_07 : 1;
+	/*0x56c*/ s32 unk56c; // unused
+	/*0x570*/ s32 unk570; // unused
+	/*0x574*/ s32 zoomtimer60;
+	/*0x578*/ s32 rottimer60;
+	/*0x57c*/ s32 unk57c; // unused
+	/*0x580*/ bool removingpiece;
+	/*0x584*/ s32 unk584; // unused
+	/*0x588*/ s32 unk588; // unused
+	/*0x58c*/ s32 unk58c; // unused
+	/*0x590*/ s32 unk590; // unused
+	/*0x594*/ s32 unk594; // unused
+	/*0x598*/ s32 unk598; // unused
+	/*0x59c*/ s32 unk59c; // unused
+	/*0x5a0*/ s32 unk5a0; // unused
+	/*0x5a4*/ s32 unk5a4; // unused
+	/*0x5a8*/ s32 unk5a8; // unused
+	/*0x5ac*/ s32 unk5ac; // unused
+	/*0x5b0*/ u8 perfectheadnum;
+	/*0x5b1*/ u8 isperfecthead : 1;
+	/*0x5b1*/ u8 unk5b1_02 : 1; // unused
+	/*0x5b1*/ u8 unk5b1_03 : 1; // unused
+	/*0x5b1*/ u8 reverseanim : 1;
+	/*0x5b1*/ u8 configuring : 1;
+	/*0x5b1*/ u8 unk5b1_06 : 1; // unused
+	/*0x5b1*/ u8 drawbehinddialog : 1;
 	/*0x5b4*/ struct modelpartvisibility *partvisibility;
 };
 
@@ -3924,7 +3923,7 @@ struct menu {
 	/*0x83d*/ u8 unk83d;
 	/*0x83e*/ u8 unk83e;
 	/*0x83f*/ u8 unk83f;
-	/*0x840*/ struct menu840 unk840;
+	/*0x840*/ struct menumodel menumodel;
 	/*0xdf8*/ s8 bannernum;
 	/*0xdfc*/ struct menudfc unkdfc[4];
 
@@ -4738,11 +4737,11 @@ struct menudata {
 	/*0x016*/ u8 screenshottimer;
 	/*0x017*/ u8 playerjoinalpha[MAX_PLAYERS];
 	/*0x01b*/ s8 bannernum;
-	/*0x01c*/ struct menu840 unk01c;
+	/*0x01c*/ struct menumodel hudpiece;
 	/*0x5d4*/ u8 unk5d4;
 	/*0x5d5*/ u8 unk5d5_01 : 1;
 	/*0x5d5*/ u8 unk5d5_02 : 1;
-	/*0x5d5*/ u8 unk5d5_03 : 1;
+	/*0x5d5*/ u8 usezbuf : 1;
 	/*0x5d5*/ u8 unk5d5_04 : 1;
 	/*0x5d5*/ u8 unk5d5_05 : 1;
 	/*0x5d5*/ u8 unk5d5_06 : 1;

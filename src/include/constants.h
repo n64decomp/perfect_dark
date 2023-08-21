@@ -1683,6 +1683,25 @@
 #define MENUITEMTYPE_CONTROLLER  0x19
 #define MENUITEMTYPE_END         0x1a
 
+#define MENUMODELFLAG_HASSCALE    0x01
+#define MENUMODELFLAG_HASPOSITION 0x02
+#define MENUMODELFLAG_HASROTATION 0x04
+
+#define MENUMODELPARAMS_HAS_MASTER_HEADBODY(params)           (((params) & 0x80000000) != 0)
+#define MENUMODELPARAMS_GET_MASTER_HEADNUM(params)            ((params) & 0x3ff)
+#define MENUMODELPARAMS_GET_MASTER_BODYNUM(params)            (((params) & 0xffc00) >> 10)
+#define MENUMODELPARAMS_GET_MP_HEADNUM(params)                (((params) >> 16) & 0xff)
+#define MENUMODELPARAMS_GET_MP_BODYNUM(params)                (((params) >> 24) & 0xff)
+#define MENUMODELPARAMS_GET_FILENUM(params)                   ((params) & 0xffff)
+#define MENUMODELPARAMS_SET_FILENUM(filenum)                  (filenum)
+#define MENUMODELPARAMS_SET_MP_HEADBODY(mpheadnum, mpbodynum) (0xffff | ((mpheadnum) << 16) | ((mpbodynum) << 24))
+
+#define MENUMODELTYPE_DEFAULT     0
+#define MENUMODELTYPE_HUDPIECE    1
+#define MENUMODELTYPE_2           2
+#define MENUMODELTYPE_3           3
+#define MENUMODELTYPE_CREDITSLOGO 4
+
 #define MENUOP_GETOPTIONCOUNT      1
 #define MENUOP_GETOPTGROUPCOUNT    2
 #define MENUOP_GETOPTIONTEXT       3

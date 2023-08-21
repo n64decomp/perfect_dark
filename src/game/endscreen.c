@@ -432,19 +432,19 @@ struct menudialogdef *endscreenAdvance(void)
 	return &g_NextMissionMenuDialog;
 }
 
-void endscreen0f10d770(void)
+void endscreenResetModels(void)
 {
-	func0f0f8bb4(&g_Menus[0].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
-	g_Menus[0].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
+	menuResetModel(&g_Menus[0].menumodel, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), false);
+	g_Menus[0].menumodel.allocstart = bgunGetGunMem() + menugfxGetParticleArraySize();
 
-	func0f0f8bb4(&g_Menus[1].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
-	g_Menus[1].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
+	menuResetModel(&g_Menus[1].menumodel, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), false);
+	g_Menus[1].menumodel.allocstart = bgunGetGunMem() + menugfxGetParticleArraySize();
 
-	func0f0f8bb4(&g_Menus[2].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
-	g_Menus[2].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
+	menuResetModel(&g_Menus[2].menumodel, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), false);
+	g_Menus[2].menumodel.allocstart = bgunGetGunMem() + menugfxGetParticleArraySize();
 
-	func0f0f8bb4(&g_Menus[3].unk840, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), 0);
-	g_Menus[3].unk840.unk004 = bgunGetGunMem() + menugfxGetParticleArraySize();
+	menuResetModel(&g_Menus[3].menumodel, bgunCalculateGunMemCapacity() - menugfxGetParticleArraySize(), false);
+	g_Menus[3].menumodel.allocstart = bgunGetGunMem() + menugfxGetParticleArraySize();
 }
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -687,7 +687,7 @@ void endscreenContinue(s32 context)
 					menuPushDialog(&g_MissionContinueOrReplyMenuDialog);
 				}
 			} else {
-				endscreen0f10d770();
+				endscreenResetModels();
 
 				if (context == 1) {
 					menuPushRootDialog(endscreenAdvance(), MENUROOT_COOPCONTINUE);
@@ -746,7 +746,7 @@ MenuDialogHandlerResult endscreenHandle2PCompleted(s32 operation, struct menudia
 										&& !isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty)))) {
 							menuPopDialog();
 						} else {
-							endscreen0f10d770();
+							endscreenResetModels();
 							menuPushDialog(endscreenAdvance());
 						}
 #endif
@@ -789,7 +789,7 @@ MenuDialogHandlerResult endscreenHandle2PFailed(s32 operation, struct menudialog
 								|| g_Vars.stagenum == STAGE_CITRAINING) {
 							menuPopDialog();
 						} else {
-							endscreen0f10d770();
+							endscreenResetModels();
 							menuPushDialog(&g_RetryMissionMenuDialog);
 						}
 					}
@@ -1750,7 +1750,7 @@ void endscreenPushSolo(void)
 #endif
 	{
 		// Failed or aborted
-		endscreen0f10d770();
+		endscreenResetModels();
 		menuPushRootDialog(&g_RetryMissionMenuDialog, MENUROOT_COOPCONTINUE);
 	} else {
 		// Completed
@@ -1760,7 +1760,7 @@ void endscreenPushSolo(void)
 		struct menudialogdef *definition = endscreenAdvance();
 
 		if (definition) {
-			endscreen0f10d770();
+			endscreenResetModels();
 			menuPushRootDialog(definition, MENUROOT_COOPCONTINUE);
 		}
 #endif

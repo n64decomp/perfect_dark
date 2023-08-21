@@ -9,7 +9,7 @@ s16 mpChooseRandomStage(void);
 MenuItemHandlerResult mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextWeaponNameForSlot(struct menuitem *item);
 char *mpMenuTextSetupName(struct menuitem *item);
-MenuItemHandlerResult mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpheadnum, s32 mpbodynum, bool isplayer);
+MenuItemHandlerResult mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpbodynum, s32 mpheadnum, bool isplayer);
 MenuDialogHandlerResult menudialog0017a174(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
 MenuItemHandlerResult mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextKills(struct menuitem *item);

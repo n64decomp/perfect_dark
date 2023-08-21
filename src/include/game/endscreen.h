@@ -28,7 +28,7 @@ char *endscreenMenuTextCurrentStageName3(struct menuitem *item);
 char *endscreenMenuTitleStageFailed(struct menuitem *item);
 char *endscreenMenuTextMissionTime(struct menuitem *item);
 struct menudialogdef *endscreenAdvance(void);
-void endscreen0f10d770(void);
+void endscreenResetModels(void);
 void endscreenContinue(s32 context);
 char *endscreenMenuTextTimedCheatName(struct menuitem *item);
 char *endscreenMenuTextCompletionCheatName(struct menuitem *item);

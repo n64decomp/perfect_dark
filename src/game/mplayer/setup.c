@@ -550,35 +550,35 @@ MenuItemHandlerResult func0f179d6c(s32 operation, struct menuitem *item, union h
 /**
  * This function is used by both player body selection and bot body selection.
  */
-MenuItemHandlerResult mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpheadnum, s32 mpbodynum, bool isplayer)
+MenuItemHandlerResult mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpbodynum, s32 mpheadnum, bool isplayer)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->carousel.value = mpGetNumBodies();
 		break;
 	case MENUOP_11:
-		g_Menus[g_MpPlayerNum].unk840.unk05c = 0x1fc;
-		g_Menus[g_MpPlayerNum].unk840.unk00c = mpbodynum << 16 | 0xffff | mpheadnum << 24;
-		g_Menus[g_MpPlayerNum].unk840.unk574 += g_Vars.diffframe60;
+		g_Menus[g_MpPlayerNum].menumodel.newanimnum = ANIM_01FC;
+		g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_MP_HEADBODY(mpheadnum, mpbodynum);
+		g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 += g_Vars.diffframe60;
 
-		if (g_Menus[g_MpPlayerNum].unk840.unk574 > TICKS(480)) {
-			g_Menus[g_MpPlayerNum].unk840.unk574 -= TICKS(480);
+		if (g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 > TICKS(480)) {
+			g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 -= TICKS(480);
 		}
 
-		if (g_Menus[g_MpPlayerNum].unk840.unk578 > 0) {
-			g_Menus[g_MpPlayerNum].unk840.unk578 -= g_Vars.diffframe60;
+		if (g_Menus[g_MpPlayerNum].menumodel.rottimer60 > 0) {
+			g_Menus[g_MpPlayerNum].menumodel.rottimer60 -= g_Vars.diffframe60;
 		} else {
 #if VERSION >= VERSION_PAL_BETA
-			f32 value = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
+			f32 value = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60freal;
 #else
-			f32 value = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
+			f32 value = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60f;
 #endif
-			g_Menus[g_MpPlayerNum].unk840.unk54c = value;
-			g_Menus[g_MpPlayerNum].unk840.unk524 = value;
+			g_Menus[g_MpPlayerNum].menumodel.newroty = value;
+			g_Menus[g_MpPlayerNum].menumodel.curroty = value;
 		}
 
-		g_Menus[g_MpPlayerNum].unk840.partvisibility = NULL;
-		g_Menus[g_MpPlayerNum].unk840.unk554 = 30;
+		g_Menus[g_MpPlayerNum].menumodel.partvisibility = NULL;
+		g_Menus[g_MpPlayerNum].menumodel.zoom = 30;
 		break;
 	case MENUOP_21:
 		if (!challengeIsFeatureUnlocked(mpGetBodyRequiredFeature(data->carousel.value))) {
@@ -587,34 +587,36 @@ MenuItemHandlerResult mpCharacterBodyMenuHandler(s32 operation, struct menuitem 
 		break;
 #if VERSION >= VERSION_NTSC_1_0
 	case MENUOP_FOCUS:
-		g_Menus[g_MpPlayerNum].unk840.unk000 = 3;
+		g_Menus[g_MpPlayerNum].menumodel.loaddelay = 3;
 		break;
 #endif
 	case MENUOP_GETSELECTEDINDEX:
-		data->carousel.value = mpheadnum;
+		data->carousel.value = mpbodynum;
 		break;
 	case MENUOP_SET:
 	case MENUOP_CHECKPREFOCUSED:
-		g_Menus[g_MpPlayerNum].unk840.unk580 = 0;
+		g_Menus[g_MpPlayerNum].menumodel.removingpiece = false;
 
-		func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, 1, 1);
+		menuConfigureModel(&g_Menus[g_MpPlayerNum].menumodel, 0, 0, 0, 0, 0, 0, 1, MENUMODELFLAG_HASSCALE);
 
-		g_Menus[g_MpPlayerNum].unk840.unk510 = 8.2f;
-		g_Menus[g_MpPlayerNum].unk840.unk514 = -4.1f;
-		g_Menus[g_MpPlayerNum].unk840.unk53c = -4.1f;
+		g_Menus[g_MpPlayerNum].menumodel.curposx = 8.2f;
+		g_Menus[g_MpPlayerNum].menumodel.newposx = 8.2f;
 
-		g_Menus[g_MpPlayerNum].unk840.unk538 = 8.2f;
-		g_Menus[g_MpPlayerNum].unk840.unk51c = 0.002f;
-		g_Menus[g_MpPlayerNum].unk840.unk524 = -0.2f;
-		g_Menus[g_MpPlayerNum].unk840.unk54c = -0.2f;
+		g_Menus[g_MpPlayerNum].menumodel.curposy = -4.1f;
+		g_Menus[g_MpPlayerNum].menumodel.newposy = -4.1f;
 
-		g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
-		g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
-		g_Menus[g_MpPlayerNum].unk840.unk000 = 8;
+		g_Menus[g_MpPlayerNum].menumodel.curscale = 0.002f;
+
+		g_Menus[g_MpPlayerNum].menumodel.curroty = -0.2f;
+		g_Menus[g_MpPlayerNum].menumodel.newroty = -0.2f;
+
+		g_Menus[g_MpPlayerNum].menumodel.rottimer60 = TICKS(60);
+		g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 = TICKS(120);
+		g_Menus[g_MpPlayerNum].menumodel.loaddelay = 8;
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (operation == MENUOP_CHECKPREFOCUSED) {
-			g_Menus[g_MpPlayerNum].unk840.unk000 = 16;
+			g_Menus[g_MpPlayerNum].menumodel.loaddelay = 16;
 		}
 #endif
 
@@ -1879,30 +1881,30 @@ MenuItemHandlerResult mpCharacterHeadMenuHandler(s32 operation, struct menuitem 
 		break;
 	case MENUOP_11:
 #if VERSION >= VERSION_PAL_BETA
-		diffframe = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
+		diffframe = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60freal;
 #else
-		diffframe = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
+		diffframe = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60f;
 #endif
 
-		g_Menus[g_MpPlayerNum].unk840.unk54c = diffframe;
-		g_Menus[g_MpPlayerNum].unk840.unk524 = diffframe;
+		g_Menus[g_MpPlayerNum].menumodel.newroty = diffframe;
+		g_Menus[g_MpPlayerNum].menumodel.curroty = diffframe;
 
 		if (mpheadnum < mpGetNumHeads2()) {
 			headnum = mpGetHeadId(mpheadnum);
 
-			g_Menus[g_MpPlayerNum].unk840.unk00c = g_HeadsAndBodies[headnum].filenum;
-			g_Menus[g_MpPlayerNum].unk840.unk5b1_01 = false;
+			g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_FILENUM(g_HeadsAndBodies[headnum].filenum);
+			g_Menus[g_MpPlayerNum].menumodel.isperfecthead = false;
 		} else {
 			headnum = mpGetBeauHeadId(func0f14a9f8(mpheadnum - mpGetNumHeads2()));
 
-			g_Menus[g_MpPlayerNum].unk840.unk00c = g_HeadsAndBodies[headnum].filenum;
-			g_Menus[g_MpPlayerNum].unk840.unk5b1_01 = true;
-			g_Menus[g_MpPlayerNum].unk840.unk5b0 = mpheadnum - mpGetNumHeads2();
+			g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_FILENUM(g_HeadsAndBodies[headnum].filenum);
+			g_Menus[g_MpPlayerNum].menumodel.isperfecthead = true;
+			g_Menus[g_MpPlayerNum].menumodel.perfectheadnum = mpheadnum - mpGetNumHeads2();
 		}
 
-		g_Menus[g_MpPlayerNum].unk840.unk574 = 0;
-		g_Menus[g_MpPlayerNum].unk840.partvisibility = visibility;
-		g_Menus[g_MpPlayerNum].unk840.unk554 = 30;
+		g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 = 0;
+		g_Menus[g_MpPlayerNum].menumodel.partvisibility = visibility;
+		g_Menus[g_MpPlayerNum].menumodel.zoom = 30;
 		break;
 	case MENUOP_21:
 		if (!challengeIsFeatureUnlocked(mpGetHeadRequiredFeature(data->carousel.value))) {
@@ -1915,22 +1917,26 @@ MenuItemHandlerResult mpCharacterHeadMenuHandler(s32 operation, struct menuitem 
 	case MENUOP_SET:
 	case MENUOP_FOCUS:
 #if VERSION >= VERSION_NTSC_1_0
-		g_Menus[g_MpPlayerNum].unk840.unk000 = 3;
+		g_Menus[g_MpPlayerNum].menumodel.loaddelay = 3;
 #endif
 
 		mpGetNumHeads2();
 
-		func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, 1, 1);
+		menuConfigureModel(&g_Menus[g_MpPlayerNum].menumodel, 0, 0, 0, 0, 0, 0, 1, MENUMODELFLAG_HASSCALE);
 
-		g_Menus[g_MpPlayerNum].unk840.unk510 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk514 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk53c = -3;
-		g_Menus[g_MpPlayerNum].unk840.unk538 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk51c = 0.01f;
-		g_Menus[g_MpPlayerNum].unk840.unk524 = -0.3f;
-		g_Menus[g_MpPlayerNum].unk840.unk54c = -0.3f;
-		g_Menus[g_MpPlayerNum].unk840.unk544 = 1;
-		g_Menus[g_MpPlayerNum].unk840.unk554 = 30;
+		g_Menus[g_MpPlayerNum].menumodel.curposx = 0;
+		g_Menus[g_MpPlayerNum].menumodel.curposy = 0;
+
+		g_Menus[g_MpPlayerNum].menumodel.newposx = 0;
+		g_Menus[g_MpPlayerNum].menumodel.newposy = -3;
+
+		g_Menus[g_MpPlayerNum].menumodel.curscale = 0.01f;
+
+		g_Menus[g_MpPlayerNum].menumodel.curroty = -0.3f;
+		g_Menus[g_MpPlayerNum].menumodel.newroty = -0.3f;
+
+		g_Menus[g_MpPlayerNum].menumodel.newscale = 1;
+		g_Menus[g_MpPlayerNum].menumodel.zoom = 30;
 		break;
 	}
 
@@ -4051,12 +4057,12 @@ MenuDialogHandlerResult menudialog0017e3fc(s32 operation, struct menudialogdef *
 {
 	switch (operation) {
 	case MENUOP_OPEN:
-		g_Menus[g_MpPlayerNum].unk840.unk010 = 0;
+		g_Menus[g_MpPlayerNum].menumodel.curparams = 0;
 
 		g_Menus[g_MpPlayerNum].training.mpconfig = challengeLoadBySlot(
 				g_Menus[g_MpPlayerNum].training.unke1c,
-				g_Menus[g_MpPlayerNum].unk840.unk004,
-				g_Menus[g_MpPlayerNum].unk840.unk008);
+				g_Menus[g_MpPlayerNum].menumodel.allocstart,
+				g_Menus[g_MpPlayerNum].menumodel.alloclen);
 		break;
 	case MENUOP_CLOSE:
 		break;
@@ -4628,16 +4634,16 @@ MenuDialogHandlerResult mpCombatChallengesMenuDialog(s32 operation, struct menud
 				&& g_Menus[g_MpPlayerNum].curdialog
 				&& g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
 				&& !challengeIsLoaded()) {
-			g_Menus[g_MpPlayerNum].unk840.unk010 = 0x4fac5ace;
+			g_Menus[g_MpPlayerNum].menumodel.curparams = 0x4fac5ace;
 
 			challengeLoadAndStoreCurrent(
-					g_Menus[g_MpPlayerNum].unk840.unk004,
-					g_Menus[g_MpPlayerNum].unk840.unk008);
+					g_Menus[g_MpPlayerNum].menumodel.allocstart,
+					g_Menus[g_MpPlayerNum].menumodel.alloclen);
 		}
 	}
 
 	if (operation == MENUOP_CLOSE) {
-		if (g_Menus[g_MpPlayerNum].unk840.unk010 == 0x4fac5ace) {
+		if (g_Menus[g_MpPlayerNum].menumodel.curparams == 0x4fac5ace) {
 			challengeUnsetCurrent();
 		}
 	}

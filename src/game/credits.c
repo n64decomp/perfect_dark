@@ -122,7 +122,7 @@ struct creditsdata {
 	/*0x0008*/ u32 unk0008;
 	/*0x000c*/ struct particle particles[500];
 	/*0x2eec*/ u8 unk2eec;
-	/*0x2ef0*/ struct menu840 unk2ef0;
+	/*0x2ef0*/ struct menumodel menumodel;
 	/*0x34a8*/ u8 unk34a8[0xcac];
 
 	/**
@@ -1796,7 +1796,7 @@ Gfx *creditsDraw(Gfx *gdl)
 				g_CreditsScrollStarted = true;
 				scrolltimer240 = 0;
 
-				func0f0f37a4(&g_CreditsData->unk2ef0);
+				menuUnsetModel(&g_CreditsData->menumodel);
 			}
 
 			scrolltimer240 += g_Vars.diffframe240;
@@ -1805,19 +1805,22 @@ Gfx *creditsDraw(Gfx *gdl)
 				scrolltimer240 = 0;
 			}
 
-			g_CreditsData->unk2ef0.unk54c = 0;
-			g_CreditsData->unk2ef0.unk524 = 0;
-			g_CreditsData->unk2ef0.unk520 = g_CreditsData->unk2ef0.unk548 = -0.26175770163536;
-			g_CreditsData->unk2ef0.unk528 = g_CreditsData->unk2ef0.unk550 = 0;
-			g_CreditsData->unk2ef0.unk538 = 833.0f - (scrolltimer240 / TICKS(14400.0f)) * 2413.0f;
-			g_CreditsData->unk2ef0.unk53c = VERSION == VERSION_PAL_FINAL ? 65.86 : 70.86;
-			g_CreditsData->unk2ef0.unk540 = -2050;
-			g_CreditsData->unk2ef0.unk544 = 1.467;
-			g_CreditsData->unk2ef0.unk00c = 1200;
-			g_CreditsData->unk2ef0.unk5b1_07 = true;
-			g_CreditsData->unk2ef0.partvisibility = NULL;
+			g_CreditsData->menumodel.newroty = 0;
+			g_CreditsData->menumodel.curroty = 0;
 
-			gdl = menuRenderModels(gdl, &g_CreditsData->unk2ef0, 4);
+			g_CreditsData->menumodel.currotx = g_CreditsData->menumodel.newrotx = -0.26175770163536;
+			g_CreditsData->menumodel.currotz = g_CreditsData->menumodel.newrotz = 0;
+
+			g_CreditsData->menumodel.newposx = 833.0f - (scrolltimer240 / TICKS(14400.0f)) * 2413.0f;
+			g_CreditsData->menumodel.newposy = VERSION == VERSION_PAL_FINAL ? 65.86 : 70.86;
+			g_CreditsData->menumodel.newposz = -2050;
+
+			g_CreditsData->menumodel.newscale = 1.467;
+			g_CreditsData->menumodel.newparams = MENUMODELPARAMS_SET_FILENUM(FILE_PPDMENU);
+			g_CreditsData->menumodel.drawbehinddialog = true;
+			g_CreditsData->menumodel.partvisibility = NULL;
+
+			gdl = menuRenderModel(gdl, &g_CreditsData->menumodel, MENUMODELTYPE_CREDITSLOGO);
 
 			gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -1912,19 +1915,18 @@ void creditsReset(void)
 
 	creditsResetParticles();
 	creditsResetSlides();
-	func0f0f8bb4(&g_CreditsData->unk2ef0, 0x25800, 1);
+	menuResetModel(&g_CreditsData->menumodel, 0x25800, true);
 
-	g_CreditsData->unk2ef0.unk580 = 0;
+	g_CreditsData->menumodel.removingpiece = false;
 
-	func0f0f372c(&g_CreditsData->unk2ef0, 0, 0, 0, 0, 0, 0, 1, 5);
+	menuConfigureModel(&g_CreditsData->menumodel, 0, 0, 0, 0, 0, 0, 1, MENUMODELFLAG_HASSCALE | MENUMODELFLAG_HASROTATION);
 
-	g_CreditsData->unk2ef0.unk53c = 90;
-	g_CreditsData->unk2ef0.unk510 = 8.2;
-	g_CreditsData->unk2ef0.unk514 = -4.1;
-	g_CreditsData->unk2ef0.unk51c = 0.00393;
-	g_CreditsData->unk2ef0.unk54c = 0;
-	g_CreditsData->unk2ef0.unk524 = g_CreditsData->unk2ef0.unk54c;
-	g_CreditsData->unk2ef0.unk578 = 60;
+	g_CreditsData->menumodel.newposy = 90;
+	g_CreditsData->menumodel.curposx = 8.2;
+	g_CreditsData->menumodel.curposy = -4.1;
+	g_CreditsData->menumodel.curscale = 0.00393;
+	g_CreditsData->menumodel.curroty = g_CreditsData->menumodel.newroty = 0;
+	g_CreditsData->menumodel.rottimer60 = 60;
 
 	g_CreditsUsingAltTitle = g_CreditsAltTitleRequested;
 

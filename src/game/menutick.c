@@ -690,9 +690,9 @@ void menuTick(void)
 		if (g_Vars.currentplayer->gunctrl.gunmemowner == GUNMEMOWNER_INVMENU && g_Vars.stagenum != STAGE_CITRAINING) {
 			g_MenuData.unk5d5_01 = true;
 
-			if (g_Menus[0].unk840.unk004) {
+			if (g_Menus[0].menumodel.allocstart) {
 				bgunFreeGunMem();
-				g_Menus[0].unk840.unk004 = NULL;
+				g_Menus[0].menumodel.allocstart = NULL;
 			}
 		}
 	}

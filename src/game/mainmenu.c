@@ -772,11 +772,11 @@ MenuDialogHandlerResult menudialog00103608(s32 operation, struct menudialogdef *
 {
 	switch (operation) {
 	case MENUOP_OPEN:
-		g_Menus[g_MpPlayerNum].unk840.unk010 = 0;
+		g_Menus[g_MpPlayerNum].menumodel.curparams = 0;
 
 		setupLoadBriefing(g_MissionConfig.stagenum,
-				g_Menus[g_MpPlayerNum].unk840.unk004,
-				g_Menus[g_MpPlayerNum].unk840.unk008, &g_Briefing);
+				g_Menus[g_MpPlayerNum].menumodel.allocstart,
+				g_Menus[g_MpPlayerNum].menumodel.alloclen, &g_Briefing);
 		break;
 	case MENUOP_CLOSE:
 		langClearBank(g_Briefing.langbank);
@@ -3779,51 +3779,50 @@ void func0f105948(s32 weaponnum)
 	if (weaponHasFlag(weaponnum, WEAPONFLAG_HIDEMENUMODEL) == false && (u32)wantindex >= 0 && useindex >= 0) {
 		weapon = weaponFindById(weaponnum);
 
-		g_Menus[g_MpPlayerNum].unk840.unk000 = 8;
-		g_Menus[g_MpPlayerNum].unk840.unk010 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk00c = weaponGetFileNum(weaponnum);
-		g_Menus[g_MpPlayerNum].unk840.unk538 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk510 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk53c = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk514 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk540 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk518 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk550 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk528 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk52c = gunconfig[useindex][0];
-		g_Menus[g_MpPlayerNum].unk840.unk530 = gunconfig[useindex][1];
-		g_Menus[g_MpPlayerNum].unk840.unk534 = gunconfig[useindex][2];
-		g_Menus[g_MpPlayerNum].unk840.unk548 = gunconfig[useindex][3];
-		g_Menus[g_MpPlayerNum].unk840.unk520 = gunconfig[useindex][3]; // @bug? Wrong index?
+		g_Menus[g_MpPlayerNum].menumodel.loaddelay = 8;
+		g_Menus[g_MpPlayerNum].menumodel.curparams = 0;
+		g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_FILENUM(weaponGetFileNum(weaponnum));
 
-		func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, gunconfig[useindex][4], 1);
+		g_Menus[g_MpPlayerNum].menumodel.curposx = g_Menus[g_MpPlayerNum].menumodel.newposx = 0;
+		g_Menus[g_MpPlayerNum].menumodel.curposy = g_Menus[g_MpPlayerNum].menumodel.newposy = 0;
+		g_Menus[g_MpPlayerNum].menumodel.curposz = g_Menus[g_MpPlayerNum].menumodel.newposz = 0;
 
-		g_Menus[g_MpPlayerNum].unk840.unk51c = 0;
-		g_Menus[g_MpPlayerNum].unk840.partvisibility = weapon->partvisibility;
-		g_Menus[g_MpPlayerNum].unk840.unk554 = -1;
+		g_Menus[g_MpPlayerNum].menumodel.currotz = g_Menus[g_MpPlayerNum].menumodel.newrotz = 0;
+
+		g_Menus[g_MpPlayerNum].menumodel.displacex = gunconfig[useindex][0];
+		g_Menus[g_MpPlayerNum].menumodel.displacey = gunconfig[useindex][1];
+		g_Menus[g_MpPlayerNum].menumodel.displacez = gunconfig[useindex][2];
+
+		g_Menus[g_MpPlayerNum].menumodel.newrotx = gunconfig[useindex][3];
+		g_Menus[g_MpPlayerNum].menumodel.currotx = gunconfig[useindex][3];
+
+		menuConfigureModel(&g_Menus[g_MpPlayerNum].menumodel, 0, 0, 0, 0, 0, 0, gunconfig[useindex][4], MENUMODELFLAG_HASSCALE);
+
+		g_Menus[g_MpPlayerNum].menumodel.curscale = 0;
+		g_Menus[g_MpPlayerNum].menumodel.partvisibility = weapon->partvisibility;
+		g_Menus[g_MpPlayerNum].menumodel.zoom = -1;
 
 		// These indexes correspond to WEAPON_DISGUISE40 and WEAPON_DISGUISE41
 		if (wantindex == 0x3e || wantindex == 0x3f) {
 			if ((u32)wantindex == 0x3e) {
-				g_Menus[g_MpPlayerNum].unk840.unk00c = 0x0a01ffff;
+				g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_MP_HEADBODY(MPHEAD_DARK_FROCK, MPBODY_DARKLAB);
 			} else {
-				g_Menus[g_MpPlayerNum].unk840.unk00c = 0x0400ffff;
+				g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_MP_HEADBODY(MPHEAD_DARK_COMBAT, MPBODY_DARK_AF1);
 			}
 
-			g_Menus[g_MpPlayerNum].unk840.partvisibility = NULL;
-			g_Menus[g_MpPlayerNum].unk840.unk580 = 0;
+			g_Menus[g_MpPlayerNum].menumodel.partvisibility = NULL;
+			g_Menus[g_MpPlayerNum].menumodel.removingpiece = false;
 
-			func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, 1, 1);
+			menuConfigureModel(&g_Menus[g_MpPlayerNum].menumodel, 0, 0, 0, 0, 0, 0, 1, MENUMODELFLAG_HASSCALE);
 
-			g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
-			g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
-			g_Menus[g_MpPlayerNum].unk840.unk54c = -0.2f;
-			g_Menus[g_MpPlayerNum].unk840.unk524 = -0.2f;
+			g_Menus[g_MpPlayerNum].menumodel.rottimer60 = TICKS(60);
+			g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 = TICKS(120);
+			g_Menus[g_MpPlayerNum].menumodel.curroty = g_Menus[g_MpPlayerNum].menumodel.newroty = -0.2f;
 		}
 	} else {
-		g_Menus[g_MpPlayerNum].unk840.bodymodeldef = NULL;
-		g_Menus[g_MpPlayerNum].unk840.unk010 = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk00c = 0;
+		g_Menus[g_MpPlayerNum].menumodel.bodymodeldef = NULL;
+		g_Menus[g_MpPlayerNum].menumodel.curparams = 0;
+		g_Menus[g_MpPlayerNum].menumodel.newparams = 0;
 	}
 }
 
@@ -3831,11 +3830,11 @@ MenuDialogHandlerResult inventoryMenuDialog(s32 operation, struct menudialogdef 
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
-			g_Menus[g_MpPlayerNum].unk840.unk574 -= g_Vars.diffframe60;
-			g_Menus[g_MpPlayerNum].unk840.unk54c = 18.849555969238f * g_20SecIntervalFrac;
-			g_Menus[g_MpPlayerNum].unk840.unk524 = 18.849555969238f * g_20SecIntervalFrac;
-			g_Menus[g_MpPlayerNum].unk840.unk528 = 0;
-			g_Menus[g_MpPlayerNum].unk840.unk550 = 0;
+			g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 -= g_Vars.diffframe60;
+			g_Menus[g_MpPlayerNum].menumodel.newroty = 18.849555969238f * g_20SecIntervalFrac;
+			g_Menus[g_MpPlayerNum].menumodel.curroty = 18.849555969238f * g_20SecIntervalFrac;
+			g_Menus[g_MpPlayerNum].menumodel.currotz = 0;
+			g_Menus[g_MpPlayerNum].menumodel.newrotz = 0;
 
 			if (var80072d88 != g_InventoryWeapon) {
 				func0f105948(g_InventoryWeapon);
@@ -3843,9 +3842,9 @@ MenuDialogHandlerResult inventoryMenuDialog(s32 operation, struct menudialogdef 
 			}
 
 			if (g_InventoryWeapon == WEAPON_DISGUISE40 || g_InventoryWeapon == WEAPON_DISGUISE41) {
-				g_Menus[g_MpPlayerNum].unk840.unk05c = ANIM_006A;
-				g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
-				g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
+				g_Menus[g_MpPlayerNum].menumodel.newanimnum = ANIM_006A;
+				g_Menus[g_MpPlayerNum].menumodel.rottimer60 = TICKS(60);
+				g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 = TICKS(120);
 			}
 		} else {
 			var80072d88 = 255;

@@ -2748,8 +2748,8 @@ char *menuitemScrollableGetText(u32 type)
 		return challengeGetConfigDescription(g_Menus[g_MpPlayerNum].training.mpconfig);
 	case DESCRIPTION_MPCHALLENGE:
 		if (!challengeIsLoaded()) {
-			g_Menus[g_MpPlayerNum].unk840.unk010 = 0x4fac5ace;
-			challengeLoadAndStoreCurrent(g_Menus[g_MpPlayerNum].unk840.unk004, g_Menus[g_MpPlayerNum].unk840.unk008);
+			g_Menus[g_MpPlayerNum].menumodel.curparams = 0x4fac5ace;
+			challengeLoadAndStoreCurrent(g_Menus[g_MpPlayerNum].menumodel.allocstart, g_Menus[g_MpPlayerNum].menumodel.alloclen);
 		}
 		return challengeGetCurrentDescription();
 	case DESCRIPTION_CHRBIO:         return ciGetChrBioDescription();

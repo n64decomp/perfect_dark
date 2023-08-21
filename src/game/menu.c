@@ -1424,7 +1424,7 @@ void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *dialog, 
 void menuPushDialog(struct menudialogdef *dialogdef)
 {
 	if (dialogdef) {
-		func0f0f37a4(&g_Menus[g_MpPlayerNum].unk840);
+		menuUnsetModel(&g_Menus[g_MpPlayerNum].menumodel);
 
 		if (g_Menus[g_MpPlayerNum].depth < 6 && g_Menus[g_MpPlayerNum].numdialogs < ARRAYCOUNT(g_Menus[0].dialogs)) {
 			struct menulayer *layer = &g_Menus[g_MpPlayerNum].layers[g_Menus[g_MpPlayerNum].depth];
@@ -1646,75 +1646,65 @@ void func0f0f3704(struct menudialogdef *dialogdef)
 	menuPushDialog(dialogdef);
 }
 
-void func0f0f372c(struct menu840 *arg0, f32 x, f32 y, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, u8 flags)
+void menuConfigureModel(struct menumodel *menumodel, f32 x, f32 y, f32 z, f32 rotx, f32 roty, f32 rotz, f32 scale, u8 flags)
 {
-	arg0->unk5b1_05 = true;
+	menumodel->configuring = true;
 
-	if (flags & 2) {
-		arg0->unk538 = x;
-		arg0->unk53c = y;
-		arg0->unk540 = arg3;
+	if (flags & MENUMODELFLAG_HASPOSITION) {
+		menumodel->newposx = x;
+		menumodel->newposy = y;
+		menumodel->newposz = z;
 	}
 
-	if (flags & 4) {
-		arg0->unk548 = arg4;
-		arg0->unk54c = arg5;
-		arg0->unk550 = arg6;
+	if (flags & MENUMODELFLAG_HASROTATION) {
+		menumodel->newrotx = rotx;
+		menumodel->newroty = roty;
+		menumodel->newrotz = rotz;
 	}
 
-	if (flags & 1) {
-		arg0->unk544 = arg7;
+	if (flags & MENUMODELFLAG_HASSCALE) {
+		menumodel->newscale = scale;
 	}
 
-	arg0->unk568 = flags;
-	arg0->unk564 = 0.0f;
+	menumodel->flags = flags;
+	menumodel->configurefrac = 0.0f;
 }
 
-void func0f0f37a4(struct menu840 *arg0)
+void menuUnsetModel(struct menumodel *menumodel)
 {
-	if (arg0->unk010 == 0x4fac5ace) {
+	if (menumodel->curparams == 0x4fac5ace) {
 		challengeUnsetCurrent();
 	}
 
-	arg0->unk000 = 0;
-	arg0->unk00c = 0;
-	arg0->unk010 = 0;
-	arg0->bodymodeldef = 0;
-	arg0->headmodeldef = 0;
-	arg0->unk05c = 0;
-	arg0->unk05e = 0;
-	arg0->unk5b0 = 0;
-	arg0->unk5b1_01 = false;
-	arg0->unk5b1_02 = false;
-	arg0->unk5b1_03 = false;
-	arg0->unk5b1_04 = false;
-	arg0->unk5b1_05 = false;
-	arg0->unk5b1_06 = false;
-	arg0->unk5b1_07 = false;
-	arg0->partvisibility = NULL;
-	arg0->unk560 = -1;
-	arg0->headnum = -1;
-	arg0->bodynum = -1;
-	arg0->unk550 = 0.0f;
-	arg0->unk54c = 0.0f;
-	arg0->unk548 = 0.0f;
-	arg0->unk540 = 0.0f;
-	arg0->unk53c = 0.0f;
-	arg0->unk538 = 0.0f;
-	arg0->unk534 = 0.0f;
-	arg0->unk530 = 0.0f;
-	arg0->unk52c = 0.0f;
-	arg0->unk528 = 0.0f;
-	arg0->unk524 = 0.0f;
-	arg0->unk520 = 0.0f;
-	arg0->unk518 = 0.0f;
-	arg0->unk514 = 0.0f;
-	arg0->unk510 = 0.0f;
-	arg0->unk558 = 0.0f;
-	arg0->unk55c = 1.0f;
-	arg0->unk51c = 1.0f;
-	arg0->unk544 = 1.0f;
-	arg0->unk554 = -1.0f;
+	menumodel->loaddelay = 0;
+	menumodel->newparams = 0;
+	menumodel->curparams = 0;
+	menumodel->bodymodeldef = NULL;
+	menumodel->headmodeldef = NULL;
+	menumodel->newanimnum = 0;
+	menumodel->curanimnum = 0;
+	menumodel->perfectheadnum = 0;
+	menumodel->isperfecthead = false;
+	menumodel->unk5b1_02 = false;
+	menumodel->unk5b1_03 = false;
+	menumodel->reverseanim = false;
+	menumodel->configuring = false;
+	menumodel->unk5b1_06 = false;
+	menumodel->drawbehinddialog = false;
+	menumodel->partvisibility = NULL;
+	menumodel->unk560 = -1;
+	menumodel->headnum = -1;
+	menumodel->bodynum = -1;
+	menumodel->newrotx = menumodel->newroty = menumodel->newrotz = 0.0f;
+	menumodel->newposx = menumodel->newposy = menumodel->newposz = 0.0f;
+	menumodel->displacex = menumodel->displacey = menumodel->displacez = 0.0f;
+	menumodel->currotx = menumodel->curroty = menumodel->currotz = 0.0f;
+	menumodel->curposx = menumodel->curposy = menumodel->curposz = 0.0f;
+	menumodel->unk558 = 0.0f;
+	menumodel->unk55c = 1.0f;
+	menumodel->curscale = 1.0f;
+	menumodel->newscale = 1.0f;
+	menumodel->zoom = -1.0f;
 }
 
 Lights1 var80071468 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0xb2, 0x4d, 0x2e);
@@ -1722,15 +1712,15 @@ Lights1 var80071468 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0xb2, 0
 /**
  * Render the hudpiece as well as any models within dialogs.
  */
-Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
+Gfx *menuRenderModel(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 {
-	f32 a;
-	f32 b;
-	f32 c;
-	f32 sp430;
-	f32 sp42c;
-	f32 sp428;
-	f32 sp424;
+	f32 rotx;
+	f32 roty;
+	f32 rotz;
+	f32 posx;
+	f32 posy;
+	f32 posz;
+	f32 scale;
 	s32 totalfilelen;
 	struct texpool texpool;
 	s32 bodyfilelen2;
@@ -1740,48 +1730,49 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 	s32 headnum;
 
 	if (g_Vars.stagenum != STAGE_CITRAINING && g_Vars.stagenum != STAGE_CREDITS) {
-		if (g_MenuData.unk5d5_01 && arg2 != 1 && arg2 < 3) {
+		if (g_MenuData.unk5d5_01 && modeltype != MENUMODELTYPE_HUDPIECE && modeltype < MENUMODELTYPE_3) {
 			return gdl;
 		}
 
-		if (thing->unk004 == NULL) {
+		if (menumodel->allocstart == NULL) {
 			if (bgunChangeGunMem(GUNMEMOWNER_INVMENU)) {
-				thing->unk004 = bgunGetGunMem();
-				thing->unk008 = bgunCalculateGunMemCapacity();
+				menumodel->allocstart = bgunGetGunMem();
+				menumodel->alloclen = bgunCalculateGunMemCapacity();
 			} else {
 				return gdl;
 			}
 		}
 	}
 
-	if (thing->unk004 == NULL) {
+	if (menumodel->allocstart == NULL) {
 		return gdl;
 	}
 
-	if (thing->unk00c != 0) {
-		if (thing->unk00c == thing->unk010) {
-			thing->unk00c = 0;
-			thing->unk000 = 0;
+	// If the caller has asked for a new model to be loaded, do it
+	if (menumodel->newparams != 0) {
+		if (menumodel->newparams == menumodel->curparams) {
+			menumodel->newparams = 0;
+			menumodel->loaddelay = 0;
 		} else {
-			if (thing->unk010 == 0x4fac5ace) {
+			if (menumodel->curparams == 0x4fac5ace) {
 				challengeUnsetCurrent();
 			}
 
-			if (thing->unk000 == 0) {
-				thing->unk000 = 1;
+			if (menumodel->loaddelay == 0) {
+				menumodel->loaddelay = 1;
 				return gdl;
 			}
 
-			thing->unk000--;
+			menumodel->loaddelay--;
 
-			if (thing->unk000 == 0) {
-				if ((thing->unk00c & 0xffff) == 0xffff || (thing->unk00c & 0x80000000)) {
-					if (thing->unk00c & 0x80000000) {
-						headnum = thing->unk00c & 0x3ff;
-						bodynum = (thing->unk00c & 0xffc00) >> 10;
+			if (menumodel->loaddelay == 0) {
+				if (MENUMODELPARAMS_GET_FILENUM(menumodel->newparams) == 0xffff || MENUMODELPARAMS_HAS_MASTER_HEADBODY(menumodel->newparams)) {
+					if (MENUMODELPARAMS_HAS_MASTER_HEADBODY(menumodel->newparams)) {
+						headnum = MENUMODELPARAMS_GET_MASTER_HEADNUM(menumodel->newparams);
+						bodynum = MENUMODELPARAMS_GET_MASTER_BODYNUM(menumodel->newparams);
 					} else {
-						s32 mpheadnum = (thing->unk00c >> 16) & 0xff;
-						s32 mpbodynum = (thing->unk00c >> 24) & 0xff;
+						s32 mpheadnum = MENUMODELPARAMS_GET_MP_HEADNUM(menumodel->newparams);
+						s32 mpbodynum = MENUMODELPARAMS_GET_MP_BODYNUM(menumodel->newparams);
 						bodynum = mpGetBodyId(mpbodynum);
 
 						if (mpheadnum < mpGetNumHeads2()) {
@@ -1789,7 +1780,7 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 						} else {
 							headnum = func0f14a9f8(mpheadnum - mpGetNumHeads2());
 							headnum = mpGetBeauHeadId(headnum);
-							thing->unk5b0 = (mpheadnum - mpGetNumHeads2()) & 0xff;
+							menumodel->perfectheadnum = (mpheadnum - mpGetNumHeads2()) & 0xff;
 						}
 					}
 
@@ -1808,80 +1799,82 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 					totalfilelen += 0x4000;
 
-					texInitPool(&texpool, thing->unk004 + totalfilelen, thing->unk008 - totalfilelen);
+					texInitPool(&texpool, menumodel->allocstart + totalfilelen, menumodel->alloclen - totalfilelen);
 
-					thing->headnum = headnum;
-					thing->bodynum = bodynum;
-					thing->bodymodeldef = modeldefLoad(bodyfilenum, thing->unk004, totalfilelen, &texpool);
+					menumodel->headnum = headnum;
+					menumodel->bodynum = bodynum;
+					menumodel->bodymodeldef = modeldefLoad(bodyfilenum, menumodel->allocstart, totalfilelen, &texpool);
 					bodyfilelen2 = ALIGN64(fileGetLoadedSize(bodyfilenum));
-					modelAllocateRwData(thing->bodymodeldef);
+					modelAllocateRwData(menumodel->bodymodeldef);
 
 					if (headnum < 0) {
-						thing->headmodeldef = NULL;
+						menumodel->headmodeldef = NULL;
 					} else {
-						thing->headmodeldef = modeldefLoad(headfilenum, thing->unk004 + bodyfilelen2, totalfilelen - bodyfilelen2, &texpool);
+						menumodel->headmodeldef = modeldefLoad(headfilenum, menumodel->allocstart + bodyfilelen2, totalfilelen - bodyfilelen2, &texpool);
 						fileGetLoadedSize(headfilenum);
-						bodyCalculateHeadOffset(thing->headmodeldef, headnum, bodynum);
-						modelAllocateRwData(thing->headmodeldef);
+						bodyCalculateHeadOffset(menumodel->headmodeldef, headnum, bodynum);
+						modelAllocateRwData(menumodel->headmodeldef);
 					}
 
-					modelInit(&thing->bodymodel, thing->bodymodeldef, thing->unk110, true);
-					animInit(&thing->bodyanim);
+					modelInit(&menumodel->bodymodel, menumodel->bodymodeldef, menumodel->rwdata, true);
+					animInit(&menumodel->bodyanim);
 
-					thing->bodymodel.rwdatalen = 256;
-					thing->bodymodel.anim = &thing->bodyanim;
+					menumodel->bodymodel.rwdatalen = 256;
+					menumodel->bodymodel.anim = &menumodel->bodyanim;
 
-					body0f02ce8c(bodynum, headnum, thing->bodymodeldef, thing->headmodeldef, totalfilelen * 0, &thing->bodymodel, false, 1);
+					body0f02ce8c(bodynum, headnum, menumodel->bodymodeldef, menumodel->headmodeldef, totalfilelen * 0, &menumodel->bodymodel, false, 1);
 				} else {
-					totalfilelen = ALIGN64(fileGetInflatedSize(thing->unk00c)) + 0x4000;
+					totalfilelen = ALIGN64(fileGetInflatedSize(menumodel->newparams)) + 0x4000;
 					if (1);
 
-					texInitPool(&texpool, &thing->unk004[(u32)totalfilelen], thing->unk008 - totalfilelen);
+					texInitPool(&texpool, &menumodel->allocstart[(u32)totalfilelen], menumodel->alloclen - totalfilelen);
 
-					thing->headnum = -1;
-					thing->bodynum = -1;
-					thing->bodymodeldef = modeldefLoad(thing->unk00c, thing->unk004, totalfilelen, &texpool);
+					menumodel->headnum = -1;
+					menumodel->bodynum = -1;
+					menumodel->bodymodeldef = modeldefLoad(menumodel->newparams, menumodel->allocstart, totalfilelen, &texpool);
 
-					fileGetLoadedSize(thing->unk00c);
-					modelAllocateRwData(thing->bodymodeldef);
-					modelInit(&thing->bodymodel, thing->bodymodeldef, thing->unk110, true);
-					animInit(&thing->bodyanim);
+					fileGetLoadedSize(menumodel->newparams);
+					modelAllocateRwData(menumodel->bodymodeldef);
+					modelInit(&menumodel->bodymodel, menumodel->bodymodeldef, menumodel->rwdata, true);
+					animInit(&menumodel->bodyanim);
 
-					thing->bodymodel.rwdatalen = 256;
-					thing->bodymodel.anim = &thing->bodyanim;
+					menumodel->bodymodel.rwdatalen = 256;
+					menumodel->bodymodel.anim = &menumodel->bodyanim;
 				}
 
-				thing->unk010 = thing->unk00c;
-				thing->unk05e = 0;
-				thing->unk00c = 0;
+				menumodel->curparams = menumodel->newparams;
+				menumodel->curanimnum = 0;
+				menumodel->newparams = 0;
 			} else {
 				return gdl;
 			}
 		}
 	}
 
-	if (thing->bodymodeldef != NULL) {
+	if (menumodel->bodymodeldef != NULL) {
 		struct modelrenderdata renderdata = {NULL, true, 3};
-		Mtxf *sp3b4;
+		Mtxf *matrices;
 		s32 i;
 		u32 stack[3];
-		struct coord sp398;
-		f32 sp390[2];
-		Mtxf sp350;
-		Mtxf sp310;
-		f32 sp30c[1];
-		bool sp308;
-		struct coord sp2fc;
-		f32 sp2f8;
-		bool sp2f4;
+		struct coord tmpcoord;
+		f32 screenpos[2];
+		Mtxf rotmtx;
+		Mtxf posmtx;
+		f32 screenz[1];
+		bool haszoom;
+		struct coord zoompos;
+		f32 zoomy;
+		bool dodefaultzoom;
 
-		if (arg2 < 3 && g_MenuData.unk5d5_03) {
+		// Most models use the z-buffer and a scissor.
+		// Types 2 and 3 are unused. Type 4 is the credits scrolling logo.
+		if (modeltype < MENUMODELTYPE_3 && g_MenuData.usezbuf) {
 			gdl = viPrepareZbuf(gdl);
 			gdl = vi0000b1d0(gdl);
 
-			g_MenuData.unk5d5_03 = false;
+			g_MenuData.usezbuf = false;
 
-			if (arg2 != 2) {
+			if (modeltype != MENUMODELTYPE_2) {
 				gdl = menuApplyScissor(gdl);
 			}
 
@@ -1891,221 +1884,217 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 		gSPDisplayList(gdl++, var80061380);
 		gSPDisplayList(gdl++, var800613a0);
 
-		sp308 = false;
+		haszoom = false;
 
-		if (thing->unk554 > 0.0f) {
-			sp2f4 = true;
+		// Handle updating the camera zoom in/out (eg. character selection dialog)
+		if (menumodel->zoom > 0.0f) {
+			dodefaultzoom = true;
 
-			if (thing->bodymodeldef->skel == &g_SkelChr) {
-				struct modelnode *node = modelGetPart(thing->bodymodeldef, MODELPART_CHR_0006);
+			if (menumodel->bodymodeldef->skel == &g_SkelChr) {
+				struct modelnode *node = modelGetPart(menumodel->bodymodeldef, MODELPART_CHR_0006);
 
 				if (node) {
 					struct modelrodata_position *rodata = &node->rodata->position;
-					f32 f0 = menuGetLinearOscPauseFrac(thing->unk574 / TICKS(480.0f));
+					f32 frac = menuGetLinearOscPauseFrac(menumodel->zoomtimer60 / TICKS(480.0f));
 
-					sp2fc.f[0] = 0.0f;
-					sp2fc.f[1] = 0.0f - (rodata->pos.f[1] / 7.6f * (1.0f - f0 * f0));
-					sp2fc.f[2] = 0.0f;
+					zoompos.f[0] = 0.0f;
+					zoompos.f[1] = 0.0f - (rodata->pos.f[1] / 7.6f * (1.0f - frac * frac));
+					zoompos.f[2] = 0.0f;
 
-					sp308 = true;
+					haszoom = true;
 
-					thing->unk554 = 100.0f + (1.0f - f0) * 270.0f;
-					sp2f8 = thing->unk554 / (rodata->pos.f[1] / 2.0f);
+					menumodel->zoom = 100.0f + (1.0f - frac) * 270.0f;
+					zoomy = menumodel->zoom / (rodata->pos.f[1] / 2.0f);
 
-					sp2f4 = false;
+					dodefaultzoom = false;
 
-					modelFindBboxRodata(&thing->bodymodel);
+					modelFindBboxRodata(&menumodel->bodymodel);
 				}
 
 				if (1);
 			}
 
-			if (sp2f4) {
-				struct modelrodata_bbox *bbox = modelFindBboxRodata(&thing->bodymodel);
+			if (dodefaultzoom) {
+				struct modelrodata_bbox *bbox = modelFindBboxRodata(&menumodel->bodymodel);
 
 				if (bbox) {
-					sp2fc.x = -(bbox->xmax - ((bbox->xmax - bbox->xmin) * 0.5f));
-					sp2fc.y = -(bbox->ymax - ((bbox->ymax - bbox->ymin) * 0.5f));
-					sp2fc.z = -(bbox->zmax - ((bbox->zmax - bbox->zmin) * 0.5f));
-					sp308 = true;
-					sp2f8 = thing->unk554 / ((bbox->ymax - bbox->ymin) * 0.5f);
+					zoompos.x = -(bbox->xmax - ((bbox->xmax - bbox->xmin) * 0.5f));
+					zoompos.y = -(bbox->ymax - ((bbox->ymax - bbox->ymin) * 0.5f));
+					zoompos.z = -(bbox->zmax - ((bbox->zmax - bbox->zmin) * 0.5f));
+					haszoom = true;
+					zoomy = menumodel->zoom / ((bbox->ymax - bbox->ymin) * 0.5f);
 				}
 			}
 		}
 
-		mtx4LoadIdentity(&sp350);
+		mtx4LoadIdentity(&rotmtx);
 
-		if (arg2 == 1) {
+		// For the hudpiece, tween the position and scale to the new values and apply rotation.
+		if (modeltype == MENUMODELTYPE_HUDPIECE) {
 			if (IS8MB()) {
 				s32 i;
 
-				if (thing->unk510 != thing->unk538) {
+				if (menumodel->curposx != menumodel->newposx) {
 					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk510 = (thing->unk538 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk510);
+						menumodel->curposx = (menumodel->newposx * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * menumodel->curposx);
 					}
 				}
 
-				if (thing->unk514 != thing->unk53c) {
+				if (menumodel->curposy != menumodel->newposy) {
 					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk514 = (thing->unk53c * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk514);
+						menumodel->curposy = (menumodel->newposy * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * menumodel->curposy);
 					}
 				}
 
-				if (thing->unk518 != thing->unk540) {
+				if (menumodel->curposz != menumodel->newposz) {
 					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk518 = (thing->unk540 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk518);
+						menumodel->curposz = (menumodel->newposz * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * menumodel->curposz);
 					}
 				}
 
-				if (thing->unk51c != thing->unk544) {
+				if (menumodel->curscale != menumodel->newscale) {
 					for (i = 0; i < g_Vars.diffframe60; i++) {
-						thing->unk51c = (thing->unk544 * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * thing->unk51c);
+						menumodel->curscale = (menumodel->newscale * PALUPF(0.002f)) + ((1.0f - PALUPF(0.002f)) * menumodel->curscale);
 					}
 				}
 
-				sp430 = thing->unk510;
+				posx = menumodel->curposx;
 
 #if !PAL
 				if (g_ViRes == VIRES_HI) {
-					sp430 *= 2.0f;
+					posx *= 2.0f;
 				}
 #endif
 
-				sp42c = thing->unk514;
-				sp428 = thing->unk518;
-				sp424 = thing->unk51c;
+				posy = menumodel->curposy;
+				posz = menumodel->curposz;
 
-				a = thing->unk548;
-				b = thing->unk54c;
-				c = thing->unk550;
+				scale = menumodel->curscale;
 
-				thing->unk520 = a;
-				thing->unk524 = b;
-				thing->unk528 = c;
+				menumodel->currotx = rotx = menumodel->newrotx;
+				menumodel->curroty = roty = menumodel->newroty;
+				menumodel->currotz = rotz = menumodel->newrotz;
 
-				sp398.x = a;
-				sp398.y = b;
-				sp398.z = c;
+				tmpcoord.x = rotx;
+				tmpcoord.y = roty;
+				tmpcoord.z = rotz;
 
-				mtx4LoadRotation(&sp398, &sp350);
+				mtx4LoadRotation(&tmpcoord, &rotmtx);
 			}
 		} else {
-			if (thing->unk5b1_05) {
+			// If the caller is reconfiguring the model's position, rotation or scale, tween towards the new values.
+			if (menumodel->configuring) {
 #if VERSION >= VERSION_PAL_BETA
-				thing->unk564 += g_Vars.diffframe60freal / 40.0f;
+				menumodel->configurefrac += g_Vars.diffframe60freal / 40.0f;
 #else
-				thing->unk564 += g_Vars.diffframe60f / 40.0f;
+				menumodel->configurefrac += g_Vars.diffframe60f / 40.0f;
 #endif
 
-				if (thing->unk564 > 1.0f) {
-					thing->unk5b1_05 = false;
-					thing->unk510 = thing->unk538;
-					thing->unk514 = thing->unk53c;
-					thing->unk518 = thing->unk540;
-					thing->unk51c = thing->unk544;
+				if (menumodel->configurefrac > 1.0f) {
+					menumodel->configuring = false;
+					menumodel->curposx = menumodel->newposx;
+					menumodel->curposy = menumodel->newposy;
+					menumodel->curposz = menumodel->newposz;
+					menumodel->curscale = menumodel->newscale;
 				} else {
-					f32 sp2d0 = (-cosf(thing->unk564 * M_PI) * 0.5f) + 0.5f;
-					f32 sp2cc = 1.0f - sp2d0;
+					f32 fracnew = (-cosf(menumodel->configurefrac * M_PI) * 0.5f) + 0.5f;
+					f32 fraccur = 1.0f - fracnew;
 
-					if (thing->unk568 & 2) {
-						sp430 = (thing->unk510 * sp2cc) + (sp2d0 * thing->unk538);
-						sp42c = (thing->unk514 * sp2cc) + (sp2d0 * thing->unk53c);
-						sp428 = (thing->unk518 * sp2cc) + (sp2d0 * thing->unk540);
+					if (menumodel->flags & MENUMODELFLAG_HASPOSITION) {
+						posx = (menumodel->curposx * fraccur) + (fracnew * menumodel->newposx);
+						posy = (menumodel->curposy * fraccur) + (fracnew * menumodel->newposy);
+						posz = (menumodel->curposz * fraccur) + (fracnew * menumodel->newposz);
 					} else {
-						sp430 = thing->unk510 = thing->unk538;
-						sp42c = thing->unk514 = thing->unk53c;
-						sp428 = thing->unk518 = thing->unk540;
+						posx = menumodel->curposx = menumodel->newposx;
+						posy = menumodel->curposy = menumodel->newposy;
+						posz = menumodel->curposz = menumodel->newposz;
 					}
 
-					if (thing->unk568 & 1) {
-						sp424 = (thing->unk51c * sp2cc) + (sp2d0 * thing->unk544);
+					if (menumodel->flags & MENUMODELFLAG_HASSCALE) {
+						scale = (menumodel->curscale * fraccur) + (fracnew * menumodel->newscale);
 					} else {
-						sp424 = thing->unk51c = thing->unk544;
+						scale = menumodel->curscale = menumodel->newscale;
 					}
 
-					if (thing->unk568 & 4) {
+					if (menumodel->flags & MENUMODELFLAG_HASROTATION) {
 						f32 sp2bc[4];
 						f32 sp2ac[4];
 						f32 sp29c[4];
-						struct coord sp290;
+						struct coord tmprot;
 
-						sp290.x = thing->unk520;
-						sp290.y = thing->unk524;
-						sp290.z = thing->unk528;
+						tmprot.x = menumodel->currotx;
+						tmprot.y = menumodel->curroty;
+						tmprot.z = menumodel->currotz;
 
-						quaternion0f096ca0(&sp290, sp2bc);
+						quaternion0f096ca0(&tmprot, sp2bc);
 
-						sp290.x = thing->unk548;
-						sp290.y = thing->unk54c;
-						sp290.z = thing->unk550;
+						tmprot.x = menumodel->newrotx;
+						tmprot.y = menumodel->newroty;
+						tmprot.z = menumodel->newrotz;
 
-						quaternion0f096ca0(&sp290, sp2ac);
-						quaternionSlerp(sp2bc, sp2ac, sp2d0, sp29c);
-						quaternionToMtx(sp29c, &sp350);
+						quaternion0f096ca0(&tmprot, sp2ac);
+						quaternionSlerp(sp2bc, sp2ac, fracnew, sp29c);
+						quaternionToMtx(sp29c, &rotmtx);
 					} else {
-						a = thing->unk548;
-						b = thing->unk54c;
-						c = thing->unk550;
+						menumodel->currotx = rotx = menumodel->newrotx;
+						menumodel->curroty = roty = menumodel->newroty;
+						menumodel->currotz = rotz = menumodel->newrotz;
 
-						thing->unk520 = a;
-						thing->unk524 = b;
-						thing->unk528 = c;
+						tmpcoord.x = rotx;
+						tmpcoord.y = roty;
+						tmpcoord.z = rotz;
 
-						sp398.x = a;
-						sp398.y = b;
-						sp398.z = c;
-
-						mtx4LoadRotation(&sp398, &sp350);
+						mtx4LoadRotation(&tmpcoord, &rotmtx);
 					}
 				}
 			}
 
-			if (!thing->unk5b1_05) {
-				sp430 = thing->unk510 = thing->unk538;
-				sp42c = thing->unk514 = thing->unk53c;
-				sp428 = thing->unk518 = thing->unk540;
-				sp424 = thing->unk51c = thing->unk544;
+			if (!menumodel->configuring) {
+				posx = menumodel->curposx = menumodel->newposx;
+				posy = menumodel->curposy = menumodel->newposy;
+				posz = menumodel->curposz = menumodel->newposz;
+
+				scale = menumodel->curscale = menumodel->newscale;
 
 				if (1);
-				a = thing->unk548;
-				b = thing->unk54c;
-				c = thing->unk550;
 
-				thing->unk520 = a;
-				thing->unk524 = b;
-				thing->unk528 = c;
+				menumodel->currotx = rotx = menumodel->newrotx;
+				menumodel->curroty = roty = menumodel->newroty;
+				menumodel->currotz = rotz = menumodel->newrotz;
 
-				sp398.x = a;
-				sp398.y = b;
-				sp398.z = c;
+				tmpcoord.x = rotx;
+				tmpcoord.y = roty;
+				tmpcoord.z = rotz;
 
-				mtx4LoadRotation(&sp398, &sp350);
+				mtx4LoadRotation(&tmpcoord, &rotmtx);
 			}
 		}
 
-		sp30c[0] = -100.0f + sp428;
+		screenz[0] = -100.0f + posz;
 
-		if (arg2 == 1) {
+		if (modeltype == MENUMODELTYPE_HUDPIECE) {
 			if (IS8MB()) {
-				sp390[0] = thing->unk510 * g_ScaleX;
-				sp390[1] = thing->unk514;
+				screenpos[0] = menumodel->curposx * g_ScaleX;
+				screenpos[1] = menumodel->curposy;
 			}
 		} else {
-			sp390[0] = sp430 * g_ScaleX + viGetViewLeft() + viGetViewWidth() * 0.5f;
-			sp390[1] = sp42c + viGetViewTop() + viGetViewHeight() * 0.5f;
+			screenpos[0] = posx * g_ScaleX + viGetViewLeft() + viGetViewWidth() * 0.5f;
+			screenpos[1] = posy + viGetViewTop() + viGetViewHeight() * 0.5f;
 		}
 
-		cam0f0b4c3c(sp390, &sp398, 1.0f);
-		mtx4LoadIdentity(&sp310);
+		cam0f0b4c3c(screenpos, &tmpcoord, 1.0f);
 
-		if (thing->partvisibility != NULL) {
-			struct modelpartvisibility *ptr = thing->partvisibility;
+		mtx4LoadIdentity(&posmtx);
+
+		// Show or hide model parts according to the visibility list
+		if (menumodel->partvisibility != NULL) {
+			struct modelpartvisibility *ptr = menumodel->partvisibility;
 
 			while (ptr->part != 255) {
-				struct modelnode *node = modelGetPart(thing->bodymodeldef, ptr->part);
+				struct modelnode *node = modelGetPart(menumodel->bodymodeldef, ptr->part);
 
 				if (node) {
-					union modelrwdata *rwdata = modelGetNodeRwData(&thing->bodymodel, node);
+					union modelrwdata *rwdata = modelGetNodeRwData(&menumodel->bodymodel, node);
 
 					if (rwdata) {
 						if (ptr->visible) {
@@ -2120,39 +2109,40 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			}
 		}
 
-		if (arg2 == 3) {
-			sp398.x = thing->unk510;
-			sp398.y = thing->unk514;
-			sp398.z = thing->unk518;
+		if (modeltype == MENUMODELTYPE_3) {
+			tmpcoord.x = menumodel->curposx;
+			tmpcoord.y = menumodel->curposy;
+			tmpcoord.z = menumodel->curposz;
 		} else {
-			c = sp30c[0] / sp398.z;
-			sp398.x = c * sp398.x;
-			sp398.y = c * sp398.y;
-			sp398.z = c * sp398.z;
+			// Reusing rotz
+			rotz = screenz[0] / tmpcoord.z;
+			tmpcoord.x = rotz * tmpcoord.x;
+			tmpcoord.y = rotz * tmpcoord.y;
+			tmpcoord.z = rotz * tmpcoord.z;
 		}
 
 #if VERSION < VERSION_NTSC_1_0
-		if ((thing->unk010 & 0x80000000) != 0) {
+		if (MENUMODELPARAMS_HAS_MASTER_HEADBODY(menumodel->curparams)) {
 			struct coord oldpos;
 			struct coord newpos = {0, 0, 0};
 			u32 stack[3];
 
-			modelUpdateInfo(&thing->bodymodel);
+			modelUpdateInfo(&menumodel->bodymodel);
 
-			modelGetRootPosition(&thing->bodymodel, &oldpos);
+			modelGetRootPosition(&menumodel->bodymodel, &oldpos);
 
 			if (joyGetButtons(0, L_TRIG)) {
-				modelSetRootPosition(&thing->bodymodel, &newpos);
+				modelSetRootPosition(&menumodel->bodymodel, &newpos);
 			}
 		}
 #endif
 
-		mtx4LoadTranslation(&sp398, &sp310);
+		mtx4LoadTranslation(&tmpcoord, &posmtx);
 
-		if (sp308) {
-			mtx00015f04(sp424 * sp2f8, &sp310);
+		if (haszoom) {
+			mtx00015f04(scale * zoomy, &posmtx);
 		} else {
-			mtx00015f04(sp424, &sp310);
+			mtx00015f04(scale, &posmtx);
 		}
 
 		{
@@ -2161,30 +2151,31 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			Mtxf sp1c4;
 			Mtxf sp184;
 
-			if (sp308) {
-				mtx4LoadTranslation(&sp2fc, &sp204);
+			if (haszoom) {
+				mtx4LoadTranslation(&zoompos, &sp204);
 			} else {
-				sp398.x = thing->unk52c;
-				sp398.y = thing->unk530;
-				sp398.z = thing->unk534;
-				mtx4LoadTranslation(&sp398, &sp204);
+				tmpcoord.x = menumodel->displacex;
+				tmpcoord.y = menumodel->displacey;
+				tmpcoord.z = menumodel->displacez;
+
+				mtx4LoadTranslation(&tmpcoord, &sp204);
 			}
 
-			mtx4MultMtx4(&sp310, &sp350, &sp244);
+			mtx4MultMtx4(&posmtx, &rotmtx, &sp244);
 
-			if (arg2 == 3) {
+			if (modeltype == MENUMODELTYPE_3) {
 				credits0f13ae04(&sp1c4);
 				mtx4MultMtx4(&sp1c4, &sp244, &sp184);
-				mtx4MultMtx4(&sp184, &sp204, &thing->unk014);
+				mtx4MultMtx4(&sp184, &sp204, &menumodel->mtx);
 			} else {
-				mtx4MultMtx4(&sp244, &sp204, &thing->unk014);
+				mtx4MultMtx4(&sp244, &sp204, &menumodel->mtx);
 			}
 		}
 
 		gdl = menugfx0f0e2348(gdl);
 
-		if (arg2 < 3) {
-			if (arg2 != 0) {
+		if (modeltype < MENUMODELTYPE_3) {
+			if (modeltype != MENUMODELTYPE_DEFAULT) {
 				gdl = func0f0d49c8(gdl);
 				gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 			} else {
@@ -2205,52 +2196,57 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 			}
 		}
 
-		sp3b4 = gfxAllocate(thing->bodymodeldef->nummatrices * sizeof(Mtxf));
+		// Allocate model matrices
+		matrices = gfxAllocate(menumodel->bodymodeldef->nummatrices * sizeof(Mtxf));
 
-		for (i = 0; i < thing->bodymodeldef->nummatrices; i++) {
-			mtx4LoadIdentity(&sp3b4[i]);
+		for (i = 0; i < menumodel->bodymodeldef->nummatrices; i++) {
+			mtx4LoadIdentity(&matrices[i]);
 		}
 
-		thing->bodymodel.matrices = sp3b4;
+		menumodel->bodymodel.matrices = matrices;
 
-		if (thing->unk05c && thing->unk05e != thing->unk05c) {
-			if (thing->unk5b1_04) {
-				modelSetAnimation(&thing->bodymodel, thing->unk05c, false, 0, PALUPF(-0.5f), 0.0f);
-				modelSetAnimFrame(&thing->bodymodel, modelGetNumAnimFrames(&thing->bodymodel));
+		// Set new animation if requested
+		if (menumodel->newanimnum && menumodel->curanimnum != menumodel->newanimnum) {
+			if (menumodel->reverseanim) {
+				modelSetAnimation(&menumodel->bodymodel, menumodel->newanimnum, false, 0, PALUPF(-0.5f), 0.0f);
+				modelSetAnimFrame(&menumodel->bodymodel, modelGetNumAnimFrames(&menumodel->bodymodel));
 			} else {
-				modelSetAnimation(&thing->bodymodel, thing->unk05c, false, 0, PALUPF(0.5f), 0.0f);
+				modelSetAnimation(&menumodel->bodymodel, menumodel->newanimnum, false, 0, PALUPF(0.5f), 0.0f);
 			}
 
-			thing->unk05e = thing->unk05c;
+			menumodel->curanimnum = menumodel->newanimnum;
 		}
 
-		thing->unk05c = 0;
+		menumodel->newanimnum = 0;
 
-		if (thing->unk05e != 0) {
-			f32 sp178;
+		// Tick the animation, if any
+		if (menumodel->curanimnum != 0) {
+			f32 frame;
 			u32 stack;
 
-			modelTickAnimQuarterSpeed(&thing->bodymodel, g_Vars.diffframe240, true);
+			modelTickAnimQuarterSpeed(&menumodel->bodymodel, g_Vars.diffframe240, true);
 
-			if (thing->unk5b1_04) {
-				sp178 = modelGetNumAnimFrames(&thing->bodymodel) - modelGetCurAnimFrame(&thing->bodymodel);
+			if (menumodel->reverseanim) {
+				frame = modelGetNumAnimFrames(&menumodel->bodymodel) - modelGetCurAnimFrame(&menumodel->bodymodel);
 			} else {
-				sp178 = modelGetCurAnimFrame(&thing->bodymodel);
+				frame = modelGetCurAnimFrame(&menumodel->bodymodel);
 			}
 
-			if (sp178 >= modelGetNumAnimFrames(&thing->bodymodel) - 1) {
-				thing->unk05e = 0;
+			if (frame >= modelGetNumAnimFrames(&menumodel->bodymodel) - 1) {
+				menumodel->curanimnum = 0;
 			}
 		}
 
-		mtx4Copy(&thing->unk014, sp3b4);
+		mtx4Copy(&menumodel->mtx, matrices);
 
-		renderdata.unk00 = &thing->unk014;
-		renderdata.unk10 = thing->bodymodel.matrices;
-		modelSetMatricesWithAnim(&renderdata, &thing->bodymodel);
+		renderdata.unk00 = &menumodel->mtx;
+		renderdata.unk10 = menumodel->bodymodel.matrices;
 
-		if (thing->bodymodeldef->skel == &g_SkelHudPiece) {
-			struct modelnode *node = modelGetPart(thing->bodymodeldef, MODELPART_HUDPIECE_0000);
+		modelSetMatricesWithAnim(&renderdata, &menumodel->bodymodel);
+
+		if (menumodel->bodymodeldef->skel == &g_SkelHudPiece) {
+			// Update the hudpiece's liquid texture
+			struct modelnode *node = modelGetPart(menumodel->bodymodeldef, MODELPART_HUDPIECE_0000);
 
 			if (node) {
 				struct modelrodata_gundl *rodata = &node->rodata->gundl;
@@ -2272,44 +2268,46 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 				}
 			}
 
-			node = modelGetPart(thing->bodymodeldef, MODELPART_HUDPIECE_0002);
+			// Rotate the hudpiece's rotor thing
+			node = modelGetPart(menumodel->bodymodeldef, MODELPART_HUDPIECE_0002);
 
 			if (node) {
-				s32 sp160;
+				s32 mtxindex = modelFindNodeMtxIndex(node, 0);
 				Mtxf sp120;
 				Mtxf spe0;
-				sp160 = modelFindNodeMtxIndex(node, 0);
+
 				mtx4LoadIdentity(&sp120);
 				mtx4LoadXRotation(menuGetCosOscFrac(4), &sp120);
-				mtx4MultMtx4((Mtxf *)((uintptr_t)sp3b4 + sp160 * sizeof(Mtxf)), &sp120, &spe0);
-				mtx4Copy(&spe0, (Mtxf *)((uintptr_t)sp3b4 + sp160 * sizeof(Mtxf)));
+				mtx4MultMtx4((Mtxf *)((uintptr_t)matrices + mtxindex * sizeof(Mtxf)), &sp120, &spe0);
+				mtx4Copy(&spe0, (Mtxf *)((uintptr_t)matrices + mtxindex * sizeof(Mtxf)));
 			}
 
-			node = modelGetPart(thing->bodymodeldef, MODELPART_HUDPIECE_0001);
+			// Make the menu projection lines come from the hudpiece eye
+			node = modelGetPart(menumodel->bodymodeldef, MODELPART_HUDPIECE_0001);
 
 			if (node) {
 				if (g_MenuData.root == MENUROOT_MAINMENU
 						|| g_MenuData.root == MENUROOT_FILEMGR
 						|| g_MenuData.root == MENUROOT_MPSETUP
 						|| g_MenuData.root == MENUROOT_TRAINING) {
-					s32 index = modelFindNodeMtxIndex(node, 0);
-					struct coord spd0;
-					f32 spc8[2];
+					s32 mtxindex = modelFindNodeMtxIndex(node, 0);
+					struct coord pos;
+					f32 screenpos[2];
 
-					spd0.x = sp3b4[index].m[3][0];
-					spd0.y = sp3b4[index].m[3][1];
-					spd0.z = sp3b4[index].m[3][2];
+					pos.x = matrices[mtxindex].m[3][0];
+					pos.y = matrices[mtxindex].m[3][1];
+					pos.z = matrices[mtxindex].m[3][2];
 
-					cam0f0b4d04(&spd0, spc8);
-					var8009de98 = ((s32)spc8[0] - viGetWidth() / 2) / g_ScaleX;
-					var8009de9c = (s32)spc8[1] - viGetHeight() / 2;
+					cam0f0b4d04(&pos, screenpos);
+
+					g_MenuProjectFromX = ((s32)screenpos[0] - viGetWidth() / 2) / g_ScaleX;
+					g_MenuProjectFromY = (s32)screenpos[1] - viGetHeight() / 2;
 				}
 			}
 		}
 
 		gSPSetLights1(gdl++, var80071468);
-		gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
-		gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
+		gSPLookAt(gdl++, camGetLookAt());
 
 		renderdata.unk30 = 1;
 		renderdata.envcolour = 0xffffffff;
@@ -2319,21 +2317,22 @@ Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
 
 		renderdata.gdl = gdl;
 		renderdata.zbufferenabled = true;
-		modelRender(&renderdata, &thing->bodymodel);
+
+		modelRender(&renderdata, &menumodel->bodymodel);
 
 		gdl = renderdata.gdl;
 
 		mtx00016760();
 
-		for (i = 0; i < thing->bodymodeldef->nummatrices; i++) {
+		for (i = 0; i < menumodel->bodymodeldef->nummatrices; i++) {
 			Mtxf sp70;
-			mtx4Copy((Mtxf *)((uintptr_t)thing->bodymodel.matrices + i * sizeof(Mtxf)), &sp70);
-			mtxF2L(&sp70, &thing->bodymodel.matrices[i]);
+			mtx4Copy((Mtxf *)((uintptr_t)menumodel->bodymodel.matrices + i * sizeof(Mtxf)), &sp70);
+			mtxF2L(&sp70, &menumodel->bodymodel.matrices[i]);
 		}
 
 		mtx00016784();
 
-		if (arg2 < 3) {
+		if (modeltype < MENUMODELTYPE_3) {
 			gdl = func0f0d479c(gdl);
 		}
 
@@ -2491,9 +2490,9 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 	if (g_Menus[g_MpPlayerNum].curdialog == dialog
 			&& (dialog->definition->flags & MENUDIALOGFLAG_0002)
 			&& !lightweight
-			&& g_Menus[g_MpPlayerNum].unk840.unk5b1_07 == 1) {
+			&& g_Menus[g_MpPlayerNum].menumodel.drawbehinddialog == true) {
 		gSPSetGeometryMode(gdl++, G_ZBUFFER);
-		gdl = menuRenderModels(gdl, &g_Menus[g_MpPlayerNum].unk840, 2);
+		gdl = menuRenderModel(gdl, &g_Menus[g_MpPlayerNum].menumodel, MENUMODELTYPE_2);
 		gSPClearGeometryMode(gdl++, G_ZBUFFER);
 	}
 
@@ -2729,10 +2728,10 @@ Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool l
 		if (g_Menus[g_MpPlayerNum].curdialog == dialog
 				&& (dialog->definition->flags & MENUDIALOGFLAG_0002)
 				&& !lightweight
-				&& !g_Menus[g_MpPlayerNum].unk840.unk5b1_07) {
+				&& !g_Menus[g_MpPlayerNum].menumodel.drawbehinddialog) {
 			gSPSetGeometryMode(gdl++, G_ZBUFFER);
 
-			gdl = menuRenderModels(gdl, &g_Menus[g_MpPlayerNum].unk840, 0);
+			gdl = menuRenderModel(gdl, &g_Menus[g_MpPlayerNum].menumodel, MENUMODELTYPE_DEFAULT);
 
 			gSPClearGeometryMode(gdl++, G_ZBUFFER);
 
@@ -3509,7 +3508,7 @@ void menuPushRootDialog(struct menudialogdef *dialogdef, s32 root)
 			|| root == MENUROOT_MPSETUP
 			|| root == MENUROOT_TRAINING
 			|| root == MENUROOT_FILEMGR) {
-		if (IS8MB() && (g_MenuData.unk5d4 == 0 || g_MenuData.unk01c.unk5b1_04)) {
+		if (IS8MB() && (g_MenuData.unk5d4 == 0 || g_MenuData.hudpiece.reverseanim)) {
 			if (!g_MenuData.unk5d5_04) {
 				g_MenuData.unk5d5_05 = true;
 			}
@@ -3599,8 +3598,8 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 		if (g_MenuData.root == MENUROOT_MPPAUSE
 				|| g_MenuData.root == MENUROOT_PICKTARGET
 				|| g_MenuData.root == MENUROOT_MPENDSCREEN) {
-			var8009de98 = g_Menus[g_MpPlayerNum].curdialog->x + g_Menus[g_MpPlayerNum].curdialog->width / 2 - viGetWidth() / (g_ScaleX * 2);
-			var8009de9c = g_Menus[g_MpPlayerNum].curdialog->y + g_Menus[g_MpPlayerNum].curdialog->height / 2 - viGetHeight() / 2;
+			g_MenuProjectFromX = g_Menus[g_MpPlayerNum].curdialog->x + g_Menus[g_MpPlayerNum].curdialog->width / 2 - viGetWidth() / (g_ScaleX * 2);
+			g_MenuProjectFromY = g_Menus[g_MpPlayerNum].curdialog->y + g_Menus[g_MpPlayerNum].curdialog->height / 2 - viGetHeight() / 2;
 
 			gdl = menuRenderDialog(gdl, g_Menus[g_MpPlayerNum].curdialog, &g_Menus[g_MpPlayerNum], 0);
 		} else {
@@ -3686,40 +3685,36 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 
 u32 var800714e8 = 0;
 
-void func0f0f8bb4(struct menu840 *arg0, u32 arg1, u32 arg2)
+void menuResetModel(struct menumodel *menumodel, u32 allocationlen, bool allocate)
 {
-	arg0->unk008 = arg1;
-	arg0->unk004 = arg2 ? mempAlloc(arg1, MEMPOOL_STAGE) : NULL;
-	arg0->unk54c = 0.0f;
-	arg0->unk000 = 0;
-	arg0->unk00c = 0xffff;
-	arg0->bodymodeldef = NULL;
-	arg0->unk010 = 0;
-	arg0->unk56c = 0;
-	arg0->unk570 = 0;
-	arg0->partvisibility = NULL;
-	arg0->unk5b1_01 = false;
-	arg0->unk5b1_02 = false;
-	arg0->unk5b1_04 = false;
-	arg0->unk5b1_06 = false;
-	arg0->headnum = -1;
-	arg0->bodynum = -1;
-	arg0->unk538 = 0.0f;
-	arg0->unk510 = 0.0f;
-	arg0->unk53c = 0.0f;
-	arg0->unk514 = 0.0f;
-	arg0->unk540 = 0.0f;
-	arg0->unk518 = 0.0f;
-	arg0->unk544 = 0.0f;
-	arg0->unk51c = 0.0f;
-	arg0->unk548 = 0.0f;
-	arg0->unk520 = 0.0f;
-	arg0->unk550 = 0.0f;
-	arg0->unk528 = 0.0f;
-	arg0->unk534 = 0.0f;
-	arg0->unk530 = 0.0f;
-	arg0->unk52c = 0.0f;
-	arg0->unk524 = arg0->unk54c;
+	menumodel->alloclen = allocationlen;
+	menumodel->allocstart = allocate ? mempAlloc(allocationlen, MEMPOOL_STAGE) : NULL;
+	menumodel->loaddelay = 0;
+	menumodel->newparams = MENUMODELPARAMS_SET_FILENUM(0xffff);
+	menumodel->bodymodeldef = NULL;
+	menumodel->curparams = 0;
+
+	menumodel->curposx = menumodel->newposx = 0.0f;
+	menumodel->curposy = menumodel->newposy = 0.0f;
+	menumodel->curposz = menumodel->newposz = 0.0f;
+
+	menumodel->curscale = menumodel->newscale = 0.0f;
+
+	menumodel->currotx = menumodel->newrotx = 0.0f;
+	menumodel->curroty = menumodel->newroty = 0.0f;
+	menumodel->currotz = menumodel->newrotz = 0.0f;
+
+	menumodel->displacex = menumodel->displacey = menumodel->displacez = 0.0f;
+
+	menumodel->unk56c = 0;
+	menumodel->unk570 = 0;
+	menumodel->partvisibility = NULL;
+	menumodel->isperfecthead = false;
+	menumodel->unk5b1_02 = false;
+	menumodel->reverseanim = false;
+	menumodel->unk5b1_06 = false;
+	menumodel->headnum = -1;
+	menumodel->bodynum = -1;
 }
 
 void menuReset(void)
@@ -3759,10 +3754,10 @@ void menuReset(void)
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {
-		g_Menus[i].unk840.unk004 = NULL;
+		g_Menus[i].menumodel.allocstart = NULL;
 	}
 
-	g_MenuData.unk01c.unk004 = NULL;
+	g_MenuData.hudpiece.allocstart = NULL;
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {
 		g_MissionConfig.iscoop = false;
@@ -3782,24 +3777,24 @@ void menuReset(void)
 		}
 
 		for (i = 0; i < max; i++) {
-			func0f0f8bb4(&g_Menus[i].unk840, IS4MB() ? 0xb400 : 0x25800, 1);
+			menuResetModel(&g_Menus[i].menumodel, IS4MB() ? 0xb400 : 0x25800, true);
 		}
 
 		if (IS8MB()) {
-			func0f0f8bb4(&g_MenuData.unk01c, 0xc800, 1);
+			menuResetModel(&g_MenuData.hudpiece, 0xc800, true);
 		}
 
-		g_MenuData.unk01c.unk00c = FILE_GHUDPIECE;
-		g_MenuData.unk01c.unk524 = g_MenuData.unk01c.unk54c = -M_PI;
-		g_MenuData.unk01c.unk520 = g_MenuData.unk01c.unk548 = 0;
-		g_MenuData.unk01c.unk528 = g_MenuData.unk01c.unk550 = 0;
-		g_MenuData.unk01c.unk510 = g_MenuData.unk01c.unk538 = -205.5f;
-		g_MenuData.unk01c.unk514 = g_MenuData.unk01c.unk53c = 244.7f;
-		g_MenuData.unk01c.unk518 = g_MenuData.unk01c.unk540 = 68.3f;
-		g_MenuData.unk01c.unk51c = g_MenuData.unk01c.unk544 = 0.12209f;
-		g_MenuData.unk01c.unk5b1_01 = false;
-		g_MenuData.unk01c.unk574 = 0;
-		g_MenuData.unk01c.unk580 = 0;
+		g_MenuData.hudpiece.newparams = MENUMODELPARAMS_SET_FILENUM(FILE_GHUDPIECE);
+		g_MenuData.hudpiece.curroty = g_MenuData.hudpiece.newroty = -M_PI;
+		g_MenuData.hudpiece.currotx = g_MenuData.hudpiece.newrotx = 0;
+		g_MenuData.hudpiece.currotz = g_MenuData.hudpiece.newrotz = 0;
+		g_MenuData.hudpiece.curposx = g_MenuData.hudpiece.newposx = -205.5f;
+		g_MenuData.hudpiece.curposy = g_MenuData.hudpiece.newposy = 244.7f;
+		g_MenuData.hudpiece.curposz = g_MenuData.hudpiece.newposz = 68.3f;
+		g_MenuData.hudpiece.curscale = g_MenuData.hudpiece.newscale = 0.12209f;
+		g_MenuData.hudpiece.isperfecthead = false;
+		g_MenuData.hudpiece.zoomtimer60 = 0;
+		g_MenuData.hudpiece.removingpiece = false;
 	}
 
 	g_MenuData.unk5d4 = 0;
@@ -3894,7 +3889,7 @@ void menuSwipe(s32 direction)
 		g_Menus[g_MpPlayerNum].curdialog->state = MENUDIALOGSTATE_PREOPEN;
 		g_Menus[g_MpPlayerNum].curdialog->statefrac = 0.0f;
 
-		func0f0f37a4(&g_Menus[g_MpPlayerNum].unk840);
+		menuUnsetModel(&g_Menus[g_MpPlayerNum].menumodel);
 
 		menuPlaySound(MENUSOUND_SWIPE);
 	}
@@ -5186,10 +5181,10 @@ Gfx *menuRender(Gfx *gdl)
 
 	// Calculate hudpiece things then render it
 	if (g_MenuData.unk5d5_05) {
-		g_MenuData.unk01c.unk05e = 0;
-		g_MenuData.unk01c.unk05c = 0x40d;
-		g_MenuData.unk01c.unk580 = 0;
-		g_MenuData.unk01c.unk5b1_04 = false;
+		g_MenuData.hudpiece.curanimnum = 0;
+		g_MenuData.hudpiece.newanimnum = ANIM_040D;
+		g_MenuData.hudpiece.removingpiece = false;
+		g_MenuData.hudpiece.reverseanim = false;
 		g_MenuData.unk5d4 = 1;
 		g_MenuData.unk5d5_05 = false;
 	}
@@ -5202,11 +5197,11 @@ Gfx *menuRender(Gfx *gdl)
 		// Everyone 1 in 100 frames on average, calculate a new X/Y for the hudpiece
 		// Note: unintentional 64-bit float comparison done here
 		if (RANDOMFRAC() < 0.01) {
-			g_MenuData.unk01c.unk538 = RANDOMFRAC() * 80.0f + -205.5f - 40.0f;
-			g_MenuData.unk01c.unk53c = RANDOMFRAC() * 80.0f + 244.7f - 40.0f;
+			g_MenuData.hudpiece.newposx = RANDOMFRAC() * 80.0f + -205.5f - 40.0f;
+			g_MenuData.hudpiece.newposy = RANDOMFRAC() * 80.0f + 244.7f - 40.0f;
 		}
 
-		var8009de98 = var8009de9c = 0;
+		g_MenuProjectFromX = g_MenuProjectFromY = 0;
 
 		if (g_MenuData.root == MENUROOT_MPSETUP) {
 			if (g_MenuData.count <= 0) {
@@ -5234,13 +5229,13 @@ Gfx *menuRender(Gfx *gdl)
 		}
 
 		if (removepiece) {
-			if (g_MenuData.unk01c.unk580 == 0) {
-				g_MenuData.unk01c.unk5b1_04 = true;
-				g_MenuData.unk01c.unk05e = 0;
-				g_MenuData.unk01c.unk05c = 0x40d;
-				g_MenuData.unk01c.unk580 = 1;
-			} else if (g_MenuData.unk01c.unk05e == 0) {
-				g_MenuData.unk01c.unk580 = 0;
+			if (!g_MenuData.hudpiece.removingpiece) {
+				g_MenuData.hudpiece.reverseanim = true;
+				g_MenuData.hudpiece.curanimnum = 0;
+				g_MenuData.hudpiece.newanimnum = ANIM_040D;
+				g_MenuData.hudpiece.removingpiece = true;
+			} else if (g_MenuData.hudpiece.curanimnum == 0) {
+				g_MenuData.hudpiece.removingpiece = false;
 				g_MenuData.unk5d4 = 0;
 			}
 		}
@@ -5248,20 +5243,20 @@ Gfx *menuRender(Gfx *gdl)
 		mainOverrideVariable("usePiece", &usepiece);
 
 		if (usepiece) {
-			g_MenuData.unk5d5_03 = false;
+			g_MenuData.usezbuf = false;
 
-			gdl = menuRenderModels(gdl, &g_MenuData.unk01c, 1);
+			gdl = menuRenderModel(gdl, &g_MenuData.hudpiece, MENUMODELTYPE_HUDPIECE);
 			gSPClearGeometryMode(gdl++, G_ZBUFFER);
 
-			g_MenuData.unk5d5_03 = true;
+			g_MenuData.usezbuf = true;
 		}
 	} else {
-		var8009de98 = var8009de9c = 0;
+		g_MenuProjectFromX = g_MenuProjectFromY = 0;
 	}
 
 	if (g_MenuData.unk5d5_04) {
-		var8009de98 = g_MenuData.unk670;
-		var8009de9c = g_MenuData.unk674;
+		g_MenuProjectFromX = g_MenuData.unk670;
+		g_MenuProjectFromY = g_MenuData.unk674;
 	}
 
 	// Render the second layer of the background (for the combat simulator cone,

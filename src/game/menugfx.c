@@ -1401,7 +1401,7 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 
 	spb4 = M_TAU * g_20SecIntervalFrac;
 
-	var8009de98 = var8009de9c = 0;
+	g_MenuProjectFromX = g_MenuProjectFromY = 0;
 
 	gdl = func0f0d4a3c(gdl, 0);
 
@@ -1578,8 +1578,8 @@ Gfx *menugfxRenderBgCone(Gfx *gdl)
  */
 Gfx *func0f0e458c(Gfx *gdl)
 {
-	var8009de98 = 0;
-	var8009de9c = -20 - viGetHeight() / 2;
+	g_MenuProjectFromX = 0;
+	g_MenuProjectFromY = -20 - viGetHeight() / 2;
 
 	gdl = func0f0d4a3c(gdl, 0);
 
@@ -1590,15 +1590,15 @@ Gfx *func0f0e458c(Gfx *gdl)
 	gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0xffff00af, 0xffff00af, MENUPLANE_05);
 	gdl = func0f0d4c80(gdl);
 
-	var8009de98 = var8009de9c = 0;
+	g_MenuProjectFromX = g_MenuProjectFromY = 0;
 
 	return gdl;
 }
 
 Gfx *func0f0e46b0(Gfx *gdl, f32 arg1)
 {
-	s32 y1 = (var8009de9c + 120) + arg1 * (0.0f - (var8009de9c + 120));
-	s32 y2 = (var8009de9c + 120) + arg1 * (240.0f - (var8009de9c + 120));
+	s32 y1 = (g_MenuProjectFromY + 120) + arg1 * (0.0f - (g_MenuProjectFromY + 120));
+	s32 y2 = (g_MenuProjectFromY + 120) + arg1 * (240.0f - (g_MenuProjectFromY + 120));
 
 	gdl = func0f0d4a3c(gdl, 0);
 
@@ -1634,7 +1634,7 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 
 	spb4 = M_TAU * g_20SecIntervalFrac;
 
-	var8009de98 = var8009de9c = 0;
+	g_MenuProjectFromX = g_MenuProjectFromY = 0;
 
 	gdl = func0f0d4a3c(gdl, 0);
 
@@ -1809,8 +1809,8 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 	f0 = menuGetLinearIntervalFrac(10.0f);
 
 	// Draw the two haze layers
-	var8009de98 = 0;
-	var8009de9c = 0;
+	g_MenuProjectFromX = 0;
+	g_MenuProjectFromY = 0;
 
 	gdl = func0f0d4a3c(gdl, 0);
 
